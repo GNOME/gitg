@@ -136,7 +136,7 @@ gitg_loader_load(GitgLoader *loader, gchar const *path, GError **error)
 	gchar *argv[] = {
 		"git",
 		"--git-dir",
-		path,
+		(gchar *)path,
 		"log",
 		"--topo-order",
 		"--pretty=format:%H\01%an\01%s\01%P\01%at",
