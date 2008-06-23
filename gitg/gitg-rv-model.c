@@ -8,6 +8,11 @@ static void gitg_rv_model_tree_model_iface_init(GtkTreeModelIface *iface);
 G_DEFINE_TYPE_EXTENDED (GitgRvModel, gitg_rv_model, GTK_TYPE_LIST_STORE, 0,
 	G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_MODEL, gitg_rv_model_tree_model_iface_init));
 
+struct _GitgRvModelPrivate
+{
+	GHashTable *hashtable;
+};
+
 enum
 {
 	OBJECT_COLUMN,
@@ -139,20 +144,44 @@ gitg_rv_model_class_init(GitgRvModelClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = gitg_rv_model_finalize;
+	
+	g_type_class_add_private(object_class, sizeof(GitgRvModelPrivate));
+}
+
+static guint
+hash_hash(gconstpointer v)
+{
+	/* 31 bit hash function, copied from g_str_hash */
+	const signed char *p = v;
+	guint32 h = *p;
+	int i;
+	
+	for (i = 1; i < 20; ++i)
+		h = (h << 5) - h + p[i];
+
+	return h;
+}
+
+static gboolean 
+hash_equal(gconstpointer a, gconstpointer b)
+{
+	return strncmp((char const *)a, (char const *)b, 20) == 0;
 }
 
 static void
 gitg_rv_model_init(GitgRvModel *object)
 {
-	//self->priv = GITG_RV_MODEL_GET_PRIVATE(self);
+	object->priv = GITG_RV_MODEL_GET_PRIVATE(object);
+	object->priv->hashtable = g_hash_table_new_full(hash_hash, hash_equal, NULL, NULL);
+	
 	GType types[] = { GITG_TYPE_REVISION };
-
 	gtk_list_store_set_column_types(GTK_LIST_STORE(object), 1, types);
 }
 
 void
 gitg_rv_model_add(GitgRvModel *self, GitgRevision *obj, GtkTreeIter *iter)
 {
+	static guint num = 0;
 	GtkTreeIter iter1;
 
 	/* validate our parameters */
@@ -163,8 +192,7 @@ gitg_rv_model_add(GitgRvModel *self, GitgRevision *obj, GtkTreeIter *iter)
 	gtk_list_store_append(GTK_LIST_STORE(self), &iter1);
 	gtk_list_store_set(GTK_LIST_STORE(self), &iter1, 0, obj, -1);
 
-	/* here you would connect up signals (e.g. ::notify) to notice when your
-	 * object has changed */
+	g_hash_table_insert(self->priv->hashtable, (gpointer)gitg_revision_get_hash(obj), GUINT_TO_POINTER(num++));
 
 	/* return the iter if the user cares */
 	if (iter)
@@ -182,19 +210,55 @@ gitg_rv_model_find_by_hash(GitgRvModel *store, gchar const *hash, GtkTreeIter *i
 {
 	g_return_val_if_fail(GITG_IS_RV_MODEL(store), FALSE);
 	
-	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), iter))
+	gpointer result = g_hash_table_lookup(store->priv->hashtable, hash);
+	
+	if (!result)
+		return FALSE;
+	
+	GtkTreePath *path = gtk_tree_path_new_from_indices(GPOINTER_TO_UINT(result), -1);
+	gtk_tree_model_get_iter(GTK_TREE_MODEL(store), iter, path);
+	gtk_tree_path_free(path);
+
+	return TRUE;
+}
+
+gboolean
+gitg_rv_model_find(GitgRvModel *store, GitgRevision *revision, GtkTreeIter *iter)
+{
+	g_return_val_if_fail(GITG_IS_REVISION(revision), FALSE);
+	
+	return gitg_rv_model_find_by_hash(store, gitg_revision_get_hash(revision), iter);
+}
+
+gint gitg_rv_model_compare(GitgRvModel *store, GtkTreeIter *a, GtkTreeIter *b, gint col)
+{
+	GitgRevision *rv1;
+	GitgRevision *rv2;
+	
+	rv1 = gitg_rv_model_get_object(store, a);
+	rv2 = gitg_rv_model_get_object(store, a);
+	gint ret;
+	int i1;
+	int i2;
+	
+	switch (col)
 	{
-		do
-		{
-			GitgRevision *rv;
-			gtk_tree_model_get(GTK_TREE_MODEL(store), iter, 0, &rv, -1);
-			gchar const *phash = gitg_revision_get_hash(rv);
-			g_object_unref(rv);
-
-			if (strncmp(hash, phash, 20) == 0)
-				return TRUE;
-		} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(store), iter));
+		case SUBJECT_COLUMN:
+			ret = g_utf8_collate(gitg_revision_get_subject(rv1), gitg_revision_get_subject(rv2));
+		break;
+		case AUTHOR_COLUMN:
+			ret = g_utf8_collate(gitg_revision_get_author(rv1), gitg_revision_get_author(rv2));
+		break;
+		case DATE_COLUMN:
+			i1 = gitg_revision_get_timestamp(rv1);
+			i2 = gitg_revision_get_timestamp(rv2);
+			
+			ret = i1 < i2 ? -1 : (i1 > i2 ? 1 : 0);
+		break;
 	}
-
-	return FALSE;
+	
+	g_object_unref(rv1);
+	g_object_unref(rv2);
+	
+	return ret;
 }

@@ -2,6 +2,7 @@
 #define __GITG_RV_MODEL_H__
 
 #include <gtk/gtkliststore.h>
+
 #include "gitg-revision.h"
 
 G_BEGIN_DECLS
@@ -33,6 +34,9 @@ GitgRvModel *gitg_rv_model_new(void);
 
 void gitg_rv_model_add(GitgRvModel *self, GitgRevision *obj, GtkTreeIter *iter);
 gboolean gitg_rv_model_find_by_hash(GitgRvModel *self, gchar const *hash, GtkTreeIter *iter);
+gboolean gitg_rv_model_find(GitgRvModel *store, GitgRevision *revision, GtkTreeIter *iter);
+
+gint gitg_rv_model_compare(GitgRvModel *store, GtkTreeIter *a, GtkTreeIter *b, gint col);
 
 G_END_DECLS
 
