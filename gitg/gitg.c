@@ -9,6 +9,7 @@
 #include "gitg-rv-model.h"
 #include "gitg-utils.h"
 #include "gitg-loader.h"
+#include "sexy-icon-entry.h"
 #include "config.h"
 
 static GOptionEntry entries[] = 
@@ -55,27 +56,7 @@ on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer userdata)
 static gint
 string_compare(GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer userdata)
 {
-	gint col = GPOINTER_TO_INT(userdata);
-	gchar *s1;
-	gchar *s2;
-	
-	gtk_tree_model_get(model, a, col, &s1, -1);
-	gtk_tree_model_get(model, b, col, &s2, -1);
-	
-	/*gchar *c1 = g_utf8_casefold(s1, -1);
-	gchar *c2 = g_utf8_casefold(s2, -1);
-
-	gint ret = g_utf8_collate(c1, c2);
-	
-	g_free(c1);
-	g_free(c2);*/
-	
-	//gint ret = g_strcmp0(s1, s2);
-	
-	//g_free(s1);
-	//g_free(s2);
-	
-	return 0;
+	return gitg_rv_model_compare(store, a, b, GPOINTER_TO_INT(userdata));
 }
 
 static gchar *
@@ -249,16 +230,17 @@ on_update_parents(GtkTreeSelection *selection, GtkVBox *container)
 
 static void
 on_update_diff(GtkTreeSelection *selection, GtkVBox *container)
-{
+{	
 	// First cancel a possibly still running diff
 	gitg_runner_cancel(diff_runner);
 	
 	// Clear the buffer
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(diff_view));
 	gtk_text_buffer_set_text(buffer, "", 0);
+	
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-
+	
 	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
 		return;
 	
@@ -352,6 +334,26 @@ build_diff_view()
 	gtk_container_add(GTK_CONTAINER(box), GTK_WIDGET(diff_view));
 }
 
+static GtkImage *
+search_image()
+{
+	return GTK_IMAGE(gtk_image_new_from_stock(GTK_STOCK_FIND, GTK_ICON_SIZE_MENU));
+}
+
+static void
+build_search()
+{
+	GtkWidget *box = GTK_WIDGET(gtk_builder_get_object(builder, "hbox_top"));
+	GtkWidget *entry = sexy_icon_entry_new();
+	
+	GtkImage *image = search_image();
+	sexy_icon_entry_set_icon(SEXY_ICON_ENTRY(entry), SEXY_ICON_ENTRY_PRIMARY, image);
+	
+	gtk_tree_view_set_search_entry(tree_view, GTK_ENTRY(entry));
+	gtk_widget_show(entry);
+	gtk_box_pack_end(GTK_BOX(box), entry, FALSE, FALSE, 0);
+}
+
 static void
 build_ui()
 {
@@ -370,6 +372,7 @@ build_ui()
 
 	build_tree_view();
 	build_diff_view();
+	build_search();
 
 	g_signal_connect(window, "delete-event", G_CALLBACK(on_window_delete_event), NULL);
 	statusbar = GTK_STATUSBAR(gtk_builder_get_object(builder, "statusbar"));
@@ -465,7 +468,7 @@ main(int argc, char **argv)
 
 	gtk_init(&argc, &argv);
 	parse_options(&argc, &argv);
-	
+
 	gitdir = append_dot_git(argc > 1 ? g_strdup(argv[1]) : g_get_current_dir());
 	build_ui();
 

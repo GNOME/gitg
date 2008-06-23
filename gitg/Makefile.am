@@ -18,7 +18,8 @@ gitg_SOURCES = 		\
 	gitg-rv-model.c	\
 	gitg-loader.c	\
 	gitg-runner.c	\
-	gitg-utils.c
+	gitg-utils.c	\
+	sexy-icon-entry.c
 
 gitg_LDADD = $(PACKAGE_LIBS)
 gitg_LDFLAGS = 
