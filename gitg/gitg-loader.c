@@ -138,6 +138,7 @@ gitg_loader_load(GitgLoader *loader, gchar const *path, GError **error)
 		"--git-dir",
 		(gchar *)path,
 		"log",
+		"--encoding=UTF-8",
 		"--topo-order",
 		"--pretty=format:%H\01%an\01%s\01%P\01%at",
 		"HEAD",
