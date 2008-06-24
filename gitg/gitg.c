@@ -5,6 +5,7 @@
 #include <string.h>
 #include <gtksourceview/gtksourceview.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
+#include <gdk/gdkkeysyms.h>
 
 #include "gitg-rv-model.h"
 #include "gitg-utils.h"
@@ -396,6 +397,12 @@ search_equal_func(GtkTreeModel *model, gint column, gchar const *key, GtkTreeIte
 }
 
 static void
+focus_search(GtkAccelGroup *group, GObject *acceleratable, guint keyval, GdkModifierType modifier, gpointer userdata)
+{
+	gtk_widget_grab_focus(GTK_WIDGET(userdata));
+}
+
+static void
 build_search()
 {
 	GtkWidget *box = GTK_WIDGET(gtk_builder_get_object(builder, "hbox_top"));
@@ -427,7 +434,13 @@ build_search()
 	g_signal_connect(entry, "icon-pressed", G_CALLBACK(on_search_icon_pressed), NULL);
 	gtk_tree_view_set_search_column(tree_view, 1);
 	
-	gtk_tree_view_set_search_equal_func(tree_view, search_equal_func, NULL, NULL);
+	gtk_tree_view_set_search_equal_func(tree_view, search_equal_func, entry, NULL);
+	
+	GtkAccelGroup *group = gtk_accel_group_new();
+	
+	GClosure *closure = g_cclosure_new(G_CALLBACK(focus_search), entry, NULL); 
+	gtk_accel_group_connect(group, GDK_f, GDK_CONTROL_MASK, 0, closure); 
+	gtk_window_add_accel_group(window, group);
 }
 
 static void
