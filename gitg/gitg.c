@@ -17,6 +17,7 @@ static GOptionEntry entries[] =
 	{ NULL }
 };
 
+static GtkWindow *window;
 static GtkBuilder *builder;
 static GtkTreeView *tree_view;
 static GitgRvModel *store;
@@ -441,7 +442,7 @@ build_ui()
 		exit(1);
 	}
 	
-	GtkWindow *window = GTK_WINDOW(gtk_builder_get_object(builder, "window"));
+	window = GTK_WINDOW(gtk_builder_get_object(builder, "window"));
 	gtk_widget_show_all(GTK_WIDGET(window));
 
 	build_tree_view();
@@ -522,12 +523,39 @@ on_update(GitgLoader *loader, GitgRevision **revisions)
 }
 
 static gchar *
-append_dot_git(gchar *path)
+find_dot_git(gchar *path)
 {
-	gchar *res = g_build_filename(path, ".git", NULL);
-	g_free(path);
+	while (strcmp(path, ".") != 0)
+	{
+		gchar *res = g_build_filename(path, ".git", NULL);
+		
+		if (g_file_test(res, G_FILE_TEST_IS_DIR))
+		{
+			g_free(path);
+			return res;
+		}
+		
+		gchar *tmp = g_path_get_dirname(path);
+		g_free(path);
+		path = tmp;
+		
+		g_free(res);
+	}
 	
-	return res;
+	return NULL;
+}
+
+static gboolean
+handle_no_gitdir(gpointer userdata)
+{
+	if (gitdir)
+		return FALSE;
+
+	GtkWidget *dlg = gtk_message_dialog_new(window, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("No .git directory found"));
+	
+	gtk_dialog_run(GTK_DIALOG(dlg));
+	gtk_widget_destroy(dlg);
+	return FALSE;
 }
 
 int
@@ -543,7 +571,7 @@ main(int argc, char **argv)
 	gtk_init(&argc, &argv);
 	parse_options(&argc, &argv);
 
-	gitdir = append_dot_git(argc > 1 ? g_strdup(argv[1]) : g_get_current_dir());
+	gitdir = find_dot_git(argc > 1 ? g_strdup(argv[1]) : g_get_current_dir());
 	build_ui();
 
 	GitgLoader *loader = gitg_loader_new(store);
@@ -557,8 +585,10 @@ main(int argc, char **argv)
 	g_signal_connect(loader, "revisions-added", G_CALLBACK(on_update), NULL);
 	g_signal_connect(loader, "end-loading", G_CALLBACK(on_end_loading), NULL);
 	
-	gitg_loader_load(loader, gitdir, NULL);
+	if (gitdir != NULL)
+		gitg_loader_load(loader, gitdir, NULL);
 	
+	g_idle_add(handle_no_gitdir, NULL);
 	gtk_main();
 	
 	g_free(gitdir);
