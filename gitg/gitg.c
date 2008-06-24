@@ -376,6 +376,25 @@ on_date_activate(GtkAction *action, gpointer data)
 	search_column_activate(action, 3);
 }
 
+static gboolean
+search_equal_func(GtkTreeModel *model, gint column, gchar const *key, GtkTreeIter *iter, gpointer userdata)
+{
+	gchar *cmp;
+	gtk_tree_model_get(model, iter, column, &cmp, -1);
+	
+	gchar *s1 = g_utf8_casefold(key, -1);
+	gchar *s2 = g_utf8_casefold(cmp, -1);
+	
+	gboolean ret = strstr(s2, s1) == NULL;
+	
+	g_free(s1);
+	g_free(s2);
+
+	g_free(cmp);
+	
+	return ret;
+}
+
 static void
 build_search()
 {
@@ -407,6 +426,8 @@ build_search()
 	
 	g_signal_connect(entry, "icon-pressed", G_CALLBACK(on_search_icon_pressed), NULL);
 	gtk_tree_view_set_search_column(tree_view, 1);
+	
+	gtk_tree_view_set_search_equal_func(tree_view, search_equal_func, NULL, NULL);
 }
 
 static void
