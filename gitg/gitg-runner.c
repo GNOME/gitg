@@ -192,7 +192,6 @@ sync_buffer(GitgRunner *runner, guint num)
 
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, (GSourceFunc)emit_update_sync, runner, NULL);
 	g_cond_wait(runner->priv->cond, runner->priv->cond_mutex);
-	g_mutex_unlock(runner->priv->cond_mutex);
 }
 
 static gpointer
@@ -226,8 +225,11 @@ output_reader_thread(gpointer userdata)
 			num = 0;
 		}
 	}
-	
+
+	g_mutex_lock(runner->priv->mutex);
+	cancel = runner->priv->done;
 	runner->priv->done = TRUE;
+	g_mutex_unlock(runner->priv->mutex);
 	
 	if (!cancel)
 		sync_buffer(runner, num);
@@ -285,6 +287,12 @@ gitg_runner_cancel(GitgRunner *runner)
 	gboolean done = runner->priv->done;
 	runner->priv->done = TRUE;
 	g_mutex_unlock(runner->priv->mutex);
+	
+	if (runner->priv->thread)
+	{
+		g_cond_signal(runner->priv->cond);
+		g_thread_join(runner->priv->thread);
+	}
 	
 	runner->priv->thread = NULL;
 	runner->priv->pid = 0;
