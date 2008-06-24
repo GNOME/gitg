@@ -349,32 +349,12 @@ on_search_icon_pressed(SexyIconEntry *entry, SexyIconEntryPosition icon_pos, int
 	gtk_menu_popup(GTK_MENU(search_popup), NULL, NULL, NULL, NULL, button, gtk_get_current_event_time());
 }
 
-static void
-untoggle_all(GtkAction *action)
-{
-	GtkActionGroup *ag;
-	g_object_get(action, "action-group", &ag, NULL);
-	
-	GList *actions = gtk_action_group_list_actions(ag);
-	GList *item;
-	
-	for (item = actions; item; item = item->next)
-	{
-		if (GTK_ACTION(item->data) != action)
-			gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(item->data), FALSE);
-	}
-
-	g_list_free(actions);
-	g_object_unref(ag);
-}
-
 void
 search_column_activate(GtkAction *action, gint column)
 {
 	if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)))
 		return;
 
-	untoggle_all(action);
 	gtk_tree_view_set_search_column(tree_view, column);
 }
 

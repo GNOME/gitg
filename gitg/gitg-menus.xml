@@ -5,24 +5,23 @@
     <child>
       <object class="GtkActionGroup" id="actiongroup">
         <child>
-          <object class="GtkToggleAction" id="subject">
+          <object class="GtkRadioAction" id="subject">
             <property name="label">_Subject</property>
-            <property name="draw-as-radio">true</property>
             <property name="active">true</property>
             <signal after="true" handler="on_subject_activate" name="activate"/>
           </object>
         </child>
         <child>
-          <object class="GtkToggleAction" id="author">
+          <object class="GtkRadioAction" id="author">
             <property name="label">_Author</property>
-            <property name="draw-as-radio">true</property>
+            <property name="group">subject</property>
             <signal after="true" handler="on_author_activate" name="activate"/>
           </object>
         </child>
         <child>
-          <object class="GtkToggleAction" id="date">
+          <object class="GtkRadioAction" id="date">
             <property name="label">_Date</property>
-            <property name="draw-as-radio">true</property>
+            <property name="group">subject</property>
             <signal after="true" handler="on_date_activate" name="activate"/>
           </object>
         </child>
