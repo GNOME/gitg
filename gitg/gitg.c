@@ -24,6 +24,7 @@ static GtkStatusbar *statusbar;
 static GitgRunner *diff_runner;
 static GtkSourceView *diff_view;
 static gchar *gitdir;
+static GtkWidget *search_popup;
 
 void
 parse_options(int *argc, char ***argv)
@@ -283,15 +284,15 @@ build_tree_view()
 	GtkTreeViewColumn *column;
 	
 	guint cw[] = {400, 200, 200};
-	
+
 	for (i = 0; i < 3; ++i)
 	{
 		column = gtk_tree_view_get_column(tree_view, i);
-		gtk_tree_view_column_set_sort_column_id(column, i + 1);
 		gtk_tree_view_column_set_resizable(column, TRUE);
 		gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_FIXED);
 		gtk_tree_view_column_set_fixed_width(column, cw[i]);
 		
+		gtk_tree_view_column_set_sort_column_id(column, i + 1);
 		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(store), i + 1, string_compare, GINT_TO_POINTER(i + 1), NULL);
 	}
 	
@@ -313,6 +314,7 @@ build_tree_view()
 		"label_parent_lbl"
 	};
 
+	gtk_tree_view_set_headers_clickable(tree_view, TRUE);
 	for (i = 0; i < sizeof(lbls) / sizeof(gchar *); ++i)
 		update_markup(gtk_builder_get_object(builder, lbls[i]));
 }
@@ -341,6 +343,59 @@ search_image()
 }
 
 static void
+on_search_icon_pressed(SexyIconEntry *entry, SexyIconEntryPosition icon_pos, int button, gpointer userdata)
+{
+	gtk_menu_popup(GTK_MENU(search_popup), NULL, NULL, NULL, NULL, button, gtk_get_current_event_time());
+}
+
+static void
+untoggle_all(GtkAction *action)
+{
+	GtkActionGroup *ag;
+	g_object_get(action, "action-group", &ag, NULL);
+	
+	GList *actions = gtk_action_group_list_actions(ag);
+	GList *item;
+	
+	for (item = actions; item; item = item->next)
+	{
+		if (GTK_ACTION(item->data) != action)
+			gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(item->data), FALSE);
+	}
+
+	g_list_free(actions);
+	g_object_unref(ag);
+}
+
+void
+search_column_activate(GtkAction *action, gint column)
+{
+	if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)))
+		return;
+
+	untoggle_all(action);
+	gtk_tree_view_set_search_column(tree_view, column);
+}
+
+void
+on_subject_activate(GtkAction *action, gpointer data)
+{
+	search_column_activate(action, 1);
+}
+
+void
+on_author_activate(GtkAction *action, gpointer data)
+{
+	search_column_activate(action, 2);
+}
+
+void
+on_date_activate(GtkAction *action, gpointer data)
+{
+	search_column_activate(action, 3);
+}
+
+static void
 build_search()
 {
 	GtkWidget *box = GTK_WIDGET(gtk_builder_get_object(builder, "hbox_top"));
@@ -352,6 +407,25 @@ build_search()
 	gtk_tree_view_set_search_entry(tree_view, GTK_ENTRY(entry));
 	gtk_widget_show(entry);
 	gtk_box_pack_end(GTK_BOX(box), entry, FALSE, FALSE, 0);
+	
+	GtkBuilder *b = gtk_builder_new();
+	GError *error = NULL;
+
+	if (!gtk_builder_add_from_file(b, GITG_UI_DIR "/gitg-menus.xml", &error))
+	{
+		g_critical("Could not open UI file: %s (%s)", GITG_UI_DIR "/gitg-menus.xml", error->message);
+		g_error_free(error);
+		exit(1);
+	}
+	
+	GtkUIManager *manager = GTK_UI_MANAGER(gtk_builder_get_object(b, "uiman"));
+	search_popup = GTK_WIDGET(g_object_ref(gtk_ui_manager_get_widget(manager, "/ui/search_popup")));
+		
+	gtk_builder_connect_signals(b, NULL);
+	g_object_unref(b);
+	
+	g_signal_connect(entry, "icon-pressed", G_CALLBACK(on_search_icon_pressed), NULL);
+	gtk_tree_view_set_search_column(tree_view, 1);
 }
 
 static void

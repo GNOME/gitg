@@ -236,7 +236,7 @@ gint gitg_rv_model_compare(GitgRvModel *store, GtkTreeIter *a, GtkTreeIter *b, g
 	GitgRevision *rv2;
 	
 	rv1 = gitg_rv_model_get_object(store, a);
-	rv2 = gitg_rv_model_get_object(store, a);
+	rv2 = gitg_rv_model_get_object(store, b);
 	gint ret;
 	int i1;
 	int i2;
@@ -252,13 +252,13 @@ gint gitg_rv_model_compare(GitgRvModel *store, GtkTreeIter *a, GtkTreeIter *b, g
 		case DATE_COLUMN:
 			i1 = gitg_revision_get_timestamp(rv1);
 			i2 = gitg_revision_get_timestamp(rv2);
-			
+
 			ret = i1 < i2 ? -1 : (i1 > i2 ? 1 : 0);
 		break;
 	}
 	
 	g_object_unref(rv1);
 	g_object_unref(rv2);
-	
+
 	return ret;
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--Generated with glade3 3.4.5 on Tue Jun 24 00:13:41 2008 -->
+<interface>
+  <object class="GtkUIManager" id="uiman">
+    <child>
+      <object class="GtkActionGroup" id="actiongroup">
+        <child>
+          <object class="GtkToggleAction" id="subject">
+            <property name="label">_Subject</property>
+            <property name="draw-as-radio">true</property>
+            <property name="active">true</property>
+            <signal after="true" handler="on_subject_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleAction" id="author">
+            <property name="label">_Author</property>
+            <property name="draw-as-radio">true</property>
+            <signal after="true" handler="on_author_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleAction" id="date">
+            <property name="label">_Date</property>
+            <property name="draw-as-radio">true</property>
+            <signal after="true" handler="on_date_activate" name="activate"/>
+          </object>
+        </child>
+      </object>
+    </child>
+    <ui>
+      <popup name="search_popup">
+        <menuitem action="subject"/>
+        <menuitem action="author"/>
+        <menuitem action="date"/>
+      </popup>
+    </ui>
+  </object>
+</interface>

@@ -22,10 +22,10 @@ gitg_SOURCES = 		\
 	sexy-icon-entry.c
 
 gitg_LDADD = $(PACKAGE_LIBS)
-gitg_LDFLAGS = 
+gitg_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
 
 uidir = $(datadir)/gitg/ui/
-ui_DATA = gitg-ui.xml
+ui_DATA = gitg-ui.xml gitg-menus.xml
 
 update-ui:
 	gtk-builder-convert gitg.glade gitg-ui.xml
