@@ -360,6 +360,12 @@ search_column_activate(GtkAction *action, gint column)
 }
 
 void
+on_hash_activate(GtkAction *action, gpointer data)
+{
+	search_column_activate(action, 4);
+}
+
+void
 on_subject_activate(GtkAction *action, gpointer data)
 {
 	search_column_activate(action, 1);
@@ -378,8 +384,27 @@ on_date_activate(GtkAction *action, gpointer data)
 }
 
 static gboolean
+search_hash_equal_func(GtkTreeModel *model, gchar const *key, GtkTreeIter *iter)
+{
+	GitgRevision *rv;
+	gtk_tree_model_get(model, iter, 0, &rv, -1);
+	
+	gchar *sha = gitg_revision_get_sha1(rv);
+	
+	gboolean ret = strncmp(sha, key, strlen(key)) != 0;
+	
+	g_free(sha);
+	g_object_unref(rv);
+	
+	return ret;
+}
+
+static gboolean
 search_equal_func(GtkTreeModel *model, gint column, gchar const *key, GtkTreeIter *iter, gpointer userdata)
 {
+	if (column == 4)
+		return search_hash_equal_func(model, key, iter);
+
 	gchar *cmp;
 	gtk_tree_model_get(model, iter, column, &cmp, -1);
 	

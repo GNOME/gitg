@@ -25,6 +25,13 @@
             <signal after="true" handler="on_date_activate" name="activate"/>
           </object>
         </child>
+        <child>
+          <object class="GtkRadioAction" id="hash">
+            <property name="label">_Hash</property>
+            <property name="group">subject</property>
+            <signal after="true" handler="on_hash_activate" name="activate"/>
+          </object>
+        </child>
       </object>
     </child>
     <ui>
@@ -32,6 +39,7 @@
         <menuitem action="subject"/>
         <menuitem action="author"/>
         <menuitem action="date"/>
+        <menuitem action="hash"/>
       </popup>
     </ui>
   </object>
