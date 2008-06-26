@@ -7,9 +7,9 @@
 #include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gdk/gdkkeysyms.h>
 
-#include "gitg-rv-model.h"
+#include "gitg-repository.h"
 #include "gitg-utils.h"
-#include "gitg-loader.h"
+#include "gitg-runner.h"
 #include "sexy-icon-entry.h"
 #include "config.h"
 
@@ -21,12 +21,12 @@ static GOptionEntry entries[] =
 static GtkWindow *window;
 static GtkBuilder *builder;
 static GtkTreeView *tree_view;
-static GitgRvModel *store;
 static GtkStatusbar *statusbar;
 static GitgRunner *diff_runner;
 static GtkSourceView *diff_view;
 static gchar *gitdir;
 static GtkWidget *search_popup;
+static GitgRepository *repository;
 
 void
 parse_options(int *argc, char ***argv)
@@ -59,7 +59,7 @@ on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer userdata)
 static gint
 string_compare(GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer userdata)
 {
-	return gitg_rv_model_compare(store, a, b, GPOINTER_TO_INT(userdata));
+	return 0; //gitg_rv_model_compare(store, a, b, GPOINTER_TO_INT(userdata));
 }
 
 static gchar *
@@ -165,7 +165,7 @@ on_parent_clicked(GtkWidget *ev, GdkEventButton *event, gpointer userdata)
 		return FALSE;
 	
 	GtkTreeIter iter;
-	if (gitg_rv_model_find_by_hash(store, (gchar *)userdata, &iter))
+	if (gitg_repository_find_by_hash(repository, (gchar *)userdata, &iter))
 		gtk_tree_selection_select_iter(gtk_tree_view_get_selection(tree_view), &iter);
 
 	return TRUE;
@@ -254,7 +254,7 @@ on_update_diff(GtkTreeSelection *selection, GtkVBox *container)
 	gchar *argv[] = {
 		"git",
 		"--git-dir",
-		gitdir,
+		gitg_utils_dot_git_path(gitg_repository_get_path(repository)),
 		"show",
 		"--pretty=format:%s%n%n%b",
 		"--encoding=UTF-8",
@@ -265,13 +265,15 @@ on_update_diff(GtkTreeSelection *selection, GtkVBox *container)
 	gitg_runner_run(diff_runner, argv, NULL);
 	g_object_unref(rv);
 	g_free(hash);
+	g_free(argv[2]);
 }
 
 static void
 build_tree_view()
 {
 	tree_view = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_rv"));
-	store = gitg_rv_model_new();
+
+	gtk_tree_view_set_model(tree_view, GTK_TREE_MODEL(repository));
 
 	gtk_tree_view_insert_column_with_attributes(tree_view, 
 			0, _("Subject"), gtk_cell_renderer_text_new(), "text", 1, NULL);
@@ -295,7 +297,7 @@ build_tree_view()
 		gtk_tree_view_column_set_fixed_width(column, cw[i]);
 		
 		gtk_tree_view_column_set_sort_column_id(column, i + 1);
-		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(store), i + 1, string_compare, GINT_TO_POINTER(i + 1), NULL);
+		//gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(store), i + 1, string_compare, GINT_TO_POINTER(i + 1), NULL);
 	}
 	
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree_view);
@@ -520,7 +522,7 @@ on_diff_update(GitgRunner *runner, gchar **buffer, gpointer userdata)
 }
 
 static void
-on_begin_loading(GitgLoader *loader, gpointer userdata)
+on_begin_loading(GitgRunner *loader, gpointer userdata)
 {
 	GdkCursor *cursor = gdk_cursor_new(GDK_WATCH);
 	gdk_window_set_cursor(GTK_WIDGET(tree_view)->window, cursor);
@@ -530,67 +532,32 @@ on_begin_loading(GitgLoader *loader, gpointer userdata)
 }
 
 static void
-on_end_loading(GitgLoader *loader, gpointer userdata)
+on_end_loading(GitgRunner *loader, gpointer userdata)
 {
-	gchar *msg = g_strdup_printf(_("Loaded %d revisions"), gtk_tree_model_iter_n_children(GTK_TREE_MODEL(store), NULL));
+	gchar *msg = g_strdup_printf(_("Loaded %d revisions"), gtk_tree_model_iter_n_children(GTK_TREE_MODEL(repository), NULL));
 
 	gtk_statusbar_push(statusbar, 0, msg);
 	
 	g_free(msg);
-
-	gtk_tree_view_set_model(tree_view, GTK_TREE_MODEL(store));
-	
 	gdk_window_set_cursor(GTK_WIDGET(tree_view)->window, NULL);
 }
 
 static void
-on_update(GitgLoader *loader, GitgRevision **revisions)
+on_update(GitgRunner *loader, gchar **revisions, gpointer userdata)
 {
-	GitgRevision *rv;
-	
-	gtk_tree_view_set_model(tree_view, NULL);
-		
-	while ((rv = *revisions++))
-		gitg_rv_model_add(store, rv, NULL);
-	
-	gchar *msg = g_strdup_printf(_("Loading %d revisions..."), gtk_tree_model_iter_n_children(GTK_TREE_MODEL(store), NULL));
+	gchar *msg = g_strdup_printf(_("Loading %d revisions..."), gtk_tree_model_iter_n_children(GTK_TREE_MODEL(repository), NULL));
 
 	gtk_statusbar_push(statusbar, 0, msg);
 	g_free(msg);
-	
-	//gtk_tree_view_set_model(tree_view, GTK_TREE_MODEL(store));
-}
-
-static gchar *
-find_dot_git(gchar *path)
-{
-	while (strcmp(path, ".") != 0)
-	{
-		gchar *res = g_build_filename(path, ".git", NULL);
-		
-		if (g_file_test(res, G_FILE_TEST_IS_DIR))
-		{
-			g_free(path);
-			return res;
-		}
-		
-		gchar *tmp = g_path_get_dirname(path);
-		g_free(path);
-		path = tmp;
-		
-		g_free(res);
-	}
-	
-	return NULL;
 }
 
 static gboolean
 handle_no_gitdir(gpointer userdata)
 {
-	if (gitdir)
+	if (gitg_repository_get_path(repository))
 		return FALSE;
 
-	GtkWidget *dlg = gtk_message_dialog_new(window, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("No .git directory found"));
+	GtkWidget *dlg = gtk_message_dialog_new(window, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Gitg repository could not be found"));
 	
 	gtk_dialog_run(GTK_DIALOG(dlg));
 	gtk_widget_destroy(dlg);
@@ -610,27 +577,28 @@ main(int argc, char **argv)
 	gtk_init(&argc, &argv);
 	parse_options(&argc, &argv);
 
-	gitdir = find_dot_git(argc > 1 ? g_strdup(argv[1]) : g_get_current_dir());
+	gchar *gitdir = argc > 1 ? g_strdup(argv[1]) : g_get_current_dir();
+	repository = gitg_repository_new(gitdir);
+	g_free(gitdir);
+	
 	build_ui();
 
-	GitgLoader *loader = gitg_loader_new(store);
 	diff_runner = gitg_runner_new(2000);
 	
 	g_signal_connect(diff_runner, "begin-loading", G_CALLBACK(on_diff_begin_loading), NULL);
 	g_signal_connect(diff_runner, "update", G_CALLBACK(on_diff_update), NULL);
 	g_signal_connect(diff_runner, "end-loading", G_CALLBACK(on_diff_end_loading), NULL);
-
-	g_signal_connect(loader, "begin-loading", G_CALLBACK(on_begin_loading), NULL);
-	g_signal_connect(loader, "revisions-added", G_CALLBACK(on_update), NULL);
-	g_signal_connect(loader, "end-loading", G_CALLBACK(on_end_loading), NULL);
 	
-	if (gitdir != NULL)
-		gitg_loader_load(loader, gitdir, NULL);
+	GitgRunner *loader = gitg_repository_get_loader(repository);
+	g_signal_connect(loader, "begin-loading", G_CALLBACK(on_begin_loading), NULL);
+	g_signal_connect(loader, "end-loading", G_CALLBACK(on_end_loading), NULL);
+	g_signal_connect(loader, "update", G_CALLBACK(on_update), NULL);
+	g_object_unref(loader);
+	
+	gitg_repository_load(repository, NULL);
 	
 	g_idle_add(handle_no_gitdir, NULL);
 	gtk_main();
-	
-	g_free(gitdir);
 	
 	return 0;
 }

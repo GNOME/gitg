@@ -12,13 +12,12 @@ INCLUDES =							\
 	-DGITG_UI_DIR=\""$(datadir)/gitg/ui/"\"			\
 	-DGITG_ICONDIR=\""$(datadir)/gitg/icons"\"
 
-gitg_SOURCES = 		\
-	gitg.c			\
-	gitg-revision.c	\
-	gitg-rv-model.c	\
-	gitg-loader.c	\
-	gitg-runner.c	\
-	gitg-utils.c	\
+gitg_SOURCES = 			\
+	gitg.c				\
+	gitg-revision.c		\
+	gitg-repository.c	\
+	gitg-runner.c		\
+	gitg-utils.c		\
 	sexy-icon-entry.c
 
 gitg_LDADD = $(PACKAGE_LIBS)

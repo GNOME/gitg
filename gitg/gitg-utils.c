@@ -1,3 +1,6 @@
+#include <string.h>
+#include <glib.h>
+
 #include "gitg-utils.h"
 
 inline static guint8
@@ -51,4 +54,52 @@ gitg_utils_sha1_to_hash_new(gchar const *sha1)
 	gitg_utils_sha1_to_hash(sha1, ret);
 	
 	return ret;
+}
+
+static gchar *
+find_dot_git(gchar *path)
+{
+	while (strcmp(path, ".") != 0)
+	{
+		gchar *res = g_build_filename(path, ".git", NULL);
+		
+		if (g_file_test(res, G_FILE_TEST_IS_DIR))
+		{
+			g_free(res);
+			return path;
+		}
+		
+		gchar *tmp = g_path_get_dirname(path);
+		g_free(path);
+		path = tmp;
+		
+		g_free(res);
+	}
+	
+	return NULL;
+}
+
+gchar *
+gitg_utils_find_git(gchar const *path)
+{
+	gchar const *find = G_DIR_SEPARATOR_S ".git";
+	gchar *dir;
+	
+	if (strstr(path, find) == path + strlen(path) - strlen(find))
+		dir = g_strndup(path, strlen(path) - strlen(find));
+	else
+		dir = g_strdup(path);
+	
+	return find_dot_git(dir);
+}
+
+gchar *
+gitg_utils_dot_git_path(gchar const *path)
+{
+	gchar const *find = G_DIR_SEPARATOR_S ".git";
+	
+	if (strstr(path, find) == path + strlen(path) - strlen(find))
+		return g_strdup(path);
+	else
+		return g_build_filename(path, ".git", NULL);
 }
