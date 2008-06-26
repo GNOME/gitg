@@ -265,6 +265,35 @@ gitg_repository_tree_model_iface_init(GtkTreeModelIface *iface)
 }
 
 static void
+do_clear(GitgRepository *repository, gboolean emit)
+{
+	int i;
+	GtkTreePath *path = gtk_tree_path_new_from_indices(repository->priv->size - 1, -1);
+	
+	for (i = repository->priv->size - 1; i >= 0; --i)
+	{
+		if (emit)
+		{
+			GtkTreePath *dup = gtk_tree_path_copy(path);
+			gtk_tree_model_row_deleted(GTK_TREE_MODEL(repository), dup);
+			gtk_tree_path_free(dup);
+		}
+		
+		gtk_tree_path_prev(path);
+		g_object_unref(repository->priv->storage[i]);
+	}
+	
+	gtk_tree_path_free(path);
+	
+	if (repository->priv->storage)
+		g_slice_free1(sizeof(GitgRevision *) * repository->priv->size, repository->priv->storage);
+	
+	repository->priv->storage = NULL;
+	repository->priv->size = 0;
+	repository->priv->allocated = 0;
+}
+
+static void
 gitg_repository_finalize(GObject *object)
 {
 	GitgRepository *rp = GITG_REPOSITORY(object);
@@ -274,7 +303,7 @@ gitg_repository_finalize(GObject *object)
 	g_object_unref(rp->priv->loader);
 	
 	// Clear the model to remove all revision objects
-	gitg_repository_clear(rp);
+	do_clear(rp, FALSE);
 	
 	// Free the path
 	g_free(rp->priv->path);
@@ -520,28 +549,8 @@ gitg_repository_add(GitgRepository *self, GitgRevision *obj, GtkTreeIter *iter)
 void
 gitg_repository_clear(GitgRepository *repository)
 {
-	int i;
-	GtkTreePath *path = gtk_tree_path_new_from_indices(repository->priv->size - 1, -1);
-	
-	
-	for (i = repository->priv->size - 1; i >= 0; --i)
-	{
-		GtkTreePath *dup = gtk_tree_path_copy(path);
-		gtk_tree_model_row_deleted(GTK_TREE_MODEL(repository), dup);
-		gtk_tree_path_free(dup);
-		
-		gtk_tree_path_prev(path);
-		g_object_unref(repository->priv->storage[i]);
-	}
-	
-	gtk_tree_path_free(path);
-	
-	if (repository->priv->storage)
-		g_slice_free1(sizeof(GitgRevision *) * repository->priv->size, repository->priv->storage);
-	
-	repository->priv->storage = NULL;
-	repository->priv->size = 0;
-	repository->priv->allocated = 0;
+	g_return_if_fail(GITG_IS_REPOSITORY(repository));
+	do_clear(repository, TRUE);
 }
 
 gboolean

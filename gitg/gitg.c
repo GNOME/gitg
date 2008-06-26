@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gtksourceview/gtksourceview.h>
-#include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gdk/gdkkeysyms.h>
 
 #include "gitg-repository.h"
+#include "gitg-revision-view.h"
 #include "gitg-utils.h"
 #include "gitg-runner.h"
 #include "sexy-icon-entry.h"
@@ -22,11 +22,9 @@ static GtkWindow *window;
 static GtkBuilder *builder;
 static GtkTreeView *tree_view;
 static GtkStatusbar *statusbar;
-static GitgRunner *diff_runner;
-static GtkSourceView *diff_view;
-static gchar *gitdir;
 static GtkWidget *search_popup;
 static GitgRepository *repository;
+static GitgRevisionView *revision_view;
 
 void
 parse_options(int *argc, char ***argv)
@@ -44,14 +42,15 @@ parse_options(int *argc, char ***argv)
 		g_error_free(error);
 		exit(1);
 	}
+	
+	g_option_context_free(context);
 }
 
 static gboolean
 on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer userdata)
 {
-	gitg_runner_cancel(diff_runner);
-
 	gtk_tree_view_set_model(tree_view, NULL);
+
 	g_object_unref(builder);
 	gtk_main_quit();
 }
@@ -62,210 +61,17 @@ string_compare(GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer use
 	return 0; //gitg_rv_model_compare(store, a, b, GPOINTER_TO_INT(userdata));
 }
 
-static gchar *
-format_sha(GitgRevision *revision, gpointer data)
-{
-	return gitg_revision_get_sha1(revision);
-}
-
-static gchar *
-make_bold(GitgRevision *revision, gpointer data)
-{
-	return g_strconcat("<b>", (gchar*)data, "</b>", NULL);
-}
-
-static gchar *
-format_date(GitgRevision *revision, gpointer data)
-{
-	guint64 timestamp = gitg_revision_get_timestamp(revision);
-	
-	// Remove newline
-	char *c = ctime((time_t *)&timestamp);
-	return g_strndup(c, strlen(c) - 1);
-}
-
-typedef gchar * (*TransformFunc)(GitgRevision *revision, gpointer data);
-typedef struct
-{
-	GObject *object;
-	gint column;
-	gchar const *property;
-	TransformFunc transform;
-} Binding;
-
 static void
-on_selection_binding_changed(GtkTreeSelection *selection, Binding *binding)
+on_selection_changed(GtkTreeSelection *selection, gpointer userdata)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-
-	GValue value = {0,};
-	g_value_init(&value, G_TYPE_STRING);
+	GitgRevision *revision = NULL;
 	
 	if (gtk_tree_selection_get_selected(selection, &model, &iter))
-	{
-		gchar *res;
-		
-		if (binding->transform)
-		{
-			GitgRevision *rv;
-			gpointer ptr;
-
-			gtk_tree_model_get(model, &iter, 0, &rv, binding->column, &ptr, -1);
-			res = binding->transform(rv, ptr);
-			g_object_unref(rv);
-			
-			if (binding->column != -1)
-				g_free(ptr);
-		}
-		else
-		{
-			gtk_tree_model_get(model, &iter, binding->column, &res, -1);
-		}
-		
-		g_value_take_string(&value, res);
-	}
-	else
-	{
-		g_value_set_string(&value, "");
-	}
+		gtk_tree_model_get(GTK_TREE_MODEL(model), &iter, 0, &revision, -1);
 	
-	g_object_set_property(binding->object, binding->property, &value);
-	g_value_unset(&value);
-}
-
-static void
-bind(GtkTreeSelection *selection, gint column, GObject *object, gchar const *property, TransformFunc cb)
-{
-	Binding *b = g_new0(Binding, 1);
-	b->column = column;
-	b->object = object;
-	b->property = property;
-	b->transform = cb;
-	
-	g_signal_connect_data(selection, "changed", G_CALLBACK(on_selection_binding_changed), b, (GClosureNotify)g_free, 0);
-}
-
-static void
-update_markup(GObject *object)
-{
-	GtkLabel *label = GTK_LABEL(object);
-	gchar const *text = gtk_label_get_text(label);
-	
-	gchar *newtext = g_strconcat("<span weight='bold' foreground='#777'>", text, "</span>", NULL);
-
-	gtk_label_set_markup(label, newtext);
-	g_free(newtext);
-}
-
-static gboolean
-on_parent_clicked(GtkWidget *ev, GdkEventButton *event, gpointer userdata)
-{
-	if (event->button != 1)
-		return FALSE;
-	
-	GtkTreeIter iter;
-	if (gitg_repository_find_by_hash(repository, (gchar *)userdata, &iter))
-		gtk_tree_selection_select_iter(gtk_tree_view_get_selection(tree_view), &iter);
-
-	return TRUE;
-}
-
-static GtkWidget *
-make_parent_label(gchar *hash)
-{
-	GtkWidget *ev = gtk_event_box_new();
-	GtkWidget *lbl = gtk_label_new(NULL);
-	
-	gchar *markup = g_strconcat("<span underline='single' foreground='#00f'>", hash, "</span>", NULL);
-	gtk_label_set_markup(GTK_LABEL(lbl), markup);
-	g_free(markup);
-
-	gtk_misc_set_alignment(GTK_MISC(lbl), 0.0, 0.5);
-	gtk_container_add(GTK_CONTAINER(ev), lbl);
-	
-	gtk_widget_show(ev);
-	gtk_widget_show(lbl);
-	
-	
-	g_signal_connect_data(ev, "button-release-event", G_CALLBACK(on_parent_clicked), gitg_utils_sha1_to_hash_new(hash), (GClosureNotify)g_free, 0);
-
-	return ev;
-}
-
-static void
-on_update_parents(GtkTreeSelection *selection, GtkVBox *container)
-{
-	GList *children = gtk_container_get_children(GTK_CONTAINER(container));
-	GList *item;
-	
-	for (item = children; item; item = item->next)
-		gtk_container_remove(GTK_CONTAINER(container), GTK_WIDGET(item->data));
-	
-	g_list_free(children);
-	
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-
-	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
-		return;
-	
-	GitgRevision *rv;
-	gtk_tree_model_get(model, &iter, 0, &rv, -1);
-	
-	gchar **parents = gitg_revision_get_parents(rv);
-	gchar **ptr;
-	
-	for (ptr = parents; *ptr; ++ptr)
-	{
-		GtkWidget *widget = make_parent_label(*ptr);
-		gtk_box_pack_start(GTK_BOX(container), widget, FALSE, TRUE, 0);
-		
-		gtk_widget_realize(widget);
-		GdkCursor *cursor = gdk_cursor_new(GDK_HAND1);
-		gdk_window_set_cursor(widget->window, cursor);
-		gdk_cursor_unref(cursor);
-	}
-	
-	g_strfreev(parents);	
-	g_object_unref(rv);
-}
-
-static void
-on_update_diff(GtkTreeSelection *selection, GtkVBox *container)
-{	
-	// First cancel a possibly still running diff
-	gitg_runner_cancel(diff_runner);
-	
-	// Clear the buffer
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(diff_view));
-	gtk_text_buffer_set_text(buffer, "", 0);
-	
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	
-	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
-		return;
-	
-	GitgRevision *rv;
-	gtk_tree_model_get(model, &iter, 0, &rv, -1);
-	gchar *hash = gitg_revision_get_sha1(rv);
-
-	gchar *argv[] = {
-		"git",
-		"--git-dir",
-		gitg_utils_dot_git_path(gitg_repository_get_path(repository)),
-		"show",
-		"--pretty=format:%s%n%n%b",
-		"--encoding=UTF-8",
-		hash,
-		NULL
-	};
-	
-	gitg_runner_run(diff_runner, argv, NULL);
-	g_object_unref(rv);
-	g_free(hash);
-	g_free(argv[2]);
+	gitg_revision_view_update(revision_view, repository, revision);
 }
 
 static void
@@ -301,43 +107,8 @@ build_tree_view()
 	}
 	
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree_view);
-	
-	bind(selection, 1, gtk_builder_get_object(builder, "label_subject"), "label", make_bold);
-	bind(selection, 2, gtk_builder_get_object(builder, "label_author"), "label", NULL);
-	bind(selection, -1, gtk_builder_get_object(builder, "label_date"), "label", format_date);
-	bind(selection, -1, gtk_builder_get_object(builder, "label_sha"), "label", format_sha);
 
-	g_signal_connect(selection, "changed", G_CALLBACK(on_update_parents), gtk_builder_get_object(builder, "vbox_parents"));
-	g_signal_connect(selection, "changed", G_CALLBACK(on_update_diff), NULL);
-
-	gchar const *lbls[] = {
-		"label_subject_lbl",
-		"label_author_lbl",
-		"label_sha_lbl",
-		"label_date_lbl",
-		"label_parent_lbl"
-	};
-
-	gtk_tree_view_set_headers_clickable(tree_view, TRUE);
-	for (i = 0; i < sizeof(lbls) / sizeof(gchar *); ++i)
-		update_markup(gtk_builder_get_object(builder, lbls[i]));
-}
-
-static void
-build_diff_view()
-{
-	GtkWidget *box = GTK_WIDGET(gtk_builder_get_object(builder, "scrolled_window_details"));
-	diff_view = GTK_SOURCE_VIEW(gtk_source_view_new());
-
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(diff_view), FALSE);
-	gtk_source_view_set_tab_width(diff_view, 4);
-
-	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
-	GtkSourceLanguage *language = gtk_source_language_manager_get_language(manager, "diff");
-	gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(diff_view))), language);
-	
-	gtk_widget_show(GTK_WIDGET(diff_view));
-	gtk_container_add(GTK_CONTAINER(box), GTK_WIDGET(diff_view));
+	g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), NULL);
 }
 
 static GtkImage *
@@ -470,11 +241,31 @@ build_search()
 	gtk_window_add_accel_group(window, group);
 }
 
+static gboolean
+on_parent_activated(GitgRevisionView *view, gchar *hash, gpointer userdata)
+{
+	GtkTreeIter iter;
+	
+	if (!gitg_repository_find_by_hash(repository, hash, &iter))
+		return FALSE;
+	
+	gtk_tree_selection_select_iter(gtk_tree_view_get_selection(tree_view), &iter);
+	GtkTreePath *path;
+	
+	path = gtk_tree_model_get_path(GTK_TREE_MODEL(repository), &iter);
+	
+	gtk_tree_view_scroll_to_cell(tree_view, path, NULL, FALSE, 0, 0);
+	gtk_tree_path_free(path);
+	return TRUE;
+}
+
 static void
 build_ui()
 {
 	GError *error = NULL;
+	
 	builder = gtk_builder_new();
+	gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
 	
 	if (!gtk_builder_add_from_file(builder, GITG_UI_DIR "/gitg-ui.xml", &error))
 	{
@@ -487,38 +278,14 @@ build_ui()
 	gtk_widget_show_all(GTK_WIDGET(window));
 
 	build_tree_view();
-	build_diff_view();
 	build_search();
 
 	g_signal_connect(window, "delete-event", G_CALLBACK(on_window_delete_event), NULL);
+	
 	statusbar = GTK_STATUSBAR(gtk_builder_get_object(builder, "statusbar"));
-}
-
-static void
-on_diff_begin_loading(GitgRunner *runner, gpointer userdata)
-{
-	GdkCursor *cursor = gdk_cursor_new(GDK_WATCH);
-	gdk_window_set_cursor(GTK_WIDGET(diff_view)->window, cursor);
-	gdk_cursor_unref(cursor);
-}
-
-static void
-on_diff_end_loading(GitgRunner *runner, gpointer userdata)
-{
-	gdk_window_set_cursor(GTK_WIDGET(diff_view)->window, NULL);
-}
-
-static void
-on_diff_update(GitgRunner *runner, gchar **buffer, gpointer userdata)
-{
-	gchar *line;
-	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(diff_view));
-	GtkTextIter iter;
+	revision_view = GITG_REVISION_VIEW(gtk_builder_get_object(builder, "revision_view"));
 	
-	gtk_text_buffer_get_end_iter(buf, &iter);
-	
-	while ((line = *buffer++))
-		gtk_text_buffer_insert(buf, &iter, line, -1);
+	g_signal_connect(revision_view, "parent-activated", G_CALLBACK(on_parent_activated), NULL);
 }
 
 static void
@@ -567,8 +334,8 @@ handle_no_gitdir(gpointer userdata)
 int
 main(int argc, char **argv)
 {
-	bindtextdomain (GETTEXT_PACKAGE, GITG_LOCALEDIR);
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+	bindtextdomain(GETTEXT_PACKAGE, GITG_LOCALEDIR);
+	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 	
 	// Parse gtk options
@@ -583,12 +350,6 @@ main(int argc, char **argv)
 	
 	build_ui();
 
-	diff_runner = gitg_runner_new(2000);
-	
-	g_signal_connect(diff_runner, "begin-loading", G_CALLBACK(on_diff_begin_loading), NULL);
-	g_signal_connect(diff_runner, "update", G_CALLBACK(on_diff_update), NULL);
-	g_signal_connect(diff_runner, "end-loading", G_CALLBACK(on_diff_end_loading), NULL);
-	
 	GitgRunner *loader = gitg_repository_get_loader(repository);
 	g_signal_connect(loader, "begin-loading", G_CALLBACK(on_begin_loading), NULL);
 	g_signal_connect(loader, "end-loading", G_CALLBACK(on_end_loading), NULL);
@@ -596,6 +357,7 @@ main(int argc, char **argv)
 	g_object_unref(loader);
 	
 	gitg_repository_load(repository, NULL);
+	g_object_unref(repository);
 	
 	g_idle_add(handle_no_gitdir, NULL);
 	gtk_main();

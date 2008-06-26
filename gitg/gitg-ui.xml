@@ -59,7 +59,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <child>
-                  <object class="GtkVBox" id="vbox_details">
+                  <object class="GitgRevisionView" id="revision_view">
                     <property name="visible">True</property>
                     <property name="spacing">3</property>
                     <child>
@@ -70,13 +70,8 @@
                         <property name="column_spacing">6</property>
                         <property name="row_spacing">2</property>
                         <child>
-                          <object class="GtkEventBox" id="event_box_parent">
+                          <object class="GtkVBox" id="vbox_parents">
                             <property name="visible">True</property>
-                            <child>
-                              <object class="GtkVBox" id="vbox_parents">
-                                <property name="visible">True</property>
-                              </object>
-                            </child>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -229,7 +224,10 @@
                         <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
                         <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
                         <child>
-                          <placeholder/>
+                          <object class="GtkSourceView" id="revision_diff">
+                          	<property name="tab-width">4</property>
+                          	<property name="editable">False</property>
+                          </object>
                         </child>
                       </object>
                       <packing>
