@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--Generated with glade3 3.4.5 on Tue Jun 24 00:13:41 2008 -->
+<!--Generated with glade3 3.4.2 on Thu Jun 26 12:26:40 2008 -->
 <interface>
   <object class="GtkWindow" id="window">
     <property name="title" translatable="yes">GitG</property>
@@ -67,7 +67,7 @@
                         <property name="visible">True</property>
                         <property name="n_rows">5</property>
                         <property name="n_columns">2</property>
-                        <property name="column_spacing">3</property>
+                        <property name="column_spacing">6</property>
                         <property name="row_spacing">2</property>
                         <child>
                           <object class="GtkEventBox" id="event_box_parent">
@@ -248,11 +248,30 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkScrolledWindow" id="scrolled_window_raw">
+                  <object class="GtkHPaned" id="hpaned1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                    <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                    <property name="position">200</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolledwindow2">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                        <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                        <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+                        <child>
+                          <object class="GtkTreeView" id="tree_view_tree">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="headers_clickable">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="resize">False</property>
+                        <property name="shrink">True</property>
+                      </packing>
+                    </child>
                     <child>
                       <placeholder/>
                     </child>
@@ -261,23 +280,10 @@
                 <child type="tab">
                   <object class="GtkLabel" id="label2">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Raw</property>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                    <property name="tab_fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel" id="label3">
-                    <property name="visible">True</property>
                     <property name="label" translatable="yes">Tree</property>
                   </object>
                   <packing>
-                    <property name="position">2</property>
+                    <property name="position">1</property>
                     <property name="tab_fill">False</property>
                   </packing>
                 </child>
