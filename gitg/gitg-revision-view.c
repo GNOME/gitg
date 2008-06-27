@@ -115,9 +115,9 @@ gitg_revision_view_class_init(GitgRevisionViewClass *klass)
 			G_SIGNAL_RUN_LAST,
 			G_STRUCT_OFFSET (GitgRevisionViewClass, parent_activated),
 			NULL, NULL,
-			g_cclosure_marshal_VOID__STRING,
-			G_TYPE_BOOLEAN,
-			1, G_TYPE_STRING);
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
+			1, G_TYPE_POINTER);
 	
 	g_type_class_add_private(object_class, sizeof(GitgRevisionViewPrivate));
 }
@@ -172,10 +172,9 @@ on_parent_clicked(GtkWidget *ev, GdkEventButton *event, gpointer userdata)
 	GitgRevisionView *rvv = GITG_REVISION_VIEW(userdata);
 	
 	gchar *hash = (gchar *)g_object_get_data(G_OBJECT(ev), HASH_KEY);
-	gboolean ret = FALSE;
-	
-	g_signal_emit(rvv, signals[PARENT_ACTIVATED], 0, hash, &ret);
-	return ret;
+	g_signal_emit(rvv, signals[PARENT_ACTIVATED], 0, hash);
+
+	return TRUE;
 }
 
 static GtkWidget *

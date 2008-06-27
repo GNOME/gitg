@@ -176,13 +176,13 @@ build_search_entry(GitgWindow *window, GtkBuilder *builder)
 	gtk_window_add_accel_group(GTK_WINDOW(window), group);
 }
 
-static gboolean
+static void
 on_parent_activated(GitgRevisionView *view, gchar *hash, GitgWindow *window)
 {
 	GtkTreeIter iter;
 	
 	if (!gitg_repository_find_by_hash(window->priv->repository, hash, &iter))
-		return FALSE;
+		return;
 	
 	gtk_tree_selection_select_iter(gtk_tree_view_get_selection(window->priv->tree_view), &iter);
 	GtkTreePath *path;
@@ -191,7 +191,6 @@ on_parent_activated(GitgRevisionView *view, gchar *hash, GitgWindow *window)
 	
 	gtk_tree_view_scroll_to_cell(window->priv->tree_view, path, NULL, FALSE, 0, 0);
 	gtk_tree_path_free(path);
-	return TRUE;
 }
 
 static void

@@ -28,7 +28,7 @@ struct _GitgRevisionView {
 struct _GitgRevisionViewClass {
 	GtkVBoxClass parent_class;
 	
-	gboolean (* parent_activated) (GitgRevisionView *revision_view, gchar *hash);
+	void (* parent_activated) (GitgRevisionView *revision_view, gchar *hash);
 };
 
 GType gitg_revision_view_get_type (void) G_GNUC_CONST;
