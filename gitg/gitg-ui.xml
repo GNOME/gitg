@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--Generated with glade3 3.4.2 on Thu Jun 26 12:26:40 2008 -->
 <interface>
-  <object class="GtkWindow" id="window">
+  <object class="GitgWindow" id="window">
     <property name="title" translatable="yes">GitG</property>
     <property name="default_width">800</property>
     <property name="default_height">600</property>
@@ -41,6 +41,48 @@
                         <property name="rules_hint">True</property>
                         <property name="search_column">1</property>
                         <property name="fixed_height_mode">True</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="rv_column1">
+                            <property name="title" translatable="yes">Subject</property>
+                            <property name="fixed-width">400</property>
+                            <property name="sizing">GTK_TREE_VIEW_COLUMN_FIXED</property>
+                            <property name="resizable">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="rv_renderer_subject"/>
+                              <attributes>
+                                <attribute name="text">1</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="rv_column2">
+                            <property name="title" translatable="yes">Author</property>
+                            <property name="fixed-width">200</property>
+                            <property name="sizing">GTK_TREE_VIEW_COLUMN_FIXED</property>
+                            <property name="resizable">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="rv_renderer_author"/>
+                              <attributes>
+                                <attribute name="text">2</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="rv_column3">
+                            <property name="title" translatable="yes">Date</property>
+                            <property name="fixed-width">200</property>
+                            <property name="sizing">GTK_TREE_VIEW_COLUMN_FIXED</property>
+                            <property name="resizable">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="rv_renderer_date"/>
+                              <attributes>
+                                <attribute name="text">3</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>

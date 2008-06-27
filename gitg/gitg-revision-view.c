@@ -51,6 +51,9 @@ update_markup(GObject *object)
 static void
 gitg_revision_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
+	if (parent_iface.parser_finished)
+		parent_iface.parser_finished(buildable, builder);
+
 	GitgRevisionView *rvv = GITG_REVISION_VIEW(buildable);
 
 	rvv->priv->sha = GTK_LABEL(gtk_builder_get_object(builder, "label_sha"));

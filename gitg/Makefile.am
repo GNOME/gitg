@@ -14,6 +14,7 @@ INCLUDES =							\
 
 gitg_SOURCES = 				\
 	gitg.c					\
+	gitg-window.c			\
 	gitg-revision.c			\
 	gitg-repository.c		\
 	gitg-runner.c			\
