@@ -28,8 +28,5 @@ gitg_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
 uidir = $(datadir)/gitg/ui/
 ui_DATA = gitg-ui.xml gitg-menus.xml
 
-update-ui:
-	gtk-builder-convert gitg.glade gitg-ui.xml
-
 EXTRA_DIST = 			\
 	$(ui_DATA)
