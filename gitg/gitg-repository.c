@@ -437,7 +437,7 @@ gitg_repository_init(GitgRepository *object)
 	object->priv->grow_size = 1000;
 	object->priv->stamp = g_random_int();
 	
-	object->priv->loader = gitg_runner_new(1000);
+	object->priv->loader = gitg_runner_new(5000);
 	g_signal_connect(object->priv->loader, "update", G_CALLBACK(on_loader_update), object);
 }
 
