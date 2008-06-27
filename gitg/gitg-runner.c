@@ -28,6 +28,7 @@ struct _GitgRunnerPrivate
 	GCond *cond;
 	GMutex *cond_mutex;
 	GMutex *mutex;
+	guint syncid;
 	gint output_fd;
 	
 	guint buffer_size;
@@ -180,6 +181,7 @@ emit_update_sync(GitgRunner *runner)
 	if (runner->priv->done)
 		g_signal_emit(runner, runner_signals[END_LOADING], 0);
 
+	runner->priv->syncid = 0;
 	g_cond_signal(runner->priv->cond);
 	return FALSE;
 }
@@ -190,7 +192,7 @@ sync_buffer(GitgRunner *runner, guint num)
 	// NULL terminate the buffer and add idle callback
 	runner->priv->buffer[num] = NULL;
 
-	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, (GSourceFunc)emit_update_sync, runner, NULL);
+	runner->priv->syncid = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, (GSourceFunc)emit_update_sync, runner, NULL);
 	g_cond_wait(runner->priv->cond, runner->priv->cond_mutex);
 }
 
@@ -283,6 +285,8 @@ gitg_runner_get_buffer_size(GitgRunner *runner)
 void
 gitg_runner_cancel(GitgRunner *runner)
 {
+	g_return_if_fail(GITG_IS_RUNNER(runner));
+
 	g_mutex_lock(runner->priv->mutex);
 	gboolean done = runner->priv->done;
 	runner->priv->done = TRUE;
@@ -292,8 +296,27 @@ gitg_runner_cancel(GitgRunner *runner)
 	{
 		g_cond_signal(runner->priv->cond);
 		g_thread_join(runner->priv->thread);
+		
+		if (runner->priv->syncid)
+		{
+			g_source_remove(runner->priv->syncid);
+			runner->priv->syncid = 0;
+		}
 	}
 	
 	runner->priv->thread = NULL;
 	runner->priv->pid = 0;
+}
+
+gboolean
+gitg_runner_running(GitgRunner *runner)
+{
+	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
+	gboolean running;
+	
+	g_mutex_lock(runner->priv->mutex);
+	running = !runner->priv->done;
+	g_mutex_unlock(runner->priv->mutex);
+	
+	return running;
 }

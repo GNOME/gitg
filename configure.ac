@@ -45,6 +45,7 @@ PKG_CHECK_MODULES(PACKAGE, [
 	gtk+-2.0 >= 2.8.0
 	gthread-2.0
 	gtksourceview-2.0 
+	gio-2.0
 ])
 
 AC_SUBST(PACKAGE_CFLAGS)

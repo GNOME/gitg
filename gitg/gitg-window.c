@@ -9,6 +9,7 @@
 #include "gitg-utils.h"
 #include "gitg-window.h"
 #include "gitg-revision-view.h"
+#include "gitg-revision-tree-view.h"
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
@@ -20,6 +21,7 @@ struct _GitgWindowPrivate
 	GtkTreeView *tree_view;
 	GtkStatusbar *statusbar;
 	GitgRevisionView *revision_view;
+	GitgRevisionTreeView *revision_tree_view;
 	GtkWidget *search_popup;
 };
 
@@ -28,7 +30,7 @@ static void gitg_window_buildable_iface_init(GtkBuildableIface *iface);
 G_DEFINE_TYPE_EXTENDED(GitgWindow, gitg_window, GTK_TYPE_WINDOW, 0,
 	G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, gitg_window_buildable_iface_init));
 
-GtkBuildableIface parent_iface = { 0, };
+static GtkBuildableIface parent_iface = { 0, };
 
 static void
 gitg_window_finalize(GObject *object)
@@ -49,6 +51,7 @@ on_selection_changed(GtkTreeSelection *selection, GitgWindow *window)
 		gtk_tree_model_get(GTK_TREE_MODEL(model), &iter, 0, &revision, -1);
 	
 	gitg_revision_view_update(window->priv->revision_view, window->priv->repository, revision);
+	gitg_revision_tree_view_update(window->priv->revision_tree_view, window->priv->repository, revision);
 }
 
 static void
@@ -204,6 +207,7 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	window->priv->tree_view = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_rv"));
 	window->priv->statusbar = GTK_STATUSBAR(gtk_builder_get_object(builder, "statusbar"));
 	window->priv->revision_view = GITG_REVISION_VIEW(gtk_builder_get_object(builder, "revision_view"));
+	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW(gtk_builder_get_object(builder, "revision_tree_view"));
 	
 	// Create search entry
 	build_search_entry(window, builder);

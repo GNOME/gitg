@@ -288,7 +288,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHPaned" id="hpaned1">
+                  <object class="GitgRevisionTreeView" id="revision_tree_view">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="position">200</property>
@@ -300,10 +300,27 @@
                         <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
                         <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
                         <child>
-                          <object class="GtkTreeView" id="tree_view_tree">
+                          <object class="GtkTreeView" id="revision_tree">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="headers_clickable">True</property>
+                            <property name="headers-visible">False</property>
+                            <child>
+                              <object class="GtkTreeViewColumn" id="revision_tree_column">
+                                <property name="title" translatable="yes">Filename</property>
+                                <child>
+                                  <object class="GtkCellRendererPixbuf" id="renderer_icon"/>
+                                  <attributes>
+                                    <attribute name="pixbuf">0</attribute>
+                                  </attributes>
+                                </child>
+                                <child>
+                                  <object class="GtkCellRendererText" id="rv_renderer_date"/>
+                                  <attributes>
+                                    <attribute name="text">1</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
@@ -313,7 +330,23 @@
                       </packing>
                     </child>
                     <child>
-                      <placeholder/>
+                      <object class="GtkScrolledWindow" id="scrolled_window_tree_contents">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                        <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                        <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+                        <child>
+                          <object class="GtkSourceView" id="revision_tree_contents">
+                            <property name="editable">False</property>
+                            <property name="show-line-numbers">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="resize">True</property>
+                        <property name="shrink">True</property>
+                      </packing>
                     </child>
                   </object>
                 </child>
