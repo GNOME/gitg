@@ -153,3 +153,53 @@ gchar const *todir, gchar * const *paths)
 	g_string_free(gstr, TRUE);
 	return ret;
 }
+
+gchar *
+convert_fallback(gchar const *text, gchar const *fallback)
+{
+	gchar *res;
+	gsize read, written;
+	GString *str = g_string_new("");
+	
+	while ((res = g_convert(text, -1, "UTF-8", "ASCII", &read, &written, NULL))
+			== NULL) {
+		res = g_convert(text, read, "UTF-8", "ASCII", NULL, NULL, NULL);
+		str = g_string_append(str, res);
+		
+		str = g_string_append(str, fallback);
+		text = text + read + 1;
+	}
+	
+	str = g_string_append(str, res);
+	g_free(res);
+	
+	res = str->str;
+	g_string_free(str, FALSE);
+	return res;
+}
+
+gchar *
+gitg_utils_convert_utf8(gchar const *str)
+{
+	static gchar *encodings[] = {
+		"ISO-8859-15",
+		"ASCII"
+	};
+	
+	if (g_utf8_validate(str, -1, NULL))
+		return g_strdup(str);
+	
+	int i;
+	for (i = 0; i < sizeof(encodings) / sizeof(gchar *); ++i)
+	{
+		gsize read;
+		gsize written;
+
+		gchar *ret = g_convert(str, -1, "UTF-8", encodings[i], &read, &written, NULL);
+		
+		if (ret)
+			return ret;
+	}
+	
+	return convert_fallback(str, "?");
+}

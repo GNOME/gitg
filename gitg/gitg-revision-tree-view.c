@@ -583,14 +583,11 @@ on_update(GitgRunner *runner, gchar **buffer, GitgRevisionTreeView *tree)
 	{
 		if (skip)
 		{
-			if (*line == '\n')
+			if (*line == '\0')
 				skip = FALSE;
 			
 			continue;
 		}
-				
-		// Remove newline
-		line[strlen(line) - 1] = '\0';
 		
 		append_node(tree, line);
 	}
@@ -649,7 +646,10 @@ on_contents_update(GitgRunner *runner, gchar **buffer, GitgRevisionTreeView *tre
 	gtk_text_buffer_get_end_iter(buf, &iter);
 	
 	while ((line = *buffer++))
+	{
 		gtk_text_buffer_insert(buf, &iter, line, -1);
+		gtk_text_buffer_insert(buf, &iter, "\n", -1);
+	}
 }
 
 static void

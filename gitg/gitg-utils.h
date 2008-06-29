@@ -17,4 +17,6 @@ gchar *gitg_utils_dot_git_path(gchar const *path);
 gboolean gitg_utils_export_files(GitgRepository *repository, GitgRevision *revision,
 gchar const *todir, gchar * const *paths);
 
+gchar *gitg_utils_convert_utf8(gchar const *str);
+
 #endif /* __GITG_UTILS_H__ */

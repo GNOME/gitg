@@ -1,5 +1,5 @@
 #include "gitg-runner.h"
-
+#include "gitg-utils.h"
 
 #define GITG_RUNNER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_RUNNER, GitgRunnerPrivate))
 
@@ -208,10 +208,16 @@ output_reader_thread(gpointer userdata)
 	gsize len;
 	GError *error = NULL;
 	gboolean cancel = FALSE;
+	gsize term;
 
-	while (g_io_channel_read_line(channel, &line, &len, NULL, &error) == G_IO_STATUS_NORMAL)
+	while (g_io_channel_read_line(channel, &line, &len, &term, &error) == G_IO_STATUS_NORMAL)
 	{
-		runner->priv->buffer[num++] = line;
+		// Do not include the newline
+		line[term] = '\0';
+		
+		gchar *utf8 = gitg_utils_convert_utf8(line);
+		runner->priv->buffer[num++] = utf8;
+		g_free(line);
 		
 		g_mutex_lock(runner->priv->mutex);
 		gboolean cancel = runner->priv->done;
