@@ -103,3 +103,53 @@ gitg_utils_dot_git_path(gchar const *path)
 	else
 		return g_build_filename(path, ".git", NULL);
 }
+
+static void
+append_escape(GString *gstr, gchar const *item)
+{
+	gchar *escape = g_shell_quote(item);
+	
+	g_string_append_printf(gstr, " %s", escape);
+}
+
+gboolean 
+gitg_utils_export_files(GitgRepository *repository, GitgRevision *revision,
+gchar const *todir, gchar * const *paths)
+{	
+	GString *gstr = g_string_new("sh -c \"git --git-dir");
+	
+	// Append the git path
+	gchar *gitpath = gitg_utils_dot_git_path(gitg_repository_get_path(repository));
+	append_escape(gstr, gitpath);
+	g_free(gitpath);
+
+	// Append the revision
+	gchar *sha = gitg_revision_get_sha1(revision);
+	g_string_append_printf(gstr, " archive --format=tar %s", sha);
+	g_free(sha);
+	
+	// Append the files
+	while (*paths)
+	{
+		append_escape(gstr, *paths);
+		paths++;
+	}
+
+	g_string_append(gstr, " | tar -xC");
+	append_escape(gstr, todir);
+	g_string_append(gstr, "\"");
+	
+	GError *error = NULL;
+	gint status;
+
+	gboolean ret = g_spawn_command_line_sync(gstr->str, NULL, NULL, &status, &error);
+	
+	if (!ret)
+	{
+		g_warning("Export failed:\n%s\n%s", gstr->str, error->message);
+		g_error_free(error);
+	}
+
+	g_string_free(gstr, TRUE);
+	return ret;
+}

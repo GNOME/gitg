@@ -25,7 +25,10 @@ struct _GitgRevisionTreeViewPrivate
 	GtkSourceView *contents;
 	GitgRunner *content_runner;
 	GtkTreeStore *store;
-	
+
+	gchar *drag_dir;
+	gchar **drag_files;
+
 	GitgRepository *repository;
 	GitgRevision *revision;
 	GitgRunner *loader;
@@ -54,6 +57,11 @@ gitg_revision_tree_view_finalize(GObject *object)
 	
 	if (self->priv->load_path)
 		gtk_tree_path_free(self->priv->load_path);
+	
+	g_free(self->priv->drag_dir);
+	
+	if (self->priv->drag_files)
+		g_strfreev(self->priv->drag_files);
 	
 	gitg_runner_cancel(self->priv->loader);
 	g_object_unref(self->priv->loader);
@@ -192,10 +200,24 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 	
 	gtk_text_buffer_set_text(buffer, "", -1);
 
-	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
+	if (!tree->priv->revision)
+		return;
+
+	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);
+	GtkTreePath *path = NULL;
+	
+	if (g_list_length(rows) == 1)
+		path = gtk_tree_path_copy((GtkTreePath *)rows->data);
+	
+	g_list_foreach(rows, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free(rows);
+	
+	if (!path)
 		return;
 	
 	gchar *content_type;
+	gtk_tree_model_get_iter(model, &iter, path);
+	gtk_tree_path_free(path);
 	gtk_tree_model_get(model, &iter, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
 	
 	if (!content_type)
@@ -229,6 +251,130 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 	g_free(content_type);
 }
 
+static gchar *
+node_path(GtkTreeModel *model, GtkTreeIter *parent)
+{
+	if (!parent)
+		return NULL;
+	
+	gchar *name;
+	gtk_tree_model_get(model, parent, GITG_REVISION_TREE_STORE_NAME_COLUMN, &name, -1);
+	
+	GtkTreeIter parent_iter;
+	gchar *ret;
+	
+	if (gtk_tree_model_iter_parent(model, &parent_iter, parent))
+	{
+		gchar *path = node_path(model, &parent_iter);
+		ret = g_build_filename(path, name, NULL);
+		g_free(path);
+		g_free(name);
+	}
+	else
+	{
+		ret = name;
+	}
+	
+	return ret;
+}
+
+static void
+export_drag_files(GitgRevisionTreeView *tree_view)
+{
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree_view->priv->tree_view);
+	GtkTreeModel *model;
+
+	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);	
+	gint num = g_list_length(rows);
+	
+	if (num == 0)
+		return;
+
+	GList *item;
+
+	tree_view->priv->drag_files = g_new(gchar *, num + 1);
+	gchar **ptr = tree_view->priv->drag_files;
+
+	for (item = rows; item; item = item->next)
+	{
+		GtkTreePath *path = (GtkTreePath *)item->data;
+		GtkTreeIter iter;
+		gtk_tree_model_get_iter(model, &iter, path);
+		
+		*ptr++ = node_path(model, &iter);
+		gtk_tree_path_free(path);
+	}
+	
+	*ptr = NULL;
+	g_list_free(rows);
+	
+	// Prepend temporary directory in uri list	
+	g_free(tree_view->priv->drag_dir);
+	gchar const *tmp = g_get_tmp_dir();
+	tree_view->priv->drag_dir = g_build_filename(tmp, "gitg-export-XXXXXX", NULL);
+	mkdtemp(tree_view->priv->drag_dir);
+
+	// Do the export
+	gitg_utils_export_files(tree_view->priv->repository, tree_view->priv->revision, tree_view->priv->drag_dir, tree_view->priv->drag_files);
+
+	ptr = tree_view->priv->drag_files;
+
+	while (*ptr)
+	{
+		gchar *tmp = g_build_filename(tree_view->priv->drag_dir, *ptr, NULL);
+		g_free(*ptr);
+		
+		GFile *file = g_file_new_for_path(tmp);
+		*ptr++ = g_file_get_uri(file);
+		
+		g_free(tmp);
+	}
+}
+
+static void
+on_drag_data_get(GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection, guint info, guint time, GitgRevisionTreeView *tree_view)
+{
+	if (!tree_view->priv->drag_files)
+		export_drag_files(tree_view);
+
+	gtk_selection_data_set_uris(selection, tree_view->priv->drag_files);
+}
+
+static gboolean
+test_selection(GtkTreeSelection *selection, GtkTreeModel *model, GtkTreePath *path, gboolean path_currently_selected, gpointer data)
+{
+	if (path_currently_selected)
+		return TRUE;
+	
+	// Test for (Empty)
+	GtkTreeIter iter;
+	
+	if (!gtk_tree_model_get_iter(model, &iter, path))
+		return FALSE;
+	
+	gchar *content_type;
+	gtk_tree_model_get(model, &iter, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
+	
+	if (!content_type)
+		return FALSE;
+	
+	g_free(content_type);
+	return TRUE;
+}
+
+static void
+on_drag_end(GtkWidget *widget, GdkDragContext *context, GitgRevisionTreeView *tree_view)
+{
+	if (tree_view->priv->drag_files != NULL)
+	{
+		g_strfreev(tree_view->priv->drag_files);
+		tree_view->priv->drag_files = NULL;
+		
+		g_free(tree_view->priv->drag_dir);
+		tree_view->priv->drag_dir = NULL;
+	}
+}
+
 static void
 gitg_revision_tree_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
@@ -244,17 +390,23 @@ gitg_revision_tree_view_parser_finished(GtkBuildable *buildable, GtkBuilder *bui
 	
 	gtk_tree_view_set_model(tree_view->priv->tree_view, GTK_TREE_MODEL(tree_view->priv->store));
 
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree_view->priv->tree_view);
+	gtk_tree_selection_set_mode(selection, GTK_SELECTION_MULTIPLE);
+	gtk_tree_selection_set_select_function(selection, test_selection, NULL, NULL);
+	
 	// Setup drag source
 	GtkTargetEntry targets[] = {
 		{"text/uri-list", GTK_TARGET_OTHER_APP, 0}
 	};
 	
-	gtk_tree_view_enable_model_drag_source(tree_view->priv->tree_view, GDK_BUTTON1_MASK, targets, 1, GDK_ACTION_COPY);
-
+	// Set tree view as a drag source
+	gtk_drag_source_set(GTK_WIDGET(tree_view->priv->tree_view), GDK_BUTTON1_MASK, targets, 1, GDK_ACTION_DEFAULT | GDK_ACTION_COPY);
+	
 	// Connect signals
 	g_signal_connect_after(tree_view->priv->tree_view, "row-expanded", G_CALLBACK(on_row_expanded), tree_view);
 	
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree_view->priv->tree_view);
+	g_signal_connect(tree_view->priv->tree_view, "drag-data-get", G_CALLBACK(on_drag_data_get), tree_view);
+	g_signal_connect(tree_view->priv->tree_view, "drag-end", G_CALLBACK(on_drag_end), tree_view);
 	g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), tree_view);
 }
 
@@ -514,33 +666,6 @@ gitg_revision_tree_view_init(GitgRevisionTreeView *self)
 	
 	self->priv->content_runner = gitg_runner_new(500);
 	g_signal_connect(self->priv->content_runner, "update", G_CALLBACK(on_contents_update), self);
-}
-
-static gchar *
-node_path(GtkTreeModel *model, GtkTreeIter *parent)
-{
-	if (!parent)
-		return NULL;
-	
-	gchar *name;
-	gtk_tree_model_get(model, parent, GITG_REVISION_TREE_STORE_NAME_COLUMN, &name, -1);
-	
-	GtkTreeIter parent_iter;
-	gchar *ret;
-	
-	if (gtk_tree_model_iter_parent(model, &parent_iter, parent))
-	{
-		gchar *path = node_path(model, &parent_iter);
-		ret = g_build_filename(path, name, NULL);
-		g_free(path);
-		g_free(name);
-	}
-	else
-	{
-		ret = name;
-	}
-	
-	return ret;
 }
 
 static gchar *

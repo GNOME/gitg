@@ -6,14 +6,13 @@
 {
 };*/
 
-static void gitg_revision_tree_store_drag_source_iface_init(GtkTreeDragSourceIface *iface);
+//static void gitg_revision_tree_store_drag_source_iface_init(GtkTreeDragSourceIface *iface);
 
-G_DEFINE_TYPE_EXTENDED(GitgRevisionTreeStore, gitg_revision_tree_store, GTK_TYPE_TREE_STORE, 0,
-	G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_DRAG_SOURCE, gitg_revision_tree_store_drag_source_iface_init));
+G_DEFINE_TYPE(GitgRevisionTreeStore, gitg_revision_tree_store, GTK_TYPE_TREE_STORE);
 
-static GtkTreeDragSourceIface parent_drag_source_iface = {0,};
+//static GtkTreeDragSourceIface parent_drag_source_iface = {0,};
 
-static gboolean
+/*static gboolean
 drag_source_row_draggable(GtkTreeDragSource *drag_source, GtkTreePath *path)
 {
 	GtkTreeIter iter;
@@ -61,7 +60,7 @@ gitg_revision_tree_store_drag_source_iface_init(GtkTreeDragSourceIface *iface)
 	iface->row_draggable = drag_source_row_draggable;
 	iface->drag_data_get = drag_source_drag_data_get;
 	iface->drag_data_delete = drag_source_drag_data_delete;
-}
+}*/
 
 static void
 gitg_revision_tree_store_finalize(GObject *object)
