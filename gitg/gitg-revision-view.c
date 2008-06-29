@@ -146,7 +146,10 @@ on_diff_update(GitgRunner *runner, gchar **buffer, GitgRevisionView *self)
 	gtk_text_buffer_get_end_iter(buf, &iter);
 	
 	while ((line = *buffer++))
+	{
 		gtk_text_buffer_insert(buf, &iter, line, -1);
+		gtk_text_buffer_insert(buf, &iter, "\n", -1);
+	}
 }
 
 static void
