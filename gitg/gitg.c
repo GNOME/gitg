@@ -37,6 +37,7 @@ static gboolean
 on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer userdata)
 {
 	gtk_main_quit();
+	return FALSE;
 }
 
 static GitgWindow *
