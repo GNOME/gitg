@@ -5,6 +5,7 @@
 #include <gio/gio.h>
 
 #include "gitg-revision-tree-view.h"
+#include "gitg-revision-tree-store.h"
 #include "gitg-runner.h"
 #include "gitg-utils.h"
 
@@ -16,13 +17,6 @@ enum {
 	
 	PROP_REPOSITORY,
 	PROP_REVISION
-};
-
-enum {
-	ICON_COLUMN,
-	NAME_COLUMN,
-	CONTENT_TYPE_COLUMN,
-	N_COLUMNS
 };
 
 struct _GitgRevisionTreeViewPrivate
@@ -131,7 +125,7 @@ loaded(GitgRevisionTreeView *view, GtkTreeIter *iter)
 	if (!gtk_tree_model_iter_children(GTK_TREE_MODEL(view->priv->store), &child, iter))
 		return FALSE;
 
-	gtk_tree_model_get(GTK_TREE_MODEL(view->priv->store), &child, CONTENT_TYPE_COLUMN, &content_type, -1);
+	gtk_tree_model_get(GTK_TREE_MODEL(view->priv->store), &child, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
 	gboolean ret = content_type != NULL;
 	g_free(content_type);
 	
@@ -202,7 +196,7 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 		return;
 	
 	gchar *content_type;
-	gtk_tree_model_get(model, &iter, CONTENT_TYPE_COLUMN, &content_type, -1);
+	gtk_tree_model_get(model, &iter, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
 	
 	if (!content_type)
 		return;
@@ -249,7 +243,14 @@ gitg_revision_tree_view_parser_finished(GtkBuildable *buildable, GtkBuilder *bui
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(tree_view->priv->contents), GTK_TEXT_BUFFER(gtk_source_buffer_new(NULL)));
 	
 	gtk_tree_view_set_model(tree_view->priv->tree_view, GTK_TREE_MODEL(tree_view->priv->store));
+
+	// Setup drag source
+	GtkTargetEntry targets[] = {
+		{"text/uri-list", GTK_TARGET_OTHER_APP, 0}
+	};
 	
+	gtk_tree_view_enable_model_drag_source(tree_view->priv->tree_view, GDK_BUTTON1_MASK, targets, 1, GDK_ACTION_COPY);
+
 	// Connect signals
 	g_signal_connect_after(tree_view->priv->tree_view, "row-expanded", G_CALLBACK(on_row_expanded), tree_view);
 	
@@ -319,7 +320,7 @@ remove_dummy(GitgRevisionTreeView *tree)
 	do
 	{
 		gchar *content_type;
-		gtk_tree_model_get(model, &child, CONTENT_TYPE_COLUMN, &content_type, -1);
+		gtk_tree_model_get(model, &child, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
 		
 		if (!content_type)
 		{
@@ -361,10 +362,10 @@ append_node(GitgRevisionTreeView *tree, gchar *line)
 	{
 		GtkTreeIter empty;
 		gtk_tree_store_append(tree->priv->store, &empty, &iter);
-		gtk_tree_store_set(tree->priv->store, &empty, NAME_COLUMN, _("(Empty)"), -1);
+		gtk_tree_store_set(tree->priv->store, &empty, GITG_REVISION_TREE_STORE_NAME_COLUMN, _("(Empty)"), -1);
 		
 		gchar *content_type = get_content_type(line, TRUE);
-		gtk_tree_store_set(tree->priv->store, &iter, CONTENT_TYPE_COLUMN, content_type, -1);
+		gtk_tree_store_set(tree->priv->store, &iter, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, content_type, -1);
 		icon = g_content_type_get_icon(content_type);
 		g_free(content_type);
 
@@ -375,7 +376,7 @@ append_node(GitgRevisionTreeView *tree, gchar *line)
 	{
 		gchar *content_type = get_content_type(line, FALSE);
 		icon = g_content_type_get_icon(content_type);
-		gtk_tree_store_set(tree->priv->store, &iter, CONTENT_TYPE_COLUMN, content_type, -1);
+		gtk_tree_store_set(tree->priv->store, &iter, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, content_type, -1);
 		g_free(content_type);
 		
 		if (icon && G_IS_THEMED_ICON(icon))
@@ -402,7 +403,7 @@ append_node(GitgRevisionTreeView *tree, gchar *line)
 				g_error_free(error);
 			}
 		
-			gtk_tree_store_set(tree->priv->store, &iter, ICON_COLUMN, pixbuf, -1);
+			gtk_tree_store_set(tree->priv->store, &iter, GITG_REVISION_TREE_STORE_ICON_COLUMN, pixbuf, -1);
 		
 			if (pixbuf)
 				g_object_unref(pixbuf);
@@ -416,7 +417,7 @@ append_node(GitgRevisionTreeView *tree, gchar *line)
 	if (icon)
 		g_object_unref(icon);
 
-	gtk_tree_store_set(tree->priv->store, &iter, NAME_COLUMN, line, -1);
+	gtk_tree_store_set(tree->priv->store, &iter, GITG_REVISION_TREE_STORE_NAME_COLUMN, line, -1);
 	remove_dummy(tree);
 }
 
@@ -457,8 +458,8 @@ compare_func(GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, GitgRevisionTr
 	gchar *s1;
 	gchar *s2;
 	
-	gtk_tree_model_get(model, a, NAME_COLUMN, &s1, -1);
-	gtk_tree_model_get(model, b, NAME_COLUMN, &s2, -1);
+	gtk_tree_model_get(model, a, GITG_REVISION_TREE_STORE_NAME_COLUMN, &s1, -1);
+	gtk_tree_model_get(model, b, GITG_REVISION_TREE_STORE_NAME_COLUMN, &s2, -1);
 	
 	if (s1 == NULL)
 	{
@@ -503,10 +504,11 @@ static void
 gitg_revision_tree_view_init(GitgRevisionTreeView *self)
 {
 	self->priv = GITG_REVISION_TREE_VIEW_GET_PRIVATE(self);
-	self->priv->store = gtk_tree_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING);
+	self->priv->store = GTK_TREE_STORE(gitg_revision_tree_store_new());
+	
 	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(self->priv->store), 1, (GtkTreeIterCompareFunc)compare_func, self, NULL);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(self->priv->store), 1, GTK_SORT_ASCENDING);
-	
+		
 	self->priv->loader = gitg_runner_new(100);
 	g_signal_connect(self->priv->loader, "update", G_CALLBACK(on_update), self);
 	
@@ -521,7 +523,7 @@ node_path(GtkTreeModel *model, GtkTreeIter *parent)
 		return NULL;
 	
 	gchar *name;
-	gtk_tree_model_get(model, parent, NAME_COLUMN, &name, -1);
+	gtk_tree_model_get(model, parent, GITG_REVISION_TREE_STORE_NAME_COLUMN, &name, -1);
 	
 	GtkTreeIter parent_iter;
 	gchar *ret;

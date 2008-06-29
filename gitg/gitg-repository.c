@@ -71,7 +71,9 @@ static GType
 tree_model_get_column_type(GtkTreeModel *tree_model, gint index)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(tree_model), G_TYPE_INVALID);
-	g_return_val_if_fail(index < N_COLUMNS && index >= 0, G_TYPE_INVALID); 
+	g_return_val_if_fail(index < N_COLUMNS && index >= 0, G_TYPE_INVALID);
+	
+	return GITG_REPOSITORY(tree_model)->priv->column_types[index];
 }
 
 static gboolean
