@@ -31,6 +31,7 @@ G_DEFINE_TYPE_EXTENDED(GitgWindow, gitg_window, GTK_TYPE_WINDOW, 0,
 	G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, gitg_window_buildable_iface_init));
 
 static GtkBuildableIface parent_iface = { 0, };
+static GtkWindowClass *parent_class = NULL;
 
 static void
 gitg_window_finalize(GObject *object)
@@ -227,11 +228,24 @@ gitg_window_buildable_iface_init(GtkBuildableIface *iface)
 }
 
 static void
+gitg_window_destroy(GtkObject *object)
+{
+	gtk_tree_view_set_model(GITG_WINDOW(object)->priv->tree_view, NULL);
+
+	if (GTK_OBJECT_CLASS(parent_class)->destroy)
+		GTK_OBJECT_CLASS(parent_class)->destroy(object);
+}
+
+static void
 gitg_window_class_init(GitgWindowClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	GtkObjectClass *gtkobject_class = GTK_OBJECT_CLASS(klass);
 	
+	parent_class = g_type_class_peek_parent(klass);
+		
 	object_class->finalize = gitg_window_finalize;
+	gtkobject_class->destroy = gitg_window_destroy;
 	
 	g_type_class_add_private(object_class, sizeof(GitgWindowPrivate));
 }
