@@ -287,7 +287,10 @@ gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, Gi
 	{
 		gtk_label_set_text(self->priv->author, gitg_revision_get_author(revision));
 
-		gchar *subject = g_strconcat("<b>", gitg_revision_get_subject(revision), "</b>", NULL);
+		gchar *s = g_markup_escape_text(gitg_revision_get_subject(revision), -1);
+		gchar *subject = g_strconcat("<b>", s, "</b>", NULL);
+		g_free(s);
+
 		gtk_label_set_markup(self->priv->subject, subject);
 		g_free(subject);
 
