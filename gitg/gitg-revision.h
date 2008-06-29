@@ -13,6 +13,8 @@ G_BEGIN_DECLS
 #define GITG_IS_REVISION_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), GITG_TYPE_REVISION))
 #define GITG_REVISION_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), GITG_TYPE_REVISION, GitgRevisionClass))
 
+typedef gchar Hash[20];
+
 typedef struct _GitgRevision		GitgRevision;
 typedef struct _GitgRevisionClass	GitgRevisionClass;
 typedef struct _GitgRevisionPrivate	GitgRevisionPrivate;
@@ -36,9 +38,16 @@ inline gchar const *gitg_revision_get_author(GitgRevision *revision);
 inline gchar const *gitg_revision_get_subject(GitgRevision *revision);
 inline guint64 gitg_revision_get_timestamp(GitgRevision *revision);
 inline gchar const *gitg_revision_get_hash(GitgRevision *revision);
+inline Hash *gitg_revision_get_parents_hash(GitgRevision *revision, guint *num_parents);
 
 gchar *gitg_revision_get_sha1(GitgRevision *revision);
 gchar **gitg_revision_get_parents(GitgRevision *revision);
+
+gint8 *gitg_revision_get_lanes(GitgRevision *revision);
+void gitg_revision_set_lanes(GitgRevision *revision, gint8 *lane_ids);
+
+gint8 gitg_revision_get_mylane(GitgRevision *revision);
+void gitg_revision_set_mylane(GitgRevision *revision, gint8 mylane);
 
 G_END_DECLS
 

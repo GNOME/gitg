@@ -19,6 +19,7 @@ gitg_SOURCES = 					\
 	gitg-revision-tree-view.c	\
 	gitg-revision-tree-store.c	\
 	gitg-repository.c			\
+	gitg-cell-renderer-path.c	\
 	gitg-runner.c				\
 	gitg-revision-view.c		\
 	gitg-utils.c				\

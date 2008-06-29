@@ -36,6 +36,8 @@ struct _GitgRepositoryPrivate
 	GType column_types[N_COLUMNS];
 	
 	GitgRevision **storage;
+	GSList *lanes;
+
 	gulong size;
 	gulong allocated;
 	gint grow_size;
@@ -293,6 +295,9 @@ do_clear(GitgRepository *repository, gboolean emit)
 	repository->priv->storage = NULL;
 	repository->priv->size = 0;
 	repository->priv->allocated = 0;
+	
+	g_slist_free(repository->priv->lanes);
+	repository->priv->lanes = NULL;
 }
 
 static void
@@ -398,6 +403,169 @@ hash_equal(gconstpointer a, gconstpointer b)
 	return strncmp((char const *)a, (char const *)b, 20) == 0;
 }
 
+static GSList *
+find_lane_by_hash(GSList *lanes, gchar const *hash, gint8 *pos)
+{
+	GSList *item;
+	gint8 p = 0;
+
+	if (!hash)
+		return NULL;
+
+	for (item = lanes; item; item = item->next)
+	{
+		if (item->data && hash_equal(item->data, hash))
+		{
+			if (pos)
+				*pos = p;
+		
+			return item;
+		}
+
+		++p;
+	}
+	
+	return NULL;
+}
+
+static void
+print_lanes(gint8 *indices)
+{
+	GString *str = g_string_new("[");
+		
+	while (indices && *indices != -2)
+	{
+		if (str->len > 1)
+			g_string_append(str, ", ");
+		
+		g_string_append_printf(str, "%d", *indices);
+		++indices;
+	}
+
+	g_string_append(str, "]");
+
+	gchar *res = str->str;
+	g_string_free(str, FALSE);
+	
+	g_print("%s\n", res);
+}
+
+static GSList *
+init_indices(GitgRepository *self)
+{
+	GSList *item;
+	GSList *res = NULL;
+	gint8 num = 0;
+	
+	for (item = self->priv->lanes; item; item = item->next)
+	{
+		GArray *ar = g_array_new(FALSE, FALSE, sizeof(gint8));
+		
+		g_array_append_vals(ar, &num, 1);
+		res = g_slist_prepend(res, ar);
+		++num;
+	}
+	
+	return g_slist_reverse(res);
+}
+
+static gint8 *
+flatten_indices(GSList *indices)
+{
+	gint8 *ret = g_new(gint8, 1);
+	GSList *item;
+	gint num = 0;
+
+	for (item = indices; item; item = item->next)
+	{
+		if (item != indices)
+		{
+			ret = g_renew(gint8, ret, ++num + 1);
+			ret[num - 1] = -1;
+		}
+		
+		GArray *ar = (GArray *)(item->data);
+		
+		int i;
+		for (i = 0; i < ar->len; ++i)
+		{
+			ret = g_renew(gint8, ret, ++num + 1);
+			ret[num - 1] = g_array_index(ar, gint8, i);
+		}
+		
+		g_array_free(ar, TRUE);
+	}
+	
+	ret[num] = -2;
+	return ret;
+}
+
+static gint8 *
+calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
+{
+	// Get current lane ids
+	GSList *prev = self->priv->lanes;
+	
+	// Determine the new lanes given the previous ones and the parents of the
+	// new revision
+	gint numlanes = g_slist_length(prev);
+	GSList *indices = init_indices(self);
+	
+	gint8 myid;
+	GSList *mylane = find_lane_by_hash(prev, gitg_revision_get_hash(rv), &myid);
+	mylane->data = NULL;
+	
+	guint num;
+	Hash *parents = gitg_revision_get_parents_hash(rv, &num);
+	int i;
+	
+	// Iterate over all parents and find them a lane
+	for (i = 0; i < num; ++i)
+	{
+		gint8 lnpos;
+		GSList *lane = find_lane_by_hash(prev, parents[i], &lnpos);
+
+		if (lane)
+		{
+			// There already is a lane for this hash. Add myid to the
+			// list for lnpos
+			g_array_append_vals((GArray *)g_slist_nth_data(indices, lnpos), &myid, 1);
+			continue;
+		} 
+		else if (mylane->data == NULL)
+		{
+			// There is no parent yet which can proceed on the current
+			// revision lane, so set it now
+			mylane->data = (gpointer)parents[i];
+		}
+		else
+		{
+			// Generate a new lane for this parent
+			prev = g_slist_append(prev, (gpointer)parents[i]);
+			
+			GArray *n = g_array_new(FALSE, FALSE, sizeof(gint8));
+			g_array_append_vals(n, &myid, 1);
+			indices = g_slist_append(indices, n);
+		}
+	}
+	
+	if (mylane->data == NULL)
+	{
+		// Remove the current lane since it is no longer needed
+		gpointer item = g_slist_nth_data(indices, myid);
+		
+		g_array_free((GArray *)item, TRUE);
+		indices = g_slist_remove(indices, item);
+
+		self->priv->lanes = g_slist_remove(self->priv->lanes, mylane->data);
+	}
+	
+	gint8 *res = flatten_indices(indices);
+	g_slist_free(indices);
+	
+	return res;
+}
+
 static void
 on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 {
@@ -418,6 +586,20 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 		gint64 timestamp = g_ascii_strtoll(components[4], NULL, 0);
 	
 		GitgRevision *rv = gitg_revision_new(components[0], components[1], components[2], components[3], timestamp);
+		gint8 *indices = NULL;
+		gint8 mylane = 0;
+		
+		if (self->priv->size == 0)
+			self->priv->lanes = g_slist_append(self->priv->lanes, (gpointer)gitg_revision_get_hash(rv));
+		else
+		{
+			indices = calculate_lane_ids(self, self->priv->storage[self->priv->size - 1]);
+			find_lane_by_hash(self->priv->lanes, gitg_revision_get_hash(rv), &mylane);
+		}
+		
+		gitg_revision_set_lanes(rv, indices);
+		gitg_revision_set_mylane(rv, mylane);
+
 		gitg_repository_add(self, rv, NULL);
 
 		g_object_unref(rv);

@@ -10,6 +10,7 @@
 #include "gitg-window.h"
 #include "gitg-revision-view.h"
 #include "gitg-revision-tree-view.h"
+#include "gitg-cell-renderer-path.h"
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
@@ -198,6 +199,17 @@ on_parent_activated(GitgRevisionView *view, gchar *hash, GitgWindow *window)
 }
 
 static void
+on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkTreeModel *model, GtkTreeIter *iter, GitgWindow *window)
+{
+	GitgRevision *rv;
+	
+	gtk_tree_model_get(model, iter, 0, &rv, -1);
+	g_object_set(renderer, "column", gitg_revision_get_mylane(rv), "columns", gitg_revision_get_lanes(rv), NULL);
+	
+	g_object_unref(rv);
+}
+
+static void
 gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
 	if (parent_iface.parser_finished)
@@ -209,6 +221,9 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	window->priv->statusbar = GTK_STATUSBAR(gtk_builder_get_object(builder, "statusbar"));
 	window->priv->revision_view = GITG_REVISION_VIEW(gtk_builder_get_object(builder, "revision_view"));
 	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW(gtk_builder_get_object(builder, "revision_tree_view"));
+	
+	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
+	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "rv_renderer_subject")), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
 	
 	// Create search entry
 	build_search_entry(window, builder);
