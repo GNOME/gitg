@@ -174,7 +174,7 @@ on_parent_clicked(GtkWidget *ev, GdkEventButton *event, gpointer userdata)
 	gchar *hash = (gchar *)g_object_get_data(G_OBJECT(ev), HASH_KEY);
 	g_signal_emit(rvv, signals[PARENT_ACTIVATED], 0, hash);
 
-	return TRUE;
+	return FALSE;
 }
 
 static GtkWidget *
