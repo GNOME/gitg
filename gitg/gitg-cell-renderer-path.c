@@ -123,7 +123,7 @@ draw_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 {
 	cairo_set_line_width(cr, 1.5);
 	cairo_set_source_rgb(cr, 0.45, 0.6, 0.74);
-	
+	cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
 	draw_top_paths(self, cr, area);
 	draw_bottom_paths(self, cr, area);
 }
