@@ -79,7 +79,7 @@ main(int argc, char **argv)
 	parse_options(&argc, &argv);
 	
 	GitgWindow *window = build_ui();
-	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, &argv[2]);
+	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 1, (gchar const **)&argv[2]);
 	
 	gtk_main();
 	
