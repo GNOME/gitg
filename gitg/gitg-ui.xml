@@ -20,6 +20,27 @@
                   <object class="GtkHBox" id="hbox_top">
                     <property name="visible">True</property>
                     <property name="spacing">3</property>
+                    <child>
+                      <object class="GtkLabel" id="label_branches">
+                        <property name="label" translatable="yes">Branch:</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="combo_box_branches">
+                        <child>
+                          <object class="GtkCellRendererText" id="branches_renderer"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                      </packing>
+                    </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>

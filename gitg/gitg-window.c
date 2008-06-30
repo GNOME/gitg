@@ -7,6 +7,7 @@
 #include "config.h"
 
 #include "gitg-utils.h"
+#include "gitg-runner.h"
 #include "gitg-window.h"
 #include "gitg-revision-view.h"
 #include "gitg-revision-tree-view.h"
@@ -17,16 +18,20 @@
 struct _GitgWindowPrivate
 {
 	GitgRepository *repository;
-	
+	GtkListStore *branches_store;
+	GitgRunner *branches_runner;
+
 	// Widget placeholders
 	GtkTreeView *tree_view;
 	GtkStatusbar *statusbar;
 	GitgRevisionView *revision_view;
 	GitgRevisionTreeView *revision_tree_view;
 	GtkWidget *search_popup;
+	GtkComboBox *combo_branches;
 };
 
 static void gitg_window_buildable_iface_init(GtkBuildableIface *iface);
+static void on_branches_update(GitgRunner *runner, gchar **buffer, GitgWindow *self);
 
 G_DEFINE_TYPE_EXTENDED(GitgWindow, gitg_window, GTK_TYPE_WINDOW, 0,
 	G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, gitg_window_buildable_iface_init));
@@ -38,6 +43,9 @@ static void
 gitg_window_finalize(GObject *object)
 {
 	GitgWindow *self = GITG_WINDOW(object);
+	
+	gitg_runner_cancel(self->priv->branches_runner);
+	g_object_unref(self->priv->branches_runner);
 	
 	G_OBJECT_CLASS(gitg_window_parent_class)->finalize(object);
 }
@@ -222,6 +230,57 @@ on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkT
 	g_object_unref(rv);
 }
 
+static gboolean
+branches_separator_func(GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
+{
+	gchar *t;
+	
+	gtk_tree_model_get(model, iter, 0, &t, -1);
+	gboolean ret = t == NULL;
+	
+	g_free(t);
+	return ret;
+}
+
+static void
+on_branches_combo_changed(GtkComboBox *combo, GitgWindow *window)
+{
+	if (gtk_combo_box_get_active(combo) < 2)
+		return;
+	
+	gchar *name;
+	GtkTreeIter iter;
+	
+	gtk_combo_box_get_active_iter(combo, &iter);
+	gtk_tree_model_get(gtk_combo_box_get_model(combo), &iter, 0, &name, -1);
+	
+	gitg_repository_load(window->priv->repository, 1, (gchar const **)&name, NULL);
+	
+	g_free(name);
+}
+
+static void
+build_branches_combo(GitgWindow *window, GtkBuilder *builder)
+{
+	GtkComboBox *combo = GTK_COMBO_BOX(gtk_builder_get_object(builder, "combo_box_branches"));
+	window->priv->branches_store = gtk_list_store_new(1, G_TYPE_STRING);
+	window->priv->combo_branches = combo;
+
+	GtkTreeIter iter;
+	gtk_list_store_append(window->priv->branches_store, &iter);
+	gtk_list_store_set(window->priv->branches_store, &iter, 0, _("Select branch"), -1);
+	
+	gtk_list_store_append(window->priv->branches_store, &iter);
+	gtk_list_store_set(window->priv->branches_store, &iter, 0, NULL, -1);
+	
+	gtk_combo_box_set_model(combo, GTK_TREE_MODEL(window->priv->branches_store));
+	gtk_combo_box_set_active(combo, 0);
+	
+	gtk_combo_box_set_row_separator_func(combo, branches_separator_func, window, NULL);
+	
+	g_signal_connect(combo, "changed", G_CALLBACK(on_branches_combo_changed), window);
+}
+
 static void
 gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
@@ -238,6 +297,9 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
 	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "rv_renderer_subject")), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
 	
+	// Intialize branches
+	build_branches_combo(window, builder);
+
 	// Create search entry
 	build_search_entry(window, builder);
 	
@@ -282,6 +344,9 @@ static void
 gitg_window_init(GitgWindow *self)
 {
 	self->priv = GITG_WINDOW_GET_PRIVATE(self);
+	self->priv->branches_runner = gitg_runner_new(100);
+	
+	g_signal_connect(self->priv->branches_runner, "update", G_CALLBACK(on_branches_update), self);
 }
 
 static void
@@ -348,7 +413,50 @@ create_repository(GitgWindow *window, gchar const *path)
 		window->priv->repository = gitg_repository_new(curdir);
 		g_free(curdir);
 	}	
-} 
+}
+
+static void
+on_branches_update(GitgRunner *runner, gchar **buffer, GitgWindow *self)
+{
+	gchar *ptr;
+	
+	while ((ptr = *buffer++))
+	{
+		while (*ptr == '*' || *ptr == ' ' || *ptr == '\t')
+			++ptr;
+		
+		GtkTreeIter iter;
+		gtk_list_store_append(self->priv->branches_store, &iter);
+		gtk_list_store_set(self->priv->branches_store, &iter, 0, ptr, -1);
+	}
+}
+
+static void
+fill_branches_combo(GitgWindow *window)
+{
+	gchar *dotgit = gitg_utils_dot_git_path(gitg_repository_get_path(window->priv->repository));
+	gchar const *argv[] = {
+		"git",
+		"--git-dir",
+		dotgit,
+		"branch",
+		"-a",
+		"--no-color",
+		NULL
+	};
+	
+	GtkTreeIter iter;	
+	if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(window->priv->branches_store), &iter, NULL, 2))
+	{
+		while (gtk_list_store_remove(window->priv->branches_store, &iter))
+		;
+	}
+	
+	gtk_combo_box_set_active(window->priv->combo_branches, 0);
+
+	gitg_runner_run(window->priv->branches_runner, argv, NULL);
+	g_free(dotgit);
+}
 
 void
 gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv)
@@ -376,16 +484,18 @@ gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gc
 		
 		gchar const **ar = argv;
 
-		if (!haspath)
+		if (!haspath && argc)
 		{
 			ar = (gchar const **)g_new(gchar *, ++argc);
 			ar[argc - 1] = path;
 		}
-		
+
 		gitg_repository_load(window->priv->repository, argc, ar, NULL);
 		
-		if (!haspath)
+		if (!haspath && argc)
 			g_free(ar);
+		
+		fill_branches_combo(window);
 	}
 	else
 	{
