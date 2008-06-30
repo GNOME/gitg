@@ -525,6 +525,9 @@ calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
 			GArray *n = g_array_new(FALSE, FALSE, sizeof(gint8));
 			g_array_append_vals(n, &myid, 1);
 			indices = g_slist_append(indices, n);
+			
+			if (!mylane)
+				mylane = g_slist_last(self->priv->lanes);
 		}
 	}
 	
@@ -543,6 +546,24 @@ calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
 	g_slist_free(indices);
 
 	return res;
+}
+
+static gint8 *
+append_mylane(GitgRepository *self, gint8 *indices, GitgRevision *rv)
+{
+	gint8 *ptr = indices;
+	
+	while (*ptr++ != -2)
+	;
+	
+	gint num = ptr - indices;
+	self->priv->lanes = g_slist_append(self->priv->lanes, (gpointer)gitg_revision_get_hash(rv));
+	
+	indices = g_renew(gint8, indices, num + 1);
+	indices[num - 1] = -1;
+	indices[num] = -2;
+	
+	return indices;
 }
 
 static void
@@ -577,7 +598,14 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 		else
 		{
 			indices = calculate_lane_ids(self, self->priv->storage[self->priv->size - 1]);
-			find_lane_by_hash(self->priv->lanes, gitg_revision_get_hash(rv), &mylane);
+			
+			if (find_lane_by_hash(self->priv->lanes, gitg_revision_get_hash(rv), &mylane) == NULL)
+			{
+				// No lane for this revision reserved, how this happens, I
+				// don't know
+				indices = append_mylane(self, indices, rv);
+				mylane = g_slist_length(self->priv->lanes) - 1;
+			}
 		}
 		
 		gitg_revision_set_lanes(rv, indices);
