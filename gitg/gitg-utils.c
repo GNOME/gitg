@@ -59,7 +59,7 @@ gitg_utils_sha1_to_hash_new(gchar const *sha1)
 static gchar *
 find_dot_git(gchar *path)
 {
-	while (strcmp(path, ".") != 0)
+	while (strcmp(path, ".") != 0 && strcmp(path, "/") != 0)
 	{
 		gchar *res = g_build_filename(path, ".git", NULL);
 		
