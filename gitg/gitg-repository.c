@@ -400,7 +400,7 @@ hash_hash(gconstpointer v)
 static gboolean 
 hash_equal(gconstpointer a, gconstpointer b)
 {
-	return strncmp((char const *)a, (char const *)b, 20) == 0;
+	return memcmp(a, b, 20) == 0;
 }
 
 static GSList *
@@ -426,28 +426,6 @@ find_lane_by_hash(GSList *lanes, gchar const *hash, gint8 *pos)
 	}
 	
 	return NULL;
-}
-
-static void
-print_lanes(gint8 *indices)
-{
-	GString *str = g_string_new("[");
-		
-	while (indices && *indices != -2)
-	{
-		if (str->len > 1)
-			g_string_append(str, ", ");
-		
-		g_string_append_printf(str, "%d", *indices);
-		++indices;
-	}
-
-	g_string_append(str, "]");
-
-	gchar *res = str->str;
-	g_string_free(str, FALSE);
-	
-	g_print("%s\n", res);
 }
 
 static GSList *
@@ -503,17 +481,18 @@ flatten_indices(GSList *indices)
 static gint8 *
 calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
 {
-	// Get current lane ids
-	GSList *prev = self->priv->lanes;
-	
 	// Determine the new lanes given the previous ones and the parents of the
 	// new revision
-	gint numlanes = g_slist_length(prev);
+	gint numlanes = g_slist_length(self->priv->lanes);
 	GSList *indices = init_indices(self);
 	
 	gint8 myid;
-	GSList *mylane = find_lane_by_hash(prev, gitg_revision_get_hash(rv), &myid);
-	mylane->data = NULL;
+	GSList *mylane = find_lane_by_hash(self->priv->lanes, gitg_revision_get_hash(rv), &myid);
+	
+	if (mylane)
+		mylane->data = NULL;
+	else
+		g_warning("My lane not found for %s", gitg_revision_get_sha1(rv));
 	
 	guint num;
 	Hash *parents = gitg_revision_get_parents_hash(rv, &num);
@@ -523,7 +502,7 @@ calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
 	for (i = 0; i < num; ++i)
 	{
 		gint8 lnpos;
-		GSList *lane = find_lane_by_hash(prev, parents[i], &lnpos);
+		GSList *lane = find_lane_by_hash(self->priv->lanes, parents[i], &lnpos);
 
 		if (lane)
 		{
@@ -532,7 +511,7 @@ calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
 			g_array_append_vals((GArray *)g_slist_nth_data(indices, lnpos), &myid, 1);
 			continue;
 		} 
-		else if (mylane->data == NULL)
+		else if (mylane && mylane->data == NULL)
 		{
 			// There is no parent yet which can proceed on the current
 			// revision lane, so set it now
@@ -541,7 +520,7 @@ calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
 		else
 		{
 			// Generate a new lane for this parent
-			prev = g_slist_append(prev, (gpointer)parents[i]);
+			self->priv->lanes = g_slist_append(self->priv->lanes, (gpointer)parents[i]);
 			
 			GArray *n = g_array_new(FALSE, FALSE, sizeof(gint8));
 			g_array_append_vals(n, &myid, 1);
@@ -549,7 +528,7 @@ calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
 		}
 	}
 	
-	if (mylane->data == NULL)
+	if (mylane && mylane->data == NULL)
 	{
 		// Remove the current lane since it is no longer needed
 		gpointer item = g_slist_nth_data(indices, myid);
@@ -562,7 +541,7 @@ calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
 	
 	gint8 *res = flatten_indices(indices);
 	g_slist_free(indices);
-	
+
 	return res;
 }
 
