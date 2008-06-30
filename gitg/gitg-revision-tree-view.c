@@ -232,20 +232,22 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 		GtkSourceLanguage *language = find_language(content_type);
 		gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(buffer), language);
 		
-		gchar *argv[] = {
+		gchar *gitdir = gitg_utils_dot_git_path(gitg_repository_get_path(tree->priv->repository));
+		gchar *id = node_identity(tree, &iter);
+		
+		gchar const *argv[] = {
 			"git",
 			"--git-dir",
-			gitg_utils_dot_git_path(gitg_repository_get_path(tree->priv->repository)),
+			gitdir,
 			"show",
-			"--encoding=UTF-8",
-			node_identity(tree, &iter),
+			id,
 			NULL
 		};
 		
 		gitg_runner_run(tree->priv->content_runner, argv, NULL);
 		
-		g_free(argv[2]);
-		g_free(argv[5]);
+		g_free(id);
+		g_free(gitdir);
 	}
 	
 	g_free(content_type);
@@ -692,13 +694,14 @@ load_node(GitgRevisionTreeView *tree, GtkTreeIter *parent)
 	if (tree->priv->load_path)
 		gtk_tree_path_free(tree->priv->load_path);
 	
-	gchar *argv[] = {
+	gchar *gitdir = gitg_utils_dot_git_path(gitg_repository_get_path(tree->priv->repository));
+	gchar *id = node_identity(tree, parent);
+	gchar const *argv[] = {
 		"git",
 		"--git-dir",
-		gitg_utils_dot_git_path(gitg_repository_get_path(tree->priv->repository)),
+		gitdir,
 		"show",
-		"--encoding=UTF-8",
-		node_identity(tree, parent),
+		id,
 		NULL
 	};
 
@@ -709,8 +712,8 @@ load_node(GitgRevisionTreeView *tree, GtkTreeIter *parent)
 
 	gitg_runner_run(tree->priv->loader, argv, NULL);
 
-	g_free(argv[2]);
-	g_free(argv[5]);
+	g_free(gitdir);
+	g_free(id);
 }
 
 GitgRevisionTreeView *

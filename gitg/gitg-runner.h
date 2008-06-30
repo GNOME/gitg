@@ -35,7 +35,7 @@ GType gitg_runner_get_type (void) G_GNUC_CONST;
 GitgRunner *gitg_runner_new(guint buffer_size);
 guint gitg_runner_get_buffer_size(GitgRunner *runner);
 
-gboolean gitg_runner_run(GitgRunner *runner, gchar **argv, GError **error);
+gboolean gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error);
 gboolean gitg_runner_running(GitgRunner *runner);
 
 void gitg_runner_cancel(GitgRunner *runner);

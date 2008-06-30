@@ -79,10 +79,7 @@ main(int argc, char **argv)
 	parse_options(&argc, &argv);
 	
 	GitgWindow *window = build_ui();
-
-	gchar *gitdir = argc > 1 ? g_strdup(argv[1]) : g_get_current_dir();
-	gitg_window_load_repository(window, gitdir, argc - 2, &argv[2]);
-	g_free(gitdir);
+	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, &argv[2]);
 	
 	gtk_main();
 	

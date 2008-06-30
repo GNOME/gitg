@@ -678,7 +678,7 @@ gitg_repository_get_loader(GitgRepository *self)
 }
 
 gboolean
-gitg_repository_load(GitgRepository *self, int argc, gchar **av, GError **error)
+gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **error)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(self), FALSE);
 	
@@ -694,7 +694,7 @@ gitg_repository_load(GitgRepository *self, int argc, gchar **av, GError **error)
 	gitg_repository_clear(self);
 	
 	gchar *dotgit = gitg_utils_dot_git_path(self->priv->path);
-	gchar **argv = g_new0(gchar *, 7 + (argc ? argc - 1 : 0));
+	gchar const **argv = g_new0(gchar const *, 7 + (argc ? argc - 1 : 0));
 	argv[0] = "git";
 	argv[1] = "--git-dir";
 	argv[2] = dotgit;

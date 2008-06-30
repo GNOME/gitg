@@ -323,8 +323,35 @@ handle_no_gitdir(GitgWindow *window)
 	gtk_widget_destroy(dlg);
 }
 
+static gboolean
+create_repository(GitgWindow *window, gchar const *path)
+{
+	gboolean ret = TRUE;
+
+	if (path)
+	{
+		window->priv->repository = gitg_repository_new(path);
+		
+		if (!gitg_repository_get_path(window->priv->repository))
+		{
+			// Try current directory
+			path = NULL;
+			g_object_unref(window->priv->repository);
+			
+			ret = FALSE;
+		}
+	}
+	
+	if (!path)
+	{
+		gchar *curdir = g_get_current_dir();
+		window->priv->repository = gitg_repository_new(curdir);
+		g_free(curdir);
+	}	
+} 
+
 void
-gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar **argv)
+gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv)
 {
 	g_return_if_fail(GITG_IS_WINDOW(window));
 	
@@ -333,9 +360,9 @@ gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gc
 		gtk_tree_view_set_model(window->priv->tree_view, NULL);
 		g_object_unref(window->priv->repository);
 	}
-
-	window->priv->repository = gitg_repository_new(path);
 	
+	gboolean haspath = create_repository(window, path); 
+
 	if (gitg_repository_get_path(window->priv->repository))
 	{
 		gtk_tree_view_set_model(window->priv->tree_view, GTK_TREE_MODEL(window->priv->repository));
@@ -347,7 +374,18 @@ gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gc
 		
 		g_object_unref(loader);
 		
-		gitg_repository_load(window->priv->repository, argc, argv, NULL);
+		gchar const **ar = argv;
+
+		if (!haspath)
+		{
+			ar = (gchar const **)g_new(gchar *, ++argc);
+			ar[argc - 1] = path;
+		}
+		
+		gitg_repository_load(window->priv->repository, argc, ar, NULL);
+		
+		if (!haspath)
+			g_free(ar);
 	}
 	else
 	{

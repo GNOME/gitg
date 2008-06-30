@@ -258,7 +258,7 @@ gitg_runner_new(guint buffer_size)
 }
 
 gboolean
-gitg_runner_run(GitgRunner *runner, gchar **argv, GError **error)
+gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 {
 	g_return_if_fail(GITG_IS_RUNNER(runner));
 
