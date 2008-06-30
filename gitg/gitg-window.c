@@ -456,6 +456,9 @@ check_separator(GitgWindow *window)
 static void
 on_tags_update(GitgRunner *runner, gchar **buffer, GitgWindow *self)
 {
+	if (!buffer || !*buffer)
+		return;
+
 	check_separator(self);
 	
 	gchar *ptr;
