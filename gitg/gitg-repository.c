@@ -590,7 +590,11 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 		gint8 mylane = 0;
 		
 		if (self->priv->size == 0)
+		{
 			self->priv->lanes = g_slist_append(self->priv->lanes, (gpointer)gitg_revision_get_hash(rv));
+			indices = g_new0(gint8, 2);
+			indices[1] = -2;
+		}
 		else
 		{
 			indices = calculate_lane_ids(self, self->priv->storage[self->priv->size - 1]);

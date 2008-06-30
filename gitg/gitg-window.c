@@ -204,7 +204,20 @@ on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkT
 	GitgRevision *rv;
 	
 	gtk_tree_model_get(model, iter, 0, &rv, -1);
-	g_object_set(renderer, "column", gitg_revision_get_mylane(rv), "columns", gitg_revision_get_lanes(rv), NULL);
+	GtkTreeIter iter1 = *iter;
+	
+	gint8 *next_lanes = NULL;
+	
+	if (gtk_tree_model_iter_next(model, &iter1))
+	{
+		GitgRevision *next;
+		gtk_tree_model_get(model, &iter1, 0, &next, -1);
+		
+		next_lanes = gitg_revision_get_lanes(next);
+		g_object_unref(next);
+	}
+	
+	g_object_set(renderer, "lane", gitg_revision_get_mylane(rv), "lanes", gitg_revision_get_lanes(rv), "next_lanes", next_lanes, NULL);
 	
 	g_object_unref(rv);
 }

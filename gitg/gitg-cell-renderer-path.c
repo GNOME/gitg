@@ -3,25 +3,27 @@
 
 #define GITG_CELL_RENDERER_PATH_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_CELL_RENDERER_PATH, GitgCellRendererPathPrivate))
 
-#define DEFAULT_DOT_WIDTH 8
-#define DEFAULT_COLUMN_WIDTH (DEFAULT_DOT_WIDTH + 6)
+#define DEFAULT_DOT_WIDTH 10
+#define DEFAULT_LANE_WIDTH (DEFAULT_DOT_WIDTH + 6)
 
 /* Properties */
 enum
 {
 	PROP_0,
 	
-	PROP_COLUMN,
-	PROP_COLUMNS,
-	PROP_COLUMN_WIDTH,
+	PROP_LANE,
+	PROP_LANES,
+	PROP_NEXT_LANES,
+	PROP_LANE_WIDTH,
 	PROP_DOT_WIDTH
 };
 
 struct _GitgCellRendererPathPrivate
 {
-	gint8 column;
-	gint8 *columns;
-	guint column_width;
+	gint8 lane;
+	gint8 *lanes;
+	gint8 *next_lanes;
+	guint lane_width;
 	guint dot_width;
 };
 
@@ -30,10 +32,10 @@ static GtkCellRendererTextClass *parent_class = NULL;
 G_DEFINE_TYPE(GitgCellRendererPath, gitg_cell_renderer_path, GTK_TYPE_CELL_RENDERER_TEXT)
 
 static gint
-num_columns(GitgCellRendererPath *self)
+num_lanes(GitgCellRendererPath *self)
 {
 	gint ret = 1;
-	gint8 *ptr = self->priv->columns;
+	gint8 *ptr = self->priv->lanes;
 	
 	while (ptr && *ptr != -2)
 	{
@@ -47,7 +49,7 @@ num_columns(GitgCellRendererPath *self)
 inline static gint
 total_width(GitgCellRendererPath *self)
 {
-	return num_columns(self) * self->priv->column_width;
+	return num_lanes(self) * self->priv->lane_width;
 }
 
 static void
@@ -68,39 +70,62 @@ renderer_get_size(GtkCellRenderer *renderer, GtkWidget *widget, GdkRectangle *ar
 		*yoffset = 0;
 	
 	if (width)
-		*width = num_columns(self) * self->priv->column_width;
+		*width = num_lanes(self) * self->priv->lane_width;
 	
 	if (height)
 		*height = area ? area->height : 1;
 }
 
 static void
-draw_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, gint8 *lanes, gboolean top, gdouble yoffset)
 {
-	gint8 *ptr = self->priv->columns;
+	if (!lanes)
+		return;
+
 	gint8 to = 0;
-	gdouble cw = self->priv->column_width;
-	
-	cairo_set_line_width(cr, 1.0);
-	cairo_set_source_rgb(cr, 0.0, 0.0, 1.0);
-	
-	while (ptr && *ptr != -2)
+	gdouble cw = self->priv->lane_width;
+	gdouble ch = area->height / 2.0;
+
+	for (; *lanes != -2; ++lanes)
 	{
-		if (*ptr == -1)
+		if (*lanes == -1)
 		{
 			++to;
+			continue;
 		}
-		else
-		{
-			gint8 from = *ptr;
 		
-			cairo_move_to(cr, area->x + from * cw + cw / 2.0, area->y);
-			cairo_line_to(cr, area->x + to * cw + cw / 2.0, area->y + area->height / 2.0);
-			cairo_stroke(cr);
-		}
-				
-		++ptr;
+		gint8 from = *lanes;
+		gdouble xf = 0.0;
+		
+		if (from != to)
+			xf = 0.5 * (to - from);
+		
+		cairo_move_to(cr, area->x + (from + (top ? xf : 0)) * cw + cw / 2.0, area->y + yoffset * ch);
+		cairo_line_to(cr, area->x + (to - (top ? 0 : xf)) * cw + cw / 2.0, area->y + (yoffset + 1) * ch);
+		cairo_stroke(cr);
 	}
+}
+
+static void
+draw_top_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+{
+	draw_paths_real(self, cr, area, self->priv->lanes, TRUE, 0);
+}
+
+static void
+draw_bottom_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+{
+	draw_paths_real(self, cr, area, self->priv->next_lanes, FALSE, 1);
+}
+
+static void
+draw_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+{
+	cairo_set_line_width(cr, 1.5);
+	cairo_set_source_rgb(cr, 0.45, 0.6, 0.74);
+	
+	draw_top_paths(self, cr, area);
+	draw_bottom_paths(self, cr, area);
 }
 
 static void
@@ -112,15 +137,15 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 	
 	draw_paths(self, cr, area);
 	
-	gdouble offset = self->priv->column * self->priv->column_width + (self->priv->column_width - self->priv->dot_width) / 2.0;
+	gdouble offset = self->priv->lane * self->priv->lane_width + (self->priv->lane_width - self->priv->dot_width) / 2.0;
 	gdouble radius = self->priv->dot_width / 2.0;
 	
-	cairo_set_line_width(cr, 1.0);
+	cairo_set_line_width(cr, 2.0);
 	cairo_arc(cr, area->x + offset + radius, area->y + area->height / 2.0, radius, 0, 2 * M_PI);
-	cairo_set_source_rgb(cr, 0.6, 0.6, 0.6);
+	cairo_set_source_rgb(cr, 0.12, 0.24, 0.36);
 	
 	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 0.3, 0.6, 0.8);
+	cairo_set_source_rgb(cr, 0.3, 0.6, 0.7);
 	cairo_fill(cr);
 
 	cairo_destroy(cr);
@@ -139,14 +164,17 @@ gitg_cell_renderer_path_get_property(GObject *object, guint prop_id, GValue *val
 
 	switch (prop_id)
 	{
-		case PROP_COLUMN:
-			g_value_set_uint(value, self->priv->column);
+		case PROP_LANE:
+			g_value_set_uint(value, self->priv->lane);
 		break;
-		case PROP_COLUMNS:
-			g_value_set_pointer(value, self->priv->columns);
+		case PROP_LANES:
+			g_value_set_pointer(value, self->priv->lanes);
 		break;
-		case PROP_COLUMN_WIDTH:
-			g_value_set_uint(value, self->priv->column_width);
+		case PROP_NEXT_LANES:
+			g_value_set_pointer(value, self->priv->next_lanes);
+		break;
+		case PROP_LANE_WIDTH:
+			g_value_set_uint(value, self->priv->lane_width);
 		break;
 		case PROP_DOT_WIDTH:
 			g_value_set_uint(value, self->priv->dot_width);
@@ -164,16 +192,17 @@ gitg_cell_renderer_path_set_property(GObject *object, guint prop_id, const GValu
 	
 	switch (prop_id)
 	{
-		case PROP_COLUMN:
-			self->priv->column = g_value_get_int(value);
+		case PROP_LANE:
+			self->priv->lane = g_value_get_int(value);
 		break;
-		case PROP_COLUMNS:
-			self->priv->columns = (gint8 *)g_value_get_pointer(value);
-			//g_object_set(object, "width", total_width(self), NULL);
+		case PROP_LANES:
+			self->priv->lanes = (gint8 *)g_value_get_pointer(value);
 		break;
-		case PROP_COLUMN_WIDTH:
-			self->priv->column_width = g_value_get_uint(value);
-			//g_object_set(object, "width", total_width(self), NULL);
+		case PROP_NEXT_LANES:
+			self->priv->next_lanes = (gint8 *)g_value_get_pointer(value);
+		break;
+		case PROP_LANE_WIDTH:
+			self->priv->lane_width = g_value_get_uint(value);
 		break;
 		case PROP_DOT_WIDTH:
 			self->priv->dot_width = g_value_get_uint(value);
@@ -199,28 +228,34 @@ gitg_cell_renderer_path_class_init(GitgCellRendererPathClass *klass)
 
 	parent_class = g_type_class_peek_parent(klass);
 
-	g_object_class_install_property(object_class, PROP_COLUMN,
-					 g_param_spec_int("column",
-							      "COLUMN",
-							      "The column",
+	g_object_class_install_property(object_class, PROP_LANE,
+					 g_param_spec_int("lane",
+							      "LANE",
+							      "The lane",
 							      0,
 							      G_MAXINT,
 							      0,
 							      G_PARAM_READWRITE));
 
-	g_object_class_install_property(object_class, PROP_COLUMNS,
-					 g_param_spec_pointer("columns",
-							      "COLUMNS",
-							      "All columns",
+	g_object_class_install_property(object_class, PROP_LANES,
+					 g_param_spec_pointer("lanes",
+							      "LANES",
+							      "All lanes",
 							      G_PARAM_READWRITE));
 	
-	g_object_class_install_property(object_class, PROP_COLUMN_WIDTH,
-					 g_param_spec_uint("column-width",
-							      "COLUMN WIDTH",
-							      "The column width",
+	g_object_class_install_property(object_class, PROP_NEXT_LANES,
+					 g_param_spec_pointer("next-lanes",
+							      "NEXT LANES",
+							      "All next lanes",
+							      G_PARAM_READWRITE));
+
+	g_object_class_install_property(object_class, PROP_LANE_WIDTH,
+					 g_param_spec_uint("lane-width",
+							      "LANE WIDTH",
+							      "The lane width",
 							      0,
 							      G_MAXUINT,
-							      DEFAULT_COLUMN_WIDTH,
+							      DEFAULT_LANE_WIDTH,
 							      G_PARAM_READWRITE));
 
 	g_object_class_install_property(object_class, PROP_DOT_WIDTH,
@@ -240,7 +275,7 @@ gitg_cell_renderer_path_init(GitgCellRendererPath *self)
 {
 	self->priv = GITG_CELL_RENDERER_PATH_GET_PRIVATE(self);
 	
-	self->priv->column_width = DEFAULT_COLUMN_WIDTH;
+	self->priv->lane_width = DEFAULT_LANE_WIDTH;
 	self->priv->dot_width = DEFAULT_DOT_WIDTH;
 }
 
