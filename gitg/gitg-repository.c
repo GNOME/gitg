@@ -671,7 +671,7 @@ gitg_repository_get_loader(GitgRepository *self)
 }
 
 gboolean
-gitg_repository_load(GitgRepository *self, GError **error)
+gitg_repository_load(GitgRepository *self, int argc, gchar **av, GError **error)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(self), FALSE);
 	
@@ -686,20 +686,23 @@ gitg_repository_load(GitgRepository *self, GError **error)
 	gitg_runner_cancel(self->priv->loader);
 	gitg_repository_clear(self);
 	
-	gchar *argv[] = {
-		"git",
-		"--git-dir",
-		gitg_utils_dot_git_path(self->priv->path),
-		"log",
-		"--encoding=UTF-8",
-		"--topo-order",
-		"--pretty=format:%H\01%an\01%s\01%P\01%at",
-		"HEAD",
-		NULL
-	};
+	gchar *dotgit = gitg_utils_dot_git_path(self->priv->path);
+	gchar **argv = g_new0(gchar *, 7 + (argc ? argc - 1 : 0));
+	argv[0] = "git";
+	argv[1] = "--git-dir";
+	argv[2] = dotgit;
+	argv[3] = "log";
+	argv[4] = "--pretty=format:%H\01%an\01%s\01%P\01%at";
+	
+	if (!argc)
+		argv[5] = "HEAD";
+
+	int i;
+	for (i = 0; i < argc; ++i)
+		argv[5 + i] = av[i];
 	
 	gboolean ret = gitg_runner_run(self->priv->loader, argv, error);
-	g_free(argv[2]);
+	g_free(dotgit);
 	
 	return ret;
 }

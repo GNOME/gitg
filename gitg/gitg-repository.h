@@ -43,7 +43,7 @@ GitgRepository *gitg_repository_new(gchar const *path);
 gchar const *gitg_repository_get_path(GitgRepository *repository);
 GitgRunner *gitg_repository_get_loader(GitgRepository *repository);
 
-gboolean gitg_repository_load(GitgRepository *repository, GError **error);
+gboolean gitg_repository_load(GitgRepository *repository, int argc, gchar **argv, GError **error);
 
 void gitg_repository_add(GitgRepository *repository, GitgRevision *revision, GtkTreeIter *iter);
 void gitg_repository_clear(GitgRepository *repository);

@@ -20,6 +20,9 @@ parse_options(int *argc, char ***argv)
 	GOptionContext *context;
 	
 	context = g_option_context_new(_("- git repository viewer"));
+	
+	// Ignore unknown options so we can pass them to git
+	g_option_context_set_ignore_unknown_options(context, TRUE);
 	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
 	g_option_context_add_group(context, gtk_get_option_group (TRUE));
 	
@@ -78,7 +81,7 @@ main(int argc, char **argv)
 	GitgWindow *window = build_ui();
 
 	gchar *gitdir = argc > 1 ? g_strdup(argv[1]) : g_get_current_dir();
-	gitg_window_load_repository(window, gitdir);
+	gitg_window_load_repository(window, gitdir, argc - 2, &argv[2]);
 	g_free(gitdir);
 	
 	gtk_main();

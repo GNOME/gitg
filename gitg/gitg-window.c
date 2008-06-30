@@ -324,7 +324,7 @@ handle_no_gitdir(GitgWindow *window)
 }
 
 void
-gitg_window_load_repository(GitgWindow *window, gchar const *path)
+gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar **argv)
 {
 	g_return_if_fail(GITG_IS_WINDOW(window));
 	
@@ -347,7 +347,7 @@ gitg_window_load_repository(GitgWindow *window, gchar const *path)
 		
 		g_object_unref(loader);
 		
-		gitg_repository_load(window->priv->repository, NULL);
+		gitg_repository_load(window->priv->repository, argc, argv, NULL);
 	}
 	else
 	{
