@@ -75,12 +75,42 @@ renderer_get_size(GtkCellRenderer *renderer, GtkWidget *widget, GdkRectangle *ar
 }
 
 static void
+draw_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+{
+	gint8 *ptr = self->priv->columns;
+	gint8 to = 0;
+	gdouble cw = self->priv->column_width;
+	
+	cairo_set_line_width(cr, 1.0);
+	cairo_set_source_rgb(cr, 0.0, 0.0, 1.0);
+	
+	while (ptr && *ptr != -2)
+	{
+		if (*ptr == -1)
+		{
+			++to;
+		}
+		else
+		{
+			gint8 from = *ptr;
+		
+			cairo_move_to(cr, area->x + from * cw + cw / 2.0, area->y);
+			cairo_line_to(cr, area->x + to * cw + cw / 2.0, area->y + area->height / 2.0);
+			cairo_stroke(cr);
+		}
+				
+		++ptr;
+	}
+}
+
+static void
 renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widget, GdkRectangle *area, GdkRectangle *cell_area, GdkRectangle *expose_area, GtkCellRendererState flags)
 {
 	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(renderer);
 
-	cairo_t *cr;
-	cr = gdk_cairo_create(window);
+	cairo_t *cr = gdk_cairo_create(window);
+	
+	draw_paths(self, cr, area);
 	
 	gdouble offset = self->priv->column * self->priv->column_width + (self->priv->column_width - self->priv->dot_width) / 2.0;
 	gdouble radius = self->priv->dot_width / 2.0;
