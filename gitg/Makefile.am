@@ -23,6 +23,9 @@ gitg_SOURCES = 					\
 	gitg-runner.c				\
 	gitg-revision-view.c		\
 	gitg-utils.c				\
+	gitg-lane.c					\
+	gitg-lanes.c				\
+	gitg-color.c				\
 	sexy-icon-entry.c
 
 gitg_LDADD = $(PACKAGE_LIBS)

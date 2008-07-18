@@ -1,5 +1,7 @@
 #include <math.h>
 #include "gitg-cell-renderer-path.h"
+#include "gitg-lane.h"
+#include "gitg-utils.h"
 
 #define GITG_CELL_RENDERER_PATH_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_CELL_RENDERER_PATH, GitgCellRendererPathPrivate))
 
@@ -21,8 +23,8 @@ enum
 struct _GitgCellRendererPathPrivate
 {
 	gint8 lane;
-	gint8 *lanes;
-	gint8 *next_lanes;
+	GitgLane **lanes;
+	GitgLane **next_lanes;
 	guint lane_width;
 	guint dot_width;
 };
@@ -34,16 +36,7 @@ G_DEFINE_TYPE(GitgCellRendererPath, gitg_cell_renderer_path, GTK_TYPE_CELL_RENDE
 static gint
 num_lanes(GitgCellRendererPath *self)
 {
-	gint ret = 1;
-	gint8 *ptr = self->priv->lanes;
-	
-	while (ptr && *ptr != -2)
-	{
-		if (*ptr++ == -1)
-			++ret;
-	}
-
-	return ret;
+	return gitg_utils_null_length((gconstpointer *)self->priv->lanes);
 }
 
 inline static gint
@@ -77,7 +70,7 @@ renderer_get_size(GtkCellRenderer *renderer, GtkWidget *widget, GdkRectangle *ar
 }
 
 static void
-draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, gint8 *lanes, gboolean top, gdouble yoffset)
+draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, GitgLane **lanes, gboolean top, gdouble yoffset)
 {
 	if (!lanes)
 		return;
@@ -85,24 +78,27 @@ draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, gin
 	gint8 to = 0;
 	gdouble cw = self->priv->lane_width;
 	gdouble ch = area->height / 2.0;
+	GitgLane *lane;
 
-	for (; *lanes != -2; ++lanes)
+	while ((lane = *lanes++))
 	{
-		if (*lanes == -1)
+		GSList *item;
+		
+		for (item = lane->from; item; item = item->next)
 		{
-			++to;
-			continue;
+			gint8 from = (gint8)GPOINTER_TO_INT(item->data);
+			gdouble xf = 0.0;
+		
+			if (from != to)
+				xf = 0.5 * (to - from);
+		
+			gitg_color_set_cairo_source(lane->color, cr);
+			cairo_move_to(cr, area->x + (from + (top ? xf : 0)) * cw + cw / 2.0, area->y + yoffset * ch);
+			cairo_line_to(cr, area->x + (to - (top ? 0 : xf)) * cw + cw / 2.0, area->y + (yoffset + 1) * ch);
+			cairo_stroke(cr);
 		}
 		
-		gint8 from = *lanes;
-		gdouble xf = 0.0;
-		
-		if (from != to)
-			xf = 0.5 * (to - from);
-		
-		cairo_move_to(cr, area->x + (from + (top ? xf : 0)) * cw + cw / 2.0, area->y + yoffset * ch);
-		cairo_line_to(cr, area->x + (to - (top ? 0 : xf)) * cw + cw / 2.0, area->y + (yoffset + 1) * ch);
-		cairo_stroke(cr);
+		++to;
 	}
 }
 
@@ -121,8 +117,8 @@ draw_bottom_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 static void
 draw_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 {
-	cairo_set_line_width(cr, 1.5);
-	cairo_set_source_rgb(cr, 0.45, 0.6, 0.74);
+	cairo_set_line_width(cr, 2);
+	//cairo_set_source_rgb(cr, 0.45, 0.6, 0.74);
 	cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
 	draw_top_paths(self, cr, area);
 	draw_bottom_paths(self, cr, area);
@@ -142,10 +138,11 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 	
 	cairo_set_line_width(cr, 2.0);
 	cairo_arc(cr, area->x + offset + radius, area->y + area->height / 2.0, radius, 0, 2 * M_PI);
-	cairo_set_source_rgb(cr, 0.12, 0.24, 0.36);
+	cairo_set_source_rgb(cr, 0, 0, 0);
 	
 	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 0.3, 0.6, 0.7);
+	gitg_color_set_cairo_source(self->priv->lanes[self->priv->lane]->color, cr);
+	
 	cairo_fill(cr);
 
 	cairo_destroy(cr);
@@ -196,10 +193,10 @@ gitg_cell_renderer_path_set_property(GObject *object, guint prop_id, const GValu
 			self->priv->lane = g_value_get_int(value);
 		break;
 		case PROP_LANES:
-			self->priv->lanes = (gint8 *)g_value_get_pointer(value);
+			self->priv->lanes = (GitgLane **)g_value_get_pointer(value);
 		break;
 		case PROP_NEXT_LANES:
-			self->priv->next_lanes = (gint8 *)g_value_get_pointer(value);
+			self->priv->next_lanes = (GitgLane **)g_value_get_pointer(value);
 		break;
 		case PROP_LANE_WIDTH:
 			self->priv->lane_width = g_value_get_uint(value);

@@ -2,6 +2,7 @@
 #define __GITG_REVISION_H__
 
 #include <glib-object.h>
+#include "gitg-lane.h"
 
 G_BEGIN_DECLS
 
@@ -43,8 +44,8 @@ inline Hash *gitg_revision_get_parents_hash(GitgRevision *revision, guint *num_p
 gchar *gitg_revision_get_sha1(GitgRevision *revision);
 gchar **gitg_revision_get_parents(GitgRevision *revision);
 
-gint8 *gitg_revision_get_lanes(GitgRevision *revision);
-void gitg_revision_set_lanes(GitgRevision *revision, gint8 *lane_ids);
+GitgLane **gitg_revision_get_lanes(GitgRevision *revision);
+void gitg_revision_set_lanes(GitgRevision *revision, GitgLane **lanes);
 
 gint8 gitg_revision_get_mylane(GitgRevision *revision);
 void gitg_revision_set_mylane(GitgRevision *revision, gint8 mylane);

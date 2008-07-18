@@ -11,13 +11,28 @@ struct _GitgRevisionPrivate
 	Hash *parents;
 	guint num_parents;
 	
-	gint8 *lanes;
+	GitgLane **lanes;
 	gint8 mylane;
 
 	gint64 timestamp;
 };
 
 G_DEFINE_TYPE(GitgRevision, gitg_revision, G_TYPE_OBJECT)
+
+static void
+free_lanes(GitgRevision *rv)
+{
+	if (!rv->priv->lanes)
+		return;
+
+	GitgLane **lanes = rv->priv->lanes;
+	GitgLane *lane;
+	
+	while ((lane = *lanes++))
+		gitg_lane_free(lane);
+	
+	g_free(rv->priv->lanes);
+}
 
 static void
 gitg_revision_finalize(GObject *object)
@@ -27,7 +42,8 @@ gitg_revision_finalize(GObject *object)
 	g_free(rv->priv->author);
 	g_free(rv->priv->subject);
 	g_free(rv->priv->parents);
-	g_free(rv->priv->lanes);
+	
+	free_lanes(rv);
 	
 	G_OBJECT_CLASS(gitg_revision_parent_class)->finalize(object);
 }
@@ -146,7 +162,7 @@ gitg_revision_get_parents(GitgRevision *revision)
 	return ret;
 }
 
-gint8 *
+GitgLane **
 gitg_revision_get_lanes(GitgRevision *revision)
 {
 	g_return_val_if_fail(GITG_IS_REVISION(revision), NULL);
@@ -154,11 +170,11 @@ gitg_revision_get_lanes(GitgRevision *revision)
 }
 
 void 
-gitg_revision_set_lanes(GitgRevision *revision, gint8 *lanes)
+gitg_revision_set_lanes(GitgRevision *revision, GitgLane **lanes)
 {
 	g_return_if_fail(GITG_IS_REVISION(revision));
 	
-	g_free(revision->priv->lanes);
+	free_lanes(revision);
 	revision->priv->lanes = lanes;
 }
 

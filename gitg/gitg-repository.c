@@ -1,5 +1,7 @@
 #include "gitg-repository.h"
 #include "gitg-utils.h"
+#include "gitg-lanes.h"
+
 #include <glib/gi18n.h>
 #include <time.h>
 
@@ -36,7 +38,7 @@ struct _GitgRepositoryPrivate
 	GType column_types[N_COLUMNS];
 	
 	GitgRevision **storage;
-	GSList *lanes;
+	GitgLanes *lanes;
 
 	gulong size;
 	gulong allocated;
@@ -118,7 +120,9 @@ tree_model_get_path(GtkTreeModel *tree_model, GtkTreeIter *iter)
 static gchar *
 timestamp_to_str(guint64 timestamp)
 {
-	struct tm *tms = localtime((time_t *)&timestamp);
+	time_t t = timestamp;
+
+	struct tm *tms = localtime(&t);
 	char buf[255];
 	
 	strftime(buf, 255, "%c", tms);
@@ -241,16 +245,6 @@ tree_model_iter_parent(GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter 
 	return FALSE;
 }
 
-static GType
-gitg_repository_get_column_type(GtkTreeModel *self, int column)
-{
-	/* validate our parameters */
-	g_return_val_if_fail(GITG_IS_REPOSITORY(self), G_TYPE_INVALID);
-	g_return_val_if_fail(column >= 0 && column < N_COLUMNS, G_TYPE_INVALID);
-
-	return GITG_REPOSITORY(self)->priv->column_types[column];
-}
-
 static void
 gitg_repository_tree_model_iface_init(GtkTreeModelIface *iface)
 {
@@ -295,9 +289,6 @@ do_clear(GitgRepository *repository, gboolean emit)
 	repository->priv->storage = NULL;
 	repository->priv->size = 0;
 	repository->priv->allocated = 0;
-	
-	g_slist_free(repository->priv->lanes);
-	repository->priv->lanes = NULL;
 }
 
 static void
@@ -308,6 +299,8 @@ gitg_repository_finalize(GObject *object)
 	// Make sure to cancel the loader
 	gitg_runner_cancel(rp->priv->loader);
 	g_object_unref(rp->priv->loader);
+	
+	g_object_unref(rp->priv->lanes);
 	
 	// Clear the model to remove all revision objects
 	do_clear(rp, FALSE);
@@ -397,175 +390,6 @@ hash_hash(gconstpointer v)
 	return h;
 }
 
-static gboolean 
-hash_equal(gconstpointer a, gconstpointer b)
-{
-	return memcmp(a, b, 20) == 0;
-}
-
-static GSList *
-find_lane_by_hash(GSList *lanes, gchar const *hash, gint8 *pos)
-{
-	GSList *item;
-	gint8 p = 0;
-
-	if (!hash)
-		return NULL;
-
-	for (item = lanes; item; item = item->next)
-	{
-		if (item->data && hash_equal(item->data, hash))
-		{
-			if (pos)
-				*pos = p;
-		
-			return item;
-		}
-
-		++p;
-	}
-	
-	return NULL;
-}
-
-static GSList *
-init_indices(GitgRepository *self)
-{
-	GSList *item;
-	GSList *res = NULL;
-	gint8 num = 0;
-	
-	for (item = self->priv->lanes; item; item = item->next)
-	{
-		GArray *ar = g_array_new(FALSE, FALSE, sizeof(gint8));
-		
-		g_array_append_vals(ar, &num, 1);
-		res = g_slist_prepend(res, ar);
-		++num;
-	}
-	
-	return g_slist_reverse(res);
-}
-
-static gint8 *
-flatten_indices(GSList *indices)
-{
-	gint8 *ret = g_new(gint8, 1);
-	GSList *item;
-	gint num = 0;
-
-	for (item = indices; item; item = item->next)
-	{
-		if (item != indices)
-		{
-			ret = g_renew(gint8, ret, ++num + 1);
-			ret[num - 1] = -1;
-		}
-		
-		GArray *ar = (GArray *)(item->data);
-		
-		int i;
-		for (i = 0; i < ar->len; ++i)
-		{
-			ret = g_renew(gint8, ret, ++num + 1);
-			ret[num - 1] = g_array_index(ar, gint8, i);
-		}
-		
-		g_array_free(ar, TRUE);
-	}
-	
-	ret[num] = -2;
-	return ret;
-}
-
-static gint8 *
-calculate_lane_ids(GitgRepository *self, GitgRevision *rv)
-{
-	// Determine the new lanes given the previous ones and the parents of the
-	// new revision
-	gint numlanes = g_slist_length(self->priv->lanes);
-	GSList *indices = init_indices(self);
-	
-	gint8 myid;
-	GSList *mylane = find_lane_by_hash(self->priv->lanes, gitg_revision_get_hash(rv), &myid);
-	
-	if (mylane)
-		mylane->data = NULL;
-	else
-		g_warning("My lane not found for %s", gitg_revision_get_sha1(rv));
-	
-	guint num;
-	Hash *parents = gitg_revision_get_parents_hash(rv, &num);
-	int i;
-	
-	// Iterate over all parents and find them a lane
-	for (i = 0; i < num; ++i)
-	{
-		gint8 lnpos;
-		GSList *lane = find_lane_by_hash(self->priv->lanes, parents[i], &lnpos);
-
-		if (lane)
-		{
-			// There already is a lane for this hash. Add myid to the
-			// list for lnpos
-			g_array_append_vals((GArray *)g_slist_nth_data(indices, lnpos), &myid, 1);
-			continue;
-		} 
-		else if (mylane && mylane->data == NULL)
-		{
-			// There is no parent yet which can proceed on the current
-			// revision lane, so set it now
-			mylane->data = (gpointer)parents[i];
-		}
-		else
-		{
-			// Generate a new lane for this parent
-			self->priv->lanes = g_slist_append(self->priv->lanes, (gpointer)parents[i]);
-			
-			GArray *n = g_array_new(FALSE, FALSE, sizeof(gint8));
-			g_array_append_vals(n, &myid, 1);
-			indices = g_slist_append(indices, n);
-			
-			if (!mylane)
-				mylane = g_slist_last(self->priv->lanes);
-		}
-	}
-	
-	if (mylane && mylane->data == NULL)
-	{
-		// Remove the current lane since it is no longer needed
-		gpointer item = g_slist_nth_data(indices, myid);
-		
-		g_array_free((GArray *)item, TRUE);
-		indices = g_slist_remove(indices, item);
-
-		self->priv->lanes = g_slist_remove(self->priv->lanes, mylane->data);
-	}
-	
-	gint8 *res = flatten_indices(indices);
-	g_slist_free(indices);
-
-	return res;
-}
-
-static gint8 *
-append_mylane(GitgRepository *self, gint8 *indices, GitgRevision *rv)
-{
-	gint8 *ptr = indices;
-	
-	while (*ptr++ != -2)
-	;
-	
-	gint num = ptr - indices;
-	self->priv->lanes = g_slist_append(self->priv->lanes, (gpointer)gitg_revision_get_hash(rv));
-	
-	indices = g_renew(gint8, indices, num + 1);
-	indices[num - 1] = -1;
-	indices[num] = -2;
-	
-	return indices;
-}
-
 static void
 on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 {
@@ -586,29 +410,16 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 		gint64 timestamp = g_ascii_strtoll(components[4], NULL, 0);
 	
 		GitgRevision *rv = gitg_revision_new(components[0], components[1], components[2], components[3], timestamp);
-		gint8 *indices = NULL;
+		GitgLane **lanes = NULL;
+
 		gint8 mylane = 0;
 		
 		if (self->priv->size == 0)
-		{
-			self->priv->lanes = g_slist_append(self->priv->lanes, (gpointer)gitg_revision_get_hash(rv));
-			indices = g_new0(gint8, 2);
-			indices[1] = -2;
-		}
+			lanes = gitg_lanes_reset(self->priv->lanes, gitg_revision_get_hash(rv));
 		else
-		{
-			indices = calculate_lane_ids(self, self->priv->storage[self->priv->size - 1]);
-			
-			if (find_lane_by_hash(self->priv->lanes, gitg_revision_get_hash(rv), &mylane) == NULL)
-			{
-				// No lane for this revision reserved, how this happens, I
-				// don't know
-				indices = append_mylane(self, indices, rv);
-				mylane = g_slist_length(self->priv->lanes) - 1;
-			}
-		}
+			lanes = gitg_lanes_next(self->priv->lanes, self->priv->storage[self->priv->size - 1], rv, &mylane);
 		
-		gitg_revision_set_lanes(rv, indices);
+		gitg_revision_set_lanes(rv, lanes);
 		gitg_revision_set_mylane(rv, mylane);
 
 		gitg_repository_add(self, rv, NULL);
@@ -622,13 +433,14 @@ static void
 gitg_repository_init(GitgRepository *object)
 {
 	object->priv = GITG_REPOSITORY_GET_PRIVATE(object);
-	object->priv->hashtable = g_hash_table_new_full(hash_hash, hash_equal, NULL, NULL);
+	object->priv->hashtable = g_hash_table_new_full(hash_hash, gitg_utils_hash_equal, NULL, NULL);
 	
 	object->priv->column_types[0] = GITG_TYPE_REVISION;
 	object->priv->column_types[1] = G_TYPE_STRING;
 	object->priv->column_types[2] = G_TYPE_STRING;
 	object->priv->column_types[3] = G_TYPE_STRING;
 	
+	object->priv->lanes = gitg_lanes_new();
 	object->priv->grow_size = 1000;
 	object->priv->stamp = g_random_int();
 	
