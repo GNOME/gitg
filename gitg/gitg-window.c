@@ -36,7 +36,7 @@ static void on_branches_update(GitgRunner *runner, gchar **buffer, GitgWindow *s
 G_DEFINE_TYPE_EXTENDED(GitgWindow, gitg_window, GTK_TYPE_WINDOW, 0,
 	G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, gitg_window_buildable_iface_init));
 
-static GtkBuildableIface parent_iface = { 0, };
+static GtkBuildableIface parent_iface;
 static GtkWindowClass *parent_class = NULL;
 
 static void
@@ -410,7 +410,9 @@ create_repository(GitgWindow *window, gchar const *path)
 		gchar *curdir = g_get_current_dir();
 		window->priv->repository = gitg_repository_new(curdir);
 		g_free(curdir);
-	}	
+	}
+	
+	return ret;	
 }
 
 static void

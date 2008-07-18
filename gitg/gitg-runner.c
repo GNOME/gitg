@@ -260,10 +260,10 @@ gitg_runner_new(guint buffer_size)
 gboolean
 gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 {
-	g_return_if_fail(GITG_IS_RUNNER(runner));
+	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
 
 	gint stdout;
-	gboolean ret = g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), NULL, &stdout, NULL, error);
+	gboolean ret = g_spawn_async_with_pipes(NULL, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), NULL, &stdout, NULL, error);
 
 	if (!ret)
 	{
@@ -278,13 +278,14 @@ gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 	g_child_watch_add(runner->priv->pid, runner_io_exit, runner);
 
 	// Emit begin-loading signal
-	g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);	
+	g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);
+	return TRUE;
 }
 
 guint
 gitg_runner_get_buffer_size(GitgRunner *runner)
 {
-	g_return_if_fail(GITG_IS_RUNNER(runner));
+	g_return_val_if_fail(GITG_IS_RUNNER(runner), 0);
 	return runner->priv->buffer_size;
 }
 
@@ -294,7 +295,6 @@ gitg_runner_cancel(GitgRunner *runner)
 	g_return_if_fail(GITG_IS_RUNNER(runner));
 
 	g_mutex_lock(runner->priv->mutex);
-	gboolean done = runner->priv->done;
 	runner->priv->done = TRUE;
 	g_mutex_unlock(runner->priv->mutex);
 	

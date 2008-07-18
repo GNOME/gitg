@@ -65,7 +65,7 @@ gitg_revision_tree_store_drag_source_iface_init(GtkTreeDragSourceIface *iface)
 static void
 gitg_revision_tree_store_finalize(GObject *object)
 {
-	GitgRevisionTreeStore *self = GITG_REVISION_TREE_STORE(object);
+	//GitgRevisionTreeStore *self = GITG_REVISION_TREE_STORE(object);
 	
 	G_OBJECT_CLASS(gitg_revision_tree_store_parent_class)->finalize(object);
 }

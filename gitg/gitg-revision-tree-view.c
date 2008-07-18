@@ -3,6 +3,7 @@
 #include <string.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
+#include <stdlib.h>
 
 #include "gitg-revision-tree-view.h"
 #include "gitg-revision-tree-store.h"
@@ -42,7 +43,7 @@ static gchar *node_identity(GitgRevisionTreeView *view, GtkTreeIter *iter);
 G_DEFINE_TYPE_EXTENDED(GitgRevisionTreeView, gitg_revision_tree_view, GTK_TYPE_HPANED, 0,
 	G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, gitg_revision_tree_view_buildable_iface_init));
 
-static GtkBuildableIface parent_iface = { 0, };
+static GtkBuildableIface parent_iface;
 
 static void
 gitg_revision_tree_view_finalize(GObject *object)

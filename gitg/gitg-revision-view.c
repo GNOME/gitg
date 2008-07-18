@@ -34,7 +34,7 @@ static void gitg_revision_view_buildable_iface_init(GtkBuildableIface *iface);
 G_DEFINE_TYPE_EXTENDED(GitgRevisionView, gitg_revision_view, GTK_TYPE_VBOX, 0,
 	G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, gitg_revision_view_buildable_iface_init));
 
-static GtkBuildableIface parent_iface = {0,};
+static GtkBuildableIface parent_iface;
 
 static void
 update_markup(GObject *object)
@@ -247,11 +247,12 @@ update_diff(GitgRevisionView *self, GitgRepository *repository, GitgRevision *re
 		return;
 
 	gchar *hash = gitg_revision_get_sha1(revision);
-
-	gchar *argv[] = {
+	gchar *gitpath = gitg_utils_dot_git_path(gitg_repository_get_path(repository));
+	
+	gchar const *argv[] = {
 		"git",
 		"--git-dir",
-		gitg_utils_dot_git_path(gitg_repository_get_path(repository)),
+		gitpath,
 		"show",
 		"--pretty=format:%s%n%n%b",
 		"--encoding=UTF-8",
@@ -262,14 +263,16 @@ update_diff(GitgRevisionView *self, GitgRepository *repository, GitgRevision *re
 	gitg_runner_run(self->priv->diff_runner, argv, NULL);
 
 	g_free(hash);
-	g_free(argv[2]);
+	g_free(gitpath);
 }
 
 static gchar *
 format_date(GitgRevision *revision)
 {
 	guint64 timestamp = gitg_revision_get_timestamp(revision);
-	char *ptr = ctime((time_t *)&timestamp);
+	time_t t = timestamp;
+	
+	char *ptr = ctime(&t);
 	
 	// Remove newline?
 	ptr[strlen(ptr) - 1] = '\0';
