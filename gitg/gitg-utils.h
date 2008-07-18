@@ -19,4 +19,7 @@ gchar const *todir, gchar * const *paths);
 
 gchar *gitg_utils_convert_utf8(gchar const *str);
 
+gboolean gitg_utils_hash_equal(gconstpointer a, gconstpointer b);
+gint gitg_utils_null_length(gconstpointer *ptr);
+
 #endif /* __GITG_UTILS_H__ */

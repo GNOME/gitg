@@ -20,7 +20,10 @@ gitg_utils_sha1_to_hash(gchar const *sha, gchar *hash)
 	int i;
 
 	for (i = 0; i < 20; ++i)
-		hash[i] = (atoh(*sha++) << 4) | atoh(*sha++);	
+	{
+		gchar h = atoh(*(sha++)) << 4;
+		hash[i] = h | atoh(*(sha++));
+	}
 }
 
 void
@@ -202,4 +205,21 @@ gitg_utils_convert_utf8(gchar const *str)
 	}
 	
 	return convert_fallback(str, "?");
+}
+
+gboolean 
+gitg_utils_hash_equal(gconstpointer a, gconstpointer b)
+{
+	return memcmp(a, b, 20) == 0;
+}
+
+gint
+gitg_utils_null_length(gconstpointer *ptr)
+{
+	gint ret = 0;
+	
+	while (*ptr++)
+		++ret;
+	
+	return ret;
 }
