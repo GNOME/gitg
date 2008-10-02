@@ -315,7 +315,12 @@ export_drag_files(GitgRevisionTreeView *tree_view)
 	g_free(tree_view->priv->drag_dir);
 	gchar const *tmp = g_get_tmp_dir();
 	tree_view->priv->drag_dir = g_build_filename(tmp, "gitg-export-XXXXXX", NULL);
-	mkdtemp(tree_view->priv->drag_dir);
+	
+	if (!mkdtemp(tree_view->priv->drag_dir))
+	{
+		g_warning("Could not create temporary directory for export");
+		return;
+	}
 
 	// Do the export
 	gitg_utils_export_files(tree_view->priv->repository, tree_view->priv->revision, tree_view->priv->drag_dir, tree_view->priv->drag_files);
