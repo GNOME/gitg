@@ -214,7 +214,7 @@ on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkT
 	gtk_tree_model_get(model, iter, 0, &rv, -1);
 	GtkTreeIter iter1 = *iter;
 	
-	GitgLane **next_lanes = NULL;
+	GSList *next_lanes = NULL;
 	
 	if (gtk_tree_model_iter_next(model, &iter1))
 	{

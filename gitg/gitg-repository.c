@@ -396,14 +396,14 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 		gint64 timestamp = g_ascii_strtoll(components[4], NULL, 0);
 	
 		GitgRevision *rv = gitg_revision_new(components[0], components[1], components[2], components[3], timestamp);
-		GitgLane **lanes = NULL;
+		GSList *lanes;
 
 		gint8 mylane = 0;
 		
 		if (self->priv->size == 0)
-			lanes = gitg_lanes_reset(self->priv->lanes, gitg_revision_get_hash(rv));
-		else
-			lanes = gitg_lanes_next(self->priv->lanes, self->priv->storage[self->priv->size - 1], rv, &mylane);
+			gitg_lanes_reset(self->priv->lanes);
+
+		lanes = gitg_lanes_next(self->priv->lanes, rv, &mylane);
 		
 		gitg_revision_set_lanes(rv, lanes);
 		gitg_revision_set_mylane(rv, mylane);

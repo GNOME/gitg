@@ -11,7 +11,7 @@ struct _GitgRevisionPrivate
 	Hash *parents;
 	guint num_parents;
 	
-	GitgLane **lanes;
+	GSList *lanes;
 	gint8 mylane;
 
 	gint64 timestamp;
@@ -22,16 +22,9 @@ G_DEFINE_TYPE(GitgRevision, gitg_revision, G_TYPE_OBJECT)
 static void
 free_lanes(GitgRevision *rv)
 {
-	if (!rv->priv->lanes)
-		return;
-
-	GitgLane **lanes = rv->priv->lanes;
-	GitgLane *lane;
-	
-	while ((lane = *lanes++))
-		gitg_lane_free(lane);
-	
-	g_free(rv->priv->lanes);
+	g_slist_foreach(rv->priv->lanes, (GFunc)gitg_lane_free, NULL);
+	g_slist_free(rv->priv->lanes);
+	rv->priv->lanes = NULL;
 }
 
 static void
@@ -162,15 +155,15 @@ gitg_revision_get_parents(GitgRevision *revision)
 	return ret;
 }
 
-GitgLane **
+GSList *
 gitg_revision_get_lanes(GitgRevision *revision)
 {
 	g_return_val_if_fail(GITG_IS_REVISION(revision), NULL);
-	return revision->priv->lanes;
+	return g_slist_copy(revision->priv->lanes);
 }
 
 void 
-gitg_revision_set_lanes(GitgRevision *revision, GitgLane **lanes)
+gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes)
 {
 	g_return_if_fail(GITG_IS_REVISION(revision));
 	

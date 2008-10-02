@@ -23,8 +23,8 @@ enum
 struct _GitgCellRendererPathPrivate
 {
 	gint8 lane;
-	GitgLane **lanes;
-	GitgLane **next_lanes;
+	GSList *lanes;
+	GSList *next_lanes;
 	guint lane_width;
 	guint dot_width;
 };
@@ -36,7 +36,7 @@ G_DEFINE_TYPE(GitgCellRendererPath, gitg_cell_renderer_path, GTK_TYPE_CELL_RENDE
 static gint
 num_lanes(GitgCellRendererPath *self)
 {
-	return gitg_utils_null_length((gconstpointer *)self->priv->lanes);
+	return g_slist_length (self->priv->lanes);
 }
 
 inline static gint
@@ -70,7 +70,30 @@ renderer_get_size(GtkCellRenderer *renderer, GtkWidget *widget, GdkRectangle *ar
 }
 
 static void
-draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, GitgLane **lanes, gboolean top, gdouble yoffset)
+draw_arrow(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, gint8 laneidx, gboolean top)
+{
+	gdouble cw = self->priv->lane_width;
+	gdouble xpos = area->x + laneidx * cw + cw / 2.0;
+	gdouble df = (top ? -1 : 1) * 0.25 * area->height;
+	gdouble ypos = area->y + area->height / 2.0 + df;
+	gdouble q = cw / 4.0;
+	
+	cairo_move_to(cr, xpos - q, ypos + (top ? q : -q));
+	cairo_line_to(cr, xpos, ypos);
+	cairo_line_to(cr, xpos + q, ypos + (top ? q : -q));
+	cairo_stroke(cr);
+	
+	cairo_move_to(cr, xpos, ypos);
+	cairo_line_to(cr, xpos, ypos - df);
+	cairo_stroke(cr);
+	
+	//cairo_move_to(cr, xpos, ypos);
+	//cairo_line_to(cr, xpos, ypos + (top ? 1 : -1) * area->height / 2.0);
+	//cairo_stroke(cr);
+}
+
+static void
+draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, GSList *lanes, gboolean top, gdouble yoffset)
 {
 	if (!lanes)
 		return;
@@ -79,10 +102,13 @@ draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, Git
 	gdouble cw = self->priv->lane_width;
 	gdouble ch = area->height / 2.0;
 	GitgLane *lane;
-
-	while ((lane = *lanes++))
+	
+	while (lanes)
 	{
 		GSList *item;
+
+		lane = (GitgLane *)(lanes->data);
+		gitg_color_set_cairo_source(lane->color, cr);
 		
 		for (item = lane->from; item; item = item->next)
 		{
@@ -92,13 +118,13 @@ draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, Git
 			if (from != to)
 				xf = 0.5 * (to - from);
 		
-			gitg_color_set_cairo_source(lane->color, cr);
 			cairo_move_to(cr, area->x + (from + (top ? xf : 0)) * cw + cw / 2.0, area->y + yoffset * ch);
 			cairo_line_to(cr, area->x + (to - (top ? 0 : xf)) * cw + cw / 2.0, area->y + (yoffset + 1) * ch);
 			cairo_stroke(cr);
 		}
-		
+
 		++to;
+		lanes = lanes->next;
 	}
 }
 
@@ -115,13 +141,35 @@ draw_bottom_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 }
 
 static void
+draw_arrows(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+{
+	GSList *item;
+	gint8 to = 0;
+	
+	for (item = self->priv->lanes; item; item = item->next)
+	{
+		GitgLane *lane = (GitgLane *)item->data;
+		gitg_color_set_cairo_source(lane->color, cr);
+		
+		if (lane->type == GITG_LANE_TYPE_START)
+			draw_arrow(self, cr, area, to, TRUE);
+		else if (lane->type == GITG_LANE_TYPE_END)
+			draw_arrow(self, cr, area, to, FALSE);
+		
+		++to;
+	}
+}
+
+static void
 draw_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 {
 	cairo_set_line_width(cr, 2);
 	//cairo_set_source_rgb(cr, 0.45, 0.6, 0.74);
 	cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
+
 	draw_top_paths(self, cr, area);
 	draw_bottom_paths(self, cr, area);
+	draw_arrows(self, cr, area);
 }
 
 static void
@@ -141,7 +189,7 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	
 	cairo_stroke_preserve(cr);
-	gitg_color_set_cairo_source(self->priv->lanes[self->priv->lane]->color, cr);
+	gitg_color_set_cairo_source(((GitgLane *)g_slist_nth_data(self->priv->lanes, self->priv->lane))->color, cr);
 	
 	cairo_fill(cr);
 
@@ -193,10 +241,10 @@ gitg_cell_renderer_path_set_property(GObject *object, guint prop_id, const GValu
 			self->priv->lane = g_value_get_int(value);
 		break;
 		case PROP_LANES:
-			self->priv->lanes = (GitgLane **)g_value_get_pointer(value);
+			self->priv->lanes = (GSList *)g_value_get_pointer(value);
 		break;
 		case PROP_NEXT_LANES:
-			self->priv->next_lanes = (GitgLane **)g_value_get_pointer(value);
+			self->priv->next_lanes = (GSList *)g_value_get_pointer(value);
 		break;
 		case PROP_LANE_WIDTH:
 			self->priv->lane_width = g_value_get_uint(value);

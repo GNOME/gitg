@@ -32,8 +32,8 @@ struct _GitgLanesClass {
 GType gitg_lanes_get_type (void) G_GNUC_CONST;
 
 GitgLanes *gitg_lanes_new(void);
-GitgLane **gitg_lanes_reset(GitgLanes *lanes, gchar const *hash);
-GitgLane **gitg_lanes_next(GitgLanes *lanes, GitgRevision *previous, GitgRevision *current, gint8 *mylane);
+void gitg_lanes_reset(GitgLanes *lanes);
+GSList *gitg_lanes_next(GitgLanes *lanes, GitgRevision *next, gint8 *mylane);
 
 G_END_DECLS
 
