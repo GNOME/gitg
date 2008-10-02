@@ -207,6 +207,20 @@ gitg_utils_convert_utf8(gchar const *str)
 	return convert_fallback(str, "?");
 }
 
+guint
+gitg_utils_hash_hash(gconstpointer v)
+{
+	/* 31 bit hash function, copied from g_str_hash */
+	const signed char *p = v;
+	guint32 h = *p;
+	int i;
+	
+	for (i = 1; i < 20; ++i)
+		h = (h << 5) - h + p[i];
+
+	return h;
+}
+
 gboolean 
 gitg_utils_hash_equal(gconstpointer a, gconstpointer b)
 {

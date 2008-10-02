@@ -376,20 +376,6 @@ gitg_repository_class_init(GitgRepositoryClass *klass)
 	g_type_class_add_private(object_class, sizeof(GitgRepositoryPrivate));
 }
 
-static guint
-hash_hash(gconstpointer v)
-{
-	/* 31 bit hash function, copied from g_str_hash */
-	const signed char *p = v;
-	guint32 h = *p;
-	int i;
-	
-	for (i = 1; i < 20; ++i)
-		h = (h << 5) - h + p[i];
-
-	return h;
-}
-
 static void
 on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 {
@@ -433,7 +419,7 @@ static void
 gitg_repository_init(GitgRepository *object)
 {
 	object->priv = GITG_REPOSITORY_GET_PRIVATE(object);
-	object->priv->hashtable = g_hash_table_new_full(hash_hash, gitg_utils_hash_equal, NULL, NULL);
+	object->priv->hashtable = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, NULL);
 	
 	object->priv->column_types[0] = GITG_TYPE_REVISION;
 	object->priv->column_types[1] = G_TYPE_STRING;
