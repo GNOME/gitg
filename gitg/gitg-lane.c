@@ -4,9 +4,10 @@
 GitgLane *
 gitg_lane_copy(GitgLane *lane)
 {
-	GitgLane *copy = g_new(GitgLane, 1);
+	GitgLane *copy = g_new0(GitgLane, 1);
 	copy->color = gitg_color_ref(lane->color);
 	copy->from = g_slist_copy(lane->from);
+	copy->type = lane->type;
 
 	return copy;
 }
@@ -14,7 +15,7 @@ gitg_lane_copy(GitgLane *lane)
 GitgLane *
 gitg_lane_dup(GitgLane *lane)
 {
-	GitgLane *dup = g_new(GitgLane, 1);
+	GitgLane *dup = g_new0(GitgLane, 1);
 	dup->color = gitg_color_copy(lane->color);
 	dup->from = g_slist_copy(lane->from);
 	
@@ -31,8 +32,14 @@ gitg_lane_free(GitgLane *lane)
 GitgLane *
 gitg_lane_new()
 {
-	GitgLane *lane = g_new(GitgLane, 1);
-	lane->color = gitg_color_next();
+	return gitg_lane_new_with_color(gitg_color_next());
+}
+
+GitgLane *
+gitg_lane_new_with_color(GitgColor *color)
+{
+	GitgLane *lane = g_new0(GitgLane, 1);
+	lane->color = color;
 	lane->from = NULL;
 	
 	return lane;
