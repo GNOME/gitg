@@ -18,7 +18,8 @@ static guint runner_signals[LAST_SIGNAL] = { 0 };
 enum {
 	PROP_0,
 
-	PROP_BUFFER_SIZE
+	PROP_BUFFER_SIZE,
+	PROP_SYNCHRONIZED
 };
 
 struct _GitgRunnerPrivate
@@ -32,6 +33,7 @@ struct _GitgRunnerPrivate
 	gint output_fd;
 	
 	guint buffer_size;
+	gboolean synchronized;
 	gchar **buffer;
 	gboolean done;
 };
@@ -74,11 +76,13 @@ gitg_runner_get_property(GObject *object, guint prop_id, GValue *value, GParamSp
 	switch (prop_id)
 	{
 		case PROP_BUFFER_SIZE:
-			g_value_set_uint (value, runner->priv->buffer_size);
+			g_value_set_uint(value, runner->priv->buffer_size);
 			break;
-
+		case PROP_SYNCHRONIZED:
+			g_value_set_boolean(value, runner->priv->synchronized);
+			break;
 		default:
-			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 			break;
 	}
 }
@@ -100,6 +104,9 @@ gitg_runner_set_property (GObject *object, guint prop_id, const GValue *value, G
 	{
 		case PROP_BUFFER_SIZE:
 			set_buffer_size(runner, g_value_get_uint(value));
+			break;
+		case PROP_SYNCHRONIZED:
+			runner->priv->synchronized = g_value_get_boolean(value);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -125,7 +132,14 @@ gitg_runner_class_init(GitgRunnerClass *klass)
 							      G_MAXUINT,
 							      1,
 							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-							      
+	
+	g_object_class_install_property (object_class, PROP_SYNCHRONIZED,
+					 g_param_spec_boolean ("synchronized",
+							      "SYNCHRONIZED",
+							      "Whether the command is ran synchronized",
+							      FALSE,
+							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+				      
 	runner_signals[BEGIN_LOADING] =
    		g_signal_new ("begin-loading",
 			      G_OBJECT_CLASS_TYPE (object_class),
@@ -178,11 +192,15 @@ emit_update_sync(GitgRunner *runner)
 	// Emit signal
 	g_signal_emit(runner, runner_signals[UPDATE], 0, runner->priv->buffer);
 
-	if (runner->priv->done)
-		g_signal_emit(runner, runner_signals[END_LOADING], 0);
+	if (!runner->priv->synchronized)
+	{
+		if (runner->priv->done)
+			g_signal_emit(runner, runner_signals[END_LOADING], 0);
 
-	runner->priv->syncid = 0;
-	g_cond_signal(runner->priv->cond);
+		runner->priv->syncid = 0;
+		g_cond_signal(runner->priv->cond);
+	}
+
 	return FALSE;
 }
 
@@ -192,8 +210,19 @@ sync_buffer(GitgRunner *runner, guint num)
 	// NULL terminate the buffer and add idle callback
 	runner->priv->buffer[num] = NULL;
 
-	runner->priv->syncid = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, (GSourceFunc)emit_update_sync, runner, NULL);
-	g_cond_wait(runner->priv->cond, runner->priv->cond_mutex);
+	if (runner->priv->synchronized)
+	{
+		emit_update_sync(runner);
+	}
+	else
+	{
+		runner->priv->syncid = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, 
+											   (GSourceFunc)emit_update_sync, 
+											   runner, 
+											   NULL);
+
+		g_cond_wait(runner->priv->cond, runner->priv->cond_mutex);
+	}
 }
 
 static gpointer
@@ -219,9 +248,14 @@ output_reader_thread(gpointer userdata)
 		runner->priv->buffer[num++] = utf8;
 		g_free(line);
 		
-		g_mutex_lock(runner->priv->mutex);
-		gboolean cancel = runner->priv->done;
-		g_mutex_unlock(runner->priv->mutex);
+		gboolean cancel = FALSE;
+		
+		if (!runner->priv->synchronized)
+		{
+			g_mutex_lock(runner->priv->mutex);
+			cancel = runner->priv->done;
+			g_mutex_unlock(runner->priv->mutex);
+		}
 		
 		if (cancel)
 			break;
@@ -234,10 +268,13 @@ output_reader_thread(gpointer userdata)
 		}
 	}
 
-	g_mutex_lock(runner->priv->mutex);
-	cancel = runner->priv->done;
-	runner->priv->done = TRUE;
-	g_mutex_unlock(runner->priv->mutex);
+	if (!runner->priv->synchronized)
+	{
+		g_mutex_lock(runner->priv->mutex);
+		cancel = runner->priv->done;
+		runner->priv->done = TRUE;
+		g_mutex_unlock(runner->priv->mutex);
+	}
 	
 	if (!cancel)
 		sync_buffer(runner, num);
@@ -248,13 +285,26 @@ output_reader_thread(gpointer userdata)
 	return NULL;
 }
 
-
-GitgRunner*
+GitgRunner *
 gitg_runner_new(guint buffer_size)
 {
 	g_assert(buffer_size > 0);
 
-	return GITG_RUNNER(g_object_new(GITG_TYPE_RUNNER, "buffer_size", buffer_size, NULL));
+	return GITG_RUNNER(g_object_new(GITG_TYPE_RUNNER, 
+									"buffer_size", buffer_size, 
+									"synchronized", FALSE,
+									NULL));
+}
+
+GitgRunner *
+gitg_runner_new_synchronized(guint buffer_size)
+{
+	g_assert(buffer_size > 0);
+
+	return GITG_RUNNER(g_object_new(GITG_TYPE_RUNNER, 
+									"buffer_size", buffer_size, 
+									"synchronized", TRUE,
+									NULL));
 }
 
 gboolean
@@ -274,11 +324,20 @@ gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 	runner->priv->done = FALSE;
 	runner->priv->output_fd = stdout;
 
-	runner->priv->thread = g_thread_create(output_reader_thread, runner, TRUE, NULL);
-	g_child_watch_add(runner->priv->pid, runner_io_exit, runner);
-
 	// Emit begin-loading signal
 	g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);
+	
+	if (runner->priv->synchronized)
+	{
+		output_reader_thread(runner);
+		runner_io_exit(runner->priv->pid, 0, NULL);
+	}
+	else
+	{
+		runner->priv->thread = g_thread_create(output_reader_thread, runner, TRUE, NULL);
+		g_child_watch_add(runner->priv->pid, runner_io_exit, runner);
+	}
+	
 	return TRUE;
 }
 

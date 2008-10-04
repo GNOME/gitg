@@ -26,6 +26,7 @@ struct _GitgRunner {
 struct _GitgRunnerClass {
 	GObjectClass parent_class;
 	
+	/* signals */
 	void (* begin_loading) (GitgRunner *runner);
 	void (* update) (GitgRunner *runner, gchar **buffer);
 	void (* end_loading) (GitgRunner *runner);
@@ -33,6 +34,8 @@ struct _GitgRunnerClass {
 
 GType gitg_runner_get_type (void) G_GNUC_CONST;
 GitgRunner *gitg_runner_new(guint buffer_size);
+GitgRunner *gitg_runner_new_synchronized(guint buffer_size);
+
 guint gitg_runner_get_buffer_size(GitgRunner *runner);
 
 gboolean gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error);
