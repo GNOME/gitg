@@ -412,7 +412,19 @@ create_repository(GitgWindow *window, gchar const *path)
 static int
 sort_by_ref_type(GitgRef const *a, GitgRef const *b)
 {
-	return a->type - b->type;
+	if (a->type == b->type)
+	{
+		if (g_ascii_strcasecmp(a->shortname, "master") == 0)
+			return -1;
+		else if (g_ascii_strcasecmp(b->shortname, "master") == 0)
+			return 1;
+		else
+			return g_ascii_strcasecmp(a->shortname, b->shortname);
+	}
+	else
+	{
+		return a->type - b->type;
+	}
 }
 
 static void
