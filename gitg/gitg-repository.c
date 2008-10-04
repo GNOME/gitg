@@ -492,20 +492,20 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 	gitg_repository_clear(self);
 	
 	gchar *dotgit = gitg_utils_dot_git_path(self->priv->path);
-	gchar const **argv = g_new0(gchar const *, 7 + (argc ? argc - 1 : 0));
+	gchar const **argv = g_new0(gchar const *, 7 + (argc > 0 ? argc - 1 : 0));
 	argv[0] = "git";
 	argv[1] = "--git-dir";
 	argv[2] = dotgit;
 	argv[3] = "log";
 	argv[4] = "--pretty=format:%H\01%an\01%s\01%P\01%at";
 	
-	if (!argc)
+	if (argc <= 0)
 		argv[5] = "HEAD";
 
 	int i;
 	for (i = 0; i < argc; ++i)
 		argv[5 + i] = av[i];
-	
+
 	gboolean ret = gitg_runner_run(self->priv->loader, argv, error);
 	g_free(dotgit);
 	
