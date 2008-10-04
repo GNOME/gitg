@@ -341,10 +341,30 @@ gitg_window_class_init(GitgWindowClass *klass)
 }
 
 static void
+on_branches_update(GitgRunner *runner, gchar **buffer, GitgWindow *self)
+{
+	gchar *ptr;
+	
+	while ((ptr = *buffer++))
+	{
+		while (*ptr == '*' || *ptr == ' ' || *ptr == '\t')
+			++ptr;
+		
+		GtkTreeIter iter;
+		gtk_list_store_append(self->priv->branches_store, &iter);
+		gtk_list_store_set(self->priv->branches_store, &iter, 0, ptr, -1);
+	}
+}
+
+static void
 gitg_window_init(GitgWindow *self)
 {
 	self->priv = GITG_WINDOW_GET_PRIVATE(self);
 	self->priv->branches_runner = gitg_runner_new(100);
+	
+	g_signal_connect(self->priv->branches_runner, 
+					 "update", G_CALLBACK(on_branches_update), 
+					 self);
 }
 
 static void
@@ -416,93 +436,6 @@ create_repository(GitgWindow *window, gchar const *path)
 }
 
 static void
-on_branches_update(GitgRunner *runner, gchar **buffer, GitgWindow *self)
-{
-	gchar *ptr;
-	
-	while ((ptr = *buffer++))
-	{
-		while (*ptr == '*' || *ptr == ' ' || *ptr == '\t')
-			++ptr;
-		
-		GtkTreeIter iter;
-		gtk_list_store_append(self->priv->branches_store, &iter);
-		gtk_list_store_set(self->priv->branches_store, &iter, 0, ptr, -1);
-	}
-}
-
-static void
-check_separator(GitgWindow *window)
-{
-	GtkTreeIter iter;
-	GtkTreeModel *model = GTK_TREE_MODEL(window->priv->branches_store);
-	
-	if (gtk_tree_model_iter_nth_child(model, &iter, NULL, 2))
-	{
-		do
-		{
-			gchar *name;
-			gtk_tree_model_get(model, &iter, 0, &name, -1);
-			
-			if (!name)
-				return;
-			
-			g_free(name);
-		} while (gtk_tree_model_iter_next(model, &iter));
-	}
-	
-	gtk_list_store_append(window->priv->branches_store, &iter);
-	gtk_list_store_set(window->priv->branches_store, &iter, 0, NULL, -1);
-}
-
-static void
-on_tags_update(GitgRunner *runner, gchar **buffer, GitgWindow *self)
-{
-	if (!buffer || !*buffer)
-		return;
-
-	check_separator(self);
-	
-	gchar *ptr;
-	
-	while ((ptr = *buffer++))
-	{
-		GtkTreeIter iter;
-		gtk_list_store_append(self->priv->branches_store, &iter);
-		gtk_list_store_set(self->priv->branches_store, &iter, 0, ptr, -1);
-	}
-}
-
-static void
-on_tags_end_loading(GitgRunner *runner, GitgWindow *window)
-{
-	g_signal_handlers_disconnect_by_func(runner, on_tags_end_loading, window);
-	g_signal_handlers_disconnect_by_func(runner, on_tags_update, window);
-}
-
-static void
-on_branches_end_loading(GitgRunner *runner, GitgWindow *window)
-{
-	g_signal_handlers_disconnect_by_func(runner, on_branches_end_loading, window);
-	g_signal_handlers_disconnect_by_func(runner, on_branches_update, window);
-	
-	g_signal_connect(runner, "update", G_CALLBACK(on_tags_update), window);
-	g_signal_connect(runner, "end-loading", G_CALLBACK(on_tags_end_loading), window);
-	
-	gchar *dotgit = gitg_utils_dot_git_path(gitg_repository_get_path(window->priv->repository));
-	gchar const *argv[] = {
-		"git",
-		"--git-dir",
-		dotgit,
-		"tag",
-		"-l",
-		NULL
-	};
-
-	gitg_runner_run(window->priv->branches_runner, argv, NULL);
-}
-
-static void
 fill_branches_combo(GitgWindow *window)
 {
 	gchar *dotgit = gitg_utils_dot_git_path(gitg_repository_get_path(window->priv->repository));
@@ -524,9 +457,6 @@ fill_branches_combo(GitgWindow *window)
 	}
 	
 	gtk_combo_box_set_active(window->priv->combo_branches, 0);
-
-	g_signal_connect(window->priv->branches_runner, "update", G_CALLBACK(on_branches_update), window);
-	g_signal_connect(window->priv->branches_runner, "end-loading", G_CALLBACK(on_branches_end_loading), window);
 
 	gitg_runner_run(window->priv->branches_runner, argv, NULL);
 	g_free(dotgit);
