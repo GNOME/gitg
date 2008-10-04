@@ -15,11 +15,13 @@ INCLUDES =							\
 gitg_SOURCES = 					\
 	gitg.c						\
 	gitg-window.c				\
+	gitg-ref.c					\
 	gitg-revision.c				\
 	gitg-revision-tree-view.c	\
 	gitg-revision-tree-store.c	\
 	gitg-repository.c			\
 	gitg-cell-renderer-path.c	\
+	gitg-label-renderer.c		\
 	gitg-runner.c				\
 	gitg-revision-view.c		\
 	gitg-utils.c				\

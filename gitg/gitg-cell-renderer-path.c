@@ -2,6 +2,7 @@
 #include "gitg-cell-renderer-path.h"
 #include "gitg-lane.h"
 #include "gitg-utils.h"
+#include "gitg-label-renderer.h"
 
 #define GITG_CELL_RENDERER_PATH_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_CELL_RENDERER_PATH, GitgCellRendererPathPrivate))
 
@@ -17,7 +18,8 @@ enum
 	PROP_LANES,
 	PROP_NEXT_LANES,
 	PROP_LANE_WIDTH,
-	PROP_DOT_WIDTH
+	PROP_DOT_WIDTH,
+	PROP_LABELS
 };
 
 struct _GitgCellRendererPathPrivate
@@ -25,6 +27,7 @@ struct _GitgCellRendererPathPrivate
 	gint8 lane;
 	GSList *lanes;
 	GSList *next_lanes;
+	GSList *labels;
 	guint lane_width;
 	guint dot_width;
 };
@@ -40,14 +43,23 @@ num_lanes(GitgCellRendererPath *self)
 }
 
 inline static gint
-total_width(GitgCellRendererPath *self)
+total_width(GitgCellRendererPath *self, GtkWidget *widget)
 {
-	return num_lanes(self) * self->priv->lane_width;
+	PangoFontDescription *font;
+	g_object_get(self, "font-desc", &font, NULL);
+		
+	return num_lanes(self) * self->priv->lane_width + gitg_label_renderer_width(widget, font, self->priv->labels);
 }
 
 static void
 gitg_cell_renderer_path_finalize(GObject *object)
 {
+	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(object);
+	
+	g_slist_free(self->priv->lanes);
+	g_slist_free(self->priv->next_lanes);
+	g_slist_free(self->priv->labels);
+
 	G_OBJECT_CLASS(gitg_cell_renderer_path_parent_class)->finalize(object);
 }
 
@@ -63,7 +75,7 @@ renderer_get_size(GtkCellRenderer *renderer, GtkWidget *widget, GdkRectangle *ar
 		*yoffset = 0;
 	
 	if (width)
-		*width = num_lanes(self) * self->priv->lane_width;
+		*width = total_width(self, widget);
 	
 	if (height)
 		*height = area ? area->height : 1;
@@ -173,6 +185,18 @@ draw_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 }
 
 static void
+draw_labels(GitgCellRendererPath *self, GtkWidget *widget, cairo_t *context, GdkRectangle *area)
+{
+	gint offset = num_lanes(self) * self->priv->lane_width;
+	PangoFontDescription *font;
+	
+	g_object_get(self, "font-desc", &font, NULL);
+	
+	cairo_translate(context, offset, 0.0);
+	gitg_label_renderer_draw(widget, font, context, self->priv->labels, area);
+}
+
+static void
 renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widget, GdkRectangle *area, GdkRectangle *cell_area, GdkRectangle *expose_area, GtkCellRendererState flags)
 {
 	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(renderer);
@@ -192,11 +216,13 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 	gitg_color_set_cairo_source(((GitgLane *)g_slist_nth_data(self->priv->lanes, self->priv->lane))->color, cr);
 	
 	cairo_fill(cr);
-
+	
+	// draw labels
+	draw_labels(self, widget, cr, area);
 	cairo_destroy(cr);
 	
-	area->x += total_width(self);
-	cell_area->x += total_width(self);
+	area->x += total_width(self, widget);
+	cell_area->x += total_width(self, widget);
 
 	if (GTK_CELL_RENDERER_CLASS(parent_class)->render)
 		GTK_CELL_RENDERER_CLASS(parent_class)->render(renderer, window, widget, area, cell_area, expose_area, flags);
@@ -224,6 +250,9 @@ gitg_cell_renderer_path_get_property(GObject *object, guint prop_id, GValue *val
 		case PROP_DOT_WIDTH:
 			g_value_set_uint(value, self->priv->dot_width);
 		break;
+		case PROP_LABELS:
+			g_value_set_pointer(value, self->priv->labels);
+		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 		break;
@@ -241,9 +270,11 @@ gitg_cell_renderer_path_set_property(GObject *object, guint prop_id, const GValu
 			self->priv->lane = g_value_get_int(value);
 		break;
 		case PROP_LANES:
+			g_slist_free(self->priv->lanes);
 			self->priv->lanes = (GSList *)g_value_get_pointer(value);
 		break;
 		case PROP_NEXT_LANES:
+			g_slist_free(self->priv->next_lanes);
 			self->priv->next_lanes = (GSList *)g_value_get_pointer(value);
 		break;
 		case PROP_LANE_WIDTH:
@@ -251,6 +282,10 @@ gitg_cell_renderer_path_set_property(GObject *object, guint prop_id, const GValu
 		break;
 		case PROP_DOT_WIDTH:
 			self->priv->dot_width = g_value_get_uint(value);
+		break;
+		case PROP_LABELS:
+			g_slist_free(self->priv->labels);
+			self->priv->labels = (GSList *)g_value_get_pointer(value);
 		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -310,6 +345,12 @@ gitg_cell_renderer_path_class_init(GitgCellRendererPathClass *klass)
 							      0,
 							      G_MAXUINT,
 							      DEFAULT_DOT_WIDTH,
+							      G_PARAM_READWRITE));
+
+	g_object_class_install_property(object_class, PROP_LABELS,
+					 g_param_spec_pointer("labels",
+							      "LABELS",
+							      "Labels",
 							      G_PARAM_READWRITE));
 
 	g_type_class_add_private(object_class, sizeof(GitgCellRendererPathPrivate));

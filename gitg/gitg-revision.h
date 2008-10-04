@@ -14,7 +14,7 @@ G_BEGIN_DECLS
 #define GITG_IS_REVISION_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), GITG_TYPE_REVISION))
 #define GITG_REVISION_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), GITG_TYPE_REVISION, GitgRevisionClass))
 
-typedef gchar Hash[20];
+#include "gitg-types.h"
 
 typedef struct _GitgRevision		GitgRevision;
 typedef struct _GitgRevisionClass	GitgRevisionClass;

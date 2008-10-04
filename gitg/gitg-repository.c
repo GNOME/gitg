@@ -1,6 +1,8 @@
 #include "gitg-repository.h"
 #include "gitg-utils.h"
 #include "gitg-lanes.h"
+#include "gitg-ref.h"
+#include "gitg-types.h"
 
 #include <glib/gi18n.h>
 #include <time.h>
@@ -39,6 +41,7 @@ struct _GitgRepositoryPrivate
 	
 	GitgRevision **storage;
 	GitgLanes *lanes;
+	GHashTable *refs;
 
 	gulong size;
 	gulong allocated;
@@ -289,6 +292,13 @@ do_clear(GitgRepository *repository, gboolean emit)
 	repository->priv->storage = NULL;
 	repository->priv->size = 0;
 	repository->priv->allocated = 0;
+	
+	/* clear hash tables */
+	g_hash_table_ref(repository->priv->hashtable);
+	g_hash_table_ref(repository->priv->refs);
+	
+	g_hash_table_destroy(repository->priv->hashtable);
+	g_hash_table_destroy(repository->priv->refs);
 }
 
 static void
@@ -310,6 +320,7 @@ gitg_repository_finalize(GObject *object)
 	
 	// Free the hash
 	g_hash_table_destroy(rp->priv->hashtable);
+	g_hash_table_destroy(rp->priv->refs);
 
 	G_OBJECT_CLASS (gitg_repository_parent_class)->finalize(object);
 }
@@ -416,6 +427,13 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 }
 
 static void
+free_refs(GSList *refs)
+{
+	g_slist_foreach(refs, (GFunc)gitg_ref_free, NULL);
+	g_slist_free(refs);
+}
+
+static void
 gitg_repository_init(GitgRepository *object)
 {
 	object->priv = GITG_REPOSITORY_GET_PRIVATE(object);
@@ -429,6 +447,7 @@ gitg_repository_init(GitgRepository *object)
 	object->priv->lanes = gitg_lanes_new();
 	object->priv->grow_size = 1000;
 	object->priv->stamp = g_random_int();
+	object->priv->refs = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, (GDestroyNotify)free_refs);
 	
 	object->priv->loader = gitg_runner_new(5000);
 	g_signal_connect(object->priv->loader, "update", G_CALLBACK(on_loader_update), object);
@@ -475,6 +494,34 @@ gitg_repository_get_loader(GitgRepository *self)
 	return GITG_RUNNER(g_object_ref(self->priv->loader));
 }
 
+static void
+add_ref(GitgRepository *self, gchar const *sha1, gchar const *name)
+{
+	GitgRef *ref = gitg_ref_new(sha1, name);
+	GSList *refs = (GSList *)g_hash_table_lookup(self->priv->refs, ref->hash);
+	
+	if (refs == NULL)
+		g_hash_table_insert(self->priv->refs, ref->hash, g_slist_append(NULL, ref));
+	else
+		refs = g_slist_append(refs, ref);
+}
+
+static void
+on_refs_update(GitgRunner *runner, gchar **buffer, GitgRepository *self)
+{
+	while (*buffer)
+	{
+		// each line will look like <name> <hash>
+		gchar **components = g_strsplit(*buffer, " ", 2);
+		
+		if (g_strv_length(components) == 2)
+			add_ref(self, components[1], components[0]);
+		
+		g_strfreev(components);
+		++buffer;
+	}
+}
+
 gboolean
 gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **error)
 {
@@ -491,11 +538,24 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 	gitg_runner_cancel(self->priv->loader);
 	gitg_repository_clear(self);
 	
+	/* first get the refs */
 	gchar *dotgit = gitg_utils_dot_git_path(self->priv->path);
-	gchar const **argv = g_new0(gchar const *, 7 + (argc > 0 ? argc - 1 : 0));
+	gchar const **argv;
+	GitgRunner *refs_runner = gitg_runner_new_synchronized(5000);
+	
+	g_signal_connect(refs_runner, "update", G_CALLBACK(on_refs_update), self);
+	
+	argv = g_new0(gchar const *, 7 + (argc > 0 ? argc - 1 : 0));
 	argv[0] = "git";
 	argv[1] = "--git-dir";
 	argv[2] = dotgit;
+	argv[3] = "for-each-ref";
+	argv[4] = "--format=%(refname) %(objectname)";
+	argv[5] = "refs";
+
+	gitg_runner_run(refs_runner, argv, NULL);
+	g_object_unref(refs_runner);
+
 	argv[3] = "log";
 	argv[4] = "--pretty=format:%H\01%an\01%s\01%P\01%at";
 	
@@ -508,6 +568,7 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 
 	gboolean ret = gitg_runner_run(self->priv->loader, argv, error);
 	g_free(dotgit);
+	g_free(argv);
 	
 	return ret;
 }
@@ -574,3 +635,29 @@ gitg_repository_find(GitgRepository *store, GitgRevision *revision, GtkTreeIter 
 	return gitg_repository_find_by_hash(store, gitg_revision_get_hash(revision), iter);
 }
 
+GSList *
+gitg_repository_get_refs(GitgRepository *repository)
+{
+	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
+	GList *values = g_hash_table_get_values(repository->priv->refs);
+	GSList *ret = NULL;
+	GList *item;
+	
+	for (item = values; item; item = item->next)
+	{
+		GSList *val;
+		
+		for (val = (GSList *)item->data; val; val = val->next)
+			ret = g_slist_append(ret, gitg_ref_copy((GitgRef *)val->data));
+	}
+	
+	g_list_free(values);
+	return ret;
+}
+
+GSList *
+gitg_repository_get_refs_for_hash(GitgRepository *repository, gchar const *hash)
+{
+	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
+	return g_slist_copy((GSList *)g_hash_table_lookup(repository->priv->refs, hash));
+}
