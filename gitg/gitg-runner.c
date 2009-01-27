@@ -190,6 +190,7 @@ static gboolean
 emit_update_sync(GitgRunner *runner)
 {
 	// Emit signal
+	runner->priv->syncid = 0;
 	g_signal_emit(runner, runner_signals[UPDATE], 0, runner->priv->buffer);
 
 	if (!runner->priv->synchronized)
@@ -197,7 +198,6 @@ emit_update_sync(GitgRunner *runner)
 		if (runner->priv->done)
 			g_signal_emit(runner, runner_signals[END_LOADING], 0);
 
-		runner->priv->syncid = 0;
 		g_cond_signal(runner->priv->cond);
 	}
 
@@ -236,11 +236,12 @@ output_reader_thread(gpointer userdata)
 	gchar *line;
 	gsize len;
 	GError *error = NULL;
-	gboolean cancel = FALSE;
 	gsize term;
-
+	
 	while (g_io_channel_read_line(channel, &line, &len, &term, &error) == G_IO_STATUS_NORMAL)
 	{
+		gboolean cancel;
+
 		// Do not include the newline
 		line[term] = '\0';
 		
@@ -248,36 +249,30 @@ output_reader_thread(gpointer userdata)
 		runner->priv->buffer[num++] = utf8;
 		g_free(line);
 		
-		gboolean cancel = FALSE;
+		g_mutex_lock (runner->priv->cond_mutex);
 		
-		if (!runner->priv->synchronized)
+		if (!runner->priv->done && num == runner->priv->buffer_size)
 		{
-			g_mutex_lock(runner->priv->mutex);
-			cancel = runner->priv->done;
-			g_mutex_unlock(runner->priv->mutex);
+			sync_buffer(runner, num);
+			num = 0;
 		}
+		
+		cancel = runner->priv->done;
+		g_mutex_unlock(runner->priv->cond_mutex);
 		
 		if (cancel)
 			break;
-
-		if (num == runner->priv->buffer_size)
-		{
-			sync_buffer(runner, num);
-			
-			num = 0;
-		}
 	}
 
-	if (!runner->priv->synchronized)
+	g_mutex_lock (runner->priv->cond_mutex);	
+
+	if (!runner->priv->done)
 	{
-		g_mutex_lock(runner->priv->mutex);
-		cancel = runner->priv->done;
 		runner->priv->done = TRUE;
-		g_mutex_unlock(runner->priv->mutex);
-	}
-	
-	if (!cancel)
 		sync_buffer(runner, num);
+	}
+
+	g_mutex_unlock (runner->priv->cond_mutex);
 	
 	g_io_channel_shutdown(channel, TRUE, NULL);
 	g_io_channel_unref(channel);
@@ -334,7 +329,7 @@ gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 	}
 	else
 	{
-		runner->priv->thread = g_thread_create(output_reader_thread, runner, TRUE, NULL);
+		runner->priv->thread = g_thread_create(output_reader_thread, runner, TRUE, NULL);		
 		g_child_watch_add(runner->priv->pid, runner_io_exit, runner);
 	}
 	
@@ -353,22 +348,27 @@ gitg_runner_cancel(GitgRunner *runner)
 {
 	g_return_if_fail(GITG_IS_RUNNER(runner));
 
-	g_mutex_lock(runner->priv->mutex);
-	runner->priv->done = TRUE;
-	g_mutex_unlock(runner->priv->mutex);
-	
-	if (runner->priv->thread)
+	if (!runner->priv->thread)
 	{
+		runner->priv->done = TRUE;
+		return;
+	}
+
+	g_mutex_lock(runner->priv->cond_mutex);
+	runner->priv->done = TRUE;
+	
+	if (runner->priv->syncid)
+	{
+		g_source_remove(runner->priv->syncid);
+		runner->priv->syncid = 0;
+
+		g_signal_emit(runner, runner_signals[END_LOADING], 0);
 		g_cond_signal(runner->priv->cond);
-		g_thread_join(runner->priv->thread);
-		
-		if (runner->priv->syncid)
-		{
-			g_source_remove(runner->priv->syncid);
-			runner->priv->syncid = 0;
-		}
 	}
 	
+	g_mutex_unlock(runner->priv->cond_mutex);
+	g_thread_join(runner->priv->thread);
+
 	runner->priv->thread = NULL;
 	runner->priv->pid = 0;
 }
