@@ -110,7 +110,7 @@ search_hash_equal_func(GtkTreeModel *model, gchar const *key, GtkTreeIter *iter)
 	gboolean ret = strncmp(sha, key, strlen(key)) != 0;
 	
 	g_free(sha);
-	g_object_unref(rv);
+	gitg_revision_unref(rv);
 	
 	return ret;
 }
@@ -218,14 +218,14 @@ on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkT
 		gtk_tree_model_get(model, &iter1, 0, &next, -1);
 		
 		next_lanes = gitg_revision_get_lanes(next);
-		g_object_unref(next);
+		gitg_revision_unref(next);
 	}
 	
 	GSList *labels = gitg_repository_get_refs_for_hash(GITG_REPOSITORY(model), gitg_revision_get_hash(rv));
 
 	g_object_set(renderer, "lane", gitg_revision_get_mylane(rv), "lanes", gitg_revision_get_lanes(rv), "next_lanes", next_lanes, "labels", labels, NULL);
 	
-	g_object_unref(rv);
+	gitg_revision_unref(rv);
 }
 
 static gboolean

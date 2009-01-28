@@ -151,7 +151,7 @@ tree_model_get_value(GtkTreeModel *tree_model, GtkTreeIter *iter, gint column, G
 	switch (column)
 	{
 		case OBJECT_COLUMN:
-			g_value_set_object(value, rv);
+			g_value_set_boxed(value, rv);
 		break;
 		case SUBJECT_COLUMN:
 			g_value_set_string(value, gitg_revision_get_subject(rv));
@@ -281,7 +281,7 @@ do_clear(GitgRepository *repository, gboolean emit)
 		}
 		
 		gtk_tree_path_prev(path);
-		g_object_unref(repository->priv->storage[i]);
+		gitg_revision_unref(repository->priv->storage[i]);
 	}
 	
 	gtk_tree_path_free(path);
@@ -421,7 +421,7 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 
 		gitg_repository_add(self, rv, NULL);
 
-		g_object_unref(rv);
+		gitg_revision_unref(rv);
 		g_strfreev(components);
 	}
 }
@@ -580,12 +580,11 @@ gitg_repository_add(GitgRepository *self, GitgRevision *obj, GtkTreeIter *iter)
 
 	/* validate our parameters */
 	g_return_if_fail(GITG_IS_REPOSITORY(self));
-	g_return_if_fail(GITG_IS_REVISION(obj));
 	
 	grow_storage(self, 1);
 
 	/* put this object in our data storage */
-	self->priv->storage[self->priv->size++] = g_object_ref(obj);
+	self->priv->storage[self->priv->size++] = gitg_revision_ref(obj);
 
 	g_hash_table_insert(self->priv->hashtable, (gpointer)gitg_revision_get_hash(obj), GUINT_TO_POINTER(self->priv->size - 1));
 
@@ -630,8 +629,6 @@ gitg_repository_find_by_hash(GitgRepository *store, gchar const *hash, GtkTreeIt
 gboolean
 gitg_repository_find(GitgRepository *store, GitgRevision *revision, GtkTreeIter *iter)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), FALSE);
-	
 	return gitg_repository_find_by_hash(store, gitg_revision_get_hash(revision), iter);
 }
 

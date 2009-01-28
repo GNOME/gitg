@@ -1,10 +1,10 @@
 #include "gitg-revision.h"
 #include "gitg-utils.h"
 
-#define GITG_REVISION_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION, GitgRevisionPrivate))
-
-struct _GitgRevisionPrivate
+struct _GitgRevision
 {
+	gint refcount;
+
 	Hash hash;
 	gchar *author;
 	gchar *subject;
@@ -17,44 +17,40 @@ struct _GitgRevisionPrivate
 	gint64 timestamp;
 };
 
-G_DEFINE_TYPE(GitgRevision, gitg_revision, G_TYPE_OBJECT)
-
 static void
 free_lanes(GitgRevision *rv)
 {
-	g_slist_foreach(rv->priv->lanes, (GFunc)gitg_lane_free, NULL);
-	g_slist_free(rv->priv->lanes);
-	rv->priv->lanes = NULL;
+	g_slist_foreach(rv->lanes, (GFunc)gitg_lane_free, NULL);
+	g_slist_free(rv->lanes);
+	rv->lanes = NULL;
 }
 
 static void
-gitg_revision_finalize(GObject *object)
+gitg_revision_finalize(GitgRevision *revision)
 {
-	GitgRevision *rv = GITG_REVISION(object);
+	g_free(revision->author);
+	g_free(revision->subject);
+	g_free(revision->parents);
 	
-	g_free(rv->priv->author);
-	g_free(rv->priv->subject);
-	g_free(rv->priv->parents);
+	free_lanes(revision);
 	
-	free_lanes(rv);
-	
-	G_OBJECT_CLASS(gitg_revision_parent_class)->finalize(object);
+	g_slice_free(GitgRevision, revision);
 }
 
-static void
-gitg_revision_class_init(GitgRevisionClass *klass)
+GitgRevision *
+gitg_revision_ref(GitgRevision *revision)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	
-	object_class->finalize = gitg_revision_finalize;
-
-	g_type_class_add_private(object_class, sizeof(GitgRevisionPrivate));
+	g_atomic_int_inc(&revision->refcount);
+	return revision;
 }
 
-static void
-gitg_revision_init(GitgRevision *self)
+void
+gitg_revision_unref(GitgRevision *revision)
 {
-	self->priv = GITG_REVISION_GET_PRIVATE(self);
+	if (!g_atomic_int_dec_and_test(&revision->refcount))
+		return;
+	
+	gitg_revision_finalize(revision);
 }
 
 GitgRevision *gitg_revision_new(gchar const *sha, 
@@ -63,23 +59,25 @@ GitgRevision *gitg_revision_new(gchar const *sha,
 		gchar const *parents, 
 		gint64 timestamp)
 {
-	GitgRevision *rv = g_object_new(GITG_TYPE_REVISION, NULL);
+	GitgRevision *rv = g_slice_new0 (GitgRevision);
 	
-	gitg_utils_sha1_to_hash(sha, rv->priv->hash);
-	rv->priv->author = g_strdup(author);
-	rv->priv->subject = g_strdup(subject);
-	rv->priv->timestamp = timestamp;
+	rv->refcount = 1;
+
+	gitg_utils_sha1_to_hash(sha, rv->hash);
+	rv->author = g_strdup(author);
+	rv->subject = g_strdup(subject);
+	rv->timestamp = timestamp;
 	
 	gchar **shas = g_strsplit(parents, " ", 0);
 	gint num = g_strv_length(shas);
-	rv->priv->parents = g_new(Hash, num + 1);
+	rv->parents = g_new(Hash, num + 1);
 	
 	int i;
 	for (i = 0; i < num; ++i)
-		gitg_utils_sha1_to_hash(shas[i], rv->priv->parents[i]);
+		gitg_utils_sha1_to_hash(shas[i], rv->parents[i]);
 	
 	g_strfreev(shas);
-	rv->priv->num_parents = num;
+	rv->num_parents = num;
 	
 	return rv;
 }
@@ -87,38 +85,32 @@ GitgRevision *gitg_revision_new(gchar const *sha,
 gchar const *
 gitg_revision_get_author(GitgRevision *revision)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), NULL);
-	return revision->priv->author;
+	return revision->author;
 }
 
 gchar const *
 gitg_revision_get_subject(GitgRevision *revision)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), NULL);
-	return revision->priv->subject;
+	return revision->subject;
 }
 
 guint64
 gitg_revision_get_timestamp(GitgRevision *revision)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), 0);
-	return revision->priv->timestamp;
+	return revision->timestamp;
 }
 
 gchar const *
 gitg_revision_get_hash(GitgRevision *revision)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), NULL);
-	return revision->priv->hash;
+	return revision->hash;
 }
 
 gchar *
 gitg_revision_get_sha1(GitgRevision *revision)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), NULL);
-
 	char res[40];
-	gitg_utils_hash_to_sha1(revision->priv->hash, res);
+	gitg_utils_hash_to_sha1(revision->hash, res);
 
 	return g_strndup(res, 40);
 }
@@ -126,31 +118,27 @@ gitg_revision_get_sha1(GitgRevision *revision)
 Hash *
 gitg_revision_get_parents_hash(GitgRevision *revision, guint *num_parents)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), NULL);
-	
 	if (num_parents)
-		*num_parents = revision->priv->num_parents;
+		*num_parents = revision->num_parents;
 
-	return revision->priv->parents;
+	return revision->parents;
 }
 
 gchar **
 gitg_revision_get_parents(GitgRevision *revision)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), NULL);
-
-	gchar **ret = g_new(gchar *, revision->priv->num_parents + 1);
+	gchar **ret = g_new(gchar *, revision->num_parents + 1);
 	
 	int i;
-	for (i = 0; i < revision->priv->num_parents; ++i)
+	for (i = 0; i < revision->num_parents; ++i)
 	{
 		ret[i] = g_new(gchar, 41);
-		gitg_utils_hash_to_sha1(revision->priv->parents[i], ret[i]);
+		gitg_utils_hash_to_sha1(revision->parents[i], ret[i]);
 		
 		ret[i][40] = '\0';
 	}
 
-	ret[revision->priv->num_parents] = NULL;
+	ret[revision->num_parents] = NULL;
 
 	return ret;
 }
@@ -158,29 +146,38 @@ gitg_revision_get_parents(GitgRevision *revision)
 GSList *
 gitg_revision_get_lanes(GitgRevision *revision)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), NULL);
-	return g_slist_copy(revision->priv->lanes);
+	return g_slist_copy(revision->lanes);
 }
 
 void 
 gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes)
 {
-	g_return_if_fail(GITG_IS_REVISION(revision));
-	
 	free_lanes(revision);
-	revision->priv->lanes = lanes;
+	revision->lanes = lanes;
 }
 
 gint8
 gitg_revision_get_mylane(GitgRevision *revision)
 {
-	g_return_val_if_fail(GITG_IS_REVISION(revision), -1);
-	return revision->priv->mylane;
+	return revision->mylane;
 }
 
 void 
 gitg_revision_set_mylane(GitgRevision *revision, gint8 mylane)
 {
-	g_return_if_fail(GITG_IS_REVISION(revision));
-	revision->priv->mylane = mylane;
+	revision->mylane = mylane;
 }
+
+GType 
+gitg_revision_get_type (void)
+{
+	static GType our_type = 0;
+
+	if (!our_type)
+		our_type = g_boxed_type_register_static(
+			"GitgRevision",
+			(GBoxedCopyFunc)gitg_revision_ref,
+			(GBoxedFreeFunc)gitg_revision_unref);
+
+	return our_type;
+} 

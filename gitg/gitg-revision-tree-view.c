@@ -9,6 +9,7 @@
 #include "gitg-revision-tree-store.h"
 #include "gitg-runner.h"
 #include "gitg-utils.h"
+#include "gitg-revision.h"
 
 #define GITG_REVISION_TREE_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_TREE, GitgRevisionTreeViewPrivate))
 
@@ -51,7 +52,7 @@ gitg_revision_tree_view_finalize(GObject *object)
 	GitgRevisionTreeView *self = GITG_REVISION_TREE_VIEW(object);
 	
 	if (self->priv->revision)
-		g_object_unref(self->priv->revision);
+		gitg_revision_unref(self->priv->revision);
 	
 	if (self->priv->repository)
 		g_object_unref(self->priv->repository);
@@ -78,7 +79,7 @@ gitg_revision_tree_view_get_property(GObject *object, guint prop_id, GValue *val
 	switch (prop_id)
 	{
 		case PROP_REVISION:
-			g_value_set_object(value, self->priv->revision);
+			g_value_set_boxed(value, self->priv->revision);
 		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -96,7 +97,7 @@ gitg_revision_tree_view_set_property(GObject *object, guint prop_id, const GValu
 		case PROP_REPOSITORY:
 			if (self->priv->revision)
 			{
-				g_object_unref(self->priv->revision);
+				gitg_revision_unref(self->priv->revision);
 				self->priv->revision = NULL;
 				g_object_notify(object, "revision");
 			}
@@ -109,9 +110,9 @@ gitg_revision_tree_view_set_property(GObject *object, guint prop_id, const GValu
 		break;
 		case PROP_REVISION:
 			if (self->priv->revision)
-				g_object_unref(self->priv->revision);
+				gitg_revision_unref(self->priv->revision);
 				
-			self->priv->revision = g_value_dup_object(value);
+			self->priv->revision = g_value_dup_boxed(value);
 			gitg_revision_tree_view_reload(self);
 		break;
 		default:
@@ -443,7 +444,7 @@ gitg_revision_tree_view_class_init(GitgRevisionTreeViewClass *klass)
 								      G_PARAM_READWRITE));
 
 	g_object_class_install_property(object_class, PROP_REVISION,
-						 g_param_spec_object ("revision",
+						 g_param_spec_boxed ("revision",
 								      "REVISION",
 								      "The revision",
 								      GITG_TYPE_REVISION,
