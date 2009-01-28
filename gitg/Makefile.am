@@ -12,7 +12,12 @@ INCLUDES =							\
 	-DGITG_UI_DIR=\""$(datadir)/gitg/ui/"\"			\
 	-DGITG_ICONDIR=\""$(datadir)/gitg/icons"\"
 
+BUILT_SOURCES = 				\
+	gitg-enum-types.c			\
+	gitg-enum-types.h
+
 gitg_SOURCES = 					\
+	$(BUILT_SOURCES)			\
 	gitg.c						\
 	gitg-window.c				\
 	gitg-ref.c					\
@@ -28,7 +33,13 @@ gitg_SOURCES = 					\
 	gitg-lane.c					\
 	gitg-lanes.c				\
 	gitg-color.c				\
+	gitg-changed-file.c			\
+	gitg-commit.c				\
+	gitg-commit-view.c			\
 	sexy-icon-entry.c
+
+ENUM_H_FILES =					\
+	gitg-changed-file.h
 
 gitg_LDADD = $(PACKAGE_LIBS)
 gitg_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
@@ -36,5 +47,17 @@ gitg_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
 uidir = $(datadir)/gitg/ui/
 ui_DATA = gitg-ui.xml gitg-menus.xml
 
+gitg-enum-types.h: gitg-enum-types.h.template $(ENUM_H_FILES) $(GLIB_MKENUMS)
+	(cd $(srcdir) && $(GLIB_MKENUMS) --template gitg-enum-types.h.template $(ENUM_H_FILES)) > $@
+        
+gitg-enum-types.c: gitg-enum-types.c.template $(ENUM_H_FILES) $(GLIB_MKENUMS)
+	(cd $(srcdir) && $(GLIB_MKENUMS) --template gitg-enum-types.c.template $(ENUM_H_FILES)) > $@
+
 EXTRA_DIST = 			\
 	$(ui_DATA)
+
+
+CLEANFILES = $(BUILT_SOURCES)
+
+dist-hook:
+	cd $(distdir); rm -f $(BUILT_SOURCES)

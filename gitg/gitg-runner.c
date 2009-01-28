@@ -303,12 +303,12 @@ gitg_runner_new_synchronized(guint buffer_size)
 }
 
 gboolean
-gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
+gitg_runner_run_working_directory(GitgRunner *runner, gchar const **argv, gchar const *wd, GError **error)
 {
 	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
 
 	gint stdout;
-	gboolean ret = g_spawn_async_with_pipes(NULL, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), NULL, &stdout, NULL, error);
+	gboolean ret = g_spawn_async_with_pipes(wd, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), NULL, &stdout, NULL, error);
 
 	if (!ret)
 	{
@@ -334,6 +334,12 @@ gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 	}
 	
 	return TRUE;
+}
+
+gboolean
+gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
+{
+	gitg_runner_run_working_directory(runner, argv, NULL, error);
 }
 
 guint
@@ -363,9 +369,9 @@ gitg_runner_cancel(GitgRunner *runner)
 		runner->priv->syncid = 0;
 
 		g_signal_emit(runner, runner_signals[END_LOADING], 0);
-		g_cond_signal(runner->priv->cond);
 	}
-	
+
+	g_cond_signal(runner->priv->cond);
 	g_mutex_unlock(runner->priv->cond_mutex);
 	g_thread_join(runner->priv->thread);
 

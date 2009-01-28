@@ -237,3 +237,79 @@ gitg_utils_null_length(gconstpointer *ptr)
 	
 	return ret;
 }
+
+gchar *
+gitg_utils_get_content_type(GFile *file)
+{
+	GFileInfo *info = g_file_query_info(file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, G_FILE_QUERY_INFO_NONE, NULL, NULL);
+	
+	if (!info || !g_file_info_has_attribute(info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE))
+		return NULL;
+	
+	gchar *content_type = g_strdup(g_file_info_get_content_type(info));
+	g_object_unref(info);
+
+	return content_type;
+}
+
+GtkSourceLanguage *
+gitg_utils_get_language(gchar const *content_type)
+{
+	if (!g_content_type_is_a(content_type, "text/plain") && !g_content_type_equals(content_type, "application/octet-stream"))
+		return NULL;
+	
+	gchar *mime = g_content_type_get_mime_type(content_type);
+	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
+	
+	gchar const * const *ids = gtk_source_language_manager_get_language_ids(manager);
+	gchar const *ptr;
+	GtkSourceLanguage *ret;
+	
+	while ((ptr = *ids++))
+	{
+		ret = gtk_source_language_manager_get_language(manager, ptr);
+		gchar **mime_types = gtk_source_language_get_mime_types(ret);
+		gchar **types = mime_types;
+		gchar *m;
+		
+		if (types)
+		{
+			while ((m = *types++))
+			{
+				if (strcmp(mime, m) == 0)
+				{
+					g_free(mime);
+					g_strfreev(mime_types);
+					return ret;
+				}
+			}
+		
+			g_strfreev(mime_types);
+		}
+
+		ret = NULL;
+	}
+	
+	g_free(mime);
+	return NULL;
+}
+
+gint 
+gitg_utils_sort_names(gchar const *s1, gchar const *s2)
+{
+	if (s1 == NULL)
+		return -1;
+	
+	if (s2 == NULL)
+		return 1;
+
+	gchar *c1 = s1 ? g_utf8_casefold(s1, -1) : NULL;
+	gchar *c2 = s2 ? g_utf8_casefold(s2, -1) : NULL;
+	
+	gint ret = g_utf8_collate(c1, c2);
+	
+	g_free(c1);
+	g_free(c2);
+	
+	return ret;
+}

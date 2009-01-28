@@ -13,19 +13,23 @@
 #include "gitg-revision-view.h"
 #include "gitg-revision-tree-view.h"
 #include "gitg-cell-renderer-path.h"
+#include "gitg-commit-view.h"
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
 struct _GitgWindowPrivate
 {
 	GitgRepository *repository;
+
 	GtkListStore *branches_store;
 
-	// Widget placeholders
+	/* Widget placeholders */
+	GtkNotebook *notebook_main;
 	GtkTreeView *tree_view;
 	GtkStatusbar *statusbar;
 	GitgRevisionView *revision_view;
 	GitgRevisionTreeView *revision_tree_view;
+	GitgCommitView *commit_view;
 	GtkWidget *search_popup;
 	GtkComboBox *combo_branches;
 };
@@ -169,7 +173,7 @@ build_search_entry(GitgWindow *window, GtkBuilder *builder)
 	
 	GtkUIManager *manager = GTK_UI_MANAGER(gtk_builder_get_object(b, "uiman"));
 	window->priv->search_popup = GTK_WIDGET(g_object_ref(gtk_ui_manager_get_widget(manager, "/ui/search_popup")));
-		
+	
 	gtk_builder_connect_signals(b, window);
 	g_object_unref(b);
 	
@@ -284,11 +288,14 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	// Store widgets
 	GitgWindow *window = GITG_WINDOW(buildable);
+	
+	window->priv->notebook_main = GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook_main"));
 	window->priv->tree_view = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_rv"));
 	window->priv->statusbar = GTK_STATUSBAR(gtk_builder_get_object(builder, "statusbar"));
 	window->priv->revision_view = GITG_REVISION_VIEW(gtk_builder_get_object(builder, "revision_view"));
 	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW(gtk_builder_get_object(builder, "revision_tree_view"));
-	
+	window->priv->commit_view = GITG_COMMIT_VIEW(gtk_builder_get_object(builder, "hpaned_commit"));
+
 	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
 	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "rv_renderer_subject")), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
 	
@@ -298,6 +305,8 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	// Create search entry
 	build_search_entry(window, builder);
 	
+	gtk_builder_connect_signals(builder, window);
+
 	// Connect signals
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(window->priv->tree_view);
 	g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), window);
@@ -513,9 +522,25 @@ gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gc
 			g_free(ar);
 
 		fill_branches_combo(window);
+		
+		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
 	}
 	else
 	{
 		handle_no_gitdir(window);
 	}
+}
+
+void
+gitg_window_show_commit(GitgWindow *window)
+{
+	g_return_if_fail(GITG_IS_WINDOW(window));
+	
+	gtk_notebook_set_current_page(window->priv->notebook_main, 1);
+}
+
+void
+on_file_quit(GtkAction *action, GitgWindow *window)
+{
+	gtk_main_quit();
 }

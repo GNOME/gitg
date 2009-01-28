@@ -1,8 +1,11 @@
 #include "gitg-commit.h"
 #include "gitg-runner.h"
 #include "gitg-utils.h"
+#include "gitg-changed-file.h"
 
 #define GITG_COMMIT_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_COMMIT, GitgCommitPrivate))
+
+#define CAN_DELETE_KEY "CanDeleteKey"
 
 /* Properties */
 enum
@@ -11,14 +14,28 @@ enum
 	PROP_REPOSITORY
 };
 
+/* Signals */
+enum
+{
+	INSERTED,
+	REMOVED,
+	LAST_SIGNAL
+};
+
 struct _GitgCommitPrivate
 {
 	GitgRepository *repository;
+
+	gchar *dotgit;
 	GitgRunner *runner;
+
 	guint update_id;
 	guint end_id;
-	gchar *dotgit;
+	
+	GSList *files;
 };
+
+static guint commit_signals[LAST_SIGNAL] = { 0 };
 
 G_DEFINE_TYPE(GitgCommit, gitg_commit, G_TYPE_OBJECT)
 
@@ -50,11 +67,14 @@ gitg_commit_finalize(GObject *object)
 
 	g_free(commit->priv->dotgit);
 	
+	g_slist_foreach(commit->priv->files, (GFunc)g_object_unref, NULL);
+	g_slist_free(commit->priv->files);
+	
 	G_OBJECT_CLASS(gitg_commit_parent_class)->finalize(object);
 }
 
 static void
-gitg_commit_dispose(GtkObject *object)
+gitg_commit_dispose(GObject *object)
 {
 	GitgCommit *self = GITG_COMMIT(object);
 	
@@ -98,7 +118,7 @@ gitg_commit_set_property(GObject *object, guint prop_id, const GValue *value, GP
 }
 
 static GObject * 
-gitg_constructor(GType type, guint n_construct_properties, GObjectConstructParam *construct_properties)
+gitg_commit_constructor(GType type, guint n_construct_properties, GObjectConstructParam *construct_properties)
 {
 	GObject *ret = G_OBJECT_CLASS(gitg_commit_parent_class)->constructor(type, n_construct_properties, construct_properties);
 	GitgCommit *commit = GITG_COMMIT(ret);
@@ -112,17 +132,42 @@ static void
 gitg_commit_class_init(GitgCommitClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
-	widget_class->destroy = gitg_commit_dispose;
+	object_class->dispose = gitg_commit_dispose;
 	object_class->finalize = gitg_commit_finalize;
-	object_class->constructor = gitg_constructor;
+	object_class->constructor = gitg_commit_constructor;
+	
+	object_class->set_property = gitg_commit_set_property;
+	object_class->get_property = gitg_commit_get_property;
 
 	g_object_class_install_property(object_class, PROP_REPOSITORY,
 					 g_param_spec_object("repository",
 							      "REPOSITORY",
 							      "Repository",
+							      GITG_TYPE_REPOSITORY,
 							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+
+	commit_signals[INSERTED] =
+   		g_signal_new ("inserted",
+			      G_OBJECT_CLASS_TYPE (object_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (GitgCommitClass, inserted),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__OBJECT,
+			      G_TYPE_NONE,
+			      1,
+			      GITG_TYPE_CHANGED_FILE);
+
+	commit_signals[REMOVED] =
+   		g_signal_new ("removed",
+			      G_OBJECT_CLASS_TYPE (object_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (GitgCommitClass, removed),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__OBJECT,
+			      G_TYPE_NONE,
+			      1,
+			      GITG_TYPE_CHANGED_FILE);
 
 	g_type_class_add_private(object_class, sizeof(GitgCommitPrivate));
 }
@@ -164,66 +209,55 @@ runner_connect(GitgCommit *commit, GCallback updatefunc, GCallback endfunc)
 }
 
 static void
-gitg_changed_file_free(GitgChangedFile *f)
-{
-	g_free(f->commit_blob_mode);
-	g_free(f->commit_blob_sha);
-	g_object_unref(f->file);
-	
-	g_slice_free(GitgChangedFile, f);
-}
-
-static GitgChangedFile *
-gitg_changed_file_new(GFile *file)
-{
-	GitgChangedFile *f = g_slice_alloc0(GitgChangedFile);
-	
-	f->file = g_object_ref(file);
-	return f;
-}
-
-static void
 add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 {
 	gchar *line;
 	
 	while (line = *buffer++)
 	{
-		gchar **parts = g_strsplit(line, " ", 0);
+		gchar **parts = g_strsplit_set(line, " \t", 0);
+		guint len = g_strv_length(parts);
+		
+		if (len < 6)
+		{
+			g_warning("Invalid line: %s (%d)", line, len);
+			g_strfreev(parts);
+			continue;
+		}
 		
 		gchar const *mode = parts[0] + 1;
 		gchar const *sha = parts[2];
 		GSList *item;
 		
-		bool new = TRUE;
-		gchar *path = g_build_filename(gitg_repository_get_path(commit->priv->repository), line, NULL);
+		gboolean new = TRUE;
+		gchar *path = g_build_filename(gitg_repository_get_path(commit->priv->repository), parts[5], NULL);
 		
 		GFile *file = g_file_new_for_path(path);
 		g_free(path);
 
 		for (item = commit->priv->files; item; item = item->next)
 		{
-			GitgChangedFile *f = (GitgChangedFile *)item->data;
+			GitgChangedFile *f = GITG_CHANGED_FILE(item->data);
 			
-			if (g_file_equal(f->file, file))
+			if (gitg_changed_file_equal(f, file))
 			{
-				f->deleted = FALSE;
+				GitgChangedFileChanges changes;
+				
+				g_object_set_data(G_OBJECT(changes), CAN_DELETE_KEY, NULL);
 				
 				if (cached)
 				{
-					g_free (f->commit_blob_sha);
-					g_free (f->commit_blob_mode);
+					gitg_changed_file_set_sha(f, sha);
+					gitg_changed_file_set_mode(f, sha);
 					
-					f->commit_blob_sha = g_strdup(sha);
-					f->commit_blob_mode = g_strdup(mode);
-					
-					f->cached_changes = TRUE;
+					changes = GITG_CHANGED_FILE_CHANGES_CACHED;
 				}
 				else
 				{
-					f->unstanged_changes = TRUE;
+					changes = GITG_CHANGED_FILE_CHANGES_UNSTAGED;
 				}
 				
+				gitg_changed_file_set_changes(f, changes);
 				new = FALSE;
 				break;
 			}
@@ -239,20 +273,26 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 		GitgChangedFile *f = gitg_changed_file_new(file);
 		g_object_unref(file);
 		
-		if (strcmp(parts[4], "M") == 0)
-			f->status = GITG_CHANGED_FILE_STATUS_DELETED;
-		else if (strcmp(mode, "000000") == 0)
-			f->status = GITG_CHANGED_FILE_STATUS_NEW;
-		else
-			f->status = GITG_CHANGED_FILE_STATUS_MODIFIED;
-
-		f->commit_blob_sha = g_strdup(sha);
-		f->commit_blob_mode = g_strdup(mode);
+		GitgChangedFileStatus status;
 		
-		f->cached_changes = cached;
-		f->unstanged_changes = !cached;
+		if (strcmp(parts[4], "D") == 0)
+			status = GITG_CHANGED_FILE_STATUS_DELETED;
+		else if (strcmp(mode, "000000") == 0)
+			status = GITG_CHANGED_FILE_STATUS_NEW;
+		else
+			status = GITG_CHANGED_FILE_STATUS_MODIFIED;
+		
+		gitg_changed_file_set_status(f, status);
+		gitg_changed_file_set_sha(f, sha);
+		gitg_changed_file_set_mode(f, mode);
+
+		GitgChangedFileChanges changes;
+		
+		changes = cached ? GITG_CHANGED_FILE_CHANGES_CACHED : GITG_CHANGED_FILE_CHANGES_UNSTAGED;
+		gitg_changed_file_set_changes(f, changes);
 		
 		commit->priv->files = g_slist_prepend(commit->priv->files, f);
+		g_signal_emit(commit, commit_signals[INSERTED], 0, f);
 		g_strfreev(parts);
 	}
 }
@@ -264,6 +304,32 @@ read_cached_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 }
 
 static void
+refresh_done(GitgRunner *runner, GitgCommit *commit)
+{
+	GSList *item = commit->priv->files;
+	
+	while (item)
+	{
+		GitgChangedFile *file = GITG_CHANGED_FILE(item->data);
+		
+		if (g_object_get_data(G_OBJECT(file), CAN_DELETE_KEY))
+		{
+			GSList *tmp = item->next;
+
+			commit->priv->files = g_slist_remove_link(commit->priv->files, item);
+			
+			g_signal_emit(commit, commit_signals[REMOVED], 0, file);
+			g_object_unref(file);
+			item = tmp;
+		}
+		else
+		{
+			item = g_slist_next(item);
+		}
+	}
+}
+
+static void
 read_unstaged_files_end(GitgRunner *runner, GitgCommit *commit)
 {
 	/* FIXME: something with having no head ref... */
@@ -271,9 +337,9 @@ read_unstaged_files_end(GitgRunner *runner, GitgCommit *commit)
 	gitg_runner_cancel(runner);
 	
 	argv[2] = commit->priv->dotgit;
-	runner_connect(commit, G_CALLBACK(read_cached_files_update), NULL);
+	runner_connect(commit, G_CALLBACK(read_cached_files_update), G_CALLBACK(refresh_done));
 	
-	gitg_runner_run(commit->priv->runner, argv, NULL);
+	gitg_runner_run_working_directory(commit->priv->runner, argv, gitg_repository_get_path(commit->priv->repository), NULL);
 }
 
 static void
@@ -291,16 +357,14 @@ read_other_files_end(GitgRunner *runner, GitgCommit *commit)
 	argv[2] = commit->priv->dotgit;
 	runner_connect(commit, G_CALLBACK(read_unstaged_files_update), G_CALLBACK(read_unstaged_files_end));
 	
-	gitg_runner_run(commit->priv->runner, argv, NULL);
+	gitg_runner_run_working_directory(commit->priv->runner, argv, gitg_repository_get_path(commit->priv->repository), NULL);
 }
 
 static void
 changed_file_new(GitgChangedFile *f)
 {
-	f->deleted = FALSE;
-	f->status = GITG_CHANGED_FILE_STATUS_NEW;
-	f->cached_changes = FALSE;
-	f->unstanged_changes = TRUE;
+	gitg_changed_file_set_status(f, GITG_CHANGED_FILE_STATUS_NEW);
+	gitg_changed_file_set_changes(f, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
 }
 
 static void
@@ -325,8 +389,8 @@ read_other_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 		for (item = commit->priv->files; item; item = item->next)
 		{
 			GitgChangedFile *f = (GitgChangedFile *)item->data;
-
-			if (g_file_equal(f->file, file))
+			
+			if (gitg_changed_file_equal(f, file))
 			{
 				added = TRUE;
 				changed_file_new(f);
@@ -346,6 +410,7 @@ read_other_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 		g_object_unref(file);
 		
 		commit->priv->files = g_slist_prepend(commit->priv->files, f);
+		g_signal_emit(commit, commit_signals[INSERTED], 0, f);
 	}
 }
 
@@ -358,7 +423,7 @@ update_index_end(GitgRunner *runner, GitgCommit *commit)
 	argv[2] = commit->priv->dotgit;
 	runner_connect(commit, G_CALLBACK(read_other_files_update), G_CALLBACK(read_other_files_end));
 	
-	gitg_runner_run(commit->priv->runner, argv, NULL);
+	gitg_runner_run_working_directory(commit->priv->runner, argv, gitg_repository_get_path(commit->priv->repository), NULL);
 }
 
 static void
@@ -369,14 +434,24 @@ update_index(GitgCommit *commit)
 	argv[2] = commit->priv->dotgit;
 	runner_connect(commit, NULL, G_CALLBACK(update_index_end));
 	
-	gitg_runner_run(commit->priv->runner, argv, NULL);
+	gitg_runner_run_working_directory(commit->priv->runner, argv, gitg_repository_get_path(commit->priv->repository), NULL);
+}
+
+static void
+set_can_delete(GitgChangedFile *file, GitgCommit *commit)
+{
+	g_object_set_data(G_OBJECT(file), CAN_DELETE_KEY, GINT_TO_POINTER(TRUE));
 }
 
 void
 gitg_commit_refresh(GitgCommit *commit)
 {
+	g_return_if_fail(GITG_IS_COMMIT(commit));
+
 	runner_cancel(commit);
 	
+	g_slist_foreach(commit->priv->files, (GFunc)set_can_delete, commit);
+
 	/* Read other files */
 	update_index(commit);
 }
@@ -384,11 +459,11 @@ gitg_commit_refresh(GitgCommit *commit)
 void 
 gitg_commit_stage(GitgCommit *commit)
 {
-
+	g_return_if_fail(GITG_IS_COMMIT(commit));
 }
 
 void
 gitg_commit_unstage(GitgCommit *commit)
 {
-
+	g_return_if_fail(GITG_IS_COMMIT(commit));
 }

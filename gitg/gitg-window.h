@@ -30,7 +30,7 @@ struct _GitgWindowClass {
 GType gitg_window_get_type (void) G_GNUC_CONST;
 
 void gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv);
-
+void gitg_window_show_commit(GitgWindow *window);
 
 G_END_DECLS
 

@@ -8,8 +8,11 @@
 #include "sexy-icon-entry.h"
 #include "config.h"
 
+static gboolean commit_mode = FALSE;
+
 static GOptionEntry entries[] = 
 {
+	{ "commit", 0, 0, G_OPTION_ARG_NONE, &commit_mode, N_("Start gitg in commit mode") }, 
 	{ NULL }
 };
 
@@ -80,6 +83,9 @@ main(int argc, char **argv)
 	
 	GitgWindow *window = build_ui();
 	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, (gchar const **)&argv[2]);
+	
+	if (commit_mode)
+		gitg_window_show_commit(window);
 	
 	gtk_main();
 	

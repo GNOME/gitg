@@ -2,6 +2,8 @@
 #define __GITG_COMMIT_H__
 
 #include <glib-object.h>
+#include "gitg-repository.h"
+#include "gitg-changed-file.h"
 
 G_BEGIN_DECLS
 
@@ -17,25 +19,6 @@ typedef struct _GitgCommit			GitgCommit;
 typedef struct _GitgCommitClass		GitgCommitClass;
 typedef struct _GitgCommitPrivate	GitgCommitPrivate;
 
-typedef struct _GitgChangedFile		GitgChangedFile;
-
-enum GitgChangedFileStatus
-{
-	GITG_CHANGED_FILE_STATUS_NEW,
-	GITG_CHANGED_FILE_STATUS_MODIFIED,
-	GITG_CHANGED_FILE_STATUS_DELETED	
-};
-
-struct _GitgChangedFile {
-	GFile *file;
-	guint status;
-	gboolean deleted;
-	gboolean cached_changes;
-	gboolean unstanged_changes;
-	gchar *commit_blob_sha;
-	gchar *commit_blob_mode;
-};
-
 struct _GitgCommit {
 	GObject parent;
   
@@ -44,6 +27,9 @@ struct _GitgCommit {
 
 struct _GitgCommitClass {
 	GObjectClass parent_class;
+	
+	void (*inserted) (GitgCommit *commit, GitgChangedFile *file);
+	void (*removed) (GitgCommit *commit, GitgChangedFile *file);
 };
 
 GType gitg_commit_get_type(void) G_GNUC_CONST;

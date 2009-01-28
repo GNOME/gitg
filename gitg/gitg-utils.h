@@ -2,6 +2,9 @@
 #define __GITG_UTILS_H__
 
 #include <glib.h>
+#include <gtksourceview/gtksourcelanguagemanager.h>
+#include <gio/gio.h>
+
 #include "gitg-repository.h"
 #include "gitg-revision.h"
 
@@ -23,4 +26,8 @@ guint gitg_utils_hash_hash(gconstpointer v);
 gboolean gitg_utils_hash_equal(gconstpointer a, gconstpointer b);
 gint gitg_utils_null_length(gconstpointer *ptr);
 
+gchar *gitg_utils_get_content_type(GFile *file);
+GtkSourceLanguage *gitg_utils_get_language(gchar const *content_type);
+
+gint gitg_utils_sort_names(gchar const *s1, gchar const *s2);
 #endif /* __GITG_UTILS_H__ */

@@ -32,6 +32,8 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PATH_PROG(GZIP, gzip)
 
+AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
+
 dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS -I m4")
 
@@ -46,6 +48,7 @@ PKG_CHECK_MODULES(PACKAGE, [
 	gthread-2.0
 	gtksourceview-2.0 
 	gio-2.0
+	gmodule-2.0
 ])
 
 AC_SUBST(PACKAGE_CFLAGS)

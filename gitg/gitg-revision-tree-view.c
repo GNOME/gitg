@@ -151,45 +151,6 @@ on_row_expanded(GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreePath *path, Gi
 	load_node(view, iter);
 }
 
-static GtkSourceLanguage *
-find_language(gchar *content_type)
-{
-	gchar *mime = g_content_type_get_mime_type(content_type);
-	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
-	
-	gchar const * const *ids = gtk_source_language_manager_get_language_ids(manager);
-	gchar const *ptr;
-	GtkSourceLanguage *ret;
-	
-	while ((ptr = *ids++))
-	{
-		ret = gtk_source_language_manager_get_language(manager, ptr);
-		gchar **mime_types = gtk_source_language_get_mime_types(ret);
-		gchar **types = mime_types;
-		gchar *m;
-		
-		if (types)
-		{
-			while ((m = *types++))
-			{
-				if (strcmp(mime, m) == 0)
-				{
-					g_free(mime);
-					g_strfreev(mime_types);
-					return ret;
-				}
-			}
-		
-			g_strfreev(mime_types);
-		}
-
-		ret = NULL;
-	}
-	
-	g_free(mime);
-	return NULL;
-}
-
 static void
 on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 {
@@ -231,8 +192,9 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 	}
 	else
 	{
-		GtkSourceLanguage *language = find_language(content_type);
+		GtkSourceLanguage *language = gitg_utils_get_language(content_type);
 		gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(buffer), language);
+		g_object_unref(language);
 		
 		gchar *gitdir = gitg_utils_dot_git_path(gitg_repository_get_path(tree->priv->repository));
 		gchar *id = node_identity(tree, &iter);
@@ -619,25 +581,7 @@ compare_func(GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, GitgRevisionTr
 	gtk_tree_model_get(model, a, GITG_REVISION_TREE_STORE_NAME_COLUMN, &s1, -1);
 	gtk_tree_model_get(model, b, GITG_REVISION_TREE_STORE_NAME_COLUMN, &s2, -1);
 	
-	if (s1 == NULL)
-	{
-		g_free(s2);
-		return -1;
-	}
-	
-	if (s2 == NULL)
-	{
-		g_free(s1);
-		return 1;
-	}
-
-	gchar *c1 = s1 ? g_utf8_casefold(s1, -1) : NULL;
-	gchar *c2 = s2 ? g_utf8_casefold(s2, -1) : NULL;
-	
-	gint ret = g_utf8_collate(c1, c2);
-	
-	g_free(c1);
-	g_free(c2);
+	int ret = gitg_utils_sort_names(s1, s2);
 	
 	g_free(s1);
 	g_free(s2);
