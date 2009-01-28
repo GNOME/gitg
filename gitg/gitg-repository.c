@@ -396,18 +396,22 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 	{
 		// New line is read
 		gchar **components = g_strsplit(line, "\01", 0);
+		guint len = g_strv_length(components);
 		
-		if (g_strv_length(components) < 5)
+		if (len < 5)
 		{
 			g_strfreev(components);
 			continue;
 		}
 		
-		// components -> [hash, author, subject, parents ([1 2 3]), timestamp]
+		// components -> [hash, author, subject, parents ([1 2 3]), timestamp[, leftright]]
 		gint64 timestamp = g_ascii_strtoll(components[4], NULL, 0);
 	
 		GitgRevision *rv = gitg_revision_new(components[0], components[1], components[2], components[3], timestamp);
 		GSList *lanes;
+		
+		if (len > 5 && strlen(components[5]) == 1 && strchr("<>-^", *components[5]) != NULL)
+			gitg_revision_set_sign(rv, *components[5]);
 
 		gint8 mylane = 0;
 		
@@ -416,8 +420,7 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 
 		lanes = gitg_lanes_next(self->priv->lanes, rv, &mylane);
 		
-		gitg_revision_set_lanes(rv, lanes);
-		gitg_revision_set_mylane(rv, mylane);
+		gitg_revision_set_lanes(rv, lanes, mylane);
 
 		gitg_repository_add(self, rv, NULL);
 
@@ -522,6 +525,18 @@ on_refs_update(GitgRunner *runner, gchar **buffer, GitgRepository *self)
 	}
 }
 
+static gboolean
+has_left_right(gchar const **av, int argc)
+{
+	int i;
+
+	for (i = 0; i < argc; ++i)
+		if (strcmp(av[i], "--left-right") == 0)
+			return TRUE;
+	
+	return FALSE;
+}
+
 gboolean
 gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **error)
 {
@@ -557,7 +572,11 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 	g_object_unref(refs_runner);
 
 	argv[3] = "log";
-	argv[4] = "--pretty=format:%H\01%an\01%s\01%P\01%at";
+	
+	if (has_left_right(av, argc))
+		argv[4] = "--pretty=format:%H%x01%an%x01%s%x01%P%x01%at%x01%m";
+	else
+		argv[4] ="--pretty=format:%H%x01%an%x01%s%x01%P%x01%at";
 	
 	if (argc <= 0)
 		argv[5] = "HEAD";

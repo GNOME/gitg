@@ -18,6 +18,7 @@ gitg_lane_dup(GitgLane *lane)
 	GitgLane *dup = g_new0(GitgLane, 1);
 	dup->color = gitg_color_copy(lane->color);
 	dup->from = g_slist_copy(lane->from);
+	dup->type = lane->type;
 	
 	return dup;
 }

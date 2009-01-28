@@ -7,6 +7,8 @@
 #define GITG_CELL_RENDERER_PATH_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_CELL_RENDERER_PATH, GitgCellRendererPathPrivate))
 
 #define DEFAULT_DOT_WIDTH 10
+#define DEFAULT_TRIANGLE_WIDTH 8
+
 #define DEFAULT_LANE_WIDTH (DEFAULT_DOT_WIDTH + 6)
 
 /* Properties */
@@ -19,6 +21,7 @@ enum
 	PROP_NEXT_LANES,
 	PROP_LANE_WIDTH,
 	PROP_DOT_WIDTH,
+	PROP_TRIANGLE_WIDTH,
 	PROP_LABELS
 };
 
@@ -29,6 +32,7 @@ struct _GitgCellRendererPathPrivate
 	GSList *next_lanes;
 	GSList *labels;
 	guint lane_width;
+	guint triangle_width;
 	guint dot_width;
 };
 
@@ -197,6 +201,65 @@ draw_labels(GitgCellRendererPath *self, GtkWidget *widget, cairo_t *context, Gdk
 }
 
 static void
+draw_indicator_triangle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *context, GdkRectangle *area)
+{
+	gdouble offset = self->priv->lane * self->priv->lane_width + (self->priv->lane_width - self->priv->triangle_width) / 2.0;
+	gdouble radius = self->priv->triangle_width / 2.0;
+	gdouble xs;
+	int xd;
+	
+	if (lane->type & GITG_LANE_SIGN_LEFT)
+	{
+		xs = radius;
+		xd = -1;
+	}
+	else
+	{
+		xs = -radius;
+		xd = 1;
+	}
+	
+	cairo_set_line_width(context, 2.0);
+	cairo_move_to(context, area->x + offset + radius + xs, area->y + (area->height - self->priv->triangle_width) / 2);
+	cairo_rel_line_to(context, 0, self->priv->triangle_width);
+	cairo_rel_line_to(context, xd * self->priv->triangle_width, -self->priv->triangle_width / 2);
+	cairo_close_path(context);
+	
+	cairo_set_source_rgb(context, 0, 0, 0);
+	cairo_stroke_preserve(context);
+
+	gitg_color_set_cairo_source(lane->color, context);
+	cairo_fill(context);
+}
+
+static void
+draw_indicator_circle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *context, GdkRectangle *area)
+{
+	gdouble offset = self->priv->lane * self->priv->lane_width + (self->priv->lane_width - self->priv->dot_width) / 2.0;
+	gdouble radius = self->priv->dot_width / 2.0;
+	
+	cairo_set_line_width(context, 2.0);
+	cairo_arc(context, area->x + offset + radius, area->y + area->height / 2.0, radius, 0, 2 * M_PI);
+	cairo_set_source_rgb(context, 0, 0, 0);
+	
+	cairo_stroke_preserve(context);
+	gitg_color_set_cairo_source(lane->color, context);
+	
+	cairo_fill(context);
+}
+
+static void
+draw_indicator(GitgCellRendererPath *self, cairo_t *context, GdkRectangle *area)
+{
+	GitgLane *lane = (GitgLane *)g_slist_nth_data(self->priv->lanes, self->priv->lane);
+	
+	if (lane->type & GITG_LANE_SIGN_LEFT || lane->type & GITG_LANE_SIGN_RIGHT)
+		draw_indicator_triangle(self, lane, context, area);
+	else
+		draw_indicator_circle(self, lane, context, area);
+}
+
+static void
 renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widget, GdkRectangle *area, GdkRectangle *cell_area, GdkRectangle *expose_area, GtkCellRendererState flags)
 {
 	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(renderer);
@@ -205,19 +268,10 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 	
 	draw_paths(self, cr, area);
 	
-	gdouble offset = self->priv->lane * self->priv->lane_width + (self->priv->lane_width - self->priv->dot_width) / 2.0;
-	gdouble radius = self->priv->dot_width / 2.0;
+	/* draw indicator */
+	draw_indicator(self, cr, area);
 	
-	cairo_set_line_width(cr, 2.0);
-	cairo_arc(cr, area->x + offset + radius, area->y + area->height / 2.0, radius, 0, 2 * M_PI);
-	cairo_set_source_rgb(cr, 0, 0, 0);
-	
-	cairo_stroke_preserve(cr);
-	gitg_color_set_cairo_source(((GitgLane *)g_slist_nth_data(self->priv->lanes, self->priv->lane))->color, cr);
-	
-	cairo_fill(cr);
-	
-	// draw labels
+	/* draw labels */
 	draw_labels(self, widget, cr, area);
 	cairo_destroy(cr);
 	
@@ -249,6 +303,9 @@ gitg_cell_renderer_path_get_property(GObject *object, guint prop_id, GValue *val
 		break;
 		case PROP_DOT_WIDTH:
 			g_value_set_uint(value, self->priv->dot_width);
+		break;
+		case PROP_TRIANGLE_WIDTH:
+			g_value_set_uint(value, self->priv->triangle_width);
 		break;
 		case PROP_LABELS:
 			g_value_set_pointer(value, self->priv->labels);
@@ -282,6 +339,9 @@ gitg_cell_renderer_path_set_property(GObject *object, guint prop_id, const GValu
 		break;
 		case PROP_DOT_WIDTH:
 			self->priv->dot_width = g_value_get_uint(value);
+		break;
+		case PROP_TRIANGLE_WIDTH:
+			self->priv->triangle_width = g_value_get_uint(value);
 		break;
 		case PROP_LABELS:
 			g_slist_free(self->priv->labels);
@@ -347,6 +407,15 @@ gitg_cell_renderer_path_class_init(GitgCellRendererPathClass *klass)
 							      DEFAULT_DOT_WIDTH,
 							      G_PARAM_READWRITE));
 
+	g_object_class_install_property(object_class, PROP_TRIANGLE_WIDTH,
+					 g_param_spec_uint("triangle-width",
+							      "TRIANGLE WIDTH",
+							      "The triangle width",
+							      0,
+							      G_MAXUINT,
+							      DEFAULT_TRIANGLE_WIDTH,
+							      G_PARAM_READWRITE));
+
 	g_object_class_install_property(object_class, PROP_LABELS,
 					 g_param_spec_pointer("labels",
 							      "LABELS",
@@ -363,6 +432,7 @@ gitg_cell_renderer_path_init(GitgCellRendererPath *self)
 	
 	self->priv->lane_width = DEFAULT_LANE_WIDTH;
 	self->priv->dot_width = DEFAULT_DOT_WIDTH;
+	self->priv->triangle_width = DEFAULT_TRIANGLE_WIDTH;
 }
 
 GtkCellRenderer *

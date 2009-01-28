@@ -10,6 +10,7 @@ struct _GitgRevision
 	gchar *subject;
 	Hash *parents;
 	guint num_parents;
+	char sign;
 	
 	GSList *lanes;
 	gint8 mylane;
@@ -149,11 +150,32 @@ gitg_revision_get_lanes(GitgRevision *revision)
 	return g_slist_copy(revision->lanes);
 }
 
+static void
+update_lane_type(GitgRevision *revision)
+{
+	GitgLane *lane = (GitgLane *)g_slist_nth_data(revision->lanes, revision->mylane);
+	
+	if (lane == NULL)
+		return;
+	
+	lane->type &= ~(GITG_LANE_SIGN_LEFT | GITG_LANE_SIGN_RIGHT);
+	
+	if (revision->sign == '<')
+		lane->type |= GITG_LANE_SIGN_LEFT;
+	else if (revision->sign == '>')
+		lane->type |= GITG_LANE_SIGN_RIGHT;
+}
+
 void 
-gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes)
+gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes, gint8 mylane)
 {
 	free_lanes(revision);
 	revision->lanes = lanes;
+	
+	if (mylane > 0)
+		revision->mylane = mylane;
+
+	update_lane_type(revision);
 }
 
 gint8
@@ -166,6 +188,19 @@ void
 gitg_revision_set_mylane(GitgRevision *revision, gint8 mylane)
 {
 	revision->mylane = mylane;
+	update_lane_type(revision);
+}
+
+void
+gitg_revision_set_sign(GitgRevision *revision, char sign)
+{
+	revision->sign = sign;
+}
+
+char
+gitg_revision_get_sign(GitgRevision *revision)
+{
+	return revision->sign;
 }
 
 GType 

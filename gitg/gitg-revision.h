@@ -29,10 +29,13 @@ gchar *gitg_revision_get_sha1(GitgRevision *revision);
 gchar **gitg_revision_get_parents(GitgRevision *revision);
 
 GSList *gitg_revision_get_lanes(GitgRevision *revision);
-void gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes);
+void gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes, gint8 mylane);
 
 gint8 gitg_revision_get_mylane(GitgRevision *revision);
 void gitg_revision_set_mylane(GitgRevision *revision, gint8 mylane);
+
+void gitg_revision_set_sign(GitgRevision *revision, char sign);
+char gitg_revision_get_sign(GitgRevision *revision);
 
 GitgRevision *gitg_revision_ref(GitgRevision *revision);
 void gitg_revision_unref(GitgRevision *revision);
