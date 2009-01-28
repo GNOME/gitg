@@ -93,7 +93,10 @@ gitg_utils_find_git(gchar const *path)
 	else
 		dir = g_strdup(path);
 	
-	return find_dot_git(dir);
+	gchar *ret = find_dot_git(dir);
+	g_free(dir);
+	
+	return ret;
 }
 
 gchar *
