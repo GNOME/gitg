@@ -499,6 +499,11 @@ gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gc
 		if (!haspath && argc)
 		{
 			ar = (gchar const **)g_new(gchar *, ++argc);
+			
+			int i;
+			for (i = 0; i < argc - 1; ++i)
+				ar[i] = argv[i];
+
 			ar[argc - 1] = path;
 		}
 
