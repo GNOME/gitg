@@ -6,6 +6,7 @@
 
 #include <glib/gi18n.h>
 #include <time.h>
+#include <string.h>
 
 #define GITG_REPOSITORY_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), GITG_TYPE_REPOSITORY, GitgRepositoryPrivate))
 
@@ -403,7 +404,7 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 			g_strfreev(components);
 			continue;
 		}
-		
+
 		// components -> [hash, author, subject, parents ([1 2 3]), timestamp[, leftright]]
 		gint64 timestamp = g_ascii_strtoll(components[4], NULL, 0);
 	
@@ -574,9 +575,9 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 	argv[3] = "log";
 	
 	if (has_left_right(av, argc))
-		argv[4] = "--pretty=format:%H%x01%an%x01%s%x01%P%x01%at%x01%m";
+		argv[4] = "--pretty=format:%H\x01%an\x01%s\x01%P\x01%at\x01%m";
 	else
-		argv[4] ="--pretty=format:%H%x01%an%x01%s%x01%P%x01%at";
+		argv[4] ="--pretty=format:%H\x01%an\x01%s\x01%P\x01%at";
 	
 	if (argc <= 0)
 		argv[5] = "HEAD";
