@@ -7,6 +7,7 @@
 #include "gitg-utils.h"
 
 #define GITG_COMMIT_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_COMMIT_VIEW, GitgCommitViewPrivate))
+#define CATEGORY_HUNK "CategoryHunk"
 
 /* Properties */
 enum
@@ -35,6 +36,10 @@ struct _GitgCommitViewPrivate
 	
 	GitgRunner *runner;
 	guint update_id;
+	gboolean is_diff;
+	
+	GtkTextTag *hunk_tag;
+	GdkCursor *hand;
 };
 
 static void gitg_commit_view_buildable_iface_init(GtkBuildableIface *iface);
@@ -124,7 +129,16 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 	
 	while ((line = *buffer++))
 	{
-		gtk_text_buffer_insert(buf, &iter, line, -1);
+		if (view->priv->is_diff && strncmp("@@", line, 2) == 0)
+		{
+			gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_HUNK, &iter);
+			gtk_text_buffer_insert_with_tags_by_name(buf, &iter, line, -1, "hunk", NULL);
+		}
+		else
+		{
+			gtk_text_buffer_insert(buf, &iter, line, -1);
+		}
+		
 		gtk_text_buffer_insert(buf, &iter, "\n", -1);
 	}
 }
@@ -145,7 +159,14 @@ check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *
 	gitg_runner_cancel(view->priv->runner);
 	view->priv->update_id = 0;
 
-	gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view)), "", -1);
+	GtkTextView *tv = GTK_TEXT_VIEW(view->priv->changes_view);
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(tv);
+	GtkTextIter start;
+	GtkTextIter end;
+
+	gtk_text_buffer_get_bounds(buffer, &start, &end);
+	gtk_source_buffer_remove_source_marks(GTK_SOURCE_BUFFER(buffer), &start, &end, CATEGORY_HUNK);
+	gtk_text_buffer_set_text(gtk_text_view_get_buffer(tv), "", -1);
 	
 	if (!gtk_tree_selection_get_selected(selection, model, iter))
 		return FALSE;
@@ -185,6 +206,7 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 			GtkSourceLanguage *language = gitg_utils_get_language(content_type);
 			
 			set_language(view, language);
+			view->priv->is_diff = FALSE;
 			run_changes_command(view, argv, NULL);
 			
 			g_free(path);
@@ -199,6 +221,7 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		
 		gchar *dotgit = gitg_utils_dot_git_path(repos);
 		set_diff_language(view);
+		view->priv->is_diff = TRUE;
 
 		gchar const *argv[] = {"git", "--git-dir", dotgit, "diff", "--", rel, NULL};
 		run_changes_command(view, argv, repos);
@@ -236,6 +259,7 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	{
 		gchar *indexpath = g_strconcat(":0:", path, NULL);
 		gchar const *argv[] = {"git", "--git-dir", dotgit, "show", indexpath, NULL};
+		view->priv->is_diff = FALSE;
 		
 		run_changes_command(view, argv, NULL);
 		g_free(indexpath);
@@ -243,6 +267,8 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	else
 	{
 		gchar const *argv[] = {"git", "--git-dir", dotgit, "diff-index", "-U3", "--cached", "HEAD", "--", path, NULL};
+		view->priv->is_diff = TRUE;
+
 		run_changes_command(view, argv, gitg_repository_get_path(view->priv->repository));
 	}
 
@@ -276,6 +302,69 @@ set_sort_func(GtkListStore *store)
 	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(store), 0, compare_by_name, NULL, NULL);
 }
 
+
+static gboolean
+view_event(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
+{
+	GtkTextWindowType type;
+	GtkTextIter iter;
+	GdkWindow *win;
+	gint x, y, buf_x, buf_y;
+
+	type = gtk_text_view_get_window_type(GTK_TEXT_VIEW(widget), event->window);
+
+	if (type != GTK_TEXT_WINDOW_TEXT)
+		return FALSE;
+
+	if (event->type != GDK_MOTION_NOTIFY)
+		return FALSE;
+
+	/* Get where the pointer really is. */
+	win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), type);
+	gdk_window_get_pointer(win, &x, &y, NULL);
+
+	/* Get the iter where the cursor is at */
+	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(widget), type, x, y, &buf_x, &buf_y);
+	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(widget), &iter, buf_x, buf_y);
+
+	if (gtk_text_iter_backward_line(&iter))
+		gtk_text_iter_forward_line(&iter);
+
+	gboolean has_tag = gtk_text_iter_has_tag(&iter, view->priv->hunk_tag);
+		
+	if (has_tag && !view->priv->hand)
+	{
+		view->priv->hand = gdk_cursor_new(GDK_HAND1);
+		gdk_window_set_cursor(win, view->priv->hand);
+	} 
+	else if (!has_tag && view->priv->hand)
+	{
+		gdk_window_set_cursor(win, NULL);
+		gdk_cursor_unref(view->priv->hand);
+		
+		view->priv->hand = NULL;
+	}
+
+	return FALSE;
+}
+
+static gboolean
+hunk_tag_event(GtkTextTag *tag, GObject *object, GdkEvent *event, GtkTextIter *iter, GitgCommitView *view)
+{
+	return FALSE;
+}
+
+static GtkTextBuffer *
+initialize_buffer(GitgCommitView *view)
+{
+	GtkTextBuffer *buffer = GTK_TEXT_BUFFER(gtk_source_buffer_new(NULL));
+	
+	view->priv->hunk_tag = gtk_text_buffer_create_tag(buffer, "hunk", "paragraph-background", "#FF0", "background-full-height", TRUE, NULL);
+	
+	g_signal_connect(view->priv->hunk_tag, "event", G_CALLBACK(hunk_tag_event), view);
+	return buffer;
+}
+
 static void
 gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
@@ -297,7 +386,20 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	self->priv->changes_view = GTK_SOURCE_VIEW(gtk_builder_get_object(builder, "source_view_changes"));
 	self->priv->comment_view = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "text_view_comment"));
 	
-	gtk_text_view_set_buffer(GTK_TEXT_VIEW(self->priv->changes_view), GTK_TEXT_BUFFER(gtk_source_buffer_new(NULL)));
+	GtkIconTheme *theme = gtk_icon_theme_get_default();
+	GdkPixbuf *pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_ADD, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
+	
+	if (pixbuf)
+	{
+		gtk_source_view_set_mark_category_pixbuf(self->priv->changes_view, CATEGORY_HUNK, pixbuf);
+		g_object_unref(pixbuf);
+		
+		gtk_source_view_set_show_line_marks(self->priv->changes_view, TRUE);
+	}
+	
+	GtkTextBuffer *buffer = initialize_buffer(self);
+	gtk_text_view_set_buffer(GTK_TEXT_VIEW(self->priv->changes_view), buffer);
+	g_signal_connect(self->priv->changes_view, "event", G_CALLBACK(view_event), self);
 	
 	gtk_tree_view_set_model(tree_view_unstaged, GTK_TREE_MODEL(self->priv->store_unstaged));
 	gtk_tree_view_set_model(tree_view_staged, GTK_TREE_MODEL(self->priv->store_staged));
