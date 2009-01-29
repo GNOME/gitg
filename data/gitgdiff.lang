@@ -37,12 +37,11 @@
   </styles>
 
   <definitions>
-    <define-regex id="diff-file">^(diff |index |==== |\*\*\* |new file mode )</define-regex>
-
     <context id="gitgdiff">
       <include>
-        <context id="diff-file" style-ref="diff-file" end-at-line-end="true">
-          <start>\%{diff-file}</start>
+        <context id="diff-file" style-ref="diff-file">
+          <start>^diff --git</start>
+          <end>\+\+\+ .*$</end>
         </context>
 
         <context id="removed-line" style-ref="removed-line">
