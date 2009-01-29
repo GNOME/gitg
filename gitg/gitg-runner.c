@@ -394,6 +394,14 @@ read_output_ready(GInputStream *stream, GAsyncResult *result, AsyncData *data)
 	else
 	{
 		parse_lines(data->runner, data->runner->priv->read_buffer, read);
+		
+		if (g_cancellable_is_cancelled(data->cancellable))
+		{
+			g_input_stream_close (stream, NULL, NULL);
+			async_data_free(data);
+			return;
+		}
+
 		start_reading(data->runner, data);
 	}
 }
