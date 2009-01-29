@@ -2,6 +2,7 @@
 #define __GITG_RUNNER_H__
 
 #include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -38,6 +39,10 @@ GitgRunner *gitg_runner_new_synchronized(guint buffer_size);
 
 guint gitg_runner_get_buffer_size(GitgRunner *runner);
 
+gboolean gitg_runner_run_stream(GitgRunner *runner, GInputStream *stream, GError **error);
+
+gboolean gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar const *wd, gchar const *input, GError **error);
+gboolean gitg_runner_run_working_directory(GitgRunner *runner, gchar const **argv, gchar const *wd, GError **error);
 gboolean gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error);
 gboolean gitg_runner_running(GitgRunner *runner);
 

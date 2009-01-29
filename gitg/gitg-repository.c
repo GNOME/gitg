@@ -453,7 +453,7 @@ gitg_repository_init(GitgRepository *object)
 	object->priv->stamp = g_random_int();
 	object->priv->refs = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, (GDestroyNotify)free_refs);
 	
-	object->priv->loader = gitg_runner_new(5000);
+	object->priv->loader = gitg_runner_new(10000);
 	g_signal_connect(object->priv->loader, "update", G_CALLBACK(on_loader_update), object);
 }
 
@@ -557,7 +557,7 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 	/* first get the refs */
 	gchar *dotgit = gitg_utils_dot_git_path(self->priv->path);
 	gchar const **argv;
-	GitgRunner *refs_runner = gitg_runner_new_synchronized(5000);
+	GitgRunner *refs_runner = gitg_runner_new_synchronized(10000);
 	
 	g_signal_connect(refs_runner, "update", G_CALLBACK(on_refs_update), self);
 	
