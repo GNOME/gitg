@@ -158,19 +158,20 @@ gchar const *todir, gchar * const *paths)
 }
 
 gchar *
-convert_fallback(gchar const *text, gchar const *fallback)
+convert_fallback(gchar const *text, gssize size, gchar const *fallback)
 {
 	gchar *res;
 	gsize read, written;
 	GString *str = g_string_new("");
 	
-	while ((res = g_convert(text, -1, "UTF-8", "ASCII", &read, &written, NULL))
+	while ((res = g_convert(text, size, "UTF-8", "ASCII", &read, &written, NULL))
 			== NULL) {
 		res = g_convert(text, read, "UTF-8", "ASCII", NULL, NULL, NULL);
 		str = g_string_append(str, res);
 		
 		str = g_string_append(str, fallback);
 		text = text + read + 1;
+		size = size - read;
 	}
 	
 	str = g_string_append(str, res);
@@ -182,14 +183,14 @@ convert_fallback(gchar const *text, gchar const *fallback)
 }
 
 gchar *
-gitg_utils_convert_utf8(gchar const *str)
+gitg_utils_convert_utf8(gchar const *str, gssize size)
 {
 	static gchar *encodings[] = {
 		"ISO-8859-15",
 		"ASCII"
 	};
 	
-	if (g_utf8_validate(str, -1, NULL))
+	if (g_utf8_validate(str, size, NULL))
 		return g_strdup(str);
 	
 	int i;
@@ -198,13 +199,13 @@ gitg_utils_convert_utf8(gchar const *str)
 		gsize read;
 		gsize written;
 
-		gchar *ret = g_convert(str, -1, "UTF-8", encodings[i], &read, &written, NULL);
+		gchar *ret = g_convert(str, size, "UTF-8", encodings[i], &read, &written, NULL);
 		
 		if (ret)
 			return ret;
 	}
 	
-	return convert_fallback(str, "?");
+	return convert_fallback(str, size, "?");
 }
 
 guint

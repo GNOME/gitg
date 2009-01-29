@@ -444,7 +444,7 @@ apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolea
 	if (reverse)
 		argv[5] = "--reverse";
 	
-	gboolean ret = gitg_runner_run_with_input(runner, argv, hunk, error);
+	gboolean ret = gitg_runner_run_with_arguments(runner, argv, NULL, hunk, error);
 	g_free(dotgit);
 	
 	if (ret)

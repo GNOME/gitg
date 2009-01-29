@@ -20,7 +20,7 @@ gchar *gitg_utils_dot_git_path(gchar const *path);
 gboolean gitg_utils_export_files(GitgRepository *repository, GitgRevision *revision,
 gchar const *todir, gchar * const *paths);
 
-gchar *gitg_utils_convert_utf8(gchar const *str);
+gchar *gitg_utils_convert_utf8(gchar const *str, gssize size);
 
 guint gitg_utils_hash_hash(gconstpointer v);
 gboolean gitg_utils_hash_equal(gconstpointer a, gconstpointer b);

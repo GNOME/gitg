@@ -25,28 +25,47 @@ enum {
 struct _GitgRunnerPrivate
 {
 	GPid pid;
-	GThread *thread;
-	GCond *cond;
-	GMutex *cond_mutex;
-	GMutex *mutex;
-	guint syncid;
-	gint output_fd;
+	GInputStream *input_stream;
+	GOutputStream *output_stream;
+	GCancellable *cancellable;
+	gboolean synchronized;
 	
 	guint buffer_size;
-	gboolean synchronized;
-	gchar **buffer;
-	gboolean done;
-	
-	gint input_fd;
-	gchar *input;
+	gchar *buffer;
+	gchar *read_buffer;
+	gchar **lines;
 };
 
 G_DEFINE_TYPE(GitgRunner, gitg_runner, G_TYPE_OBJECT)
 
-static void
-runner_io_exit(GPid pid, int status, gpointer userdata)
+typedef struct
 {
-	g_spawn_close_pid(pid);
+	GitgRunner *runner;
+	GCancellable *cancellable;
+} AsyncData;
+
+AsyncData *
+async_data_new(GitgRunner *runner, GCancellable *cancellable)
+{
+	AsyncData *data = g_slice_new(AsyncData);
+	data->runner = runner;
+	data->cancellable = g_object_ref(cancellable);
+	
+	return data;
+}
+
+void
+async_data_free(AsyncData *data)
+{
+	g_object_unref(data->cancellable);
+	g_slice_free(AsyncData, data);
+}
+
+static void
+runner_io_exit(GPid pid, int status, GitgRunner *runner)
+{
+	g_spawn_close_pid(pid);	
+	runner->priv->pid = 0;
 }
 
 static void
@@ -54,19 +73,17 @@ gitg_runner_finalize(GObject *object)
 {
 	GitgRunner *runner = GITG_RUNNER(object);
 	
-	if (runner->priv->pid)
-		runner_io_exit(runner->priv->pid, 0, runner);
-
-	// Cancel possible running thread
+	/* Cancel possible running */
 	gitg_runner_cancel(runner);
 	
-	// Free mutex and condition
-	g_mutex_free(runner->priv->mutex);
-	g_cond_free(runner->priv->cond);
-	g_mutex_free(runner->priv->cond_mutex);
-
-	// Remove buffer slice
-	g_slice_free1(sizeof(gchar *) * (runner->priv->buffer_size + 1), runner->priv->buffer);
+	/* Remove buffer slice */
+	g_slice_free1(sizeof(gchar) * (runner->priv->buffer_size + 1), runner->priv->read_buffer);
+	g_slice_free1(sizeof(gchar *) * (runner->priv->buffer_size + 1), runner->priv->lines);
+	
+	/* Remove line buffer */
+	g_free(runner->priv->buffer);
+	
+	g_object_unref(runner->priv->cancellable);
 
 	G_OBJECT_CLASS(gitg_runner_parent_class)->finalize(object);
 }
@@ -94,8 +111,10 @@ static void
 set_buffer_size(GitgRunner *runner, guint buffer_size)
 {
 	runner->priv->buffer_size = buffer_size;	
-	runner->priv->buffer = g_slice_alloc(sizeof(gchar *) * (runner->priv->buffer_size + 1));
-	runner->priv->buffer[0] = NULL;
+	runner->priv->lines = g_slice_alloc(sizeof(gchar *) * (runner->priv->buffer_size + 1));
+	runner->priv->lines[0] = NULL;
+	
+	runner->priv->read_buffer = g_slice_alloc(sizeof(gchar) * (runner->priv->buffer_size + 1));
 }
 
 static void
@@ -182,152 +201,14 @@ gitg_runner_init(GitgRunner *self)
 {
 	self->priv = GITG_RUNNER_GET_PRIVATE(self);
 	
-	self->priv->cond = g_cond_new();
-	self->priv->mutex = g_mutex_new();
-	self->priv->cond_mutex = g_mutex_new();
-
-	self->priv->done = TRUE;
-}
-
-static gboolean
-emit_update_sync(GitgRunner *runner)
-{
-	// Emit signal
-	runner->priv->syncid = 0;
-	g_signal_emit(runner, runner_signals[UPDATE], 0, runner->priv->buffer);
-
-	if (!runner->priv->synchronized)
-	{
-		if (runner->priv->done)
-			g_signal_emit(runner, runner_signals[END_LOADING], 0);
-
-		g_cond_signal(runner->priv->cond);
-	}
-
-	return FALSE;
-}
-
-static void
-sync_buffer(GitgRunner *runner, guint num)
-{
-	// NULL terminate the buffer and add idle callback
-	runner->priv->buffer[num] = NULL;
-
-	if (runner->priv->synchronized)
-	{
-		emit_update_sync(runner);
-	}
-	else
-	{
-		runner->priv->syncid = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, 
-											   (GSourceFunc)emit_update_sync, 
-											   runner, 
-											   NULL);
-
-		g_cond_wait(runner->priv->cond, runner->priv->cond_mutex);
-	}
-}
-
-gboolean
-write_input(GitgRunner *runner)
-{
-	GIOChannel *channel = g_io_channel_unix_new(runner->priv->input_fd);
-	g_io_channel_set_encoding(channel, NULL, NULL);
-
-	gchar const *buffer = runner->priv->input;
-	gboolean ret = TRUE;
-	gsize written;
-
-	while (buffer && *buffer)
-	{
-		if (g_io_channel_write_chars(channel, runner->priv->input, -1, &written, NULL) != G_IO_STATUS_NORMAL)
-		{
-			ret = FALSE;
-			break;
-		}
-		
-		buffer += written;
-		
-		if (runner->priv->done)
-		{
-			ret = FALSE;
-			break;
-		}
-	}
-
-	g_io_channel_shutdown(channel, TRUE, NULL);
-	g_io_channel_unref(channel);
-
-	return ret;
-}
-
-static gpointer
-output_reader_thread(gpointer userdata)
-{
-	GitgRunner *runner = GITG_RUNNER(userdata);
-	
-	guint num = 0;
-	gchar *line;
-	gsize len;
-	GError *error = NULL;
-	gsize term;
-	
-	if (runner->priv->input)
-	{
-		if (!write_input(runner))
-			return NULL;
-	}
-
-	GIOChannel *channel = g_io_channel_unix_new(runner->priv->output_fd);
-	g_io_channel_set_encoding(channel, NULL, NULL);
-	
-	while (g_io_channel_read_line(channel, &line, &len, &term, &error) == G_IO_STATUS_NORMAL)
-	{
-		gboolean cancel;
-
-		// Do not include the newline
-		line[term] = '\0';
-		
-		gchar *utf8 = gitg_utils_convert_utf8(line);
-		runner->priv->buffer[num++] = utf8;
-		g_free(line);
-		
-		g_mutex_lock (runner->priv->cond_mutex);
-		
-		if (!runner->priv->done && num == runner->priv->buffer_size)
-		{
-			sync_buffer(runner, num);
-			num = 0;
-		}
-		
-		cancel = runner->priv->done;
-		g_mutex_unlock(runner->priv->cond_mutex);
-		
-		if (cancel)
-			break;
-	}
-
-	g_mutex_lock (runner->priv->cond_mutex);	
-
-	if (!runner->priv->done)
-	{
-		runner->priv->done = TRUE;
-		sync_buffer(runner, num);
-	}
-
-	g_mutex_unlock (runner->priv->cond_mutex);
-	
-	g_io_channel_shutdown(channel, TRUE, NULL);
-	g_io_channel_unref(channel);
-
-	return NULL;
+	self->priv->cancellable = g_cancellable_new();
 }
 
 GitgRunner *
 gitg_runner_new(guint buffer_size)
 {
 	g_assert(buffer_size > 0);
-
+	
 	return GITG_RUNNER(g_object_new(GITG_TYPE_RUNNER, 
 									"buffer_size", buffer_size, 
 									"synchronized", FALSE,
@@ -345,6 +226,202 @@ gitg_runner_new_synchronized(guint buffer_size)
 									NULL));
 }
 
+static void
+parse_lines(GitgRunner *runner, gchar const *buffer, gssize size)
+{
+	gchar *utf8 = gitg_utils_convert_utf8(buffer, size);
+	gchar *ptr = utf8;
+	gchar *newline;
+	gint i = 0;
+	gchar *alloced = NULL;
+	
+	while ((newline = g_utf8_strchr(ptr, size, '\n')))
+	{
+		*newline = 0;
+		size -= (newline - ptr) + 1;
+		
+		if (runner->priv->buffer)
+		{
+			gchar *alloced = g_strconcat(runner->priv->buffer, ptr, NULL);
+			g_free(runner->priv->buffer);
+			runner->priv->buffer = NULL;
+			runner->priv->lines[i++] = alloced;
+		}
+		else
+		{
+			runner->priv->lines[i++] = ptr;
+		}
+		
+		ptr = newline + 1;
+	}
+	
+	runner->priv->lines[i] = NULL;
+
+	if (size)
+	{
+		gchar *tmp;
+		ptr[size] = '\0';
+
+		if (runner->priv->buffer != NULL)
+			tmp = g_strconcat(runner->priv->buffer, ptr, NULL);
+		else
+			tmp = g_strdup(ptr);
+			
+		g_free(runner->priv->buffer);
+		runner->priv->buffer = tmp;
+	}
+
+	g_signal_emit(runner, runner_signals[UPDATE], 0, runner->priv->lines);
+
+	g_free(alloced);
+	g_free(utf8);
+}
+
+static void
+close_streams(GitgRunner *runner)
+{
+	if (runner->priv->output_stream)
+	{
+		g_output_stream_close (runner->priv->output_stream, NULL, NULL);
+		g_object_unref(runner->priv->output_stream);
+		runner->priv->output_stream = NULL;
+	}
+	
+	if (runner->priv->input_stream)
+	{
+		g_input_stream_close (runner->priv->input_stream, NULL, NULL);
+		g_object_unref(runner->priv->input_stream);
+		runner->priv->input_stream = NULL;
+	}
+	
+	g_free(runner->priv->buffer);
+	runner->priv->buffer = NULL;
+}
+
+static gboolean
+run_sync(GitgRunner *runner, gchar const *input, GError **error)
+{
+	if (input)
+	{
+		if (!g_output_stream_write_all(runner->priv->output_stream, input, -1, NULL, NULL, error))
+		{
+			runner_io_exit(runner->priv->pid, 0, runner);
+			close_streams(runner);
+
+			g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);
+			return FALSE;
+		}
+	}
+	
+	gssize read = runner->priv->buffer_size;
+
+	while (read == runner->priv->buffer_size)
+	{
+		if (!g_input_stream_read_all(runner->priv->input_stream, runner->priv->read_buffer, runner->priv->buffer_size, &read, NULL, error))
+		{
+			runner_io_exit(runner->priv->pid, 0, runner);
+			close_streams(runner);
+
+			g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);
+			return FALSE;
+		}
+		
+		parse_lines(runner, runner->priv->read_buffer, read);
+	}
+
+	runner_io_exit(runner->priv->pid, 0, runner);
+	close_streams(runner);
+	
+	g_signal_emit(runner, runner_signals[END_LOADING], 0);
+}
+
+static void
+async_failed(AsyncData *data)
+{
+	runner_io_exit(data->runner->priv->pid, 0, data->runner);
+	close_streams(data->runner);
+
+	g_signal_emit(data->runner, runner_signals[END_LOADING], 0);
+
+	async_data_free(data);
+}
+
+static void start_reading(GitgRunner *runner, AsyncData *data);
+
+static void
+read_output_ready(GInputStream *stream, GAsyncResult *result, AsyncData *data)
+{
+	GError *error = NULL;
+	
+	gssize read = g_input_stream_read_finish(stream, result, &error);
+
+	if (g_cancellable_is_cancelled(data->cancellable))
+	{
+		g_input_stream_close (stream, NULL, NULL);
+		async_data_free(data);
+		g_error_free(error);
+		return;
+	}
+
+	if (read == -1)
+	{
+		g_input_stream_close (stream, NULL, NULL);
+		async_failed(data);
+		g_error_free(error);
+		return;
+	}
+	
+	if (read == 0)
+	{
+		/* End */
+		gchar *b[] = {data->runner->priv->buffer, NULL};
+		g_signal_emit(data->runner, runner_signals[UPDATE], 0, b);		
+
+		runner_io_exit(data->runner->priv->pid, 0, data->runner);
+		close_streams(data->runner);
+
+		g_signal_emit(data->runner, runner_signals[END_LOADING], 0);
+		
+		async_data_free(data);
+	}
+	else
+	{
+		parse_lines(data->runner, data->runner->priv->read_buffer, read);
+		start_reading(data->runner, data);
+	}
+}
+
+static void
+start_reading(GitgRunner *runner, AsyncData *data)
+{
+	g_input_stream_read_async(runner->priv->input_stream, runner->priv->read_buffer, runner->priv->buffer_size, G_PRIORITY_DEFAULT, runner->priv->cancellable, (GAsyncReadyCallback)read_output_ready, data);
+}
+
+static void
+write_input_ready(GOutputStream *stream, GAsyncResult *result, AsyncData *data)
+{
+	GError *error = NULL;
+	gssize written = g_output_stream_write_finish(stream, result, &error);
+	
+	if (g_cancellable_is_cancelled(data->cancellable))
+	{
+		if (error)
+			g_error_free(error);
+		
+		async_data_free(data);
+	}
+	
+	if (error)
+	{
+		async_failed(data);
+		g_error_free(error);
+	}
+	else
+	{
+		start_reading(data->runner, data);
+	}
+}
+
 gboolean
 gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar const *wd, gchar const *input, GError **error)
 {
@@ -352,6 +429,8 @@ gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar con
 
 	gint stdout;
 	gint stdin;
+
+	gitg_runner_cancel(runner);
 
 	gboolean ret = g_spawn_async_with_pipes(wd, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), input ? &stdin : NULL, &stdout, NULL, error);
 
@@ -361,23 +440,30 @@ gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar con
 		return FALSE;
 	}
 	
-	runner->priv->done = FALSE;
-	runner->priv->output_fd = stdout;
-	runner->priv->input_fd = stdin;
-	runner->priv->input = g_strdup(input);
+	if (input)
+		runner->priv->output_stream = G_OUTPUT_STREAM(g_unix_output_stream_new(stdin, TRUE));
+		
+	runner->priv->input_stream = G_INPUT_STREAM(g_unix_input_stream_new(stdout, TRUE));
 
-	// Emit begin-loading signal
+	/* Emit begin-loading signal */
 	g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);
 	
 	if (runner->priv->synchronized)
 	{
-		output_reader_thread(runner);
-		runner_io_exit(runner->priv->pid, 0, NULL);
+		return run_sync(runner, input, error);
 	}
 	else
 	{
-		runner->priv->thread = g_thread_create(output_reader_thread, runner, TRUE, NULL);		
-		g_child_watch_add(runner->priv->pid, runner_io_exit, runner);
+		AsyncData *data = async_data_new(runner, runner->priv->cancellable);
+		
+		if (input)
+		{
+			g_output_stream_write_async(runner->priv->output_stream, input, -1, G_PRIORITY_DEFAULT, runner->priv->cancellable, (GAsyncReadyCallback)write_input_ready, data);
+		}
+		else
+		{
+			start_reading(runner, data);
+		}
 	}
 	
 	return TRUE;
@@ -393,13 +479,7 @@ gitg_runner_run_working_directory(GitgRunner *runner, gchar const **argv, gchar 
 gboolean
 gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 {
-	gitg_runner_run_working_directory(runner, argv, NULL, error);
-}
-
-gboolean
-gitg_runner_run_with_input(GitgRunner *runner, gchar const **argv, gchar const *input, GError **error)
-{
-	
+	return gitg_runner_run_working_directory(runner, argv, NULL, error);
 }
 
 guint
@@ -414,49 +494,19 @@ gitg_runner_cancel(GitgRunner *runner)
 {
 	g_return_if_fail(GITG_IS_RUNNER(runner));
 
-	if (!runner->priv->thread)
+	if (runner->priv->input_stream)
 	{
-		runner->priv->done = TRUE;
-		
-		if (runner->priv->input)
-		{
-			g_free(runner->priv->input);
-			runner->priv->input = NULL;
-		}
-		return;
-	}
-
-	g_mutex_lock(runner->priv->cond_mutex);
-	runner->priv->done = TRUE;
-	
-	if (runner->priv->syncid)
-	{
-		g_source_remove(runner->priv->syncid);
-		runner->priv->syncid = 0;
+		g_cancellable_cancel(runner->priv->cancellable);
+		runner_io_exit(runner->priv->pid, 0, runner);
+		close_streams(runner);
 
 		g_signal_emit(runner, runner_signals[END_LOADING], 0);
 	}
-
-	g_cond_signal(runner->priv->cond);
-	g_mutex_unlock(runner->priv->cond_mutex);
-	g_thread_join(runner->priv->thread);
-
-	runner->priv->thread = NULL;
-	runner->priv->pid = 0;
-	
-	g_free(runner->priv->input);
-	runner->priv->input = NULL;
 }
 
 gboolean
 gitg_runner_running(GitgRunner *runner)
 {
-	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
-	gboolean running;
-	
-	g_mutex_lock(runner->priv->mutex);
-	running = !runner->priv->done;
-	g_mutex_unlock(runner->priv->mutex);
-	
-	return running;
+	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);	
+	return runner->priv->input_stream != NULL;
 }

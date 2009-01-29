@@ -127,9 +127,9 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 	
 	gtk_text_buffer_get_end_iter(buf, &iter);
 	
-	while ((line = *buffer++))
+	while ((line = *(buffer++)))
 	{
-		if (view->priv->is_diff && strncmp("@@", line, 2) == 0)
+		if (view->priv->is_diff && g_str_has_prefix(line, "@@"))
 		{
 			gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_HUNK, &iter);
 			gtk_text_buffer_insert_with_tags_by_name(buf, &iter, line, -1, "hunk", NULL);
