@@ -6,6 +6,10 @@ icons_DATA = \
 	gitg48x48.png	\
 	gitg64x64.png	\
 	gitg128x128.png
-	
+
+pixmapsdir = $(datadir)/pixmaps
+pixmaps_DATA = \
+	gitg48x48.png
+
 EXTRA_DIST = 				\
 	$(icons_DATA)
