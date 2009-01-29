@@ -2,13 +2,13 @@
 #include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gtksourceview/gtksourcestyleschememanager.h>
 #include <glib/gi18n.h>
+#include <string.h>
 
 #include "gitg-commit-view.h"
 #include "gitg-commit.h"
 #include "gitg-utils.h"
 
 #define GITG_COMMIT_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_COMMIT_VIEW, GitgCommitViewPrivate))
-#define CATEGORY_HUNK "CategoryHunk"
 #define CATEGORY_UNSTAGE_HUNK "CategoryUnstageHunk"
 #define CATEGORY_STAGE_HUNK "CategoryStageHunk"
 
@@ -153,8 +153,6 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 	{
 		if (view->priv->is_diff && g_str_has_prefix(line, "@@"))
 		{
-			gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_HUNK, &iter);
-			
 			if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
 				gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_STAGE_HUNK, &iter);
 			else
@@ -222,7 +220,6 @@ check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *
 	GtkTextIter end;
 
 	gtk_text_buffer_get_bounds(buffer, &start, &end);
-	gtk_source_buffer_remove_source_marks(GTK_SOURCE_BUFFER(buffer), &start, &end, CATEGORY_HUNK);
 	gtk_source_buffer_remove_source_marks(GTK_SOURCE_BUFFER(buffer), &start, &end, CATEGORY_UNSTAGE_HUNK);
 	gtk_source_buffer_remove_source_marks(GTK_SOURCE_BUFFER(buffer), &start, &end, CATEGORY_STAGE_HUNK);
 	gtk_text_buffer_set_text(gtk_text_view_get_buffer(tv), "", -1);
@@ -405,6 +402,22 @@ set_sort_func(GtkListStore *store)
 	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(store), 0, compare_by_name, NULL, NULL);
 }
 
+static gboolean
+has_hunk_mark(GtkSourceBuffer *buffer, GtkTextIter *iter)
+{
+	GSList *m1 = gtk_source_buffer_get_source_marks_at_iter(buffer, iter, CATEGORY_UNSTAGE_HUNK);
+	gboolean has_mark = m1 != NULL;
+	g_slist_free(m1);
+	
+	if (has_mark)
+		return;
+	
+	m1 = gtk_source_buffer_get_source_marks_at_iter(buffer, iter, CATEGORY_STAGE_HUNK);
+	has_mark = (m1 != NULL);
+	g_slist_free(m1);
+	
+	return has_mark;
+}
 
 static gboolean
 view_event(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
@@ -434,15 +447,13 @@ view_event(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
 		gtk_text_iter_forward_line(&iter);
 
 	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget)));
-	GSList *marks = gtk_source_buffer_get_source_marks_at_iter(buffer, &iter, CATEGORY_HUNK);
-	gboolean has_tag = marks != NULL;
-	g_slist_free(marks);
+	gboolean has_mark = has_hunk_mark(buffer, &iter);
 		
-	if (has_tag)
+	if (has_mark)
 	{
 		gdk_window_set_cursor(win, view->priv->hand);
 	} 
-	else if (!has_tag)
+	else if (!has_mark)
 	{
 		gdk_window_set_cursor(win, NULL);
 	}
@@ -491,8 +502,6 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	
 	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	GdkPixbuf *pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_ADD, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
-	
-	gtk_source_view_set_mark_category_priority(self->priv->changes_view, CATEGORY_HUNK, 1);
 	
 	if (pixbuf)
 	{
@@ -602,12 +611,12 @@ initialize_commit(GitgCommitView *self)
 {
 	if (self->priv->commit)
 		return;
-	
+
 	self->priv->commit = gitg_commit_new(self->priv->repository);
-	
+
 	g_signal_connect(self->priv->commit, "inserted", G_CALLBACK(on_commit_file_inserted), self);
 	g_signal_connect(self->priv->commit, "removed", G_CALLBACK(on_commit_file_removed), self);
-	
+
 	gitg_commit_refresh(self->priv->commit);
 }
 
