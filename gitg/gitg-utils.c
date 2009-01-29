@@ -253,10 +253,17 @@ gitg_utils_get_content_type(GFile *file)
 	return content_type;
 }
 
+gboolean
+gitg_utils_can_display_content_type(gchar const *content_type)
+{
+	return g_content_type_is_a(content_type, "text/plain") || 
+		   g_content_type_equals(content_type, "application/octet-stream");
+}
+
 GtkSourceLanguage *
 gitg_utils_get_language(gchar const *content_type)
 {
-	if (!g_content_type_is_a(content_type, "text/plain") && !g_content_type_equals(content_type, "application/octet-stream"))
+	if (!gitg_utils_can_display_content_type(content_type))
 		return NULL;
 	
 	gchar *mime = g_content_type_get_mime_type(content_type);

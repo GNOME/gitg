@@ -423,28 +423,16 @@ write_input_ready(GOutputStream *stream, GAsyncResult *result, AsyncData *data)
 }
 
 gboolean
-gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar const *wd, gchar const *input, GError **error)
+gitg_runner_run_streams(GitgRunner *runner, GInputStream *input_stream, GOutputStream *output_stream, gchar const *input, GError **error)
 {
-	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
-
-	gint stdout;
-	gint stdin;
-
 	gitg_runner_cancel(runner);
-
-	gboolean ret = g_spawn_async_with_pipes(wd, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), input ? &stdin : NULL, &stdout, NULL, error);
-
-	if (!ret)
-	{
-		runner->priv->pid = 0;
-		return FALSE;
-	}
 	
-	if (input)
-		runner->priv->output_stream = G_OUTPUT_STREAM(g_unix_output_stream_new(stdin, TRUE));
-		
-	runner->priv->input_stream = G_INPUT_STREAM(g_unix_input_stream_new(stdout, TRUE));
-
+	if (output_stream)
+		runner->priv->output_stream = g_object_ref(output_stream);
+	
+	if (input_stream)
+		runner->priv->input_stream = g_object_ref(input_stream);
+	
 	/* Emit begin-loading signal */
 	g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);
 	
@@ -465,9 +453,42 @@ gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar con
 			start_reading(runner, data);
 		}
 	}
-	
-	return TRUE;
+}
 
+gboolean
+gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar const *wd, gchar const *input, GError **error)
+{
+	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
+
+	gint stdout;
+	gint stdin;
+
+	gitg_runner_cancel(runner);
+
+	gboolean ret = g_spawn_async_with_pipes(wd, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), input ? &stdin : NULL, &stdout, NULL, error);
+
+	if (!ret)
+	{
+		runner->priv->pid = 0;
+		return FALSE;
+	}
+	
+	GInputStream *input_stream = NULL;
+	GOutputStream *output_stream = NULL;
+
+	if (input)
+		output_stream = G_OUTPUT_STREAM(g_unix_output_stream_new(stdin, TRUE));
+		
+	input_stream = G_INPUT_STREAM(g_unix_input_stream_new(stdout, TRUE));	
+	ret = gitg_runner_run_streams(runner, input_stream, output_stream, input, error);
+	
+	if (output_stream)
+		g_object_unref(output_stream);
+	
+	if (input_stream)
+		g_object_unref(input_stream);
+	
+	return ret;
 }
 
 gboolean
@@ -480,6 +501,12 @@ gboolean
 gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 {
 	return gitg_runner_run_working_directory(runner, argv, NULL, error);
+}
+
+gboolean
+gitg_runner_run_stream(GitgRunner *runner, GInputStream *stream, GError **error)
+{
+	return gitg_runner_run_streams(runner, stream, NULL, NULL, error);
 }
 
 guint

@@ -1,5 +1,6 @@
 #include <gtksourceview/gtksourceview.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
+#include <gtksourceview/gtksourcestyleschememanager.h>
 #include <glib/gi18n.h>
 
 #include "gitg-commit-view.h"
@@ -37,8 +38,7 @@ struct _GitgCommitViewPrivate
 	GitgRunner *runner;
 	guint update_id;
 	gboolean is_diff;
-	
-	GtkTextTag *hunk_tag;
+
 	GdkCursor *hand;
 };
 
@@ -130,23 +130,23 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 	while ((line = *(buffer++)))
 	{
 		if (view->priv->is_diff && g_str_has_prefix(line, "@@"))
-		{
 			gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_HUNK, &iter);
-			gtk_text_buffer_insert_with_tags_by_name(buf, &iter, line, -1, "hunk", NULL);
-		}
-		else
-		{
-			gtk_text_buffer_insert(buf, &iter, line, -1);
-		}
-		
+
+		gtk_text_buffer_insert(buf, &iter, line, -1);
 		gtk_text_buffer_insert(buf, &iter, "\n", -1);
 	}
 }
 
 static void
-run_changes_command(GitgCommitView *view, gchar const **argv, gchar const *wd)
+connect_update(GitgCommitView *view)
 {
 	view->priv->update_id = g_signal_connect(view->priv->runner, "update", G_CALLBACK(on_changes_update), view);
+}
+
+static void
+run_changes_command(GitgCommitView *view, gchar const **argv, gchar const *wd)
+{
+	connect_update(view);
 	gitg_runner_run_working_directory(view->priv->runner, argv, wd, NULL);
 }
 
@@ -175,6 +175,13 @@ check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *
 }
 
 static void
+show_binary_information(GitgCommitView *view)
+{
+	set_language(view, NULL);
+	gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view)), _("Cannot display file content as text"), -1);
+}
+
+static void
 unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 {
 	GtkTreeModel *model;
@@ -193,23 +200,29 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	{
 		gchar *content_type = gitg_utils_get_content_type(f);
 		
-		if (!content_type)
+		if (!gitg_utils_can_display_content_type(content_type))
 		{
-			gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view)), _("Cannot display file content as text"), -1);
+			show_binary_information(view);
 		}
 		else
 		{
-			gchar *path = g_file_get_path(f);	
-
-			/* This is really ugly! */
-			gchar const *argv[] = {"cat", path, NULL};
-			GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+			GInputStream *stream = G_INPUT_STREAM(g_file_read(f, NULL, NULL));
 			
-			set_language(view, language);
-			view->priv->is_diff = FALSE;
-			run_changes_command(view, argv, NULL);
-			
-			g_free(path);
+			if (!stream)
+			{
+				show_binary_information(view);
+			}
+			else
+			{
+				GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+				set_language(view, language);
+				
+				view->priv->is_diff = FALSE;
+				connect_update(view);
+				
+				gitg_runner_run_stream(view->priv->runner, stream, NULL);
+				g_object_unref(stream);
+			}
 		}
 	}
 	else
@@ -330,7 +343,10 @@ view_event(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
 	if (gtk_text_iter_backward_line(&iter))
 		gtk_text_iter_forward_line(&iter);
 
-	gboolean has_tag = gtk_text_iter_has_tag(&iter, view->priv->hunk_tag);
+	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget)));
+	GSList *marks = gtk_source_buffer_get_source_marks_at_iter(buffer, &iter, CATEGORY_HUNK);
+	gboolean has_tag = marks != NULL;
+	g_slist_free(marks);
 		
 	if (has_tag && !view->priv->hand)
 	{
@@ -359,9 +375,10 @@ initialize_buffer(GitgCommitView *view)
 {
 	GtkTextBuffer *buffer = GTK_TEXT_BUFFER(gtk_source_buffer_new(NULL));
 	
-	view->priv->hunk_tag = gtk_text_buffer_create_tag(buffer, "hunk", "paragraph-background", "#FF0", "background-full-height", TRUE, NULL);
+	GtkSourceStyleSchemeManager *manager = gtk_source_style_scheme_manager_get_default();
+	GtkSourceStyleScheme *scheme = gtk_source_style_scheme_manager_get_scheme(manager, "gitg");
+	gtk_source_buffer_set_style_scheme(GTK_SOURCE_BUFFER(buffer), scheme);
 	
-	g_signal_connect(view->priv->hunk_tag, "event", G_CALLBACK(hunk_tag_event), view);
 	return buffer;
 }
 

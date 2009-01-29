@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
+#include <gtksourceview/gtksourcestyleschememanager.h>
 
 #include "gitg-window.h"
 #include "sexy-icon-entry.h"
@@ -74,7 +75,7 @@ set_language_search_path()
 {
 	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
 	gchar const * const *orig = gtk_source_language_manager_get_search_path(manager);
-	gchar const **dirs = g_new0(gchar *, g_strv_length(orig) + 2);
+	gchar const **dirs = g_new0(gchar const *, g_strv_length((gchar **)orig) + 2);
 	guint i = 0;
 	
 	while (orig[i])
@@ -84,7 +85,15 @@ set_language_search_path()
 	}
 	
 	dirs[0] = GITG_DATADIR "/language-specs";
-	gtk_source_language_manager_set_search_path(manager, dirs);
+	gtk_source_language_manager_set_search_path(manager, (gchar **)dirs);
+}
+
+static void
+set_style_scheme_search_path()
+{
+	GtkSourceStyleSchemeManager *manager = gtk_source_style_scheme_manager_get_default();
+	
+	gtk_source_style_scheme_manager_prepend_search_path(manager, GITG_DATADIR "/styles");
 }
 
 int
@@ -101,6 +110,7 @@ main(int argc, char **argv)
 	parse_options(&argc, &argv);
 	
 	set_language_search_path();
+	set_style_scheme_search_path();
 	
 	GitgWindow *window = build_ui();
 	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, (gchar const **)&argv[2]);
