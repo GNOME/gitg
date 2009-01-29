@@ -614,10 +614,10 @@ gitg_revision_tree_view_init(GitgRevisionTreeView *self)
 	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(self->priv->store), 1, (GtkTreeIterCompareFunc)compare_func, self, NULL);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(self->priv->store), 1, GTK_SORT_ASCENDING);
 		
-	self->priv->loader = gitg_runner_new(100);
+	self->priv->loader = gitg_runner_new(1000);
 	g_signal_connect(self->priv->loader, "update", G_CALLBACK(on_update), self);
 	
-	self->priv->content_runner = gitg_runner_new(500);
+	self->priv->content_runner = gitg_runner_new(5000);
 	g_signal_connect(self->priv->content_runner, "update", G_CALLBACK(on_contents_update), self);
 }
 

@@ -436,7 +436,7 @@ apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolea
 	
 	g_return_val_if_fail(hunk != NULL, FALSE);
 	
-	GitgRunner *runner = gitg_runner_new_synchronized(100);
+	GitgRunner *runner = gitg_runner_new_synchronized(1000);
 	gchar *dotgit = gitg_utils_dot_git_path(gitg_repository_get_path(commit->priv->repository));
 
 	gchar const *argv[] = {"git", "--git-dir", dotgit, "apply", "--cached", NULL, NULL};

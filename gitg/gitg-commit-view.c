@@ -549,7 +549,7 @@ gitg_commit_view_init(GitgCommitView *self)
 {
 	self->priv = GITG_COMMIT_VIEW_GET_PRIVATE(self);
 	
-	self->priv->runner = gitg_runner_new(100);
+	self->priv->runner = gitg_runner_new(1000);
 }
 
 void 
