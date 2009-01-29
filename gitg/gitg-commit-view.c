@@ -134,6 +134,13 @@ set_diff_language(GitgCommitView *view)
 }
 
 static void
+show_binary_information(GitgCommitView *view)
+{
+	set_language(view, NULL);
+	gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view)), _("Cannot display file content as text"), -1);
+}
+
+static void
 on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 {
 	gchar *line;
@@ -156,6 +163,31 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 
 		gtk_text_buffer_insert(buf, &iter, line, -1);
 		gtk_text_buffer_insert(buf, &iter, "\n", -1);
+	}
+	
+	if (gtk_source_buffer_get_language(GTK_SOURCE_BUFFER(buf)) == NULL)
+	{
+		GtkTextIter start;
+		GtkTextIter end;
+		
+		gtk_text_buffer_get_bounds(buf, &start, &end);
+		gchar *data = gtk_text_buffer_get_text(buf, &start, &end, FALSE);
+
+		gchar *content_type = g_content_type_guess(NULL, data, strlen(data), NULL);
+		g_free(data);
+		
+		if (content_type && !gitg_utils_can_display_content_type(content_type))
+		{
+			gitg_runner_cancel(runner);
+			show_binary_information(view);
+		}
+		else if (content_type)
+		{
+			GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+			set_language(view, language);
+		}
+		
+		g_free(content_type);
 	}
 	
 	while (gtk_events_pending())
@@ -199,13 +231,6 @@ check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *
 		return FALSE;
 	
 	return TRUE;
-}
-
-static void
-show_binary_information(GitgCommitView *view)
-{
-	set_language(view, NULL);
-	gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view)), _("Cannot display file content as text"), -1);
 }
 
 static void
@@ -308,13 +333,14 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	
 	gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
 	GitgChangedFileStatus status = gitg_changed_file_get_status(file);
-	GFile *f = gitg_changed_file_get_file(file);
-
-	gchar *dotgit = gitg_utils_dot_git_path(gitg_repository_get_path(view->priv->repository));
-	gchar *path = g_file_get_path(f);
-	g_object_unref(f);
 	
-	set_diff_language(view);
+	gchar const *repos = gitg_repository_get_path(view->priv->repository);
+	GFile *f = gitg_changed_file_get_file(file);
+	GFile *parent = g_file_new_for_path(repos);
+
+	gchar *dotgit = gitg_utils_dot_git_path(repos);
+	gchar *path = g_file_get_relative_path(parent, f);
+	g_object_unref(parent);
 	
 	if (status == GITG_CHANGED_FILE_STATUS_NEW)
 	{
@@ -322,7 +348,19 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		gchar const *argv[] = {"git", "--git-dir", dotgit, "show", indexpath, NULL};
 		view->priv->is_diff = FALSE;
 		
-		run_changes_command(view, argv, NULL);
+		gchar *content_type = gitg_utils_get_content_type(f);
+		
+		if (!gitg_utils_can_display_content_type(content_type))
+		{
+			show_binary_information(view);
+		}
+		else
+		{
+			set_language(view, gitg_utils_get_language(content_type));
+			run_changes_command(view, argv, NULL);
+		}
+		
+		g_free(content_type);
 		g_free(indexpath);
 	}
 	else
@@ -330,8 +368,11 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		gchar const *argv[] = {"git", "--git-dir", dotgit, "diff-index", "-U3", "--cached", "HEAD", "--", path, NULL};
 		view->priv->is_diff = TRUE;
 
+		set_diff_language(view);
 		run_changes_command(view, argv, gitg_repository_get_path(view->priv->repository));
 	}
+
+	g_object_unref(f);
 
 	g_free(path);	
 	g_free(dotgit);
