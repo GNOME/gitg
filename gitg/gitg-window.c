@@ -32,6 +32,8 @@ struct _GitgWindowPrivate
 	GitgCommitView *commit_view;
 	GtkWidget *search_popup;
 	GtkComboBox *combo_branches;
+	
+	GtkWidget *open_dialog;
 };
 
 static void gitg_window_buildable_iface_init(GtkBuildableIface *iface);
@@ -383,14 +385,14 @@ on_update(GitgRunner *loader, gchar **revisions, GitgWindow *window)
 static void
 handle_no_gitdir(GitgWindow *window)
 {
-	GtkWidget *dlg = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Gitg repository could not be found"));
+	GtkWidget *dlg = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Could not find git repository"));
 	
 	gtk_dialog_run(GTK_DIALOG(dlg));
 	gtk_widget_destroy(dlg);
 }
 
 static gboolean
-create_repository(GitgWindow *window, gchar const *path)
+create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
 {
 	gboolean ret = TRUE;
 
@@ -407,6 +409,7 @@ create_repository(GitgWindow *window, gchar const *path)
 				// Try current directory
 				path = NULL;
 				g_object_unref(window->priv->repository);
+				window->priv->repository = NULL;
 			
 				ret = FALSE;
 			}
@@ -417,7 +420,7 @@ create_repository(GitgWindow *window, gchar const *path)
 		}
 	}
 	
-	if (!path)
+	if (!path && usewd)
 	{
 		gchar *curdir = g_get_current_dir();
 		window->priv->repository = gitg_repository_new(curdir);
@@ -456,6 +459,10 @@ fill_branches_combo(GitgWindow *window)
 	}
 	
 	gtk_combo_box_set_active(window->priv->combo_branches, 0);
+	
+	if (!window->priv->repository)
+		return;
+
 	GSList *refs = gitg_repository_get_refs(window->priv->repository);
 	
 	refs = g_slist_sort(refs, (GCompareFunc)sort_by_ref_type);
@@ -488,20 +495,19 @@ fill_branches_combo(GitgWindow *window)
 	g_slist_free(refs);
 }
 
-void
-gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv)
+static void
+load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv, gboolean usewd)
 {
-	g_return_if_fail(GITG_IS_WINDOW(window));
-	
 	if (window->priv->repository)
 	{
 		gtk_tree_view_set_model(window->priv->tree_view, NULL);
 		g_object_unref(window->priv->repository);
+		window->priv->repository = NULL;
 	}
 	
-	gboolean haspath = create_repository(window, path); 
+	gboolean haspath = create_repository(window, path, usewd); 
 
-	if (gitg_repository_get_path(window->priv->repository))
+	if (window->priv->repository && gitg_repository_get_path(window->priv->repository))
 	{
 		gtk_tree_view_set_model(window->priv->tree_view, GTK_TREE_MODEL(window->priv->repository));
 		GitgRunner *loader = gitg_repository_get_loader(window->priv->repository);
@@ -531,13 +537,23 @@ gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gc
 			g_free(ar);
 
 		fill_branches_combo(window);
-		
 		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
 	}
 	else
 	{
+		fill_branches_combo(window);
+		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
+
 		handle_no_gitdir(window);
 	}
+}
+
+void
+gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv)
+{
+	g_return_if_fail(GITG_IS_WINDOW(window));
+	
+	load_repository(window, path, argc, argv, TRUE);
 }
 
 void
@@ -552,4 +568,50 @@ void
 on_file_quit(GtkAction *action, GitgWindow *window)
 {
 	gtk_main_quit();
+}
+
+static void
+on_open_dialog_response(GtkFileChooser *dialog, gint response, GitgWindow *window)
+{
+	if (response != GTK_RESPONSE_ACCEPT)
+	{
+		gtk_widget_destroy(GTK_WIDGET(dialog));
+		return;
+	}
+	
+	gchar *uri = gtk_file_chooser_get_uri(dialog);
+	GFile *file = g_file_new_for_uri(uri);
+	gchar *path = g_file_get_path(file);
+	
+	g_free(uri);
+	g_object_unref(file);	
+	gtk_widget_destroy(GTK_WIDGET(dialog));
+	
+	load_repository(window, path, 0, NULL, FALSE);
+	g_free(path);
+}
+
+void
+on_file_open(GtkAction *action, GitgWindow *window)
+{
+	if (window->priv->open_dialog)
+	{
+		gtk_window_present(GTK_WINDOW(window->priv->open_dialog));
+		return;
+	}
+	
+	window->priv->open_dialog = gtk_file_chooser_dialog_new(_("Open git repository"),
+															GTK_WINDOW(window),
+															GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+															GTK_STOCK_CANCEL,
+															GTK_RESPONSE_CANCEL,
+															GTK_STOCK_OPEN,
+															GTK_RESPONSE_ACCEPT,
+															NULL);
+
+	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(window->priv->open_dialog), TRUE);
+	g_object_add_weak_pointer(G_OBJECT(window->priv->open_dialog), (gpointer *)&(window->priv->open_dialog));
+	gtk_window_present(GTK_WINDOW(window->priv->open_dialog));
+	
+	g_signal_connect(window->priv->open_dialog, "response", G_CALLBACK(on_open_dialog_response), window);
 }

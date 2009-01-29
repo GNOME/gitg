@@ -569,7 +569,7 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 	argv[4] = "--format=%(refname) %(objectname)";
 	argv[5] = "refs";
 
-	gitg_runner_run(refs_runner, argv, NULL);
+	gitg_runner_run_working_directory(refs_runner, argv, self->priv->path, NULL);
 	g_object_unref(refs_runner);
 
 	argv[3] = "log";

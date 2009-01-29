@@ -422,7 +422,8 @@ gitg_commit_refresh(GitgCommit *commit)
 	g_hash_table_foreach(commit->priv->files, (GHFunc)set_can_delete, commit);
 
 	/* Read other files */
-	update_index(commit);
+	if (commit->priv->repository)
+		update_index(commit);
 }
 
 gboolean

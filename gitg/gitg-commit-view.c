@@ -661,9 +661,22 @@ void
 gitg_commit_view_set_repository(GitgCommitView *view, GitgRepository *repository)
 {
 	g_return_if_fail(GITG_IS_COMMIT_VIEW(view));
-	g_return_if_fail(GITG_IS_REPOSITORY(repository));
+	g_return_if_fail(repository == NULL || GITG_IS_REPOSITORY(repository));
 
-	view->priv->repository = g_object_ref(repository);
+	if (view->priv->repository)
+	{
+		g_object_unref(view->priv->repository);
+		view->priv->repository = NULL;
+	}
+	
+	if (view->priv->commit)
+	{
+		g_object_unref(view->priv->commit);
+		view->priv->commit = NULL;
+	}
+
+	if (repository)
+		view->priv->repository = g_object_ref(repository);
 	
 	if (GTK_WIDGET_MAPPED(GTK_WIDGET(view)))
 		initialize_commit(view);
