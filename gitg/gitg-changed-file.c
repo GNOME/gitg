@@ -53,7 +53,7 @@ gitg_changed_file_get_property(GObject *object, guint prop_id, GValue *value, GP
 			g_value_set_enum(value, self->priv->status);
 		break;
 		case PROP_CHANGES:
-			g_value_set_enum(value, self->priv->changes);
+			g_value_set_flags(value, self->priv->changes);
 		break;
 		case PROP_SHA:
 			g_value_set_string(value, self->priv->sha);
@@ -95,7 +95,7 @@ gitg_changed_file_set_property(GObject *object, guint prop_id, const GValue *val
 			self->priv->status = g_value_get_enum(value);
 		break;
 		case PROP_CHANGES:
-			self->priv->changes = g_value_get_enum(value);
+			self->priv->changes = g_value_get_flags(value);
 		break;
 		case PROP_SHA:
 			set_sha_real(self, g_value_get_string(value));
@@ -131,7 +131,7 @@ gitg_changed_file_class_init(GitgChangedFileClass *klass)
 							      G_PARAM_READWRITE));
 	
 	g_object_class_install_property(object_class, PROP_CHANGES,
-					 g_param_spec_enum("changes",
+					 g_param_spec_flags("changes",
 							      "CHANGES",
 							      "Changes",
 							      GITG_TYPE_CHANGED_FILE_CHANGES,
