@@ -34,9 +34,13 @@
     <style id="hunk"          _name="Hunk" map-to="diff:location"/> <!--Keyword-->
     <style id="ignore"        _name="Ignore" map-to="def:comment"/>
     <style id="diff-file"     _name="" map-to="diff:diff-file"/> <!--Data Type-->
+    <style id="trailing-spaces" _name="Trailing spaces"/>
   </styles>
 
   <definitions>
+    <context id="trailing-spaces" style-ref="trailing-spaces">
+      <match>\s+$</match>
+    </context>
     <context id="gitgdiff">
       <include>
         <context id="diff-file" style-ref="diff-file">
@@ -44,16 +48,34 @@
           <end>\+\+\+ .*$</end>
         </context>
 
-        <context id="removed-line" style-ref="removed-line">
-          <match>^(&lt;|-).*$</match>
+        <context id="trailing-spaces-container">
+          <include>
+            <context>
+              <match>^ $</match>
+            </context>
+            <context ref="trailing-spaces"/>
+          </include>
+        </context>
+        
+        <context id="removed-line" style-ref="removed-line" end-at-line-end="true">
+          <start>^(&lt;|-)</start>
+          <include>
+            <context ref="trailing-spaces-container"/>
+          </include>
         </context>
 
-        <context id="added-line" style-ref="added-line">
-          <match>^(\+|&gt;).*$</match>
+        <context id="added-line" style-ref="added-line" end-at-line-end="true">
+          <start>^(\+|&gt;)</start>
+          <include>
+            <context ref="trailing-spaces-container"/>
+          </include>
         </context>
 
-        <context id="changed-line" style-ref="changed-line">
-          <match>^\! .*$</match>
+        <context id="changed-line" style-ref="changed-line" end-at-line-end="true">
+          <start>^\! $</start>
+          <include>
+            <context ref="trailing-spaces-container"/>
+          </include>
         </context>
 
         <context id="hunk" style-ref="hunk" end-at-line-end="true">
@@ -74,7 +96,7 @@
           <keyword>No newline at end of file .*</keyword>
         </context>
 
-        <context style-ref="ignore" end-at-line-end="true">
+        <context id="ignore" style-ref="ignore" end-at-line-end="true">
           <start>^\S</start>
         </context>
       </include>
