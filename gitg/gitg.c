@@ -3,6 +3,7 @@
 #include <glib/gi18n.h>
 #include <stdlib.h>
 #include <string.h>
+#include <gtksourceview/gtksourcelanguagemanager.h>
 
 #include "gitg-window.h"
 #include "sexy-icon-entry.h"
@@ -68,6 +69,24 @@ build_ui()
 	return GITG_WINDOW(window);
 }
 
+static void
+set_language_search_path()
+{
+	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
+	gchar const * const *orig = gtk_source_language_manager_get_search_path(manager);
+	gchar const **dirs = g_new0(gchar *, g_strv_length(orig) + 2);
+	guint i = 0;
+	
+	while (orig[i])
+	{
+		dirs[i + 1] = orig[i];
+		++i;
+	}
+	
+	dirs[0] = GITG_DATADIR "/language-specs";
+	gtk_source_language_manager_set_search_path(manager, dirs);
+}
+
 int
 main(int argc, char **argv)
 {
@@ -80,6 +99,8 @@ main(int argc, char **argv)
 
 	gtk_init(&argc, &argv);
 	parse_options(&argc, &argv);
+	
+	set_language_search_path();
 	
 	GitgWindow *window = build_ui();
 	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, (gchar const **)&argv[2]);

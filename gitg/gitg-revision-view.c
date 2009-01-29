@@ -64,9 +64,13 @@ gitg_revision_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	rvv->priv->diff = GTK_SOURCE_VIEW(gtk_builder_get_object(builder, "revision_diff"));
 	
 	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
-	GtkSourceLanguage *language = gtk_source_language_manager_get_language(manager, "diff");
+	GtkSourceLanguage *language = gtk_source_language_manager_get_language(manager, "gitgdiff");
 	GtkSourceBuffer *buffer = gtk_source_buffer_new_with_language(language);
 	g_object_unref(language);
+	
+	PangoFontDescription *fd = pango_font_description_from_string("Monospace 10");
+	gtk_widget_modify_font(GTK_WIDGET(rvv->priv->diff), fd);
+	pango_font_description_free(fd);
 	
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(rvv->priv->diff), GTK_TEXT_BUFFER(buffer));
 

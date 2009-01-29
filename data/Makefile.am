@@ -5,8 +5,12 @@ desktop_DATA 	 = $(desktop_in_files:.desktop.in=.desktop)
 
 man_MANS = gitg.1
 
+gitglangsdir = $(datadir)/gitg/language-specs
+gitglangs_DATA = gitgdiff.lang
+
 EXTRA_DIST = 				\
 	$(desktop_in_files)		\
+	$(gitglangs_DATA)		\
 	$(man_MANS)
 
 CLEANFILES =	 			\

@@ -113,7 +113,7 @@ static void
 set_diff_language(GitgCommitView *view)
 {
 	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
-	GtkSourceLanguage *language = gtk_source_language_manager_get_language(manager, "diff");
+	GtkSourceLanguage *language = gtk_source_language_manager_get_language(manager, "gitgdiff");
 
 	set_language(view, language);
 }
@@ -396,6 +396,10 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 		
 		gtk_source_view_set_show_line_marks(self->priv->changes_view, TRUE);
 	}
+	
+	PangoFontDescription *fd = pango_font_description_from_string("Monospace 10");
+	gtk_widget_modify_font(GTK_WIDGET(self->priv->changes_view), fd);
+	pango_font_description_free(fd);
 	
 	GtkTextBuffer *buffer = initialize_buffer(self);
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(self->priv->changes_view), buffer);
