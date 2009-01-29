@@ -96,6 +96,36 @@ set_style_scheme_search_path()
 	gtk_source_style_scheme_manager_prepend_search_path(manager, GITG_DATADIR "/styles");
 }
 
+static void
+set_icons()
+{
+	static gchar const *icon_infos[] = {
+		GITG_DATADIR "/icons/gitg16x16.png",
+		GITG_DATADIR "/icons/gitg24x24.png",
+		GITG_DATADIR "/icons/gitg32x32.png",
+		GITG_DATADIR "/icons/gitg48x48.png",
+		GITG_DATADIR "/icons/gitg64x64.png",
+		GITG_DATADIR "/icons/gitg128x128.png",
+		NULL
+	};
+	
+	int i;
+	GList *icons = NULL;
+	
+	for (i = 0; icon_infos[i]; ++i)
+	{
+		GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(icon_infos[i], NULL);
+		
+		if (pixbuf)
+			icons = g_list_prepend(icons, pixbuf);
+	}
+	
+	gtk_window_set_default_icon_list(icons);
+
+	g_list_foreach(icons, (GFunc)g_object_unref, NULL);
+	g_list_free(icons);
+}
+
 int
 main(int argc, char **argv)
 {
@@ -103,14 +133,17 @@ main(int argc, char **argv)
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 	
-	// Parse gtk options
 	g_thread_init(NULL);
+	
+	g_set_prgname("gitg");
+	g_set_application_name(_("gitg"));
 
 	gtk_init(&argc, &argv);
 	parse_options(&argc, &argv);
 	
 	set_language_search_path();
 	set_style_scheme_search_path();
+	set_icons();
 	
 	GitgWindow *window = build_ui();
 	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, (gchar const **)&argv[2]);
