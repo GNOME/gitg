@@ -31,13 +31,13 @@
     <style id="removed-line"  _name="Removed line" map-to="diff:removed-line"/> <!--Others 3-->
     <style id="changed-line"  _name="Changed line" map-to="diff:changed-line"/> <!--Preprocessor-->
     <style id="special-case"  _name="Special case" map-to="diff:special-case"/> <!--String-->
-    <style id="hunk"           _name="Hunk" map-to="def:note"/> <!--Keyword-->
+    <style id="hunk"          _name="Hunk" map-to="diff:location"/> <!--Keyword-->
     <style id="ignore"        _name="Ignore" map-to="def:comment"/>
-    <style id="diff-file"     _name=""/> <!--Data Type-->
+    <style id="diff-file"     _name="" map-to="diff:diff-file"/> <!--Data Type-->
   </styles>
 
   <definitions>
-    <define-regex id="diff-file">^(diff |\+\+\+ |Index: |==== |\*\*\* |--- )</define-regex>
+    <define-regex id="diff-file">^(diff |index |==== |\*\*\* |new file mode )</define-regex>
 
     <context id="gitgdiff">
       <include>
