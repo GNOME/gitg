@@ -35,6 +35,8 @@ struct _GitgRunnerPrivate
 	gchar *buffer;
 	gchar *read_buffer;
 	gchar **lines;
+	
+	gint exit_status;
 };
 
 G_DEFINE_TYPE(GitgRunner, gitg_runner, G_TYPE_OBJECT)
@@ -62,11 +64,24 @@ async_data_free(AsyncData *data)
 	g_slice_free(AsyncData, data);
 }
 
+GQuark
+gitg_runner_error_quark()
+{
+	static GQuark quark = 0;
+
+	if (G_UNLIKELY(quark == 0))
+		quark = g_quark_from_string ("gitg_runner_error");
+
+	return quark;
+}
+
 static void
-runner_io_exit(GPid pid, int status, GitgRunner *runner)
+runner_io_exit(GPid pid, gint status, GitgRunner *runner)
 {
 	g_spawn_close_pid(pid);	
 	runner->priv->pid = 0;
+	
+	runner->priv->exit_status = status;
 }
 
 static void
@@ -306,7 +321,7 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 	{
 		if (!g_output_stream_write_all(runner->priv->output_stream, input, strlen(input), NULL, NULL, error))
 		{
-			runner_io_exit(runner->priv->pid, 0, runner);
+			runner_io_exit(runner->priv->pid, 1, runner);
 			close_streams(runner);
 
 			g_signal_emit(runner, runner_signals[END_LOADING], 0);
@@ -322,7 +337,7 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 	{
 		if (!g_input_stream_read_all(runner->priv->input_stream, runner->priv->read_buffer, runner->priv->buffer_size, &read, NULL, error))
 		{
-			runner_io_exit(runner->priv->pid, 0, runner);
+			runner_io_exit(runner->priv->pid, 1, runner);
 			close_streams(runner);
 
 			g_signal_emit(runner, runner_signals[END_LOADING], 0);
@@ -332,16 +347,24 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 		parse_lines(runner, runner->priv->read_buffer, read);
 	}
 
-	runner_io_exit(runner->priv->pid, 0, runner);
+	gint status;
+	waitpid(runner->priv->pid, &status, 0);
+
+	runner_io_exit(runner->priv->pid, status, runner);
 	close_streams(runner);
 	
 	g_signal_emit(runner, runner_signals[END_LOADING], 0);
+	
+	if (status != 0 && error)
+		g_set_error(error, gitg_runner_error_quark(), GITG_RUNNER_ERROR_EXIT, "Did not exit without error code");
+	
+	return status == 0;
 }
 
 static void
 async_failed(AsyncData *data)
 {
-	runner_io_exit(data->runner->priv->pid, 0, data->runner);
+	runner_io_exit(data->runner->priv->pid, 1, data->runner);
 	close_streams(data->runner);
 
 	g_signal_emit(data->runner, runner_signals[END_LOADING], 0);
@@ -384,7 +407,9 @@ read_output_ready(GInputStream *stream, GAsyncResult *result, AsyncData *data)
 		gchar *b[] = {data->runner->priv->buffer, NULL};
 		g_signal_emit(data->runner, runner_signals[UPDATE], 0, b);		
 
-		runner_io_exit(data->runner->priv->pid, 0, data->runner);
+		gint status;
+		waitpid(data->runner->priv->pid, &status, 0);
+		runner_io_exit(data->runner->priv->pid, status, data->runner);
 		close_streams(data->runner);
 
 		g_signal_emit(data->runner, runner_signals[END_LOADING], 0);
@@ -542,7 +567,7 @@ gitg_runner_cancel(GitgRunner *runner)
 		g_object_unref(runner->priv->cancellable);
 		
 		runner->priv->cancellable = g_cancellable_new();
-		runner_io_exit(runner->priv->pid, 0, runner);
+		runner_io_exit(runner->priv->pid, 1, runner);
 		close_streams(runner);
 
 		g_signal_emit(runner, runner_signals[END_LOADING], 0);
@@ -554,4 +579,12 @@ gitg_runner_running(GitgRunner *runner)
 {
 	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);	
 	return runner->priv->input_stream != NULL;
+}
+
+gint
+gitg_runner_get_exit_status(GitgRunner *runner)
+{
+	g_return_val_if_fail(GITG_IS_RUNNER(runner), 1);
+	
+	return runner->priv->exit_status;
 }

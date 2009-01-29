@@ -18,6 +18,11 @@ typedef struct _GitgRunner			GitgRunner;
 typedef struct _GitgRunnerClass		GitgRunnerClass;
 typedef struct _GitgRunnerPrivate	GitgRunnerPrivate;
 
+typedef enum
+{
+	GITG_RUNNER_ERROR_EXIT
+} GitgRunnerError;
+
 struct _GitgRunner {
 	GObject parent;
 	
@@ -46,7 +51,10 @@ gboolean gitg_runner_run_working_directory(GitgRunner *runner, gchar const **arg
 gboolean gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error);
 gboolean gitg_runner_running(GitgRunner *runner);
 
+gint gitg_runner_get_exit_status(GitgRunner *runner);
 void gitg_runner_cancel(GitgRunner *runner);
+
+GQuark gitg_runner_error_quark();
 
 G_END_DECLS
 

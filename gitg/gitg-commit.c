@@ -51,7 +51,7 @@ runner_cancel(GitgCommit *commit)
 	if (commit->priv->end_id)
 	{
 		g_signal_handler_disconnect(commit->priv->runner, commit->priv->end_id);
-		commit->priv->update_id = 0;
+		commit->priv->end_id = 0;
 	}
 
 	gitg_runner_cancel(commit->priv->runner);
@@ -238,20 +238,20 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 		
 		if (f)
 		{
-			GitgChangedFileChanges changes;
+			GitgChangedFileChanges changes = gitg_changed_file_get_changes(f);
 			
-			g_object_set_data(G_OBJECT(changes), CAN_DELETE_KEY, NULL);
+			g_object_set_data(G_OBJECT(f), CAN_DELETE_KEY, NULL);
 			
 			if (cached)
 			{
 				gitg_changed_file_set_sha(f, sha);
 				gitg_changed_file_set_mode(f, sha);
 				
-				changes = GITG_CHANGED_FILE_CHANGES_CACHED;
+				changes |= GITG_CHANGED_FILE_CHANGES_CACHED;
 			}
 			else
 			{
-				changes = GITG_CHANGED_FILE_CHANGES_UNSTAGED;
+				changes |= GITG_CHANGED_FILE_CHANGES_UNSTAGED;
 			}
 			
 			gitg_changed_file_set_changes(f, changes);
@@ -410,6 +410,7 @@ static void
 set_can_delete(GFile *key, GitgChangedFile *value, GitgCommit *commit)
 {
 	g_object_set_data(G_OBJECT(value), CAN_DELETE_KEY, GINT_TO_POINTER(TRUE));
+	gitg_changed_file_set_changes(value, GITG_CHANGED_FILE_CHANGES_NONE);
 }
 
 void
@@ -438,19 +439,21 @@ apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolea
 	g_return_val_if_fail(hunk != NULL, FALSE);
 	
 	GitgRunner *runner = gitg_runner_new_synchronized(1000);
-	gchar *dotgit = gitg_utils_dot_git_path(gitg_repository_get_path(commit->priv->repository));
+	gchar const *repos = gitg_repository_get_path(commit->priv->repository);
+	gchar *dotgit = gitg_utils_dot_git_path(repos);
 
 	gchar const *argv[] = {"git", "--git-dir", dotgit, "apply", "--cached", NULL, NULL};
 	
 	if (reverse)
 		argv[5] = "--reverse";
 	
-	gboolean ret = gitg_runner_run_with_arguments(runner, argv, NULL, hunk, error);
+	gboolean ret = gitg_runner_run_with_arguments(runner, argv, repos, hunk, error);
 	g_free(dotgit);
 	
 	if (ret)
 	{
-		
+		/* FIXME: for sure we can do better */
+		gitg_commit_refresh(commit);
 	}
 	
 	return ret;
@@ -483,9 +486,16 @@ gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, 
 	g_free(dotgit);	
 	g_free(path);
 
-	/* TODO: check return code */
-	gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_CACHED);
-	g_object_unref(runner);
+	if (ret)
+	{
+		gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_CACHED);
+		g_object_unref(runner);
+	}
+	else
+	{
+		g_error("Update index for stage failed");
+	}
+
 	return ret;
 }
 
@@ -493,7 +503,7 @@ gboolean
 gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error)
 {
 	if (hunk)
-		return apply_hunk(commit, file, hunk, FALSE, error);
+		return apply_hunk(commit, file, hunk, TRUE, error);
 	
 	/* Otherwise, unstage whole file */
 	GitgRunner *runner = gitg_runner_new_synchronized(1000);
@@ -518,8 +528,42 @@ gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk
 	g_free(dotgit);	
 	g_free(path);
 
-	/* TODO: check return code */
-	gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
-	g_object_unref(runner);
+	if (ret)
+	{
+		gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
+		g_object_unref(runner);
+	}
+	else
+	{
+		g_error("Update index for unstage failed");
+	}
+
 	return ret;
+}
+
+static void
+find_staged(GFile *key, GitgChangedFile *value, gboolean *result)
+{
+	if (*result)
+		return;
+	
+	*result = (gitg_changed_file_get_changes(value) & GITG_CHANGED_FILE_CHANGES_CACHED);
+}
+
+gboolean
+gitg_commit_has_changes(GitgCommit *commit)
+{
+	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
+	gboolean result = FALSE;
+	
+	g_hash_table_foreach(commit->priv->files, (GHFunc)find_staged, &result);
+	return result;
+}
+
+gboolean
+gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
+{
+	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
+	
+	
 }

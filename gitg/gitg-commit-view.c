@@ -65,6 +65,8 @@ static gboolean on_unstaged_button_release(GtkWidget *widget, GdkEventButton *ev
 static gboolean on_staged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view);
 static gboolean on_unstaged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view);
 
+static void on_commit_clicked(GtkButton *button, GitgCommitView *view);
+
 static void
 gitg_commit_view_finalize(GObject *object)
 {
@@ -90,7 +92,7 @@ icon_data_func(GtkTreeViewColumn *column, GtkCellRenderer *renderer, GtkTreeMode
 	GitgChangedFileStatus status = gitg_changed_file_get_status(file);
 	GitgChangedFileChanges changes = gitg_changed_file_get_changes(file);
 	
-	gboolean staged = changes == GITG_CHANGED_FILE_CHANGES_CACHED;
+	gboolean staged = (model == GTK_TREE_MODEL(view->priv->store_staged));
 	
 	switch (status)
 	{
@@ -419,8 +421,106 @@ has_hunk_mark(GtkSourceBuffer *buffer, GtkTextIter *iter)
 	return has_mark;
 }
 
+static gchar *
+get_patch_header(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter const *iter)
+{
+	GtkTextIter begin = *iter;
+	GtkTextIter end;
+
+	gboolean foundstart = FALSE;
+	gboolean foundend = FALSE;
+
+	while (!gtk_text_iter_is_start(&begin) && !foundstart)
+	{
+		gtk_text_iter_backward_line(&begin);
+		GtkTextIter lineend = begin;
+		gtk_text_iter_forward_line(&lineend);
+		
+		gchar *text = gtk_text_buffer_get_text(buffer, &begin, &lineend, FALSE);
+		
+		if (g_str_has_prefix(text, "+++ "))
+		{
+			end = lineend;
+			foundend = TRUE;
+		}
+		else
+		{
+			foundstart = g_str_has_prefix(text, "diff --git ");
+		}
+
+		g_free(text);
+	}
+	
+	if (!foundstart || !foundend)
+		return NULL;
+	
+	return gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
+}
+
+static gchar *
+get_patch_contents(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter const *iter)
+{
+	/* iter marks the start of the patch, we go until we find the next hunk,
+	   or next file start (or end of file) */
+	GtkTextIter begin = *iter;
+	GtkTextIter end = begin;
+	
+	while (!gtk_text_iter_is_end(&end))
+	{
+		if (!gtk_text_iter_forward_line(&end))
+			break;
+		
+		GtkTextIter lineend = end;
+		gtk_text_iter_forward_to_line_end(&lineend);
+		
+		gchar *text = gtk_text_buffer_get_text(buffer, &end, &lineend, FALSE);
+		gboolean isend = g_str_has_prefix(text, "@@") || g_str_has_prefix(text, "diff --git ");
+		g_free(text);
+		
+		if (isend)
+		{
+			gtk_text_iter_backward_line(&end);
+			gtk_text_iter_forward_line(&end);
+			break;
+		}
+	}
+	
+	return gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
+}
+
+static void
+handle_stage_unstage(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter *iter)
+{
+	/* Get patch header */
+	gchar *header = get_patch_header(view, buffer, iter);	
+	
+	if (!header)
+		return;
+	
+	/* Get patch contents */
+	gchar *contents = get_patch_contents(view, buffer, iter);
+	
+	if (!contents)
+	{
+		g_free(header);
+		return;
+	}
+	
+	gchar *hunk = g_strconcat(header, contents, NULL);
+	gboolean ret;
+	
+	if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
+		gitg_commit_stage(view->priv->commit, view->priv->current_file, hunk, NULL);
+	else
+		gitg_commit_unstage(view->priv->commit, view->priv->current_file, hunk, NULL);
+	
+	g_free(hunk);
+	g_free(header);
+	g_free(contents);
+}
+
 static gboolean
-view_event(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
+view_event(GtkWidget *widget, GdkEventAny *event, GitgCommitView *view)
 {
 	GtkTextWindowType type;
 	GtkTextIter iter;
@@ -432,7 +532,7 @@ view_event(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
 	if (type != GTK_TEXT_WINDOW_TEXT)
 		return FALSE;
 
-	if (event->type != GDK_MOTION_NOTIFY)
+	if (event->type != GDK_MOTION_NOTIFY && event->type != GDK_BUTTON_RELEASE)
 		return FALSE;
 
 	/* Get where the pointer really is. */
@@ -448,16 +548,23 @@ view_event(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
 
 	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget)));
 	gboolean has_mark = has_hunk_mark(buffer, &iter);
-		
-	if (has_mark)
+	
+	if (event->type == GDK_MOTION_NOTIFY)
 	{
-		gdk_window_set_cursor(win, view->priv->hand);
-	} 
-	else if (!has_mark)
-	{
-		gdk_window_set_cursor(win, NULL);
+		if (has_mark)
+		{
+			gdk_window_set_cursor(win, view->priv->hand);
+		} 
+		else if (!has_mark)
+		{
+			gdk_window_set_cursor(win, NULL);
+		}
 	}
-
+	else if (has_mark)
+	{
+		handle_stage_unstage(view, GTK_TEXT_BUFFER(buffer), &iter);
+	}
+	
 	return FALSE;
 }
 
@@ -543,6 +650,8 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	g_signal_connect(self->priv->tree_view_unstaged, "motion-notify-event", G_CALLBACK(on_unstaged_motion), self);
 	g_signal_connect(self->priv->tree_view_staged, "motion-notify-event", G_CALLBACK(on_staged_motion), self);
+	
+	g_signal_connect(gtk_builder_get_object(builder, "button_commit"), "clicked", G_CALLBACK(on_commit_clicked), self);
 }
 
 static void
@@ -877,4 +986,52 @@ on_staged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
 		gdk_window_set_cursor(widget->window, NULL);
 
 	return FALSE;
+}
+
+static gchar *
+get_comment(GitgCommitView *view)
+{
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(view->priv->comment_view);
+	GtkTextIter start;
+	GtkTextIter end;
+	
+	gtk_text_buffer_get_bounds(buffer, &start, &end);
+	gchar *text = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+	gchar *ptr;
+	
+	for (ptr = text; *ptr; ptr = g_utf8_next_char(ptr))
+		if (!g_unichar_isspace(g_utf8_get_char(ptr)))
+			return text;
+	
+	g_free(text);
+	return NULL;
+}
+
+static void
+show_error(GitgCommitView *view, gchar const *error)
+{
+	GtkWidget *dlg = gtk_message_dialog_new(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, error);
+
+	gtk_dialog_run(GTK_DIALOG(dlg));
+	gtk_widget_destroy(dlg);
+}
+
+static void 
+on_commit_clicked(GtkButton *button, GitgCommitView *view)
+{
+	if (!gitg_commit_has_changes(view->priv->commit))
+	{
+		show_error(view, _("You must first stage some changes before committing"));
+		return;
+	}
+	
+	gchar *comment = get_comment(view);
+	
+	if (!comment)
+	{
+		show_error(view, _("Please enter a commit message before committing"));
+		return;
+	}
+	
+	gitg_commit_commit(commit, comment);
 }
