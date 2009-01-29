@@ -36,8 +36,8 @@ GType gitg_commit_get_type(void) G_GNUC_CONST;
 GitgCommit *gitg_commit_new(GitgRepository *repository);
 
 void gitg_commit_refresh(GitgCommit *commit);
-void gitg_commit_stage(GitgCommit *commit);
-void gitg_commit_unstage(GitgCommit *commit);
+gboolean gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error);
+gboolean gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error);
 
 G_END_DECLS
 

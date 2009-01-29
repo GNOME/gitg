@@ -32,7 +32,7 @@ struct _GitgCommitPrivate
 	guint update_id;
 	guint end_id;
 	
-	GSList *files;
+	GHashTable *files;
 };
 
 static guint commit_signals[LAST_SIGNAL] = { 0 };
@@ -67,9 +67,8 @@ gitg_commit_finalize(GObject *object)
 
 	g_free(commit->priv->dotgit);
 	
-	g_slist_foreach(commit->priv->files, (GFunc)g_object_unref, NULL);
-	g_slist_free(commit->priv->files);
-	
+	g_hash_table_destroy(commit->priv->files);
+
 	G_OBJECT_CLASS(gitg_commit_parent_class)->finalize(object);
 }
 
@@ -178,6 +177,7 @@ gitg_commit_init(GitgCommit *self)
 	self->priv = GITG_COMMIT_GET_PRIVATE(self);
 	
 	self->priv->runner = gitg_runner_new(5000);
+	self->priv->files = g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, (GDestroyNotify)g_object_unref, (GDestroyNotify)g_object_unref);
 }
 
 GitgCommit *
@@ -229,50 +229,39 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 		gchar const *sha = parts[2];
 		GSList *item;
 		
-		gboolean new = TRUE;
 		gchar *path = g_build_filename(gitg_repository_get_path(commit->priv->repository), parts[5], NULL);
 		
 		GFile *file = g_file_new_for_path(path);
 		g_free(path);
 
-		for (item = commit->priv->files; item; item = item->next)
-		{
-			GitgChangedFile *f = GITG_CHANGED_FILE(item->data);
-			
-			if (gitg_changed_file_equal(f, file))
-			{
-				GitgChangedFileChanges changes;
-				
-				g_object_set_data(G_OBJECT(changes), CAN_DELETE_KEY, NULL);
-				
-				if (cached)
-				{
-					gitg_changed_file_set_sha(f, sha);
-					gitg_changed_file_set_mode(f, sha);
-					
-					changes = GITG_CHANGED_FILE_CHANGES_CACHED;
-				}
-				else
-				{
-					changes = GITG_CHANGED_FILE_CHANGES_UNSTAGED;
-				}
-				
-				gitg_changed_file_set_changes(f, changes);
-				new = FALSE;
-				break;
-			}
-		}
+		GitgChangedFile *f = GITG_CHANGED_FILE(g_hash_table_lookup(commit->priv->files, file));
 		
-		if (!new)
+		if (f)
 		{
+			GitgChangedFileChanges changes;
+			
+			g_object_set_data(G_OBJECT(changes), CAN_DELETE_KEY, NULL);
+			
+			if (cached)
+			{
+				gitg_changed_file_set_sha(f, sha);
+				gitg_changed_file_set_mode(f, sha);
+				
+				changes = GITG_CHANGED_FILE_CHANGES_CACHED;
+			}
+			else
+			{
+				changes = GITG_CHANGED_FILE_CHANGES_UNSTAGED;
+			}
+			
+			gitg_changed_file_set_changes(f, changes);
+			
 			g_object_unref(file);
 			g_strfreev(parts);
 			continue;
 		}
 		
-		GitgChangedFile *f = gitg_changed_file_new(file);
-		g_object_unref(file);
-		
+		f = gitg_changed_file_new(file);
 		GitgChangedFileStatus status;
 		
 		if (strcmp(parts[4], "D") == 0)
@@ -291,8 +280,9 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 		changes = cached ? GITG_CHANGED_FILE_CHANGES_CACHED : GITG_CHANGED_FILE_CHANGES_UNSTAGED;
 		gitg_changed_file_set_changes(f, changes);
 		
-		commit->priv->files = g_slist_prepend(commit->priv->files, f);
+		g_hash_table_insert(commit->priv->files, file, f);
 		g_signal_emit(commit, commit_signals[INSERTED], 0, f);
+
 		g_strfreev(parts);
 	}
 }
@@ -303,30 +293,20 @@ read_cached_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 	add_files(commit, buffer, TRUE);
 }
 
+static gboolean
+delete_file(GFile *key, GitgChangedFile *value, GitgCommit *commit)
+{
+	if (!g_object_get_data(G_OBJECT(value), CAN_DELETE_KEY))
+		return FALSE;
+	
+	g_signal_emit(commit, commit_signals[REMOVED], 0, value);
+	return TRUE;
+}
+
 static void
 refresh_done(GitgRunner *runner, GitgCommit *commit)
 {
-	GSList *item = commit->priv->files;
-	
-	while (item)
-	{
-		GitgChangedFile *file = GITG_CHANGED_FILE(item->data);
-		
-		if (g_object_get_data(G_OBJECT(file), CAN_DELETE_KEY))
-		{
-			GSList *tmp = item->next;
-
-			commit->priv->files = g_slist_remove_link(commit->priv->files, item);
-			
-			g_signal_emit(commit, commit_signals[REMOVED], 0, file);
-			g_object_unref(file);
-			item = tmp;
-		}
-		else
-		{
-			item = g_slist_next(item);
-		}
-	}
+	g_hash_table_foreach_remove(commit->priv->files, (GHRFunc)delete_file, commit);
 }
 
 static void
@@ -385,31 +365,20 @@ read_other_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 		
 		GFile *file = g_file_new_for_path(path);
 		g_free(path);
+		GitgChangedFile *f = g_hash_table_lookup(commit->priv->files, file);
 		
-		for (item = commit->priv->files; item; item = item->next)
+		if (f)
 		{
-			GitgChangedFile *f = (GitgChangedFile *)item->data;
-			
-			if (gitg_changed_file_equal(f, file))
-			{
-				added = TRUE;
-				changed_file_new(f);
-				continue;
-			}
-		}
-		
-		if (added)
-		{
+			changed_file_new(f);
 			g_object_unref(file);
 			continue;
 		}
 		
-		GitgChangedFile *f = gitg_changed_file_new(file);
+		f = gitg_changed_file_new(file);
 
-		changed_file_new(f);
-		g_object_unref(file);
+		changed_file_new(f);		
+		g_hash_table_insert(commit->priv->files, file, f);
 		
-		commit->priv->files = g_slist_prepend(commit->priv->files, f);
 		g_signal_emit(commit, commit_signals[INSERTED], 0, f);
 	}
 }
@@ -438,9 +407,9 @@ update_index(GitgCommit *commit)
 }
 
 static void
-set_can_delete(GitgChangedFile *file, GitgCommit *commit)
+set_can_delete(GFile *key, GitgChangedFile *value, GitgCommit *commit)
 {
-	g_object_set_data(G_OBJECT(file), CAN_DELETE_KEY, GINT_TO_POINTER(TRUE));
+	g_object_set_data(G_OBJECT(value), CAN_DELETE_KEY, GINT_TO_POINTER(TRUE));
 }
 
 void
@@ -450,20 +419,50 @@ gitg_commit_refresh(GitgCommit *commit)
 
 	runner_cancel(commit);
 	
-	g_slist_foreach(commit->priv->files, (GFunc)set_can_delete, commit);
+	g_hash_table_foreach(commit->priv->files, (GHFunc)set_can_delete, commit);
 
 	/* Read other files */
 	update_index(commit);
 }
 
-void 
-gitg_commit_stage(GitgCommit *commit)
+gboolean
+apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolean reverse, GError **error)
 {
-	g_return_if_fail(GITG_IS_COMMIT(commit));
+	if (error)
+		*error = NULL;
+
+	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
+	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), FALSE);
+	
+	g_return_val_if_fail(hunk != NULL, FALSE);
+	
+	GitgRunner *runner = gitg_runner_new_synchronized(100);
+	gchar *dotgit = gitg_utils_dot_git_path(gitg_repository_get_path(commit->priv->repository));
+
+	gchar const *argv[] = {"git", "--git-dir", dotgit, "apply", "--cached", NULL, NULL};
+	
+	if (reverse)
+		argv[5] = "--reverse";
+	
+	gboolean ret = gitg_runner_run_with_input(runner, argv, hunk, error);
+	g_free(dotgit);
+	
+	if (ret)
+	{
+		
+	}
+	
+	return ret;
 }
 
-void
-gitg_commit_unstage(GitgCommit *commit)
+gboolean
+gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error)
 {
-	g_return_if_fail(GITG_IS_COMMIT(commit));
+	return apply_hunk(commit, file, hunk, FALSE, error);
+}
+
+gboolean
+gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error)
+{
+	return apply_hunk(commit, file, hunk, FALSE, error);
 }
