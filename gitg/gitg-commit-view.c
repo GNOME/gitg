@@ -9,6 +9,8 @@
 
 #define GITG_COMMIT_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_COMMIT_VIEW, GitgCommitViewPrivate))
 #define CATEGORY_HUNK "CategoryHunk"
+#define CATEGORY_UNSTAGE_HUNK "CategoryUnstageHunk"
+#define CATEGORY_STAGE_HUNK "CategoryStageHunk"
 
 /* Properties */
 enum
@@ -32,6 +34,9 @@ struct _GitgCommitViewPrivate
 	GtkListStore *store_unstaged;
 	GtkListStore *store_staged;
 	
+	GtkTreeView *tree_view_staged;
+	GtkTreeView *tree_view_unstaged;
+	
 	GtkSourceView *changes_view;
 	GtkTextView *comment_view;
 	
@@ -40,6 +45,8 @@ struct _GitgCommitViewPrivate
 	gboolean is_diff;
 
 	GdkCursor *hand;
+	GitgChangedFile *current_file;
+	GitgChangedFileChanges current_changes;
 };
 
 static void gitg_commit_view_buildable_iface_init(GtkBuildableIface *iface);
@@ -52,6 +59,12 @@ static GtkBuildableIface parent_iface;
 static void on_commit_file_inserted(GitgCommit *commit, GitgChangedFile *file, GitgCommitView *view);
 static void on_commit_file_removed(GitgCommit *commit, GitgChangedFile *file, GitgCommitView *view);
 
+static gboolean on_staged_button_release(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view);
+static gboolean on_unstaged_button_release(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view);
+
+static gboolean on_staged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view);
+static gboolean on_unstaged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view);
+
 static void
 gitg_commit_view_finalize(GObject *object)
 {
@@ -62,6 +75,8 @@ gitg_commit_view_finalize(GObject *object)
 	
 	gitg_runner_cancel(view->priv->runner);
 	g_object_unref(view->priv->runner);
+	
+	gdk_cursor_unref(view->priv->hand);
 	
 	G_OBJECT_CLASS(gitg_commit_view_parent_class)->finalize(object);
 }
@@ -130,11 +145,21 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 	while ((line = *(buffer++)))
 	{
 		if (view->priv->is_diff && g_str_has_prefix(line, "@@"))
+		{
 			gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_HUNK, &iter);
+			
+			if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
+				gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_STAGE_HUNK, &iter);
+			else
+				gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_UNSTAGE_HUNK, &iter);
+		}
 
 		gtk_text_buffer_insert(buf, &iter, line, -1);
 		gtk_text_buffer_insert(buf, &iter, "\n", -1);
 	}
+	
+	while (gtk_events_pending())
+		gtk_main_iteration();
 }
 
 static void
@@ -166,6 +191,8 @@ check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *
 
 	gtk_text_buffer_get_bounds(buffer, &start, &end);
 	gtk_source_buffer_remove_source_marks(GTK_SOURCE_BUFFER(buffer), &start, &end, CATEGORY_HUNK);
+	gtk_source_buffer_remove_source_marks(GTK_SOURCE_BUFFER(buffer), &start, &end, CATEGORY_UNSTAGE_HUNK);
+	gtk_source_buffer_remove_source_marks(GTK_SOURCE_BUFFER(buffer), &start, &end, CATEGORY_STAGE_HUNK);
 	gtk_text_buffer_set_text(gtk_text_view_get_buffer(tv), "", -1);
 	
 	if (!gtk_tree_selection_get_selected(selection, model, iter))
@@ -182,6 +209,22 @@ show_binary_information(GitgCommitView *view)
 }
 
 static void
+set_current_file(GitgCommitView *view, GitgChangedFile *file, GitgChangedFileChanges changes)
+{
+	if (view->priv->current_file != NULL)
+		g_object_unref(view->priv->current_file);
+	
+	view->priv->current_file = g_object_ref(file);
+	view->priv->current_changes = changes;
+}
+
+static void
+unselect_tree_view(GtkTreeView *view)
+{
+	gtk_tree_selection_unselect_all(gtk_tree_view_get_selection(view));
+}
+
+static void
 unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 {
 	GtkTreeModel *model;
@@ -189,6 +232,8 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	
 	if (!check_selection(selection, &model, &iter, view))
 		return;
+	
+	unselect_tree_view(view->priv->tree_view_staged);
 	
 	GitgChangedFile *file;
 	
@@ -242,6 +287,8 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		g_free(dotgit);
 		g_free(rel);
 	}
+	
+	set_current_file(view, file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
 
 	g_object_unref(f);	
 	g_object_unref(file);	
@@ -256,6 +303,7 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	if (!check_selection(selection, &model, &iter, view))
 		return;
 	
+	unselect_tree_view(view->priv->tree_view_unstaged);
 	GitgChangedFile *file;
 	
 	gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
@@ -288,6 +336,7 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	g_free(path);	
 	g_free(dotgit);
 	
+	set_current_file(view, file, GITG_CHANGED_FILE_CHANGES_CACHED);	
 	g_object_unref(file);
 }
 
@@ -348,17 +397,13 @@ view_event(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
 	gboolean has_tag = marks != NULL;
 	g_slist_free(marks);
 		
-	if (has_tag && !view->priv->hand)
+	if (has_tag)
 	{
-		view->priv->hand = gdk_cursor_new(GDK_HAND1);
 		gdk_window_set_cursor(win, view->priv->hand);
 	} 
-	else if (!has_tag && view->priv->hand)
+	else if (!has_tag)
 	{
 		gdk_window_set_cursor(win, NULL);
-		gdk_cursor_unref(view->priv->hand);
-		
-		view->priv->hand = NULL;
 	}
 
 	return FALSE;
@@ -391,8 +436,8 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	/* Store widgets */
 	GitgCommitView *self = GITG_COMMIT_VIEW(buildable);
 	
-	GtkTreeView *tree_view_unstaged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_unstaged"));
-	GtkTreeView *tree_view_staged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_staged"));
+	self->priv->tree_view_unstaged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_unstaged"));
+	self->priv->tree_view_staged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_staged"));
 	
 	self->priv->store_unstaged = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, GITG_TYPE_CHANGED_FILE);
 	self->priv->store_staged = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, GITG_TYPE_CHANGED_FILE);
@@ -406,9 +451,21 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	GdkPixbuf *pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_ADD, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
 	
+	gtk_source_view_set_mark_category_priority(self->priv->changes_view, CATEGORY_HUNK, 1);
+	
 	if (pixbuf)
 	{
-		gtk_source_view_set_mark_category_pixbuf(self->priv->changes_view, CATEGORY_HUNK, pixbuf);
+		gtk_source_view_set_mark_category_pixbuf(self->priv->changes_view, CATEGORY_STAGE_HUNK, pixbuf);
+		g_object_unref(pixbuf);
+		
+		gtk_source_view_set_show_line_marks(self->priv->changes_view, TRUE);
+	}
+	
+	pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_REMOVE, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
+	
+	if (pixbuf)
+	{
+		gtk_source_view_set_mark_category_pixbuf(self->priv->changes_view, CATEGORY_UNSTAGE_HUNK, pixbuf);
 		g_object_unref(pixbuf);
 		
 		gtk_source_view_set_show_line_marks(self->priv->changes_view, TRUE);
@@ -422,14 +479,20 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(self->priv->changes_view), buffer);
 	g_signal_connect(self->priv->changes_view, "event", G_CALLBACK(view_event), self);
 	
-	gtk_tree_view_set_model(tree_view_unstaged, GTK_TREE_MODEL(self->priv->store_unstaged));
-	gtk_tree_view_set_model(tree_view_staged, GTK_TREE_MODEL(self->priv->store_staged));
+	gtk_tree_view_set_model(self->priv->tree_view_unstaged, GTK_TREE_MODEL(self->priv->store_unstaged));
+	gtk_tree_view_set_model(self->priv->tree_view_staged, GTK_TREE_MODEL(self->priv->store_staged));
 	
-	set_icon_data_func(self, tree_view_unstaged, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "unstaged_cell_renderer_icon")));
-	set_icon_data_func(self, tree_view_staged, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "staged_cell_renderer_icon")));
+	set_icon_data_func(self, self->priv->tree_view_unstaged, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "unstaged_cell_renderer_icon")));
+	set_icon_data_func(self, self->priv->tree_view_staged, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "staged_cell_renderer_icon")));
 	
-	g_signal_connect(gtk_tree_view_get_selection(tree_view_unstaged), "changed", G_CALLBACK(unstaged_selection_changed), self);
-	g_signal_connect(gtk_tree_view_get_selection(tree_view_staged), "changed", G_CALLBACK(staged_selection_changed), self);
+	g_signal_connect(gtk_tree_view_get_selection(self->priv->tree_view_unstaged), "changed", G_CALLBACK(unstaged_selection_changed), self);
+	g_signal_connect(gtk_tree_view_get_selection(self->priv->tree_view_staged), "changed", G_CALLBACK(staged_selection_changed), self);
+	
+	g_signal_connect(self->priv->tree_view_unstaged, "button-press-event", G_CALLBACK(on_unstaged_button_release), self);
+	g_signal_connect(self->priv->tree_view_staged, "button-press-event", G_CALLBACK(on_staged_button_release), self);
+
+	g_signal_connect(self->priv->tree_view_unstaged, "motion-notify-event", G_CALLBACK(on_unstaged_motion), self);
+	g_signal_connect(self->priv->tree_view_staged, "motion-notify-event", G_CALLBACK(on_staged_motion), self);
 }
 
 static void
@@ -549,7 +612,8 @@ gitg_commit_view_init(GitgCommitView *self)
 {
 	self->priv = GITG_COMMIT_VIEW_GET_PRIVATE(self);
 	
-	self->priv->runner = gitg_runner_new(1000);
+	self->priv->runner = gitg_runner_new(10000);
+	self->priv->hand = gdk_cursor_new(GDK_HAND1);
 }
 
 void 
@@ -584,21 +648,170 @@ append_file(GtkListStore *store, GitgChangedFile *file, GitgCommitView *view)
 }
 
 /* Callbacks */
-static void
-on_commit_file_inserted(GitgCommit *commit, GitgChangedFile *file, GitgCommitView *view)
+static gboolean
+find_file_in_store(GtkListStore *store, GitgChangedFile *file, GtkTreeIter *iter)
 {
-	if (gitg_changed_file_get_changes(file) & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
+	GtkTreeModel *model = GTK_TREE_MODEL(store);
+	
+	if (!gtk_tree_model_get_iter_first(model, iter))
+		return FALSE;
+		
+	do
 	{
-		append_file(view->priv->store_unstaged, file, view);
+		GitgChangedFile *other;
+		gtk_tree_model_get(model, iter, COLUMN_FILE, &other, -1);
+		gboolean ret = (other == file);
+		
+		g_object_unref(other);
+		
+		if (ret)
+			return TRUE;
+	} while (gtk_tree_model_iter_next(model, iter));
+	
+	return FALSE;
+}
+
+static void
+on_commit_file_changed(GitgChangedFile *file, GParamSpec *spec, GitgCommitView *view)
+{
+	GtkTreeIter staged;
+	GtkTreeIter unstaged;
+	
+	gboolean isstaged = find_file_in_store(view->priv->store_staged, file, &staged);
+	gboolean isunstaged = find_file_in_store(view->priv->store_unstaged, file, &unstaged);
+	
+	GitgChangedFileChanges changes = gitg_changed_file_get_changes(file);
+	
+	if (changes & GITG_CHANGED_FILE_CHANGES_CACHED)
+	{
+		if (!isstaged)
+			append_file(view->priv->store_staged, file, view);
 	}
 	else
 	{
-		append_file(view->priv->store_staged, file, view);
+		if (isstaged)
+			gtk_list_store_remove(view->priv->store_staged, &staged);
 	}
+	
+	if (changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
+	{
+		if (!isunstaged)
+			append_file(view->priv->store_unstaged, file, view);
+	}
+	else
+	{
+		if (isunstaged)
+			gtk_list_store_remove(view->priv->store_unstaged, &unstaged);
+	}
+}
+
+static void
+on_commit_file_inserted(GitgCommit *commit, GitgChangedFile *file, GitgCommitView *view)
+{
+	GitgChangedFileChanges changes = gitg_changed_file_get_changes(file);
+	
+	if (changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
+		append_file(view->priv->store_unstaged, file, view);
+	
+	if (changes & GITG_CHANGED_FILE_CHANGES_CACHED)
+		append_file(view->priv->store_staged, file, view);
+	
+	g_signal_connect(file, "notify::changes", G_CALLBACK(on_commit_file_changed), view);
 }
 
 static void
 on_commit_file_removed(GitgCommit *commit, GitgChangedFile *file, GitgCommitView *view)
 {
+	GtkTreeIter iter;
+	
+	if (find_file_in_store(view->priv->store_staged, file, &iter))
+		gtk_list_store_remove(view->priv->store_staged, &iter);
+	
+	if (find_file_in_store(view->priv->store_unstaged, file, &iter))
+		gtk_list_store_remove(view->priv->store_unstaged, &iter);
 }
 
+static gboolean
+column_icon_test(GtkTreeView *view, gdouble ex, gdouble ey, GitgChangedFile **file)
+{
+	GtkTreeViewColumn *column;
+	gint x;
+	gint y;
+	
+	gtk_tree_view_convert_widget_to_bin_window_coords(view, (gint)ex, (gint)ey, &x, &y);
+	GtkTreePath *path;
+
+	if (!gtk_tree_view_get_path_at_pos(view, x, y, &path, &column, NULL, NULL))
+		return FALSE;
+	
+	if (column != gtk_tree_view_get_column(view, 0))
+	{
+		gtk_tree_path_free(path);
+		return FALSE;
+	}
+	
+	if (file)
+	{
+		GtkTreeModel *model = gtk_tree_view_get_model(view);
+		GtkTreeIter iter;
+
+		gtk_tree_model_get_iter(model, &iter, path);
+		gtk_tree_model_get(model, &iter, COLUMN_FILE, file, -1);
+	}
+	
+	gtk_tree_path_free(path);
+	
+	return TRUE;
+}
+
+static gboolean
+on_unstaged_button_release(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view)
+{
+	GitgChangedFile *file;
+
+	if (column_icon_test(view->priv->tree_view_unstaged, event->x, event->y, &file))
+	{
+		gitg_commit_stage(view->priv->commit, file, NULL, NULL);
+		g_object_unref(file);
+		return TRUE;
+	}
+	
+	return FALSE;
+}
+
+static gboolean
+on_staged_button_release(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view)
+{
+	GitgChangedFile *file;
+
+	if (column_icon_test(view->priv->tree_view_staged, event->x, event->y, &file))
+	{
+		gitg_commit_unstage(view->priv->commit, file, NULL, NULL);
+		g_object_unref(file);
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+static gboolean
+on_unstaged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
+{
+	if (column_icon_test(view->priv->tree_view_unstaged, event->x, event->y, NULL))
+		gdk_window_set_cursor(widget->window, view->priv->hand);
+	else
+		gdk_window_set_cursor(widget->window, NULL);
+	
+	return FALSE;
+}
+
+static gboolean
+on_staged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
+{
+	if (column_icon_test(view->priv->tree_view_staged, event->x, event->y, NULL))
+		gdk_window_set_cursor(widget->window, view->priv->hand);
+	else
+		gdk_window_set_cursor(widget->window, NULL);
+
+	return FALSE;
+}

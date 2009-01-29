@@ -1,5 +1,6 @@
 #include "gitg-runner.h"
 #include "gitg-utils.h"
+#include <string.h>
 
 #define GITG_RUNNER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_RUNNER, GitgRunnerPrivate))
 
@@ -303,14 +304,16 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 {
 	if (input)
 	{
-		if (!g_output_stream_write_all(runner->priv->output_stream, input, -1, NULL, NULL, error))
+		if (!g_output_stream_write_all(runner->priv->output_stream, input, strlen(input), NULL, NULL, error))
 		{
 			runner_io_exit(runner->priv->pid, 0, runner);
 			close_streams(runner);
 
-			g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);
+			g_signal_emit(runner, runner_signals[END_LOADING], 0);
 			return FALSE;
 		}
+		
+		g_output_stream_close(runner->priv->output_stream, NULL, NULL);
 	}
 	
 	gssize read = runner->priv->buffer_size;
@@ -322,7 +325,7 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 			runner_io_exit(runner->priv->pid, 0, runner);
 			close_streams(runner);
 
-			g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);
+			g_signal_emit(runner, runner_signals[END_LOADING], 0);
 			return FALSE;
 		}
 		
@@ -359,7 +362,9 @@ read_output_ready(GInputStream *stream, GAsyncResult *result, AsyncData *data)
 	{
 		g_input_stream_close (stream, NULL, NULL);
 		async_data_free(data);
-		g_error_free(error);
+		
+		if (error)
+			g_error_free(error);
 		return;
 	}
 
@@ -367,7 +372,9 @@ read_output_ready(GInputStream *stream, GAsyncResult *result, AsyncData *data)
 	{
 		g_input_stream_close (stream, NULL, NULL);
 		async_failed(data);
-		g_error_free(error);
+		
+		if (error)
+			g_error_free(error);
 		return;
 	}
 	
@@ -524,6 +531,9 @@ gitg_runner_cancel(GitgRunner *runner)
 	if (runner->priv->input_stream)
 	{
 		g_cancellable_cancel(runner->priv->cancellable);
+		g_object_unref(runner->priv->cancellable);
+		
+		runner->priv->cancellable = g_cancellable_new();
 		runner_io_exit(runner->priv->pid, 0, runner);
 		close_streams(runner);
 

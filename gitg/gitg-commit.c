@@ -458,11 +458,67 @@ apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolea
 gboolean
 gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error)
 {
-	return apply_hunk(commit, file, hunk, FALSE, error);
+	if (hunk)
+		return apply_hunk(commit, file, hunk, FALSE, error);
+	
+	/* Otherwise, stage whole file */
+	GitgRunner *runner = gitg_runner_new_synchronized(1000);
+	gchar *path;
+	GFile *f;
+	gchar const *repos = gitg_repository_get_path(commit->priv->repository);
+	gchar *dotgit = gitg_utils_dot_git_path(repos);
+	
+	GFile *parent = g_file_new_for_path(repos);
+
+	f = gitg_changed_file_get_file(file);
+	path = g_file_get_relative_path(parent, f);
+
+	g_object_unref(f);
+	g_object_unref(parent);
+	
+	gchar const *argv[] = {"git", "--git-dir", dotgit, "update-index", "--add", "--remove", "--", path, NULL};
+	gboolean ret = gitg_runner_run_working_directory(runner, argv, repos, error);
+	
+	g_free(dotgit);	
+	g_free(path);
+
+	/* TODO: check return code */
+	gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_CACHED);
+	g_object_unref(runner);
+	return ret;
 }
 
 gboolean
 gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error)
 {
-	return apply_hunk(commit, file, hunk, FALSE, error);
+	if (hunk)
+		return apply_hunk(commit, file, hunk, FALSE, error);
+	
+	/* Otherwise, unstage whole file */
+	GitgRunner *runner = gitg_runner_new_synchronized(1000);
+	gchar *path;
+	GFile *f;
+	gchar const *repos = gitg_repository_get_path(commit->priv->repository);
+	gchar *dotgit = gitg_utils_dot_git_path(repos);
+	
+	GFile *parent = g_file_new_for_path(repos);
+
+	f = gitg_changed_file_get_file(file);
+	path = g_file_get_relative_path(parent, f);
+
+	g_object_unref(f);
+	g_object_unref(parent);
+	
+	gchar const *argv[] = {"git", "--git-dir", dotgit, "update-index", "--index-info", NULL};
+	
+	gchar *input = g_strdup_printf("%s %s\t%s", gitg_changed_file_get_mode(file), gitg_changed_file_get_sha(file), path);
+	gboolean ret = gitg_runner_run_with_arguments(runner, argv, repos, input, error);
+	
+	g_free(dotgit);	
+	g_free(path);
+
+	/* TODO: check return code */
+	gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
+	g_object_unref(runner);
+	return ret;
 }
