@@ -396,15 +396,24 @@ create_repository(GitgWindow *window, gchar const *path)
 
 	if (path)
 	{
-		window->priv->repository = gitg_repository_new(path);
+		gchar realp[PATH_MAX];
 		
-		if (!gitg_repository_get_path(window->priv->repository))
+		if (realpath(path, realp))
 		{
-			// Try current directory
-			path = NULL;
-			g_object_unref(window->priv->repository);
+			window->priv->repository = gitg_repository_new(realp);
+		
+			if (!gitg_repository_get_path(window->priv->repository))
+			{
+				// Try current directory
+				path = NULL;
+				g_object_unref(window->priv->repository);
 			
-			ret = FALSE;
+				ret = FALSE;
+			}
+		}
+		else
+		{
+			path = NULL;
 		}
 	}
 	
