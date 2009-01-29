@@ -19,6 +19,12 @@
     <child>
       <object class="GtkActionGroup" id="action_group_menu_file">
         <child>
+          <object class="GtkAction" id="FileOpenAction">
+            <property name="stock-id">gtk-open</property>
+            <signal name="activate" handler="on_file_open"/>
+          </object>
+        </child>
+        <child>
           <object class="GtkAction" id="FileQuitAction">
             <property name="stock-id">gtk-quit</property>
             <signal name="activate" handler="on_file_quit"/>
@@ -29,6 +35,8 @@
     <ui>
       <menubar name="menubar_main">
         <menu action="FileAction">
+          <menuitem action="FileOpenAction"/>
+          <separator/>
           <menuitem action="FileQuitAction"/>
         </menu>
       </menubar>
