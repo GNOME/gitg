@@ -36,6 +36,9 @@ struct _GitgRunnerPrivate
 	gboolean synchronized;
 	gchar **buffer;
 	gboolean done;
+	
+	gint input_fd;
+	gchar *input;
 };
 
 G_DEFINE_TYPE(GitgRunner, gitg_runner, G_TYPE_OBJECT)
@@ -225,18 +228,58 @@ sync_buffer(GitgRunner *runner, guint num)
 	}
 }
 
+gboolean
+write_input(GitgRunner *runner)
+{
+	GIOChannel *channel = g_io_channel_unix_new(runner->priv->input_fd);
+	g_io_channel_set_encoding(channel, NULL, NULL);
+
+	gchar const *buffer = runner->priv->input;
+	gboolean ret = TRUE;
+	gsize written;
+
+	while (buffer && *buffer)
+	{
+		if (g_io_channel_write_chars(channel, runner->priv->input, -1, &written, NULL) != G_IO_STATUS_NORMAL)
+		{
+			ret = FALSE;
+			break;
+		}
+		
+		buffer += written;
+		
+		if (runner->priv->done)
+		{
+			ret = FALSE;
+			break;
+		}
+	}
+
+	g_io_channel_shutdown(channel, TRUE, NULL);
+	g_io_channel_unref(channel);
+
+	return ret;
+}
+
 static gpointer
 output_reader_thread(gpointer userdata)
 {
 	GitgRunner *runner = GITG_RUNNER(userdata);
-	GIOChannel *channel = g_io_channel_unix_new(runner->priv->output_fd);
-	g_io_channel_set_encoding(channel, NULL, NULL);
 	
 	guint num = 0;
 	gchar *line;
 	gsize len;
 	GError *error = NULL;
 	gsize term;
+	
+	if (runner->priv->input)
+	{
+		if (!write_input(runner))
+			return NULL;
+	}
+
+	GIOChannel *channel = g_io_channel_unix_new(runner->priv->output_fd);
+	g_io_channel_set_encoding(channel, NULL, NULL);
 	
 	while (g_io_channel_read_line(channel, &line, &len, &term, &error) == G_IO_STATUS_NORMAL)
 	{
@@ -303,21 +346,25 @@ gitg_runner_new_synchronized(guint buffer_size)
 }
 
 gboolean
-gitg_runner_run_working_directory(GitgRunner *runner, gchar const **argv, gchar const *wd, GError **error)
+gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar const *wd, gchar const *input, GError **error)
 {
 	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
 
 	gint stdout;
-	gboolean ret = g_spawn_async_with_pipes(wd, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), NULL, &stdout, NULL, error);
+	gint stdin;
+
+	gboolean ret = g_spawn_async_with_pipes(wd, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), input ? &stdin : NULL, &stdout, NULL, error);
 
 	if (!ret)
 	{
 		runner->priv->pid = 0;
 		return FALSE;
 	}
-
+	
 	runner->priv->done = FALSE;
 	runner->priv->output_fd = stdout;
+	runner->priv->input_fd = stdin;
+	runner->priv->input = g_strdup(input);
 
 	// Emit begin-loading signal
 	g_signal_emit(runner, runner_signals[BEGIN_LOADING], 0);
@@ -334,12 +381,25 @@ gitg_runner_run_working_directory(GitgRunner *runner, gchar const **argv, gchar 
 	}
 	
 	return TRUE;
+
+}
+
+gboolean
+gitg_runner_run_working_directory(GitgRunner *runner, gchar const **argv, gchar const *wd, GError **error)
+{
+	return gitg_runner_run_with_arguments(runner, argv, wd, NULL, error);
 }
 
 gboolean
 gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 {
 	gitg_runner_run_working_directory(runner, argv, NULL, error);
+}
+
+gboolean
+gitg_runner_run_with_input(GitgRunner *runner, gchar const **argv, gchar const *input, GError **error)
+{
+	
 }
 
 guint
@@ -357,6 +417,12 @@ gitg_runner_cancel(GitgRunner *runner)
 	if (!runner->priv->thread)
 	{
 		runner->priv->done = TRUE;
+		
+		if (runner->priv->input)
+		{
+			g_free(runner->priv->input);
+			runner->priv->input = NULL;
+		}
 		return;
 	}
 
@@ -377,6 +443,9 @@ gitg_runner_cancel(GitgRunner *runner)
 
 	runner->priv->thread = NULL;
 	runner->priv->pid = 0;
+	
+	g_free(runner->priv->input);
+	runner->priv->input = NULL;
 }
 
 gboolean
