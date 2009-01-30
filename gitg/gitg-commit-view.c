@@ -207,6 +207,16 @@ run_changes_command(GitgCommitView *view, gchar const **argv, gchar const *wd)
 	gitg_runner_run_working_directory(view->priv->runner, argv, wd, NULL);
 }
 
+static void
+set_current_file(GitgCommitView *view, GitgChangedFile *file, GitgChangedFileChanges changes)
+{
+	if (view->priv->current_file != NULL)
+		g_object_unref(view->priv->current_file);
+	
+	view->priv->current_file = file ? g_object_ref(file) : NULL;
+	view->priv->current_changes = changes;
+}
+
 static gboolean
 check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *iter, GitgCommitView *view)
 {
@@ -227,19 +237,12 @@ check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *
 	gtk_text_buffer_set_text(gtk_text_view_get_buffer(tv), "", -1);
 	
 	if (!gtk_tree_selection_get_selected(selection, model, iter))
+	{
+		set_current_file(view, NULL, GITG_CHANGED_FILE_CHANGES_NONE);
 		return FALSE;
+	}
 	
 	return TRUE;
-}
-
-static void
-set_current_file(GitgCommitView *view, GitgChangedFile *file, GitgChangedFileChanges changes)
-{
-	if (view->priv->current_file != NULL)
-		g_object_unref(view->priv->current_file);
-	
-	view->priv->current_file = g_object_ref(file);
-	view->priv->current_changes = changes;
 }
 
 static void
@@ -307,8 +310,8 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	
 	set_current_file(view, file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
 
-	g_object_unref(f);	
-	g_object_unref(file);	
+	g_object_unref(file);
+	g_object_unref(f);
 }
 
 static void
@@ -363,7 +366,6 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		g_free(head);
 	}
 
-	g_object_unref(f);
 	g_free(path);	
 
 	set_current_file(view, file, GITG_CHANGED_FILE_CHANGES_CACHED);	
