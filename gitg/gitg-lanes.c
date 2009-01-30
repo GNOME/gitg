@@ -38,8 +38,7 @@ G_DEFINE_TYPE(GitgLanes, gitg_lanes, G_TYPE_OBJECT)
 static void
 lane_container_free(LaneContainer *container)
 {
-	//gitg_lane_free(container->lane);
-
+	gitg_lane_free(container->lane);
 	g_free(container);
 }
 
