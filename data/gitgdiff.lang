@@ -38,9 +38,6 @@
   </styles>
 
   <definitions>
-    <context id="trailing-spaces" style-ref="trailing-spaces">
-      <match>\s+$</match>
-    </context>
     <context id="gitgdiff">
       <include>
         <context id="diff-file" style-ref="diff-file">
@@ -49,11 +46,9 @@
         </context>
 
         <context id="trailing-spaces-container">
+          <match>.[^\s](\s+)$</match>
           <include>
-            <context>
-              <match>^ $</match>
-            </context>
-            <context ref="trailing-spaces"/>
+            <context id="trailing-spaces" sub-pattern="1" style-ref="trailing-spaces"/>
           </include>
         </context>
         
