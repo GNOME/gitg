@@ -370,7 +370,6 @@ read_other_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 static void
 update_index_end(GitgRunner *runner, GitgCommit *commit)
 {
-	static gchar const *argv[] = {"git", "--git-dir", NULL, "ls-files", "--others", "--exclude-standard", NULL};
 	gitg_runner_cancel(runner);
 	runner_connect(commit, G_CALLBACK(read_other_files_update), G_CALLBACK(read_other_files_end));
 	
