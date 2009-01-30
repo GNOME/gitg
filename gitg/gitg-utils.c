@@ -191,7 +191,7 @@ gitg_utils_convert_utf8(gchar const *str, gssize size)
 	};
 	
 	if (g_utf8_validate(str, size, NULL))
-		return g_strdup(str);
+		return g_strndup(str, size);
 	
 	int i;
 	for (i = 0; i < sizeof(encodings) / sizeof(gchar *); ++i)
