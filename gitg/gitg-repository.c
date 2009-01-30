@@ -417,7 +417,7 @@ static void
 on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 {
 	gchar *line;
-
+	
 	while ((line = *buffer++))
 	{
 		/* new line is read */
@@ -574,9 +574,11 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 		head = gitg_repository_parse_ref(self, "HEAD");
 		
 		if (head)
-			argv[2] = head;
+			argv[2] = g_strdup("HEAD");
 		else
 			--start;
+		
+		g_free(head);
 	}
 
 	int i;
