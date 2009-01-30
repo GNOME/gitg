@@ -652,6 +652,13 @@ on_edit_paste(GtkAction *action, GitgWindow *window)
 }
 
 void
+on_view_refresh(GtkAction *action, GitgWindow *window)
+{
+	if (window->priv->repository && gitg_repository_get_path(window->priv->repository) != NULL)
+		gitg_repository_reload(window->priv->repository);
+}
+
+void
 on_window_set_focus(GitgWindow *window, GtkWidget *widget)
 {
 	if (widget == NULL)
