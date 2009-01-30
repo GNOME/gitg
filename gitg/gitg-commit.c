@@ -646,6 +646,7 @@ gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
 	g_free(cm);
 	g_free(line);
 	
-	gitg_repository_changed(commit->priv->repository);
+	gitg_commit_refresh(commit);
+	
 	return ret;
 }
