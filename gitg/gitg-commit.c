@@ -425,6 +425,33 @@ apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolea
 	return ret;
 }
 
+static void
+update_index_staged(GitgCommit *commit, GitgChangedFile *file)
+{
+	GFile *f = gitg_changed_file_get_file(file);
+	gchar *path = gitg_repository_relative(commit->priv->repository, f);
+	gchar **ret = gitg_repository_command_with_outputv(commit->priv->repository, NULL, "diff-index", "--cached", "HEAD", path, NULL);
+	g_free(path);
+	g_object_unref(f);
+	
+	if (!ret)
+		return;
+	
+	gchar **parts = g_strsplit_set(*ret, " \t", 0);
+	g_strfreev(ret);
+	
+	if (!parts)
+		return;
+
+	if (g_strv_length(parts) > 2)
+	{
+		gitg_changed_file_set_mode(file, parts[0] + 1);
+		gitg_changed_file_set_sha(file, parts[2]);
+	}
+	
+	g_strfreev(parts);
+}
+
 gboolean
 gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error)
 {
@@ -438,6 +465,8 @@ gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, 
 	
 	gboolean ret = gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "--add", "--remove", "--", path, NULL);
 	g_free(path);
+	
+	update_index_staged(commit, file);
 
 	if (ret)
 		gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_CACHED);
@@ -466,7 +495,7 @@ gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk
 		gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
 	else
 		g_error("Update index for unstage failed");
-
+	
 	return ret;
 }
 
