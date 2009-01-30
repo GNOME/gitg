@@ -566,12 +566,22 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 	else
 		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
 	
+	gchar *head = NULL;
+	gint start = 2;
+	
 	if (argc <= 0)
-		argv[2] = g_strdup("HEAD");
+	{
+		head = gitg_repository_parse_ref(self, "HEAD");
+		
+		if (head)
+			argv[2] = head;
+		else
+			--start;
+	}
 
 	int i;
 	for (i = 0; i < argc; ++i)
-		argv[2 + i] = g_strdup(av[i]);
+		argv[start + i] = g_strdup(av[i]);
 
 	g_strfreev(self->priv->last_args);
 	self->priv->last_args = argv;
@@ -935,6 +945,35 @@ gitg_repository_command_with_input_and_outputv(GitgRepository *repository, gchar
 	
 	gchar **ret = gitg_repository_command_with_input_and_output(repository, argv, input, error);
 	g_free(argv);
+	return ret;
+}
+
+gchar *
+gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref)
+{
+	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
+	
+	gchar **ret = gitg_repository_command_with_outputv(repository, NULL, "rev-parse", "--verify", ref, NULL);
+	
+	if (!ret)
+		return NULL;
+	
+	gchar *r = g_strdup(*ret);
+	g_strfreev(ret);
+	
+	return r;
+}
+
+gchar *
+gitg_repository_parse_head(GitgRepository *repository)
+{
+	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
+	
+	gchar *ret = gitg_repository_parse_ref(repository, "HEAD");
+	
+	if (!ret)
+		ret = g_strdup("4b825dc642cb6eb9a060e54bf8d69288fbee4904");
+	
 	return ret;
 }
 

@@ -358,7 +358,9 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		set_diff_language(view);
 		connect_update(view);
 		
-		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff-index", "-U3", "--cached", "HEAD", "--", path, NULL);
+		gchar *head = gitg_repository_parse_head(view->priv->repository);
+		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff-index", "-U3", "--cached", head, "--", path, NULL);
+		g_free(head);
 	}
 
 	g_object_unref(f);

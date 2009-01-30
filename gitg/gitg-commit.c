@@ -301,11 +301,12 @@ refresh_done(GitgRunner *runner, GitgCommit *commit)
 static void
 read_unstaged_files_end(GitgRunner *runner, GitgCommit *commit)
 {
-	/* FIXME: something with having no head ref... */
+	gchar *head = gitg_repository_parse_head(commit->priv->repository);
 	gitg_runner_cancel(runner);
 
 	runner_connect(commit, G_CALLBACK(read_cached_files_update), G_CALLBACK(refresh_done));	
-	gitg_repository_run_commandv(commit->priv->repository, commit->priv->runner, NULL, "diff-index", "--cached", "HEAD", NULL);
+	gitg_repository_run_commandv(commit->priv->repository, commit->priv->runner, NULL, "diff-index", "--cached", head, NULL);
+	g_free(head);
 }
 
 static void
@@ -538,11 +539,12 @@ write_tree(GitgCommit *commit, gchar **tree, GError **error)
 static gboolean 
 commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gchar **ref, GError **error)
 {
-	/* FIXME: HEAD? */
-	gchar const *argv[] = {"commit-tree", tree, "-p", "HEAD", NULL};
-	
+	gchar *head = gitg_repository_parse_ref(commit->priv->repository, "HEAD");
+
+	gchar const *argv[] = {"commit-tree", tree, head ? "-p" : NULL, head, NULL};
 	gchar **lines = gitg_repository_command_with_input_and_output(commit->priv->repository, argv, comment, error);
-	
+	g_free(head);
+
 	if (!lines || strlen(*lines) != 40)
 	{
 		g_strfreev(lines);

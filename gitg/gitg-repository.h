@@ -77,6 +77,9 @@ gchar **gitg_repository_command_with_outputv(GitgRepository *repository, GError 
 gchar **gitg_repository_command_with_input_and_output(GitgRepository *repository, gchar const **argv, gchar const *input, GError **error);
 gchar **gitg_repository_command_with_input_and_outputv(GitgRepository *repository, gchar const *input, GError **error, ...) G_GNUC_NULL_TERMINATED;
 
+gchar *gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref);
+gchar *gitg_repository_parse_head(GitgRepository *repository);
+
 G_END_DECLS
 
 #endif /* __GITG_REPOSITORY_H__ */
