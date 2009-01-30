@@ -54,6 +54,27 @@ gboolean gitg_repository_find(GitgRepository *store, GitgRevision *revision, Gtk
 GSList *gitg_repository_get_refs(GitgRepository *repository);
 GSList *gitg_repository_get_refs_for_hash(GitgRepository *repository, gchar const *hash);
 
+gchar *gitg_repository_relative(GitgRepository *repository, GFile *file);
+
+/* Running git commands */
+gboolean gitg_repository_run_command(GitgRepository *repository, GitgRunner *runner, gchar const **argv, GError **error);
+gboolean gitg_repository_run_commandv(GitgRepository *repository, GitgRunner *runner, GError **error, ...) G_GNUC_NULL_TERMINATED;
+
+gboolean gitg_repository_run_command_with_input(GitgRepository *repository, GitgRunner *runner, gchar const **argv, gchar const *input, GError **error);
+gboolean gitg_repository_run_command_with_inputv(GitgRepository *repository, GitgRunner *runner, gchar const *input, GError **error, ...) G_GNUC_NULL_TERMINATED;
+
+gboolean gitg_repository_command_with_input(GitgRepository *repository, gchar const **argv, gchar const *input, GError **error);
+gboolean gitg_repository_command_with_inputv(GitgRepository *repository, gchar const *input, GError **error, ...) G_GNUC_NULL_TERMINATED;
+
+gboolean gitg_repository_command(GitgRepository *repository, gchar const **argv, GError **error);
+gboolean gitg_repository_commandv(GitgRepository *repository, GError **error, ...) G_GNUC_NULL_TERMINATED;
+
+gchar **gitg_repository_command_with_output(GitgRepository *repository, gchar const **argv, GError **error);
+gchar **gitg_repository_command_with_outputv(GitgRepository *repository, GError **error, ...) G_GNUC_NULL_TERMINATED;
+
+gchar **gitg_repository_command_with_input_and_output(GitgRepository *repository, gchar const **argv, gchar const *input, GError **error);
+gchar **gitg_repository_command_with_input_and_outputv(GitgRepository *repository, gchar const *input, GError **error, ...) G_GNUC_NULL_TERMINATED;
+
 G_END_DECLS
 
 #endif /* __GITG_REPOSITORY_H__ */

@@ -27,8 +27,6 @@ enum
 struct _GitgCommitPrivate
 {
 	GitgRepository *repository;
-
-	gchar *dotgit;
 	GitgRunner *runner;
 
 	guint update_id;
@@ -66,8 +64,6 @@ gitg_commit_finalize(GObject *object)
 	
 	runner_cancel(commit);
 	g_object_unref(commit->priv->runner);
-
-	g_free(commit->priv->dotgit);
 	
 	g_hash_table_destroy(commit->priv->files);
 
@@ -118,17 +114,6 @@ gitg_commit_set_property(GObject *object, guint prop_id, const GValue *value, GP
 	}
 }
 
-static GObject * 
-gitg_commit_constructor(GType type, guint n_construct_properties, GObjectConstructParam *construct_properties)
-{
-	GObject *ret = G_OBJECT_CLASS(gitg_commit_parent_class)->constructor(type, n_construct_properties, construct_properties);
-	GitgCommit *commit = GITG_COMMIT(ret);
-	
-	commit->priv->dotgit = gitg_utils_dot_git_path(gitg_repository_get_path(commit->priv->repository));
-
-	return ret;
-}
-
 static void
 gitg_commit_class_init(GitgCommitClass *klass)
 {
@@ -136,7 +121,6 @@ gitg_commit_class_init(GitgCommitClass *klass)
 
 	object_class->dispose = gitg_commit_dispose;
 	object_class->finalize = gitg_commit_finalize;
-	object_class->constructor = gitg_commit_constructor;
 	
 	object_class->set_property = gitg_commit_set_property;
 	object_class->get_property = gitg_commit_get_property;
@@ -315,13 +299,10 @@ static void
 read_unstaged_files_end(GitgRunner *runner, GitgCommit *commit)
 {
 	/* FIXME: something with having no head ref... */
-	static gchar const *argv[] = {"git", "--git-dir", NULL, "diff-index", "--cached", "HEAD", NULL};
 	gitg_runner_cancel(runner);
-	
-	argv[2] = commit->priv->dotgit;
-	runner_connect(commit, G_CALLBACK(read_cached_files_update), G_CALLBACK(refresh_done));
-	
-	gitg_runner_run_working_directory(commit->priv->runner, argv, gitg_repository_get_path(commit->priv->repository), NULL);
+
+	runner_connect(commit, G_CALLBACK(read_cached_files_update), G_CALLBACK(refresh_done));	
+	gitg_repository_run_commandv(commit->priv->repository, commit->priv->runner, NULL, "diff-index", "--cached", "HEAD", NULL);
 }
 
 static void
@@ -333,13 +314,10 @@ read_unstaged_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commi
 static void
 read_other_files_end(GitgRunner *runner, GitgCommit *commit)
 {
-	static gchar const *argv[] = {"git", "--git-dir", NULL, "diff-files", NULL};
 	gitg_runner_cancel(runner);
 	
-	argv[2] = commit->priv->dotgit;
 	runner_connect(commit, G_CALLBACK(read_unstaged_files_update), G_CALLBACK(read_unstaged_files_end));
-	
-	gitg_runner_run_working_directory(commit->priv->runner, argv, gitg_repository_get_path(commit->priv->repository), NULL);
+	gitg_repository_run_commandv(commit->priv->repository,commit->priv->runner, NULL, "diff-files", NULL);
 }
 
 static void
@@ -390,11 +368,9 @@ update_index_end(GitgRunner *runner, GitgCommit *commit)
 {
 	static gchar const *argv[] = {"git", "--git-dir", NULL, "ls-files", "--others", "--exclude-standard", NULL};
 	gitg_runner_cancel(runner);
-	
-	argv[2] = commit->priv->dotgit;
 	runner_connect(commit, G_CALLBACK(read_other_files_update), G_CALLBACK(read_other_files_end));
 	
-	gitg_runner_run_working_directory(commit->priv->runner, argv, gitg_repository_get_path(commit->priv->repository), NULL);
+	gitg_repository_run_commandv(commit->priv->repository, commit->priv->runner, NULL, "ls-files", "--others", "--exclude-standard", NULL);
 }
 
 static void
@@ -402,10 +378,8 @@ update_index(GitgCommit *commit)
 {
 	static gchar const *argv[] = {"git", "--git-dir", NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", NULL};
 	
-	argv[2] = commit->priv->dotgit;
 	runner_connect(commit, NULL, G_CALLBACK(update_index_end));
-	
-	gitg_runner_run_working_directory(commit->priv->runner, argv, gitg_repository_get_path(commit->priv->repository), NULL);
+	gitg_repository_run_commandv(commit->priv->repository, commit->priv->runner, NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", NULL);
 }
 
 static void
@@ -432,25 +406,12 @@ gitg_commit_refresh(GitgCommit *commit)
 gboolean
 apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolean reverse, GError **error)
 {
-	if (error)
-		*error = NULL;
-
 	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
 	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), FALSE);
 	
 	g_return_val_if_fail(hunk != NULL, FALSE);
 	
-	GitgRunner *runner = gitg_runner_new_synchronized(1000);
-	gchar const *repos = gitg_repository_get_path(commit->priv->repository);
-	gchar *dotgit = gitg_utils_dot_git_path(repos);
-
-	gchar const *argv[] = {"git", "--git-dir", dotgit, "apply", "--cached", NULL, NULL};
-	
-	if (reverse)
-		argv[5] = "--reverse";
-	
-	gboolean ret = gitg_runner_run_with_arguments(runner, argv, repos, hunk, error);
-	g_free(dotgit);
+	gboolean ret = gitg_repository_commandv(commit->priv->repository, error, "apply", "--cached", reverse ? "--reverse" : NULL, NULL);
 	
 	if (ret)
 	{
@@ -468,35 +429,17 @@ gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, 
 		return apply_hunk(commit, file, hunk, FALSE, error);
 	
 	/* Otherwise, stage whole file */
-	GitgRunner *runner = gitg_runner_new_synchronized(1000);
-	gchar *path;
-	GFile *f;
-	gchar const *repos = gitg_repository_get_path(commit->priv->repository);
-	gchar *dotgit = gitg_utils_dot_git_path(repos);
-	
-	GFile *parent = g_file_new_for_path(repos);
-
-	f = gitg_changed_file_get_file(file);
-	path = g_file_get_relative_path(parent, f);
-
+	GFile *f = gitg_changed_file_get_file(file);
+	gchar *path = gitg_repository_relative(commit->priv->repository, f);
 	g_object_unref(f);
-	g_object_unref(parent);
 	
-	gchar const *argv[] = {"git", "--git-dir", dotgit, "update-index", "--add", "--remove", "--", path, NULL};
-	gboolean ret = gitg_runner_run_working_directory(runner, argv, repos, error);
-	
-	g_free(dotgit);	
+	gboolean ret = gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "--add", "--remove", "--", path, NULL);
 	g_free(path);
 
 	if (ret)
-	{
 		gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_CACHED);
-		g_object_unref(runner);
-	}
 	else
-	{
 		g_error("Update index for stage failed");
-	}
 
 	return ret;
 }
@@ -508,37 +451,18 @@ gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk
 		return apply_hunk(commit, file, hunk, TRUE, error);
 	
 	/* Otherwise, unstage whole file */
-	GitgRunner *runner = gitg_runner_new_synchronized(1000);
-	gchar *path;
-	GFile *f;
-	gchar const *repos = gitg_repository_get_path(commit->priv->repository);
-	gchar *dotgit = gitg_utils_dot_git_path(repos);
-	
-	GFile *parent = g_file_new_for_path(repos);
-
-	f = gitg_changed_file_get_file(file);
-	path = g_file_get_relative_path(parent, f);
-
+	GFile *f = gitg_changed_file_get_file(file);
+	gchar *path = gitg_repository_relative(commit->priv->repository, f);
 	g_object_unref(f);
-	g_object_unref(parent);
-	
-	gchar const *argv[] = {"git", "--git-dir", dotgit, "update-index", "--index-info", NULL};
-	
+
 	gchar *input = g_strdup_printf("%s %s\t%s", gitg_changed_file_get_mode(file), gitg_changed_file_get_sha(file), path);
-	gboolean ret = gitg_runner_run_with_arguments(runner, argv, repos, input, error);
-	
-	g_free(dotgit);	
-	g_free(path);
+	gboolean ret = gitg_repository_command_with_inputv(commit->priv->repository, input, error, "update-index", "--index-info", NULL);
+	g_free(input);
 
 	if (ret)
-	{
 		gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
-		g_object_unref(runner);
-	}
 	else
-	{
 		g_error("Update index for unstage failed");
-	}
 
 	return ret;
 }
@@ -569,12 +493,9 @@ store_line(GitgRunner *runner, gchar **buffer, gchar **line)
 	*line = g_strdup(*buffer);
 }
 
-gboolean
-gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
+static gchar *
+comment_parse_subject(gchar const *comment)
 {
-	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
-	
-	/* set subject to first line */
 	gchar *ptr;
 	gchar *subject;
 	
@@ -587,66 +508,80 @@ gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
 		subject = g_strdup(comment);
 	}
 	
-	gchar *cm = g_strconcat("commit:", subject, NULL);
+	gchar *commit = g_strconcat("commit:", subject, NULL);
 	g_free(subject);
 	
-	GitgRunner *runner = gitg_runner_new_synchronized(100);
-	gchar const *repos = gitg_repository_get_path(commit->priv->repository);
-	gchar *dotgit = gitg_utils_dot_git_path(repos);
-	gchar const *argv[] = {"git", "--git-dir", dotgit, "write-tree", NULL, NULL, NULL, NULL};
-	gchar *line = NULL;
+	return commit;
+}
 
-	guint update_id = g_signal_connect(runner, "update", G_CALLBACK(store_line), &line);
-	gboolean ret = gitg_runner_run_working_directory(runner, argv, repos, error);
+static gboolean
+write_tree(GitgCommit *commit, gchar **tree, GError **error)
+{
+	gchar const *argv[] = {"write-tree", NULL};
+	gchar **lines = gitg_repository_command_with_output(commit->priv->repository, argv, error);
 	
-	if (!ret || !line || strlen(line) != 40)
+	if (!lines || strlen(*lines) != 40)
 	{
-		g_object_unref(runner);
-		g_free(dotgit);
-		g_free(line);
-		g_free(cm);
-		
+		g_strfreev(lines);
 		return FALSE;
 	}
 	
-	gchar *tree = g_strdup(line);
+	*tree = g_strdup(*lines);
+	g_strfreev(lines);
 	
-	argv[3] = "commit-tree";
-	argv[4] = tree;
-	argv[5] = "-p";
-	argv[6] = "HEAD";
+	return TRUE;
+}
 
-	g_free(line);
-	line = NULL;
+static gboolean 
+commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gchar **ref, GError **error)
+{
+	/* FIXME: HEAD? */
+	gchar const *argv[] = {"commit-tree", tree, "-p", "HEAD", NULL};
+	
+	gchar **lines = gitg_repository_command_with_input_and_output(commit->priv->repository, argv, comment, error);
+	
+	if (!lines || strlen(*lines) != 40)
+	{
+		g_strfreev(lines);
+		return FALSE;
+	}
+	
+	*ref = g_strdup(*lines);
+	g_strfreev(lines);
+	return TRUE;
+}
 
-	ret = gitg_runner_run_with_arguments(runner, argv, repos, comment, error);
+static gboolean
+update_ref(GitgCommit *commit, gchar const *ref, gchar const *subject, GError **error)
+{
+	gchar const *argv[] = {"update-ref", "-m", subject, "HEAD", ref, NULL};
+	return gitg_repository_command(commit->priv->repository, argv, error);
+}
+
+gboolean
+gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
+{
+	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
+	
+	gchar *tree;
+	if (!write_tree(commit, &tree, error))
+		return FALSE;
+	
+	gchar *ref;
+	gboolean ret = commit_tree(commit, tree, comment, &ref, error);
 	g_free(tree);
 	
-	if (!ret || !line || strlen(line) != 40)
-	{
-		g_object_unref(runner);
-		g_free(dotgit);
-		g_free(cm);
-		g_free(line);
-		
+	if (!ret)
 		return FALSE;
-	}
+
+	gchar *subject = comment_parse_subject(comment);
+	ret = update_ref(commit, ref, subject, error);
+	g_free(subject);
 	
-	argv[1] = "update-ref";
-	argv[2] = "-m";
-	argv[3] = cm;
-	argv[4] = "HEAD";
-	argv[5] = line;
+	if (!ret)
+		return FALSE;
 	
-	g_signal_handler_disconnect(runner, update_id);
-	ret = gitg_runner_run_working_directory(runner, argv, repos, error);
-	
-	g_object_unref(runner);
-	g_free(dotgit);
-	g_free(cm);
-	g_free(line);
-	
+	/* FIXME: refresh repository instead */
 	gitg_commit_refresh(commit);
-	
-	return ret;
+	return TRUE;
 }

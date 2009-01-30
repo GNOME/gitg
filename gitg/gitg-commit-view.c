@@ -296,20 +296,13 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	}
 	else
 	{
-		gchar const *repos = gitg_repository_get_path(view->priv->repository);
-		GFile *parent = g_file_new_for_path(repos);
-		gchar *rel = g_file_get_relative_path(parent, f);
-		g_object_unref(parent);
-		
-		gchar *dotgit = gitg_utils_dot_git_path(repos);
 		set_diff_language(view);
 		view->priv->is_diff = TRUE;
+		connect_update(view);
 
-		gchar const *argv[] = {"git", "--git-dir", dotgit, "diff", "--", rel, NULL};
-		run_changes_command(view, argv, repos);
-		
-		g_free(dotgit);
-		g_free(rel);
+		gchar *path = gitg_repository_relative(view->priv->repository, f);
+		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff", "--", path, NULL);
+		g_free(path);
 	}
 	
 	set_current_file(view, file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
@@ -333,20 +326,14 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
 	GitgChangedFileStatus status = gitg_changed_file_get_status(file);
 	
-	gchar const *repos = gitg_repository_get_path(view->priv->repository);
 	GFile *f = gitg_changed_file_get_file(file);
-	GFile *parent = g_file_new_for_path(repos);
-
-	gchar *dotgit = gitg_utils_dot_git_path(repos);
-	gchar *path = g_file_get_relative_path(parent, f);
-	g_object_unref(parent);
+	gchar *path = gitg_repository_relative(view->priv->repository, f);
+	g_object_unref(f);
 	
 	if (status == GITG_CHANGED_FILE_STATUS_NEW)
 	{
-		gchar *indexpath = g_strconcat(":0:", path, NULL);
-		gchar const *argv[] = {"git", "--git-dir", dotgit, "show", indexpath, NULL};
 		view->priv->is_diff = FALSE;
-		
+
 		gchar *content_type = gitg_utils_get_content_type(f);
 		
 		if (!gitg_utils_can_display_content_type(content_type))
@@ -356,26 +343,27 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		else
 		{
 			set_language(view, gitg_utils_get_language(content_type));
-			run_changes_command(view, argv, NULL);
+			connect_update(view);
+
+			gchar *indexpath = g_strconcat(":0:", path, NULL);
+			gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "show", indexpath, NULL);
+			g_free(indexpath);
 		}
 		
 		g_free(content_type);
-		g_free(indexpath);
 	}
 	else
 	{
-		gchar const *argv[] = {"git", "--git-dir", dotgit, "diff-index", "-U3", "--cached", "HEAD", "--", path, NULL};
 		view->priv->is_diff = TRUE;
-
 		set_diff_language(view);
-		run_changes_command(view, argv, gitg_repository_get_path(view->priv->repository));
+		connect_update(view);
+		
+		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff-index", "-U3", "--cached", "HEAD", "--", path, NULL);
 	}
 
 	g_object_unref(f);
-
 	g_free(path);	
-	g_free(dotgit);
-	
+
 	set_current_file(view, file, GITG_CHANGED_FILE_CHANGES_CACHED);	
 	g_object_unref(file);
 }
