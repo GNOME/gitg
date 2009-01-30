@@ -165,7 +165,7 @@ gitg_commit_init(GitgCommit *self)
 {
 	self->priv = GITG_COMMIT_GET_PRIVATE(self);
 	
-	self->priv->runner = gitg_runner_new(5000);
+	self->priv->runner = gitg_runner_new(10000);
 	self->priv->files = g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, (GDestroyNotify)g_object_unref, (GDestroyNotify)g_object_unref);
 }
 
