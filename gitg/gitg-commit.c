@@ -234,7 +234,7 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 			if (cached)
 			{
 				gitg_changed_file_set_sha(f, sha);
-				gitg_changed_file_set_mode(f, sha);
+				gitg_changed_file_set_mode(f, mode);
 				
 				changes |= GITG_CHANGED_FILE_CHANGES_CACHED;
 			}
