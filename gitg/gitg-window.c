@@ -33,6 +33,7 @@ struct _GitgWindowPrivate
 	GtkWidget *search_popup;
 	GtkComboBox *combo_branches;
 	
+	GtkActionGroup *edit_group;
 	GtkWidget *open_dialog;
 };
 
@@ -297,6 +298,8 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	window->priv->revision_view = GITG_REVISION_VIEW(gtk_builder_get_object(builder, "revision_view"));
 	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW(gtk_builder_get_object(builder, "revision_tree_view"));
 	window->priv->commit_view = GITG_COMMIT_VIEW(gtk_builder_get_object(builder, "hpaned_commit"));
+
+	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object(builder, "action_group_menu_edit"));
 
 	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
 	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "rv_renderer_subject")), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
@@ -622,4 +625,47 @@ on_file_open(GtkAction *action, GitgWindow *window)
 	gtk_window_present(GTK_WINDOW(window->priv->open_dialog));
 	
 	g_signal_connect(window->priv->open_dialog, "response", G_CALLBACK(on_open_dialog_response), window);
+}
+
+void
+on_edit_copy(GtkAction *action, GitgWindow *window)
+{
+	GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(window));
+
+	g_message("ciopy");
+	g_signal_emit_by_name(focus, "copy-clipboard", 0);
+}
+
+void
+on_edit_cut(GtkAction *action, GitgWindow *window)
+{
+
+}
+
+void
+on_edit_paste(GtkAction *action, GitgWindow *window)
+{
+
+}
+
+void
+on_window_set_focus(GitgWindow *window, GtkWidget *widget)
+{
+	if (widget == NULL)
+		return;
+
+	gboolean cancopy = g_signal_lookup("copy-clipboard", G_OBJECT_TYPE(widget)) != 0;
+	gboolean selection = FALSE;
+	gboolean editable = FALSE;
+	
+	if (GTK_IS_EDITABLE(widget))
+	{
+		selection = gtk_editable_get_selection_bounds(GTK_EDITABLE(widget), NULL, NULL);
+		editable = gtk_editable_get_editable(GTK_EDITABLE(widget));
+		cancopy = cancopy && selection;
+	}
+
+	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditPasteAction"), editable);
+	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditCutAction"), editable && selection);
+	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditCopyAction"), cancopy);
 }

@@ -14,6 +14,11 @@
             <property name="label">_File</property>
           </object>
         </child>
+        <child>
+          <object class="GtkAction" id="EditAction">
+            <property name="label">_Edit</property>
+          </object>
+        </child>
       </object>
     </child>
     <child>
@@ -32,12 +37,39 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class="GtkActionGroup" id="action_group_menu_edit">
+        <child>
+          <object class="GtkAction" id="EditCutAction">
+            <property name="stock-id">gtk-cut</property>
+            <signal name="activate" handler="on_edit_cut"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="EditCopyAction">
+            <property name="stock-id">gtk-copy</property>
+            <signal name="activate" handler="on_edit_copy"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="EditPasteAction">
+            <property name="stock-id">gtk-paste</property>
+            <signal name="activate" handler="on_edit_paste"/>
+          </object>
+        </child>
+      </object>
+    </child>
     <ui>
       <menubar name="menubar_main">
         <menu action="FileAction">
           <menuitem action="FileOpenAction"/>
           <separator/>
           <menuitem action="FileQuitAction"/>
+        </menu>
+        <menu action="EditAction">
+          <menuitem action="EditCutAction"/>
+          <menuitem action="EditCopyAction"/>
+          <menuitem action="EditPasteAction"/>
         </menu>
       </menubar>
     </ui>
@@ -46,6 +78,7 @@
     <property name="title" translatable="yes">GitG</property>
     <property name="default_width">800</property>
     <property name="default_height">600</property>
+    <signal name="set_focus" handler="on_window_set_focus"/>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -659,6 +692,7 @@
                               <object class="GtkTextView" id="text_view_comment">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="wrap_mode">word-char</property>
                               </object>
                             </child>
                           </object>
