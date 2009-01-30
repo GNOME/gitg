@@ -1,6 +1,7 @@
 #include "gitg-runner.h"
 #include "gitg-utils.h"
 #include <string.h>
+#include "gitg-debug.h"
 
 #define GITG_RUNNER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_RUNNER, GitgRunnerPrivate))
 
@@ -505,7 +506,7 @@ gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar con
 
 	gitg_runner_cancel(runner);
 
-	gboolean ret = g_spawn_async_with_pipes(wd, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &(runner->priv->pid), input ? &stdin : NULL, &stdout, NULL, error);
+	gboolean ret = g_spawn_async_with_pipes(wd, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD | (gitg_debug_enabled(GITG_DEBUG_RUNNER) ? 0 : G_SPAWN_STDERR_TO_DEV_NULL), NULL, NULL, &(runner->priv->pid), input ? &stdin : NULL, &stdout, NULL, error);
 
 	if (!ret)
 	{

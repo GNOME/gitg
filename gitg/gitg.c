@@ -6,6 +6,7 @@
 #include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gtksourceview/gtksourcestyleschememanager.h>
 
+#include "gitg-debug.h"
 #include "gitg-window.h"
 #include "sexy-icon-entry.h"
 #include "config.h"
@@ -134,6 +135,8 @@ main(int argc, char **argv)
 	textdomain (GETTEXT_PACKAGE);
 	
 	g_thread_init(NULL);
+	
+	gitg_debug_init();
 	
 	g_set_prgname("gitg");
 	g_set_application_name(_("gitg"));
