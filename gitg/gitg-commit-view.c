@@ -1027,6 +1027,10 @@ on_commit_clicked(GtkButton *button, GitgCommitView *view)
 	{
 		show_error(view, _("Something went wrong while trying to commit"));
 	}
+	else
+	{
+		gtk_text_buffer_set_text(gtk_text_view_get_buffer(view->priv->comment_view), "", -1);
+	}
 	
 	g_free(comment);
 }
