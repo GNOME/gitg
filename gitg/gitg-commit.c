@@ -458,7 +458,7 @@ gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk
 	gchar *path = gitg_repository_relative(commit->priv->repository, f);
 	g_object_unref(f);
 
-	gchar *input = g_strdup_printf("%s %s\t%s", gitg_changed_file_get_mode(file), gitg_changed_file_get_sha(file), path);
+	gchar *input = g_strdup_printf("%s %s\t%s\n", gitg_changed_file_get_mode(file), gitg_changed_file_get_sha(file), path);
 	gboolean ret = gitg_repository_command_with_inputv(commit->priv->repository, input, error, "update-index", "--index-info", NULL);
 	g_free(input);
 
