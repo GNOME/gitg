@@ -632,20 +632,23 @@ on_edit_copy(GtkAction *action, GitgWindow *window)
 {
 	GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(window));
 
-	g_message("ciopy");
 	g_signal_emit_by_name(focus, "copy-clipboard", 0);
 }
 
 void
 on_edit_cut(GtkAction *action, GitgWindow *window)
 {
+	GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(window));
 
+	g_signal_emit_by_name(focus, "cut-clipboard", 0);
 }
 
 void
 on_edit_paste(GtkAction *action, GitgWindow *window)
 {
+	GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(window));
 
+	g_signal_emit_by_name(focus, "paste-clipboard", 0);
 }
 
 void
