@@ -415,7 +415,7 @@ apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolea
 	
 	g_return_val_if_fail(hunk != NULL, FALSE);
 	
-	gboolean ret = gitg_repository_commandv(commit->priv->repository, error, "apply", "--cached", reverse ? "--reverse" : NULL, NULL);
+	gboolean ret = gitg_repository_command_with_inputv(commit->priv->repository, hunk, error, "apply", "--cached", reverse ? "--reverse" : NULL, NULL);
 	
 	if (ret)
 	{
