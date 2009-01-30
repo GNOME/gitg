@@ -19,6 +19,7 @@ BUILT_SOURCES = 				\
 gitg_SOURCES = 					\
 	$(BUILT_SOURCES)			\
 	gitg.c						\
+	gitg-debug.c				\
 	gitg-window.c				\
 	gitg-ref.c					\
 	gitg-revision.c				\
