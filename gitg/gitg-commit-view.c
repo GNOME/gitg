@@ -1033,5 +1033,10 @@ on_commit_clicked(GtkButton *button, GitgCommitView *view)
 		return;
 	}
 	
-	gitg_commit_commit(commit, comment);
+	if (!gitg_commit_commit(view->priv->commit, comment, NULL))
+	{
+		show_error(view, _("Something went wrong while trying to commit"));
+	}
+	
+	g_free(comment);
 }

@@ -3,6 +3,8 @@
 #include "gitg-utils.h"
 #include "gitg-changed-file.h"
 
+#include <string.h>
+
 #define GITG_COMMIT_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_COMMIT, GitgCommitPrivate))
 
 #define CAN_DELETE_KEY "CanDeleteKey"
@@ -560,10 +562,90 @@ gitg_commit_has_changes(GitgCommit *commit)
 	return result;
 }
 
+static void
+store_line(GitgRunner *runner, gchar **buffer, gchar **line)
+{
+	g_free(*line);
+	*line = g_strdup(*buffer);
+}
+
 gboolean
 gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
 {
 	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
 	
+	/* set subject to first line */
+	gchar *ptr;
+	gchar *subject;
 	
+	if (ptr = g_utf8_strchr(comment, g_utf8_strlen(comment, -1), '\n'))
+	{
+		subject = g_strndup(comment, ptr - comment);
+	}
+	else
+	{
+		subject = g_strdup(comment);
+	}
+	
+	gchar *cm = g_strconcat("commit:", subject, NULL);
+	g_free(subject);
+	
+	GitgRunner *runner = gitg_runner_new_synchronized(100);
+	gchar const *repos = gitg_repository_get_path(commit->priv->repository);
+	gchar *dotgit = gitg_utils_dot_git_path(repos);
+	gchar const *argv[] = {"git", "--git-dir", dotgit, "write-tree", NULL, NULL, NULL, NULL};
+	gchar *line = NULL;
+
+	guint update_id = g_signal_connect(runner, "update", G_CALLBACK(store_line), &line);
+	gboolean ret = gitg_runner_run_working_directory(runner, argv, repos, error);
+	
+	if (!ret || !line || strlen(line) != 40)
+	{
+		g_object_unref(runner);
+		g_free(dotgit);
+		g_free(line);
+		g_free(cm);
+		
+		return FALSE;
+	}
+	
+	gchar *tree = g_strdup(line);
+	
+	argv[3] = "commit-tree";
+	argv[4] = tree;
+	argv[5] = "-p";
+	argv[6] = "HEAD";
+
+	g_free(line);
+	line = NULL;
+
+	ret = gitg_runner_run_with_arguments(runner, argv, repos, comment, error);
+	g_free(tree);
+	
+	if (!ret || !line || strlen(line) != 40)
+	{
+		g_object_unref(runner);
+		g_free(dotgit);
+		g_free(cm);
+		g_free(line);
+		
+		return FALSE;
+	}
+	
+	argv[1] = "update-ref";
+	argv[2] = "-m";
+	argv[3] = cm;
+	argv[4] = "HEAD";
+	argv[5] = line;
+	
+	g_signal_handler_disconnect(runner, update_id);
+	ret = gitg_runner_run_working_directory(runner, argv, repos, error);
+	
+	g_object_unref(runner);
+	g_free(dotgit);
+	g_free(cm);
+	g_free(line);
+	
+	gitg_repository_changed(commit->priv->repository);
+	return ret;
 }
