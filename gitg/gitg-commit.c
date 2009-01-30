@@ -77,6 +77,8 @@ gitg_commit_dispose(GObject *object)
 	
 	if (self->priv->repository)
 	{
+		g_signal_handlers_disconnect_by_func(self->priv->repository, G_CALLBACK(gitg_commit_refresh), self);
+
 		g_object_unref(self->priv->repository);
 		self->priv->repository = NULL;
 	}
@@ -107,6 +109,7 @@ gitg_commit_set_property(GObject *object, guint prop_id, const GValue *value, GP
 	{
 		case PROP_REPOSITORY:
 			self->priv->repository = g_value_get_object(value);
+			g_signal_connect_swapped(self->priv->repository, "load", G_CALLBACK(gitg_commit_refresh), self);
 		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -581,7 +584,6 @@ gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
 	if (!ret)
 		return FALSE;
 	
-	/* FIXME: refresh repository instead */
-	gitg_commit_refresh(commit);
+	gitg_repository_reload(commit->priv->repository);
 	return TRUE;
 }

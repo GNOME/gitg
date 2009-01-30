@@ -24,6 +24,15 @@ enum {
 	PROP_LOADER
 };
 
+/* Signals */
+enum
+{
+	LOAD,
+	LAST_SIGNAL
+};
+
+static guint repository_signals[LAST_SIGNAL] = { 0 };
+
 enum
 {
 	OBJECT_COLUMN,
@@ -391,6 +400,16 @@ gitg_repository_class_init(GitgRepositoryClass *klass)
 								      GITG_TYPE_RUNNER,
 								      G_PARAM_READABLE));
 	
+	repository_signals[LOAD] =
+   		g_signal_new ("load",
+			      G_OBJECT_CLASS_TYPE (object_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (GitgRepositoryClass, load),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
+
 	g_type_class_add_private(object_class, sizeof(GitgRepositoryPrivate));
 }
 
@@ -529,6 +548,13 @@ has_left_right(gchar const **av, int argc)
 }
 
 static gboolean
+reload_revisions(GitgRepository *repository, GError **error)
+{
+	g_signal_emit(repository, repository_signals[LOAD], 0);
+	return gitg_repository_run_command(repository, repository->priv->loader, (gchar const **)repository->priv->last_args, error);
+}
+
+static gboolean
 load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error)
 {
 	gchar **argv = g_new0(gchar *, 4 + (argc > 0 ? argc - 1 : 0));
@@ -546,14 +572,11 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 	int i;
 	for (i = 0; i < argc; ++i)
 		argv[2 + i] = g_strdup(av[i]);
-	
-	gboolean ret = gitg_repository_run_command(self, self->priv->loader, (gchar const **)argv, error);
 
 	g_strfreev(self->priv->last_args);
 	self->priv->last_args = argv;
 	
-	return ret;
-
+	return reload_revisions(self, error);
 }
 
 static void
@@ -577,6 +600,19 @@ load_refs(GitgRepository *self)
 	}
 
 	g_strfreev(refs);
+}
+
+void
+gitg_repository_reload(GitgRepository *repository)
+{
+	g_return_if_fail(GITG_IS_REPOSITORY(repository));
+	g_return_if_fail(repository->priv->path != NULL);
+
+	gitg_runner_cancel(repository->priv->loader);
+	gitg_repository_clear(repository);
+	
+	load_refs(repository);
+	reload_revisions(repository, NULL);
 }
 
 gboolean

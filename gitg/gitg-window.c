@@ -496,11 +496,19 @@ fill_branches_combo(GitgWindow *window)
 }
 
 static void
+on_repository_load(GitgRepository *repository, GitgWindow *window)
+{
+	fill_branches_combo(window);
+}
+
+static void
 load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv, gboolean usewd)
 {
 	if (window->priv->repository)
 	{
 		gtk_tree_view_set_model(window->priv->tree_view, NULL);
+		g_signal_handlers_disconnect_by_func(window->priv->repository, G_CALLBACK(on_repository_load), window);
+
 		g_object_unref(window->priv->repository);
 		window->priv->repository = NULL;
 	}
@@ -531,12 +539,12 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 			ar[argc - 1] = path;
 		}
 
+		g_signal_connect(window->priv->repository, "load", G_CALLBACK(on_repository_load), window);
 		gitg_repository_load(window->priv->repository, argc, ar, NULL);
 		
 		if (!haspath && argc)
 			g_free(ar);
 
-		fill_branches_combo(window);
 		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
 	}
 	else
