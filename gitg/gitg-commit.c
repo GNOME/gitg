@@ -329,6 +329,8 @@ changed_file_new(GitgChangedFile *f)
 {
 	gitg_changed_file_set_status(f, GITG_CHANGED_FILE_STATUS_NEW);
 	gitg_changed_file_set_changes(f, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
+	
+	g_object_set_data(G_OBJECT(f), CAN_DELETE_KEY, NULL);
 }
 
 static void
