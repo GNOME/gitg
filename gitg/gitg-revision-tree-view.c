@@ -354,6 +354,10 @@ gitg_revision_tree_view_parser_finished(GtkBuildable *buildable, GtkBuilder *bui
 	tree_view->priv->contents = GTK_SOURCE_VIEW(gtk_builder_get_object(builder, "revision_tree_contents"));
 	
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(tree_view->priv->contents), GTK_TEXT_BUFFER(gtk_source_buffer_new(NULL)));
+
+	PangoFontDescription *fd = pango_font_description_from_string("Monospace 10");
+	gtk_widget_modify_font(GTK_WIDGET(tree_view->priv->contents), fd);
+	pango_font_description_free(fd);
 	
 	gtk_tree_view_set_model(tree_view->priv->tree_view, GTK_TREE_MODEL(tree_view->priv->store));
 
