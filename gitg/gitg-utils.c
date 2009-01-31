@@ -321,3 +321,21 @@ gitg_utils_sort_names(gchar const *s1, gchar const *s2)
 	
 	return ret;
 }
+
+gchar *
+gitg_utils_guess_content_type(GtkTextBuffer *buffer)
+{
+	GtkTextIter start;
+	GtkTextIter end;
+	
+	gtk_text_buffer_get_start_iter(buffer, &start);
+	end = start;
+	
+	gtk_text_iter_forward_chars(&end, 256);
+	gchar *data = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+
+	gchar *content_type = g_content_type_guess(NULL, data, strlen(data), NULL);
+	g_free(data);
+	
+	return content_type;
+}
