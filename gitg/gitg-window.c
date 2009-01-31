@@ -664,7 +664,10 @@ void
 on_view_refresh(GtkAction *action, GitgWindow *window)
 {
 	if (window->priv->repository && gitg_repository_get_path(window->priv->repository) != NULL)
+	{
+		clear_branches_combo(window);
 		gitg_repository_reload(window->priv->repository);
+	}
 }
 
 void
