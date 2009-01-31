@@ -17,7 +17,8 @@
 enum
 {
 	PROP_0,
-	PROP_REPOSITORY
+	PROP_REPOSITORY,
+	PROP_CONTEXT_SIZE
 };
 
 enum
@@ -40,6 +41,9 @@ struct _GitgCommitViewPrivate
 	
 	GtkSourceView *changes_view;
 	GtkTextView *comment_view;
+	
+	GtkHScale *hscale_context;
+	gint context_size;
 	
 	GitgRunner *runner;
 	guint update_id;
@@ -67,6 +71,7 @@ static gboolean on_staged_motion(GtkWidget *widget, GdkEventMotion *event, GitgC
 static gboolean on_unstaged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view);
 
 static void on_commit_clicked(GtkButton *button, GitgCommitView *view);
+static void on_context_value_changed(GtkHScale *scale, GitgCommitView *view);
 
 static void
 gitg_commit_view_finalize(GObject *object)
@@ -302,7 +307,11 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		connect_update(view);
 
 		gchar *path = gitg_repository_relative(view->priv->repository, f);
-		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff", "--", path, NULL);
+
+		gchar ct[10];
+		g_snprintf(ct, sizeof(ct), "-U%d", view->priv->context_size);
+		
+		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff", ct, "--", path, NULL);
 		g_free(path);
 	}
 	
@@ -360,7 +369,10 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		connect_update(view);
 		
 		gchar *head = gitg_repository_parse_head(view->priv->repository);
-		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff-index", "-U3", "--cached", head, "--", path, NULL);
+		gchar ct[10];
+		g_snprintf(ct, sizeof(ct), "-U%d", view->priv->context_size);
+
+		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff-index", ct, "--cached", head, "--", path, NULL);
 		g_free(head);
 	}
 
@@ -612,6 +624,8 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	self->priv->changes_view = GTK_SOURCE_VIEW(gtk_builder_get_object(builder, "source_view_changes"));
 	self->priv->comment_view = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "text_view_comment"));
 	
+	self->priv->hscale_context = GTK_HSCALE(gtk_builder_get_object(builder, "hscale_context"));
+	
 	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	GdkPixbuf *pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_ADD, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
 	
@@ -653,6 +667,8 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	g_signal_connect(self->priv->tree_view_staged, "motion-notify-event", G_CALLBACK(on_staged_motion), self);
 	
 	g_signal_connect(gtk_builder_get_object(builder, "button_commit"), "clicked", G_CALLBACK(on_commit_clicked), self);
+	
+	g_signal_connect(self->priv->hscale_context, "value-changed", G_CALLBACK(on_context_value_changed), self);
 }
 
 static void
@@ -694,6 +710,9 @@ gitg_commit_view_get_property(GObject *object, guint prop_id, GValue *value, GPa
 		case PROP_REPOSITORY:
 			g_value_set_object(value, self->priv->repository);
 		break;
+		case PROP_CONTEXT_SIZE:
+			g_value_set_int(value, self->priv->context_size);
+		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 		break;
@@ -709,6 +728,9 @@ gitg_commit_view_set_property(GObject *object, guint prop_id, const GValue *valu
 	{
 		case PROP_REPOSITORY:
 			self->priv->repository = g_value_dup_object(value);
+		break;
+		case PROP_CONTEXT_SIZE:
+			self->priv->context_size = g_value_get_int(value);
 		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -763,6 +785,15 @@ gitg_commit_view_class_init(GitgCommitViewClass *klass)
 							      "Repository",
 							      GITG_TYPE_REPOSITORY,
 							      G_PARAM_READWRITE));
+
+	g_object_class_install_property(object_class, PROP_CONTEXT_SIZE,
+					 g_param_spec_int("context-size",
+							      "CONTEXT_SIZE",
+							      "Diff context size",
+							      1,
+							      G_MAXINT,
+							      3,
+							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
 	g_type_class_add_private(object_class, sizeof(GitgCommitViewPrivate));
 }
@@ -1044,4 +1075,15 @@ on_commit_clicked(GtkButton *button, GitgCommitView *view)
 	}
 	
 	g_free(comment);
+}
+
+static void 
+on_context_value_changed(GtkHScale *scale, GitgCommitView *view)
+{
+	view->priv->context_size = (gint)gtk_range_get_value(GTK_RANGE(scale));
+	
+	if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
+		unstaged_selection_changed(gtk_tree_view_get_selection(view->priv->tree_view_unstaged), view);
+	else if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_CACHED)
+		staged_selection_changed(gtk_tree_view_get_selection(view->priv->tree_view_staged), view);
 }
