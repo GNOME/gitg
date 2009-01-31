@@ -147,7 +147,16 @@ gitg_revision_get_parents(GitgRevision *revision)
 GSList *
 gitg_revision_get_lanes(GitgRevision *revision)
 {
-	return g_slist_copy(revision->lanes);
+	return revision->lanes;
+}
+
+GSList *
+gitg_revision_remove_lane(GitgRevision *revision, GitgLane *lane)
+{
+	revision->lanes = g_slist_remove(revision->lanes, lane);
+	gitg_lane_free(lane);
+	
+	return revision->lanes;
 }
 
 static void
@@ -172,7 +181,7 @@ gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes, gint8 mylane)
 	free_lanes(revision);
 	revision->lanes = lanes;
 	
-	if (mylane > 0)
+	if (mylane >= 0)
 		revision->mylane = mylane;
 
 	update_lane_type(revision);

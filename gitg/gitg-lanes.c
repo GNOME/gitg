@@ -3,26 +3,27 @@
 
 #define GITG_LANES_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_LANES, GitgLanesPrivate))
 
-//#define MAX_INACTIVE 6
+#define INACTIVE_MAX 15
+#define INACTIVE_COLLAPSE 5
 
 typedef struct
 {
 	GitgLane *lane;
-	//gint8 inactive;
+	guint8 inactive;
 	gchar const *hash;
 } LaneContainer;
 
-/*typedef struct 
+typedef struct 
 {
 	GitgColor *color;
 	gint8 index;
-} InactiveLane;*/
+} InactiveLane;
 
 struct _GitgLanesPrivate
 {
 	/* list of last N GitgRevisions used to backtrack in case of lane 
 	   collapse/reactivation */
-	//GSList *previous;
+	GSList *previous;
 	
 	/* list of LaneContainer resembling the current lanes state for the 
 	   next revision */
@@ -30,7 +31,7 @@ struct _GitgLanesPrivate
 	
 	/* hash table of rev hash -> InactiveLane where rev hash is the hash
 	   to be expected on the lane */
-	//GHashTable *inactive;
+	GHashTable *inactive;
 };
 
 G_DEFINE_TYPE(GitgLanes, gitg_lanes, G_TYPE_OBJECT)
@@ -39,15 +40,15 @@ static void
 lane_container_free(LaneContainer *container)
 {
 	gitg_lane_free(container->lane);
-	g_free(container);
+	g_slice_free(LaneContainer, container);
 }
 
-/*static void
-inactive_container_free(InactiveContainer *container)
+static void
+inactive_lane_free(InactiveLane *lane)
 {
-	gitg_color_unref(container->color);
-	g_free(container);
-}*/
+	gitg_color_unref(lane->color);
+	g_slice_free(InactiveLane, lane);
+}
 
 static void
 free_lanes(GitgLanes *lanes)
@@ -110,7 +111,7 @@ static void
 gitg_lanes_init(GitgLanes *self)
 {
 	self->priv = GITG_LANES_GET_PRIVATE(self);
-	//self->priv->inactive = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, (GDestroyNotify)inactive_container_free);
+	self->priv->inactive = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, (GDestroyNotify)inactive_lane_free);
 }
 
 GitgLanes *
@@ -122,10 +123,10 @@ gitg_lanes_new()
 static LaneContainer *
 lane_container_new(gchar const *hash)
 {
-	LaneContainer *ret = g_new(LaneContainer, 1);
+	LaneContainer *ret = g_slice_new(LaneContainer);
 	ret->hash = hash;
 	ret->lane = gitg_lane_new();
-	//ret->inactive = 0;
+	ret->inactive = 0;
 
 	return ret;
 }
@@ -148,14 +149,14 @@ gitg_lanes_reset(GitgLanes *lanes)
 	free_lanes(lanes);
 	gitg_color_reset();
 	
-	//g_slist_foreach(lanes->priv->previous, (GFunc)g_object_unref);
-	//g_slist_free(lanes->priv->previous);
-	//lanes->priv->previous = NULL;
+	g_slist_foreach(lanes->priv->previous, (GFunc)gitg_revision_unref, NULL);
+	g_slist_free(lanes->priv->previous);
+	lanes->priv->previous = NULL;
 	
-	//g_hash_table_destroy(self->priv->inactive);
+	g_hash_table_remove_all(lanes->priv->inactive);
 }
 
-static void
+static gboolean
 lane_container_next(LaneContainer *container, gint index)
 {
 	GitgLane *lane = gitg_lane_copy(container->lane);
@@ -167,36 +168,134 @@ lane_container_next(LaneContainer *container, gint index)
 	container->lane = lane;
 	container->lane->from = g_slist_prepend(NULL, GINT_TO_POINTER((gint)(index)));
 	
-	//if (container->inactive < MAX_INACTIVE)
-	//	++container->inactive;
+	++container->inactive;
 }
 
 static void
-init_next_layer(GitgLanes *lanes)
+update_lane_merge_indices(GSList *from, gint8 index)
 {
 	GSList *item;
-	gint8 index = 0;
 	
-	// Initialize new set of lanes based on 'lanes'. It copies the lane (refs
-	// the color) and adds the lane index as a merge (so it basicly represents
-	// a passthrough)
-	for (item = lanes->priv->lanes; item; item = item->next)
-		lane_container_next((LaneContainer *)(item->data), index++);
+	for (item = from; item; item = g_slist_next(item))
+	{
+		gint8 idx = GPOINTER_TO_INT(item->data);
+		
+		if (idx >= index)
+		{
+			item->data = GINT_TO_POINTER(idx - 1);
+			g_message("Decreasing for %d", idx);
+		}
+	}
 }
 
 static void
-prepare_lanes(GitgLanes *lanes, GitgRevision *next, gint8 pos)
+update_merge_indices(GSList *lanes, gint8 index)
+{
+	GSList *item;
+	
+	for (item = lanes; item; item = g_slist_next(item))
+	{
+		GitgLane *lane = (GitgLane *)item->data;
+		
+		g_message("Updating for lane: %d", g_slist_index(lanes, lane));
+		update_lane_merge_indices(lane->from, index);
+	}
+}
+
+static void
+collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
+{
+	/* backtrack for INACTIVE_COLLAPSE revisions and remove this container from
+	   those revisions, appropriately updating merge indices etc */
+	GSList *item;
+
+	for (item = lanes->priv->previous; item; item = g_slist_next(item))
+	{
+		GitgRevision *revision = GITG_REVISION(item->data);
+		GSList *lns = gitg_revision_get_lanes(revision);
+		gint8 newindex = index;
+		
+		g_message("Collapsing: %s (%d)", gitg_revision_get_subject(revision), index);
+		
+		/* remove lane at 'index' and update merge indices for the lanes
+		   after 'index' in the list */
+		if (item->next)
+		{
+			GSList *collapsed = g_slist_nth(lns, index);
+			GitgLane *lane = (GitgLane *)collapsed->data;
+
+			g_message("%u", (unsigned)lane->from);
+			gint8 newindex = GPOINTER_TO_INT(lane->from->data);
+
+			lns = gitg_revision_remove_lane(revision, lane);
+			update_merge_indices(lns, index);
+			
+			gint mylane = gitg_revision_get_mylane(revision);
+			g_message("Was: %d, %d", mylane, index);
+			
+			if (mylane >= index)
+				gitg_revision_set_mylane(revision, mylane - 1);
+	
+			g_message("Mylane: %d, %d", gitg_revision_get_mylane(revision), g_slist_length(lns));
+			index = newindex;
+		}
+		else
+		{
+			/* the last item we keep, and set the style of the lane to END */
+			GitgLane *lane = (GitgLane *)g_slist_nth_data(lns, index);
+			lane->type = GITG_LANE_TYPE_END;
+		}
+	}	
+}
+
+static gint8
+init_next_layer(GitgLanes *lanes)
+{
+	GSList *item = lanes->priv->lanes;
+	gint8 index = 0;
+	gint8 collapsed = 0;
+	
+	/* Initialize new set of lanes based on 'lanes'. It copies the lane (refs
+	   the color) and adds the lane index as a merge (so it basicly represents
+	   a passthrough) */
+	while (item)
+	{
+		LaneContainer *container = (LaneContainer *)item->data;
+		
+		if (container->inactive == INACTIVE_MAX)
+		{
+			g_message("Collapsing: %s", gitg_utils_hash_to_sha1_new(container->hash));
+			collapse_lane(lanes, container, index);
+			
+			GSList *next = g_slist_next(item);
+			lane_container_free(container);
+
+			lanes->priv->lanes = g_slist_remove_link(lanes->priv->lanes, item);
+			item = next;
+			
+			++collapsed;
+		}
+		else
+		{
+			lane_container_next(container, index++);
+			item = g_slist_next(item);
+		}
+	}
+	
+	return collapsed;
+}
+
+static void
+prepare_lanes(GitgLanes *lanes, GitgRevision *next, gint8 *pos)
 {
 	LaneContainer *mylane;
 	guint num;
 	Hash *parents = gitg_revision_get_parents_hash(next, &num);
 	guint i;
 	
-	/* prepare the next layer */
-	init_next_layer(lanes);	
-	mylane = (LaneContainer *)g_slist_nth_data(lanes->priv->lanes, pos);
+	mylane = (LaneContainer *)g_slist_nth_data(lanes->priv->lanes, *pos);
 	
-	// Iterate over all parents and find them a lane
+	/* Iterate over all parents and find them a lane */
 	for (i = 0; i < num; ++i)
 	{
 		gint8 lnpos;
@@ -204,22 +303,22 @@ prepare_lanes(GitgLanes *lanes, GitgRevision *next, gint8 pos)
 		
 		if (container)
 		{
-			// There already is a lane for this parent. This means that we add
-			// mypos as a merge for the lane, also this means the color of 
-			// this lane incluis the merge should change to one color
-			container->lane->from = g_slist_append(container->lane->from, GINT_TO_POINTER((gint)pos));
+			/* There already is a lane for this parent. This means that we add
+			   mypos as a merge for the lane, also this means the color of 
+			   this lane incluis the merge should change to one color */
+			container->lane->from = g_slist_append(container->lane->from, GINT_TO_POINTER((gint)*pos));
 			gitg_color_next_index(container->lane->color);
 			
 			continue;
 		} 
 		else if (mylane && mylane->hash == NULL)
 		{
-			// There is no parent yet which can proceed on the current
-			// revision lane, so set it now
+			/* There is no parent yet which can proceed on the current
+			   revision lane, so set it now */
 			mylane->hash = (gchar const *)parents[i];
 	
-			// If there is more than one parent, then also change the color 
-			// since this revision is a merge
+			/* If there is more than one parent, then also change the color 
+			   since this revision is a merge */
 			if (num > 1)
 			{
 				gitg_color_unref(mylane->lane->color);
@@ -234,21 +333,27 @@ prepare_lanes(GitgLanes *lanes, GitgRevision *next, gint8 pos)
 		}
 		else
 		{
-			// Generate a new lane for this parent
+			/* Generate a new lane for this parent */
 			LaneContainer *newlane = lane_container_new(parents[i]);
-			newlane->lane->from = g_slist_prepend(NULL, GINT_TO_POINTER((gint)pos));
+			newlane->lane->from = g_slist_prepend(NULL, GINT_TO_POINTER((gint)*pos));
 			lanes->priv->lanes = g_slist_append(lanes->priv->lanes, newlane);
 		}
 	}
 	
-	// Remove the current lane if it is no longer needed
+	/* Remove the current lane if it is no longer needed */
 	if (mylane && mylane->hash == NULL)
 		lanes->priv->lanes = g_slist_remove(lanes->priv->lanes, mylane);
 
-	//while (g_slist_length(lanes->priv->previous) >= MAX_INACTIVE)
-	//	lanes->priv->previous = g_slist_remove(lanes->priv->previous, g_slist_last(lanes->priv->previous)->data);
+	/* Store new revision in our track list */
+	if (g_slist_length(lanes->priv->previous) == INACTIVE_COLLAPSE + 1)
+	{
+		GSList *last = g_slist_last(lanes->priv->previous);
+		gitg_revision_unref(GITG_REVISION(last->data));
+		
+		lanes->priv->previous = g_slist_remove_link(lanes->priv->previous, last);
+	}
 
-	//lanes->priv->previous = g_slist_prepend(lanes->priv->previous, next);
+	lanes->priv->previous = g_slist_prepend(lanes->priv->previous, gitg_revision_ref(next));
 }
 
 GSList *
@@ -272,10 +377,15 @@ gitg_lanes_next(GitgLanes *lanes, GitgRevision *next, gint8 *nextpos)
 
 		mylane->lane->color = nc;
 		mylane->hash = NULL;
+		mylane->inactive = 0;
 	}
+		
+	/* prepare the next layer, this also collapses lanes that have become 
+	   inactive */
+	init_next_layer(lanes);
 	
 	res = lanes_list(lanes);
-	prepare_lanes(lanes, next, *nextpos);
+	prepare_lanes(lanes, next, nextpos);
 
 	return res;
 }
