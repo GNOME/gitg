@@ -381,8 +381,6 @@ update_index_end(GitgRunner *runner, GitgCommit *commit)
 static void
 update_index(GitgCommit *commit)
 {
-	static gchar const *argv[] = {"git", "--git-dir", NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", NULL};
-	
 	runner_connect(commit, NULL, G_CALLBACK(update_index_end));
 	gitg_repository_run_commandv(commit->priv->repository, commit->priv->runner, NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", NULL);
 }
