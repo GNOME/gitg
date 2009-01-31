@@ -656,13 +656,14 @@ try_scan(GitgDiffView *view)
 	g_snprintf(str, sizeof(str), "%u", view->priv->max_line_count);
 	guint max_line = strlen(str);
 
+	guint last = view->priv->last_scan_line;
 	ensure_scan(view, view->priv->last_scan_line + num);
 	g_snprintf(str, sizeof(str), "%u", view->priv->max_line_count);
 	
 	if (strlen(str) > max_line)
 		gtk_widget_queue_draw(GTK_WIDGET(view));
 	
-	return TRUE;
+	return last != view->priv->last_scan_line;
 }
 
 static void
