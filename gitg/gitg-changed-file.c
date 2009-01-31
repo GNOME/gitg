@@ -236,6 +236,9 @@ gitg_changed_file_set_changes(GitgChangedFile *file, GitgChangedFileChanges chan
 {
 	g_return_if_fail(GITG_IS_CHANGED_FILE(file));
 	
+	if (changes == file->priv->changes)
+		return;
+
 	file->priv->changes = changes;
 	g_object_notify(G_OBJECT(file), "changes");
 }
