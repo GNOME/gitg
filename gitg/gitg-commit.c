@@ -459,6 +459,17 @@ update_index_unstaged(GitgCommit *commit, GitgChangedFile *file)
 		g_strfreev(ret);
 }
 
+static void
+refresh_changes(GitgCommit *commit, GitgChangedFile *file)
+{
+	/* update the index */
+	gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", NULL);
+
+	/* Determine if it still has staged/unstaged changes */
+	update_index_staged(commit, file);
+	update_index_unstaged(commit, file);
+}
+
 gboolean
 apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolean reverse, GError **error)
 {
@@ -470,14 +481,7 @@ apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolea
 	gboolean ret = gitg_repository_command_with_inputv(commit->priv->repository, hunk, error, "apply", "--cached", reverse ? "--reverse" : NULL, NULL);
 	
 	if (ret)
-	{
-		/* update the index */
-		gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", NULL);
-
-		/* Determine if it still has staged/unstaged changes */
-		update_index_staged(commit, file);
-		update_index_unstaged(commit, file);
-	}
+		refresh_changes(commit, file);
 	
 	return ret;
 }
@@ -497,7 +501,7 @@ gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, 
 	g_free(path);
 	
 	if (ret)
-		update_index_staged(commit, file);
+		refresh_changes(commit, file);
 	else
 		g_error("Update index for stage failed");
 
@@ -520,7 +524,7 @@ gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk
 	g_free(input);
 	
 	if (ret)
-		update_index_unstaged(commit, file);
+		refresh_changes(commit, file);
 	else
 		g_error("Update index for unstage failed");
 	
