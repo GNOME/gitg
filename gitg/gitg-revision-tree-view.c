@@ -152,6 +152,15 @@ on_row_expanded(GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreePath *path, Gi
 }
 
 static void
+show_binary_information(GitgRevisionTreeView *tree)
+{
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(tree->priv->contents));
+	
+	gtk_text_buffer_set_text(buffer, _("Cannot display file content as text"), -1);
+	gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(buffer), NULL);
+}
+
+static void
 on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 {
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(tree->priv->contents));
@@ -186,32 +195,19 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 	if (!content_type)
 		return;
 	
-	if (!g_content_type_is_a(content_type, "text/plain") && !g_content_type_equals(content_type, "application/octet-stream"))
+	if (!gitg_utils_can_display_content_type(content_type))
 	{
-		gtk_text_buffer_set_text(buffer, _("Cannot display file content as text"), -1);
+		show_binary_information(tree);
 	}
 	else
 	{
 		GtkSourceLanguage *language = gitg_utils_get_language(content_type);
 		gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(buffer), language);
-		g_object_unref(language);
 		
-		gchar *gitdir = gitg_utils_dot_git_path(gitg_repository_get_path(tree->priv->repository));
 		gchar *id = node_identity(tree, &iter);
-		
-		gchar const *argv[] = {
-			"git",
-			"--git-dir",
-			gitdir,
-			"show",
-			id,
-			NULL
-		};
-		
-		gitg_runner_run(tree->priv->content_runner, argv, NULL);
+		gitg_repository_run_commandv(tree->priv->repository, tree->priv->content_runner, NULL, "show", id, NULL);
 		
 		g_free(id);
-		g_free(gitdir);
 	}
 	
 	g_free(content_type);
@@ -603,6 +599,24 @@ on_contents_update(GitgRunner *runner, gchar **buffer, GitgRevisionTreeView *tre
 		gtk_text_buffer_insert(buf, &iter, line, -1);
 		gtk_text_buffer_insert(buf, &iter, "\n", -1);
 	}
+	
+	if (gtk_source_buffer_get_language(GTK_SOURCE_BUFFER(buf)) == NULL)
+	{
+		gchar *content_type = gitg_utils_guess_content_type(buf);
+		
+		if (content_type && !gitg_utils_can_display_content_type(content_type))
+		{
+			gitg_runner_cancel(runner);
+			show_binary_information(tree);
+		}
+		else
+		{
+			GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+			gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(buf), language);
+		}
+		
+		g_free(content_type);
+	}
 }
 
 static void
@@ -645,25 +659,14 @@ load_node(GitgRevisionTreeView *tree, GtkTreeIter *parent)
 	if (tree->priv->load_path)
 		gtk_tree_path_free(tree->priv->load_path);
 	
-	gchar *gitdir = gitg_utils_dot_git_path(gitg_repository_get_path(tree->priv->repository));
 	gchar *id = node_identity(tree, parent);
-	gchar const *argv[] = {
-		"git",
-		"--git-dir",
-		gitdir,
-		"show",
-		id,
-		NULL
-	};
 
 	if (parent)
 		tree->priv->load_path = gtk_tree_model_get_path(GTK_TREE_MODEL(tree->priv->store), parent);	
 	else
 		tree->priv->load_path = NULL;
 
-	gitg_runner_run(tree->priv->loader, argv, NULL);
-
-	g_free(gitdir);
+	gitg_repository_run_commandv(tree->priv->repository, tree->priv->loader, NULL, "show", id, NULL);
 	g_free(id);
 }
 
