@@ -79,7 +79,6 @@
       <menubar name="menubar_main">
         <menu action="FileAction">
           <menuitem action="FileOpenAction"/>
-          <separator/>
           <menuitem action="FileQuitAction"/>
         </menu>
         <menu action="EditAction">
@@ -395,9 +394,12 @@
                                 <property name="vscrollbar_policy">automatic</property>
                                 <property name="shadow_type">etched-in</property>
                                 <child>
-                                  <object class="GtkSourceView" id="revision_diff">
+                                  <object class="GitgDiffView" id="revision_diff">
                                   	<property name="tab-width">4</property>
                                   	<property name="editable">False</property>
+                                  	<property name="cursor-visible">False</property>
+                                  	<property name="diff-enabled">True</property>
+                                  	<property name="show-line-numbers">True</property>
                                   </object>
                                 </child>
                               </object>
@@ -665,10 +667,11 @@
                             <property name="vscrollbar_policy">automatic</property>
                             <property name="shadow_type">etched-in</property>
                             <child>
-                              <object class="GtkSourceView" id="source_view_changes">
+                              <object class="GitgDiffView" id="source_view_changes">
                                 <property name="tab-width">4</property>
                                 <property name="editable">False</property>
                                 <property name="cursor-visible">False</property>
+                                <property name="show-line-numbers">True</property>
                               </object>
                             </child>
                           </object>

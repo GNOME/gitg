@@ -7,6 +7,7 @@
 #include "gitg-commit-view.h"
 #include "gitg-commit.h"
 #include "gitg-utils.h"
+#include "gitg-diff-view.h"
 
 #define GITG_COMMIT_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_COMMIT_VIEW, GitgCommitViewPrivate))
 #define CATEGORY_UNSTAGE_HUNK "CategoryUnstageHunk"
@@ -124,6 +125,7 @@ set_language(GitgCommitView *view, GtkSourceLanguage *language)
 	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view)));
 	
 	gtk_source_buffer_set_language(buffer, language);
+	gitg_diff_view_set_diff_enabled(GITG_DIFF_VIEW(view->priv->changes_view), FALSE);
 }
 
 static void
@@ -133,6 +135,7 @@ set_diff_language(GitgCommitView *view)
 	GtkSourceLanguage *language = gtk_source_language_manager_get_language(manager, "gitgdiff");
 
 	set_language(view, language);
+	gitg_diff_view_set_diff_enabled(GITG_DIFF_VIEW(view->priv->changes_view), TRUE);
 }
 
 static void
@@ -606,8 +609,6 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	{
 		gtk_source_view_set_mark_category_pixbuf(self->priv->changes_view, CATEGORY_STAGE_HUNK, pixbuf);
 		g_object_unref(pixbuf);
-		
-		gtk_source_view_set_show_line_marks(self->priv->changes_view, TRUE);
 	}
 	
 	pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_REMOVE, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
@@ -616,8 +617,6 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	{
 		gtk_source_view_set_mark_category_pixbuf(self->priv->changes_view, CATEGORY_UNSTAGE_HUNK, pixbuf);
 		g_object_unref(pixbuf);
-		
-		gtk_source_view_set_show_line_marks(self->priv->changes_view, TRUE);
 	}
 	
 	PangoFontDescription *fd = pango_font_description_from_string("Monospace 10");

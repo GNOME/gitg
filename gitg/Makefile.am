@@ -19,24 +19,25 @@ BUILT_SOURCES = 				\
 gitg_SOURCES = 					\
 	$(BUILT_SOURCES)			\
 	gitg.c						\
-	gitg-debug.c				\
-	gitg-window.c				\
-	gitg-ref.c					\
-	gitg-revision.c				\
-	gitg-revision-tree-view.c	\
-	gitg-revision-tree-store.c	\
-	gitg-repository.c			\
 	gitg-cell-renderer-path.c	\
-	gitg-label-renderer.c		\
-	gitg-runner.c				\
-	gitg-revision-view.c		\
-	gitg-utils.c				\
-	gitg-lane.c					\
-	gitg-lanes.c				\
-	gitg-color.c				\
 	gitg-changed-file.c			\
+	gitg-color.c				\
 	gitg-commit.c				\
 	gitg-commit-view.c			\
+	gitg-debug.c				\
+	gitg-diff-view.c			\
+	gitg-label-renderer.c		\
+	gitg-lane.c					\
+	gitg-lanes.c				\
+	gitg-ref.c					\
+	gitg-repository.c			\
+	gitg-revision.c				\
+	gitg-revision-tree-store.c	\
+	gitg-revision-tree-view.c	\
+	gitg-revision-view.c		\
+	gitg-runner.c				\
+	gitg-utils.c				\
+	gitg-window.c				\
 	sexy-icon-entry.c
 
 ENUM_H_FILES =					\
