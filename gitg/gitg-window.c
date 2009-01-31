@@ -35,6 +35,7 @@ struct _GitgWindowPrivate
 	
 	GtkActionGroup *edit_group;
 	GtkWidget *open_dialog;
+	gchar *current_branch;
 };
 
 static void gitg_window_buildable_iface_init(GtkBuildableIface *iface);
@@ -48,7 +49,9 @@ static GtkWindowClass *parent_class = NULL;
 static void
 gitg_window_finalize(GObject *object)
 {
-	//GitgWindow *self = GITG_WINDOW(object);
+	GitgWindow *self = GITG_WINDOW(object);
+	
+	g_free(self->priv->current_branch);
 	
 	G_OBJECT_CLASS(gitg_window_parent_class)->finalize(object);
 }
@@ -451,8 +454,22 @@ sort_by_ref_type(GitgRef const *a, GitgRef const *b)
 }
 
 static void
-clear_branches_combo(GitgWindow *window)
+clear_branches_combo(GitgWindow *window, gboolean keepselection)
 {
+	if (keepselection)
+	{
+		GtkTreeIter iter;
+		gtk_combo_box_get_active_iter(GTK_COMBO_BOX(window->priv->combo_branches), &iter);
+		
+		g_free(window->priv->current_branch);
+		gtk_tree_model_get(GTK_TREE_MODEL(window->priv->branches_store), &iter, 0, &window->priv->current_branch, -1);
+	}
+	else
+	{
+		g_free(window->priv->current_branch);
+		window->priv->current_branch = NULL;
+	}
+		
 	GtkTreeIter iter;	
 	if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(window->priv->branches_store), &iter, NULL, 1))
 	{
@@ -500,7 +517,13 @@ fill_branches_combo(GitgWindow *window)
 
 		gtk_list_store_append(window->priv->branches_store, &iter);
 		gtk_list_store_set(window->priv->branches_store, &iter, 0, ref->shortname, -1);
+		
+		if (g_strcmp0(window->priv->current_branch, ref->shortname) == 0)
+			gtk_combo_box_set_active_iter(window->priv->combo_branches, &iter);
 	}
+	
+	if (!window->priv->current_branch)
+		gtk_combo_box_set_active(window->priv->combo_branches, 0);
 	
 	g_slist_foreach(refs, (GFunc)gitg_ref_free, NULL);
 	g_slist_free(refs);
@@ -551,7 +574,7 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		}
 
 		g_signal_connect(window->priv->repository, "load", G_CALLBACK(on_repository_load), window);
-		clear_branches_combo(window);
+		clear_branches_combo(window, FALSE);
 		gitg_repository_load(window->priv->repository, argc, ar, NULL);
 		
 		if (!haspath && argc)
@@ -561,7 +584,7 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 	}
 	else
 	{
-		clear_branches_combo(window);
+		clear_branches_combo(window, FALSE);
 		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
 
 		handle_no_gitdir(window);
@@ -665,7 +688,7 @@ on_view_refresh(GtkAction *action, GitgWindow *window)
 {
 	if (window->priv->repository && gitg_repository_get_path(window->priv->repository) != NULL)
 	{
-		clear_branches_combo(window);
+		clear_branches_combo(window, TRUE);
 		gitg_repository_reload(window->priv->repository);
 	}
 }
