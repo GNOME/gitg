@@ -403,11 +403,11 @@ static gboolean
 has_hunk_mark(GtkSourceBuffer *buffer, GtkTextIter *iter)
 {
 	GSList *m1 = gtk_source_buffer_get_source_marks_at_iter(buffer, iter, CATEGORY_UNSTAGE_HUNK);
-	gboolean has_mark = m1 != NULL;
+	gboolean has_mark = (m1 != NULL);
 	g_slist_free(m1);
 	
 	if (has_mark)
-		return;
+		return TRUE;
 	
 	m1 = gtk_source_buffer_get_source_marks_at_iter(buffer, iter, CATEGORY_STAGE_HUNK);
 	has_mark = (m1 != NULL);
