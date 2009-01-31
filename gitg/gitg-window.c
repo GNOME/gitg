@@ -260,7 +260,6 @@ on_branches_combo_changed(GtkComboBox *combo, GitgWindow *window)
 	gtk_tree_model_get(gtk_combo_box_get_model(combo), &iter, 0, &name, -1);
 	
 	gitg_repository_load(window->priv->repository, 1, (gchar const **)&name, NULL);
-	
 	g_free(name);
 }
 
@@ -452,7 +451,7 @@ sort_by_ref_type(GitgRef const *a, GitgRef const *b)
 }
 
 static void
-fill_branches_combo(GitgWindow *window)
+clear_branches_combo(GitgWindow *window)
 {
 	GtkTreeIter iter;	
 	if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(window->priv->branches_store), &iter, NULL, 1))
@@ -460,10 +459,19 @@ fill_branches_combo(GitgWindow *window)
 		while (gtk_list_store_remove(window->priv->branches_store, &iter))
 		;
 	}
-	
+
 	gtk_combo_box_set_active(window->priv->combo_branches, 0);
-	
+}
+
+static void
+fill_branches_combo(GitgWindow *window)
+{
 	if (!window->priv->repository)
+		return;
+
+	guint children = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(window->priv->branches_store), NULL);
+	
+	if (children > 1)
 		return;
 
 	GSList *refs = gitg_repository_get_refs(window->priv->repository);
@@ -543,6 +551,7 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		}
 
 		g_signal_connect(window->priv->repository, "load", G_CALLBACK(on_repository_load), window);
+		clear_branches_combo(window);
 		gitg_repository_load(window->priv->repository, argc, ar, NULL);
 		
 		if (!haspath && argc)
@@ -552,7 +561,7 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 	}
 	else
 	{
-		fill_branches_combo(window);
+		clear_branches_combo(window);
 		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
 
 		handle_no_gitdir(window);
