@@ -131,8 +131,6 @@ set_language(GitgCommitView *view, GtkSourceLanguage *language)
 	
 	gtk_source_buffer_set_language(buffer, language);
 	gitg_diff_view_set_diff_enabled(GITG_DIFF_VIEW(view->priv->changes_view), FALSE);
-	
-	gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
 }
 
 static void
@@ -150,6 +148,8 @@ static void
 show_binary_information(GitgCommitView *view)
 {
 	set_language(view, NULL);
+	gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
+
 	gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view)), _("Cannot display file content as text"), -1);
 }
 
@@ -191,6 +191,7 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 		{
 			GtkSourceLanguage *language = gitg_utils_get_language(content_type);
 			set_language(view, language);
+			gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
 		}
 		
 		g_free(content_type);
@@ -295,6 +296,7 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 			{
 				GtkSourceLanguage *language = gitg_utils_get_language(content_type);
 				set_language(view, language);
+				gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
 				
 				view->priv->is_diff = FALSE;
 				connect_update(view);
@@ -357,6 +359,8 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		else
 		{
 			set_language(view, gitg_utils_get_language(content_type));
+			gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
+
 			connect_update(view);
 
 			gchar *indexpath = g_strconcat(":0:", path, NULL);
