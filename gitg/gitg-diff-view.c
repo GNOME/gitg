@@ -624,6 +624,46 @@ gitg_diff_view_set_diff_enabled(GitgDiffView *view, gboolean enabled)
 	g_object_notify(G_OBJECT(view), "diff-enabled");
 }
 
+void
+gitg_diff_view_remove_hunk(GitgDiffView *view, GtkTextIter *iter)
+{
+	g_return_if_fail(GITG_IS_DIFF_VIEW(view));
+	
+	/* removes hunk at iter and if it was the last hunk of a file, also removes
+	   the file header */
+	Region *region = find_current_region(view, gtk_text_iter_get_line(iter));
+	
+	if (!region)
+		return;
+	
+	GtkTextIter start;
+	GtkTextIter end;
+	
+	gtk_text_buffer_get_iter_at_line(view->priv->current_buffer, &start, region->line);
+	
+	if (region->next)
+	{
+		gtk_text_buffer_get_iter_at_line(view->priv->current_buffer, &end, region->next->line - 1);
+		gtk_text_iter_forward_line(&end);
+	}
+	else
+	{
+		gtk_text_buffer_get_end_iter(view->priv->current_buffer, &end);
+	}
+	
+	Region *prev = find_current_region(view, region->line - 1);
+	
+	if ((!region->next || region->next->type == REGION_TYPE_HEADER) && (!prev || prev->type == REGION_TYPE_HEADER))
+	{
+		if (!prev)
+			gtk_text_buffer_get_start_iter(view->priv->current_buffer, &start);
+		else
+			gtk_text_buffer_get_iter_at_line(view->priv->current_buffer, &start, region->line);
+	}
+	
+	gtk_text_buffer_delete(view->priv->current_buffer, &start, &end);
+}
+
 static gboolean 
 iter_in_view(GitgDiffView *view, GtkTextIter *iter)
 {
