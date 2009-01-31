@@ -325,17 +325,17 @@ parse_hunk_info(Hunk *hunk, GtkTextIter *iter)
 	gtk_text_iter_forward_to_line_end(&end);
 	gchar *text = gtk_text_iter_get_text(iter, &end);
 	
-	gchar *next = g_utf8_strchr(text, -1, '-');
-	gchar *comma = g_utf8_strchr(next, -1, ',');
-	*comma = '\0';
-
-	hunk->old = atoi(next + 1);
+	hunk->old = 0;
+	hunk->new = 0;
 	
-	next = g_utf8_strchr(comma + 1, -1, '+');
-	comma = g_utf8_strchr(next, -1, ',');
-	*comma = '\0';
+	gchar *old = g_utf8_strchr(text, -1, '-');
+	gchar *new = g_utf8_strchr(text, -1, '+');
 
-	hunk->new = atoi(next + 1);
+	if (!old || !new)
+		return;
+	
+	hunk->old = atoi(old + 1);
+	hunk->new = atoi(new + 1);
 
 	g_free(text);
 }
