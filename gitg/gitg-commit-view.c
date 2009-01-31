@@ -131,6 +131,8 @@ set_language(GitgCommitView *view, GtkSourceLanguage *language)
 	
 	gtk_source_buffer_set_language(buffer, language);
 	gitg_diff_view_set_diff_enabled(GITG_DIFF_VIEW(view->priv->changes_view), FALSE);
+	
+	gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
 }
 
 static void
@@ -141,6 +143,7 @@ set_diff_language(GitgCommitView *view)
 
 	set_language(view, language);
 	gitg_diff_view_set_diff_enabled(GITG_DIFF_VIEW(view->priv->changes_view), TRUE);
+	gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), TRUE);
 }
 
 static void
@@ -242,6 +245,7 @@ check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *
 	if (!gtk_tree_selection_get_selected(selection, model, iter))
 	{
 		set_current_file(view, NULL, GITG_CHANGED_FILE_CHANGES_NONE);
+		gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
 		return FALSE;
 	}
 	
