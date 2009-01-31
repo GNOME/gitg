@@ -29,6 +29,7 @@
   <color name="butter1"                     value="#fce94f"/>
   <color name="butter2"                     value="#edd400"/>
   <color name="butter3"                     value="#c4a000"/>
+  <color name="chameleon0"                  value="#d4ffab"/>
   <color name="chameleon1"                  value="#8ae234"/>
   <color name="chameleon2"                  value="#73d216"/>
   <color name="chameleon3"                  value="#4e9a06"/>
@@ -44,6 +45,7 @@
   <color name="chocolate1"                  value="#e9b96e"/>
   <color name="chocolate2"                  value="#c17d11"/>
   <color name="chocolate3"                  value="#8f5902"/>
+  <color name="scarletred0"                 value="#ffd8d8"/>
   <color name="scarletred1"                 value="#ef2929"/>
   <color name="scarletred2"                 value="#cc0000"/>
   <color name="scarletred3"                 value="#a40000"/>
@@ -65,6 +67,8 @@
 
   <!-- Right Margin -->
   <style name="right-margin"                foreground="aluminium5" background="aluminium4"/>
+  <style name="line-numbers"                foreground="aluminium4" background="aluminium1"/>
+
   
   <!-- Search Matching -->
   <style name="search-match"                background="butter1"/>  
@@ -94,8 +98,8 @@
   <style name="def:underlined"              italic="true" underline="true"/>
 
   <!-- Language specific -->
-  <style name="diff:added-line"             foreground="chameleon3"/>
-  <style name="diff:removed-line"           foreground="scarletred1"/>
+  <style name="diff:added-line"             foreground="chameleon3" line-background="chameleon0"/>
+  <style name="diff:removed-line"           foreground="scarletred1" line-background="scarletred0"/>
   <style name="diff:changed-line"           use-style="def:preprocessor"/>
   <style name="diff:diff-file"              foreground="aluminium2" line-background="orange3"/>
   <style name="diff:location"               foreground="aluminium1" line-background="skyblue2"/>
