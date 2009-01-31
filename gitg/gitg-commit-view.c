@@ -168,16 +168,11 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 		gtk_text_buffer_insert(buf, &iter, "\n", -1);
 	}
 	
+	gitg_utils_guess_content_type(GTK_TEXT_BUFFER(buf));
+	
 	if (gtk_source_buffer_get_language(GTK_SOURCE_BUFFER(buf)) == NULL)
 	{
-		GtkTextIter start;
-		GtkTextIter end;
-		
-		gtk_text_buffer_get_bounds(buf, &start, &end);
-		gchar *data = gtk_text_buffer_get_text(buf, &start, &end, FALSE);
-
-		gchar *content_type = g_content_type_guess(NULL, data, strlen(data), NULL);
-		g_free(data);
+		gchar *content_type = gitg_utils_guess_content_type(GTK_TEXT_BUFFER(buf));
 		
 		if (content_type && !gitg_utils_can_display_content_type(content_type))
 		{
