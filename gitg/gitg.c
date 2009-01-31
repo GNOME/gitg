@@ -15,7 +15,7 @@ static gboolean commit_mode = FALSE;
 
 static GOptionEntry entries[] = 
 {
-	{ "commit", 0, 0, G_OPTION_ARG_NONE, &commit_mode, N_("Start gitg in commit mode") }, 
+	{ "commit", '-c', 0, G_OPTION_ARG_NONE, &commit_mode, N_("Start gitg in commit mode") }, 
 	{ NULL }
 };
 
