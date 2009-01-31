@@ -406,25 +406,6 @@ gitg_commit_refresh(GitgCommit *commit)
 		update_index(commit);
 }
 
-gboolean
-apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolean reverse, GError **error)
-{
-	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
-	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), FALSE);
-	
-	g_return_val_if_fail(hunk != NULL, FALSE);
-	
-	gboolean ret = gitg_repository_command_with_inputv(commit->priv->repository, hunk, error, "apply", "--cached", reverse ? "--reverse" : NULL, NULL);
-	
-	if (ret)
-	{
-		/* FIXME: for sure we can do better */
-		gitg_commit_refresh(commit);
-	}
-	
-	return ret;
-}
-
 static void
 update_index_staged(GitgCommit *commit, GitgChangedFile *file)
 {
@@ -437,19 +418,68 @@ update_index_staged(GitgCommit *commit, GitgChangedFile *file)
 	if (!ret)
 		return;
 	
-	gchar **parts = g_strsplit_set(*ret, " \t", 0);
+	gchar **parts = *ret ? g_strsplit_set(*ret, " \t", 0) : NULL;
 	g_strfreev(ret);
 	
-	if (!parts)
-		return;
-
-	if (g_strv_length(parts) > 2)
+	if (parts && g_strv_length(parts) > 2)
 	{
 		gitg_changed_file_set_mode(file, parts[0] + 1);
 		gitg_changed_file_set_sha(file, parts[2]);
+		
+		gitg_changed_file_set_changes(file, gitg_changed_file_get_changes(file) | GITG_CHANGED_FILE_CHANGES_CACHED);
+	}
+	else
+	{
+		gitg_changed_file_set_changes(file, gitg_changed_file_get_changes(file) & ~GITG_CHANGED_FILE_CHANGES_CACHED);
 	}
 	
-	g_strfreev(parts);
+	if (parts)
+		g_strfreev(parts);
+}
+
+static void
+update_index_unstaged(GitgCommit *commit, GitgChangedFile *file)
+{
+	GFile *f = gitg_changed_file_get_file(file);
+	gchar *path = gitg_repository_relative(commit->priv->repository, f);
+	gchar **ret = gitg_repository_command_with_outputv(commit->priv->repository, NULL, "diff-files", path, NULL);
+	g_free(path);
+	g_object_unref(f);
+	
+	if (ret && *ret)
+	{
+		gitg_changed_file_set_changes(file, gitg_changed_file_get_changes(file) | GITG_CHANGED_FILE_CHANGES_UNSTAGED);
+	}
+	else
+	{
+		gitg_changed_file_set_changes(file, gitg_changed_file_get_changes(file) & ~GITG_CHANGED_FILE_CHANGES_UNSTAGED);
+	}
+	
+	if (ret)
+		g_strfreev(ret);
+}
+
+gboolean
+apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolean reverse, GError **error)
+{
+	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
+	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), FALSE);
+	
+	g_return_val_if_fail(hunk != NULL, FALSE);
+	
+	gboolean ret = gitg_repository_command_with_inputv(commit->priv->repository, hunk, error, "apply", "--cached", reverse ? "--reverse" : NULL, NULL);
+	
+	if (ret)
+	{
+		/* update the index */
+		gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", NULL);
+
+		/* Determine if it still has staged/unstaged changes */
+		update_index_staged(commit, file);
+		update_index_unstaged(commit, file);
+	}
+	
+	return ret;
 }
 
 gboolean
@@ -466,10 +496,8 @@ gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, 
 	gboolean ret = gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "--add", "--remove", "--", path, NULL);
 	g_free(path);
 	
-	update_index_staged(commit, file);
-
 	if (ret)
-		gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_CACHED);
+		update_index_staged(commit, file);
 	else
 		g_error("Update index for stage failed");
 
@@ -490,9 +518,9 @@ gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk
 	gchar *input = g_strdup_printf("%s %s\t%s\n", gitg_changed_file_get_mode(file), gitg_changed_file_get_sha(file), path);
 	gboolean ret = gitg_repository_command_with_inputv(commit->priv->repository, input, error, "update-index", "--index-info", NULL);
 	g_free(input);
-
+	
 	if (ret)
-		gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
+		update_index_unstaged(commit, file);
 	else
 		g_error("Update index for unstage failed");
 	

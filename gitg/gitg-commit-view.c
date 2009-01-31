@@ -483,14 +483,14 @@ get_patch_contents(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter cons
 	return gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
 }
 
-static void
+static gboolean
 handle_stage_unstage(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter *iter)
 {
 	/* Get patch header */
-	gchar *header = get_patch_header(view, buffer, iter);	
+	gchar *header = get_patch_header(view, buffer, iter);
 	
 	if (!header)
-		return;
+		return FALSE;
 	
 	/* Get patch contents */
 	gchar *contents = get_patch_contents(view, buffer, iter);
@@ -498,20 +498,31 @@ handle_stage_unstage(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter *i
 	if (!contents)
 	{
 		g_free(header);
-		return;
+		return FALSE;
 	}
 	
 	gchar *hunk = g_strconcat(header, contents, NULL);
 	gboolean ret;
+	GitgChangedFile *file = g_object_ref(view->priv->current_file);
+	gboolean unstage = view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED;
 	
-	if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
-		gitg_commit_stage(view->priv->commit, view->priv->current_file, hunk, NULL);
+	if (unstage)
+		ret = gitg_commit_stage(view->priv->commit, view->priv->current_file, hunk, NULL);
 	else
-		gitg_commit_unstage(view->priv->commit, view->priv->current_file, hunk, NULL);
+		ret = gitg_commit_unstage(view->priv->commit, view->priv->current_file, hunk, NULL);
 	
+	if (ret && file == view->priv->current_file)
+	{
+		/* remove hunk from text view */
+		gitg_diff_view_remove_hunk(GITG_DIFF_VIEW(view->priv->changes_view), iter);
+	}
+	
+	g_object_unref(file);
 	g_free(hunk);
 	g_free(header);
 	g_free(contents);
+	
+	return ret;
 }
 
 static gboolean
@@ -558,6 +569,10 @@ view_event(GtkWidget *widget, GdkEventAny *event, GitgCommitView *view)
 	else if (has_mark)
 	{
 		handle_stage_unstage(view, GTK_TEXT_BUFFER(buffer), &iter);
+	}
+	else
+	{
+		g_message("No mark...");
 	}
 	
 	return FALSE;
