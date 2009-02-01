@@ -36,6 +36,8 @@ struct _GitgWindowPrivate
 	GtkActionGroup *edit_group;
 	GtkWidget *open_dialog;
 	gchar *current_branch;
+	
+	GTimer *load_timer;
 };
 
 static void gitg_window_buildable_iface_init(GtkBuildableIface *iface);
@@ -52,6 +54,7 @@ gitg_window_finalize(GObject *object)
 	GitgWindow *self = GITG_WINDOW(object);
 	
 	g_free(self->priv->current_branch);
+	g_timer_destroy(self->priv->load_timer);
 	
 	G_OBJECT_CLASS(gitg_window_parent_class)->finalize(object);
 }
@@ -350,6 +353,8 @@ static void
 gitg_window_init(GitgWindow *self)
 {
 	self->priv = GITG_WINDOW_GET_PRIVATE(self);
+	
+	self->priv->load_timer = g_timer_new();
 }
 
 static void
@@ -360,12 +365,15 @@ on_begin_loading(GitgRunner *loader, GitgWindow *window)
 	gdk_cursor_unref(cursor);
 
 	gtk_statusbar_push(window->priv->statusbar, 0, _("Begin loading repository"));
+	
+	g_timer_reset(window->priv->load_timer);
+	g_timer_start(window->priv->load_timer);
 }
 
 static void
 on_end_loading(GitgRunner *loader, GitgWindow *window)
 {
-	gchar *msg = g_strdup_printf(_("Loaded %d revisions"), gtk_tree_model_iter_n_children(GTK_TREE_MODEL(window->priv->repository), NULL));
+	gchar *msg = g_strdup_printf(_("Loaded %d revisions in %.2fs"), gtk_tree_model_iter_n_children(GTK_TREE_MODEL(window->priv->repository), NULL), g_timer_elapsed(window->priv->load_timer, NULL));
 
 	gtk_statusbar_push(window->priv->statusbar, 0, msg);
 	
