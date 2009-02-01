@@ -52,6 +52,8 @@ struct _GitgCommitViewPrivate
 	GdkCursor *hand;
 	GitgChangedFile *current_file;
 	GitgChangedFileChanges current_changes;
+	
+	GtkUIManager *ui_manager;
 };
 
 static void gitg_commit_view_buildable_iface_init(GtkBuildableIface *iface);
@@ -64,8 +66,14 @@ static GtkBuildableIface parent_iface;
 static void on_commit_file_inserted(GitgCommit *commit, GitgChangedFile *file, GitgCommitView *view);
 static void on_commit_file_removed(GitgCommit *commit, GitgChangedFile *file, GitgCommitView *view);
 
-static gboolean on_staged_button_release(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view);
-static gboolean on_unstaged_button_release(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view);
+static void on_staged_button_press(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view);
+static void on_unstaged_button_press(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view);
+
+static gboolean popup_unstaged_menu(GitgCommitView *view, GdkEventButton *event);
+static gboolean popup_staged_menu(GitgCommitView *view, GdkEventButton *event);
+
+static gboolean on_staged_popup_menu(GtkWidget *widget, GitgCommitView *view);
+static gboolean on_unstaged_popup_menu(GtkWidget *widget, GitgCommitView *view);
 
 static gboolean on_staged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view);
 static gboolean on_unstaged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view);
@@ -616,6 +624,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	/* Store widgets */
 	GitgCommitView *self = GITG_COMMIT_VIEW(buildable);
 	
+	self->priv->ui_manager = GTK_UI_MANAGER(gtk_builder_get_object(builder, "uiman"));
 	self->priv->tree_view_unstaged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_unstaged"));
 	self->priv->tree_view_staged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_staged"));
 	
@@ -664,8 +673,11 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	g_signal_connect(gtk_tree_view_get_selection(self->priv->tree_view_unstaged), "changed", G_CALLBACK(unstaged_selection_changed), self);
 	g_signal_connect(gtk_tree_view_get_selection(self->priv->tree_view_staged), "changed", G_CALLBACK(staged_selection_changed), self);
 	
-	g_signal_connect(self->priv->tree_view_unstaged, "button-press-event", G_CALLBACK(on_unstaged_button_release), self);
-	g_signal_connect(self->priv->tree_view_staged, "button-press-event", G_CALLBACK(on_staged_button_release), self);
+	g_signal_connect(self->priv->tree_view_unstaged, "event-after", G_CALLBACK(on_unstaged_button_press), self);
+	g_signal_connect(self->priv->tree_view_staged, "event-after", G_CALLBACK(on_staged_button_press), self);
+
+	g_signal_connect(self->priv->tree_view_unstaged, "popup-menu", G_CALLBACK(on_unstaged_popup_menu), self);
+	g_signal_connect(self->priv->tree_view_staged, "popup-menu", G_CALLBACK(on_staged_popup_menu), self);
 
 	g_signal_connect(self->priv->tree_view_unstaged, "motion-notify-event", G_CALLBACK(on_unstaged_motion), self);
 	g_signal_connect(self->priv->tree_view_staged, "motion-notify-event", G_CALLBACK(on_staged_motion), self);
@@ -972,34 +984,42 @@ column_icon_test(GtkTreeView *view, gdouble ex, gdouble ey, GitgChangedFile **fi
 	return TRUE;
 }
 
-static gboolean
-on_unstaged_button_release(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view)
+static void
+on_unstaged_button_press(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view)
 {
 	GitgChangedFile *file;
+	
+	if (event->type != GDK_BUTTON_PRESS)
+		return;
 
-	if (column_icon_test(view->priv->tree_view_unstaged, event->x, event->y, &file))
+	if (event->button == 1 && column_icon_test(view->priv->tree_view_unstaged, event->x, event->y, &file))
 	{
 		gitg_commit_stage(view->priv->commit, file, NULL, NULL);
 		g_object_unref(file);
-		return TRUE;
 	}
-	
-	return FALSE;
+	else if (event->button == 3)
+	{
+		popup_unstaged_menu(view, event);
+	}
 }
 
-static gboolean
-on_staged_button_release(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view)
+static void
+on_staged_button_press(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view)
 {
 	GitgChangedFile *file;
+	
+	if (event->type != GDK_BUTTON_PRESS)
+		return;
 
-	if (column_icon_test(view->priv->tree_view_staged, event->x, event->y, &file))
+	if (event->button == 1 && column_icon_test(view->priv->tree_view_staged, event->x, event->y, &file))
 	{
 		gitg_commit_unstage(view->priv->commit, file, NULL, NULL);
 		g_object_unref(file);
-		return TRUE;
 	}
-
-	return FALSE;
+	else if (event->button == 3)
+	{
+		popup_staged_menu(view, event);
+	}
 }
 
 static gboolean
@@ -1090,4 +1110,71 @@ on_context_value_changed(GtkHScale *scale, GitgCommitView *view)
 		unstaged_selection_changed(gtk_tree_view_get_selection(view->priv->tree_view_unstaged), view);
 	else if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_CACHED)
 		staged_selection_changed(gtk_tree_view_get_selection(view->priv->tree_view_staged), view);
+}
+
+static gboolean
+set_unstaged_popup_status(GitgCommitView *view)
+{
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(view->priv->tree_view_unstaged);
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
+		return FALSE;
+	
+	GitgChangedFile *file;
+	gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
+	
+	GtkAction *revert = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/RevertChangesAction");
+	GtkAction *ignore = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/IgnoreFileAction");
+	gboolean isnew = gitg_changed_file_get_status(file) == GITG_CHANGED_FILE_STATUS_NEW;
+
+	gtk_action_set_visible(revert, !isnew);
+	gtk_action_set_visible(ignore, isnew);
+	
+	g_object_unref(file);
+	
+	return TRUE;
+}
+
+static gboolean
+popup_unstaged_menu(GitgCommitView *view, GdkEventButton *event)
+{
+	if (!set_unstaged_popup_status(view))
+		return FALSE;
+
+	GtkWidget *wd = gtk_ui_manager_get_widget(view->priv->ui_manager, "/ui/popup_commit_stage");
+	
+	if (event)
+	{
+		gtk_menu_popup(GTK_MENU(wd), NULL, NULL, NULL, NULL, event->button, event->time);
+	}
+	else
+	{
+		gtk_menu_popup(GTK_MENU(wd), NULL, NULL, 
+					   gitg_utils_menu_position_under_tree_view, 
+					   view->priv->tree_view_staged, 0, 
+					   gtk_get_current_event_time());
+	}
+		
+	return TRUE;
+}
+
+static gboolean 
+popup_staged_menu(GitgCommitView *view, GdkEventButton *event)
+{
+	return FALSE;
+}
+
+
+static gboolean 
+on_unstaged_popup_menu(GtkWidget *widget, GitgCommitView *view)
+{
+	return popup_unstaged_menu(view, NULL);
+}
+
+static gboolean 
+on_staged_popup_menu(GtkWidget *widget, GitgCommitView *view)
+{
+	return popup_staged_menu(view, NULL);
 }

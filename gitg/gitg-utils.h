@@ -32,4 +32,8 @@ gboolean gitg_utils_can_display_content_type(gchar const *content_type);
 gchar *gitg_utils_guess_content_type(GtkTextBuffer *buffer);
 
 gint gitg_utils_sort_names(gchar const *s1, gchar const *s2);
+
+void gitg_utils_menu_position_under_widget(GtkMenu *menu, gint *x, gint *y,	gboolean *push_in, gpointer user_data);
+void gitg_utils_menu_position_under_tree_view(GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data);
+					   
 #endif /* __GITG_UTILS_H__ */
