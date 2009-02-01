@@ -585,10 +585,6 @@ view_event(GtkWidget *widget, GdkEventAny *event, GitgCommitView *view)
 	{
 		handle_stage_unstage(view, GTK_TEXT_BUFFER(buffer), &iter);
 	}
-	else
-	{
-		g_message("No mark...");
-	}
 	
 	return FALSE;
 }
