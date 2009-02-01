@@ -460,7 +460,7 @@ get_initial_counters(GitgDiffView *view, Region *region, guint line, guint count
 	
 	counters[0] = counters[1] = 0;
 	
-	for (i = region->line; i < line; ++i)
+	for (i = region->line + 1; i < line; ++i)
 	{
 		if (draw_old(view, i))
 			++counters[0];
@@ -562,15 +562,15 @@ paint_line_numbers(GitgDiffView *view, GdkEventExpose *event)
 		*str_old = '\0';
 		*str_new = '\0';
 
-		if (current && current->type == REGION_TYPE_HUNK)
+		if (current && current->type == REGION_TYPE_HUNK && line_to_paint != current->line)
 		{
 			Hunk *hunk = (Hunk *)current;
 			
 			if (draw_old(view, line_to_paint))
-				g_snprintf(str_old, sizeof(str_old), line_to_paint == current->line ? "<b>%d</b>" : "%d", hunk->old + counters[0]++);
+				g_snprintf(str_old, sizeof(str_old), "%d", hunk->old + counters[0]++);
 
 			if (draw_new(view, line_to_paint))
-				g_snprintf(str_new, sizeof(str_new), line_to_paint == current->line ? "<b>%d</b>" : "%d", hunk->new + counters[1]++);
+				g_snprintf(str_new, sizeof(str_new), "%d", hunk->new + counters[1]++);
 		}
 		
 		pango_layout_set_markup(layout, str_old, -1);
