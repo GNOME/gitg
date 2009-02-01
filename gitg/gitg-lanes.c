@@ -17,7 +17,7 @@ typedef struct
 {
 	GitgColor *color;
 	gint8 index;
-} InactiveLane;
+} CollapsedLane;
 
 struct _GitgLanesPrivate
 {
@@ -29,9 +29,9 @@ struct _GitgLanesPrivate
 	   next revision */
 	GSList *lanes;
 	
-	/* hash table of rev hash -> InactiveLane where rev hash is the hash
+	/* hash table of rev hash -> CollapsedLane where rev hash is the hash
 	   to be expected on the lane */
-	GHashTable *inactive;
+	GHashTable *collapsed;
 };
 
 G_DEFINE_TYPE(GitgLanes, gitg_lanes, G_TYPE_OBJECT)
@@ -44,10 +44,19 @@ lane_container_free(LaneContainer *container)
 }
 
 static void
-inactive_lane_free(InactiveLane *lane)
+collapsed_lane_free(CollapsedLane *lane)
 {
 	gitg_color_unref(lane->color);
-	g_slice_free(InactiveLane, lane);
+	g_slice_free(CollapsedLane, lane);
+}
+
+static CollapsedLane *
+collapsed_lane_new(LaneContainer *container)
+{
+	CollapsedLane *collapsed = g_slice_new(CollapsedLane);
+	collapsed->color = gitg_color_copy(container->lane->color);
+	
+	return collapsed;
 }
 
 static void
@@ -93,6 +102,7 @@ gitg_lanes_finalize(GObject *object)
 	GitgLanes *self = GITG_LANES(object);
 	
 	gitg_lanes_reset(self);
+	g_hash_table_destroy(self->priv->collapsed);
 	
 	G_OBJECT_CLASS(gitg_lanes_parent_class)->finalize(object);
 }
@@ -111,7 +121,7 @@ static void
 gitg_lanes_init(GitgLanes *self)
 {
 	self->priv = GITG_LANES_GET_PRIVATE(self);
-	self->priv->inactive = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, (GDestroyNotify)inactive_lane_free);
+	self->priv->collapsed = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, (GDestroyNotify)g_free, (GDestroyNotify)collapsed_lane_free);
 }
 
 GitgLanes *
@@ -153,7 +163,7 @@ gitg_lanes_reset(GitgLanes *lanes)
 	g_slist_free(lanes->priv->previous);
 	lanes->priv->previous = NULL;
 	
-	g_hash_table_remove_all(lanes->priv->inactive);
+	g_hash_table_remove_all(lanes->priv->collapsed);
 }
 
 static gboolean
@@ -199,11 +209,22 @@ update_merge_indices(GSList *lanes, gint8 index)
 }
 
 static void
+add_collapsed(GitgLanes *lanes, LaneContainer *container, gint8 index)
+{
+	CollapsedLane *collapsed = collapsed_lane_new(container);
+	collapsed->index = index;
+	
+	g_hash_table_insert(lanes->priv->collapsed, g_strndup(container->hash, 20), collapsed);
+}
+
+static void
 collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
 {
 	/* backtrack for INACTIVE_COLLAPSE revisions and remove this container from
 	   those revisions, appropriately updating merge indices etc */
 	GSList *item;
+	
+	add_collapsed(lanes, container, index);
 
 	for (item = lanes->priv->previous; item; item = g_slist_next(item))
 	{
