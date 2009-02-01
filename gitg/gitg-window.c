@@ -576,6 +576,13 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 			g_free(ar);
 
 		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
+		
+		gchar *basename = g_path_get_basename(gitg_repository_get_path(window->priv->repository));
+		gchar *title = g_strdup_printf("%s - %s", _("gitg"), basename);
+		gtk_window_set_title(GTK_WINDOW(window), title);
+		
+		g_free(basename);
+		g_free(title);
 	}
 	else
 	{
@@ -583,6 +590,7 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
 
 		handle_no_gitdir(window);
+		gtk_window_set_title(GTK_WINDOW(window), _("gitg"));
 	}
 }
 
