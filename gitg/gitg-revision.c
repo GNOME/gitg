@@ -41,6 +41,9 @@ gitg_revision_finalize(GitgRevision *revision)
 GitgRevision *
 gitg_revision_ref(GitgRevision *revision)
 {
+	if (revision == NULL)
+		return NULL;
+
 	g_atomic_int_inc(&revision->refcount);
 	return revision;
 }
@@ -48,6 +51,9 @@ gitg_revision_ref(GitgRevision *revision)
 void
 gitg_revision_unref(GitgRevision *revision)
 {
+	if (revision == NULL)
+		return;
+
 	if (!g_atomic_int_dec_and_test(&revision->refcount))
 		return;
 	
@@ -196,6 +202,8 @@ gitg_revision_get_mylane(GitgRevision *revision)
 void 
 gitg_revision_set_mylane(GitgRevision *revision, gint8 mylane)
 {
+	g_return_if_fail(mylane >= 0);
+
 	revision->mylane = mylane;
 	update_lane_type(revision);
 }
@@ -225,3 +233,9 @@ gitg_revision_get_type (void)
 
 	return our_type;
 } 
+
+GitgLane *
+gitg_revision_get_lane(GitgRevision *revision)
+{
+	return (GitgLane *)g_slist_nth_data(revision->lanes, revision->mylane);
+}

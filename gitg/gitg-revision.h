@@ -29,6 +29,7 @@ gchar *gitg_revision_get_sha1(GitgRevision *revision);
 gchar **gitg_revision_get_parents(GitgRevision *revision);
 
 GSList *gitg_revision_get_lanes(GitgRevision *revision);
+GitgLane *gitg_revision_get_lane(GitgRevision *revision);
 void gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes, gint8 mylane);
 GSList *gitg_revision_remove_lane(GitgRevision *revision, GitgLane *lane);
 

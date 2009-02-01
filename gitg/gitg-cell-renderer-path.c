@@ -16,9 +16,8 @@ enum
 {
 	PROP_0,
 	
-	PROP_LANE,
-	PROP_LANES,
-	PROP_NEXT_LANES,
+	PROP_REVISION,
+	PROP_NEXT_REVISION,
 	PROP_LANE_WIDTH,
 	PROP_DOT_WIDTH,
 	PROP_TRIANGLE_WIDTH,
@@ -27,9 +26,8 @@ enum
 
 struct _GitgCellRendererPathPrivate
 {
-	gint8 lane;
-	GSList *lanes;
-	GSList *next_lanes;
+	GitgRevision *revision;
+	GitgRevision *next_revision;
 	GSList *labels;
 	guint lane_width;
 	guint triangle_width;
@@ -43,7 +41,7 @@ G_DEFINE_TYPE(GitgCellRendererPath, gitg_cell_renderer_path, GTK_TYPE_CELL_RENDE
 static gint
 num_lanes(GitgCellRendererPath *self)
 {
-	return g_slist_length (self->priv->lanes);
+	return g_slist_length (gitg_revision_get_lanes(self->priv->revision));
 }
 
 inline static gint
@@ -60,8 +58,9 @@ gitg_cell_renderer_path_finalize(GObject *object)
 {
 	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(object);
 	
-	g_slist_free(self->priv->lanes);
-	g_slist_free(self->priv->next_lanes);
+	gitg_revision_unref(self->priv->revision);
+	gitg_revision_unref(self->priv->next_revision);
+	
 	g_slist_free(self->priv->labels);
 
 	G_OBJECT_CLASS(gitg_cell_renderer_path_parent_class)->finalize(object);
@@ -109,11 +108,12 @@ draw_arrow(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, gint8 la
 }
 
 static void
-draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, GSList *lanes, gboolean top, gdouble yoffset)
+draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, GitgRevision *revision, gboolean top, gdouble yoffset)
 {
-	if (!lanes)
+	if (!revision)
 		return;
 
+	GSList *lanes = gitg_revision_get_lanes(revision);
 	gint8 to = 0;
 	gdouble cw = self->priv->lane_width;
 	gdouble ch = area->height / 2.0;
@@ -147,13 +147,13 @@ draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, GSL
 static void
 draw_top_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 {
-	draw_paths_real(self, cr, area, self->priv->lanes, TRUE, 0);
+	draw_paths_real(self, cr, area, self->priv->revision, TRUE, 0);
 }
 
 static void
 draw_bottom_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 {
-	draw_paths_real(self, cr, area, self->priv->next_lanes, FALSE, 1);
+	draw_paths_real(self, cr, area, self->priv->next_revision, FALSE, 1);
 }
 
 static void
@@ -162,7 +162,7 @@ draw_arrows(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 	GSList *item;
 	gint8 to = 0;
 	
-	for (item = self->priv->lanes; item; item = item->next)
+	for (item = gitg_revision_get_lanes(self->priv->revision); item; item = item->next)
 	{
 		GitgLane *lane = (GitgLane *)item->data;
 		gitg_color_set_cairo_source(lane->color, cr);
@@ -203,7 +203,7 @@ draw_labels(GitgCellRendererPath *self, GtkWidget *widget, cairo_t *context, Gdk
 static void
 draw_indicator_triangle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *context, GdkRectangle *area)
 {
-	gdouble offset = self->priv->lane * self->priv->lane_width + (self->priv->lane_width - self->priv->triangle_width) / 2.0;
+	gdouble offset = gitg_revision_get_mylane(self->priv->revision) * self->priv->lane_width + (self->priv->lane_width - self->priv->triangle_width) / 2.0;
 	gdouble radius = self->priv->triangle_width / 2.0;
 	gdouble xs;
 	int xd;
@@ -235,7 +235,7 @@ draw_indicator_triangle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *con
 static void
 draw_indicator_circle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *context, GdkRectangle *area)
 {
-	gdouble offset = self->priv->lane * self->priv->lane_width + (self->priv->lane_width - self->priv->dot_width) / 2.0;
+	gdouble offset = gitg_revision_get_mylane(self->priv->revision) * self->priv->lane_width + (self->priv->lane_width - self->priv->dot_width) / 2.0;
 	gdouble radius = self->priv->dot_width / 2.0;
 	
 	cairo_set_line_width(context, 2.0);
@@ -251,7 +251,7 @@ draw_indicator_circle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *conte
 static void
 draw_indicator(GitgCellRendererPath *self, cairo_t *context, GdkRectangle *area)
 {
-	GitgLane *lane = (GitgLane *)g_slist_nth_data(self->priv->lanes, self->priv->lane);
+	GitgLane *lane = gitg_revision_get_lane(self->priv->revision);
 	
 	if (lane->type & GITG_LANE_SIGN_LEFT || lane->type & GITG_LANE_SIGN_RIGHT)
 		draw_indicator_triangle(self, lane, context, area);
@@ -265,7 +265,6 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(renderer);
 
 	cairo_t *cr = gdk_cairo_create(window);
-	
 	draw_paths(self, cr, area);
 	
 	/* draw indicator */
@@ -289,14 +288,11 @@ gitg_cell_renderer_path_get_property(GObject *object, guint prop_id, GValue *val
 
 	switch (prop_id)
 	{
-		case PROP_LANE:
-			g_value_set_uint(value, self->priv->lane);
+		case PROP_REVISION:
+			g_value_set_boxed(value, self->priv->revision);
 		break;
-		case PROP_LANES:
-			g_value_set_pointer(value, self->priv->lanes);
-		break;
-		case PROP_NEXT_LANES:
-			g_value_set_pointer(value, self->priv->next_lanes);
+		case PROP_NEXT_REVISION:
+			g_value_set_boxed(value, self->priv->next_revision);
 		break;
 		case PROP_LANE_WIDTH:
 			g_value_set_uint(value, self->priv->lane_width);
@@ -323,16 +319,13 @@ gitg_cell_renderer_path_set_property(GObject *object, guint prop_id, const GValu
 	
 	switch (prop_id)
 	{
-		case PROP_LANE:
-			self->priv->lane = g_value_get_int(value);
+		case PROP_REVISION:
+			gitg_revision_unref(self->priv->revision);
+			self->priv->revision = g_value_dup_boxed(value);
 		break;
-		case PROP_LANES:
-			g_slist_free(self->priv->lanes);
-			self->priv->lanes = (GSList *)g_value_get_pointer(value);
-		break;
-		case PROP_NEXT_LANES:
-			g_slist_free(self->priv->next_lanes);
-			self->priv->next_lanes = (GSList *)g_value_get_pointer(value);
+		case PROP_NEXT_REVISION:
+			gitg_revision_unref(self->priv->next_revision);
+			self->priv->next_revision = g_value_dup_boxed(value);
 		break;
 		case PROP_LANE_WIDTH:
 			self->priv->lane_width = g_value_get_uint(value);
@@ -368,26 +361,19 @@ gitg_cell_renderer_path_class_init(GitgCellRendererPathClass *klass)
 
 	parent_class = g_type_class_peek_parent(klass);
 
-	g_object_class_install_property(object_class, PROP_LANE,
-					 g_param_spec_int("lane",
-							      "LANE",
-							      "The lane",
-							      0,
-							      G_MAXINT,
-							      0,
+	g_object_class_install_property(object_class, PROP_REVISION,
+					 g_param_spec_boxed("revision",
+							      "REVISION",
+							      "The revision",
+							      GITG_TYPE_REVISION,
 							      G_PARAM_READWRITE));
 
-	g_object_class_install_property(object_class, PROP_LANES,
-					 g_param_spec_pointer("lanes",
-							      "LANES",
-							      "All lanes",
-							      G_PARAM_READWRITE));
-	
-	g_object_class_install_property(object_class, PROP_NEXT_LANES,
-					 g_param_spec_pointer("next-lanes",
-							      "NEXT LANES",
-							      "All next lanes",
-							      G_PARAM_READWRITE));
+	g_object_class_install_property(object_class, PROP_NEXT_REVISION,
+					 g_param_spec_boxed("next-revision",
+							      "NEXT_REVISION",
+							      "The next revision",
+							      GITG_TYPE_REVISION,
+							      G_PARAM_READWRITE));	
 
 	g_object_class_install_property(object_class, PROP_LANE_WIDTH,
 					 g_param_spec_uint("lane-width",

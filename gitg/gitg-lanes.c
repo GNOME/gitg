@@ -181,10 +181,7 @@ update_lane_merge_indices(GSList *from, gint8 index)
 		gint8 idx = GPOINTER_TO_INT(item->data);
 		
 		if (idx >= index)
-		{
 			item->data = GINT_TO_POINTER(idx - 1);
-			g_message("Decreasing for %d", idx);
-		}
 	}
 }
 
@@ -197,7 +194,6 @@ update_merge_indices(GSList *lanes, gint8 index)
 	{
 		GitgLane *lane = (GitgLane *)item->data;
 		
-		g_message("Updating for lane: %d", g_slist_index(lanes, lane));
 		update_lane_merge_indices(lane->from, index);
 	}
 }
@@ -215,8 +211,6 @@ collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
 		GSList *lns = gitg_revision_get_lanes(revision);
 		gint8 newindex = index;
 		
-		g_message("Collapsing: %s (%d)", gitg_revision_get_subject(revision), index);
-		
 		/* remove lane at 'index' and update merge indices for the lanes
 		   after 'index' in the list */
 		if (item->next)
@@ -224,19 +218,18 @@ collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
 			GSList *collapsed = g_slist_nth(lns, index);
 			GitgLane *lane = (GitgLane *)collapsed->data;
 
-			g_message("%u", (unsigned)lane->from);
 			gint8 newindex = GPOINTER_TO_INT(lane->from->data);
 
 			lns = gitg_revision_remove_lane(revision, lane);
-			update_merge_indices(lns, index);
+			
+			if (item->next->next)
+				update_merge_indices(lns, index);
 			
 			gint mylane = gitg_revision_get_mylane(revision);
-			g_message("Was: %d, %d", mylane, index);
 			
 			if (mylane >= index)
 				gitg_revision_set_mylane(revision, mylane - 1);
 	
-			g_message("Mylane: %d, %d", gitg_revision_get_mylane(revision), g_slist_length(lns));
 			index = newindex;
 		}
 		else
@@ -248,8 +241,17 @@ collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
 	}	
 }
 
+static void
+update_current_lanes_merge_indices(GitgLanes *lanes, gint8 index)
+{
+	GSList *item;
+	
+	for (item = lanes->priv->lanes; item; item = g_slist_next(item))
+		update_lane_merge_indices(((LaneContainer *)item->data)->lane->from, index);
+}
+
 static gint8
-init_next_layer(GitgLanes *lanes)
+collapse_lanes(GitgLanes *lanes)
 {
 	GSList *item = lanes->priv->lanes;
 	gint8 index = 0;
@@ -262,27 +264,44 @@ init_next_layer(GitgLanes *lanes)
 	{
 		LaneContainer *container = (LaneContainer *)item->data;
 		
-		if (container->inactive == INACTIVE_MAX)
+		if (container->inactive != INACTIVE_MAX)
 		{
-			g_message("Collapsing: %s", gitg_utils_hash_to_sha1_new(container->hash));
-			collapse_lane(lanes, container, index);
-			
-			GSList *next = g_slist_next(item);
-			lane_container_free(container);
-
-			lanes->priv->lanes = g_slist_remove_link(lanes->priv->lanes, item);
-			item = next;
-			
-			++collapsed;
-		}
-		else
-		{
-			lane_container_next(container, index++);
 			item = g_slist_next(item);
+			++index;
+			continue;
 		}
+
+		collapse_lane(lanes, container, index);
+		
+		update_current_lanes_merge_indices(lanes, index);
+		
+		GSList *next = g_slist_next(item);
+		lane_container_free(container);
+
+		lanes->priv->lanes = g_slist_remove_link(lanes->priv->lanes, item);
+		item = next;
+		
+		++collapsed;
 	}
 	
 	return collapsed;
+}
+
+static void
+init_next_layer(GitgLanes *lanes)
+{
+	GSList *item = lanes->priv->lanes;
+	gint8 index = 0;
+	
+	/* Initialize new set of lanes based on 'lanes'. It copies the lane (refs
+	   the color) and adds the lane index as a merge (so it basicly represents
+	   a passthrough) */
+	for (item = lanes->priv->lanes; item; item = g_slist_next(item))
+	{
+		LaneContainer *container = (LaneContainer *)item->data;
+
+		lane_container_next(container, index++);
+	}
 }
 
 static void
@@ -292,6 +311,9 @@ prepare_lanes(GitgLanes *lanes, GitgRevision *next, gint8 *pos)
 	guint num;
 	Hash *parents = gitg_revision_get_parents_hash(next, &num);
 	guint i;
+	
+	/* prepare the next layer */
+	init_next_layer(lanes);
 	
 	mylane = (LaneContainer *)g_slist_nth_data(lanes->priv->lanes, *pos);
 	
@@ -359,9 +381,12 @@ prepare_lanes(GitgLanes *lanes, GitgRevision *next, gint8 *pos)
 GSList *
 gitg_lanes_next(GitgLanes *lanes, GitgRevision *next, gint8 *nextpos)
 {
-	LaneContainer *mylane = find_lane_by_hash(lanes, gitg_revision_get_hash(next), nextpos);
+	LaneContainer *mylane;
 	GSList *res;
 	
+	collapse_lanes(lanes);
+	mylane = find_lane_by_hash(lanes, gitg_revision_get_hash(next), nextpos);
+
 	if (!mylane)
 	{
 		/* apparently, there is no lane reserved for this revision, we
@@ -379,10 +404,6 @@ gitg_lanes_next(GitgLanes *lanes, GitgRevision *next, gint8 *nextpos)
 		mylane->hash = NULL;
 		mylane->inactive = 0;
 	}
-		
-	/* prepare the next layer, this also collapses lanes that have become 
-	   inactive */
-	init_next_layer(lanes);
 	
 	res = lanes_list(lanes);
 	prepare_lanes(lanes, next, nextpos);
