@@ -165,6 +165,14 @@ gitg_revision_remove_lane(GitgRevision *revision, GitgLane *lane)
 	return revision->lanes;
 }
 
+GSList *
+gitg_revision_insert_lane(GitgRevision *revision, GitgLane *lane, gint index)
+{
+	revision->lanes = g_slist_insert(revision->lanes, lane, index);
+	
+	return revision->lanes;
+}
+
 static void
 update_lane_type(GitgRevision *revision)
 {
