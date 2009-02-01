@@ -35,14 +35,14 @@ gitg_lane_free(GitgLane *lane)
 GitgLane *
 gitg_lane_new()
 {
-	return gitg_lane_new_with_color(gitg_color_next());
+	return gitg_lane_new_with_color(NULL);
 }
 
 GitgLane *
 gitg_lane_new_with_color(GitgColor *color)
 {
 	GitgLane *lane = g_slice_new0(GitgLane);
-	lane->color = color;
+	lane->color = color ? gitg_color_ref(color) : gitg_color_next();
 	
 	return lane;
 }
