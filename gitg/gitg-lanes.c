@@ -221,7 +221,7 @@ add_collapsed(GitgLanes *lanes, LaneContainer *container, gint8 index)
 	CollapsedLane *collapsed = collapsed_lane_new(container);
 	collapsed->index = index;
 	
-	g_hash_table_insert(lanes->priv->collapsed, container->hash, collapsed);
+	g_hash_table_insert(lanes->priv->collapsed, (gpointer)container->hash, collapsed);
 }
 
 static void
@@ -232,7 +232,7 @@ collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
 	GSList *item;
 	
 	add_collapsed(lanes, container, index);
-
+	
 	for (item = lanes->priv->previous; item; item = g_slist_next(item))
 	{
 		GitgRevision *revision = GITG_REVISION(item->data);
@@ -245,7 +245,7 @@ collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
 		{
 			GSList *collapsed = g_slist_nth(lns, index);
 			GitgLane *lane = (GitgLane *)collapsed->data;
-
+			
 			gint8 newindex = GPOINTER_TO_INT(lane->from->data);
 
 			lns = gitg_revision_remove_lane(revision, lane);
@@ -296,7 +296,7 @@ collapse_lanes(GitgLanes *lanes)
 		}
 
 		gchar const *tmphash = ((LaneContainer *)lanes->priv->lanes->data)->hash;
-		collapse_lane(lanes, container, index);
+		collapse_lane(lanes, container, GPOINTER_TO_INT(container->lane->from->data));
 		
 		update_current_lanes_merge_indices(lanes, index, -1);
 		
@@ -364,11 +364,11 @@ expand_lane(GitgLanes *lanes, CollapsedLane *lane, gchar const *hash)
 		else
 		{
 			copy->from = g_slist_prepend(NULL, GINT_TO_POINTER((gint)next));
-
+			
 			/* update merge indices */
 			update_merge_indices(lns, index, 1);
 		}
-		
+
 		lns = gitg_revision_insert_lane(revision, copy, index);
 		gint mylane = gitg_revision_get_mylane(revision);
 		
@@ -390,7 +390,6 @@ expand_lane_from_hash(GitgLanes *lanes, gchar const *hash)
 	if (!collapsed)
 		return;
 	
-	g_message("Expanding: %s", gitg_utils_hash_to_sha1_new(hash));
 	expand_lane(lanes, collapsed, hash);
 	g_hash_table_remove(lanes->priv->collapsed, hash);
 }
@@ -487,7 +486,9 @@ prepare_lanes(GitgLanes *lanes, GitgRevision *next, gint8 *pos)
 	
 	/* Remove the current lane if it is no longer needed */
 	if (mylane && mylane->hash == NULL)
+	{
 		lanes->priv->lanes = g_slist_remove(lanes->priv->lanes, mylane);
+	}
 
 	/* Store new revision in our track list */
 	if (g_slist_length(lanes->priv->previous) == INACTIVE_COLLAPSE + INACTIVE_GAP + 1)
@@ -506,9 +507,7 @@ gitg_lanes_next(GitgLanes *lanes, GitgRevision *next, gint8 *nextpos)
 {
 	LaneContainer *mylane;
 	GSList *res;
-	
-	g_message("Next: %s, %s", gitg_revision_get_subject(next), gitg_utils_hash_to_sha1_new(gitg_revision_get_hash(next)));
-	
+
 	collapse_lanes(lanes);
 	expand_lanes(lanes, next);
 
