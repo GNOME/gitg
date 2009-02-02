@@ -569,7 +569,6 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 	argv[2] = g_strdup("--topo-order");
 	
 	gchar *head = NULL;
-	gint start = 4;
 	
 	if (argc <= 0)
 	{
@@ -577,15 +576,16 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 		
 		if (head)
 			argv[3] = g_strdup("HEAD");
-		else
-			--start;
 		
 		g_free(head);
 	}
+	else
+	{
+		int i;
 
-	int i;
-	for (i = 0; i < argc; ++i)
-		argv[start + i] = g_strdup(av[i]);
+		for (i = 0; i < argc; ++i)
+			argv[3 + i] = g_strdup(av[i]);
+	}
 
 	g_strfreev(self->priv->last_args);
 	self->priv->last_args = argv;
