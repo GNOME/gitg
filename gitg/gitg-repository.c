@@ -566,10 +566,10 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 	else
 		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
 	
-	argv[2] = "--topo-order";
+	argv[2] = g_strdup("--topo-order");
 	
 	gchar *head = NULL;
-	gint start = 3;
+	gint start = 4;
 	
 	if (argc <= 0)
 	{
