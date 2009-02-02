@@ -28,6 +28,12 @@ enum
 	N_COLUMNS
 };
 
+typedef enum
+{
+	CONTEXT_TYPE_FILE,
+	CONTEXT_TYPE_HUNK
+} ContextType;
+
 struct _GitgCommitViewPrivate
 {
 	GitgCommit *commit;
@@ -54,6 +60,10 @@ struct _GitgCommitViewPrivate
 	GitgChangedFileChanges current_changes;
 	
 	GtkUIManager *ui_manager;
+	ContextType context_type;
+	GtkTextIter context_iter;
+	
+	GtkActionGroup *group_context;
 };
 
 static void gitg_commit_view_buildable_iface_init(GtkBuildableIface *iface);
@@ -80,6 +90,14 @@ static gboolean on_unstaged_motion(GtkWidget *widget, GdkEventMotion *event, Git
 
 static void on_commit_clicked(GtkButton *button, GitgCommitView *view);
 static void on_context_value_changed(GtkHScale *scale, GitgCommitView *view);
+
+static void on_changes_view_popup_menu(GtkTextView *textview, GtkMenu *menu, GitgCommitView *view);
+
+static void on_stage_changes(GtkAction *action, GitgCommitView *view);
+static void on_revert_changes(GtkAction *action, GitgCommitView *view);
+static void on_ignore_file(GtkAction *action, GitgCommitView *view);
+static void on_unstage_changes(GtkAction *action, GitgCommitView *view);
+
 
 static void
 gitg_commit_view_finalize(GObject *object)
@@ -506,25 +524,36 @@ get_patch_contents(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter cons
 	return gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
 }
 
-static gboolean
-handle_stage_unstage(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter *iter)
+static gchar *
+get_hunk_patch(GitgCommitView *view, GtkTextIter *iter)
 {
 	/* Get patch header */
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view));
 	gchar *header = get_patch_header(view, buffer, iter);
 	
 	if (!header)
-		return FALSE;
+		return NULL;
 	
 	/* Get patch contents */
 	gchar *contents = get_patch_contents(view, buffer, iter);
-	
+
 	if (!contents)
 	{
 		g_free(header);
-		return FALSE;
+		return NULL;
 	}
 	
-	gchar *hunk = g_strconcat(header, contents, NULL);
+	return g_strconcat(header, contents, NULL);
+}
+
+static gboolean
+handle_stage_unstage(GitgCommitView *view, GtkTextIter *iter)
+{
+	gchar *hunk = get_hunk_patch(view, iter);
+	
+	if (!hunk)
+		return FALSE;
+
 	gboolean ret;
 	GitgChangedFile *file = g_object_ref(view->priv->current_file);
 	gboolean unstage = view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED;
@@ -542,10 +571,39 @@ handle_stage_unstage(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter *i
 	
 	g_object_unref(file);
 	g_free(hunk);
-	g_free(header);
-	g_free(contents);
 	
 	return ret;
+}
+
+static gboolean
+get_hunk_at_pointer(GitgCommitView *view, GtkTextIter *iter, gchar **hunk)
+{
+	GtkTextView *textview = GTK_TEXT_VIEW(view->priv->changes_view);
+	gint x;
+	gint y;
+	gint buf_x;
+	gint buf_y;
+
+	/* Get where the pointer really is. */
+	GdkWindow *win = gtk_text_view_get_window(textview, GTK_TEXT_WINDOW_TEXT);
+	gdk_window_get_pointer(win, &x, &y, NULL);
+
+	/* Get the iter where the cursor is at */
+	gtk_text_view_window_to_buffer_coords(textview, GTK_TEXT_WINDOW_TEXT, x, y, &buf_x, &buf_y);
+	gtk_text_view_get_iter_at_location(textview, iter, buf_x, buf_y);
+
+	if (gtk_text_iter_backward_line(iter))
+		gtk_text_iter_forward_line(iter);
+
+	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(textview));
+	
+	if (!has_hunk_mark(buffer, iter))
+		return FALSE;
+
+	if (hunk)
+		*hunk = get_hunk_patch(view, iter);
+	
+	return TRUE;
 }
 
 static gboolean
@@ -553,53 +611,33 @@ view_event(GtkWidget *widget, GdkEventAny *event, GitgCommitView *view)
 {
 	GtkTextWindowType type;
 	GtkTextIter iter;
-	GdkWindow *win;
-	gint x, y, buf_x, buf_y;
 
 	type = gtk_text_view_get_window_type(GTK_TEXT_VIEW(widget), event->window);
 
 	if (type != GTK_TEXT_WINDOW_TEXT)
 		return FALSE;
 
-	if (event->type != GDK_MOTION_NOTIFY && event->type != GDK_BUTTON_RELEASE)
+	if (event->type != GDK_MOTION_NOTIFY && event->type != GDK_BUTTON_PRESS)
 		return FALSE;
 
-	/* Get where the pointer really is. */
-	win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), type);
-	gdk_window_get_pointer(win, &x, &y, NULL);
+	gboolean is_hunk = get_hunk_at_pointer(view, &iter, NULL);
 
-	/* Get the iter where the cursor is at */
-	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(widget), type, x, y, &buf_x, &buf_y);
-	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(widget), &iter, buf_x, buf_y);
-
-	if (gtk_text_iter_backward_line(&iter))
-		gtk_text_iter_forward_line(&iter);
-
-	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget)));
-	gboolean has_mark = has_hunk_mark(buffer, &iter);
-	
 	if (event->type == GDK_MOTION_NOTIFY)
 	{
-		if (has_mark)
+		if (is_hunk)
 		{
-			gdk_window_set_cursor(win, view->priv->hand);
+			gdk_window_set_cursor(event->window, view->priv->hand);
 		} 
-		else if (!has_mark)
+		else
 		{
-			gdk_window_set_cursor(win, NULL);
+			gdk_window_set_cursor(event->window, NULL);
 		}
 	}
-	else if (has_mark)
+	else if (is_hunk && ((GdkEventButton *)event)->button == 1)
 	{
-		handle_stage_unstage(view, GTK_TEXT_BUFFER(buffer), &iter);
+		handle_stage_unstage(view, &iter);
 	}
 	
-	return FALSE;
-}
-
-static gboolean
-hunk_tag_event(GtkTextTag *tag, GObject *object, GdkEvent *event, GtkTextIter *iter, GitgCommitView *view)
-{
 	return FALSE;
 }
 
@@ -638,6 +676,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	self->priv->comment_view = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "text_view_comment"));
 	
 	self->priv->hscale_context = GTK_HSCALE(gtk_builder_get_object(builder, "hscale_context"));
+	self->priv->group_context = GTK_ACTION_GROUP(gtk_builder_get_object(builder, "action_group_commit_context"));
 	
 	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	GdkPixbuf *pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_ADD, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
@@ -678,6 +717,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	g_signal_connect(self->priv->tree_view_unstaged, "popup-menu", G_CALLBACK(on_unstaged_popup_menu), self);
 	g_signal_connect(self->priv->tree_view_staged, "popup-menu", G_CALLBACK(on_staged_popup_menu), self);
+	g_signal_connect(self->priv->changes_view, "populate-popup", G_CALLBACK(on_changes_view_popup_menu), self);
 
 	g_signal_connect(self->priv->tree_view_unstaged, "motion-notify-event", G_CALLBACK(on_unstaged_motion), self);
 	g_signal_connect(self->priv->tree_view_staged, "motion-notify-event", G_CALLBACK(on_staged_motion), self);
@@ -685,6 +725,11 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	g_signal_connect(gtk_builder_get_object(builder, "button_commit"), "clicked", G_CALLBACK(on_commit_clicked), self);
 	
 	g_signal_connect(self->priv->hscale_context, "value-changed", G_CALLBACK(on_context_value_changed), self);
+	
+	g_signal_connect(gtk_builder_get_object(builder, "StageChangesAction"), "activate", G_CALLBACK(on_stage_changes), self);
+	g_signal_connect(gtk_builder_get_object(builder, "RevertChangesAction"), "activate", G_CALLBACK(on_revert_changes), self);
+	g_signal_connect(gtk_builder_get_object(builder, "IgnoreFileAction"), "activate", G_CALLBACK(on_ignore_file), self);
+	g_signal_connect(gtk_builder_get_object(builder, "UnstageChangesAction"), "activate", G_CALLBACK(on_unstage_changes), self);
 }
 
 static void
@@ -951,6 +996,21 @@ on_commit_file_removed(GitgCommit *commit, GitgChangedFile *file, GitgCommitView
 		gtk_list_store_remove(view->priv->store_unstaged, &iter);
 }
 
+static GitgChangedFile *
+get_selected_file(GtkTreeView *tree)
+{
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree);
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	GitgChangedFile *file;
+
+	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
+		return NULL;
+	
+	gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
+	return file;
+}
+
 static gboolean
 column_icon_test(GtkTreeView *view, gdouble ex, gdouble ey, GitgChangedFile **file)
 {
@@ -999,6 +1059,7 @@ on_unstaged_button_press(GtkWidget *widget, GdkEventButton *event, GitgCommitVie
 	}
 	else if (event->button == 3)
 	{
+		view->priv->context_type = CONTEXT_TYPE_FILE;
 		popup_unstaged_menu(view, event);
 	}
 }
@@ -1018,6 +1079,7 @@ on_staged_button_press(GtkWidget *widget, GdkEventButton *event, GitgCommitView 
 	}
 	else if (event->button == 3)
 	{
+		view->priv->context_type = CONTEXT_TYPE_FILE;
 		popup_staged_menu(view, event);
 	}
 }
@@ -1138,12 +1200,27 @@ set_unstaged_popup_status(GitgCommitView *view)
 }
 
 static gboolean
+set_staged_popup_status(GitgCommitView *view)
+{
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(view->priv->tree_view_staged);
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
+		return FALSE;
+	
+	return TRUE;	
+}
+
+static gboolean
 popup_unstaged_menu(GitgCommitView *view, GdkEventButton *event)
 {
 	if (!set_unstaged_popup_status(view))
 		return FALSE;
 
 	GtkWidget *wd = gtk_ui_manager_get_widget(view->priv->ui_manager, "/ui/popup_commit_stage");
+	
+	view->priv->context_type = CONTEXT_TYPE_FILE;
 	
 	if (event)
 	{
@@ -1163,7 +1240,26 @@ popup_unstaged_menu(GitgCommitView *view, GdkEventButton *event)
 static gboolean 
 popup_staged_menu(GitgCommitView *view, GdkEventButton *event)
 {
-	return FALSE;
+	if (!set_staged_popup_status(view))
+		return FALSE;
+
+	GtkWidget *wd = gtk_ui_manager_get_widget(view->priv->ui_manager, "/ui/popup_commit_unstage");
+	
+	view->priv->context_type = CONTEXT_TYPE_FILE;
+	
+	if (event)
+	{
+		gtk_menu_popup(GTK_MENU(wd), NULL, NULL, NULL, NULL, event->button, event->time);
+	}
+	else
+	{
+		gtk_menu_popup(GTK_MENU(wd), NULL, NULL, 
+					   gitg_utils_menu_position_under_tree_view, 
+					   view->priv->tree_view_unstaged, 0, 
+					   gtk_get_current_event_time());
+	}
+		
+	return TRUE;
 }
 
 
@@ -1177,4 +1273,88 @@ static gboolean
 on_staged_popup_menu(GtkWidget *widget, GitgCommitView *view)
 {
 	return popup_staged_menu(view, NULL);
+}
+
+static void 
+on_stage_changes(GtkAction *action, GitgCommitView *view)
+{
+	if (view->priv->context_type == CONTEXT_TYPE_FILE)
+	{
+		GitgChangedFile *file = get_selected_file(view->priv->tree_view_unstaged);
+		
+		if (!file)
+			return;
+		
+		gitg_commit_stage(view->priv->commit, file, NULL, NULL);
+		g_object_unref(file);
+	}
+	else
+	{
+		handle_stage_unstage(view, &view->priv->context_iter);
+	}
+}
+
+static void 
+on_revert_changes(GtkAction *action, GitgCommitView *view)
+{
+}
+
+static void 
+on_ignore_file(GtkAction *action, GitgCommitView *view)
+{
+}
+
+static void 
+on_unstage_changes(GtkAction *action, GitgCommitView *view)
+{
+	if (view->priv->context_type == CONTEXT_TYPE_FILE)
+	{
+		GitgChangedFile *file = get_selected_file(view->priv->tree_view_staged);
+		
+		if (!file)
+			return;
+		
+		gitg_commit_unstage(view->priv->commit, file, NULL, NULL);
+		g_object_unref(file);
+	}
+	else
+	{
+		handle_stage_unstage(view, &view->priv->context_iter);
+	}
+}
+
+GtkWidget *
+create_context_menu_item(GitgCommitView *view, gchar const *action)
+{
+	GtkAction *ac = gtk_action_group_get_action(view->priv->group_context, action);
+	return gtk_action_create_menu_item(ac);
+}
+
+static void 
+on_changes_view_popup_menu(GtkTextView *textview, GtkMenu *menu, GitgCommitView *view)
+{
+	/* check the hunk */
+	if (!get_hunk_at_pointer(view, &view->priv->context_iter, NULL))
+		return;
+	
+	GtkWidget *separator = gtk_separator_menu_item_new();
+	gtk_widget_show(separator);
+
+	view->priv->context_type = CONTEXT_TYPE_HUNK;
+
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), separator);
+	
+	if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_CACHED)
+	{
+		GtkWidget *unstage = create_context_menu_item(view, "UnstageChangesAction");
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), unstage);
+	}
+	else
+	{
+		GtkWidget *stage = create_context_menu_item(view, "StageChangesAction");
+		GtkWidget *revert = create_context_menu_item(view, "RevertChangesAction");
+		
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), stage);
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), revert);
+	}
 }
