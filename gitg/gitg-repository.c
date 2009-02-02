@@ -557,7 +557,7 @@ reload_revisions(GitgRepository *repository, GError **error)
 static gboolean
 load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error)
 {
-	gchar **argv = g_new0(gchar *, 4 + (argc > 0 ? argc - 1 : 0));
+	gchar **argv = g_new0(gchar *, 5 + (argc > 0 ? argc - 1 : 0));
 
 	argv[0] = g_strdup("log");
 	
@@ -566,15 +566,17 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 	else
 		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
 	
+	argv[2] = "--topo-order";
+	
 	gchar *head = NULL;
-	gint start = 2;
+	gint start = 3;
 	
 	if (argc <= 0)
 	{
 		head = gitg_repository_parse_ref(self, "HEAD");
 		
 		if (head)
-			argv[2] = g_strdup("HEAD");
+			argv[3] = g_strdup("HEAD");
 		else
 			--start;
 		
