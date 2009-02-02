@@ -304,6 +304,12 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
 	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "rv_renderer_subject")), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
 	
+	GtkRecentFilter *filter = gtk_recent_filter_new();
+	gtk_recent_filter_add_group(filter, "gitg");
+
+	GtkRecentChooser *chooser = GTK_RECENT_CHOOSER(gtk_builder_get_object(builder, "RecentOpenAction"));
+	gtk_recent_chooser_add_filter(chooser, filter);
+
 	// Intialize branches
 	build_branches_combo(window, builder);
 
@@ -539,6 +545,30 @@ on_repository_load(GitgRepository *repository, GitgWindow *window)
 }
 
 static void
+add_recent_item(GitgWindow *window)
+{
+	GtkRecentManager *manager = gtk_recent_manager_get_default();
+	GtkRecentData data = { 0 };
+	gchar *groups[] = {"gitg", NULL};
+	gchar const *path = gitg_repository_get_path(window->priv->repository);
+	gchar *basename = g_path_get_basename(path);
+	
+	data.display_name = basename;
+	data.app_name = "gitg";
+	data.mime_type = "inode/directory";
+	data.app_exec = "gitg %f";
+	data.groups = groups;
+
+	GFile *file = g_file_new_for_path(gitg_repository_get_path(window->priv->repository));
+	gchar *uri = g_file_get_uri(file);
+	gtk_recent_manager_add_full(manager, uri, &data);
+	
+	g_free(basename);
+	g_free(uri);
+	g_object_unref(file);
+}
+
+static void
 load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv, gboolean usewd)
 {
 	if (window->priv->repository)
@@ -591,6 +621,8 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		
 		g_free(basename);
 		g_free(title);
+		
+		add_recent_item(window);
 	}
 	else
 	{
@@ -724,4 +756,16 @@ on_window_set_focus(GitgWindow *window, GtkWidget *widget)
 	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditPasteAction"), editable);
 	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditCutAction"), editable && selection);
 	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditCopyAction"), cancopy);
+}
+
+void
+on_recent_open(GtkRecentChooser *chooser, GitgWindow *window)
+{
+	GFile *file = g_file_new_for_uri(gtk_recent_chooser_get_current_uri(chooser));
+	gchar *path = g_file_get_path(file);
+	
+	load_repository(window, path, 0, NULL, FALSE);
+	
+	g_free(path);
+	g_object_unref(file);
 }

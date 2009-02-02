@@ -35,6 +35,12 @@
           </object>
         </child>
         <child>
+          <object class="GtkRecentAction" id="RecentOpenAction">
+            <property name="label" translatable="yes">Recently opened</property>
+            <signal name="item-activated" handler="on_recent_open"/>
+          </object>
+        </child>
+        <child>
           <object class="GtkAction" id="FileQuitAction">
             <property name="stock-id">gtk-quit</property>
             <signal name="activate" handler="on_file_quit"/>
@@ -103,6 +109,8 @@
       <menubar name="menubar_main">
         <menu action="FileAction">
           <menuitem action="FileOpenAction"/>
+          <menuitem action="RecentOpenAction"/>
+          <separator/>
           <menuitem action="FileQuitAction"/>
         </menu>
         <menu action="EditAction">
