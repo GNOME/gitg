@@ -256,10 +256,16 @@ on_branches_combo_changed(GtkComboBox *combo, GitgWindow *window)
 	
 	gchar *name;
 	GtkTreeIter iter;
+	GtkTreeIter next;
 	
 	gtk_combo_box_get_active_iter(combo, &iter);
-	gtk_tree_model_get(gtk_combo_box_get_model(combo), &iter, 0, &name, -1);
+	next = iter;
 	
+	if (!gtk_tree_model_iter_next(gtk_combo_box_get_model(combo), &next))
+		name = g_strdup("--all");
+	else
+		gtk_tree_model_get(gtk_combo_box_get_model(combo), &iter, 0, &name, -1);
+
 	gitg_repository_load(window->priv->repository, 1, (gchar const **)&name, NULL);
 	g_free(name);
 }
@@ -505,6 +511,7 @@ fill_branches_combo(GitgWindow *window)
 	refs = g_slist_sort(refs, (GCompareFunc)sort_by_ref_type);
 	GSList *item;
 	GitgRefType prevtype = GITG_REF_TYPE_NONE;
+	GtkTreeIter iter;
 
 	for (item = refs; item; item = item->next)
 	{
@@ -514,8 +521,6 @@ fill_branches_combo(GitgWindow *window)
 			  ref->type == GITG_REF_TYPE_BRANCH))
 			continue;
 
-		GtkTreeIter iter;
-		
 		if (ref->type != prevtype)
 		{
 			gtk_list_store_append(window->priv->branches_store, &iter);
@@ -530,6 +535,12 @@ fill_branches_combo(GitgWindow *window)
 		if (g_strcmp0(window->priv->current_branch, ref->shortname) == 0)
 			gtk_combo_box_set_active_iter(window->priv->combo_branches, &iter);
 	}
+	
+	gtk_list_store_append(window->priv->branches_store, &iter);
+	gtk_list_store_set(window->priv->branches_store, &iter, 0, NULL, -1);
+
+	gtk_list_store_append(window->priv->branches_store, &iter);
+	gtk_list_store_set(window->priv->branches_store, &iter, 0, _("All branches"), -1);
 	
 	if (!window->priv->current_branch)
 		gtk_combo_box_set_active(window->priv->combo_branches, 0);
