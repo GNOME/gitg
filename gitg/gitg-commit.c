@@ -467,7 +467,7 @@ update_index_file(GitgCommit *commit, GitgChangedFile *file)
 	gchar *path = gitg_repository_relative(commit->priv->repository, f);
 	g_object_unref(f);
 
-	gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", "--", path, NULL);
+	gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", NULL);
 	
 	g_free(path);
 }
@@ -672,7 +672,6 @@ remove_file(GitgCommit *commit, GitgChangedFile *file)
 	g_object_unref(f);
 
 	g_signal_emit(commit, commit_signals[REMOVED], 0, file);
-
 }
 
 gboolean
@@ -694,10 +693,15 @@ gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk,
 	}
 	else
 	{
-		ret = gitg_repository_command_with_inputv(commit->priv->repository, hunk, error, "apply", "--reverse", NULL);
+		GitgRunner *runner = gitg_runner_new_synchronized(1000);
+		gchar const *argv[] = {"patch", "-p1", "-R", NULL};
+		
+		ret = gitg_runner_run_with_arguments(runner, argv, gitg_repository_get_path(commit->priv->repository), hunk, NULL); 
 	
 		update_index_file(commit, file);
 		update_index_unstaged(commit, file);
+		
+		g_object_unref(runner);
 	}
 	
 	return ret;
