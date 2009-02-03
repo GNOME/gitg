@@ -460,10 +460,23 @@ update_index_unstaged(GitgCommit *commit, GitgChangedFile *file)
 }
 
 static void
+update_index_file(GitgCommit *commit, GitgChangedFile *file)
+{
+	/* update the index */
+	GFile *f = gitg_changed_file_get_file(file);
+	gchar *path = gitg_repository_relative(commit->priv->repository, f);
+	g_object_unref(f);
+
+	gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", "--", path, NULL);
+	
+	g_free(path);
+}
+
+static void
 refresh_changes(GitgCommit *commit, GitgChangedFile *file)
 {
 	/* update the index */
-	gitg_repository_commandv(commit->priv->repository, NULL, "update-index", "-q", "--unmerged", "--ignore-missing", "--refresh", NULL);
+	update_index_file(commit, file);
 
 	/* Determine if it still has staged/unstaged changes */
 	update_index_staged(commit, file);
@@ -648,4 +661,77 @@ gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
 	
 	gitg_repository_reload(commit->priv->repository);
 	return TRUE;
+}
+
+static void
+remove_file(GitgCommit *commit, GitgChangedFile *file)
+{
+	GFile *f = gitg_changed_file_get_file(file);
+
+	g_hash_table_remove(commit->priv->files, f);
+	g_object_unref(f);
+
+	g_signal_emit(commit, commit_signals[REMOVED], 0, file);
+
+}
+
+gboolean
+gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error)
+{
+	gboolean ret;
+	
+	if (!hunk)
+	{
+		GFile *f = gitg_changed_file_get_file(file);
+		gchar *path = gitg_repository_relative(commit->priv->repository, f);
+	
+		ret = gitg_repository_command_with_inputv(commit->priv->repository, path, error, "checkout-index", "--index", "--quiet", "--force", "--stdin", NULL);
+		
+		g_free(path);
+		
+		remove_file(commit, file);
+		g_object_unref(f);
+	}
+	else
+	{
+		ret = gitg_repository_command_with_inputv(commit->priv->repository, hunk, error, "apply", "--reverse", NULL);
+	
+		update_index_file(commit, file);
+		update_index_unstaged(commit, file);
+	}
+	
+	return ret;
+}
+
+gboolean 
+gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error)
+{
+	g_return_if_fail(GITG_IS_COMMIT(commit));
+	g_return_if_fail(GITG_IS_CHANGED_FILE(file));
+	
+	GFile *f = gitg_changed_file_get_file(file);
+	gchar *path = gitg_repository_relative(commit->priv->repository, f);
+	
+	gchar *ignore = g_strdup_printf("%s/.gitignore", gitg_repository_get_path(commit->priv->repository));
+	GFile *ig = g_file_new_for_path(ignore);
+	
+	GFileOutputStream *stream = g_file_append_to(ig, G_FILE_CREATE_NONE, NULL, error);
+	gboolean ret = FALSE;
+	
+	if (stream)
+	{
+		gchar *line = g_strdup_printf("/%s\n", path);
+		ret = g_output_stream_write_all(G_OUTPUT_STREAM(stream), line, strlen(line), NULL, NULL, error);
+		g_output_stream_close(G_OUTPUT_STREAM(stream), NULL, NULL);
+
+		g_object_unref(stream);
+		g_free(line);
+	}
+	
+	if (ret)
+		remove_file(commit, file);
+
+	g_object_unref(f);	
+	g_free(ignore);
+	g_free(path);
 }

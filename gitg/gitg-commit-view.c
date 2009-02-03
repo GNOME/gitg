@@ -996,21 +996,6 @@ on_commit_file_removed(GitgCommit *commit, GitgChangedFile *file, GitgCommitView
 		gtk_list_store_remove(view->priv->store_unstaged, &iter);
 }
 
-static GitgChangedFile *
-get_selected_file(GtkTreeView *tree)
-{
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree);
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	GitgChangedFile *file;
-
-	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
-		return NULL;
-	
-	gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
-	return file;
-}
-
 static gboolean
 column_icon_test(GtkTreeView *view, gdouble ex, gdouble ey, GitgChangedFile **file)
 {
@@ -1280,7 +1265,7 @@ on_stage_changes(GtkAction *action, GitgCommitView *view)
 {
 	if (view->priv->context_type == CONTEXT_TYPE_FILE)
 	{
-		GitgChangedFile *file = get_selected_file(view->priv->tree_view_unstaged);
+		GitgChangedFile *file = view->priv->current_file;
 		
 		if (!file)
 			return;
@@ -1294,14 +1279,58 @@ on_stage_changes(GtkAction *action, GitgCommitView *view)
 	}
 }
 
+static void
+do_revert_changes(GitgCommitView *view)
+{
+	gboolean ret;
+	
+	if (view->priv->context_type == CONTEXT_TYPE_FILE)
+	{
+		ret = gitg_commit_revert(view->priv->commit, view->priv->current_file, NULL, NULL);
+	}
+	else
+	{
+		GitgChangedFile *file = g_object_ref(view->priv->current_file);
+
+		gchar *hunk = get_hunk_patch(view, &view->priv->context_iter);
+		ret = gitg_commit_revert(view->priv->commit, view->priv->current_file, hunk, NULL);
+		g_free(hunk);
+		
+		if (ret && view->priv->current_file == file)
+			gitg_diff_view_remove_hunk(GITG_DIFF_VIEW(view->priv->changes_view), &view->priv->context_iter);
+		
+		g_object_unref(file);
+	}
+	
+	if (!ret)
+		show_error(view, _("Revert fail"));
+}
+
 static void 
 on_revert_changes(GtkAction *action, GitgCommitView *view)
 {
+	GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
+											   GTK_DIALOG_MODAL,
+											   GTK_MESSAGE_QUESTION,
+											   GTK_BUTTONS_YES_NO,
+											   "%s",
+											   _("Are you sure you want to revert these changes?"));
+
+	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s", 
+											 _("Reverting changes is permanent and cannot be undone"));
+
+	gint response = gtk_dialog_run(GTK_DIALOG(dialog));
+	
+	if (response == GTK_RESPONSE_YES)
+		do_revert_changes(view);
+	
+	gtk_widget_destroy(dialog);
 }
 
 static void 
 on_ignore_file(GtkAction *action, GitgCommitView *view)
 {
+	gitg_commit_add_ignore(view->priv->commit, view->priv->current_file, NULL);
 }
 
 static void 
@@ -1309,7 +1338,7 @@ on_unstage_changes(GtkAction *action, GitgCommitView *view)
 {
 	if (view->priv->context_type == CONTEXT_TYPE_FILE)
 	{
-		GitgChangedFile *file = get_selected_file(view->priv->tree_view_staged);
+		GitgChangedFile *file = view->priv->current_file;
 		
 		if (!file)
 			return;

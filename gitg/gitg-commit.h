@@ -42,6 +42,10 @@ gboolean gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar co
 gboolean gitg_commit_has_changes(GitgCommit *commit);
 gboolean gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error);
 
+gboolean gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error);
+gboolean gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error);
+
+
 G_END_DECLS
 
 #endif /* __GITG_COMMIT_H__ */
