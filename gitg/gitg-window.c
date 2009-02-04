@@ -780,3 +780,43 @@ on_recent_open(GtkRecentChooser *chooser, GitgWindow *window)
 	g_free(path);
 	g_object_unref(file);
 }
+
+static void
+on_about_dialog_response(GtkDialog *dialog, gint response, gpointer data)
+{
+	gtk_widget_destroy(GTK_WIDGET(dialog));
+}
+
+void
+on_help_about(GtkAction *action, GitgWindow *window)
+{
+	static GtkAboutDialog *about_dialog;
+	gchar const copyright[] = "Copyright © 2009 Jesse van den Kieboom";
+	gchar const *authors[] = {"Jesse van den Kieboom <jesse@icecrew.nl>", NULL};
+	gchar const *comments = _("gitg is a git repository viewer for gtk+/GNOME");
+	if (!about_dialog)
+	{
+		about_dialog = GTK_ABOUT_DIALOG(gtk_about_dialog_new());
+		gtk_about_dialog_set_copyright(about_dialog, copyright);
+		gtk_about_dialog_set_authors(about_dialog, authors);
+		gtk_about_dialog_set_comments(about_dialog, comments);
+	
+		gtk_about_dialog_set_version(about_dialog, VERSION);
+		
+		GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(GITG_ICONDIR "/gitg.svg", NULL);
+		
+		if (!pixbuf)
+			pixbuf = gdk_pixbuf_new_from_file(GITG_ICONDIR "/gitg128x128.png", NULL);
+		
+		gtk_about_dialog_set_logo(about_dialog, pixbuf);
+		
+		if (pixbuf)
+			g_object_unref(pixbuf);
+	
+		g_object_add_weak_pointer(G_OBJECT(about_dialog), (gpointer *)&about_dialog);
+		g_signal_connect(about_dialog, "response", G_CALLBACK(on_about_dialog_response), NULL);
+	}
+	
+	gtk_window_set_transient_for(GTK_WINDOW(about_dialog), GTK_WINDOW(window));
+	gtk_window_present(GTK_WINDOW(about_dialog));
+}

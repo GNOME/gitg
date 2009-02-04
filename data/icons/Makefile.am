@@ -5,7 +5,8 @@ icons_DATA = \
 	gitg32x32.png	\
 	gitg48x48.png	\
 	gitg64x64.png	\
-	gitg128x128.png
+	gitg128x128.png \
+	gitg.svg
 
 pixmapsdir = $(datadir)/pixmaps
 pixmaps_DATA = \

@@ -11,17 +11,22 @@
       <object class="GtkActionGroup" id="action_group_menu">
         <child>
           <object class="GtkAction" id="FileAction">
-            <property name="label">_File</property>
+            <property name="label" translatable="yes">_File</property>
           </object>
         </child>
         <child>
           <object class="GtkAction" id="EditAction">
-            <property name="label">_Edit</property>
+            <property name="label" translatable="yes">_Edit</property>
           </object>
         </child>
         <child>
           <object class="GtkAction" id="ViewAction">
-            <property name="label">_View</property>
+            <property name="label" translatable="yes">_View</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="HelpAction">
+            <property name="label" translatable="yes">_Help</property>
           </object>
         </child>
       </object>
@@ -82,6 +87,16 @@
       </object>
     </child>
     <child>
+      <object class="GtkActionGroup" id="action_group_menu_help">
+        <child>
+          <object class="GtkAction" id="HelpAboutAction">
+            <property name="stock-id">gtk-about</property>
+            <signal name="activate" handler="on_help_about"/>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
       <object class="GtkActionGroup" id="action_group_commit_context">
         <child>
           <object class="GtkAction" id="StageChangesAction">
@@ -120,6 +135,9 @@
         </menu>
         <menu action="ViewAction">
           <menuitem action="ViewRefreshAction"/>
+        </menu>
+        <menu action="HelpAction">
+          <menuitem action="HelpAboutAction"/>
         </menu>
       </menubar>
       <popup name="popup_commit_stage">
