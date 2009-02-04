@@ -566,7 +566,7 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 	else
 		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
 	
-	argv[2] = g_strdup("--topo-order");
+	//argv[2] = g_strdup("--topo-order");
 	
 	gchar *head = NULL;
 	
@@ -575,7 +575,7 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 		head = gitg_repository_parse_ref(self, "HEAD");
 		
 		if (head)
-			argv[3] = g_strdup("HEAD");
+			argv[2] = g_strdup("HEAD");
 		
 		g_free(head);
 	}
@@ -584,7 +584,7 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 		int i;
 
 		for (i = 0; i < argc; ++i)
-			argv[3 + i] = g_strdup(av[i]);
+			argv[2 + i] = g_strdup(av[i]);
 	}
 
 	g_strfreev(self->priv->last_args);
