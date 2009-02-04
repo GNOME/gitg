@@ -108,7 +108,7 @@ draw_arrow(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, gint8 la
 }
 
 static void
-draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, GitgRevision *revision, gboolean top, gdouble yoffset)
+draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, GitgRevision *revision, gdouble yoffset)
 {
 	if (!revision)
 		return;
@@ -129,13 +129,12 @@ draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, Git
 		for (item = lane->from; item; item = item->next)
 		{
 			gint8 from = (gint8)GPOINTER_TO_INT(item->data);
-			gdouble xf = 0.0;
-		
-			if (from != to)
-				xf = 0.5 * (to - from);
-		
-			cairo_move_to(cr, area->x + (from + (top ? xf : 0)) * cw + cw / 2.0, area->y + yoffset * ch);
-			cairo_line_to(cr, area->x + (to - (top ? 0 : xf)) * cw + cw / 2.0, area->y + (yoffset + 1) * ch);
+			
+			cairo_move_to(cr, area->x + from * cw + cw / 2.0, area->y + yoffset * ch);
+			cairo_curve_to(cr, area->x + from * cw + cw / 2.0, area->y + (yoffset + 1) * ch,
+						   area->x + to * cw + cw / 2.0, area->y + (yoffset + 1) * ch,
+						   area->x + to * cw + cw / 2.0, area->y + (yoffset + 2) * ch);
+			
 			cairo_stroke(cr);
 		}
 
@@ -147,13 +146,13 @@ draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, Git
 static void
 draw_top_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 {
-	draw_paths_real(self, cr, area, self->priv->revision, TRUE, 0);
+	draw_paths_real(self, cr, area, self->priv->revision, -1);
 }
 
 static void
 draw_bottom_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 {
-	draw_paths_real(self, cr, area, self->priv->next_revision, FALSE, 1);
+	draw_paths_real(self, cr, area, self->priv->next_revision, 1);
 }
 
 static void
@@ -265,6 +264,10 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(renderer);
 
 	cairo_t *cr = gdk_cairo_create(window);
+	
+	cairo_rectangle(cr, area->x, area->y, area->width, area->height);
+	cairo_clip(cr);
+	
 	draw_paths(self, cr, area);
 	
 	/* draw indicator */
