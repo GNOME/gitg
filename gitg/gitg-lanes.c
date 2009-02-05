@@ -360,12 +360,10 @@ expand_lane(GitgLanes *lanes, CollapsedLane *lane)
 
 		if (cnt == INACTIVE_COLLAPSE)
 			break;
-		
-		next = ensure_correct_index(revision, index);
-		
+
 		/* insert new lane at the index */
 		GitgLane *copy = gitg_lane_copy(ln);
-		GSList *lns = gitg_revision_get_lanes(revision);		
+		GSList *lns = gitg_revision_get_lanes(revision);
 
 		if (!item->next || cnt + 1 == INACTIVE_COLLAPSE)
 		{
@@ -377,6 +375,7 @@ expand_lane(GitgLanes *lanes, CollapsedLane *lane)
 		}
 		else
 		{
+			next = ensure_correct_index(GITG_REVISION(item->next->data), index);
 			copy->from = g_slist_prepend(NULL, GINT_TO_POINTER((gint)next));
 			
 			/* update merge indices */
