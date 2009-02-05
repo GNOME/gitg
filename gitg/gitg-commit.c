@@ -108,8 +108,13 @@ gitg_commit_set_property(GObject *object, guint prop_id, const GValue *value, GP
 	switch (prop_id)
 	{
 		case PROP_REPOSITORY:
-			self->priv->repository = g_value_get_object(value);
+		{
+			if (self->priv->repository)
+				g_object_unref(self->priv->repository);
+
+			self->priv->repository = g_value_dup_object(value);
 			g_signal_connect_swapped(self->priv->repository, "load", G_CALLBACK(gitg_commit_refresh), self);
+		}
 		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
