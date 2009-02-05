@@ -36,9 +36,14 @@ struct _GitgWindowPrivate
 	GtkActionGroup *edit_group;
 	GtkWidget *open_dialog;
 	gchar *current_branch;
+	GitgCellRendererPath *renderer_path;
 	
 	GTimer *load_timer;
+	GdkCursor *hand;
 };
+
+static gboolean on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window);
+static gboolean on_tree_view_button_release(GtkTreeView *treeview, GdkEventButton *event, GitgWindow *window);
 
 static void gitg_window_buildable_iface_init(GtkBuildableIface *iface);
 
@@ -55,6 +60,7 @@ gitg_window_finalize(GObject *object)
 	
 	g_free(self->priv->current_branch);
 	g_timer_destroy(self->priv->load_timer);
+	gdk_cursor_unref(self->priv->hand);
 	
 	G_OBJECT_CLASS(gitg_window_parent_class)->finalize(object);
 }
@@ -199,7 +205,7 @@ build_search_entry(GitgWindow *window, GtkBuilder *builder)
 }
 
 static void
-on_parent_activated(GitgRevisionView *view, gchar *hash, GitgWindow *window)
+goto_hash(GitgWindow *window, gchar const *hash)
 {
 	GtkTreeIter iter;
 	
@@ -213,6 +219,12 @@ on_parent_activated(GitgRevisionView *view, gchar *hash, GitgWindow *window)
 	
 	gtk_tree_view_scroll_to_cell(window->priv->tree_view, path, NULL, FALSE, 0, 0);
 	gtk_tree_path_free(path);
+}
+
+static void
+on_parent_activated(GitgRevisionView *view, gchar *hash, GitgWindow *window)
+{
+	goto_hash(window, hash);
 }
 
 static void
@@ -308,7 +320,9 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object(builder, "action_group_menu_edit"));
 
 	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
-	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "rv_renderer_subject")), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
+	
+	window->priv->renderer_path = GITG_CELL_RENDERER_PATH(gtk_builder_get_object(builder, "rv_renderer_subject"));
+	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(window->priv->renderer_path), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
 	
 	GtkRecentFilter *filter = gtk_recent_filter_new();
 	gtk_recent_filter_add_group(filter, "gitg");
@@ -328,6 +342,9 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(window->priv->tree_view);
 	g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), window);
 	g_signal_connect(window->priv->revision_view, "parent-activated", G_CALLBACK(on_parent_activated), window);
+	
+	g_signal_connect(window->priv->tree_view, "motion-notify-event", G_CALLBACK(on_tree_view_motion), window);
+	g_signal_connect(window->priv->tree_view, "button-release-event", G_CALLBACK(on_tree_view_button_release), window);
 }
 
 static void
@@ -367,6 +384,7 @@ gitg_window_init(GitgWindow *self)
 	self->priv = GITG_WINDOW_GET_PRIVATE(self);
 	
 	self->priv->load_timer = g_timer_new();
+	self->priv->hand = gdk_cursor_new(GDK_HAND1);
 }
 
 static void
@@ -819,4 +837,95 @@ on_help_about(GtkAction *action, GitgWindow *window)
 	
 	gtk_window_set_transient_for(GTK_WINDOW(about_dialog), GTK_WINDOW(window));
 	gtk_window_present(GTK_WINDOW(about_dialog));
+}
+
+static gboolean
+find_lane_boundary(GitgWindow *window, GtkTreePath *path, gint cell_x, gchar const **hash)
+{
+	GtkTreeModel *model = GTK_TREE_MODEL(window->priv->repository);
+	GtkTreeIter iter;
+	guint width;
+	GitgRevision *revision;
+	
+	gtk_tree_model_get_iter(model, &iter, path);
+	gtk_tree_model_get(model, &iter, 0, &revision, -1);
+	
+	/* Determine lane at cell_x */
+	g_object_get(window->priv->renderer_path, "lane-width", &width, NULL);
+	guint laneidx = cell_x / width;
+	
+	GSList *lanes = gitg_revision_get_lanes(revision);
+	GitgLane *lane = (GitgLane *)g_slist_nth_data(lanes, laneidx);
+	gboolean ret;
+
+	if (lane && GITG_IS_LANE_BOUNDARY(lane))
+	{
+		if (hash)
+			*hash = ((GitgLaneBoundary *)lane)->hash;
+
+		ret = TRUE;
+	}
+	else
+	{
+		ret = FALSE;
+	}
+		
+	gitg_revision_unref(revision);
+	return ret;
+}
+
+static gboolean
+is_boundary_from_event(GitgWindow *window, GdkEventAny *event, gint x, gint y, gchar const **hash)
+{
+	GtkTreePath *path;
+	GtkTreeViewColumn *column;
+	gint cell_x;
+	gint cell_y;
+
+	if (event->window != gtk_tree_view_get_bin_window(window->priv->tree_view))
+		return FALSE;
+
+	gtk_tree_view_get_path_at_pos(window->priv->tree_view, x, y, &path, &column, &cell_x, &cell_y);
+
+	/* First check on correct column */
+	if (gtk_tree_view_get_column(window->priv->tree_view, 0) != column)
+	{
+		if (path)
+			gtk_tree_path_free(path);
+		
+		return FALSE;
+	}
+
+	/* Check for lanes that have TYPE_END or TYPE_START and where the mouse
+	   is actually placed */
+	gboolean ret = find_lane_boundary(window, path, cell_x, hash);
+	gtk_tree_path_free(path);
+	
+	return ret;
+}
+
+static gboolean 
+on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window)
+{
+	if (is_boundary_from_event(window, (GdkEventAny *)event, event->x, event->y, NULL))	
+		gdk_window_set_cursor(GTK_WIDGET(treeview)->window, window->priv->hand);
+	else
+		gdk_window_set_cursor(GTK_WIDGET(treeview)->window, NULL);
+	
+	return FALSE;
+}
+
+static gboolean
+on_tree_view_button_release(GtkTreeView *treeview, GdkEventButton *event, GitgWindow *window)
+{
+	if (event->button != 1)
+		return FALSE;
+
+	gchar const *hash;
+	
+	if (!is_boundary_from_event(window, (GdkEventAny *)event, event->x, event->y, &hash))
+		return FALSE;
+	
+	goto_hash(window, hash);
+	return TRUE;
 }
