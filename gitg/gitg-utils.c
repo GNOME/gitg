@@ -1,5 +1,6 @@
 #include <string.h>
 #include <glib.h>
+#include <gconf/gconf-client.h>
 
 #include "gitg-utils.h"
 
@@ -416,4 +417,34 @@ gitg_utils_menu_position_under_tree_view (GtkMenu  *menu,
 							x, y, push_in,
 							tree);
 	}
+}
+
+gchar *
+gitg_utils_get_monospace_font_name()
+{
+	GConfClient *client = gconf_client_get_default();
+	gchar *name = gconf_client_get_string(client, "/desktop/gnome/interface/monospace_font_name", NULL);
+	
+	g_object_unref(client);
+	
+	return name;
+}
+
+void 
+gitg_utils_set_monospace_font(GtkWidget *widget)
+{
+	gchar *name = gitg_utils_get_monospace_font_name();
+	
+	if (name)
+	{
+		PangoFontDescription *description = pango_font_description_from_string(name);
+		
+		if (description)
+		{
+			gtk_widget_modify_font(widget, description);
+			pango_font_description_free(description);
+		}
+	}
+	
+	g_free(name);
 }

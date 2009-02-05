@@ -83,10 +83,7 @@ gitg_revision_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	GtkSourceStyleScheme *scheme = gtk_source_style_scheme_manager_get_scheme(schememanager, "gitg");
 	gtk_source_buffer_set_style_scheme(buffer, scheme);
 	
-	PangoFontDescription *fd = pango_font_description_from_string("Monospace 10");
-	gtk_widget_modify_font(GTK_WIDGET(rvv->priv->diff), fd);
-	pango_font_description_free(fd);
-	
+	gitg_utils_set_monospace_font(GTK_WIDGET(rvv->priv->diff));
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(rvv->priv->diff), GTK_TEXT_BUFFER(buffer));
 
 	gchar const *lbls[] = {

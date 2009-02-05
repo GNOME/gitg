@@ -695,9 +695,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 		g_object_unref(pixbuf);
 	}
 	
-	PangoFontDescription *fd = pango_font_description_from_string("Monospace 10");
-	gtk_widget_modify_font(GTK_WIDGET(self->priv->changes_view), fd);
-	pango_font_description_free(fd);
+	gitg_utils_set_monospace_font(GTK_WIDGET(self->priv->changes_view));
 	
 	GtkTextBuffer *buffer = initialize_buffer(self);
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(self->priv->changes_view), buffer);
