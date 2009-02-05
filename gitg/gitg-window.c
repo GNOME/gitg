@@ -454,6 +454,7 @@ create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
 		}
 		else
 		{
+			ret = FALSE;
 			path = NULL;
 		}
 	}
@@ -609,8 +610,8 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		window->priv->repository = NULL;
 	}
 	
-	gboolean haspath = create_repository(window, path, usewd); 
-
+	gboolean haspath = create_repository(window, path, usewd);
+	
 	if (window->priv->repository && gitg_repository_get_path(window->priv->repository))
 	{
 		gtk_tree_view_set_model(window->priv->tree_view, GTK_TREE_MODEL(window->priv->repository));
