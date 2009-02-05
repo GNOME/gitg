@@ -166,9 +166,9 @@ draw_arrows(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 		GitgLane *lane = (GitgLane *)item->data;
 		gitg_color_set_cairo_source(lane->color, cr);
 		
-		if (lane->type == GITG_LANE_TYPE_START)
+		if (lane->type & GITG_LANE_TYPE_START)
 			draw_arrow(self, cr, area, to, TRUE);
-		else if (lane->type == GITG_LANE_TYPE_END)
+		else if (lane->type & GITG_LANE_TYPE_END)
 			draw_arrow(self, cr, area, to, FALSE);
 		
 		++to;
