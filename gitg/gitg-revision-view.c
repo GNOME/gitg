@@ -4,10 +4,18 @@
 #include <string.h>
 
 #include "gitg-revision-view.h"
+#include "gitg-revision.h"
 #include "gitg-runner.h"
 #include "gitg-utils.h"
 
 #define GITG_REVISION_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_VIEW, GitgRevisionViewPrivate))
+
+/* Properties */
+enum
+{
+	PROP_0,
+	PROP_REPOSITORY
+};
 
 /* Signals */
 enum
@@ -24,10 +32,12 @@ struct _GitgRevisionViewPrivate
 	GtkLabel *author;
 	GtkLabel *date;
 	GtkLabel *subject;
-	GtkVBox *parents;
+	GtkTable *parents;
 	GtkSourceView *diff;
 	
 	GitgRunner *diff_runner;
+	
+	GitgRepository *repository;
 };
 
 static void gitg_revision_view_buildable_iface_init(GtkBuildableIface *iface);
@@ -61,7 +71,7 @@ gitg_revision_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	rvv->priv->author = GTK_LABEL(gtk_builder_get_object(builder, "label_author"));
 	rvv->priv->date = GTK_LABEL(gtk_builder_get_object(builder, "label_date"));
 	rvv->priv->subject = GTK_LABEL(gtk_builder_get_object(builder, "label_subject"));
-	rvv->priv->parents = GTK_VBOX(gtk_builder_get_object(builder, "vbox_parents"));
+	rvv->priv->parents = GTK_TABLE(gtk_builder_get_object(builder, "table_parents"));
 	rvv->priv->diff = GTK_SOURCE_VIEW(gtk_builder_get_object(builder, "revision_diff"));
 	
 	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
@@ -73,10 +83,7 @@ gitg_revision_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	GtkSourceStyleScheme *scheme = gtk_source_style_scheme_manager_get_scheme(schememanager, "gitg");
 	gtk_source_buffer_set_style_scheme(buffer, scheme);
 	
-	PangoFontDescription *fd = pango_font_description_from_string("Monospace 10");
-	gtk_widget_modify_font(GTK_WIDGET(rvv->priv->diff), fd);
-	pango_font_description_free(fd);
-	
+	gitg_utils_set_monospace_font(GTK_WIDGET(rvv->priv->diff));
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(rvv->priv->diff), GTK_TEXT_BUFFER(buffer));
 
 	gchar const *lbls[] = {
@@ -107,9 +114,49 @@ gitg_revision_view_finalize(GObject *object)
 	
 	gitg_runner_cancel(self->priv->diff_runner);
 	g_object_unref(self->priv->diff_runner);
+	
+	g_object_unref(self->priv->repository);
 
 	G_OBJECT_CLASS(gitg_revision_view_parent_class)->finalize(object);
 }
+
+static void
+gitg_revision_view_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
+{
+	GitgRevisionView *self = GITG_REVISION_VIEW(object);
+
+	switch (prop_id)
+	{
+		case PROP_REPOSITORY:
+			g_value_set_object(value, self->priv->repository);
+		break;
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+gitg_revision_view_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
+{
+	GitgRevisionView *self = GITG_REVISION_VIEW(object);
+	
+	switch (prop_id)
+	{
+		case PROP_REPOSITORY:
+		{
+			if (self->priv->repository)
+				g_object_unref(self->priv->repository);
+				
+			self->priv->repository = g_value_dup_object(value);
+		}
+		break;
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+		break;
+	}
+}
+
 
 static void
 gitg_revision_view_class_init(GitgRevisionViewClass *klass)
@@ -117,7 +164,17 @@ gitg_revision_view_class_init(GitgRevisionViewClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	
 	object_class->finalize = gitg_revision_view_finalize;
-	
+
+	object_class->set_property = gitg_revision_view_set_property;
+	object_class->get_property = gitg_revision_view_get_property;
+
+	g_object_class_install_property(object_class, PROP_REPOSITORY,
+					 g_param_spec_object("repository",
+							      "REPOSITORY",
+							      "Repository",
+							      GITG_TYPE_REPOSITORY,
+							      G_PARAM_READWRITE));
+
 	signals[PARENT_ACTIVATED] =
 		g_signal_new("parent-activated",
 			G_OBJECT_CLASS_TYPE (object_class),
@@ -226,19 +283,45 @@ update_parents(GitgRevisionView *self, GitgRevision *revision)
 		return;
 	
 	gchar **parents = gitg_revision_get_parents(revision);
-	gchar **ptr;
+	gint num = g_strv_length(parents);
+	gint i;
 	
-	for (ptr = parents; *ptr; ++ptr)
+	gtk_table_resize(self->priv->parents, num, 2);
+	GdkCursor *cursor = gdk_cursor_new(GDK_HAND1);
+	Hash hash;
+	
+	for (i = 0; i < num; ++i)
 	{
-		GtkWidget *widget = make_parent_label(self, *ptr);
-		gtk_box_pack_start(GTK_BOX(self->priv->parents), widget, FALSE, TRUE, 0);
+		GtkWidget *widget = make_parent_label(self, parents[i]);
+		gtk_table_attach(self->priv->parents, widget, 0, 1, i, i + 1, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 		
 		gtk_widget_realize(widget);
-		GdkCursor *cursor = gdk_cursor_new(GDK_HAND1);
 		gdk_window_set_cursor(widget->window, cursor);
-		gdk_cursor_unref(cursor);
+		
+		/* find subject */
+		gitg_utils_sha1_to_hash(parents[i], hash);
+		
+		GitgRevision *revision = gitg_repository_lookup(self->priv->repository, hash);
+		
+		if (revision)
+		{
+			GtkWidget *subject = gtk_label_new(NULL);
+
+			gchar *text = g_strdup_printf("(<i>%s</i>)", gitg_revision_get_subject(revision));
+			gtk_label_set_markup(GTK_LABEL(subject), text);
+			g_free(text);
+			
+			gtk_widget_show(subject);
+
+			gtk_misc_set_alignment(GTK_MISC(subject), 0.0, 0.5);
+			gtk_label_set_ellipsize(GTK_LABEL(subject), PANGO_ELLIPSIZE_MIDDLE);
+			gtk_label_set_single_line_mode(GTK_LABEL(subject), TRUE);
+			
+			gtk_table_attach(self->priv->parents, subject, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_SHRINK, 0, 0);
+		}
 	}
-	
+
+	gdk_cursor_unref(cursor);	
 	g_strfreev(parents);	
 }
 
@@ -325,4 +408,22 @@ gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, Gi
 	
 	// Update diff
 	update_diff(self, repository, revision);
+}
+
+void 
+gitg_revision_view_set_repository(GitgRevisionView *view, GitgRepository *repository)
+{
+	g_return_if_fail(GITG_IS_REVISION_VIEW(view));
+	g_return_if_fail(repository == NULL || GITG_IS_REPOSITORY(repository));
+
+	if (view->priv->repository)
+	{
+		g_object_unref(view->priv->repository);
+		view->priv->repository = NULL;
+	}
+	
+	if (repository)
+		view->priv->repository = g_object_ref(repository);
+	
+	g_object_notify(G_OBJECT(view), "repository");
 }

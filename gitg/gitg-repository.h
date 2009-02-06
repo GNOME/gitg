@@ -52,6 +52,7 @@ void gitg_repository_clear(GitgRepository *repository);
 
 gboolean gitg_repository_find_by_hash(GitgRepository *self, gchar const *hash, GtkTreeIter *iter);
 gboolean gitg_repository_find(GitgRepository *store, GitgRevision *revision, GtkTreeIter *iter);
+GitgRevision *gitg_repository_lookup(GitgRepository *store, gchar const *hash);
 
 GSList *gitg_repository_get_refs(GitgRepository *repository);
 GSList *gitg_repository_get_refs_for_hash(GitgRepository *repository, gchar const *hash);

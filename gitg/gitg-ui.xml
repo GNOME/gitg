@@ -309,8 +309,12 @@
                                 <property name="column_spacing">6</property>
                                 <property name="row_spacing">2</property>
                                 <child>
-                                  <object class="GtkVBox" id="vbox_parents">
+                                  <object class="GtkTable" id="table_parents">
                                     <property name="visible">True</property>
+                                    <property name="n_rows">1</property>
+                                    <property name="n_columns">2</property>
+                                    <property name="column_spacing">3</property>
+                                    <property name="row_spacing">2</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>

@@ -35,5 +35,8 @@ gint gitg_utils_sort_names(gchar const *s1, gchar const *s2);
 
 void gitg_utils_menu_position_under_widget(GtkMenu *menu, gint *x, gint *y,	gboolean *push_in, gpointer user_data);
 void gitg_utils_menu_position_under_tree_view(GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data);
+
+gchar *gitg_utils_get_monospace_font_name();
+void gitg_utils_set_monospace_font(GtkWidget *widget);
 					   
 #endif /* __GITG_UTILS_H__ */

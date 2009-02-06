@@ -307,11 +307,8 @@ do_clear(GitgRepository *repository, gboolean emit)
 	repository->priv->allocated = 0;
 	
 	/* clear hash tables */
-	g_hash_table_ref(repository->priv->hashtable);
-	g_hash_table_ref(repository->priv->refs);
-	
-	g_hash_table_destroy(repository->priv->hashtable);
-	g_hash_table_destroy(repository->priv->refs);
+	g_hash_table_remove_all(repository->priv->hashtable);
+	g_hash_table_remove_all(repository->priv->refs);
 }
 
 static void
@@ -686,6 +683,19 @@ gitg_repository_clear(GitgRepository *repository)
 {
 	g_return_if_fail(GITG_IS_REPOSITORY(repository));
 	do_clear(repository, TRUE);
+}
+
+GitgRevision *
+gitg_repository_lookup(GitgRepository *store, gchar const *hash)
+{
+	g_return_val_if_fail(GITG_IS_REPOSITORY(store), NULL);
+	
+	gpointer result = g_hash_table_lookup(store->priv->hashtable, hash);
+	
+	if (!result)
+		return NULL;
+	
+	return store->priv->storage[GPOINTER_TO_UINT(result)];
 }
 
 gboolean
