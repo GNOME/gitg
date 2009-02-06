@@ -307,8 +307,12 @@ update_parents(GitgRevisionView *self, GitgRevision *revision)
 		{
 			GtkWidget *subject = gtk_label_new(NULL);
 
-			gchar *text = g_strdup_printf("(<i>%s</i>)", gitg_revision_get_subject(revision));
+			gchar *escaped = g_markup_escape_text(gitg_revision_get_subject(revision), -1);
+			gchar *text = g_strdup_printf("(<i>%s</i>)", escaped);
+			
 			gtk_label_set_markup(GTK_LABEL(subject), text);
+			
+			g_free(escaped);
 			g_free(text);
 			
 			gtk_widget_show(subject);
