@@ -109,6 +109,7 @@ gitg_commit_view_finalize(GObject *object)
 	
 	gitg_runner_cancel(view->priv->runner);
 	g_object_unref(view->priv->runner);
+	g_object_unref(view->priv->ui_manager);
 	
 	gdk_cursor_unref(view->priv->hand);
 	
@@ -662,7 +663,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	/* Store widgets */
 	GitgCommitView *self = GITG_COMMIT_VIEW(buildable);
 	
-	self->priv->ui_manager = GTK_UI_MANAGER(gtk_builder_get_object(builder, "uiman"));
+	self->priv->ui_manager = g_object_ref(gtk_builder_get_object(builder, "uiman"));
 	self->priv->tree_view_unstaged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_unstaged"));
 	self->priv->tree_view_staged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_staged"));
 	
