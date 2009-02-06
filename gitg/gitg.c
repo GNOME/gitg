@@ -56,7 +56,6 @@ build_ui()
 	GError *error = NULL;
 	
 	GtkBuilder *builder = gtk_builder_new();
-	gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
 	
 	if (!gtk_builder_add_from_file(builder, GITG_UI_DIR "/gitg-ui.xml", &error))
 	{
