@@ -966,6 +966,9 @@ is_boundary_from_event(GitgWindow *window, GdkEventAny *event, gint x, gint y, g
 
 	gtk_tree_view_get_path_at_pos(window->priv->tree_view, x, y, &path, &column, &cell_x, &cell_y);
 
+	if (!path)
+		return FALSE;
+
 	/* First check on correct column */
 	if (gtk_tree_view_get_column(window->priv->tree_view, 0) != column)
 	{
