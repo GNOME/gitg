@@ -183,7 +183,6 @@ build_search_entry(GitgWindow *window, GtkBuilder *builder)
 	gtk_box_pack_end(GTK_BOX(box), entry, FALSE, FALSE, 0);
 	
 	GtkBuilder *b = gtk_builder_new();
-	gtk_builder_set_translation_domain(b, GETTEXT_PACKAGE);
 	GError *error = NULL;
 
 	if (!gtk_builder_add_from_file(b, GITG_UI_DIR "/gitg-menus.xml", &error))

@@ -6,28 +6,28 @@
       <object class="GtkActionGroup" id="actiongroup">
         <child>
           <object class="GtkRadioAction" id="subject">
-            <property name="label">_Subject</property>
+            <property name="label" translatable="yes">_Subject</property>
             <property name="active">true</property>
             <signal after="true" handler="on_subject_activate" name="activate"/>
           </object>
         </child>
         <child>
           <object class="GtkRadioAction" id="author">
-            <property name="label">_Author</property>
+            <property name="label" translatable="yes">_Author</property>
             <property name="group">subject</property>
             <signal after="true" handler="on_author_activate" name="activate"/>
           </object>
         </child>
         <child>
           <object class="GtkRadioAction" id="date">
-            <property name="label">_Date</property>
+            <property name="label" translatable="yes">_Date</property>
             <property name="group">subject</property>
             <signal after="true" handler="on_date_activate" name="activate"/>
           </object>
         </child>
         <child>
           <object class="GtkRadioAction" id="hash">
-            <property name="label">_Hash</property>
+            <property name="label" translatable="yes">_Hash</property>
             <property name="group">subject</property>
             <signal after="true" handler="on_hash_activate" name="activate"/>
           </object>
