@@ -193,7 +193,8 @@ lane_container_next(LaneContainer *container, gint index)
 	container->lane = lane;
 	container->lane->from = g_slist_prepend(NULL, GINT_TO_POINTER((gint)(index)));
 	
-	++container->inactive;
+	if (container->to)
+		++container->inactive;
 }
 
 static void
