@@ -332,6 +332,10 @@ restore_state(GitgWindow *window)
 	orig = gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit));
 	gtk_paned_set_position(GTK_PANED(window->priv->hpaned_commit),
 						   gitg_settings_get_hpaned_commit_position(settings, orig));
+
+	orig = gtk_paned_get_position(GTK_PANED(window->priv->revision_tree_view));
+	gtk_paned_set_position(GTK_PANED(window->priv->revision_tree_view),
+						   gitg_settings_get_revision_tree_view_position(settings, orig));
 }
 
 static void
@@ -406,6 +410,7 @@ save_state(GitgWindow *window)
 	gitg_settings_set_vpaned_main_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->vpaned_main)));
 	gitg_settings_set_vpaned_commit_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->vpaned_commit)));
 	gitg_settings_set_hpaned_commit_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit)));
+	gitg_settings_set_revision_tree_view_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->revision_tree_view)));
 
 	gitg_settings_save(settings);
 }

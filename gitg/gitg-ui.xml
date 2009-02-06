@@ -161,7 +161,7 @@
   <object class="GitgWindow" id="window">
     <property name="title" translatable="yes">gitg</property>
     <property name="default_width">800</property>
-    <property name="default_height">600</property>
+    <property name="default_height">800</property>
     <property name="visible">False</property>
     <signal name="set-focus" handler="on_window_set_focus"/>
     <signal name="window-state-event" handler="on_window_state_event"/>
@@ -187,7 +187,7 @@
                   <object class="GtkVPaned" id="vpaned_main">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="position">300</property>
+                    <property name="position">350</property>
                     <child>
                       <object class="GtkVBox" id="vbox2">
                         <property name="visible">True</property>
@@ -710,7 +710,7 @@
                   <object class="GtkVPaned" id="vpaned_commit">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="position">350</property>
+                    <property name="position">450</property>
                     <child>
                       <object class="GtkVBox" id="vbox_changes">
                         <property name="visible">True</property>

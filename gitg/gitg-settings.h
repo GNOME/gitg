@@ -31,6 +31,9 @@ G_BEGIN_DECLS
 #define gitg_settings_set_vpaned_commit_position(settings, value) gitg_settings_set_integer(settings, "vpaned-commit-position", value)
 #define gitg_settings_get_vpaned_commit_position(settings, def) gitg_settings_get_integer(settings, "vpaned-commit-position", def)
 
+#define gitg_settings_set_revision_tree_view_position(settings, value) gitg_settings_set_integer(settings, "revision-tree-view-position", value)
+#define gitg_settings_get_revision_tree_view_position(settings, def) gitg_settings_get_integer(settings, "revision-tree-view-position", def)
+
 typedef struct _GitgSettings		GitgSettings;
 typedef struct _GitgSettingsClass	GitgSettingsClass;
 typedef struct _GitgSettingsPrivate	GitgSettingsPrivate;
