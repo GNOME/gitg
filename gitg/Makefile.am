@@ -36,6 +36,7 @@ gitg_SOURCES = 					\
 	gitg-revision-tree-view.c	\
 	gitg-revision-view.c		\
 	gitg-runner.c				\
+	gitg-settings.c				\
 	gitg-utils.c				\
 	gitg-window.c				\
 	sexy-icon-entry.c

@@ -10,6 +10,7 @@
 #include "gitg-window.h"
 #include "sexy-icon-entry.h"
 #include "config.h"
+#include "gitg-settings.h"
 
 static gboolean commit_mode = FALSE;
 
@@ -68,6 +69,8 @@ build_ui()
 	gtk_widget_show_all(window);
 
 	g_signal_connect(window, "delete-event", G_CALLBACK(on_window_delete_event), NULL);
+	g_object_unref(builder);
+
 	return GITG_WINDOW(window);
 }
 
@@ -147,7 +150,9 @@ main(int argc, char **argv)
 	set_language_search_path();
 	set_style_scheme_search_path();
 	set_icons();
-	
+
+	GitgSettings *settings = gitg_settings_get_default();
+		
 	GitgWindow *window = build_ui();
 	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, (gchar const **)&argv[2]);
 	
@@ -155,6 +160,8 @@ main(int argc, char **argv)
 		gitg_window_show_commit(window);
 	
 	gtk_main();
-	
+
+	/* Finalize settings */
+	g_object_unref(settings);	
 	return 0;
 }

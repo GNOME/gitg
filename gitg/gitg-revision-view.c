@@ -190,7 +190,7 @@ on_parent_clicked(GtkWidget *ev, GdkEventButton *event, gpointer userdata)
 }
 
 static GtkWidget *
-make_parent_label(GitgRevisionView *self, gchar *hash)
+make_parent_label(GitgRevisionView *self, gchar const *hash)
 {
 	GtkWidget *ev = gtk_event_box_new();
 	GtkWidget *lbl = gtk_label_new(NULL);

@@ -162,7 +162,9 @@
     <property name="title" translatable="yes">gitg</property>
     <property name="default_width">800</property>
     <property name="default_height">600</property>
-    <signal name="set_focus" handler="on_window_set_focus"/>
+    <property name="visible">False</property>
+    <signal name="set-focus" handler="on_window_set_focus"/>
+    <signal name="window-state-event" handler="on_window_state_event"/>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -182,7 +184,7 @@
               <object class="GtkVBox" id="vbox_history">
               <property name="visible">True</property>
                 <child>
-                  <object class="GtkVPaned" id="vpaned1">
+                  <object class="GtkVPaned" id="vpaned_main">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="position">300</property>
@@ -241,6 +243,7 @@
                                     <property name="fixed-width">400</property>
                                     <property name="sizing">fixed</property>
                                     <property name="resizable">True</property>
+                                    <property name="expand">True</property>
                                     <child>
                                       <object class="GitgCellRendererPath" id="rv_renderer_subject"/>
                                       <attributes>
@@ -286,8 +289,8 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="resize">False</property>
-                        <property name="shrink">True</property>
+                        <property name="resize">True</property>
+                        <property name="shrink">False</property>
                       </packing>
                     </child>
                     <child>
@@ -390,6 +393,7 @@
                                     <property name="visible">True</property>
                                     <property name="xalign">1</property>
                                     <property name="label" translatable="yes">Subject:</property>
+                                    <property name="ellipsize">middle</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">3</property>
@@ -559,7 +563,7 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="resize">True</property>
+                        <property name="resize">False</property>
                         <property name="shrink">True</property>
                       </packing>
                     </child>

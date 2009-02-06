@@ -14,6 +14,7 @@
 #include "gitg-revision-tree-view.h"
 #include "gitg-cell-renderer-path.h"
 #include "gitg-commit-view.h"
+#include "gitg-settings.h"
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
@@ -33,6 +34,10 @@ struct _GitgWindowPrivate
 	GtkWidget *search_popup;
 	GtkComboBox *combo_branches;
 	
+	GtkWidget *vpaned_main;
+	GtkWidget *hpaned_commit;
+	GtkWidget *vpaned_commit;
+	
 	GtkActionGroup *edit_group;
 	GtkWidget *open_dialog;
 	gchar *current_branch;
@@ -40,6 +45,8 @@ struct _GitgWindowPrivate
 	
 	GTimer *load_timer;
 	GdkCursor *hand;
+	
+	gboolean destroy_has_run;
 };
 
 static gboolean on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window);
@@ -302,6 +309,32 @@ build_branches_combo(GitgWindow *window, GtkBuilder *builder)
 }
 
 static void
+restore_state(GitgWindow *window)
+{
+	GitgSettings *settings = gitg_settings_get_default();
+	gint dw;
+	gint dh;
+
+	gtk_window_get_default_size(GTK_WINDOW(window), &dw, &dh);
+	
+	gtk_window_set_default_size(GTK_WINDOW(window), 
+							    gitg_settings_get_window_width(settings, dw), 
+							    gitg_settings_get_window_height(settings, dh));
+
+	gint orig = gtk_paned_get_position(GTK_PANED(window->priv->vpaned_main));
+	gtk_paned_set_position(GTK_PANED(window->priv->vpaned_main),
+						   gitg_settings_get_vpaned_main_position(settings, orig));
+						   
+	orig = gtk_paned_get_position(GTK_PANED(window->priv->vpaned_commit));
+	gtk_paned_set_position(GTK_PANED(window->priv->vpaned_commit),
+						   gitg_settings_get_vpaned_commit_position(settings, orig));
+
+	orig = gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit));
+	gtk_paned_set_position(GTK_PANED(window->priv->hpaned_commit),
+						   gitg_settings_get_hpaned_commit_position(settings, orig));
+}
+
+static void
 gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
 	if (parent_iface.parser_finished)
@@ -310,12 +343,18 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	// Store widgets
 	GitgWindow *window = GITG_WINDOW(buildable);
 	
+	window->priv->vpaned_main = GTK_WIDGET(gtk_builder_get_object(builder, "vpaned_main"));
+	window->priv->hpaned_commit = GTK_WIDGET(gtk_builder_get_object(builder, "hpaned_commit"));
+	window->priv->vpaned_commit = GTK_WIDGET(gtk_builder_get_object(builder, "vpaned_commit"));
+	
 	window->priv->notebook_main = GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook_main"));
 	window->priv->tree_view = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_rv"));
 	window->priv->statusbar = GTK_STATUSBAR(gtk_builder_get_object(builder, "statusbar"));
 	window->priv->revision_view = GITG_REVISION_VIEW(gtk_builder_get_object(builder, "revision_view"));
 	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW(gtk_builder_get_object(builder, "revision_tree_view"));
 	window->priv->commit_view = GITG_COMMIT_VIEW(gtk_builder_get_object(builder, "hpaned_commit"));
+
+	restore_state(window);
 
 	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object(builder, "action_group_menu_edit"));
 
@@ -356,10 +395,34 @@ gitg_window_buildable_iface_init(GtkBuildableIface *iface)
 }
 
 static void
+save_state(GitgWindow *window)
+{
+	GitgSettings *settings = gitg_settings_get_default();
+	GtkAllocation *allocation = &(GTK_WIDGET(window)->allocation);
+	
+	gitg_settings_set_window_width(settings, allocation->width);
+	gitg_settings_set_window_height(settings, allocation->height);
+
+	gitg_settings_set_vpaned_main_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->vpaned_main)));
+	gitg_settings_set_vpaned_commit_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->vpaned_commit)));
+	gitg_settings_set_hpaned_commit_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit)));
+
+	gitg_settings_save(settings);
+}
+
+static void
 gitg_window_destroy(GtkObject *object)
 {
-	gtk_tree_view_set_model(GITG_WINDOW(object)->priv->tree_view, NULL);
+	GitgWindow *window = GITG_WINDOW(object);
+	
+	if (!window->priv->destroy_has_run)
+	{
+		save_state(window);
 
+		gtk_tree_view_set_model(window->priv->tree_view, NULL);
+		window->priv->destroy_has_run = TRUE;
+	}
+	
 	if (GTK_OBJECT_CLASS(parent_class)->destroy)
 		GTK_OBJECT_CLASS(parent_class)->destroy(object);
 }
@@ -786,6 +849,14 @@ on_window_set_focus(GitgWindow *window, GtkWidget *widget)
 	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditPasteAction"), editable);
 	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditCutAction"), editable && selection);
 	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditCopyAction"), cancopy);
+}
+
+gboolean
+on_window_state_event(GtkWidget *widget, GdkEventWindowState *event, GitgWindow *window)
+{
+	GitgSettings *settings = gitg_settings_get_default();
+	
+	gitg_settings_set_window_state(settings, event->new_window_state);
 }
 
 void
