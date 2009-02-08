@@ -710,6 +710,12 @@ static void
 on_buffer_delete_range(GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end, GitgDiffView *view)
 {
 	regions_free(view, FALSE);
+
+	if (iter_in_view(view, start) || iter_in_view(view, end))
+		try_scan(view);
+
+	if (!view->priv->scan_id)
+		view->priv->scan_id = g_idle_add((GSourceFunc)on_idle_scan, view);
 }
 
 static void 
