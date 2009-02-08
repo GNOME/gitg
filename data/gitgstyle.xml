@@ -42,6 +42,7 @@
   <color name="plum1"                       value="#ad7fa8"/>
   <color name="plum2"                       value="#75507b"/>
   <color name="plum3"                       value="#5c3566"/>
+  <color name="chocolate0"                  value="#f1d09e"/>
   <color name="chocolate1"                  value="#e9b96e"/>
   <color name="chocolate2"                  value="#c17d11"/>
   <color name="chocolate3"                  value="#8f5902"/>
@@ -56,67 +57,21 @@
   <color name="aluminium5"                  value="#555753"/>
   <color name="aluminium6"                  value="#2e3436"/>
 
-  <!-- legacy styles for old lang files: do NOT use them in lang files -->
-  <style name="Others"                      foreground="chameleon3" bold="true"/>
-  <style name="Others 2"                    foreground="chameleon3"/>
-  <style name="Others 3"                    foreground="plum3"/>
-
-  <!-- Bracket Matching -->
-  <style name="bracket-match"               foreground="aluminium1" background="aluminium3" bold="true"/>
-  <style name="bracket-mismatch"            foreground="aluminium1" background="scarletred3" bold="true"/>
+  <!-- Default -->
+  <style name="gitgdiff:text"               foreground="skyblue3" background="aluminium1"/>
+  <style name="text"                        use-style="gitgdiff:text"/>
 
   <!-- Right Margin -->
   <style name="right-margin"                foreground="aluminium5" background="aluminium4"/>
   <style name="line-numbers"                foreground="aluminium4" background="aluminium1"/>
-
   
   <!-- Search Matching -->
-  <style name="search-match"                background="butter1"/>  
+  <style name="search-match"                background="butter1"/>
 
-  <!-- Comments -->
-  <style name="def:comment"                 foreground="skyblue3"/>
-  <style name="def:shebang"                 foreground="skyblue3" bold="true"/>
-  <style name="def:doc-comment-element"     italic="true"/>
-
-  <!-- Constants -->
-  <style name="def:constant"                foreground="plum1"/>
-  <style name="def:special-char"            foreground="plum3"/>
-
-  <!-- Identifiers -->
-  <style name="def:identifier"              foreground="skyblue1"/>
-
-  <!-- Statements -->
-  <style name="def:statement"               foreground="scarletred3" bold="true"/>
-
-  <!-- Types -->
-  <style name="def:type"                    foreground="chameleon3" bold="true"/>
-
-  <!-- Others -->
-  <style name="def:preprocessor"            foreground="chocolate3"/>
-  <style name="def:error"                   background="scarletred2" bold="true"/>
-  <style name="def:note"                    background="orange1" bold="true"/>
-  <style name="def:underlined"              italic="true" underline="true"/>
-
-  <!-- Language specific -->
-  <style name="diff:added-line"             foreground="chameleon3" line-background="chameleon0"/>
-  <style name="diff:removed-line"           foreground="scarletred1" line-background="scarletred0"/>
-  <style name="diff:changed-line"           use-style="def:preprocessor"/>
-  <style name="diff:diff-file"              foreground="aluminium2" line-background="orange3"/>
-  <style name="diff:location"               foreground="aluminium1" line-background="skyblue2"/>
-  <style name="diff:special-case"           use-style="def:constant"/>
-  <style name="gitgdiff:trailing-spaces"     background="scarletred2"/>
-
-  <style name="xml:tags"                    foreground="chameleon3"/>
-  <style name="xml:namespace"               bold="true"/>
-
-  <style name="js:object"                   foreground="chameleon3" bold="true"/>
-  <style name="js:constructors"             foreground="chameleon3"/>
-
-  <style name="latex:display-math"          foreground="plum3"/>
-  <style name="latex:command"               foreground="chameleon3" bold="true"/>
-  <style name="latex:include"               use-style="def:preprocessor"/>
-
-  <style name="sh:variable"                 foreground="plum3"/>
-  <style name="sh:variable-definition"      foreground="chameleon3"/>
-
+  <style name="gitgdiff:added-line"         foreground="chameleon3" line-background="chameleon0"/>
+  <style name="gitgdiff:removed-line"       foreground="scarletred1" line-background="scarletred0"/>
+  <style name="gitgdiff:changed-line"       foreground="chocolate3" line-background="chocolate0"/>
+  <style name="gitgdiff:header"             foreground="aluminium2" line-background="orange3"/>
+  <style name="gitgdiff:hunk"               foreground="aluminium1" line-background="skyblue2"/>
+  <style name="gitgdiff:trailing-spaces"    background="scarletred2"/>
 </style-scheme>

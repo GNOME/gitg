@@ -132,15 +132,17 @@ set_icons()
 int
 main(int argc, char **argv)
 {
+	g_thread_init(NULL);
+	
+	gitg_debug_init();
+
 	bindtextdomain(GETTEXT_PACKAGE, GITG_LOCALEDIR);
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 	textdomain(GETTEXT_PACKAGE);
 	
-	g_thread_init(NULL);
-	
-	gitg_debug_init();
-	
 	g_set_prgname("gitg");
+	
+	/* Translators: this is the application name as in g_set_application_name */
 	g_set_application_name(_("gitg"));
 
 	gtk_init(&argc, &argv);

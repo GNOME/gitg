@@ -24,11 +24,14 @@ gitg_SOURCES = 					\
 	gitg-color.c				\
 	gitg-commit.c				\
 	gitg-commit-view.c			\
+	gitg-data-binding.c			\
 	gitg-debug.c				\
 	gitg-diff-view.c			\
 	gitg-label-renderer.c		\
 	gitg-lane.c					\
 	gitg-lanes.c				\
+	gitg-preferences.c			\
+	gitg-preferences-dialog.c	\
 	gitg-ref.c					\
 	gitg-repository.c			\
 	gitg-revision.c				\
@@ -48,7 +51,10 @@ gitg_LDADD = $(PACKAGE_LIBS)
 gitg_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
 
 uidir = $(datadir)/gitg/ui/
-ui_DATA = gitg-ui.xml gitg-menus.xml
+ui_DATA = \
+	gitg-ui.xml 			\
+	gitg-menus.xml			\
+	gitg-preferences.xml
 
 gitg-enum-types.h: gitg-enum-types.h.template $(ENUM_H_FILES) $(GLIB_MKENUMS)
 	(cd $(srcdir) && $(GLIB_MKENUMS) --template gitg-enum-types.h.template $(ENUM_H_FILES)) > $@

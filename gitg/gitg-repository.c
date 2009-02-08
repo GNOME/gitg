@@ -3,6 +3,7 @@
 #include "gitg-lanes.h"
 #include "gitg-ref.h"
 #include "gitg-types.h"
+#include "gitg-preferences.h"
 
 #include <gio/gio.h>
 #include <glib/gi18n.h>
@@ -59,6 +60,7 @@ struct _GitgRepositoryPrivate
 	gint grow_size;
 	
 	gchar **last_args;
+	guint idle_relane_id;
 };
 
 inline static gint
@@ -96,6 +98,13 @@ tree_model_get_column_type(GtkTreeModel *tree_model, gint index)
 	return GITG_REPOSITORY(tree_model)->priv->column_types[index];
 }
 
+static void
+fill_iter(GitgRepository *repository, gint index, GtkTreeIter *iter)
+{
+	iter->stamp = repository->priv->stamp;
+	iter->user_data = GINT_TO_POINTER(index);
+}
+
 static gboolean
 tree_model_get_iter(GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreePath *path)
 {
@@ -113,11 +122,8 @@ tree_model_get_iter(GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreePath *pa
 	
 	if (indices[0] < 0 || indices[0] >= rp->priv->size)
 		return FALSE;
-		
-	iter->stamp = rp->priv->stamp;
-	iter->user_data = GINT_TO_POINTER(indices[0]);
-	iter->user_data2 = NULL;
-	iter->user_data3 = NULL;
+	
+	fill_iter(rp, indices[0], iter);
 	
 	return TRUE;
 }
@@ -208,10 +214,7 @@ tree_model_iter_children(GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIte
 		return FALSE;
 	
 	GitgRepository *rp = GITG_REPOSITORY(tree_model);
-	iter->stamp = rp->priv->stamp;
-	iter->user_data = GINT_TO_POINTER(0);
-	iter->user_data2 = NULL;
-	iter->user_data3 = NULL;
+	fill_iter(rp, 0, iter);
 	
 	return TRUE;
 }
@@ -246,10 +249,7 @@ tree_model_iter_nth_child(GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIt
 	GitgRepository *rp = GITG_REPOSITORY(tree_model);	
 	g_return_val_if_fail(n < rp->priv->size, FALSE);
 	
-	iter->stamp = rp->priv->stamp;
-	iter->user_data = GINT_TO_POINTER(n);
-	iter->user_data2 = NULL;
-	iter->user_data3 = NULL;
+	fill_iter(rp, n, iter);
 	
 	return TRUE;
 }
@@ -334,6 +334,9 @@ gitg_repository_finalize(GObject *object)
 	
 	/* Free cached args */
 	g_strfreev(rp->priv->last_args);
+	
+	if (rp->priv->idle_relane_id)
+		g_source_remove(rp->priv->idle_relane_id);
 
 	G_OBJECT_CLASS (gitg_repository_parent_class)->finalize(object);
 }
@@ -442,7 +445,6 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 			gitg_lanes_reset(self->priv->lanes);
 
 		lanes = gitg_lanes_next(self->priv->lanes, rv, &mylane);
-		
 		gitg_revision_set_lanes(rv, lanes, mylane);
 
 		gitg_repository_add(self, rv, NULL);
@@ -457,6 +459,103 @@ free_refs(GSList *refs)
 {
 	g_slist_foreach(refs, (GFunc)gitg_ref_free, NULL);
 	g_slist_free(refs);
+}
+
+static gboolean
+repository_relane(GitgRepository *repository)
+{
+	repository->priv->idle_relane_id = 0;
+	
+	gitg_lanes_reset(repository->priv->lanes);
+	
+	guint i;
+	GtkTreeIter iter;
+	GtkTreePath *path = gtk_tree_path_new_first();
+	
+	
+	for (i = 0; i < repository->priv->size; ++i)
+	{
+		guint8 mylane;
+		GitgRevision *revision = repository->priv->storage[i];
+
+		GSList *lanes = gitg_lanes_next(repository->priv->lanes, revision, &mylane);
+		gitg_revision_set_lanes(revision, lanes, mylane);
+
+		fill_iter(repository, i, &iter);
+		gtk_tree_model_row_changed(GTK_TREE_MODEL(repository), path, &iter);
+		
+		gtk_tree_path_next(path);
+	}
+	
+	gtk_tree_path_free(path);
+	
+	return FALSE;
+}
+
+static void
+prepare_relane(GitgRepository *repository)
+{
+	if (!repository->priv->idle_relane_id)
+		repository->priv->idle_relane_id = g_idle_add((GSourceFunc)repository_relane, repository);
+}
+
+static gboolean
+convert_setting_to_inactive_max(GValue const *setting, GValue *value, gpointer userdata)
+{
+	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
+	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
+	
+	gint s = g_value_get_int(setting);
+	g_value_set_int(value, 2 + s * 8);
+	
+	prepare_relane(GITG_REPOSITORY(userdata));
+	return TRUE;
+}
+
+static gboolean
+convert_setting_to_inactive_collapse(GValue const *setting, GValue *value, gpointer userdata)
+{
+	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
+	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
+
+	gint s = g_value_get_int(setting);
+	g_value_set_int(value, 1 + s * 3);
+
+	prepare_relane(GITG_REPOSITORY(userdata));	
+	return TRUE;
+}
+
+static gboolean
+convert_setting_to_inactive_gap(GValue const *setting, GValue *value, gpointer userdata)
+{
+	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
+	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
+
+	g_value_set_int(value, 10);
+	
+	prepare_relane(GITG_REPOSITORY(userdata));	
+	return TRUE;
+}
+
+static void
+initialize_lanes_bindings(GitgRepository *repository)
+{
+	GitgPreferences *preferences = gitg_preferences_get_default();
+	
+	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
+							   repository->priv->lanes, "inactive-max",
+							   convert_setting_to_inactive_max,
+							   repository);
+
+	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
+							   repository->priv->lanes, "inactive-collapse",
+							   convert_setting_to_inactive_collapse,
+							   repository);
+
+	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
+							   repository->priv->lanes, "inactive-gap",
+							   convert_setting_to_inactive_gap,
+							   repository);							   
 }
 
 static void
@@ -477,6 +576,8 @@ gitg_repository_init(GitgRepository *object)
 	
 	object->priv->loader = gitg_runner_new(10000);
 	g_signal_connect(object->priv->loader, "update", G_CALLBACK(on_loader_update), object);
+	
+	initialize_lanes_bindings(object);
 }
 
 static void
@@ -548,6 +649,7 @@ static gboolean
 reload_revisions(GitgRepository *repository, GError **error)
 {
 	g_signal_emit(repository, repository_signals[LOAD], 0);
+
 	return gitg_repository_run_command(repository, repository->priv->loader, (gchar const **)repository->priv->last_args, error);
 }
 

@@ -23,6 +23,7 @@ AM_INIT_AUTOMAKE([1.8 dist-bzip2 no-dist-gzip])
 AM_MAINTAINER_MODE
 AC_CONFIG_HEADERS(config.h)
 
+AC_PATH_PROG(GCONFTOOL, gconftool-2)
 IT_PROG_INTLTOOL([0.35.0])
 AC_PROG_LIBTOOL
 
@@ -56,6 +57,12 @@ AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
+
+dnl ================================================================
+dnl GConf related settings
+dnl ================================================================
+
+AM_GCONF_SOURCE_2
 
 AC_CONFIG_FILES([
 Makefile

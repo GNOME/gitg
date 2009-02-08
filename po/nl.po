@@ -2,16 +2,41 @@
 msgid "Git repository browser"
 msgstr "Git repository bekijker"
 
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:144 ../gitg/gitg-window.c:718
-#: ../gitg/gitg-window.c:733 ../gitg/gitg-ui.xml.h:30
+#. Translators: this is the application name as in g_set_application_name
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:148 ../gitg/gitg-window.c:720
+#: ../gitg/gitg-window.c:735 ../gitg/gitg-ui.xml.h:30
 msgid "gitg"
 msgstr "gitg"
 
-#: ../gitg/gitg.c:19
+#: ../data/gitg.schemas.in.h:1
+msgid "Filter Revisions When Searching"
+msgstr "Filter revisies bij zoeken"
+
+#: ../data/gitg.schemas.in.h:2
+msgid ""
+"Setting that indicates when an inactive lane should be collapsed. Valid "
+"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+msgstr ""
+"Instelling die aangeeft wanneer een inactieve baan ingebouwd moet worden. "
+"Geldige waarden zijn 0 - 4, waarbij 0 'vroeg' en 4 'laat' betekent."
+
+#: ../data/gitg.schemas.in.h:3
+msgid "When to Collapse Inactive Lanes"
+msgstr "Wannneer inactieve lanen ingevouwd moeten worden"
+
+#: ../data/gitg.schemas.in.h:4
+msgid ""
+"Whether searching filters the revisions in the history view instead of "
+"jumping to the first match."
+msgstr ""
+"Of zoeken de revisies in de geschiedenis filtert in plaats van naar het "
+"eerste resultaat te springen."
+
+#: ../gitg/gitg.c:21
 msgid "Start gitg in commit mode"
 msgstr "Open gitg in commit mode"
 
-#: ../gitg/gitg.c:29
+#: ../gitg/gitg.c:31
 msgid "- git repository viewer"
 msgstr "- git repository bekijker"
 
@@ -44,7 +69,7 @@ msgid "Reverting changes is permanent and cannot be undone"
 msgstr ""
 "Wijzigingen terugdraaien is permanent en kan niet ongedaan gemaakt worden"
 
-#: ../gitg/gitg-repository.c:637
+#: ../gitg/gitg-repository.c:739
 msgid "Not a valid git repository"
 msgstr "Geen geldige git repository"
 
@@ -52,37 +77,37 @@ msgstr "Geen geldige git repository"
 msgid "(Empty)"
 msgstr "(Leeg)"
 
-#: ../gitg/gitg-window.c:301
+#: ../gitg/gitg-window.c:303
 msgid "Select branch"
 msgstr "Selecteer tak"
 
-#: ../gitg/gitg-window.c:465
+#: ../gitg/gitg-window.c:467
 msgid "Begin loading repository"
 msgstr "Begin laden van repository"
 
-#: ../gitg/gitg-window.c:474
+#: ../gitg/gitg-window.c:476
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%d revisies ingeladen in %.2fs"
 
-#: ../gitg/gitg-window.c:485
+#: ../gitg/gitg-window.c:487
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Laden van %d revisies..."
 
-#: ../gitg/gitg-window.c:494
+#: ../gitg/gitg-window.c:496
 msgid "Could not find git repository"
 msgstr "Kon git repository niet vinden"
 
-#: ../gitg/gitg-window.c:630
+#: ../gitg/gitg-window.c:632
 msgid "All branches"
 msgstr "Alle takken"
 
-#: ../gitg/gitg-window.c:789
+#: ../gitg/gitg-window.c:791
 msgid "Open git repository"
 msgstr "Open git repository"
 
-#: ../gitg/gitg-window.c:893
+#: ../gitg/gitg-window.c:895
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg is een repository bekijker voor gtk+/GNOME"
 
@@ -217,3 +242,46 @@ msgstr "_Hash"
 #: ../gitg/gitg-menus.xml.h:4
 msgid "_Subject"
 msgstr "_Onderwerp"
+
+#: ../gitg/gitg-preferences.xml.h:1
+msgid "<b>History</b>"
+msgstr "<b>Geschiedenis</b>"
+
+#: ../gitg/gitg-preferences.xml.h:2
+msgid "Collapse inactive lanes:"
+msgstr "Invouwen van inactieve banen:"
+
+#: ../gitg/gitg-preferences.xml.h:3
+msgid "Early"
+msgstr "Vroeg"
+
+#: ../gitg/gitg-preferences.xml.h:4
+msgid "Late"
+msgstr "Laat"
+
+#: ../gitg/gitg-preferences.xml.h:5
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: ../gitg/gitg-preferences.xml.h:6
+msgid "Search filters revisions in the history view"
+msgstr "Zoeken filtert revisies in de geschiedenis"
+
+#: ../gitg/gitg-preferences.xml.h:7
+msgid "View"
+msgstr "Beeld"
+
+#~ msgid "<b>Diff view</b>"
+#~ msgstr "<b>Diff veld</b>"
+
+#~ msgid "Background:"
+#~ msgstr "Achtergrond:"
+
+#~ msgid "Colors and styles"
+#~ msgstr "Kleuren en stijlen"
+
+#~ msgid "Fill entire line"
+#~ msgstr "Vul volledige regel"
+
+#~ msgid "Foreground:"
+#~ msgstr "Voorgrond:"

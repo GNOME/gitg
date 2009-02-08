@@ -15,6 +15,7 @@
 #include "gitg-cell-renderer-path.h"
 #include "gitg-commit-view.h"
 #include "gitg-settings.h"
+#include "gitg-preferences-dialog.h"
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
@@ -1009,4 +1010,10 @@ on_tree_view_button_release(GtkTreeView *treeview, GdkEventButton *event, GitgWi
 	
 	goto_hash(window, hash);
 	return TRUE;
+}
+
+void
+on_edit_preferences(GtkAction *action, GitgWindow *window)
+{
+	gitg_preferences_dialog_present(GTK_WINDOW(window));
 }

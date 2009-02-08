@@ -1,0 +1,29 @@
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <key>/schemas/apps/gitg/preferences/view/history/search-filter</key>
+      <applyto>/apps/gitg/preferences/view/history/search-filter</applyto>
+      <owner>gitg</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Filter Revisions When Searching</short>
+        <long>Whether searching filters the revisions in the history view
+        instead of jumping to the first match.</long>
+      </locale>
+    </schema>  
+    <schema>
+      <key>/schemas/apps/gitg/preferences/view/history/collapse-inactive-lanes</key>
+      <applyto>/apps/gitg/preferences/view/history/collapse-inactive-lanes</applyto>
+      <owner>gitg</owner>
+      <type>int</type>
+      <default>2</default>
+      <locale name="C">
+        <short>When to Collapse Inactive Lanes</short>
+        <long>Setting that indicates when an inactive lane should be collapsed.
+        Valid values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'.
+        </long>
+      </locale>
+    </schema>
+  </schemalist>
+</gconfschemafile>

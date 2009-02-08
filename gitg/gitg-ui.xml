@@ -73,6 +73,12 @@
             <signal name="activate" handler="on_edit_paste"/>
           </object>
         </child>
+        <child>
+          <object class="GtkAction" id="EditPreferencesAction">
+            <property name="stock-id">gtk-preferences</property>
+            <signal name="activate" handler="on_edit_preferences"/>
+          </object>
+        </child>
       </object>
     </child>
     <child>
@@ -132,6 +138,8 @@
           <menuitem action="EditCutAction"/>
           <menuitem action="EditCopyAction"/>
           <menuitem action="EditPasteAction"/>
+          <separator/>
+          <menuitem action="EditPreferencesAction"/>
         </menu>
         <menu action="ViewAction">
           <menuitem action="ViewRefreshAction"/>

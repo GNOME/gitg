@@ -4,9 +4,13 @@
 
 #define GITG_LANES_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_LANES, GitgLanesPrivate))
 
-#define INACTIVE_MAX 30
-#define INACTIVE_COLLAPSE 10
-#define INACTIVE_GAP 10
+enum
+{
+	PROP_0,
+	PROP_INACTIVE_MAX,
+	PROP_INACTIVE_COLLAPSE,
+	PROP_INACTIVE_GAP
+};
 
 typedef struct
 {
@@ -37,6 +41,10 @@ struct _GitgLanesPrivate
 	/* hash table of rev hash -> CollapsedLane where rev hash is the hash
 	   to be expected on the lane */
 	GHashTable *collapsed;
+	
+	gint inactive_max;
+	gint inactive_collapse;
+	gint inactive_gap;
 };
 
 G_DEFINE_TYPE(GitgLanes, gitg_lanes, G_TYPE_OBJECT)
@@ -115,12 +123,85 @@ gitg_lanes_finalize(GObject *object)
 }
 
 static void
+gitg_lanes_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
+{
+	GitgLanes *self = GITG_LANES(object);
+	
+	switch (prop_id)
+	{
+		case PROP_INACTIVE_MAX:
+			self->priv->inactive_max = g_value_get_int(value);
+		break;
+		case PROP_INACTIVE_COLLAPSE:
+			self->priv->inactive_collapse = g_value_get_int(value);
+		break;
+		case PROP_INACTIVE_GAP:
+			self->priv->inactive_gap = g_value_get_int(value);
+		break;
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+gitg_lanes_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
+{
+	GitgLanes *self = GITG_LANES(object);
+	
+	switch (prop_id)
+	{
+		case PROP_INACTIVE_MAX:
+			g_value_set_int(value, self->priv->inactive_max);
+		break;
+		case PROP_INACTIVE_COLLAPSE:
+			g_value_set_int(value, self->priv->inactive_collapse);
+		break;
+		case PROP_INACTIVE_GAP:
+			g_value_set_int(value, self->priv->inactive_gap);
+		break;
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+		break;
+	}
+}
+
+static void
 gitg_lanes_class_init(GitgLanesClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	
 	object_class->finalize = gitg_lanes_finalize;
+	object_class->set_property = gitg_lanes_set_property;
+	object_class->get_property = gitg_lanes_get_property;
 	
+	g_object_class_install_property(object_class, PROP_INACTIVE_MAX,
+					 g_param_spec_int("inactive-max",
+							      "INACTIVE_MAX",
+							      "Maximum inactivity on a lane before collapsing",
+							      1,
+							      G_MAXINT,
+							      30,
+							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+
+	g_object_class_install_property(object_class, PROP_INACTIVE_COLLAPSE,
+					 g_param_spec_int("inactive-collapse",
+							      "INACTIVE_COLLAPSE",
+							      "Number of revisions to collapse",
+							      1,
+							      G_MAXINT,
+							      10,
+							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+
+	g_object_class_install_property(object_class, PROP_INACTIVE_GAP,
+					 g_param_spec_int("inactive-gap",
+							      "INACTIVE_GAP",
+							      "Minimum of revisions to leave between collapse and expand",
+							      1,
+							      G_MAXINT,
+							      10,
+							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+
 	g_type_class_add_private(object_class, sizeof(GitgLanesPrivate));
 }
 
@@ -236,7 +317,7 @@ add_collapsed(GitgLanes *lanes, LaneContainer *container, gint8 index)
 static void
 collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
 {
-	/* backtrack for INACTIVE_COLLAPSE revisions and remove this container from
+	/* backtrack for inactive-collapse revisions and remove this container from
 	   those revisions, appropriately updating merge indices etc */
 	GSList *item;
 	
@@ -301,7 +382,7 @@ collapse_lanes(GitgLanes *lanes)
 	{
 		LaneContainer *container = (LaneContainer *)item->data;
 		
-		if (container->inactive != INACTIVE_MAX + INACTIVE_GAP)
+		if (container->inactive != lanes->priv->inactive_max + lanes->priv->inactive_gap)
 		{
 			item = g_slist_next(item);
 			++index;
@@ -359,14 +440,14 @@ expand_lane(GitgLanes *lanes, CollapsedLane *lane)
 	{
 		GitgRevision *revision = GITG_REVISION(item->data);
 
-		if (cnt == INACTIVE_COLLAPSE)
+		if (cnt == lanes->priv->inactive_collapse)
 			break;
 
 		/* insert new lane at the index */
 		GitgLane *copy = gitg_lane_copy(ln);
 		GSList *lns = gitg_revision_get_lanes(revision);
 
-		if (!item->next || cnt + 1 == INACTIVE_COLLAPSE)
+		if (!item->next || cnt + 1 == lanes->priv->inactive_collapse)
 		{
 			GitgLaneBoundary *boundary = gitg_lane_convert_boundary(copy, GITG_LANE_TYPE_START);
 			
@@ -507,7 +588,7 @@ prepare_lanes(GitgLanes *lanes, GitgRevision *next, gint8 *pos)
 	}
 
 	/* Store new revision in our track list */
-	if (g_slist_length(lanes->priv->previous) == INACTIVE_COLLAPSE + INACTIVE_GAP + 1)
+	if (g_slist_length(lanes->priv->previous) == lanes->priv->inactive_collapse + lanes->priv->inactive_gap + 1)
 	{
 		GSList *last = g_slist_last(lanes->priv->previous);
 		gitg_revision_unref(GITG_REVISION(last->data));
