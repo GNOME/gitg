@@ -401,6 +401,8 @@ format_date(GitgRevision *revision)
 void
 gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, GitgRevision *revision)
 {
+	GtkClipboard *cb;
+
 	g_return_if_fail(GITG_IS_REVISION_VIEW(self));
 
 	// Update labels
@@ -419,6 +421,10 @@ gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, Gi
 	
 		gchar *sha = gitg_revision_get_sha1(revision);
 		gtk_label_set_text(self->priv->sha, sha);
+
+		cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+		gtk_clipboard_set_text(cb, sha, -1);
+
 		g_free(sha);
 	}
 	else
