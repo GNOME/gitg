@@ -379,7 +379,7 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 	g_signal_emit(runner, runner_signals[END_LOADING], 0);
 	
 	if (status != 0 && error)
-		g_set_error(error, gitg_runner_error_quark(), GITG_RUNNER_ERROR_EXIT, "Did not exit without error code");
+		g_set_error(error, GITG_RUNNER_ERROR, GITG_RUNNER_ERROR_EXIT, "Did not exit without error code");
 	
 	return status == 0;
 }

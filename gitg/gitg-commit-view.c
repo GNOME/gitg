@@ -1161,9 +1161,17 @@ on_commit_clicked(GtkButton *button, GitgCommitView *view)
 	
 	gboolean signoff = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(view->priv->check_button_signed_off_by));
 	
-	if (!gitg_commit_commit(view->priv->commit, comment, signoff, NULL))
+	GError *error = NULL;
+	
+	if (!gitg_commit_commit(view->priv->commit, comment, signoff, &error))
 	{
-		show_error(view, _("Something went wrong while trying to commit"));
+		if (error && error->domain == GITG_COMMIT_ERROR && error->code == GITG_COMMIT_ERROR_SIGNOFF)
+			show_error(view, _("Your user name or email could not be retrieved for use in the sign off message"));
+		else
+			show_error(view, _("Something went wrong while trying to commit"));
+		
+		if (error)
+			g_error_free(error);
 	}
 	else
 	{

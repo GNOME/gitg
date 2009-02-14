@@ -61,6 +61,17 @@ static guint commit_signals[LAST_SIGNAL] = { 0 };
 
 G_DEFINE_TYPE(GitgCommit, gitg_commit, G_TYPE_OBJECT)
 
+GQuark
+gitg_commit_error_quark()
+{
+	static GQuark quark = 0;
+
+	if (G_UNLIKELY(quark == 0))
+		quark = g_quark_from_string ("gitg_commit_error");
+
+	return quark;
+}
+
 static void
 runner_cancel(GitgCommit *commit)
 {
@@ -684,19 +695,28 @@ get_signed_off_line(GitgCommit *commit)
 static gboolean 
 commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gboolean signoff, gchar **ref, GError **error)
 {
-	gchar *head = gitg_repository_parse_ref(commit->priv->repository, "HEAD");
-	gchar *fullcomment = NULL;
+	gchar *fullcomment;
 	
 	if (signoff)
 	{
 		gchar *line = get_signed_off_line(commit);
 		
-		if (line)
-			fullcomment = g_strconcat(comment, "\n\n", line, NULL);
+		if (!line)
+		{
+			if (error)
+				g_set_error(error, GITG_COMMIT_ERROR, GITG_COMMIT_ERROR_SIGNOFF, "Could not retrieve user name or email for signoff message");
+			
+			return FALSE;
+		}
+
+		fullcomment = g_strconcat(comment, "\n\n", line, NULL);
+	}
+	else
+	{
+		fullcomment = g_strdup(comment);
 	}
 	
-	if (!fullcomment)
-		fullcomment = g_strdup(comment);
+	gchar *head = gitg_repository_parse_ref(commit->priv->repository, "HEAD");
 
 	gchar **lines = gitg_repository_command_with_input_and_outputv(commit->priv->repository, fullcomment, error, "commit-tree", tree, head ? "-p" : NULL, head, NULL);
 

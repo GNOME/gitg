@@ -36,12 +36,15 @@ G_BEGIN_DECLS
 #define GITG_IS_RUNNER_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), GITG_TYPE_RUNNER))
 #define GITG_RUNNER_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), GITG_TYPE_RUNNER, GitgRunnerClass))
 
+#define GITG_RUNNER_ERROR			(gitg_runner_error_quark())
+
 typedef struct _GitgRunner			GitgRunner;
 typedef struct _GitgRunnerClass		GitgRunnerClass;
 typedef struct _GitgRunnerPrivate	GitgRunnerPrivate;
 
 typedef enum
 {
+	GITG_RUNNER_ERROR_NONE = 0,
 	GITG_RUNNER_ERROR_EXIT
 } GitgRunnerError;
 

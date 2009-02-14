@@ -37,9 +37,17 @@ G_BEGIN_DECLS
 #define GITG_IS_COMMIT_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), GITG_TYPE_COMMIT))
 #define GITG_COMMIT_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), GITG_TYPE_COMMIT, GitgCommitClass))
 
+#define GITG_COMMIT_ERROR			(gitg_commit_error_quark())
+
 typedef struct _GitgCommit			GitgCommit;
 typedef struct _GitgCommitClass		GitgCommitClass;
 typedef struct _GitgCommitPrivate	GitgCommitPrivate;
+
+typedef enum
+{
+	GITG_COMMIT_ERROR_NONE = 0,
+	GITG_COMMIT_ERROR_SIGNOFF
+} GitgCommitError;
 
 struct _GitgCommit {
 	GObject parent;
@@ -53,6 +61,8 @@ struct _GitgCommitClass {
 	void (*inserted) (GitgCommit *commit, GitgChangedFile *file);
 	void (*removed) (GitgCommit *commit, GitgChangedFile *file);
 };
+
+GQuark gitg_commit_error_quark(void);
 
 GType gitg_commit_get_type(void) G_GNUC_CONST;
 GitgCommit *gitg_commit_new(GitgRepository *repository);
