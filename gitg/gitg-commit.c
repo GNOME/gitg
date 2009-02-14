@@ -449,8 +449,12 @@ update_index_staged(GitgCommit *commit, GitgChangedFile *file)
 {
 	GFile *f = gitg_changed_file_get_file(file);
 	gchar *path = gitg_repository_relative(commit->priv->repository, f);
-	gchar **ret = gitg_repository_command_with_outputv(commit->priv->repository, NULL, "diff-index", "--cached", "HEAD", path, NULL);
+	gchar *head = gitg_repository_parse_head(commit->priv->repository);
+
+	gchar **ret = gitg_repository_command_with_outputv(commit->priv->repository, NULL, "diff-index", "--cached", head, "--", path, NULL);
+	
 	g_free(path);
+	g_free(head);
 	g_object_unref(f);
 	
 	if (!ret)
@@ -480,7 +484,7 @@ update_index_unstaged(GitgCommit *commit, GitgChangedFile *file)
 {
 	GFile *f = gitg_changed_file_get_file(file);
 	gchar *path = gitg_repository_relative(commit->priv->repository, f);
-	gchar **ret = gitg_repository_command_with_outputv(commit->priv->repository, NULL, "diff-files", path, NULL);
+	gchar **ret = gitg_repository_command_with_outputv(commit->priv->repository, NULL, "diff-files", "--", path, NULL);
 	g_free(path);
 	g_object_unref(f);
 	
