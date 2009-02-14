@@ -837,10 +837,9 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkHButtonBox" id="hbutton_box_commit">
+                          <object class="GtkHBox" id="hbox_commit">
                             <property name="visible">True</property>
                             <property name="spacing">3</property>
-                            <property name="layout_style">end</property>
                             <child>
                               <object class="GtkButton" id="button_commit">
                                 <property name="label" translatable="yes">Commit</property>
@@ -851,6 +850,18 @@
                               </object>
                               <packing>
                                 <property name="position">0</property>
+                                <property name="pack-type">end</property>
+                                <property name="expand">false</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkCheckButton" id="check_button_signed_off_by">
+                                <property name="visible">true</property>
+                                <property name="label" translatable="yes">Add signed-off-by</property>
+                              </object>
+                              <packing>
+                                <property name="pack-type">start</property>
+                                <property name="expand">false</property>
                               </packing>
                             </child>
                           </object>

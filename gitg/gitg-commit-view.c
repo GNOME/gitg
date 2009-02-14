@@ -69,6 +69,7 @@ struct _GitgCommitViewPrivate
 	
 	GtkSourceView *changes_view;
 	GtkTextView *comment_view;
+	GtkCheckButton *check_button_signed_off_by;
 	
 	GtkHScale *hscale_context;
 	gint context_size;
@@ -697,6 +698,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	
 	self->priv->changes_view = GTK_SOURCE_VIEW(gtk_builder_get_object(builder, "source_view_changes"));
 	self->priv->comment_view = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "text_view_comment"));
+	self->priv->check_button_signed_off_by = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "check_button_signed_off_by"));
 	
 	self->priv->hscale_context = GTK_HSCALE(gtk_builder_get_object(builder, "hscale_context"));
 	self->priv->group_context = GTK_ACTION_GROUP(gtk_builder_get_object(builder, "action_group_commit_context"));
@@ -1157,7 +1159,9 @@ on_commit_clicked(GtkButton *button, GitgCommitView *view)
 		return;
 	}
 	
-	if (!gitg_commit_commit(view->priv->commit, comment, NULL))
+	gboolean signoff = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(view->priv->check_button_signed_off_by));
+	
+	if (!gitg_commit_commit(view->priv->commit, comment, signoff, NULL))
 	{
 		show_error(view, _("Something went wrong while trying to commit"));
 	}

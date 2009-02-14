@@ -642,14 +642,66 @@ write_tree(GitgCommit *commit, gchar **tree, GError **error)
 	return TRUE;
 }
 
+static gchar *
+get_signed_off_line(GitgCommit *commit)
+{
+	gchar const *argv_name[] = {"config", "--get", "user.name", NULL};
+	
+	gchar **user = gitg_repository_command_with_outputv(commit->priv->repository, NULL, "config", "--get", "user.name", NULL);
+	
+	if (!user)
+		return NULL;
+	
+	if (!*user || !**user)
+	{
+		g_strfreev(user);
+		return NULL;
+	}
+	
+	gchar **email = gitg_repository_command_with_outputv(commit->priv->repository, NULL, "config", "--get", "user.email", NULL);
+	
+	if (!email)
+	{
+		g_strfreev(user);
+		return NULL;
+	}
+	
+	if (!*email || !**email)
+	{
+		g_strfreev(user);
+		g_strfreev(email);
+		
+		return NULL;
+	}
+	
+	gchar *ret = g_strdup_printf("Signed-off-by: %s <%s>", *user, *email);
+	g_strfreev(user);
+	g_strfreev(email);
+	
+	return ret;
+}
+
 static gboolean 
-commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gchar **ref, GError **error)
+commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gboolean signoff, gchar **ref, GError **error)
 {
 	gchar *head = gitg_repository_parse_ref(commit->priv->repository, "HEAD");
+	gchar *fullcomment = NULL;
+	
+	if (signoff)
+	{
+		gchar *line = get_signed_off_line(commit);
+		
+		if (line)
+			fullcomment = g_strconcat(comment, "\n\n", line, NULL);
+	}
+	
+	if (!fullcomment)
+		fullcomment = g_strdup(comment);
 
-	gchar const *argv[] = {"commit-tree", tree, head ? "-p" : NULL, head, NULL};
-	gchar **lines = gitg_repository_command_with_input_and_output(commit->priv->repository, argv, comment, error);
+	gchar **lines = gitg_repository_command_with_input_and_outputv(commit->priv->repository, fullcomment, error, "commit-tree", tree, head ? "-p" : NULL, head, NULL);
+
 	g_free(head);
+	g_free(fullcomment);
 
 	if (!lines || strlen(*lines) != 40)
 	{
@@ -670,7 +722,7 @@ update_ref(GitgCommit *commit, gchar const *ref, gchar const *subject, GError **
 }
 
 gboolean
-gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
+gitg_commit_commit(GitgCommit *commit, gchar const *comment, gboolean signoff, GError **error)
 {
 	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
 	
@@ -679,7 +731,7 @@ gitg_commit_commit(GitgCommit *commit, gchar const *comment, GError **error)
 		return FALSE;
 	
 	gchar *ref;
-	gboolean ret = commit_tree(commit, tree, comment, &ref, error);
+	gboolean ret = commit_tree(commit, tree, comment, signoff, &ref, error);
 	g_free(tree);
 	
 	if (!ret)
