@@ -308,7 +308,7 @@ update_parents(GitgRevisionView *self, GitgRevision *revision)
 	gint num = g_strv_length(parents);
 	gint i;
 	
-	gtk_table_resize(self->priv->parents, num, 2);
+	gtk_table_resize(self->priv->parents, num ? num : num + 1, 2);
 	GdkCursor *cursor = gdk_cursor_new(GDK_HAND1);
 	Hash hash;
 	
