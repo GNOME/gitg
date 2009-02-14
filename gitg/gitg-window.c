@@ -901,43 +901,67 @@ on_recent_open(GtkRecentChooser *chooser, GitgWindow *window)
 }
 
 static void
-on_about_dialog_response(GtkDialog *dialog, gint response, gpointer data)
+url_activate_hook(GtkAboutDialog *dialog, gchar const *link, gpointer data)
 {
-	gtk_widget_destroy(GTK_WIDGET(dialog));
+	gtk_show_uri(NULL, link, GDK_CURRENT_TIME, NULL);
+}
+
+static void
+email_activate_hook(GtkAboutDialog *dialog, gchar const *link, gpointer data)
+{
+	gchar *uri;
+	gchar *escaped;
+	
+	escaped = g_uri_escape_string(link, NULL, FALSE);
+	uri = g_strdup_printf("mailto:%s", escaped);
+	
+	gtk_show_uri(NULL, uri, GDK_CURRENT_TIME, NULL);
+	
+	g_free(uri);
+	g_free(escaped);
 }
 
 void
 on_help_about(GtkAction *action, GitgWindow *window)
 {
-	static GtkAboutDialog *about_dialog;
-	gchar const copyright[] = "Copyright © 2009 Jesse van den Kieboom";
-	gchar const *authors[] = {"Jesse van den Kieboom <jesse@icecrew.nl>", NULL};
-	gchar const *comments = _("gitg is a git repository viewer for gtk+/GNOME");
-	if (!about_dialog)
-	{
-		about_dialog = GTK_ABOUT_DIALOG(gtk_about_dialog_new());
-		gtk_about_dialog_set_copyright(about_dialog, copyright);
-		gtk_about_dialog_set_authors(about_dialog, authors);
-		gtk_about_dialog_set_comments(about_dialog, comments);
+	static gchar const copyright[] = "Copyright \xc2\xa9 2009 Jesse van den Kieboom";
+	static gchar const *authors[] = {"Jesse van den Kieboom <jesse@icecrew.nl>", NULL};
+	static gchar const *comments = N_("gitg is a git repository viewer for gtk+/GNOME");
+	static gchar const *license = N_("This program is free software; you can redistribute it and/or modify\n"
+		"it under the terms of the GNU General Public License as published by\n"
+		"the Free Software Foundation; either version 2 of the License, or\n"
+		"(at your option) any later version.\n"
+		"\n"
+		"This program is distributed in the hope that it will be useful,\n"
+		"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+		"GNU General Public License for more details.\n"
+		"\n"
+		"You should have received a copy of the GNU General Public License\n"
+		"along with this program; if not, write to the Free Software\n"
+		"Foundation, Inc., 59 Temple Place, Suite 330,\n"
+		"Boston, MA 02111-1307, USA.");
+
+	gtk_about_dialog_set_url_hook(url_activate_hook, NULL, NULL);
+	gtk_about_dialog_set_email_hook(email_activate_hook, NULL, NULL);
+
+	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(GITG_ICONDIR "/gitg.svg", NULL);
 	
-		gtk_about_dialog_set_version(about_dialog, VERSION);
-		
-		GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(GITG_ICONDIR "/gitg.svg", NULL);
-		
-		if (!pixbuf)
-			pixbuf = gdk_pixbuf_new_from_file(GITG_ICONDIR "/gitg128x128.png", NULL);
-		
-		gtk_about_dialog_set_logo(about_dialog, pixbuf);
-		
-		if (pixbuf)
-			g_object_unref(pixbuf);
+	if (!pixbuf)
+		pixbuf = gdk_pixbuf_new_from_file(GITG_ICONDIR "/gitg128x128.png", NULL);
+
+	gtk_show_about_dialog(GTK_WINDOW(window),
+						  "authors", authors,
+						  "copyright", copyright,
+						  "comments", _(comments),
+						  "version", VERSION,
+						  "website", "http://trac.novowork.com/gitg",
+						  "logo", pixbuf,
+						  "license", _(license),
+						  NULL);
 	
-		g_object_add_weak_pointer(G_OBJECT(about_dialog), (gpointer *)&about_dialog);
-		g_signal_connect(about_dialog, "response", G_CALLBACK(on_about_dialog_response), NULL);
-	}
-	
-	gtk_window_set_transient_for(GTK_WINDOW(about_dialog), GTK_WINDOW(window));
-	gtk_window_present(GTK_WINDOW(about_dialog));
+	if (pixbuf)
+		g_object_unref(pixbuf);
 }
 
 static gboolean
