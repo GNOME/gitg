@@ -3,8 +3,8 @@ msgid "Git repository browser"
 msgstr "Git repository bekijker"
 
 #. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:148 ../gitg/gitg-window.c:720
-#: ../gitg/gitg-window.c:735 ../gitg/gitg-ui.xml.h:30
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:168 ../gitg/gitg-window.c:740
+#: ../gitg/gitg-window.c:755 ../gitg/gitg-ui.xml.h:31
 msgid "gitg"
 msgstr "gitg"
 
@@ -32,198 +32,245 @@ msgstr ""
 "Of zoeken de revisies in de geschiedenis filtert in plaats van naar het "
 "eerste resultaat te springen."
 
-#: ../gitg/gitg.c:21
+#: ../gitg/gitg.c:41
 msgid "Start gitg in commit mode"
 msgstr "Open gitg in commit mode"
 
-#: ../gitg/gitg.c:31
+#: ../gitg/gitg.c:51
 msgid "- git repository viewer"
 msgstr "- git repository bekijker"
 
-#: ../gitg/gitg-commit-view.c:180 ../gitg/gitg-revision-tree-view.c:159
+#: ../gitg/gitg-commit-view.c:203 ../gitg/gitg-revision-tree-view.c:181
 msgid "Cannot display file content as text"
 msgstr "Kan bestandsinhoud niet weergeven als tekst"
 
-#: ../gitg/gitg-commit-view.c:1126
+#: ../gitg/gitg-commit-view.c:1150
 msgid "You must first stage some changes before committing"
 msgstr "Je moet eerst wijzigingen plaatsen voordat je commit"
 
-#: ../gitg/gitg-commit-view.c:1134
+#: ../gitg/gitg-commit-view.c:1158
 msgid "Please enter a commit message before committing"
 msgstr "Vul eerst een commit bericht in voordat je commit"
 
-#: ../gitg/gitg-commit-view.c:1140
+#: ../gitg/gitg-commit-view.c:1169
+msgid ""
+"Your user name or email could not be retrieved for use in the sign off "
+"message"
+msgstr ""
+"Je gebruikersnaam of e-mail kon niet worden achterhaald voor gebruik in de "
+"ondertekening"
+
+#: ../gitg/gitg-commit-view.c:1171
 msgid "Something went wrong while trying to commit"
 msgstr "Er is iets mis gegaan tijdens het committen"
 
-#: ../gitg/gitg-commit-view.c:1305
+#: ../gitg/gitg-commit-view.c:1339
 msgid "Revert fail"
 msgstr "Terugdraaien faalde"
 
-#: ../gitg/gitg-commit-view.c:1316
+#: ../gitg/gitg-commit-view.c:1350
 msgid "Are you sure you want to revert these changes?"
 msgstr "Weet je zeker dat je deze wijzigingen wilt terugdraaien?"
 
-#: ../gitg/gitg-commit-view.c:1319
+#: ../gitg/gitg-commit-view.c:1353
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr ""
 "Wijzigingen terugdraaien is permanent en kan niet ongedaan gemaakt worden"
 
-#: ../gitg/gitg-repository.c:739
+#: ../gitg/gitg-repository.c:761
 msgid "Not a valid git repository"
 msgstr "Geen geldige git repository"
 
-#: ../gitg/gitg-revision-tree-view.c:485
+#: ../gitg/gitg-revision-tree-view.c:507
 msgid "(Empty)"
 msgstr "(Leeg)"
 
-#: ../gitg/gitg-window.c:303
+#: ../gitg/gitg-window.c:323
 msgid "Select branch"
 msgstr "Selecteer tak"
 
-#: ../gitg/gitg-window.c:467
+#: ../gitg/gitg-window.c:487
 msgid "Begin loading repository"
 msgstr "Begin laden van repository"
 
-#: ../gitg/gitg-window.c:476
+#: ../gitg/gitg-window.c:496
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%d revisies ingeladen in %.2fs"
 
-#: ../gitg/gitg-window.c:487
+#: ../gitg/gitg-window.c:507
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Laden van %d revisies..."
 
-#: ../gitg/gitg-window.c:496
+#: ../gitg/gitg-window.c:516
 msgid "Could not find git repository"
 msgstr "Kon git repository niet vinden"
 
-#: ../gitg/gitg-window.c:632
+#: ../gitg/gitg-window.c:652
 msgid "All branches"
 msgstr "Alle takken"
 
-#: ../gitg/gitg-window.c:791
+#: ../gitg/gitg-window.c:811
 msgid "Open git repository"
 msgstr "Open git repository"
 
-#: ../gitg/gitg-window.c:895
+#: ../gitg/gitg-window.c:929
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg is een repository bekijker voor gtk+/GNOME"
 
+#: ../gitg/gitg-window.c:930
+msgid ""
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 59 Temple Place, Suite 330,\n"
+"Boston, MA 02111-1307, USA."
+msgstr ""
+"Dit Programma is vrije software; U kan het verspreiden en/of wijzigen onder "
+"de\n"
+"bepalingen van de GNU Algemene Publieke Licentie, zoals uitgegeven door de "
+"Free\n"
+"Software Foundation; oftewel versie 2 van de Licentie,of (naar vrije keuze) "
+"een\n"
+"latere versie.\n"
+"\n"
+"Dit Programma is verspreid met de hoop dat het nuttig zal zijn maar\n"
+"ZONDER EENDER WELKE GARANTIE; zelfs zonder de impliciete garantie van\n"
+"VERKOOPBAARHEID of GESCHIKTHEID VOOR EEN BEPAALD DOEL. Zie de GNU Algemene\n"
+"Publieke Licentie voor meer details.\n"
+"\n"
+"U zou een kopie van de GNU Algemene Publieke Licentie ontvangen moeten\n"
+"hebben samen met dit Programma; indien dit niet zo is, schrijf naar\n"
+"de Free Software Foundation, Inc.,\n"
+"59 Temple Place, Suite 330, Boston, MA 02111-1307 USA"
+
 #: ../gitg/gitg-ui.xml.h:1
+msgid "Add signed-off-by"
+msgstr "Voeg ondertekening toe"
+
+#: ../gitg/gitg-ui.xml.h:2
 msgid "Author"
 msgstr "Auteur"
 
-#: ../gitg/gitg-ui.xml.h:2
+#: ../gitg/gitg-ui.xml.h:3
 msgid "Author:"
 msgstr "Auteur:"
 
-#: ../gitg/gitg-ui.xml.h:3
+#: ../gitg/gitg-ui.xml.h:4
 msgid "Branch:"
 msgstr "Tak:"
 
-#: ../gitg/gitg-ui.xml.h:4
+#: ../gitg/gitg-ui.xml.h:5
 msgid "Co_mment"
 msgstr "Co_mmentaar"
 
-#: ../gitg/gitg-ui.xml.h:5
+#: ../gitg/gitg-ui.xml.h:6
 msgid "Commit"
 msgstr "Commit"
 
-#: ../gitg/gitg-ui.xml.h:6
+#: ../gitg/gitg-ui.xml.h:7
 msgid "Context:"
 msgstr "Context:"
 
-#: ../gitg/gitg-ui.xml.h:7
+#: ../gitg/gitg-ui.xml.h:8
 msgid "Date"
 msgstr "Datum"
 
-#: ../gitg/gitg-ui.xml.h:8
+#: ../gitg/gitg-ui.xml.h:9
 msgid "Date:"
 msgstr "Datum:"
 
-#: ../gitg/gitg-ui.xml.h:9
+#: ../gitg/gitg-ui.xml.h:10
 msgid "Details"
 msgstr "Defails"
 
-#: ../gitg/gitg-ui.xml.h:10
+#: ../gitg/gitg-ui.xml.h:11
 msgid "Filename"
 msgstr "Bestandsnaam"
 
-#: ../gitg/gitg-ui.xml.h:11
+#: ../gitg/gitg-ui.xml.h:12
 msgid "History"
 msgstr "Geschiedenis"
 
-#: ../gitg/gitg-ui.xml.h:12
+#: ../gitg/gitg-ui.xml.h:13
 msgid "Ignore"
 msgstr "Negeren"
 
-#: ../gitg/gitg-ui.xml.h:13
+#: ../gitg/gitg-ui.xml.h:14
 msgid "Parent:"
 msgstr "Ouder:"
 
-#: ../gitg/gitg-ui.xml.h:14
+#: ../gitg/gitg-ui.xml.h:15
 msgid "Recently opened"
 msgstr "Recentelijk geopend"
 
-#: ../gitg/gitg-ui.xml.h:15
+#: ../gitg/gitg-ui.xml.h:16
 msgid "Revert"
 msgstr "Terugdraaien"
 
-#: ../gitg/gitg-ui.xml.h:16
+#: ../gitg/gitg-ui.xml.h:17
 msgid "SHA:"
 msgstr "SHA:"
 
-#: ../gitg/gitg-ui.xml.h:17
+#: ../gitg/gitg-ui.xml.h:18
 msgid "Stage"
 msgstr "Plaatsen"
 
-#: ../gitg/gitg-ui.xml.h:18
+#: ../gitg/gitg-ui.xml.h:19
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: ../gitg/gitg-ui.xml.h:19
+#: ../gitg/gitg-ui.xml.h:20
 msgid "Subject:"
 msgstr "Onderwerp:"
 
-#: ../gitg/gitg-ui.xml.h:20
+#: ../gitg/gitg-ui.xml.h:21
 msgid "Tree"
 msgstr "Boom"
 
-#: ../gitg/gitg-ui.xml.h:21
+#: ../gitg/gitg-ui.xml.h:22
 msgid "Unstage"
 msgstr "Ontplaatsen"
 
-#: ../gitg/gitg-ui.xml.h:22
+#: ../gitg/gitg-ui.xml.h:23
 msgid "Unstaged"
 msgstr "Ontplaatst"
 
-#: ../gitg/gitg-ui.xml.h:23
+#: ../gitg/gitg-ui.xml.h:24
 msgid "_Changes"
 msgstr "_Wijzigingen"
 
-#: ../gitg/gitg-ui.xml.h:24
+#: ../gitg/gitg-ui.xml.h:25
 msgid "_Edit"
 msgstr "Be_werken"
 
-#: ../gitg/gitg-ui.xml.h:25
+#: ../gitg/gitg-ui.xml.h:26
 msgid "_File"
 msgstr "_Bestand"
 
-#: ../gitg/gitg-ui.xml.h:26
+#: ../gitg/gitg-ui.xml.h:27
 msgid "_Help"
 msgstr "_Hulp"
 
-#: ../gitg/gitg-ui.xml.h:27
+#: ../gitg/gitg-ui.xml.h:28
 msgid "_Staged"
 msgstr "_Geplaatst"
 
-#: ../gitg/gitg-ui.xml.h:28
+#: ../gitg/gitg-ui.xml.h:29
 msgid "_Unstaged"
 msgstr "_Ongeplaatst"
 
-#: ../gitg/gitg-ui.xml.h:29
+#: ../gitg/gitg-ui.xml.h:30
 msgid "_View"
 msgstr "Beel_d"
 

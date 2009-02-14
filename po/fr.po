@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-08 20:28+0100\n"
+"POT-Creation-Date: 2009-02-14 20:05+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Guilhem Bonnefille <guilhem.bonnefille@gmail.com>\n"
 "Language-Team: \n"
@@ -17,11 +17,8 @@ msgid "Git repository browser"
 msgstr "Butineur de dépôt Git"
 
 #. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2
-#: ../gitg/gitg.c:146
-#: ../gitg/gitg-window.c:718
-#: ../gitg/gitg-window.c:733
-#: ../gitg/gitg-ui.xml.h:30
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:168 ../gitg/gitg-window.c:740
+#: ../gitg/gitg-window.c:755 ../gitg/gitg-ui.xml.h:31
 msgid "gitg"
 msgstr "gitg"
 
@@ -30,7 +27,9 @@ msgid "Filter Revisions When Searching"
 msgstr ""
 
 #: ../data/gitg.schemas.in.h:2
-msgid "Setting that indicates when an inactive lane should be collapsed. Valid values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+msgid ""
+"Setting that indicates when an inactive lane should be collapsed. Valid "
+"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr ""
 
 #: ../data/gitg.schemas.in.h:3
@@ -38,201 +37,230 @@ msgid "When to Collapse Inactive Lanes"
 msgstr ""
 
 #: ../data/gitg.schemas.in.h:4
-msgid "Whether searching filters the revisions in the history view instead of jumping to the first match."
+msgid ""
+"Whether searching filters the revisions in the history view instead of "
+"jumping to the first match."
 msgstr ""
 
-#: ../gitg/gitg.c:19
+#: ../gitg/gitg.c:41
 msgid "Start gitg in commit mode"
 msgstr "Démarrer gitg en mode commit"
 
-#: ../gitg/gitg.c:29
+#: ../gitg/gitg.c:51
 msgid "- git repository viewer"
 msgstr "- butineur pour dépôt Git"
 
-#: ../gitg/gitg-commit-view.c:180
-#: ../gitg/gitg-revision-tree-view.c:159
+#: ../gitg/gitg-commit-view.c:203 ../gitg/gitg-revision-tree-view.c:181
 msgid "Cannot display file content as text"
 msgstr "Impossible d'afficher ce fichier en texte"
 
-#: ../gitg/gitg-commit-view.c:1126
+#: ../gitg/gitg-commit-view.c:1150
 msgid "You must first stage some changes before committing"
 msgstr ""
 
-#: ../gitg/gitg-commit-view.c:1134
+#: ../gitg/gitg-commit-view.c:1158
 msgid "Please enter a commit message before committing"
 msgstr "S'il vous plaît, entrez un message avant d'archiver les modifications"
 
-#: ../gitg/gitg-commit-view.c:1140
+#: ../gitg/gitg-commit-view.c:1169
+msgid ""
+"Your user name or email could not be retrieved for use in the sign off "
+"message"
+msgstr ""
+
+#: ../gitg/gitg-commit-view.c:1171
 msgid "Something went wrong while trying to commit"
 msgstr ""
 
-#: ../gitg/gitg-commit-view.c:1305
+#: ../gitg/gitg-commit-view.c:1339
 msgid "Revert fail"
 msgstr "Échec d'annulation"
 
-#: ../gitg/gitg-commit-view.c:1316
+#: ../gitg/gitg-commit-view.c:1350
 msgid "Are you sure you want to revert these changes?"
 msgstr "Êtes-vous sûr de vouloir annuler ces modifications ?"
 
-#: ../gitg/gitg-commit-view.c:1319
+#: ../gitg/gitg-commit-view.c:1353
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr "Il n'est pas possible de revenir sur une annulation de modifications"
 
-#: ../gitg/gitg-repository.c:739
+#: ../gitg/gitg-repository.c:761
 msgid "Not a valid git repository"
 msgstr "Dépôt Git invalide"
 
-#: ../gitg/gitg-revision-tree-view.c:485
+#: ../gitg/gitg-revision-tree-view.c:507
 msgid "(Empty)"
 msgstr "(Vide)"
 
-#: ../gitg/gitg-window.c:301
+#: ../gitg/gitg-window.c:323
 msgid "Select branch"
 msgstr "Sélectionner une branche"
 
-#: ../gitg/gitg-window.c:465
+#: ../gitg/gitg-window.c:487
 msgid "Begin loading repository"
 msgstr "Démarrage du chargement du dépôt"
 
-#: ../gitg/gitg-window.c:474
+#: ../gitg/gitg-window.c:496
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%d révisions chargées en %.2fs"
 
-#: ../gitg/gitg-window.c:485
+#: ../gitg/gitg-window.c:507
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Chargement de %d révisions..."
 
-#: ../gitg/gitg-window.c:494
+#: ../gitg/gitg-window.c:516
 msgid "Could not find git repository"
 msgstr "Impossible de trouver le dépôt Git"
 
-#: ../gitg/gitg-window.c:630
+#: ../gitg/gitg-window.c:652
 msgid "All branches"
 msgstr "Toutes les branches"
 
-#: ../gitg/gitg-window.c:789
+#: ../gitg/gitg-window.c:811
 msgid "Open git repository"
 msgstr "Ouvrir un dépôt Git"
 
-#: ../gitg/gitg-window.c:893
+#: ../gitg/gitg-window.c:929
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg est un butineur pour dépôt Git utilisant gtk+/GNOME"
 
+#: ../gitg/gitg-window.c:930
+msgid ""
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 59 Temple Place, Suite 330,\n"
+"Boston, MA 02111-1307, USA."
+msgstr ""
+
 #: ../gitg/gitg-ui.xml.h:1
+msgid "Add signed-off-by"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:2
 msgid "Author"
 msgstr "Auteur"
 
-#: ../gitg/gitg-ui.xml.h:2
+#: ../gitg/gitg-ui.xml.h:3
 msgid "Author:"
 msgstr "Auteur :"
 
-#: ../gitg/gitg-ui.xml.h:3
+#: ../gitg/gitg-ui.xml.h:4
 msgid "Branch:"
 msgstr "Branche :"
 
-#: ../gitg/gitg-ui.xml.h:4
+#: ../gitg/gitg-ui.xml.h:5
 msgid "Co_mment"
 msgstr "Co_mmentaire"
 
-#: ../gitg/gitg-ui.xml.h:5
+#: ../gitg/gitg-ui.xml.h:6
 msgid "Commit"
 msgstr ""
 
-#: ../gitg/gitg-ui.xml.h:6
+#: ../gitg/gitg-ui.xml.h:7
 msgid "Context:"
 msgstr "Contexte :"
 
-#: ../gitg/gitg-ui.xml.h:7
+#: ../gitg/gitg-ui.xml.h:8
 msgid "Date"
 msgstr "Date"
 
-#: ../gitg/gitg-ui.xml.h:8
+#: ../gitg/gitg-ui.xml.h:9
 msgid "Date:"
 msgstr "Date :"
 
-#: ../gitg/gitg-ui.xml.h:9
+#: ../gitg/gitg-ui.xml.h:10
 msgid "Details"
 msgstr "Détails"
 
-#: ../gitg/gitg-ui.xml.h:10
+#: ../gitg/gitg-ui.xml.h:11
 msgid "Filename"
 msgstr "Nom du fichier"
 
-#: ../gitg/gitg-ui.xml.h:11
+#: ../gitg/gitg-ui.xml.h:12
 msgid "History"
 msgstr "Historique"
 
-#: ../gitg/gitg-ui.xml.h:12
+#: ../gitg/gitg-ui.xml.h:13
 msgid "Ignore"
 msgstr "Ignorer"
 
-#: ../gitg/gitg-ui.xml.h:13
+#: ../gitg/gitg-ui.xml.h:14
 msgid "Parent:"
 msgstr "Parent :"
 
-#: ../gitg/gitg-ui.xml.h:14
+#: ../gitg/gitg-ui.xml.h:15
 msgid "Recently opened"
 msgstr "Récemment ouvert"
 
-#: ../gitg/gitg-ui.xml.h:15
+#: ../gitg/gitg-ui.xml.h:16
 msgid "Revert"
 msgstr "Annuler"
 
-#: ../gitg/gitg-ui.xml.h:16
+#: ../gitg/gitg-ui.xml.h:17
 msgid "SHA:"
 msgstr "SHA :"
 
-#: ../gitg/gitg-ui.xml.h:17
+#: ../gitg/gitg-ui.xml.h:18
 msgid "Stage"
 msgstr ""
 
-#: ../gitg/gitg-ui.xml.h:18
+#: ../gitg/gitg-ui.xml.h:19
 msgid "Subject"
 msgstr "Sujet"
 
-#: ../gitg/gitg-ui.xml.h:19
+#: ../gitg/gitg-ui.xml.h:20
 msgid "Subject:"
 msgstr "Sujet :"
 
-#: ../gitg/gitg-ui.xml.h:20
+#: ../gitg/gitg-ui.xml.h:21
 msgid "Tree"
 msgstr "Arborescence"
 
-#: ../gitg/gitg-ui.xml.h:21
+#: ../gitg/gitg-ui.xml.h:22
 msgid "Unstage"
 msgstr ""
 
-#: ../gitg/gitg-ui.xml.h:22
+#: ../gitg/gitg-ui.xml.h:23
 msgid "Unstaged"
 msgstr ""
 
-#: ../gitg/gitg-ui.xml.h:23
+#: ../gitg/gitg-ui.xml.h:24
 msgid "_Changes"
 msgstr "_Modifications"
 
-#: ../gitg/gitg-ui.xml.h:24
+#: ../gitg/gitg-ui.xml.h:25
 msgid "_Edit"
 msgstr "_Editer"
 
-#: ../gitg/gitg-ui.xml.h:25
+#: ../gitg/gitg-ui.xml.h:26
 msgid "_File"
 msgstr "_Fichier"
 
-#: ../gitg/gitg-ui.xml.h:26
+#: ../gitg/gitg-ui.xml.h:27
 msgid "_Help"
 msgstr "_Aide"
 
-#: ../gitg/gitg-ui.xml.h:27
+#: ../gitg/gitg-ui.xml.h:28
 msgid "_Staged"
 msgstr ""
 
-#: ../gitg/gitg-ui.xml.h:28
+#: ../gitg/gitg-ui.xml.h:29
 msgid "_Unstaged"
 msgstr ""
 
-#: ../gitg/gitg-ui.xml.h:29
+#: ../gitg/gitg-ui.xml.h:30
 msgid "_View"
 msgstr "_Vue"
 
@@ -279,4 +307,3 @@ msgstr ""
 #: ../gitg/gitg-preferences.xml.h:7
 msgid "View"
 msgstr "Vue"
-
