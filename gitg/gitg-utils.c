@@ -22,6 +22,7 @@
 
 #include <string.h>
 #include <glib.h>
+#include <stdlib.h>
 #include <gconf/gconf-client.h>
 
 #include "gitg-utils.h"
@@ -469,4 +470,25 @@ gitg_utils_set_monospace_font(GtkWidget *widget)
 	}
 	
 	g_free(name);
+}
+
+GtkBuilder *
+gitg_utils_new_builder(gchar const *filename)
+{
+	GtkBuilder *b = gtk_builder_new();
+	GError *error = NULL;
+	
+	gchar *path = g_build_filename(GITG_UI_DIR G_DIR_SEPARATOR_S, filename, NULL);
+	
+	if (!gtk_builder_add_from_file(b, path, &error))
+	{
+		g_critical("Could not open UI file: %s (%s)", path, error->message);
+		g_error_free(error);
+		
+		g_free(path);
+		exit(1);
+	}
+	
+	g_free(path);
+	return b;
 }

@@ -77,14 +77,7 @@ build_ui()
 {
 	GError *error = NULL;
 	
-	GtkBuilder *builder = gtk_builder_new();
-	
-	if (!gtk_builder_add_from_file(builder, GITG_UI_DIR "/gitg-ui.xml", &error))
-	{
-		g_critical("Could not open UI file: %s (%s)", GITG_UI_DIR "/gitg-ui.xml", error->message);
-		g_error_free(error);
-		exit(1);
-	}
+	GtkBuilder *builder = gitg_utils_new_builder("gitg-ui.xml");
 	
 	GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
 	gtk_widget_show_all(window);

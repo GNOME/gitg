@@ -61,4 +61,6 @@ void gitg_utils_menu_position_under_tree_view(GtkMenu *menu, gint *x, gint *y, g
 gchar *gitg_utils_get_monospace_font_name();
 void gitg_utils_set_monospace_font(GtkWidget *widget);
 					   
+GtkBuilder *gitg_utils_new_builder(gchar const *filename);
+
 #endif /* __GITG_UTILS_H__ */

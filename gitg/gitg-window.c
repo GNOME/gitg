@@ -205,15 +205,7 @@ build_search_entry(GitgWindow *window, GtkBuilder *builder)
 	gtk_widget_show(entry);
 	gtk_box_pack_end(GTK_BOX(box), entry, FALSE, FALSE, 0);
 	
-	GtkBuilder *b = gtk_builder_new();
-	GError *error = NULL;
-
-	if (!gtk_builder_add_from_file(b, GITG_UI_DIR "/gitg-menus.xml", &error))
-	{
-		g_critical("Could not open UI file: %s (%s)", GITG_UI_DIR "/gitg-menus.xml", error->message);
-		g_error_free(error);
-		exit(1);
-	}
+	GtkBuilder *b = gitg_utils_new_builder( "gitg-menus.xml");
 	
 	GtkUIManager *manager = GTK_UI_MANAGER(gtk_builder_get_object(b, "uiman"));
 	window->priv->search_popup = GTK_WIDGET(g_object_ref(gtk_ui_manager_get_widget(manager, "/ui/search_popup")));

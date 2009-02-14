@@ -119,15 +119,7 @@ initialize_view(GitgPreferencesDialog *dialog)
 static void
 create_preferences_dialog()
 {
-	GtkBuilder *b = gtk_builder_new();
-	GError *error = NULL;
-
-	if (!gtk_builder_add_from_file(b, GITG_UI_DIR "/gitg-preferences.xml", &error))
-	{
-		g_critical("Could not open UI file: %s (%s)", GITG_UI_DIR "/gitg-preferences.xml", error->message);
-		g_error_free(error);
-		exit(1);
-	}
+	GtkBuilder *b = gitg_utils_new_builder("gitg-preferences.xml");
 	
 	preferences_dialog = GITG_PREFERENCES_DIALOG(gtk_builder_get_object(b, "dialog_preferences"));
 	g_object_add_weak_pointer(G_OBJECT(preferences_dialog), (gpointer *)&preferences_dialog);
