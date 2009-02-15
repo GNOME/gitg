@@ -737,6 +737,7 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		g_free(title);
 		
 		add_recent_item(window);
+		gtk_widget_set_sensitive(GTK_WIDGET(window->priv->notebook_main), TRUE);
 	}
 	else
 	{
@@ -744,8 +745,11 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
 		gitg_revision_view_set_repository(window->priv->revision_view, window->priv->repository);
 
-		handle_no_gitdir(window);
+		if (path || argc > 1)
+			handle_no_gitdir(window);
+
 		gtk_window_set_title(GTK_WINDOW(window), _("gitg"));
+		gtk_widget_set_sensitive(GTK_WIDGET(window->priv->notebook_main), FALSE);
 	}
 }
 
