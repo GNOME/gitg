@@ -33,6 +33,8 @@
 #include "sexy-icon-entry.h"
 #include "config.h"
 #include "gitg-settings.h"
+#include "gitg-dirs.h"
+#include "gitg-utils.h"
 
 static gboolean commit_mode = FALSE;
 
@@ -102,8 +104,12 @@ set_language_search_path()
 		++i;
 	}
 	
-	dirs[0] = GITG_DATADIR "/language-specs";
+	gchar *path = gitg_dirs_get_data_filename("language-specs", NULL);
+	dirs[0] = path;
 	gtk_source_language_manager_set_search_path(manager, (gchar **)dirs);
+	g_free(path);
+	
+	g_free(dirs);
 }
 
 static void
@@ -111,19 +117,21 @@ set_style_scheme_search_path()
 {
 	GtkSourceStyleSchemeManager *manager = gtk_source_style_scheme_manager_get_default();
 	
-	gtk_source_style_scheme_manager_prepend_search_path(manager, GITG_DATADIR "/styles");
+	gchar *path = gitg_dirs_get_data_filename("styles", NULL);
+	gtk_source_style_scheme_manager_prepend_search_path(manager, path);
+	g_free(path);
 }
 
 static void
 set_icons()
 {
 	static gchar const *icon_infos[] = {
-		GITG_DATADIR "/icons/gitg16x16.png",
-		GITG_DATADIR "/icons/gitg24x24.png",
-		GITG_DATADIR "/icons/gitg32x32.png",
-		GITG_DATADIR "/icons/gitg48x48.png",
-		GITG_DATADIR "/icons/gitg64x64.png",
-		GITG_DATADIR "/icons/gitg128x128.png",
+		"gitg16x16.png",
+		"gitg24x24.png",
+		"gitg32x32.png",
+		"gitg48x48.png",
+		"gitg64x64.png",
+		"gitg128x128.png",
 		NULL
 	};
 	
@@ -132,8 +140,10 @@ set_icons()
 	
 	for (i = 0; icon_infos[i]; ++i)
 	{
-		GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(icon_infos[i], NULL);
-		
+		gchar *filename = gitg_dirs_get_data_filename("icons", icon_infos[i], NULL);
+		GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(filename, NULL);
+		g_free(filename);
+
 		if (pixbuf)
 			icons = g_list_prepend(icons, pixbuf);
 	}
@@ -160,6 +170,7 @@ main(int argc, char **argv)
 	/* Translators: this is the application name as in g_set_application_name */
 	g_set_application_name(_("gitg"));
 
+	gitg_dirs_initialize(argc, argv);
 	gtk_init(&argc, &argv);
 	parse_options(&argc, &argv);
 	

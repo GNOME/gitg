@@ -28,6 +28,7 @@
 #include "sexy-icon-entry.h"
 #include "config.h"
 
+#include "gitg-dirs.h"
 #include "gitg-ref.h"
 #include "gitg-utils.h"
 #include "gitg-runner.h"
@@ -937,10 +938,16 @@ on_help_about(GtkAction *action, GitgWindow *window)
 	gtk_about_dialog_set_url_hook(url_activate_hook, NULL, NULL);
 	gtk_about_dialog_set_email_hook(email_activate_hook, NULL, NULL);
 
-	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(GITG_ICONDIR "/gitg.svg", NULL);
+	gchar *path = gitg_dirs_get_data_filename("icons", "gitg.svg", NULL);
+	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(path, NULL);
+	g_free(path);
 	
 	if (!pixbuf)
-		pixbuf = gdk_pixbuf_new_from_file(GITG_ICONDIR "/gitg128x128.png", NULL);
+	{
+		path = gitg_dirs_get_data_filename("icons", "gitg128x128.png", NULL);
+		pixbuf = gdk_pixbuf_new_from_file(path, NULL);
+		g_free(path);
+	}
 
 	gtk_show_about_dialog(GTK_WINDOW(window),
 						  "authors", authors,

@@ -8,9 +8,7 @@ INCLUDES =							\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
 	-DDATADIR=\""$(datadir)"\"				\
 	-DGITG_DATADIR=\""$(datadir)/gitg"\"			\
-	-DGITG_LOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
-	-DGITG_UI_DIR=\""$(datadir)/gitg/ui/"\"			\
-	-DGITG_ICONDIR=\""$(datadir)/gitg/icons"\"
+	-DGITG_LOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 BUILT_SOURCES = 				\
 	gitg-enum-types.c			\
@@ -25,6 +23,7 @@ NOINST_H_FILES = 			\
 	gitg-data-binding.h		\
 	gitg-debug.h			\
 	gitg-diff-view.h		\
+	gitg-dirs.h			\
 	gitg-label-renderer.h		\
 	gitg-lane.h			\
 	gitg-lanes.h			\
@@ -54,6 +53,7 @@ gitg_SOURCES = 				\
 	gitg-data-binding.c		\
 	gitg-debug.c			\
 	gitg-diff-view.c		\
+	gitg-dirs.c			\
 	gitg-label-renderer.c		\
 	gitg-lane.c			\
 	gitg-lanes.c			\
@@ -100,3 +100,12 @@ CLEANFILES = $(BUILT_SOURCES)
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
+
+bundle: $(bin_PROGRAMS) $(ui_DATA)
+	for i in $(SUBDIRS); do (cd $$i && $(MAKE) top_bundledir="$(top_bundledir)" $(AM_MAKEFLAGS) bundle); done; \
+for i in $(bin_PROGRAMS); do $(INSTALL) -D $$i $(top_bundledir)/bin/$$i; done; \
+for i in $(ui_DATA); do $(INSTALL) -D $$i $(top_bundledir)/resources/ui/$$i; done;
+
+.PHONY: bundle
+
+# vi:ts=8

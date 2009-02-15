@@ -26,6 +26,7 @@
 #include <gconf/gconf-client.h>
 
 #include "gitg-utils.h"
+#include "gitg-dirs.h"
 
 inline static guint8
 atoh(gchar c)
@@ -478,7 +479,7 @@ gitg_utils_new_builder(gchar const *filename)
 	GtkBuilder *b = gtk_builder_new();
 	GError *error = NULL;
 	
-	gchar *path = g_build_filename(GITG_UI_DIR G_DIR_SEPARATOR_S, filename, NULL);
+	gchar *path = gitg_dirs_get_data_filename("ui", filename, NULL);
 	
 	if (!gtk_builder_add_from_file(b, path, &error))
 	{

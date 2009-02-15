@@ -58,9 +58,17 @@ AC_SUBST(PACKAGE_LIBS)
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-dnl ================================================================
-dnl GConf related settings
-dnl ================================================================
+AC_ARG_ENABLE([bundle],
+	AS_HELP_STRING([--enable-bundle],[Enable building bundle (default: disabled)]),
+	[enable_bundle=$enableval],
+	[enable_bundle=no])
+
+if test "$enable_bundle" = "yes"; then
+	AC_DEFINE([ENABLE_BUNDLE],[1],[Defined if building bundle])
+fi
+
+bundledir=gitg-bundle-gitg_version
+AC_SUBST(bundledir)
 
 AM_GCONF_SOURCE_2
 

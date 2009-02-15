@@ -29,6 +29,13 @@ else
 install-data-local:
 endif
 
+bundle: $(gitglangs_DATA) $(gitgstyles_DATA)
+	for i in $(SUBDIRS); do (cd $$i && $(MAKE) top_bundledir="$(top_bundledir)" $(AM_MAKEFLAGS) bundle); done; \
+for i in $(gitglangs_DATA); do $(INSTALL) -D $$i $(top_bundledir)/resources/language-specs/$$i; done; \
+for i in $(gitgstyles_DATA); do $(INSTALL) -D $$i $(top_bundledir)/resources/styles/$$i; done;
+
+.PHONY: bundle
+
 EXTRA_DIST = 				\
 	$(desktop_in_files)		\
 	$(schemas_in_files)		\

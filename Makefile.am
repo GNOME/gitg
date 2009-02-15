@@ -12,3 +12,12 @@ EXTRA_DIST = \
 	intltool-extract.in \
 	intltool-merge.in \
 	intltool-update.in
+
+bundle:
+	rm -rf "$(bundledir)"; mkdir "$(bundledir)"; \
+rm -rf gitg-$(PACKAGE_VERSION).zip; \
+top_bundledir=`cd "$(bundledir)" && pwd`; \
+for i in $(SUBDIRS); do (cd $$i && $(MAKE) top_bundledir="$$top_bundledir" $(AM_MAKEFLAGS) bundle); done; \
+zip -r gitg-$(PACKAGE_VERSION).zip $(bundledir) >/dev/null;
+
+.PHONY: bundle

@@ -12,5 +12,11 @@ pixmapsdir = $(datadir)/pixmaps
 pixmaps_DATA = \
 	gitg48x48.png
 
+bundle: $(icons_DATA)
+	for i in $(SUBDIRS); do (cd $$i && $(MAKE) top_bundledir="$(top_bundledir)" $(AM_MAKEFLAGS) bundle); done; \
+for i in $(icons_DATA); do $(INSTALL) -D $$i $(top_bundledir)/resources/icons/$$i; done;
+
+.PHONY: bundle
+
 EXTRA_DIST = 				\
 	$(icons_DATA)
