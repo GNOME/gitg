@@ -76,6 +76,7 @@ struct _GitgRepositoryPrivate
 	GitgRevision **storage;
 	GitgLanes *lanes;
 	GHashTable *refs;
+	GitgRef *current_ref;
 
 	gulong size;
 	gulong allocated;
@@ -327,6 +328,9 @@ do_clear(GitgRepository *repository, gboolean emit)
 	repository->priv->storage = NULL;
 	repository->priv->size = 0;
 	repository->priv->allocated = 0;
+	
+	gitg_ref_free(repository->priv->current_ref);
+	repository->priv->current_ref = NULL;
 	
 	/* clear hash tables */
 	g_hash_table_remove_all(repository->priv->hashtable);
@@ -643,7 +647,7 @@ gitg_repository_get_loader(GitgRepository *self)
 	return GITG_RUNNER(g_object_ref(self->priv->loader));
 }
 
-static void
+static GitgRef *
 add_ref(GitgRepository *self, gchar const *sha1, gchar const *name)
 {
 	GitgRef *ref = gitg_ref_new(sha1, name);
@@ -653,6 +657,8 @@ add_ref(GitgRepository *self, gchar const *sha1, gchar const *name)
 		g_hash_table_insert(self->priv->refs, ref->hash, g_slist_append(NULL, ref));
 	else
 		refs = g_slist_append(refs, ref);
+	
+	return ref;
 }
 
 static gboolean
@@ -714,12 +720,35 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 	return reload_revisions(self, error);
 }
 
+static gchar *
+load_current_ref(GitgRepository *self)
+{
+	gchar **out;
+	gchar *ret = NULL;
+
+	out = gitg_repository_command_with_outputv(self, NULL, "show-branch", "--sha1-name", "--current", NULL);
+	
+	if (!out)
+		return NULL;
+	
+	if (*out)
+	{
+		gchar *pos = g_utf8_strchr(*out, -1, ']');
+		
+		if (pos)
+			ret = g_strndup(*out + 1, (pos - *out) - 2);
+	}
+	
+	g_strfreev(out);
+	return ret;
+}
+
 static void
 load_refs(GitgRepository *self)
 {
-	gchar const *argv[] = {"for-each-ref", "--format=%(refname) %(objectname)", "refs", NULL};
+	gchar *current = load_current_ref(self);
 	
-	gchar **refs = gitg_repository_command_with_output(self, argv, NULL);
+	gchar **refs = gitg_repository_command_with_outputv(self, NULL, "for-each-ref", "--format=%(refname) %(objectname)", "refs", NULL);
 	gchar **buffer = refs;
 	gchar *buf;
 	
@@ -729,12 +758,18 @@ load_refs(GitgRepository *self)
 		gchar **components = g_strsplit(buf, " ", 2);
 		
 		if (g_strv_length(components) == 2)
-			add_ref(self, components[1], components[0]);
+		{
+			GitgRef *ref = add_ref(self, components[1], components[0]);
+			
+			if (strncmp(components[1], current, strlen(current)) == 0)
+				self->priv->current_ref = gitg_ref_copy(ref);
+		}
 		
 		g_strfreev(components);
 	}
 
 	g_strfreev(refs);
+	g_free(current);
 }
 
 void
@@ -870,6 +905,14 @@ gitg_repository_get_refs_for_hash(GitgRepository *repository, gchar const *hash)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
 	return g_slist_copy((GSList *)g_hash_table_lookup(repository->priv->refs, hash));
+}
+
+GitgRef *
+gitg_repository_get_current_ref(GitgRepository *repository)
+{
+	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
+	
+	return repository->priv->current_ref;
 }
 
 gchar *

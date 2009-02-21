@@ -84,6 +84,9 @@ gitg_ref_copy(GitgRef *ref)
 void
 gitg_ref_free(GitgRef *ref)
 {
+	if (!ref)
+		return;
+
 	g_free(ref->name);
 	g_free(ref->shortname);
 
