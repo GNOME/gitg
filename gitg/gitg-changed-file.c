@@ -34,6 +34,8 @@ struct _GitgChangedFilePrivate
 	
 	gchar *sha;
 	gchar *mode;
+	
+	GFileMonitor *monitor;
 };
 
 /* Properties */
@@ -47,7 +49,18 @@ enum
 	PROP_MODE
 };
 
+/* Signals */
+enum
+{
+	CHANGED,
+	NUM_SIGNALS
+};
+
+static guint changed_file_signals[NUM_SIGNALS] = {0,};
+
 G_DEFINE_TYPE(GitgChangedFile, gitg_changed_file, G_TYPE_OBJECT)
+
+static void on_file_monitor_changed(GFileMonitor *monitor, GFile *file, GFile *other_file, GFileMonitorEvent event, GitgChangedFile *self);
 
 static void
 gitg_changed_file_finalize(GObject *object)
@@ -57,6 +70,12 @@ gitg_changed_file_finalize(GObject *object)
 	g_free(self->priv->sha);
 	g_free(self->priv->mode);
 	g_object_unref(self->priv->file);
+	
+	if (self->priv->monitor)
+	{
+		g_file_monitor_cancel(self->priv->monitor);
+		g_object_unref(self->priv->monitor);
+	}
 
 	G_OBJECT_CLASS(gitg_changed_file_parent_class)->finalize(object);
 }
@@ -104,6 +123,28 @@ set_mode_real(GitgChangedFile *self, gchar const *mode)
 }
 
 static void
+update_monitor(GitgChangedFile *file)
+{
+	gboolean ismodified = (file->priv->status == GITG_CHANGED_FILE_STATUS_MODIFIED);
+	gboolean iscached = (file->priv->changes & GITG_CHANGED_FILE_CHANGES_CACHED);
+	
+	gboolean needmonitor = ismodified || iscached;
+	
+	if (needmonitor && !file->priv->monitor)
+	{
+		file->priv->monitor = g_file_monitor_file(file->priv->file, G_FILE_MONITOR_NONE, NULL, NULL);
+		g_file_monitor_set_rate_limit(file->priv->monitor, 1000);
+		g_signal_connect(file->priv->monitor, "changed", G_CALLBACK(on_file_monitor_changed), file);
+	}
+	else if (!needmonitor && file->priv->monitor)
+	{
+		g_file_monitor_cancel(file->priv->monitor);
+		g_object_unref(file->priv->monitor);
+		file->priv->monitor = NULL;
+	}
+}
+
+static void
 gitg_changed_file_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
 	GitgChangedFile *self = GITG_CHANGED_FILE(object);
@@ -115,9 +156,11 @@ gitg_changed_file_set_property(GObject *object, guint prop_id, const GValue *val
 		break;
 		case PROP_STATUS:
 			self->priv->status = g_value_get_enum(value);
+			update_monitor(self);
 		break;
 		case PROP_CHANGES:
 			self->priv->changes = g_value_get_flags(value);
+			update_monitor(self);
 		break;
 		case PROP_SHA:
 			set_sha_real(self, g_value_get_string(value));
@@ -173,6 +216,16 @@ gitg_changed_file_class_init(GitgChangedFileClass *klass)
 							      "Mode",
 							      NULL,
 							      G_PARAM_READWRITE));
+
+	changed_file_signals[CHANGED] =
+   		g_signal_new ("changed",
+			      G_OBJECT_CLASS_TYPE (object_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (GitgChangedFileClass, changed),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
 
 	g_type_class_add_private(object_class, sizeof(GitgChangedFilePrivate));
 }
@@ -248,9 +301,11 @@ GitgChangedFileChanges gitg_changed_file_get_changes(GitgChangedFile *file)
 void gitg_changed_file_set_status(GitgChangedFile *file, GitgChangedFileStatus status)
 {
 	g_return_if_fail(GITG_IS_CHANGED_FILE(file));
+
+	if (status == file->priv->status)
+		return;
 	
-	file->priv->status = status;
-	g_object_notify(G_OBJECT(file), "status");
+	g_object_set(file, "status", status, NULL);
 }
 
 void
@@ -260,9 +315,8 @@ gitg_changed_file_set_changes(GitgChangedFile *file, GitgChangedFileChanges chan
 	
 	if (changes == file->priv->changes)
 		return;
-
-	file->priv->changes = changes;
-	g_object_notify(G_OBJECT(file), "changes");
+		
+	g_object_set(file, "changes", changes, NULL);
 }
 
 gboolean 
@@ -271,4 +325,21 @@ gitg_changed_file_equal(GitgChangedFile *file, GFile *other)
 	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), FALSE);
 	
 	return g_file_equal(file->priv->file, other);
+}
+
+static void
+on_file_monitor_changed(GFileMonitor *monitor, GFile *file, GFile *other_file, GFileMonitorEvent event, GitgChangedFile *self)
+{
+	g_message("%d", event);
+
+	switch (event)
+	{
+		case G_FILE_MONITOR_EVENT_DELETED:
+		case G_FILE_MONITOR_EVENT_CREATED:
+		case G_FILE_MONITOR_EVENT_CHANGED:
+			g_signal_emit(self, changed_file_signals[CHANGED], 0);
+		break;
+		default:
+		break;
+	}
 }

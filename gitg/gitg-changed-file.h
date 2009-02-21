@@ -63,6 +63,8 @@ struct _GitgChangedFile {
 
 struct _GitgChangedFileClass {
 	GObjectClass parent_class;
+	
+	void (*changed)(GitgChangedFile *file);
 };
 
 GType gitg_changed_file_get_type (void) G_GNUC_CONST;

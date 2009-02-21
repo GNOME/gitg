@@ -61,6 +61,8 @@ static guint commit_signals[LAST_SIGNAL] = { 0 };
 
 G_DEFINE_TYPE(GitgCommit, gitg_commit, G_TYPE_OBJECT)
 
+static void on_changed_file_changed(GitgChangedFile *file, GitgCommit *commit);
+
 GQuark
 gitg_commit_error_quark()
 {
@@ -319,6 +321,8 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 		gitg_changed_file_set_changes(f, changes);
 		
 		g_hash_table_insert(commit->priv->files, file, f);
+		
+		g_signal_connect(f, "changed", G_CALLBACK(on_changed_file_changed), commit);
 		g_signal_emit(commit, commit_signals[INSERTED], 0, f);
 
 		g_strfreev(parts);
@@ -540,6 +544,8 @@ refresh_changes(GitgCommit *commit, GitgChangedFile *file)
 	
 	if (changes == GITG_CHANGED_FILE_CHANGES_NONE)
 		gitg_changed_file_set_status(file, GITG_CHANGED_FILE_STATUS_NEW);
+	else if ((changes & GITG_CHANGED_FILE_CHANGES_CACHED) && (changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED))
+		gitg_changed_file_set_status(file, GITG_CHANGED_FILE_STATUS_MODIFIED);
 	
 	if (gitg_changed_file_get_status(file) == GITG_CHANGED_FILE_STATUS_NEW &&
 	    !(changes & GITG_CHANGED_FILE_CHANGES_CACHED))
@@ -864,4 +870,10 @@ gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error
 	g_object_unref(f);	
 	g_free(ignore);
 	g_free(path);
+}
+
+static void
+on_changed_file_changed(GitgChangedFile *file, GitgCommit *commit)
+{
+	refresh_changes(commit, file);
 }
