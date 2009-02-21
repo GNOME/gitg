@@ -536,8 +536,13 @@ refresh_changes(GitgCommit *commit, GitgChangedFile *file)
 	update_index_staged(commit, file);
 	update_index_unstaged(commit, file);
 	
+	GitgChangedFileChanges changes = gitg_changed_file_get_changes(file);
+	
+	if (changes == GITG_CHANGED_FILE_CHANGES_NONE)
+		gitg_changed_file_set_status(file, GITG_CHANGED_FILE_STATUS_NEW);
+	
 	if (gitg_changed_file_get_status(file) == GITG_CHANGED_FILE_STATUS_NEW &&
-	    !(gitg_changed_file_get_changes(file) & GITG_CHANGED_FILE_CHANGES_CACHED))
+	    !(changes & GITG_CHANGED_FILE_CHANGES_CACHED))
 	{
 		gitg_changed_file_set_changes(file, GITG_CHANGED_FILE_CHANGES_UNSTAGED);
 	}

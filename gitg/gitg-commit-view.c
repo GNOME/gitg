@@ -1396,7 +1396,6 @@ on_unstage_changes(GtkAction *action, GitgCommitView *view)
 			return;
 		
 		gitg_commit_unstage(view->priv->commit, file, NULL, NULL);
-		g_object_unref(file);
 	}
 	else
 	{
