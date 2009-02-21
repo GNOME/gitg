@@ -897,6 +897,7 @@ on_recent_open(GtkRecentChooser *chooser, GitgWindow *window)
 	g_object_unref(file);
 }
 
+#if GTK_CHECK_VERSION (2, 14, 0)
 static void
 url_activate_hook(GtkAboutDialog *dialog, gchar const *link, gpointer data)
 {
@@ -917,6 +918,7 @@ email_activate_hook(GtkAboutDialog *dialog, gchar const *link, gpointer data)
 	g_free(uri);
 	g_free(escaped);
 }
+#endif
 
 void
 on_help_about(GtkAction *action, GitgWindow *window)
@@ -939,9 +941,10 @@ on_help_about(GtkAction *action, GitgWindow *window)
 		"Foundation, Inc., 59 Temple Place, Suite 330,\n"
 		"Boston, MA 02111-1307, USA.");
 
+#if GTK_CHECK_VERSION (2, 14, 0)
 	gtk_about_dialog_set_url_hook(url_activate_hook, NULL, NULL);
 	gtk_about_dialog_set_email_hook(email_activate_hook, NULL, NULL);
-
+#endif
 	gchar *path = gitg_dirs_get_data_filename("icons", "gitg.svg", NULL);
 	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(path, NULL);
 	g_free(path);
