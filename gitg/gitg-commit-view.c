@@ -960,6 +960,18 @@ find_file_in_store(GtkListStore *store, GitgChangedFile *file, GtkTreeIter *iter
 }
 
 static void
+model_row_changed(GtkListStore *store, GtkTreeIter *iter)
+{
+	GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL(store), iter);
+	
+	if (!path)
+		return;
+	
+	gtk_tree_model_row_changed(GTK_TREE_MODEL(store), path, iter);
+	gtk_tree_path_free(path);
+}
+
+static void
 on_commit_file_changed(GitgChangedFile *file, GParamSpec *spec, GitgCommitView *view)
 {
 	GtkTreeIter staged;
@@ -967,7 +979,13 @@ on_commit_file_changed(GitgChangedFile *file, GParamSpec *spec, GitgCommitView *
 	
 	gboolean isstaged = find_file_in_store(view->priv->store_staged, file, &staged);
 	gboolean isunstaged = find_file_in_store(view->priv->store_unstaged, file, &unstaged);
+
+	if (isstaged)
+		model_row_changed(view->priv->store_staged, &staged);
 	
+	if (isunstaged)
+		model_row_changed(view->priv->store_unstaged, &unstaged);
+
 	GitgChangedFileChanges changes = gitg_changed_file_get_changes(file);
 	
 	if (changes & GITG_CHANGED_FILE_CHANGES_CACHED)
@@ -1005,6 +1023,7 @@ on_commit_file_inserted(GitgCommit *commit, GitgChangedFile *file, GitgCommitVie
 		append_file(view->priv->store_staged, file, view);
 	
 	g_signal_connect(file, "notify::changes", G_CALLBACK(on_commit_file_changed), view);
+	g_signal_connect(file, "notify::status", G_CALLBACK(on_commit_file_changed), view);
 }
 
 static void

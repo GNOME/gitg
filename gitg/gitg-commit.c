@@ -236,6 +236,21 @@ runner_connect(GitgCommit *commit, GCallback updatefunc, GCallback endfunc)
 }
 
 static void
+update_changed_file_status(GitgChangedFile *file, char const *action, gchar const *mode)
+{
+	GitgChangedFileStatus status;
+	
+	if (strcmp(action, "D") == 0)
+		status = GITG_CHANGED_FILE_STATUS_DELETED;
+	else if (strcmp(mode, "000000") == 0)
+		status = GITG_CHANGED_FILE_STATUS_NEW;
+	else
+		status = GITG_CHANGED_FILE_STATUS_MODIFIED;
+	
+	gitg_changed_file_set_status(file, status);
+}
+
+static void
 add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 {
 	gchar *line;
@@ -266,8 +281,9 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 		if (f)
 		{
 			GitgChangedFileChanges changes = gitg_changed_file_get_changes(f);
-			
+
 			g_object_set_data(G_OBJECT(f), CAN_DELETE_KEY, NULL);
+			update_changed_file_status(f, parts[4], mode);
 			
 			if (cached)
 			{
@@ -283,22 +299,17 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 			
 			gitg_changed_file_set_changes(f, changes);
 			
+			if ((changes & GITG_CHANGED_FILE_CHANGES_CACHED) && (changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED))
+				gitg_changed_file_set_status(f, GITG_CHANGED_FILE_STATUS_MODIFIED);
+			
 			g_object_unref(file);
 			g_strfreev(parts);
 			continue;
 		}
 		
 		f = gitg_changed_file_new(file);
-		GitgChangedFileStatus status;
-		
-		if (strcmp(parts[4], "D") == 0)
-			status = GITG_CHANGED_FILE_STATUS_DELETED;
-		else if (strcmp(mode, "000000") == 0)
-			status = GITG_CHANGED_FILE_STATUS_NEW;
-		else
-			status = GITG_CHANGED_FILE_STATUS_MODIFIED;
-		
-		gitg_changed_file_set_status(f, status);
+		update_changed_file_status(f, parts[4], mode);
+
 		gitg_changed_file_set_sha(f, sha);
 		gitg_changed_file_set_mode(f, mode);
 
@@ -469,6 +480,7 @@ update_index_staged(GitgCommit *commit, GitgChangedFile *file)
 		gitg_changed_file_set_sha(file, parts[2]);
 		
 		gitg_changed_file_set_changes(file, gitg_changed_file_get_changes(file) | GITG_CHANGED_FILE_CHANGES_CACHED);
+		update_changed_file_status(file, parts[4], parts[0] + 1);
 	}
 	else
 	{
