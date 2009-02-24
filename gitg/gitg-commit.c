@@ -457,6 +457,8 @@ gitg_commit_refresh(GitgCommit *commit)
 	/* Read other files */
 	if (commit->priv->repository)
 		update_index(commit);
+	else
+		refresh_done(commit->priv->runner, commit);
 }
 
 static void

@@ -908,6 +908,9 @@ gitg_commit_view_set_repository(GitgCommitView *view, GitgRepository *repository
 		g_object_unref(view->priv->commit);
 		view->priv->commit = NULL;
 	}
+	
+	gtk_list_store_clear(view->priv->store_unstaged);
+	gtk_list_store_clear(view->priv->store_staged);
 
 	if (repository)
 		view->priv->repository = g_object_ref(repository);
