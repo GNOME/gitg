@@ -126,20 +126,6 @@ wrap_get_int(GitgPreferences *preferences, Binding *binding, GValue *value)
 }
 
 static gboolean
-wrap_set_double(GitgPreferences *preferences, Binding *binding, GValue const *value)
-{
-	gdouble val = g_value_get_double(value);
-	return gconf_client_set_double(preferences->priv->client, binding->key, val, NULL);
-}
-
-static void
-wrap_get_double(GitgPreferences *preferences, Binding *binding, GValue *value)
-{
-	gdouble val = gconf_client_get_double(preferences->priv->client, binding->key, NULL);
-	g_value_set_double(value, val);
-}
-
-static gboolean
 wrap_set_string(GitgPreferences *preferences, Binding *binding, GValue const *value)
 {
 	gchar const *val = g_value_get_string(value);
