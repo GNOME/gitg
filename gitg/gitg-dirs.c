@@ -79,6 +79,7 @@ gitg_dirs_initialize(int argc, char **argv)
 
 		path = g_build_filename(cwd, tmp, NULL);
 		g_free(tmp);
+		g_free(cwd);
 	}
 
 	g_snprintf(executable_directory, PATH_MAX, "%s", path);
