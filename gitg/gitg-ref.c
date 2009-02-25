@@ -33,7 +33,7 @@ typedef struct
 GitgRef *
 gitg_ref_new(gchar const *hash, gchar const *name)
 {
-	GitgRef *inst = g_new0(GitgRef, 1);
+	GitgRef *inst = g_slice_new0(GitgRef);
 
 	gitg_utils_sha1_to_hash(hash, inst->hash);
 	inst->name = g_strdup(name);
@@ -68,7 +68,7 @@ gitg_ref_new(gchar const *hash, gchar const *name)
 GitgRef *
 gitg_ref_copy(GitgRef *ref)
 {
-	GitgRef *ret = g_new0(GitgRef, 1);
+	GitgRef *ret = g_slice_new0(GitgRef);
 	
 	ret->type = ref->type;
 	ret->name = g_strdup(ref->name);
@@ -90,5 +90,5 @@ gitg_ref_free(GitgRef *ref)
 	g_free(ref->name);
 	g_free(ref->shortname);
 
-	g_free(ref);
+	g_slice_free(GitgRef, ref);
 }
