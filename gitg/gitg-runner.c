@@ -497,7 +497,7 @@ static void
 write_input_ready(GOutputStream *stream, GAsyncResult *result, AsyncData *data)
 {
 	GError *error = NULL;
-	gssize written = g_output_stream_write_finish(stream, result, &error);
+	g_output_stream_write_finish(stream, result, &error);
 	
 	if (g_cancellable_is_cancelled(data->cancellable))
 	{

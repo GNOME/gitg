@@ -349,7 +349,6 @@ collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
 	{
 		GitgRevision *revision = GITG_REVISION(item->data);
 		GSList *lns = gitg_revision_get_lanes(revision);
-		gint8 newindex = index;
 		
 		/* remove lane at 'index' and update merge indices for the lanes
 		   after 'index' in the list */

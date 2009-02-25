@@ -146,7 +146,6 @@ icon_data_func(GtkTreeViewColumn *column, GtkCellRenderer *renderer, GtkTreeMode
 	
 	gtk_tree_model_get(model, iter, COLUMN_FILE, &file, -1);
 	GitgChangedFileStatus status = gitg_changed_file_get_status(file);
-	GitgChangedFileChanges changes = gitg_changed_file_get_changes(file);
 	
 	gboolean staged = (model == GTK_TREE_MODEL(view->priv->store_staged));
 	
@@ -257,13 +256,6 @@ static void
 connect_update(GitgCommitView *view)
 {
 	view->priv->update_id = g_signal_connect(view->priv->runner, "update", G_CALLBACK(on_changes_update), view);
-}
-
-static void
-run_changes_command(GitgCommitView *view, gchar const **argv, gchar const *wd)
-{
-	connect_update(view);
-	gitg_runner_run_working_directory(view->priv->runner, argv, wd, NULL);
 }
 
 static void

@@ -271,7 +271,6 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 		
 		gchar const *mode = parts[0] + 1;
 		gchar const *sha = parts[2];
-		GSList *item;
 		
 		gchar *path = g_build_filename(gitg_repository_get_path(commit->priv->repository), parts[5], NULL);
 		
@@ -398,8 +397,6 @@ read_other_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 			continue;
 			
 		/* Check if file is already in our index */
-		gboolean added = FALSE;
-		GSList *item;
 		gchar *path = g_build_filename(gitg_repository_get_path(commit->priv->repository), line, NULL);
 		
 		GFile *file = g_file_new_for_path(path);
@@ -636,13 +633,6 @@ gitg_commit_has_changes(GitgCommit *commit)
 	return result;
 }
 
-static void
-store_line(GitgRunner *runner, gchar **buffer, gchar **line)
-{
-	g_free(*line);
-	*line = g_strdup(*buffer);
-}
-
 static gchar *
 comment_parse_subject(gchar const *comment)
 {
@@ -685,8 +675,6 @@ write_tree(GitgCommit *commit, gchar **tree, GError **error)
 static gchar *
 get_signed_off_line(GitgCommit *commit)
 {
-	gchar const *argv_name[] = {"config", "--get", "user.name", NULL};
-	
 	gchar **user = gitg_repository_command_with_outputv(commit->priv->repository, NULL, "config", "--get", "user.name", NULL);
 	
 	if (!user)

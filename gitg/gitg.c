@@ -77,8 +77,6 @@ on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer userdata)
 static GitgWindow *
 build_ui()
 {
-	GError *error = NULL;
-	
 	GtkBuilder *builder = gitg_utils_new_builder("gitg-ui.xml");
 	
 	GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));

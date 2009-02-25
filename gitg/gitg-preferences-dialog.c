@@ -61,8 +61,6 @@ round_val(gdouble val)
 static void
 gitg_preferences_dialog_finalize(GObject *object)
 {
-	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG(object);
-
 	G_OBJECT_CLASS(gitg_preferences_dialog_parent_class)->finalize(object);
 }
 

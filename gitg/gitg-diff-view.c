@@ -186,7 +186,6 @@ gitg_diff_view_class_init(GitgDiffViewClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
-	GtkTextViewClass *text_view_class = GTK_TEXT_VIEW_CLASS(klass);
 	
 	object_class->finalize = gitg_diff_view_finalize;
 	object_class->set_property = gitg_diff_view_set_property;
@@ -506,10 +505,9 @@ paint_line_numbers(GitgDiffView *view, GdkEventExpose *event)
 	gint y1, y2;
 	gint count;
 	gint margin_width;
-	gint text_width, x_pixmap;
+	gint text_width;
 	gint i;
 	GtkTextIter cur;
-	gint cur_line;
 
 	text_view = GTK_TEXT_VIEW(view);
 	win = gtk_text_view_get_window(text_view, GTK_TEXT_WINDOW_LEFT);
