@@ -26,6 +26,7 @@
 #include "gitg-ref.h"
 #include "gitg-types.h"
 #include "gitg-preferences.h"
+#include "gitg-data-binding.h"
 
 #include <gio/gio.h>
 #include <glib/gi18n.h>
@@ -444,7 +445,7 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 {
 	gchar *line;
 	
-	while ((line = *buffer++))
+	while ((line = *buffer++) != NULL)
 	{
 		/* new line is read */
 		gchar **components = g_strsplit(line, "\01", 0);
@@ -501,7 +502,7 @@ repository_relane(GitgRepository *repository)
 	
 	for (i = 0; i < repository->priv->size; ++i)
 	{
-		guint8 mylane;
+		gint8 mylane;
 		GitgRevision *revision = repository->priv->storage[i];
 
 		GSList *lanes = gitg_lanes_next(repository->priv->lanes, revision, &mylane);
@@ -752,7 +753,7 @@ load_refs(GitgRepository *self)
 	gchar **buffer = refs;
 	gchar *buf;
 	
-	while (buf = *buffer++)
+	while ((buf = *buffer++) != NULL)
 	{
 		// each line will look like <name> <hash>
 		gchar **components = g_strsplit(buf, " ", 2);
@@ -1041,7 +1042,7 @@ parse_valist(va_list ap)
 	gchar const **ret = NULL;
 	guint num = 0;
 	
-	while (a = va_arg(ap, gchar const *))
+	while ((a = va_arg(ap, gchar const *)) != NULL)
 	{
 		ret = g_realloc(ret, sizeof(gchar const *) * (++num + 1));
 		ret[num - 1] = a;

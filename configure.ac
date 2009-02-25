@@ -49,6 +49,7 @@ PKG_CHECK_MODULES(PACKAGE, [
 	gthread-2.0
 	gtksourceview-2.0
 	gio-2.0
+	gio-unix-2.0
 	gmodule-2.0
 	gconf-2.0
 ])

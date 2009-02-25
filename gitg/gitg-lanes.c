@@ -284,7 +284,7 @@ gitg_lanes_reset(GitgLanes *lanes)
 	g_hash_table_remove_all(lanes->priv->collapsed);
 }
 
-static gboolean
+static void
 lane_container_next(LaneContainer *container, gint index)
 {
 	GitgLane *lane = gitg_lane_copy(container->lane);

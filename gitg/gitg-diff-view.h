@@ -54,6 +54,7 @@ struct _GitgDiffViewClass
 GType gitg_diff_view_get_type(void) G_GNUC_CONST;
 GitgDiffView *gitg_diff_view_new(void);
 void gitg_diff_view_remove_hunk(GitgDiffView *view, GtkTextIter *iter);
+void gitg_diff_view_set_diff_enabled(GitgDiffView *view, gboolean enabled);
 
 G_END_DECLS
 

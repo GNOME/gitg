@@ -883,6 +883,8 @@ on_window_state_event(GtkWidget *widget, GdkEventWindowState *event, GitgWindow 
 	GitgSettings *settings = gitg_settings_get_default();
 	
 	gitg_settings_set_window_state(settings, event->new_window_state);
+
+	return FALSE;
 }
 
 void

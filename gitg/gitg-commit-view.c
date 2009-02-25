@@ -161,6 +161,8 @@ icon_data_func(GtkTreeViewColumn *column, GtkCellRenderer *renderer, GtkTreeMode
 		case GITG_CHANGED_FILE_STATUS_DELETED:
 			g_object_set(renderer, "stock-id", staged ? GTK_STOCK_REMOVE : GTK_STOCK_DELETE, NULL);
 		break;
+		default:
+		break;
 	}
 	
 	g_object_unref(file);

@@ -88,7 +88,7 @@ gitg_settings_save(GitgSettings *settings)
 	g_mkdir_with_parents(d, 0755);
 	g_free(d);
 	
-	gssize length;
+	gsize length;
 	gchar *data = g_key_file_to_data(settings->priv->file, &length, NULL);
 	
 	if (data)

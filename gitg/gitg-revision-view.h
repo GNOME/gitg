@@ -56,7 +56,7 @@ struct _GitgRevisionViewClass {
 GType gitg_revision_view_get_type (void) G_GNUC_CONST;
 
 void gitg_revision_view_update(GitgRevisionView *revision_view, GitgRepository *repository, GitgRevision *revision);
-
+void gitg_revision_view_set_repository(GitgRevisionView *view, GitgRepository *repository);
 
 G_END_DECLS
 

@@ -257,7 +257,7 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 {
 	gchar *line;
 	
-	while (line = *buffer++)
+	while ((line = *buffer++) != NULL)
 	{
 		gchar **parts = g_strsplit_set(line, " \t", 0);
 		guint len = g_strv_length(parts);
@@ -391,7 +391,7 @@ read_other_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 {
 	gchar *line;
 
-	while ((line = *buffer++))
+	while ((line = *buffer++) != NULL)
 	{
 		/* Skip empty lines */
 		if (!*line)
@@ -649,7 +649,7 @@ comment_parse_subject(gchar const *comment)
 	gchar *ptr;
 	gchar *subject;
 	
-	if (ptr = g_utf8_strchr(comment, g_utf8_strlen(comment, -1), '\n'))
+	if ((ptr = g_utf8_strchr(comment, g_utf8_strlen(comment, -1), '\n')) != NULL)
 	{
 		subject = g_strndup(comment, ptr - comment);
 	}
@@ -844,8 +844,8 @@ gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk,
 gboolean 
 gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error)
 {
-	g_return_if_fail(GITG_IS_COMMIT(commit));
-	g_return_if_fail(GITG_IS_CHANGED_FILE(file));
+	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
+	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), FALSE);
 	
 	GFile *f = gitg_changed_file_get_file(file);
 	gchar *path = gitg_repository_relative(commit->priv->repository, f);
@@ -872,6 +872,8 @@ gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error
 	g_object_unref(f);	
 	g_free(ignore);
 	g_free(path);
+
+	return ret;
 }
 
 static void

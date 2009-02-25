@@ -23,7 +23,13 @@
 #include "gitg-runner.h"
 #include "gitg-utils.h"
 #include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include "gitg-debug.h"
+
+#include <gio/gio.h>
+#include <gio/gunixoutputstream.h>
+#include <gio/gunixinputstream.h>
 
 #define GITG_RUNNER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_RUNNER, GitgRunnerPrivate))
 
@@ -297,7 +303,7 @@ parse_lines(GitgRunner *runner, gchar *buffer, gssize size)
 	gchar *ptr = buffer;
 	gchar *newline;
 	gint i = 0;
-	
+
 	free_lines(runner);
 	
 	while ((newline = gitg_strnchr(ptr, size, '\n')))
@@ -379,7 +385,7 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 		g_output_stream_close(runner->priv->output_stream, NULL, NULL);
 	}
 	
-	gssize read = runner->priv->buffer_size;
+	gsize read = runner->priv->buffer_size;
 
 	while (read == runner->priv->buffer_size)
 	{
@@ -543,6 +549,7 @@ gitg_runner_run_streams(GitgRunner *runner, GInputStream *input_stream, GOutputS
 			start_reading(runner, data);
 		}
 	}
+	return TRUE;
 }
 
 gboolean

@@ -1,6 +1,5 @@
 /*
- * gitg-repository.h
- * This file is part of gitg - git repository viewer
+ * gitg-repository.h * This file is part of gitg - git repository viewer
  *
  * Copyright (C) 2009 - Jesse van den Kieboom
  *
@@ -104,6 +103,8 @@ gchar **gitg_repository_command_with_input_and_outputv(GitgRepository *repositor
 
 gchar *gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref);
 gchar *gitg_repository_parse_head(GitgRepository *repository);
+
+void gitg_repository_reload(GitgRepository *repository);
 
 G_END_DECLS
 

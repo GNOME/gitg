@@ -22,6 +22,7 @@
 
 #include "gitg-diff-view.h"
 #include <string.h>
+#include <stdlib.h>
 
 #define GITG_DIFF_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_DIFF_VIEW, GitgDiffViewPrivate))
 
