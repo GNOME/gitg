@@ -365,23 +365,11 @@ update_diff(GitgRevisionView *self, GitgRepository *repository, GitgRevision *re
 		return;
 
 	gchar *hash = gitg_revision_get_sha1(revision);
-	gchar *gitpath = gitg_utils_dot_git_path(gitg_repository_get_path(repository));
-	
-	gchar const *argv[] = {
-		"git",
-		"--git-dir",
-		gitpath,
-		"show",
-		"--pretty=format:%s%n%n%b",
-		"--encoding=UTF-8",
-		hash,
-		NULL
-	};
-	
-	gitg_runner_run(self->priv->diff_runner, argv, NULL);
+	gitg_repository_run_commandv(repository, self->priv->diff_runner, NULL,
+								 "show", "--pretty=format:%s%n%n%b", 
+								 "--encoding=UTF-8", "-M", hash, NULL);
 
 	g_free(hash);
-	g_free(gitpath);
 }
 
 static gchar *
