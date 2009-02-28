@@ -39,6 +39,21 @@ typedef struct _GitgDiffView		GitgDiffView;
 typedef struct _GitgDiffViewClass	GitgDiffViewClass;
 typedef struct _GitgDiffViewPrivate	GitgDiffViewPrivate;
 
+typedef struct _GitgDiffIter		GitgDiffIter;
+
+struct _GitgDiffIter
+{
+	gpointer userdata;
+	gpointer userdata2;
+	gpointer userdata3;
+};
+
+typedef enum
+{
+	GITG_DIFF_ITER_TYPE_HEADER = 1,
+	GITG_DIFF_ITER_TYPE_HUNK
+} GitgDiffIterType;
+
 struct _GitgDiffView
 {
 	GtkSourceView parent;
@@ -49,12 +64,27 @@ struct _GitgDiffView
 struct _GitgDiffViewClass
 {
 	GtkSourceViewClass parent_class;
+	
+	void (*header_added)(GitgDiffView *view, GitgDiffIter *iter);
+	void (*hunk_added)(GitgDiffView *view, GitgDiffIter *iter);
 };
 
 GType gitg_diff_view_get_type(void) G_GNUC_CONST;
 GitgDiffView *gitg_diff_view_new(void);
+
 void gitg_diff_view_remove_hunk(GitgDiffView *view, GtkTextIter *iter);
 void gitg_diff_view_set_diff_enabled(GitgDiffView *view, gboolean enabled);
+
+/* Iterator functions */
+gboolean gitg_diff_view_get_start_iter(GitgDiffView *view, GitgDiffIter *iter);
+gboolean gitg_diff_iter_forward(GitgDiffIter *iter);
+
+gboolean gitg_diff_view_get_end_iter(GitgDiffView *view, GitgDiffIter *iter);
+gboolean gitg_diff_iter_backward(GitgDiffIter *iter);
+
+GitgDiffIterType gitg_diff_iter_get_type(GitgDiffIter *iter);
+void gitg_diff_iter_set_visible(GitgDiffIter *iter, gboolean visible);
+gboolean gitg_diff_iter_get_index(GitgDiffIter *iter, gchar **from, gchar **to);
 
 G_END_DECLS
 

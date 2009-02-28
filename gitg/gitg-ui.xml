@@ -468,19 +468,61 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScrolledWindow" id="scrolled_window_details">
+                              <object class="GtkHPaned" id="hpaned_revision_view">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="hscrollbar_policy">automatic</property>
-                                <property name="vscrollbar_policy">automatic</property>
-                                <property name="shadow_type">etched-in</property>
+                                <property name="position">200</property>
                                 <child>
-                                  <object class="GitgDiffView" id="revision_diff">
-                                  	<property name="tab-width">4</property>
-                                  	<property name="editable">False</property>
-                                  	<property name="cursor-visible">False</property>
-                                  	<property name="diff-enabled">True</property>
-                                  	<property name="show-line-numbers">True</property>
+                                  <object class="GtkScrolledWindow" id="scrolled_window_revision_files">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="hscrollbar_policy">automatic</property>
+                                    <property name="vscrollbar_policy">automatic</property>
+                                    <property name="shadow_type">etched-in</property>
+                                    <child>
+                                      <object class="GtkTreeView" id="tree_view_revision_files">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="headers_visible">False</property>
+                                        <child>
+                                          <object class="GtkTreeViewColumn" id="revision_files_column_icon">
+                                            <property name="title" translatable="no">Icon</property>
+                                            <property name="resizable">False</property>
+                                            <property name="fixed-width">20</property>
+                                            <property name="sizing">fixed</property>
+                                            <child>
+                                              <object class="GtkCellRendererPixbuf" id="revision_files_cell_renderer_icon"/>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkTreeViewColumn" id="revision_files_column_name">
+                                            <property name="title" translatable="no">Filename</property>
+                                            <property name="resizable">False</property>
+                                            <child>
+                                              <object class="GtkCellRendererText" id="revision_files_cell_renderer_name"/>
+                                            </child>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkScrolledWindow" id="scrolled_window_details">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="hscrollbar_policy">automatic</property>
+                                    <property name="vscrollbar_policy">automatic</property>
+                                    <property name="shadow_type">etched-in</property>
+                                    <child>
+                                      <object class="GitgDiffView" id="revision_diff">
+                                      	<property name="tab-width">4</property>
+                                      	<property name="editable">False</property>
+                                      	<property name="cursor-visible">False</property>
+                                      	<property name="diff-enabled">True</property>
+                                      	<property name="show-line-numbers">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
@@ -914,3 +956,5 @@
     </child>
   </object>
 </interface>
+
+<!-- vi:ts=2:et -->

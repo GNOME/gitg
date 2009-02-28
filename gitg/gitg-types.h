@@ -25,7 +25,10 @@
 
 #include <glib.h>
 
-typedef gchar Hash[20];
+#define HASH_BINARY_SIZE 20
+#define HASH_SHA_SIZE 40
+
+typedef gchar Hash[HASH_BINARY_SIZE];
 
 #endif /* __GITG_TYPES_H__ */
 
