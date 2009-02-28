@@ -75,7 +75,7 @@ gitg_ref_copy(GitgRef *ref)
 	ret->shortname = g_strdup(ref->shortname);
 	
 	int i;
-	for (i = 0; i < 20; ++i)
+	for (i = 0; i < HASH_BINARY_SIZE; ++i)
 		ret->hash[i] = ref->hash[i];
 
 	return ret;

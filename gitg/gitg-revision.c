@@ -138,10 +138,10 @@ gitg_revision_get_hash(GitgRevision *revision)
 gchar *
 gitg_revision_get_sha1(GitgRevision *revision)
 {
-	char res[40];
+	char res[HASH_SHA_SIZE];
 	gitg_utils_hash_to_sha1(revision->hash, res);
 
-	return g_strndup(res, 40);
+	return g_strndup(res, HASH_SHA_SIZE);
 }
 
 Hash *
@@ -161,10 +161,10 @@ gitg_revision_get_parents(GitgRevision *revision)
 	int i;
 	for (i = 0; i < revision->num_parents; ++i)
 	{
-		ret[i] = g_new(gchar, 41);
+		ret[i] = g_new(gchar, HASH_SHA_SIZE + 1);
 		gitg_utils_hash_to_sha1(revision->parents[i], ret[i]);
 		
-		ret[i][40] = '\0';
+		ret[i][HASH_SHA_SIZE] = '\0';
 	}
 
 	ret[revision->num_parents] = NULL;

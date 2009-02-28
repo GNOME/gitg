@@ -378,7 +378,7 @@ collapse_lane(GitgLanes *lanes, LaneContainer *container, gint8 index)
 			GitgLaneBoundary *boundary = gitg_lane_convert_boundary((GitgLane *)lstlane->data, GITG_LANE_TYPE_END);
 			
 			/* copy parent hash over */
-			memcpy(boundary->hash, container->to, 20);
+			memcpy(boundary->hash, container->to, HASH_BINARY_SIZE);
 			lstlane->data = boundary;
 		}
 	}	
@@ -473,7 +473,7 @@ expand_lane(GitgLanes *lanes, CollapsedLane *lane)
 			GitgLaneBoundary *boundary = gitg_lane_convert_boundary(copy, GITG_LANE_TYPE_START);
 			
 			/* copy child hash in boundary */
-			memcpy(boundary->hash, lane->from, 20);
+			memcpy(boundary->hash, lane->from, HASH_BINARY_SIZE);
 			copy = (GitgLane *)boundary;
 		}
 		else

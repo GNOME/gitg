@@ -44,7 +44,7 @@ gitg_utils_sha1_to_hash(gchar const *sha, gchar *hash)
 {
 	int i;
 
-	for (i = 0; i < 20; ++i)
+	for (i = 0; i < HASH_BINARY_SIZE; ++i)
 	{
 		gchar h = atoh(*(sha++)) << 4;
 		hash[i] = h | atoh(*(sha++));
@@ -58,7 +58,7 @@ gitg_utils_hash_to_sha1(gchar const *hash, gchar *sha)
 	int i;
 	int pos = 0;
 
-	for (i = 0; i < 20; ++i)
+	for (i = 0; i < HASH_BINARY_SIZE; ++i)
 	{
 		sha[pos++] = repr[(hash[i] >> 4) & 0x0f];
 		sha[pos++] = repr[(hash[i] & 0x0f)];
@@ -68,17 +68,17 @@ gitg_utils_hash_to_sha1(gchar const *hash, gchar *sha)
 gchar *
 gitg_utils_hash_to_sha1_new(gchar const *hash)
 {
-	gchar *ret = g_new(gchar, 41);
+	gchar *ret = g_new(gchar, HASH_SHA_SIZE + 1);
 	gitg_utils_hash_to_sha1(hash, ret);
 	
-	ret[40] = '\0';
+	ret[HASH_SHA_SIZE] = '\0';
 	return ret;
 }
 
 gchar *
 gitg_utils_sha1_to_hash_new(gchar const *sha1)
 {
-	gchar *ret = g_new(gchar, 20);
+	gchar *ret = g_new(gchar, HASH_BINARY_SIZE);
 	gitg_utils_sha1_to_hash(sha1, ret);
 	
 	return ret;
@@ -241,7 +241,7 @@ gitg_utils_hash_hash(gconstpointer v)
 	guint32 h = *p;
 	int i;
 	
-	for (i = 1; i < 20; ++i)
+	for (i = 1; i < HASH_BINARY_SIZE; ++i)
 		h = (h << 5) - h + p[i];
 
 	return h;
@@ -250,7 +250,7 @@ gitg_utils_hash_hash(gconstpointer v)
 gboolean 
 gitg_utils_hash_equal(gconstpointer a, gconstpointer b)
 {
-	return memcmp(a, b, 20) == 0;
+	return memcmp(a, b, HASH_BINARY_SIZE) == 0;
 }
 
 gint
