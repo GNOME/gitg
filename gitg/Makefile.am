@@ -8,7 +8,7 @@ INCLUDES =							\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
 	-DDATADIR=\""$(datadir)"\"				\
 	-DGITG_DATADIR=\""$(datadir)/gitg"\"			\
-	-DGITG_LOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
+	-DGITG_LOCALEDIR=\""$(datadir)/locale"\"
 
 BUILT_SOURCES = 				\
 	gitg-enum-types.c			\
