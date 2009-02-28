@@ -1,14 +1,44 @@
 .TH GITG 1 "22 Jun 2008"
 .SH NAME
-\gitg\fP \- Git repository viewer
+gitg\fP \- Git repository viewer
 
 .SH SYNOPSIS
 .B gitg
-.RI [path]
+.RI [options]\ [repository]\ [<refspec>]
 .SH DESCRIPTION
 .B gitg
-is a git repository viewer for GNOME
+is a GitX clone for GNOME/gtk+. It aims at being a small, fast and
+convenient tool to visualize git history and actions that benefit from a
+graphical presentation.
+.SH OPTIONS
+.B \-c,--commit
+Open 
+.B gitg 
+in commit view
+
+.B \-?,--help
+Show the help message
+
+.B [repository]
+Load the repository at
+.B repository
+in 
+.B gitg. 
+If unspecified, 
+.B gitg 
+will try to open the repository at the current working directory
+
+.B [<refspec>]
+Populate the history view of
+.B gitg
+using the specified
+.B <refspec>
+which has the same format as used with 
+.B git log
+(Example: 
+.B gitg
+\-\-left\-right HEAD..FETCH_HEAD)
 
 .SH AUTHORS
-Jesse van den Kieboom (jesse@icecrew.nl)
+Jesse van den Kieboom  <jesse@icecrew.nl>
 
