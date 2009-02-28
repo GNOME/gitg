@@ -800,7 +800,7 @@ GitgDiffIterType
 gitg_diff_iter_get_type(GitgDiffIter *iter)
 {
 	g_return_val_if_fail(iter != NULL, 0);
-	g_return_if_fail(GITG_IS_DIFF_VIEW(iter->userdata));
+	g_return_val_if_fail(GITG_IS_DIFF_VIEW(iter->userdata), 0);
 	g_return_val_if_fail(iter->userdata2 != NULL, 0);
 	
 	return ((Region *)iter->userdata2)->type;
