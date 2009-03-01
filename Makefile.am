@@ -24,9 +24,9 @@ dist-hook: generate-changelog
 
 generate-changelog:
 	if test -d $(top_srcdir)/.git; then \
-	  git --git-dir=$(top_srcdir)/.git log --date=short \
-	  --stat --pretty=format:'%x01%ad  %an <%ae>%n%x01%H%n%n%s%n%n%b' \
-	  | sed -e 's/^/\t/g' -e 's/^\t\x01//g' > $(distdir)/c-l; \
+	  sep=`nawk 'BEGIN{$$79=OFS="-";print}'`; \
+	  git --git-dir=$(top_srcdir)/.git log --date=short --stat --decorate \
+	  | sed -e "s/^\(commit [abcdef0-9]\{40\}\) (.*refs\/tags\/\(v\([0-9.]\+\)\).*)/$$sep\nVersion \3\n$$sep\n\n\1/g" -e 's/^\(commit [abcdef0-9]\{40\}\).*/\1/g' | ruby -e 'puts STDIN.read.gsub(/commit\s*(.*)\nAuthor:\s*(.*)\nDate:\s*(.*)\n/, "\\3 \\2\ncommit \\1\n")' > $(distdir)/c-l; \
 	  mv $(distdir)/c-l $(distdir)/ChangeLog; \
 	fi
 
