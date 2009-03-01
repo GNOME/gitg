@@ -3,8 +3,8 @@ msgid "Git repository browser"
 msgstr "Git repository bekijker"
 
 #. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:168 ../gitg/gitg-window.c:740
-#: ../gitg/gitg-window.c:755 ../gitg/gitg-ui.xml.h:31
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:169 ../gitg/gitg-window.c:733
+#: ../gitg/gitg-window.c:751 ../gitg/gitg-ui.xml.h:32
 msgid "gitg"
 msgstr "gitg"
 
@@ -32,27 +32,27 @@ msgstr ""
 "Of zoeken de revisies in de geschiedenis filtert in plaats van naar het "
 "eerste resultaat te springen."
 
-#: ../gitg/gitg.c:41
+#: ../gitg/gitg.c:43
 msgid "Start gitg in commit mode"
 msgstr "Open gitg in commit mode"
 
-#: ../gitg/gitg.c:51
+#: ../gitg/gitg.c:53
 msgid "- git repository viewer"
 msgstr "- git repository bekijker"
 
-#: ../gitg/gitg-commit-view.c:203 ../gitg/gitg-revision-tree-view.c:181
+#: ../gitg/gitg-commit-view.c:204 ../gitg/gitg-revision-tree-view.c:181
 msgid "Cannot display file content as text"
 msgstr "Kan bestandsinhoud niet weergeven als tekst"
 
-#: ../gitg/gitg-commit-view.c:1150
+#: ../gitg/gitg-commit-view.c:1166
 msgid "You must first stage some changes before committing"
 msgstr "Je moet eerst wijzigingen plaatsen voordat je commit"
 
-#: ../gitg/gitg-commit-view.c:1158
+#: ../gitg/gitg-commit-view.c:1174
 msgid "Please enter a commit message before committing"
 msgstr "Vul eerst een commit bericht in voordat je commit"
 
-#: ../gitg/gitg-commit-view.c:1169
+#: ../gitg/gitg-commit-view.c:1185
 msgid ""
 "Your user name or email could not be retrieved for use in the sign off "
 "message"
@@ -60,24 +60,24 @@ msgstr ""
 "Je gebruikersnaam of e-mail kon niet worden achterhaald voor gebruik in de "
 "ondertekening"
 
-#: ../gitg/gitg-commit-view.c:1171
+#: ../gitg/gitg-commit-view.c:1187
 msgid "Something went wrong while trying to commit"
 msgstr "Er is iets mis gegaan tijdens het committen"
 
-#: ../gitg/gitg-commit-view.c:1339
+#: ../gitg/gitg-commit-view.c:1355
 msgid "Revert fail"
 msgstr "Terugdraaien faalde"
 
-#: ../gitg/gitg-commit-view.c:1350
+#: ../gitg/gitg-commit-view.c:1366
 msgid "Are you sure you want to revert these changes?"
 msgstr "Weet je zeker dat je deze wijzigingen wilt terugdraaien?"
 
-#: ../gitg/gitg-commit-view.c:1353
+#: ../gitg/gitg-commit-view.c:1369
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr ""
 "Wijzigingen terugdraaien is permanent en kan niet ongedaan gemaakt worden"
 
-#: ../gitg/gitg-repository.c:761
+#: ../gitg/gitg-repository.c:797
 msgid "Not a valid git repository"
 msgstr "Geen geldige git repository"
 
@@ -85,41 +85,41 @@ msgstr "Geen geldige git repository"
 msgid "(Empty)"
 msgstr "(Leeg)"
 
-#: ../gitg/gitg-window.c:323
+#: ../gitg/gitg-window.c:316
 msgid "Select branch"
 msgstr "Selecteer tak"
 
-#: ../gitg/gitg-window.c:487
+#: ../gitg/gitg-window.c:480
 msgid "Begin loading repository"
 msgstr "Begin laden van repository"
 
-#: ../gitg/gitg-window.c:496
+#: ../gitg/gitg-window.c:489
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%d revisies ingeladen in %.2fs"
 
-#: ../gitg/gitg-window.c:507
+#: ../gitg/gitg-window.c:500
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Laden van %d revisies..."
 
-#: ../gitg/gitg-window.c:516
+#: ../gitg/gitg-window.c:509
 msgid "Could not find git repository"
 msgstr "Kon git repository niet vinden"
 
-#: ../gitg/gitg-window.c:652
+#: ../gitg/gitg-window.c:645
 msgid "All branches"
 msgstr "Alle takken"
 
-#: ../gitg/gitg-window.c:811
+#: ../gitg/gitg-window.c:808
 msgid "Open git repository"
 msgstr "Open git repository"
 
-#: ../gitg/gitg-window.c:929
+#: ../gitg/gitg-window.c:930
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg is een repository bekijker voor gtk+/GNOME"
 
-#: ../gitg/gitg-window.c:930
+#: ../gitg/gitg-window.c:931
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -263,14 +263,18 @@ msgid "_Help"
 msgstr "_Hulp"
 
 #: ../gitg/gitg-ui.xml.h:28
+msgid "_Open..."
+msgstr "_Open..."
+
+#: ../gitg/gitg-ui.xml.h:29
 msgid "_Staged"
 msgstr "_Geplaatst"
 
-#: ../gitg/gitg-ui.xml.h:29
+#: ../gitg/gitg-ui.xml.h:30
 msgid "_Unstaged"
 msgstr "_Ongeplaatst"
 
-#: ../gitg/gitg-ui.xml.h:30
+#: ../gitg/gitg-ui.xml.h:31
 msgid "_View"
 msgstr "Beel_d"
 
