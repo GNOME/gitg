@@ -255,7 +255,7 @@ on_buffer_set(GitgDiffView *self, GParamSpec *spec, gpointer userdata)
 	g_signal_connect_after(self->priv->current_buffer, "delete-range", G_CALLBACK(on_buffer_delete_range), self);
 
 	self->priv->scan_id = g_idle_add((GSourceFunc)on_idle_scan, self);
-	self->priv->invisible_tag = gtk_text_buffer_create_tag(self->priv->current_buffer, "GitgHunkInvisible", "invisible", TRUE);
+	self->priv->invisible_tag = gtk_text_buffer_create_tag(self->priv->current_buffer, "GitgHunkInvisible", "invisible", TRUE, NULL);
 }
 
 static void
