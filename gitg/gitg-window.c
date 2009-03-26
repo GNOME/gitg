@@ -57,6 +57,7 @@ struct _GitgWindowPrivate
 	GitgCommitView *commit_view;
 	GtkWidget *search_popup;
 	GtkComboBox *combo_branches;
+	GtkEntry *entry_path;
 	
 	GtkWidget *vpaned_main;
 	GtkWidget *hpaned_commit;
@@ -283,6 +284,22 @@ branches_separator_func(GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 }
 
 static void
+on_path_activate(GtkEntry *entry, GitgWindow *window)
+{
+	gchar **args;
+	const gchar *path;
+
+	path = gtk_entry_get_text(window->priv->entry_path);
+
+	args = g_new(gchar*, 3);
+	args[0] = g_strdup("--all");
+	args[1] = g_strdup("--");
+	args[2] = g_strdup(path);
+	gitg_repository_load(window->priv->repository, 3, args, NULL);
+	/*g_strfreev(args);*/
+}
+
+static void
 on_branches_combo_changed(GtkComboBox *combo, GitgWindow *window)
 {
 	if (gtk_combo_box_get_active(combo) < 2)
@@ -372,6 +389,7 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	window->priv->revision_view = GITG_REVISION_VIEW(gtk_builder_get_object(builder, "revision_view"));
 	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW(gtk_builder_get_object(builder, "revision_tree_view"));
 	window->priv->commit_view = GITG_COMMIT_VIEW(gtk_builder_get_object(builder, "hpaned_commit"));
+	window->priv->entry_path = GTK_ENTRY(gtk_builder_get_object(builder, "entry_path"));
 
 	restore_state(window);
 
@@ -400,7 +418,9 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(window->priv->tree_view);
 	g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), window);
 	g_signal_connect(window->priv->revision_view, "parent-activated", G_CALLBACK(on_parent_activated), window);
-	
+
+	g_signal_connect(window->priv->entry_path, "activate", G_CALLBACK(on_path_activate), window);
+
 	g_signal_connect(window->priv->tree_view, "motion-notify-event", G_CALLBACK(on_tree_view_motion), window);
 	g_signal_connect(window->priv->tree_view, "button-release-event", G_CALLBACK(on_tree_view_button_release), window);
 }
