@@ -810,7 +810,8 @@ gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk,
 		
 		g_free(path);
 		
-		remove_file(commit, file);
+		update_index_file(commit, file);
+		update_index_unstaged(commit, file);
 		g_object_unref(f);
 	}
 	else
