@@ -60,7 +60,7 @@ struct _GitgRunnerClass {
 	/* signals */
 	void (* begin_loading) (GitgRunner *runner);
 	void (* update) (GitgRunner *runner, gchar **buffer);
-	void (* end_loading) (GitgRunner *runner);
+	void (* end_loading) (GitgRunner *runner, gboolean cancelled);
 };
 
 GType gitg_runner_get_type (void) G_GNUC_CONST;

@@ -442,7 +442,7 @@ on_diff_files_begin_loading(GitgRunner *runner, GitgRevisionView *self)
 }
 
 static void
-on_diff_files_end_loading(GitgRunner *runner, GitgRevisionView *self)
+on_diff_files_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionView *self)
 {
 	gdk_window_set_cursor(GTK_WIDGET(self->priv->diff_files)->window, NULL);
 }
@@ -521,14 +521,17 @@ on_diff_begin_loading(GitgRunner *runner, GitgRevisionView *self)
 }
 
 static void
-on_diff_end_loading(GitgRunner *runner, GitgRevisionView *self)
+on_diff_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionView *self)
 {
 	gdk_window_set_cursor(GTK_WIDGET(self->priv->diff)->window, NULL);
 	
-	gchar *sha = gitg_revision_get_sha1(self->priv->revision);
-	gitg_repository_run_commandv(self->priv->repository, self->priv->diff_files_runner, NULL,
+	if (!cancelled)
+	{
+		gchar *sha = gitg_revision_get_sha1(self->priv->revision);
+		gitg_repository_run_commandv(self->priv->repository, self->priv->diff_files_runner, NULL,
 								 "show", "--raw", "-M", "--pretty=format:", "--abbrev=40", sha, NULL);
-	g_free(sha);
+		g_free(sha);
+	}
 }
 
 static void
