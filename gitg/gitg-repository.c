@@ -762,7 +762,7 @@ load_refs(GitgRepository *self)
 		{
 			GitgRef *ref = add_ref(self, components[1], components[0]);
 			
-			if (strncmp(components[1], current, strlen(current)) == 0)
+			if (current != NULL && strncmp(components[1], current, strlen(current)) == 0)
 				self->priv->current_ref = gitg_ref_copy(ref);
 		}
 		
