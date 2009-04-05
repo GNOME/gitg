@@ -693,20 +693,6 @@ update_diff(GitgRevisionView *self, GitgRepository *repository)
 	g_free(hash);
 }
 
-static gchar *
-format_date(GitgRevision *revision)
-{
-	guint64 timestamp = gitg_revision_get_timestamp(revision);
-	time_t t = timestamp;
-	
-	char *ptr = ctime(&t);
-	
-	// Remove newline?
-	ptr[strlen(ptr) - 1] = '\0';
-	
-	return ptr;
-}
-
 void
 gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, GitgRevision *revision)
 {
@@ -726,7 +712,9 @@ gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, Gi
 		gtk_label_set_markup(self->priv->subject, subject);
 		g_free(subject);
 
-		gtk_label_set_text(self->priv->date, format_date(revision));
+		gchar *date = gitg_utils_timestamp_to_str(gitg_revision_get_timestamp(revision));
+		gtk_label_set_text(self->priv->date, date);
+		g_free(date);
 	
 		gchar *sha = gitg_revision_get_sha1(revision);
 		gtk_label_set_text(self->priv->sha, sha);
