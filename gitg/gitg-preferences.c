@@ -92,8 +92,8 @@ static void on_preference_changed(GConfClient *client, guint id, GConfEntry *ent
 
 struct _Binding
 {
-	gchar key[PATH_MAX];
-	gchar property[PATH_MAX];
+	gchar *key;
+	gchar *property;
 
 	WrapGet wrap_get;
 	WrapSet wrap_set;
@@ -208,8 +208,8 @@ static void
 install_property_binding(guint prop_id, gchar const *group, gchar const *name, WrapGet wrap_get, WrapSet wrap_set)
 {
 	Binding *b = &property_bindings[prop_id];
-
-	g_snprintf(b->key, PATH_MAX, "%s/%s/%s", KEY_ROOT, group, name);
+	
+	b->key = g_strdup_printf("%s/%s/%s", KEY_ROOT, group, name);
 
 	gchar const *prefix = g_utf8_strrchr(group, -1, '/');
 
@@ -221,8 +221,8 @@ install_property_binding(guint prop_id, gchar const *group, gchar const *name, W
 	{
 		prefix = group;
 	}
-
-	g_snprintf(b->property, PATH_MAX, "%s-%s", prefix, name);
+	
+	b->property = g_strdup_printf("%s-%s", prefix, name);
 
 	b->wrap_get = wrap_get;
 	b->wrap_set = wrap_set;
