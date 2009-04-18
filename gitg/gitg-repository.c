@@ -163,18 +163,6 @@ tree_model_get_path(GtkTreeModel *tree_model, GtkTreeIter *iter)
 	return gtk_tree_path_new_from_indices(GPOINTER_TO_INT(iter->user_data), -1);
 }
 
-static gchar *
-timestamp_to_str(guint64 timestamp)
-{
-	time_t t = timestamp;
-
-	struct tm *tms = localtime(&t);
-	char buf[255];
-	
-	strftime(buf, 255, "%c", tms);
-	return g_strdup(buf);
-}
-
 static void 
 tree_model_get_value(GtkTreeModel *tree_model, GtkTreeIter *iter, gint column, GValue *value)
 {
@@ -203,7 +191,7 @@ tree_model_get_value(GtkTreeModel *tree_model, GtkTreeIter *iter, gint column, G
 			g_value_set_string(value, gitg_revision_get_author(rv));
 		break;
 		case DATE_COLUMN:
-			g_value_take_string(value, timestamp_to_str(gitg_revision_get_timestamp(rv)));
+			g_value_take_string(value, gitg_utils_timestamp_to_str(gitg_revision_get_timestamp(rv)));
 		break;
 		default:
 			g_assert_not_reached();
@@ -762,7 +750,7 @@ load_refs(GitgRepository *self)
 		{
 			GitgRef *ref = add_ref(self, components[1], components[0]);
 			
-			if (strncmp(components[1], current, strlen(current)) == 0)
+			if (current != NULL && strncmp(components[1], current, strlen(current)) == 0)
 				self->priv->current_ref = gitg_ref_copy(ref);
 		}
 		

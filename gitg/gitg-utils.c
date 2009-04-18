@@ -493,3 +493,15 @@ gitg_utils_new_builder(gchar const *filename)
 	g_free(path);
 	return b;
 }
+
+gchar *
+gitg_utils_timestamp_to_str(guint64 timestamp)
+{
+	time_t t = timestamp;
+
+	struct tm *tms = localtime(&t);
+	gchar buf[255];
+	
+	strftime(buf, 254, "%c", tms);
+	return gitg_utils_convert_utf8(buf, -1);
+}

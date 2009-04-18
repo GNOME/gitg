@@ -442,7 +442,7 @@ on_diff_files_begin_loading(GitgRunner *runner, GitgRevisionView *self)
 }
 
 static void
-on_diff_files_end_loading(GitgRunner *runner, GitgRevisionView *self)
+on_diff_files_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionView *self)
 {
 	gdk_window_set_cursor(GTK_WIDGET(self->priv->diff_files)->window, NULL);
 }
@@ -521,14 +521,17 @@ on_diff_begin_loading(GitgRunner *runner, GitgRevisionView *self)
 }
 
 static void
-on_diff_end_loading(GitgRunner *runner, GitgRevisionView *self)
+on_diff_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionView *self)
 {
 	gdk_window_set_cursor(GTK_WIDGET(self->priv->diff)->window, NULL);
 	
-	gchar *sha = gitg_revision_get_sha1(self->priv->revision);
-	gitg_repository_run_commandv(self->priv->repository, self->priv->diff_files_runner, NULL,
+	if (!cancelled)
+	{
+		gchar *sha = gitg_revision_get_sha1(self->priv->revision);
+		gitg_repository_run_commandv(self->priv->repository, self->priv->diff_files_runner, NULL,
 								 "show", "--raw", "-M", "--pretty=format:", "--abbrev=40", sha, NULL);
-	g_free(sha);
+		g_free(sha);
+	}
 }
 
 static void
@@ -690,20 +693,6 @@ update_diff(GitgRevisionView *self, GitgRepository *repository)
 	g_free(hash);
 }
 
-static gchar *
-format_date(GitgRevision *revision)
-{
-	guint64 timestamp = gitg_revision_get_timestamp(revision);
-	time_t t = timestamp;
-	
-	char *ptr = ctime(&t);
-	
-	// Remove newline?
-	ptr[strlen(ptr) - 1] = '\0';
-	
-	return ptr;
-}
-
 void
 gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, GitgRevision *revision)
 {
@@ -723,7 +712,9 @@ gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, Gi
 		gtk_label_set_markup(self->priv->subject, subject);
 		g_free(subject);
 
-		gtk_label_set_text(self->priv->date, format_date(revision));
+		gchar *date = gitg_utils_timestamp_to_str(gitg_revision_get_timestamp(revision));
+		gtk_label_set_text(self->priv->date, date);
+		g_free(date);
 	
 		gchar *sha = gitg_revision_get_sha1(revision);
 		gtk_label_set_text(self->priv->sha, sha);

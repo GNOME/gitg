@@ -345,13 +345,13 @@ delete_file(GFile *key, GitgChangedFile *value, GitgCommit *commit)
 }
 
 static void
-refresh_done(GitgRunner *runner, GitgCommit *commit)
+refresh_done(GitgRunner *runner, gboolean cancelled, GitgCommit *commit)
 {
 	g_hash_table_foreach_remove(commit->priv->files, (GHRFunc)delete_file, commit);
 }
 
 static void
-read_unstaged_files_end(GitgRunner *runner, GitgCommit *commit)
+read_unstaged_files_end(GitgRunner *runner, gboolean cancelled, GitgCommit *commit)
 {
 	gchar *head = gitg_repository_parse_head(commit->priv->repository);
 	gitg_runner_cancel(runner);
@@ -368,7 +368,7 @@ read_unstaged_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commi
 }
 
 static void
-read_other_files_end(GitgRunner *runner, GitgCommit *commit)
+read_other_files_end(GitgRunner *runner, gboolean cancelled, GitgCommit *commit)
 {
 	gitg_runner_cancel(runner);
 	
@@ -420,7 +420,7 @@ read_other_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 }
 
 static void
-update_index_end(GitgRunner *runner, GitgCommit *commit)
+update_index_end(GitgRunner *runner, gboolean cancelled, GitgCommit *commit)
 {
 	gitg_runner_cancel(runner);
 	runner_connect(commit, G_CALLBACK(read_other_files_update), G_CALLBACK(read_other_files_end));
@@ -455,7 +455,7 @@ gitg_commit_refresh(GitgCommit *commit)
 	if (commit->priv->repository)
 		update_index(commit);
 	else
-		refresh_done(commit->priv->runner, commit);
+		refresh_done(commit->priv->runner, FALSE, commit);
 }
 
 static void
@@ -810,7 +810,8 @@ gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk,
 		
 		g_free(path);
 		
-		remove_file(commit, file);
+		update_index_file(commit, file);
+		update_index_unstaged(commit, file);
 		g_object_unref(f);
 	}
 	else
