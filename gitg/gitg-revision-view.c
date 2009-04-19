@@ -468,6 +468,7 @@ visible_from_cached_headers(GitgRevisionView *view, DiffFile *f)
 		{
 			f->visible = TRUE;
 			f->iter = header->iter;
+			
 			return;
 		}
 	}
@@ -481,7 +482,6 @@ add_diff_file(GitgRevisionView *view, DiffFile *f)
 	
 	/* see if it is in the cached headers */
 	visible_from_cached_headers(view, f);
-
 	gtk_list_store_set(view->priv->list_store_diff_files, &iter, 0, f, -1);
 }
 
@@ -791,9 +791,6 @@ on_header_added(GitgDiffView *view, GitgDiffIter *iter, GitgRevisionView *self)
 	GtkTreeIter it;
 	DiffFile *f;
 	
-	gchar *from = NULL, *to = NULL;
-	gitg_diff_iter_get_index(iter, &from, &to);
-	
 	if (find_diff_file(self, iter, &it, &f))
 	{
 		if (!f->visible)
@@ -831,12 +828,16 @@ foreach_selection_changed(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *i
 {
 	gboolean visible = data->numselected == 0 || gtk_tree_selection_path_is_selected(data->selection, path);
 	
-	DiffFile *f;
+	DiffFile *f = NULL;
 	gtk_tree_model_get(model, iter, 0, &f, -1);
 	
-	gitg_diff_iter_set_visible(&f->iter, visible);
-	diff_file_unref(f);
+	
+	if (f->visible)
+	{
+		gitg_diff_iter_set_visible(&f->iter, visible);
+	}
 
+	diff_file_unref(f);
 	return FALSE;
 }
 
