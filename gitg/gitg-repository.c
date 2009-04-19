@@ -293,7 +293,7 @@ gitg_repository_tree_model_iface_init(GtkTreeModelIface *iface)
 static void
 do_clear(GitgRepository *repository, gboolean emit)
 {
-	int i;
+	gint i;
 	GtkTreePath *path = gtk_tree_path_new_from_indices(repository->priv->size - 1, -1);
 	
 	for (i = repository->priv->size - 1; i >= 0; --i)
