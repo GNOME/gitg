@@ -447,16 +447,38 @@ gitg_window_destroy(GtkObject *object)
 		GTK_OBJECT_CLASS(parent_class)->destroy(object);
 }
 
+static gboolean
+gitg_window_window_state_event(GtkWidget *widget, GdkEventWindowState *event)
+{
+	GitgWindow *window = GITG_WINDOW(widget);
+
+	if (event->changed_mask &
+	    (GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN))
+	{
+		gboolean show;
+
+		show = !(event->new_window_state &
+			(GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN));
+
+		gtk_statusbar_set_has_resize_grip (window->priv->statusbar, show);
+	}
+
+	return FALSE;
+}
+
 static void
 gitg_window_class_init(GitgWindowClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	GtkObjectClass *gtkobject_class = GTK_OBJECT_CLASS(klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 	
 	parent_class = g_type_class_peek_parent(klass);
 		
 	object_class->finalize = gitg_window_finalize;
 	gtkobject_class->destroy = gitg_window_destroy;
+	
+	widget_class->window_state_event = gitg_window_window_state_event;
 	
 	g_type_class_add_private(object_class, sizeof(GitgWindowPrivate));
 }
