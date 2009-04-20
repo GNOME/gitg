@@ -35,13 +35,14 @@
       <object class="GtkActionGroup" id="action_group_menu_file">
         <child>
           <object class="GtkAction" id="FileOpenAction">
+            <property name="stock-id">gtk-open</property>
             <property name="label" translatable="yes">_Open...</property>
             <signal name="activate" handler="on_file_open"/>
           </object>
         </child>
         <child>
           <object class="GtkRecentAction" id="RecentOpenAction">
-            <property name="label" translatable="yes">Recently opened</property>
+            <property name="label" translatable="yes">R_ecently Opened</property>
             <signal name="item-activated" handler="on_recent_open"/>
           </object>
         </child>
