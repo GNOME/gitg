@@ -737,20 +737,22 @@ load_refs(GitgRepository *self)
 {
 	gchar *current = load_current_ref(self);
 	
-	gchar **refs = gitg_repository_command_with_outputv(self, NULL, "for-each-ref", "--format=%(refname) %(objectname)", "refs", NULL);
+	gchar **refs = gitg_repository_command_with_outputv(self, NULL, "for-each-ref", "--format=%(refname) %(objectname) %(*objectname)", "refs", NULL);
 	gchar **buffer = refs;
 	gchar *buf;
 	
 	while ((buf = *buffer++) != NULL)
 	{
 		// each line will look like <name> <hash>
-		gchar **components = g_strsplit(buf, " ", 2);
+		gchar **components = g_strsplit(buf, " ", 3);
+		guint len = g_strv_length(components);
 		
-		if (g_strv_length(components) == 2)
+		if (len == 2 || len == 3)
 		{
-			GitgRef *ref = add_ref(self, components[1], components[0]);
+			gchar const *obj = len == 3 && *components[2] ? components[2] : components[1];
+			GitgRef *ref = add_ref(self, obj, components[0]);
 			
-			if (current != NULL && strncmp(components[1], current, strlen(current)) == 0)
+			if (current != NULL && strncmp(obj, current, strlen(current)) == 0)
 				self->priv->current_ref = gitg_ref_copy(ref);
 		}
 		
