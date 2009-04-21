@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-19 23:04+0200\n"
+"POT-Creation-Date: 2009-04-22 00:44+0200\n"
 "PO-Revision-Date: 2009-02-28 20:18+0100\n"
 "Last-Translator: Jesse van den Kieboom <jessevdk@gnome.org>\n"
 "Language-Team: \n"
@@ -21,8 +21,8 @@ msgid "Git repository browser"
 msgstr "Git repository bekijker"
 
 #. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:169 ../gitg/gitg-window.c:733
-#: ../gitg/gitg-window.c:751 ../gitg/gitg-ui.xml.h:32
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:169 ../gitg/gitg-window.c:785
+#: ../gitg/gitg-window.c:803 ../gitg/gitg-ui.xml.h:32
 msgid "gitg"
 msgstr "gitg"
 
@@ -95,7 +95,15 @@ msgid "Reverting changes is permanent and cannot be undone"
 msgstr ""
 "Wijzigingen terugdraaien is permanent en kan niet ongedaan gemaakt worden"
 
-#: ../gitg/gitg-repository.c:785
+#: ../gitg/gitg-repository.c:472
+msgid "Staged changes"
+msgstr "Geplaatste wijzigingen"
+
+#: ../gitg/gitg-repository.c:474
+msgid "Unstaged changes"
+msgstr "Ongeplaatste wijzigingen"
+
+#: ../gitg/gitg-repository.c:983
 msgid "Not a valid git repository"
 msgstr "Geen geldige git repository"
 
@@ -103,41 +111,41 @@ msgstr "Geen geldige git repository"
 msgid "(Empty)"
 msgstr "(Leeg)"
 
-#: ../gitg/gitg-window.c:316
+#: ../gitg/gitg-window.c:346
 msgid "Select branch"
 msgstr "Selecteer tak"
 
-#: ../gitg/gitg-window.c:480
+#: ../gitg/gitg-window.c:532
 msgid "Begin loading repository"
 msgstr "Begin laden van repository"
 
-#: ../gitg/gitg-window.c:489
+#: ../gitg/gitg-window.c:541
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%d revisies ingeladen in %.2fs"
 
-#: ../gitg/gitg-window.c:500
+#: ../gitg/gitg-window.c:552
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Laden van %d revisies..."
 
-#: ../gitg/gitg-window.c:509
+#: ../gitg/gitg-window.c:561
 msgid "Could not find git repository"
 msgstr "Kon git repository niet vinden"
 
-#: ../gitg/gitg-window.c:645
+#: ../gitg/gitg-window.c:697
 msgid "All branches"
 msgstr "Alle takken"
 
-#: ../gitg/gitg-window.c:808
+#: ../gitg/gitg-window.c:860
 msgid "Open git repository"
 msgstr "Open git repository"
 
-#: ../gitg/gitg-window.c:930
+#: ../gitg/gitg-window.c:982
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg is een repository bekijker voor gtk+/GNOME"
 
-#: ../gitg/gitg-window.c:931
+#: ../gitg/gitg-window.c:983
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -189,8 +197,8 @@ msgid "Branch:"
 msgstr "Tak:"
 
 #: ../gitg/gitg-ui.xml.h:5
-msgid "Co_mment"
-msgstr "Co_mmentaar"
+msgid "Co_mmit message"
+msgstr "Co_mmit bericht"
 
 #: ../gitg/gitg-ui.xml.h:6
 msgid "Commit"
@@ -229,8 +237,8 @@ msgid "Parent:"
 msgstr "Ouder:"
 
 #: ../gitg/gitg-ui.xml.h:15
-msgid "Recently opened"
-msgstr "Recentelijk geopend"
+msgid "R_ecently Opened"
+msgstr "R_ecentelijk geopend"
 
 #: ../gitg/gitg-ui.xml.h:16
 msgid "Revert"
@@ -317,8 +325,8 @@ msgid "<b>History</b>"
 msgstr "<b>Geschiedenis</b>"
 
 #: ../gitg/gitg-preferences.xml.h:2
-msgid "Collapse inactive lanes:"
-msgstr "Invouwen van inactieve banen:"
+msgid "Collapse inactive lanes"
+msgstr "Vouw inactive banen in"
 
 #: ../gitg/gitg-preferences.xml.h:3
 msgid "Early"
@@ -337,8 +345,23 @@ msgid "Search filters revisions in the history view"
 msgstr "Zoeken filtert revisies in de geschiedenis"
 
 #: ../gitg/gitg-preferences.xml.h:7
+msgid "Show staged changes in history"
+msgstr "Geplaatste wijzigingen tonen in geschiedenis"
+
+#: ../gitg/gitg-preferences.xml.h:8
+msgid "Show stash in history"
+msgstr "Opgeslagen wijzigingen tonen in geschiedenis"
+
+#: ../gitg/gitg-preferences.xml.h:9
+msgid "Show unstaged changes in history"
+msgstr "Ongeplaatste wijzigingen tonen in geschiedenis"
+
+#: ../gitg/gitg-preferences.xml.h:10
 msgid "View"
 msgstr "Beeld"
+
+#~ msgid "Co_mment"
+#~ msgstr "Co_mmentaar"
 
 #~ msgid "<b>Diff view</b>"
 #~ msgstr "<b>Diff veld</b>"
