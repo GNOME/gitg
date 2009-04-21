@@ -30,6 +30,7 @@
 
 #include <gio/gio.h>
 #include <glib/gi18n.h>
+#include <sys/time.h>
 #include <time.h>
 #include <string.h>
 
@@ -66,6 +67,16 @@ enum
 	N_COLUMNS
 };
 
+typedef enum
+{
+	LOAD_STAGE_NONE = 0,
+	LOAD_STAGE_STASH,
+	LOAD_STAGE_STAGED,
+	LOAD_STAGE_UNSTAGED,
+	LOAD_STAGE_COMMITS,
+	LOAD_STAGE_LAST
+} LoadStage;
+
 struct _GitgRepositoryPrivate
 {
 	gchar *path;
@@ -85,6 +96,8 @@ struct _GitgRepositoryPrivate
 	
 	gchar **last_args;
 	guint idle_relane_id;
+	
+	LoadStage load_stage;
 };
 
 inline static gint
@@ -429,7 +442,117 @@ gitg_repository_class_init(GitgRepositoryClass *klass)
 }
 
 static void
-on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
+append_revision(GitgRepository *repository, GitgRevision *rv)
+{
+	GSList *lanes;
+	gint8 mylane = 0;
+	
+	if (repository->priv->size == 0)
+		gitg_lanes_reset(repository->priv->lanes);
+
+	lanes = gitg_lanes_next(repository->priv->lanes, rv, &mylane);
+	gitg_revision_set_lanes(rv, lanes, mylane);
+
+	gitg_repository_add(repository, rv, NULL);
+	gitg_revision_unref(rv);
+}
+
+static void
+add_dummy_commit(GitgRepository *repository, gboolean staged)
+{
+	GitgRevision *revision;
+	gchar const *subject;
+	struct timeval tv;
+	
+	gettimeofday(&tv, NULL);
+	
+	if (staged)
+		subject = _("Staged changes");
+	else
+		subject = _("Unstaged changes");
+
+	revision = gitg_revision_new("0000000000000000000000000000000000000000", "", subject, NULL, tv.tv_sec);
+	gitg_revision_set_sign(revision, staged ? 't' : 'u');
+
+	append_revision(repository, revision);
+}
+
+static void
+on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *repository)
+{
+	if (cancelled)
+		return;
+
+	LoadStage current = repository->priv->load_stage++;
+
+	switch (current)
+	{
+		case LOAD_STAGE_STASH:
+		case LOAD_STAGE_STAGED:
+		{
+			/* Check if there are staged changes */
+			gchar *head = gitg_repository_parse_head(repository);
+			const gchar *cached = NULL;
+			
+			if (current == LOAD_STAGE_STAGED)
+			{
+				/* Check if there are unstaged changes */
+				if (gitg_runner_get_exit_status(object) != 0)
+				{
+					add_dummy_commit(repository, TRUE);
+				}
+			}
+			else
+			{
+				cached = "--cached";
+			}
+			
+			gitg_repository_run_commandv(repository, object, NULL, "diff-index", "--quiet", head, cached, NULL);
+			g_free(head);
+		}
+		break;
+		case LOAD_STAGE_UNSTAGED:
+			if (gitg_runner_get_exit_status(object) != 0)
+			{
+				add_dummy_commit(repository, FALSE);
+			}
+
+			gitg_repository_run_command(repository, object, (gchar const **)repository->priv->last_args, NULL);
+
+		break;
+		default:
+		break;
+	}
+}
+
+static void
+loader_update_stash(GitgRepository *repository, gchar **buffer)
+{
+	gchar *line;
+	
+	while ((line = *buffer++) != NULL)
+	{
+		gchar **components = g_strsplit(line, "\01", 0);
+		guint len = g_strv_length(components);
+		
+		if (len < 4)
+		{
+			g_strfreev(components);
+			continue;
+		}
+		
+		/* components -> [hash, author, subject, timestamp] */
+		gint64 timestamp = g_ascii_strtoll(components[3], NULL, 0);
+		GitgRevision *rv = gitg_revision_new(components[0], components[1], components[2], NULL, timestamp);
+		
+		gitg_revision_set_sign(rv, 's');
+		append_revision(repository, rv);
+		g_strfreev(components);
+	}
+}
+
+static void
+loader_update_commits(GitgRepository *self, gchar **buffer)
 {
 	gchar *line;
 	
@@ -454,18 +577,28 @@ on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *self)
 		if (len > 5 && strlen(components[5]) == 1 && strchr("<>-^", *components[5]) != NULL)
 			gitg_revision_set_sign(rv, *components[5]);
 
-		gint8 mylane = 0;
-		
-		if (self->priv->size == 0)
-			gitg_lanes_reset(self->priv->lanes);
-
-		lanes = gitg_lanes_next(self->priv->lanes, rv, &mylane);
-		gitg_revision_set_lanes(rv, lanes, mylane);
-
-		gitg_repository_add(self, rv, NULL);
-
-		gitg_revision_unref(rv);
+		append_revision(self, rv);
 		g_strfreev(components);
+	}
+}
+
+static void
+on_loader_update(GitgRunner *object, gchar **buffer, GitgRepository *repository)
+{
+	switch (repository->priv->load_stage)
+	{
+		case LOAD_STAGE_STASH:
+			loader_update_stash(repository, buffer);
+		break;
+		case LOAD_STAGE_STAGED:
+		break;
+		case LOAD_STAGE_UNSTAGED:
+		break;
+		case LOAD_STAGE_COMMITS:
+			loader_update_commits(repository, buffer);
+		break;
+		default:
+		break;
 	}
 }
 
@@ -591,6 +724,7 @@ gitg_repository_init(GitgRepository *object)
 	
 	object->priv->loader = gitg_runner_new(10000);
 	g_signal_connect(object->priv->loader, "update", G_CALLBACK(on_loader_update), object);
+	g_signal_connect(object->priv->loader, "end-loading", G_CALLBACK(on_loader_end_loading), object);
 	
 	initialize_lanes_bindings(object);
 }
@@ -666,8 +800,10 @@ static gboolean
 reload_revisions(GitgRepository *repository, GError **error)
 {
 	g_signal_emit(repository, repository_signals[LOAD], 0);
+	
+	repository->priv->load_stage = LOAD_STAGE_STASH;
 
-	return gitg_repository_run_command(repository, repository->priv->loader, (gchar const **)repository->priv->last_args, error);
+	return gitg_repository_run_commandv(repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "-g", "refs/stash", NULL);
 }
 
 static gboolean
@@ -747,13 +883,17 @@ load_refs(GitgRepository *self)
 		gchar **components = g_strsplit(buf, " ", 3);
 		guint len = g_strv_length(components);
 		
-		if (len == 2 || len == 3)
+		/* Skip refs/stash */
+		if (strcmp(components[0], "refs/stash") != 0)
 		{
-			gchar const *obj = len == 3 && *components[2] ? components[2] : components[1];
-			GitgRef *ref = add_ref(self, obj, components[0]);
+			if (len == 2 || len == 3)
+			{
+				gchar const *obj = len == 3 && *components[2] ? components[2] : components[1];
+				GitgRef *ref = add_ref(self, obj, components[0]);
 			
-			if (current != NULL && strncmp(obj, current, strlen(current)) == 0)
-				self->priv->current_ref = gitg_ref_copy(ref);
+				if (current != NULL && strncmp(obj, current, strlen(current)) == 0)
+					self->priv->current_ref = gitg_ref_copy(ref);
+			}
 		}
 		
 		g_strfreev(components);
@@ -794,7 +934,7 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 	
 	/* first get the refs */
 	load_refs(self);
-
+	
 	/* request log (all the revision) */
 	return load_revisions(self, argc, av, error);
 }

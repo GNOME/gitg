@@ -97,16 +97,19 @@ GitgRevision *gitg_revision_new(gchar const *sha,
 	rv->subject = g_strdup(subject);
 	rv->timestamp = timestamp;
 	
-	gchar **shas = g_strsplit(parents, " ", 0);
-	gint num = g_strv_length(shas);
-	rv->parents = g_new(Hash, num + 1);
+	if (parents)
+	{
+		gchar **shas = g_strsplit(parents, " ", 0);
+		gint num = g_strv_length(shas);
+		rv->parents = g_new(Hash, num + 1);
 	
-	int i;
-	for (i = 0; i < num; ++i)
-		gitg_utils_sha1_to_hash(shas[i], rv->parents[i]);
+		gint i;
+		for (i = 0; i < num; ++i)
+			gitg_utils_sha1_to_hash(shas[i], rv->parents[i]);
 	
-	g_strfreev(shas);
-	rv->num_parents = num;
+		g_strfreev(shas);
+		rv->num_parents = num;
+	}
 	
 	return rv;
 }
@@ -203,12 +206,30 @@ update_lane_type(GitgRevision *revision)
 	if (lane == NULL)
 		return;
 	
-	lane->type &= ~(GITG_LANE_SIGN_LEFT | GITG_LANE_SIGN_RIGHT);
+	lane->type &= ~(GITG_LANE_SIGN_LEFT | 
+	                GITG_LANE_SIGN_RIGHT | 
+	                GITG_LANE_SIGN_STASH |
+	                GITG_LANE_SIGN_STAGED |
+	                GITG_LANE_SIGN_UNSTAGED);
 	
-	if (revision->sign == '<')
-		lane->type |= GITG_LANE_SIGN_LEFT;
-	else if (revision->sign == '>')
-		lane->type |= GITG_LANE_SIGN_RIGHT;
+	switch (revision->sign)
+	{
+		case '<':
+			lane->type |= GITG_LANE_SIGN_LEFT;
+		break;
+		case '>':
+			lane->type |= GITG_LANE_SIGN_RIGHT;
+		break;
+		case 's':
+			lane->type |= GITG_LANE_SIGN_STASH;
+		break;
+		case 't':
+			lane->type |= GITG_LANE_SIGN_STAGED;
+		break;
+		case 'u':
+			lane->type |= GITG_LANE_SIGN_UNSTAGED;
+		break;
+	}
 }
 
 void 

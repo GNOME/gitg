@@ -36,6 +36,9 @@ enum
 	
 	PROP_HISTORY_SEARCH_FILTER,
 	PROP_HISTORY_COLLAPSE_INACTIVE_LANES,
+	PROP_HISTORY_SHOW_VIRTUAL_STASH,
+	PROP_HISTORY_SHOW_VIRTUAL_STAGED,
+	PROP_HISTORY_SHOW_VIRTUAL_UNSTAGED,
 
 	PROP_STYLE_TEXT_FOREGROUND,
 	PROP_STYLE_TEXT_BACKGROUND,
@@ -321,9 +324,48 @@ gitg_preferences_class_init(GitgPreferencesClass *klass)
 					 g_param_spec_int("history-collapse-inactive-lanes",
 							      "HISTORY_COLLAPSE_INACTIVE_LANES",
 							      "Rule for collapsing inactive lanes",
-							      0,
+							      -1,
 							      5,
 							      2,
+							      G_PARAM_READWRITE));
+
+	install_property_binding(PROP_HISTORY_SHOW_VIRTUAL_STASH, 
+							 "view/history",
+							 "show-virtual-stash", 
+							 wrap_get_boolean,
+							 wrap_set_boolean);
+
+	g_object_class_install_property(object_class, PROP_HISTORY_SHOW_VIRTUAL_STASH,
+					 g_param_spec_boolean("history-show-virtual-stash",
+							      "HISTORY_SHOW_VIRTUAL_STASH",
+							      "Show stash in history",
+							      TRUE,
+							      G_PARAM_READWRITE));
+
+	install_property_binding(PROP_HISTORY_SHOW_VIRTUAL_STAGED, 
+							 "view/history",
+							 "show-virtual-staged", 
+							 wrap_get_boolean,
+							 wrap_set_boolean);
+
+	g_object_class_install_property(object_class, PROP_HISTORY_SHOW_VIRTUAL_STAGED,
+					 g_param_spec_boolean("history-show-virtual-staged",
+							      "HISTORY_SHOW_VIRTUAL_STAGED",
+							      "Show staged changes in history",
+							      TRUE,
+							      G_PARAM_READWRITE));
+
+	install_property_binding(PROP_HISTORY_SHOW_VIRTUAL_UNSTAGED, 
+							 "view/history",
+							 "show-virtual-unstaged", 
+							 wrap_get_boolean,
+							 wrap_set_boolean);
+
+	g_object_class_install_property(object_class, PROP_HISTORY_SHOW_VIRTUAL_UNSTAGED,
+					 g_param_spec_boolean("history-show-virtual-unstaged",
+							      "HISTORY_SHOW_VIRTUAL_UNSTAGED",
+							      "Show unstaged changes in history",
+							      TRUE,
 							      G_PARAM_READWRITE));
 
 	install_style_properties(object_class, PROP_STYLE_TEXT_FOREGROUND, "text");

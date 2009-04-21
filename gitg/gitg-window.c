@@ -262,9 +262,39 @@ on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkT
 	if (gtk_tree_model_iter_next(model, &iter1))
 		gtk_tree_model_get(model, &iter1, 0, &next_revision, -1);
 	
-	GSList *labels = gitg_repository_get_refs_for_hash(GITG_REPOSITORY(model), gitg_revision_get_hash(rv));
+	GSList *labels;
+	const gchar *lbl = NULL;
+	switch (gitg_revision_get_sign(rv))
+	{
 
-	g_object_set(renderer, "revision", rv, "next_revision", next_revision, "labels", labels, NULL);
+		case 's':
+			lbl = "stash";
+		break;
+		case 't':
+			lbl = "staged";
+		break;
+		case 'u':
+			lbl = "unstaged";
+		break;
+		default:
+		break;
+	}
+	
+	if (lbl != NULL)
+	{
+		g_object_set(renderer, "style", PANGO_STYLE_ITALIC, NULL);
+		labels = g_slist_append(NULL, gitg_ref_new(gitg_revision_get_hash(rv), lbl));
+	}
+	else
+	{
+		labels = gitg_repository_get_refs_for_hash(GITG_REPOSITORY(model), gitg_revision_get_hash(rv));
+	}
+
+	g_object_set(renderer, 
+	             "revision", rv, 
+	             "next_revision", next_revision, 
+	             "labels", labels,
+	             NULL);
 
 	gitg_revision_unref(next_revision);
 	gitg_revision_unref(rv);

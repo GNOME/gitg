@@ -34,7 +34,10 @@ typedef enum
 	GITG_LANE_TYPE_START = 1 << 0,
 	GITG_LANE_TYPE_END = 1 << 1,
 	GITG_LANE_SIGN_LEFT = 1 << 2,
-	GITG_LANE_SIGN_RIGHT = 1 << 3
+	GITG_LANE_SIGN_RIGHT = 1 << 3,
+	GITG_LANE_SIGN_STASH = 1 << 4,
+	GITG_LANE_SIGN_STAGED = 1 << 5,
+	GITG_LANE_SIGN_UNSTAGED = 1 << 6,
 } GitgLaneType;
 
 typedef struct

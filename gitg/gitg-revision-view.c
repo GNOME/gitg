@@ -450,7 +450,9 @@ on_diff_files_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionVi
 static gboolean
 match_indices(DiffFile *f, gchar const *from, gchar const *to)
 {
-	return g_str_has_prefix(f->index_from, from) && g_str_has_prefix(f->index_to, to);
+	return g_str_has_prefix(f->index_from, from) && 
+	       (g_str_has_prefix(f->index_to, to) ||
+	        g_str_has_prefix(f->index_to, "0000000"));
 }
 
 static void
@@ -463,6 +465,8 @@ visible_from_cached_headers(GitgRevisionView *view, DiffFile *f)
 		CachedHeader *header = (CachedHeader *)item->data;
 		gchar *from;
 		gchar *to;
+		
+		gitg_diff_iter_get_index(&header->iter, &from, &to);
 
 		if (gitg_diff_iter_get_index(&header->iter, &from, &to) && match_indices(f, from, to))
 		{
@@ -507,7 +511,8 @@ on_diff_files_update(GitgRunner *runner, gchar **buffer, GitgRevisionView *self)
 
 			g_strfreev(files);
 		}
-		
+		else
+
 		g_strfreev(parts);
 	}
 }
@@ -525,7 +530,24 @@ on_diff_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionView *se
 {
 	gdk_window_set_cursor(GTK_WIDGET(self->priv->diff)->window, NULL);
 	
-	if (!cancelled)
+	if (cancelled)
+		return;
+
+	gchar sign = gitg_revision_get_sign(self->priv->revision);
+	
+	if (sign == 't' || sign == 'u')
+	{
+		gchar *head = gitg_repository_parse_head(self->priv->repository);
+		const gchar *cached = NULL;
+		
+		if (sign == 't')
+			cached == "--cached";
+
+		gitg_repository_run_commandv(self->priv->repository, self->priv->diff_files_runner, NULL,
+									"diff-index", "--raw", "-M", "--abbrev=40", head, cached, NULL);
+		g_free(head);
+	}
+	else
 	{
 		gchar *sha = gitg_revision_get_sha1(self->priv->revision);
 		gitg_repository_run_commandv(self->priv->repository, self->priv->diff_files_runner, NULL,
@@ -685,12 +707,31 @@ update_diff(GitgRevisionView *self, GitgRepository *repository)
 	if (!self->priv->revision)
 		return;
 
-	gchar *hash = gitg_revision_get_sha1(self->priv->revision);
-	gitg_repository_run_commandv(self->priv->repository, self->priv->diff_runner, NULL,
-								 "show", "-M", "--pretty=format:%s%n%n%b", 
-								 "--encoding=UTF-8", hash, NULL);
+	gchar sign = gitg_revision_get_sign(self->priv->revision);
+	
+	switch (sign)
+	{
+		case 't':
+			gitg_repository_run_commandv(self->priv->repository, self->priv->diff_runner, NULL,
+										"diff", "--cached", "-M", "--pretty=format:%s%n%n%b",
+										"--encoding=UTF-8", NULL);
+		break;
+		case 'u':
+			gitg_repository_run_commandv(self->priv->repository, self->priv->diff_runner, NULL,
+										"diff", "-M", "--pretty=format:%s%n%n%b",
+										"--encoding=UTF-8", NULL);
+		break;
+		default:
+		{
+			gchar *hash = gitg_revision_get_sha1(self->priv->revision);
+			gitg_repository_run_commandv(self->priv->repository, self->priv->diff_runner, NULL,
+										 "show", "-M", "--pretty=format:%s%n%n%b", 
+										 "--encoding=UTF-8", hash, NULL);
 
-	g_free(hash);
+			g_free(hash);
+		}
+		break;
+	}
 }
 
 void
@@ -831,7 +872,6 @@ foreach_selection_changed(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *i
 	DiffFile *f = NULL;
 	gtk_tree_model_get(model, iter, 0, &f, -1);
 	
-	
 	if (f->visible)
 	{
 		gitg_diff_iter_set_visible(&f->iter, visible);
@@ -845,6 +885,6 @@ static void
 on_diff_files_selection_changed(GtkTreeSelection *selection, GitgRevisionView *self)
 {
 	ForeachSelectionData data = {gtk_tree_selection_count_selected_rows(selection), selection};
-	gtk_tree_model_foreach(GTK_TREE_MODEL(self->priv->list_store_diff_files), (GtkTreeModelForeachFunc)foreach_selection_changed, &data);
+	gtk_tree_model_foreach(gtk_tree_view_get_model(self->priv->diff_files), (GtkTreeModelForeachFunc)foreach_selection_changed, &data);
 }
 
