@@ -25,7 +25,6 @@
 #include <stdlib.h>
 #include <glib/gi18n.h>
 
-#include "sexy-icon-entry.h"
 #include "config.h"
 
 #include "gitg-dirs.h"
@@ -203,7 +202,7 @@ on_selection_changed(GtkTreeSelection *selection, GitgWindow *window)
 }
 
 static void
-on_search_icon_pressed(SexyIconEntry *entry, SexyIconEntryPosition icon_pos, int button, GitgWindow *window)
+on_search_icon_release(GtkEntry *entry, GtkEntryIconPosition icon_pos, int button, GitgWindow *window)
 {
 	gtk_menu_popup(GTK_MENU(window->priv->search_popup), NULL, NULL, NULL, NULL, button, gtk_get_current_event_time());
 }
@@ -289,10 +288,9 @@ static void
 build_search_entry(GitgWindow *window, GtkBuilder *builder)
 {
 	GtkWidget *box = GTK_WIDGET(gtk_builder_get_object(builder, "hbox_top"));
-	GtkWidget *entry = sexy_icon_entry_new();
+	GtkWidget *entry = gtk_entry_new ();
 
-	GtkImage *image = GTK_IMAGE(gtk_image_new_from_stock(GTK_STOCK_FIND, GTK_ICON_SIZE_MENU));
-	sexy_icon_entry_set_icon(SEXY_ICON_ENTRY(entry), SEXY_ICON_ENTRY_PRIMARY, image);
+	gtk_entry_set_icon_from_stock(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, GTK_STOCK_FIND);
 
 	gtk_tree_view_set_search_entry(window->priv->tree_view, GTK_ENTRY(entry));
 	gtk_widget_show(entry);
@@ -300,7 +298,7 @@ build_search_entry(GitgWindow *window, GtkBuilder *builder)
 
 	window->priv->search_popup = GTK_WIDGET(g_object_ref(gtk_ui_manager_get_widget(window->priv->menus_ui_manager, "/ui/search_popup")));
 
-	g_signal_connect(entry, "icon-pressed", G_CALLBACK(on_search_icon_pressed), window);
+	g_signal_connect(entry, "icon-release", G_CALLBACK(on_search_icon_release), window);
 	gtk_tree_view_set_search_column(window->priv->tree_view, 1);
 
 	gtk_tree_view_set_search_equal_func(window->priv->tree_view, search_equal_func, window, NULL);

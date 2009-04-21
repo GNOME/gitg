@@ -30,7 +30,6 @@
 
 #include "gitg-debug.h"
 #include "gitg-window.h"
-#include "sexy-icon-entry.h"
 #include "config.h"
 #include "gitg-settings.h"
 #include "gitg-dirs.h"

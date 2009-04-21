@@ -44,8 +44,7 @@ NOINST_H_FILES = 			\
 	gitg-spinner.h			\
 	gitg-types.h			\
 	gitg-utils.h			\
-	gitg-window.h			\
-	sexy-icon-entry.h
+	gitg-window.h
 
 gitg_SOURCES = 				\
 	$(BUILT_SOURCES)		\
@@ -79,7 +78,6 @@ gitg_SOURCES = 				\
 	gitg-spinner.c			\
 	gitg-utils.c			\
 	gitg-window.c			\
-	sexy-icon-entry.c		\
 	$(NOINST_H_FILES)
 
 ENUM_H_FILES =				\
