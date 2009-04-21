@@ -31,7 +31,8 @@ enum
 	PROP_0,
 	PROP_INACTIVE_MAX,
 	PROP_INACTIVE_COLLAPSE,
-	PROP_INACTIVE_GAP
+	PROP_INACTIVE_GAP,
+	PROP_INACTIVE_ENABLED
 };
 
 typedef struct
@@ -67,6 +68,7 @@ struct _GitgLanesPrivate
 	gint inactive_max;
 	gint inactive_collapse;
 	gint inactive_gap;
+	gboolean inactive_enabled;
 };
 
 G_DEFINE_TYPE(GitgLanes, gitg_lanes, G_TYPE_OBJECT)
@@ -160,6 +162,9 @@ gitg_lanes_set_property(GObject *object, guint prop_id, const GValue *value, GPa
 		case PROP_INACTIVE_GAP:
 			self->priv->inactive_gap = g_value_get_int(value);
 		break;
+		case PROP_INACTIVE_ENABLED:
+			self->priv->inactive_enabled = g_value_get_boolean(value);
+		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 		break;
@@ -182,6 +187,9 @@ gitg_lanes_get_property(GObject *object, guint prop_id, GValue *value, GParamSpe
 		case PROP_INACTIVE_GAP:
 			g_value_set_int(value, self->priv->inactive_gap);
 		break;
+		case PROP_INACTIVE_ENABLED:
+			g_value_set_boolean(value, self->priv->inactive_enabled);
+		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 		break;
@@ -199,30 +207,37 @@ gitg_lanes_class_init(GitgLanesClass *klass)
 	
 	g_object_class_install_property(object_class, PROP_INACTIVE_MAX,
 					 g_param_spec_int("inactive-max",
-							      "INACTIVE_MAX",
-							      "Maximum inactivity on a lane before collapsing",
-							      1,
-							      G_MAXINT,
-							      30,
-							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+							          "INACTIVE_MAX",
+							          "Maximum inactivity on a lane before collapsing",
+							          1,
+							          G_MAXINT,
+							          30,
+							          G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
 	g_object_class_install_property(object_class, PROP_INACTIVE_COLLAPSE,
 					 g_param_spec_int("inactive-collapse",
-							      "INACTIVE_COLLAPSE",
-							      "Number of revisions to collapse",
-							      1,
-							      G_MAXINT,
-							      10,
-							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+							          "INACTIVE_COLLAPSE",
+							          "Number of revisions to collapse",
+							          1,
+							          G_MAXINT,
+							          10,
+							          G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
 	g_object_class_install_property(object_class, PROP_INACTIVE_GAP,
 					 g_param_spec_int("inactive-gap",
-							      "INACTIVE_GAP",
-							      "Minimum of revisions to leave between collapse and expand",
-							      1,
-							      G_MAXINT,
-							      10,
-							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+							          "INACTIVE_GAP",
+							          "Minimum of revisions to leave between collapse and expand",
+							          1,
+							          G_MAXINT,
+							          10,
+							          G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+
+	g_object_class_install_property(object_class, PROP_INACTIVE_ENABLED,
+					 g_param_spec_boolean("inactive-enabled",
+							              "INACTIVE_ENABLED",
+							              "Lane collapsing enabled",
+							              TRUE,
+							              G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
 	g_type_class_add_private(object_class, sizeof(GitgLanesPrivate));
 }
@@ -627,8 +642,11 @@ gitg_lanes_next(GitgLanes *lanes, GitgRevision *next, gint8 *nextpos)
 	GSList *res;
 	gchar const *myhash = gitg_revision_get_hash(next);
 
-	collapse_lanes(lanes);
-	expand_lanes(lanes, next);
+	if (lanes->priv->inactive_enabled)
+	{
+		collapse_lanes(lanes);
+		expand_lanes(lanes, next);
+	}
 
 	mylane = find_lane_by_hash(lanes, myhash, nextpos);
 

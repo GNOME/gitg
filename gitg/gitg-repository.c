@@ -337,6 +337,8 @@ do_clear(GitgRepository *repository, gboolean emit)
 	/* clear hash tables */
 	g_hash_table_remove_all(repository->priv->hashtable);
 	g_hash_table_remove_all(repository->priv->refs);
+	
+	gitg_color_reset();
 }
 
 static void
@@ -484,6 +486,14 @@ on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *re
 		return;
 
 	LoadStage current = repository->priv->load_stage++;
+	GitgPreferences *preferences = gitg_preferences_get_default();
+	gboolean show_unstaged;
+	gboolean show_staged;
+	
+	g_object_get(preferences, 
+	             "history-show-virtual-staged", &show_staged, 
+	             "history-show-virtual-unstaged", &show_unstaged,
+	             NULL);
 
 	switch (current)
 	{
@@ -497,7 +507,7 @@ on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *re
 			if (current == LOAD_STAGE_STAGED)
 			{
 				/* Check if there are unstaged changes */
-				if (gitg_runner_get_exit_status(object) != 0)
+				if (show_staged && gitg_runner_get_exit_status(object) != 0)
 				{
 					add_dummy_commit(repository, TRUE);
 				}
@@ -512,7 +522,7 @@ on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *re
 		}
 		break;
 		case LOAD_STAGE_UNSTAGED:
-			if (gitg_runner_get_exit_status(object) != 0)
+			if (show_unstaged && gitg_runner_get_exit_status(object) != 0)
 			{
 				add_dummy_commit(repository, FALSE);
 			}
@@ -529,6 +539,13 @@ static void
 loader_update_stash(GitgRepository *repository, gchar **buffer)
 {
 	gchar *line;
+	GitgPreferences *preferences = gitg_preferences_get_default();
+	gboolean show_stash;
+	
+	g_object_get(preferences, "history-show-virtual-stash", &show_stash, NULL);
+
+	if (!show_stash)
+		return;
 	
 	while ((line = *buffer++) != NULL)
 	{
@@ -685,8 +702,27 @@ convert_setting_to_inactive_gap(GValue const *setting, GValue *value, gpointer u
 	return TRUE;
 }
 
+static gboolean
+convert_setting_to_inactive_enabled(GValue const *setting, GValue *value, gpointer userdata)
+{
+	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_BOOLEAN), FALSE);
+	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_BOOLEAN), FALSE);
+
+	gboolean s = g_value_get_boolean(setting);
+	g_value_set_boolean(value, s);
+	
+	prepare_relane(GITG_REPOSITORY(userdata));	
+	return TRUE;
+}
+
 static void
-initialize_lanes_bindings(GitgRepository *repository)
+on_update_virtual(GObject *object, GParamSpec *spec, GitgRepository *repository)
+{
+	gitg_repository_reload (repository);
+}
+
+static void
+initialize_bindings(GitgRepository *repository)
 {
 	GitgPreferences *preferences = gitg_preferences_get_default();
 	
@@ -703,7 +739,27 @@ initialize_lanes_bindings(GitgRepository *repository)
 	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
 							   repository->priv->lanes, "inactive-gap",
 							   convert_setting_to_inactive_gap,
-							   repository);							   
+							   repository);		
+
+	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes-active",
+	                           repository->priv->lanes, "inactive-enabled",
+	                           convert_setting_to_inactive_enabled,
+	                           repository);	
+
+	g_signal_connect(preferences, 
+	                 "notify::history-show-virtual-stash",
+	                 G_CALLBACK(on_update_virtual),
+	                 repository);
+
+	g_signal_connect(preferences, 
+	                 "notify::history-show-virtual-unstaged",
+	                 G_CALLBACK(on_update_virtual),
+	                 repository);
+
+	g_signal_connect(preferences, 
+	                 "notify::history-show-virtual-staged",
+	                 G_CALLBACK(on_update_virtual),
+	                 repository);
 }
 
 static void
@@ -726,7 +782,7 @@ gitg_repository_init(GitgRepository *object)
 	g_signal_connect(object->priv->loader, "update", G_CALLBACK(on_loader_update), object);
 	g_signal_connect(object->priv->loader, "end-loading", G_CALLBACK(on_loader_end_loading), object);
 	
-	initialize_lanes_bindings(object);
+	initialize_bindings(object);
 }
 
 static void
