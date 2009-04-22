@@ -1,0 +1,352 @@
+# Swedish translation for gitg.
+# Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gitg package.
+# Daniel Nylander <po@danielnylander.se>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gitg\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-22 09:42+0200\n"
+"PO-Revision-Date: 2009-04-22 09:47+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../data/gitg.desktop.in.in.h:1
+msgid "Git repository browser"
+msgstr ""
+
+#. Translators: this is the application name as in g_set_application_name
+#: ../data/gitg.desktop.in.in.h:2
+#: ../gitg/gitg.c:169
+#: ../gitg/gitg-window.c:785
+#: ../gitg/gitg-window.c:803
+#: ../gitg/gitg-ui.xml.h:32
+msgid "gitg"
+msgstr "gitg"
+
+#: ../data/gitg.schemas.in.h:1
+msgid "Filter Revisions When Searching"
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:2
+msgid "Setting that indicates when an inactive lane should be collapsed. Valid values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:3
+msgid "When to Collapse Inactive Lanes"
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:4
+msgid "Whether searching filters the revisions in the history view instead of jumping to the first match."
+msgstr ""
+
+#: ../gitg/gitg.c:43
+msgid "Start gitg in commit mode"
+msgstr ""
+
+#: ../gitg/gitg.c:53
+msgid "- git repository viewer"
+msgstr "- git-förrådsvisare"
+
+#: ../gitg/gitg-commit-view.c:204
+#: ../gitg/gitg-revision-tree-view.c:181
+msgid "Cannot display file content as text"
+msgstr "Kan inte visa filens innehåll som text"
+
+#: ../gitg/gitg-commit-view.c:1166
+msgid "You must first stage some changes before committing"
+msgstr ""
+
+#: ../gitg/gitg-commit-view.c:1174
+msgid "Please enter a commit message before committing"
+msgstr ""
+
+#: ../gitg/gitg-commit-view.c:1185
+msgid "Your user name or email could not be retrieved for use in the sign off message"
+msgstr ""
+
+#: ../gitg/gitg-commit-view.c:1187
+msgid "Something went wrong while trying to commit"
+msgstr ""
+
+#: ../gitg/gitg-commit-view.c:1355
+msgid "Revert fail"
+msgstr ""
+
+#: ../gitg/gitg-commit-view.c:1366
+msgid "Are you sure you want to revert these changes?"
+msgstr "Är du säker på att du vill återställa dessa ändringar?"
+
+#: ../gitg/gitg-commit-view.c:1369
+msgid "Reverting changes is permanent and cannot be undone"
+msgstr "Återställning av ändringar är permanent och kan inte ångras"
+
+#: ../gitg/gitg-repository.c:472
+msgid "Staged changes"
+msgstr ""
+
+#: ../gitg/gitg-repository.c:474
+msgid "Unstaged changes"
+msgstr ""
+
+#: ../gitg/gitg-repository.c:983
+msgid "Not a valid git repository"
+msgstr "Inte ett giltigt git-förråd"
+
+#: ../gitg/gitg-revision-tree-view.c:507
+msgid "(Empty)"
+msgstr "(Tom)"
+
+#: ../gitg/gitg-window.c:346
+msgid "Select branch"
+msgstr "Välj gren"
+
+#: ../gitg/gitg-window.c:532
+msgid "Begin loading repository"
+msgstr ""
+
+#: ../gitg/gitg-window.c:541
+#, c-format
+msgid "Loaded %d revisions in %.2fs"
+msgstr "Läste in %d revisioner på %.2fs"
+
+#: ../gitg/gitg-window.c:552
+#, c-format
+msgid "Loading %d revisions..."
+msgstr "Läser in %d revisioner..."
+
+#: ../gitg/gitg-window.c:561
+msgid "Could not find git repository"
+msgstr "Kunde inte hitta git-förrådet"
+
+#: ../gitg/gitg-window.c:697
+msgid "All branches"
+msgstr "Alla grenar"
+
+#: ../gitg/gitg-window.c:860
+msgid "Open git repository"
+msgstr "Öppna git-förråd"
+
+#: ../gitg/gitg-window.c:982
+msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgstr "gitg är en git-förrådsvisare för gtk+/GNOME"
+
+#: ../gitg/gitg-window.c:983
+msgid ""
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 59 Temple Place, Suite 330,\n"
+"Boston, MA 02111-1307, USA."
+msgstr ""
+"Följande text är en informell översättning som enbart tillhandahålls i\n"
+"informativt syfte. För alla juridiska tolkningar gäller den engelska\n"
+"originaltexten.\n"
+"\n"
+"Detta program är fri programvara. Du kan distribuera det och/eller\n"
+"modifiera det under villkoren i GNU General Public License, publicerad\n"
+"av Free Software Foundation, antingen version 2 eller (om du så vill)\n"
+"någon senare version.\n"
+"\n"
+"Detta program distribueras i hopp om att det ska vara användbart,\n"
+"men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd garanti\n"
+"om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se GNU\n"
+"General Public License för ytterligare information.\n"
+"\n"
+"Du bör ha fått en kopia av GNU General Public License tillsammans\n"
+"med detta program. Om inte, skriv till Free Software Foundation,\n"
+"Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA."
+
+#: ../gitg/gitg-ui.xml.h:1
+msgid "Add signed-off-by"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:2
+msgid "Author"
+msgstr "Upphovsman"
+
+#: ../gitg/gitg-ui.xml.h:3
+msgid "Author:"
+msgstr "Upphovsman:"
+
+#: ../gitg/gitg-ui.xml.h:4
+msgid "Branch:"
+msgstr "Gren:"
+
+#: ../gitg/gitg-ui.xml.h:5
+msgid "Co_mmit message"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:6
+msgid "Commit"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:7
+msgid "Context:"
+msgstr "Kontext:"
+
+#: ../gitg/gitg-ui.xml.h:8
+msgid "Date"
+msgstr "Datum"
+
+#: ../gitg/gitg-ui.xml.h:9
+msgid "Date:"
+msgstr "Datum:"
+
+#: ../gitg/gitg-ui.xml.h:10
+msgid "Details"
+msgstr "Detaljer"
+
+#: ../gitg/gitg-ui.xml.h:11
+msgid "Filename"
+msgstr "Filnamn"
+
+#: ../gitg/gitg-ui.xml.h:12
+msgid "History"
+msgstr "Historik"
+
+#: ../gitg/gitg-ui.xml.h:13
+msgid "Ignore"
+msgstr "Ignorera"
+
+#: ../gitg/gitg-ui.xml.h:14
+msgid "Parent:"
+msgstr "Förälder:"
+
+#: ../gitg/gitg-ui.xml.h:15
+msgid "R_ecently Opened"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:16
+msgid "Revert"
+msgstr "Återställ"
+
+#: ../gitg/gitg-ui.xml.h:17
+msgid "SHA:"
+msgstr "SHA:"
+
+#: ../gitg/gitg-ui.xml.h:18
+msgid "Stage"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:19
+msgid "Subject"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:20
+msgid "Subject:"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:21
+msgid "Tree"
+msgstr "Träd"
+
+#: ../gitg/gitg-ui.xml.h:22
+msgid "Unstage"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:23
+msgid "Unstaged"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:24
+msgid "_Changes"
+msgstr "Ä_ndringar"
+
+#: ../gitg/gitg-ui.xml.h:25
+msgid "_Edit"
+msgstr "_Redigera"
+
+#: ../gitg/gitg-ui.xml.h:26
+msgid "_File"
+msgstr "_Arkiv"
+
+#: ../gitg/gitg-ui.xml.h:27
+msgid "_Help"
+msgstr "_Hjälp"
+
+#: ../gitg/gitg-ui.xml.h:28
+msgid "_Open..."
+msgstr "_Öppna..."
+
+#: ../gitg/gitg-ui.xml.h:29
+msgid "_Staged"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:30
+msgid "_Unstaged"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:31
+msgid "_View"
+msgstr "_Visa"
+
+#: ../gitg/gitg-menus.xml.h:1
+msgid "_Author"
+msgstr "U_pphovsman"
+
+#: ../gitg/gitg-menus.xml.h:2
+msgid "_Date"
+msgstr "_Datum"
+
+#: ../gitg/gitg-menus.xml.h:3
+msgid "_Hash"
+msgstr "_Hash"
+
+#: ../gitg/gitg-menus.xml.h:4
+msgid "_Subject"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:1
+msgid "<b>History</b>"
+msgstr "<b>Historik</b>"
+
+#: ../gitg/gitg-preferences.xml.h:2
+msgid "Collapse inactive lanes"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:3
+msgid "Early"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:4
+msgid "Late"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:5
+msgid "Preferences"
+msgstr "Inställningar"
+
+#: ../gitg/gitg-preferences.xml.h:6
+msgid "Search filters revisions in the history view"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:7
+msgid "Show staged changes in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:8
+msgid "Show stash in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:9
+msgid "Show unstaged changes in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:10
+msgid "View"
+msgstr "Visa"
+
