@@ -287,6 +287,7 @@ on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkT
 	}
 	else
 	{
+		g_object_set(renderer, "style", PANGO_STYLE_NORMAL, NULL);
 		labels = gitg_repository_get_refs_for_hash(GITG_REPOSITORY(model), gitg_revision_get_hash(rv));
 	}
 
