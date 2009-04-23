@@ -1554,7 +1554,6 @@ on_stage_changes(GtkAction *action, GitgCommitView *view)
 			return;
 		
 		gitg_commit_stage(view->priv->commit, file, NULL, NULL);
-		g_object_unref(file);
 	}
 	else
 	{
