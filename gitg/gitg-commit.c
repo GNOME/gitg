@@ -870,3 +870,21 @@ on_changed_file_changed(GitgChangedFile *file, GitgCommit *commit)
 {
 	refresh_changes(commit, file);
 }
+
+GitgChangedFile *
+gitg_commit_find_changed_file(GitgCommit *commit, GFile *file)
+{
+	g_return_val_if_fail(GITG_IS_COMMIT(commit), NULL);
+	g_return_val_if_fail(G_IS_FILE(file), NULL);
+	
+	GitgChangedFile *f = g_hash_table_lookup(commit->priv->files, file);
+	
+	if (f != NULL)
+	{
+		return g_object_ref(f);
+	}
+	else
+	{
+		return NULL;
+	}
+}

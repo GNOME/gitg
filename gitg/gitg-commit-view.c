@@ -671,6 +671,147 @@ initialize_buffer(GitgCommitView *view)
 	return buffer;
 }
 
+static GtkTargetEntry dnd_entries[] = {
+	{"text/uri-list", 0, 1}
+};
+
+static void
+on_tree_view_drag_data_get (GtkWidget        *widget,
+                            GdkDragContext   *context,
+                            GtkSelectionData *selection,
+                            guint             info,
+                            guint             time,
+                            GitgCommitView   *view)
+{
+	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
+	GtkTreeModel *model;
+	GList *selected = gtk_tree_selection_get_selected_rows(sel, &model);
+	GList *item;
+	gchar **uris = g_new(gchar *, g_list_length(selected) + 1);
+	guint i = 0;
+	
+	for (item = selected; item; item = g_list_next(item))
+	{
+		GitgChangedFile *file;
+		GFile *gf;
+		GtkTreeIter iter;
+		
+		gtk_tree_model_get_iter(model, &iter, (GtkTreePath *)item->data);
+		gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
+
+		gf = gitg_changed_file_get_file(file);
+	
+		uris[i++] = g_file_get_uri(gf);
+	}
+	
+	uris[i] = NULL;
+	gtk_selection_data_set_uris(selection, uris);
+
+	g_strfreev(uris);
+
+	g_list_foreach(selected, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free(selected);
+}
+
+static void
+on_tree_view_staged_drag_data_received(GtkWidget        *widget,
+                                       GdkDragContext   *drag_context,
+                                       gint              x,
+                                       gint              y,
+                                       GtkSelectionData *data,
+                                       guint             info,
+                                       guint             time,
+                                       GitgCommitView   *view)
+{
+	/* Stage all the files dropped on this */
+	gchar **uris = gtk_selection_data_get_uris(data);
+	gchar **uri;
+	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
+
+	for (uri = uris; *uri; ++uri)
+	{
+		GFile *file = g_file_new_for_uri(*uri);
+		GitgChangedFile *f;
+
+		f = gitg_commit_find_changed_file(view->priv->commit, file);
+		
+		if (f && (gitg_changed_file_get_changes(f) & GITG_CHANGED_FILE_CHANGES_UNSTAGED))
+		{
+			gitg_commit_stage(view->priv->commit, f, NULL, NULL);
+		}
+		
+		g_object_unref(f);
+		g_object_unref(file);
+	}
+}
+
+static void
+on_tree_view_unstaged_drag_data_received(GtkWidget        *widget,
+                                         GdkDragContext   *drag_context,
+                                         gint              x,
+                                         gint              y,
+                                         GtkSelectionData *data,
+                                         guint             info,
+                                         guint             time,
+                                         GitgCommitView   *view)
+{
+	/* Unstage all the files dropped on this */
+	gchar **uris = gtk_selection_data_get_uris(data);
+	gchar **uri;
+	
+	for (uri = uris; *uri; ++uri)
+	{
+		GFile *file = g_file_new_for_uri(*uri);
+		GitgChangedFile *f;
+
+		f = gitg_commit_find_changed_file(view->priv->commit, file);
+		
+		if (f && (gitg_changed_file_get_changes(f) & GITG_CHANGED_FILE_CHANGES_CACHED))
+		{
+			gitg_commit_unstage(view->priv->commit, f, NULL, NULL);
+		}
+		
+		g_object_unref(f);
+		g_object_unref(file);
+	}
+}
+
+static void
+initialize_dnd(GitgCommitView *view, 
+               GtkTreeView    *tree_view,
+               GCallback       drag_data_received)
+{
+	gtk_tree_view_enable_model_drag_dest(tree_view,
+	                                     dnd_entries,
+	                                     G_N_ELEMENTS(dnd_entries),
+	                                     GDK_ACTION_COPY);
+
+	gtk_tree_view_enable_model_drag_source(tree_view,
+	                                      GDK_BUTTON1_MASK,
+	                                      dnd_entries,
+	                                      G_N_ELEMENTS(dnd_entries),
+	                                      GDK_ACTION_COPY);
+
+	g_signal_connect(tree_view, "drag-data-get", G_CALLBACK(on_tree_view_drag_data_get), view);
+	g_signal_connect(tree_view, "drag-data-received", G_CALLBACK(drag_data_received), view);
+}
+
+static void
+initialize_dnd_staged(GitgCommitView *view)
+{
+	initialize_dnd(view,
+	               view->priv->tree_view_staged,
+	               G_CALLBACK(on_tree_view_staged_drag_data_received));
+}
+
+static void
+initialize_dnd_unstaged(GitgCommitView *view)
+{
+	initialize_dnd(view,
+	               view->priv->tree_view_unstaged,
+	               G_CALLBACK(on_tree_view_unstaged_drag_data_received));
+}
+
 static void
 gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
@@ -696,6 +837,9 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	
 	self->priv->hscale_context = GTK_HSCALE(gtk_builder_get_object(builder, "hscale_context"));
 	self->priv->group_context = GTK_ACTION_GROUP(gtk_builder_get_object(builder, "action_group_commit_context"));
+	
+	initialize_dnd_staged(self);
+	initialize_dnd_unstaged(self);
 	
 	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	GdkPixbuf *pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_ADD, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
