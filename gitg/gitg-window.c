@@ -707,7 +707,9 @@ fill_branches_combo(GitgWindow *window)
 static void
 on_repository_load(GitgRepository *repository, GitgWindow *window)
 {
+	g_signal_handlers_block_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
 	fill_branches_combo(window);
+	g_signal_handlers_unblock_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
 }
 
 static void
@@ -903,7 +905,10 @@ on_view_refresh(GtkAction *action, GitgWindow *window)
 {
 	if (window->priv->repository && gitg_repository_get_path(window->priv->repository) != NULL)
 	{
+		g_signal_handlers_block_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
 		clear_branches_combo(window, TRUE);
+		g_signal_handlers_unblock_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
+
 		gitg_repository_reload(window->priv->repository);
 	}
 }
