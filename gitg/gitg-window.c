@@ -327,6 +327,18 @@ on_path_activate(GtkEntry *entry, GitgWindow *window)
 }
 
 static void
+on_path_activated(GitgRevisionTreeView *view, gchar *path, GitgWindow *window)
+{
+	/* Set the path in the widget */
+	if (path == NULL)
+		path = "";
+	gtk_entry_set_text(window->priv->entry_path, path);
+	
+	/* Fire the filtering */
+	filter_repository(window);
+}
+
+static void
 on_branches_combo_changed(GtkComboBox *combo, GitgWindow *window)
 {
 	filter_repository(window);
@@ -429,7 +441,8 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(window->priv->tree_view);
 	g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), window);
 	g_signal_connect(window->priv->revision_view, "parent-activated", G_CALLBACK(on_parent_activated), window);
-
+	g_signal_connect(window->priv->revision_tree_view, "path-activated", G_CALLBACK(on_path_activated), window);
+	
 	g_signal_connect(window->priv->entry_path, "activate", G_CALLBACK(on_path_activate), window);
 
 	g_signal_connect(window->priv->tree_view, "motion-notify-event", G_CALLBACK(on_tree_view_motion), window);

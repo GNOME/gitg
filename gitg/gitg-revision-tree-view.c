@@ -43,6 +43,15 @@ enum {
 	PROP_REVISION
 };
 
+/* Signals */
+enum
+{
+	PATH_ACTIVATED,
+	NUM_SIGNALS
+};
+
+static guint signals[NUM_SIGNALS];
+
 struct _GitgRevisionTreeViewPrivate
 {
 	GtkUIManager *ui_manager;
@@ -444,6 +453,16 @@ gitg_revision_tree_view_class_init(GitgRevisionTreeViewClass *klass)
 								      GITG_TYPE_REVISION,
 								      G_PARAM_READWRITE));
 	
+	signals[PATH_ACTIVATED] =
+		g_signal_new("path-activated",
+			G_OBJECT_CLASS_TYPE (object_class),
+			G_SIGNAL_RUN_LAST,
+			G_STRUCT_OFFSET (GitgRevisionTreeViewClass, path_activated),
+			NULL, NULL,
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
+			1, G_TYPE_POINTER);
+
 	g_type_class_add_private(object_class, sizeof(GitgRevisionTreeViewPrivate));
 }
 
@@ -664,8 +683,11 @@ popup_tree_menu(GitgRevisionTreeView *tree_view, GdkEventButton *event)
 	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);	
 	gint num = g_list_length(rows);
 	
-	if (num != 1)
+	/* We only support single selection for path filtering */
+	if (num != 1) {
+		g_list_free(rows);
 		return FALSE;
+	}
 
 	GtkWidget *wd = gtk_ui_manager_get_widget(tree_view->priv->ui_manager, "/ui/popup_file_tree");
 	
@@ -704,10 +726,23 @@ on_filter_path(GtkAction *action, GitgRevisionTreeView *tree_view)
 	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);	
 	gint num = g_list_length(rows);
 	
-	if (num == 0)
+	/* We only support single selection for path filtering */
+	if (num != 1) {
+		g_list_free(rows);
 		return;
-  /* TODO */
-  g_message("Not yet implemented");
+	}
+
+	/* Retrieve the selected file's path */
+	gchar *filter_path = NULL;
+	GtkTreePath *path = (GtkTreePath *)rows->data;
+	GtkTreeIter iter;
+	gtk_tree_model_get_iter(model, &iter, path);
+	filter_path = node_path(model, &iter);
+	gtk_tree_path_free(path);	
+	g_list_free(rows);
+
+	/* Emit the signal */
+	g_signal_emit(tree_view, signals[PATH_ACTIVATED], 0, filter_path);
 }
 
 static void

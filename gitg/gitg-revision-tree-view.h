@@ -49,6 +49,8 @@ struct _GitgRevisionTreeView {
 
 struct _GitgRevisionTreeViewClass {
 	GtkHPanedClass parent_class;
+	
+	void (* path_activated) (GitgRevisionTreeView *revision_tree_view, gchar *path);
 };
 
 GType gitg_revision_tree_view_get_type (void) G_GNUC_CONST;
