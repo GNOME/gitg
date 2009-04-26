@@ -45,6 +45,7 @@ enum {
 
 struct _GitgRevisionTreeViewPrivate
 {
+	GtkUIManager *ui_manager;
 	GtkTreeView *tree_view;
 	GtkSourceView *contents;
 	GitgRunner *content_runner;
@@ -58,6 +59,11 @@ struct _GitgRevisionTreeViewPrivate
 	GitgRunner *loader;
 	GtkTreePath *load_path;
 };
+
+static gboolean popup_tree_menu(GitgRevisionTreeView *view, GdkEventButton *event);
+static void on_tree_button_press(GtkWidget *widget, GdkEventButton *event, GitgRevisionTreeView *view);
+static gboolean on_tree_popup_menu(GtkWidget *widget, GitgRevisionTreeView *view);
+static void on_filter_path(GtkAction *action, GitgRevisionTreeView *view);
 
 static void gitg_revision_tree_view_buildable_iface_init(GtkBuildableIface *iface);
 static void load_node(GitgRevisionTreeView *view, GtkTreeIter *parent);
@@ -372,6 +378,7 @@ gitg_revision_tree_view_parser_finished(GtkBuildable *buildable, GtkBuilder *bui
 
 	// Store widgets
 	GitgRevisionTreeView *tree_view = GITG_REVISION_TREE_VIEW(buildable);
+	tree_view->priv->ui_manager = g_object_ref(gtk_builder_get_object(builder, "uiman"));
 	tree_view->priv->tree_view = GTK_TREE_VIEW(gtk_builder_get_object(builder, "revision_tree"));
 	tree_view->priv->contents = GTK_SOURCE_VIEW(gtk_builder_get_object(builder, "revision_tree_contents"));
 	
@@ -398,6 +405,12 @@ gitg_revision_tree_view_parser_finished(GtkBuildable *buildable, GtkBuilder *bui
 	g_signal_connect(tree_view->priv->tree_view, "drag-data-get", G_CALLBACK(on_drag_data_get), tree_view);
 	g_signal_connect(tree_view->priv->tree_view, "drag-end", G_CALLBACK(on_drag_end), tree_view);
 	g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), tree_view);
+
+	g_signal_connect(tree_view->priv->tree_view, "event-after", G_CALLBACK(on_tree_button_press), tree_view);
+  
+	g_signal_connect(tree_view->priv->tree_view, "popup-menu", G_CALLBACK(on_tree_popup_menu), tree_view);
+
+	g_signal_connect(gtk_builder_get_object(builder, "FilterOnPathAction"), "activate", G_CALLBACK(on_filter_path), tree_view);
 }
 
 static void
@@ -640,6 +653,61 @@ on_contents_update(GitgRunner *runner, gchar **buffer, GitgRevisionTreeView *tre
 		
 		g_free(content_type);
 	}
+}
+
+static gboolean 
+popup_tree_menu(GitgRevisionTreeView *tree_view, GdkEventButton *event)
+{
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree_view->priv->tree_view);
+	GtkTreeModel *model;
+
+	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);	
+	gint num = g_list_length(rows);
+	
+	if (num != 1)
+		return FALSE;
+
+	GtkWidget *wd = gtk_ui_manager_get_widget(tree_view->priv->ui_manager, "/ui/popup_file_tree");
+	
+	gtk_menu_popup(GTK_MENU(wd), NULL, NULL, 
+				   /*gitg_utils_menu_position_under_tree_view*/NULL, 
+				   tree_view->priv->tree_view, 0, 
+				   gtk_get_current_event_time());
+		
+	return TRUE;
+}
+
+static gboolean 
+on_tree_popup_menu(GtkWidget *widget, GitgRevisionTreeView *view)
+{
+	return popup_tree_menu(view, NULL);
+}
+
+static void
+on_tree_button_press(GtkWidget *widget, GdkEventButton *event, GitgRevisionTreeView *view)
+{	
+	if (event->type != GDK_BUTTON_PRESS)
+		return;
+
+	if (event->button == 3)
+	{
+		popup_tree_menu(view, event);
+	}
+}
+
+static void 
+on_filter_path(GtkAction *action, GitgRevisionTreeView *tree_view)
+{
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree_view->priv->tree_view);
+	GtkTreeModel *model;
+
+	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);	
+	gint num = g_list_length(rows);
+	
+	if (num == 0)
+		return;
+  /* TODO */
+  g_message("Not yet implemented");
 }
 
 static void

@@ -126,7 +126,17 @@
         </child>
       </object>
     </child>
-    <ui>
+    <child>
+      <object class="GtkActionGroup" id="action_group_file_tree_context">
+        <child>
+          <object class="GtkAction" id="FilterOnPathAction">
+            <property name="label" translatable="yes">Filter</property>
+            <property name="tooltip" translatable="yes">Filter on this path</property>
+          </object>
+        </child>
+      </object>
+    </child>
+     <ui>
       <menubar name="menubar_main">
         <menu action="FileAction">
           <menuitem action="FileOpenAction"/>
@@ -155,6 +165,9 @@
       </popup>
       <popup name="popup_commit_unstage">
         <menuitem action="UnstageChangesAction"/>
+      </popup>
+      <popup name="popup_file_tree">
+        <menuitem action="FilterOnPathAction"/>
       </popup>
     </ui>
   </object>
