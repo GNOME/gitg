@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-14 20:05+0100\n"
+"POT-Creation-Date: 2009-04-22 00:44+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Guilhem Bonnefille <guilhem.bonnefille@gmail.com>\n"
 "Language-Team: \n"
@@ -17,8 +17,8 @@ msgid "Git repository browser"
 msgstr "Butineur de dépôt Git"
 
 #. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:168 ../gitg/gitg-window.c:740
-#: ../gitg/gitg-window.c:755 ../gitg/gitg-ui.xml.h:31
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:169 ../gitg/gitg-window.c:785
+#: ../gitg/gitg-window.c:803 ../gitg/gitg-ui.xml.h:32
 msgid "gitg"
 msgstr "gitg"
 
@@ -42,49 +42,57 @@ msgid ""
 "jumping to the first match."
 msgstr ""
 
-#: ../gitg/gitg.c:41
+#: ../gitg/gitg.c:43
 msgid "Start gitg in commit mode"
 msgstr "Démarrer gitg en mode commit"
 
-#: ../gitg/gitg.c:51
+#: ../gitg/gitg.c:53
 msgid "- git repository viewer"
 msgstr "- butineur pour dépôt Git"
 
-#: ../gitg/gitg-commit-view.c:203 ../gitg/gitg-revision-tree-view.c:181
+#: ../gitg/gitg-commit-view.c:204 ../gitg/gitg-revision-tree-view.c:181
 msgid "Cannot display file content as text"
 msgstr "Impossible d'afficher ce fichier en texte"
 
-#: ../gitg/gitg-commit-view.c:1150
+#: ../gitg/gitg-commit-view.c:1166
 msgid "You must first stage some changes before committing"
 msgstr ""
 
-#: ../gitg/gitg-commit-view.c:1158
+#: ../gitg/gitg-commit-view.c:1174
 msgid "Please enter a commit message before committing"
 msgstr "S'il vous plaît, entrez un message avant d'archiver les modifications"
 
-#: ../gitg/gitg-commit-view.c:1169
+#: ../gitg/gitg-commit-view.c:1185
 msgid ""
 "Your user name or email could not be retrieved for use in the sign off "
 "message"
 msgstr ""
 
-#: ../gitg/gitg-commit-view.c:1171
+#: ../gitg/gitg-commit-view.c:1187
 msgid "Something went wrong while trying to commit"
 msgstr ""
 
-#: ../gitg/gitg-commit-view.c:1339
+#: ../gitg/gitg-commit-view.c:1355
 msgid "Revert fail"
 msgstr "Échec d'annulation"
 
-#: ../gitg/gitg-commit-view.c:1350
+#: ../gitg/gitg-commit-view.c:1366
 msgid "Are you sure you want to revert these changes?"
 msgstr "Êtes-vous sûr de vouloir annuler ces modifications ?"
 
-#: ../gitg/gitg-commit-view.c:1353
+#: ../gitg/gitg-commit-view.c:1369
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr "Il n'est pas possible de revenir sur une annulation de modifications"
 
-#: ../gitg/gitg-repository.c:761
+#: ../gitg/gitg-repository.c:472
+msgid "Staged changes"
+msgstr ""
+
+#: ../gitg/gitg-repository.c:474
+msgid "Unstaged changes"
+msgstr ""
+
+#: ../gitg/gitg-repository.c:983
 msgid "Not a valid git repository"
 msgstr "Dépôt Git invalide"
 
@@ -92,41 +100,41 @@ msgstr "Dépôt Git invalide"
 msgid "(Empty)"
 msgstr "(Vide)"
 
-#: ../gitg/gitg-window.c:323
+#: ../gitg/gitg-window.c:346
 msgid "Select branch"
 msgstr "Sélectionner une branche"
 
-#: ../gitg/gitg-window.c:487
+#: ../gitg/gitg-window.c:532
 msgid "Begin loading repository"
 msgstr "Démarrage du chargement du dépôt"
 
-#: ../gitg/gitg-window.c:496
+#: ../gitg/gitg-window.c:541
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%d révisions chargées en %.2fs"
 
-#: ../gitg/gitg-window.c:507
+#: ../gitg/gitg-window.c:552
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Chargement de %d révisions..."
 
-#: ../gitg/gitg-window.c:516
+#: ../gitg/gitg-window.c:561
 msgid "Could not find git repository"
 msgstr "Impossible de trouver le dépôt Git"
 
-#: ../gitg/gitg-window.c:652
+#: ../gitg/gitg-window.c:697
 msgid "All branches"
 msgstr "Toutes les branches"
 
-#: ../gitg/gitg-window.c:811
+#: ../gitg/gitg-window.c:860
 msgid "Open git repository"
 msgstr "Ouvrir un dépôt Git"
 
-#: ../gitg/gitg-window.c:929
+#: ../gitg/gitg-window.c:982
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg est un butineur pour dépôt Git utilisant gtk+/GNOME"
 
-#: ../gitg/gitg-window.c:930
+#: ../gitg/gitg-window.c:983
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -161,8 +169,8 @@ msgid "Branch:"
 msgstr "Branche :"
 
 #: ../gitg/gitg-ui.xml.h:5
-msgid "Co_mment"
-msgstr "Co_mmentaire"
+msgid "Co_mmit message"
+msgstr ""
 
 #: ../gitg/gitg-ui.xml.h:6
 msgid "Commit"
@@ -201,7 +209,8 @@ msgid "Parent:"
 msgstr "Parent :"
 
 #: ../gitg/gitg-ui.xml.h:15
-msgid "Recently opened"
+#, fuzzy
+msgid "R_ecently Opened"
 msgstr "Récemment ouvert"
 
 #: ../gitg/gitg-ui.xml.h:16
@@ -253,14 +262,18 @@ msgid "_Help"
 msgstr "_Aide"
 
 #: ../gitg/gitg-ui.xml.h:28
-msgid "_Staged"
+msgid "_Open..."
 msgstr ""
 
 #: ../gitg/gitg-ui.xml.h:29
-msgid "_Unstaged"
+msgid "_Staged"
 msgstr ""
 
 #: ../gitg/gitg-ui.xml.h:30
+msgid "_Unstaged"
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:31
 msgid "_View"
 msgstr "_Vue"
 
@@ -285,7 +298,7 @@ msgid "<b>History</b>"
 msgstr "<b>Historique</b>"
 
 #: ../gitg/gitg-preferences.xml.h:2
-msgid "Collapse inactive lanes:"
+msgid "Collapse inactive lanes"
 msgstr ""
 
 #: ../gitg/gitg-preferences.xml.h:3
@@ -305,5 +318,20 @@ msgid "Search filters revisions in the history view"
 msgstr ""
 
 #: ../gitg/gitg-preferences.xml.h:7
+msgid "Show staged changes in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:8
+msgid "Show stash in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:9
+msgid "Show unstaged changes in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:10
 msgid "View"
 msgstr "Vue"
+
+#~ msgid "Co_mment"
+#~ msgstr "Co_mmentaire"

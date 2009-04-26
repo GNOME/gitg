@@ -263,9 +263,40 @@ on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkT
 	if (gtk_tree_model_iter_next(model, &iter1))
 		gtk_tree_model_get(model, &iter1, 0, &next_revision, -1);
 	
-	GSList *labels = gitg_repository_get_refs_for_hash(GITG_REPOSITORY(model), gitg_revision_get_hash(rv));
+	GSList *labels;
+	const gchar *lbl = NULL;
+	switch (gitg_revision_get_sign(rv))
+	{
 
-	g_object_set(renderer, "revision", rv, "next_revision", next_revision, "labels", labels, NULL);
+		case 's':
+			lbl = "stash";
+		break;
+		case 't':
+			lbl = "staged";
+		break;
+		case 'u':
+			lbl = "unstaged";
+		break;
+		default:
+		break;
+	}
+	
+	if (lbl != NULL)
+	{
+		g_object_set(renderer, "style", PANGO_STYLE_ITALIC, NULL);
+		labels = g_slist_append(NULL, gitg_ref_new(gitg_revision_get_hash(rv), lbl));
+	}
+	else
+	{
+		g_object_set(renderer, "style", PANGO_STYLE_NORMAL, NULL);
+		labels = gitg_repository_get_refs_for_hash(GITG_REPOSITORY(model), gitg_revision_get_hash(rv));
+	}
+
+	g_object_set(renderer, 
+	             "revision", rv, 
+	             "next_revision", next_revision, 
+	             "labels", labels,
+	             NULL);
 
 	gitg_revision_unref(next_revision);
 	gitg_revision_unref(rv);
@@ -491,16 +522,38 @@ gitg_window_destroy(GtkObject *object)
 		GTK_OBJECT_CLASS(parent_class)->destroy(object);
 }
 
+static gboolean
+gitg_window_window_state_event(GtkWidget *widget, GdkEventWindowState *event)
+{
+	GitgWindow *window = GITG_WINDOW(widget);
+
+	if (event->changed_mask &
+	    (GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN))
+	{
+		gboolean show;
+
+		show = !(event->new_window_state &
+			(GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN));
+
+		gtk_statusbar_set_has_resize_grip (window->priv->statusbar, show);
+	}
+
+	return FALSE;
+}
+
 static void
 gitg_window_class_init(GitgWindowClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	GtkObjectClass *gtkobject_class = GTK_OBJECT_CLASS(klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 	
 	parent_class = g_type_class_peek_parent(klass);
 		
 	object_class->finalize = gitg_window_finalize;
 	gtkobject_class->destroy = gitg_window_destroy;
+	
+	widget_class->window_state_event = gitg_window_window_state_event;
 	
 	g_type_class_add_private(object_class, sizeof(GitgWindowPrivate));
 }
@@ -698,7 +751,9 @@ fill_branches_combo(GitgWindow *window)
 static void
 on_repository_load(GitgRepository *repository, GitgWindow *window)
 {
+	g_signal_handlers_block_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
 	fill_branches_combo(window);
+	g_signal_handlers_unblock_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
 }
 
 static void
@@ -894,7 +949,10 @@ on_view_refresh(GtkAction *action, GitgWindow *window)
 {
 	if (window->priv->repository && gitg_repository_get_path(window->priv->repository) != NULL)
 	{
+		g_signal_handlers_block_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
 		clear_branches_combo(window, TRUE);
+		g_signal_handlers_unblock_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
+
 		gitg_repository_reload(window->priv->repository);
 	}
 }

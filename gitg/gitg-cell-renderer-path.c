@@ -66,13 +66,34 @@ num_lanes(GitgCellRendererPath *self)
 	return g_slist_length (gitg_revision_get_lanes(self->priv->revision));
 }
 
-inline static gint
+static gboolean
+is_dummy(GitgRevision *revision)
+{
+	switch (gitg_revision_get_sign(revision))
+	{
+		case 's':
+		case 't':
+		case 'u':
+			return TRUE;
+		default:
+			return FALSE;
+	}
+}
+
+static gint
 total_width(GitgCellRendererPath *self, GtkWidget *widget)
 {
 	PangoFontDescription *font;
 	g_object_get(self, "font-desc", &font, NULL);
-		
-	return num_lanes(self) * self->priv->lane_width + gitg_label_renderer_width(widget, font, self->priv->labels);
+	
+	gint offset = 0;
+	
+	if (is_dummy(self->priv->revision))
+		offset = self->priv->lane_width;
+	
+	return num_lanes(self) * self->priv->lane_width + 
+	       gitg_label_renderer_width(widget, font, self->priv->labels) +
+	       offset;
 }
 
 static void
@@ -215,6 +236,9 @@ draw_labels(GitgCellRendererPath *self, GtkWidget *widget, cairo_t *context, Gdk
 	gint offset = num_lanes(self) * self->priv->lane_width;
 	PangoFontDescription *font;
 	
+	if (is_dummy(self->priv->revision))
+		offset += self->priv->lane_width;
+	
 	g_object_get(self, "font-desc", &font, NULL);
 	
 	cairo_translate(context, offset, 0.0);
@@ -259,14 +283,24 @@ draw_indicator_circle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *conte
 	gdouble offset = gitg_revision_get_mylane(self->priv->revision) * self->priv->lane_width + (self->priv->lane_width - self->priv->dot_width) / 2.0;
 	gdouble radius = self->priv->dot_width / 2.0;
 	
+	if (is_dummy(self->priv->revision))
+		offset += self->priv->lane_width;
+
 	cairo_set_line_width(context, 2.0);
 	cairo_arc(context, area->x + offset + radius, area->y + area->height / 2.0, radius, 0, 2 * M_PI);
 	cairo_set_source_rgb(context, 0, 0, 0);
 	
-	cairo_stroke_preserve(context);
-	gitg_color_set_cairo_source(lane->color, context);
+	if (is_dummy(self->priv->revision))
+	{
+		cairo_stroke(context);
+	}
+	else
+	{
+		cairo_stroke_preserve(context);
+		gitg_color_set_cairo_source(lane->color, context);
 	
-	cairo_fill(context);
+		cairo_fill(context);
+	}
 }
 
 static void

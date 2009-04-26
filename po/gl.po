@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-28 20:13+0100\n"
-"PO-Revision-Date: 2009-02-28 20:18+0100\n"
+"POT-Creation-Date: 2009-04-22 00:44+0200\n"
+"PO-Revision-Date: 2009-04-21 12:27+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@gnome.org>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,8 @@ msgid "Git repository browser"
 msgstr "Examinador de repositorios Git"
 
 #. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:169 ../gitg/gitg-window.c:733
-#: ../gitg/gitg-window.c:751 ../gitg/gitg-ui.xml.h:31
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:169 ../gitg/gitg-window.c:785
+#: ../gitg/gitg-window.c:803 ../gitg/gitg-ui.xml.h:32
 msgid "gitg"
 msgstr "gitg"
 
@@ -48,15 +48,15 @@ msgstr ""
 
 #: ../gitg/gitg.c:43
 msgid "Start gitg in commit mode"
-msgstr ""
+msgstr "Iniciar gitg en modo commit"
 
 #: ../gitg/gitg.c:53
 msgid "- git repository viewer"
-msgstr ""
+msgstr "- visor de repositorios git"
 
 #: ../gitg/gitg-commit-view.c:204 ../gitg/gitg-revision-tree-view.c:181
 msgid "Cannot display file content as text"
-msgstr ""
+msgstr "Non se pode mostrar o contido do ficheiro como texto"
 
 #: ../gitg/gitg-commit-view.c:1166
 msgid "You must first stage some changes before committing"
@@ -64,7 +64,7 @@ msgstr ""
 
 #: ../gitg/gitg-commit-view.c:1174
 msgid "Please enter a commit message before committing"
-msgstr ""
+msgstr "Introduza unha mensaxe de commit antes de facer commit"
 
 #: ../gitg/gitg-commit-view.c:1185
 msgid ""
@@ -78,59 +78,67 @@ msgstr ""
 
 #: ../gitg/gitg-commit-view.c:1355
 msgid "Revert fail"
-msgstr ""
+msgstr "Fallou ao reverter"
 
 #: ../gitg/gitg-commit-view.c:1366
 msgid "Are you sure you want to revert these changes?"
-msgstr ""
+msgstr "Está seguro de que quere reverter os cambios?"
 
 #: ../gitg/gitg-commit-view.c:1369
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr ""
 
-#: ../gitg/gitg-repository.c:797
-msgid "Not a valid git repository"
+#: ../gitg/gitg-repository.c:472
+msgid "Staged changes"
 msgstr ""
+
+#: ../gitg/gitg-repository.c:474
+msgid "Unstaged changes"
+msgstr ""
+
+#: ../gitg/gitg-repository.c:983
+msgid "Not a valid git repository"
+msgstr "Non é un repositorio git válido"
 
 #: ../gitg/gitg-revision-tree-view.c:507
 msgid "(Empty)"
-msgstr ""
+msgstr "(Baleiro)"
 
-#: ../gitg/gitg-window.c:316
+#: ../gitg/gitg-window.c:346
 msgid "Select branch"
-msgstr ""
+msgstr "Seleccionar rama"
 
-#: ../gitg/gitg-window.c:480
+#: ../gitg/gitg-window.c:532
 msgid "Begin loading repository"
-msgstr ""
+msgstr "Comezar cargando repositorio"
 
-#: ../gitg/gitg-window.c:489
+#: ../gitg/gitg-window.c:541
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
-msgstr ""
+msgstr "Cargadas %d revisións en %.2fs"
 
-#: ../gitg/gitg-window.c:500
+#: ../gitg/gitg-window.c:552
 #, c-format
 msgid "Loading %d revisions..."
-msgstr ""
+msgstr "Cargando %d revisións..."
 
-#: ../gitg/gitg-window.c:509
+#: ../gitg/gitg-window.c:561
 msgid "Could not find git repository"
-msgstr ""
+msgstr "Non se puido encontrar o repositorio git"
 
-#: ../gitg/gitg-window.c:645
+#: ../gitg/gitg-window.c:697
 msgid "All branches"
 msgstr "Todas as ramas"
 
-#: ../gitg/gitg-window.c:808
+#: ../gitg/gitg-window.c:860
 msgid "Open git repository"
 msgstr "Abrir repositorio git"
 
-#: ../gitg/gitg-window.c:930
+#: ../gitg/gitg-window.c:982
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg é un visor de repositorios git para gtk+/Gnome"
 
-#: ../gitg/gitg-window.c:931
+#: ../gitg/gitg-window.c:983
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -165,8 +173,8 @@ msgid "Branch:"
 msgstr "Rama:"
 
 #: ../gitg/gitg-ui.xml.h:5
-msgid "Co_mment"
-msgstr "Co_mentario"
+msgid "Co_mmit message"
+msgstr ""
 
 #: ../gitg/gitg-ui.xml.h:6
 msgid "Commit"
@@ -205,7 +213,8 @@ msgid "Parent:"
 msgstr "Pai:"
 
 #: ../gitg/gitg-ui.xml.h:15
-msgid "Recently opened"
+#, fuzzy
+msgid "R_ecently Opened"
 msgstr "Aberto recentemente"
 
 #: ../gitg/gitg-ui.xml.h:16
@@ -222,11 +231,11 @@ msgstr ""
 
 #: ../gitg/gitg-ui.xml.h:19
 msgid "Subject"
-msgstr ""
+msgstr "Asunto"
 
 #: ../gitg/gitg-ui.xml.h:20
 msgid "Subject:"
-msgstr ""
+msgstr "Asunto:"
 
 #: ../gitg/gitg-ui.xml.h:21
 msgid "Tree"
@@ -257,14 +266,18 @@ msgid "_Help"
 msgstr "A_xuda"
 
 #: ../gitg/gitg-ui.xml.h:28
+msgid "_Open..."
+msgstr "_Abrir..."
+
+#: ../gitg/gitg-ui.xml.h:29
 msgid "_Staged"
 msgstr ""
 
-#: ../gitg/gitg-ui.xml.h:29
+#: ../gitg/gitg-ui.xml.h:30
 msgid "_Unstaged"
 msgstr ""
 
-#: ../gitg/gitg-ui.xml.h:30
+#: ../gitg/gitg-ui.xml.h:31
 msgid "_View"
 msgstr "_Ver"
 
@@ -282,14 +295,14 @@ msgstr "_Hash"
 
 #: ../gitg/gitg-menus.xml.h:4
 msgid "_Subject"
-msgstr ""
+msgstr "A_sunto"
 
 #: ../gitg/gitg-preferences.xml.h:1
 msgid "<b>History</b>"
 msgstr "<b>Historial</b>"
 
 #: ../gitg/gitg-preferences.xml.h:2
-msgid "Collapse inactive lanes:"
+msgid "Collapse inactive lanes"
 msgstr ""
 
 #: ../gitg/gitg-preferences.xml.h:3
@@ -306,8 +319,23 @@ msgstr "Preferencias"
 
 #: ../gitg/gitg-preferences.xml.h:6
 msgid "Search filters revisions in the history view"
-msgstr ""
+msgstr "Buscar revisións filtradas no visor do historial"
 
 #: ../gitg/gitg-preferences.xml.h:7
+msgid "Show staged changes in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:8
+msgid "Show stash in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:9
+msgid "Show unstaged changes in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.xml.h:10
 msgid "View"
 msgstr "Ver"
+
+#~ msgid "Co_mment"
+#~ msgstr "Co_mentario"

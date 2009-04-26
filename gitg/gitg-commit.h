@@ -77,6 +77,7 @@ gboolean gitg_commit_commit(GitgCommit *commit, gchar const *comment, gboolean s
 gboolean gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error);
 gboolean gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error);
 
+GitgChangedFile *gitg_commit_find_changed_file(GitgCommit *commit, GFile *file);
 
 G_END_DECLS
 

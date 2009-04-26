@@ -76,22 +76,25 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkTable" id="table2">
+                              <object class="GtkCheckButton" id="check_button_collapse_inactive">
+                                <property name="label" translatable="yes">Collapse inactive lanes</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                                <property name="active">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkTable" id="table_collapse_inactive_lanes">
                                 <property name="visible">True</property>
                                 <property name="n_rows">2</property>
-                                <property name="n_columns">3</property>
+                                <property name="n_columns">2</property>
                                 <property name="column_spacing">3</property>
                                 <property name="row_spacing">3</property>
-                                <child>
-                                  <object class="GtkLabel" id="label14">
-                                    <property name="visible">True</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Collapse inactive lanes:</property>
-                                  </object>
-                                  <packing>
-                                    <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                                  </packing>
-                                </child>
                                 <child>
                                   <object class="GtkHScale" id="hscale_collapse_inactive_lanes">
                                     <property name="visible">True</property>
@@ -101,8 +104,8 @@
                                     <property name="digits">0</property>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="right_attach">3</property>
+                                    <property name="left_attach">0</property>
+                                    <property name="right_attach">2</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -112,8 +115,8 @@
                                     <property name="label" translatable="yes">Early</property>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="right_attach">2</property>
+                                    <property name="left_attach">0</property>
+                                    <property name="right_attach">1</property>
                                     <property name="top_attach">1</property>
                                     <property name="bottom_attach">2</property>
                                   </packing>
@@ -135,15 +138,51 @@
                                     <property name="label" translatable="yes">Late</property>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">2</property>
-                                    <property name="right_attach">3</property>
+                                    <property name="left_attach">1</property>
+                                    <property name="right_attach">2</property>
                                     <property name="top_attach">1</property>
                                     <property name="bottom_attach">2</property>
                                   </packing>
                                 </child>
                               </object>
                               <packing>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkCheckButton" id="check_button_history_show_virtual_stash">
+                                <property name="label" translatable="yes">Show stash in history</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkCheckButton" id="check_button_history_show_virtual_staged">
+                                <property name="label" translatable="yes">Show staged changes in history</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkCheckButton" id="check_button_history_show_virtual_unstaged">
+                                <property name="label" translatable="yes">Show unstaged changes in history</property>
+                                <property name="visible">true</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">5</property>
                               </packing>
                             </child>
                           </object>

@@ -330,8 +330,6 @@ gitg_changed_file_equal(GitgChangedFile *file, GFile *other)
 static void
 on_file_monitor_changed(GFileMonitor *monitor, GFile *file, GFile *other_file, GFileMonitorEvent event, GitgChangedFile *self)
 {
-	g_message("%d", event);
-
 	switch (event)
 	{
 		case G_FILE_MONITOR_EVENT_DELETED:

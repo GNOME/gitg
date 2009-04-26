@@ -44,6 +44,11 @@ struct _GitgPreferencesDialogPrivate
 {
 	GtkCheckButton *history_search_filter;
 	GtkAdjustment *collapse_inactive_lanes;
+	GtkCheckButton *history_show_virtual_stash;
+	GtkCheckButton *history_show_virtual_staged;
+	GtkCheckButton *history_show_virtual_unstaged;
+	GtkCheckButton *check_button_collapse_inactive;
+	GtkWidget *table;
 
 	gint prev_value;
 };
@@ -101,18 +106,54 @@ convert_collapsed(GValue const *source, GValue *dest, gpointer userdata)
 }
 
 static void
+on_collapse_inactive_toggled(GtkToggleButton *button, GitgPreferencesDialog *dialog)
+{
+	gboolean active = gtk_toggle_button_get_active (button);
+	gtk_widget_set_sensitive(dialog->priv->table, active);
+}
+
+static void
 initialize_view(GitgPreferencesDialog *dialog)
 {
 	GitgPreferences *preferences = gitg_preferences_get_default();
-	
-	gitg_data_binding_new_mutual(preferences, "history-search-filter", 
-						         dialog->priv->history_search_filter, "active");
 
-	gitg_data_binding_new_mutual_full(preferences, "history-collapse-inactive-lanes",
-						              dialog->priv->collapse_inactive_lanes, "value",
-						              (GitgDataBindingConversion)g_value_transform,
-						              convert_collapsed,
-						              dialog);
+	g_signal_connect (dialog->priv->check_button_collapse_inactive,
+	                  "toggled",
+	                  G_CALLBACK (on_collapse_inactive_toggled),
+	                  dialog);
+
+	gitg_data_binding_new_mutual(preferences, 
+	                             "history-search-filter", 
+	                             dialog->priv->history_search_filter, 
+	                             "active");
+
+	gitg_data_binding_new_mutual_full(preferences, 
+	                                  "history-collapse-inactive-lanes",
+	                                  dialog->priv->collapse_inactive_lanes, 
+	                                  "value",
+	                                  (GitgDataBindingConversion)g_value_transform,
+	                                  convert_collapsed,
+	                                  dialog);
+
+	gitg_data_binding_new_mutual(preferences, 
+	                             "history-collapse-inactive-lanes-active",
+	                             dialog->priv->check_button_collapse_inactive,
+	                             "active");
+
+	gitg_data_binding_new_mutual(preferences, 
+	                             "history-show-virtual-stash",
+	                             dialog->priv->history_show_virtual_stash, 
+	                             "active");
+
+	gitg_data_binding_new_mutual(preferences, 
+	                             "history-show-virtual-staged",
+	                             dialog->priv->history_show_virtual_staged, 
+	                             "active");
+
+	gitg_data_binding_new_mutual(preferences, 
+	                             "history-show-virtual-unstaged",
+	                             dialog->priv->history_show_virtual_unstaged, 
+	                             "active");
 }
 
 static void
@@ -124,8 +165,16 @@ create_preferences_dialog()
 	g_object_add_weak_pointer(G_OBJECT(preferences_dialog), (gpointer *)&preferences_dialog);
 	
 	GitgPreferencesDialogPrivate *priv = preferences_dialog->priv;
+	
 	priv->history_search_filter = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_search_filter"));
 	priv->collapse_inactive_lanes = GTK_ADJUSTMENT(gtk_builder_get_object(b, "adjustment_collapse_inactive_lanes"));
+	
+	priv->history_show_virtual_stash = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_stash"));
+	priv->history_show_virtual_staged = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_staged"));
+	priv->history_show_virtual_unstaged = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_unstaged"));
+	
+	priv->check_button_collapse_inactive = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_collapse_inactive"));
+	priv->table = GTK_WIDGET(gtk_builder_get_object(b, "table_collapse_inactive_lanes"));
 	
 	priv->prev_value = (gint)gtk_adjustment_get_value(priv->collapse_inactive_lanes);
 	g_signal_connect(preferences_dialog, "response", G_CALLBACK(on_response), NULL);
@@ -153,7 +202,10 @@ on_collapse_inactive_lanes_changed(GtkAdjustment *adjustment, GParamSpec *spec, 
 {
 	gint val = round_val(gtk_adjustment_get_value(adjustment));
 
-	g_signal_handlers_block_by_func(adjustment, G_CALLBACK(on_collapse_inactive_lanes_changed), dialog);
-	gtk_adjustment_set_value(adjustment, val);
-	g_signal_handlers_unblock_by_func(adjustment, G_CALLBACK(on_collapse_inactive_lanes_changed), dialog);
+	if (val > 0)
+	{
+		g_signal_handlers_block_by_func(adjustment, G_CALLBACK(on_collapse_inactive_lanes_changed), dialog);
+		gtk_adjustment_set_value(adjustment, val);
+		g_signal_handlers_unblock_by_func(adjustment, G_CALLBACK(on_collapse_inactive_lanes_changed), dialog);
+	}
 }

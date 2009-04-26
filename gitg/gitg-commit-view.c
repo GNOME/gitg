@@ -269,7 +269,84 @@ set_current_file(GitgCommitView *view, GitgChangedFile *file, GitgChangedFileCha
 }
 
 static gboolean
-check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *iter, GitgCommitView *view)
+get_selected_files(GtkTreeView             *tree_view,
+                   GList                  **files,
+                   GList                  **paths,
+                   GitgChangedFileChanges  *changes,
+                   GitgChangedFileStatus   *status)
+{
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(tree_view);
+
+	if (files == NULL && changes == NULL && status == NULL && paths == NULL)
+		return gtk_tree_selection_count_selected_rows(selection) != 0;
+	
+	GtkTreeModel *model;
+	GList *items = gtk_tree_selection_get_selected_rows(selection, &model);
+	
+	if (files)
+		*files = NULL;
+	
+	if (paths)
+		*paths = NULL;
+	
+	if (!items)
+		return FALSE;
+	
+	if (changes)
+		*changes = ~0;
+	
+	if (status)
+		*status = -1;
+	
+	GList *item;
+	GitgChangedFile *file;
+
+	for (item = items; item; item = g_list_next(item))
+	{
+		GtkTreeIter iter;
+
+		gtk_tree_model_get_iter(model, &iter, (GtkTreePath *)item->data);
+		gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
+		
+		if (changes)
+			*changes &= gitg_changed_file_get_status(file);
+		
+		GitgChangedFileStatus s = gitg_changed_file_get_status(file);
+		
+		if (status)
+		{
+			if (*status != -1 && *status != s)
+				*status = GITG_CHANGED_FILE_STATUS_NONE;
+			else
+				*status = s;
+		}
+		
+		if (files)
+			*files = g_list_prepend(*files, file);
+		else
+			g_object_unref(file);
+	}
+	
+	if (paths)
+	{
+		*paths = items;
+	}
+	else
+	{
+		g_list_foreach(items, (GFunc)gtk_tree_path_free, NULL);
+		g_list_free(items);
+	}
+	
+	if (files)
+		*files = g_list_reverse(*files);
+	
+	return TRUE;
+}
+
+static gboolean
+check_selection(GtkTreeView    *tree_view, 
+                GtkTreeIter    *iter, 
+                GitgCommitView *view)
 {
 	if (view->priv->update_id)
 		g_signal_handler_disconnect(view->priv->runner, view->priv->update_id);
@@ -287,14 +364,28 @@ check_selection(GtkTreeSelection *selection, GtkTreeModel **model, GtkTreeIter *
 	gtk_source_buffer_remove_source_marks(GTK_SOURCE_BUFFER(buffer), &start, &end, CATEGORY_STAGE_HUNK);
 	gtk_text_buffer_set_text(gtk_text_view_get_buffer(tv), "", -1);
 	
-	if (!gtk_tree_selection_get_selected(selection, model, iter))
+	GList *paths;
+	gboolean ret;
+	get_selected_files(tree_view, NULL, &paths, NULL, NULL);
+	
+	if (g_list_length(paths) != 1)
 	{
 		set_current_file(view, NULL, GITG_CHANGED_FILE_CHANGES_NONE);
 		gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
-		return FALSE;
+		ret = FALSE;
+	}
+	else
+	{
+		if (iter)
+			gtk_tree_model_get_iter(gtk_tree_view_get_model(tree_view),
+			                        iter,
+			                        (GtkTreePath *)paths->data);
+		ret = TRUE;
 	}
 	
-	return TRUE;
+	g_list_foreach(paths, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free(paths);
+	return ret;
 }
 
 static void
@@ -309,9 +400,10 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	
-	if (!check_selection(selection, &model, &iter, view))
+	if (!check_selection(view->priv->tree_view_unstaged, &iter, view))
 		return;
 	
+	model = gtk_tree_view_get_model(view->priv->tree_view_unstaged);
 	unselect_tree_view(view->priv->tree_view_staged);
 	
 	GitgChangedFile *file;
@@ -377,10 +469,12 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	
-	if (!check_selection(selection, &model, &iter, view))
+	if (!check_selection(view->priv->tree_view_staged, &iter, view))
 		return;
 	
+	model = gtk_tree_view_get_model(view->priv->tree_view_staged);
 	unselect_tree_view(view->priv->tree_view_unstaged);
+
 	GitgChangedFile *file;
 	
 	gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
@@ -671,6 +765,145 @@ initialize_buffer(GitgCommitView *view)
 	return buffer;
 }
 
+static GtkTargetEntry dnd_entries[] = {
+	{"text/uri-list", 0, 1}
+};
+
+static void
+on_tree_view_drag_data_get (GtkWidget        *widget,
+                            GdkDragContext   *context,
+                            GtkSelectionData *selection,
+                            guint             info,
+                            guint             time,
+                            GitgCommitView   *view)
+{
+	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
+	GtkTreeModel *model;
+	GList *selected;
+	GList *item;
+	gchar **uris;
+	guint i = 0;
+
+	get_selected_files(GTK_TREE_VIEW(widget), &selected, NULL, NULL, NULL);	
+	uris = g_new(gchar *, g_list_length(selected) + 1);
+	
+	for (item = selected; item; item = g_list_next(item))
+	{
+		GitgChangedFile *file = GITG_CHANGED_FILE (item->data);
+		GFile *gf = gitg_changed_file_get_file(file);
+	
+		uris[i++] = g_file_get_uri(gf);
+		g_object_unref(gf);
+	}
+	
+	uris[i] = NULL;
+	gtk_selection_data_set_uris(selection, uris);
+
+	g_strfreev(uris);
+
+	g_list_foreach(selected, (GFunc)g_object_unref, NULL);
+	g_list_free(selected);
+}
+
+static void
+on_tree_view_staged_drag_data_received(GtkWidget        *widget,
+                                       GdkDragContext   *drag_context,
+                                       gint              x,
+                                       gint              y,
+                                       GtkSelectionData *data,
+                                       guint             info,
+                                       guint             time,
+                                       GitgCommitView   *view)
+{
+	/* Stage all the files dropped on this */
+	gchar **uris = gtk_selection_data_get_uris(data);
+	gchar **uri;
+	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
+
+	for (uri = uris; *uri; ++uri)
+	{
+		GFile *file = g_file_new_for_uri(*uri);
+		GitgChangedFile *f;
+
+		f = gitg_commit_find_changed_file(view->priv->commit, file);
+		
+		if (f && (gitg_changed_file_get_changes(f) & GITG_CHANGED_FILE_CHANGES_UNSTAGED))
+		{
+			gitg_commit_stage(view->priv->commit, f, NULL, NULL);
+		}
+		
+		g_object_unref(f);
+		g_object_unref(file);
+	}
+}
+
+static void
+on_tree_view_unstaged_drag_data_received(GtkWidget        *widget,
+                                         GdkDragContext   *drag_context,
+                                         gint              x,
+                                         gint              y,
+                                         GtkSelectionData *data,
+                                         guint             info,
+                                         guint             time,
+                                         GitgCommitView   *view)
+{
+	/* Unstage all the files dropped on this */
+	gchar **uris = gtk_selection_data_get_uris(data);
+	gchar **uri;
+	
+	for (uri = uris; *uri; ++uri)
+	{
+		GFile *file = g_file_new_for_uri(*uri);
+		GitgChangedFile *f;
+
+		f = gitg_commit_find_changed_file(view->priv->commit, file);
+		
+		if (f && (gitg_changed_file_get_changes(f) & GITG_CHANGED_FILE_CHANGES_CACHED))
+		{
+			gitg_commit_unstage(view->priv->commit, f, NULL, NULL);
+		}
+		
+		g_object_unref(f);
+		g_object_unref(file);
+	}
+}
+
+static void
+initialize_dnd(GitgCommitView *view, 
+               GtkTreeView    *tree_view,
+               GCallback       drag_data_received)
+{
+	gtk_tree_view_enable_model_drag_dest(tree_view,
+	                                     dnd_entries,
+	                                     G_N_ELEMENTS(dnd_entries),
+	                                     GDK_ACTION_COPY);
+
+	gtk_tree_view_enable_model_drag_source(tree_view,
+	                                      GDK_BUTTON1_MASK,
+	                                      dnd_entries,
+	                                      G_N_ELEMENTS(dnd_entries),
+	                                      GDK_ACTION_COPY);
+
+	g_signal_connect(tree_view, "drag-data-get", G_CALLBACK(on_tree_view_drag_data_get), view);
+	g_signal_connect(tree_view, "drag-data-received", G_CALLBACK(drag_data_received), view);
+}
+
+static void
+initialize_dnd_staged(GitgCommitView *view)
+{
+	initialize_dnd(view,
+	               view->priv->tree_view_staged,
+	               G_CALLBACK(on_tree_view_staged_drag_data_received));
+}
+
+static void
+initialize_dnd_unstaged(GitgCommitView *view)
+{
+	initialize_dnd(view,
+	               view->priv->tree_view_unstaged,
+	               G_CALLBACK(on_tree_view_unstaged_drag_data_received));
+}
+
 static void
 gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
@@ -696,6 +929,9 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	
 	self->priv->hscale_context = GTK_HSCALE(gtk_builder_get_object(builder, "hscale_context"));
 	self->priv->group_context = GTK_ACTION_GROUP(gtk_builder_get_object(builder, "action_group_commit_context"));
+	
+	initialize_dnd_staged(self);
+	initialize_dnd_unstaged(self);
 	
 	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	GdkPixbuf *pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_ADD, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
@@ -726,8 +962,16 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	set_icon_data_func(self, self->priv->tree_view_unstaged, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "unstaged_cell_renderer_icon")));
 	set_icon_data_func(self, self->priv->tree_view_staged, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "staged_cell_renderer_icon")));
 	
-	g_signal_connect(gtk_tree_view_get_selection(self->priv->tree_view_unstaged), "changed", G_CALLBACK(unstaged_selection_changed), self);
-	g_signal_connect(gtk_tree_view_get_selection(self->priv->tree_view_staged), "changed", G_CALLBACK(staged_selection_changed), self);
+	GtkTreeSelection *selection;
+	
+	selection = gtk_tree_view_get_selection(self->priv->tree_view_unstaged);
+	
+	gtk_tree_selection_set_mode(selection, GTK_SELECTION_MULTIPLE);
+	g_signal_connect(selection, "changed", G_CALLBACK(unstaged_selection_changed), self);
+	
+	selection = gtk_tree_view_get_selection(self->priv->tree_view_staged);
+	gtk_tree_selection_set_mode(selection, GTK_SELECTION_MULTIPLE);
+	g_signal_connect(selection, "changed", G_CALLBACK(staged_selection_changed), self);
 	
 	g_signal_connect(self->priv->tree_view_unstaged, "event-after", G_CALLBACK(on_unstaged_button_press), self);
 	g_signal_connect(self->priv->tree_view_staged, "event-after", G_CALLBACK(on_staged_button_press), self);
@@ -1211,24 +1455,18 @@ on_context_value_changed(GtkHScale *scale, GitgCommitView *view)
 static gboolean
 set_unstaged_popup_status(GitgCommitView *view)
 {
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(view->priv->tree_view_unstaged);
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	
-	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
+	GitgChangedFileChanges changes;
+	GitgChangedFileStatus status;
+
+	if (!get_selected_files(view->priv->tree_view_unstaged, NULL, NULL, &changes, &status))
 		return FALSE;
-	
-	GitgChangedFile *file;
-	gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
 	
 	GtkAction *revert = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/RevertChangesAction");
 	GtkAction *ignore = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/IgnoreFileAction");
-	gboolean isnew = gitg_changed_file_get_status(file) == GITG_CHANGED_FILE_STATUS_NEW;
+	gboolean isnew = status == GITG_CHANGED_FILE_STATUS_NEW;
 
 	gtk_action_set_visible(revert, !isnew);
 	gtk_action_set_visible(ignore, isnew);
-	
-	g_object_unref(file);
 	
 	return TRUE;
 }
@@ -1236,11 +1474,7 @@ set_unstaged_popup_status(GitgCommitView *view)
 static gboolean
 set_staged_popup_status(GitgCommitView *view)
 {
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(view->priv->tree_view_staged);
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	
-	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
+	if (!get_selected_files(view->priv->tree_view_staged, NULL, NULL, NULL, NULL))
 		return FALSE;
 	
 	return TRUE;	
@@ -1320,7 +1554,6 @@ on_stage_changes(GtkAction *action, GitgCommitView *view)
 			return;
 		
 		gitg_commit_stage(view->priv->commit, file, NULL, NULL);
-		g_object_unref(file);
 	}
 	else
 	{
