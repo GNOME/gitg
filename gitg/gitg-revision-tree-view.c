@@ -276,9 +276,11 @@ export_drag_files(GitgRevisionTreeView *tree_view)
 
 	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);
 	gint num = g_list_length(rows);
-
-	if (num == 0)
+	
+	if (num == 0) {
+		g_list_free(rows);
 		return;
+	}
 
 	GList *item;
 
