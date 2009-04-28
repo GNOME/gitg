@@ -266,9 +266,9 @@ search_hash_equal_func(GtkTreeModel *model, gchar const *key, GtkTreeIter *iter)
 	gtk_tree_model_get(model, iter, 0, &rv, -1);
 
 	gchar *sha = gitg_revision_get_sha1(rv);
-
-	gboolean ret = strncmp(sha, key, strlen(key)) != 0;
-
+	
+	gboolean ret = !g_str_has_prefix(sha, key);
+	
 	g_free(sha);
 	gitg_revision_unref(rv);
 
