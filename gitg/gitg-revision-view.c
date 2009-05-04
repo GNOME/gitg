@@ -541,7 +541,7 @@ on_diff_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionView *se
 		const gchar *cached = NULL;
 		
 		if (sign == 't')
-			cached == "--cached";
+			cached = "--cached";
 
 		gitg_repository_run_commandv(self->priv->repository, self->priv->diff_files_runner, NULL,
 									"diff-index", "--raw", "-M", "--abbrev=40", head, cached, NULL);
