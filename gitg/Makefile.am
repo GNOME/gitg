@@ -1,6 +1,6 @@
 bin_PROGRAMS = gitg
 
-INCLUDES =							\
+AM_CPPFLAGS =							\
 	-I$(top_srcdir)						\
 	-I$(srcdir)						\
 	$(PACKAGE_CFLAGS)					\
