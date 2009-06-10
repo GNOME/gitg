@@ -1,0 +1,346 @@
+# Danish translation of gitg.
+# Copyright (C) 2009 gitg's COPYRIGHT HOLDER.
+# This file is distributed under the same license as the gitg package.
+# Joe Hansen <joedalton2@yahoo.dk>, 2009.
+# Korrekturlæst Lars Christian Jensen 6. juni 2009.
+#
+# staged -> igangsat
+# Der er ikke anvendt accenter.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gitg master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-11 01:14+0200\n"
+"PO-Revision-Date: 2009-06-05 13:01+01:00\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../data/gitg.desktop.in.in.h:1
+msgid "Git repository browser"
+msgstr "Arkivbrowseren Git"
+
+#. Translators: this is the application name as in g_set_application_name
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:169 ../gitg/gitg-window.c:788
+#: ../gitg/gitg-window.c:806 ../gitg/gitg-ui.xml.h:32
+msgid "gitg"
+msgstr "gitg"
+
+#: ../data/gitg.schemas.in.h:1
+msgid "Filter Revisions When Searching"
+msgstr "Filterændringer under søgning"
+
+#: ../data/gitg.schemas.in.h:2
+msgid ""
+"Setting that indicates when an inactive lane should be collapsed. Valid "
+"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+msgstr ""
+"Indstilling som indikerer at en inaktiv bane bør foldes sammen. Gyldige "
+"værdier er 0-4, hvor 0 indikerer 'tidlig' og 4 indikerer 'sent'."
+
+#: ../data/gitg.schemas.in.h:3
+msgid "When to Collapse Inactive Lanes"
+msgstr "Hvornår inaktive baner skal foldes sammen"
+
+#: ../data/gitg.schemas.in.h:4
+msgid ""
+"Whether searching filters the revisions in the history view instead of "
+"jumping to the first match."
+msgstr ""
+"Hvorvidt søgning filtrerer ændringerne i historikken i steden for at gå til "
+"det første hit."
+
+#: ../gitg/gitg.c:43
+msgid "Start gitg in commit mode"
+msgstr "Start gitg i integreringstilstand"
+
+#: ../gitg/gitg.c:53
+msgid "- git repository viewer"
+msgstr "- arkivviseren git"
+
+#: ../gitg/gitg-commit-view.c:204 ../gitg/gitg-revision-tree-view.c:181
+msgid "Cannot display file content as text"
+msgstr "Kan ikke vise filindhold som tekst"
+
+#: ../gitg/gitg-commit-view.c:1410
+msgid "You must first stage some changes before committing"
+msgstr "Du skal først igangsætte nogle ændringer før du integrerer"
+
+#: ../gitg/gitg-commit-view.c:1418
+msgid "Please enter a commit message before committing"
+msgstr "Indtast venligst en integreringstekst før du integrerer"
+
+#: ../gitg/gitg-commit-view.c:1429
+msgid ""
+"Your user name or email could not be retrieved for use in the sign off "
+"message"
+msgstr ""
+"Dit brugernavn eller e-post kunne ikke indhentes til brug for afslutbeskeden"
+
+#: ../gitg/gitg-commit-view.c:1431
+msgid "Something went wrong while trying to commit"
+msgstr "Noget gik galt mens du integrerede"
+
+#: ../gitg/gitg-commit-view.c:1588
+msgid "Revert fail"
+msgstr "Fortryd fejl"
+
+#: ../gitg/gitg-commit-view.c:1599
+msgid "Are you sure you want to revert these changes?"
+msgstr "Er du sikker på, at du ønsker at fortryde disse ændringer?"
+
+#: ../gitg/gitg-commit-view.c:1602
+msgid "Reverting changes is permanent and cannot be undone"
+msgstr "Fortrydelse af ændringer er endelig og kan ikke gøres om"
+
+# godt nok i tvivl her (igangsatte, trin, etape måske arrangerede ændringer)
+#: ../gitg/gitg-repository.c:472
+msgid "Staged changes"
+msgstr "Igangsatte ændringer"
+
+#: ../gitg/gitg-repository.c:474
+msgid "Unstaged changes"
+msgstr "Ændringer der ikke er igangsat"
+
+#: ../gitg/gitg-repository.c:981
+msgid "Not a valid git repository"
+msgstr "Ikke et gyldigt gitarkiv"
+
+#: ../gitg/gitg-revision-tree-view.c:507
+msgid "(Empty)"
+msgstr "(Tom)"
+
+#: ../gitg/gitg-window.c:347
+msgid "Select branch"
+msgstr "Vælg gren"
+
+#: ../gitg/gitg-window.c:533
+msgid "Begin loading repository"
+msgstr "Begynd indlæsning af arkiv"
+
+#: ../gitg/gitg-window.c:542
+#, c-format
+msgid "Loaded %d revisions in %.2fs"
+msgstr "Indlæste %d ændringer i %.2fs"
+
+#: ../gitg/gitg-window.c:553
+#, c-format
+msgid "Loading %d revisions..."
+msgstr "Indlæser %d ændringer..."
+
+#: ../gitg/gitg-window.c:562
+msgid "Could not find git repository"
+msgstr "Kunne ikke finde gitarkiv"
+
+#: ../gitg/gitg-window.c:698
+msgid "All branches"
+msgstr "Alle grene"
+
+#: ../gitg/gitg-window.c:863
+msgid "Open git repository"
+msgstr "Åbn gitarkiv"
+
+#: ../gitg/gitg-window.c:988
+msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgstr "gitg er en læser til gitarkiver for gtk'/GNOME"
+
+#: ../gitg/gitg-window.c:989
+msgid ""
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 59 Temple Place, Suite 330,\n"
+"Boston, MA 02111-1307, USA."
+msgstr ""
+
+#: ../gitg/gitg-ui.xml.h:1
+msgid "Add signed-off-by"
+msgstr "Tilføj godkendt-af"
+
+#: ../gitg/gitg-ui.xml.h:2
+msgid "Author"
+msgstr "Forfatter"
+
+#: ../gitg/gitg-ui.xml.h:3
+msgid "Author:"
+msgstr "Forfatter:"
+
+#: ../gitg/gitg-ui.xml.h:4
+msgid "Branch:"
+msgstr "Gren:"
+
+#: ../gitg/gitg-ui.xml.h:5
+msgid "Co_mmit message"
+msgstr "In_tegrer besked"
+
+#: ../gitg/gitg-ui.xml.h:6
+msgid "Commit"
+msgstr "Integrer"
+
+#: ../gitg/gitg-ui.xml.h:7
+msgid "Context:"
+msgstr "Kontekst:"
+
+#: ../gitg/gitg-ui.xml.h:8
+msgid "Date"
+msgstr "Dato"
+
+#: ../gitg/gitg-ui.xml.h:9
+msgid "Date:"
+msgstr "Dato:"
+
+#: ../gitg/gitg-ui.xml.h:10
+msgid "Details"
+msgstr "Detaljer"
+
+#: ../gitg/gitg-ui.xml.h:11
+msgid "Filename"
+msgstr "Filnavn"
+
+#: ../gitg/gitg-ui.xml.h:12
+msgid "History"
+msgstr "Historik"
+
+#: ../gitg/gitg-ui.xml.h:13
+msgid "Ignore"
+msgstr "Ignorer"
+
+#: ../gitg/gitg-ui.xml.h:14
+msgid "Parent:"
+msgstr "Forældre:"
+
+#: ../gitg/gitg-ui.xml.h:15
+msgid "R_ecently Opened"
+msgstr "Åbn_et for nylig"
+
+#: ../gitg/gitg-ui.xml.h:16
+msgid "Revert"
+msgstr "Fortryd"
+
+#: ../gitg/gitg-ui.xml.h:17
+msgid "SHA:"
+msgstr "SHA:"
+
+#: ../gitg/gitg-ui.xml.h:18
+msgid "Stage"
+msgstr "Igangsætte"
+
+#: ../gitg/gitg-ui.xml.h:19
+msgid "Subject"
+msgstr "Emne"
+
+#: ../gitg/gitg-ui.xml.h:20
+msgid "Subject:"
+msgstr "Emne:"
+
+#: ../gitg/gitg-ui.xml.h:21
+msgid "Tree"
+msgstr "Træ"
+
+#: ../gitg/gitg-ui.xml.h:22
+msgid "Unstage"
+msgstr "Fortryde igangsættelse"
+
+#: ../gitg/gitg-ui.xml.h:23
+msgid "Unstaged"
+msgstr "Ikke igangsat"
+
+#: ../gitg/gitg-ui.xml.h:24
+msgid "_Changes"
+msgstr "_Ændringer"
+
+#: ../gitg/gitg-ui.xml.h:25
+msgid "_Edit"
+msgstr "_Rediger"
+
+#: ../gitg/gitg-ui.xml.h:26
+msgid "_File"
+msgstr "_Fil"
+
+#: ../gitg/gitg-ui.xml.h:27
+msgid "_Help"
+msgstr "_Hjælp"
+
+#: ../gitg/gitg-ui.xml.h:28
+msgid "_Open..."
+msgstr "_Åbn..."
+
+#: ../gitg/gitg-ui.xml.h:29
+msgid "_Staged"
+msgstr "Igang_sat"
+
+#: ../gitg/gitg-ui.xml.h:30
+msgid "_Unstaged"
+msgstr "_Ikke igangsat"
+
+#: ../gitg/gitg-ui.xml.h:31
+msgid "_View"
+msgstr "_Vis"
+
+#: ../gitg/gitg-menus.xml.h:1
+msgid "_Author"
+msgstr "_Forfatter"
+
+#: ../gitg/gitg-menus.xml.h:2
+msgid "_Date"
+msgstr "_Dato"
+
+#: ../gitg/gitg-menus.xml.h:3
+msgid "_Hash"
+msgstr "_Hash"
+
+#: ../gitg/gitg-menus.xml.h:4
+msgid "_Subject"
+msgstr "_Emne"
+
+#: ../gitg/gitg-preferences.xml.h:1
+msgid "<b>History</b>"
+msgstr "<b>Historik</b>"
+
+#: ../gitg/gitg-preferences.xml.h:2
+msgid "Collapse inactive lanes"
+msgstr "Fold inaktive baner sammen"
+
+#: ../gitg/gitg-preferences.xml.h:3
+msgid "Early"
+msgstr "Tidlig"
+
+#: ../gitg/gitg-preferences.xml.h:4
+msgid "Late"
+msgstr "Sent"
+
+#: ../gitg/gitg-preferences.xml.h:5
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: ../gitg/gitg-preferences.xml.h:6
+msgid "Search filters revisions in the history view"
+msgstr "Søg filterændringer i historikvisningen"
+
+#: ../gitg/gitg-preferences.xml.h:7
+msgid "Show staged changes in history"
+msgstr "Vis igangsatte ændringer i historikken"
+
+#: ../gitg/gitg-preferences.xml.h:8
+msgid "Show stash in history"
+msgstr "Vis opbevaring i historikken"
+
+#: ../gitg/gitg-preferences.xml.h:9
+msgid "Show unstaged changes in history"
+msgstr "Vis ændringer der ikke er igangsat i historikken"
+
+#: ../gitg/gitg-preferences.xml.h:10
+msgid "View"
+msgstr "Vis"
