@@ -44,7 +44,8 @@ gitg_label_renderer_width(GtkWidget *widget, PangoFontDescription *font, GSList 
 	{
 		gint w;
 		GitgRef *ref = (GitgRef *)item->data;
-		gchar *smaller = g_strdup_printf("<span size='smaller'>%s</span>", ref->shortname);
+		gchar *smaller = g_strdup_printf("<span size='smaller'>%s</span>", 
+		                                 gitg_ref_get_shortname(ref));
 		pango_layout_set_markup(layout, smaller, -1);
 		
 		pango_layout_get_pixel_size(layout, &w, NULL);
@@ -114,7 +115,8 @@ gitg_label_renderer_draw(GtkWidget *widget, PangoFontDescription *font, cairo_t 
 		GitgRef *ref = (GitgRef *)item->data;
 		gint w;
 		gint h;
-		gchar *smaller = g_strdup_printf("<span size='smaller'>%s</span>", ref->shortname);
+		gchar *smaller = g_strdup_printf("<span size='smaller'>%s</span>", 
+		                                 gitg_ref_get_shortname(ref));
 		
 		pango_layout_set_markup(layout, smaller, -1);
 		pango_layout_get_pixel_size(layout, &w, &h);
@@ -123,7 +125,7 @@ gitg_label_renderer_draw(GtkWidget *widget, PangoFontDescription *font, cairo_t 
 		rounded_rectangle(context, pos + 0.5, area->y + MARGIN + 0.5, w + PADDING * 2, area->height - MARGIN * 2, 5);
 		
 		
-		set_source_for_ref_type(context, ref->type);
+		set_source_for_ref_type(context, gitg_ref_get_ref_type(ref));
 		cairo_fill_preserve(context);
 		
 		cairo_set_source_rgb(context, 0, 0, 0);

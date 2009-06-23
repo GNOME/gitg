@@ -42,11 +42,17 @@
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
+enum
+{
+	COLUMN_BRANCHES_NAME,
+	COLUMN_BRANCHES_REF
+};
+
 struct _GitgWindowPrivate
 {
 	GitgRepository *repository;
 
-	GtkListStore *branches_store;
+	GtkTreeStore *branches_store;
 
 	/* Widget placeholders */
 	GtkNotebook *notebook_main;
@@ -64,7 +70,8 @@ struct _GitgWindowPrivate
 	
 	GtkActionGroup *edit_group;
 	GtkWidget *open_dialog;
-	gchar *current_branch;
+
+	GitgRef *current_branch;
 	GitgCellRendererPath *renderer_path;
 	
 	GTimer *load_timer;
@@ -89,7 +96,8 @@ gitg_window_finalize(GObject *object)
 {
 	GitgWindow *self = GITG_WINDOW(object);
 	
-	g_free(self->priv->current_branch);
+	gitg_ref_free(self->priv->current_branch);
+
 	g_timer_destroy(self->priv->load_timer);
 	gdk_cursor_unref(self->priv->hand);
 	
@@ -304,12 +312,20 @@ on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkT
 static gboolean
 branches_separator_func(GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 {
-	gchar *t;
+	gchar *name;
+	GitgRef *ref;
 	
-	gtk_tree_model_get(model, iter, 0, &t, -1);
-	gboolean ret = t == NULL;
+	gtk_tree_model_get(model, 
+	                   iter, 
+	                   COLUMN_BRANCHES_NAME, &name, 
+	                   COLUMN_BRANCHES_REF, &ref,
+	                   -1);
+
+	gboolean ret = (name == NULL && ref == NULL);
 	
-	g_free(t);
+	g_free(name);
+	gitg_ref_free(ref);
+
 	return ret;
 }
 
@@ -327,9 +343,26 @@ on_branches_combo_changed(GtkComboBox *combo, GitgWindow *window)
 	next = iter;
 	
 	if (!gtk_tree_model_iter_next(gtk_combo_box_get_model(combo), &next))
+	{
 		name = g_strdup("--all");
+	}
 	else
-		gtk_tree_model_get(gtk_combo_box_get_model(combo), &iter, 0, &name, -1);
+	{
+		GitgRef *ref;
+		
+		gtk_tree_model_get(gtk_combo_box_get_model(combo), 
+		                   &iter, 
+		                   COLUMN_BRANCHES_REF, &ref, 
+		                   -1);
+		
+		if (ref == NULL)
+		{
+			return;
+		}
+		
+		name = g_strdup(gitg_ref_get_name(ref));
+		gitg_ref_free(ref);
+	}
 
 	gitg_repository_load(window->priv->repository, 1, (gchar const **)&name, NULL);
 	g_free(name);
@@ -339,12 +372,16 @@ static void
 build_branches_combo(GitgWindow *window, GtkBuilder *builder)
 {
 	GtkComboBox *combo = GTK_COMBO_BOX(gtk_builder_get_object(builder, "combo_box_branches"));
-	window->priv->branches_store = gtk_list_store_new(1, G_TYPE_STRING);
+	window->priv->branches_store = gtk_tree_store_new(2, G_TYPE_STRING, GITG_TYPE_REF);
 	window->priv->combo_branches = combo;
 
 	GtkTreeIter iter;
-	gtk_list_store_append(window->priv->branches_store, &iter);
-	gtk_list_store_set(window->priv->branches_store, &iter, 0, _("Select branch"), -1);
+	gtk_tree_store_append(window->priv->branches_store, &iter, NULL);
+	gtk_tree_store_set(window->priv->branches_store, 
+	                   &iter, 
+	                   COLUMN_BRANCHES_NAME, _("Select branch"),
+	                   COLUMN_BRANCHES_REF, NULL, 
+	                   -1);
 	
 	gtk_combo_box_set_model(combo, GTK_TREE_MODEL(window->priv->branches_store));
 	gtk_combo_box_set_active(combo, 0);
@@ -606,20 +643,26 @@ create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
 }
 
 static int
-sort_by_ref_type(GitgRef const *a, GitgRef const *b)
+sort_by_ref_type(GitgRef *a, GitgRef *b)
 {
-	if (a->type == b->type)
+	if (gitg_ref_get_ref_type(a) == gitg_ref_get_ref_type(b))
 	{
-		if (g_ascii_strcasecmp(a->shortname, "master") == 0)
+		if (g_ascii_strcasecmp(gitg_ref_get_shortname(a), "master") == 0)
+		{
 			return -1;
-		else if (g_ascii_strcasecmp(b->shortname, "master") == 0)
+		}
+		else if (g_ascii_strcasecmp(gitg_ref_get_shortname(b), "master") == 0)
+		{
 			return 1;
+		}
 		else
-			return g_ascii_strcasecmp(a->shortname, b->shortname);
+		{
+			return g_ascii_strcasecmp(gitg_ref_get_shortname(a), gitg_ref_get_shortname(b));
+		}
 	}
 	else
 	{
-		return a->type - b->type;
+		return gitg_ref_get_ref_type(a) - gitg_ref_get_ref_type(b);
 	}
 }
 
@@ -631,19 +674,24 @@ clear_branches_combo(GitgWindow *window, gboolean keepselection)
 		GtkTreeIter iter;
 		gtk_combo_box_get_active_iter(GTK_COMBO_BOX(window->priv->combo_branches), &iter);
 		
-		g_free(window->priv->current_branch);
-		gtk_tree_model_get(GTK_TREE_MODEL(window->priv->branches_store), &iter, 0, &window->priv->current_branch, -1);
+		gitg_ref_free(window->priv->current_branch);
+
+		gtk_tree_model_get(GTK_TREE_MODEL(window->priv->branches_store), 
+		                   &iter, 
+		                   COLUMN_BRANCHES_REF, &window->priv->current_branch, 
+		                   -1);
 	}
 	else
 	{
-		g_free(window->priv->current_branch);
+		gitg_ref_free(window->priv->current_branch);
 		window->priv->current_branch = NULL;
 	}
 		
 	GtkTreeIter iter;	
+
 	if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(window->priv->branches_store), &iter, NULL, 1))
 	{
-		while (gtk_list_store_remove(window->priv->branches_store, &iter))
+		while (gtk_tree_store_remove(window->priv->branches_store, &iter))
 		;
 	}
 
@@ -665,37 +713,78 @@ fill_branches_combo(GitgWindow *window)
 	
 	refs = g_slist_sort(refs, (GCompareFunc)sort_by_ref_type);
 	GSList *item;
+	
 	GitgRefType prevtype = GITG_REF_TYPE_NONE;
 	GtkTreeIter iter;
-
+	GtkTreeIter parent;
+	GitgRef *parentref = NULL;
+	GtkTreeStore *store = window->priv->branches_store;
+	
 	for (item = refs; item; item = item->next)
 	{
 		GitgRef *ref = (GitgRef *)item->data;
 		
-		if (!(ref->type == GITG_REF_TYPE_REMOTE || 
-			  ref->type == GITG_REF_TYPE_BRANCH))
+		if (!(gitg_ref_get_ref_type(ref) == GITG_REF_TYPE_REMOTE || 
+			  gitg_ref_get_ref_type(ref) == GITG_REF_TYPE_BRANCH))
 			continue;
 
-		if (ref->type != prevtype)
+		if (gitg_ref_get_ref_type(ref) != prevtype)
 		{
-			gtk_list_store_append(window->priv->branches_store, &iter);
-			gtk_list_store_set(window->priv->branches_store, &iter, 0, NULL, -1);
+			gtk_tree_store_append(store, &iter, NULL);
+			gtk_tree_store_set(store, 
+			                   &iter, 
+			                   COLUMN_BRANCHES_NAME, NULL, 
+			                   COLUMN_BRANCHES_REF, NULL,
+			                   -1);
 			
-			prevtype = ref->type;
+			prevtype = gitg_ref_get_ref_type(ref);
 		}
 
-		gtk_list_store_append(window->priv->branches_store, &iter);
-		gtk_list_store_set(window->priv->branches_store, &iter, 0, ref->shortname, -1);
+		if (gitg_ref_get_prefix(ref))
+		{
+			if (!parentref || !gitg_ref_equal_prefix(parentref, ref))
+			{
+				parentref = ref;
+
+				gtk_tree_store_append(store, &parent, NULL);
+				gtk_tree_store_set(store,
+				                   &parent,
+				                   COLUMN_BRANCHES_NAME, gitg_ref_get_prefix(ref),
+				                   COLUMN_BRANCHES_REF, NULL,
+				                   -1);
+			}
+			
+			gtk_tree_store_append(window->priv->branches_store, &iter, &parent);
+		}
+		else
+		{
+			gtk_tree_store_append(window->priv->branches_store, &iter, NULL);
+		}
+
+		gtk_tree_store_set(window->priv->branches_store, 
+		                   &iter, 
+		                   COLUMN_BRANCHES_NAME, gitg_ref_get_shortname(ref), 
+		                   COLUMN_BRANCHES_REF, ref, 
+		                   -1);
 		
-		if (g_strcmp0(window->priv->current_branch, ref->shortname) == 0)
+		if (window->priv->current_branch && gitg_ref_equal(window->priv->current_branch, ref) == 0)
+		{
 			gtk_combo_box_set_active_iter(window->priv->combo_branches, &iter);
+		}
 	}
 	
-	gtk_list_store_append(window->priv->branches_store, &iter);
-	gtk_list_store_set(window->priv->branches_store, &iter, 0, NULL, -1);
+	gtk_tree_store_append(store, &iter, NULL);
+	gtk_tree_store_set(store, 
+	                   &iter, 
+	                   COLUMN_BRANCHES_NAME, NULL, 
+	                   COLUMN_BRANCHES_REF, NULL, -1);
 
-	gtk_list_store_append(window->priv->branches_store, &iter);
-	gtk_list_store_set(window->priv->branches_store, &iter, 0, _("All branches"), -1);
+	gtk_tree_store_append(store, &iter, NULL);
+	gtk_tree_store_set(store, 
+	                   &iter,
+	                   COLUMN_BRANCHES_NAME, _("All branches"),
+	                   COLUMN_BRANCHES_REF, NULL, 
+	                   -1);
 	
 	if (!window->priv->current_branch)
 		gtk_combo_box_set_active(window->priv->combo_branches, 0);

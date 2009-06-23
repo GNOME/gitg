@@ -589,10 +589,11 @@ loader_update_commits(GitgRepository *self, gchar **buffer)
 		gint64 timestamp = g_ascii_strtoll(components[4], NULL, 0);
 	
 		GitgRevision *rv = gitg_revision_new(components[0], components[1], components[2], components[3], timestamp);
-		GSList *lanes;
 		
 		if (len > 5 && strlen(components[5]) == 1 && strchr("<>-^", *components[5]) != NULL)
+		{
 			gitg_revision_set_sign(rv, *components[5]);
+		}
 
 		append_revision(self, rv);
 		g_strfreev(components);
@@ -830,12 +831,19 @@ static GitgRef *
 add_ref(GitgRepository *self, gchar const *sha1, gchar const *name)
 {
 	GitgRef *ref = gitg_ref_new(sha1, name);
-	GSList *refs = (GSList *)g_hash_table_lookup(self->priv->refs, ref->hash);
+	GSList *refs = (GSList *)g_hash_table_lookup(self->priv->refs, 
+	                                             gitg_ref_get_hash(ref));
 	
 	if (refs == NULL)
-		g_hash_table_insert(self->priv->refs, ref->hash, g_slist_append(NULL, ref));
+	{
+		g_hash_table_insert(self->priv->refs, 
+		                    (gpointer)gitg_ref_get_hash(ref), 
+		                    g_slist_append(NULL, ref));
+	}
 	else
+	{
 		refs = g_slist_append(refs, ref);
+	}
 	
 	return ref;
 }

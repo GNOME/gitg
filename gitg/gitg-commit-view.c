@@ -777,8 +777,6 @@ on_tree_view_drag_data_get (GtkWidget        *widget,
                             guint             time,
                             GitgCommitView   *view)
 {
-	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
-	GtkTreeModel *model;
 	GList *selected;
 	GList *item;
 	gchar **uris;
@@ -818,7 +816,6 @@ on_tree_view_staged_drag_data_received(GtkWidget        *widget,
 	/* Stage all the files dropped on this */
 	gchar **uris = gtk_selection_data_get_uris(data);
 	gchar **uri;
-	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 
 	for (uri = uris; *uri; ++uri)
 	{

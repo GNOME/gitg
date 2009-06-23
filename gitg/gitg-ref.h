@@ -23,7 +23,14 @@
 #ifndef __GITG_REF_H__
 #define __GITG_REF_H__
 
+#include <glib-object.h>
 #include "gitg-types.h"
+
+G_BEGIN_DECLS
+
+#define GITG_TYPE_REF					(gitg_ref_get_type ())
+#define GITG_REF(obj)					((GitgRef *)obj)
+#define GITG_REF_CONST(obj)				((GitgRef const *)obj)
 
 typedef enum
 {
@@ -33,17 +40,30 @@ typedef enum
 	GITG_REF_TYPE_TAG
 } GitgRefType;
 
-typedef struct
-{
-	Hash hash;
-	GitgRefType type;
-	gchar *name;
-	gchar *shortname;
-} GitgRef;
+typedef struct _GitgRef GitgRef;
 
-GitgRef *gitg_ref_new(gchar const *hash, gchar const *name);
-void gitg_ref_free(GitgRef *ref);
-GitgRef *gitg_ref_copy(GitgRef *ref);
+GType 			 gitg_ref_get_type 				(void) G_GNUC_CONST;
+
+GitgRef 		*gitg_ref_new					(gchar const *hash, 
+                                                 gchar const *name);
+
+gchar const 	*gitg_ref_get_hash				(GitgRef     *ref);
+GitgRefType 	 gitg_ref_get_ref_type			(GitgRef     *ref);
+gchar const 	*gitg_ref_get_name				(GitgRef     *ref);
+
+gchar const 	*gitg_ref_get_shortname			(GitgRef     *ref);
+gchar const 	*gitg_ref_get_prefix			(GitgRef     *ref);
+
+GitgRef			*gitg_ref_copy					(GitgRef     *ref);
+void 			 gitg_ref_free					(GitgRef     *ref);
+
+gboolean 		 gitg_ref_equal					(GitgRef     *ref, 
+                                                 GitgRef     *other);
+
+gboolean		 gitg_ref_equal_prefix			(GitgRef     *ref,
+                                                 GitgRef     *other);
+
+G_END_DECLS
 
 #endif /* __GITG_REF_H__ */
 
