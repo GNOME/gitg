@@ -42,7 +42,8 @@ G_DEFINE_TYPE_EXTENDED(GitgRepository, gitg_repository, G_TYPE_OBJECT, 0,
 	G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_MODEL, gitg_repository_tree_model_iface_init));
 
 /* Properties */
-enum {
+enum
+{
 	PROP_0,
 	
 	PROP_PATH,
@@ -870,17 +871,21 @@ reload_revisions(GitgRepository *repository, GError **error)
 	return gitg_repository_run_commandv(repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "-g", "refs/stash", NULL);
 }
 
-static gboolean
-load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error)
+static void
+build_log_args(GitgRepository *self, gint argc, gchar const **av)
 {
 	gchar **argv = g_new0(gchar *, 5 + (argc > 0 ? argc - 1 : 0));
 
 	argv[0] = g_strdup("log");
 	
 	if (has_left_right(av, argc))
+	{
 		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at\x01%m");
+	}
 	else
+	{
 		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
+	}
 	
 	gchar *head = NULL;
 	
@@ -889,7 +894,9 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 		head = gitg_repository_parse_ref(self, "HEAD");
 		
 		if (head)
+		{
 			argv[2] = g_strdup("HEAD");
+		}
 		
 		g_free(head);
 	}
@@ -898,13 +905,13 @@ load_revisions(GitgRepository *self, gint argc, gchar const **av, GError **error
 		int i;
 
 		for (i = 0; i < argc; ++i)
+		{
 			argv[2 + i] = g_strdup(av[i]);
+		}
 	}
 
 	g_strfreev(self->priv->last_args);
 	self->priv->last_args = argv;
-	
-	return reload_revisions(self, error);
 }
 
 static gchar *
@@ -912,18 +919,32 @@ load_current_ref(GitgRepository *self)
 {
 	gchar **out;
 	gchar *ret = NULL;
+	gint i;
+	gint numargs;
 
-	out = gitg_repository_command_with_outputv(self, NULL, "show-branch", "--sha1-name", "--current", NULL);
+	numargs = g_strv_length(self->priv->last_args);
+
+	gchar const **argv = g_new0(gchar const *, numargs + 3);
+
+	argv[0] = "rev-parse";
+	argv[1] = "--no-flags";
+	argv[2] = "--symbolic-full-name";
+
+	for (i = 1; i < numargs; ++i)
+	{
+		argv[2 + i] = self->priv->last_args[i];
+	}
+
+	out = gitg_repository_command_with_output(self, argv, NULL);
 	
 	if (!out)
+	{
 		return NULL;
+	}
 	
 	if (*out)
 	{
-		gchar *pos = g_utf8_strchr(*out, -1, ']');
-		
-		if (pos)
-			ret = g_strndup(*out + 1, (pos - *out) - 2);
+		ret = g_strdup(*out);
 	}
 	
 	g_strfreev(out);
@@ -953,8 +974,10 @@ load_refs(GitgRepository *self)
 				gchar const *obj = len == 3 && *components[2] ? components[2] : components[1];
 				GitgRef *ref = add_ref(self, obj, components[0]);
 			
-				if (current != NULL && strncmp(obj, current, strlen(current)) == 0)
+				if (current != NULL && strcmp(gitg_ref_get_name(ref), current) == 0)
+				{
 					self->priv->current_ref = gitg_ref_copy(ref);
+				}
 			}
 		}
 		
@@ -986,19 +1009,23 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 	if (self->priv->path == NULL)
 	{
 		if (error)
+		{
 			*error = g_error_new_literal(gitg_repository_error_quark(), GITG_REPOSITORY_ERROR_NOT_FOUND, _("Not a valid git repository"));
+		}
 			
 		return FALSE;
 	}
 
 	gitg_runner_cancel(self->priv->loader);
 	gitg_repository_clear(self);
+
+	build_log_args(self, argc, av);
 	
 	/* first get the refs */
 	load_refs(self);
 	
 	/* request log (all the revision) */
-	return load_revisions(self, argc, av, error);
+	return reload_revisions(self, error);
 }
 
 void
