@@ -45,7 +45,8 @@
 enum
 {
 	COLUMN_BRANCHES_NAME,
-	COLUMN_BRANCHES_REF
+	COLUMN_BRANCHES_REF,
+	COLUMN_BRANCHES_ICON
 };
 
 struct _GitgWindowPrivate
@@ -369,7 +370,7 @@ static void
 build_branches_combo(GitgWindow *window, GtkBuilder *builder)
 {
 	GtkComboBox *combo = GTK_COMBO_BOX(gtk_builder_get_object(builder, "combo_box_branches"));
-	window->priv->branches_store = gtk_tree_store_new(2, G_TYPE_STRING, GITG_TYPE_REF);
+	window->priv->branches_store = gtk_tree_store_new(3, G_TYPE_STRING, GITG_TYPE_REF, G_TYPE_STRING);
 	window->priv->combo_branches = combo;
 
 	GtkTreeIter iter;
@@ -737,6 +738,14 @@ fill_branches_combo(GitgWindow *window)
 				                   COLUMN_BRANCHES_NAME, gitg_ref_get_prefix(ref),
 				                   COLUMN_BRANCHES_REF, NULL,
 				                   -1);
+
+				if (gitg_ref_get_ref_type(ref) == GITG_REF_TYPE_REMOTE)
+				{
+					gtk_tree_store_set(store,
+					                   &parent,
+					                   COLUMN_BRANCHES_ICON, g_strdup(GTK_STOCK_NETWORK),
+					                   -1);
+				}
 			}
 			
 			gtk_tree_store_append(window->priv->branches_store, &iter, &parent);

@@ -215,6 +215,12 @@
                             <child>
                               <object class="GtkComboBox" id="combo_box_branches">
                                 <child>
+                                  <object class="GtkCellRendererPixbuf" id="branches_renderer_icon"/>
+                                  <attributes>
+                                    <attribute name="stock-id">2</attribute>
+                                  </attributes>
+                                </child>
+                                <child>
                                   <object class="GtkCellRendererText" id="branches_renderer"/>
                                   <attributes>
                                     <attribute name="text">0</attribute>
