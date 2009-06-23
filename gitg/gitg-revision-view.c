@@ -691,7 +691,9 @@ update_parents(GitgRevisionView *self, GitgRevision *revision)
 
 static void
 update_diff(GitgRevisionView *self, GitgRepository *repository)
-{	
+{
+	GtkTreeSelection *selection;
+	
 	// First cancel a possibly still running diff
 	gitg_runner_cancel(self->priv->diff_runner);
 	gitg_runner_cancel(self->priv->diff_files_runner);
@@ -702,7 +704,16 @@ update_diff(GitgRevisionView *self, GitgRepository *repository)
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self->priv->diff));
 	gtk_text_buffer_set_text(buffer, "", 0);
 	
+	selection = gtk_tree_view_get_selection(self->priv->diff_files);
+	g_signal_handlers_block_by_func(selection,
+	                                G_CALLBACK(on_diff_files_selection_changed),
+	                                self);
+
 	gtk_list_store_clear(self->priv->list_store_diff_files);
+	
+	g_signal_handlers_unblock_by_func(selection,
+	                                  G_CALLBACK(on_diff_files_selection_changed),
+	                                  self);
 	
 	if (!self->priv->revision)
 		return;
