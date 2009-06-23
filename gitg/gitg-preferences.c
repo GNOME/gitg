@@ -42,6 +42,9 @@ enum
 	PROP_HISTORY_SHOW_VIRTUAL_STASH,
 	PROP_HISTORY_SHOW_VIRTUAL_STAGED,
 	PROP_HISTORY_SHOW_VIRTUAL_UNSTAGED,
+	
+	PROP_MESSAGE_SHOW_RIGHT_MARGIN,
+	PROP_MESSAGE_RIGHT_MARGIN_AT,
 
 	PROP_STYLE_TEXT_FOREGROUND,
 	PROP_STYLE_TEXT_BACKGROUND,
@@ -382,6 +385,35 @@ gitg_preferences_class_init(GitgPreferencesClass *klass)
 							      "HISTORY_SHOW_VIRTUAL_UNSTAGED",
 							      "Show unstaged changes in history",
 							      TRUE,
+							      G_PARAM_READWRITE));
+
+
+	install_property_binding(PROP_MESSAGE_SHOW_RIGHT_MARGIN, 
+							 "commit/message",
+							 "show-right-margin", 
+							 wrap_get_boolean,
+							 wrap_set_boolean);
+
+	g_object_class_install_property(object_class, PROP_MESSAGE_SHOW_RIGHT_MARGIN,
+					 g_param_spec_boolean("message-show-right-margin",
+							      "MESSAGE_SHOW_RIGHT_MARGIN",
+							      "Show right margin in commit message view",
+							      TRUE,
+							      G_PARAM_READWRITE));
+
+	install_property_binding(PROP_MESSAGE_RIGHT_MARGIN_AT, 
+							 "commit/message",
+							 "right-margin-at", 
+							 wrap_get_int,
+							 wrap_set_int);
+
+	g_object_class_install_property(object_class, PROP_MESSAGE_RIGHT_MARGIN_AT,
+					 g_param_spec_int("message-right-margin-at",
+							      "MESSAGE_RIGHT_MARGIN_AT",
+							      "The column to show the right margin at",
+							      1,
+							      160,
+							      72,
 							      G_PARAM_READWRITE));
 
 	install_style_properties(object_class, PROP_STYLE_TEXT_FOREGROUND, "text");

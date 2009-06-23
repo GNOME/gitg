@@ -48,6 +48,11 @@ struct _GitgPreferencesDialogPrivate
 	GtkCheckButton *history_show_virtual_staged;
 	GtkCheckButton *history_show_virtual_unstaged;
 	GtkCheckButton *check_button_collapse_inactive;
+	
+	GtkCheckButton *check_button_show_right_margin;
+	GtkLabel *label_right_margin;
+	GtkSpinButton *spin_button_right_margin;
+	
 	GtkWidget *table;
 
 	gint prev_value;
@@ -113,6 +118,15 @@ on_collapse_inactive_toggled(GtkToggleButton *button, GitgPreferencesDialog *dia
 }
 
 static void
+on_check_button_show_right_margin_toggled(GtkToggleButton *button, GitgPreferencesDialog *dialog)
+{
+	gboolean active = gtk_toggle_button_get_active (button);
+
+	gtk_widget_set_sensitive(GTK_WIDGET(dialog->priv->label_right_margin), active);
+	gtk_widget_set_sensitive(GTK_WIDGET(dialog->priv->spin_button_right_margin), active);
+}
+
+static void
 initialize_view(GitgPreferencesDialog *dialog)
 {
 	GitgPreferences *preferences = gitg_preferences_get_default();
@@ -120,6 +134,11 @@ initialize_view(GitgPreferencesDialog *dialog)
 	g_signal_connect (dialog->priv->check_button_collapse_inactive,
 	                  "toggled",
 	                  G_CALLBACK (on_collapse_inactive_toggled),
+	                  dialog);
+
+	g_signal_connect (dialog->priv->check_button_show_right_margin,
+	                  "toggled",
+	                  G_CALLBACK (on_check_button_show_right_margin_toggled),
 	                  dialog);
 
 	gitg_data_binding_new_mutual(preferences, 
@@ -154,6 +173,16 @@ initialize_view(GitgPreferencesDialog *dialog)
 	                             "history-show-virtual-unstaged",
 	                             dialog->priv->history_show_virtual_unstaged, 
 	                             "active");
+
+	gitg_data_binding_new_mutual(preferences,
+	                             "message-show-right-margin",
+	                             dialog->priv->check_button_show_right_margin,
+	                             "active");
+
+	gitg_data_binding_new_mutual(preferences,
+	                             "message-right-margin-at",
+	                             dialog->priv->spin_button_right_margin,
+	                             "value");
 }
 
 static void
@@ -175,6 +204,10 @@ create_preferences_dialog()
 	
 	priv->check_button_collapse_inactive = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_collapse_inactive"));
 	priv->table = GTK_WIDGET(gtk_builder_get_object(b, "table_collapse_inactive_lanes"));
+	
+	priv->check_button_show_right_margin = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_show_right_margin"));
+	priv->label_right_margin = GTK_LABEL(gtk_builder_get_object(b, "label_right_margin"));
+	priv->spin_button_right_margin = GTK_SPIN_BUTTON(gtk_builder_get_object(b, "spin_button_right_margin"));
 	
 	priv->prev_value = (gint)gtk_adjustment_get_value(priv->collapse_inactive_lanes);
 	g_signal_connect(preferences_dialog, "response", G_CALLBACK(on_response), NULL);
