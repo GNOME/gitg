@@ -499,19 +499,27 @@ on_diff_files_update(GitgRunner *runner, gchar **buffer, GitgRevisionView *self)
 		if (**line == '\0')
 			continue;
 		
-		gchar **parts = g_strsplit(*line, " ", 5);
+		// Count parents
+		gint parents = 0;
+		gchar *ptr = *line;
 		
-		if (g_strv_length(parts) == 5)
+		while (*(ptr++) == ':')
+			++parents;
+		
+		gint numparts = 3 + 2 * parents;
+		gchar **parts = g_strsplit(ptr, " ", numparts);
+		
+		if (g_strv_length(parts) == numparts)
 		{
-			gchar **files = g_strsplit(parts[4], "\t", -1);
-			DiffFile *f = diff_file_new(parts[2], parts[3], files[0], files[1]);
+			gchar **files = g_strsplit(parts[numparts - 1], "\t", -1);
+
+			DiffFile *f = diff_file_new(parts[parents + 1], parts[numparts - 2], files[0], files[1]);
 			
 			add_diff_file(self, f);
 			diff_file_unref(f);
 
 			g_strfreev(files);
 		}
-		else
 
 		g_strfreev(parts);
 	}

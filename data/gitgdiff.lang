@@ -39,7 +39,7 @@
     <context id="gitgdiff">
       <include>
         <context id="header" style-ref="header">
-          <start>^diff --git</start>
+          <start>^diff --(git|cc)</start>
           <end>\+\+\+ .*$</end>
         </context>
 
