@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<interface>
+  <object class="GtkUIManager" id="uiman">
+    <child>
+      <object class="GtkActionGroup" id="action_group_commit_context">
+        <child>
+          <object class="GtkAction" id="StageChangesAction">
+            <property name="label" translatable="yes">Stage</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="UnstageChangesAction">
+            <property name="label" translatable="yes">Unstage</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="RevertChangesAction">
+            <property name="label" translatable="yes">Revert</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="IgnoreFileAction">
+            <property name="label" translatable="yes">Ignore</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <ui>
+      <popup name="popup_commit_stage">
+        <menuitem action="StageChangesAction"/>
+        <menuitem action="RevertChangesAction"/>
+        <menuitem action="IgnoreFileAction"/>
+      </popup>
+      <popup name="popup_commit_unstage">
+        <menuitem action="UnstageChangesAction"/>
+      </popup>
+    </ui>
+  </object>
+</interface>
+
+<!-- vi:ts=2:et -->

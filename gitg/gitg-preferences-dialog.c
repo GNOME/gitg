@@ -25,6 +25,7 @@
 #include "gitg-preferences.h"
 #include "gitg-data-binding.h"
 #include "gitg-utils.h"
+#include "gitg-config.h"
 
 #include <stdlib.h>
 #include <glib/gi18n.h>
@@ -42,6 +43,8 @@ static GitgPreferencesDialog *preferences_dialog;
 
 struct _GitgPreferencesDialogPrivate
 {
+	GitgConfig *config;
+
 	GtkCheckButton *history_search_filter;
 	GtkAdjustment *collapse_inactive_lanes;
 	GtkCheckButton *history_show_virtual_stash;
@@ -52,6 +55,9 @@ struct _GitgPreferencesDialogPrivate
 	GtkCheckButton *check_button_show_right_margin;
 	GtkLabel *label_right_margin;
 	GtkSpinButton *spin_button_right_margin;
+	
+	GtkEntry *entry_configuration_user_name;
+	GtkEntry *entry_configuration_user_email;
 	
 	GtkWidget *table;
 
@@ -71,6 +77,10 @@ round_val(gdouble val)
 static void
 gitg_preferences_dialog_finalize(GObject *object)
 {
+	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG (object);
+	
+	g_object_unref (dialog->priv->config);
+	
 	G_OBJECT_CLASS(gitg_preferences_dialog_parent_class)->finalize(object);
 }
 
@@ -88,6 +98,8 @@ static void
 gitg_preferences_dialog_init(GitgPreferencesDialog *self)
 {
 	self->priv = GITG_PREFERENCES_DIALOG_GET_PRIVATE(self);
+	
+	self->priv->config = gitg_config_new (NULL);
 }
 
 static void
@@ -188,7 +200,7 @@ initialize_view(GitgPreferencesDialog *dialog)
 static void
 create_preferences_dialog()
 {
-	GtkBuilder *b = gitg_utils_new_builder("gitg-preferences.xml");
+	GtkBuilder *b = gitg_utils_new_builder("gitg-preferences.ui");
 	
 	preferences_dialog = GITG_PREFERENCES_DIALOG(gtk_builder_get_object(b, "dialog_preferences"));
 	g_object_add_weak_pointer(G_OBJECT(preferences_dialog), (gpointer *)&preferences_dialog);
@@ -213,9 +225,22 @@ create_preferences_dialog()
 	g_signal_connect(preferences_dialog, "response", G_CALLBACK(on_response), NULL);
 	
 	initialize_view(preferences_dialog);
+	
+	priv->entry_configuration_user_name = GTK_ENTRY(gtk_builder_get_object(b, "entry_configuration_user_name"));
+	priv->entry_configuration_user_email = GTK_ENTRY(gtk_builder_get_object(b, "entry_configuration_user_email"));
 
 	gtk_builder_connect_signals(b, preferences_dialog);
 	g_object_unref(b);
+	
+	gchar *val;
+	
+	val = gitg_config_get_value (priv->config, "user.name");
+	gtk_entry_set_text (priv->entry_configuration_user_name, val ? val : "");
+	g_free (val);
+	
+	val = gitg_config_get_value (priv->config, "user.email");
+	gtk_entry_set_text (priv->entry_configuration_user_email, val ? val : "");
+	g_free (val);
 }
 
 GitgPreferencesDialog *
@@ -242,3 +267,18 @@ on_collapse_inactive_lanes_changed(GtkAdjustment *adjustment, GParamSpec *spec, 
 		g_signal_handlers_unblock_by_func(adjustment, G_CALLBACK(on_collapse_inactive_lanes_changed), dialog);
 	}
 }
+
+gboolean
+on_entry_configuration_user_name_focus_out_event(GtkEntry *entry, GdkEventFocus *event, GitgPreferencesDialog *dialog)
+{
+	gitg_config_set_value (dialog->priv->config, "user.name", gtk_entry_get_text (entry));
+	return FALSE;
+}
+
+gboolean
+on_entry_configuration_user_email_focus_out_event(GtkEntry *entry, GdkEventFocus *event, GitgPreferencesDialog *dialog)
+{
+	gitg_config_set_value (dialog->priv->config, "user.email", gtk_entry_get_text (entry));
+	return FALSE;
+}
+

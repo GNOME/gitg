@@ -912,7 +912,18 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	/* Store widgets */
 	GitgCommitView *self = GITG_COMMIT_VIEW(buildable);
 	
-	self->priv->ui_manager = g_object_ref(gtk_builder_get_object(builder, "uiman"));
+	GtkBuilder *b = gitg_utils_new_builder("gitg-commit-menu.ui");
+	self->priv->ui_manager = g_object_ref(gtk_builder_get_object(b, "uiman"));
+
+	g_signal_connect(gtk_builder_get_object(b, "StageChangesAction"), "activate", G_CALLBACK(on_stage_changes), self);
+	g_signal_connect(gtk_builder_get_object(b, "RevertChangesAction"), "activate", G_CALLBACK(on_revert_changes), self);
+	g_signal_connect(gtk_builder_get_object(b, "IgnoreFileAction"), "activate", G_CALLBACK(on_ignore_file), self);
+	g_signal_connect(gtk_builder_get_object(b, "UnstageChangesAction"), "activate", G_CALLBACK(on_unstage_changes), self);
+
+	self->priv->group_context = GTK_ACTION_GROUP(gtk_builder_get_object(b, "action_group_commit_context"));
+	
+	g_object_unref(b);
+	
 	self->priv->tree_view_unstaged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_unstaged"));
 	self->priv->tree_view_staged = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_staged"));
 	
@@ -935,7 +946,6 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	                      self->priv->comment_view, "right-margin-position");
 	
 	self->priv->hscale_context = GTK_HSCALE(gtk_builder_get_object(builder, "hscale_context"));
-	self->priv->group_context = GTK_ACTION_GROUP(gtk_builder_get_object(builder, "action_group_commit_context"));
 	
 	initialize_dnd_staged(self);
 	initialize_dnd_unstaged(self);
@@ -993,11 +1003,6 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	g_signal_connect(gtk_builder_get_object(builder, "button_commit"), "clicked", G_CALLBACK(on_commit_clicked), self);
 	
 	g_signal_connect(self->priv->hscale_context, "value-changed", G_CALLBACK(on_context_value_changed), self);
-	
-	g_signal_connect(gtk_builder_get_object(builder, "StageChangesAction"), "activate", G_CALLBACK(on_stage_changes), self);
-	g_signal_connect(gtk_builder_get_object(builder, "RevertChangesAction"), "activate", G_CALLBACK(on_revert_changes), self);
-	g_signal_connect(gtk_builder_get_object(builder, "IgnoreFileAction"), "activate", G_CALLBACK(on_ignore_file), self);
-	g_signal_connect(gtk_builder_get_object(builder, "UnstageChangesAction"), "activate", G_CALLBACK(on_unstage_changes), self);
 }
 
 static void

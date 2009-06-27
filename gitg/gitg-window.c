@@ -39,6 +39,7 @@
 #include "gitg-commit-view.h"
 #include "gitg-settings.h"
 #include "gitg-preferences-dialog.h"
+#include "gitg-repository-dialog.h"
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
@@ -212,9 +213,9 @@ build_search_entry(GitgWindow *window, GtkBuilder *builder)
 	gtk_widget_show(entry);
 	gtk_box_pack_end(GTK_BOX(box), entry, FALSE, FALSE, 0);
 	
-	GtkBuilder *b = gitg_utils_new_builder( "gitg-menus.xml");
-	
+	GtkBuilder *b = gitg_utils_new_builder("gitg-menus.xml");
 	GtkUIManager *manager = GTK_UI_MANAGER(gtk_builder_get_object(b, "uiman"));
+
 	window->priv->search_popup = GTK_WIDGET(g_object_ref(gtk_ui_manager_get_widget(manager, "/ui/search_popup")));
 	
 	gtk_builder_connect_signals(b, window);
@@ -428,6 +429,25 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	// Store widgets
 	GitgWindow *window = GITG_WINDOW(buildable);
 	
+	// Insert menu from second ui file
+	GtkBuilder *b = gitg_utils_new_builder("gitg-ui.xml");
+	GtkWidget *menu = GTK_WIDGET(gtk_builder_get_object(b, "menubar_main"));
+	GtkWidget *vbox = GTK_WIDGET(gtk_builder_get_object(builder, "vbox_main"));
+
+	gtk_box_pack_start(GTK_BOX(vbox), menu, FALSE, FALSE, 0);
+	gtk_box_reorder_child(GTK_BOX(vbox), menu, 0);
+
+	GtkRecentChooser *chooser = GTK_RECENT_CHOOSER(gtk_builder_get_object(b, "RecentOpenAction"));
+	GtkRecentFilter *filter = gtk_recent_filter_new();
+	gtk_recent_filter_add_group(filter, "gitg");
+
+	gtk_recent_chooser_add_filter(chooser, filter);
+
+	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object(b, "action_group_menu_edit"));
+
+	gtk_builder_connect_signals(b, window);
+	g_object_unref(b);	
+
 	window->priv->vpaned_main = GTK_WIDGET(gtk_builder_get_object(builder, "vpaned_main"));
 	window->priv->hpaned_commit = GTK_WIDGET(gtk_builder_get_object(builder, "hpaned_commit"));
 	window->priv->vpaned_commit = GTK_WIDGET(gtk_builder_get_object(builder, "vpaned_commit"));
@@ -441,19 +461,11 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	restore_state(window);
 
-	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object(builder, "action_group_menu_edit"));
-
 	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
 	
 	window->priv->renderer_path = GITG_CELL_RENDERER_PATH(gtk_builder_get_object(builder, "rv_renderer_subject"));
 	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(window->priv->renderer_path), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
 	
-	GtkRecentFilter *filter = gtk_recent_filter_new();
-	gtk_recent_filter_add_group(filter, "gitg");
-
-	GtkRecentChooser *chooser = GTK_RECENT_CHOOSER(gtk_builder_get_object(builder, "RecentOpenAction"));
-	gtk_recent_chooser_add_filter(chooser, filter);
-
 	// Intialize branches
 	build_branches_combo(window, builder);
 
@@ -794,6 +806,7 @@ static void
 on_repository_load(GitgRepository *repository, GitgWindow *window)
 {
 	g_signal_handlers_block_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
+	clear_branches_combo(window);
 	fill_branches_combo(window);
 	g_signal_handlers_unblock_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
 }
@@ -832,6 +845,8 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 
 		g_object_unref(window->priv->repository);
 		window->priv->repository = NULL;
+		
+		gitg_repository_dialog_close ();
 	}
 	
 	gboolean haspath = create_repository(window, path, usewd);
@@ -911,6 +926,14 @@ gitg_window_show_commit(GitgWindow *window)
 	g_return_if_fail(GITG_IS_WINDOW(window));
 	
 	gtk_notebook_set_current_page(window->priv->notebook_main, 1);
+}
+
+GitgRepository *
+gitg_window_get_repository(GitgWindow *window)
+{
+	g_return_val_if_fail(GITG_IS_WINDOW(window), NULL);
+	
+	return window->priv->repository;
 }
 
 void
@@ -994,10 +1017,6 @@ on_view_refresh(GtkAction *action, GitgWindow *window)
 {
 	if (window->priv->repository && gitg_repository_get_path(window->priv->repository) != NULL)
 	{
-		g_signal_handlers_block_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
-		clear_branches_combo(window);
-		g_signal_handlers_unblock_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
-
 		gitg_repository_reload(window->priv->repository);
 	}
 }
@@ -1217,4 +1236,10 @@ void
 on_edit_preferences(GtkAction *action, GitgWindow *window)
 {
 	gitg_preferences_dialog_present(GTK_WINDOW(window));
+}
+
+void
+on_repository_properties(GtkAction *action, GitgWindow *window)
+{
+	gitg_repository_dialog_present (window);
 }

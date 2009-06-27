@@ -1,21 +1,22 @@
 <?xml version="1.0"?>
 <interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-requires gitg 0.2 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkAdjustment" id="adjustment_collapse_inactive_lanes">
     <property name="value">2</property>
-    <property name="lower">0</property>
     <property name="upper">5</property>
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
     <property name="page_size">1</property>
-    <signal after="False" name="notify::value" handler="on_collapse_inactive_lanes_changed"/>
+    <signal name="notify::value" handler="on_collapse_inactive_lanes_changed"/>
   </object>
   <object class="GtkAdjustment" id="spin_button_right_margin_adjustment">
-    <property name="upper">160</property>
-    <property name="lower">1</property>
-    <property name="page_increment">10</property>
-    <property name="step_increment">1</property>
-    <property name="page_size">0</property>
     <property name="value">72</property>
+    <property name="lower">1</property>
+    <property name="upper">160</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
   <object class="GitgPreferencesDialog" id="dialog_preferences">
     <property name="border_width">5</property>
@@ -74,7 +75,6 @@
                             <child>
                               <object class="GtkCheckButton" id="check_button_history_search_filter">
                                 <property name="label" translatable="yes">Search filters revisions in the history view</property>
-                                <property name="visible">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="draw_indicator">True</property>
@@ -89,8 +89,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="draw_indicator">True</property>
                                 <property name="active">True</property>
+                                <property name="draw_indicator">True</property>
                               </object>
                               <packing>
                                 <property name="position">1</property>
@@ -108,11 +108,10 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="adjustment">adjustment_collapse_inactive_lanes</property>
-                                    <property name="draw_value">False</property>
                                     <property name="digits">0</property>
+                                    <property name="draw_value">False</property>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">0</property>
                                     <property name="right_attach">2</property>
                                   </packing>
                                 </child>
@@ -123,8 +122,6 @@
                                     <property name="label" translatable="yes">Early</property>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="right_attach">1</property>
                                     <property name="top_attach">1</property>
                                     <property name="bottom_attach">2</property>
                                   </packing>
@@ -184,7 +181,6 @@
                             <child>
                               <object class="GtkCheckButton" id="check_button_history_show_virtual_unstaged">
                                 <property name="label" translatable="yes">Show unstaged changes in history</property>
-                                <property name="visible">true</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="draw_indicator">True</property>
@@ -214,6 +210,7 @@
             <child type="tab">
               <object class="GtkLabel" id="label_view">
                 <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Preferences that apply to the revision view</property>
                 <property name="label" translatable="yes">View</property>
               </object>
               <packing>
@@ -230,7 +227,7 @@
                     <property name="border_width">12</property>
                     <property name="spacing">6</property>
                     <child>
-                      <object class="GtkLabel" id="label10">
+                      <object class="GtkLabel" id="label1">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">&lt;b&gt;Commit Message&lt;/b&gt;</property>
@@ -245,7 +242,7 @@
                       <object class="GtkHBox" id="hbox_commit_message">
                         <property name="visible">True</property>
                         <child>
-                          <object class="GtkLabel" id="label12">
+                          <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
                             <property name="label">    </property>
                           </object>
@@ -262,12 +259,12 @@
                             <child>
                               <object class="GtkCheckButton" id="check_button_show_right_margin">
                                 <property name="label" translatable="yes">Display right _margin</property>
-                                <property name="use_underline">True</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="draw_indicator">True</property>
+                                <property name="use_underline">True</property>
                                 <property name="active">True</property>
+                                <property name="draw_indicator">True</property>
                               </object>
                               <packing>
                                 <property name="position">0</property>
@@ -280,42 +277,35 @@
                                 <child>
                                   <object class="GtkLabel" id="label_right_margin">
                                     <property name="visible">True</property>
+                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">_Right margin at column:</property>
                                     <property name="use_underline">True</property>
-                                    <property name="use_markup">False</property>
-                                    <property name="justify">GTK_JUSTIFY_LEFT</property>
-                                    <property name="wrap">False</property>
-                                    <property name="selectable">False</property>
-                                    <property name="xalign">0</property>
-                                    <property name="yalign">0.5</property>
-                                    <property name="xpad">0</property>
-                                    <property name="ypad">0</property>
                                   </object>
                                   <packing>
-                                    <property name="padding">0</property>
                                     <property name="expand">False</property>
                                     <property name="fill">False</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
                                   <object class="GtkSpinButton" id="spin_button_right_margin">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="climb_rate">1</property>
-                                    <property name="digits">0</property>
-                                    <property name="numeric">True</property>
-                                    <property name="update_policy">GTK_UPDATE_ALWAYS</property>
-                                    <property name="snap_to_ticks">True</property>
-                                    <property name="wrap">False</property>
                                     <property name="adjustment">spin_button_right_margin_adjustment</property>
+                                    <property name="climb_rate">1</property>
+                                    <property name="snap_to_ticks">True</property>
+                                    <property name="numeric">True</property>
                                   </object>
                                   <packing>
-                                    <property name="padding">0</property>
                                     <property name="expand">False</property>
                                     <property name="fill">False</property>
+                                    <property name="position">1</property>
                                   </packing>
                                 </child>
                               </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
                             </child>
                           </object>
                           <packing>
@@ -334,13 +324,132 @@
                   </packing>
                 </child>
               </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
             </child>
             <child type="tab">
               <object class="GtkLabel" id="label_commit">
                 <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Preferences that apply to the commit view</property>
                 <property name="label" translatable="yes">Commit</property>
               </object>
               <packing>
+                <property name="position">1</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkVBox" id="vbox_commit_intern1">
+                <property name="visible">True</property>
+                <property name="border_width">12</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel" id="label4">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">&lt;b&gt;User&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkHBox" id="hbox_commit_message1">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkLabel" id="label5">
+                        <property name="visible">True</property>
+                        <property name="label">    </property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkTable" id="table1">
+                        <property name="visible">True</property>
+                        <property name="n_rows">2</property>
+                        <property name="n_columns">2</property>
+                        <property name="column_spacing">6</property>
+                        <property name="row_spacing">6</property>
+                        <child>
+                          <object class="GtkLabel" id="label_configuration_user_name">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">Name:</property>
+                          </object>
+                          <packing>
+                            <property name="x_options">GTK_SHRINK | GTK_FILL</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_configuration_user_email">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">E-mail:</property>
+                          </object>
+                          <packing>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                            <property name="x_options">GTK_SHRINK | GTK_FILL</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="entry_configuration_user_name">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="invisible_char">&#x25CF;</property>
+                            <signal name="focus_out_event" handler="on_entry_configuration_user_name_focus_out_event"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="entry_configuration_user_email">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="invisible_char">&#x25CF;</property>
+                            <signal name="focus_out_event" handler="on_entry_configuration_user_email_focus_out_event"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="label3">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Configure global git settings. This corresponds to the settings as stored in ~/.gitconfig. Repository specific settings can be configured at the repository properties.</property>
+                <property name="label" translatable="yes">Configuration</property>
+              </object>
+              <packing>
+                <property name="position">2</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -362,6 +471,8 @@
                 <property name="use_stock">True</property>
               </object>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
