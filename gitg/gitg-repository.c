@@ -942,7 +942,7 @@ load_current_ref(GitgRepository *self)
 		return NULL;
 	}
 	
-	if (*out)
+	if (*out && !*(out + 1))
 	{
 		ret = g_strdup(*out);
 	}

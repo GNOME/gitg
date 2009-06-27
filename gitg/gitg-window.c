@@ -793,7 +793,11 @@ fill_branches_combo(GitgWindow *window)
 	                   COLUMN_BRANCHES_REF, NULL, 
 	                   -1);
 	
-	if (!refset)
+	if (current_ref == NULL)
+	{
+		gtk_combo_box_set_active_iter (window->priv->combo_branches, &iter);
+	}
+	else if (!refset)
 	{
 		gtk_combo_box_set_active(window->priv->combo_branches, 0);
 	}
