@@ -79,6 +79,7 @@ GitgRevision *gitg_repository_lookup(GitgRepository *store, gchar const *hash);
 GSList *gitg_repository_get_refs(GitgRepository *repository);
 GSList *gitg_repository_get_refs_for_hash(GitgRepository *repository, gchar const *hash);
 GitgRef *gitg_repository_get_current_ref(GitgRepository *repository);
+GitgRef *gitg_repository_get_current_working_ref(GitgRepository *repository);
 
 gchar *gitg_repository_relative(GitgRepository *repository, GFile *file);
 

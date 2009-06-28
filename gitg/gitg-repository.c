@@ -90,6 +90,7 @@ struct _GitgRepositoryPrivate
 	GitgLanes *lanes;
 	GHashTable *refs;
 	GitgRef *current_ref;
+	GitgRef *working_ref;
 
 	gulong size;
 	gulong allocated;
@@ -367,7 +368,19 @@ gitg_repository_finalize(GObject *object)
 	g_strfreev(rp->priv->last_args);
 	
 	if (rp->priv->idle_relane_id)
+	{
 		g_source_remove(rp->priv->idle_relane_id);
+	}
+	
+	if (rp->priv->current_ref)
+	{
+		gitg_ref_free (rp->priv->current_ref);
+	}
+	
+	if (rp->priv->working_ref)
+	{
+		gitg_ref_free (rp->priv->working_ref);
+	}
 
 	G_OBJECT_CLASS (gitg_repository_parent_class)->finalize(object);
 }
@@ -867,6 +880,12 @@ reload_revisions(GitgRepository *repository, GError **error)
 	g_signal_emit(repository, repository_signals[LOAD], 0);
 	
 	repository->priv->load_stage = LOAD_STAGE_STASH;
+	
+	if (repository->priv->working_ref)
+	{
+		gitg_ref_free (repository->priv->working_ref);
+		repository->priv->working_ref = NULL;
+	}
 
 	return gitg_repository_run_commandv(repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "-g", "refs/stash", NULL);
 }
@@ -1349,12 +1368,10 @@ gitg_repository_command_with_input_and_outputv(GitgRepository *repository, gchar
 	return ret;
 }
 
-gchar *
-gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref)
+static gchar *
+parse_ref_intern (GitgRepository *repository, gchar const *ref, gboolean symbolic)
 {
-	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
-	
-	gchar **ret = gitg_repository_command_with_outputv(repository, NULL, "rev-parse", "--verify", ref, NULL);
+	gchar **ret = gitg_repository_command_with_outputv(repository, NULL, "rev-parse", "--verify", symbolic ? "--symbolic-full-name" : ref, symbolic ? ref : NULL, NULL);
 	
 	if (!ret)
 		return NULL;
@@ -1362,7 +1379,15 @@ gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref)
 	gchar *r = g_strdup(*ret);
 	g_strfreev(ret);
 	
-	return r;
+	return r;	
+}
+
+gchar *
+gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref)
+{
+	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
+	
+	return parse_ref_intern (repository, ref, FALSE);
 }
 
 gchar *
@@ -1378,3 +1403,24 @@ gitg_repository_parse_head(GitgRepository *repository)
 	return ret;
 }
 
+GitgRef *
+gitg_repository_get_current_working_ref(GitgRepository *repository)
+{
+	if (repository->priv->working_ref)
+	{
+		return repository->priv->working_ref;
+	}
+	
+	gchar *hash = parse_ref_intern (repository, "HEAD", FALSE);
+	gchar *name = parse_ref_intern (repository, "HEAD", TRUE);
+	
+	if (hash && name)
+	{
+		repository->priv->working_ref = gitg_ref_new (hash, name);
+	}
+	
+	g_free (hash);
+	g_free (name);
+	
+	return repository->priv->working_ref;
+}
