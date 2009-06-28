@@ -154,29 +154,6 @@ remove_remote_branch (GitgWindow *window,
 	return FALSE;
 }
 
-gboolean 
-gitg_branch_actions_remove (GitgWindow *window,
-                            GitgRef    *ref)
-{
-	GitgRef *cp = gitg_ref_copy (ref);
-	gboolean ret = FALSE;
-	
-	switch (gitg_ref_get_ref_type (cp))
-	{
-		case GITG_REF_TYPE_BRANCH:
-			ret = remove_local_branch (window, cp);
-		break;
-		case GITG_REF_TYPE_REMOTE:
-			ret = remove_remote_branch (window, cp);
-		break;
-		default:
-		break;
-	}
-	
-	gitg_ref_free (cp);
-	return ret;
-}
-
 static gboolean
 stash_changes (GitgWindow *window,
                GitgRef    *ref)
@@ -291,10 +268,37 @@ checkout_remote_branch (GitgWindow *window,
 	return ret;
 }
 
+gboolean 
+gitg_branch_actions_remove (GitgWindow *window,
+                            GitgRef    *ref)
+{
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
+		
+	GitgRef *cp = gitg_ref_copy (ref);
+	gboolean ret = FALSE;
+	
+	switch (gitg_ref_get_ref_type (cp))
+	{
+		case GITG_REF_TYPE_BRANCH:
+			ret = remove_local_branch (window, cp);
+		break;
+		case GITG_REF_TYPE_REMOTE:
+			ret = remove_remote_branch (window, cp);
+		break;
+		default:
+		break;
+	}
+	
+	gitg_ref_free (cp);
+	return ret;
+}
+
 gboolean
 gitg_branch_actions_checkout (GitgWindow *window,
                               GitgRef    *ref)
 {
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
+
 	GitgRef *cp = gitg_ref_copy (ref);
 	gboolean ret = FALSE;
 	
@@ -319,6 +323,7 @@ gitg_branch_actions_merge (GitgWindow *window,
                            GitgRef    *source,
                            GitgRef    *dest)
 {
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
 	return FALSE;
 }
 
@@ -327,6 +332,7 @@ gitg_branch_actions_rebase (GitgWindow *window,
                             GitgRef    *source,
                             GitgRef    *dest)
 {
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
 	return FALSE;
 }
 
@@ -334,6 +340,7 @@ gboolean
 gitg_branch_actions_apply_stash (GitgWindow *window,
                                  GitgRef    *stash)
 {
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
 	return FALSE;
 }
 
