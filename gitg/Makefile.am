@@ -15,6 +15,7 @@ BUILT_SOURCES = 				\
 	gitg-enum-types.h
 
 NOINST_H_FILES = 			\
+	gitg-branch-actions.h		\
 	gitg-cell-renderer-path.h	\
 	gitg-changed-file.h		\
 	gitg-color.h			\
@@ -25,6 +26,7 @@ NOINST_H_FILES = 			\
 	gitg-debug.h			\
 	gitg-diff-view.h		\
 	gitg-dirs.h			\
+	gitg-dnd.h			\
 	gitg-label-renderer.h		\
 	gitg-lane.h			\
 	gitg-lanes.h			\
@@ -47,6 +49,7 @@ NOINST_H_FILES = 			\
 gitg_SOURCES = 				\
 	$(BUILT_SOURCES)		\
 	gitg.c				\
+	gitg-branch-actions.c		\
 	gitg-cell-renderer-path.c	\
 	gitg-changed-file.c		\
 	gitg-color.c			\
@@ -57,6 +60,7 @@ gitg_SOURCES = 				\
 	gitg-debug.c			\
 	gitg-diff-view.c		\
 	gitg-dirs.c			\
+	gitg-dnd.c			\
 	gitg-label-renderer.c		\
 	gitg-lane.c			\
 	gitg-lanes.c			\

@@ -40,6 +40,8 @@
 #include "gitg-settings.h"
 #include "gitg-preferences-dialog.h"
 #include "gitg-repository-dialog.h"
+#include "gitg-dnd.h"
+#include "gitg-branch-actions.h"
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
@@ -66,6 +68,8 @@ struct _GitgWindowPrivate
 	GtkWidget *search_popup;
 	GtkComboBox *combo_branches;
 	
+	GtkUIManager *menus_ui_manager;
+	
 	GtkWidget *vpaned_main;
 	GtkWidget *hpaned_commit;
 	GtkWidget *vpaned_commit;
@@ -79,6 +83,9 @@ struct _GitgWindowPrivate
 	GdkCursor *hand;
 	
 	gboolean destroy_has_run;
+	guint merge_rebase_uid;
+	GtkActionGroup *merge_rebase_action_group;
+	GitgRef *popup_ref;
 };
 
 static gboolean on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window);
@@ -212,14 +219,8 @@ build_search_entry(GitgWindow *window, GtkBuilder *builder)
 	gtk_tree_view_set_search_entry(window->priv->tree_view, GTK_ENTRY(entry));
 	gtk_widget_show(entry);
 	gtk_box_pack_end(GTK_BOX(box), entry, FALSE, FALSE, 0);
-	
-	GtkBuilder *b = gitg_utils_new_builder("gitg-menus.xml");
-	GtkUIManager *manager = GTK_UI_MANAGER(gtk_builder_get_object(b, "uiman"));
 
-	window->priv->search_popup = GTK_WIDGET(g_object_ref(gtk_ui_manager_get_widget(manager, "/ui/search_popup")));
-	
-	gtk_builder_connect_signals(b, window);
-	g_object_unref(b);
+	window->priv->search_popup = GTK_WIDGET(g_object_ref(gtk_ui_manager_get_widget(window->priv->menus_ui_manager, "/ui/search_popup")));
 	
 	g_signal_connect(entry, "icon-pressed", G_CALLBACK(on_search_icon_pressed), window);
 	gtk_tree_view_set_search_column(window->priv->tree_view, 1);
@@ -421,6 +422,68 @@ restore_state(GitgWindow *window)
 }
 
 static void
+update_dnd_status (GitgWindow *window, GitgRef *source, GitgRef *dest)
+{
+	if (!dest)
+	{
+		gtk_statusbar_push (window->priv->statusbar, 0, "");
+	}
+	else
+	{
+		gchar *message = NULL;
+		
+		if (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH &&
+		    gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_REMOTE)
+		{
+			message = g_strdup_printf (_("Push local branch <%s> to remote branch <%s>"), gitg_ref_get_shortname (source), gitg_ref_get_shortname (dest));
+		}
+		else if (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH &&
+		         gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_BRANCH)
+		{
+			message = g_strdup_printf (_("Merge/rebase local branch <%s> with/on local branch <%s>"), gitg_ref_get_shortname (source), gitg_ref_get_shortname (dest));
+		}
+		else if (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_REMOTE &&
+		         gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_BRANCH)
+		{
+			message = g_strdup_printf (_("Merge/rebase remote branch <%s> with/on local branch <%s>"), gitg_ref_get_shortname (source), gitg_ref_get_shortname (dest));
+		}
+		
+		if (message)
+		{
+			gtk_statusbar_push (window->priv->statusbar, 0, message);
+		}
+		
+		g_free (message);
+	}
+}
+
+static gboolean
+on_refs_dnd (GitgRef *source, GitgRef *dest, gboolean dropped, GitgWindow *window)
+{
+	if (!dropped)
+	{
+		update_dnd_status (window, source, dest);
+		return FALSE;
+	}
+
+	gtk_statusbar_push (window->priv->statusbar, 0, "");
+	
+	return FALSE;
+}
+
+static void
+init_tree_view (GitgWindow *window, GtkBuilder *builder)
+{
+	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
+	
+	window->priv->renderer_path = GITG_CELL_RENDERER_PATH(gtk_builder_get_object(builder, "rv_renderer_subject"));
+
+	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(window->priv->renderer_path), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
+	
+	gitg_dnd_enable (window->priv->tree_view, (GitgDndCallback)on_refs_dnd, window);
+}
+
+static void
 gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
 	if (parent_iface.parser_finished)
@@ -460,14 +523,18 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	window->priv->commit_view = GITG_COMMIT_VIEW(gtk_builder_get_object(builder, "hpaned_commit"));
 
 	restore_state(window);
-
-	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
 	
-	window->priv->renderer_path = GITG_CELL_RENDERER_PATH(gtk_builder_get_object(builder, "rv_renderer_subject"));
-	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(window->priv->renderer_path), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
+	init_tree_view (window, builder);
 	
 	// Intialize branches
 	build_branches_combo(window, builder);
+
+	// Get menus ui
+	b = gitg_utils_new_builder("gitg-menus.xml");
+	window->priv->menus_ui_manager = GTK_UI_MANAGER(g_object_ref(gtk_builder_get_object(b, "uiman")));
+
+	gtk_builder_connect_signals (b, window);
+	g_object_unref (b);
 
 	// Create search entry
 	build_search_entry(window, builder);
@@ -1246,4 +1313,238 @@ void
 on_repository_properties(GtkAction *action, GitgWindow *window)
 {
 	gitg_repository_dialog_present (window);
+}
+
+static void
+update_merge_rebase (GitgWindow *window, GitgRef *ref)
+{
+	if (window->priv->merge_rebase_uid != 0)
+	{
+		gtk_ui_manager_remove_ui (window->priv->menus_ui_manager, 
+		                          window->priv->merge_rebase_uid);
+	}
+
+	GtkActionGroup *ac = window->priv->merge_rebase_action_group;
+	
+	if (ac)
+	{
+		GList *actions = gtk_action_group_list_actions (ac);
+		GList *item;
+		
+		for (item = actions; item; item = g_list_next (item))
+		{
+			gtk_action_group_remove_action (ac, (GtkAction *)item->data);
+		}
+		
+		g_list_free (actions);
+	}
+	
+	if (gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_BRANCH)
+	{
+		return;
+	}
+	
+	if (window->priv->merge_rebase_uid == 0)
+	{
+		window->priv->merge_rebase_uid = gtk_ui_manager_new_merge_id (window->priv->menus_ui_manager);
+	}
+	
+	if (ac == NULL)
+	{
+		ac = gtk_action_group_new ("GitgMergeRebaseActions");
+		window->priv->merge_rebase_action_group = ac;
+		gtk_ui_manager_insert_action_group (window->priv->menus_ui_manager,
+		                                    ac,
+		                                    0);
+	}
+	
+	GSList *refs = gitg_repository_get_refs (window->priv->repository);
+	GSList *item;
+	
+	for (item = refs; item; item = g_slist_next (item))
+	{
+		GitgRef *r = GITG_REF (item->data);
+		
+		if (gitg_ref_get_ref_type (r) == GITG_REF_TYPE_BRANCH && !gitg_ref_equal (r, ref))
+		{
+			gchar *rebase = g_strdup_printf ("Rebase%sAction", gitg_ref_get_shortname (r));
+			gchar *merge = g_strdup_printf ("Merge%sAction", gitg_ref_get_shortname (r));
+			
+			GtkAction *rebaseac = gtk_action_new (rebase, gitg_ref_get_shortname (r), NULL, NULL);
+			GtkAction *mergeac = gtk_action_new (merge, gitg_ref_get_shortname (r), NULL, NULL);
+
+			gtk_action_group_add_action (ac, rebaseac);
+			gtk_action_group_add_action (ac, mergeac);
+			
+			gchar *name = g_strconcat ("Rebase", gitg_ref_get_shortname (r), NULL);
+
+			gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
+			                       window->priv->merge_rebase_uid,
+			                       "/ui/revision_popup/Rebase/Placeholder",
+			                       name,
+			                       rebase,
+			                       GTK_UI_MANAGER_MENUITEM,
+			                       FALSE);
+			g_free (name);
+			
+			name = g_strconcat ("Merge", gitg_ref_get_shortname (r), NULL);
+
+			gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
+			                       window->priv->merge_rebase_uid,
+			                       "/ui/revision_popup/Merge/Placeholder",
+			                       name,
+			                       merge,
+			                       GTK_UI_MANAGER_MENUITEM,
+			                       FALSE);
+			g_free (name);
+
+			g_object_unref (rebaseac);
+			g_object_unref (mergeac);
+		}
+	}
+	
+	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
+	g_slist_free (refs);
+
+	gtk_ui_manager_ensure_update (window->priv->menus_ui_manager);
+}
+
+static gboolean
+has_local_ref (GitgWindow  *window,
+               gchar const *name)
+{
+	GSList *refs = gitg_repository_get_refs (window->priv->repository);
+	GSList *item;
+	gboolean ret = FALSE;
+	
+	for (item = refs; item; item = g_slist_next (item))
+	{
+		GitgRef *ref = GITG_REF (item->data);
+		
+		if (gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_BRANCH)
+		{
+			continue;
+		}
+		
+		gchar const *nm = gitg_ref_get_shortname (ref);
+		
+		if (g_strcmp0 (name, nm) == 0)
+		{
+			ret = TRUE;
+			break;
+		}
+	}
+	
+	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
+	g_slist_free (refs);
+	
+	return ret;
+}
+
+static gboolean
+popup_revision (GitgWindow *window, GdkEventButton *event)
+{
+	gint cell_x;
+	gint cell_y;
+	GtkTreePath *path;
+	GtkTreeViewColumn *column;
+	
+	GtkTreeView *tree_view = window->priv->tree_view;
+
+	if (!gtk_tree_view_get_path_at_pos (tree_view,
+	                                    (gint)event->x,
+	                                    (gint)event->y,
+	                                    &path,
+	                                    &column,
+	                                    &cell_x,
+	                                    &cell_y))
+	{
+		return FALSE;
+	}
+	
+	GtkCellRenderer *cell = gitg_utils_find_cell_at_pos (tree_view, column, path, cell_x);
+	
+	if (!cell || !GITG_IS_CELL_RENDERER_PATH (cell))
+	{
+		return FALSE;
+	}
+	
+	GitgRef *ref = gitg_cell_renderer_path_get_ref_at_pos (GTK_WIDGET (tree_view),
+	                                                       GITG_CELL_RENDERER_PATH (cell),
+	                                                       cell_x,
+	                                                       NULL);
+	gtk_tree_path_free (path);
+	
+	if (!ref || (gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_BRANCH && 
+	             gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_REMOTE))
+	{
+		return FALSE;
+	}
+	
+	GtkWidget *popup = gtk_ui_manager_get_widget (window->priv->menus_ui_manager,
+	                                              "/ui/revision_popup");
+
+	GtkAction *checkout = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/revision_popup/CheckoutAction");
+	GtkAction *remove = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/revision_popup/RemoveAction");
+
+	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_REMOTE)
+	{
+		gchar *local = gitg_ref_get_local_name (ref);
+
+		if (!has_local_ref (window, local))
+		{
+			gchar *label = g_strdup_printf (_("New local branch <%s>"), local);
+		
+			gtk_action_set_label (checkout, label);
+			gtk_action_set_visible (checkout, TRUE);
+			g_free (label);
+		}
+		else
+		{
+			gtk_action_set_visible (checkout, FALSE);
+		}
+		
+		g_free (local);
+		gtk_action_set_label (remove, _("Remove remote branch"));
+	}
+	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
+	{
+		gtk_action_set_label (checkout, _("Checkout working copy"));
+		gtk_action_set_label (remove, _("Remove local branch"));
+		
+		GitgRef *working = gitg_repository_get_current_working_ref (window->priv->repository);
+
+		gtk_action_set_visible (checkout, !gitg_ref_equal (working, ref));		
+	}
+	
+	update_merge_rebase (window, ref);
+	window->priv->popup_ref = ref;
+
+	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, window, event->button, event->time);
+	return TRUE;
+}
+
+gboolean
+on_tree_view_rv_button_press_event (GtkWidget *widget, GdkEventButton *event, GitgWindow *window)
+{
+	if (event->button == 3)
+	{
+		// Check to find a ref
+		return popup_revision (window, event);
+	}
+	
+	return FALSE;
+}
+
+void
+on_checkout_branch_action_activate (GtkAction *action, GitgWindow *window)
+{
+	gitg_branch_actions_checkout (window, window->priv->popup_ref);
+}
+
+
+void
+on_remove_branch_action_activate (GtkAction *action, GitgWindow *window)
+{
+	gitg_branch_actions_remove (window, window->priv->popup_ref);
 }

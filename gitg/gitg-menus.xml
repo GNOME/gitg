@@ -34,12 +34,68 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class="GtkActionGroup" id="action_group_revision">
+        <child>
+          <object class="GtkAction" id="CheckoutAction">
+            <property name="label">Checkout branch</property>
+            <signal name="activate" handler="on_checkout_branch_action_activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="RemoveAction">
+            <property name="label">Remove branch</property>
+            <signal name="activate" handler="on_remove_branch_action_activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="MergeAction">
+            <property name="label">Merge branch onto...</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="RebaseAction">
+            <property name="label">Rebase branch onto...</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkActionGroup" id="action_group_dnd">
+        <child>
+          <object class="GtkAction" id="MergeDndAction">
+            <property name="label">Merge</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="RebaseDndAction">
+            <property name="label">Rebase</property>
+          </object>
+        </child>
+      </object>
+    </child>
     <ui>
       <popup name="search_popup">
         <menuitem action="subject"/>
         <menuitem action="author"/>
         <menuitem action="date"/>
         <menuitem action="hash"/>
+      </popup>
+      <popup name="revision_popup">
+        <menuitem action="CheckoutAction"/>
+        <menuitem action="RemoveAction"/>
+        <separator/>
+        <menu name="Rebase" action="RebaseAction">
+          <placeholder name="Placeholder"/>
+        </menu>
+        <separator/>
+        <menu name="Merge" action="MergeAction">
+          <placeholder name="Placeholder"/>
+        </menu>
+      </popup>
+      <popup name="dnd_popup">
+        <menuitem action="RebaseDndAction"/>
+        <menuitem action="MergeDndAction"/>
       </popup>
     </ui>
   </object>

@@ -1,25 +1,27 @@
 <?xml version="1.0"?>
 <interface>
+  <!-- interface-requires gtk+ 2.12 -->
+  <!-- interface-requires gitg 0.2 -->
+  <!-- interface-requires sourceview2 0.0 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkImage" id="image_commit">
     <property name="visible">True</property>
     <property name="stock">gtk-apply</property>
-    <property name="icon-size">4</property>
   </object>
   <object class="GtkAdjustment" id="adjustment_context">
+    <property name="value">3</property>
     <property name="lower">1</property>
     <property name="upper">10</property>
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
     <property name="page_size">1</property>
-    <property name="value">3</property>
   </object>
   <object class="GitgWindow" id="window">
     <property name="title" translatable="yes">gitg</property>
     <property name="default_width">800</property>
     <property name="default_height">800</property>
-    <property name="visible">False</property>
-    <signal name="set-focus" handler="on_window_set_focus"/>
-    <signal name="window-state-event" handler="on_window_state_event"/>
+    <signal name="set_focus" handler="on_window_set_focus"/>
+    <signal name="window_state_event" handler="on_window_state_event"/>
     <child>
       <object class="GtkVBox" id="vbox_main">
         <property name="visible">True</property>
@@ -29,7 +31,7 @@
             <property name="can_focus">True</property>
             <child>
               <object class="GtkVBox" id="vbox_history">
-              <property name="visible">True</property>
+                <property name="visible">True</property>
                 <child>
                   <object class="GtkVPaned" id="vpaned_main">
                     <property name="visible">True</property>
@@ -48,6 +50,7 @@
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -67,12 +70,14 @@
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
                             <property name="padding">3</property>
+                            <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
@@ -86,16 +91,16 @@
                               <object class="GtkTreeView" id="tree_view_rv">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="headers_clickable">True</property>
                                 <property name="rules_hint">True</property>
                                 <property name="search_column">1</property>
                                 <property name="fixed_height_mode">True</property>
+                                <signal name="button_press_event" handler="on_tree_view_rv_button_press_event"/>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="rv_column_subject">
-                                    <property name="title" translatable="yes">Subject</property>
-                                    <property name="fixed-width">400</property>
-                                    <property name="sizing">fixed</property>
                                     <property name="resizable">True</property>
+                                    <property name="sizing">fixed</property>
+                                    <property name="fixed_width">400</property>
+                                    <property name="title">Subject</property>
                                     <property name="expand">True</property>
                                     <child>
                                       <object class="GitgCellRendererPath" id="rv_renderer_subject"/>
@@ -107,10 +112,10 @@
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="rv_column2">
-                                    <property name="title" translatable="yes">Author</property>
-                                    <property name="fixed-width">200</property>
-                                    <property name="sizing">fixed</property>
                                     <property name="resizable">True</property>
+                                    <property name="sizing">fixed</property>
+                                    <property name="fixed_width">200</property>
+                                    <property name="title">Author</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="rv_renderer_author"/>
                                       <attributes>
@@ -121,10 +126,10 @@
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="rv_column3">
-                                    <property name="title" translatable="yes">Date</property>
-                                    <property name="fixed-width">200</property>
-                                    <property name="sizing">fixed</property>
                                     <property name="resizable">True</property>
+                                    <property name="sizing">fixed</property>
+                                    <property name="fixed_width">200</property>
+                                    <property name="title">Date</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="rv_renderer_date"/>
                                       <attributes>
@@ -164,10 +169,15 @@
                                 <child>
                                   <object class="GtkTable" id="table_parents">
                                     <property name="visible">True</property>
-                                    <property name="n_rows">1</property>
                                     <property name="n_columns">2</property>
                                     <property name="column_spacing">3</property>
                                     <property name="row_spacing">2</property>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -228,7 +238,7 @@
                                   <packing>
                                     <property name="left_attach">1</property>
                                     <property name="right_attach">2</property>
-                                    <property name="y_options">fill</property>
+                                    <property name="y_options">GTK_FILL</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -241,8 +251,8 @@
                                   <packing>
                                     <property name="top_attach">4</property>
                                     <property name="bottom_attach">5</property>
-                                    <property name="x_options">fill</property>
-                                    <property name="y_options">fill</property>
+                                    <property name="x_options">GTK_FILL</property>
+                                    <property name="y_options">GTK_FILL</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -254,8 +264,8 @@
                                   <packing>
                                     <property name="top_attach">3</property>
                                     <property name="bottom_attach">4</property>
-                                    <property name="x_options">fill</property>
-                                    <property name="y_options">fill</property>
+                                    <property name="x_options">GTK_FILL</property>
+                                    <property name="y_options">GTK_FILL</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -267,8 +277,8 @@
                                   <packing>
                                     <property name="top_attach">2</property>
                                     <property name="bottom_attach">3</property>
-                                    <property name="x_options">fill</property>
-                                    <property name="y_options">fill</property>
+                                    <property name="x_options">GTK_FILL</property>
+                                    <property name="y_options">GTK_FILL</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -280,8 +290,8 @@
                                   <packing>
                                     <property name="top_attach">1</property>
                                     <property name="bottom_attach">2</property>
-                                    <property name="x_options">fill</property>
-                                    <property name="y_options">fill</property>
+                                    <property name="x_options">GTK_FILL</property>
+                                    <property name="y_options">GTK_FILL</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -292,14 +302,15 @@
                                     <property name="use_markup">True</property>
                                   </object>
                                   <packing>
-                                    <property name="x_options">fill</property>
-                                    <property name="y_options">fill</property>
+                                    <property name="x_options">GTK_FILL</property>
+                                    <property name="y_options">GTK_FILL</property>
                                   </packing>
                                 </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="padding">3</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -330,10 +341,9 @@
                                         <property name="headers_visible">False</property>
                                         <child>
                                           <object class="GtkTreeViewColumn" id="revision_files_column_icon">
-                                            <property name="title" translatable="no">Icon</property>
-                                            <property name="resizable">False</property>
-                                            <property name="fixed-width">20</property>
                                             <property name="sizing">fixed</property>
+                                            <property name="fixed_width">20</property>
+                                            <property name="title">Icon</property>
                                             <child>
                                               <object class="GtkCellRendererPixbuf" id="revision_files_cell_renderer_icon"/>
                                             </child>
@@ -341,8 +351,7 @@
                                         </child>
                                         <child>
                                           <object class="GtkTreeViewColumn" id="revision_files_column_name">
-                                            <property name="title" translatable="no">Filename</property>
-                                            <property name="resizable">False</property>
+                                            <property name="title">Filename</property>
                                             <child>
                                               <object class="GtkCellRendererText" id="revision_files_cell_renderer_name"/>
                                             </child>
@@ -351,6 +360,10 @@
                                       </object>
                                     </child>
                                   </object>
+                                  <packing>
+                                    <property name="resize">False</property>
+                                    <property name="shrink">True</property>
+                                  </packing>
                                 </child>
                                 <child>
                                   <object class="GtkScrolledWindow" id="scrolled_window_details">
@@ -361,14 +374,17 @@
                                     <property name="shadow_type">etched-in</property>
                                     <child>
                                       <object class="GitgDiffView" id="revision_diff">
-                                      	<property name="tab-width">4</property>
-                                      	<property name="editable">False</property>
-                                      	<property name="cursor-visible">False</property>
-                                      	<property name="diff-enabled">True</property>
-                                      	<property name="show-line-numbers">True</property>
+                                        <property name="editable">False</property>
+                                        <property name="cursor_visible">False</property>
+                                        <property name="show_line_numbers">True</property>
+                                        <property name="tab_width">4</property>
                                       </object>
                                     </child>
                                   </object>
+                                  <packing>
+                                    <property name="resize">True</property>
+                                    <property name="shrink">True</property>
+                                  </packing>
                                 </child>
                               </object>
                               <packing>
@@ -402,10 +418,10 @@
                                   <object class="GtkTreeView" id="revision_tree">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="headers-visible">False</property>
+                                    <property name="headers_visible">False</property>
                                     <child>
                                       <object class="GtkTreeViewColumn" id="revision_tree_column">
-                                        <property name="title" translatable="yes">Filename</property>
+                                        <property name="title">Filename</property>
                                         <child>
                                           <object class="GtkCellRendererPixbuf" id="renderer_icon"/>
                                           <attributes>
@@ -438,7 +454,7 @@
                                 <child>
                                   <object class="GtkSourceView" id="revision_tree_contents">
                                     <property name="editable">False</property>
-                                    <property name="show-line-numbers">True</property>
+                                    <property name="show_line_numbers">True</property>
                                   </object>
                                 </child>
                               </object>
@@ -448,6 +464,9 @@
                               </packing>
                             </child>
                           </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
                         </child>
                         <child type="tab">
                           <object class="GtkLabel" id="label2">
@@ -466,6 +485,9 @@
                       </packing>
                     </child>
                   </object>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
               </object>
             </child>
@@ -515,10 +537,8 @@
                             <property name="headers_visible">False</property>
                             <child>
                               <object class="GtkTreeViewColumn" id="unstaged_column_icon">
-                                <property name="title" translatable="no"></property>
-                                <property name="resizable">False</property>
-                                <property name="fixed-width">20</property>
                                 <property name="sizing">fixed</property>
+                                <property name="fixed_width">20</property>
                                 <child>
                                   <object class="GtkCellRendererPixbuf" id="unstaged_cell_renderer_icon"/>
                                 </child>
@@ -526,8 +546,8 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="unstaged_column_name">
-                                <property name="title" translatable="yes">Unstaged</property>
                                 <property name="resizable">True</property>
+                                <property name="title">Unstaged</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="unstaged_cell_renderer"/>
                                   <attributes>
@@ -570,10 +590,8 @@
                             <property name="headers_visible">False</property>
                             <child>
                               <object class="GtkTreeViewColumn" id="staged_column_icon">
-                                <property name="title" translatable="no"></property>
-                                <property name="resizable">False</property>
-                                <property name="fixed-width">20</property>
                                 <property name="sizing">fixed</property>
+                                <property name="fixed_width">20</property>
                                 <child>
                                   <object class="GtkCellRendererPixbuf" id="staged_cell_renderer_icon"/>
                                 </child>
@@ -581,7 +599,6 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="staged_column_name">
-                                <property name="title" translatable="no"></property>
                                 <property name="resizable">True</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="staged_cell_renderer_name"/>
@@ -632,32 +649,33 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkHScale" id="hscale_context">
-                                <property name="value-pos">right</property>
-                                <property name="digits">0</property>
-                                <property name="adjustment">adjustment_context</property>
-                                <property name="width-request">200</property>
-                                <property name="sensitive">False</property>
-                                <property name="show-fill-level">False</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="pack-type">end</property>
-                              </packing>
-                            </child>
-                            <child>
                               <object class="GtkLabel" id="label_context">
                                 <property name="label" translatable="yes">Context:</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="pack-type">end</property>
+                                <property name="pack_type">end</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkHScale" id="hscale_context">
+                                <property name="width_request">200</property>
+                                <property name="sensitive">False</property>
+                                <property name="adjustment">adjustment_context</property>
+                                <property name="digits">0</property>
+                                <property name="value_pos">right</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="pack_type">end</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
+                            <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
@@ -669,10 +687,10 @@
                             <property name="shadow_type">etched-in</property>
                             <child>
                               <object class="GitgDiffView" id="source_view_changes">
-                                <property name="tab-width">4</property>
                                 <property name="editable">False</property>
-                                <property name="cursor-visible">False</property>
-                                <property name="show-line-numbers">True</property>
+                                <property name="cursor_visible">False</property>
+                                <property name="show_line_numbers">True</property>
+                                <property name="tab_width">4</property>
                               </object>
                             </child>
                           </object>
@@ -728,6 +746,18 @@
                             <property name="visible">True</property>
                             <property name="spacing">3</property>
                             <child>
+                              <object class="GtkCheckButton" id="check_button_signed_off_by">
+                                <property name="label" translatable="yes">Add signed-off-by</property>
+                                <property name="can_focus">False</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">False</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkButton" id="button_commit">
                                 <property name="label" translatable="yes">Commit</property>
                                 <property name="visible">True</property>
@@ -736,19 +766,9 @@
                                 <property name="image">image_commit</property>
                               </object>
                               <packing>
+                                <property name="expand">False</property>
+                                <property name="pack_type">end</property>
                                 <property name="position">0</property>
-                                <property name="pack-type">end</property>
-                                <property name="expand">false</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkCheckButton" id="check_button_signed_off_by">
-                                <property name="visible">true</property>
-                                <property name="label" translatable="yes">Add signed-off-by</property>
-                              </object>
-                              <packing>
-                                <property name="pack-type">start</property>
-                                <property name="expand">false</property>
                               </packing>
                             </child>
                           </object>
@@ -770,6 +790,9 @@
                   </packing>
                 </child>
               </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
             </child>
             <child type="tab">
               <object class="GtkLabel" id="label_commit">
@@ -783,7 +806,6 @@
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -801,5 +823,3 @@
     </child>
   </object>
 </interface>
-
-<!-- vi:ts=2:et -->
