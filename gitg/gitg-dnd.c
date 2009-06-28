@@ -191,8 +191,8 @@ begin_drag (GtkWidget   *widget,
 	                                          1,
 	                                          event);
 
-	gint minwidth;
-	gint h;
+	guint minwidth;
+	guint h;
 	gdk_display_get_maximal_cursor_size (gtk_widget_get_display (widget), &minwidth, &h);
 
 	GdkPixbuf *pixbuf = gitg_cell_renderer_path_render_ref (GTK_WIDGET (tree_view),
@@ -271,7 +271,7 @@ vertical_autoscroll (GitgDndData *data)
 		
 		if (offset < 0)
 		{
-			return;
+			return TRUE;
 		}
 	}
 
@@ -446,6 +446,7 @@ gitg_drag_source_drop_cb (GtkWidget *widget,
 	}
 	
 	gtk_drag_finish (context, ret, FALSE, time);
+	return ret;
 }
 
 static gboolean
@@ -455,6 +456,7 @@ gitg_drag_source_leave_cb (GtkWidget       *widget,
                            GitgDndData     *data)
 {
 	remove_scroll_timeout (data);
+	return FALSE;
 }
 
 void 

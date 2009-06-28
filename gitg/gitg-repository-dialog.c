@@ -1,5 +1,7 @@
 #include <glib/gi18n.h>
 
+#include <stdlib.h>
+
 #include "gitg-repository-dialog.h"
 #include "gitg-utils.h"
 #include "gitg-config.h"

@@ -102,8 +102,11 @@ remove_local_branch (GitgWindow *window,
 	else
 	{
 		gitg_repository_reload (repository);
+
 		return TRUE;
 	}
+	
+	return FALSE;
 }
 
 static gboolean
@@ -237,10 +240,12 @@ checkout_local_branch (GitgWindow *window,
 		                NULL,
 		                NULL,
 		                name);
+		return FALSE;
 	}
 	else
 	{
 		gitg_repository_load (repository, 1, (gchar const **)&name, NULL);
+		return TRUE;
 	}
 }
 
