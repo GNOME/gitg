@@ -39,6 +39,7 @@ struct _GitgRef
 	gchar *shortname;
 	
 	gchar *prefix;
+	GitgRefState state;
 };
 
 GType 
@@ -183,4 +184,33 @@ gchar const *
 gitg_ref_get_prefix(GitgRef *ref)
 {
 	return ref->prefix;
+}
+
+GitgRefState    
+gitg_ref_get_state (GitgRef *ref)
+{
+	return ref->state;
+}
+
+void			
+gitg_ref_set_state (GitgRef      *ref,
+                    GitgRefState  state)
+{
+	ref->state = state;
+}
+
+gchar *
+gitg_ref_get_local_name (GitgRef *ref)
+{
+	gchar const *shortname = gitg_ref_get_shortname (ref);
+	gchar const *prefix = gitg_ref_get_prefix (ref);
+	
+	if (prefix && g_str_has_prefix (shortname, prefix))
+	{
+		return g_strdup (shortname + strlen(prefix) + 1);
+	}
+	else
+	{
+		return g_strdup (shortname);
+	}
 }
