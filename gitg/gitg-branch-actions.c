@@ -336,6 +336,63 @@ gitg_branch_actions_rebase (GitgWindow *window,
 	return FALSE;
 }
 
+
+gboolean
+gitg_branch_actions_push (GitgWindow *window,
+                          GitgRef    *source,
+                          GitgRef    *dest)
+{
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
+	g_return_val_if_fail (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH, FALSE);
+	g_return_val_if_fail (gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_REMOTE, FALSE);
+	
+	GitgRepository *repository = gitg_window_get_repository (window);
+
+	if (message_dialog (window,
+	                    GTK_MESSAGE_QUESTION,
+	                    _("Are you sure you want to push <%s> to <%s>?"),
+	                    NULL,
+	                    _("Push"),
+	                    gitg_ref_get_shortname (source),
+	                    gitg_ref_get_shortname (dest)) != GTK_RESPONSE_ACCEPT)
+	{
+		return FALSE;
+	}
+
+	gchar const *prefix = gitg_ref_get_prefix (dest);
+	gchar *local = gitg_ref_get_local_name (dest);
+	gchar const *name = gitg_ref_get_shortname (source);
+	gboolean ret = FALSE;
+	
+	gchar *spec = g_strconcat (name, ":", local, NULL);
+	
+	if (!gitg_repository_commandv (repository,
+	                               NULL,
+	                               "push",
+	                               prefix,
+	                               spec,
+	                               NULL))
+	{
+		message_dialog (window,
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to push local branch <%s> to remote <%s>"),
+		                NULL,
+		                NULL,
+		                name,
+		                gitg_ref_get_shortname (dest));
+	}
+	else
+	{
+		gitg_repository_reload (repository);
+		ret = TRUE;
+	}
+	
+	g_free (spec);
+	g_free (local);
+	
+	return ret;
+}
+
 gboolean
 gitg_branch_actions_apply_stash (GitgWindow *window,
                                  GitgRef    *stash)

@@ -466,9 +466,16 @@ on_refs_dnd (GitgRef *source, GitgRef *dest, gboolean dropped, GitgWindow *windo
 		return FALSE;
 	}
 
+	gboolean ret = FALSE;
+
+	if (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH &&
+	    gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_REMOTE)
+	{
+		ret = gitg_branch_actions_push (window, source, dest);
+	}
+
 	gtk_statusbar_push (window->priv->statusbar, 0, "");
-	
-	return FALSE;
+	return ret;
 }
 
 static void
