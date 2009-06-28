@@ -1037,7 +1037,7 @@ gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **
 
 	gitg_runner_cancel(self->priv->loader);
 	gitg_repository_clear(self);
-
+		
 	build_log_args(self, argc, av);
 	
 	/* first get the refs */
@@ -1132,9 +1132,12 @@ gitg_repository_get_refs(GitgRepository *repository)
 		GSList *val;
 		
 		for (val = (GSList *)item->data; val; val = val->next)
-			ret = g_slist_append(ret, gitg_ref_copy((GitgRef *)val->data));
+		{
+			ret = g_slist_prepend(ret, gitg_ref_copy((GitgRef *)val->data));
+		}
 	}
 	
+	ret = g_slist_reverse (ret);
 	g_list_free(values);
 	return ret;
 }
