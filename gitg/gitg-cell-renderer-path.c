@@ -54,6 +54,8 @@ struct _GitgCellRendererPathPrivate
 	guint lane_width;
 	guint triangle_width;
 	guint dot_width;
+	
+	gint last_height;
 };
 
 static GtkCellRendererTextClass *parent_class = NULL;
@@ -318,6 +320,8 @@ static void
 renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widget, GdkRectangle *area, GdkRectangle *cell_area, GdkRectangle *expose_area, GtkCellRendererState flags)
 {
 	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(renderer);
+	
+	self->priv->last_height = area->height;
 
 	cairo_t *cr = gdk_cairo_create(window);
 	
@@ -484,4 +488,35 @@ GtkCellRenderer *
 gitg_cell_renderer_path_new()
 {
 	return GTK_CELL_RENDERER(g_object_new(GITG_TYPE_CELL_RENDERER_PATH, NULL));
+}
+
+GitgRef *
+gitg_cell_renderer_path_get_ref_at_pos (GtkWidget *widget, GitgCellRendererPath *renderer, gint x, gint *hot_x)
+{
+	g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
+	g_return_val_if_fail (GITG_IS_CELL_RENDERER_PATH (renderer), NULL);
+	
+	PangoFontDescription *font;
+	g_object_get (renderer, "font-desc", &font, NULL);
+	
+	gint offset = 0;
+	
+	if (is_dummy(renderer->priv->revision))
+		offset = renderer->priv->lane_width;
+	
+	x -= num_lanes(renderer) * renderer->priv->lane_width + offset;
+
+	return gitg_label_renderer_get_ref_at_pos (widget, font, renderer->priv->labels, x, hot_x);
+}
+
+GdkPixbuf *
+gitg_cell_renderer_path_render_ref (GtkWidget *widget, GitgCellRendererPath *renderer, GitgRef *ref, gint minwidth)
+{
+	g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
+	g_return_val_if_fail (GITG_IS_CELL_RENDERER_PATH (renderer), NULL);
+
+	PangoFontDescription *font;
+	g_object_get(renderer, "font-desc", &font, NULL);
+	
+	return gitg_label_renderer_render_ref (widget, font, ref, renderer->priv->last_height, minwidth);
 }
