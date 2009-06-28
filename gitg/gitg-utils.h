@@ -64,5 +64,6 @@ void gitg_utils_set_monospace_font(GtkWidget *widget);
 gchar *gitg_utils_timestamp_to_str(guint64 timestamp);
 
 GtkBuilder *gitg_utils_new_builder(gchar const *filename);
+GtkCellRenderer *gitg_utils_find_cell_at_pos (GtkTreeView *tree_view, GtkTreeViewColumn *column, GtkTreePath *path, gint x);
 
 #endif /* __GITG_UTILS_H__ */

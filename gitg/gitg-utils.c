@@ -505,3 +505,42 @@ gitg_utils_timestamp_to_str(guint64 timestamp)
 	strftime(buf, 254, "%c", tms);
 	return gitg_utils_convert_utf8(buf, -1);
 }
+
+GtkCellRenderer *
+gitg_utils_find_cell_at_pos (GtkTreeView *tree_view, GtkTreeViewColumn *column, GtkTreePath *path, gint x)
+{
+	GList *cells;
+	GList *item;
+	GtkTreeIter iter;
+	GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
+
+	gtk_tree_model_get_iter (model, &iter, path);
+	
+	gtk_tree_view_column_cell_set_cell_data (column, model, &iter, FALSE, FALSE);
+	
+	cells = gtk_tree_view_column_get_cell_renderers (column);
+	GtkCellRenderer *ret = NULL;
+	
+	for (item = cells; item; item = g_list_next (item))
+	{
+		GtkCellRenderer *renderer = GTK_CELL_RENDERER (item->data);
+		gint start;
+		gint width;
+		
+		if (!gtk_tree_view_column_cell_get_position (column, renderer, &start, &width))
+		{
+			continue;
+		}
+		
+		gtk_cell_renderer_get_size (renderer, GTK_WIDGET (tree_view), NULL, NULL, NULL, &width, 0);
+		
+		if (x >= start && x <= start + width)
+		{
+			ret = renderer;
+			break;
+		}
+	}
+	
+	g_list_free (cells);
+	return ret;
+}
