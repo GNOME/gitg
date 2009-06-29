@@ -147,7 +147,7 @@ update_fetch (GitgRepositoryDialog *dialog)
 	{
 		GtkTreePath *path = (GtkTreePath *)item->data;
 		GtkTreeIter iter;
-		guint num;
+		gulong num;
 		
 		gtk_tree_model_get_iter (model, &iter, path);
 		gtk_tree_model_get (model, &iter, COLUMN_FETCH, &num, -1);
@@ -218,7 +218,7 @@ fetch_timeout_cb (FetchInfo *info)
 	GtkTreeIter iter;
 	GtkTreePath *path = gtk_tree_row_reference_get_path (info->reference);
 	GtkTreeModel *model = GTK_TREE_MODEL (info->dialog->priv->list_store_remotes);
-	guint num;
+	gulong num;
 	
 	gtk_tree_model_get_iter (model,
 	                         &iter,
@@ -263,8 +263,9 @@ on_fetch_end_loading (GitgRunner *runner, gboolean cancelled, FetchInfo *info)
 	}
 
 	GitgRepositoryDialog *dialog = info->dialog;
+
 	fetch_cleanup (info);
-	
+
 	update_fetch (dialog);
 	gitg_repository_reload (dialog->priv->repository);
 }
@@ -382,7 +383,7 @@ init_properties(GitgRepositoryDialog *dialog)
 static void
 fetch_data_cb (GtkTreeViewColumn *column, GtkCellRendererProgress *cell, GtkTreeModel *model, GtkTreeIter *iter, GitgRepositoryDialog *dialog)
 {
-	guint num;
+	gulong num;
 	
 	gtk_tree_model_get (model, iter, COLUMN_FETCH, &num, -1);
 	
@@ -510,7 +511,7 @@ on_button_fetch_remote_clicked (GtkButton *button, GitgRepositoryDialog *dialog)
 	{
 		GtkTreePath *path = (GtkTreePath *)item->data;
 		GtkTreeIter iter;
-		guint num;
+		gulong num;
 		
 		gtk_tree_model_get_iter (model, &iter, path);
 		gtk_tree_model_get (model, &iter, COLUMN_FETCH, &num, -1);
