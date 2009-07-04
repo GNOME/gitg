@@ -5,6 +5,7 @@
 #include "gitg-repository-dialog.h"
 #include "gitg-utils.h"
 #include "gitg-config.h"
+#include "gitg-spinner.h"
 
 #define GITG_REPOSITORY_DIALOG_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REPOSITORY_DIALOG, GitgRepositoryDialogPrivate))
 
@@ -43,16 +44,15 @@ typedef struct
 	GitgRepositoryDialog *dialog;
 	GitgRunner *runner;
 	GtkTreeRowReference *reference;
-	
-	guint timeout_id;
+	GitgSpinner *spinner;
 } FetchInfo;
 
 static void
 fetch_cleanup (FetchInfo *info)
 {
-	if (info->timeout_id)
+	if (info->spinner)
 	{
-		g_source_remove (info->timeout_id);
+		g_object_unref (info->spinner);
 	}
 	
 	info->dialog->priv->fetchers = g_list_remove (info->dialog->priv->fetchers, info);
@@ -68,7 +68,7 @@ fetch_cleanup (FetchInfo *info)
 
 		gtk_list_store_set (info->dialog->priv->list_store_remotes,
 		                    &iter,
-		                    COLUMN_FETCH, G_MAXULONG,
+		                    COLUMN_FETCH, NULL,
 		                    -1);
 
 		gtk_tree_path_free (path);
@@ -147,14 +147,18 @@ update_fetch (GitgRepositoryDialog *dialog)
 	{
 		GtkTreePath *path = (GtkTreePath *)item->data;
 		GtkTreeIter iter;
-		gulong num;
+		GdkPixbuf *fetch;
 		
 		gtk_tree_model_get_iter (model, &iter, path);
-		gtk_tree_model_get (model, &iter, COLUMN_FETCH, &num, -1);
+		gtk_tree_model_get (model, &iter, COLUMN_FETCH, &fetch, -1);
 		
-		if (num == G_MAXULONG)
+		if (!fetch)
 		{
 			show_fetch = TRUE;
+		}
+		else
+		{
+			g_object_unref (fetch);
 		}
 	}
 	
@@ -208,33 +212,12 @@ add_remote (GitgRepositoryDialog *dialog, gchar const *name, gchar const *url, G
 	                    iter ? iter : &it,
 	                    COLUMN_NAME, name,
 	                    COLUMN_URL, url,
-	                    COLUMN_FETCH, G_MAXULONG,
+	                    COLUMN_FETCH, NULL,
 	                    -1);
-}
-
-static gboolean
-fetch_timeout_cb (FetchInfo *info)
-{
-	GtkTreeIter iter;
-	GtkTreePath *path = gtk_tree_row_reference_get_path (info->reference);
-	GtkTreeModel *model = GTK_TREE_MODEL (info->dialog->priv->list_store_remotes);
-	gulong num;
-	
-	gtk_tree_model_get_iter (model,
-	                         &iter,
-	                         path);
-
-	gtk_tree_model_get (model, &iter, COLUMN_FETCH, &num, -1);
-	gtk_list_store_set (info->dialog->priv->list_store_remotes,
-	                    &iter,
-	                    COLUMN_FETCH, num + 1,
-	                    -1);
-	
-	return TRUE;
 }
 
 static void
-on_fetch_begin_loading (GitgRunner *runner, FetchInfo *info)
+on_spinner_frame (GitgSpinner *spinner, GdkPixbuf *pixbuf, FetchInfo *info)
 {
 	GtkTreeIter iter;
 	GtkTreePath *path = gtk_tree_row_reference_get_path (info->reference);
@@ -245,12 +228,22 @@ on_fetch_begin_loading (GitgRunner *runner, FetchInfo *info)
 
 	gtk_list_store_set (info->dialog->priv->list_store_remotes,
 	                    &iter,
-	                    COLUMN_FETCH, 0,
+	                    COLUMN_FETCH, pixbuf,
 	                    -1);
 
 	gtk_tree_path_free (path);
+}
+
+static void
+on_fetch_begin_loading (GitgRunner *runner, FetchInfo *info)
+{
+	info->spinner = gitg_spinner_new (GTK_ICON_SIZE_MENU);
+	gitg_spinner_set_screen (info->spinner, gtk_widget_get_screen (GTK_WIDGET (info->dialog)));
 	
-	info->timeout_id = g_timeout_add (100, (GSourceFunc)fetch_timeout_cb, info);
+	g_signal_connect (info->spinner, "frame", G_CALLBACK (on_spinner_frame), info);
+	gitg_spinner_start (info->spinner);
+	
+	update_fetch (info->dialog);
 }
 
 static void
@@ -274,14 +267,13 @@ static void
 fetch_remote (GitgRepositoryDialog *dialog, GtkTreeIter *iter)
 {
 	GitgRunner *runner = gitg_runner_new (1000);
-	FetchInfo *info = g_slice_new (FetchInfo);
+	FetchInfo *info = g_slice_new0 (FetchInfo);
 	GtkTreeModel *model = GTK_TREE_MODEL (dialog->priv->list_store_remotes);
 	
 	GtkTreePath *path = gtk_tree_model_get_path (model, iter);
 	
 	info->dialog = dialog;
 	info->reference = gtk_tree_row_reference_new (model, path);
-	info->timeout_id = 0;
 	info->runner = runner;
 
 	gtk_tree_path_free (path); 
@@ -381,17 +373,27 @@ init_properties(GitgRepositoryDialog *dialog)
 }
 
 static void
-fetch_data_cb (GtkTreeViewColumn *column, GtkCellRendererProgress *cell, GtkTreeModel *model, GtkTreeIter *iter, GitgRepositoryDialog *dialog)
+fetch_data_cb (GtkTreeViewColumn    *column,
+               GtkCellRenderer      *cell,
+               GtkTreeModel         *model,
+               GtkTreeIter          *iter,
+               GitgRepositoryDialog *dialog)
 {
-	gulong num;
+	GdkPixbuf *fetch;
 	
-	gtk_tree_model_get (model, iter, COLUMN_FETCH, &num, -1);
+	gtk_tree_model_get (model, iter, COLUMN_FETCH, &fetch, -1);
 	
-	g_object_set (cell,
-	              "pulse", num,
-	              "visible", num != G_MAXULONG,
-	              "xalign", 1.0,
-	              NULL);
+	if (fetch)
+	{
+		g_object_set (cell, "pixbuf", fetch, NULL);
+		g_object_unref (fetch);
+	}
+	else
+	{
+		g_object_set (cell, 
+		              "stock-id", GTK_STOCK_NETWORK, 
+		              NULL);
+	}
 }
 
 static void
@@ -421,14 +423,12 @@ create_repository_dialog (GitgWindow *window)
 	repository_dialog->priv->button_remove_remote = GTK_BUTTON(gtk_builder_get_object(b, "button_remove_remote"));
 	repository_dialog->priv->button_fetch_remote = GTK_BUTTON(gtk_builder_get_object(b, "button_fetch_remote"));
 	repository_dialog->priv->image_fetch_remote = GTK_IMAGE(gtk_builder_get_object(b, "image_fetch_remote"));
-	
-	GtkCellRenderer *renderer = gtk_cell_renderer_progress_new ();
-	
-	GObject *column = gtk_builder_get_object (b, "tree_view_remotes_column_url");
-	gtk_tree_view_column_pack_end (GTK_TREE_VIEW_COLUMN (column), renderer, TRUE);
 
+	GObject *renderer = gtk_builder_get_object(b, "tree_view_remotes_renderer_icon");
+	GObject *column = gtk_builder_get_object(b, "tree_view_remotes_column_icon");
+	
 	gtk_tree_view_column_set_cell_data_func (GTK_TREE_VIEW_COLUMN (column),
-	                                         renderer,
+	                                         GTK_CELL_RENDERER (renderer),
 	                                         (GtkTreeCellDataFunc)fetch_data_cb,
 	                                         repository_dialog,
 	                                         NULL);
@@ -511,18 +511,23 @@ on_button_fetch_remote_clicked (GtkButton *button, GitgRepositoryDialog *dialog)
 	{
 		GtkTreePath *path = (GtkTreePath *)item->data;
 		GtkTreeIter iter;
-		gulong num;
+		GdkPixbuf *fetch;
 		
 		gtk_tree_model_get_iter (model, &iter, path);
-		gtk_tree_model_get (model, &iter, COLUMN_FETCH, &num, -1);
+		gtk_tree_model_get (model, &iter, COLUMN_FETCH, &fetch, -1);
 		
-		if (num == G_MAXULONG && dialog->priv->show_fetch)
+		if (!fetch && dialog->priv->show_fetch)
 		{
 			fetch_remote (dialog, &iter);
 		}
-		else if (num != G_MAXULONG && !dialog->priv->show_fetch)
+		else if (fetch && !dialog->priv->show_fetch)
 		{
 			fetch_remote_cancel (dialog, &iter);
+		}
+		
+		if (fetch)
+		{
+			g_object_unref (fetch);
 		}
 		
 		gtk_tree_path_free (path);

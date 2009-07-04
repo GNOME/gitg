@@ -9,8 +9,8 @@
       <column type="gchararray"/>
       <!-- column-name url -->
       <column type="gchararray"/>
-      <!-- column-name fetch -->
-      <column type="gulong"/>
+      <!-- column-name fetching -->
+      <column type="GdkPixbuf"/>
     </columns>
   </object>
   <object class="GitgRepositoryDialog" id="dialog_repository">
@@ -47,6 +47,14 @@
                         <property name="can_focus">True</property>
                         <property name="model">list_store_remotes</property>
                         <property name="rules_hint">True</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="tree_view_remotes_column_icon">
+                            <child>
+                              <object class="GtkCellRendererPixbuf" id="tree_view_remotes_renderer_icon">
+                              </object>
+                            </child>
+                          </object>
+                        </child>
                         <child>
                           <object class="GtkTreeViewColumn" id="tree_view_remotes_column_name">
                             <property name="title">Name</property>

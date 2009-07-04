@@ -41,6 +41,7 @@ NOINST_H_FILES = 			\
 	gitg-revision-view.h		\
 	gitg-runner.h			\
 	gitg-settings.h			\
+	gitg-spinner.h			\
 	gitg-types.h			\
 	gitg-utils.h			\
 	gitg-window.h			\
@@ -75,6 +76,7 @@ gitg_SOURCES = 				\
 	gitg-revision-view.c		\
 	gitg-runner.c			\
 	gitg-settings.c			\
+	gitg-spinner.c			\
 	gitg-utils.c			\
 	gitg-window.c			\
 	sexy-icon-entry.c		\
