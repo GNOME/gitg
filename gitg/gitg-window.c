@@ -86,6 +86,8 @@ struct _GitgWindowPrivate
 	guint merge_rebase_uid;
 	GtkActionGroup *merge_rebase_action_group;
 	GitgRef *popup_ref;
+	
+	GList *branch_actions;
 };
 
 static gboolean on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window);
@@ -100,6 +102,31 @@ static GtkBuildableIface parent_iface;
 static GtkWindowClass *parent_class = NULL;
 
 static void
+on_branch_action_runner_end (GitgRunner *runner, gboolean cancelled, GitgWindow *window)
+{
+	window->priv->branch_actions = g_list_remove (window->priv->branch_actions, runner);
+	g_object_unref (runner);
+}
+
+static gboolean
+add_branch_action (GitgWindow *window, GitgRunner *runner)
+{
+	if (runner != NULL && gitg_runner_running (runner))
+	{
+		window->priv->branch_actions = g_list_prepend (window->priv->branch_actions, runner);
+		
+		g_signal_connect (runner, "end-loading", G_CALLBACK (on_branch_action_runner_end), window);
+	}
+	else if (runner)
+	{
+		g_object_unref (runner);
+		runner = NULL;
+	}
+	
+	return runner != NULL;
+}
+
+static void
 gitg_window_finalize(GObject *object)
 {
 	GitgWindow *self = GITG_WINDOW(object);
@@ -107,6 +134,16 @@ gitg_window_finalize(GObject *object)
 	g_timer_destroy(self->priv->load_timer);
 	gdk_cursor_unref(self->priv->hand);
 	
+	GList *copy = g_list_copy (self->priv->branch_actions);
+	GList *item;
+	
+	for (item = copy; item; item = g_list_next (item))
+	{
+		gitg_runner_cancel (GITG_RUNNER (item->data));
+	}
+	
+	g_list_free (copy);
+
 	G_OBJECT_CLASS(gitg_window_parent_class)->finalize(object);
 }
 
@@ -471,7 +508,7 @@ on_refs_dnd (GitgRef *source, GitgRef *dest, gboolean dropped, GitgWindow *windo
 	if (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH &&
 	    gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_REMOTE)
 	{
-		ret = gitg_branch_actions_push (window, source, dest);
+		ret = add_branch_action (window, gitg_branch_actions_push (window, source, dest));
 	}
 
 	gtk_statusbar_push (window->priv->statusbar, 0, "");

@@ -1276,7 +1276,7 @@ gitg_repository_command_with_output(GitgRepository *repository, gchar const **ar
 	return gitg_repository_command_with_input_and_output(repository, argv, NULL, error);
 }
 
-gchar const **
+static gchar const **
 parse_valist(va_list ap)
 {
 	gchar const *a;
