@@ -45,7 +45,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
 AM_GLIB_GNU_GETTEXT
 
 PKG_CHECK_MODULES(PACKAGE, [
-	gtk+-2.0 >= 2.14.0
+	gtk+-2.0 >= 2.12.0
 	gthread-2.0
 	gtksourceview-2.0
 	gio-2.0

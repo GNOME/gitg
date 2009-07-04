@@ -277,8 +277,8 @@ vertical_autoscroll (GitgDndData *data)
 
 	GtkAdjustment *adj = gtk_tree_view_get_vadjustment (data->tree_view);
 	
-	value = CLAMP (gtk_adjustment_get_value (adj) + offset, 0.0,
-	               gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj));
+	value = CLAMP (adj->upper + offset, 0.0,
+	               adj->upper - adj->page_size);
 
 	gtk_adjustment_set_value (adj, value);	
 	return TRUE;
