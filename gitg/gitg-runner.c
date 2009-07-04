@@ -571,6 +571,8 @@ gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar con
 		return FALSE;
 	}
 	
+	g_child_watch_add (runner->priv->pid, (GChildWatchFunc)runner_io_exit, runner);
+	
 	GInputStream *input_stream = NULL;
 	GOutputStream *output_stream = NULL;
 
@@ -625,6 +627,9 @@ gitg_runner_cancel(GitgRunner *runner)
 		g_object_unref(runner->priv->cancellable);
 		
 		runner->priv->cancellable = g_cancellable_new();
+
+		kill(runner->priv->pid, SIGTERM);
+		
 		runner_io_exit(runner->priv->pid, 1, runner);
 		close_streams(runner);
 
