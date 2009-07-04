@@ -524,7 +524,7 @@ on_push_result (GitgWindow   *window,
 		message_dialog (window,
 			            GTK_MESSAGE_ERROR,
 			            _("Failed to push local branch <%s> to remote <%s>"),
-			            NULL,
+			            _("This usually means that the remote branch could not be fast-forwarded. Try fetching the latest changes."),
 			            NULL,
 			            gitg_ref_get_shortname (info->source),
 			            gitg_ref_get_shortname (info->dest));
@@ -548,25 +548,31 @@ gitg_branch_actions_push (GitgWindow *window,
 	g_return_val_if_fail (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH, NULL);
 	g_return_val_if_fail (gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_REMOTE, NULL);
 	
+	gchar *message = g_strdup_printf (_("Are you sure you want to push <%s> to <%s>?"),
+	                                  gitg_ref_get_shortname (source),
+	                                  gitg_ref_get_shortname (dest));
+	
 	if (message_dialog (window,
 	                    GTK_MESSAGE_QUESTION,
-	                    _("Are you sure you want to push <%s> to <%s>?"),
-	                    NULL,
 	                    _("Push"),
-	                    gitg_ref_get_shortname (source),
-	                    gitg_ref_get_shortname (dest)) != GTK_RESPONSE_ACCEPT)
+	                    message,
+	                    NULL,
+	                    _("Push")) != GTK_RESPONSE_ACCEPT)
 	{
+		g_free (message);
 		return NULL;
 	}
+	
+	g_free (message);
 
 	gchar const *prefix = gitg_ref_get_prefix (dest);
 	gchar *local = gitg_ref_get_local_name (dest);
 	gchar const *name = gitg_ref_get_shortname (source);
 	
 	gchar *spec = g_strconcat (name, ":", local, NULL);
-	gchar *message = g_strdup_printf (_("Pushing local branch `%s' to remote branch `%s'"),
-	                                  gitg_ref_get_shortname (source),
-	                                  gitg_ref_get_shortname (dest));
+	message = g_strdup_printf (_("Pushing local branch `%s' to remote branch `%s'"),
+	                           gitg_ref_get_shortname (source),
+	                           gitg_ref_get_shortname (dest));
 	
 	GitgRunner *ret;
 	PushInfo *info = g_slice_new (PushInfo);
