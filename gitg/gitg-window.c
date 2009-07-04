@@ -538,17 +538,21 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	
 	// Insert menu from second ui file
 	GtkBuilder *b = gitg_utils_new_builder("gitg-ui.xml");
-	GtkWidget *menu = GTK_WIDGET(gtk_builder_get_object(b, "menubar_main"));
-	GtkWidget *vbox = GTK_WIDGET(gtk_builder_get_object(builder, "vbox_main"));
-
-	gtk_box_pack_start(GTK_BOX(vbox), menu, FALSE, FALSE, 0);
-	gtk_box_reorder_child(GTK_BOX(vbox), menu, 0);
+	GtkUIManager *uiman = GTK_UI_MANAGER (gtk_builder_get_object(b, "uiman"));
 
 	GtkRecentChooser *chooser = GTK_RECENT_CHOOSER(gtk_builder_get_object(b, "RecentOpenAction"));
 	GtkRecentFilter *filter = gtk_recent_filter_new();
 	gtk_recent_filter_add_group(filter, "gitg");
 
 	gtk_recent_chooser_add_filter(chooser, filter);
+	gtk_recent_chooser_set_show_tips(chooser, TRUE);
+
+	GtkWidget *menu = gtk_ui_manager_get_widget (uiman, "/ui/menubar_main");
+	GtkWidget *vbox = GTK_WIDGET(gtk_builder_get_object(builder, "vbox_main"));
+
+	gtk_box_pack_start(GTK_BOX(vbox), menu, FALSE, FALSE, 0);
+	gtk_box_reorder_child(GTK_BOX(vbox), menu, 0);
+
 
 	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object(b, "action_group_menu_edit"));
 
