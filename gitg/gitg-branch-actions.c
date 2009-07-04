@@ -33,6 +33,8 @@ free_progress_info (ProgressInfo *info)
 		g_source_remove (info->timeout_id);
 	}
 
+	gtk_widget_destroy (GTK_WIDGET (info->dialog));
+
 	g_object_unref (info->runner);
 	g_slice_free (ProgressInfo, info);
 }
@@ -72,15 +74,18 @@ on_progress_end (GitgRunner *runner, gboolean cancelled, ProgressInfo *info)
 		progress = GITG_PROGRESS_SUCCESS;
 	}
 
-	info->callback (info->window, progress, info->callback_data);
+	GitgWindow *window = info->window;
+	ProgressCallback callback = info->callback;
+	gpointer data = info->callback_data;
 	free_progress_info (info);
+	
+	callback (window, progress, data);
 }
 
 static void
 on_progress_response (GtkDialog *dialog, GtkResponseType response, ProgressInfo *info)
 {
 	gitg_runner_cancel (info->runner);
-	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 static gboolean
