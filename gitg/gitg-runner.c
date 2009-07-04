@@ -26,6 +26,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include "gitg-debug.h"
+#include <errno.h>
+#include <stdlib.h>
 
 #include <gio/gio.h>
 #include <gio/gunixoutputstream.h>
@@ -114,6 +116,11 @@ runner_io_exit(GPid pid, gint status, GitgRunner *runner)
 		runner->priv->pid = 0;
 		runner->priv->exit_status = status;
 	}
+}
+
+static void
+dummy_exit(GPid pid, gint status, gpointer data)
+{
 }
 
 static void
@@ -406,7 +413,7 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 		parse_lines(runner, runner->priv->read_buffer, read);
 	}
 
-	gint status;
+	gint status = 0;
 	waitpid(runner->priv->pid, &status, 0);
 
 	runner_io_exit(runner->priv->pid, status, runner);
@@ -466,8 +473,9 @@ read_output_ready(GInputStream *stream, GAsyncResult *result, AsyncData *data)
 		gchar *b[] = {data->runner->priv->buffer, NULL};
 		g_signal_emit(data->runner, runner_signals[UPDATE], 0, b);		
 
-		gint status;
+		gint status = 0;
 		waitpid(data->runner->priv->pid, &status, 0);
+		
 		runner_io_exit(data->runner->priv->pid, status, data->runner);
 		close_streams(data->runner);
 
@@ -574,8 +582,6 @@ gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar con
 		return FALSE;
 	}
 	
-	g_child_watch_add (runner->priv->pid, (GChildWatchFunc)runner_io_exit, runner);
-	
 	GInputStream *input_stream = NULL;
 	GOutputStream *output_stream = NULL;
 
@@ -619,6 +625,11 @@ gitg_runner_get_buffer_size(GitgRunner *runner)
 	return runner->priv->buffer_size;
 }
 
+static void
+dummy_cb(GPid pid, gint status, gpointer data)
+{
+}
+
 void
 gitg_runner_cancel(GitgRunner *runner)
 {
@@ -631,9 +642,10 @@ gitg_runner_cancel(GitgRunner *runner)
 		
 		runner->priv->cancellable = g_cancellable_new();
 
+		g_child_watch_add(runner->priv->pid, dummy_cb, NULL);
 		kill(runner->priv->pid, SIGTERM);
 		
-		runner_io_exit(runner->priv->pid, 1, runner);
+		runner_io_exit(runner->priv->pid, EXIT_FAILURE, runner);
 		close_streams(runner);
 
 		g_signal_emit(runner, runner_signals[END_LOADING], 0, TRUE);
