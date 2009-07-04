@@ -141,6 +141,8 @@ run_progress (GitgWindow       *window,
 	                                          "%s",
 	                                          message);
 
+	gtk_window_set_title (GTK_WINDOW (dlg), _("gitg"));
+
 	// Add progress bar
 	GtkWidget *area = gtk_dialog_get_content_area (GTK_DIALOG (dlg));
 	GtkWidget *progress = gtk_progress_bar_new ();
@@ -191,6 +193,8 @@ message_dialog (GitgWindow     *window,
 	                              prim);
 
 	g_free (prim);
+	
+	gtk_window_set_title (GTK_WINDOW (dlg), _("gitg"));
 	
 	if (secondary)
 	{
