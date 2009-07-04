@@ -107,10 +107,13 @@ gitg_runner_error_quark()
 static void
 runner_io_exit(GPid pid, gint status, GitgRunner *runner)
 {
-	g_spawn_close_pid(pid);	
-	runner->priv->pid = 0;
+	g_spawn_close_pid(pid);
 	
-	runner->priv->exit_status = status;
+	if (runner->priv->pid)
+	{
+		runner->priv->pid = 0;
+		runner->priv->exit_status = status;
+	}
 }
 
 static void

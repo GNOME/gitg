@@ -28,10 +28,11 @@
 
 G_BEGIN_DECLS
 
-gboolean gitg_branch_actions_remove (GitgWindow *window, GitgRef *ref);
+GitgRunner *gitg_branch_actions_remove (GitgWindow *window, GitgRef *ref);
 gboolean gitg_branch_actions_checkout (GitgWindow *window, GitgRef *ref);
-gboolean gitg_branch_actions_merge (GitgWindow *window, GitgRef *source, GitgRef *dest);
-gboolean gitg_branch_actions_rebase (GitgWindow *window, GitgRef *source, GitgRef *dest);
+
+GitgRunner *gitg_branch_actions_merge (GitgWindow *window, GitgRef *source, GitgRef *dest);
+GitgRunner *gitg_branch_actions_rebase (GitgWindow *window, GitgRef *source, GitgRef *dest);
 
 GitgRunner *gitg_branch_actions_push (GitgWindow *window, GitgRef *source, GitgRef *dest);
 

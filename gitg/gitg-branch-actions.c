@@ -233,7 +233,7 @@ message_dialog (GitgWindow     *window,
 	return ret;
 }                
 
-static gboolean
+static GitgRunner *
 remove_local_branch (GitgWindow *window,
                      GitgRef    *ref)
 {
@@ -260,12 +260,12 @@ remove_local_branch (GitgWindow *window,
 				                NULL,
 				                name);
 
-				return FALSE;
+				return NULL;
 			}
 			else
 			{
 				gitg_repository_reload (repository);
-				return TRUE;
+				return NULL;
 			}
 		}
 	}
@@ -273,55 +273,98 @@ remove_local_branch (GitgWindow *window,
 	{
 		gitg_repository_reload (repository);
 
-		return TRUE;
+		return NULL;
 	}
 	
-	return FALSE;
+	return NULL;
 }
 
-static gboolean
+static void
+on_remove_remote_result (GitgWindow *window, GitgProgress progress, gpointer data)
+{
+	GitgRef *ref = (GitgRef *)data;
+
+	if (progress == GITG_PROGRESS_ERROR)
+	{
+		message_dialog (window, 
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to remove remote branch <%s>."),
+		                NULL,
+		                NULL,
+		                gitg_ref_get_shortname (ref));
+	}
+	else if (progress == GITG_PROGRESS_SUCCESS)
+	{
+		gitg_repository_reload (gitg_window_get_repository (window));
+	}
+	
+	gitg_ref_free (ref);
+}
+
+static GitgRunner *
 remove_remote_branch (GitgWindow *window,
                       GitgRef    *ref)
 {
 	gchar const *name = gitg_ref_get_shortname (ref);
 	GitgRepository *repository = gitg_window_get_repository (window);
 
-	gint ret = message_dialog (window,
-	                          GTK_MESSAGE_QUESTION,
-	                          _("Are you sure you want to remove the remote branch <%s>?"),
-	                          _("This permanently removes the remote branch."),
-	                          _("Remove remote branch"),
-	                          name);
+	gint r = message_dialog (window,
+	                         GTK_MESSAGE_QUESTION,
+	                         _("Are you sure you want to remove the remote branch <%s>?"),
+	                         _("This permanently removes the remote branch."),
+	                         _("Remove remote branch"),
+	                         name);
 	
-	if (ret == GTK_RESPONSE_ACCEPT)
+	if (r != GTK_RESPONSE_ACCEPT)
 	{
-		gchar *local = gitg_ref_get_local_name (ref);
-		gchar *rm = g_strconcat (":", local, NULL);
-		g_free (local);
+		return NULL;
+	}
+
+	gchar *local = gitg_ref_get_local_name (ref);
+	gchar *rm = g_strconcat (":", local, NULL);
+	g_free (local);
+	
+	GitgRunner *ret;
+	gchar *message = g_strdup_printf ("Removing remote branch `%s'", name);
 		
-		if (!gitg_repository_commandv (repository,
-		                               NULL,
-		                               "push",
-		                               gitg_ref_get_prefix (ref),
-		                               rm,
-		                               NULL))
-		{
-			message_dialog (window, 
-			                GTK_MESSAGE_ERROR,
-			                _("Failed to remove remote branch <%s>."),
-			                NULL,
-			                NULL,
-			                name);
-			return FALSE;
-		}
-		else
-		{
-			gitg_repository_reload (repository);
-			return TRUE;
-		}
+	ret = run_progress (window, 
+	                    _("Remove branch"), 
+	                    message, 
+	                    on_remove_remote_result,  
+	                    gitg_ref_copy (ref),
+	                    "push",
+	                    gitg_ref_get_prefix (ref),
+	                    rm,
+	                    NULL);
+	g_free (message);
+
+	return ret;
+}
+
+GitgRunner * 
+gitg_branch_actions_remove (GitgWindow *window,
+                            GitgRef    *ref)
+{
+	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (ref != NULL, NULL);
+		
+	GitgRef *cp = gitg_ref_copy (ref);
+	GitgRunner *ret = NULL;
+	
+	switch (gitg_ref_get_ref_type (cp))
+	{
+		case GITG_REF_TYPE_BRANCH:
+			ret = remove_local_branch (window, cp);
+		break;
+		case GITG_REF_TYPE_REMOTE:
+			ret = remove_remote_branch (window, cp);
+		break;
+		default:
+		break;
 	}
 	
-	return FALSE;
+	gitg_ref_free (cp);
+	return ret;
 }
 
 static gboolean
@@ -438,31 +481,6 @@ checkout_remote_branch (GitgWindow *window,
 	return ret;
 }
 
-gboolean 
-gitg_branch_actions_remove (GitgWindow *window,
-                            GitgRef    *ref)
-{
-	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
-		
-	GitgRef *cp = gitg_ref_copy (ref);
-	gboolean ret = FALSE;
-	
-	switch (gitg_ref_get_ref_type (cp))
-	{
-		case GITG_REF_TYPE_BRANCH:
-			ret = remove_local_branch (window, cp);
-		break;
-		case GITG_REF_TYPE_REMOTE:
-			ret = remove_remote_branch (window, cp);
-		break;
-		default:
-		break;
-	}
-	
-	gitg_ref_free (cp);
-	return ret;
-}
-
 gboolean
 gitg_branch_actions_checkout (GitgWindow *window,
                               GitgRef    *ref)
@@ -488,22 +506,30 @@ gitg_branch_actions_checkout (GitgWindow *window,
 	return ret;
 }
 
-gboolean
+GitgRunner *
 gitg_branch_actions_merge (GitgWindow *window,
                            GitgRef    *source,
                            GitgRef    *dest)
 {
-	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
-	return FALSE;
+	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (dest != NULL, NULL);
+	g_return_val_if_fail (source != NULL, NULL);
+	g_return_val_if_fail (gitg_ref_get_ref_type (dest) != GITG_REF_TYPE_REMOTE, NULL);
+
+	return NULL;
 }
 
-gboolean
+GitgRunner *
 gitg_branch_actions_rebase (GitgWindow *window,
                             GitgRef    *source,
                             GitgRef    *dest)
 {
-	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
-	return FALSE;
+	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (dest != NULL, NULL);
+	g_return_val_if_fail (source != NULL, NULL);
+	g_return_val_if_fail (gitg_ref_get_ref_type (dest) != GITG_REF_TYPE_REMOTE, NULL);
+
+	return NULL;
 }
 
 typedef struct
@@ -545,6 +571,8 @@ gitg_branch_actions_push (GitgWindow *window,
                           GitgRef    *dest)
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (dest != NULL, NULL);
+	g_return_val_if_fail (source != NULL, NULL);	
 	g_return_val_if_fail (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH, NULL);
 	g_return_val_if_fail (gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_REMOTE, NULL);
 	
