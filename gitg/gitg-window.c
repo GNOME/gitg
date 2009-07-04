@@ -1207,7 +1207,7 @@ void
 on_help_about(GtkAction *action, GitgWindow *window)
 {
 	static gchar const copyright[] = "Copyright \xc2\xa9 2009 Jesse van den Kieboom";
-	static gchar const *authors[] = {"Jesse van den Kieboom <jesse@icecrew.nl>", NULL};
+	static gchar const *authors[] = {"Jesse van den Kieboom <jessevdk@gnome.org>", NULL};
 	static gchar const *comments = N_("gitg is a git repository viewer for gtk+/GNOME");
 	static gchar const *license = N_("This program is free software; you can redistribute it and/or modify\n"
 		"it under the terms of the GNU General Public License as published by\n"
