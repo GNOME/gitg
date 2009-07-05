@@ -49,13 +49,18 @@
           </object>
         </child>
         <child>
-          <object class="GtkAction" id="MergeAction">
-            <property name="label">Merge branch onto...</property>
+          <object class="GtkAction" id="RebaseAction">
+            <property name="label">Rebase branch onto...</property>
           </object>
         </child>
         <child>
-          <object class="GtkAction" id="RebaseAction">
-            <property name="label">Rebase branch onto...</property>
+          <object class="GtkAction" id="MergeAction">
+            <property name="label">Merge branch with...</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="PushAction">
+            <property name="label">Push branch to...</property>
           </object>
         </child>
       </object>
@@ -65,11 +70,13 @@
         <child>
           <object class="GtkAction" id="MergeDndAction">
             <property name="label">Merge</property>
+            <signal name="activate" handler="on_merge_branch_action_activate"/>
           </object>
         </child>
         <child>
           <object class="GtkAction" id="RebaseDndAction">
             <property name="label">Rebase</property>
+            <signal name="activate" handler="on_rebase_branch_action_activate"/>
           </object>
         </child>
       </object>
@@ -88,8 +95,10 @@
         <menu name="Rebase" action="RebaseAction">
           <placeholder name="Placeholder"/>
         </menu>
-        <separator/>
         <menu name="Merge" action="MergeAction">
+          <placeholder name="Placeholder"/>
+        </menu>
+        <menu name="Push" action="PushAction">
           <placeholder name="Placeholder"/>
         </menu>
       </popup>

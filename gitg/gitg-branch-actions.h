@@ -35,6 +35,7 @@ GitgRunner *gitg_branch_actions_merge (GitgWindow *window, GitgRef *source, Gitg
 GitgRunner *gitg_branch_actions_rebase (GitgWindow *window, GitgRef *source, GitgRef *dest);
 
 GitgRunner *gitg_branch_actions_push (GitgWindow *window, GitgRef *source, GitgRef *dest);
+GitgRunner *gitg_branch_actions_push_remote (GitgWindow *window, GitgRef *source, gchar const *remote);
 
 G_END_DECLS
 

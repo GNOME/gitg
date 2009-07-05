@@ -729,7 +729,7 @@ gitg_spinner_set_screen (GitgSpinner *spinner, GdkScreen *screen)
 static void
 gitg_spinner_dispose (GObject *object)
 {
-	GitgSpinner *spinner = GITG_SPINNER (object);
+	//GitgSpinner *spinner = GITG_SPINNER (object);
 
 	G_OBJECT_CLASS (parent_class)->dispose (object);
 }

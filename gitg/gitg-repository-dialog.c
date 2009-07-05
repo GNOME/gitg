@@ -316,6 +316,7 @@ init_remotes(GitgRepositoryDialog *dialog)
 	
 	if (!ret)
 	{
+		update_sensitivity (dialog);
 		return;
 	}
 	

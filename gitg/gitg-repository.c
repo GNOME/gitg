@@ -27,6 +27,7 @@
 #include "gitg-types.h"
 #include "gitg-preferences.h"
 #include "gitg-data-binding.h"
+#include "gitg-config.h"
 
 #include <gio/gio.h>
 #include <glib/gi18n.h>
@@ -1426,4 +1427,48 @@ gitg_repository_get_current_working_ref(GitgRepository *repository)
 	g_free (name);
 	
 	return repository->priv->working_ref;
+}
+
+gchar **
+gitg_repository_get_remotes (GitgRepository *repository)
+{
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
+
+	GitgConfig *config = gitg_config_new (repository);
+	gchar *ret = gitg_config_get_value_regex (config, "remote\\..*\\.url");
+
+	gchar **remotes = g_malloc (sizeof (gchar *));
+	remotes[0] = NULL;
+	
+	if (!ret)
+	{
+		g_object_unref (config);
+		return remotes;
+	}
+	
+	gchar **lines = g_strsplit(ret, "\n", -1);
+	gchar **ptr = lines;
+	
+	GRegex *regex = g_regex_new ("remote\\.(.+?)\\.url\\s+(.*)", 0, 0, NULL);
+	gint num = 0;
+	
+	while (*ptr)
+	{
+		GMatchInfo *info = NULL;
+		
+		if (g_regex_match (regex, *ptr, 0, &info))
+		{
+			gchar *name = g_match_info_fetch (info, 1);
+			
+			remotes = g_realloc (ret, sizeof(gchar *) * (++num + 1));
+			remotes[num - 1] = name;
+		}
+		
+		g_match_info_free (info);
+		++ptr;
+	}
+	
+	remotes[num] = NULL;
+	g_object_unref (config);
+	return remotes;
 }

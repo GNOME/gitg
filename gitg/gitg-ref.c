@@ -105,7 +105,12 @@ gitg_ref_new(gchar const *hash, gchar const *name)
 GitgRef *
 gitg_ref_copy(GitgRef *ref)
 {
-	GitgRef *ret = g_slice_new0(GitgRef);
+	if (ref == NULL)
+	{
+		return NULL;
+	}
+
+	GitgRef *ret = g_slice_new0 (GitgRef);
 	
 	ret->type = ref->type;
 	ret->name = g_strdup(ref->name);

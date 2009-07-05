@@ -66,6 +66,7 @@ struct _GitgRunnerPrivate
 	gchar *buffer;
 	gchar *read_buffer;
 	gchar **lines;
+	gchar **environment;
 	
 	gint exit_status;
 };
@@ -119,11 +120,6 @@ runner_io_exit(GPid pid, gint status, GitgRunner *runner)
 }
 
 static void
-dummy_exit(GPid pid, gint status, gpointer data)
-{
-}
-
-static void
 free_lines(GitgRunner *runner)
 {
 	gint i = 0;
@@ -151,6 +147,7 @@ gitg_runner_finalize(GObject *object)
 	
 	/* Remove line buffer */
 	g_free(runner->priv->buffer);
+	g_strfreev (runner->priv->environment);
 	
 	g_object_unref(runner->priv->cancellable);
 
@@ -424,7 +421,7 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 	if (status != 0 && error)
 		g_set_error(error, GITG_RUNNER_ERROR, GITG_RUNNER_ERROR_EXIT, "Did not exit without error code");
 	
-	return status == 0;
+	return status == EXIT_SUCCESS;
 }
 
 static void
@@ -642,12 +639,15 @@ gitg_runner_cancel(GitgRunner *runner)
 		
 		runner->priv->cancellable = g_cancellable_new();
 
-		g_child_watch_add(runner->priv->pid, dummy_cb, NULL);
-		kill(runner->priv->pid, SIGTERM);
+		if (runner->priv->pid)
+		{
+			g_child_watch_add(runner->priv->pid, dummy_cb, NULL);
+			kill(runner->priv->pid, SIGTERM);
 		
-		runner_io_exit(runner->priv->pid, EXIT_FAILURE, runner);
+			runner_io_exit(runner->priv->pid, EXIT_FAILURE, runner);
+		}
+		
 		close_streams(runner);
-
 		g_signal_emit(runner, runner_signals[END_LOADING], 0, TRUE);
 	}
 }
@@ -665,4 +665,43 @@ gitg_runner_get_exit_status(GitgRunner *runner)
 	g_return_val_if_fail(GITG_IS_RUNNER(runner), 1);
 	
 	return runner->priv->exit_status;
+}
+
+void
+gitg_runner_set_environment (GitgRunner *runner, gchar const **environment)
+{
+	g_return_if_fail (GITG_IS_RUNNER (runner));
+	
+	g_strfreev (runner->priv->environment);
+	gint len = g_strv_length ((gchar **)environment);
+	
+	runner->priv->environment = g_new (gchar *, len + 1);
+	gint i;
+
+	for (i = 0; i < len; ++i)
+	{
+		runner->priv->environment[i] = g_strdup (environment[i]);
+	}
+	
+	runner->priv->environment[len] = NULL;
+}
+
+void
+gitg_runner_add_environment (GitgRunner *runner, gchar const *key, gchar const *value)
+{
+	g_return_if_fail (GITG_IS_RUNNER (runner));
+	g_return_if_fail (key != NULL);
+	g_return_if_fail (value != NULL);
+	
+	if (runner->priv->environment == NULL)
+	{
+		runner->priv->environment = g_listenv ();
+	}
+	
+	gint len = g_strv_length (runner->priv->environment);
+	runner->priv->environment = g_realloc (runner->priv->environment, 
+	                                       sizeof(gchar *) * (len + 2));
+
+	runner->priv->environment[len] = g_strconcat (key, "=", value, NULL);
+	runner->priv->environment[len + 1] = NULL;
 }
