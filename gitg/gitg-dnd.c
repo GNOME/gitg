@@ -128,6 +128,7 @@ can_drag (GitgRef *ref)
 	{
 		case GITG_REF_TYPE_BRANCH:
 		case GITG_REF_TYPE_REMOTE:
+		case GITG_REF_TYPE_STASH:
 			return TRUE;
 		break;
 		default:
@@ -152,6 +153,10 @@ can_drop (GitgRef *source, GitgRef *dest)
 		return dest_type ==  GITG_REF_TYPE_BRANCH || dest_type == GITG_REF_TYPE_REMOTE;
 	}
 	else if (source_type == GITG_REF_TYPE_REMOTE)
+	{
+		return dest_type == GITG_REF_TYPE_BRANCH;
+	}
+	else if (source_type == GITG_REF_TYPE_STASH)
 	{
 		return dest_type == GITG_REF_TYPE_BRANCH;
 	}
@@ -219,11 +224,6 @@ update_highlight (GitgDndData *data, gint x, gint y)
 	                               NULL,
 	                               NULL);
 
-	if (ref && !can_drag (ref))
-	{
-		ref = NULL;
-	}
-
 	if (ref != data->cursor_ref)
 	{
 		if (data->cursor_ref)
@@ -231,7 +231,7 @@ update_highlight (GitgDndData *data, gint x, gint y)
 			gitg_ref_set_state (data->cursor_ref, GITG_REF_STATE_NONE);
 		}
 		
-		if (ref)
+		if (ref && gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_NONE)
 		{
 			gitg_ref_set_state (ref, GITG_REF_STATE_PRELIGHT);
 			

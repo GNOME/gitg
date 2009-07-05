@@ -342,6 +342,109 @@ remove_remote_branch (GitgWindow *window,
 	return ret;
 }
 
+static gchar *
+get_stash_refspec (GitgRepository *repository, GitgRef *stash)
+{
+	gchar **out;
+	
+	out = gitg_repository_command_with_outputv (repository, 
+	                                            NULL,
+	                                            "log",
+	                                            "--no-color",
+	                                            "--pretty=oneline",
+	                                            "-g",
+	                                            "refs/stash",
+	                                            NULL);
+
+	gchar **ptr = out;
+	gchar *sha1 = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (stash));
+	gchar *ret = NULL;
+	
+	while (ptr && *ptr)
+	{
+		if (g_str_has_prefix (*ptr, sha1))
+		{
+			gchar *start = *ptr + HASH_SHA_SIZE + 1;
+			gchar *end = strchr (start, ':');
+			
+			if (end)
+			{
+				ret = g_strndup (start, end - start);
+			}
+			break;
+		}
+	}
+	
+	g_strfreev (out);
+	g_free (sha1);
+	
+	return ret;
+}
+
+static GitgRunner *
+remove_stash (GitgWindow *window, GitgRef *ref)
+{
+	gint r = message_dialog (window,
+	                         GTK_MESSAGE_QUESTION,
+	                         _("Are you sure you want to remove this stash item?"),
+	                         _("This permanently removes the stash item"),
+	                         _("Remove stash"));
+	
+	if (r != GTK_RESPONSE_ACCEPT)
+	{
+		return NULL;
+	}
+	
+	GitgRepository *repository = gitg_window_get_repository (window);
+	gchar *spec = get_stash_refspec (repository, ref);
+	
+	if (!spec)
+	{
+		return NULL;
+	}
+
+	if (!gitg_repository_commandv (repository,
+	                               NULL,
+	                               "reflog",
+	                               "delete",
+	                               "--updateref",
+	                               "--rewrite",
+	                               spec,
+	                               NULL))
+	{
+		message_dialog (window,
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to remove stash"),
+		                _("The stash item could not be successfully removed"),
+		                NULL);
+	}
+	else
+	{
+		if (!gitg_repository_commandv (repository,
+		                               NULL,
+		                               "rev-parse",
+		                               "--verify",
+		                               "refs/stash@{0}",
+		                               NULL))
+		{
+			gchar *sha1 = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (ref));
+			gitg_repository_commandv (repository,
+			                          NULL,
+			                          "update-ref",
+			                          "-d",
+			                          "refs/stash",
+			                          sha1,
+			                          NULL);
+			g_free (sha1);
+		}
+
+		gitg_repository_reload (repository);
+	}
+
+	g_free (spec);
+	return NULL;
+}
+
 GitgRunner * 
 gitg_branch_actions_remove (GitgWindow *window,
                             GitgRef    *ref)
@@ -360,6 +463,8 @@ gitg_branch_actions_remove (GitgWindow *window,
 		case GITG_REF_TYPE_REMOTE:
 			ret = remove_remote_branch (window, cp);
 		break;
+		case GITG_REF_TYPE_STASH:
+			ret = remove_stash (window, cp);
 		default:
 		break;
 	}
@@ -588,7 +693,11 @@ stash_changes (GitgWindow *window, gchar **ref, gboolean storeref)
 {
 	if (no_changes (gitg_window_get_repository (window)))
 	{
-		*ref = NULL;
+		if (ref)
+		{
+			*ref = NULL;
+		}
+
 		return TRUE;
 	}
 
@@ -1126,11 +1235,80 @@ gitg_branch_actions_push_remote (GitgWindow  *window,
 
 gboolean
 gitg_branch_actions_apply_stash (GitgWindow *window,
-                                 GitgRef    *stash)
+                                 GitgRef    *stash,
+                                 GitgRef    *branch)
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
-	g_return_val_if_fail (stash != NULL, FALSE);	
+	g_return_val_if_fail (gitg_ref_get_ref_type (stash) == GITG_REF_TYPE_STASH, FALSE);
+	g_return_val_if_fail (gitg_ref_get_ref_type (branch) == GITG_REF_TYPE_BRANCH, FALSE);
 	
-	return FALSE;
+	gchar *message = g_strdup_printf (_("Are you sure you want to apply the stash item to local branch <%s>?"),
+	                                  gitg_ref_get_shortname (branch));
+	
+	if (message_dialog (window,
+	                    GTK_MESSAGE_QUESTION,
+	                    _("Apply stash"),
+	                    message,
+	                    _("Apply stash")) != GTK_RESPONSE_ACCEPT)
+	{
+		g_free (message);
+		return FALSE;
+	}
+	
+	GitgRepository *repository = gitg_window_get_repository (window);
+	GitgRef *current = gitg_repository_get_current_working_ref (repository);
+	
+	if (!gitg_ref_equal (branch, current))
+	{
+		if (!stash_changes (window, NULL, TRUE))
+		{
+			return FALSE;
+		}
+	
+		if (!checkout_local_branch_real (window, branch))
+		{
+			message_dialog (window,
+				            GTK_MESSAGE_ERROR,
+				            _("Failed to checkout local branch <%s>"),
+				            NULL,
+				            NULL,
+				            gitg_ref_get_shortname (branch));
+			return FALSE;
+		}
+	}
+	
+	gchar *sha1 = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (stash));
+	gboolean ret;
+	
+	if (!gitg_repository_commandv (repository,
+	                               NULL,
+	                               "stash",
+	                               "apply",
+	                               "--index",
+	                               sha1,
+	                               NULL))
+	{
+		message = g_strdup_printf (_("The stash could not be applied to local branch <%s>"),
+		                           gitg_ref_get_shortname (branch));
+		message_dialog (window,
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to apply stash"),
+		                message,
+		                NULL);
+		g_free (message);
+		ret = FALSE;
+		
+		if (!gitg_ref_equal (current, branch)  && no_changes (repository))
+		{
+			checkout_local_branch_real (window, current);
+		}
+	}
+	else
+	{
+		ret = TRUE;
+		gitg_repository_reload (repository);
+	}
+	
+	return ret;
 }
 

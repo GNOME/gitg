@@ -37,6 +37,7 @@ GitgRunner *gitg_branch_actions_rebase (GitgWindow *window, GitgRef *source, Git
 GitgRunner *gitg_branch_actions_push (GitgWindow *window, GitgRef *source, GitgRef *dest);
 GitgRunner *gitg_branch_actions_push_remote (GitgWindow *window, GitgRef *source, gchar const *remote);
 
+gboolean gitg_branch_actions_apply_stash (GitgWindow *window, GitgRef *stash, GitgRef *branch);
 G_END_DECLS
 
 #endif /* __GITG_BRANCH_ACTIONS_H__ */

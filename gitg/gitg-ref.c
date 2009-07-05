@@ -68,7 +68,8 @@ gitg_ref_new(gchar const *hash, gchar const *name)
 	PrefixTypeMap map[] = {
 		{"refs/heads/", GITG_REF_TYPE_BRANCH},
 		{"refs/remotes/", GITG_REF_TYPE_REMOTE},
-		{"refs/tags/", GITG_REF_TYPE_TAG}
+		{"refs/tags/", GITG_REF_TYPE_TAG},
+		{"refs/stash", GITG_REF_TYPE_STASH}
 	};
 
 	inst->prefix = NULL;
@@ -83,7 +84,15 @@ gitg_ref_new(gchar const *hash, gchar const *name)
 			continue;
 		
 		inst->type = map[i].type;
-		inst->shortname = g_strdup(name + strlen(map[i].prefix));
+		
+		if (inst->type == GITG_REF_TYPE_STASH)
+		{
+			inst->shortname = g_strdup("stash");
+		}
+		else
+		{
+			inst->shortname = g_strdup(name + strlen(map[i].prefix));
+		}
 		
 		if (map[i].type == GITG_REF_TYPE_REMOTE && (pos = strchr(inst->shortname, '/')))
 		{

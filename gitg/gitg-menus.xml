@@ -63,6 +63,11 @@
             <property name="label">Push branch to...</property>
           </object>
         </child>
+        <child>
+          <object class="GtkAction" id="StashAction">
+            <property name="label">Apply stash to...</property>
+          </object>
+        </child>
       </object>
     </child>
     <child>
@@ -99,6 +104,9 @@
           <placeholder name="Placeholder"/>
         </menu>
         <menu name="Push" action="PushAction">
+          <placeholder name="Placeholder"/>
+        </menu>
+        <menu name="Stash" action="StashAction">
           <placeholder name="Placeholder"/>
         </menu>
       </popup>

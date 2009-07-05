@@ -550,6 +550,40 @@ on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *re
 	}
 }
 
+static gint
+find_ref_custom (GitgRef *first, GitgRef *second)
+{
+	return gitg_ref_equal (first, second) ? 0 : 1;
+}
+
+static GitgRef *
+add_ref(GitgRepository *self, gchar const *sha1, gchar const *name)
+{
+	GitgRef *ref = gitg_ref_new(sha1, name);
+	GSList *refs = (GSList *)g_hash_table_lookup(self->priv->refs, 
+	                                             gitg_ref_get_hash(ref));
+	
+	if (refs == NULL)
+	{
+		g_hash_table_insert(self->priv->refs, 
+		                    (gpointer)gitg_ref_get_hash(ref), 
+		                    g_slist_append(NULL, ref));
+	}
+	else
+	{
+		if (!g_slist_find_custom (refs, ref, (GCompareFunc)find_ref_custom))
+		{
+			refs = g_slist_append(refs, ref);
+		}
+		else
+		{
+			gitg_ref_free (ref);
+		}
+	}
+	
+	return ref;
+}
+
 static void
 loader_update_stash(GitgRepository *repository, gchar **buffer)
 {
@@ -576,6 +610,8 @@ loader_update_stash(GitgRepository *repository, gchar **buffer)
 		/* components -> [hash, author, subject, timestamp] */
 		gint64 timestamp = g_ascii_strtoll(components[3], NULL, 0);
 		GitgRevision *rv = gitg_revision_new(components[0], components[1], components[2], NULL, timestamp);
+		
+		add_ref (repository, components[0], "refs/stash");
 		
 		gitg_revision_set_sign(rv, 's');
 		append_revision(repository, rv);
@@ -842,27 +878,6 @@ gitg_repository_get_loader(GitgRepository *self)
 	return GITG_RUNNER(g_object_ref(self->priv->loader));
 }
 
-static GitgRef *
-add_ref(GitgRepository *self, gchar const *sha1, gchar const *name)
-{
-	GitgRef *ref = gitg_ref_new(sha1, name);
-	GSList *refs = (GSList *)g_hash_table_lookup(self->priv->refs, 
-	                                             gitg_ref_get_hash(ref));
-	
-	if (refs == NULL)
-	{
-		g_hash_table_insert(self->priv->refs, 
-		                    (gpointer)gitg_ref_get_hash(ref), 
-		                    g_slist_append(NULL, ref));
-	}
-	else
-	{
-		refs = g_slist_append(refs, ref);
-	}
-	
-	return ref;
-}
-
 static gboolean
 has_left_right(gchar const **av, int argc)
 {
@@ -986,18 +1001,14 @@ load_refs(GitgRepository *self)
 		gchar **components = g_strsplit(buf, " ", 3);
 		guint len = g_strv_length(components);
 		
-		/* Skip refs/stash */
-		if (strcmp(components[0], "refs/stash") != 0)
+		if (len == 2 || len == 3)
 		{
-			if (len == 2 || len == 3)
+			gchar const *obj = len == 3 && *components[2] ? components[2] : components[1];
+			GitgRef *ref = add_ref(self, obj, components[0]);
+		
+			if (current != NULL && strcmp(gitg_ref_get_name(ref), current) == 0)
 			{
-				gchar const *obj = len == 3 && *components[2] ? components[2] : components[1];
-				GitgRef *ref = add_ref(self, obj, components[0]);
-			
-				if (current != NULL && strcmp(gitg_ref_get_name(ref), current) == 0)
-				{
-					self->priv->current_ref = gitg_ref_copy(ref);
-				}
+				self->priv->current_ref = gitg_ref_copy(ref);
 			}
 		}
 		

@@ -108,6 +108,11 @@ get_type_color (GitgRefType type, gdouble *r, gdouble *g, gdouble *b)
 			*g = 1;
 			*b = 0;
 		break;
+		case GITG_REF_TYPE_STASH:
+			*r = 1;
+			*g = 0.8;
+			*b = 0.5;
+		break;
 		default:
 			*r = 1;
 			*g = 1;
