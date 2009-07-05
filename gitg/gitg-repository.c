@@ -893,16 +893,16 @@ has_left_right(gchar const **av, int argc)
 static gboolean
 reload_revisions(GitgRepository *repository, GError **error)
 {
-	g_signal_emit(repository, repository_signals[LOAD], 0);
-	
-	repository->priv->load_stage = LOAD_STAGE_STASH;
-	
 	if (repository->priv->working_ref)
 	{
 		gitg_ref_free (repository->priv->working_ref);
 		repository->priv->working_ref = NULL;
 	}
 
+	g_signal_emit(repository, repository_signals[LOAD], 0);
+	
+	repository->priv->load_stage = LOAD_STAGE_STASH;
+	
 	return gitg_repository_run_commandv(repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "-g", "refs/stash", NULL);
 }
 
