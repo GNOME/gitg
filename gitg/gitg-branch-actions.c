@@ -515,6 +515,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	gchar *tree = NULL;
 	gchar *commit = NULL;
 	gchar *head = NULL;
+	gchar *msg = NULL;
 	gboolean showerror = FALSE;
 
 	GitgRunner *runner = gitg_runner_new_synchronized (1000);
@@ -546,6 +547,21 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 		goto cleanup;
 	}
 	
+	gitg_repository_run_commandv (repository, runner, NULL,
+	                              "log", "--no-color", "--abbrev-commit", 
+	                              "--pretty=oneline", "-n", "1", "HEAD", NULL);
+
+	GitgRef *working = gitg_repository_get_current_working_ref (repository);
+	
+	if (working)
+	{
+		msg = g_strconcat (gitg_ref_get_shortname (working), ": ", buffer->str, NULL);
+	}
+	else
+	{
+		msg = g_strconcat ("(no branch): ", buffer->str, NULL);
+	}
+
 	// Create tree object of the current index
 	gitg_repository_run_commandv (repository, runner, NULL,  
 	                              "write-tree", NULL);
@@ -554,19 +570,24 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	{
 		ret = FALSE;
 		showerror = TRUE;
+
 		goto cleanup;
 	}
 	
 	tree = g_strndup (buffer->str, buffer->len);
 	head = gitg_repository_parse_head (repository);
 	
-	gitg_repository_run_commandv (repository, runner, NULL, 
+	gchar *idxmsg = g_strconcat ("index on ", msg, NULL);
+	gitg_repository_run_command_with_inputv (repository, runner, idxmsg, NULL, 
 	                              "commit-tree", tree, "-p", head, NULL);
+
+	g_free (idxmsg);
 
 	if (buffer->len == 0)
 	{
 		ret = FALSE;
 		showerror = TRUE;
+
 		goto cleanup;
 	}
 	
@@ -580,6 +601,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	{
 		ret = FALSE;
 		showerror = TRUE;
+
 		goto cleanup;
 	}
 	
@@ -630,7 +652,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	}
 
 	gchar *stashtree = g_strndup (buffer->str, buffer->len);
-	gchar *reason = g_strdup_printf ("Automatic stash from gitg: ");
+	gchar *reason = g_strconcat ("gitg auto stash: ", msg, NULL);
 
 	gitg_repository_run_command_with_inputv (repository, runner, reason, NULL,
 	                                         "commit-tree", stashtree,
@@ -655,13 +677,23 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 		*ref = g_strdup (rref);
 	}
 
-	if (storeref)
-	{
-		// Make ref
-		gitg_repository_run_commandv (repository, runner, NULL,
-		                              "update-ref", "-m", reason, 
-		                              "refs/stash", rref, NULL);
-	}
+	// Make ref
+	gchar *path = g_build_filename (gitg_repository_get_path (repository),
+	                                ".git",
+	                                "logs",
+	                                "refs",
+	                                "stash",
+	                                NULL);
+	GFile *reflog = g_file_new_for_path (path);
+	GFileOutputStream *stream = g_file_create (reflog, G_FILE_CREATE_NONE, NULL, NULL);
+	g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
+	g_object_unref (stream);
+	g_object_unref (reflog);
+	g_free (path);
+
+	gitg_repository_run_commandv (repository, runner, NULL,
+	                              "update-ref", "-m", reason, 
+	                              "refs/stash", rref, NULL);
 	
 	g_free (rref);
 
@@ -675,6 +707,7 @@ cleanup:
 	g_free (commit);
 	g_free (tree);
 	g_free (head);
+	g_free (msg);
 	
 	if (showerror)
 	{
