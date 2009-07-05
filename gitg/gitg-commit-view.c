@@ -72,6 +72,7 @@ struct _GitgCommitViewPrivate
 	GtkSourceView *changes_view;
 	GtkTextView *comment_view;
 	GtkCheckButton *check_button_signed_off_by;
+	GtkCheckButton *check_button_amend;
 	
 	GtkHScale *hscale_context;
 	gint context_size;
@@ -123,6 +124,7 @@ static void on_revert_changes(GtkAction *action, GitgCommitView *view);
 static void on_ignore_file(GtkAction *action, GitgCommitView *view);
 static void on_unstage_changes(GtkAction *action, GitgCommitView *view);
 
+static void on_check_button_amend_toggled (GtkToggleButton *button, GitgCommitView *view);
 
 static void
 gitg_commit_view_finalize(GObject *object)
@@ -936,7 +938,8 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	self->priv->changes_view = GTK_SOURCE_VIEW(gtk_builder_get_object(builder, "source_view_changes"));
 	self->priv->comment_view = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "text_view_comment"));
 	self->priv->check_button_signed_off_by = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "check_button_signed_off_by"));
-
+	self->priv->check_button_amend = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "check_button_amend"));
+	
 	GitgPreferences *preferences = gitg_preferences_get_default();
 	
 	gitg_data_binding_new(preferences, "message-show-right-margin",
@@ -1004,6 +1007,11 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	g_signal_connect(gtk_builder_get_object(builder, "button_commit"), "clicked", G_CALLBACK(on_commit_clicked), self);
 	
 	g_signal_connect(self->priv->hscale_context, "value-changed", G_CALLBACK(on_context_value_changed), self);
+	
+	g_signal_connect (self->priv->check_button_amend,
+	                  "toggled",
+	                  G_CALLBACK (on_check_button_amend_toggled),
+	                  self);
 }
 
 static void
@@ -1433,10 +1441,11 @@ on_commit_clicked(GtkButton *button, GitgCommitView *view)
 	}
 	
 	gboolean signoff = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(view->priv->check_button_signed_off_by));
-	
+	gboolean amend = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (view->priv->check_button_amend));
+
 	GError *error = NULL;
 	
-	if (!gitg_commit_commit(view->priv->commit, comment, signoff, &error))
+	if (!gitg_commit_commit(view->priv->commit, comment, signoff, amend, &error))
 	{
 		if (error && error->domain == GITG_COMMIT_ERROR && error->code == GITG_COMMIT_ERROR_SIGNOFF)
 			show_error(view, _("Your user name or email could not be retrieved for use in the sign off message"));
@@ -1449,6 +1458,8 @@ on_commit_clicked(GtkButton *button, GitgCommitView *view)
 	else
 	{
 		gtk_text_buffer_set_text(gtk_text_view_get_buffer(view->priv->comment_view), "", -1);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->priv->check_button_amend), FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (view->priv->check_button_signed_off_by), FALSE);
 	}
 	
 	g_free(comment);
@@ -1679,5 +1690,29 @@ on_changes_view_popup_menu(GtkTextView *textview, GtkMenu *menu, GitgCommitView 
 		
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), stage);
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), revert);
+	}
+}
+
+static void
+on_check_button_amend_toggled (GtkToggleButton *button, GitgCommitView *view)
+{
+	gboolean active = gtk_toggle_button_get_active (button);
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (view->priv->comment_view);
+	GtkTextIter start;
+	GtkTextIter end;
+	
+	gtk_text_buffer_get_bounds (buffer, &start, &end);
+	
+	if (active && gtk_text_iter_compare (&start, &end) == 0)
+	{
+		// Get last commit message
+		gchar *message = gitg_commit_amend_message (view->priv->commit);
+		
+		if (message)
+		{
+			gtk_text_buffer_set_text (buffer, message, -1);
+		}
+		
+		g_free (message);
 	}
 }

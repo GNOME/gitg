@@ -72,12 +72,14 @@ gboolean gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar cons
 gboolean gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error);
 
 gboolean gitg_commit_has_changes(GitgCommit *commit);
-gboolean gitg_commit_commit(GitgCommit *commit, gchar const *comment, gboolean signoff, GError **error);
+gboolean gitg_commit_commit(GitgCommit *commit, gchar const *comment, gboolean signoff, gboolean amend, GError **error);
 
 gboolean gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error);
 gboolean gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error);
 
 GitgChangedFile *gitg_commit_find_changed_file(GitgCommit *commit, GFile *file);
+
+gchar *gitg_commit_amend_message (GitgCommit *commit);
 
 G_END_DECLS
 
