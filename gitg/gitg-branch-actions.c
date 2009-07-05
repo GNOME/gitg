@@ -509,9 +509,11 @@ gitg_branch_actions_remove (GitgWindow *window,
 		break;
 		case GITG_REF_TYPE_STASH:
 			ret = remove_stash (window, cp);
-		default:
+		break;
 		case GITG_REF_TYPE_TAG:
 			ret = remove_tag (window, cp);
+		break;
+		default:
 		break;
 	}
 	
@@ -926,6 +928,7 @@ gitg_branch_actions_checkout (GitgWindow *window,
 		break;
 		case GITG_REF_TYPE_TAG:
 			ret = checkout_tag (window, cp);
+		break;
 		default:
 		break;
 	}
