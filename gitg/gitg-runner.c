@@ -688,17 +688,25 @@ gitg_runner_set_environment (GitgRunner *runner, gchar const **environment)
 	g_return_if_fail (GITG_IS_RUNNER (runner));
 	
 	g_strfreev (runner->priv->environment);
-	gint len = g_strv_length ((gchar **)environment);
 	
-	runner->priv->environment = g_new (gchar *, len + 1);
-	gint i;
-
-	for (i = 0; i < len; ++i)
+	if (environment == NULL)
 	{
-		runner->priv->environment[i] = g_strdup (environment[i]);
+		runner->priv->environment = NULL;
 	}
+	else
+	{
+		gint len = g_strv_length ((gchar **)environment);
 	
-	runner->priv->environment[len] = NULL;
+		runner->priv->environment = g_new (gchar *, len + 1);
+		gint i;
+
+		for (i = 0; i < len; ++i)
+		{
+			runner->priv->environment[i] = g_strdup (environment[i]);
+		}
+	
+		runner->priv->environment[len] = NULL;
+	}
 }
 
 void
