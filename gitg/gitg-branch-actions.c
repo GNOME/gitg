@@ -1457,10 +1457,21 @@ gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *nam
 	                               sha1,
 	                               NULL))
 	{
+		gchar const *secondary;
+		
+		if (sign)
+		{
+			secondary = _("The tag object could not be successfully created. Please make sure you have a GPG key and the key is unlocked");
+		}
+		else
+		{
+			secondary = _("The tag object could not be successfully created");
+		}
+		
 		message_dialog (window,
 		                GTK_MESSAGE_ERROR,
 		                _("Failed to create tag"),
-		                _("The tag object could not be successfully created"),
+		                secondary,
 		                NULL);
 		return FALSE;
 	}
