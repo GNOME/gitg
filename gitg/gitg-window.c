@@ -1995,11 +1995,15 @@ on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
 			gboolean sign = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gtk_builder_get_object (info->builder, "check_button_sign")));
 
 			gchar *sha1 = gitg_revision_get_sha1 (info->revision);
-			gitg_branch_actions_tag (info->window, 
-			                         sha1,
-			                         name,
-			                         message,
-			                         sign);
+			if (!gitg_branch_actions_tag (info->window, 
+			                              sha1,
+			                              name,
+			                              message,
+			                              sign))
+			{
+				destroy = FALSE;
+			}
+
 			g_free (sha1);
 			
 			GitgPreferences *preferences = gitg_preferences_get_default ();
