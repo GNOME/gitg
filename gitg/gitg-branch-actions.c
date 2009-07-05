@@ -445,6 +445,50 @@ remove_stash (GitgWindow *window, GitgRef *ref)
 	return NULL;
 }
 
+static GitgRunner *
+remove_tag (GitgWindow *window, GitgRef *ref)
+{
+	gchar const *name = gitg_ref_get_shortname (ref);
+	gchar *message = g_strdup_printf (_("Are you sure you want to remove the tag <%s>?"),
+	                                  name);
+	gint r = message_dialog (window,
+	                         GTK_MESSAGE_QUESTION,
+	                         _("Remove tag"),
+	                         message,
+	                         _("Remove tag"));
+	g_free (message);
+
+	if (r != GTK_RESPONSE_ACCEPT)
+	{
+		return NULL;
+	}
+	
+	GitgRepository *repository = gitg_window_get_repository (window);
+	
+	if (!gitg_repository_commandv (repository,
+	                               NULL,
+	                               "tag",
+	                               "-d",
+	                               name,
+	                               NULL))
+	{
+		message = g_strdup_printf (_("The tag <%s> could not be successfully removed"),
+		                           name);
+		message_dialog (window,
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to remove tag"),
+		                message,
+		                NULL);
+		g_free (message);
+		return NULL;
+	}
+	else
+	{
+		gitg_repository_reload (repository);
+		return NULL;
+	}
+}
+
 GitgRunner * 
 gitg_branch_actions_remove (GitgWindow *window,
                             GitgRef    *ref)
@@ -466,6 +510,8 @@ gitg_branch_actions_remove (GitgWindow *window,
 		case GITG_REF_TYPE_STASH:
 			ret = remove_stash (window, cp);
 		default:
+		case GITG_REF_TYPE_TAG:
+			ret = remove_tag (window, cp);
 		break;
 	}
 	
@@ -822,6 +868,45 @@ checkout_remote_branch (GitgWindow *window,
 	return ret;
 }
 
+static gboolean
+checkout_tag (GitgWindow *window,
+              GitgRef    *ref)
+{
+	if (!stash_changes (window, NULL, TRUE))
+	{
+		return FALSE;
+	}
+		
+	GitgRepository *repository = gitg_window_get_repository (window);
+	gchar const *name = gitg_ref_get_shortname (ref);
+	gboolean ret;
+	
+	if (!gitg_repository_commandv (repository, 
+	                               NULL, 
+	                               "checkout", 
+	                               "-b",
+	                               name,
+	                               name,
+	                               NULL))
+	{
+		message_dialog (window,
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to checkout tag <%s> to local branch <%s>"),
+		                NULL,
+		                NULL,
+		                name,
+		                name);
+		ret = FALSE;
+	}
+	else
+	{
+		gitg_repository_load (repository, 1, (gchar const **)&name, NULL);
+		ret = TRUE;
+	}
+
+	return ret;
+}
+
 gboolean
 gitg_branch_actions_checkout (GitgWindow *window,
                               GitgRef    *ref)
@@ -839,6 +924,8 @@ gitg_branch_actions_checkout (GitgWindow *window,
 		case GITG_REF_TYPE_REMOTE:
 			ret = checkout_remote_branch (window, cp);
 		break;
+		case GITG_REF_TYPE_TAG:
+			ret = checkout_tag (window, cp);
 		default:
 		break;
 	}
@@ -1345,3 +1432,38 @@ gitg_branch_actions_apply_stash (GitgWindow *window,
 	return ret;
 }
 
+gboolean 
+gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *name, gchar const *message, gboolean sign)
+{
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
+	g_return_val_if_fail (sha1 != NULL, FALSE);
+	g_return_val_if_fail (name != NULL, FALSE);
+	g_return_val_if_fail (message != NULL, FALSE);
+	
+	GitgRepository *repository;
+	
+	repository = gitg_window_get_repository (window);
+	
+	if (!gitg_repository_commandv (repository,
+	                               NULL,
+	                               "tag",
+	                               "-m",
+	                               message,
+	                               sign ? "-s" : "-a",
+	                               name,
+	                               sha1,
+	                               NULL))
+	{
+		message_dialog (window,
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to create tag"),
+		                _("The tag object could not be successfully created"),
+		                NULL);
+		return FALSE;
+	}
+	else
+	{
+		gitg_repository_reload (repository);
+		return TRUE;
+	}
+}

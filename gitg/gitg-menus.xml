@@ -35,7 +35,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkActionGroup" id="action_group_revision">
+      <object class="GtkActionGroup" id="action_group_ref">
         <child>
           <object class="GtkAction" id="CheckoutAction">
             <property name="label">Checkout branch</property>
@@ -86,6 +86,22 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class="GtkActionGroup" id="action_group_revision">
+        <child>
+          <object class="GtkAction" id="TagAction">
+            <property name="label">Create tag</property>
+            <signal name="activate" handler="on_revision_tag_activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="SquashAction">
+          	<property name="label">Squash revisions</property>
+          	<signal name="activate" handler="on_revision_squash_activate"/>
+          </object>
+        </child>
+      </object>
+    </child>
     <ui>
       <popup name="search_popup">
         <menuitem action="subject"/>
@@ -93,7 +109,7 @@
         <menuitem action="date"/>
         <menuitem action="hash"/>
       </popup>
-      <popup name="revision_popup">
+      <popup name="ref_popup">
         <menuitem action="CheckoutAction"/>
         <menuitem action="RemoveAction"/>
         <separator/>
@@ -113,6 +129,10 @@
       <popup name="dnd_popup">
         <menuitem action="RebaseDndAction"/>
         <menuitem action="MergeDndAction"/>
+      </popup>
+      <popup name="revision_popup">
+      	<menuitem action="TagAction"/>
+      	<menuitem action="SquashAction"/>
       </popup>
     </ui>
   </object>

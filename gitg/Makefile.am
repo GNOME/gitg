@@ -95,6 +95,7 @@ ui_DATA = \
 	gitg-ui.xml 			\
 	gitg-menus.xml			\
 	gitg-preferences.ui		\
+	gitg-tag.ui			\
 	gitg-repository.ui
 
 gitg-enum-types.h: gitg-enum-types.h.template $(ENUM_H_FILES) $(GLIB_MKENUMS)

@@ -42,6 +42,7 @@
 #include "gitg-repository-dialog.h"
 #include "gitg-dnd.h"
 #include "gitg-branch-actions.h"
+#include "gitg-preferences.h"
 
 #define DYNAMIC_ACTION_DATA_KEY "GitgDynamicActionDataKey"
 
@@ -1588,7 +1589,7 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 
 				gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
 					                   window->priv->merge_rebase_uid,
-					                   "/ui/revision_popup/Rebase/Placeholder",
+					                   "/ui/ref_popup/Rebase/Placeholder",
 					                   name,
 					                   rebase,
 					                   GTK_UI_MANAGER_MENUITEM,
@@ -1599,7 +1600,7 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 
 				gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
 					                   window->priv->merge_rebase_uid,
-					                   "/ui/revision_popup/Merge/Placeholder",
+					                   "/ui/ref_popup/Merge/Placeholder",
 					                   name,
 					                   merge,
 					                   GTK_UI_MANAGER_MENUITEM,
@@ -1631,7 +1632,7 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 
 				gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
 					                   window->priv->merge_rebase_uid,
-					                   "/ui/revision_popup/Stash/Placeholder",
+					                   "/ui/ref_popup/Stash/Placeholder",
 					                   name,
 					                   stash,
 					                   GTK_UI_MANAGER_MENUITEM,
@@ -1661,7 +1662,7 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 			gchar *name = g_strconcat ("Push", *ptr, NULL);
 			gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
 					                   window->priv->merge_rebase_uid,
-					                   "/ui/revision_popup/Push/Placeholder",
+					                   "/ui/ref_popup/Push/Placeholder",
 					                   name,
 					                   push,
 					                   GTK_UI_MANAGER_MENUITEM,
@@ -1718,7 +1719,7 @@ has_local_ref (GitgWindow  *window,
 }
 
 static gboolean
-popup_revision (GitgWindow *window, GdkEventButton *event)
+popup_ref (GitgWindow *window, GdkEventButton *event)
 {
 	gint cell_x;
 	gint cell_y;
@@ -1753,16 +1754,17 @@ popup_revision (GitgWindow *window, GdkEventButton *event)
 	
 	if (!ref || (gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_BRANCH && 
 	             gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_REMOTE &&
-	             gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_STASH))
+	             gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_STASH &&
+	             gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_TAG))
 	{
 		return FALSE;
 	}
 	
 	GtkWidget *popup = gtk_ui_manager_get_widget (window->priv->menus_ui_manager,
-	                                              "/ui/revision_popup");
+	                                              "/ui/ref_popup");
 
-	GtkAction *checkout = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/revision_popup/CheckoutAction");
-	GtkAction *remove = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/revision_popup/RemoveAction");
+	GtkAction *checkout = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/ref_popup/CheckoutAction");
+	GtkAction *remove = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/ref_popup/RemoveAction");
 
 	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_REMOTE)
 	{
@@ -1798,6 +1800,23 @@ popup_revision (GitgWindow *window, GdkEventButton *event)
 		gtk_action_set_label (remove, _("Remove stash"));
 		gtk_action_set_visible (checkout, FALSE);
 	}
+	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_TAG)
+	{
+		gtk_action_set_label (remove, _("Remove tag"));
+		
+		if (!has_local_ref (window, gitg_ref_get_shortname (ref)))
+		{
+			gchar *label = g_strdup_printf (_("New local branch <%s>"), gitg_ref_get_shortname (ref));
+			
+			gtk_action_set_label (checkout, label);
+			gtk_action_set_visible (checkout, TRUE);
+			g_free (label);
+		}
+		else
+		{
+			gtk_action_set_visible (checkout, FALSE);
+		}
+	}
 	
 	update_merge_rebase (window, ref);
 	window->priv->popup_refs[0] = ref;
@@ -1806,13 +1825,66 @@ popup_revision (GitgWindow *window, GdkEventButton *event)
 	return TRUE;
 }
 
+static gboolean
+consecutive_revisions (GitgWindow *window, GList *rows)
+{
+	return FALSE;
+}
+
+static gboolean
+popup_revision (GitgWindow *window, GdkEventButton *event)
+{
+	GtkTreeSelection *selection;
+	
+	selection = gtk_tree_view_get_selection (window->priv->tree_view);
+	GList *rows = gtk_tree_selection_get_selected_rows (selection, NULL);
+
+	gboolean show = FALSE;
+	
+	if (rows)
+	{
+		GtkAction *tag = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/revision_popup/TagAction");
+		GtkAction *squash = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/revision_popup/SquashAction");
+		
+		if (!rows->next)
+		{
+			show = TRUE;
+			gtk_action_set_visible (squash, FALSE);
+			gtk_action_set_visible (tag, TRUE);
+		}
+		else if (consecutive_revisions (window, rows))
+		{
+			show = TRUE;
+			gtk_action_set_visible (squash, TRUE);
+			gtk_action_set_visible (tag, FALSE);
+		}
+	}
+	
+	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free (rows);
+	
+	if (!show)
+	{
+		return FALSE;
+	}
+	
+	gtk_menu_popup (GTK_MENU (gtk_ui_manager_get_widget (window->priv->menus_ui_manager, "/ui/revision_popup")),
+	                NULL,
+	                NULL,
+	                NULL,
+	                window,
+	                event->button,
+	                event->time);
+	                
+	return TRUE;
+}
+
 gboolean
 on_tree_view_rv_button_press_event (GtkWidget *widget, GdkEventButton *event, GitgWindow *window)
 {
 	if (event->button == 3)
 	{
-		// Check to find a ref
-		return popup_revision (window, event);
+		return popup_ref (window, event) || popup_revision (window, event);
 	}
 	
 	return FALSE;
@@ -1871,3 +1943,133 @@ on_merge_branch_action_activate (GtkAction *action, GitgWindow *window)
 	                                                       window->priv->popup_refs[source]));
 }
 
+typedef struct
+{
+	GtkBuilder *builder;
+	GitgWindow *window;
+	GitgRevision *revision;
+} TagInfo;
+
+static void
+free_tag_info (TagInfo *info)
+{
+	g_object_unref (info->builder);
+	gitg_revision_unref (info->revision);
+
+	g_slice_free (TagInfo, info);
+}
+
+static void
+on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
+{
+	gboolean destroy = TRUE;
+	
+	if (response == GTK_RESPONSE_ACCEPT)
+	{
+		gchar const *name = gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (info->builder, "entry_name")));
+		
+		GtkTextView *view = GTK_TEXT_VIEW (gtk_builder_get_object (info->builder, "text_view_message"));
+		GtkTextIter start;
+		GtkTextIter end;
+		
+		gtk_text_buffer_get_bounds (gtk_text_view_get_buffer (view), &start, &end);
+		gchar *message = gtk_text_iter_get_text (&start, &end);
+		
+		if (!*name || !*message)
+		{
+			GtkWidget *dlg = gtk_message_dialog_new (GTK_WINDOW (dialog),
+			                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+			                                         GTK_MESSAGE_ERROR,
+			                                         GTK_BUTTONS_OK,
+			                                         _("Not all fields are correctly filled in"));
+			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+			                                          _("Please make sure to fill in both the tag name and the commit message"));
+			
+			g_signal_connect (dlg, "response", G_CALLBACK (gtk_widget_destroy), NULL);
+			gtk_widget_show (dlg);
+			
+			destroy = FALSE;
+		}
+		else
+		{
+			gboolean sign = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gtk_builder_get_object (info->builder, "check_button_sign")));
+
+			gchar *sha1 = gitg_revision_get_sha1 (info->revision);
+			gitg_branch_actions_tag (info->window, 
+			                         sha1,
+			                         name,
+			                         message,
+			                         sign);
+			g_free (sha1);
+			
+			GitgPreferences *preferences = gitg_preferences_get_default ();
+			g_object_set (preferences, "hidden-sign-tag", sign, NULL);
+		}
+		
+		g_free (message);
+	}
+	
+	if (destroy)
+	{
+		g_slice_free (TagInfo, info);
+		gtk_widget_destroy (dialog);
+	}
+}
+
+
+
+void
+on_revision_tag_activate (GtkAction *action, GitgWindow *window)
+{
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	
+	selection = gtk_tree_view_get_selection (window->priv->tree_view);
+	GList *rows = gtk_tree_selection_get_selected_rows (selection, &model);
+	
+	GitgPreferences *preferences = gitg_preferences_get_default ();
+
+	if (rows && !rows->next)
+	{
+		GtkBuilder *builder = gitg_utils_new_builder ("gitg-tag.ui");
+		GtkWidget *widget = GTK_WIDGET (gtk_builder_get_object (builder, "dialog_tag"));
+		
+		GtkToggleButton *toggle = GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "check_button_sign"));
+		
+		gboolean active = TRUE;
+		
+		g_object_get (preferences, "hidden-sign-tag", &active, NULL);
+		gtk_toggle_button_set_active (toggle, active);
+		
+		gtk_window_set_transient_for (GTK_WINDOW (widget), GTK_WINDOW (window));
+		
+		GtkTreeIter iter;
+		GitgRevision *rev;
+		
+		gtk_tree_model_get_iter (model, &iter, (GtkTreePath *)rows->data);
+		gtk_tree_model_get (model, &iter, 0, &rev, -1);
+		
+		TagInfo *info = g_slice_new (TagInfo);
+		info->revision = gitg_revision_ref (rev);
+		info->window = window;
+		info->builder = builder;
+		
+		g_signal_connect (widget, 
+		                  "response", 
+		                  G_CALLBACK (on_tag_dialog_response),
+		                  info);
+
+		gtk_widget_show (widget);
+		
+		gtk_widget_grab_focus (GTK_WIDGET (gtk_builder_get_object (builder, "entry_name")));
+	}
+	
+	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free (rows);
+}
+
+void
+on_revision_squash_activate (GtkAction *action, GitgWindow *window)
+{
+
+}

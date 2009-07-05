@@ -45,6 +45,8 @@ enum
 	
 	PROP_MESSAGE_SHOW_RIGHT_MARGIN,
 	PROP_MESSAGE_RIGHT_MARGIN_AT,
+	
+	PROP_HIDDEN_SIGN_TAG,
 
 	PROP_STYLE_TEXT_FOREGROUND,
 	PROP_STYLE_TEXT_BACKGROUND,
@@ -205,7 +207,17 @@ install_property_binding(guint prop_id, gchar const *group, gchar const *name, W
 	
 	g_snprintf(b->key, PATH_MAX, "%s/%s/%s", KEY_ROOT, group, name);
 
-	gchar const *prefix = g_utf8_strrchr(group, -1, '/') + 1;
+	gchar const *prefix = g_utf8_strrchr(group, -1, '/');
+	
+	if (prefix)
+	{
+		prefix += 1;
+	}
+	else
+	{
+		prefix = group;
+	}
+	
 	g_snprintf(b->property, PATH_MAX, "%s-%s", prefix, name);
 
 	b->wrap_get = wrap_get;
@@ -414,6 +426,19 @@ gitg_preferences_class_init(GitgPreferencesClass *klass)
 							      1,
 							      160,
 							      72,
+							      G_PARAM_READWRITE));
+
+	install_property_binding(PROP_HIDDEN_SIGN_TAG, 
+							 "hidden",
+							 "sign-tag", 
+							 wrap_get_boolean,
+							 wrap_set_boolean);
+
+	g_object_class_install_property(object_class, PROP_HIDDEN_SIGN_TAG,
+					 g_param_spec_boolean("hidden-sign-tag",
+							      "HIDDEN_SIGN_TAG",
+							      "Whether to sign tag objects",
+							      TRUE,
 							      G_PARAM_READWRITE));
 
 	install_style_properties(object_class, PROP_STYLE_TEXT_FOREGROUND, "text");
