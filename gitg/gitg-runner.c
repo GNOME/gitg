@@ -578,7 +578,19 @@ gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar con
 
 	gitg_runner_cancel(runner);
 
-	gboolean ret = g_spawn_async_with_pipes(wd, (gchar **)argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD | (gitg_debug_enabled(GITG_DEBUG_RUNNER) ? 0 : G_SPAWN_STDERR_TO_DEV_NULL), NULL, NULL, &(runner->priv->pid), input ? &stdin : NULL, &stdout, NULL, error);
+	gboolean ret = g_spawn_async_with_pipes(wd, 
+	                                        (gchar **)argv, 
+	                                        runner->priv->environment, 
+	                                        G_SPAWN_SEARCH_PATH | 
+	                                        G_SPAWN_DO_NOT_REAP_CHILD | 
+	                                        (gitg_debug_enabled(GITG_DEBUG_RUNNER) ? 0 : G_SPAWN_STDERR_TO_DEV_NULL), 
+	                                        NULL, 
+	                                        NULL,
+	                                         &(runner->priv->pid), 
+	                                         input ? &stdin : NULL, 
+	                                         &stdout, 
+	                                         NULL, 
+	                                         error);
 
 	if (!ret)
 	{
@@ -702,7 +714,18 @@ gitg_runner_add_environment (GitgRunner *runner, gchar const *key, gchar const *
 	
 	if (runner->priv->environment == NULL)
 	{
-		runner->priv->environment = g_listenv ();
+		gchar **all = g_listenv ();
+		
+		gint i = 0;
+		runner->priv->environment = g_malloc (sizeof(gchar *) * (g_strv_length (all) + 1));
+
+		while (all && all[i])
+		{
+			runner->priv->environment[i] = g_strconcat (all[i], "=", g_getenv (all[i]), NULL);
+			++i;
+		}
+		
+		runner->priv->environment[i] = NULL;
 	}
 	
 	gint len = g_strv_length (runner->priv->environment);
