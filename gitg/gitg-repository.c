@@ -101,6 +101,8 @@ struct _GitgRepositoryPrivate
 	guint idle_relane_id;
 	
 	LoadStage load_stage;
+	
+	GFileMonitor *monitor;
 };
 
 inline static gint
@@ -383,6 +385,12 @@ gitg_repository_finalize(GObject *object)
 		gitg_ref_free (rp->priv->working_ref);
 	}
 
+	if (rp->priv->monitor)
+	{
+		g_file_monitor_cancel (rp->priv->monitor);
+		g_object_unref (rp->priv->monitor);
+	}
+
 	G_OBJECT_CLASS (gitg_repository_parent_class)->finalize(object);
 }
 
@@ -422,6 +430,100 @@ gitg_repository_get_property(GObject *object, guint prop_id, GValue *value, GPar
 	}
 }
 
+static gchar *
+parse_ref_intern (GitgRepository *repository, gchar const *ref, gboolean symbolic)
+{
+	gchar **ret = gitg_repository_command_with_outputv(repository, NULL, "rev-parse", "--verify", symbolic ? "--symbolic-full-name" : ref, symbolic ? ref : NULL, NULL);
+	
+	if (!ret)
+		return NULL;
+	
+	gchar *r = g_strdup(*ret);
+	g_strfreev(ret);
+	
+	return r;	
+}
+
+static GitgRef *
+get_current_working_ref(GitgRepository *repository)
+{
+	GitgRef *ret = NULL;
+	
+	gchar *hash = parse_ref_intern (repository, "HEAD", FALSE);
+	gchar *name = parse_ref_intern (repository, "HEAD", TRUE);
+	
+	if (hash && name)
+	{
+		ret = gitg_ref_new (hash, name);
+	}
+	
+	g_free (hash);
+	g_free (name);
+	
+	return ret;
+}
+
+static void
+on_head_changed (GFileMonitor      *monitor,
+                 GFile             *file,
+                 GFile             *otherfile,
+                 GFileMonitorEvent  event,
+                 GitgRepository    *repository)
+{
+	switch (event)
+	{
+		case G_FILE_MONITOR_EVENT_CHANGED:
+		case G_FILE_MONITOR_EVENT_CREATED:
+		{
+			GitgRef *current = get_current_working_ref (repository);
+			
+			if (!gitg_ref_equal (current, repository->priv->working_ref))
+			{
+				gitg_repository_reload (repository);
+			}
+			
+			gitg_ref_free (current);
+		}
+		break;
+		default:
+		break;
+	}
+}
+
+static void
+install_head_monitor (GitgRepository *repository)
+{
+	gchar *path = g_build_filename (repository->priv->path, ".git", "HEAD", NULL);
+	GFile *file = g_file_new_for_path (path);
+	
+	repository->priv->monitor = g_file_monitor_file (file, 
+	                                                 G_FILE_MONITOR_NONE,
+	                                                 NULL,
+	                                                 NULL);
+
+	g_signal_connect (repository->priv->monitor, 
+	                  "changed", 
+	                  G_CALLBACK (on_head_changed),
+	                  repository);
+
+	g_free (path);
+	g_object_unref (file);
+}
+
+static GObject *
+gitg_repository_constructor (GType                  type,
+                             guint                  n_construct_properties,
+                             GObjectConstructParam *construct_properties)
+{
+	GObject *ret = G_OBJECT_CLASS (gitg_repository_parent_class)->constructor (type,
+	                                                                           n_construct_properties,
+	                                                                           construct_properties);
+
+	install_head_monitor (GITG_REPOSITORY (ret));
+	
+	return ret;
+}
+
 static void 
 gitg_repository_class_init(GitgRepositoryClass *klass)
 {
@@ -430,6 +532,8 @@ gitg_repository_class_init(GitgRepositoryClass *klass)
 	
 	object_class->set_property = gitg_repository_set_property;
 	object_class->get_property = gitg_repository_get_property;
+	
+	object_class->constructor = gitg_repository_constructor;
 	
 	g_object_class_install_property(object_class, PROP_PATH,
 						 g_param_spec_string ("path",
@@ -1383,20 +1487,6 @@ gitg_repository_command_with_input_and_outputv(GitgRepository *repository, gchar
 	return ret;
 }
 
-static gchar *
-parse_ref_intern (GitgRepository *repository, gchar const *ref, gboolean symbolic)
-{
-	gchar **ret = gitg_repository_command_with_outputv(repository, NULL, "rev-parse", "--verify", symbolic ? "--symbolic-full-name" : ref, symbolic ? ref : NULL, NULL);
-	
-	if (!ret)
-		return NULL;
-	
-	gchar *r = g_strdup(*ret);
-	g_strfreev(ret);
-	
-	return r;	
-}
-
 gchar *
 gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref)
 {
@@ -1426,17 +1516,7 @@ gitg_repository_get_current_working_ref(GitgRepository *repository)
 		return repository->priv->working_ref;
 	}
 	
-	gchar *hash = parse_ref_intern (repository, "HEAD", FALSE);
-	gchar *name = parse_ref_intern (repository, "HEAD", TRUE);
-	
-	if (hash && name)
-	{
-		repository->priv->working_ref = gitg_ref_new (hash, name);
-	}
-	
-	g_free (hash);
-	g_free (name);
-	
+	repository->priv->working_ref = get_current_working_ref (repository);	
 	return repository->priv->working_ref;
 }
 
