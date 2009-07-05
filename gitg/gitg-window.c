@@ -73,7 +73,8 @@ struct _GitgWindowPrivate
 	GtkUIManager *menus_ui_manager;
 	
 	GtkWidget *vpaned_main;
-	GtkWidget *hpaned_commit;
+	GtkWidget *hpaned_commit1;
+	GtkWidget *hpaned_commit2;
 	GtkWidget *vpaned_commit;
 	
 	GtkActionGroup *edit_group;
@@ -442,22 +443,26 @@ restore_state(GitgWindow *window)
 	gtk_window_set_default_size(GTK_WINDOW(window), 
 							    gitg_settings_get_window_width(settings, dw), 
 							    gitg_settings_get_window_height(settings, dh));
+	
+	gitg_utils_restore_pane_position (GTK_PANED(window->priv->vpaned_main),
+	                                  gitg_settings_get_vpaned_main_position(settings, -1),
+	                                  FALSE);
 
-	gint orig = gtk_paned_get_position(GTK_PANED(window->priv->vpaned_main));
-	gtk_paned_set_position(GTK_PANED(window->priv->vpaned_main),
-						   gitg_settings_get_vpaned_main_position(settings, orig));
-						   
-	orig = gtk_paned_get_position(GTK_PANED(window->priv->vpaned_commit));
-	gtk_paned_set_position(GTK_PANED(window->priv->vpaned_commit),
-						   gitg_settings_get_vpaned_commit_position(settings, orig));
+	gitg_utils_restore_pane_position (GTK_PANED(window->priv->vpaned_commit),
+	                                  gitg_settings_get_vpaned_commit_position(settings, -1),
+	                                  FALSE);
 
-	orig = gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit));
-	gtk_paned_set_position(GTK_PANED(window->priv->hpaned_commit),
-						   gitg_settings_get_hpaned_commit_position(settings, orig));
+	gitg_utils_restore_pane_position (GTK_PANED(window->priv->hpaned_commit1),
+	                                  gitg_settings_get_hpaned_commit1_position(settings, 200),
+	                                  FALSE);
 
-	orig = gtk_paned_get_position(GTK_PANED(window->priv->revision_tree_view));
-	gtk_paned_set_position(GTK_PANED(window->priv->revision_tree_view),
-						   gitg_settings_get_revision_tree_view_position(settings, orig));
+	gitg_utils_restore_pane_position (GTK_PANED(window->priv->hpaned_commit2),
+	                                  gitg_settings_get_hpaned_commit2_position(settings, 200),
+	                                  TRUE);
+
+	gitg_utils_restore_pane_position (GTK_PANED(window->priv->revision_tree_view),
+	                                  gitg_settings_get_revision_tree_view_position(settings, -1),
+	                                  FALSE);
 }
 
 static void
@@ -573,7 +578,8 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	g_object_unref(b);	
 
 	window->priv->vpaned_main = GTK_WIDGET(gtk_builder_get_object(builder, "vpaned_main"));
-	window->priv->hpaned_commit = GTK_WIDGET(gtk_builder_get_object(builder, "hpaned_commit"));
+	window->priv->hpaned_commit1 = GTK_WIDGET(gtk_builder_get_object(builder, "hpaned_commit1"));
+	window->priv->hpaned_commit2 = GTK_WIDGET(gtk_builder_get_object(builder, "hpaned_commit2"));
 	window->priv->vpaned_commit = GTK_WIDGET(gtk_builder_get_object(builder, "vpaned_commit"));
 	
 	window->priv->notebook_main = GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook_main"));
@@ -581,7 +587,7 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	window->priv->statusbar = GTK_STATUSBAR(gtk_builder_get_object(builder, "statusbar"));
 	window->priv->revision_view = GITG_REVISION_VIEW(gtk_builder_get_object(builder, "revision_view"));
 	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW(gtk_builder_get_object(builder, "revision_tree_view"));
-	window->priv->commit_view = GITG_COMMIT_VIEW(gtk_builder_get_object(builder, "hpaned_commit"));
+	window->priv->commit_view = GITG_COMMIT_VIEW(gtk_builder_get_object(builder, "vpaned_commit"));
 
 	restore_state(window);
 	
@@ -628,9 +634,16 @@ save_state(GitgWindow *window)
 	gitg_settings_set_window_width(settings, allocation->width);
 	gitg_settings_set_window_height(settings, allocation->height);
 
-	gitg_settings_set_vpaned_main_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->vpaned_main)));
-	gitg_settings_set_vpaned_commit_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->vpaned_commit)));
-	gitg_settings_set_hpaned_commit_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit)));
+	gitg_settings_set_vpaned_main_position (settings, 
+	                                        gtk_paned_get_position(GTK_PANED(window->priv->vpaned_main)));
+	gitg_settings_set_vpaned_commit_position (settings, 
+	                                          gtk_paned_get_position(GTK_PANED(window->priv->vpaned_commit)));
+	gitg_settings_set_hpaned_commit1_position (settings, 
+	                                           gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit1)));
+	gitg_settings_set_hpaned_commit2_position (settings, 
+	                                           GTK_WIDGET (window->priv->hpaned_commit2)->allocation.width - 
+	                                           gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit2)));
+
 	gitg_settings_set_revision_tree_view_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->revision_tree_view)));
 
 	gitg_settings_save(settings);

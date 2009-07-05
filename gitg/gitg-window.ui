@@ -4,10 +4,6 @@
   <!-- interface-requires gitg 0.2 -->
   <!-- interface-requires sourceview2 0.0 -->
   <!-- interface-naming-policy toplevel-contextual -->
-  <object class="GtkImage" id="image_commit">
-    <property name="visible">True</property>
-    <property name="stock">gtk-apply</property>
-  </object>
   <object class="GtkAdjustment" id="adjustment_context">
     <property name="value">3</property>
     <property name="lower">1</property>
@@ -40,6 +36,7 @@
                     <child>
                       <object class="GtkVBox" id="vbox2">
                         <property name="visible">True</property>
+                        <property name="border_width">6</property>
                         <child>
                           <object class="GtkHBox" id="hbox_top">
                             <property name="visible">True</property>
@@ -155,6 +152,7 @@
                       <object class="GtkNotebook" id="notebook">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="border_width">6</property>
                         <child>
                           <object class="GitgRevisionView" id="revision_view">
                             <property name="visible">True</property>
@@ -394,7 +392,7 @@
                           </object>
                         </child>
                         <child type="tab">
-                          <object class="GtkLabel" id="label1">
+                          <object class="GtkLabel" id="label_details">
                             <property name="visible">True</property>
                             <property name="label" translatable="yes">Details</property>
                           </object>
@@ -408,7 +406,7 @@
                             <property name="can_focus">True</property>
                             <property name="position">200</property>
                             <child>
-                              <object class="GtkScrolledWindow" id="scrolledwindow2">
+                              <object class="GtkScrolledWindow" id="scrolled_window_revision_tree">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="hscrollbar_policy">automatic</property>
@@ -469,7 +467,7 @@
                           </packing>
                         </child>
                         <child type="tab">
-                          <object class="GtkLabel" id="label2">
+                          <object class="GtkLabel" id="label_tree">
                             <property name="visible">True</property>
                             <property name="label" translatable="yes">Tree</property>
                           </object>
@@ -501,177 +499,30 @@
               </packing>
             </child>
             <child>
-              <object class="GitgCommitView" id="hpaned_commit">
+              <object class="GitgCommitView" id="vpaned_commit">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="position">200</property>
+                <property name="border_width">6</property>
+                <property name="orientation">vertical</property>
+                <property name="position">450</property>
+                <property name="position_set">True</property>
                 <child>
-                  <object class="GtkVBox" id="vbox_staging">
+                  <object class="GtkVBox" id="vbox_changes">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <property name="spacing">3</property>
                     <child>
-                      <object class="GtkLabel" id="label_unstaged">
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="xpad">1</property>
-                        <property name="label" translatable="yes">_Unstaged</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">tree_view_unstaged</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkScrolledWindow" id="scrolled_window_unstaged">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="hscrollbar_policy">automatic</property>
-                        <property name="vscrollbar_policy">automatic</property>
-                        <property name="shadow_type">etched-in</property>
-                        <child>
-                          <object class="GtkTreeView" id="tree_view_unstaged">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="headers_visible">False</property>
-                            <child>
-                              <object class="GtkTreeViewColumn" id="unstaged_column_icon">
-                                <property name="sizing">fixed</property>
-                                <property name="fixed_width">20</property>
-                                <child>
-                                  <object class="GtkCellRendererPixbuf" id="unstaged_cell_renderer_icon"/>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkTreeViewColumn" id="unstaged_column_name">
-                                <property name="resizable">True</property>
-                                <property name="title">Unstaged</property>
-                                <child>
-                                  <object class="GtkCellRendererText" id="unstaged_cell_renderer"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_staged">
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes">_Staged</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">tree_view_staged</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkScrolledWindow" id="scrolled_window_staged">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="hscrollbar_policy">automatic</property>
-                        <property name="vscrollbar_policy">automatic</property>
-                        <property name="shadow_type">etched-in</property>
-                        <child>
-                          <object class="GtkTreeView" id="tree_view_staged">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="headers_visible">False</property>
-                            <child>
-                              <object class="GtkTreeViewColumn" id="staged_column_icon">
-                                <property name="sizing">fixed</property>
-                                <property name="fixed_width">20</property>
-                                <child>
-                                  <object class="GtkCellRendererPixbuf" id="staged_cell_renderer_icon"/>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkTreeViewColumn" id="staged_column_name">
-                                <property name="resizable">True</property>
-                                <child>
-                                  <object class="GtkCellRendererText" id="staged_cell_renderer_name"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="resize">True</property>
-                    <property name="shrink">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkVPaned" id="vpaned_commit">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="position">450</property>
-                    <child>
-                      <object class="GtkVBox" id="vbox_changes">
+                      <object class="GtkHBox" id="hbox_changes">
                         <property name="visible">True</property>
                         <property name="spacing">3</property>
                         <child>
-                          <object class="GtkHBox" id="hbox_changes">
+                          <object class="GtkLabel" id="label_changes">
                             <property name="visible">True</property>
-                            <property name="spacing">3</property>
-                            <child>
-                              <object class="GtkLabel" id="label_changes">
-                                <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="xpad">1</property>
-                                <property name="label" translatable="yes">_Changes</property>
-                                <property name="use_underline">True</property>
-                                <property name="mnemonic_widget">source_view_changes</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label_context">
-                                <property name="label" translatable="yes">Context:</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="pack_type">end</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkHScale" id="hscale_context">
-                                <property name="width_request">200</property>
-                                <property name="sensitive">False</property>
-                                <property name="adjustment">adjustment_context</property>
-                                <property name="digits">0</property>
-                                <property name="value_pos">right</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="pack_type">end</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
+                            <property name="xalign">0</property>
+                            <property name="xpad">1</property>
+                            <property name="label" translatable="yes">_Changes</property>
+                            <property name="use_underline">True</property>
+                            <property name="mnemonic_widget">source_view_changes</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -679,18 +530,122 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkScrolledWindow" id="scrolled_window_changes">
+                          <object class="GtkLabel" id="label_context">
+                            <property name="label" translatable="yes">Context:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="pack_type">end</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkHScale" id="hscale_context">
+                            <property name="width_request">200</property>
+                            <property name="sensitive">False</property>
+                            <property name="can_focus">True</property>
+                            <property name="adjustment">adjustment_context</property>
+                            <property name="digits">0</property>
+                            <property name="value_pos">right</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="pack_type">end</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolled_window_changes">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hscrollbar_policy">automatic</property>
+                        <property name="vscrollbar_policy">automatic</property>
+                        <property name="shadow_type">etched-in</property>
+                        <child>
+                          <object class="GitgDiffView" id="source_view_changes">
+                            <property name="can_focus">True</property>
+                            <property name="editable">False</property>
+                            <property name="left_margin">2</property>
+                            <property name="right_margin">2</property>
+                            <property name="cursor_visible">False</property>
+                            <property name="show_line_numbers">True</property>
+                            <property name="tab_width">4</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="resize">False</property>
+                    <property name="shrink">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkHPaned" id="hpaned_commit1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <child>
+                      <object class="GtkVBox" id="vbox_unstaged">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">3</property>
+                        <child>
+                          <object class="GtkLabel" id="label_unstaged">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="xpad">1</property>
+                            <property name="label" translatable="yes">_Unstaged</property>
+                            <property name="use_underline">True</property>
+                            <property name="mnemonic_widget">tree_view_unstaged</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow" id="scrolled_window_unstaged">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="hscrollbar_policy">automatic</property>
                             <property name="vscrollbar_policy">automatic</property>
                             <property name="shadow_type">etched-in</property>
                             <child>
-                              <object class="GitgDiffView" id="source_view_changes">
-                                <property name="editable">False</property>
-                                <property name="cursor_visible">False</property>
-                                <property name="show_line_numbers">True</property>
-                                <property name="tab_width">4</property>
+                              <object class="GtkTreeView" id="tree_view_unstaged">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="headers_visible">False</property>
+                                <property name="headers_clickable">False</property>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="unstaged_column_icon">
+                                    <property name="sizing">fixed</property>
+                                    <property name="fixed_width">20</property>
+                                    <child>
+                                      <object class="GtkCellRendererPixbuf" id="unstaged_cell_renderer_icon"/>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="unstaged_column_name">
+                                    <property name="resizable">True</property>
+                                    <property name="title">Unstaged</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="unstaged_cell_renderer"/>
+                                      <attributes>
+                                        <attribute name="text">0</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                           </object>
@@ -701,86 +656,163 @@
                       </object>
                       <packing>
                         <property name="resize">False</property>
-                        <property name="shrink">True</property>
+                        <property name="shrink">False</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkVBox" id="vbox_comment">
+                      <object class="GtkHPaned" id="hpaned_commit2">
                         <property name="visible">True</property>
-                        <property name="spacing">3</property>
+                        <property name="can_focus">True</property>
                         <child>
-                          <object class="GtkLabel" id="label_comment">
+                          <object class="GtkVBox" id="vbox_comment">
                             <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="xpad">1</property>
-                            <property name="label" translatable="yes">Co_mmit message</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">text_view_comment</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkScrolledWindow" id="scrolled_window_comment">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="hscrollbar_policy">automatic</property>
-                            <property name="vscrollbar_policy">automatic</property>
-                            <property name="shadow_type">etched-in</property>
-                            <child>
-                              <object class="GtkSourceView" id="text_view_comment">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="wrap_mode">word-char</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkHBox" id="hbox_commit">
-                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
                             <property name="spacing">3</property>
                             <child>
-                              <object class="GtkCheckButton" id="check_button_signed_off_by">
-                                <property name="label" translatable="yes">Add signed-off-by</property>
-                                <property name="can_focus">False</property>
-                                <property name="receives_default">False</property>
-                                <property name="draw_indicator">True</property>
+                              <object class="GtkLabel" id="label_comment">
+                                <property name="visible">True</property>
+                                <property name="xalign">0</property>
+                                <property name="xpad">1</property>
+                                <property name="label" translatable="yes">Co_mmit message</property>
+                                <property name="use_underline">True</property>
+                                <property name="mnemonic_widget">text_view_comment</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkScrolledWindow" id="scrolled_window_comment">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="hscrollbar_policy">automatic</property>
+                                <property name="vscrollbar_policy">automatic</property>
+                                <property name="shadow_type">etched-in</property>
+                                <child>
+                                  <object class="GtkSourceView" id="text_view_comment">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="wrap_mode">word-char</property>
+                                    <property name="left_margin">2</property>
+                                    <property name="right_margin">2</property>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
                                 <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="button_commit">
-                                <property name="label" translatable="yes">Commit</property>
+                              <object class="GtkHBox" id="hbox_commit">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="image">image_commit</property>
+                                <property name="spacing">3</property>
+                                <child>
+                                  <object class="GtkCheckButton" id="check_button_signed_off_by">
+                                    <property name="label" translatable="yes">Add signed-off-by</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="draw_indicator">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="button_commit">
+                                    <property name="label" translatable="yes">Commit</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="image">image_commit</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="pack_type">end</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="pack_type">end</property>
-                                <property name="position">0</property>
+                                <property name="position">2</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">False</property>
-                            <property name="position">2</property>
+                            <property name="resize">True</property>
+                            <property name="shrink">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkVBox" id="vbox_staged">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">3</property>
+                            <child>
+                              <object class="GtkLabel" id="label_staged">
+                                <property name="visible">True</property>
+                                <property name="xalign">0</property>
+                                <property name="label" translatable="yes">_Staged</property>
+                                <property name="use_underline">True</property>
+                                <property name="mnemonic_widget">tree_view_staged</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkScrolledWindow" id="scrolled_window_staged">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="hscrollbar_policy">automatic</property>
+                                <property name="vscrollbar_policy">automatic</property>
+                                <property name="shadow_type">etched-in</property>
+                                <child>
+                                  <object class="GtkTreeView" id="tree_view_staged">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="headers_visible">False</property>
+                                    <property name="headers_clickable">False</property>
+                                    <child>
+                                      <object class="GtkTreeViewColumn" id="staged_column_icon">
+                                        <property name="sizing">fixed</property>
+                                        <property name="fixed_width">20</property>
+                                        <child>
+                                          <object class="GtkCellRendererPixbuf" id="staged_cell_renderer_icon"/>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkTreeViewColumn" id="staged_column_name">
+                                        <property name="resizable">True</property>
+                                        <child>
+                                          <object class="GtkCellRendererText" id="staged_cell_renderer_name"/>
+                                          <attributes>
+                                            <attribute name="text">0</attribute>
+                                          </attributes>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="resize">False</property>
+                            <property name="shrink">False</property>
                           </packing>
                         </child>
                       </object>
                       <packing>
                         <property name="resize">True</property>
-                        <property name="shrink">True</property>
+                        <property name="shrink">False</property>
                       </packing>
                     </child>
                   </object>
@@ -821,5 +853,9 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="image_commit">
+    <property name="visible">True</property>
+    <property name="stock">gtk-apply</property>
   </object>
 </interface>

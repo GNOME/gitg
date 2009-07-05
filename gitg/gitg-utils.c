@@ -544,3 +544,65 @@ gitg_utils_find_cell_at_pos (GtkTreeView *tree_view, GtkTreeViewColumn *column, 
 	g_list_free (cells);
 	return ret;
 }
+
+typedef struct
+{
+	gint position;
+	gboolean reversed;
+} PanedRestoreInfo;
+
+static void
+free_paned_restore_info (PanedRestoreInfo *info)
+{
+	g_slice_free (PanedRestoreInfo, info);
+}
+
+static void
+paned_set_position (GtkPaned *paned, gint position, gboolean reversed)
+{
+	if (position == -1)
+	{
+		return;
+	}
+
+	if (!reversed)
+	{
+		gtk_paned_set_position (paned, position);
+	}
+	else
+	{
+		gtk_paned_set_position (paned, GTK_WIDGET (paned)->allocation.width - position);
+	}
+}
+
+static void
+on_paned_mapped (GtkPaned *paned, PanedRestoreInfo *info)
+{
+	paned_set_position (paned, info->position, info->reversed);
+	
+	g_signal_handlers_disconnect_by_func (paned, on_paned_mapped, info);
+}
+
+void
+gitg_utils_restore_pane_position (GtkPaned *paned, gint position, gboolean reversed)
+{
+	g_return_if_fail (GTK_IS_PANED (paned));
+	
+	if (GTK_WIDGET_MAPPED (paned))
+	{
+		paned_set_position (paned, position, reversed);
+		
+		return;
+	}
+	
+	PanedRestoreInfo *info = g_slice_new (PanedRestoreInfo);
+	info->position = position;
+	info->reversed = reversed;
+	
+	g_signal_connect_data (paned,
+	                       "map",
+	                       G_CALLBACK (on_paned_mapped), 
+	                       info,
+	                       (GClosureNotify)free_paned_restore_info,
+	                       G_CONNECT_AFTER);
+}

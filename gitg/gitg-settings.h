@@ -47,8 +47,11 @@ G_BEGIN_DECLS
 #define gitg_settings_set_vpaned_main_position(settings, value) gitg_settings_set_integer(settings, "vpaned-main-position", value)
 #define gitg_settings_get_vpaned_main_position(settings, def) gitg_settings_get_integer(settings, "vpaned-main-position", def)
 
-#define gitg_settings_set_hpaned_commit_position(settings, value) gitg_settings_set_integer(settings, "hpaned-commit-position", value)
-#define gitg_settings_get_hpaned_commit_position(settings, def) gitg_settings_get_integer(settings, "hpaned-commit-position", def)
+#define gitg_settings_set_hpaned_commit1_position(settings, value) gitg_settings_set_integer(settings, "hpaned-commit1-position", value)
+#define gitg_settings_get_hpaned_commit1_position(settings, def) gitg_settings_get_integer(settings, "hpaned-commit1-position", def)
+
+#define gitg_settings_set_hpaned_commit2_position(settings, value) gitg_settings_set_integer(settings, "hpaned-commit2-position", value)
+#define gitg_settings_get_hpaned_commit2_position(settings, def) gitg_settings_get_integer(settings, "hpaned-commit2-position", def)
 
 #define gitg_settings_set_vpaned_commit_position(settings, value) gitg_settings_set_integer(settings, "vpaned-commit-position", value)
 #define gitg_settings_get_vpaned_commit_position(settings, def) gitg_settings_get_integer(settings, "vpaned-commit-position", def)

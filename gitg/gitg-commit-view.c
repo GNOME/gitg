@@ -93,7 +93,7 @@ struct _GitgCommitViewPrivate
 
 static void gitg_commit_view_buildable_iface_init(GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_EXTENDED(GitgCommitView, gitg_commit_view, GTK_TYPE_HPANED, 0,
+G_DEFINE_TYPE_EXTENDED(GitgCommitView, gitg_commit_view, GTK_TYPE_VPANED, 0,
 	G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, gitg_commit_view_buildable_iface_init));
 
 static GtkBuildableIface parent_iface;
@@ -946,6 +946,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	                      self->priv->comment_view, "right-margin-position");
 	
 	self->priv->hscale_context = GTK_HSCALE(gtk_builder_get_object(builder, "hscale_context"));
+	gtk_range_set_value (GTK_RANGE (self->priv->hscale_context), 3);
 	
 	initialize_dnd_staged(self);
 	initialize_dnd_unstaged(self);
