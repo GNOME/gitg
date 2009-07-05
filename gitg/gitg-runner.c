@@ -306,10 +306,10 @@ gitg_strnchr(gchar *ptr, gssize size, gchar find)
 }
 
 static void
-parse_lines(GitgRunner *runner, gchar *buffer, gssize size)
+parse_lines(GitgRunner *runner, gchar *buffer, gssize size, gboolean lastline)
 {
 	gchar *ptr = buffer;
-	gchar *newline;
+	gchar *newline = NULL;
 	gint i = 0;
 
 	free_lines(runner);
@@ -337,8 +337,6 @@ parse_lines(GitgRunner *runner, gchar *buffer, gssize size)
 		ptr += linesize + 1;
 	}
 	
-	runner->priv->lines[i] = NULL;
-
 	if (size)
 	{
 		gchar *tmp;
@@ -351,6 +349,15 @@ parse_lines(GitgRunner *runner, gchar *buffer, gssize size)
 		g_free(runner->priv->buffer);
 		runner->priv->buffer = tmp;
 	}
+
+	if (lastline && runner->priv->buffer)
+	{
+		runner->priv->lines[i++] = gitg_utils_convert_utf8(runner->priv->buffer, -1);
+		g_free (runner->priv->buffer);
+		runner->priv->buffer = NULL;
+	}
+	
+	runner->priv->lines[i] = NULL;
 
 	g_signal_emit(runner, runner_signals[UPDATE], 0, runner->priv->lines);
 }
@@ -407,7 +414,7 @@ run_sync(GitgRunner *runner, gchar const *input, GError **error)
 		}
 		
 		runner->priv->read_buffer[read] = '\0';
-		parse_lines(runner, runner->priv->read_buffer, read);
+		parse_lines(runner, runner->priv->read_buffer, read, TRUE);
 	}
 
 	gint status = 0;
@@ -483,7 +490,7 @@ read_output_ready(GInputStream *stream, GAsyncResult *result, AsyncData *data)
 	else
 	{
 		data->runner->priv->read_buffer[read] = '\0';
-		parse_lines(data->runner, data->runner->priv->read_buffer, read);
+		parse_lines(data->runner, data->runner->priv->read_buffer, read, FALSE);
 		
 		if (g_cancellable_is_cancelled(data->cancellable))
 		{
