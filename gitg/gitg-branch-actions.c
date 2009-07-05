@@ -654,7 +654,6 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	}
 	
 	GFile *customindex = g_file_new_for_path (tmpname);
-	g_free (tmpname);
 	
 	close (fd);
 	
@@ -676,7 +675,9 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 		goto cleanup;
 	}
 	
+	tmpname = g_file_get_path (customindex);
 	gitg_runner_add_environment (runner, "GIT_INDEX_FILE", tmpname);
+	g_free (tmpname);
 	
 	gboolean writestash;
 	
@@ -690,9 +691,10 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	g_file_delete (customindex, NULL, NULL);
 	g_object_unref (customindex);
 	
+	gitg_runner_set_environment (runner, NULL);
+	
 	if (!writestash)
 	{
-		g_object_unref (customindex);
 		ret = FALSE;
 		showerror = TRUE;
 		
