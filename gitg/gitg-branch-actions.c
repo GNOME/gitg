@@ -428,15 +428,12 @@ remove_stash (GitgWindow *window, GitgRef *ref)
 		                               "refs/stash@{0}",
 		                               NULL))
 		{
-			gchar *sha1 = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (ref));
 			gitg_repository_commandv (repository,
 			                          NULL,
 			                          "update-ref",
 			                          "-d",
 			                          "refs/stash",
-			                          sha1,
 			                          NULL);
-			g_free (sha1);
 		}
 
 		gitg_repository_reload (repository);
