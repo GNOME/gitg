@@ -1093,11 +1093,16 @@ load_current_ref(GitgRepository *self)
 static void
 load_refs(GitgRepository *self)
 {
-	gchar *current = load_current_ref(self);
-	
 	gchar **refs = gitg_repository_command_with_outputv(self, NULL, "for-each-ref", "--format=%(refname) %(objectname) %(*objectname)", "refs", NULL);
+	
+	if (!refs)
+	{
+		return;
+	}
+		
 	gchar **buffer = refs;
 	gchar *buf;
+	gchar *current = load_current_ref(self);
 	
 	while ((buf = *buffer++) != NULL)
 	{
