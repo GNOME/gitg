@@ -373,6 +373,7 @@ get_stash_refspec (GitgRepository *repository, GitgRef *stash)
 			}
 			break;
 		}
+		ptr++;
 	}
 	
 	g_strfreev (out);
