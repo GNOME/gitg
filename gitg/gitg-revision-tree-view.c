@@ -208,12 +208,15 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 	
 	if (!path)
 		return;
-	
+
+	gchar *name;
 	gchar *content_type;
 	gtk_tree_model_get_iter(model, &iter, path);
 	gtk_tree_path_free(path);
-	gtk_tree_model_get(model, &iter, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
-	
+	gtk_tree_model_get(model, &iter,
+			   GITG_REVISION_TREE_STORE_NAME_COLUMN, &name,
+			   GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
+
 	if (!content_type)
 		return;
 	
@@ -223,7 +226,7 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 	}
 	else
 	{
-		GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+		GtkSourceLanguage *language = gitg_utils_get_language(name, content_type);
 		gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(buffer), language);
 		
 		gchar *id = node_identity(tree, &iter);
@@ -231,7 +234,8 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 		
 		g_free(id);
 	}
-	
+
+	g_free(name);
 	g_free(content_type);
 }
 
@@ -634,7 +638,7 @@ on_contents_update(GitgRunner *runner, gchar **buffer, GitgRevisionTreeView *tre
 		}
 		else
 		{
-			GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+			GtkSourceLanguage *language = gitg_utils_get_language(NULL, content_type);
 			gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(buf), language);
 		}
 		

@@ -286,45 +286,13 @@ gitg_utils_can_display_content_type(gchar const *content_type)
 }
 
 GtkSourceLanguage *
-gitg_utils_get_language(gchar const *content_type)
+gitg_utils_get_language(gchar const *filename, gchar const *content_type)
 {
 	if (!gitg_utils_can_display_content_type(content_type))
 		return NULL;
-	
-	gchar *mime = g_content_type_get_mime_type(content_type);
-	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
-	
-	gchar const * const *ids = gtk_source_language_manager_get_language_ids(manager);
-	gchar const *ptr;
-	GtkSourceLanguage *ret;
-	
-	while ((ptr = *ids++))
-	{
-		ret = gtk_source_language_manager_get_language(manager, ptr);
-		gchar **mime_types = gtk_source_language_get_mime_types(ret);
-		gchar **types = mime_types;
-		gchar *m;
-		
-		if (types)
-		{
-			while ((m = *types++))
-			{
-				if (strcmp(mime, m) == 0)
-				{
-					g_free(mime);
-					g_strfreev(mime_types);
-					return ret;
-				}
-			}
-		
-			g_strfreev(mime_types);
-		}
 
-		ret = NULL;
-	}
-	
-	g_free(mime);
-	return NULL;
+	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
+	return gtk_source_language_manager_guess_language(manager, filename, content_type);
 }
 
 gint 

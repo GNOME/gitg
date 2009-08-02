@@ -49,7 +49,7 @@ gboolean gitg_utils_hash_equal(gconstpointer a, gconstpointer b);
 gint gitg_utils_null_length(gconstpointer *ptr);
 
 gchar *gitg_utils_get_content_type(GFile *file);
-GtkSourceLanguage *gitg_utils_get_language(gchar const *content_type);
+GtkSourceLanguage *gitg_utils_get_language(gchar const *filename, gchar const *content_type);
 gboolean gitg_utils_can_display_content_type(gchar const *content_type);
 gchar *gitg_utils_guess_content_type(GtkTextBuffer *buffer);
 
