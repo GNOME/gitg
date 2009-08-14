@@ -57,6 +57,8 @@ struct _GitgRevisionTreeViewPrivate
 	GitgRevision *revision;
 	GitgRunner *loader;
 	GtkTreePath *load_path;
+
+	gboolean skipped_blank_line;
 };
 
 static void gitg_revision_tree_view_buildable_iface_init(GtkBuildableIface *iface);
@@ -571,15 +573,14 @@ static void
 on_update(GitgRunner *runner, gchar **buffer, GitgRevisionTreeView *tree)
 {
 	gchar *line;
-	gboolean skip = TRUE;
 	
 	while ((line = *buffer++))
 	{
-		if (skip)
+		if (!tree->priv->skipped_blank_line)
 		{
 			if (*line == '\0')
-				skip = FALSE;
-			
+				tree->priv->skipped_blank_line = TRUE;
+
 			continue;
 		}
 		
@@ -693,6 +694,7 @@ load_node(GitgRevisionTreeView *tree, GtkTreeIter *parent)
 	else
 		tree->priv->load_path = NULL;
 
+	tree->priv->skipped_blank_line = FALSE;
 	gitg_repository_run_commandv(tree->priv->repository, tree->priv->loader, NULL, "show", id, NULL);
 	g_free(id);
 }
