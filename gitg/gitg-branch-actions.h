@@ -29,6 +29,7 @@
 G_BEGIN_DECLS
 
 GitgRunner *gitg_branch_actions_remove (GitgWindow *window, GitgRef *ref);
+GitgRunner *gitg_branch_actions_rename (GitgWindow *window, GitgRef *ref);
 gboolean gitg_branch_actions_checkout (GitgWindow *window, GitgRef *ref);
 
 GitgRunner *gitg_branch_actions_merge (GitgWindow *window, GitgRef *source, GitgRef *dest);

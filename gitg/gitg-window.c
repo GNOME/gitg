@@ -1765,6 +1765,7 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 
 	GtkAction *checkout = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/ref_popup/CheckoutAction");
 	GtkAction *remove = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/ref_popup/RemoveAction");
+	GtkAction *rename = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/ref_popup/RenameAction");
 
 	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_REMOTE)
 	{
@@ -1785,11 +1786,14 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 		
 		g_free (local);
 		gtk_action_set_label (remove, _("Remove remote branch"));
+		gtk_action_set_visible (rename, FALSE);
 	}
 	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
 	{
 		gtk_action_set_label (checkout, _("Checkout working copy"));
 		gtk_action_set_label (remove, _("Remove local branch"));
+		gtk_action_set_visible (rename, TRUE);
+		gtk_action_set_label (rename, _("Rename local branch"));
 		
 		GitgRef *working = gitg_repository_get_current_working_ref (window->priv->repository);
 
@@ -1798,11 +1802,13 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_STASH)
 	{
 		gtk_action_set_label (remove, _("Remove stash"));
+		gtk_action_set_visible (rename, FALSE);
 		gtk_action_set_visible (checkout, FALSE);
 	}
 	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_TAG)
 	{
 		gtk_action_set_label (remove, _("Remove tag"));
+		gtk_action_set_visible (rename, FALSE);
 		
 		if (!has_local_ref (window, gitg_ref_get_shortname (ref)))
 		{
@@ -1903,6 +1909,12 @@ void
 on_remove_branch_action_activate (GtkAction *action, GitgWindow *window)
 {
 	gitg_branch_actions_remove (window, window->priv->popup_refs[0]);
+}
+
+void
+on_rename_branch_action_activate (GtkAction *action, GitgWindow *window)
+{
+	gitg_branch_actions_rename (window, window->priv->popup_refs[0]);
 }
 
 void

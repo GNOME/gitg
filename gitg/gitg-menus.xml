@@ -49,6 +49,12 @@
           </object>
         </child>
         <child>
+          <object class="GtkAction" id="RenameAction">
+            <property name="label" translatable="yes">Rename branch</property>
+            <signal name="activate" handler="on_rename_branch_action_activate"/>
+          </object>
+        </child>
+        <child>
           <object class="GtkAction" id="RebaseAction">
             <property name="label" translatable="yes">Rebase branch onto...</property>
           </object>
@@ -112,6 +118,7 @@
       <popup name="ref_popup">
         <menuitem action="CheckoutAction"/>
         <menuitem action="RemoveAction"/>
+        <menuitem action="RenameAction"/>
         <separator/>
         <menu name="Rebase" action="RebaseAction">
           <placeholder name="Placeholder"/>
