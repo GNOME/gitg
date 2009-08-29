@@ -511,7 +511,7 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 			connect_update(view);
 
 			gchar *indexpath = g_strconcat(":0:", path, NULL);
-			gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "show", indexpath, NULL);
+			gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "show", "--encoding=UTF-8", indexpath, NULL);
 			g_free(indexpath);
 		}
 		
