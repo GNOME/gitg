@@ -2050,20 +2050,9 @@ on_rebase_branch_action_activate (GtkAction *action, GitgWindow *window)
 void
 on_merge_branch_action_activate (GtkAction *action, GitgWindow *window)
 {
-	gint source;
-	
-	if (gitg_ref_get_ref_type (window->priv->popup_refs[0]) == GITG_REF_TYPE_REMOTE)
-	{
-		source = 1;
-	}
-	else
-	{
-		source = 0;
-	}
-
 	add_branch_action (window, gitg_branch_actions_merge (window, 
-	                                                       window->priv->popup_refs[!source],
-	                                                       window->priv->popup_refs[source]));
+	                                                       window->priv->popup_refs[0],
+	                                                       window->priv->popup_refs[1]));
 }
 
 typedef struct
