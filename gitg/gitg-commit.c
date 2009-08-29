@@ -24,6 +24,7 @@
 #include "gitg-runner.h"
 #include "gitg-utils.h"
 #include "gitg-changed-file.h"
+#include "gitg-config.h"
 
 #include <string.h>
 
@@ -771,6 +772,47 @@ set_amend_environment (GitgCommit *commit, GitgRunner *runner)
 	g_strfreev (out);
 }
 
+static gchar *
+convert_commit_encoding (GitgCommit *commit, gchar const *s)
+{
+	GitgConfig *config;
+	gchar *encoding;
+	gchar *ret;
+
+	config = gitg_config_new (commit->priv->repository);
+	encoding = gitg_config_get_value (config, "i18n.commitencoding");
+	
+	if (!encoding || !*encoding)
+	{
+		g_object_unref (config);
+		g_free (encoding);
+
+		config = gitg_config_new (NULL);
+		
+		encoding = gitg_config_get_value (config, "i18n.commitencoding");
+	}
+	
+	g_object_unref (config);
+	
+	if (!encoding || !*encoding || g_ascii_strcasecmp (encoding, "UTF-8") == 0)
+	{
+		g_free (encoding);
+		return g_strdup (s);
+	}
+	
+	// Try to convert from UTF-8 to 'encoding'
+	ret = g_convert (s, -1, encoding, "UTF-8", NULL, NULL, NULL);
+	
+	if (!ret)
+	{
+		// Just use 's' then, even if it is UTF-8...
+		ret = g_strdup (s);
+	}
+
+	g_free (encoding);
+	return ret;
+}
+
 static gboolean 
 commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gboolean signoff, gboolean amend, gchar **ref, GError **error)
 {
@@ -814,10 +856,12 @@ commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gboolea
 		set_amend_environment (commit, runner);
 	}
 	
+	gchar *converted = convert_commit_encoding (commit, fullcomment);
+	
 	g_signal_connect (runner, "update", G_CALLBACK (on_commit_tree_update), buffer);
 	gitg_repository_run_command_with_inputv (commit->priv->repository,
 	                                         runner,
-	                                         fullcomment,
+	                                         converted,
 	                                         error,
 	                                         "commit-tree",
 	                                         tree,
@@ -827,6 +871,7 @@ commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gboolea
 
 	g_free(head);
 	g_free(fullcomment);
+	g_free(converted);
 	g_object_unref (runner);
 
 	if (buffer->len != HASH_SHA_SIZE)
@@ -842,8 +887,13 @@ commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gboolea
 static gboolean
 update_ref(GitgCommit *commit, gchar const *ref, gchar const *subject, GError **error)
 {
-	gchar const *argv[] = {"update-ref", "-m", subject, "HEAD", ref, NULL};
-	return gitg_repository_command(commit->priv->repository, argv, error);
+	gchar *converted = convert_commit_encoding (commit, subject);
+	gchar const *argv[] = {"update-ref", "-m", converted, "HEAD", ref, NULL};
+	
+	gboolean ret = gitg_repository_command(commit->priv->repository, argv, error);
+	g_free (converted);
+	
+	return ret;
 }
 
 gboolean
