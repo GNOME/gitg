@@ -43,8 +43,11 @@
 #include "gitg-dnd.h"
 #include "gitg-branch-actions.h"
 #include "gitg-preferences.h"
+#include "gitg-config.h"
 
 #define DYNAMIC_ACTION_DATA_KEY "GitgDynamicActionDataKey"
+#define DYNAMIC_ACTION_DATA_REMOTE_KEY "GitgDynamicActionDataRemoteKey"
+#define DYNAMIC_ACTION_DATA_BRANCH_KEY "GitgDynamicActionDataBranchKey"
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
@@ -1464,10 +1467,13 @@ on_repository_properties(GtkAction *action, GitgWindow *window)
 static void
 on_push_activated (GtkAction *action, GitgWindow *window)
 {
-	gchar const *ptr = g_object_get_data (G_OBJECT (action), 
-	                                      DYNAMIC_ACTION_DATA_KEY);
+	gchar const *remote = g_object_get_data (G_OBJECT (action), 
+	                                         DYNAMIC_ACTION_DATA_REMOTE_KEY);
+	gchar const *branch = g_object_get_data (G_OBJECT (action), 
+	                                         DYNAMIC_ACTION_DATA_BRANCH_KEY);
+
 	add_branch_action (window,
-	                   gitg_branch_actions_push_remote (window, window->priv->popup_refs[0], ptr));
+	                   gitg_branch_actions_push_remote (window, window->priv->popup_refs[0], remote, branch));
 }
 
 static void
@@ -1499,6 +1505,99 @@ on_stash_activated (GtkAction *action, GitgWindow *window)
 	                                   DYNAMIC_ACTION_DATA_KEY);
 
 	gitg_branch_actions_apply_stash (window, window->priv->popup_refs[0], dest);
+}
+
+static void
+get_tracked_ref (GitgWindow *window, GitgRef *branch, gchar **retremote, gchar **retbranch)
+{
+	GitgConfig *config = gitg_config_new (window->priv->repository);
+	gchar *merge;
+	gchar *var;
+	gchar *ret;
+	
+	var = g_strconcat ("branch.", gitg_ref_get_shortname (branch), ".remote", NULL);
+	*retremote = gitg_config_get_value (config, var);
+	g_free (var);
+	
+	if (!*retremote || !**retremote)
+	{
+		g_free (*retremote);
+		*retremote = NULL;
+
+		g_object_unref (config);
+		
+		return;
+	}
+	
+	var = g_strconcat ("branch.", gitg_ref_get_shortname (branch), ".merge", NULL);
+	merge = gitg_config_get_value (config, var);
+	g_free (var);
+	
+	g_object_unref (config);
+	
+	if (merge && g_str_has_prefix (merge, "refs/heads"))
+	{
+		*retbranch = g_strdup (merge + 11);
+	}
+	
+	g_free (merge);
+}
+
+static void
+add_push_action (GitgWindow *window, GtkActionGroup *group, gchar const *name, gchar const *remote, gchar const *branch)
+{
+	gchar *acname = g_strconcat ("Push", remote, branch, "Action", NULL);
+	GtkAction *pushac = gtk_action_new (acname, name, NULL, NULL);
+
+	gtk_action_group_add_action (group, pushac);
+
+	gchar *nm = g_strconcat ("Push", remote, branch, NULL);
+	gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
+			               window->priv->merge_rebase_uid,
+			               "/ui/ref_popup/Push/Placeholder",
+			               nm,
+			               acname,
+			               GTK_UI_MANAGER_MENUITEM,
+			               FALSE);
+
+	g_object_set_data_full (G_OBJECT (pushac),
+		                    DYNAMIC_ACTION_DATA_REMOTE_KEY,
+		                    g_strdup (remote),
+		                    (GDestroyNotify)g_free);
+
+	g_object_set_data_full (G_OBJECT (pushac),
+		                    DYNAMIC_ACTION_DATA_BRANCH_KEY,
+		                    g_strdup (branch),
+		                    (GDestroyNotify)g_free);
+
+	g_signal_connect (pushac, 
+		              "activate", 
+		              G_CALLBACK (on_push_activated), 
+		              window);
+}
+
+static gboolean
+repository_has_ref (GitgWindow *window, gchar const *remote, GitgRef *ref)
+{
+	GSList *refs = gitg_repository_get_refs (window->priv->repository);
+	gchar *combined = g_strconcat (remote, "/", gitg_ref_get_shortname (ref), NULL);
+	
+	while (refs)
+	{
+		GitgRef *r = (GitgRef *)refs->data;
+		
+		if (gitg_ref_get_ref_type (r) == GITG_REF_TYPE_REMOTE &&
+		    strcmp (gitg_ref_get_shortname (r), combined) == 0)
+		{
+			g_free (combined);
+			return TRUE;
+		}
+		
+		refs = g_slist_next (refs);
+	}
+	
+	g_free (combined);
+	return FALSE;
 }
 
 static void
@@ -1649,38 +1748,50 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 	
 	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
 	{
+		/* Get the tracked remote of this ref (if any) */
+		gchar *remote = NULL;
+		gchar *branch = NULL;
+		gchar *tracked = NULL;
+		
 		gchar **remotes = gitg_repository_get_remotes (window->priv->repository);
 		gchar **ptr = remotes;
+		
+		get_tracked_ref (window, ref, &remote, &branch);
+		
+		if (remote)
+		{
+			tracked = g_strconcat (remote, "/", branch, NULL);
+			add_push_action (window, ac, tracked, remote, branch);
+		}
 	
 		while (*ptr)
 		{
-			gchar *push = g_strconcat ("Push", *ptr, "Action", NULL);
-			GtkAction *pushac = gtk_action_new (push, *ptr, NULL, NULL);
-		
-			gtk_action_group_add_action (ac, pushac);
-		
-			gchar *name = g_strconcat ("Push", *ptr, NULL);
-			gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
-					                   window->priv->merge_rebase_uid,
-					                   "/ui/ref_popup/Push/Placeholder",
-					                   name,
-					                   push,
-					                   GTK_UI_MANAGER_MENUITEM,
-					                   FALSE);
+			if (!tracked || !g_str_has_prefix (tracked, *ptr))
+			{
+				gchar *name;
+				
+				if (repository_has_ref (window, *ptr, ref))
+				{
+					name = g_strconcat (*ptr, "/", gitg_ref_get_shortname (ref), NULL);
+				}
+				else
+				{
+					name = g_strconcat (*ptr, "/", gitg_ref_get_shortname (ref), " (", _("new"), ")", NULL);
+				}
+				
+				add_push_action (window, ac, name, *ptr, gitg_ref_get_shortname (ref));
 
-			g_object_set_data_full (G_OBJECT (pushac),
-				                    DYNAMIC_ACTION_DATA_KEY,
-				                    g_strdup (*ptr),
-				                    (GDestroyNotify)g_free);
+				g_free (name);
+			}
 
-			g_signal_connect (pushac, 
-				              "activate", 
-				              G_CALLBACK (on_push_activated), 
-				              window);
 			++ptr;
 		}
-	
-		g_strfreev (remotes);	
+
+		g_free (tracked);
+		g_strfreev (remotes);
+		
+		g_free (remote);
+		g_free (branch);
 	}
 
 	gtk_ui_manager_ensure_update (window->priv->menus_ui_manager);

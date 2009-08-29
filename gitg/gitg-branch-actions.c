@@ -1415,16 +1415,17 @@ gitg_branch_actions_push (GitgWindow *window,
 GitgRunner *
 gitg_branch_actions_push_remote (GitgWindow  *window,
                                  GitgRef     *source,
-                                 gchar const *remote)
+                                 gchar const *remote,
+                                 gchar const *branch)
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
 	g_return_val_if_fail (remote != NULL, NULL);
 	g_return_val_if_fail (source != NULL, NULL);	
 	g_return_val_if_fail (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH, NULL);
 	
-	gchar *message = g_strdup_printf (_("Are you sure you want to push <%s> to remote <%s>?"),
+	gchar *message = g_strdup_printf (_("Are you sure you want to push <%s> to remote <%s/%s>?"),
 	                                  gitg_ref_get_shortname (source),
-	                                  remote);
+	                                  remote, branch);
 	
 	if (message_dialog (window,
 	                    GTK_MESSAGE_QUESTION,
@@ -1439,18 +1440,14 @@ gitg_branch_actions_push_remote (GitgWindow  *window,
 	g_free (message);
 
 	gchar const *name = gitg_ref_get_shortname (source);
-	gchar *rm = g_strconcat (remote, "/", name, NULL);
-	
-	gchar *spec = g_strconcat (name, ":", name, NULL);
-	message = g_strdup_printf (_("Pushing local branch <%s> to remote branch <%s>"),
+	gchar *spec = g_strconcat (name, ":", branch, NULL);
+	message = g_strdup_printf (_("Pushing local branch <%s> to remote branch <%s/%s>"),
 	                           gitg_ref_get_shortname (source),
-	                           rm);
+	                           remote, branch);
 	
-	g_free (rm);
-
 	GitgRunner *ret;
-	gchar *rr = g_strconcat ("refs/remotes/", remote, "/", name, NULL);
-	GitgRef *rmref = gitg_ref_new ("0000000000000000000000000000000000000000", remote);
+	gchar *rr = g_strconcat ("refs/remotes/", remote, "/", branch, NULL);
+	GitgRef *rmref = gitg_ref_new ("0000000000000000000000000000000000000000", rr);
 	g_free (rr);
 
 	RefInfo *info = ref_info_new (source, rmref);
