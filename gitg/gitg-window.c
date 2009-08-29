@@ -845,6 +845,15 @@ create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
 		gchar *curdir = g_get_current_dir();
 		window->priv->repository = gitg_repository_new(curdir);
 		g_free(curdir);
+		
+		if (!gitg_repository_get_path (window->priv->repository))
+		{
+			g_object_unref (window->priv->repository);
+			window->priv->repository = NULL;
+			
+			ret = FALSE;
+			path = NULL;
+		}
 	}
 	
 	return ret;	
@@ -1124,8 +1133,10 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
 		gitg_revision_view_set_repository(window->priv->revision_view, window->priv->repository);
 
-		if (path || argc > 1)
+		if (path || argc > 1 || usewd)
+		{
 			handle_no_gitdir(window);
+		}
 
 		update_window_title (window);
 		gtk_widget_set_sensitive(GTK_WIDGET(window->priv->notebook_main), FALSE);

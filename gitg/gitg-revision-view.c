@@ -357,8 +357,11 @@ gitg_revision_view_finalize(GObject *object)
 	
 	gitg_runner_cancel(self->priv->diff_files_runner);
 	g_object_unref(self->priv->diff_files_runner);
-	
-	g_object_unref(self->priv->repository);
+
+	if (self->priv->repository)
+	{	
+		g_object_unref(self->priv->repository);
+	}
 	
 	free_cached_headers(self);
 
