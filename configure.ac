@@ -22,6 +22,7 @@ AM_INIT_AUTOMAKE([1.8 dist-bzip2 no-dist-gzip])
 
 AM_MAINTAINER_MODE
 AC_CONFIG_HEADERS(config.h)
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
 AC_PATH_PROG(GCONFTOOL, gconftool-2)
 IT_PROG_INTLTOOL([0.35.0])
