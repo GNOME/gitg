@@ -31,3 +31,5 @@ generate-changelog:
 	fi
 
 .PHONY: bundle generate-changelog
+
+-include $(top_srcdir)/git.mk

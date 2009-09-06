@@ -20,3 +20,5 @@ for i in $(icons_DATA); do $(INSTALL) -D $$i $(top_bundledir)/resources/icons/$$
 
 EXTRA_DIST = 				\
 	$(icons_DATA)
+
+-include $(top_srcdir)/git.mk

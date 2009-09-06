@@ -123,3 +123,5 @@ for i in $(ui_DATA); do $(INSTALL) -D $$i $(top_bundledir)/resources/ui/$$i; don
 .PHONY: bundle
 
 # vi:ts=8
+
+-include $(top_srcdir)/git.mk
