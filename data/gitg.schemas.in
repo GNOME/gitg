@@ -25,5 +25,32 @@
         </long>
       </locale>
     </schema>
+    <schema>
+      <key>/schemas/apps/gitg/preferences/commit/message/show-right-margin</key>
+      <applyto>/apps/gitg/preferences/commit/message/show-right-margin</applyto>
+      <owner>gitg</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Show Right Margin in Commit Message View</short>
+        <long>Show a right margin indicator in the commit message view. This 
+        can be used to easily see where to break the commit message at a
+        particular column.
+        </long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/gitg/preferences/commit/message/right-margin-at</key>
+      <applyto>/apps/gitg/preferences/commit/message/right-margin-at</applyto>
+      <owner>gitg</owner>
+      <type>int</type>
+      <default>72</default>
+      <locale name="C">
+        <short>Column at Which Right Margin is Shown</short>
+        <long>The column at which the right margin is shown if the right-margin
+        preference is set to TRUE.
+        </long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>

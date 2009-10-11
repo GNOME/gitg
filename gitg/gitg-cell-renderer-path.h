@@ -24,6 +24,7 @@
 #define __GITG_CELL_RENDERER_PATH_H__
 
 #include <gtk/gtkcellrenderertext.h>
+#include "gitg-ref.h"
 
 G_BEGIN_DECLS
 
@@ -51,6 +52,9 @@ struct _GitgCellRendererPathClass {
 
 GType gitg_cell_renderer_path_get_type (void) G_GNUC_CONST;
 GtkCellRenderer *gitg_cell_renderer_path_new(void);
+
+GitgRef *gitg_cell_renderer_path_get_ref_at_pos (GtkWidget *widget, GitgCellRendererPath *renderer, gint x, gint *hot_x);
+GdkPixbuf *gitg_cell_renderer_path_render_ref (GtkWidget *widget, GitgCellRendererPath *renderer, GitgRef *ref, gint minwidth);
 
 G_END_DECLS
 

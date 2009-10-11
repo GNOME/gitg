@@ -461,7 +461,7 @@ ensure_scan(GitgDiffView *view, guint last_line)
 		
 		text = gtk_text_iter_get_text(&start, &end);
 		
-		if (g_str_has_prefix(text, "diff --git"))
+		if (g_str_has_prefix(text, "diff --git") || g_str_has_prefix(text, "diff --cc"))
 		{
 			/* start new header region */
 			Header *header = g_slice_new(Header);
@@ -899,14 +899,15 @@ header_parse_index(GitgDiffView *view, Header *header)
 			if (sep)
 			{
 				gchar *last = strstr(sep, " ");
+				gchar *bet = strstr(start, ",");
 				
 				if (!last)
 					last = line + strlen(line);
-				
-				strncpy(header->index_from, start, sep - start);
+
+				strncpy(header->index_from, start, (bet ? bet : sep) - start);
 				strncpy(header->index_to, sep + 2, last - (sep + 2));
 				
-				header->index_from[sep - start] = '\0';
+				header->index_from[(bet ? bet : sep) - start] = '\0';
 				header->index_to[last - (sep + 2)] = '\0';
 
 				ret = TRUE;

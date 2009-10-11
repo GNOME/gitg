@@ -79,6 +79,7 @@ GitgRevision *gitg_repository_lookup(GitgRepository *store, gchar const *hash);
 GSList *gitg_repository_get_refs(GitgRepository *repository);
 GSList *gitg_repository_get_refs_for_hash(GitgRepository *repository, gchar const *hash);
 GitgRef *gitg_repository_get_current_ref(GitgRepository *repository);
+GitgRef *gitg_repository_get_current_working_ref(GitgRepository *repository);
 
 gchar *gitg_repository_relative(GitgRepository *repository, GFile *file);
 
@@ -105,6 +106,8 @@ gchar *gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref);
 gchar *gitg_repository_parse_head(GitgRepository *repository);
 
 void gitg_repository_reload(GitgRepository *repository);
+
+gchar **gitg_repository_get_remotes (GitgRepository *repository);
 
 G_END_DECLS
 

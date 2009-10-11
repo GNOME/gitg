@@ -34,12 +34,105 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class="GtkActionGroup" id="action_group_ref">
+        <child>
+          <object class="GtkAction" id="CheckoutAction">
+            <property name="label" translatable="yes">Checkout branch</property>
+            <signal name="activate" handler="on_checkout_branch_action_activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="RemoveAction">
+            <property name="label" translatable="yes">Remove branch</property>
+            <signal name="activate" handler="on_remove_branch_action_activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="RebaseAction">
+            <property name="label" translatable="yes">Rebase branch onto...</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="MergeAction">
+            <property name="label" translatable="yes">Merge branch with...</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="PushAction">
+            <property name="label" translatable="yes">Push branch to...</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="StashAction">
+            <property name="label" translatable="yes">Apply stash to...</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkActionGroup" id="action_group_dnd">
+        <child>
+          <object class="GtkAction" id="MergeDndAction">
+            <property name="label" translatable="yes">Merge</property>
+            <signal name="activate" handler="on_merge_branch_action_activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="RebaseDndAction">
+            <property name="label" translatable="yes">Rebase</property>
+            <signal name="activate" handler="on_rebase_branch_action_activate"/>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkActionGroup" id="action_group_revision">
+        <child>
+          <object class="GtkAction" id="TagAction">
+            <property name="label" translatable="yes">Create tag</property>
+            <signal name="activate" handler="on_revision_tag_activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="SquashAction">
+          	<property name="label">Squash revisions</property>
+          	<signal name="activate" handler="on_revision_squash_activate"/>
+          </object>
+        </child>
+      </object>
+    </child>
     <ui>
       <popup name="search_popup">
         <menuitem action="subject"/>
         <menuitem action="author"/>
         <menuitem action="date"/>
         <menuitem action="hash"/>
+      </popup>
+      <popup name="ref_popup">
+        <menuitem action="CheckoutAction"/>
+        <menuitem action="RemoveAction"/>
+        <separator/>
+        <menu name="Rebase" action="RebaseAction">
+          <placeholder name="Placeholder"/>
+        </menu>
+        <menu name="Merge" action="MergeAction">
+          <placeholder name="Placeholder"/>
+        </menu>
+        <menu name="Push" action="PushAction">
+          <placeholder name="Placeholder"/>
+        </menu>
+        <menu name="Stash" action="StashAction">
+          <placeholder name="Placeholder"/>
+        </menu>
+      </popup>
+      <popup name="dnd_popup">
+        <menuitem action="RebaseDndAction"/>
+        <menuitem action="MergeDndAction"/>
+      </popup>
+      <popup name="revision_popup">
+      	<menuitem action="TagAction"/>
+      	<menuitem action="SquashAction"/>
       </popup>
     </ui>
   </object>

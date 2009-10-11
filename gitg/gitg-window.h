@@ -24,6 +24,7 @@
 #define __GITG_WINDOW_H__
 
 #include <gtk/gtk.h>
+#include "gitg-repository.h"
 
 G_BEGIN_DECLS
 
@@ -53,6 +54,7 @@ GType gitg_window_get_type (void) G_GNUC_CONST;
 
 void gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv);
 void gitg_window_show_commit(GitgWindow *window);
+GitgRepository *gitg_window_get_repository(GitgWindow *window);
 
 G_END_DECLS
 

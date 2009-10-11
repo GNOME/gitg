@@ -68,7 +68,7 @@ parse_options(int *argc, char ***argv)
 }
 
 static gboolean
-on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer userdata)
+on_window_delete_event(GtkWidget *widget, gpointer userdata)
 {
 	gtk_main_quit();
 	return FALSE;
@@ -77,12 +77,12 @@ on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer userdata)
 static GitgWindow *
 build_ui()
 {
-	GtkBuilder *builder = gitg_utils_new_builder("gitg-ui.xml");
+	GtkBuilder *builder = gitg_utils_new_builder("gitg-window.ui");
 	
 	GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
 	gtk_widget_show_all(window);
 
-	g_signal_connect(window, "delete-event", G_CALLBACK(on_window_delete_event), NULL);
+	g_signal_connect_after(window, "destroy", G_CALLBACK(on_window_delete_event), NULL);
 	g_object_unref(builder);
 
 	return GITG_WINDOW(window);

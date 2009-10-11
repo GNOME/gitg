@@ -505,3 +505,104 @@ gitg_utils_timestamp_to_str(guint64 timestamp)
 	strftime(buf, 254, "%c", tms);
 	return gitg_utils_convert_utf8(buf, -1);
 }
+
+GtkCellRenderer *
+gitg_utils_find_cell_at_pos (GtkTreeView *tree_view, GtkTreeViewColumn *column, GtkTreePath *path, gint x)
+{
+	GList *cells;
+	GList *item;
+	GtkTreeIter iter;
+	GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
+
+	gtk_tree_model_get_iter (model, &iter, path);
+	
+	gtk_tree_view_column_cell_set_cell_data (column, model, &iter, FALSE, FALSE);
+	
+	cells = gtk_tree_view_column_get_cell_renderers (column);
+	GtkCellRenderer *ret = NULL;
+	
+	for (item = cells; item; item = g_list_next (item))
+	{
+		GtkCellRenderer *renderer = GTK_CELL_RENDERER (item->data);
+		gint start;
+		gint width;
+		
+		if (!gtk_tree_view_column_cell_get_position (column, renderer, &start, &width))
+		{
+			continue;
+		}
+		
+		gtk_cell_renderer_get_size (renderer, GTK_WIDGET (tree_view), NULL, NULL, NULL, &width, 0);
+		
+		if (x >= start && x <= start + width)
+		{
+			ret = renderer;
+			break;
+		}
+	}
+	
+	g_list_free (cells);
+	return ret;
+}
+
+typedef struct
+{
+	gint position;
+	gboolean reversed;
+} PanedRestoreInfo;
+
+static void
+free_paned_restore_info (PanedRestoreInfo *info)
+{
+	g_slice_free (PanedRestoreInfo, info);
+}
+
+static void
+paned_set_position (GtkPaned *paned, gint position, gboolean reversed)
+{
+	if (position == -1)
+	{
+		return;
+	}
+
+	if (!reversed)
+	{
+		gtk_paned_set_position (paned, position);
+	}
+	else
+	{
+		gtk_paned_set_position (paned, GTK_WIDGET (paned)->allocation.width - position);
+	}
+}
+
+static void
+on_paned_mapped (GtkPaned *paned, PanedRestoreInfo *info)
+{
+	paned_set_position (paned, info->position, info->reversed);
+	
+	g_signal_handlers_disconnect_by_func (paned, on_paned_mapped, info);
+}
+
+void
+gitg_utils_restore_pane_position (GtkPaned *paned, gint position, gboolean reversed)
+{
+	g_return_if_fail (GTK_IS_PANED (paned));
+	
+	if (GTK_WIDGET_MAPPED (paned))
+	{
+		paned_set_position (paned, position, reversed);
+		
+		return;
+	}
+	
+	PanedRestoreInfo *info = g_slice_new (PanedRestoreInfo);
+	info->position = position;
+	info->reversed = reversed;
+	
+	g_signal_connect_data (paned,
+	                       "map",
+	                       G_CALLBACK (on_paned_mapped), 
+	                       info,
+	                       (GClosureNotify)free_paned_restore_info,
+	                       G_CONNECT_AFTER);
+}

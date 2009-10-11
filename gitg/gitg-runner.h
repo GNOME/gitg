@@ -79,6 +79,9 @@ gboolean gitg_runner_running(GitgRunner *runner);
 gint gitg_runner_get_exit_status(GitgRunner *runner);
 void gitg_runner_cancel(GitgRunner *runner);
 
+void gitg_runner_set_environment (GitgRunner *runner, gchar const **environment);
+void gitg_runner_add_environment(GitgRunner *runner, gchar const *key, gchar const *value);
+
 GQuark gitg_runner_error_quark();
 
 G_END_DECLS

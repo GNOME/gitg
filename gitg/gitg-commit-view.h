@@ -41,13 +41,13 @@ typedef struct _GitgCommitViewClass		GitgCommitViewClass;
 typedef struct _GitgCommitViewPrivate	GitgCommitViewPrivate;
 
 struct _GitgCommitView {
-	GtkHPaned parent;
+	GtkVPaned parent;
 	
 	GitgCommitViewPrivate *priv;
 };
 
 struct _GitgCommitViewClass {
-	GtkHPanedClass parent_class;
+	GtkVPanedClass parent_class;
 };
 
 GType gitg_commit_view_get_type (void) G_GNUC_CONST;
