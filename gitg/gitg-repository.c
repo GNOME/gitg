@@ -1007,13 +1007,13 @@ reload_revisions(GitgRepository *repository, GError **error)
 	
 	repository->priv->load_stage = LOAD_STAGE_STASH;
 	
-	return gitg_repository_run_commandv(repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "-g", "refs/stash", NULL);
+	return gitg_repository_run_commandv(repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "--encoding=UTF-8", "-g", "refs/stash", NULL);
 }
 
 static void
 build_log_args(GitgRepository *self, gint argc, gchar const **av)
 {
-	gchar **argv = g_new0(gchar *, 5 + (argc > 0 ? argc - 1 : 0));
+	gchar **argv = g_new0(gchar *, 6 + (argc > 0 ? argc - 1 : 0));
 
 	argv[0] = g_strdup("log");
 	
@@ -1026,6 +1026,8 @@ build_log_args(GitgRepository *self, gint argc, gchar const **av)
 		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
 	}
 	
+	argv[2] = g_strdup ("--encoding=UTF-8");
+	
 	gchar *head = NULL;
 	
 	if (argc <= 0)
@@ -1034,7 +1036,7 @@ build_log_args(GitgRepository *self, gint argc, gchar const **av)
 		
 		if (head)
 		{
-			argv[2] = g_strdup("HEAD");
+			argv[3] = g_strdup("HEAD");
 		}
 		
 		g_free(head);
@@ -1045,7 +1047,7 @@ build_log_args(GitgRepository *self, gint argc, gchar const **av)
 
 		for (i = 0; i < argc; ++i)
 		{
-			argv[2 + i] = g_strdup(av[i]);
+			argv[3 + i] = g_strdup(av[i]);
 		}
 	}
 
@@ -1093,11 +1095,16 @@ load_current_ref(GitgRepository *self)
 static void
 load_refs(GitgRepository *self)
 {
-	gchar *current = load_current_ref(self);
-	
 	gchar **refs = gitg_repository_command_with_outputv(self, NULL, "for-each-ref", "--format=%(refname) %(objectname) %(*objectname)", "refs", NULL);
+	
+	if (!refs)
+	{
+		return;
+	}
+		
 	gchar **buffer = refs;
 	gchar *buf;
+	gchar *current = load_current_ref(self);
 	
 	while ((buf = *buffer++) != NULL)
 	{

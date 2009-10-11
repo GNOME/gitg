@@ -38,8 +38,18 @@
 
 static gboolean commit_mode = FALSE;
 
+static void
+show_version_and_quit (void)
+{
+	g_print ("%s - Version %s\n", g_get_application_name (), VERSION);
+
+	exit (0);
+}
+
 static GOptionEntry entries[] = 
 {
+	{ "version", 'V', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
+	  show_version_and_quit, N_("Show the application's version"), NULL },
 	{ "commit", 'c', 0, G_OPTION_ARG_NONE, &commit_mode, N_("Start gitg in commit mode") }, 
 	{ NULL }
 };

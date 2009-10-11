@@ -67,6 +67,8 @@ struct _GitgRevisionTreeViewPrivate
 	GitgRevision *revision;
 	GitgRunner *loader;
 	GtkTreePath *load_path;
+
+	gboolean skipped_blank_line;
 };
 
 static gboolean popup_tree_menu(GitgRevisionTreeView *view, GdkEventButton *event);
@@ -223,12 +225,15 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 	
 	if (!path)
 		return;
-	
+
+	gchar *name;
 	gchar *content_type;
 	gtk_tree_model_get_iter(model, &iter, path);
 	gtk_tree_path_free(path);
-	gtk_tree_model_get(model, &iter, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
-	
+	gtk_tree_model_get(model, &iter,
+			   GITG_REVISION_TREE_STORE_NAME_COLUMN, &name,
+			   GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
+
 	if (!content_type)
 		return;
 	
@@ -238,15 +243,16 @@ on_selection_changed(GtkTreeSelection *selection, GitgRevisionTreeView *tree)
 	}
 	else
 	{
-		GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+		GtkSourceLanguage *language = gitg_utils_get_language(name, content_type);
 		gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(buffer), language);
 		
 		gchar *id = node_identity(tree, &iter);
-		gitg_repository_run_commandv(tree->priv->repository, tree->priv->content_runner, NULL, "show", id, NULL);
+		gitg_repository_run_commandv(tree->priv->repository, tree->priv->content_runner, NULL, "show", "--encoding=UTF-8", id, NULL);
 		
 		g_free(id);
 	}
-	
+
+	g_free(name);
 	g_free(content_type);
 }
 
@@ -599,15 +605,14 @@ static void
 on_update(GitgRunner *runner, gchar **buffer, GitgRevisionTreeView *tree)
 {
 	gchar *line;
-	gboolean skip = TRUE;
 	
 	while ((line = *buffer++))
 	{
-		if (skip)
+		if (!tree->priv->skipped_blank_line)
 		{
 			if (*line == '\0')
-				skip = FALSE;
-			
+				tree->priv->skipped_blank_line = TRUE;
+
 			continue;
 		}
 		
@@ -666,7 +671,7 @@ on_contents_update(GitgRunner *runner, gchar **buffer, GitgRevisionTreeView *tre
 		}
 		else
 		{
-			GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+			GtkSourceLanguage *language = gitg_utils_get_language(NULL, content_type);
 			gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(buf), language);
 		}
 		
@@ -792,7 +797,8 @@ load_node(GitgRevisionTreeView *tree, GtkTreeIter *parent)
 	else
 		tree->priv->load_path = NULL;
 
-	gitg_repository_run_commandv(tree->priv->repository, tree->priv->loader, NULL, "show", id, NULL);
+	tree->priv->skipped_blank_line = FALSE;
+	gitg_repository_run_commandv(tree->priv->repository, tree->priv->loader, NULL, "show", "--encoding=UTF-8", id, NULL);
 	g_free(id);
 }
 

@@ -357,8 +357,11 @@ gitg_revision_view_finalize(GObject *object)
 	
 	gitg_runner_cancel(self->priv->diff_files_runner);
 	g_object_unref(self->priv->diff_files_runner);
-	
-	g_object_unref(self->priv->repository);
+
+	if (self->priv->repository)
+	{	
+		g_object_unref(self->priv->repository);
+	}
 	
 	free_cached_headers(self);
 
@@ -559,7 +562,7 @@ on_diff_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionView *se
 	{
 		gchar *sha = gitg_revision_get_sha1(self->priv->revision);
 		gitg_repository_run_commandv(self->priv->repository, self->priv->diff_files_runner, NULL,
-								 "show", "--raw", "-M", "--pretty=format:", "--abbrev=40", sha, NULL);
+								 "show", "--encoding=UTF-8", "--raw", "-M", "--pretty=format:", "--abbrev=40", sha, NULL);
 		g_free(sha);
 	}
 }

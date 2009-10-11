@@ -231,8 +231,6 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 		gtk_text_buffer_insert(buf, &iter, "\n", -1);
 	}
 	
-	gitg_utils_guess_content_type(GTK_TEXT_BUFFER(buf));
-	
 	if (gtk_source_buffer_get_language(GTK_SOURCE_BUFFER(buf)) == NULL)
 	{
 		gchar *content_type = gitg_utils_guess_content_type(GTK_TEXT_BUFFER(buf));
@@ -244,7 +242,7 @@ on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 		}
 		else if (content_type)
 		{
-			GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+			GtkSourceLanguage *language = gitg_utils_get_language(NULL, content_type);
 			set_language(view, language);
 			gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
 		}
@@ -434,7 +432,10 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 			}
 			else
 			{
-				GtkSourceLanguage *language = gitg_utils_get_language(content_type);
+				gchar *basename = g_file_get_basename(f);
+				GtkSourceLanguage *language = gitg_utils_get_language(basename, content_type);
+				g_free(basename);
+
 				set_language(view, language);
 				gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
 				
@@ -445,6 +446,8 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 				g_object_unref(stream);
 			}
 		}
+
+		g_free(content_type);
 	}
 	else
 	{
@@ -486,7 +489,6 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 	
 	GFile *f = gitg_changed_file_get_file(file);
 	gchar *path = gitg_repository_relative(view->priv->repository, f);
-	g_object_unref(f);
 	
 	if (status == GITG_CHANGED_FILE_STATUS_NEW)
 	{
@@ -500,13 +502,16 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		}
 		else
 		{
-			set_language(view, gitg_utils_get_language(content_type));
+			gchar *basename = g_file_get_basename(f);
+			GtkSourceLanguage *language = gitg_utils_get_language(basename, content_type);
+			g_free(basename);
+
 			gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
 
 			connect_update(view);
 
 			gchar *indexpath = g_strconcat(":0:", path, NULL);
-			gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "show", indexpath, NULL);
+			gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "show", "--encoding=UTF-8", indexpath, NULL);
 			g_free(indexpath);
 		}
 		
@@ -526,6 +531,7 @@ staged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		g_free(head);
 	}
 
+	g_object_unref(f);
 	g_free(path);	
 
 	set_current_file(view, file, GITG_CHANGED_FILE_CHANGES_CACHED);	

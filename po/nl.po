@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-05 21:28+0200\n"
+"POT-Creation-Date: 2009-08-29 13:49+0200\n"
 "PO-Revision-Date: 2009-02-28 20:18+0100\n"
 "Last-Translator: Jesse van den Kieboom <jessevdk@gnome.org>\n"
 "Language-Team: \n"
@@ -21,8 +21,8 @@ msgid "Git repository browser"
 msgstr "Git repository bekijker"
 
 #. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:169
-#: ../gitg/gitg-window.c:1005 ../gitg/gitg-window.c:1018
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:179
+#: ../gitg/gitg-window.c:1017 ../gitg/gitg-window.c:1030
 #: ../gitg/gitg-branch-actions.c:146 ../gitg/gitg-branch-actions.c:199
 #: ../gitg/gitg-window.ui.h:18
 msgid "gitg"
@@ -77,27 +77,31 @@ msgstr ""
 "Of zoeken de revisies in de geschiedenis filtert in plaats van naar het "
 "eerste resultaat te springen."
 
-#: ../gitg/gitg.c:43
+#: ../gitg/gitg.c:52
+msgid "Show the application's version"
+msgstr "Toon applicatie versie"
+
+#: ../gitg/gitg.c:53
 msgid "Start gitg in commit mode"
 msgstr "Open gitg in commit mode"
 
-#: ../gitg/gitg.c:53
+#: ../gitg/gitg.c:63
 msgid "- git repository viewer"
 msgstr "- git repository bekijker"
 
-#: ../gitg/gitg-commit-view.c:208 ../gitg/gitg-revision-tree-view.c:181
+#: ../gitg/gitg-commit-view.c:208 ../gitg/gitg-revision-tree-view.c:183
 msgid "Cannot display file content as text"
 msgstr "Kan bestandsinhoud niet weergeven als tekst"
 
-#: ../gitg/gitg-commit-view.c:1431
+#: ../gitg/gitg-commit-view.c:1437
 msgid "You must first stage some changes before committing"
 msgstr "Je moet eerst wijzigingen plaatsen voordat je commit"
 
-#: ../gitg/gitg-commit-view.c:1439
+#: ../gitg/gitg-commit-view.c:1445
 msgid "Please enter a commit message before committing"
 msgstr "Vul eerst een commit bericht in voordat je commit"
 
-#: ../gitg/gitg-commit-view.c:1451
+#: ../gitg/gitg-commit-view.c:1457
 msgid ""
 "Your user name or email could not be retrieved for use in the sign off "
 "message"
@@ -105,19 +109,19 @@ msgstr ""
 "Je gebruikersnaam of e-mail kon niet worden achterhaald voor gebruik in de "
 "ondertekening"
 
-#: ../gitg/gitg-commit-view.c:1453
+#: ../gitg/gitg-commit-view.c:1459
 msgid "Something went wrong while trying to commit"
 msgstr "Er is iets mis gegaan tijdens het committen"
 
-#: ../gitg/gitg-commit-view.c:1612
+#: ../gitg/gitg-commit-view.c:1618
 msgid "Revert fail"
 msgstr "Terugdraaien faalde"
 
-#: ../gitg/gitg-commit-view.c:1623
+#: ../gitg/gitg-commit-view.c:1629
 msgid "Are you sure you want to revert these changes?"
 msgstr "Weet je zeker dat je deze wijzigingen wilt terugdraaien?"
 
-#: ../gitg/gitg-commit-view.c:1626
+#: ../gitg/gitg-commit-view.c:1632
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr ""
 "Wijzigingen terugdraaien is permanent en kan niet ongedaan gemaakt worden"
@@ -130,69 +134,69 @@ msgstr "Geplaatste wijzigingen"
 msgid "Unstaged changes"
 msgstr "Ongeplaatste wijzigingen"
 
-#: ../gitg/gitg-repository.c:1148
+#: ../gitg/gitg-repository.c:1155
 msgid "Not a valid git repository"
 msgstr "Geen geldige git repository"
 
-#: ../gitg/gitg-revision-tree-view.c:507
+#: ../gitg/gitg-revision-tree-view.c:513
 msgid "(Empty)"
 msgstr "(Leeg)"
 
-#: ../gitg/gitg-window.c:420
+#: ../gitg/gitg-window.c:423
 msgid "Select branch"
 msgstr "Selecteer tak"
 
-#: ../gitg/gitg-window.c:482
+#: ../gitg/gitg-window.c:485
 #, c-format
 msgid "Push local branch <%s> to remote branch <%s>"
 msgstr "Publiceer lokale tak <%s> naar afgelegen tak <%s>"
 
-#: ../gitg/gitg-window.c:489
+#: ../gitg/gitg-window.c:492
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
 msgstr "Voeg samen/baseer lokale tak <%s> met/op lokale tak <%s>"
 
-#: ../gitg/gitg-window.c:496
+#: ../gitg/gitg-window.c:499
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
 msgstr "Voeg samen/baseer lokale tak <%s> met/op afgelegen tak <%s>"
 
-#: ../gitg/gitg-window.c:503
+#: ../gitg/gitg-window.c:506
 #, c-format
 msgid "Apply stash to local branch <%s>"
 msgstr "Pas opslag toe op lokale tak <%s>"
 
-#: ../gitg/gitg-window.c:771
+#: ../gitg/gitg-window.c:774
 msgid "Begin loading repository"
 msgstr "Begin laden van repository"
 
-#: ../gitg/gitg-window.c:780
+#: ../gitg/gitg-window.c:783
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%d revisies ingeladen in %.2fs"
 
-#: ../gitg/gitg-window.c:791
+#: ../gitg/gitg-window.c:794
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Laden van %d revisies..."
 
-#: ../gitg/gitg-window.c:800
+#: ../gitg/gitg-window.c:803
 msgid "Could not find git repository"
 msgstr "Kon git repository niet vinden"
 
-#: ../gitg/gitg-window.c:983
+#: ../gitg/gitg-window.c:995
 msgid "All branches"
 msgstr "Alle takken"
 
-#: ../gitg/gitg-window.c:1192
+#: ../gitg/gitg-window.c:1206
 msgid "Open git repository"
 msgstr "Open git repository"
 
-#: ../gitg/gitg-window.c:1313
+#: ../gitg/gitg-window.c:1327
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg is een repository bekijker voor gtk+/GNOME"
 
-#: ../gitg/gitg-window.c:1314
+#: ../gitg/gitg-window.c:1328
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -227,37 +231,45 @@ msgstr ""
 "de Free Software Foundation, Inc.,\n"
 "59 Temple Place, Suite 330, Boston, MA 02111-1307 USA"
 
-#: ../gitg/gitg-window.c:1775 ../gitg/gitg-window.c:1809
+#: ../gitg/gitg-window.c:1790
+msgid "new"
+msgstr "nieuw"
+
+#: ../gitg/gitg-window.c:1898 ../gitg/gitg-window.c:1937
 #, c-format
 msgid "New local branch <%s>"
 msgstr "Nieuwe lokale tak <%s>"
 
-#: ../gitg/gitg-window.c:1787 ../gitg/gitg-branch-actions.c:316
+#: ../gitg/gitg-window.c:1910 ../gitg/gitg-branch-actions.c:316
 msgid "Remove remote branch"
 msgstr "Verwijder afgelegen tak"
 
-#: ../gitg/gitg-window.c:1791
+#: ../gitg/gitg-window.c:1915
 msgid "Checkout working copy"
 msgstr "Werkkopie uitchecken"
 
-#: ../gitg/gitg-window.c:1792
+#: ../gitg/gitg-window.c:1916
 msgid "Remove local branch"
 msgstr "Verwijder lokale tak"
 
-#: ../gitg/gitg-window.c:1800 ../gitg/gitg-branch-actions.c:391
+#: ../gitg/gitg-window.c:1918
+msgid "Rename local branch"
+msgstr "Hernoem lokale tak"
+
+#: ../gitg/gitg-window.c:1926 ../gitg/gitg-branch-actions.c:392
 msgid "Remove stash"
 msgstr "Verwijder tijdelijke opslag"
 
-#: ../gitg/gitg-window.c:1805 ../gitg/gitg-branch-actions.c:456
-#: ../gitg/gitg-branch-actions.c:458
+#: ../gitg/gitg-window.c:1932 ../gitg/gitg-branch-actions.c:454
+#: ../gitg/gitg-branch-actions.c:456
 msgid "Remove tag"
 msgstr "Verwijder tag"
 
-#: ../gitg/gitg-window.c:1984
+#: ../gitg/gitg-window.c:2107
 msgid "Not all fields are correctly filled in"
 msgstr "Niet alle velden zijn correct ingevuld"
 
-#: ../gitg/gitg-window.c:1986
+#: ../gitg/gitg-window.c:2109
 msgid "Please make sure to fill in both the tag name and the commit message"
 msgstr "Zorg ervoor dat zowel de tag naam als het commit bericht ingevuld zijn"
 
@@ -271,12 +283,12 @@ msgid ""
 "This usually means that the branch is not fully merged in HEAD. Do you want "
 "to forcefully remove the branch?"
 msgstr ""
-"This betekent doorgaans dat de take niet volledig samengevoegd is in HEAD. "
+"This betekent doorgaans dat de tak niet volledig samengevoegd is in HEAD. "
 "Wil je het verwijderen van de tak forceren?"
 
 #: ../gitg/gitg-branch-actions.c:251
 msgid "Force remove"
-msgstr "Forceerd verwijderen"
+msgstr "Forceer verwijderen"
 
 #: ../gitg/gitg-branch-actions.c:260
 #, c-format
@@ -301,112 +313,139 @@ msgstr "De afgelegen tak wordt permanent verwijderd."
 msgid "Remove branch"
 msgstr "Verwijder tak"
 
-#: ../gitg/gitg-branch-actions.c:389
+#: ../gitg/gitg-branch-actions.c:390
 msgid "Are you sure you want to remove this stash item?"
 msgstr "Weet je zeker dat je deze tijdelijke opslag wilt verwijderen?"
 
-#: ../gitg/gitg-branch-actions.c:390
+#: ../gitg/gitg-branch-actions.c:391
 msgid "This permanently removes the stash item"
 msgstr "De tijdelijke opslag wordt permanent verwijderd"
 
-#: ../gitg/gitg-branch-actions.c:417
+#: ../gitg/gitg-branch-actions.c:418
 msgid "Failed to remove stash"
 msgstr "Kon tijdelijke opslag niet verwijderen"
 
-#: ../gitg/gitg-branch-actions.c:418
+#: ../gitg/gitg-branch-actions.c:419
 msgid "The stash item could not be successfully removed"
 msgstr "De tijdelijke opslag kon niet succesvol worden verwijderd"
 
-#: ../gitg/gitg-branch-actions.c:452
+#: ../gitg/gitg-branch-actions.c:450
 #, c-format
 msgid "Are you sure you want to remove the tag <%s>?"
 msgstr "Weet je zeker dat je de tag <%s> wilt verwijderen?"
 
-#: ../gitg/gitg-branch-actions.c:475
+#: ../gitg/gitg-branch-actions.c:473
 #, c-format
 msgid "The tag <%s> could not be successfully removed"
 msgstr "De tag <%s> kon niet succesvol worden verwijderd"
 
-#: ../gitg/gitg-branch-actions.c:479
+#: ../gitg/gitg-branch-actions.c:477
 msgid "Failed to remove tag"
 msgstr "Tag kon niet worden verwijderd"
 
-#: ../gitg/gitg-branch-actions.c:579
+#: ../gitg/gitg-branch-actions.c:534
+#, c-format
+msgid "Branch <%s> could not be renamed to <%s>"
+msgstr "Tak <%s> kon niet worden hernoemd naar <%s>"
+
+#: ../gitg/gitg-branch-actions.c:535
+msgid ""
+"This usually means that a branch with that name already exists. Do you want "
+"to overwrite the branch?"
+msgstr ""
+"This betekent doorgaans dat er al een tak met die naam bestaat. Wil je de "
+"bestaande tak overschrijven?"
+
+#: ../gitg/gitg-branch-actions.c:536
+msgid "Force rename"
+msgstr "Forceer hernoemen"
+
+#: ../gitg/gitg-branch-actions.c:545
+#, c-format
+msgid "Branch <%s> could not be forcefully renamed"
+msgstr "Tak <%s> kon niet geforceerd worden hernoemd"
+
+#: ../gitg/gitg-branch-actions.c:585 ../gitg/gitg-preferences.ui.h:12
+#: ../gitg/gitg-repository.ui.h:6 ../gitg/gitg-tag.ui.h:4
+msgid "Name:"
+msgstr "Naam:"
+
+#: ../gitg/gitg-branch-actions.c:693
 msgid "Do you want to temporarily stash these changes?"
 msgstr "Wil je de wijzigingen tijdelijk opslaan?"
 
-#: ../gitg/gitg-branch-actions.c:583
+#: ../gitg/gitg-branch-actions.c:697
 msgid "Do you want to stash and reapply these changes?"
 msgstr "Wil je de wijzigingen tijdelijk opslaan en opnieuw toepassen?"
 
-#: ../gitg/gitg-branch-actions.c:588
+#: ../gitg/gitg-branch-actions.c:702
 msgid "You have uncommited changes in your current working tree"
 msgstr "Je hebt wijzigingen in de werkkopie die nog niet gecommit zijn"
 
-#: ../gitg/gitg-branch-actions.c:590
+#: ../gitg/gitg-branch-actions.c:704
 msgid "Stash changes"
 msgstr "Tijdelijk opslaan"
 
-#: ../gitg/gitg-branch-actions.c:766
+#: ../gitg/gitg-branch-actions.c:880
 msgid "Failed to save current index state"
 msgstr "Index kon niet worden opgeslagen"
 
-#: ../gitg/gitg-branch-actions.c:820 ../gitg/gitg-branch-actions.c:1102
-#: ../gitg/gitg-branch-actions.c:1397
+#: ../gitg/gitg-branch-actions.c:934 ../gitg/gitg-branch-actions.c:1216
+#: ../gitg/gitg-branch-actions.c:1508
 #, c-format
 msgid "Failed to checkout local branch <%s>"
 msgstr "Lokale tak <%s> kon niet worden uitgechecked"
 
-#: ../gitg/gitg-branch-actions.c:858
+#: ../gitg/gitg-branch-actions.c:972
 #, c-format
 msgid "Failed to checkout remote branch <%s> to local branch <%s>"
 msgstr "Afgelegen tak <%s> kon niet worden uitgechecked naar lokale tak <%s>"
 
-#: ../gitg/gitg-branch-actions.c:898
+#: ../gitg/gitg-branch-actions.c:1012
 #, c-format
 msgid "Failed to checkout tag <%s> to local branch <%s>"
 msgstr "Tag <%s> kon niet worden uitgechecked naar lokale tak <%s>"
 
-#: ../gitg/gitg-branch-actions.c:989
+#: ../gitg/gitg-branch-actions.c:1103
 #, c-format
 msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
 msgstr "Kon %s tak <%s> niet opnieuw baseren op %s tak <%s>"
 
-#: ../gitg/gitg-branch-actions.c:993
+#: ../gitg/gitg-branch-actions.c:1107
 #, c-format
 msgid "Failed to merge %s branch <%s> with %s branch <%s>"
 msgstr "Kon %s tak <%s> niet samenvoegen met %s tak <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1001 ../gitg/gitg-branch-actions.c:1003
-#: ../gitg/gitg-branch-actions.c:1069 ../gitg/gitg-branch-actions.c:1071
-#: ../gitg/gitg-branch-actions.c:1110 ../gitg/gitg-branch-actions.c:1112
-#: ../gitg/gitg-branch-actions.c:1146 ../gitg/gitg-branch-actions.c:1148
-#: ../gitg/gitg-branch-actions.c:1193 ../gitg/gitg-branch-actions.c:1195
+#: ../gitg/gitg-branch-actions.c:1115 ../gitg/gitg-branch-actions.c:1117
+#: ../gitg/gitg-branch-actions.c:1183 ../gitg/gitg-branch-actions.c:1185
+#: ../gitg/gitg-branch-actions.c:1224 ../gitg/gitg-branch-actions.c:1226
+#: ../gitg/gitg-branch-actions.c:1260 ../gitg/gitg-branch-actions.c:1262
+#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1309
 msgid "local"
 msgstr "lokale"
 
-#: ../gitg/gitg-branch-actions.c:1001 ../gitg/gitg-branch-actions.c:1003
-#: ../gitg/gitg-branch-actions.c:1069 ../gitg/gitg-branch-actions.c:1071
-#: ../gitg/gitg-branch-actions.c:1110 ../gitg/gitg-branch-actions.c:1112
-#: ../gitg/gitg-branch-actions.c:1146 ../gitg/gitg-branch-actions.c:1148
-#: ../gitg/gitg-branch-actions.c:1193 ../gitg/gitg-branch-actions.c:1195
+#: ../gitg/gitg-branch-actions.c:1115 ../gitg/gitg-branch-actions.c:1117
+#: ../gitg/gitg-branch-actions.c:1183 ../gitg/gitg-branch-actions.c:1185
+#: ../gitg/gitg-branch-actions.c:1224 ../gitg/gitg-branch-actions.c:1226
+#: ../gitg/gitg-branch-actions.c:1260 ../gitg/gitg-branch-actions.c:1262
+#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1309
 msgid "remote"
 msgstr "afgelegen"
 
-#: ../gitg/gitg-branch-actions.c:1020
+#: ../gitg/gitg-branch-actions.c:1134
 msgid "The stashed changes have been stored to be reapplied manually"
 msgstr ""
 "De wijzigingen zijn tijdelijk opgeslagen en kunnen handmatig worden toegepast"
 
-#: ../gitg/gitg-branch-actions.c:1025
+#: ../gitg/gitg-branch-actions.c:1139
 msgid "Failed to checkout previously checked out branch"
 msgstr "Kon vorige uitgecheckte tak niet opnieuw uitchecken"
 
-#: ../gitg/gitg-branch-actions.c:1046
+#: ../gitg/gitg-branch-actions.c:1160
 msgid "Failed to reapply stash correctly"
 msgstr "Kon tijdelijke opgeslagen wijzigingen niet toepassen"
 
-#: ../gitg/gitg-branch-actions.c:1047
+#: ../gitg/gitg-branch-actions.c:1161
 msgid ""
 "There might be unresolved conflicts in the working tree or index which you "
 "need to resolve manually"
@@ -414,40 +453,40 @@ msgstr ""
 "Het kan zijn dat er onopgeloste conflicten in de werkkopie zijn die "
 "handmatig moeten worden opgelost"
 
-#: ../gitg/gitg-branch-actions.c:1068
+#: ../gitg/gitg-branch-actions.c:1182
 #, c-format
 msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
 msgstr "Weet je zeker dat je %s tak <%s> wilt samenvoegen met %s tak <%s>?"
 
-#: ../gitg/gitg-branch-actions.c:1076 ../gitg/gitg-branch-actions.c:1078
-#: ../gitg/gitg-branch-actions.c:1122 ../gitg/gitg-menus.xml.h:4
+#: ../gitg/gitg-branch-actions.c:1190 ../gitg/gitg-branch-actions.c:1192
+#: ../gitg/gitg-branch-actions.c:1236 ../gitg/gitg-menus.xml.h:4
 msgid "Merge"
 msgstr "Samenvoegen"
 
-#: ../gitg/gitg-branch-actions.c:1103
+#: ../gitg/gitg-branch-actions.c:1217
 msgid "The branch on which to merge could not be checked out"
 msgstr "De tak waarop gemerged moet worden kon niet worden uitgechecked"
 
-#: ../gitg/gitg-branch-actions.c:1109
+#: ../gitg/gitg-branch-actions.c:1223
 #, c-format
 msgid "Merging %s branch <%s> onto %s branch <%s>"
 msgstr "Samenvoegen van %s tak <%s> op %s tak <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1145
+#: ../gitg/gitg-branch-actions.c:1259
 #, c-format
 msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
 msgstr "Weet je zeker dat je %s tak <%s> opnieuw wilt baseren op %s tak <%s>?"
 
-#: ../gitg/gitg-branch-actions.c:1153 ../gitg/gitg-branch-actions.c:1155
-#: ../gitg/gitg-branch-actions.c:1205 ../gitg/gitg-menus.xml.h:7
+#: ../gitg/gitg-branch-actions.c:1267 ../gitg/gitg-branch-actions.c:1269
+#: ../gitg/gitg-branch-actions.c:1319 ../gitg/gitg-menus.xml.h:7
 msgid "Rebase"
 msgstr "Opnieuw baseren"
 
-#: ../gitg/gitg-branch-actions.c:1178
+#: ../gitg/gitg-branch-actions.c:1292
 msgid "Unable to rebase"
 msgstr "Kon niet opnieuw baseren"
 
-#: ../gitg/gitg-branch-actions.c:1179
+#: ../gitg/gitg-branch-actions.c:1293
 msgid ""
 "There are still uncommitted changes in your working tree and you are trying "
 "to rebase a branch onto the currently checked out branch. Either remove, "
@@ -457,17 +496,17 @@ msgstr ""
 "probeert een tak opnieuw te baseren op de huidige werkkopie. Verwijder, "
 "commit of sla de wijzigingen tijdelijk op en probeer opnieuw"
 
-#: ../gitg/gitg-branch-actions.c:1192
+#: ../gitg/gitg-branch-actions.c:1306
 #, c-format
 msgid "Rebasing %s branch <%s> onto %s branch <%s>"
 msgstr "Opnieuw baseren van %s tak <%s> op %s tak <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1231
+#: ../gitg/gitg-branch-actions.c:1345
 #, c-format
 msgid "Failed to push local branch <%s> to remote <%s>"
 msgstr "Kon lokale tak <%s> niet publiceren op afgelegen plek <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1232
+#: ../gitg/gitg-branch-actions.c:1346
 msgid ""
 "This usually means that the remote branch could not be fast-forwarded. Try "
 "fetching the latest changes."
@@ -475,47 +514,52 @@ msgstr ""
 "Dit betekent doorgans dat de afgelegen tak niet snel doorgespoeld kon "
 "worden. Probeer om eerst de laatste wijzigingen op te halen."
 
-#: ../gitg/gitg-branch-actions.c:1256
+#: ../gitg/gitg-branch-actions.c:1370
 #, c-format
 msgid "Are you sure you want to push <%s> to <%s>?"
 msgstr "Weet je zeker dat je <%s> wilt publiceren op <%s>?"
 
-#: ../gitg/gitg-branch-actions.c:1262 ../gitg/gitg-branch-actions.c:1264
-#: ../gitg/gitg-branch-actions.c:1285 ../gitg/gitg-branch-actions.c:1317
-#: ../gitg/gitg-branch-actions.c:1319 ../gitg/gitg-branch-actions.c:1346
+#: ../gitg/gitg-branch-actions.c:1376 ../gitg/gitg-branch-actions.c:1378
+#: ../gitg/gitg-branch-actions.c:1399 ../gitg/gitg-branch-actions.c:1432
+#: ../gitg/gitg-branch-actions.c:1434 ../gitg/gitg-branch-actions.c:1457
 msgid "Push"
 msgstr "Publiceren"
 
-#: ../gitg/gitg-branch-actions.c:1277 ../gitg/gitg-branch-actions.c:1331
+#: ../gitg/gitg-branch-actions.c:1391
 #, c-format
 msgid "Pushing local branch <%s> to remote branch <%s>"
 msgstr "Publiceer lokale tak <%s> naar afgelegen tak <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1311
+#: ../gitg/gitg-branch-actions.c:1426
 #, c-format
-msgid "Are you sure you want to push <%s> to remote <%s>?"
-msgstr "Weet je zeker dat <%s> wilt publiceren op afgelegen plek <%s>?"
+msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
+msgstr "Weet je zeker dat <%s> wilt publiceren op afgelegen plek <%s/%s>?"
 
-#: ../gitg/gitg-branch-actions.c:1370
+#: ../gitg/gitg-branch-actions.c:1444
+#, c-format
+msgid "Pushing local branch <%s> to remote branch <%s/%s>"
+msgstr "Publiceer lokale tak <%s> naar afgelegen tak <%s/%s>"
+
+#: ../gitg/gitg-branch-actions.c:1481
 #, c-format
 msgid "Are you sure you want to apply the stash item to local branch <%s>?"
 msgstr ""
 "Weet je zeker dat je de tijdelijke opslag wilt toepassen op lokale tak <%s>?"
 
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
+#: ../gitg/gitg-branch-actions.c:1486 ../gitg/gitg-branch-actions.c:1488
 msgid "Apply stash"
 msgstr "Toepassen"
 
-#: ../gitg/gitg-branch-actions.c:1416
+#: ../gitg/gitg-branch-actions.c:1527
 #, c-format
 msgid "The stash could not be applied to local branch <%s>"
 msgstr "De tijdelijke opslag kon niet worden toegepast op lokale tak <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1420
+#: ../gitg/gitg-branch-actions.c:1531
 msgid "Failed to apply stash"
 msgstr "Toepassen tijdelijke opgeslag gefaald"
 
-#: ../gitg/gitg-branch-actions.c:1466
+#: ../gitg/gitg-branch-actions.c:1577
 msgid ""
 "The tag object could not be successfully created. Please make sure you have "
 "a GPG key and the key is unlocked"
@@ -523,11 +567,11 @@ msgstr ""
 "Het tag object kon niet worden aangemaakt. Zorg ervoor dat je een GPG "
 "sleutel hebt en dat deze vrijgemaakt is"
 
-#: ../gitg/gitg-branch-actions.c:1470
+#: ../gitg/gitg-branch-actions.c:1581
 msgid "The tag object could not be successfully created"
 msgstr "Het tag object kon niet succesvol worden aangemaakt"
 
-#: ../gitg/gitg-branch-actions.c:1475
+#: ../gitg/gitg-branch-actions.c:1586
 msgid "Failed to create tag"
 msgstr "Tag kon niet worden aangemaakt"
 
@@ -674,11 +718,6 @@ msgstr "Vroeg"
 msgid "Late"
 msgstr "Laat"
 
-#: ../gitg/gitg-preferences.ui.h:12 ../gitg/gitg-repository.ui.h:6
-#: ../gitg/gitg-tag.ui.h:4
-msgid "Name:"
-msgstr "Naam:"
-
 #: ../gitg/gitg-preferences.ui.h:13
 msgid "Preferences"
 msgstr "Voorkeuren"
@@ -768,18 +807,22 @@ msgid "Rebase branch onto..."
 msgstr "Tak opnieuw baseren op..."
 
 #: ../gitg/gitg-menus.xml.h:10
+msgid "Rename branch"
+msgstr "Hernoem tak"
+
+#: ../gitg/gitg-menus.xml.h:11
 msgid "_Author"
 msgstr "_Auteur"
 
-#: ../gitg/gitg-menus.xml.h:11
+#: ../gitg/gitg-menus.xml.h:12
 msgid "_Date"
 msgstr "_Datum"
 
-#: ../gitg/gitg-menus.xml.h:12
+#: ../gitg/gitg-menus.xml.h:13
 msgid "_Hash"
 msgstr "_Hash"
 
-#: ../gitg/gitg-menus.xml.h:13
+#: ../gitg/gitg-menus.xml.h:14
 msgid "_Subject"
 msgstr "_Onderwerp"
 
@@ -804,9 +847,8 @@ msgid "_Open..."
 msgstr "_Open..."
 
 #: ../gitg/gitg-ui.xml.h:10
-#, fuzzy
 msgid "_Repository"
-msgstr "Open git repository"
+msgstr "_Repository"
 
 #: ../gitg/gitg-ui.xml.h:11
 msgid "_View"

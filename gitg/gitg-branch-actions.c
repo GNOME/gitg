@@ -373,6 +373,7 @@ get_stash_refspec (GitgRepository *repository, GitgRef *stash)
 			}
 			break;
 		}
+		ptr++;
 	}
 	
 	g_strfreev (out);
@@ -427,15 +428,12 @@ remove_stash (GitgWindow *window, GitgRef *ref)
 		                               "refs/stash@{0}",
 		                               NULL))
 		{
-			gchar *sha1 = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (ref));
 			gitg_repository_commandv (repository,
 			                          NULL,
 			                          "update-ref",
 			                          "-d",
 			                          "refs/stash",
-			                          sha1,
 			                          NULL);
-			g_free (sha1);
 		}
 
 		gitg_repository_reload (repository);
@@ -519,6 +517,122 @@ gitg_branch_actions_remove (GitgWindow *window,
 	
 	gitg_ref_free (cp);
 	return ret;
+}
+
+static GitgRunner *
+rename_branch (GitgWindow  *window,
+               GitgRef     *ref,
+               const gchar *newname)
+{
+	gchar const *oldname = gitg_ref_get_shortname (ref);
+	GitgRepository *repository = gitg_window_get_repository (window);
+
+	if (!gitg_repository_commandv (repository, NULL, "branch", "-m", oldname, newname, NULL))
+	{
+		gint ret = message_dialog (window,
+		                           GTK_MESSAGE_ERROR,
+		                           _("Branch <%s> could not be renamed to <%s>"),
+		                           _("This usually means that a branch with that name already exists. Do you want to overwrite the branch?"),
+		                           _("Force rename"),
+		                           oldname, newname);
+
+		if (ret == GTK_RESPONSE_ACCEPT)
+		{
+			if (!gitg_repository_commandv (repository, NULL, "branch", "-M", oldname, newname, NULL))
+			{
+				message_dialog (window, 
+				                GTK_MESSAGE_ERROR,
+				                _("Branch <%s> could not be forcefully renamed"),
+				                NULL,
+				                NULL,
+				                oldname);
+
+				return NULL;
+			}
+			else
+			{
+				gitg_repository_reload (repository);
+				return NULL;
+			}
+		}
+	}
+	else
+	{
+		gitg_repository_reload (repository);
+
+		return NULL;
+	}
+	
+	return NULL;
+}
+
+static gchar *
+rename_dialog (GitgWindow *window, const gchar *oldname)
+{
+	GtkWidget *dlg;
+	
+	GtkDialogFlags flags = GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT;
+	dlg = gtk_dialog_new_with_buttons ("gitg",
+                                           GTK_WINDOW (window),
+                                           flags,
+                                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                           "_Rename", GTK_RESPONSE_OK,
+                                           NULL);
+	gtk_dialog_set_has_separator (GTK_DIALOG (dlg), FALSE);
+	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
+
+	GtkWidget *box = gtk_hbox_new (FALSE, 6);
+	GtkWidget *label = gtk_label_new (_("Name:"));
+	GtkWidget *entry = gtk_entry_new ();
+	gtk_entry_set_text (GTK_ENTRY (entry), oldname);
+	gtk_entry_set_width_chars (GTK_ENTRY (entry), 25);
+	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+	
+	gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (box), entry, TRUE, TRUE, 0);
+	gtk_widget_show_all (box);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), box, TRUE, TRUE, 12);
+	
+	gint ret = gtk_dialog_run (GTK_DIALOG (dlg));
+
+	gchar *newname = NULL;
+	if (ret == GTK_RESPONSE_OK)
+	{
+		const gchar *text = gtk_entry_get_text (GTK_ENTRY (entry));
+		if (*text != '\0' && strcmp (text, oldname))
+		{
+			newname = g_strdup (text);
+		}
+	}
+
+	gtk_widget_destroy (dlg);
+	
+	return newname;
+}
+
+GitgRunner * 
+gitg_branch_actions_rename (GitgWindow *window,
+                            GitgRef    *ref)
+{
+	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (ref != NULL, NULL);
+	
+	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
+	{
+		gchar *newname = rename_dialog (window, gitg_ref_get_shortname (ref));
+
+		if (newname)
+		{
+			GitgRef *cp = gitg_ref_copy (ref);
+			GitgRunner *ret = NULL;
+			ret = rename_branch (window, cp, newname);
+			gitg_ref_free (cp);
+			g_free (newname);
+			return ret;
+		}
+	}
+
+	return NULL;
 }
 
 static void
@@ -1301,16 +1415,17 @@ gitg_branch_actions_push (GitgWindow *window,
 GitgRunner *
 gitg_branch_actions_push_remote (GitgWindow  *window,
                                  GitgRef     *source,
-                                 gchar const *remote)
+                                 gchar const *remote,
+                                 gchar const *branch)
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
 	g_return_val_if_fail (remote != NULL, NULL);
 	g_return_val_if_fail (source != NULL, NULL);	
 	g_return_val_if_fail (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH, NULL);
 	
-	gchar *message = g_strdup_printf (_("Are you sure you want to push <%s> to remote <%s>?"),
+	gchar *message = g_strdup_printf (_("Are you sure you want to push <%s> to remote <%s/%s>?"),
 	                                  gitg_ref_get_shortname (source),
-	                                  remote);
+	                                  remote, branch);
 	
 	if (message_dialog (window,
 	                    GTK_MESSAGE_QUESTION,
@@ -1325,18 +1440,14 @@ gitg_branch_actions_push_remote (GitgWindow  *window,
 	g_free (message);
 
 	gchar const *name = gitg_ref_get_shortname (source);
-	gchar *rm = g_strconcat (remote, "/", name, NULL);
-	
-	gchar *spec = g_strconcat (name, ":", name, NULL);
-	message = g_strdup_printf (_("Pushing local branch <%s> to remote branch <%s>"),
+	gchar *spec = g_strconcat (name, ":", branch, NULL);
+	message = g_strdup_printf (_("Pushing local branch <%s> to remote branch <%s/%s>"),
 	                           gitg_ref_get_shortname (source),
-	                           rm);
+	                           remote, branch);
 	
-	g_free (rm);
-
 	GitgRunner *ret;
-	gchar *rr = g_strconcat ("refs/remotes/", remote, "/", name, NULL);
-	GitgRef *rmref = gitg_ref_new ("0000000000000000000000000000000000000000", remote);
+	gchar *rr = g_strconcat ("refs/remotes/", remote, "/", branch, NULL);
+	GitgRef *rmref = gitg_ref_new ("0000000000000000000000000000000000000000", rr);
 	g_free (rr);
 
 	RefInfo *info = ref_info_new (source, rmref);

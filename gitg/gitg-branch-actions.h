@@ -29,13 +29,14 @@
 G_BEGIN_DECLS
 
 GitgRunner *gitg_branch_actions_remove (GitgWindow *window, GitgRef *ref);
+GitgRunner *gitg_branch_actions_rename (GitgWindow *window, GitgRef *ref);
 gboolean gitg_branch_actions_checkout (GitgWindow *window, GitgRef *ref);
 
 GitgRunner *gitg_branch_actions_merge (GitgWindow *window, GitgRef *source, GitgRef *dest);
 GitgRunner *gitg_branch_actions_rebase (GitgWindow *window, GitgRef *source, GitgRef *dest);
 
 GitgRunner *gitg_branch_actions_push (GitgWindow *window, GitgRef *source, GitgRef *dest);
-GitgRunner *gitg_branch_actions_push_remote (GitgWindow *window, GitgRef *source, gchar const *remote);
+GitgRunner *gitg_branch_actions_push_remote (GitgWindow *window, GitgRef *source, gchar const *remote, gchar const *branch);
 
 gboolean gitg_branch_actions_apply_stash (GitgWindow *window, GitgRef *stash, GitgRef *branch);
 
