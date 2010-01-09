@@ -101,9 +101,14 @@
           </object>
         </child>
         <child>
+          <object class="GtkAction" id="CherryPickAction">
+            <property name="label" translatable="yes">Cherry-pick on...</property>
+          </object>
+        </child>
+        <child>
           <object class="GtkAction" id="SquashAction">
-          	<property name="label">Squash revisions</property>
-          	<signal name="activate" handler="on_revision_squash_activate"/>
+            <property name="label">Squash revisions</property>
+            <signal name="activate" handler="on_revision_squash_activate"/>
           </object>
         </child>
       </object>
@@ -138,8 +143,11 @@
         <menuitem action="MergeDndAction"/>
       </popup>
       <popup name="revision_popup">
-      	<menuitem action="TagAction"/>
-      	<menuitem action="SquashAction"/>
+        <menuitem action="TagAction"/>
+        <menu name="CherryPick" action="CherryPickAction">
+          <placeholder name="Placeholder"/>
+        </menu>
+        <menuitem action="SquashAction"/>
       </popup>
     </ui>
   </object>

@@ -1771,7 +1771,6 @@ gitg_branch_actions_cherry_pick (GitgWindow   *window,
 	                    NULL);
 
 	g_free (message);
-	gitg_ref_free (head);
 	g_free (sha1);
 
 	return ret;

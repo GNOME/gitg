@@ -97,6 +97,9 @@ struct _GitgWindowPrivate
 	gboolean destroy_has_run;
 	guint merge_rebase_uid;
 	GtkActionGroup *merge_rebase_action_group;
+
+	guint cherry_pick_uid;
+	GtkActionGroup *cherry_pick_action_group;
 	GitgRef *popup_refs[2];
 
 	GList *branch_actions;
@@ -1967,6 +1970,9 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 
 				g_object_unref (rebaseac);
 				g_object_unref (mergeac);
+
+				g_free (rebase);
+				g_free (merge);
 			}
 			else
 			{
@@ -2207,6 +2213,125 @@ consecutive_revisions (GitgWindow *window, GList *rows)
 	return FALSE;
 }
 
+static void
+on_cherry_pick_activated (GtkAction *action, GitgWindow *window)
+{
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+
+	selection = gtk_tree_view_get_selection (window->priv->tree_view);
+	GList *rows = gtk_tree_selection_get_selected_rows (selection, &model);
+
+	if (!rows || rows->next)
+	{
+		return;
+	}
+
+	GtkTreeIter iter;
+	GitgRevision *rev;
+
+	gtk_tree_model_get_iter (model, &iter, (GtkTreePath *)rows->data);
+	gtk_tree_model_get (model, &iter, 0, &rev, -1);
+
+	GitgRef *ref = g_object_get_data (G_OBJECT (action),
+	                                  DYNAMIC_ACTION_DATA_KEY);
+
+	add_branch_action (window, gitg_branch_actions_cherry_pick (window,
+	                                                            rev,
+	                                                            ref));
+
+	gitg_revision_unref (rev);
+
+	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free (rows);
+}
+
+static void
+update_cherry_pick (GitgWindow *window)
+{
+	if (window->priv->cherry_pick_uid != 0)
+	{
+		gtk_ui_manager_remove_ui (window->priv->menus_ui_manager,
+		                          window->priv->cherry_pick_uid);
+	}
+
+	GtkActionGroup *ac = window->priv->cherry_pick_action_group;
+
+	if (ac)
+	{
+		GList *actions = gtk_action_group_list_actions (ac);
+		GList *item;
+
+		for (item = actions; item; item = g_list_next (item))
+		{
+			gtk_action_group_remove_action (ac, (GtkAction *)item->data);
+		}
+
+		g_list_free (actions);
+	}
+
+	if (window->priv->cherry_pick_uid == 0)
+	{
+		window->priv->cherry_pick_uid = gtk_ui_manager_new_merge_id (window->priv->menus_ui_manager);
+	}
+
+	if (ac == NULL)
+	{
+		ac = gtk_action_group_new ("GitgCherryPickActions");
+
+		window->priv->cherry_pick_action_group = ac;
+
+		gtk_ui_manager_insert_action_group (window->priv->menus_ui_manager,
+		                                    ac,
+		                                    0);
+	}
+
+	GSList *refs = gitg_repository_get_refs (window->priv->repository);
+	GSList *item;
+
+	for (item = refs; item; item = g_slist_next (item))
+	{
+		GitgRef *r = GITG_REF (item->data);
+
+		if (gitg_ref_get_ref_type (r) == GITG_REF_TYPE_BRANCH)
+		{
+			gchar const *rname = gitg_ref_get_shortname (r);
+			gchar *acname = g_strconcat ("CherryPick", rname, "Action", NULL);
+
+			GtkAction *action = gtk_action_new (acname, rname, NULL, NULL);
+
+			g_object_set_data_full (G_OBJECT (action),
+			                        DYNAMIC_ACTION_DATA_KEY,
+			                        gitg_ref_copy (r),
+			                        (GDestroyNotify)gitg_ref_free);
+
+			g_signal_connect (action,
+			                  "activate",
+			                  G_CALLBACK (on_cherry_pick_activated),
+			                  window);
+
+			gtk_action_group_add_action (ac, action);
+
+			gchar *name = g_strconcat ("CherryPick", rname, NULL);
+
+			gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
+			                       window->priv->cherry_pick_uid,
+			                       "/ui/revision_popup/CherryPick/Placeholder",
+			                       name,
+			                       acname,
+			                       GTK_UI_MANAGER_MENUITEM,
+			                       FALSE);
+			g_free (name);
+
+			g_object_unref (action);
+			g_free (acname);
+		}
+	}
+
+	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
+	g_slist_free (refs);
+}
+
 static gboolean
 popup_revision (GitgWindow *window, GdkEventButton *event)
 {
@@ -2217,22 +2342,29 @@ popup_revision (GitgWindow *window, GdkEventButton *event)
 
 	gboolean show = FALSE;
 
+	update_cherry_pick (window);
+
 	if (rows)
 	{
 		GtkAction *tag = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/revision_popup/TagAction");
 		GtkAction *squash = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/revision_popup/SquashAction");
+		GtkAction *cherry_pick = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/revision_popup/CherryPick");
 
 		if (!rows->next)
 		{
 			show = TRUE;
+
 			gtk_action_set_visible (squash, FALSE);
 			gtk_action_set_visible (tag, TRUE);
+			gtk_action_set_visible (cherry_pick, TRUE);
 		}
 		else if (consecutive_revisions (window, rows))
 		{
 			show = TRUE;
+
 			gtk_action_set_visible (squash, TRUE);
 			gtk_action_set_visible (tag, FALSE);
+			gtk_action_set_visible (cherry_pick, FALSE);
 		}
 	}
 
