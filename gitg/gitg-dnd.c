@@ -29,6 +29,7 @@ typedef struct
 	GitgRef *cursor_ref;
 
 	GitgDndCallback callback;
+	GitgDndRevisionCallback revision_callback;
 	gpointer callback_data;
 
 	gdouble x;
@@ -554,7 +555,7 @@ gitg_drag_source_motion_cb (GtkWidget       *widget,
                             guint            time,
                             GitgDndData     *data)
 {
-	if (!data->ref)
+	if (!data->ref && !data->revision)
 	{
 		return FALSE;
 	}
@@ -587,13 +588,18 @@ gitg_drag_source_motion_cb (GtkWidget       *widget,
 			gtk_widget_queue_draw (widget);
 		}
 
-		if (data->callback)
+		if (data->ref && data->callback)
 		{
 			data->callback (data->ref, ref, FALSE, data->callback_data);
 		}
+		else if (data->revision && data->revision_callback)
+		{
+			data->revision_callback (data->revision, ref, FALSE, data->callback_data);
+		}
 	}
 
-	if (ref && can_drop (data->ref, ref))
+	if ((data->ref && ref && can_drop (data->ref, ref)) ||
+	    (data->revision && ref && gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH))
 	{
 		if (ref != data->target)
 		{
@@ -627,16 +633,20 @@ gitg_drag_source_drop_cb (GtkWidget *widget,
                           guint time,
                           GitgDndData *data)
 {
-	if (!data->ref || !data->target)
+	if (!(data->ref || data->revision) || !data->target)
 	{
 		return FALSE;
 	}
 
 	gboolean ret = FALSE;
 
-	if (data->callback)
+	if (data->ref && data->callback)
 	{
 		ret = data->callback (data->ref, data->target, TRUE, data->callback_data);
+	}
+	else if (data->revision && data->revision_callback)
+	{
+		ret = data->revision_callback (data->revision, data->target, TRUE, data->callback_data);
 	}
 
 	gtk_drag_finish (context, ret, FALSE, time);
@@ -784,7 +794,10 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 }
 
 void
-gitg_dnd_enable (GtkTreeView *tree_view, GitgDndCallback callback, gpointer callback_data)
+gitg_dnd_enable (GtkTreeView             *tree_view,
+                 GitgDndCallback          callback,
+                 GitgDndRevisionCallback  revision_callback,
+                 gpointer                 callback_data)
 {
 	if (GITG_DND_GET_DATA (tree_view))
 	{
@@ -795,6 +808,7 @@ gitg_dnd_enable (GtkTreeView *tree_view, GitgDndCallback callback, gpointer call
 
 	data->tree_view = tree_view;
 	data->callback = callback;
+	data->revision_callback = revision_callback;
 	data->callback_data = callback_data;
 
 	g_object_set_data_full (G_OBJECT (tree_view),

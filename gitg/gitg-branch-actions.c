@@ -1594,3 +1594,185 @@ gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *nam
 		return TRUE;
 	}
 }
+
+typedef struct
+{
+	GitgRevision *revision;
+	GitgRef *dest;
+
+	gchar *stashcommit;
+	GitgRef *head;
+} CherryPickInfo;
+
+static CherryPickInfo *
+cherry_pick_info_new (GitgRevision *revision, GitgRef *dest)
+{
+	CherryPickInfo *ret = g_slice_new0 (CherryPickInfo);
+
+	ret->revision = gitg_revision_ref (revision);
+	ret->dest = gitg_ref_copy (dest);
+
+	return ret;
+}
+
+static void
+cherry_pick_info_free (CherryPickInfo *info)
+{
+	gitg_revision_unref (info->revision);
+	gitg_ref_free (info->dest);
+
+	g_free (info->stashcommit);
+	gitg_ref_free (info->head);
+
+	g_slice_free (CherryPickInfo, info);
+}
+
+static void
+on_cherry_pick_result (GitgWindow   *window,
+                       GitgProgress  progress,
+                       gpointer      data)
+{
+	CherryPickInfo *info = (CherryPickInfo *)data;
+
+	if (progress == GITG_PROGRESS_ERROR)
+	{
+		gchar const *message;
+
+		message_dialog (window,
+			            GTK_MESSAGE_ERROR,
+			            _("Failed to cherry-pick on <%s>"),
+			            NULL,
+			            NULL,
+	                    gitg_ref_get_shortname (info->dest));
+	}
+	else if (progress == GITG_PROGRESS_SUCCESS)
+	{
+		GitgRepository *repository = gitg_window_get_repository (window);
+
+		// Checkout head
+		if (!checkout_local_branch_real (window, info->head))
+		{
+			gchar const *message = NULL;
+
+			if (info->stashcommit)
+			{
+				gitg_repository_commandv (repository, NULL, 
+				                          "update-ref", "-m", "gitg autosave stash",
+				                          "refs/stash", info->stashcommit, NULL);
+				                          
+				message = _("The stashed changes have been stored to be reapplied manually");
+			}
+
+			message_dialog (window,
+				            GTK_MESSAGE_ERROR,
+				            _("Failed to checkout previously checked out branch"),
+				            message,
+				            NULL);
+		}
+		else if (info->stashcommit)
+		{
+			// Reapply stash
+			if (!gitg_repository_commandv (gitg_window_get_repository (window),
+			                               NULL,
+			                               "stash",
+			                               "apply",
+			                               "--index",
+			                               info->stashcommit,
+			                               NULL))
+			{
+				gitg_repository_commandv (repository, NULL, 
+				                          "update-ref", "-m", "gitg autosave stash",
+				                          "refs/stash", info->stashcommit, NULL);
+
+				message_dialog (window,
+				                GTK_MESSAGE_ERROR,
+				                _("Failed to reapply stash correctly"),
+				                _("There might be unresolved conflicts in the working tree or index which you need to resolve manually"),
+				                NULL);
+			}
+		}
+
+		gitg_repository_reload (gitg_window_get_repository (window));
+	}
+
+	cherry_pick_info_free (info);
+}
+
+GitgRunner *
+gitg_branch_actions_cherry_pick (GitgWindow   *window,
+                                 GitgRevision *revision,
+                                 GitgRef      *dest)
+{
+	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (revision != NULL, NULL);
+	g_return_val_if_fail (dest != NULL, NULL);
+
+	gchar *message = g_strdup_printf (_("Are you sure you want to cherry-pick that revision on <%s>?"),
+	                                  gitg_ref_get_shortname (dest));
+
+	if (message_dialog (window,
+	                    GTK_MESSAGE_QUESTION,
+	                    _("Cherry-pick"),
+	                    message,
+	                    _("Cherry-pick")) != GTK_RESPONSE_ACCEPT)
+	{
+		g_free (message);
+		return NULL;
+	}
+
+	gchar *stashcommit;
+
+	if (!stash_changes (window, &stashcommit, FALSE))
+	{
+		return NULL;
+	}
+
+	GitgRepository *repository = gitg_window_get_repository (window);
+	GitgRef *head = gitg_repository_get_current_working_ref (repository);
+
+	// First checkout the correct branch on which to cherry-pick
+	if (!gitg_repository_commandv (repository,
+	                               NULL,
+	                               "checkout",
+	                               gitg_ref_get_shortname (dest),
+	                               NULL))
+	{
+		g_free (stashcommit);
+
+		message_dialog (window,
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to checkout local branch <%s>"),
+		                _("The branch on which to cherry-pick could not be checked out"),
+		                NULL,
+		                gitg_ref_get_shortname (dest));
+
+		return NULL;
+	}
+
+	message = g_strdup_printf (_("Cherry-picking on <%s>"),
+	                           gitg_ref_get_shortname (dest));
+
+	GitgRunner *ret;
+
+	CherryPickInfo *info = cherry_pick_info_new (revision, dest);
+
+	info->stashcommit = stashcommit;
+	info->head = gitg_ref_copy (head);
+
+	gchar *sha1 = gitg_revision_get_sha1 (revision);
+
+	ret = run_progress (window,
+	                    _("Cherry-pick"),
+	                    message,
+	                    on_cherry_pick_result,
+	                    info,
+	                    "cherry-pick",
+	                    sha1,
+	                    NULL);
+
+	g_free (message);
+	gitg_ref_free (head);
+	g_free (sha1);
+
+	return ret;
+}

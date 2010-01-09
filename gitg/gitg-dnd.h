@@ -3,12 +3,18 @@
 
 #include <gtk/gtk.h>
 #include "gitg-ref.h"
+#include "gitg-revision.h"
 
 G_BEGIN_DECLS
 
 typedef gboolean (*GitgDndCallback)(GitgRef *source, GitgRef *dest, gboolean dropped, gpointer callback_data);
+typedef gboolean (*GitgDndRevisionCallback)(GitgRevision *source, GitgRef *dest, gboolean dropped, gpointer callback_data);
 
-void gitg_dnd_enable (GtkTreeView *tree_view, GitgDndCallback callback, gpointer callback_data);
+void gitg_dnd_enable (GtkTreeView *tree_view,
+                      GitgDndCallback callback,
+                      GitgDndRevisionCallback revision_callback,
+                      gpointer callback_data);
+
 void gitg_dnd_disable (GtkTreeView *tree_view);
 
 G_END_DECLS

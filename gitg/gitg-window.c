@@ -581,6 +581,44 @@ on_refs_dnd (GitgRef *source, GitgRef *dest, gboolean dropped, GitgWindow *windo
 }
 
 static void
+update_revision_dnd_status (GitgWindow *window, GitgRevision *source, GitgRef *dest)
+{
+	if (!dest)
+	{
+		gtk_statusbar_push (window->priv->statusbar, 0, "");
+	}
+	else
+	{
+		gchar *message = g_strdup_printf (_("Cherry-pick revision on <%s>"),
+		                                  gitg_ref_get_shortname (dest));
+
+		gtk_statusbar_push (window->priv->statusbar, 0, message);
+		g_free (message);
+	}
+}
+
+static gboolean
+on_revision_dnd (GitgRevision *source,
+                 GitgRef      *dest,
+                 gboolean      dropped,
+                 GitgWindow   *window)
+{
+	if (!dropped)
+	{
+		update_revision_dnd_status (window, source, dest);
+		return FALSE;
+	}
+
+	if (gitg_ref_get_ref_type (dest) != GITG_REF_TYPE_BRANCH)
+	{
+		return FALSE;
+	}
+
+	return add_branch_action (window,
+	                          gitg_branch_actions_cherry_pick (window, source, dest));
+}
+
+static void
 init_tree_view (GitgWindow *window, GtkBuilder *builder)
 {
 	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
@@ -589,7 +627,10 @@ init_tree_view (GitgWindow *window, GtkBuilder *builder)
 
 	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(window->priv->renderer_path), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
 
-	gitg_dnd_enable (window->priv->tree_view, (GitgDndCallback)on_refs_dnd, window);
+	gitg_dnd_enable (window->priv->tree_view,
+	                 (GitgDndCallback)on_refs_dnd,
+	                 (GitgDndRevisionCallback)on_revision_dnd,
+	                 window);
 }
 
 static void

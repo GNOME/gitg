@@ -42,6 +42,8 @@ gboolean gitg_branch_actions_apply_stash (GitgWindow *window, GitgRef *stash, Gi
 
 gboolean gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *name, gchar const *message, gboolean sign);
 
+GitgRunner *gitg_branch_actions_cherry_pick (GitgWindow *window, GitgRevision *revision, GitgRef *dest);
+
 G_END_DECLS
 
 #endif /* __GITG_BRANCH_ACTIONS_H__ */
