@@ -810,10 +810,31 @@ static gboolean
 create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
 {
 	gboolean ret = TRUE;
+	gchar *select_sha1 = NULL;
 
 	if (path)
 	{
 		GFile *file = g_file_new_for_commandline_arg(path);
+
+		if (g_file_has_uri_scheme (file, "gitg"))
+		{
+			/* Extract path and sha information */
+			gchar *uri = g_file_get_uri (file);
+			gchar *fd = strrchr (uri, ':');
+			gint pos = fd ? fd - uri : 0;
+
+			if (pos > 5 && strlen (uri) - pos - 1 <= 40)
+			{
+				/* It has a sha */
+				*fd = '\0';
+				select_sha1 = g_strdup (fd + 1);
+			}
+
+			g_object_unref (file);
+
+			file = g_file_new_for_path (uri + 7);
+			g_free (uri);
+		}
 
 		if (g_file_is_native(file) && g_file_query_exists(file, NULL))
 		{
