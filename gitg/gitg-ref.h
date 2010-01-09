@@ -68,6 +68,10 @@ GitgRefState     gitg_ref_get_state             (GitgRef      *ref);
 void			 gitg_ref_set_state				(GitgRef      *ref,
                                                  GitgRefState state);
 
+void			 gitg_ref_set_working			(GitgRef      *ref,
+												 gboolean      working);
+gboolean		 gitg_ref_get_working			(GitgRef      *ref);
+
 GitgRef			*gitg_ref_copy					(GitgRef      *ref);
 void 			 gitg_ref_free					(GitgRef      *ref);
 

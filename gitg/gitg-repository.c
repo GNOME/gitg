@@ -459,6 +459,7 @@ get_current_working_ref(GitgRepository *repository)
 	if (hash && name)
 	{
 		ret = gitg_ref_new (hash, name);
+		gitg_ref_set_working (ret, TRUE);
 	}
 
 	g_free (hash);
@@ -1141,6 +1142,8 @@ load_refs(GitgRepository *self)
 	gchar *buf;
 	gchar *current = load_current_ref(self);
 
+	GitgRef *working = gitg_repository_get_current_working_ref (self);
+
 	while ((buf = *buffer++) != NULL)
 	{
 		// each line will look like <name> <hash>
@@ -1155,6 +1158,11 @@ load_refs(GitgRepository *self)
 			if (current != NULL && strcmp(gitg_ref_get_name(ref), current) == 0)
 			{
 				self->priv->current_ref = gitg_ref_copy(ref);
+			}
+
+			if (working != NULL && gitg_ref_equal (working, ref))
+			{
+				gitg_ref_set_working (ref, TRUE);
 			}
 		}
 

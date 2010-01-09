@@ -40,6 +40,8 @@ struct _GitgRef
 
 	gchar *prefix;
 	GitgRefState state;
+
+	gboolean working;
 };
 
 GType 
@@ -125,6 +127,7 @@ gitg_ref_copy(GitgRef *ref)
 	ret->name = g_strdup(ref->name);
 	ret->shortname = g_strdup(ref->shortname);
 	ret->prefix = g_strdup(ref->prefix);
+	ret->working = ref->working;
 
 	int i;
 	for (i = 0; i < HASH_BINARY_SIZE; ++i)
@@ -227,4 +230,17 @@ gitg_ref_get_local_name (GitgRef *ref)
 	{
 		return g_strdup (shortname);
 	}
+}
+
+void
+gitg_ref_set_working (GitgRef  *ref,
+                      gboolean  working)
+{
+	ref->working = working;
+}
+
+gboolean
+gitg_ref_get_working (GitgRef *ref)
+{
+	return ref->working;
 }

@@ -122,6 +122,22 @@ get_type_color (GitgRefType type, gdouble *r, gdouble *g, gdouble *b)
 }
 
 static void
+get_ref_color (GitgRef *ref, gdouble *r, gdouble *g, gdouble *b)
+{
+	if (gitg_ref_get_working (ref))
+	{
+		/* Orange */
+		*r = 1;
+		*g = 0.7;
+		*b = 0;
+	}
+	else
+	{
+		get_type_color (gitg_ref_get_ref_type (ref), r, g, b);
+	}
+}
+
+static void
 set_source_for_ref_type(cairo_t *context, GitgRef *ref, gboolean use_state)
 {
 	if (use_state)
@@ -136,7 +152,7 @@ set_source_for_ref_type(cairo_t *context, GitgRef *ref, gboolean use_state)
 		else if (state == GITG_REF_STATE_PRELIGHT)
 		{
 			gdouble r, g, b;
-			get_type_color (gitg_ref_get_ref_type (ref), &r, &g, &b);
+			get_ref_color (ref, &r, &g, &b);
 
 			cairo_set_source_rgba(context, r, g, b, 0.3);
 			return;
@@ -144,7 +160,7 @@ set_source_for_ref_type(cairo_t *context, GitgRef *ref, gboolean use_state)
 	}
 
 	gdouble r, g, b;
-	get_type_color (gitg_ref_get_ref_type (ref), &r, &g, &b);
+	get_ref_color (ref, &r, &g, &b);
 
 	cairo_set_source_rgb (context, r, g, b);
 }
