@@ -28,13 +28,13 @@
 struct _GitgChangedFilePrivate
 {
 	GFile *file;
-	
+
 	GitgChangedFileStatus status;
 	GitgChangedFileChanges changes;
-	
+
 	gchar *sha;
 	gchar *mode;
-	
+
 	GFileMonitor *monitor;
 };
 
@@ -70,7 +70,7 @@ gitg_changed_file_finalize(GObject *object)
 	g_free(self->priv->sha);
 	g_free(self->priv->mode);
 	g_object_unref(self->priv->file);
-	
+
 	if (self->priv->monitor)
 	{
 		g_file_monitor_cancel(self->priv->monitor);
@@ -127,9 +127,9 @@ update_monitor(GitgChangedFile *file)
 {
 	gboolean ismodified = (file->priv->status == GITG_CHANGED_FILE_STATUS_MODIFIED);
 	gboolean iscached = (file->priv->changes & GITG_CHANGED_FILE_CHANGES_CACHED);
-	
+
 	gboolean needmonitor = ismodified || iscached;
-	
+
 	if (needmonitor && !file->priv->monitor)
 	{
 		file->priv->monitor = g_file_monitor_file(file->priv->file, G_FILE_MONITOR_NONE, NULL, NULL);
@@ -148,7 +148,7 @@ static void
 gitg_changed_file_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
 	GitgChangedFile *self = GITG_CHANGED_FILE(object);
-	
+
 	switch (prop_id)
 	{
 		case PROP_FILE:
@@ -175,18 +175,18 @@ static void
 gitg_changed_file_class_init(GitgChangedFileClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	
+
 	object_class->finalize = gitg_changed_file_finalize;
 	object_class->set_property = gitg_changed_file_set_property;
 	object_class->get_property = gitg_changed_file_get_property;
-	
+
 	g_object_class_install_property(object_class, PROP_FILE,
 					 g_param_spec_object("file",
 							      "FILE",
 							      "File",
 							      G_TYPE_OBJECT,
 							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-	
+
 	g_object_class_install_property(object_class, PROP_STATUS,
 					 g_param_spec_enum("status",
 							      "STATUS",
@@ -194,7 +194,7 @@ gitg_changed_file_class_init(GitgChangedFileClass *klass)
 							      GITG_TYPE_CHANGED_FILE_STATUS,
 							      GITG_CHANGED_FILE_STATUS_NEW,
 							      G_PARAM_READWRITE));
-	
+
 	g_object_class_install_property(object_class, PROP_CHANGES,
 					 g_param_spec_flags("changes",
 							      "CHANGES",
@@ -246,7 +246,7 @@ GFile *
 gitg_changed_file_get_file(GitgChangedFile *file)
 {
 	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), NULL);
-	
+
 	return g_object_ref(file->priv->file);
 }
 
@@ -254,7 +254,7 @@ gchar const *
 gitg_changed_file_get_sha(GitgChangedFile *file)
 {
 	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), NULL);
-	
+
 	return file->priv->sha;
 }
 
@@ -262,7 +262,7 @@ gchar const *
 gitg_changed_file_get_mode(GitgChangedFile *file)
 {
 	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), NULL);
-	
+
 	return file->priv->mode;
 }
 
@@ -270,7 +270,7 @@ void
 gitg_changed_file_set_sha(GitgChangedFile *file, gchar const *sha)
 {
 	g_return_if_fail(GITG_IS_CHANGED_FILE(file));
-	
+
 	set_sha_real(file, sha);
 	g_object_notify(G_OBJECT(file), "sha");
 }
@@ -279,7 +279,7 @@ void
 gitg_changed_file_set_mode(GitgChangedFile *file, gchar const *mode)
 {
 	g_return_if_fail(GITG_IS_CHANGED_FILE(file));
-	
+
 	set_mode_real(file, mode);
 	g_object_notify(G_OBJECT(file), "mode");
 }
@@ -287,14 +287,14 @@ gitg_changed_file_set_mode(GitgChangedFile *file, gchar const *mode)
 GitgChangedFileStatus gitg_changed_file_get_status(GitgChangedFile *file)
 {
 	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), GITG_CHANGED_FILE_STATUS_NONE);
-	
+
 	return file->priv->status;
 }
 
 GitgChangedFileChanges gitg_changed_file_get_changes(GitgChangedFile *file)
 {
 	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), GITG_CHANGED_FILE_CHANGES_NONE);
-	
+
 	return file->priv->changes;
 }
 
@@ -304,7 +304,7 @@ void gitg_changed_file_set_status(GitgChangedFile *file, GitgChangedFileStatus s
 
 	if (status == file->priv->status)
 		return;
-	
+
 	g_object_set(file, "status", status, NULL);
 }
 
@@ -312,10 +312,10 @@ void
 gitg_changed_file_set_changes(GitgChangedFile *file, GitgChangedFileChanges changes)
 {
 	g_return_if_fail(GITG_IS_CHANGED_FILE(file));
-	
+
 	if (changes == file->priv->changes)
 		return;
-		
+
 	g_object_set(file, "changes", changes, NULL);
 }
 
@@ -323,7 +323,7 @@ gboolean
 gitg_changed_file_equal(GitgChangedFile *file, GFile *other)
 {
 	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), FALSE);
-	
+
 	return g_file_equal(file->priv->file, other);
 }
 

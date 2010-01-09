@@ -50,13 +50,13 @@ typedef enum
 
 struct _GitgRunner {
 	GObject parent;
-	
+
 	GitgRunnerPrivate *priv;
 };
 
 struct _GitgRunnerClass {
 	GObjectClass parent_class;
-	
+
 	/* signals */
 	void (* begin_loading) (GitgRunner *runner);
 	void (* update) (GitgRunner *runner, gchar **buffer);

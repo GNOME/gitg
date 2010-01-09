@@ -42,7 +42,7 @@ typedef struct _GitgWindowPrivate	GitgWindowPrivate;
 
 struct _GitgWindow {
 	GtkWindow parent;
-	
+
 	GitgWindowPrivate *priv;
 };
 

@@ -45,7 +45,7 @@ typedef enum
 	GITG_CHANGED_FILE_STATUS_NONE = 0,
 	GITG_CHANGED_FILE_STATUS_NEW,
 	GITG_CHANGED_FILE_STATUS_MODIFIED,
-	GITG_CHANGED_FILE_STATUS_DELETED	
+	GITG_CHANGED_FILE_STATUS_DELETED
 } GitgChangedFileStatus;
 
 typedef enum
@@ -57,13 +57,13 @@ typedef enum
 
 struct _GitgChangedFile {
 	GObject parent;
-	
+
 	GitgChangedFilePrivate *priv;
 };
 
 struct _GitgChangedFileClass {
 	GObjectClass parent_class;
-	
+
 	void (*changed)(GitgChangedFile *file);
 };
 

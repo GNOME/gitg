@@ -43,7 +43,7 @@ typedef struct _GitgRevisionTreeViewPrivate	GitgRevisionTreeViewPrivate;
 
 struct _GitgRevisionTreeView {
 	GtkHPaned parent;
-	
+
 	GitgRevisionTreeViewPrivate *priv;
 };
 

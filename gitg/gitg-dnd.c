@@ -18,16 +18,16 @@ typedef struct
 	GitgRef *ref;
 	GitgRef *target;
 	GitgRef *cursor_ref;
-	
+
 	GitgDndCallback callback;
 	gpointer callback_data;
-	
+
 	gdouble x;
 	gdouble y;
-	
+
 	gboolean is_drag;
 	GtkTargetList *target_list;
-	
+
 	guint scroll_timeout;
 } GitgDndData;
 
@@ -50,7 +50,7 @@ static GitgDndData *
 gitg_dnd_data_new ()
 {
 	GitgDndData *data = g_slice_new0 (GitgDndData);
-	
+
 	data->target_list = gtk_target_list_new (target_entries,
 	                                         G_N_ELEMENTS (target_entries));
 
@@ -84,24 +84,24 @@ get_ref_at_pos (GtkTreeView *tree_view, gint x, gint y, gint *hot_x, gint *hot_y
 	{
 		return NULL;
 	}
-	
+
 	if (hot_y)
 	{
 		*hot_y = cell_y;
 	}
-	
+
 	GtkCellRenderer *cell = gitg_utils_find_cell_at_pos (tree_view, column, path, cell_x);
-	
+
 	if (!cell || !GITG_IS_CELL_RENDERER_PATH (cell))
 	{
 		return NULL;
 	}
-	
+
 	if (renderer)
 	{
 		*renderer = GITG_CELL_RENDERER_PATH (cell);
 	}
-	
+
 	GitgRef *ref = gitg_cell_renderer_path_get_ref_at_pos (GTK_WIDGET (tree_view),
 	                                                       GITG_CELL_RENDERER_PATH (cell),
 	                                                       cell_x,
@@ -123,7 +123,7 @@ static gboolean
 can_drag (GitgRef *ref)
 {
 	GitgRefType type = gitg_ref_get_ref_type (ref);
-	
+
 	switch (type)
 	{
 		case GITG_REF_TYPE_BRANCH:
@@ -147,7 +147,7 @@ can_drop (GitgRef *source, GitgRef *dest)
 
 	GitgRefType source_type = gitg_ref_get_ref_type (source);
 	GitgRefType dest_type = gitg_ref_get_ref_type (dest);
-	
+
 	if (source_type == GITG_REF_TYPE_BRANCH)
 	{
 		return dest_type ==  GITG_REF_TYPE_BRANCH || dest_type == GITG_REF_TYPE_REMOTE;
@@ -160,7 +160,7 @@ can_drop (GitgRef *source, GitgRef *dest)
 	{
 		return dest_type == GITG_REF_TYPE_BRANCH;
 	}
-	
+
 	return FALSE;
 }
 
@@ -186,7 +186,7 @@ begin_drag (GtkWidget   *widget,
 	{
 		return;
 	}
-	
+
 	data->ref = ref;
 	gitg_ref_set_state (ref, GITG_REF_STATE_NONE);
 
@@ -210,7 +210,7 @@ begin_drag (GtkWidget   *widget,
 		gtk_drag_set_icon_pixbuf (context, pixbuf, hot_x, hot_y);
 		g_object_unref (pixbuf);
 	}
-	
+
 }
 
 static void
@@ -230,11 +230,11 @@ update_highlight (GitgDndData *data, gint x, gint y)
 		{
 			gitg_ref_set_state (data->cursor_ref, GITG_REF_STATE_NONE);
 		}
-		
+
 		if (ref && gitg_ref_get_ref_type (ref) != GITG_REF_TYPE_NONE)
 		{
 			gitg_ref_set_state (ref, GITG_REF_STATE_PRELIGHT);
-			
+
 			gdk_window_set_cursor (gtk_tree_view_get_bin_window (data->tree_view),
 			                       gdk_cursor_new (GDK_HAND2));
 		}
@@ -243,10 +243,10 @@ update_highlight (GitgDndData *data, gint x, gint y)
 			gdk_window_set_cursor (gtk_tree_view_get_bin_window (data->tree_view),
 			                       NULL);
 		}
-		
+
 		data->cursor_ref = ref;
 		gtk_widget_queue_draw (GTK_WIDGET (data->tree_view));
-	}	
+	}
 }
 
 static gboolean
@@ -268,7 +268,7 @@ vertical_autoscroll (GitgDndData *data)
 	if (offset > 0)
 	{
 		offset = y - (visible_rect.y + visible_rect.height - 2 * 15);
-		
+
 		if (offset < 0)
 		{
 			return TRUE;
@@ -276,11 +276,11 @@ vertical_autoscroll (GitgDndData *data)
 	}
 
 	GtkAdjustment *adj = gtk_tree_view_get_vadjustment (data->tree_view);
-	
+
 	value = CLAMP (gtk_adjustment_get_value (adj) + offset, 0.0,
 	               adj->upper - adj->page_size);
 
-	gtk_adjustment_set_value (adj, value);	
+	gtk_adjustment_set_value (adj, value);
 	return TRUE;
 }
 
@@ -302,7 +302,7 @@ gitg_drag_source_event_cb (GtkWidget   *widget,
                            GitgDndData *data)
 {
 	gboolean retval = FALSE;
-	
+
 	switch (event->type)
 	{
 		case GDK_BUTTON_PRESS:
@@ -320,12 +320,12 @@ gitg_drag_source_event_cb (GtkWidget   *widget,
 			if (event->button.button == 1)
 			{
 				data->is_drag = FALSE;
-				
+
 				if (data->target)
 				{
 					gitg_ref_set_state (data->target, GITG_REF_STATE_NONE);
 				}
-				
+
 				remove_scroll_timeout (data);
 			}
 		break;
@@ -348,7 +348,7 @@ gitg_drag_source_event_cb (GtkWidget   *widget,
 		default:
 		break;
 	}
-  
+
 	return retval;
 }
 
@@ -364,7 +364,7 @@ gitg_drag_source_motion_cb (GtkWidget       *widget,
 	{
 		return FALSE;
 	}
-	
+
 	GitgRef *ref;
 	gint dx;
 	gint dy;
@@ -374,7 +374,7 @@ gitg_drag_source_motion_cb (GtkWidget       *widget,
 	                                                   y,
 	                                                   &dx,
 	                                                   &dy);
-	
+
 	ref = get_ref_at_pos (GTK_TREE_VIEW (widget),
 	                      dx,
 	                      dy,
@@ -392,23 +392,23 @@ gitg_drag_source_motion_cb (GtkWidget       *widget,
 			gitg_ref_set_state (data->target, GITG_REF_STATE_NONE);
 			gtk_widget_queue_draw (widget);
 		}
-		
+
 		if (data->callback)
 		{
-			data->callback (data->ref, ref, FALSE, data->callback_data);	
+			data->callback (data->ref, ref, FALSE, data->callback_data);
 		}
 	}
-		
+
 	if (ref && can_drop (data->ref, ref))
 	{
 		if (ref != data->target)
 		{
 			gitg_ref_set_state (ref, GITG_REF_STATE_SELECTED);
 			data->target = ref;
-			
+
 			gtk_widget_queue_draw (widget);
 		}
-		
+
 		gdk_drag_status (context, GDK_ACTION_MOVE, time);
 		ret = TRUE;
 	}
@@ -439,12 +439,12 @@ gitg_drag_source_drop_cb (GtkWidget *widget,
 	}
 
 	gboolean ret = FALSE;
-	
+
 	if (data->callback)
 	{
-		ret = data->callback (data->ref, data->target, TRUE, data->callback_data);	
+		ret = data->callback (data->ref, data->target, TRUE, data->callback_data);
 	}
-	
+
 	gtk_drag_finish (context, ret, FALSE, time);
 	return ret;
 }
@@ -466,9 +466,9 @@ gitg_dnd_enable (GtkTreeView *tree_view, GitgDndCallback callback, gpointer call
 	{
 		return;
 	}
-	
+
 	GitgDndData *data = gitg_dnd_data_new ();
-	
+
 	data->tree_view = tree_view;
 	data->callback = callback;
 	data->callback_data = callback_data;
@@ -477,10 +477,10 @@ gitg_dnd_enable (GtkTreeView *tree_view, GitgDndCallback callback, gpointer call
 	                        GITG_DND_DATA_KEY,
 	                        data,
 	                        (GDestroyNotify)gitg_dnd_data_free);
-	
-	gtk_widget_add_events (GTK_WIDGET (tree_view), 
+
+	gtk_widget_add_events (GTK_WIDGET (tree_view),
 	                       gtk_widget_get_events (GTK_WIDGET (tree_view)) |
-	                       GDK_BUTTON_PRESS_MASK | 
+	                       GDK_BUTTON_PRESS_MASK |
 	                       GDK_BUTTON_RELEASE_MASK |
 	                       GDK_BUTTON_MOTION_MASK);
 
@@ -489,7 +489,7 @@ gitg_dnd_enable (GtkTreeView *tree_view, GitgDndCallback callback, gpointer call
 	                   target_entries,
 	                   G_N_ELEMENTS (target_entries),
 	                   GDK_ACTION_MOVE);
-	                   
+
 	g_signal_connect (tree_view, 
 	                  "button-press-event",
 	                  G_CALLBACK (gitg_drag_source_event_cb),
@@ -525,14 +525,14 @@ void
 gitg_dnd_disable (GtkTreeView *tree_view)
 {
 	GitgDndData *data = GITG_DND_GET_DATA (tree_view);
-	
+
 	if (data)
 	{
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_event_cb, data);
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_motion_cb, data);
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_drop_cb, data);
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_leave_cb, data);
-		
+
 		g_object_set_data (G_OBJECT (tree_view), GITG_DND_DATA_KEY, NULL);
 	}
 }

@@ -29,7 +29,7 @@ gchar const *
 gitg_dirs_get_data_dir()
 {
 	static gchar *datadir = NULL;
-	
+
 	if (!datadir)
 	{
 #ifdef ENABLE_BUNDLE
@@ -40,7 +40,7 @@ gitg_dirs_get_data_dir()
 		datadir = g_strdup(GITG_DATADIR);
 #endif
 	}
-	
+
 	return datadir;
 }
 
@@ -49,20 +49,20 @@ gitg_dirs_get_data_filename(gchar const *first, ...)
 {
 	gchar const *datadir = gitg_dirs_get_data_dir();
 	gchar *ret;
-	
+
 	ret = g_build_filename(datadir, first, NULL);
 	gchar const *item;
-	
+
 	va_list ap;
 	va_start(ap, first);
-	
+
 	while ((item = va_arg(ap, gchar const *)))
 	{
 		gchar *tmp = ret;
 		ret = g_build_filename(ret, item, NULL);
 		g_free(tmp);
 	}
-	
+
 	va_end(ap);
 	return ret;
 }

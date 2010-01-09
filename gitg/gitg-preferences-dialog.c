@@ -51,14 +51,14 @@ struct _GitgPreferencesDialogPrivate
 	GtkCheckButton *history_show_virtual_staged;
 	GtkCheckButton *history_show_virtual_unstaged;
 	GtkCheckButton *check_button_collapse_inactive;
-	
+
 	GtkCheckButton *check_button_show_right_margin;
 	GtkLabel *label_right_margin;
 	GtkSpinButton *spin_button_right_margin;
-	
+
 	GtkEntry *entry_configuration_user_name;
 	GtkEntry *entry_configuration_user_email;
-	
+
 	GtkWidget *table;
 
 	gint prev_value;
@@ -78,9 +78,9 @@ static void
 gitg_preferences_dialog_finalize(GObject *object)
 {
 	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG (object);
-	
+
 	g_object_unref (dialog->priv->config);
-	
+
 	G_OBJECT_CLASS(gitg_preferences_dialog_parent_class)->finalize(object);
 }
 
@@ -88,7 +88,7 @@ static void
 gitg_preferences_dialog_class_init(GitgPreferencesDialogClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	
+
 	object_class->finalize = gitg_preferences_dialog_finalize;
 
 	g_type_class_add_private(object_class, sizeof(GitgPreferencesDialogPrivate));
@@ -98,7 +98,7 @@ static void
 gitg_preferences_dialog_init(GitgPreferencesDialog *self)
 {
 	self->priv = GITG_PREFERENCES_DIALOG_GET_PRIVATE(self);
-	
+
 	self->priv->config = gitg_config_new (NULL);
 }
 
@@ -114,10 +114,10 @@ convert_collapsed(GValue const *source, GValue *dest, gpointer userdata)
 	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG(userdata);
 
 	gint val = round_val(g_value_get_double(source));
-	
+
 	if (val == dialog->priv->prev_value)
 		return FALSE;
-	
+
 	dialog->priv->prev_value = val;
 	return g_value_transform(source, dest);
 }
@@ -201,43 +201,43 @@ static void
 create_preferences_dialog()
 {
 	GtkBuilder *b = gitg_utils_new_builder("gitg-preferences.ui");
-	
+
 	preferences_dialog = GITG_PREFERENCES_DIALOG(gtk_builder_get_object(b, "dialog_preferences"));
 	g_object_add_weak_pointer(G_OBJECT(preferences_dialog), (gpointer *)&preferences_dialog);
-	
+
 	GitgPreferencesDialogPrivate *priv = preferences_dialog->priv;
-	
+
 	priv->history_search_filter = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_search_filter"));
 	priv->collapse_inactive_lanes = GTK_ADJUSTMENT(gtk_builder_get_object(b, "adjustment_collapse_inactive_lanes"));
-	
+
 	priv->history_show_virtual_stash = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_stash"));
 	priv->history_show_virtual_staged = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_staged"));
 	priv->history_show_virtual_unstaged = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_unstaged"));
-	
+
 	priv->check_button_collapse_inactive = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_collapse_inactive"));
 	priv->table = GTK_WIDGET(gtk_builder_get_object(b, "table_collapse_inactive_lanes"));
-	
+
 	priv->check_button_show_right_margin = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_show_right_margin"));
 	priv->label_right_margin = GTK_LABEL(gtk_builder_get_object(b, "label_right_margin"));
 	priv->spin_button_right_margin = GTK_SPIN_BUTTON(gtk_builder_get_object(b, "spin_button_right_margin"));
-	
+
 	priv->prev_value = (gint)gtk_adjustment_get_value(priv->collapse_inactive_lanes);
 	g_signal_connect(preferences_dialog, "response", G_CALLBACK(on_response), NULL);
-	
+
 	initialize_view(preferences_dialog);
-	
+
 	priv->entry_configuration_user_name = GTK_ENTRY(gtk_builder_get_object(b, "entry_configuration_user_name"));
 	priv->entry_configuration_user_email = GTK_ENTRY(gtk_builder_get_object(b, "entry_configuration_user_email"));
 
 	gtk_builder_connect_signals(b, preferences_dialog);
 	g_object_unref(b);
-	
+
 	gchar *val;
-	
+
 	val = gitg_config_get_value (priv->config, "user.name");
 	gtk_entry_set_text (priv->entry_configuration_user_name, val ? val : "");
 	g_free (val);
-	
+
 	val = gitg_config_get_value (priv->config, "user.email");
 	gtk_entry_set_text (priv->entry_configuration_user_email, val ? val : "");
 	g_free (val);

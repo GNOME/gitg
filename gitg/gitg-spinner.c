@@ -30,7 +30,7 @@
  * for Epiphany.
  *
  * Modified by the gitg Team, 2005. See the AUTHORS file for a 
- * list of people on the gitg Team.  
+ * list of people on the gitg Team.
  * See the ChangeLog files for a list of changes. 
  *
  * Modified by the gitg team, 2009.
@@ -162,7 +162,7 @@ gitg_spinner_images_unref (GitgSpinnerImages *images)
 		{
 			g_object_unref (images->animation_pixbufs[i]);
 		}
-		
+
 		g_free (images->animation_pixbufs);
 		g_free (images);
 	}
@@ -251,7 +251,7 @@ gitg_spinner_images_load (GdkScreen    *screen,
 	/* LOG ("GitgSpinnerCacheData loading for screen %p at size %d", screen, icon_size); */
 
 	/* START_PROFILER ("loading spinner animation") */
-	
+
 	if (screen == NULL)
 		screen = gdk_screen_get_default ();
 
@@ -716,12 +716,12 @@ gitg_spinner_set_screen (GitgSpinner *spinner, GdkScreen *screen)
 	if (spinner->priv->screen != screen)
 	{
 		gitg_spinner_unload_images (spinner);
-		
+
 		if (spinner->priv->screen)
 		{
 			g_object_unref (spinner->priv->screen);
 		}
-		
+
 		spinner->priv->screen = g_object_ref (screen);
 	}
 }
@@ -756,7 +756,7 @@ gitg_spinner_class_init (GitgSpinnerClass *class)
 
 	object_class->dispose = gitg_spinner_dispose;
 	object_class->finalize = gitg_spinner_finalize;
-	
+
 	spinner_signals[FRAME] =
    		g_signal_new ("frame",
 			      G_OBJECT_CLASS_TYPE (object_class),
@@ -775,7 +775,7 @@ GitgSpinner *
 gitg_spinner_new (GtkIconSize size)
 {
 	GitgSpinner *spinner = g_object_new (GITG_TYPE_SPINNER, NULL);
-	
+
 	spinner->priv->size = size;
 	return spinner;
 }
@@ -784,11 +784,11 @@ GdkPixbuf *
 gitg_spinner_get_pixbuf (GitgSpinner *spinner)
 {
 	g_return_val_if_fail (GITG_IS_SPINNER (spinner), NULL);
-	
+
 	if (spinner->priv->timer_task == 0)
 	{
 		return NULL;
 	}
-	
+
 	return g_object_ref (spinner->priv->images->animation_pixbufs[spinner->priv->current_image]);
 }

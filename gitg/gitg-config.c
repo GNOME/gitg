@@ -13,7 +13,7 @@ struct _GitgConfigPrivate
 {
 	GitgRepository *repository;
 	GitgRunner *runner;
-	
+
 	GString *accumulated;
 };
 
@@ -23,14 +23,14 @@ static void
 gitg_config_finalize (GObject *object)
 {
 	GitgConfig *config = GITG_CONFIG (object);
-	
+
 	if (config->priv->repository)
 	{
 		g_object_unref(config->priv->repository);
 	}
-	
+
 	g_string_free (config->priv->accumulated, TRUE);
-	
+
 	G_OBJECT_CLASS (gitg_config_parent_class)->finalize (object);
 }
 
@@ -38,7 +38,7 @@ static void
 gitg_config_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
 	GitgConfig *self = GITG_CONFIG (object);
-	
+
 	switch (prop_id)
 	{
 		case PROP_REPOSITORY:
@@ -46,7 +46,7 @@ gitg_config_set_property (GObject *object, guint prop_id, const GValue *value, G
 			{
 				g_object_unref(self->priv->repository);
 			}
-			
+
 			self->priv->repository = GITG_REPOSITORY (g_value_dup_object (value));
 		break;
 		default:
@@ -59,7 +59,7 @@ static void
 gitg_config_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
 {
 	GitgConfig *self = GITG_CONFIG (object);
-	
+
 	switch (prop_id)
 	{
 		case PROP_REPOSITORY:
@@ -75,11 +75,11 @@ static void
 gitg_config_class_init (GitgConfigClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	
+
 	object_class->finalize = gitg_config_finalize;
 	object_class->get_property = gitg_config_get_property;
 	object_class->set_property = gitg_config_set_property;
-	
+
 	g_object_class_install_property(object_class, PROP_REPOSITORY,
 					 g_param_spec_object("repository",
 							      "REPOSITORY",
@@ -94,14 +94,14 @@ static void
 gitg_config_accumulate (GitgRunner *runner, gchar **buffer, GitgConfig *config)
 {
 	gchar **ptr = buffer;
-	
+
 	while (*ptr)
 	{
 		if (config->priv->accumulated->len != 0)
 		{
 			g_string_append_c (config->priv->accumulated, '\n');
 		}
-		
+
 		g_string_append (config->priv->accumulated, *ptr);
 		++ptr;
 	}
@@ -117,11 +117,11 @@ static void
 gitg_config_init (GitgConfig *self)
 {
 	self->priv = GITG_CONFIG_GET_PRIVATE (self);
-	
+
 	self->priv->runner = gitg_runner_new_synchronized (1000);
-	
+
 	self->priv->accumulated = g_string_new ("");
-	
+
 	g_signal_connect (self->priv->runner, 
 	                  "update", 
 	                  G_CALLBACK (gitg_config_accumulate),
@@ -143,7 +143,7 @@ static gchar *
 get_value_process (GitgConfig *config, gboolean ret)
 {
 	gchar *res;
-	
+
 	if (ret)
 	{
 		res = g_strndup (config->priv->accumulated->str, config->priv->accumulated->len);
@@ -203,7 +203,7 @@ get_value_local (GitgConfig *config, gchar const *key)
 	                                    key,
 	                                    NULL);
 	g_free (cfg);
-	
+
 	return get_value_process (config, ret);
 }
 
@@ -224,7 +224,7 @@ get_value_local_regex (GitgConfig *config, gchar const *regex)
 	                                    regex,
 	                                    NULL);
 	g_free (cfg);
-	
+
 	return get_value_process (config, ret);
 }
 
@@ -299,7 +299,7 @@ gitg_config_get_value (GitgConfig *config, gchar const *key)
 {
 	g_return_val_if_fail (GITG_IS_CONFIG (config), NULL);
 	g_return_val_if_fail (key != NULL, NULL);
-	
+
 	if (config->priv->repository != NULL)
 	{
 		return get_value_local (config, key);
@@ -315,7 +315,7 @@ gitg_config_get_value_regex (GitgConfig *config, gchar const *regex)
 {
 	g_return_val_if_fail (GITG_IS_CONFIG (config), NULL);
 	g_return_val_if_fail (regex != NULL, NULL);
-	
+
 	if (config->priv->repository != NULL)
 	{
 		return get_value_local_regex (config, regex);
@@ -331,7 +331,7 @@ gitg_config_set_value (GitgConfig *config, gchar const *key, gchar const *value)
 {
 	g_return_val_if_fail (GITG_IS_CONFIG (config), FALSE);
 	g_return_val_if_fail (key != NULL, FALSE);
-	
+
 	if (config->priv->repository != NULL)
 	{
 		return set_value_local (config, key, value);
@@ -348,7 +348,7 @@ gitg_config_rename (GitgConfig *config, gchar const *old, gchar const *nw)
 	g_return_val_if_fail (GITG_IS_CONFIG (config), FALSE);
 	g_return_val_if_fail (old != NULL, FALSE);
 	g_return_val_if_fail (nw != NULL, FALSE);
-	
+
 	if (config->priv->repository != NULL)
 	{
 		return rename_local (config, old, nw);

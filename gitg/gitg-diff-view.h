@@ -57,14 +57,14 @@ typedef enum
 struct _GitgDiffView
 {
 	GtkSourceView parent;
-	
+
 	GitgDiffViewPrivate *priv;
 };
 
 struct _GitgDiffViewClass
 {
 	GtkSourceViewClass parent_class;
-	
+
 	void (*header_added)(GitgDiffView *view, GitgDiffIter *iter);
 	void (*hunk_added)(GitgDiffView *view, GitgDiffIter *iter);
 };

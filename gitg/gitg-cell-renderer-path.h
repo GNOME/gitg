@@ -42,7 +42,7 @@ typedef struct _GitgCellRendererPathPrivate	GitgCellRendererPathPrivate;
 
 struct _GitgCellRendererPath {
 	GtkCellRendererText parent;
-	
+
 	GitgCellRendererPathPrivate *priv;
 };
 

@@ -51,14 +51,14 @@ typedef enum
 struct _GitgRepository
 {
 	GObject parent;
-	
+
 	GitgRepositoryPrivate *priv;
 };
 
 struct _GitgRepositoryClass
 {
 	GObjectClass parent_class;
-	
+
 	void (*load) (GitgRepository *);
 };
 

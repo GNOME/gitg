@@ -48,7 +48,7 @@ enum {
 
 struct _GitgRevisionTreeStore {
 	GtkTreeStore parent;
-	
+
 	GitgRevisionTreeStorePrivate *priv;
 };
 

@@ -43,13 +43,13 @@ typedef struct _GitgRevisionViewPrivate	GitgRevisionViewPrivate;
 
 struct _GitgRevisionView {
 	GtkVBox parent;
-	
+
 	GitgRevisionViewPrivate *priv;
 };
 
 struct _GitgRevisionViewClass {
 	GtkVBoxClass parent_class;
-	
+
 	void (* parent_activated) (GitgRevisionView *revision_view, gchar *hash);
 };
 

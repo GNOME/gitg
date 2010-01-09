@@ -27,7 +27,7 @@
  * Nautilus.
  *
  * Modified by the gitg Team, 2005. See the AUTHORS file for a 
- * list of people on the gitg Team.  
+ * list of people on the gitg Team.
  * See the ChangeLog files for a list of changes. 
  *
  * Modified by the gitg Team, 2009
@@ -77,7 +77,7 @@ typedef struct _GitgSpinnerClass	GitgSpinnerClass;
 struct _GitgSpinnerClass
 {
 	GObjectClass parent_class;
-	
+
 	void (*frame)(GitgSpinner *spinner, GdkPixbuf *pixbuf);
 };
 

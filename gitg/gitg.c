@@ -59,21 +59,21 @@ parse_options(int *argc, char ***argv)
 {
 	GError *error = NULL;
 	GOptionContext *context;
-	
+
 	context = g_option_context_new(_("- git repository viewer"));
-	
+
 	// Ignore unknown options so we can pass them to git
 	g_option_context_set_ignore_unknown_options(context, TRUE);
 	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
 	g_option_context_add_group(context, gtk_get_option_group (TRUE));
-	
+
 	if (!g_option_context_parse(context, argc, argv, &error))
 	{
 		g_print("option parsing failed: %s\n", error->message);
 		g_error_free(error);
 		exit(1);
 	}
-	
+
 	g_option_context_free(context);
 }
 
@@ -88,7 +88,7 @@ static GitgWindow *
 build_ui()
 {
 	GtkBuilder *builder = gitg_utils_new_builder("gitg-window.ui");
-	
+
 	GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
 	gtk_widget_show_all(window);
 
@@ -105,18 +105,18 @@ set_language_search_path()
 	gchar const * const *orig = gtk_source_language_manager_get_search_path(manager);
 	gchar const **dirs = g_new0(gchar const *, g_strv_length((gchar **)orig) + 2);
 	guint i = 0;
-	
+
 	while (orig[i])
 	{
 		dirs[i + 1] = orig[i];
 		++i;
 	}
-	
+
 	gchar *path = gitg_dirs_get_data_filename("language-specs", NULL);
 	dirs[0] = path;
 	gtk_source_language_manager_set_search_path(manager, (gchar **)dirs);
 	g_free(path);
-	
+
 	g_free(dirs);
 }
 
@@ -124,7 +124,7 @@ static void
 set_style_scheme_search_path()
 {
 	GtkSourceStyleSchemeManager *manager = gtk_source_style_scheme_manager_get_default();
-	
+
 	gchar *path = gitg_dirs_get_data_filename("styles", NULL);
 	gtk_source_style_scheme_manager_prepend_search_path(manager, path);
 	g_free(path);
@@ -142,10 +142,10 @@ set_icons()
 		"gitg128x128.png",
 		NULL
 	};
-	
+
 	int i;
 	GList *icons = NULL;
-	
+
 	for (i = 0; icon_infos[i]; ++i)
 	{
 		gchar *filename = gitg_dirs_get_data_filename("icons", icon_infos[i], NULL);
@@ -155,7 +155,7 @@ set_icons()
 		if (pixbuf)
 			icons = g_list_prepend(icons, pixbuf);
 	}
-	
+
 	gtk_window_set_default_icon_list(icons);
 
 	g_list_foreach(icons, (GFunc)g_object_unref, NULL);
@@ -166,37 +166,37 @@ int
 main(int argc, char **argv)
 {
 	g_thread_init(NULL);
-	
+
 	gitg_debug_init();
 
 	bindtextdomain(GETTEXT_PACKAGE, GITG_LOCALEDIR);
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 	textdomain(GETTEXT_PACKAGE);
-	
+
 	g_set_prgname("gitg");
-	
+
 	/* Translators: this is the application name as in g_set_application_name */
 	g_set_application_name(_("gitg"));
 
 	gitg_dirs_initialize(argc, argv);
 	gtk_init(&argc, &argv);
 	parse_options(&argc, &argv);
-	
+
 	set_language_search_path();
 	set_style_scheme_search_path();
 	set_icons();
 
 	GitgSettings *settings = gitg_settings_get_default();
-		
+
 	GitgWindow *window = build_ui();
 	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, (gchar const **)&argv[2]);
-	
+
 	if (commit_mode)
 		gitg_window_show_commit(window);
-	
+
 	gtk_main();
 
 	/* Finalize settings */
-	g_object_unref(settings);	
+	g_object_unref(settings);
 	return 0;
 }

@@ -42,7 +42,7 @@ typedef struct _GitgCommitViewPrivate	GitgCommitViewPrivate;
 
 struct _GitgCommitView {
 	GtkVPaned parent;
-	
+
 	GitgCommitViewPrivate *priv;
 };
 

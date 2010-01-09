@@ -17,12 +17,12 @@ typedef struct
 {
 	GitgWindow *window;
 	GitgRunner *runner;
-	
+
 	ProgressCallback callback;
 	gpointer callback_data;
-	
+
 	guint timeout_id;
-	
+
 	GtkDialog *dialog;
 	GtkProgressBar *progress;
 } ProgressInfo;
@@ -47,13 +47,13 @@ parse_valist(va_list ap)
 	gchar const *a;
 	gchar const **ret = NULL;
 	guint num = 0;
-	
+
 	while ((a = va_arg(ap, gchar const *)) != NULL)
 	{
 		ret = g_realloc(ret, sizeof(gchar const *) * (++num + 1));
 		ret[num - 1] = a;
 	}
-	
+
 	ret[num] = NULL;
 	return ret;
 }
@@ -62,7 +62,7 @@ static void
 on_progress_end (GitgRunner *runner, gboolean cancelled, ProgressInfo *info)
 {
 	GitgProgress progress;
-	
+
 	if (cancelled)
 	{
 		progress = GITG_PROGRESS_CANCELLED;
@@ -80,7 +80,7 @@ on_progress_end (GitgRunner *runner, gboolean cancelled, ProgressInfo *info)
 	ProgressCallback callback = info->callback;
 	gpointer data = info->callback_data;
 	free_progress_info (info);
-	
+
 	callback (window, progress, data);
 }
 
@@ -106,13 +106,13 @@ run_progress (GitgWindow       *window,
               ...)
 {
 	va_list ap;
-	
+
 	// Create runner
 	va_start (ap, callback_data);
-	
+
 	GitgRunner *runner = gitg_runner_new (1000);
 	gchar const **argv = parse_valist (ap);
-	
+
 	if (!gitg_repository_run_command (gitg_window_get_repository (window),
 	                                  runner,
 	                                  argv,
@@ -120,15 +120,15 @@ run_progress (GitgWindow       *window,
 	{
 		g_free (argv);
 		g_object_unref (runner);
-		
-		callback (window, GITG_PROGRESS_ERROR, callback_data);	
+
+		callback (window, GITG_PROGRESS_ERROR, callback_data);
 
 		return NULL;
 	}
-	
+
 	g_free (argv);
-	
-	// Create dialog to show progress	
+
+	// Create dialog to show progress
 	GtkDialogFlags flags = GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT;
 	GtkWidget *dlg;
 
@@ -149,28 +149,28 @@ run_progress (GitgWindow       *window,
 	GtkWidget *area = gtk_dialog_get_content_area (GTK_DIALOG (dlg));
 	GtkWidget *progress = gtk_progress_bar_new ();
 	gtk_widget_show (progress);
-	
+
 	gtk_box_pack_start (GTK_BOX (area), progress, FALSE, FALSE, 0);
-	
+
 	gtk_widget_show (dlg);
-	
+
 	ProgressInfo *info = g_slice_new0 (ProgressInfo);
-	
+
 	info->dialog = GTK_DIALOG (dlg);
 	info->progress = GTK_PROGRESS_BAR (progress);
 	info->callback = callback;
 	info->callback_data = callback_data;
 	info->window = window;
 	info->runner = g_object_ref (runner);
-	
+
 	info->timeout_id = g_timeout_add (100, (GSourceFunc)on_progress_timeout, info);
-	
+
 	g_signal_connect (dlg, "response", G_CALLBACK (on_progress_response), info);
 	g_signal_connect (runner, "end-loading", G_CALLBACK (on_progress_end), info);
-	
+
 	return runner;
 }
-              
+
 static gint
 message_dialog (GitgWindow     *window,
                 GtkMessageType  type,
@@ -181,11 +181,11 @@ message_dialog (GitgWindow     *window,
 {
 	GtkWidget *dlg;
 	va_list ap;
-	
+
 	va_start (ap, accept);
 	gchar *prim = g_strdup_vprintf (primary, ap);
 	va_end (ap);
-	
+
 	GtkDialogFlags flags = GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT;
 	dlg = gtk_message_dialog_new (GTK_WINDOW (window),
 	                              flags,
@@ -195,21 +195,21 @@ message_dialog (GitgWindow     *window,
 	                              prim);
 
 	g_free (prim);
-	
+
 	gtk_window_set_title (GTK_WINDOW (dlg), _("gitg"));
-	
+
 	if (secondary)
 	{
 		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
 		                                          "%s",
 		                                          secondary);
 	}
-	
+
 	GtkWidget *button;
-	
+
 	button = gtk_button_new_from_stock (accept ? GTK_STOCK_CANCEL : GTK_STOCK_OK);
 	gtk_widget_show (button);
-	
+
 	gtk_dialog_add_action_widget (GTK_DIALOG (dlg), 
 	                              button, 
 	                              accept ? GTK_RESPONSE_CANCEL : GTK_RESPONSE_ACCEPT);
@@ -218,11 +218,11 @@ message_dialog (GitgWindow     *window,
 	{
 		button = gtk_button_new_with_label (accept);
 		gtk_widget_show (button);
-	
+
 		GtkWidget *image = gtk_image_new_from_stock (GTK_STOCK_OK, 
 			                                         GTK_ICON_SIZE_BUTTON);
 		gtk_widget_show (image);
-	
+
 		gtk_button_set_image (GTK_BUTTON (button), image);
 		gtk_dialog_add_action_widget (GTK_DIALOG (dlg), 
 			                          button, 
@@ -231,9 +231,9 @@ message_dialog (GitgWindow     *window,
 
 	gint ret = gtk_dialog_run (GTK_DIALOG (dlg));
 	gtk_widget_destroy (dlg);
-	
+
 	return ret;
-}                
+}
 
 static GitgRunner *
 remove_local_branch (GitgWindow *window,
@@ -277,7 +277,7 @@ remove_local_branch (GitgWindow *window,
 
 		return NULL;
 	}
-	
+
 	return NULL;
 }
 
@@ -299,7 +299,7 @@ on_remove_remote_result (GitgWindow *window, GitgProgress progress, gpointer dat
 	{
 		gitg_repository_reload (gitg_window_get_repository (window));
 	}
-	
+
 	gitg_ref_free (ref);
 }
 
@@ -315,7 +315,7 @@ remove_remote_branch (GitgWindow *window,
 	                         _("This permanently removes the remote branch."),
 	                         _("Remove remote branch"),
 	                         name);
-	
+
 	if (r != GTK_RESPONSE_ACCEPT)
 	{
 		return NULL;
@@ -324,14 +324,14 @@ remove_remote_branch (GitgWindow *window,
 	gchar *local = gitg_ref_get_local_name (ref);
 	gchar *rm = g_strconcat (":", local, NULL);
 	g_free (local);
-	
+
 	GitgRunner *ret;
 	gchar *message = g_strdup_printf ("Removing remote branch `%s'", name);
-		
+
 	ret = run_progress (window, 
 	                    _("Remove branch"), 
 	                    message, 
-	                    on_remove_remote_result,  
+	                    on_remove_remote_result,
 	                    gitg_ref_copy (ref),
 	                    "push",
 	                    gitg_ref_get_prefix (ref),
@@ -346,7 +346,7 @@ static gchar *
 get_stash_refspec (GitgRepository *repository, GitgRef *stash)
 {
 	gchar **out;
-	
+
 	out = gitg_repository_command_with_outputv (repository, 
 	                                            NULL,
 	                                            "log",
@@ -359,14 +359,14 @@ get_stash_refspec (GitgRepository *repository, GitgRef *stash)
 	gchar **ptr = out;
 	gchar *sha1 = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (stash));
 	gchar *ret = NULL;
-	
+
 	while (ptr && *ptr)
 	{
 		if (g_str_has_prefix (*ptr, sha1))
 		{
 			gchar *start = *ptr + HASH_SHA_SIZE + 1;
 			gchar *end = strchr (start, ':');
-			
+
 			if (end)
 			{
 				ret = g_strndup (start, end - start);
@@ -375,10 +375,10 @@ get_stash_refspec (GitgRepository *repository, GitgRef *stash)
 		}
 		ptr++;
 	}
-	
+
 	g_strfreev (out);
 	g_free (sha1);
-	
+
 	return ret;
 }
 
@@ -390,15 +390,15 @@ remove_stash (GitgWindow *window, GitgRef *ref)
 	                         _("Are you sure you want to remove this stash item?"),
 	                         _("This permanently removes the stash item"),
 	                         _("Remove stash"));
-	
+
 	if (r != GTK_RESPONSE_ACCEPT)
 	{
 		return NULL;
 	}
-	
+
 	GitgRepository *repository = gitg_window_get_repository (window);
 	gchar *spec = get_stash_refspec (repository, ref);
-	
+
 	if (!spec)
 	{
 		return NULL;
@@ -460,9 +460,9 @@ remove_tag (GitgWindow *window, GitgRef *ref)
 	{
 		return NULL;
 	}
-	
+
 	GitgRepository *repository = gitg_window_get_repository (window);
-	
+
 	if (!gitg_repository_commandv (repository,
 	                               NULL,
 	                               "tag",
@@ -493,10 +493,10 @@ gitg_branch_actions_remove (GitgWindow *window,
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
 	g_return_val_if_fail (ref != NULL, NULL);
-		
+
 	GitgRef *cp = gitg_ref_copy (ref);
 	GitgRunner *ret = NULL;
-	
+
 	switch (gitg_ref_get_ref_type (cp))
 	{
 		case GITG_REF_TYPE_BRANCH:
@@ -514,7 +514,7 @@ gitg_branch_actions_remove (GitgWindow *window,
 		default:
 		break;
 	}
-	
+
 	gitg_ref_free (cp);
 	return ret;
 }
@@ -562,7 +562,7 @@ rename_branch (GitgWindow  *window,
 
 		return NULL;
 	}
-	
+
 	return NULL;
 }
 
@@ -570,7 +570,7 @@ static gchar *
 rename_dialog (GitgWindow *window, const gchar *oldname)
 {
 	GtkWidget *dlg;
-	
+
 	GtkDialogFlags flags = GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT;
 	dlg = gtk_dialog_new_with_buttons ("gitg",
                                            GTK_WINDOW (window),
@@ -587,12 +587,12 @@ rename_dialog (GitgWindow *window, const gchar *oldname)
 	gtk_entry_set_text (GTK_ENTRY (entry), oldname);
 	gtk_entry_set_width_chars (GTK_ENTRY (entry), 25);
 	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
-	
+
 	gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (box), entry, TRUE, TRUE, 0);
 	gtk_widget_show_all (box);
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), box, TRUE, TRUE, 12);
-	
+
 	gint ret = gtk_dialog_run (GTK_DIALOG (dlg));
 
 	gchar *newname = NULL;
@@ -606,7 +606,7 @@ rename_dialog (GitgWindow *window, const gchar *oldname)
 	}
 
 	gtk_widget_destroy (dlg);
-	
+
 	return newname;
 }
 
@@ -616,7 +616,7 @@ gitg_branch_actions_rename (GitgWindow *window,
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
 	g_return_val_if_fail (ref != NULL, NULL);
-	
+
 	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
 	{
 		gchar *newname = rename_dialog (window, gitg_ref_get_shortname (ref));
@@ -645,15 +645,15 @@ static void
 update_buffer (GitgRunner *runner, gchar **lines, GString *buffer)
 {
 	gchar **ptr = lines;
-	
+
 	while (ptr && *ptr)
 	{
 		if (buffer->len != 0)
 		{
 			g_string_append_c (buffer, '\n');
 		}
-		
-		g_string_append (buffer, *ptr);		
+
+		g_string_append (buffer, *ptr);
 		++ptr;
 	}
 }
@@ -685,9 +685,9 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 
 	g_signal_connect (runner, "begin-loading", G_CALLBACK (reset_buffer), buffer);
 	g_signal_connect (runner, "update", G_CALLBACK (update_buffer), buffer);
-	
+
 	gchar const *secondary;
-	
+
 	if (storeref)
 	{
 		secondary = _("Do you want to temporarily stash these changes?");
@@ -696,7 +696,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	{
 		secondary = _("Do you want to stash and reapply these changes?");
 	}
-	
+
 	gint r = message_dialog (window,
 	                         GTK_MESSAGE_QUESTION,
 	                         _("You have uncommited changes in your current working tree"),
@@ -708,13 +708,13 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 		ret = FALSE;
 		goto cleanup;
 	}
-	
+
 	gitg_repository_run_commandv (repository, runner, NULL,
 	                              "log", "--no-color", "--abbrev-commit", 
 	                              "--pretty=oneline", "-n", "1", "HEAD", NULL);
 
 	GitgRef *working = gitg_repository_get_current_working_ref (repository);
-	
+
 	if (working)
 	{
 		msg = g_strconcat (gitg_ref_get_shortname (working), ": ", buffer->str, NULL);
@@ -725,9 +725,9 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	}
 
 	// Create tree object of the current index
-	gitg_repository_run_commandv (repository, runner, NULL,  
+	gitg_repository_run_commandv (repository, runner, NULL,
 	                              "write-tree", NULL);
-	
+
 	if (buffer->len == 0)
 	{
 		ret = FALSE;
@@ -735,10 +735,10 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 
 		goto cleanup;
 	}
-	
+
 	tree = g_strndup (buffer->str, buffer->len);
 	head = gitg_repository_parse_head (repository);
-	
+
 	gchar *idxmsg = g_strconcat ("index on ", msg, NULL);
 	gitg_repository_run_command_with_inputv (repository, runner, idxmsg, NULL, 
 	                              "commit-tree", tree, "-p", head, NULL);
@@ -752,13 +752,13 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 
 		goto cleanup;
 	}
-	
+
 	commit = g_strndup (buffer->str, buffer->len);
-	
+
 	// Working tree
 	gchar *tmpname = NULL;
 	gint fd = g_file_open_tmp ("gitg-temp-index-XXXXXX", &tmpname, NULL);
-	
+
 	if (fd == -1)
 	{
 		ret = FALSE;
@@ -766,17 +766,17 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 
 		goto cleanup;
 	}
-	
+
 	GFile *customindex = g_file_new_for_path (tmpname);
-	
+
 	close (fd);
-	
-	gchar const *gitdir = gitg_repository_get_path (repository);	
+
+	gchar const *gitdir = gitg_repository_get_path (repository);
 	gchar *indexpath = g_build_filename (gitdir, ".git", "index", NULL);
 
 	GFile *index = g_file_new_for_path (indexpath);
 	g_free (indexpath);
-	
+
 	gboolean copied = g_file_copy (index, customindex, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
 	g_object_unref (index);
 
@@ -788,30 +788,30 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 		showerror = TRUE;
 		goto cleanup;
 	}
-	
+
 	tmpname = g_file_get_path (customindex);
 	gitg_runner_add_environment (runner, "GIT_INDEX_FILE", tmpname);
 	g_free (tmpname);
-	
+
 	gboolean writestash;
-	
+
 	writestash = gitg_repository_run_commandv (repository, runner, NULL, 
 	                                           "read-tree", "-m", tree, NULL) &&
 	             gitg_repository_run_commandv (repository, runner, NULL, 
 	                                           "add", "-u", NULL) &&
 	             gitg_repository_run_commandv (repository, runner, NULL, 
 	                                           "write-tree", NULL);
-	
+
 	g_file_delete (customindex, NULL, NULL);
 	g_object_unref (customindex);
-	
+
 	gitg_runner_set_environment (runner, NULL);
-	
+
 	if (!writestash)
 	{
 		ret = FALSE;
 		showerror = TRUE;
-		
+
 		goto cleanup;
 	}
 
@@ -823,14 +823,14 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	                                         "-p", head,
 	                                         "-p", commit, NULL);
 	g_free (stashtree);
-	
+
 	if (buffer->len == 0)
 	{
 		g_free (reason);
 
 		ret = FALSE;
 		showerror = TRUE;
-		
+
 		goto cleanup;
 	}
 
@@ -858,7 +858,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	gitg_repository_run_commandv (repository, runner, NULL,
 	                              "update-ref", "-m", reason, 
 	                              "refs/stash", rref, NULL);
-	
+
 	g_free (rref);
 
 	gitg_repository_run_commandv (repository, runner, NULL,
@@ -872,7 +872,7 @@ cleanup:
 	g_free (tree);
 	g_free (head);
 	g_free (msg);
-	
+
 	if (showerror)
 	{
 		message_dialog (window, 
@@ -881,7 +881,7 @@ cleanup:
 		                NULL,
 		                NULL);
 	}
-	
+
 	return ret;
 }
 
@@ -924,9 +924,9 @@ checkout_local_branch (GitgWindow *window,
 	{
 		return FALSE;
 	}
-	
+
 	gchar const *name = gitg_ref_get_shortname (ref);
-	
+
 	if (!checkout_local_branch_real (window, ref))
 	{
 		message_dialog (window,
@@ -952,12 +952,12 @@ checkout_remote_branch (GitgWindow *window,
 	{
 		return FALSE;
 	}
-		
+
 	GitgRepository *repository = gitg_window_get_repository (window);
 	gchar const *name = gitg_ref_get_shortname (ref);
 	gchar *local = gitg_ref_get_local_name (ref);
 	gboolean ret;
-	
+
 	if (!gitg_repository_commandv (repository, 
 	                               NULL, 
 	                               "checkout", 
@@ -981,7 +981,7 @@ checkout_remote_branch (GitgWindow *window,
 		gitg_repository_load (repository, 1, (gchar const **)&local, NULL);
 		ret = TRUE;
 	}
-	
+
 	g_free (local);
 	return ret;
 }
@@ -994,11 +994,11 @@ checkout_tag (GitgWindow *window,
 	{
 		return FALSE;
 	}
-		
+
 	GitgRepository *repository = gitg_window_get_repository (window);
 	gchar const *name = gitg_ref_get_shortname (ref);
 	gboolean ret;
-	
+
 	if (!gitg_repository_commandv (repository, 
 	                               NULL, 
 	                               "checkout", 
@@ -1033,7 +1033,7 @@ gitg_branch_actions_checkout (GitgWindow *window,
 
 	GitgRef *cp = gitg_ref_copy (ref);
 	gboolean ret = FALSE;
-	
+
 	switch (gitg_ref_get_ref_type (cp))
 	{
 		case GITG_REF_TYPE_BRANCH:
@@ -1048,7 +1048,7 @@ gitg_branch_actions_checkout (GitgWindow *window,
 		default:
 		break;
 	}
-	
+
 	gitg_ref_free (cp);
 	return ret;
 }
@@ -1059,7 +1059,7 @@ typedef struct
 
 	GitgRef *source;
 	GitgRef *dest;
-	
+
 	gchar *stashcommit;
 	GitgRef *head;
 } RefInfo;
@@ -1068,10 +1068,10 @@ static RefInfo *
 ref_info_new (GitgRef *source, GitgRef *dest)
 {
 	RefInfo *ret = g_slice_new0 (RefInfo);
-	
+
 	ret->source = gitg_ref_copy (source);
 	ret->dest = gitg_ref_copy (dest);
-	
+
 	return ret;
 }
 
@@ -1083,7 +1083,7 @@ ref_info_free (RefInfo *info)
 
 	g_free (info->stashcommit);
 	gitg_ref_free (info->head);
-	
+
 	g_slice_free (RefInfo, info);
 }
 
@@ -1097,7 +1097,7 @@ on_merge_rebase_result (GitgWindow   *window,
 	if (progress == GITG_PROGRESS_ERROR)
 	{
 		gchar const *message;
-		
+
 		if (info->rebase)
 		{
 			message = _("Failed to rebase %s branch <%s> onto %s branch <%s>");
@@ -1125,7 +1125,7 @@ on_merge_rebase_result (GitgWindow   *window,
 		if (!checkout_local_branch_real (window, info->head))
 		{
 			gchar const *message = NULL;
-			
+
 			if (info->stashcommit)
 			{
 				gitg_repository_commandv (repository, NULL, 
@@ -1133,7 +1133,7 @@ on_merge_rebase_result (GitgWindow   *window,
 				                          "refs/stash", info->stashcommit, NULL);
 				message = _("The stashed changes have been stored to be reapplied manually");
 			}
-			
+
 			message_dialog (window,
 				            GTK_MESSAGE_ERROR,
 				            _("Failed to checkout previously checked out branch"),
@@ -1194,7 +1194,7 @@ gitg_branch_actions_merge (GitgWindow *window,
 		g_free (message);
 		return NULL;
 	}
-	
+
 	g_free (message);
 	GitgRepository *repository = gitg_window_get_repository (window);
 	gchar *stashcommit = NULL;
@@ -1203,14 +1203,14 @@ gitg_branch_actions_merge (GitgWindow *window,
 	{
 		return NULL;
 	}
-	
+
 	GitgRef *head = gitg_repository_get_current_working_ref (repository);
-	
+
 	// First checkout the correct branch on which to merge, e.g. dest
 	if (!gitg_repository_commandv (repository, NULL, "checkout", gitg_ref_get_shortname (dest), NULL))
 	{
 		g_free (stashcommit);
-		
+
 		message_dialog (window,
 		                GTK_MESSAGE_ERROR,
 		                _("Failed to checkout local branch <%s>"),
@@ -1225,7 +1225,7 @@ gitg_branch_actions_merge (GitgWindow *window,
 	                           gitg_ref_get_shortname (source),
 	                           gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_BRANCH ? _("local") : _("remote"),
 	                           gitg_ref_get_shortname (dest));
-	
+
 	GitgRunner *ret;
 	RefInfo *info = ref_info_new (source, dest);
 	info->stashcommit = stashcommit;
@@ -1240,9 +1240,9 @@ gitg_branch_actions_merge (GitgWindow *window,
 	                    "merge",
 	                    gitg_ref_get_shortname (source),
 	                    NULL);
-	
+
 	g_free (message);
-	
+
 	return ret;
 }
 
@@ -1271,7 +1271,7 @@ gitg_branch_actions_rebase (GitgWindow *window,
 		g_free (message);
 		return NULL;
 	}
-	
+
 	g_free (message);
 	GitgRepository *repository = gitg_window_get_repository (window);
 	gchar *stashcommit = NULL;
@@ -1281,10 +1281,10 @@ gitg_branch_actions_rebase (GitgWindow *window,
 		// Check if destination is current HEAD
 		gchar *head = gitg_repository_parse_head (repository);
 		Hash hash;
-		
+
 		gitg_utils_sha1_to_hash (head, hash);
 		g_free (head);
-		
+
 		if (gitg_utils_hash_equal (hash, gitg_ref_get_hash (dest)))
 		{
 			message_dialog (window,
@@ -1308,13 +1308,13 @@ gitg_branch_actions_rebase (GitgWindow *window,
 	                           gitg_ref_get_shortname (source),
 	                           gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_BRANCH ? _("local") : _("remote"),
 	                           gitg_ref_get_shortname (dest));
-	
+
 	GitgRunner *ret;
 	RefInfo *info = ref_info_new (source, dest);
 	info->stashcommit = stashcommit;
 	info->head = gitg_ref_copy (gitg_repository_get_current_working_ref (repository));
 	info->rebase = TRUE;
-	
+
 	ret = run_progress (window, 
 	                    _("Rebase"), 
 	                    message, 
@@ -1324,10 +1324,10 @@ gitg_branch_actions_rebase (GitgWindow *window,
 	                    merge_head,
 	                    gitg_ref_get_shortname (source),
 	                    NULL);
-	
+
 	g_free (message);
 	g_free (merge_head);
-	
+
 	return ret;
 }
 
@@ -1363,14 +1363,14 @@ gitg_branch_actions_push (GitgWindow *window,
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
 	g_return_val_if_fail (dest != NULL, NULL);
-	g_return_val_if_fail (source != NULL, NULL);	
+	g_return_val_if_fail (source != NULL, NULL);
 	g_return_val_if_fail (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH, NULL);
 	g_return_val_if_fail (gitg_ref_get_ref_type (dest) == GITG_REF_TYPE_REMOTE, NULL);
-	
+
 	gchar *message = g_strdup_printf (_("Are you sure you want to push <%s> to <%s>?"),
 	                                  gitg_ref_get_shortname (source),
 	                                  gitg_ref_get_shortname (dest));
-	
+
 	if (message_dialog (window,
 	                    GTK_MESSAGE_QUESTION,
 	                    _("Push"),
@@ -1380,35 +1380,35 @@ gitg_branch_actions_push (GitgWindow *window,
 		g_free (message);
 		return NULL;
 	}
-	
+
 	g_free (message);
 
 	gchar const *prefix = gitg_ref_get_prefix (dest);
 	gchar *local = gitg_ref_get_local_name (dest);
 	gchar const *name = gitg_ref_get_shortname (source);
-	
+
 	gchar *spec = g_strconcat (name, ":", local, NULL);
 	message = g_strdup_printf (_("Pushing local branch <%s> to remote branch <%s>"),
 	                           gitg_ref_get_shortname (source),
 	                           gitg_ref_get_shortname (dest));
-	
+
 	GitgRunner *ret;
 	RefInfo *info = ref_info_new (source, dest);
-	
+
 	ret = run_progress (window, 
 	                    _("Push"), 
 	                    message, 
-	                    on_push_result,  
+	                    on_push_result,
 	                    info,
 	                    "push",
 	                    prefix,
 	                    spec,
 	                    NULL);
-	
+
 	g_free (message);
 	g_free (local);
 	g_free (spec);
-	
+
 	return ret;
 }
 
@@ -1420,13 +1420,13 @@ gitg_branch_actions_push_remote (GitgWindow  *window,
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
 	g_return_val_if_fail (remote != NULL, NULL);
-	g_return_val_if_fail (source != NULL, NULL);	
+	g_return_val_if_fail (source != NULL, NULL);
 	g_return_val_if_fail (gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH, NULL);
-	
+
 	gchar *message = g_strdup_printf (_("Are you sure you want to push <%s> to remote <%s/%s>?"),
 	                                  gitg_ref_get_shortname (source),
 	                                  remote, branch);
-	
+
 	if (message_dialog (window,
 	                    GTK_MESSAGE_QUESTION,
 	                    _("Push"),
@@ -1436,7 +1436,7 @@ gitg_branch_actions_push_remote (GitgWindow  *window,
 		g_free (message);
 		return NULL;
 	}
-	
+
 	g_free (message);
 
 	gchar const *name = gitg_ref_get_shortname (source);
@@ -1444,7 +1444,7 @@ gitg_branch_actions_push_remote (GitgWindow  *window,
 	message = g_strdup_printf (_("Pushing local branch <%s> to remote branch <%s/%s>"),
 	                           gitg_ref_get_shortname (source),
 	                           remote, branch);
-	
+
 	GitgRunner *ret;
 	gchar *rr = g_strconcat ("refs/remotes/", remote, "/", branch, NULL);
 	GitgRef *rmref = gitg_ref_new ("0000000000000000000000000000000000000000", rr);
@@ -1452,20 +1452,20 @@ gitg_branch_actions_push_remote (GitgWindow  *window,
 
 	RefInfo *info = ref_info_new (source, rmref);
 	gitg_ref_free (rmref);
-	
+
 	ret = run_progress (window, 
 	                    _("Push"), 
 	                    message, 
-	                    on_push_result,  
+	                    on_push_result,
 	                    info,
 	                    "push",
 	                    remote,
 	                    spec,
 	                    NULL);
-	
+
 	g_free (message);
 	g_free (spec);
-	
+
 	return ret;
 }
 
@@ -1477,10 +1477,10 @@ gitg_branch_actions_apply_stash (GitgWindow *window,
 	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
 	g_return_val_if_fail (gitg_ref_get_ref_type (stash) == GITG_REF_TYPE_STASH, FALSE);
 	g_return_val_if_fail (gitg_ref_get_ref_type (branch) == GITG_REF_TYPE_BRANCH, FALSE);
-	
+
 	gchar *message = g_strdup_printf (_("Are you sure you want to apply the stash item to local branch <%s>?"),
 	                                  gitg_ref_get_shortname (branch));
-	
+
 	if (message_dialog (window,
 	                    GTK_MESSAGE_QUESTION,
 	                    _("Apply stash"),
@@ -1490,17 +1490,17 @@ gitg_branch_actions_apply_stash (GitgWindow *window,
 		g_free (message);
 		return FALSE;
 	}
-	
+
 	GitgRepository *repository = gitg_window_get_repository (window);
 	GitgRef *current = gitg_repository_get_current_working_ref (repository);
-	
+
 	if (!gitg_ref_equal (branch, current))
 	{
 		if (!stash_changes (window, NULL, TRUE))
 		{
 			return FALSE;
 		}
-	
+
 		if (!checkout_local_branch_real (window, branch))
 		{
 			message_dialog (window,
@@ -1512,10 +1512,10 @@ gitg_branch_actions_apply_stash (GitgWindow *window,
 			return FALSE;
 		}
 	}
-	
+
 	gchar *sha1 = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (stash));
 	gboolean ret;
-	
+
 	if (!gitg_repository_commandv (repository,
 	                               NULL,
 	                               "stash",
@@ -1533,7 +1533,7 @@ gitg_branch_actions_apply_stash (GitgWindow *window,
 		                NULL);
 		g_free (message);
 		ret = FALSE;
-		
+
 		if (!gitg_ref_equal (current, branch)  && no_changes (repository))
 		{
 			checkout_local_branch_real (window, current);
@@ -1544,7 +1544,7 @@ gitg_branch_actions_apply_stash (GitgWindow *window,
 		ret = TRUE;
 		gitg_repository_reload (repository);
 	}
-	
+
 	return ret;
 }
 
@@ -1555,11 +1555,11 @@ gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *nam
 	g_return_val_if_fail (sha1 != NULL, FALSE);
 	g_return_val_if_fail (name != NULL, FALSE);
 	g_return_val_if_fail (message != NULL, FALSE);
-	
+
 	GitgRepository *repository;
-	
+
 	repository = gitg_window_get_repository (window);
-	
+
 	if (!gitg_repository_commandv (repository,
 	                               NULL,
 	                               "tag",
@@ -1571,7 +1571,7 @@ gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *nam
 	                               NULL))
 	{
 		gchar const *secondary;
-		
+
 		if (sign)
 		{
 			secondary = _("The tag object could not be successfully created. Please make sure you have a GPG key and the key is unlocked");
@@ -1580,7 +1580,7 @@ gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *nam
 		{
 			secondary = _("The tag object could not be successfully created");
 		}
-		
+
 		message_dialog (window,
 		                GTK_MESSAGE_ERROR,
 		                _("Failed to create tag"),

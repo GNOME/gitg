@@ -46,7 +46,7 @@ G_DEFINE_TYPE_EXTENDED(GitgRepository, gitg_repository, G_TYPE_OBJECT, 0,
 enum
 {
 	PROP_0,
-	
+
 	PROP_PATH,
 	PROP_LOADER
 };
@@ -86,7 +86,7 @@ struct _GitgRepositoryPrivate
 	GHashTable *hashtable;
 	gint stamp;
 	GType column_types[N_COLUMNS];
-	
+
 	GitgRevision **storage;
 	GitgLanes *lanes;
 	GHashTable *refs;
@@ -96,12 +96,12 @@ struct _GitgRepositoryPrivate
 	gulong size;
 	gulong allocated;
 	gint grow_size;
-	
+
 	gchar **last_args;
 	guint idle_relane_id;
-	
+
 	LoadStage load_stage;
-	
+
 	GFileMonitor *monitor;
 };
 
@@ -109,10 +109,10 @@ inline static gint
 gitg_repository_error_quark()
 {
 	static GQuark quark = 0;
-	
+
 	if (G_UNLIKELY(quark == 0))
 		quark = g_quark_from_static_string("GitgRepositoryErrorQuark");
-	
+
 	return quark;
 }
 
@@ -136,7 +136,7 @@ tree_model_get_column_type(GtkTreeModel *tree_model, gint index)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(tree_model), G_TYPE_INVALID);
 	g_return_val_if_fail(index < N_COLUMNS && index >= 0, G_TYPE_INVALID);
-	
+
 	return GITG_REPOSITORY(tree_model)->priv->column_types[index];
 }
 
@@ -151,22 +151,22 @@ static gboolean
 tree_model_get_iter(GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreePath *path)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(tree_model), FALSE);
-	
+
 	gint *indices;
 	gint depth;
 
 	indices = gtk_tree_path_get_indices(path);
 	depth = gtk_tree_path_get_depth(path);
-	
+
 	GitgRepository *rp = GITG_REPOSITORY(tree_model);
 
 	g_return_val_if_fail(depth == 1, FALSE);
-	
+
 	if (indices[0] < 0 || indices[0] >= rp->priv->size)
 		return FALSE;
-	
+
 	fill_iter(rp, indices[0], iter);
-	
+
 	return TRUE;
 }
 
@@ -174,10 +174,10 @@ static GtkTreePath *
 tree_model_get_path(GtkTreeModel *tree_model, GtkTreeIter *iter)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(tree_model), NULL);
-	
+
 	GitgRepository *rp = GITG_REPOSITORY(tree_model);
 	g_return_val_if_fail(iter->stamp == rp->priv->stamp, NULL);
-	
+
 	return gtk_tree_path_new_from_indices(GPOINTER_TO_INT(iter->user_data), -1);
 }
 
@@ -186,15 +186,15 @@ tree_model_get_value(GtkTreeModel *tree_model, GtkTreeIter *iter, gint column, G
 {
 	g_return_if_fail(GITG_IS_REPOSITORY(tree_model));
 	g_return_if_fail(column >= 0 && column < N_COLUMNS);
-	
+
 	GitgRepository *rp = GITG_REPOSITORY(tree_model);
 	g_return_if_fail(iter->stamp == rp->priv->stamp);
 
 	gint index = GPOINTER_TO_INT(iter->user_data);
-	
+
 	g_return_if_fail(index >= 0 && index < rp->priv->size);
 	GitgRevision *rv = rp->priv->storage[index];
-	
+
 	g_value_init(value, rp->priv->column_types[column]);
 
 	switch (column)
@@ -224,12 +224,12 @@ tree_model_iter_next(GtkTreeModel *tree_model, GtkTreeIter *iter)
 
 	GitgRepository *rp = GITG_REPOSITORY(tree_model);
 	g_return_val_if_fail(iter->stamp == rp->priv->stamp, FALSE);
-	
+
 	gint next = GPOINTER_TO_INT(iter->user_data) + 1;
-	
+
 	if (next >= rp->priv->size)
 		return FALSE;
-	
+
 	iter->user_data = GINT_TO_POINTER(next);
 	return TRUE;
 }
@@ -242,10 +242,10 @@ tree_model_iter_children(GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIte
 	// Only root has children, because it's a flat list
 	if (parent != NULL)
 		return FALSE;
-	
+
 	GitgRepository *rp = GITG_REPOSITORY(tree_model);
 	fill_iter(rp, 0, iter);
-	
+
 	return TRUE;
 }
 
@@ -253,7 +253,7 @@ static gboolean
 tree_model_iter_has_child(GtkTreeModel *tree_model, GtkTreeIter *iter)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(tree_model), FALSE);
-	
+
 	// Only root (NULL) has children
 	return iter == NULL;
 }
@@ -263,7 +263,7 @@ tree_model_iter_n_children(GtkTreeModel *tree_model, GtkTreeIter *iter)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(tree_model), 0);
 	GitgRepository *rp = GITG_REPOSITORY(tree_model);
-	
+
 	return iter ? 0 : rp->priv->size;
 }
 
@@ -276,11 +276,11 @@ tree_model_iter_nth_child(GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIt
 	if (parent)
 		return FALSE;
 
-	GitgRepository *rp = GITG_REPOSITORY(tree_model);	
+	GitgRepository *rp = GITG_REPOSITORY(tree_model);
 	g_return_val_if_fail(n < rp->priv->size, FALSE);
-	
+
 	fill_iter(rp, n, iter);
-	
+
 	return TRUE;
 }
 
@@ -313,7 +313,7 @@ do_clear(GitgRepository *repository, gboolean emit)
 {
 	gint i;
 	GtkTreePath *path = gtk_tree_path_new_from_indices(repository->priv->size - 1, -1);
-	
+
 	for (i = repository->priv->size - 1; i >= 0; --i)
 	{
 		if (emit)
@@ -322,27 +322,27 @@ do_clear(GitgRepository *repository, gboolean emit)
 			gtk_tree_model_row_deleted(GTK_TREE_MODEL(repository), dup);
 			gtk_tree_path_free(dup);
 		}
-		
+
 		gtk_tree_path_prev(path);
 		gitg_revision_unref(repository->priv->storage[i]);
 	}
-	
+
 	gtk_tree_path_free(path);
-	
+
 	if (repository->priv->storage)
 		g_slice_free1(sizeof(GitgRevision *) * repository->priv->size, repository->priv->storage);
-	
+
 	repository->priv->storage = NULL;
 	repository->priv->size = 0;
 	repository->priv->allocated = 0;
-	
+
 	gitg_ref_free(repository->priv->current_ref);
 	repository->priv->current_ref = NULL;
-	
+
 	/* clear hash tables */
 	g_hash_table_remove_all(repository->priv->hashtable);
 	g_hash_table_remove_all(repository->priv->refs);
-	
+
 	gitg_color_reset();
 }
 
@@ -350,36 +350,36 @@ static void
 gitg_repository_finalize(GObject *object)
 {
 	GitgRepository *rp = GITG_REPOSITORY(object);
-	
+
 	/* Make sure to cancel the loader */
 	gitg_runner_cancel(rp->priv->loader);
 	g_object_unref(rp->priv->loader);
-	
+
 	g_object_unref(rp->priv->lanes);
-	
+
 	/* Clear the model to remove all revision objects */
 	do_clear(rp, FALSE);
-	
+
 	/* Free the path */
 	g_free(rp->priv->path);
-	
+
 	/* Free the hash */
 	g_hash_table_destroy(rp->priv->hashtable);
 	g_hash_table_destroy(rp->priv->refs);
-	
+
 	/* Free cached args */
 	g_strfreev(rp->priv->last_args);
-	
+
 	if (rp->priv->idle_relane_id)
 	{
 		g_source_remove(rp->priv->idle_relane_id);
 	}
-	
+
 	if (rp->priv->current_ref)
 	{
 		gitg_ref_free (rp->priv->current_ref);
 	}
-	
+
 	if (rp->priv->working_ref)
 	{
 		gitg_ref_free (rp->priv->working_ref);
@@ -398,7 +398,7 @@ static void
 gitg_repository_set_property(GObject *object, guint prop_id, GValue const *value, GParamSpec *pspec)
 {
 	GitgRepository *self = GITG_REPOSITORY(object);
-	
+
 	switch (prop_id)
 	{
 		case PROP_PATH:
@@ -415,7 +415,7 @@ static void
 gitg_repository_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
 {
 	GitgRepository *self = GITG_REPOSITORY(object);
-	
+
 	switch (prop_id)
 	{
 		case PROP_PATH:
@@ -434,32 +434,32 @@ static gchar *
 parse_ref_intern (GitgRepository *repository, gchar const *ref, gboolean symbolic)
 {
 	gchar **ret = gitg_repository_command_with_outputv(repository, NULL, "rev-parse", "--verify", symbolic ? "--symbolic-full-name" : ref, symbolic ? ref : NULL, NULL);
-	
+
 	if (!ret)
 		return NULL;
-	
+
 	gchar *r = g_strdup(*ret);
 	g_strfreev(ret);
-	
-	return r;	
+
+	return r;
 }
 
 static GitgRef *
 get_current_working_ref(GitgRepository *repository)
 {
 	GitgRef *ret = NULL;
-	
+
 	gchar *hash = parse_ref_intern (repository, "HEAD", FALSE);
 	gchar *name = parse_ref_intern (repository, "HEAD", TRUE);
-	
+
 	if (hash && name)
 	{
 		ret = gitg_ref_new (hash, name);
 	}
-	
+
 	g_free (hash);
 	g_free (name);
-	
+
 	return ret;
 }
 
@@ -476,12 +476,12 @@ on_head_changed (GFileMonitor      *monitor,
 		case G_FILE_MONITOR_EVENT_CREATED:
 		{
 			GitgRef *current = get_current_working_ref (repository);
-			
+
 			if (!gitg_ref_equal (current, repository->priv->working_ref))
 			{
 				gitg_repository_reload (repository);
 			}
-			
+
 			gitg_ref_free (current);
 		}
 		break;
@@ -495,7 +495,7 @@ install_head_monitor (GitgRepository *repository)
 {
 	gchar *path = g_build_filename (repository->priv->path, ".git", "HEAD", NULL);
 	GFile *file = g_file_new_for_path (path);
-	
+
 	repository->priv->monitor = g_file_monitor_file (file, 
 	                                                 G_FILE_MONITOR_NONE,
 	                                                 NULL,
@@ -520,7 +520,7 @@ gitg_repository_constructor (GType                  type,
 	                                                                           construct_properties);
 
 	install_head_monitor (GITG_REPOSITORY (ret));
-	
+
 	return ret;
 }
 
@@ -529,26 +529,26 @@ gitg_repository_class_init(GitgRepositoryClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = gitg_repository_finalize;
-	
+
 	object_class->set_property = gitg_repository_set_property;
 	object_class->get_property = gitg_repository_get_property;
-	
+
 	object_class->constructor = gitg_repository_constructor;
-	
+
 	g_object_class_install_property(object_class, PROP_PATH,
 						 g_param_spec_string ("path",
 								      "PATH",
 								      "The repository path",
 								      NULL,
 								      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
-	
+
 	g_object_class_install_property(object_class, PROP_LOADER,
 						 g_param_spec_object ("loader",
 								      "LOADER",
 								      "The repository loader",
 								      GITG_TYPE_RUNNER,
 								      G_PARAM_READABLE));
-	
+
 	repository_signals[LOAD] =
    		g_signal_new ("load",
 			      G_OBJECT_CLASS_TYPE (object_class),
@@ -567,7 +567,7 @@ append_revision(GitgRepository *repository, GitgRevision *rv)
 {
 	GSList *lanes;
 	gint8 mylane = 0;
-	
+
 	if (repository->priv->size == 0)
 		gitg_lanes_reset(repository->priv->lanes);
 
@@ -584,9 +584,9 @@ add_dummy_commit(GitgRepository *repository, gboolean staged)
 	GitgRevision *revision;
 	gchar const *subject;
 	struct timeval tv;
-	
+
 	gettimeofday(&tv, NULL);
-	
+
 	if (staged)
 		subject = _("Staged changes");
 	else
@@ -608,7 +608,7 @@ on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *re
 	GitgPreferences *preferences = gitg_preferences_get_default();
 	gboolean show_unstaged;
 	gboolean show_staged;
-	
+
 	g_object_get(preferences, 
 	             "history-show-virtual-staged", &show_staged, 
 	             "history-show-virtual-unstaged", &show_unstaged,
@@ -622,7 +622,7 @@ on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *re
 			/* Check if there are staged changes */
 			gchar *head = gitg_repository_parse_head(repository);
 			const gchar *cached = NULL;
-			
+
 			if (current == LOAD_STAGE_STAGED)
 			{
 				/* Check if there are unstaged changes */
@@ -635,7 +635,7 @@ on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *re
 			{
 				cached = "--cached";
 			}
-			
+
 			gitg_repository_run_commandv(repository, object, NULL, "diff-index", "--quiet", head, cached, NULL);
 			g_free(head);
 		}
@@ -666,7 +666,7 @@ add_ref(GitgRepository *self, gchar const *sha1, gchar const *name)
 	GitgRef *ref = gitg_ref_new(sha1, name);
 	GSList *refs = (GSList *)g_hash_table_lookup(self->priv->refs, 
 	                                             gitg_ref_get_hash(ref));
-	
+
 	if (refs == NULL)
 	{
 		g_hash_table_insert(self->priv->refs, 
@@ -684,7 +684,7 @@ add_ref(GitgRepository *self, gchar const *sha1, gchar const *name)
 			gitg_ref_free (ref);
 		}
 	}
-	
+
 	return ref;
 }
 
@@ -694,29 +694,29 @@ loader_update_stash(GitgRepository *repository, gchar **buffer)
 	gchar *line;
 	GitgPreferences *preferences = gitg_preferences_get_default();
 	gboolean show_stash;
-	
+
 	g_object_get(preferences, "history-show-virtual-stash", &show_stash, NULL);
 
 	if (!show_stash)
 		return;
-	
+
 	while ((line = *buffer++) != NULL)
 	{
 		gchar **components = g_strsplit(line, "\01", 0);
 		guint len = g_strv_length(components);
-		
+
 		if (len < 4)
 		{
 			g_strfreev(components);
 			continue;
 		}
-		
+
 		/* components -> [hash, author, subject, timestamp] */
 		gint64 timestamp = g_ascii_strtoll(components[3], NULL, 0);
 		GitgRevision *rv = gitg_revision_new(components[0], components[1], components[2], NULL, timestamp);
-		
+
 		add_ref (repository, components[0], "refs/stash");
-		
+
 		gitg_revision_set_sign(rv, 's');
 		append_revision(repository, rv);
 		g_strfreev(components);
@@ -727,13 +727,13 @@ static void
 loader_update_commits(GitgRepository *self, gchar **buffer)
 {
 	gchar *line;
-	
+
 	while ((line = *buffer++) != NULL)
 	{
 		/* new line is read */
 		gchar **components = g_strsplit(line, "\01", 0);
 		guint len = g_strv_length(components);
-		
+
 		if (len < 5)
 		{
 			g_strfreev(components);
@@ -742,9 +742,9 @@ loader_update_commits(GitgRepository *self, gchar **buffer)
 
 		/* components -> [hash, author, subject, parents ([1 2 3]), timestamp[, leftright]] */
 		gint64 timestamp = g_ascii_strtoll(components[4], NULL, 0);
-	
+
 		GitgRevision *rv = gitg_revision_new(components[0], components[1], components[2], components[3], timestamp);
-		
+
 		if (len > 5 && strlen(components[5]) == 1 && strchr("<>-^", *components[5]) != NULL)
 		{
 			gitg_revision_set_sign(rv, *components[5]);
@@ -786,14 +786,14 @@ static gboolean
 repository_relane(GitgRepository *repository)
 {
 	repository->priv->idle_relane_id = 0;
-	
+
 	gitg_lanes_reset(repository->priv->lanes);
-	
+
 	guint i;
 	GtkTreeIter iter;
 	GtkTreePath *path = gtk_tree_path_new_first();
-	
-	
+
+
 	for (i = 0; i < repository->priv->size; ++i)
 	{
 		gint8 mylane;
@@ -804,12 +804,12 @@ repository_relane(GitgRepository *repository)
 
 		fill_iter(repository, i, &iter);
 		gtk_tree_model_row_changed(GTK_TREE_MODEL(repository), path, &iter);
-		
+
 		gtk_tree_path_next(path);
 	}
-	
+
 	gtk_tree_path_free(path);
-	
+
 	return FALSE;
 }
 
@@ -825,10 +825,10 @@ convert_setting_to_inactive_max(GValue const *setting, GValue *value, gpointer u
 {
 	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
 	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
-	
+
 	gint s = g_value_get_int(setting);
 	g_value_set_int(value, 2 + s * 8);
-	
+
 	prepare_relane(GITG_REPOSITORY(userdata));
 	return TRUE;
 }
@@ -842,7 +842,7 @@ convert_setting_to_inactive_collapse(GValue const *setting, GValue *value, gpoin
 	gint s = g_value_get_int(setting);
 	g_value_set_int(value, 1 + s * 3);
 
-	prepare_relane(GITG_REPOSITORY(userdata));	
+	prepare_relane(GITG_REPOSITORY(userdata));
 	return TRUE;
 }
 
@@ -853,8 +853,8 @@ convert_setting_to_inactive_gap(GValue const *setting, GValue *value, gpointer u
 	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
 
 	g_value_set_int(value, 10);
-	
-	prepare_relane(GITG_REPOSITORY(userdata));	
+
+	prepare_relane(GITG_REPOSITORY(userdata));
 	return TRUE;
 }
 
@@ -866,8 +866,8 @@ convert_setting_to_inactive_enabled(GValue const *setting, GValue *value, gpoint
 
 	gboolean s = g_value_get_boolean(setting);
 	g_value_set_boolean(value, s);
-	
-	prepare_relane(GITG_REPOSITORY(userdata));	
+
+	prepare_relane(GITG_REPOSITORY(userdata));
 	return TRUE;
 }
 
@@ -881,7 +881,7 @@ static void
 initialize_bindings(GitgRepository *repository)
 {
 	GitgPreferences *preferences = gitg_preferences_get_default();
-	
+
 	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
 							   repository->priv->lanes, "inactive-max",
 							   convert_setting_to_inactive_max,
@@ -895,12 +895,12 @@ initialize_bindings(GitgRepository *repository)
 	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
 							   repository->priv->lanes, "inactive-gap",
 							   convert_setting_to_inactive_gap,
-							   repository);		
+							   repository);
 
 	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes-active",
 	                           repository->priv->lanes, "inactive-enabled",
 	                           convert_setting_to_inactive_enabled,
-	                           repository);	
+	                           repository);
 
 	g_signal_connect(preferences, 
 	                 "notify::history-show-virtual-stash",
@@ -923,21 +923,21 @@ gitg_repository_init(GitgRepository *object)
 {
 	object->priv = GITG_REPOSITORY_GET_PRIVATE(object);
 	object->priv->hashtable = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, NULL);
-	
+
 	object->priv->column_types[0] = GITG_TYPE_REVISION;
 	object->priv->column_types[1] = G_TYPE_STRING;
 	object->priv->column_types[2] = G_TYPE_STRING;
 	object->priv->column_types[3] = G_TYPE_STRING;
-	
+
 	object->priv->lanes = gitg_lanes_new();
 	object->priv->grow_size = 1000;
 	object->priv->stamp = g_random_int();
 	object->priv->refs = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, (GDestroyNotify)free_refs);
-	
+
 	object->priv->loader = gitg_runner_new(10000);
 	g_signal_connect(object->priv->loader, "update", G_CALLBACK(on_loader_update), object);
 	g_signal_connect(object->priv->loader, "end-loading", G_CALLBACK(on_loader_end_loading), object);
-	
+
 	initialize_bindings(object);
 }
 
@@ -946,18 +946,18 @@ grow_storage(GitgRepository *repository, gint size)
 {
 	if (repository->priv->size + size <= repository->priv->allocated)
 		return;
-	
+
 	gulong prevallocated = repository->priv->allocated;
 	repository->priv->allocated += repository->priv->grow_size;
 	GitgRevision **newstorage = g_slice_alloc(sizeof(GitgRevision *) * repository->priv->allocated);
-	
+
 	int i;
 	for (i = 0; i < repository->priv->size; ++i)
 		newstorage[i] = repository->priv->storage[i];
-	
+
 	if (repository->priv->storage)
 		g_slice_free1(sizeof(GitgRevision *) * prevallocated, repository->priv->storage);
-		
+
 	repository->priv->storage = newstorage;
 }
 
@@ -971,7 +971,7 @@ gchar const *
 gitg_repository_get_path(GitgRepository *self)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(self), NULL);
-	
+
 	return self->priv->path;
 }
 
@@ -990,7 +990,7 @@ has_left_right(gchar const **av, int argc)
 	for (i = 0; i < argc; ++i)
 		if (strcmp(av[i], "--left-right") == 0)
 			return TRUE;
-	
+
 	return FALSE;
 }
 
@@ -1004,9 +1004,9 @@ reload_revisions(GitgRepository *repository, GError **error)
 	}
 
 	g_signal_emit(repository, repository_signals[LOAD], 0);
-	
+
 	repository->priv->load_stage = LOAD_STAGE_STASH;
-	
+
 	return gitg_repository_run_commandv(repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "--encoding=UTF-8", "-g", "refs/stash", NULL);
 }
 
@@ -1016,7 +1016,7 @@ build_log_args(GitgRepository *self, gint argc, gchar const **av)
 	gchar **argv = g_new0(gchar *, 6 + (argc > 0 ? argc - 1 : 0));
 
 	argv[0] = g_strdup("log");
-	
+
 	if (has_left_right(av, argc))
 	{
 		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at\x01%m");
@@ -1025,20 +1025,20 @@ build_log_args(GitgRepository *self, gint argc, gchar const **av)
 	{
 		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
 	}
-	
+
 	argv[2] = g_strdup ("--encoding=UTF-8");
-	
+
 	gchar *head = NULL;
-	
+
 	if (argc <= 0)
 	{
 		head = gitg_repository_parse_ref(self, "HEAD");
-		
+
 		if (head)
 		{
 			argv[3] = g_strdup("HEAD");
 		}
-		
+
 		g_free(head);
 	}
 	else
@@ -1077,17 +1077,17 @@ load_current_ref(GitgRepository *self)
 	}
 
 	out = gitg_repository_command_with_output(self, argv, NULL);
-	
+
 	if (!out)
 	{
 		return NULL;
 	}
-	
+
 	if (*out && !*(out + 1))
 	{
 		ret = g_strdup(*out);
 	}
-	
+
 	g_strfreev(out);
 	return ret;
 }
@@ -1096,33 +1096,33 @@ static void
 load_refs(GitgRepository *self)
 {
 	gchar **refs = gitg_repository_command_with_outputv(self, NULL, "for-each-ref", "--format=%(refname) %(objectname) %(*objectname)", "refs", NULL);
-	
+
 	if (!refs)
 	{
 		return;
 	}
-		
+
 	gchar **buffer = refs;
 	gchar *buf;
 	gchar *current = load_current_ref(self);
-	
+
 	while ((buf = *buffer++) != NULL)
 	{
 		// each line will look like <name> <hash>
 		gchar **components = g_strsplit(buf, " ", 3);
 		guint len = g_strv_length(components);
-		
+
 		if (len == 2 || len == 3)
 		{
 			gchar const *obj = len == 3 && *components[2] ? components[2] : components[1];
 			GitgRef *ref = add_ref(self, obj, components[0]);
-		
+
 			if (current != NULL && strcmp(gitg_ref_get_name(ref), current) == 0)
 			{
 				self->priv->current_ref = gitg_ref_copy(ref);
 			}
 		}
-		
+
 		g_strfreev(components);
 	}
 
@@ -1138,7 +1138,7 @@ gitg_repository_reload(GitgRepository *repository)
 
 	gitg_runner_cancel(repository->priv->loader);
 	gitg_repository_clear(repository);
-	
+
 	load_refs(repository);
 	reload_revisions(repository, NULL);
 }
@@ -1147,25 +1147,25 @@ gboolean
 gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **error)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(self), FALSE);
-	
+
 	if (self->priv->path == NULL)
 	{
 		if (error)
 		{
 			*error = g_error_new_literal(gitg_repository_error_quark(), GITG_REPOSITORY_ERROR_NOT_FOUND, _("Not a valid git repository"));
 		}
-			
+
 		return FALSE;
 	}
 
 	gitg_runner_cancel(self->priv->loader);
 	gitg_repository_clear(self);
-		
+
 	build_log_args(self, argc, av);
-	
+
 	/* first get the refs */
 	load_refs(self);
-	
+
 	/* request log (all the revision) */
 	return reload_revisions(self, error);
 }
@@ -1177,7 +1177,7 @@ gitg_repository_add(GitgRepository *self, GitgRevision *obj, GtkTreeIter *iter)
 
 	/* validate our parameters */
 	g_return_if_fail(GITG_IS_REPOSITORY(self));
-	
+
 	grow_storage(self, 1);
 
 	/* put this object in our data storage */
@@ -1189,11 +1189,11 @@ gitg_repository_add(GitgRepository *self, GitgRevision *obj, GtkTreeIter *iter)
 	iter1.user_data = GINT_TO_POINTER(self->priv->size - 1);
 	iter1.user_data2 = NULL;
 	iter1.user_data3 = NULL;
-	
+
 	GtkTreePath *path = gtk_tree_path_new_from_indices(self->priv->size - 1, -1);
 	gtk_tree_model_row_inserted(GTK_TREE_MODEL(self), path, &iter1);
 	gtk_tree_path_free(path);
-	
+
 	/* return the iter if the user cares */
 	if (iter)
 		*iter = iter1;
@@ -1210,12 +1210,12 @@ GitgRevision *
 gitg_repository_lookup(GitgRepository *store, gchar const *hash)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(store), NULL);
-	
+
 	gpointer result = g_hash_table_lookup(store->priv->hashtable, hash);
-	
+
 	if (!result)
 		return NULL;
-	
+
 	return store->priv->storage[GPOINTER_TO_UINT(result)];
 }
 
@@ -1223,12 +1223,12 @@ gboolean
 gitg_repository_find_by_hash(GitgRepository *store, gchar const *hash, GtkTreeIter *iter)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(store), FALSE);
-	
+
 	gpointer result = g_hash_table_lookup(store->priv->hashtable, hash);
-	
+
 	if (!result)
 		return FALSE;
-	
+
 	GtkTreePath *path = gtk_tree_path_new_from_indices(GPOINTER_TO_UINT(result), -1);
 	gtk_tree_model_get_iter(GTK_TREE_MODEL(store), iter, path);
 	gtk_tree_path_free(path);
@@ -1249,17 +1249,17 @@ gitg_repository_get_refs(GitgRepository *repository)
 	GList *values = g_hash_table_get_values(repository->priv->refs);
 	GSList *ret = NULL;
 	GList *item;
-	
+
 	for (item = values; item; item = item->next)
 	{
 		GSList *val;
-		
+
 		for (val = (GSList *)item->data; val; val = val->next)
 		{
 			ret = g_slist_prepend(ret, gitg_ref_copy((GitgRef *)val->data));
 		}
 	}
-	
+
 	ret = g_slist_reverse (ret);
 	g_list_free(values);
 	return ret;
@@ -1276,7 +1276,7 @@ GitgRef *
 gitg_repository_get_current_ref(GitgRepository *repository)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
-	
+
 	return repository->priv->current_ref;
 }
 
@@ -1285,11 +1285,11 @@ gitg_repository_relative(GitgRepository *repository, GFile *file)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
 	g_return_val_if_fail(repository->priv->path != NULL, NULL);
-	
+
 	GFile *parent = g_file_new_for_path(repository->priv->path);
 	gchar *ret = g_file_get_relative_path(parent, file);
 	g_object_unref(parent);
-	
+
 	return ret;
 }
 
@@ -1299,18 +1299,18 @@ gitg_repository_run_command_with_input(GitgRepository *repository, GitgRunner *r
 	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), FALSE);
 	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
 	g_return_val_if_fail(repository->priv->path != NULL, FALSE);
-	
+
 	guint num = g_strv_length((gchar **)argv);
 	guint i;
 	gchar const **args = g_new0(gchar const *, num + 2);
-	args[0] = "git";	
-	
+	args[0] = "git";
+
 	for (i = 0; i < num; ++i)
 		args[i + 1] = argv[i];
-	
+
 	gboolean ret = gitg_runner_run_with_arguments(runner, args, repository->priv->path, input, error);
 	g_free(args);
-	
+
 	return ret;
 }
 
@@ -1331,7 +1331,7 @@ gitg_repository_command_with_input(GitgRepository *repository, gchar const **arg
 	g_return_val_if_fail(repository->priv->path != NULL, FALSE);
 
 	GitgRunner *runner = gitg_runner_new_synchronized(1000);
-	
+
 	gboolean ret = gitg_repository_run_command_with_input(repository, runner, argv, input, error);
 	g_object_unref(runner);
 
@@ -1358,12 +1358,12 @@ command_with_output_update(GitgRunner *runner, gchar **buffer, CommandOutput *ou
 {
 	guint num = g_strv_length(buffer);
 	guint i;
-	
+
 	output->buffer = g_realloc(output->buffer, sizeof(gchar *) * (output->size + num + 1));
-	
+
 	for (i = 0; i < num; ++i)
 		output->buffer[output->size + i] = g_strdup(buffer[i]);
-	
+
 	output->size += num;
 	output->buffer[output->size] = NULL;
 }
@@ -1373,19 +1373,19 @@ gitg_repository_command_with_input_and_output(GitgRepository *repository, gchar 
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
 	g_return_val_if_fail(repository->priv->path != NULL, NULL);
-	
+
 	GitgRunner *runner = gitg_runner_new_synchronized(1000);
 	CommandOutput output = {NULL, 0};
 
 	g_signal_connect(runner, "update", G_CALLBACK(command_with_output_update), &output);
 	gboolean ret = gitg_repository_run_command_with_input(repository, runner, argv, input, error);
-	
+
 	if (!ret)
 	{
 		g_strfreev(output.buffer);
 		output.buffer = NULL;
 	}
-	
+
 	g_object_unref(runner);
 	return output.buffer;
 }
@@ -1405,13 +1405,13 @@ parse_valist(va_list ap)
 	gchar const *a;
 	gchar const **ret = NULL;
 	guint num = 0;
-	
+
 	while ((a = va_arg(ap, gchar const *)) != NULL)
 	{
 		ret = g_realloc(ret, sizeof(gchar const *) * (++num + 1));
 		ret[num - 1] = a;
 	}
-	
+
 	ret[num] = NULL;
 	return ret;
 }
@@ -1423,7 +1423,7 @@ gitg_repository_commandv(GitgRepository *repository, GError **error, ...)
 	va_start(ap, error);
 	gchar const **argv = parse_valist(ap);
 	va_end(ap);
-	
+
 	gboolean ret = gitg_repository_command(repository, argv, error);
 	g_free(argv);
 	return ret;
@@ -1436,7 +1436,7 @@ gitg_repository_command_with_inputv(GitgRepository *repository, gchar const *inp
 	va_start(ap, error);
 	gchar const **argv = parse_valist(ap);
 	va_end(ap);
-	
+
 	gboolean ret = gitg_repository_command_with_input(repository, argv, input, error);
 	g_free(argv);
 	return ret;
@@ -1449,7 +1449,7 @@ gitg_repository_run_commandv(GitgRepository *repository, GitgRunner *runner, GEr
 	va_start(ap, error);
 	gchar const **argv = parse_valist(ap);
 	va_end(ap);
-	
+
 	gboolean ret = gitg_repository_run_command(repository, runner, argv, error);
 	g_free(argv);
 	return ret;
@@ -1462,7 +1462,7 @@ gitg_repository_run_command_with_inputv(GitgRepository *repository, GitgRunner *
 	va_start(ap, error);
 	gchar const **argv = parse_valist(ap);
 	va_end(ap);
-	
+
 	gboolean ret = gitg_repository_run_command_with_input(repository, runner, argv, input, error);
 	g_free(argv);
 	return ret;
@@ -1475,7 +1475,7 @@ gitg_repository_command_with_outputv(GitgRepository *repository, GError **error,
 	va_start(ap, error);
 	gchar const **argv = parse_valist(ap);
 	va_end(ap);
-	
+
 	gchar **ret = gitg_repository_command_with_output(repository, argv, error);
 	g_free(argv);
 	return ret;
@@ -1488,7 +1488,7 @@ gitg_repository_command_with_input_and_outputv(GitgRepository *repository, gchar
 	va_start(ap, error);
 	gchar const **argv = parse_valist(ap);
 	va_end(ap);
-	
+
 	gchar **ret = gitg_repository_command_with_input_and_output(repository, argv, input, error);
 	g_free(argv);
 	return ret;
@@ -1498,7 +1498,7 @@ gchar *
 gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
-	
+
 	return parse_ref_intern (repository, ref, FALSE);
 }
 
@@ -1506,12 +1506,12 @@ gchar *
 gitg_repository_parse_head(GitgRepository *repository)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
-	
+
 	gchar *ret = gitg_repository_parse_ref(repository, "HEAD");
-	
+
 	if (!ret)
 		ret = g_strdup("4b825dc642cb6eb9a060e54bf8d69288fbee4904");
-	
+
 	return ret;
 }
 
@@ -1522,8 +1522,8 @@ gitg_repository_get_current_working_ref(GitgRepository *repository)
 	{
 		return repository->priv->working_ref;
 	}
-	
-	repository->priv->working_ref = get_current_working_ref (repository);	
+
+	repository->priv->working_ref = get_current_working_ref (repository);
 	return repository->priv->working_ref;
 }
 
@@ -1537,35 +1537,35 @@ gitg_repository_get_remotes (GitgRepository *repository)
 
 	gchar **remotes = g_malloc (sizeof (gchar *));
 	remotes[0] = NULL;
-	
+
 	if (!ret)
 	{
 		g_object_unref (config);
 		return remotes;
 	}
-	
+
 	gchar **lines = g_strsplit(ret, "\n", -1);
 	gchar **ptr = lines;
-	
+
 	GRegex *regex = g_regex_new ("remote\\.(.+?)\\.url\\s+(.*)", 0, 0, NULL);
 	gint num = 0;
-	
+
 	while (*ptr)
 	{
 		GMatchInfo *info = NULL;
-		
+
 		if (g_regex_match (regex, *ptr, 0, &info))
 		{
 			gchar *name = g_match_info_fetch (info, 1);
-			
+
 			remotes = g_realloc (ret, sizeof(gchar *) * (++num + 1));
 			remotes[num - 1] = name;
 		}
-		
+
 		g_match_info_free (info);
 		++ptr;
 	}
-	
+
 	remotes[num] = NULL;
 	g_object_unref (config);
 	return remotes;

@@ -38,10 +38,10 @@ G_DEFINE_TYPE(GitgRevisionTreeStore, gitg_revision_tree_store, GTK_TYPE_TREE_STO
 drag_source_row_draggable(GtkTreeDragSource *drag_source, GtkTreePath *path)
 {
 	GtkTreeIter iter;
-	
+
 	if (!gtk_tree_model_get_iter(GTK_TREE_MODEL(drag_source), &iter, path))
 		return FALSE;
-	
+
 	// Test for 'empty'
 	gchar *content_type;
 	gtk_tree_model_get(GTK_TREE_MODEL(drag_source), &iter, GITG_REVISION_TREE_STORE_CONTENT_TYPE_COLUMN, &content_type, -1);
@@ -58,11 +58,11 @@ drag_source_drag_data_get(GtkTreeDragSource *drag_source, GtkTreePath *path, Gtk
 
 	if (!gtk_selection_data_targets_include_uri(selection_data))
 		return FALSE;
-	
+
 	GtkTreeIter iter;
 	if (!gtk_tree_model_get_iter(GTK_TREE_MODEL(drag_source), &iter, path))
 		return FALSE;
-	
+
 	g_message("data get");
 	return FALSE;
 }
@@ -78,7 +78,7 @@ static void
 gitg_revision_tree_store_drag_source_iface_init(GtkTreeDragSourceIface *iface)
 {
 	parent_drag_source_iface = *iface;
-	
+
 	iface->row_draggable = drag_source_row_draggable;
 	iface->drag_data_get = drag_source_drag_data_get;
 	iface->drag_data_delete = drag_source_drag_data_delete;
@@ -88,7 +88,7 @@ static void
 gitg_revision_tree_store_finalize(GObject *object)
 {
 	//GitgRevisionTreeStore *self = GITG_REVISION_TREE_STORE(object);
-	
+
 	G_OBJECT_CLASS(gitg_revision_tree_store_parent_class)->finalize(object);
 }
 
@@ -96,9 +96,9 @@ static void
 gitg_revision_tree_store_class_init(GitgRevisionTreeStoreClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	
+
 	object_class->finalize = gitg_revision_tree_store_finalize;
-	
+
 	//g_type_class_add_private(object_class, sizeof(GitgRevisionTreeStorePrivate));
 }
 
@@ -112,7 +112,7 @@ gitg_revision_tree_store_init(GitgRevisionTreeStore *self)
 		G_TYPE_STRING,
 		G_TYPE_STRING
 	};
-	
+
 	gtk_tree_store_set_column_types(GTK_TREE_STORE(self), GITG_REVISION_TREE_STORE_N_COLUMNS, column_types);
 }
 

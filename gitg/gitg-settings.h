@@ -65,7 +65,7 @@ typedef struct _GitgSettingsPrivate	GitgSettingsPrivate;
 
 struct _GitgSettings {
 	GObject parent;
-	
+
 	GitgSettingsPrivate *priv;
 };
 

@@ -33,7 +33,7 @@ struct _GitgRevision
 	Hash *parents;
 	guint num_parents;
 	char sign;
-	
+
 	GSList *lanes;
 	gint8 mylane;
 
@@ -54,9 +54,9 @@ gitg_revision_finalize(GitgRevision *revision)
 	g_free(revision->author);
 	g_free(revision->subject);
 	g_free(revision->parents);
-	
+
 	free_lanes(revision);
-	
+
 	g_slice_free(GitgRevision, revision);
 }
 
@@ -78,7 +78,7 @@ gitg_revision_unref(GitgRevision *revision)
 
 	if (!g_atomic_int_dec_and_test(&revision->refcount))
 		return;
-	
+
 	gitg_revision_finalize(revision);
 }
 
@@ -89,28 +89,28 @@ GitgRevision *gitg_revision_new(gchar const *sha,
 		gint64 timestamp)
 {
 	GitgRevision *rv = g_slice_new0 (GitgRevision);
-	
+
 	rv->refcount = 1;
 
 	gitg_utils_sha1_to_hash(sha, rv->hash);
 	rv->author = g_strdup(author);
 	rv->subject = g_strdup(subject);
 	rv->timestamp = timestamp;
-	
+
 	if (parents)
 	{
 		gchar **shas = g_strsplit(parents, " ", 0);
 		gint num = g_strv_length(shas);
 		rv->parents = g_new(Hash, num + 1);
-	
+
 		gint i;
 		for (i = 0; i < num; ++i)
 			gitg_utils_sha1_to_hash(shas[i], rv->parents[i]);
-	
+
 		g_strfreev(shas);
 		rv->num_parents = num;
 	}
-	
+
 	return rv;
 }
 
@@ -160,13 +160,13 @@ gchar **
 gitg_revision_get_parents(GitgRevision *revision)
 {
 	gchar **ret = g_new(gchar *, revision->num_parents + 1);
-	
+
 	int i;
 	for (i = 0; i < revision->num_parents; ++i)
 	{
 		ret[i] = g_new(gchar, HASH_SHA_SIZE + 1);
 		gitg_utils_hash_to_sha1(revision->parents[i], ret[i]);
-		
+
 		ret[i][HASH_SHA_SIZE] = '\0';
 	}
 
@@ -186,7 +186,7 @@ gitg_revision_remove_lane(GitgRevision *revision, GitgLane *lane)
 {
 	revision->lanes = g_slist_remove(revision->lanes, lane);
 	gitg_lane_free(lane);
-	
+
 	return revision->lanes;
 }
 
@@ -194,7 +194,7 @@ GSList *
 gitg_revision_insert_lane(GitgRevision *revision, GitgLane *lane, gint index)
 {
 	revision->lanes = g_slist_insert(revision->lanes, lane, index);
-	
+
 	return revision->lanes;
 }
 
@@ -202,16 +202,16 @@ static void
 update_lane_type(GitgRevision *revision)
 {
 	GitgLane *lane = (GitgLane *)g_slist_nth_data(revision->lanes, revision->mylane);
-	
+
 	if (lane == NULL)
 		return;
-	
+
 	lane->type &= ~(GITG_LANE_SIGN_LEFT | 
 	                GITG_LANE_SIGN_RIGHT | 
 	                GITG_LANE_SIGN_STASH |
 	                GITG_LANE_SIGN_STAGED |
 	                GITG_LANE_SIGN_UNSTAGED);
-	
+
 	switch (revision->sign)
 	{
 		case '<':
@@ -237,7 +237,7 @@ gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes, gint8 mylane)
 {
 	free_lanes(revision);
 	revision->lanes = lanes;
-	
+
 	if (mylane >= 0)
 		revision->mylane = mylane;
 

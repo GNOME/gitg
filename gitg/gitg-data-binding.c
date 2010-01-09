@@ -27,7 +27,7 @@
 typedef struct
 {
 	GObject *object;
-	
+
 	gchar *property;
 	GType type;
 
@@ -82,41 +82,41 @@ gitg_data_binding_create(gpointer source, gchar const *source_property,
 {
 	g_return_val_if_fail(G_IS_OBJECT(source), NULL);
 	g_return_val_if_fail(G_IS_OBJECT(dest), NULL);
-	
+
 	GObjectClass *sclass = G_OBJECT_GET_CLASS(source);
 	GObjectClass *dclass = G_OBJECT_GET_CLASS(dest);
-	
+
 	GParamSpec *sspec = g_object_class_find_property(sclass, source_property);
-	
+
 	if (!sspec)
 	{
 		g_warning("No such source property found: %s", source_property);
 		return NULL;
 	}
-	
+
 	GParamSpec *dspec = g_object_class_find_property(dclass, dest_property);
-	
+
 	if (!dspec)
 	{
 		g_warning("No such dest property found: %s", dest_property);
 		return NULL;
 	}
-	
+
 	GitgDataBinding *binding = g_slice_new0(GitgDataBinding);
-	
+
 	binding->flags = flags;
-	
+
 	binding_fill(&binding->source, source, source_property, G_PARAM_SPEC_VALUE_TYPE(sspec), source_to_dest, userdata);
 	binding_fill(&binding->dest, dest, dest_property, G_PARAM_SPEC_VALUE_TYPE(dspec), dest_to_source, userdata);
-	
+
 	binding_connect(binding, &binding->source);
-	
+
 	if (flags & GITG_DATA_BINDING_MUTUAL)
 		binding_connect(binding, &binding->dest);
-	
+
 	g_object_weak_ref(binding->source.object, (GWeakNotify)on_data_binding_destroy, binding);
 	g_object_weak_ref(binding->dest.object, (GWeakNotify)on_data_binding_destroy, binding);
-	
+
 	/* initial value */
 	on_data_binding_changed(binding->source.object, NULL, binding);
 	return binding;
@@ -187,7 +187,7 @@ gitg_data_binding_free(GitgDataBinding *binding)
 
 	g_object_weak_unref(binding->source.object, (GWeakNotify)on_data_binding_destroy, binding);
 	g_object_weak_unref(binding->dest.object, (GWeakNotify)on_data_binding_destroy, binding);
-	
+
 	gitg_data_binding_finalize(binding);
 }
 
@@ -195,11 +195,11 @@ static void
 on_data_binding_destroy(GitgDataBinding *binding, GObject *object)
 {
 	Binding *bd = binding->source.object == object ? &binding->dest : &binding->source;
-	
+
 	/* disconnect notify handler */
 	if (bd->notify_id)
 		g_signal_handler_disconnect(bd->object, bd->notify_id);
-	
+
 	/* remove weak ref */
 	g_object_weak_unref(bd->object, (GWeakNotify)on_data_binding_destroy, binding);
 
@@ -216,13 +216,13 @@ on_data_binding_changed(GObject *object, GParamSpec *spec, GitgDataBinding *bind
 	/* Transmit to dest */
 	GValue value = { 0, };
 	g_value_init(&value, dest->type);
-	
+
 	GValue svalue = { 0, };
 	g_value_init(&svalue, source->type);
-	
+
 	g_object_get_property(source->object, source->property, &svalue);
 	g_object_get_property(dest->object, dest->property, &value);
-	
+
 	if (source->conversion(&svalue, &value, source->userdata))
 	{
 		if (dest->notify_id)
@@ -233,7 +233,7 @@ on_data_binding_changed(GObject *object, GParamSpec *spec, GitgDataBinding *bind
 		if (dest->notify_id)
 			g_signal_handler_unblock(dest->object, dest->notify_id);
 	}
-	
+
 	g_value_unset(&value);
 	g_value_unset(&svalue);
 }
@@ -244,7 +244,7 @@ gitg_data_binding_color_to_string(GValue const *color, GValue *string, gpointer 
 {
 	GdkColor *clr = g_value_get_boxed(color);
 	gchar *s = gdk_color_to_string(clr);
-	
+
 	g_value_take_string(string, s);
 	return TRUE;
 }
@@ -254,7 +254,7 @@ gitg_data_binding_string_to_color(GValue const *string, GValue *color, gpointer 
 {
 	gchar const *s = g_value_get_string(string);
 	GdkColor clr;
-	
+
 	gdk_color_parse(s, &clr);
 	g_value_set_boxed(color, &clr);
 	return TRUE;

@@ -21,7 +21,7 @@ typedef struct _GitgRepositoryDialogPrivate	GitgRepositoryDialogPrivate;
 struct _GitgRepositoryDialog
 {
 	GtkDialog parent;
-	
+
 	GitgRepositoryDialogPrivate *priv;
 };
 

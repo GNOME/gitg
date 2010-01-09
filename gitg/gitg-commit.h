@@ -51,13 +51,13 @@ typedef enum
 
 struct _GitgCommit {
 	GObject parent;
-  
+
 	GitgCommitPrivate *priv;
 };
 
 struct _GitgCommitClass {
 	GObjectClass parent_class;
-	
+
 	void (*inserted) (GitgCommit *commit, GitgChangedFile *file);
 	void (*removed) (GitgCommit *commit, GitgChangedFile *file);
 };

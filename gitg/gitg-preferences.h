@@ -50,7 +50,7 @@ typedef struct _GitgPreferencesPrivate	GitgPreferencesPrivate;
 
 struct _GitgPreferences {
 	GObject parent;
-	
+
 	GitgPreferencesPrivate *priv;
 };
 

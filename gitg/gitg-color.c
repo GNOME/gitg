@@ -55,7 +55,7 @@ gitg_color_get(GitgColor *color, gdouble *r, gdouble *g, gdouble *b)
 {
 	gchar const *spec = palette[color->index];
 	GdkColor c;
-	
+
 	gdk_color_parse(spec, &c);
 
 	*r = c.red / 65535.0;
@@ -76,7 +76,7 @@ static gint8
 next_index()
 {
 	gint8 next = current_index++;
-	
+
 	if (current_index == sizeof(palette) / sizeof(gchar const *))
 		current_index = 0;
 
@@ -106,7 +106,7 @@ gitg_color_copy(GitgColor *color)
 	GitgColor *copy = g_new(GitgColor, 1);
 	copy->ref_count = 1;
 	copy->index = color->index;
-	
+
 	return copy;
 }
 
@@ -125,9 +125,9 @@ gitg_color_unref(GitgColor *color)
 {
 	if (!color)
 		return NULL;
-	
+
 	--color->ref_count;
-	
+
 	if (color->ref_count == 0)
 	{
 		g_free(color);

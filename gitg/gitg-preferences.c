@@ -33,7 +33,7 @@
 enum
 {
 	PROP_0,
-	
+
 	PROP_HISTORY_SEARCH_FILTER,
 
 	PROP_HISTORY_COLLAPSE_INACTIVE_LANES_ACTIVE,
@@ -42,16 +42,16 @@ enum
 	PROP_HISTORY_SHOW_VIRTUAL_STASH,
 	PROP_HISTORY_SHOW_VIRTUAL_STAGED,
 	PROP_HISTORY_SHOW_VIRTUAL_UNSTAGED,
-	
+
 	PROP_MESSAGE_SHOW_RIGHT_MARGIN,
 	PROP_MESSAGE_RIGHT_MARGIN_AT,
-	
+
 	PROP_HIDDEN_SIGN_TAG,
 
 	PROP_STYLE_TEXT_FOREGROUND,
 	PROP_STYLE_TEXT_BACKGROUND,
 	PROP_STYLE_TEXT_STYLE,
-	
+
 	PROP_STYLE_ADDED_LINE_FOREGROUND,
 	PROP_STYLE_ADDED_LINE_BACKGROUND,
 	PROP_STYLE_ADDED_LINE_STYLE,
@@ -71,7 +71,7 @@ enum
 	PROP_STYLE_HUNK_FOREGROUND,
 	PROP_STYLE_HUNK_BACKGROUND,
 	PROP_STYLE_HUNK_STYLE,
-	
+
 	PROP_STYLE_TRAILING_SPACES_FOREGROUND,
 	PROP_STYLE_TRAILING_SPACES_BACKGROUND,
 	PROP_STYLE_TRAILING_SPACES_STYLE,
@@ -98,9 +98,9 @@ struct _Binding
 struct _GitgPreferencesPrivate
 {
 	GConfClient *client;
-	
+
 	guint notify_id;
-	
+
 	gboolean block_notify[PROP_LAST];
 };
 
@@ -161,9 +161,9 @@ static void
 gitg_preferences_finalize(GObject *object)
 {
 	GitgPreferences *preferences = GITG_PREFERENCES(object);
-	
+
 	finalize_notify(preferences);
-	
+
 	g_object_unref(preferences->priv->client);
 	G_OBJECT_CLASS(gitg_preferences_parent_class)->finalize(object);
 }
@@ -172,7 +172,7 @@ static void
 gitg_preferences_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
 	GitgPreferences *self = GITG_PREFERENCES(object);
-	
+
 	if (prop_id > PROP_0 && prop_id < PROP_LAST)
 	{
 		Binding *b = &property_bindings[prop_id];
@@ -204,11 +204,11 @@ static void
 install_property_binding(guint prop_id, gchar const *group, gchar const *name, WrapGet wrap_get, WrapSet wrap_set)
 {
 	Binding *b = &property_bindings[prop_id];
-	
+
 	g_snprintf(b->key, PATH_MAX, "%s/%s/%s", KEY_ROOT, group, name);
 
 	gchar const *prefix = g_utf8_strrchr(group, -1, '/');
-	
+
 	if (prefix)
 	{
 		prefix += 1;
@@ -217,7 +217,7 @@ install_property_binding(guint prop_id, gchar const *group, gchar const *name, W
 	{
 		prefix = group;
 	}
-	
+
 	g_snprintf(b->property, PATH_MAX, "%s-%s", prefix, name);
 
 	b->wrap_get = wrap_get;
@@ -248,19 +248,19 @@ install_style_properties(GObjectClass *object_class, guint prop_start, gchar con
 							 wrap_get_int,
 							 wrap_set_int);
 	g_free(group);
-	
+
 	gchar *stylename = g_strconcat("gitgdiff:", name, NULL);
-	
+
 	GtkSourceStyleSchemeManager *manager = gtk_source_style_scheme_manager_get_default();
 	GtkSourceStyleScheme *scheme = gtk_source_style_scheme_manager_get_scheme(manager, "gitg");
 	GtkSourceStyle *style = gtk_source_style_scheme_get_style(scheme, stylename);
-	
+
 	g_free(stylename);
 
 	gchar *foreground = NULL;
 	gchar *background = NULL;
 	gboolean line_background;
-	
+
 	group = g_strconcat(name, "-foreground", NULL);
 	g_object_get(G_OBJECT(style), "line-background-set", &line_background, NULL);
 
@@ -314,7 +314,7 @@ static void
 gitg_preferences_class_init(GitgPreferencesClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	
+
 	object_class->finalize = gitg_preferences_finalize;
 	object_class->set_property = gitg_preferences_set_property;
 	object_class->get_property = gitg_preferences_get_property;
@@ -465,7 +465,7 @@ initialize_notify(GitgPreferences *preferences)
 							(GConfClientNotifyFunc)on_preference_changed,
 							preferences,
 							NULL,
-							NULL);							
+							NULL);
 }
 
 static void
@@ -477,26 +477,26 @@ initialize_default_values(GitgPreferences *preferences)
 	for (i = PROP_0 + 1; i < PROP_LAST; ++i)
 	{
 		Binding *binding = &property_bindings[i];
-		
+
 		GConfValue *v = gconf_client_get_without_default(preferences->priv->client, binding->key, NULL);
-		
+
 		if (v)
 		{
 			gconf_value_free(v);
 			continue;
 		}
-		
+
 		GParamSpec *spec = g_object_class_find_property(class, binding->property);
 		GValue value = {0,};
-		
+
 		/* Get default value */
 		g_value_init(&value, G_PARAM_SPEC_VALUE_TYPE(spec));
 		g_param_value_set_default(spec, &value);
-		
+
 		/* Set it */
 		g_object_set_property(G_OBJECT(preferences), binding->property, &value);
-		
-		g_value_unset(&value);		
+
+		g_value_unset(&value);
 	}
 }
 
@@ -504,11 +504,11 @@ static void
 gitg_preferences_init(GitgPreferences *self)
 {
 	self->priv = GITG_PREFERENCES_GET_PRIVATE(self);
-	
+
 	self->priv->client = gconf_client_get_default();
-	
+
 	initialize_notify(self);
-	
+
 	/* Set initial values for properties that have defaults and do not exist
 	   yet */
 	initialize_default_values(self);
@@ -518,13 +518,13 @@ GitgPreferences *
 gitg_preferences_get_default()
 {
 	static GitgPreferences *preferences = NULL;
-	
+
 	if (!preferences)
 	{
 		preferences = g_object_new(GITG_TYPE_PREFERENCES, NULL);
 		g_object_add_weak_pointer(G_OBJECT(preferences), (gpointer *)&preferences);
 	}
-	
+
 	return preferences;
 }
 
@@ -533,20 +533,20 @@ static void
 on_preference_changed(GConfClient *client, guint id, GConfEntry *entry, GitgPreferences *preferences)
 {
 	gchar const *key = gconf_entry_get_key(entry);
-	
+
 	/* Find corresponding property */
 	guint i;
-	
+
 	for (i = PROP_0 + 1; i < PROP_LAST; ++i)
 	{
 		Binding *b = &property_bindings[i];
-		
+
 		if (strcmp(key, b->key) == 0)
 		{
 			/* Property match, emit notify */
 			if (!preferences->priv->block_notify[i])
 				g_object_notify(G_OBJECT(preferences), b->property);
-			
+
 			preferences->priv->block_notify[i] = FALSE;
 			break;
 		}

@@ -41,7 +41,7 @@ typedef struct _GitgPreferencesDialogPrivate	GitgPreferencesDialogPrivate;
 
 struct _GitgPreferencesDialog {
 	GtkDialog parent;
-	
+
 	GitgPreferencesDialogPrivate *priv;
 };
 

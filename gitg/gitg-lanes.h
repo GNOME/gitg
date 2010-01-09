@@ -43,7 +43,7 @@ typedef struct _GitgLanesPrivate	GitgLanesPrivate;
 
 struct _GitgLanes {
 	GObject parent;
-	
+
 	GitgLanesPrivate *priv;
 };
 

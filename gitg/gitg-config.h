@@ -20,7 +20,7 @@ typedef struct _GitgConfigPrivate	GitgConfigPrivate;
 
 struct _GitgConfig {
 	GObject parent;
-	
+
 	GitgConfigPrivate *priv;
 };
 
