@@ -99,6 +99,8 @@ struct _GitgRepositoryPrivate
 	gint grow_size;
 
 	gchar **last_args;
+	gchar **selection;
+
 	guint idle_relane_id;
 
 	LoadStage load_stage;
@@ -370,6 +372,7 @@ gitg_repository_finalize(GObject *object)
 
 	/* Free cached args */
 	g_strfreev(rp->priv->last_args);
+	g_strfreev(rp->priv->selection);
 
 	if (rp->priv->idle_relane_id)
 	{
@@ -1023,6 +1026,22 @@ reload_revisions(GitgRepository *repository, GError **error)
 	return gitg_repository_run_commandv(repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "--encoding=UTF-8", "-g", "refs/stash", NULL);
 }
 
+static gchar **
+copy_strv (gchar const **ptr, gint argc)
+{
+	GPtrArray *ret = g_ptr_array_new ();
+	gint i = 0;
+
+	while (ptr && ((argc >= 0 && i < argc) || (argc < 0 && ptr[i])))
+	{
+		g_ptr_array_add (ret, g_strdup (ptr[i]));
+		++i;
+	}
+
+	g_ptr_array_add (ret, NULL);
+	return (gchar **)g_ptr_array_free (ret, FALSE);
+}
+
 static void
 build_log_args(GitgRepository *self, gint argc, gchar const **av)
 {
@@ -1066,6 +1085,9 @@ build_log_args(GitgRepository *self, gint argc, gchar const **av)
 
 	g_strfreev(self->priv->last_args);
 	self->priv->last_args = argv;
+
+	g_strfreev (self->priv->selection);
+	self->priv->selection = copy_strv (av, argc);
 }
 
 static gchar *
@@ -1590,4 +1612,12 @@ gitg_repository_get_loaded (GitgRepository *repository)
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
 	return repository->priv->load_stage == LOAD_STAGE_LAST &&
 	       !gitg_runner_running (repository->priv->loader);
+}
+
+gchar const **
+gitg_repository_get_current_selection (GitgRepository *repository)
+{
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
+
+	return (gchar const **)repository->priv->selection;
 }

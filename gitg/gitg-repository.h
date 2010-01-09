@@ -110,6 +110,7 @@ gchar *gitg_repository_parse_head(GitgRepository *repository);
 void gitg_repository_reload(GitgRepository *repository);
 
 gchar **gitg_repository_get_remotes (GitgRepository *repository);
+gchar const **gitg_repository_get_current_selection (GitgRepository *repository);
 
 G_END_DECLS
 
