@@ -48,7 +48,7 @@ AM_GLIB_GNU_GETTEXT
 PKG_CHECK_MODULES(PACKAGE, [
 	gtk+-2.0 >= 2.12.0
 	gthread-2.0
-	gtksourceview-2.0
+	gtksourceview-2.0 >= 2.8
 	gio-2.0
 	gio-unix-2.0
 	gmodule-2.0

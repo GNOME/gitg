@@ -965,7 +965,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	if (pixbuf)
 	{
-		gtk_source_view_set_mark_category_pixbuf(self->priv->changes_view, CATEGORY_STAGE_HUNK, pixbuf);
+		gtk_source_view_set_mark_category_icon_from_pixbuf(self->priv->changes_view, CATEGORY_STAGE_HUNK, pixbuf);
 		g_object_unref(pixbuf);
 	}
 
@@ -973,7 +973,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	if (pixbuf)
 	{
-		gtk_source_view_set_mark_category_pixbuf(self->priv->changes_view, CATEGORY_UNSTAGE_HUNK, pixbuf);
+		gtk_source_view_set_mark_category_icon_from_pixbuf(self->priv->changes_view, CATEGORY_UNSTAGE_HUNK, pixbuf);
 		g_object_unref(pixbuf);
 	}
 
