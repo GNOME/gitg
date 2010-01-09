@@ -241,14 +241,14 @@ gitg_label_renderer_get_ref_at_pos (GtkWidget *widget, PangoFontDescription *fon
 	return ret;
 }
 
-inline guint8
+static inline guint8
 convert_color_channel (guint8 src,
                        guint8 alpha)
 {
 	return alpha ? src / (alpha / 255.0) : 0;
 }
 
-void
+static void
 convert_bgra_to_rgba (guint8 const  *src,
                       guint8        *dst,
                       gint           width,

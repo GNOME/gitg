@@ -2,14 +2,23 @@
 #include "gitg-ref.h"
 #include "gitg-cell-renderer-path.h"
 #include "gitg-utils.h"
+#include <string.h>
 
 enum
 {
-	DRAG_TARGET_REF = 1
+	DRAG_TARGET_REF = 1,
+	DRAG_TARGET_TREEISH,
+	DRAG_TARGET_REVISION,
+	DRAG_TARGET_TEXT,
+	DRAG_TARGET_URI
 };
 
-static GtkTargetEntry target_entries[] = {
+static GtkTargetEntry target_dest_entries[] = {
 	{"gitg-ref", GTK_TARGET_SAME_WIDGET, DRAG_TARGET_REF}
+};
+
+static GtkTargetEntry target_source_entries[] = {
+	{"x-gitg/treeish-list", GTK_TARGET_OTHER_APP, DRAG_TARGET_TREEISH}
 };
 
 typedef struct
@@ -27,6 +36,8 @@ typedef struct
 
 	gboolean is_drag;
 	GtkTargetList *target_list;
+	GtkTargetList *revision_target_list;
+	GitgRevision *revision;
 
 	guint scroll_timeout;
 } GitgDndData;
@@ -51,8 +62,14 @@ gitg_dnd_data_new ()
 {
 	GitgDndData *data = g_slice_new0 (GitgDndData);
 
-	data->target_list = gtk_target_list_new (target_entries,
-	                                         G_N_ELEMENTS (target_entries));
+	data->target_list = gtk_target_list_new (target_dest_entries,
+	                                         G_N_ELEMENTS (target_dest_entries));
+
+	data->revision_target_list = gtk_target_list_new (target_source_entries,
+	                                                  G_N_ELEMENTS (target_source_entries));
+
+	gtk_target_list_add_text_targets (data->revision_target_list, DRAG_TARGET_TEXT);
+	gtk_target_list_add_uri_targets (data->revision_target_list, DRAG_TARGET_URI);
 
 	return data;
 }
@@ -61,13 +78,21 @@ static void
 gitg_dnd_data_free (GitgDndData *data)
 {
 	gtk_target_list_unref (data->target_list);
+	gtk_target_list_unref (data->revision_target_list);
+
 	remove_scroll_timeout (data);
 
 	g_slice_free (GitgDndData, data);
 }
 
 static GitgRef *
-get_ref_at_pos (GtkTreeView *tree_view, gint x, gint y, gint *hot_x, gint *hot_y, GitgCellRendererPath **renderer, GtkTreePath **tp)
+get_ref_at_pos (GtkTreeView           *tree_view,
+                gint                   x,
+                gint                   y,
+                gint                  *hot_x,
+                gint                  *hot_y,
+                GitgCellRendererPath **renderer,
+                GtkTreePath          **tp)
 {
 	gint cell_x;
 	gint cell_y;
@@ -119,6 +144,52 @@ get_ref_at_pos (GtkTreeView *tree_view, gint x, gint y, gint *hot_x, gint *hot_y
 	return ref;
 }
 
+static GitgRevision *
+get_revision_at_pos (GtkTreeView  *tree_view,
+                     gint          x,
+                     gint          y,
+                     GtkTreePath **tp)
+{
+	gint cell_x;
+	gint cell_y;
+	GtkTreePath *path;
+	GtkTreeViewColumn *column;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GitgRevision *revision;
+
+	if (!gtk_tree_view_get_path_at_pos (tree_view,
+	                                    x,
+	                                    y,
+	                                    &path,
+	                                    &column,
+	                                    &cell_x,
+	                                    &cell_y))
+	{
+		return NULL;
+	}
+
+	model = gtk_tree_view_get_model (tree_view);
+
+	if (!gtk_tree_model_get_iter (model, &iter, path))
+	{
+		return NULL;
+	}
+
+	gtk_tree_model_get (model, &iter, 0, &revision, -1);
+
+	if (revision && tp)
+	{
+		*tp = path;
+	}
+	else
+	{
+		gtk_tree_path_free (path);
+	}
+
+	return revision;
+}
+
 static gboolean
 can_drag (GitgRef *ref)
 {
@@ -164,6 +235,92 @@ can_drop (GitgRef *source, GitgRef *dest)
 	return FALSE;
 }
 
+/* Copied from gitg-label-renderer
+ * TODO: refactor
+ */
+static inline guint8
+convert_color_channel (guint8 src,
+                       guint8 alpha)
+{
+	return alpha ? src / (alpha / 255.0) : 0;
+}
+
+static void
+convert_bgra_to_rgba (guint8 const  *src,
+                      guint8        *dst,
+                      gint           width,
+                      gint           height)
+{
+	guint8 const *src_pixel = src;
+	guint8 * dst_pixel = dst;
+	int y;
+
+	for (y = 0; y < height; y++)
+	{
+		int x;
+
+		for (x = 0; x < width; x++)
+		{
+			dst_pixel[0] = convert_color_channel (src_pixel[2],
+							                      src_pixel[3]);
+			dst_pixel[1] = convert_color_channel (src_pixel[1],
+							                      src_pixel[3]);
+			dst_pixel[2] = convert_color_channel (src_pixel[0],
+							                      src_pixel[3]);
+			dst_pixel[3] = src_pixel[3];
+
+			dst_pixel += 4;
+			src_pixel += 4;
+		}
+	}
+}
+
+static GdkPixbuf *
+create_revision_drag_icon (GtkTreeView  *tree_view,
+                           GitgRevision *revision)
+{
+	gchar const *subject = gitg_revision_get_subject (revision);
+	gchar *sha1 = gitg_revision_get_sha1 (revision);
+
+	/* Only take first 8 characters */
+	sha1[8] = '\0';
+
+	gchar *text = g_strdup_printf ("%s: %s", sha1, subject);
+
+	PangoLayout *layout = gtk_widget_create_pango_layout (GTK_WIDGET (tree_view), text);
+	gint width;
+	gint height;
+
+	pango_layout_get_pixel_size (layout, &width, &height);
+	
+	cairo_surface_t *surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width + 4, height + 4);
+	cairo_t *context = cairo_create (surface);
+
+	cairo_rectangle (context, 0, 0, width + 4, height + 4);
+	cairo_set_source_rgb (context, 1, 1, 1);
+	cairo_fill (context);
+
+	cairo_translate (context, 2, 2);
+	cairo_set_source_rgb (context, 0, 0, 0);
+	pango_cairo_show_layout (context, layout);
+
+	guint8 *data = cairo_image_surface_get_data (surface);
+	GdkPixbuf *ret = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, width + 4, height + 4);
+	guint8 *pixdata = gdk_pixbuf_get_pixels (ret);
+
+	convert_bgra_to_rgba (data, pixdata, width + 4, height + 4);
+
+	cairo_destroy (context);
+	cairo_surface_destroy (surface);
+
+	g_object_unref (layout);
+
+	g_free (text);
+	g_free (sha1);
+
+	return ret;
+}
+
 static void
 begin_drag (GtkWidget   *widget,
             GdkEvent    *event,
@@ -182,35 +339,72 @@ begin_drag (GtkWidget   *widget,
 	                               &cell,
 	                               NULL);
 
-	if (!ref || !can_drag (ref))
+	if (ref && !can_drag (ref))
 	{
 		return;
 	}
-
-	data->ref = ref;
-	gitg_ref_set_state (ref, GITG_REF_STATE_NONE);
-
-	GdkDragContext *context = gtk_drag_begin (widget,
-	                                          data->target_list,
-	                                          GDK_ACTION_MOVE,
-	                                          1,
-	                                          event);
-
-	guint minwidth;
-	guint h;
-	gdk_display_get_maximal_cursor_size (gtk_widget_get_display (widget), &minwidth, &h);
-
-	GdkPixbuf *pixbuf = gitg_cell_renderer_path_render_ref (GTK_WIDGET (tree_view),
-	                                                        cell,
-	                                                        ref,
-	                                                        minwidth + 1);
-
-	if (pixbuf)
+	else if (ref)
 	{
-		gtk_drag_set_icon_pixbuf (context, pixbuf, hot_x, hot_y);
-		g_object_unref (pixbuf);
-	}
+		/* This is a DND operation on a ref */
+		data->ref = ref;
+		gitg_ref_set_state (ref, GITG_REF_STATE_NONE);
 
+		GdkDragContext *context = gtk_drag_begin (widget,
+			                                      data->target_list,
+			                                      GDK_ACTION_MOVE,
+			                                      1,
+			                                      event);
+
+		guint minwidth;
+		guint h;
+		gdk_display_get_maximal_cursor_size (gtk_widget_get_display (widget), &minwidth, &h);
+
+		GdkPixbuf *pixbuf = gitg_cell_renderer_path_render_ref (GTK_WIDGET (tree_view),
+			                                                    cell,
+			                                                    ref,
+			                                                    minwidth + 1);
+
+		if (pixbuf)
+		{
+			gtk_drag_set_icon_pixbuf (context, pixbuf, hot_x, hot_y);
+			g_object_unref (pixbuf);
+		}
+	}
+	else
+	{
+		/* This is a normal DND operation which is just possibly just about
+		   a SHA */
+		GitgRevision *revision;
+		GtkTreePath *path;
+
+		revision = get_revision_at_pos (tree_view,
+		                                (gint)data->x,
+		                                (gint)data->y,
+		                                &path);
+
+		if (revision)
+		{
+			/* Make a DND for the revision */
+			data->revision = revision;
+
+			GdkDragContext *context = gtk_drag_begin (widget,
+			                                          data->revision_target_list,
+			                                          GDK_ACTION_COPY,
+			                                          1,
+			                                          event);
+			GdkPixbuf *icon;
+
+			icon = create_revision_drag_icon (tree_view, revision);
+
+			if (icon)
+			{
+				gtk_drag_set_icon_pixbuf (context, icon, 0, 0);
+				g_object_unref (icon);
+			}
+
+			gtk_tree_path_free (path);
+		}
+	}
 }
 
 static void
@@ -288,11 +482,11 @@ static void
 add_scroll_timeout (GitgDndData *data)
 {
 	if (data->scroll_timeout == 0)
-    {
+	{
 		data->scroll_timeout = g_timeout_add (50, 
 		                                      (GSourceFunc)vertical_autoscroll, 
 		                                      data);
-    }
+	}
 }
 
 
@@ -459,7 +653,137 @@ gitg_drag_source_leave_cb (GtkWidget       *widget,
 	return FALSE;
 }
 
-void 
+static void
+remove_trailing_newlines (gchar **lines)
+{
+	gint lastnewline = -1;
+	gchar **ptr = lines;
+	gint i = 0;
+
+	while (ptr && *ptr)
+	{
+		if (lastnewline == -1 && **ptr == '\0')
+		{
+			lastnewline = i;
+		}
+		else if (lastnewline != -1 && **ptr != '\0')
+		{
+			lastnewline = -1;
+		}
+
+		++i;
+		++ptr;
+	}
+
+	if (lastnewline == -1)
+	{
+		return;
+	}
+
+	while (lines[lastnewline])
+	{
+		g_free (lines[lastnewline]);
+		lines[lastnewline] = NULL;
+
+		++lastnewline;
+	}
+}
+
+static gchar *
+revision_to_text (GitgRepository *repository,
+                  GitgRevision   *revision)
+{
+	gchar **lines;
+	gchar *sha1 = gitg_revision_get_sha1 (revision);
+
+	lines = gitg_repository_command_with_outputv (repository,
+	                                              NULL,
+	                                              "log",
+	                                              "-1",
+	                                              "--pretty=format:%h: %s%n%n%b",
+	                                              sha1,
+	                                              NULL);
+
+	remove_trailing_newlines (lines);
+	gchar *ret = g_strjoinv ("\n", lines);
+
+	g_strfreev (lines);
+	g_free (sha1);
+
+	return ret;
+}
+
+static gchar *
+revision_to_uri (GitgRepository *repository,
+                 GitgRevision   *revision)
+{
+	gchar const *path = gitg_repository_get_path (repository);
+	gchar *sha1 = gitg_revision_get_sha1 (revision);
+
+	gchar *ret = g_strdup_printf ("gitg://%s:%s", path, sha1);
+	g_free (sha1);
+
+	return ret;
+}
+
+static gchar *
+revision_to_treeish (GitgRepository *repository,
+                     GitgRevision   *revision)
+{
+	gchar const *path = gitg_repository_get_path (repository);
+	gchar const *subject = gitg_revision_get_subject (revision);
+	gchar *sha1 = gitg_revision_get_sha1 (revision);
+
+	gchar *ret = g_strdup_printf ("%s\n%s: %s", path, sha1, subject);
+	g_free (sha1);
+
+	return ret;
+}
+
+static void
+gitg_drag_source_data_get_cb (GtkWidget        *widget,
+                              GdkDragContext   *context,
+                              GtkSelectionData *selection,
+                              guint             info,
+                              guint             time,
+                              GitgDndData      *data)
+{
+	if (!data->revision)
+	{
+		return;
+	}
+
+	GitgRepository *repository = GITG_REPOSITORY (gtk_tree_view_get_model (GTK_TREE_VIEW (widget)));
+
+	switch (info)
+	{
+		case DRAG_TARGET_TEXT:
+		{
+			gchar *text = revision_to_text (repository, data->revision);
+			gtk_selection_data_set_text (selection, text, -1);
+			g_free (text);
+		}
+		break;
+		case DRAG_TARGET_TREEISH:
+		{
+			gchar *treeish = revision_to_treeish (repository, data->revision);
+
+			gtk_selection_data_set (selection, selection->target, 8, treeish, strlen (treeish));
+		}
+		break;
+		case DRAG_TARGET_URI:
+		{
+			gchar *uri = revision_to_uri (repository, data->revision);
+			gchar *uris[] = {uri, NULL};
+
+			gtk_selection_data_set_uris (selection, uris);
+			g_free (uri);
+		}
+		break;
+	}
+}
+
+void
 gitg_dnd_enable (GtkTreeView *tree_view, GitgDndCallback callback, gpointer callback_data)
 {
 	if (GITG_DND_GET_DATA (tree_view))
@@ -486,11 +810,16 @@ gitg_dnd_enable (GtkTreeView *tree_view, GitgDndCallback callback, gpointer call
 
 	gtk_drag_dest_set (GTK_WIDGET (tree_view),
 	                   0,
-	                   target_entries,
-	                   G_N_ELEMENTS (target_entries),
+	                   target_dest_entries,
+	                   G_N_ELEMENTS (target_dest_entries),
 	                   GDK_ACTION_MOVE);
 
-	g_signal_connect (tree_view, 
+	g_signal_connect (tree_view,
+	                  "drag-data-get",
+	                  G_CALLBACK (gitg_drag_source_data_get_cb),
+	                  data);
+
+	g_signal_connect (tree_view,
 	                  "button-press-event",
 	                  G_CALLBACK (gitg_drag_source_event_cb),
 	                  data);
@@ -532,6 +861,7 @@ gitg_dnd_disable (GtkTreeView *tree_view)
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_motion_cb, data);
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_drop_cb, data);
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_leave_cb, data);
+		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_data_get_cb, data);
 
 		g_object_set_data (G_OBJECT (tree_view), GITG_DND_DATA_KEY, NULL);
 	}
