@@ -190,10 +190,17 @@ on_selection_changed(GtkTreeSelection *selection, GitgWindow *window)
 	GitgRevision *revision = NULL;
 
 	if (gtk_tree_selection_get_selected(selection, &model, &iter))
-		gtk_tree_model_get(GTK_TREE_MODEL(model), &iter, 0, &revision, -1);
+	{
+		gtk_tree_model_get (GTK_TREE_MODEL(model), &iter, 0, &revision, -1);
+	}
 
 	gitg_revision_view_update(window->priv->revision_view, window->priv->repository, revision);
 	gitg_revision_tree_view_update(window->priv->revision_tree_view, window->priv->repository, revision);
+
+	if (revision)
+	{
+		gitg_revision_unref (revision);
+	}
 }
 
 static void
@@ -840,6 +847,8 @@ on_repository_row_inserted (GitgRepository *repository,
 
 		remove_select_on_load (window);
 	}
+
+	gitg_revision_unref (revision);
 }
 
 static void
@@ -2569,6 +2578,7 @@ on_revision_tag_activate (GtkAction *action, GitgWindow *window)
 		gtk_widget_show (widget);
 
 		gtk_widget_grab_focus (GTK_WIDGET (gtk_builder_get_object (builder, "entry_name")));
+		gitg_revision_unref (rev);
 	}
 
 	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
