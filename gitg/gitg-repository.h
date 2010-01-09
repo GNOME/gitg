@@ -59,7 +59,8 @@ struct _GitgRepositoryClass
 {
 	GObjectClass parent_class;
 
-	void (*load) (GitgRepository *);
+	void (*load) (GitgRepository *repository);
+	void (*loaded) (GitgRepository *repository);
 };
 
 GType gitg_repository_get_type (void) G_GNUC_CONST;
@@ -68,6 +69,7 @@ gchar const *gitg_repository_get_path(GitgRepository *repository);
 GitgRunner *gitg_repository_get_loader(GitgRepository *repository);
 
 gboolean gitg_repository_load(GitgRepository *repository, int argc, gchar const **argv, GError **error);
+gboolean gitg_repository_get_loaded(GitgRepository *repository);
 
 void gitg_repository_add(GitgRepository *repository, GitgRevision *revision, GtkTreeIter *iter);
 void gitg_repository_clear(GitgRepository *repository);

@@ -40,15 +40,26 @@ atoh(gchar c)
 }
 
 void
-gitg_utils_sha1_to_hash(gchar const *sha, gchar *hash)
+gitg_utils_partial_sha1_to_hash(gchar const *sha, gint length, gchar *hash)
 {
+	if (length % 2 == 1)
+	{
+		--length;
+	}
+
 	int i;
 
-	for (i = 0; i < HASH_BINARY_SIZE; ++i)
+	for (i = 0; i < length / 2; ++i)
 	{
 		gchar h = atoh(*(sha++)) << 4;
 		hash[i] = h | atoh(*(sha++));
 	}
+}
+
+void
+gitg_utils_sha1_to_hash(gchar const *sha, gchar *hash)
+{
+	gitg_utils_partial_sha1_to_hash (sha, HASH_SHA_SIZE, hash);
 }
 
 void
@@ -72,6 +83,27 @@ gitg_utils_hash_to_sha1_new(gchar const *hash)
 	gitg_utils_hash_to_sha1(hash, ret);
 
 	ret[HASH_SHA_SIZE] = '\0';
+	return ret;
+}
+
+gchar *
+gitg_utils_partial_sha1_to_hash_new (gchar const *sha, gint length, gint *retlen)
+{
+	if (length == -1)
+	{
+		length = strlen (sha);
+	}
+
+	if (length % 2 != 0)
+	{
+		--length;
+	}
+
+	*retlen = length / 2;
+	gchar *ret = g_new (gchar, *retlen);
+
+	gitg_utils_partial_sha1_to_hash (sha, length, ret);
+
 	return ret;
 }
 

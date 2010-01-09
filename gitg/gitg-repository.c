@@ -55,6 +55,7 @@ enum
 enum
 {
 	LOAD,
+	LOADED,
 	LAST_SIGNAL
 };
 
@@ -550,10 +551,20 @@ gitg_repository_class_init(GitgRepositoryClass *klass)
 								      G_PARAM_READABLE));
 
 	repository_signals[LOAD] =
-   		g_signal_new ("load",
+		g_signal_new ("load",
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (GitgRepositoryClass, load),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
+
+	repository_signals[LOADED] =
+		g_signal_new ("loaded",
+			      G_OBJECT_CLASS_TYPE (object_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (GitgRepositoryClass, loaded),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
@@ -649,6 +660,8 @@ on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *re
 			gitg_repository_run_command(repository, object, (gchar const **)repository->priv->last_args, NULL);
 
 		break;
+		case LOAD_STAGE_LAST:
+			g_signal_emit (repository, repository_signals[LOADED], 0);
 		default:
 		break;
 	}
@@ -1569,4 +1582,12 @@ gitg_repository_get_remotes (GitgRepository *repository)
 	remotes[num] = NULL;
 	g_object_unref (config);
 	return remotes;
+}
+
+gboolean
+gitg_repository_get_loaded (GitgRepository *repository)
+{
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
+	return repository->priv->load_stage == LOAD_STAGE_LAST &&
+	       !gitg_runner_running (repository->priv->loader);
 }

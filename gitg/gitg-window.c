@@ -51,6 +51,10 @@
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
+static void on_repository_row_inserted (GitgRepository *repository,
+                                        GtkTreePath    *path,
+                                        GtkTreeIter    *iter,
+                                        GitgWindow     *window);
 enum
 {
 	COLUMN_BRANCHES_NAME,
@@ -95,6 +99,8 @@ struct _GitgWindowPrivate
 	GitgRef *popup_refs[2];
 
 	GList *branch_actions;
+	gchar *select_on_load;
+	gint select_on_load_length;
 };
 
 static gboolean on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window);
@@ -134,9 +140,27 @@ add_branch_action (GitgWindow *window, GitgRunner *runner)
 }
 
 static void
+remove_select_on_load (GitgWindow *window)
+{
+	if (!window->priv->select_on_load || !window->priv->repository)
+	{
+		return;
+	}
+
+	g_signal_handlers_disconnect_by_func (window->priv->repository,
+	                                      G_CALLBACK (on_repository_row_inserted),
+	                                      window);
+
+	g_free (window->priv->select_on_load);
+	window->priv->select_on_load = NULL;
+}
+
+static void
 gitg_window_finalize(GObject *object)
 {
 	GitgWindow *self = GITG_WINDOW(object);
+
+	remove_select_on_load (self);
 
 	g_timer_destroy(self->priv->load_timer);
 	gdk_cursor_unref(self->priv->hand);
@@ -765,27 +789,41 @@ gitg_window_init(GitgWindow *self)
 }
 
 static void
-on_begin_loading(GitgRunner *loader, GitgWindow *window)
+on_repository_row_inserted (GitgRepository *repository,
+                            GtkTreePath    *path,
+                            GtkTreeIter    *iter,
+                            GitgWindow     *window)
 {
-	GdkCursor *cursor = gdk_cursor_new(GDK_WATCH);
-	gdk_window_set_cursor(GTK_WIDGET(window->priv->tree_view)->window, cursor);
-	gdk_cursor_unref(cursor);
+	GitgRevision *revision;
+	gchar const *hash;
 
-	gtk_statusbar_push(window->priv->statusbar, 0, _("Begin loading repository"));
+	gtk_tree_model_get (GTK_TREE_MODEL (repository), iter, 0, &revision, -1);
+	hash = gitg_revision_get_hash (revision);
 
-	g_timer_reset(window->priv->load_timer);
-	g_timer_start(window->priv->load_timer);
+	if (strncmp (hash, window->priv->select_on_load, window->priv->select_on_load_length) == 0)
+	{
+		/* Select this row */
+		GtkTreeSelection *selection = gtk_tree_view_get_selection (window->priv->tree_view);
+		gtk_tree_selection_select_path (selection, path);
+		gtk_tree_view_scroll_to_cell(window->priv->tree_view, path, NULL, FALSE, 0, 0);
+
+		remove_select_on_load (window);
+	}
 }
 
 static void
-on_end_loading(GitgRunner *loader, gboolean cancelled, GitgWindow *window)
+on_repository_loaded (GitgRepository *repository, GitgWindow *window)
 {
-	gchar *msg = g_strdup_printf(_("Loaded %d revisions in %.2fs"), gtk_tree_model_iter_n_children(GTK_TREE_MODEL(window->priv->repository), NULL), g_timer_elapsed(window->priv->load_timer, NULL));
+	gchar *msg = g_strdup_printf(_("Loaded %d revisions in %.2fs"),
+	                             gtk_tree_model_iter_n_children(GTK_TREE_MODEL(window->priv->repository), NULL),
+	                             g_timer_elapsed(window->priv->load_timer, NULL));
 
 	gtk_statusbar_push(window->priv->statusbar, 0, msg);
 
 	g_free(msg);
 	gdk_window_set_cursor(GTK_WIDGET(window->priv->tree_view)->window, NULL);
+
+	remove_select_on_load (window);
 }
 
 static void
@@ -804,6 +842,23 @@ handle_no_gitdir(GitgWindow *window)
 
 	gtk_dialog_run(GTK_DIALOG(dlg));
 	gtk_widget_destroy(dlg);
+}
+
+void
+gitg_window_set_select_on_load (GitgWindow  *window,
+                                gchar const *sha1)
+{
+	if (!sha1)
+	{
+		return;
+	}
+
+	g_free (window->priv->select_on_load);
+
+	window->priv->select_on_load =
+			gitg_utils_partial_sha1_to_hash_new (sha1,
+				                                 -1,
+				                                 &window->priv->select_on_load_length);
 }
 
 static gboolean
@@ -875,6 +930,13 @@ create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
 			ret = FALSE;
 			path = NULL;
 		}
+	}
+
+	if (ret)
+	{
+		gitg_window_set_select_on_load (window, select_sha1);
+
+		g_free (select_sha1);
 	}
 
 	return ret;
@@ -1060,6 +1122,15 @@ update_window_title (GitgWindow *window)
 static void
 on_repository_load(GitgRepository *repository, GitgWindow *window)
 {
+	GdkCursor *cursor = gdk_cursor_new(GDK_WATCH);
+	gdk_window_set_cursor(GTK_WIDGET(window->priv->tree_view)->window, cursor);
+	gdk_cursor_unref(cursor);
+
+	gtk_statusbar_push(window->priv->statusbar, 0, _("Begin loading repository"));
+
+	g_timer_reset(window->priv->load_timer);
+	g_timer_start(window->priv->load_timer);
+
 	g_signal_handlers_block_by_func(window->priv->combo_branches, on_branches_combo_changed, window);
 	clear_branches_combo(window);
 	fill_branches_combo(window);
@@ -1098,7 +1169,9 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 	if (window->priv->repository)
 	{
 		gtk_tree_view_set_model(window->priv->tree_view, NULL);
+
 		g_signal_handlers_disconnect_by_func(window->priv->repository, G_CALLBACK(on_repository_load), window);
+		g_signal_handlers_disconnect_by_func(window->priv->repository, G_CALLBACK(on_repository_loaded), window);
 
 		g_object_unref(window->priv->repository);
 		window->priv->repository = NULL;
@@ -1113,8 +1186,6 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		gtk_tree_view_set_model(window->priv->tree_view, GTK_TREE_MODEL(window->priv->repository));
 		GitgRunner *loader = gitg_repository_get_loader(window->priv->repository);
 
-		g_signal_connect(loader, "begin-loading", G_CALLBACK(on_begin_loading), window);
-		g_signal_connect(loader, "end-loading", G_CALLBACK(on_end_loading), window);
 		g_signal_connect(loader, "update", G_CALLBACK(on_update), window);
 
 		g_object_unref(loader);
@@ -1132,7 +1203,24 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 			ar[argc - 1] = path;
 		}
 
-		g_signal_connect(window->priv->repository, "load", G_CALLBACK(on_repository_load), window);
+		g_signal_connect (window->priv->repository,
+		                  "load",
+		                  G_CALLBACK (on_repository_load),
+		                  window);
+
+		g_signal_connect (window->priv->repository,
+		                  "loaded",
+		                  G_CALLBACK (on_repository_loaded),
+		                  window);
+
+		if (window->priv->select_on_load)
+		{
+			g_signal_connect_after (window->priv->repository,
+			                        "row-inserted",
+			                        G_CALLBACK (on_repository_row_inserted),
+			                        window);
+		}
+
 		clear_branches_combo(window);
 
 		gitg_repository_load(window->priv->repository, argc, ar, NULL);
