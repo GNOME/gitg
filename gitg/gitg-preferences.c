@@ -45,6 +45,8 @@ enum
 
 	PROP_HISTORY_TOPO_ORDER,
 
+	PROP_MAIN_LAYOUT_VERTICAL,
+
 	PROP_MESSAGE_SHOW_RIGHT_MARGIN,
 	PROP_MESSAGE_RIGHT_MARGIN_AT,
 
@@ -454,6 +456,19 @@ gitg_preferences_class_init(GitgPreferencesClass *klass)
 							      "HISTORY_TOPO_ORDER",
 							      "Whether to load history in topological order",
 							      FALSE,
+							      G_PARAM_READWRITE));
+
+	install_property_binding(PROP_MAIN_LAYOUT_VERTICAL,
+							 "view/main",
+							 "layout-vertical",
+							 wrap_get_boolean,
+							 wrap_set_boolean);
+
+	g_object_class_install_property(object_class, PROP_MAIN_LAYOUT_VERTICAL,
+					 g_param_spec_boolean("main-layout-vertical",
+							      "MAIN_LAYOUT_VERTICAL",
+							      "Whether to use a vertical layout",
+							      TRUE,
 							      G_PARAM_READWRITE));
 
 	install_style_properties(object_class, PROP_STYLE_TEXT_FOREGROUND, "text");

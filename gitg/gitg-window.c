@@ -631,6 +631,18 @@ init_tree_view (GitgWindow *window, GtkBuilder *builder)
 }
 
 static void
+on_main_layout_vertical_cb (GitgWindow *window)
+{
+	GitgPreferences *preferences = gitg_preferences_get_default ();
+	gboolean vertical;
+
+	g_object_get (preferences, "main-layout-vertical", &vertical, NULL);
+	g_object_set (window->priv->vpaned_main,
+	              "orientation",
+	              vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
+}
+
+static void
 gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
 	if (parent_iface.parser_finished)
@@ -701,6 +713,14 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	g_signal_connect(window->priv->tree_view, "motion-notify-event", G_CALLBACK(on_tree_view_motion), window);
 	g_signal_connect(window->priv->tree_view, "button-release-event", G_CALLBACK(on_tree_view_button_release), window);
+
+	GitgPreferences *preferences = gitg_preferences_get_default ();
+	g_signal_connect_swapped (preferences,
+	                          "notify::main-layout-vertical",
+	                          G_CALLBACK (on_main_layout_vertical_cb),
+	                          window);
+
+	on_main_layout_vertical_cb (window);
 }
 
 static void

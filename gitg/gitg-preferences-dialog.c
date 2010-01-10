@@ -52,6 +52,7 @@ struct _GitgPreferencesDialogPrivate
 	GtkCheckButton *history_show_virtual_unstaged;
 	GtkCheckButton *history_topo_order;
 	GtkCheckButton *check_button_collapse_inactive;
+	GtkCheckButton *main_layout_vertical;
 
 	GtkCheckButton *check_button_show_right_margin;
 	GtkLabel *label_right_margin;
@@ -201,6 +202,11 @@ initialize_view(GitgPreferencesDialog *dialog)
 	                             "message-right-margin-at",
 	                             dialog->priv->spin_button_right_margin,
 	                             "value");
+
+	gitg_data_binding_new_mutual(preferences,
+	                             "main-layout-vertical",
+	                             dialog->priv->main_layout_vertical,
+	                             "active");
 }
 
 static void
@@ -220,6 +226,8 @@ create_preferences_dialog()
 	priv->history_show_virtual_staged = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_staged"));
 	priv->history_show_virtual_unstaged = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_unstaged"));
 	priv->history_topo_order = GTK_CHECK_BUTTON (gtk_builder_get_object (b, "check_button_history_topo_order"));
+
+	priv->main_layout_vertical = GTK_CHECK_BUTTON (gtk_builder_get_object (b, "check_button_main_layout_vertical"));
 
 	priv->check_button_collapse_inactive = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_collapse_inactive"));
 	priv->table = GTK_WIDGET(gtk_builder_get_object(b, "table_collapse_inactive_lanes"));
