@@ -52,11 +52,11 @@ struct _GitgWindowClass {
 
 GType gitg_window_get_type (void) G_GNUC_CONST;
 
-void gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv);
+void gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv, gchar const *selection);
 void gitg_window_show_commit(GitgWindow *window);
 
 GitgRepository *gitg_window_get_repository(GitgWindow *window);
-void gitg_window_set_select_on_load (GitgWindow *window, gchar const *sha1);
+void gitg_window_set_select_on_load (GitgWindow *window, gchar const *selection);
 
 G_END_DECLS
 

@@ -192,12 +192,7 @@ main(int argc, char **argv)
 
 	GitgWindow *window = build_ui();
 
-	if (select_sha1)
-	{
-		gitg_window_set_select_on_load (window, select_sha1);
-	}
-
-	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, argc > 1 ? (gchar const **)&argv[2] : NULL);
+	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, argc > 1 ? (gchar const **)&argv[2] : NULL, select_sha1);
 
 	if (commit_mode)
 		gitg_window_show_commit(window);

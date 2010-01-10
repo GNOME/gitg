@@ -104,7 +104,6 @@ struct _GitgWindowPrivate
 
 	GList *branch_actions;
 	gchar *select_on_load;
-	gint select_on_load_length;
 };
 
 static gboolean on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window);
@@ -859,7 +858,7 @@ on_repository_row_inserted (GitgRepository *repository,
 	gtk_tree_model_get (GTK_TREE_MODEL (repository), iter, 0, &revision, -1);
 	hash = gitg_revision_get_hash (revision);
 
-	if (strncmp (hash, window->priv->select_on_load, window->priv->select_on_load_length) == 0)
+	if (gitg_utils_hash_equal (hash, window->priv->select_on_load))
 	{
 		/* Select this row */
 		GtkTreeSelection *selection = gtk_tree_view_get_selection (window->priv->tree_view);
@@ -907,26 +906,33 @@ handle_no_gitdir(GitgWindow *window)
 
 void
 gitg_window_set_select_on_load (GitgWindow  *window,
-                                gchar const *sha1)
+                                gchar const *selection)
 {
-	if (!sha1)
+	if (!selection || !window->priv->repository)
 	{
 		return;
 	}
 
-	g_free (window->priv->select_on_load);
+	gchar *resolved = gitg_repository_parse_ref (window->priv->repository, selection);
 
-	window->priv->select_on_load =
-			gitg_utils_partial_sha1_to_hash_new (sha1,
-				                                 -1,
-				                                 &window->priv->select_on_load_length);
+	if (!resolved || strlen (resolved) != HASH_SHA_SIZE)
+	{
+		remove_select_on_load (window);
+	}
+	else
+	{
+		g_free (window->priv->select_on_load);
+		window->priv->select_on_load = gitg_utils_sha1_to_hash_new (resolved);
+	}
+
+	g_free (resolved);
 }
 
 static gboolean
 create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
 {
 	gboolean ret = TRUE;
-	gchar *select_sha1 = NULL;
+	gchar *selection = NULL;
 
 	if (path)
 	{
@@ -943,7 +949,7 @@ create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
 			{
 				/* It has a sha */
 				*fd = '\0';
-				select_sha1 = g_strdup (fd + 1);
+				selection = g_strdup (fd + 1);
 			}
 
 			g_object_unref (file);
@@ -993,11 +999,10 @@ create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
 		}
 	}
 
-	if (ret)
+	if (ret && selection)
 	{
-		gitg_window_set_select_on_load (window, select_sha1);
-
-		g_free (select_sha1);
+		gitg_window_set_select_on_load (window, selection);
+		g_free (selection);
 	}
 
 	return ret;
@@ -1336,7 +1341,7 @@ add_recent_item(GitgWindow *window)
 }
 
 static void
-load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv, gboolean usewd)
+load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv, gboolean usewd, gchar const *selection)
 {
 	if (window->priv->repository)
 	{
@@ -1357,6 +1362,8 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 	{
 		gtk_tree_view_set_model(window->priv->tree_view, GTK_TREE_MODEL(window->priv->repository));
 		GitgRunner *loader = gitg_repository_get_loader(window->priv->repository);
+
+		gitg_window_set_select_on_load (window, selection);
 
 		g_signal_connect(loader, "update", G_CALLBACK(on_update), window);
 
@@ -1425,11 +1432,11 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 }
 
 void
-gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv)
+gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv, gchar const *selection)
 {
 	g_return_if_fail(GITG_IS_WINDOW(window));
 
-	load_repository(window, path, argc, argv, TRUE);
+	load_repository(window, path, argc, argv, TRUE, selection);
 }
 
 void
@@ -1471,7 +1478,7 @@ on_open_dialog_response(GtkFileChooser *dialog, gint response, GitgWindow *windo
 	g_object_unref(file);
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 
-	load_repository(window, path, 0, NULL, FALSE);
+	load_repository(window, path, 0, NULL, FALSE, NULL);
 	g_free(path);
 }
 
@@ -1571,7 +1578,7 @@ on_recent_open(GtkRecentChooser *chooser, GitgWindow *window)
 	GFile *file = g_file_new_for_uri(gtk_recent_chooser_get_current_uri(chooser));
 	gchar *path = g_file_get_path(file);
 
-	load_repository(window, path, 0, NULL, FALSE);
+	load_repository(window, path, 0, NULL, FALSE, NULL);
 
 	g_free(path);
 	g_object_unref(file);
