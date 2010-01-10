@@ -2160,7 +2160,7 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 		{
 			gchar *label = g_strdup_printf (_("New local branch <%s>"), local);
 
-			gtk_action_set_label (checkout, label);
+			g_object_set (checkout, "label", label, NULL);
 			gtk_action_set_visible (checkout, TRUE);
 			g_free (label);
 		}
@@ -2170,15 +2170,15 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 		}
 
 		g_free (local);
-		gtk_action_set_label (remove, _("Remove remote branch"));
+		g_object_set (remove, "label", _("Remove remote branch"), NULL);
 		gtk_action_set_visible (rename, FALSE);
 	}
 	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
 	{
-		gtk_action_set_label (checkout, _("Checkout working copy"));
-		gtk_action_set_label (remove, _("Remove local branch"));
+		g_object_set (checkout, "label", _("Checkout working copy"), NULL);
+		g_object_set (remove, "label", _("Remove local branch"), NULL);
 		gtk_action_set_visible (rename, TRUE);
-		gtk_action_set_label (rename, _("Rename local branch"));
+		g_object_set (rename, "label", _("Rename local branch"), NULL);
 
 		GitgRef *working = gitg_repository_get_current_working_ref (window->priv->repository);
 
@@ -2186,20 +2186,20 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 	}
 	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_STASH)
 	{
-		gtk_action_set_label (remove, _("Remove stash"));
+		g_object_set (remove, "label", _("Remove stash"), NULL);
 		gtk_action_set_visible (rename, FALSE);
 		gtk_action_set_visible (checkout, FALSE);
 	}
 	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_TAG)
 	{
-		gtk_action_set_label (remove, _("Remove tag"));
+		g_object_set (remove, "label", _("Remove tag"), NULL);
 		gtk_action_set_visible (rename, FALSE);
 
 		if (!has_local_ref (window, gitg_ref_get_shortname (ref)))
 		{
 			gchar *label = g_strdup_printf (_("New local branch <%s>"), gitg_ref_get_shortname (ref));
 
-			gtk_action_set_label (checkout, label);
+			g_object_set (checkout, "label", label, NULL);
 			gtk_action_set_visible (checkout, TRUE);
 			g_free (label);
 		}
