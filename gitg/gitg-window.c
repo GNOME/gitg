@@ -639,7 +639,8 @@ on_main_layout_vertical_cb (GitgWindow *window)
 	g_object_get (preferences, "main-layout-vertical", &vertical, NULL);
 	g_object_set (window->priv->vpaned_main,
 	              "orientation",
-	              vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
+	              vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL,
+	              NULL);
 }
 
 static void
