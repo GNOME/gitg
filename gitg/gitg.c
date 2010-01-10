@@ -137,6 +137,7 @@ set_icons()
 {
 	static gchar const *icon_infos[] = {
 		"gitg16x16.png",
+		"gitg22x22.png",
 		"gitg24x24.png",
 		"gitg32x32.png",
 		"gitg48x48.png",
