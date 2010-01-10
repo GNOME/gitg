@@ -50,6 +50,7 @@ struct _GitgPreferencesDialogPrivate
 	GtkCheckButton *history_show_virtual_stash;
 	GtkCheckButton *history_show_virtual_staged;
 	GtkCheckButton *history_show_virtual_unstaged;
+	GtkCheckButton *history_topo_order;
 	GtkCheckButton *check_button_collapse_inactive;
 
 	GtkCheckButton *check_button_show_right_margin;
@@ -187,6 +188,11 @@ initialize_view(GitgPreferencesDialog *dialog)
 	                             "active");
 
 	gitg_data_binding_new_mutual(preferences,
+	                             "history-topo-order",
+	                             dialog->priv->history_topo_order,
+	                             "active");
+
+	gitg_data_binding_new_mutual(preferences,
 	                             "message-show-right-margin",
 	                             dialog->priv->check_button_show_right_margin,
 	                             "active");
@@ -213,6 +219,7 @@ create_preferences_dialog()
 	priv->history_show_virtual_stash = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_stash"));
 	priv->history_show_virtual_staged = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_staged"));
 	priv->history_show_virtual_unstaged = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_history_show_virtual_unstaged"));
+	priv->history_topo_order = GTK_CHECK_BUTTON (gtk_builder_get_object (b, "check_button_history_topo_order"));
 
 	priv->check_button_collapse_inactive = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_collapse_inactive"));
 	priv->table = GTK_WIDGET(gtk_builder_get_object(b, "table_collapse_inactive_lanes"));

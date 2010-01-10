@@ -43,6 +43,8 @@ enum
 	PROP_HISTORY_SHOW_VIRTUAL_STAGED,
 	PROP_HISTORY_SHOW_VIRTUAL_UNSTAGED,
 
+	PROP_HISTORY_TOPO_ORDER,
+
 	PROP_MESSAGE_SHOW_RIGHT_MARGIN,
 	PROP_MESSAGE_RIGHT_MARGIN_AT,
 
@@ -439,6 +441,19 @@ gitg_preferences_class_init(GitgPreferencesClass *klass)
 							      "HIDDEN_SIGN_TAG",
 							      "Whether to sign tag objects",
 							      TRUE,
+							      G_PARAM_READWRITE));
+
+	install_property_binding(PROP_HISTORY_TOPO_ORDER,
+							 "view/history",
+							 "topo-order", 
+							 wrap_get_boolean,
+							 wrap_set_boolean);
+
+	g_object_class_install_property(object_class, PROP_HISTORY_TOPO_ORDER,
+					 g_param_spec_boolean("history-topo-order",
+							      "HISTORY_TOPO_ORDER",
+							      "Whether to load history in topological order",
+							      FALSE,
 							      G_PARAM_READWRITE));
 
 	install_style_properties(object_class, PROP_STYLE_TEXT_FOREGROUND, "text");

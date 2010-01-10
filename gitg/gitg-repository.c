@@ -894,6 +894,106 @@ on_update_virtual(GObject *object, GParamSpec *spec, GitgRepository *repository)
 	gitg_repository_reload (repository);
 }
 
+static gchar **
+copy_strv (gchar const **ptr, gint argc)
+{
+	GPtrArray *ret = g_ptr_array_new ();
+	gint i = 0;
+
+	while (ptr && ((argc >= 0 && i < argc) || (argc < 0 && ptr[i])))
+	{
+		g_ptr_array_add (ret, g_strdup (ptr[i]));
+		++i;
+	}
+
+	g_ptr_array_add (ret, NULL);
+	return (gchar **)g_ptr_array_free (ret, FALSE);
+}
+
+static gboolean
+has_left_right(gchar const **av, int argc)
+{
+	int i;
+
+	for (i = 0; i < argc; ++i)
+		if (strcmp(av[i], "--left-right") == 0)
+			return TRUE;
+
+	return FALSE;
+}
+
+static void
+build_log_args(GitgRepository *self, gint argc, gchar const **av)
+{
+	GitgPreferences *preferences = gitg_preferences_get_default ();
+	gboolean topoorder;
+
+	g_object_get (preferences, "history-topo-order", &topoorder, NULL);
+
+	gchar **argv = g_new0(gchar *, 6 + topoorder + (argc > 0 ? argc - 1 : 0));
+
+	argv[0] = g_strdup("log");
+
+	if (has_left_right(av, argc))
+	{
+		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at\x01%m");
+	}
+	else
+	{
+		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
+	}
+
+	argv[2] = g_strdup ("--encoding=UTF-8");
+	gint start = 3;
+
+	if (topoorder)
+	{
+		argv[3] = g_strdup ("--topo-order");
+		++start;
+	}
+
+	gchar *head = NULL;
+
+	if (argc <= 0)
+	{
+		head = gitg_repository_parse_ref(self, "HEAD");
+
+		if (head)
+		{
+			argv[start] = g_strdup("HEAD");
+		}
+
+		g_free(head);
+	}
+	else
+	{
+		int i;
+
+		for (i = 0; i < argc; ++i)
+		{
+			argv[start + i] = g_strdup(av[i]);
+		}
+	}
+
+	g_strfreev(self->priv->last_args);
+	self->priv->last_args = argv;
+
+	gchar **newselection = copy_strv (av, argc);
+
+	g_strfreev (self->priv->selection);
+	self->priv->selection = newselection;
+}
+
+static void
+on_update_topo_order(GObject *object, GParamSpec *spec, GitgRepository *repository)
+{
+	build_log_args (repository,
+	                g_strv_length (repository->priv->selection),
+	                (gchar const **)repository->priv->selection);
+
+	gitg_repository_reload (repository);
+}
+
 static void
 initialize_bindings(GitgRepository *repository)
 {
@@ -932,6 +1032,11 @@ initialize_bindings(GitgRepository *repository)
 	g_signal_connect(preferences, 
 	                 "notify::history-show-virtual-staged",
 	                 G_CALLBACK(on_update_virtual),
+	                 repository);
+
+	g_signal_connect(preferences, 
+	                 "notify::history-topo-order",
+	                 G_CALLBACK(on_update_topo_order),
 	                 repository);
 }
 
@@ -1000,18 +1105,6 @@ gitg_repository_get_loader(GitgRepository *self)
 }
 
 static gboolean
-has_left_right(gchar const **av, int argc)
-{
-	int i;
-
-	for (i = 0; i < argc; ++i)
-		if (strcmp(av[i], "--left-right") == 0)
-			return TRUE;
-
-	return FALSE;
-}
-
-static gboolean
 reload_revisions(GitgRepository *repository, GError **error)
 {
 	if (repository->priv->working_ref)
@@ -1025,70 +1118,6 @@ reload_revisions(GitgRepository *repository, GError **error)
 	repository->priv->load_stage = LOAD_STAGE_STASH;
 
 	return gitg_repository_run_commandv(repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "--encoding=UTF-8", "-g", "refs/stash", NULL);
-}
-
-static gchar **
-copy_strv (gchar const **ptr, gint argc)
-{
-	GPtrArray *ret = g_ptr_array_new ();
-	gint i = 0;
-
-	while (ptr && ((argc >= 0 && i < argc) || (argc < 0 && ptr[i])))
-	{
-		g_ptr_array_add (ret, g_strdup (ptr[i]));
-		++i;
-	}
-
-	g_ptr_array_add (ret, NULL);
-	return (gchar **)g_ptr_array_free (ret, FALSE);
-}
-
-static void
-build_log_args(GitgRepository *self, gint argc, gchar const **av)
-{
-	gchar **argv = g_new0(gchar *, 6 + (argc > 0 ? argc - 1 : 0));
-
-	argv[0] = g_strdup("log");
-
-	if (has_left_right(av, argc))
-	{
-		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at\x01%m");
-	}
-	else
-	{
-		argv[1] = g_strdup("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
-	}
-
-	argv[2] = g_strdup ("--encoding=UTF-8");
-
-	gchar *head = NULL;
-
-	if (argc <= 0)
-	{
-		head = gitg_repository_parse_ref(self, "HEAD");
-
-		if (head)
-		{
-			argv[3] = g_strdup("HEAD");
-		}
-
-		g_free(head);
-	}
-	else
-	{
-		int i;
-
-		for (i = 0; i < argc; ++i)
-		{
-			argv[3 + i] = g_strdup(av[i]);
-		}
-	}
-
-	g_strfreev(self->priv->last_args);
-	self->priv->last_args = argv;
-
-	g_strfreev (self->priv->selection);
-	self->priv->selection = copy_strv (av, argc);
 }
 
 static gchar *
