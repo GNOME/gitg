@@ -617,15 +617,18 @@ static void
 on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *repository)
 {
 	if (cancelled)
+	{
+		g_signal_emit (repository, repository_signals[LOADED], 0);
 		return;
+	}
 
 	LoadStage current = repository->priv->load_stage++;
 	GitgPreferences *preferences = gitg_preferences_get_default();
 	gboolean show_unstaged;
 	gboolean show_staged;
 
-	g_object_get(preferences, 
-	             "history-show-virtual-staged", &show_staged, 
+	g_object_get(preferences,
+	             "history-show-virtual-staged", &show_staged,
 	             "history-show-virtual-unstaged", &show_unstaged,
 	             NULL);
 
@@ -664,10 +667,13 @@ on_loader_end_loading(GitgRunner *object, gboolean cancelled, GitgRepository *re
 			gitg_repository_run_command(repository, object, (gchar const **)repository->priv->last_args, NULL);
 
 		break;
-		case LOAD_STAGE_LAST:
-			g_signal_emit (repository, repository_signals[LOADED], 0);
 		default:
 		break;
+	}
+
+	if (repository->priv->load_stage == LOAD_STAGE_LAST)
+	{
+		g_signal_emit (repository, repository_signals[LOADED], 0);
 	}
 }
 
