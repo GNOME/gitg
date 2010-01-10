@@ -741,10 +741,9 @@ revision_to_treeish (GitgRepository *repository,
                      GitgRevision   *revision)
 {
 	gchar const *path = gitg_repository_get_path (repository);
-	gchar const *subject = gitg_revision_get_subject (revision);
 	gchar *sha1 = gitg_revision_get_sha1 (revision);
 
-	gchar *ret = g_strdup_printf ("%s\n%s: %s", path, sha1, subject);
+	gchar *ret = g_strdup_printf ("%s\n%s", path, sha1);
 	g_free (sha1);
 
 	return ret;
