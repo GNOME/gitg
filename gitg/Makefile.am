@@ -24,6 +24,7 @@ NOINST_H_FILES = 			\
 	gitg-commit-view.h		\
 	gitg-data-binding.h		\
 	gitg-debug.h			\
+	gitg-diff-line-renderer.h	\
 	gitg-diff-view.h		\
 	gitg-dirs.h			\
 	gitg-dnd.h			\
@@ -58,6 +59,7 @@ gitg_SOURCES = 				\
 	gitg-commit-view.c		\
 	gitg-data-binding.c		\
 	gitg-debug.c			\
+	gitg-diff-line-renderer.c	\
 	gitg-diff-view.c		\
 	gitg-dirs.c			\
 	gitg-dnd.c			\
