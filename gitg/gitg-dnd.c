@@ -947,6 +947,14 @@ gitg_drag_source_end_cb (GtkTreeView    *tree_view,
 	}
 }
 
+static void
+gitg_drag_source_data_delete_cb (GtkTreeView    *tree_view,
+                                 GdkDragContext *context,
+                                 GitgDndData    *data)
+{
+	g_signal_stop_emission_by_name (tree_view, "drag-data-delete");
+}
+
 void
 gitg_dnd_enable (GtkTreeView             *tree_view,
                  GitgDndCallback          callback,
@@ -1020,6 +1028,11 @@ gitg_dnd_enable (GtkTreeView             *tree_view,
 	g_signal_connect (tree_view,
 	                  "drag-end",
 	                  G_CALLBACK (gitg_drag_source_end_cb),
+	                  data);
+
+	g_signal_connect (tree_view,
+	                  "drag-data-delete",
+	                  G_CALLBACK (gitg_drag_source_data_delete_cb),
 	                  data);
 }
 
