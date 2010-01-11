@@ -111,6 +111,7 @@ struct _GitgDiffViewPrivate
 	gboolean diff_enabled;
 	GtkTextBuffer *current_buffer;
 	GtkTextTag *invisible_tag;
+	GtkTextTag *subheader_tag;
 
 	GitgDiffLineRenderer *line_renderer;
 
@@ -160,12 +161,14 @@ regions_free(GitgDiffView *view, gboolean remove_signals)
 		g_signal_handlers_disconnect_by_func(view->priv->current_buffer, G_CALLBACK(on_buffer_insert_text), view);
 		g_signal_handlers_disconnect_by_func(view->priv->current_buffer, G_CALLBACK(on_buffer_delete_range), view);
 
-		gtk_text_tag_table_remove(gtk_text_buffer_get_tag_table(view->priv->current_buffer), view->priv->invisible_tag);
+		gtk_text_tag_table_remove (gtk_text_buffer_get_tag_table(view->priv->current_buffer), view->priv->invisible_tag);
+		gtk_text_tag_table_remove (gtk_text_buffer_get_tag_table(view->priv->current_buffer), view->priv->subheader_tag);
 
-		g_object_unref(view->priv->current_buffer);
+		g_object_unref (view->priv->current_buffer);
 
 		view->priv->current_buffer = NULL;
 		view->priv->invisible_tag = NULL;
+		view->priv->subheader_tag = NULL;
 	}
 }
 
@@ -283,6 +286,10 @@ on_buffer_set(GitgDiffView *self, GParamSpec *spec, gpointer userdata)
 
 	self->priv->scan_id = g_idle_add((GSourceFunc)on_idle_scan, self);
 	self->priv->invisible_tag = gtk_text_buffer_create_tag(self->priv->current_buffer, "GitgHunkInvisible", "invisible", TRUE, NULL);
+	self->priv->subheader_tag = gtk_text_buffer_create_tag(self->priv->current_buffer, "GitgHunkSubHeader", "invisible", TRUE, NULL);
+
+	gtk_text_tag_set_priority (self->priv->subheader_tag,
+	                           gtk_text_tag_table_get_size (gtk_text_buffer_get_tag_table (self->priv->current_buffer)) - 1);
 }
 
 static void
@@ -348,6 +355,22 @@ ensure_max_line (GitgDiffView *view, Hunk *hunk)
 }
 
 static void
+hide_header_details (GitgDiffView *view,
+                     Region       *region)
+{
+	/* Just hide the lines 2->n lines from region to region->next */
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+	GtkTextIter startiter;
+	GtkTextIter enditer;
+
+	gtk_text_buffer_get_iter_at_line (buffer, &startiter, region->line + 2);
+
+	enditer = startiter;
+	gtk_text_iter_forward_lines (&enditer, region->next->line - region->line);
+	gtk_text_buffer_apply_tag (buffer, view->priv->subheader_tag, &startiter, &enditer);
+}
+
+static void
 add_region(GitgDiffView *view, Region *region)
 {
 	if (view->priv->last_region)
@@ -367,6 +390,13 @@ add_region(GitgDiffView *view, Region *region)
 	}
 
 	view->priv->last_region = region;
+
+	if (region->prev && region->prev->type == GITG_DIFF_ITER_TYPE_HEADER)
+	{
+		/* Hide header details if first hunk is scanned */
+		hide_header_details (view, region->prev);
+	}
+
 	g_sequence_insert_sorted(view->priv->regions_index, region, index_compare, NULL);
 
 	GitgDiffIter iter;
