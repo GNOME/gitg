@@ -10,15 +10,22 @@ enum
 	DRAG_TARGET_TREEISH,
 	DRAG_TARGET_REVISION,
 	DRAG_TARGET_TEXT,
-	DRAG_TARGET_URI
+	DRAG_TARGET_URI,
+	DRAG_TARGET_DIRECT_SAVE
 };
+
+#define XDS_ATOM   gdk_atom_intern  ("XdndDirectSave0", FALSE)
+#define TEXT_ATOM  gdk_atom_intern  ("text/plain", FALSE)
+
+#define MAX_XDS_ATOM_VAL_LEN 4096
 
 static GtkTargetEntry target_dest_entries[] = {
 	{"gitg-ref", GTK_TARGET_SAME_WIDGET, DRAG_TARGET_REF}
 };
 
 static GtkTargetEntry target_source_entries[] = {
-	{"x-gitg/treeish-list", GTK_TARGET_OTHER_APP, DRAG_TARGET_TREEISH}
+	{"x-gitg/treeish-list", GTK_TARGET_OTHER_APP, DRAG_TARGET_TREEISH},
+	{"XdndDirectSave0", GTK_TARGET_OTHER_APP, DRAG_TARGET_DIRECT_SAVE}
 };
 
 typedef struct
@@ -41,6 +48,7 @@ typedef struct
 	GitgRevision *revision;
 
 	guint scroll_timeout;
+	gchar *xds_destination;
 } GitgDndData;
 
 #define GITG_DND_DATA_KEY "GitgDndDataKey"
@@ -322,6 +330,27 @@ create_revision_drag_icon (GtkTreeView  *tree_view,
 	return ret;
 }
 
+static gchar *
+generate_format_patch_filename (GitgRevision *revision)
+{
+	gchar *subject = g_strdup (gitg_revision_get_subject (revision));
+	gchar *ptr = subject;
+	gchar *filename;
+
+	do
+	{
+		if (g_utf8_get_char (ptr) == ' ')
+		{
+			*ptr = '-';
+		}
+	} while (*(ptr = g_utf8_next_char (ptr)));
+	
+	filename = g_strdup_printf ("0001-%s.patch", subject);
+	g_free (subject);
+
+	return filename;
+}
+
 static void
 begin_drag (GtkWidget   *widget,
             GdkEvent    *event,
@@ -394,6 +423,17 @@ begin_drag (GtkWidget   *widget,
 			                                          1,
 			                                          event);
 			GdkPixbuf *icon;
+			gchar *filename;
+
+			filename = generate_format_patch_filename (revision);
+
+			gdk_property_change (context->source_window,
+				                 XDS_ATOM, TEXT_ATOM,
+				                 8, GDK_PROP_MODE_REPLACE,
+				                 (guchar *) filename,
+				                 strlen (filename));
+
+			g_free (filename);
 
 			icon = create_revision_drag_icon (tree_view, revision);
 
@@ -749,6 +789,48 @@ revision_to_treeish (GitgRepository *repository,
 	return ret;
 }
 
+static gchar *
+get_xds_filename (GdkDragContext *context)
+{
+	gchar *ret;
+
+	if (context == NULL || context->source_window == NULL)
+	{
+		return NULL;
+	}
+
+	guint len;
+
+	if (gdk_property_get (context->source_window,
+	                      XDS_ATOM, TEXT_ATOM,
+	                      0, MAX_XDS_ATOM_VAL_LEN,
+	                      FALSE, NULL, NULL, &len,
+	                      (unsigned char **) &ret))
+	{
+		ret[len] = '\0';
+		return ret;
+	}
+
+	return NULL;
+}
+
+static gboolean
+has_direct_save (GdkDragContext *context)
+{
+	gboolean ret;
+
+	if (!g_list_find (context->targets, XDS_ATOM))
+	{
+		return FALSE;
+	}
+
+	gchar *filename = get_xds_filename (context);
+	ret = filename && *filename;
+	g_free (filename);
+
+	return ret;
+}
+
 static void
 gitg_drag_source_data_get_cb (GtkWidget        *widget,
                               GdkDragContext   *context,
@@ -763,6 +845,33 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 	}
 
 	GitgRepository *repository = GITG_REPOSITORY (gtk_tree_view_get_model (GTK_TREE_VIEW (widget)));
+
+	if (has_direct_save (context))
+	{
+		gchar *destination = get_xds_filename (context);
+
+		if (destination && *destination)
+		{
+			data->xds_destination = g_strdup (destination);
+
+			gtk_selection_data_set (selection,
+			                        selection->target,
+			                        8,
+			                        "S",
+			                        1);
+		}
+		else
+		{
+			gtk_selection_data_set (selection,
+			                        selection->target,
+			                        8,
+			                        "E",
+			                        1);
+		}
+
+		g_free (destination);
+		return;
+	}
 
 	switch (info)
 	{
@@ -789,6 +898,52 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 			g_free (uri);
 		}
 		break;
+	}
+}
+
+static void
+format_patch (GtkTreeView *tree_view,
+              GitgDndData *data)
+{
+	GitgRepository *repository;
+
+	repository = GITG_REPOSITORY (gtk_tree_view_get_model (tree_view));
+	gchar *sha1 = gitg_revision_get_sha1 (data->revision);
+
+	/* FIXME: this is all sync and bad... */
+	gchar **ret = gitg_repository_command_with_outputv (repository, NULL,
+	                                                    "format-patch",
+	                                                    "-1",
+	                                                    "--stdout",
+	                                                    sha1,
+	                                                    NULL);
+
+	gchar *content = g_strjoinv ("\n", ret);
+	g_strfreev (ret);
+
+	g_file_set_contents (data->xds_destination, content, -1, NULL);
+
+	g_free (sha1);
+	g_free (content);
+}
+
+static void
+gitg_drag_source_end_cb (GtkTreeView    *tree_view,
+                         GdkDragContext *context,
+                         GitgDndData    *data)
+{
+	if (data->revision)
+	{
+		gdk_property_delete (context->source_window, XDS_ATOM);
+
+		if (data->xds_destination != NULL)
+		{
+			/* Do extract it there then */
+			format_patch (tree_view, data);
+			
+			g_free (data->xds_destination);
+			data->xds_destination = NULL;
+		}
 	}
 }
 
@@ -861,6 +1016,11 @@ gitg_dnd_enable (GtkTreeView             *tree_view,
 	                  "drag-leave",
 	                  G_CALLBACK (gitg_drag_source_leave_cb),
 	                  data);
+
+	g_signal_connect (tree_view,
+	                  "drag-end",
+	                  G_CALLBACK (gitg_drag_source_end_cb),
+	                  data);
 }
 
 void
@@ -875,6 +1035,7 @@ gitg_dnd_disable (GtkTreeView *tree_view)
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_drop_cb, data);
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_leave_cb, data);
 		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_data_get_cb, data);
+		g_signal_handlers_disconnect_by_func (tree_view, gitg_drag_source_end_cb, data);
 
 		g_object_set_data (G_OBJECT (tree_view), GITG_DND_DATA_KEY, NULL);
 	}
