@@ -91,6 +91,9 @@ struct _GitgRepositoryPrivate
 	gint stamp;
 	GType column_types[N_COLUMNS];
 
+	GHashTable *ref_pushes;
+	GHashTable *ref_names;
+
 	GitgRevision **storage;
 	GitgLanes *lanes;
 	GHashTable *refs;
@@ -346,10 +349,12 @@ do_clear(GitgRepository *repository, gboolean emit)
 	repository->priv->current_ref = NULL;
 
 	/* clear hash tables */
-	g_hash_table_remove_all(repository->priv->hashtable);
-	g_hash_table_remove_all(repository->priv->refs);
+	g_hash_table_remove_all (repository->priv->hashtable);
+	g_hash_table_remove_all (repository->priv->refs);
+	g_hash_table_remove_all (repository->priv->ref_names);
+	g_hash_table_remove_all (repository->priv->ref_pushes);
 
-	gitg_color_reset();
+	gitg_color_reset ();
 }
 
 static void
@@ -377,8 +382,10 @@ gitg_repository_finalize(GObject *object)
 	}
 
 	/* Free the hash */
-	g_hash_table_destroy(rp->priv->hashtable);
-	g_hash_table_destroy(rp->priv->refs);
+	g_hash_table_destroy (rp->priv->hashtable);
+	g_hash_table_destroy (rp->priv->refs);
+	g_hash_table_destroy (rp->priv->ref_names);
+	g_hash_table_destroy (rp->priv->ref_pushes);
 
 	/* Free cached args */
 	g_strfreev(rp->priv->last_args);
@@ -734,11 +741,15 @@ find_ref_custom (GitgRef *first, GitgRef *second)
 }
 
 static GitgRef *
-add_ref(GitgRepository *self, gchar const *sha1, gchar const *name)
+add_ref (GitgRepository *self, gchar const *sha1, gchar const *name)
 {
-	GitgRef *ref = gitg_ref_new(sha1, name);
-	GSList *refs = (GSList *)g_hash_table_lookup(self->priv->refs, 
-	                                             gitg_ref_get_hash(ref));
+	GitgRef *ref = gitg_ref_new (sha1, name);
+	GSList *refs = (GSList *)g_hash_table_lookup (self->priv->refs,
+	                                              gitg_ref_get_hash (ref));
+
+	g_hash_table_insert (self->priv->ref_names,
+	                     (gpointer)gitg_ref_get_name (ref),
+	                     ref);
 
 	if (refs == NULL)
 	{
@@ -1098,8 +1109,15 @@ initialize_bindings(GitgRepository *repository)
 static void
 gitg_repository_init(GitgRepository *object)
 {
-	object->priv = GITG_REPOSITORY_GET_PRIVATE(object);
-	object->priv->hashtable = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, NULL);
+	object->priv = GITG_REPOSITORY_GET_PRIVATE (object);
+
+	object->priv->hashtable = g_hash_table_new (gitg_utils_hash_hash,
+	                                            gitg_utils_hash_equal);
+
+	object->priv->ref_pushes = g_hash_table_new (gitg_utils_hash_hash,
+	                                             gitg_utils_hash_equal);
+
+	object->priv->ref_names = g_hash_table_new (g_str_hash, g_str_equal);
 
 	object->priv->column_types[0] = GITG_TYPE_REVISION;
 	object->priv->column_types[1] = G_TYPE_STRING;
@@ -1747,6 +1765,101 @@ gitg_repository_get_remotes (GitgRepository *repository)
 	g_strfreev (lines);
 
 	return (gchar **)g_ptr_array_free (remotes, FALSE);
+}
+
+GSList const *
+gitg_repository_get_ref_pushes (GitgRepository *repository, GitgRef *ref)
+{
+	gpointer ret;
+	GitgRef *my_ref;
+
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
+
+	my_ref = g_hash_table_lookup (repository->priv->ref_names,
+	                              gitg_ref_get_name (ref));
+
+	if (!my_ref)
+	{
+		return NULL;
+	}
+
+	if (g_hash_table_lookup_extended (repository->priv->ref_pushes,
+	                                  my_ref,
+	                                  NULL,
+	                                  &ret))
+	{
+		return ret;
+	}
+
+	GitgConfig *config = gitg_config_new (repository);
+	gchar *escaped = g_regex_escape_string (gitg_ref_get_name (my_ref), -1);
+	gchar *value_regex = g_strdup_printf ("^%s:", escaped);
+
+	gchar *pushes = gitg_config_get_value_regex (config,
+	                                          "remote\\..*\\.push",
+	                                          value_regex);
+
+	g_free (escaped);
+	g_free (value_regex);
+
+	if (!pushes || !*pushes)
+	{
+		g_object_unref (config);
+		g_free (pushes);
+
+		g_hash_table_insert (repository->priv->ref_pushes,
+		                     my_ref,
+		                     NULL);
+
+		return NULL;
+	}
+
+	gchar **lines = g_strsplit (pushes, "\n", -1);
+	gchar **ptr = lines;
+
+	g_free (pushes);
+
+	GRegex *regex = g_regex_new ("remote\\.(.+?)\\.push\\s+.*:refs/heads/(.*)", 0, 0, NULL);
+	GSList *refs = NULL;
+
+	while (*ptr)
+	{
+		GMatchInfo *info = NULL;
+
+		if (g_regex_match (regex, *ptr, 0, &info))
+		{
+			gchar *remote = g_match_info_fetch (info, 1);
+			gchar *branch = g_match_info_fetch (info, 2);
+
+			gchar *rr = g_strconcat ("refs/remotes/", remote, "/", branch, NULL);
+
+			GitgRef *remref = g_hash_table_lookup (repository->priv->ref_names,
+			                                       rr);
+
+			g_free (rr);
+			g_free (remote);
+			g_free (branch);
+
+			if (remref)
+			{
+				refs = g_slist_prepend (refs, remref);
+			}
+		}
+
+		g_match_info_free (info);
+		++ptr;
+	}
+
+	g_object_unref (config);
+	g_strfreev (lines);
+
+	refs = g_slist_reverse (refs);
+
+	g_hash_table_insert (repository->priv->ref_pushes,
+	                     my_ref,
+	                     refs);
+
+	return refs;
 }
 
 gboolean

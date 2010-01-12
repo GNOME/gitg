@@ -1954,16 +1954,64 @@ get_tracked_ref (GitgWindow *window, GitgRef *branch, gchar **retremote, gchar *
 	{
 		*retbranch = g_strdup (merge + 11);
 	}
+	else
+	{
+		*retbranch = NULL;
+	}
 
 	g_free (merge);
 }
 
+static gboolean
+repository_has_ref (GitgWindow *window, gchar const *remote, gchar const *branch)
+{
+	GSList *refs = gitg_repository_get_refs (window->priv->repository);
+	gchar *combined = g_strconcat (remote, "/", branch, NULL);
+
+	while (refs)
+	{
+		GitgRef *r = (GitgRef *)refs->data;
+
+		if (gitg_ref_get_ref_type (r) == GITG_REF_TYPE_REMOTE &&
+		    strcmp (gitg_ref_get_shortname (r), combined) == 0)
+		{
+			g_free (combined);
+			return TRUE;
+		}
+
+		refs = g_slist_next (refs);
+	}
+
+	g_free (combined);
+	return FALSE;
+}
+
 static void
-add_push_action (GitgWindow *window, GtkActionGroup *group, gchar const *name, gchar const *remote, gchar const *branch)
+add_push_action (GitgWindow *window,
+                 GtkActionGroup *group,
+                 gchar const *remote,
+                 gchar const *branch)
 {
 	gchar *acname = g_strconcat ("Push", remote, branch, "Action", NULL);
-	GtkAction *pushac = gtk_action_new (acname, name, NULL, NULL);
+	gchar *name;
 
+	if (gtk_action_group_get_action (group, acname) != NULL)
+	{
+		/* No need for twice the same */
+		g_free (acname);
+		return;
+	}
+
+	if (repository_has_ref (window, remote, branch))
+	{
+		name = g_strconcat (remote, "/", branch, NULL);
+	}
+	else
+	{
+		name = g_strconcat (remote, "/", branch, " (", _("new"), ")", NULL);
+	}
+
+	GtkAction *pushac = gtk_action_new (acname, name, NULL, NULL);
 	gtk_action_group_add_action (group, pushac);
 
 	gchar *nm = g_strconcat ("Push", remote, branch, NULL);
@@ -1989,30 +2037,10 @@ add_push_action (GitgWindow *window, GtkActionGroup *group, gchar const *name, g
 		              "activate",
 		              G_CALLBACK (on_push_activated),
 		              window);
-}
 
-static gboolean
-repository_has_ref (GitgWindow *window, gchar const *remote, GitgRef *ref)
-{
-	GSList *refs = gitg_repository_get_refs (window->priv->repository);
-	gchar *combined = g_strconcat (remote, "/", gitg_ref_get_shortname (ref), NULL);
-
-	while (refs)
-	{
-		GitgRef *r = (GitgRef *)refs->data;
-
-		if (gitg_ref_get_ref_type (r) == GITG_REF_TYPE_REMOTE &&
-		    strcmp (gitg_ref_get_shortname (r), combined) == 0)
-		{
-			g_free (combined);
-			return TRUE;
-		}
-
-		refs = g_slist_next (refs);
-	}
-
-	g_free (combined);
-	return FALSE;
+	g_free (acname);
+	g_free (name);
+	g_free (nm);
 }
 
 static void
@@ -2169,47 +2197,50 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 		/* Get the tracked remote of this ref (if any) */
 		gchar *remote = NULL;
 		gchar *branch = NULL;
-		gchar *tracked = NULL;
-
-		gchar **remotes = gitg_repository_get_remotes (window->priv->repository);
-		gchar **ptr = remotes;
 
 		get_tracked_ref (window, ref, &remote, &branch);
 
 		if (remote)
 		{
-			tracked = g_strconcat (remote, "/", branch, NULL);
-			add_push_action (window, ac, tracked, remote, branch);
+			add_push_action (window,
+			                 ac,
+			                 remote,
+			                 branch ? branch : gitg_ref_get_shortname (ref));
+
+			g_free (remote);
+			g_free (branch);
 		}
+
+		GSList const *ref_pushes = gitg_repository_get_ref_pushes (window->priv->repository,
+		                                                           ref);
+
+		/* Get configured ref pushes */
+		while (ref_pushes)
+		{
+			GitgRef *push_ref = ref_pushes->data;
+
+			add_push_action (window,
+			                 ac,
+			                 gitg_ref_get_prefix (push_ref),
+			                 gitg_ref_get_local_name (push_ref));
+
+			ref_pushes = g_slist_next (ref_pushes);
+		}
+
+		gchar **remotes = gitg_repository_get_remotes (window->priv->repository);
+		gchar **ptr = remotes;
 
 		while (*ptr)
 		{
-			if (!tracked || !g_str_has_prefix (tracked, *ptr))
-			{
-				gchar *name;
-
-				if (repository_has_ref (window, *ptr, ref))
-				{
-					name = g_strconcat (*ptr, "/", gitg_ref_get_shortname (ref), NULL);
-				}
-				else
-				{
-					name = g_strconcat (*ptr, "/", gitg_ref_get_shortname (ref), " (", _("new"), ")", NULL);
-				}
-
-				add_push_action (window, ac, name, *ptr, gitg_ref_get_shortname (ref));
-
-				g_free (name);
-			}
+			add_push_action (window,
+			                 ac,
+			                 *ptr,
+			                 gitg_ref_get_shortname (ref));
 
 			++ptr;
 		}
 
-		g_free (tracked);
 		g_strfreev (remotes);
-
-		g_free (remote);
-		g_free (branch);
 	}
 
 	gtk_ui_manager_ensure_update (window->priv->menus_ui_manager);
