@@ -1613,13 +1613,14 @@ gitg_repository_get_remotes (GitgRepository *repository)
 	GitgConfig *config = gitg_config_new (repository);
 	gchar *ret = gitg_config_get_value_regex (config, "remote\\..*\\.url");
 
-	gchar **remotes = g_malloc (sizeof (gchar *));
-	remotes[0] = NULL;
+	GPtrArray *remotes = g_ptr_array_new ();
 
 	if (!ret)
 	{
+		g_ptr_array_add (remotes, NULL);
 		g_object_unref (config);
-		return remotes;
+
+		return (gchar **)g_ptr_array_free (remotes, FALSE);
 	}
 
 	gchar **lines = g_strsplit(ret, "\n", -1);
@@ -1636,17 +1637,18 @@ gitg_repository_get_remotes (GitgRepository *repository)
 		{
 			gchar *name = g_match_info_fetch (info, 1);
 
-			remotes = g_realloc (ret, sizeof(gchar *) * (++num + 1));
-			remotes[num - 1] = name;
+			g_ptr_array_add (remotes, name);
 		}
 
 		g_match_info_free (info);
 		++ptr;
 	}
 
-	remotes[num] = NULL;
+	/* NULL terminate */
+	g_ptr_array_add (remotes, NULL);
 	g_object_unref (config);
-	return remotes;
+
+	return (gchar **)g_ptr_array_free (remotes, FALSE);
 }
 
 gboolean
