@@ -1626,8 +1626,9 @@ gitg_repository_get_remotes (GitgRepository *repository)
 	gchar **lines = g_strsplit(ret, "\n", -1);
 	gchar **ptr = lines;
 
+	g_free (ret);
+
 	GRegex *regex = g_regex_new ("remote\\.(.+?)\\.url\\s+(.*)", 0, 0, NULL);
-	gint num = 0;
 
 	while (*ptr)
 	{
@@ -1647,6 +1648,7 @@ gitg_repository_get_remotes (GitgRepository *repository)
 	/* NULL terminate */
 	g_ptr_array_add (remotes, NULL);
 	g_object_unref (config);
+	g_strfreev (lines);
 
 	return (gchar **)g_ptr_array_free (remotes, FALSE);
 }
