@@ -343,9 +343,8 @@ remove_remote_branch (GitgWindow *window,
 		return NULL;
 	}
 
-	gchar *local = gitg_ref_get_local_name (ref);
+	gchar const *local = gitg_ref_get_local_name (ref);
 	gchar *rm = g_strconcat (":", local, NULL);
-	g_free (local);
 
 	GitgRunner *ret;
 	gchar *message = g_strdup_printf ("Removing remote branch `%s'", name);
@@ -983,7 +982,7 @@ checkout_remote_branch (GitgWindow *window,
 
 	GitgRepository *repository = gitg_window_get_repository (window);
 	gchar const *name = gitg_ref_get_shortname (ref);
-	gchar *local = gitg_ref_get_local_name (ref);
+	gchar const *local = gitg_ref_get_local_name (ref);
 	gboolean ret;
 
 	if (!gitg_repository_commandv (repository, 
@@ -1010,7 +1009,6 @@ checkout_remote_branch (GitgWindow *window,
 		ret = TRUE;
 	}
 
-	g_free (local);
 	return ret;
 }
 
@@ -1412,7 +1410,7 @@ gitg_branch_actions_push (GitgWindow *window,
 	g_free (message);
 
 	gchar const *prefix = gitg_ref_get_prefix (dest);
-	gchar *local = gitg_ref_get_local_name (dest);
+	gchar const *local = gitg_ref_get_local_name (dest);
 	gchar const *name = gitg_ref_get_shortname (source);
 
 	gchar *spec = g_strconcat (name, ":", local, NULL);
@@ -1434,7 +1432,6 @@ gitg_branch_actions_push (GitgWindow *window,
 	                    NULL);
 
 	g_free (message);
-	g_free (local);
 	g_free (spec);
 
 	return ret;

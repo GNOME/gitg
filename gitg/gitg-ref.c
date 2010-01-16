@@ -216,7 +216,7 @@ gitg_ref_set_state (GitgRef      *ref,
 	ref->state = state;
 }
 
-gchar *
+gchar const *
 gitg_ref_get_local_name (GitgRef *ref)
 {
 	gchar const *shortname = gitg_ref_get_shortname (ref);
@@ -224,11 +224,11 @@ gitg_ref_get_local_name (GitgRef *ref)
 
 	if (prefix && g_str_has_prefix (shortname, prefix))
 	{
-		return g_strdup (shortname + strlen(prefix) + 1);
+		return shortname + strlen(prefix) + 1;
 	}
 	else
 	{
-		return g_strdup (shortname);
+		return shortname;
 	}
 }
 

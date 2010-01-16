@@ -62,7 +62,7 @@ gchar const 	*gitg_ref_get_name				(GitgRef      *ref);
 gchar const 	*gitg_ref_get_shortname			(GitgRef      *ref);
 gchar const 	*gitg_ref_get_prefix			(GitgRef      *ref);
 
-gchar           *gitg_ref_get_local_name 		(GitgRef      *ref);
+gchar const     *gitg_ref_get_local_name 		(GitgRef      *ref);
 
 GitgRefState     gitg_ref_get_state             (GitgRef      *ref);
 void			 gitg_ref_set_state				(GitgRef      *ref,

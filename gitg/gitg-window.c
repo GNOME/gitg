@@ -2298,7 +2298,7 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 
 	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_REMOTE)
 	{
-		gchar *local = gitg_ref_get_local_name (ref);
+		gchar const *local = gitg_ref_get_local_name (ref);
 
 		if (!has_local_ref (window, local))
 		{
@@ -2313,7 +2313,6 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 			gtk_action_set_visible (checkout, FALSE);
 		}
 
-		g_free (local);
 		g_object_set (remove, "label", _("Remove remote branch"), NULL);
 		gtk_action_set_visible (rename, FALSE);
 	}
