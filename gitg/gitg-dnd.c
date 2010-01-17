@@ -49,6 +49,7 @@ typedef struct
 
 	guint scroll_timeout;
 	gchar *xds_destination;
+	gchar *xds_filename;
 } GitgDndData;
 
 #define GITG_DND_DATA_KEY "GitgDndDataKey"
@@ -433,7 +434,7 @@ begin_drag (GtkWidget   *widget,
 				                 (guchar *) filename,
 				                 strlen (filename));
 
-			g_free (filename);
+			data->xds_filename = filename;
 
 			icon = create_revision_drag_icon (tree_view, revision);
 
@@ -815,7 +816,8 @@ get_xds_filename (GdkDragContext *context)
 }
 
 static gboolean
-has_direct_save (GdkDragContext *context)
+has_direct_save (GitgDndData    *data,
+                 GdkDragContext *context)
 {
 	gboolean ret;
 
@@ -825,7 +827,7 @@ has_direct_save (GdkDragContext *context)
 	}
 
 	gchar *filename = get_xds_filename (context);
-	ret = filename && *filename;
+	ret = filename && *filename && g_strcmp0 (data->xds_filename, filename) != 0;
 	g_free (filename);
 
 	return ret;
@@ -846,7 +848,7 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 
 	GitgRepository *repository = GITG_REPOSITORY (gtk_tree_view_get_model (GTK_TREE_VIEW (widget)));
 
-	if (has_direct_save (context))
+	if (has_direct_save (data, context))
 	{
 		gchar *destination = get_xds_filename (context);
 
@@ -943,6 +945,12 @@ gitg_drag_source_end_cb (GtkTreeView    *tree_view,
 			
 			g_free (data->xds_destination);
 			data->xds_destination = NULL;
+		}
+
+		if (data->xds_filename != NULL)
+		{
+			g_free (data->xds_filename);
+			data->xds_filename = NULL;
 		}
 	}
 }
