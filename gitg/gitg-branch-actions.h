@@ -44,6 +44,8 @@ gboolean gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar c
 
 GitgRunner *gitg_branch_actions_cherry_pick (GitgWindow *window, GitgRevision *revision, GitgRef *dest);
 
+GitgRunner *gitg_branch_actions_format_patch (GitgWindow *window, GitgRevision *revision, gchar const *destination);
+
 G_END_DECLS
 
 #endif /* __GITG_BRANCH_ACTIONS_H__ */

@@ -1775,3 +1775,119 @@ gitg_branch_actions_cherry_pick (GitgWindow   *window,
 
 	return ret;
 }
+
+typedef struct
+{
+	GitgRevision *revision;
+	gchar *destination;
+	GOutputStream *stream;
+} FormatPatchInfo;
+
+static FormatPatchInfo *
+format_patch_info_new (GitgRevision *revision, gchar const *destination, GOutputStream *stream)
+{
+	FormatPatchInfo *ret = g_slice_new0 (FormatPatchInfo);
+
+	ret->revision = gitg_revision_ref (revision);
+	ret->destination = g_strdup (destination);
+	ret->stream = stream;
+
+	return ret;
+}
+
+static void
+format_patch_info_free (FormatPatchInfo *info)
+{
+	gitg_revision_unref (info->revision);
+	g_free (info->destination);
+
+	g_object_unref (info->stream);
+
+	g_slice_free (FormatPatchInfo, info);
+}
+
+static void
+on_format_patch_result (GitgWindow   *window,
+                        GitgProgress  progress,
+                        gpointer      data)
+{
+	FormatPatchInfo *info = (FormatPatchInfo *)data;
+
+	if (progress == GITG_PROGRESS_ERROR)
+	{
+		gchar const *message;
+
+		message_dialog (window,
+			            GTK_MESSAGE_ERROR,
+			            _("Failed to generate format-patch"),
+			            NULL,
+			            NULL,
+	                    NULL);
+	}
+
+	format_patch_info_free (info);
+}
+
+static void
+on_format_patch_update (GitgRunner       *runner,
+                        gchar           **lines,
+                        FormatPatchInfo  *info)
+{
+	while (lines && *lines)
+	{
+		g_output_stream_write_all (info->stream, *lines, strlen (*lines), NULL, NULL, NULL);
+		g_output_stream_write_all (info->stream, "\n", 1, NULL, NULL, NULL);
+		++lines;
+	}
+}
+
+GitgRunner *
+gitg_branch_actions_format_patch (GitgWindow     *window,
+                                  GitgRevision   *revision,
+                                  gchar const    *destination)
+{
+	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (revision != NULL, NULL);
+	g_return_val_if_fail (destination != NULL, NULL);
+
+	GitgRunner *ret;
+	GitgRepository *repository = gitg_window_get_repository (window);
+
+	GFile *file = g_file_new_for_uri (destination);
+	GFileOutputStream *stream = g_file_create (file, 0, NULL, NULL);
+	g_object_unref (file);
+
+	if (!stream)
+	{
+		return NULL;
+	}
+
+	gchar *sha1 = gitg_revision_get_sha1 (revision);
+	gchar *message;
+
+	message = g_strdup_printf (_("Generating format-patch for <%s>"),
+	                           gitg_revision_get_subject (revision));
+
+	FormatPatchInfo *info = format_patch_info_new (revision, destination, G_OUTPUT_STREAM (stream));
+
+	ret = run_progress (window,
+	                    _("Format patch"),
+	                    message,
+	                    on_format_patch_result,
+	                    info,
+	                    "format-patch",
+	                    "-1",
+	                    "--stdout",
+	                    sha1,
+	                    NULL);
+
+	if (ret)
+	{
+		g_signal_connect (ret, "update", G_CALLBACK (on_format_patch_update), info);
+	}
+
+	g_free (sha1);
+	g_free (message);
+
+	return ret;
+}

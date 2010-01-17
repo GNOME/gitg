@@ -58,6 +58,8 @@ void gitg_window_show_commit(GitgWindow *window);
 GitgRepository *gitg_window_get_repository(GitgWindow *window);
 void gitg_window_set_select_on_load (GitgWindow *window, gchar const *selection);
 
+gboolean gitg_window_add_branch_action (GitgWindow *window, GitgRunner *runner);
+
 G_END_DECLS
 
 #endif /* __GITG_WINDOW_H__ */

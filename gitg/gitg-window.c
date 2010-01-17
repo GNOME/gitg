@@ -123,8 +123,8 @@ on_branch_action_runner_end (GitgRunner *runner, gboolean cancelled, GitgWindow 
 	g_object_unref (runner);
 }
 
-static gboolean
-add_branch_action (GitgWindow *window, GitgRunner *runner)
+gboolean
+gitg_window_add_branch_action (GitgWindow *window, GitgRunner *runner)
 {
 	if (runner != NULL && gitg_runner_running (runner))
 	{
@@ -550,7 +550,7 @@ on_refs_dnd (GitgRef *source, GitgRef *dest, gboolean dropped, GitgWindow *windo
 	if (source_type == GITG_REF_TYPE_BRANCH &&
 	    dest_type == GITG_REF_TYPE_REMOTE)
 	{
-		ret = add_branch_action (window, gitg_branch_actions_push (window, source, dest));
+		ret = gitg_window_add_branch_action (window, gitg_branch_actions_push (window, source, dest));
 	}
 	else if (source_type == GITG_REF_TYPE_STASH)
 	{
@@ -608,8 +608,8 @@ on_revision_dnd (GitgRevision *source,
 		return FALSE;
 	}
 
-	return add_branch_action (window,
-	                          gitg_branch_actions_cherry_pick (window, source, dest));
+	return gitg_window_add_branch_action (window,
+	                                      gitg_branch_actions_cherry_pick (window, source, dest));
 }
 
 static void
@@ -1769,8 +1769,8 @@ on_push_activated (GtkAction *action, GitgWindow *window)
 	gchar const *branch = g_object_get_data (G_OBJECT (action),
 	                                         DYNAMIC_ACTION_DATA_BRANCH_KEY);
 
-	add_branch_action (window,
-	                   gitg_branch_actions_push_remote (window, window->priv->popup_refs[0], remote, branch));
+	gitg_window_add_branch_action (window,
+	                               gitg_branch_actions_push_remote (window, window->priv->popup_refs[0], remote, branch));
 }
 
 static void
@@ -1779,9 +1779,10 @@ on_rebase_activated (GtkAction *action, GitgWindow *window)
 	GitgRef *dest = g_object_get_data (G_OBJECT (action),
 	                                   DYNAMIC_ACTION_DATA_KEY);
 
-	add_branch_action (window, gitg_branch_actions_rebase (window,
-	                                                       window->priv->popup_refs[0],
-	                                                       dest));
+	gitg_window_add_branch_action (window,
+	                               gitg_branch_actions_rebase (window,
+	                                                           window->priv->popup_refs[0],
+	                                                           dest));
 }
 
 static void
@@ -1790,9 +1791,10 @@ on_merge_activated (GtkAction *action, GitgWindow *window)
 	GitgRef *dest = g_object_get_data (G_OBJECT (action),
 	                                   DYNAMIC_ACTION_DATA_KEY);
 
-	add_branch_action (window, gitg_branch_actions_merge (window,
-	                                                      dest,
-	                                                      window->priv->popup_refs[0]));
+	gitg_window_add_branch_action (window,
+	                               gitg_branch_actions_merge (window,
+	                                                          dest,
+	                                                          window->priv->popup_refs[0]));
 }
 
 static void
@@ -2271,9 +2273,10 @@ on_cherry_pick_activated (GtkAction *action, GitgWindow *window)
 	GitgRef *ref = g_object_get_data (G_OBJECT (action),
 	                                  DYNAMIC_ACTION_DATA_KEY);
 
-	add_branch_action (window, gitg_branch_actions_cherry_pick (window,
-	                                                            rev,
-	                                                            ref));
+	gitg_window_add_branch_action (window,
+	                               gitg_branch_actions_cherry_pick (window,
+	                                                               rev,
+	                                                               ref));
 
 	gitg_revision_unref (rev);
 
@@ -2468,17 +2471,19 @@ on_rebase_branch_action_activate (GtkAction *action, GitgWindow *window)
 		source = 0;
 	}
 
-	add_branch_action (window, gitg_branch_actions_rebase (window,
-	                                                       window->priv->popup_refs[source],
-	                                                       window->priv->popup_refs[!source]));
+	gitg_window_add_branch_action (window,
+	                               gitg_branch_actions_rebase (window,
+	                                                           window->priv->popup_refs[source],
+	                                                           window->priv->popup_refs[!source]));
 }
 
 void
 on_merge_branch_action_activate (GtkAction *action, GitgWindow *window)
 {
-	add_branch_action (window, gitg_branch_actions_merge (window,
-	                                                       window->priv->popup_refs[0],
-	                                                       window->priv->popup_refs[1]));
+	gitg_window_add_branch_action (window,
+	                               gitg_branch_actions_merge (window,
+	                                                          window->priv->popup_refs[0],
+	                                                          window->priv->popup_refs[1]));
 }
 
 typedef struct

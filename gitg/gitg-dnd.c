@@ -3,6 +3,8 @@
 #include "gitg-cell-renderer-path.h"
 #include "gitg-utils.h"
 #include <string.h>
+#include "gitg-window.h"
+#include "gitg-branch-actions.h"
 
 enum
 {
@@ -905,32 +907,6 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 }
 
 static void
-format_patch (GtkTreeView *tree_view,
-              GitgDndData *data)
-{
-	GitgRepository *repository;
-
-	repository = GITG_REPOSITORY (gtk_tree_view_get_model (tree_view));
-	gchar *sha1 = gitg_revision_get_sha1 (data->revision);
-
-	/* FIXME: this is all sync and bad... */
-	gchar **ret = gitg_repository_command_with_outputv (repository, NULL,
-	                                                    "format-patch",
-	                                                    "-1",
-	                                                    "--stdout",
-	                                                    sha1,
-	                                                    NULL);
-
-	gchar *content = g_strjoinv ("\n", ret);
-	g_strfreev (ret);
-
-	g_file_set_contents (data->xds_destination, content, -1, NULL);
-
-	g_free (sha1);
-	g_free (content);
-}
-
-static void
 gitg_drag_source_end_cb (GtkTreeView    *tree_view,
                          GdkDragContext *context,
                          GitgDndData    *data)
@@ -942,8 +918,12 @@ gitg_drag_source_end_cb (GtkTreeView    *tree_view,
 		if (data->xds_destination != NULL)
 		{
 			/* Do extract it there then */
-			format_patch (tree_view, data);
-			
+			GitgWindow *window = GITG_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (data->tree_view)));
+			gitg_window_add_branch_action (window,
+			                               gitg_branch_actions_format_patch (window,
+			                                                                 data->revision,
+			                                                                 data->xds_destination));
+
 			g_free (data->xds_destination);
 			data->xds_destination = NULL;
 		}
