@@ -594,7 +594,7 @@ get_patch_header(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter const 
 		GtkTextIter lineend = begin;
 		gtk_text_iter_forward_line(&lineend);
 
-		gchar *text = gtk_text_buffer_get_text(buffer, &begin, &lineend, FALSE);
+		gchar *text = gtk_text_buffer_get_text(buffer, &begin, &lineend, TRUE);
 
 		if (g_str_has_prefix(text, "+++ "))
 		{
@@ -612,7 +612,7 @@ get_patch_header(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter const 
 	if (!foundstart || !foundend)
 		return NULL;
 
-	return gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
+	return gtk_text_buffer_get_text(buffer, &begin, &end, TRUE);
 }
 
 static gchar *
@@ -631,7 +631,7 @@ get_patch_contents(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter cons
 		GtkTextIter lineend = end;
 		gtk_text_iter_forward_to_line_end(&lineend);
 
-		gchar *text = gtk_text_buffer_get_text(buffer, &end, &lineend, FALSE);
+		gchar *text = gtk_text_buffer_get_text(buffer, &end, &lineend, TRUE);
 		gboolean isend = g_str_has_prefix(text, "@@") || g_str_has_prefix(text, "diff --git ");
 		g_free(text);
 
