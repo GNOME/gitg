@@ -48,16 +48,12 @@
                         <property name="model">list_store_remotes</property>
                         <property name="rules_hint">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="tree_view_remotes_column_icon">
+                          <object class="GtkTreeViewColumn" id="tree_view_remotes_column_name">
+                            <property name="title" translatable="yes">Name</property>
                             <child>
                               <object class="GtkCellRendererPixbuf" id="tree_view_remotes_renderer_icon">
                               </object>
                             </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkTreeViewColumn" id="tree_view_remotes_column_name">
-                            <property name="title" translatable="yes">Name</property>
                             <child>
                               <object class="GtkCellRendererText" id="tree_view_remotes_renderer_name">
                                 <property name="editable">True</property>

@@ -425,8 +425,8 @@ create_repository_dialog (GitgWindow *window)
 	repository_dialog->priv->button_fetch_remote = GTK_BUTTON(gtk_builder_get_object(b, "button_fetch_remote"));
 	repository_dialog->priv->image_fetch_remote = GTK_IMAGE(gtk_builder_get_object(b, "image_fetch_remote"));
 
+	GObject *column = gtk_builder_get_object(b, "tree_view_remotes_column_name");
 	GObject *renderer = gtk_builder_get_object(b, "tree_view_remotes_renderer_icon");
-	GObject *column = gtk_builder_get_object(b, "tree_view_remotes_column_icon");
 
 	gtk_tree_view_column_set_cell_data_func (GTK_TREE_VIEW_COLUMN (column),
 	                                         GTK_CELL_RENDERER (renderer),
