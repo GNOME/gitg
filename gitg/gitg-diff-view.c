@@ -617,7 +617,7 @@ line_renderer_data_func (GtkSourceGutter *gutter,
 
 	ensure_scan (view, line_number);
 
-	if (!*current)
+	if (!*current || view->priv->lines_previous_line + 1 != line_number)
 	{
 		*current = find_current_region (view, line_number);
 
@@ -629,6 +629,8 @@ line_renderer_data_func (GtkSourceGutter *gutter,
 			                      view->priv->lines_counters);
 		}
 	}
+
+	view->priv->lines_previous_line = line_number;
 
 	if (*current &&
 	    (*current)->type == GITG_DIFF_ITER_TYPE_HUNK &&
