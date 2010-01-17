@@ -889,6 +889,7 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 			gchar *treeish = revision_to_treeish (repository, data->revision);
 
 			gtk_selection_data_set (selection, selection->target, 8, treeish, strlen (treeish));
+			g_free (treeish);
 		}
 		break;
 		case DRAG_TARGET_URI:
