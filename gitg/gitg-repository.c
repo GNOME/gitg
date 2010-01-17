@@ -1215,6 +1215,8 @@ gitg_repository_reload(GitgRepository *repository)
 	g_return_if_fail(repository->priv->path != NULL);
 
 	gitg_runner_cancel(repository->priv->loader);
+
+	repository->priv->load_stage = LOAD_STAGE_NONE;
 	gitg_repository_clear(repository);
 
 	load_refs(repository);

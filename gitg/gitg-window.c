@@ -50,10 +50,6 @@
 
 #define GITG_WINDOW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_WINDOW, GitgWindowPrivate))
 
-static void on_repository_row_inserted (GitgRepository *repository,
-                                        GtkTreePath    *path,
-                                        GtkTreeIter    *iter,
-                                        GitgWindow     *window);
 enum
 {
 	COLUMN_BRANCHES_NAME,
@@ -102,7 +98,7 @@ struct _GitgWindowPrivate
 	GitgRef *popup_refs[2];
 
 	GList *branch_actions;
-	gchar *select_on_load;
+	Hash select_on_load;
 };
 
 static gboolean on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window);
@@ -142,27 +138,9 @@ gitg_window_add_branch_action (GitgWindow *window, GitgRunner *runner)
 }
 
 static void
-remove_select_on_load (GitgWindow *window)
-{
-	if (!window->priv->select_on_load || !window->priv->repository)
-	{
-		return;
-	}
-
-	g_signal_handlers_disconnect_by_func (window->priv->repository,
-	                                      G_CALLBACK (on_repository_row_inserted),
-	                                      window);
-
-	g_free (window->priv->select_on_load);
-	window->priv->select_on_load = NULL;
-}
-
-static void
 gitg_window_finalize(GObject *object)
 {
 	GitgWindow *self = GITG_WINDOW(object);
-
-	remove_select_on_load (self);
 
 	g_timer_destroy(self->priv->load_timer);
 	gdk_cursor_unref(self->priv->hand);
@@ -197,7 +175,19 @@ on_selection_changed(GtkTreeSelection *selection, GitgWindow *window)
 
 	if (revision)
 	{
+		if (gitg_repository_get_loaded (window->priv->repository))
+		{
+			memcpy (window->priv->select_on_load, gitg_revision_get_hash (revision), HASH_BINARY_SIZE);
+		}
+
 		gitg_revision_unref (revision);
+	}
+	else
+	{
+		if (gitg_repository_get_loaded (window->priv->repository))
+		{
+			memset (window->priv->select_on_load, 0, HASH_BINARY_SIZE);
+		}
 	}
 }
 
@@ -323,7 +313,7 @@ goto_hash(GitgWindow *window, gchar const *hash)
 
 	path = gtk_tree_model_get_path(GTK_TREE_MODEL(window->priv->repository), &iter);
 
-	gtk_tree_view_scroll_to_cell(window->priv->tree_view, path, NULL, FALSE, 0, 0);
+	gtk_tree_view_scroll_to_cell(window->priv->tree_view, path, NULL, TRUE, 0.5, 0);
 	gtk_tree_path_free(path);
 }
 
@@ -845,31 +835,6 @@ gitg_window_init(GitgWindow *self)
 }
 
 static void
-on_repository_row_inserted (GitgRepository *repository,
-                            GtkTreePath    *path,
-                            GtkTreeIter    *iter,
-                            GitgWindow     *window)
-{
-	GitgRevision *revision;
-	gchar const *hash;
-
-	gtk_tree_model_get (GTK_TREE_MODEL (repository), iter, 0, &revision, -1);
-	hash = gitg_revision_get_hash (revision);
-
-	if (gitg_utils_hash_equal (hash, window->priv->select_on_load))
-	{
-		/* Select this row */
-		GtkTreeSelection *selection = gtk_tree_view_get_selection (window->priv->tree_view);
-		gtk_tree_selection_select_path (selection, path);
-		gtk_tree_view_scroll_to_cell(window->priv->tree_view, path, NULL, FALSE, 0, 0);
-
-		remove_select_on_load (window);
-	}
-
-	gitg_revision_unref (revision);
-}
-
-static void
 on_repository_loaded (GitgRepository *repository, GitgWindow *window)
 {
 	gchar *msg = g_strdup_printf(_("Loaded %d revisions in %.2fs"),
@@ -881,7 +846,12 @@ on_repository_loaded (GitgRepository *repository, GitgWindow *window)
 	g_free(msg);
 	gdk_window_set_cursor(GTK_WIDGET(window->priv->tree_view)->window, NULL);
 
-	remove_select_on_load (window);
+	Hash hash = {0,};
+
+	if (memcmp (window->priv->select_on_load, hash, HASH_BINARY_SIZE) != 0)
+	{
+		goto_hash (window, window->priv->select_on_load);
+	}
 }
 
 static void
@@ -913,14 +883,9 @@ gitg_window_set_select_on_load (GitgWindow  *window,
 
 	gchar *resolved = gitg_repository_parse_ref (window->priv->repository, selection);
 
-	if (!resolved || strlen (resolved) != HASH_SHA_SIZE)
+	if (resolved && strlen (resolved) == HASH_SHA_SIZE)
 	{
-		remove_select_on_load (window);
-	}
-	else
-	{
-		g_free (window->priv->select_on_load);
-		window->priv->select_on_load = gitg_utils_sha1_to_hash_new (resolved);
+		gitg_utils_sha1_to_hash (resolved, window->priv->select_on_load);
 	}
 
 	g_free (resolved);
@@ -1352,6 +1317,8 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		window->priv->repository = NULL;
 
 		gitg_repository_dialog_close ();
+
+		memset (window->priv->select_on_load, 0, HASH_BINARY_SIZE);
 	}
 
 	gboolean haspath = create_repository(window, path, usewd);
@@ -1389,14 +1356,6 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		                  "loaded",
 		                  G_CALLBACK (on_repository_loaded),
 		                  window);
-
-		if (window->priv->select_on_load)
-		{
-			g_signal_connect_after (window->priv->repository,
-			                        "row-inserted",
-			                        G_CALLBACK (on_repository_row_inserted),
-			                        window);
-		}
 
 		clear_branches_combo(window);
 
