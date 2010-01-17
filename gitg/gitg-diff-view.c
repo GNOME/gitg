@@ -839,9 +839,19 @@ gitg_diff_iter_set_visible(GitgDiffIter *iter, gboolean visible)
 	if (visible)
 	{
 		gtk_text_buffer_remove_tag(view->priv->current_buffer, view->priv->invisible_tag, &start, &end);
+
+		if (region->type == GITG_DIFF_ITER_TYPE_HEADER)
+		{
+			hide_header_details (view, region);
+		}
 	}
 	else
 	{
+		if (region->type == GITG_DIFF_ITER_TYPE_HEADER)
+		{
+			gtk_text_buffer_remove_tag (view->priv->current_buffer, view->priv->subheader_tag, &start, &end);
+		}
+
 		gtk_text_buffer_apply_tag(view->priv->current_buffer, view->priv->invisible_tag, &start, &end);
 	}
 }
