@@ -644,11 +644,10 @@ on_button_add_remote_clicked (GtkButton *button, GitgRepositoryDialog *dialog)
 
 		path = gtk_tree_model_get_path (GTK_TREE_MODEL (dialog->priv->list_store_remotes), &iter);
 
-		gtk_tree_view_set_cursor_on_cell (dialog->priv->tree_view_remotes,
-		                                  path,
-		                                  gtk_tree_view_get_column (dialog->priv->tree_view_remotes, 0),
-		                                  NULL,
-		                                  TRUE);
+		gtk_tree_view_set_cursor (dialog->priv->tree_view_remotes,
+		                          path,
+		                          gtk_tree_view_get_column (dialog->priv->tree_view_remotes, COLUMN_NAME),
+		                          TRUE);
 
 		gtk_tree_path_free (path);
 	}
