@@ -290,3 +290,20 @@ gitg_revision_get_lane(GitgRevision *revision)
 {
 	return (GitgLane *)g_slist_nth_data(revision->lanes, revision->mylane);
 }
+
+gchar *
+gitg_revision_get_format_patch_name (GitgRevision *revision)
+{
+	gchar *ret = g_strdup (revision->subject);
+	gchar *ptr = ret;
+
+	do
+	{
+		if (g_utf8_get_char (ptr) == ' ')
+		{
+			*ptr = '-';
+		}
+	} while (*(ptr = g_utf8_next_char (ptr)));
+
+	return ret;
+}

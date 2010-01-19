@@ -336,21 +336,10 @@ create_revision_drag_icon (GtkTreeView  *tree_view,
 static gchar *
 generate_format_patch_filename (GitgRevision *revision)
 {
-	gchar *subject = g_strdup (gitg_revision_get_subject (revision));
-	gchar *ptr = subject;
-	gchar *filename;
+	gchar *name = gitg_revision_get_format_patch_name (revision);
+	gchar *filename = g_strdup_printf ("0001-%s.patch", name);
 
-	do
-	{
-		if (g_utf8_get_char (ptr) == ' ')
-		{
-			*ptr = '-';
-		}
-	} while (*(ptr = g_utf8_next_char (ptr)));
-	
-	filename = g_strdup_printf ("0001-%s.patch", subject);
-	g_free (subject);
-
+	g_free (name);
 	return filename;
 }
 

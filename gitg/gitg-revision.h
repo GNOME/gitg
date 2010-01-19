@@ -66,6 +66,8 @@ char gitg_revision_get_sign(GitgRevision *revision);
 GitgRevision *gitg_revision_ref(GitgRevision *revision);
 void gitg_revision_unref(GitgRevision *revision);
 
+gchar *gitg_revision_get_format_patch_name (GitgRevision *revision);
+
 G_END_DECLS
 
 #endif /* __GITG_REVISION_H__ */

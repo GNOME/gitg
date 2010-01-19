@@ -2353,7 +2353,6 @@ popup_revision (GitgWindow *window, GdkEventButton *event)
 
 			gtk_action_set_visible (squash, FALSE);
 			gtk_action_set_visible (tag, TRUE);
-			gtk_action_set_visible (cherry_pick, TRUE);
 		}
 		else if (consecutive_revisions (window, rows))
 		{
@@ -2361,7 +2360,6 @@ popup_revision (GitgWindow *window, GdkEventButton *event)
 
 			gtk_action_set_visible (squash, TRUE);
 			gtk_action_set_visible (tag, FALSE);
-			gtk_action_set_visible (cherry_pick, FALSE);
 		}
 	}
 
@@ -2522,7 +2520,115 @@ on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
 	}
 }
 
+typedef struct
+{
+	GitgWindow *window;
+	GList *revisions;
+} FormatPatchInfo;
 
+static void
+on_format_patch_response (GtkDialog       *dialog,
+                          gint             response,
+                          FormatPatchInfo *info)
+{
+	if (response == GTK_RESPONSE_ACCEPT)
+	{
+		if (!info->revisions->next)
+		{
+			gchar *uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
+			gitg_window_add_branch_action (info->window,
+			                               gitg_branch_actions_format_patch (info->window,
+			                                                                 info->revisions->data,
+			                                                                 uri));
+			g_free (uri);
+		}
+		else
+		{
+			/* TODO: implement once multiple selection is realized */
+		}
+	}
+
+	g_list_foreach (info->revisions, (GFunc)gitg_revision_unref, NULL);
+	g_list_free (info->revisions);
+
+	g_slice_free (FormatPatchInfo, info);
+
+	gtk_widget_destroy (GTK_WIDGET (dialog));
+}
+
+void
+on_revision_format_patch_activate (GtkAction *action, GitgWindow *window)
+{
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+
+	selection = gtk_tree_view_get_selection (window->priv->tree_view);
+	GList *rows = gtk_tree_selection_get_selected_rows (selection, &model);
+
+	GtkWidget *dialog;
+
+	if (!rows->next)
+	{
+		GtkTreeIter iter;
+		GitgRevision *revision;
+
+		gtk_tree_model_get_iter (model, &iter, (GtkTreePath *)rows->data);
+		gtk_tree_model_get (model, &iter, 0, &revision, -1);
+
+		/* Single one, pick filename */
+		dialog = gtk_file_chooser_dialog_new (_("Save format patch"),
+		                                      GTK_WINDOW (window),
+		                                      GTK_FILE_CHOOSER_ACTION_SAVE,
+		                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+		                                      GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+		                                      NULL);
+
+		gchar *name = gitg_revision_get_format_patch_name (revision);
+		gchar *filename = g_strdup_printf ("0001-%s.patch", name);
+
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), filename);
+		g_free (filename);
+		g_free (name);
+
+		gitg_revision_unref (revision);
+	}
+	else
+	{
+		/* TODO: Implement selecting folder once multiple selection is realized */
+	}
+
+	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog),
+	                                     gitg_repository_get_path (window->priv->repository));
+
+	FormatPatchInfo *info = g_slice_new (FormatPatchInfo);
+	info->window = window;
+	info->revisions = NULL;
+
+	GList *item;
+
+	for (item = rows; item; item = g_list_next (item))
+	{
+		GtkTreeIter iter;
+		GitgRevision *revision;
+
+		gtk_tree_model_get_iter (model, &iter, (GtkTreePath *)rows->data);
+		gtk_tree_model_get (model, &iter, 0, &revision, -1);
+
+		info->revisions = g_list_prepend (info->revisions, revision);
+	}
+
+	info->revisions = g_list_reverse (info->revisions);
+
+	g_signal_connect (dialog,
+	                  "response",
+	                  G_CALLBACK (on_format_patch_response),
+	                  info);
+
+	gtk_widget_show (dialog);
+
+	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free (rows);
+}
 
 void
 on_revision_tag_activate (GtkAction *action, GitgWindow *window)

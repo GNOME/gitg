@@ -106,6 +106,12 @@
           </object>
         </child>
         <child>
+          <object class="GtkAction" id="FormatPatchAction">
+            <property name="label" translatable="yes">Format patch</property>
+            <signal name="activate" handler="on_revision_format_patch_activate"/>
+          </object>
+        </child>
+        <child>
           <object class="GtkAction" id="SquashAction">
             <property name="label">Squash revisions</property>
             <signal name="activate" handler="on_revision_squash_activate"/>
@@ -147,6 +153,7 @@
         <menu name="CherryPick" action="CherryPickAction">
           <placeholder name="Placeholder"/>
         </menu>
+        <menuitem action="FormatPatchAction"/>
         <menuitem action="SquashAction"/>
       </popup>
     </ui>
