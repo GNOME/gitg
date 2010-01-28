@@ -1,14 +1,16 @@
+# Slovenian translation of gitg.
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
+#
 # Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&component=gitg\n"
-"POT-Creation-Date: 2009-10-12 18:54+0000\n"
-"PO-Revision-Date: 2010-01-23 15:46+0100\n"
-"Last-Translator: Andrej Žnidaršič <andrej.znidarsic@gmail.com>\n"
+"POT-Creation-Date: 2010-01-23 18:48+0000\n"
+"PO-Revision-Date: 2010-01-28 08:57+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,9 +26,9 @@ msgstr "Brskalnik git skladišč"
 
 #. Translators: this is the application name as in g_set_application_name
 #: ../data/gitg.desktop.in.in.h:2
-#: ../gitg/gitg.c:179
-#: ../gitg/gitg-window.c:1017
-#: ../gitg/gitg-window.c:1030
+#: ../gitg/gitg.c:181
+#: ../gitg/gitg-window.c:1238
+#: ../gitg/gitg-window.c:1251
 #: ../gitg/gitg-branch-actions.c:146
 #: ../gitg/gitg-branch-actions.c:199
 #: ../gitg/gitg-window.ui.h:18
@@ -43,27 +45,65 @@ msgstr "Filtriraj predelave med iskanjem"
 
 #: ../data/gitg.schemas.in.h:3
 msgid "Setting that indicates when an inactive lane should be collapsed. Valid values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
-msgstr ""
+msgstr "Nastavitev, ki določa kdaj naj bo nedejavna vrstica zložena. Veljavne vrednosti so med 0 - 4, kjer vrednost 0 določa zgodaj' in vrednosti 4 'pozno'."
 
 #: ../data/gitg.schemas.in.h:4
+msgid "Setting that indicates whether to show the history in topological order."
+msgstr "Nastavitev določi ali naj bo zgodovina prikazana v topološkem redu."
+
+#: ../data/gitg.schemas.in.h:5
+msgid "Setting that sets the orientation layout of the main view."
+msgstr "To nastavi usmeritev razporeditve glavnega pogleda."
+
+#: ../data/gitg.schemas.in.h:6
+msgid "Show History in Topological Order"
+msgstr "Pokaži zgodovino v topološkem redu"
+
+#: ../data/gitg.schemas.in.h:7
+msgid "Show Main View in Vertical Layout"
+msgstr "Pokaži glavni pogled v navpični razporeditvi"
+
+#: ../data/gitg.schemas.in.h:8
 msgid "Show Right Margin in Commit Message View"
 msgstr "Pokaži desni rob v pogledu sporočil uveljavitev"
 
-#: ../data/gitg.schemas.in.h:5
-#, fuzzy
+#: ../data/gitg.schemas.in.h:9
 msgid "Show a right margin indicator in the commit message view. This can be used to easily see where to break the commit message at a particular column."
-msgstr "Prikaz XXXX desnega roba v pogledu sporočila uveljavitev. To je mogoče uporabiti za enostaven ogled, kje zlomiti sporočilo uveljavitve v določenem stolpcu."
+msgstr "Prikaz določila desnega roba v pogledu sporočila uveljavitev. Možnost omogoča enostaven pogled za lažji prelom besedila sporočila uveljavitve v določenem stolpcu."
 
-#: ../data/gitg.schemas.in.h:6
+#: ../data/gitg.schemas.in.h:10
 msgid "The column at which the right margin is shown if the right-margin preference is set to TRUE."
 msgstr "Stolpec na katerem je prikazan desni rob, v primeru da je možnost desnega robu izbrana."
 
-#: ../data/gitg.schemas.in.h:7
-#, fuzzy
-msgid "When to Collapse Inactive Lanes"
-msgstr "Kdaj naj bodo nedejavne XXX zložene"
+#: ../data/gitg.schemas.in.h:11
+msgid "The command to handle GITG scheme URLs"
+msgstr "Ukaz za upravljanje z URL-ji sheme GITG"
 
-#: ../data/gitg.schemas.in.h:8
+#: ../data/gitg.schemas.in.h:12
+msgid "The command to handle GITG scheme URLs."
+msgstr "Ukaz za upravljanje z URL-ji sheme GITG."
+
+#: ../data/gitg.schemas.in.h:13
+msgid "When to Collapse Inactive Lanes"
+msgstr "Kdaj naj se zložijo nedejavne vrstice"
+
+#: ../data/gitg.schemas.in.h:14
+msgid "Whether command to handle GITG scheme URLs is enabled"
+msgstr "Ali je ukaz za upravljanje URL-jev sheme GITG omogočen"
+
+#: ../data/gitg.schemas.in.h:15
+msgid "Whether command to handle GITG scheme URLs is enabled."
+msgstr "Ali je ukaz za upravljanje URL-jev sheme GITG omogočen."
+
+#: ../data/gitg.schemas.in.h:16
+msgid "Whether command to handle GITG scheme URLs needs a terminal"
+msgstr "Ali ukaz za upravljanje URL-jev sheme GITG potrebuje terminal"
+
+#: ../data/gitg.schemas.in.h:17
+msgid "Whether command to handle GITG scheme URLs needs a terminal."
+msgstr "Ali ukaz za upravljanje URL-jev sheme GITG potrebuje terminal."
+
+#: ../data/gitg.schemas.in.h:18
 msgid "Whether searching filters the revisions in the history view instead of jumping to the first match."
 msgstr "Ali iskanje v pogledu zgodovine filtrira predelave namesto skoka na prvo skladanje."
 
@@ -75,7 +115,11 @@ msgstr "Pokaži različico programa"
 msgid "Start gitg in commit mode"
 msgstr "Zagon gitg v načinu uveljavitev"
 
-#: ../gitg/gitg.c:63
+#: ../gitg/gitg.c:54
+msgid "Select commit after loading the repository"
+msgstr "Izbor uveljavite po nalaganju skladišča"
+
+#: ../gitg/gitg.c:64
 msgid "- git repository viewer"
 msgstr "- pregledovalnik git skladišč"
 
@@ -86,7 +130,7 @@ msgstr "Vsebine datoteke ni mogoče prikazati kot besedilo"
 
 #: ../gitg/gitg-commit-view.c:1437
 msgid "You must first stage some changes before committing"
-msgstr ""
+msgstr "Najprej je treba pripraviti spremembe, preden jih je mogoče uveljaviti."
 
 #: ../gitg/gitg-commit-view.c:1445
 msgid "Please enter a commit message before committing"
@@ -112,17 +156,15 @@ msgstr "Ali ste prepričani, da želite povrniti te spremembe?"
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr "Povrnitev sprememb je trajna in je ni mogoče razveljaviti"
 
-#: ../gitg/gitg-repository.c:591
-#, fuzzy
+#: ../gitg/gitg-repository.c:606
 msgid "Staged changes"
-msgstr "Shrani spremembe"
+msgstr "Spremembe v pripravljenosti"
 
-#: ../gitg/gitg-repository.c:593
-#, fuzzy
+#: ../gitg/gitg-repository.c:608
 msgid "Unstaged changes"
-msgstr "Shrani spremembe"
+msgstr "Spremembe počiščene pripravljenosti"
 
-#: ../gitg/gitg-repository.c:1155
+#: ../gitg/gitg-repository.c:1235
 msgid "Not a valid git repository"
 msgstr "Ni veljavno skladišče git"
 
@@ -130,61 +172,70 @@ msgstr "Ni veljavno skladišče git"
 msgid "(Empty)"
 msgstr "(Prazno)"
 
-#: ../gitg/gitg-window.c:423
+#: ../gitg/gitg-window.c:430
 msgid "Select branch"
 msgstr "Izbor veje"
 
-#: ../gitg/gitg-window.c:485
+#: ../gitg/gitg-window.c:493
 #, c-format
 msgid "Push local branch <%s> to remote branch <%s>"
 msgstr "Objavi krajevno vejo <%s> na oddaljeno vejo <%s>"
 
-#: ../gitg/gitg-window.c:492
+#: ../gitg/gitg-window.c:500
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
 msgstr "Združi/ponovno vzpostavi krajevno vejo <%s> z/na krajevni veji <%s>"
 
-#: ../gitg/gitg-window.c:499
+#: ../gitg/gitg-window.c:507
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
 msgstr "Združi/ponovno vzpostavi krajevno vejo <%s> z/na oddaljeni veji <%s>"
 
-#: ../gitg/gitg-window.c:506
+#: ../gitg/gitg-window.c:514
 #, c-format
 msgid "Apply stash to local branch <%s>"
 msgstr "Uporabi zalogo na krajevni veji <%s>"
 
-#: ../gitg/gitg-window.c:774
-msgid "Begin loading repository"
-msgstr "Začni nalaganje skladišča"
+#: ../gitg/gitg-window.c:576
+#, c-format
+msgid "Cherry-pick revision on <%s>"
+msgstr "Uveljavitev z odbiro na <%s>"
 
-#: ../gitg/gitg-window.c:783
+#: ../gitg/gitg-window.c:840
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "Naloženih %d predelav v %.2fs"
 
-#: ../gitg/gitg-window.c:794
+#: ../gitg/gitg-window.c:860
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Nalaganje %d predelav ..."
 
-#: ../gitg/gitg-window.c:803
+#: ../gitg/gitg-window.c:869
 msgid "Could not find git repository"
 msgstr "Skladišča git ni mogoče najti"
 
-#: ../gitg/gitg-window.c:995
+#: ../gitg/gitg-window.c:1171
+msgid "Local branches"
+msgstr "Krajevne veje"
+
+#: ../gitg/gitg-window.c:1192
 msgid "All branches"
 msgstr "Vse veje"
 
-#: ../gitg/gitg-window.c:1206
+#: ../gitg/gitg-window.c:1267
+msgid "Begin loading repository"
+msgstr "Začni nalaganje skladišča"
+
+#: ../gitg/gitg-window.c:1451
 msgid "Open git repository"
 msgstr "Odpri skladišče git"
 
-#: ../gitg/gitg-window.c:1327
+#: ../gitg/gitg-window.c:1572
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg je pregledovalnik git skladišč za gtk+/GNOME"
 
-#: ../gitg/gitg-window.c:1328
+#: ../gitg/gitg-window.c:1573
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -216,51 +267,56 @@ msgstr ""
 "Foundation, Inc., 59 Temple Place - Suite 330,\n"
 "Boston, MA 02111-1307, USA."
 
-#: ../gitg/gitg-window.c:1790
+#: ../gitg/gitg-window.c:2040
 msgid "new"
 msgstr "novo"
 
-#: ../gitg/gitg-window.c:1898
-#: ../gitg/gitg-window.c:1937
+#: ../gitg/gitg-window.c:2148
+#: ../gitg/gitg-window.c:2187
 #, c-format
 msgid "New local branch <%s>"
 msgstr "Nova krajevna veja <%s>"
 
-#: ../gitg/gitg-window.c:1910
+#: ../gitg/gitg-window.c:2160
 #: ../gitg/gitg-branch-actions.c:316
 msgid "Remove remote branch"
 msgstr "Odstrani oddaljeno vejo"
 
-#: ../gitg/gitg-window.c:1915
+#: ../gitg/gitg-window.c:2165
 msgid "Checkout working copy"
 msgstr "Prevzemi delovno kopijo"
 
-#: ../gitg/gitg-window.c:1916
+#: ../gitg/gitg-window.c:2166
 msgid "Remove local branch"
 msgstr "Odstrani krajevno vejo"
 
-#: ../gitg/gitg-window.c:1918
+#: ../gitg/gitg-window.c:2168
 msgid "Rename local branch"
 msgstr "Preimenuj krajevno vejo"
 
-#: ../gitg/gitg-window.c:1926
+#: ../gitg/gitg-window.c:2176
 #: ../gitg/gitg-branch-actions.c:392
 msgid "Remove stash"
 msgstr "Odstrani zalogo"
 
-#: ../gitg/gitg-window.c:1932
+#: ../gitg/gitg-window.c:2182
 #: ../gitg/gitg-branch-actions.c:454
 #: ../gitg/gitg-branch-actions.c:456
 msgid "Remove tag"
 msgstr "Odstrani oznako"
 
-#: ../gitg/gitg-window.c:2107
+#: ../gitg/gitg-window.c:2484
 msgid "Not all fields are correctly filled in"
-msgstr "Vsa polja niso pravilno vnesena"
+msgstr "Vsa polja niso pravilno izpolnjena"
 
-#: ../gitg/gitg-window.c:2109
+#: ../gitg/gitg-window.c:2486
 msgid "Please make sure to fill in both the tag name and the commit message"
 msgstr "Prepričajte se, da boste izpolnili ime oznake in sporočilo uveljavitve"
+
+#. Single one, pick filename
+#: ../gitg/gitg-window.c:2579
+msgid "Save format patch"
+msgstr "Shrani obliko popravka"
 
 #: ../gitg/gitg-branch-actions.c:249
 #, c-format
@@ -295,7 +351,7 @@ msgid "This permanently removes the remote branch."
 msgstr "To trajno odstrani oddaljeno vejo."
 
 #: ../gitg/gitg-branch-actions.c:332
-#: ../gitg/gitg-menus.xml.h:9
+#: ../gitg/gitg-menus.xml.h:11
 msgid "Remove branch"
 msgstr "Preimenuj vejo"
 
@@ -309,7 +365,7 @@ msgstr "To trajno odstrani predmet zaloge"
 
 #: ../gitg/gitg-branch-actions.c:418
 msgid "Failed to remove stash"
-msgstr "Odstranitev zaloge je spodletela"
+msgstr "Odstranjevanje zaloge je spodletelo"
 
 #: ../gitg/gitg-branch-actions.c:419
 msgid "The stash item could not be successfully removed"
@@ -340,15 +396,15 @@ msgstr "To običajno pomeni, da veja s tem imenom že obstaja. Ali želite vejo 
 
 #: ../gitg/gitg-branch-actions.c:536
 msgid "Force rename"
-msgstr "Prisilno preimenuj"
+msgstr "Vsiljeno preimenuj"
 
 #: ../gitg/gitg-branch-actions.c:545
 #, c-format
 msgid "Branch <%s> could not be forcefully renamed"
-msgstr "Veje <%s> ni mogoče prisilno preimenovati"
+msgstr "Veje <%s> ni mogoče vsiljeno preimenovati"
 
 #: ../gitg/gitg-branch-actions.c:585
-#: ../gitg/gitg-preferences.ui.h:12
+#: ../gitg/gitg-preferences.ui.h:13
 #: ../gitg/gitg-repository.ui.h:6
 #: ../gitg/gitg-tag.ui.h:4
 msgid "Name:"
@@ -377,6 +433,7 @@ msgstr "Shranjevanje trenutnega stanja kazala je spodletelo"
 #: ../gitg/gitg-branch-actions.c:934
 #: ../gitg/gitg-branch-actions.c:1216
 #: ../gitg/gitg-branch-actions.c:1508
+#: ../gitg/gitg-branch-actions.c:1744
 #, c-format
 msgid "Failed to checkout local branch <%s>"
 msgstr "Prevzem krajevne veje <%s> je spodletel"
@@ -428,18 +485,22 @@ msgid "remote"
 msgstr "oddaljeno"
 
 #: ../gitg/gitg-branch-actions.c:1134
+#: ../gitg/gitg-branch-actions.c:1663
 msgid "The stashed changes have been stored to be reapplied manually"
 msgstr "Spremembe zaloge so bile shranjene za ročno ponovno uporabo"
 
 #: ../gitg/gitg-branch-actions.c:1139
+#: ../gitg/gitg-branch-actions.c:1668
 msgid "Failed to checkout previously checked out branch"
 msgstr "Prevzem predhodno prevzete veje je spodletel"
 
 #: ../gitg/gitg-branch-actions.c:1160
+#: ../gitg/gitg-branch-actions.c:1689
 msgid "Failed to reapply stash correctly"
 msgstr "Pravilna ponovna uporaba zaloge je spodletela"
 
 #: ../gitg/gitg-branch-actions.c:1161
+#: ../gitg/gitg-branch-actions.c:1690
 msgid "There might be unresolved conflicts in the working tree or index which you need to resolve manually"
 msgstr "Morda so v delovnem drevesu ali kazalu nerazrešeni spori, ki jih je potrebno razrešiti ročno"
 
@@ -451,7 +512,7 @@ msgstr "Ali ste prepričani, da želite združiti %s veje <%s> na %s veje <%s>?"
 #: ../gitg/gitg-branch-actions.c:1190
 #: ../gitg/gitg-branch-actions.c:1192
 #: ../gitg/gitg-branch-actions.c:1236
-#: ../gitg/gitg-menus.xml.h:4
+#: ../gitg/gitg-menus.xml.h:6
 msgid "Merge"
 msgstr "Združi"
 
@@ -472,7 +533,7 @@ msgstr "Ali ste prepričani, da želite ponovno vzpostaviti %s veje <%s> na %s v
 #: ../gitg/gitg-branch-actions.c:1267
 #: ../gitg/gitg-branch-actions.c:1269
 #: ../gitg/gitg-branch-actions.c:1319
-#: ../gitg/gitg-menus.xml.h:7
+#: ../gitg/gitg-menus.xml.h:9
 msgid "Rebase"
 msgstr "Ponovno vzpostavi"
 
@@ -482,7 +543,7 @@ msgstr "Ni mogoče ponovno vzpostaviti"
 
 #: ../gitg/gitg-branch-actions.c:1293
 msgid "There are still uncommitted changes in your working tree and you are trying to rebase a branch onto the currently checked out branch. Either remove, stash or commit your changes first and try again"
-msgstr "V vašem delovnem drevesu so še vedno neuveljavljene spremembe, vi pa poskušate vejo ponovno vzpostaviti na trenutno uveljavljeno vejo. Odstranite, založite ali uveljavite vaše spremembe in poskusite ponovno"
+msgstr "V vašem delovnem drevesu so še vedno neuveljavljene spremembe, vi pa poskušate vejo ponovno vzpostaviti na trenutno uveljavljeno vejo. Odstranite, založite ali uveljavite vaše spremembe in poskusite znova."
 
 #: ../gitg/gitg-branch-actions.c:1306
 #, c-format
@@ -496,7 +557,7 @@ msgstr "Objava krajevne veje <%s> na oddaljeno vejo <%s> je spodletela"
 
 #: ../gitg/gitg-branch-actions.c:1346
 msgid "This usually means that the remote branch could not be fast-forwarded. Try fetching the latest changes."
-msgstr "To ponavadi pomeni, da oddaljene veje ni mogoče hitro posredovati. Poskusite s pridobivanjem zadnjih sprememb."
+msgstr "To običajno pomeni, da oddaljene veje ni mogoče hitro posredovati. Poskusite s pridobivanjem zadnjih sprememb."
 
 #: ../gitg/gitg-branch-actions.c:1370
 #, c-format
@@ -558,6 +619,45 @@ msgstr "Predmeta oznake ni mogoče uspešno ustvariti"
 msgid "Failed to create tag"
 msgstr "Ustvarjanje oznake je spodletelo"
 
+#: ../gitg/gitg-branch-actions.c:1643
+#, c-format
+msgid "Failed to cherry-pick on <%s>"
+msgstr "Ni mogoče uveljaviti z odbiro na <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1710
+#, c-format
+msgid "Are you sure you want to cherry-pick that revision on <%s>?"
+msgstr "Ali ste prepričani, da želite uveljaviti z odbiro na <%s>?"
+
+#: ../gitg/gitg-branch-actions.c:1715
+#: ../gitg/gitg-branch-actions.c:1717
+#: ../gitg/gitg-branch-actions.c:1765
+msgid "Cherry-pick"
+msgstr "Odbiranje"
+
+#: ../gitg/gitg-branch-actions.c:1745
+msgid "The branch on which to cherry-pick could not be checked out"
+msgstr "Veje za odbiro ni mogoče prevzeti"
+
+#: ../gitg/gitg-branch-actions.c:1752
+#, c-format
+msgid "Cherry-picking on <%s>"
+msgstr "Uveljavljanje z odbiro na <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1822
+msgid "Failed to generate format-patch"
+msgstr "Ustvarjanje oblike popravka je spodletelo"
+
+#: ../gitg/gitg-branch-actions.c:1868
+#, c-format
+msgid "Generating format-patch for <%s>"
+msgstr "Ustvarjanje oblike popravka za <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1874
+#: ../gitg/gitg-menus.xml.h:5
+msgid "Format patch"
+msgstr "Oblikuj popravek"
+
 #: ../gitg/gitg-repository-dialog.c:173
 #: ../gitg/gitg-repository.ui.h:4
 msgid "Fetch"
@@ -594,9 +694,9 @@ msgid "Co_mmit message"
 msgstr "Sporočilo uve_ljavljana"
 
 #: ../gitg/gitg-window.ui.h:6
-#: ../gitg/gitg-preferences.ui.h:5
+#: ../gitg/gitg-preferences.ui.h:6
 msgid "Commit"
-msgstr "Uveljavitev"
+msgstr "Uveljavi"
 
 #: ../gitg/gitg-window.ui.h:7
 msgid "Context:"
@@ -636,7 +736,7 @@ msgstr "_Spremembe"
 
 #: ../gitg/gitg-window.ui.h:16
 msgid "_Staged"
-msgstr ""
+msgstr "_V pripravljenost"
 
 #: ../gitg/gitg-window.ui.h:17
 msgid "_Unstaged"
@@ -655,7 +755,7 @@ msgstr "Povrni"
 #: ../gitg/gitg-commit-menu.ui.h:3
 #: ../gitg/gitg-ui.xml.h:4
 msgid "Stage"
-msgstr ""
+msgstr "V pripravljenost"
 
 #: ../gitg/gitg-commit-menu.ui.h:4
 #: ../gitg/gitg-ui.xml.h:5
@@ -671,76 +771,85 @@ msgid "<b>History</b>"
 msgstr "<b>Zgodovina</b>"
 
 #: ../gitg/gitg-preferences.ui.h:3
+msgid "<b>Main</b>"
+msgstr "<b>Glavni</b>"
+
+#: ../gitg/gitg-preferences.ui.h:4
 #: ../gitg/gitg-repository.ui.h:1
 msgid "<b>User</b>"
 msgstr "<b>Uporabnik</b>"
 
-#: ../gitg/gitg-preferences.ui.h:4
-#, fuzzy
+#: ../gitg/gitg-preferences.ui.h:5
 msgid "Collapse inactive lanes"
-msgstr "Zloži nedejavne XXX "
+msgstr "Zloži nedejavne vrstice"
 
-#: ../gitg/gitg-preferences.ui.h:6
+#: ../gitg/gitg-preferences.ui.h:7
 #: ../gitg/gitg-repository.ui.h:2
 msgid "Configuration"
 msgstr "Nastavitev"
 
-#: ../gitg/gitg-preferences.ui.h:7
-msgid "Configure global git settings. This corresponds to the settings as stored in ~/.gitconfig. Repository specific settings can be configured at the repository properties."
-msgstr "Splošne git nastavitve. To ustreza nastavitvam, ki so shranjene v ~/.gitconfig. Nastavitve za določeno spletišče je mogoče spremeniti v lastnostnih skladišča."
-
 #: ../gitg/gitg-preferences.ui.h:8
+msgid "Configure global git settings. This corresponds to the settings as stored in ~/.gitconfig. Repository specific settings can be configured at the repository properties."
+msgstr "Splošne nastavitve git. To ustreza nastavitvam, ki so shranjene v ~/.gitconfig. Nastavitve za določeno spletišče je mogoče spremeniti v lastnostnih skladišča."
+
+#: ../gitg/gitg-preferences.ui.h:9
 msgid "Display right _margin"
 msgstr "Pokaži desni _rob"
 
-#: ../gitg/gitg-preferences.ui.h:9
+#: ../gitg/gitg-preferences.ui.h:10
 #: ../gitg/gitg-repository.ui.h:3
 msgid "E-mail:"
 msgstr "Elektronski naslov:"
 
-#: ../gitg/gitg-preferences.ui.h:10
+#: ../gitg/gitg-preferences.ui.h:11
 msgid "Early"
 msgstr "Zgodnje"
 
-#: ../gitg/gitg-preferences.ui.h:11
+#: ../gitg/gitg-preferences.ui.h:12
 msgid "Late"
 msgstr "Pozno"
 
-#: ../gitg/gitg-preferences.ui.h:13
+#: ../gitg/gitg-preferences.ui.h:14
 msgid "Preferences"
 msgstr "Možnosti"
 
-#: ../gitg/gitg-preferences.ui.h:14
+#: ../gitg/gitg-preferences.ui.h:15
 msgid "Preferences that apply to the commit view"
 msgstr "Možnosti uporabljene za pogled uveljavitev"
 
-#: ../gitg/gitg-preferences.ui.h:15
+#: ../gitg/gitg-preferences.ui.h:16
 msgid "Preferences that apply to the revision view"
 msgstr "Možnosti uporabljene za pogled predelav"
 
-#: ../gitg/gitg-preferences.ui.h:16
+#: ../gitg/gitg-preferences.ui.h:17
 msgid "Search filters revisions in the history view"
 msgstr "Iskanje predelav filtrov v ogledu zgodovine"
 
-#: ../gitg/gitg-preferences.ui.h:17
-#, fuzzy
-msgid "Show staged changes in history"
-msgstr "Pokaži predhodno stran zgodovine"
-
 #: ../gitg/gitg-preferences.ui.h:18
+msgid "Show history in topological order"
+msgstr "Pokaži zgodovino v topološkem redu"
+
+#: ../gitg/gitg-preferences.ui.h:19
+msgid "Show staged changes in history"
+msgstr "Pokaži spremembe v pripravljenosti"
+
+#: ../gitg/gitg-preferences.ui.h:20
 msgid "Show stash in history"
 msgstr "Pokaži zalogo v zgodovini"
 
-#: ../gitg/gitg-preferences.ui.h:19
-#, fuzzy
+#: ../gitg/gitg-preferences.ui.h:21
 msgid "Show unstaged changes in history"
-msgstr "Pokaži spremembe "
+msgstr "Pokaži spremembe počiščene pripravljenosti"
 
-#: ../gitg/gitg-preferences.ui.h:20
+#: ../gitg/gitg-preferences.ui.h:22
+msgid "Use vertical layout"
+msgstr "Uporaba navpične razporeditve"
+
+#: ../gitg/gitg-preferences.ui.h:23
 msgid "View"
 msgstr "Pogled"
 
-#: ../gitg/gitg-preferences.ui.h:21
+#: ../gitg/gitg-preferences.ui.h:24
 msgid "_Right margin at column:"
 msgstr "_Desni rob na stolpcu:"
 
@@ -750,7 +859,7 @@ msgstr "Ime"
 
 #: ../gitg/gitg-repository.ui.h:8
 msgid "Remotes"
-msgstr "Oddaljene"
+msgstr "Oddaljeno"
 
 #: ../gitg/gitg-repository.ui.h:9
 msgid "URL"
@@ -761,7 +870,7 @@ msgid "Create signed tag object"
 msgstr "Ustvari podpisan predmet oznake"
 
 #: ../gitg/gitg-tag.ui.h:2
-#: ../gitg/gitg-menus.xml.h:3
+#: ../gitg/gitg-menus.xml.h:4
 msgid "Create tag"
 msgstr "Ustvari oznako"
 
@@ -777,35 +886,39 @@ msgstr "Uporabi zalogo na ..."
 msgid "Checkout branch"
 msgstr "Prevzemi vejo"
 
-#: ../gitg/gitg-menus.xml.h:5
+#: ../gitg/gitg-menus.xml.h:3
+msgid "Cherry-pick on..."
+msgstr "Uveljavi z odbiro na ..."
+
+#: ../gitg/gitg-menus.xml.h:7
 msgid "Merge branch with..."
 msgstr "Združi vejo z ..."
 
-#: ../gitg/gitg-menus.xml.h:6
+#: ../gitg/gitg-menus.xml.h:8
 msgid "Push branch to..."
 msgstr "Objavi vejo na ..."
 
-#: ../gitg/gitg-menus.xml.h:8
+#: ../gitg/gitg-menus.xml.h:10
 msgid "Rebase branch onto..."
 msgstr "Ponovno vzpostavi vejo na ..."
 
-#: ../gitg/gitg-menus.xml.h:10
+#: ../gitg/gitg-menus.xml.h:12
 msgid "Rename branch"
 msgstr "Preimenuj vejo"
 
-#: ../gitg/gitg-menus.xml.h:11
+#: ../gitg/gitg-menus.xml.h:13
 msgid "_Author"
 msgstr "_Avtor"
 
-#: ../gitg/gitg-menus.xml.h:12
+#: ../gitg/gitg-menus.xml.h:14
 msgid "_Date"
 msgstr "_Datum"
 
-#: ../gitg/gitg-menus.xml.h:13
+#: ../gitg/gitg-menus.xml.h:15
 msgid "_Hash"
 msgstr "_Razpršilo"
 
-#: ../gitg/gitg-menus.xml.h:14
+#: ../gitg/gitg-menus.xml.h:16
 msgid "_Subject"
 msgstr "_Zadeva"
 
