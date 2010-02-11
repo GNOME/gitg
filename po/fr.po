@@ -6,14 +6,16 @@
 # Laurent Coudeur <laurentc@iol.ie>, 2009.
 # Bruno Brouard <annoa.b@gmail.com>, 2009.
 # Claude Paroz <claude@2xlibre.net>, 2009-2010.
+# Christophe Benz <christophe.benz@gmail.com>, 2010."
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-10 22:42+0100\n"
-"PO-Revision-Date: 2010-01-10 22:45+0100\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gitg&component=gitg\n"
+"POT-Creation-Date: 2010-01-28 10:22+0000\n"
+"PO-Revision-Date: 2010-02-11 10:56+0100\n"
+"Last-Translator: Christophe Benz <christophe.benz@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +27,7 @@ msgstr "Navigateur de dépôt git"
 
 #. Translators: this is the application name as in g_set_application_name
 #: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:181
-#: ../gitg/gitg-window.c:1270 ../gitg/gitg-window.c:1283
+#: ../gitg/gitg-window.c:1238 ../gitg/gitg-window.c:1251
 #: ../gitg/gitg-branch-actions.c:146 ../gitg/gitg-branch-actions.c:199
 #: ../gitg/gitg-window.ui.h:18
 msgid "gitg"
@@ -56,7 +58,8 @@ msgstr ""
 #: ../data/gitg.schemas.in.h:5
 msgid "Setting that sets the orientation layout of the main view."
 msgstr ""
-"Paramètre définissant l'orientation de la disposition de l'affichage principal."
+"Paramètre définissant l'orientation de la disposition de l'affichage "
+"principal."
 
 #: ../data/gitg.schemas.in.h:6
 msgid "Show History in Topological Order"
@@ -88,12 +91,12 @@ msgstr ""
 "droite est TRUE (vrai)."
 
 #: ../data/gitg.schemas.in.h:11
-msgid "The command to handle FEED scheme URLs."
-msgstr "La commande pour traiter les URL de type FEED."
-
-#: ../data/gitg.schemas.in.h:12
 msgid "The command to handle GITG scheme URLs"
 msgstr "La commande pour traiter les URL de type GITG"
+
+#: ../data/gitg.schemas.in.h:12
+msgid "The command to handle GITG scheme URLs."
+msgstr "La commande pour traiter les URL de type GITG."
 
 #: ../data/gitg.schemas.in.h:13
 msgid "When to Collapse Inactive Lanes"
@@ -128,19 +131,19 @@ msgstr ""
 "Indique si la recherche filtre les révisions dans la vue historique au lieu "
 "de sauter au premier résultat."
 
-#: ../gitg/gitg.c:53
+#: ../gitg/gitg.c:52
 msgid "Show the application's version"
 msgstr "Afficher la version de l'application"
 
-#: ../gitg/gitg.c:54
+#: ../gitg/gitg.c:53
 msgid "Start gitg in commit mode"
 msgstr "Démarrer gitg en mode commit"
 
-#: ../gitg/gitg.c:55
+#: ../gitg/gitg.c:54
 msgid "Select commit after loading the repository"
 msgstr "Sélectionner le commit après le chargement du dépôt"
 
-#: ../gitg/gitg.c:65
+#: ../gitg/gitg.c:64
 msgid "- git repository viewer"
 msgstr "- navigateur de dépôt git"
 
@@ -189,7 +192,7 @@ msgstr "Modifications présélectionnées"
 msgid "Unstaged changes"
 msgstr "Modifications dé-présélectionnées"
 
-#: ../gitg/gitg-repository.c:1233
+#: ../gitg/gitg-repository.c:1235
 msgid "Not a valid git repository"
 msgstr "Dépôt git non valide"
 
@@ -197,72 +200,72 @@ msgstr "Dépôt git non valide"
 msgid "(Empty)"
 msgstr "(Vide)"
 
-#: ../gitg/gitg-window.c:443
+#: ../gitg/gitg-window.c:430
 msgid "Select branch"
 msgstr "Sélectionner une branche"
 
-#: ../gitg/gitg-window.c:506
+#: ../gitg/gitg-window.c:493
 #, c-format
 msgid "Push local branch <%s> to remote branch <%s>"
 msgstr "Pousser la branche locale <%s> vers la branche distante <%s>"
 
-#: ../gitg/gitg-window.c:513
+#: ../gitg/gitg-window.c:500
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
 msgstr ""
 "Fusionner/rebaser la branche locale <%s> avec/sur la branche locale <%s>"
 
-#: ../gitg/gitg-window.c:520
+#: ../gitg/gitg-window.c:507
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
 msgstr ""
 "Fusionner/rebaser la branche locale <%s> avec/sur la branche distante <%s>"
 
-#: ../gitg/gitg-window.c:527
+#: ../gitg/gitg-window.c:514
 #, c-format
 msgid "Apply stash to local branch <%s>"
 msgstr "Appliquer la réserve à la branche locale <%s>"
 
-#: ../gitg/gitg-window.c:589
+#: ../gitg/gitg-window.c:576
 #, c-format
 msgid "Cherry-pick revision on <%s>"
 msgstr "Prélever une révision sur <%s>"
 
-#: ../gitg/gitg-window.c:878
+#: ../gitg/gitg-window.c:840
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%d révisions chargées en %.2f s"
 
-#: ../gitg/gitg-window.c:893
+#: ../gitg/gitg-window.c:860
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Chargement de %d révisions..."
 
-#: ../gitg/gitg-window.c:902
+#: ../gitg/gitg-window.c:869
 msgid "Could not find git repository"
 msgstr "Impossible de trouver le dépôt git"
 
-#: ../gitg/gitg-window.c:1203
+#: ../gitg/gitg-window.c:1171
 msgid "Local branches"
 msgstr "Branches locales"
 
-#: ../gitg/gitg-window.c:1224
+#: ../gitg/gitg-window.c:1192
 msgid "All branches"
 msgstr "Toutes les branches"
 
-#: ../gitg/gitg-window.c:1299
+#: ../gitg/gitg-window.c:1267
 msgid "Begin loading repository"
 msgstr "Début du chargement du dépôt"
 
-#: ../gitg/gitg-window.c:1487
+#: ../gitg/gitg-window.c:1451
 msgid "Open git repository"
 msgstr "Ouvrir un dépôt git"
 
-#: ../gitg/gitg-window.c:1608
+#: ../gitg/gitg-window.c:1572
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg est un navigateur de dépôt git utilisant gtk+/GNOME"
 
-#: ../gitg/gitg-window.c:1609
+#: ../gitg/gitg-window.c:1573
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -296,49 +299,54 @@ msgstr ""
 "Foundation, Inc., 59 Temple Place - Suite 330, \n"
 "Boston, MA 02111-1307, USA."
 
-#: ../gitg/gitg-window.c:2074
+#: ../gitg/gitg-window.c:2040
 msgid "new"
 msgstr "nouveau"
 
-#: ../gitg/gitg-window.c:2182 ../gitg/gitg-window.c:2221
+#: ../gitg/gitg-window.c:2148 ../gitg/gitg-window.c:2187
 #, c-format
 msgid "New local branch <%s>"
 msgstr "Nouvelle branche locale <%s>"
 
-#: ../gitg/gitg-window.c:2194 ../gitg/gitg-branch-actions.c:316
+#: ../gitg/gitg-window.c:2160 ../gitg/gitg-branch-actions.c:316
 msgid "Remove remote branch"
 msgstr "Supprimer la branche distante"
 
-#: ../gitg/gitg-window.c:2199
+#: ../gitg/gitg-window.c:2165
 msgid "Checkout working copy"
 msgstr "Extraire une copie de travail (checkout)"
 
-#: ../gitg/gitg-window.c:2200
+#: ../gitg/gitg-window.c:2166
 msgid "Remove local branch"
 msgstr "Supprimer la branche locale"
 
-#: ../gitg/gitg-window.c:2202
+#: ../gitg/gitg-window.c:2168
 msgid "Rename local branch"
 msgstr "Renommer la branche locale"
 
-#: ../gitg/gitg-window.c:2210 ../gitg/gitg-branch-actions.c:392
+#: ../gitg/gitg-window.c:2176 ../gitg/gitg-branch-actions.c:392
 msgid "Remove stash"
 msgstr "Supprimer la réserve"
 
-#: ../gitg/gitg-window.c:2216 ../gitg/gitg-branch-actions.c:454
+#: ../gitg/gitg-window.c:2182 ../gitg/gitg-branch-actions.c:454
 #: ../gitg/gitg-branch-actions.c:456
 msgid "Remove tag"
 msgstr "Supprimer l'étiquette"
 
-#: ../gitg/gitg-window.c:2517
+#: ../gitg/gitg-window.c:2484
 msgid "Not all fields are correctly filled in"
 msgstr "Tous les champs ne sont pas remplis correctement"
 
-#: ../gitg/gitg-window.c:2519
+#: ../gitg/gitg-window.c:2486
 msgid "Please make sure to fill in both the tag name and the commit message"
 msgstr ""
 "Veuillez vous assurer que le nom de l'étiquette et le message du commit "
 "soient tous les deux remplis"
+
+#. Single one, pick filename
+#: ../gitg/gitg-window.c:2579
+msgid "Save format patch"
+msgstr "Sauvegarder le correctif"
 
 #: ../gitg/gitg-branch-actions.c:249
 #, c-format
@@ -376,7 +384,7 @@ msgstr "Voulez-vous vraiment supprimer la branche <%s> distante ?"
 msgid "This permanently removes the remote branch."
 msgstr "Cela supprime de façon permanente la branche distante."
 
-#: ../gitg/gitg-branch-actions.c:332 ../gitg/gitg-menus.xml.h:10
+#: ../gitg/gitg-branch-actions.c:332 ../gitg/gitg-menus.xml.h:11
 msgid "Remove branch"
 msgstr "Supprimer la branche"
 
@@ -534,7 +542,7 @@ msgstr ""
 "Voulez-vous vraiment fusionner la branche %s <%s> sur la branche %s <%s> ?"
 
 #: ../gitg/gitg-branch-actions.c:1190 ../gitg/gitg-branch-actions.c:1192
-#: ../gitg/gitg-branch-actions.c:1236 ../gitg/gitg-menus.xml.h:5
+#: ../gitg/gitg-branch-actions.c:1236 ../gitg/gitg-menus.xml.h:6
 msgid "Merge"
 msgstr "Fusionner"
 
@@ -554,7 +562,7 @@ msgstr ""
 "Voulez-vous vraiment rebaser la branche %s <%s> sur la branche %s <%s> ?"
 
 #: ../gitg/gitg-branch-actions.c:1267 ../gitg/gitg-branch-actions.c:1269
-#: ../gitg/gitg-branch-actions.c:1319 ../gitg/gitg-menus.xml.h:8
+#: ../gitg/gitg-branch-actions.c:1319 ../gitg/gitg-menus.xml.h:9
 msgid "Rebase"
 msgstr "Rebaser"
 
@@ -680,6 +688,19 @@ msgstr "La branche sur laquelle prélever n'a pu être extraite"
 #, c-format
 msgid "Cherry-picking on <%s>"
 msgstr "Prélèvement en cours sur <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1822
+msgid "Failed to generate format-patch"
+msgstr "Impossible de générer le correctif"
+
+#: ../gitg/gitg-branch-actions.c:1868
+#, c-format
+msgid "Generating format-patch for <%s>"
+msgstr "Génération du correctif pour <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1874 ../gitg/gitg-menus.xml.h:5
+msgid "Format patch"
+msgstr "Formater le correctif"
 
 #: ../gitg/gitg-repository-dialog.c:173 ../gitg/gitg-repository.ui.h:4
 msgid "Fetch"
@@ -909,35 +930,35 @@ msgstr "Extraire une branche (checkout)"
 msgid "Cherry-pick on..."
 msgstr "Prélever un commit sur..."
 
-#: ../gitg/gitg-menus.xml.h:6
+#: ../gitg/gitg-menus.xml.h:7
 msgid "Merge branch with..."
 msgstr "Fusionner la branche avec..."
 
-#: ../gitg/gitg-menus.xml.h:7
+#: ../gitg/gitg-menus.xml.h:8
 msgid "Push branch to..."
 msgstr "Pousser la branche vers..."
 
-#: ../gitg/gitg-menus.xml.h:9
+#: ../gitg/gitg-menus.xml.h:10
 msgid "Rebase branch onto..."
 msgstr "Rebaser la branche sur..."
 
-#: ../gitg/gitg-menus.xml.h:11
+#: ../gitg/gitg-menus.xml.h:12
 msgid "Rename branch"
 msgstr "Renommer la branche"
 
-#: ../gitg/gitg-menus.xml.h:12
+#: ../gitg/gitg-menus.xml.h:13
 msgid "_Author"
 msgstr "_Auteur"
 
-#: ../gitg/gitg-menus.xml.h:13
+#: ../gitg/gitg-menus.xml.h:14
 msgid "_Date"
 msgstr "_Date"
 
-#: ../gitg/gitg-menus.xml.h:14
+#: ../gitg/gitg-menus.xml.h:15
 msgid "_Hash"
 msgstr "_Hash"
 
-#: ../gitg/gitg-menus.xml.h:15
+#: ../gitg/gitg-menus.xml.h:16
 msgid "_Subject"
 msgstr "_Sujet"
 
@@ -968,6 +989,9 @@ msgstr "_Dépôt"
 #: ../gitg/gitg-ui.xml.h:11
 msgid "_View"
 msgstr "_Affichage"
+
+#~ msgid "The command to handle FEED scheme URLs."
+#~ msgstr "La commande pour traiter les URL de type FEED."
 
 #~ msgid "Author"
 #~ msgstr "Auteur"
