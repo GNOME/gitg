@@ -1,5 +1,5 @@
 /*
- * gitg-color.h
+ * gitg-hash.h
  * This file is part of gitg - git repository viewer
  *
  * Copyright (C) 2009 - Jesse van den Kieboom
@@ -20,28 +20,22 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __GITG_COLOR_H__
-#define __GITG_COLOR_H__
+#ifndef __GITG_HASH_H__
+#define __GITG_HASH_H__
 
 #include <glib.h>
-#include <cairo.h>
 
-typedef struct _GitgColor			GitgColor;
+void gitg_hash_sha1_to_hash(gchar const *sha, gchar *hash);
+void gitg_hash_hash_to_sha1(gchar const *hash, gchar *sha);
 
-struct _GitgColor
-{
-	gulong ref_count;
-	gint8 index;
-};
+void gitg_hash_partial_sha1_to_hash (gchar const *sha, gint length, gchar *hash);
 
-void gitg_color_reset (void);
-void gitg_color_get (GitgColor *color, gdouble *r, gdouble *g, gdouble *b);
-void gitg_color_set_cairo_source (GitgColor *color, cairo_t *cr);
+gchar *gitg_hash_sha1_to_hash_new(gchar const *sha);
+gchar *gitg_hash_hash_to_sha1_new(gchar const *hash);
 
-GitgColor *gitg_color_next (void);
-GitgColor *gitg_color_next_index (GitgColor *color);
-GitgColor *gitg_color_ref (GitgColor *color);
-GitgColor *gitg_color_copy (GitgColor *color);
-GitgColor *gitg_color_unref (GitgColor *color);
+gchar *gitg_hash_partial_sha1_to_hash_new (gchar const *sha, gint length, gint *retlen);
 
-#endif /* __GITG_COLOR_H__ */
+guint gitg_hash_hash(gconstpointer v);
+gboolean gitg_hash_hash_equal(gconstpointer a, gconstpointer b);
+
+#endif /* __GITG_HASH_H__ */

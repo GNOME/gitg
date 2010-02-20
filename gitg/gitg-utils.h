@@ -25,54 +25,36 @@
 
 #include <glib.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
-#include <gio/gio.h>
+#include <gtksourceview/gtksourcelanguage.h>
 
-#include "gitg-repository.h"
-#include "gitg-revision.h"
+#include <libgitg/gitg-repository.h>
+#include <libgitg/gitg-revision.h>
 
-void gitg_utils_sha1_to_hash(gchar const *sha, gchar *hash);
-void gitg_utils_hash_to_sha1(gchar const *hash, gchar *sha);
-
-void gitg_utils_partial_sha1_to_hash (gchar const *sha, gint length, gchar *hash);
-
-gchar *gitg_utils_sha1_to_hash_new(gchar const *sha);
-gchar *gitg_utils_hash_to_sha1_new(gchar const *hash);
-
-gchar *gitg_utils_partial_sha1_to_hash_new (gchar const *sha, gint length, gint *retlen);
-
-GFile *gitg_utils_find_dot_git (GFile *location);
+gchar *gitg_utils_get_content_type(GFile *file);
+gboolean gitg_utils_can_display_content_type(gchar const *content_type);
+gchar *gitg_utils_guess_content_type(GtkTextBuffer *buffer);
 
 gboolean gitg_utils_export_files(GitgRepository *repository, GitgRevision *revision,
 gchar const *todir, gchar * const *paths);
 
-gchar *gitg_utils_convert_utf8(gchar const *str, gssize size);
-
-guint gitg_utils_hash_hash(gconstpointer v);
-gboolean gitg_utils_hash_equal(gconstpointer a, gconstpointer b);
-gint gitg_utils_null_length(gconstpointer *ptr);
-
-gchar *gitg_utils_get_content_type(GFile *file);
 GtkSourceLanguage *gitg_utils_get_language(gchar const *filename, gchar const *content_type);
-gboolean gitg_utils_can_display_content_type(gchar const *content_type);
-gchar *gitg_utils_guess_content_type(GtkTextBuffer *buffer);
+
+gchar *gitg_utils_get_monospace_font_name(void);
+void gitg_utils_set_monospace_font(GtkWidget *widget);
+
+GtkBuilder *gitg_utils_new_builder(gchar const *filename);
 
 gint gitg_utils_sort_names(gchar const *s1, gchar const *s2);
 
 void gitg_utils_menu_position_under_widget(GtkMenu *menu, gint *x, gint *y,	gboolean *push_in, gpointer user_data);
 void gitg_utils_menu_position_under_tree_view(GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data);
 
-gchar *gitg_utils_get_monospace_font_name (void);
-void gitg_utils_set_monospace_font(GtkWidget *widget);
+gchar *gitg_utils_rewrite_hunk_counters (gchar const *hunk, guint old_count, guint new_count);
 
-gchar *gitg_utils_timestamp_to_str(guint64 timestamp);
-
-GtkBuilder *gitg_utils_new_builder(gchar const *filename);
 GtkCellRenderer *gitg_utils_find_cell_at_pos (GtkTreeView *tree_view, GtkTreeViewColumn *column, GtkTreePath *path, gint x);
 
 void gitg_utils_restore_pane_position (GtkPaned *paned, gint position, gboolean reversed);
 
-gchar *gitg_utils_rewrite_hunk_counters (gchar const *hunk, guint old_count, guint new_count);
 void gitg_utils_rounded_rectangle (cairo_t *ctx, gdouble x, gdouble y, gdouble width, gdouble height, gdouble radius);
-
 
 #endif /* __GITG_UTILS_H__ */

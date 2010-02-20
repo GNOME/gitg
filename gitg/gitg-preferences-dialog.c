@@ -25,8 +25,8 @@
 #include "gitg-preferences.h"
 #include "gitg-data-binding.h"
 #include "gitg-utils.h"
-#include "gitg-config.h"
 
+#include <libgitg/gitg-config.h>
 #include <stdlib.h>
 #include <glib/gi18n.h>
 

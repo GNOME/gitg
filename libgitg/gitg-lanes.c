@@ -21,7 +21,7 @@
  */
 
 #include "gitg-lanes.h"
-#include "gitg-utils.h"
+#include "gitg-hash.h"
 #include <string.h>
 
 #define GITG_LANES_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_LANES, GitgLanesPrivate))
@@ -120,7 +120,7 @@ find_lane_by_hash(GitgLanes *lanes, gchar const *hash, gint8 *pos)
 	{
 		LaneContainer *container = (LaneContainer *)(item->data);
 
-		if (container && container->to && gitg_utils_hash_equal(container->to, hash))
+		if (container && container->to && gitg_hash_hash_equal(container->to, hash))
 		{
 			if (pos)
 				*pos = p;
@@ -246,7 +246,7 @@ static void
 gitg_lanes_init(GitgLanes *self)
 {
 	self->priv = GITG_LANES_GET_PRIVATE(self);
-	self->priv->collapsed = g_hash_table_new_full(gitg_utils_hash_hash, gitg_utils_hash_equal, NULL, (GDestroyNotify)collapsed_lane_free);
+	self->priv->collapsed = g_hash_table_new_full(gitg_hash_hash, gitg_hash_hash_equal, NULL, (GDestroyNotify)collapsed_lane_free);
 }
 
 GitgLanes *

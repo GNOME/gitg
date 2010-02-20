@@ -1,5 +1,5 @@
 /*
- * gitg-dnd.h
+ * gitg-color.h
  * This file is part of gitg - git repository viewer
  *
  * Copyright (C) 2009 - Jesse van den Kieboom
@@ -20,26 +20,28 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __GITG_DND_H__
-#define __GITG_DND_H__
+#ifndef __GITG_COLOR_H__
+#define __GITG_COLOR_H__
 
-#include <gtk/gtk.h>
-#include <libgitg/gitg-ref.h>
-#include <libgitg/gitg-revision.h>
+#include <glib.h>
+#include <cairo.h>
 
-G_BEGIN_DECLS
+typedef struct _GitgColor			GitgColor;
 
-typedef gboolean (*GitgDndCallback)(GitgRef *source, GitgRef *dest, gboolean dropped, gpointer callback_data);
-typedef gboolean (*GitgDndRevisionCallback)(GitgRevision *source, GitgRef *dest, gboolean dropped, gpointer callback_data);
+struct _GitgColor
+{
+	gulong ref_count;
+	gint8 index;
+};
 
-void gitg_dnd_enable (GtkTreeView *tree_view,
-                      GitgDndCallback callback,
-                      GitgDndRevisionCallback revision_callback,
-                      gpointer callback_data);
+void gitg_color_reset(void);
+void gitg_color_get(GitgColor *color, gdouble *r, gdouble *g, gdouble *b);
+void gitg_color_set_cairo_source(GitgColor *color, cairo_t *cr);
 
-void gitg_dnd_disable (GtkTreeView *tree_view);
+GitgColor *gitg_color_next(void);
+GitgColor *gitg_color_next_index(GitgColor *color);
+GitgColor *gitg_color_ref(GitgColor *color);
+GitgColor *gitg_color_copy(GitgColor *color);
+GitgColor *gitg_color_unref(GitgColor *color);
 
-G_END_DECLS
-
-#endif /* __GITG_DND_H__ */
-
+#endif /* __GITG_COLOR_H__ */

@@ -21,7 +21,7 @@
  */
 
 #include "gitg-ref.h"
-#include "gitg-utils.h"
+#include "gitg-hash.h"
 #include <string.h>
 
 typedef struct 
@@ -64,7 +64,7 @@ gitg_ref_new(gchar const *hash, gchar const *name)
 {
 	GitgRef *inst = g_slice_new0(GitgRef);
 
-	gitg_utils_sha1_to_hash(hash, inst->hash);
+	gitg_hash_sha1_to_hash(hash, inst->hash);
 	inst->name = g_strdup(name);
 
 	PrefixTypeMap map[] = {

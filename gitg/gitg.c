@@ -27,8 +27,8 @@
 #include <string.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gtksourceview/gtksourcestyleschememanager.h>
+#include <libgitg/gitg-debug.h>
 
-#include "gitg-debug.h"
 #include "gitg-window.h"
 #include "config.h"
 #include "gitg-settings.h"

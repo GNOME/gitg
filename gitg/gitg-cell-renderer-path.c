@@ -21,9 +21,10 @@
  */
 
 #include <math.h>
+#include <libgitg/gitg-lane.h>
+#include <libgitg/gitg-revision.h>
+
 #include "gitg-cell-renderer-path.h"
-#include "gitg-lane.h"
-#include "gitg-utils.h"
 #include "gitg-label-renderer.h"
 
 #define GITG_CELL_RENDERER_PATH_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_CELL_RENDERER_PATH, GitgCellRendererPathPrivate))

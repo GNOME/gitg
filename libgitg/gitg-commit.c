@@ -22,7 +22,6 @@
 
 #include "gitg-commit.h"
 #include "gitg-runner.h"
-#include "gitg-utils.h"
 #include "gitg-changed-file.h"
 #include "gitg-config.h"
 

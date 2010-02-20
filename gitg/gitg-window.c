@@ -24,13 +24,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <glib/gi18n.h>
+#include <libgitg/gitg-config.h>
+#include <libgitg/gitg-ref.h>
+#include <libgitg/gitg-runner.h>
+#include <libgitg/gitg-hash.h>
 
 #include "config.h"
 
+#include "gitg-data-binding.h"
 #include "gitg-dirs.h"
-#include "gitg-ref.h"
-#include "gitg-utils.h"
-#include "gitg-runner.h"
 #include "gitg-window.h"
 #include "gitg-revision-view.h"
 #include "gitg-revision-tree-view.h"
@@ -42,7 +44,7 @@
 #include "gitg-dnd.h"
 #include "gitg-branch-actions.h"
 #include "gitg-preferences.h"
-#include "gitg-config.h"
+#include "gitg-utils.h"
 
 #define DYNAMIC_ACTION_DATA_KEY "GitgDynamicActionDataKey"
 #define DYNAMIC_ACTION_DATA_REMOTE_KEY "GitgDynamicActionDataRemoteKey"
@@ -971,7 +973,7 @@ gitg_window_set_select_on_load (GitgWindow  *window,
 
 	if (resolved && strlen (resolved) == HASH_SHA_SIZE)
 	{
-		gitg_utils_sha1_to_hash (resolved, window->priv->select_on_load);
+		gitg_hash_sha1_to_hash (resolved, window->priv->select_on_load);
 	}
 
 	g_free (resolved);
@@ -1021,6 +1023,85 @@ parse_gitg_uri (GFile *file, GFile **work_tree, gchar **selection)
 }
 
 static gboolean
+convert_setting_to_inactive_max(GValue const *setting, GValue *value, gpointer userdata)
+{
+	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
+	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
+
+	gint s = g_value_get_int(setting);
+	g_value_set_int(value, 2 + s * 8);
+
+	return TRUE;
+}
+
+static gboolean
+convert_setting_to_inactive_collapse(GValue const *setting, GValue *value, gpointer userdata)
+{
+	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
+	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
+
+	gint s = g_value_get_int(setting);
+	g_value_set_int(value, 1 + s * 3);
+
+	return TRUE;
+}
+
+static gboolean
+convert_setting_to_inactive_gap(GValue const *setting, GValue *value, gpointer userdata)
+{
+	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
+	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
+
+	g_value_set_int(value, 10);
+
+	return TRUE;
+}
+
+static gboolean
+convert_setting_to_inactive_enabled(GValue const *setting, GValue *value, gpointer userdata)
+{
+	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_BOOLEAN), FALSE);
+	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_BOOLEAN), FALSE);
+
+	gboolean s = g_value_get_boolean(setting);
+	g_value_set_boolean(value, s);
+
+	return TRUE;
+}
+
+
+static void
+bind_repository(GitgWindow *window)
+{
+	GitgPreferences *preferences;
+
+	if (window->priv->repository == NULL)
+		return;
+
+	preferences = gitg_preferences_get_default();
+
+	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
+				   window->priv->repository, "inactive-max",
+				   convert_setting_to_inactive_max,
+				   window);
+
+	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
+				   window->priv->repository, "inactive-collapse",
+				   convert_setting_to_inactive_collapse,
+				   window);
+
+	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
+				   window->priv->repository, "inactive-gap",
+				   convert_setting_to_inactive_gap,
+				   window);
+
+	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes-active",
+	                           window->priv->repository, "inactive-enabled",
+	                           convert_setting_to_inactive_enabled,
+	                           window);
+}
+
+static gboolean
 create_repository (GitgWindow  *window,
                    GFile       *git_dir,
                    GFile       *work_tree,
@@ -1037,6 +1118,8 @@ create_repository (GitgWindow  *window,
 	{
 		gitg_window_set_select_on_load (window, selection);
 	}
+
+	bind_repository (window);
 
 	return window->priv->repository != NULL;
 }
@@ -1487,6 +1570,38 @@ gitg_window_load_repository (GitgWindow *window,
 	                        selection);
 }
 
+static GFile *
+find_dot_git (GFile *location)
+{
+	location = g_file_dup (location);
+
+	do
+	{
+		GFile *tmp;
+		gboolean exists;
+
+		tmp = g_file_get_child (location, ".git");
+		exists = g_file_query_exists (tmp, NULL);
+
+		if (exists)
+		{
+			g_object_unref (location);
+			location = tmp;
+
+			break;
+		}
+
+		g_object_unref (tmp);
+
+		tmp = g_file_get_parent (location);
+
+		g_object_unref (location);
+		location = tmp;
+	} while (location != NULL);
+
+	return location;
+}
+
 static gboolean
 load_repository_for_command_line (GitgWindow *window,
                                   gint argc,
@@ -1504,7 +1619,7 @@ load_repository_for_command_line (GitgWindow *window,
 
 		if (!parse_gitg_uri (first_arg, &work_tree, &sel))
 		{
-			git_dir = gitg_utils_find_dot_git (first_arg);
+			git_dir = find_dot_git (first_arg);
 		}
 
 		if (git_dir || (work_tree && g_file_query_exists (work_tree, NULL)))
@@ -1526,7 +1641,7 @@ load_repository_for_command_line (GitgWindow *window,
 		gchar *cwd = g_get_current_dir ();
 
 		GFile *file = g_file_new_for_path (cwd);
-		git_dir = gitg_utils_find_dot_git (file);
+		git_dir = find_dot_git (file);
 
 		g_free (cwd);
 		g_object_unref (file);

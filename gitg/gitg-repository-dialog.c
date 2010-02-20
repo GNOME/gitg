@@ -23,10 +23,10 @@
 #include <glib/gi18n.h>
 
 #include <stdlib.h>
+#include <libgitg/gitg-config.h>
 
 #include "gitg-repository-dialog.h"
 #include "gitg-utils.h"
-#include "gitg-config.h"
 
 void on_button_fetch_remote_clicked (GtkButton *button,
                                      GitgRepositoryDialog *dialog);

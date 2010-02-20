@@ -1,5 +1,5 @@
 /*
- * gitg-dnd.h
+ * gitg-convert.h
  * This file is part of gitg - git repository viewer
  *
  * Copyright (C) 2009 - Jesse van den Kieboom
@@ -20,26 +20,11 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __GITG_DND_H__
-#define __GITG_DND_H__
+#ifndef __GITG_CONVERT_H__
+#define __GITG_CONVERT_H__
 
-#include <gtk/gtk.h>
-#include <libgitg/gitg-ref.h>
-#include <libgitg/gitg-revision.h>
+#include <glib.h>
 
-G_BEGIN_DECLS
+gchar *gitg_convert_utf8(gchar const *str, gssize size);
 
-typedef gboolean (*GitgDndCallback)(GitgRef *source, GitgRef *dest, gboolean dropped, gpointer callback_data);
-typedef gboolean (*GitgDndRevisionCallback)(GitgRevision *source, GitgRef *dest, gboolean dropped, gpointer callback_data);
-
-void gitg_dnd_enable (GtkTreeView *tree_view,
-                      GitgDndCallback callback,
-                      GitgDndRevisionCallback revision_callback,
-                      gpointer callback_data);
-
-void gitg_dnd_disable (GtkTreeView *tree_view);
-
-G_END_DECLS
-
-#endif /* __GITG_DND_H__ */
-
+#endif /* __GITG_CONVERT_H__ */

@@ -24,8 +24,8 @@
 #define __GITG_REVISION_TREE_VIEW_H__
 
 #include <gtk/gtk.h>
-#include "gitg-repository.h"
-#include "gitg-revision.h"
+#include <libgitg/gitg-repository.h>
+#include <libgitg/gitg-revision.h>
 
 G_BEGIN_DECLS
 

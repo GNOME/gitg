@@ -21,10 +21,10 @@
  */
 
 #include <glib/gi18n.h>
+#include <libgitg/gitg-hash.h>
 #include <unistd.h>
 
 #include "gitg-branch-actions.h"
-#include "gitg-utils.h"
 
 typedef enum
 {
@@ -378,7 +378,7 @@ get_stash_refspec (GitgRepository *repository, GitgRef *stash)
 	                                            NULL);
 
 	gchar **ptr = out;
-	gchar *sha1 = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (stash));
+	gchar *sha1 = gitg_hash_hash_to_sha1_new (gitg_ref_get_hash (stash));
 	gchar *ret = NULL;
 
 	while (ptr && *ptr)
@@ -1308,10 +1308,10 @@ gitg_branch_actions_rebase (GitgWindow *window,
 		gchar *head = gitg_repository_parse_head (repository);
 		Hash hash;
 
-		gitg_utils_sha1_to_hash (head, hash);
+		gitg_hash_sha1_to_hash (head, hash);
 		g_free (head);
 
-		if (gitg_utils_hash_equal (hash, gitg_ref_get_hash (dest)))
+		if (gitg_hash_hash_equal (hash, gitg_ref_get_hash (dest)))
 		{
 			message_dialog (window,
 			                GTK_MESSAGE_ERROR,
@@ -1327,7 +1327,7 @@ gitg_branch_actions_rebase (GitgWindow *window,
 		}
 	}
 
-	gchar *merge_head = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (dest));
+	gchar *merge_head = gitg_hash_hash_to_sha1_new (gitg_ref_get_hash (dest));
 
 	message = g_strdup_printf (_("Rebasing %s branch <%s> onto %s branch <%s>"),
 	                           gitg_ref_get_ref_type (source) == GITG_REF_TYPE_BRANCH ? _("local") : _("remote"),
@@ -1538,7 +1538,7 @@ gitg_branch_actions_apply_stash (GitgWindow *window,
 		}
 	}
 
-	gchar *sha1 = gitg_utils_hash_to_sha1_new (gitg_ref_get_hash (stash));
+	gchar *sha1 = gitg_hash_hash_to_sha1_new (gitg_ref_get_hash (stash));
 	gboolean ret;
 
 	if (!gitg_repository_commandv (repository,

@@ -23,8 +23,8 @@
 #ifndef __GITG_BRANCH_ACTIONS_H__
 #define __GITG_BRANCH_ACTIONS_H__
 
+#include <libgitg/gitg-ref.h>
 #include "gitg-window.h"
-#include "gitg-ref.h"
 
 G_BEGIN_DECLS
 

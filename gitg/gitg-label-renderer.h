@@ -25,7 +25,7 @@
 
 #include <gtk/gtk.h>
 #include <pango/pango.h>
-#include "gitg-ref.h"
+#include <libgitg/gitg-ref.h>
 
 gint gitg_label_renderer_width(GtkWidget *widget, PangoFontDescription *description, GSList *labels);
 void gitg_label_renderer_draw(GtkWidget *widget, PangoFontDescription *description, cairo_t *context, GSList *labels, GdkRectangle *area);

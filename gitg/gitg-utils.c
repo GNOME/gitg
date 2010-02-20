@@ -20,133 +20,51 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <string.h>
-#include <glib.h>
-#include <stdlib.h>
+#include "gitg-dirs.h"
+#include "gitg-utils.h"
+
 #include <gconf/gconf-client.h>
+#include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
-#include "gitg-utils.h"
-#include "gitg-dirs.h"
-
-inline static guint8
-atoh(gchar c)
+gchar *
+gitg_utils_get_content_type(GFile *file)
 {
-	if (c >= 'a')
-		return c - 'a' + 10;
-	if (c >= 'A')
-		return c - 'A' + 10;
+	GFileInfo *info = g_file_query_info(file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
-	return c - '0';
+	if (!info || !g_file_info_has_attribute(info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE))
+		return NULL;
+
+	gchar *content_type = g_strdup(g_file_info_get_content_type(info));
+	g_object_unref(info);
+
+	return content_type;
 }
 
-void
-gitg_utils_partial_sha1_to_hash(gchar const *sha, gint length, gchar *hash)
+gboolean
+gitg_utils_can_display_content_type (gchar const *content_type)
 {
-	if (length % 2 == 1)
-	{
-		--length;
-	}
-
-	int i;
-
-	for (i = 0; i < length / 2; ++i)
-	{
-		gchar h = atoh(*(sha++)) << 4;
-		hash[i] = h | atoh(*(sha++));
-	}
-}
-
-void
-gitg_utils_sha1_to_hash(gchar const *sha, gchar *hash)
-{
-	gitg_utils_partial_sha1_to_hash (sha, HASH_SHA_SIZE, hash);
-}
-
-void
-gitg_utils_hash_to_sha1(gchar const *hash, gchar *sha)
-{
-	char const *repr = "0123456789abcdef";
-	int i;
-	int pos = 0;
-
-	for (i = 0; i < HASH_BINARY_SIZE; ++i)
-	{
-		sha[pos++] = repr[(hash[i] >> 4) & 0x0f];
-		sha[pos++] = repr[(hash[i] & 0x0f)];
-	}
+	return g_content_type_is_a (content_type, "text/plain") ||
+	       g_content_type_equals (content_type, "application/octet-stream");
 }
 
 gchar *
-gitg_utils_hash_to_sha1_new(gchar const *hash)
+gitg_utils_guess_content_type(GtkTextBuffer *buffer)
 {
-	gchar *ret = g_new(gchar, HASH_SHA_SIZE + 1);
-	gitg_utils_hash_to_sha1(hash, ret);
+	GtkTextIter start;
+	GtkTextIter end;
 
-	ret[HASH_SHA_SIZE] = '\0';
-	return ret;
-}
+	gtk_text_buffer_get_start_iter(buffer, &start);
+	end = start;
 
-gchar *
-gitg_utils_partial_sha1_to_hash_new (gchar const *sha, gint length, gint *retlen)
-{
-	if (length == -1)
-	{
-		length = strlen (sha);
-	}
+	gtk_text_iter_forward_chars(&end, 256);
+	gchar *data = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
 
-	if (length % 2 != 0)
-	{
-		--length;
-	}
+	gchar *content_type = g_content_type_guess(NULL, (guchar *)data, strlen(data), NULL);
+	g_free(data);
 
-	*retlen = length / 2;
-	gchar *ret = g_new (gchar, *retlen);
-
-	gitg_utils_partial_sha1_to_hash (sha, length, ret);
-
-	return ret;
-}
-
-gchar *
-gitg_utils_sha1_to_hash_new(gchar const *sha1)
-{
-	gchar *ret = g_new(gchar, HASH_BINARY_SIZE);
-	gitg_utils_sha1_to_hash(sha1, ret);
-
-	return ret;
-}
-
-GFile *
-gitg_utils_find_dot_git (GFile *location)
-{
-	location = g_file_dup (location);
-
-	do
-	{
-		GFile *tmp;
-		gboolean exists;
-
-		tmp = g_file_get_child (location, ".git");
-		exists = g_file_query_exists (tmp, NULL);
-
-		if (exists)
-		{
-			g_object_unref (location);
-			location = tmp;
-
-			break;
-		}
-
-		g_object_unref (tmp);
-
-		tmp = g_file_get_parent (location);
-
-		g_object_unref (location);
-		location = tmp;
-	} while (location != NULL);
-
-	return location;
+	return content_type;
 }
 
 static void
@@ -205,151 +123,6 @@ gitg_utils_export_files (GitgRepository *repository,
 	return ret;
 }
 
-static void
-utf8_validate_fallback (gchar  *text,
-                        gssize  size)
-{
-	gchar const *end;
-
-	while (!g_utf8_validate (text, size, &end))
-	{
-		*((gchar *)end) = '?';
-	}
-}
-
-static gchar *
-convert_fallback (gchar const *text,
-                  gssize       size,
-                  gchar const *fallback)
-{
-	gchar *res;
-	gsize read, written;
-	GString *str = g_string_new ("");
-
-	while ((res = g_convert(text,
-	                        size,
-	                        "UTF-8",
-	                        "ASCII",
-	                        &read,
-	                        &written,
-	                        NULL)) == NULL)
-	{
-		res = g_convert (text, read, "UTF-8", "ASCII", NULL, NULL, NULL);
-		str = g_string_append (str, res);
-
-		str = g_string_append (str, fallback);
-		text = text + read + 1;
-		size = size - read;
-	}
-
-	str = g_string_append (str, res);
-	g_free (res);
-
-	utf8_validate_fallback (str->str, str->len);
-	return g_string_free (str, FALSE);
-}
-
-gchar *
-gitg_utils_convert_utf8 (gchar const *str, gssize size)
-{
-	static gchar *encodings[] = {
-		"ISO-8859-15",
-		"ASCII"
-	};
-
-	if (str == NULL)
-	{
-		return NULL;
-	}
-
-	if (size == -1)
-	{
-		size = strlen (str);
-	}
-
-	if (g_utf8_validate (str, size, NULL))
-	{
-		return g_strndup (str, size);
-	}
-
-	int i;
-	for (i = 0; i < sizeof (encodings) / sizeof (gchar *); ++i)
-	{
-		gsize read;
-		gsize written;
-
-		gchar *ret = g_convert (str,
-		                        size,
-		                        "UTF-8",
-		                        encodings[i],
-		                        &read,
-		                        &written,
-		                        NULL);
-
-		if (ret && read == size)
-		{
-			utf8_validate_fallback (ret, written);
-			return ret;
-		}
-
-		g_free (ret);
-	}
-
-	return convert_fallback (str, size, "?");
-}
-
-guint
-gitg_utils_hash_hash(gconstpointer v)
-{
-	/* 31 bit hash function, copied from g_str_hash */
-	const signed char *p = v;
-	guint32 h = *p;
-	int i;
-
-	for (i = 1; i < HASH_BINARY_SIZE; ++i)
-		h = (h << 5) - h + p[i];
-
-	return h;
-}
-
-gboolean 
-gitg_utils_hash_equal(gconstpointer a, gconstpointer b)
-{
-	return memcmp(a, b, HASH_BINARY_SIZE) == 0;
-}
-
-gint
-gitg_utils_null_length(gconstpointer *ptr)
-{
-	gint ret = 0;
-
-	while (*ptr++)
-		++ret;
-
-	return ret;
-}
-
-gchar *
-gitg_utils_get_content_type(GFile *file)
-{
-	GFileInfo *info = g_file_query_info(file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, G_FILE_QUERY_INFO_NONE, NULL, NULL);
-
-	if (!info || !g_file_info_has_attribute(info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE))
-		return NULL;
-
-	gchar *content_type = g_strdup(g_file_info_get_content_type(info));
-	g_object_unref(info);
-
-	return content_type;
-}
-
-gboolean
-gitg_utils_can_display_content_type (gchar const *content_type)
-{
-	return g_content_type_is_a (content_type, "text/plain") ||
-	       g_content_type_equals (content_type, "application/octet-stream");
-}
-
 GtkSourceLanguage *
 gitg_utils_get_language(gchar const *filename, gchar const *content_type)
 {
@@ -358,6 +131,57 @@ gitg_utils_get_language(gchar const *filename, gchar const *content_type)
 
 	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
 	return gtk_source_language_manager_guess_language(manager, filename, content_type);
+}
+
+gchar *
+gitg_utils_get_monospace_font_name(void)
+{
+	GConfClient *client = gconf_client_get_default();
+	gchar *name = gconf_client_get_string(client, "/desktop/gnome/interface/monospace_font_name", NULL);
+
+	g_object_unref(client);
+
+	return name;
+}
+
+void 
+gitg_utils_set_monospace_font(GtkWidget *widget)
+{
+	gchar *name = gitg_utils_get_monospace_font_name();
+
+	if (name)
+	{
+		PangoFontDescription *description = pango_font_description_from_string(name);
+
+		if (description)
+		{
+			gtk_widget_modify_font(widget, description);
+			pango_font_description_free(description);
+		}
+	}
+
+	g_free(name);
+}
+
+GtkBuilder *
+gitg_utils_new_builder(gchar const *filename)
+{
+	GtkBuilder *b = gtk_builder_new();
+	GError *error = NULL;
+
+	gchar *path = gitg_dirs_get_data_filename("ui", filename, NULL);
+
+	if (!gtk_builder_add_from_file(b, path, &error))
+	{
+		g_critical("Could not open UI file: %s (%s)", path, error->message);
+		g_error_free(error);
+
+		g_free(path);
+		exit(1);
+	}
+
+	g_free(path);
+	return b;
 }
 
 gint 
@@ -378,24 +202,6 @@ gitg_utils_sort_names(gchar const *s1, gchar const *s2)
 	g_free(c2);
 
 	return ret;
-}
-
-gchar *
-gitg_utils_guess_content_type(GtkTextBuffer *buffer)
-{
-	GtkTextIter start;
-	GtkTextIter end;
-
-	gtk_text_buffer_get_start_iter(buffer, &start);
-	end = start;
-
-	gtk_text_iter_forward_chars(&end, 256);
-	gchar *data = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
-
-	gchar *content_type = g_content_type_guess(NULL, (guchar *)data, strlen(data), NULL);
-	g_free(data);
-
-	return content_type;
 }
 
 /* Copied from gedit-utils.c */
@@ -479,66 +285,61 @@ gitg_utils_menu_position_under_tree_view (GtkMenu  *menu,
 }
 
 gchar *
-gitg_utils_get_monospace_font_name (void)
+gitg_utils_rewrite_hunk_counters (gchar const *header,
+                                  guint old_count,
+                                  guint new_count)
 {
-	GConfClient *client = gconf_client_get_default();
-	gchar *name = gconf_client_get_string(client, "/desktop/gnome/interface/monospace_font_name", NULL);
-
-	g_object_unref(client);
-
-	return name;
-}
-
-void 
-gitg_utils_set_monospace_font(GtkWidget *widget)
-{
-	gchar *name = gitg_utils_get_monospace_font_name();
-
-	if (name)
+	if (!header)
 	{
-		PangoFontDescription *description = pango_font_description_from_string(name);
-
-		if (description)
-		{
-			gtk_widget_modify_font(widget, description);
-			pango_font_description_free(description);
-		}
+		return NULL;
 	}
 
-	g_free(name);
-}
+	gchar *copy = g_strdup (header);
+	gchar *ptr1 = g_utf8_strchr (copy, -1, ',');
 
-GtkBuilder *
-gitg_utils_new_builder(gchar const *filename)
-{
-	GtkBuilder *b = gtk_builder_new();
-	GError *error = NULL;
-
-	gchar *path = gitg_dirs_get_data_filename("ui", filename, NULL);
-
-	if (!gtk_builder_add_from_file(b, path, &error))
+	if (!ptr1)
 	{
-		g_critical("Could not open UI file: %s (%s)", path, error->message);
-		g_error_free(error);
-
-		g_free(path);
-		exit(1);
+		g_free (copy);
+		return NULL;
 	}
 
-	g_free(path);
-	return b;
-}
+	gchar *ptrs1 = g_utf8_strchr (ptr1 + 1, -1, ' ');
 
-gchar *
-gitg_utils_timestamp_to_str(guint64 timestamp)
-{
-	time_t t = timestamp;
+	if (!ptrs1)
+	{
+		g_free (copy);
+		return NULL;
+	}
 
-	struct tm *tms = localtime(&t);
-	gchar buf[255];
+	gchar *ptr2 = g_utf8_strchr (ptrs1 + 1, -1, ',');
 
-	strftime(buf, 254, "%c", tms);
-	return gitg_utils_convert_utf8(buf, -1);
+	if (!ptr2)
+	{
+		g_free (copy);
+		return NULL;
+	}
+
+	gchar *ptrs2 = g_utf8_strchr (ptr2 + 1, -1, ' ');
+
+	if (!ptrs2)
+	{
+		g_free (copy);
+		return NULL;
+	}
+
+	*ptr1 = *ptr2 = '\0';
+
+	gchar *ret;
+
+	ret = g_strdup_printf ("%s,%d%s,%d%s",
+	                       copy,
+	                       old_count,
+	                       ptrs1,
+	                       new_count,
+	                       ptrs2);
+
+	g_free (copy);
+	return ret;
 }
 
 GtkCellRenderer *
@@ -643,64 +444,6 @@ gitg_utils_restore_pane_position (GtkPaned *paned, gint position, gboolean rever
 	                       info,
 	                       (GClosureNotify)free_paned_restore_info,
 	                       G_CONNECT_AFTER);
-}
-
-gchar *
-gitg_utils_rewrite_hunk_counters (gchar const *header,
-                                  guint old_count,
-                                  guint new_count)
-{
-	if (!header)
-	{
-		return NULL;
-	}
-
-	gchar *copy = g_strdup (header);
-	gchar *ptr1 = g_utf8_strchr (copy, -1, ',');
-
-	if (!ptr1)
-	{
-		g_free (copy);
-		return NULL;
-	}
-
-	gchar *ptrs1 = g_utf8_strchr (ptr1 + 1, -1, ' ');
-
-	if (!ptrs1)
-	{
-		g_free (copy);
-		return NULL;
-	}
-
-	gchar *ptr2 = g_utf8_strchr (ptrs1 + 1, -1, ',');
-
-	if (!ptr2)
-	{
-		g_free (copy);
-		return NULL;
-	}
-
-	gchar *ptrs2 = g_utf8_strchr (ptr2 + 1, -1, ' ');
-
-	if (!ptrs2)
-	{
-		g_free (copy);
-		return NULL;
-	}
-
-	*ptr1 = *ptr2 = '\0';
-
-	gchar *ret;
-
-	ret = g_strdup_printf ("%s,%d%s,%d%s",
-	                       copy,
-	                       old_count,
-	                       ptrs1,
-	                       new_count,
-	                       ptrs2);
-
-	g_free (copy);
-	return ret;
 }
 
 void

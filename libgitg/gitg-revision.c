@@ -20,8 +20,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include "gitg-convert.h"
 #include "gitg-revision.h"
-#include "gitg-utils.h"
+#include "gitg-hash.h"
 
 struct _GitgRevision
 {
@@ -92,7 +93,7 @@ GitgRevision *gitg_revision_new(gchar const *sha,
 
 	rv->refcount = 1;
 
-	gitg_utils_sha1_to_hash(sha, rv->hash);
+	gitg_hash_sha1_to_hash(sha, rv->hash);
 	rv->author = g_strdup(author);
 	rv->subject = g_strdup(subject);
 	rv->timestamp = timestamp;
@@ -105,7 +106,7 @@ GitgRevision *gitg_revision_new(gchar const *sha,
 
 		gint i;
 		for (i = 0; i < num; ++i)
-			gitg_utils_sha1_to_hash(shas[i], rv->parents[i]);
+			gitg_hash_sha1_to_hash(shas[i], rv->parents[i]);
 
 		g_strfreev(shas);
 		rv->num_parents = num;
@@ -142,7 +143,7 @@ gchar *
 gitg_revision_get_sha1(GitgRevision *revision)
 {
 	char res[HASH_SHA_SIZE];
-	gitg_utils_hash_to_sha1(revision->hash, res);
+	gitg_hash_hash_to_sha1(revision->hash, res);
 
 	return g_strndup(res, HASH_SHA_SIZE);
 }
@@ -165,7 +166,7 @@ gitg_revision_get_parents(GitgRevision *revision)
 	for (i = 0; i < revision->num_parents; ++i)
 	{
 		ret[i] = g_new(gchar, HASH_SHA_SIZE + 1);
-		gitg_utils_hash_to_sha1(revision->parents[i], ret[i]);
+		gitg_hash_hash_to_sha1(revision->parents[i], ret[i]);
 
 		ret[i][HASH_SHA_SIZE] = '\0';
 	}
@@ -306,4 +307,16 @@ gitg_revision_get_format_patch_name (GitgRevision *revision)
 	} while (*(ptr = g_utf8_next_char (ptr)));
 
 	return ret;
+}
+
+gchar *
+gitg_revision_get_timestamp_for_display(GitgRevision *revision)
+{
+	time_t t = gitg_revision_get_timestamp (revision);
+
+	struct tm *tms = localtime(&t);
+	gchar buf[255];
+
+	strftime(buf, 254, "%c", tms);
+	return gitg_convert_utf8(buf, -1);
 }

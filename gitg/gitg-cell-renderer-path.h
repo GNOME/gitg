@@ -24,7 +24,7 @@
 #define __GITG_CELL_RENDERER_PATH_H__
 
 #include <gtk/gtk.h>
-#include "gitg-ref.h"
+#include <libgitg/gitg-ref.h>
 
 G_BEGIN_DECLS
 

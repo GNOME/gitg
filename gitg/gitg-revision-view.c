@@ -24,11 +24,12 @@
 #include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gtksourceview/gtksourcestyleschememanager.h>
 #include <string.h>
+#include <libgitg/gitg-revision.h>
+#include <libgitg/gitg-runner.h>
+#include <libgitg/gitg-hash.h>
 
 #include "gitg-revision-view.h"
 #include "gitg-diff-view.h"
-#include "gitg-revision.h"
-#include "gitg-runner.h"
 #include "gitg-utils.h"
 
 #define GITG_REVISION_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_VIEW, GitgRevisionViewPrivate))
@@ -633,7 +634,7 @@ make_parent_label(GitgRevisionView *self, gchar const *hash)
 	gtk_widget_show(ev);
 	gtk_widget_show(lbl);
 
-	g_object_set_data_full(G_OBJECT(ev), HASH_KEY, (gpointer)gitg_utils_sha1_to_hash_new(hash), (GDestroyNotify)g_free);
+	g_object_set_data_full(G_OBJECT(ev), HASH_KEY, (gpointer)gitg_hash_sha1_to_hash_new(hash), (GDestroyNotify)g_free);
 	g_signal_connect(ev, "button-release-event", G_CALLBACK(on_parent_clicked), self);
 
 	return ev;
@@ -670,7 +671,7 @@ update_parents(GitgRevisionView *self, GitgRevision *revision)
 		gdk_window_set_cursor (gtk_widget_get_window (widget), cursor);
 
 		/* find subject */
-		gitg_utils_sha1_to_hash(parents[i], hash);
+		gitg_hash_sha1_to_hash(parents[i], hash);
 
 		GitgRevision *revision = gitg_repository_lookup(self->priv->repository, hash);
 
@@ -771,7 +772,7 @@ gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, Gi
 		gtk_label_set_markup(self->priv->subject, subject);
 		g_free(subject);
 
-		gchar *date = gitg_utils_timestamp_to_str(gitg_revision_get_timestamp(revision));
+		gchar *date = gitg_revision_get_timestamp_for_display(revision);
 		gtk_label_set_text(self->priv->date, date);
 		g_free(date);
 

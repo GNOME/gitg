@@ -20,8 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "gitg-diff-line-renderer.h"
 #include "gitg-utils.h"
+#include "gitg-diff-line-renderer.h"
 
 #define GITG_DIFF_LINE_RENDERER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_DIFF_LINE_RENDERER, GitgDiffLineRendererPrivate))
 

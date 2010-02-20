@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = gitg data po
+SUBDIRS = libgitg gitg data po
 
 DISTCLEANFILES = \
 	intltool-extract \

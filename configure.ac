@@ -54,13 +54,18 @@ PKG_CHECK_EXISTS([gtk+-3.0 >= 2.90],
 			GTK_REQUIRED_VERSION=2.20.0
 		 ])
 
-PKG_CHECK_MODULES(PACKAGE, [
+PKG_CHECK_MODULES(GITG, [
 	$GTK_REQUIRED >= $GTK_REQUIRED_VERSION
 	gthread-2.0
-	gtksourceview-2.0 >= 2.8
+	glib-2.0
+	gobject-2.0
+	gmodule-2.0
 	gio-2.0
 	gio-unix-2.0
-	gmodule-2.0
+])
+
+PKG_CHECK_MODULES(PACKAGE, [
+	gtksourceview-2.0 >= 2.8
 	gconf-2.0
 ])
 
@@ -97,6 +102,7 @@ AM_GCONF_SOURCE_2
 
 AC_CONFIG_FILES([
 Makefile
+libgitg/Makefile
 gitg/Makefile
 data/Makefile
 data/gitg.desktop.in

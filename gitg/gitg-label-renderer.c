@@ -21,9 +21,9 @@
  */
 
 #include "gitg-label-renderer.h"
-#include "gitg-ref.h"
 #include "gitg-utils.h"
 
+#include <libgitg/gitg-ref.h>
 #include <math.h>
 
 #define PADDING 4

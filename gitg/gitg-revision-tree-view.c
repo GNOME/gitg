@@ -26,12 +26,12 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <stdlib.h>
+#include <libgitg/gitg-revision.h>
+#include <libgitg/gitg-runner.h>
 
 #include "gitg-revision-tree-view.h"
 #include "gitg-revision-tree-store.h"
-#include "gitg-runner.h"
 #include "gitg-utils.h"
-#include "gitg-revision.h"
 
 #define GITG_REVISION_TREE_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_TREE, GitgRevisionTreeViewPrivate))
 

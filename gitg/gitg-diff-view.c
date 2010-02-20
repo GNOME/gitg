@@ -20,8 +20,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <libgitg/gitg-types.h>
+
 #include "gitg-diff-view.h"
-#include "gitg-types.h"
 #include "gitg-diff-line-renderer.h"
 #include "gitg-utils.h"
 

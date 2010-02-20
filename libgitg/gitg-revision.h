@@ -25,14 +25,13 @@
 
 #include <glib-object.h>
 #include "gitg-lane.h"
+#include "gitg-types.h"
 
 G_BEGIN_DECLS
 
 #define GITG_TYPE_REVISION				(gitg_revision_get_type ())
 #define GITG_REVISION(obj)				((GitgRevision *)obj)
 #define GITG_REVISION_CONST(obj)		((GitgRevision const *)obj)
-
-#include "gitg-types.h"
 
 typedef struct _GitgRevision		GitgRevision;
 
@@ -67,6 +66,8 @@ GitgRevision *gitg_revision_ref(GitgRevision *revision);
 void gitg_revision_unref(GitgRevision *revision);
 
 gchar *gitg_revision_get_format_patch_name (GitgRevision *revision);
+
+gchar *gitg_revision_get_timestamp_for_display(GitgRevision *revision);
 
 G_END_DECLS
 

@@ -20,12 +20,13 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include "gitg-convert.h"
+#include "gitg-debug.h"
 #include "gitg-runner.h"
-#include "gitg-utils.h"
+
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "gitg-debug.h"
 #include <errno.h>
 #include <stdlib.h>
 
@@ -326,12 +327,12 @@ parse_lines(GitgRunner *runner, gchar *buffer, gssize size)
 			g_free(runner->priv->buffer);
 			runner->priv->buffer = NULL;
 
-			runner->priv->lines[i++] = gitg_utils_convert_utf8(buffered, -1);
+			runner->priv->lines[i++] = gitg_convert_utf8(buffered, -1);
 			g_free(buffered);
 		}
 		else
 		{
-			runner->priv->lines[i++] = gitg_utils_convert_utf8(ptr, linesize);
+			runner->priv->lines[i++] = gitg_convert_utf8(ptr, linesize);
 		}
 
 		ptr += linesize + 1;
@@ -470,8 +471,8 @@ read_output_ready(GInputStream *stream, GAsyncResult *result, AsyncData *data)
 	if (read == 0)
 	{
 		/* End */
-		gchar *converted = gitg_utils_convert_utf8 (data->runner->priv->buffer,
-		                                            -1);
+		gchar *converted = gitg_convert_utf8 (data->runner->priv->buffer,
+		                                      -1);
 
 		gchar *b[] = {converted, NULL};
 

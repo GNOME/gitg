@@ -24,7 +24,7 @@
 #define __GITG_WINDOW_H__
 
 #include <gtk/gtk.h>
-#include "gitg-repository.h"
+#include <libgitg/gitg-repository.h>
 
 G_BEGIN_DECLS
 
