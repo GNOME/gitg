@@ -788,14 +788,13 @@ revision_to_treeish (GitgRepository *repository,
 static gchar *
 get_xds_filename (GdkDragContext *context)
 {
-	gchar *ret;
-
 	if (context == NULL || context->source_window == NULL)
 	{
 		return NULL;
 	}
 
 	guint len;
+	gchar *ret = NULL;
 
 	if (gdk_property_get (context->source_window,
 	                      XDS_ATOM, TEXT_ATOM,
@@ -803,8 +802,10 @@ get_xds_filename (GdkDragContext *context)
 	                      FALSE, NULL, NULL, &len,
 	                      (unsigned char **) &ret))
 	{
-		ret[len] = '\0';
-		return ret;
+		gchar *dupped = g_strndup (ret, len);
+		g_free (ret);
+
+		return dupped;
 	}
 
 	return NULL;
