@@ -653,7 +653,11 @@ gitg_drag_source_motion_cb (GtkWidget       *widget,
 		}
 	}
 
-	add_scroll_timeout (data);
+	if (data->ref)
+	{
+		add_scroll_timeout (data);
+	}
+
 	return ret;
 }
 
