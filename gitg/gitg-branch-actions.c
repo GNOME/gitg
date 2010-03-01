@@ -1554,21 +1554,35 @@ gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *nam
 	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
 	g_return_val_if_fail (sha1 != NULL, FALSE);
 	g_return_val_if_fail (name != NULL, FALSE);
-	g_return_val_if_fail (message != NULL, FALSE);
 
 	GitgRepository *repository;
+	gboolean result = FALSE;
 
 	repository = gitg_window_get_repository (window);
 
-	if (!gitg_repository_commandv (repository,
-	                               NULL,
-	                               "tag",
-	                               "-m",
-	                               message,
-	                               sign ? "-s" : "-a",
-	                               name,
-	                               sha1,
-	                               NULL))
+	if (message != NULL && message[0] != '\0')
+	{
+		result = gitg_repository_commandv (repository,
+		                                   NULL,
+		                                   "tag",
+		                                   "-m",
+		                                   message,
+		                                   sign ? "-s" : "-a",
+		                                   name,
+		                                   sha1,
+		                                   NULL);
+	}
+	else
+	{
+		result = gitg_repository_commandv (repository,
+		                                   NULL,
+		                                   "tag",
+		                                   name,
+		                                   sha1,
+		                                   NULL);
+	}
+
+	if (!result)
 	{
 		gchar const *secondary;
 

@@ -2467,6 +2467,7 @@ on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		gchar const *name = gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (info->builder, "entry_name")));
+		gboolean sign = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gtk_builder_get_object (info->builder, "check_button_sign")));
 
 		GtkTextView *view = GTK_TEXT_VIEW (gtk_builder_get_object (info->builder, "text_view_message"));
 		GtkTextIter start;
@@ -2475,7 +2476,18 @@ on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
 		gtk_text_buffer_get_bounds (gtk_text_view_get_buffer (view), &start, &end);
 		gchar *message = gtk_text_iter_get_text (&start, &end);
 
-		if (!*name || !*message)
+		const gchar *secondary_text = NULL;
+
+		if (sign && (!*name || !*message))
+		{
+			secondary_text = _("Please make sure to fill in both the tag name and the commit message");
+		}
+		else if (!sign && !*name)
+		{
+			secondary_text = _("Please make sure to fill in the tag name");
+		}
+
+		if (secondary_text)
 		{
 			GtkWidget *dlg = gtk_message_dialog_new (GTK_WINDOW (dialog),
 			                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -2483,7 +2495,8 @@ on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
 			                                         GTK_BUTTONS_OK,
 			                                         _("Not all fields are correctly filled in"));
 			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
-			                                          _("Please make sure to fill in both the tag name and the commit message"));
+			                                          "%s",
+			                                          secondary_text);
 
 			g_signal_connect (dlg, "response", G_CALLBACK (gtk_widget_destroy), NULL);
 			gtk_widget_show (dlg);
@@ -2492,8 +2505,6 @@ on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
 		}
 		else
 		{
-			gboolean sign = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gtk_builder_get_object (info->builder, "check_button_sign")));
-
 			gchar *sha1 = gitg_revision_get_sha1 (info->revision);
 			if (!gitg_branch_actions_tag (info->window,
 			                              sha1,
