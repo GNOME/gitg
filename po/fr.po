@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&component=gitg\n"
-"POT-Creation-Date: 2010-01-28 10:22+0000\n"
+"POT-Creation-Date: 2010-03-01 08:03+0000\n"
 "PO-Revision-Date: 2010-02-11 10:56+0100\n"
 "Last-Translator: Christophe Benz <christophe.benz@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -147,19 +147,19 @@ msgstr "Sélectionner le commit après le chargement du dépôt"
 msgid "- git repository viewer"
 msgstr "- navigateur de dépôt git"
 
-#: ../gitg/gitg-commit-view.c:208 ../gitg/gitg-revision-tree-view.c:183
+#: ../gitg/gitg-commit-view.c:209 ../gitg/gitg-revision-tree-view.c:183
 msgid "Cannot display file content as text"
 msgstr "Impossible d'afficher ce fichier sous la forme de texte"
 
-#: ../gitg/gitg-commit-view.c:1437
+#: ../gitg/gitg-commit-view.c:1482
 msgid "You must first stage some changes before committing"
 msgstr "Vous devez d'abord monter des changements avant de commiter"
 
-#: ../gitg/gitg-commit-view.c:1445
+#: ../gitg/gitg-commit-view.c:1490
 msgid "Please enter a commit message before committing"
 msgstr "Veuillez saisir un message de soumission avant de commiter"
 
-#: ../gitg/gitg-commit-view.c:1457
+#: ../gitg/gitg-commit-view.c:1502
 msgid ""
 "Your user name or email could not be retrieved for use in the sign off "
 "message"
@@ -167,19 +167,19 @@ msgstr ""
 "Votre nom d'utilisateur ou votre adresse électronique n'a pas pu être "
 "récupéré pour être utilisé comme message de signature"
 
-#: ../gitg/gitg-commit-view.c:1459
+#: ../gitg/gitg-commit-view.c:1504
 msgid "Something went wrong while trying to commit"
 msgstr "Une erreur est survenue lors du commit"
 
-#: ../gitg/gitg-commit-view.c:1618
+#: ../gitg/gitg-commit-view.c:1680
 msgid "Revert fail"
 msgstr "Échec de l'annulation"
 
-#: ../gitg/gitg-commit-view.c:1629
+#: ../gitg/gitg-commit-view.c:1691
 msgid "Are you sure you want to revert these changes?"
 msgstr "Voulez-vous vraiment annuler ces modifications ?"
 
-#: ../gitg/gitg-commit-view.c:1632
+#: ../gitg/gitg-commit-view.c:1694
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr "Il n'est pas possible de revenir sur une annulation de modifications"
 
@@ -333,18 +333,23 @@ msgstr "Supprimer la réserve"
 msgid "Remove tag"
 msgstr "Supprimer l'étiquette"
 
-#: ../gitg/gitg-window.c:2484
-msgid "Not all fields are correctly filled in"
-msgstr "Tous les champs ne sont pas remplis correctement"
-
-#: ../gitg/gitg-window.c:2486
+#: ../gitg/gitg-window.c:2483
 msgid "Please make sure to fill in both the tag name and the commit message"
 msgstr ""
 "Veuillez vous assurer que le nom de l'étiquette et le message du commit "
 "soient tous les deux remplis"
 
+#: ../gitg/gitg-window.c:2487
+msgid "Please make sure to fill in the tag name"
+msgstr ""
+"Veuillez vous assurer que le nom de l'étiquette soit rempli"
+
+#: ../gitg/gitg-window.c:2496
+msgid "Not all fields are correctly filled in"
+msgstr "Tous les champs ne sont pas remplis correctement"
+
 #. Single one, pick filename
-#: ../gitg/gitg-window.c:2579
+#: ../gitg/gitg-window.c:2590
 msgid "Save format patch"
 msgstr "Sauvegarder le correctif"
 
@@ -469,7 +474,7 @@ msgid "Failed to save current index state"
 msgstr "Impossible de sauvegarder l'état actuel de l'index"
 
 #: ../gitg/gitg-branch-actions.c:934 ../gitg/gitg-branch-actions.c:1216
-#: ../gitg/gitg-branch-actions.c:1508 ../gitg/gitg-branch-actions.c:1744
+#: ../gitg/gitg-branch-actions.c:1508 ../gitg/gitg-branch-actions.c:1758
 #, c-format
 msgid "Failed to checkout local branch <%s>"
 msgstr "Impossible d'extraire (checkout) la branche locale <%s>"
@@ -513,21 +518,21 @@ msgstr "locale"
 msgid "remote"
 msgstr "distante"
 
-#: ../gitg/gitg-branch-actions.c:1134 ../gitg/gitg-branch-actions.c:1663
+#: ../gitg/gitg-branch-actions.c:1134 ../gitg/gitg-branch-actions.c:1677
 msgid "The stashed changes have been stored to be reapplied manually"
 msgstr ""
 "Les modifications mises en réserve ont été enregistrées pour être appliquées "
 "à nouveau manuellement"
 
-#: ../gitg/gitg-branch-actions.c:1139 ../gitg/gitg-branch-actions.c:1668
+#: ../gitg/gitg-branch-actions.c:1139 ../gitg/gitg-branch-actions.c:1682
 msgid "Failed to checkout previously checked out branch"
 msgstr "Impossible d'extraire (checkout) la branche précédemment extraite"
 
-#: ../gitg/gitg-branch-actions.c:1160 ../gitg/gitg-branch-actions.c:1689
+#: ../gitg/gitg-branch-actions.c:1160 ../gitg/gitg-branch-actions.c:1703
 msgid "Failed to reapply stash correctly"
 msgstr "Impossible de ré-appliquer la réserve correctement"
 
-#: ../gitg/gitg-branch-actions.c:1161 ../gitg/gitg-branch-actions.c:1690
+#: ../gitg/gitg-branch-actions.c:1161 ../gitg/gitg-branch-actions.c:1704
 msgid ""
 "There might be unresolved conflicts in the working tree or index which you "
 "need to resolve manually"
@@ -649,7 +654,7 @@ msgid "Failed to apply stash"
 msgstr "Échec de l'application de la réserve"
 
 # missing full stop in source
-#: ../gitg/gitg-branch-actions.c:1577
+#: ../gitg/gitg-branch-actions.c:1591
 msgid ""
 "The tag object could not be successfully created. Please make sure you have "
 "a GPG key and the key is unlocked"
@@ -657,48 +662,48 @@ msgstr ""
 "Impossible de créer l'objet étiquette. Vérifiez que vous avez une clé GPG et "
 "qu'elle est déverrouillée."
 
-#: ../gitg/gitg-branch-actions.c:1581
+#: ../gitg/gitg-branch-actions.c:1595
 msgid "The tag object could not be successfully created"
 msgstr "Impossible de créer l'objet étiquette"
 
-#: ../gitg/gitg-branch-actions.c:1586
+#: ../gitg/gitg-branch-actions.c:1600
 msgid "Failed to create tag"
 msgstr "Impossible de créer l'étiquette"
 
-#: ../gitg/gitg-branch-actions.c:1643
+#: ../gitg/gitg-branch-actions.c:1657
 #, c-format
 msgid "Failed to cherry-pick on <%s>"
 msgstr "Impossible de prélever un commit sur <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1710
+#: ../gitg/gitg-branch-actions.c:1724
 #, c-format
 msgid "Are you sure you want to cherry-pick that revision on <%s>?"
 msgstr "Voulez-vous vraiment prélever cette révision sur <%s> ?"
 
-#: ../gitg/gitg-branch-actions.c:1715 ../gitg/gitg-branch-actions.c:1717
-#: ../gitg/gitg-branch-actions.c:1765
+#: ../gitg/gitg-branch-actions.c:1729 ../gitg/gitg-branch-actions.c:1731
+#: ../gitg/gitg-branch-actions.c:1779
 msgid "Cherry-pick"
 msgstr "Prélèvement (cherry-pick)"
 
-#: ../gitg/gitg-branch-actions.c:1745
+#: ../gitg/gitg-branch-actions.c:1759
 msgid "The branch on which to cherry-pick could not be checked out"
 msgstr "La branche sur laquelle prélever n'a pu être extraite"
 
-#: ../gitg/gitg-branch-actions.c:1752
+#: ../gitg/gitg-branch-actions.c:1766
 #, c-format
 msgid "Cherry-picking on <%s>"
 msgstr "Prélèvement en cours sur <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1822
+#: ../gitg/gitg-branch-actions.c:1836
 msgid "Failed to generate format-patch"
 msgstr "Impossible de générer le correctif"
 
-#: ../gitg/gitg-branch-actions.c:1868
+#: ../gitg/gitg-branch-actions.c:1882
 #, c-format
 msgid "Generating format-patch for <%s>"
 msgstr "Génération du correctif pour <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1874 ../gitg/gitg-menus.xml.h:5
+#: ../gitg/gitg-branch-actions.c:1888 ../gitg/gitg-menus.xml.h:5
 msgid "Format patch"
 msgstr "Formater le correctif"
 
@@ -729,7 +734,7 @@ msgstr "Auteur :"
 
 #: ../gitg/gitg-window.ui.h:4
 msgid "Branch:"
-msgstr "Branche :"
+msgstr "Branche :"
 
 #: ../gitg/gitg-window.ui.h:5
 msgid "Co_mmit message"
@@ -741,11 +746,11 @@ msgstr "Commit"
 
 #: ../gitg/gitg-window.ui.h:7
 msgid "Context:"
-msgstr "Contexte :"
+msgstr "Contexte :"
 
 #: ../gitg/gitg-window.ui.h:8
 msgid "Date:"
-msgstr "Date :"
+msgstr "Date :"
 
 #: ../gitg/gitg-window.ui.h:9
 msgid "Details"
@@ -757,15 +762,15 @@ msgstr "Historique"
 
 #: ../gitg/gitg-window.ui.h:11
 msgid "Parent:"
-msgstr "Parent :"
+msgstr "Parent :"
 
 #: ../gitg/gitg-window.ui.h:12
 msgid "SHA:"
-msgstr "SHA :"
+msgstr "SHA :"
 
 #: ../gitg/gitg-window.ui.h:13
 msgid "Subject:"
-msgstr "Sujet :"
+msgstr "Sujet :"
 
 #: ../gitg/gitg-window.ui.h:14
 msgid "Tree"
