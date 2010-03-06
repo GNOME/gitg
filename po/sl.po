@@ -2,15 +2,15 @@
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 #
-# Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2010.
+# Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2009 - 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&component=gitg\n"
-"POT-Creation-Date: 2010-01-23 18:48+0000\n"
-"PO-Revision-Date: 2010-01-28 08:57+0100\n"
-"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"POT-Creation-Date: 2010-03-01 08:03+0000\n"
+"PO-Revision-Date: 2010-03-06 09:02+0100\n"
+"Last-Translator: Andrej Žnidaršič <andrej.znidarsic@gmail.com>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -123,36 +123,36 @@ msgstr "Izbor uveljavite po nalaganju skladišča"
 msgid "- git repository viewer"
 msgstr "- pregledovalnik git skladišč"
 
-#: ../gitg/gitg-commit-view.c:208
+#: ../gitg/gitg-commit-view.c:209
 #: ../gitg/gitg-revision-tree-view.c:183
 msgid "Cannot display file content as text"
 msgstr "Vsebine datoteke ni mogoče prikazati kot besedilo"
 
-#: ../gitg/gitg-commit-view.c:1437
+#: ../gitg/gitg-commit-view.c:1482
 msgid "You must first stage some changes before committing"
 msgstr "Najprej je treba pripraviti spremembe, preden jih je mogoče uveljaviti."
 
-#: ../gitg/gitg-commit-view.c:1445
+#: ../gitg/gitg-commit-view.c:1490
 msgid "Please enter a commit message before committing"
 msgstr "Pred uveljavitvijo je potrebno vnesti sporočilo uveljavitve"
 
-#: ../gitg/gitg-commit-view.c:1457
+#: ../gitg/gitg-commit-view.c:1502
 msgid "Your user name or email could not be retrieved for use in the sign off message"
 msgstr "Vašega uporabniškega imena ali e-pošte za uporabo v sporočilu podpisa ni mogoče pridobiti"
 
-#: ../gitg/gitg-commit-view.c:1459
+#: ../gitg/gitg-commit-view.c:1504
 msgid "Something went wrong while trying to commit"
 msgstr "Med poskusom uveljavitve je nekaj šlo narobe"
 
-#: ../gitg/gitg-commit-view.c:1618
+#: ../gitg/gitg-commit-view.c:1680
 msgid "Revert fail"
 msgstr "Povrnitev je spodletela"
 
-#: ../gitg/gitg-commit-view.c:1629
+#: ../gitg/gitg-commit-view.c:1691
 msgid "Are you sure you want to revert these changes?"
 msgstr "Ali ste prepričani, da želite povrniti te spremembe?"
 
-#: ../gitg/gitg-commit-view.c:1632
+#: ../gitg/gitg-commit-view.c:1694
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr "Povrnitev sprememb je trajna in je ni mogoče razveljaviti"
 
@@ -305,16 +305,20 @@ msgstr "Odstrani zalogo"
 msgid "Remove tag"
 msgstr "Odstrani oznako"
 
-#: ../gitg/gitg-window.c:2484
-msgid "Not all fields are correctly filled in"
-msgstr "Vsa polja niso pravilno izpolnjena"
-
-#: ../gitg/gitg-window.c:2486
+#: ../gitg/gitg-window.c:2483
 msgid "Please make sure to fill in both the tag name and the commit message"
 msgstr "Prepričajte se, da boste izpolnili ime oznake in sporočilo uveljavitve"
 
+#: ../gitg/gitg-window.c:2487
+msgid "Please make sure to fill in the tag name"
+msgstr "Prepričajte se, da ste izpolnili ime oznake"
+
+#: ../gitg/gitg-window.c:2496
+msgid "Not all fields are correctly filled in"
+msgstr "Vsa polja niso pravilno izpolnjena"
+
 #. Single one, pick filename
-#: ../gitg/gitg-window.c:2579
+#: ../gitg/gitg-window.c:2590
 msgid "Save format patch"
 msgstr "Shrani obliko popravka"
 
@@ -433,7 +437,7 @@ msgstr "Shranjevanje trenutnega stanja kazala je spodletelo"
 #: ../gitg/gitg-branch-actions.c:934
 #: ../gitg/gitg-branch-actions.c:1216
 #: ../gitg/gitg-branch-actions.c:1508
-#: ../gitg/gitg-branch-actions.c:1744
+#: ../gitg/gitg-branch-actions.c:1758
 #, c-format
 msgid "Failed to checkout local branch <%s>"
 msgstr "Prevzem krajevne veje <%s> je spodletel"
@@ -485,22 +489,22 @@ msgid "remote"
 msgstr "oddaljeno"
 
 #: ../gitg/gitg-branch-actions.c:1134
-#: ../gitg/gitg-branch-actions.c:1663
+#: ../gitg/gitg-branch-actions.c:1677
 msgid "The stashed changes have been stored to be reapplied manually"
 msgstr "Spremembe zaloge so bile shranjene za ročno ponovno uporabo"
 
 #: ../gitg/gitg-branch-actions.c:1139
-#: ../gitg/gitg-branch-actions.c:1668
+#: ../gitg/gitg-branch-actions.c:1682
 msgid "Failed to checkout previously checked out branch"
 msgstr "Prevzem predhodno prevzete veje je spodletel"
 
 #: ../gitg/gitg-branch-actions.c:1160
-#: ../gitg/gitg-branch-actions.c:1689
+#: ../gitg/gitg-branch-actions.c:1703
 msgid "Failed to reapply stash correctly"
 msgstr "Pravilna ponovna uporaba zaloge je spodletela"
 
 #: ../gitg/gitg-branch-actions.c:1161
-#: ../gitg/gitg-branch-actions.c:1690
+#: ../gitg/gitg-branch-actions.c:1704
 msgid "There might be unresolved conflicts in the working tree or index which you need to resolve manually"
 msgstr "Morda so v delovnem drevesu ali kazalu nerazrešeni spori, ki jih je potrebno razrešiti ročno"
 
@@ -607,53 +611,53 @@ msgstr "Zaloge ni mogoče uporabiti na krajevni veji <%s>"
 msgid "Failed to apply stash"
 msgstr "Uporaba zaloge je spodletela"
 
-#: ../gitg/gitg-branch-actions.c:1577
+#: ../gitg/gitg-branch-actions.c:1591
 msgid "The tag object could not be successfully created. Please make sure you have a GPG key and the key is unlocked"
 msgstr "Predmeta oznake ni mogoče uspešno ustvariti. Prepričajte se, da imate odklenjen ključ GPG"
 
-#: ../gitg/gitg-branch-actions.c:1581
+#: ../gitg/gitg-branch-actions.c:1595
 msgid "The tag object could not be successfully created"
 msgstr "Predmeta oznake ni mogoče uspešno ustvariti"
 
-#: ../gitg/gitg-branch-actions.c:1586
+#: ../gitg/gitg-branch-actions.c:1600
 msgid "Failed to create tag"
 msgstr "Ustvarjanje oznake je spodletelo"
 
-#: ../gitg/gitg-branch-actions.c:1643
+#: ../gitg/gitg-branch-actions.c:1657
 #, c-format
 msgid "Failed to cherry-pick on <%s>"
 msgstr "Ni mogoče uveljaviti z odbiro na <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1710
+#: ../gitg/gitg-branch-actions.c:1724
 #, c-format
 msgid "Are you sure you want to cherry-pick that revision on <%s>?"
 msgstr "Ali ste prepričani, da želite uveljaviti z odbiro na <%s>?"
 
-#: ../gitg/gitg-branch-actions.c:1715
-#: ../gitg/gitg-branch-actions.c:1717
-#: ../gitg/gitg-branch-actions.c:1765
+#: ../gitg/gitg-branch-actions.c:1729
+#: ../gitg/gitg-branch-actions.c:1731
+#: ../gitg/gitg-branch-actions.c:1779
 msgid "Cherry-pick"
 msgstr "Odbiranje"
 
-#: ../gitg/gitg-branch-actions.c:1745
+#: ../gitg/gitg-branch-actions.c:1759
 msgid "The branch on which to cherry-pick could not be checked out"
 msgstr "Veje za odbiro ni mogoče prevzeti"
 
-#: ../gitg/gitg-branch-actions.c:1752
+#: ../gitg/gitg-branch-actions.c:1766
 #, c-format
 msgid "Cherry-picking on <%s>"
 msgstr "Uveljavljanje z odbiro na <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1822
+#: ../gitg/gitg-branch-actions.c:1836
 msgid "Failed to generate format-patch"
 msgstr "Ustvarjanje oblike popravka je spodletelo"
 
-#: ../gitg/gitg-branch-actions.c:1868
+#: ../gitg/gitg-branch-actions.c:1882
 #, c-format
 msgid "Generating format-patch for <%s>"
 msgstr "Ustvarjanje oblike popravka za <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1874
+#: ../gitg/gitg-branch-actions.c:1888
 #: ../gitg/gitg-menus.xml.h:5
 msgid "Format patch"
 msgstr "Oblikuj popravek"
