@@ -1645,7 +1645,7 @@ on_stage_changes(GtkAction *action, GitgCommitView *view)
 static void
 do_revert_changes(GitgCommitView *view)
 {
-	gboolean ret;
+	gboolean ret = TRUE;
 
 	if (view->priv->context_type == CONTEXT_TYPE_FILE)
 	{
