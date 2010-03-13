@@ -1,5 +1,6 @@
 /*
- * gitg-repository.h * This file is part of gitg - git repository viewer
+ * gitg-repository.h
+ * This file is part of gitg - git repository viewer
  *
  * Copyright (C) 2009 - Jesse van den Kieboom
  *
