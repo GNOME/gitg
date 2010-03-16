@@ -678,12 +678,10 @@ update_parents(GitgRevisionView *self, GitgRevision *revision)
 		{
 			GtkWidget *subject = gtk_label_new(NULL);
 
-			gchar *escaped = g_markup_escape_text(gitg_revision_get_subject(revision), -1);
-			gchar *text = g_strdup_printf("(<i>%s</i>)", escaped);
+			gchar *text = g_markup_printf_escaped ("(<i>%s</i>)", gitg_revision_get_subject(revision));
 
 			gtk_label_set_markup(GTK_LABEL(subject), text);
 
-			g_free(escaped);
 			g_free(text);
 
 			gtk_widget_show(subject);
@@ -768,9 +766,7 @@ gitg_revision_view_update(GitgRevisionView *self, GitgRepository *repository, Gi
 	{
 		gtk_label_set_text(self->priv->author, gitg_revision_get_author(revision));
 
-		gchar *s = g_markup_escape_text(gitg_revision_get_subject(revision), -1);
-		gchar *subject = g_strconcat("<b>", s, "</b>", NULL);
-		g_free(s);
+		gchar *subject = g_markup_printf_escaped ("<b>%s</b>", gitg_revision_get_subject(revision));
 
 		gtk_label_set_markup(self->priv->subject, subject);
 		g_free(subject);
