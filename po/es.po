@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&component=gitg\n"
 "POT-Creation-Date: 2010-03-07 18:05+0000\n"
-"PO-Revision-Date: 2010-03-23 08:13+0100\n"
+"PO-Revision-Date: 2010-03-23 18:51+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -88,7 +88,7 @@ msgstr "El comando para gestionar los URL de esquema de GITG."
 
 #: ../data/gitg.schemas.in.h:13
 msgid "When to Collapse Inactive Lanes"
-msgstr ""
+msgstr "Cuándo contraer las líneas inactivas"
 
 #: ../data/gitg.schemas.in.h:14
 msgid "Whether command to handle GITG scheme URLs is enabled"
@@ -153,10 +153,11 @@ msgid ""
 "Your user name or email could not be retrieved for use in the sign off "
 "message"
 msgstr ""
+"No se pudo obtener su nombre o correo-e para usarlo en el mensaje de firma"
 
 #: ../gitg/gitg-commit-view.c:1504
 msgid "Something went wrong while trying to commit"
-msgstr ""
+msgstr "Algo falló al intentar efectuar el «commit»"
 
 #: ../gitg/gitg-commit-view.c:1680
 msgid "Revert fail"
@@ -172,11 +173,11 @@ msgstr "Revertir los cambios es una acción permanente y no se puede deshacer"
 
 #: ../gitg/gitg-repository.c:606
 msgid "Staged changes"
-msgstr ""
+msgstr "Cambios preseleccionados"
 
 #: ../gitg/gitg-repository.c:608
 msgid "Unstaged changes"
-msgstr ""
+msgstr "Cambios no preseleccionados"
 
 #: ../gitg/gitg-repository.c:1235
 msgid "Not a valid git repository"
@@ -193,7 +194,7 @@ msgstr "Seleccionar rama"
 #: ../gitg/gitg-window.c:493
 #, c-format
 msgid "Push local branch <%s> to remote branch <%s>"
-msgstr ""
+msgstr "Empujar la rama local <%s> en la rama remota <%s>"
 
 #: ../gitg/gitg-window.c:500
 #, c-format
@@ -208,12 +209,12 @@ msgstr ""
 #: ../gitg/gitg-window.c:514
 #, c-format
 msgid "Apply stash to local branch <%s>"
-msgstr ""
+msgstr "Aplicar la reserva a la rama local <%s>"
 
 #: ../gitg/gitg-window.c:576
 #, c-format
 msgid "Cherry-pick revision on <%s>"
-msgstr ""
+msgstr "Aplicar el cambio en la revisión sobre <%s>"
 
 #: ../gitg/gitg-window.c:840
 #, c-format
@@ -309,7 +310,7 @@ msgstr "Renombrar la copia local"
 
 #: ../gitg/gitg-window.c:2176 ../gitg/gitg-branch-actions.c:392
 msgid "Remove stash"
-msgstr ""
+msgstr "Quitar reserva"
 
 #: ../gitg/gitg-window.c:2182 ../gitg/gitg-branch-actions.c:454
 #: ../gitg/gitg-branch-actions.c:456
@@ -367,7 +368,7 @@ msgstr "¿Está seguro de que quiere eliminar la rama remota <%s>?"
 
 #: ../gitg/gitg-branch-actions.c:315
 msgid "This permanently removes the remote branch."
-msgstr ""
+msgstr "Esto quita permanentemente la rama remota."
 
 #: ../gitg/gitg-branch-actions.c:332 ../gitg/gitg-menus.xml.h:11
 msgid "Remove branch"
@@ -375,19 +376,19 @@ msgstr "Eliminar rama"
 
 #: ../gitg/gitg-branch-actions.c:390
 msgid "Are you sure you want to remove this stash item?"
-msgstr ""
+msgstr "¿Está seguro de que quiere quitar este elemento de la reserva?"
 
 #: ../gitg/gitg-branch-actions.c:391
 msgid "This permanently removes the stash item"
-msgstr ""
+msgstr "Esto quita permanentemente el elemento de la reserva"
 
 #: ../gitg/gitg-branch-actions.c:418
 msgid "Failed to remove stash"
-msgstr ""
+msgstr "Falló al quitar la reserva"
 
 #: ../gitg/gitg-branch-actions.c:419
 msgid "The stash item could not be successfully removed"
-msgstr ""
+msgstr "No se pudo quitar de forma satisfactoria el elemento de la reserva"
 
 #: ../gitg/gitg-branch-actions.c:450
 #, c-format
@@ -397,7 +398,7 @@ msgstr "¿Está seguro de que quiere eliminar la etiqueta <%s>?"
 #: ../gitg/gitg-branch-actions.c:473
 #, c-format
 msgid "The tag <%s> could not be successfully removed"
-msgstr ""
+msgstr "No se pudo quitar de forma satisfactoria la etiqueta <%s>"
 
 #: ../gitg/gitg-branch-actions.c:477
 msgid "Failed to remove tag"
