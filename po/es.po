@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&component=gitg\n"
 "POT-Creation-Date: 2010-03-07 18:05+0000\n"
-"PO-Revision-Date: 2010-03-23 18:51+0100\n"
+"PO-Revision-Date: 2010-03-28 18:06+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,15 +44,19 @@ msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr ""
+"Ajuste que indica cuándo una línea inactiva debe contraerse. Los valores "
+"válidos son 0 - 4, donde 0 indica «pronto» y 4 indica «tarde»."
 
 #: ../data/gitg.schemas.in.h:4
 msgid ""
 "Setting that indicates whether to show the history in topological order."
-msgstr ""
+msgstr "Ajuste que indica si se debe mostrar el histórico en orden topológico."
 
 #: ../data/gitg.schemas.in.h:5
 msgid "Setting that sets the orientation layout of the main view."
 msgstr ""
+"Ajuste que configura la orientación de la distribución en la ventana "
+"principal."
 
 #: ../data/gitg.schemas.in.h:6
 msgid "Show History in Topological Order"
@@ -143,6 +147,7 @@ msgstr "No se puede mostrar el contenido del archivo como texto"
 #: ../gitg/gitg-commit-view.c:1482
 msgid "You must first stage some changes before committing"
 msgstr ""
+"Primero debe preseleccionar algunos cambios antes de realizar el «commit»"
 
 #: ../gitg/gitg-commit-view.c:1490
 msgid "Please enter a commit message before committing"
@@ -433,11 +438,11 @@ msgstr "Nombre:"
 
 #: ../gitg/gitg-branch-actions.c:693
 msgid "Do you want to temporarily stash these changes?"
-msgstr ""
+msgstr "¿Quiere reservar temporalmente estos cambios?"
 
 #: ../gitg/gitg-branch-actions.c:697
 msgid "Do you want to stash and reapply these changes?"
-msgstr ""
+msgstr "¿Quiere reservar y volver a aplicar estos cambios?"
 
 #: ../gitg/gitg-branch-actions.c:702
 msgid "You have uncommited changes in your current working tree"
@@ -445,7 +450,7 @@ msgstr "Tiene cambios sin efectuar en su árbol de trabajo actual"
 
 #: ../gitg/gitg-branch-actions.c:704
 msgid "Stash changes"
-msgstr ""
+msgstr "Reservar los cambios"
 
 #: ../gitg/gitg-branch-actions.c:880
 msgid "Failed to save current index state"
@@ -476,7 +481,7 @@ msgstr ""
 #: ../gitg/gitg-branch-actions.c:1107
 #, c-format
 msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-msgstr ""
+msgstr "Falló al mezclar la rama %s <%s> con la rama %s <%s>"
 
 #: ../gitg/gitg-branch-actions.c:1115 ../gitg/gitg-branch-actions.c:1117
 #: ../gitg/gitg-branch-actions.c:1183 ../gitg/gitg-branch-actions.c:1185
@@ -497,6 +502,7 @@ msgstr "remota"
 #: ../gitg/gitg-branch-actions.c:1134 ../gitg/gitg-branch-actions.c:1677
 msgid "The stashed changes have been stored to be reapplied manually"
 msgstr ""
+"Se han almacenado los cambios reservados para volverlos a aplicar manualmente"
 
 #: ../gitg/gitg-branch-actions.c:1139 ../gitg/gitg-branch-actions.c:1682
 msgid "Failed to checkout previously checked out branch"
@@ -504,7 +510,7 @@ msgstr "Falló al descargar («checkout») la rama anteriormente descargada"
 
 #: ../gitg/gitg-branch-actions.c:1160 ../gitg/gitg-branch-actions.c:1703
 msgid "Failed to reapply stash correctly"
-msgstr ""
+msgstr "Falló al volver a aplicar la reserva correctamente"
 
 #: ../gitg/gitg-branch-actions.c:1161 ../gitg/gitg-branch-actions.c:1704
 msgid ""
