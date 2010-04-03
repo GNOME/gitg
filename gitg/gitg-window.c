@@ -765,11 +765,12 @@ gitg_window_delete_event (GtkWidget *widget, GdkEventAny *event)
 
 	if (GTK_WIDGET_CLASS (parent_class)->delete_event)
 	{
-		GTK_WIDGET_CLASS (parent_class)->delete_event (widget, event);
+		return GTK_WIDGET_CLASS (parent_class)->delete_event (widget, event);
 	}
 	else
 	{
 		gtk_widget_destroy (widget);
+		return TRUE;
 	}
 }
 
