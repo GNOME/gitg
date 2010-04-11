@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&component=gitg\n"
 "POT-Creation-Date: 2010-03-07 18:05+0000\n"
-"PO-Revision-Date: 2010-03-28 18:06+0200\n"
+"PO-Revision-Date: 2010-04-11 16:11+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -204,12 +204,12 @@ msgstr "Empujar la rama local <%s> en la rama remota <%s>"
 #: ../gitg/gitg-window.c:500
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
-msgstr ""
+msgstr "Mezclar/rebasar la rama local <%s> con/en la rama local <%s>"
 
 #: ../gitg/gitg-window.c:507
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
-msgstr ""
+msgstr "Mezclar rebasar la rama local <%s> con/en la rama remota <%s>"
 
 #: ../gitg/gitg-window.c:514
 #, c-format
@@ -351,6 +351,8 @@ msgid ""
 "This usually means that the branch is not fully merged in HEAD. Do you want "
 "to forcefully remove the branch?"
 msgstr ""
+"Esto generalmente significa que la rama no está completamente mezclada en la "
+"rama principal («HEAD»). ¿Quiere forzar quitar la rama?"
 
 #: ../gitg/gitg-branch-actions.c:251
 msgid "Force remove"
@@ -476,7 +478,7 @@ msgstr "Falló al descargar («checkout») la etiqueta <%s> en la rama local <%s
 #: ../gitg/gitg-branch-actions.c:1103
 #, c-format
 msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-msgstr ""
+msgstr "Falló al rebasar la rama %s <%s> en la rama %s <%s>"
 
 #: ../gitg/gitg-branch-actions.c:1107
 #, c-format
@@ -540,16 +542,16 @@ msgstr "Mezclando la rama %s <%s> en la rama %s <%s>"
 #: ../gitg/gitg-branch-actions.c:1259
 #, c-format
 msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-msgstr ""
+msgstr "¿Está seguro de que quiere rebasar la rama %s <%s> en la rama %s <%s>?"
 
 #: ../gitg/gitg-branch-actions.c:1267 ../gitg/gitg-branch-actions.c:1269
 #: ../gitg/gitg-branch-actions.c:1319 ../gitg/gitg-menus.xml.h:9
 msgid "Rebase"
-msgstr ""
+msgstr "Rebasar"
 
 #: ../gitg/gitg-branch-actions.c:1292
 msgid "Unable to rebase"
-msgstr ""
+msgstr "No se pudo rebasar"
 
 #: ../gitg/gitg-branch-actions.c:1293
 msgid ""
@@ -561,7 +563,7 @@ msgstr ""
 #: ../gitg/gitg-branch-actions.c:1306
 #, c-format
 msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-msgstr ""
+msgstr "Rebasando la rama %s <%s> en la rama %s <%s>"
 
 #: ../gitg/gitg-branch-actions.c:1345
 #, c-format
@@ -636,7 +638,7 @@ msgstr "Falló al crear la etiqueta"
 #: ../gitg/gitg-branch-actions.c:1657
 #, c-format
 msgid "Failed to cherry-pick on <%s>"
-msgstr ""
+msgstr "Falló al aplicar el cambio en la revisión sobre <%s>"
 
 #: ../gitg/gitg-branch-actions.c:1724
 #, c-format
@@ -908,7 +910,7 @@ msgstr "Empujar rama en…"
 
 #: ../gitg/gitg-menus.xml.h:10
 msgid "Rebase branch onto..."
-msgstr ""
+msgstr "Rebasar rama en..."
 
 #: ../gitg/gitg-menus.xml.h:12
 msgid "Rename branch"
