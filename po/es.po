@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&component=gitg\n"
 "POT-Creation-Date: 2010-03-07 18:05+0000\n"
-"PO-Revision-Date: 2010-04-11 16:11+0200\n"
+"PO-Revision-Date: 2010-04-11 16:39+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,8 @@ msgid ""
 "The column at which the right margin is shown if the right-margin preference "
 "is set to TRUE."
 msgstr ""
+"La columna en la que se muestra el margen derecho si la preferencia de "
+"margen derecho está establecida como verdadera."
 
 #: ../data/gitg.schemas.in.h:11
 msgid "The command to handle GITG scheme URLs"
@@ -229,7 +231,7 @@ msgstr "%d revisiones cargadas en %.2fs"
 #: ../gitg/gitg-window.c:860
 #, c-format
 msgid "Loading %d revisions..."
-msgstr "Cargando %d revisiones..."
+msgstr "Cargando %d revisiones…"
 
 #: ../gitg/gitg-window.c:869
 msgid "Could not find git repository"
@@ -519,6 +521,8 @@ msgid ""
 "There might be unresolved conflicts in the working tree or index which you "
 "need to resolve manually"
 msgstr ""
+"Pueden existir conflictos sin resolver en el árbol de trabajo o índice que "
+"debe resolver manualmente"
 
 #: ../gitg/gitg-branch-actions.c:1182
 #, c-format
@@ -607,29 +611,33 @@ msgstr "Empujando la rama local <%s> en la rama remota <%s/%s>"
 #, c-format
 msgid "Are you sure you want to apply the stash item to local branch <%s>?"
 msgstr ""
+"¿Está seguro de que quiere aplicar la reserva del elemento en la rama local <"
+"%s>?"
 
 #: ../gitg/gitg-branch-actions.c:1486 ../gitg/gitg-branch-actions.c:1488
 msgid "Apply stash"
-msgstr ""
+msgstr "Aplicar reserva"
 
 #: ../gitg/gitg-branch-actions.c:1527
 #, c-format
 msgid "The stash could not be applied to local branch <%s>"
-msgstr ""
+msgstr "No se pudo aplicar la reserva en la rama local <%s>"
 
 #: ../gitg/gitg-branch-actions.c:1531
 msgid "Failed to apply stash"
-msgstr ""
+msgstr "Falló al aplicar la reserva"
 
 #: ../gitg/gitg-branch-actions.c:1591
 msgid ""
 "The tag object could not be successfully created. Please make sure you have "
 "a GPG key and the key is unlocked"
 msgstr ""
+"No se pudo crear correctamente el objeto de etiqueta. Asegúrese de que tiene "
+"una clave GPG y de que la clave está desbloqueada."
 
 #: ../gitg/gitg-branch-actions.c:1595
 msgid "The tag object could not be successfully created"
-msgstr ""
+msgstr "No se pudo crear correctamente el objeto de etiqueta."
 
 #: ../gitg/gitg-branch-actions.c:1600
 msgid "Failed to create tag"
@@ -788,7 +796,7 @@ msgstr "<b>Usuario</b>"
 
 #: ../gitg/gitg-preferences.ui.h:5
 msgid "Collapse inactive lanes"
-msgstr ""
+msgstr "Contraer las líneas inactivas"
 
 #: ../gitg/gitg-preferences.ui.h:7 ../gitg/gitg-repository.ui.h:2
 msgid "Configuration"
@@ -890,7 +898,7 @@ msgstr "Mensaje:"
 
 #: ../gitg/gitg-menus.xml.h:1
 msgid "Apply stash to..."
-msgstr ""
+msgstr "Aplicar reserva a…"
 
 #: ../gitg/gitg-menus.xml.h:2
 msgid "Checkout branch"
@@ -910,7 +918,7 @@ msgstr "Empujar rama en…"
 
 #: ../gitg/gitg-menus.xml.h:10
 msgid "Rebase branch onto..."
-msgstr "Rebasar rama en..."
+msgstr "Rebasar rama en…"
 
 #: ../gitg/gitg-menus.xml.h:12
 msgid "Rename branch"
