@@ -591,8 +591,7 @@ rename_dialog (GitgWindow *window, const gchar *oldname)
 	gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (box), entry, TRUE, TRUE, 0);
 	gtk_widget_show_all (box);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), box, TRUE, TRUE, 12);
-
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dlg))), box, TRUE, TRUE, 12);
 	gint ret = gtk_dialog_run (GTK_DIALOG (dlg));
 
 	gchar *newname = NULL;
