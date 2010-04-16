@@ -6,16 +6,15 @@
 # Laurent Coudeur <laurentc@iol.ie>, 2009.
 # Bruno Brouard <annoa.b@gmail.com>, 2009.
 # Claude Paroz <claude@2xlibre.net>, 2009-2010.
-# Christophe Benz <christophe.benz@gmail.com>, 2010."
+# Christophe Benz <christophe.benz@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gitg&component=gitg\n"
-"POT-Creation-Date: 2010-03-01 08:03+0000\n"
-"PO-Revision-Date: 2010-02-11 10:56+0100\n"
-"Last-Translator: Christophe Benz <christophe.benz@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-17 01:06+0200\n"
+"PO-Revision-Date: 2010-04-17 01:06+0200\n"
+"Last-Translator: Stéphane Raimbault <stephane.raimbault@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +26,7 @@ msgstr "Navigateur de dépôt git"
 
 #. Translators: this is the application name as in g_set_application_name
 #: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:181
-#: ../gitg/gitg-window.c:1238 ../gitg/gitg-window.c:1251
+#: ../gitg/gitg-window.c:1239 ../gitg/gitg-window.c:1252
 #: ../gitg/gitg-branch-actions.c:146 ../gitg/gitg-branch-actions.c:199
 #: ../gitg/gitg-window.ui.h:18
 msgid "gitg"
@@ -157,7 +156,7 @@ msgstr "Vous devez d'abord monter des changements avant de commiter"
 
 #: ../gitg/gitg-commit-view.c:1490
 msgid "Please enter a commit message before committing"
-msgstr "Veuillez saisir un message de soumission avant de commiter"
+msgstr "Veuillez saisir un message de commit avant de commiter"
 
 #: ../gitg/gitg-commit-view.c:1502
 msgid ""
@@ -198,7 +197,7 @@ msgstr "Dépôt git non valide"
 
 #: ../gitg/gitg-revision-tree-view.c:513
 msgid "(Empty)"
-msgstr "(Vide)"
+msgstr "(vide)"
 
 #: ../gitg/gitg-window.c:430
 msgid "Select branch"
@@ -231,41 +230,41 @@ msgstr "Appliquer la réserve à la branche locale <%s>"
 msgid "Cherry-pick revision on <%s>"
 msgstr "Prélever une révision sur <%s>"
 
-#: ../gitg/gitg-window.c:840
+#: ../gitg/gitg-window.c:841
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%d révisions chargées en %.2f s"
 
-#: ../gitg/gitg-window.c:860
+#: ../gitg/gitg-window.c:861
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Chargement de %d révisions..."
 
-#: ../gitg/gitg-window.c:869
+#: ../gitg/gitg-window.c:870
 msgid "Could not find git repository"
 msgstr "Impossible de trouver le dépôt git"
 
-#: ../gitg/gitg-window.c:1171
+#: ../gitg/gitg-window.c:1172
 msgid "Local branches"
 msgstr "Branches locales"
 
-#: ../gitg/gitg-window.c:1192
+#: ../gitg/gitg-window.c:1193
 msgid "All branches"
 msgstr "Toutes les branches"
 
-#: ../gitg/gitg-window.c:1267
+#: ../gitg/gitg-window.c:1268
 msgid "Begin loading repository"
 msgstr "Début du chargement du dépôt"
 
-#: ../gitg/gitg-window.c:1451
+#: ../gitg/gitg-window.c:1452
 msgid "Open git repository"
 msgstr "Ouvrir un dépôt git"
 
-#: ../gitg/gitg-window.c:1572
+#: ../gitg/gitg-window.c:1573
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg est un navigateur de dépôt git utilisant gtk+/GNOME"
 
-#: ../gitg/gitg-window.c:1573
+#: ../gitg/gitg-window.c:1574
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -299,64 +298,63 @@ msgstr ""
 "Foundation, Inc., 59 Temple Place - Suite 330, \n"
 "Boston, MA 02111-1307, USA."
 
-#: ../gitg/gitg-window.c:2040
+#: ../gitg/gitg-window.c:2041
 msgid "new"
 msgstr "nouveau"
 
-#: ../gitg/gitg-window.c:2148 ../gitg/gitg-window.c:2187
+#: ../gitg/gitg-window.c:2149 ../gitg/gitg-window.c:2188
 #, c-format
 msgid "New local branch <%s>"
 msgstr "Nouvelle branche locale <%s>"
 
-#: ../gitg/gitg-window.c:2160 ../gitg/gitg-branch-actions.c:316
+#: ../gitg/gitg-window.c:2161 ../gitg/gitg-branch-actions.c:316
 msgid "Remove remote branch"
 msgstr "Supprimer la branche distante"
 
-#: ../gitg/gitg-window.c:2165
+#: ../gitg/gitg-window.c:2166
 msgid "Checkout working copy"
 msgstr "Extraire une copie de travail (checkout)"
 
-#: ../gitg/gitg-window.c:2166
+#: ../gitg/gitg-window.c:2167
 msgid "Remove local branch"
 msgstr "Supprimer la branche locale"
 
-#: ../gitg/gitg-window.c:2168
+#: ../gitg/gitg-window.c:2169
 msgid "Rename local branch"
 msgstr "Renommer la branche locale"
 
-#: ../gitg/gitg-window.c:2176 ../gitg/gitg-branch-actions.c:392
+#: ../gitg/gitg-window.c:2177 ../gitg/gitg-branch-actions.c:392
 msgid "Remove stash"
 msgstr "Supprimer la réserve"
 
-#: ../gitg/gitg-window.c:2182 ../gitg/gitg-branch-actions.c:454
+#: ../gitg/gitg-window.c:2183 ../gitg/gitg-branch-actions.c:454
 #: ../gitg/gitg-branch-actions.c:456
 msgid "Remove tag"
 msgstr "Supprimer l'étiquette"
 
-#: ../gitg/gitg-window.c:2483
+#: ../gitg/gitg-window.c:2484
 msgid "Please make sure to fill in both the tag name and the commit message"
 msgstr ""
-"Veuillez vous assurer que le nom de l'étiquette et le message du commit "
-"soient tous les deux remplis"
+"Assurez-vous que le nom de l'étiquette et le message du commit soient tous "
+"les deux saisis"
 
-#: ../gitg/gitg-window.c:2487
+#: ../gitg/gitg-window.c:2488
 msgid "Please make sure to fill in the tag name"
-msgstr ""
-"Veuillez vous assurer que le nom de l'étiquette soit rempli"
+msgstr "Assurez-vous que le nom de l'étiquette soit saisi"
 
-#: ../gitg/gitg-window.c:2496
+#: ../gitg/gitg-window.c:2497
 msgid "Not all fields are correctly filled in"
-msgstr "Tous les champs ne sont pas remplis correctement"
+msgstr "Tous les champs ne sont pas correctement saisis"
 
 #. Single one, pick filename
-#: ../gitg/gitg-window.c:2590
+#: ../gitg/gitg-window.c:2591
 msgid "Save format patch"
-msgstr "Sauvegarder le correctif"
+msgstr "Enregistrer le correctif"
 
 #: ../gitg/gitg-branch-actions.c:249
 #, c-format
 msgid "Branch <%s> could not be removed"
-msgstr "La branche <%s> ne peut être supprimée"
+msgstr "La branche <%s> ne peut pas être supprimée"
 
 #: ../gitg/gitg-branch-actions.c:250
 msgid ""
@@ -973,7 +971,7 @@ msgstr "Réc_emment ouvert"
 
 #: ../gitg/gitg-ui.xml.h:6
 msgid "_Edit"
-msgstr "É_diter"
+msgstr "É_dition"
 
 #: ../gitg/gitg-ui.xml.h:7
 msgid "_File"
@@ -994,21 +992,3 @@ msgstr "_Dépôt"
 #: ../gitg/gitg-ui.xml.h:11
 msgid "_View"
 msgstr "_Affichage"
-
-#~ msgid "The command to handle FEED scheme URLs."
-#~ msgstr "La commande pour traiter les URL de type FEED."
-
-#~ msgid "Author"
-#~ msgstr "Auteur"
-
-#~ msgid "Date"
-#~ msgstr "Date"
-
-#~ msgid "Filename"
-#~ msgstr "Nom du fichier"
-
-#~ msgid "Subject"
-#~ msgstr "Sujet"
-
-#~ msgid "Co_mment"
-#~ msgstr "Co_mmentaire"
