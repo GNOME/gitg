@@ -5,13 +5,14 @@
 #
 # Chihau Chau <chihau@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.po.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&component=gitg\n"
 "POT-Creation-Date: 2010-03-07 18:05+0000\n"
-"PO-Revision-Date: 2010-04-11 16:39+0200\n"
+"PO-Revision-Date: 2010-04-22 19:58+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,6 +76,9 @@ msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
+"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». Se "
+"puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
+"columna en particular."
 
 #: ../data/gitg.schemas.in.h:10
 msgid ""
@@ -341,7 +345,7 @@ msgstr "No se han rellenado correctamente todos los campos"
 #. Single one, pick filename
 #: ../gitg/gitg-window.c:2590
 msgid "Save format patch"
-msgstr "Guardar el formato del parche"
+msgstr "Guardar el parche de corrección"
 
 #: ../gitg/gitg-branch-actions.c:249
 #, c-format
@@ -563,6 +567,9 @@ msgid ""
 "to rebase a branch onto the currently checked out branch. Either remove, "
 "stash or commit your changes first and try again"
 msgstr ""
+"Aún existen cambios sin efectuar en su árbol de trabajo y está intentando "
+"rebasar una rama en la rama de trabajo actualmente descargada. Quite, "
+"reserve o efectúe sus cambios antes e inténtelo de nuevo."
 
 #: ../gitg/gitg-branch-actions.c:1306
 #, c-format
@@ -572,13 +579,16 @@ msgstr "Rebasando la rama %s <%s> en la rama %s <%s>"
 #: ../gitg/gitg-branch-actions.c:1345
 #, c-format
 msgid "Failed to push local branch <%s> to remote <%s>"
-msgstr ""
+msgstr "Falló al empujar la rama local <%s> en la remota <%s>"
 
 #: ../gitg/gitg-branch-actions.c:1346
+#, fuzzy
 msgid ""
 "This usually means that the remote branch could not be fast-forwarded. Try "
 "fetching the latest changes."
 msgstr ""
+"Esto generalmente significa que la rama remota no se pudo XXX. Intentando "
+"obtener los últimos cambios."
 
 #: ../gitg/gitg-branch-actions.c:1370
 #, c-format
@@ -670,16 +680,16 @@ msgstr ""
 
 #: ../gitg/gitg-branch-actions.c:1836
 msgid "Failed to generate format-patch"
-msgstr "Falló al generar el formato de parche"
+msgstr "Falló al generar la corrección"
 
 #: ../gitg/gitg-branch-actions.c:1882
 #, c-format
 msgid "Generating format-patch for <%s>"
-msgstr ""
+msgstr "Generando el parche de corrección para <%s>"
 
 #: ../gitg/gitg-branch-actions.c:1888 ../gitg/gitg-menus.xml.h:5
 msgid "Format patch"
-msgstr ""
+msgstr "Parche de corrección"
 
 #: ../gitg/gitg-repository-dialog.c:173 ../gitg/gitg-repository.ui.h:4
 msgid "Fetch"
@@ -700,7 +710,7 @@ msgstr "Aádir firmado por"
 
 #: ../gitg/gitg-window.ui.h:2
 msgid "Amend"
-msgstr ""
+msgstr "Completar"
 
 #: ../gitg/gitg-window.ui.h:3
 msgid "Author:"
@@ -756,11 +766,11 @@ msgstr "_Cambios"
 
 #: ../gitg/gitg-window.ui.h:16
 msgid "_Staged"
-msgstr ""
+msgstr "_Reservado"
 
 #: ../gitg/gitg-window.ui.h:17
 msgid "_Unstaged"
-msgstr ""
+msgstr "_Sin reservar"
 
 #: ../gitg/gitg-commit-menu.ui.h:1 ../gitg/gitg-ui.xml.h:1
 msgid "Ignore"
@@ -772,11 +782,11 @@ msgstr "Revertir"
 
 #: ../gitg/gitg-commit-menu.ui.h:3 ../gitg/gitg-ui.xml.h:4
 msgid "Stage"
-msgstr ""
+msgstr "Reservar"
 
 #: ../gitg/gitg-commit-menu.ui.h:4 ../gitg/gitg-ui.xml.h:5
 msgid "Unstage"
-msgstr ""
+msgstr "Quitar la reserva"
 
 #: ../gitg/gitg-preferences.ui.h:1
 msgid "<b>Commit Message</b>"
@@ -850,15 +860,15 @@ msgstr "Mostrar histórico en orden topológico"
 
 #: ../gitg/gitg-preferences.ui.h:19
 msgid "Show staged changes in history"
-msgstr ""
+msgstr "Mostrar los cambios reservados en el histórico"
 
 #: ../gitg/gitg-preferences.ui.h:20
 msgid "Show stash in history"
-msgstr ""
+msgstr "Mostrar las reservas en el histórico"
 
 #: ../gitg/gitg-preferences.ui.h:21
 msgid "Show unstaged changes in history"
-msgstr ""
+msgstr "Mostrar los cambios sin reservar en el histórico"
 
 #: ../gitg/gitg-preferences.ui.h:22
 msgid "Use vertical layout"
@@ -878,7 +888,7 @@ msgstr "Nombre"
 
 #: ../gitg/gitg-repository.ui.h:8
 msgid "Remotes"
-msgstr ""
+msgstr "Remotas"
 
 #: ../gitg/gitg-repository.ui.h:9
 msgid "URL"
