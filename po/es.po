@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&component=gitg\n"
 "POT-Creation-Date: 2010-03-07 18:05+0000\n"
-"PO-Revision-Date: 2010-04-22 19:58+0200\n"
+"PO-Revision-Date: 2010-05-01 10:45+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -582,13 +582,12 @@ msgid "Failed to push local branch <%s> to remote <%s>"
 msgstr "Falló al empujar la rama local <%s> en la remota <%s>"
 
 #: ../gitg/gitg-branch-actions.c:1346
-#, fuzzy
 msgid ""
 "This usually means that the remote branch could not be fast-forwarded. Try "
 "fetching the latest changes."
 msgstr ""
-"Esto generalmente significa que la rama remota no se pudo XXX. Intentando "
-"obtener los últimos cambios."
+"Esto generalmente significa que la rama remota no se pudo resolver por el "
+"método rápido («fast-forwarded»). Intentando obtener los últimos cambios."
 
 #: ../gitg/gitg-branch-actions.c:1370
 #, c-format
@@ -663,20 +662,23 @@ msgstr "Falló al aplicar el cambio en la revisión sobre <%s>"
 #| msgid "Are you sure you want to push <%s> to <%s>?"
 msgid "Are you sure you want to cherry-pick that revision on <%s>?"
 msgstr ""
+"¿Está seguro de que quiere aplicar los cambios («cherry-pick») en la revisión "
+"<%s>?"
 
 #: ../gitg/gitg-branch-actions.c:1729 ../gitg/gitg-branch-actions.c:1731
 #: ../gitg/gitg-branch-actions.c:1779
 msgid "Cherry-pick"
-msgstr ""
+msgstr "Aplicar los cambios («cherry-pick»)"
 
 #: ../gitg/gitg-branch-actions.c:1759
 msgid "The branch on which to cherry-pick could not be checked out"
 msgstr ""
+"No se pudo obtener la rama en la que aplicar los cambios («cherry-pick»)"
 
 #: ../gitg/gitg-branch-actions.c:1766
 #, c-format
 msgid "Cherry-picking on <%s>"
-msgstr ""
+msgstr "Aplicando los cambios ((«cherry-picking») en <%s>"
 
 #: ../gitg/gitg-branch-actions.c:1836
 msgid "Failed to generate format-patch"
@@ -916,7 +918,7 @@ msgstr "Descargar rama («checkout»)"
 
 #: ../gitg/gitg-menus.xml.h:3
 msgid "Cherry-pick on..."
-msgstr ""
+msgstr "Aplicar los cambios («cherry-pick») en…"
 
 #: ../gitg/gitg-menus.xml.h:7
 msgid "Merge branch with..."
