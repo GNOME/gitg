@@ -736,19 +736,19 @@ update_diff(GitgRevisionView *self, GitgRepository *repository)
 		case 't':
 			gitg_repository_run_commandv(self->priv->repository, self->priv->diff_runner, NULL,
 										"diff", "--cached", "-M", "--pretty=format:%s%n%n%b",
-										"--encoding=UTF-8", NULL);
+										"--encoding=UTF-8", "--no-color", NULL);
 		break;
 		case 'u':
 			gitg_repository_run_commandv(self->priv->repository, self->priv->diff_runner, NULL,
 										"diff", "-M", "--pretty=format:%s%n%n%b",
-										"--encoding=UTF-8", NULL);
+										"--encoding=UTF-8", "--no-color", NULL);
 		break;
 		default:
 		{
 			gchar *hash = gitg_revision_get_sha1(self->priv->revision);
 			gitg_repository_run_commandv(self->priv->repository, self->priv->diff_runner, NULL,
 										 "show", "-M", "--pretty=format:%s%n%n%b", 
-										 "--encoding=UTF-8", hash, NULL);
+										 "--encoding=UTF-8", "--no-color", hash, NULL);
 
 			g_free(hash);
 		}

@@ -461,7 +461,7 @@ unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
 		gchar ct[10];
 		g_snprintf(ct, sizeof(ct), "-U%d", view->priv->context_size);
 
-		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff", ct, "--", path, NULL);
+		gitg_repository_run_commandv(view->priv->repository, view->priv->runner, NULL, "diff", "--no-color", ct, "--", path, NULL);
 		g_free(path);
 	}
 
