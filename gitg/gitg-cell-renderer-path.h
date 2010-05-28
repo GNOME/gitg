@@ -23,7 +23,7 @@
 #ifndef __GITG_CELL_RENDERER_PATH_H__
 #define __GITG_CELL_RENDERER_PATH_H__
 
-#include <gtk/gtkcellrenderertext.h>
+#include <gtk/gtk.h>
 #include "gitg-ref.h"
 
 G_BEGIN_DECLS

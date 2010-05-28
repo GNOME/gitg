@@ -728,25 +728,25 @@ save_state(GitgWindow *window)
 	gitg_settings_set_window_width(settings, allocation->width);
 	gitg_settings_set_window_height(settings, allocation->height);
 
-	if (GTK_WIDGET_MAPPED (window->priv->vpaned_main))
+	if (gtk_widget_get_mapped (window->priv->vpaned_main))
 	{
 		gitg_settings_set_vpaned_main_position (settings,
 			                                    gtk_paned_get_position(GTK_PANED(window->priv->vpaned_main)));
 	}
 
-	if (GTK_WIDGET_MAPPED (window->priv->vpaned_commit))
+	if (gtk_widget_get_mapped (window->priv->vpaned_commit))
 	{
 		gitg_settings_set_vpaned_commit_position (settings,
 			                                      gtk_paned_get_position(GTK_PANED(window->priv->vpaned_commit)));
 	}
 
-	if (GTK_WIDGET_MAPPED (window->priv->hpaned_commit1))
+	if (gtk_widget_get_mapped (window->priv->hpaned_commit1))
 	{
 		gitg_settings_set_hpaned_commit1_position (settings,
 			                                       gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit1)));
 	}
 
-	if (GTK_WIDGET_MAPPED (window->priv->hpaned_commit2))
+	if (gtk_widget_get_mapped (window->priv->hpaned_commit2))
 	{
 		gitg_settings_set_hpaned_commit2_position (settings,
 			                                       GTK_WIDGET (window->priv->hpaned_commit2)->allocation.width -

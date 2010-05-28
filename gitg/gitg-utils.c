@@ -518,7 +518,7 @@ gitg_utils_find_cell_at_pos (GtkTreeView *tree_view, GtkTreeViewColumn *column, 
 
 	gtk_tree_view_column_cell_set_cell_data (column, model, &iter, FALSE, FALSE);
 
-	cells = gtk_tree_view_column_get_cell_renderers (column);
+	cells = gtk_cell_layout_get_cells (GTK_CELL_LAYOUT (column));
 	GtkCellRenderer *ret = NULL;
 
 	for (item = cells; item; item = g_list_next (item))
@@ -588,7 +588,7 @@ gitg_utils_restore_pane_position (GtkPaned *paned, gint position, gboolean rever
 {
 	g_return_if_fail (GTK_IS_PANED (paned));
 
-	if (GTK_WIDGET_MAPPED (paned))
+	if (gtk_widget_get_mapped (GTK_WIDGET (paned)))
 	{
 		paned_set_position (paned, position, reversed);
 

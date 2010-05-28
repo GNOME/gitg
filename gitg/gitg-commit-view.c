@@ -1191,7 +1191,7 @@ gitg_commit_view_set_repository(GitgCommitView *view, GitgRepository *repository
 	if (repository)
 		view->priv->repository = g_object_ref(repository);
 
-	if (GTK_WIDGET_MAPPED(GTK_WIDGET(view)))
+	if (gtk_widget_get_mapped(GTK_WIDGET(view)))
 		initialize_commit(view);
 
 	g_object_notify(G_OBJECT(view), "repository");

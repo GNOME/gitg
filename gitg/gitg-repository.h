@@ -22,7 +22,7 @@
 #ifndef __GITG_REPOSITORY_H__
 #define __GITG_REPOSITORY_H__
 
-#include <gtk/gtktreemodel.h>
+#include <gtk/gtk.h>
 
 #include "gitg-revision.h"
 #include "gitg-runner.h"
