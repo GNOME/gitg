@@ -71,6 +71,13 @@ AC_ARG_ENABLE([bundle],
 	[enable_bundle=$enableval],
 	[enable_bundle=no])
 
+if test "x$USE_MAINTAINER_MODE" = "xyes"; then
+PACKAGE_CFLAGS="$PACKAGE_CFLAGS -Wall -Werror -Wuninitialized -Wmissing-declarations"
+fi
+
+AC_SUBST(PACKAGE_CFLAGS)
+AC_SUBST(PACKAGE_LIBS)
+
 if test "$enable_bundle" = "yes"; then
 	AC_DEFINE([ENABLE_BUNDLE],[1],[Defined if building bundle])
 fi
