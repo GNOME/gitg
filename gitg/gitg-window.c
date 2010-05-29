@@ -117,7 +117,6 @@ void on_edit_copy (GtkAction *action, GitgWindow *window);
 void on_edit_paste (GtkAction *action, GitgWindow *window);
 void on_view_refresh (GtkAction *action, GitgWindow *window);
 void on_recent_open (GtkRecentChooser *chooser, GitgWindow *window);
-void on_window_set_focus (GitgWindow *window, GtkWidget *widget);
 void on_help_about (GtkAction *action, GitgWindow *window);
 void on_edit_preferences (GtkAction *action, GitgWindow *window);
 void on_repository_properties (GtkAction *action, GitgWindow *window);
@@ -840,21 +839,67 @@ gitg_window_window_state_event (GtkWidget *widget, GdkEventWindowState *event)
 }
 
 static void
-gitg_window_class_init(GitgWindowClass *klass)
+gitg_window_set_focus (GtkWindow *wnd,
+                       GtkWidget *widget)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	GtkObjectClass *gtkobject_class = GTK_OBJECT_CLASS(klass);
-	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
+	GitgWindow *window;
 
-	parent_class = g_type_class_peek_parent(klass);
+	if (GTK_WINDOW_CLASS (gitg_window_parent_class)->set_focus)
+	{
+		GTK_WINDOW_CLASS (gitg_window_parent_class)->set_focus (wnd, widget);
+	}
+
+	if (widget == NULL)
+	{
+		return;
+	}
+
+	window = GITG_WINDOW (wnd);
+
+	gboolean cancopy = g_signal_lookup ("copy-clipboard",
+	                                    G_OBJECT_TYPE(widget)) != 0;
+	gboolean selection = FALSE;
+	gboolean editable = FALSE;
+
+	if (GTK_IS_EDITABLE (widget))
+	{
+		selection = gtk_editable_get_selection_bounds (GTK_EDITABLE (widget),
+		                                               NULL,
+		                                               NULL);
+		editable = gtk_editable_get_editable (GTK_EDITABLE(widget));
+		cancopy = cancopy && selection;
+	}
+
+	gtk_action_set_sensitive (gtk_action_group_get_action (window->priv->edit_group,
+	                                                       "EditPasteAction"),
+	                          editable);
+
+	gtk_action_set_sensitive (gtk_action_group_get_action (window->priv->edit_group,
+	                                                       "EditCutAction"),
+	                          editable && selection);
+	gtk_action_set_sensitive (gtk_action_group_get_action (window->priv->edit_group,
+	                                                       "EditCopyAction"),
+	                          cancopy);
+}
+
+static void
+gitg_window_class_init (GitgWindowClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	GtkObjectClass *gtkobject_class = GTK_OBJECT_CLASS (klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+	GtkWindowClass *window_class = GTK_WINDOW_CLASS (klass);
+
+	parent_class = g_type_class_peek_parent (klass);
 
 	object_class->finalize = gitg_window_finalize;
 	gtkobject_class->destroy = gitg_window_destroy;
+
 	widget_class->delete_event = gitg_window_delete_event;
-
 	widget_class->window_state_event = gitg_window_window_state_event;
+	window_class->set_focus = gitg_window_set_focus;
 
-	g_type_class_add_private(object_class, sizeof(GitgWindowPrivate));
+	g_type_class_add_private (object_class, sizeof (GitgWindowPrivate));
 }
 
 static void
@@ -1632,28 +1677,6 @@ on_view_refresh (GtkAction *action, GitgWindow *window)
 	{
 		gitg_repository_reload (window->priv->repository);
 	}
-}
-
-void
-on_window_set_focus (GitgWindow *window, GtkWidget *widget)
-{
-	if (widget == NULL)
-		return;
-
-	gboolean cancopy = g_signal_lookup("copy-clipboard", G_OBJECT_TYPE(widget)) != 0;
-	gboolean selection = FALSE;
-	gboolean editable = FALSE;
-
-	if (GTK_IS_EDITABLE(widget))
-	{
-		selection = gtk_editable_get_selection_bounds(GTK_EDITABLE(widget), NULL, NULL);
-		editable = gtk_editable_get_editable(GTK_EDITABLE(widget));
-		cancopy = cancopy && selection;
-	}
-
-	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditPasteAction"), editable);
-	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditCutAction"), editable && selection);
-	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditCopyAction"), cancopy);
 }
 
 void
