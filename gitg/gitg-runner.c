@@ -577,8 +577,8 @@ gitg_runner_run_with_arguments (GitgRunner *runner,
 {
 	g_return_val_if_fail (GITG_IS_RUNNER(runner), FALSE);
 
-	gint stdout;
-	gint stdin;
+	gint stdoutf;
+	gint stdinf;
 
 	gitg_runner_cancel (runner);
 	gchar *wd = NULL;
@@ -598,8 +598,8 @@ gitg_runner_run_with_arguments (GitgRunner *runner,
 	                                         NULL,
 	                                         NULL,
 	                                         &(runner->priv->pid),
-	                                         input ? &stdin : NULL,
-	                                         &stdout,
+	                                         input ? &stdinf : NULL,
+	                                         &stdoutf,
 	                                         NULL,
 	                                         error);
 
@@ -615,9 +615,9 @@ gitg_runner_run_with_arguments (GitgRunner *runner,
 	GOutputStream *output_stream = NULL;
 
 	if (input)
-		output_stream = G_OUTPUT_STREAM(g_unix_output_stream_new(stdin, TRUE));
+		output_stream = G_OUTPUT_STREAM(g_unix_output_stream_new (stdinf, TRUE));
 
-	input_stream = G_INPUT_STREAM(g_unix_input_stream_new(stdout, TRUE));
+	input_stream = G_INPUT_STREAM(g_unix_input_stream_new (stdoutf, TRUE));
 	ret = gitg_runner_run_streams(runner, input_stream, output_stream, input, error);
 
 	if (output_stream)
