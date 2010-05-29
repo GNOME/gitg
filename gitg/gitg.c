@@ -194,7 +194,7 @@ main(int argc, char **argv)
 
 	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, argc > 1 ? (gchar const **)&argv[2] : NULL, select_sha1);
 
-	if (commit_mode)
+	if (commit_mode && gitg_window_get_repository (window) != NULL)
 		gitg_window_show_commit(window);
 
 	gtk_main();

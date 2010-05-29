@@ -1379,7 +1379,7 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
 		gitg_revision_view_set_repository(window->priv->revision_view, window->priv->repository);
 
-		if (path || argc > 1 || usewd)
+		if (path || argc > 1)
 		{
 			handle_no_gitdir(window);
 		}
