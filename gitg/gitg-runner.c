@@ -593,6 +593,7 @@ gitg_runner_run_with_arguments (GitgRunner *runner,
 	                                         runner->priv->environment,
 	                                         G_SPAWN_SEARCH_PATH |
 	                                         G_SPAWN_DO_NOT_REAP_CHILD |
+	                                         (input ? 0 : G_SPAWN_CHILD_INHERITS_STDIN) |
 	                                         (gitg_debug_enabled(GITG_DEBUG_RUNNER) ? 0 : G_SPAWN_STDERR_TO_DEV_NULL),
 	                                         NULL,
 	                                         NULL,
