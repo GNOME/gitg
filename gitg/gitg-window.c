@@ -82,6 +82,7 @@ struct _GitgWindowPrivate
 	GtkWidget *vpaned_commit;
 
 	GtkActionGroup *edit_group;
+	GtkActionGroup *repository_group;
 	GtkWidget *open_dialog;
 
 	GitgCellRendererPath *renderer_path;
@@ -668,7 +669,7 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	// Insert menu from second ui file
 	GtkBuilder *b = gitg_utils_new_builder("gitg-ui.xml");
-	GtkUIManager *uiman = GTK_UI_MANAGER (gtk_builder_get_object(b, "uiman"));
+	GtkUIManager *uiman = GTK_UI_MANAGER (gtk_builder_get_object (b, "uiman"));
 
 	GtkRecentChooser *chooser = GTK_RECENT_CHOOSER(gtk_builder_get_object(b, "RecentOpenAction"));
 	GtkRecentFilter *filter = gtk_recent_filter_new();
@@ -686,6 +687,7 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	gtk_window_add_accel_group (GTK_WINDOW (window), gtk_ui_manager_get_accel_group (uiman));
 
 	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object(b, "action_group_menu_edit"));
+	window->priv->repository_group = GTK_ACTION_GROUP(gtk_builder_get_object(b, "action_group_menu_repository"));
 
 	gtk_builder_connect_signals(b, window);
 	g_object_unref(b);
@@ -1362,6 +1364,15 @@ add_recent_item (GitgWindow *window)
 	g_object_unref (work_tree);
 }
 
+static void
+update_sensitivity (GitgWindow *window)
+{
+	gboolean sens = window->priv->repository != NULL;
+
+	gtk_widget_set_sensitive (GTK_WIDGET (window->priv->notebook_main), sens);
+	gtk_action_group_set_sensitive (window->priv->repository_group, sens);
+}
+
 static gboolean
 load_repository (GitgWindow *window,
                  GFile *git_dir,
@@ -1390,7 +1401,8 @@ load_repository (GitgWindow *window,
 		memset (window->priv->select_on_load, 0, HASH_BINARY_SIZE);
 	}
 
-	if (create_repository (window, git_dir, work_tree, selection))
+	if ((git_dir || work_tree) &&
+	    create_repository (window, git_dir, work_tree, selection))
 	{
 		gtk_tree_view_set_model (window->priv->tree_view,
 		                         GTK_TREE_MODEL (window->priv->repository));
@@ -1423,7 +1435,6 @@ load_repository (GitgWindow *window,
 		                                  window->priv->repository);
 
 		add_recent_item (window);
-		gtk_widget_set_sensitive (GTK_WIDGET (window->priv->notebook_main), TRUE);
 	}
 	else
 	{
@@ -1436,8 +1447,9 @@ load_repository (GitgWindow *window,
 		                                   NULL);
 
 		update_window_title (window);
-		gtk_widget_set_sensitive (GTK_WIDGET (window->priv->notebook_main), FALSE);
 	}
+
+	update_sensitivity (window);
 
 	return window->priv->repository != NULL;
 }
@@ -1504,15 +1516,12 @@ load_repository_for_command_line (GitgWindow *window,
 		g_free (cwd);
 		g_object_unref (file);
 
-		if (git_dir)
-		{
-			ret = load_repository (window,
-			                       git_dir,
-			                       NULL,
-			                       argc,
-			                       argv,
-			                       selection);
-		}
+		ret = load_repository (window,
+		                       git_dir,
+		                       NULL,
+		                       argc,
+		                       argv,
+		                       selection);
 	}
 
 	if (git_dir)

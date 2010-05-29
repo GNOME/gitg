@@ -77,17 +77,6 @@
       </object>
     </child>
     <child>
-      <object class="GtkActionGroup" id="action_group_menu_view">
-        <child>
-          <object class="GtkAction" id="ViewRefreshAction">
-            <property name="stock-id">gtk-refresh</property>
-            <signal name="activate" handler="on_view_refresh"/>
-          </object>
-          <accelerator key="R" modifiers="GDK_CONTROL_MASK"/>
-        </child>
-      </object>
-    </child>
-    <child>
       <object class="GtkActionGroup" id="action_group_menu_repository">
         <child>
           <object class="GtkAction" id="RepositoryPropertiesAction">
@@ -96,6 +85,13 @@
             <signal name="activate" handler="on_repository_properties"/>
           </object>
           <accelerator key="R" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK"/>
+        </child>
+        <child>
+          <object class="GtkAction" id="ViewRefreshAction">
+            <property name="stock-id">gtk-refresh</property>
+            <signal name="activate" handler="on_view_refresh"/>
+          </object>
+          <accelerator key="R" modifiers="GDK_CONTROL_MASK"/>
         </child>
       </object>
     </child>
