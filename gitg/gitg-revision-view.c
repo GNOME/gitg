@@ -678,7 +678,7 @@ update_parents(GitgRevisionView *self, GitgRevision *revision)
 		{
 			GtkWidget *subject = gtk_label_new(NULL);
 
-			gchar *text = g_markup_printf_escaped ("(<i>%s</i>)", gitg_revision_get_subject(revision));
+			gchar *text = g_markup_printf_escaped (": <i>%s</i>", gitg_revision_get_subject(revision));
 
 			gtk_label_set_markup(GTK_LABEL(subject), text);
 
@@ -687,7 +687,7 @@ update_parents(GitgRevisionView *self, GitgRevision *revision)
 			gtk_widget_show(subject);
 
 			gtk_misc_set_alignment(GTK_MISC(subject), 0.0, 0.5);
-			gtk_label_set_ellipsize(GTK_LABEL(subject), PANGO_ELLIPSIZE_MIDDLE);
+			gtk_label_set_ellipsize(GTK_LABEL(subject), PANGO_ELLIPSIZE_END);
 			gtk_label_set_single_line_mode(GTK_LABEL(subject), TRUE);
 
 			gtk_table_attach(self->priv->parents, subject, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_SHRINK, 0, 0);
