@@ -19,11 +19,6 @@
           </object>
         </child>
         <child>
-          <object class="GtkAction" id="RepositoryAction">
-            <property name="label" translatable="yes">_Repository</property>
-          </object>
-        </child>
-        <child>
           <object class="GtkAction" id="HelpAction">
             <property name="label" translatable="yes">_Help</property>
           </object>
@@ -97,8 +92,10 @@
         <child>
           <object class="GtkAction" id="RepositoryPropertiesAction">
             <property name="stock-id">gtk-properties</property>
+            <property name="label">_Repository Properties</property>
             <signal name="activate" handler="on_repository_properties"/>
           </object>
+          <accelerator key="R" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK"/>
         </child>
       </object>
     </child>
@@ -142,6 +139,8 @@
           <menuitem action="FileOpenAction"/>
           <menuitem action="RecentOpenAction"/>
           <separator/>
+          <menuitem action="RepositoryPropertiesAction"/>
+          <separator/>
           <menuitem action="FileQuitAction"/>
         </menu>
         <menu action="EditAction">
@@ -153,9 +152,6 @@
         </menu>
         <menu action="ViewAction">
           <menuitem action="ViewRefreshAction"/>
-        </menu>
-        <menu action="RepositoryAction">
-          <menuitem action="RepositoryPropertiesAction"/>
         </menu>
         <menu action="HelpAction">
           <menuitem action="HelpAboutAction"/>
