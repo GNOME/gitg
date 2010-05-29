@@ -368,7 +368,15 @@ hide_header_details (GitgDiffView *view,
 	gtk_text_buffer_get_iter_at_line (buffer, &startiter, line);
 
 	enditer = startiter;
-	gtk_text_iter_forward_lines (&enditer, region->next->line - line);
+
+	if (region->next)
+	{
+		gtk_text_iter_forward_lines (&enditer, region->next->line - line);
+	}
+	else
+	{
+		gtk_text_iter_forward_line (&enditer);
+	}
 
 	gtk_text_buffer_apply_tag (buffer, view->priv->subheader_tag, &startiter, &enditer);
 }
