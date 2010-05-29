@@ -194,7 +194,9 @@ get_value_global (GitgConfig *config, gchar const *key)
 }
 
 static gchar *
-get_value_global_regex (GitgConfig *config, gchar const *regex)
+get_value_global_regex (GitgConfig *config,
+                        gchar const *regex,
+                        gchar const *value_regex)
 {
 	gchar const *argv[] = {
 		"git",
@@ -202,6 +204,7 @@ get_value_global_regex (GitgConfig *config, gchar const *regex)
 		"--global",
 		"--get-regexp",
 		regex,
+		value_regex,
 		NULL
 	};
 
@@ -240,7 +243,9 @@ get_value_local (GitgConfig *config, gchar const *key)
 }
 
 static gchar *
-get_value_local_regex (GitgConfig *config, gchar const *regex)
+get_value_local_regex (GitgConfig *config,
+                       gchar const *regex,
+                       gchar const *value_regex)
 {
 	gboolean ret;
 	GFile *git_dir;
@@ -260,6 +265,7 @@ get_value_local_regex (GitgConfig *config, gchar const *regex)
 	                                    cfg,
 	                                    "--get-regexp",
 	                                    regex,
+	                                    value_regex,
 	                                    NULL);
 
 	g_free (cfg);
@@ -381,18 +387,20 @@ gitg_config_get_value (GitgConfig *config, gchar const *key)
 }
 
 gchar *
-gitg_config_get_value_regex (GitgConfig *config, gchar const *regex)
+gitg_config_get_value_regex (GitgConfig *config,
+                             gchar const *regex,
+                             gchar const *value_regex)
 {
 	g_return_val_if_fail (GITG_IS_CONFIG (config), NULL);
 	g_return_val_if_fail (regex != NULL, NULL);
 
 	if (config->priv->repository != NULL)
 	{
-		return get_value_local_regex (config, regex);
+		return get_value_local_regex (config, regex, value_regex);
 	}
 	else
 	{
-		return get_value_global_regex (config, regex);
+		return get_value_global_regex (config, regex, value_regex);
 	}
 }
 

@@ -361,7 +361,9 @@ on_selection_changed (GtkTreeSelection *selection, GitgRepositoryDialog *dialog)
 static void
 init_remotes(GitgRepositoryDialog *dialog)
 {
-	gchar *ret = gitg_config_get_value_regex (dialog->priv->config, "remote\\..*\\.url");
+	gchar *ret = gitg_config_get_value_regex (dialog->priv->config,
+	                                          "remote\\..*\\.url",
+	                                          NULL);
 
 	if (!ret)
 	{

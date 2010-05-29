@@ -1707,7 +1707,7 @@ gitg_repository_get_remotes (GitgRepository *repository)
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
 
 	GitgConfig *config = gitg_config_new (repository);
-	gchar *ret = gitg_config_get_value_regex (config, "remote\\..*\\.url");
+	gchar *ret = gitg_config_get_value_regex (config, "remote\\..*\\.url", NULL);
 
 	GPtrArray *remotes = g_ptr_array_new ();
 

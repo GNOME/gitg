@@ -54,7 +54,7 @@ GType gitg_config_get_type (void) G_GNUC_CONST;
 GitgConfig *gitg_config_new (GitgRepository *repository);
 
 gchar *gitg_config_get_value (GitgConfig *config, gchar const *key);
-gchar *gitg_config_get_value_regex (GitgConfig *config, gchar const *regex);
+gchar *gitg_config_get_value_regex (GitgConfig *config, gchar const *regex, gchar const *value_regex);
 
 gboolean gitg_config_rename (GitgConfig *config, gchar const *old, gchar const *nw);
 gboolean gitg_config_set_value (GitgConfig *config, gchar const *key, gchar const *value);
