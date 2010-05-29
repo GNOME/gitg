@@ -274,7 +274,7 @@ lane_container_new(gchar const *from, gchar const *to)
 	return lane_container_new_with_color(from, to, NULL);
 }
 
-GSList *
+static GSList *
 lanes_list(GitgLanes *lanes)
 {
 	GSList *lns = NULL;

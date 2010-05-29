@@ -815,7 +815,7 @@ get_xds_filename (GdkDragContext *context)
 		return NULL;
 	}
 
-	guint len;
+	gint len;
 	gchar *ret = NULL;
 
 	if (gdk_property_get (context->source_window,
@@ -877,7 +877,7 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 			gtk_selection_data_set (selection,
 			                        selection->target,
 			                        8,
-			                        "S",
+			                        (guchar const *)"S",
 			                        1);
 		}
 		else
@@ -885,7 +885,7 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 			gtk_selection_data_set (selection,
 			                        selection->target,
 			                        8,
-			                        "E",
+			                        (guchar const *)"E",
 			                        1);
 		}
 
@@ -904,9 +904,15 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 		break;
 		case DRAG_TARGET_TREEISH:
 		{
-			gchar *treeish = revision_to_treeish (repository, data->revision);
+			gchar *treeish = revision_to_treeish (repository,
+			                                      data->revision);
 
-			gtk_selection_data_set (selection, selection->target, 8, treeish, strlen (treeish));
+			gtk_selection_data_set (selection,
+			                        selection->target,
+			                        8,
+			                        (guchar const *)treeish,
+			                        strlen (treeish));
+
 			g_free (treeish);
 		}
 		break;

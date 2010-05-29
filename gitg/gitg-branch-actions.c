@@ -1671,14 +1671,12 @@ on_cherry_pick_result (GitgWindow   *window,
 
 	if (progress == GITG_PROGRESS_ERROR)
 	{
-		gchar const *message;
-
 		message_dialog (window,
-			            GTK_MESSAGE_ERROR,
-			            _("Failed to cherry-pick on <%s>"),
-			            NULL,
-			            NULL,
-	                    gitg_ref_get_shortname (info->dest));
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to cherry-pick on <%s>"),
+		                NULL,
+		                NULL,
+		                gitg_ref_get_shortname (info->dest));
 	}
 	else if (progress == GITG_PROGRESS_SUCCESS)
 	{
@@ -1850,14 +1848,12 @@ on_format_patch_result (GitgWindow   *window,
 
 	if (progress == GITG_PROGRESS_ERROR)
 	{
-		gchar const *message;
-
 		message_dialog (window,
-			            GTK_MESSAGE_ERROR,
-			            _("Failed to generate format-patch"),
-			            NULL,
-			            NULL,
-	                    NULL);
+		                GTK_MESSAGE_ERROR,
+		                _("Failed to generate format-patch"),
+		                NULL,
+		                NULL,
+		                NULL);
 	}
 
 	format_patch_info_free (info);
@@ -1903,7 +1899,9 @@ gitg_branch_actions_format_patch (GitgWindow     *window,
 	message = g_strdup_printf (_("Generating format-patch for <%s>"),
 	                           gitg_revision_get_subject (revision));
 
-	FormatPatchInfo *info = format_patch_info_new (revision, destination, G_OUTPUT_STREAM (stream));
+	FormatPatchInfo *info = format_patch_info_new (revision,
+	                                               destination,
+	                                               G_OUTPUT_STREAM (stream));
 
 	ret = run_progress (window,
 	                    _("Format patch"),

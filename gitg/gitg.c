@@ -55,56 +55,56 @@ static GOptionEntry entries[] =
 	{ NULL }
 };
 
-void
-parse_options(int *argc, char ***argv)
+static void
+parse_options (int *argc, char ***argv)
 {
 	GError *error = NULL;
 	GOptionContext *context;
 
-	context = g_option_context_new(_("- git repository viewer"));
+	context = g_option_context_new (_("- git repository viewer"));
 
 	// Ignore unknown options so we can pass them to git
-	g_option_context_set_ignore_unknown_options(context, TRUE);
-	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
-	g_option_context_add_group(context, gtk_get_option_group (TRUE));
+	g_option_context_set_ignore_unknown_options (context, TRUE);
+	g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
+	g_option_context_add_group (context, gtk_get_option_group (TRUE));
 
-	if (!g_option_context_parse(context, argc, argv, &error))
+	if (!g_option_context_parse (context, argc, argv, &error))
 	{
-		g_print("option parsing failed: %s\n", error->message);
-		g_error_free(error);
-		exit(1);
+		g_print ("option parsing failed: %s\n", error->message);
+		g_error_free (error);
+		exit (1);
 	}
 
 	g_option_context_free(context);
 }
 
 static gboolean
-on_window_delete_event(GtkWidget *widget, gpointer userdata)
+on_window_delete_event (GtkWidget *widget, gpointer userdata)
 {
-	gtk_main_quit();
+	gtk_main_quit ();
 	return FALSE;
 }
 
 static GitgWindow *
-build_ui()
+build_ui ()
 {
-	GtkBuilder *builder = gitg_utils_new_builder("gitg-window.ui");
+	GtkBuilder *builder = gitg_utils_new_builder ("gitg-window.ui");
 
-	GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
-	gtk_widget_show_all(window);
+	GtkWidget *window = GTK_WIDGET (gtk_builder_get_object(builder, "window"));
+	gtk_widget_show_all (window);
 
-	g_signal_connect_after(window, "destroy", G_CALLBACK(on_window_delete_event), NULL);
-	g_object_unref(builder);
+	g_signal_connect_after (window, "destroy", G_CALLBACK (on_window_delete_event), NULL);
+	g_object_unref (builder);
 
-	return GITG_WINDOW(window);
+	return GITG_WINDOW (window);
 }
 
 static void
-set_language_search_path()
+set_language_search_path ()
 {
-	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
-	gchar const * const *orig = gtk_source_language_manager_get_search_path(manager);
-	gchar const **dirs = g_new0(gchar const *, g_strv_length((gchar **)orig) + 2);
+	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default ();
+	gchar const * const *orig = gtk_source_language_manager_get_search_path (manager);
+	gchar const **dirs = g_new0 (gchar const *, g_strv_length ((gchar **)orig) + 2);
 	guint i = 0;
 
 	while (orig[i])
@@ -113,26 +113,26 @@ set_language_search_path()
 		++i;
 	}
 
-	gchar *path = gitg_dirs_get_data_filename("language-specs", NULL);
+	gchar *path = gitg_dirs_get_data_filename ("language-specs", NULL);
 	dirs[0] = path;
-	gtk_source_language_manager_set_search_path(manager, (gchar **)dirs);
-	g_free(path);
+	gtk_source_language_manager_set_search_path (manager, (gchar **)dirs);
+	g_free (path);
 
-	g_free(dirs);
+	g_free (dirs);
 }
 
 static void
-set_style_scheme_search_path()
+set_style_scheme_search_path ()
 {
-	GtkSourceStyleSchemeManager *manager = gtk_source_style_scheme_manager_get_default();
+	GtkSourceStyleSchemeManager *manager = gtk_source_style_scheme_manager_get_default ();
 
-	gchar *path = gitg_dirs_get_data_filename("styles", NULL);
-	gtk_source_style_scheme_manager_prepend_search_path(manager, path);
-	g_free(path);
+	gchar *path = gitg_dirs_get_data_filename ("styles", NULL);
+	gtk_source_style_scheme_manager_prepend_search_path (manager, path);
+	g_free (path);
 }
 
 static void
-set_icons()
+set_icons ()
 {
 	static gchar const *icon_infos[] = {
 		"gitg16x16.png",
@@ -150,18 +150,20 @@ set_icons()
 
 	for (i = 0; icon_infos[i]; ++i)
 	{
-		gchar *filename = gitg_dirs_get_data_filename("icons", icon_infos[i], NULL);
-		GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(filename, NULL);
-		g_free(filename);
+		gchar *filename = gitg_dirs_get_data_filename ("icons", icon_infos[i], NULL);
+		GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
+		g_free (filename);
 
 		if (pixbuf)
-			icons = g_list_prepend(icons, pixbuf);
+		{
+			icons = g_list_prepend (icons, pixbuf);
+		}
 	}
 
-	gtk_window_set_default_icon_list(icons);
+	gtk_window_set_default_icon_list (icons);
 
-	g_list_foreach(icons, (GFunc)g_object_unref, NULL);
-	g_list_free(icons);
+	g_list_foreach (icons, (GFunc)g_object_unref, NULL);
+	g_list_free (icons);
 }
 
 int

@@ -37,6 +37,18 @@ enum
 	N_COLUMNS
 };
 
+void on_collapse_inactive_lanes_changed (GtkAdjustment *adjustment,
+                                         GParamSpec *spec,
+                                         GitgPreferencesDialog *dialog);
+
+gboolean on_entry_configuration_user_name_focus_out_event (GtkEntry *entry,
+                                                           GdkEventFocus *event,
+                                                           GitgPreferencesDialog *dialog);
+
+gboolean on_entry_configuration_user_email_focus_out_event (GtkEntry *entry,
+                                                            GdkEventFocus *event,
+                                                            GitgPreferencesDialog *dialog);
+
 #define GITG_PREFERENCES_DIALOG_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_PREFERENCES_DIALOG, GitgPreferencesDialogPrivate))
 
 static GitgPreferencesDialog *preferences_dialog;
@@ -271,29 +283,47 @@ gitg_preferences_dialog_present(GtkWindow *window)
 }
 
 void
-on_collapse_inactive_lanes_changed(GtkAdjustment *adjustment, GParamSpec *spec, GitgPreferencesDialog *dialog)
+on_collapse_inactive_lanes_changed (GtkAdjustment *adjustment,
+                                    GParamSpec *spec,
+                                    GitgPreferencesDialog *dialog)
 {
 	gint val = round_val(gtk_adjustment_get_value(adjustment));
 
 	if (val > 0)
 	{
-		g_signal_handlers_block_by_func(adjustment, G_CALLBACK(on_collapse_inactive_lanes_changed), dialog);
-		gtk_adjustment_set_value(adjustment, val);
-		g_signal_handlers_unblock_by_func(adjustment, G_CALLBACK(on_collapse_inactive_lanes_changed), dialog);
+		g_signal_handlers_block_by_func (adjustment,
+		                                 on_collapse_inactive_lanes_changed,
+		                                 dialog);
+
+		gtk_adjustment_set_value (adjustment, val);
+
+		g_signal_handlers_unblock_by_func (adjustment,
+		                                   on_collapse_inactive_lanes_changed,
+		                                   dialog);
 	}
 }
 
 gboolean
-on_entry_configuration_user_name_focus_out_event(GtkEntry *entry, GdkEventFocus *event, GitgPreferencesDialog *dialog)
+on_entry_configuration_user_name_focus_out_event (GtkEntry *entry,
+                                                  GdkEventFocus *event,
+                                                  GitgPreferencesDialog *dialog)
 {
-	gitg_config_set_value (dialog->priv->config, "user.name", gtk_entry_get_text (entry));
+	gitg_config_set_value (dialog->priv->config,
+	                       "user.name",
+	                       gtk_entry_get_text (entry));
+
 	return FALSE;
 }
 
 gboolean
-on_entry_configuration_user_email_focus_out_event(GtkEntry *entry, GdkEventFocus *event, GitgPreferencesDialog *dialog)
+on_entry_configuration_user_email_focus_out_event (GtkEntry *entry,
+                                                   GdkEventFocus *event,
+                                                   GitgPreferencesDialog *dialog)
 {
-	gitg_config_set_value (dialog->priv->config, "user.email", gtk_entry_get_text (entry));
+	gitg_config_set_value (dialog->priv->config,
+	                       "user.email",
+	                       gtk_entry_get_text (entry));
+
 	return FALSE;
 }
 

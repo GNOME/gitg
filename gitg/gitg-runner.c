@@ -79,21 +79,21 @@ typedef struct
 	GCancellable *cancellable;
 } AsyncData;
 
-AsyncData *
-async_data_new(GitgRunner *runner, GCancellable *cancellable)
+static AsyncData *
+async_data_new (GitgRunner *runner, GCancellable *cancellable)
 {
-	AsyncData *data = g_slice_new(AsyncData);
+	AsyncData *data = g_slice_new (AsyncData);
 	data->runner = runner;
-	data->cancellable = g_object_ref(cancellable);
+	data->cancellable = g_object_ref (cancellable);
 
 	return data;
 }
 
-void
-async_data_free(AsyncData *data)
+static void
+async_data_free (AsyncData *data)
 {
-	g_object_unref(data->cancellable);
-	g_slice_free(AsyncData, data);
+	g_object_unref (data->cancellable);
+	g_slice_free (AsyncData, data);
 }
 
 GQuark
@@ -530,8 +530,12 @@ write_input_ready(GOutputStream *stream, GAsyncResult *result, AsyncData *data)
 	}
 }
 
-gboolean
-gitg_runner_run_streams(GitgRunner *runner, GInputStream *input_stream, GOutputStream *output_stream, gchar const *input, GError **error)
+static gboolean
+gitg_runner_run_streams (GitgRunner *runner,
+                         GInputStream *input_stream,
+                         GOutputStream *output_stream,
+                         gchar const *input,
+                         GError **error)
 {
 	gitg_runner_cancel(runner);
 
@@ -625,9 +629,11 @@ gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
 }
 
 gboolean
-gitg_runner_run_stream(GitgRunner *runner, GInputStream *stream, GError **error)
+gitg_runner_run_stream (GitgRunner *runner,
+                        GInputStream *stream,
+                        GError **error)
 {
-	return gitg_runner_run_streams(runner, stream, NULL, NULL, error);
+	return gitg_runner_run_streams (runner, stream, NULL, NULL, error);
 }
 
 guint

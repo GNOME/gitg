@@ -29,6 +29,33 @@
 #include "gitg-config.h"
 #include "gitg-spinner.h"
 
+void on_button_fetch_remote_clicked (GtkButton *button,
+                                     GitgRepositoryDialog *dialog);
+
+void on_button_remove_remote_clicked (GtkButton *button,
+                                      GitgRepositoryDialog *dialog);
+
+void on_button_add_remote_clicked (GtkButton *button,
+                                   GitgRepositoryDialog *dialog);
+
+gboolean on_entry_repository_user_name_focus_out_event (GtkEntry *entry,
+                                                        GdkEventFocus *focus,
+                                                        GitgRepositoryDialog *dialog);
+
+gboolean on_entry_repository_user_email_focus_out_event (GtkEntry *entry,
+                                                         GdkEventFocus *focus,
+                                                         GitgRepositoryDialog *dialog);
+
+void on_remote_name_edited (GtkCellRendererText *renderer,
+                            gchar *path,
+                            gchar *new_text,
+                            GitgRepositoryDialog *dialog);
+
+void on_remote_url_edited (GtkCellRendererText *renderer,
+                           gchar *path,
+                           gchar *new_text,
+                           GitgRepositoryDialog *dialog);
+
 #define GITG_REPOSITORY_DIALOG_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REPOSITORY_DIALOG, GitgRepositoryDialogPrivate))
 
 static GitgRepositoryDialog *repository_dialog = NULL;
@@ -576,7 +603,8 @@ remove_remote (GitgRepositoryDialog *dialog, gchar const *name)
 }
 
 void
-on_button_remove_remote_clicked (GtkButton *button, GitgRepositoryDialog *dialog)
+on_button_remove_remote_clicked (GtkButton *button,
+                                 GitgRepositoryDialog *dialog)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
@@ -626,7 +654,8 @@ on_button_remove_remote_clicked (GtkButton *button, GitgRepositoryDialog *dialog
 }
 
 void
-on_button_add_remote_clicked (GtkButton *button, GitgRepositoryDialog *dialog)
+on_button_add_remote_clicked (GtkButton *button,
+                              GitgRepositoryDialog *dialog)
 {
 	GtkTreeModel *model = GTK_TREE_MODEL (dialog->priv->list_store_remotes);
 	GtkTreeIter iter;
@@ -678,7 +707,9 @@ on_button_add_remote_clicked (GtkButton *button, GitgRepositoryDialog *dialog)
 }
 
 gboolean
-on_entry_repository_user_name_focus_out_event (GtkEntry *entry, GdkEventFocus *focus, GitgRepositoryDialog *dialog)
+on_entry_repository_user_name_focus_out_event (GtkEntry *entry,
+                                               GdkEventFocus *focus,
+                                               GitgRepositoryDialog *dialog)
 {
 	gchar const *text;
 
@@ -689,7 +720,9 @@ on_entry_repository_user_name_focus_out_event (GtkEntry *entry, GdkEventFocus *f
 }
 
 gboolean
-on_entry_repository_user_email_focus_out_event (GtkEntry *entry, GdkEventFocus *focus, GitgRepositoryDialog *dialog)
+on_entry_repository_user_email_focus_out_event (GtkEntry *entry,
+                                                GdkEventFocus *focus,
+                                                GitgRepositoryDialog *dialog)
 {
 	gchar const *text;
 
@@ -700,7 +733,10 @@ on_entry_repository_user_email_focus_out_event (GtkEntry *entry, GdkEventFocus *
 }
 
 void
-on_remote_name_edited(GtkCellRendererText *renderer, gchar *path, gchar *new_text, GitgRepositoryDialog *dialog)
+on_remote_name_edited (GtkCellRendererText *renderer,
+                       gchar *path,
+                       gchar *new_text,
+                       GitgRepositoryDialog *dialog)
 {
 	if (!*new_text)
 	{
@@ -742,7 +778,10 @@ on_remote_name_edited(GtkCellRendererText *renderer, gchar *path, gchar *new_tex
 }
 
 void
-on_remote_url_edited(GtkCellRendererText *renderer, gchar *path, gchar *new_text, GitgRepositoryDialog *dialog)
+on_remote_url_edited (GtkCellRendererText *renderer,
+                      gchar *path,
+                      gchar *new_text,
+                      GitgRepositoryDialog *dialog)
 {
 	if (!*new_text)
 	{

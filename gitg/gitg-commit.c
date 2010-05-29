@@ -555,15 +555,25 @@ refresh_changes(GitgCommit *commit, GitgChangedFile *file)
 	}
 }
 
-gboolean
-apply_hunk(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, gboolean reverse, GError **error)
+static gboolean
+apply_hunk (GitgCommit *commit,
+            GitgChangedFile *file,
+            gchar const *hunk,
+            gboolean reverse,
+            GError **error)
 {
-	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
-	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), FALSE);
+	g_return_val_if_fail (GITG_IS_COMMIT(commit), FALSE);
+	g_return_val_if_fail (GITG_IS_CHANGED_FILE(file), FALSE);
 
-	g_return_val_if_fail(hunk != NULL, FALSE);
+	g_return_val_if_fail (hunk != NULL, FALSE);
 
-	gboolean ret = gitg_repository_command_with_inputv(commit->priv->repository, hunk, error, "apply", "--cached", reverse ? "--reverse" : NULL, NULL);
+	gboolean ret = gitg_repository_command_with_inputv (commit->priv->repository,
+	                                                    hunk,
+	                                                    error,
+	                                                    "apply",
+	                                                    "--cached",
+	                                                    reverse ? "--reverse" : NULL,
+	                                                    NULL);
 
 	if (ret)
 		refresh_changes(commit, file);
@@ -952,7 +962,15 @@ gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk,
 		GFile *f = gitg_changed_file_get_file(file);
 		gchar *path = gitg_repository_relative(commit->priv->repository, f);
 
-		ret = gitg_repository_command_with_inputv(commit->priv->repository, path, error, "checkout-index", "--index", "--quiet", "--force", "--stdin", NULL);
+		ret = gitg_repository_command_with_inputv (commit->priv->repository,
+		                                           path,
+		                                           error,
+		                                           "checkout-index",
+		                                           "--index",
+		                                           "--quiet",
+		                                           "--force",
+		                                           "--stdin",
+		                                           NULL);
 
 		g_free(path);
 
@@ -994,19 +1012,25 @@ gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error
 	if (stream)
 	{
 		gchar *line = g_strdup_printf("/%s\n", path);
-		ret = g_output_stream_write_all(G_OUTPUT_STREAM(stream), line, strlen(line), NULL, NULL, error);
-		g_output_stream_close(G_OUTPUT_STREAM(stream), NULL, NULL);
 
-		g_object_unref(stream);
-		g_free(line);
+		ret = g_output_stream_write_all (G_OUTPUT_STREAM (stream),
+		                                 line,
+		                                 strlen (line),
+		                                 NULL,
+		                                 NULL,
+		                                 error);
+
+		g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
+
+		g_object_unref (stream);
+		g_free (line);
 	}
 
 	if (ret)
-		remove_file(commit, file);
+		remove_file (commit, file);
 
-	g_object_unref(f);
-	g_free(ignore);
-	g_free(path);
+	g_object_unref (f);
+	g_free (path);
 
 	return ret;
 }
