@@ -72,7 +72,7 @@ binding_fill(Binding *binding, gpointer object, gchar const *property, GType typ
 	binding->userdata = userdata;
 }
 
-GitgDataBinding *
+static GitgDataBinding *
 gitg_data_binding_create(gpointer source, gchar const *source_property, 
 						 gpointer dest, gchar const *dest_property, 
 						 GitgDataBindingConversion source_to_dest,

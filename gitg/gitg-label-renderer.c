@@ -27,7 +27,7 @@
 #define PADDING 4
 #define MARGIN 3
 
-gint
+static gint
 get_label_width (PangoLayout *layout, GitgRef *ref)
 {
 	gint w;
