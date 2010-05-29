@@ -23,6 +23,15 @@ gitg:
 
 For more information on installing gitg, please view INSTALL.
 
+= Building gitg from git =
+The gitg repository is hosted on git.gnome.org. To build from git, use the
+following:
+
+	$ git clone git://git.gnome.org/gitg
+	$ cd gitg
+	$ ./autogen.sh
+	$ make
+
 = Using gitg =
 When gitg is installed, you can run gitg from the GNOME menu, or from a
 terminal by issuing: 'gitg'. Type 'gitg --help' to show the options you can
