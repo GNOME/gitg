@@ -468,7 +468,7 @@ ensure_scan(GitgDiffView *view, guint last_line)
 
 		gchar *text = gtk_text_iter_get_text(&start, &end);
 
-		if (g_str_has_prefix(text, "@@ "))
+		if (g_str_has_prefix(text, "@@ ") || g_str_has_prefix (text, "@@@"))
 		{
 			/* start new hunk region */
 			Hunk *hunk = g_slice_new(Hunk);
