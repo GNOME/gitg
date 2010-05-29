@@ -86,6 +86,11 @@ GitgDiffIterType gitg_diff_iter_get_type(GitgDiffIter *iter);
 void gitg_diff_iter_set_visible(GitgDiffIter *iter, gboolean visible);
 gboolean gitg_diff_iter_get_index(GitgDiffIter *iter, gchar **from, gchar **to);
 
+gboolean gitg_diff_view_get_header_at_iter (GitgDiffView *view, GtkTextIter const *iter, GitgDiffIter *diff_iter);
+gboolean gitg_diff_view_get_hunk_at_iter (GitgDiffView *view, GtkTextIter const *iter, GitgDiffIter *diff_iter);
+
+void gitg_diff_iter_get_bounds (GitgDiffIter const *iter, GtkTextIter *start, GtkTextIter *end);
+
 G_END_DECLS
 
 #endif /* __GITG_DIFF_VIEW_H__ */

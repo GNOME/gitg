@@ -39,6 +39,12 @@
 
 #define IDLE_SCAN_COUNT 30
 
+#define GITG_DIFF_ITER_GET_VIEW(iter) ((GitgDiffView *)iter->userdata)
+#define GITG_DIFF_ITER_GET_REGION(iter) ((Region *)iter->userdata2)
+
+#define GITG_DIFF_ITER_SET_REGION(iter, region) (iter->userdata2 = region)
+#define GITG_DIFF_ITER_SET_VIEW(iter, view) (iter->userdata = view)
+
 static void on_buffer_insert_text(GtkTextBuffer *buffer, GtkTextIter *iter, gchar const *text, gint len, GitgDiffView *view);
 static void on_buffer_delete_range(GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end, GitgDiffView *view);
 
@@ -382,6 +388,13 @@ hide_header_details (GitgDiffView *view,
 }
 
 static void
+region_to_iter (GitgDiffView *view, Region *region, GitgDiffIter *iter)
+{
+	GITG_DIFF_ITER_SET_VIEW (iter, view);
+	GITG_DIFF_ITER_SET_REGION (iter, region);
+}
+
+static void
 add_region(GitgDiffView *view, Region *region)
 {
 	if (view->priv->last_region)
@@ -411,8 +424,7 @@ add_region(GitgDiffView *view, Region *region)
 	g_sequence_insert_sorted(view->priv->regions_index, region, index_compare, NULL);
 
 	GitgDiffIter iter;
-	iter.userdata = view;
-	iter.userdata2 = region;
+	region_to_iter (view, region, &iter);
 
 	if (region->type == GITG_DIFF_ITER_TYPE_HEADER)
 	{
@@ -744,10 +756,8 @@ gitg_diff_view_get_start_iter(GitgDiffView *view, GitgDiffIter *iter)
 	g_return_val_if_fail(GITG_IS_DIFF_VIEW(view), FALSE);
 	g_return_val_if_fail(iter != NULL, FALSE);
 
-	iter->userdata = view;
-	iter->userdata2 = view->priv->regions;
-
-	return iter->userdata2 != NULL;
+	region_to_iter (view, view->priv->regions, iter);
+	return GITG_DIFF_ITER_GET_REGION (iter) != NULL;
 }
 
 gboolean
@@ -755,12 +765,14 @@ gitg_diff_iter_forward(GitgDiffIter *iter)
 {
 	g_return_val_if_fail(iter != NULL, FALSE);
 
-	if (!iter->userdata2)
+	if (!GITG_DIFF_ITER_GET_REGION (iter))
+	{
 		return FALSE;
+	}
 
-	iter->userdata2 = ((Region *)iter->userdata2)->next;
+	GITG_DIFF_ITER_SET_REGION (iter, GITG_DIFF_ITER_GET_REGION (iter)->next);
 
-	return iter->userdata2 != NULL;
+	return GITG_DIFF_ITER_GET_REGION (iter) != NULL;
 }
 
 gboolean
@@ -769,10 +781,9 @@ gitg_diff_view_get_end_iter(GitgDiffView *view, GitgDiffIter *iter)
 	g_return_val_if_fail(GITG_IS_DIFF_VIEW(view), FALSE);
 	g_return_val_if_fail(iter != NULL, FALSE);
 
-	iter->userdata = view;
-	iter->userdata2 = view->priv->last_region;
+	region_to_iter (view, view->priv->last_region, iter);
 
-	return iter->userdata2 != NULL;
+	return GITG_DIFF_ITER_GET_REGION (iter) != NULL;
 }
 
 gboolean
@@ -780,23 +791,25 @@ gitg_diff_iter_backward(GitgDiffIter *iter)
 {
 	g_return_val_if_fail(iter != NULL, FALSE);
 
-	if (!iter->userdata2)
+	if (!GITG_DIFF_ITER_GET_REGION (iter))
+	{
 		return FALSE;
+	}
 
-	iter->userdata2 = ((Region *)iter->userdata2)->prev;
+	GITG_DIFF_ITER_SET_REGION (iter, GITG_DIFF_ITER_GET_REGION (iter)->prev);
 
-	return iter->userdata2 != NULL;
+	return GITG_DIFF_ITER_GET_REGION (iter) != NULL;
 
 }
 
 GitgDiffIterType 
 gitg_diff_iter_get_type(GitgDiffIter *iter)
 {
-	g_return_val_if_fail(iter != NULL, 0);
-	g_return_val_if_fail(GITG_IS_DIFF_VIEW(iter->userdata), 0);
-	g_return_val_if_fail(iter->userdata2 != NULL, 0);
+	g_return_val_if_fail (iter != NULL, 0);
+	g_return_val_if_fail (GITG_IS_DIFF_VIEW (GITG_DIFF_ITER_GET_VIEW (iter)), 0);
+	g_return_val_if_fail (GITG_DIFF_ITER_GET_REGION (iter) != NULL, 0);
 
-	return ((Region *)iter->userdata2)->type;
+	return GITG_DIFF_ITER_GET_REGION (iter)->type;
 }
 
 static void
@@ -818,12 +831,12 @@ region_iter_range(GitgDiffView *view, Region *region, GtkTextIter *start, GtkTex
 void
 gitg_diff_iter_set_visible(GitgDiffIter *iter, gboolean visible)
 {
-	g_return_if_fail(iter != NULL);
-	g_return_if_fail(GITG_IS_DIFF_VIEW(iter->userdata));
-	g_return_if_fail(iter->userdata2 != NULL);
+	g_return_if_fail (iter != NULL);
+	g_return_if_fail (GITG_IS_DIFF_VIEW (GITG_DIFF_ITER_GET_VIEW (iter)));
+	g_return_if_fail (GITG_DIFF_ITER_GET_REGION (iter) != NULL);
 
-	GitgDiffView *view = GITG_DIFF_VIEW(iter->userdata);
-	Region *region = (Region *)iter->userdata2;
+	GitgDiffView *view = GITG_DIFF_ITER_GET_VIEW (iter);
+	Region *region = GITG_DIFF_ITER_GET_REGION (iter);
 
 	if (region->visible == visible)
 		return;
@@ -933,7 +946,7 @@ header_parse_index(GitgDiffView *view, Header *header)
 gboolean
 gitg_diff_iter_get_index(GitgDiffIter *iter, gchar **from, gchar **to)
 {
-	Region *region = (Region *)iter->userdata2;
+	Region *region = GITG_DIFF_ITER_GET_REGION (iter);
 
 	while (region && region->type != GITG_DIFF_ITER_TYPE_HEADER)
 		region = region->prev;
@@ -945,7 +958,7 @@ gitg_diff_iter_get_index(GitgDiffIter *iter, gchar **from, gchar **to)
 	gboolean ret = TRUE;
 
 	if (!*(header->index_to))
-		ret = header_parse_index((GitgDiffView *)iter->userdata, header);
+		ret = header_parse_index (GITG_DIFF_ITER_GET_VIEW (iter), header);
 
 	if (!ret)
 		return FALSE;
@@ -1030,3 +1043,79 @@ on_idle_scan(GitgDiffView *view)
 	view->priv->scan_id = 0;
 	return FALSE;
 }
+
+gboolean
+gitg_diff_view_get_header_at_iter (GitgDiffView *view,
+                                   GtkTextIter const *iter,
+                                   GitgDiffIter *diff_iter)
+{
+	g_return_val_if_fail (GITG_IS_DIFF_VIEW (view), FALSE);
+	g_return_val_if_fail (iter != NULL, FALSE);
+	g_return_val_if_fail (diff_iter != NULL, FALSE);
+
+	ensure_scan (view, gtk_text_iter_get_line (iter));
+
+	Region *region = find_current_region (view, gtk_text_iter_get_line (iter));
+
+	while (region && region->type == GITG_DIFF_ITER_TYPE_HUNK)
+	{
+		region = region->prev;
+	}
+
+	region_to_iter (view, region, diff_iter);
+	return region != NULL && region->type == GITG_DIFF_ITER_TYPE_HEADER;
+}
+
+gboolean
+gitg_diff_view_get_hunk_at_iter (GitgDiffView *view,
+                                 GtkTextIter const *iter,
+                                 GitgDiffIter *diff_iter)
+{
+	g_return_val_if_fail (GITG_IS_DIFF_VIEW (view), FALSE);
+	g_return_val_if_fail (iter != NULL, FALSE);
+	g_return_val_if_fail (diff_iter != NULL, FALSE);
+
+	ensure_scan (view, gtk_text_iter_get_line (iter));
+
+	Region *region = find_current_region (view, gtk_text_iter_get_line (iter));
+
+	if (region == NULL || region->type != GITG_DIFF_ITER_TYPE_HUNK)
+	{
+		return FALSE;
+	}
+
+	region_to_iter (view, region, diff_iter);
+	return TRUE;
+}
+
+void
+gitg_diff_iter_get_bounds (GitgDiffIter const *iter,
+                           GtkTextIter *start,
+                           GtkTextIter *end)
+{
+	g_return_if_fail (iter != NULL);
+	g_return_if_fail (GITG_IS_DIFF_VIEW (GITG_DIFF_ITER_GET_VIEW (iter)));
+	g_return_if_fail (GITG_DIFF_ITER_GET_REGION (iter) != NULL);
+	g_return_if_fail (start != NULL);
+	g_return_if_fail (end != NULL);
+
+	GitgDiffView *view = GITG_DIFF_ITER_GET_VIEW (iter);
+	Region *region = GITG_DIFF_ITER_GET_REGION (iter);
+
+	gtk_text_buffer_get_iter_at_line (view->priv->current_buffer,
+	                                  start,
+	                                  region->line);
+
+	if (region->next != NULL)
+	{
+		gtk_text_buffer_get_iter_at_line (view->priv->current_buffer,
+		                                  end,
+		                                  region->next->line);
+	}
+	else
+	{
+		gtk_text_buffer_get_end_iter (view->priv->current_buffer,
+		                              end);
+	}
+}
+

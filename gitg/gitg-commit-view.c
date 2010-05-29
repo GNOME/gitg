@@ -615,35 +615,18 @@ has_hunk_mark(GtkSourceBuffer *buffer, GtkTextIter *iter)
 static gchar *
 get_patch_header(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter const *iter)
 {
-	GtkTextIter begin = *iter;
+	GtkTextIter begin;
 	GtkTextIter end;
+	GitgDiffIter diff_iter;
 
-	gboolean foundstart = FALSE;
-	gboolean foundend = FALSE;
-
-	while (!gtk_text_iter_is_start(&begin) && !foundstart)
+	if (!gitg_diff_view_get_header_at_iter (GITG_DIFF_VIEW (view->priv->changes_view),
+	                                        iter,
+	                                        &diff_iter))
 	{
-		gtk_text_iter_backward_line(&begin);
-		GtkTextIter lineend = begin;
-		gtk_text_iter_forward_line(&lineend);
-
-		gchar *text = gtk_text_buffer_get_text(buffer, &begin, &lineend, TRUE);
-
-		if (g_str_has_prefix(text, "+++ "))
-		{
-			end = lineend;
-			foundend = TRUE;
-		}
-		else
-		{
-			foundstart = g_str_has_prefix(text, "diff --git ");
-		}
-
-		g_free(text);
+		return NULL;
 	}
 
-	if (!foundstart || !foundend)
-		return NULL;
+	gitg_diff_iter_get_bounds (&diff_iter, &begin, &end);
 
 	return gtk_text_buffer_get_text(buffer, &begin, &end, TRUE);
 }
@@ -651,30 +634,18 @@ get_patch_header(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter const 
 static gchar *
 get_patch_contents(GitgCommitView *view, GtkTextBuffer *buffer, GtkTextIter const *iter)
 {
-	/* iter marks the start of the patch, we go until we find the next hunk,
-	   or next file start (or end of file) */
-	GtkTextIter begin = *iter;
-	GtkTextIter end = begin;
+	GtkTextIter begin;
+	GtkTextIter end;
+	GitgDiffIter diff_iter;
 
-	while (!gtk_text_iter_is_end(&end))
+	if (!gitg_diff_view_get_hunk_at_iter (GITG_DIFF_VIEW (view->priv->changes_view),
+	                                      iter,
+	                                      &diff_iter))
 	{
-		if (!gtk_text_iter_forward_line(&end))
-			break;
-
-		GtkTextIter lineend = end;
-		gtk_text_iter_forward_to_line_end(&lineend);
-
-		gchar *text = gtk_text_buffer_get_text(buffer, &end, &lineend, TRUE);
-		gboolean isend = g_str_has_prefix(text, "@@") || g_str_has_prefix(text, "diff --git ");
-		g_free(text);
-
-		if (isend)
-		{
-			gtk_text_iter_backward_line(&end);
-			gtk_text_iter_forward_line(&end);
-			break;
-		}
+		return NULL;
 	}
+
+	gitg_diff_iter_get_bounds (&diff_iter, &begin, &end);
 
 	return gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
 }
@@ -712,16 +683,22 @@ handle_stage_unstage(GitgCommitView *view, GtkTextIter *iter)
 	gboolean ret;
 	GitgChangedFile *file = g_object_ref(view->priv->current_file);
 	gboolean unstage = view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED;
+	GError *error = NULL;
 
 	if (unstage)
-		ret = gitg_commit_stage(view->priv->commit, view->priv->current_file, hunk, NULL);
+		ret = gitg_commit_stage(view->priv->commit, view->priv->current_file, hunk, &error);
 	else
-		ret = gitg_commit_unstage(view->priv->commit, view->priv->current_file, hunk, NULL);
+		ret = gitg_commit_unstage(view->priv->commit, view->priv->current_file, hunk, &error);
 
 	if (ret && file == view->priv->current_file)
 	{
 		/* remove hunk from text view */
 		gitg_diff_view_remove_hunk(GITG_DIFF_VIEW(view->priv->changes_view), iter);
+	}
+	else if (!ret)
+	{
+		g_warning ("Could not stage/unstage: %s", error->message);
+		g_error_free (error);
 	}
 
 	g_object_unref(file);
