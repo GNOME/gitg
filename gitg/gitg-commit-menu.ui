@@ -23,6 +23,11 @@
             <property name="label" translatable="yes">Ignore</property>
           </object>
         </child>
+        <child>
+          <object class="GtkAction" id="EditFileAction">
+            <property name="stock-id">gtk-edit</property>
+          </object>
+        </child>
       </object>
     </child>
     <ui>
@@ -30,9 +35,11 @@
         <menuitem action="StageChangesAction"/>
         <menuitem action="RevertChangesAction"/>
         <menuitem action="IgnoreFileAction"/>
+        <menuitem action="EditFileAction"/>
       </popup>
       <popup name="popup_commit_unstage">
         <menuitem action="UnstageChangesAction"/>
+        <menuitem action="EditFileAction"/>
       </popup>
     </ui>
   </object>

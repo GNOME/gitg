@@ -124,6 +124,7 @@ static void on_stage_changes(GtkAction *action, GitgCommitView *view);
 static void on_revert_changes(GtkAction *action, GitgCommitView *view);
 static void on_ignore_file(GtkAction *action, GitgCommitView *view);
 static void on_unstage_changes(GtkAction *action, GitgCommitView *view);
+static void on_edit_file(GtkAction *action, GitgCommitView *view);
 
 static void on_check_button_amend_toggled (GtkToggleButton *button, GitgCommitView *view);
 
@@ -959,6 +960,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	g_signal_connect(gtk_builder_get_object(b, "RevertChangesAction"), "activate", G_CALLBACK(on_revert_changes), self);
 	g_signal_connect(gtk_builder_get_object(b, "IgnoreFileAction"), "activate", G_CALLBACK(on_ignore_file), self);
 	g_signal_connect(gtk_builder_get_object(b, "UnstageChangesAction"), "activate", G_CALLBACK(on_unstage_changes), self);
+	g_signal_connect(gtk_builder_get_object(b, "EditFileAction"), "activate", G_CALLBACK(on_edit_file), self);
 
 	self->priv->group_context = GTK_ACTION_GROUP(gtk_builder_get_object(b, "action_group_commit_context"));
 
@@ -1567,10 +1569,13 @@ set_unstaged_popup_status(GitgCommitView *view)
 
 	GtkAction *revert = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/RevertChangesAction");
 	GtkAction *ignore = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/IgnoreFileAction");
+	GtkAction *edit = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/EditFileAction");
 
 	gtk_action_set_visible(revert, status == GITG_CHANGED_FILE_STATUS_MODIFIED ||
 	                               status == GITG_CHANGED_FILE_STATUS_DELETED);
 	gtk_action_set_visible(ignore, status == GITG_CHANGED_FILE_STATUS_NEW);
+
+	gtk_action_set_visible (edit, status != GITG_CHANGED_FILE_STATUS_DELETED);
 
 	return TRUE;
 }
@@ -1578,8 +1583,13 @@ set_unstaged_popup_status(GitgCommitView *view)
 static gboolean
 set_staged_popup_status(GitgCommitView *view)
 {
-	if (!get_selected_files(view->priv->tree_view_staged, NULL, NULL, NULL, NULL))
+	GitgChangedFileStatus status;
+
+	if (!get_selected_files(view->priv->tree_view_staged, NULL, NULL, NULL, &status))
 		return FALSE;
+
+	GtkAction *edit = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/EditFileAction");
+	gtk_action_set_visible (edit, status != GITG_CHANGED_FILE_STATUS_DELETED);
 
 	return TRUE;
 }
@@ -1730,6 +1740,40 @@ on_revert_changes(GtkAction *action, GitgCommitView *view)
 	gtk_widget_destroy(dialog);
 }
 
+static void
+on_edit_file (GtkAction *action, GitgCommitView *view)
+{
+	GList *files = NULL;
+	GList *item;
+
+	get_selected_files (view->priv->tree_view_unstaged, &files, NULL, NULL, NULL);
+
+	for (item = files; item; item = g_list_next (item))
+	{
+		GitgChangedFile *file = item->data;
+
+		if (gitg_changed_file_get_status (file) == GITG_CHANGED_FILE_STATUS_DELETED)
+		{
+			g_object_unref (file);
+			continue;
+		}
+
+		GFile *location = gitg_changed_file_get_file (file);
+		gchar *uri = g_file_get_uri (location);
+
+		gtk_show_uri (gtk_widget_get_screen (GTK_WIDGET (view)),
+		              uri,
+		              GDK_CURRENT_TIME,
+		              NULL);
+
+		g_free (uri);
+		g_object_unref (location);
+		g_object_unref (file);
+	}
+
+	g_list_free (files);
+}
+
 static void 
 on_ignore_file (GtkAction *action, GitgCommitView *view)
 {
@@ -1747,7 +1791,7 @@ on_ignore_file (GtkAction *action, GitgCommitView *view)
 	g_list_free (files);
 }
 
-static void 
+static void
 on_unstage_changes(GtkAction *action, GitgCommitView *view)
 {
 	if (view->priv->context_type == CONTEXT_TYPE_FILE)
