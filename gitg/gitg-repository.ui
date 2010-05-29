@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="2.20"/>
   <!-- interface-requires gitg 0.2 -->
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkListStore" id="list_store_remotes">
@@ -10,7 +10,9 @@
       <!-- column-name url -->
       <column type="gchararray"/>
       <!-- column-name fetching -->
-      <column type="GdkPixbuf"/>
+      <column type="gboolean"/>
+      <!-- column-name pulse -->
+      <column type="gint"/>
     </columns>
   </object>
   <object class="GitgRepositoryDialog" id="dialog_repository">
@@ -52,6 +54,12 @@
                             <property name="title" translatable="yes">Name</property>
                             <child>
                               <object class="GtkCellRendererPixbuf" id="tree_view_remotes_renderer_icon">
+                                <property name="stock-id">gtk-network</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkCellRendererSpinner" id="tree_view_remotes_renderer_spinner">
+                                <property name="visible">False</property>
                               </object>
                             </child>
                             <child>
