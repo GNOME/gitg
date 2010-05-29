@@ -40,8 +40,7 @@ gchar *gitg_utils_hash_to_sha1_new(gchar const *hash);
 
 gchar *gitg_utils_partial_sha1_to_hash_new (gchar const *sha, gint length, gint *retlen);
 
-gchar *gitg_utils_find_git(gchar const *path);
-gchar *gitg_utils_dot_git_path(gchar const *path);
+GFile *gitg_utils_find_dot_git (GFile *location);
 
 gboolean gitg_utils_export_files(GitgRepository *repository, GitgRevision *revision,
 gchar const *todir, gchar * const *paths);

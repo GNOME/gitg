@@ -116,106 +116,96 @@ gitg_utils_sha1_to_hash_new(gchar const *sha1)
 	return ret;
 }
 
-static gchar *
-find_dot_git(gchar *path)
+GFile *
+gitg_utils_find_dot_git (GFile *location)
 {
-	while (strcmp(path, ".") != 0 && strcmp(path, "/") != 0)
-	{
-		gchar *res = g_build_filename(path, ".git", NULL);
+	location = g_file_dup (location);
 
-		if (g_file_test(res, G_FILE_TEST_IS_DIR))
+	do
+	{
+		GFile *tmp;
+		gboolean exists;
+
+		tmp = g_file_get_child (location, ".git");
+		exists = g_file_query_exists (tmp, NULL);
+
+		if (exists)
 		{
-			g_free(res);
-			return path;
+			g_object_unref (location);
+			location = tmp;
+
+			break;
 		}
 
-		gchar *tmp = g_path_get_dirname(path);
-		g_free(path);
-		path = tmp;
+		g_object_unref (tmp);
 
-		g_free(res);
-	}
+		tmp = g_file_get_parent (location);
 
-	return NULL;
-}
+		g_object_unref (location);
+		location = tmp;
+	} while (location != NULL);
 
-gchar *
-gitg_utils_find_git(gchar const *path)
-{
-	gchar const *find = G_DIR_SEPARATOR_S ".git";
-	gchar *dir;
-
-	if (strstr(path, find) == path + strlen(path) - strlen(find))
-		dir = g_strndup(path, strlen(path) - strlen(find));
-	else
-		dir = g_strdup(path);
-
-	return find_dot_git(dir);
-}
-
-gchar *
-gitg_utils_dot_git_path(gchar const *path)
-{
-	gchar const *find = G_DIR_SEPARATOR_S ".git";
-
-	if (strstr(path, find) == path + strlen(path) - strlen(find))
-		return g_strdup(path);
-	else
-		return g_build_filename(path, ".git", NULL);
+	return location;
 }
 
 static void
-append_escape(GString *gstr, gchar const *item)
+append_escape (GString *gstr, gchar const *item)
 {
-	gchar *escape = g_shell_quote(item);
+	gchar *escape = g_shell_quote (item);
 
-	g_string_append_printf(gstr, " %s", escape);
+	g_string_append_printf (gstr, " %s", escape);
+	g_free (escape);
 }
 
-gboolean 
-gitg_utils_export_files(GitgRepository *repository, GitgRevision *revision,
-gchar const *todir, gchar * const *paths)
+gboolean
+gitg_utils_export_files (GitgRepository *repository,
+                         GitgRevision *revision,
+                         gchar const *todir,
+                         gchar * const *paths)
 {
 	GString *gstr = g_string_new("sh -c \"git --git-dir");
 
-	// Append the git path
-	gchar *gitpath = gitg_utils_dot_git_path(gitg_repository_get_path(repository));
-	append_escape(gstr, gitpath);
-	g_free(gitpath);
+	GFile *git_dir = gitg_repository_get_git_dir (repository);
+	gchar *git_path = g_file_get_path (git_dir);
+
+	append_escape (gstr, git_path);
+
+	g_free (git_path);
+	g_object_unref (git_dir);
 
 	// Append the revision
-	gchar *sha = gitg_revision_get_sha1(revision);
-	g_string_append_printf(gstr, " archive --format=tar %s", sha);
+	gchar *sha = gitg_revision_get_sha1 (revision);
+	g_string_append_printf (gstr, " archive --format=tar %s", sha);
 	g_free(sha);
 
 	// Append the files
 	while (*paths)
 	{
-		append_escape(gstr, *paths);
+		append_escape (gstr, *paths);
 		paths++;
 	}
 
-	g_string_append(gstr, " | tar -xC");
-	append_escape(gstr, todir);
-	g_string_append(gstr, "\"");
+	g_string_append (gstr, " | tar -xC");
+	append_escape (gstr, todir);
+	g_string_append (gstr, "\"");
 
 	GError *error = NULL;
 	gint status;
 
-	gboolean ret = g_spawn_command_line_sync(gstr->str, NULL, NULL, &status, &error);
+	gboolean ret = g_spawn_command_line_sync (gstr->str, NULL, NULL, &status, &error);
 
 	if (!ret)
 	{
-		g_warning("Export failed:\n%s\n%s", gstr->str, error->message);
-		g_error_free(error);
+		g_warning ("Export failed:\n%s\n%s", gstr->str, error->message);
+		g_error_free (error);
 	}
 
-	g_string_free(gstr, TRUE);
+	g_string_free (gstr, TRUE);
 	return ret;
 }
 
-gchar *
-convert_fallback(gchar const *text, gssize size, gchar const *fallback)
+static gchar *
+convert_fallback (gchar const *text, gssize size, gchar const *fallback)
 {
 	gchar *res;
 	gsize read, written;

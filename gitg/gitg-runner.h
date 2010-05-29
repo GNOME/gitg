@@ -64,25 +64,34 @@ struct _GitgRunnerClass {
 };
 
 GType gitg_runner_get_type (void) G_GNUC_CONST;
-GitgRunner *gitg_runner_new(guint buffer_size);
-GitgRunner *gitg_runner_new_synchronized(guint buffer_size);
+GitgRunner *gitg_runner_new (guint buffer_size);
+GitgRunner *gitg_runner_new_synchronized (guint buffer_size);
 
-guint gitg_runner_get_buffer_size(GitgRunner *runner);
+guint gitg_runner_get_buffer_size (GitgRunner *runner);
 
-gboolean gitg_runner_run_stream(GitgRunner *runner, GInputStream *stream, GError **error);
+gboolean gitg_runner_run_stream (GitgRunner *runner,
+                                 GInputStream *stream,
+                                 GError **error);
 
-gboolean gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar const *wd, gchar const *input, GError **error);
-gboolean gitg_runner_run_working_directory(GitgRunner *runner, gchar const **argv, gchar const *wd, GError **error);
-gboolean gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error);
-gboolean gitg_runner_running(GitgRunner *runner);
+gboolean gitg_runner_run_with_arguments (GitgRunner *runner,
+                                         GFile *work_tree,
+                                         gchar const **argv,
+                                         gchar const *input,
+                                         GError **error);
 
-gint gitg_runner_get_exit_status(GitgRunner *runner);
-void gitg_runner_cancel(GitgRunner *runner);
+gboolean gitg_runner_run (GitgRunner *runner,
+                          gchar const **argv,
+                          GError **error);
+
+gboolean gitg_runner_running (GitgRunner *runner);
+
+gint gitg_runner_get_exit_status (GitgRunner *runner);
+void gitg_runner_cancel (GitgRunner *runner);
 
 void gitg_runner_set_environment (GitgRunner *runner, gchar const **environment);
-void gitg_runner_add_environment(GitgRunner *runner, gchar const *key, gchar const *value);
+void gitg_runner_add_environment (GitgRunner *runner, gchar const *key, gchar const *value);
 
-GQuark gitg_runner_error_quark();
+GQuark gitg_runner_error_quark ();
 
 G_END_DECLS
 

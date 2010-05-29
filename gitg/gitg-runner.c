@@ -569,28 +569,40 @@ gitg_runner_run_streams (GitgRunner *runner,
 }
 
 gboolean
-gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar const *wd, gchar const *input, GError **error)
+gitg_runner_run_with_arguments (GitgRunner *runner,
+                                GFile *work_tree,
+                                gchar const **argv,
+                                gchar const *input,
+                                GError **error)
 {
-	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
+	g_return_val_if_fail (GITG_IS_RUNNER(runner), FALSE);
 
 	gint stdout;
 	gint stdin;
 
-	gitg_runner_cancel(runner);
+	gitg_runner_cancel (runner);
+	gchar *wd = NULL;
 
-	gboolean ret = g_spawn_async_with_pipes(wd, 
-	                                        (gchar **)argv, 
-	                                        runner->priv->environment, 
-	                                        G_SPAWN_SEARCH_PATH | 
-	                                        G_SPAWN_DO_NOT_REAP_CHILD | 
-	                                        (gitg_debug_enabled(GITG_DEBUG_RUNNER) ? 0 : G_SPAWN_STDERR_TO_DEV_NULL), 
-	                                        NULL, 
-	                                        NULL,
-	                                         &(runner->priv->pid), 
-	                                         input ? &stdin : NULL, 
-	                                         &stdout, 
-	                                         NULL, 
+	if (work_tree)
+	{
+		wd = g_file_get_path (work_tree);
+	}
+
+	gboolean ret = g_spawn_async_with_pipes (wd,
+	                                         (gchar **)argv,
+	                                         runner->priv->environment,
+	                                         G_SPAWN_SEARCH_PATH |
+	                                         G_SPAWN_DO_NOT_REAP_CHILD |
+	                                         (gitg_debug_enabled(GITG_DEBUG_RUNNER) ? 0 : G_SPAWN_STDERR_TO_DEV_NULL),
+	                                         NULL,
+	                                         NULL,
+	                                         &(runner->priv->pid),
+	                                         input ? &stdin : NULL,
+	                                         &stdout,
+	                                         NULL,
 	                                         error);
+
+	g_free (wd);
 
 	if (!ret)
 	{
@@ -617,15 +629,11 @@ gitg_runner_run_with_arguments(GitgRunner *runner, gchar const **argv, gchar con
 }
 
 gboolean
-gitg_runner_run_working_directory(GitgRunner *runner, gchar const **argv, gchar const *wd, GError **error)
+gitg_runner_run (GitgRunner *runner,
+                 gchar const **argv,
+                 GError **error)
 {
-	return gitg_runner_run_with_arguments(runner, argv, wd, NULL, error);
-}
-
-gboolean
-gitg_runner_run(GitgRunner *runner, gchar const **argv, GError **error)
-{
-	return gitg_runner_run_working_directory(runner, argv, NULL, error);
+	return gitg_runner_run_with_arguments (runner, NULL, argv, NULL, error);
 }
 
 gboolean

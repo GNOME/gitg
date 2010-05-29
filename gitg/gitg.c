@@ -167,41 +167,47 @@ set_icons ()
 }
 
 int
-main(int argc, char **argv)
+main (int argc, char **argv)
 {
-	g_thread_init(NULL);
+	gboolean ret;
 
-	gitg_debug_init();
+	g_thread_init (NULL);
 
-	bindtextdomain(GETTEXT_PACKAGE, GITG_LOCALEDIR);
-	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-	textdomain(GETTEXT_PACKAGE);
+	gitg_debug_init ();
 
-	g_set_prgname("gitg");
+	bindtextdomain (GETTEXT_PACKAGE, GITG_LOCALEDIR);
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+	textdomain (GETTEXT_PACKAGE);
+
+	g_set_prgname ("gitg");
 
 	/* Translators: this is the application name as in g_set_application_name */
-	g_set_application_name(_("gitg"));
+	g_set_application_name (_("gitg"));
 
-	gitg_dirs_initialize(argc, argv);
-	gtk_init(&argc, &argv);
-	parse_options(&argc, &argv);
+	gitg_dirs_initialize (argc, argv);
+	gtk_init (&argc, &argv);
+	parse_options (&argc, &argv);
 
-	set_language_search_path();
-	set_style_scheme_search_path();
-	set_icons();
+	set_language_search_path ();
+	set_style_scheme_search_path ();
+	set_icons ();
 
-	GitgSettings *settings = gitg_settings_get_default();
+	GitgSettings *settings = gitg_settings_get_default ();
+	GitgWindow *window = build_ui ();
 
-	GitgWindow *window = build_ui();
+	ret = gitg_window_load_repository_for_command_line (window,
+	                                                    argc - 1,
+	                                                    (gchar const **)argv + 1,
+	                                                    select_sha1);
 
-	gitg_window_load_repository(window, argc > 1 ? argv[1] : NULL, argc - 2, argc > 1 ? (gchar const **)&argv[2] : NULL, select_sha1);
+	if (commit_mode && ret)
+	{
+		gitg_window_show_commit (window);
+	}
 
-	if (commit_mode && gitg_window_get_repository (window) != NULL)
-		gitg_window_show_commit(window);
-
-	gtk_main();
+	gtk_main ();
 
 	/* Finalize settings */
-	g_object_unref(settings);
+	g_object_unref (settings);
 	return 0;
 }

@@ -273,12 +273,13 @@ add_files(GitgCommit *commit, gchar **buffer, gboolean cached)
 		gchar const *mode = parts[0] + 1;
 		gchar const *sha = parts[2];
 
-		gchar *path = g_build_filename(gitg_repository_get_path(commit->priv->repository), parts[5], NULL);
+		GFile *work_tree = gitg_repository_get_work_tree (commit->priv->repository);
+		GFile *file = g_file_get_child (work_tree, parts[5]);
 
-		GFile *file = g_file_new_for_path(path);
-		g_free(path);
+		g_object_unref (work_tree);
 
-		GitgChangedFile *f = GITG_CHANGED_FILE(g_hash_table_lookup(commit->priv->files, file));
+		GitgChangedFile *f = GITG_CHANGED_FILE (g_hash_table_lookup (commit->priv->files,
+		                                                             file));
 
 		if (f)
 		{
@@ -398,10 +399,11 @@ read_other_files_update(GitgRunner *runner, gchar **buffer, GitgCommit *commit)
 			continue;
 
 		/* Check if file is already in our index */
-		gchar *path = g_build_filename(gitg_repository_get_path(commit->priv->repository), line, NULL);
+		GFile *work_tree = gitg_repository_get_work_tree (commit->priv->repository);
+		GFile *file = g_file_get_child (work_tree, line);
 
-		GFile *file = g_file_new_for_path(path);
-		g_free(path);
+		g_object_unref (work_tree);
+
 		GitgChangedFile *f = g_hash_table_lookup(commit->priv->files, file);
 
 		if (f)
@@ -916,10 +918,13 @@ gitg_commit_commit(GitgCommit *commit, gchar const *comment, gboolean signoff, g
 	if (!write_tree(commit, &tree, error))
 		return FALSE;
 
-	gchar *path = g_build_filename (gitg_repository_get_path (commit->priv->repository),
-	                                ".git",
-	                                "COMMIT_EDITMSG",
-	                                NULL);
+	GFile *git_dir = gitg_repository_get_git_dir (commit->priv->repository);
+	GFile *child = g_file_get_child (git_dir, "COMMIT_EDITMSG");
+	gchar *path = g_file_get_path (child);
+
+	g_object_unref (git_dir);
+	g_object_unref (child);
+
 	g_file_set_contents (path, comment, -1, NULL);\
 	g_free (path);
 
@@ -983,7 +988,15 @@ gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk,
 		GitgRunner *runner = gitg_runner_new_synchronized(1000);
 		gchar const *argv[] = {"patch", "-p1", "-R", NULL};
 
-		ret = gitg_runner_run_with_arguments(runner, argv, gitg_repository_get_path(commit->priv->repository), hunk, NULL); 
+		GFile *work_tree = gitg_repository_get_work_tree (commit->priv->repository);
+
+		ret = gitg_runner_run_with_arguments (runner,
+		                                      work_tree,
+		                                      argv,
+		                                      hunk,
+		                                      NULL);
+
+		g_object_unref (work_tree);
 
 		update_index_file(commit, file);
 		update_index_unstaged(commit, file);
@@ -994,20 +1007,23 @@ gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk,
 	return ret;
 }
 
-gboolean 
-gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error)
+gboolean
+gitg_commit_add_ignore (GitgCommit *commit, GitgChangedFile *file, GError **error)
 {
-	g_return_val_if_fail(GITG_IS_COMMIT(commit), FALSE);
-	g_return_val_if_fail(GITG_IS_CHANGED_FILE(file), FALSE);
+	g_return_val_if_fail (GITG_IS_COMMIT (commit), FALSE);
+	g_return_val_if_fail (GITG_IS_CHANGED_FILE (file), FALSE);
 
-	GFile *f = gitg_changed_file_get_file(file);
-	gchar *path = gitg_repository_relative(commit->priv->repository, f);
+	GFile *f = gitg_changed_file_get_file (file);
+	gchar *path = gitg_repository_relative (commit->priv->repository, f);
 
-	gchar *ignore = g_strdup_printf("%s/.gitignore", gitg_repository_get_path(commit->priv->repository));
-	GFile *ig = g_file_new_for_path(ignore);
+	GFile *git_dir = gitg_repository_get_work_tree (commit->priv->repository);
+	GFile *ignore = g_file_get_child (git_dir, ".gitignore");
 
-	GFileOutputStream *stream = g_file_append_to(ig, G_FILE_CREATE_NONE, NULL, error);
+	GFileOutputStream *stream = g_file_append_to (ignore, G_FILE_CREATE_NONE, NULL, error);
 	gboolean ret = FALSE;
+
+	g_object_unref (git_dir);
+	g_object_unref (ignore);
 
 	if (stream)
 	{

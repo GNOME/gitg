@@ -887,21 +887,13 @@ on_repository_loaded (GitgRepository *repository, GitgWindow *window)
 }
 
 static void
-on_update(GitgRunner *loader, gchar **revisions, GitgWindow *window)
+on_update (GitgRunner *loader, gchar **revisions, GitgWindow *window)
 {
-	gchar *msg = g_strdup_printf(_("Loading %d revisions..."), gtk_tree_model_iter_n_children(GTK_TREE_MODEL(window->priv->repository), NULL));
+	gchar *msg = g_strdup_printf (_("Loading %d revisions..."),
+	                              gtk_tree_model_iter_n_children (GTK_TREE_MODEL(window->priv->repository), NULL));
 
-	gtk_statusbar_push(window->priv->statusbar, 0, msg);
-	g_free(msg);
-}
-
-static void
-handle_no_gitdir(GitgWindow *window)
-{
-	GtkWidget *dlg = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Could not find git repository"));
-
-	gtk_dialog_run(GTK_DIALOG(dlg));
-	gtk_widget_destroy(dlg);
+	gtk_statusbar_push (window->priv->statusbar, 0, msg);
+	g_free (msg);
 }
 
 void
@@ -924,83 +916,67 @@ gitg_window_set_select_on_load (GitgWindow  *window,
 }
 
 static gboolean
-create_repository(GitgWindow *window, gchar const *path, gboolean usewd)
+parse_gitg_uri (GFile *file, GFile **work_tree, gchar **selection)
 {
-	gboolean ret = TRUE;
-	gchar *selection = NULL;
-
-	if (path)
+	if (selection)
 	{
-		GFile *file = g_file_new_for_commandline_arg(path);
-
-		if (g_file_has_uri_scheme (file, "gitg"))
-		{
-			/* Extract path and sha information */
-			gchar *uri = g_file_get_uri (file);
-			gchar *fd = strrchr (uri, ':');
-			gint pos = fd ? fd - uri : 0;
-
-			if (pos > 5 && strlen (uri) - pos - 1 <= 40)
-			{
-				/* It has a sha */
-				*fd = '\0';
-				selection = g_strdup (fd + 1);
-			}
-
-			g_object_unref (file);
-
-			file = g_file_new_for_path (uri + 7);
-			g_free (uri);
-		}
-
-		if (g_file_is_native(file) && g_file_query_exists(file, NULL))
-		{
-			gchar *p = g_file_get_path(file);
-			window->priv->repository = gitg_repository_new(p);
-			g_free(p);
-
-			if (!gitg_repository_get_path(window->priv->repository))
-			{
-				// Try current directory
-				path = NULL;
-				g_object_unref(window->priv->repository);
-				window->priv->repository = NULL;
-
-				ret = FALSE;
-			}
-		}
-		else
-		{
-			ret = FALSE;
-			path = NULL;
-		}
-
-		g_object_unref(file);
+		*selection = NULL;
 	}
 
-	if (!path && usewd)
+	if (work_tree)
 	{
-		gchar *curdir = g_get_current_dir();
-		window->priv->repository = gitg_repository_new(curdir);
-		g_free(curdir);
+		*work_tree = NULL;
+	}
 
-		if (!gitg_repository_get_path (window->priv->repository))
+	if (!g_file_has_uri_scheme (file, "gitg"))
+	{
+		return FALSE;
+	}
+
+	/* Extract path and sha information */
+	gchar *uri = g_file_get_uri (file);
+	gchar *fd = strrchr (uri, ':');
+	gint pos = fd ? fd - uri : 0;
+
+	if (pos > 5 && strlen (uri) - pos - 1 <= 40)
+	{
+		/* It has a sha */
+		*fd = '\0';
+
+		if (selection)
 		{
-			g_object_unref (window->priv->repository);
-			window->priv->repository = NULL;
-
-			ret = FALSE;
-			path = NULL;
+			*selection = g_strdup (fd + 1);
 		}
 	}
 
-	if (ret && selection)
+	if (work_tree)
+	{
+		*work_tree = g_file_new_for_path (uri + 7);
+	}
+
+	g_free (uri);
+	return TRUE;
+}
+
+static gboolean
+create_repository (GitgWindow  *window,
+                   GFile       *git_dir,
+                   GFile       *work_tree,
+                   gchar const *selection)
+{
+	window->priv->repository = gitg_repository_new (git_dir, work_tree);
+
+	if (!gitg_repository_exists (window->priv->repository))
+	{
+		g_object_unref (window->priv->repository);
+		window->priv->repository = NULL;
+	}
+	else if (selection)
 	{
 		gitg_window_set_select_on_load (window, selection);
-		g_free (selection);
 	}
 
-	return ret;
+	return window->priv->repository != NULL;
 }
 
 static int
@@ -1280,13 +1256,15 @@ update_window_title (GitgWindow *window)
 		refname = g_strconcat (" (", gitg_ref_get_shortname (ref), ")", NULL);
 	}
 
-	gchar *basename = g_path_get_basename(gitg_repository_get_path(window->priv->repository));
-	gchar *title = g_strconcat(_("gitg"), " - ", basename, refname, NULL);
+	GFile *work_tree = gitg_repository_get_work_tree (window->priv->repository);
+	gchar *basename = g_file_get_basename (work_tree);
+	gchar *title = g_strconcat (_("gitg"), " - ", basename, refname, NULL);
 
-	gtk_window_set_title(GTK_WINDOW(window), title);
+	gtk_window_set_title (GTK_WINDOW (window), title);
 
-	g_free(basename);
-	g_free(title);
+	g_object_unref (work_tree);
+	g_free (basename);
+	g_free (title);
 	g_free (refname);
 }
 
@@ -1317,13 +1295,13 @@ on_repository_load (GitgRepository *repository, GitgWindow *window)
 }
 
 static void
-add_recent_item(GitgWindow *window)
+add_recent_item (GitgWindow *window)
 {
-	GtkRecentManager *manager = gtk_recent_manager_get_default();
+	GtkRecentManager *manager = gtk_recent_manager_get_default ();
 	GtkRecentData data = { 0 };
 	gchar *groups[] = {"gitg", NULL};
-	gchar const *path = gitg_repository_get_path(window->priv->repository);
-	gchar *basename = g_path_get_basename(path);
+	GFile *work_tree = gitg_repository_get_work_tree (window->priv->repository);
+	gchar *basename = g_file_get_basename (work_tree);
 
 	data.display_name = basename;
 	data.app_name = "gitg";
@@ -1331,17 +1309,21 @@ add_recent_item(GitgWindow *window)
 	data.app_exec = "gitg %f";
 	data.groups = groups;
 
-	GFile *file = g_file_new_for_path(gitg_repository_get_path(window->priv->repository));
-	gchar *uri = g_file_get_uri(file);
-	gtk_recent_manager_add_full(manager, uri, &data);
+	gchar *uri = g_file_get_uri (work_tree);
+	gtk_recent_manager_add_full (manager, uri, &data);
 
-	g_free(basename);
-	g_free(uri);
-	g_object_unref(file);
+	g_free (basename);
+	g_free (uri);
+	g_object_unref (work_tree);
 }
 
-static void
-load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv, gboolean usewd, gchar const *selection)
+static gboolean
+load_repository (GitgWindow *window,
+                 GFile *git_dir,
+                 GFile *work_tree,
+                 gint argc,
+                 gchar const **argv,
+                 gchar const *selection)
 {
 	if (window->priv->repository)
 	{
@@ -1363,31 +1345,17 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		memset (window->priv->select_on_load, 0, HASH_BINARY_SIZE);
 	}
 
-	gboolean haspath = create_repository(window, path, usewd);
-
-	if (window->priv->repository && gitg_repository_get_path(window->priv->repository))
+	if (create_repository (window, git_dir, work_tree, selection))
 	{
-		gtk_tree_view_set_model(window->priv->tree_view, GTK_TREE_MODEL(window->priv->repository));
-		GitgRunner *loader = gitg_repository_get_loader(window->priv->repository);
+		gtk_tree_view_set_model (window->priv->tree_view,
+		                         GTK_TREE_MODEL (window->priv->repository));
+
+		GitgRunner *loader = gitg_repository_get_loader (window->priv->repository);
 
 		gitg_window_set_select_on_load (window, selection);
 
-		g_signal_connect(loader, "update", G_CALLBACK(on_update), window);
-
-		g_object_unref(loader);
-
-		gchar const **ar = argv;
-
-		if (!haspath && path)
-		{
-			ar = (gchar const **)g_new(gchar *, ++argc);
-
-			int i;
-			for (i = 0; i < argc - 1; ++i)
-				ar[i] = argv[i];
-
-			ar[argc - 1] = path;
-		}
+		g_signal_connect (loader, "update", G_CALLBACK (on_update), window);
+		g_object_unref (loader);
 
 		g_signal_connect (window->priv->repository,
 		                  "load",
@@ -1399,43 +1367,171 @@ load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **
 		                  G_CALLBACK (on_repository_loaded),
 		                  window);
 
-		clear_branches_combo(window);
+		clear_branches_combo (window);
 
-		gitg_repository_load(window->priv->repository, argc, ar, NULL);
+		gitg_repository_load (window->priv->repository, argc, argv, NULL);
 
-		if (!haspath && path)
-		{
-			g_free(ar);
-		}
+		gitg_commit_view_set_repository (window->priv->commit_view,
+		                                 window->priv->repository);
 
-		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
-		gitg_revision_view_set_repository(window->priv->revision_view, window->priv->repository);
+		gitg_revision_view_set_repository (window->priv->revision_view,
+		                                  window->priv->repository);
 
-		add_recent_item(window);
-		gtk_widget_set_sensitive(GTK_WIDGET(window->priv->notebook_main), TRUE);
+		add_recent_item (window);
+		gtk_widget_set_sensitive (GTK_WIDGET (window->priv->notebook_main), TRUE);
 	}
 	else
 	{
-		clear_branches_combo(window);
-		gitg_commit_view_set_repository(window->priv->commit_view, window->priv->repository);
-		gitg_revision_view_set_repository(window->priv->revision_view, window->priv->repository);
+		clear_branches_combo (window);
 
-		if (path || argc > 1)
-		{
-			handle_no_gitdir(window);
-		}
+		gitg_commit_view_set_repository (window->priv->commit_view,
+		                                 NULL);
+
+		gitg_revision_view_set_repository (window->priv->revision_view,
+		                                   NULL);
 
 		update_window_title (window);
-		gtk_widget_set_sensitive(GTK_WIDGET(window->priv->notebook_main), FALSE);
+		gtk_widget_set_sensitive (GTK_WIDGET (window->priv->notebook_main), FALSE);
 	}
+
+	return window->priv->repository != NULL;
 }
 
-void
-gitg_window_load_repository(GitgWindow *window, gchar const *path, gint argc, gchar const **argv, gchar const *selection)
+gboolean
+gitg_window_load_repository (GitgWindow *window,
+                             GFile *git_dir,
+                             GFile *work_tree,
+                             gint argc,
+                             gchar const **argv,
+                             gchar const *selection)
 {
-	g_return_if_fail(GITG_IS_WINDOW(window));
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
 
-	load_repository(window, path, argc, argv, TRUE, selection);
+	return load_repository (window,
+	                        git_dir,
+	                        work_tree,
+	                        argc,
+	                        argv,
+	                        selection);
+}
+
+static gboolean
+load_repository_for_command_line (GitgWindow *window,
+                                  gint argc,
+                                  gchar const **argv,
+                                  gchar const *selection)
+{
+	gboolean ret = FALSE;
+	GFile *git_dir = NULL;
+	GFile *work_tree = NULL;
+
+	if (argc > 0)
+	{
+		GFile *first_arg = g_file_new_for_commandline_arg (argv[0]);
+		gchar *sel;
+
+		if (!parse_gitg_uri (first_arg, &work_tree, &sel))
+		{
+			git_dir = gitg_utils_find_dot_git (first_arg);
+		}
+
+		if (git_dir || (work_tree && g_file_query_exists (work_tree, NULL)))
+		{
+			ret = load_repository (window,
+			                       git_dir,
+			                       work_tree,
+			                       argc - 1,
+			                       argv + 1,
+			                       selection ? selection : sel);
+		}
+
+		g_free (sel);
+		g_object_unref (first_arg);
+	}
+
+	if (!ret)
+	{
+		gchar *cwd = g_get_current_dir ();
+
+		GFile *file = g_file_new_for_path (cwd);
+		git_dir = gitg_utils_find_dot_git (file);
+
+		g_free (cwd);
+		g_object_unref (file);
+
+		if (git_dir)
+		{
+			ret = load_repository (window,
+			                       git_dir,
+			                       NULL,
+			                       argc,
+			                       argv,
+			                       selection);
+		}
+	}
+
+	if (git_dir)
+	{
+		g_object_unref (git_dir);
+	}
+
+	if (work_tree)
+	{
+		g_object_unref (work_tree);
+	}
+
+	return ret;
+}
+
+gboolean
+gitg_window_load_repository_for_command_line (GitgWindow *window,
+                                              gint argc,
+                                              gchar const **argv,
+                                              gchar const *selection)
+{
+	gboolean ret;
+
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
+
+	gchar const *git_dir_path = g_getenv ("GIT_DIR");
+	gchar const *work_tree_path = g_getenv ("GIT_WORK_TREE");
+
+	if (!git_dir_path && !work_tree_path)
+	{
+		return load_repository_for_command_line (window, argc, argv, selection);
+	}
+
+	GFile *git_dir = NULL;
+	GFile *work_tree = NULL;
+
+	if (git_dir_path)
+	{
+		git_dir = g_file_new_for_commandline_arg (git_dir_path);
+	}
+
+	if (work_tree_path)
+	{
+		work_tree = g_file_new_for_commandline_arg (work_tree_path);
+	}
+
+	ret = gitg_window_load_repository (window,
+	                                   git_dir,
+	                                   work_tree,
+	                                   argc,
+	                                   argv,
+	                                   selection);
+
+	if (git_dir)
+	{
+		g_object_unref (git_dir);
+	}
+
+	if (work_tree)
+	{
+		g_object_unref (work_tree);
+	}
+
+	return ret;
 }
 
 void
@@ -1472,16 +1568,11 @@ on_open_dialog_response (GtkFileChooser *dialog,
 		return;
 	}
 
-	gchar *uri = gtk_file_chooser_get_uri(dialog);
-	GFile *file = g_file_new_for_uri(uri);
-	gchar *path = g_file_get_path(file);
+	GFile *file = gtk_file_chooser_get_file (dialog);
+	gtk_widget_destroy (GTK_WIDGET(dialog));
 
-	g_free(uri);
-	g_object_unref(file);
-	gtk_widget_destroy(GTK_WIDGET(dialog));
-
-	load_repository(window, path, 0, NULL, FALSE, NULL);
-	g_free(path);
+	load_repository (window, NULL, file, 0, NULL, NULL);
+	g_object_unref (file);
 }
 
 void
@@ -1534,11 +1625,12 @@ on_edit_paste (GtkAction *action, GitgWindow *window)
 }
 
 void
-on_view_refresh(GtkAction *action, GitgWindow *window)
+on_view_refresh (GtkAction *action, GitgWindow *window)
 {
-	if (window->priv->repository && gitg_repository_get_path(window->priv->repository) != NULL)
+	if (window->priv->repository &&
+	    gitg_repository_exists (window->priv->repository))
 	{
-		gitg_repository_reload(window->priv->repository);
+		gitg_repository_reload (window->priv->repository);
 	}
 }
 
@@ -1564,33 +1656,22 @@ on_window_set_focus (GitgWindow *window, GtkWidget *widget)
 	gtk_action_set_sensitive(gtk_action_group_get_action(window->priv->edit_group, "EditCopyAction"), cancopy);
 }
 
-gboolean
-on_window_state_event(GtkWidget *widget, GdkEventWindowState *event, GitgWindow *window)
-{
-	GitgSettings *settings = gitg_settings_get_default();
-
-	gitg_settings_set_window_state(settings, event->new_window_state);
-
-	return FALSE;
-}
-
 void
-on_recent_open(GtkRecentChooser *chooser, GitgWindow *window)
+on_recent_open (GtkRecentChooser *chooser, GitgWindow *window)
 {
-	GFile *file = g_file_new_for_uri(gtk_recent_chooser_get_current_uri(chooser));
-	gchar *path = g_file_get_path(file);
+	gchar *uri = gtk_recent_chooser_get_current_uri (chooser);
+	GFile *work_tree = g_file_new_for_uri (uri);
+	g_free (uri);
 
-	load_repository(window, path, 0, NULL, FALSE, NULL);
+	load_repository (window, NULL, work_tree, 0, NULL, NULL);
 
-	g_free(path);
-	g_object_unref(file);
+	g_object_unref (work_tree);
 }
 
-#if GTK_CHECK_VERSION (2, 14, 0)
 static void
-url_activate_hook(GtkAboutDialog *dialog, gchar const *link, gpointer data)
+url_activate_hook (GtkAboutDialog *dialog, gchar const *link, gpointer data)
 {
-	gtk_show_uri(NULL, link, GDK_CURRENT_TIME, NULL);
+	gtk_show_uri (NULL, link, GDK_CURRENT_TIME, NULL);
 }
 
 static void
@@ -1599,18 +1680,17 @@ email_activate_hook (GtkAboutDialog *dialog, gchar const *link, gpointer data)
 	gchar *uri;
 	gchar *escaped;
 
-	escaped = g_uri_escape_string(link, NULL, FALSE);
-	uri = g_strdup_printf("mailto:%s", escaped);
+	escaped = g_uri_escape_string (link, NULL, FALSE);
+	uri = g_strdup_printf ("mailto:%s", escaped);
 
-	gtk_show_uri(NULL, uri, GDK_CURRENT_TIME, NULL);
+	gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, NULL);
 
-	g_free(uri);
-	g_free(escaped);
+	g_free (uri);
+	g_free (escaped);
 }
-#endif
 
 void
-on_help_about(GtkAction *action, GitgWindow *window)
+on_help_about (GtkAction *action, GitgWindow *window)
 {
 	static gchar const copyright[] = "Copyright \xc2\xa9 2009 Jesse van den Kieboom";
 	static gchar const *authors[] = {"Jesse van den Kieboom <jessevdk@gnome.org>", NULL};
@@ -2655,8 +2735,13 @@ on_revision_format_patch_activate (GtkAction *action, GitgWindow *window)
 		/* TODO: Implement selecting folder once multiple selection is realized */
 	}
 
-	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog),
-	                                     gitg_repository_get_path (window->priv->repository));
+	GFile *work_tree = gitg_repository_get_work_tree (window->priv->repository);
+
+	gtk_file_chooser_set_current_folder_file (GTK_FILE_CHOOSER (dialog),
+	                                          work_tree,
+	                                          NULL);
+
+	g_object_unref (work_tree);
 
 	FormatPatchInfo *info = g_slice_new (FormatPatchInfo);
 	info->window = window;

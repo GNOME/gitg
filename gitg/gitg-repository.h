@@ -65,8 +65,15 @@ struct _GitgRepositoryClass
 };
 
 GType gitg_repository_get_type (void) G_GNUC_CONST;
-GitgRepository *gitg_repository_new(gchar const *path);
-gchar const *gitg_repository_get_path(GitgRepository *repository);
+
+GitgRepository *gitg_repository_new (GFile *git_dir,
+                                     GFile *work_tree);
+
+GFile *gitg_repository_get_work_tree (GitgRepository *repository);
+GFile *gitg_repository_get_git_dir (GitgRepository *repository);
+
+gboolean gitg_repository_exists (GitgRepository *repository);
+
 GitgRunner *gitg_repository_get_loader(GitgRepository *repository);
 
 gboolean gitg_repository_load(GitgRepository *repository, int argc, gchar const **argv, GError **error);

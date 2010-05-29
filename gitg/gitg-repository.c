@@ -47,7 +47,8 @@ enum
 {
 	PROP_0,
 
-	PROP_PATH,
+	PROP_WORK_TREE,
+	PROP_GIT_DIR,
 	PROP_LOADER
 };
 
@@ -82,7 +83,9 @@ typedef enum
 
 struct _GitgRepositoryPrivate
 {
-	gchar *path;
+	GFile *git_dir;
+	GFile *work_tree;
+
 	GitgRunner *loader;
 	GHashTable *hashtable;
 	gint stamp;
@@ -363,8 +366,15 @@ gitg_repository_finalize(GObject *object)
 	/* Clear the model to remove all revision objects */
 	do_clear(rp, FALSE);
 
-	/* Free the path */
-	g_free(rp->priv->path);
+	if (rp->priv->work_tree)
+	{
+		g_object_unref (rp->priv->work_tree);
+	}
+
+	if (rp->priv->git_dir)
+	{
+		g_object_unref (rp->priv->git_dir);
+	}
 
 	/* Free the hash */
 	g_hash_table_destroy(rp->priv->hashtable);
@@ -405,9 +415,21 @@ gitg_repository_set_property(GObject *object, guint prop_id, GValue const *value
 
 	switch (prop_id)
 	{
-		case PROP_PATH:
-			g_free(self->priv->path);
-			self->priv->path = gitg_utils_find_git(g_value_get_string(value));
+		case PROP_WORK_TREE:
+			if (self->priv->work_tree)
+			{
+				g_object_unref (self->priv->work_tree);
+			}
+
+			self->priv->work_tree = g_value_dup_object (value);
+		break;
+		case PROP_GIT_DIR:
+			if (self->priv->git_dir)
+			{
+				g_object_unref (self->priv->git_dir);
+			}
+
+			self->priv->git_dir = g_value_dup_object (value);
 		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -422,8 +444,12 @@ gitg_repository_get_property(GObject *object, guint prop_id, GValue *value, GPar
 
 	switch (prop_id)
 	{
-		case PROP_PATH:
-			g_value_set_string(value, self->priv->path);
+		case PROP_WORK_TREE:
+			g_value_set_object (value, self->priv->work_tree);
+		break;
+		case PROP_GIT_DIR:
+			g_value_set_object (value, self->priv->git_dir);
+		break;
 		break;
 		case PROP_LOADER:
 			g_value_set_object(value, self->priv->loader);
@@ -437,7 +463,13 @@ gitg_repository_get_property(GObject *object, guint prop_id, GValue *value, GPar
 static gchar *
 parse_ref_intern (GitgRepository *repository, gchar const *ref, gboolean symbolic)
 {
-	gchar **ret = gitg_repository_command_with_outputv(repository, NULL, "rev-parse", "--verify", symbolic ? "--symbolic-full-name" : ref, symbolic ? ref : NULL, NULL);
+	gchar **ret = gitg_repository_command_with_outputv (repository,
+	                                                    NULL,
+	                                                    "rev-parse",
+	                                                    "--verify",
+	                                                    symbolic ? "--symbolic-full-name" : ref,
+	                                                    symbolic ? ref : NULL,
+	                                                    NULL);
 
 	if (!ret)
 		return NULL;
@@ -498,35 +530,43 @@ on_head_changed (GFileMonitor      *monitor,
 static void
 install_head_monitor (GitgRepository *repository)
 {
-	gchar *path = g_build_filename (repository->priv->path, ".git", "HEAD", NULL);
-	GFile *file = g_file_new_for_path (path);
+	GFile *file = g_file_get_child (repository->priv->git_dir, "HEAD");
 
-	repository->priv->monitor = g_file_monitor_file (file, 
+	repository->priv->monitor = g_file_monitor_file (file,
 	                                                 G_FILE_MONITOR_NONE,
 	                                                 NULL,
 	                                                 NULL);
 
-	g_signal_connect (repository->priv->monitor, 
-	                  "changed", 
+	g_signal_connect (repository->priv->monitor,
+	                  "changed",
 	                  G_CALLBACK (on_head_changed),
 	                  repository);
 
-	g_free (path);
 	g_object_unref (file);
 }
 
-static GObject *
-gitg_repository_constructor (GType                  type,
-                             guint                  n_construct_properties,
-                             GObjectConstructParam *construct_properties)
+static void
+gitg_repository_constructed (GObject *object)
 {
-	GObject *ret = G_OBJECT_CLASS (gitg_repository_parent_class)->constructor (type,
-	                                                                           n_construct_properties,
-	                                                                           construct_properties);
+	GitgRepository *repository = GITG_REPOSITORY (object);
 
-	install_head_monitor (GITG_REPOSITORY (ret));
+	if (repository->priv->git_dir == NULL &&
+	    repository->priv->work_tree == NULL)
+	{
+		return;
+	}
 
-	return ret;
+	if (repository->priv->git_dir == NULL)
+	{
+		repository->priv->git_dir = g_file_get_child (repository->priv->work_tree,
+		                                              ".git");
+	}
+	else if (repository->priv->work_tree == NULL)
+	{
+		repository->priv->work_tree = g_file_get_parent (repository->priv->git_dir);
+	}
+
+	install_head_monitor (repository);
 }
 
 static void 
@@ -538,21 +578,31 @@ gitg_repository_class_init(GitgRepositoryClass *klass)
 	object_class->set_property = gitg_repository_set_property;
 	object_class->get_property = gitg_repository_get_property;
 
-	object_class->constructor = gitg_repository_constructor;
+	object_class->constructed = gitg_repository_constructed;
 
-	g_object_class_install_property(object_class, PROP_PATH,
-						 g_param_spec_string ("path",
-								      "PATH",
-								      "The repository path",
-								      NULL,
-								      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+	g_object_class_install_property (object_class,
+	                                 PROP_GIT_DIR,
+	                                 g_param_spec_object ("git-dir",
+	                                                      "GIT_DIR",
+	                                                      "The repository .git directory",
+	                                                      G_TYPE_FILE,
+	                                                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
-	g_object_class_install_property(object_class, PROP_LOADER,
-						 g_param_spec_object ("loader",
-								      "LOADER",
-								      "The repository loader",
-								      GITG_TYPE_RUNNER,
-								      G_PARAM_READABLE));
+	g_object_class_install_property (object_class,
+	                                 PROP_WORK_TREE,
+	                                 g_param_spec_object ("work-tree",
+	                                                      "WORK_TREE",
+	                                                      "The work tree directory",
+	                                                      G_TYPE_FILE,
+	                                                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+
+	g_object_class_install_property (object_class,
+	                                 PROP_LOADER,
+	                                 g_param_spec_object ("loader",
+	                                                      "LOADER",
+	                                                      "The repository loader",
+	                                                      GITG_TYPE_RUNNER,
+	                                                      G_PARAM_READABLE));
 
 	repository_signals[LOAD] =
 		g_signal_new ("load",
@@ -815,7 +865,6 @@ repository_relane(GitgRepository *repository)
 	guint i;
 	GtkTreeIter iter;
 	GtkTreePath *path = gtk_tree_path_new_first();
-
 
 	for (i = 0; i < repository->priv->size; ++i)
 	{
@@ -1090,17 +1139,28 @@ grow_storage(GitgRepository *repository, gint size)
 }
 
 GitgRepository *
-gitg_repository_new(gchar const *path)
+gitg_repository_new (GFile *git_dir, GFile *work_tree)
 {
-	return g_object_new(GITG_TYPE_REPOSITORY, "path", path, NULL);
+	return g_object_new (GITG_TYPE_REPOSITORY,
+	                     "git-dir", git_dir,
+	                     "work-tree", work_tree,
+	                     NULL);
 }
 
-gchar const *
-gitg_repository_get_path(GitgRepository *self)
+GFile *
+gitg_repository_get_work_tree (GitgRepository *self)
 {
-	g_return_val_if_fail(GITG_IS_REPOSITORY(self), NULL);
+	g_return_val_if_fail (GITG_IS_REPOSITORY(self), NULL);
 
-	return self->priv->path;
+	return g_file_dup (self->priv->work_tree);
+}
+
+GFile *
+gitg_repository_get_git_dir (GitgRepository *self)
+{
+	g_return_val_if_fail (GITG_IS_REPOSITORY (self), NULL);
+
+	return g_file_dup (self->priv->git_dir);
 }
 
 GitgRunner *
@@ -1211,24 +1271,24 @@ load_refs(GitgRepository *self)
 void
 gitg_repository_reload(GitgRepository *repository)
 {
-	g_return_if_fail(GITG_IS_REPOSITORY(repository));
-	g_return_if_fail(repository->priv->path != NULL);
+	g_return_if_fail (GITG_IS_REPOSITORY (repository));
+	g_return_if_fail (repository->priv->git_dir != NULL);
 
-	gitg_runner_cancel(repository->priv->loader);
+	gitg_runner_cancel (repository->priv->loader);
 
 	repository->priv->load_stage = LOAD_STAGE_NONE;
-	gitg_repository_clear(repository);
+	gitg_repository_clear (repository);
 
-	load_refs(repository);
-	reload_revisions(repository, NULL);
+	load_refs (repository);
+	reload_revisions (repository, NULL);
 }
 
 gboolean
-gitg_repository_load(GitgRepository *self, int argc, gchar const **av, GError **error)
+gitg_repository_load (GitgRepository *self, int argc, gchar const **av, GError **error)
 {
-	g_return_val_if_fail(GITG_IS_REPOSITORY(self), FALSE);
+	g_return_val_if_fail (GITG_IS_REPOSITORY (self), FALSE);
 
-	if (self->priv->path == NULL)
+	if (self->priv->git_dir == NULL)
 	{
 		if (error)
 		{
@@ -1361,70 +1421,104 @@ gitg_repository_get_current_ref(GitgRepository *repository)
 }
 
 gchar *
-gitg_repository_relative(GitgRepository *repository, GFile *file)
+gitg_repository_relative (GitgRepository *repository, GFile *file)
 {
-	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
-	g_return_val_if_fail(repository->priv->path != NULL, NULL);
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
+	g_return_val_if_fail (repository->priv->work_tree != NULL, NULL);
 
-	GFile *parent = g_file_new_for_path(repository->priv->path);
-	gchar *ret = g_file_get_relative_path(parent, file);
-	g_object_unref(parent);
-
-	return ret;
+	return g_file_get_relative_path (repository->priv->work_tree, file);
 }
 
 gboolean
-gitg_repository_run_command_with_input(GitgRepository *repository, GitgRunner *runner, gchar const **argv, gchar const *input, GError **error)
+gitg_repository_run_command_with_input (GitgRepository *repository,
+                                        GitgRunner *runner,
+                                        gchar const **argv,
+                                        gchar const *input,
+                                        GError **error)
 {
-	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), FALSE);
-	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
-	g_return_val_if_fail(repository->priv->path != NULL, FALSE);
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
+	g_return_val_if_fail (GITG_IS_RUNNER (runner), FALSE);
+	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
 
-	guint num = g_strv_length((gchar **)argv);
+	guint num = g_strv_length ((gchar **)argv);
 	guint i;
-	gchar const **args = g_new0(gchar const *, num + 2);
+
+	gchar const **args = g_new0 (gchar const *, num + 6);
+
+	gchar *git_dir_path = g_file_get_path (repository->priv->git_dir);
+	gchar *work_tree_path = g_file_get_path (repository->priv->work_tree);
+
 	args[0] = "git";
+	args[1] = "--git-dir";
+	args[2] = git_dir_path;
+	args[3] = "--work-tree";
+	args[4] = work_tree_path;
 
 	for (i = 0; i < num; ++i)
-		args[i + 1] = argv[i];
+	{
+		args[i + 5] = argv[i];
+	}
 
-	gboolean ret = gitg_runner_run_with_arguments(runner, args, repository->priv->path, input, error);
-	g_free(args);
+	gboolean ret = gitg_runner_run_with_arguments (runner,
+	                                               repository->priv->work_tree,
+	                                               args,
+	                                               input,
+	                                               error);
+
+	g_free (args);
+	g_free (git_dir_path);
+	g_free (work_tree_path);
 
 	return ret;
 }
 
 gboolean
-gitg_repository_run_command(GitgRepository *repository, GitgRunner *runner, gchar const **argv, GError **error)
+gitg_repository_run_command (GitgRepository *repository,
+                             GitgRunner *runner,
+                             gchar const **argv,
+                             GError **error)
 {
-	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), FALSE);
-	g_return_val_if_fail(GITG_IS_RUNNER(runner), FALSE);
-	g_return_val_if_fail(repository->priv->path != NULL, FALSE);
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
+	g_return_val_if_fail (GITG_IS_RUNNER (runner), FALSE);
+	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
 
-	return gitg_repository_run_command_with_input(repository, runner, argv, NULL, error);
+	return gitg_repository_run_command_with_input (repository,
+	                                               runner,
+	                                               argv,
+	                                               NULL,
+	                                               error);
 }
 
 gboolean 
-gitg_repository_command_with_input(GitgRepository *repository, gchar const **argv, gchar const *input, GError **error)
+gitg_repository_command_with_input (GitgRepository *repository,
+                                    gchar const **argv,
+                                    gchar const *input,
+                                    GError **error)
 {
-	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), FALSE);
-	g_return_val_if_fail(repository->priv->path != NULL, FALSE);
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
+	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
 
-	GitgRunner *runner = gitg_runner_new_synchronized(1000);
+	GitgRunner *runner = gitg_runner_new_synchronized (1000);
 
-	gboolean ret = gitg_repository_run_command_with_input(repository, runner, argv, input, error);
+	gboolean ret = gitg_repository_run_command_with_input (repository,
+	                                                       runner,
+	                                                       argv,
+	                                                       input,
+	                                                       error);
 	g_object_unref(runner);
 
 	return ret;
 }
 
 gboolean
-gitg_repository_command(GitgRepository *repository, gchar const **argv, GError **error)
+gitg_repository_command (GitgRepository *repository,
+                         gchar const **argv,
+                         GError **error)
 {
-	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), FALSE);
-	g_return_val_if_fail(repository->priv->path != NULL, FALSE);
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
+	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
 
-	return gitg_repository_command_with_input(repository, argv, NULL, error);
+	return gitg_repository_command_with_input (repository, argv, NULL, error);
 }
 
 typedef struct
@@ -1452,7 +1546,7 @@ gchar **
 gitg_repository_command_with_input_and_output(GitgRepository *repository, gchar const **argv, gchar const *input, GError **error)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
-	g_return_val_if_fail(repository->priv->path != NULL, NULL);
+	g_return_val_if_fail(repository->priv->git_dir != NULL, NULL);
 
 	GitgRunner *runner = gitg_runner_new_synchronized(1000);
 	CommandOutput output = {NULL, 0};
@@ -1474,7 +1568,7 @@ gchar **
 gitg_repository_command_with_output(GitgRepository *repository, gchar const **argv, GError **error)
 {
 	g_return_val_if_fail(GITG_IS_REPOSITORY(repository), NULL);
-	g_return_val_if_fail(repository->priv->path != NULL, NULL);
+	g_return_val_if_fail(repository->priv->git_dir != NULL, NULL);
 
 	return gitg_repository_command_with_input_and_output(repository, argv, NULL, error);
 }
@@ -1669,4 +1763,18 @@ gitg_repository_get_current_selection (GitgRepository *repository)
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
 
 	return (gchar const **)repository->priv->selection;
+}
+
+gboolean
+gitg_repository_exists (GitgRepository *repository)
+{
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
+
+	if (repository->priv->git_dir == NULL)
+	{
+		return FALSE;
+	}
+
+	return g_file_query_exists (repository->priv->git_dir, NULL) &&
+	       g_file_query_exists (repository->priv->work_tree, NULL);
 }

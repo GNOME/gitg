@@ -792,14 +792,13 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 
 	close (fd);
 
-	gchar const *gitdir = gitg_repository_get_path (repository);
-	gchar *indexpath = g_build_filename (gitdir, ".git", "index", NULL);
+	GFile *git_dir = gitg_repository_get_git_dir (repository);
+	GFile *index_ = g_file_get_child (git_dir, "index");
 
-	GFile *index = g_file_new_for_path (indexpath);
-	g_free (indexpath);
+	gboolean copied = g_file_copy (index_, customindex, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
 
-	gboolean copied = g_file_copy (index, customindex, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
-	g_object_unref (index);
+	g_object_unref (index_);
+	g_object_unref (git_dir);
 
 	if (!copied)
 	{
@@ -862,18 +861,26 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 		*ref = g_strdup (rref);
 	}
 
-	// Make ref
-	gchar *path = g_build_filename (gitg_repository_get_path (repository),
-	                                ".git",
+	git_dir = gitg_repository_get_git_dir (repository);
+	gchar *git_path = g_file_get_path (git_dir);
+
+	gchar *path = g_build_filename (git_path,
 	                                "logs",
 	                                "refs",
 	                                "stash",
 	                                NULL);
+
+	g_object_unref (git_dir);
+	g_free (git_path);
+
 	GFile *reflog = g_file_new_for_path (path);
 	GFileOutputStream *stream = g_file_create (reflog, G_FILE_CREATE_NONE, NULL, NULL);
+
 	g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
+
 	g_object_unref (stream);
 	g_object_unref (reflog);
+
 	g_free (path);
 
 	gitg_repository_run_commandv (repository, runner, NULL,

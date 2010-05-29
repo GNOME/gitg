@@ -213,8 +213,14 @@ static gchar *
 get_value_local (GitgConfig *config, gchar const *key)
 {
 	gboolean ret;
-	gchar const *path = gitg_repository_get_path (config->priv->repository);
-	gchar *cfg = g_build_filename (path, ".git", "config", NULL);
+	GFile *git_dir;
+	GFile *cfg_file;
+	gchar *cfg;
+
+	git_dir = gitg_repository_get_git_dir (config->priv->repository);
+
+	cfg_file = g_file_get_child (git_dir, "config");
+	cfg = g_file_get_path (cfg_file);
 
 	ret = gitg_repository_run_commandv (config->priv->repository, 
 	                                    config->priv->runner,
@@ -224,7 +230,11 @@ get_value_local (GitgConfig *config, gchar const *key)
 	                                    cfg,
 	                                    key,
 	                                    NULL);
+
 	g_free (cfg);
+
+	g_object_unref (cfg_file);
+	g_object_unref (git_dir);
 
 	return get_value_process (config, ret);
 }
@@ -233,8 +243,14 @@ static gchar *
 get_value_local_regex (GitgConfig *config, gchar const *regex)
 {
 	gboolean ret;
-	gchar const *path = gitg_repository_get_path (config->priv->repository);
-	gchar *cfg = g_build_filename (path, ".git", "config", NULL);
+	GFile *git_dir;
+	GFile *cfg_file;
+	gchar *cfg;
+
+	git_dir = gitg_repository_get_git_dir (config->priv->repository);
+
+	cfg_file = g_file_get_child (git_dir, "config");
+	cfg = g_file_get_path (cfg_file);
 
 	ret = gitg_repository_run_commandv (config->priv->repository, 
 	                                    config->priv->runner,
@@ -245,7 +261,11 @@ get_value_local_regex (GitgConfig *config, gchar const *regex)
 	                                    "--get-regexp",
 	                                    regex,
 	                                    NULL);
+
 	g_free (cfg);
+
+	g_object_unref (cfg_file);
+	g_object_unref (git_dir);
 
 	return get_value_process (config, ret);
 }
@@ -268,10 +288,17 @@ set_value_global (GitgConfig *config, gchar const *key, gchar const *value)
 static gboolean
 set_value_local (GitgConfig *config, gchar const *key, gchar const *value)
 {
-	gchar const *path = gitg_repository_get_path (config->priv->repository);
-	gchar *cfg = g_build_filename (path, ".git", "config", NULL);
+	gboolean ret;
+	GFile *git_dir;
+	GFile *cfg_file;
+	gchar *cfg;
 
-	return gitg_repository_run_commandv (config->priv->repository, 
+	git_dir = gitg_repository_get_git_dir (config->priv->repository);
+
+	cfg_file = g_file_get_child (git_dir, "config");
+	cfg = g_file_get_path (cfg_file);
+
+	ret = gitg_repository_run_commandv (config->priv->repository,
 	                                     config->priv->runner,
 	                                     NULL,
 	                                     "config",
@@ -280,6 +307,13 @@ set_value_local (GitgConfig *config, gchar const *key, gchar const *value)
 	                                     value == NULL ? "--unset" : key,
 	                                     value == NULL ? key : value,
 	                                     NULL);
+
+	g_free (cfg);
+
+	g_object_unref (cfg_file);
+	g_object_unref (git_dir);
+
+	return ret;
 }
 
 static gboolean
@@ -301,19 +335,33 @@ rename_global (GitgConfig *config, gchar const *old, gchar const *nw)
 static gboolean
 rename_local (GitgConfig *config, gchar const *old, gchar const *nw)
 {
-	gchar const *path = gitg_repository_get_path (config->priv->repository);
-	gchar *cfg = g_build_filename (path, ".git", "config", NULL);
+	gboolean ret;
+	GFile *git_dir;
+	GFile *cfg_file;
+	gchar *cfg;
 
-	return gitg_repository_run_commandv (config->priv->repository, 
-	                                     config->priv->runner,
-	                                     NULL,
-	                                     "config",
-	                                     "--file",
-	                                     cfg,
-	                                     "--rename-section",
-	                                     old,
-	                                     nw,
-	                                     NULL);
+	git_dir = gitg_repository_get_git_dir (config->priv->repository);
+
+	cfg_file = g_file_get_child (git_dir, "config");
+	cfg = g_file_get_path (cfg_file);
+
+	ret = gitg_repository_run_commandv (config->priv->repository, 
+	                                    config->priv->runner,
+	                                    NULL,
+	                                    "config",
+	                                    "--file",
+	                                    cfg,
+	                                    "--rename-section",
+	                                    old,
+	                                    nw,
+	                                    NULL);
+
+	g_free (cfg);
+
+	g_object_unref (cfg_file);
+	g_object_unref (git_dir);
+
+	return ret;
 }
 
 gchar *

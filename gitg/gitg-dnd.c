@@ -785,11 +785,15 @@ static gchar *
 revision_to_uri (GitgRepository *repository,
                  GitgRevision   *revision)
 {
-	gchar const *path = gitg_repository_get_path (repository);
+	GFile *work_tree = gitg_repository_get_work_tree (repository);
 	gchar *sha1 = gitg_revision_get_sha1 (revision);
 
+	gchar *path = g_file_get_path (work_tree);
 	gchar *ret = g_strdup_printf ("gitg://%s:%s", path, sha1);
+
 	g_free (sha1);
+	g_free (path);
+	g_object_unref (work_tree);
 
 	return ret;
 }
@@ -798,11 +802,15 @@ static gchar *
 revision_to_treeish (GitgRepository *repository,
                      GitgRevision   *revision)
 {
-	gchar const *path = gitg_repository_get_path (repository);
+	GFile *work_tree = gitg_repository_get_work_tree (repository);
 	gchar *sha1 = gitg_revision_get_sha1 (revision);
+	gchar *path = g_file_get_path (work_tree);
 
 	gchar *ret = g_strdup_printf ("%s\n%s", path, sha1);
+
 	g_free (sha1);
+	g_free (path);
+	g_object_unref (work_tree);
 
 	return ret;
 }

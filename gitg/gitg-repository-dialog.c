@@ -486,10 +486,13 @@ create_repository_dialog (GitgWindow *window)
 	gtk_builder_connect_signals(b, repository_dialog);
 	g_object_unref (b);
 
-	gchar *basename = g_path_get_basename(gitg_repository_get_path(repository));
-	gchar *title = g_strdup_printf("%s - %s", _("Properties"), basename);
+	GFile *work_tree = gitg_repository_get_work_tree (repository);
+	gchar *basename = g_file_get_basename (work_tree);
+	g_object_unref (work_tree);
 
+	gchar *title = g_strdup_printf("%s - %s", _("Properties"), basename);
 	gtk_window_set_title(GTK_WINDOW(repository_dialog), title);
+
 	g_free (title);
 	g_free (basename);
 
