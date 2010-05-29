@@ -23,8 +23,6 @@
 #include "gitg-dirs.h"
 #include "config.h"
 
-static gchar *executable_directory = NULL; 
-
 gchar const *
 gitg_dirs_get_data_dir()
 {
@@ -32,14 +30,7 @@ gitg_dirs_get_data_dir()
 
 	if (!datadir)
 	{
-#ifdef ENABLE_BUNDLE
-		// FIXME ensure executable_directory is not NULL
-		gchar *up = g_path_get_dirname(executable_directory);
-		datadir = g_build_filename(up, "resources", NULL);
-		g_free(up);
-#else
-		datadir = g_strdup(GITG_DATADIR);
-#endif
+		datadir = g_strdup (GITG_DATADIR);
 	}
 
 	return datadir;
@@ -83,7 +74,5 @@ gitg_dirs_initialize(int argc, char **argv)
 		g_free(cwd);
 	}
 
-	g_free(executable_directory);
-	executable_directory = g_strdup(path);
 	g_free(path);
 }

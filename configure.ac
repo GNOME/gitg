@@ -78,13 +78,6 @@ fi
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
 
-if test "$enable_bundle" = "yes"; then
-	AC_DEFINE([ENABLE_BUNDLE],[1],[Defined if building bundle])
-fi
-
-bundledir=gitg-bundle-gitg_version
-AC_SUBST(bundledir)
-
 AM_GCONF_SOURCE_2
 
 AC_CONFIG_FILES([
