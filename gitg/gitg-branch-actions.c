@@ -1882,10 +1882,12 @@ gitg_branch_actions_format_patch (GitgWindow     *window,
 	g_return_val_if_fail (destination != NULL, NULL);
 
 	GitgRunner *ret;
-	GitgRepository *repository = gitg_window_get_repository (window);
 
 	GFile *file = g_file_new_for_uri (destination);
-	GFileOutputStream *stream = g_file_create (file, 0, NULL, NULL);
+	GFileOutputStream *stream = g_file_create (file,
+	                                           G_FILE_CREATE_REPLACE_DESTINATION,
+	                                           NULL,
+	                                           NULL);
 	g_object_unref (file);
 
 	if (!stream)
