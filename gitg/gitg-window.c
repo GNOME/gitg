@@ -101,13 +101,18 @@ struct _GitgWindowPrivate
 	GitgRef *popup_refs[2];
 
 	GList *branch_actions;
-	Hash select_on_load;
+	GitgHash select_on_load;
 };
 
-static gboolean on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window);
-static gboolean on_tree_view_button_release(GtkTreeView *treeview, GdkEventButton *event, GitgWindow *window);
+static gboolean on_tree_view_motion (GtkTreeView *treeview,
+                                     GdkEventMotion *event,
+                                     GitgWindow *window);
 
-static void gitg_window_buildable_iface_init(GtkBuildableIface *iface);
+static gboolean on_tree_view_button_release (GtkTreeView *treeview,
+                                             GdkEventButton *event,
+                                             GitgWindow *window);
+
+static void gitg_window_buildable_iface_init (GtkBuildableIface *iface);
 
 void on_subject_activate (GtkAction *action, GitgWindow *window);
 void on_author_activate (GtkAction *action, GitgWindow *window);
@@ -144,14 +149,17 @@ static GtkBuildableIface parent_iface;
 static GtkWindowClass *parent_class = NULL;
 
 static void
-on_branch_action_runner_end (GitgRunner *runner, gboolean cancelled, GitgWindow *window)
+on_branch_action_runner_end (GitgRunner *runner,
+                             gboolean    cancelled,
+                             GitgWindow *window)
 {
 	window->priv->branch_actions = g_list_remove (window->priv->branch_actions, runner);
 	g_object_unref (runner);
 }
 
 gboolean
-gitg_window_add_branch_action (GitgWindow *window, GitgRunner *runner)
+gitg_window_add_branch_action (GitgWindow *window,
+                               GitgRunner *runner)
 {
 	if (runner != NULL && gitg_runner_running (runner))
 	{
@@ -169,12 +177,12 @@ gitg_window_add_branch_action (GitgWindow *window, GitgRunner *runner)
 }
 
 static void
-gitg_window_finalize(GObject *object)
+gitg_window_finalize (GObject *object)
 {
 	GitgWindow *self = GITG_WINDOW(object);
 
-	g_timer_destroy(self->priv->load_timer);
-	gdk_cursor_unref(self->priv->hand);
+	g_timer_destroy (self->priv->load_timer);
+	gdk_cursor_unref (self->priv->hand);
 
 	GList *copy = g_list_copy (self->priv->branch_actions);
 	GList *item;
@@ -186,29 +194,37 @@ gitg_window_finalize(GObject *object)
 
 	g_list_free (copy);
 
-	G_OBJECT_CLASS(gitg_window_parent_class)->finalize(object);
+	G_OBJECT_CLASS(gitg_window_parent_class)->finalize (object);
 }
 
 static void
-on_selection_changed(GtkTreeSelection *selection, GitgWindow *window)
+on_selection_changed (GtkTreeSelection *selection,
+                      GitgWindow       *window)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	GitgRevision *revision = NULL;
 
-	if (gtk_tree_selection_get_selected(selection, &model, &iter))
+	if (gtk_tree_selection_get_selected (selection, &model, &iter))
 	{
 		gtk_tree_model_get (GTK_TREE_MODEL(model), &iter, 0, &revision, -1);
 	}
 
-	gitg_revision_view_update(window->priv->revision_view, window->priv->repository, revision);
-	gitg_revision_tree_view_update(window->priv->revision_tree_view, window->priv->repository, revision);
+	gitg_revision_view_update (window->priv->revision_view,
+	                           window->priv->repository,
+	                           revision);
+
+	gitg_revision_tree_view_update (window->priv->revision_tree_view,
+	                                window->priv->repository,
+	                                revision);
 
 	if (revision)
 	{
 		if (gitg_repository_get_loaded (window->priv->repository))
 		{
-			memcpy (window->priv->select_on_load, gitg_revision_get_hash (revision), HASH_BINARY_SIZE);
+			memcpy (window->priv->select_on_load,
+			        gitg_revision_get_hash (revision),
+			        GITG_HASH_BINARY_SIZE);
 		}
 
 		gitg_revision_unref (revision);
@@ -217,160 +233,226 @@ on_selection_changed(GtkTreeSelection *selection, GitgWindow *window)
 	{
 		if (gitg_repository_get_loaded (window->priv->repository))
 		{
-			memset (window->priv->select_on_load, 0, HASH_BINARY_SIZE);
+			memset (window->priv->select_on_load, 0, GITG_HASH_BINARY_SIZE);
 		}
 	}
 }
 
 static void
-on_search_icon_release(GtkEntry *entry, GtkEntryIconPosition icon_pos, int button, GitgWindow *window)
+on_search_icon_release (GtkEntry             *entry,
+                        GtkEntryIconPosition  icon_pos,
+                        int                   button,
+                        GitgWindow           *window)
 {
-	gtk_menu_popup(GTK_MENU(window->priv->search_popup), NULL, NULL, NULL, NULL, button, gtk_get_current_event_time());
+	gtk_menu_popup (GTK_MENU(window->priv->search_popup),
+	                NULL,
+	                NULL,
+	                NULL,
+	                NULL,
+	                button,
+	                gtk_get_current_event_time ());
 }
 
 static void
-search_column_activate(GtkAction *action, gint column, GtkTreeView *tree_view)
+search_column_activate (GtkAction   *action,
+                        gint         column,
+                        GtkTreeView *tree_view)
 {
-	if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)))
+	if (!gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)))
+	{
 		return;
+	}
 
-	gtk_tree_view_set_search_column(tree_view, column);
+	gtk_tree_view_set_search_column (tree_view, column);
 }
 
 void
-on_subject_activate(GtkAction *action, GitgWindow *window)
+on_subject_activate (GtkAction  *action,
+                     GitgWindow *window)
 {
-	search_column_activate(action, 1, window->priv->tree_view);
+	search_column_activate (action, 1, window->priv->tree_view);
 }
 
 void
-on_author_activate(GtkAction *action, GitgWindow *window)
+on_author_activate (GtkAction  *action,
+                    GitgWindow *window)
 {
-	search_column_activate(action, 2, window->priv->tree_view);
+	search_column_activate (action, 2, window->priv->tree_view);
 }
 
 void
-on_date_activate(GtkAction *action, GitgWindow *window)
+on_date_activate (GtkAction  *action,
+                  GitgWindow *window)
 {
-	search_column_activate(action, 3, window->priv->tree_view);
+	search_column_activate (action, 3, window->priv->tree_view);
 }
 
 void
-on_hash_activate(GtkAction *action, GitgWindow *window)
+on_hash_activate (GtkAction  *action,
+                  GitgWindow *window)
 {
-	search_column_activate(action, 4, window->priv->tree_view);
+	search_column_activate (action, 4, window->priv->tree_view);
 }
 
 static gboolean
-search_hash_equal_func(GtkTreeModel *model, gchar const *key, GtkTreeIter *iter)
+search_hash_equal_func (GtkTreeModel *model,
+                        gchar const  *key,
+                        GtkTreeIter  *iter)
 {
 	GitgRevision *rv;
-	gtk_tree_model_get(model, iter, 0, &rv, -1);
+	gtk_tree_model_get (model, iter, 0, &rv, -1);
 
-	gchar *sha = gitg_revision_get_sha1(rv);
-	
-	gboolean ret = !g_str_has_prefix(sha, key);
-	
-	g_free(sha);
-	gitg_revision_unref(rv);
+	gchar *sha = gitg_revision_get_sha1 (rv);
+
+	gboolean ret = !g_str_has_prefix (sha, key);
+
+	g_free (sha);
+	gitg_revision_unref (rv);
 
 	return ret;
 }
 
 static gboolean
-search_equal_func(GtkTreeModel *model, gint column, gchar const *key, GtkTreeIter *iter, gpointer userdata)
+search_equal_func (GtkTreeModel *model,
+                   gint          column,
+                   gchar const  *key,
+                   GtkTreeIter  *iter,
+                   gpointer      userdata)
 {
 	if (column == 4)
-		return search_hash_equal_func(model, key, iter);
+	{
+		return search_hash_equal_func (model, key, iter);
+	}
 
 	gchar *cmp;
-	gtk_tree_model_get(model, iter, column, &cmp, -1);
+	gtk_tree_model_get (model, iter, column, &cmp, -1);
 
-	gchar *s1 = g_utf8_casefold(key, -1);
-	gchar *s2 = g_utf8_casefold(cmp, -1);
+	gchar *s1 = g_utf8_casefold (key, -1);
+	gchar *s2 = g_utf8_casefold (cmp, -1);
 
-	gboolean ret = strstr(s2, s1) == NULL;
+	gboolean ret = strstr (s2, s1) == NULL;
 
-	g_free(s1);
-	g_free(s2);
+	g_free (s1);
+	g_free (s2);
 
-	g_free(cmp);
+	g_free (cmp);
 
 	return ret;
 }
 
 static void
-focus_search(GtkAccelGroup *group, GObject *acceleratable, guint keyval, GdkModifierType modifier, gpointer userdata)
+focus_search (GtkAccelGroup   *group,
+              GObject         *acceleratable,
+              guint            keyval,
+              GdkModifierType  modifier,
+              gpointer         userdata)
 {
-	gtk_widget_grab_focus(GTK_WIDGET(userdata));
+	gtk_widget_grab_focus (GTK_WIDGET(userdata));
 }
 
 static void
-build_search_entry(GitgWindow *window, GtkBuilder *builder)
+build_search_entry (GitgWindow *window,
+                    GtkBuilder *builder)
 {
-	GtkWidget *box = GTK_WIDGET(gtk_builder_get_object(builder, "hbox_top"));
-	GtkWidget *entry = gtk_entry_new ();
+	GtkWidget *box;
+	GtkWidget *entry;
+	GtkWidget *popup;
 
-	gtk_entry_set_icon_from_stock(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, GTK_STOCK_FIND);
+	box = GTK_WIDGET (gtk_builder_get_object (builder, "hbox_top"));
+	entry = gtk_entry_new ();
 
-	gtk_tree_view_set_search_entry(window->priv->tree_view, GTK_ENTRY(entry));
-	gtk_widget_show(entry);
-	gtk_box_pack_end(GTK_BOX(box), entry, FALSE, FALSE, 0);
+	gtk_entry_set_icon_from_stock (GTK_ENTRY (entry),
+	                               GTK_ENTRY_ICON_PRIMARY,
+	                               GTK_STOCK_FIND);
 
-	window->priv->search_popup = GTK_WIDGET(g_object_ref(gtk_ui_manager_get_widget(window->priv->menus_ui_manager, "/ui/search_popup")));
+	gtk_tree_view_set_search_entry (window->priv->tree_view, GTK_ENTRY(entry));
+	gtk_widget_show (entry);
+	gtk_box_pack_end (GTK_BOX(box), entry, FALSE, FALSE, 0);
 
-	g_signal_connect(entry, "icon-release", G_CALLBACK(on_search_icon_release), window);
-	gtk_tree_view_set_search_column(window->priv->tree_view, 1);
+	popup = gtk_ui_manager_get_widget (window->priv->menus_ui_manager,
+	                                   "/ui/search_popup");
 
-	gtk_tree_view_set_search_equal_func(window->priv->tree_view, search_equal_func, window, NULL);
+	window->priv->search_popup = popup;
+	g_object_ref (popup);
 
-	GtkAccelGroup *group = gtk_accel_group_new();
+	g_signal_connect (entry,
+	                  "icon-release",
+	                  G_CALLBACK(on_search_icon_release),
+	                  window);
 
-	GClosure *closure = g_cclosure_new(G_CALLBACK(focus_search), entry, NULL);
-	gtk_accel_group_connect(group, GDK_f, GDK_CONTROL_MASK, 0, closure);
-	gtk_window_add_accel_group(GTK_WINDOW(window), group);
+	gtk_tree_view_set_search_column (window->priv->tree_view, 1);
+
+	gtk_tree_view_set_search_equal_func (window->priv->tree_view,
+	                                     search_equal_func,
+	                                     window,
+	                                     NULL);
+
+	GtkAccelGroup *group = gtk_accel_group_new ();
+
+	GClosure *closure = g_cclosure_new (G_CALLBACK (focus_search), entry, NULL);
+
+	gtk_accel_group_connect (group, GDK_f, GDK_CONTROL_MASK, 0, closure);
+	gtk_window_add_accel_group (GTK_WINDOW(window), group);
 }
 
 static void
-goto_hash(GitgWindow *window, gchar const *hash)
+goto_hash (GitgWindow  *window,
+           gchar const *hash)
 {
 	GtkTreeIter iter;
 
-	if (!gitg_repository_find_by_hash(window->priv->repository, hash, &iter))
+	if (!gitg_repository_find_by_hash (window->priv->repository, hash, &iter))
+	{
 		return;
+	}
 
-	gtk_tree_selection_select_iter(gtk_tree_view_get_selection(window->priv->tree_view), &iter);
+	gtk_tree_selection_select_iter (gtk_tree_view_get_selection (window->priv->tree_view),
+	                                &iter);
 	GtkTreePath *path;
 
-	path = gtk_tree_model_get_path(GTK_TREE_MODEL(window->priv->repository), &iter);
+	path = gtk_tree_model_get_path (GTK_TREE_MODEL(window->priv->repository),
+	                                &iter);
 
-	gtk_tree_view_scroll_to_cell(window->priv->tree_view, path, NULL, TRUE, 0.5, 0);
-	gtk_tree_path_free(path);
+	gtk_tree_view_scroll_to_cell (window->priv->tree_view,
+	                              path,
+	                              NULL,
+	                              TRUE,
+	                              0.5,
+	                              0);
+	gtk_tree_path_free (path);
 }
 
 static void
-on_parent_activated(GitgRevisionView *view, gchar *hash, GitgWindow *window)
+on_parent_activated (GitgRevisionView *view,
+                     gchar            *hash,
+                     GitgWindow       *window)
 {
-	goto_hash(window, hash);
+	goto_hash (window, hash);
 }
 
 static void
-on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkTreeModel *model, GtkTreeIter *iter, GitgWindow *window)
+on_renderer_path (GtkTreeViewColumn    *column,
+                  GitgCellRendererPath *renderer,
+                  GtkTreeModel         *model,
+                  GtkTreeIter          *iter,
+                  GitgWindow           *window)
 {
 	GitgRevision *rv;
 
-	gtk_tree_model_get(model, iter, 0, &rv, -1);
+	gtk_tree_model_get (model, iter, 0, &rv, -1);
 	GtkTreeIter iter1 = *iter;
 
 	GitgRevision *next_revision = NULL;
 
-	if (gtk_tree_model_iter_next(model, &iter1))
-		gtk_tree_model_get(model, &iter1, 0, &next_revision, -1);
+	if (gtk_tree_model_iter_next (model, &iter1))
+	{
+		gtk_tree_model_get (model, &iter1, 0, &next_revision, -1);
+	}
 
 	GSList *labels;
 	const gchar *lbl = NULL;
 
-	switch (gitg_revision_get_sign(rv))
+	switch (gitg_revision_get_sign (rv))
 	{
 		case 't':
 			lbl = "staged";
@@ -384,32 +466,37 @@ on_renderer_path(GtkTreeViewColumn *column, GitgCellRendererPath *renderer, GtkT
 
 	if (lbl != NULL)
 	{
-		g_object_set(renderer, "style", PANGO_STYLE_ITALIC, NULL);
-		labels = g_slist_append(NULL, gitg_ref_new(gitg_revision_get_hash(rv), lbl));
+		g_object_set (renderer, "style", PANGO_STYLE_ITALIC, NULL);
+		labels = g_slist_append (NULL,
+		                         gitg_ref_new (gitg_revision_get_hash (rv),
+		                                       lbl));
 	}
 	else
 	{
-		g_object_set(renderer, "style", PANGO_STYLE_NORMAL, NULL);
-		labels = gitg_repository_get_refs_for_hash(GITG_REPOSITORY(model), gitg_revision_get_hash(rv));
+		g_object_set (renderer, "style", PANGO_STYLE_NORMAL, NULL);
+		labels = gitg_repository_get_refs_for_hash (GITG_REPOSITORY(model),
+		                                            gitg_revision_get_hash (rv));
 	}
 
-	g_object_set(renderer,
+	g_object_set (renderer,
 	             "revision", rv,
 	             "next_revision", next_revision,
 	             "labels", labels,
 	             NULL);
 
-	gitg_revision_unref(next_revision);
-	gitg_revision_unref(rv);
+	gitg_revision_unref (next_revision);
+	gitg_revision_unref (rv);
 }
 
 static gboolean
-branches_separator_func(GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
+branches_separator_func (GtkTreeModel *model,
+                         GtkTreeIter  *iter,
+                         gpointer      data)
 {
 	gchar *name;
 	GitgRef *ref;
 
-	gtk_tree_model_get(model,
+	gtk_tree_model_get (model,
 	                   iter,
 	                   COLUMN_BRANCHES_NAME, &name,
 	                   COLUMN_BRANCHES_REF, &ref,
@@ -417,24 +504,27 @@ branches_separator_func(GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 
 	gboolean ret = (name == NULL && ref == NULL);
 
-	g_free(name);
-	gitg_ref_free(ref);
+	g_free (name);
+	gitg_ref_free (ref);
 
 	return ret;
 }
 
 static void
-on_branches_combo_changed (GtkComboBox *combo, GitgWindow *window)
+on_branches_combo_changed (GtkComboBox *combo,
+                           GitgWindow  *window)
 {
-	if (gtk_combo_box_get_active(combo) < 2)
+	if (gtk_combo_box_get_active (combo) < 2)
+	{
 		return;
+	}
 
 	GtkTreeIter iter;
 	gchar **selection;
 
-	gtk_combo_box_get_active_iter(combo, &iter);
+	gtk_combo_box_get_active_iter (combo, &iter);
 
-	gtk_tree_model_get (gtk_combo_box_get_model(combo),
+	gtk_tree_model_get (gtk_combo_box_get_model (combo),
 	                    &iter,
 	                    COLUMN_BRANCHES_SELECTION, &selection,
 	                   -1);
@@ -447,65 +537,84 @@ on_branches_combo_changed (GtkComboBox *combo, GitgWindow *window)
 }
 
 static void
-build_branches_combo(GitgWindow *window, GtkBuilder *builder)
+build_branches_combo (GitgWindow *window,
+                      GtkBuilder *builder)
 {
-	GtkComboBox *combo = GTK_COMBO_BOX(gtk_builder_get_object(builder, "combo_box_branches"));
-	window->priv->branches_store = gtk_tree_store_new(4, G_TYPE_STRING, GITG_TYPE_REF, G_TYPE_STRING, G_TYPE_STRV);
+	GtkComboBox *combo;
+	window->priv->branches_store = gtk_tree_store_new (4,
+	                                                   G_TYPE_STRING,
+	                                                   GITG_TYPE_REF,
+	                                                   G_TYPE_STRING,
+	                                                   G_TYPE_STRV);
+
+	combo = GTK_COMBO_BOX (gtk_builder_get_object (builder,
+	                       "combo_box_branches"));
+
 	window->priv->combo_branches = combo;
 
 	GtkTreeIter iter;
-	gtk_tree_store_append(window->priv->branches_store, &iter, NULL);
-	gtk_tree_store_set(window->priv->branches_store,
+	gtk_tree_store_append (window->priv->branches_store, &iter, NULL);
+	gtk_tree_store_set (window->priv->branches_store,
 	                   &iter,
-	                   COLUMN_BRANCHES_NAME, _("Select branch"),
+	                   COLUMN_BRANCHES_NAME, _ ("Select branch"),
 	                   COLUMN_BRANCHES_REF, NULL,
 	                   COLUMN_BRANCHES_SELECTION, NULL,
 	                   -1);
 
-	gtk_combo_box_set_model(combo, GTK_TREE_MODEL(window->priv->branches_store));
-	gtk_combo_box_set_active(combo, 0);
+	gtk_combo_box_set_model (combo, GTK_TREE_MODEL(window->priv->branches_store));
+	gtk_combo_box_set_active (combo, 0);
 
-	gtk_combo_box_set_row_separator_func(combo, branches_separator_func, window, NULL);
+	gtk_combo_box_set_row_separator_func (combo,
+	                                      branches_separator_func,
+	                                      window,
+	                                      NULL);
 
-	g_signal_connect(combo, "changed", G_CALLBACK(on_branches_combo_changed), window);
+	g_signal_connect (combo,
+	                  "changed",
+	                  G_CALLBACK(on_branches_combo_changed),
+	                  window);
 }
 
 static void
-restore_state(GitgWindow *window)
+restore_state (GitgWindow *window)
 {
-	GitgSettings *settings = gitg_settings_get_default();
+	GitgSettings *settings = gitg_settings_get_default ();
 	gint dw;
 	gint dh;
 
-	gtk_window_get_default_size(GTK_WINDOW(window), &dw, &dh);
+	gtk_window_get_default_size (GTK_WINDOW(window), &dw, &dh);
 
-	gtk_window_set_default_size(GTK_WINDOW(window),
-							    gitg_settings_get_window_width(settings, dw),
-							    gitg_settings_get_window_height(settings, dh));
+	gtk_window_set_default_size (GTK_WINDOW(window),
+	                             gitg_settings_get_window_width (settings,
+	                             dw),
+	                             gitg_settings_get_window_height (settings,
+	                             dh));
 
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->vpaned_main),
-	                                  gitg_settings_get_vpaned_main_position(settings, -1),
+	                                  gitg_settings_get_vpaned_main_position (settings, -1),
 	                                  FALSE);
 
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->vpaned_commit),
-	                                  gitg_settings_get_vpaned_commit_position(settings, -1),
+	                                  gitg_settings_get_vpaned_commit_position (settings, -1),
 	                                  FALSE);
 
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->hpaned_commit1),
-	                                  gitg_settings_get_hpaned_commit1_position(settings, 200),
+	                                  gitg_settings_get_hpaned_commit1_position (settings, 200),
 	                                  FALSE);
 
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->hpaned_commit2),
-	                                  gitg_settings_get_hpaned_commit2_position(settings, 200),
+	                                  gitg_settings_get_hpaned_commit2_position (settings, 200),
 	                                  TRUE);
 
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->revision_tree_view),
-	                                  gitg_settings_get_revision_tree_view_position(settings, -1),
+	                                  gitg_settings_get_revision_tree_view_position (settings, -1),
 	                                  FALSE);
 }
 
 static void
-update_dnd_status (GitgWindow *window, GitgRef *source, GitgRef *dest)
+update_dnd_status (GitgWindow *window,
+                   GitgRef    *source,
+                   GitgRef    *dest)
 {
 	if (!dest)
 	{
@@ -520,28 +629,28 @@ update_dnd_status (GitgWindow *window, GitgRef *source, GitgRef *dest)
 		if (source_type == GITG_REF_TYPE_BRANCH &&
 		    dest_type== GITG_REF_TYPE_REMOTE)
 		{
-			message = g_strdup_printf (_("Push local branch <%s> to remote branch <%s>"),
+			message = g_strdup_printf (_ ("Push local branch <%s> to remote branch <%s>"),
 			                           gitg_ref_get_shortname (source),
 			                           gitg_ref_get_shortname (dest));
 		}
 		else if (source_type == GITG_REF_TYPE_BRANCH &&
 		         dest_type == GITG_REF_TYPE_BRANCH)
 		{
-			message = g_strdup_printf (_("Merge/rebase local branch <%s> with/on local branch <%s>"),
+			message = g_strdup_printf (_ ("Merge/rebase local branch <%s> with/on local branch <%s>"),
 			                           gitg_ref_get_shortname (source),
 			                           gitg_ref_get_shortname (dest));
 		}
 		else if (source_type == GITG_REF_TYPE_REMOTE &&
 		         dest_type == GITG_REF_TYPE_BRANCH)
 		{
-			message = g_strdup_printf (_("Merge/rebase local branch <%s> with/on remote branch <%s>"),
+			message = g_strdup_printf (_ ("Merge/rebase local branch <%s> with/on remote branch <%s>"),
 			                           gitg_ref_get_shortname (dest),
 			                           gitg_ref_get_shortname (source));
 		}
 		else if (source_type == GITG_REF_TYPE_STASH &&
 		         dest_type == GITG_REF_TYPE_BRANCH)
 		{
-			message = g_strdup_printf (_("Apply stash to local branch <%s>"),
+			message = g_strdup_printf (_ ("Apply stash to local branch <%s>"),
 			                           gitg_ref_get_shortname (dest));
 		}
 
@@ -555,7 +664,10 @@ update_dnd_status (GitgWindow *window, GitgRef *source, GitgRef *dest)
 }
 
 static gboolean
-on_refs_dnd (GitgRef *source, GitgRef *dest, gboolean dropped, GitgWindow *window)
+on_refs_dnd (GitgRef    *source,
+             GitgRef    *dest,
+             gboolean    dropped,
+             GitgWindow *window)
 {
 	if (!dropped)
 	{
@@ -570,24 +682,37 @@ on_refs_dnd (GitgRef *source, GitgRef *dest, gboolean dropped, GitgWindow *windo
 	if (source_type == GITG_REF_TYPE_BRANCH &&
 	    dest_type == GITG_REF_TYPE_REMOTE)
 	{
-		ret = gitg_window_add_branch_action (window, gitg_branch_actions_push (window, source, dest));
+		ret = gitg_window_add_branch_action (window,
+		                                     gitg_branch_actions_push (window,
+		                                     source,
+		                                     dest));
 	}
 	else if (source_type == GITG_REF_TYPE_STASH)
 	{
 		if (dest_type == GITG_REF_TYPE_BRANCH)
 		{
-			ret = gitg_branch_actions_apply_stash (window, source, dest);
+			ret = gitg_branch_actions_apply_stash (window,
+			                                       source,
+			                                       dest);
 		}
 	}
 	else if (dest_type == GITG_REF_TYPE_BRANCH)
 	{
-		GtkWidget *popup = gtk_ui_manager_get_widget (window->priv->menus_ui_manager,
-	                                                  "/ui/dnd_popup");
+		GtkWidget *popup;
+
+		popup = gtk_ui_manager_get_widget (window->priv->menus_ui_manager,
+		                                   "/ui/dnd_popup");
 
 		window->priv->popup_refs[0] = source;
 		window->priv->popup_refs[1] = dest;
 
-		gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL, 1, gtk_get_current_event_time());
+		gtk_menu_popup (GTK_MENU (popup),
+		                NULL,
+		                NULL,
+		                NULL,
+		                NULL,
+		                1,
+		                gtk_get_current_event_time ());
 	}
 
 	gtk_statusbar_push (window->priv->statusbar, 0, "");
@@ -595,7 +720,9 @@ on_refs_dnd (GitgRef *source, GitgRef *dest, gboolean dropped, GitgWindow *windo
 }
 
 static void
-update_revision_dnd_status (GitgWindow *window, GitgRevision *source, GitgRef *dest)
+update_revision_dnd_status (GitgWindow   *window,
+                            GitgRevision *source,
+                            GitgRef      *dest)
 {
 	if (!dest)
 	{
@@ -603,7 +730,7 @@ update_revision_dnd_status (GitgWindow *window, GitgRevision *source, GitgRef *d
 	}
 	else
 	{
-		gchar *message = g_strdup_printf (_("Cherry-pick revision on <%s>"),
+		gchar *message = g_strdup_printf (_ ("Cherry-pick revision on <%s>"),
 		                                  gitg_ref_get_shortname (dest));
 
 		gtk_statusbar_push (window->priv->statusbar, 0, message);
@@ -633,13 +760,22 @@ on_revision_dnd (GitgRevision *source,
 }
 
 static void
-init_tree_view (GitgWindow *window, GtkBuilder *builder)
+init_tree_view (GitgWindow *window,
+                GtkBuilder *builder)
 {
-	GtkTreeViewColumn *col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builder, "rv_column_subject"));
+	GtkTreeViewColumn *col;
 
-	window->priv->renderer_path = GITG_CELL_RENDERER_PATH(gtk_builder_get_object(builder, "rv_renderer_subject"));
+	col = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (builder,
+	                                                    "rv_column_subject"));
 
-	gtk_tree_view_column_set_cell_data_func(col, GTK_CELL_RENDERER(window->priv->renderer_path), (GtkTreeCellDataFunc)on_renderer_path, window, NULL);
+	window->priv->renderer_path = GITG_CELL_RENDERER_PATH (gtk_builder_get_object (builder,
+	                                                                               "rv_renderer_subject"));
+
+	gtk_tree_view_column_set_cell_data_func (col,
+	                                         GTK_CELL_RENDERER (window->priv->renderer_path),
+	                                         (GtkTreeCellDataFunc)on_renderer_path,
+	                                         window,
+	                                         NULL);
 
 	gitg_dnd_enable (window->priv->tree_view,
 	                 (GitgDndCallback)on_refs_dnd,
@@ -661,79 +797,114 @@ on_main_layout_vertical_cb (GitgWindow *window)
 }
 
 static void
-gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
+gitg_window_parser_finished (GtkBuildable *buildable,
+                             GtkBuilder   *builder)
 {
 	if (parent_iface.parser_finished)
-		parent_iface.parser_finished(buildable, builder);
+		parent_iface.parser_finished (buildable, builder);
 
 	// Store widgets
 	GitgWindow *window = GITG_WINDOW(buildable);
 
 	// Insert menu from second ui file
-	GtkBuilder *b = gitg_utils_new_builder("gitg-ui.xml");
+	GtkBuilder *b = gitg_utils_new_builder ("gitg-ui.xml");
 	GtkUIManager *uiman = GTK_UI_MANAGER (gtk_builder_get_object (b, "uiman"));
 
-	GtkRecentChooser *chooser = GTK_RECENT_CHOOSER(gtk_builder_get_object(b, "RecentOpenAction"));
-	GtkRecentFilter *filter = gtk_recent_filter_new();
-	gtk_recent_filter_add_group(filter, "gitg");
+	GtkRecentChooser *chooser = GTK_RECENT_CHOOSER(gtk_builder_get_object (b, "RecentOpenAction"));
+	GtkRecentFilter *filter = gtk_recent_filter_new ();
+	gtk_recent_filter_add_group (filter, "gitg");
 
-	gtk_recent_chooser_add_filter(chooser, filter);
-	gtk_recent_chooser_set_show_tips(chooser, TRUE);
+	gtk_recent_chooser_add_filter (chooser, filter);
+	gtk_recent_chooser_set_show_tips (chooser, TRUE);
 
 	GtkWidget *menu = gtk_ui_manager_get_widget (uiman, "/ui/menubar_main");
-	GtkWidget *vbox = GTK_WIDGET(gtk_builder_get_object(builder, "vbox_main"));
+	GtkWidget *vbox = GTK_WIDGET(gtk_builder_get_object (builder, "vbox_main"));
 
-	gtk_box_pack_start(GTK_BOX(vbox), menu, FALSE, FALSE, 0);
-	gtk_box_reorder_child(GTK_BOX(vbox), menu, 0);
+	gtk_box_pack_start (GTK_BOX(vbox), menu, FALSE, FALSE, 0);
+	gtk_box_reorder_child (GTK_BOX(vbox), menu, 0);
 
 	gtk_window_add_accel_group (GTK_WINDOW (window), gtk_ui_manager_get_accel_group (uiman));
 
-	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object(b, "action_group_menu_edit"));
-	window->priv->repository_group = GTK_ACTION_GROUP(gtk_builder_get_object(b, "action_group_menu_repository"));
+	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object (b, "action_group_menu_edit"));
+	window->priv->repository_group = GTK_ACTION_GROUP(gtk_builder_get_object (b, "action_group_menu_repository"));
 
-	gtk_builder_connect_signals(b, window);
-	g_object_unref(b);
+	gtk_builder_connect_signals (b, window);
+	g_object_unref (b);
 
-	window->priv->vpaned_main = GTK_WIDGET(gtk_builder_get_object(builder, "vpaned_main"));
-	window->priv->hpaned_commit1 = GTK_WIDGET(gtk_builder_get_object(builder, "hpaned_commit1"));
-	window->priv->hpaned_commit2 = GTK_WIDGET(gtk_builder_get_object(builder, "hpaned_commit2"));
-	window->priv->vpaned_commit = GTK_WIDGET(gtk_builder_get_object(builder, "vpaned_commit"));
+	window->priv->vpaned_main = GTK_WIDGET (gtk_builder_get_object (builder,
+	                                        "vpaned_main"));
 
-	window->priv->notebook_main = GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook_main"));
-	window->priv->tree_view = GTK_TREE_VIEW(gtk_builder_get_object(builder, "tree_view_rv"));
-	window->priv->statusbar = GTK_STATUSBAR(gtk_builder_get_object(builder, "statusbar"));
-	window->priv->revision_view = GITG_REVISION_VIEW(gtk_builder_get_object(builder, "revision_view"));
-	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW(gtk_builder_get_object(builder, "revision_tree_view"));
-	window->priv->commit_view = GITG_COMMIT_VIEW(gtk_builder_get_object(builder, "vpaned_commit"));
+	window->priv->hpaned_commit1 = GTK_WIDGET (gtk_builder_get_object (builder,
+	                                           "hpaned_commit1"));
 
-	restore_state(window);
+	window->priv->hpaned_commit2 = GTK_WIDGET (gtk_builder_get_object (builder,
+	                                           "hpaned_commit2"));
+
+	window->priv->vpaned_commit = GTK_WIDGET (gtk_builder_get_object (builder,
+	                                          "vpaned_commit"));
+
+	window->priv->notebook_main = GTK_NOTEBOOK (gtk_builder_get_object (builder,
+	                                            "notebook_main"));
+
+	window->priv->tree_view = GTK_TREE_VIEW (gtk_builder_get_object (builder,
+	                                         "tree_view_rv"));
+
+	window->priv->statusbar = GTK_STATUSBAR (gtk_builder_get_object (builder,
+	                                         "statusbar"));
+
+	window->priv->revision_view = GITG_REVISION_VIEW (gtk_builder_get_object (builder,
+	                                                  "revision_view"));
+
+	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW (gtk_builder_get_object (builder,
+	                                                            "revision_tree_view"));
+
+	window->priv->commit_view = GITG_COMMIT_VIEW (gtk_builder_get_object (builder,
+	                                              "vpaned_commit"));
+
+	restore_state (window);
 
 	init_tree_view (window, builder);
 
 	// Intialize branches
-	build_branches_combo(window, builder);
+	build_branches_combo (window, builder);
 
 	// Get menus ui
-	b = gitg_utils_new_builder("gitg-menus.xml");
-	window->priv->menus_ui_manager = GTK_UI_MANAGER(g_object_ref(gtk_builder_get_object(b, "uiman")));
+	b = gitg_utils_new_builder ("gitg-menus.xml");
+	window->priv->menus_ui_manager = GTK_UI_MANAGER (g_object_ref (gtk_builder_get_object (b,
+	                                                               "uiman")));
 
 	gtk_builder_connect_signals (b, window);
 	g_object_unref (b);
 
 	// Create search entry
-	build_search_entry(window, builder);
+	build_search_entry (window, builder);
 
-	gtk_builder_connect_signals(builder, window);
+	gtk_builder_connect_signals (builder, window);
 
 	// Connect signals
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(window->priv->tree_view);
-	g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), window);
-	g_signal_connect(window->priv->revision_view, "parent-activated", G_CALLBACK(on_parent_activated), window);
+	GtkTreeSelection *selection = gtk_tree_view_get_selection (window->priv->tree_view);
+	g_signal_connect (selection,
+	                  "changed",
+	                  G_CALLBACK(on_selection_changed),
+	                  window);
 
-	g_signal_connect(window->priv->tree_view, "motion-notify-event", G_CALLBACK(on_tree_view_motion), window);
-	g_signal_connect(window->priv->tree_view, "button-release-event", G_CALLBACK(on_tree_view_button_release), window);
+	g_signal_connect (window->priv->revision_view,
+	                  "parent-activated",
+	                  G_CALLBACK(on_parent_activated),
+	                  window);
+
+	g_signal_connect (window->priv->tree_view,
+	                  "motion-notify-event",
+	                  G_CALLBACK(on_tree_view_motion),
+	                  window);
+
+	g_signal_connect (window->priv->tree_view,
+	                  "button-release-event",
+	                  G_CALLBACK(on_tree_view_button_release),
+	                  window);
 
 	GitgPreferences *preferences = gitg_preferences_get_default ();
+
 	g_signal_connect_swapped (preferences,
 	                          "notify::main-layout-vertical",
 	                          G_CALLBACK (on_main_layout_vertical_cb),
@@ -743,7 +914,7 @@ gitg_window_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 }
 
 static void
-gitg_window_buildable_iface_init(GtkBuildableIface *iface)
+gitg_window_buildable_iface_init (GtkBuildableIface *iface)
 {
 	parent_iface = *iface;
 
@@ -751,9 +922,9 @@ gitg_window_buildable_iface_init(GtkBuildableIface *iface)
 }
 
 static void
-save_state(GitgWindow *window)
+save_state (GitgWindow *window)
 {
-	GitgSettings *settings = gitg_settings_get_default();
+	GitgSettings *settings = gitg_settings_get_default ();
 	GtkAllocation allocation;
 	gint position;
 
@@ -805,9 +976,10 @@ save_state(GitgWindow *window)
 }
 
 static gboolean
-gitg_window_delete_event (GtkWidget *widget, GdkEventAny *event)
+gitg_window_delete_event (GtkWidget   *widget,
+                          GdkEventAny *event)
 {
-	save_state(GITG_WINDOW (widget));
+	save_state (GITG_WINDOW (widget));
 
 	if (GTK_WIDGET_CLASS (parent_class)->delete_event)
 	{
@@ -821,22 +993,25 @@ gitg_window_delete_event (GtkWidget *widget, GdkEventAny *event)
 }
 
 static void
-gitg_window_destroy(GtkObject *object)
+gitg_window_destroy (GtkObject *object)
 {
 	GitgWindow *window = GITG_WINDOW(object);
 
 	if (!window->priv->destroy_has_run)
 	{
-		gtk_tree_view_set_model(window->priv->tree_view, NULL);
+		gtk_tree_view_set_model (window->priv->tree_view, NULL);
 		window->priv->destroy_has_run = TRUE;
 	}
 
 	if (GTK_OBJECT_CLASS(parent_class)->destroy)
-		GTK_OBJECT_CLASS(parent_class)->destroy(object);
+	{
+		GTK_OBJECT_CLASS(parent_class)->destroy (object);
+	}
 }
 
 static gboolean
-gitg_window_window_state_event (GtkWidget *widget, GdkEventWindowState *event)
+gitg_window_window_state_event (GtkWidget           *widget,
+                                GdkEventWindowState *event)
 {
 	GitgWindow *window = GITG_WINDOW(widget);
 
@@ -922,38 +1097,41 @@ gitg_window_class_init (GitgWindowClass *klass)
 }
 
 static void
-gitg_window_init(GitgWindow *self)
+gitg_window_init (GitgWindow *self)
 {
 	self->priv = GITG_WINDOW_GET_PRIVATE(self);
 
-	self->priv->load_timer = g_timer_new();
-	self->priv->hand = gdk_cursor_new(GDK_HAND1);
+	self->priv->load_timer = g_timer_new ();
+	self->priv->hand = gdk_cursor_new (GDK_HAND1);
 }
 
 static void
-on_repository_loaded (GitgRepository *repository, GitgWindow *window)
+on_repository_loaded (GitgRepository *repository,
+                      GitgWindow     *window)
 {
-	gchar *msg = g_strdup_printf(_("Loaded %d revisions in %.2fs"),
-	                             gtk_tree_model_iter_n_children(GTK_TREE_MODEL(window->priv->repository), NULL),
-	                             g_timer_elapsed(window->priv->load_timer, NULL));
+	gchar *msg = g_strdup_printf (_ ("Loaded %d revisions in %.2fs"),
+	                             gtk_tree_model_iter_n_children (GTK_TREE_MODEL(window->priv->repository), NULL),
+	                             g_timer_elapsed (window->priv->load_timer, NULL));
 
-	gtk_statusbar_push(window->priv->statusbar, 0, msg);
+	gtk_statusbar_push (window->priv->statusbar, 0, msg);
 
-	g_free(msg);
+	g_free (msg);
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (window->priv->tree_view)), NULL);
 
-	Hash hash = {0,};
+	GitgHash hash = {0,};
 
-	if (memcmp (window->priv->select_on_load, hash, HASH_BINARY_SIZE) != 0)
+	if (memcmp (window->priv->select_on_load, hash, GITG_HASH_BINARY_SIZE) != 0)
 	{
 		goto_hash (window, window->priv->select_on_load);
 	}
 }
 
 static void
-on_update (GitgRunner *loader, gchar **revisions, GitgWindow *window)
+on_update (GitgRunner  *loader,
+           gchar      **revisions,
+           GitgWindow  *window)
 {
-	gchar *msg = g_strdup_printf (_("Loading %d revisions..."),
+	gchar *msg = g_strdup_printf (_ ("Loading %d revisions..."),
 	                              gtk_tree_model_iter_n_children (GTK_TREE_MODEL(window->priv->repository), NULL));
 
 	gtk_statusbar_push (window->priv->statusbar, 0, msg);
@@ -969,9 +1147,12 @@ gitg_window_set_select_on_load (GitgWindow  *window,
 		return;
 	}
 
-	gchar *resolved = gitg_repository_parse_ref (window->priv->repository, selection);
+	gchar *resolved;
 
-	if (resolved && strlen (resolved) == HASH_SHA_SIZE)
+	resolved = gitg_repository_parse_ref (window->priv->repository,
+	                                      selection);
+
+	if (resolved && strlen (resolved) == GITG_HASH_SHA_SIZE)
 	{
 		gitg_hash_sha1_to_hash (resolved, window->priv->select_on_load);
 	}
@@ -980,7 +1161,9 @@ gitg_window_set_select_on_load (GitgWindow  *window,
 }
 
 static gboolean
-parse_gitg_uri (GFile *file, GFile **work_tree, gchar **selection)
+parse_gitg_uri (GFile  *file,
+                GFile **work_tree,
+                gchar **selection)
 {
 	if (selection)
 	{
@@ -1023,79 +1206,93 @@ parse_gitg_uri (GFile *file, GFile **work_tree, gchar **selection)
 }
 
 static gboolean
-convert_setting_to_inactive_max(GValue const *setting, GValue *value, gpointer userdata)
+convert_setting_to_inactive_max (GValue const *setting,
+                                 GValue       *value,
+                                 gpointer      userdata)
 {
-	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
-	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
+	g_return_val_if_fail (G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
+	g_return_val_if_fail (G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
 
-	gint s = g_value_get_int(setting);
-	g_value_set_int(value, 2 + s * 8);
+	gint s = g_value_get_int (setting);
+	g_value_set_int (value, 2 + s * 8);
 
 	return TRUE;
 }
 
 static gboolean
-convert_setting_to_inactive_collapse(GValue const *setting, GValue *value, gpointer userdata)
+convert_setting_to_inactive_collapse (GValue const *setting,
+                                      GValue       *value,
+                                      gpointer      userdata)
 {
-	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
-	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
+	g_return_val_if_fail (G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
+	g_return_val_if_fail (G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
 
-	gint s = g_value_get_int(setting);
-	g_value_set_int(value, 1 + s * 3);
+	gint s = g_value_get_int (setting);
+	g_value_set_int (value, 1 + s * 3);
 
 	return TRUE;
 }
 
 static gboolean
-convert_setting_to_inactive_gap(GValue const *setting, GValue *value, gpointer userdata)
+convert_setting_to_inactive_gap (GValue const *setting,
+                                 GValue       *value,
+                                 gpointer      userdata)
 {
-	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
-	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
+	g_return_val_if_fail (G_VALUE_HOLDS(setting, G_TYPE_INT), FALSE);
+	g_return_val_if_fail (G_VALUE_HOLDS(value, G_TYPE_INT), FALSE);
 
-	g_value_set_int(value, 10);
+	g_value_set_int (value, 10);
 
 	return TRUE;
 }
 
 static gboolean
-convert_setting_to_inactive_enabled(GValue const *setting, GValue *value, gpointer userdata)
+convert_setting_to_inactive_enabled (GValue const *setting,
+                                     GValue       *value,
+                                     gpointer      userdata)
 {
-	g_return_val_if_fail(G_VALUE_HOLDS(setting, G_TYPE_BOOLEAN), FALSE);
-	g_return_val_if_fail(G_VALUE_HOLDS(value, G_TYPE_BOOLEAN), FALSE);
+	g_return_val_if_fail (G_VALUE_HOLDS(setting, G_TYPE_BOOLEAN), FALSE);
+	g_return_val_if_fail (G_VALUE_HOLDS(value, G_TYPE_BOOLEAN), FALSE);
 
-	gboolean s = g_value_get_boolean(setting);
-	g_value_set_boolean(value, s);
+	gboolean s = g_value_get_boolean (setting);
+	g_value_set_boolean (value, s);
 
 	return TRUE;
 }
 
 
 static void
-bind_repository(GitgWindow *window)
+bind_repository (GitgWindow *window)
 {
 	GitgPreferences *preferences;
 
 	if (window->priv->repository == NULL)
 		return;
 
-	preferences = gitg_preferences_get_default();
+	preferences = gitg_preferences_get_default ();
 
-	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
-				   window->priv->repository, "inactive-max",
-				   convert_setting_to_inactive_max,
-				   window);
+	gitg_data_binding_new_full (preferences,
+	                            "history-collapse-inactive-lanes",
+	                            window->priv->repository,
+	                            "inactive-max",
+	                            convert_setting_to_inactive_max,
+	                            window);
 
-	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
-				   window->priv->repository, "inactive-collapse",
-				   convert_setting_to_inactive_collapse,
-				   window);
+	gitg_data_binding_new_full (preferences,
+	                            "history-collapse-inactive-lanes",
+	                            window->priv->repository,
+	                            "inactive-collapse",
+	                            convert_setting_to_inactive_collapse,
+	                            window);
 
-	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes",
-				   window->priv->repository, "inactive-gap",
-				   convert_setting_to_inactive_gap,
-				   window);
+	gitg_data_binding_new_full (preferences,
+	                            "history-collapse-inactive-lanes",
+	                            window->priv->repository,
+	                            "inactive-gap",
+	                            convert_setting_to_inactive_gap,
+	                            window);
 
-	gitg_data_binding_new_full(preferences, "history-collapse-inactive-lanes-active",
+	gitg_data_binding_new_full (preferences, "history-collapse-inactive-lanes-active",
 	                           window->priv->repository, "inactive-enabled",
 	                           convert_setting_to_inactive_enabled,
 	                           window);
@@ -1125,7 +1322,8 @@ create_repository (GitgWindow  *window,
 }
 
 static int
-sort_by_ref_type (GitgRef *a, GitgRef *b)
+sort_by_ref_type (GitgRef *a,
+                  GitgRef *b)
 {
 	if (gitg_ref_get_ref_type (a) == gitg_ref_get_ref_type (b))
 	{
@@ -1145,22 +1343,22 @@ sort_by_ref_type (GitgRef *a, GitgRef *b)
 	}
 	else
 	{
-		return gitg_ref_get_ref_type(a) - gitg_ref_get_ref_type(b);
+		return gitg_ref_get_ref_type (a) - gitg_ref_get_ref_type (b);
 	}
 }
 
 static void
-clear_branches_combo(GitgWindow *window)
+clear_branches_combo (GitgWindow *window)
 {
 	GtkTreeIter iter;
 
-	if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(window->priv->branches_store), &iter, NULL, 1))
+	if (gtk_tree_model_iter_nth_child (GTK_TREE_MODEL(window->priv->branches_store), &iter, NULL, 1))
 	{
-		while (gtk_tree_store_remove(window->priv->branches_store, &iter))
+		while (gtk_tree_store_remove (window->priv->branches_store, &iter))
 		;
 	}
 
-	gtk_combo_box_set_active(window->priv->combo_branches, 0);
+	gtk_combo_box_set_active (window->priv->combo_branches, 0);
 }
 
 static gboolean
@@ -1188,19 +1386,26 @@ equal_selection (gchar const **s1,
 }
 
 static void
-fill_branches_combo(GitgWindow *window)
+fill_branches_combo (GitgWindow *window)
 {
 	if (!window->priv->repository)
+	{
 		return;
+	}
 
-	guint children = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(window->priv->branches_store), NULL);
+	guint children;
+
+	children = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (window->priv->branches_store),
+	                                           NULL);
 
 	if (children > 1)
+	{
 		return;
+	}
 
-	GSList *refs = gitg_repository_get_refs(window->priv->repository);
+	GSList *refs = gitg_repository_get_refs (window->priv->repository);
 
-	refs = g_slist_sort(refs, (GCompareFunc)sort_by_ref_type);
+	refs = g_slist_sort (refs, (GCompareFunc)sort_by_ref_type);
 	GSList *item;
 
 	GitgRefType prevtype = GITG_REF_TYPE_NONE;
@@ -1209,8 +1414,11 @@ fill_branches_combo(GitgWindow *window)
 	GitgRef *parentref = NULL;
 	GtkTreeStore *store = window->priv->branches_store;
 
-	GitgRef *current_ref = gitg_repository_get_current_ref (window->priv->repository);
-	GitgRef *working_ref = gitg_repository_get_current_working_ref (window->priv->repository);
+	GitgRef *current_ref;
+	GitgRef *working_ref;
+
+	current_ref = gitg_repository_get_current_ref (window->priv->repository);
+	working_ref = gitg_repository_get_current_working_ref (window->priv->repository);
 
 	gchar const **current_selection = gitg_repository_get_current_selection (window->priv->repository);
 
@@ -1221,44 +1429,46 @@ fill_branches_combo(GitgWindow *window)
 	{
 		GitgRef *ref = (GitgRef *)item->data;
 
-		if (!(gitg_ref_get_ref_type(ref) == GITG_REF_TYPE_REMOTE ||
-			  gitg_ref_get_ref_type(ref) == GITG_REF_TYPE_BRANCH))
+		if (!(gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_REMOTE ||
+			  gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH))
+		{
 			continue;
+		}
 
-		if (gitg_ref_get_ref_type(ref) != prevtype)
+		if (gitg_ref_get_ref_type (ref) != prevtype)
 		{
 			/* Insert separator */
-			gtk_tree_store_append(store, &iter, NULL);
-			gtk_tree_store_set(store,
+			gtk_tree_store_append (store, &iter, NULL);
+			gtk_tree_store_set (store,
 			                   &iter,
 			                   COLUMN_BRANCHES_NAME, NULL,
 			                   COLUMN_BRANCHES_REF, NULL,
 			                   COLUMN_BRANCHES_SELECTION, NULL,
 			                   -1);
 
-			prevtype = gitg_ref_get_ref_type(ref);
+			prevtype = gitg_ref_get_ref_type (ref);
 		}
 
-		if (gitg_ref_get_prefix(ref))
+		if (gitg_ref_get_prefix (ref))
 		{
-			if (!parentref || !gitg_ref_equal_prefix(parentref, ref))
+			if (!parentref || !gitg_ref_equal_prefix (parentref, ref))
 			{
 				parentref = ref;
 
 				/* Add parent item */
-				gtk_tree_store_append(store, &parent, NULL);
-				gtk_tree_store_set(store,
+				gtk_tree_store_append (store, &parent, NULL);
+				gtk_tree_store_set (store,
 				                   &parent,
-				                   COLUMN_BRANCHES_NAME, gitg_ref_get_prefix(ref),
+				                   COLUMN_BRANCHES_NAME, gitg_ref_get_prefix (ref),
 				                   COLUMN_BRANCHES_REF, NULL,
 				                   -1);
 
-				if (gitg_ref_get_ref_type(ref) == GITG_REF_TYPE_REMOTE)
+				if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_REMOTE)
 				{
 					/* Add remote icon */
-					gtk_tree_store_set(store,
+					gtk_tree_store_set (store,
 					                   &parent,
-					                   COLUMN_BRANCHES_ICON, g_strdup(GTK_STOCK_NETWORK),
+					                   COLUMN_BRANCHES_ICON, g_strdup (GTK_STOCK_NETWORK),
 					                   -1);
 				}
 			}
@@ -1277,7 +1487,7 @@ fill_branches_combo(GitgWindow *window)
 
 		gtk_tree_store_set (store,
 		                    &iter,
-		                    COLUMN_BRANCHES_NAME, gitg_ref_get_shortname(ref),
+		                    COLUMN_BRANCHES_NAME, gitg_ref_get_shortname (ref),
 		                    COLUMN_BRANCHES_REF, ref,
 		                    COLUMN_BRANCHES_SELECTION, selection,
 		                    -1);
@@ -1319,10 +1529,10 @@ fill_branches_combo(GitgWindow *window)
 		NULL
 	};
 
-	gtk_tree_store_append(store, &iter, NULL);
-	gtk_tree_store_set(store,
+	gtk_tree_store_append (store, &iter, NULL);
+	gtk_tree_store_set (store,
 	                   &iter,
-	                   COLUMN_BRANCHES_NAME, _("Local branches"),
+	                   COLUMN_BRANCHES_NAME, _ ("Local branches"),
 	                   COLUMN_BRANCHES_REF, NULL,
 	                   COLUMN_BRANCHES_SELECTION, selection,
 	                   -1);
@@ -1340,10 +1550,10 @@ fill_branches_combo(GitgWindow *window)
 
 	selection[0] = "--all";
 
-	gtk_tree_store_append(store, &iter, NULL);
-	gtk_tree_store_set(store,
+	gtk_tree_store_append (store, &iter, NULL);
+	gtk_tree_store_set (store,
 	                   &iter,
-	                   COLUMN_BRANCHES_NAME, _("All branches"),
+	                   COLUMN_BRANCHES_NAME, _ ("All branches"),
 	                   COLUMN_BRANCHES_REF, NULL,
 	                   COLUMN_BRANCHES_SELECTION, selection,
 	                   -1);
@@ -1370,8 +1580,8 @@ fill_branches_combo(GitgWindow *window)
 		gtk_combo_box_set_active_iter (window->priv->combo_branches, &active);
 	}
 
-	g_slist_foreach(refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free(refs);
+	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
+	g_slist_free (refs);
 
 	if (active_from_selection)
 	{
@@ -1389,7 +1599,7 @@ update_window_title (GitgWindow *window)
 {
 	if (!window->priv->repository)
 	{
-		gtk_window_set_title (GTK_WINDOW (window), _("gitg"));
+		gtk_window_set_title (GTK_WINDOW (window), _ ("gitg"));
 		return;
 	}
 
@@ -1403,7 +1613,7 @@ update_window_title (GitgWindow *window)
 
 	GFile *work_tree = gitg_repository_get_work_tree (window->priv->repository);
 	gchar *basename = g_file_get_basename (work_tree);
-	gchar *title = g_strconcat (_("gitg"), " - ", basename, refname, NULL);
+	gchar *title = g_strconcat (_ ("gitg"), " - ", basename, refname, NULL);
 
 	gtk_window_set_title (GTK_WINDOW (window), title);
 
@@ -1414,13 +1624,14 @@ update_window_title (GitgWindow *window)
 }
 
 static void
-on_repository_load (GitgRepository *repository, GitgWindow *window)
+on_repository_load (GitgRepository *repository,
+                    GitgWindow     *window)
 {
 	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (window->priv->tree_view)), cursor);
 	gdk_cursor_unref (cursor);
 
-	gtk_statusbar_push (window->priv->statusbar, 0, _("Begin loading repository"));
+	gtk_statusbar_push (window->priv->statusbar, 0, _ ("Begin loading repository"));
 
 	g_timer_reset (window->priv->load_timer);
 	g_timer_start (window->priv->load_timer);
@@ -1472,16 +1683,16 @@ update_sensitivity (GitgWindow *window)
 }
 
 static gboolean
-load_repository (GitgWindow *window,
-                 GFile *git_dir,
-                 GFile *work_tree,
-                 gint argc,
+load_repository (GitgWindow   *window,
+                 GFile        *git_dir,
+                 GFile        *work_tree,
+                 gint          argc,
                  gchar const **argv,
-                 gchar const *selection)
+                 gchar const  *selection)
 {
 	if (window->priv->repository)
 	{
-		gtk_tree_view_set_model(window->priv->tree_view, NULL);
+		gtk_tree_view_set_model (window->priv->tree_view, NULL);
 
 		g_signal_handlers_disconnect_by_func (window->priv->repository,
 		                                      G_CALLBACK (on_repository_load),
@@ -1496,7 +1707,7 @@ load_repository (GitgWindow *window,
 
 		gitg_repository_dialog_close ();
 
-		memset (window->priv->select_on_load, 0, HASH_BINARY_SIZE);
+		memset (window->priv->select_on_load, 0, GITG_HASH_BINARY_SIZE);
 	}
 
 	if ((git_dir || work_tree) &&
@@ -1553,12 +1764,12 @@ load_repository (GitgWindow *window,
 }
 
 gboolean
-gitg_window_load_repository (GitgWindow *window,
-                             GFile *git_dir,
-                             GFile *work_tree,
-                             gint argc,
+gitg_window_load_repository (GitgWindow   *window,
+                             GFile        *git_dir,
+                             GFile        *work_tree,
+                             gint          argc,
                              gchar const **argv,
-                             gchar const *selection)
+                             gchar const  *selection)
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
 
@@ -1603,10 +1814,10 @@ find_dot_git (GFile *location)
 }
 
 static gboolean
-load_repository_for_command_line (GitgWindow *window,
-                                  gint argc,
+load_repository_for_command_line (GitgWindow   *window,
+                                  gint          argc,
                                   gchar const **argv,
-                                  gchar const *selection)
+                                  gchar const  *selection)
 {
 	gboolean ret = FALSE;
 	GFile *git_dir = NULL;
@@ -1668,10 +1879,10 @@ load_repository_for_command_line (GitgWindow *window,
 }
 
 gboolean
-gitg_window_load_repository_for_command_line (GitgWindow *window,
-                                              gint argc,
+gitg_window_load_repository_for_command_line (GitgWindow   *window,
+                                              gint          argc,
                                               gchar const **argv,
-                                              gchar const *selection)
+                                              gchar const  *selection)
 {
 	gboolean ret;
 
@@ -1719,31 +1930,32 @@ gitg_window_load_repository_for_command_line (GitgWindow *window,
 }
 
 void
-gitg_window_show_commit(GitgWindow *window)
+gitg_window_show_commit (GitgWindow *window)
 {
-	g_return_if_fail(GITG_IS_WINDOW(window));
+	g_return_if_fail (GITG_IS_WINDOW(window));
 
-	gtk_notebook_set_current_page(window->priv->notebook_main, 1);
+	gtk_notebook_set_current_page (window->priv->notebook_main, 1);
 }
 
 GitgRepository *
-gitg_window_get_repository(GitgWindow *window)
+gitg_window_get_repository (GitgWindow *window)
 {
-	g_return_val_if_fail(GITG_IS_WINDOW(window), NULL);
+	g_return_val_if_fail (GITG_IS_WINDOW(window), NULL);
 
 	return window->priv->repository;
 }
 
 void
-on_file_quit( GtkAction *action, GitgWindow *window)
+on_file_quit (GtkAction  *action,
+              GitgWindow *window)
 {
-	gtk_main_quit();
+	gtk_main_quit ();
 }
 
 static void
 on_open_dialog_response (GtkFileChooser *dialog,
-                         gint response,
-                         GitgWindow *window)
+                         gint            response,
+                         GitgWindow     *window)
 {
 	if (response != GTK_RESPONSE_ACCEPT)
 	{
@@ -1760,15 +1972,16 @@ on_open_dialog_response (GtkFileChooser *dialog,
 }
 
 void
-on_file_open (GtkAction *action, GitgWindow *window)
+on_file_open (GtkAction  *action,
+              GitgWindow *window)
 {
 	if (window->priv->open_dialog)
 	{
-		gtk_window_present(GTK_WINDOW(window->priv->open_dialog));
+		gtk_window_present (GTK_WINDOW(window->priv->open_dialog));
 		return;
 	}
 
-	window->priv->open_dialog = gtk_file_chooser_dialog_new (_("Open git repository"),
+	window->priv->open_dialog = gtk_file_chooser_dialog_new (_ ("Open git repository"),
 	                                                         GTK_WINDOW (window),
 	                                                         GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
 	                                                         GTK_STOCK_CANCEL,
@@ -1777,39 +1990,43 @@ on_file_open (GtkAction *action, GitgWindow *window)
 	                                                         GTK_RESPONSE_ACCEPT,
 	                                                         NULL);
 
-	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(window->priv->open_dialog), TRUE);
-	g_object_add_weak_pointer(G_OBJECT(window->priv->open_dialog), (gpointer *)&(window->priv->open_dialog));
-	gtk_window_present(GTK_WINDOW(window->priv->open_dialog));
+	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER(window->priv->open_dialog), TRUE);
+	g_object_add_weak_pointer (G_OBJECT(window->priv->open_dialog), (gpointer *)&(window->priv->open_dialog));
+	gtk_window_present (GTK_WINDOW(window->priv->open_dialog));
 
-	g_signal_connect(window->priv->open_dialog, "response", G_CALLBACK(on_open_dialog_response), window);
+	g_signal_connect (window->priv->open_dialog, "response", G_CALLBACK(on_open_dialog_response), window);
 }
 
 void
-on_edit_copy (GtkAction *action, GitgWindow *window)
+on_edit_copy (GtkAction  *action,
+              GitgWindow *window)
 {
-	GtkWidget *focus = gtk_window_get_focus (GTK_WINDOW(window));
+	GtkWidget *focus = gtk_window_get_focus (GTK_WINDOW (window));
 
 	g_signal_emit_by_name (focus, "copy-clipboard", 0);
 }
 
 void
-on_edit_cut (GtkAction *action, GitgWindow *window)
+on_edit_cut (GtkAction  *action,
+             GitgWindow *window)
 {
-	GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(window));
+	GtkWidget *focus = gtk_window_get_focus (GTK_WINDOW (window));
 
-	g_signal_emit_by_name(focus, "cut-clipboard", 0);
+	g_signal_emit_by_name (focus, "cut-clipboard", 0);
 }
 
 void
-on_edit_paste (GtkAction *action, GitgWindow *window)
+on_edit_paste (GtkAction  *action,
+               GitgWindow *window)
 {
-	GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(window));
+	GtkWidget *focus = gtk_window_get_focus (GTK_WINDOW (window));
 
-	g_signal_emit_by_name(focus, "paste-clipboard", 0);
+	g_signal_emit_by_name (focus, "paste-clipboard", 0);
 }
 
 void
-on_view_refresh (GtkAction *action, GitgWindow *window)
+on_view_refresh (GtkAction  *action,
+                 GitgWindow *window)
 {
 	if (window->priv->repository &&
 	    gitg_repository_exists (window->priv->repository))
@@ -1819,7 +2036,8 @@ on_view_refresh (GtkAction *action, GitgWindow *window)
 }
 
 void
-on_recent_open (GtkRecentChooser *chooser, GitgWindow *window)
+on_recent_open (GtkRecentChooser *chooser,
+                GitgWindow       *window)
 {
 	gchar *uri = gtk_recent_chooser_get_current_uri (chooser);
 	GFile *work_tree = g_file_new_for_uri (uri);
@@ -1831,13 +2049,17 @@ on_recent_open (GtkRecentChooser *chooser, GitgWindow *window)
 }
 
 static void
-url_activate_hook (GtkAboutDialog *dialog, gchar const *link, gpointer data)
+url_activate_hook (GtkAboutDialog *dialog,
+                   gchar const    *link,
+                   gpointer        data)
 {
 	gtk_show_uri (NULL, link, GDK_CURRENT_TIME, NULL);
 }
 
 static void
-email_activate_hook (GtkAboutDialog *dialog, gchar const *link, gpointer data)
+email_activate_hook (GtkAboutDialog *dialog,
+                     gchar const    *link,
+                     gpointer        data)
 {
 	gchar *uri;
 	gchar *escaped;
@@ -1852,12 +2074,13 @@ email_activate_hook (GtkAboutDialog *dialog, gchar const *link, gpointer data)
 }
 
 void
-on_help_about (GtkAction *action, GitgWindow *window)
+on_help_about (GtkAction  *action,
+               GitgWindow *window)
 {
 	static gchar const copyright[] = "Copyright \xc2\xa9 2009 Jesse van den Kieboom";
 	static gchar const *authors[] = {"Jesse van den Kieboom <jessevdk@gnome.org>", NULL};
-	static gchar const *comments = N_("gitg is a git repository viewer for gtk+/GNOME");
-	static gchar const *license = N_("This program is free software; you can redistribute it and/or modify\n"
+	static gchar const *comments = N_ ("gitg is a git repository viewer for gtk+/GNOME");
+	static gchar const *license = N_ ("This program is free software; you can redistribute it and/or modify\n"
 		"it under the terms of the GNU General Public License as published by\n"
 		"the Free Software Foundation; either version 2 of the License, or\n"
 		"(at your option) any later version.\n"
@@ -1889,11 +2112,11 @@ on_help_about (GtkAction *action, GitgWindow *window)
 	gtk_show_about_dialog (GTK_WINDOW(window),
 	                       "authors", authors,
 	                       "copyright", copyright,
-	                       "comments", _(comments),
+	                       "comments", _ (comments),
 	                       "version", VERSION,
 	                       "website", "http://trac.novowork.com/gitg",
 	                       "logo", pixbuf,
-	                       "license", _(license),
+	                       "license", _ (license),
 	                       NULL);
 
 	if (pixbuf)
@@ -1903,22 +2126,25 @@ on_help_about (GtkAction *action, GitgWindow *window)
 }
 
 static gboolean
-find_lane_boundary(GitgWindow *window, GtkTreePath *path, gint cell_x, gchar const **hash)
+find_lane_boundary (GitgWindow   *window,
+                    GtkTreePath  *path,
+                    gint          cell_x,
+                    gchar const **hash)
 {
 	GtkTreeModel *model = GTK_TREE_MODEL(window->priv->repository);
 	GtkTreeIter iter;
 	guint width;
 	GitgRevision *revision;
 
-	gtk_tree_model_get_iter(model, &iter, path);
-	gtk_tree_model_get(model, &iter, 0, &revision, -1);
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_model_get (model, &iter, 0, &revision, -1);
 
 	/* Determine lane at cell_x */
-	g_object_get(window->priv->renderer_path, "lane-width", &width, NULL);
+	g_object_get (window->priv->renderer_path, "lane-width", &width, NULL);
 	guint laneidx = cell_x / width;
 
-	GSList *lanes = gitg_revision_get_lanes(revision);
-	GitgLane *lane = (GitgLane *)g_slist_nth_data(lanes, laneidx);
+	GSList *lanes = gitg_revision_get_lanes (revision);
+	GitgLane *lane = (GitgLane *)g_slist_nth_data (lanes, laneidx);
 	gboolean ret;
 
 	if (lane && GITG_IS_LANE_BOUNDARY(lane))
@@ -1933,45 +2159,57 @@ find_lane_boundary(GitgWindow *window, GtkTreePath *path, gint cell_x, gchar con
 		ret = FALSE;
 	}
 
-	gitg_revision_unref(revision);
+	gitg_revision_unref (revision);
 	return ret;
 }
 
 static gboolean
-is_boundary_from_event(GitgWindow *window, GdkEventAny *event, gint x, gint y, gchar const **hash)
+is_boundary_from_event (GitgWindow   *window,
+                        GdkEventAny  *event,
+                        gint          x,
+                        gint          y,
+                        gchar const **hash)
 {
 	GtkTreePath *path;
 	GtkTreeViewColumn *column;
 	gint cell_x;
 	gint cell_y;
 
-	if (event->window != gtk_tree_view_get_bin_window(window->priv->tree_view))
+	if (event->window != gtk_tree_view_get_bin_window (window->priv->tree_view))
 		return FALSE;
 
-	gtk_tree_view_get_path_at_pos(window->priv->tree_view, x, y, &path, &column, &cell_x, &cell_y);
+	gtk_tree_view_get_path_at_pos (window->priv->tree_view,
+	                               x,
+	                               y,
+	                               &path,
+	                               &column,
+	                               &cell_x,
+	                               &cell_y);
 
 	if (!path)
 		return FALSE;
 
 	/* First check on correct column */
-	if (gtk_tree_view_get_column(window->priv->tree_view, 0) != column)
+	if (gtk_tree_view_get_column (window->priv->tree_view, 0) != column)
 	{
 		if (path)
-			gtk_tree_path_free(path);
+			gtk_tree_path_free (path);
 
 		return FALSE;
 	}
 
 	/* Check for lanes that have TYPE_END or TYPE_START and where the mouse
 	   is actually placed */
-	gboolean ret = find_lane_boundary(window, path, cell_x, hash);
-	gtk_tree_path_free(path);
+	gboolean ret = find_lane_boundary (window, path, cell_x, hash);
+	gtk_tree_path_free (path);
 
 	return ret;
 }
 
 static gboolean
-on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window)
+on_tree_view_motion (GtkTreeView    *treeview,
+                     GdkEventMotion *event,
+                     GitgWindow     *window)
 {
 	GdkWindow *win;
 
@@ -1990,34 +2228,47 @@ on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *wi
 }
 
 static gboolean
-on_tree_view_button_release(GtkTreeView *treeview, GdkEventButton *event, GitgWindow *window)
+on_tree_view_button_release (GtkTreeView    *treeview,
+                             GdkEventButton *event,
+                             GitgWindow     *window)
 {
 	if (event->button != 1)
+	{
 		return FALSE;
+	}
 
 	gchar const *hash;
 
-	if (!is_boundary_from_event(window, (GdkEventAny *)event, event->x, event->y, &hash))
+	if (!is_boundary_from_event (window,
+	                             (GdkEventAny *)event,
+	                             event->x,
+	                             event->y,
+	                             &hash))
+	{
 		return FALSE;
+	}
 
-	goto_hash(window, hash);
+	goto_hash (window, hash);
 	return TRUE;
 }
 
 void
-on_edit_preferences (GtkAction *action, GitgWindow *window)
+on_edit_preferences (GtkAction  *action,
+                     GitgWindow *window)
 {
 	gitg_preferences_dialog_present (GTK_WINDOW(window));
 }
 
 void
-on_repository_properties (GtkAction *action, GitgWindow *window)
+on_repository_properties (GtkAction  *action,
+                          GitgWindow *window)
 {
 	gitg_repository_dialog_present (window);
 }
 
 static void
-on_push_activated (GtkAction *action, GitgWindow *window)
+on_push_activated (GtkAction  *action,
+                   GitgWindow *window)
 {
 	gchar const *remote = g_object_get_data (G_OBJECT (action),
 	                                         DYNAMIC_ACTION_DATA_REMOTE_KEY);
@@ -2029,7 +2280,8 @@ on_push_activated (GtkAction *action, GitgWindow *window)
 }
 
 static void
-on_rebase_activated (GtkAction *action, GitgWindow *window)
+on_rebase_activated (GtkAction  *action,
+                     GitgWindow *window)
 {
 	GitgRef *dest = g_object_get_data (G_OBJECT (action),
 	                                   DYNAMIC_ACTION_DATA_KEY);
@@ -2041,7 +2293,8 @@ on_rebase_activated (GtkAction *action, GitgWindow *window)
 }
 
 static void
-on_merge_activated (GtkAction *action, GitgWindow *window)
+on_merge_activated (GtkAction  *action,
+                    GitgWindow *window)
 {
 	GitgRef *dest = g_object_get_data (G_OBJECT (action),
 	                                   DYNAMIC_ACTION_DATA_KEY);
@@ -2053,7 +2306,8 @@ on_merge_activated (GtkAction *action, GitgWindow *window)
 }
 
 static void
-on_stash_activated (GtkAction *action, GitgWindow *window)
+on_stash_activated (GtkAction  *action,
+                    GitgWindow *window)
 {
 	GitgRef *dest = g_object_get_data (G_OBJECT (action),
 	                                   DYNAMIC_ACTION_DATA_KEY);
@@ -2062,7 +2316,10 @@ on_stash_activated (GtkAction *action, GitgWindow *window)
 }
 
 static void
-get_tracked_ref (GitgWindow *window, GitgRef *branch, gchar **retremote, gchar **retbranch)
+get_tracked_ref (GitgWindow  *window,
+                 GitgRef     *branch,
+                 gchar      **retremote,
+                 gchar      **retbranch)
 {
 	GitgConfig *config = gitg_config_new (window->priv->repository);
 	gchar *merge;
@@ -2101,7 +2358,9 @@ get_tracked_ref (GitgWindow *window, GitgRef *branch, gchar **retremote, gchar *
 }
 
 static gboolean
-repository_has_ref (GitgWindow *window, gchar const *remote, gchar const *branch)
+repository_has_ref (GitgWindow  *window,
+                    gchar const *remote,
+                    gchar const *branch)
 {
 	GSList *refs = gitg_repository_get_refs (window->priv->repository);
 	gchar *combined = g_strconcat (remote, "/", branch, NULL);
@@ -2125,10 +2384,10 @@ repository_has_ref (GitgWindow *window, gchar const *remote, gchar const *branch
 }
 
 static void
-add_push_action (GitgWindow *window,
+add_push_action (GitgWindow     *window,
                  GtkActionGroup *group,
-                 gchar const *remote,
-                 gchar const *branch)
+                 gchar const    *remote,
+                 gchar const    *branch)
 {
 	gchar *acname = g_strconcat ("Push", remote, branch, "Action", NULL);
 	gchar *name;
@@ -2146,7 +2405,7 @@ add_push_action (GitgWindow *window,
 	}
 	else
 	{
-		name = g_strconcat (remote, "/", branch, " (", _("new"), ")", NULL);
+		name = g_strconcat (remote, "/", branch, " (", _ ("new"), ")", NULL);
 	}
 
 	GtkAction *pushac = gtk_action_new (acname, name, NULL, NULL);
@@ -2182,7 +2441,8 @@ add_push_action (GitgWindow *window,
 }
 
 static void
-update_merge_rebase (GitgWindow *window, GitgRef *ref)
+update_merge_rebase (GitgWindow *window,
+                     GitgRef    *ref)
 {
 	if (window->priv->merge_rebase_uid != 0)
 	{
@@ -2245,22 +2505,22 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 				GtkAction *mergeac = gtk_action_new (merge, rname, NULL, NULL);
 
 				g_object_set_data_full (G_OBJECT (rebaseac),
-					                    DYNAMIC_ACTION_DATA_KEY,
-					                    gitg_ref_copy (r),
-					                    (GDestroyNotify)gitg_ref_free);
+				                        DYNAMIC_ACTION_DATA_KEY,
+				                        gitg_ref_copy (r),
+				                        (GDestroyNotify)gitg_ref_free);
 				g_object_set_data_full (G_OBJECT (mergeac),
-					                    DYNAMIC_ACTION_DATA_KEY,
-					                    gitg_ref_copy (r),
-					                    (GDestroyNotify)gitg_ref_free);
+				                        DYNAMIC_ACTION_DATA_KEY,
+				                        gitg_ref_copy (r),
+				                        (GDestroyNotify)gitg_ref_free);
 
 				g_signal_connect (rebaseac,
-					              "activate",
-					              G_CALLBACK (on_rebase_activated),
-					              window);
+				                  "activate",
+				                  G_CALLBACK (on_rebase_activated),
+				                  window);
 				g_signal_connect (mergeac,
-					              "activate",
-					              G_CALLBACK (on_merge_activated),
-					              window);
+				                  "activate",
+				                  G_CALLBACK (on_merge_activated),
+				                  window);
 
 				gtk_action_group_add_action (ac, rebaseac);
 				gtk_action_group_add_action (ac, mergeac);
@@ -2268,23 +2528,23 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 				gchar *name = g_strconcat ("Rebase", rname, NULL);
 
 				gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
-					                   window->priv->merge_rebase_uid,
-					                   "/ui/ref_popup/Rebase/Placeholder",
-					                   name,
-					                   rebase,
-					                   GTK_UI_MANAGER_MENUITEM,
-					                   FALSE);
+				                       window->priv->merge_rebase_uid,
+				                       "/ui/ref_popup/Rebase/Placeholder",
+				                       name,
+				                       rebase,
+				                       GTK_UI_MANAGER_MENUITEM,
+				                       FALSE);
 				g_free (name);
 
 				name = g_strconcat ("Merge", rname, NULL);
 
 				gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
-					                   window->priv->merge_rebase_uid,
-					                   "/ui/ref_popup/Merge/Placeholder",
-					                   name,
-					                   merge,
-					                   GTK_UI_MANAGER_MENUITEM,
-					                   FALSE);
+				                       window->priv->merge_rebase_uid,
+				                       "/ui/ref_popup/Merge/Placeholder",
+				                       name,
+				                       merge,
+				                       GTK_UI_MANAGER_MENUITEM,
+				                       FALSE);
 				g_free (name);
 
 				g_object_unref (rebaseac);
@@ -2300,26 +2560,26 @@ update_merge_rebase (GitgWindow *window, GitgRef *ref)
 				GtkAction *stashac = gtk_action_new (stash, rname, NULL, NULL);
 
 				g_object_set_data_full (G_OBJECT (stashac),
-					                    DYNAMIC_ACTION_DATA_KEY,
-					                    gitg_ref_copy (r),
-					                    (GDestroyNotify)gitg_ref_free);
+				                        DYNAMIC_ACTION_DATA_KEY,
+				                        gitg_ref_copy (r),
+				                        (GDestroyNotify)gitg_ref_free);
 
 				g_signal_connect (stashac,
-					              "activate",
-					              G_CALLBACK (on_stash_activated),
-					              window);
+				                  "activate",
+				                  G_CALLBACK (on_stash_activated),
+				                  window);
 
 				gtk_action_group_add_action (ac, stashac);
 
 				gchar *name = g_strconcat ("Stash", rname, NULL);
 
 				gtk_ui_manager_add_ui (window->priv->menus_ui_manager,
-					                   window->priv->merge_rebase_uid,
-					                   "/ui/ref_popup/Stash/Placeholder",
-					                   name,
-					                   stash,
-					                   GTK_UI_MANAGER_MENUITEM,
-					                   FALSE);
+				                       window->priv->merge_rebase_uid,
+				                       "/ui/ref_popup/Stash/Placeholder",
+				                       name,
+				                       stash,
+				                       GTK_UI_MANAGER_MENUITEM,
+				                       FALSE);
 				g_free (name);
 
 				g_object_unref (stashac);
@@ -2417,7 +2677,8 @@ has_local_ref (GitgWindow  *window,
 }
 
 static gboolean
-popup_ref (GitgWindow *window, GdkEventButton *event)
+popup_ref (GitgWindow     *window,
+           GdkEventButton *event)
 {
 	gint cell_x;
 	gint cell_y;
@@ -2461,9 +2722,12 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 	GtkWidget *popup = gtk_ui_manager_get_widget (window->priv->menus_ui_manager,
 	                                              "/ui/ref_popup");
 
-	GtkAction *checkout = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/ref_popup/CheckoutAction");
-	GtkAction *remove = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/ref_popup/RemoveAction");
-	GtkAction *rename = gtk_ui_manager_get_action (window->priv->menus_ui_manager, "/ui/ref_popup/RenameAction");
+	GtkAction *checkout = gtk_ui_manager_get_action (window->priv->menus_ui_manager,
+	                                                 "/ui/ref_popup/CheckoutAction");
+	GtkAction *remove = gtk_ui_manager_get_action (window->priv->menus_ui_manager,
+	                                               "/ui/ref_popup/RemoveAction");
+	GtkAction *rename = gtk_ui_manager_get_action (window->priv->menus_ui_manager,
+	                                               "/ui/ref_popup/RenameAction");
 
 	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_REMOTE)
 	{
@@ -2471,7 +2735,7 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 
 		if (!has_local_ref (window, local))
 		{
-			gchar *label = g_strdup_printf (_("New local branch <%s>"), local);
+			gchar *label = g_strdup_printf (_ ("New local branch <%s>"), local);
 
 			g_object_set (checkout, "label", label, NULL);
 			gtk_action_set_visible (checkout, TRUE);
@@ -2482,15 +2746,15 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 			gtk_action_set_visible (checkout, FALSE);
 		}
 
-		g_object_set (remove, "label", _("Remove remote branch"), NULL);
+		g_object_set (remove, "label", _ ("Remove remote branch"), NULL);
 		gtk_action_set_visible (rename, FALSE);
 	}
 	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
 	{
-		g_object_set (checkout, "label", _("Checkout working copy"), NULL);
-		g_object_set (remove, "label", _("Remove local branch"), NULL);
+		g_object_set (checkout, "label", _ ("Checkout working copy"), NULL);
+		g_object_set (remove, "label", _ ("Remove local branch"), NULL);
 		gtk_action_set_visible (rename, TRUE);
-		g_object_set (rename, "label", _("Rename local branch"), NULL);
+		g_object_set (rename, "label", _ ("Rename local branch"), NULL);
 
 		GitgRef *working = gitg_repository_get_current_working_ref (window->priv->repository);
 
@@ -2498,18 +2762,18 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 	}
 	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_STASH)
 	{
-		g_object_set (remove, "label", _("Remove stash"), NULL);
+		g_object_set (remove, "label", _ ("Remove stash"), NULL);
 		gtk_action_set_visible (rename, FALSE);
 		gtk_action_set_visible (checkout, FALSE);
 	}
 	else if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_TAG)
 	{
-		g_object_set (remove, "label", _("Remove tag"), NULL);
+		g_object_set (remove, "label", _ ("Remove tag"), NULL);
 		gtk_action_set_visible (rename, FALSE);
 
 		if (!has_local_ref (window, gitg_ref_get_shortname (ref)))
 		{
-			gchar *label = g_strdup_printf (_("New local branch <%s>"), gitg_ref_get_shortname (ref));
+			gchar *label = g_strdup_printf (_ ("New local branch <%s>"), gitg_ref_get_shortname (ref));
 
 			g_object_set (checkout, "label", label, NULL);
 			gtk_action_set_visible (checkout, TRUE);
@@ -2529,13 +2793,15 @@ popup_ref (GitgWindow *window, GdkEventButton *event)
 }
 
 static gboolean
-consecutive_revisions (GitgWindow *window, GList *rows)
+consecutive_revisions (GitgWindow *window,
+                       GList      *rows)
 {
 	return FALSE;
 }
 
 static void
-on_cherry_pick_activated (GtkAction *action, GitgWindow *window)
+on_cherry_pick_activated (GtkAction  *action,
+                          GitgWindow *window)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
@@ -2655,7 +2921,8 @@ update_cherry_pick (GitgWindow *window)
 }
 
 static gboolean
-popup_revision (GitgWindow *window, GdkEventButton *event)
+popup_revision (GitgWindow     *window,
+                GdkEventButton *event)
 {
 	GtkTreeSelection *selection;
 
@@ -2710,7 +2977,9 @@ popup_revision (GitgWindow *window, GdkEventButton *event)
 }
 
 gboolean
-on_tree_view_rv_button_press_event (GtkWidget *widget, GdkEventButton *event, GitgWindow *window)
+on_tree_view_rv_button_press_event (GtkWidget      *widget,
+                                    GdkEventButton *event,
+                                    GitgWindow     *window)
 {
 	if (event->button == 3)
 	{
@@ -2721,7 +2990,8 @@ on_tree_view_rv_button_press_event (GtkWidget *widget, GdkEventButton *event, Gi
 }
 
 void
-on_checkout_branch_action_activate (GtkAction *action, GitgWindow *window)
+on_checkout_branch_action_activate (GtkAction  *action,
+                                    GitgWindow *window)
 {
 	if (gitg_branch_actions_checkout (window, window->priv->popup_refs[0]))
 	{
@@ -2730,19 +3000,22 @@ on_checkout_branch_action_activate (GtkAction *action, GitgWindow *window)
 }
 
 void
-on_remove_branch_action_activate (GtkAction *action, GitgWindow *window)
+on_remove_branch_action_activate (GtkAction  *action,
+                                  GitgWindow *window)
 {
 	gitg_branch_actions_remove (window, window->priv->popup_refs[0]);
 }
 
 void
-on_rename_branch_action_activate (GtkAction *action, GitgWindow *window)
+on_rename_branch_action_activate (GtkAction  *action,
+                                  GitgWindow *window)
 {
 	gitg_branch_actions_rename (window, window->priv->popup_refs[0]);
 }
 
 void
-on_rebase_branch_action_activate (GtkAction *action, GitgWindow *window)
+on_rebase_branch_action_activate (GtkAction  *action,
+                                  GitgWindow *window)
 {
 	gint source;
 
@@ -2762,7 +3035,8 @@ on_rebase_branch_action_activate (GtkAction *action, GitgWindow *window)
 }
 
 void
-on_merge_branch_action_activate (GtkAction *action, GitgWindow *window)
+on_merge_branch_action_activate (GtkAction  *action,
+                                 GitgWindow *window)
 {
 	gitg_window_add_branch_action (window,
 	                               gitg_branch_actions_merge (window,
@@ -2787,7 +3061,9 @@ free_tag_info (TagInfo *info)
 }
 
 static void
-on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
+on_tag_dialog_response (GtkWidget *dialog,
+                        gint       response,
+                        TagInfo   *info)
 {
 	gboolean destroy = TRUE;
 
@@ -2807,11 +3083,11 @@ on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
 
 		if (sign && (!*name || !*message))
 		{
-			secondary_text = _("Please make sure to fill in both the tag name and the commit message");
+			secondary_text = _ ("Please make sure to fill in both the tag name and the commit message");
 		}
 		else if (!sign && !*name)
 		{
-			secondary_text = _("Please make sure to fill in the tag name");
+			secondary_text = _ ("Please make sure to fill in the tag name");
 		}
 
 		if (secondary_text)
@@ -2820,7 +3096,7 @@ on_tag_dialog_response (GtkWidget *dialog, gint response, TagInfo *info)
 			                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 			                                         GTK_MESSAGE_ERROR,
 			                                         GTK_BUTTONS_OK,
-			                                         _("Not all fields are correctly filled in"));
+			                                         _ ("Not all fields are correctly filled in"));
 			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
 			                                          "%s",
 			                                          secondary_text);
@@ -2895,7 +3171,8 @@ on_format_patch_response (GtkDialog       *dialog,
 }
 
 void
-on_revision_format_patch_activate (GtkAction *action, GitgWindow *window)
+on_revision_format_patch_activate (GtkAction  *action,
+                                   GitgWindow *window)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
@@ -2914,7 +3191,7 @@ on_revision_format_patch_activate (GtkAction *action, GitgWindow *window)
 		gtk_tree_model_get (model, &iter, 0, &revision, -1);
 
 		/* Single one, pick filename */
-		dialog = gtk_file_chooser_dialog_new (_("Save format patch"),
+		dialog = gtk_file_chooser_dialog_new (_ ("Save format patch"),
 		                                      GTK_WINDOW (window),
 		                                      GTK_FILE_CHOOSER_ACTION_SAVE,
 		                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -2974,7 +3251,8 @@ on_revision_format_patch_activate (GtkAction *action, GitgWindow *window)
 }
 
 void
-on_revision_tag_activate (GtkAction *action, GitgWindow *window)
+on_revision_tag_activate (GtkAction  *action,
+                          GitgWindow *window)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
@@ -3026,7 +3304,8 @@ on_revision_tag_activate (GtkAction *action, GitgWindow *window)
 }
 
 void
-on_revision_squash_activate (GtkAction *action, GitgWindow *window)
+on_revision_squash_activate (GtkAction  *action,
+                             GitgWindow *window)
 {
 
 }

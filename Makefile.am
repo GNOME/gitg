@@ -2,6 +2,9 @@
 
 SUBDIRS = libgitg gitg data po
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libgitg-1.0.pc
+
 DISTCLEANFILES = \
 	intltool-extract \
 	intltool-merge \
@@ -12,7 +15,8 @@ EXTRA_DIST = \
 	MAINTAINERS \
 	intltool-extract.in \
 	intltool-merge.in \
-	intltool-update.in
+	intltool-update.in \
+	libgitg-1.0.pc.in
 
 MAINTAINERCLEANFILES = 		\
 	aclocal.m4		\
@@ -34,13 +38,6 @@ MAINTAINERCLEANFILES = 		\
 	m4/lt~obsolete.m4	\
 	`find "$(srcdir)" -type f -name Makefile.in -print`
 
-bundle:
-	rm -rf "$(bundledir)"; mkdir "$(bundledir)"; \
-rm -rf gitg-$(PACKAGE_VERSION).zip; \
-top_bundledir=`cd "$(bundledir)" && pwd`; \
-for i in $(SUBDIRS); do (cd $$i && $(MAKE) top_bundledir="$$top_bundledir" $(AM_MAKEFLAGS) bundle); done; \
-zip -r gitg-$(PACKAGE_VERSION).zip $(bundledir) >/dev/null;
-
 dist-hook: generate-changelog
 
 generate-changelog:
@@ -51,6 +48,6 @@ generate-changelog:
 	  mv $(distdir)/c-l $(distdir)/ChangeLog; \
 	fi
 
-.PHONY: bundle generate-changelog
+.PHONY: generate-changelog
 
 -include $(top_srcdir)/git.mk

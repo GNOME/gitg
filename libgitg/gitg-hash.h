@@ -25,6 +25,13 @@
 
 #include <glib.h>
 
+G_BEGIN_DECLS
+
+#define GITG_HASH_BINARY_SIZE 20
+#define GITG_HASH_SHA_SIZE 40
+
+typedef gchar GitgHash[GITG_HASH_BINARY_SIZE];
+
 void gitg_hash_sha1_to_hash(gchar const *sha, gchar *hash);
 void gitg_hash_hash_to_sha1(gchar const *hash, gchar *sha);
 
@@ -37,5 +44,7 @@ gchar *gitg_hash_partial_sha1_to_hash_new (gchar const *sha, gint length, gint *
 
 guint gitg_hash_hash(gconstpointer v);
 gboolean gitg_hash_hash_equal(gconstpointer a, gconstpointer b);
+
+G_END_DECLS
 
 #endif /* __GITG_HASH_H__ */

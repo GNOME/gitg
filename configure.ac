@@ -102,6 +102,7 @@ AM_GCONF_SOURCE_2
 
 AC_CONFIG_FILES([
 Makefile
+libgitg-1.0.pc
 libgitg/Makefile
 gitg/Makefile
 data/Makefile

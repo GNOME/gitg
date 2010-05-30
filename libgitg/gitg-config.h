@@ -24,7 +24,7 @@
 #define __GITG_CONFIG_H__
 
 #include <glib-object.h>
-#include "gitg-repository.h"
+#include <libgitg/gitg-repository.h>
 
 G_BEGIN_DECLS
 

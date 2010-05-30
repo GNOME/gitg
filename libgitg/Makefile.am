@@ -22,18 +22,17 @@ BUILT_SOURCES =			\
 INST_H_FILES =			\
 	$(BUILT_H_FILES)	\
 	gitg-changed-file.h	\
+	gitg-color.h		\
 	gitg-commit.h		\
+	gitg-config.h		\
 	gitg-hash.h		\
 	gitg-lane.h		\
 	gitg-ref.h		\
 	gitg-repository.h	\
 	gitg-revision.h		\
-	gitg-runner.h		\
-	gitg-types.h
+	gitg-runner.h
 
 NOINST_H_FILES =		\
-	gitg-color.h		\
-	gitg-config.h		\
 	gitg-convert.h		\
 	gitg-debug.h		\
 	gitg-i18n.h		\
@@ -82,3 +81,4 @@ gitg-enum-types.h: gitg-enum-types.h.template $(ENUM_H_FILES) $(GLIB_MKENUMS)
 gitg-enum-types.c: gitg-enum-types.c.template $(ENUM_H_FILES) $(GLIB_MKENUMS)
 	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gitg-enum-types.c.template $(ENUM_H_FILES)) > $@
 
+-include $(top_srcdir)/git.mk

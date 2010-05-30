@@ -75,13 +75,6 @@ ui_DATA = \
 EXTRA_DIST = 				\
 	$(ui_DATA)
 
-bundle: $(bin_PROGRAMS) $(ui_DATA)
-	for i in $(SUBDIRS); do (cd $$i && $(MAKE) top_bundledir="$(top_bundledir)" $(AM_MAKEFLAGS) bundle); done; \
-for i in $(bin_PROGRAMS); do $(INSTALL) -D $$i $(top_bundledir)/bin/$$i; done; \
-for i in $(ui_DATA); do $(INSTALL) -D $$i $(top_bundledir)/resources/ui/$$i; done;
-
-.PHONY: bundle
+-include $(top_srcdir)/git.mk
 
 # vi:ts=8
-
--include $(top_srcdir)/git.mk

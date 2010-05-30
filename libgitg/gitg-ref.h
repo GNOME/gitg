@@ -24,13 +24,12 @@
 #define __GITG_REF_H__
 
 #include <glib-object.h>
-#include "gitg-types.h"
 
 G_BEGIN_DECLS
 
-#define GITG_TYPE_REF					(gitg_ref_get_type ())
-#define GITG_REF(obj)					((GitgRef *)obj)
-#define GITG_REF_CONST(obj)				((GitgRef const *)obj)
+#define GITG_TYPE_REF       (gitg_ref_get_type ())
+#define GITG_REF(obj)       ((GitgRef *)obj)
+#define GITG_REF_CONST(obj) ((GitgRef const *)obj)
 
 typedef enum
 {
@@ -50,36 +49,36 @@ typedef enum
 
 typedef struct _GitgRef GitgRef;
 
-GType 			 gitg_ref_get_type 				(void) G_GNUC_CONST;
+GType gitg_ref_get_type               (void) G_GNUC_CONST;
 
-GitgRef 		*gitg_ref_new					(gchar const  *hash, 
-                                                 gchar const  *name);
+GitgRef *gitg_ref_new                 (gchar const  *hash,
+                                       gchar const  *name);
 
-gchar const 	*gitg_ref_get_hash				(GitgRef      *ref);
-GitgRefType 	 gitg_ref_get_ref_type			(GitgRef      *ref);
-gchar const 	*gitg_ref_get_name				(GitgRef      *ref);
+gchar const  *gitg_ref_get_hash       (GitgRef      *ref);
+GitgRefType   gitg_ref_get_ref_type   (GitgRef      *ref);
+gchar const  *gitg_ref_get_name       (GitgRef      *ref);
 
-gchar const 	*gitg_ref_get_shortname			(GitgRef      *ref);
-gchar const 	*gitg_ref_get_prefix			(GitgRef      *ref);
+gchar const  *gitg_ref_get_shortname  (GitgRef      *ref);
+gchar const  *gitg_ref_get_prefix     (GitgRef      *ref);
 
-gchar const     *gitg_ref_get_local_name 		(GitgRef      *ref);
+gchar const  *gitg_ref_get_local_name (GitgRef      *ref);
 
-GitgRefState     gitg_ref_get_state             (GitgRef      *ref);
-void			 gitg_ref_set_state				(GitgRef      *ref,
-                                                 GitgRefState state);
+GitgRefState  gitg_ref_get_state      (GitgRef      *ref);
+void          gitg_ref_set_state      (GitgRef      *ref,
+                                       GitgRefState  state);
 
-void			 gitg_ref_set_working			(GitgRef      *ref,
-												 gboolean      working);
-gboolean		 gitg_ref_get_working			(GitgRef      *ref);
+void          gitg_ref_set_working    (GitgRef      *ref,
+                                       gboolean      working);
+gboolean      gitg_ref_get_working    (GitgRef      *ref);
 
-GitgRef			*gitg_ref_copy					(GitgRef      *ref);
-void 			 gitg_ref_free					(GitgRef      *ref);
+GitgRef      *gitg_ref_copy           (GitgRef      *ref);
+void          gitg_ref_free           (GitgRef      *ref);
 
-gboolean 		 gitg_ref_equal					(GitgRef      *ref, 
-                                                 GitgRef      *other);
+gboolean      gitg_ref_equal          (GitgRef      *ref,
+                                       GitgRef      *other);
 
-gboolean		 gitg_ref_equal_prefix			(GitgRef      *ref,
-                                                 GitgRef      *other);
+gboolean      gitg_ref_equal_prefix   (GitgRef      *ref,
+                                       GitgRef      *other);
 
 G_END_DECLS
 

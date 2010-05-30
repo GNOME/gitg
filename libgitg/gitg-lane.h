@@ -24,8 +24,11 @@
 #define __GITG_LANE_H__
 
 #include <glib.h>
-#include "gitg-color.h"
-#include "gitg-types.h"
+#include <libgitg/gitg-color.h>
+#include <libgitg/gitg-hash.h>
+
+G_BEGIN_DECLS
+
 #define GITG_IS_LANE_BOUNDARY(lane) (lane->type & GITG_LANE_TYPE_START || lane->type & GITG_LANE_TYPE_END)
 
 typedef enum
@@ -50,7 +53,7 @@ typedef struct
 typedef struct
 {
 	GitgLane lane;
-	Hash hash;
+	GitgHash hash;
 } GitgLaneBoundary;
 
 GitgLane *gitg_lane_new (void);
@@ -60,5 +63,7 @@ GitgLane *gitg_lane_dup (GitgLane *lane);
 
 void gitg_lane_free (GitgLane *lane);
 GitgLaneBoundary *gitg_lane_convert_boundary (GitgLane *lane, GitgLaneType type);
+
+G_END_DECLS
 
 #endif /* __GITG_LANE_H__ */

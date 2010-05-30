@@ -25,9 +25,9 @@
 
 #include <gtk/gtk.h>
 
-#include "gitg-revision.h"
-#include "gitg-runner.h"
-#include "gitg-ref.h"
+#include <libgitg/gitg-revision.h>
+#include <libgitg/gitg-runner.h>
+#include <libgitg/gitg-ref.h>
 
 G_BEGIN_DECLS
 

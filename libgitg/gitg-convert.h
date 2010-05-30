@@ -25,6 +25,10 @@
 
 #include <glib.h>
 
-gchar *gitg_convert_utf8(gchar const *str, gssize size);
+G_BEGIN_DECLS
+
+gchar *gitg_convert_utf8 (gchar const *str, gssize size);
+
+G_END_DECLS
 
 #endif /* __GITG_CONVERT_H__ */

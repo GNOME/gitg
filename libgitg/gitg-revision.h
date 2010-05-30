@@ -24,14 +24,13 @@
 #define __GITG_REVISION_H__
 
 #include <glib-object.h>
-#include "gitg-lane.h"
-#include "gitg-types.h"
+#include <libgitg/gitg-lane.h>
 
 G_BEGIN_DECLS
 
-#define GITG_TYPE_REVISION				(gitg_revision_get_type ())
-#define GITG_REVISION(obj)				((GitgRevision *)obj)
-#define GITG_REVISION_CONST(obj)		((GitgRevision const *)obj)
+#define GITG_TYPE_REVISION       (gitg_revision_get_type ())
+#define GITG_REVISION(obj)       ((GitgRevision *)obj)
+#define GITG_REVISION_CONST(obj) ((GitgRevision const *)obj)
 
 typedef struct _GitgRevision		GitgRevision;
 
@@ -44,7 +43,7 @@ inline gchar const *gitg_revision_get_author(GitgRevision *revision);
 inline gchar const *gitg_revision_get_subject(GitgRevision *revision);
 inline guint64 gitg_revision_get_timestamp(GitgRevision *revision);
 inline gchar const *gitg_revision_get_hash(GitgRevision *revision);
-inline Hash *gitg_revision_get_parents_hash(GitgRevision *revision, guint *num_parents);
+inline GitgHash *gitg_revision_get_parents_hash(GitgRevision *revision, guint *num_parents);
 
 gchar *gitg_revision_get_sha1(GitgRevision *revision);
 gchar **gitg_revision_get_parents(GitgRevision *revision);

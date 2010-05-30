@@ -673,7 +673,7 @@ write_tree(GitgCommit *commit, gchar **tree, GError **error)
 	gchar const *argv[] = {"write-tree", NULL};
 	gchar **lines = gitg_repository_command_with_output(commit->priv->repository, argv, error);
 
-	if (!lines || strlen(*lines) != HASH_SHA_SIZE)
+	if (!lines || strlen(*lines) != GITG_HASH_SHA_SIZE)
 	{
 		g_strfreev(lines);
 		return FALSE;
@@ -885,7 +885,7 @@ commit_tree(GitgCommit *commit, gchar const *tree, gchar const *comment, gboolea
 	g_free(converted);
 	g_object_unref (runner);
 
-	if (buffer->len != HASH_SHA_SIZE)
+	if (buffer->len != GITG_HASH_SHA_SIZE)
 	{
 		g_string_free(buffer, TRUE);
 		return FALSE;

@@ -26,21 +26,27 @@
 #include <math.h>
 
 #include "gitg-hash.h"
-#include "gitg-types.h"
 
 inline static guint8
-atoh(gchar c)
+atoh (gchar c)
 {
 	if (c >= 'a')
+	{
 		return c - 'a' + 10;
+	}
+
 	if (c >= 'A')
+	{
 		return c - 'A' + 10;
+	}
 
 	return c - '0';
 }
 
 void
-gitg_hash_partial_sha1_to_hash(gchar const *sha, gint length, gchar *hash)
+gitg_hash_partial_sha1_to_hash (gchar const *sha,
+                                gint         length,
+                                gchar       *hash)
 {
 	if (length % 2 == 1)
 	{
@@ -51,25 +57,27 @@ gitg_hash_partial_sha1_to_hash(gchar const *sha, gint length, gchar *hash)
 
 	for (i = 0; i < length / 2; ++i)
 	{
-		gchar h = atoh(*(sha++)) << 4;
-		hash[i] = h | atoh(*(sha++));
+		gchar h = atoh (*(sha++)) << 4;
+		hash[i] = h | atoh (*(sha++));
 	}
 }
 
 void
-gitg_hash_sha1_to_hash(gchar const *sha, gchar *hash)
+gitg_hash_sha1_to_hash (gchar const *sha,
+                        gchar       *hash)
 {
-	gitg_hash_partial_sha1_to_hash (sha, HASH_SHA_SIZE, hash);
+	gitg_hash_partial_sha1_to_hash (sha, GITG_HASH_SHA_SIZE, hash);
 }
 
 void
-gitg_hash_hash_to_sha1(gchar const *hash, gchar *sha)
+gitg_hash_hash_to_sha1 (gchar const *hash,
+                        gchar       *sha)
 {
 	char const *repr = "0123456789abcdef";
 	int i;
 	int pos = 0;
 
-	for (i = 0; i < HASH_BINARY_SIZE; ++i)
+	for (i = 0; i < GITG_HASH_BINARY_SIZE; ++i)
 	{
 		sha[pos++] = repr[(hash[i] >> 4) & 0x0f];
 		sha[pos++] = repr[(hash[i] & 0x0f)];
@@ -77,17 +85,19 @@ gitg_hash_hash_to_sha1(gchar const *hash, gchar *sha)
 }
 
 gchar *
-gitg_hash_hash_to_sha1_new(gchar const *hash)
+gitg_hash_hash_to_sha1_new (gchar const *hash)
 {
-	gchar *ret = g_new(gchar, HASH_SHA_SIZE + 1);
-	gitg_hash_hash_to_sha1(hash, ret);
+	gchar *ret = g_new (gchar, GITG_HASH_SHA_SIZE + 1);
+	gitg_hash_hash_to_sha1 (hash, ret);
 
-	ret[HASH_SHA_SIZE] = '\0';
+	ret[GITG_HASH_SHA_SIZE] = '\0';
 	return ret;
 }
 
 gchar *
-gitg_hash_partial_sha1_to_hash_new (gchar const *sha, gint length, gint *retlen)
+gitg_hash_partial_sha1_to_hash_new (gchar const *sha,
+                                    gint         length,
+                                    gint        *retlen)
 {
 	if (length == -1)
 	{
@@ -108,30 +118,30 @@ gitg_hash_partial_sha1_to_hash_new (gchar const *sha, gint length, gint *retlen)
 }
 
 gchar *
-gitg_hash_sha1_to_hash_new(gchar const *sha1)
+gitg_hash_sha1_to_hash_new (gchar const *sha1)
 {
-	gchar *ret = g_new(gchar, HASH_BINARY_SIZE);
-	gitg_hash_sha1_to_hash(sha1, ret);
+	gchar *ret = g_new (gchar, GITG_HASH_BINARY_SIZE);
+	gitg_hash_sha1_to_hash (sha1, ret);
 
 	return ret;
 }
 
 guint
-gitg_hash_hash(gconstpointer v)
+gitg_hash_hash (gconstpointer v)
 {
 	/* 31 bit hash function, copied from g_str_hash */
 	const signed char *p = v;
 	guint32 h = *p;
 	int i;
 
-	for (i = 1; i < HASH_BINARY_SIZE; ++i)
+	for (i = 1; i < GITG_HASH_BINARY_SIZE; ++i)
 		h = (h << 5) - h + p[i];
 
 	return h;
 }
 
-gboolean 
-gitg_hash_hash_equal(gconstpointer a, gconstpointer b)
+gboolean
+gitg_hash_hash_equal (gconstpointer a, gconstpointer b)
 {
-	return memcmp(a, b, HASH_BINARY_SIZE) == 0;
+	return memcmp (a, b, GITG_HASH_BINARY_SIZE) == 0;
 }

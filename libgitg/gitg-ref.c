@@ -24,7 +24,7 @@
 #include "gitg-hash.h"
 #include <string.h>
 
-typedef struct 
+typedef struct
 {
 	gchar const *prefix;
 	GitgRefType type;
@@ -32,7 +32,7 @@ typedef struct
 
 struct _GitgRef
 {
-	Hash hash;
+	GitgHash hash;
 	GitgRefType type;
 
 	gchar *name;
@@ -44,28 +44,28 @@ struct _GitgRef
 	gboolean working;
 };
 
-GType 
+GType
 gitg_ref_get_type (void)
 {
 	static GType our_type = 0;
 
 	if (!our_type)
 	{
-		our_type = g_boxed_type_register_static("GitGRef",
-		                                        (GBoxedCopyFunc)gitg_ref_copy,
-		                                        (GBoxedFreeFunc)gitg_ref_free);
+		our_type = g_boxed_type_register_static ("GitGRef",
+		                                         (GBoxedCopyFunc)gitg_ref_copy,
+		                                         (GBoxedFreeFunc)gitg_ref_free);
 	}
 
 	return our_type;
-} 
+}
 
 GitgRef *
-gitg_ref_new(gchar const *hash, gchar const *name)
+gitg_ref_new (gchar const *hash, gchar const *name)
 {
-	GitgRef *inst = g_slice_new0(GitgRef);
+	GitgRef *inst = g_slice_new0 (GitgRef);
 
-	gitg_hash_sha1_to_hash(hash, inst->hash);
-	inst->name = g_strdup(name);
+	gitg_hash_sha1_to_hash (hash, inst->hash);
+	inst->name = g_strdup (name);
 
 	PrefixTypeMap map[] = {
 		{"refs/heads/", GITG_REF_TYPE_BRANCH},
@@ -78,27 +78,29 @@ gitg_ref_new(gchar const *hash, gchar const *name)
 
 	// set type from name
 	int i;
-	for (i = 0; i < sizeof(map) / sizeof(PrefixTypeMap); ++i)
+	for (i = 0; i < sizeof (map) / sizeof (PrefixTypeMap); ++i)
 	{
 		gchar *pos;
 
-		if (!g_str_has_prefix(name, map[i].prefix))
+		if (!g_str_has_prefix (name, map[i].prefix))
+		{
 			continue;
+		}
 
 		inst->type = map[i].type;
 
 		if (inst->type == GITG_REF_TYPE_STASH)
 		{
-			inst->shortname = g_strdup("stash");
+			inst->shortname = g_strdup ("stash");
 		}
 		else
 		{
-			inst->shortname = g_strdup(name + strlen(map[i].prefix));
+			inst->shortname = g_strdup (name + strlen (map[i].prefix));
 		}
 
-		if (map[i].type == GITG_REF_TYPE_REMOTE && (pos = strchr(inst->shortname, '/')))
+		if (map[i].type == GITG_REF_TYPE_REMOTE && (pos = strchr (inst->shortname, '/')))
 		{
-			inst->prefix = g_strndup(inst->shortname, pos - inst->shortname);
+			inst->prefix = g_strndup (inst->shortname, pos - inst->shortname);
 		}
 
 		break;
@@ -107,14 +109,14 @@ gitg_ref_new(gchar const *hash, gchar const *name)
 	if (inst->shortname == NULL)
 	{
 		inst->type = GITG_REF_TYPE_NONE;
-		inst->shortname = g_strdup(name);
+		inst->shortname = g_strdup (name);
 	}
 
 	return inst;
 }
 
 GitgRef *
-gitg_ref_copy(GitgRef *ref)
+gitg_ref_copy (GitgRef *ref)
 {
 	if (ref == NULL)
 	{
@@ -124,81 +126,94 @@ gitg_ref_copy(GitgRef *ref)
 	GitgRef *ret = g_slice_new0 (GitgRef);
 
 	ret->type = ref->type;
-	ret->name = g_strdup(ref->name);
-	ret->shortname = g_strdup(ref->shortname);
-	ret->prefix = g_strdup(ref->prefix);
+	ret->name = g_strdup (ref->name);
+	ret->shortname = g_strdup (ref->shortname);
+	ret->prefix = g_strdup (ref->prefix);
 	ret->working = ref->working;
 
-	int i;
-	for (i = 0; i < HASH_BINARY_SIZE; ++i)
+	gint i;
+
+	for (i = 0; i < GITG_HASH_BINARY_SIZE; ++i)
+	{
 		ret->hash[i] = ref->hash[i];
+	}
 
 	return ret;
 }
 
 void
-gitg_ref_free(GitgRef *ref)
+gitg_ref_free (GitgRef *ref)
 {
 	if (!ref)
+	{
 		return;
+	}
 
-	g_free(ref->name);
-	g_free(ref->shortname);
-	g_free(ref->prefix);
+	g_free (ref->name);
+	g_free (ref->shortname);
+	g_free (ref->prefix);
 
-	g_slice_free(GitgRef, ref);
-}
-
-gboolean 
-gitg_ref_equal(GitgRef *ref, GitgRef *other)
-{
-	if (ref == NULL && other == NULL)
-		return TRUE;
-
-	if (ref == NULL || other == NULL)
-		return FALSE;
-
-	return strcmp(ref->name, other->name) == 0;
+	g_slice_free (GitgRef, ref);
 }
 
 gboolean
-gitg_ref_equal_prefix(GitgRef *ref, GitgRef *other)
+gitg_ref_equal (GitgRef *ref, GitgRef *other)
 {
 	if (ref == NULL && other == NULL)
+	{
 		return TRUE;
+	}
 
 	if (ref == NULL || other == NULL)
+	{
 		return FALSE;
+	}
 
-	return strcmp(ref->prefix, other->prefix) == 0;
+	return strcmp (ref->name, other->name) == 0;
+}
+
+gboolean
+gitg_ref_equal_prefix (GitgRef *ref, GitgRef *other)
+{
+	if (ref == NULL && other == NULL)
+	{
+		return TRUE;
+	}
+
+	if (ref == NULL || other == NULL)
+	{
+		return FALSE;
+	}
+
+	return strcmp (ref->prefix, other->prefix) == 0;
 }
 
 gchar const *
-gitg_ref_get_hash(GitgRef *ref)
+gitg_ref_get_hash (GitgRef *ref)
 {
 	return ref->hash;
 }
 
 GitgRefType
-gitg_ref_get_ref_type(GitgRef *ref)
+gitg_ref_get_ref_type (GitgRef *ref)
 {
 	return ref->type;
 }
 
 gchar const *
-gitg_ref_get_name(GitgRef *ref)
+gitg_ref_get_name (GitgRef *ref)
 {
 	return ref->name;
 }
 
 gchar const *
-gitg_ref_get_shortname(GitgRef *ref)
+gitg_ref_get_shortname (GitgRef *ref)
 {
 	return ref->shortname;
 }
 
 gchar const *
-gitg_ref_get_prefix(GitgRef *ref)
+gitg_ref_get_prefix (GitgRef *ref)
 {
 	return ref->prefix;
 }
@@ -224,7 +239,7 @@ gitg_ref_get_local_name (GitgRef *ref)
 
 	if (prefix && g_str_has_prefix (shortname, prefix))
 	{
-		return shortname + strlen(prefix) + 1;
+		return shortname + strlen (prefix) + 1;
 	}
 	else
 	{

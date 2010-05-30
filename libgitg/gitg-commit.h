@@ -24,8 +24,8 @@
 #define __GITG_COMMIT_H__
 
 #include <glib-object.h>
-#include "gitg-repository.h"
-#include "gitg-changed-file.h"
+#include <libgitg/gitg-repository.h>
+#include <libgitg/gitg-changed-file.h>
 
 G_BEGIN_DECLS
 
