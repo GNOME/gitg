@@ -90,6 +90,8 @@ struct _GitgCommitViewPrivate
 	GtkTextIter context_iter;
 
 	GtkActionGroup *group_context;
+	GtkTextMark *highlight_mark;
+	GtkTextTag *highlight_tag;
 };
 
 static void gitg_commit_view_buildable_iface_init(GtkBuildableIface *iface);
@@ -129,20 +131,22 @@ static void on_edit_file(GtkAction *action, GitgCommitView *view);
 static void on_check_button_amend_toggled (GtkToggleButton *button, GitgCommitView *view);
 
 static void
-gitg_commit_view_finalize(GObject *object)
+gitg_commit_view_finalize (GObject *object)
 {
-	GitgCommitView *view = GITG_COMMIT_VIEW(object);
+	GitgCommitView *view = GITG_COMMIT_VIEW (object);
 
 	if (view->priv->update_id)
-		g_signal_handler_disconnect(view->priv->runner, view->priv->update_id);
+	{
+		g_signal_handler_disconnect (view->priv->runner, view->priv->update_id);
+	}
 
-	gitg_runner_cancel(view->priv->runner);
-	g_object_unref(view->priv->runner);
-	g_object_unref(view->priv->ui_manager);
+	gitg_runner_cancel (view->priv->runner);
+	g_object_unref (view->priv->runner);
+	g_object_unref (view->priv->ui_manager);
 
-	gdk_cursor_unref(view->priv->hand);
+	gdk_cursor_unref (view->priv->hand);
 
-	G_OBJECT_CLASS(gitg_commit_view_parent_class)->finalize(object);
+	G_OBJECT_CLASS (gitg_commit_view_parent_class)->finalize (object);
 }
 
 static void
@@ -672,28 +676,184 @@ get_hunk_patch(GitgCommitView *view, GtkTextIter *iter)
 	return g_strconcat(header, contents, NULL);
 }
 
-static gboolean
-handle_stage_unstage(GitgCommitView *view, GtkTextIter *iter)
+static gchar *
+line_patch_contents (GitgCommitView *view,
+                     GtkTextIter const *iter,
+                     GitgDiffLineType old_type,
+                     GitgDiffLineType new_type)
 {
-	gchar *hunk = get_hunk_patch(view, iter);
+	GtkTextIter start;
+	GtkTextIter end;
+	GtkTextIter patch_iter = *iter;
+	GitgDiffView *diff_view = GITG_DIFF_VIEW (view->priv->changes_view);
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (diff_view));
+	GitgDiffIter diff_iter;
 
-	if (!hunk)
-		return FALSE;
+	gtk_text_iter_set_line_offset (&patch_iter, 0);
 
+	if (!gitg_diff_view_get_hunk_at_iter (diff_view, &patch_iter, &diff_iter))
+	{
+		return NULL;
+	}
+
+	gitg_diff_iter_get_bounds (&diff_iter, &start, &end);
+	GtkTextIter begin = start;
+
+	GString *patch = g_string_new ("");
+	gchar *header = NULL;
+	gint count_old = 0;
+	gint count_new = 0;
+
+	while (gtk_text_iter_compare (&start, &end) < 0)
+	{
+		GitgDiffLineType line_type;
+		gboolean is_patch_line;
+
+		line_type = gitg_diff_view_get_line_type (diff_view, &start);
+
+		is_patch_line = gtk_text_iter_equal (&start, &patch_iter);
+
+		gchar *text;
+		GtkTextIter line_end = start;
+		gtk_text_iter_forward_to_line_end (&line_end);
+
+		if (gtk_text_iter_equal (&start, &begin))
+		{
+			header = gtk_text_buffer_get_text (buffer, &start, &line_end, TRUE);
+		}
+		else
+		{
+			if (line_type == old_type && !is_patch_line)
+			{
+				/* Take over like it was context */
+				g_string_append_c (patch, ' ');
+
+				if (!gtk_text_iter_ends_line (&start))
+				{
+					gtk_text_iter_forward_char (&start);
+				}
+			}
+
+			if (line_type == GITG_DIFF_LINE_TYPE_NONE ||
+			    line_type == old_type || is_patch_line)
+			{
+				/* copy context */
+				text = gtk_text_buffer_get_text (buffer, &start, &line_end, TRUE);
+
+				g_string_append (patch, text);
+				g_string_append_c (patch, '\n');
+
+				if (!is_patch_line || line_type == GITG_DIFF_LINE_TYPE_REMOVE)
+				{
+					++count_old;
+				}
+
+				if (!is_patch_line || line_type == GITG_DIFF_LINE_TYPE_ADD)
+				{
+					++count_new;
+				}
+
+				g_free (text);
+			}
+		}
+
+		if (!gtk_text_iter_forward_line (&start))
+		{
+			break;
+		}
+	}
+
+	gchar *head = gitg_utils_rewrite_hunk_counters (header, count_old, count_new);
+	g_free (header);
+	gchar *ret = NULL;
+
+	if (head)
+	{
+		gchar *contents = g_string_free (patch, FALSE);
+		ret = g_strconcat (head, "\n", contents, NULL);
+
+		g_free (contents);
+		g_free (head);
+	}
+
+	return ret;
+}
+
+static gboolean
+stage_unstage_hunk (GitgCommitView *view, gchar const *hunk, GError **error)
+{
 	gboolean ret;
-	GitgChangedFile *file = g_object_ref(view->priv->current_file);
 	gboolean unstage = view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED;
-	GError *error = NULL;
 
 	if (unstage)
-		ret = gitg_commit_stage(view->priv->commit, view->priv->current_file, hunk, &error);
+	{
+		ret = gitg_commit_stage (view->priv->commit, view->priv->current_file, hunk, error);
+	}
 	else
-		ret = gitg_commit_unstage(view->priv->commit, view->priv->current_file, hunk, &error);
+	{
+		ret = gitg_commit_unstage (view->priv->commit, view->priv->current_file, hunk, error);
+	}
+
+	return ret;
+}
+
+static gboolean
+handle_stage_unstage_line (GitgCommitView *view, GtkTextIter const *iter)
+{
+	GitgDiffView *diff_view = GITG_DIFF_VIEW (view->priv->changes_view);
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view->priv->changes_view));
+	gchar *header = get_patch_header (view, buffer, iter);
+	GitgDiffLineType old_type;
+	GitgDiffLineType new_type;
+
+	if (!header)
+	{
+		return FALSE;
+	}
+
+	GitgDiffIter diff_iter;
+
+	if (!gitg_diff_view_get_header_at_iter (diff_view, iter, &diff_iter))
+	{
+		g_free (header);
+		return FALSE;
+	}
+
+	if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
+	{
+		old_type = GITG_DIFF_LINE_TYPE_REMOVE;
+		new_type = GITG_DIFF_LINE_TYPE_ADD;
+	}
+	else
+	{
+		old_type = GITG_DIFF_LINE_TYPE_ADD;
+		new_type = GITG_DIFF_LINE_TYPE_REMOVE;
+	}
+
+	gchar *contents = line_patch_contents (view, iter, old_type, new_type);
+
+	if (!contents)
+	{
+		g_free (header);
+		return FALSE;
+	}
+
+	gboolean ret;
+	GitgChangedFile *file = g_object_ref (view->priv->current_file);
+	GError *error = NULL;
+	gchar *hunk = g_strconcat (header, contents, NULL);
+
+	g_free (contents);
+	g_free (header);
+
+	ret = stage_unstage_hunk (view, hunk, &error);
 
 	if (ret && file == view->priv->current_file)
 	{
-		/* remove hunk from text view */
-		gitg_diff_view_remove_hunk(GITG_DIFF_VIEW(view->priv->changes_view), iter);
+		gitg_diff_view_clear_line (GITG_DIFF_VIEW (view->priv->changes_view),
+		                           iter,
+		                           old_type,
+		                           new_type);
 	}
 	else if (!ret)
 	{
@@ -701,76 +861,306 @@ handle_stage_unstage(GitgCommitView *view, GtkTextIter *iter)
 		g_error_free (error);
 	}
 
-	g_object_unref(file);
-	g_free(hunk);
+	g_free (hunk);
+	g_object_unref (file);
 
 	return ret;
 }
 
 static gboolean
-get_hunk_at_pointer(GitgCommitView *view, GtkTextIter *iter, gchar **hunk)
+handle_stage_unstage(GitgCommitView *view, GtkTextIter *iter)
 {
-	GtkTextView *textview = GTK_TEXT_VIEW(view->priv->changes_view);
+	gchar *hunk = get_hunk_patch (view, iter);
+
+	if (!hunk)
+	{
+		return FALSE;
+	}
+
+	gboolean ret;
+	GitgChangedFile *file = g_object_ref (view->priv->current_file);
+	GError *error = NULL;
+
+	ret = stage_unstage_hunk (view, hunk, &error);
+
+	if (ret && file == view->priv->current_file)
+	{
+		/* remove hunk from text view */
+		gitg_diff_view_remove_hunk (GITG_DIFF_VIEW (view->priv->changes_view), iter);
+	}
+	else if (!ret)
+	{
+		g_warning ("Could not stage/unstage: %s", error->message);
+		g_error_free (error);
+	}
+
+	g_object_unref (file);
+	g_free (hunk);
+
+	return ret;
+}
+
+static gboolean
+get_info_at_pointer (GitgCommitView *view,
+                     GtkTextIter *iter,
+                     gboolean *is_hunk,
+                     gchar **hunk,
+                     GitgDiffLineType *line_type)
+{
+	GtkTextView *textview = GTK_TEXT_VIEW (view->priv->changes_view);
 	gint x;
 	gint y;
+	gint width;
+	gint height;
 	gint buf_x;
 	gint buf_y;
 
 	/* Get where the pointer really is. */
-	GdkWindow *win = gtk_text_view_get_window(textview, GTK_TEXT_WINDOW_TEXT);
-	gdk_window_get_pointer(win, &x, &y, NULL);
+	GdkWindow *win = gtk_text_view_get_window (textview, GTK_TEXT_WINDOW_TEXT);
+
+	gdk_window_get_pointer (win, &x, &y, NULL);
+	gdk_drawable_get_size (GDK_DRAWABLE (win), &width, &height);
+
+	if (x < 0 || y < 0 || x > width || y > height)
+	{
+		return FALSE;
+	}
 
 	/* Get the iter where the cursor is at */
-	gtk_text_view_window_to_buffer_coords(textview, GTK_TEXT_WINDOW_TEXT, x, y, &buf_x, &buf_y);
-	gtk_text_view_get_iter_at_location(textview, iter, buf_x, buf_y);
+	gtk_text_view_window_to_buffer_coords (textview, GTK_TEXT_WINDOW_TEXT, x, y, &buf_x, &buf_y);
+	gtk_text_view_get_iter_at_location (textview, iter, buf_x, buf_y);
 
-	if (gtk_text_iter_backward_line(iter))
-		gtk_text_iter_forward_line(iter);
+	gtk_text_iter_set_line_offset (iter, 0);
 
-	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(textview));
+	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER (gtk_text_view_get_buffer (textview));
 
-	if (!has_hunk_mark(buffer, iter))
-		return FALSE;
+	if (is_hunk)
+	{
+		*is_hunk = has_hunk_mark (buffer, iter);
 
-	if (hunk)
-		*hunk = get_hunk_patch(view, iter);
+		if (*is_hunk && hunk)
+		{
+			*hunk = get_hunk_patch (view, iter);
+		}
+	}
+
+	if (line_type)
+	{
+		*line_type = gitg_diff_view_get_line_type (GITG_DIFF_VIEW (view->priv->changes_view),
+		                                           iter);
+	}
 
 	return TRUE;
 }
 
+static void
+unset_highlight (GitgCommitView *view)
+{
+	if (!view->priv->highlight_mark)
+	{
+		return;
+	}
+
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view->priv->changes_view));
+	GtkTextIter start;
+	GtkTextIter end;
+
+	gtk_text_buffer_get_iter_at_mark (buffer, &start, view->priv->highlight_mark);
+	end = start;
+
+	gtk_text_iter_forward_to_line_end (&end);
+
+	gtk_text_buffer_remove_tag (buffer, view->priv->highlight_tag, &start, &end);
+
+	gtk_text_buffer_delete_mark (buffer, view->priv->highlight_mark);
+	view->priv->highlight_mark = NULL;
+}
+
+static void
+set_highlight (GitgCommitView *view, GtkTextIter *iter)
+{
+	if (!view->priv->highlight_tag)
+	{
+		return;
+	}
+
+	GtkTextIter start = *iter;
+	GtkTextBuffer *buffer = gtk_text_iter_get_buffer (iter);
+
+	gtk_text_iter_set_line_offset (&start, 0);
+
+	if (view->priv->highlight_mark != NULL)
+	{
+		GtkTextIter mark_iter;
+		gtk_text_buffer_get_iter_at_mark (buffer,
+		                                  &mark_iter,
+		                                  view->priv->highlight_mark);
+
+		if (gtk_text_iter_equal (&start, &mark_iter))
+		{
+			return;
+		}
+
+		unset_highlight (view);
+	}
+
+	view->priv->highlight_mark = gtk_text_buffer_create_mark (buffer,
+	                                                          NULL,
+	                                                          &start,
+	                                                          TRUE);
+
+	GtkTextIter end = start;
+	gtk_text_iter_forward_to_line_end (&end);
+
+	gtk_text_buffer_apply_tag (buffer,
+	                           view->priv->highlight_tag,
+	                           &start,
+	                           &end);
+}
+
+static void
+update_cursor_view (GitgCommitView *view)
+{
+	gboolean is_hunk = FALSE;
+	GtkTextIter iter;
+	GitgDiffLineType line_type = GITG_DIFF_LINE_TYPE_NONE;
+	GdkWindow *window;
+
+	window = gtk_text_view_get_window (GTK_TEXT_VIEW (view->priv->changes_view), GTK_TEXT_WINDOW_TEXT);
+
+	if (!get_info_at_pointer (view, &iter, &is_hunk, NULL, &line_type))
+	{
+		unset_highlight (view);
+		gdk_window_set_cursor (window, NULL);
+		return;
+	}
+
+	if (is_hunk ||
+	    line_type == GITG_DIFF_LINE_TYPE_ADD ||
+	    line_type == GITG_DIFF_LINE_TYPE_REMOVE)
+	{
+		gdk_window_set_cursor (window, view->priv->hand);
+		set_highlight (view, &iter);
+	}
+	else
+	{
+		gdk_window_set_cursor (window, NULL);
+		unset_highlight (view);
+	}
+}
+
 static gboolean
-view_event(GtkWidget *widget, GdkEventAny *event, GitgCommitView *view)
+view_event (GtkWidget *widget, GdkEventAny *event, GitgCommitView *view)
 {
 	GtkTextWindowType type;
-	GtkTextIter iter;
+	GtkTextBuffer *buffer;
 
-	type = gtk_text_view_get_window_type(GTK_TEXT_VIEW(widget), event->window);
+	type = gtk_text_view_get_window_type (GTK_TEXT_VIEW (widget), event->window);
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget));
 
-	if (type != GTK_TEXT_WINDOW_TEXT)
-		return FALSE;
-
-	if (event->type != GDK_MOTION_NOTIFY && event->type != GDK_BUTTON_PRESS)
-		return FALSE;
-
-	gboolean is_hunk = get_hunk_at_pointer(view, &iter, NULL);
-
-	if (event->type == GDK_MOTION_NOTIFY)
+	if (type == GTK_TEXT_WINDOW_TEXT && event->type == GDK_LEAVE_NOTIFY)
 	{
+		unset_highlight (view);
+		gdk_window_set_cursor (event->window, NULL);
+		return FALSE;
+	}
+
+	if (event->type == GDK_LEAVE_NOTIFY ||
+	    event->type == GDK_MOTION_NOTIFY ||
+	    event->type == GDK_BUTTON_PRESS ||
+	    event->type == GDK_BUTTON_RELEASE ||
+	    event->type == GDK_ENTER_NOTIFY)
+	{
+		update_cursor_view (view);
+	}
+
+	if (type == GTK_TEXT_WINDOW_TEXT && event->type == GDK_BUTTON_RELEASE &&
+	    ((GdkEventButton *)event)->button == 1 &&
+	    !gtk_text_buffer_get_has_selection (buffer))
+	{
+		GtkTextIter iter;
+		gboolean is_hunk = FALSE;
+		GitgDiffLineType line_type = GITG_DIFF_LINE_TYPE_NONE;
+
+		get_info_at_pointer (view, &iter, &is_hunk, NULL, &line_type);
+
 		if (is_hunk)
 		{
-			gdk_window_set_cursor(event->window, view->priv->hand);
-		} 
-		else
-		{
-			gdk_window_set_cursor(event->window, NULL);
+			if (handle_stage_unstage (view, &iter))
+			{
+				unset_highlight (view);
+				update_cursor_view (view);
+			}
 		}
-	}
-	else if (is_hunk && ((GdkEventButton *)event)->button == 1)
-	{
-		handle_stage_unstage(view, &iter);
+		else if (line_type == GITG_DIFF_LINE_TYPE_ADD ||
+		         line_type == GITG_DIFF_LINE_TYPE_REMOVE)
+		{
+			if (handle_stage_unstage_line (view, &iter))
+			{
+				unset_highlight (view);
+				update_cursor_view (view);
+			}
+		}
 	}
 
 	return FALSE;
+}
+
+static gchar *
+stage_unstage_label_func (GitgDiffView   *diff_view,
+                          gint            line,
+                          GitgCommitView *view)
+{
+	static gchar const *format = "<small><b>%s</b></small>";
+
+	if (line == -1)
+	{
+		static gchar const *longest_label = NULL;
+
+		gchar const *stage = _("stage");
+		gchar const *unstage = _("unstage");
+
+		if (!longest_label)
+		{
+			if (g_utf8_strlen (stage, -1) > g_utf8_strlen (unstage, -1))
+			{
+				longest_label = stage;
+			}
+			else
+			{
+				longest_label = unstage;
+			}
+		}
+
+		return g_markup_printf_escaped (format, _("stage"));
+	}
+	else if (view->priv->highlight_mark)
+	{
+		GtkTextBuffer *buffer;
+		GtkTextIter iter;
+		GtkTextIter hl_iter;
+
+		buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (diff_view));
+		gtk_text_buffer_get_iter_at_line (buffer, &iter, line);
+
+		gtk_text_buffer_get_iter_at_mark (buffer,
+		                                  &hl_iter,
+		                                  view->priv->highlight_mark);
+
+		if (gtk_text_iter_equal (&iter, &hl_iter))
+		{
+			if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
+			{
+				return g_markup_printf_escaped (format, _("stage"));
+			}
+			else
+			{
+				return g_markup_printf_escaped (format, _("unstage"));
+			}
+		}
+	}
+
+	return NULL;
 }
 
 static GtkTextBuffer *
@@ -922,6 +1312,15 @@ initialize_dnd_unstaged(GitgCommitView *view)
 }
 
 static void
+on_tag_added (GtkTextTagTable *table,
+              GtkTextTag *tag,
+              GitgCommitView *view)
+{
+	gtk_text_tag_set_priority (view->priv->highlight_tag,
+	                           gtk_text_tag_table_get_size (table) - 1);
+}
+
+static void
 gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
 	if (parent_iface.parser_finished)
@@ -953,6 +1352,15 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	set_sort_func(self->priv->store_staged);
 
 	self->priv->changes_view = GTK_SOURCE_VIEW(gtk_builder_get_object(builder, "source_view_changes"));
+
+	gtk_widget_add_events (GTK_WIDGET (self->priv->changes_view),
+	                       GDK_LEAVE_NOTIFY_MASK | GDK_ENTER_NOTIFY_MASK);
+
+	gitg_diff_view_set_label_func (GITG_DIFF_VIEW (self->priv->changes_view),
+	                               (GitgDiffViewLabelFunc)stage_unstage_label_func,
+	                               self,
+	                               NULL);
+
 	self->priv->comment_view = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "text_view_comment"));
 	self->priv->check_button_signed_off_by = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "check_button_signed_off_by"));
 	self->priv->check_button_amend = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "check_button_amend"));
@@ -999,6 +1407,63 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	set_icon_data_func(self, self->priv->tree_view_unstaged, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "unstaged_cell_renderer_icon")));
 	set_icon_data_func(self, self->priv->tree_view_staged, GTK_CELL_RENDERER(gtk_builder_get_object(builder, "staged_cell_renderer_icon")));
+
+	GtkSourceStyleScheme *scheme;
+	GtkSourceStyle *style;
+
+	scheme = gtk_source_buffer_get_style_scheme (GTK_SOURCE_BUFFER (buffer));
+	style = gtk_source_style_scheme_get_style (scheme, "current-line");
+
+	gchar *background = NULL;
+	gboolean background_set = FALSE;
+
+	gchar *foreground = NULL;
+	gboolean foreground_set = FALSE;
+
+	if (style)
+	{
+		g_object_get (style,
+		              "line-background",
+		              &background,
+		              "line-background-set",
+		              &background_set,
+		              "foreground",
+		              &foreground,
+		              "foreground-set",
+		              &foreground_set,
+		              NULL);
+
+		if (!background_set)
+		{
+			g_object_get (style,
+			              "background",
+			              &background,
+			              "background-set",
+			              &background_set,
+			              NULL);
+		}
+	}
+
+	if (background_set)
+	{
+		self->priv->highlight_tag = gtk_text_buffer_create_tag (buffer,
+		                                                        NULL,
+		                                                        "paragraph-background",
+		                                                        background,
+		                                                        "foreground",
+		                                                        foreground,
+		                                                        "foreground-set",
+		                                                        foreground_set,
+		                                                        NULL);
+
+		gtk_text_tag_set_priority (self->priv->highlight_tag,
+		                           gtk_text_tag_table_get_size (gtk_text_buffer_get_tag_table (buffer)) - 1);
+
+		g_signal_connect (gtk_text_buffer_get_tag_table (buffer),
+		                  "tag-added",
+		                  G_CALLBACK (on_tag_added),
+		                  self);
+	}
 
 	GtkTreeSelection *selection;
 
@@ -1169,12 +1634,12 @@ gitg_commit_view_class_init(GitgCommitViewClass *klass)
 }
 
 static void
-gitg_commit_view_init(GitgCommitView *self)
+gitg_commit_view_init (GitgCommitView *self)
 {
-	self->priv = GITG_COMMIT_VIEW_GET_PRIVATE(self);
+	self->priv = GITG_COMMIT_VIEW_GET_PRIVATE (self);
 
-	self->priv->runner = gitg_runner_new(10000);
-	self->priv->hand = gdk_cursor_new(GDK_HAND1);
+	self->priv->runner = gitg_runner_new (10000);
+	self->priv->hand = gdk_cursor_new (GDK_HAND1);
 }
 
 void 
@@ -1800,31 +2265,36 @@ create_context_menu_item (GitgCommitView *view, gchar const *action)
 }
 
 static void 
-on_changes_view_popup_menu(GtkTextView *textview, GtkMenu *menu, GitgCommitView *view)
+on_changes_view_popup_menu (GtkTextView *textview, GtkMenu *menu, GitgCommitView *view)
 {
-	/* check the hunk */
-	if (!get_hunk_at_pointer(view, &view->priv->context_iter, NULL))
-		return;
+	gboolean is_hunk;
 
-	GtkWidget *separator = gtk_separator_menu_item_new();
-	gtk_widget_show(separator);
+	get_info_at_pointer (view, &view->priv->context_iter, &is_hunk, NULL, NULL);
+
+	if (!is_hunk)
+	{
+		return;
+	}
+
+	GtkWidget *separator = gtk_separator_menu_item_new ();
+	gtk_widget_show (separator);
 
 	view->priv->context_type = CONTEXT_TYPE_HUNK;
 
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), separator);
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu), separator);
 
 	if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_CACHED)
 	{
-		GtkWidget *unstage = create_context_menu_item(view, "UnstageChangesAction");
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), unstage);
+		GtkWidget *unstage = create_context_menu_item (view, "UnstageChangesAction");
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), unstage);
 	}
 	else
 	{
-		GtkWidget *stage = create_context_menu_item(view, "StageChangesAction");
-		GtkWidget *revert = create_context_menu_item(view, "RevertChangesAction");
+		GtkWidget *stage = create_context_menu_item (view, "StageChangesAction");
+		GtkWidget *revert = create_context_menu_item (view, "RevertChangesAction");
 
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), stage);
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), revert);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), stage);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), revert);
 	}
 }
 

@@ -71,4 +71,8 @@ GtkCellRenderer *gitg_utils_find_cell_at_pos (GtkTreeView *tree_view, GtkTreeVie
 
 void gitg_utils_restore_pane_position (GtkPaned *paned, gint position, gboolean reversed);
 
+gchar *gitg_utils_rewrite_hunk_counters (gchar const *hunk, guint old_count, guint new_count);
+void gitg_utils_rounded_rectangle (cairo_t *ctx, gdouble x, gdouble y, gdouble width, gdouble height, gdouble radius);
+
+
 #endif /* __GITG_UTILS_H__ */

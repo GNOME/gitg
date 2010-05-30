@@ -22,6 +22,8 @@
 
 #include "gitg-label-renderer.h"
 #include "gitg-ref.h"
+#include "gitg-utils.h"
+
 #include <math.h>
 
 #define PADDING 4
@@ -64,23 +66,6 @@ gitg_label_renderer_width(GtkWidget *widget, PangoFontDescription *description, 
 	//g_object_unref(ctx);
 
 	return width + MARGIN;
-}
-
-static void
-rounded_rectangle(cairo_t *ctx, float x, float y, float width, float height, float radius)
-{
-	cairo_move_to(ctx, x + radius, y);
-	cairo_rel_line_to(ctx, width - 2 * radius, 0);
-	cairo_arc(ctx, x + width - radius, y + radius, radius, 1.5 * M_PI, 0.0);
-
-	cairo_rel_line_to(ctx, 0, height - 2 * radius);
-	cairo_arc(ctx, x + width - radius, y + height - radius, radius, 0.0, 0.5 * M_PI);
-
-	cairo_rel_line_to(ctx, -(width - radius * 2), 0);
-	cairo_arc(ctx, x + radius, y + height - radius, radius, 0.5 * M_PI, M_PI);
-
-	cairo_rel_line_to(ctx, 0, -(height - radius * 2));
-	cairo_arc(ctx, x + radius, y + radius, radius, M_PI, 1.5 * M_PI);
 }
 
 static void
@@ -177,7 +162,11 @@ render_label (cairo_t *context, PangoLayout *layout, GitgRef *ref, gint x, gint 
 	pango_layout_get_pixel_size(layout, &w, &h);
 
 	// draw rounded rectangle
-	rounded_rectangle(context, x + 0.5, y + MARGIN + 0.5, w + PADDING * 2, height - MARGIN * 2, 5);
+	gitg_utils_rounded_rectangle (context, x + 0.5,
+	                              y + MARGIN + 0.5,
+	                              w + PADDING * 2,
+	                              height - MARGIN * 2,
+	                              5);
 
 	set_source_for_ref_type(context, ref, use_state);
 	cairo_fill_preserve(context);

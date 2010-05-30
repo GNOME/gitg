@@ -325,7 +325,7 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 
 	cairo_t *cr = gdk_cairo_create(window);
 
-	cairo_rectangle(cr, area->x, area->y, area->width, area->height);
+	gdk_cairo_rectangle (cr, area);
 	cairo_clip(cr);
 
 	draw_paths(self, cr, area);

@@ -24,6 +24,7 @@
 #include <glib.h>
 #include <stdlib.h>
 #include <gconf/gconf-client.h>
+#include <math.h>
 
 #include "gitg-utils.h"
 #include "gitg-dirs.h"
@@ -595,4 +596,79 @@ gitg_utils_restore_pane_position (GtkPaned *paned, gint position, gboolean rever
 	                       info,
 	                       (GClosureNotify)free_paned_restore_info,
 	                       G_CONNECT_AFTER);
+}
+
+gchar *
+gitg_utils_rewrite_hunk_counters (gchar const *header,
+                                  guint old_count,
+                                  guint new_count)
+{
+	if (!header)
+	{
+		return NULL;
+	}
+
+	gchar *copy = g_strdup (header);
+	gchar *ptr1 = g_utf8_strchr (copy, -1, ',');
+
+	if (!ptr1)
+	{
+		g_free (copy);
+		return NULL;
+	}
+
+	gchar *ptrs1 = g_utf8_strchr (ptr1 + 1, -1, ' ');
+
+	if (!ptrs1)
+	{
+		g_free (copy);
+		return NULL;
+	}
+
+	gchar *ptr2 = g_utf8_strchr (ptrs1 + 1, -1, ',');
+
+	if (!ptr2)
+	{
+		g_free (copy);
+		return NULL;
+	}
+
+	gchar *ptrs2 = g_utf8_strchr (ptr2 + 1, -1, ' ');
+
+	if (!ptrs2)
+	{
+		g_free (copy);
+		return NULL;
+	}
+
+	*ptr1 = *ptr2 = '\0';
+
+	gchar *ret;
+
+	ret = g_strdup_printf ("%s,%d%s,%d%s",
+	                       copy,
+	                       old_count,
+	                       ptrs1,
+	                       new_count,
+	                       ptrs2);
+
+	g_free (copy);
+	return ret;
+}
+
+void
+gitg_utils_rounded_rectangle(cairo_t *ctx, gdouble x, gdouble y, gdouble width, gdouble height, gdouble radius)
+{
+	cairo_move_to (ctx, x + radius, y);
+	cairo_rel_line_to (ctx, width - 2 * radius, 0);
+	cairo_arc (ctx, x + width - radius, y + radius, radius, 1.5 * M_PI, 0.0);
+
+	cairo_rel_line_to (ctx, 0, height - 2 * radius);
+	cairo_arc (ctx, x + width - radius, y + height - radius, radius, 0.0, 0.5 * M_PI);
+
+	cairo_rel_line_to (ctx, -(width - radius * 2), 0);
+	cairo_arc (ctx, x + radius, y + height - radius, radius, 0.5 * M_PI, M_PI);
+
+	cairo_rel_line_to (ctx, 0, -(height - radius * 2));
+	cairo_arc (ctx, x + radius, y + radius, radius, M_PI, 1.5 * M_PI);
 }

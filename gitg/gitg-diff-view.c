@@ -23,6 +23,7 @@
 #include "gitg-diff-view.h"
 #include "gitg-types.h"
 #include "gitg-diff-line-renderer.h"
+#include "gitg-utils.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -39,11 +40,11 @@
 
 #define IDLE_SCAN_COUNT 30
 
-#define GITG_DIFF_ITER_GET_VIEW(iter) ((GitgDiffView *)iter->userdata)
-#define GITG_DIFF_ITER_GET_REGION(iter) ((Region *)iter->userdata2)
+#define GITG_DIFF_ITER_GET_VIEW(iter) ((GitgDiffView *)((iter)->userdata))
+#define GITG_DIFF_ITER_GET_REGION(iter) ((Region *)((iter)->userdata2))
 
-#define GITG_DIFF_ITER_SET_REGION(iter, region) (iter->userdata2 = region)
-#define GITG_DIFF_ITER_SET_VIEW(iter, view) (iter->userdata = view)
+#define GITG_DIFF_ITER_SET_REGION(iter, region) ((iter)->userdata2 = region)
+#define GITG_DIFF_ITER_SET_VIEW(iter, view) ((iter)->userdata = view)
 
 static void on_buffer_insert_text(GtkTextBuffer *buffer, GtkTextIter *iter, gchar const *text, gint len, GitgDiffView *view);
 static void on_buffer_delete_range(GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end, GitgDiffView *view);
@@ -124,6 +125,12 @@ struct _GitgDiffViewPrivate
 	Region *lines_current_region;
 	gint lines_previous_line;
 	guint lines_counters[2];
+
+	gboolean ignore_changes;
+
+	GitgDiffViewLabelFunc label_func;
+	gpointer label_func_user_data;
+	GDestroyNotify label_func_destroy_notify;
 };
 
 G_DEFINE_TYPE(GitgDiffView, gitg_diff_view, GTK_TYPE_SOURCE_VIEW)
@@ -185,6 +192,12 @@ gitg_diff_view_finalize (GObject *object)
 
 	regions_free (view, TRUE);
 	g_sequence_free (view->priv->regions_index);
+
+	if (view->priv->label_func &&
+	    view->priv->label_func_destroy_notify)
+	{
+		view->priv->label_func_destroy_notify (view->priv->label_func_user_data);
+	}
 
 	G_OBJECT_CLASS (gitg_diff_view_parent_class)->finalize (object);
 }
@@ -395,7 +408,7 @@ region_to_iter (GitgDiffView *view, Region *region, GitgDiffIter *iter)
 }
 
 static void
-add_region(GitgDiffView *view, Region *region)
+add_region (GitgDiffView *view, Region *region)
 {
 	if (view->priv->last_region)
 	{
@@ -404,7 +417,7 @@ add_region(GitgDiffView *view, Region *region)
 
 		if (view->priv->last_region->type == GITG_DIFF_ITER_TYPE_HUNK)
 		{
-			ensure_max_line(view, (Hunk *)view->priv->last_region);
+			ensure_max_line (view, (Hunk *)view->priv->last_region);
 		}
 	}
 	else
@@ -622,6 +635,16 @@ line_renderer_size_func (GtkSourceGutter *gutter,
 	              "line_old", view->priv->max_line_count,
 	              "line_new", view->priv->max_line_count,
 	              NULL);
+
+	if (view->priv->label_func)
+	{
+		gchar *label = view->priv->label_func (view,
+		                                       -1,
+		                                       view->priv->label_func_user_data);
+
+		g_object_set (cell, "label", label, NULL);
+		g_free (label);
+	}
 }
 
 static void
@@ -676,6 +699,16 @@ line_renderer_data_func (GtkSourceGutter *gutter,
 		view->priv->lines_counters[0] = view->priv->lines_counters[1] = 0;
 		*current = (*current)->next->visible ? (*current)->next : NULL;
 	}
+
+	if (view->priv->label_func)
+	{
+		gchar *label = view->priv->label_func (view,
+		                                       line_number,
+		                                       view->priv->label_func_user_data);
+
+		g_object_set (cell, "label", label, NULL);
+		g_free (label);
+	}
 }
 
 static gint
@@ -710,44 +743,176 @@ gitg_diff_view_set_diff_enabled(GitgDiffView *view, gboolean enabled)
 	g_object_notify(G_OBJECT(view), "diff-enabled");
 }
 
-void
-gitg_diff_view_remove_hunk(GitgDiffView *view, GtkTextIter *iter)
+static void
+offset_regions (Region *region,
+                gint    offset)
 {
-	g_return_if_fail(GITG_IS_DIFF_VIEW(view));
-
-	/* removes hunk at iter and if it was the last hunk of a file, also removes
-	   the file header */
-	Region *region = find_current_region(view, gtk_text_iter_get_line(iter));
-
-	if (!region)
-		return;
-
-	GtkTextIter start;
-	GtkTextIter end;
-
-	gtk_text_buffer_get_iter_at_line(view->priv->current_buffer, &start, region->line);
-
-	if (region->next)
+	while (region)
 	{
-		gtk_text_buffer_get_iter_at_line(view->priv->current_buffer, &end, region->next->line - 1);
-		gtk_text_iter_forward_line(&end);
+		region->line += offset;
+		region = region->next;
+	}
+}
+
+static gint
+compare_regions (Region   *first,
+                 Region   *second,
+                 gpointer  user_data)
+{
+	return first->line < second->line ? -1 : (first->line > second->line ? 1 : 0);
+}
+
+static GSequenceIter *
+region_get_iter (GitgDiffView *view, Region *region)
+{
+	GSequenceIter *iter;
+
+	iter = g_sequence_search (view->priv->regions_index,
+	                          region,
+	                          (GCompareDataFunc)compare_regions,
+	                          NULL);
+
+	if (g_sequence_iter_is_end (iter))
+	{
+		return g_sequence_iter_prev (iter);
 	}
 	else
 	{
-		gtk_text_buffer_get_end_iter(view->priv->current_buffer, &end);
-	}
+		Region *reg = g_sequence_get (iter);
 
-	Region *prev = find_current_region(view, region->line - 1);
-
-	if ((!region->next || region->next->type == GITG_DIFF_ITER_TYPE_HEADER) && (!prev || prev->type == GITG_DIFF_ITER_TYPE_HEADER))
-	{
-		if (!prev)
-			gtk_text_buffer_get_start_iter(view->priv->current_buffer, &start);
+		if (reg->line != region->line)
+		{
+			return g_sequence_iter_prev (iter);
+		}
 		else
-			gtk_text_buffer_get_iter_at_line(view->priv->current_buffer, &start, region->line);
+		{
+			return iter;
+		}
+	}
+}
+
+static void
+remove_regions_sequence (GitgDiffView *view,
+                         Region       *from,
+                         Region       *to)
+{
+	GSequenceIter *start;
+	GSequenceIter *end;
+
+	start = region_get_iter (view, from);
+
+	if (to)
+	{
+		end = g_sequence_iter_prev (region_get_iter (view, to));
+	}
+	else
+	{
+		end = g_sequence_get_end_iter (view->priv->regions_index);
 	}
 
-	gtk_text_buffer_delete(view->priv->current_buffer, &start, &end);
+	g_sequence_remove_range (start, end);
+}
+
+static void
+remove_regions (GitgDiffView *view, Region *from, Region *to)
+{
+	GtkTextBuffer *buffer;
+	GtkTextIter start;
+	GtkTextIter end;
+	gint offset;
+
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+
+	if (from->prev)
+	{
+		if (to)
+		{
+			from->prev->next = to;
+			to->prev = from->prev;
+		}
+		else
+		{
+			from->prev->next = NULL;
+		}
+	}
+	else
+	{
+		if (to)
+		{
+			view->priv->regions = to;
+			to->prev = NULL;
+		}
+		else
+		{
+			view->priv->regions = NULL;
+		}
+	}
+
+	if (!to)
+	{
+		view->priv->last_region = from->prev;
+	}
+
+	remove_regions_sequence (view, from, to);
+
+	gtk_text_buffer_get_iter_at_line (buffer, &start, from->line);
+
+	if (to)
+	{
+		gtk_text_buffer_get_iter_at_line (buffer, &end, to->line);
+	}
+	else
+	{
+		gtk_text_buffer_get_end_iter (buffer, &end);
+	}
+
+	/* Remove and free from sequence */
+	while (from && from != to)
+	{
+		Region *next = from->next;
+
+		//region_free (from);
+		from = next;
+	}
+
+	offset = gtk_text_iter_get_line (&start) - gtk_text_iter_get_line (&end);
+
+	offset_regions (to, offset);
+
+	view->priv->ignore_changes = TRUE;
+	gtk_text_buffer_begin_user_action (buffer);
+	gtk_text_buffer_delete (buffer, &start, &end);
+	gtk_text_buffer_end_user_action (buffer);
+	view->priv->ignore_changes = FALSE;
+}
+
+void
+gitg_diff_view_remove_hunk (GitgDiffView *view, GtkTextIter *iter)
+{
+	g_return_if_fail (GITG_IS_DIFF_VIEW (view));
+	g_return_if_fail (iter != NULL);
+
+	/* removes hunk at iter and if it was the last hunk of a file, also removes
+	   the file header */
+	Region *region = find_current_region (view,
+	                                      gtk_text_iter_get_line (iter));
+
+	if (!region)
+	{
+		return;
+	}
+
+	Region *from = region;
+	Region *to = region->next;
+
+	if (region->prev && region->prev->type == GITG_DIFF_ITER_TYPE_HEADER &&
+	    (!to || to->type == GITG_DIFF_ITER_TYPE_HEADER))
+	{
+		/* also remove the header in this case */
+		from = region->prev;
+	}
+
+	remove_regions (view, from, to);
 }
 
 gboolean
@@ -1014,6 +1179,11 @@ try_scan(GitgDiffView *view)
 static void
 on_buffer_delete_range(GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end, GitgDiffView *view)
 {
+	if (view->priv->ignore_changes)
+	{
+		return;
+	}
+
 	regions_free(view, FALSE);
 
 	if (iter_in_view(view, start) || iter_in_view(view, end))
@@ -1026,6 +1196,11 @@ on_buffer_delete_range(GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *e
 static void 
 on_buffer_insert_text(GtkTextBuffer *buffer, GtkTextIter *iter, gchar const *text, gint len, GitgDiffView *view)
 {
+	if (view->priv->ignore_changes)
+	{
+		return;
+	}
+
 	/* if region is in current view and not scanned, issue scan now */
 	if (iter_in_view(view, iter))
 		try_scan(view);
@@ -1088,20 +1263,12 @@ gitg_diff_view_get_hunk_at_iter (GitgDiffView *view,
 	return TRUE;
 }
 
-void
-gitg_diff_iter_get_bounds (GitgDiffIter const *iter,
-                           GtkTextIter *start,
-                           GtkTextIter *end)
+static void
+region_get_bounds (GitgDiffView *view,
+                   Region *region,
+                   GtkTextIter *start,
+                   GtkTextIter *end)
 {
-	g_return_if_fail (iter != NULL);
-	g_return_if_fail (GITG_IS_DIFF_VIEW (GITG_DIFF_ITER_GET_VIEW (iter)));
-	g_return_if_fail (GITG_DIFF_ITER_GET_REGION (iter) != NULL);
-	g_return_if_fail (start != NULL);
-	g_return_if_fail (end != NULL);
-
-	GitgDiffView *view = GITG_DIFF_ITER_GET_VIEW (iter);
-	Region *region = GITG_DIFF_ITER_GET_REGION (iter);
-
 	gtk_text_buffer_get_iter_at_line (view->priv->current_buffer,
 	                                  start,
 	                                  region->line);
@@ -1119,3 +1286,204 @@ gitg_diff_iter_get_bounds (GitgDiffIter const *iter,
 	}
 }
 
+void
+gitg_diff_iter_get_bounds (GitgDiffIter const *iter,
+                           GtkTextIter *start,
+                           GtkTextIter *end)
+{
+	g_return_if_fail (iter != NULL);
+	g_return_if_fail (GITG_IS_DIFF_VIEW (GITG_DIFF_ITER_GET_VIEW (iter)));
+	g_return_if_fail (GITG_DIFF_ITER_GET_REGION (iter) != NULL);
+	g_return_if_fail (start != NULL);
+	g_return_if_fail (end != NULL);
+
+	GitgDiffView *view = GITG_DIFF_ITER_GET_VIEW (iter);
+	Region *region = GITG_DIFF_ITER_GET_REGION (iter);
+
+	region_get_bounds (view, region, start, end);
+}
+
+GitgDiffLineType
+gitg_diff_view_get_line_type (GitgDiffView *view, GtkTextIter const *iter)
+{
+	g_return_val_if_fail (GITG_IS_DIFF_VIEW (view), GITG_DIFF_LINE_TYPE_NONE);
+	g_return_val_if_fail (iter != NULL, GITG_DIFF_LINE_TYPE_NONE);
+
+	GitgDiffIter diff_iter;
+
+	if (!gitg_diff_view_get_hunk_at_iter (view, iter, &diff_iter))
+	{
+		return GITG_DIFF_LINE_TYPE_NONE;
+	}
+
+	GtkTextIter start = *iter;
+	gtk_text_iter_set_line_offset (&start, 0);
+
+	gunichar ch = gtk_text_iter_get_char (&start);
+
+	switch (ch)
+	{
+		case '+':
+			return GITG_DIFF_LINE_TYPE_ADD;
+		case '-':
+			return GITG_DIFF_LINE_TYPE_REMOVE;
+		default:
+			return GITG_DIFF_LINE_TYPE_NONE;
+	}
+}
+
+static void
+calculate_hunk_header_counters (GitgDiffView *view,
+                                Region       *region)
+{
+	GtkTextIter start;
+	GtkTextIter end;
+	GtkTextIter begin;
+
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+
+	region_get_bounds (view, region, &start, &end);
+
+	begin = start;
+
+	guint new_count = 0;
+	guint old_count = 0;
+
+	gboolean isempty = TRUE;
+
+	if (gtk_text_iter_forward_line (&start))
+	{
+		while (gtk_text_iter_compare (&start, &end) < 0)
+		{
+			GitgDiffLineType line_type;
+			GtkTextIter line_end = start;
+
+			gtk_text_iter_forward_to_line_end (&line_end);
+
+			line_type = gitg_diff_view_get_line_type (view, &start);
+
+			if (line_type == GITG_DIFF_LINE_TYPE_NONE ||
+			    line_type == GITG_DIFF_LINE_TYPE_ADD)
+			{
+				++new_count;
+			}
+
+			if (line_type == GITG_DIFF_LINE_TYPE_NONE ||
+			    line_type == GITG_DIFF_LINE_TYPE_REMOVE)
+			{
+				++old_count;
+			}
+
+			if (line_type != GITG_DIFF_LINE_TYPE_NONE)
+			{
+				isempty = FALSE;
+			}
+
+			if (!gtk_text_iter_forward_line (&start))
+			{
+				break;
+			}
+		}
+	}
+
+	if (isempty)
+	{
+		gitg_diff_view_remove_hunk (view, &begin);
+	}
+	else
+	{
+		end = begin;
+		gtk_text_iter_forward_to_line_end (&end);
+
+		gchar *header = gtk_text_buffer_get_text (buffer, &begin, &end, TRUE);
+		gchar *ret;
+
+		ret = gitg_utils_rewrite_hunk_counters (header, old_count, new_count);
+		g_free (header);
+
+		gtk_text_buffer_delete (buffer, &begin, &end);
+		gtk_text_buffer_insert (buffer, &begin, ret, -1);
+
+		g_free (ret);
+	}
+}
+
+void
+gitg_diff_view_clear_line (GitgDiffView *view,
+                           GtkTextIter const *iter,
+                           GitgDiffLineType old_type,
+                           GitgDiffLineType new_type)
+{
+	g_return_if_fail (GITG_IS_DIFF_VIEW (view));
+	g_return_if_fail (iter != NULL);
+
+	GitgDiffLineType line_type;
+	GitgDiffIter diff_iter;
+
+	line_type = gitg_diff_view_get_line_type (view, iter);
+
+	if (line_type == GITG_DIFF_LINE_TYPE_NONE)
+	{
+		return;
+	}
+
+	gitg_diff_view_get_hunk_at_iter (view, iter, &diff_iter);
+
+	GtkTextIter start = *iter;
+	GtkTextIter end;
+	GtkTextBuffer *buffer;
+	Region *region;
+
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+
+	gtk_text_iter_set_line_offset (&start, 0);
+	end = start;
+
+	gtk_text_buffer_begin_user_action (buffer);
+	view->priv->ignore_changes = TRUE;
+
+	region = GITG_DIFF_ITER_GET_REGION (&diff_iter);
+
+	if (line_type == new_type)
+	{
+		/* means the line now just becomes context */
+		gtk_text_iter_forward_char (&end);
+		gtk_text_buffer_delete (buffer, &start, &end);
+		gtk_text_buffer_insert (buffer, &start, " ", 1);
+	}
+	else
+	{
+		/* means the line should be removed */
+		if (!gtk_text_iter_forward_line (&end))
+		{
+			gtk_text_iter_forward_to_line_end (&end);
+		}
+
+		gtk_text_buffer_delete (buffer, &start, &end);
+		offset_regions (region->next, -1);
+	}
+
+	calculate_hunk_header_counters (view, region);
+
+	view->priv->ignore_changes = FALSE;
+	gtk_text_buffer_end_user_action (buffer);
+}
+
+void
+gitg_diff_view_set_label_func (GitgDiffView *view,
+                               GitgDiffViewLabelFunc func,
+                               gpointer user_data,
+                               GDestroyNotify destroy_notify)
+{
+	g_return_if_fail (GITG_IS_DIFF_VIEW (view));
+
+	if (view->priv->label_func &&
+	    view->priv->label_func_destroy_notify)
+	{
+		view->priv->label_func_destroy_notify (view->priv->label_func_user_data);
+	}
+
+	view->priv->label_func = func;
+	view->priv->label_func_user_data = user_data;
+	view->priv->label_func_destroy_notify = destroy_notify;
+}
