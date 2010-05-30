@@ -552,6 +552,11 @@ gitg_drag_source_event_cb (GtkWidget   *widget,
 {
 	gboolean retval = FALSE;
 
+	if (event->any.window != gtk_tree_view_get_bin_window (GTK_TREE_VIEW (widget)))
+	{
+		return FALSE;
+	}
+
 	switch (event->type)
 	{
 		case GDK_BUTTON_PRESS:
