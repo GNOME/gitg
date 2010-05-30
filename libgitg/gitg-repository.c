@@ -130,7 +130,9 @@ gitg_repository_error_quark ()
 	static GQuark quark = 0;
 
 	if (G_UNLIKELY (quark == 0))
+	{
 		quark = g_quark_from_static_string ("GitgRepositoryErrorQuark");
+	}
 
 	return quark;
 }
@@ -151,7 +153,8 @@ tree_model_get_n_columns (GtkTreeModel *tree_model)
 }
 
 static GType
-tree_model_get_column_type (GtkTreeModel *tree_model, gint index)
+tree_model_get_column_type (GtkTreeModel *tree_model,
+                            gint          index)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (tree_model), G_TYPE_INVALID);
 	g_return_val_if_fail (index < N_COLUMNS && index >= 0, G_TYPE_INVALID);
@@ -160,14 +163,18 @@ tree_model_get_column_type (GtkTreeModel *tree_model, gint index)
 }
 
 static void
-fill_iter (GitgRepository *repository, gint index, GtkTreeIter *iter)
+fill_iter (GitgRepository *repository,
+           gint            index,
+           GtkTreeIter    *iter)
 {
 	iter->stamp = repository->priv->stamp;
 	iter->user_data = GINT_TO_POINTER (index);
 }
 
 static gboolean
-tree_model_get_iter (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreePath *path)
+tree_model_get_iter (GtkTreeModel *tree_model,
+                     GtkTreeIter  *iter,
+                     GtkTreePath  *path)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (tree_model), FALSE);
 
@@ -190,7 +197,8 @@ tree_model_get_iter (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreePath *p
 }
 
 static GtkTreePath *
-tree_model_get_path (GtkTreeModel *tree_model, GtkTreeIter *iter)
+tree_model_get_path (GtkTreeModel *tree_model,
+                     GtkTreeIter  *iter)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (tree_model), NULL);
 
@@ -201,7 +209,10 @@ tree_model_get_path (GtkTreeModel *tree_model, GtkTreeIter *iter)
 }
 
 static void
-tree_model_get_value (GtkTreeModel *tree_model, GtkTreeIter *iter, gint column, GValue *value)
+tree_model_get_value (GtkTreeModel *tree_model,
+                      GtkTreeIter  *iter,
+                      gint          column,
+                      GValue       *value)
 {
 	g_return_if_fail (GITG_IS_REPOSITORY (tree_model));
 	g_return_if_fail (column >= 0 && column < N_COLUMNS);
@@ -237,7 +248,8 @@ tree_model_get_value (GtkTreeModel *tree_model, GtkTreeIter *iter, gint column, 
 }
 
 static gboolean
-tree_model_iter_next (GtkTreeModel *tree_model, GtkTreeIter *iter)
+tree_model_iter_next (GtkTreeModel *tree_model,
+                      GtkTreeIter  *iter)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (tree_model), FALSE);
 
@@ -254,13 +266,17 @@ tree_model_iter_next (GtkTreeModel *tree_model, GtkTreeIter *iter)
 }
 
 static gboolean
-tree_model_iter_children (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *parent)
+tree_model_iter_children (GtkTreeModel *tree_model,
+                          GtkTreeIter  *iter,
+                          GtkTreeIter  *parent)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (tree_model), FALSE);
 
 	// Only root has children, because it's a flat list
 	if (parent != NULL)
+	{
 		return FALSE;
+	}
 
 	GitgRepository *rp = GITG_REPOSITORY (tree_model);
 	fill_iter (rp, 0, iter);
@@ -269,7 +285,8 @@ tree_model_iter_children (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIt
 }
 
 static gboolean
-tree_model_iter_has_child (GtkTreeModel *tree_model, GtkTreeIter *iter)
+tree_model_iter_has_child (GtkTreeModel *tree_model,
+                           GtkTreeIter  *iter)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (tree_model), FALSE);
 
@@ -278,7 +295,8 @@ tree_model_iter_has_child (GtkTreeModel *tree_model, GtkTreeIter *iter)
 }
 
 static gint
-tree_model_iter_n_children (GtkTreeModel *tree_model, GtkTreeIter *iter)
+tree_model_iter_n_children (GtkTreeModel *tree_model,
+                            GtkTreeIter  *iter)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (tree_model), 0);
 	GitgRepository *rp = GITG_REPOSITORY (tree_model);
@@ -287,13 +305,18 @@ tree_model_iter_n_children (GtkTreeModel *tree_model, GtkTreeIter *iter)
 }
 
 static gboolean
-tree_model_iter_nth_child (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *parent, gint n)
+tree_model_iter_nth_child (GtkTreeModel *tree_model,
+                           GtkTreeIter  *iter,
+                           GtkTreeIter  *parent,
+                           gint          n)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (tree_model), FALSE);
 	g_return_val_if_fail (n >= 0, FALSE);
 
 	if (parent)
+	{
 		return FALSE;
+	}
 
 	GitgRepository *rp = GITG_REPOSITORY (tree_model);
 	g_return_val_if_fail (n < rp->priv->size, FALSE);
@@ -304,7 +327,9 @@ tree_model_iter_nth_child (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeI
 }
 
 static gboolean
-tree_model_iter_parent (GtkTreeModel *tree_model, GtkTreeIter *iter, GtkTreeIter *child)
+tree_model_iter_parent (GtkTreeModel *tree_model,
+                        GtkTreeIter  *iter,
+                        GtkTreeIter  *child)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (tree_model), FALSE);
 	return FALSE;
@@ -328,7 +353,8 @@ gitg_repository_tree_model_iface_init (GtkTreeModelIface *iface)
 }
 
 static void
-do_clear (GitgRepository *repository, gboolean emit)
+do_clear (GitgRepository *repository,
+          gboolean        emit)
 {
 	gint i;
 	GtkTreePath *path = gtk_tree_path_new_from_indices (repository->priv->size - 1, -1);
@@ -429,7 +455,10 @@ gitg_repository_finalize (GObject *object)
 }
 
 static void
-gitg_repository_set_property (GObject *object, guint prop_id, GValue const *value, GParamSpec *pspec)
+gitg_repository_set_property (GObject      *object,
+                              guint         prop_id,
+                              GValue const *value,
+                              GParamSpec   *pspec)
 {
 	GitgRepository *self = GITG_REPOSITORY (object);
 
@@ -490,7 +519,10 @@ gitg_repository_set_property (GObject *object, guint prop_id, GValue const *valu
 }
 
 static void
-gitg_repository_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
+gitg_repository_get_property (GObject    *object,
+                              guint       prop_id,
+                              GValue     *value,
+                              GParamSpec *pspec)
 {
 	GitgRepository *self = GITG_REPOSITORY (object);
 
@@ -545,7 +577,9 @@ gitg_repository_get_property (GObject *object, guint prop_id, GValue *value, GPa
 }
 
 static gchar *
-parse_ref_intern (GitgRepository *repository, gchar const *ref, gboolean symbolic)
+parse_ref_intern (GitgRepository *repository,
+                  gchar const    *ref,
+                  gboolean        symbolic)
 {
 	gchar **ret = gitg_repository_command_with_outputv (repository,
 	                                                    NULL,
@@ -688,100 +722,115 @@ gitg_repository_class_init (GitgRepositoryClass *klass)
 	                                                      GITG_TYPE_RUNNER,
 	                                                      G_PARAM_READABLE));
 
-	g_object_class_install_property (object_class, PROP_SHOW_STAGED,
-						 g_param_spec_boolean ("show-staged",
-								       "Show Staged",
-								       "Show staged",
-								       FALSE,
-								       G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_SHOW_STAGED,
+	                                 g_param_spec_boolean ("show-staged",
+	                                                       "Show Staged",
+	                                                       "Show staged",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE));
 
-	g_object_class_install_property (object_class, PROP_SHOW_UNSTAGED,
-						 g_param_spec_boolean ("show-unstaged",
-								       "Show Unstaged",
-								       "Show unstaged",
-								       FALSE,
-								       G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_SHOW_UNSTAGED,
+	                                 g_param_spec_boolean ("show-unstaged",
+	                                                       "Show Unstaged",
+	                                                       "Show unstaged",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE));
 
-	g_object_class_install_property (object_class, PROP_SHOW_STASH,
-						 g_param_spec_boolean ("show-stash",
-								       "Show Stash",
-								       "Show stash",
-								       FALSE,
-								       G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_SHOW_STASH,
+	                                 g_param_spec_boolean ("show-stash",
+	                                                       "Show Stash",
+	                                                       "Show stash",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE));
 
-	g_object_class_install_property (object_class, PROP_TOPO_ORDER,
-						 g_param_spec_boolean ("topo-order",
-								       "Topo order",
-								       "Show in topological order",
-								       FALSE,
-								       G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_TOPO_ORDER,
+	                                 g_param_spec_boolean ("topo-order",
+	                                                       "Topo order",
+	                                                       "Show in topological order",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE));
 
 	/* FIXME: gitg-lanes shouldn't be an object? */
-	g_object_class_install_property (object_class, PROP_INACTIVE_MAX,
-					 g_param_spec_int ("inactive-max",
-							          "INACTIVE_MAX",
-							          "Maximum inactivity on a lane before collapsing",
-							          1,
-							          G_MAXINT,
-							          30,
-							          G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_INACTIVE_MAX,
+	                                 g_param_spec_int ("inactive-max",
+	                                                   "INACTIVE_MAX",
+	                                                   "Maximum inactivity on a lane before collapsing",
+	                                                   1,
+	                                                   G_MAXINT,
+	                                                   30,
+	                                                   G_PARAM_READWRITE));
 
-	g_object_class_install_property (object_class, PROP_INACTIVE_COLLAPSE,
-					 g_param_spec_int ("inactive-collapse",
-							          "INACTIVE_COLLAPSE",
-							          "Number of revisions to collapse",
-							          1,
-							          G_MAXINT,
-							          10,
-							          G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_INACTIVE_COLLAPSE,
+	                                 g_param_spec_int ("inactive-collapse",
+	                                                   "INACTIVE_COLLAPSE",
+	                                                   "Number of revisions to collapse",
+	                                                   1,
+	                                                   G_MAXINT,
+	                                                   10,
+	                                                   G_PARAM_READWRITE));
 
-	g_object_class_install_property (object_class, PROP_INACTIVE_GAP,
-					 g_param_spec_int ("inactive-gap",
-							          "INACTIVE_GAP",
-							          "Minimum of revisions to leave between collapse and expand",
-							          1,
-							          G_MAXINT,
-							          10,
-							          G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_INACTIVE_GAP,
+	                                 g_param_spec_int ("inactive-gap",
+	                                                   "INACTIVE_GAP",
+	                                                   "Minimum of revisions to leave between collapse and expand",
+	                                                   1,
+	                                                   G_MAXINT,
+	                                                   10,
+	                                                   G_PARAM_READWRITE));
 
-	g_object_class_install_property (object_class, PROP_INACTIVE_ENABLED,
-					 g_param_spec_boolean ("inactive-enabled",
-							              "INACTIVE_ENABLED",
-							              "Lane collapsing enabled",
-							              TRUE,
-							              G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_INACTIVE_ENABLED,
+	                                 g_param_spec_boolean ("inactive-enabled",
+	                                                       "INACTIVE_ENABLED",
+	                                                       "Lane collapsing enabled",
+	                                                       TRUE,
+	                                                       G_PARAM_READWRITE));
 
 	repository_signals[LOAD] =
 		g_signal_new ("load",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (GitgRepositoryClass, load),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE,
-			      0);
+		              G_OBJECT_CLASS_TYPE (object_class),
+		              G_SIGNAL_RUN_LAST,
+		              G_STRUCT_OFFSET (GitgRepositoryClass,
+		              load),
+		              NULL,
+		              NULL,
+		              g_cclosure_marshal_VOID__VOID,
+		              G_TYPE_NONE,
+		              0);
 
 	repository_signals[LOADED] =
 		g_signal_new ("loaded",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (GitgRepositoryClass, loaded),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE,
-			      0);
+		              G_OBJECT_CLASS_TYPE (object_class),
+		              G_SIGNAL_RUN_LAST,
+		              G_STRUCT_OFFSET (GitgRepositoryClass,
+		              loaded),
+		              NULL,
+		              NULL,
+		              g_cclosure_marshal_VOID__VOID,
+		              G_TYPE_NONE,
+		              0);
 
 	g_type_class_add_private (object_class, sizeof (GitgRepositoryPrivate));
 }
 
 static void
-append_revision (GitgRepository *repository, GitgRevision *rv)
+append_revision (GitgRepository *repository,
+                 GitgRevision   *rv)
 {
 	GSList *lanes;
 	gint8 mylane = 0;
 
 	if (repository->priv->size == 0)
+	{
 		gitg_lanes_reset (repository->priv->lanes);
+	}
 
 	lanes = gitg_lanes_next (repository->priv->lanes, rv, &mylane);
 	gitg_revision_set_lanes (rv, lanes, mylane);
@@ -791,7 +840,8 @@ append_revision (GitgRepository *repository, GitgRevision *rv)
 }
 
 static void
-add_dummy_commit (GitgRepository *repository, gboolean staged)
+add_dummy_commit (GitgRepository *repository,
+                  gboolean        staged)
 {
 	GitgRevision *revision;
 	gchar const *subject;
@@ -800,18 +850,28 @@ add_dummy_commit (GitgRepository *repository, gboolean staged)
 	gettimeofday (&tv, NULL);
 
 	if (staged)
+	{
 		subject = _ ("Staged changes");
+	}
 	else
+	{
 		subject = _ ("Unstaged changes");
+	}
 
-	revision = gitg_revision_new ("0000000000000000000000000000000000000000", "", subject, NULL, tv.tv_sec);
+	revision = gitg_revision_new ("0000000000000000000000000000000000000000",
+	                              "",
+	                              subject,
+	                              NULL,
+	                              tv.tv_sec);
 	gitg_revision_set_sign (revision, staged ? 't' : 'u');
 
 	append_revision (repository, revision);
 }
 
 static void
-on_loader_end_loading (GitgRunner *object, gboolean cancelled, GitgRepository *repository)
+on_loader_end_loading (GitgRunner     *object,
+                       gboolean        cancelled,
+                       GitgRepository *repository)
 {
 	if (cancelled)
 	{
@@ -848,7 +908,14 @@ on_loader_end_loading (GitgRunner *object, gboolean cancelled, GitgRepository *r
 				cached = "--cached";
 			}
 
-			gitg_repository_run_commandv (repository, object, NULL, "diff-index", "--quiet", head, cached, NULL);
+			gitg_repository_run_commandv (repository,
+			                              object,
+			                              NULL,
+			                              "diff-index",
+			                              "--quiet",
+			                              head,
+			                              cached,
+			                              NULL);
 			g_free (head);
 		}
 		break;
@@ -858,7 +925,10 @@ on_loader_end_loading (GitgRunner *object, gboolean cancelled, GitgRepository *r
 				add_dummy_commit (repository, FALSE);
 			}
 
-			gitg_repository_run_command (repository, object, (gchar const **)repository->priv->last_args, NULL);
+			gitg_repository_run_command (repository,
+			                             object,
+			                             (gchar const **)repository->priv->last_args,
+			                             NULL);
 
 		break;
 		default:
@@ -872,13 +942,16 @@ on_loader_end_loading (GitgRunner *object, gboolean cancelled, GitgRepository *r
 }
 
 static gint
-find_ref_custom (GitgRef *first, GitgRef *second)
+find_ref_custom (GitgRef *first,
+                 GitgRef *second)
 {
 	return gitg_ref_equal (first, second) ? 0 : 1;
 }
 
 static GitgRef *
-add_ref (GitgRepository *self, gchar const *sha1, gchar const *name)
+add_ref (GitgRepository *self,
+         gchar const    *sha1,
+         gchar const    *name)
 {
 	GitgRef *ref = gitg_ref_new (sha1, name);
 	GSList *refs = (GSList *)g_hash_table_lookup (self->priv->refs,
@@ -910,7 +983,8 @@ add_ref (GitgRepository *self, gchar const *sha1, gchar const *name)
 }
 
 static void
-loader_update_stash (GitgRepository *repository, gchar **buffer)
+loader_update_stash (GitgRepository  *repository,
+                     gchar          **buffer)
 {
 	gchar *line;
 	gboolean show_stash;
@@ -918,9 +992,11 @@ loader_update_stash (GitgRepository *repository, gchar **buffer)
 	show_stash = repository->priv->show_stash;
 
 	if (!show_stash)
+	{
 		return;
+	}
 
-	while ( (line = *buffer++) != NULL)
+	while ((line = *buffer++) != NULL)
 	{
 		gchar **components = g_strsplit (line, "\01", 0);
 		guint len = g_strv_length (components);
@@ -933,7 +1009,11 @@ loader_update_stash (GitgRepository *repository, gchar **buffer)
 
 		/* components -> [hash, author, subject, timestamp] */
 		gint64 timestamp = g_ascii_strtoll (components[3], NULL, 0);
-		GitgRevision *rv = gitg_revision_new (components[0], components[1], components[2], NULL, timestamp);
+		GitgRevision *rv = gitg_revision_new (components[0],
+		                                      components[1],
+		                                      components[2],
+		                                      NULL,
+		                                      timestamp);
 
 		add_ref (repository, components[0], "refs/stash");
 
@@ -944,7 +1024,8 @@ loader_update_stash (GitgRepository *repository, gchar **buffer)
 }
 
 static void
-loader_update_commits (GitgRepository *self, gchar **buffer)
+loader_update_commits (GitgRepository  *self,
+                       gchar          **buffer)
 {
 	gchar *line;
 
@@ -963,7 +1044,11 @@ loader_update_commits (GitgRepository *self, gchar **buffer)
 		/* components -> [hash, author, subject, parents ([1 2 3]), timestamp[, leftright]] */
 		gint64 timestamp = g_ascii_strtoll (components[4], NULL, 0);
 
-		GitgRevision *rv = gitg_revision_new (components[0], components[1], components[2], components[3], timestamp);
+		GitgRevision *rv = gitg_revision_new (components[0],
+		                                      components[1],
+		                                      components[2],
+		                                      components[3],
+		                                      timestamp);
 
 		if (len > 5 && strlen (components[5]) == 1 && strchr ("<>-^", *components[5]) != NULL)
 		{
@@ -976,7 +1061,9 @@ loader_update_commits (GitgRepository *self, gchar **buffer)
 }
 
 static void
-on_loader_update (GitgRunner *object, gchar **buffer, GitgRepository *repository)
+on_loader_update (GitgRunner      *object,
+                  gchar          **buffer,
+                  GitgRepository  *repository)
 {
 	switch (repository->priv->load_stage)
 	{
@@ -1018,11 +1105,17 @@ repository_relane (GitgRepository *repository)
 		gint8 mylane;
 		GitgRevision *revision = repository->priv->storage[i];
 
-		GSList *lanes = gitg_lanes_next (repository->priv->lanes, revision, &mylane);
-		gitg_revision_set_lanes (revision, lanes, mylane);
+		GSList *lanes = gitg_lanes_next (repository->priv->lanes,
+		                                 revision,
+		                                 &mylane);
+		gitg_revision_set_lanes (revision,
+		                         lanes,
+		                         mylane);
 
 		fill_iter (repository, i, &iter);
-		gtk_tree_model_row_changed (GTK_TREE_MODEL (repository), path, &iter);
+		gtk_tree_model_row_changed (GTK_TREE_MODEL (repository),
+		                            path,
+		                            &iter);
 
 		gtk_tree_path_next (path);
 	}
@@ -1036,17 +1129,22 @@ static void
 prepare_relane (GitgRepository *repository)
 {
 	if (!repository->priv->idle_relane_id)
+	{
 		repository->priv->idle_relane_id = g_idle_add ((GSourceFunc)repository_relane, repository);
+	}
 }
 
 static void
-on_lane_setting_changed (GitgRepository *repository, GParamSpec *pspec, gpointer useless)
+on_lane_setting_changed (GitgRepository *repository,
+                         GParamSpec     *pspec,
+                         gpointer        useless)
 {
 	prepare_relane (repository);
 }
 
 static gchar **
-copy_strv (gchar const **ptr, gint argc)
+copy_strv (gchar const **ptr,
+           gint          argc)
 {
 	GPtrArray *ret = g_ptr_array_new ();
 	gint i = 0;
@@ -1062,19 +1160,26 @@ copy_strv (gchar const **ptr, gint argc)
 }
 
 static gboolean
-has_left_right (gchar const **av, int argc)
+has_left_right (gchar const **av,
+                int           argc)
 {
 	int i;
 
 	for (i = 0; i < argc; ++i)
+	{
 		if (strcmp (av[i], "--left-right") == 0)
-			return TRUE;
+		{
+				return TRUE;
+		}
+	}
 
 	return FALSE;
 }
 
 static void
-build_log_args (GitgRepository *self, gint argc, gchar const **av)
+build_log_args (GitgRepository  *self,
+                gint             argc,
+                gchar const    **av)
 {
 	gboolean topoorder;
 
@@ -1135,7 +1240,9 @@ build_log_args (GitgRepository *self, gint argc, gchar const **av)
 }
 
 static void
-on_update_topo_order (GitgRepository *repository, GParamSpec *spec, gpointer useless)
+on_update_topo_order (GitgRepository *repository,
+                      GParamSpec     *spec,
+                      gpointer        useless)
 {
 	build_log_args (repository,
 	                g_strv_length (repository->priv->selection),
@@ -1145,7 +1252,9 @@ on_update_topo_order (GitgRepository *repository, GParamSpec *spec, gpointer use
 }
 
 static void
-on_update_virtual (GitgRepository *repository, GParamSpec *spec, gpointer useless)
+on_update_virtual (GitgRepository *repository,
+                   GParamSpec     *spec,
+                   gpointer        useless)
 {
 	gitg_repository_reload (repository);
 }
@@ -1231,27 +1340,36 @@ gitg_repository_init (GitgRepository *object)
 }
 
 static void
-grow_storage (GitgRepository *repository, gint size)
+grow_storage (GitgRepository *repository,
+              gint            size)
 {
 	if (repository->priv->size + size <= repository->priv->allocated)
+	{
 		return;
+	}
 
 	gulong prevallocated = repository->priv->allocated;
 	repository->priv->allocated += repository->priv->grow_size;
 	GitgRevision **newstorage = g_slice_alloc (sizeof (GitgRevision *) * repository->priv->allocated);
 
-	int i;
+	gint i;
 	for (i = 0; i < repository->priv->size; ++i)
+	{
 		newstorage[i] = repository->priv->storage[i];
+	}
 
 	if (repository->priv->storage)
-		g_slice_free1 (sizeof (GitgRevision *) * prevallocated, repository->priv->storage);
+	{
+		g_slice_free1 (sizeof (GitgRevision *) * prevallocated,
+		               repository->priv->storage);
+	}
 
 	repository->priv->storage = newstorage;
 }
 
 GitgRepository *
-gitg_repository_new (GFile *git_dir, GFile *work_tree)
+gitg_repository_new (GFile *git_dir,
+                     GFile *work_tree)
 {
 	return g_object_new (GITG_TYPE_REPOSITORY,
 	                     "git-dir", git_dir,
@@ -1283,7 +1401,8 @@ gitg_repository_get_loader (GitgRepository *self)
 }
 
 static gboolean
-reload_revisions (GitgRepository *repository, GError **error)
+reload_revisions (GitgRepository  *repository,
+                  GError         **error)
 {
 	if (repository->priv->working_ref)
 	{
@@ -1295,7 +1414,15 @@ reload_revisions (GitgRepository *repository, GError **error)
 
 	repository->priv->load_stage = LOAD_STAGE_STASH;
 
-	return gitg_repository_run_commandv (repository, repository->priv->loader, error, "log", "--pretty=format:%H\x01%an\x01%s\x01%at", "--encoding=UTF-8", "-g", "refs/stash", NULL);
+	return gitg_repository_run_commandv (repository,
+	                                     repository->priv->loader,
+	                                     error,
+	                                     "log",
+	                                     "--pretty=format:%H\x01%an\x01%s\x01%at",
+	                                     "--encoding=UTF-8",
+	                                     "-g",
+	                                     "refs/stash",
+	                                     NULL);
 }
 
 static gchar *
@@ -1358,7 +1485,6 @@ load_refs (GitgRepository *self)
 
 	GitgRef *working = gitg_repository_get_current_working_ref (self);
 
-
 	while (buffer != NULL && (buf = *buffer++) != NULL)
 	{
 		// each line will look like <name> <hash>
@@ -1404,7 +1530,10 @@ gitg_repository_reload (GitgRepository *repository)
 }
 
 gboolean
-gitg_repository_load (GitgRepository *self, int argc, gchar const **av, GError **error)
+gitg_repository_load (GitgRepository  *self,
+                      int              argc,
+                      gchar const    **av,
+                      GError         **error)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (self), FALSE);
 
@@ -1412,7 +1541,9 @@ gitg_repository_load (GitgRepository *self, int argc, gchar const **av, GError *
 	{
 		if (error)
 		{
-			*error = g_error_new_literal (gitg_repository_error_quark (), GITG_REPOSITORY_ERROR_NOT_FOUND, _ ("Not a valid git repository"));
+			*error = g_error_new_literal (gitg_repository_error_quark (),
+			                              GITG_REPOSITORY_ERROR_NOT_FOUND,
+			                              _ ("Not a valid git repository"));
 		}
 
 		return FALSE;
@@ -1431,7 +1562,9 @@ gitg_repository_load (GitgRepository *self, int argc, gchar const **av, GError *
 }
 
 void
-gitg_repository_add (GitgRepository *self, GitgRevision *obj, GtkTreeIter *iter)
+gitg_repository_add (GitgRepository *self,
+                     GitgRevision   *obj,
+                     GtkTreeIter    *iter)
 {
 	GtkTreeIter iter1;
 
@@ -1443,7 +1576,9 @@ gitg_repository_add (GitgRepository *self, GitgRevision *obj, GtkTreeIter *iter)
 	/* put this object in our data storage */
 	self->priv->storage[self->priv->size++] = gitg_revision_ref (obj);
 
-	g_hash_table_insert (self->priv->hashtable, (gpointer)gitg_revision_get_hash (obj), GUINT_TO_POINTER (self->priv->size - 1));
+	g_hash_table_insert (self->priv->hashtable,
+	                     (gpointer)gitg_revision_get_hash (obj),
+	                     GUINT_TO_POINTER (self->priv->size - 1));
 
 	iter1.stamp = self->priv->stamp;
 	iter1.user_data = GINT_TO_POINTER (self->priv->size - 1);
@@ -1456,7 +1591,9 @@ gitg_repository_add (GitgRepository *self, GitgRevision *obj, GtkTreeIter *iter)
 
 	/* return the iter if the user cares */
 	if (iter)
+	{
 		*iter = iter1;
+	}
 }
 
 void
@@ -1467,29 +1604,37 @@ gitg_repository_clear (GitgRepository *repository)
 }
 
 GitgRevision *
-gitg_repository_lookup (GitgRepository *store, gchar const *hash)
+gitg_repository_lookup (GitgRepository *store,
+                        gchar const    *hash)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (store), NULL);
 
 	gpointer result = g_hash_table_lookup (store->priv->hashtable, hash);
 
 	if (!result)
+	{
 		return NULL;
+	}
 
 	return store->priv->storage[GPOINTER_TO_UINT (result)];
 }
 
 gboolean
-gitg_repository_find_by_hash (GitgRepository *store, gchar const *hash, GtkTreeIter *iter)
+gitg_repository_find_by_hash (GitgRepository *store,
+                              gchar const    *hash,
+                              GtkTreeIter    *iter)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (store), FALSE);
 
 	gpointer result = g_hash_table_lookup (store->priv->hashtable, hash);
 
 	if (!result)
+	{
 		return FALSE;
+	}
 
-	GtkTreePath *path = gtk_tree_path_new_from_indices (GPOINTER_TO_UINT (result), -1);
+	GtkTreePath *path = gtk_tree_path_new_from_indices (GPOINTER_TO_UINT (result),
+	                                                    -1);
 	gtk_tree_model_get_iter (GTK_TREE_MODEL (store), iter, path);
 	gtk_tree_path_free (path);
 
@@ -1497,9 +1642,13 @@ gitg_repository_find_by_hash (GitgRepository *store, gchar const *hash, GtkTreeI
 }
 
 gboolean
-gitg_repository_find (GitgRepository *store, GitgRevision *revision, GtkTreeIter *iter)
+gitg_repository_find (GitgRepository *store,
+                      GitgRevision   *revision,
+                      GtkTreeIter    *iter)
 {
-	return gitg_repository_find_by_hash (store, gitg_revision_get_hash (revision), iter);
+	return gitg_repository_find_by_hash (store,
+	                                     gitg_revision_get_hash (revision),
+	                                     iter);
 }
 
 GSList *
@@ -1528,7 +1677,8 @@ gitg_repository_get_refs (GitgRepository *repository)
 }
 
 GSList *
-gitg_repository_get_refs_for_hash (GitgRepository *repository, gchar const *hash)
+gitg_repository_get_refs_for_hash (GitgRepository *repository,
+                                   gchar const    *hash)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
 	return g_slist_copy ( (GSList *)g_hash_table_lookup (repository->priv->refs, hash));
@@ -1543,7 +1693,8 @@ gitg_repository_get_current_ref (GitgRepository *repository)
 }
 
 gchar *
-gitg_repository_relative (GitgRepository *repository, GFile *file)
+gitg_repository_relative (GitgRepository *repository,
+                          GFile          *file)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
 	g_return_val_if_fail (repository->priv->work_tree != NULL, NULL);
@@ -1552,11 +1703,11 @@ gitg_repository_relative (GitgRepository *repository, GFile *file)
 }
 
 gboolean
-gitg_repository_run_command_with_input (GitgRepository *repository,
-                                        GitgRunner *runner,
-                                        gchar const **argv,
-                                        gchar const *input,
-                                        GError **error)
+gitg_repository_run_command_with_input (GitgRepository  *repository,
+                                        GitgRunner      *runner,
+                                        gchar const    **argv,
+                                        gchar const     *input,
+                                        GError         **error)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
 	g_return_val_if_fail (GITG_IS_RUNNER (runner), FALSE);
@@ -1595,10 +1746,10 @@ gitg_repository_run_command_with_input (GitgRepository *repository,
 }
 
 gboolean
-gitg_repository_run_command (GitgRepository *repository,
-                             GitgRunner *runner,
-                             gchar const **argv,
-                             GError **error)
+gitg_repository_run_command (GitgRepository  *repository,
+                             GitgRunner      *runner,
+                             gchar const    **argv,
+                             GError         **error)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
 	g_return_val_if_fail (GITG_IS_RUNNER (runner), FALSE);
@@ -1612,10 +1763,10 @@ gitg_repository_run_command (GitgRepository *repository,
 }
 
 gboolean
-gitg_repository_command_with_input (GitgRepository *repository,
-                                    gchar const **argv,
-                                    gchar const *input,
-                                    GError **error)
+gitg_repository_command_with_input (GitgRepository  *repository,
+                                    gchar const    **argv,
+                                    gchar const     *input,
+                                    GError         **error)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
 	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
@@ -1633,14 +1784,17 @@ gitg_repository_command_with_input (GitgRepository *repository,
 }
 
 gboolean
-gitg_repository_command (GitgRepository *repository,
-                         gchar const **argv,
-                         GError **error)
+gitg_repository_command (GitgRepository  *repository,
+                         gchar const    **argv,
+                         GError         **error)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
 	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
 
-	return gitg_repository_command_with_input (repository, argv, NULL, error);
+	return gitg_repository_command_with_input (repository,
+	                                           argv,
+	                                           NULL,
+	                                           error);
 }
 
 typedef struct
@@ -1650,22 +1804,30 @@ typedef struct
 } CommandOutput;
 
 static void
-command_with_output_update (GitgRunner *runner, gchar **buffer, CommandOutput *output)
+command_with_output_update (GitgRunner     *runner,
+                            gchar         **buffer,
+                            CommandOutput  *output)
 {
 	guint num = g_strv_length (buffer);
 	guint i;
 
-	output->buffer = g_realloc (output->buffer, sizeof (gchar *) * (output->size + num + 1));
+	output->buffer = g_realloc (output->buffer,
+	                            sizeof (gchar *) * (output->size + num + 1));
 
 	for (i = 0; i < num; ++i)
+	{
 		output->buffer[output->size + i] = g_strdup (buffer[i]);
+	}
 
 	output->size += num;
 	output->buffer[output->size] = NULL;
 }
 
 gchar **
-gitg_repository_command_with_input_and_output (GitgRepository *repository, gchar const **argv, gchar const *input, GError **error)
+gitg_repository_command_with_input_and_output (GitgRepository  *repository,
+                                               gchar const    **argv,
+                                               gchar const     *input,
+                                               GError         **error)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
 	g_return_val_if_fail (repository->priv->git_dir != NULL, NULL);
@@ -1674,7 +1836,11 @@ gitg_repository_command_with_input_and_output (GitgRepository *repository, gchar
 	CommandOutput output = {NULL, 0};
 
 	g_signal_connect (runner, "update", G_CALLBACK (command_with_output_update), &output);
-	gboolean ret = gitg_repository_run_command_with_input (repository, runner, argv, input, error);
+	gboolean ret = gitg_repository_run_command_with_input (repository,
+	                                                       runner,
+	                                                       argv,
+	                                                       input,
+	                                                       error);
 
 	if (!ret)
 	{
@@ -1687,12 +1853,17 @@ gitg_repository_command_with_input_and_output (GitgRepository *repository, gchar
 }
 
 gchar **
-gitg_repository_command_with_output (GitgRepository *repository, gchar const **argv, GError **error)
+gitg_repository_command_with_output (GitgRepository  *repository,
+                                     gchar const    **argv,
+                                     GError         **error)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
 	g_return_val_if_fail (repository->priv->git_dir != NULL, NULL);
 
-	return gitg_repository_command_with_input_and_output (repository, argv, NULL, error);
+	return gitg_repository_command_with_input_and_output (repository,
+	                                                      argv,
+	                                                      NULL,
+	                                                      error);
 }
 
 static gchar const **
@@ -1713,7 +1884,9 @@ parse_valist (va_list ap)
 }
 
 gboolean
-gitg_repository_commandv (GitgRepository *repository, GError **error, ...)
+gitg_repository_commandv (GitgRepository  *repository,
+                          GError         **error,
+                          ...)
 {
 	va_list ap;
 	va_start (ap, error);
@@ -1726,72 +1899,103 @@ gitg_repository_commandv (GitgRepository *repository, GError **error, ...)
 }
 
 gboolean
-gitg_repository_command_with_inputv (GitgRepository *repository, gchar const *input, GError **error, ...)
+gitg_repository_command_with_inputv (GitgRepository  *repository,
+                                     gchar const     *input,
+                                     GError         **error,
+                                     ...)
 {
 	va_list ap;
 	va_start (ap, error);
 	gchar const **argv = parse_valist (ap);
 	va_end (ap);
 
-	gboolean ret = gitg_repository_command_with_input (repository, argv, input, error);
+	gboolean ret = gitg_repository_command_with_input (repository,
+	                                                   argv,
+	                                                   input,
+	                                                   error);
 	g_free (argv);
 	return ret;
 }
 
 gboolean
-gitg_repository_run_commandv (GitgRepository *repository, GitgRunner *runner, GError **error, ...)
+gitg_repository_run_commandv (GitgRepository  *repository,
+                              GitgRunner      *runner,
+                              GError         **error,
+                              ...)
 {
 	va_list ap;
 	va_start (ap, error);
 	gchar const **argv = parse_valist (ap);
 	va_end (ap);
 
-	gboolean ret = gitg_repository_run_command (repository, runner, argv, error);
+	gboolean ret = gitg_repository_run_command (repository,
+	                                            runner,
+	                                            argv,
+	                                            error);
 	g_free (argv);
 	return ret;
 }
 
 gboolean
-gitg_repository_run_command_with_inputv (GitgRepository *repository, GitgRunner *runner, gchar const *input, GError **error, ...)
+gitg_repository_run_command_with_inputv (GitgRepository  *repository,
+                                         GitgRunner      *runner,
+                                         gchar const     *input,
+                                         GError         **error,
+                                         ...)
 {
 	va_list ap;
 	va_start (ap, error);
 	gchar const **argv = parse_valist (ap);
 	va_end (ap);
 
-	gboolean ret = gitg_repository_run_command_with_input (repository, runner, argv, input, error);
+	gboolean ret = gitg_repository_run_command_with_input (repository,
+	                                                       runner,
+	                                                       argv,
+	                                                       input,
+	                                                       error);
 	g_free (argv);
 	return ret;
 }
 
 gchar **
-gitg_repository_command_with_outputv (GitgRepository *repository, GError **error, ...)
+gitg_repository_command_with_outputv (GitgRepository  *repository,
+                                      GError         **error,
+                                      ...)
 {
 	va_list ap;
 	va_start (ap, error);
 	gchar const **argv = parse_valist (ap);
 	va_end (ap);
 
-	gchar **ret = gitg_repository_command_with_output (repository, argv, error);
+	gchar **ret = gitg_repository_command_with_output (repository,
+	                                                   argv,
+	                                                   error);
 	g_free (argv);
 	return ret;
 }
 
 gchar **
-gitg_repository_command_with_input_and_outputv (GitgRepository *repository, gchar const *input, GError **error, ...)
+gitg_repository_command_with_input_and_outputv (GitgRepository  *repository,
+                                                gchar const     *input,
+                                                GError         **error,
+                                                ...)
 {
 	va_list ap;
 	va_start (ap, error);
 	gchar const **argv = parse_valist (ap);
 	va_end (ap);
 
-	gchar **ret = gitg_repository_command_with_input_and_output (repository, argv, input, error);
+	gchar **ret = gitg_repository_command_with_input_and_output (repository,
+	                                                             argv,
+	                                                             input,
+	                                                             error);
 	g_free (argv);
 	return ret;
 }
 
 gchar *
-gitg_repository_parse_ref (GitgRepository *repository, gchar const *ref)
+gitg_repository_parse_ref (GitgRepository *repository,
+                           gchar const    *ref)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
 
@@ -1806,7 +2010,9 @@ gitg_repository_parse_head (GitgRepository *repository)
 	gchar *ret = gitg_repository_parse_ref (repository, "HEAD");
 
 	if (!ret)
+	{
 		ret = g_strdup ("4b825dc642cb6eb9a060e54bf8d69288fbee4904");
+	}
 
 	return ret;
 }
@@ -1873,6 +2079,7 @@ gitg_repository_get_remotes (GitgRepository *repository)
 
 GSList const *
 gitg_repository_get_ref_pushes (GitgRepository *repository, GitgRef *ref)
+
 {
 	gpointer ret;
 	GitgRef *my_ref;
