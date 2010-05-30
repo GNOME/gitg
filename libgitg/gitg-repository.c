@@ -1338,7 +1338,14 @@ load_current_ref (GitgRepository *self)
 static void
 load_refs (GitgRepository *self)
 {
-	gchar **refs = gitg_repository_command_with_outputv (self, NULL, "for-each-ref", "--format=% (refname) % (objectname) % (*objectname)", "refs", NULL);
+	gchar **refs;
+
+	refs = gitg_repository_command_with_outputv (self,
+	                                             NULL,
+	                                             "for-each-ref",
+	                                             "--format=%(refname) %(objectname) %(*objectname)",
+	                                             "refs",
+	                                             NULL);
 
 	if (!refs)
 	{
@@ -1839,7 +1846,7 @@ gitg_repository_get_remotes (GitgRepository *repository)
 
 	g_free (ret);
 
-	GRegex *regex = g_regex_new ("remote\\. (.+?)\\.url\\s+ (.*)", 0, 0, NULL);
+	GRegex *regex = g_regex_new ("remote\\.(.+?)\\.url\\s+(.*)", 0, 0, NULL);
 
 	while (*ptr)
 	{
@@ -1916,7 +1923,7 @@ gitg_repository_get_ref_pushes (GitgRepository *repository, GitgRef *ref)
 
 	g_free (pushes);
 
-	GRegex *regex = g_regex_new ("remote\\. (.+?)\\.push\\s+.*:refs/heads/ (.*)", 0, 0, NULL);
+	GRegex *regex = g_regex_new ("remote\\(.+?)\\.push\\s+.*:refs/heads/(.*)", 0, 0, NULL);
 	GSList *refs = NULL;
 
 	while (*ptr)
