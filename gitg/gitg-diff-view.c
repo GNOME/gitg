@@ -207,10 +207,6 @@ gitg_diff_view_finalize (GObject *object)
 	regions_free (view);
 	g_sequence_free (view->priv->regions_index);
 
-	disable_diff_view (view);
-
-	g_object_unref (view->priv->line_renderer);
-
 	if (view->priv->label_func &&
 	    view->priv->label_func_destroy_notify)
 	{
@@ -218,6 +214,22 @@ gitg_diff_view_finalize (GObject *object)
 	}
 
 	G_OBJECT_CLASS (gitg_diff_view_parent_class)->finalize (object);
+}
+
+static void
+gitg_diff_view_dispose (GObject *object)
+{
+	GitgDiffView *view = GITG_DIFF_VIEW (object);
+
+	disable_diff_view (view);
+
+	if (view->priv->line_renderer)
+	{
+		g_object_unref (view->priv->line_renderer);
+		view->priv->line_renderer = NULL;
+	}
+
+	G_OBJECT_CLASS (gitg_diff_view_parent_class)->dispose (object);
 }
 
 static void
@@ -292,6 +304,7 @@ gitg_diff_view_class_init(GitgDiffViewClass *klass)
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
 	object_class->finalize = gitg_diff_view_finalize;
+	object_class->dispose = gitg_diff_view_dispose;
 	object_class->set_property = gitg_diff_view_set_property;
 	object_class->get_property = gitg_diff_view_get_property;
 
