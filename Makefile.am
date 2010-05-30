@@ -26,6 +26,8 @@ MAINTAINERCLEANFILES = 		\
 	depcomp			\
 	install-sh		\
 	ltmain.sh		\
+	omf.make		\
+	xmldocs.make		\
 	missing			\
 	mkinstalldirs		\
 	m4/gnome-doc-utils.m4	\
@@ -36,6 +38,7 @@ MAINTAINERCLEANFILES = 		\
 	m4/ltsugar.m4		\
 	m4/ltversion.m4		\
 	m4/lt~obsolete.m4	\
+	po/missing		\
 	`find "$(srcdir)" -type f -name Makefile.in -print`
 
 dist-hook: generate-changelog
