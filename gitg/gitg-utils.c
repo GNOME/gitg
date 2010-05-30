@@ -205,55 +205,97 @@ gitg_utils_export_files (GitgRepository *repository,
 	return ret;
 }
 
+static void
+utf8_validate_fallback (gchar  *text,
+                        gssize  size)
+{
+	gchar const *end;
+
+	while (!g_utf8_validate (text, size, &end))
+	{
+		*((gchar *)end) = '?';
+	}
+}
+
 static gchar *
-convert_fallback (gchar const *text, gssize size, gchar const *fallback)
+convert_fallback (gchar const *text,
+                  gssize       size,
+                  gchar const *fallback)
 {
 	gchar *res;
 	gsize read, written;
-	GString *str = g_string_new("");
+	GString *str = g_string_new ("");
 
-	while ((res = g_convert(text, size, "UTF-8", "ASCII", &read, &written, NULL))
-			== NULL) {
-		res = g_convert(text, read, "UTF-8", "ASCII", NULL, NULL, NULL);
-		str = g_string_append(str, res);
+	while ((res = g_convert(text,
+	                        size,
+	                        "UTF-8",
+	                        "ASCII",
+	                        &read,
+	                        &written,
+	                        NULL)) == NULL)
+	{
+		res = g_convert (text, read, "UTF-8", "ASCII", NULL, NULL, NULL);
+		str = g_string_append (str, res);
 
-		str = g_string_append(str, fallback);
+		str = g_string_append (str, fallback);
 		text = text + read + 1;
 		size = size - read;
 	}
 
-	str = g_string_append(str, res);
-	g_free(res);
+	str = g_string_append (str, res);
+	g_free (res);
 
-	res = str->str;
-	g_string_free(str, FALSE);
-	return res;
+	utf8_validate_fallback (str->str, str->len);
+	return g_string_free (str, FALSE);
 }
 
 gchar *
-gitg_utils_convert_utf8(gchar const *str, gssize size)
+gitg_utils_convert_utf8 (gchar const *str, gssize size)
 {
 	static gchar *encodings[] = {
 		"ISO-8859-15",
 		"ASCII"
 	};
 
-	if (g_utf8_validate(str, size, NULL))
-		return g_strndup(str, size == -1 ? strlen(str) : size);
+	if (str == NULL)
+	{
+		return NULL;
+	}
+
+	if (size == -1)
+	{
+		size = strlen (str);
+	}
+
+	if (g_utf8_validate (str, size, NULL))
+	{
+		return g_strndup (str, size);
+	}
 
 	int i;
-	for (i = 0; i < sizeof(encodings) / sizeof(gchar *); ++i)
+	for (i = 0; i < sizeof (encodings) / sizeof (gchar *); ++i)
 	{
 		gsize read;
 		gsize written;
 
-		gchar *ret = g_convert(str, size, "UTF-8", encodings[i], &read, &written, NULL);
+		gchar *ret = g_convert (str,
+		                        size,
+		                        "UTF-8",
+		                        encodings[i],
+		                        &read,
+		                        &written,
+		                        NULL);
 
-		if (ret)
+		if (ret && read == size)
+		{
+			utf8_validate_fallback (ret, written);
 			return ret;
+		}
+
+		g_free (ret);
 	}
 
-	return convert_fallback(str, size, "?");
+	return convert_fallback (str, size, "?");
 }
 
 guint
@@ -302,10 +344,10 @@ gitg_utils_get_content_type(GFile *file)
 }
 
 gboolean
-gitg_utils_can_display_content_type(gchar const *content_type)
+gitg_utils_can_display_content_type (gchar const *content_type)
 {
-	return g_content_type_is_a(content_type, "text/plain") || 
-		   g_content_type_equals(content_type, "application/octet-stream");
+	return g_content_type_is_a (content_type, "text/plain") ||
+	       g_content_type_equals (content_type, "application/octet-stream");
 }
 
 GtkSourceLanguage *

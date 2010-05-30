@@ -188,91 +188,118 @@ set_icon_data_func(GitgCommitView *view, GtkTreeView *treeview, GtkCellRenderer 
 static void
 set_language(GitgCommitView *view, GtkSourceLanguage *language)
 {
-	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view)));
+	GtkTextView *text_view;
+	GtkSourceBuffer *buffer;
 
-	gtk_source_buffer_set_language(buffer, language);
-	gitg_diff_view_set_diff_enabled(GITG_DIFF_VIEW(view->priv->changes_view), FALSE);
+	text_view = GTK_TEXT_VIEW (view->priv->changes_view);
+	buffer = GTK_SOURCE_BUFFER (gtk_text_view_get_buffer (text_view));
+
+	gtk_source_buffer_set_language (buffer, language);
+	gitg_diff_view_set_diff_enabled (GITG_DIFF_VIEW (view->priv->changes_view),
+	                                 FALSE);
 }
 
 static void
-set_diff_language(GitgCommitView *view)
+set_diff_language (GitgCommitView *view)
 {
-	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default();
-	GtkSourceLanguage *language = gtk_source_language_manager_get_language(manager, "gitgdiff");
+	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default ();
+	GtkSourceLanguage *language = gtk_source_language_manager_get_language (manager, "gitgdiff");
 
-	set_language(view, language);
-	gitg_diff_view_set_diff_enabled(GITG_DIFF_VIEW(view->priv->changes_view), TRUE);
-	gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), TRUE);
+	set_language (view, language);
+	gitg_diff_view_set_diff_enabled (GITG_DIFF_VIEW(view->priv->changes_view), TRUE);
+	gtk_widget_set_sensitive (GTK_WIDGET(view->priv->hscale_context), TRUE);
 }
 
 static void
-show_binary_information(GitgCommitView *view)
+show_binary_information (GitgCommitView *view)
 {
-	set_language(view, NULL);
-	gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
+	set_language (view, NULL);
 
-	gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view)), _("Cannot display file content as text"), -1);
+	gtk_widget_set_sensitive (GTK_WIDGET (view->priv->hscale_context), FALSE);
+
+	gtk_text_buffer_set_text (gtk_text_view_get_buffer (GTK_TEXT_VIEW (view->priv->changes_view)),
+	                          _("Cannot display file content as text"),
+	                          -1);
 }
 
 static void
-on_changes_update(GitgRunner *runner, gchar **buffer, GitgCommitView *view)
+on_changes_update (GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 {
 	gchar *line;
-	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view->priv->changes_view));
+	GtkTextBuffer *buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW(view->priv->changes_view));
 	GtkTextIter iter;
 
-	gtk_text_buffer_get_end_iter(buf, &iter);
+	gtk_text_buffer_get_end_iter (buf, &iter);
 
 	while ((line = *(buffer++)))
 	{
-		if (view->priv->is_diff && g_str_has_prefix(line, "@@"))
+		if (view->priv->is_diff && g_str_has_prefix (line, "@@"))
 		{
 			if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
-				gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_STAGE_HUNK, &iter);
+			{
+				gtk_source_buffer_create_source_mark (GTK_SOURCE_BUFFER(buf),
+				                                      NULL,
+				                                      CATEGORY_STAGE_HUNK,
+				                                      &iter);
+			}
 			else
-				gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(buf), NULL, CATEGORY_UNSTAGE_HUNK, &iter);
+			{
+				gtk_source_buffer_create_source_mark (GTK_SOURCE_BUFFER(buf),
+				                                      NULL,
+				                                      CATEGORY_UNSTAGE_HUNK,
+				                                      &iter);
+			}
 		}
 
-		gtk_text_buffer_insert(buf, &iter, line, -1);
-		gtk_text_buffer_insert(buf, &iter, "\n", -1);
+		gtk_text_buffer_insert (buf, &iter, line, -1);
+		gtk_text_buffer_insert (buf, &iter, "\n", -1);
 	}
 
-	if (gtk_source_buffer_get_language(GTK_SOURCE_BUFFER(buf)) == NULL)
+	if (gtk_source_buffer_get_language (GTK_SOURCE_BUFFER(buf)) == NULL)
 	{
-		gchar *content_type = gitg_utils_guess_content_type(GTK_TEXT_BUFFER(buf));
+		gchar *content_type = gitg_utils_guess_content_type (GTK_TEXT_BUFFER(buf));
 
-		if (content_type && !gitg_utils_can_display_content_type(content_type))
+		if (content_type && !gitg_utils_can_display_content_type (content_type))
 		{
-			gitg_runner_cancel(runner);
-			show_binary_information(view);
+			gitg_runner_cancel (runner);
+			show_binary_information (view);
 		}
 		else if (content_type)
 		{
-			GtkSourceLanguage *language = gitg_utils_get_language(NULL, content_type);
-			set_language(view, language);
-			gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
+			GtkSourceLanguage *language = gitg_utils_get_language (NULL, content_type);
+			set_language (view, language);
+			gtk_widget_set_sensitive (GTK_WIDGET (view->priv->hscale_context), FALSE);
 		}
 
-		g_free(content_type);
+		g_free (content_type);
 	}
 
-	while (gtk_events_pending())
-		gtk_main_iteration();
+	while (gtk_events_pending ())
+	{
+		gtk_main_iteration ();
+	}
 }
 
 static void
-connect_update(GitgCommitView *view)
+connect_update (GitgCommitView *view)
 {
-	view->priv->update_id = g_signal_connect(view->priv->runner, "update", G_CALLBACK(on_changes_update), view);
+	view->priv->update_id = g_signal_connect (view->priv->runner,
+	                                          "update",
+	                                          G_CALLBACK (on_changes_update),
+	                                          view);
 }
 
 static void
-set_current_file(GitgCommitView *view, GitgChangedFile *file, GitgChangedFileChanges changes)
+set_current_file (GitgCommitView *view,
+                  GitgChangedFile *file,
+                  GitgChangedFileChanges changes)
 {
 	if (view->priv->current_file != NULL)
-		g_object_unref(view->priv->current_file);
+	{
+		g_object_unref (view->priv->current_file);
+	}
 
-	view->priv->current_file = file ? g_object_ref(file) : NULL;
+	view->priv->current_file = file ? g_object_ref (file) : NULL;
 	view->priv->current_changes = changes;
 }
 
@@ -403,63 +430,66 @@ unselect_tree_view(GtkTreeView *view)
 }
 
 static void
-unstaged_selection_changed(GtkTreeSelection *selection, GitgCommitView *view)
+unstaged_selection_changed (GtkTreeSelection *selection,
+                            GitgCommitView   *view)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 
-	if (!check_selection(view->priv->tree_view_unstaged, &iter, view))
+	if (!check_selection (view->priv->tree_view_unstaged, &iter, view))
+	{
 		return;
+	}
 
-	model = gtk_tree_view_get_model(view->priv->tree_view_unstaged);
-	unselect_tree_view(view->priv->tree_view_staged);
+	model = gtk_tree_view_get_model (view->priv->tree_view_unstaged);
+	unselect_tree_view (view->priv->tree_view_staged);
 
 	GitgChangedFile *file;
 
-	gtk_tree_model_get(model, &iter, COLUMN_FILE, &file, -1);
-	GitgChangedFileStatus status = gitg_changed_file_get_status(file);
-	GFile *f = gitg_changed_file_get_file(file);
+	gtk_tree_model_get (model, &iter, COLUMN_FILE, &file, -1);
+	GitgChangedFileStatus status = gitg_changed_file_get_status (file);
+	GFile *f = gitg_changed_file_get_file (file);
 
 	if (status == GITG_CHANGED_FILE_STATUS_NEW)
 	{
-		gchar *content_type = gitg_utils_get_content_type(f);
+		gchar *content_type = gitg_utils_get_content_type (f);
 
-		if (!gitg_utils_can_display_content_type(content_type))
+		if (!gitg_utils_can_display_content_type (content_type))
 		{
-			show_binary_information(view);
+			show_binary_information (view);
 		}
 		else
 		{
-			GInputStream *stream = G_INPUT_STREAM(g_file_read(f, NULL, NULL));
+			GInputStream *stream = G_INPUT_STREAM (g_file_read (f, NULL, NULL));
 
 			if (!stream)
 			{
-				show_binary_information(view);
+				show_binary_information (view);
 			}
 			else
 			{
-				gchar *basename = g_file_get_basename(f);
-				GtkSourceLanguage *language = gitg_utils_get_language(basename, content_type);
-				g_free(basename);
+				gchar *basename = g_file_get_basename (f);
+				GtkSourceLanguage *language = gitg_utils_get_language (basename, content_type);
+				g_free (basename);
 
-				set_language(view, language);
-				gtk_widget_set_sensitive(GTK_WIDGET(view->priv->hscale_context), FALSE);
+				set_language (view, language);
+				gtk_widget_set_sensitive (GTK_WIDGET (view->priv->hscale_context), FALSE);
 
 				view->priv->is_diff = FALSE;
-				connect_update(view);
+				connect_update (view);
 
-				gitg_runner_run_stream(view->priv->runner, stream, NULL);
-				g_object_unref(stream);
+				gitg_runner_run_stream (view->priv->runner, stream, NULL);
+				g_object_unref (stream);
 			}
 		}
 
-		g_free(content_type);
+		g_free (content_type);
 	}
 	else
 	{
-		set_diff_language(view);
+		set_diff_language (view);
 		view->priv->is_diff = TRUE;
-		connect_update(view);
+		connect_update (view);
 
 		gchar *path = gitg_repository_relative (view->priv->repository, f);
 

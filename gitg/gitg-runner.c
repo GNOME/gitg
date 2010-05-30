@@ -470,8 +470,14 @@ read_output_ready(GInputStream *stream, GAsyncResult *result, AsyncData *data)
 	if (read == 0)
 	{
 		/* End */
-		gchar *b[] = {data->runner->priv->buffer, NULL};
+		gchar *converted = gitg_utils_convert_utf8 (data->runner->priv->buffer,
+		                                            -1);
+
+		gchar *b[] = {converted, NULL};
+
 		g_signal_emit(data->runner, runner_signals[UPDATE], 0, b);
+
+		g_free (converted);
 
 		gint status = 0;
 		waitpid(data->runner->priv->pid, &status, 0);
