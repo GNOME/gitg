@@ -357,6 +357,8 @@ gitg_diff_line_renderer_get_size_impl (GtkCellRenderer *cell,
 		                             &lbl_pixel_width,
 		                             &lbl_pixel_height);
 
+		lbl_pixel_width += 4;
+
 		if (lbl_pixel_width > pixel_width)
 		{
 			pixel_width = lbl_pixel_width;

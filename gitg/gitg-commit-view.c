@@ -1113,26 +1113,16 @@ stage_unstage_label_func (GitgDiffView   *diff_view,
 {
 	static gchar const *format = "<small><b>%s</b></small>";
 
+	gchar const *labels[] = {
+		_("unstage"),
+		_("stage")
+	};
+
+	gboolean staging = (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED) != 0;
+
 	if (line == -1)
 	{
-		static gchar const *longest_label = NULL;
-
-		gchar const *stage = _("stage");
-		gchar const *unstage = _("unstage");
-
-		if (!longest_label)
-		{
-			if (g_utf8_strlen (stage, -1) > g_utf8_strlen (unstage, -1))
-			{
-				longest_label = stage;
-			}
-			else
-			{
-				longest_label = unstage;
-			}
-		}
-
-		return g_markup_printf_escaped (format, _("stage"));
+		return g_markup_printf_escaped (format, labels[staging]);
 	}
 	else if (view->priv->highlight_mark)
 	{
@@ -1149,14 +1139,7 @@ stage_unstage_label_func (GitgDiffView   *diff_view,
 
 		if (gtk_text_iter_equal (&iter, &hl_iter))
 		{
-			if (view->priv->current_changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED)
-			{
-				return g_markup_printf_escaped (format, _("stage"));
-			}
-			else
-			{
-				return g_markup_printf_escaped (format, _("unstage"));
-			}
+			return g_markup_printf_escaped (format, labels[staging]);
 		}
 	}
 
