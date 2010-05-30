@@ -2251,7 +2251,7 @@ on_unstage_changes(GtkAction *action, GitgCommitView *view)
 		GList *files = NULL;
 		GList *item;
 
-		get_selected_files (view->priv->tree_view_unstaged, &files, NULL, NULL, NULL);
+		get_selected_files (view->priv->tree_view_staged, &files, NULL, NULL, NULL);
 
 		for (item = files; item; item = g_list_next (item))
 		{
