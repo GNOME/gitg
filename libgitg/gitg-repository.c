@@ -22,12 +22,12 @@
 
 #include "gitg-repository.h"
 #include "gitg-hash.h"
+#include "gitg-i18n.h"
 #include "gitg-lanes.h"
 #include "gitg-ref.h"
 #include "gitg-config.h"
 
 #include <gio/gio.h>
-#include <glib/gi18n.h>
 #include <sys/time.h>
 #include <time.h>
 #include <string.h>
