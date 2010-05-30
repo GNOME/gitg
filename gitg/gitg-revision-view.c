@@ -439,15 +439,15 @@ gitg_revision_view_class_init(GitgRevisionViewClass *klass)
 static void
 on_diff_files_begin_loading(GitgRunner *runner, GitgRevisionView *self)
 {
-	GdkCursor *cursor = gdk_cursor_new(GDK_WATCH);
-	gdk_window_set_cursor(GTK_WIDGET(self->priv->diff_files)->window, cursor);
-	gdk_cursor_unref(cursor);
+	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
+	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (self->priv->diff_files)), cursor);
+	gdk_cursor_unref (cursor);
 }
 
 static void
 on_diff_files_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionView *self)
 {
-	gdk_window_set_cursor(GTK_WIDGET(self->priv->diff_files)->window, NULL);
+	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET(self->priv->diff_files)), NULL);
 }
 
 static gboolean
@@ -531,15 +531,15 @@ on_diff_files_update(GitgRunner *runner, gchar **buffer, GitgRevisionView *self)
 static void
 on_diff_begin_loading(GitgRunner *runner, GitgRevisionView *self)
 {
-	GdkCursor *cursor = gdk_cursor_new(GDK_WATCH);
-	gdk_window_set_cursor(GTK_WIDGET(self->priv->diff)->window, cursor);
-	gdk_cursor_unref(cursor);
+	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
+	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET(self->priv->diff)), cursor);
+	gdk_cursor_unref (cursor);
 }
 
 static void
 on_diff_end_loading(GitgRunner *runner, gboolean cancelled, GitgRevisionView *self)
 {
-	gdk_window_set_cursor(GTK_WIDGET(self->priv->diff)->window, NULL);
+	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET(self->priv->diff)), NULL);
 
 	if (cancelled)
 		return;
@@ -666,8 +666,8 @@ update_parents(GitgRevisionView *self, GitgRevision *revision)
 		GtkWidget *widget = make_parent_label(self, parents[i]);
 		gtk_table_attach(self->priv->parents, widget, 0, 1, i, i + 1, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 
-		gtk_widget_realize(widget);
-		gdk_window_set_cursor(widget->window, cursor);
+		gtk_widget_realize (widget);
+		gdk_window_set_cursor (gtk_widget_get_window (widget), cursor);
 
 		/* find subject */
 		gitg_utils_sha1_to_hash(parents[i], hash);

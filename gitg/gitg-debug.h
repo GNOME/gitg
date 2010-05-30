@@ -31,8 +31,8 @@ enum
 	GITG_DEBUG_RUNNER = 1 << 0
 };
 
-void gitg_debug_init();
-gboolean gitg_debug_enabled(guint debug);
+void gitg_debug_init (void);
+gboolean gitg_debug_enabled (guint debug);
 
 #endif /* __GITG_DEBUG_H__ */
 

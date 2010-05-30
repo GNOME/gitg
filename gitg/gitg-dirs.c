@@ -24,7 +24,7 @@
 #include "config.h"
 
 gchar const *
-gitg_dirs_get_data_dir()
+gitg_dirs_get_data_dir (void)
 {
 	static gchar *datadir = NULL;
 

@@ -1898,12 +1898,17 @@ on_staged_button_press(GtkWidget *widget, GdkEventButton *event, GitgCommitView 
 }
 
 static gboolean
-on_unstaged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
+on_unstaged_motion (GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
 {
 	if (column_icon_test(view->priv->tree_view_unstaged, event->x, event->y, NULL))
-		gdk_window_set_cursor(widget->window, view->priv->hand);
+	{
+		gdk_window_set_cursor (gtk_widget_get_window (widget),
+		                       view->priv->hand);
+	}
 	else
-		gdk_window_set_cursor(widget->window, NULL);
+	{
+		gdk_window_set_cursor (gtk_widget_get_window (widget), NULL);
+	}
 
 	return FALSE;
 }
@@ -1912,9 +1917,14 @@ static gboolean
 on_staged_motion(GtkWidget *widget, GdkEventMotion *event, GitgCommitView *view)
 {
 	if (column_icon_test(view->priv->tree_view_staged, event->x, event->y, NULL))
-		gdk_window_set_cursor(widget->window, view->priv->hand);
+	{
+		gdk_window_set_cursor (gtk_widget_get_window (widget),
+		                       view->priv->hand);
+	}
 	else
-		gdk_window_set_cursor(widget->window, NULL);
+	{
+		gdk_window_set_cursor (gtk_widget_get_window (widget), NULL);
+	}
 
 	return FALSE;
 }

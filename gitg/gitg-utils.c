@@ -367,20 +367,22 @@ gitg_utils_menu_position_under_widget (GtkMenu  *menu,
 	GtkWidget *w = GTK_WIDGET (user_data);
 	GtkRequisition requisition;
 
-	gdk_window_get_origin (w->window, x, y);
+	gdk_window_get_origin (gtk_widget_get_window (w), x, y);
 	gtk_widget_size_request (GTK_WIDGET (menu), &requisition);
+
+	GtkAllocation alloc;
+	gtk_widget_get_allocation (w, &alloc);
 
 	if (gtk_widget_get_direction (w) == GTK_TEXT_DIR_RTL)
 	{
-		*x += w->allocation.x + w->allocation.width - requisition.width;
+		*x += alloc.x + alloc.width - requisition.width;
 	}
 	else
 	{
-		*x += w->allocation.x;
+		*x += alloc.x;
 	}
 
-	*y += w->allocation.y + w->allocation.height;
-
+	*y += alloc.y + alloc.height;
 	*push_in = TRUE;
 }
 
@@ -407,7 +409,7 @@ gitg_utils_menu_position_under_tree_view (GtkMenu  *menu,
 		GtkTreePath *path;
 		GdkRectangle rect;
 
-		gdk_window_get_origin (GTK_WIDGET (tree)->window, x, y);
+		gdk_window_get_origin (gtk_widget_get_window (GTK_WIDGET (tree)), x, y);
 
 		path = gtk_tree_model_get_path (model, &iter);
 		gtk_tree_view_get_cell_area (tree, path,
@@ -435,7 +437,7 @@ gitg_utils_menu_position_under_tree_view (GtkMenu  *menu,
 }
 
 gchar *
-gitg_utils_get_monospace_font_name()
+gitg_utils_get_monospace_font_name (void)
 {
 	GConfClient *client = gconf_client_get_default();
 	gchar *name = gconf_client_get_string(client, "/desktop/gnome/interface/monospace_font_name", NULL);
@@ -562,7 +564,10 @@ paned_set_position (GtkPaned *paned, gint position, gboolean reversed)
 	}
 	else
 	{
-		gtk_paned_set_position (paned, GTK_WIDGET (paned)->allocation.width - position);
+		GtkAllocation alloc;
+		gtk_widget_get_allocation (GTK_WIDGET (paned), &alloc);
+
+		gtk_paned_set_position (paned, alloc.width - position);
 	}
 }
 

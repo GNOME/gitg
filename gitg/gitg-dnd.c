@@ -527,7 +527,7 @@ vertical_autoscroll (GitgDndData *data)
 	GtkAdjustment *adj = gtk_tree_view_get_vadjustment (data->tree_view);
 
 	value = CLAMP (gtk_adjustment_get_value (adj) + offset, 0.0,
-	               adj->upper - adj->page_size);
+	               gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj));
 
 	gtk_adjustment_set_value (adj, value);
 	return TRUE;
@@ -883,7 +883,7 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 			data->xds_destination = g_strdup (destination);
 
 			gtk_selection_data_set (selection,
-			                        selection->target,
+			                        gtk_selection_data_get_target (selection),
 			                        8,
 			                        (guchar const *)"S",
 			                        1);
@@ -891,7 +891,7 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 		else
 		{
 			gtk_selection_data_set (selection,
-			                        selection->target,
+			                        gtk_selection_data_get_target (selection),
 			                        8,
 			                        (guchar const *)"E",
 			                        1);
@@ -916,7 +916,7 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 			                                      data->revision);
 
 			gtk_selection_data_set (selection,
-			                        selection->target,
+			                        gtk_selection_data_get_target (selection),
 			                        8,
 			                        (guchar const *)treeish,
 			                        strlen (treeish));

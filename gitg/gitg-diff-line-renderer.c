@@ -217,6 +217,7 @@ render_lines (GitgDiffLineRenderer *lr,
 	gchar new_str[16];
 	guint xpad;
 	guint ypad;
+	GtkStyle *style;
 
 	PangoLayout *layout = gtk_widget_create_pango_layout (widget, "");
 	pango_layout_set_width (layout, cell_area->width / 2);
@@ -244,7 +245,9 @@ render_lines (GitgDiffLineRenderer *lr,
 	g_object_get (lr, "xpad", &xpad, "ypad", &ypad, NULL);
 
 	pango_layout_set_text (layout, old_str, -1);
-	gtk_paint_layout (widget->style,
+	style = gtk_widget_get_style (widget);
+
+	gtk_paint_layout (style,
 	                  window,
 	                  gtk_widget_get_state (widget),
 	                  FALSE,
@@ -256,7 +259,7 @@ render_lines (GitgDiffLineRenderer *lr,
 	                  layout);
 
 	pango_layout_set_text (layout, new_str, -1);
-	gtk_paint_layout (widget->style,
+	gtk_paint_layout (style,
 	                  window,
 	                  gtk_widget_get_state (widget),
 	                  FALSE,
@@ -269,7 +272,7 @@ render_lines (GitgDiffLineRenderer *lr,
 
 	g_object_unref (layout);
 
-	gtk_paint_vline (widget->style,
+	gtk_paint_vline (style,
 	                 window,
 	                 gtk_widget_get_state (widget),
 	                 NULL,

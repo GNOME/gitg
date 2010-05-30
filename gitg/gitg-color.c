@@ -45,13 +45,13 @@ static gchar const *palette[] = {
 };
 
 void
-gitg_color_reset()
+gitg_color_reset (void)
 {
 	current_index = 0;
 }
 
 void
-gitg_color_get(GitgColor *color, gdouble *r, gdouble *g, gdouble *b)
+gitg_color_get (GitgColor *color, gdouble *r, gdouble *g, gdouble *b)
 {
 	gchar const *spec = palette[color->index];
 	GdkColor c;
@@ -64,7 +64,7 @@ gitg_color_get(GitgColor *color, gdouble *r, gdouble *g, gdouble *b)
 }
 
 void
-gitg_color_set_cairo_source(GitgColor *color, cairo_t *cr)
+gitg_color_set_cairo_source (GitgColor *color, cairo_t *cr)
 {
 	gdouble r, g, b;
 
@@ -73,7 +73,7 @@ gitg_color_set_cairo_source(GitgColor *color, cairo_t *cr)
 }
 
 static gint8
-next_index()
+next_index ()
 {
 	gint8 next = current_index++;
 
@@ -84,7 +84,7 @@ next_index()
 }
 
 GitgColor *
-gitg_color_next()
+gitg_color_next (void)
 {
 	GitgColor *res = g_new(GitgColor, 1);
 	res->ref_count = 1;
@@ -94,14 +94,14 @@ gitg_color_next()
 }
 
 GitgColor *
-gitg_color_next_index(GitgColor *color)
+gitg_color_next_index (GitgColor *color)
 {
 	color->index = next_index();
 	return color;
 }
 
 GitgColor *
-gitg_color_copy(GitgColor *color)
+gitg_color_copy (GitgColor *color)
 {
 	GitgColor *copy = g_new(GitgColor, 1);
 	copy->ref_count = 1;
@@ -111,7 +111,7 @@ gitg_color_copy(GitgColor *color)
 }
 
 GitgColor *
-gitg_color_ref(GitgColor *color)
+gitg_color_ref (GitgColor *color)
 {
 	if (!color)
 		return NULL;
@@ -121,7 +121,7 @@ gitg_color_ref(GitgColor *color)
 }
 
 GitgColor *
-gitg_color_unref(GitgColor *color)
+gitg_color_unref (GitgColor *color)
 {
 	if (!color)
 		return NULL;

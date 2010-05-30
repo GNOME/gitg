@@ -752,39 +752,54 @@ static void
 save_state(GitgWindow *window)
 {
 	GitgSettings *settings = gitg_settings_get_default();
-	GtkAllocation *allocation = &(GTK_WIDGET(window)->allocation);
+	GtkAllocation allocation;
+	gint position;
 
-	gitg_settings_set_window_width(settings, allocation->width);
-	gitg_settings_set_window_height(settings, allocation->height);
+	gtk_widget_get_allocation (GTK_WIDGET(window), &allocation);
+
+	gitg_settings_set_window_width (settings, allocation.width);
+	gitg_settings_set_window_height (settings, allocation.height);
 
 	if (gtk_widget_get_mapped (window->priv->vpaned_main))
 	{
+		position = gtk_paned_get_position (GTK_PANED (window->priv->vpaned_main));
 		gitg_settings_set_vpaned_main_position (settings,
-			                                    gtk_paned_get_position(GTK_PANED(window->priv->vpaned_main)));
+		                                        position);
 	}
 
 	if (gtk_widget_get_mapped (window->priv->vpaned_commit))
 	{
+		position = gtk_paned_get_position (GTK_PANED (window->priv->vpaned_commit));
 		gitg_settings_set_vpaned_commit_position (settings,
-			                                      gtk_paned_get_position(GTK_PANED(window->priv->vpaned_commit)));
+		                                          position);
 	}
 
 	if (gtk_widget_get_mapped (window->priv->hpaned_commit1))
 	{
+		position = gtk_paned_get_position (GTK_PANED (window->priv->hpaned_commit1));
 		gitg_settings_set_hpaned_commit1_position (settings,
-			                                       gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit1)));
+		                                           position);
 	}
 
 	if (gtk_widget_get_mapped (window->priv->hpaned_commit2))
 	{
+		GtkAllocation alloc;
+
+		gtk_widget_get_allocation (GTK_WIDGET (window->priv->hpaned_commit2),
+		                           &alloc);
+
+		position = gtk_paned_get_position (GTK_PANED (window->priv->hpaned_commit2));
+
 		gitg_settings_set_hpaned_commit2_position (settings,
-			                                       GTK_WIDGET (window->priv->hpaned_commit2)->allocation.width -
-		                                           gtk_paned_get_position(GTK_PANED(window->priv->hpaned_commit2)));
+		                                           alloc.width -
+		                                           position);
 	}
 
-	gitg_settings_set_revision_tree_view_position(settings, gtk_paned_get_position(GTK_PANED(window->priv->revision_tree_view)));
+	position = gtk_paned_get_position (GTK_PANED (window->priv->revision_tree_view));
+	gitg_settings_set_revision_tree_view_position (settings,
+	                                               position);
 
-	gitg_settings_save(settings);
+	gitg_settings_save (settings);
 }
 
 static gboolean
@@ -923,7 +938,7 @@ on_repository_loaded (GitgRepository *repository, GitgWindow *window)
 	gtk_statusbar_push(window->priv->statusbar, 0, msg);
 
 	g_free(msg);
-	gdk_window_set_cursor(GTK_WIDGET(window->priv->tree_view)->window, NULL);
+	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (window->priv->tree_view)), NULL);
 
 	Hash hash = {0,};
 
@@ -1319,7 +1334,7 @@ static void
 on_repository_load (GitgRepository *repository, GitgWindow *window)
 {
 	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
-	gdk_window_set_cursor (GTK_WIDGET (window->priv->tree_view)->window, cursor);
+	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (window->priv->tree_view)), cursor);
 	gdk_cursor_unref (cursor);
 
 	gtk_statusbar_push (window->priv->statusbar, 0, _("Begin loading repository"));
@@ -1843,10 +1858,18 @@ is_boundary_from_event(GitgWindow *window, GdkEventAny *event, gint x, gint y, g
 static gboolean
 on_tree_view_motion(GtkTreeView *treeview, GdkEventMotion *event, GitgWindow *window)
 {
-	if (is_boundary_from_event(window, (GdkEventAny *)event, event->x, event->y, NULL))
-		gdk_window_set_cursor(GTK_WIDGET(treeview)->window, window->priv->hand);
+	GdkWindow *win;
+
+	win = gtk_widget_get_window (GTK_WIDGET (treeview));
+
+	if (is_boundary_from_event (window, (GdkEventAny *)event, event->x, event->y, NULL))
+	{
+		gdk_window_set_cursor (win, window->priv->hand);
+	}
 	else
-		gdk_window_set_cursor(GTK_WIDGET(treeview)->window, NULL);
+	{
+		gdk_window_set_cursor (win, NULL);
+	}
 
 	return FALSE;
 }

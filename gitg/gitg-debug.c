@@ -31,12 +31,14 @@ static guint debug_enabled = GITG_DEBUG_NONE;
 			debug_enabled |= name;		\
 	}
 
-void gitg_debug_init()
+void
+gitg_debug_init (void)
 {
 	DEBUG_FROM_ENV(GITG_DEBUG_RUNNER);
 }
 
-gboolean gitg_debug_enabled(guint debug)
+gboolean
+gitg_debug_enabled (guint debug)
 {
 	return debug_enabled & debug;
 }

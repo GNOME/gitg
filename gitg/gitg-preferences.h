@@ -58,8 +58,8 @@ struct _GitgPreferencesClass {
 	GObjectClass parent_class;
 };
 
-GType gitg_preferences_get_type(void) G_GNUC_CONST;
-GitgPreferences *gitg_preferences_get_default();
+GType gitg_preferences_get_type (void) G_GNUC_CONST;
+GitgPreferences *gitg_preferences_get_default (void);
 
 G_END_DECLS
 

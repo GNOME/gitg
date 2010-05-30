@@ -572,7 +572,7 @@ gitg_repository_dialog_present(GitgWindow *window)
 }
 
 void
-gitg_repository_dialog_close ()
+gitg_repository_dialog_close (void)
 {
 	if (repository_dialog)
 	{

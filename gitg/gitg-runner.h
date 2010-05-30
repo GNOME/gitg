@@ -91,7 +91,7 @@ void gitg_runner_cancel (GitgRunner *runner);
 void gitg_runner_set_environment (GitgRunner *runner, gchar const **environment);
 void gitg_runner_add_environment (GitgRunner *runner, gchar const *key, gchar const *value);
 
-GQuark gitg_runner_error_quark ();
+GQuark gitg_runner_error_quark (void);
 
 G_END_DECLS
 

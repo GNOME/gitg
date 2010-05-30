@@ -25,8 +25,8 @@
 
 #include <glib.h>
 
-gchar const *gitg_dirs_get_data_dir();
-gchar *gitg_dirs_get_data_filename(gchar const *first, ...) G_GNUC_NULL_TERMINATED;
-void gitg_dirs_initialize(int argc, char **argv);
+gchar const *gitg_dirs_get_data_dir (void);
+gchar *gitg_dirs_get_data_filename (gchar const *first, ...) G_GNUC_NULL_TERMINATED;
+void gitg_dirs_initialize (int argc, char **argv);
 
 #endif /* __GITG_DIRS_H__ */

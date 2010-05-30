@@ -24,7 +24,7 @@
 
 /* GitgLane functions */
 GitgLane *
-gitg_lane_copy(GitgLane *lane)
+gitg_lane_copy (GitgLane *lane)
 {
 	GitgLane *copy = g_slice_new(GitgLane);
 	copy->color = gitg_color_ref(lane->color);
@@ -35,7 +35,7 @@ gitg_lane_copy(GitgLane *lane)
 }
 
 GitgLane *
-gitg_lane_dup(GitgLane *lane)
+gitg_lane_dup (GitgLane *lane)
 {
 	GitgLane *dup = g_slice_new(GitgLane);
 	dup->color = gitg_color_copy(lane->color);
@@ -46,7 +46,7 @@ gitg_lane_dup(GitgLane *lane)
 }
 
 void
-gitg_lane_free(GitgLane *lane)
+gitg_lane_free (GitgLane *lane)
 {
 	gitg_color_unref(lane->color);
 	g_slist_free(lane->from);
@@ -58,13 +58,13 @@ gitg_lane_free(GitgLane *lane)
 }
 
 GitgLane *
-gitg_lane_new()
+gitg_lane_new (void)
 {
 	return gitg_lane_new_with_color(NULL);
 }
 
 GitgLane *
-gitg_lane_new_with_color(GitgColor *color)
+gitg_lane_new_with_color (GitgColor *color)
 {
 	GitgLane *lane = g_slice_new0(GitgLane);
 	lane->color = color ? gitg_color_ref(color) : gitg_color_next();
@@ -73,7 +73,7 @@ gitg_lane_new_with_color(GitgColor *color)
 }
 
 GitgLaneBoundary *
-gitg_lane_convert_boundary(GitgLane *lane, GitgLaneType type)
+gitg_lane_convert_boundary (GitgLane *lane, GitgLaneType type)
 {
 	GitgLaneBoundary *boundary = g_slice_new(GitgLaneBoundary);
 

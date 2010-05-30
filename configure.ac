@@ -66,13 +66,28 @@ PKG_CHECK_MODULES(PACKAGE, [
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-AC_ARG_ENABLE([bundle],
-	AS_HELP_STRING([--enable-bundle],[Enable building bundle (default: disabled)]),
-	[enable_bundle=$enableval],
-	[enable_bundle=no])
+GNOME_COMPILE_WARNINGS(yes)
 
 if test "x$USE_MAINTAINER_MODE" = "xyes"; then
 PACKAGE_CFLAGS="$PACKAGE_CFLAGS -Wall -Werror -Wuninitialized -Wmissing-declarations"
+enable_deprecations="yes"
+fi
+
+
+AC_ARG_ENABLE(deprecations,
+              [AS_HELP_STRING([--enable-deprecations],
+                              [warn about deprecated usages [default=no]])],
+              [enable_deprecations=$enableval])
+
+if test "$enable_deprecations" = "yes"; then
+   DISABLE_DEPRECATED_CFLAGS="\
+-DGSEAL_ENABLE \
+-DG_DISABLE_DEPRECATED \
+-DGDK_DISABLE_DEPRECATED \
+-DGTK_DISABLE_DEPRECATED \
+-DGDK_PIXBUF_DISABLE_DEPRECATED \
+-DGNOME_DISABLE_DEPRECATED"
+   AC_SUBST(DISABLE_DEPRECATED_CFLAGS)
 fi
 
 AC_SUBST(PACKAGE_CFLAGS)

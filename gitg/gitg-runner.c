@@ -97,7 +97,7 @@ async_data_free (AsyncData *data)
 }
 
 GQuark
-gitg_runner_error_quark()
+gitg_runner_error_quark (void)
 {
 	static GQuark quark = 0;
 

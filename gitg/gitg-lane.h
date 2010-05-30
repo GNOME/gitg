@@ -53,12 +53,12 @@ typedef struct
 	Hash hash;
 } GitgLaneBoundary;
 
-GitgLane *gitg_lane_new();
-GitgLane *gitg_lane_new_with_color(GitgColor *color);
-GitgLane *gitg_lane_copy(GitgLane *lane);
-GitgLane *gitg_lane_dup(GitgLane *lane);
+GitgLane *gitg_lane_new (void);
+GitgLane *gitg_lane_new_with_color (GitgColor *color);
+GitgLane *gitg_lane_copy (GitgLane *lane);
+GitgLane *gitg_lane_dup (GitgLane *lane);
 
-void gitg_lane_free(GitgLane *lane);
-GitgLaneBoundary *gitg_lane_convert_boundary(GitgLane *lane, GitgLaneType type);
+void gitg_lane_free (GitgLane *lane);
+GitgLaneBoundary *gitg_lane_convert_boundary (GitgLane *lane, GitgLaneType type);
 
 #endif /* __GITG_LANE_H__ */

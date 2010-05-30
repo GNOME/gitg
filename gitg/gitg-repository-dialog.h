@@ -55,7 +55,7 @@ struct _GitgRepositoryDialogClass
 GType gitg_repository_dialog_get_type (void) G_GNUC_CONST;
 GitgRepositoryDialog *gitg_repository_dialog_present(GitgWindow *window);
 
-void gitg_repository_dialog_close ();
+void gitg_repository_dialog_close (void);
 
 G_END_DECLS
 

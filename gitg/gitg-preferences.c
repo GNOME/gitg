@@ -545,7 +545,7 @@ gitg_preferences_init(GitgPreferences *self)
 }
 
 GitgPreferences *
-gitg_preferences_get_default()
+gitg_preferences_get_default(void)
 {
 	static GitgPreferences *preferences = NULL;
 
