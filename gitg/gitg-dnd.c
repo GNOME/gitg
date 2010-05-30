@@ -29,6 +29,7 @@
 #include <string.h>
 #include "gitg-window.h"
 #include "gitg-branch-actions.h"
+#include "gseal-gtk-compat.h"
 
 enum
 {

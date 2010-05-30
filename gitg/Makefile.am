@@ -44,7 +44,8 @@ NOINST_H_FILES = 			\
 	gitg-settings.h			\
 	gitg-types.h			\
 	gitg-utils.h			\
-	gitg-window.h
+	gitg-window.h			\
+	gseal-gtk-compat.h
 
 gitg_SOURCES = 				\
 	$(BUILT_SOURCES)		\
