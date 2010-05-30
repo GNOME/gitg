@@ -20,6 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <gtk/gtk.h>
+
 #include "gitg-dnd.h"
 #include "gitg-ref.h"
 #include "gitg-cell-renderer-path.h"
@@ -441,11 +443,11 @@ begin_drag (GtkWidget   *widget,
 
 			filename = generate_format_patch_filename (revision);
 
-			gdk_property_change (context->source_window,
-				                 XDS_ATOM, TEXT_ATOM,
-				                 8, GDK_PROP_MODE_REPLACE,
-				                 (guchar *) filename,
-				                 strlen (filename));
+			gdk_property_change (gtk_widget_get_window (gtk_drag_get_source_widget (context)),
+				             XDS_ATOM, TEXT_ATOM,
+				             8, GDK_PROP_MODE_REPLACE,
+				             (guchar *) filename,
+				             strlen (filename));
 
 			data->xds_filename = filename;
 
@@ -823,7 +825,7 @@ revision_to_treeish (GitgRepository *repository,
 static gchar *
 get_xds_filename (GdkDragContext *context)
 {
-	if (context == NULL || context->source_window == NULL)
+	if (context == NULL || gtk_drag_get_source_widget (context) == NULL)
 	{
 		return NULL;
 	}
@@ -831,7 +833,7 @@ get_xds_filename (GdkDragContext *context)
 	gint len;
 	gchar *ret = NULL;
 
-	if (gdk_property_get (context->source_window,
+	if (gdk_property_get (gtk_widget_get_window (gtk_drag_get_source_widget (context)),
 	                      XDS_ATOM, TEXT_ATOM,
 	                      0, MAX_XDS_ATOM_VAL_LEN,
 	                      FALSE, NULL, NULL, &len,
@@ -852,7 +854,7 @@ has_direct_save (GitgDndData    *data,
 {
 	gboolean ret;
 
-	if (!g_list_find (context->targets, XDS_ATOM))
+	if (!g_list_find (gdk_drag_context_list_targets (context), XDS_ATOM))
 	{
 		return FALSE;
 	}
@@ -948,7 +950,7 @@ gitg_drag_source_end_cb (GtkTreeView    *tree_view,
 {
 	if (data->revision)
 	{
-		gdk_property_delete (context->source_window, XDS_ATOM);
+		gdk_property_delete (gtk_widget_get_window (gtk_drag_get_source_widget (context)), XDS_ATOM);
 
 		if (data->xds_destination != NULL)
 		{
