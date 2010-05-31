@@ -589,10 +589,7 @@ set_revision (GitgRevisionChangesPanel *changes_panel,
 		changes_panel->priv->revision = NULL;
 	}
 
-	if (changes_panel->priv->repository && changes_panel->priv->revision)
-	{
-		reload_diff (changes_panel);
-	}
+	reload_diff (changes_panel);
 }
 
 static void
@@ -600,8 +597,10 @@ on_diff_files_begin_loading (GitgRunner               *runner,
                              GitgRevisionChangesPanel *self)
 {
 	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
+
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (self->priv->diff_files)),
 	                       cursor);
+
 	gdk_cursor_unref (cursor);
 }
 
