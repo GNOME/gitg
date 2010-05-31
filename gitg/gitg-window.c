@@ -44,7 +44,8 @@
 #include "gitg-preferences.h"
 #include "gitg-utils.h"
 #include "gitg-revision-panel.h"
-#include "gitg-revision-files-view-panel.h"
+#include "gitg-revision-changes-panel.h"
+#include "gitg-revision-files-panel.h"
 
 #define DYNAMIC_ACTION_DATA_KEY "GitgDynamicActionDataKey"
 #define DYNAMIC_ACTION_DATA_REMOTE_KEY "GitgDynamicActionDataRemoteKey"
@@ -948,7 +949,8 @@ gitg_window_parser_finished (GtkBuildable *buildable,
 	gtk_builder_connect_signals (builder, window);
 
 	// Initialize revision panels
-	add_revision_panel (window, GITG_TYPE_REVISION_FILES_VIEW_PANEL);
+	add_revision_panel (window, GITG_TYPE_REVISION_CHANGES_PANEL);
+	add_revision_panel (window, GITG_TYPE_REVISION_FILES_PANEL);
 
 	// Connect signals
 	GtkTreeSelection *selection = gtk_tree_view_get_selection (window->priv->tree_view);

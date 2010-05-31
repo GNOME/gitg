@@ -1,5 +1,5 @@
 /*
- * gitg-revision-tree-view.c
+ * gitg-revision-files-panel.c
  * This file is part of gitg - git repository viewer
  *
  * Copyright (C) 2009 - Jesse van den Kieboom
@@ -29,14 +29,14 @@
 #include <libgitg/gitg-revision.h>
 #include <libgitg/gitg-runner.h>
 
-#include "gitg-revision-files-view-panel.h"
+#include "gitg-revision-files-panel.h"
 #include "gitg-utils.h"
 #include "gitg-revision-panel.h"
 #include "gitg-dirs.h"
 
 #define GITG_REVISION_FILES_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_FILES_VIEW, GitgRevisionFilesViewPrivate))
 
-#define GITG_REVISION_FILES_VIEW_PANEL_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_FILES_VIEW_PANEL, GitgRevisionFilesViewPanelPrivate))
+#define GITG_REVISION_FILES_PANEL_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_FILES_PANEL, GitgRevisionFilesPanelPrivate))
 
 enum
 {
@@ -80,7 +80,7 @@ struct _GitgRevisionFilesViewClass
 	GtkHPanedClass parent_class;
 };
 
-struct _GitgRevisionFilesViewPanelPrivate
+struct _GitgRevisionFilesPanelPrivate
 {
 	GitgRevisionFilesView *panel;
 };
@@ -94,8 +94,8 @@ static void gitg_revision_panel_iface_init (GitgRevisionPanelInterface *iface);
 static void load_node (GitgRevisionFilesView *view, GtkTreeIter *parent);
 static gchar *node_identity (GitgRevisionFilesView *view, GtkTreeIter *iter);
 
-G_DEFINE_TYPE_EXTENDED (GitgRevisionFilesViewPanel,
-                        gitg_revision_files_view_panel,
+G_DEFINE_TYPE_EXTENDED (GitgRevisionFilesPanel,
+                        gitg_revision_files_panel,
                         G_TYPE_OBJECT,
                         0,
                         G_IMPLEMENT_INTERFACE (GITG_TYPE_REVISION_PANEL,
@@ -144,6 +144,12 @@ set_revision (GitgRevisionFilesView *files_view,
               GitgRepository       *repository,
               GitgRevision         *revision)
 {
+	if (files_view->priv->repository == repository &&
+	    files_view->priv->revision == revision)
+	{
+		return;
+	}
+
 	gitg_runner_cancel (files_view->priv->loader);
 	gtk_tree_store_clear (files_view->priv->store);
 
@@ -179,7 +185,6 @@ set_revision (GitgRevisionFilesView *files_view,
 	{
 		load_tree (files_view);
 	}
-
 }
 
 static void
@@ -576,9 +581,9 @@ gitg_revision_panel_update_impl (GitgRevisionPanel *panel,
                                  GitgRepository    *repository,
                                  GitgRevision      *revision)
 {
-	GitgRevisionFilesViewPanel *files_view_panel;
+	GitgRevisionFilesPanel *files_view_panel;
 
-	files_view_panel = GITG_REVISION_FILES_VIEW_PANEL (panel);
+	files_view_panel = GITG_REVISION_FILES_PANEL (panel);
 
 	set_revision (files_view_panel->priv->panel, repository, revision);
 }
@@ -594,9 +599,9 @@ gitg_revision_panel_get_panel_impl (GitgRevisionPanel *panel)
 {
 	GtkBuilder *builder;
 	GtkWidget *ret;
-	GitgRevisionFilesViewPanel *files_view_panel;
+	GitgRevisionFilesPanel *files_view_panel;
 
-	files_view_panel = GITG_REVISION_FILES_VIEW_PANEL (panel);
+	files_view_panel = GITG_REVISION_FILES_PANEL (panel);
 
 	if (files_view_panel->priv->panel)
 	{
@@ -640,11 +645,11 @@ gitg_revision_files_view_class_init (GitgRevisionFilesViewClass *klass)
 }
 
 static void
-gitg_revision_files_view_panel_dispose (GObject *object)
+gitg_revision_files_panel_dispose (GObject *object)
 {
-	GitgRevisionFilesViewPanel *panel;
+	GitgRevisionFilesPanel *panel;
 
-	panel = GITG_REVISION_FILES_VIEW_PANEL (object);
+	panel = GITG_REVISION_FILES_PANEL (object);
 
 	if (panel->priv->panel)
 	{
@@ -652,17 +657,17 @@ gitg_revision_files_view_panel_dispose (GObject *object)
 		panel->priv->panel = NULL;
 	}
 
-	G_OBJECT_CLASS (gitg_revision_files_view_panel_parent_class)->dispose (object);
+	G_OBJECT_CLASS (gitg_revision_files_panel_parent_class)->dispose (object);
 }
 
 static void
-gitg_revision_files_view_panel_class_init (GitgRevisionFilesViewPanelClass *klass)
+gitg_revision_files_panel_class_init (GitgRevisionFilesPanelClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	object_class->dispose = gitg_revision_files_view_panel_dispose;
+	object_class->dispose = gitg_revision_files_panel_dispose;
 
-	g_type_class_add_private (object_class, sizeof (GitgRevisionFilesViewPanelPrivate));
+	g_type_class_add_private (object_class, sizeof (GitgRevisionFilesPanelPrivate));
 }
 
 static gchar *
@@ -980,9 +985,9 @@ gitg_revision_files_view_init (GitgRevisionFilesView *self)
 }
 
 static void
-gitg_revision_files_view_panel_init (GitgRevisionFilesViewPanel *self)
+gitg_revision_files_panel_init (GitgRevisionFilesPanel *self)
 {
-	self->priv = GITG_REVISION_FILES_VIEW_PANEL_GET_PRIVATE (self);
+	self->priv = GITG_REVISION_FILES_PANEL_GET_PRIVATE (self);
 }
 
 static gchar *

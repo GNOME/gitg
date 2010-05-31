@@ -11,48 +11,48 @@ AM_CPPFLAGS =							\
 	-DGITG_DATADIR=\""$(datadir)/gitg"\"			\
 	-DGITG_LOCALEDIR=\""$(datadir)/locale"\"
 
-NOINST_H_FILES = 				\
-	gitg-branch-actions.h			\
-	gitg-cell-renderer-path.h		\
-	gitg-commit-view.h			\
-	gitg-data-binding.h			\
-	gitg-diff-line-renderer.h		\
-	gitg-diff-view.h			\
-	gitg-dirs.h				\
-	gitg-dnd.h				\
-	gitg-label-renderer.h			\
-	gitg-preferences-dialog.h		\
-	gitg-preferences.h			\
-	gitg-repository-dialog.h		\
-	gitg-revision-panel.h			\
-	gitg-revision-files-view-panel.h	\
-	gitg-revision-view.h			\
-	gitg-settings.h				\
-	gitg-utils.h				\
-	gitg-window.h				\
+NOINST_H_FILES = 			\
+	gitg-branch-actions.h		\
+	gitg-cell-renderer-path.h	\
+	gitg-commit-view.h		\
+	gitg-data-binding.h		\
+	gitg-diff-line-renderer.h	\
+	gitg-diff-view.h		\
+	gitg-dirs.h			\
+	gitg-dnd.h			\
+	gitg-label-renderer.h		\
+	gitg-preferences-dialog.h	\
+	gitg-preferences.h		\
+	gitg-repository-dialog.h	\
+	gitg-revision-panel.h		\
+	gitg-revision-files-panel.h	\
+	gitg-revision-changes-panel.h	\
+	gitg-settings.h			\
+	gitg-utils.h			\
+	gitg-window.h			\
 	gseal-gtk-compat.h
 
-gitg_SOURCES = 					\
-	$(BUILT_SOURCES)			\
-	gitg.c					\
-	gitg-branch-actions.c			\
-	gitg-cell-renderer-path.c		\
-	gitg-commit-view.c			\
-	gitg-data-binding.c			\
-	gitg-diff-line-renderer.c		\
-	gitg-diff-view.c			\
-	gitg-dirs.c				\
-	gitg-dnd.c				\
-	gitg-label-renderer.c			\
-	gitg-preferences.c			\
-	gitg-preferences-dialog.c		\
-	gitg-repository-dialog.c		\
-	gitg-revision-panel.c			\
-	gitg-revision-files-view-panel.c	\
-	gitg-revision-view.c			\
-	gitg-settings.c				\
-	gitg-utils.c				\
-	gitg-window.c				\
+gitg_SOURCES = 				\
+	$(BUILT_SOURCES)		\
+	gitg.c				\
+	gitg-branch-actions.c		\
+	gitg-cell-renderer-path.c	\
+	gitg-commit-view.c		\
+	gitg-data-binding.c		\
+	gitg-diff-line-renderer.c	\
+	gitg-diff-view.c		\
+	gitg-dirs.c			\
+	gitg-dnd.c			\
+	gitg-label-renderer.c		\
+	gitg-preferences.c		\
+	gitg-preferences-dialog.c	\
+	gitg-repository-dialog.c	\
+	gitg-revision-panel.c		\
+	gitg-revision-files-panel.c	\
+	gitg-revision-changes-panel.c	\
+	gitg-settings.c			\
+	gitg-utils.c			\
+	gitg-window.c			\
 	$(NOINST_H_FILES)
 
 gitg_LDADD =		\
@@ -71,7 +71,7 @@ ui_DATA = \
 	gitg-preferences.ui		\
 	gitg-tag.ui			\
 	gitg-repository.ui		\
-	gitg-revision-view.ui		\
+	gitg-revision-changes.ui	\
 	gitg-revision-files-view.ui
 
 EXTRA_DIST = 				\
