@@ -23,8 +23,8 @@
  * This is a modified version of gtksourceview-i18n.h
  */
 
-#ifndef __PEAS_18N_H__
-#define __PEAS_18N_H__
+#ifndef __GITG_18N_H__
+#define __GITG_18N_H__
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -68,4 +68,4 @@ const gchar *_gitg_gettext (const char *msgid) G_GNUC_FORMAT(1);
 
 G_END_DECLS
 
-#endif /* __PEAS_I18N_H__ */
+#endif /* __GITG_I18N_H__ */
