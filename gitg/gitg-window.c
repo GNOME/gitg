@@ -34,8 +34,6 @@
 #include "gitg-data-binding.h"
 #include "gitg-dirs.h"
 #include "gitg-window.h"
-#include "gitg-revision-view.h"
-#include "gitg-revision-tree-view.h"
 #include "gitg-cell-renderer-path.h"
 #include "gitg-commit-view.h"
 #include "gitg-settings.h"
@@ -45,6 +43,8 @@
 #include "gitg-branch-actions.h"
 #include "gitg-preferences.h"
 #include "gitg-utils.h"
+#include "gitg-revision-panel.h"
+#include "gitg-revision-files-view-panel.h"
 
 #define DYNAMIC_ACTION_DATA_KEY "GitgDynamicActionDataKey"
 #define DYNAMIC_ACTION_DATA_REMOTE_KEY "GitgDynamicActionDataRemoteKey"
@@ -70,8 +70,6 @@ struct _GitgWindowPrivate
 	GtkNotebook *notebook_main;
 	GtkTreeView *tree_view;
 	GtkStatusbar *statusbar;
-	GitgRevisionView *revision_view;
-	GitgRevisionTreeView *revision_tree_view;
 	GitgCommitView *commit_view;
 	GtkWidget *search_popup;
 	GtkComboBox *combo_branches;
@@ -82,6 +80,7 @@ struct _GitgWindowPrivate
 	GtkWidget *hpaned_commit1;
 	GtkWidget *hpaned_commit2;
 	GtkWidget *vpaned_commit;
+	GtkNotebook *notebook_revision;
 
 	GtkActionGroup *edit_group;
 	GtkActionGroup *repository_group;
@@ -102,6 +101,8 @@ struct _GitgWindowPrivate
 
 	GList *branch_actions;
 	GitgHash select_on_load;
+
+	GSList *revision_panels;
 };
 
 static gboolean on_tree_view_motion (GtkTreeView *treeview,
@@ -194,7 +195,77 @@ gitg_window_finalize (GObject *object)
 
 	g_list_free (copy);
 
-	G_OBJECT_CLASS(gitg_window_parent_class)->finalize (object);
+	G_OBJECT_CLASS (gitg_window_parent_class)->finalize (object);
+}
+
+static void
+on_revision_panel_mapped (GtkWidget  *page,
+                          GitgWindow *window)
+{
+	gint nth;
+	GitgRevisionPanel *panel;
+	GitgRevision *revision = NULL;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+
+	selection = gtk_tree_view_get_selection (window->priv->tree_view);
+
+	if (gtk_tree_selection_get_selected (selection, &model, &iter))
+	{
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 0, &revision, -1);
+	}
+
+	if (!revision)
+	{
+		return;
+	}
+
+	nth = gtk_notebook_page_num (window->priv->notebook_revision,
+	                             page);
+
+	panel = g_slist_nth_data (window->priv->revision_panels, nth);
+
+	gitg_revision_panel_update (panel,
+	                            window->priv->repository,
+	                            revision);
+
+	gitg_revision_unref (revision);
+}
+
+static void
+add_revision_panel (GitgWindow *window,
+                    GType       panel_type)
+{
+	GitgRevisionPanel *panel;
+	gchar *label;
+	GtkWidget *label_widget;
+	GtkWidget *page;
+
+	g_return_if_fail (g_type_is_a (panel_type, GITG_TYPE_REVISION_PANEL));
+
+	panel = g_object_new (panel_type, NULL);
+
+	window->priv->revision_panels = g_slist_append (window->priv->revision_panels,
+	                                                panel);
+
+	label = gitg_revision_panel_get_label (panel);
+	label_widget = gtk_label_new (label);
+	gtk_widget_show (label_widget);
+
+	g_free (label);
+
+	page = gitg_revision_panel_get_panel (panel);
+	gtk_widget_show (page);
+
+	g_signal_connect (page,
+	                  "map",
+	                  G_CALLBACK (on_revision_panel_mapped),
+	                  window);
+
+	gtk_notebook_append_page (window->priv->notebook_revision,
+	                          page,
+	                          label_widget);
 }
 
 static void
@@ -204,19 +275,29 @@ on_selection_changed (GtkTreeSelection *selection,
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	GitgRevision *revision = NULL;
+	GSList *item;
 
 	if (gtk_tree_selection_get_selected (selection, &model, &iter))
 	{
 		gtk_tree_model_get (GTK_TREE_MODEL(model), &iter, 0, &revision, -1);
 	}
 
-	gitg_revision_view_update (window->priv->revision_view,
-	                           window->priv->repository,
-	                           revision);
+	gint i = 0;
 
-	gitg_revision_tree_view_update (window->priv->revision_tree_view,
-	                                window->priv->repository,
-	                                revision);
+	for (item = window->priv->revision_panels; item; item = g_slist_next (item))
+	{
+		GtkWidget *page;
+
+		page = gtk_notebook_get_nth_page (window->priv->notebook_revision,
+		                                  i++);
+
+		if (gtk_widget_get_mapped (page) || !revision)
+		{
+			gitg_revision_panel_update (item->data,
+			                            window->priv->repository,
+			                            revision);
+		}
+	}
 
 	if (revision)
 	{
@@ -423,14 +504,6 @@ goto_hash (GitgWindow  *window,
 }
 
 static void
-on_parent_activated (GitgRevisionView *view,
-                     gchar            *hash,
-                     GitgWindow       *window)
-{
-	goto_hash (window, hash);
-}
-
-static void
 on_renderer_path (GtkTreeViewColumn    *column,
                   GitgCellRendererPath *renderer,
                   GtkTreeModel         *model,
@@ -605,10 +678,6 @@ restore_state (GitgWindow *window)
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->hpaned_commit2),
 	                                  gitg_settings_get_hpaned_commit2_position (settings, 200),
 	                                  TRUE);
-
-	gitg_utils_restore_pane_position (GTK_PANED(window->priv->revision_tree_view),
-	                                  gitg_settings_get_revision_tree_view_position (settings, -1),
-	                                  FALSE);
 }
 
 static void
@@ -846,17 +915,14 @@ gitg_window_parser_finished (GtkBuildable *buildable,
 	window->priv->notebook_main = GTK_NOTEBOOK (gtk_builder_get_object (builder,
 	                                            "notebook_main"));
 
+	window->priv->notebook_revision = GTK_NOTEBOOK (gtk_builder_get_object (builder,
+	                                                "notebook_revision"));
+
 	window->priv->tree_view = GTK_TREE_VIEW (gtk_builder_get_object (builder,
 	                                         "tree_view_rv"));
 
 	window->priv->statusbar = GTK_STATUSBAR (gtk_builder_get_object (builder,
 	                                         "statusbar"));
-
-	window->priv->revision_view = GITG_REVISION_VIEW (gtk_builder_get_object (builder,
-	                                                  "revision_view"));
-
-	window->priv->revision_tree_view = GITG_REVISION_TREE_VIEW (gtk_builder_get_object (builder,
-	                                                            "revision_tree_view"));
 
 	window->priv->commit_view = GITG_COMMIT_VIEW (gtk_builder_get_object (builder,
 	                                              "vpaned_commit"));
@@ -881,16 +947,14 @@ gitg_window_parser_finished (GtkBuildable *buildable,
 
 	gtk_builder_connect_signals (builder, window);
 
+	// Initialize revision panels
+	add_revision_panel (window, GITG_TYPE_REVISION_FILES_VIEW_PANEL);
+
 	// Connect signals
 	GtkTreeSelection *selection = gtk_tree_view_get_selection (window->priv->tree_view);
 	g_signal_connect (selection,
 	                  "changed",
 	                  G_CALLBACK(on_selection_changed),
-	                  window);
-
-	g_signal_connect (window->priv->revision_view,
-	                  "parent-activated",
-	                  G_CALLBACK(on_parent_activated),
 	                  window);
 
 	g_signal_connect (window->priv->tree_view,
@@ -968,10 +1032,6 @@ save_state (GitgWindow *window)
 		                                           position);
 	}
 
-	position = gtk_paned_get_position (GTK_PANED (window->priv->revision_tree_view));
-	gitg_settings_set_revision_tree_view_position (settings,
-	                                               position);
-
 	gitg_settings_save (settings);
 }
 
@@ -1000,6 +1060,11 @@ gitg_window_destroy (GtkObject *object)
 	if (!window->priv->destroy_has_run)
 	{
 		gtk_tree_view_set_model (window->priv->tree_view, NULL);
+
+		g_slist_foreach (window->priv->revision_panels, (GFunc)g_object_unref, NULL);
+		g_slist_free (window->priv->revision_panels);
+
+		window->priv->revision_panels = NULL;
 		window->priv->destroy_has_run = TRUE;
 	}
 
@@ -1740,9 +1805,6 @@ load_repository (GitgWindow   *window,
 		gitg_commit_view_set_repository (window->priv->commit_view,
 		                                 window->priv->repository);
 
-		gitg_revision_view_set_repository (window->priv->revision_view,
-		                                  window->priv->repository);
-
 		add_recent_item (window);
 	}
 	else
@@ -1751,9 +1813,6 @@ load_repository (GitgWindow   *window,
 
 		gitg_commit_view_set_repository (window->priv->commit_view,
 		                                 NULL);
-
-		gitg_revision_view_set_repository (window->priv->revision_view,
-		                                   NULL);
 
 		update_window_title (window);
 	}

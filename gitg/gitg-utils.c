@@ -164,23 +164,23 @@ gitg_utils_set_monospace_font(GtkWidget *widget)
 }
 
 GtkBuilder *
-gitg_utils_new_builder(gchar const *filename)
+gitg_utils_new_builder (gchar const *filename)
 {
-	GtkBuilder *b = gtk_builder_new();
+	GtkBuilder *b = gtk_builder_new ();
 	GError *error = NULL;
 
-	gchar *path = gitg_dirs_get_data_filename("ui", filename, NULL);
+	gchar *path = gitg_dirs_get_data_filename ("ui", filename, NULL);
 
-	if (!gtk_builder_add_from_file(b, path, &error))
+	if (!gtk_builder_add_from_file (b, path, &error))
 	{
-		g_critical("Could not open UI file: %s (%s)", path, error->message);
-		g_error_free(error);
+		g_critical ("Could not open UI file: %s (%s)", path, error->message);
+		g_error_free (error);
 
-		g_free(path);
-		exit(1);
+		g_free (path);
+		exit (1);
 	}
 
-	g_free(path);
+	g_free (path);
 	return b;
 }
 

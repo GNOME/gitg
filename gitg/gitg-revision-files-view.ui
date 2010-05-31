@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<interface>
+  <object class="GitgRevisionFilesView" id="revision_files_view">
+    <property name="visible">True</property>
+    <property name="can_focus">True</property>
+    <property name="position">200</property>
+    <child>
+      <object class="GtkScrolledWindow" id="scrolled_window_revision_files">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hscrollbar_policy">automatic</property>
+        <property name="vscrollbar_policy">automatic</property>
+        <property name="shadow_type">etched-in</property>
+        <child>
+          <object class="GtkTreeView" id="revision_files">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="headers_visible">False</property>
+            <child>
+              <object class="GtkTreeViewColumn" id="revision_files_column">
+                <property name="title">Filename</property>
+                <child>
+                  <object class="GtkCellRendererPixbuf" id="renderer_icon"/>
+                  <attributes>
+                    <attribute name="pixbuf">0</attribute>
+                  </attributes>
+                </child>
+                <child>
+                  <object class="GtkCellRendererText" id="renderer_date"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="resize">False</property>
+        <property name="shrink">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="scrolled_window_files_contents">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hscrollbar_policy">automatic</property>
+        <property name="vscrollbar_policy">automatic</property>
+        <property name="shadow_type">etched-in</property>
+        <child>
+          <object class="GtkSourceView" id="revision_files_contents">
+            <property name="editable">False</property>
+            <property name="show_line_numbers">True</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="resize">True</property>
+        <property name="shrink">True</property>
+      </packing>
+    </child>
+  </object>
+</interface>

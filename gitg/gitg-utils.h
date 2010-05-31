@@ -24,6 +24,7 @@
 #define __GITG_UTILS_H__
 
 #include <glib.h>
+#include <gio/gio.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gtksourceview/gtksourcelanguage.h>
 
@@ -42,7 +43,7 @@ GtkSourceLanguage *gitg_utils_get_language(gchar const *filename, gchar const *c
 gchar *gitg_utils_get_monospace_font_name(void);
 void gitg_utils_set_monospace_font(GtkWidget *widget);
 
-GtkBuilder *gitg_utils_new_builder(gchar const *filename);
+GtkBuilder *gitg_utils_new_builder (gchar const *filename);
 
 gint gitg_utils_sort_names(gchar const *s1, gchar const *s2);
 
