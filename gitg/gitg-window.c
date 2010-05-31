@@ -44,6 +44,7 @@
 #include "gitg-preferences.h"
 #include "gitg-utils.h"
 #include "gitg-revision-panel.h"
+#include "gitg-revision-details-panel.h"
 #include "gitg-revision-changes-panel.h"
 #include "gitg-revision-files-panel.h"
 
@@ -949,6 +950,7 @@ gitg_window_parser_finished (GtkBuildable *buildable,
 	gtk_builder_connect_signals (builder, window);
 
 	// Initialize revision panels
+	add_revision_panel (window, GITG_TYPE_REVISION_DETAILS_PANEL);
 	add_revision_panel (window, GITG_TYPE_REVISION_CHANGES_PANEL);
 	add_revision_panel (window, GITG_TYPE_REVISION_FILES_PANEL);
 

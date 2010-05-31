@@ -25,6 +25,7 @@ NOINST_H_FILES = 			\
 	gitg-preferences.h		\
 	gitg-repository-dialog.h	\
 	gitg-revision-panel.h		\
+	gitg-revision-details-panel.h	\
 	gitg-revision-files-panel.h	\
 	gitg-revision-changes-panel.h	\
 	gitg-settings.h			\
@@ -48,6 +49,7 @@ gitg_SOURCES = 				\
 	gitg-preferences-dialog.c	\
 	gitg-repository-dialog.c	\
 	gitg-revision-panel.c		\
+	gitg-revision-details-panel.c	\
 	gitg-revision-files-panel.c	\
 	gitg-revision-changes-panel.c	\
 	gitg-settings.c			\
@@ -71,6 +73,7 @@ ui_DATA = \
 	gitg-preferences.ui		\
 	gitg-tag.ui			\
 	gitg-repository.ui		\
+	gitg-revision-details.ui	\
 	gitg-revision-changes.ui	\
 	gitg-revision-files-view.ui
 
