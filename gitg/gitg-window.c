@@ -1315,21 +1315,6 @@ convert_setting_to_inactive_gap (GValue const *setting,
 	return TRUE;
 }
 
-static gboolean
-convert_setting_to_inactive_enabled (GValue const *setting,
-                                     GValue       *value,
-                                     gpointer      userdata)
-{
-	g_return_val_if_fail (G_VALUE_HOLDS(setting, G_TYPE_BOOLEAN), FALSE);
-	g_return_val_if_fail (G_VALUE_HOLDS(value, G_TYPE_BOOLEAN), FALSE);
-
-	gboolean s = g_value_get_boolean (setting);
-	g_value_set_boolean (value, s);
-
-	return TRUE;
-}
-
-
 static void
 bind_repository (GitgWindow *window)
 {
@@ -1347,6 +1332,26 @@ bind_repository (GitgWindow *window)
 	                            convert_setting_to_inactive_max,
 	                            window);
 
+	gitg_data_binding_new (preferences,
+	                       "history-show-virtual-stash",
+	                       window->priv->repository,
+	                       "show-stash");
+
+	gitg_data_binding_new (preferences,
+	                       "history-show-virtual-staged",
+	                       window->priv->repository,
+	                       "show-staged");
+
+	gitg_data_binding_new (preferences,
+	                       "history-show-virtual-unstaged",
+	                       window->priv->repository,
+	                       "show-unstaged");
+
+	gitg_data_binding_new (preferences,
+	                       "history-topo-order",
+	                       window->priv->repository,
+	                       "topo-order");
+
 	gitg_data_binding_new_full (preferences,
 	                            "history-collapse-inactive-lanes",
 	                            window->priv->repository,
@@ -1361,10 +1366,10 @@ bind_repository (GitgWindow *window)
 	                            convert_setting_to_inactive_gap,
 	                            window);
 
-	gitg_data_binding_new_full (preferences, "history-collapse-inactive-lanes-active",
-	                           window->priv->repository, "inactive-enabled",
-	                           convert_setting_to_inactive_enabled,
-	                           window);
+	gitg_data_binding_new (preferences,
+	                       "history-collapse-inactive-lanes-active",
+	                       window->priv->repository,
+	                       "inactive-enabled");
 }
 
 static gboolean
