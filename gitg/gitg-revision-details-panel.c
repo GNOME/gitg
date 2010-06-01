@@ -131,7 +131,7 @@ gitg_revision_panel_get_panel_impl (GitgRevisionPanel *panel)
 		return details_panel->priv->panel_widget;
 	}
 
-	builder = gitg_utils_new_builder ("gitg-revision-details.ui");
+	builder = gitg_utils_new_builder ("gitg-revision-details-panel.ui");
 	details_panel->priv->builder = builder;
 
 	ret = GTK_WIDGET (gtk_builder_get_object (builder, "revision_details_page"));

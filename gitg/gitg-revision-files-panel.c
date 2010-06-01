@@ -608,7 +608,7 @@ gitg_revision_panel_get_panel_impl (GitgRevisionPanel *panel)
 		return GTK_WIDGET (files_view_panel->priv->panel);
 	}
 
-	builder = gitg_utils_new_builder ("gitg-revision-files-view.ui");
+	builder = gitg_utils_new_builder ("gitg-revision-files-panel.ui");
 	ret = GTK_WIDGET (gtk_builder_get_object (builder, "revision_files_view"));
 	files_view_panel->priv->panel = g_object_ref (ret);
 

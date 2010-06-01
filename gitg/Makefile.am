@@ -73,9 +73,9 @@ ui_DATA = \
 	gitg-preferences.ui		\
 	gitg-tag.ui			\
 	gitg-repository.ui		\
-	gitg-revision-details.ui	\
-	gitg-revision-changes.ui	\
-	gitg-revision-files-view.ui
+	gitg-revision-details-panel.ui	\
+	gitg-revision-changes-panel.ui	\
+	gitg-revision-files-panel.ui
 
 EXTRA_DIST = 				\
 	$(ui_DATA)
