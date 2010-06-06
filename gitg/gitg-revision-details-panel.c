@@ -58,6 +58,7 @@ struct _GitgRevisionDetailsPanelPrivate
 	gboolean in_stat;
 
 	GSList *stats;
+	GitgWindow *window;
 };
 
 static void gitg_revision_panel_iface_init (GitgRevisionPanelInterface *iface);
@@ -166,8 +167,16 @@ gitg_revision_panel_get_panel_impl (GitgRevisionPanel *panel)
 }
 
 static void
+gitg_revision_panel_initialize_impl (GitgRevisionPanel *panel,
+                                     GitgWindow        *window)
+{
+	GITG_REVISION_DETAILS_PANEL (panel)->priv->window = window;
+}
+
+static void
 gitg_revision_panel_iface_init (GitgRevisionPanelInterface *iface)
 {
+	iface->initialize = gitg_revision_panel_initialize_impl;
 	iface->get_id = gitg_revision_panel_get_id_impl;
 	iface->update = gitg_revision_panel_update_impl;
 	iface->get_label = gitg_revision_panel_get_label_impl;
@@ -492,28 +501,30 @@ on_parent_clicked (GtkWidget      *ev,
                    GdkEventButton *event,
                    gpointer        userdata)
 {
+	GitgRevisionDetailsPanel *panel;
+	gchar *hash;
+
 	if (event->button != 1)
 	{
 		return FALSE;
 	}
 
-	//GitgRevisionDetailsPanel *panel = GITG_REVISION_DETAILS_PANEL (userdata);
-	//gchar *hash = (gchar *)g_object_get_data (G_OBJECT(ev), HASH_KEY);
+	panel = GITG_REVISION_DETAILS_PANEL (userdata);
+	hash = (gchar *)g_object_get_data (G_OBJECT (ev), HASH_KEY);
 
-	// TODO: do something
-
+	gitg_window_select (panel->priv->window, hash);
 	return FALSE;
 }
 
 static GtkWidget *
 make_parent_label (GitgRevisionDetailsPanel *self,
-                   gchar const              *hash)
+                   gchar const              *sha1)
 {
 	GtkWidget *ev = gtk_event_box_new ();
 	GtkWidget *lbl = gtk_label_new (NULL);
 
 	gchar *markup = g_strconcat ("<span underline='single' foreground='#00f'>",
-	                             hash,
+	                             sha1,
 	                             "</span>",
 	                             NULL);
 
@@ -528,7 +539,7 @@ make_parent_label (GitgRevisionDetailsPanel *self,
 
 	g_object_set_data_full (G_OBJECT(ev),
 	                        HASH_KEY,
-	                        (gpointer)gitg_hash_sha1_to_hash_new (hash),
+	                        g_strdup (sha1),
 	                        (GDestroyNotify)g_free);
 
 	g_signal_connect (ev,

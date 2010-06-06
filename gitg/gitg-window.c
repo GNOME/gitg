@@ -250,6 +250,7 @@ add_revision_panel (GitgWindow *window,
 	g_return_if_fail (g_type_is_a (panel_type, GITG_TYPE_REVISION_PANEL));
 
 	panel = g_object_new (panel_type, NULL);
+	gitg_revision_panel_initialize (panel, window);
 
 	window->priv->revision_panels = g_slist_append (window->priv->revision_panels,
 	                                                panel);

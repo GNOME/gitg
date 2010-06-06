@@ -3,6 +3,13 @@
 G_DEFINE_INTERFACE (GitgRevisionPanel, gitg_revision_panel, G_TYPE_INVALID)
 
 /* Default implementation */
+static void
+gitg_revision_panel_initialize_default (GitgRevisionPanel *panel,
+                                        GitgWindow        *window)
+{
+	/* No default implementation */
+}
+
 static gchar *
 gitg_revision_panel_get_id_default (GitgRevisionPanel *panel)
 {
@@ -34,6 +41,7 @@ gitg_revision_panel_default_init (GitgRevisionPanelInterface *iface)
 {
 	static gboolean initialized = FALSE;
 
+	iface->initialize = gitg_revision_panel_initialize_default;
 	iface->get_id = gitg_revision_panel_get_id_default;
 	iface->get_label = gitg_revision_panel_get_label_default;
 	iface->get_panel = gitg_revision_panel_get_panel_default;
@@ -80,3 +88,15 @@ gitg_revision_panel_update (GitgRevisionPanel *panel,
 	                                                  repository,
 	                                                  revision);
 }
+
+void
+gitg_revision_panel_initialize (GitgRevisionPanel *panel,
+                                GitgWindow        *window)
+{
+	g_return_if_fail (GITG_IS_REVISION_PANEL (panel));
+	g_return_if_fail (GITG_IS_WINDOW (window));
+
+	GITG_REVISION_PANEL_GET_INTERFACE (panel)->initialize (panel,
+	                                                       window);
+}
+
