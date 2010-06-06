@@ -89,7 +89,7 @@
                                 <property name="rules_hint">True</property>
                                 <property name="search_column">1</property>
                                 <property name="fixed_height_mode">True</property>
-                                <signal name="button_press_event" handler="on_tree_view_rv_button_press_event"/>
+                                <signal name="event_after" handler="on_tree_view_rv_button_press_event"/>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="rv_column_subject">
                                     <property name="resizable">True</property>

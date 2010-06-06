@@ -132,9 +132,9 @@ void on_help_about (GtkAction *action, GitgWindow *window);
 void on_edit_preferences (GtkAction *action, GitgWindow *window);
 void on_repository_properties (GtkAction *action, GitgWindow *window);
 
-gboolean on_tree_view_rv_button_press_event (GtkWidget *widget,
-                                             GdkEventButton *event,
-                                             GitgWindow *window);
+void on_tree_view_rv_button_press_event (GtkWidget  *widget,
+                                         GdkEvent   *event,
+                                         GitgWindow *window);
 
 void on_checkout_branch_action_activate (GtkAction *action, GitgWindow *window);
 void on_remove_branch_action_activate (GtkAction *action, GitgWindow *window);
@@ -3044,17 +3044,23 @@ popup_revision (GitgWindow     *window,
 	return TRUE;
 }
 
-gboolean
-on_tree_view_rv_button_press_event (GtkWidget      *widget,
-                                    GdkEventButton *event,
-                                    GitgWindow     *window)
+void
+on_tree_view_rv_button_press_event (GtkWidget  *widget,
+                                    GdkEvent   *event,
+                                    GitgWindow  *window)
 {
-	if (event->button == 3)
+	if (event->type == GDK_BUTTON_PRESS)
 	{
-		return popup_ref (window, event) || popup_revision (window, event);
-	}
+		GdkEventButton *button = (GdkEventButton *)event;
 
-	return FALSE;
+		if (button->button == 3)
+		{
+			if (!popup_ref (window, button))
+			{
+				popup_revision (window, button);
+			}
+		}
+	}
 }
 
 void
