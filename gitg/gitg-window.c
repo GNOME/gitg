@@ -47,6 +47,8 @@
 #include "gitg-revision-details-panel.h"
 #include "gitg-revision-changes-panel.h"
 #include "gitg-revision-files-panel.h"
+#include "gitg-activatable.h"
+#include "gitg-uri.h"
 
 #define DYNAMIC_ACTION_DATA_KEY "GitgDynamicActionDataKey"
 #define DYNAMIC_ACTION_DATA_REMOTE_KEY "GitgDynamicActionDataRemoteKey"
@@ -105,6 +107,7 @@ struct _GitgWindowPrivate
 	GitgHash select_on_load;
 
 	GSList *revision_panels;
+	GSList *activatables;
 };
 
 static gboolean on_tree_view_motion (GtkTreeView *treeview,
@@ -250,6 +253,12 @@ add_revision_panel (GitgWindow *window,
 
 	window->priv->revision_panels = g_slist_append (window->priv->revision_panels,
 	                                                panel);
+
+	if (GITG_IS_ACTIVATABLE (panel))
+	{
+		window->priv->activatables = g_slist_append (window->priv->activatables,
+		                                             g_object_ref (panel));
+	}
 
 	label = gitg_revision_panel_get_label (panel);
 	label_widget = gtk_label_new (label);
@@ -478,7 +487,7 @@ build_search_entry (GitgWindow *window,
 	gtk_window_add_accel_group (GTK_WINDOW(window), group);
 }
 
-static void
+static gboolean
 goto_hash (GitgWindow  *window,
            gchar const *hash)
 {
@@ -486,7 +495,7 @@ goto_hash (GitgWindow  *window,
 
 	if (!gitg_repository_find_by_hash (window->priv->repository, hash, &iter))
 	{
-		return;
+		return FALSE;
 	}
 
 	gtk_tree_selection_select_iter (gtk_tree_view_get_selection (window->priv->tree_view),
@@ -503,6 +512,8 @@ goto_hash (GitgWindow  *window,
 	                              0.5,
 	                              0);
 	gtk_tree_path_free (path);
+
+	return TRUE;
 }
 
 static void
@@ -1068,7 +1079,12 @@ gitg_window_destroy (GtkObject *object)
 		g_slist_foreach (window->priv->revision_panels, (GFunc)g_object_unref, NULL);
 		g_slist_free (window->priv->revision_panels);
 
+		g_slist_foreach (window->priv->activatables, (GFunc)g_object_unref, NULL);
+		g_slist_free (window->priv->activatables);
+
 		window->priv->revision_panels = NULL;
+		window->priv->activatables = NULL;
+
 		window->priv->destroy_has_run = TRUE;
 	}
 
@@ -1227,65 +1243,6 @@ gitg_window_set_select_on_load (GitgWindow  *window,
 	}
 
 	g_free (resolved);
-}
-
-static gboolean
-parse_gitg_uri (GFile  *file,
-                GFile **work_tree,
-                gchar **selection)
-{
-	if (selection)
-	{
-		*selection = NULL;
-	}
-
-	if (work_tree)
-	{
-		*work_tree = NULL;
-	}
-
-	if (!g_file_has_uri_scheme (file, "gitg"))
-	{
-		return FALSE;
-	}
-
-	/* Extract path and sha information */
-	gchar *uri = g_file_get_uri (file);
-	gchar *fd = strrchr (uri, ':');
-	gchar *sel = NULL;
-	gint pos = 0;
-
-	if (fd)
-	{
-		sel = strchr (fd, '/');
-
-		if (sel)
-		{
-			*sel = '\0';
-			sel += 1;
-		}
-
-		pos = fd - uri;
-	}
-
-	if (pos > 5 && strlen (uri) - pos - 1 <= 40)
-	{
-		/* It has a sha */
-		*fd = '\0';
-
-		if (selection)
-		{
-			*selection = g_strdup (fd + 1);
-		}
-	}
-
-	if (work_tree)
-	{
-		*work_tree = g_file_new_for_path (uri + 7);
-	}
-
-	g_free (uri);
-	return TRUE;
 }
 
 static gboolean
@@ -1770,6 +1727,22 @@ update_sensitivity (GitgWindow *window)
 	gtk_action_group_set_sensitive (window->priv->repository_group, sens);
 }
 
+gboolean
+gitg_window_select (GitgWindow  *window,
+                    gchar const *selection)
+{
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
+
+	gitg_window_set_select_on_load (window, selection);
+
+	if (!window->priv->repository)
+	{
+		return FALSE;
+	}
+
+	return goto_hash (window, window->priv->select_on_load);
+}
+
 static gboolean
 load_repository (GitgWindow   *window,
                  GFile        *git_dir,
@@ -1845,6 +1818,67 @@ load_repository (GitgWindow   *window,
 	return window->priv->repository != NULL;
 }
 
+static gboolean
+activate_activatable (GitgWindow      *window,
+                      GitgActivatable *activatable,
+                      gchar const     *action)
+{
+	if (!gitg_activatable_activate (activatable, action))
+	{
+		return FALSE;
+	}
+
+	if (GITG_IS_REVISION_PANEL (activatable))
+	{
+		GtkWidget *page;
+		GitgRevisionPanel *panel;
+		gint nth;
+
+		panel = GITG_REVISION_PANEL (activatable);
+		page = gitg_revision_panel_get_panel (panel);
+
+		nth = gtk_notebook_page_num (window->priv->notebook_revision,
+		                             page);
+
+		if (nth >= 0)
+		{
+			gtk_notebook_set_current_page (window->priv->notebook_revision,
+			                               nth);
+		}
+	}
+
+	return TRUE;
+}
+
+gboolean
+gitg_window_activate (GitgWindow  *window,
+                      gchar const *activatable,
+                      gchar const *action)
+{
+	GSList *item;
+
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
+	g_return_val_if_fail (activatable != NULL, FALSE);
+
+	for (item = window->priv->activatables; item; item = g_slist_next (item))
+	{
+		GitgActivatable *act = item->data;
+		gchar *id;
+		gboolean match;
+
+		id = gitg_activatable_get_id (act);
+		match = g_strcmp0 (activatable, id) == 0;
+		g_free (id);
+
+		if (match)
+		{
+			return activate_activatable (window, act, action);
+		}
+	}
+
+	return FALSE;
+}
+
 gboolean
 gitg_window_load_repository (GitgWindow   *window,
                              GFile        *git_dir,
@@ -1907,13 +1941,27 @@ load_repository_for_command_line (GitgWindow   *window,
 
 	if (argc > 0)
 	{
-		GFile *first_arg = g_file_new_for_commandline_arg (argv[0]);
-		gchar *sel;
+		GFile *first_arg;
+		gchar *uri;
+		gchar *sel = NULL;
+		gchar *work_tree_path = NULL;
+		gchar *activatable = NULL;
+		gchar *action = NULL;
 
-		if (!parse_gitg_uri (first_arg, &work_tree, &sel))
+		first_arg = g_file_new_for_commandline_arg (argv[0]);
+		uri = g_file_get_uri (first_arg);
+
+		if (!gitg_uri_parse (uri, &work_tree_path, &sel, &activatable, &action))
 		{
 			git_dir = find_dot_git (first_arg);
 		}
+		else
+		{
+			work_tree = g_file_new_for_path (work_tree_path);
+		}
+
+		g_free (uri);
+		g_object_unref (first_arg);
 
 		if (git_dir || (work_tree && g_file_query_exists (work_tree, NULL)))
 		{
@@ -1923,10 +1971,17 @@ load_repository_for_command_line (GitgWindow   *window,
 			                       argc - 1,
 			                       argv + 1,
 			                       selection ? selection : sel);
+
+			if (ret)
+			{
+				gitg_window_activate (window, activatable, action);
+			}
 		}
 
 		g_free (sel);
-		g_object_unref (first_arg);
+		g_free (activatable);
+		g_free (action);
+		g_free (work_tree_path);
 	}
 
 	if (!ret)

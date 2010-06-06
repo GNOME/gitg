@@ -4,6 +4,12 @@ G_DEFINE_INTERFACE (GitgRevisionPanel, gitg_revision_panel, G_TYPE_INVALID)
 
 /* Default implementation */
 static gchar *
+gitg_revision_panel_get_id_default (GitgRevisionPanel *panel)
+{
+	g_return_val_if_reached (NULL);
+}
+
+static gchar *
 gitg_revision_panel_get_label_default (GitgRevisionPanel *panel)
 {
 	g_return_val_if_reached (NULL);
@@ -28,6 +34,7 @@ gitg_revision_panel_default_init (GitgRevisionPanelInterface *iface)
 {
 	static gboolean initialized = FALSE;
 
+	iface->get_id = gitg_revision_panel_get_id_default;
 	iface->get_label = gitg_revision_panel_get_label_default;
 	iface->get_panel = gitg_revision_panel_get_panel_default;
 	iface->update = gitg_revision_panel_update_default;
@@ -36,6 +43,14 @@ gitg_revision_panel_default_init (GitgRevisionPanelInterface *iface)
 	{
 		initialized = TRUE;
 	}
+}
+
+gchar *
+gitg_revision_panel_get_id (GitgRevisionPanel *panel)
+{
+	g_return_val_if_fail (GITG_IS_REVISION_PANEL (panel), NULL);
+
+	return GITG_REVISION_PANEL_GET_INTERFACE (panel)->get_id (panel);
 }
 
 gchar *

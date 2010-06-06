@@ -13,6 +13,7 @@
 #include <glib/gi18n.h>
 
 #include "gitg-revision-panel.h"
+#include "gitg-activatable.h"
 
 #define GITG_REVISION_CHANGES_PANEL_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_CHANGES_PANEL, GitgRevisionChangesPanelPrivate))
 
@@ -31,6 +32,8 @@ struct _GitgRevisionChangesPanelPrivate
 	GitgRepository *repository;
 	GitgRevision *revision;
 	GSList *cached_headers;
+
+	gchar *selection;
 };
 
 typedef enum
@@ -60,6 +63,8 @@ typedef struct
 } DiffFile;
 
 static void gitg_revision_panel_iface_init (GitgRevisionPanelInterface *iface);
+static void gitg_activatable_iface_init (GitgActivatableInterface *iface);
+
 static void on_header_added (GitgDiffView *view, GitgDiffIter *iter, GitgRevisionChangesPanel *self);
 static void on_diff_files_selection_changed (GtkTreeSelection *selection, GitgRevisionChangesPanel *self);
 
@@ -68,7 +73,9 @@ G_DEFINE_TYPE_EXTENDED (GitgRevisionChangesPanel,
                         G_TYPE_OBJECT,
                         0,
                         G_IMPLEMENT_INTERFACE (GITG_TYPE_REVISION_PANEL,
-                                               gitg_revision_panel_iface_init));
+                                               gitg_revision_panel_iface_init);
+                        G_IMPLEMENT_INTERFACE (GITG_TYPE_ACTIVATABLE,
+                                               gitg_activatable_iface_init));
 
 static void set_revision (GitgRevisionChangesPanel *panel,
                           GitgRepository           *repository,
@@ -271,6 +278,24 @@ gitg_revision_panel_get_label_impl (GitgRevisionPanel *panel)
 	return g_strdup (_("Changes"));
 }
 
+static gchar *
+revision_panel_get_id (void)
+{
+	return g_strdup ("changes");
+}
+
+static gchar *
+gitg_revision_panel_get_id_impl (GitgRevisionPanel *panel)
+{
+	return revision_panel_get_id ();
+}
+
+static gchar *
+gitg_activatable_get_id_impl (GitgActivatable *activatable)
+{
+	return revision_panel_get_id ();
+}
+
 static void
 initialize_ui (GitgRevisionChangesPanel *changes_panel)
 {
@@ -385,12 +410,78 @@ gitg_revision_panel_get_panel_impl (GitgRevisionPanel *panel)
 	return ret;
 }
 
+static gboolean
+select_diff_file (GitgRevisionChangesPanel *changes_panel,
+                  gchar const              *filename)
+{
+	GtkTreeModel *store;
+	GtkTreeIter iter;
+
+	store = gtk_tree_view_get_model (changes_panel->priv->diff_files);
+
+	if (!gtk_tree_model_get_iter_first (store, &iter))
+	{
+		return FALSE;
+	}
+
+	do
+	{
+		DiffFile *file;
+
+		gtk_tree_model_get (store, &iter, 0, &file, -1);
+
+		if (g_strcmp0 (file->filename, filename) == 0)
+		{
+			GtkTreeSelection *selection;
+
+			selection = gtk_tree_view_get_selection (changes_panel->priv->diff_files);
+
+			gtk_tree_selection_unselect_all (selection);
+			gtk_tree_selection_select_iter (selection, &iter);
+
+			diff_file_unref (file);
+			return TRUE;
+		}
+
+		diff_file_unref (file);
+	} while (gtk_tree_model_iter_next (store, &iter));
+
+	return FALSE;
+}
+
+static gboolean
+gitg_activatable_activate_impl (GitgActivatable *activatable,
+                                gchar const     *action)
+{
+	GitgRevisionChangesPanel *changes_panel;
+
+	changes_panel = GITG_REVISION_CHANGES_PANEL (activatable);
+
+	if (select_diff_file (changes_panel, action))
+	{
+		return TRUE;
+	}
+
+	g_free (changes_panel->priv->selection);
+	changes_panel->priv->selection = g_strdup (action);
+
+	return TRUE;
+}
+
 static void
 gitg_revision_panel_iface_init (GitgRevisionPanelInterface *iface)
 {
+	iface->get_id = gitg_revision_panel_get_id_impl;
 	iface->update = gitg_revision_panel_update_impl;
 	iface->get_label = gitg_revision_panel_get_label_impl;
 	iface->get_panel = gitg_revision_panel_get_panel_impl;
+}
+
+static void
+gitg_activatable_iface_init (GitgActivatableInterface *iface)
+{
+	iface->get_id = gitg_activatable_get_id_impl;
+	iface->activate = gitg_activatable_activate_impl;
 }
 
 static void
@@ -444,6 +535,13 @@ gitg_revision_changes_panel_dispose (GObject *object)
 	if (changes_panel->priv->builder)
 	{
 		g_object_unref (changes_panel->priv->builder);
+		changes_panel->priv->builder = NULL;
+	}
+
+	if (changes_panel->priv->selection)
+	{
+		g_free (changes_panel->priv->selection);
+		changes_panel->priv->selection = NULL;
 	}
 
 	G_OBJECT_CLASS (gitg_revision_changes_panel_parent_class)->dispose (object);
@@ -611,6 +709,14 @@ on_diff_files_end_loading (GitgRunner               *runner,
 {
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET(self->priv->diff_files)),
 	                       NULL);
+
+	if (self->priv->selection)
+	{
+		select_diff_file (self, self->priv->selection);
+
+		g_free (self->priv->selection);
+		self->priv->selection = NULL;
+	}
 }
 
 static gboolean

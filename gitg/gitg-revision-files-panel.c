@@ -589,6 +589,12 @@ gitg_revision_panel_update_impl (GitgRevisionPanel *panel,
 }
 
 static gchar *
+gitg_revision_panel_get_id_impl (GitgRevisionPanel *panel)
+{
+	return g_strdup ("files");
+}
+
+static gchar *
 gitg_revision_panel_get_label_impl (GitgRevisionPanel *panel)
 {
 	return g_strdup (_("Files"));
@@ -620,6 +626,7 @@ gitg_revision_panel_get_panel_impl (GitgRevisionPanel *panel)
 static void
 gitg_revision_panel_iface_init (GitgRevisionPanelInterface *iface)
 {
+	iface->get_id = gitg_revision_panel_get_id_impl;
 	iface->update = gitg_revision_panel_update_impl;
 	iface->get_label = gitg_revision_panel_get_label_impl;
 	iface->get_panel = gitg_revision_panel_get_panel_impl;

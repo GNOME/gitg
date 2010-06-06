@@ -12,6 +12,7 @@ AM_CPPFLAGS =							\
 	-DGITG_LOCALEDIR=\""$(datadir)/locale"\"
 
 NOINST_H_FILES = 			\
+	gitg-activatable.h		\
 	gitg-branch-actions.h		\
 	gitg-cell-renderer-path.h	\
 	gitg-commit-view.h		\
@@ -30,6 +31,7 @@ NOINST_H_FILES = 			\
 	gitg-revision-changes-panel.h	\
 	gitg-settings.h			\
 	gitg-stat-view.h		\
+	gitg-uri.h			\
 	gitg-utils.h			\
 	gitg-window.h			\
 	gseal-gtk-compat.h
@@ -37,6 +39,7 @@ NOINST_H_FILES = 			\
 gitg_SOURCES = 				\
 	$(BUILT_SOURCES)		\
 	gitg.c				\
+	gitg-activatable.c		\
 	gitg-branch-actions.c		\
 	gitg-cell-renderer-path.c	\
 	gitg-commit-view.c		\
@@ -55,6 +58,7 @@ gitg_SOURCES = 				\
 	gitg-revision-changes-panel.c	\
 	gitg-settings.c			\
 	gitg-stat-view.c		\
+	gitg-uri.c			\
 	gitg-utils.c			\
 	gitg-window.c			\
 	$(NOINST_H_FILES)

@@ -23,12 +23,14 @@ struct _GitgRevisionPanelInterface
 	                         GitgRevision      *revision);
 
 	gchar     *(*get_label) (GitgRevisionPanel *panel);
+	gchar     *(*get_id)    (GitgRevisionPanel *panel);
 	GtkWidget *(*get_panel) (GitgRevisionPanel *panel);
 };
 
 GType gitg_revision_panel_get_type (void) G_GNUC_CONST;
 
 GtkWidget *gitg_revision_panel_get_panel (GitgRevisionPanel *panel);
+gchar     *gitg_revision_panel_get_id    (GitgRevisionPanel *panel);
 gchar     *gitg_revision_panel_get_label (GitgRevisionPanel *panel);
 void       gitg_revision_panel_update    (GitgRevisionPanel *panel,
                                           GitgRepository    *repository,

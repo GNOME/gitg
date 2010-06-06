@@ -76,6 +76,9 @@ void gitg_window_set_select_on_load (GitgWindow *window, gchar const *selection)
 
 gboolean gitg_window_add_branch_action (GitgWindow *window, GitgRunner *runner);
 
+gboolean gitg_window_select (GitgWindow *window, gchar const *selection);
+gboolean gitg_window_activate (GitgWindow *window, gchar const *activatable, gchar const *action);
+
 G_END_DECLS
 
 #endif /* __GITG_WINDOW_H__ */
