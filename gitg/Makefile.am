@@ -29,6 +29,7 @@ NOINST_H_FILES = 			\
 	gitg-revision-files-panel.h	\
 	gitg-revision-changes-panel.h	\
 	gitg-settings.h			\
+	gitg-stat-view.h		\
 	gitg-utils.h			\
 	gitg-window.h			\
 	gseal-gtk-compat.h
@@ -53,6 +54,7 @@ gitg_SOURCES = 				\
 	gitg-revision-files-panel.c	\
 	gitg-revision-changes-panel.c	\
 	gitg-settings.c			\
+	gitg-stat-view.c		\
 	gitg-utils.c			\
 	gitg-window.c			\
 	$(NOINST_H_FILES)

@@ -504,7 +504,7 @@ reload_diff (GitgRevisionChangesPanel *changes_panel)
 			                              "diff",
 			                              "--cached",
 			                              "-M",
-			                              "--pretty=format:%s%n%n%b",
+			                              "--pretty=format:",
 			                              "--encoding=UTF-8",
 			                              "--no-color",
 			                              NULL);
@@ -515,7 +515,7 @@ reload_diff (GitgRevisionChangesPanel *changes_panel)
 			                              NULL,
 			                              "diff",
 			                              "-M",
-			                              "--pretty=format:%s%n%n%b",
+			                              "--pretty=format:",
 			                              "--encoding=UTF-8",
 			                              "--no-color",
 			                              NULL);
@@ -528,7 +528,7 @@ reload_diff (GitgRevisionChangesPanel *changes_panel)
 			                              NULL,
 			                              "show",
 			                              "-M",
-			                              "--pretty=format:%s%n%n%b",
+			                              "--pretty=format:",
 			                              "--encoding=UTF-8",
 			                              "--no-color",
 			                              hash,

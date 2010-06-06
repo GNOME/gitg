@@ -37,6 +37,7 @@
 
 static gboolean commit_mode = FALSE;
 static gchar *select_sha1 = NULL;
+static GtkLinkButtonUriFunc original_link_button_hook;
 
 static void
 show_version_and_quit (void)
@@ -166,6 +167,26 @@ set_icons ()
 	g_list_free (icons);
 }
 
+static void
+link_button_uri_hook (GtkLinkButton *button,
+                      gchar const   *link_,
+                      GitgWindow    *window)
+{
+	GFile *file;
+
+	file = g_file_new_for_uri (link_);
+
+	if (!g_file_has_uri_scheme (file, "gitg"))
+	{
+		original_link_button_hook (button, link_, NULL);
+	}
+	else
+	{
+	}
+
+	g_object_unref (file);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -204,6 +225,10 @@ main (int argc, char **argv)
 	{
 		gitg_window_show_commit (window);
 	}
+
+	original_link_button_hook = gtk_link_button_set_uri_hook ((GtkLinkButtonUriFunc)link_button_uri_hook,
+	                                                          window,
+	                                                          NULL);
 
 	gtk_main ();
 

@@ -1252,7 +1252,21 @@ parse_gitg_uri (GFile  *file,
 	/* Extract path and sha information */
 	gchar *uri = g_file_get_uri (file);
 	gchar *fd = strrchr (uri, ':');
-	gint pos = fd ? fd - uri : 0;
+	gchar *sel = NULL;
+	gint pos = 0;
+
+	if (fd)
+	{
+		sel = strchr (fd, '/');
+
+		if (sel)
+		{
+			*sel = '\0';
+			sel += 1;
+		}
+
+		pos = fd - uri;
+	}
 
 	if (pos > 5 && strlen (uri) - pos - 1 <= 40)
 	{

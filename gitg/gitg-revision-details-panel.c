@@ -24,10 +24,19 @@
 #include "gitg-revision-details-panel.h"
 #include "gitg-utils.h"
 #include "gitg-revision-panel.h"
+#include "gitg-stat-view.h"
 
 #include <glib/gi18n.h>
+#include <stdlib.h>
 
 #define GITG_REVISION_DETAILS_PANEL_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_DETAILS_PANEL, GitgRevisionDetailsPanelPrivate))
+
+typedef struct
+{
+	gchar *file;
+	guint added;
+	guint removed;
+} StatInfo;
 
 struct _GitgRevisionDetailsPanelPrivate
 {
@@ -38,10 +47,17 @@ struct _GitgRevisionDetailsPanelPrivate
 	GtkTable *parents;
 
 	GtkWidget *panel_widget;
+	GtkTextView *text_view;
+
 	GtkBuilder *builder;
 
 	GitgRepository *repository;
 	GitgRevision *revision;
+
+	GitgRunner *runner;
+	gboolean in_stat;
+
+	GSList *stats;
 };
 
 static void gitg_revision_panel_iface_init (GitgRevisionPanelInterface *iface);
@@ -100,6 +116,7 @@ initialize_ui (GitgRevisionDetailsPanel *panel)
 	priv->date = GTK_LABEL (gtk_builder_get_object (priv->builder, "label_date"));
 	priv->subject = GTK_LABEL (gtk_builder_get_object (priv->builder, "label_subject"));
 	priv->parents = GTK_TABLE (gtk_builder_get_object (priv->builder, "table_parents"));
+	priv->text_view = GTK_TEXT_VIEW (gtk_builder_get_object (priv->builder, "text_view_details"));
 
 	gchar const *lbls[] = {
 		"label_subject_lbl",
@@ -169,6 +186,14 @@ gitg_revision_details_panel_dispose (GObject *object)
 		panel->priv->builder = NULL;
 	}
 
+	if (panel->priv->runner)
+	{
+		gitg_runner_cancel (panel->priv->runner);
+		g_object_unref (panel->priv->runner);
+
+		panel->priv->runner = NULL;
+	}
+
 	G_OBJECT_CLASS (gitg_revision_details_panel_parent_class)->dispose (object);
 }
 static void
@@ -183,10 +208,274 @@ gitg_revision_details_panel_class_init (GitgRevisionDetailsPanelClass *klass)
 }
 
 static void
+on_runner_begin (GitgRunner               *runner,
+                 GitgRevisionDetailsPanel *panel)
+{
+	GdkCursor *cursor;
+
+	cursor = gdk_cursor_new (GDK_WATCH);
+	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (panel->priv->text_view)),
+	                       cursor);
+
+	panel->priv->in_stat = FALSE;
+
+	gdk_cursor_unref (cursor);
+}
+
+static void
+make_stats_table (GitgRevisionDetailsPanel *panel)
+{
+	guint num;
+	GtkTable *table;
+	GSList *item;
+	guint i;
+	guint max_lines = 0;
+	GtkTextChildAnchor *anchor;
+	GtkTextBuffer *buffer;
+	GtkTextIter iter;
+	gchar *path;
+	gchar *repo_uri;
+	gchar *sha1;
+	GFile *work_tree;
+
+	if (!panel->priv->stats)
+	{
+		return;
+	}
+
+	num = g_slist_length (panel->priv->stats);
+	table = GTK_TABLE (gtk_table_new (num, 3, FALSE));
+	gtk_table_set_row_spacings (table, 3);
+	gtk_table_set_col_spacings (table, 6);
+
+	for (item = panel->priv->stats; item; item = g_slist_next (item))
+	{
+		StatInfo *info = item->data;
+		guint total = info->added + info->removed;
+
+		if (total > max_lines)
+		{
+			max_lines = total;
+		}
+	}
+
+	item = panel->priv->stats;
+	work_tree = gitg_repository_get_work_tree (panel->priv->repository);
+	path = g_file_get_path (work_tree);
+	sha1 = gitg_revision_get_sha1 (panel->priv->revision);
+
+	g_object_unref (work_tree);
+
+	repo_uri = g_strdup_printf ("gitg://%s:%s", path, sha1);
+
+	g_free (sha1);
+	g_free (path);
+
+	for (i = 0; i < num; ++i)
+	{
+		StatInfo *info = item->data;
+		GtkWidget *view;
+		GtkWidget *file;
+		GtkWidget *total;
+		GtkWidget *align;
+		gchar *total_str;
+		gchar *uri;
+
+		view = gitg_stat_view_new (info->added,
+		                           info->removed,
+		                           max_lines);
+
+		align = gtk_alignment_new (0, 0.5, 1, 0);
+		gtk_widget_set_size_request (view, 300, 18);
+
+		gtk_container_add (GTK_CONTAINER (align), view);
+
+		uri = g_strdup_printf ("%s/changes/%s", repo_uri, info->file);
+
+		file = gtk_link_button_new_with_label (uri,
+		                                       info->file);
+
+		g_free (uri);
+
+		gtk_button_set_alignment (GTK_BUTTON (file),
+		                          0,
+		                          0.5);
+
+		total_str = g_strdup_printf ("%d", info->added + info->removed);
+		total = gtk_label_new (total_str);
+		g_free (total_str);
+
+		g_free (info->file);
+		g_slice_free (StatInfo, info);
+
+		gtk_table_attach (table, file,
+		                  0, 1, i, i + 1,
+		                  GTK_SHRINK | GTK_FILL, GTK_SHRINK | GTK_FILL,
+		                  0, 0);
+
+		gtk_table_attach (table, align,
+		                  1, 2, i, i + 1,
+		                  GTK_EXPAND | GTK_FILL, GTK_SHRINK | GTK_FILL,
+		                  0, 0);
+
+		gtk_table_attach (table, total,
+		                  2, 3, i, i + 1,
+		                  GTK_SHRINK | GTK_FILL, GTK_SHRINK | GTK_FILL,
+		                  0, 0);
+
+		gtk_widget_show (view);
+		gtk_widget_show (file);
+		gtk_widget_show (total);
+		gtk_widget_show (align);
+
+		item = g_slist_next (item);
+	}
+
+	gtk_widget_show (GTK_WIDGET (table));
+
+	buffer = gtk_text_view_get_buffer (panel->priv->text_view);
+
+	gtk_text_buffer_get_end_iter (buffer, &iter);
+	gtk_text_buffer_insert (buffer, &iter, "\n\n", 2);
+
+	anchor = gtk_text_buffer_create_child_anchor (buffer,
+	                                              &iter);
+
+	gtk_text_view_add_child_at_anchor (panel->priv->text_view,
+	                                   GTK_WIDGET (table),
+	                                   anchor);
+}
+
+static void
+on_runner_end (GitgRunner               *runner,
+               gboolean                  cancelled,
+               GitgRevisionDetailsPanel *panel)
+{
+	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (panel->priv->text_view)),
+	                       NULL);
+
+	panel->priv->stats = g_slist_reverse (panel->priv->stats);
+
+	make_stats_table (panel);
+
+	g_slist_free (panel->priv->stats);
+	panel->priv->stats = NULL;
+}
+
+static void
+strip_trailing_newlines (GtkTextBuffer *buffer)
+{
+	GtkTextIter iter;
+	GtkTextIter end;
+
+	gtk_text_buffer_get_end_iter (buffer, &iter);
+
+	if (!gtk_text_iter_starts_line (&iter))
+	{
+		return;
+	}
+
+	while (!gtk_text_iter_is_start (&iter) &&
+	        gtk_text_iter_ends_line (&iter))
+	{
+		if (!gtk_text_iter_backward_line (&iter))
+		{
+			break;
+		}
+	}
+
+	gtk_text_iter_forward_to_line_end (&iter);
+
+	gtk_text_buffer_get_end_iter (buffer, &end);
+	gtk_text_buffer_delete (buffer, &iter, &end);
+}
+
+static void
+add_stat (GitgRevisionDetailsPanel *panel,
+          gchar const              *line)
+{
+	gchar **parts;
+
+	parts = g_strsplit_set (line, "\t ", -1);
+
+	if (g_strv_length (parts) == 3)
+	{
+		StatInfo *stat;
+
+		stat = g_slice_new (StatInfo);
+
+		stat->added = (guint)atoi (parts[0]);
+		stat->removed = (guint)atoi (parts[1]);
+		stat->file = g_strdup (parts[2]);
+
+		panel->priv->stats = g_slist_prepend (panel->priv->stats,
+		                                      stat);
+	}
+
+	g_strfreev (parts);
+}
+
+static void
+on_runner_update (GitgRunner                *runner,
+                  gchar                    **lines,
+                  GitgRevisionDetailsPanel  *panel)
+{
+	GtkTextBuffer *buffer;
+	GtkTextIter end;
+
+	buffer = gtk_text_view_get_buffer (panel->priv->text_view);
+	gtk_text_buffer_get_end_iter (buffer, &end);
+
+	while (lines && *lines)
+	{
+		gchar const *line = *lines;
+		++lines;
+
+		if (panel->priv->in_stat)
+		{
+			add_stat (panel, line);
+		}
+		else
+		{
+			if (!gtk_text_iter_is_start (&end))
+			{
+				gtk_text_buffer_insert (buffer, &end, "\n", 1);
+			}
+
+			if (line[0] == '\x01' && !line[1])
+			{
+				panel->priv->in_stat = TRUE;
+				strip_trailing_newlines (buffer);
+			}
+			else
+			{
+				gtk_text_buffer_insert (buffer, &end, line, -1);
+			}
+		}
+	}
+}
+
+static void
 gitg_revision_details_panel_init (GitgRevisionDetailsPanel *self)
 {
 	self->priv = GITG_REVISION_DETAILS_PANEL_GET_PRIVATE(self);
 
+	self->priv->runner = gitg_runner_new (1000);
+
+	g_signal_connect (self->priv->runner,
+	                  "begin-loading",
+	                  G_CALLBACK (on_runner_begin),
+	                  self);
+
+	g_signal_connect (self->priv->runner,
+	                  "end-loading",
+	                  G_CALLBACK (on_runner_end),
+	                  self);
+
+	g_signal_connect (self->priv->runner,
+	                  "update",
+	                  G_CALLBACK (on_runner_update),
+	                  self);
 }
 
 #define HASH_KEY "GitgRevisionDetailsPanelHashKey"
@@ -333,6 +622,36 @@ update_parents (GitgRevisionDetailsPanel *self)
 }
 
 static void
+update_details (GitgRevisionDetailsPanel *panel)
+{
+	gchar *sha1;
+
+	gitg_runner_cancel (panel->priv->runner);
+
+	gtk_text_buffer_set_text (gtk_text_view_get_buffer (panel->priv->text_view),
+	                          "",
+	                          0);
+
+	if (!panel->priv->revision)
+	{
+		return;
+	}
+
+	sha1 = gitg_revision_get_sha1 (panel->priv->revision);
+
+	gitg_repository_run_commandv (panel->priv->repository,
+	                              panel->priv->runner,
+	                              NULL,
+	                              "show",
+	                              "--numstat",
+	                              "--pretty=format:%s%n%n%b%n\x01",
+	                              sha1,
+	                              NULL);
+
+	g_free (sha1);
+}
+
+static void
 reload (GitgRevisionDetailsPanel *panel)
 {
 	GtkClipboard *cb;
@@ -373,6 +692,7 @@ reload (GitgRevisionDetailsPanel *panel)
 
 	// Update parents
 	update_parents (panel);
+	update_details (panel);
 }
 
 static void
