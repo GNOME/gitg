@@ -31,6 +31,13 @@ struct _GitgRevision
 	GitgHash hash;
 
 	gchar *author;
+	gchar *author_email;
+	gint64 author_date;
+
+	gchar *committer;
+	gchar *committer_email;
+	gint64 committer_date;
+
 	gchar *subject;
 
 	GitgHash *parents;
@@ -39,8 +46,6 @@ struct _GitgRevision
 
 	GSList *lanes;
 	gint8 mylane;
-
-	gint64 timestamp;
 };
 
 static void
@@ -55,6 +60,11 @@ static void
 gitg_revision_finalize (GitgRevision *revision)
 {
 	g_free (revision->author);
+	g_free (revision->author_email);
+
+	g_free (revision->committer);
+	g_free (revision->committer_email);
+
 	g_free (revision->subject);
 	g_free (revision->parents);
 
@@ -91,20 +101,32 @@ gitg_revision_unref (GitgRevision *revision)
 	gitg_revision_finalize (revision);
 }
 
-GitgRevision *gitg_revision_new (gchar const *sha,
-		gchar const *author,
-		gchar const *subject,
-		gchar const *parents,
-		gint64 timestamp)
+GitgRevision *
+gitg_revision_new (gchar const *sha,
+                   gchar const *author,
+                   gchar const *author_email,
+                   gint64       author_date,
+                   gchar const *committer,
+                   gchar const *committer_email,
+                   gint64       committer_date,
+                   gchar const *subject,
+                   gchar const *parents)
 {
 	GitgRevision *rv = g_slice_new0 (GitgRevision);
 
 	rv->refcount = 1;
 
 	gitg_hash_sha1_to_hash (sha, rv->hash);
+
 	rv->author = g_strdup (author);
+	rv->author_email = g_strdup (author_email);
+	rv->author_date = author_date;
+
+	rv->committer = g_strdup (committer);
+	rv->committer_email = g_strdup (committer_email);
+	rv->committer_date = committer_date;
+
 	rv->subject = g_strdup (subject);
-	rv->timestamp = timestamp;
 
 	if (parents)
 	{
@@ -133,15 +155,39 @@ gitg_revision_get_author (GitgRevision *revision)
 }
 
 gchar const *
+gitg_revision_get_author_email (GitgRevision *revision)
+{
+	return revision->author_email;
+}
+
+gint64
+gitg_revision_get_author_date (GitgRevision *revision)
+{
+	return revision->author_date;
+}
+
+gchar const *
+gitg_revision_get_committer (GitgRevision *revision)
+{
+	return revision->committer;
+}
+
+gchar const *
+gitg_revision_get_committer_email (GitgRevision *revision)
+{
+	return revision->committer_email;
+}
+
+gint64
+gitg_revision_get_committer_date (GitgRevision *revision)
+{
+	return revision->committer_date;
+}
+
+gchar const *
 gitg_revision_get_subject (GitgRevision *revision)
 {
 	return revision->subject;
-}
-
-guint64
-gitg_revision_get_timestamp (GitgRevision *revision)
-{
-	return revision->timestamp;
 }
 
 gchar const *
@@ -336,14 +382,30 @@ gitg_revision_get_format_patch_name (GitgRevision *revision)
 	return ret;
 }
 
-gchar *
-gitg_revision_get_timestamp_for_display (GitgRevision *revision)
+static gchar *
+date_for_display (gint64 date)
 {
-	time_t t = gitg_revision_get_timestamp (revision);
+	if (date < 0)
+	{
+		return g_strdup ("");
+	}
 
+	time_t t = date;
 	struct tm *tms = localtime (&t);
 	gchar buf[255];
 
 	strftime (buf, 254, "%c", tms);
 	return gitg_convert_utf8 (buf, -1);
+}
+
+gchar *
+gitg_revision_get_author_date_for_display (GitgRevision *revision)
+{
+	return date_for_display (gitg_revision_get_author_date (revision));
+}
+
+gchar *
+gitg_revision_get_committer_date_for_display (GitgRevision *revision)
+{
+	return date_for_display (gitg_revision_get_committer_date (revision));
 }

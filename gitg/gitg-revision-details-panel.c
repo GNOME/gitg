@@ -42,7 +42,7 @@ struct _GitgRevisionDetailsPanelPrivate
 {
 	GtkLabel *sha;
 	GtkLabel *author;
-	GtkLabel *date;
+	GtkLabel *committer;
 	GtkLabel *subject;
 	GtkTable *parents;
 
@@ -120,7 +120,7 @@ initialize_ui (GitgRevisionDetailsPanel *panel)
 
 	priv->sha = GTK_LABEL (gtk_builder_get_object (priv->builder, "label_sha"));
 	priv->author = GTK_LABEL (gtk_builder_get_object (priv->builder, "label_author"));
-	priv->date = GTK_LABEL (gtk_builder_get_object (priv->builder, "label_date"));
+	priv->committer = GTK_LABEL (gtk_builder_get_object (priv->builder, "label_committer"));
 	priv->subject = GTK_LABEL (gtk_builder_get_object (priv->builder, "label_subject"));
 	priv->parents = GTK_TABLE (gtk_builder_get_object (priv->builder, "table_parents"));
 	priv->text_view = GTK_TEXT_VIEW (gtk_builder_get_object (priv->builder, "text_view_details"));
@@ -128,8 +128,8 @@ initialize_ui (GitgRevisionDetailsPanel *panel)
 	gchar const *lbls[] = {
 		"label_subject_lbl",
 		"label_author_lbl",
+		"label_committer_lbl",
 		"label_sha_lbl",
-		"label_date_lbl",
 		"label_parent_lbl"
 	};
 
@@ -677,8 +677,32 @@ reload (GitgRevisionDetailsPanel *panel)
 	// Update labels
 	if (panel->priv->revision)
 	{
-		gtk_label_set_text (panel->priv->author,
-		                    gitg_revision_get_author (panel->priv->revision));
+		gchar *tmp;
+		gchar *date;
+
+		date = gitg_revision_get_author_date_for_display (panel->priv->revision);
+		tmp = g_markup_printf_escaped ("<a href='mailto:%s'>%s &lt;%s&gt;</a> (%s)",
+		                               gitg_revision_get_author_email (panel->priv->revision),
+		                               gitg_revision_get_author (panel->priv->revision),
+		                               gitg_revision_get_author_email (panel->priv->revision),
+		                               date);
+
+		gtk_label_set_markup (panel->priv->author, tmp);
+
+		g_free (tmp);
+		g_free (date);
+
+		date = gitg_revision_get_committer_date_for_display (panel->priv->revision);
+		tmp = g_markup_printf_escaped ("<a href='mailto:%s'>%s &lt;%s&gt;</a> (%s)",
+		                               gitg_revision_get_committer_email (panel->priv->revision),
+		                               gitg_revision_get_committer (panel->priv->revision),
+		                               gitg_revision_get_committer_email (panel->priv->revision),
+		                               date);
+
+		gtk_label_set_markup (panel->priv->committer, tmp);
+
+		g_free (tmp);
+		g_free (date);
 
 		gchar *subject;
 
@@ -687,10 +711,6 @@ reload (GitgRevisionDetailsPanel *panel)
 
 		gtk_label_set_markup (panel->priv->subject, subject);
 		g_free (subject);
-
-		gchar *date = gitg_revision_get_timestamp_for_display (panel->priv->revision);
-		gtk_label_set_text (panel->priv->date, date);
-		g_free (date);
 
 		gchar *sha = gitg_revision_get_sha1 (panel->priv->revision);
 		gtk_label_set_text (panel->priv->sha, sha);
@@ -703,8 +723,8 @@ reload (GitgRevisionDetailsPanel *panel)
 	else
 	{
 		gtk_label_set_text (panel->priv->author, "");
+		gtk_label_set_text (panel->priv->committer, "");
 		gtk_label_set_text (panel->priv->subject, "");
-		gtk_label_set_text (panel->priv->date, "");
 		gtk_label_set_text (panel->priv->sha, "");
 	}
 

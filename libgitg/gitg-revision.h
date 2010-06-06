@@ -36,37 +36,52 @@ typedef struct _GitgRevision		GitgRevision;
 
 GType gitg_revision_get_type (void) G_GNUC_CONST;
 
-GitgRevision *gitg_revision_new(gchar const *hash, 
-	gchar const *author, gchar const *subject, gchar const *parents, gint64 timestamp);
+GitgRevision *gitg_revision_new (gchar const *hash,
+                                 gchar const *author,
+                                 gchar const *author_email,
+                                 gint64       author_date,
+                                 gchar const *committer,
+                                 gchar const *committer_email,
+                                 gint64       committer_date,
+                                 gchar const *subject,
+                                 gchar const *parents);
 
-inline gchar const *gitg_revision_get_author(GitgRevision *revision);
-inline gchar const *gitg_revision_get_subject(GitgRevision *revision);
-inline guint64 gitg_revision_get_timestamp(GitgRevision *revision);
-inline gchar const *gitg_revision_get_hash(GitgRevision *revision);
-inline GitgHash *gitg_revision_get_parents_hash(GitgRevision *revision, guint *num_parents);
+inline gchar const *gitg_revision_get_author (GitgRevision *revision);
+inline gchar const *gitg_revision_get_author_email (GitgRevision *revision);
+inline gint64 gitg_revision_get_author_date (GitgRevision *revision);
 
-gchar *gitg_revision_get_sha1(GitgRevision *revision);
-gchar **gitg_revision_get_parents(GitgRevision *revision);
+inline gchar const *gitg_revision_get_committer (GitgRevision *revision);
+inline gchar const *gitg_revision_get_committer_email (GitgRevision *revision);
+inline gint64 gitg_revision_get_committer_date (GitgRevision *revision);
 
-GSList *gitg_revision_get_lanes(GitgRevision *revision);
-GitgLane *gitg_revision_get_lane(GitgRevision *revision);
-void gitg_revision_set_lanes(GitgRevision *revision, GSList *lanes, gint8 mylane);
+inline gchar const *gitg_revision_get_subject (GitgRevision *revision);
 
-GSList *gitg_revision_remove_lane(GitgRevision *revision, GitgLane *lane);
-GSList *gitg_revision_insert_lane(GitgRevision *revision, GitgLane *lane, gint index);
+inline gchar const *gitg_revision_get_hash (GitgRevision *revision);
+inline GitgHash *gitg_revision_get_parents_hash (GitgRevision *revision, guint *num_parents);
 
-gint8 gitg_revision_get_mylane(GitgRevision *revision);
-void gitg_revision_set_mylane(GitgRevision *revision, gint8 mylane);
+gchar *gitg_revision_get_sha1 (GitgRevision *revision);
+gchar **gitg_revision_get_parents (GitgRevision *revision);
+
+GSList *gitg_revision_get_lanes (GitgRevision *revision);
+GitgLane *gitg_revision_get_lane (GitgRevision *revision);
+void gitg_revision_set_lanes (GitgRevision *revision, GSList *lanes, gint8 mylane);
+
+GSList *gitg_revision_remove_lane (GitgRevision *revision, GitgLane *lane);
+GSList *gitg_revision_insert_lane (GitgRevision *revision, GitgLane *lane, gint index);
+
+gint8 gitg_revision_get_mylane (GitgRevision *revision);
+void gitg_revision_set_mylane (GitgRevision *revision, gint8 mylane);
 
 void gitg_revision_set_sign(GitgRevision *revision, char sign);
 char gitg_revision_get_sign(GitgRevision *revision);
 
-GitgRevision *gitg_revision_ref(GitgRevision *revision);
-void gitg_revision_unref(GitgRevision *revision);
+GitgRevision *gitg_revision_ref (GitgRevision *revision);
+void gitg_revision_unref (GitgRevision *revision);
 
 gchar *gitg_revision_get_format_patch_name (GitgRevision *revision);
 
-gchar *gitg_revision_get_timestamp_for_display(GitgRevision *revision);
+gchar *gitg_revision_get_author_date_for_display (GitgRevision *revision);
+gchar *gitg_revision_get_committer_date_for_display (GitgRevision *revision);
 
 G_END_DECLS
 

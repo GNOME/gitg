@@ -244,7 +244,7 @@ tree_model_get_value (GtkTreeModel *tree_model,
 			g_value_set_string (value, gitg_revision_get_author (rv));
 		break;
 		case DATE_COLUMN:
-			g_value_take_string (value, gitg_revision_get_timestamp_for_display (rv));
+			g_value_take_string (value, gitg_revision_get_author_date_for_display (rv));
 		break;
 		default:
 			g_assert_not_reached ();
@@ -889,9 +889,13 @@ add_dummy_commit (GitgRepository *repository,
 
 	revision = gitg_revision_new ("0000000000000000000000000000000000000000",
 	                              "",
+	                              "",
+	                              tv.tv_sec,
+	                              "",
+	                              "",
+	                              -1,
 	                              subject,
-	                              NULL,
-	                              tv.tv_sec);
+	                              NULL);
 	gitg_revision_set_sign (revision, staged ? 't' : 'u');
 
 	append_revision (repository, revision);
@@ -1030,19 +1034,26 @@ loader_update_stash (GitgRepository  *repository,
 		gchar **components = g_strsplit (line, "\01", 0);
 		guint len = g_strv_length (components);
 
-		if (len < 4)
+		if (len < 5)
 		{
 			g_strfreev (components);
 			continue;
 		}
 
-		/* components -> [hash, author, subject, timestamp] */
-		gint64 timestamp = g_ascii_strtoll (components[3], NULL, 0);
+		/* components -> [hash, author, author email, author date,
+		                  committer, committer email, committer date,
+		                  subject, parents, left-right] */
+		gint64 author_date = g_ascii_strtoll (components[3], NULL, 0);
+
 		GitgRevision *rv = gitg_revision_new (components[0],
 		                                      components[1],
 		                                      components[2],
+		                                      author_date,
 		                                      NULL,
-		                                      timestamp);
+		                                      NULL,
+		                                      -1,
+		                                      components[4],
+		                                      NULL);
 
 		add_ref (repository, components[0], "refs/stash");
 
@@ -1064,24 +1075,29 @@ loader_update_commits (GitgRepository  *self,
 		gchar **components = g_strsplit (line, "\01", 0);
 		guint len = g_strv_length (components);
 
-		if (len < 5)
+		if (len < 9)
 		{
 			g_strfreev (components);
 			continue;
 		}
 
 		/* components -> [hash, author, subject, parents ([1 2 3]), timestamp[, leftright]] */
-		gint64 timestamp = g_ascii_strtoll (components[4], NULL, 0);
+		gint64 author_date = g_ascii_strtoll (components[3], NULL, 0);
+		gint64 committer_date = g_ascii_strtoll (components[6], NULL, 0);
 
 		GitgRevision *rv = gitg_revision_new (components[0],
 		                                      components[1],
 		                                      components[2],
-		                                      components[3],
-		                                      timestamp);
+		                                      author_date,
+		                                      components[4],
+		                                      components[5],
+		                                      committer_date,
+		                                      components[7],
+		                                      components[8]);
 
-		if (len > 5 && strlen (components[5]) == 1 && strchr ("<>-^", *components[5]) != NULL)
+		if (len > 9 && strlen (components[9]) == 1 && strchr ("<>-^", *components[9]) != NULL)
 		{
-			gitg_revision_set_sign (rv, *components[5]);
+			gitg_revision_set_sign (rv, *components[9]);
 		}
 
 		append_revision (self, rv);
@@ -1203,11 +1219,11 @@ build_log_args (GitgRepository  *self,
 
 	if (has_left_right (av, argc))
 	{
-		argv[1] = g_strdup ("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at\x01%m");
+		argv[1] = g_strdup ("--pretty=format:%H\x01%an\x01%ae\x01%at\x01%cn\x01%ce\x01%ct\x01%s\x01%P\x01%m");
 	}
 	else
 	{
-		argv[1] = g_strdup ("--pretty=format:%H\x01%an\x01%s\x01%P\x01%at");
+		argv[1] = g_strdup ("--pretty=format:%H\x01%an\x01%ae\x01%at\x01%cn\x01%ce\x01%ct\x01%s\x01%P");
 	}
 
 	argv[2] = g_strdup ("--encoding=UTF-8");
@@ -1370,7 +1386,7 @@ reload_revisions (GitgRepository  *repository,
 	                                     repository->priv->loader,
 	                                     error,
 	                                     "log",
-	                                     "--pretty=format:%H\x01%an\x01%s\x01%at",
+	                                     "--pretty=format:%H\x01%an\x01%ae\x01%at\x01%s",
 	                                     "--encoding=UTF-8",
 	                                     "-g",
 	                                     "refs/stash",
