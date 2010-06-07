@@ -422,7 +422,7 @@ begin_drag (GtkWidget   *widget,
 		/* This is a normal DND operation which is just possibly just about
 		   a SHA */
 		GitgRevision *revision;
-		GtkTreePath *path;
+		GtkTreePath *path = NULL;
 
 		revision = get_revision_at_pos (tree_view,
 		                                (gint)data->x,
