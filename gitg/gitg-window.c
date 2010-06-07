@@ -50,6 +50,8 @@
 #include "gitg-activatable.h"
 #include "gitg-uri.h"
 
+#include "gseal-gtk-compat.h"
+
 #define DYNAMIC_ACTION_DATA_KEY "GitgDynamicActionDataKey"
 #define DYNAMIC_ACTION_DATA_REMOTE_KEY "GitgDynamicActionDataRemoteKey"
 #define DYNAMIC_ACTION_DATA_BRANCH_KEY "GitgDynamicActionDataBranchKey"

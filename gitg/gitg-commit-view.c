@@ -32,6 +32,7 @@
 #include "gitg-preferences.h"
 #include "gitg-data-binding.h"
 #include "gitg-utils.h"
+#include "gseal-gtk-compat.h"
 
 #define GITG_COMMIT_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_COMMIT_VIEW, GitgCommitViewPrivate))
 #define CATEGORY_UNSTAGE_HUNK "CategoryUnstageHunk"
@@ -1677,10 +1678,14 @@ gitg_commit_view_set_repository(GitgCommitView *view, GitgRepository *repository
 	gtk_list_store_clear(view->priv->store_staged);
 
 	if (repository)
+	{
 		view->priv->repository = g_object_ref(repository);
+	}
 
-	if (gtk_widget_get_mapped(GTK_WIDGET(view)))
+	if (gtk_widget_get_mapped (GTK_WIDGET (view)))
+	{
 		initialize_commit(view);
+	}
 
 	g_object_notify(G_OBJECT(view), "repository");
 }

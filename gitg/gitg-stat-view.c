@@ -3,6 +3,7 @@
 #include "gitg-utils.h"
 #include <math.h>
 #include <cairo.h>
+#include "gseal-gtk-compat.h"
 
 #define GITG_STAT_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_STAT_VIEW, GitgStatViewPrivate))
 

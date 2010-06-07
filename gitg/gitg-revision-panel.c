@@ -1,6 +1,35 @@
 #include "gitg-revision-panel.h"
 
-G_DEFINE_INTERFACE (GitgRevisionPanel, gitg_revision_panel, G_TYPE_INVALID)
+static void gitg_revision_panel_default_init (GitgRevisionPanelInterface *iface);
+
+GType
+gitg_revision_panel_get_type ()
+{
+	static GType gitg_revision_panel_type_id = 0;
+	
+	if (!gitg_revision_panel_type_id)
+	{
+		static const GTypeInfo g_define_type_info =
+		{
+			sizeof (GitgRevisionPanelInterface),
+			(GBaseInitFunc) gitg_revision_panel_default_init,
+			NULL,
+			NULL,
+			NULL,
+			NULL,
+			0,
+			0,
+			NULL
+		};
+		
+		gitg_revision_panel_type_id = g_type_register_static (G_TYPE_INTERFACE,
+		                                                      "GitgRevisionPanel",
+		                                                      &g_define_type_info,
+		                                                      0);
+	}
+
+	return gitg_revision_panel_type_id;
+}
 
 /* Default implementation */
 static void
