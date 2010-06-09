@@ -102,7 +102,15 @@ fi
 AM_CONDITIONAL(BUILD_SPINNER, test "$gtkatleast" = "no")
 if test "$gtkatleast" = "no"; then
 	AC_DEFINE([BUILD_SPINNER],[1],[Whether to use GitgSpinner instead of GtkSpinner])
+fi
+
+if $PKG_CONFIG --atleast-version 2.21.0 $GTK_REQUIRED; then
+	gtkatleast=yes
 else
+	gtkatleast=
+fi
+
+if test "$gtkatleast" = "yes"; then
 	DISABLE_DEPRECATED_CFLAGS="$DISABLE_DEPRECATED_CFLAGS -DGSEAL_ENABLE"
 fi
 
