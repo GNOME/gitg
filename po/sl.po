@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&component=gitg\n"
 "POT-Creation-Date: 2010-06-09 18:45+0000\n"
-"PO-Revision-Date: 2010-06-11 11:55+0100\n"
-"Last-Translator: Andrej Žnidaršič <andrej.znidarsic@gmail.com>\n"
+"PO-Revision-Date: 2010-06-14 14:35+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,15 +49,15 @@ msgstr "Nastavitev, ki določa kdaj naj bo nedejavna vrstica zložena. Veljavne 
 
 #: ../data/gitg.schemas.in.h:4
 msgid "Setting that indicates whether to show the history in topological order."
-msgstr "Nastavitev določi ali naj bo zgodovina prikazana v topološkem redu."
+msgstr "Nastavitev določi ali naj bo zgodovina prikazana v topološkem načinu razvrstitve."
 
 #: ../data/gitg.schemas.in.h:5
 msgid "Setting that sets the orientation layout of the main view."
-msgstr "To nastavi usmeritev razporeditve glavnega pogleda."
+msgstr "Nastavitev določi usmeritev razporeditve glavnega pogleda."
 
 #: ../data/gitg.schemas.in.h:6
 msgid "Show History in Topological Order"
-msgstr "Pokaži zgodovino v topološkem redu"
+msgstr "Pokaži zgodovino v topološkem načinu razvrstitve"
 
 #: ../data/gitg.schemas.in.h:7
 msgid "Show Main View in Vertical Layout"
@@ -73,15 +73,15 @@ msgstr "Prikaz določila desnega roba v pogledu sporočila uveljavitev. Možnost
 
 #: ../data/gitg.schemas.in.h:10
 msgid "The column at which the right margin is shown if the right-margin preference is set to TRUE."
-msgstr "Stolpec na katerem je prikazan desni rob, v primeru da je možnost desnega robu izbrana."
+msgstr "Stolpec na katerem je prikazan desni rob, v primeru da je izbrana možnost desnega robu."
 
 #: ../data/gitg.schemas.in.h:11
 msgid "The command to handle GITG scheme URLs"
-msgstr "Ukaz za upravljanje z URL-ji sheme GITG"
+msgstr "Ukaz za upravljanje z naslovi URL sheme GITG"
 
 #: ../data/gitg.schemas.in.h:12
 msgid "The command to handle GITG scheme URLs."
-msgstr "Ukaz za upravljanje z URL-ji sheme GITG."
+msgstr "Ukaz za upravljanje z naslovi URL sheme GITG."
 
 #: ../data/gitg.schemas.in.h:13
 msgid "When to Collapse Inactive Lanes"
@@ -89,23 +89,23 @@ msgstr "Kdaj naj se zložijo nedejavne vrstice"
 
 #: ../data/gitg.schemas.in.h:14
 msgid "Whether command to handle GITG scheme URLs is enabled"
-msgstr "Ali je ukaz za upravljanje URL-jev sheme GITG omogočen"
+msgstr "Ali je ukaz za upravljanje naslovov URL sheme GITG omogočen"
 
 #: ../data/gitg.schemas.in.h:15
 msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr "Ali je ukaz za upravljanje URL-jev sheme GITG omogočen."
+msgstr "Ali je ukaz za upravljanje naslovov URL sheme GITG omogočen."
 
 #: ../data/gitg.schemas.in.h:16
 msgid "Whether command to handle GITG scheme URLs needs a terminal"
-msgstr "Ali ukaz za upravljanje URL-jev sheme GITG potrebuje terminal"
+msgstr "Ali ukaz za upravljanje naslovov URL sheme GITG zahteva terminal"
 
 #: ../data/gitg.schemas.in.h:17
 msgid "Whether command to handle GITG scheme URLs needs a terminal."
-msgstr "Ali ukaz za upravljanje URL-jev sheme GITG potrebuje terminal."
+msgstr "Ali ukaz za upravljanje naslovov URL sheme GITG zahteva terminal."
 
 #: ../data/gitg.schemas.in.h:18
 msgid "Whether searching filters the revisions in the history view instead of jumping to the first match."
-msgstr "Ali iskanje v pogledu zgodovine filtrira predelave namesto skoka na prvo skladanje."
+msgstr "Ali iskanje v pogledu zgodovine, filtrira predelave namesto neposrednega skoka na prvi zadetek."
 
 #: ../gitg/gitg-branch-actions.c:271
 #, c-format
@@ -114,16 +114,16 @@ msgstr "Veje <%s> ni mogoče odstraniti"
 
 #: ../gitg/gitg-branch-actions.c:272
 msgid "This usually means that the branch is not fully merged in HEAD. Do you want to forcefully remove the branch?"
-msgstr "To običajno pomeni da veja ni polno združena v GLAVI. Ali želite prisilno odstraniti vejo?"
+msgstr "To običajno pomeni, da veja ni popolno združena v GLAVI. Ali želite vsiljeno odstraniti to vejo?"
 
 #: ../gitg/gitg-branch-actions.c:273
 msgid "Force remove"
-msgstr "Prisilno odstrani"
+msgstr "Vsiljeno odstrani"
 
 #: ../gitg/gitg-branch-actions.c:282
 #, c-format
 msgid "Branch <%s> could not be forcefully removed"
-msgstr "Veje <%s> ni mogoče prisilno odstraniti"
+msgstr "Veje <%s> ni mogoče vsiljeno odstraniti"
 
 #: ../gitg/gitg-branch-actions.c:315
 #, c-format
@@ -137,7 +137,7 @@ msgstr "Ali ste prepričani, da želite odstraniti oddaljeno vejo <%s>?"
 
 #: ../gitg/gitg-branch-actions.c:337
 msgid "This permanently removes the remote branch."
-msgstr "To trajno odstrani oddaljeno vejo."
+msgstr "S tem bo oddaljena veja trajno odstranjena."
 
 #: ../gitg/gitg-branch-actions.c:338
 #: ../gitg/gitg-window.c:2889
@@ -155,7 +155,7 @@ msgstr "Ali ste prepričani, da želite odstraniti predmet zaloge?"
 
 #: ../gitg/gitg-branch-actions.c:412
 msgid "This permanently removes the stash item"
-msgstr "To trajno odstrani predmet zaloge"
+msgstr "S tem bo predmet zaloge trajno odstranjen."
 
 #: ../gitg/gitg-branch-actions.c:413
 #: ../gitg/gitg-window.c:2905
@@ -184,11 +184,11 @@ msgstr "Odstrani oznako"
 #: ../gitg/gitg-branch-actions.c:494
 #, c-format
 msgid "The tag <%s> could not be successfully removed"
-msgstr "Oznake <%s> ni mogoče uspešno odstraniti"
+msgstr "Oznake <%s> ni mogoče odstraniti"
 
 #: ../gitg/gitg-branch-actions.c:498
 msgid "Failed to remove tag"
-msgstr "Odstranitev oznake je spodletela"
+msgstr "Odstranjevanje oznake je spodletelo"
 
 #: ../gitg/gitg-branch-actions.c:555
 #, c-format
@@ -292,7 +292,7 @@ msgstr "oddaljeno"
 #: ../gitg/gitg-branch-actions.c:1160
 #: ../gitg/gitg-branch-actions.c:1700
 msgid "The stashed changes have been stored to be reapplied manually"
-msgstr "Spremembe zaloge so bile shranjene za ročno ponovno uporabo"
+msgstr "Spremembe zaloge so bile shranjene za ponovno ročno uporabo"
 
 #: ../gitg/gitg-branch-actions.c:1165
 #: ../gitg/gitg-branch-actions.c:1705
@@ -302,7 +302,7 @@ msgstr "Prevzem predhodno prevzete veje je spodletel"
 #: ../gitg/gitg-branch-actions.c:1186
 #: ../gitg/gitg-branch-actions.c:1726
 msgid "Failed to reapply stash correctly"
-msgstr "Pravilna ponovna uporaba zaloge je spodletela"
+msgstr "Ponovna uporaba zaloge je spodletela"
 
 #: ../gitg/gitg-branch-actions.c:1187
 #: ../gitg/gitg-branch-actions.c:1727
@@ -362,7 +362,7 @@ msgstr "Objava krajevne veje <%s> na oddaljeno vejo <%s> je spodletela"
 
 #: ../gitg/gitg-branch-actions.c:1372
 msgid "This usually means that the remote branch could not be fast-forwarded. Try fetching the latest changes."
-msgstr "To običajno pomeni, da oddaljene veje ni mogoče hitro posredovati. Poskusite s pridobivanjem zadnjih sprememb."
+msgstr "To običajno pomeni, da oddaljene veje ni mogoče hitro posredovati. Poskusite s posodobitvijo na zadnje spremembe."
 
 #: ../gitg/gitg-branch-actions.c:1396
 #, c-format
@@ -502,7 +502,7 @@ msgstr "Pred uveljavitvijo je treba vnesti sporočilo uveljavitve"
 
 #: ../gitg/gitg-commit-view.c:2003
 msgid "Your user name or email could not be retrieved for use in the sign off message"
-msgstr "Vašega uporabniškega imena ali e-pošte za uporabo v sporočilu podpisa ni mogoče pridobiti"
+msgstr "Vašega uporabniškega imena ali elektronskega naslova za uporabo v sporočilu podpisa ni mogoče pridobiti"
 
 #: ../gitg/gitg-commit-view.c:2005
 msgid "Something went wrong while trying to commit"
@@ -865,7 +865,7 @@ msgstr "Oddaljeno"
 
 #: ../gitg/gitg-repository.ui.h:9
 msgid "URL"
-msgstr "URL"
+msgstr "Naslov URL"
 
 #: ../gitg/gitg-revision-details-panel.ui.h:1
 msgid "Author:"
@@ -933,7 +933,7 @@ msgstr "Veja:"
 
 #: ../gitg/gitg-window.ui.h:4
 msgid "Co_mmit message"
-msgstr "Sporočilo uve_ljavljana"
+msgstr "Sporočilo uve_ljavljanja"
 
 #: ../gitg/gitg-window.ui.h:6
 msgid "Context:"
