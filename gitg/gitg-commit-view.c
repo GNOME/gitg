@@ -1050,7 +1050,7 @@ set_highlight (GitgCommitView *view, GtkTextIter *iter)
 }
 
 static void
-update_cursor_view (GitgCommitView *view)
+update_cursor_view (GitgCommitView *view, gboolean isctrl)
 {
 	gboolean is_hunk = FALSE;
 	GtkTextIter iter;
@@ -1067,8 +1067,8 @@ update_cursor_view (GitgCommitView *view)
 	}
 
 	if (is_hunk ||
-	    line_type == GITG_DIFF_LINE_TYPE_ADD ||
-	    line_type == GITG_DIFF_LINE_TYPE_REMOVE)
+	    (isctrl && (line_type == GITG_DIFF_LINE_TYPE_ADD ||
+	                line_type == GITG_DIFF_LINE_TYPE_REMOVE)))
 	{
 		gdk_window_set_cursor (window, view->priv->hand);
 		set_highlight (view, &iter);
@@ -1086,6 +1086,9 @@ view_event (GtkWidget *widget, GdkEventAny *event, GitgCommitView *view)
 	GtkTextWindowType type;
 	GtkTextBuffer *buffer;
 
+	gboolean isctrl = FALSE;
+	GdkModifierType state;
+
 	type = gtk_text_view_get_window_type (GTK_TEXT_VIEW (widget), event->window);
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget));
 
@@ -1096,13 +1099,18 @@ view_event (GtkWidget *widget, GdkEventAny *event, GitgCommitView *view)
 		return FALSE;
 	}
 
+	if (gdk_event_get_state ((GdkEvent *)event, &state))
+	{
+		isctrl = state & GDK_CONTROL_MASK;
+	}
+
 	if (event->type == GDK_LEAVE_NOTIFY ||
 	    event->type == GDK_MOTION_NOTIFY ||
 	    event->type == GDK_BUTTON_PRESS ||
 	    event->type == GDK_BUTTON_RELEASE ||
 	    event->type == GDK_ENTER_NOTIFY)
 	{
-		update_cursor_view (view);
+		update_cursor_view (view, isctrl);
 	}
 
 	if (type == GTK_TEXT_WINDOW_TEXT && event->type == GDK_BUTTON_RELEASE &&
@@ -1120,16 +1128,16 @@ view_event (GtkWidget *widget, GdkEventAny *event, GitgCommitView *view)
 			if (handle_stage_unstage (view, &iter))
 			{
 				unset_highlight (view);
-				update_cursor_view (view);
+				update_cursor_view (view, isctrl);
 			}
 		}
-		else if (line_type == GITG_DIFF_LINE_TYPE_ADD ||
-		         line_type == GITG_DIFF_LINE_TYPE_REMOVE)
+		else if (isctrl && (line_type == GITG_DIFF_LINE_TYPE_ADD ||
+		                    line_type == GITG_DIFF_LINE_TYPE_REMOVE))
 		{
 			if (handle_stage_unstage_line (view, &iter))
 			{
 				unset_highlight (view);
-				update_cursor_view (view);
+				update_cursor_view (view, isctrl);
 			}
 		}
 	}
