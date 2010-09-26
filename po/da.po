@@ -1,10 +1,12 @@
 # Danish translation of gitg.
-# Copyright (C) 2009 gitg's COPYRIGHT HOLDER.
+# Copyright (C) 2010 gitg & nedenstående oversættere.
 # This file is distributed under the same license as the gitg package.
 # Joe Hansen <joedalton2@yahoo.dk>, 2009, 2010.
 # Korrekturlæst Lars Christian Jensen 6. juni 2009.
 # Korrekturlæst Ask 26. januar 2010.
 #
+# checked out -> tjekket ud
+# cherry-pick -> bærplukning, bærplukke (med engelsk i parentes)
 # commit -> integrer
 # staged -> igangsat
 # Der er ikke anvendt accenter.
@@ -15,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 22:33+0100\n"
-"PO-Revision-Date: 2010-01-26 13:01+01:00\n"
+"POT-Creation-Date: 2010-09-27 00:52+0200\n"
+"PO-Revision-Date: 2010-09-26 13:01+01:00\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -28,10 +30,10 @@ msgid "Git repository browser"
 msgstr "Arkivbrowseren Git"
 
 #. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:181
-#: ../gitg/gitg-window.c:1238 ../gitg/gitg-window.c:1251
-#: ../gitg/gitg-branch-actions.c:146 ../gitg/gitg-branch-actions.c:199
-#: ../gitg/gitg-window.ui.h:18
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg-branch-actions.c:168
+#: ../gitg/gitg-branch-actions.c:221 ../gitg/gitg.c:238
+#: ../gitg/gitg-window.c:1650 ../gitg/gitg-window.c:1664
+#: ../gitg/gitg-window.ui.h:11
 msgid "gitg"
 msgstr "gitg"
 
@@ -55,18 +57,19 @@ msgstr ""
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
+"Indstilling som angiver, om historikken skal vises i topologisk rækkefølge."
 
 #: ../data/gitg.schemas.in.h:5
 msgid "Setting that sets the orientation layout of the main view."
-msgstr ""
+msgstr "Indstilling som angiver retningslayoutet på hovedvisningen."
 
 #: ../data/gitg.schemas.in.h:6
 msgid "Show History in Topological Order"
-msgstr ""
+msgstr "Vis historik i topologisk rækkefølge"
 
 #: ../data/gitg.schemas.in.h:7
 msgid "Show Main View in Vertical Layout"
-msgstr ""
+msgstr "Vis hovedvisning i lodret layout"
 
 # (man skriver sædvanligvis en besked når man integrerer, såsom "Fixede
 # fejl nr. #87")
@@ -94,11 +97,11 @@ msgstr ""
 
 #: ../data/gitg.schemas.in.h:11
 msgid "The command to handle GITG scheme URLs"
-msgstr ""
+msgstr "Kommandoen der skal håndtere adresser for GITG-skema"
 
 #: ../data/gitg.schemas.in.h:12
 msgid "The command to handle GITG scheme URLs."
-msgstr ""
+msgstr "Kommandoen der skal håndtere adresser for GITG-skema"
 
 #: ../data/gitg.schemas.in.h:13
 msgid "When to Collapse Inactive Lanes"
@@ -107,18 +110,24 @@ msgstr "Hvornår inaktive baner skal foldes sammen"
 #: ../data/gitg.schemas.in.h:14
 msgid "Whether command to handle GITG scheme URLs is enabled"
 msgstr ""
+"Hvorvidt kommando til håndtering af adresser for GITG-skema er aktiveret"
 
 #: ../data/gitg.schemas.in.h:15
 msgid "Whether command to handle GITG scheme URLs is enabled."
 msgstr ""
+"Hvorvidt kommando til håndtering af adresser for GITG-skema er aktiveret."
 
 #: ../data/gitg.schemas.in.h:16
 msgid "Whether command to handle GITG scheme URLs needs a terminal"
 msgstr ""
+"Hvorvidt kommando til håndtering af adresser til GITG-skema kræver en "
+"terminal"
 
 #: ../data/gitg.schemas.in.h:17
 msgid "Whether command to handle GITG scheme URLs needs a terminal."
 msgstr ""
+"Hvorvidt kommando til håndtering af adresser til GITG-skema kræver en "
+"terminal."
 
 #: ../data/gitg.schemas.in.h:18
 msgid ""
@@ -128,91 +137,477 @@ msgstr ""
 "Hvorvidt søgning filtrerer ændringerne i historikken i steden for at gå til "
 "det første hit."
 
+#: ../gitg/gitg-branch-actions.c:271
+#, c-format
+msgid "Branch <%s> could not be removed"
+msgstr "Gren <%s> kunne ikke fjernes"
+
+#: ../gitg/gitg-branch-actions.c:272
+msgid ""
+"This usually means that the branch is not fully merged in HEAD. Do you want "
+"to forcefully remove the branch?"
+msgstr ""
+"Dette betyder normalt, at grenen ikke er fuldt sammenflettet i HEAD. Ønsker "
+"du at fremtvinge fjernelse af denne gren?"
+
+#: ../gitg/gitg-branch-actions.c:273
+msgid "Force remove"
+msgstr "Fremtving fjernelse"
+
+#: ../gitg/gitg-branch-actions.c:282
+#, c-format
+msgid "Branch <%s> could not be forcefully removed"
+msgstr "Gren <%s> kunne ikke fjernes med tvang"
+
+#: ../gitg/gitg-branch-actions.c:315
+#, c-format
+msgid "Failed to remove remote branch <%s>."
+msgstr "Kunne ikke fjerne ekstern gren <%s>."
+
+#: ../gitg/gitg-branch-actions.c:336
+#, c-format
+msgid "Are you sure you want to remove the remote branch <%s>?"
+msgstr "Er du sikker på, at du ønsker at fjerne den eksterne gren <%s>?"
+
+#: ../gitg/gitg-branch-actions.c:337
+msgid "This permanently removes the remote branch."
+msgstr "Dette fjerner permanent den eksterne gren."
+
+#: ../gitg/gitg-branch-actions.c:338 ../gitg/gitg-window.c:2889
+msgid "Remove remote branch"
+msgstr "Fjern ekstern gren"
+
+#: ../gitg/gitg-branch-actions.c:353 ../gitg/gitg-menus.xml.h:11
+msgid "Remove branch"
+msgstr "Fjern gren"
+
+# Okay, jeg kiggede i gits brugerguide og endte med at spørge på deres IRC-kanal.
+# Man kan 'stashe' sine lokale ændringer og 'poppe' dem tilbage fra
+# 'stash'.  Hvis man stasher flere gange, svarer det til at tingene
+# ligger som en stak-datastruktur, og når de taler om 'item', er det
+# altså elementer på dette 'stash'.  Lagerpunkt er givetvis fint nok -
+# det kan uanset hvad forveksles med repository, men med kontekst tror
+# jeg det er klart nok.
+#: ../gitg/gitg-branch-actions.c:411
+msgid "Are you sure you want to remove this stash item?"
+msgstr "Er du sikker på, at du ønsker at fjerne dette lagerpunkt?"
+
+#: ../gitg/gitg-branch-actions.c:412
+msgid "This permanently removes the stash item"
+msgstr "Dette fjerner permanent lagerpunktet"
+
+# hvad er stash?
+#: ../gitg/gitg-branch-actions.c:413 ../gitg/gitg-window.c:2905
+msgid "Remove stash"
+msgstr "Fjern lager"
+
+#: ../gitg/gitg-branch-actions.c:439
+msgid "Failed to remove stash"
+msgstr "Kunne ikke fjerne lager"
+
+#: ../gitg/gitg-branch-actions.c:440
+msgid "The stash item could not be successfully removed"
+msgstr "Lagerpunktet kunne ikke fjernes"
+
+#: ../gitg/gitg-branch-actions.c:471
+#, c-format
+msgid "Are you sure you want to remove the tag <%s>?"
+msgstr "Er du sikker på, at du ønsker at fjerne mærket <%s>?"
+
+#: ../gitg/gitg-branch-actions.c:475 ../gitg/gitg-branch-actions.c:477
+#: ../gitg/gitg-window.c:2911
+msgid "Remove tag"
+msgstr "Fjern mærke"
+
+#: ../gitg/gitg-branch-actions.c:494
+#, c-format
+msgid "The tag <%s> could not be successfully removed"
+msgstr "Mærket <%s> kunne ikke fjernes"
+
+#: ../gitg/gitg-branch-actions.c:498
+msgid "Failed to remove tag"
+msgstr "Kunne ikke fjerne mærke"
+
+#: ../gitg/gitg-branch-actions.c:555
+#, c-format
+msgid "Branch <%s> could not be renamed to <%s>"
+msgstr "Gren <%s> kunne ikke omdøbes til <%s>"
+
+#: ../gitg/gitg-branch-actions.c:556
+msgid ""
+"This usually means that a branch with that name already exists. Do you want "
+"to overwrite the branch?"
+msgstr ""
+"Dette betyder normalt, at en gren med samme navn allerede eksisterer. Ønsker "
+"du at overskrive grenen?"
+
+#: ../gitg/gitg-branch-actions.c:557
+msgid "Force rename"
+msgstr "Fremtving omdøbning"
+
+#: ../gitg/gitg-branch-actions.c:566
+#, c-format
+msgid "Branch <%s> could not be forcefully renamed"
+msgstr "Gren <%s> kunne ikke omdøbes med tvang"
+
+#: ../gitg/gitg-branch-actions.c:606 ../gitg/gitg-preferences.ui.h:14
+#: ../gitg/gitg-repository.ui.h:6 ../gitg/gitg-tag.ui.h:4
+msgid "Name:"
+msgstr "Navn:"
+
+#: ../gitg/gitg-branch-actions.c:713
+msgid "Do you want to temporarily stash these changes?"
+msgstr "Ønsker du midlertidigt at lægge disse ændringer på lager (stash)?"
+
+#: ../gitg/gitg-branch-actions.c:717
+msgid "Do you want to stash and reapply these changes?"
+msgstr "Ønsker du at lagre (stash) og genanvende disse ændringer?"
+
+# Du har ændringer der ikke er integreret i dit aktuelle arbejdstræ
+#: ../gitg/gitg-branch-actions.c:722
+msgid "You have uncommited changes in your current working tree"
+msgstr "Du har ændringer i dit aktuelle arbejdstræ, som ikke er integreret"
+
+#: ../gitg/gitg-branch-actions.c:724
+msgid "Stash changes"
+msgstr "Lagr ændringer"
+
+#: ../gitg/gitg-branch-actions.c:907
+msgid "Failed to save current index state"
+msgstr "Kunne ikke gemme aktuel indekstilstand"
+
+# 'tjekke lokal gren ud' (alle dem jeg kender siger 'tjekke ud' i
+# svn/git-sammenhæng)
+#: ../gitg/gitg-branch-actions.c:961 ../gitg/gitg-branch-actions.c:1242
+#: ../gitg/gitg-branch-actions.c:1533 ../gitg/gitg-branch-actions.c:1781
+#, c-format
+msgid "Failed to checkout local branch <%s>"
+msgstr "Kunne ikke tjekke lokal gren <%s>"
+
+#: ../gitg/gitg-branch-actions.c:999
+#, c-format
+msgid "Failed to checkout remote branch <%s> to local branch <%s>"
+msgstr "Kunne ikke tjekke ekstern gren <%s> til lokal gren <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1038
+#, c-format
+msgid "Failed to checkout tag <%s> to local branch <%s>"
+msgstr "Kunne ikke tjekke mærke <%s> til lokal gren <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1129
+#, c-format
+msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
+msgstr "Kunne ikke omplacere %s gren <%s> til %s gren <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1133
+#, c-format
+msgid "Failed to merge %s branch <%s> with %s branch <%s>"
+msgstr "Kunne ikke flette %s gren <%s> med %s gren <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1141 ../gitg/gitg-branch-actions.c:1143
+#: ../gitg/gitg-branch-actions.c:1209 ../gitg/gitg-branch-actions.c:1211
+#: ../gitg/gitg-branch-actions.c:1250 ../gitg/gitg-branch-actions.c:1252
+#: ../gitg/gitg-branch-actions.c:1286 ../gitg/gitg-branch-actions.c:1288
+#: ../gitg/gitg-branch-actions.c:1333 ../gitg/gitg-branch-actions.c:1335
+msgid "local"
+msgstr "lokal"
+
+#: ../gitg/gitg-branch-actions.c:1141 ../gitg/gitg-branch-actions.c:1143
+#: ../gitg/gitg-branch-actions.c:1209 ../gitg/gitg-branch-actions.c:1211
+#: ../gitg/gitg-branch-actions.c:1250 ../gitg/gitg-branch-actions.c:1252
+#: ../gitg/gitg-branch-actions.c:1286 ../gitg/gitg-branch-actions.c:1288
+#: ../gitg/gitg-branch-actions.c:1333 ../gitg/gitg-branch-actions.c:1335
+msgid "remote"
+msgstr "ekstern"
+
+#: ../gitg/gitg-branch-actions.c:1160 ../gitg/gitg-branch-actions.c:1700
+msgid "The stashed changes have been stored to be reapplied manually"
+msgstr "De lagrede ændringer er blevet gemt så de kan genanvendes manuelt"
+
+#: ../gitg/gitg-branch-actions.c:1165 ../gitg/gitg-branch-actions.c:1705
+msgid "Failed to checkout previously checked out branch"
+msgstr "Kunne ikke tjekke tidligere tjekket gren"
+
+#: ../gitg/gitg-branch-actions.c:1186 ../gitg/gitg-branch-actions.c:1726
+msgid "Failed to reapply stash correctly"
+msgstr "Kunne ikke genanvende lagring korrekt"
+
+#: ../gitg/gitg-branch-actions.c:1187 ../gitg/gitg-branch-actions.c:1727
+msgid ""
+"There might be unresolved conflicts in the working tree or index which you "
+"need to resolve manually"
+msgstr ""
+"Der er måske uløste konflikter i arbejdstræet eller indekset, som du skal "
+"løse manuelt"
+
+#: ../gitg/gitg-branch-actions.c:1208
+#, c-format
+msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
+msgstr "Er du sikker på, at du ønsker at flette %s gren <%s> med %s gren <%s>?"
+
+#: ../gitg/gitg-branch-actions.c:1216 ../gitg/gitg-branch-actions.c:1218
+#: ../gitg/gitg-branch-actions.c:1262 ../gitg/gitg-menus.xml.h:6
+msgid "Merge"
+msgstr "Flet (merge)"
+
+#: ../gitg/gitg-branch-actions.c:1243
+msgid "The branch on which to merge could not be checked out"
+msgstr "Den gren der skulle flettes til kunne ikke tjekkes"
+
+#: ../gitg/gitg-branch-actions.c:1249
+#, c-format
+msgid "Merging %s branch <%s> onto %s branch <%s>"
+msgstr "Fletter %s gren <%s> til %s gren <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1285
+#, c-format
+msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
+msgstr ""
+"Er du sikker på, at du ønsker at omplacere %s gren <%s> til %s gren <%s>?"
+
+#: ../gitg/gitg-branch-actions.c:1293 ../gitg/gitg-branch-actions.c:1295
+#: ../gitg/gitg-branch-actions.c:1345 ../gitg/gitg-menus.xml.h:9
+msgid "Rebase"
+msgstr "Omplacer (rebase)"
+
+#: ../gitg/gitg-branch-actions.c:1318
+msgid "Unable to rebase"
+msgstr "Kunne ikke omplacere"
+
+#: ../gitg/gitg-branch-actions.c:1319
+msgid ""
+"There are still uncommitted changes in your working tree and you are trying "
+"to rebase a branch onto the currently checked out branch. Either remove, "
+"stash or commit your changes first and try again"
+msgstr ""
+"Der er stadig ændringer, der ikke er integreret i dit arbejdstræ og du "
+"forsøger at omplacere en gren til den aktuelt tjekket gren. Enten fjern, "
+"lagr eller integrer dine ændringer først og forsøg så igen"
+
+#: ../gitg/gitg-branch-actions.c:1332
+#, c-format
+msgid "Rebasing %s branch <%s> onto %s branch <%s>"
+msgstr "Omplacerer %s gren <%s> til %s gren <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1371
+#, c-format
+msgid "Failed to push local branch <%s> to remote <%s>"
+msgstr "Kunne ikke skubbe lokal gren <%s> til ekstern <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1372
+msgid ""
+"This usually means that the remote branch could not be fast-forwarded. Try "
+"fetching the latest changes."
+msgstr ""
+"Dette betyder normalt, at den eksterne gren ikke kunne blive hurtigt "
+"videresendt (fast-forwarded). Prøv at hente de seneste ændringer."
+
+#: ../gitg/gitg-branch-actions.c:1396
+#, c-format
+msgid "Are you sure you want to push <%s> to <%s>?"
+msgstr "Er du sikker på, at du ønsker at skubbe <%s> til <%s>?"
+
+#: ../gitg/gitg-branch-actions.c:1402 ../gitg/gitg-branch-actions.c:1404
+#: ../gitg/gitg-branch-actions.c:1425 ../gitg/gitg-branch-actions.c:1457
+#: ../gitg/gitg-branch-actions.c:1459 ../gitg/gitg-branch-actions.c:1482
+msgid "Push"
+msgstr "Skub (push)"
+
+#: ../gitg/gitg-branch-actions.c:1417
+#, c-format
+msgid "Pushing local branch <%s> to remote branch <%s>"
+msgstr "Skubber lokal gren <%s> til ekstern gren <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1451
+#, c-format
+msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
+msgstr "Er du sikker på, at du ønsker at skubbe <%s> til ekstern <%s/%s>?"
+
+#: ../gitg/gitg-branch-actions.c:1469
+#, c-format
+msgid "Pushing local branch <%s> to remote branch <%s/%s>"
+msgstr "Skubber lokal gren <%s> til ekstern gren <%s/%s>"
+
+#: ../gitg/gitg-branch-actions.c:1506
+#, c-format
+msgid "Are you sure you want to apply the stash item to local branch <%s>?"
+msgstr ""
+"Er du sikker på, at du ønsker at anvende det lagrede punkt på den lokale "
+"gren <%s>?"
+
+#: ../gitg/gitg-branch-actions.c:1511 ../gitg/gitg-branch-actions.c:1513
+msgid "Apply stash"
+msgstr "Anvend lager (stash)"
+
+#: ../gitg/gitg-branch-actions.c:1552
+#, c-format
+msgid "The stash could not be applied to local branch <%s>"
+msgstr "Lageret kunne ikke anvendes på lokal gren <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1556
+msgid "Failed to apply stash"
+msgstr "Kunne ikke anvende lager"
+
+#: ../gitg/gitg-branch-actions.c:1616
+msgid ""
+"The tag object could not be successfully created. Please make sure you have "
+"a GPG key and the key is unlocked"
+msgstr ""
+"Mærkeobjektet kunne ikke oprettes. Undersøg venligst at du har en GPG-nøgle "
+"og at denne nøgle er ulåst"
+
+#: ../gitg/gitg-branch-actions.c:1620
+msgid "The tag object could not be successfully created"
+msgstr "Mærkeobjektet kunne ikke oprettes"
+
+#: ../gitg/gitg-branch-actions.c:1625
+msgid "Failed to create tag"
+msgstr "Kunne ikke oprette mærke"
+
+#: ../gitg/gitg-branch-actions.c:1680
+#, c-format
+msgid "Failed to cherry-pick on <%s>"
+msgstr "Kunne ikke bærplukke (cherry-pick) på <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1747
+#, c-format
+msgid "Are you sure you want to cherry-pick that revision on <%s>?"
+msgstr ""
+"Er du sikker på, at du ønsker at bærplukke (cherry-pick) den revision på <%"
+"s>?"
+
+#: ../gitg/gitg-branch-actions.c:1752 ../gitg/gitg-branch-actions.c:1754
+#: ../gitg/gitg-branch-actions.c:1802
+msgid "Cherry-pick"
+msgstr "Bærplukning"
+
+#: ../gitg/gitg-branch-actions.c:1782
+msgid "The branch on which to cherry-pick could not be checked out"
+msgstr "Den gren, hvorpå der skal bærplukkes (cherry-pick), kunne ikke tjekkes"
+
+#: ../gitg/gitg-branch-actions.c:1789
+#, c-format
+msgid "Cherry-picking on <%s>"
+msgstr "Bærplukning (Cherry-picking) på <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1857
+msgid "Failed to generate format-patch"
+msgstr "Kunne ikke generere formatrettelse (patch)"
+
+#: ../gitg/gitg-branch-actions.c:1905
+#, c-format
+msgid "Generating format-patch for <%s>"
+msgstr "Genererer formatrettelse (patch) for <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1913 ../gitg/gitg-menus.xml.h:5
+msgid "Format patch"
+msgstr "Formatrettelse (patch)"
+
 # Måske: Vis programmets versionsnummer
-#: ../gitg/gitg.c:52
+#: ../gitg/gitg.c:54
 msgid "Show the application's version"
 msgstr "Vis programmets version"
 
-#: ../gitg/gitg.c:53
+#: ../gitg/gitg.c:55
 msgid "Start gitg in commit mode"
 msgstr "Start gitg i integreringstilstand"
 
-#: ../gitg/gitg.c:54
-#, fuzzy
+#: ../gitg/gitg.c:56
 msgid "Select commit after loading the repository"
-msgstr "Begynd indlæsning af arkiv"
+msgstr "Vælg integrer (commit) efter indlæsning af arkivet"
 
-#: ../gitg/gitg.c:64
+#: ../gitg/gitg.c:66
 msgid "- git repository viewer"
 msgstr "- arkivviseren git"
 
-#: ../gitg/gitg-commit-view.c:208 ../gitg/gitg-revision-tree-view.c:183
+#: ../gitg/gitg-commit-view.c:222 ../gitg/gitg-revision-files-panel.c:256
 msgid "Cannot display file content as text"
 msgstr "Kan ikke vise filindhold som tekst"
 
-#: ../gitg/gitg-commit-view.c:1437
-msgid "You must first stage some changes before committing"
-msgstr "Du skal først igangsætte nogle ændringer før du integrerer"
+#: ../gitg/gitg-commit-view.c:1156
+msgid "unstage"
+msgstr "fortryd igangsættelse"
 
-#: ../gitg/gitg-commit-view.c:1445
+#: ../gitg/gitg-commit-view.c:1157
+msgid "stage"
+msgstr "igangsæt"
+
+# Du skal først igangsætte nogle ændringer, før du integrerer
+#: ../gitg/gitg-commit-view.c:1991
+msgid "You must first stage some changes before committing"
+msgstr "Du skal igangsætte nogle ændringer, før du kan integrere"
+
+#: ../gitg/gitg-commit-view.c:1999
 msgid "Please enter a commit message before committing"
 msgstr "Indtast venligst en integreringstekst før du integrerer"
 
-#: ../gitg/gitg-commit-view.c:1457
+#: ../gitg/gitg-commit-view.c:2011
 msgid ""
 "Your user name or email could not be retrieved for use in the sign off "
 "message"
 msgstr ""
 "Dit brugernavn eller e-post kunne ikke indhentes til brug for afslutbeskeden"
 
-#: ../gitg/gitg-commit-view.c:1459
+#: ../gitg/gitg-commit-view.c:2013
 msgid "Something went wrong while trying to commit"
 msgstr "Noget gik galt mens du integrerede"
 
-#: ../gitg/gitg-commit-view.c:1618
+#: ../gitg/gitg-commit-view.c:2197
 msgid "Revert fail"
 msgstr "Fortryd fejl"
 
-#: ../gitg/gitg-commit-view.c:1629
+#: ../gitg/gitg-commit-view.c:2208
 msgid "Are you sure you want to revert these changes?"
 msgstr "Er du sikker på, at du ønsker at fortryde disse ændringer?"
 
-#: ../gitg/gitg-commit-view.c:1632
+#: ../gitg/gitg-commit-view.c:2211
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr "Fortrydelse af ændringer er endelig og kan ikke gøres om"
 
-# godt nok i tvivl her (igangsatte, trin, etape måske arrangerede ændringer)
-#: ../gitg/gitg-repository.c:606
-msgid "Staged changes"
-msgstr "Igangsatte ændringer"
+#: ../gitg/gitg-repository-dialog.c:244 ../gitg/gitg-repository.ui.h:4
+msgid "Fetch"
+msgstr "Hent"
 
-#: ../gitg/gitg-repository.c:608
-msgid "Unstaged changes"
-msgstr "Ændringer der ikke er igangsat"
+#: ../gitg/gitg-repository-dialog.c:249
+msgid "Cancel"
+msgstr "Afbryd"
 
-#: ../gitg/gitg-repository.c:1235
-msgid "Not a valid git repository"
-msgstr "Ikke et gyldigt gitarkiv"
+#: ../gitg/gitg-repository-dialog.c:633 ../gitg/gitg-repository.ui.h:7
+#: ../gitg/gitg-tag.ui.h:5
+msgid "Properties"
+msgstr "Egenskaber"
 
-#: ../gitg/gitg-revision-tree-view.c:513
+#: ../gitg/gitg-revision-changes-panel.c:278
+msgid "Changes"
+msgstr "Ændringer"
+
+#: ../gitg/gitg-revision-details-panel.c:113
+msgid "Details"
+msgstr "Detaljer"
+
+#: ../gitg/gitg-revision-files-panel.c:600
+msgid "Files"
+msgstr "Filer"
+
+#: ../gitg/gitg-revision-files-panel.c:769
 msgid "(Empty)"
 msgstr "(Tom)"
 
-#: ../gitg/gitg-window.c:430
+#: ../gitg/gitg-window.c:648
 msgid "Select branch"
 msgstr "Vælg gren"
 
-#: ../gitg/gitg-window.c:493
+#: ../gitg/gitg-window.c:717
 #, c-format
 msgid "Push local branch <%s> to remote branch <%s>"
 msgstr "Skub (push) lokal gren <%s> til ekstern gren <%s>"
 
-#: ../gitg/gitg-window.c:500
+#: ../gitg/gitg-window.c:724
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
 msgstr "Flet/omplacer (merge/rebase) lokal gren <%s> med/på lokal gren <%s>"
 
-#: ../gitg/gitg-window.c:507
+#: ../gitg/gitg-window.c:731
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
 msgstr "Flet/omplacer (merge/rebase) lokal gren <%s> med/på ekstern gren <%s>"
@@ -221,52 +616,47 @@ msgstr "Flet/omplacer (merge/rebase) lokal gren <%s> med/på ekstern gren <%s>"
 # Ja, mon ikke det er noget med at gemme noget væk til senere. Jeg vil
 # tro din oversættelse er god, men jeg kunne måske godt tænke mig at at
 # stash blev skrevet ind i parentes.
-#: ../gitg/gitg-window.c:514
+#: ../gitg/gitg-window.c:738
 #, c-format
 msgid "Apply stash to local branch <%s>"
 msgstr "Anvend lager (stash) på lokal gren <%s>"
 
-#: ../gitg/gitg-window.c:576
+#: ../gitg/gitg-window.c:818
 #, c-format
 msgid "Cherry-pick revision on <%s>"
-msgstr ""
+msgstr "Bærplukkerevision (Cherry-pick) på <%s>"
 
-#: ../gitg/gitg-window.c:840
+#: ../gitg/gitg-window.c:1200
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "Indlæste %d ændringer i %.2fs"
 
-#: ../gitg/gitg-window.c:860
+#: ../gitg/gitg-window.c:1222
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Indlæser %d ændringer..."
 
-#: ../gitg/gitg-window.c:869
-msgid "Could not find git repository"
-msgstr "Kunne ikke finde gitarkiv"
-
-#: ../gitg/gitg-window.c:1171
-#, fuzzy
+#: ../gitg/gitg-window.c:1583
 msgid "Local branches"
-msgstr "Alle grene"
+msgstr "Lokale grene"
 
-#: ../gitg/gitg-window.c:1192
+#: ../gitg/gitg-window.c:1604
 msgid "All branches"
 msgstr "Alle grene"
 
-#: ../gitg/gitg-window.c:1267
+#: ../gitg/gitg-window.c:1682
 msgid "Begin loading repository"
 msgstr "Begynd indlæsning af arkiv"
 
-#: ../gitg/gitg-window.c:1451
+#: ../gitg/gitg-window.c:2124
 msgid "Open git repository"
 msgstr "Åbn gitarkiv"
 
-#: ../gitg/gitg-window.c:1572
+#: ../gitg/gitg-window.c:2222
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg er en læser til gitarkiver for gtk'/GNOME"
 
-#: ../gitg/gitg-window.c:1573
+#: ../gitg/gitg-window.c:2223
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -297,18 +687,14 @@ msgstr ""
 "dette program. Hvis ikke, så skriv til the Free Software Foundation,\n"
 "Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../gitg/gitg-window.c:2040
+#: ../gitg/gitg-window.c:2548
 msgid "new"
 msgstr "ny"
 
-#: ../gitg/gitg-window.c:2148 ../gitg/gitg-window.c:2187
+#: ../gitg/gitg-window.c:2878 ../gitg/gitg-window.c:2916
 #, c-format
 msgid "New local branch <%s>"
 msgstr "Ny lokal gren <%s>"
-
-#: ../gitg/gitg-window.c:2160 ../gitg/gitg-branch-actions.c:316
-msgid "Remove remote branch"
-msgstr "Fjern ekstern gren"
 
 # Undersøg arbejdskopi
 # Checkout betyder at man henter en kopi af en bestemt gren. Jeg vil
@@ -316,611 +702,64 @@ msgstr "Fjern ekstern gren"
 # Ville det så ikke være bedre med 
 # Hent arbejdskopi
 # (hvis det reelt er det der sker?)
-#: ../gitg/gitg-window.c:2165
+#: ../gitg/gitg-window.c:2894
 msgid "Checkout working copy"
 msgstr "Tjek arbejdskopi"
 
-#: ../gitg/gitg-window.c:2166
+#: ../gitg/gitg-window.c:2895
 msgid "Remove local branch"
 msgstr "Fjern lokal gren"
 
-#: ../gitg/gitg-window.c:2168
+#: ../gitg/gitg-window.c:2897
 msgid "Rename local branch"
 msgstr "Omdøb lokal gren"
 
-# hvad er stash?
-#: ../gitg/gitg-window.c:2176 ../gitg/gitg-branch-actions.c:392
-msgid "Remove stash"
-msgstr "Fjern lager"
-
-#: ../gitg/gitg-window.c:2182 ../gitg/gitg-branch-actions.c:454
-#: ../gitg/gitg-branch-actions.c:456
-msgid "Remove tag"
-msgstr "Fjern mærke"
-
-#: ../gitg/gitg-window.c:2484
-msgid "Not all fields are correctly filled in"
-msgstr "Ikke alle felter er korrekt udfyldt"
-
-#: ../gitg/gitg-window.c:2486
+#: ../gitg/gitg-window.c:3232
 msgid "Please make sure to fill in both the tag name and the commit message"
 msgstr ""
 "Vær venligst opmærksom på at udfylde både mærkenavnet og integreringsbeskeden"
 
+#: ../gitg/gitg-window.c:3236
+msgid "Please make sure to fill in the tag name"
+msgstr "Husk at udfylde mærkenavnet"
+
+#: ../gitg/gitg-window.c:3245
+msgid "Not all fields are correctly filled in"
+msgstr "Ikke alle felter er korrekt udfyldt"
+
 #. Single one, pick filename
-#: ../gitg/gitg-window.c:2579
+#: ../gitg/gitg-window.c:3340
 msgid "Save format patch"
-msgstr ""
+msgstr "Rettelse til saveformat (patch)"
 
-#: ../gitg/gitg-branch-actions.c:249
-#, c-format
-msgid "Branch <%s> could not be removed"
-msgstr "Gren <%s> kunne ikke fjernes"
+# godt nok i tvivl her (igangsatte, trin, etape måske arrangerede ændringer)
+#: ../libgitg/gitg-repository.c:883
+msgid "Staged changes"
+msgstr "Igangsatte ændringer"
 
-#: ../gitg/gitg-branch-actions.c:250
-msgid ""
-"This usually means that the branch is not fully merged in HEAD. Do you want "
-"to forcefully remove the branch?"
-msgstr ""
-"Dette betyder normalt, at grenen ikke er fuldt sammenflettet i HEAD. Ønsker "
-"du at fremtvinge fjernelse af denne gren?"
+#: ../libgitg/gitg-repository.c:887
+msgid "Unstaged changes"
+msgstr "Ændringer der ikke er igangsat"
 
-#: ../gitg/gitg-branch-actions.c:251
-msgid "Force remove"
-msgstr "Fremtving fjernelse"
+#: ../libgitg/gitg-repository.c:1517
+msgid "Not a valid git repository"
+msgstr "Ikke et gyldigt gitarkiv"
 
-#: ../gitg/gitg-branch-actions.c:260
-#, c-format
-msgid "Branch <%s> could not be forcefully removed"
-msgstr "Gren <%s> kunne ikke fjernes med tvang"
-
-#: ../gitg/gitg-branch-actions.c:293
-#, c-format
-msgid "Failed to remove remote branch <%s>."
-msgstr "Kunne ikke fjerne ekstern gren <%s>."
-
-#: ../gitg/gitg-branch-actions.c:314
-#, c-format
-msgid "Are you sure you want to remove the remote branch <%s>?"
-msgstr "Er du sikker på, at du ønsker at fjerne den eksterne gren <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:315
-msgid "This permanently removes the remote branch."
-msgstr "Dette fjerner permanent den eksterne gren."
-
-#: ../gitg/gitg-branch-actions.c:332 ../gitg/gitg-menus.xml.h:11
-msgid "Remove branch"
-msgstr "Fjern gren"
-
-# Okay, jeg kiggede i gits brugerguide og endte med at spørge på deres IRC-kanal.
-# Man kan 'stashe' sine lokale ændringer og 'poppe' dem tilbage fra
-# 'stash'.  Hvis man stasher flere gange, svarer det til at tingene
-# ligger som en stak-datastruktur, og når de taler om 'item', er det
-# altså elementer på dette 'stash'.  Lagerpunkt er givetvis fint nok -
-# det kan uanset hvad forveksles med repository, men med kontekst tror
-# jeg det er klart nok.
-#: ../gitg/gitg-branch-actions.c:390
-msgid "Are you sure you want to remove this stash item?"
-msgstr "Er du sikker på, at du ønsker at fjerne dette lagerpunkt?"
-
-#: ../gitg/gitg-branch-actions.c:391
-msgid "This permanently removes the stash item"
-msgstr "Dette fjerner permanent lagerpunktet"
-
-#: ../gitg/gitg-branch-actions.c:418
-msgid "Failed to remove stash"
-msgstr "Kunne ikke fjerne lager"
-
-#: ../gitg/gitg-branch-actions.c:419
-msgid "The stash item could not be successfully removed"
-msgstr "Lagerpunktet kunne ikke fjernes"
-
-#: ../gitg/gitg-branch-actions.c:450
-#, c-format
-msgid "Are you sure you want to remove the tag <%s>?"
-msgstr "Er du sikker på, at du ønsker at fjerne mærket <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:473
-#, c-format
-msgid "The tag <%s> could not be successfully removed"
-msgstr "Mærket <%s> kunne ikke fjernes"
-
-#: ../gitg/gitg-branch-actions.c:477
-msgid "Failed to remove tag"
-msgstr "Kunne ikke fjerne mærke"
-
-#: ../gitg/gitg-branch-actions.c:534
-#, c-format
-msgid "Branch <%s> could not be renamed to <%s>"
-msgstr "Gren <%s> kunne ikke omdøbes til <%s>"
-
-#: ../gitg/gitg-branch-actions.c:535
-msgid ""
-"This usually means that a branch with that name already exists. Do you want "
-"to overwrite the branch?"
-msgstr ""
-"Dette betyder normalt, at en gren med samme navn allerede eksisterer. Ønsker "
-"du at overskrive grenen?"
-
-#: ../gitg/gitg-branch-actions.c:536
-msgid "Force rename"
-msgstr "Fremtving omdøbning"
-
-#: ../gitg/gitg-branch-actions.c:545
-#, c-format
-msgid "Branch <%s> could not be forcefully renamed"
-msgstr "Gren <%s> kunne ikke omdøbes med tvang"
-
-#: ../gitg/gitg-branch-actions.c:585 ../gitg/gitg-preferences.ui.h:13
-#: ../gitg/gitg-repository.ui.h:6 ../gitg/gitg-tag.ui.h:4
-msgid "Name:"
-msgstr "Navn:"
-
-#: ../gitg/gitg-branch-actions.c:693
-msgid "Do you want to temporarily stash these changes?"
-msgstr "Ønsker du midlertidigt at lægge disse ændringer på lager (stash)?"
-
-#: ../gitg/gitg-branch-actions.c:697
-msgid "Do you want to stash and reapply these changes?"
-msgstr "Ønsker du at lagre (stash) og genanvende disse ændringer?"
-
-# Du har ændringer der ikke er integreret i dit aktuelle arbejdstræ
-#: ../gitg/gitg-branch-actions.c:702
-msgid "You have uncommited changes in your current working tree"
-msgstr "Du har ændringer i dit aktuelle arbejdstræ, som ikke er integreret"
-
-#: ../gitg/gitg-branch-actions.c:704
-msgid "Stash changes"
-msgstr "Lagr ændringer"
-
-#: ../gitg/gitg-branch-actions.c:880
-msgid "Failed to save current index state"
-msgstr "Kunne ikke gemme aktuel indekstilstand"
-
-# 'tjekke lokal gren ud' (alle dem jeg kender siger 'tjekke ud' i
-# svn/git-sammenhæng)
-#: ../gitg/gitg-branch-actions.c:934 ../gitg/gitg-branch-actions.c:1216
-#: ../gitg/gitg-branch-actions.c:1508 ../gitg/gitg-branch-actions.c:1744
-#, c-format
-msgid "Failed to checkout local branch <%s>"
-msgstr "Kunne ikke tjekke lokal gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:972
-#, c-format
-msgid "Failed to checkout remote branch <%s> to local branch <%s>"
-msgstr "Kunne ikke tjekke ekstern gren <%s> til lokal gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1012
-#, c-format
-msgid "Failed to checkout tag <%s> to local branch <%s>"
-msgstr "Kunne ikke tjekke mærke <%s> til lokal gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1103
-#, c-format
-msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-msgstr "Kunne ikke omplacere %s gren <%s> til %s gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1107
-#, c-format
-msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-msgstr "Kunne ikke flette %s gren <%s> med %s gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1115 ../gitg/gitg-branch-actions.c:1117
-#: ../gitg/gitg-branch-actions.c:1183 ../gitg/gitg-branch-actions.c:1185
-#: ../gitg/gitg-branch-actions.c:1224 ../gitg/gitg-branch-actions.c:1226
-#: ../gitg/gitg-branch-actions.c:1260 ../gitg/gitg-branch-actions.c:1262
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1309
-msgid "local"
-msgstr "lokal"
-
-#: ../gitg/gitg-branch-actions.c:1115 ../gitg/gitg-branch-actions.c:1117
-#: ../gitg/gitg-branch-actions.c:1183 ../gitg/gitg-branch-actions.c:1185
-#: ../gitg/gitg-branch-actions.c:1224 ../gitg/gitg-branch-actions.c:1226
-#: ../gitg/gitg-branch-actions.c:1260 ../gitg/gitg-branch-actions.c:1262
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1309
-msgid "remote"
-msgstr "ekstern"
-
-#: ../gitg/gitg-branch-actions.c:1134 ../gitg/gitg-branch-actions.c:1663
-msgid "The stashed changes have been stored to be reapplied manually"
-msgstr "De lagrede ændringer er blevet gemt så de kan genanvendes manuelt"
-
-#: ../gitg/gitg-branch-actions.c:1139 ../gitg/gitg-branch-actions.c:1668
-msgid "Failed to checkout previously checked out branch"
-msgstr "Kunne ikke tjekke tidligere tjekket gren"
-
-#: ../gitg/gitg-branch-actions.c:1160 ../gitg/gitg-branch-actions.c:1689
-msgid "Failed to reapply stash correctly"
-msgstr "Kunne ikke genanvende lagring korrekt"
-
-#: ../gitg/gitg-branch-actions.c:1161 ../gitg/gitg-branch-actions.c:1690
-msgid ""
-"There might be unresolved conflicts in the working tree or index which you "
-"need to resolve manually"
-msgstr ""
-"Der er måske uløste konflikter i arbejdstræet eller indekset, som du skal "
-"løse manuelt"
-
-#: ../gitg/gitg-branch-actions.c:1182
-#, c-format
-msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-msgstr "Er du sikker på, at du ønsker at flette %s gren <%s> med %s gren <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1190 ../gitg/gitg-branch-actions.c:1192
-#: ../gitg/gitg-branch-actions.c:1236 ../gitg/gitg-menus.xml.h:6
-msgid "Merge"
-msgstr "Flet (merge)"
-
-#: ../gitg/gitg-branch-actions.c:1217
-msgid "The branch on which to merge could not be checked out"
-msgstr "Den gren der skulle flettes til kunne ikke tjekkes"
-
-#: ../gitg/gitg-branch-actions.c:1223
-#, c-format
-msgid "Merging %s branch <%s> onto %s branch <%s>"
-msgstr "Fletter %s gren <%s> til %s gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1259
-#, c-format
-msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-msgstr ""
-"Er du sikker på, at du ønsker at omplacere %s gren <%s> til %s gren <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1267 ../gitg/gitg-branch-actions.c:1269
-#: ../gitg/gitg-branch-actions.c:1319 ../gitg/gitg-menus.xml.h:9
-msgid "Rebase"
-msgstr "Omplacer (rebase)"
-
-#: ../gitg/gitg-branch-actions.c:1292
-msgid "Unable to rebase"
-msgstr "Kunne ikke omplacere"
-
-#: ../gitg/gitg-branch-actions.c:1293
-msgid ""
-"There are still uncommitted changes in your working tree and you are trying "
-"to rebase a branch onto the currently checked out branch. Either remove, "
-"stash or commit your changes first and try again"
-msgstr ""
-"Der er stadig ændringer, der ikke er integreret i dit arbejdstræ og du "
-"forsøger at omplacere en gren til den aktuelt tjekket gren. Enten fjern, "
-"lagr eller integrer dine ændringer først og forsøg så igen"
-
-#: ../gitg/gitg-branch-actions.c:1306
-#, c-format
-msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-msgstr "Omplacerer %s gren <%s> til %s gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1345
-#, c-format
-msgid "Failed to push local branch <%s> to remote <%s>"
-msgstr "Kunne ikke skubbe lokal gren <%s> til ekstern <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1346
-msgid ""
-"This usually means that the remote branch could not be fast-forwarded. Try "
-"fetching the latest changes."
-msgstr ""
-"Dette betyder normalt, at den eksterne gren ikke kunne blive hurtigt "
-"videresendt (fast-forwarded). Prøv at hente de seneste ændringer."
-
-#: ../gitg/gitg-branch-actions.c:1370
-#, c-format
-msgid "Are you sure you want to push <%s> to <%s>?"
-msgstr "Er du sikker på, at du ønsker at skubbe <%s> til <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1376 ../gitg/gitg-branch-actions.c:1378
-#: ../gitg/gitg-branch-actions.c:1399 ../gitg/gitg-branch-actions.c:1432
-#: ../gitg/gitg-branch-actions.c:1434 ../gitg/gitg-branch-actions.c:1457
-msgid "Push"
-msgstr "Skub (push)"
-
-#: ../gitg/gitg-branch-actions.c:1391
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s>"
-msgstr "Skubber lokal gren <%s> til ekstern gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1426
-#, c-format
-msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
-msgstr "Er du sikker på, at du ønsker at skubbe <%s> til ekstern <%s/%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1444
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s/%s>"
-msgstr "Skubber lokal gren <%s> til ekstern gren <%s/%s>"
-
-#: ../gitg/gitg-branch-actions.c:1481
-#, c-format
-msgid "Are you sure you want to apply the stash item to local branch <%s>?"
-msgstr ""
-"Er du sikker på, at du ønsker at anvende det lagrede punkt på den lokale "
-"gren <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1486 ../gitg/gitg-branch-actions.c:1488
-msgid "Apply stash"
-msgstr "Anvend lager (stash)"
-
-#: ../gitg/gitg-branch-actions.c:1527
-#, c-format
-msgid "The stash could not be applied to local branch <%s>"
-msgstr "Lageret kunne ikke anvendes på lokal gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1531
-msgid "Failed to apply stash"
-msgstr "Kunne ikke anvende lager"
-
-#: ../gitg/gitg-branch-actions.c:1577
-msgid ""
-"The tag object could not be successfully created. Please make sure you have "
-"a GPG key and the key is unlocked"
-msgstr ""
-"Mærkeobjektet kunne ikke oprettes. Undersøg venligst at du har en GPG-nøgle "
-"og at denne nøgle er ulåst"
-
-#: ../gitg/gitg-branch-actions.c:1581
-msgid "The tag object could not be successfully created"
-msgstr "Mærkeobjektet kunne ikke oprettes"
-
-#: ../gitg/gitg-branch-actions.c:1586
-msgid "Failed to create tag"
-msgstr "Kunne ikke oprette mærke"
-
-# 'tjekke lokal gren ud' (alle dem jeg kender siger 'tjekke ud' i
-# svn/git-sammenhæng)
-#: ../gitg/gitg-branch-actions.c:1643
-#, fuzzy, c-format
-msgid "Failed to cherry-pick on <%s>"
-msgstr "Kunne ikke tjekke lokal gren <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1710
-#, fuzzy, c-format
-msgid "Are you sure you want to cherry-pick that revision on <%s>?"
-msgstr "Er du sikker på, at du ønsker at skubbe <%s> til <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1715 ../gitg/gitg-branch-actions.c:1717
-#: ../gitg/gitg-branch-actions.c:1765
-msgid "Cherry-pick"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1745
-#, fuzzy
-msgid "The branch on which to cherry-pick could not be checked out"
-msgstr "Den gren der skulle flettes til kunne ikke tjekkes"
-
-#: ../gitg/gitg-branch-actions.c:1752
-#, c-format
-msgid "Cherry-picking on <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1822
-#, fuzzy
-msgid "Failed to generate format-patch"
-msgstr "Kunne ikke oprette mærke"
-
-#: ../gitg/gitg-branch-actions.c:1868
-#, c-format
-msgid "Generating format-patch for <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1874 ../gitg/gitg-menus.xml.h:5
-msgid "Format patch"
-msgstr ""
-
-#: ../gitg/gitg-repository-dialog.c:173 ../gitg/gitg-repository.ui.h:4
-msgid "Fetch"
-msgstr "Hent"
-
-#: ../gitg/gitg-repository-dialog.c:178
-msgid "Cancel"
-msgstr "Afbryd"
-
-#: ../gitg/gitg-repository-dialog.c:441 ../gitg/gitg-repository.ui.h:7
-#: ../gitg/gitg-tag.ui.h:5
-msgid "Properties"
-msgstr "Egenskaber"
-
-#: ../gitg/gitg-window.ui.h:1
-msgid "Add signed-off-by"
-msgstr "Tilføj godkendt-af"
-
-#: ../gitg/gitg-window.ui.h:2
-msgid "Amend"
-msgstr "Ændre"
-
-#: ../gitg/gitg-window.ui.h:3
-msgid "Author:"
-msgstr "Forfatter:"
-
-#: ../gitg/gitg-window.ui.h:4
-msgid "Branch:"
-msgstr "Gren:"
-
-#: ../gitg/gitg-window.ui.h:5
-msgid "Co_mmit message"
-msgstr "In_tegrer besked"
-
-#: ../gitg/gitg-window.ui.h:6 ../gitg/gitg-preferences.ui.h:6
-msgid "Commit"
-msgstr "Integrer"
-
-#: ../gitg/gitg-window.ui.h:7
-msgid "Context:"
-msgstr "Kontekst:"
-
-#: ../gitg/gitg-window.ui.h:8
-msgid "Date:"
-msgstr "Dato:"
-
-#: ../gitg/gitg-window.ui.h:9
-msgid "Details"
-msgstr "Detaljer"
-
-#: ../gitg/gitg-window.ui.h:10
-msgid "History"
-msgstr "Historik"
-
-#: ../gitg/gitg-window.ui.h:11
-msgid "Parent:"
-msgstr "Forældre:"
-
-#: ../gitg/gitg-window.ui.h:12
-msgid "SHA:"
-msgstr "SHA:"
-
-#: ../gitg/gitg-window.ui.h:13
-msgid "Subject:"
-msgstr "Emne:"
-
-#: ../gitg/gitg-window.ui.h:14
-msgid "Tree"
-msgstr "Træ"
-
-#: ../gitg/gitg-window.ui.h:15
-msgid "_Changes"
-msgstr "_Ændringer"
-
-#: ../gitg/gitg-window.ui.h:16
-msgid "_Staged"
-msgstr "Igang_sat"
-
-#: ../gitg/gitg-window.ui.h:17
-msgid "_Unstaged"
-msgstr "_Ikke igangsat"
-
-#: ../gitg/gitg-commit-menu.ui.h:1 ../gitg/gitg-ui.xml.h:1
+#: ../gitg/gitg-commit-menu.ui.h:1
 msgid "Ignore"
 msgstr "Ignorer"
 
-#: ../gitg/gitg-commit-menu.ui.h:2 ../gitg/gitg-ui.xml.h:3
+#: ../gitg/gitg-commit-menu.ui.h:2
 msgid "Revert"
 msgstr "Fortryd"
 
-#: ../gitg/gitg-commit-menu.ui.h:3 ../gitg/gitg-ui.xml.h:4
+#: ../gitg/gitg-commit-menu.ui.h:3
 msgid "Stage"
 msgstr "Igangsætte"
 
-#: ../gitg/gitg-commit-menu.ui.h:4 ../gitg/gitg-ui.xml.h:5
+#: ../gitg/gitg-commit-menu.ui.h:4
 msgid "Unstage"
 msgstr "Fortryde igangsættelse"
-
-#: ../gitg/gitg-preferences.ui.h:1
-msgid "<b>Commit Message</b>"
-msgstr "<b>Integreringsbesked</b>"
-
-#: ../gitg/gitg-preferences.ui.h:2
-msgid "<b>History</b>"
-msgstr "<b>Historik</b>"
-
-#: ../gitg/gitg-preferences.ui.h:3
-#, fuzzy
-msgid "<b>Main</b>"
-msgstr "<b>Historik</b>"
-
-#: ../gitg/gitg-preferences.ui.h:4 ../gitg/gitg-repository.ui.h:1
-msgid "<b>User</b>"
-msgstr "<b>Bruger</b>"
-
-#: ../gitg/gitg-preferences.ui.h:5
-msgid "Collapse inactive lanes"
-msgstr "Fold inaktive baner sammen"
-
-#: ../gitg/gitg-preferences.ui.h:7 ../gitg/gitg-repository.ui.h:2
-msgid "Configuration"
-msgstr "Konfiguration"
-
-#: ../gitg/gitg-preferences.ui.h:8
-msgid ""
-"Configure global git settings. This corresponds to the settings as stored in "
-"~/.gitconfig. Repository specific settings can be configured at the "
-"repository properties."
-msgstr ""
-"Konfigurer den globale gitopsætning. Dette svarer til opsætningen som er "
-"gemt i ~/.gitconfig. Opsætning der er specifik for arkivet kan konfigureres "
-"under arkivets egenskaber."
-
-#: ../gitg/gitg-preferences.ui.h:9
-msgid "Display right _margin"
-msgstr "Vis højre _margen"
-
-#: ../gitg/gitg-preferences.ui.h:10 ../gitg/gitg-repository.ui.h:3
-msgid "E-mail:"
-msgstr "E-post:"
-
-#: ../gitg/gitg-preferences.ui.h:11
-msgid "Early"
-msgstr "Tidlig"
-
-#: ../gitg/gitg-preferences.ui.h:12
-msgid "Late"
-msgstr "Sent"
-
-#: ../gitg/gitg-preferences.ui.h:14
-msgid "Preferences"
-msgstr "Indstillinger"
-
-#: ../gitg/gitg-preferences.ui.h:15
-msgid "Preferences that apply to the commit view"
-msgstr "Indstillinger for integreringsvisningen"
-
-#: ../gitg/gitg-preferences.ui.h:16
-msgid "Preferences that apply to the revision view"
-msgstr "Indstillinger for revisionsvisningen"
-
-#: ../gitg/gitg-preferences.ui.h:17
-msgid "Search filters revisions in the history view"
-msgstr "Søg filterændringer i historikvisningen"
-
-#: ../gitg/gitg-preferences.ui.h:18
-msgid "Show history in topological order"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:19
-msgid "Show staged changes in history"
-msgstr "Vis igangsatte ændringer i historikken"
-
-#: ../gitg/gitg-preferences.ui.h:20
-msgid "Show stash in history"
-msgstr "Vis opbevaring i historikken"
-
-#: ../gitg/gitg-preferences.ui.h:21
-msgid "Show unstaged changes in history"
-msgstr "Vis ændringer der ikke er igangsat i historikken"
-
-#: ../gitg/gitg-preferences.ui.h:22
-msgid "Use vertical layout"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:23
-msgid "View"
-msgstr "Vis"
-
-#: ../gitg/gitg-preferences.ui.h:24
-msgid "_Right margin at column:"
-msgstr "_Højremargen ved kolonne:"
-
-#: ../gitg/gitg-repository.ui.h:5
-msgid "Name"
-msgstr "Navn"
-
-#: ../gitg/gitg-repository.ui.h:8
-msgid "Remotes"
-msgstr "Eksterne"
-
-#: ../gitg/gitg-repository.ui.h:9
-msgid "URL"
-msgstr "URL"
-
-#: ../gitg/gitg-tag.ui.h:1
-msgid "Create signed tag object"
-msgstr "Opret underskrevet mærkeobjekt"
-
-#: ../gitg/gitg-tag.ui.h:2 ../gitg/gitg-menus.xml.h:4
-msgid "Create tag"
-msgstr "Opret mærke"
-
-#: ../gitg/gitg-tag.ui.h:3
-msgid "Message:"
-msgstr "Besked:"
 
 #: ../gitg/gitg-menus.xml.h:1
 msgid "Apply stash to..."
@@ -932,7 +771,11 @@ msgstr "Tjek gren"
 
 #: ../gitg/gitg-menus.xml.h:3
 msgid "Cherry-pick on..."
-msgstr ""
+msgstr "Bærplukke (cherry-pick) på..."
+
+#: ../gitg/gitg-menus.xml.h:4 ../gitg/gitg-tag.ui.h:2
+msgid "Create tag"
+msgstr "Opret mærke"
 
 #: ../gitg/gitg-menus.xml.h:7
 msgid "Merge branch with..."
@@ -966,30 +809,196 @@ msgstr "_Hash"
 msgid "_Subject"
 msgstr "_Emne"
 
-#: ../gitg/gitg-ui.xml.h:2
+#: ../gitg/gitg-preferences.ui.h:1
+msgid "<b>Commit Message</b>"
+msgstr "<b>Integreringsbesked</b>"
+
+#: ../gitg/gitg-preferences.ui.h:2
+msgid "<b>Interface</b>"
+msgstr "<b>Grænseflade</b>"
+
+#: ../gitg/gitg-preferences.ui.h:3
+msgid "<b>Revisions</b>"
+msgstr "<b>Revisioner</b>"
+
+#: ../gitg/gitg-preferences.ui.h:4 ../gitg/gitg-repository.ui.h:1
+msgid "<b>User</b>"
+msgstr "<b>Bruger</b>"
+
+#: ../gitg/gitg-preferences.ui.h:5
+msgid "Collapse inactive lanes"
+msgstr "Fold inaktive baner sammen"
+
+#: ../gitg/gitg-preferences.ui.h:6 ../gitg/gitg-window.ui.h:5
+msgid "Commit"
+msgstr "Integrer"
+
+#: ../gitg/gitg-preferences.ui.h:7 ../gitg/gitg-repository.ui.h:2
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: ../gitg/gitg-preferences.ui.h:8
+msgid ""
+"Configure global git settings. This corresponds to the settings as stored in "
+"~/.gitconfig. Repository specific settings can be configured at the "
+"repository properties."
+msgstr ""
+"Konfigurer den globale gitopsætning. Dette svarer til opsætningen som er "
+"gemt i ~/.gitconfig. Opsætning der er specifik for arkivet kan konfigureres "
+"under arkivets egenskaber."
+
+#: ../gitg/gitg-preferences.ui.h:9
+msgid "Display right _margin"
+msgstr "Vis højre _margen"
+
+#: ../gitg/gitg-preferences.ui.h:10 ../gitg/gitg-repository.ui.h:3
+msgid "E-mail:"
+msgstr "E-post:"
+
+#: ../gitg/gitg-preferences.ui.h:11
+msgid "Early"
+msgstr "Tidlig"
+
+#: ../gitg/gitg-preferences.ui.h:12 ../gitg/gitg-window.ui.h:7
+msgid "History"
+msgstr "Historik"
+
+#: ../gitg/gitg-preferences.ui.h:13
+msgid "Late"
+msgstr "Sent"
+
+#: ../gitg/gitg-preferences.ui.h:15
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: ../gitg/gitg-preferences.ui.h:16
+msgid "Preferences that apply to the commit view"
+msgstr "Indstillinger for integreringsvisningen"
+
+#: ../gitg/gitg-preferences.ui.h:17
+msgid "Preferences that apply to the history view"
+msgstr "Indstillinger for historikvisningen"
+
+#: ../gitg/gitg-preferences.ui.h:18
+msgid "Search filters revisions in the history view"
+msgstr "Søg filterændringer i historikvisningen"
+
+#: ../gitg/gitg-preferences.ui.h:19
+msgid "Show history in topological order"
+msgstr "Vis historik i topologisk rækkefølge"
+
+#: ../gitg/gitg-preferences.ui.h:20
+msgid "Show staged changes in history"
+msgstr "Vis igangsatte ændringer i historikken"
+
+#: ../gitg/gitg-preferences.ui.h:21
+msgid "Show stash in history"
+msgstr "Vis opbevaring i historikken"
+
+#: ../gitg/gitg-preferences.ui.h:22
+msgid "Show unstaged changes in history"
+msgstr "Vis ændringer der ikke er igangsat i historikken"
+
+#: ../gitg/gitg-preferences.ui.h:23
+msgid "Use vertical layout"
+msgstr "Brug lodret layout"
+
+#: ../gitg/gitg-preferences.ui.h:24
+msgid "_Right margin at column:"
+msgstr "_Højremargen ved kolonne:"
+
+#: ../gitg/gitg-repository.ui.h:5
+msgid "Name"
+msgstr "Navn"
+
+#: ../gitg/gitg-repository.ui.h:8
+msgid "Remotes"
+msgstr "Eksterne"
+
+#: ../gitg/gitg-repository.ui.h:9
+msgid "URL"
+msgstr "URL"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:1
+msgid "Author:"
+msgstr "Forfatter:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:2
+msgid "Committer:"
+msgstr "Integrator:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:3
+msgid "Parent:"
+msgstr "Forældre:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:4
+msgid "SHA:"
+msgstr "SHA:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:5
+msgid "Subject:"
+msgstr "Emne:"
+
+#: ../gitg/gitg-tag.ui.h:1
+msgid "Create signed tag object"
+msgstr "Opret underskrevet mærkeobjekt"
+
+#: ../gitg/gitg-tag.ui.h:3
+msgid "Message:"
+msgstr "Besked:"
+
+#: ../gitg/gitg-ui.xml.h:1
 msgid "R_ecently Opened"
 msgstr "Åbn_et for nylig"
 
-#: ../gitg/gitg-ui.xml.h:6
+#: ../gitg/gitg-ui.xml.h:2
 msgid "_Edit"
 msgstr "_Rediger"
 
-#: ../gitg/gitg-ui.xml.h:7
+#: ../gitg/gitg-ui.xml.h:3
 msgid "_File"
 msgstr "_Fil"
 
-#: ../gitg/gitg-ui.xml.h:8
+#: ../gitg/gitg-ui.xml.h:4
 msgid "_Help"
 msgstr "_Hjælp"
 
-#: ../gitg/gitg-ui.xml.h:9
+#: ../gitg/gitg-ui.xml.h:5
 msgid "_Open..."
 msgstr "_Åbn..."
 
-#: ../gitg/gitg-ui.xml.h:10
-msgid "_Repository"
-msgstr "_Arkiv"
-
-#: ../gitg/gitg-ui.xml.h:11
+#: ../gitg/gitg-ui.xml.h:6
 msgid "_View"
 msgstr "_Vis"
+
+#: ../gitg/gitg-window.ui.h:1
+msgid "Add signed-off-by"
+msgstr "Tilføj godkendt-af"
+
+#: ../gitg/gitg-window.ui.h:2
+msgid "Amend"
+msgstr "Ændre"
+
+#: ../gitg/gitg-window.ui.h:3
+msgid "Branch:"
+msgstr "Gren:"
+
+#: ../gitg/gitg-window.ui.h:4
+msgid "Co_mmit message"
+msgstr "In_tegrer besked"
+
+#: ../gitg/gitg-window.ui.h:6
+msgid "Context:"
+msgstr "Kontekst:"
+
+#: ../gitg/gitg-window.ui.h:8
+msgid "_Changes"
+msgstr "_Ændringer"
+
+#: ../gitg/gitg-window.ui.h:9
+msgid "_Staged"
+msgstr "Igang_sat"
+
+#: ../gitg/gitg-window.ui.h:10
+msgid "_Unstaged"
+msgstr "_Ikke igangsat"
