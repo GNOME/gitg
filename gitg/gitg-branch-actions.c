@@ -594,17 +594,22 @@ rename_dialog (GitgWindow *window, const gchar *oldname)
 
 	GtkDialogFlags flags = GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT;
 	dlg = gtk_dialog_new_with_buttons ("gitg",
-                                           GTK_WINDOW (window),
-                                           flags,
-                                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                           "_Rename", GTK_RESPONSE_OK,
-                                           NULL);
+	                                   GTK_WINDOW (window),
+	                                   flags,
+	                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                                   "_Rename", GTK_RESPONSE_OK,
+	                                   NULL);
+
+#if ! GTK_CHECK_VERSION(2, 91, 0)
 	gtk_dialog_set_has_separator (GTK_DIALOG (dlg), FALSE);
+#endif
+
 	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
 
 	GtkWidget *box = gtk_hbox_new (FALSE, 6);
 	GtkWidget *label = gtk_label_new (_ ("Name:"));
 	GtkWidget *entry = gtk_entry_new ();
+
 	gtk_entry_set_text (GTK_ENTRY (entry), oldname);
 	gtk_entry_set_width_chars (GTK_ENTRY (entry), 25);
 	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
