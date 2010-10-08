@@ -82,6 +82,7 @@ ui_DATA = \
 	gitg-ui.xml 			\
 	gitg-menus.xml			\
 	gitg-preferences.ui		\
+	gitg-new-branch.ui		\
 	gitg-tag.ui			\
 	gitg-repository.ui		\
 	gitg-revision-details-panel.ui	\

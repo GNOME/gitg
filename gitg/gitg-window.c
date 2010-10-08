@@ -147,6 +147,7 @@ void on_rename_branch_action_activate (GtkAction *action, GitgWindow *window);
 void on_rebase_branch_action_activate (GtkAction *action, GitgWindow *window);
 void on_merge_branch_action_activate (GtkAction *action, GitgWindow *window);
 void on_revision_format_patch_activate (GtkAction *action, GitgWindow *window);
+void on_revision_new_branch_activate (GtkAction *action, GitgWindow *window);
 void on_revision_tag_activate (GtkAction *action, GitgWindow *window);
 void on_revision_squash_activate (GtkAction *action, GitgWindow *window);
 
@@ -3207,6 +3208,54 @@ free_tag_info (TagInfo *info)
 }
 
 static void
+on_new_branch_dialog_response (GtkWidget *dialog,
+                        gint       response,
+                        TagInfo   *info)
+{
+	gboolean destroy = TRUE;
+
+	if (response == GTK_RESPONSE_ACCEPT)
+	{
+		gchar const *name = gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (info->builder, "entry_name")));
+
+		if (*name)
+		{
+			gchar *sha1 = gitg_revision_get_sha1 (info->revision);
+
+			if (!gitg_branch_actions_create (info->window, sha1, name))
+			{
+				destroy = FALSE;
+			}
+
+			g_free (sha1);
+		}
+		else
+		{
+			GtkWidget *dlg = gtk_message_dialog_new (GTK_WINDOW (dialog),
+			                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+			                                         GTK_MESSAGE_ERROR,
+			                                         GTK_BUTTONS_OK,
+			                                         _ ("Not all fields are correctly filled in"));
+
+			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+			                                          "%s",
+			                                          _("Please make sure to fill in the branch name"));
+
+			g_signal_connect (dlg, "response", G_CALLBACK (gtk_widget_destroy), NULL);
+			gtk_widget_show (dlg);
+
+			destroy = FALSE;
+		}
+	}
+
+	if (destroy)
+	{
+		free_tag_info (info);
+		gtk_widget_destroy (dialog);
+	}
+}
+
+static void
 on_tag_dialog_response (GtkWidget *dialog,
                         gint       response,
                         TagInfo   *info)
@@ -3266,7 +3315,7 @@ on_tag_dialog_response (GtkWidget *dialog,
 
 			g_free (sha1);
 
-			GitgPreferences *preferences = gitg_preferences_get_default ();
+				GitgPreferences *preferences = gitg_preferences_get_default ();
 			g_object_set (preferences, "hidden-sign-tag", sign, NULL);
 		}
 
@@ -3391,6 +3440,50 @@ on_revision_format_patch_activate (GtkAction  *action,
 	                  info);
 
 	gtk_widget_show (dialog);
+
+	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free (rows);
+}
+
+void
+on_revision_new_branch_activate (GtkAction  *action,
+                          GitgWindow *window)
+{
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+
+	selection = gtk_tree_view_get_selection (window->priv->tree_view);
+	GList *rows = gtk_tree_selection_get_selected_rows (selection, &model);
+
+	if (rows && !rows->next)
+	{
+		GtkBuilder *builder = gitg_utils_new_builder ("gitg-new-branch.ui");
+		GtkWidget *widget = GTK_WIDGET (gtk_builder_get_object (builder, "dialog_branch"));
+
+		gtk_window_set_transient_for (GTK_WINDOW (widget), GTK_WINDOW (window));
+
+		GtkTreeIter iter;
+		GitgRevision *rev;
+
+		gtk_tree_model_get_iter (model, &iter, (GtkTreePath *)rows->data);
+		gtk_tree_model_get (model, &iter, 0, &rev, -1);
+
+		TagInfo *info = g_slice_new (TagInfo);
+
+		info->revision = gitg_revision_ref (rev);
+		info->window = window;
+		info->builder = builder;
+
+		g_signal_connect (widget,
+		                  "response",
+		                  G_CALLBACK (on_new_branch_dialog_response),
+		                  info);
+
+		gtk_widget_show (widget);
+
+		gtk_widget_grab_focus (GTK_WIDGET (gtk_builder_get_object (builder, "entry_name")));
+		gitg_revision_unref (rev);
+	}
 
 	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
 	g_list_free (rows);

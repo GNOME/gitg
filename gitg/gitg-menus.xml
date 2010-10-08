@@ -95,6 +95,12 @@
     <child>
       <object class="GtkActionGroup" id="action_group_revision">
         <child>
+          <object class="GtkAction" id="NewBranchAction">
+            <property name="label" translatable="yes">Create branch</property>
+            <signal name="activate" handler="on_revision_new_branch_activate"/>
+          </object>
+        </child>
+        <child>
           <object class="GtkAction" id="TagAction">
             <property name="label" translatable="yes">Create tag</property>
             <signal name="activate" handler="on_revision_tag_activate"/>
@@ -149,6 +155,7 @@
         <menuitem action="MergeDndAction"/>
       </popup>
       <popup name="revision_popup">
+        <menuitem action="NewBranchAction"/>
         <menuitem action="TagAction"/>
         <menu name="CherryPick" action="CherryPickAction">
           <placeholder name="Placeholder"/>

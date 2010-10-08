@@ -1579,6 +1579,45 @@ gitg_branch_actions_apply_stash (GitgWindow *window,
 }
 
 gboolean
+gitg_branch_actions_create (GitgWindow *window, gchar const *sha1, gchar const *name)
+{
+	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
+	g_return_val_if_fail (sha1 != NULL, FALSE);
+	g_return_val_if_fail (name != NULL, FALSE);
+
+	GitgRepository *repository;
+	gboolean result = FALSE;
+
+	repository = gitg_window_get_repository (window);
+
+	result = gitg_repository_commandv (repository,
+	                                   NULL,
+	                                   "branch",
+	                                   name,
+	                                   sha1,
+	                                   NULL);
+
+	if (!result)
+	{
+		gchar const *message;
+
+		message = _ ("The branch could not be successfully created");
+
+		message_dialog (window,
+		                GTK_MESSAGE_ERROR,
+		                _ ("Failed to create a branch"),
+		                message,
+		                NULL);
+		return FALSE;
+	}
+	else
+	{
+		gitg_repository_reload (repository);
+		return TRUE;
+	}
+}
+
+gboolean
 gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *name, gchar const *message, gboolean sign)
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), FALSE);
