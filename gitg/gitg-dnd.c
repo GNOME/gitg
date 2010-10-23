@@ -462,6 +462,11 @@ begin_drag (GtkWidget   *widget,
 
 			gtk_tree_path_free (path);
 		}
+
+		if (revision)
+		{
+			gitg_revision_unref (revision);
+		}
 	}
 }
 
