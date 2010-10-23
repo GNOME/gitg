@@ -902,6 +902,7 @@ gitg_window_parser_finished (GtkBuildable *buildable,
 
 	gtk_recent_chooser_add_filter (chooser, filter);
 	gtk_recent_chooser_set_show_tips (chooser, TRUE);
+	gtk_recent_chooser_set_sort_type (chooser, GTK_RECENT_SORT_MRU);
 
 	GtkWidget *menu = gtk_ui_manager_get_widget (uiman, "/ui/menubar_main");
 	GtkWidget *vbox = GTK_WIDGET(gtk_builder_get_object (builder, "vbox_main"));
