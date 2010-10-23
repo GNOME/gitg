@@ -607,7 +607,7 @@ rename_dialog (GitgWindow *window, const gchar *oldname)
 	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
 
 	GtkWidget *box = gtk_hbox_new (FALSE, 6);
-	GtkWidget *label = gtk_label_new (_ ("Name:"));
+	GtkWidget *label = gtk_label_new (_("Name:"));
 	GtkWidget *entry = gtk_entry_new ();
 
 	gtk_entry_set_text (GTK_ENTRY (entry), oldname);
