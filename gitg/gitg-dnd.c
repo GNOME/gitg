@@ -444,11 +444,11 @@ begin_drag (GtkWidget   *widget,
 
 			filename = generate_format_patch_filename (revision);
 
-			gdk_property_change (gtk_widget_get_window (gtk_drag_get_source_widget (context)),
-				             XDS_ATOM, TEXT_ATOM,
-				             8, GDK_PROP_MODE_REPLACE,
-				             (guchar *) filename,
-				             strlen (filename));
+			gdk_property_change (gtk_widget_get_window (widget),
+			                     XDS_ATOM, TEXT_ATOM,
+			                     8, GDK_PROP_MODE_REPLACE,
+			                     (guchar *) filename,
+			                     strlen (filename));
 
 			data->xds_filename = filename;
 
@@ -829,9 +829,10 @@ revision_to_treeish (GitgRepository *repository,
 }
 
 static gchar *
-get_xds_filename (GdkDragContext *context)
+get_xds_filename (GtkWidget      *widget,
+                  GdkDragContext *context)
 {
-	if (context == NULL || gtk_drag_get_source_widget (context) == NULL)
+	if (context == NULL || widget == NULL)
 	{
 		return NULL;
 	}
@@ -839,7 +840,7 @@ get_xds_filename (GdkDragContext *context)
 	gint len;
 	gchar *ret = NULL;
 
-	if (gdk_property_get (gtk_widget_get_window (gtk_drag_get_source_widget (context)),
+	if (gdk_property_get (gtk_widget_get_window (widget),
 	                      XDS_ATOM, TEXT_ATOM,
 	                      0, MAX_XDS_ATOM_VAL_LEN,
 	                      FALSE, NULL, NULL, &len,
@@ -856,6 +857,7 @@ get_xds_filename (GdkDragContext *context)
 
 static gboolean
 has_direct_save (GitgDndData    *data,
+                 GtkWidget      *widget,
                  GdkDragContext *context)
 {
 	gboolean ret;
@@ -865,7 +867,7 @@ has_direct_save (GitgDndData    *data,
 		return FALSE;
 	}
 
-	gchar *filename = get_xds_filename (context);
+	gchar *filename = get_xds_filename (widget, context);
 	ret = filename && *filename && g_strcmp0 (data->xds_filename, filename) != 0;
 	g_free (filename);
 
@@ -887,9 +889,9 @@ gitg_drag_source_data_get_cb (GtkWidget        *widget,
 
 	GitgRepository *repository = GITG_REPOSITORY (gtk_tree_view_get_model (GTK_TREE_VIEW (widget)));
 
-	if (has_direct_save (data, context))
+	if (has_direct_save (data, widget, context))
 	{
-		gchar *destination = get_xds_filename (context);
+		gchar *destination = get_xds_filename (widget, context);
 
 		if (destination && *destination)
 		{
@@ -956,7 +958,7 @@ gitg_drag_source_end_cb (GtkTreeView    *tree_view,
 {
 	if (data->revision)
 	{
-		gdk_property_delete (gtk_widget_get_window (gtk_drag_get_source_widget (context)), XDS_ATOM);
+		gdk_property_delete (gtk_widget_get_window (GTK_WIDGET (tree_view)), XDS_ATOM);
 
 		if (data->xds_destination != NULL)
 		{
