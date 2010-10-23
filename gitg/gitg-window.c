@@ -1976,7 +1976,7 @@ load_repository_for_command_line (GitgWindow   *window,
 			                       argv + 1,
 			                       selection ? selection : sel);
 
-			if (ret)
+			if (ret && activatable)
 			{
 				gitg_window_activate (window, activatable, action);
 			}
