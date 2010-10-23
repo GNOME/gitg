@@ -600,7 +600,7 @@ rename_dialog (GitgWindow *window, const gchar *oldname)
 	                                   "_Rename", GTK_RESPONSE_OK,
 	                                   NULL);
 
-#if ! GTK_CHECK_VERSION(2, 91, 0)
+#if ! GTK_CHECK_VERSION(2, 22, 0)
 	gtk_dialog_set_has_separator (GTK_DIALOG (dlg), FALSE);
 #endif
 
