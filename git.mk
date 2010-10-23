@@ -108,6 +108,7 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 		if test -f $(srcdir)/po/Makefile.in.in; then \
 			for x in \
 				po/Makefile.in.in \
+				po/Makefile.in.in~ \
 				po/Makefile.in \
 				po/Makefile \
 				po/POTFILES \
@@ -118,6 +119,11 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 				intltool-extract.in \
 				intltool-merge.in \
 				intltool-update.in \
+				po/Makevars.template \
+				po/Rules-quot \
+				"po/*.header" \
+				"po/*.sin" \
+				"po/*.sed" \
 			; do echo /$$x; done; \
 		fi; \
 		if test -f $(srcdir)/configure; then \
@@ -128,6 +134,11 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 				stamp-h1 \
 				libtool \
 				config.lt \
+			; do echo /$$x; done; \
+		fi; \
+		if test -d $(srcdir)/m4; then \
+			for x in \
+			"m4/*.m4" \
 			; do echo /$$x; done; \
 		fi; \
 		for x in \
