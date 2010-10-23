@@ -3070,32 +3070,58 @@ popup_revision (GitgWindow     *window,
 	selection = gtk_tree_view_get_selection (window->priv->tree_view);
 	GList *rows = gtk_tree_selection_get_selected_rows (selection, NULL);
 
+	if (!rows)
+	{
+		return FALSE;
+	}
+
 	gboolean show = FALSE;
 
 	update_cherry_pick (window);
 
-	if (rows)
+	GtkAction *tag;
+
+	tag = gtk_ui_manager_get_action (window->priv->menus_ui_manager,
+	                                 "/ui/revision_popup/TagAction");
+
+	GtkAction *squash;
+
+	squash = gtk_ui_manager_get_action (window->priv->menus_ui_manager,
+	                                    "/ui/revision_popup/SquashAction");
+
+	if (!rows->next)
 	{
-		GtkAction *tag = gtk_ui_manager_get_action (window->priv->menus_ui_manager,
-		                                            "/ui/revision_popup/TagAction");
+		GtkTreeModel *model;
+		GtkTreeIter iter;
+		GitgRevision *rev;
+		gchar sign;
 
-		GtkAction *squash = gtk_ui_manager_get_action (window->priv->menus_ui_manager,
-		                                               "/ui/revision_popup/SquashAction");
+		model = GTK_TREE_MODEL (window->priv->repository);
+		gtk_tree_model_get_iter (model, &iter, rows->data);
 
-		if (!rows->next)
+		gtk_tree_model_get (model, &iter, 0, &rev, -1);
+
+		sign = gitg_revision_get_sign (rev);
+		gitg_revision_unref (rev);
+
+		if (sign)
+		{
+			show = FALSE;
+		}
+		else
 		{
 			show = TRUE;
 
 			gtk_action_set_visible (squash, FALSE);
 			gtk_action_set_visible (tag, TRUE);
 		}
-		else if (consecutive_revisions (window, rows))
-		{
-			show = TRUE;
+	}
+	else if (consecutive_revisions (window, rows))
+	{
+		show = TRUE;
 
-			gtk_action_set_visible (squash, TRUE);
-			gtk_action_set_visible (tag, FALSE);
-		}
+		gtk_action_set_visible (squash, TRUE);
+		gtk_action_set_visible (tag, FALSE);
 	}
 
 	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);

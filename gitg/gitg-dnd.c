@@ -429,7 +429,7 @@ begin_drag (GtkWidget   *widget,
 		                                (gint)data->y,
 		                                &path);
 
-		if (revision)
+		if (revision && !gitg_revision_get_sign (revision))
 		{
 			/* Make a DND for the revision */
 			data->revision = revision;
