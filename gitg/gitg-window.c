@@ -3345,11 +3345,29 @@ on_format_patch_response (GtkDialog       *dialog,
 		if (!info->revisions->next)
 		{
 			gchar *uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
-			gitg_window_add_branch_action (info->window,
-			                               gitg_branch_actions_format_patch (info->window,
-			                                                                 info->revisions->data,
-			                                                                 uri));
+			gboolean ret;
+
+			ret = gitg_window_add_branch_action (info->window,
+			                                     gitg_branch_actions_format_patch (info->window,
+			                                                                       info->revisions->data,
+			                                                                       uri));
 			g_free (uri);
+
+			if (!ret)
+			{
+				GtkWidget *dlg = gtk_message_dialog_new (GTK_WINDOW (dialog),
+				                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+				                                         GTK_MESSAGE_ERROR,
+				                                         GTK_BUTTONS_OK,
+				                                         _ ("Format patch failed for unknown reason"));
+
+				gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+				                                          "%s",
+				                                          _("Please check if you have the right permissions to write the file"));
+
+				g_signal_connect (dlg, "response", G_CALLBACK (gtk_widget_destroy), NULL);
+				gtk_widget_show (dlg);
+			}
 		}
 		else
 		{
@@ -3392,6 +3410,9 @@ on_revision_format_patch_activate (GtkAction  *action,
 		                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		                                      GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 		                                      NULL);
+
+		gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog),
+		                                                TRUE);
 
 		gchar *name = gitg_revision_get_format_patch_name (revision);
 		gchar *filename = g_strdup_printf ("0001-%s.patch", name);

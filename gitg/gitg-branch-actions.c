@@ -1921,9 +1921,9 @@ on_format_patch_update (GitgRunner       *runner,
 }
 
 GitgRunner *
-gitg_branch_actions_format_patch (GitgWindow     *window,
-                                  GitgRevision   *revision,
-                                  gchar const    *destination)
+gitg_branch_actions_format_patch (GitgWindow   *window,
+                                  GitgRevision *revision,
+                                  gchar const  *destination)
 {
 	g_return_val_if_fail (GITG_IS_WINDOW (window), NULL);
 	g_return_val_if_fail (revision != NULL, NULL);
@@ -1932,10 +1932,12 @@ gitg_branch_actions_format_patch (GitgWindow     *window,
 	GitgRunner *ret;
 
 	GFile *file = g_file_new_for_uri (destination);
-	GFileOutputStream *stream = g_file_create (file,
-	                                           G_FILE_CREATE_REPLACE_DESTINATION,
-	                                           NULL,
-	                                           NULL);
+	GFileOutputStream *stream = g_file_replace (file,
+	                                            NULL,
+	                                            FALSE,
+	                                            G_FILE_CREATE_REPLACE_DESTINATION,
+	                                            NULL,
+	                                            NULL);
 	g_object_unref (file);
 
 	if (!stream)
