@@ -32,28 +32,32 @@ INST_H_FILES =			\
 	gitg-revision.h		\
 	gitg-runner.h
 
-NOINST_H_FILES =		\
-	gitg-convert.h		\
-	gitg-debug.h		\
-	gitg-i18n.h		\
-	gitg-lanes.h
+NOINST_H_FILES =			\
+	gitg-convert.h			\
+	gitg-debug.h			\
+	gitg-i18n.h			\
+	gitg-lanes.h			\
+	gitg-smart-charset-converter.h	\
+	gitg-encodings.h
 
-C_FILES =			\
-	$(BUILT_SOURCES)	\
-	gitg-changed-file.c	\
-	gitg-color.c		\
-	gitg-commit.c		\
-	gitg-config.c		\
-	gitg-convert.c		\
-	gitg-debug.c		\
-	gitg-hash.c		\
-	gitg-i18n.c		\
-	gitg-lane.c		\
-	gitg-lanes.c		\
-	gitg-ref.c		\
-	gitg-repository.c	\
-	gitg-revision.c		\
-	gitg-runner.c
+C_FILES =				\
+	$(BUILT_SOURCES)		\
+	gitg-changed-file.c		\
+	gitg-color.c			\
+	gitg-commit.c			\
+	gitg-config.c			\
+	gitg-convert.c			\
+	gitg-debug.c			\
+	gitg-hash.c			\
+	gitg-i18n.c			\
+	gitg-lane.c			\
+	gitg-lanes.c			\
+	gitg-ref.c			\
+	gitg-repository.c		\
+	gitg-revision.c			\
+	gitg-runner.c			\
+	gitg-smart-charset-converter.c	\
+	gitg-encodings.c
 
 ENUM_H_FILES =			\
 	gitg-changed-file.h

@@ -253,7 +253,6 @@ on_changes_update (GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 		}
 
 		gtk_text_buffer_insert (buf, &iter, line, -1);
-		gtk_text_buffer_insert (buf, &iter, "\n", -1);
 	}
 
 	if (gtk_source_buffer_get_language (GTK_SOURCE_BUFFER(buf)) == NULL)
@@ -380,8 +379,8 @@ get_selected_files(GtkTreeView             *tree_view,
 }
 
 static gboolean
-check_selection(GtkTreeView    *tree_view, 
-                GtkTreeIter    *iter, 
+check_selection(GtkTreeView    *tree_view,
+                GtkTreeIter    *iter,
                 GitgCommitView *view)
 {
 	if (view->priv->update_id)
@@ -769,10 +768,10 @@ line_patch_contents (GitgCommitView *view,
 			    line_type == old_type || is_patch_line)
 			{
 				/* copy context */
+				gtk_text_iter_forward_line (&line_end);
 				text = gtk_text_buffer_get_text (buffer, &start, &line_end, TRUE);
 
 				g_string_append (patch, text);
-				g_string_append_c (patch, '\n');
 
 				if (!is_patch_line || line_type == GITG_DIFF_LINE_TYPE_REMOVE)
 				{
@@ -1298,7 +1297,7 @@ on_tree_view_unstaged_drag_data_received(GtkWidget        *widget,
 }
 
 static void
-initialize_dnd(GitgCommitView *view, 
+initialize_dnd(GitgCommitView *view,
                GtkTreeView    *tree_view,
                GCallback       drag_data_received)
 {
@@ -1661,10 +1660,12 @@ gitg_commit_view_init (GitgCommitView *self)
 	self->priv = GITG_COMMIT_VIEW_GET_PRIVATE (self);
 
 	self->priv->runner = gitg_runner_new (10000);
+	gitg_runner_set_preserve_line_endings (self->priv->runner, TRUE);
+
 	self->priv->hand = gdk_cursor_new (GDK_HAND1);
 }
 
-void 
+void
 gitg_commit_view_set_repository(GitgCommitView *view, GitgRepository *repository)
 {
 	g_return_if_fail(GITG_IS_COMMIT_VIEW(view));
@@ -1983,7 +1984,7 @@ show_error(GitgCommitView *view, gchar const *error)
 	gtk_widget_destroy(dlg);
 }
 
-static void 
+static void
 on_commit_clicked(GtkButton *button, GitgCommitView *view)
 {
 	if (!gitg_commit_has_changes(view->priv->commit))
@@ -2025,7 +2026,7 @@ on_commit_clicked(GtkButton *button, GitgCommitView *view)
 	g_free(comment);
 }
 
-static void 
+static void
 on_context_value_changed(GtkHScale *scale, GitgCommitView *view)
 {
 	view->priv->context_size = (gint)gtk_range_get_value(GTK_RANGE(scale));
@@ -2088,16 +2089,16 @@ popup_unstaged_menu(GitgCommitView *view, GdkEventButton *event)
 	}
 	else
 	{
-		gtk_menu_popup(GTK_MENU(wd), NULL, NULL, 
-					   gitg_utils_menu_position_under_tree_view, 
-					   view->priv->tree_view_staged, 0, 
+		gtk_menu_popup(GTK_MENU(wd), NULL, NULL,
+					   gitg_utils_menu_position_under_tree_view,
+					   view->priv->tree_view_staged, 0,
 					   gtk_get_current_event_time());
 	}
 
 	return TRUE;
 }
 
-static gboolean 
+static gboolean
 popup_staged_menu(GitgCommitView *view, GdkEventButton *event)
 {
 	if (!set_staged_popup_status(view))
@@ -2113,9 +2114,9 @@ popup_staged_menu(GitgCommitView *view, GdkEventButton *event)
 	}
 	else
 	{
-		gtk_menu_popup(GTK_MENU(wd), NULL, NULL, 
-					   gitg_utils_menu_position_under_tree_view, 
-					   view->priv->tree_view_unstaged, 0, 
+		gtk_menu_popup(GTK_MENU(wd), NULL, NULL,
+					   gitg_utils_menu_position_under_tree_view,
+					   view->priv->tree_view_unstaged, 0,
 					   gtk_get_current_event_time());
 	}
 
@@ -2123,19 +2124,19 @@ popup_staged_menu(GitgCommitView *view, GdkEventButton *event)
 }
 
 
-static gboolean 
+static gboolean
 on_unstaged_popup_menu(GtkWidget *widget, GitgCommitView *view)
 {
 	return popup_unstaged_menu(view, NULL);
 }
 
-static gboolean 
+static gboolean
 on_staged_popup_menu(GtkWidget *widget, GitgCommitView *view)
 {
 	return popup_staged_menu(view, NULL);
 }
 
-static void 
+static void
 on_stage_changes(GtkAction *action, GitgCommitView *view)
 {
 	if (view->priv->context_type == CONTEXT_TYPE_FILE)
@@ -2197,7 +2198,7 @@ do_revert_changes(GitgCommitView *view)
 		show_error(view, _("Revert fail"));
 }
 
-static void 
+static void
 on_revert_changes(GtkAction *action, GitgCommitView *view)
 {
 	GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
@@ -2207,7 +2208,7 @@ on_revert_changes(GtkAction *action, GitgCommitView *view)
 											   "%s",
 											   _("Are you sure you want to revert these changes?"));
 
-	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s", 
+	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s",
 											 _("Reverting changes is permanent and cannot be undone"));
 
 	gint response = gtk_dialog_run(GTK_DIALOG(dialog));
@@ -2252,7 +2253,7 @@ on_edit_file (GtkAction *action, GitgCommitView *view)
 	g_list_free (files);
 }
 
-static void 
+static void
 on_ignore_file (GtkAction *action, GitgCommitView *view)
 {
 	GList *files = NULL;
@@ -2300,7 +2301,7 @@ create_context_menu_item (GitgCommitView *view, gchar const *action)
 	return gtk_action_create_menu_item (ac);
 }
 
-static void 
+static void
 on_changes_view_popup_menu (GtkTextView *textview, GtkMenu *menu, GitgCommitView *view)
 {
 	gboolean is_hunk;
