@@ -54,7 +54,7 @@ struct _GitgRevisionDetailsPanelPrivate
 	GitgRepository *repository;
 	GitgRevision *revision;
 
-	GitgRunner *runner;
+	GitgShell *shell;
 	gboolean in_stat;
 
 	GSList *stats;
@@ -202,12 +202,12 @@ gitg_revision_details_panel_dispose (GObject *object)
 		panel->priv->builder = NULL;
 	}
 
-	if (panel->priv->runner)
+	if (panel->priv->shell)
 	{
-		gitg_runner_cancel (panel->priv->runner);
-		g_object_unref (panel->priv->runner);
+		gitg_io_cancel (GITG_IO (panel->priv->shell));
+		g_object_unref (panel->priv->shell);
 
-		panel->priv->runner = NULL;
+		panel->priv->shell = NULL;
 	}
 
 	G_OBJECT_CLASS (gitg_revision_details_panel_parent_class)->dispose (object);
@@ -224,8 +224,8 @@ gitg_revision_details_panel_class_init (GitgRevisionDetailsPanelClass *klass)
 }
 
 static void
-on_runner_begin (GitgRunner               *runner,
-                 GitgRevisionDetailsPanel *panel)
+on_shell_begin (GitgShell                *shell,
+                GitgRevisionDetailsPanel *panel)
 {
 	GdkCursor *cursor;
 
@@ -363,9 +363,9 @@ make_stats_table (GitgRevisionDetailsPanel *panel)
 }
 
 static void
-on_runner_end (GitgRunner               *runner,
-               gboolean                  cancelled,
-               GitgRevisionDetailsPanel *panel)
+on_shell_end (GitgShell                *shell,
+              gboolean                  cancelled,
+              GitgRevisionDetailsPanel *panel)
 {
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (panel->priv->text_view)),
 	                       NULL);
@@ -432,9 +432,9 @@ add_stat (GitgRevisionDetailsPanel *panel,
 }
 
 static void
-on_runner_update (GitgRunner                *runner,
-                  gchar                    **lines,
-                  GitgRevisionDetailsPanel  *panel)
+on_shell_update (GitgShell                 *shell,
+                 gchar                    **lines,
+                 GitgRevisionDetailsPanel  *panel)
 {
 	GtkTextBuffer *buffer;
 	GtkTextIter end;
@@ -476,21 +476,21 @@ gitg_revision_details_panel_init (GitgRevisionDetailsPanel *self)
 {
 	self->priv = GITG_REVISION_DETAILS_PANEL_GET_PRIVATE(self);
 
-	self->priv->runner = gitg_runner_new (1000);
+	self->priv->shell = gitg_shell_new (1000);
 
-	g_signal_connect (self->priv->runner,
-	                  "begin-loading",
-	                  G_CALLBACK (on_runner_begin),
+	g_signal_connect (self->priv->shell,
+	                  "begin",
+	                  G_CALLBACK (on_shell_begin),
 	                  self);
 
-	g_signal_connect (self->priv->runner,
-	                  "end-loading",
-	                  G_CALLBACK (on_runner_end),
+	g_signal_connect (self->priv->shell,
+	                  "end",
+	                  G_CALLBACK (on_shell_end),
 	                  self);
 
-	g_signal_connect (self->priv->runner,
+	g_signal_connect (self->priv->shell,
 	                  "update",
-	                  G_CALLBACK (on_runner_update),
+	                  G_CALLBACK (on_shell_update),
 	                  self);
 }
 
@@ -644,7 +644,7 @@ update_details (GitgRevisionDetailsPanel *panel)
 {
 	gchar *sha1;
 
-	gitg_runner_cancel (panel->priv->runner);
+	gitg_io_cancel (GITG_IO (panel->priv->shell));
 
 	gtk_text_buffer_set_text (gtk_text_view_get_buffer (panel->priv->text_view),
 	                          "",
@@ -657,14 +657,14 @@ update_details (GitgRevisionDetailsPanel *panel)
 
 	sha1 = gitg_revision_get_sha1 (panel->priv->revision);
 
-	gitg_repository_run_commandv (panel->priv->repository,
-	                              panel->priv->runner,
-	                              NULL,
-	                              "show",
-	                              "--numstat",
-	                              "--pretty=format:%s%n%n%b%n\x01",
-	                              sha1,
-	                              NULL);
+	gitg_shell_run (panel->priv->shell,
+	                gitg_command_newv (panel->priv->repository,
+	                                   "show",
+	                                   "--numstat",
+	                                   "--pretty=format:%s%n%n%b%n\x01",
+	                                   sha1,
+	                                   NULL),
+	                NULL);
 
 	g_free (sha1);
 }

@@ -21,7 +21,7 @@
  */
 
 #include "gitg-config.h"
-
+#include "gitg-shell.h"
 
 #define GITG_CONFIG_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_CONFIG, GitgConfigPrivate))
 
@@ -34,7 +34,7 @@ enum
 struct _GitgConfigPrivate
 {
 	GitgRepository *repository;
-	GitgRunner *runner;
+	GitgShell *shell;
 
 	GString *accumulated;
 };
@@ -113,24 +113,22 @@ gitg_config_class_init (GitgConfigClass *klass)
 }
 
 static void
-gitg_config_accumulate (GitgRunner *runner, gchar **buffer, GitgConfig *config)
+gitg_config_accumulate (GitgShell   *shell,
+                        gchar      **buffer,
+                        GitgConfig *config)
 {
 	gchar **ptr = buffer;
 
 	while (*ptr)
 	{
-		if (config->priv->accumulated->len != 0)
-		{
-			g_string_append_c (config->priv->accumulated, '\n');
-		}
-
 		g_string_append (config->priv->accumulated, *ptr);
 		++ptr;
 	}
 }
 
 static void
-gitg_config_begin_loading (GitgRunner *runner, GitgConfig *config)
+gitg_config_begin (GitgShell  *shell,
+                   GitgConfig *config)
 {
 	g_string_erase (config->priv->accumulated, 0, -1);
 }
@@ -140,18 +138,18 @@ gitg_config_init (GitgConfig *self)
 {
 	self->priv = GITG_CONFIG_GET_PRIVATE (self);
 
-	self->priv->runner = gitg_runner_new_synchronized (1000);
+	self->priv->shell = gitg_shell_new_synchronized (1000);
 
 	self->priv->accumulated = g_string_new ("");
 
-	g_signal_connect (self->priv->runner, 
-	                  "update", 
+	g_signal_connect (self->priv->shell,
+	                  "update",
 	                  G_CALLBACK (gitg_config_accumulate),
 	                  self);
 
-	g_signal_connect (self->priv->runner, 
-	                  "begin-loading", 
-	                  G_CALLBACK (gitg_config_begin_loading),
+	g_signal_connect (self->priv->shell,
+	                  "begin",
+	                  G_CALLBACK (gitg_config_begin),
 	                  self);
 }
 
@@ -168,7 +166,8 @@ get_value_process (GitgConfig *config, gboolean ret)
 
 	if (ret)
 	{
-		res = g_strndup (config->priv->accumulated->str, config->priv->accumulated->len);
+		res = g_strndup (config->priv->accumulated->str,
+		                 config->priv->accumulated->len);
 	}
 	else
 	{
@@ -181,15 +180,14 @@ get_value_process (GitgConfig *config, gboolean ret)
 static gchar *
 get_value_global (GitgConfig *config, gchar const *key)
 {
-	gchar const *argv[] = {
-		"git",
-		"config",
-		"--global",
-		key,
-		NULL
-	};
+	gboolean ret = gitg_shell_run (config->priv->shell,
+	                               gitg_command_newv (config->priv->repository,
+	                                                  "config",
+	                                                  "--global",
+	                                                  key,
+	                                                  NULL),
+	                               NULL);
 
-	gboolean ret = gitg_runner_run (config->priv->runner, argv, NULL);
 	return get_value_process (config, ret);
 }
 
@@ -198,17 +196,14 @@ get_value_global_regex (GitgConfig *config,
                         gchar const *regex,
                         gchar const *value_regex)
 {
-	gchar const *argv[] = {
-		"git",
-		"config",
-		"--global",
-		"--get-regexp",
-		regex,
-		value_regex,
-		NULL
-	};
+	gboolean ret = gitg_shell_run (config->priv->shell,
+	                               gitg_command_newv (config->priv->repository,
+	                                                  "config",
+	                                                  "--global",
+	                                                  "--get-regexp",
+	                                                  NULL),
+	                               NULL);
 
-	gboolean ret = gitg_runner_run (config->priv->runner, argv, NULL);
 	return get_value_process (config, ret);
 }
 
@@ -225,14 +220,14 @@ get_value_local (GitgConfig *config, gchar const *key)
 	cfg_file = g_file_get_child (git_dir, "config");
 	cfg = g_file_get_path (cfg_file);
 
-	ret = gitg_repository_run_commandv (config->priv->repository, 
-	                                    config->priv->runner,
-	                                    NULL,
-	                                    "config",
-	                                    "--file",
-	                                    cfg,
-	                                    key,
-	                                    NULL);
+	ret = gitg_shell_run (config->priv->shell,
+	                      gitg_command_newv (config->priv->repository,
+	                                         "config",
+	                                         "--file",
+	                                         cfg,
+	                                         key,
+	                                         NULL),
+	                      NULL);
 
 	g_free (cfg);
 
@@ -257,16 +252,16 @@ get_value_local_regex (GitgConfig *config,
 	cfg_file = g_file_get_child (git_dir, "config");
 	cfg = g_file_get_path (cfg_file);
 
-	ret = gitg_repository_run_commandv (config->priv->repository, 
-	                                    config->priv->runner,
-	                                    NULL,
-	                                    "config",
-	                                    "--file",
-	                                    cfg,
-	                                    "--get-regexp",
-	                                    regex,
-	                                    value_regex,
-	                                    NULL);
+	ret = gitg_shell_run (config->priv->shell,
+	                      gitg_command_newv (config->priv->repository,
+	                                         "config",
+	                                         "--file",
+	                                         cfg,
+	                                         "--get-regexp",
+	                                         regex,
+	                                         value_regex,
+	                                         NULL),
+	                      NULL);
 
 	g_free (cfg);
 
@@ -279,16 +274,14 @@ get_value_local_regex (GitgConfig *config,
 static gboolean
 set_value_global (GitgConfig *config, gchar const *key, gchar const *value)
 {
-	gchar const *argv[] = {
-		"git",
-		"config",
-		"--global",
-		value == NULL ? "--unset" : key,
-		value == NULL ? key : value,
-		NULL
-	};
-
-	return gitg_runner_run (config->priv->runner, argv, NULL);
+	return gitg_shell_run (config->priv->shell,
+	                       gitg_command_newv (config->priv->repository,
+	                                          "config",
+	                                          "--global",
+	                                          value == NULL ? "--unset" : key,
+	                                          value == NULL ? key : value,
+	                                          NULL),
+	                       NULL);
 }
 
 static gboolean
@@ -304,15 +297,15 @@ set_value_local (GitgConfig *config, gchar const *key, gchar const *value)
 	cfg_file = g_file_get_child (git_dir, "config");
 	cfg = g_file_get_path (cfg_file);
 
-	ret = gitg_repository_run_commandv (config->priv->repository,
-	                                     config->priv->runner,
-	                                     NULL,
-	                                     "config",
-	                                     "--file",
-	                                     cfg,
-	                                     value == NULL ? "--unset" : key,
-	                                     value == NULL ? key : value,
-	                                     NULL);
+	ret = gitg_shell_run (config->priv->shell,
+	                      gitg_command_newv (config->priv->repository,
+	                                         "config",
+	                                         "--file",
+	                                         cfg,
+	                                         value == NULL ? "--unset" : key,
+	                                         value == NULL ? key : value,
+	                                         NULL),
+	                      NULL);
 
 	g_free (cfg);
 
@@ -325,17 +318,15 @@ set_value_local (GitgConfig *config, gchar const *key, gchar const *value)
 static gboolean
 rename_global (GitgConfig *config, gchar const *old, gchar const *nw)
 {
-	gchar const *argv[] = {
-		"git",
-		"config",
-		"--global",
-		"--rename-section",
-		old,
-		nw,
-		NULL
-	};
-
-	return gitg_runner_run (config->priv->runner, argv, NULL);
+	return gitg_shell_run (config->priv->shell,
+	                       gitg_command_newv (config->priv->repository,
+	                                          "config",
+	                                          "--global",
+	                                          "--rename-section",
+	                                          old,
+	                                          nw,
+	                                          NULL),
+	                       NULL);
 }
 
 static gboolean
@@ -351,16 +342,16 @@ rename_local (GitgConfig *config, gchar const *old, gchar const *nw)
 	cfg_file = g_file_get_child (git_dir, "config");
 	cfg = g_file_get_path (cfg_file);
 
-	ret = gitg_repository_run_commandv (config->priv->repository, 
-	                                    config->priv->runner,
-	                                    NULL,
-	                                    "config",
-	                                    "--file",
-	                                    cfg,
-	                                    "--rename-section",
-	                                    old,
-	                                    nw,
-	                                    NULL);
+	ret = gitg_shell_run (config->priv->shell,
+	                      gitg_command_newv (config->priv->repository,
+	                                         "config",
+	                                         "--file",
+	                                         cfg,
+	                                         "--rename-section",
+	                                         old,
+	                                         nw,
+	                                         NULL),
+	                      NULL);
 
 	g_free (cfg);
 

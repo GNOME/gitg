@@ -26,7 +26,6 @@
 #include <glib/gi18n.h>
 #include <libgitg/gitg-config.h>
 #include <libgitg/gitg-ref.h>
-#include <libgitg/gitg-runner.h>
 #include <libgitg/gitg-hash.h>
 
 #include "config.h"
@@ -158,31 +157,31 @@ static GtkBuildableIface parent_iface;
 static GtkWindowClass *parent_class = NULL;
 
 static void
-on_branch_action_runner_end (GitgRunner *runner,
-                             gboolean    cancelled,
-                             GitgWindow *window)
+on_branch_action_shell_end (GitgShell *shell,
+                            gboolean    cancelled,
+                            GitgWindow *window)
 {
-	window->priv->branch_actions = g_list_remove (window->priv->branch_actions, runner);
-	g_object_unref (runner);
+	window->priv->branch_actions = g_list_remove (window->priv->branch_actions, shell);
+	g_object_unref (shell);
 }
 
 gboolean
 gitg_window_add_branch_action (GitgWindow *window,
-                               GitgRunner *runner)
+                               GitgShell  *shell)
 {
-	if (runner != NULL && gitg_runner_running (runner))
+	if (shell != NULL && gitg_io_get_running (GITG_IO (shell)))
 	{
-		window->priv->branch_actions = g_list_prepend (window->priv->branch_actions, runner);
+		window->priv->branch_actions = g_list_prepend (window->priv->branch_actions, shell);
 
-		g_signal_connect (runner, "end-loading", G_CALLBACK (on_branch_action_runner_end), window);
+		g_signal_connect (shell, "end", G_CALLBACK (on_branch_action_shell_end), window);
 	}
-	else if (runner)
+	else if (shell)
 	{
-		g_object_unref (runner);
-		runner = NULL;
+		g_object_unref (shell);
+		shell = NULL;
 	}
 
-	return runner != NULL;
+	return shell != NULL;
 }
 
 static void
@@ -198,7 +197,7 @@ gitg_window_finalize (GObject *object)
 
 	for (item = copy; item; item = g_list_next (item))
 	{
-		gitg_runner_cancel (GITG_RUNNER (item->data));
+		gitg_io_cancel (item->data);
 	}
 
 	g_list_free (copy);
@@ -1217,7 +1216,7 @@ on_repository_loaded (GitgRepository *repository,
 }
 
 static void
-on_update (GitgRunner  *loader,
+on_update (GitgShell   *loader,
            gchar      **revisions,
            GitgWindow  *window)
 {
@@ -1782,7 +1781,7 @@ load_repository (GitgWindow   *window,
 		gtk_tree_view_set_model (window->priv->tree_view,
 		                         GTK_TREE_MODEL (window->priv->repository));
 
-		GitgRunner *loader = gitg_repository_get_loader (window->priv->repository);
+		GitgShell *loader = gitg_repository_get_loader (window->priv->repository);
 
 		gitg_window_set_select_on_load (window, selection);
 

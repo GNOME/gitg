@@ -25,14 +25,15 @@
 
 #include <gtk/gtk.h>
 #include <libgitg/gitg-repository.h>
+#include <libgitg/gitg-shell.h>
 
 G_BEGIN_DECLS
 
-#define GITG_TYPE_WINDOW			(gitg_window_get_type ())
-#define GITG_WINDOW(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), GITG_TYPE_WINDOW, GitgWindow))
+#define GITG_TYPE_WINDOW		(gitg_window_get_type ())
+#define GITG_WINDOW(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GITG_TYPE_WINDOW, GitgWindow))
 #define GITG_WINDOW_CONST(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GITG_TYPE_WINDOW, GitgWindow const))
 #define GITG_WINDOW_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), GITG_TYPE_WINDOW, GitgWindowClass))
-#define GITG_IS_WINDOW(obj)			(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GITG_TYPE_WINDOW))
+#define GITG_IS_WINDOW(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GITG_TYPE_WINDOW))
 #define GITG_IS_WINDOW_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), GITG_TYPE_WINDOW))
 #define GITG_WINDOW_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), GITG_TYPE_WINDOW, GitgWindowClass))
 
@@ -40,13 +41,15 @@ typedef struct _GitgWindow		GitgWindow;
 typedef struct _GitgWindowClass		GitgWindowClass;
 typedef struct _GitgWindowPrivate	GitgWindowPrivate;
 
-struct _GitgWindow {
+struct _GitgWindow
+{
 	GtkWindow parent;
 
 	GitgWindowPrivate *priv;
 };
 
-struct _GitgWindowClass {
+struct _GitgWindowClass
+{
 	GtkWindowClass parent_class;
 };
 
@@ -71,10 +74,10 @@ gboolean gitg_window_load_repository_from_environment (GitgWindow *window,
 
 void gitg_window_show_commit (GitgWindow *window);
 
-GitgRepository *gitg_window_get_repository(GitgWindow *window);
+GitgRepository *gitg_window_get_repository (GitgWindow *window);
 void gitg_window_set_select_on_load (GitgWindow *window, gchar const *selection);
 
-gboolean gitg_window_add_branch_action (GitgWindow *window, GitgRunner *runner);
+gboolean gitg_window_add_branch_action (GitgWindow *window, GitgShell *shell);
 
 gboolean gitg_window_select (GitgWindow *window, gchar const *selection);
 gboolean gitg_window_activate (GitgWindow *window, gchar const *activatable, gchar const *action);

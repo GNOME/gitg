@@ -24,6 +24,7 @@
 
 #include <stdlib.h>
 #include <libgitg/gitg-config.h>
+#include <libgitg/gitg-shell.h>
 
 #include "gitg-repository-dialog.h"
 #include "gitg-utils.h"
@@ -100,7 +101,7 @@ G_DEFINE_TYPE (GitgRepositoryDialog, gitg_repository_dialog, GTK_TYPE_DIALOG)
 typedef struct
 {
 	GitgRepositoryDialog *dialog;
-	GitgRunner *runner;
+	GitgShell *shell;
 	GtkTreeRowReference *reference;
 
 #ifdef BUILD_SPINNER
@@ -149,7 +150,7 @@ fetch_cleanup (FetchInfo *info)
 #endif
 
 	gtk_tree_row_reference_free (info->reference);
-	g_object_unref (info->runner);
+	g_object_unref (info->shell);
 
 	g_slice_free (FetchInfo, info);
 }
@@ -174,7 +175,7 @@ gitg_repository_dialog_finalize (GObject *object)
 
 	for (item = copy; item; item = g_list_next (item))
 	{
-		gitg_runner_cancel (((FetchInfo *)item->data)->runner);
+		gitg_io_cancel (GITG_IO (((FetchInfo *)item->data)->shell));
 	}
 
 	g_list_free (copy);
@@ -341,7 +342,7 @@ pulse_row (FetchInfo *info)
 #endif
 
 static void
-on_fetch_begin_loading (GitgRunner *runner, FetchInfo *info)
+on_fetch_begin_loading (GitgShell *shell, FetchInfo *info)
 {
 	GtkTreeIter iter;
 	GtkTreePath *path = gtk_tree_row_reference_get_path (info->reference);
@@ -387,7 +388,7 @@ on_fetch_begin_loading (GitgRunner *runner, FetchInfo *info)
 }
 
 static void
-on_fetch_end_loading (GitgRunner *runner, gboolean cancelled, FetchInfo *info)
+on_fetch_end_loading (GitgShell *shell, gboolean cancelled, FetchInfo *info)
 {
 	if (cancelled || !gtk_tree_row_reference_valid (info->reference))
 	{
@@ -406,7 +407,7 @@ on_fetch_end_loading (GitgRunner *runner, gboolean cancelled, FetchInfo *info)
 static void
 fetch_remote (GitgRepositoryDialog *dialog, GtkTreeIter *iter)
 {
-	GitgRunner *runner = gitg_runner_new (1000);
+	GitgShell *shell = gitg_shell_new (1000);
 	FetchInfo *info = g_slice_new0 (FetchInfo);
 	GtkTreeModel *model = GTK_TREE_MODEL (dialog->priv->list_store_remotes);
 
@@ -414,17 +415,17 @@ fetch_remote (GitgRepositoryDialog *dialog, GtkTreeIter *iter)
 
 	info->dialog = dialog;
 	info->reference = gtk_tree_row_reference_new (model, path);
-	info->runner = runner;
+	info->shell = shell;
 
 	gtk_tree_path_free (path);
 
-	g_signal_connect (runner,
-	                  "begin-loading",
+	g_signal_connect (shell,
+	                  "begin",
 	                  G_CALLBACK (on_fetch_begin_loading),
 	                  info);
 
-	g_signal_connect (runner,
-	                  "end-loading",
+	g_signal_connect (shell,
+	                  "end",
 	                  G_CALLBACK (on_fetch_end_loading),
 	                  info);
 
@@ -433,12 +434,12 @@ fetch_remote (GitgRepositoryDialog *dialog, GtkTreeIter *iter)
 	gchar *name;
 	gtk_tree_model_get (model, iter, COLUMN_NAME, &name, -1);
 
-	gitg_repository_run_commandv (dialog->priv->repository,
-	                              runner,
-	                              NULL,
-	                              "fetch",
-	                              name,
-	                              NULL);
+	gitg_shell_run (shell,
+	                gitg_command_newv (dialog->priv->repository,
+	                                   "fetch",
+	                                   name,
+	                                   NULL),
+	                NULL);
 
 	g_free (name);
 }
@@ -684,7 +685,7 @@ fetch_remote_cancel (GitgRepositoryDialog *dialog,
 
 		if (equal)
 		{
-			gitg_runner_cancel (info->runner);
+			gitg_io_cancel (GITG_IO (info->shell));
 			break;
 		}
 	}
@@ -736,12 +737,12 @@ on_button_fetch_remote_clicked (GtkButton            *button,
 static gboolean
 remove_remote (GitgRepositoryDialog *dialog, gchar const *name)
 {
-	return gitg_repository_commandv (dialog->priv->repository,
-	                                 NULL,
-	                                 "remote",
-	                                 "rm",
-	                                 name,
-	                                 NULL);
+	return gitg_shell_run_sync (gitg_command_newv (dialog->priv->repository,
+	                                               "remote",
+	                                               "rm",
+	                                               name,
+	                                               NULL),
+	                            NULL);
 }
 
 void
@@ -828,7 +829,13 @@ on_button_add_remote_clicked (GtkButton *button,
 	gchar *name = g_strdup_printf ("remote%d", num + 1);
 	gchar const url[] = "git://example.com/repository.git";
 
-	if (gitg_repository_commandv (dialog->priv->repository, NULL, "remote", "add", name, url, NULL))
+	if (gitg_shell_run_sync (gitg_command_newv (dialog->priv->repository,
+	                                            "remote",
+	                                            "add",
+	                                            name,
+	                                            url,
+	                                            NULL),
+	                         NULL))
 	{
 		GtkTreeIter iter;
 		GtkTreePath *path;
@@ -901,7 +908,13 @@ on_remote_name_edited (GtkCellRendererText *renderer,
 	                    COLUMN_URL, &url,
 	                    -1);
 
-	if (gitg_repository_commandv (dialog->priv->repository, NULL, "remote", "add", new_text, url, NULL))
+	if (gitg_shell_run_sync (gitg_command_newv (dialog->priv->repository,
+	                                            "remote",
+	                                            "add",
+	                                            new_text,
+	                                            url,
+	                                            NULL),
+	                         NULL))
 	{
 		remove_remote (dialog, oldname);
 

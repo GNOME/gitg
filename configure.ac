@@ -144,6 +144,8 @@ data/Makefile
 data/gitg.desktop.in
 data/icons/Makefile
 po/Makefile.in
+tests/Makefile
+tools/Makefile
 ])
 
 AC_OUTPUT

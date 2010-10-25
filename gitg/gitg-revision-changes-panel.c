@@ -6,11 +6,13 @@
 #include <string.h>
 #include <libgitg/gitg-repository.h>
 #include <libgitg/gitg-revision.h>
-#include <libgitg/gitg-runner.h>
+#include <libgitg/gitg-shell.h>
 #include <libgitg/gitg-hash.h>
 #include "gitg-diff-view.h"
 #include "gitg-utils.h"
+#include "gitg-preferences.h"
 #include <glib/gi18n.h>
+
 
 #include "gitg-revision-panel.h"
 #include "gitg-activatable.h"
@@ -26,8 +28,8 @@ struct _GitgRevisionChangesPanelPrivate
 	GtkTreeView *diff_files;
 	GtkListStore *list_store_diff_files;
 
-	GitgRunner *diff_runner;
-	GitgRunner *diff_files_runner;
+	GitgShell *diff_shell;
+	GitgShell *diff_files_shell;
 
 	GitgRepository *repository;
 	GitgRevision *revision;
@@ -520,16 +522,16 @@ gitg_revision_changes_panel_dispose (GObject *object)
 
 	set_revision (changes_panel, NULL, NULL);
 
-	if (changes_panel->priv->diff_files_runner)
+	if (changes_panel->priv->diff_files_shell)
 	{
-		g_object_unref (changes_panel->priv->diff_files_runner);
-		changes_panel->priv->diff_files_runner = NULL;
+		g_object_unref (changes_panel->priv->diff_files_shell);
+		changes_panel->priv->diff_files_shell = NULL;
 	}
 
-	if (changes_panel->priv->diff_files_runner)
+	if (changes_panel->priv->diff_files_shell)
 	{
-		g_object_unref (changes_panel->priv->diff_runner);
-		changes_panel->priv->diff_runner = NULL;
+		g_object_unref (changes_panel->priv->diff_shell);
+		changes_panel->priv->diff_shell = NULL;
 	}
 
 	if (changes_panel->priv->builder)
@@ -564,8 +566,8 @@ reload_diff (GitgRevisionChangesPanel *changes_panel)
 	GtkTreeSelection *selection;
 
 	// First cancel a possibly still running diff
-	gitg_runner_cancel (changes_panel->priv->diff_runner);
-	gitg_runner_cancel (changes_panel->priv->diff_files_runner);
+	gitg_io_cancel (GITG_IO (changes_panel->priv->diff_shell));
+	gitg_io_cancel (GITG_IO (changes_panel->priv->diff_files_shell));
 
 	free_cached_headers (changes_panel);
 
@@ -592,45 +594,54 @@ reload_diff (GitgRevisionChangesPanel *changes_panel)
 	}
 
 	gchar sign = gitg_revision_get_sign (changes_panel->priv->revision);
+	gboolean allow_external;
+
+	g_object_get (gitg_preferences_get_default (),
+	              "diff-external",
+	              &allow_external,
+	              NULL);
 
 	switch (sign)
 	{
 		case 't':
-			gitg_repository_run_commandv (changes_panel->priv->repository,
-			                              changes_panel->priv->diff_runner,
-			                              NULL,
-			                              "diff",
-			                              "--cached",
-			                              "-M",
-			                              "--pretty=format:",
-			                              "--encoding=UTF-8",
-			                              "--no-color",
-			                              NULL);
+			gitg_shell_run (changes_panel->priv->diff_shell,
+			                gitg_command_newv (changes_panel->priv->repository,
+			                                   "diff",
+			                                   allow_external ? "--ext-diff" : "--no-ext-diff",
+			                                   "--cached",
+			                                   "-M",
+			                                   "--pretty=format:",
+			                                   "--encoding=UTF-8",
+			                                   "--no-color",
+			                                   NULL),
+			                NULL);
 		break;
 		case 'u':
-			gitg_repository_run_commandv (changes_panel->priv->repository,
-			                              changes_panel->priv->diff_runner,
-			                              NULL,
-			                              "diff",
-			                              "-M",
-			                              "--pretty=format:",
-			                              "--encoding=UTF-8",
-			                              "--no-color",
-			                              NULL);
+			gitg_shell_run (changes_panel->priv->diff_shell,
+			                gitg_command_newv (changes_panel->priv->repository,
+			                                   "diff",
+			                                   allow_external ? "--ext-diff" : "--no-ext-diff",
+			                                   "-M",
+			                                   "--pretty=format:",
+			                                   "--encoding=UTF-8",
+			                                   "--no-color",
+			                                   NULL),
+			                NULL);
 		break;
 		default:
 		{
 			gchar *hash = gitg_revision_get_sha1 (changes_panel->priv->revision);
-			gitg_repository_run_commandv (changes_panel->priv->repository,
-			                              changes_panel->priv->diff_runner,
-			                              NULL,
-			                              "show",
-			                              "-M",
-			                              "--pretty=format:",
-			                              "--encoding=UTF-8",
-			                              "--no-color",
-			                              hash,
-			                              NULL);
+
+			gitg_shell_run (changes_panel->priv->diff_shell,
+			                gitg_command_newv (changes_panel->priv->repository,
+			                                   "show",
+			                                   "-M",
+			                                   "--pretty=format:",
+			                                   "--encoding=UTF-8",
+			                                   "--no-color",
+			                                   hash,
+			                                   NULL),
+			                NULL);
 
 			g_free (hash);
 		}
@@ -649,14 +660,14 @@ set_revision (GitgRevisionChangesPanel *changes_panel,
 		return;
 	}
 
-	if (changes_panel->priv->diff_runner)
+	if (changes_panel->priv->diff_shell)
 	{
-		gitg_runner_cancel (changes_panel->priv->diff_runner);
+		gitg_io_cancel (GITG_IO (changes_panel->priv->diff_shell));
 	}
 
-	if (changes_panel->priv->diff_files_runner)
+	if (changes_panel->priv->diff_files_shell)
 	{
-		gitg_runner_cancel (changes_panel->priv->diff_files_runner);
+		gitg_io_cancel (GITG_IO (changes_panel->priv->diff_files_shell));
 	}
 
 	if (changes_panel->priv->repository)
@@ -691,7 +702,7 @@ set_revision (GitgRevisionChangesPanel *changes_panel,
 }
 
 static void
-on_diff_files_begin_loading (GitgRunner               *runner,
+on_diff_files_begin_loading (GitgShell                *shell,
                              GitgRevisionChangesPanel *self)
 {
 	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
@@ -703,7 +714,7 @@ on_diff_files_begin_loading (GitgRunner               *runner,
 }
 
 static void
-on_diff_files_end_loading (GitgRunner               *runner,
+on_diff_files_end_loading (GitgShell                *shell,
                            gboolean                  cancelled,
                            GitgRevisionChangesPanel *self)
 {
@@ -766,7 +777,7 @@ add_diff_file (GitgRevisionChangesPanel *view,
 }
 
 static void
-on_diff_files_update (GitgRunner                *runner,
+on_diff_files_update (GitgShell                 *shell,
                       gchar                    **buffer,
                       GitgRevisionChangesPanel  *self)
 {
@@ -808,7 +819,7 @@ on_diff_files_update (GitgRunner                *runner,
 }
 
 static void
-on_diff_begin_loading (GitgRunner               *runner,
+on_diff_begin_loading (GitgShell                *shell,
                        GitgRevisionChangesPanel *self)
 {
 	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
@@ -818,7 +829,7 @@ on_diff_begin_loading (GitgRunner               *runner,
 }
 
 static void
-on_diff_end_loading (GitgRunner               *runner,
+on_diff_end_loading (GitgShell                *shell,
                      gboolean                  cancelled,
                      GitgRevisionChangesPanel *self)
 {
@@ -831,6 +842,12 @@ on_diff_end_loading (GitgRunner               *runner,
 	}
 
 	gchar sign = gitg_revision_get_sign (self->priv->revision);
+	gboolean allow_external;
+
+	g_object_get (gitg_preferences_get_default (),
+	              "diff-external",
+	              &allow_external,
+	              NULL);
 
 	if (sign == 't' || sign == 'u')
 	{
@@ -840,38 +857,39 @@ on_diff_end_loading (GitgRunner               *runner,
 		if (sign == 't')
 			cached = "--cached";
 
-		gitg_repository_run_commandv (self->priv->repository,
-		                              self->priv->diff_files_runner,
-		                              NULL,
-		                              "diff-index",
-		                              "--raw",
-		                              "-M",
-		                              "--abbrev=40",
-		                              head,
-		                              cached,
-		                              NULL);
+		gitg_shell_run (self->priv->diff_files_shell,
+		                gitg_command_newv (self->priv->repository,
+		                                   "diff-index",
+		                                   allow_external ? "--ext-diff" : "--no-ext-diff",
+		                                   "--raw",
+		                                   "-M",
+		                                   "--abbrev=40",
+		                                   head,
+		                                   cached,
+		                                   NULL),
+		                NULL);
 		g_free (head);
 	}
 	else
 	{
 		gchar *sha = gitg_revision_get_sha1 (self->priv->revision);
-		gitg_repository_run_commandv (self->priv->repository,
-		                              self->priv->diff_files_runner,
-		                              NULL,
-		                              "show",
-		                              "--encoding=UTF-8",
-		                              "--raw",
-		                              "-M",
-		                              "--pretty=format:",
-		                              "--abbrev=40",
-		                              sha,
-		                              NULL);
+		gitg_shell_run (self->priv->diff_files_shell,
+		                gitg_command_newv (self->priv->repository,
+		                                   "show",
+		                                   "--encoding=UTF-8",
+		                                   "--raw",
+		                                   "-M",
+		                                   "--pretty=format:",
+		                                   "--abbrev=40",
+		                                   sha,
+		                                   NULL),
+		                NULL);
 		g_free (sha);
 	}
 }
 
 static void
-on_diff_update (GitgRunner                *runner,
+on_diff_update (GitgShell                 *shell,
                 gchar                    **buffer,
                 GitgRevisionChangesPanel  *self)
 {
@@ -893,37 +911,37 @@ gitg_revision_changes_panel_init (GitgRevisionChangesPanel *self)
 {
 	self->priv = GITG_REVISION_CHANGES_PANEL_GET_PRIVATE (self);
 
-	self->priv->diff_runner = gitg_runner_new (2000);
+	self->priv->diff_shell = gitg_shell_new (2000);
 
-	g_signal_connect (self->priv->diff_runner,
-	                  "begin-loading",
+	g_signal_connect (self->priv->diff_shell,
+	                  "begin",
 	                  G_CALLBACK (on_diff_begin_loading),
 	                  self);
 
-	g_signal_connect (self->priv->diff_runner,
+	g_signal_connect (self->priv->diff_shell,
 	                  "update",
 	                  G_CALLBACK (on_diff_update),
 	                  self);
 
-	g_signal_connect (self->priv->diff_runner,
-	                  "end-loading",
+	g_signal_connect (self->priv->diff_shell,
+	                  "end",
 	                  G_CALLBACK (on_diff_end_loading),
 	                  self);
 
-	self->priv->diff_files_runner = gitg_runner_new (2000);
+	self->priv->diff_files_shell = gitg_shell_new (2000);
 
-	g_signal_connect (self->priv->diff_files_runner,
-	                  "begin-loading",
+	g_signal_connect (self->priv->diff_files_shell,
+	                  "begin",
 	                  G_CALLBACK(on_diff_files_begin_loading),
 	                  self);
 
-	g_signal_connect (self->priv->diff_files_runner,
+	g_signal_connect (self->priv->diff_files_shell,
 	                  "update",
 	                  G_CALLBACK(on_diff_files_update),
 	                  self);
 
-	g_signal_connect (self->priv->diff_files_runner,
-	                  "end-loading",
+	g_signal_connect (self->priv->diff_files_shell,
+	                  "end",
 	                  G_CALLBACK(on_diff_files_end_loading),
 	                  self);
 }

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = libgitg gitg data po
+SUBDIRS = libgitg gitg data po tests tools
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgitg-1.0.pc

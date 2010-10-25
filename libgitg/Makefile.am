@@ -30,7 +30,11 @@ INST_H_FILES =			\
 	gitg-ref.h		\
 	gitg-repository.h	\
 	gitg-revision.h		\
-	gitg-runner.h
+	gitg-runner.h		\
+	gitg-command.h		\
+	gitg-shell.h		\
+	gitg-io.h		\
+	gitg-line-parser.h
 
 NOINST_H_FILES =			\
 	gitg-convert.h			\
@@ -57,7 +61,11 @@ C_FILES =				\
 	gitg-revision.c			\
 	gitg-runner.c			\
 	gitg-smart-charset-converter.c	\
-	gitg-encodings.c
+	gitg-encodings.c		\
+	gitg-command.c			\
+	gitg-io.c			\
+	gitg-shell.c			\
+	gitg-line-parser.c
 
 ENUM_H_FILES =			\
 	gitg-changed-file.h

@@ -24,28 +24,28 @@
 #define __GITG_BRANCH_ACTIONS_H__
 
 #include <libgitg/gitg-ref.h>
-#include "gitg-window.h"
+#include <gitg/gitg-window.h>
 
 G_BEGIN_DECLS
 
 gboolean gitg_branch_actions_create (GitgWindow *window, gchar const *sha1, gchar const *name);
-GitgRunner *gitg_branch_actions_remove (GitgWindow *window, GitgRef *ref);
-GitgRunner *gitg_branch_actions_rename (GitgWindow *window, GitgRef *ref);
+GitgShell *gitg_branch_actions_remove (GitgWindow *window, GitgRef *ref);
+GitgShell *gitg_branch_actions_rename (GitgWindow *window, GitgRef *ref);
 gboolean gitg_branch_actions_checkout (GitgWindow *window, GitgRef *ref);
 
-GitgRunner *gitg_branch_actions_merge (GitgWindow *window, GitgRef *source, GitgRef *dest);
-GitgRunner *gitg_branch_actions_rebase (GitgWindow *window, GitgRef *source, GitgRef *dest);
+GitgShell *gitg_branch_actions_merge (GitgWindow *window, GitgRef *source, GitgRef *dest);
+GitgShell *gitg_branch_actions_rebase (GitgWindow *window, GitgRef *source, GitgRef *dest);
 
-GitgRunner *gitg_branch_actions_push (GitgWindow *window, GitgRef *source, GitgRef *dest);
-GitgRunner *gitg_branch_actions_push_remote (GitgWindow *window, GitgRef *source, gchar const *remote, gchar const *branch);
+GitgShell *gitg_branch_actions_push (GitgWindow *window, GitgRef *source, GitgRef *dest);
+GitgShell *gitg_branch_actions_push_remote (GitgWindow *window, GitgRef *source, gchar const *remote, gchar const *branch);
 
 gboolean gitg_branch_actions_apply_stash (GitgWindow *window, GitgRef *stash, GitgRef *branch);
 
 gboolean gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *name, gchar const *message, gboolean sign);
 
-GitgRunner *gitg_branch_actions_cherry_pick (GitgWindow *window, GitgRevision *revision, GitgRef *dest);
+GitgShell *gitg_branch_actions_cherry_pick (GitgWindow *window, GitgRevision *revision, GitgRef *dest);
 
-GitgRunner *gitg_branch_actions_format_patch (GitgWindow *window, GitgRevision *revision, gchar const *destination);
+GitgShell *gitg_branch_actions_format_patch (GitgWindow *window, GitgRevision *revision, gchar const *destination);
 
 G_END_DECLS
 

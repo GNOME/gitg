@@ -26,7 +26,6 @@
 #include <gtk/gtk.h>
 
 #include <libgitg/gitg-revision.h>
-#include <libgitg/gitg-runner.h>
 #include <libgitg/gitg-ref.h>
 
 G_BEGIN_DECLS
@@ -43,7 +42,9 @@ typedef struct _GitgRepository			GitgRepository;
 typedef struct _GitgRepositoryClass	GitgRepositoryClass;
 typedef struct _GitgRepositoryPrivate	GitgRepositoryPrivate;
 
-typedef enum 
+struct _GitgShell;
+
+typedef enum
 {
 	GITG_REPOSITORY_NO_ERROR = 0,
 	GITG_REPOSITORY_ERROR_NOT_FOUND
@@ -74,8 +75,6 @@ GFile *gitg_repository_get_git_dir (GitgRepository *repository);
 
 gboolean gitg_repository_exists (GitgRepository *repository);
 
-GitgRunner *gitg_repository_get_loader(GitgRepository *repository);
-
 gboolean gitg_repository_load(GitgRepository *repository, int argc, gchar const **argv, GError **error);
 gboolean gitg_repository_get_loaded(GitgRepository *repository);
 
@@ -93,29 +92,12 @@ GitgRef *gitg_repository_get_current_working_ref(GitgRepository *repository);
 
 gchar *gitg_repository_relative(GitgRepository *repository, GFile *file);
 
-/* Running git commands */
-gboolean gitg_repository_run_command(GitgRepository *repository, GitgRunner *runner, gchar const **argv, GError **error);
-gboolean gitg_repository_run_commandv(GitgRepository *repository, GitgRunner *runner, GError **error, ...) G_GNUC_NULL_TERMINATED;
-
-gboolean gitg_repository_run_command_with_input(GitgRepository *repository, GitgRunner *runner, gchar const **argv, gchar const *input, GError **error);
-gboolean gitg_repository_run_command_with_inputv(GitgRepository *repository, GitgRunner *runner, gchar const *input, GError **error, ...) G_GNUC_NULL_TERMINATED;
-
-gboolean gitg_repository_command_with_input(GitgRepository *repository, gchar const **argv, gchar const *input, GError **error);
-gboolean gitg_repository_command_with_inputv(GitgRepository *repository, gchar const *input, GError **error, ...) G_GNUC_NULL_TERMINATED;
-
-gboolean gitg_repository_command(GitgRepository *repository, gchar const **argv, GError **error);
-gboolean gitg_repository_commandv(GitgRepository *repository, GError **error, ...) G_GNUC_NULL_TERMINATED;
-
-gchar **gitg_repository_command_with_output(GitgRepository *repository, gchar const **argv, GError **error);
-gchar **gitg_repository_command_with_outputv(GitgRepository *repository, GError **error, ...) G_GNUC_NULL_TERMINATED;
-
-gchar **gitg_repository_command_with_input_and_output(GitgRepository *repository, gchar const **argv, gchar const *input, GError **error);
-gchar **gitg_repository_command_with_input_and_outputv(GitgRepository *repository, gchar const *input, GError **error, ...) G_GNUC_NULL_TERMINATED;
-
 gchar *gitg_repository_parse_ref(GitgRepository *repository, gchar const *ref);
 gchar *gitg_repository_parse_head(GitgRepository *repository);
 
 void gitg_repository_reload(GitgRepository *repository);
+
+struct _GitgShell *gitg_repository_get_loader (GitgRepository *repository);
 
 gchar **gitg_repository_get_remotes (GitgRepository *repository);
 GSList const *gitg_repository_get_ref_pushes (GitgRepository *repository, GitgRef *ref);

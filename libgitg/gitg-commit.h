@@ -46,7 +46,8 @@ typedef struct _GitgCommitPrivate	GitgCommitPrivate;
 typedef enum
 {
 	GITG_COMMIT_ERROR_NONE = 0,
-	GITG_COMMIT_ERROR_SIGNOFF
+	GITG_COMMIT_ERROR_SIGNOFF,
+	GITG_COMMIT_ERROR_MERGE
 } GitgCommitError;
 
 struct _GitgCommit {
@@ -62,24 +63,45 @@ struct _GitgCommitClass {
 	void (*removed) (GitgCommit *commit, GitgChangedFile *file);
 };
 
-GQuark gitg_commit_error_quark(void);
+GQuark           gitg_commit_error_quark       (void);
 
-GType gitg_commit_get_type(void) G_GNUC_CONST;
-GitgCommit *gitg_commit_new(GitgRepository *repository);
+GType            gitg_commit_get_type          (void) G_GNUC_CONST;
+GitgCommit      *gitg_commit_new               (GitgRepository   *repository);
 
-void gitg_commit_refresh(GitgCommit *commit);
-gboolean gitg_commit_stage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error);
-gboolean gitg_commit_unstage(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error);
+void             gitg_commit_refresh           (GitgCommit       *commit);
+gboolean         gitg_commit_stage             (GitgCommit       *commit,
+                                                GitgChangedFile  *file,
+                                                gchar const      *hunk,
+                                                GError          **error);
+gboolean         gitg_commit_unstage           (GitgCommit       *commit,
+                                                GitgChangedFile  *file,
+                                                gchar const      *hunk,
+                                                GError          **error);
+gboolean         gitg_commit_has_changes       (GitgCommit       *commit);
+gboolean         gitg_commit_commit            (GitgCommit       *commit,
+                                                gchar const      *comment,
+                                                gboolean          signoff,
+                                                gboolean          amend,
+                                                GError          **error);
 
-gboolean gitg_commit_has_changes(GitgCommit *commit);
-gboolean gitg_commit_commit(GitgCommit *commit, gchar const *comment, gboolean signoff, gboolean amend, GError **error);
+gboolean         gitg_commit_revert            (GitgCommit       *commit,
+                                                GitgRevision     *from,
+                                                GitgRevision     *to,
+                                                GError          **error);
 
-gboolean gitg_commit_revert(GitgCommit *commit, GitgChangedFile *file, gchar const *hunk, GError **error);
-gboolean gitg_commit_add_ignore(GitgCommit *commit, GitgChangedFile *file, GError **error);
+gboolean         gitg_commit_undo              (GitgCommit       *commit,
+                                                GitgChangedFile  *file,
+                                                gchar const      *hunk,
+                                                GError          **error);
 
-GitgChangedFile *gitg_commit_find_changed_file(GitgCommit *commit, GFile *file);
+gboolean         gitg_commit_add_ignore        (GitgCommit       *commit,
+                                                GitgChangedFile  *file,
+                                                GError          **error);
 
-gchar *gitg_commit_amend_message (GitgCommit *commit);
+GitgChangedFile *gitg_commit_find_changed_file (GitgCommit       *commit,
+                                                GFile            *file);
+
+gchar           *gitg_commit_amend_message     (GitgCommit       *commit);
 
 G_END_DECLS
 

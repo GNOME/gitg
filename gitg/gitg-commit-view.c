@@ -26,6 +26,7 @@
 #include <glib/gi18n.h>
 #include <string.h>
 #include <libgitg/gitg-commit.h>
+#include <libgitg/gitg-shell.h>
 
 #include "gitg-commit-view.h"
 #include "gitg-diff-view.h"
@@ -78,7 +79,7 @@ struct _GitgCommitViewPrivate
 	GtkHScale *hscale_context;
 	gint context_size;
 
-	GitgRunner *runner;
+	GitgShell *shell;
 	guint update_id;
 	gboolean is_diff;
 
@@ -138,11 +139,11 @@ gitg_commit_view_finalize (GObject *object)
 
 	if (view->priv->update_id)
 	{
-		g_signal_handler_disconnect (view->priv->runner, view->priv->update_id);
+		g_signal_handler_disconnect (view->priv->shell, view->priv->update_id);
 	}
 
-	gitg_runner_cancel (view->priv->runner);
-	g_object_unref (view->priv->runner);
+	gitg_io_cancel (GITG_IO (view->priv->shell));
+	g_object_unref (view->priv->shell);
 	g_object_unref (view->priv->ui_manager);
 
 	gdk_cursor_unref (view->priv->hand);
@@ -224,7 +225,7 @@ show_binary_information (GitgCommitView *view)
 }
 
 static void
-on_changes_update (GitgRunner *runner, gchar **buffer, GitgCommitView *view)
+on_changes_update (GitgShell *shell, gchar **buffer, GitgCommitView *view)
 {
 	gchar *line;
 	GtkTextBuffer *buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW(view->priv->changes_view));
@@ -261,7 +262,7 @@ on_changes_update (GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 
 		if (content_type && !gitg_utils_can_display_content_type (content_type))
 		{
-			gitg_runner_cancel (runner);
+			gitg_io_cancel (GITG_IO (shell));
 			show_binary_information (view);
 		}
 		else if (content_type)
@@ -283,7 +284,7 @@ on_changes_update (GitgRunner *runner, gchar **buffer, GitgCommitView *view)
 static void
 connect_update (GitgCommitView *view)
 {
-	view->priv->update_id = g_signal_connect (view->priv->runner,
+	view->priv->update_id = g_signal_connect (view->priv->shell,
 	                                          "update",
 	                                          G_CALLBACK (on_changes_update),
 	                                          view);
@@ -384,9 +385,11 @@ check_selection(GtkTreeView    *tree_view,
                 GitgCommitView *view)
 {
 	if (view->priv->update_id)
-		g_signal_handler_disconnect(view->priv->runner, view->priv->update_id);
+	{
+		g_signal_handler_disconnect(view->priv->shell, view->priv->update_id);
+	}
 
-	gitg_runner_cancel(view->priv->runner);
+	gitg_io_cancel(GITG_IO (view->priv->shell));
 	view->priv->update_id = 0;
 
 	GtkTextView *tv = GTK_TEXT_VIEW(view->priv->changes_view);
@@ -478,7 +481,7 @@ unstaged_selection_changed (GtkTreeSelection *selection,
 				view->priv->is_diff = FALSE;
 				connect_update (view);
 
-				gitg_runner_run_stream (view->priv->runner, stream, NULL);
+				gitg_shell_run_stream (view->priv->shell, stream, NULL);
 				g_object_unref (stream);
 			}
 		}
@@ -487,6 +490,8 @@ unstaged_selection_changed (GtkTreeSelection *selection,
 	}
 	else
 	{
+		gboolean allow_external;
+
 		set_diff_language (view);
 		view->priv->is_diff = TRUE;
 		connect_update (view);
@@ -496,15 +501,22 @@ unstaged_selection_changed (GtkTreeSelection *selection,
 		gchar ct[10];
 		g_snprintf (ct, sizeof(ct), "-U%d", view->priv->context_size);
 
-		gitg_repository_run_commandv (view->priv->repository,
-		                              view->priv->runner,
-		                              NULL,
-		                              "diff",
-		                              "--no-color",
-		                              ct,
-		                              "--",
-		                              path,
-		                              NULL);
+		g_object_get (gitg_preferences_get_default (),
+		              "diff-external",
+		              &allow_external,
+		              NULL);
+
+		gitg_shell_run (view->priv->shell,
+		                gitg_command_newv (view->priv->repository,
+		                                   "diff",
+		                                   allow_external ? "--ext-diff" : "--no-ext-diff",
+		                                   "--no-color",
+		                                   ct,
+		                                   "--",
+		                                   path,
+		                                   NULL),
+		                NULL);
+
 		g_free (path);
 	}
 
@@ -521,7 +533,9 @@ staged_selection_changed (GtkTreeSelection *selection, GitgCommitView *view)
 	GtkTreeIter iter;
 
 	if (!check_selection (view->priv->tree_view_staged, &iter, view))
+	{
 		return;
+	}
 
 	model = gtk_tree_view_get_model (view->priv->tree_view_staged);
 	unselect_tree_view (view->priv->tree_view_unstaged);
@@ -561,14 +575,15 @@ staged_selection_changed (GtkTreeSelection *selection, GitgCommitView *view)
 			connect_update (view);
 
 			gchar *indexpath = g_strconcat (":0:", path, NULL);
-			gitg_repository_run_commandv (view->priv->repository,
-			                              view->priv->runner,
-			                              NULL,
-			                              "show",
-			                              "--encoding=UTF-8",
-			                              "--no-color",
-			                              indexpath,
-			                              NULL);
+			gitg_shell_run (view->priv->shell,
+			                gitg_command_newv (view->priv->repository,
+			                                   "show",
+			                                   "--encoding=UTF-8",
+			                                   "--no-color",
+			                                   indexpath,
+			                                   NULL),
+			                NULL);
+
 			g_free (indexpath);
 		}
 
@@ -576,6 +591,8 @@ staged_selection_changed (GtkTreeSelection *selection, GitgCommitView *view)
 	}
 	else
 	{
+		gboolean allow_external;
+
 		view->priv->is_diff = TRUE;
 		set_diff_language (view);
 		connect_update (view);
@@ -584,17 +601,24 @@ staged_selection_changed (GtkTreeSelection *selection, GitgCommitView *view)
 		gchar ct[10];
 		g_snprintf (ct, sizeof(ct), "-U%d", view->priv->context_size);
 
-		gitg_repository_run_commandv (view->priv->repository,
-		                              view->priv->runner,
-		                              NULL,
-		                              "diff-index",
-		                              ct,
-		                              "--cached",
-		                              "--no-color",
-		                              head,
-		                              "--",
-		                              path,
-		                              NULL);
+		g_object_get (gitg_preferences_get_default (),
+		              "diff-external",
+		              &allow_external,
+		              NULL);
+
+		gitg_shell_run (view->priv->shell,
+		                gitg_command_newv (view->priv->repository,
+		                                   "diff-index",
+		                                   allow_external ? "--ext-diff" : "--no-ext-diff",
+		                                   ct,
+		                                   "--cached",
+		                                   "--no-color",
+		                                   head,
+		                                   "--",
+		                                   path,
+		                                   NULL),
+		                NULL);
+
 		g_free(head);
 	}
 
@@ -1659,8 +1683,8 @@ gitg_commit_view_init (GitgCommitView *self)
 {
 	self->priv = GITG_COMMIT_VIEW_GET_PRIVATE (self);
 
-	self->priv->runner = gitg_runner_new (10000);
-	gitg_runner_set_preserve_line_endings (self->priv->runner, TRUE);
+	self->priv->shell = gitg_shell_new (10000);
+	gitg_shell_set_preserve_line_endings (self->priv->shell, TRUE);
 
 	self->priv->hand = gdk_cursor_new (GDK_HAND1);
 }
@@ -2174,7 +2198,10 @@ do_revert_changes(GitgCommitView *view)
 
 		for (item = files; item; item = g_list_next (item))
 		{
-			ret &= gitg_commit_revert(view->priv->commit, GITG_CHANGED_FILE (item->data), NULL, NULL);
+ 			ret &= gitg_commit_undo (view->priv->commit,
+ 			                         GITG_CHANGED_FILE (item->data),
+ 			                         NULL,
+ 			                         NULL);
 			g_object_unref (item->data);
 		}
 
@@ -2185,11 +2212,17 @@ do_revert_changes(GitgCommitView *view)
 		GitgChangedFile *file = g_object_ref(view->priv->current_file);
 
 		gchar *hunk = get_hunk_patch(view, &view->priv->context_iter);
-		ret = gitg_commit_revert(view->priv->commit, view->priv->current_file, hunk, NULL);
+		ret = gitg_commit_undo (view->priv->commit,
+		                        view->priv->current_file,
+		                        hunk,
+		                        NULL);
 		g_free(hunk);
 
 		if (ret && view->priv->current_file == file)
-			gitg_diff_view_remove_hunk(GITG_DIFF_VIEW(view->priv->changes_view), &view->priv->context_iter);
+		{
+			gitg_diff_view_remove_hunk (GITG_DIFF_VIEW(view->priv->changes_view),
+			                            &view->priv->context_iter);
+		}
 
 		g_object_unref(file);
 	}

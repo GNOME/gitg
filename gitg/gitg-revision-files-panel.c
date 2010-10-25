@@ -27,7 +27,7 @@
 #include <gio/gio.h>
 #include <stdlib.h>
 #include <libgitg/gitg-revision.h>
-#include <libgitg/gitg-runner.h>
+#include <libgitg/gitg-shell.h>
 
 #include "gitg-revision-files-panel.h"
 #include "gitg-utils.h"
@@ -54,7 +54,7 @@ struct _GitgRevisionFilesViewPrivate
 {
 	GtkTreeView *tree_view;
 	GtkSourceView *contents;
-	GitgRunner *content_runner;
+	GitgShell *content_shell;
 	GtkTreeStore *store;
 
 	gchar *drag_dir;
@@ -62,7 +62,7 @@ struct _GitgRevisionFilesViewPrivate
 
 	GitgRepository *repository;
 	GitgRevision *revision;
-	GitgRunner *loader;
+	GitgShell *loader;
 	GtkTreePath *load_path;
 
 	gboolean skipped_blank_line;
@@ -127,7 +127,7 @@ gitg_revision_files_view_finalize (GObject *object)
 		g_strfreev (self->priv->drag_files);
 	}
 
-	gitg_runner_cancel (self->priv->loader);
+	gitg_io_cancel (GITG_IO (self->priv->loader));
 	g_object_unref (self->priv->loader);
 
 	G_OBJECT_CLASS (gitg_revision_files_view_parent_class)->finalize (object);
@@ -150,7 +150,7 @@ set_revision (GitgRevisionFilesView *files_view,
 		return;
 	}
 
-	gitg_runner_cancel (files_view->priv->loader);
+	gitg_io_cancel (GITG_IO (files_view->priv->loader));
 	gtk_tree_store_clear (files_view->priv->store);
 
 	if (files_view->priv->repository)
@@ -270,7 +270,7 @@ on_selection_changed (GtkTreeSelection     *selection,
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 
-	gitg_runner_cancel (tree->priv->content_runner);
+	gitg_io_cancel (GITG_IO (tree->priv->content_shell));
 
 	gtk_text_buffer_set_text (buffer, "", -1);
 
@@ -326,13 +326,13 @@ on_selection_changed (GtkTreeSelection     *selection,
 
 		gchar *id = node_identity (tree, &iter);
 
-		gitg_repository_run_commandv (tree->priv->repository,
-		                              tree->priv->content_runner,
-		                              NULL,
-		                              "show",
-		                              "--encoding=UTF-8",
-		                              id,
-		                              NULL);
+		gitg_shell_run (tree->priv->content_shell,
+		                gitg_command_newv (tree->priv->repository,
+		                                   "show",
+		                                   "--encoding=UTF-8",
+		                                   id,
+		                                   NULL),
+		                NULL);
 
 		g_free (id);
 	}
@@ -857,8 +857,8 @@ append_node (GitgRevisionFilesView *tree,
 }
 
 static void
-on_update (GitgRunner            *runner,
-           gchar                **buffer,
+on_update (GitgShell              *shell,
+           gchar                 **buffer,
            GitgRevisionFilesView  *tree)
 {
 	gchar *line;
@@ -919,9 +919,9 @@ compare_func (GtkTreeModel *model,
 }
 
 static void
-on_contents_update (GitgRunner *runner,
-                    gchar **buffer,
-                    GitgRevisionFilesView *tree)
+on_contents_update (GitgShell              *shell,
+                    gchar                 **buffer,
+                    GitgRevisionFilesView  *tree)
 {
 	gchar *line;
 	GtkTextBuffer *buf;
@@ -943,7 +943,7 @@ on_contents_update (GitgRunner *runner,
 
 		if (content_type && !gitg_utils_can_display_content_type (content_type))
 		{
-			gitg_runner_cancel (runner);
+			gitg_io_cancel (GITG_IO (shell));
 			show_binary_information (tree);
 		}
 		else
@@ -978,14 +978,14 @@ gitg_revision_files_view_init (GitgRevisionFilesView *self)
 	                                      NAME_COLUMN,
 	                                      GTK_SORT_ASCENDING);
 
-	self->priv->loader = gitg_runner_new (1000);
+	self->priv->loader = gitg_shell_new (1000);
 	g_signal_connect (self->priv->loader,
 	                  "update",
 	                  G_CALLBACK (on_update),
 	                  self);
 
-	self->priv->content_runner = gitg_runner_new (5000);
-	g_signal_connect (self->priv->content_runner,
+	self->priv->content_shell = gitg_shell_new (5000);
+	g_signal_connect (self->priv->content_shell,
 	                  "update",
 	                  G_CALLBACK (on_contents_update),
 	                  self);
@@ -1017,7 +1017,7 @@ static void
 load_node (GitgRevisionFilesView *tree,
            GtkTreeIter          *parent)
 {
-	if (gitg_runner_running (tree->priv->loader))
+	if (gitg_io_get_running (GITG_IO (tree->priv->loader)))
 	{
 		return;
 	}
@@ -1041,12 +1041,12 @@ load_node (GitgRevisionFilesView *tree,
 	}
 
 	tree->priv->skipped_blank_line = FALSE;
-	gitg_repository_run_commandv (tree->priv->repository,
-	                              tree->priv->loader,
-	                              NULL,
-	                              "show",
-	                              "--encoding=UTF-8",
-	                              id,
-	                              NULL);
+	gitg_shell_run (tree->priv->loader,
+	                gitg_command_newv (tree->priv->repository,
+	                                   "show",
+	                                   "--encoding=UTF-8",
+	                                   id,
+	                                   NULL),
+	                NULL);
 	g_free (id);
 }

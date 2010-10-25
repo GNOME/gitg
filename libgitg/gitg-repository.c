@@ -26,6 +26,7 @@
 #include "gitg-lanes.h"
 #include "gitg-ref.h"
 #include "gitg-config.h"
+#include "gitg-shell.h"
 
 #include <gio/gio.h>
 #include <sys/time.h>
@@ -91,7 +92,7 @@ struct _GitgRepositoryPrivate
 	GFile *git_dir;
 	GFile *work_tree;
 
-	GitgRunner *loader;
+	GitgShell *loader;
 	GHashTable *hashtable;
 	gint stamp;
 	GType column_types[N_COLUMNS];
@@ -416,7 +417,7 @@ gitg_repository_finalize (GObject *object)
 	GitgRepository *rp = GITG_REPOSITORY (object);
 
 	/* Make sure to cancel the loader */
-	gitg_runner_cancel (rp->priv->loader);
+	gitg_io_cancel (GITG_IO (rp->priv->loader));
 	g_object_unref (rp->priv->loader);
 
 	g_object_unref (rp->priv->lanes);
@@ -610,16 +611,19 @@ parse_ref_intern (GitgRepository *repository,
                   gchar const    *ref,
                   gboolean        symbolic)
 {
-	gchar **ret = gitg_repository_command_with_outputv (repository,
-	                                                    NULL,
-	                                                    "rev-parse",
-	                                                    "--verify",
-	                                                    symbolic ? "--symbolic-full-name" : ref,
-	                                                    symbolic ? ref : NULL,
-	                                                    NULL);
+	gchar **ret = gitg_shell_run_sync_with_output (gitg_command_newv (repository,
+	                                                                  "rev-parse",
+	                                                                  "--verify",
+	                                                                  symbolic ? "--symbolic-full-name" : ref,
+	                                                                  symbolic ? ref : NULL,
+	                                                                  NULL),
+	                                               FALSE,
+	                                               NULL);
 
 	if (!ret)
+	{
 		return NULL;
+	}
 
 	gchar *r = g_strdup (*ret);
 	g_strfreev (ret);
@@ -748,7 +752,7 @@ gitg_repository_class_init (GitgRepositoryClass *klass)
 	                                 g_param_spec_object ("loader",
 	                                                      "LOADER",
 	                                                      "The repository loader",
-	                                                      GITG_TYPE_RUNNER,
+	                                                      GITG_TYPE_SHELL,
 	                                                      G_PARAM_READABLE));
 
 	g_object_class_install_property (object_class,
@@ -902,11 +906,11 @@ add_dummy_commit (GitgRepository *repository,
 }
 
 static void
-on_loader_end_loading (GitgRunner     *object,
-                       gboolean        cancelled,
+on_loader_end_loading (GitgShell      *object,
+                       GError         *error,
                        GitgRepository *repository)
 {
-	if (cancelled)
+	if (gitg_io_get_cancelled (GITG_IO (object)))
 	{
 		g_signal_emit (repository, repository_signals[LOADED], 0);
 		return;
@@ -931,7 +935,7 @@ on_loader_end_loading (GitgRunner     *object,
 			if (current == LOAD_STAGE_STAGED)
 			{
 				/* Check if there are unstaged changes */
-				if (show_staged && gitg_runner_get_exit_status (object) != 0)
+				if (show_staged && gitg_io_get_exit_status (GITG_IO (object)) != 0)
 				{
 					add_dummy_commit (repository, TRUE);
 				}
@@ -941,28 +945,29 @@ on_loader_end_loading (GitgRunner     *object,
 				cached = "--cached";
 			}
 
-			gitg_repository_run_commandv (repository,
-			                              object,
-			                              NULL,
-			                              "diff-index",
-			                              "--quiet",
-			                              head,
-			                              cached,
-			                              NULL);
+			gitg_shell_run (object,
+			                gitg_command_newv (repository,
+			                                   "diff-index",
+			                                   "--no-ext-diff",
+			                                   "--quiet",
+			                                   head,
+			                                   cached,
+			                                   NULL),
+			                NULL);
+
 			g_free (head);
 		}
 		break;
 		case LOAD_STAGE_UNSTAGED:
-			if (show_unstaged && gitg_runner_get_exit_status (object) != 0)
+			if (show_unstaged && gitg_io_get_exit_status (GITG_IO (object)) != 0)
 			{
 				add_dummy_commit (repository, FALSE);
 			}
 
-			gitg_repository_run_command (repository,
-			                             object,
-			                             (gchar const **)repository->priv->last_args,
-			                             NULL);
-
+			gitg_shell_run (object,
+			                gitg_command_new (repository,
+			                                  (gchar const * const *)repository->priv->last_args),
+			                NULL);
 		break;
 		default:
 		break;
@@ -1106,7 +1111,7 @@ loader_update_commits (GitgRepository  *self,
 }
 
 static void
-on_loader_update (GitgRunner      *object,
+on_loader_update (GitgShell       *object,
                   gchar          **buffer,
                   GitgRepository  *repository)
 {
@@ -1294,7 +1299,7 @@ gitg_repository_init (GitgRepository *object)
 	                                            NULL,
 	                                            (GDestroyNotify)free_refs);
 
-	object->priv->loader = gitg_runner_new (10000);
+	object->priv->loader = gitg_shell_new (10000);
 
 	g_signal_connect (object->priv->loader,
 	                  "update",
@@ -1302,7 +1307,7 @@ gitg_repository_init (GitgRepository *object)
 	                  object);
 
 	g_signal_connect (object->priv->loader,
-	                  "end-loading",
+	                  "end",
 	                  G_CALLBACK (on_loader_end_loading),
 	                  object);
 }
@@ -1361,11 +1366,11 @@ gitg_repository_get_git_dir (GitgRepository *self)
 	return g_file_dup (self->priv->git_dir);
 }
 
-GitgRunner *
+GitgShell *
 gitg_repository_get_loader (GitgRepository *self)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (self), NULL);
-	return GITG_RUNNER (g_object_ref (self->priv->loader));
+	return GITG_SHELL (g_object_ref (self->priv->loader));
 }
 
 static gboolean
@@ -1382,15 +1387,15 @@ reload_revisions (GitgRepository  *repository,
 
 	repository->priv->load_stage = LOAD_STAGE_STASH;
 
-	return gitg_repository_run_commandv (repository,
-	                                     repository->priv->loader,
-	                                     error,
-	                                     "log",
-	                                     "--pretty=format:%H\x01%an\x01%ae\x01%at\x01%s",
-	                                     "--encoding=UTF-8",
-	                                     "-g",
-	                                     "refs/stash",
-	                                     NULL);
+	return gitg_shell_run (repository->priv->loader,
+	                       gitg_command_newv (repository,
+	                                          "log",
+	                                          "--pretty=format:%H\x01%an\x01%ae\x01%at\x01%s",
+	                                          "--encoding=UTF-8",
+	                                          "-g",
+	                                          "refs/stash",
+	                                          NULL),
+	                       error);
 }
 
 static gchar *
@@ -1402,7 +1407,9 @@ load_current_ref (GitgRepository *self)
 	gint numargs;
 
 	if (self->priv->last_args == NULL)
+	{
 		return NULL;
+	}
 
 	numargs = g_strv_length (self->priv->last_args);
 
@@ -1417,14 +1424,16 @@ load_current_ref (GitgRepository *self)
 		argv[2 + i] = self->priv->last_args[i];
 	}
 
-	out = gitg_repository_command_with_output (self, argv, NULL);
+	out = gitg_shell_run_sync_with_output (gitg_command_new (self, argv),
+	                                       FALSE,
+	                                       NULL);
 
 	if (!out)
 	{
 		return NULL;
 	}
 
-	if (*out && !* (out + 1))
+	if (*out && !*(out + 1))
 	{
 		ret = g_strdup (*out);
 	}
@@ -1438,12 +1447,13 @@ load_refs (GitgRepository *self)
 {
 	gchar **refs;
 
-	refs = gitg_repository_command_with_outputv (self,
-	                                             NULL,
-	                                             "for-each-ref",
-	                                             "--format=%(refname) %(objectname) %(*objectname)",
-	                                             "refs",
-	                                             NULL);
+	refs = gitg_shell_run_sync_with_output (gitg_command_newv (self,
+	                                                           "for-each-ref",
+	                                                           "--format=%(refname) %(objectname) %(*objectname)",
+	                                                           "refs",
+	                                                           NULL),
+	                                        FALSE,
+	                                        NULL);
 
 	if (!refs)
 	{
@@ -1491,7 +1501,7 @@ gitg_repository_reload (GitgRepository *repository)
 	g_return_if_fail (GITG_IS_REPOSITORY (repository));
 	g_return_if_fail (repository->priv->git_dir != NULL);
 
-	gitg_runner_cancel (repository->priv->loader);
+	gitg_io_cancel (GITG_IO (repository->priv->loader));
 
 	repository->priv->load_stage = LOAD_STAGE_NONE;
 	gitg_repository_clear (repository);
@@ -1520,7 +1530,7 @@ gitg_repository_load (GitgRepository  *self,
 		return FALSE;
 	}
 
-	gitg_runner_cancel (self->priv->loader);
+	gitg_io_cancel (GITG_IO (self->priv->loader));
 	gitg_repository_clear (self);
 
 	build_log_args (self, argc, av);
@@ -1622,6 +1632,24 @@ gitg_repository_find (GitgRepository *store,
 	                                     iter);
 }
 
+static gint
+ref_compare (GitgRef *a,
+             GitgRef *b)
+{
+	GitgRefType t1 = gitg_ref_get_ref_type (a);
+	GitgRefType t2 = gitg_ref_get_ref_type (b);
+
+	if (t1 != t2)
+	{
+		return t1 < t2 ? -1 : 1;
+	}
+	else
+	{
+		return g_strcmp0 (gitg_ref_get_shortname (a),
+		                  gitg_ref_get_shortname (b));
+	}
+}
+
 GSList *
 gitg_repository_get_refs (GitgRepository *repository)
 {
@@ -1635,13 +1663,14 @@ gitg_repository_get_refs (GitgRepository *repository)
 	{
 		GSList *val;
 
-		for (val = (GSList *)item->data; val; val = val->next)
+		for (val = item->data; val; val = val->next)
 		{
-			ret = g_slist_prepend (ret, gitg_ref_copy ( (GitgRef *)val->data));
+			ret = g_slist_insert_sorted (ret,
+			                             gitg_ref_copy (val->data),
+			                             (GCompareFunc)ref_compare);
 		}
 	}
 
-	ret = g_slist_reverse (ret);
 	g_list_free (values);
 
 	return ret;
@@ -1671,297 +1700,6 @@ gitg_repository_relative (GitgRepository *repository,
 	g_return_val_if_fail (repository->priv->work_tree != NULL, NULL);
 
 	return g_file_get_relative_path (repository->priv->work_tree, file);
-}
-
-gboolean
-gitg_repository_run_command_with_input (GitgRepository  *repository,
-                                        GitgRunner      *runner,
-                                        gchar const    **argv,
-                                        gchar const     *input,
-                                        GError         **error)
-{
-	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
-	g_return_val_if_fail (GITG_IS_RUNNER (runner), FALSE);
-	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
-
-	guint num = g_strv_length ( (gchar **)argv);
-	guint i;
-
-	gchar const **args = g_new0 (gchar const *, num + 6);
-
-	gchar *git_dir_path = g_file_get_path (repository->priv->git_dir);
-	gchar *work_tree_path = g_file_get_path (repository->priv->work_tree);
-
-	args[0] = "git";
-	args[1] = "--git-dir";
-	args[2] = git_dir_path;
-	args[3] = "--work-tree";
-	args[4] = work_tree_path;
-
-	for (i = 0; i < num; ++i)
-	{
-		args[i + 5] = argv[i];
-	}
-
-	gboolean ret = gitg_runner_run_with_arguments (runner,
-	                                               repository->priv->work_tree,
-	                                               args,
-	                                               input,
-	                                               error);
-
-	g_free (args);
-	g_free (git_dir_path);
-	g_free (work_tree_path);
-
-	return ret;
-}
-
-gboolean
-gitg_repository_run_command (GitgRepository  *repository,
-                             GitgRunner      *runner,
-                             gchar const    **argv,
-                             GError         **error)
-{
-	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
-	g_return_val_if_fail (GITG_IS_RUNNER (runner), FALSE);
-	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
-
-	return gitg_repository_run_command_with_input (repository,
-	                                               runner,
-	                                               argv,
-	                                               NULL,
-	                                               error);
-}
-
-gboolean
-gitg_repository_command_with_input (GitgRepository  *repository,
-                                    gchar const    **argv,
-                                    gchar const     *input,
-                                    GError         **error)
-{
-	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
-	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
-
-	GitgRunner *runner = gitg_runner_new_synchronized (1000);
-
-	gboolean ret = gitg_repository_run_command_with_input (repository,
-	                                                       runner,
-	                                                       argv,
-	                                                       input,
-	                                                       error);
-	g_object_unref (runner);
-
-	return ret;
-}
-
-gboolean
-gitg_repository_command (GitgRepository  *repository,
-                         gchar const    **argv,
-                         GError         **error)
-{
-	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
-	g_return_val_if_fail (repository->priv->git_dir != NULL, FALSE);
-
-	return gitg_repository_command_with_input (repository,
-	                                           argv,
-	                                           NULL,
-	                                           error);
-}
-
-typedef struct
-{
-	gchar **buffer;
-	guint size;
-} CommandOutput;
-
-static void
-command_with_output_update (GitgRunner     *runner,
-                            gchar         **buffer,
-                            CommandOutput  *output)
-{
-	guint num = g_strv_length (buffer);
-	guint i;
-
-	output->buffer = g_realloc (output->buffer,
-	                            sizeof (gchar *) * (output->size + num + 1));
-
-	for (i = 0; i < num; ++i)
-	{
-		output->buffer[output->size + i] = g_strdup (buffer[i]);
-	}
-
-	output->size += num;
-	output->buffer[output->size] = NULL;
-}
-
-gchar **
-gitg_repository_command_with_input_and_output (GitgRepository  *repository,
-                                               gchar const    **argv,
-                                               gchar const     *input,
-                                               GError         **error)
-{
-	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
-	g_return_val_if_fail (repository->priv->git_dir != NULL, NULL);
-
-	GitgRunner *runner = gitg_runner_new_synchronized (1000);
-	CommandOutput output = {NULL, 0};
-
-	g_signal_connect (runner, "update", G_CALLBACK (command_with_output_update), &output);
-	gboolean ret = gitg_repository_run_command_with_input (repository,
-	                                                       runner,
-	                                                       argv,
-	                                                       input,
-	                                                       error);
-
-	if (!ret)
-	{
-		g_strfreev (output.buffer);
-		output.buffer = NULL;
-	}
-
-	g_object_unref (runner);
-	return output.buffer;
-}
-
-gchar **
-gitg_repository_command_with_output (GitgRepository  *repository,
-                                     gchar const    **argv,
-                                     GError         **error)
-{
-	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), NULL);
-	g_return_val_if_fail (repository->priv->git_dir != NULL, NULL);
-
-	return gitg_repository_command_with_input_and_output (repository,
-	                                                      argv,
-	                                                      NULL,
-	                                                      error);
-}
-
-static gchar const **
-parse_valist (va_list ap)
-{
-	gchar const *a;
-	gchar const **ret = NULL;
-	guint num = 0;
-
-	while ( (a = va_arg (ap, gchar const *)) != NULL)
-	{
-		ret = g_realloc (ret, sizeof (gchar const *) * (++num + 1));
-		ret[num - 1] = a;
-	}
-
-	ret[num] = NULL;
-	return ret;
-}
-
-gboolean
-gitg_repository_commandv (GitgRepository  *repository,
-                          GError         **error,
-                          ...)
-{
-	va_list ap;
-	va_start (ap, error);
-	gchar const **argv = parse_valist (ap);
-	va_end (ap);
-
-	gboolean ret = gitg_repository_command (repository, argv, error);
-	g_free (argv);
-	return ret;
-}
-
-gboolean
-gitg_repository_command_with_inputv (GitgRepository  *repository,
-                                     gchar const     *input,
-                                     GError         **error,
-                                     ...)
-{
-	va_list ap;
-	va_start (ap, error);
-	gchar const **argv = parse_valist (ap);
-	va_end (ap);
-
-	gboolean ret = gitg_repository_command_with_input (repository,
-	                                                   argv,
-	                                                   input,
-	                                                   error);
-	g_free (argv);
-	return ret;
-}
-
-gboolean
-gitg_repository_run_commandv (GitgRepository  *repository,
-                              GitgRunner      *runner,
-                              GError         **error,
-                              ...)
-{
-	va_list ap;
-	va_start (ap, error);
-	gchar const **argv = parse_valist (ap);
-	va_end (ap);
-
-	gboolean ret = gitg_repository_run_command (repository,
-	                                            runner,
-	                                            argv,
-	                                            error);
-	g_free (argv);
-	return ret;
-}
-
-gboolean
-gitg_repository_run_command_with_inputv (GitgRepository  *repository,
-                                         GitgRunner      *runner,
-                                         gchar const     *input,
-                                         GError         **error,
-                                         ...)
-{
-	va_list ap;
-	va_start (ap, error);
-	gchar const **argv = parse_valist (ap);
-	va_end (ap);
-
-	gboolean ret = gitg_repository_run_command_with_input (repository,
-	                                                       runner,
-	                                                       argv,
-	                                                       input,
-	                                                       error);
-	g_free (argv);
-	return ret;
-}
-
-gchar **
-gitg_repository_command_with_outputv (GitgRepository  *repository,
-                                      GError         **error,
-                                      ...)
-{
-	va_list ap;
-	va_start (ap, error);
-	gchar const **argv = parse_valist (ap);
-	va_end (ap);
-
-	gchar **ret = gitg_repository_command_with_output (repository,
-	                                                   argv,
-	                                                   error);
-	g_free (argv);
-	return ret;
-}
-
-gchar **
-gitg_repository_command_with_input_and_outputv (GitgRepository  *repository,
-                                                gchar const     *input,
-                                                GError         **error,
-                                                ...)
-{
-	va_list ap;
-	va_start (ap, error);
-	gchar const **argv = parse_valist (ap);
-	va_end (ap);
-
-	gchar **ret = gitg_repository_command_with_input_and_output (repository,
-	                                                             argv,
-	                                                             input,
-	                                                             error);
-	g_free (argv);
-	return ret;
 }
 
 gchar *
@@ -2148,8 +1886,9 @@ gboolean
 gitg_repository_get_loaded (GitgRepository *repository)
 {
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
+
 	return repository->priv->load_stage == LOAD_STAGE_LAST &&
-	       !gitg_runner_running (repository->priv->loader);
+	       !gitg_io_get_running (GITG_IO (repository->priv->loader));
 }
 
 gchar const **
