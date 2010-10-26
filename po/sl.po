@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&component=gitg\n"
-"POT-Creation-Date: 2010-10-09 16:42+0000\n"
-"PO-Revision-Date: 2010-10-09 20:07+0100\n"
+"POT-Creation-Date: 2010-10-24 09:59+0000\n"
+"PO-Revision-Date: 2010-10-26 19:19+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -23,15 +23,15 @@ msgstr ""
 
 #: ../data/gitg.desktop.in.in.h:1
 msgid "Git repository browser"
-msgstr "Brskalnik git skladišč"
+msgstr "Brskalnik git odložišč"
 
 #. Translators: this is the application name as in g_set_application_name
 #: ../data/gitg.desktop.in.in.h:2
 #: ../gitg/gitg-branch-actions.c:168
 #: ../gitg/gitg-branch-actions.c:221
 #: ../gitg/gitg.c:238
-#: ../gitg/gitg-window.c:1651
-#: ../gitg/gitg-window.c:1665
+#: ../gitg/gitg-window.c:1652
+#: ../gitg/gitg-window.c:1666
 #: ../gitg/gitg-window.ui.h:11
 msgid "gitg"
 msgstr "gitg"
@@ -141,7 +141,7 @@ msgid "This permanently removes the remote branch."
 msgstr "S tem bo oddaljena veja trajno odstranjena."
 
 #: ../gitg/gitg-branch-actions.c:338
-#: ../gitg/gitg-window.c:2890
+#: ../gitg/gitg-window.c:2891
 msgid "Remove remote branch"
 msgstr "Odstrani oddaljeno vejo"
 
@@ -159,7 +159,7 @@ msgid "This permanently removes the stash item"
 msgstr "S tem bo predmet zaloge trajno odstranjen."
 
 #: ../gitg/gitg-branch-actions.c:413
-#: ../gitg/gitg-window.c:2906
+#: ../gitg/gitg-window.c:2907
 msgid "Remove stash"
 msgstr "Odstrani zalogo"
 
@@ -178,7 +178,7 @@ msgstr "Ali ste prepričani, da želite odstraniti oznako <%s>?"
 
 #: ../gitg/gitg-branch-actions.c:475
 #: ../gitg/gitg-branch-actions.c:477
-#: ../gitg/gitg-window.c:2912
+#: ../gitg/gitg-window.c:2913
 msgid "Remove tag"
 msgstr "Odstrani oznako"
 
@@ -462,12 +462,12 @@ msgstr "Uveljavljanje z odbiro na <%s>"
 msgid "Failed to generate format-patch"
 msgstr "Ustvarjanje oblike popravka je spodletelo"
 
-#: ../gitg/gitg-branch-actions.c:1949
+#: ../gitg/gitg-branch-actions.c:1951
 #, c-format
 msgid "Generating format-patch for <%s>"
 msgstr "Ustvarjanje oblike popravka za <%s>"
 
-#: ../gitg/gitg-branch-actions.c:1957
+#: ../gitg/gitg-branch-actions.c:1959
 #: ../gitg/gitg-menus.xml.h:6
 msgid "Format patch"
 msgstr "Oblikuj popravek"
@@ -482,50 +482,50 @@ msgstr "Zagon gitg v načinu uveljavitev"
 
 #: ../gitg/gitg.c:56
 msgid "Select commit after loading the repository"
-msgstr "Izbor uveljavite po nalaganju skladišča"
+msgstr "Izbor uveljavite po nalaganju odložišča"
 
 #: ../gitg/gitg.c:66
 msgid "- git repository viewer"
-msgstr "- pregledovalnik git skladišč"
+msgstr "- pregledovalnik git odložišč"
 
 #: ../gitg/gitg-commit-view.c:222
 #: ../gitg/gitg-revision-files-panel.c:256
 msgid "Cannot display file content as text"
 msgstr "Vsebine datoteke ni mogoče prikazati kot besedilo"
 
-#: ../gitg/gitg-commit-view.c:1156
+#: ../gitg/gitg-commit-view.c:1155
 msgid "unstage"
 msgstr "počisti pripravljenost"
 
-#: ../gitg/gitg-commit-view.c:1157
+#: ../gitg/gitg-commit-view.c:1156
 msgid "stage"
 msgstr "pripravi"
 
-#: ../gitg/gitg-commit-view.c:1991
+#: ../gitg/gitg-commit-view.c:1992
 msgid "You must first stage some changes before committing"
 msgstr "Najprej je treba pripraviti spremembe, preden jih je mogoče uveljaviti."
 
-#: ../gitg/gitg-commit-view.c:1999
+#: ../gitg/gitg-commit-view.c:2000
 msgid "Please enter a commit message before committing"
 msgstr "Pred uveljavitvijo je treba vnesti sporočilo uveljavitve"
 
-#: ../gitg/gitg-commit-view.c:2011
+#: ../gitg/gitg-commit-view.c:2012
 msgid "Your user name or email could not be retrieved for use in the sign off message"
 msgstr "Vašega uporabniškega imena ali elektronskega naslova za uporabo v sporočilu podpisa ni mogoče pridobiti"
 
-#: ../gitg/gitg-commit-view.c:2013
+#: ../gitg/gitg-commit-view.c:2014
 msgid "Something went wrong while trying to commit"
 msgstr "Med poskusom uveljavitve je nekaj šlo narobe"
 
-#: ../gitg/gitg-commit-view.c:2197
+#: ../gitg/gitg-commit-view.c:2198
 msgid "Revert fail"
 msgstr "Povrnitev je spodletela"
 
-#: ../gitg/gitg-commit-view.c:2208
+#: ../gitg/gitg-commit-view.c:2209
 msgid "Are you sure you want to revert these changes?"
 msgstr "Ali ste prepričani, da želite povrniti te spremembe?"
 
-#: ../gitg/gitg-commit-view.c:2211
+#: ../gitg/gitg-commit-view.c:2212
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr "Povrnitev sprememb je trajna in je ni mogoče razveljaviti"
 
@@ -589,37 +589,37 @@ msgstr "Uporabi zalogo na krajevni veji <%s>"
 msgid "Cherry-pick revision on <%s>"
 msgstr "Uveljavitev z odbiro na <%s>"
 
-#: ../gitg/gitg-window.c:1201
+#: ../gitg/gitg-window.c:1202
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "Naloženih %d predelav v %.2fs"
 
-#: ../gitg/gitg-window.c:1223
+#: ../gitg/gitg-window.c:1224
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "Nalaganje %d predelav ..."
 
-#: ../gitg/gitg-window.c:1584
+#: ../gitg/gitg-window.c:1585
 msgid "Local branches"
 msgstr "Krajevne veje"
 
-#: ../gitg/gitg-window.c:1605
+#: ../gitg/gitg-window.c:1606
 msgid "All branches"
 msgstr "Vse veje"
 
-#: ../gitg/gitg-window.c:1683
+#: ../gitg/gitg-window.c:1684
 msgid "Begin loading repository"
-msgstr "Začni nalaganje skladišča"
+msgstr "Začni nalaganje odložišča"
 
-#: ../gitg/gitg-window.c:2125
+#: ../gitg/gitg-window.c:2126
 msgid "Open git repository"
-msgstr "Odpri skladišče git"
-
-#: ../gitg/gitg-window.c:2223
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg je pregledovalnik git skladišč za gtk+/GNOME"
+msgstr "Odpri odložišče git"
 
 #: ../gitg/gitg-window.c:2224
+msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgstr "gitg je pregledovalnik git odložišč za gtk+/GNOME"
+
+#: ../gitg/gitg-window.c:2225
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -651,47 +651,55 @@ msgstr ""
 "Foundation, Inc., 59 Temple Place - Suite 330,\n"
 "Boston, MA 02111-1307, USA."
 
-#: ../gitg/gitg-window.c:2549
+#: ../gitg/gitg-window.c:2550
 msgid "new"
 msgstr "novo"
 
-#: ../gitg/gitg-window.c:2879
-#: ../gitg/gitg-window.c:2917
+#: ../gitg/gitg-window.c:2880
+#: ../gitg/gitg-window.c:2918
 #, c-format
 msgid "New local branch <%s>"
 msgstr "Nova krajevna veja <%s>"
 
-#: ../gitg/gitg-window.c:2895
+#: ../gitg/gitg-window.c:2896
 msgid "Checkout working copy"
 msgstr "Prevzemi delovno kopijo"
 
-#: ../gitg/gitg-window.c:2896
+#: ../gitg/gitg-window.c:2897
 msgid "Remove local branch"
 msgstr "Odstrani krajevno vejo"
 
-#: ../gitg/gitg-window.c:2898
+#: ../gitg/gitg-window.c:2899
 msgid "Rename local branch"
 msgstr "Preimenuj krajevno vejo"
 
-#: ../gitg/gitg-window.c:3238
-#: ../gitg/gitg-window.c:3294
+#: ../gitg/gitg-window.c:3265
+#: ../gitg/gitg-window.c:3321
 msgid "Not all fields are correctly filled in"
 msgstr "Vsa polja niso pravilno izpolnjena"
 
-#: ../gitg/gitg-window.c:3242
+#: ../gitg/gitg-window.c:3269
 msgid "Please make sure to fill in the branch name"
 msgstr "Prepričajte se, da je določeno ime veje"
 
-#: ../gitg/gitg-window.c:3281
+#: ../gitg/gitg-window.c:3308
 msgid "Please make sure to fill in both the tag name and the commit message"
 msgstr "Prepričajte se, da boste izpolnili ime oznake in sporočilo uveljavitve"
 
-#: ../gitg/gitg-window.c:3285
+#: ../gitg/gitg-window.c:3312
 msgid "Please make sure to fill in the tag name"
 msgstr "Prepričajte se, da ste izpolnili ime oznake"
 
-#. Single one, pick filename
 #: ../gitg/gitg-window.c:3389
+msgid "Format patch failed for unknown reason"
+msgstr "Popravek oblike je spodletel iz neznanega vzroka"
+
+#: ../gitg/gitg-window.c:3393
+msgid "Please check if you have the right permissions to write the file"
+msgstr "Preverite dovoljenja za pisanje datoteke"
+
+#. Single one, pick filename
+#: ../gitg/gitg-window.c:3434
 msgid "Save format patch"
 msgstr "Shrani obliko popravka"
 
@@ -705,7 +713,7 @@ msgstr "Spremembe počiščene pripravljenosti"
 
 #: ../libgitg/gitg-repository.c:1517
 msgid "Not a valid git repository"
-msgstr "Ni veljavno skladišče git"
+msgstr "Ni veljavno odložišče git"
 
 #: ../gitg/gitg-commit-menu.ui.h:1
 msgid "Ignore"
@@ -809,7 +817,7 @@ msgstr "Nastavitev"
 
 #: ../gitg/gitg-preferences.ui.h:8
 msgid "Configure global git settings. This corresponds to the settings as stored in ~/.gitconfig. Repository specific settings can be configured at the repository properties."
-msgstr "Splošne nastavitve git. To ustreza nastavitvam, ki so shranjene v ~/.gitconfig. Nastavitve za določeno spletišče je mogoče spremeniti v lastnostnih skladišča."
+msgstr "Splošne nastavitve git. To ustreza nastavitvam, ki so shranjene v ~/.gitconfig. Nastavitve za določeno odložišče je mogoče spremeniti v lastnostnih odložišča."
 
 #: ../gitg/gitg-preferences.ui.h:9
 msgid "Display right _margin"
@@ -970,7 +978,7 @@ msgid "_Unstaged"
 msgstr "_Počiščeno pripravljenosti"
 
 #~ msgid "Could not find git repository"
-#~ msgstr "Skladišča git ni mogoče najti"
+#~ msgstr "Odložišča git ni mogoče najti"
 #~ msgid "Date:"
 #~ msgstr "Datum:"
 #~ msgid "Tree"
@@ -980,5 +988,5 @@ msgstr "_Počiščeno pripravljenosti"
 #~ msgid "View"
 #~ msgstr "Pogled"
 #~ msgid "_Repository"
-#~ msgstr "_Skladišče"
+#~ msgstr "_Odložišče"
 
