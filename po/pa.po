@@ -2,20 +2,20 @@
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 #
-# A S Alam <aalam@users.sf.net>, 2009.
+# A S Alam <aalam@users.sf.net>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
 "cgi?product=gitg&component=gitg\n"
-"POT-Creation-Date: 2009-10-12 18:54+0000\n"
-"PO-Revision-Date: 2009-11-09 08:01+0530\n"
+"POT-Creation-Date: 2010-10-23 12:51+0000\n"
+"PO-Revision-Date: 2010-10-31 08:41+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../data/gitg.desktop.in.in.h:1
@@ -23,10 +23,10 @@ msgid "Git repository browser"
 msgstr "Git ਰਿਪੋਜ਼ਟਰੀ ਬਰਾਊਜ਼ਰ"
 
 #. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:179
-#: ../gitg/gitg-window.c:1017 ../gitg/gitg-window.c:1030
-#: ../gitg/gitg-branch-actions.c:146 ../gitg/gitg-branch-actions.c:199
-#: ../gitg/gitg-window.ui.h:18
+#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg-branch-actions.c:168
+#: ../gitg/gitg-branch-actions.c:221 ../gitg/gitg.c:238
+#: ../gitg/gitg-window.c:1651 ../gitg/gitg-window.c:1665
+#: ../gitg/gitg-window.ui.h:11
 msgid "gitg"
 msgstr "gitg"
 
@@ -45,148 +45,582 @@ msgid ""
 msgstr ""
 
 #: ../data/gitg.schemas.in.h:4
-msgid "Show Right Margin in Commit Message View"
+msgid ""
+"Setting that indicates whether to show the history in topological order."
 msgstr ""
 
 #: ../data/gitg.schemas.in.h:5
+msgid "Setting that sets the orientation layout of the main view."
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:6
+msgid "Show History in Topological Order"
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:7
+msgid "Show Main View in Vertical Layout"
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:8
+msgid "Show Right Margin in Commit Message View"
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:9
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
 
-#: ../data/gitg.schemas.in.h:6
+#: ../data/gitg.schemas.in.h:10
 msgid ""
 "The column at which the right margin is shown if the right-margin preference "
 "is set to TRUE."
 msgstr ""
 
-#: ../data/gitg.schemas.in.h:7
+#: ../data/gitg.schemas.in.h:11
+msgid "The command to handle GITG scheme URLs"
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:12
+msgid "The command to handle GITG scheme URLs."
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:13
 msgid "When to Collapse Inactive Lanes"
 msgstr "ਗ਼ੈਰ-ਸਰਗਰਮ ਲੇਨ ਸਮੇਟਣੀਆਂ ਕਦੋਂ ਹਨ"
 
-#: ../data/gitg.schemas.in.h:8
+#: ../data/gitg.schemas.in.h:14
+msgid "Whether command to handle GITG scheme URLs is enabled"
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:15
+msgid "Whether command to handle GITG scheme URLs is enabled."
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:16
+msgid "Whether command to handle GITG scheme URLs needs a terminal"
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:17
+msgid "Whether command to handle GITG scheme URLs needs a terminal."
+msgstr ""
+
+#: ../data/gitg.schemas.in.h:18
 msgid ""
 "Whether searching filters the revisions in the history view instead of "
 "jumping to the first match."
 msgstr ""
 
-#: ../gitg/gitg.c:52
+#: ../gitg/gitg-branch-actions.c:271
+#, c-format
+msgid "Branch <%s> could not be removed"
+msgstr "ਬਰਾਂਚ <%s> ਹਟਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ ਹੈ"
+
+#: ../gitg/gitg-branch-actions.c:272
+msgid ""
+"This usually means that the branch is not fully merged in HEAD. Do you want "
+"to forcefully remove the branch?"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:273
+msgid "Force remove"
+msgstr "ਧੱਕੇ ਨਾਲ ਹਟਾਓ"
+
+#: ../gitg/gitg-branch-actions.c:282
+#, c-format
+msgid "Branch <%s> could not be forcefully removed"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:315
+#, c-format
+msgid "Failed to remove remote branch <%s>."
+msgstr "ਰਿਮੋਟ ਬਰਾਂਚ <%s> ਹਟਾਉਣ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
+
+#: ../gitg/gitg-branch-actions.c:336
+#, c-format
+msgid "Are you sure you want to remove the remote branch <%s>?"
+msgstr "ਕੀ ਤੁਸੀਂ <%s> ਰਿਮੋਟ ਬਰਾਂਚ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:337
+msgid "This permanently removes the remote branch."
+msgstr "ਇਹ ਰਿਮੋਟ ਬਰਾਂਚ ਨੂੰ ਪੱਕੇ ਤੌਰ ਉੱਤੇ ਹਟਾ ਦੇਵੇਗਾ।"
+
+#: ../gitg/gitg-branch-actions.c:338 ../gitg/gitg-window.c:2890
+msgid "Remove remote branch"
+msgstr "ਰਿਮੋਟ ਬਰਾਂਚ ਹਟਾਓ"
+
+#: ../gitg/gitg-branch-actions.c:353 ../gitg/gitg-menus.xml.h:12
+msgid "Remove branch"
+msgstr "ਬਰਾਂਚ ਹਟਾਓ"
+
+#: ../gitg/gitg-branch-actions.c:411
+#, fuzzy
+msgid "Are you sure you want to remove this stash item?"
+msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:412
+msgid "This permanently removes the stash item"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:413 ../gitg/gitg-window.c:2906
+msgid "Remove stash"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:439
+msgid "Failed to remove stash"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:440
+msgid "The stash item could not be successfully removed"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:471
+#, c-format
+msgid "Are you sure you want to remove the tag <%s>?"
+msgstr "ਕੀ ਤੁਸੀਂ <%s> ਟੈਗ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:475 ../gitg/gitg-branch-actions.c:477
+#: ../gitg/gitg-window.c:2912
+msgid "Remove tag"
+msgstr "ਟੈਗ ਹਟਾਓ"
+
+#: ../gitg/gitg-branch-actions.c:494
+#, c-format
+msgid "The tag <%s> could not be successfully removed"
+msgstr "ਟੈਗ <%s> ਠੀਕ ਤਰ੍ਹਾਂ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
+
+#: ../gitg/gitg-branch-actions.c:498
+msgid "Failed to remove tag"
+msgstr "ਟੈਗ ਹਟਾਉਣ ਲਈ ਫੇਲ੍ਹ"
+
+#: ../gitg/gitg-branch-actions.c:555
+#, c-format
+msgid "Branch <%s> could not be renamed to <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:556
+msgid ""
+"This usually means that a branch with that name already exists. Do you want "
+"to overwrite the branch?"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:557
+msgid "Force rename"
+msgstr "ਧੱਕੇ ਨਾਲ ਨਾਂ ਬਦਲੋ"
+
+#: ../gitg/gitg-branch-actions.c:566
+#, c-format
+msgid "Branch <%s> could not be forcefully renamed"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:610 ../gitg/gitg-preferences.ui.h:14
+#: ../gitg/gitg-repository.ui.h:6 ../gitg/gitg-tag.ui.h:4
+msgid "Name:"
+msgstr "ਨਾਂ:"
+
+#: ../gitg/gitg-branch-actions.c:718
+#, fuzzy
+msgid "Do you want to temporarily stash these changes?"
+msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:722
+#, fuzzy
+msgid "Do you want to stash and reapply these changes?"
+msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:727
+msgid "You have uncommited changes in your current working tree"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:729
+#, fuzzy
+msgid "Stash changes"
+msgstr "ਸਟੈਗ ਕੀਤੇ ਬਦਲਾਅ"
+
+#: ../gitg/gitg-branch-actions.c:912
+msgid "Failed to save current index state"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:966 ../gitg/gitg-branch-actions.c:1247
+#: ../gitg/gitg-branch-actions.c:1538 ../gitg/gitg-branch-actions.c:1825
+#, c-format
+msgid "Failed to checkout local branch <%s>"
+msgstr "ਲੋਕਲ ਬਰਾਂਚ <%s> ਚੈੱਕ ਆਉਟ ਕਰਨ ਲਈ ਫੇਲ੍ਹ"
+
+#: ../gitg/gitg-branch-actions.c:1004
+#, c-format
+msgid "Failed to checkout remote branch <%s> to local branch <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1043
+#, c-format
+msgid "Failed to checkout tag <%s> to local branch <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1134
+#, c-format
+msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1138
+#, c-format
+msgid "Failed to merge %s branch <%s> with %s branch <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1146 ../gitg/gitg-branch-actions.c:1148
+#: ../gitg/gitg-branch-actions.c:1214 ../gitg/gitg-branch-actions.c:1216
+#: ../gitg/gitg-branch-actions.c:1255 ../gitg/gitg-branch-actions.c:1257
+#: ../gitg/gitg-branch-actions.c:1291 ../gitg/gitg-branch-actions.c:1293
+#: ../gitg/gitg-branch-actions.c:1338 ../gitg/gitg-branch-actions.c:1340
+msgid "local"
+msgstr "ਲੋਕਲ"
+
+#: ../gitg/gitg-branch-actions.c:1146 ../gitg/gitg-branch-actions.c:1148
+#: ../gitg/gitg-branch-actions.c:1214 ../gitg/gitg-branch-actions.c:1216
+#: ../gitg/gitg-branch-actions.c:1255 ../gitg/gitg-branch-actions.c:1257
+#: ../gitg/gitg-branch-actions.c:1291 ../gitg/gitg-branch-actions.c:1293
+#: ../gitg/gitg-branch-actions.c:1338 ../gitg/gitg-branch-actions.c:1340
+msgid "remote"
+msgstr "ਰਿਮੋਟ"
+
+#: ../gitg/gitg-branch-actions.c:1165 ../gitg/gitg-branch-actions.c:1744
+msgid "The stashed changes have been stored to be reapplied manually"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1170 ../gitg/gitg-branch-actions.c:1749
+msgid "Failed to checkout previously checked out branch"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1191 ../gitg/gitg-branch-actions.c:1770
+msgid "Failed to reapply stash correctly"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1192 ../gitg/gitg-branch-actions.c:1771
+msgid ""
+"There might be unresolved conflicts in the working tree or index which you "
+"need to resolve manually"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1213
+#, fuzzy, c-format
+msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
+msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:1221 ../gitg/gitg-branch-actions.c:1223
+#: ../gitg/gitg-branch-actions.c:1267 ../gitg/gitg-menus.xml.h:7
+msgid "Merge"
+msgstr "ਮਿਲਾਨ"
+
+#: ../gitg/gitg-branch-actions.c:1248
+msgid "The branch on which to merge could not be checked out"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1254
+#, c-format
+msgid "Merging %s branch <%s> onto %s branch <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1290
+#, fuzzy, c-format
+msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
+msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:1298 ../gitg/gitg-branch-actions.c:1300
+#: ../gitg/gitg-branch-actions.c:1350 ../gitg/gitg-menus.xml.h:10
+msgid "Rebase"
+msgstr "ਰੀਬੇਸ"
+
+#: ../gitg/gitg-branch-actions.c:1323
+msgid "Unable to rebase"
+msgstr "ਰੀਬੇਸ ਕਰਨ ਲਈ ਅਸਮਰੱਥ"
+
+#: ../gitg/gitg-branch-actions.c:1324
+msgid ""
+"There are still uncommitted changes in your working tree and you are trying "
+"to rebase a branch onto the currently checked out branch. Either remove, "
+"stash or commit your changes first and try again"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1337
+#, c-format
+msgid "Rebasing %s branch <%s> onto %s branch <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1376
+#, c-format
+msgid "Failed to push local branch <%s> to remote <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1377
+msgid ""
+"This usually means that the remote branch could not be fast-forwarded. Try "
+"fetching the latest changes."
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1401
+#, fuzzy, c-format
+msgid "Are you sure you want to push <%s> to <%s>?"
+msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:1407 ../gitg/gitg-branch-actions.c:1409
+#: ../gitg/gitg-branch-actions.c:1430 ../gitg/gitg-branch-actions.c:1462
+#: ../gitg/gitg-branch-actions.c:1464 ../gitg/gitg-branch-actions.c:1487
+msgid "Push"
+msgstr "ਪੁਸ਼"
+
+#: ../gitg/gitg-branch-actions.c:1422
+#, c-format
+msgid "Pushing local branch <%s> to remote branch <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1456
+#, fuzzy, c-format
+msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
+msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:1474
+#, c-format
+msgid "Pushing local branch <%s> to remote branch <%s/%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1511
+#, fuzzy, c-format
+msgid "Are you sure you want to apply the stash item to local branch <%s>?"
+msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:1516 ../gitg/gitg-branch-actions.c:1518
+msgid "Apply stash"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1557
+#, c-format
+msgid "The stash could not be applied to local branch <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1561
+msgid "Failed to apply stash"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1604
+#, fuzzy
+#| msgid "The tag <%s> could not be successfully removed"
+msgid "The branch could not be successfully created"
+msgstr "ਟੈਗ <%s> ਠੀਕ ਤਰ੍ਹਾਂ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
+
+#: ../gitg/gitg-branch-actions.c:1608
+#, fuzzy
+#| msgid "Failed to create tag"
+msgid "Failed to create a branch"
+msgstr "ਟੈਗ ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ"
+
+#: ../gitg/gitg-branch-actions.c:1660
+msgid ""
+"The tag object could not be successfully created. Please make sure you have "
+"a GPG key and the key is unlocked"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1664
+msgid "The tag object could not be successfully created"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1669
+msgid "Failed to create tag"
+msgstr "ਟੈਗ ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ"
+
+#: ../gitg/gitg-branch-actions.c:1724
+#, fuzzy, c-format
+#| msgid "Failed to checkout local branch <%s>"
+msgid "Failed to cherry-pick on <%s>"
+msgstr "ਲੋਕਲ ਬਰਾਂਚ <%s> ਚੈੱਕ ਆਉਟ ਕਰਨ ਲਈ ਫੇਲ੍ਹ"
+
+#: ../gitg/gitg-branch-actions.c:1791
+#, fuzzy, c-format
+msgid "Are you sure you want to cherry-pick that revision on <%s>?"
+msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#: ../gitg/gitg-branch-actions.c:1796 ../gitg/gitg-branch-actions.c:1798
+#: ../gitg/gitg-branch-actions.c:1846
+msgid "Cherry-pick"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1826
+msgid "The branch on which to cherry-pick could not be checked out"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1833
+#, c-format
+msgid "Cherry-picking on <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1901
+#, fuzzy
+#| msgid "Failed to create tag"
+msgid "Failed to generate format-patch"
+msgstr "ਟੈਗ ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ"
+
+#: ../gitg/gitg-branch-actions.c:1951
+#, c-format
+msgid "Generating format-patch for <%s>"
+msgstr ""
+
+#: ../gitg/gitg-branch-actions.c:1959 ../gitg/gitg-menus.xml.h:6
+msgid "Format patch"
+msgstr "ਫਾਰਮੈਟ ਪੈਚ"
+
+#: ../gitg/gitg.c:54
 msgid "Show the application's version"
 msgstr "ਐਪਲੀਕੇਸ਼ਨ ਦਾ ਵਰਜਨ ਵੇਖੋ "
 
-#: ../gitg/gitg.c:53
+#: ../gitg/gitg.c:55
 msgid "Start gitg in commit mode"
 msgstr "gitg ਨੂੰ ਕਮਿਟ ਮੋਡ ਨਾਲ ਸ਼ੁਰੂ ਕਰੋ"
 
-#: ../gitg/gitg.c:63
+#: ../gitg/gitg.c:56
+#, fuzzy
+#| msgid "Begin loading repository"
+msgid "Select commit after loading the repository"
+msgstr "ਰਿਪੋਜ਼ਟਰੀ ਲੋਡ ਕਰਨੀ ਸ਼ੁਰੂ"
+
+#: ../gitg/gitg.c:66
 msgid "- git repository viewer"
 msgstr "- git ਰਿਪੋਜ਼ਟਰੀ ਦਰਸ਼ਕ"
 
-#: ../gitg/gitg-commit-view.c:208 ../gitg/gitg-revision-tree-view.c:183
+#: ../gitg/gitg-commit-view.c:222 ../gitg/gitg-revision-files-panel.c:256
 msgid "Cannot display file content as text"
 msgstr "ਫਾਇਲ ਕੰਟੈਕਸਟ ਟੈਕਸਟ ਵਾਂਗ ਨਹੀਂ ਵੇਖਾਏ ਜਾ ਸਕਦੇ"
 
-#: ../gitg/gitg-commit-view.c:1437
+#: ../gitg/gitg-commit-view.c:1156
+#| msgid "Unstage"
+msgid "unstage"
+msgstr "ਅਣ-ਸਟੇਜ"
+
+#: ../gitg/gitg-commit-view.c:1157
+#| msgid "Unstage"
+msgid "stage"
+msgstr "ਸਟੇਜ"
+
+#: ../gitg/gitg-commit-view.c:1991
 msgid "You must first stage some changes before committing"
 msgstr ""
 
-#: ../gitg/gitg-commit-view.c:1445
+#: ../gitg/gitg-commit-view.c:1999
 msgid "Please enter a commit message before committing"
 msgstr "ਕਮਿਟ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਕਮਿਟ ਸੁਨੇਹਾ ਦਿਓ ਜੀ"
 
-#: ../gitg/gitg-commit-view.c:1457
+#: ../gitg/gitg-commit-view.c:2011
 msgid ""
 "Your user name or email could not be retrieved for use in the sign off "
 "message"
 msgstr ""
 
-#: ../gitg/gitg-commit-view.c:1459
+#: ../gitg/gitg-commit-view.c:2013
 msgid "Something went wrong while trying to commit"
 msgstr "ਕਮਿਟ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਦੇ ਦੌਰਾਨ ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ"
 
-#: ../gitg/gitg-commit-view.c:1618
+#: ../gitg/gitg-commit-view.c:2197
 msgid "Revert fail"
 msgstr "ਰੀਵਰਟ ਫੇਲ੍ਹ"
 
-#: ../gitg/gitg-commit-view.c:1629
+#: ../gitg/gitg-commit-view.c:2208
 msgid "Are you sure you want to revert these changes?"
 msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../gitg/gitg-commit-view.c:1632
+#: ../gitg/gitg-commit-view.c:2211
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr "ਬਦਲਾਅ ਰੀਵਰਟ ਕਰਨ ਪੱਕੇ ਹਨ ਅਤੇ ਵਾਪਸ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ"
 
-#: ../gitg/gitg-repository.c:591
-msgid "Staged changes"
-msgstr "ਸਟੈਗ ਕੀਤੇ ਬਦਲਾਅ"
+#: ../gitg/gitg-repository-dialog.c:244 ../gitg/gitg-repository.ui.h:4
+msgid "Fetch"
+msgstr "ਲਵੋ"
 
-#: ../gitg/gitg-repository.c:593
-msgid "Unstaged changes"
-msgstr "ਬਿਨ-ਸਟੈਕ ਕੀਤੇ ਬਦਲਾਅ"
+#: ../gitg/gitg-repository-dialog.c:249
+msgid "Cancel"
+msgstr "ਰੱਦ ਕਰੋ"
 
-#: ../gitg/gitg-repository.c:1155
-msgid "Not a valid git repository"
-msgstr "ਕੋਈ ਢੁੱਕਵੀਂ git ਰਿਪੋਜ਼ਟਰੀ ਨਹੀਂ"
+#: ../gitg/gitg-repository-dialog.c:633 ../gitg/gitg-repository.ui.h:7
+#: ../gitg/gitg-tag.ui.h:5
+msgid "Properties"
+msgstr "ਵਿਸ਼ੇਸ਼ਤਾ"
 
-#: ../gitg/gitg-revision-tree-view.c:513
+#: ../gitg/gitg-revision-changes-panel.c:278
+#| msgid "_Changes"
+msgid "Changes"
+msgstr "ਬਦਲਾਅ"
+
+#: ../gitg/gitg-revision-details-panel.c:113
+msgid "Details"
+msgstr "ਵੇਰਵਾ"
+
+#: ../gitg/gitg-revision-files-panel.c:600
+#| msgid "_File"
+msgid "Files"
+msgstr "ਫਾਇਲਾਂ"
+
+#: ../gitg/gitg-revision-files-panel.c:769
 msgid "(Empty)"
 msgstr "(ਖਾਲੀ)"
 
-#: ../gitg/gitg-window.c:423
+#: ../gitg/gitg-window.c:649
 msgid "Select branch"
 msgstr "ਬਰਾਂਚ ਚੁਣੋ"
 
-#: ../gitg/gitg-window.c:485
+#: ../gitg/gitg-window.c:718
 #, c-format
 msgid "Push local branch <%s> to remote branch <%s>"
 msgstr ""
 
-#: ../gitg/gitg-window.c:492
+#: ../gitg/gitg-window.c:725
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
 msgstr ""
 
-#: ../gitg/gitg-window.c:499
+#: ../gitg/gitg-window.c:732
 #, c-format
 msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
 msgstr ""
 
-#: ../gitg/gitg-window.c:506
+#: ../gitg/gitg-window.c:739
 #, c-format
 msgid "Apply stash to local branch <%s>"
 msgstr ""
 
-#: ../gitg/gitg-window.c:774
-msgid "Begin loading repository"
-msgstr "ਰਿਪੋਜ਼ਟਰੀ ਲੋਡ ਕਰਨੀ ਸ਼ੁਰੂ"
+#: ../gitg/gitg-window.c:819
+#, c-format
+msgid "Cherry-pick revision on <%s>"
+msgstr ""
 
-#: ../gitg/gitg-window.c:783
+#: ../gitg/gitg-window.c:1201
 #, c-format
 msgid "Loaded %d revisions in %.2fs"
 msgstr "%2$.2fs ਵਿੱਚ %1$d ਰੀਵਿਜ਼ਨ ਲੋਡ ਕੀਤੇ"
 
-#: ../gitg/gitg-window.c:794
+#: ../gitg/gitg-window.c:1223
 #, c-format
 msgid "Loading %d revisions..."
 msgstr "%d ਰੀਵਿਜ਼ਨ ਲੋਡ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ..."
 
-#: ../gitg/gitg-window.c:803
-msgid "Could not find git repository"
-msgstr "git ਰਿਪੋਜ਼ਟਰੀ ਲੱਭੀ ਨਹੀਂ ਜਾ ਸਕੀ"
+#: ../gitg/gitg-window.c:1584
+#| msgid "All branches"
+msgid "Local branches"
+msgstr "ਲੋਕਲ ਬਰਾਂਚ"
 
-#: ../gitg/gitg-window.c:995
+#: ../gitg/gitg-window.c:1605
 msgid "All branches"
 msgstr "ਸਭ ਬਰਾਂਚ"
 
-#: ../gitg/gitg-window.c:1206
+#: ../gitg/gitg-window.c:1683
+msgid "Begin loading repository"
+msgstr "ਰਿਪੋਜ਼ਟਰੀ ਲੋਡ ਕਰਨੀ ਸ਼ੁਰੂ"
+
+#: ../gitg/gitg-window.c:2125
 msgid "Open git repository"
 msgstr "git ਰਿਪੋਜ਼ਟਰੀ ਖੋਲ੍ਹੋ"
 
-#: ../gitg/gitg-window.c:1327
+#: ../gitg/gitg-window.c:2223
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr ""
 
-#: ../gitg/gitg-window.c:1328
+#: ../gitg/gitg-window.c:2224
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -204,510 +638,231 @@ msgid ""
 "Boston, MA 02111-1307, USA."
 msgstr ""
 
-#: ../gitg/gitg-window.c:1790
+#: ../gitg/gitg-window.c:2549
 msgid "new"
 msgstr "ਨਵਾਂ"
 
-#: ../gitg/gitg-window.c:1898 ../gitg/gitg-window.c:1937, c-format
+#: ../gitg/gitg-window.c:2879 ../gitg/gitg-window.c:2917
+#, c-format
 msgid "New local branch <%s>"
 msgstr "ਨਵੀਂ ਲੋਕਲ ਬਰਾਂਚ <%s>"
 
-#: ../gitg/gitg-window.c:1910 ../gitg/gitg-branch-actions.c:316
-msgid "Remove remote branch"
-msgstr "ਰਿਮੋਟ ਬਰਾਂਚ ਹਟਾਓ"
-
-#: ../gitg/gitg-window.c:1915
+#: ../gitg/gitg-window.c:2895
 msgid "Checkout working copy"
 msgstr "ਵਰਕਿੰਗ ਕਾਪੀ ਚੈੱਕ-ਆਉਟ ਕਰੋ"
 
-#: ../gitg/gitg-window.c:1916
+#: ../gitg/gitg-window.c:2896
 msgid "Remove local branch"
 msgstr "ਲੋਕਲ ਬਰਾਂਚ ਹਟਾਓ"
 
-#: ../gitg/gitg-window.c:1918
+#: ../gitg/gitg-window.c:2898
 msgid "Rename local branch"
 msgstr "ਲੋਕਲ ਬਰਾਂਚ ਨਾਂ ਬਦਲੋ"
 
-#: ../gitg/gitg-window.c:1926 ../gitg/gitg-branch-actions.c:392
-msgid "Remove stash"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1932 ../gitg/gitg-branch-actions.c:454
-#: ../gitg/gitg-branch-actions.c:456
-msgid "Remove tag"
-msgstr "ਟੈਗ ਹਟਾਓ"
-
-#: ../gitg/gitg-window.c:2107
+#: ../gitg/gitg-window.c:3264 ../gitg/gitg-window.c:3320
 msgid "Not all fields are correctly filled in"
 msgstr ""
 
-#: ../gitg/gitg-window.c:2109
+#: ../gitg/gitg-window.c:3268
+msgid "Please make sure to fill in the branch name"
+msgstr ""
+
+#: ../gitg/gitg-window.c:3307
 msgid "Please make sure to fill in both the tag name and the commit message"
 msgstr ""
 
-#: ../gitg/gitg-branch-actions.c:249
-#, c-format
-msgid "Branch <%s> could not be removed"
-msgstr "ਬਰਾਂਚ <%s> ਹਟਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ ਹੈ"
-
-#: ../gitg/gitg-branch-actions.c:250
-msgid ""
-"This usually means that the branch is not fully merged in HEAD. Do you want "
-"to forcefully remove the branch?"
+#: ../gitg/gitg-window.c:3311
+msgid "Please make sure to fill in the tag name"
 msgstr ""
 
-#: ../gitg/gitg-branch-actions.c:251
-msgid "Force remove"
-msgstr "ਧੱਕੇ ਨਾਲ ਹਟਾਓ"
-
-#: ../gitg/gitg-branch-actions.c:260
-#, c-format
-msgid "Branch <%s> could not be forcefully removed"
+#: ../gitg/gitg-window.c:3388
+msgid "Format patch failed for unknown reason"
 msgstr ""
 
-#: ../gitg/gitg-branch-actions.c:293
-#, c-format
-msgid "Failed to remove remote branch <%s>."
-msgstr "ਰਿਮੋਟ ਬਰਾਂਚ <%s> ਹਟਾਉਣ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
-
-#: ../gitg/gitg-branch-actions.c:314, c-format
-msgid "Are you sure you want to remove the remote branch <%s>?"
-msgstr "ਕੀ ਤੁਸੀਂ <%s> ਰਿਮੋਟ ਬਰਾਂਚ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:315
-msgid "This permanently removes the remote branch."
-msgstr "ਇਹ ਰਿਮੋਟ ਬਰਾਂਚ ਨੂੰ ਪੱਕੇ ਤੌਰ ਉੱਤੇ ਹਟਾ ਦੇਵੇਗਾ।"
-
-#: ../gitg/gitg-branch-actions.c:332 ../gitg/gitg-menus.xml.h:9
-msgid "Remove branch"
-msgstr "ਬਰਾਂਚ ਹਟਾਓ"
-
-#: ../gitg/gitg-branch-actions.c:390
-#, fuzzy
-msgid "Are you sure you want to remove this stash item?"
-msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:391
-msgid "This permanently removes the stash item"
+#: ../gitg/gitg-window.c:3392
+msgid "Please check if you have the right permissions to write the file"
 msgstr ""
 
-#: ../gitg/gitg-branch-actions.c:418
-msgid "Failed to remove stash"
-msgstr ""
+#. Single one, pick filename
+#: ../gitg/gitg-window.c:3433
+msgid "Save format patch"
+msgstr "ਫਾਰਮੈਟ ਪੈਚ ਸੰਭਾਲੋ"
 
-#: ../gitg/gitg-branch-actions.c:419
-msgid "The stash item could not be successfully removed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:450, c-format
-msgid "Are you sure you want to remove the tag <%s>?"
-msgstr "ਕੀ ਤੁਸੀਂ <%s> ਟੈਗ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:473
-#, c-format
-msgid "The tag <%s> could not be successfully removed"
-msgstr "ਟੈਗ <%s> ਠੀਕ ਤਰ੍ਹਾਂ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
-
-#: ../gitg/gitg-branch-actions.c:477
-msgid "Failed to remove tag"
-msgstr "ਟੈਗ ਹਟਾਉਣ ਲਈ ਫੇਲ੍ਹ"
-
-#: ../gitg/gitg-branch-actions.c:534
-#, c-format
-msgid "Branch <%s> could not be renamed to <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:535
-msgid ""
-"This usually means that a branch with that name already exists. Do you want "
-"to overwrite the branch?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:536
-#| msgid "Filename"
-msgid "Force rename"
-msgstr "ਧੱਕੇ ਨਾਲ ਨਾਂ ਬਦਲੋ"
-
-#: ../gitg/gitg-branch-actions.c:545
-#, c-format
-msgid "Branch <%s> could not be forcefully renamed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:585 ../gitg/gitg-preferences.ui.h:12
-#: ../gitg/gitg-repository.ui.h:6 ../gitg/gitg-tag.ui.h:4
-msgid "Name:"
-msgstr "ਨਾਂ:"
-
-#: ../gitg/gitg-branch-actions.c:693
-#, fuzzy
-msgid "Do you want to temporarily stash these changes?"
-msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:697
-#, fuzzy
-msgid "Do you want to stash and reapply these changes?"
-msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:702
-msgid "You have uncommited changes in your current working tree"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:704
-#, fuzzy
-msgid "Stash changes"
+#: ../libgitg/gitg-repository.c:883
+msgid "Staged changes"
 msgstr "ਸਟੈਗ ਕੀਤੇ ਬਦਲਾਅ"
 
-#: ../gitg/gitg-branch-actions.c:880
-msgid "Failed to save current index state"
-msgstr ""
+#: ../libgitg/gitg-repository.c:887
+msgid "Unstaged changes"
+msgstr "ਬਿਨ-ਸਟੈਕ ਕੀਤੇ ਬਦਲਾਅ"
 
-#: ../gitg/gitg-branch-actions.c:934 ../gitg/gitg-branch-actions.c:1216
-#: ../gitg/gitg-branch-actions.c:1508
-#, c-format
-msgid "Failed to checkout local branch <%s>"
-msgstr "ਲੋਕਲ ਬਰਾਂਚ <%s> ਚੈੱਕ ਆਉਟ ਕਰਨ ਲਈ ਫੇਲ੍ਹ"
+#: ../libgitg/gitg-repository.c:1517
+msgid "Not a valid git repository"
+msgstr "ਕੋਈ ਢੁੱਕਵੀਂ git ਰਿਪੋਜ਼ਟਰੀ ਨਹੀਂ"
 
-#: ../gitg/gitg-branch-actions.c:972
-#, c-format
-msgid "Failed to checkout remote branch <%s> to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1012
-#, c-format
-msgid "Failed to checkout tag <%s> to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1103
-#, c-format
-msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1107
-#, c-format
-msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1115 ../gitg/gitg-branch-actions.c:1117
-#: ../gitg/gitg-branch-actions.c:1183 ../gitg/gitg-branch-actions.c:1185
-#: ../gitg/gitg-branch-actions.c:1224 ../gitg/gitg-branch-actions.c:1226
-#: ../gitg/gitg-branch-actions.c:1260 ../gitg/gitg-branch-actions.c:1262
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1309
-msgid "local"
-msgstr "ਲੋਕਲ"
-
-#: ../gitg/gitg-branch-actions.c:1115 ../gitg/gitg-branch-actions.c:1117
-#: ../gitg/gitg-branch-actions.c:1183 ../gitg/gitg-branch-actions.c:1185
-#: ../gitg/gitg-branch-actions.c:1224 ../gitg/gitg-branch-actions.c:1226
-#: ../gitg/gitg-branch-actions.c:1260 ../gitg/gitg-branch-actions.c:1262
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1309
-msgid "remote"
-msgstr "ਰਿਮੋਟ"
-
-#: ../gitg/gitg-branch-actions.c:1134
-msgid "The stashed changes have been stored to be reapplied manually"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1139
-msgid "Failed to checkout previously checked out branch"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1160
-msgid "Failed to reapply stash correctly"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1161
-msgid ""
-"There might be unresolved conflicts in the working tree or index which you "
-"need to resolve manually"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1182
-#, fuzzy, c-format
-msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:1190 ../gitg/gitg-branch-actions.c:1192
-#: ../gitg/gitg-branch-actions.c:1236 ../gitg/gitg-menus.xml.h:4
-msgid "Merge"
-msgstr "ਮਿਲਾਨ"
-
-#: ../gitg/gitg-branch-actions.c:1217
-msgid "The branch on which to merge could not be checked out"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1223
-#, c-format
-msgid "Merging %s branch <%s> onto %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1259
-#, fuzzy, c-format
-msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:1267 ../gitg/gitg-branch-actions.c:1269
-#: ../gitg/gitg-branch-actions.c:1319 ../gitg/gitg-menus.xml.h:7
-msgid "Rebase"
-msgstr "ਰੀਬੇਸ"
-
-#: ../gitg/gitg-branch-actions.c:1292
-msgid "Unable to rebase"
-msgstr "ਰੀਬੇਸ ਕਰਨ ਲਈ ਅਸਮਰੱਥ"
-
-#: ../gitg/gitg-branch-actions.c:1293
-msgid ""
-"There are still uncommitted changes in your working tree and you are trying "
-"to rebase a branch onto the currently checked out branch. Either remove, "
-"stash or commit your changes first and try again"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1306
-#, c-format
-msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1345
-#, c-format
-msgid "Failed to push local branch <%s> to remote <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1346
-msgid ""
-"This usually means that the remote branch could not be fast-forwarded. Try "
-"fetching the latest changes."
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1370
-#, fuzzy, c-format
-msgid "Are you sure you want to push <%s> to <%s>?"
-msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:1376 ../gitg/gitg-branch-actions.c:1378
-#: ../gitg/gitg-branch-actions.c:1399 ../gitg/gitg-branch-actions.c:1432
-#: ../gitg/gitg-branch-actions.c:1434 ../gitg/gitg-branch-actions.c:1457
-msgid "Push"
-msgstr "ਪੁਸ਼"
-
-#: ../gitg/gitg-branch-actions.c:1391
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1426
-#, fuzzy, c-format
-msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
-msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:1444
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s/%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1481
-#, fuzzy, c-format
-msgid "Are you sure you want to apply the stash item to local branch <%s>?"
-msgstr "ਕੀ ਤੁਸੀਂ ਇਹ ਬਦਲਾਅ ਵਾਪਸ ਲੈਣੇ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ../gitg/gitg-branch-actions.c:1486 ../gitg/gitg-branch-actions.c:1488
-msgid "Apply stash"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1527
-#, c-format
-msgid "The stash could not be applied to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1531
-msgid "Failed to apply stash"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1577
-msgid ""
-"The tag object could not be successfully created. Please make sure you have "
-"a GPG key and the key is unlocked"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1581
-msgid "The tag object could not be successfully created"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1586
-msgid "Failed to create tag"
-msgstr "ਟੈਗ ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ"
-
-#: ../gitg/gitg-repository-dialog.c:173 ../gitg/gitg-repository.ui.h:4
-msgid "Fetch"
-msgstr "ਲਵੋ"
-
-#: ../gitg/gitg-repository-dialog.c:178
-msgid "Cancel"
-msgstr "ਰੱਦ ਕਰੋ"
-
-#: ../gitg/gitg-repository-dialog.c:441 ../gitg/gitg-repository.ui.h:7
-#: ../gitg/gitg-tag.ui.h:5
-msgid "Properties"
-msgstr "ਵਿਸ਼ੇਸ਼ਤਾ"
-
-#: ../gitg/gitg-window.ui.h:1
-msgid "Add signed-off-by"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:2
-msgid "Amend"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:3
-msgid "Author:"
-msgstr "ਲੇਖਕ:"
-
-#: ../gitg/gitg-window.ui.h:4
-msgid "Branch:"
-msgstr "ਬਰਾਂਚ:"
-
-#: ../gitg/gitg-window.ui.h:5
-msgid "Co_mmit message"
-msgstr "ਕਮਿਟ ਸੁਨੇਹਾ(_m)"
-
-#: ../gitg/gitg-window.ui.h:6 ../gitg/gitg-preferences.ui.h:5
-msgid "Commit"
-msgstr "ਕਮਿਟ"
-
-#: ../gitg/gitg-window.ui.h:7
-msgid "Context:"
-msgstr "ਕੰਟੈਕਸਟ:"
-
-#: ../gitg/gitg-window.ui.h:8
-msgid "Date:"
-msgstr "ਮਿਤੀ:"
-
-#: ../gitg/gitg-window.ui.h:9
-msgid "Details"
-msgstr "ਵੇਰਵਾ"
-
-#: ../gitg/gitg-window.ui.h:10
-msgid "History"
-msgstr "ਅਤੀਤ"
-
-#: ../gitg/gitg-window.ui.h:11
-msgid "Parent:"
-msgstr "ਪੇਰੈਂਟ:"
-
-#: ../gitg/gitg-window.ui.h:12
-msgid "SHA:"
-msgstr "SHA:"
-
-#: ../gitg/gitg-window.ui.h:13
-msgid "Subject:"
-msgstr "ਸਬਜੈਕਟ:"
-
-#: ../gitg/gitg-window.ui.h:14
-msgid "Tree"
-msgstr "ਟਰੀ"
-
-#: ../gitg/gitg-window.ui.h:15
-msgid "_Changes"
-msgstr "ਬਦਲਾਅ(_C)"
-
-#: ../gitg/gitg-window.ui.h:16
-msgid "_Staged"
-msgstr "ਸਟੇਜ ਕੀਤੇ(_S)"
-
-#: ../gitg/gitg-window.ui.h:17
-msgid "_Unstaged"
-msgstr "ਬਿਨ-ਸਟੇਜ ਕੀਤੇ(_U)"
-
-#: ../gitg/gitg-commit-menu.ui.h:1 ../gitg/gitg-ui.xml.h:1
+#: ../gitg/gitg-commit-menu.ui.h:1
 msgid "Ignore"
 msgstr "ਅਣਡਿੱਠਾ"
 
-#: ../gitg/gitg-commit-menu.ui.h:2 ../gitg/gitg-ui.xml.h:3
+#: ../gitg/gitg-commit-menu.ui.h:2
 msgid "Revert"
 msgstr "ਰੀਵਰਟ"
 
-#: ../gitg/gitg-commit-menu.ui.h:3 ../gitg/gitg-ui.xml.h:4
+#: ../gitg/gitg-commit-menu.ui.h:3
 msgid "Stage"
 msgstr "ਸਟੇਜ"
 
-#: ../gitg/gitg-commit-menu.ui.h:4 ../gitg/gitg-ui.xml.h:5
+#: ../gitg/gitg-commit-menu.ui.h:4
 msgid "Unstage"
 msgstr "ਅਣ-ਸਟੇਜ"
+
+#: ../gitg/gitg-menus.xml.h:1
+msgid "Apply stash to..."
+msgstr ""
+
+#: ../gitg/gitg-menus.xml.h:2
+msgid "Checkout branch"
+msgstr "ਬਰਾਂਚ ਚੈੱਕਆਉਟ ਕਰੋ"
+
+#: ../gitg/gitg-menus.xml.h:3
+msgid "Cherry-pick on..."
+msgstr ""
+
+#: ../gitg/gitg-menus.xml.h:4
+#| msgid "Rename branch"
+msgid "Create branch"
+msgstr "ਬਰਾਂਚ ਬਣਾਓ"
+
+#: ../gitg/gitg-menus.xml.h:5 ../gitg/gitg-tag.ui.h:2
+msgid "Create tag"
+msgstr "ਟੈਗ ਬਣਾਓ"
+
+#: ../gitg/gitg-menus.xml.h:8
+msgid "Merge branch with..."
+msgstr "...ਨਾਲ ਬਰਾਂਚ ਮਿਲਾਉ"
+
+#: ../gitg/gitg-menus.xml.h:9
+msgid "Push branch to..."
+msgstr "ਬਰਾਂਚ ... ਉੱਤੇ ਪੁਸ਼ ਕਰੋ"
+
+#: ../gitg/gitg-menus.xml.h:11
+msgid "Rebase branch onto..."
+msgstr "ਬਰਾਂਚ ਨੂੰ ... ਉਤੇ ਰੀਬੇਸ ਕਰੋ"
+
+#: ../gitg/gitg-menus.xml.h:13
+msgid "Rename branch"
+msgstr "ਬਰਾਂਚ ਨਾਂ-ਬਦਲੋ"
+
+#: ../gitg/gitg-menus.xml.h:14
+msgid "_Author"
+msgstr "ਲੇਖਕ(_A)"
+
+#: ../gitg/gitg-menus.xml.h:15
+msgid "_Date"
+msgstr "ਮਿਤੀ(_D)"
+
+#: ../gitg/gitg-menus.xml.h:16
+msgid "_Hash"
+msgstr "ਹੈਸ਼(_H)"
+
+#: ../gitg/gitg-menus.xml.h:17
+msgid "_Subject"
+msgstr "ਵਿਸ਼ਾ(_S)"
 
 #: ../gitg/gitg-preferences.ui.h:1
 msgid "<b>Commit Message</b>"
 msgstr "<b>ਕਮਿਟ ਸੁਨੇਹਾ</b>"
 
 #: ../gitg/gitg-preferences.ui.h:2
-msgid "<b>History</b>"
-msgstr "<b>ਅਤੀਤ</b>"
+#| msgid "<b>User</b>"
+msgid "<b>Interface</b>"
+msgstr "<b>ਇੰਟਰਫੇਸ</b>"
 
-#: ../gitg/gitg-preferences.ui.h:3 ../gitg/gitg-repository.ui.h:1
+#: ../gitg/gitg-preferences.ui.h:3
+#| msgid "<b>History</b>"
+msgid "<b>Revisions</b>"
+msgstr "<b>ਰੀਵਿਜ਼ਨ</b>"
+
+#: ../gitg/gitg-preferences.ui.h:4 ../gitg/gitg-repository.ui.h:1
 msgid "<b>User</b>"
 msgstr "<b>ਯੂਜ਼ਰ</b>"
 
-#: ../gitg/gitg-preferences.ui.h:4
+#: ../gitg/gitg-preferences.ui.h:5
 msgid "Collapse inactive lanes"
 msgstr "ਸਭ ਗ਼ੈਰ-ਸਰਗਰਮ ਲੇਨ ਸਮੇਟੋ"
 
-#: ../gitg/gitg-preferences.ui.h:6 ../gitg/gitg-repository.ui.h:2
+#: ../gitg/gitg-preferences.ui.h:6 ../gitg/gitg-window.ui.h:5
+msgid "Commit"
+msgstr "ਕਮਿਟ"
+
+#: ../gitg/gitg-preferences.ui.h:7 ../gitg/gitg-repository.ui.h:2
 msgid "Configuration"
 msgstr "ਸੰਰਚਨਾ"
 
-#: ../gitg/gitg-preferences.ui.h:7
+#: ../gitg/gitg-preferences.ui.h:8
 msgid ""
 "Configure global git settings. This corresponds to the settings as stored in "
 "~/.gitconfig. Repository specific settings can be configured at the "
 "repository properties."
 msgstr ""
 
-#: ../gitg/gitg-preferences.ui.h:8
+#: ../gitg/gitg-preferences.ui.h:9
 msgid "Display right _margin"
 msgstr ""
 
-#: ../gitg/gitg-preferences.ui.h:9 ../gitg/gitg-repository.ui.h:3
+#: ../gitg/gitg-preferences.ui.h:10 ../gitg/gitg-repository.ui.h:3
 msgid "E-mail:"
 msgstr "ਈਮੇਲ:"
 
-#: ../gitg/gitg-preferences.ui.h:10
+#: ../gitg/gitg-preferences.ui.h:11
 msgid "Early"
 msgstr "ਪਹਿਲਾਂ"
 
-#: ../gitg/gitg-preferences.ui.h:11
+#: ../gitg/gitg-preferences.ui.h:12 ../gitg/gitg-window.ui.h:7
+msgid "History"
+msgstr "ਅਤੀਤ"
+
+#: ../gitg/gitg-preferences.ui.h:13
 msgid "Late"
 msgstr "ਲੇਟ"
 
-#: ../gitg/gitg-preferences.ui.h:13
+#: ../gitg/gitg-preferences.ui.h:15
 msgid "Preferences"
 msgstr "ਮੇਰੀ ਪਸੰਦ"
 
-#: ../gitg/gitg-preferences.ui.h:14
+#: ../gitg/gitg-preferences.ui.h:16
 msgid "Preferences that apply to the commit view"
 msgstr ""
 
-#: ../gitg/gitg-preferences.ui.h:15
-msgid "Preferences that apply to the revision view"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:16
-msgid "Search filters revisions in the history view"
-msgstr ""
-
 #: ../gitg/gitg-preferences.ui.h:17
-msgid "Show staged changes in history"
+msgid "Preferences that apply to the history view"
 msgstr ""
 
 #: ../gitg/gitg-preferences.ui.h:18
-msgid "Show stash in history"
+msgid "Search filters revisions in the history view"
 msgstr ""
 
 #: ../gitg/gitg-preferences.ui.h:19
-msgid "Show unstaged changes in history"
+msgid "Show history in topological order"
 msgstr ""
 
 #: ../gitg/gitg-preferences.ui.h:20
-msgid "View"
-msgstr "ਝਲਕ"
+msgid "Show staged changes in history"
+msgstr ""
 
 #: ../gitg/gitg-preferences.ui.h:21
+msgid "Show stash in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.ui.h:22
+msgid "Show unstaged changes in history"
+msgstr ""
+
+#: ../gitg/gitg-preferences.ui.h:23
+msgid "Use vertical layout"
+msgstr "ਵਰਟੀਕਲ ਲੇਆਉਟ ਵਰਤੋਂ"
+
+#: ../gitg/gitg-preferences.ui.h:24
 msgid "_Right margin at column:"
 msgstr "ਕਾਲਮ ਉੱਤੇ ਸੱਜਾ ਹਾਸ਼ੀਆ(_R):"
 
@@ -723,85 +878,105 @@ msgstr "ਰਿਮੋਟ"
 msgid "URL"
 msgstr "URL"
 
+#: ../gitg/gitg-revision-details-panel.ui.h:1
+msgid "Author:"
+msgstr "ਲੇਖਕ:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:2
+#| msgid "Commit"
+msgid "Committer:"
+msgstr "ਕਮਿਟਰ:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:3
+msgid "Parent:"
+msgstr "ਪੇਰੈਂਟ:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:4
+msgid "SHA:"
+msgstr "SHA:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:5
+msgid "Subject:"
+msgstr "ਸਬਜੈਕਟ:"
+
 #: ../gitg/gitg-tag.ui.h:1
 msgid "Create signed tag object"
 msgstr ""
-
-#: ../gitg/gitg-tag.ui.h:2 ../gitg/gitg-menus.xml.h:3
-msgid "Create tag"
-msgstr "ਟੈਗ ਬਣਾਓ"
 
 #: ../gitg/gitg-tag.ui.h:3
 msgid "Message:"
 msgstr "ਸੁਨੇਹਾ:"
 
-#: ../gitg/gitg-menus.xml.h:1
-msgid "Apply stash to..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:2
-msgid "Checkout branch"
-msgstr "ਬਰਾਂਚ ਚੈੱਕਆਉਟ ਕਰੋ"
-
-#: ../gitg/gitg-menus.xml.h:5
-msgid "Merge branch with..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:6
-msgid "Push branch to..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:8
-msgid "Rebase branch onto..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:10
-msgid "Rename branch"
-msgstr "ਬਰਾਂਚ ਨਾਂ-ਬਦਲੋ"
-
-#: ../gitg/gitg-menus.xml.h:11
-msgid "_Author"
-msgstr "ਲੇਖਕ(_A)"
-
-#: ../gitg/gitg-menus.xml.h:12
-msgid "_Date"
-msgstr "ਮਿਤੀ(_D)"
-
-#: ../gitg/gitg-menus.xml.h:13
-msgid "_Hash"
-msgstr "ਹੈਸ਼(_H)"
-
-#: ../gitg/gitg-menus.xml.h:14
-msgid "_Subject"
-msgstr "ਵਿਸ਼ਾ(_S)"
-
-#: ../gitg/gitg-ui.xml.h:2
+#: ../gitg/gitg-ui.xml.h:1
 msgid "R_ecently Opened"
 msgstr "ਤਾਜ਼ਾ ਖੋਲ੍ਹੇ(_e)"
 
-#: ../gitg/gitg-ui.xml.h:6
+#: ../gitg/gitg-ui.xml.h:2
 msgid "_Edit"
 msgstr "ਸੋਧ(_E)"
 
-#: ../gitg/gitg-ui.xml.h:7
+#: ../gitg/gitg-ui.xml.h:3
 msgid "_File"
 msgstr "ਫਾਇਲ(_F)"
 
-#: ../gitg/gitg-ui.xml.h:8
+#: ../gitg/gitg-ui.xml.h:4
 msgid "_Help"
 msgstr "ਮੱਦਦ(_H)"
 
-#: ../gitg/gitg-ui.xml.h:9
+#: ../gitg/gitg-ui.xml.h:5
 msgid "_Open..."
 msgstr "ਖੋਲ੍ਹੋ(_O)..."
 
-#: ../gitg/gitg-ui.xml.h:10
-msgid "_Repository"
-msgstr "ਰਿਪੋਜ਼ਟਰੀ(_R)"
-
-#: ../gitg/gitg-ui.xml.h:11
+#: ../gitg/gitg-ui.xml.h:6
 msgid "_View"
 msgstr "ਵੇਖੋ(_V)"
+
+#: ../gitg/gitg-window.ui.h:1
+msgid "Add signed-off-by"
+msgstr ""
+
+#: ../gitg/gitg-window.ui.h:2
+msgid "Amend"
+msgstr "Amend"
+
+#: ../gitg/gitg-window.ui.h:3
+msgid "Branch:"
+msgstr "ਬਰਾਂਚ:"
+
+#: ../gitg/gitg-window.ui.h:4
+msgid "Co_mmit message"
+msgstr "ਕਮਿਟ ਸੁਨੇਹਾ(_m)"
+
+#: ../gitg/gitg-window.ui.h:6
+msgid "Context:"
+msgstr "ਕੰਟੈਕਸਟ:"
+
+#: ../gitg/gitg-window.ui.h:8
+msgid "_Changes"
+msgstr "ਬਦਲਾਅ(_C)"
+
+#: ../gitg/gitg-window.ui.h:9
+msgid "_Staged"
+msgstr "ਸਟੇਜ ਕੀਤੇ(_S)"
+
+#: ../gitg/gitg-window.ui.h:10
+msgid "_Unstaged"
+msgstr "ਬਿਨ-ਸਟੇਜ ਕੀਤੇ(_U)"
+
+#~ msgid "Could not find git repository"
+#~ msgstr "git ਰਿਪੋਜ਼ਟਰੀ ਲੱਭੀ ਨਹੀਂ ਜਾ ਸਕੀ"
+
+#~ msgid "Date:"
+#~ msgstr "ਮਿਤੀ:"
+
+#~ msgid "Tree"
+#~ msgstr "ਟਰੀ"
+
+#~ msgid "View"
+#~ msgstr "ਝਲਕ"
+
+#~ msgid "_Repository"
+#~ msgstr "ਰਿਪੋਜ਼ਟਰੀ(_R)"
 
 #~ msgid "Author"
 #~ msgstr "ਲੇਖਕ"
