@@ -70,6 +70,8 @@ struct _GitgPreferencesDialogPrivate
 	GtkLabel *label_right_margin;
 	GtkSpinButton *spin_button_right_margin;
 
+	GtkCheckButton *check_button_external_diff;
+
 	GtkEntry *entry_configuration_user_name;
 	GtkEntry *entry_configuration_user_email;
 
@@ -219,6 +221,11 @@ initialize_view(GitgPreferencesDialog *dialog)
 	                             "main-layout-vertical",
 	                             dialog->priv->main_layout_vertical,
 	                             "active");
+
+	gitg_data_binding_new_mutual(preferences,
+	                             "diff-external",
+	                             dialog->priv->check_button_external_diff,
+	                             "active");
 }
 
 static void
@@ -247,6 +254,8 @@ create_preferences_dialog()
 	priv->check_button_show_right_margin = GTK_CHECK_BUTTON(gtk_builder_get_object(b, "check_button_show_right_margin"));
 	priv->label_right_margin = GTK_LABEL(gtk_builder_get_object(b, "label_right_margin"));
 	priv->spin_button_right_margin = GTK_SPIN_BUTTON(gtk_builder_get_object(b, "spin_button_right_margin"));
+
+	priv->check_button_external_diff = GTK_CHECK_BUTTON (gtk_builder_get_object (b, "check_button_external_diff"));
 
 	priv->prev_value = (gint)gtk_adjustment_get_value(priv->collapse_inactive_lanes);
 	g_signal_connect(preferences_dialog, "response", G_CALLBACK(on_response), NULL);

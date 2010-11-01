@@ -24,7 +24,6 @@
     <property name="default_width">400</property>
     <property name="default_height">500</property>
     <property name="type_hint">normal</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog_vbox_main">
         <property name="visible">True</property>
@@ -418,6 +417,91 @@
               </packing>
             </child>
             <child>
+              <object class="GtkVBox" id="vbox_commit1">
+                <property name="visible">True</property>
+                <property name="border_width">12</property>
+                <property name="spacing">18</property>
+                <child>
+                  <object class="GtkVBox" id="vbox2">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel" id="label_diff_program">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Diff Program&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHBox" id="hbox1">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkLabel" id="label9">
+                            <property name="visible">True</property>
+                            <property name="label">    </property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkVBox" id="vbox_diff_program">
+                            <property name="visible">True</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkCheckButton" id="check_button_external_diff">
+                                <property name="label" translatable="yes">Allow external diff program</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="use_underline">True</property>
+                                <property name="active">True</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="label_diff">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Diff</property>
+              </object>
+              <packing>
+                <property name="position">2</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkVBox" id="vbox_configure">
                 <property name="visible">True</property>
                 <property name="border_width">12</property>
@@ -427,7 +511,7 @@
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
                     <child>
-                      <object class="GtkLabel" id="label4">
+                      <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">&lt;b&gt;User&lt;/b&gt;</property>
@@ -487,7 +571,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="invisible_char">●</property>
                                 <property name="invisible_char_set">True</property>
-                                <signal name="focus-out-event" handler="on_entry_configuration_user_name_focus_out_event" swapped="no"/>
+                                <signal name="focus_out_event" handler="on_entry_configuration_user_name_focus_out_event"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -500,7 +584,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="invisible_char">●</property>
                                 <property name="invisible_char_set">True</property>
-                                <signal name="focus-out-event" handler="on_entry_configuration_user_email_focus_out_event" swapped="no"/>
+                                <signal name="focus_out_event" handler="on_entry_configuration_user_email_focus_out_event"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -528,17 +612,17 @@
                 </child>
               </object>
               <packing>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="label3">
+              <object class="GtkLabel" id="label_configuration">
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Configure global git settings. This corresponds to the settings as stored in ~/.gitconfig. Repository specific settings can be configured at the repository properties.</property>
                 <property name="label" translatable="yes">Configuration</property>
               </object>
               <packing>
-                <property name="position">2</property>
+                <property name="position">3</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -579,18 +663,18 @@
     </action-widgets>
   </object>
   <object class="GtkAdjustment" id="spin_button_right_margin_adjustment">
+    <property name="value">72</property>
     <property name="lower">1</property>
     <property name="upper">160</property>
-    <property name="value">72</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="adjustment_collapse_inactive_lanes">
-    <property name="upper">5</property>
     <property name="value">2</property>
+    <property name="upper">5</property>
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
     <property name="page_size">1</property>
-    <signal name="notify::value" handler="on_collapse_inactive_lanes_changed" swapped="no"/>
+    <signal name="notify::value" handler="on_collapse_inactive_lanes_changed"/>
   </object>
 </interface>

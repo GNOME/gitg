@@ -78,6 +78,19 @@
       </locale>
     </schema>
     <schema>
+      <key>/schemas/apps/gitg/preferences/diff/external</key>
+      <applyto>/apps/gitg/preferences/diff/external</applyto>
+      <owner>gitg</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Allow External Diff Program</short>
+        <long>Allow an external diff program to be used when viewing diffs in
+        gitg.
+        </long>
+      </locale>
+    </schema>
+    <schema>
       <key>/schemas/desktop/gnome/url-handlers/gitg/command</key>
       <applyto>/desktop/gnome/url-handlers/gitg/command</applyto>
       <owner>gitg</owner>
