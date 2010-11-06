@@ -131,7 +131,7 @@ test_success (RepositoryInfo *info,
 	gboolean ret;
 	GError *error = NULL;
 
-	ret = gitg_shell_run_sync (gitg_command_newv (info->repository,
+	ret = gitg_shell_run_sync (gitg_command_new (info->repository,
 	                                              "rev-parse",
 	                                              "HEAD",
 	                                              NULL),
@@ -148,7 +148,7 @@ test_fail (RepositoryInfo *info,
 	gboolean ret;
 	GError *error = NULL;
 
-	ret = gitg_shell_run_sync (gitg_command_newv (info->repository,
+	ret = gitg_shell_run_sync (gitg_command_new (info->repository,
 	                                              "bogus",
 	                                              NULL),
 	                           &error);
@@ -166,7 +166,7 @@ test_output (RepositoryInfo *info,
 	gchar **ret;
 	GError *error = NULL;
 
-	ret = gitg_shell_run_sync_with_output (gitg_command_newv (info->repository,
+	ret = gitg_shell_run_sync_with_output (gitg_command_new (info->repository,
 	                                                          "rev-parse",
 	                                                          "HEAD",
 	                                                          NULL),
@@ -188,7 +188,7 @@ test_input (void)
 	gchar const *input = "Hello world";
 	GError *error = NULL;
 
-	ret = gitg_shell_run_sync_with_input_and_output (gitg_command_newv (NULL,
+	ret = gitg_shell_run_sync_with_input_and_output (gitg_command_new (NULL,
 	                                                                    "cat",
 	                                                                    "-",
 	                                                                    NULL),
@@ -212,8 +212,8 @@ test_pipe (void)
 
 	ret = gitg_shell_run_sync_with_outputv (FALSE,
 	                                        &error,
-	                                        gitg_command_newv (NULL, "echo", input, NULL),
-	                                        gitg_command_newv (NULL, "cat", "-", NULL),
+	                                        gitg_command_new (NULL, "echo", input, NULL),
+	                                        gitg_command_new (NULL, "cat", "-", NULL),
 	                                        NULL);
 
 	g_assert_no_error (error);
