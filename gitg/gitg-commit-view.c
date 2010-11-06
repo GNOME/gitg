@@ -507,14 +507,14 @@ unstaged_selection_changed (GtkTreeSelection *selection,
 		              NULL);
 
 		gitg_shell_run (view->priv->shell,
-		                gitg_command_newv (view->priv->repository,
-		                                   "diff",
-		                                   allow_external ? "--ext-diff" : "--no-ext-diff",
-		                                   "--no-color",
-		                                   ct,
-		                                   "--",
-		                                   path,
-		                                   NULL),
+		                gitg_command_new (view->priv->repository,
+		                                  "diff",
+		                                  allow_external ? "--ext-diff" : "--no-ext-diff",
+		                                  "--no-color",
+		                                  ct,
+		                                  "--",
+		                                  path,
+		                                  NULL),
 		                NULL);
 
 		g_free (path);
@@ -576,12 +576,12 @@ staged_selection_changed (GtkTreeSelection *selection, GitgCommitView *view)
 
 			gchar *indexpath = g_strconcat (":0:", path, NULL);
 			gitg_shell_run (view->priv->shell,
-			                gitg_command_newv (view->priv->repository,
-			                                   "show",
-			                                   "--encoding=UTF-8",
-			                                   "--no-color",
-			                                   indexpath,
-			                                   NULL),
+			                gitg_command_new (view->priv->repository,
+			                                  "show",
+			                                  "--encoding=UTF-8",
+			                                  "--no-color",
+			                                  indexpath,
+			                                  NULL),
 			                NULL);
 
 			g_free (indexpath);
@@ -607,16 +607,16 @@ staged_selection_changed (GtkTreeSelection *selection, GitgCommitView *view)
 		              NULL);
 
 		gitg_shell_run (view->priv->shell,
-		                gitg_command_newv (view->priv->repository,
-		                                   "diff-index",
-		                                   allow_external ? "--ext-diff" : "--no-ext-diff",
-		                                   ct,
-		                                   "--cached",
-		                                   "--no-color",
-		                                   head,
-		                                   "--",
-		                                   path,
-		                                   NULL),
+		                gitg_command_new (view->priv->repository,
+		                                  "diff-index",
+		                                  allow_external ? "--ext-diff" : "--no-ext-diff",
+		                                  ct,
+		                                  "--cached",
+		                                  "--no-color",
+		                                  head,
+		                                  "--",
+		                                  path,
+		                                  NULL),
 		                NULL);
 
 		g_free(head);

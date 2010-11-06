@@ -134,8 +134,8 @@ run_progress (GitgWindow       *window,
 	GitgShell *shell = gitg_shell_new (1000);
 	gchar const **argv = parse_valist (ap);
 
-	GitgCommand *cmd = gitg_command_new (gitg_window_get_repository (window),
-	                                     (gchar const * const *)argv);
+	GitgCommand *cmd = gitg_command_newv (gitg_window_get_repository (window),
+	                                      (gchar const * const *)argv);
 
 	if (!gitg_shell_run (shell, cmd, NULL))
 	{
@@ -263,7 +263,7 @@ remove_local_branch (GitgWindow *window,
 	gchar const *name = gitg_ref_get_shortname (ref);
 	GitgRepository *repository = gitg_window_get_repository (window);
 
-	if (!gitg_shell_run_sync (gitg_command_newv (repository,
+	if (!gitg_shell_run_sync (gitg_command_new (repository,
 	                                             "branch",
 	                                             "-d",
 	                                             name,
@@ -279,7 +279,7 @@ remove_local_branch (GitgWindow *window,
 
 		if (ret == GTK_RESPONSE_ACCEPT)
 		{
-			if (!gitg_shell_run_sync (gitg_command_newv (repository,
+			if (!gitg_shell_run_sync (gitg_command_new (repository,
 			                                             "branch",
 			                                             "-D",
 			                                             name,
@@ -377,7 +377,7 @@ get_stash_refspec (GitgRepository *repository, GitgRef *stash)
 {
 	gchar **out;
 
-	out = gitg_shell_run_sync_with_output (gitg_command_newv (repository,
+	out = gitg_shell_run_sync_with_output (gitg_command_new (repository,
 	                                                          "log",
 	                                                          "--no-color",
 	                                                          "--pretty=oneline",
@@ -435,7 +435,7 @@ remove_stash (GitgWindow *window, GitgRef *ref)
 		return NULL;
 	}
 
-	if (!gitg_shell_run_sync (gitg_command_newv (repository,
+	if (!gitg_shell_run_sync (gitg_command_new (repository,
 	                                             "reflog",
 	                                             "delete",
 	                                             "--updateref",
@@ -452,14 +452,14 @@ remove_stash (GitgWindow *window, GitgRef *ref)
 	}
 	else
 	{
-		if (!gitg_shell_run_sync (gitg_command_newv (repository,
+		if (!gitg_shell_run_sync (gitg_command_new (repository,
 		                                             "rev-parse",
 		                                             "--verify",
 		                                             "refs/stash@{0}",
 		                                             NULL),
 		                          NULL))
 		{
-			gitg_shell_run_sync (gitg_command_newv (repository,
+			gitg_shell_run_sync (gitg_command_new (repository,
 			                                        "update-ref",
 			                                        "-d",
 			                                        "refs/stash",
@@ -494,7 +494,7 @@ remove_tag (GitgWindow *window, GitgRef *ref)
 
 	GitgRepository *repository = gitg_window_get_repository (window);
 
-	if (!gitg_shell_run_sync (gitg_command_newv (repository,
+	if (!gitg_shell_run_sync (gitg_command_new (repository,
 	                                             "tag",
 	                                             "-d",
 	                                             name,
@@ -558,7 +558,7 @@ rename_branch (GitgWindow  *window,
 	gchar const *oldname = gitg_ref_get_shortname (ref);
 	GitgRepository *repository = gitg_window_get_repository (window);
 
-	if (!gitg_shell_run_sync (gitg_command_newv (repository,
+	if (!gitg_shell_run_sync (gitg_command_new (repository,
 	                                             "branch",
 	                                             "-m",
 	                                             oldname,
@@ -575,7 +575,7 @@ rename_branch (GitgWindow  *window,
 
 		if (ret == GTK_RESPONSE_ACCEPT)
 		{
-			if (!gitg_shell_run_sync (gitg_command_newv (repository,
+			if (!gitg_shell_run_sync (gitg_command_new (repository,
 			                                             "branch",
 			                                             "-M",
 			                                             oldname,
@@ -708,18 +708,18 @@ update_buffer (GitgShell *shell, gchar **lines, GString *buffer)
 static gboolean
 no_changes (GitgRepository *repository)
 {
-	return gitg_shell_run_sync (gitg_command_newv (repository,
+	return gitg_shell_run_sync (gitg_command_new (repository,
 	                                               "update-index",
 	                                               "--refresh",
 	                                               NULL),
 	                            NULL) &&
-	       gitg_shell_run_sync (gitg_command_newv (repository,
+	       gitg_shell_run_sync (gitg_command_new (repository,
 	                                               "diff-files",
 	                                               "--no-ext-diff",
 	                                               "--quiet",
 	                                               NULL),
 	                            NULL) &&
-	       gitg_shell_run_sync (gitg_command_newv (repository,
+	       gitg_shell_run_sync (gitg_command_new (repository,
 	                                               "diff-index",
 	                                               "--no-ext-diff",
 	                                               "--cached",
@@ -771,7 +771,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	}
 
 	gitg_shell_run (shell,
-	                gitg_command_newv (repository,
+	                gitg_command_new (repository,
 	                                   "log",
 	                                   "--no-color",
 	                                   "--abbrev-commit",
@@ -795,7 +795,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 
 	// Create tree object of the current index
 	gitg_shell_run (shell,
-	                gitg_command_newv (repository,
+	                gitg_command_new (repository,
 	                                   "write-tree",
 	                                   NULL),
 	                NULL);
@@ -818,7 +818,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	g_object_unref (inp);
 
 	gitg_shell_run (shell,
-	                gitg_command_newv (repository,
+	                gitg_command_new (repository,
 	                                   "commit-tree",
 	                                   tree,
 	                                   "-p",
@@ -874,35 +874,35 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 
 	tmpname = g_file_get_path (customindex);
 
-	GitgCommand *cmd_read_tree = gitg_command_newv (repository,
+	GitgCommand *cmd_read_tree = gitg_command_new (repository,
 	                                                "read-tree",
 	                                                "-m",
 	                                                tree,
 	                                                NULL);
 
-	gitg_command_add_environmentv (cmd_read_tree,
-	                               "GIT_INDEX_FILE",
-	                               tmpname,
-	                               NULL);
+	gitg_command_add_environment (cmd_read_tree,
+	                              "GIT_INDEX_FILE",
+	                              tmpname,
+	                              NULL);
 
-	GitgCommand *cmd_add = gitg_command_newv (repository,
+	GitgCommand *cmd_add = gitg_command_new (repository,
 	                                          "add",
 	                                          "-u",
 	                                          NULL);
 
-	gitg_command_add_environmentv (cmd_add,
-	                               "GIT_INDEX_FILE",
-	                               tmpname,
-	                               NULL);
+	gitg_command_add_environment (cmd_add,
+	                              "GIT_INDEX_FILE",
+	                              tmpname,
+	                              NULL);
 
-	GitgCommand *cmd_write_tree = gitg_command_newv (repository,
+	GitgCommand *cmd_write_tree = gitg_command_new (repository,
 	                                                 "write-tree",
 	                                                 NULL);
 
-	gitg_command_add_environmentv (cmd_write_tree,
-	                               "GIT_INDEX_FILE",
-	                               tmpname,
-	                               NULL);
+	gitg_command_add_environment (cmd_write_tree,
+	                              "GIT_INDEX_FILE",
+	                              tmpname,
+	                              NULL);
 
 	g_free (tmpname);
 
@@ -931,7 +931,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	g_object_unref (inp);
 
 	gitg_shell_run (shell,
-	                gitg_command_newv (repository,
+	                gitg_command_new (repository,
 	                                   "commit-tree",
 	                                   stashtree,
 	                                   "-p",
@@ -985,7 +985,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	g_free (path);
 
 	gitg_shell_run (shell,
-	                gitg_command_newv (repository,
+	                gitg_command_new (repository,
 	                                   "update-ref",
 	                                   "-m",
 	                                   reason,
@@ -997,7 +997,7 @@ stash_changes_real (GitgWindow *window, gchar **ref, gboolean storeref)
 	g_free (rref);
 
 	gitg_shell_run (shell,
-	                gitg_command_newv (repository,
+	                gitg_command_new (repository,
 	                                   "reset",
 	                                   "--hard",
 	                                   NULL),
@@ -1046,7 +1046,7 @@ checkout_local_branch_real (GitgWindow *window, GitgRef *ref)
 {
 	GitgRepository *repository = gitg_window_get_repository (window);
 
-	return gitg_shell_run_sync (gitg_command_newv (repository,
+	return gitg_shell_run_sync (gitg_command_new (repository,
 	                                               "checkout",
 	                                               gitg_ref_get_shortname (ref),
 	                                               NULL),
@@ -1095,7 +1095,7 @@ checkout_remote_branch (GitgWindow *window,
 	gchar const *local = gitg_ref_get_local_name (ref);
 	gboolean ret;
 
-	if (!gitg_shell_run_sync (gitg_command_newv (repository,
+	if (!gitg_shell_run_sync (gitg_command_new (repository,
 	                                             "checkout",
 	                                             "--track",
 	                                             "-b",
@@ -1135,7 +1135,7 @@ checkout_tag (GitgWindow *window,
 	gchar const *name = gitg_ref_get_shortname (ref);
 	gboolean ret;
 
-	if (!gitg_shell_run_sync (gitg_command_newv (repository,
+	if (!gitg_shell_run_sync (gitg_command_new (repository,
 	                                             "checkout",
 	                                             "-b",
 	                                             name,
@@ -1264,7 +1264,7 @@ on_merge_rebase_result (GitgWindow   *window,
 
 			if (info->stashcommit)
 			{
-				gitg_shell_run_sync (gitg_command_newv (repository,
+				gitg_shell_run_sync (gitg_command_new (repository,
 				                                        "update-ref",
 				                                        "-m",
 				                                        "gitg autosave stash",
@@ -1285,7 +1285,7 @@ on_merge_rebase_result (GitgWindow   *window,
 		else if (info->stashcommit)
 		{
 			// Reapply stash
-			if (!gitg_shell_run_sync (gitg_command_newv (gitg_window_get_repository (window),
+			if (!gitg_shell_run_sync (gitg_command_new (gitg_window_get_repository (window),
 			                                             "stash",
 			                                             "apply",
 			                                             "--index",
@@ -1293,7 +1293,7 @@ on_merge_rebase_result (GitgWindow   *window,
 			                                             NULL),
 			                          NULL))
 			{
-				gitg_shell_run_sync (gitg_command_newv (repository,
+				gitg_shell_run_sync (gitg_command_new (repository,
 				                                        "update-ref",
 				                                        "-m",
 				                                        "gitg autosave stash",
@@ -1354,7 +1354,7 @@ gitg_branch_actions_merge (GitgWindow *window,
 	GitgRef *head = gitg_repository_get_current_working_ref (repository);
 
 	// First checkout the correct branch on which to merge, e.g. dest
-	if (!gitg_shell_run_sync (gitg_command_newv (repository,
+	if (!gitg_shell_run_sync (gitg_command_new (repository,
 	                                             "checkout",
 	                                             gitg_ref_get_shortname (dest),
 	                                             NULL),
@@ -1666,7 +1666,7 @@ gitg_branch_actions_apply_stash (GitgWindow *window,
 	gchar *sha1 = gitg_hash_hash_to_sha1_new (gitg_ref_get_hash (stash));
 	gboolean ret;
 
-	if (!gitg_shell_run_sync (gitg_command_newv (repository,
+	if (!gitg_shell_run_sync (gitg_command_new (repository,
 	                                             "stash",
 	                                             "apply",
 	                                             "--index",
@@ -1710,7 +1710,7 @@ gitg_branch_actions_create (GitgWindow *window, gchar const *sha1, gchar const *
 
 	repository = gitg_window_get_repository (window);
 
-	result = gitg_shell_run_sync (gitg_command_newv (repository,
+	result = gitg_shell_run_sync (gitg_command_new (repository,
 	                                                 "branch",
 	                                                 name,
 	                                                 sha1,
@@ -1751,7 +1751,7 @@ gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *nam
 
 	if (message != NULL && message[0] != '\0')
 	{
-		result = gitg_shell_run_sync (gitg_command_newv (repository,
+		result = gitg_shell_run_sync (gitg_command_new (repository,
 		                                                 "tag",
 		                                                 "-m",
 		                                                 message,
@@ -1763,7 +1763,7 @@ gitg_branch_actions_tag (GitgWindow *window, gchar const *sha1, gchar const *nam
 	}
 	else
 	{
-		result = gitg_shell_run_sync (gitg_command_newv (repository,
+		result = gitg_shell_run_sync (gitg_command_new (repository,
 		                                                 "tag",
 		                                                 name,
 		                                                 sha1,
@@ -1857,7 +1857,7 @@ on_cherry_pick_result (GitgWindow   *window,
 
 			if (info->stashcommit)
 			{
-				gitg_shell_run_sync (gitg_command_newv (repository,
+				gitg_shell_run_sync (gitg_command_new (repository,
 				                                        "update-ref",
 				                                        "-m",
 				                                        "gitg autosave stash",
@@ -1878,7 +1878,7 @@ on_cherry_pick_result (GitgWindow   *window,
 		else if (info->stashcommit)
 		{
 			// Reapply stash
-			if (!gitg_shell_run_sync (gitg_command_newv (gitg_window_get_repository (window),
+			if (!gitg_shell_run_sync (gitg_command_new (gitg_window_get_repository (window),
 			                                             "stash",
 			                                             "apply",
 			                                             "--index",
@@ -1886,7 +1886,7 @@ on_cherry_pick_result (GitgWindow   *window,
 			                                             NULL),
 			                          NULL))
 			{
-				gitg_shell_run_sync (gitg_command_newv (repository,
+				gitg_shell_run_sync (gitg_command_new (repository,
 				                                        "update-ref",
 				                                        "-m",
 				                                        "gitg autosave stash",
@@ -1942,7 +1942,7 @@ gitg_branch_actions_cherry_pick (GitgWindow   *window,
 	GitgRef *head = gitg_repository_get_current_working_ref (repository);
 
 	// First checkout the correct branch on which to cherry-pick
-	if (!gitg_shell_run_sync (gitg_command_newv (repository,
+	if (!gitg_shell_run_sync (gitg_command_new (repository,
 	                                             "checkout",
 	                                             gitg_ref_get_shortname (dest),
 	                                             NULL),

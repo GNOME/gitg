@@ -181,7 +181,7 @@ static gchar *
 get_value_global (GitgConfig *config, gchar const *key)
 {
 	gboolean ret = gitg_shell_run (config->priv->shell,
-	                               gitg_command_newv (config->priv->repository,
+	                               gitg_command_new (config->priv->repository,
 	                                                  "config",
 	                                                  "--global",
 	                                                  key,
@@ -197,7 +197,7 @@ get_value_global_regex (GitgConfig *config,
                         gchar const *value_regex)
 {
 	gboolean ret = gitg_shell_run (config->priv->shell,
-	                               gitg_command_newv (config->priv->repository,
+	                               gitg_command_new (config->priv->repository,
 	                                                  "config",
 	                                                  "--global",
 	                                                  "--get-regexp",
@@ -221,7 +221,7 @@ get_value_local (GitgConfig *config, gchar const *key)
 	cfg = g_file_get_path (cfg_file);
 
 	ret = gitg_shell_run (config->priv->shell,
-	                      gitg_command_newv (config->priv->repository,
+	                      gitg_command_new (config->priv->repository,
 	                                         "config",
 	                                         "--file",
 	                                         cfg,
@@ -253,7 +253,7 @@ get_value_local_regex (GitgConfig *config,
 	cfg = g_file_get_path (cfg_file);
 
 	ret = gitg_shell_run (config->priv->shell,
-	                      gitg_command_newv (config->priv->repository,
+	                      gitg_command_new (config->priv->repository,
 	                                         "config",
 	                                         "--file",
 	                                         cfg,
@@ -275,7 +275,7 @@ static gboolean
 set_value_global (GitgConfig *config, gchar const *key, gchar const *value)
 {
 	return gitg_shell_run (config->priv->shell,
-	                       gitg_command_newv (config->priv->repository,
+	                       gitg_command_new (config->priv->repository,
 	                                          "config",
 	                                          "--global",
 	                                          value == NULL ? "--unset" : key,
@@ -298,7 +298,7 @@ set_value_local (GitgConfig *config, gchar const *key, gchar const *value)
 	cfg = g_file_get_path (cfg_file);
 
 	ret = gitg_shell_run (config->priv->shell,
-	                      gitg_command_newv (config->priv->repository,
+	                      gitg_command_new (config->priv->repository,
 	                                         "config",
 	                                         "--file",
 	                                         cfg,
@@ -319,7 +319,7 @@ static gboolean
 rename_global (GitgConfig *config, gchar const *old, gchar const *nw)
 {
 	return gitg_shell_run (config->priv->shell,
-	                       gitg_command_newv (config->priv->repository,
+	                       gitg_command_new (config->priv->repository,
 	                                          "config",
 	                                          "--global",
 	                                          "--rename-section",
@@ -343,7 +343,7 @@ rename_local (GitgConfig *config, gchar const *old, gchar const *nw)
 	cfg = g_file_get_path (cfg_file);
 
 	ret = gitg_shell_run (config->priv->shell,
-	                      gitg_command_newv (config->priv->repository,
+	                      gitg_command_new (config->priv->repository,
 	                                         "config",
 	                                         "--file",
 	                                         cfg,

@@ -88,12 +88,12 @@ gitg_command_set_property (GObject      *object,
 			self->priv->repository = g_value_dup_object (value);
 			break;
 		case PROP_ARGUMENTS:
-			gitg_command_set_arguments (self,
-			                            g_value_get_boxed (value));
+			gitg_command_set_argumentsv (self,
+			                             g_value_get_boxed (value));
 			break;
 		case PROP_ENVIRONMENT:
-			gitg_command_set_environment (self,
-			                              g_value_get_boxed (value));
+			gitg_command_set_environmentv (self,
+			                               g_value_get_boxed (value));
 			break;
 		case PROP_WORKING_DIRECTORY:
 			gitg_command_set_working_directory (self,
@@ -226,8 +226,8 @@ combine_environment (gchar const * const *environment)
 }
 
 GitgCommand *
-gitg_command_new (GitgRepository      *repository,
-                  gchar const * const *arguments)
+gitg_command_newv (GitgRepository      *repository,
+                   gchar const * const *arguments)
 {
 	g_return_val_if_fail (repository == NULL || GITG_IS_REPOSITORY (repository), NULL);
 
@@ -238,8 +238,8 @@ gitg_command_new (GitgRepository      *repository,
 }
 
 GitgCommand *
-gitg_command_newv (GitgRepository *repository,
-                   ...)
+gitg_command_new (GitgRepository *repository,
+                  ...)
 {
 	va_list ap;
 	GitgCommand *ret;
@@ -250,7 +250,7 @@ gitg_command_newv (GitgRepository *repository,
 	va_start (ap, repository);
 
 	arguments = collect_arguments (ap);
-	ret = gitg_command_new (repository, CONST_CONST (arguments));
+	ret = gitg_command_newv (repository, CONST_CONST (arguments));
 
 	g_strfreev (arguments);
 	va_end (ap);
@@ -267,8 +267,8 @@ gitg_command_get_repository (GitgCommand *command)
 }
 
 void
-gitg_command_set_arguments (GitgCommand         *command,
-                            gchar const * const *arguments)
+gitg_command_set_argumentsv (GitgCommand         *command,
+                             gchar const * const *arguments)
 {
 	GPtrArray *ret;
 
@@ -314,8 +314,8 @@ gitg_command_set_arguments (GitgCommand         *command,
 }
 
 void
-gitg_command_set_argumentsv (GitgCommand *command,
-                             ...)
+gitg_command_set_arguments (GitgCommand *command,
+                            ...)
 {
 	va_list ap;
 	gchar **arguments;
@@ -326,14 +326,14 @@ gitg_command_set_argumentsv (GitgCommand *command,
 	arguments = collect_arguments (ap);
 	va_end (ap);
 
-	gitg_command_set_arguments (command, CONST_CONST (arguments));
+	gitg_command_set_argumentsv (command, CONST_CONST (arguments));
 
 	g_strfreev (arguments);
 }
 
 void
-gitg_command_add_arguments (GitgCommand         *command,
-                            gchar const * const *arguments)
+gitg_command_add_argumentsv (GitgCommand         *command,
+                             gchar const * const *arguments)
 {
 	GPtrArray *args;
 	gchar **ptr;
@@ -361,8 +361,8 @@ gitg_command_add_arguments (GitgCommand         *command,
 }
 
 void
-gitg_command_add_argumentsv (GitgCommand *command,
-                             ...)
+gitg_command_add_arguments (GitgCommand *command,
+                            ...)
 {
 	va_list ap;
 	gchar **arguments;
@@ -373,7 +373,7 @@ gitg_command_add_argumentsv (GitgCommand *command,
 	arguments = collect_arguments (ap);
 	va_end (ap);
 
-	gitg_command_add_arguments (command, CONST_CONST (arguments));
+	gitg_command_add_argumentsv (command, CONST_CONST (arguments));
 
 	g_strfreev (arguments);
 }
@@ -386,8 +386,8 @@ gitg_command_get_arguments (GitgCommand *command)
 }
 
 void
-gitg_command_set_environment (GitgCommand         *command,
-                              gchar const * const *environment)
+gitg_command_set_environmentv (GitgCommand         *command,
+                               gchar const * const *environment)
 {
 	g_return_if_fail (GITG_IS_COMMAND (command));
 
@@ -398,8 +398,8 @@ gitg_command_set_environment (GitgCommand         *command,
 }
 
 void
-gitg_command_set_environmentv (GitgCommand *command,
-                               ...)
+gitg_command_set_environment (GitgCommand *command,
+                              ...)
 {
 	va_list ap;
 	gchar **environment;
@@ -410,14 +410,14 @@ gitg_command_set_environmentv (GitgCommand *command,
 	environment = collect_arguments (ap);
 	va_end (ap);
 
-	gitg_command_set_environment (command, CONST_CONST (environment));
+	gitg_command_set_environmentv (command, CONST_CONST (environment));
 
 	g_strfreev (environment);
 }
 
 void
-gitg_command_add_environment (GitgCommand         *command,
-                              gchar const * const *environment)
+gitg_command_add_environmentv (GitgCommand         *command,
+                               gchar const * const *environment)
 {
 	GPtrArray *args;
 	gchar **combined;
@@ -450,8 +450,8 @@ gitg_command_add_environment (GitgCommand         *command,
 }
 
 void
-gitg_command_add_environmentv (GitgCommand *command,
-                               ...)
+gitg_command_add_environment (GitgCommand *command,
+                              ...)
 {
 	va_list ap;
 	gchar **environment;
@@ -462,7 +462,7 @@ gitg_command_add_environmentv (GitgCommand *command,
 	environment = collect_arguments (ap);
 	va_end (ap);
 
-	gitg_command_add_environment (command, CONST_CONST (environment));
+	gitg_command_add_environmentv (command, CONST_CONST (environment));
 	g_strfreev (environment);
 }
 

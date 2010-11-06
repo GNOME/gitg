@@ -611,7 +611,7 @@ parse_ref_intern (GitgRepository *repository,
                   gchar const    *ref,
                   gboolean        symbolic)
 {
-	gchar **ret = gitg_shell_run_sync_with_output (gitg_command_newv (repository,
+	gchar **ret = gitg_shell_run_sync_with_output (gitg_command_new (repository,
 	                                                                  "rev-parse",
 	                                                                  "--verify",
 	                                                                  symbolic ? "--symbolic-full-name" : ref,
@@ -946,7 +946,7 @@ on_loader_end_loading (GitgShell      *object,
 			}
 
 			gitg_shell_run (object,
-			                gitg_command_newv (repository,
+			                gitg_command_new (repository,
 			                                   "diff-index",
 			                                   "--no-ext-diff",
 			                                   "--quiet",
@@ -965,8 +965,8 @@ on_loader_end_loading (GitgShell      *object,
 			}
 
 			gitg_shell_run (object,
-			                gitg_command_new (repository,
-			                                  (gchar const * const *)repository->priv->last_args),
+			                gitg_command_newv (repository,
+			                                   (gchar const * const *)repository->priv->last_args),
 			                NULL);
 		break;
 		default:
@@ -1388,7 +1388,7 @@ reload_revisions (GitgRepository  *repository,
 	repository->priv->load_stage = LOAD_STAGE_STASH;
 
 	return gitg_shell_run (repository->priv->loader,
-	                       gitg_command_newv (repository,
+	                       gitg_command_new (repository,
 	                                          "log",
 	                                          "--pretty=format:%H\x01%an\x01%ae\x01%at\x01%s",
 	                                          "--encoding=UTF-8",
@@ -1424,7 +1424,7 @@ load_current_ref (GitgRepository *self)
 		argv[2 + i] = self->priv->last_args[i];
 	}
 
-	out = gitg_shell_run_sync_with_output (gitg_command_new (self, argv),
+	out = gitg_shell_run_sync_with_output (gitg_command_newv (self, argv),
 	                                       FALSE,
 	                                       NULL);
 
@@ -1447,7 +1447,7 @@ load_refs (GitgRepository *self)
 {
 	gchar **refs;
 
-	refs = gitg_shell_run_sync_with_output (gitg_command_newv (self,
+	refs = gitg_shell_run_sync_with_output (gitg_command_new (self,
 	                                                           "for-each-ref",
 	                                                           "--format=%(refname) %(objectname) %(*objectname)",
 	                                                           "refs",

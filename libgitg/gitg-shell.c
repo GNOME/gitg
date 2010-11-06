@@ -981,7 +981,7 @@ gitg_shell_parse_commands (GitgRepository  *repository,
 
 		if (cmd == NULL)
 		{
-			cmd = gitg_command_newv (repository, NULL);
+			cmd = gitg_command_new (repository, NULL);
 			g_ptr_array_add (commands, cmd);
 
 			canenv = TRUE;
@@ -995,12 +995,12 @@ gitg_shell_parse_commands (GitgRepository  *repository,
 		else if (canenv && (pos = g_utf8_strchr (argv[i], -1, '=')))
 		{
 			*pos = '\0';
-			gitg_command_add_environmentv (cmd, argv[i], pos + 1, NULL);
+			gitg_command_add_environment (cmd, argv[i], pos + 1, NULL);
 		}
 		else
 		{
 			canenv = FALSE;
-			gitg_command_add_argumentsv (cmd, argv[i], NULL);
+			gitg_command_add_arguments (cmd, argv[i], NULL);
 		}
 	}
 

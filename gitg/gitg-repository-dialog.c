@@ -435,7 +435,7 @@ fetch_remote (GitgRepositoryDialog *dialog, GtkTreeIter *iter)
 	gtk_tree_model_get (model, iter, COLUMN_NAME, &name, -1);
 
 	gitg_shell_run (shell,
-	                gitg_command_newv (dialog->priv->repository,
+	                gitg_command_new (dialog->priv->repository,
 	                                   "fetch",
 	                                   name,
 	                                   NULL),
@@ -737,7 +737,7 @@ on_button_fetch_remote_clicked (GtkButton            *button,
 static gboolean
 remove_remote (GitgRepositoryDialog *dialog, gchar const *name)
 {
-	return gitg_shell_run_sync (gitg_command_newv (dialog->priv->repository,
+	return gitg_shell_run_sync (gitg_command_new (dialog->priv->repository,
 	                                               "remote",
 	                                               "rm",
 	                                               name,
@@ -829,7 +829,7 @@ on_button_add_remote_clicked (GtkButton *button,
 	gchar *name = g_strdup_printf ("remote%d", num + 1);
 	gchar const url[] = "git://example.com/repository.git";
 
-	if (gitg_shell_run_sync (gitg_command_newv (dialog->priv->repository,
+	if (gitg_shell_run_sync (gitg_command_new (dialog->priv->repository,
 	                                            "remote",
 	                                            "add",
 	                                            name,
@@ -908,7 +908,7 @@ on_remote_name_edited (GtkCellRendererText *renderer,
 	                    COLUMN_URL, &url,
 	                    -1);
 
-	if (gitg_shell_run_sync (gitg_command_newv (dialog->priv->repository,
+	if (gitg_shell_run_sync (gitg_command_new (dialog->priv->repository,
 	                                            "remote",
 	                                            "add",
 	                                            new_text,

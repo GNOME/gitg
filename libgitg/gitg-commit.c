@@ -424,7 +424,7 @@ read_unstaged_files_end (GitgShell  *shell,
 	               G_CALLBACK (refresh_done));
 
 	gitg_shell_run (commit->priv->shell,
-	                gitg_command_newv (commit->priv->repository,
+	                gitg_command_new (commit->priv->repository,
 	                                   "diff-index",
 	                                   "--no-ext-diff",
 	                                   "--cached",
@@ -455,7 +455,7 @@ read_other_files_end (GitgShell  *shell,
 	               G_CALLBACK (read_unstaged_files_end));
 
 	gitg_shell_run (commit->priv->shell,
-	                gitg_command_newv (commit->priv->repository,
+	                gitg_command_new (commit->priv->repository,
 	                                   "diff-files",
 	                                   "--no-ext-diff",
 	                                   NULL),
@@ -522,7 +522,7 @@ update_index_end (GitgShell  *shell,
 	               G_CALLBACK (read_other_files_end));
 
 	gitg_shell_run (commit->priv->shell,
-	                gitg_command_newv (commit->priv->repository,
+	                gitg_command_new (commit->priv->repository,
 	                                  "ls-files",
 	                                  "--others",
 	                                  "--exclude-standard",
@@ -538,7 +538,7 @@ update_index (GitgCommit *commit)
 	               G_CALLBACK (update_index_end));
 
 	gitg_shell_run (commit->priv->shell,
-	                gitg_command_newv (commit->priv->repository,
+	                gitg_command_new (commit->priv->repository,
 	                                   "update-index",
 	                                   "-q",
 	                                   "--unmerged",
@@ -588,7 +588,7 @@ update_index_staged (GitgCommit      *commit,
 	gchar *path = gitg_repository_relative (commit->priv->repository, f);
 	gchar *head = gitg_repository_parse_head (commit->priv->repository);
 
-	gchar **ret = gitg_shell_run_sync_with_output (gitg_command_newv (commit->priv->repository,
+	gchar **ret = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
 	                                                                  "diff-index",
 	                                                                  "--no-ext-diff",
 	                                                                  "--cached",
@@ -643,7 +643,7 @@ update_index_unstaged (GitgCommit      *commit,
 	gchar *path = gitg_repository_relative (commit->priv->repository, f);
 	gchar **ret;
 
-	ret = gitg_shell_run_sync_with_output (gitg_command_newv (commit->priv->repository,
+	ret = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
 	                                                          "diff-files",
 	                                                          "--no-ext-diff",
 	                                                          "--",
@@ -683,7 +683,7 @@ update_index_file (GitgCommit      *commit,
 	gchar *path = gitg_repository_relative (commit->priv->repository, f);
 	g_object_unref (f);
 
-	gitg_shell_run_sync (gitg_command_newv (commit->priv->repository,
+	gitg_shell_run_sync (gitg_command_new (commit->priv->repository,
 	                                        "update-index",
 	                                        "-q",
 	                                        "--unmerged",
@@ -741,7 +741,7 @@ apply_hunk (GitgCommit       *commit,
 
 	g_return_val_if_fail (hunk != NULL, FALSE);
 
-	gboolean ret = gitg_shell_run_sync_with_input (gitg_command_newv (commit->priv->repository,
+	gboolean ret = gitg_shell_run_sync_with_input (gitg_command_new (commit->priv->repository,
 	                                                                  "apply",
 	                                                                  "--cached",
 	                                                                  reverse ? "--reverse" : NULL,
@@ -773,7 +773,7 @@ gitg_commit_stage (GitgCommit       *commit,
 	gchar *path = gitg_repository_relative (commit->priv->repository, f);
 	g_object_unref (f);
 
-	gboolean ret = gitg_shell_run_sync (gitg_command_newv (commit->priv->repository,
+	gboolean ret = gitg_shell_run_sync (gitg_command_new (commit->priv->repository,
 	                                                       "update-index",
 	                                                       "--add",
 	                                                       "--remove",
@@ -816,7 +816,7 @@ gitg_commit_unstage (GitgCommit       *commit,
 	                                gitg_changed_file_get_sha (file),
 	                                path);
 
-	gboolean ret = gitg_shell_run_sync_with_input (gitg_command_newv (commit->priv->repository,
+	gboolean ret = gitg_shell_run_sync_with_input (gitg_command_new (commit->priv->repository,
 	                                                                  "update-index",
 	                                                                  "--index-info",
 	                                                                  NULL),
@@ -885,7 +885,7 @@ comment_parse_subject (gchar const *comment)
 static gboolean
 write_tree (GitgCommit *commit, gchar **tree, GError **error)
 {
-	gchar **lines = gitg_shell_run_sync_with_output (gitg_command_newv (commit->priv->repository,
+	gchar **lines = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
 	                                                                    "write-tree",
 	                                                                    NULL),
 	                                                 FALSE,
@@ -906,7 +906,7 @@ write_tree (GitgCommit *commit, gchar **tree, GError **error)
 static gchar *
 get_signed_off_line (GitgCommit *commit)
 {
-	gchar **user = gitg_shell_run_sync_with_output (gitg_command_newv (commit->priv->repository,
+	gchar **user = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
 	                                                                   "config",
 	                                                                   "--get",
 	                                                                   "user.name",
@@ -925,7 +925,7 @@ get_signed_off_line (GitgCommit *commit)
 		return NULL;
 	}
 
-	gchar **email = gitg_shell_run_sync_with_output (gitg_command_newv (commit->priv->repository,
+	gchar **email = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
 	                                                                    "config",
 	                                                                    "--get",
 	                                                                    "user.email",
@@ -960,7 +960,7 @@ set_amend_environment (GitgCommit  *commit,
 {
 	gchar **out;
 
-	out = gitg_shell_run_sync_with_output (gitg_command_newv (commit->priv->repository,
+	out = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
 	                                                          "cat-file",
 	                                                          "commit",
 	                                                          "HEAD",
@@ -985,9 +985,9 @@ set_amend_environment (GitgCommit  *commit,
 			gchar *email = g_match_info_fetch (info, 2);
 			gchar *date = g_match_info_fetch (info, 3);
 
-			gitg_command_add_environmentv (command, "GIT_AUTHOR_NAME", name, NULL);
-			gitg_command_add_environmentv (command, "GIT_AUTHOR_EMAIL", email, NULL);
-			gitg_command_add_environmentv (command, "GIT_AUTHOR_DATE", date, NULL);
+			gitg_command_add_environment (command, "GIT_AUTHOR_NAME", name, NULL);
+			gitg_command_add_environment (command, "GIT_AUTHOR_EMAIL", email, NULL);
+			gitg_command_add_environment (command, "GIT_AUTHOR_DATE", date, NULL);
 
 			g_free (name);
 			g_free (email);
@@ -1095,7 +1095,7 @@ commit_tree (GitgCommit   *commit,
 	GitgCommand *command;
 	gchar **buffer;
 
-	command = gitg_command_newv (commit->priv->repository,
+	command = gitg_command_new (commit->priv->repository,
 	                             "commit-tree",
 	                             tree,
 	                             head ? "-p" : NULL,
@@ -1139,7 +1139,7 @@ update_ref (GitgCommit   *commit,
 {
 	gchar *converted = convert_commit_encoding (commit, subject);
 
-	gboolean ret = gitg_shell_run_sync (gitg_command_newv (commit->priv->repository,
+	gboolean ret = gitg_shell_run_sync (gitg_command_new (commit->priv->repository,
 	                                                       "update-ref",
 	                                                       "-m",
 	                                                       converted,
@@ -1253,7 +1253,7 @@ gitg_commit_undo (GitgCommit       *commit,
 		GFile *f = gitg_changed_file_get_file (file);
 		gchar *path = gitg_repository_relative (commit->priv->repository, f);
 
-		ret = gitg_shell_run_sync_with_input (gitg_command_newv (commit->priv->repository,
+		ret = gitg_shell_run_sync_with_input (gitg_command_new (commit->priv->repository,
 		                                                         "checkout-index",
 		                                                         "--index",
 		                                                         "--quiet",
@@ -1271,7 +1271,7 @@ gitg_commit_undo (GitgCommit       *commit,
 	}
 	else
 	{
-		ret = gitg_shell_run_sync_with_input (gitg_command_newv (commit->priv->repository,
+		ret = gitg_shell_run_sync_with_input (gitg_command_new (commit->priv->repository,
 		                                                         "apply",
 		                                                         "-R",
 		                                                         "-",
@@ -1370,7 +1370,7 @@ gitg_commit_amend_message (GitgCommit *commit)
 
 	gchar **out;
 
-	out = gitg_shell_run_sync_with_output (gitg_command_newv (commit->priv->repository,
+	out = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
 	                                                          "cat-file",
 	                                                          "commit",
 	                                                          "HEAD",

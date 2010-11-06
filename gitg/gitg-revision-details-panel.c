@@ -658,7 +658,7 @@ update_details (GitgRevisionDetailsPanel *panel)
 	sha1 = gitg_revision_get_sha1 (panel->priv->revision);
 
 	gitg_shell_run (panel->priv->shell,
-	                gitg_command_newv (panel->priv->repository,
+	                gitg_command_new (panel->priv->repository,
 	                                   "show",
 	                                   "--numstat",
 	                                   "--pretty=format:%s%n%n%b%n\x01",

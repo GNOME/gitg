@@ -327,7 +327,7 @@ on_selection_changed (GtkTreeSelection     *selection,
 		gchar *id = node_identity (tree, &iter);
 
 		gitg_shell_run (tree->priv->content_shell,
-		                gitg_command_newv (tree->priv->repository,
+		                gitg_command_new (tree->priv->repository,
 		                                   "show",
 		                                   "--encoding=UTF-8",
 		                                   id,
@@ -1042,7 +1042,7 @@ load_node (GitgRevisionFilesView *tree,
 
 	tree->priv->skipped_blank_line = FALSE;
 	gitg_shell_run (tree->priv->loader,
-	                gitg_command_newv (tree->priv->repository,
+	                gitg_command_new (tree->priv->repository,
 	                                   "show",
 	                                   "--encoding=UTF-8",
 	                                   id,

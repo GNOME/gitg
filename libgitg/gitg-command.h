@@ -61,9 +61,9 @@ struct _GitgCommandClass
 GType                gitg_command_get_type              (void) G_GNUC_CONST;
 
 GitgCommand         *gitg_command_new                   (GitgRepository      *repository,
-                                                         gchar const * const *arguments);
-GitgCommand         *gitg_command_newv                  (GitgRepository      *repository,
                                                          ...) G_GNUC_NULL_TERMINATED;
+GitgCommand         *gitg_command_newv                  (GitgRepository      *repository,
+                                                         gchar const * const *arguments);
 
 GitgRepository      *gitg_command_get_repository        (GitgCommand         *command);
 
@@ -72,24 +72,24 @@ void                 gitg_command_set_working_directory (GitgCommand         *co
                                                          GFile               *file);
 
 void                 gitg_command_set_arguments         (GitgCommand         *command,
-                                                         gchar const * const *arguments);
+                                                         ...) G_GNUC_NULL_TERMINATED;
 void                 gitg_command_set_argumentsv        (GitgCommand         *command,
-                                                         ...) G_GNUC_NULL_TERMINATED;
-void                 gitg_command_add_arguments         (GitgCommand         *command,
                                                          gchar const * const *arguments);
-void                 gitg_command_add_argumentsv        (GitgCommand         *command,
+void                 gitg_command_add_arguments         (GitgCommand         *command,
                                                          ...) G_GNUC_NULL_TERMINATED;
+void                 gitg_command_add_argumentsv        (GitgCommand         *command,
+                                                         gchar const * const *arguments);
 
 gchar const * const *gitg_command_get_arguments         (GitgCommand         *command);
 
 void                 gitg_command_set_environment       (GitgCommand         *command,
-                                                         gchar const * const *environment);
+                                                         ...) G_GNUC_NULL_TERMINATED;
 void                 gitg_command_set_environmentv      (GitgCommand         *command,
-                                                         ...) G_GNUC_NULL_TERMINATED;
-void                 gitg_command_add_environment       (GitgCommand         *command,
                                                          gchar const * const *environment);
-void                 gitg_command_add_environmentv      (GitgCommand         *command,
+void                 gitg_command_add_environment       (GitgCommand         *command,
                                                          ...) G_GNUC_NULL_TERMINATED;
+void                 gitg_command_add_environmentv      (GitgCommand         *command,
+                                                         gchar const * const *environment);
 
 gchar const * const *gitg_command_get_environment       (GitgCommand         *command);
 

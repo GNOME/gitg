@@ -605,7 +605,7 @@ reload_diff (GitgRevisionChangesPanel *changes_panel)
 	{
 		case 't':
 			gitg_shell_run (changes_panel->priv->diff_shell,
-			                gitg_command_newv (changes_panel->priv->repository,
+			                gitg_command_new (changes_panel->priv->repository,
 			                                   "diff",
 			                                   allow_external ? "--ext-diff" : "--no-ext-diff",
 			                                   "--cached",
@@ -618,7 +618,7 @@ reload_diff (GitgRevisionChangesPanel *changes_panel)
 		break;
 		case 'u':
 			gitg_shell_run (changes_panel->priv->diff_shell,
-			                gitg_command_newv (changes_panel->priv->repository,
+			                gitg_command_new (changes_panel->priv->repository,
 			                                   "diff",
 			                                   allow_external ? "--ext-diff" : "--no-ext-diff",
 			                                   "-M",
@@ -633,7 +633,7 @@ reload_diff (GitgRevisionChangesPanel *changes_panel)
 			gchar *hash = gitg_revision_get_sha1 (changes_panel->priv->revision);
 
 			gitg_shell_run (changes_panel->priv->diff_shell,
-			                gitg_command_newv (changes_panel->priv->repository,
+			                gitg_command_new (changes_panel->priv->repository,
 			                                   "show",
 			                                   "-M",
 			                                   "--pretty=format:",
@@ -858,7 +858,7 @@ on_diff_end_loading (GitgShell                *shell,
 			cached = "--cached";
 
 		gitg_shell_run (self->priv->diff_files_shell,
-		                gitg_command_newv (self->priv->repository,
+		                gitg_command_new (self->priv->repository,
 		                                   "diff-index",
 		                                   allow_external ? "--ext-diff" : "--no-ext-diff",
 		                                   "--raw",
@@ -874,7 +874,7 @@ on_diff_end_loading (GitgShell                *shell,
 	{
 		gchar *sha = gitg_revision_get_sha1 (self->priv->revision);
 		gitg_shell_run (self->priv->diff_files_shell,
-		                gitg_command_newv (self->priv->repository,
+		                gitg_command_new (self->priv->repository,
 		                                   "show",
 		                                   "--encoding=UTF-8",
 		                                   "--raw",
