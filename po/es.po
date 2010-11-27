@@ -5,15 +5,16 @@
 #
 # Chihau Chau <chihau@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.po.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&component=gitg\n"
-"POT-Creation-Date: 2010-11-06 11:23+0000\n"
-"PO-Revision-Date: 2010-11-08 00:54+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2010-11-12 14:20+0000\n"
+"PO-Revision-Date: 2010-11-26 12:30+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,8 +85,8 @@ msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». "
-"Se puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
+"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». Se "
+"puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
 "columna en particular."
 
 #: ../data/gitg.schemas.in.h:12
@@ -243,8 +244,9 @@ msgstr "Forzar el renombrado"
 msgid "Branch <%s> could not be forcefully renamed"
 msgstr "No se pudo renombrar de forma forzada la rama <%s>"
 
-#: ../gitg/gitg-branch-actions.c:632 ../gitg/gitg-preferences.ui.h:17
-#: ../gitg/gitg-repository.ui.h:6 ../gitg/gitg-tag.ui.h:4
+#: ../gitg/gitg-branch-actions.c:632 ../gitg/gitg-new-branch.ui.h:2
+#: ../gitg/gitg-preferences.ui.h:17 ../gitg/gitg-repository.ui.h:6
+#: ../gitg/gitg-tag.ui.h:4
 msgid "Name:"
 msgstr "Nombre:"
 
@@ -472,8 +474,8 @@ msgstr "Falló al aplicar el cambio en la revisión sobre <%s>"
 #, c-format
 msgid "Are you sure you want to cherry-pick that revision on <%s>?"
 msgstr ""
-"¿Está seguro de que quiere aplicar los cambios («cherry-pick») en la "
-"revisión <%s>?"
+"¿Está seguro de que quiere aplicar los cambios («cherry-pick») en la revisión "
+"<%s>?"
 
 #: ../gitg/gitg-branch-actions.c:1926 ../gitg/gitg-branch-actions.c:1928
 #: ../gitg/gitg-branch-actions.c:1976
@@ -736,6 +738,122 @@ msgstr "Compruebe si tiene los permisos correctos para escribir el archivo"
 msgid "Save format patch"
 msgstr "Guardar el parche de corrección"
 
+#: ../libgitg/gitg-encodings.c:144 ../libgitg/gitg-encodings.c:186
+#: ../libgitg/gitg-encodings.c:188 ../libgitg/gitg-encodings.c:190
+#: ../libgitg/gitg-encodings.c:192 ../libgitg/gitg-encodings.c:194
+#: ../libgitg/gitg-encodings.c:196 ../libgitg/gitg-encodings.c:198
+msgid "Unicode"
+msgstr "Unicode"
+
+#: ../libgitg/gitg-encodings.c:157 ../libgitg/gitg-encodings.c:181
+#: ../libgitg/gitg-encodings.c:231 ../libgitg/gitg-encodings.c:274
+msgid "Western"
+msgstr "Occidental"
+
+#: ../libgitg/gitg-encodings.c:159 ../libgitg/gitg-encodings.c:233
+#: ../libgitg/gitg-encodings.c:270
+msgid "Central European"
+msgstr "Centroeuropeo"
+
+#: ../libgitg/gitg-encodings.c:161
+msgid "South European"
+msgstr "Europa del sur"
+
+#: ../libgitg/gitg-encodings.c:163 ../libgitg/gitg-encodings.c:177
+#: ../libgitg/gitg-encodings.c:284
+msgid "Baltic"
+msgstr "Báltico"
+
+#: ../libgitg/gitg-encodings.c:165 ../libgitg/gitg-encodings.c:235
+#: ../libgitg/gitg-encodings.c:248 ../libgitg/gitg-encodings.c:252
+#: ../libgitg/gitg-encodings.c:254 ../libgitg/gitg-encodings.c:272
+msgid "Cyrillic"
+msgstr "Cirílico"
+
+#: ../libgitg/gitg-encodings.c:167 ../libgitg/gitg-encodings.c:241
+#: ../libgitg/gitg-encodings.c:282
+msgid "Arabic"
+msgstr "Árabe"
+
+#: ../libgitg/gitg-encodings.c:169 ../libgitg/gitg-encodings.c:276
+msgid "Greek"
+msgstr "Griego"
+
+#: ../libgitg/gitg-encodings.c:171
+msgid "Hebrew Visual"
+msgstr "Hebreo visual"
+
+#: ../libgitg/gitg-encodings.c:173 ../libgitg/gitg-encodings.c:237
+#: ../libgitg/gitg-encodings.c:278
+msgid "Turkish"
+msgstr "Turco"
+
+#: ../libgitg/gitg-encodings.c:175
+msgid "Nordic"
+msgstr "Nórdico"
+
+#: ../libgitg/gitg-encodings.c:179
+msgid "Celtic"
+msgstr "Celta"
+
+#: ../libgitg/gitg-encodings.c:183
+msgid "Romanian"
+msgstr "Rumano"
+
+#: ../libgitg/gitg-encodings.c:201
+msgid "Armenian"
+msgstr "Armenio"
+
+#: ../libgitg/gitg-encodings.c:203 ../libgitg/gitg-encodings.c:205
+#: ../libgitg/gitg-encodings.c:219
+msgid "Chinese Traditional"
+msgstr "Chino tradicional"
+
+#: ../libgitg/gitg-encodings.c:207
+msgid "Cyrillic/Russian"
+msgstr "Cirílico/Ruso"
+
+#: ../libgitg/gitg-encodings.c:210 ../libgitg/gitg-encodings.c:212
+#: ../libgitg/gitg-encodings.c:214 ../libgitg/gitg-encodings.c:244
+#: ../libgitg/gitg-encodings.c:259
+msgid "Japanese"
+msgstr "Japones"
+
+#: ../libgitg/gitg-encodings.c:217 ../libgitg/gitg-encodings.c:246
+#: ../libgitg/gitg-encodings.c:250 ../libgitg/gitg-encodings.c:265
+msgid "Korean"
+msgstr "Coreano"
+
+#: ../libgitg/gitg-encodings.c:222 ../libgitg/gitg-encodings.c:224
+#: ../libgitg/gitg-encodings.c:226
+msgid "Chinese Simplified"
+msgstr "Chino simplificado"
+
+#: ../libgitg/gitg-encodings.c:228
+msgid "Georgian"
+msgstr "Georgiano"
+
+#: ../libgitg/gitg-encodings.c:239 ../libgitg/gitg-encodings.c:280
+msgid "Hebrew"
+msgstr "Hebreo"
+
+#: ../libgitg/gitg-encodings.c:256
+msgid "Cyrillic/Ukrainian"
+msgstr "Cirílico/Ucraniano"
+
+#: ../libgitg/gitg-encodings.c:261 ../libgitg/gitg-encodings.c:267
+#: ../libgitg/gitg-encodings.c:286
+msgid "Vietnamese"
+msgstr "Vietnamita"
+
+#: ../libgitg/gitg-encodings.c:263
+msgid "Thai"
+msgstr "Tailandés"
+
+#: ../libgitg/gitg-encodings.c:457
+msgid "Unknown"
+msgstr "Desconocido"
+
 #: ../libgitg/gitg-repository.c:887
 msgid "Staged changes"
 msgstr "Cambios preseleccionados"
@@ -748,6 +866,11 @@ msgstr "Cambios no preseleccionados"
 msgid "Not a valid git repository"
 msgstr "No es un repositorio git válido"
 
+#: ../libgitg/gitg-smart-charset-converter.c:322
+msgid "It is not possible to detect the encoding automatically"
+msgstr "No se puede detectar la codificación automáticamente"
+
+#. ex:ts=8:noet:
 #: ../gitg/gitg-commit-menu.ui.h:1
 msgid "Ignore"
 msgstr "Ignorar"
@@ -776,7 +899,7 @@ msgstr "Descargar rama («checkout»)"
 msgid "Cherry-pick on..."
 msgstr "Aplicar los cambios («cherry-pick») en…"
 
-#: ../gitg/gitg-menus.xml.h:4
+#: ../gitg/gitg-menus.xml.h:4 ../gitg/gitg-new-branch.ui.h:1
 msgid "Create branch"
 msgstr "Crear rama"
 
@@ -1027,9 +1150,6 @@ msgstr "_Sin reservar"
 
 #~ msgid "Date:"
 #~ msgstr "Fecha:"
-
-#~ msgid "Tree"
-#~ msgstr "Árbol"
 
 #~ msgid "<b>Main</b>"
 #~ msgstr "<b>Principal</b>"
