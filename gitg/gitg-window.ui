@@ -95,7 +95,7 @@
                                     <property name="resizable">True</property>
                                     <property name="sizing">fixed</property>
                                     <property name="fixed_width">400</property>
-                                    <property name="title">Subject</property>
+                                    <property name="title" translatable="yes">Subject</property>
                                     <property name="expand">True</property>
                                     <child>
                                       <object class="GitgCellRendererPath" id="rv_renderer_subject"/>
@@ -110,7 +110,7 @@
                                     <property name="resizable">True</property>
                                     <property name="sizing">fixed</property>
                                     <property name="fixed_width">200</property>
-                                    <property name="title">Author</property>
+                                    <property name="title" translatable="yes">Author</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="rv_renderer_author"/>
                                       <attributes>
@@ -124,7 +124,7 @@
                                     <property name="resizable">True</property>
                                     <property name="sizing">fixed</property>
                                     <property name="fixed_width">200</property>
-                                    <property name="title">Date</property>
+                                    <property name="title" translatable="yes">Date</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="rv_renderer_date"/>
                                       <attributes>
@@ -312,7 +312,7 @@
                                 <child>
                                   <object class="GtkTreeViewColumn" id="unstaged_column_name">
                                     <property name="resizable">True</property>
-                                    <property name="title">Unstaged</property>
+                                    <property name="title" translatable="yes">Unstaged</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="unstaged_cell_renderer"/>
                                       <attributes>
