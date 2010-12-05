@@ -1,20 +1,20 @@
-# translation of gitg.po.master.po to Español
+# translation of gitg.master.po to Español
 # Spanish translation of gitg.
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 #
 # Chihau Chau <chihau@gmail.com>, 2009.
-# Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2010.
+# Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gitg.po.master\n"
+"Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&component=gitg\n"
-"POT-Creation-Date: 2010-11-12 14:20+0000\n"
-"PO-Revision-Date: 2010-11-26 12:30+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2010-12-04 01:50+0000\n"
+"PO-Revision-Date: 2010-12-05 18:58+0100\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr "Examinador de repositorios Git"
 #: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg-branch-actions.c:167
 #: ../gitg/gitg-branch-actions.c:220 ../gitg/gitg.c:238
 #: ../gitg/gitg-window.c:1651 ../gitg/gitg-window.c:1665
-#: ../gitg/gitg-window.ui.h:11
+#: ../gitg/gitg-window.ui.h:15
 msgid "gitg"
 msgstr "gitg"
 
@@ -85,8 +85,8 @@ msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». Se "
-"puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
+"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». "
+"Se puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
 "columna en particular."
 
 #: ../data/gitg.schemas.in.h:12
@@ -474,8 +474,8 @@ msgstr "Falló al aplicar el cambio en la revisión sobre <%s>"
 #, c-format
 msgid "Are you sure you want to cherry-pick that revision on <%s>?"
 msgstr ""
-"¿Está seguro de que quiere aplicar los cambios («cherry-pick») en la revisión "
-"<%s>?"
+"¿Está seguro de que quiere aplicar los cambios («cherry-pick») en la "
+"revisión <%s>?"
 
 #: ../gitg/gitg-branch-actions.c:1926 ../gitg/gitg-branch-actions.c:1928
 #: ../gitg/gitg-branch-actions.c:1976
@@ -967,7 +967,7 @@ msgstr "Permitir un programa diff externo"
 msgid "Collapse inactive lanes"
 msgstr "Contraer las líneas inactivas"
 
-#: ../gitg/gitg-preferences.ui.h:8 ../gitg/gitg-window.ui.h:5
+#: ../gitg/gitg-preferences.ui.h:8 ../gitg/gitg-window.ui.h:6
 msgid "Commit"
 msgstr "Efectuar («commit»)"
 
@@ -1001,7 +1001,7 @@ msgstr "Correo-e:"
 msgid "Early"
 msgstr "Temprano"
 
-#: ../gitg/gitg-preferences.ui.h:15 ../gitg/gitg-window.ui.h:7
+#: ../gitg/gitg-preferences.ui.h:15 ../gitg/gitg-window.ui.h:9
 msgid "History"
 msgstr "Histórico"
 
@@ -1122,26 +1122,43 @@ msgid "Amend"
 msgstr "Completar"
 
 #: ../gitg/gitg-window.ui.h:3
+msgid "Author"
+msgstr "Autor"
+
+#: ../gitg/gitg-window.ui.h:4
 msgid "Branch:"
 msgstr "Rama:"
 
-#: ../gitg/gitg-window.ui.h:4
+#: ../gitg/gitg-window.ui.h:5
 msgid "Co_mmit message"
 msgstr "_Mensaje de «commit»"
 
-#: ../gitg/gitg-window.ui.h:6
+#: ../gitg/gitg-window.ui.h:7
 msgid "Context:"
 msgstr "Contexto:"
 
 #: ../gitg/gitg-window.ui.h:8
+msgid "Date"
+msgstr "Fecha"
+
+#: ../gitg/gitg-window.ui.h:10
+msgid "Subject"
+msgstr "Asunto"
+
+#: ../gitg/gitg-window.ui.h:11
+#| msgid "_Unstaged"
+msgid "Unstaged"
+msgstr "Sin reservar"
+
+#: ../gitg/gitg-window.ui.h:12
 msgid "_Changes"
 msgstr "_Cambios"
 
-#: ../gitg/gitg-window.ui.h:9
+#: ../gitg/gitg-window.ui.h:13
 msgid "_Staged"
 msgstr "_Reservado"
 
-#: ../gitg/gitg-window.ui.h:10
+#: ../gitg/gitg-window.ui.h:14
 msgid "_Unstaged"
 msgstr "_Sin reservar"
 
@@ -1165,12 +1182,3 @@ msgstr "_Sin reservar"
 
 #~ msgid "gtk-remove"
 #~ msgstr "gtk-remove"
-
-#~ msgid "Author"
-#~ msgstr "Autor"
-
-#~ msgid "Date"
-#~ msgstr "Fecha"
-
-#~ msgid "Subject"
-#~ msgstr "Asunto"
