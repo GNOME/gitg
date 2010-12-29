@@ -31,7 +31,6 @@
 #include "gitg-commit-view.h"
 #include "gitg-diff-view.h"
 #include "gitg-preferences.h"
-#include "gitg-data-binding.h"
 #include "gitg-utils.h"
 #include "gseal-gtk-compat.h"
 
@@ -1412,11 +1411,13 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	GitgPreferences *preferences = gitg_preferences_get_default();
 
-	gitg_data_binding_new(preferences, "message-show-right-margin",
-	                      self->priv->comment_view, "show-right-margin");
+	g_object_bind_property (preferences, "message-show-right-margin",
+	                        self->priv->comment_view, "show-right-margin",
+	                        G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new(preferences, "message-right-margin-at",
-	                      self->priv->comment_view, "right-margin-position");
+	g_object_bind_property (preferences, "message-right-margin-at",
+	                        self->priv->comment_view, "right-margin-position",
+	                        G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
 	self->priv->hscale_context = GTK_HSCALE(gtk_builder_get_object(builder, "hscale_context"));
 	gtk_range_set_value (GTK_RANGE (self->priv->hscale_context), 3);

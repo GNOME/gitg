@@ -23,7 +23,6 @@
 #include "gitg-preferences-dialog.h"
 
 #include "gitg-preferences.h"
-#include "gitg-data-binding.h"
 #include "gitg-utils.h"
 
 #include <libgitg/gitg-config.h>
@@ -125,17 +124,29 @@ on_response(GtkWidget *dialog, gint response, gpointer data)
 }
 
 static gboolean
-convert_collapsed(GValue const *source, GValue *dest, gpointer userdata)
+unconvert_collapsed (GBinding     *binding,
+                     const GValue *source_value,
+                     GValue       *target_value,
+                     gpointer userdata)
 {
-	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG(userdata);
+	return g_value_transform (source_value, target_value);
+}
 
-	gint val = round_val(g_value_get_double(source));
+static gboolean
+convert_collapsed (GBinding     *binding,
+                   const GValue *source_value,
+                   GValue       *target_value,
+                   gpointer userdata)
+{
+	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG (userdata);
+	gint val = round_val (g_value_get_double (source_value));
 
 	if (val == dialog->priv->prev_value)
 		return FALSE;
 
 	dialog->priv->prev_value = val;
-	return g_value_transform(source, dest);
+
+	return g_value_transform (source_value, target_value);
 }
 
 static void
@@ -169,63 +180,75 @@ initialize_view(GitgPreferencesDialog *dialog)
 	                  G_CALLBACK (on_check_button_show_right_margin_toggled),
 	                  dialog);
 
-	gitg_data_binding_new_mutual(preferences, 
-	                             "history-search-filter", 
-	                             dialog->priv->history_search_filter, 
-	                             "active");
+	g_object_bind_property (preferences,
+	                        "history-search-filter",
+	                        dialog->priv->history_search_filter,
+	                        "active",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new_mutual_full(preferences, 
-	                                  "history-collapse-inactive-lanes",
-	                                  dialog->priv->collapse_inactive_lanes, 
-	                                  "value",
-	                                  (GitgDataBindingConversion)g_value_transform,
-	                                  convert_collapsed,
-	                                  dialog);
+	g_object_bind_property_full (preferences,
+	                             "history-collapse-inactive-lanes",
+	                             dialog->priv->collapse_inactive_lanes,
+	                             "value",
+	                             G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE,
+	                             unconvert_collapsed,
+	                             convert_collapsed,
+	                             dialog,
+	                             NULL);
 
-	gitg_data_binding_new_mutual(preferences, 
-	                             "history-collapse-inactive-lanes-active",
-	                             dialog->priv->check_button_collapse_inactive,
-	                             "active");
+	g_object_bind_property (preferences,
+	                        "history-collapse-inactive-lanes-active",
+	                        dialog->priv->check_button_collapse_inactive,
+	                        "active",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new_mutual(preferences, 
-	                             "history-show-virtual-stash",
-	                             dialog->priv->history_show_virtual_stash, 
-	                             "active");
+	g_object_bind_property (preferences,
+	                        "history-show-virtual-stash",
+	                        dialog->priv->history_show_virtual_stash,
+	                        "active",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new_mutual(preferences, 
-	                             "history-show-virtual-staged",
-	                             dialog->priv->history_show_virtual_staged, 
-	                             "active");
+	g_object_bind_property (preferences, 
+	                        "history-show-virtual-staged",
+	                        dialog->priv->history_show_virtual_staged,
+	                        "active",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new_mutual(preferences, 
-	                             "history-show-virtual-unstaged",
-	                             dialog->priv->history_show_virtual_unstaged, 
-	                             "active");
+	g_object_bind_property (preferences, 
+	                        "history-show-virtual-unstaged",
+	                        dialog->priv->history_show_virtual_unstaged, 
+	                        "active",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new_mutual(preferences,
-	                             "history-topo-order",
-	                             dialog->priv->history_topo_order,
-	                             "active");
+	g_object_bind_property (preferences,
+	                        "history-topo-order",
+	                        dialog->priv->history_topo_order,
+	                        "active",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new_mutual(preferences,
-	                             "message-show-right-margin",
-	                             dialog->priv->check_button_show_right_margin,
-	                             "active");
+	g_object_bind_property (preferences,
+	                        "message-show-right-margin",
+	                        dialog->priv->check_button_show_right_margin,
+	                        "active",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new_mutual(preferences,
-	                             "message-right-margin-at",
-	                             dialog->priv->spin_button_right_margin,
-	                             "value");
+	g_object_bind_property (preferences,
+	                        "message-right-margin-at",
+	                        dialog->priv->spin_button_right_margin,
+	                        "value",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new_mutual(preferences,
-	                             "main-layout-vertical",
-	                             dialog->priv->main_layout_vertical,
-	                             "active");
+	g_object_bind_property (preferences,
+	                        "main-layout-vertical",
+	                        dialog->priv->main_layout_vertical,
+	                        "active",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	gitg_data_binding_new_mutual(preferences,
-	                             "diff-external",
-	                             dialog->priv->check_button_external_diff,
-	                             "active");
+	g_object_bind_property (preferences,
+	                        "diff-external",
+	                        dialog->priv->check_button_external_diff,
+	                        "active",
+	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 }
 
 static void

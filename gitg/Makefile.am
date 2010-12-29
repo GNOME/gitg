@@ -16,7 +16,6 @@ NOINST_H_FILES = 			\
 	gitg-branch-actions.h		\
 	gitg-cell-renderer-path.h	\
 	gitg-commit-view.h		\
-	gitg-data-binding.h		\
 	gitg-diff-line-renderer.h	\
 	gitg-diff-view.h		\
 	gitg-dirs.h			\
@@ -43,7 +42,6 @@ gitg_SOURCES = 				\
 	gitg-branch-actions.c		\
 	gitg-cell-renderer-path.c	\
 	gitg-commit-view.c		\
-	gitg-data-binding.c		\
 	gitg-diff-line-renderer.c	\
 	gitg-diff-view.c		\
 	gitg-dirs.c			\
