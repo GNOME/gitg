@@ -1,35 +1,28 @@
+/*
+ * gitg-revision-panel.c
+ * This file is part of gitg - git repository viewer
+ *
+ * Copyright (C) 2009 - Jesse van den Kieboom
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 #include "gitg-revision-panel.h"
 
-static void gitg_revision_panel_default_init (GitgRevisionPanelInterface *iface);
-
-GType
-gitg_revision_panel_get_type ()
-{
-	static GType gitg_revision_panel_type_id = 0;
-	
-	if (!gitg_revision_panel_type_id)
-	{
-		static const GTypeInfo g_define_type_info =
-		{
-			sizeof (GitgRevisionPanelInterface),
-			(GBaseInitFunc) gitg_revision_panel_default_init,
-			NULL,
-			NULL,
-			NULL,
-			NULL,
-			0,
-			0,
-			NULL
-		};
-		
-		gitg_revision_panel_type_id = g_type_register_static (G_TYPE_INTERFACE,
-		                                                      "GitgRevisionPanel",
-		                                                      &g_define_type_info,
-		                                                      0);
-	}
-
-	return gitg_revision_panel_type_id;
-}
+G_DEFINE_INTERFACE(GitgRevisionPanel, gitg_revision_panel, G_TYPE_OBJECT)
 
 /* Default implementation */
 static void
