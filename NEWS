@@ -1,3 +1,43 @@
+= gitg 0.0.8 =
+Version 0.0.8 was released on 2010-12-30
+
+== Features ==
+  * Added preference to ignore external diff tool
+  * Improved GitgRunner/GitgCommand/GitgShell
+  * Added a menu to create a new branch
+  * Per line staging needs Ctrl
+  * Add committer info
+  * Added stat to revision details panel
+  * Added gitg-revision-details-panel
+  * Added 'changes' panel
+  * Move the backend part of gitg into a libgitg library.
+  * Improved staging/unstaging
+  * Added 'edit' context menu item for stage/unstage list
+  * Improve hash search performance
+  * Add --no-color to some git commands
+  * Make gitg compile with Gtk+ 3.0 if available.
+  * Allow creating a tag without a message.
+
+== Bug fixes ==
+  * Fixed parsing diff from stash
+  * Do not crash when hiding region header with no next line
+  * Ellipsize long subjects in revision view
+  * Don't show repository missing error when launching without arguments
+  * Always override format patch export
+  * Better handling of command line args and repository paths
+  * Handle sensitivity correctly
+  * rewrite gitg_ref_get_localname to return a const result
+  * Use remote pushes for push branch menu
+  * Ellipsize parent commit message at end
+  * Use GtkCellRendererSpinner
+  * Portability: replace PATH_MAX sized array with dynamic strings
+  * Use flag G_SPAWN_CHILD_INHERITS_STDIN when input is not provided
+  * Fix building with GSEAL enabled
+  * Bug 620284 - Cleaned up preferences dialog
+  * Make format patch override existing files properly (fixes #620463)
+  * Improved charset conversion (fixes #623466)
+  * Use GBinding
+
 = gitg 0.0.6 =
 Version 0.0.6 was released on 2010-02-21
 
