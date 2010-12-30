@@ -31,7 +31,6 @@
 
 #include "gitg-window.h"
 #include "config.h"
-#include "gitg-settings.h"
 #include "gitg-dirs.h"
 #include "gitg-utils.h"
 #include "gitg-uri.h"
@@ -245,7 +244,6 @@ main (int argc, char **argv)
 	set_style_scheme_search_path ();
 	set_icons ();
 
-	GitgSettings *settings = gitg_settings_get_default ();
 	GitgWindow *window = build_ui ();
 
 	ret = gitg_window_load_repository_for_command_line (window,
@@ -264,7 +262,5 @@ main (int argc, char **argv)
 
 	gtk_main ();
 
-	/* Finalize settings */
-	g_object_unref (settings);
 	return 0;
 }

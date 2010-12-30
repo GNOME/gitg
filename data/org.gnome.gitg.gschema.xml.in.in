@@ -1,0 +1,151 @@
+<schemalist>
+  <enum id="org.gnome.gitg.Layout">
+    <value nick="horizontal" value="0"/>
+    <value nick="vertical" value="1"/>
+  </enum>
+
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences" path="/apps/gitg/preferences/">
+    <child name="view" schema="org.gnome.gitg.preferences.view" />
+    <child name="commit" schema="org.gnome.gitg.preferences.commit" />
+    <child name="diff" schema="org.gnome.gitg.preferences.diff" />
+    <child name="hidden" schema="org.gnome.gitg.preferences.hidden" />
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view" path="/apps/gitg/preferences/view/">
+    <child name="history" schema="org.gnome.gitg.preferences.view.history" />
+    <child name="main" schema="org.gnome.gitg.preferences.view.main" />
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.history" path="/apps/gitg/preferences/view/history/">
+    <key name="search-filter" type="b">
+      <default>false</default>
+      <summary>Filter Revisions When Searching</summary>
+      <description>
+        Whether searching filters the revisions in the history view instead of 
+        jumping to the first match.
+      </description>
+    </key>
+    <key name="collapse-inactive-lanes" type="i">
+      <default>2</default>
+      <summary>When to Collapse Inactive Lanes</summary>
+      <description>
+        Setting that indicates when an inactive lane should be collapsed. 
+        Valid values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'.
+      </description>
+    </key>
+    <key name="collapse-inactive-lanes-active" type="b">
+      <default>true</default>
+      <!-- TODO: add descriptions -->
+    </key>
+    <key name="topo-order" type="b">
+      <default>false</default>
+      <summary>Show History in Topological Order</summary>
+      <description>
+        Setting that indicates whether to show the history in topological order.
+      </description>
+    </key>
+    <key name="show-virtual-stash" type="b">
+      <default>true</default>
+      <!-- TODO: add descriptions -->
+    </key>
+    <key name="show-virtual-staged" type="b">
+      <default>true</default>
+      <!-- TODO: add descriptions -->
+    </key>
+    <key name="show-virtual-unstaged" type="b">
+      <default>true</default>
+      <!-- TODO: add descriptions -->
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.main" path="/apps/gitg/preferences/view/main/">
+    <key name="layout-vertical" enum="org.gnome.gitg.Layout">
+      <default>'vertical'</default>
+      <summary>Show Main View in Vertical or Horizontal Layout</summary>
+      <description>
+        Setting that sets the orientation layout of the main view.
+      </description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit" path="/apps/gitg/preferences/commit/">
+    <child name="message" schema="org.gnome.gitg.preferences.commit.message" />
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.message" path="/apps/gitg/preferences/commit/message/">
+    <key name="show-right-margin" type="b">
+      <default>true</default>
+      <summary>Show Right Margin in Commit Message View</summary>
+      <description>
+        Show a right margin indicator in the commit message view. 
+        This can be used to easily see where to break the commit message at 
+        a particular column.
+      </description>
+    </key>
+    <key name="right-margin-at" type="i">
+      <default>72</default>
+      <summary>Column at Which Right Margin is Shown</summary>
+      <description>
+        The column at which the right margin is shown if the right-margin 
+        preference is set to TRUE.
+      </description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.diff" path="/apps/gitg/preferences/diff/">
+    <key name="external" type="b">
+      <default>false</default>
+      <summary>Allow External Diff Program</summary>
+      <description>
+        Allow an external diff program to be used when viewing diffs in gitg.
+      </description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.hidden" path="/apps/gitg/preferences/hidden/">
+    <key name="sign-tag" type="b">
+      <default>true</default>
+      <!-- TODO description -->
+    </key>
+  </schema>
+  <schema id="org.gnome.gitg.state" path="/apps/gitg/state/">
+    <child name="window" schema="org.gnome.gitg.state.window"/>
+  </schema>
+  <schema id="org.gnome.gitg.state.window" path="/apps/gitg/state/window/">
+    <key name="state" type="i">
+      <default>0</default>
+    </key>
+    <key name="size" type="(ii)">
+      <default>(650, 500)</default>
+    </key>
+    <key name="vpaned-main-position" type="i">
+      <default>200</default>
+    </key>
+    <key name="hpaned-commit1-position" type="i">
+      <default>200</default>
+    </key>
+    <key name="hpaned-commit2-position" type="i">
+      <default>200</default>
+    </key>
+    <key name="vpaned-commit-position" type="i">
+      <default>200</default>
+    </key>
+    <key name="revision-tree-view-position" type="i">
+      <default>200</default>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.desktop.url-handlers.gitg" path="/desktop/gnome/url-handlers/gitg/">
+    <key name="command" type="s">
+      <default>'gitg "%s"'</default>
+      <summary>The command to handle GITG scheme URLs</summary>
+      <description>The command to handle GITG scheme URLs.</description>
+    </key>
+    <key name="needs-terminal" type="b">
+      <default>false</default>
+      <summary>Whether command to handle GITG scheme URLs needs a terminal</summary>
+      <description>
+        Whether command to handle GITG scheme URLs needs a terminal.
+      </description>
+    </key>
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Whether command to handle GITG scheme URLs is enabled</summary>
+      <description>
+        Whether command to handle GITG scheme URLs is enabled.
+      </description>
+    </key>
+  </schema>
+</schemalist>

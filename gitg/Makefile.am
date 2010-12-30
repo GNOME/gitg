@@ -11,7 +11,7 @@ AM_CPPFLAGS =							\
 	-DGITG_DATADIR=\""$(datadir)/gitg"\"			\
 	-DGITG_LOCALEDIR=\""$(datadir)/locale"\"
 
-NOINST_H_FILES = 			\
+NOINST_H_FILES =			\
 	gitg-activatable.h		\
 	gitg-branch-actions.h		\
 	gitg-cell-renderer-path.h	\
@@ -22,20 +22,18 @@ NOINST_H_FILES = 			\
 	gitg-dnd.h			\
 	gitg-label-renderer.h		\
 	gitg-preferences-dialog.h	\
-	gitg-preferences.h		\
 	gitg-repository-dialog.h	\
 	gitg-revision-panel.h		\
 	gitg-revision-details-panel.h	\
 	gitg-revision-files-panel.h	\
 	gitg-revision-changes-panel.h	\
-	gitg-settings.h			\
 	gitg-stat-view.h		\
 	gitg-uri.h			\
 	gitg-utils.h			\
 	gitg-window.h			\
 	gseal-gtk-compat.h
 
-gitg_SOURCES = 				\
+gitg_SOURCES =				\
 	$(BUILT_SOURCES)		\
 	gitg.c				\
 	gitg-activatable.c		\
@@ -47,14 +45,12 @@ gitg_SOURCES = 				\
 	gitg-dirs.c			\
 	gitg-dnd.c			\
 	gitg-label-renderer.c		\
-	gitg-preferences.c		\
 	gitg-preferences-dialog.c	\
 	gitg-repository-dialog.c	\
 	gitg-revision-panel.c		\
 	gitg-revision-details-panel.c	\
 	gitg-revision-files-panel.c	\
 	gitg-revision-changes-panel.c	\
-	gitg-settings.c			\
 	gitg-stat-view.c		\
 	gitg-uri.c			\
 	gitg-utils.c			\

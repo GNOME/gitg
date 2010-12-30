@@ -92,7 +92,7 @@ PKG_CHECK_MODULES(GITG, [
 
 PKG_CHECK_MODULES(PACKAGE, [
 	$GTKSOURCEVIEW_REQUIRED >= $GTKSOURCEVIEW_REQUIRED_VERSION
-	gconf-2.0
+	gsettings-desktop-schemas
 ])
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
@@ -147,7 +147,7 @@ PACKAGE_LIBS="$PACKAGE_LIBS -lm"
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
 
-AM_GCONF_SOURCE_2
+GLIB_GSETTINGS
 
 AC_CONFIG_FILES([
 Makefile
@@ -157,6 +157,7 @@ gitg/Makefile
 data/Makefile
 data/gitg.desktop.in
 data/icons/Makefile
+data/org.gnome.gitg.gschema.xml.in
 po/Makefile.in
 tests/Makefile
 tools/Makefile

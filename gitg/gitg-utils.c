@@ -23,7 +23,6 @@
 #include "gitg-dirs.h"
 #include "gitg-utils.h"
 
-#include <gconf/gconf-client.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -138,10 +137,13 @@ gitg_utils_get_language(gchar const *filename, gchar const *content_type)
 gchar *
 gitg_utils_get_monospace_font_name(void)
 {
-	GConfClient *client = gconf_client_get_default();
-	gchar *name = gconf_client_get_string(client, "/desktop/gnome/interface/monospace_font_name", NULL);
+	GSettings *interface;
+	gchar *name;
 
-	g_object_unref(client);
+	interface = g_settings_new ("org.gnome.desktop.interface");
+	name = g_settings_get_string (interface, "monospace-font-name");
+
+	g_object_unref (interface);
 
 	return name;
 }

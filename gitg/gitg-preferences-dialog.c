@@ -22,7 +22,6 @@
 
 #include "gitg-preferences-dialog.h"
 
-#include "gitg-preferences.h"
 #include "gitg-utils.h"
 
 #include <libgitg/gitg-config.h>
@@ -77,6 +76,11 @@ struct _GitgPreferencesDialogPrivate
 	GtkWidget *table;
 
 	gint prev_value;
+
+	GSettings *history_settings;
+	GSettings *message_settings;
+	GSettings *view_settings;
+	GSettings *diff_settings;
 };
 
 G_DEFINE_TYPE(GitgPreferencesDialog, gitg_preferences_dialog, GTK_TYPE_DIALOG)
@@ -90,13 +94,35 @@ round_val(gdouble val)
 }
 
 static void
-gitg_preferences_dialog_finalize(GObject *object)
+gitg_preferences_dialog_dispose (GObject *object)
 {
 	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG (object);
 
-	g_object_unref (dialog->priv->config);
+	if (dialog->priv->config)
+	{
+		g_object_unref (dialog->priv->config);
+		dialog->priv->config = NULL;
+	}
 
-	G_OBJECT_CLASS(gitg_preferences_dialog_parent_class)->finalize(object);
+	if (dialog->priv->message_settings)
+	{
+		g_object_unref (dialog->priv->message_settings);
+		dialog->priv->message_settings = NULL;
+	}
+
+	if (dialog->priv->view_settings)
+	{
+		g_object_unref (dialog->priv->view_settings);
+		dialog->priv->view_settings = NULL;
+	}
+
+	if (dialog->priv->diff_settings)
+	{
+		g_object_unref (dialog->priv->diff_settings);
+		dialog->priv->diff_settings = NULL;
+	}
+
+	G_OBJECT_CLASS (gitg_preferences_dialog_parent_class)->dispose (object);
 }
 
 static void
@@ -104,7 +130,7 @@ gitg_preferences_dialog_class_init(GitgPreferencesDialogClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
-	object_class->finalize = gitg_preferences_dialog_finalize;
+	object_class->dispose = gitg_preferences_dialog_dispose;
 
 	g_type_class_add_private(object_class, sizeof(GitgPreferencesDialogPrivate));
 }
@@ -115,6 +141,10 @@ gitg_preferences_dialog_init(GitgPreferencesDialog *self)
 	self->priv = GITG_PREFERENCES_DIALOG_GET_PRIVATE(self);
 
 	self->priv->config = gitg_config_new (NULL);
+	self->priv->history_settings = g_settings_new ("org.gnome.gitg.preferences.view.history");
+	self->priv->message_settings = g_settings_new ("org.gnome.gitg.preferences.commit.message");
+	self->priv->view_settings = g_settings_new ("org.gnome.gitg.preferences.view.main");
+	self->priv->diff_settings = g_settings_new ("org.gnome.gitg.preferences.diff");
 }
 
 static void
@@ -123,30 +153,20 @@ on_response(GtkWidget *dialog, gint response, gpointer data)
 	gtk_widget_destroy(dialog);
 }
 
-static gboolean
-unconvert_collapsed (GBinding     *binding,
-                     const GValue *source_value,
-                     GValue       *target_value,
-                     gpointer userdata)
-{
-	return g_value_transform (source_value, target_value);
-}
-
-static gboolean
-convert_collapsed (GBinding     *binding,
-                   const GValue *source_value,
-                   GValue       *target_value,
-                   gpointer userdata)
+static GVariant *
+convert_collapsed (const GValue       *value,
+                   const GVariantType *expected_type,
+                   gpointer            userdata)
 {
 	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG (userdata);
-	gint val = round_val (g_value_get_double (source_value));
+	gint val = round_val (g_value_get_double (value));
 
 	if (val == dialog->priv->prev_value)
-		return FALSE;
+		return NULL;
 
 	dialog->priv->prev_value = val;
 
-	return g_value_transform (source_value, target_value);
+	return g_variant_new_int32 (val);
 }
 
 static void
@@ -165,11 +185,52 @@ on_check_button_show_right_margin_toggled(GtkToggleButton *button, GitgPreferenc
 	gtk_widget_set_sensitive(GTK_WIDGET(dialog->priv->spin_button_right_margin), active);
 }
 
+static gboolean
+orientation_to_layout_vertical (GValue   *value,
+                                GVariant *variant,
+                                gpointer user_data)
+{
+	const gchar *orientation;
+	gboolean val;
+
+	orientation = g_variant_get_string (variant, NULL);
+
+	if (strcmp (orientation, "vertical") == 0)
+	{
+		val = TRUE;
+	}
+	else
+	{
+		val = FALSE;
+	}
+
+	g_value_set_boolean (value, val);
+
+	return TRUE;
+}
+
+static GVariant *
+layout_vertical_to_orientation (const GValue       *value,
+                                const GVariantType *expected_type,
+                                gpointer            user_data)
+{
+	GVariant *orientation;
+
+	if (g_value_get_boolean (value))
+	{
+		orientation = g_variant_new_string ("vertical");
+	}
+	else
+	{
+		orientation = g_variant_new_string ("horizontal");
+	}
+
+	return orientation;
+}
+
 static void
 initialize_view(GitgPreferencesDialog *dialog)
 {
-	GitgPreferences *preferences = gitg_preferences_get_default();
-
 	g_signal_connect (dialog->priv->check_button_collapse_inactive,
 	                  "toggled",
 	                  G_CALLBACK (on_collapse_inactive_toggled),
@@ -180,75 +241,79 @@ initialize_view(GitgPreferencesDialog *dialog)
 	                  G_CALLBACK (on_check_button_show_right_margin_toggled),
 	                  dialog);
 
-	g_object_bind_property (preferences,
-	                        "history-search-filter",
-	                        dialog->priv->history_search_filter,
-	                        "active",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (dialog->priv->history_settings,
+	                 "search-filter",
+	                 dialog->priv->history_search_filter,
+	                 "active",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property_full (preferences,
-	                             "history-collapse-inactive-lanes",
-	                             dialog->priv->collapse_inactive_lanes,
-	                             "value",
-	                             G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE,
-	                             unconvert_collapsed,
-	                             convert_collapsed,
-	                             dialog,
-	                             NULL);
+	g_settings_bind_with_mapping (dialog->priv->history_settings,
+	                              "collapse-inactive-lanes",
+	                              dialog->priv->collapse_inactive_lanes,
+	                              "value",
+	                              G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET,
+	                              NULL,
+	                              convert_collapsed,
+	                              dialog,
+	                              NULL);
 
-	g_object_bind_property (preferences,
-	                        "history-collapse-inactive-lanes-active",
-	                        dialog->priv->check_button_collapse_inactive,
-	                        "active",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (dialog->priv->history_settings,
+	                 "collapse-inactive-lanes-active",
+	                 dialog->priv->check_button_collapse_inactive,
+	                 "active",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences,
-	                        "history-show-virtual-stash",
-	                        dialog->priv->history_show_virtual_stash,
-	                        "active",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (dialog->priv->history_settings,
+	                 "topo-order",
+	                 dialog->priv->history_topo_order,
+	                 "active",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences, 
-	                        "history-show-virtual-staged",
-	                        dialog->priv->history_show_virtual_staged,
-	                        "active",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (dialog->priv->history_settings,
+	                 "show-virtual-stash",
+	                 dialog->priv->history_show_virtual_stash,
+	                 "active",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences, 
-	                        "history-show-virtual-unstaged",
-	                        dialog->priv->history_show_virtual_unstaged, 
-	                        "active",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (dialog->priv->history_settings,
+	                 "show-virtual-staged",
+	                 dialog->priv->history_show_virtual_staged,
+	                 "active",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences,
-	                        "history-topo-order",
-	                        dialog->priv->history_topo_order,
-	                        "active",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (dialog->priv->history_settings,
+	                 "show-virtual-unstaged",
+	                 dialog->priv->history_show_virtual_unstaged, 
+	                 "active",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences,
-	                        "message-show-right-margin",
-	                        dialog->priv->check_button_show_right_margin,
-	                        "active",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (dialog->priv->message_settings,
+	                 "show-right-margin",
+	                 dialog->priv->check_button_show_right_margin,
+	                 "active",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences,
-	                        "message-right-margin-at",
-	                        dialog->priv->spin_button_right_margin,
-	                        "value",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (dialog->priv->message_settings,
+	                 "right-margin-at",
+	                 dialog->priv->spin_button_right_margin,
+	                 "value",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences,
-	                        "main-layout-vertical",
-	                        dialog->priv->main_layout_vertical,
-	                        "active",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind_with_mapping (dialog->priv->view_settings,
+	                              "layout-vertical",
+	                              dialog->priv->main_layout_vertical,
+	                              "active",
+	                              G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET,
+	                              orientation_to_layout_vertical,
+	                              layout_vertical_to_orientation,
+	                              NULL,
+	                              NULL);
 
-	g_object_bind_property (preferences,
-	                        "diff-external",
-	                        dialog->priv->check_button_external_diff,
-	                        "active",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (dialog->priv->diff_settings,
+	                 "external",
+	                 dialog->priv->check_button_external_diff,
+	                 "active",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 }
 
 static void

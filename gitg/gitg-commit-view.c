@@ -30,7 +30,6 @@
 
 #include "gitg-commit-view.h"
 #include "gitg-diff-view.h"
-#include "gitg-preferences.h"
 #include "gitg-utils.h"
 #include "gseal-gtk-compat.h"
 
@@ -93,6 +92,9 @@ struct _GitgCommitViewPrivate
 	GtkActionGroup *group_context;
 	GtkTextMark *highlight_mark;
 	GtkTextTag *highlight_tag;
+
+	GSettings *message_settings;
+	GSettings *diff_settings;
 };
 
 static void gitg_commit_view_buildable_iface_init(GtkBuildableIface *iface);
@@ -500,10 +502,8 @@ unstaged_selection_changed (GtkTreeSelection *selection,
 		gchar ct[10];
 		g_snprintf (ct, sizeof(ct), "-U%d", view->priv->context_size);
 
-		g_object_get (gitg_preferences_get_default (),
-		              "diff-external",
-		              &allow_external,
-		              NULL);
+		allow_external = g_settings_get_boolean (view->priv->diff_settings,
+		                                         "external");
 
 		gitg_shell_run (view->priv->shell,
 		                gitg_command_new (view->priv->repository,
@@ -600,10 +600,8 @@ staged_selection_changed (GtkTreeSelection *selection, GitgCommitView *view)
 		gchar ct[10];
 		g_snprintf (ct, sizeof(ct), "-U%d", view->priv->context_size);
 
-		g_object_get (gitg_preferences_get_default (),
-		              "diff-external",
-		              &allow_external,
-		              NULL);
+		allow_external = g_settings_get_boolean (view->priv->diff_settings,
+		                                         "external");
 
 		gitg_shell_run (view->priv->shell,
 		                gitg_command_new (view->priv->repository,
@@ -1409,15 +1407,17 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	self->priv->check_button_signed_off_by = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "check_button_signed_off_by"));
 	self->priv->check_button_amend = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "check_button_amend"));
 
-	GitgPreferences *preferences = gitg_preferences_get_default();
+	g_settings_bind (self->priv->message_settings,
+	                 "show-right-margin",
+	                 self->priv->comment_view,
+	                 "show-right-margin",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences, "message-show-right-margin",
-	                        self->priv->comment_view, "show-right-margin",
-	                        G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
-
-	g_object_bind_property (preferences, "message-right-margin-at",
-	                        self->priv->comment_view, "right-margin-position",
-	                        G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+	g_settings_bind (self->priv->message_settings,
+	                 "right-margin-at",
+	                 self->priv->comment_view,
+	                 "right-margin-position",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
 	self->priv->hscale_context = GTK_HSCALE(gtk_builder_get_object(builder, "hscale_context"));
 	gtk_range_set_value (GTK_RANGE (self->priv->hscale_context), 3);
@@ -1565,6 +1565,18 @@ gitg_commit_view_dispose(GObject *object)
 {
 	GitgCommitView *self = GITG_COMMIT_VIEW(object);
 
+	if (self->priv->message_settings)
+	{
+		g_object_unref (self->priv->message_settings);
+		self->priv->message_settings = NULL;
+	}
+
+	if (self->priv->diff_settings)
+	{
+		g_object_unref (self->priv->diff_settings);
+		self->priv->diff_settings = NULL;
+	}
+
 	if (self->priv->repository)
 	{
 		g_object_unref(self->priv->repository);
@@ -1684,6 +1696,8 @@ gitg_commit_view_init (GitgCommitView *self)
 {
 	self->priv = GITG_COMMIT_VIEW_GET_PRIVATE (self);
 
+	self->priv->message_settings = g_settings_new ("org.gnome.gitg.preferences.commit.message");
+	self->priv->diff_settings = g_settings_new ("org.gnome.gitg.preferences.diff");
 	self->priv->shell = gitg_shell_new (10000);
 	gitg_shell_set_preserve_line_endings (self->priv->shell, TRUE);
 

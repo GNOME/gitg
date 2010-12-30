@@ -34,12 +34,10 @@
 #include "gitg-window.h"
 #include "gitg-cell-renderer-path.h"
 #include "gitg-commit-view.h"
-#include "gitg-settings.h"
 #include "gitg-preferences-dialog.h"
 #include "gitg-repository-dialog.h"
 #include "gitg-dnd.h"
 #include "gitg-branch-actions.h"
-#include "gitg-preferences.h"
 #include "gitg-utils.h"
 #include "gitg-revision-panel.h"
 #include "gitg-revision-details-panel.h"
@@ -108,6 +106,11 @@ struct _GitgWindowPrivate
 
 	GSList *revision_panels;
 	GSList *activatables;
+
+	GSettings *state_settings;
+	GSettings *view_settings;
+	GSettings *history_settings;
+	GSettings *hidden_settings;
 };
 
 static gboolean on_tree_view_motion (GtkTreeView *treeview,
@@ -202,6 +205,38 @@ gitg_window_finalize (GObject *object)
 	g_list_free (copy);
 
 	G_OBJECT_CLASS (gitg_window_parent_class)->finalize (object);
+}
+
+static void
+gitg_window_dispose (GObject *object)
+{
+	GitgWindow *self = GITG_WINDOW (object);
+
+	if (self->priv->state_settings)
+	{
+		g_object_unref (self->priv->state_settings);
+		self->priv->state_settings = NULL;
+	}
+
+	if (self->priv->view_settings)
+	{
+		g_object_unref (self->priv->view_settings);
+		self->priv->view_settings = NULL;
+	}
+
+	if (self->priv->history_settings)
+	{
+		g_object_unref (self->priv->history_settings);
+		self->priv->history_settings = NULL;
+	}
+
+	if (self->priv->hidden_settings)
+	{
+		g_object_unref (self->priv->hidden_settings);
+		self->priv->hidden_settings = NULL;
+	}
+
+	G_OBJECT_CLASS (gitg_window_parent_class)->dispose (object);
 }
 
 static void
@@ -666,32 +701,32 @@ build_branches_combo (GitgWindow *window,
 static void
 restore_state (GitgWindow *window)
 {
-	GitgSettings *settings = gitg_settings_get_default ();
-	gint dw;
-	gint dh;
+	gint width;
+	gint height;
 
-	gtk_window_get_default_size (GTK_WINDOW(window), &dw, &dh);
+	g_settings_get (window->priv->state_settings, "size", "(ii)", &width, &height);
 
 	gtk_window_set_default_size (GTK_WINDOW(window),
-	                             gitg_settings_get_window_width (settings,
-	                             dw),
-	                             gitg_settings_get_window_height (settings,
-	                             dh));
+	                             width, height);
 
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->vpaned_main),
-	                                  gitg_settings_get_vpaned_main_position (settings, -1),
+	                                  g_settings_get_int (window->priv->state_settings,
+	                                                      "vpaned-main-position"),
 	                                  FALSE);
 
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->vpaned_commit),
-	                                  gitg_settings_get_vpaned_commit_position (settings, -1),
+	                                  g_settings_get_int (window->priv->state_settings,
+	                                                      "vpaned-commit-position"),
 	                                  FALSE);
 
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->hpaned_commit1),
-	                                  gitg_settings_get_hpaned_commit1_position (settings, 200),
+	                                  g_settings_get_int (window->priv->state_settings,
+	                                                      "hpaned-commit1-position"),
 	                                  FALSE);
 
 	gitg_utils_restore_pane_position (GTK_PANED(window->priv->hpaned_commit2),
-	                                  gitg_settings_get_hpaned_commit2_position (settings, 200),
+	                                  g_settings_get_int (window->priv->state_settings,
+	                                                      "hpaned-commit2-position"),
 	                                  TRUE);
 }
 
@@ -868,19 +903,6 @@ init_tree_view (GitgWindow *window,
 }
 
 static void
-on_main_layout_vertical_cb (GitgWindow *window)
-{
-	GitgPreferences *preferences = gitg_preferences_get_default ();
-	gboolean vertical;
-
-	g_object_get (preferences, "main-layout-vertical", &vertical, NULL);
-	g_object_set (window->priv->vpaned_main,
-	              "orientation",
-	              vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL,
-	              NULL);
-}
-
-static void
 gitg_window_parser_finished (GtkBuildable *buildable,
                              GtkBuilder   *builder)
 {
@@ -918,6 +940,12 @@ gitg_window_parser_finished (GtkBuildable *buildable,
 
 	window->priv->vpaned_main = GTK_WIDGET (gtk_builder_get_object (builder,
 	                                        "vpaned_main"));
+
+	g_settings_bind (window->priv->view_settings,
+	                 "layout-vertical",
+	                 window->priv->vpaned_main,
+	                 "orientation",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
 	window->priv->hpaned_commit1 = GTK_WIDGET (gtk_builder_get_object (builder,
 	                                           "hpaned_commit1"));
@@ -984,15 +1012,6 @@ gitg_window_parser_finished (GtkBuildable *buildable,
 	                  "button-release-event",
 	                  G_CALLBACK(on_tree_view_button_release),
 	                  window);
-
-	GitgPreferences *preferences = gitg_preferences_get_default ();
-
-	g_signal_connect_swapped (preferences,
-	                          "notify::main-layout-vertical",
-	                          G_CALLBACK (on_main_layout_vertical_cb),
-	                          window);
-
-	on_main_layout_vertical_cb (window);
 }
 
 static void
@@ -1006,34 +1025,33 @@ gitg_window_buildable_iface_init (GtkBuildableIface *iface)
 static void
 save_state (GitgWindow *window)
 {
-	GitgSettings *settings = gitg_settings_get_default ();
 	GtkAllocation allocation;
 	gint position;
 
-	gtk_widget_get_allocation (GTK_WIDGET(window), &allocation);
+	gtk_widget_get_allocation (GTK_WIDGET (window), &allocation);
 
-	gitg_settings_set_window_width (settings, allocation.width);
-	gitg_settings_set_window_height (settings, allocation.height);
+	g_settings_set (window->priv->state_settings, "size", "(ii)",
+	                allocation.width, allocation.height);
 
 	if (gtk_widget_get_mapped (window->priv->vpaned_main))
 	{
 		position = gtk_paned_get_position (GTK_PANED (window->priv->vpaned_main));
-		gitg_settings_set_vpaned_main_position (settings,
-		                                        position);
+		g_settings_set_int (window->priv->state_settings, "vpaned-main-position",
+		                    position);
 	}
 
 	if (gtk_widget_get_mapped (window->priv->vpaned_commit))
 	{
 		position = gtk_paned_get_position (GTK_PANED (window->priv->vpaned_commit));
-		gitg_settings_set_vpaned_commit_position (settings,
-		                                          position);
+		g_settings_set_int (window->priv->state_settings, "vpaned-commit-position",
+		                    position);
 	}
 
 	if (gtk_widget_get_mapped (window->priv->hpaned_commit1))
 	{
 		position = gtk_paned_get_position (GTK_PANED (window->priv->hpaned_commit1));
-		gitg_settings_set_hpaned_commit1_position (settings,
-		                                           position);
+		g_settings_set_int (window->priv->state_settings, "hpaned-commit1-position",
+		                    position);
 	}
 
 	if (gtk_widget_get_mapped (window->priv->hpaned_commit2))
@@ -1044,13 +1062,9 @@ save_state (GitgWindow *window)
 		                           &alloc);
 
 		position = gtk_paned_get_position (GTK_PANED (window->priv->hpaned_commit2));
-
-		gitg_settings_set_hpaned_commit2_position (settings,
-		                                           alloc.width -
-		                                           position);
+		g_settings_set_int (window->priv->state_settings, "hpaned-commit2-position",
+		                    alloc.width - position);
 	}
-
-	gitg_settings_save (settings);
 }
 
 static gboolean
@@ -1114,8 +1128,8 @@ gitg_window_window_state_event (GtkWidget           *widget,
 		gtk_statusbar_set_has_resize_grip (window->priv->statusbar, show);
 	}
 
-	GitgSettings *settings = gitg_settings_get_default ();
-	gitg_settings_set_window_state (settings, event->new_window_state);
+	/* Save the window state */
+	g_settings_set_int (window->priv->state_settings, "state", event->new_window_state);
 
 	return FALSE;
 }
@@ -1175,6 +1189,7 @@ gitg_window_class_init (GitgWindowClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	object_class->finalize = gitg_window_finalize;
+	object_class->dispose = gitg_window_dispose;
 	gtkobject_class->destroy = gitg_window_destroy;
 
 	widget_class->delete_event = gitg_window_delete_event;
@@ -1191,6 +1206,10 @@ gitg_window_init (GitgWindow *self)
 
 	self->priv->load_timer = g_timer_new ();
 	self->priv->hand = gdk_cursor_new (GDK_HAND1);
+	self->priv->state_settings = g_settings_new ("org.gnome.gitg.state.window");
+	self->priv->view_settings = g_settings_new ("org.gnome.gitg.preferences.view.main");
+	self->priv->history_settings = g_settings_new ("org.gnome.gitg.preferences.view.history");
+	self->priv->hidden_settings = g_settings_new ("org.gnome.gitg.preferences.hidden");
 }
 
 static void
@@ -1249,45 +1268,33 @@ gitg_window_set_select_on_load (GitgWindow  *window,
 }
 
 static gboolean
-convert_setting_to_inactive_max (GBinding     *binding,
-                                 const GValue *source_value,
-                                 GValue       *target_value,
-                                 gpointer      userdata)
+convert_setting_to_inactive_max (GValue   *value,
+                                 GVariant *variant,
+                                 gpointer  userdata)
 {
-	g_return_val_if_fail (G_VALUE_HOLDS (source_value, G_TYPE_INT), FALSE);
-	g_return_val_if_fail (G_VALUE_HOLDS (target_value, G_TYPE_INT), FALSE);
-
-	gint s = g_value_get_int (source_value);
-	g_value_set_int (target_value, 2 + s * 8);
+	gint s = g_variant_get_int32 (variant);
+	g_value_set_int (value, 2 + s * 8);
 
 	return TRUE;
 }
 
 static gboolean
-convert_setting_to_inactive_collapse (GBinding     *binding,
-                                      const GValue *source_value,
-                                      GValue       *target_value,
-                                      gpointer      userdata)
+convert_setting_to_inactive_collapse (GValue   *value,
+                                      GVariant *variant,
+                                      gpointer  userdata)
 {
-	g_return_val_if_fail (G_VALUE_HOLDS (source_value, G_TYPE_INT), FALSE);
-	g_return_val_if_fail (G_VALUE_HOLDS (target_value, G_TYPE_INT), FALSE);
-
-	gint s = g_value_get_int (source_value);
-	g_value_set_int (target_value, 1 + s * 3);
+	gint s = g_variant_get_int32 (variant);
+	g_value_set_int (value, 1 + s * 3);
 
 	return TRUE;
 }
 
 static gboolean
-convert_setting_to_inactive_gap (GBinding     *binding,
-                                 const GValue *source_value,
-                                 GValue       *target_value,
-                                 gpointer      userdata)
+convert_setting_to_inactive_gap (GValue   *value,
+                                 GVariant *variant,
+                                 gpointer  userdata)
 {
-	g_return_val_if_fail (G_VALUE_HOLDS (source_value, G_TYPE_INT), FALSE);
-	g_return_val_if_fail (G_VALUE_HOLDS (target_value, G_TYPE_INT), FALSE);
-
-	g_value_set_int (target_value, 10);
+	g_value_set_int (value, 10);
 
 	return TRUE;
 }
@@ -1295,72 +1302,68 @@ convert_setting_to_inactive_gap (GBinding     *binding,
 static void
 bind_repository (GitgWindow *window)
 {
-	GitgPreferences *preferences;
-
 	if (window->priv->repository == NULL)
 		return;
 
-	preferences = gitg_preferences_get_default ();
+	g_settings_bind_with_mapping (window->priv->history_settings,
+	                              "collapse-inactive-lanes",
+	                              window->priv->repository,
+	                              "inactive-max",
+	                              G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET,
+	                              convert_setting_to_inactive_max,
+	                              NULL,
+	                              window,
+	                              NULL);
 
-	g_object_bind_property_full (preferences,
-	                             "history-collapse-inactive-lanes",
-	                             window->priv->repository,
-	                             "inactive-max",
-	                             G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE,
-	                             convert_setting_to_inactive_max,
-	                             NULL,
-	                             window,
-	                             NULL);
+	g_settings_bind (window->priv->history_settings,
+	                 "show-virtual-stash",
+	                 window->priv->repository,
+	                 "show-stash",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences,
-	                        "history-show-virtual-stash",
-	                        window->priv->repository,
-	                        "show-stash",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (window->priv->history_settings,
+	                 "show-virtual-staged",
+	                 window->priv->repository,
+	                 "show-staged",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences,
-	                        "history-show-virtual-staged",
-	                        window->priv->repository,
-	                        "show-staged",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (window->priv->history_settings,
+	                 "show-virtual-unstaged",
+	                 window->priv->repository,
+	                 "show-unstaged",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences,
-	                        "history-show-virtual-unstaged",
-	                        window->priv->repository,
-	                        "show-unstaged",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (window->priv->history_settings,
+	                 "topo-order",
+	                 window->priv->repository,
+	                 "topo-order",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 
-	g_object_bind_property (preferences,
-	                        "history-topo-order",
-	                        window->priv->repository,
-	                        "topo-order",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind_with_mapping (window->priv->history_settings,
+	                              "collapse-inactive-lanes",
+	                              window->priv->repository,
+	                              "inactive-collapse",
+	                              G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET,
+	                              convert_setting_to_inactive_collapse,
+	                              NULL,
+	                              window,
+	                              NULL);
 
-	g_object_bind_property_full (preferences,
-	                             "history-collapse-inactive-lanes",
-	                             window->priv->repository,
-	                             "inactive-collapse",
-	                             G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE,
-	                             convert_setting_to_inactive_collapse,
-	                             NULL,
-	                             window,
-	                             NULL);
+	g_settings_bind_with_mapping (window->priv->history_settings,
+	                              "collapse-inactive-lanes",
+	                              window->priv->repository,
+	                              "inactive-gap",
+	                              G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET,
+	                              convert_setting_to_inactive_gap,
+	                              NULL,
+	                              window,
+	                              NULL);
 
-	g_object_bind_property_full (preferences,
-	                             "history-collapse-inactive-lanes",
-	                             window->priv->repository,
-	                             "inactive-gap",
-	                             G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE,
-	                             convert_setting_to_inactive_gap,
-	                             NULL,
-	                             window,
-	                             NULL);
-
-	g_object_bind_property (preferences,
-	                        "history-collapse-inactive-lanes-active",
-	                        window->priv->repository,
-	                        "inactive-enabled",
-	                        G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+	g_settings_bind (window->priv->history_settings,
+	                 "collapse-inactive-lanes-active",
+	                 window->priv->repository,
+	                 "inactive-enabled",
+	                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
 }
 
 static gboolean
@@ -3357,8 +3360,8 @@ on_tag_dialog_response (GtkWidget *dialog,
 
 			g_free (sha1);
 
-				GitgPreferences *preferences = gitg_preferences_get_default ();
-			g_object_set (preferences, "hidden-sign-tag", sign, NULL);
+			g_settings_set_boolean (info->window->priv->hidden_settings,
+			                        "sign-tag", sign);
 		}
 
 		g_free (message);
@@ -3562,8 +3565,6 @@ on_revision_tag_activate (GtkAction  *action,
 	selection = gtk_tree_view_get_selection (window->priv->tree_view);
 	GList *rows = gtk_tree_selection_get_selected_rows (selection, &model);
 
-	GitgPreferences *preferences = gitg_preferences_get_default ();
-
 	if (rows && !rows->next)
 	{
 		GtkBuilder *builder = gitg_utils_new_builder ("gitg-tag.ui");
@@ -3571,9 +3572,10 @@ on_revision_tag_activate (GtkAction  *action,
 
 		GtkToggleButton *toggle = GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "check_button_sign"));
 
-		gboolean active = TRUE;
+		gboolean active;
 
-		g_object_get (preferences, "hidden-sign-tag", &active, NULL);
+		active = g_settings_get_boolean (window->priv->hidden_settings,
+		                                 "sign-tag");
 		gtk_toggle_button_set_active (toggle, active);
 
 		gtk_window_set_transient_for (GTK_WINDOW (widget), GTK_WINDOW (window));

@@ -10,7 +10,6 @@
 #include <libgitg/gitg-hash.h>
 #include "gitg-diff-view.h"
 #include "gitg-utils.h"
-#include "gitg-preferences.h"
 #include <glib/gi18n.h>
 
 
@@ -36,6 +35,8 @@ struct _GitgRevisionChangesPanelPrivate
 	GSList *cached_headers;
 
 	gchar *selection;
+
+	GSettings *diff_settings;
 };
 
 typedef enum
@@ -522,6 +523,12 @@ gitg_revision_changes_panel_dispose (GObject *object)
 
 	set_revision (changes_panel, NULL, NULL);
 
+	if (changes_panel->priv->diff_settings)
+	{
+		g_object_unref (changes_panel->priv->diff_settings);
+		changes_panel->priv->diff_settings = NULL;
+	}
+
 	if (changes_panel->priv->diff_files_shell)
 	{
 		g_object_unref (changes_panel->priv->diff_files_shell);
@@ -596,10 +603,8 @@ reload_diff (GitgRevisionChangesPanel *changes_panel)
 	gchar sign = gitg_revision_get_sign (changes_panel->priv->revision);
 	gboolean allow_external;
 
-	g_object_get (gitg_preferences_get_default (),
-	              "diff-external",
-	              &allow_external,
-	              NULL);
+	allow_external = g_settings_get_boolean (changes_panel->priv->diff_settings,
+	                                         "external");
 
 	switch (sign)
 	{
@@ -844,10 +849,8 @@ on_diff_end_loading (GitgShell                *shell,
 	gchar sign = gitg_revision_get_sign (self->priv->revision);
 	gboolean allow_external;
 
-	g_object_get (gitg_preferences_get_default (),
-	              "diff-external",
-	              &allow_external,
-	              NULL);
+	allow_external = g_settings_get_boolean (self->priv->diff_settings,
+	                                         "external");
 
 	if (sign == 't' || sign == 'u')
 	{
@@ -911,6 +914,7 @@ gitg_revision_changes_panel_init (GitgRevisionChangesPanel *self)
 {
 	self->priv = GITG_REVISION_CHANGES_PANEL_GET_PRIVATE (self);
 
+	self->priv->diff_settings = g_settings_new ("org.gnome.gitg.preferences.diff");
 	self->priv->diff_shell = gitg_shell_new (2000);
 
 	g_signal_connect (self->priv->diff_shell,
