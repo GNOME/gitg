@@ -235,7 +235,7 @@ on_shell_begin (GitgShell                *shell,
 
 	panel->priv->in_stat = FALSE;
 
-	gdk_cursor_unref (cursor);
+	g_object_unref (cursor);
 }
 
 static void
@@ -635,7 +635,7 @@ update_parents (GitgRevisionDetailsPanel *self)
 		}
 	}
 
-	gdk_cursor_unref (cursor);
+	g_object_unref (cursor);
 	g_strfreev (parents);
 }
 

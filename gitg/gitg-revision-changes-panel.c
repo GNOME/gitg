@@ -704,7 +704,7 @@ on_diff_files_begin_loading (GitgShell                *shell,
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (self->priv->diff_files)),
 	                       cursor);
 
-	gdk_cursor_unref (cursor);
+	g_object_unref (cursor);
 }
 
 static void
@@ -819,7 +819,7 @@ on_diff_begin_loading (GitgShell                *shell,
 	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET(self->priv->diff)),
 	                       cursor);
-	gdk_cursor_unref (cursor);
+	g_object_unref (cursor);
 }
 
 static void

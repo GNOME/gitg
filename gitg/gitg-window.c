@@ -192,7 +192,7 @@ gitg_window_finalize (GObject *object)
 	GitgWindow *self = GITG_WINDOW(object);
 
 	g_timer_destroy (self->priv->load_timer);
-	gdk_cursor_unref (self->priv->hand);
+	g_object_unref (self->priv->hand);
 
 	GList *copy = g_list_copy (self->priv->branch_actions);
 	GList *item;
@@ -1697,7 +1697,7 @@ on_repository_load (GitgRepository *repository,
 {
 	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (window->priv->tree_view)), cursor);
-	gdk_cursor_unref (cursor);
+	g_object_unref (cursor);
 
 	gtk_statusbar_push (window->priv->statusbar, 0, _ ("Begin loading repository"));
 

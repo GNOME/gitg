@@ -147,7 +147,7 @@ gitg_commit_view_finalize (GObject *object)
 	g_object_unref (view->priv->shell);
 	g_object_unref (view->priv->ui_manager);
 
-	gdk_cursor_unref (view->priv->hand);
+	g_object_unref (view->priv->hand);
 
 	G_OBJECT_CLASS (gitg_commit_view_parent_class)->finalize (object);
 }
