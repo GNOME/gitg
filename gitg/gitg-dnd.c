@@ -531,7 +531,7 @@ vertical_autoscroll (GitgDndData *data)
 		}
 	}
 
-	GtkAdjustment *adj = gtk_tree_view_get_vadjustment (data->tree_view);
+	GtkAdjustment *adj = gtk_scrollable_get_vadjustment (GTK_SCROLLABLE (data->tree_view));
 
 	value = CLAMP (gtk_adjustment_get_value (adj) + offset, 0.0,
 	               gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj));
