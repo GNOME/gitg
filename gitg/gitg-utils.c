@@ -27,8 +27,6 @@
 #include <string.h>
 #include <math.h>
 
-#include "gseal-gtk-compat.h"
-
 gchar *
 gitg_utils_get_content_type(GFile *file)
 {

@@ -51,37 +51,12 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
 
 AC_CHECK_LIB([m], [sinf])
 
-# Which gtk+ API version to compile against
-
-AC_MSG_CHECKING([which gtk+ version to compile against])
-AC_ARG_WITH([gtk],
-	[AS_HELP_STRING([--with-gtk=2.0|3.0],[which gtk+ version to compile against (default: 2.0)])],
-	[case "$with_gtk" in
-		2.0|3.0) ;;
-		*) AC_MSG_ERROR([invalid gtk version specified]) ;;
-	esac],
-	[with_gtk=2.0])
-AC_MSG_RESULT([$with_gtk])
-
-case "$with_gtk" in
-	2.0)
-		GTK_REQUIRED=gtk+-2.0
-		GTK_REQUIRED_VERSION=2.20.0
-		GTKSOURCEVIEW_REQUIRED=gtksourceview-2.0
-		GTKSOURCEVIEW_REQUIRED_VERSION=2.8.0
-		;;
-	3.0)
-		GTK_REQUIRED=gtk+-3.0
-		GTK_REQUIRED_VERSION=2.90.0
-		GTKSOURCEVIEW_REQUIRED=gtksourceview-3.0
-		GTKSOURCEVIEW_REQUIRED_VERSION=2.90.0
-		;;
-esac
-
 GLIB_REQUIRED_VERSION=2.26
+GTK_REQUIRED_VERSION=2.90.0
+GTKSOURCEVIEW_REQUIRED_VERSION=2.90.0
 
 PKG_CHECK_MODULES(GITG, [
-	$GTK_REQUIRED >= $GTK_REQUIRED_VERSION
+	gtk+-3.0 >= $GTK_REQUIRED_VERSION
 	gthread-2.0 >= $GLIB_REQUIRED_VERSION
 	glib-2.0 >= $GLIB_REQUIRED_VERSION
 	gobject-2.0 >= $GLIB_REQUIRED_VERSION
@@ -91,7 +66,7 @@ PKG_CHECK_MODULES(GITG, [
 ])
 
 PKG_CHECK_MODULES(PACKAGE, [
-	$GTKSOURCEVIEW_REQUIRED >= $GTKSOURCEVIEW_REQUIRED_VERSION
+	gtksourceview-3.0 >= $GTKSOURCEVIEW_REQUIRED_VERSION
 	gsettings-desktop-schemas
 ])
 

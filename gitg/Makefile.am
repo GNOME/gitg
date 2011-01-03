@@ -30,8 +30,7 @@ NOINST_H_FILES =			\
 	gitg-stat-view.h		\
 	gitg-uri.h			\
 	gitg-utils.h			\
-	gitg-window.h			\
-	gseal-gtk-compat.h
+	gitg-window.h
 
 gitg_SOURCES =				\
 	$(BUILT_SOURCES)		\

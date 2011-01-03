@@ -26,7 +26,6 @@
 #include "gitg-cell-renderer-path.h"
 #include "gitg-window.h"
 #include "gitg-branch-actions.h"
-#include "gseal-gtk-compat.h"
 #include "gitg-utils.h"
 
 #include <string.h>
