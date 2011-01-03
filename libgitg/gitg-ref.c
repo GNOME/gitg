@@ -44,20 +44,7 @@ struct _GitgRef
 	gboolean working;
 };
 
-GType
-gitg_ref_get_type (void)
-{
-	static GType our_type = 0;
-
-	if (!our_type)
-	{
-		our_type = g_boxed_type_register_static ("GitGRef",
-		                                         (GBoxedCopyFunc)gitg_ref_copy,
-		                                         (GBoxedFreeFunc)gitg_ref_free);
-	}
-
-	return our_type;
-}
+G_DEFINE_BOXED_TYPE (GitgRef, gitg_ref, gitg_ref_copy, gitg_ref_free)
 
 GitgRef *
 gitg_ref_new (gchar const *hash, gchar const *name)

@@ -48,6 +48,8 @@ struct _GitgRevision
 	gint8 mylane;
 };
 
+G_DEFINE_BOXED_TYPE (GitgRevision, gitg_revision, gitg_revision_ref, gitg_revision_unref)
+
 static void
 free_lanes (GitgRevision *rv)
 {
@@ -342,21 +344,6 @@ char
 gitg_revision_get_sign (GitgRevision *revision)
 {
 	return revision->sign;
-}
-
-GType
-gitg_revision_get_type (void)
-{
-	static GType our_type = 0;
-
-	if (!our_type)
-	{
-		our_type = g_boxed_type_register_static ("GitgRevision",
-		                                         (GBoxedCopyFunc)gitg_revision_ref,
-		                                         (GBoxedFreeFunc)gitg_revision_unref);
-	}
-
-	return our_type;
 }
 
 GitgLane *

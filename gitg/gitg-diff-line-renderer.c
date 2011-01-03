@@ -49,13 +49,7 @@ struct _GitgDiffLineRendererPrivate
 	gchar *label;
 };
 
-G_DEFINE_TYPE (GitgDiffLineRenderer, gitg_diff_line_renderer, GTK_TYPE_CELL_RENDERER)
-
-static void
-gitg_diff_line_renderer_finalize (GObject *object)
-{
-	G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->finalize (object);
-}
+G_DEFINE_TYPE (GitgDiffLineRenderer, gitg_diff_line_renderer, GTK_TYPE_SOURCE_GUTTER_RENDERER)
 
 static void
 gitg_diff_line_renderer_set_property (GObject      *object,

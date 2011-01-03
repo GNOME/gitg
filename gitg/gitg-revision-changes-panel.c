@@ -71,6 +71,8 @@ static void gitg_activatable_iface_init (GitgActivatableInterface *iface);
 static void on_header_added (GitgDiffView *view, GitgDiffIter *iter, GitgRevisionChangesPanel *self);
 static void on_diff_files_selection_changed (GtkTreeSelection *selection, GitgRevisionChangesPanel *self);
 
+static GType diff_file_get_type (void) G_GNUC_CONST;
+
 G_DEFINE_TYPE_EXTENDED (GitgRevisionChangesPanel,
                         gitg_revision_changes_panel,
                         G_TYPE_OBJECT,
@@ -140,20 +142,7 @@ diff_file_unref (DiffFile *f)
 	g_slice_free (DiffFile, f);
 }
 
-static GType
-diff_file_get_type ()
-{
-	static GType gtype = 0;
-
-	if (!G_UNLIKELY(gtype))
-	{
-		gtype = g_boxed_type_register_static ("DiffFile",
-		                                      (GBoxedCopyFunc)diff_file_copy,
-		                                      (GBoxedFreeFunc)diff_file_unref);
-	}
-
-	return gtype;
-}
+G_DEFINE_BOXED_TYPE (DiffFile, diff_file, diff_file_copy, diff_file_unref)
 
 static void
 revision_files_icon (GtkTreeViewColumn         *column,
