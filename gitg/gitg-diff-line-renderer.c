@@ -95,14 +95,14 @@ gitg_diff_line_renderer_get_property (GObject    *object,
 }
 
 static void
-darken_or_lighten (cairo_t        *ctx,
-                   GdkColor const *color)
+darken_or_lighten (cairo_t       *ctx,
+                   GdkRGBA const *color)
 {
 	float r, g, b;
 
-	r = color->red / 65535.0;
-	g = color->green / 65535.0;
-	b = color->blue / 65535.0;
+	r = color->red;
+	g = color->green;
+	b = color->blue;
 
 	if ((r + g + b) / 3 > 0.5)
 	{
@@ -130,9 +130,10 @@ render_label (GitgDiffLineRenderer *lr,
               GtkCellRendererState  flags)
 {
 	PangoLayout *layout;
-	GtkStyle *style;
+	GtkStyleContext *style_context;
 	GtkStateType state;
 	gint pixel_height;
+	GdkRGBA fg_color, bg_color;
 
 	layout = gtk_widget_create_pango_layout (widget, "");
 
@@ -143,12 +144,13 @@ render_label (GitgDiffLineRenderer *lr,
 
 	pango_layout_set_alignment (layout, PANGO_ALIGN_CENTER);
 
-	style = gtk_widget_get_style (widget);
+	style_context = gtk_widget_get_style_context (widget);
 	state = gtk_widget_get_state (widget);
 
+	gtk_style_context_get_color (style_context, state, &fg_color);
+	gtk_style_context_get_background_color (style_context, state, &bg_color);
 
-
-	gdk_cairo_set_source_color (ctx, &(style->fg[state]));
+	gdk_cairo_set_source_rgba (ctx, &fg_color);
 
 	gitg_utils_rounded_rectangle (ctx,
 	                              cell_area->x + 0.5,
@@ -159,12 +161,12 @@ render_label (GitgDiffLineRenderer *lr,
 
 	cairo_fill_preserve (ctx);
 
-	darken_or_lighten (ctx, &(style->fg[state]));
+	darken_or_lighten (ctx, &fg_color);
 
 	cairo_set_line_width (ctx, 1);
 	cairo_stroke (ctx);
 
-	gdk_cairo_set_source_color (ctx, &(style->base[state]));
+	gdk_cairo_set_source_rgba (ctx, &bg_color);
 
 	cairo_move_to (ctx,
 	               cell_area->x + cell_area->width / 2,
@@ -172,13 +174,8 @@ render_label (GitgDiffLineRenderer *lr,
 
 	pango_cairo_show_layout (ctx, layout);
 
-	/*gtk_draw_layout (style,
+	/*gtk_render_layout (style_context,
 	                   ctx,
-	                   state,
-	                   FALSE,
-	                   NULL,
-	                   widget,
-	                   NULL,
 	                   cell_area->x + cell_area->width / 2,
 	                   cell_area->y,
 	                   layout);*/
@@ -198,7 +195,8 @@ render_lines (GitgDiffLineRenderer *lr,
 	gchar new_str[16];
 	guint xpad;
 	guint ypad;
-	GtkStyle *style;
+	GtkWidget *widget;
+	GtkStyleContext *style_context;
 
 	PangoLayout *layout = gtk_widget_create_pango_layout (widget, "");
 	pango_layout_set_width (layout, cell_area->width / 2);
@@ -226,42 +224,29 @@ render_lines (GitgDiffLineRenderer *lr,
 	g_object_get (lr, "xpad", &xpad, "ypad", &ypad, NULL);
 
 	pango_layout_set_text (layout, old_str, -1);
-	style = gtk_widget_get_style (widget);
+	style_context = gtk_widget_get_style_context (widget);
 
-	gtk_draw_layout (style,
-	                 ctx,
-	                 gtk_widget_get_state (widget),
-	                 FALSE,
-	                 NULL,
-	                 widget,
-	                 NULL,
-	                 cell_area->x + cell_area->width / 2 - 1 - xpad,
-	                 cell_area->y,
-	                 layout);
+	gtk_render_layout (style_context,
+	                   ctx,
+	                   cell_area->x + cell_area->width / 2 - 1 - xpad,
+	                   cell_area->y,
+	                   layout);
 
 	pango_layout_set_text (layout, new_str, -1);
-	gtk_draw_layout (style,
-	                 ctx,
-	                 gtk_widget_get_state (widget),
-	                 FALSE,
-	                 NULL,
-	                 widget,
-	                 NULL,
-	                 cell_area->x + cell_area->width - xpad,
-	                 cell_area->y,
-	                 layout);
+	gtk_render_layout (style_context,
+	                   ctx,
+	                   cell_area->x + cell_area->width - xpad,
+	                   cell_area->y,
+	                   layout);
 
 	g_object_unref (layout);
 
-	gtk_draw_vline (style,
-	                ctx,
-	                gtk_widget_get_state (widget),
-	                NULL,
-	                widget,
-	                NULL,
-	                background_area->y,
-	                background_area->y + background_area->height,
-	                background_area->x + background_area->width / 2);
+	gtk_render_line (style_context,
+	                 ctx,
+	                 background_area->x + background_area->width / 2,
+	                 background_area->y,
+	                 background_area->y + background_area->height,
+	                 background_area->x + background_area->width / 2);
 }
 
 static void

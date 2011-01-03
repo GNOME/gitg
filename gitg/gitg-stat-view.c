@@ -63,9 +63,9 @@ gitg_stat_view_finalize (GObject *object)
 static void
 update_colors (GitgStatView *view)
 {
-	GtkStyle *style;
-	GdkColor bg_color;
-	gdouble r, g, b;
+	GtkStyleContext *style_context;
+	GtkStateFlags state;
+	GdkRGBA bg_color;
 	gdouble hue, sat, val;
 
 	if (!gtk_widget_get_realized (GTK_WIDGET (view)))
@@ -73,14 +73,11 @@ update_colors (GitgStatView *view)
 		return;
 	}
 
-	style = gtk_widget_get_style (GTK_WIDGET (view));
-	bg_color = style->base[gtk_widget_get_state (GTK_WIDGET (view))];
+	style_context = gtk_widget_get_style_context (GTK_WIDGET (view));
+	state = gtk_widget_get_state (GTK_WIDGET (view));
+	gtk_style_context_get_background_color (style_context, state, &bg_color);
 
-	r = bg_color.red / 65535.0;
-	g = bg_color.green / 65535.0;
-	b = bg_color.blue / 65535.0;
-
-	gtk_rgb_to_hsv (r, g, b, &hue, &sat, &val);
+	gtk_rgb_to_hsv (bg_color.red, bg_color.green, bg_color.blue, &hue, &sat, &val);
 
 	sat = MIN(sat * 0.5 + 0.5, 1);
 	val = MIN((pow(val + 1, 3) - 1) / 7 * 0.6 + 0.2, 1);
@@ -116,21 +113,21 @@ gitg_stat_view_realize (GtkWidget *widget)
 static void
 update_styles (GitgStatView *view)
 {
-	gtk_style_get (gtk_widget_get_style (GTK_WIDGET (view)),
-	               GITG_TYPE_STAT_VIEW,
-	               "radius", &view->priv->radius,
-	               "stat-padding", &view->priv->stat_padding,
-	               "show-lines", &view->priv->show_lines,
-	               "lines-spacing", &view->priv->lines_spacing,
-	               NULL);
+	gtk_style_context_get_style (gtk_widget_get_style_context (GTK_WIDGET (view)),
+	                             gtk_widget_get_state (GTK_WIDGET (view)),
+	                             "radius", &view->priv->radius,
+	                             "stat-padding", &view->priv->stat_padding,
+	                             "show-lines", &view->priv->show_lines,
+	                             "lines-spacing", &view->priv->lines_spacing,
+	                             NULL);
 }
 
 static void
-gitg_stat_view_style_set (GtkWidget *widget, GtkStyle *prev_style)
+gitg_stat_view_style_updated (GtkWidget *widget)
 {
-	if (GTK_WIDGET_CLASS (gitg_stat_view_parent_class)->style_set)
+	if (GTK_WIDGET_CLASS (gitg_stat_view_parent_class)->style_updated)
 	{
-		GTK_WIDGET_CLASS (gitg_stat_view_parent_class)->style_set (widget, prev_style);
+		GTK_WIDGET_CLASS (gitg_stat_view_parent_class)->style_updated (widget);
 	}
 
 	update_colors (GITG_STAT_VIEW (widget));
@@ -405,8 +402,8 @@ gitg_stat_view_class_init (GitgStatViewClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-	widget_class->style_set = gitg_stat_view_style_set;
 	widget_class->draw = gitg_stat_view_draw;
+	widget_class->style_updated = gitg_stat_view_style_updated;
 	widget_class->realize = gitg_stat_view_realize;
 	widget_class->configure_event = gitg_stat_view_configure;
 
