@@ -66,7 +66,7 @@ AC_MSG_RESULT([$with_gtk])
 case "$with_gtk" in
 	2.0)
 		GTK_REQUIRED=gtk+-2.0
-		GTK_REQUIRED_VERSION=2.18.0
+		GTK_REQUIRED_VERSION=2.20.0
 		GTKSOURCEVIEW_REQUIRED=gtksourceview-2.0
 		GTKSOURCEVIEW_REQUIRED_VERSION=2.8.0
 		;;
@@ -116,31 +116,9 @@ if test "$enable_deprecations" = "yes"; then
 -DGDK_DISABLE_DEPRECATED \
 -DGTK_DISABLE_DEPRECATED \
 -DGDK_PIXBUF_DISABLE_DEPRECATED \
--DGNOME_DISABLE_DEPRECATED"
+-DGNOME_DISABLE_DEPRECATED \
+-DGSEAL_ENABLE"
 fi
-
-if $PKG_CONFIG --atleast-version 2.19.0 $GTK_REQUIRED; then
-	gtkatleast=
-else
-	gtkatleast=no
-fi
-
-AM_CONDITIONAL(BUILD_SPINNER, test "$gtkatleast" = "no")
-if test "$gtkatleast" = "no"; then
-	AC_DEFINE([BUILD_SPINNER],[1],[Whether to use GitgSpinner instead of GtkSpinner])
-fi
-
-if $PKG_CONFIG --atleast-version 2.21.0 $GTK_REQUIRED; then
-	gtkatleast=yes
-else
-	gtkatleast=
-fi
-
-if test "$gtkatleast" = "yes"; then
-	DISABLE_DEPRECATED_CFLAGS="$DISABLE_DEPRECATED_CFLAGS -DGSEAL_ENABLE"
-fi
-
-AC_SUBST(DISABLE_DEPRECATED_CFLAGS)
 
 PACKAGE_LIBS="$PACKAGE_LIBS -lm"
 
@@ -165,13 +143,10 @@ tools/Makefile
 
 AC_OUTPUT
 
-gtkversion=`$PKG_CONFIG --modversion $GTK_REQUIRED`
-
 echo "
 
 Configuration:
 
 	Source code location:	${srcdir}
 	Compiler:		${CC}
-	gtk+ version:           ${gtkversion}
 "

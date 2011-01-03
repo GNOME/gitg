@@ -57,11 +57,6 @@ gitg_SOURCES =				\
 	gitg-window.c			\
 	$(NOINST_H_FILES)
 
-if BUILD_SPINNER
-gitg_SOURCES += gitg-spinner.c
-NOINST_H_FILES += gitg-spinner.h
-endif
-
 gitg_LDADD =		\
 	$(GITG_LIBS)	\
 	$(PACKAGE_LIBS) \
