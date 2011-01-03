@@ -122,7 +122,7 @@ darken_or_lighten (cairo_t        *ctx,
 
 static void
 render_label (GitgDiffLineRenderer *lr,
-              GdkDrawable          *window,
+              cairo_t              *ctx,
               GtkWidget            *widget,
               GdkRectangle         *background_area,
               GdkRectangle         *cell_area,
@@ -146,10 +146,7 @@ render_label (GitgDiffLineRenderer *lr,
 	style = gtk_widget_get_style (widget);
 	state = gtk_widget_get_state (widget);
 
-	cairo_t *ctx = gdk_cairo_create (window);
 
-	gdk_cairo_rectangle (ctx, expose_area);
-	cairo_clip (ctx);
 
 	gdk_cairo_set_source_color (ctx, &(style->fg[state]));
 
@@ -175,23 +172,21 @@ render_label (GitgDiffLineRenderer *lr,
 
 	pango_cairo_show_layout (ctx, layout);
 
-	cairo_destroy (ctx);
-
-	/*gtk_paint_layout (style,
-	                  window,
-	                  state,
-	                  FALSE,
-	                  NULL,
-	                  widget,
-	                  NULL,
-	                  cell_area->x + cell_area->width / 2,
-	                  cell_area->y,
-	                  layout);*/
+	/*gtk_draw_layout (style,
+	                   ctx,
+	                   state,
+	                   FALSE,
+	                   NULL,
+	                   widget,
+	                   NULL,
+	                   cell_area->x + cell_area->width / 2,
+	                   cell_area->y,
+	                   layout);*/
 }
 
 static void
 render_lines (GitgDiffLineRenderer *lr,
-              GdkDrawable          *window,
+              cairo_t              *ctx,
               GtkWidget            *widget,
               GdkRectangle         *background_area,
               GdkRectangle         *cell_area,
@@ -233,45 +228,45 @@ render_lines (GitgDiffLineRenderer *lr,
 	pango_layout_set_text (layout, old_str, -1);
 	style = gtk_widget_get_style (widget);
 
-	gtk_paint_layout (style,
-	                  window,
-	                  gtk_widget_get_state (widget),
-	                  FALSE,
-	                  NULL,
-	                  widget,
-	                  NULL,
-	                  cell_area->x + cell_area->width / 2 - 1 - xpad,
-	                  cell_area->y,
-	                  layout);
-
-	pango_layout_set_text (layout, new_str, -1);
-	gtk_paint_layout (style,
-	                  window,
-	                  gtk_widget_get_state (widget),
-	                  FALSE,
-	                  NULL,
-	                  widget,
-	                  NULL,
-	                  cell_area->x + cell_area->width - xpad,
-	                  cell_area->y,
-	                  layout);
-
-	g_object_unref (layout);
-
-	gtk_paint_vline (style,
-	                 window,
+	gtk_draw_layout (style,
+	                 ctx,
 	                 gtk_widget_get_state (widget),
+	                 FALSE,
 	                 NULL,
 	                 widget,
 	                 NULL,
-	                 background_area->y,
-	                 background_area->y + background_area->height,
-	                 background_area->x + background_area->width / 2);
+	                 cell_area->x + cell_area->width / 2 - 1 - xpad,
+	                 cell_area->y,
+	                 layout);
+
+	pango_layout_set_text (layout, new_str, -1);
+	gtk_draw_layout (style,
+	                 ctx,
+	                 gtk_widget_get_state (widget),
+	                 FALSE,
+	                 NULL,
+	                 widget,
+	                 NULL,
+	                 cell_area->x + cell_area->width - xpad,
+	                 cell_area->y,
+	                 layout);
+
+	g_object_unref (layout);
+
+	gtk_draw_vline (style,
+	                ctx,
+	                gtk_widget_get_state (widget),
+	                NULL,
+	                widget,
+	                NULL,
+	                background_area->y,
+	                background_area->y + background_area->height,
+	                background_area->x + background_area->width / 2);
 }
 
 static void
 gitg_diff_line_renderer_render_impl (GtkCellRenderer      *cell,
-                                     GdkDrawable          *window,
+                                     cairo_t              *ctx,
                                      GtkWidget            *widget,
                                      GdkRectangle         *background_area,
                                      GdkRectangle         *cell_area,
@@ -283,7 +278,7 @@ gitg_diff_line_renderer_render_impl (GtkCellRenderer      *cell,
 	if (lr->priv->label)
 	{
 		render_label (lr,
-		              window,
+		              ctx,
 		              widget,
 		              background_area,
 		              cell_area,
@@ -293,7 +288,7 @@ gitg_diff_line_renderer_render_impl (GtkCellRenderer      *cell,
 	else
 	{
 		render_lines (lr,
-		              window,
+		              ctx,
 		              widget,
 		              background_area,
 		              cell_area,

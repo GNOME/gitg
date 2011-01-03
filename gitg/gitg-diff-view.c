@@ -145,7 +145,7 @@ struct _GitgDiffViewPrivate
 
 G_DEFINE_TYPE (GitgDiffView, gitg_diff_view, GTK_TYPE_SOURCE_VIEW)
 
-static gboolean gitg_diff_view_expose (GtkWidget *widget, GdkEventExpose *event);
+static gboolean gitg_diff_view_draw (GtkWidget *widget, cairo_t *cr);
 static guint diff_view_signals[NUM_SIGNALS] = {0,};
 
 static void
@@ -314,7 +314,7 @@ gitg_diff_view_class_init (GitgDiffViewClass *klass)
 
 	object_class->constructed = gitg_diff_view_constructed;
 
-	widget_class->expose_event = gitg_diff_view_expose;
+	widget_class->draw = gitg_diff_view_draw;
 
 	diff_view_signals[HEADER_ADDED] =
 		g_signal_new ("header-added",
@@ -855,20 +855,20 @@ line_renderer_data_func (GtkSourceGutter *gutter,
 }
 
 static gint
-gitg_diff_view_expose (GtkWidget      *widget,
-                       GdkEventExpose *event)
+gitg_diff_view_draw (GtkWidget *widget,
+                     cairo_t   *cr)
 {
 	GitgDiffView *view = GITG_DIFF_VIEW (widget);
 
-	/* Prepare for new round of expose on the line renderer */
+	/* Prepare for new round of draw on the line renderer */
 	view->priv->lines_current_region = NULL;
 	view->priv->lines_previous_line = -1;
 	view->priv->lines_counters[0] = 0;
 	view->priv->lines_counters[1] = 0;
 
-	if (GTK_WIDGET_CLASS (gitg_diff_view_parent_class)->expose_event)
+	if (GTK_WIDGET_CLASS (gitg_diff_view_parent_class)->draw)
 	{
-		return GTK_WIDGET_CLASS (gitg_diff_view_parent_class)->expose_event (widget, event);
+		return GTK_WIDGET_CLASS (gitg_diff_view_parent_class)->draw (widget, cr);
 	}
 	else
 	{

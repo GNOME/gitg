@@ -324,8 +324,6 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 
 	self->priv->last_height = area->height;
 
-	cairo_t *cr = gdk_cairo_create(window);
-
 	gdk_cairo_rectangle (cr, area);
 	cairo_clip(cr);
 
@@ -336,13 +334,12 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 
 	/* draw labels */
 	draw_labels(self, widget, cr, area);
-	cairo_destroy(cr);
 
 	area->x += total_width(self, widget);
 	cell_area->x += total_width(self, widget);
 
 	if (GTK_CELL_RENDERER_CLASS(parent_class)->render)
-		GTK_CELL_RENDERER_CLASS(parent_class)->render(renderer, window, widget, area, cell_area, expose_area, flags);
+		GTK_CELL_RENDERER_CLASS(parent_class)->render(renderer, cr, widget, area, cell_area, flags);
 }
 
 static void

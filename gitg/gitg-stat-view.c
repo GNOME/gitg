@@ -254,9 +254,9 @@ draw_stat (GitgStatView    *view,
 }
 
 static gboolean
-gitg_stat_view_expose (GtkWidget *widget, GdkEventExpose *event)
+gitg_stat_view_draw (GtkWidget *widget,
+                     cairo_t   *ctx)
 {
-	cairo_t *ctx;
 	GdkRectangle alloc;
 	guint added_width;
 	guint removed_width;
@@ -264,9 +264,9 @@ gitg_stat_view_expose (GtkWidget *widget, GdkEventExpose *event)
 	GitgStatView *view;
 	guint padding;
 
-	if (GTK_WIDGET_CLASS (gitg_stat_view_parent_class)->expose_event)
+	if (GTK_WIDGET_CLASS (gitg_stat_view_parent_class)->draw)
 	{
-		GTK_WIDGET_CLASS (gitg_stat_view_parent_class)->expose_event (widget, event);
+		GTK_WIDGET_CLASS (gitg_stat_view_parent_class)->draw (widget, ctx);
 	}
 
 	view = GITG_STAT_VIEW (widget);
@@ -285,11 +285,6 @@ gitg_stat_view_expose (GtkWidget *widget, GdkEventExpose *event)
 	{
 		padding = 2;
 	}
-
-	ctx = gdk_cairo_create (event->window);
-
-	gdk_cairo_rectangle (ctx, &event->area);
-	cairo_clip (ctx);
 
 	gtk_widget_get_allocation (widget, &alloc);
 
@@ -327,8 +322,6 @@ gitg_stat_view_expose (GtkWidget *widget, GdkEventExpose *event)
 		           removed_width,
 		           alloc.height);
 	}
-
-	cairo_destroy (ctx);
 
 	return TRUE;
 }
@@ -412,8 +405,8 @@ gitg_stat_view_class_init (GitgStatViewClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-	widget_class->expose_event = gitg_stat_view_expose;
 	widget_class->style_set = gitg_stat_view_style_set;
+	widget_class->draw = gitg_stat_view_draw;
 	widget_class->realize = gitg_stat_view_realize;
 	widget_class->configure_event = gitg_stat_view_configure;
 
