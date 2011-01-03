@@ -2245,6 +2245,7 @@ on_help_about (GtkAction  *action,
 	                       "comments", _ (comments),
 	                       "version", VERSION,
 	                       "website", "http://trac.novowork.com/gitg",
+	                       "website-label", "trac.novowork.com/gitg",
 	                       "logo", pixbuf,
 	                       "license", _ (license),
 	                       NULL);
