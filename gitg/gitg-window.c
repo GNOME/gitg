@@ -1123,7 +1123,7 @@ gitg_window_window_state_event (GtkWidget           *widget,
 		show = !(event->new_window_state &
 			(GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN));
 
-		gtk_statusbar_set_has_resize_grip (window->priv->statusbar, show);
+		gtk_window_set_has_resize_grip (GTK_WINDOW (window), show);
 	}
 
 	/* Save the window state */
