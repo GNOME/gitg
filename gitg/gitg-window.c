@@ -1083,9 +1083,9 @@ gitg_window_delete_event (GtkWidget   *widget,
 }
 
 static void
-gitg_window_destroy (GtkObject *object)
+gitg_window_destroy (GtkWidget *widget)
 {
-	GitgWindow *window = GITG_WINDOW(object);
+	GitgWindow *window = GITG_WINDOW(widget);
 
 	if (!window->priv->destroy_has_run)
 	{
@@ -1103,9 +1103,9 @@ gitg_window_destroy (GtkObject *object)
 		window->priv->destroy_has_run = TRUE;
 	}
 
-	if (GTK_OBJECT_CLASS(parent_class)->destroy)
+	if (GTK_WIDGET_CLASS(parent_class)->destroy)
 	{
-		GTK_OBJECT_CLASS(parent_class)->destroy (object);
+		GTK_WIDGET_CLASS(parent_class)->destroy (widget);
 	}
 }
 
@@ -1180,7 +1180,6 @@ static void
 gitg_window_class_init (GitgWindowClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	GtkObjectClass *gtkobject_class = GTK_OBJECT_CLASS (klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 	GtkWindowClass *window_class = GTK_WINDOW_CLASS (klass);
 
@@ -1188,8 +1187,8 @@ gitg_window_class_init (GitgWindowClass *klass)
 
 	object_class->finalize = gitg_window_finalize;
 	object_class->dispose = gitg_window_dispose;
-	gtkobject_class->destroy = gitg_window_destroy;
 
+	widget_class->destroy = gitg_window_destroy;
 	widget_class->delete_event = gitg_window_delete_event;
 	widget_class->window_state_event = gitg_window_window_state_event;
 	window_class->set_focus = gitg_window_set_focus;
