@@ -2205,31 +2205,6 @@ on_recent_open (GtkRecentChooser *chooser,
 	g_object_unref (work_tree);
 }
 
-static void
-url_activate_hook (GtkAboutDialog *dialog,
-                   gchar const    *link,
-                   gpointer        data)
-{
-	gtk_show_uri (NULL, link, GDK_CURRENT_TIME, NULL);
-}
-
-static void
-email_activate_hook (GtkAboutDialog *dialog,
-                     gchar const    *link,
-                     gpointer        data)
-{
-	gchar *uri;
-	gchar *escaped;
-
-	escaped = g_uri_escape_string (link, NULL, FALSE);
-	uri = g_strdup_printf ("mailto:%s", escaped);
-
-	gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, NULL);
-
-	g_free (uri);
-	g_free (escaped);
-}
-
 void
 on_help_about (GtkAction  *action,
                GitgWindow *window)
@@ -2252,8 +2227,6 @@ on_help_about (GtkAction  *action,
 		"Foundation, Inc., 59 Temple Place, Suite 330,\n"
 		"Boston, MA 02111-1307, USA.");
 
-	gtk_about_dialog_set_url_hook (url_activate_hook, NULL, NULL);
-	gtk_about_dialog_set_email_hook (email_activate_hook, NULL, NULL);
 
 	gchar *path = gitg_dirs_get_data_filename ("icons", "gitg.svg", NULL);
 	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file (path, NULL);
