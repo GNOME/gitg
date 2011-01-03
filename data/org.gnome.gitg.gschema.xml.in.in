@@ -4,17 +4,17 @@
     <value nick="vertical" value="1"/>
   </enum>
 
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences" path="/apps/gitg/preferences/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences" path="/org/gnome/gitg/preferences/">
     <child name="view" schema="org.gnome.gitg.preferences.view" />
     <child name="commit" schema="org.gnome.gitg.preferences.commit" />
     <child name="diff" schema="org.gnome.gitg.preferences.diff" />
     <child name="hidden" schema="org.gnome.gitg.preferences.hidden" />
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view" path="/apps/gitg/preferences/view/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view" path="/org/gnome/gitg/preferences/view/">
     <child name="history" schema="org.gnome.gitg.preferences.view.history" />
     <child name="main" schema="org.gnome.gitg.preferences.view.main" />
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.history" path="/apps/gitg/preferences/view/history/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.history" path="/org/gnome/gitg/preferences/view/history/">
     <key name="search-filter" type="b">
       <default>false</default>
       <_summary>Filter Revisions When Searching</_summary>
@@ -55,7 +55,7 @@
       <!-- TODO: add _descriptions -->
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.main" path="/apps/gitg/preferences/view/main/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.main" path="/org/gnome/gitg/preferences/view/main/">
     <key name="layout-vertical" enum="org.gnome.gitg.Layout">
       <default>'vertical'</default>
       <_summary>Show Main View in Vertical or Horizontal Layout</_summary>
@@ -64,10 +64,10 @@
       </_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit" path="/apps/gitg/preferences/commit/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit" path="/org/gnome/gitg/preferences/commit/">
     <child name="message" schema="org.gnome.gitg.preferences.commit.message" />
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.message" path="/apps/gitg/preferences/commit/message/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.message" path="/org/gnome/gitg/preferences/commit/message/">
     <key name="show-right-margin" type="b">
       <default>true</default>
       <_summary>Show Right Margin in Commit Message View</_summary>
@@ -86,7 +86,7 @@
       </_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.diff" path="/apps/gitg/preferences/diff/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.diff" path="/org/gnome/gitg/preferences/diff/">
     <key name="external" type="b">
       <default>false</default>
       <_summary>Allow External Diff Program</_summary>
@@ -95,16 +95,16 @@
       </_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.hidden" path="/apps/gitg/preferences/hidden/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.hidden" path="/org/gnome/gitg/preferences/hidden/">
     <key name="sign-tag" type="b">
       <default>true</default>
       <!-- TODO _description -->
     </key>
   </schema>
-  <schema id="org.gnome.gitg.state" path="/apps/gitg/state/">
+  <schema id="org.gnome.gitg.state" path="/org/gnome/gitg/state/">
     <child name="window" schema="org.gnome.gitg.state.window"/>
   </schema>
-  <schema id="org.gnome.gitg.state.window" path="/apps/gitg/state/window/">
+  <schema id="org.gnome.gitg.state.window" path="/org/gnome/gitg/state/window/">
     <key name="state" type="i">
       <default>0</default>
     </key>
