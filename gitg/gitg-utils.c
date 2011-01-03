@@ -157,7 +157,7 @@ gitg_utils_set_monospace_font(GtkWidget *widget)
 
 		if (description)
 		{
-			gtk_widget_modify_font(widget, description);
+			gtk_widget_override_font(widget, description);
 			pango_font_description_free(description);
 		}
 	}
@@ -370,7 +370,7 @@ gitg_utils_find_cell_at_pos (GtkTreeView *tree_view, GtkTreeViewColumn *column, 
 			continue;
 		}
 
-		gtk_cell_renderer_get_size (renderer, GTK_WIDGET (tree_view), NULL, NULL, NULL, &width, 0);
+		gtk_cell_renderer_get_preferred_width (renderer, GTK_WIDGET (tree_view), &width, NULL);
 
 		if (x >= start && x <= start + width)
 		{
