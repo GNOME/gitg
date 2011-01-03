@@ -520,7 +520,7 @@ build_search_entry (GitgWindow *window,
 
 	GClosure *closure = g_cclosure_new (G_CALLBACK (focus_search), entry, NULL);
 
-	gtk_accel_group_connect (group, GDK_f, GDK_CONTROL_MASK, 0, closure);
+	gtk_accel_group_connect (group, GDK_KEY_f, GDK_CONTROL_MASK, 0, closure);
 	gtk_window_add_accel_group (GTK_WINDOW(window), group);
 }
 
