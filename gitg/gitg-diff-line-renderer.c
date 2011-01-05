@@ -25,14 +25,6 @@
 
 #define GITG_DIFF_LINE_RENDERER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_DIFF_LINE_RENDERER, GitgDiffLineRendererPrivate))
 
-#ifndef MAX
-#define MAX(a, b) (a > b ? a : b)
-#endif
-
-#ifndef MIN
-#define MIN(a, b) (a < b ? a : b)
-#endif
-
 /* Properties */
 enum
 {
@@ -49,7 +41,7 @@ struct _GitgDiffLineRendererPrivate
 	gchar *label;
 };
 
-G_DEFINE_TYPE (GitgDiffLineRenderer, gitg_diff_line_renderer, GTK_TYPE_SOURCE_GUTTER_RENDERER)
+G_DEFINE_TYPE (GitgDiffLineRenderer, gitg_diff_line_renderer, GTK_TYPE_CELL_RENDERER)
 
 static void
 gitg_diff_line_renderer_set_property (GObject      *object,
@@ -399,7 +391,6 @@ gitg_diff_line_renderer_class_init (GitgDiffLineRendererClass *klass)
 	cell_renderer_class->render = gitg_diff_line_renderer_render_impl;
 	cell_renderer_class->get_size = gitg_diff_line_renderer_get_size_impl;
 
-	object_class->finalize = gitg_diff_line_renderer_finalize;
 	object_class->set_property = gitg_diff_line_renderer_set_property;
 	object_class->get_property = gitg_diff_line_renderer_get_property;
 
