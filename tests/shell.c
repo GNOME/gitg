@@ -8,7 +8,7 @@ typedef struct
 	GitgRepository *repository;
 } RepositoryInfo;
 
-static gboolean
+static void
 remove_all (gchar const *path,
             GError      **error)
 {

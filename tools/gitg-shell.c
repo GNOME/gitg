@@ -1,4 +1,5 @@
 #include <glib.h>
+#include <string.h>
 #include <stdlib.h>
 #include <libgitg/gitg-shell.h>
 #include <gio/gunixinputstream.h>
@@ -96,7 +97,7 @@ main (int argc, char *argv[])
 
 	gitg_debug_init ();
 
-	if (i == 1)
+	if (argc == 1)
 	{
 		g_print ("Please specify a command...\n");
 		return 1;
