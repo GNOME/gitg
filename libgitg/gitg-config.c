@@ -180,13 +180,24 @@ get_value_process (GitgConfig *config, gboolean ret)
 static gchar *
 get_value_global (GitgConfig *config, gchar const *key)
 {
-	gboolean ret = gitg_shell_run (config->priv->shell,
-	                               gitg_command_new (config->priv->repository,
-	                                                  "config",
-	                                                  "--global",
-	                                                  key,
-	                                                  NULL),
-	                               NULL);
+	GError *error = NULL;
+
+	gboolean ret;
+
+	ret = gitg_shell_run (config->priv->shell,
+	                      gitg_command_new (NULL,
+	                                        "git",
+	                                        "config",
+	                                        "--global",
+	                                        key,
+	                                        NULL),
+	                      &error);
+
+	if (error)
+	{
+		g_warning ("Failed to get config: %s", error->message);
+		g_error_free (error);
+	}
 
 	return get_value_process (config, ret);
 }
@@ -196,13 +207,24 @@ get_value_global_regex (GitgConfig *config,
                         gchar const *regex,
                         gchar const *value_regex)
 {
-	gboolean ret = gitg_shell_run (config->priv->shell,
-	                               gitg_command_new (config->priv->repository,
-	                                                  "config",
-	                                                  "--global",
-	                                                  "--get-regexp",
-	                                                  NULL),
-	                               NULL);
+	GError *error = NULL;
+
+	gboolean ret;
+
+	ret = gitg_shell_run (config->priv->shell,
+	                      gitg_command_new (NULL,
+	                                        "git",
+	                                        "config",
+	                                        "--global",
+	                                        "--get-regexp",
+	                                        NULL),
+	                      &error);
+
+	if (error)
+	{
+		g_warning ("Failed to get config: %s", error->message);
+		g_error_free (error);
+	}
 
 	return get_value_process (config, ret);
 }
@@ -214,6 +236,7 @@ get_value_local (GitgConfig *config, gchar const *key)
 	GFile *git_dir;
 	GFile *cfg_file;
 	gchar *cfg;
+	GError *error = NULL;
 
 	git_dir = gitg_repository_get_git_dir (config->priv->repository);
 
@@ -227,7 +250,13 @@ get_value_local (GitgConfig *config, gchar const *key)
 	                                         cfg,
 	                                         key,
 	                                         NULL),
-	                      NULL);
+	                      &error);
+
+	if (error)
+	{
+		g_warning ("Failed to get config: %s", error->message);
+		g_error_free (error);
+	}
 
 	g_free (cfg);
 
@@ -246,6 +275,7 @@ get_value_local_regex (GitgConfig *config,
 	GFile *git_dir;
 	GFile *cfg_file;
 	gchar *cfg;
+	GError *error = NULL;
 
 	git_dir = gitg_repository_get_git_dir (config->priv->repository);
 
@@ -261,7 +291,13 @@ get_value_local_regex (GitgConfig *config,
 	                                         regex,
 	                                         value_regex,
 	                                         NULL),
-	                      NULL);
+	                      &error);
+
+	if (error)
+	{
+		g_warning ("Failed to get config: %s", error->message);
+		g_error_free (error);
+	}
 
 	g_free (cfg);
 
@@ -274,14 +310,26 @@ get_value_local_regex (GitgConfig *config,
 static gboolean
 set_value_global (GitgConfig *config, gchar const *key, gchar const *value)
 {
-	return gitg_shell_run (config->priv->shell,
-	                       gitg_command_new (config->priv->repository,
-	                                          "config",
-	                                          "--global",
-	                                          value == NULL ? "--unset" : key,
-	                                          value == NULL ? key : value,
-	                                          NULL),
-	                       NULL);
+	GError *error = NULL;
+	gboolean ret;
+
+	ret = gitg_shell_run (config->priv->shell,
+	                      gitg_command_new (NULL,
+	                                        "git",
+	                                        "config",
+	                                        "--global",
+	                                        value == NULL ? "--unset" : key,
+	                                        value == NULL ? key : value,
+	                                        NULL),
+	                      &error);
+
+	if (error)
+	{
+		g_warning ("Failed to get config: %s", error->message);
+		g_error_free (error);
+	}
+
+	return ret;
 }
 
 static gboolean
@@ -291,6 +339,7 @@ set_value_local (GitgConfig *config, gchar const *key, gchar const *value)
 	GFile *git_dir;
 	GFile *cfg_file;
 	gchar *cfg;
+	GError *error = NULL;
 
 	git_dir = gitg_repository_get_git_dir (config->priv->repository);
 
@@ -305,7 +354,13 @@ set_value_local (GitgConfig *config, gchar const *key, gchar const *value)
 	                                         value == NULL ? "--unset" : key,
 	                                         value == NULL ? key : value,
 	                                         NULL),
-	                      NULL);
+	                      &error);
+
+	if (error)
+	{
+		g_warning ("Failed to set config: %s", error->message);
+		g_error_free (error);
+	}
 
 	g_free (cfg);
 
@@ -318,15 +373,27 @@ set_value_local (GitgConfig *config, gchar const *key, gchar const *value)
 static gboolean
 rename_global (GitgConfig *config, gchar const *old, gchar const *nw)
 {
-	return gitg_shell_run (config->priv->shell,
-	                       gitg_command_new (config->priv->repository,
-	                                          "config",
-	                                          "--global",
-	                                          "--rename-section",
-	                                          old,
-	                                          nw,
-	                                          NULL),
-	                       NULL);
+	gboolean ret;
+	GError *error = NULL;
+
+	ret = gitg_shell_run (config->priv->shell,
+	                      gitg_command_new (NULL,
+	                                        "git",
+	                                        "config",
+	                                        "--global",
+	                                        "--rename-section",
+	                                        old,
+	                                        nw,
+	                                        NULL),
+	                      &error);
+
+	if (error)
+	{
+		g_warning ("Failed to rename config: %s", error->message);
+		g_error_free (error);
+	}
+
+	return ret;
 }
 
 static gboolean
@@ -336,6 +403,7 @@ rename_local (GitgConfig *config, gchar const *old, gchar const *nw)
 	GFile *git_dir;
 	GFile *cfg_file;
 	gchar *cfg;
+	GError *error = NULL;
 
 	git_dir = gitg_repository_get_git_dir (config->priv->repository);
 
@@ -351,7 +419,13 @@ rename_local (GitgConfig *config, gchar const *old, gchar const *nw)
 	                                         old,
 	                                         nw,
 	                                         NULL),
-	                      NULL);
+	                      &error);
+
+	if (error)
+	{
+		g_warning ("Failed to rename config: %s", error->message);
+		g_error_free (error);
+	}
 
 	g_free (cfg);
 
