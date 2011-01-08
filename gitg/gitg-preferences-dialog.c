@@ -98,12 +98,6 @@ gitg_preferences_dialog_dispose (GObject *object)
 {
 	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG (object);
 
-	if (dialog->priv->config)
-	{
-		g_object_unref (dialog->priv->config);
-		dialog->priv->config = NULL;
-	}
-
 	if (dialog->priv->message_settings)
 	{
 		g_object_unref (dialog->priv->message_settings);
@@ -126,11 +120,22 @@ gitg_preferences_dialog_dispose (GObject *object)
 }
 
 static void
+gitg_preferences_dialog_finalize (GObject *object)
+{
+	GitgPreferencesDialog *dialog = GITG_PREFERENCES_DIALOG (object);
+
+	g_object_unref (dialog->priv->config);
+
+	G_OBJECT_CLASS (gitg_preferences_dialog_parent_class)->finalize (object);
+}
+
+static void
 gitg_preferences_dialog_class_init(GitgPreferencesDialogClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
 	object_class->dispose = gitg_preferences_dialog_dispose;
+	object_class->finalize = gitg_preferences_dialog_finalize;
 
 	g_type_class_add_private(object_class, sizeof(GitgPreferencesDialogPrivate));
 }
