@@ -709,7 +709,7 @@ refresh_changes (GitgCommit *commit, GitgChangedFile *file)
 	GitgChangedFileStatus status = gitg_changed_file_get_status (file);
 
 	if (changes == GITG_CHANGED_FILE_CHANGES_NONE &&
-	    status == GITG_CHANGED_FILE_CHANGES_NONE)
+	    status == GITG_CHANGED_FILE_STATUS_NONE)
 	{
 		gitg_changed_file_set_status (file,
 		                              GITG_CHANGED_FILE_STATUS_NEW);
@@ -722,7 +722,7 @@ refresh_changes (GitgCommit *commit, GitgChangedFile *file)
 	}
 
 	if (status == GITG_CHANGED_FILE_STATUS_NEW &&
-	    ! (changes & GITG_CHANGED_FILE_CHANGES_CACHED))
+	    !(changes & GITG_CHANGED_FILE_CHANGES_CACHED))
 	{
 		gitg_changed_file_set_changes (file,
 		                               GITG_CHANGED_FILE_CHANGES_UNSTAGED);
