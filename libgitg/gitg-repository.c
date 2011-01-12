@@ -718,6 +718,11 @@ gitg_repository_constructed (GObject *object)
 	}
 
 	install_head_monitor (repository);
+
+	if (G_OBJECT_CLASS (gitg_repository_parent_class)->constructed)
+	{
+		G_OBJECT_CLASS (gitg_repository_parent_class)->constructed (object);
+	}
 }
 
 static void
