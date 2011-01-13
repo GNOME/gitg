@@ -3,8 +3,8 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
 
 m4_define(gitg_major_version, 0)
-m4_define(gitg_minor_version, 0)
-m4_define(gitg_micro_version, 8)
+m4_define(gitg_minor_version, 1)
+m4_define(gitg_micro_version, 0)
 m4_define(gitg_version, gitg_major_version.gitg_minor_version.gitg_micro_version)
 
 AC_INIT(gitg, gitg_version, http://www.icecrew.nl)
