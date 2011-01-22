@@ -23,7 +23,7 @@
 #ifndef __GITG_DIFF_LINE_RENDERER_H__
 #define __GITG_DIFF_LINE_RENDERER_H__
 
-#include <gtk/gtk.h>
+#include <gtksourceview/gtksourceview.h>
 
 G_BEGIN_DECLS
 
@@ -40,13 +40,13 @@ typedef struct _GitgDiffLineRendererClass	GitgDiffLineRendererClass;
 typedef struct _GitgDiffLineRendererPrivate	GitgDiffLineRendererPrivate;
 
 struct _GitgDiffLineRenderer {
-	GtkCellRenderer parent;
+	GtkSourceGutterRenderer parent;
 	
 	GitgDiffLineRendererPrivate *priv;
 };
 
 struct _GitgDiffLineRendererClass {
-	GtkCellRendererClass parent_class;
+	GtkSourceGutterRendererClass parent_class;
 };
 
 GType gitg_diff_line_renderer_get_type (void) G_GNUC_CONST;

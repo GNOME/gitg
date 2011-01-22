@@ -56,17 +56,16 @@ static void on_buffer_delete_range (GtkTextBuffer *buffer,
                                     GtkTextIter *end,
                                     GitgDiffView *view);
 
-static void
+/*static void
 line_renderer_size_func (GtkSourceGutter *gutter,
                          GtkCellRenderer *cell,
                          GitgDiffView    *view);
-static void
-line_renderer_data_func (GtkSourceGutter *gutter,
-                         GtkCellRenderer *cell,
-                         gint             line_number,
-                         gboolean         current_line,
-                         GitgDiffView    *view);
-
+*/
+static void line_renderer_query_data_cb (GtkSourceGutterRenderer      *renderer,
+                                         GtkTextIter                  *start,
+                                         GtkTextIter                  *end,
+                                         GtkSourceGutterRendererState  state,
+                                         GitgDiffView                 *view);
 static void disable_diff_view (GitgDiffView *view);
 static void enable_diff_view (GitgDiffView *view);
 
@@ -392,7 +391,7 @@ disable_diff_view (GitgDiffView *view)
 		                                     GTK_TEXT_WINDOW_LEFT);
 
 		gtk_source_gutter_remove (gutter,
-		                          GTK_CELL_RENDERER (view->priv->line_renderer));
+		                          GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer));
 	}
 
 	view->priv->diff_enabled = FALSE;
@@ -446,20 +445,25 @@ enable_diff_view (GitgDiffView *view)
 	                                     GTK_TEXT_WINDOW_LEFT);
 
 	gtk_source_gutter_insert (gutter,
-	                          GTK_CELL_RENDERER (view->priv->line_renderer),
+	                          GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer),
 	                          0);
 
-	gtk_source_gutter_set_cell_data_func (gutter,
-	                                      GTK_CELL_RENDERER (view->priv->line_renderer),
+	/*gtk_source_gutter_set_cell_data_func (gutter,
+	                                      GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer),
 	                                      (GtkSourceGutterDataFunc)line_renderer_data_func,
 	                                      view,
 	                                      NULL);
 
 	gtk_source_gutter_set_cell_size_func (gutter,
-	                                      GTK_CELL_RENDERER (view->priv->line_renderer),
+	                                      GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer),
 	                                      (GtkSourceGutterSizeFunc)line_renderer_size_func,
 	                                      view,
-	                                      NULL);
+	                                      NULL);*/
+
+	g_signal_connect (view->priv->line_renderer,
+	                  "query-data",
+	                  (GCallback) line_renderer_query_data_cb,
+	                  view);
 
 	view->priv->diff_enabled = TRUE;
 }
@@ -768,7 +772,7 @@ get_initial_counters (GitgDiffView *view, Region *region, guint line, guint coun
 			++counters[1];
 	}
 }
-
+/*
 static void
 line_renderer_size_func (GtkSourceGutter *gutter,
                          GtkCellRenderer *cell,
@@ -788,18 +792,25 @@ line_renderer_size_func (GtkSourceGutter *gutter,
 		g_object_set (cell, "label", label, NULL);
 		g_free (label);
 	}
-}
+}*/
 
 static void
-line_renderer_data_func (GtkSourceGutter *gutter,
-                         GtkCellRenderer *cell,
-                         gint             line_number,
-                         gboolean         current_line,
-                         GitgDiffView    *view)
+line_renderer_query_data_cb (GtkSourceGutterRenderer      *renderer,
+                             GtkTextIter                  *start,
+                             GtkTextIter                  *end,
+                             GtkSourceGutterRendererState  state,
+                             GitgDiffView                 *view)
 {
 	gint line_old = -1;
 	gint line_new = -1;
+	gint line_number;
+	gboolean current_line;
 	Region **current = &view->priv->lines_current_region;
+
+	line_number = gtk_text_iter_get_line (start) + 1;
+
+	current_line = (state & GTK_SOURCE_GUTTER_RENDERER_STATE_CURSOR) &&
+	               gtk_text_view_get_cursor_visible (gtk_source_gutter_renderer_get_view (renderer));
 
 	ensure_scan (view, line_number);
 
@@ -835,7 +846,7 @@ line_renderer_data_func (GtkSourceGutter *gutter,
 		}
 	}
 
-	g_object_set (cell, "line_old", line_old, "line_new", line_new, NULL);
+	g_object_set (renderer, "line_old", line_old, "line_new", line_new, NULL);
 
 	if (*current && (*current)->next && line_number == (*current)->next->line - 1)
 	{
@@ -849,7 +860,7 @@ line_renderer_data_func (GtkSourceGutter *gutter,
 		                                       line_number,
 		                                       view->priv->label_func_user_data);
 
-		g_object_set (cell, "label", label, NULL);
+		g_object_set (renderer, "label", label, NULL);
 		g_free (label);
 	}
 }

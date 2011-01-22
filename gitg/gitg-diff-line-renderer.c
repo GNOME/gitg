@@ -41,7 +41,7 @@ struct _GitgDiffLineRendererPrivate
 	gchar *label;
 };
 
-G_DEFINE_TYPE (GitgDiffLineRenderer, gitg_diff_line_renderer, GTK_TYPE_CELL_RENDERER)
+G_DEFINE_TYPE (GitgDiffLineRenderer, gitg_diff_line_renderer, GTK_TYPE_SOURCE_GUTTER_RENDERER)
 
 static void
 gitg_diff_line_renderer_set_property (GObject      *object,
@@ -95,6 +95,36 @@ gitg_diff_line_renderer_get_property (GObject    *object,
 }
 
 static void
+gitg_diff_line_renderer_constructed (GObject *object)
+{
+	/*GitgDiffLineRenderer *self = GITG_DIFF_LINE_RENDERER (object);*/
+
+	
+
+	if (G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->constructed)
+	{
+		G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->constructed (object);
+	}
+}
+
+static void
+gitg_diff_line_renderer_dispose (GObject *object)
+{
+	GitgDiffLineRenderer *self = GITG_DIFF_LINE_RENDERER (object);
+
+	if (self->priv->label != NULL)
+	{
+		g_free (self->priv->label);
+		self->priv->label = NULL;
+	}
+
+	if (G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->dispose)
+	{
+		G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->dispose (object);
+	}
+}
+
+static void
 darken_or_lighten (cairo_t       *ctx,
                    GdkRGBA const *color)
 {
@@ -121,19 +151,23 @@ darken_or_lighten (cairo_t       *ctx,
 }
 
 static void
-render_label (GitgDiffLineRenderer *lr,
-              cairo_t              *ctx,
-              GtkWidget            *widget,
-              GdkRectangle         *background_area,
-              GdkRectangle         *cell_area,
-              GdkRectangle         *expose_area,
-              GtkCellRendererState  flags)
+render_label (GtkSourceGutterRenderer      *renderer,
+              cairo_t                      *ctx,
+              GdkRectangle                 *background_area,
+              GdkRectangle                 *cell_area,
+              GtkTextIter                  *start,
+              GtkTextIter                  *end,
+              GtkSourceGutterRendererState  renderer_state)
 {
+	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
+	GtkWidget *widget;
 	PangoLayout *layout;
 	GtkStyleContext *style_context;
 	GtkStateType state;
 	gint pixel_height;
 	GdkRGBA fg_color, bg_color;
+
+	widget = GTK_WIDGET (gtk_source_gutter_renderer_get_view (renderer));
 
 	layout = gtk_widget_create_pango_layout (widget, "");
 
@@ -182,14 +216,15 @@ render_label (GitgDiffLineRenderer *lr,
 }
 
 static void
-render_lines (GitgDiffLineRenderer *lr,
-              cairo_t              *ctx,
-              GtkWidget            *widget,
-              GdkRectangle         *background_area,
-              GdkRectangle         *cell_area,
-              GdkRectangle         *expose_area,
-              GtkCellRendererState  flags)
+render_lines (GtkSourceGutterRenderer      *renderer,
+              cairo_t                      *ctx,
+              GdkRectangle                 *background_area,
+              GdkRectangle                 *cell_area,
+              GtkTextIter                  *start,
+              GtkTextIter                  *end,
+              GtkSourceGutterRendererState  renderer_state)
 {
+	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
 	/* Render new/old in the cell area */
 	gchar old_str[16];
 	gchar new_str[16];
@@ -197,6 +232,8 @@ render_lines (GitgDiffLineRenderer *lr,
 	guint ypad;
 	GtkWidget *widget;
 	GtkStyleContext *style_context;
+
+	widget = GTK_WIDGET (gtk_source_gutter_renderer_get_view (renderer));
 
 	PangoLayout *layout = gtk_widget_create_pango_layout (widget, "");
 	pango_layout_set_width (layout, cell_area->width / 2);
@@ -250,50 +287,60 @@ render_lines (GitgDiffLineRenderer *lr,
 }
 
 static void
-gitg_diff_line_renderer_render_impl (GtkCellRenderer      *cell,
-                                     cairo_t              *ctx,
-                                     GtkWidget            *widget,
-                                     GdkRectangle         *background_area,
-                                     GdkRectangle         *cell_area,
-                                     GdkRectangle         *expose_area,
-                                     GtkCellRendererState  flags)
+gitg_diff_line_renderer_draw_impl (GtkSourceGutterRenderer      *renderer,
+                                   cairo_t                      *ctx,
+                                   GdkRectangle                 *background_area,
+                                   GdkRectangle                 *cell_area,
+                                   GtkTextIter                  *start,
+                                   GtkTextIter                  *end,
+                                   GtkSourceGutterRendererState  renderer_state)
 {
-	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (cell);
+	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
+
+	/* Chain up to draw background */
+	GTK_SOURCE_GUTTER_RENDERER_CLASS (
+		gitg_diff_line_renderer_parent_class)->draw (renderer,
+		                                             ctx,
+		                                             background_area,
+		                                             cell_area,
+		                                             start,
+		                                             end,
+		                                             renderer_state);
 
 	if (lr->priv->label)
 	{
-		render_label (lr,
+		render_label (renderer,
 		              ctx,
-		              widget,
 		              background_area,
 		              cell_area,
-		              expose_area,
-		              flags);
+		              start,
+		              end,
+		              renderer_state);
 	}
 	else
 	{
-		render_lines (lr,
+		render_lines (renderer,
 		              ctx,
-		              widget,
 		              background_area,
 		              cell_area,
-		              expose_area,
-		              flags);
+		              start,
+		              end,
+		              renderer_state);
 	}
 }
-
+/*
 static void
-gitg_diff_line_renderer_get_size_impl (GtkCellRenderer *cell,
-                                       GtkWidget       *widget,
-                                       GdkRectangle    *cell_area,
-                                       gint            *x_offset,
-                                       gint            *y_offset,
-                                       gint            *width,
-                                       gint            *height)
+gitg_diff_line_renderer_get_size_impl (GtkSourceGutterRenderer *renderer,
+                                       GtkWidget               *widget,
+                                       GdkRectangle            *cell_area,
+                                       gint                    *x_offset,
+                                       gint                    *y_offset,
+                                       gint                    *width,
+                                       gint                    *height)
 {
-	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (cell);
+	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
 
-	/* Get size of this rendering */
+	/ Get size of this rendering /
 	PangoLayout *layout;
 	gchar str[16];
 	gint pixel_width;
@@ -305,7 +352,7 @@ gitg_diff_line_renderer_get_size_impl (GtkCellRenderer *cell,
 	layout = gtk_widget_create_pango_layout (widget, str);
 	pango_layout_get_pixel_size(layout, &pixel_width, &pixel_height);
 
-	g_object_get (cell, "xpad", &xpad, "ypad", &ypad, NULL);
+	g_object_get (lr, "xpad", &xpad, "ypad", &ypad, NULL);
 	pixel_width += pixel_width + xpad * 2 + 3;
 
 	if (lr->priv->label)
@@ -360,19 +407,20 @@ gitg_diff_line_renderer_get_size_impl (GtkCellRenderer *cell,
 	}
 
 	g_object_unref (G_OBJECT (layout));
-}
+}*/
 
 static void
 gitg_diff_line_renderer_class_init (GitgDiffLineRendererClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	GtkCellRendererClass *cell_renderer_class = GTK_CELL_RENDERER_CLASS (klass);
+	GtkSourceGutterRendererClass *gutter_renderer_class = GTK_SOURCE_GUTTER_RENDERER_CLASS (klass);
 
-	cell_renderer_class->render = gitg_diff_line_renderer_render_impl;
-	cell_renderer_class->get_size = gitg_diff_line_renderer_get_size_impl;
+	gutter_renderer_class->draw = gitg_diff_line_renderer_draw_impl;
 
 	object_class->set_property = gitg_diff_line_renderer_set_property;
 	object_class->get_property = gitg_diff_line_renderer_get_property;
+	object_class->constructed = gitg_diff_line_renderer_constructed;
+	object_class->dispose = gitg_diff_line_renderer_dispose;
 
 	g_object_class_install_property (object_class,
 	                                 PROP_LINE_OLD,
