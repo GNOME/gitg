@@ -1365,6 +1365,8 @@ on_tag_added (GtkTextTagTable *table,
 static void
 gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
+	GtkSourceMarkAttributes *attrs;
+
 	if (parent_iface.parser_finished)
 		parent_iface.parser_finished(buildable, builder);
 
@@ -1430,16 +1432,28 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	if (pixbuf)
 	{
-		gtk_source_view_set_mark_category_icon_from_pixbuf(self->priv->changes_view, CATEGORY_STAGE_HUNK, pixbuf);
-		g_object_unref(pixbuf);
+		attrs = gtk_source_mark_attributes_new ();
+		gtk_source_mark_attributes_set_pixbuf (attrs, pixbuf);
+
+		gtk_source_view_set_mark_attributes (self->priv->changes_view,
+		                                     CATEGORY_STAGE_HUNK,
+		                                     attrs, 1);
+
+		g_object_unref (pixbuf);
 	}
 
 	pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_REMOVE, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
 
 	if (pixbuf)
 	{
-		gtk_source_view_set_mark_category_icon_from_pixbuf(self->priv->changes_view, CATEGORY_UNSTAGE_HUNK, pixbuf);
-		g_object_unref(pixbuf);
+		attrs = gtk_source_mark_attributes_new ();
+		gtk_source_mark_attributes_set_pixbuf (attrs, pixbuf);
+
+		gtk_source_view_set_mark_attributes (self->priv->changes_view,
+		                                     CATEGORY_UNSTAGE_HUNK,
+		                                     attrs, 2);
+
+		g_object_unref (pixbuf);
 	}
 
 	gitg_utils_set_monospace_font(GTK_WIDGET(self->priv->changes_view));
