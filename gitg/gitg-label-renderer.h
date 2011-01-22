@@ -28,7 +28,7 @@
 #include <libgitg/gitg-ref.h>
 
 gint gitg_label_renderer_width(GtkWidget *widget, PangoFontDescription *description, GSList *labels);
-void gitg_label_renderer_draw(GtkWidget *widget, PangoFontDescription *description, cairo_t *context, GSList *labels, GdkRectangle *area);
+void gitg_label_renderer_draw(GtkWidget *widget, PangoFontDescription *description, cairo_t *context, GSList *labels, const GdkRectangle *area);
 
 GitgRef *gitg_label_renderer_get_ref_at_pos (GtkWidget *widget, PangoFontDescription *description, GSList *labels, gint x, gint *hot_x);
 
