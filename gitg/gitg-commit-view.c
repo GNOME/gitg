@@ -1440,6 +1440,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 		                                     attrs, 1);
 
 		g_object_unref (pixbuf);
+		g_object_unref (attrs);
 	}
 
 	pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_REMOVE, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
@@ -1454,6 +1455,7 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 		                                     attrs, 2);
 
 		g_object_unref (pixbuf);
+		g_object_unref (attrs);
 	}
 
 	gitg_utils_set_monospace_font(GTK_WIDGET(self->priv->changes_view));
