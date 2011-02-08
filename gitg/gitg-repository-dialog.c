@@ -157,7 +157,7 @@ gitg_repository_dialog_finalize (GObject *object)
 	}
 
 	g_list_free (copy);
-	g_list_foreach (dialog->priv->fetchers, (GFunc)fetch_cleanup, NULL);
+	g_list_free (dialog->priv->fetchers);
 
 	G_OBJECT_CLASS (gitg_repository_dialog_parent_class)->finalize (object);
 }
@@ -230,8 +230,7 @@ update_fetch (GitgRepositoryDialog *dialog)
 
 	dialog->priv->show_fetch = show_fetch;
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, gtk_tree_path_free);
 }
 
 static void
@@ -248,8 +247,7 @@ update_sensitivity (GitgRepositoryDialog *dialog)
 
 	update_fetch (dialog);
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, gtk_tree_path_free);
 }
 
 static void

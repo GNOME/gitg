@@ -1091,11 +1091,8 @@ gitg_window_destroy (GtkWidget *widget)
 	{
 		gtk_tree_view_set_model (window->priv->tree_view, NULL);
 
-		g_slist_foreach (window->priv->revision_panels, (GFunc)g_object_unref, NULL);
-		g_slist_free (window->priv->revision_panels);
-
-		g_slist_foreach (window->priv->activatables, (GFunc)g_object_unref, NULL);
-		g_slist_free (window->priv->activatables);
+		g_slist_free_full (window->priv->revision_panels, g_object_unref);
+		g_slist_free_full (window->priv->activatables, g_object_unref);
 
 		window->priv->revision_panels = NULL;
 		window->priv->activatables = NULL;
@@ -1645,8 +1642,7 @@ fill_branches_combo (GitgWindow *window)
 		gtk_combo_box_set_active_iter (window->priv->combo_branches, &active);
 	}
 
-	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free (refs);
+	g_slist_free_full (refs, gitg_ref_free);
 
 	if (active_from_selection)
 	{
@@ -2703,8 +2699,7 @@ update_merge_rebase (GitgWindow *window,
 		}
 	}
 
-	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free (refs);
+	g_slist_free_full (refs, gitg_ref_free);
 
 	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
 	{
@@ -2786,8 +2781,7 @@ has_local_ref (GitgWindow  *window,
 		}
 	}
 
-	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free (refs);
+	g_slist_free_full (refs, gitg_ref_free);
 
 	return ret;
 }
@@ -2946,8 +2940,7 @@ on_cherry_pick_activated (GtkAction  *action,
 
 	gitg_revision_unref (rev);
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, gtk_tree_path_free);
 }
 
 static void
@@ -3032,8 +3025,7 @@ update_cherry_pick (GitgWindow *window)
 		}
 	}
 
-	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free (refs);
+	g_slist_free_full (refs, gitg_ref_free);
 }
 
 static gboolean
@@ -3099,8 +3091,7 @@ popup_revision (GitgWindow     *window,
 		gtk_action_set_visible (tag, FALSE);
 	}
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, gtk_tree_path_free);
 
 	if (!show)
 	{
@@ -3376,9 +3367,7 @@ on_format_patch_response (GtkDialog       *dialog,
 		}
 	}
 
-	g_list_foreach (info->revisions, (GFunc)gitg_revision_unref, NULL);
-	g_list_free (info->revisions);
-
+	g_list_free_full (info->revisions, gitg_revision_unref);
 	g_slice_free (FormatPatchInfo, info);
 
 	gtk_widget_destroy (GTK_WIDGET (dialog));
@@ -3463,8 +3452,7 @@ on_revision_format_patch_activate (GtkAction  *action,
 
 	gtk_widget_show (dialog);
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, gtk_tree_path_free);
 }
 
 void
@@ -3507,8 +3495,7 @@ on_revision_new_branch_activate (GtkAction  *action,
 		gitg_revision_unref (rev);
 	}
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, gtk_tree_path_free);
 }
 
 void
@@ -3559,8 +3546,7 @@ on_revision_tag_activate (GtkAction  *action,
 		gitg_revision_unref (rev);
 	}
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, gtk_tree_path_free);
 }
 
 void

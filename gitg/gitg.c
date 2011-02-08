@@ -162,8 +162,7 @@ set_icons ()
 
 	gtk_window_set_default_icon_list (icons);
 
-	g_list_foreach (icons, (GFunc)g_object_unref, NULL);
-	g_list_free (icons);
+	g_list_free_full (icons, g_object_unref);
 }
 
 int

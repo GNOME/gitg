@@ -485,15 +485,10 @@ free_cached_header (gpointer header)
 static void
 free_cached_headers (GitgRevisionChangesPanel *changes_panel)
 {
-	g_slist_foreach (changes_panel->priv->cached_headers,
-	                 (GFunc)free_cached_header,
-	                 NULL);
-
-	g_slist_free (changes_panel->priv->cached_headers);
+	g_slist_free_full (changes_panel->priv->cached_headers, free_cached_header);
 
 	changes_panel->priv->cached_headers = NULL;
 }
-
 
 static void
 gitg_revision_changes_panel_finalize (GObject *object)

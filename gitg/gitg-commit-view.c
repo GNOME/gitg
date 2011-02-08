@@ -369,8 +369,7 @@ get_selected_files(GtkTreeView             *tree_view,
 	}
 	else
 	{
-		g_list_foreach(items, (GFunc)gtk_tree_path_free, NULL);
-		g_list_free(items);
+		g_list_free_full (items, gtk_tree_path_free);
 	}
 
 	if (files)
@@ -421,8 +420,7 @@ check_selection(GtkTreeView    *tree_view,
 		ret = TRUE;
 	}
 
-	g_list_foreach(paths, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free(paths);
+	g_list_free_full (paths, gtk_tree_path_free);
 	return ret;
 }
 
@@ -1251,8 +1249,7 @@ on_tree_view_drag_data_get (GtkWidget        *widget,
 
 	g_strfreev(uris);
 
-	g_list_foreach(selected, (GFunc)g_object_unref, NULL);
-	g_list_free(selected);
+	g_list_free_full (selected, g_object_unref);
 }
 
 static void
