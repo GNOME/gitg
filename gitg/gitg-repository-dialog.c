@@ -179,7 +179,7 @@ gitg_repository_dialog_finalize (GObject *object)
 	}
 
 	g_list_free (copy);
-	g_list_foreach (dialog->priv->fetchers, (GFunc)fetch_cleanup, NULL);
+	g_list_free (dialog->priv->fetchers);
 
 	G_OBJECT_CLASS (gitg_repository_dialog_parent_class)->finalize (object);
 }
