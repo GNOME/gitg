@@ -287,7 +287,7 @@ on_selection_changed (GtkTreeSelection     *selection,
 		path = gtk_tree_path_copy ((GtkTreePath *)rows->data);
 	}
 
-	g_list_free_full (rows, gtk_tree_path_free);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 
 	if (!path)
 	{

@@ -369,7 +369,7 @@ get_selected_files(GtkTreeView             *tree_view,
 	}
 	else
 	{
-		g_list_free_full (items, gtk_tree_path_free);
+		g_list_free_full (items, (GDestroyNotify)gtk_tree_path_free);
 	}
 
 	if (files)
@@ -420,7 +420,7 @@ check_selection(GtkTreeView    *tree_view,
 		ret = TRUE;
 	}
 
-	g_list_free_full (paths, gtk_tree_path_free);
+	g_list_free_full (paths, (GDestroyNotify)gtk_tree_path_free);
 	return ret;
 }
 

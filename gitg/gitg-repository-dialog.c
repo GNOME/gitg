@@ -230,7 +230,7 @@ update_fetch (GitgRepositoryDialog *dialog)
 
 	dialog->priv->show_fetch = show_fetch;
 
-	g_list_free_full (rows, gtk_tree_path_free);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 static void
@@ -247,7 +247,7 @@ update_sensitivity (GitgRepositoryDialog *dialog)
 
 	update_fetch (dialog);
 
-	g_list_free_full (rows, gtk_tree_path_free);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 static void

@@ -1642,7 +1642,7 @@ fill_branches_combo (GitgWindow *window)
 		gtk_combo_box_set_active_iter (window->priv->combo_branches, &active);
 	}
 
-	g_slist_free_full (refs, gitg_ref_free);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 
 	if (active_from_selection)
 	{
@@ -2699,7 +2699,7 @@ update_merge_rebase (GitgWindow *window,
 		}
 	}
 
-	g_slist_free_full (refs, gitg_ref_free);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 
 	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
 	{
@@ -2781,7 +2781,7 @@ has_local_ref (GitgWindow  *window,
 		}
 	}
 
-	g_slist_free_full (refs, gitg_ref_free);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 
 	return ret;
 }
@@ -2940,7 +2940,7 @@ on_cherry_pick_activated (GtkAction  *action,
 
 	gitg_revision_unref (rev);
 
-	g_list_free_full (rows, gtk_tree_path_free);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 static void
@@ -3025,7 +3025,7 @@ update_cherry_pick (GitgWindow *window)
 		}
 	}
 
-	g_slist_free_full (refs, gitg_ref_free);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 }
 
 static gboolean
@@ -3091,7 +3091,7 @@ popup_revision (GitgWindow     *window,
 		gtk_action_set_visible (tag, FALSE);
 	}
 
-	g_list_free_full (rows, gtk_tree_path_free);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 
 	if (!show)
 	{
@@ -3367,7 +3367,7 @@ on_format_patch_response (GtkDialog       *dialog,
 		}
 	}
 
-	g_list_free_full (info->revisions, gitg_revision_unref);
+	g_list_free_full (info->revisions, (GDestroyNotify)gitg_revision_unref);
 	g_slice_free (FormatPatchInfo, info);
 
 	gtk_widget_destroy (GTK_WIDGET (dialog));
@@ -3452,7 +3452,7 @@ on_revision_format_patch_activate (GtkAction  *action,
 
 	gtk_widget_show (dialog);
 
-	g_list_free_full (rows, gtk_tree_path_free);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 void
@@ -3495,7 +3495,7 @@ on_revision_new_branch_activate (GtkAction  *action,
 		gitg_revision_unref (rev);
 	}
 
-	g_list_free_full (rows, gtk_tree_path_free);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 void
@@ -3546,7 +3546,7 @@ on_revision_tag_activate (GtkAction  *action,
 		gitg_revision_unref (rev);
 	}
 
-	g_list_free_full (rows, gtk_tree_path_free);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 void
