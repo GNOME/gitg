@@ -294,10 +294,7 @@ gitg_diff_view_constructed (GObject *object)
 {
 	g_object_set (object, "show-line-numbers", FALSE, NULL);
 
-	if (G_OBJECT_CLASS (gitg_diff_view_parent_class)->constructed)
-	{
-		G_OBJECT_CLASS (gitg_diff_view_parent_class)->constructed (object);
-	}
+	G_OBJECT_CLASS (gitg_diff_view_parent_class)->constructed (object);
 }
 
 static void

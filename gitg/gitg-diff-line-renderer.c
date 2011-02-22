@@ -99,12 +99,7 @@ gitg_diff_line_renderer_constructed (GObject *object)
 {
 	/*GitgDiffLineRenderer *self = GITG_DIFF_LINE_RENDERER (object);*/
 
-	
-
-	if (G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->constructed)
-	{
-		G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->constructed (object);
-	}
+	G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->constructed (object);
 }
 
 static void
@@ -118,10 +113,7 @@ gitg_diff_line_renderer_dispose (GObject *object)
 		self->priv->label = NULL;
 	}
 
-	if (G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->dispose)
-	{
-		G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->dispose (object);
-	}
+	G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->dispose (object);
 }
 
 static void
