@@ -101,7 +101,7 @@ collapsed_lane_new (LaneContainer *container)
 static void
 free_lanes (GitgLanes *lanes)
 {
-	g_slist_free_full (lanes->priv->lanes, lane_container_free);
+	g_slist_free_full (lanes->priv->lanes, (GDestroyNotify)lane_container_free);
 
 	lanes->priv->lanes = NULL;
 }
@@ -315,7 +315,7 @@ gitg_lanes_reset (GitgLanes *lanes)
 	free_lanes (lanes);
 	gitg_color_reset ();
 
-	g_slist_free_full (lanes->priv->previous, gitg_revision_unref);
+	g_slist_free_full (lanes->priv->previous, (GDestroyNotify)gitg_revision_unref);
 
 	lanes->priv->previous = NULL;
 

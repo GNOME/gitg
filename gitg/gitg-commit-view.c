@@ -556,15 +556,6 @@ staged_selection_changed (GtkTreeSelection *selection, GitgCommitView *view)
 		}
 		else
 		{
-			gchar *basename;
-			GtkSourceLanguage *language;
-
-			basename = g_file_get_basename(f);
-			language = gitg_utils_get_language(basename,
-			                                   content_type);
-
-			g_free(basename);
-
 			gtk_widget_set_sensitive (GTK_WIDGET (view->priv->hscale_context),
 			                          FALSE);
 

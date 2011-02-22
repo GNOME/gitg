@@ -804,13 +804,9 @@ line_renderer_query_data_cb (GtkSourceGutterRenderer      *renderer,
 	gint line_old = -1;
 	gint line_new = -1;
 	gint line_number;
-	gboolean current_line;
 	Region **current = &view->priv->lines_current_region;
 
 	line_number = gtk_text_iter_get_line (start) + 1;
-
-	current_line = (state & GTK_SOURCE_GUTTER_RENDERER_STATE_CURSOR) &&
-	               gtk_text_view_get_cursor_visible (gtk_source_gutter_renderer_get_view (renderer));
 
 	ensure_scan (view, line_number);
 

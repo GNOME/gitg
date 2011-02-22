@@ -1140,7 +1140,7 @@ on_loader_update (GitgShell       *object,
 static void
 free_refs (GSList *refs)
 {
-	g_slist_free_full (refs, gitg_ref_free);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 }
 
 static gboolean
