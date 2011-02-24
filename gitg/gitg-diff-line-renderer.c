@@ -39,6 +39,13 @@ struct _GitgDiffLineRendererPrivate
 	gint line_old;
 	gint line_new;
 	gchar *label;
+	gint num_digits;
+
+	PangoLayout *cached_layout;
+	PangoAttribute *fg_attr;
+	PangoAttrList *cached_attr_list;
+
+	glong changed_handler_id;
 };
 
 G_DEFINE_TYPE (GitgDiffLineRenderer, gitg_diff_line_renderer, GTK_TYPE_SOURCE_GUTTER_RENDERER)
@@ -95,25 +102,56 @@ gitg_diff_line_renderer_get_property (GObject    *object,
 }
 
 static void
-gitg_diff_line_renderer_constructed (GObject *object)
-{
-	/*GitgDiffLineRenderer *self = GITG_DIFF_LINE_RENDERER (object);*/
-
-	G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->constructed (object);
-}
-
-static void
-gitg_diff_line_renderer_dispose (GObject *object)
+gitg_diff_line_renderer_finalize (GObject *object)
 {
 	GitgDiffLineRenderer *self = GITG_DIFF_LINE_RENDERER (object);
 
-	if (self->priv->label != NULL)
-	{
-		g_free (self->priv->label);
-		self->priv->label = NULL;
-	}
+	g_free (self->priv->label);
 
-	G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->dispose (object);
+	G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->finalize (object);
+}
+
+static void
+create_layout (GitgDiffLineRenderer *renderer,
+               GtkWidget            *widget)
+{
+	PangoLayout *layout;
+	PangoAttribute *attr;
+	GtkStyleContext *context;
+	GdkRGBA color;
+	PangoAttrList *attr_list;
+
+	layout = gtk_widget_create_pango_layout (widget, NULL);
+
+	context = gtk_widget_get_style_context (widget);
+	gtk_style_context_get_color (context, GTK_STATE_FLAG_NORMAL, &color);
+
+	attr = pango_attr_foreground_new (color.red * 65535,
+	                                  color.green * 65535,
+	                                  color.blue * 65535);
+
+	attr->start_index = 0;
+	attr->end_index = G_MAXINT;
+
+	attr_list = pango_attr_list_new ();
+	pango_attr_list_insert (attr_list, attr);
+
+	renderer->priv->fg_attr = attr;
+	renderer->priv->cached_layout = layout;
+	renderer->priv->cached_attr_list = attr_list;
+}
+
+static void
+gitg_diff_line_renderer_begin (GtkSourceGutterRenderer      *renderer,
+                               cairo_t                      *cr,
+                               GdkRectangle                 *background_area,
+                               GdkRectangle                 *cell_area,
+                               GtkTextIter                  *start,
+                               GtkTextIter                  *end)
+{
+	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
+
+	create_layout (lr, GTK_WIDGET (gtk_source_gutter_renderer_get_view (renderer)));
 }
 
 static void
@@ -160,8 +198,7 @@ render_label (GtkSourceGutterRenderer      *renderer,
 	GdkRGBA fg_color, bg_color;
 
 	widget = GTK_WIDGET (gtk_source_gutter_renderer_get_view (renderer));
-
-	layout = gtk_widget_create_pango_layout (widget, "");
+	layout = lr->priv->cached_layout;
 
 	pango_layout_set_markup (layout, lr->priv->label, -1);
 	pango_layout_set_width (layout, cell_area->width);
@@ -220,14 +257,13 @@ render_lines (GtkSourceGutterRenderer      *renderer,
 	/* Render new/old in the cell area */
 	gchar old_str[16];
 	gchar new_str[16];
-	guint xpad;
-	guint ypad;
+	PangoLayout *layout;
 	GtkWidget *widget;
 	GtkStyleContext *style_context;
 
 	widget = GTK_WIDGET (gtk_source_gutter_renderer_get_view (renderer));
+	layout = lr->priv->cached_layout;
 
-	PangoLayout *layout = gtk_widget_create_pango_layout (widget, "");
 	pango_layout_set_width (layout, cell_area->width / 2);
 
 	pango_layout_set_alignment (layout, PANGO_ALIGN_RIGHT);
@@ -250,42 +286,38 @@ render_lines (GtkSourceGutterRenderer      *renderer,
 		*new_str = '\0';
 	}
 
-	g_object_get (lr, "xpad", &xpad, "ypad", &ypad, NULL);
-
 	pango_layout_set_text (layout, old_str, -1);
 	style_context = gtk_widget_get_style_context (widget);
 
 	gtk_render_layout (style_context,
 	                   ctx,
-	                   cell_area->x + cell_area->width / 2 - 1 - xpad,
+	                   cell_area->x + cell_area->width / 2 - 1,
 	                   cell_area->y,
 	                   layout);
 
 	pango_layout_set_text (layout, new_str, -1);
 	gtk_render_layout (style_context,
 	                   ctx,
-	                   cell_area->x + cell_area->width - xpad,
+	                   cell_area->x + cell_area->width,
 	                   cell_area->y,
 	                   layout);
-
-	g_object_unref (layout);
 
 	gtk_render_line (style_context,
 	                 ctx,
 	                 background_area->x + background_area->width / 2,
-	                 background_area->y,
-	                 background_area->y + background_area->height,
-	                 background_area->x + background_area->width / 2);
+	                 background_area->y - 1,
+	                 background_area->x + background_area->width / 2,
+	                 background_area->y + background_area->height);
 }
 
 static void
-gitg_diff_line_renderer_draw_impl (GtkSourceGutterRenderer      *renderer,
-                                   cairo_t                      *ctx,
-                                   GdkRectangle                 *background_area,
-                                   GdkRectangle                 *cell_area,
-                                   GtkTextIter                  *start,
-                                   GtkTextIter                  *end,
-                                   GtkSourceGutterRendererState  renderer_state)
+gitg_diff_line_renderer_draw (GtkSourceGutterRenderer      *renderer,
+                              cairo_t                      *ctx,
+                              GdkRectangle                 *background_area,
+                              GdkRectangle                 *cell_area,
+                              GtkTextIter                  *start,
+                              GtkTextIter                  *end,
+                              GtkSourceGutterRendererState  renderer_state)
 {
 	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
 
@@ -320,99 +352,168 @@ gitg_diff_line_renderer_draw_impl (GtkSourceGutterRenderer      *renderer,
 		              renderer_state);
 	}
 }
-/*
+
 static void
-gitg_diff_line_renderer_get_size_impl (GtkSourceGutterRenderer *renderer,
-                                       GtkWidget               *widget,
-                                       GdkRectangle            *cell_area,
-                                       gint                    *x_offset,
-                                       gint                    *y_offset,
-                                       gint                    *width,
-                                       gint                    *height)
+gitg_diff_line_renderer_end (GtkSourceGutterRenderer *renderer)
 {
 	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
 
-	/ Get size of this rendering /
+	g_object_unref (lr->priv->cached_layout);
+	lr->priv->cached_layout = NULL;
+
+	pango_attr_list_unref (lr->priv->cached_attr_list);
+	lr->priv->cached_attr_list = NULL;
+
+	lr->priv->fg_attr = NULL;
+}
+
+static void
+measure_text (GitgDiffLineRenderer *lr,
+              const gchar          *markup,
+              const gchar          *text,
+              gint                 *width,
+              gint                 *height)
+{
 	PangoLayout *layout;
-	gchar str[16];
-	gint pixel_width;
-	gint pixel_height;
-	guint xpad;
-	guint ypad;
+	gint w;
+	gint h;
+	GtkSourceGutterRenderer *r;
+	GtkTextView *view;
 
-	g_snprintf(str, sizeof(str), "%d", MAX(MAX(99, lr->priv->line_old), lr->priv->line_new));
-	layout = gtk_widget_create_pango_layout (widget, str);
-	pango_layout_get_pixel_size(layout, &pixel_width, &pixel_height);
+	r = GTK_SOURCE_GUTTER_RENDERER (lr);
+	view = gtk_source_gutter_renderer_get_view (r);
 
-	g_object_get (lr, "xpad", &xpad, "ypad", &ypad, NULL);
-	pixel_width += pixel_width + xpad * 2 + 3;
+	layout = gtk_widget_create_pango_layout (GTK_WIDGET (view), NULL);
 
-	if (lr->priv->label)
+	if (markup)
 	{
-		PangoLayout *lbl_layout;
-		gint lbl_pixel_width;
-		gint lbl_pixel_height;
-
-		lbl_layout = gtk_widget_create_pango_layout (widget,
-		                                             "");
-
-		pango_layout_set_markup (lbl_layout, lr->priv->label, -1);
-
-		pango_layout_get_pixel_size (lbl_layout,
-		                             &lbl_pixel_width,
-		                             &lbl_pixel_height);
-
-		lbl_pixel_width += 4;
-
-		if (lbl_pixel_width > pixel_width)
-		{
-			pixel_width = lbl_pixel_width;
-		}
-
-		if (lbl_pixel_height > pixel_height)
-		{
-			pixel_height = lbl_pixel_height;
-		}
+		pango_layout_set_markup (layout,
+		                         markup,
+		                         -1);
+	}
+	else
+	{
+		pango_layout_set_text (layout,
+		                       text,
+		                       -1);
 	}
 
-	pixel_width += xpad * 2;
-	pixel_height += ypad * 2;
+	pango_layout_get_size (layout, &w, &h);
 
 	if (width)
 	{
-		*width = pixel_width;
+		*width = w / PANGO_SCALE;
 	}
 
 	if (height)
 	{
-		*height = pixel_height;
+		*height = h / PANGO_SCALE;
 	}
 
-	if (x_offset)
+	g_object_unref (layout);
+}
+
+static void
+recalculate_size (GitgDiffLineRenderer *lr)
+{
+	/* Get size of this rendering */
+	gint num_digits, num;
+
+	num_digits = 0;
+	num = lr->priv->line_old;
+
+	while (num > 0)
 	{
-		*x_offset = 0;
+		num /= 10;
+		++num_digits;
 	}
 
-	if (y_offset)
+	num = lr->priv->line_new;
+
+	while (num > 0)
 	{
-		*y_offset = 0;
+		num /= 10;
+		++num_digits;
 	}
 
-	g_object_unref (G_OBJECT (layout));
-}*/
+	num_digits = MAX (num_digits, 2);
+
+	if (num_digits != lr->priv->num_digits)
+	{
+		gchar *markup;
+		gint size;
+
+		lr->priv->num_digits = num_digits;
+
+		markup = g_strdup_printf ("<b>%d   %d</b>",
+		                          lr->priv->line_old,
+		                          lr->priv->line_new);
+
+		measure_text (lr, markup, NULL, &size, NULL);
+		g_free (markup);
+
+		gtk_source_gutter_renderer_set_size (GTK_SOURCE_GUTTER_RENDERER (lr),
+		                                     size);
+	}
+}
+
+static void
+on_buffer_changed (GtkSourceBuffer      *buffer,
+                   GitgDiffLineRenderer *renderer)
+{
+	recalculate_size (renderer);
+}
+
+static void
+gitg_diff_line_renderer_change_buffer (GtkSourceGutterRenderer *renderer,
+                                       GtkTextBuffer           *old_buffer)
+{
+	GitgDiffLineRenderer *lr;
+	GtkTextView *view;
+
+	lr = GITG_DIFF_LINE_RENDERER (renderer);
+
+	if (old_buffer)
+	{
+		g_signal_handler_disconnect (old_buffer,
+		                             lr->priv->changed_handler_id);
+	}
+
+	view = gtk_source_gutter_renderer_get_view (renderer);
+
+	if (view)
+	{
+		GtkTextBuffer *buffer;
+
+		buffer = gtk_text_view_get_buffer (view);
+
+		if (buffer)
+		{
+			lr->priv->changed_handler_id =
+				g_signal_connect (buffer,
+				                  "changed",
+				                  G_CALLBACK (on_buffer_changed),
+				                  lr);
+
+			recalculate_size (lr);
+		}
+	}
+}
 
 static void
 gitg_diff_line_renderer_class_init (GitgDiffLineRendererClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	GtkSourceGutterRendererClass *gutter_renderer_class = GTK_SOURCE_GUTTER_RENDERER_CLASS (klass);
+	GtkSourceGutterRendererClass *renderer_class = GTK_SOURCE_GUTTER_RENDERER_CLASS (klass);
 
-	gutter_renderer_class->draw = gitg_diff_line_renderer_draw_impl;
+	renderer_class->begin = gitg_diff_line_renderer_begin;
+	renderer_class->draw = gitg_diff_line_renderer_draw;
+	renderer_class->end= gitg_diff_line_renderer_end;
+	renderer_class->change_buffer = gitg_diff_line_renderer_change_buffer;
 
 	object_class->set_property = gitg_diff_line_renderer_set_property;
 	object_class->get_property = gitg_diff_line_renderer_get_property;
-	object_class->constructed = gitg_diff_line_renderer_constructed;
-	object_class->dispose = gitg_diff_line_renderer_dispose;
+	object_class->finalize = gitg_diff_line_renderer_finalize;
 
 	g_object_class_install_property (object_class,
 	                                 PROP_LINE_OLD,
