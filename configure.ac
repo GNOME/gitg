@@ -1,15 +1,22 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
+AC_PREREQ([2.64])
 
 m4_define(gitg_major_version, 0)
 m4_define(gitg_minor_version, 1)
 m4_define(gitg_micro_version, 0)
 m4_define(gitg_version, gitg_major_version.gitg_minor_version.gitg_micro_version)
 
-AC_INIT(gitg, gitg_version, http://www.icecrew.nl)
-AC_CONFIG_SRCDIR(gitg/gitg.c)
+AC_INIT([gitg],
+        [gitg_version],
+        [https://bugzilla.gnome.org/enter_bug.cgi?product=gitg],
+        [gitg],
+        [http://live.gnome.org/Gitg])
+
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_SRCDIR([gitg/gitg.c])
 AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_AUX_DIR([build-aux])
 
 AC_DEFINE(GITG_MAJOR_VERSION, gitg_major_version, [GitG major version])
 AC_SUBST(GITG_MAJOR_VERSION, gitg_major_version)
@@ -18,16 +25,12 @@ AC_SUBST(GITG_MINOR_VERSION, gitg_minor_version)
 AC_DEFINE(GITG_MICRO_VERSION, gitg_micro_version, [GitG micro version])
 AC_SUBST(GITG_MICRO_VERSION, gitg_micro_version)
 
-AM_INIT_AUTOMAKE([1.8 dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.11 dist-bzip2 no-dist-gzip])
+AM_MAINTAINER_MODE([enable])
 
-AM_MAINTAINER_MODE
-AC_CONFIG_HEADERS(config.h)
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+AM_SILENT_RULES([yes])
 
-AC_PATH_PROG(GCONFTOOL, gconftool-2)
-AC_PROG_LIBTOOL
-
-AC_ISC_POSIX
+# Check for programs
 AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
@@ -35,8 +38,9 @@ AC_PATH_PROG(GZIP, gzip)
 
 AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
 
-dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
-AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS -I m4")
+# Initialize libtool
+LT_PREREQ([2.2])
+LT_INIT
 
 # i18n stuff
 IT_PROG_INTLTOOL([0.40.0])
@@ -97,7 +101,7 @@ PKG_CHECK_MODULES(PACKAGE, [
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-GNOME_COMPILE_WARNINGS(yes)
+GNOME_COMPILE_WARNINGS([maximum])
 
 if test "x$USE_MAINTAINER_MODE" = "xyes"; then
 PACKAGE_CFLAGS="$PACKAGE_CFLAGS -Wall -Werror -Wuninitialized -Wmissing-declarations"
