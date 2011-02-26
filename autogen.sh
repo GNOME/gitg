@@ -19,4 +19,4 @@ which gnome-autogen.sh || {
     exit 1
 }
 
-ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I m4" REQUIRED_AUTOMAKE_VERSION=1.8 USE_GNOME2_MACROS=1 USE_COMMON_DOC_BUILD=yes . gnome-autogen.sh
+. gnome-autogen.sh
