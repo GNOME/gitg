@@ -48,7 +48,7 @@ struct _GitgDiffLineRendererPrivate
 	glong changed_handler_id;
 };
 
-G_DEFINE_TYPE (GitgDiffLineRenderer, gitg_diff_line_renderer, GTK_TYPE_SOURCE_GUTTER_RENDERER)
+G_DEFINE_TYPE (GitgDiffLineRenderer, gitg_diff_line_renderer, GTK_SOURCE_TYPE_GUTTER_RENDERER)
 
 static void
 gitg_diff_line_renderer_set_property (GObject      *object,

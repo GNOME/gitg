@@ -142,7 +142,7 @@ struct _GitgDiffViewPrivate
 	GDestroyNotify label_func_destroy_notify;
 };
 
-G_DEFINE_TYPE (GitgDiffView, gitg_diff_view, GTK_TYPE_SOURCE_VIEW)
+G_DEFINE_TYPE (GitgDiffView, gitg_diff_view, GTK_SOURCE_TYPE_VIEW)
 
 static gboolean gitg_diff_view_draw (GtkWidget *widget, cairo_t *cr);
 static guint diff_view_signals[NUM_SIGNALS] = {0,};
