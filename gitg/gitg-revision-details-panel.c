@@ -25,6 +25,7 @@
 #include "gitg-utils.h"
 #include "gitg-revision-panel.h"
 #include "gitg-stat-view.h"
+#include "gitg-uri.h"
 
 #include <glib/gi18n.h>
 #include <stdlib.h>
@@ -238,6 +239,57 @@ on_shell_begin (GitgShell                *shell,
 	g_object_unref (cursor);
 }
 
+static gboolean
+link_button_activate_link_cb (GtkLinkButton *button,
+                              GitgWindow    *window)
+{
+	const gchar *uri;
+	GFile *file;
+	GitgRepository *repository;
+	gchar *work_tree_path;
+	gchar *selection;
+	gchar *activatable;
+	gchar *action;
+
+	uri = gtk_link_button_get_uri (button);
+	file = g_file_new_for_uri (uri);
+	repository = gitg_window_get_repository (window);
+
+	if (g_file_has_uri_scheme (file, "gitg") &&
+	    gitg_uri_parse (uri, &work_tree_path, &selection,
+	                    &activatable, &action))
+	{
+		GFile *wt;
+		GFile *work_tree;
+		gboolean equal;
+
+		wt = gitg_repository_get_work_tree (repository);
+		work_tree = g_file_new_for_path (work_tree_path);
+		equal = g_file_equal (wt, work_tree);
+
+		g_object_unref (wt);
+		g_object_unref (work_tree);
+
+		if (equal)
+		{
+			gitg_window_select (window, selection);
+			gitg_window_activate (window, activatable, action);
+		}
+
+		g_free (work_tree_path);
+		g_free (selection);
+		g_free (activatable);
+		g_free (action);
+		g_object_unref (file);
+
+		return TRUE;
+	}
+
+	g_object_unref (file);
+
+	return FALSE;
+}
+
 static void
 make_stats_table (GitgRevisionDetailsPanel *panel)
 {
@@ -316,6 +368,10 @@ make_stats_table (GitgRevisionDetailsPanel *panel)
 		gtk_button_set_alignment (GTK_BUTTON (file),
 		                          0,
 		                          0.5);
+		g_signal_connect (file,
+		                  "activate-link",
+		                  G_CALLBACK (link_button_activate_link_cb),
+		                  panel->priv->window);
 
 		total_str = g_strdup_printf ("%d", info->added + info->removed);
 		total = gtk_label_new (total_str);
