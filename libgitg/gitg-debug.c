@@ -22,23 +22,52 @@
 
 #include "gitg-debug.h"
 #include <glib.h>
+#include <stdio.h>
 
 static guint debug_enabled = GITG_DEBUG_NONE;
 
 #define DEBUG_FROM_ENV(name) 			\
-	{									\
-		if (g_getenv(#name))			\
-			debug_enabled |= name;		\
+	{					\
+		if (g_getenv(#name))		\
+		{				\
+			debug_enabled |= name;	\
+		}				\
 	}
 
 void
 gitg_debug_init (void)
 {
-	DEBUG_FROM_ENV(GITG_DEBUG_RUNNER);
+	DEBUG_FROM_ENV (GITG_DEBUG_SHELL);
+	DEBUG_FROM_ENV (GITG_DEBUG_SHELL_OUTPUT);
+	DEBUG_FROM_ENV (GITG_DEBUG_CHARSET_CONVERSION);
 }
 
 gboolean
 gitg_debug_enabled (guint debug)
 {
 	return debug_enabled & debug;
+}
+
+void
+gitg_debug_message (guint level,
+                    gchar const *file,
+                    gint         line,
+                    gchar const *function,
+                    gchar const *format,
+                    ...)
+{
+	if (G_UNLIKELY (debug_enabled & level))
+	{
+		va_list ap;
+		gchar *msg;
+
+		va_start (ap, format);
+		msg = g_strdup_vprintf (format, ap);
+		va_end (ap);
+
+		g_print ("%s:%d (%s) %s\n", file, line, function, msg);
+		fflush (stdout);
+
+		g_free (msg);
+	}
 }

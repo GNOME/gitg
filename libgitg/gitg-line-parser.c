@@ -21,6 +21,7 @@
  */
 
 #include "gitg-line-parser.h"
+#include <libgitg/gitg-debug.h>
 
 #define GITG_LINE_PARSER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_LINE_PARSER, GitgLineParserPrivate))
 
@@ -211,6 +212,8 @@ parse_lines (GitgLineParser *stream,
 		{
 			stream->priv->lines[i++] = g_strndup (ptr, newline - ptr);
 		}
+
+		gitg_debug (GITG_DEBUG_SHELL_OUTPUT, "%s", stream->priv->lines[i - 1]);
 
 		ptr = line_end;
 

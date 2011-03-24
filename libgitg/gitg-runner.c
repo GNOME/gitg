@@ -446,7 +446,7 @@ gitg_runner_run (GitgRunner *runner)
 	                                (gchar **)gitg_command_get_arguments (runner->priv->command),
 	                                (gchar **)gitg_command_get_environment (runner->priv->command),
 	                                G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD |
-	                                (gitg_debug_enabled (GITG_DEBUG_RUNNER) ? 0 : G_SPAWN_STDERR_TO_DEV_NULL),
+	                                (gitg_debug_enabled (GITG_DEBUG_SHELL) ? 0 : G_SPAWN_STDERR_TO_DEV_NULL),
 	                                NULL,
 	                                NULL,
 	                                &(runner->priv->pid),
@@ -476,8 +476,9 @@ gitg_runner_run (GitgRunner *runner)
 
 		runner->priv->cancellable = g_cancellable_new ();
 
-		runner->priv->stdin = G_OUTPUT_STREAM (g_unix_output_stream_new (stdinf,
-		                                              TRUE));
+		runner->priv->stdin =
+			G_OUTPUT_STREAM (g_unix_output_stream_new (stdinf,
+			                                           TRUE));
 
 		data = async_data_new (runner);
 

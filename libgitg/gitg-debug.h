@@ -24,15 +24,35 @@
 #define __GITG_DEBUG_H__
 
 #include <glib.h>
+#include <config.h>
 
 enum
 {
 	GITG_DEBUG_NONE = 0,
-	GITG_DEBUG_RUNNER = 1 << 0
+	GITG_DEBUG_SHELL = 1 << 0,
+	GITG_DEBUG_SHELL_OUTPUT = 1 << 1,
+	GITG_DEBUG_CHARSET_CONVERSION = 1 << 2
 };
 
+#if ENABLE_DEBUG
 void gitg_debug_init (void);
 gboolean gitg_debug_enabled (guint debug);
+
+void gitg_debug_message (guint level,
+                         gchar const *file,
+                         gint         line,
+                         gchar const *function,
+                         gchar const *format,
+                         ...);
+
+#define gitg_debug(level,format,args...) gitg_debug_message (level, __FILE__, __LINE__, G_STRFUNC, format, args)
+#else
+
+#define gitg_debug_init ;
+#define gitg_debug_enabled(x) FALSE
+#define gitg_debug(level,format,args...) ;
+
+#endif
 
 #endif /* __GITG_DEBUG_H__ */
 
