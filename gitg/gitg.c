@@ -37,7 +37,6 @@
 
 static gboolean commit_mode = FALSE;
 static gchar *select_sha1 = NULL;
-static GtkLinkButtonUriFunc original_link_button_hook;
 
 static void
 show_version_and_quit (void)
@@ -167,57 +166,6 @@ set_icons ()
 	g_list_free (icons);
 }
 
-static void
-link_button_uri_hook (GtkLinkButton *button,
-                      gchar const   *link_,
-                      GitgWindow    *window)
-{
-	GFile *file;
-	GitgRepository *repository;
-
-	file = g_file_new_for_uri (link_);
-	repository = gitg_window_get_repository (window);
-
-	if (!g_file_has_uri_scheme (file, "gitg"))
-	{
-		original_link_button_hook (button, link_, NULL);
-	}
-	else if (repository)
-	{
-		gchar *work_tree_path;
-		gchar *selection;
-		gchar *activatable;
-		gchar *action;
-
-		if (gitg_uri_parse (link_, &work_tree_path, &selection, &activatable, &action))
-		{
-			GFile *wt;
-			GFile *work_tree;
-			gboolean equal;
-
-			wt = gitg_repository_get_work_tree (repository);
-			work_tree = g_file_new_for_path (work_tree_path);
-			equal = g_file_equal (wt, work_tree);
-
-			g_object_unref (wt);
-			g_object_unref (work_tree);
-
-			if (equal)
-			{
-				gitg_window_select (window, selection);
-				gitg_window_activate (window, activatable, action);
-			}
-
-			g_free (work_tree_path);
-			g_free (selection);
-			g_free (activatable);
-			g_free (action);
-		}
-	}
-
-	g_object_unref (file);
-}
-
 int
 main (int argc, char **argv)
 {
@@ -255,10 +203,6 @@ main (int argc, char **argv)
 	{
 		gitg_window_show_commit (window);
 	}
-
-	original_link_button_hook = gtk_link_button_set_uri_hook ((GtkLinkButtonUriFunc)link_button_uri_hook,
-	                                                          window,
-	                                                          NULL);
 
 	gtk_main ();
 

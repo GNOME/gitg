@@ -970,7 +970,9 @@ get_info_at_pointer (GitgCommitView *view,
 	GdkWindow *win = gtk_text_view_get_window (textview, GTK_TEXT_WINDOW_TEXT);
 
 	gdk_window_get_pointer (win, &x, &y, NULL);
-	gdk_drawable_get_size (GDK_DRAWABLE (win), &width, &height);
+
+	width = gdk_window_get_width (win);
+	height = gdk_window_get_height (win);
 
 	if (x < 0 || y < 0 || x > width || y > height)
 	{
