@@ -148,6 +148,17 @@ AC_SUBST(DISABLE_DEPRECATED_CFLAGS)
 
 PACKAGE_LIBS="$PACKAGE_LIBS -lm"
 
+
+AC_ARG_ENABLE(debug,
+              [AS_HELP_STRING([--disable-debug],
+                              [disable debug information [default=yes]])],
+              [enable_debug=$enableval], [enable_debug=yes])
+
+if test "$enable_debug" = "yes"; then
+	PACKAGE_CFLAGS="$PACKAGE_CFLAGS -g"
+	AC_DEFINE([ENABLE_DEBUG],[1],[Whether debugging support is enabled])
+fi
+
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
 

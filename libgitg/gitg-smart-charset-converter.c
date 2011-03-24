@@ -21,6 +21,7 @@
  */
 
 #include "gitg-smart-charset-converter.h"
+#include "gitg-debug.h"
 
 #include <gio/gio.h>
 #include <glib/gi18n.h>
@@ -278,8 +279,16 @@ guess_encoding (GitgSmartCharsetConverter *smart,
 		/* Try to convert */
 		if (try_convert (conv, inbuf, inbuf_size))
 		{
+			gitg_debug (GITG_DEBUG_CHARSET_CONVERSION,
+			            "Guessed %s conversion",
+			            gitg_encoding_get_charset (enc));
 			break;
 		}
+	}
+
+	if (smart->priv->is_utf8)
+	{
+		gitg_debug (GITG_DEBUG_CHARSET_CONVERSION, "%s", "Guessed UTF8 conversion");
 	}
 
 	if (conv != NULL)
@@ -307,15 +316,13 @@ gitg_smart_charset_converter_convert (GConverter       *converter,
 	GitgSmartCharsetConverter *smart = GITG_SMART_CHARSET_CONVERTER (converter);
 
 	/* Guess the encoding if we didn't make it yet */
-	if (smart->priv->charset_conv == NULL &&
-	    !smart->priv->is_utf8)
+	if (smart->priv->charset_conv == NULL && !smart->priv->is_utf8)
 	{
 		smart->priv->charset_conv = guess_encoding (smart, inbuf, inbuf_size);
 
 		/* If we still have the previous case is that we didn't guess
 		   anything */
-		if (smart->priv->charset_conv == NULL &&
-		    !smart->priv->is_utf8)
+		if (smart->priv->charset_conv == NULL && !smart->priv->is_utf8)
 		{
 			g_set_error_literal (error, GITG_CHARSET_CONVERSION_ERROR,
 					     GITG_CHARSET_CONVERSION_ERROR_ENCODING_AUTO_DETECTION_FAILED,
@@ -340,9 +347,13 @@ gitg_smart_charset_converter_convert (GConverter       *converter,
 		ret = G_CONVERTER_CONVERTED;
 
 		if (flags & G_CONVERTER_INPUT_AT_END)
+		{
 			ret = G_CONVERTER_FINISHED;
+		}
 		else if (flags & G_CONVERTER_FLUSH)
+		{
 			ret = G_CONVERTER_FLUSHED;
+		}
 
 		return ret;
 	}
