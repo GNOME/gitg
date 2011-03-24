@@ -45,12 +45,12 @@ void gitg_debug_message (guint level,
                          gchar const *format,
                          ...);
 
-#define gitg_debug(level,format,args...) gitg_debug_message (level, __FILE__, __LINE__, G_STRFUNC, format, args)
+#define gitg_debug(level,args...) gitg_debug_message (level, __FILE__, __LINE__, G_STRFUNC, args)
 #else
 
 #define gitg_debug_init ;
 #define gitg_debug_enabled(x) FALSE
-#define gitg_debug(level,format,args...) ;
+#define gitg_debug(level,args...) ;
 
 #endif
 
