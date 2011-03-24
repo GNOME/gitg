@@ -288,7 +288,7 @@ guess_encoding (GitgSmartCharsetConverter *smart,
 
 	if (smart->priv->is_utf8)
 	{
-		gitg_debug (GITG_DEBUG_CHARSET_CONVERSION, "%s", "Guessed UTF8 conversion");
+		gitg_debug (GITG_DEBUG_CHARSET_CONVERSION, "Guessed UTF8 conversion");
 	}
 
 	if (conv != NULL)
