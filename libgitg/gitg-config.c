@@ -139,6 +139,7 @@ gitg_config_init (GitgConfig *self)
 	self->priv = GITG_CONFIG_GET_PRIVATE (self);
 
 	self->priv->shell = gitg_shell_new_synchronized (1000);
+	gitg_shell_set_preserve_line_endings (self->priv->shell, TRUE);
 
 	self->priv->accumulated = g_string_new ("");
 
