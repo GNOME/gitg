@@ -293,7 +293,9 @@ gitg_encoding_lazy_init (void)
 	const gchar *locale_charset;
 
 	if (initialized)
+	{
 		return;
+	}
 
 	if (g_get_charset (&locale_charset) == FALSE)
 	{
@@ -313,24 +315,33 @@ gitg_encoding_get_from_charset (const gchar *charset)
 	gitg_encoding_lazy_init ();
 
 	if (charset == NULL)
+	{
 		return NULL;
+	}
 
 	if (g_ascii_strcasecmp (charset, "UTF-8") == 0)
+	{
 		return gitg_encoding_get_utf8 ();
+	}
 
-	i = 0; 
+	i = 0;
+
 	while (i < GITG_ENCODING_LAST)
 	{
 		if (g_ascii_strcasecmp (charset, encodings[i].charset) == 0)
+		{
 			return &encodings[i];
-      
+		}
+
 		++i;
 	}
 
 	if (unknown_encoding.charset != NULL)
 	{
 		if (g_ascii_strcasecmp (charset, unknown_encoding.charset) == 0)
+		{
 			return &unknown_encoding;
+		}
 	}
 
 	return NULL;
@@ -351,6 +362,9 @@ gitg_encoding_get_candidates (void)
 
 		ret = g_slist_prepend (ret,
 		                       (gpointer)gitg_encoding_get_current ());
+
+		ret = g_slist_prepend (ret,
+		                       (gpointer)gitg_encoding_get_utf8 ());
 	}
 
 	return ret;
@@ -362,7 +376,9 @@ gitg_encoding_get_from_index (gint idx)
 	g_return_val_if_fail (idx >= 0, NULL);
 
 	if (idx >= GITG_ENCODING_LAST)
+	{
 		return NULL;
+	}
 
 	gitg_encoding_lazy_init ();
 
@@ -388,12 +404,14 @@ gitg_encoding_get_current (void)
 	gitg_encoding_lazy_init ();
 
 	if (initialized != FALSE)
+	{
 		return locale_encoding;
+	}
 
 	if (g_get_charset (&locale_charset) == FALSE) 
 	{
 		g_return_val_if_fail (locale_charset != NULL, &utf8_encoding);
-		
+
 		locale_encoding = gitg_encoding_get_from_charset (locale_charset);
 	}
 	else
@@ -424,14 +442,18 @@ gitg_encoding_to_string (const GitgEncoding* enc)
 
 	if (enc->name != NULL)
 	{
-	    	return g_strdup_printf ("%s (%s)", _(enc->name), enc->charset);
+		return g_strdup_printf ("%s (%s)", _(enc->name), enc->charset);
 	}
 	else
 	{
 		if (g_ascii_strcasecmp (enc->charset, "ANSI_X3.4-1968") == 0)
+		{
 			return g_strdup_printf ("US-ASCII (%s)", enc->charset);
+		}
 		else
+		{
 			return g_strdup (enc->charset);
+		}
 	}
 }
 
@@ -510,8 +532,9 @@ _gitg_encoding_strv_to_list (const gchar * const *enc_str)
 		if (enc != NULL)
 		{
 			if (!data_exists (res, (gpointer)enc))
+			{
 				res = g_slist_prepend (res, (gpointer)enc);
-
+			}
 		}
 	}
 
