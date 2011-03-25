@@ -1301,6 +1301,7 @@ gitg_repository_init (GitgRepository *object)
 	                                            (GDestroyNotify)free_refs);
 
 	object->priv->loader = gitg_shell_new (10000);
+	gitg_io_set_auto_utf8 (GITG_IO (object->priv->loader), FALSE);
 
 	g_signal_connect (object->priv->loader,
 	                  "update",
