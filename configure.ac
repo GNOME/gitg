@@ -4,7 +4,7 @@ AC_PREREQ([2.64])
 
 m4_define(gitg_major_version, 0)
 m4_define(gitg_minor_version, 2)
-m4_define(gitg_micro_version, 0)
+m4_define(gitg_micro_version, 1)
 m4_define(gitg_version, gitg_major_version.gitg_minor_version.gitg_micro_version)
 
 AC_INIT([gitg],
