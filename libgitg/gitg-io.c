@@ -33,6 +33,7 @@ struct _GitgIOPrivate
 
 	guint cancelled : 1;
 	guint running : 1;
+	guint auto_utf8 : 1;
 };
 
 enum
@@ -43,7 +44,8 @@ enum
 	PROP_OUTPUT,
 	PROP_CANCELLED,
 	PROP_EXIT_STATUS,
-	PROP_RUNNING
+	PROP_RUNNING,
+	PROP_AUTO_UTF8
 };
 
 enum
@@ -100,6 +102,9 @@ gitg_io_set_property (GObject      *object,
 		case PROP_RUNNING:
 			gitg_io_set_running (self, g_value_get_boolean (value));
 			break;
+		case PROP_AUTO_UTF8:
+			gitg_io_set_auto_utf8 (self, g_value_get_boolean (value));
+			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -130,6 +135,9 @@ gitg_io_get_property (GObject    *object,
 			break;
 		case PROP_RUNNING:
 			g_value_set_boolean (value, self->priv->running);
+			break;
+		case PROP_AUTO_UTF8:
+			g_value_set_boolean (value, self->priv->auto_utf8);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -237,6 +245,14 @@ gitg_io_class_init (GitgIOClass *klass)
 		              G_TYPE_ERROR);
 
 	g_type_class_add_private (object_class, sizeof (GitgIOPrivate));
+
+	g_object_class_install_property (object_class,
+	                                 PROP_AUTO_UTF8,
+	                                 g_param_spec_boolean ("auto-utf8",
+	                                                       "Auto Utf8",
+	                                                       "Auto utf8",
+	                                                       TRUE,
+	                                                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 }
 
 static void
@@ -424,4 +440,28 @@ gitg_io_set_running (GitgIO   *io,
 
 		g_object_notify (G_OBJECT (io), "running");
 	}
+}
+
+void
+gitg_io_set_auto_utf8 (GitgIO   *io,
+                       gboolean  auto_utf8)
+{
+	g_return_if_fail (GITG_IS_IO (io));
+
+	if (io->priv->auto_utf8 == auto_utf8)
+	{
+		return;
+	}
+
+	io->priv->auto_utf8 = auto_utf8;
+
+	g_object_notify (G_OBJECT (io), "auto-utf8");
+}
+
+gboolean
+gitg_io_get_auto_utf8 (GitgIO *io)
+{
+	g_return_val_if_fail (GITG_IS_IO (io), FALSE);
+
+	return io->priv->auto_utf8;
 }
