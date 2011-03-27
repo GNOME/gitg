@@ -180,14 +180,11 @@ tools/Makefile
 
 AC_OUTPUT
 
-gtkversion=`$PKG_CONFIG --modversion $GTK_REQUIRED`
-
 echo "
 
 Configuration:
 
 	Source code location:	${srcdir}
 	Compiler:		${CC}
-	gtk+ version:           ${gtkversion}
 	Glade catalog:          ${glade_catalog}
 "
