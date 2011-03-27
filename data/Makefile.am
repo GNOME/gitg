@@ -15,6 +15,11 @@ gitgstyles_DATA = gitgstyle.xml
 
 gsettings_SCHEMAS = org.gnome.gitg.gschema.xml
 
+if GLADE_CATALOG
+catalogdir = $(GLADE_CATALOGDIR)
+dist_catalog_DATA = gitg-glade.xml
+endif
+
 @INTLTOOL_XML_NOMERGE_RULE@
 
 @GSETTINGS_RULES@
