@@ -87,6 +87,9 @@ void gitg_io_set_exit_status (GitgIO *io, gint status);
 gboolean gitg_io_get_running (GitgIO *io);
 void gitg_io_set_running (GitgIO *io, gboolean running);
 
+void gitg_io_set_auto_utf8 (GitgIO *io, gboolean auto_utf8);
+gboolean gitg_io_get_auto_utf8 (GitgIO *io);
+
 G_END_DECLS
 
 #endif /* __GITG_IO_H__ */

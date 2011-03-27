@@ -496,13 +496,20 @@ gitg_runner_run (GitgRunner *runner)
 	output = G_INPUT_STREAM (g_unix_input_stream_new (stdoutf,
 	                                                  TRUE));
 
-	smart = gitg_smart_charset_converter_new (gitg_encoding_get_candidates ());
+	if (gitg_io_get_auto_utf8 (GITG_IO (runner)))
+	{
+		smart = gitg_smart_charset_converter_new (gitg_encoding_get_candidates ());
 
-	runner->priv->stdout = g_converter_input_stream_new (output,
-	                                                     G_CONVERTER (smart));
+		runner->priv->stdout = g_converter_input_stream_new (output,
+		                                                     G_CONVERTER (smart));
 
-	g_object_unref (smart);
-	g_object_unref (output);
+		g_object_unref (smart);
+		g_object_unref (output);
+	}
+	else
+	{
+		runner->priv->stdout = output;
+	}
 
 	end_output = gitg_io_get_output (GITG_IO (runner));
 
