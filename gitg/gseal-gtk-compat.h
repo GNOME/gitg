@@ -21,8 +21,17 @@
 #ifndef GSEAL_GTK_COMPAT_H
 #define GSEAL_GTK_COMPAT_H
 
+#include <gtk/gtk.h>
+
 G_BEGIN_DECLS
 
+#if !GTK_CHECK_VERSION(2, 24, 0)
+gint gitg_gseal_gtk_compat_window_get_width  (GdkWindow *window);
+gint gitg_gseal_gtk_compat_window_get_height (GdkWindow *window);
+
+#define gdk_window_get_width(window) gitg_gseal_gtk_compat_window_get_width(window)
+#define gdk_window_get_height(window) gitg_gseal_gtk_compat_window_get_height(window)
+#endif /* GTK < 2.24.0 */
 #if !GTK_CHECK_VERSION (2, 22, 0)
 #define gdk_drag_context_list_targets(context)		((context)->targets)
 #endif /* GTK < 2.22.0 */

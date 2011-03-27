@@ -55,6 +55,7 @@ gitg_SOURCES =				\
 	gitg-uri.c			\
 	gitg-utils.c			\
 	gitg-window.c			\
+	gseal-gtk-compat.c		\
 	$(NOINST_H_FILES)
 
 if BUILD_SPINNER
