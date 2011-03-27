@@ -116,6 +116,26 @@ AC_SUBST(PACKAGE_LIBS)
 
 GLIB_GSETTINGS
 
+GLADE_UI_REQUIRED=3.2
+
+AC_ARG_ENABLE([glade-catalog],
+              [AS_HELP_STRING([--enable-glade-catalog[=@<:@no/auto/yes@:>@]],
+                              [Install a glade catalog file [default=auto]])],
+                              [glade_catalog=$enableval],
+                              [glade_catalog="auto"])
+
+if test "x$glade_catalog" = "xauto"; then
+	PKG_CHECK_EXISTS([gladeui-1.0 >= $GLADE_UI_REQUIRED], \
+	                 glade_catalog="yes", glade_catalog="no")
+fi
+
+AM_CONDITIONAL([GLADE_CATALOG], [test "x$glade_catalog" = xyes])
+
+AS_IF([test "x$glade_catalog" = xyes],
+	[PKG_CHECK_MODULES(GLADE, [gladeui-1.0 >= $GLADE_UI_REQUIRED])
+	 GLADE_CATALOGDIR=`$PKG_CONFIG --variable=catalogdir gladeui-1.0 2>&AS_MESSAGE_LOG_FD`
+	 AC_SUBST(GLADE_CATALOGDIR)])
+
 AC_CONFIG_FILES([
 Makefile
 libgitg-1.0.pc
@@ -138,4 +158,5 @@ Configuration:
 
 	Source code location:	${srcdir}
 	Compiler:		${CC}
+	Glade catalog:          ${glade_catalog}
 "
