@@ -22,6 +22,7 @@
 
 #include "gitg-config.h"
 #include "gitg-shell.h"
+#include "gitg-debug.h"
 
 #define GITG_CONFIG_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_CONFIG, GitgConfigPrivate))
 
@@ -196,7 +197,10 @@ get_value_global (GitgConfig *config, gchar const *key)
 
 	if (error)
 	{
-		g_warning ("Failed to get config: %s", error->message);
+		gitg_debug (GITG_DEBUG_CONFIG,
+		            "Failed to get config: %s",
+		            error->message);
+
 		g_error_free (error);
 	}
 
@@ -223,7 +227,10 @@ get_value_global_regex (GitgConfig *config,
 
 	if (error)
 	{
-		g_warning ("Failed to get config: %s", error->message);
+		gitg_debug (GITG_DEBUG_CONFIG,
+		            "Failed to get config: %s",
+		            error->message);
+
 		g_error_free (error);
 	}
 
@@ -255,7 +262,10 @@ get_value_local (GitgConfig *config, gchar const *key)
 
 	if (error)
 	{
-		g_warning ("Failed to get config: %s", error->message);
+		gitg_debug (GITG_DEBUG_CONFIG,
+		            "Failed to get config: %s",
+		            error->message);
+
 		g_error_free (error);
 	}
 
@@ -296,7 +306,10 @@ get_value_local_regex (GitgConfig *config,
 
 	if (error)
 	{
-		g_warning ("Failed to get config: %s", error->message);
+		gitg_debug (GITG_DEBUG_CONFIG,
+		            "Failed to get config: %s",
+		            error->message);
+
 		g_error_free (error);
 	}
 
@@ -326,7 +339,10 @@ set_value_global (GitgConfig *config, gchar const *key, gchar const *value)
 
 	if (error)
 	{
-		g_warning ("Failed to get config: %s", error->message);
+		gitg_debug (GITG_DEBUG_CONFIG,
+		            "Failed to get config: %s",
+		            error->message);
+
 		g_error_free (error);
 	}
 
@@ -359,7 +375,10 @@ set_value_local (GitgConfig *config, gchar const *key, gchar const *value)
 
 	if (error)
 	{
-		g_warning ("Failed to set config: %s", error->message);
+		gitg_debug (GITG_DEBUG_CONFIG,
+		            "Failed to set config: %s",
+		            error->message);
+
 		g_error_free (error);
 	}
 
@@ -390,7 +409,10 @@ rename_global (GitgConfig *config, gchar const *old, gchar const *nw)
 
 	if (error)
 	{
-		g_warning ("Failed to rename config: %s", error->message);
+		gitg_debug (GITG_DEBUG_CONFIG,
+		            "Failed to rename config: %s",
+		            error->message);
+
 		g_error_free (error);
 	}
 
@@ -424,7 +446,10 @@ rename_local (GitgConfig *config, gchar const *old, gchar const *nw)
 
 	if (error)
 	{
-		g_warning ("Failed to rename config: %s", error->message);
+		gitg_debug (GITG_DEBUG_CONFIG,
+		            "Failed to rename config: %s",
+		            error->message);
+
 		g_error_free (error);
 	}
 
