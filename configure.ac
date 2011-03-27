@@ -150,7 +150,7 @@ AC_ARG_ENABLE([glade-catalog],
               [AS_HELP_STRING([--enable-glade-catalog[=@<:@no/auto/yes@:>@]],
                               [Install a glade catalog file [default=auto]])],
                               [glade_catalog=$enableval],
-                              [glade_catalog="auto"])
+                              [glade_catalog="no"])
 
 if test "x$glade_catalog" = "xauto"; then
 	PKG_CHECK_EXISTS([gladeui-1.0 >= $GLADE_UI_REQUIRED], \
