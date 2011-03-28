@@ -51,7 +51,6 @@ C_FILES =				\
 	gitg-commit.c			\
 	gitg-config.c			\
 	gitg-convert.c			\
-	gitg-debug.c			\
 	gitg-hash.c			\
 	gitg-i18n.c			\
 	gitg-lane.c			\
@@ -66,6 +65,10 @@ C_FILES =				\
 	gitg-io.c			\
 	gitg-shell.c			\
 	gitg-line-parser.c
+
+if ENABLE_DEBUG
+	C_FILES += gitg-debug.c
+endif
 
 ENUM_H_FILES =			\
 	gitg-changed-file.h

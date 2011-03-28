@@ -49,7 +49,7 @@ void gitg_debug_message (guint level,
 #define gitg_debug(level,args...) gitg_debug_message (level, __FILE__, __LINE__, G_STRFUNC, args)
 #else
 
-#define gitg_debug_init ;
+#define gitg_debug_init(args...) ;
 #define gitg_debug_enabled(x) FALSE
 #define gitg_debug(level,args...) ;
 
