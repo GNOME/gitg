@@ -67,7 +67,7 @@ C_FILES =				\
 	gitg-line-parser.c
 
 if ENABLE_DEBUG
-	C_FILES += gitg-debug.c
+C_FILES += gitg-debug.c
 endif
 
 ENUM_H_FILES =			\

@@ -139,7 +139,7 @@ if test "x$enable_debug" = "xyes"; then
 	AC_DEFINE([ENABLE_DEBUG],[1],[Whether debugging support is enabled])
 fi
 
-AM_CONDITIONAL(ENABLE_DEBUG, test "x$enable_debug" = "xyes")
+AM_CONDITIONAL([ENABLE_DEBUG], [test "$enable_debug" = "yes"])
 
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
