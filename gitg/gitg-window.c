@@ -1219,6 +1219,9 @@ on_repository_loaded (GitgRepository *repository,
 	g_free (msg);
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (window->priv->tree_view)), NULL);
 
+	gtk_tree_view_set_model (window->priv->tree_view,
+	                         GTK_TREE_MODEL (window->priv->repository));
+
 	GitgHash hash = {0,};
 
 	if (memcmp (window->priv->select_on_load, hash, GITG_HASH_BINARY_SIZE) != 0)
@@ -1708,6 +1711,8 @@ on_repository_load (GitgRepository *repository,
 	                                   on_branches_combo_changed,
 	                                   window);
 
+	gtk_tree_view_set_model (window->priv->tree_view, NULL);
+
 	update_window_title (window);
 }
 
@@ -1790,9 +1795,6 @@ load_repository (GitgWindow   *window,
 	if ((git_dir || work_tree) &&
 	    create_repository (window, git_dir, work_tree, selection))
 	{
-		gtk_tree_view_set_model (window->priv->tree_view,
-		                         GTK_TREE_MODEL (window->priv->repository));
-
 		GitgShell *loader = gitg_repository_get_loader (window->priv->repository);
 
 		gitg_window_set_select_on_load (window, selection);
