@@ -106,10 +106,12 @@ AC_ARG_ENABLE(debug,
                               [disable debug information [default=yes]])],
               [enable_debug=$enableval], [enable_debug=yes])
 
-if test "$enable_debug" = "yes"; then
+if test "x$enable_debug" = "xyes"; then
 	PACKAGE_CFLAGS="$PACKAGE_CFLAGS -g"
 	AC_DEFINE([ENABLE_DEBUG],[1],[Whether debugging support is enabled])
 fi
+
+AM_CONDITIONAL(ENABLE_DEBUG, test "x$enable_debug" = "xyes")
 
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
@@ -156,4 +158,5 @@ Configuration:
 	Source code location:	${srcdir}
 	Compiler:		${CC}
 	Glade catalog:          ${glade_catalog}
+	Debug enabled:          ${enable_debug}
 "

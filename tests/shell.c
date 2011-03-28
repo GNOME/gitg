@@ -1,5 +1,6 @@
 #include <libgitg/gitg-shell.h>
 #include <string.h>
+#include <libgitg/gitg-debug.h>
 
 #define test_add_repo(name, callback) g_test_add (name, RepositoryInfo, NULL, repository_setup, callback, repository_cleanup)
 
