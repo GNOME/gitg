@@ -302,9 +302,6 @@ on_fetch_begin_loading (GitgShell *shell, FetchInfo *info)
 {
 	GtkTreeIter iter;
 	GtkTreePath *path = gtk_tree_row_reference_get_path (info->reference);
-	GtkStyleContext *style_context;
-	GValue cycle_duration = {0,};
-	GValue num_steps = {0,};
 
 	gtk_tree_model_get_iter (GTK_TREE_MODEL (info->dialog->priv->list_store_remotes),
 	                         &iter,
@@ -315,21 +312,13 @@ on_fetch_begin_loading (GitgShell *shell, FetchInfo *info)
 	                    COLUMN_FETCH, TRUE,
 	                    -1);
 
-	g_value_init (&cycle_duration, G_TYPE_UINT);
-	g_value_init (&num_steps, G_TYPE_UINT);
-
-	style_context = gtk_widget_get_style_context (GTK_WIDGET (info->dialog->priv->tree_view_remotes));
-
-	gtk_style_context_get_style_property (style_context, "num-steps", &num_steps);
-	gtk_style_context_get_style_property (style_context, "cycle-duration", &cycle_duration);
-
-	info->pulse_id = g_timeout_add (g_value_get_uint (&cycle_duration) /
-	                                g_value_get_uint (&num_steps),
+	/* We can't tell how often we are supposed to pulse so just pulse
+	 * at the interval of the default engine. Yes this is annoying but,
+	 * mclasen said to "blame the engine."
+	 */
+	info->pulse_id = g_timeout_add (750 / 12,
 	                                (GSourceFunc)pulse_row,
 	                                info);
-
-	g_value_unset (&cycle_duration);
-	g_value_unset (&num_steps);
 
 	gtk_tree_path_free (path);
 	update_fetch (info->dialog);
