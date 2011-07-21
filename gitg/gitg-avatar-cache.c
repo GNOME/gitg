@@ -31,7 +31,7 @@ typedef struct _GitgAvatarCacheLoader GitgAvatarCacheLoader;
 struct _GitgAvatarCacheLoader
 {
 	gchar              *uri;
-	GitgAvatarCache  *cache;
+	GitgAvatarCache    *cache;
 	GCancellable       *cancellable;
 	gchar               buffer[8192];
 	GdkPixbufLoader    *pixbuf_loader;
@@ -99,8 +99,8 @@ gitg_avatar_cache_init (GitgAvatarCache *cache)
 
 static void
 avatar_cache_insert (GitgAvatarCache *cache,
-		     const gchar       *uri,
-		     GdkPixbuf         *pixbuf)
+		     const gchar     *uri,
+		     GdkPixbuf       *pixbuf)
 {
 	GitgAvatarCachePrivate *priv = cache->priv;
 
@@ -122,8 +122,8 @@ avatar_cache_close_cb (GObject      *object,
                        gpointer      user_data)
 {
 	GitgAvatarCacheLoader *loader = user_data;
-	GInputStream            *stream = G_INPUT_STREAM (object);
-	GError                  *error = NULL;
+	GInputStream          *stream = G_INPUT_STREAM (object);
+	GError                *error = NULL;
 
 	if (g_input_stream_close_finish (stream, result, &error) &&
 	    gdk_pixbuf_loader_close (loader->pixbuf_loader, &error))
@@ -146,9 +146,9 @@ avatar_cache_read_cb (GObject      *object,
                       gpointer      user_data)
 {
 	GitgAvatarCacheLoader *loader = user_data;
-	GInputStream            *stream = G_INPUT_STREAM (object);
-	GError                  *error = NULL;
-	gssize                   len;
+	GInputStream          *stream = G_INPUT_STREAM (object);
+	GError                *error = NULL;
+	gssize                 len;
 
 	len = g_input_stream_read_finish (stream, result, &error);
 
@@ -192,8 +192,8 @@ avatar_cache_open_cb (GObject      *object,
                       gpointer      user_data)
 {
 	GitgAvatarCacheLoader *loader = user_data;
-	GError                  *error = NULL;
-	GFileInputStream        *stream;
+	GError                *error = NULL;
+	GFileInputStream      *stream;
 
 	stream = g_file_read_finish (G_FILE (object), result, &error);
 
@@ -217,8 +217,8 @@ static void
 avatar_cache_finalize (GObject *object)
 {
 	GitgAvatarCachePrivate *priv = GITG_AVATAR_CACHE (object)->priv;
-	GitgAvatarCacheLoader *loader;
-	GList                   *l;
+	GitgAvatarCacheLoader  *loader;
+	GList                  *l;
 
 	if (priv->pixbuf_table)
 	{
@@ -256,7 +256,7 @@ gitg_avatar_cache_new (void)
 }
 
 void
-gitg_avatar_cache_load_uri_async (GitgAvatarCache   *cache,
+gitg_avatar_cache_load_uri_async (GitgAvatarCache     *cache,
                                   const gchar         *uri,
                                   gint                 io_priority,
                                   GCancellable        *cancellable,
@@ -264,10 +264,10 @@ gitg_avatar_cache_load_uri_async (GitgAvatarCache   *cache,
                                   gpointer             user_data)
 {
 	GitgAvatarCachePrivate *priv;
-	GdkPixbuf                *pixbuf = NULL;
-	GSimpleAsyncResult       *result;
+	GdkPixbuf              *pixbuf = NULL;
+	GSimpleAsyncResult     *result;
 	GitgAvatarCacheLoader  *loader;
-	GFile                    *file;
+	GFile                  *file;
 
 	g_return_if_fail (GITG_IS_AVATAR_CACHE (cache));
 	g_return_if_fail (NULL != callback);
@@ -322,8 +322,8 @@ gitg_avatar_cache_load_uri_async (GitgAvatarCache   *cache,
 
 GdkPixbuf *
 gitg_avatar_cache_load_finish (GitgAvatarCache  *cache,
-                               GAsyncResult       *result,
-                               GError            **error)
+                               GAsyncResult     *result,
+                               GError          **error)
 {
 	GSimpleAsyncResult *simple;
 	gpointer            source_tag;
@@ -343,8 +343,8 @@ gitg_avatar_cache_load_finish (GitgAvatarCache  *cache,
 }
 
 gchar *
-gitg_avatar_cache_get_gravatar_uri (GitgAvatarCache   *cache,
-                                    const gchar         *gravatar_id)
+gitg_avatar_cache_get_gravatar_uri (GitgAvatarCache *cache,
+                                    const gchar     *gravatar_id)
 {
 	GitgAvatarCachePrivate *priv;
 
