@@ -525,9 +525,6 @@ gitg_revision_files_view_parser_finished (GtkBuildable *buildable,
 	files_view->priv->contents = GTK_SOURCE_VIEW (gtk_builder_get_object (builder,
 	                                             "revision_files_contents"));
 
-	gtk_text_view_set_buffer (GTK_TEXT_VIEW(files_view->priv->contents),
-	                          GTK_TEXT_BUFFER(gtk_source_buffer_new (NULL)));
-
 	gitg_utils_set_monospace_font (GTK_WIDGET(files_view->priv->contents));
 	gtk_tree_view_set_model (files_view->priv->tree_view,
 	                         GTK_TREE_MODEL(files_view->priv->store));
