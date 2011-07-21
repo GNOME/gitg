@@ -26,6 +26,7 @@
 #include "gitg-revision-panel.h"
 #include "gitg-stat-view.h"
 #include "gitg-uri.h"
+#include "gitg-avatar-cache.h"
 
 #include <glib/gi18n.h>
 #include <stdlib.h>
@@ -46,6 +47,7 @@ struct _GitgRevisionDetailsPanelPrivate
 	GtkLabel *committer;
 	GtkLabel *subject;
 	GtkTable *parents;
+	GtkImage *avatar;
 
 	GtkWidget *panel_widget;
 	GtkTextView *text_view;
@@ -60,6 +62,8 @@ struct _GitgRevisionDetailsPanelPrivate
 
 	GSList *stats;
 	GitgWindow *window;
+
+	GitgAvatarCache *cache;
 };
 
 static void gitg_revision_panel_iface_init (GitgRevisionPanelInterface *iface);
@@ -125,6 +129,7 @@ initialize_ui (GitgRevisionDetailsPanel *panel)
 	priv->subject = GTK_LABEL (gtk_builder_get_object (priv->builder, "label_subject"));
 	priv->parents = GTK_TABLE (gtk_builder_get_object (priv->builder, "table_parents"));
 	priv->text_view = GTK_TEXT_VIEW (gtk_builder_get_object (priv->builder, "text_view_details"));
+	priv->avatar = GTK_IMAGE (gtk_builder_get_object (priv->builder, "image_avatar"));
 
 	gchar const *lbls[] = {
 		"label_subject_lbl",
@@ -209,6 +214,12 @@ gitg_revision_details_panel_dispose (GObject *object)
 		g_object_unref (panel->priv->shell);
 
 		panel->priv->shell = NULL;
+	}
+
+	if (panel->priv->cache)
+	{
+		g_object_unref (panel->priv->cache);
+		panel->priv->cache = NULL;
 	}
 
 	G_OBJECT_CLASS (gitg_revision_details_panel_parent_class)->dispose (object);
@@ -548,6 +559,8 @@ gitg_revision_details_panel_init (GitgRevisionDetailsPanel *self)
 	                  "update",
 	                  G_CALLBACK (on_shell_update),
 	                  self);
+
+	self->priv->cache = gitg_avatar_cache_new ();
 }
 
 #define HASH_KEY "GitgRevisionDetailsPanelHashKey"
@@ -726,6 +739,50 @@ update_details (GitgRevisionDetailsPanel *panel)
 }
 
 static void
+avatar_ready (GObject                  *source_object,
+              GAsyncResult             *res,
+              GitgRevisionDetailsPanel *panel)
+{
+	GdkPixbuf *pixbuf;
+	GError *error = NULL;
+
+	pixbuf = gitg_avatar_cache_load_finish (panel->priv->cache,
+	                                        res,
+	                                        &error);
+
+	if (error == NULL)
+	{
+		gtk_image_set_from_pixbuf (panel->priv->avatar,
+		                           pixbuf);
+		gtk_widget_show (GTK_WIDGET (panel->priv->avatar));
+	}
+}
+
+static void
+set_avatar (GitgRevisionDetailsPanel *panel,
+            const gchar              *email)
+{
+	if (email == NULL || *email == '\0')
+	{
+		gtk_widget_hide (GTK_WIDGET (panel->priv->avatar));
+	}
+	else
+	{
+		gchar *uri;
+
+		uri = gitg_avatar_cache_get_gravatar_uri (panel->priv->cache,
+		                                          email);
+		gitg_avatar_cache_load_uri_async (panel->priv->cache,
+		                                  uri,
+		                                  G_PRIORITY_DEFAULT,
+		                                  NULL,
+		                                  (GAsyncReadyCallback)avatar_ready,
+		                                  panel);
+		g_free (uri);
+	}
+}
+
+static void
 reload (GitgRevisionDetailsPanel *panel)
 {
 	GtkClipboard *cb;
@@ -775,6 +832,8 @@ reload (GitgRevisionDetailsPanel *panel)
 		gtk_clipboard_set_text (cb, sha, -1);
 
 		g_free (sha);
+
+		set_avatar (panel, gitg_revision_get_author_email (panel->priv->revision));
 	}
 	else
 	{
@@ -782,6 +841,7 @@ reload (GitgRevisionDetailsPanel *panel)
 		gtk_label_set_text (panel->priv->committer, "");
 		gtk_label_set_text (panel->priv->subject, "");
 		gtk_label_set_text (panel->priv->sha, "");
+		set_avatar (panel, NULL);
 	}
 
 	// Update parents
