@@ -25,7 +25,7 @@ AC_SUBST(GITG_MINOR_VERSION, gitg_minor_version)
 AC_DEFINE(GITG_MICRO_VERSION, gitg_micro_version, [GitG micro version])
 AC_SUBST(GITG_MICRO_VERSION, gitg_micro_version)
 
-AM_INIT_AUTOMAKE([1.11 dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.11 tar-ustar dist-xz no-dist-gzip -Wno-portability])
 AM_MAINTAINER_MODE([enable])
 
 AM_SILENT_RULES([yes])
