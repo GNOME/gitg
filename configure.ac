@@ -4,7 +4,7 @@ AC_PREREQ([2.64])
 
 m4_define(gitg_major_version, 0)
 m4_define(gitg_minor_version, 2)
-m4_define(gitg_micro_version, 2)
+m4_define(gitg_micro_version, 3)
 m4_define(gitg_version, gitg_major_version.gitg_minor_version.gitg_micro_version)
 
 AC_INIT([gitg],
@@ -56,7 +56,7 @@ AC_CHECK_LIB([m], [sinf])
 
 GLIB_REQUIRED_VERSION=2.26
 GTK_REQUIRED_VERSION=3.0.0
-GTKSOURCEVIEW_REQUIRED_VERSION=2.91.8
+GTKSOURCEVIEW_REQUIRED_VERSION=3.0.0
 
 PKG_CHECK_MODULES(GITG, [
 	gtk+-3.0 >= $GTK_REQUIRED_VERSION
