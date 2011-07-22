@@ -385,6 +385,8 @@ gitg_avatar_cache_get_gravatar_uri (GitgAvatarCache *cache,
                                     const gchar     *gravatar_id)
 {
 	GitgAvatarCachePrivate *priv;
+	gssize                  len;
+	gchar                  *lowercase_id;
 
 	g_return_val_if_fail (GITG_IS_AVATAR_CACHE (cache), NULL);
 	g_return_val_if_fail (NULL != gravatar_id, NULL);
@@ -400,8 +402,12 @@ gitg_avatar_cache_get_gravatar_uri (GitgAvatarCache *cache,
 		priv->checksum = g_checksum_new (G_CHECKSUM_MD5);
 	}
 
-	g_checksum_update (priv->checksum, (gpointer) gravatar_id,
-	                   strlen (gravatar_id));
+	len = strlen (gravatar_id);
+	lowercase_id = g_ascii_strdown (gravatar_id, len);
+
+	g_checksum_update (priv->checksum, (gpointer) lowercase_id, len);
+
+	g_free (lowercase_id);
 
 	/* d=404 will return a File Not Found if the avatar does not exist */
 	return g_strdup_printf ("http://www.gravatar.com/avatar/%s?d=404&s=%d",
