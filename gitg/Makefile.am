@@ -13,6 +13,7 @@ AM_CPPFLAGS =							\
 
 NOINST_H_FILES =			\
 	gitg-activatable.h		\
+	gitg-avatar-cache.h		\
 	gitg-branch-actions.h		\
 	gitg-cell-renderer-path.h	\
 	gitg-commit-view.h		\
@@ -30,13 +31,13 @@ NOINST_H_FILES =			\
 	gitg-stat-view.h		\
 	gitg-uri.h			\
 	gitg-utils.h			\
-	gitg-window.h			\
-	gseal-gtk-compat.h
+	gitg-window.h
 
 gitg_SOURCES =				\
 	$(BUILT_SOURCES)		\
 	gitg.c				\
 	gitg-activatable.c		\
+	gitg-avatar-cache.c		\
 	gitg-branch-actions.c		\
 	gitg-cell-renderer-path.c	\
 	gitg-commit-view.c		\
@@ -55,13 +56,7 @@ gitg_SOURCES =				\
 	gitg-uri.c			\
 	gitg-utils.c			\
 	gitg-window.c			\
-	gseal-gtk-compat.c		\
 	$(NOINST_H_FILES)
-
-if BUILD_SPINNER
-gitg_SOURCES += gitg-spinner.c
-NOINST_H_FILES += gitg-spinner.h
-endif
 
 gitg_LDADD =		\
 	$(GITG_LIBS)	\

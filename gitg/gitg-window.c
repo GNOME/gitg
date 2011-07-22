@@ -46,8 +46,6 @@
 #include "gitg-activatable.h"
 #include "gitg-uri.h"
 
-#include "gseal-gtk-compat.h"
-
 #define DYNAMIC_ACTION_DATA_KEY "GitgDynamicActionDataKey"
 #define DYNAMIC_ACTION_DATA_REMOTE_KEY "GitgDynamicActionDataRemoteKey"
 #define DYNAMIC_ACTION_DATA_BRANCH_KEY "GitgDynamicActionDataBranchKey"
@@ -192,7 +190,7 @@ gitg_window_finalize (GObject *object)
 	GitgWindow *self = GITG_WINDOW(object);
 
 	g_timer_destroy (self->priv->load_timer);
-	gdk_cursor_unref (self->priv->hand);
+	g_object_unref (self->priv->hand);
 
 	GList *copy = g_list_copy (self->priv->branch_actions);
 	GList *item;
@@ -520,7 +518,7 @@ build_search_entry (GitgWindow *window,
 
 	GClosure *closure = g_cclosure_new (G_CALLBACK (focus_search), entry, NULL);
 
-	gtk_accel_group_connect (group, GDK_f, GDK_CONTROL_MASK, 0, closure);
+	gtk_accel_group_connect (group, GDK_KEY_f, GDK_CONTROL_MASK, 0, closure);
 	gtk_window_add_accel_group (GTK_WINDOW(window), group);
 }
 
@@ -1085,19 +1083,16 @@ gitg_window_delete_event (GtkWidget   *widget,
 }
 
 static void
-gitg_window_destroy (GtkObject *object)
+gitg_window_destroy (GtkWidget *widget)
 {
-	GitgWindow *window = GITG_WINDOW(object);
+	GitgWindow *window = GITG_WINDOW(widget);
 
 	if (!window->priv->destroy_has_run)
 	{
 		gtk_tree_view_set_model (window->priv->tree_view, NULL);
 
-		g_slist_foreach (window->priv->revision_panels, (GFunc)g_object_unref, NULL);
-		g_slist_free (window->priv->revision_panels);
-
-		g_slist_foreach (window->priv->activatables, (GFunc)g_object_unref, NULL);
-		g_slist_free (window->priv->activatables);
+		g_slist_free_full (window->priv->revision_panels, g_object_unref);
+		g_slist_free_full (window->priv->activatables, g_object_unref);
 
 		window->priv->revision_panels = NULL;
 		window->priv->activatables = NULL;
@@ -1105,9 +1100,9 @@ gitg_window_destroy (GtkObject *object)
 		window->priv->destroy_has_run = TRUE;
 	}
 
-	if (GTK_OBJECT_CLASS(parent_class)->destroy)
+	if (GTK_WIDGET_CLASS(parent_class)->destroy)
 	{
-		GTK_OBJECT_CLASS(parent_class)->destroy (object);
+		GTK_WIDGET_CLASS(parent_class)->destroy (widget);
 	}
 }
 
@@ -1125,7 +1120,7 @@ gitg_window_window_state_event (GtkWidget           *widget,
 		show = !(event->new_window_state &
 			(GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN));
 
-		gtk_statusbar_set_has_resize_grip (window->priv->statusbar, show);
+		gtk_window_set_has_resize_grip (GTK_WINDOW (window), show);
 	}
 
 	/* Save the window state */
@@ -1182,7 +1177,6 @@ static void
 gitg_window_class_init (GitgWindowClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	GtkObjectClass *gtkobject_class = GTK_OBJECT_CLASS (klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 	GtkWindowClass *window_class = GTK_WINDOW_CLASS (klass);
 
@@ -1190,8 +1184,8 @@ gitg_window_class_init (GitgWindowClass *klass)
 
 	object_class->finalize = gitg_window_finalize;
 	object_class->dispose = gitg_window_dispose;
-	gtkobject_class->destroy = gitg_window_destroy;
 
+	widget_class->destroy = gitg_window_destroy;
 	widget_class->delete_event = gitg_window_delete_event;
 	widget_class->window_state_event = gitg_window_window_state_event;
 	window_class->set_focus = gitg_window_set_focus;
@@ -1651,8 +1645,7 @@ fill_branches_combo (GitgWindow *window)
 		gtk_combo_box_set_active_iter (window->priv->combo_branches, &active);
 	}
 
-	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free (refs);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 
 	if (active_from_selection)
 	{
@@ -1700,7 +1693,7 @@ on_repository_load (GitgRepository *repository,
 {
 	GdkCursor *cursor = gdk_cursor_new (GDK_WATCH);
 	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (window->priv->tree_view)), cursor);
-	gdk_cursor_unref (cursor);
+	g_object_unref (cursor);
 
 	gtk_statusbar_push (window->priv->statusbar, 0, _ ("Begin loading repository"));
 
@@ -2217,20 +2210,7 @@ on_help_about (GtkAction  *action,
 	static gchar const copyright[] = "Copyright \xc2\xa9 2009 Jesse van den Kieboom";
 	static gchar const *authors[] = {"Jesse van den Kieboom <jessevdk@gnome.org>", NULL};
 	static gchar const *comments = N_ ("gitg is a git repository viewer for gtk+/GNOME");
-	static gchar const *license = N_ ("This program is free software; you can redistribute it and/or modify\n"
-		"it under the terms of the GNU General Public License as published by\n"
-		"the Free Software Foundation; either version 2 of the License, or\n"
-		"(at your option) any later version.\n"
-		"\n"
-		"This program is distributed in the hope that it will be useful,\n"
-		"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-		"GNU General Public License for more details.\n"
-		"\n"
-		"You should have received a copy of the GNU General Public License\n"
-		"along with this program; if not, write to the Free Software\n"
-		"Foundation, Inc., 59 Temple Place, Suite 330,\n"
-		"Boston, MA 02111-1307, USA.");
+
 
 	gchar *path = gitg_dirs_get_data_filename ("icons", "gitg.svg", NULL);
 	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file (path, NULL);
@@ -2249,8 +2229,9 @@ on_help_about (GtkAction  *action,
 	                       "comments", _ (comments),
 	                       "version", VERSION,
 	                       "website", PACKAGE_URL,
+	                       "website-label", "gitg homepage",
 	                       "logo", pixbuf,
-	                       "license", _ (license),
+	                       "license-type", GTK_LICENSE_GPL_2_0,
 	                       NULL);
 
 	if (pixbuf)
@@ -2721,8 +2702,7 @@ update_merge_rebase (GitgWindow *window,
 		}
 	}
 
-	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free (refs);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 
 	if (gitg_ref_get_ref_type (ref) == GITG_REF_TYPE_BRANCH)
 	{
@@ -2804,8 +2784,7 @@ has_local_ref (GitgWindow  *window,
 		}
 	}
 
-	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free (refs);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 
 	return ret;
 }
@@ -2964,8 +2943,7 @@ on_cherry_pick_activated (GtkAction  *action,
 
 	gitg_revision_unref (rev);
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 static void
@@ -3050,8 +3028,7 @@ update_cherry_pick (GitgWindow *window)
 		}
 	}
 
-	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free (refs);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 }
 
 static gboolean
@@ -3117,8 +3094,7 @@ popup_revision (GitgWindow     *window,
 		gtk_action_set_visible (tag, FALSE);
 	}
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 
 	if (!show)
 	{
@@ -3394,9 +3370,7 @@ on_format_patch_response (GtkDialog       *dialog,
 		}
 	}
 
-	g_list_foreach (info->revisions, (GFunc)gitg_revision_unref, NULL);
-	g_list_free (info->revisions);
-
+	g_list_free_full (info->revisions, (GDestroyNotify)gitg_revision_unref);
 	g_slice_free (FormatPatchInfo, info);
 
 	gtk_widget_destroy (GTK_WIDGET (dialog));
@@ -3481,8 +3455,7 @@ on_revision_format_patch_activate (GtkAction  *action,
 
 	gtk_widget_show (dialog);
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 void
@@ -3525,8 +3498,7 @@ on_revision_new_branch_activate (GtkAction  *action,
 		gitg_revision_unref (rev);
 	}
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 void
@@ -3577,8 +3549,7 @@ on_revision_tag_activate (GtkAction  *action,
 		gitg_revision_unref (rev);
 	}
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 }
 
 void

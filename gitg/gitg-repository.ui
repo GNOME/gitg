@@ -23,7 +23,6 @@
     <property name="default_width">500</property>
     <property name="default_height">300</property>
     <property name="type_hint">normal</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog_vbox_main">
         <property name="visible">True</property>
@@ -197,6 +196,7 @@
                         <property name="n_columns">2</property>
                         <property name="column_spacing">6</property>
                         <property name="row_spacing">6</property>
+                        <property name="expand">False</property>
                         <child>
                           <object class="GtkLabel" id="label_configuration_user_name">
                             <property name="visible">True</property>

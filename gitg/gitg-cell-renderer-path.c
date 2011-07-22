@@ -113,7 +113,7 @@ gitg_cell_renderer_path_finalize(GObject *object)
 }
 
 static void
-renderer_get_size(GtkCellRenderer *renderer, GtkWidget *widget, GdkRectangle *area, gint *xoffset, gint *yoffset, gint *width, gint *height)
+renderer_get_size(GtkCellRenderer *renderer, GtkWidget *widget, const GdkRectangle *area, gint *xoffset, gint *yoffset, gint *width, gint *height)
 {
 	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(renderer);
 
@@ -131,7 +131,7 @@ renderer_get_size(GtkCellRenderer *renderer, GtkWidget *widget, GdkRectangle *ar
 }
 
 static void
-draw_arrow(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, gint8 laneidx, gboolean top)
+draw_arrow(GitgCellRendererPath *self, cairo_t *cr, const GdkRectangle *area, gint8 laneidx, gboolean top)
 {
 	gdouble cw = self->priv->lane_width;
 	gdouble xpos = area->x + laneidx * cw + cw / 2.0;
@@ -154,7 +154,7 @@ draw_arrow(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, gint8 la
 }
 
 static void
-draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, GitgRevision *revision, gdouble yoffset)
+draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, const GdkRectangle *area, GitgRevision *revision, gdouble yoffset)
 {
 	if (!revision)
 		return;
@@ -190,19 +190,19 @@ draw_paths_real(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area, Git
 }
 
 static void
-draw_top_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+draw_top_paths(GitgCellRendererPath *self, cairo_t *cr, const GdkRectangle *area)
 {
 	draw_paths_real(self, cr, area, self->priv->revision, -1);
 }
 
 static void
-draw_bottom_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+draw_bottom_paths(GitgCellRendererPath *self, cairo_t *cr, const GdkRectangle *area)
 {
 	draw_paths_real(self, cr, area, self->priv->next_revision, 1);
 }
 
 static void
-draw_arrows(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+draw_arrows(GitgCellRendererPath *self, cairo_t *cr, const GdkRectangle *area)
 {
 	GSList *item;
 	gint8 to = 0;
@@ -222,7 +222,7 @@ draw_arrows(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 }
 
 static void
-draw_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
+draw_paths(GitgCellRendererPath *self, cairo_t *cr, const GdkRectangle *area)
 {
 	cairo_set_line_width(cr, 2);
 	//cairo_set_source_rgb(cr, 0.45, 0.6, 0.74);
@@ -234,7 +234,7 @@ draw_paths(GitgCellRendererPath *self, cairo_t *cr, GdkRectangle *area)
 }
 
 static void
-draw_labels(GitgCellRendererPath *self, GtkWidget *widget, cairo_t *context, GdkRectangle *area)
+draw_labels(GitgCellRendererPath *self, GtkWidget *widget, cairo_t *context, const GdkRectangle *area)
 {
 	gint offset = num_lanes(self) * self->priv->lane_width;
 	PangoFontDescription *font;
@@ -249,7 +249,7 @@ draw_labels(GitgCellRendererPath *self, GtkWidget *widget, cairo_t *context, Gdk
 }
 
 static void
-draw_indicator_triangle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *context, GdkRectangle *area)
+draw_indicator_triangle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *context, const GdkRectangle *area)
 {
 	gdouble offset = gitg_revision_get_mylane(self->priv->revision) * self->priv->lane_width + (self->priv->lane_width - self->priv->triangle_width) / 2.0;
 	gdouble radius = self->priv->triangle_width / 2.0;
@@ -281,7 +281,7 @@ draw_indicator_triangle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *con
 }
 
 static void
-draw_indicator_circle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *context, GdkRectangle *area)
+draw_indicator_circle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *context, const GdkRectangle *area)
 {
 	gdouble offset = gitg_revision_get_mylane(self->priv->revision) * self->priv->lane_width + (self->priv->lane_width - self->priv->dot_width) / 2.0;
 	gdouble radius = self->priv->dot_width / 2.0;
@@ -307,7 +307,7 @@ draw_indicator_circle(GitgCellRendererPath *self, GitgLane *lane, cairo_t *conte
 }
 
 static void
-draw_indicator(GitgCellRendererPath *self, cairo_t *context, GdkRectangle *area)
+draw_indicator(GitgCellRendererPath *self, cairo_t *context, const GdkRectangle *area)
 {
 	GitgLane *lane = gitg_revision_get_lane(self->priv->revision);
 
@@ -318,13 +318,11 @@ draw_indicator(GitgCellRendererPath *self, cairo_t *context, GdkRectangle *area)
 }
 
 static void
-renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widget, GdkRectangle *area, GdkRectangle *cell_area, GdkRectangle *expose_area, GtkCellRendererState flags)
+renderer_render(GtkCellRenderer *renderer, cairo_t *cr, GtkWidget *widget, const GdkRectangle *area, const GdkRectangle *cell_area, GtkCellRendererState flags)
 {
 	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(renderer);
 
 	self->priv->last_height = area->height;
-
-	cairo_t *cr = gdk_cairo_create(window);
 
 	gdk_cairo_rectangle (cr, area);
 	cairo_clip(cr);
@@ -336,13 +334,12 @@ renderer_render(GtkCellRenderer *renderer, GdkDrawable *window, GtkWidget *widge
 
 	/* draw labels */
 	draw_labels(self, widget, cr, area);
-	cairo_destroy(cr);
 
-	area->x += total_width(self, widget);
-	cell_area->x += total_width(self, widget);
+	((GdkRectangle *) area)->x += total_width(self, widget);
+	((GdkRectangle *) cell_area)->x += total_width(self, widget);
 
 	if (GTK_CELL_RENDERER_CLASS(parent_class)->render)
-		GTK_CELL_RENDERER_CLASS(parent_class)->render(renderer, window, widget, area, cell_area, expose_area, flags);
+		GTK_CELL_RENDERER_CLASS(parent_class)->render(renderer, cr, widget, area, cell_area, flags);
 }
 
 static void

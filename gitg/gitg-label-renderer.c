@@ -184,7 +184,7 @@ render_label (cairo_t *context, PangoLayout *layout, GitgRef *ref, gint x, gint 
 }
 
 void
-gitg_label_renderer_draw(GtkWidget *widget, PangoFontDescription *description, cairo_t *context, GSList *labels, GdkRectangle *area)
+gitg_label_renderer_draw(GtkWidget *widget, PangoFontDescription *description, cairo_t *context, GSList *labels, const GdkRectangle *area)
 {
 	GSList *item;
 	double pos = MARGIN + 0.5;

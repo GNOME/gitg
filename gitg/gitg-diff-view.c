@@ -56,17 +56,16 @@ static void on_buffer_delete_range (GtkTextBuffer *buffer,
                                     GtkTextIter *end,
                                     GitgDiffView *view);
 
-static void
+/*static void
 line_renderer_size_func (GtkSourceGutter *gutter,
                          GtkCellRenderer *cell,
                          GitgDiffView    *view);
-static void
-line_renderer_data_func (GtkSourceGutter *gutter,
-                         GtkCellRenderer *cell,
-                         gint             line_number,
-                         gboolean         current_line,
-                         GitgDiffView    *view);
-
+*/
+static void line_renderer_query_data_cb (GtkSourceGutterRenderer      *renderer,
+                                         GtkTextIter                  *start,
+                                         GtkTextIter                  *end,
+                                         GtkSourceGutterRendererState  state,
+                                         GitgDiffView                 *view);
 static void disable_diff_view (GitgDiffView *view);
 static void enable_diff_view (GitgDiffView *view);
 
@@ -143,9 +142,9 @@ struct _GitgDiffViewPrivate
 	GDestroyNotify label_func_destroy_notify;
 };
 
-G_DEFINE_TYPE (GitgDiffView, gitg_diff_view, GTK_TYPE_SOURCE_VIEW)
+G_DEFINE_TYPE (GitgDiffView, gitg_diff_view, GTK_SOURCE_TYPE_VIEW)
 
-static gboolean gitg_diff_view_expose (GtkWidget *widget, GdkEventExpose *event);
+static gboolean gitg_diff_view_draw (GtkWidget *widget, cairo_t *cr);
 static guint diff_view_signals[NUM_SIGNALS] = {0,};
 
 static void
@@ -295,10 +294,7 @@ gitg_diff_view_constructed (GObject *object)
 {
 	g_object_set (object, "show-line-numbers", FALSE, NULL);
 
-	if (G_OBJECT_CLASS (gitg_diff_view_parent_class)->constructed)
-	{
-		G_OBJECT_CLASS (gitg_diff_view_parent_class)->constructed (object);
-	}
+	G_OBJECT_CLASS (gitg_diff_view_parent_class)->constructed (object);
 }
 
 static void
@@ -314,7 +310,7 @@ gitg_diff_view_class_init (GitgDiffViewClass *klass)
 
 	object_class->constructed = gitg_diff_view_constructed;
 
-	widget_class->expose_event = gitg_diff_view_expose;
+	widget_class->draw = gitg_diff_view_draw;
 
 	diff_view_signals[HEADER_ADDED] =
 		g_signal_new ("header-added",
@@ -392,7 +388,7 @@ disable_diff_view (GitgDiffView *view)
 		                                     GTK_TEXT_WINDOW_LEFT);
 
 		gtk_source_gutter_remove (gutter,
-		                          GTK_CELL_RENDERER (view->priv->line_renderer));
+		                          GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer));
 	}
 
 	view->priv->diff_enabled = FALSE;
@@ -446,20 +442,25 @@ enable_diff_view (GitgDiffView *view)
 	                                     GTK_TEXT_WINDOW_LEFT);
 
 	gtk_source_gutter_insert (gutter,
-	                          GTK_CELL_RENDERER (view->priv->line_renderer),
+	                          GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer),
 	                          0);
 
-	gtk_source_gutter_set_cell_data_func (gutter,
-	                                      GTK_CELL_RENDERER (view->priv->line_renderer),
+	/*gtk_source_gutter_set_cell_data_func (gutter,
+	                                      GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer),
 	                                      (GtkSourceGutterDataFunc)line_renderer_data_func,
 	                                      view,
 	                                      NULL);
 
 	gtk_source_gutter_set_cell_size_func (gutter,
-	                                      GTK_CELL_RENDERER (view->priv->line_renderer),
+	                                      GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer),
 	                                      (GtkSourceGutterSizeFunc)line_renderer_size_func,
 	                                      view,
-	                                      NULL);
+	                                      NULL);*/
+
+	g_signal_connect (view->priv->line_renderer,
+	                  "query-data",
+	                  (GCallback) line_renderer_query_data_cb,
+	                  view);
 
 	view->priv->diff_enabled = TRUE;
 }
@@ -768,7 +769,7 @@ get_initial_counters (GitgDiffView *view, Region *region, guint line, guint coun
 			++counters[1];
 	}
 }
-
+/*
 static void
 line_renderer_size_func (GtkSourceGutter *gutter,
                          GtkCellRenderer *cell,
@@ -788,18 +789,21 @@ line_renderer_size_func (GtkSourceGutter *gutter,
 		g_object_set (cell, "label", label, NULL);
 		g_free (label);
 	}
-}
+}*/
 
 static void
-line_renderer_data_func (GtkSourceGutter *gutter,
-                         GtkCellRenderer *cell,
-                         gint             line_number,
-                         gboolean         current_line,
-                         GitgDiffView    *view)
+line_renderer_query_data_cb (GtkSourceGutterRenderer      *renderer,
+                             GtkTextIter                  *start,
+                             GtkTextIter                  *end,
+                             GtkSourceGutterRendererState  state,
+                             GitgDiffView                 *view)
 {
 	gint line_old = -1;
 	gint line_new = -1;
+	gint line_number;
 	Region **current = &view->priv->lines_current_region;
+
+	line_number = gtk_text_iter_get_line (start) + 1;
 
 	ensure_scan (view, line_number);
 
@@ -835,7 +839,7 @@ line_renderer_data_func (GtkSourceGutter *gutter,
 		}
 	}
 
-	g_object_set (cell, "line_old", line_old, "line_new", line_new, NULL);
+	g_object_set (renderer, "line_old", line_old, "line_new", line_new, NULL);
 
 	if (*current && (*current)->next && line_number == (*current)->next->line - 1)
 	{
@@ -849,26 +853,26 @@ line_renderer_data_func (GtkSourceGutter *gutter,
 		                                       line_number,
 		                                       view->priv->label_func_user_data);
 
-		g_object_set (cell, "label", label, NULL);
+		g_object_set (renderer, "label", label, NULL);
 		g_free (label);
 	}
 }
 
 static gint
-gitg_diff_view_expose (GtkWidget      *widget,
-                       GdkEventExpose *event)
+gitg_diff_view_draw (GtkWidget *widget,
+                     cairo_t   *cr)
 {
 	GitgDiffView *view = GITG_DIFF_VIEW (widget);
 
-	/* Prepare for new round of expose on the line renderer */
+	/* Prepare for new round of draw on the line renderer */
 	view->priv->lines_current_region = NULL;
 	view->priv->lines_previous_line = -1;
 	view->priv->lines_counters[0] = 0;
 	view->priv->lines_counters[1] = 0;
 
-	if (GTK_WIDGET_CLASS (gitg_diff_view_parent_class)->expose_event)
+	if (GTK_WIDGET_CLASS (gitg_diff_view_parent_class)->draw)
 	{
-		return GTK_WIDGET_CLASS (gitg_diff_view_parent_class)->expose_event (widget, event);
+		return GTK_WIDGET_CLASS (gitg_diff_view_parent_class)->draw (widget, cr);
 	}
 	else
 	{

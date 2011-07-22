@@ -622,13 +622,9 @@ rename_dialog (GitgWindow *window, const gchar *oldname)
 	                                   "_Rename", GTK_RESPONSE_OK,
 	                                   NULL);
 
-#if ! GTK_CHECK_VERSION(2, 22, 0)
-	gtk_dialog_set_has_separator (GTK_DIALOG (dlg), FALSE);
-#endif
-
 	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
 
-	GtkWidget *box = gtk_hbox_new (FALSE, 6);
+	GtkWidget *box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
 	GtkWidget *label = gtk_label_new (_("Name:"));
 	GtkWidget *entry = gtk_entry_new ();
 

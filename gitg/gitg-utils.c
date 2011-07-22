@@ -27,8 +27,6 @@
 #include <string.h>
 #include <math.h>
 
-#include "gseal-gtk-compat.h"
-
 gchar *
 gitg_utils_get_content_type(GFile *file)
 {
@@ -159,7 +157,7 @@ gitg_utils_set_monospace_font(GtkWidget *widget)
 
 		if (description)
 		{
-			gtk_widget_modify_font(widget, description);
+			gtk_widget_override_font(widget, description);
 			pango_font_description_free(description);
 		}
 	}
@@ -220,7 +218,7 @@ gitg_utils_menu_position_under_widget (GtkMenu  *menu,
 	GtkRequisition requisition;
 
 	gdk_window_get_origin (gtk_widget_get_window (w), x, y);
-	gtk_widget_size_request (GTK_WIDGET (menu), &requisition);
+	gtk_widget_get_preferred_size (GTK_WIDGET (menu), &requisition, NULL);
 
 	GtkAllocation alloc;
 	gtk_widget_get_allocation (w, &alloc);
@@ -275,7 +273,7 @@ gitg_utils_menu_position_under_tree_view (GtkMenu  *menu,
 		if (gtk_widget_get_direction (GTK_WIDGET (tree)) == GTK_TEXT_DIR_RTL)
 		{
 			GtkRequisition requisition;
-			gtk_widget_size_request (GTK_WIDGET (menu), &requisition);
+			gtk_widget_get_preferred_size (GTK_WIDGET (menu), &requisition, NULL);
 			*x += rect.width - requisition.width;
 		}
 	}
@@ -372,7 +370,7 @@ gitg_utils_find_cell_at_pos (GtkTreeView *tree_view, GtkTreeViewColumn *column, 
 			continue;
 		}
 
-		gtk_cell_renderer_get_size (renderer, GTK_WIDGET (tree_view), NULL, NULL, NULL, &width, 0);
+		gtk_cell_renderer_get_preferred_width (renderer, GTK_WIDGET (tree_view), &width, NULL);
 
 		if (x >= start && x <= start + width)
 		{

@@ -3,8 +3,8 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.64])
 
 m4_define(gitg_major_version, 0)
-m4_define(gitg_minor_version, 1)
-m4_define(gitg_micro_version, 2)
+m4_define(gitg_minor_version, 2)
+m4_define(gitg_micro_version, 3)
 m4_define(gitg_version, gitg_major_version.gitg_minor_version.gitg_micro_version)
 
 AC_INIT([gitg],
@@ -25,7 +25,7 @@ AC_SUBST(GITG_MINOR_VERSION, gitg_minor_version)
 AC_DEFINE(GITG_MICRO_VERSION, gitg_micro_version, [GitG micro version])
 AC_SUBST(GITG_MICRO_VERSION, gitg_micro_version)
 
-AM_INIT_AUTOMAKE([1.11 dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.11 tar-ustar dist-xz no-dist-gzip -Wno-portability])
 AM_MAINTAINER_MODE([enable])
 
 AM_SILENT_RULES([yes])
@@ -52,20 +52,14 @@ GETTEXT_PACKAGE=gitg
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
 
-
 AC_CHECK_LIB([m], [sinf])
 
-# Which gtk+ API version to compile against
-
-GTK_REQUIRED=gtk+-2.0
-GTK_REQUIRED_VERSION=2.18.0
-GTKSOURCEVIEW_REQUIRED=gtksourceview-2.0
-GTKSOURCEVIEW_REQUIRED_VERSION=2.8.0
-
 GLIB_REQUIRED_VERSION=2.26
+GTK_REQUIRED_VERSION=3.0.0
+GTKSOURCEVIEW_REQUIRED_VERSION=3.0.0
 
 PKG_CHECK_MODULES(GITG, [
-	$GTK_REQUIRED >= $GTK_REQUIRED_VERSION
+	gtk+-3.0 >= $GTK_REQUIRED_VERSION
 	gthread-2.0 >= $GLIB_REQUIRED_VERSION
 	glib-2.0 >= $GLIB_REQUIRED_VERSION
 	gobject-2.0 >= $GLIB_REQUIRED_VERSION
@@ -75,7 +69,7 @@ PKG_CHECK_MODULES(GITG, [
 ])
 
 PKG_CHECK_MODULES(PACKAGE, [
-	$GTKSOURCEVIEW_REQUIRED >= $GTKSOURCEVIEW_REQUIRED_VERSION
+	gtksourceview-3.0 >= $GTKSOURCEVIEW_REQUIRED_VERSION
 	gsettings-desktop-schemas
 ])
 
@@ -100,33 +94,24 @@ if test "$enable_deprecations" = "yes"; then
 -DGDK_DISABLE_DEPRECATED \
 -DGTK_DISABLE_DEPRECATED \
 -DGDK_PIXBUF_DISABLE_DEPRECATED \
--DGNOME_DISABLE_DEPRECATED"
+-DGNOME_DISABLE_DEPRECATED \
+-DGSEAL_ENABLE"
 fi
-
-if $PKG_CONFIG --atleast-version 2.19.0 $GTK_REQUIRED; then
-	gtkatleast=
-else
-	gtkatleast=no
-fi
-
-AM_CONDITIONAL(BUILD_SPINNER, test "$gtkatleast" = "no")
-if test "$gtkatleast" = "no"; then
-	AC_DEFINE([BUILD_SPINNER],[1],[Whether to use GitgSpinner instead of GtkSpinner])
-fi
-
-if $PKG_CONFIG --atleast-version 2.21.0 $GTK_REQUIRED; then
-	gtkatleast=yes
-else
-	gtkatleast=
-fi
-
-if test "$gtkatleast" = "yes"; then
-	DISABLE_DEPRECATED_CFLAGS="$DISABLE_DEPRECATED_CFLAGS -DGSEAL_ENABLE"
-fi
-
-AC_SUBST(DISABLE_DEPRECATED_CFLAGS)
 
 PACKAGE_LIBS="$PACKAGE_LIBS -lm"
+
+
+AC_ARG_ENABLE(debug,
+              [AS_HELP_STRING([--disable-debug],
+                              [disable debug information [default=yes]])],
+              [enable_debug=$enableval], [enable_debug=yes])
+
+if test "x$enable_debug" = "xyes"; then
+	PACKAGE_CFLAGS="$PACKAGE_CFLAGS -g"
+	AC_DEFINE([ENABLE_DEBUG],[1],[Whether debugging support is enabled])
+fi
+
+AM_CONDITIONAL([ENABLE_DEBUG], [test "$enable_debug" = "yes"])
 
 
 AC_ARG_ENABLE(debug,

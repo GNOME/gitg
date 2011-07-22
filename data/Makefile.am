@@ -16,7 +16,7 @@ gitgstyles_DATA = gitgstyle.xml
 gsettings_SCHEMAS = org.gnome.gitg.gschema.xml
 
 if GLADE_CATALOG
-catalogdir = $(GLADE_CATALOGDIR)
+catalogdir = $(GLADE_CATALOG_DIR)
 dist_catalog_DATA = gitg-glade.xml
 endif
 

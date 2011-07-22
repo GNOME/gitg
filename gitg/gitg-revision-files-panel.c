@@ -287,8 +287,7 @@ on_selection_changed (GtkTreeSelection     *selection,
 		path = gtk_tree_path_copy ((GtkTreePath *)rows->data);
 	}
 
-	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free (rows);
+	g_list_free_full (rows, (GDestroyNotify)gtk_tree_path_free);
 
 	if (!path)
 	{
@@ -525,9 +524,6 @@ gitg_revision_files_view_parser_finished (GtkBuildable *buildable,
 	                                            "revision_files"));
 	files_view->priv->contents = GTK_SOURCE_VIEW (gtk_builder_get_object (builder,
 	                                             "revision_files_contents"));
-
-	gtk_text_view_set_buffer (GTK_TEXT_VIEW(files_view->priv->contents),
-	                          GTK_TEXT_BUFFER(gtk_source_buffer_new (NULL)));
 
 	gitg_utils_set_monospace_font (GTK_WIDGET(files_view->priv->contents));
 	gtk_tree_view_set_model (files_view->priv->tree_view,

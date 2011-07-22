@@ -53,8 +53,7 @@ G_DEFINE_BOXED_TYPE (GitgRevision, gitg_revision, gitg_revision_ref, gitg_revisi
 static void
 free_lanes (GitgRevision *rv)
 {
-	g_slist_foreach (rv->lanes, (GFunc)gitg_lane_free, NULL);
-	g_slist_free (rv->lanes);
+	g_slist_free_full (rv->lanes, (GDestroyNotify)gitg_lane_free);
 	rv->lanes = NULL;
 }
 

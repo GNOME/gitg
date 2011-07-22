@@ -327,10 +327,7 @@ gitg_line_parser_constructed (GObject *object)
 
 	stream->priv->read_buffer = g_slice_alloc (sizeof (gchar) * (stream->priv->buffer_size + 1));
 
-	if (G_OBJECT_CLASS (gitg_line_parser_parent_class)->constructed)
-	{
-		G_OBJECT_CLASS (gitg_line_parser_parent_class)->constructed (object);
-	}
+	G_OBJECT_CLASS (gitg_line_parser_parent_class)->constructed (object);
 }
 
 static void start_read_lines (AsyncData *data);

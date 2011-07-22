@@ -31,7 +31,6 @@
 #include "gitg-commit-view.h"
 #include "gitg-diff-view.h"
 #include "gitg-utils.h"
-#include "gseal-gtk-compat.h"
 
 #define GITG_COMMIT_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_COMMIT_VIEW, GitgCommitViewPrivate))
 #define CATEGORY_UNSTAGE_HUNK "CategoryUnstageHunk"
@@ -147,7 +146,7 @@ gitg_commit_view_finalize (GObject *object)
 	g_object_unref (view->priv->shell);
 	g_object_unref (view->priv->ui_manager);
 
-	gdk_cursor_unref (view->priv->hand);
+	g_object_unref (view->priv->hand);
 
 	G_OBJECT_CLASS (gitg_commit_view_parent_class)->finalize (object);
 }
@@ -370,8 +369,7 @@ get_selected_files(GtkTreeView             *tree_view,
 	}
 	else
 	{
-		g_list_foreach(items, (GFunc)gtk_tree_path_free, NULL);
-		g_list_free(items);
+		g_list_free_full (items, (GDestroyNotify)gtk_tree_path_free);
 	}
 
 	if (files)
@@ -422,8 +420,7 @@ check_selection(GtkTreeView    *tree_view,
 		ret = TRUE;
 	}
 
-	g_list_foreach(paths, (GFunc)gtk_tree_path_free, NULL);
-	g_list_free(paths);
+	g_list_free_full (paths, (GDestroyNotify)gtk_tree_path_free);
 	return ret;
 }
 
@@ -559,11 +556,6 @@ staged_selection_changed (GtkTreeSelection *selection, GitgCommitView *view)
 		}
 		else
 		{
-			gchar *basename;
-			basename = g_file_get_basename(f);
-
-			g_free(basename);
-
 			gtk_widget_set_sensitive (GTK_WIDGET (view->priv->hscale_context),
 			                          FALSE);
 
@@ -1249,8 +1241,7 @@ on_tree_view_drag_data_get (GtkWidget        *widget,
 
 	g_strfreev(uris);
 
-	g_list_foreach(selected, (GFunc)g_object_unref, NULL);
-	g_list_free(selected);
+	g_list_free_full (selected, g_object_unref);
 }
 
 static void
@@ -1363,6 +1354,8 @@ on_tag_added (GtkTextTagTable *table,
 static void
 gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 {
+	GtkSourceMarkAttributes *attrs;
+
 	if (parent_iface.parser_finished)
 		parent_iface.parser_finished(buildable, builder);
 
@@ -1428,16 +1421,30 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 
 	if (pixbuf)
 	{
-		gtk_source_view_set_mark_category_icon_from_pixbuf(self->priv->changes_view, CATEGORY_STAGE_HUNK, pixbuf);
-		g_object_unref(pixbuf);
+		attrs = gtk_source_mark_attributes_new ();
+		gtk_source_mark_attributes_set_pixbuf (attrs, pixbuf);
+
+		gtk_source_view_set_mark_attributes (self->priv->changes_view,
+		                                     CATEGORY_STAGE_HUNK,
+		                                     attrs, 1);
+
+		g_object_unref (pixbuf);
+		g_object_unref (attrs);
 	}
 
 	pixbuf = gtk_icon_theme_load_icon(theme, GTK_STOCK_REMOVE, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
 
 	if (pixbuf)
 	{
-		gtk_source_view_set_mark_category_icon_from_pixbuf(self->priv->changes_view, CATEGORY_UNSTAGE_HUNK, pixbuf);
-		g_object_unref(pixbuf);
+		attrs = gtk_source_mark_attributes_new ();
+		gtk_source_mark_attributes_set_pixbuf (attrs, pixbuf);
+
+		gtk_source_view_set_mark_attributes (self->priv->changes_view,
+		                                     CATEGORY_UNSTAGE_HUNK,
+		                                     attrs, 2);
+
+		g_object_unref (pixbuf);
+		g_object_unref (attrs);
 	}
 
 	gitg_utils_set_monospace_font(GTK_WIDGET(self->priv->changes_view));

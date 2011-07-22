@@ -719,10 +719,7 @@ gitg_repository_constructed (GObject *object)
 
 	install_head_monitor (repository);
 
-	if (G_OBJECT_CLASS (gitg_repository_parent_class)->constructed)
-	{
-		G_OBJECT_CLASS (gitg_repository_parent_class)->constructed (object);
-	}
+	G_OBJECT_CLASS (gitg_repository_parent_class)->constructed (object);
 }
 
 static void
@@ -1140,8 +1137,7 @@ on_loader_update (GitgShell       *object,
 static void
 free_refs (GSList *refs)
 {
-	g_slist_foreach (refs, (GFunc)gitg_ref_free, NULL);
-	g_slist_free (refs);
+	g_slist_free_full (refs, (GDestroyNotify)gitg_ref_free);
 }
 
 static gboolean
