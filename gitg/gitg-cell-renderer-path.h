@@ -40,21 +40,29 @@ typedef struct _GitgCellRendererPath		GitgCellRendererPath;
 typedef struct _GitgCellRendererPathClass	GitgCellRendererPathClass;
 typedef struct _GitgCellRendererPathPrivate	GitgCellRendererPathPrivate;
 
-struct _GitgCellRendererPath {
+struct _GitgCellRendererPath
+{
 	GtkCellRendererText parent;
 
 	GitgCellRendererPathPrivate *priv;
 };
 
-struct _GitgCellRendererPathClass {
+struct _GitgCellRendererPathClass
+{
 	GtkCellRendererTextClass parent_class;
 };
 
-GType gitg_cell_renderer_path_get_type (void) G_GNUC_CONST;
-GtkCellRenderer *gitg_cell_renderer_path_new(void);
+GType            gitg_cell_renderer_path_get_type       (void) G_GNUC_CONST;
+GtkCellRenderer *gitg_cell_renderer_path_new            (void);
 
-GitgRef *gitg_cell_renderer_path_get_ref_at_pos (GtkWidget *widget, GitgCellRendererPath *renderer, gint x, gint *hot_x);
-GdkPixbuf *gitg_cell_renderer_path_render_ref (GtkWidget *widget, GitgCellRendererPath *renderer, GitgRef *ref, gint minwidth);
+GitgRef         *gitg_cell_renderer_path_get_ref_at_pos (GtkWidget            *widget,
+                                                         GitgCellRendererPath *renderer,
+                                                         gint                  x,
+                                                         gint                 *hot_x);
+GdkPixbuf       *gitg_cell_renderer_path_render_ref     (GtkWidget            *widget,
+                                                         GitgCellRendererPath *renderer,
+                                                         GitgRef              *ref,
+                                                         gint                  minwidth);
 
 G_END_DECLS
 
