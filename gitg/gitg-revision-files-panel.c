@@ -33,10 +33,13 @@
 #include "gitg-utils.h"
 #include "gitg-revision-panel.h"
 #include "gitg-dirs.h"
+#include "gitg-blame-renderer.h"
 
 #define GITG_REVISION_FILES_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_FILES_VIEW, GitgRevisionFilesViewPrivate))
 
 #define GITG_REVISION_FILES_PANEL_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE((object), GITG_TYPE_REVISION_FILES_PANEL, GitgRevisionFilesPanelPrivate))
+
+#define BLAME_DATA "GitgRevisionFilesPanelBlame"
 
 enum
 {
@@ -52,10 +55,26 @@ typedef struct _GitgRevisionFilesViewPrivate GitgRevisionFilesViewPrivate;
 
 struct _GitgRevisionFilesViewPrivate
 {
+	GtkNotebook *notebook_files;
+
 	GtkTreeView *tree_view;
+
 	GtkSourceView *contents;
 	GitgShell *content_shell;
 	GtkTreeStore *store;
+
+	GtkSourceView *blame_view;
+	GitgShell *blame_shell;
+	GHashTable *blames; /* hash : tag */
+	GitgBlameRenderer *blame_renderer;
+	gint blame_offset;
+	GtkTextTag *active_tag;
+	gboolean blame_active;
+
+	glong query_data_id;
+	glong query_tooltip_id;
+
+	GtkWidget *active_view;
 
 	gchar *drag_dir;
 	gchar **drag_files;
@@ -130,6 +149,14 @@ gitg_revision_files_view_finalize (GObject *object)
 	gitg_io_cancel (GITG_IO (self->priv->loader));
 	g_object_unref (self->priv->loader);
 
+	gitg_io_cancel (GITG_IO (self->priv->content_shell));
+	g_object_unref (self->priv->content_shell);
+
+	g_hash_table_unref (self->priv->blames);
+
+	gitg_io_cancel (GITG_IO (self->priv->blame_shell));
+	g_object_unref (self->priv->blame_shell);
+
 	G_OBJECT_CLASS (gitg_revision_files_view_parent_class)->finalize (object);
 }
 
@@ -187,10 +214,195 @@ set_revision (GitgRevisionFilesView *files_view,
 	}
 }
 
+static GtkTextTag *
+get_blame_tag_from_iter (GitgRevisionFilesView *files_view,
+                         GtkTextIter           *iter)
+{
+	GtkTextTag *tag = NULL;
+	GSList *tags, *l;
+
+	tags = gtk_text_iter_get_tags (iter);
+
+	for (l = tags; l != NULL; l = g_slist_next (l))
+	{
+		if (g_object_get_data (l->data, BLAME_DATA) != NULL)
+		{
+			tag = l->data;
+			break;
+		}
+	}
+
+	g_slist_free (tags);
+
+	return tag;
+}
+
+static void
+blame_renderer_query_data_cb (GtkSourceGutterRenderer      *renderer,
+                              GtkTextIter                  *start,
+                              GtkTextIter                  *end,
+                              GtkSourceGutterRendererState  state,
+                              GitgRevisionFilesView        *files_view)
+{
+	GtkTextTag *tag;
+	GitgRevision *rev;
+	GtkTextIter iter;
+
+	iter = *start;
+	gtk_text_iter_set_line_offset (&iter, 0);
+
+	tag = get_blame_tag_from_iter (files_view, &iter);
+
+	if (tag == NULL)
+		return;
+
+	rev = g_object_get_data (G_OBJECT (tag), BLAME_DATA);
+
+	if (gtk_text_iter_begins_tag (&iter, tag))
+	{
+		gboolean group_start = FALSE;
+
+		if (!gtk_text_iter_is_start (&iter))
+		{
+			group_start = TRUE;
+		}
+
+		g_object_set (renderer,
+		              "revision", rev,
+		              "show", TRUE,
+		              "group-start", group_start,
+		              NULL);
+	}
+	else
+	{
+		g_object_set (renderer,
+		              "revision", rev,
+		              "show", FALSE,
+		              "group-start", FALSE,
+		              NULL);
+	}
+}
+
+static gboolean
+blame_renderer_query_tooltip_cb (GtkSourceGutterRenderer *renderer,
+                                 GtkTextIter             *iter,
+                                 GdkRectangle            *area,
+                                 gint                     x,
+                                 gint                     y,
+                                 GtkTooltip              *tooltip,
+                                 GitgRevisionFilesView   *tree)
+{
+	GtkTextTag *tag;
+	GitgRevision *rev;
+	const gchar *author;
+	const gchar *committer;
+	const gchar *subject;
+	gchar *text;
+	gchar *sha1;
+	gchar *author_date;
+	gchar *committer_date;
+
+	tag = get_blame_tag_from_iter (tree, iter);
+
+	if (tag == NULL)
+		return FALSE;
+
+	rev = g_object_get_data (G_OBJECT (tag), BLAME_DATA);
+
+	if (rev == NULL)
+		return FALSE;
+
+	sha1 = gitg_revision_get_sha1 (rev);
+	author_date = gitg_revision_get_author_date_for_display (rev);
+	committer_date = gitg_revision_get_committer_date_for_display (rev);
+
+	author = _("Author");
+	committer = _("Committer");
+	subject = _("Subject");
+
+	text = g_markup_printf_escaped ("<b>SHA:</b> %s\n"
+	                                "<b>%s:</b> %s &lt;%s&gt; (%s)\n"
+	                                "<b>%s:</b> %s &lt;%s&gt; (%s)\n"
+	                                "<b>%s:</b> <i>%s</i>",
+	                                sha1,
+	                                author, gitg_revision_get_author (rev),
+	                                gitg_revision_get_author_email (rev),
+	                                author_date,
+	                                committer, gitg_revision_get_committer (rev),
+	                                gitg_revision_get_committer_email (rev),
+	                                committer_date,
+	                                subject, gitg_revision_get_subject (rev));
+
+	g_free (sha1);
+	g_free (author_date);
+	g_free (committer_date);
+	gtk_tooltip_set_markup (tooltip, text);
+	g_free (text);
+
+	return TRUE;
+}
+
+static void
+remove_blames (GitgRevisionFilesView *tree)
+{
+	GtkTextBuffer *buffer;
+	GList *tags, *tag;
+	GtkTextTagTable *table;
+
+	tree->priv->blame_active = FALSE;
+
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (tree->priv->blame_view));
+	table = gtk_text_buffer_get_tag_table (buffer);
+
+	if (tree->priv->query_data_id != 0)
+	{
+		g_signal_handler_disconnect (tree->priv->blame_renderer,
+		                             tree->priv->query_data_id);
+		tree->priv->query_data_id = 0;
+	}
+
+	if (tree->priv->query_tooltip_id != 0)
+	{
+		g_signal_handler_disconnect (tree->priv->blame_renderer,
+		                             tree->priv->query_tooltip_id);
+		tree->priv->query_tooltip_id = 0;
+	}
+
+	tags = g_hash_table_get_values (tree->priv->blames);
+
+	for (tag = tags; tag != NULL; tag = g_list_next (tag))
+	{
+		g_object_set_data (tag->data, BLAME_DATA, NULL);
+		gtk_text_tag_table_remove (table, tag->data);
+	}
+
+	g_hash_table_remove_all (tree->priv->blames);
+
+	g_list_free (tags);
+
+	tree->priv->blame_offset = 0;
+	tree->priv->active_tag = NULL;
+
+	g_object_set (tree->priv->blame_renderer,
+	              "revision", NULL,
+	              "show", FALSE,
+	              "group-start", FALSE,
+	              NULL);
+
+	gitg_blame_renderer_set_max_line_count (tree->priv->blame_renderer, 0);
+}
+
 static void
 gitg_revision_files_view_dispose (GObject *object)
 {
-	set_revision (GITG_REVISION_FILES_VIEW (object), NULL, NULL);
+	GitgRevisionFilesView* files_view = GITG_REVISION_FILES_VIEW (object);
+
+	set_revision (files_view, NULL, NULL);
+
+	if (files_view->priv->blame_active)
+	{
+		remove_blames (files_view);
+	}
 
 	G_OBJECT_CLASS (gitg_revision_files_view_parent_class)->dispose (object);
 }
@@ -246,31 +458,43 @@ on_row_expanded (GtkTreeView          *files_view,
 }
 
 static void
-show_binary_information (GitgRevisionFilesView *tree)
+show_binary_information (GitgRevisionFilesView *tree,
+                         GtkTextBuffer         *buffer)
 {
-	GtkTextBuffer *buffer;
-
-	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(tree->priv->contents));
-
 	gtk_text_buffer_set_text (buffer,
-	                          _ ("Cannot display file content as text"),
+	                          _("Cannot display file content as text"),
 	                          -1);
 
-	gtk_source_buffer_set_language (GTK_SOURCE_BUFFER(buffer), NULL);
+	gtk_source_buffer_set_language (GTK_SOURCE_BUFFER (buffer), NULL);
 }
 
 static void
-on_selection_changed (GtkTreeSelection     *selection,
+on_selection_changed (GtkTreeSelection      *selection,
                       GitgRevisionFilesView *tree)
 {
 	GtkTextBuffer *buffer;
-
-	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (tree->priv->contents));
-
+	gboolean blame_mode;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
+	GtkTreePath *path = NULL;
+	GList *rows;
+	gchar *name;
+	gchar *content_type;
 
-	gitg_io_cancel (GITG_IO (tree->priv->content_shell));
+	if (tree->priv->active_view == GTK_WIDGET (tree->priv->contents))
+	{
+		buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (tree->priv->contents));
+		gitg_io_cancel (GITG_IO (tree->priv->content_shell));
+		blame_mode = FALSE;
+	}
+	else
+	{
+		buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (tree->priv->blame_view));
+		blame_mode = TRUE;
+		gitg_io_cancel (GITG_IO (tree->priv->blame_shell));
+
+		remove_blames (tree);
+	}
 
 	gtk_text_buffer_set_text (buffer, "", -1);
 
@@ -279,8 +503,7 @@ on_selection_changed (GtkTreeSelection     *selection,
 		return;
 	}
 
-	GList *rows = gtk_tree_selection_get_selected_rows (selection, &model);
-	GtkTreePath *path = NULL;
+	rows = gtk_tree_selection_get_selected_rows (selection, &model);
 
 	if (g_list_length (rows) == 1)
 	{
@@ -294,8 +517,6 @@ on_selection_changed (GtkTreeSelection     *selection,
 		return;
 	}
 
-	gchar *name;
-	gchar *content_type;
 	gtk_tree_model_get_iter (model, &iter, path);
 	gtk_tree_path_free (path);
 	gtk_tree_model_get (model,
@@ -308,30 +529,57 @@ on_selection_changed (GtkTreeSelection     *selection,
 
 	if (!content_type)
 	{
+		g_free (name);
 		return;
 	}
 
 	if (!gitg_utils_can_display_content_type (content_type))
 	{
-		show_binary_information (tree);
+		show_binary_information (tree, buffer);
 	}
 	else
 	{
 		GtkSourceLanguage *language;
+		gchar *id;
 
 		language = gitg_utils_get_language (name, content_type);
 		gtk_source_buffer_set_language (GTK_SOURCE_BUFFER(buffer),
 		                                language);
 
-		gchar *id = node_identity (tree, &iter);
+		id = node_identity (tree, &iter);
 
-		gitg_shell_run (tree->priv->content_shell,
-		                gitg_command_new (tree->priv->repository,
-		                                   "show",
-		                                   "--encoding=UTF-8",
-		                                   id,
-		                                   NULL),
-		                NULL);
+		if (!blame_mode)
+		{
+			gitg_shell_run (tree->priv->content_shell,
+			                gitg_command_new (tree->priv->repository,
+			                                  "show",
+			                                  "--encoding=UTF-8",
+			                                  id,
+			                                  NULL),
+			                NULL);
+		}
+		else
+		{
+			gchar **hash_name;
+
+			gitg_blame_renderer_set_max_line_count (tree->priv->blame_renderer, 0);
+			tree->priv->blame_active = TRUE;
+
+			hash_name = g_strsplit (id, ":", 2);
+			gitg_shell_run (tree->priv->blame_shell,
+			                gitg_command_new (tree->priv->repository,
+			                                  "blame",
+			                                  "--encoding=UTF-8",
+			                                  "--root",
+			                                  "-l",
+			                                  hash_name[0],
+			                                  "--",
+			                                  hash_name[1],
+			                                  NULL),
+			                NULL);
+
+			g_strfreev (hash_name);
+		}
 
 		g_free (id);
 	}
@@ -510,9 +758,25 @@ on_drag_end (GtkWidget            *widget,
 }
 
 static void
-gitg_revision_files_view_parser_finished (GtkBuildable *buildable,
-                                         GtkBuilder   *builder)
+on_notebook_files_switch_page (GtkNotebook           *notebook,
+                               GtkWidget             *page,
+                               guint                  page_num,
+                               GitgRevisionFilesView *files_view)
 {
+	GtkTreeSelection *selection;
+
+	files_view->priv->active_view = gtk_bin_get_child (GTK_BIN (page));
+
+	selection = gtk_tree_view_get_selection (files_view->priv->tree_view);
+	on_selection_changed (selection, files_view);
+}
+
+static void
+gitg_revision_files_view_parser_finished (GtkBuildable *buildable,
+                                          GtkBuilder   *builder)
+{
+	GtkSourceGutter *gutter;
+
 	if (parent_iface.parser_finished)
 	{
 		parent_iface.parser_finished (buildable, builder);
@@ -522,10 +786,26 @@ gitg_revision_files_view_parser_finished (GtkBuildable *buildable,
 	GitgRevisionFilesView *files_view = GITG_REVISION_FILES_VIEW(buildable);
 	files_view->priv->tree_view = GTK_TREE_VIEW (gtk_builder_get_object (builder,
 	                                            "revision_files"));
+	files_view->priv->notebook_files = GTK_NOTEBOOK (gtk_builder_get_object (builder,
+	                                                 "notebook_files"));
 	files_view->priv->contents = GTK_SOURCE_VIEW (gtk_builder_get_object (builder,
 	                                             "revision_files_contents"));
+	files_view->priv->blame_view = GTK_SOURCE_VIEW (gtk_builder_get_object (builder,
+	                                                "revision_blame_view"));
+	files_view->priv->blame_renderer = gitg_blame_renderer_new ();
+
+	gutter = gtk_source_view_get_gutter (GTK_SOURCE_VIEW (files_view->priv->blame_view),
+	                                     GTK_TEXT_WINDOW_LEFT);
+
+	gtk_source_gutter_insert (gutter,
+	                          GTK_SOURCE_GUTTER_RENDERER (files_view->priv->blame_renderer),
+	                          0);
+
+	/* set the active view */
+	files_view->priv->active_view = GTK_WIDGET (files_view->priv->contents);
 
 	gitg_utils_set_monospace_font (GTK_WIDGET(files_view->priv->contents));
+	gitg_utils_set_monospace_font (GTK_WIDGET(files_view->priv->blame_view));
 	gtk_tree_view_set_model (files_view->priv->tree_view,
 	                         GTK_TREE_MODEL(files_view->priv->store));
 
@@ -569,6 +849,11 @@ gitg_revision_files_view_parser_finished (GtkBuildable *buildable,
 	g_signal_connect (selection,
 	                  "changed",
 	                  G_CALLBACK(on_selection_changed),
+	                  files_view);
+
+	g_signal_connect (files_view->priv->notebook_files,
+	                  "switch-page",
+	                  G_CALLBACK (on_notebook_files_switch_page),
 	                  files_view);
 }
 
@@ -940,7 +1225,7 @@ on_contents_update (GitgShell              *shell,
 		if (content_type && !gitg_utils_can_display_content_type (content_type))
 		{
 			gitg_io_cancel (GITG_IO (shell));
-			show_binary_information (tree);
+			show_binary_information (tree, buf);
 		}
 		else
 		{
@@ -953,6 +1238,185 @@ on_contents_update (GitgShell              *shell,
 
 		g_free (content_type);
 	}
+}
+
+/**
+ * parse_blame:
+ * @line: the line to be parsed
+ * @real_line: the real connect to be inserted in the text buffer
+ * @sha: the sha get from @line
+ * @size: the size for the gutter
+ */
+static void
+parse_blame (const gchar  *line,
+             const gchar **real_line,
+             gchar       **sha,
+             gint         *size)
+{
+	gunichar c;
+	const gchar *name_end;
+
+	*sha = g_strndup (line, GITG_HASH_SHA_SIZE);
+	line += GITG_HASH_SHA_SIZE;
+	*real_line = strstr (line, ") ");
+	*real_line += 2;
+
+	line = strstr (line, " (");
+	line += 2;
+	name_end = line;
+	c = g_utf8_get_char (name_end);
+
+	while (!g_unichar_isdigit (c))
+	{
+		name_end = g_utf8_next_char (name_end);
+		c = g_utf8_get_char (name_end);
+	}
+	name_end--;
+
+	*size = name_end - line + 15; /* hash name + extra space */
+}
+
+static GtkTextTag *
+get_tag_for_sha (GitgRevisionFilesView  *tree,
+                 GtkTextBuffer          *buffer,
+                 const gchar            *sha)
+{
+	GtkTextTag *tag;
+
+	tag = g_hash_table_lookup (tree->priv->blames, sha);
+
+	if (tag == NULL)
+	{
+		GitgHash hash;
+		GitgRevision *revision;
+
+		tag = gtk_text_buffer_create_tag (buffer, NULL, NULL);
+
+		gitg_hash_sha1_to_hash (sha, hash);
+		revision = gitg_repository_lookup (tree->priv->repository,
+		                                   hash);
+		g_object_set_data (G_OBJECT (tag), BLAME_DATA, revision);
+
+		g_hash_table_insert (tree->priv->blames, g_strdup (sha),
+		                     g_object_ref (tag));
+	}
+
+	return tag;
+}
+
+static void
+apply_active_blame_tag (GitgRevisionFilesView *tree,
+                        GtkTextBuffer         *buffer,
+                        GtkTextIter           *end)
+{
+	GtkTextIter start;
+
+	gtk_text_buffer_get_iter_at_offset (buffer, &start,
+	                                    tree->priv->blame_offset);
+	gtk_text_buffer_apply_tag (buffer, tree->priv->active_tag,
+	                           &start, end);
+
+	tree->priv->blame_offset = gtk_text_iter_get_offset (end);
+}
+
+static void
+insert_blame_line (GitgRevisionFilesView  *tree,
+                   GtkTextBuffer          *buffer,
+                   const gchar            *line,
+                   GtkTextIter            *iter)
+{
+	GtkTextTag *tag;
+	const gchar *real_line;
+	gint size;
+	gchar *sha;
+
+	parse_blame (line, &real_line, &sha, &size);
+	gitg_blame_renderer_set_max_line_count (tree->priv->blame_renderer, size);
+
+	tag = get_tag_for_sha (tree, buffer, sha);
+
+	if (tag != tree->priv->active_tag)
+	{
+		if (tree->priv->active_tag != NULL)
+		{
+			apply_active_blame_tag (tree, buffer, iter);
+		}
+
+		tree->priv->active_tag = tag;
+	}
+
+	g_free (sha);
+
+	gtk_text_buffer_insert (buffer, iter, real_line, -1);
+	gtk_text_buffer_insert (buffer, iter, "\n", -1);
+}
+
+static void
+on_blame_update (GitgShell              *shell,
+                 gchar                 **buffer,
+                 GitgRevisionFilesView  *tree)
+{
+	GtkTextBuffer *buf;
+	GtkTextIter end;
+	gchar *line;
+
+	buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (tree->priv->blame_view));
+	gtk_text_buffer_get_end_iter (buf, &end);
+
+	while ((line = *buffer++))
+	{
+		insert_blame_line (tree, buf, line, &end);
+	}
+
+	if (tree->priv->active_tag != NULL)
+	{
+		apply_active_blame_tag (tree, buf, &end);
+	}
+
+	if (gtk_source_buffer_get_language (GTK_SOURCE_BUFFER (buf)) == NULL)
+	{
+		gchar *content_type = gitg_utils_guess_content_type (buf);
+
+		if (content_type && !gitg_utils_can_display_content_type (content_type))
+		{
+			gitg_io_cancel (GITG_IO (shell));
+			show_binary_information (tree, buf);
+		}
+		else
+		{
+			GtkSourceLanguage *language;
+
+			language = gitg_utils_get_language (NULL, content_type);
+			gtk_source_buffer_set_language (GTK_SOURCE_BUFFER (buf),
+			                                language);
+		}
+
+		g_free (content_type);
+	}
+}
+
+static void
+on_blame_end (GitgShell              *shell,
+              GError                 *error,
+              GitgRevisionFilesView  *tree)
+{
+	GtkSourceGutter *gutter;
+
+	tree->priv->query_data_id =
+		g_signal_connect (tree->priv->blame_renderer,
+		                  "query-data",
+		                  G_CALLBACK (blame_renderer_query_data_cb),
+		                  tree);
+
+	tree->priv->query_tooltip_id =
+		g_signal_connect (tree->priv->blame_renderer,
+		                  "query-tooltip",
+		                  G_CALLBACK (blame_renderer_query_tooltip_cb),
+		                  tree);
+
+	gutter = gtk_source_view_get_gutter (GTK_SOURCE_VIEW (tree->priv->blame_view),
+	                                     GTK_TEXT_WINDOW_LEFT);
+	gtk_source_gutter_queue_draw (gutter);
 }
 
 static void
@@ -984,6 +1448,21 @@ gitg_revision_files_view_init (GitgRevisionFilesView *self)
 	g_signal_connect (self->priv->content_shell,
 	                  "update",
 	                  G_CALLBACK (on_contents_update),
+	                  self);
+
+	self->priv->blames = g_hash_table_new_full (g_str_hash,
+	                                            g_str_equal,
+	                                            g_free,
+	                                            NULL);
+
+	self->priv->blame_shell = gitg_shell_new (5000);
+	g_signal_connect (self->priv->blame_shell,
+	                  "update",
+	                  G_CALLBACK (on_blame_update),
+	                  self);
+	g_signal_connect (self->priv->blame_shell,
+	                  "end",
+	                  G_CALLBACK (on_blame_end),
 	                  self);
 }
 

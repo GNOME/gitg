@@ -14,6 +14,7 @@ AM_CPPFLAGS =							\
 NOINST_H_FILES =			\
 	gitg-activatable.h		\
 	gitg-avatar-cache.h		\
+	gitg-blame-renderer.h		\
 	gitg-branch-actions.h		\
 	gitg-cell-renderer-path.h	\
 	gitg-commit-view.h		\
@@ -38,6 +39,7 @@ gitg_SOURCES =				\
 	gitg.c				\
 	gitg-activatable.c		\
 	gitg-avatar-cache.c		\
+	gitg-blame-renderer.c		\
 	gitg-branch-actions.c		\
 	gitg-cell-renderer-path.c	\
 	gitg-commit-view.c		\
