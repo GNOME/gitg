@@ -320,9 +320,15 @@ draw_indicator(GitgCellRendererPath *self, cairo_t *context, const GdkRectangle 
 static void
 renderer_render(GtkCellRenderer *renderer, cairo_t *cr, GtkWidget *widget, const GdkRectangle *area, const GdkRectangle *cell_area, GtkCellRendererState flags)
 {
-	GitgCellRendererPath *self = GITG_CELL_RENDERER_PATH(renderer);
+	GitgCellRendererPath *self;
+	GdkRectangle narea;
+	GdkRectangle ncell_area;
+
+	self = GITG_CELL_RENDERER_PATH (renderer);
 
 	self->priv->last_height = area->height;
+
+	cairo_save (cr);
 
 	gdk_cairo_rectangle (cr, area);
 	cairo_clip(cr);
@@ -335,11 +341,23 @@ renderer_render(GtkCellRenderer *renderer, cairo_t *cr, GtkWidget *widget, const
 	/* draw labels */
 	draw_labels(self, widget, cr, area);
 
-	((GdkRectangle *) area)->x += total_width(self, widget);
-	((GdkRectangle *) cell_area)->x += total_width(self, widget);
+	narea = *area;
+	ncell_area = *cell_area;
 
-	if (GTK_CELL_RENDERER_CLASS(parent_class)->render)
-		GTK_CELL_RENDERER_CLASS(parent_class)->render(renderer, cr, widget, area, cell_area, flags);
+	narea.x += total_width (self, widget);
+	ncell_area.x += total_width (self, widget);
+
+	cairo_restore (cr);
+
+	if (GTK_CELL_RENDERER_CLASS (parent_class)->render)
+	{
+		GTK_CELL_RENDERER_CLASS (parent_class)->render (renderer,
+		                                                cr,
+		                                                widget,
+		                                                &narea,
+		                                                &ncell_area,
+		                                                flags);
+	}
 }
 
 static void
