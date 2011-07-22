@@ -750,11 +750,12 @@ avatar_ready (GObject                  *source_object,
 	                                        res,
 	                                        &error);
 
+	gtk_widget_set_visible (GTK_WIDGET (panel->priv->avatar),
+	                        error == NULL);
+
 	if (error == NULL)
 	{
-		gtk_image_set_from_pixbuf (panel->priv->avatar,
-		                           pixbuf);
-		gtk_widget_show (GTK_WIDGET (panel->priv->avatar));
+		gtk_image_set_from_pixbuf (panel->priv->avatar, pixbuf);
 	}
 }
 

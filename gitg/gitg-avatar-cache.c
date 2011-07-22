@@ -98,6 +98,15 @@ gitg_avatar_cache_init (GitgAvatarCache *cache)
 }
 
 static void
+cached_pixbuf_unref0 (gpointer pixbuf)
+{
+	if (pixbuf != NULL)
+	{
+		g_object_unref (pixbuf);
+	}
+}
+
+static void
 avatar_cache_insert (GitgAvatarCache *cache,
 		     const gchar     *uri,
 		     GdkPixbuf       *pixbuf)
@@ -109,11 +118,15 @@ avatar_cache_insert (GitgAvatarCache *cache,
 		priv->pixbuf_table = g_hash_table_new_full (g_str_hash,
 		                                            g_str_equal,
 		                                            g_free,
-		                                            g_object_unref);
+		                                            cached_pixbuf_unref0);
 	}
 
-	g_hash_table_insert (priv->pixbuf_table, g_strdup (uri),
-	                     g_object_ref (pixbuf));
+	if (pixbuf != NULL)
+	{
+		g_object_ref (pixbuf);
+	}
+
+	g_hash_table_insert (priv->pixbuf_table, g_strdup (uri), pixbuf);
 }
 
 static void
@@ -206,8 +219,19 @@ avatar_cache_open_cb (GObject      *object,
 	}
 	else
 	{
-		if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+		/* At the moment G_IO_ERROR_NOT_FOUND is not being returned
+		 * and instead an error code of 404 is. This is HTTP's
+		 * File Not Found error.
+		 */
+		if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND) ||
+		    (error != NULL && error->code == 404))
+		{
+			avatar_cache_insert (loader->cache, loader->uri, NULL);
+		}
+		else if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+		{
 			g_warning ("%s: %s", G_STRFUNC, error->message);
+		}
 
 		avatar_cache_loader_finish (loader, error);
 	}
@@ -264,6 +288,7 @@ gitg_avatar_cache_load_uri_async (GitgAvatarCache     *cache,
                                   gpointer             user_data)
 {
 	GitgAvatarCachePrivate *priv;
+	gboolean                found = FALSE;
 	GdkPixbuf              *pixbuf = NULL;
 	GSimpleAsyncResult     *result;
 	GitgAvatarCacheLoader  *loader;
@@ -279,13 +304,26 @@ gitg_avatar_cache_load_uri_async (GitgAvatarCache     *cache,
 	                                    gitg_avatar_cache_load_uri_async);
 
 	if (priv->pixbuf_table)
-		pixbuf = g_hash_table_lookup (priv->pixbuf_table, uri);
-
-	if (pixbuf)
 	{
-		g_simple_async_result_set_op_res_gpointer (result,
-		                                           g_object_ref (pixbuf),
-		                                           g_object_unref);
+		found = g_hash_table_lookup_extended (priv->pixbuf_table, uri,
+		                                      NULL, (gpointer *) &pixbuf);
+	}
+
+	if (found)
+	{
+		if (pixbuf == NULL)
+		{
+			g_simple_async_result_set_error (result, G_IO_ERROR,
+			                                 G_IO_ERROR_NOT_FOUND,
+			                                 "Not Found");
+		}
+		else
+		{
+			g_simple_async_result_set_op_res_gpointer (result,
+			                                           g_object_ref (pixbuf),
+			                                           g_object_unref);
+		}
+
 		g_simple_async_result_complete_in_idle (result);
 	}
 	else
@@ -365,7 +403,8 @@ gitg_avatar_cache_get_gravatar_uri (GitgAvatarCache *cache,
 	g_checksum_update (priv->checksum, (gpointer) gravatar_id,
 	                   strlen (gravatar_id));
 
-	return g_strdup_printf ("http://www.gravatar.com/avatar/%s?s=%d",
+	/* d=404 will return a File Not Found if the avatar does not exist */
+	return g_strdup_printf ("http://www.gravatar.com/avatar/%s?d=404&s=%d",
 	                        g_checksum_get_string (priv->checksum),
 	                        AVATAR_SIZE);
 }
