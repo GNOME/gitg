@@ -27,12 +27,26 @@
 #include <pango/pango.h>
 #include <libgitg/gitg-ref.h>
 
-gint gitg_label_renderer_width(GtkWidget *widget, PangoFontDescription *description, GSList *labels);
-void gitg_label_renderer_draw(GtkWidget *widget, PangoFontDescription *description, cairo_t *context, GSList *labels, const GdkRectangle *area);
+gint       gitg_label_renderer_width          (GtkWidget            *widget,
+                                               PangoFontDescription *description,
+                                               GSList               *labels);
+void       gitg_label_renderer_draw           (GtkWidget            *widget,
+                                               PangoFontDescription *description,
+                                               cairo_t              *context,
+                                               GSList               *labels,
+                                               const GdkRectangle   *area);
 
-GitgRef *gitg_label_renderer_get_ref_at_pos (GtkWidget *widget, PangoFontDescription *description, GSList *labels, gint x, gint *hot_x);
+GitgRef   *gitg_label_renderer_get_ref_at_pos (GtkWidget            *widget,
+                                               PangoFontDescription *description,
+                                               GSList               *labels,
+                                               gint                  x,
+                                               gint                 *hot_x);
 
-GdkPixbuf *gitg_label_renderer_render_ref (GtkWidget *widget, PangoFontDescription *description, GitgRef *ref, gint height, gint minwidth);
+GdkPixbuf *gitg_label_renderer_render_ref     (GtkWidget            *widget,
+                                               PangoFontDescription *description,
+                                               GitgRef              *ref,
+                                               gint                  height,
+                                               gint                  minwidth);
 
 #endif /* __GITG_LABEL_RENDERER_H__ */
 

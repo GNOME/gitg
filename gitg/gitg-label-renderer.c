@@ -30,22 +30,25 @@
 #define MARGIN 3
 
 static gint
-get_label_width (PangoLayout *layout, GitgRef *ref)
+get_label_width (PangoLayout *layout,
+                 GitgRef     *ref)
 {
 	gint w;
-	gchar *smaller = g_strdup_printf("<span size='smaller'>%s</span>", 
-	                                 gitg_ref_get_shortname(ref));
+	gchar *smaller = g_strdup_printf ("<span size='smaller'>%s</span>",
+	                                 gitg_ref_get_shortname (ref));
 
-	pango_layout_set_markup(layout, smaller, -1);
+	pango_layout_set_markup (layout, smaller, -1);
 
-	pango_layout_get_pixel_size(layout, &w, NULL);
-	g_free(smaller);
+	pango_layout_get_pixel_size (layout, &w, NULL);
+	g_free (smaller);
 
 	return w + PADDING * 2;
 }
 
 gint
-gitg_label_renderer_width(GtkWidget *widget, PangoFontDescription *description, GSList *labels)
+gitg_label_renderer_width (GtkWidget            *widget,
+                           PangoFontDescription *description,
+                           GSList               *labels)
 {
 	gint width = 0;
 	GSList *item;
@@ -53,23 +56,26 @@ gitg_label_renderer_width(GtkWidget *widget, PangoFontDescription *description, 
 	if (labels == NULL)
 		return 0;
 
-	PangoContext *ctx = gtk_widget_get_pango_context(widget);
-	PangoLayout *layout = pango_layout_new(ctx);
-	pango_layout_set_font_description(layout, description);
+	PangoContext *ctx = gtk_widget_get_pango_context (widget);
+	PangoLayout *layout = pango_layout_new (ctx);
+	pango_layout_set_font_description (layout, description);
 
 	for (item = labels; item; item = item->next)
 	{
 		width += get_label_width (layout, GITG_REF (item->data)) + MARGIN;
 	}
 
-	g_object_unref(layout);
-	//g_object_unref(ctx);
+	g_object_unref (layout);
+	//g_object_unref (ctx);
 
 	return width + MARGIN;
 }
 
 static void
-get_type_color (GitgRefType type, gdouble *r, gdouble *g, gdouble *b)
+get_type_color (GitgRefType  type,
+                gdouble     *r,
+                gdouble     *g,
+                gdouble     *b)
 {
 	switch (type)
 	{
@@ -107,7 +113,10 @@ get_type_color (GitgRefType type, gdouble *r, gdouble *g, gdouble *b)
 }
 
 static void
-get_ref_color (GitgRef *ref, gdouble *r, gdouble *g, gdouble *b)
+get_ref_color (GitgRef *ref,
+               gdouble *r,
+               gdouble *g,
+               gdouble *b)
 {
 	if (gitg_ref_get_working (ref))
 	{
@@ -123,7 +132,9 @@ get_ref_color (GitgRef *ref, gdouble *r, gdouble *g, gdouble *b)
 }
 
 static void
-set_source_for_ref_type(cairo_t *context, GitgRef *ref, gboolean use_state)
+set_source_for_ref_type (cairo_t  *context,
+                         GitgRef  *ref,
+                         gboolean  use_state)
 {
 	if (use_state)
 	{
@@ -131,7 +142,7 @@ set_source_for_ref_type(cairo_t *context, GitgRef *ref, gboolean use_state)
 
 		if (state == GITG_REF_STATE_SELECTED)
 		{
-			cairo_set_source_rgb(context, 1, 1, 1);
+			cairo_set_source_rgb (context, 1, 1, 1);
 			return;
 		}
 		else if (state == GITG_REF_STATE_PRELIGHT)
@@ -139,7 +150,7 @@ set_source_for_ref_type(cairo_t *context, GitgRef *ref, gboolean use_state)
 			gdouble r, g, b;
 			get_ref_color (ref, &r, &g, &b);
 
-			cairo_set_source_rgba(context, r, g, b, 0.3);
+			cairo_set_source_rgba (context, r, g, b, 0.3);
 			return;
 		}
 	}
@@ -151,15 +162,21 @@ set_source_for_ref_type(cairo_t *context, GitgRef *ref, gboolean use_state)
 }
 
 static gint
-render_label (cairo_t *context, PangoLayout *layout, GitgRef *ref, gint x, gint y, gint height, gboolean use_state)
+render_label (cairo_t     *context,
+              PangoLayout *layout,
+              GitgRef     *ref,
+              gint         x,
+              gint         y,
+              gint         height,
+              gboolean     use_state)
 {
 	gint w;
 	gint h;
-	gchar *smaller = g_strdup_printf("<span size='smaller'>%s</span>", 
-	                                 gitg_ref_get_shortname(ref));
+	gchar *smaller = g_strdup_printf ("<span size='smaller'>%s</span>",
+	                                  gitg_ref_get_shortname (ref));
 
-	pango_layout_set_markup(layout, smaller, -1);
-	pango_layout_get_pixel_size(layout, &w, &h);
+	pango_layout_set_markup (layout, smaller, -1);
+	pango_layout_get_pixel_size (layout, &w, &h);
 
 	// draw rounded rectangle
 	gitg_utils_rounded_rectangle (context, x + 0.5,
@@ -168,56 +185,71 @@ render_label (cairo_t *context, PangoLayout *layout, GitgRef *ref, gint x, gint 
 	                              height - MARGIN * 2,
 	                              5);
 
-	set_source_for_ref_type(context, ref, use_state);
-	cairo_fill_preserve(context);
+	set_source_for_ref_type (context, ref, use_state);
+	cairo_fill_preserve (context);
 
-	cairo_set_source_rgb(context, 0, 0, 0);
-	cairo_stroke(context);
+	cairo_set_source_rgb (context, 0, 0, 0);
+	cairo_stroke (context);
 
-	cairo_save(context);
-	cairo_translate(context, x + PADDING, y + (height - h) / 2.0 + 0.5);
-	pango_cairo_show_layout(context, layout);
-	cairo_restore(context);
+	cairo_save (context);
+	cairo_translate (context, x + PADDING, y + (height - h) / 2.0 + 0.5);
+	pango_cairo_show_layout (context, layout);
+	cairo_restore (context);
 
-	g_free(smaller);
+	g_free (smaller);
 	return w;
 }
 
 void
-gitg_label_renderer_draw(GtkWidget *widget, PangoFontDescription *description, cairo_t *context, GSList *labels, const GdkRectangle *area)
+gitg_label_renderer_draw (GtkWidget            *widget,
+                          PangoFontDescription *description,
+                          cairo_t              *context,
+                          GSList               *labels,
+                          const GdkRectangle   *area)
 {
 	GSList *item;
 	double pos = MARGIN + 0.5;
 
-	cairo_save(context);
-	cairo_set_line_width(context, 1.0);
+	cairo_save (context);
+	cairo_set_line_width (context, 1.0);
 
-	PangoContext *ctx = gtk_widget_get_pango_context(widget);
-	PangoLayout *layout = pango_layout_new(ctx);
-	pango_layout_set_font_description(layout, description);
+	PangoContext *ctx = gtk_widget_get_pango_context (widget);
+	PangoLayout *layout = pango_layout_new (ctx);
+	pango_layout_set_font_description (layout, description);
 
 	for (item = labels; item; item = item->next)
 	{
-		gint w = render_label (context, layout, GITG_REF (item->data), pos, area->y, area->height, TRUE);
+		gint w = render_label (context,
+		                       layout,
+		                       GITG_REF (item->data),
+		                       pos,
+		                       area->y,
+		                       area->height,
+		                       TRUE);
+
 		pos += w + PADDING * 2 + MARGIN;
 	}
 
-	g_object_unref(layout);
-	cairo_restore(context);
+	g_object_unref (layout);
+	cairo_restore (context);
 }
 
 
 GitgRef *
-gitg_label_renderer_get_ref_at_pos (GtkWidget *widget, PangoFontDescription *font, GSList *labels, gint x, gint *hot_x)
+gitg_label_renderer_get_ref_at_pos (GtkWidget            *widget,
+                                    PangoFontDescription *font,
+                                    GSList               *labels,
+                                    gint                  x,
+                                    gint                 *hot_x)
 {
 	if (!labels)
 	{
 		return NULL;
 	}
 
-	PangoContext *ctx = gtk_widget_get_pango_context(widget);
-	PangoLayout *layout = pango_layout_new(ctx);
-	pango_layout_set_font_description(layout, font);
+	PangoContext *ctx = gtk_widget_get_pango_context (widget);
+	PangoLayout *layout = pango_layout_new (ctx);
+	pango_layout_set_font_description (layout, font);
 
 	gint start = MARGIN;
 	GitgRef *ret = NULL;
@@ -242,7 +274,7 @@ gitg_label_renderer_get_ref_at_pos (GtkWidget *widget, PangoFontDescription *fon
 		start += width + MARGIN;
 	}
 
-	g_object_unref(layout);
+	g_object_unref (layout);
 	return ret;
 }
 
@@ -270,11 +302,11 @@ convert_bgra_to_rgba (guint8 const  *src,
 		for (x = 0; x < width; x++)
 		{
 			dst_pixel[0] = convert_color_channel (src_pixel[2],
-							                      src_pixel[3]);
+			                                      src_pixel[3]);
 			dst_pixel[1] = convert_color_channel (src_pixel[1],
-							                      src_pixel[3]);
+			                                      src_pixel[3]);
 			dst_pixel[2] = convert_color_channel (src_pixel[0],
-							                      src_pixel[3]);
+			                                      src_pixel[3]);
 			dst_pixel[3] = src_pixel[3];
 
 			dst_pixel += 4;
@@ -284,13 +316,17 @@ convert_bgra_to_rgba (guint8 const  *src,
 }
 
 GdkPixbuf *
-gitg_label_renderer_render_ref (GtkWidget *widget, PangoFontDescription *description, GitgRef *ref, gint height, gint minwidth)
+gitg_label_renderer_render_ref (GtkWidget            *widget,
+                                PangoFontDescription *description,
+                                GitgRef              *ref,
+                                gint                  height,
+                                gint                  minwidth)
 {
-	PangoContext *ctx = gtk_widget_get_pango_context(widget);
-	PangoLayout *layout = pango_layout_new(ctx);
-	pango_layout_set_font_description(layout, description);
+	PangoContext *ctx = gtk_widget_get_pango_context (widget);
+	PangoLayout *layout = pango_layout_new (ctx);
+	pango_layout_set_font_description (layout, description);
 
-	gint width = MAX(get_label_width (layout, ref), minwidth);
+	gint width = MAX (get_label_width (layout, ref), minwidth);
 
 	cairo_surface_t *surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width + 2, height + 2);
 	cairo_t *context = cairo_create (surface);
