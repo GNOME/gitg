@@ -67,8 +67,10 @@ static gchar const **
 parse_valist (va_list ap)
 {
 	gchar const *a;
-	gchar const **ret = NULL;
+	gchar const **ret;
 	guint num = 0;
+
+	ret = g_new (gchar const *, 1);
 
 	while ( (a = va_arg (ap, gchar const *)) != NULL)
 	{
