@@ -28,6 +28,11 @@
             <property name="stock-id">gtk-edit</property>
           </object>
         </child>
+        <child>
+          <object class="GtkAction" id="DeleteFileAction">
+            <property name="stock-id">gtk-delete</property>
+          </object>
+        </child>
       </object>
     </child>
     <ui>
@@ -36,6 +41,7 @@
         <menuitem action="RevertChangesAction"/>
         <menuitem action="IgnoreFileAction"/>
         <menuitem action="EditFileAction"/>
+        <menuitem action="DeleteFileAction"/>
       </popup>
       <popup name="popup_commit_unstage">
         <menuitem action="UnstageChangesAction"/>

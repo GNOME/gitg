@@ -137,6 +137,8 @@ static void on_revert_changes(GtkAction *action, GitgCommitView *view);
 static void on_ignore_file(GtkAction *action, GitgCommitView *view);
 static void on_unstage_changes(GtkAction *action, GitgCommitView *view);
 static void on_edit_file(GtkAction *action, GitgCommitView *view);
+static void on_delete_file (GtkAction      *action,
+                            GitgCommitView *view);
 
 static void on_check_button_amend_toggled (GtkToggleButton *button, GitgCommitView *view);
 
@@ -1378,6 +1380,10 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	g_signal_connect(gtk_builder_get_object(b, "IgnoreFileAction"), "activate", G_CALLBACK(on_ignore_file), self);
 	g_signal_connect(gtk_builder_get_object(b, "UnstageChangesAction"), "activate", G_CALLBACK(on_unstage_changes), self);
 	g_signal_connect(gtk_builder_get_object(b, "EditFileAction"), "activate", G_CALLBACK(on_edit_file), self);
+	g_signal_connect (gtk_builder_get_object (b, "DeleteFileAction"),
+	                  "activate",
+	                  G_CALLBACK (on_delete_file),
+	                  self);
 
 	self->priv->group_context = GTK_ACTION_GROUP(gtk_builder_get_object(b, "action_group_commit_context"));
 
@@ -2138,12 +2144,15 @@ set_unstaged_popup_status(GitgCommitView *view)
 	GtkAction *revert = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/RevertChangesAction");
 	GtkAction *ignore = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/IgnoreFileAction");
 	GtkAction *edit = gtk_ui_manager_get_action(view->priv->ui_manager, "/ui/popup_commit_stage/EditFileAction");
+	GtkAction *delete = gtk_ui_manager_get_action (view->priv->ui_manager,
+	                                               "/ui/popup_commit_stage/DeleteFileAction");
 
 	gtk_action_set_visible(revert, status == GITG_CHANGED_FILE_STATUS_MODIFIED ||
 	                               status == GITG_CHANGED_FILE_STATUS_DELETED);
 	gtk_action_set_visible(ignore, status == GITG_CHANGED_FILE_STATUS_NEW);
 
 	gtk_action_set_visible (edit, status != GITG_CHANGED_FILE_STATUS_DELETED);
+	gtk_action_set_visible (delete, status == GITG_CHANGED_FILE_STATUS_NEW);
 
 	return TRUE;
 }
@@ -2349,6 +2358,63 @@ on_edit_file (GtkAction *action, GitgCommitView *view)
 	}
 
 	g_list_free (files);
+}
+
+static void
+do_delete_file (GitgCommitView *view)
+{
+	GList *files = NULL;
+	GList *item;
+	gboolean success = TRUE;
+
+	get_selected_files (view->priv->tree_view_unstaged, &files, NULL, NULL, NULL);
+
+	for (item = files; item; item = g_list_next (item))
+	{
+		GitgChangedFile *file = item->data;
+		GFile *location = gitg_changed_file_get_file (file);
+
+		success &= g_file_delete (location, NULL, NULL);
+
+		g_object_unref (location);
+		g_object_unref (file);
+	}
+
+	g_list_free (files);
+
+	gitg_commit_refresh (view->priv->commit);
+
+	if (!success)
+	{
+		show_error (view, _("Delete Failed"));
+	}
+}
+
+static void
+on_delete_file (GtkAction      *action,
+                GitgCommitView *view)
+{
+	GtkWidget *toplevel;
+	GtkWidget *dialog;
+
+	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (view));
+	dialog = gtk_message_dialog_new (GTK_WINDOW (toplevel),
+	                                 GTK_DIALOG_MODAL,
+	                                 GTK_MESSAGE_QUESTION,
+	                                 GTK_BUTTONS_YES_NO,
+	                                 "%s",
+	                                 _("Are you sure you want to delete these files?"));
+
+	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s",
+	                                          _("Deleting files is permanent "
+	                                            "and cannot be undone"));
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+	{
+		do_delete_file (view);
+	}
+
+	gtk_widget_destroy (dialog);
 }
 
 static void
