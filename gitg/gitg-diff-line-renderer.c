@@ -236,12 +236,6 @@ render_label (GtkSourceGutterRenderer      *renderer,
 	               cell_area->y + (cell_area->height - pixel_height) / 2);
 
 	pango_cairo_show_layout (ctx, layout);
-
-	/*gtk_render_layout (style_context,
-	                   ctx,
-	                   cell_area->x + cell_area->width / 2,
-	                   cell_area->y,
-	                   layout);*/
 }
 
 static void

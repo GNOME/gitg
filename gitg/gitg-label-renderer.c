@@ -66,7 +66,6 @@ gitg_label_renderer_width (GtkWidget            *widget,
 	}
 
 	g_object_unref (layout);
-	//g_object_unref (ctx);
 
 	return width + MARGIN;
 }

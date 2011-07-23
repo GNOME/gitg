@@ -445,18 +445,6 @@ enable_diff_view (GitgDiffView *view)
 	                          GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer),
 	                          0);
 
-	/*gtk_source_gutter_set_cell_data_func (gutter,
-	                                      GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer),
-	                                      (GtkSourceGutterDataFunc)line_renderer_data_func,
-	                                      view,
-	                                      NULL);
-
-	gtk_source_gutter_set_cell_size_func (gutter,
-	                                      GTK_SOURCE_GUTTER_RENDERER (view->priv->line_renderer),
-	                                      (GtkSourceGutterSizeFunc)line_renderer_size_func,
-	                                      view,
-	                                      NULL);*/
-
 	g_signal_connect (view->priv->line_renderer,
 	                  "query-data",
 	                  (GCallback) line_renderer_query_data_cb,
@@ -769,27 +757,6 @@ get_initial_counters (GitgDiffView *view, Region *region, guint line, guint coun
 			++counters[1];
 	}
 }
-/*
-static void
-line_renderer_size_func (GtkSourceGutter *gutter,
-                         GtkCellRenderer *cell,
-                         GitgDiffView    *view)
-{
-	g_object_set (cell,
-	              "line_old", view->priv->max_line_count,
-	              "line_new", view->priv->max_line_count,
-	              NULL);
-
-	if (view->priv->label_func)
-	{
-		gchar *label = view->priv->label_func (view,
-		                                       -1,
-		                                       view->priv->label_func_user_data);
-
-		g_object_set (cell, "label", label, NULL);
-		g_free (label);
-	}
-}*/
 
 static void
 line_renderer_query_data_cb (GtkSourceGutterRenderer      *renderer,
