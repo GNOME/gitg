@@ -71,7 +71,7 @@ async_data_new (GitgLineParser *parser,
 	AsyncData *data;
 
 	data = g_slice_new (AsyncData);
-	data->parser = parser;
+	data->parser = g_object_ref (parser);
 	data->stream = stream;
 	data->cancellable = g_object_ref (cancellable);
 
@@ -81,6 +81,7 @@ async_data_new (GitgLineParser *parser,
 static void
 async_data_free (AsyncData *data)
 {
+	g_object_unref (data->parser);
 	g_object_unref (data->cancellable);
 	g_slice_free (AsyncData, data);
 }
