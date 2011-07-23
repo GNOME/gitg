@@ -109,6 +109,14 @@ static void on_commit_file_removed(GitgCommit *commit, GitgChangedFile *file, Gi
 static void on_staged_button_press(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view);
 static void on_unstaged_button_press(GtkWidget *widget, GdkEventButton *event, GitgCommitView *view);
 static gboolean on_staged_unstaged_button_press_before (GtkWidget *widget, GdkEventButton *event, GitgCommitView *view);
+static void on_unstaged_tree_view_row_activated (GtkTreeView       *tree_view,
+                                                 GtkTreePath       *path,
+                                                 GtkTreeViewColumn *column,
+                                                 GitgCommitView *view);
+static void on_staged_tree_view_row_activated (GtkTreeView       *tree_view,
+                                               GtkTreePath       *path,
+                                               GtkTreeViewColumn *column,
+                                               GitgCommitView *view);
 
 static gboolean popup_unstaged_menu(GitgCommitView *view, GdkEventButton *event);
 static gboolean popup_staged_menu(GitgCommitView *view, GdkEventButton *event);
@@ -1540,6 +1548,15 @@ gitg_commit_view_parser_finished(GtkBuildable *buildable, GtkBuilder *builder)
 	                  G_CALLBACK (on_staged_unstaged_button_press_before),
 	                  self);
 
+	g_signal_connect (self->priv->tree_view_unstaged,
+	                  "row-activated",
+	                  G_CALLBACK (on_unstaged_tree_view_row_activated),
+	                  self);
+	g_signal_connect (self->priv->tree_view_staged,
+	                  "row-activated",
+	                  G_CALLBACK (on_staged_tree_view_row_activated),
+	                  self);
+
 	g_signal_connect(self->priv->tree_view_unstaged, "popup-menu", G_CALLBACK(on_unstaged_popup_menu), self);
 	g_signal_connect(self->priv->tree_view_staged, "popup-menu", G_CALLBACK(on_staged_popup_menu), self);
 	g_signal_connect(self->priv->changes_view, "populate-popup", G_CALLBACK(on_changes_view_popup_menu), self);
@@ -1926,6 +1943,34 @@ on_staged_unstaged_button_press_before (GtkWidget      *widget,
 	}
 
 	return FALSE;
+}
+
+static void
+on_unstaged_tree_view_row_activated (GtkTreeView       *tree_view,
+                                     GtkTreePath       *path,
+                                     GtkTreeViewColumn *column,
+                                     GitgCommitView    *view)
+{
+	GList *files = NULL;
+
+	get_selected_files (view->priv->tree_view_unstaged, &files, NULL, NULL, NULL);
+
+	gitg_commit_stage(view->priv->commit, files->data, NULL, NULL);
+	g_list_free (files);
+}
+
+static void
+on_staged_tree_view_row_activated (GtkTreeView       *tree_view,
+                                   GtkTreePath       *path,
+                                   GtkTreeViewColumn *column,
+                                   GitgCommitView    *view)
+{
+	GList *files = NULL;
+
+	get_selected_files (view->priv->tree_view_staged, &files, NULL, NULL, NULL);
+
+	gitg_commit_unstage(view->priv->commit, files->data, NULL, NULL);
+	g_list_free (files);
 }
 
 static void
