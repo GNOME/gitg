@@ -739,6 +739,72 @@ update_details (GitgRevisionDetailsPanel *panel)
 }
 
 static void
+update_author (GitgRevisionDetailsPanel *panel)
+{
+	gchar const *author;
+	gchar const *author_email;
+
+	author = gitg_revision_get_author (panel->priv->revision);
+	author_email = gitg_revision_get_author_email (panel->priv->revision);
+
+	if (author == NULL || author_email == NULL ||
+	    *author == '\0' || *author_email == '\0')
+	{
+		gtk_label_set_text (panel->priv->author, "");
+	}
+	else
+	{
+		gchar *tmp;
+		gchar *date;
+
+		date = gitg_revision_get_author_date_for_display (panel->priv->revision);
+		tmp = g_markup_printf_escaped ("<a href='mailto:%s'>%s &lt;%s&gt;</a> (%s)",
+		                               author_email,
+		                               author,
+		                               author_email,
+		                               date);
+
+		gtk_label_set_markup (panel->priv->author, tmp);
+
+		g_free (tmp);
+		g_free (date);
+	}
+}
+
+static void
+update_committer (GitgRevisionDetailsPanel *panel)
+{
+	gchar const *committer;
+	gchar const *committer_email;
+
+	committer = gitg_revision_get_committer (panel->priv->revision);
+	committer_email = gitg_revision_get_committer_email (panel->priv->revision);
+
+	if (committer == NULL || committer_email == NULL ||
+	    *committer == '\0' || *committer_email == '\0')
+	{
+		gtk_label_set_text (panel->priv->committer, "");
+	}
+	else
+	{
+		gchar *tmp;
+		gchar *date;
+
+		date = gitg_revision_get_committer_date_for_display (panel->priv->revision);
+		tmp = g_markup_printf_escaped ("<a href='mailto:%s'>%s &lt;%s&gt;</a> (%s)",
+		                               committer_email,
+		                               committer,
+		                               committer_email,
+		                               date);
+
+		gtk_label_set_markup (panel->priv->committer, tmp);
+
+		g_free (tmp);
+		g_free (date);
+	}
+}
+
+static void
 avatar_ready (GObject                  *source_object,
               GAsyncResult             *res,
               GitgRevisionDetailsPanel *panel)
@@ -792,47 +858,24 @@ reload (GitgRevisionDetailsPanel *panel)
 	if (panel->priv->revision)
 	{
 		gchar *tmp;
-		gchar *date;
 
-		date = gitg_revision_get_author_date_for_display (panel->priv->revision);
-		tmp = g_markup_printf_escaped ("<a href='mailto:%s'>%s &lt;%s&gt;</a> (%s)",
-		                               gitg_revision_get_author_email (panel->priv->revision),
-		                               gitg_revision_get_author (panel->priv->revision),
-		                               gitg_revision_get_author_email (panel->priv->revision),
-		                               date);
+		update_author (panel);
+		update_committer (panel);
 
-		gtk_label_set_markup (panel->priv->author, tmp);
+		tmp = g_markup_printf_escaped ("<b>%s</b>",
+		                               gitg_revision_get_subject (panel->priv->revision));
+
+		gtk_label_set_markup (panel->priv->subject, tmp);
 
 		g_free (tmp);
-		g_free (date);
 
-		date = gitg_revision_get_committer_date_for_display (panel->priv->revision);
-		tmp = g_markup_printf_escaped ("<a href='mailto:%s'>%s &lt;%s&gt;</a> (%s)",
-		                               gitg_revision_get_committer_email (panel->priv->revision),
-		                               gitg_revision_get_committer (panel->priv->revision),
-		                               gitg_revision_get_committer_email (panel->priv->revision),
-		                               date);
-
-		gtk_label_set_markup (panel->priv->committer, tmp);
-
-		g_free (tmp);
-		g_free (date);
-
-		gchar *subject;
-
-		subject = g_markup_printf_escaped ("<b>%s</b>",
-		                                   gitg_revision_get_subject (panel->priv->revision));
-
-		gtk_label_set_markup (panel->priv->subject, subject);
-		g_free (subject);
-
-		gchar *sha = gitg_revision_get_sha1 (panel->priv->revision);
-		gtk_label_set_text (panel->priv->sha, sha);
+		tmp = gitg_revision_get_sha1 (panel->priv->revision);
+		gtk_label_set_text (panel->priv->sha, tmp);
 
 		cb = gtk_clipboard_get (GDK_SELECTION_PRIMARY);
-		gtk_clipboard_set_text (cb, sha, -1);
+		gtk_clipboard_set_text (cb, tmp, -1);
 
-		g_free (sha);
+		g_free (tmp);
 
 		set_avatar (panel, gitg_revision_get_author_email (panel->priv->revision));
 	}
