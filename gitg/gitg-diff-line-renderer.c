@@ -30,15 +30,13 @@ enum
 {
 	PROP_0,
 	PROP_LINE_OLD,
-	PROP_LINE_NEW,
-	PROP_LABEL
+	PROP_LINE_NEW
 };
 
 struct _GitgDiffLineRendererPrivate
 {
 	gint line_old;
 	gint line_new;
-	gchar *label;
 	gint num_digits;
 
 	PangoLayout *cached_layout;
@@ -66,10 +64,6 @@ gitg_diff_line_renderer_set_property (GObject      *object,
 		case PROP_LINE_NEW:
 			self->priv->line_new = g_value_get_int (value);
 		break;
-		case PROP_LABEL:
-			g_free (self->priv->label);
-			self->priv->label = g_value_dup_string (value);
-		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -92,23 +86,10 @@ gitg_diff_line_renderer_get_property (GObject    *object,
 		case PROP_LINE_NEW:
 			g_value_set_int (value, self->priv->line_new);
 		break;
-		case PROP_LABEL:
-			g_value_set_string (value, self->priv->label);
-		break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
 	}
-}
-
-static void
-gitg_diff_line_renderer_finalize (GObject *object)
-{
-	GitgDiffLineRenderer *self = GITG_DIFF_LINE_RENDERER (object);
-
-	g_free (self->priv->label);
-
-	G_OBJECT_CLASS (gitg_diff_line_renderer_parent_class)->finalize (object);
 }
 
 static void
@@ -155,97 +136,13 @@ gitg_diff_line_renderer_begin (GtkSourceGutterRenderer      *renderer,
 }
 
 static void
-darken_or_lighten (cairo_t       *ctx,
-                   GdkRGBA const *color)
-{
-	float r, g, b;
-
-	r = color->red;
-	g = color->green;
-	b = color->blue;
-
-	if ((r + g + b) / 3 > 0.5)
-	{
-		cairo_set_source_rgb (ctx,
-		                      r * 0.5,
-		                      g * 0.5,
-		                      b * 0.5);
-	}
-	else
-	{
-		cairo_set_source_rgb (ctx,
-		                      r * 1.5,
-		                      g * 1.5,
-		                      b * 1.5);
-	}
-}
-
-static void
-render_label (GtkSourceGutterRenderer      *renderer,
-              cairo_t                      *ctx,
-              GdkRectangle                 *background_area,
-              GdkRectangle                 *cell_area,
-              GtkTextIter                  *start,
-              GtkTextIter                  *end,
-              GtkSourceGutterRendererState  renderer_state)
-{
-	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
-	GtkWidget *widget;
-	PangoLayout *layout;
-	GtkStyleContext *style_context;
-	GtkStateType state;
-	gint pixel_height;
-	GdkRGBA fg_color, bg_color;
-
-	widget = GTK_WIDGET (gtk_source_gutter_renderer_get_view (renderer));
-	layout = lr->priv->cached_layout;
-
-	pango_layout_set_markup (layout, lr->priv->label, -1);
-	pango_layout_set_width (layout, cell_area->width);
-
-	pango_layout_get_pixel_size (layout, NULL, &pixel_height);
-
-	pango_layout_set_alignment (layout, PANGO_ALIGN_CENTER);
-
-	style_context = gtk_widget_get_style_context (widget);
-	state = gtk_widget_get_state (widget);
-
-	gtk_style_context_get_color (style_context, state, &fg_color);
-	gtk_style_context_get_background_color (style_context, state, &bg_color);
-
-	gdk_cairo_set_source_rgba (ctx, &fg_color);
-
-	gitg_utils_rounded_rectangle (ctx,
-	                              cell_area->x + 0.5,
-	                              cell_area->y + 0.5,
-	                              cell_area->width - 1,
-	                              cell_area->height - 1,
-	                              5);
-
-	cairo_fill_preserve (ctx);
-
-	darken_or_lighten (ctx, &fg_color);
-
-	cairo_set_line_width (ctx, 1);
-	cairo_stroke (ctx);
-
-	gdk_cairo_set_source_rgba (ctx, &bg_color);
-
-	cairo_move_to (ctx,
-	               cell_area->x + cell_area->width / 2,
-	               cell_area->y + (cell_area->height - pixel_height) / 2);
-
-	pango_cairo_show_layout (ctx, layout);
-}
-
-static void
-render_lines (GtkSourceGutterRenderer      *renderer,
-              cairo_t                      *ctx,
-              GdkRectangle                 *background_area,
-              GdkRectangle                 *cell_area,
-              GtkTextIter                  *start,
-              GtkTextIter                  *end,
-              GtkSourceGutterRendererState  renderer_state)
+gitg_diff_line_renderer_draw (GtkSourceGutterRenderer      *renderer,
+                              cairo_t                      *ctx,
+                              GdkRectangle                 *background_area,
+                              GdkRectangle                 *cell_area,
+                              GtkTextIter                  *start,
+                              GtkTextIter                  *end,
+                              GtkSourceGutterRendererState  renderer_state)
 {
 	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
 	gchar old_str[16];
@@ -254,6 +151,16 @@ render_lines (GtkSourceGutterRenderer      *renderer,
 	GtkWidget *widget;
 	GtkStyleContext *style_context;
 	guint xpad = 0;
+
+	/* Chain up to draw background */
+	GTK_SOURCE_GUTTER_RENDERER_CLASS (
+		gitg_diff_line_renderer_parent_class)->draw (renderer,
+		                                             ctx,
+		                                             background_area,
+		                                             cell_area,
+		                                             start,
+		                                             end,
+		                                             renderer_state);
 
 	widget = GTK_WIDGET (gtk_source_gutter_renderer_get_view (renderer));
 	layout = lr->priv->cached_layout;
@@ -304,49 +211,6 @@ render_lines (GtkSourceGutterRenderer      *renderer,
 	                 background_area->y - 1,
 	                 background_area->x + background_area->width / 2,
 	                 background_area->y + background_area->height);
-}
-
-static void
-gitg_diff_line_renderer_draw (GtkSourceGutterRenderer      *renderer,
-                              cairo_t                      *ctx,
-                              GdkRectangle                 *background_area,
-                              GdkRectangle                 *cell_area,
-                              GtkTextIter                  *start,
-                              GtkTextIter                  *end,
-                              GtkSourceGutterRendererState  renderer_state)
-{
-	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
-
-	/* Chain up to draw background */
-	GTK_SOURCE_GUTTER_RENDERER_CLASS (
-		gitg_diff_line_renderer_parent_class)->draw (renderer,
-		                                             ctx,
-		                                             background_area,
-		                                             cell_area,
-		                                             start,
-		                                             end,
-		                                             renderer_state);
-
-	if (lr->priv->label)
-	{
-		render_label (renderer,
-		              ctx,
-		              background_area,
-		              cell_area,
-		              start,
-		              end,
-		              renderer_state);
-	}
-	else
-	{
-		render_lines (renderer,
-		              ctx,
-		              background_area,
-		              cell_area,
-		              start,
-		              end,
-		              renderer_state);
-	}
 }
 
 static void
@@ -469,7 +333,6 @@ gitg_diff_line_renderer_class_init (GitgDiffLineRendererClass *klass)
 
 	object_class->set_property = gitg_diff_line_renderer_set_property;
 	object_class->get_property = gitg_diff_line_renderer_get_property;
-	object_class->finalize = gitg_diff_line_renderer_finalize;
 
 	g_object_class_install_property (object_class,
 	                                 PROP_LINE_OLD,
@@ -490,14 +353,6 @@ gitg_diff_line_renderer_class_init (GitgDiffLineRendererClass *klass)
 	                                                   G_MAXINT,
 	                                                   -1,
 	                                                   G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
-
-	g_object_class_install_property (object_class,
-	                                 PROP_LABEL,
-	                                 g_param_spec_string ("label",
-	                                                      "Label",
-	                                                      "Label",
-	                                                      NULL,
-	                                                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
 	g_type_class_add_private (object_class, sizeof (GitgDiffLineRendererPrivate));
 }

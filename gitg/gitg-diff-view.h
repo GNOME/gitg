@@ -76,10 +76,6 @@ struct _GitgDiffViewClass
 	void (*hunk_added)(GitgDiffView *view, GitgDiffIter *iter);
 };
 
-typedef gchar *(*GitgDiffViewLabelFunc) (GitgDiffView *view,
-                                         gint          line,
-                                         gpointer      user_data);
-
 GType gitg_diff_view_get_type(void) G_GNUC_CONST;
 GitgDiffView *gitg_diff_view_new(void);
 
@@ -104,11 +100,6 @@ void gitg_diff_iter_get_bounds (GitgDiffIter const *iter, GtkTextIter *start, Gt
 
 GitgDiffLineType gitg_diff_view_get_line_type (GitgDiffView *view, GtkTextIter const *iter);
 void gitg_diff_view_clear_line (GitgDiffView *view, GtkTextIter const *iter, GitgDiffLineType old_type, GitgDiffLineType new_type);
-
-void gitg_diff_view_set_label_func (GitgDiffView *view,
-                                    GitgDiffViewLabelFunc func,
-                                    gpointer user_data,
-                                    GDestroyNotify destroy_notify);
 
 G_END_DECLS
 

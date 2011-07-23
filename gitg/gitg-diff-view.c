@@ -136,10 +136,6 @@ struct _GitgDiffViewPrivate
 	guint lines_counters[2];
 
 	gboolean ignore_changes;
-
-	GitgDiffViewLabelFunc label_func;
-	gpointer label_func_user_data;
-	GDestroyNotify label_func_destroy_notify;
 };
 
 G_DEFINE_TYPE (GitgDiffView, gitg_diff_view, GTK_SOURCE_TYPE_VIEW)
@@ -218,12 +214,6 @@ gitg_diff_view_finalize (GObject *object)
 
 	regions_free (view);
 	g_sequence_free (view->priv->regions_index);
-
-	if (view->priv->label_func &&
-	    view->priv->label_func_destroy_notify)
-	{
-		view->priv->label_func_destroy_notify (view->priv->label_func_user_data);
-	}
 
 	G_OBJECT_CLASS (gitg_diff_view_parent_class)->finalize (object);
 }
@@ -826,16 +816,6 @@ line_renderer_query_data_cb (GtkSourceGutterRenderer      *renderer,
 	{
 		view->priv->lines_counters[0] = view->priv->lines_counters[1] = 0;
 		*current = (*current)->next->visible ? (*current)->next : NULL;
-	}
-
-	if (view->priv->label_func)
-	{
-		gchar *label = view->priv->label_func (view,
-		                                       line_number,
-		                                       view->priv->label_func_user_data);
-
-		g_object_set (renderer, "label", label, NULL);
-		g_free (label);
 	}
 }
 
@@ -1650,23 +1630,4 @@ gitg_diff_view_clear_line (GitgDiffView *view,
 
 	view->priv->ignore_changes = FALSE;
 	gtk_text_buffer_end_user_action (buffer);
-}
-
-void
-gitg_diff_view_set_label_func (GitgDiffView *view,
-                               GitgDiffViewLabelFunc func,
-                               gpointer user_data,
-                               GDestroyNotify destroy_notify)
-{
-	g_return_if_fail (GITG_IS_DIFF_VIEW (view));
-
-	if (view->priv->label_func &&
-	    view->priv->label_func_destroy_notify)
-	{
-		view->priv->label_func_destroy_notify (view->priv->label_func_user_data);
-	}
-
-	view->priv->label_func = func;
-	view->priv->label_func_user_data = user_data;
-	view->priv->label_func_destroy_notify = destroy_notify;
 }
