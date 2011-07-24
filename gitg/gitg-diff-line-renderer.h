@@ -52,6 +52,8 @@ struct _GitgDiffLineRendererClass {
 GType gitg_diff_line_renderer_get_type (void) G_GNUC_CONST;
 GitgDiffLineRenderer *gitg_diff_line_renderer_new (void);
 
+void gitg_diff_line_renderer_set_max_line_count (GitgDiffLineRenderer *renderer,
+                                                 guint max_line_count);
 
 G_END_DECLS
 

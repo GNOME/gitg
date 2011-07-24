@@ -248,12 +248,12 @@ render_lines (GtkSourceGutterRenderer      *renderer,
               GtkSourceGutterRendererState  renderer_state)
 {
 	GitgDiffLineRenderer *lr = GITG_DIFF_LINE_RENDERER (renderer);
-	/* Render new/old in the cell area */
 	gchar old_str[16];
 	gchar new_str[16];
 	PangoLayout *layout;
 	GtkWidget *widget;
 	GtkStyleContext *style_context;
+	guint xpad = 0;
 
 	widget = GTK_WIDGET (gtk_source_gutter_renderer_get_view (renderer));
 	layout = lr->priv->cached_layout;
@@ -280,12 +280,14 @@ render_lines (GtkSourceGutterRenderer      *renderer,
 		*new_str = '\0';
 	}
 
+	g_object_get (renderer, "xpad", &xpad, NULL);
+
 	pango_layout_set_text (layout, old_str, -1);
 	style_context = gtk_widget_get_style_context (widget);
 
 	gtk_render_layout (style_context,
 	                   ctx,
-	                   cell_area->x + cell_area->width / 2 - 1,
+	                   cell_area->x + cell_area->width / 2 - xpad,
 	                   cell_area->y,
 	                   layout);
 
@@ -410,87 +412,48 @@ measure_text (GitgDiffLineRenderer *lr,
 static void
 recalculate_size (GitgDiffLineRenderer *lr)
 {
-	/* Get size of this rendering */
-	gint num_digits, num;
+	gchar *markup;
+	gint size;
+	gint num = 1;
+	gint i;
 
-	num_digits = 0;
-	num = lr->priv->line_old;
-
-	while (num > 0)
+	for (i = 1; i < lr->priv->num_digits; ++i)
 	{
-		num /= 10;
-		++num_digits;
+		num *= 10;
 	}
 
-	num = lr->priv->line_new;
+	markup = g_strdup_printf ("<b>%d %d</b>",
+	                          num,
+	                          num);
 
-	while (num > 0)
+	measure_text (lr, markup, NULL, &size, NULL);
+	g_free (markup);
+
+	gtk_source_gutter_renderer_set_size (GTK_SOURCE_GUTTER_RENDERER (lr),
+	                                     size);
+}
+
+static void
+update_num_digits (GitgDiffLineRenderer *renderer,
+                   guint                 max_line_count)
+{
+	/* Get size of this rendering */
+	gint num_digits;
+
+	num_digits = 0;
+
+	while (max_line_count > 0)
 	{
-		num /= 10;
+		max_line_count /= 10;
 		++num_digits;
 	}
 
 	num_digits = MAX (num_digits, 2);
 
-	if (num_digits != lr->priv->num_digits)
+	if (num_digits != renderer->priv->num_digits)
 	{
-		gchar *markup;
-		gint size;
-
-		lr->priv->num_digits = num_digits;
-
-		markup = g_strdup_printf ("<b>%d   %d</b>",
-		                          lr->priv->line_old,
-		                          lr->priv->line_new);
-
-		measure_text (lr, markup, NULL, &size, NULL);
-		g_free (markup);
-
-		gtk_source_gutter_renderer_set_size (GTK_SOURCE_GUTTER_RENDERER (lr),
-		                                     size);
-	}
-}
-
-static void
-on_buffer_changed (GtkSourceBuffer      *buffer,
-                   GitgDiffLineRenderer *renderer)
-{
-	recalculate_size (renderer);
-}
-
-static void
-gitg_diff_line_renderer_change_buffer (GtkSourceGutterRenderer *renderer,
-                                       GtkTextBuffer           *old_buffer)
-{
-	GitgDiffLineRenderer *lr;
-	GtkTextView *view;
-
-	lr = GITG_DIFF_LINE_RENDERER (renderer);
-
-	if (old_buffer)
-	{
-		g_signal_handler_disconnect (old_buffer,
-		                             lr->priv->changed_handler_id);
-	}
-
-	view = gtk_source_gutter_renderer_get_view (renderer);
-
-	if (view)
-	{
-		GtkTextBuffer *buffer;
-
-		buffer = gtk_text_view_get_buffer (view);
-
-		if (buffer)
-		{
-			lr->priv->changed_handler_id =
-				g_signal_connect (buffer,
-				                  "changed",
-				                  G_CALLBACK (on_buffer_changed),
-				                  lr);
-
-			recalculate_size (lr);
-		}
+		renderer->priv->num_digits = num_digits;
+		recalculate_size (renderer);
 	}
 }
 
@@ -503,7 +466,6 @@ gitg_diff_line_renderer_class_init (GitgDiffLineRendererClass *klass)
 	renderer_class->begin = gitg_diff_line_renderer_begin;
 	renderer_class->draw = gitg_diff_line_renderer_draw;
 	renderer_class->end= gitg_diff_line_renderer_end;
-	renderer_class->change_buffer = gitg_diff_line_renderer_change_buffer;
 
 	object_class->set_property = gitg_diff_line_renderer_set_property;
 	object_class->get_property = gitg_diff_line_renderer_get_property;
@@ -550,4 +512,13 @@ GitgDiffLineRenderer *
 gitg_diff_line_renderer_new ()
 {
 	return g_object_new (GITG_TYPE_DIFF_LINE_RENDERER, NULL);
+}
+
+void
+gitg_diff_line_renderer_set_max_line_count (GitgDiffLineRenderer *renderer,
+                                            guint                 max_line_count)
+{
+	g_return_if_fail (GITG_IS_DIFF_LINE_RENDERER (renderer));
+
+	update_num_digits (renderer, max_line_count);
 }

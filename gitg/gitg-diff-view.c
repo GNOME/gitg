@@ -184,6 +184,19 @@ region_free (Region   *region,
 }
 
 static void
+set_max_line_count (GitgDiffView *view,
+                    guint         max_line_count)
+{
+	view->priv->max_line_count = max_line_count;
+
+	if (view->priv->line_renderer)
+	{
+		gitg_diff_line_renderer_set_max_line_count (view->priv->line_renderer,
+		                                            max_line_count);
+	}
+}
+
+static void
 regions_free (GitgDiffView *view)
 {
 	region_free (view->priv->regions, TRUE);
@@ -194,7 +207,8 @@ regions_free (GitgDiffView *view)
 	view->priv->regions = NULL;
 	view->priv->last_region = NULL;
 	view->priv->last_scan_line = 0;
-	view->priv->max_line_count = 99;
+
+	set_max_line_count (view, 99);
 }
 
 static void
@@ -499,7 +513,7 @@ ensure_max_line (GitgDiffView *view, Hunk *hunk)
 
 	if (m > view->priv->max_line_count)
 	{
-		view->priv->max_line_count = m;
+		set_max_line_count (view, m);
 
 		gtk_source_gutter_queue_draw (gtk_source_view_get_gutter (GTK_SOURCE_VIEW (view), GTK_TEXT_WINDOW_LEFT));
 	}
