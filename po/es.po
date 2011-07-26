@@ -4,22 +4,22 @@
 # This file is distributed under the same license as the gitg package.
 #
 # Chihau Chau <chihau@gmail.com>, 2009.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2011-07-23 11:52+0000\n"
-"PO-Revision-Date: 2011-07-23 14:25+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-07-25 21:28+0000\n"
+"PO-Revision-Date: 2011-07-26 10:47+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/gitg.desktop.in.in.h:1
 msgid "Git repository browser"
@@ -85,8 +85,8 @@ msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». "
-"Se puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
+"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». Se "
+"puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
 "columna en particular."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
@@ -474,8 +474,8 @@ msgstr "Falló al aplicar el cambio en la revisión sobre <%s>"
 #, c-format
 msgid "Are you sure you want to cherry-pick that revision on <%s>?"
 msgstr ""
-"¿Está seguro de que quiere aplicar los cambios («cherry-pick») en la "
-"revisión <%s>?"
+"¿Está seguro de que quiere aplicar los cambios («cherry-pick») en la revisión "
+"<%s>?"
 
 #: ../gitg/gitg-branch-actions.c:1924 ../gitg/gitg-branch-actions.c:1926
 #: ../gitg/gitg-branch-actions.c:1974
@@ -521,49 +521,64 @@ msgstr "Seleccionar el «commit» después de cargar el repositorio"
 msgid "- git repository viewer"
 msgstr "- visor de repositorios git"
 
-#: ../gitg/gitg-commit-view.c:223 ../gitg/gitg-revision-files-panel.c:256
+#: ../gitg/gitg-commit-view.c:233 ../gitg/gitg-revision-files-panel.c:465
 msgid "Cannot display file content as text"
 msgstr "No se puede mostrar el contenido del archivo como texto"
 
-#: ../gitg/gitg-commit-view.c:1166
+#: ../gitg/gitg-commit-view.c:1176
 msgid "unstage"
 msgstr "quitar la reserva"
 
-#: ../gitg/gitg-commit-view.c:1167
+#: ../gitg/gitg-commit-view.c:1177
 msgid "stage"
 msgstr "Reservar"
 
-#: ../gitg/gitg-commit-view.c:2036
+#: ../gitg/gitg-commit-view.c:2087
 msgid "You must first stage some changes before committing"
 msgstr ""
 "Primero debe preseleccionar algunos cambios antes de realizar el «commit»"
 
-#: ../gitg/gitg-commit-view.c:2044
+#: ../gitg/gitg-commit-view.c:2095
 msgid "Please enter a commit message before committing"
 msgstr "Introducir un mensaje de «commit» antes de realizar el «commit»"
 
-#: ../gitg/gitg-commit-view.c:2056
+#: ../gitg/gitg-commit-view.c:2107
 msgid ""
 "Your user name or email could not be retrieved for use in the sign off "
 "message"
 msgstr ""
 "No se pudo obtener su nombre o correo-e para usarlo en el mensaje de firma"
 
-#: ../gitg/gitg-commit-view.c:2058
+#: ../gitg/gitg-commit-view.c:2109
 msgid "Something went wrong while trying to commit"
 msgstr "Algo falló al intentar efectuar el «commit»"
 
-#: ../gitg/gitg-commit-view.c:2251
+#: ../gitg/gitg-commit-view.c:2305
 msgid "Revert fail"
 msgstr "Falló al revertir"
 
-#: ../gitg/gitg-commit-view.c:2262
+#: ../gitg/gitg-commit-view.c:2316
 msgid "Are you sure you want to revert these changes?"
 msgstr "¿Está seguro de que quiere revertir estos cambios?"
 
-#: ../gitg/gitg-commit-view.c:2265
+#: ../gitg/gitg-commit-view.c:2319
 msgid "Reverting changes is permanent and cannot be undone"
 msgstr "Revertir los cambios es una acción permanente y no se puede deshacer"
+
+#: ../gitg/gitg-commit-view.c:2389
+#| msgid "Details"
+msgid "Delete Failed"
+msgstr "Falló al eliminar"
+
+#: ../gitg/gitg-commit-view.c:2406
+#| msgid "Are you sure you want to revert these changes?"
+msgid "Are you sure you want to delete these files?"
+msgstr "¿Está seguro de que quiere eliminar estos archivos?"
+
+#: ../gitg/gitg-commit-view.c:2409
+#| msgid "Reverting changes is permanent and cannot be undone"
+msgid "Deleting files is permanent and cannot be undone"
+msgstr "Eliminar los archivos es una acción permanente y no se puede deshacer"
 
 #: ../gitg/gitg-repository-dialog.c:223 ../gitg/gitg-repository.ui.h:4
 msgid "Fetch"
@@ -586,11 +601,24 @@ msgstr "Cambios"
 msgid "Details"
 msgstr "Detalles"
 
-#: ../gitg/gitg-revision-files-panel.c:596
+#: ../gitg/gitg-revision-files-panel.c:319 ../gitg/gitg-window.ui.h:3
+msgid "Author"
+msgstr "Autor"
+
+#: ../gitg/gitg-revision-files-panel.c:320
+#| msgid "Committer:"
+msgid "Committer"
+msgstr "Persona que efectúa el cambio:"
+
+#: ../gitg/gitg-revision-files-panel.c:321 ../gitg/gitg-window.ui.h:11
+msgid "Subject"
+msgstr "Asunto"
+
+#: ../gitg/gitg-revision-files-panel.c:881
 msgid "Files"
 msgstr "Archivos"
 
-#: ../gitg/gitg-revision-files-panel.c:765
+#: ../gitg/gitg-revision-files-panel.c:1050
 msgid "(Empty)"
 msgstr "(Vacío)"
 
@@ -1088,10 +1116,6 @@ msgstr "Aádir firmado por"
 msgid "Amend"
 msgstr "Completar"
 
-#: ../gitg/gitg-window.ui.h:3
-msgid "Author"
-msgstr "Autor"
-
 #: ../gitg/gitg-window.ui.h:4
 msgid "Branch:"
 msgstr "Rama:"
@@ -1108,16 +1132,11 @@ msgstr "Contexto:"
 msgid "Date"
 msgstr "Fecha"
 
-#: ../gitg/gitg-window.ui.h:11
-msgid "Subject"
-msgstr "Asunto"
-
 #: ../gitg/gitg-window.ui.h:12
 msgid "Unstaged"
 msgstr "Sin reservar"
 
 #: ../gitg/gitg-window.ui.h:13
-#| msgid "Commit"
 msgid "_Commit"
 msgstr "_Efectuar («commit»)"
 
