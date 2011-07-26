@@ -17,28 +17,32 @@
     <property name="default_width">800</property>
     <property name="default_height">800</property>
     <child>
-      <object class="GtkVBox" id="vbox_main">
+      <object class="GtkBox" id="vbox_main">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkNotebook" id="notebook_main">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
-              <object class="GtkVBox" id="vbox_history">
+              <object class="GtkBox" id="vbox_history">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkVPaned" id="vpaned_main">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="position">350</property>
                     <child>
-                      <object class="GtkVBox" id="vbox2">
+                      <object class="GtkBox" id="vbox2">
                         <property name="visible">True</property>
                         <property name="border_width">6</property>
+                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkHBox" id="hbox_top">
+                          <object class="GtkBox" id="hbox_top">
                             <property name="visible">True</property>
                             <property name="spacing">3</property>
+                            <property name="orientation">horizontal</property>
                             <child>
                               <object class="GtkLabel" id="label_branches">
                                 <property name="label" translatable="yes">Branch:</property>
@@ -89,6 +93,7 @@
                                 <property name="rules_hint">True</property>
                                 <property name="search_column">1</property>
                                 <property name="fixed_height_mode">True</property>
+                                <property name="expand">True</property>
                                 <signal name="event_after" handler="on_tree_view_rv_button_press_event"/>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="rv_column_subject">
@@ -182,14 +187,15 @@
                 <property name="position">450</property>
                 <property name="position_set">True</property>
                 <child>
-                  <object class="GtkVBox" id="vbox_changes">
+                  <object class="GtkBox" id="vbox_changes">
                     <property name="visible">True</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">3</property>
                     <child>
-                      <object class="GtkHBox" id="hbox_changes">
+                      <object class="GtkBox" id="hbox_changes">
                         <property name="visible">True</property>
                         <property name="spacing">3</property>
+                        <property name="orientation">horizontal</property>
                         <child>
                           <object class="GtkLabel" id="label_changes">
                             <property name="visible">True</property>
@@ -250,6 +256,7 @@
                             <property name="cursor_visible">False</property>
                             <property name="show_line_numbers">False</property>
                             <property name="tab_width">4</property>
+                            <property name="expand">True</property>
                           </object>
                         </child>
                       </object>
@@ -268,7 +275,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
-                      <object class="GtkVBox" id="vbox_unstaged">
+                      <object class="GtkBox" id="vbox_unstaged">
                         <property name="visible">True</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">3</property>
@@ -299,6 +306,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="headers_visible">False</property>
                                 <property name="headers_clickable">False</property>
+                                <property name="expand">True</property>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="unstaged_column_icon">
                                     <property name="sizing">fixed</property>
@@ -338,7 +346,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <child>
-                          <object class="GtkVBox" id="vbox_comment">
+                          <object class="GtkBox" id="vbox_comment">
                             <property name="visible">True</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">3</property>
@@ -370,6 +378,7 @@
                                     <property name="wrap_mode">word-char</property>
                                     <property name="left_margin">2</property>
                                     <property name="right_margin">2</property>
+                                    <property name="expand">True</property>
                                   </object>
                                 </child>
                               </object>
@@ -378,11 +387,12 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkHBox" id="hbox_commit">
+                              <object class="GtkBox" id="hbox_commit">
                                 <property name="visible">True</property>
                                 <property name="spacing">3</property>
+                                <property name="orientation">horizontal</property>
                                 <child>
-                                  <object class="GtkVBox" id="vbox1">
+                                  <object class="GtkBox" id="vbox1">
                                     <property name="visible">True</property>
                                     <property name="orientation">vertical</property>
                                     <child>
@@ -450,7 +460,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkVBox" id="vbox_staged">
+                          <object class="GtkBox" id="vbox_staged">
                             <property name="visible">True</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">3</property>
@@ -480,6 +490,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="headers_visible">False</property>
                                     <property name="headers_clickable">False</property>
+                                    <property name="expand">True</property>
                                     <child>
                                       <object class="GtkTreeViewColumn" id="staged_column_icon">
                                         <property name="sizing">fixed</property>

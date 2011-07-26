@@ -9,9 +9,10 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog_vbox_main">
+      <object class="GtkBox" id="dialog_vbox_main">
         <property name="visible">True</property>
         <property name="spacing">2</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkTable" id="table_main">
             <property name="visible">True</property>

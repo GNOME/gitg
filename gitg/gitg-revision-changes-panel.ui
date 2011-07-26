@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <interface>
-  <object class="GtkVBox" id="revision_changes_page">
+  <object class="GtkBox" id="revision_changes_page">
     <property name="visible">True</property>
     <property name="spacing">3</property>
+    <property name="orientation">vertical</property>
     <child>
       <object class="GtkHPaned" id="hpaned_revision_view">
         <property name="visible">True</property>
@@ -19,6 +20,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="headers_visible">False</property>
+                <property name="expand">True</property>
                 <child>
                   <object class="GtkTreeViewColumn" id="revision_files_column_icon">
                     <property name="sizing">fixed</property>
@@ -59,6 +61,7 @@
                 <property name="show_line_numbers">False</property>
                 <property name="tab_width">4</property>
                 <property name="diff_enabled">True</property>
+                <property name="expand">True</property>
               </object>
             </child>
           </object>

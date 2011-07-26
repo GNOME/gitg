@@ -24,15 +24,17 @@
     <property name="default_height">300</property>
     <property name="type_hint">normal</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog_vbox_main">
+      <object class="GtkBox" id="dialog_vbox_main">
         <property name="visible">True</property>
         <property name="spacing">2</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkNotebook" id="notebook_main">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="expand">True</property>
             <child>
-              <object class="GtkVBox" id="vbox_remotes_intern">
+              <object class="GtkBox" id="vbox_remotes_intern">
                 <property name="visible">True</property>
                 <property name="border_width">12</property>
                 <property name="orientation">vertical</property>
@@ -50,6 +52,7 @@
                         <property name="can_focus">True</property>
                         <property name="model">list_store_remotes</property>
                         <property name="rules_hint">True</property>
+                        <property name="expand">True</property>
                         <child>
                           <object class="GtkTreeViewColumn" id="tree_view_remotes_column_name">
                             <property name="title" translatable="yes">Name</property>
@@ -92,8 +95,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="hbox1">
+                  <object class="GtkBox" id="hbox1">
                     <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
                     <child>
                       <object class="GtkButton" id="button_fetch_remote">
                         <property name="label" translatable="yes">Fetch</property>
@@ -158,7 +162,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox_configuration_intern">
+              <object class="GtkBox" id="vbox_configuration_intern">
                 <property name="visible">True</property>
                 <property name="border_width">12</property>
                 <property name="orientation">vertical</property>
@@ -176,8 +180,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="hbox_configuration_message">
+                  <object class="GtkBox" id="hbox_configuration_message">
                     <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
                     <child>
                       <object class="GtkLabel" id="label_spacer">
                         <property name="visible">True</property>
@@ -196,7 +201,8 @@
                         <property name="n_columns">2</property>
                         <property name="column_spacing">6</property>
                         <property name="row_spacing">6</property>
-                        <property name="expand">False</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">False</property>
                         <child>
                           <object class="GtkLabel" id="label_configuration_user_name">
                             <property name="visible">True</property>

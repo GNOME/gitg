@@ -25,23 +25,26 @@
     <property name="default_height">500</property>
     <property name="type_hint">normal</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog_vbox_main">
+      <object class="GtkBox" id="dialog_vbox_main">
         <property name="visible">True</property>
         <property name="spacing">2</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkNotebook" id="notebook1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="expand">True</property>
             <child>
-              <object class="GtkVBox" id="vbox_history">
+              <object class="GtkBox" id="vbox_history">
                 <property name="visible">True</property>
                 <property name="border_width">12</property>
                 <property name="spacing">18</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVBox" id="vbox1">
+                  <object class="GtkBox" id="vbox1">
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="label130">
                         <property name="visible">True</property>
@@ -55,8 +58,9 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox23">
+                      <object class="GtkBox" id="hbox23">
                         <property name="visible">True</property>
+                        <property name="orientation">horizontal</property>
                         <child>
                           <object class="GtkLabel" id="label22">
                             <property name="visible">True</property>
@@ -69,9 +73,10 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkVBox" id="vbox54">
+                          <object class="GtkBox" id="vbox54">
                             <property name="visible">True</property>
                             <property name="spacing">6</property>
+                            <property name="orientation">vertical</property>
                             <child>
                               <object class="GtkCheckButton" id="check_button_main_layout_vertical">
                                 <property name="label" translatable="yes">Use vertical layout</property>
@@ -102,10 +107,11 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkVBox" id="vbox3">
+                  <object class="GtkBox" id="vbox3">
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
                     <property name="expand">False</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="label10">
                         <property name="visible">True</property>
@@ -119,8 +125,9 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox5">
+                      <object class="GtkBox" id="hbox5">
                         <property name="visible">True</property>
+                        <property name="orientation">horizontal</property>
                         <child>
                           <object class="GtkLabel" id="label12">
                             <property name="visible">True</property>
@@ -133,9 +140,10 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkVBox" id="vbox5">
+                          <object class="GtkBox" id="vbox5">
                             <property name="visible">True</property>
                             <property name="spacing">6</property>
+                            <property name="orientation">vertical</property>
                             <child>
                               <object class="GtkCheckButton" id="check_button_history_search_filter">
                                 <property name="label" translatable="yes">Search filters revisions in the history view</property>
@@ -296,15 +304,17 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox_commit">
+              <object class="GtkBox" id="vbox_commit">
                 <property name="visible">True</property>
                 <property name="border_width">12</property>
                 <property name="spacing">18</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVBox" id="vbox11">
+                  <object class="GtkBox" id="vbox11">
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
                     <property name="expand">False</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="label1">
                         <property name="visible">True</property>
@@ -318,8 +328,9 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox9">
+                      <object class="GtkBox" id="hbox9">
                         <property name="visible">True</property>
+                        <property name="orientation">horizontal</property>
                         <child>
                           <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
@@ -332,9 +343,10 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkVBox" id="vbox_commit_message">
+                          <object class="GtkBox" id="vbox_commit_message">
                             <property name="visible">True</property>
                             <property name="spacing">6</property>
+                            <property name="orientation">vertical</property>
                             <child>
                               <object class="GtkCheckButton" id="check_button_show_right_margin">
                                 <property name="label" translatable="yes">Display right _margin</property>
@@ -350,9 +362,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkHBox" id="hbox_right_margin">
+                              <object class="GtkBox" id="hbox_right_margin">
                                 <property name="visible">True</property>
                                 <property name="spacing">6</property>
+                                <property name="orientation">horizontal</property>
                                 <child>
                                   <object class="GtkLabel" id="label_right_margin">
                                     <property name="visible">True</property>
@@ -420,14 +433,16 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox_commit1">
+              <object class="GtkBox" id="vbox_commit1">
                 <property name="visible">True</property>
                 <property name="border_width">12</property>
                 <property name="spacing">18</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVBox" id="vbox2">
+                  <object class="GtkBox" id="vbox2">
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="label_diff_program">
                         <property name="visible">True</property>
@@ -441,8 +456,9 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox1">
+                      <object class="GtkBox" id="hbox1">
                         <property name="visible">True</property>
+                        <property name="orientation">horizontal</property>
                         <child>
                           <object class="GtkLabel" id="label9">
                             <property name="visible">True</property>
@@ -455,9 +471,10 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkVBox" id="vbox_diff_program">
+                          <object class="GtkBox" id="vbox_diff_program">
                             <property name="visible">True</property>
                             <property name="spacing">6</property>
+                            <property name="orientation">vertical</property>
                             <child>
                               <object class="GtkCheckButton" id="check_button_external_diff">
                                 <property name="label" translatable="yes">Allow external diff program</property>
@@ -505,15 +522,17 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox_configure">
+              <object class="GtkBox" id="vbox_configure">
                 <property name="visible">True</property>
                 <property name="border_width">12</property>
                 <property name="spacing">18</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVBox" id="vbox">
+                  <object class="GtkBox" id="vbox">
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
                     <property name="expand">False</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
@@ -527,8 +546,9 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox2">
+                      <object class="GtkBox" id="hbox2">
                         <property name="visible">True</property>
+                        <property name="orientation">horizontal</property>
                         <child>
                           <object class="GtkLabel" id="label7">
                             <property name="visible">True</property>
