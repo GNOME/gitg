@@ -64,6 +64,15 @@
       </_description>
     </key>
   </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.files" path="/org/gnome/gitg/preferences/view/files/">
+    <key name="blame-mode" type="b">
+      <default>false</default>
+      <_summary>Show files view in blame mode</_summary>
+      <_description>
+        Setting that sets files view to blame mode.
+      </_description>
+    </key>
+  </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit" path="/org/gnome/gitg/preferences/commit/">
     <child name="message" schema="org.gnome.gitg.preferences.commit.message" />
   </schema>
