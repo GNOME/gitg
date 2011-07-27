@@ -600,7 +600,7 @@ make_parent_label (GitgRevisionDetailsPanel *self,
 	gtk_label_set_markup (GTK_LABEL(lbl), markup);
 	g_free (markup);
 
-	gtk_misc_set_alignment (GTK_MISC(lbl), 0.0, 0.5);
+	gtk_widget_set_halign (lbl, GTK_ALIGN_START);
 	gtk_container_add (GTK_CONTAINER(ev), lbl);
 
 	gtk_widget_show (ev);
@@ -687,7 +687,7 @@ update_parents (GitgRevisionDetailsPanel *self)
 
 			gtk_widget_show (subject);
 
-			gtk_misc_set_alignment (GTK_MISC(subject), 0.0, 0.5);
+			gtk_widget_set_halign (subject, GTK_ALIGN_START);
 			gtk_label_set_ellipsize (GTK_LABEL(subject), PANGO_ELLIPSIZE_END);
 			gtk_label_set_single_line_mode (GTK_LABEL(subject), TRUE);
 
