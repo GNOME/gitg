@@ -776,14 +776,15 @@ revision_to_text (GitgRepository *repository,
 	gchar **lines;
 	gchar *sha1 = gitg_revision_get_sha1 (revision);
 
-	lines = gitg_shell_run_sync_with_output (gitg_command_new (repository,
-	                                                           "log",
-	                                                           "-1",
-	                                                           "--pretty=format:%h: %s%n%n%b",
-	                                                           sha1,
-	                                                           NULL),
-	                                         FALSE,
-	                                         NULL);
+	gitg_shell_run_sync_with_output (gitg_command_new (repository,
+	                                                   "log",
+	                                                   "-1",
+	                                                   "--pretty=format:%h: %s%n%n%b",
+	                                                   sha1,
+	                                                   NULL),
+	                                 FALSE,
+	                                 &lines,
+	                                 NULL);
 
 	remove_trailing_newlines (lines);
 	gchar *ret = g_strjoinv ("\n", lines);

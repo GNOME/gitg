@@ -587,8 +587,10 @@ update_index_staged (GitgCommit      *commit,
 	GFile *f = gitg_changed_file_get_file (file);
 	gchar *path = gitg_repository_relative (commit->priv->repository, f);
 	gchar *head = gitg_repository_parse_head (commit->priv->repository);
+	gboolean retval;
+	gchar **ret;
 
-	gchar **ret = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
 	                                                                  "diff-index",
 	                                                                  "--no-ext-diff",
 	                                                                  "--cached",
@@ -597,14 +599,16 @@ update_index_staged (GitgCommit      *commit,
 	                                                                  path,
 	                                                                  NULL),
 	                                               FALSE,
+	                                               &ret,
 	                                               NULL);
 
 	g_free (path);
 	g_free (head);
 	g_object_unref (f);
 
-	if (!ret)
+	if (!retval)
 	{
+		g_strfreev (ret);
 		return;
 	}
 
@@ -641,21 +645,23 @@ update_index_unstaged (GitgCommit      *commit,
 {
 	GFile *f = gitg_changed_file_get_file (file);
 	gchar *path = gitg_repository_relative (commit->priv->repository, f);
+	gboolean retval;
 	gchar **ret;
 
-	ret = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
-	                                                          "diff-files",
-	                                                          "--no-ext-diff",
-	                                                          "--",
-	                                                          path,
-	                                                          NULL),
-	                                       FALSE,
-	                                       NULL);
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
+	                                                            "diff-files",
+	                                                            "--no-ext-diff",
+	                                                            "--",
+	                                                            path,
+	                                                            NULL),
+	                                         FALSE,
+	                                         &ret,
+	                                         NULL);
 
 	g_free (path);
 	g_object_unref (f);
 
-	if (ret && *ret)
+	if (retval && ret && *ret)
 	{
 		gitg_changed_file_set_changes (file,
 		                               gitg_changed_file_get_changes (file) |
@@ -668,10 +674,7 @@ update_index_unstaged (GitgCommit      *commit,
 		                               ~GITG_CHANGED_FILE_CHANGES_UNSTAGED);
 	}
 
-	if (ret)
-	{
-		g_strfreev (ret);
-	}
+	g_strfreev (ret);
 }
 
 static void
@@ -885,13 +888,17 @@ comment_parse_subject (gchar const *comment)
 static gboolean
 write_tree (GitgCommit *commit, gchar **tree, GError **error)
 {
-	gchar **lines = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
-	                                                                    "write-tree",
-	                                                                    NULL),
-	                                                 FALSE,
-	                                                 error);
+	gchar **lines;
+	gboolean retval;
 
-	if (!lines || strlen (*lines) != GITG_HASH_SHA_SIZE)
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
+	                                                            "write-tree",
+	                                                            NULL),
+	                                          FALSE,
+	                                          &lines,
+	                                          error);
+
+	if (!retval || !lines || strlen (*lines) != GITG_HASH_SHA_SIZE)
 	{
 		g_strfreev (lines);
 		return FALSE;
@@ -906,15 +913,20 @@ write_tree (GitgCommit *commit, gchar **tree, GError **error)
 static gchar *
 get_signed_off_line (GitgCommit *commit)
 {
-	gchar **user = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
-	                                                                   "config",
-	                                                                   "--get",
-	                                                                   "user.name",
-	                                                                   NULL),
-	                                                FALSE,
-	                                                NULL);
+	gchar **user;
+	gboolean retval;
+	gchar **email;
 
-	if (!user)
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
+	                                                            "config",
+	                                                            "--get",
+	                                                            "user.name",
+	                                                            NULL),
+	                                           FALSE,
+	                                           &user,
+	                                           NULL);
+
+	if (!retval || !user)
 	{
 		return NULL;
 	}
@@ -925,15 +937,16 @@ get_signed_off_line (GitgCommit *commit)
 		return NULL;
 	}
 
-	gchar **email = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
-	                                                                    "config",
-	                                                                    "--get",
-	                                                                    "user.email",
-	                                                                    NULL),
-	                                                 FALSE,
-	                                                 NULL);
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
+	                                                            "config",
+	                                                            "--get",
+	                                                            "user.email",
+	                                                            NULL),
+	                                          FALSE,
+	                                          &email,
+	                                          NULL);
 
-	if (!email)
+	if (!retval || !email)
 	{
 		g_strfreev (user);
 		return NULL;
@@ -959,14 +972,22 @@ set_amend_environment (GitgCommit  *commit,
                        GitgCommand *command)
 {
 	gchar **out;
+	gboolean retval;
 
-	out = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
-	                                                          "cat-file",
-	                                                          "commit",
-	                                                          "HEAD",
-	                                                          NULL),
-	                                       FALSE,
-	                                       NULL);
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
+	                                                           "cat-file",
+	                                                           "commit",
+	                                                           "HEAD",
+	                                                           NULL),
+	                                          FALSE,
+	                                          &out,
+	                                          NULL);
+
+	if (!retval)
+	{
+		g_strfreev (out);
+		return;
+	}
 
 	// Parse author
 	GRegex *r = g_regex_new ("^author (.*) < ([^>]*)> ([0-9]+.*)$",
@@ -1054,6 +1075,7 @@ commit_tree (GitgCommit   *commit,
              GError      **error)
 {
 	gchar *fullcomment;
+	gboolean retval;
 
 	if (signoff)
 	{
@@ -1109,9 +1131,10 @@ commit_tree (GitgCommit   *commit,
 
 	gchar *converted = convert_commit_encoding (commit, fullcomment);
 
-	buffer = gitg_shell_run_sync_with_input_and_output (command,
+	retval = gitg_shell_run_sync_with_input_and_output (command,
 	                                                    FALSE,
 	                                                    converted,
+	                                                    &buffer,
 	                                                    error);
 
 	g_free (head);
@@ -1119,7 +1142,7 @@ commit_tree (GitgCommit   *commit,
 	g_free (converted);
 	g_object_unref (command);
 
-	if (!buffer || !*buffer || strlen (*buffer) != GITG_HASH_SHA_SIZE)
+	if (!retval || !buffer || !*buffer || strlen (*buffer) != GITG_HASH_SHA_SIZE)
 	{
 		g_strfreev (buffer);
 		return FALSE;
@@ -1163,6 +1186,14 @@ gitg_commit_commit (GitgCommit   *commit,
 
 	gchar *tree;
 
+	if (!gitg_repository_run_hook (commit->priv->repository,
+	                               "pre-commit",
+	                               error,
+	                               NULL))
+	{
+		return FALSE;
+	}
+
 	if (!write_tree (commit, &tree, error))
 	{
 		return FALSE;
@@ -1195,6 +1226,11 @@ gitg_commit_commit (GitgCommit   *commit,
 	{
 		return FALSE;
 	}
+
+	gitg_repository_run_hook (commit->priv->repository,
+	                          "post-commit",
+	                          NULL,
+	                          NULL);
 
 	gitg_repository_reload (commit->priv->repository);
 	return TRUE;
@@ -1366,21 +1402,23 @@ gitg_commit_find_changed_file (GitgCommit *commit,
 gchar *
 gitg_commit_amend_message (GitgCommit *commit)
 {
+	gchar **out;
+	gboolean retval;
+
 	g_return_val_if_fail (GITG_IS_COMMIT (commit), NULL);
 
-	gchar **out;
-
-	out = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
-	                                                          "cat-file",
-	                                                          "commit",
-	                                                          "HEAD",
-	                                                          NULL),
-	                                       FALSE,
-	                                       NULL);
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (commit->priv->repository,
+	                                                            "cat-file",
+	                                                            "commit",
+	                                                            "HEAD",
+	                                                            NULL),
+	                                          FALSE,
+	                                          &out,
+	                                          NULL);
 
 	gchar *ret = NULL;
 
-	if (out)
+	if (retval && out)
 	{
 		gchar **ptr = out;
 

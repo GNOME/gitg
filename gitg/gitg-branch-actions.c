@@ -378,22 +378,24 @@ static gchar *
 get_stash_refspec (GitgRepository *repository, GitgRef *stash)
 {
 	gchar **out;
+	gboolean retval;
 
-	out = gitg_shell_run_sync_with_output (gitg_command_new (repository,
-	                                                          "log",
-	                                                          "--no-color",
-	                                                          "--pretty=oneline",
-	                                                          "-g",
-	                                                          "refs/stash",
-	                                                          NULL),
-	                                       FALSE,
-	                                       NULL);
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (repository,
+	                                                            "log",
+	                                                            "--no-color",
+	                                                            "--pretty=oneline",
+	                                                            "-g",
+	                                                            "refs/stash",
+	                                                            NULL),
+	                                         FALSE,
+	                                         &out,
+	                                         NULL);
 
 	gchar **ptr = out;
 	gchar *sha1 = gitg_hash_hash_to_sha1_new (gitg_ref_get_hash (stash));
 	gchar *ret = NULL;
 
-	while (ptr && *ptr)
+	while (retval && ptr && *ptr)
 	{
 		if (g_str_has_prefix (*ptr, sha1))
 		{

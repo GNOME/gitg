@@ -611,17 +611,22 @@ parse_ref_intern (GitgRepository *repository,
                   gchar const    *ref,
                   gboolean        symbolic)
 {
-	gchar **ret = gitg_shell_run_sync_with_output (gitg_command_new (repository,
-	                                                                  "rev-parse",
-	                                                                  "--verify",
-	                                                                  symbolic ? "--symbolic-full-name" : ref,
-	                                                                  symbolic ? ref : NULL,
-	                                                                  NULL),
-	                                               FALSE,
-	                                               NULL);
+	gchar **ret;
+	gboolean retval;
 
-	if (!ret)
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (repository,
+	                                                            "rev-parse",
+	                                                            "--verify",
+	                                                            symbolic ? "--symbolic-full-name" : ref,
+	                                                            symbolic ? ref : NULL,
+	                                                            NULL),
+	                                          FALSE,
+	                                          &ret,
+	                                          NULL);
+
+	if (!retval || !ret)
 	{
+		g_strfreev (ret);
 		return NULL;
 	}
 
@@ -1407,6 +1412,7 @@ load_current_ref (GitgRepository *self)
 	gchar *ret = NULL;
 	gint i;
 	gint numargs;
+	gboolean retval;
 
 	if (self->priv->last_args == NULL)
 	{
@@ -1426,12 +1432,14 @@ load_current_ref (GitgRepository *self)
 		argv[2 + i] = self->priv->last_args[i];
 	}
 
-	out = gitg_shell_run_sync_with_output (gitg_command_newv (self, argv),
-	                                       FALSE,
-	                                       NULL);
+	retval = gitg_shell_run_sync_with_output (gitg_command_newv (self, argv),
+	                                          FALSE,
+	                                          &out,
+	                                          NULL);
 
-	if (!out)
+	if (!retval || !out)
 	{
+		g_strfreev (out);
 		return NULL;
 	}
 
@@ -1448,17 +1456,20 @@ static void
 load_refs (GitgRepository *self)
 {
 	gchar **refs;
+	gboolean retval;
 
-	refs = gitg_shell_run_sync_with_output (gitg_command_new (self,
-	                                                           "for-each-ref",
-	                                                           "--format=%(refname) %(objectname) %(*objectname)",
-	                                                           "refs",
-	                                                           NULL),
-	                                        FALSE,
-	                                        NULL);
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (self,
+	                                                            "for-each-ref",
+	                                                            "--format=%(refname) %(objectname) %(*objectname)",
+	                                                            "refs",
+	                                                            NULL),
+	                                          FALSE,
+	                                          &refs,
+	                                          NULL);
 
-	if (!refs)
+	if (!retval || !refs)
 	{
+		g_strfreev (refs);
 		return;
 	}
 
@@ -1913,4 +1924,118 @@ gitg_repository_exists (GitgRepository *repository)
 
 	return g_file_query_exists (repository->priv->git_dir, NULL) &&
 	       g_file_query_exists (repository->priv->work_tree, NULL);
+}
+
+gboolean
+gitg_repository_run_hook (GitgRepository       *repository,
+                          gchar const          *name,
+                          GError              **error,
+                          ...)
+{
+	GFile *hooksdir;
+	GFile *hookfile;
+	GitgCommand *command;
+	gchar *path;
+	GPtrArray *args;
+	gchar **argsv;
+	gchar **ret;
+	va_list ap;
+	gchar const *arg;
+	GFileInfo *info;
+	gboolean canexec;
+	gboolean retval;
+
+	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
+
+	if (repository->priv->git_dir == NULL)
+	{
+		return FALSE;
+	}
+
+	hooksdir = g_file_get_child (repository->priv->git_dir, "hooks");
+	hookfile = g_file_get_child (hooksdir, name);
+	g_object_unref (hooksdir);
+
+	info = g_file_query_info (hookfile,
+	                          G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE,
+	                          G_FILE_QUERY_INFO_NONE,
+	                          NULL,
+	                          NULL);
+
+	canexec = info &&
+	          g_file_info_get_attribute_boolean (info,
+	                                             G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE);
+
+	if (info)
+	{
+		g_object_unref (info);
+	}
+
+	if (!canexec)
+	{
+		/* It's considered a success if the hook cannot be executed */
+		g_object_unref (hookfile);
+		return TRUE;
+	}
+
+	path = g_file_get_path (hookfile);
+	g_object_unref (hookfile);
+
+	args = g_ptr_array_new ();
+	g_ptr_array_add (args, path);
+
+	va_start (ap, error);
+
+	while ((arg = va_arg (ap, gchar const *)) != NULL)
+	{
+		g_ptr_array_add (args, g_strdup (arg));
+	}
+
+	va_end (ap);
+
+	g_ptr_array_add (args, NULL);
+	argsv = (gchar **)g_ptr_array_free (args, FALSE);
+
+	command = gitg_command_newv (NULL,
+	                             (gchar const * const *)argsv);
+
+	g_strfreev (argsv);
+
+	retval = gitg_shell_run_sync_with_output (command,
+	                                          TRUE,
+	                                          &ret,
+	                                          error);
+
+	if (!retval)
+	{
+		if (error)
+		{
+			gchar *joined;
+
+			joined = g_strjoinv ("", ret);
+
+			if (*error)
+			{
+				g_prefix_error (error,
+				                "Hook `%s' failed: %s",
+				                name,
+				                joined);
+			}
+			else
+			{
+				g_set_error (error,
+				             G_IO_ERROR,
+				             G_IO_ERROR_FAILED,
+				             "Hook `%s' failed: %s",
+				             name,
+				             joined);
+			}
+
+			g_free (joined);
+		}
+	}
+
+	g_strfreev (ret);
+
+	return retval;
 }

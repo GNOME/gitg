@@ -2587,7 +2587,17 @@ on_commit_clicked (GtkButton      *button,
 			show_error (view, _("Your user name or email could not be retrieved for use in the sign off message"));
 		}
 		else
-			show_error (view, _("Something went wrong while trying to commit"));
+		{
+			gchar *msg;
+
+			msg = g_strconcat (_("Something went wrong while trying to commit"),
+			                   ":\n\n",
+			                   error->message,
+			                   NULL);
+
+			show_error (view, msg);
+			g_free (msg);
+		}
 
 		if (error)
 		{

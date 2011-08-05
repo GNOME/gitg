@@ -663,14 +663,16 @@ gitg_shell_get_buffer_size (GitgShell *shell)
 	return shell->priv->buffer_size;
 }
 
-gchar **
-gitg_shell_run_sync_with_output (GitgCommand  *command,
-                                 gboolean      preserve_line_endings,
-                                 GError      **error)
+gboolean
+gitg_shell_run_sync_with_output (GitgCommand   *command,
+                                 gboolean       preserve_line_endings,
+                                 gchar       ***output,
+                                 GError       **error)
 {
-	g_return_val_if_fail (GITG_IS_COMMAND (command), NULL);
+	g_return_val_if_fail (GITG_IS_COMMAND (command), FALSE);
 
 	return gitg_shell_run_sync_with_outputv (preserve_line_endings,
+	                                         output,
 	                                         error,
 	                                         command,
 	                                         NULL);
@@ -687,16 +689,22 @@ collect_update (GitgShell           *shell,
 	}
 }
 
-gchar **
-gitg_shell_run_sync_with_input_and_output_list (GitgCommand **commands,
-                                                gboolean      preserve_line_endings,
-                                                const gchar  *input,
-                                                GError      **error)
+gboolean
+gitg_shell_run_sync_with_input_and_output_list (GitgCommand  **commands,
+                                                gboolean       preserve_line_endings,
+                                                const gchar   *input,
+                                                gchar       ***output,
+                                                GError       **error)
 {
 	GitgShell *shell;
 	GPtrArray *ret;
 	gboolean res;
-	gchar **val;
+	gchar **out;
+
+	if (output)
+	{
+		*output = NULL;
+	}
 
 	shell = gitg_shell_new_synchronized (1000);
 
@@ -722,34 +730,41 @@ gitg_shell_run_sync_with_input_and_output_list (GitgCommand **commands,
 	}
 
 	res = gitg_shell_run_list (shell, commands, error);
-
 	g_ptr_array_add (ret, NULL);
+	out = (gchar **)g_ptr_array_free (ret, FALSE);
+
+	if (output)
+	{
+		*output = out;
+	}
+	else
+	{
+		g_strfreev (out);
+	}
 
 	if (!res || gitg_io_get_exit_status (GITG_IO (shell)) != 0)
 	{
-		g_strfreev ((gchar **)g_ptr_array_free (ret, FALSE));
 		g_object_unref (shell);
 
-		return NULL;
+		return FALSE;
 	}
 
-	val = (gchar **)g_ptr_array_free (ret, FALSE);
 	g_object_unref (shell);
 
-	return val;
-
+	return TRUE;
 }
 
-static gchar **
-gitg_shell_run_sync_with_input_and_outputva (gboolean      preserve_line_endings,
-                                             const gchar  *input,
-                                             va_list       ap,
-                                             GError      **error)
+static gboolean
+gitg_shell_run_sync_with_input_and_outputva (gboolean       preserve_line_endings,
+                                             const gchar   *input,
+                                             gchar       ***output,
+                                             va_list        ap,
+                                             GError       **error)
 {
 	GPtrArray *commands;
 	GitgCommand *cmd;
 	GitgCommand **cmds;
-	gchar **ret;
+	gboolean ret;
 
 	commands = g_ptr_array_new ();
 
@@ -764,44 +779,51 @@ gitg_shell_run_sync_with_input_and_outputva (gboolean      preserve_line_endings
 	ret = gitg_shell_run_sync_with_input_and_output_list (cmds,
 	                                                      preserve_line_endings,
 	                                                      input,
+	                                                      output,
 	                                                      error);
 
 	g_free (cmds);
 	return ret;
 }
 
-static gchar **
-gitg_shell_run_sync_with_outputva (gboolean   preserve_line_endings,
-                                   va_list    ap,
-                                   GError   **error)
+static gboolean
+gitg_shell_run_sync_with_outputva (gboolean    preserve_line_endings,
+                                   gchar    ***output,
+                                   va_list     ap,
+                                   GError    **error)
 {
 	return gitg_shell_run_sync_with_input_and_outputva (preserve_line_endings,
 	                                                    NULL,
+	                                                    output,
 	                                                    ap,
 	                                                    error);
 }
 
-gchar **
-gitg_shell_run_sync_with_output_list (GitgCommand **commands,
-                                      gboolean      preserve_line_endings,
-                                      GError      **error)
+gboolean
+gitg_shell_run_sync_with_output_list (GitgCommand  **commands,
+                                      gboolean       preserve_line_endings,
+                                      gchar       ***output,
+                                      GError       **error)
 {
 	return gitg_shell_run_sync_with_input_and_output_list (commands,
 	                                                       preserve_line_endings,
 	                                                       NULL,
+	                                                       output,
 	                                                       error);
 }
 
-gchar **
-gitg_shell_run_sync_with_outputv (gboolean   preserve_line_endings,
-                                  GError   **error,
+gboolean
+gitg_shell_run_sync_with_outputv (gboolean    preserve_line_endings,
+                                  gchar    ***output,
+                                  GError    **error,
                                   ...)
 {
 	va_list ap;
-	gchar **ret;
+	gboolean ret;
 
 	va_start (ap, error);
 	ret = gitg_shell_run_sync_with_outputva (preserve_line_endings,
+	                                         output,
 	                                         ap,
 	                                         error);
 	va_end (ap);
@@ -822,19 +844,7 @@ gboolean
 gitg_shell_run_sync_list (GitgCommand **commands,
                           GError      **error)
 {
-	gchar **res;
-
-	res = gitg_shell_run_sync_with_output_list (commands, FALSE, error);
-
-	if (res)
-	{
-		g_strfreev (res);
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+	return gitg_shell_run_sync_with_output_list (commands, FALSE, NULL, error);
 }
 
 gboolean
@@ -842,21 +852,13 @@ gitg_shell_run_syncv (GError **error,
                       ...)
 {
 	va_list ap;
-	gchar **res;
+	gboolean res;
 
 	va_start (ap, error);
-	res = gitg_shell_run_sync_with_outputva (FALSE, ap, error);
+	res = gitg_shell_run_sync_with_outputva (FALSE, NULL, ap, error);
 	va_end (ap);
 
-	if (res)
-	{
-		g_strfreev (res);
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+	return res;
 }
 
 gboolean
@@ -874,22 +876,11 @@ gitg_shell_run_sync_with_input_list (GitgCommand  **commands,
                                      const gchar  *input,
                                      GError      **error)
 {
-	gchar **ret;
-
-	ret = gitg_shell_run_sync_with_input_and_output_list (commands,
-	                                                      FALSE,
-	                                                      input,
-	                                                      error);
-
-	if (ret)
-	{
-		g_strfreev (ret);
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+	return gitg_shell_run_sync_with_input_and_output_list (commands,
+	                                                       FALSE,
+	                                                       input,
+	                                                       NULL,
+	                                                       error);
 }
 
 gboolean
@@ -898,53 +889,50 @@ gitg_shell_run_sync_with_inputv (const gchar  *input,
                                  ...)
 {
 	va_list ap;
-	gchar **ret;
+	gboolean ret;
 
 	va_start (ap, error);
 	ret = gitg_shell_run_sync_with_input_and_outputva (FALSE,
 	                                                   input,
+	                                                   NULL,
 	                                                   ap,
 	                                                   error);
 	va_end (ap);
 
-	if (ret)
-	{
-		g_strfreev (ret);
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+	return ret;
 }
 
-gchar **
-gitg_shell_run_sync_with_input_and_output (GitgCommand  *command,
-                                           gboolean      preserve_line_endings,
-                                           const gchar  *input,
-                                           GError      **error)
+gboolean
+gitg_shell_run_sync_with_input_and_output (GitgCommand    *command,
+                                           gboolean        preserve_line_endings,
+                                           const gchar    *input,
+                                           gchar        ***output,
+                                           GError        **error)
 {
-	g_return_val_if_fail (GITG_IS_COMMAND (command), NULL);
+	g_return_val_if_fail (GITG_IS_COMMAND (command), FALSE);
 
 	return gitg_shell_run_sync_with_input_and_outputv (preserve_line_endings,
 	                                                   input,
+	                                                   output,
 	                                                   error,
 	                                                   command,
 	                                                   NULL);
 }
 
-gchar **
-gitg_shell_run_sync_with_input_and_outputv (gboolean      preserve_line_endings,
-                                            const gchar  *input,
-                                            GError      **error,
+gboolean
+gitg_shell_run_sync_with_input_and_outputv (gboolean       preserve_line_endings,
+                                            const gchar   *input,
+                                            gchar       ***output,
+                                            GError       **error,
                                             ...)
 {
 	va_list ap;
-	gchar **ret;
+	gboolean ret;
 
 	va_start (ap, error);
 	ret = gitg_shell_run_sync_with_input_and_outputva (preserve_line_endings,
 	                                                   input,
+	                                                   output,
 	                                                   ap,
 	                                                   error);
 	va_end (ap);

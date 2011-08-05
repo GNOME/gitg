@@ -103,6 +103,11 @@ gchar **gitg_repository_get_remotes (GitgRepository *repository);
 GSList const *gitg_repository_get_ref_pushes (GitgRepository *repository, GitgRef *ref);
 gchar const **gitg_repository_get_current_selection (GitgRepository *repository);
 
+gboolean gitg_repository_run_hook (GitgRepository       *repository,
+                                   gchar const          *name,
+                                   GError              **error,
+                                   ...) G_GNUC_NULL_TERMINATED;
+
 G_END_DECLS
 
 #endif /* __GITG_REPOSITORY_H__ */

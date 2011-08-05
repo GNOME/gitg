@@ -165,17 +165,20 @@ test_output (RepositoryInfo *info,
              gconstpointer   data)
 {
 	gchar **ret;
+	gboolean retval;
 	GError *error = NULL;
 
-	ret = gitg_shell_run_sync_with_output (gitg_command_new (info->repository,
-	                                                          "rev-parse",
-	                                                          "HEAD",
-	                                                          NULL),
-	                                       FALSE,
-	                                       &error);
+	retval = gitg_shell_run_sync_with_output (gitg_command_new (info->repository,
+	                                                            "rev-parse",
+	                                                            "HEAD",
+	                                                            NULL),
+	                                          FALSE,
+	                                          &ret,
+	                                          &error);
 
 	g_assert_no_error (error);
 
+	g_assert (retval);
 	g_assert (ret);
 	g_assert (g_strv_length (ret) == 1);
 
@@ -188,16 +191,19 @@ test_input (void)
 	gchar **ret;
 	gchar const *input = "Hello world";
 	GError *error = NULL;
+	gboolean retval;
 
-	ret = gitg_shell_run_sync_with_input_and_output (gitg_command_new (NULL,
-	                                                                    "cat",
-	                                                                    "-",
-	                                                                    NULL),
-	                                                 FALSE,
-	                                                 input,
-	                                                 &error);
+	retval = gitg_shell_run_sync_with_input_and_output (gitg_command_new (NULL,
+	                                                                      "cat",
+	                                                                      "-",
+	                                                                      NULL),
+	                                                   FALSE,
+	                                                   input,
+	                                                   &ret,
+	                                                   &error);
 
 	g_assert_no_error (error);
+	g_assert (retval);
 	g_assert (ret);
 
 	g_assert (g_strv_length (ret) == 1);
@@ -210,14 +216,17 @@ test_pipe (void)
 	gchar **ret;
 	GError *error = NULL;
 	gchar const *input = "Hello world";
+	gboolean retval;
 
-	ret = gitg_shell_run_sync_with_outputv (FALSE,
-	                                        &error,
-	                                        gitg_command_new (NULL, "echo", input, NULL),
-	                                        gitg_command_new (NULL, "cat", "-", NULL),
-	                                        NULL);
+	retval = gitg_shell_run_sync_with_outputv (FALSE,
+	                                           &ret,
+	                                           &error,
+	                                           gitg_command_new (NULL, "echo", input, NULL),
+	                                           gitg_command_new (NULL, "cat", "-", NULL),
+	                                           NULL);
 
 	g_assert_no_error (error);
+	g_assert (retval);
 	g_assert (ret);
 
 	g_assert (g_strv_length (ret) == 1);
@@ -228,6 +237,7 @@ static void
 test_pipestr (void)
 {
 	gchar **ret;
+	gboolean retval;
 	GError *error = NULL;
 	gchar const *input = "Hello world";
 	gchar *cmdstr;
@@ -240,11 +250,13 @@ test_pipestr (void)
 	g_assert_no_error (error);
 	g_assert (commands);
 
-	ret = gitg_shell_run_sync_with_output_list (commands,
-	                                            FALSE,
-	                                            &error);
+	retval = gitg_shell_run_sync_with_output_list (commands,
+	                                               FALSE,
+	                                               &ret,
+	                                               &error);
 
 	g_assert_no_error (error);
+	g_assert (retval);
 	g_assert (ret);
 
 	g_assert (g_strv_length (ret) == 1);

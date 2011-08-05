@@ -100,16 +100,19 @@ gboolean   gitg_shell_runv                      (GitgShell     *shell,
                                                  GError       **error,
                                                 ...) G_GNUC_NULL_TERMINATED;
 
-gchar    **gitg_shell_run_sync_with_output      (GitgCommand  *command,
-                                                 gboolean      preserve_line_endings,
-                                                 GError      **error);
+gboolean   gitg_shell_run_sync_with_output      (GitgCommand   *command,
+                                                 gboolean       preserve_line_endings,
+                                                 gchar       ***output,
+                                                 GError       **error);
 
-gchar    **gitg_shell_run_sync_with_output_list (GitgCommand **commands,
-                                                 gboolean      preserve_line_endings,
-                                                 GError      **error);
+gboolean   gitg_shell_run_sync_with_output_list (GitgCommand  **commands,
+                                                 gboolean       preserve_line_endings,
+                                                 gchar       ***output,
+                                                 GError       **error);
 
-gchar    **gitg_shell_run_sync_with_outputv     (gboolean      preserve_line_endings,
-                                                 GError      **error,
+gboolean   gitg_shell_run_sync_with_outputv     (gboolean       preserve_line_endings,
+                                                 gchar       ***output,
+                                                 GError       **error,
                                                  ...) G_GNUC_NULL_TERMINATED;
 
 gboolean   gitg_shell_run_sync                  (GitgCommand  *command,
@@ -133,19 +136,22 @@ gboolean   gitg_shell_run_sync_with_inputv      (const gchar  *input,
                                                  GError      **error,
                                                  ...) G_GNUC_NULL_TERMINATED;
 
-gchar    **gitg_shell_run_sync_with_input_and_output (GitgCommand  *command,
-                                                      gboolean      preserve_line_endings,
-                                                      const gchar  *input,
-                                                      GError      **error);
+gboolean   gitg_shell_run_sync_with_input_and_output (GitgCommand   *command,
+                                                      gboolean       preserve_line_endings,
+                                                      const gchar   *input,
+                                                      gchar       ***output,
+                                                      GError       **error);
 
-gchar    **gitg_shell_run_sync_with_input_and_output_list (GitgCommand **commands,
-                                                           gboolean      preserve_line_endings,
-                                                           const gchar  *input,
-                                                           GError      **error);
+gboolean   gitg_shell_run_sync_with_input_and_output_list (GitgCommand  **commands,
+                                                           gboolean       preserve_line_endings,
+                                                           const gchar   *input,
+                                                           gchar       ***output,
+                                                           GError       **error);
 
-gchar    **gitg_shell_run_sync_with_input_and_outputv (gboolean      preserve_line_endings,
-                                                       const gchar  *input,
-                                                       GError      **error,
+gboolean   gitg_shell_run_sync_with_input_and_outputv (gboolean       preserve_line_endings,
+                                                       const gchar   *input,
+                                                       gchar       ***output,
+                                                       GError       **error,
                                                        ...) G_GNUC_NULL_TERMINATED;
 
 G_END_DECLS
