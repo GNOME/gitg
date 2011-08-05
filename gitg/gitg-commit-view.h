@@ -40,18 +40,21 @@ typedef struct _GitgCommitView			GitgCommitView;
 typedef struct _GitgCommitViewClass		GitgCommitViewClass;
 typedef struct _GitgCommitViewPrivate	GitgCommitViewPrivate;
 
-struct _GitgCommitView {
+struct _GitgCommitView
+{
 	GtkVPaned parent;
 
 	GitgCommitViewPrivate *priv;
 };
 
-struct _GitgCommitViewClass {
+struct _GitgCommitViewClass
+{
 	GtkVPanedClass parent_class;
 };
 
-GType gitg_commit_view_get_type (void) G_GNUC_CONST;
-void gitg_commit_view_set_repository(GitgCommitView *view, GitgRepository *repository);
+GType gitg_commit_view_get_type       (void) G_GNUC_CONST;
+void  gitg_commit_view_set_repository (GitgCommitView *view,
+                                       GitgRepository *repository);
 
 G_END_DECLS
 
