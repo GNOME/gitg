@@ -2269,6 +2269,16 @@ on_staged_unstaged_button_press_before (GtkWidget      *widget,
                                         GdkEventButton *event,
                                         GitgCommitView *view)
 {
+	if (event->button == 1 &&
+	    column_icon_test (GTK_TREE_VIEW (widget),
+	                      event->x,
+	                      event->y,
+	                      NULL))
+	{
+		/* Block selection by treeview when clicking on the icon */
+		return TRUE;
+	}
+
 	if (event->button != 3)
 	{
 		return FALSE;
@@ -2354,7 +2364,38 @@ on_unstaged_button_press (GtkWidget      *widget,
 	                     event->y,
 	                     &file))
 	{
+		GList *files = NULL;
+
 		gitg_commit_stage (view->priv->commit, file, NULL, NULL);
+
+		/* If the file is currently selected in the 'staged' tree,
+		   then refresh the diff */
+		get_selected_files (view->priv->tree_view_staged,
+		                    &files,
+		                    NULL,
+		                    NULL,
+		                    NULL);
+
+		if (files && !files->next)
+		{
+			GFile *f;
+
+			f = gitg_changed_file_get_file (files->data);
+
+			if (gitg_changed_file_equal (file, f))
+			{
+				GtkTreeSelection *selection;
+
+				selection = gtk_tree_view_get_selection (
+					view->priv->tree_view_staged);
+
+				staged_selection_changed (selection, view);
+			}
+
+			g_object_unref (f);
+		}
+
+		g_list_free_full (files, (GDestroyNotify)g_object_unref);
 		g_object_unref (file);
 	}
 	else if (event->button == 3)
@@ -2382,7 +2423,36 @@ on_staged_button_press (GtkWidget      *widget,
 	                      event->y,
 	                      &file))
 	{
+		GList *files = NULL;
+
 		gitg_commit_unstage (view->priv->commit, file, NULL, NULL);
+
+		/* If the file is currently selected in the 'unstaged' tree,
+		   then refresh the diff */
+		get_selected_files (view->priv->tree_view_unstaged,
+		                    &files,
+		                    NULL,
+		                    NULL,
+		                    NULL);
+
+		if (files && !files->next)
+		{
+			GFile *f;
+
+			f = gitg_changed_file_get_file (files->data);
+
+			if (gitg_changed_file_equal (file, f))
+			{
+				GtkTreeSelection *selection;
+
+				selection = gtk_tree_view_get_selection (
+					view->priv->tree_view_unstaged);
+
+				unstaged_selection_changed (selection, view);
+			}
+		}
+
+		g_list_free_full (files, (GDestroyNotify)g_object_unref);
 		g_object_unref (file);
 	}
 	else if (event->button == 3)
