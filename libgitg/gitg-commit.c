@@ -307,21 +307,33 @@ add_files (GitgCommit  *commit,
 
 	while ((line = *buffer++) != NULL)
 	{
-		gchar **parts = g_strsplit_set (line, " \t", 0);
+		gchar **parts = g_strsplit (line, " ", 5);
 		guint len = g_strv_length (parts);
 
-		if (len < 6)
+		gchar **subparts = NULL;
+
+		if (len > 4)
+		{
+			subparts = g_strsplit (parts[4], "\t", 2);
+		}
+
+		guint sublen = g_strv_length (subparts);
+
+		if (len < 5 || sublen < 2)
 		{
 			g_warning ("Invalid line: %s (%d)", line, len);
 			g_strfreev (parts);
+			g_strfreev (subparts);
 			continue;
 		}
+
+		/* Also split status and file path now */
 
 		gchar const *mode = parts[0] + 1;
 		gchar const *sha = parts[2];
 
 		GFile *work_tree = gitg_repository_get_work_tree (commit->priv->repository);
-		GFile *file = g_file_get_child (work_tree, parts[5]);
+		GFile *file = g_file_get_child (work_tree, subparts[1]);
 
 		g_object_unref (work_tree);
 
@@ -333,7 +345,7 @@ add_files (GitgCommit  *commit,
 			GitgChangedFileChanges changes = gitg_changed_file_get_changes (f);
 
 			g_object_set_data (G_OBJECT (f), CAN_DELETE_KEY, NULL);
-			update_changed_file_status (f, parts[4], mode);
+			update_changed_file_status (f, subparts[0], mode);
 
 			if (cached)
 			{
@@ -349,18 +361,21 @@ add_files (GitgCommit  *commit,
 
 			gitg_changed_file_set_changes (f, changes);
 
-			if ((changes & GITG_CHANGED_FILE_CHANGES_CACHED) && (changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED))
+			if ((changes & GITG_CHANGED_FILE_CHANGES_CACHED) &&
+			    (changes & GITG_CHANGED_FILE_CHANGES_UNSTAGED))
 			{
 				gitg_changed_file_set_status (f, GITG_CHANGED_FILE_STATUS_MODIFIED);
 			}
 
 			g_object_unref (file);
 			g_strfreev (parts);
+			g_strfreev (subparts);
+
 			continue;
 		}
 
 		f = gitg_changed_file_new (file);
-		update_changed_file_status (f, parts[4], mode);
+		update_changed_file_status (f, subparts[0], mode);
 
 		gitg_changed_file_set_sha (f, sha);
 		gitg_changed_file_set_mode (f, mode);
@@ -376,6 +391,7 @@ add_files (GitgCommit  *commit,
 		g_signal_emit (commit, commit_signals[INSERTED], 0, f);
 
 		g_strfreev (parts);
+		g_strfreev (subparts);
 	}
 }
 
