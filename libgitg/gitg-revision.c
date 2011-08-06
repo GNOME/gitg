@@ -354,18 +354,34 @@ gitg_revision_get_lane (GitgRevision *revision)
 gchar *
 gitg_revision_get_format_patch_name (GitgRevision *revision)
 {
-	gchar *ret = g_strdup (revision->subject);
-	gchar *ptr = ret;
+	GString *ret;
+	gboolean lastisspace = FALSE;
+	gchar const *ptr;
+
+	ret = g_string_new ("");
+	ptr = revision->subject;
 
 	do
 	{
-		if (g_utf8_get_char (ptr) == ' ')
-		{
-			*ptr = '-';
-		}
-	} while (* (ptr = g_utf8_next_char (ptr)));
+		gunichar c;
 
-	return ret;
+		c = g_utf8_get_char (ptr);
+
+		if (c == ' ' || c == '/')
+		{
+			if (!lastisspace)
+			{
+				g_string_append_c (ret, '-');
+				lastisspace = TRUE;
+			}
+		}
+		else
+		{
+			g_string_append_unichar (ret, c);
+		}
+	} while (*(ptr = g_utf8_next_char (ptr)));
+
+	return g_string_free (ret, FALSE);
 }
 
 static gchar *
