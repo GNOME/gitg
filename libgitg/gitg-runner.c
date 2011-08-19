@@ -413,6 +413,57 @@ process_watch_cb (GPid        pid,
 	}
 }
 
+static void
+debug_runner_command (GitgRunner *runner)
+{
+	gchar *argstr;
+	gchar const * const *envs;
+	GFile *wd;
+
+	argstr = g_strjoinv (" ", (gchar **)gitg_command_get_arguments (runner->priv->command));
+
+	gitg_debug (GITG_DEBUG_SHELL,
+	            "Running command: %s", argstr);
+
+	g_free (argstr);
+
+	envs = gitg_command_get_environment (runner->priv->command);
+
+	if (envs)
+	{
+		gchar *environment;
+		environment = g_strjoinv (", ", (gchar **)envs);
+
+		gitg_debug (GITG_DEBUG_SHELL,
+		            "Environment: %s", environment);
+
+		g_free (environment);
+	}
+	else
+	{
+		gitg_debug (GITG_DEBUG_SHELL,
+		            "Environment: None");
+	}
+
+	wd = gitg_command_get_working_directory (runner->priv->command);
+
+	if (wd)
+	{
+		gchar *path;
+
+		path = g_file_get_path (wd);
+
+		gitg_debug (GITG_DEBUG_SHELL, "CWD: %s", path);
+
+		g_free (path);
+		g_object_unref (wd);
+	}
+	else
+	{
+		gitg_debug (GITG_DEBUG_SHELL, "CWD: None\n");
+	}
+}
+
 void
 gitg_runner_run (GitgRunner *runner)
 {
@@ -442,6 +493,11 @@ gitg_runner_run (GitgRunner *runner)
 	}
 
 	start_input = gitg_io_get_input (GITG_IO (runner));
+
+	if (gitg_debug_enabled (GITG_DEBUG_SHELL))
+	{
+		debug_runner_command (runner);
+	}
 
 	ret = g_spawn_async_with_pipes (wd_path,
 	                                (gchar **)gitg_command_get_arguments (runner->priv->command),
