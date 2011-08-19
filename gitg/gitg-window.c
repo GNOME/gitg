@@ -1916,9 +1916,15 @@ gitg_window_load_repository (GitgWindow   *window,
 }
 
 static GFile *
-find_dot_git (GFile *location)
+find_dot_git (GFile    *location,
+              gboolean *from_first)
 {
 	location = g_file_dup (location);
+
+	if (from_first)
+	{
+		*from_first = TRUE;
+	}
 
 	do
 	{
@@ -1934,6 +1940,11 @@ find_dot_git (GFile *location)
 			location = tmp;
 
 			break;
+		}
+
+		if (from_first)
+		{
+			*from_first = FALSE;
 		}
 
 		g_object_unref (tmp);
@@ -1965,13 +1976,14 @@ load_repository_for_command_line (GitgWindow   *window,
 		gchar *work_tree_path = NULL;
 		gchar *activatable = NULL;
 		gchar *action = NULL;
+		gboolean from_first;
 
 		first_arg = g_file_new_for_commandline_arg (argv[0]);
 		uri = g_file_get_uri (first_arg);
 
 		if (!gitg_uri_parse (uri, &work_tree_path, &sel, &activatable, &action))
 		{
-			git_dir = find_dot_git (first_arg);
+			git_dir = find_dot_git (first_arg, &from_first);
 		}
 		else
 		{
@@ -1984,7 +1996,7 @@ load_repository_for_command_line (GitgWindow   *window,
 		{
 			gint offset;
 
-			if (git_dir && !g_file_equal (git_dir, first_arg))
+			if (git_dir && !from_first)
 			{
 				offset = 0;
 			}
@@ -2019,7 +2031,7 @@ load_repository_for_command_line (GitgWindow   *window,
 		gchar *cwd = g_get_current_dir ();
 
 		GFile *file = g_file_new_for_path (cwd);
-		git_dir = find_dot_git (file);
+		git_dir = find_dot_git (file, NULL);
 
 		g_free (cwd);
 		g_object_unref (file);
