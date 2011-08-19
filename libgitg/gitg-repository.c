@@ -1957,6 +1957,7 @@ gitg_repository_run_hook (GitgRepository       *repository,
 	gboolean retval;
 	GitgShell *shell;
 	GPtrArray *ptrar;
+	GFile *index_file;
 
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
 
@@ -2011,6 +2012,19 @@ gitg_repository_run_hook (GitgRepository       *repository,
 
 	command = gitg_command_newv (NULL,
 	                             (gchar const * const *)argsv);
+
+	gitg_command_set_working_directory (command, repository->priv->work_tree);
+
+	path = g_file_get_path (repository->priv->git_dir);
+	gitg_command_add_environment (command, "GIT_DIR", path, NULL);
+	g_free (path);
+
+	index_file = g_file_get_child (repository->priv->git_dir, "index");
+	path = g_file_get_path (index_file);
+	g_object_unref (index_file);
+
+	gitg_command_add_environment (command, "GIT_INDEX_FILE", path, NULL);
+	g_free (path);
 
 	g_strfreev (argsv);
 
