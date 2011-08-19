@@ -1979,15 +1979,25 @@ load_repository_for_command_line (GitgWindow   *window,
 		}
 
 		g_free (uri);
-		g_object_unref (first_arg);
 
 		if (git_dir || (work_tree && g_file_query_exists (work_tree, NULL)))
 		{
+			gint offset;
+
+			if (git_dir && !g_file_equal (git_dir, first_arg))
+			{
+				offset = 0;
+			}
+			else
+			{
+				offset = 1;
+			}
+
 			ret = load_repository (window,
 			                       git_dir,
 			                       work_tree,
-			                       argc - 1,
-			                       argv + 1,
+			                       argc - offset,
+			                       argv + offset,
 			                       selection ? selection : sel);
 
 			if (ret && activatable)
@@ -2000,6 +2010,8 @@ load_repository_for_command_line (GitgWindow   *window,
 		g_free (activatable);
 		g_free (action);
 		g_free (work_tree_path);
+
+		g_object_unref (first_arg);
 	}
 
 	if (!ret)
