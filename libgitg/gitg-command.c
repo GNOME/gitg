@@ -342,12 +342,12 @@ gitg_command_add_argumentsv (GitgCommand         *command,
 
 	args = g_ptr_array_new ();
 
-	for (ptr = command->priv->arguments; *ptr; ++ptr)
+	for (ptr = command->priv->arguments; ptr && *ptr; ++ptr)
 	{
 		g_ptr_array_add (args, *ptr);
 	}
 
-	while (*arguments)
+	while (arguments && *arguments)
 	{
 		g_ptr_array_add (args, g_strdup (*arguments++));
 	}
@@ -427,14 +427,14 @@ gitg_command_add_environmentv (GitgCommand         *command,
 
 	args = g_ptr_array_new ();
 
-	for (ptr = command->priv->environment; *ptr; ++ptr)
+	for (ptr = command->priv->environment; ptr && *ptr; ++ptr)
 	{
 		g_ptr_array_add (args, *ptr);
 	}
 
 	combined = combine_environment (environment);
 
-	for (ptr = combined; *ptr; ++ptr)
+	for (ptr = combined; ptr && *ptr; ++ptr)
 	{
 		g_ptr_array_add (args, *ptr);
 	}
