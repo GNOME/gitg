@@ -1222,7 +1222,18 @@ gitg_commit_commit (GitgCommit   *commit,
 	g_object_unref (git_dir);
 	g_object_unref (child);
 
-	g_file_set_contents (path, comment, -1, NULL);\
+	g_file_set_contents (path, comment, -1, NULL);
+
+	if (!gitg_repository_run_hook (commit->priv->repository,
+	                               "commit-msg",
+	                               error,
+	                               path,
+	                               NULL))
+	{
+		g_free (path);
+		return FALSE;
+	}
+
 	g_free (path);
 
 	gchar *ref;
