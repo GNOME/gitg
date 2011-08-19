@@ -464,6 +464,12 @@ debug_runner_command (GitgRunner *runner)
 	}
 }
 
+static void
+setup_dup_stderr_to_stdout ()
+{
+	dup2 (1, 2);
+}
+
 void
 gitg_runner_run (GitgRunner *runner)
 {
@@ -477,6 +483,9 @@ gitg_runner_run (GitgRunner *runner)
 	GInputStream *output;
 	GitgSmartCharsetConverter *smart;
 	GError *error = NULL;
+	GSpawnFlags flags = 0;
+	gboolean redirect_stderr;
+	GSpawnChildSetupFunc setup_func = NULL;
 
 	g_return_if_fail (GITG_IS_RUNNER (runner));
 
@@ -499,12 +508,24 @@ gitg_runner_run (GitgRunner *runner)
 		debug_runner_command (runner);
 	}
 
+	redirect_stderr = gitg_io_get_stderr_to_stdout (GITG_IO (runner));
+
+	if (!redirect_stderr && !gitg_debug_enabled (GITG_DEBUG_SHELL))
+	{
+		flags = G_SPAWN_STDERR_TO_DEV_NULL;
+	}
+
+	if (redirect_stderr)
+	{
+		setup_func = (GSpawnChildSetupFunc)setup_dup_stderr_to_stdout;
+	}
+
 	ret = g_spawn_async_with_pipes (wd_path,
 	                                (gchar **)gitg_command_get_arguments (runner->priv->command),
 	                                (gchar **)gitg_command_get_environment (runner->priv->command),
 	                                G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD |
-	                                (gitg_debug_enabled (GITG_DEBUG_SHELL) ? 0 : G_SPAWN_STDERR_TO_DEV_NULL),
-	                                NULL,
+	                                flags,
+	                                setup_func,
 	                                NULL,
 	                                &(runner->priv->pid),
 	                                start_input ? &stdinf : NULL,

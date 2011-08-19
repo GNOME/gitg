@@ -491,6 +491,11 @@ run_commands (GitgShell    *shell,
 
 		runner = gitg_runner_new (*ptr);
 
+		if (gitg_io_get_stderr_to_stdout (GITG_IO (shell)))
+		{
+			gitg_io_set_stderr_to_stdout (GITG_IO (runner), TRUE);
+		}
+
 		g_signal_connect (runner,
 		                  "end",
 		                  G_CALLBACK (runner_end),

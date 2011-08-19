@@ -63,32 +63,43 @@ struct _GitgIOClass
 	void (*end) (GitgIO *io, GError *error);
 };
 
-GType gitg_io_get_type (void) G_GNUC_CONST;
-GitgIO *gitg_io_new (void);
+GType          gitg_io_get_type             (void) G_GNUC_CONST;
+GitgIO        *gitg_io_new                  (void);
 
-void gitg_io_begin (GitgIO *io);
-void gitg_io_end (GitgIO *io, GError *error);
+void           gitg_io_begin                (GitgIO        *io);
+void           gitg_io_end                  (GitgIO        *io,
+                                             GError        *error);
 
-void gitg_io_set_input (GitgIO *io, GInputStream *stream);
-void gitg_io_set_output (GitgIO *io, GOutputStream *stream);
+void           gitg_io_set_input            (GitgIO        *io,
+                                             GInputStream  *stream);
+void           gitg_io_set_output           (GitgIO        *io,
+                                             GOutputStream *stream);
 
-GInputStream *gitg_io_get_input (GitgIO *io);
-GOutputStream *gitg_io_get_output (GitgIO *io);
+GInputStream  *gitg_io_get_input            (GitgIO        *io);
+GOutputStream *gitg_io_get_output           (GitgIO        *io);
 
-void gitg_io_close (GitgIO *io);
-void gitg_io_cancel (GitgIO *io);
+void           gitg_io_close                (GitgIO        *io);
+void           gitg_io_cancel               (GitgIO        *io);
 
-gboolean gitg_io_get_cancelled (GitgIO *io);
-void gitg_io_set_cancelled (GitgIO *io, gboolean cancelled);
+gboolean       gitg_io_get_cancelled        (GitgIO        *io);
+void           gitg_io_set_cancelled        (GitgIO        *io,
+                                             gboolean       cancelled);
 
-gint gitg_io_get_exit_status (GitgIO *io);
-void gitg_io_set_exit_status (GitgIO *io, gint status);
+gint           gitg_io_get_exit_status      (GitgIO        *io);
+void           gitg_io_set_exit_status      (GitgIO        *io,
+                                             gint           status);
 
-gboolean gitg_io_get_running (GitgIO *io);
-void gitg_io_set_running (GitgIO *io, gboolean running);
+gboolean       gitg_io_get_running          (GitgIO        *io);
+void           gitg_io_set_running          (GitgIO        *io,
+                                             gboolean       running);
 
-void gitg_io_set_auto_utf8 (GitgIO *io, gboolean auto_utf8);
-gboolean gitg_io_get_auto_utf8 (GitgIO *io);
+void           gitg_io_set_auto_utf8        (GitgIO        *io,
+                                             gboolean       auto_utf8);
+gboolean       gitg_io_get_auto_utf8        (GitgIO        *io);
+
+gboolean       gitg_io_get_stderr_to_stdout (GitgIO        *io);
+void           gitg_io_set_stderr_to_stdout (GitgIO        *io,
+                                             gboolean       redirect);
 
 G_END_DECLS
 

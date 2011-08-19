@@ -34,6 +34,7 @@ struct _GitgIOPrivate
 	guint cancelled : 1;
 	guint running : 1;
 	guint auto_utf8 : 1;
+	guint stderr_to_stdout : 1;
 };
 
 enum
@@ -45,7 +46,8 @@ enum
 	PROP_CANCELLED,
 	PROP_EXIT_STATUS,
 	PROP_RUNNING,
-	PROP_AUTO_UTF8
+	PROP_AUTO_UTF8,
+	PROP_STDERR_TO_STDOUT
 };
 
 enum
@@ -105,6 +107,9 @@ gitg_io_set_property (GObject      *object,
 		case PROP_AUTO_UTF8:
 			gitg_io_set_auto_utf8 (self, g_value_get_boolean (value));
 			break;
+		case PROP_STDERR_TO_STDOUT:
+			gitg_io_set_stderr_to_stdout (self, g_value_get_boolean (value));
+			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -138,6 +143,9 @@ gitg_io_get_property (GObject    *object,
 			break;
 		case PROP_AUTO_UTF8:
 			g_value_set_boolean (value, self->priv->auto_utf8);
+			break;
+		case PROP_STDERR_TO_STDOUT:
+			g_value_set_boolean (value, self->priv->stderr_to_stdout);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -218,6 +226,14 @@ gitg_io_class_init (GitgIOClass *klass)
 	                                 g_param_spec_boolean ("running",
 	                                                       "Running",
 	                                                       "Running",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE));
+
+	g_object_class_install_property (object_class,
+	                                 PROP_STDERR_TO_STDOUT,
+	                                 g_param_spec_boolean ("stderr-to-stdout",
+	                                                       "stderr to stdout",
+	                                                       "Redirect stderr to stdout",
 	                                                       FALSE,
 	                                                       G_PARAM_READWRITE));
 
@@ -464,4 +480,28 @@ gitg_io_get_auto_utf8 (GitgIO *io)
 	g_return_val_if_fail (GITG_IS_IO (io), FALSE);
 
 	return io->priv->auto_utf8;
+}
+
+void
+gitg_io_set_stderr_to_stdout (GitgIO   *io,
+                              gboolean  redirect)
+{
+	g_return_if_fail (GITG_IS_IO (io));
+
+	if (io->priv->stderr_to_stdout == redirect)
+	{
+		return;
+	}
+
+	io->priv->stderr_to_stdout = redirect;
+
+	g_object_notify (G_OBJECT (io), "stderr-to-stdout");
+}
+
+gboolean
+gitg_io_get_stderr_to_stdout (GitgIO *io)
+{
+	g_return_val_if_fail (GITG_IS_IO (io), FALSE);
+
+	return io->priv->stderr_to_stdout;
 }

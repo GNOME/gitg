@@ -1926,6 +1926,17 @@ gitg_repository_exists (GitgRepository *repository)
 	       g_file_query_exists (repository->priv->work_tree, NULL);
 }
 
+static void
+collect_update (GitgShell           *shell,
+                gchar const * const *lines,
+                GPtrArray           *ret)
+{
+	while (lines && *lines)
+	{
+		g_ptr_array_add (ret, g_strdup (*lines++));
+	}
+}
+
 gboolean
 gitg_repository_run_hook (GitgRepository       *repository,
                           gchar const          *name,
@@ -1944,6 +1955,8 @@ gitg_repository_run_hook (GitgRepository       *repository,
 	GFileInfo *info;
 	gboolean canexec;
 	gboolean retval;
+	GitgShell *shell;
+	GPtrArray *ptrar;
 
 	g_return_val_if_fail (GITG_IS_REPOSITORY (repository), FALSE);
 
@@ -2001,10 +2014,23 @@ gitg_repository_run_hook (GitgRepository       *repository,
 
 	g_strfreev (argsv);
 
-	retval = gitg_shell_run_sync_with_output (command,
-	                                          TRUE,
-	                                          &ret,
-	                                          error);
+	shell = gitg_shell_new_synchronized (1000);
+
+	gitg_io_set_stderr_to_stdout (GITG_IO (shell), TRUE);
+	gitg_shell_set_preserve_line_endings (shell, TRUE);
+
+	ptrar = g_ptr_array_sized_new (100);
+
+	g_signal_connect (shell,
+	                  "update",
+	                  G_CALLBACK (collect_update),
+	                  ptrar);
+
+	retval = gitg_shell_run (shell, command, error) &&
+	         gitg_io_get_exit_status (GITG_IO (shell)) == 0;
+
+	g_ptr_array_add (ptrar, NULL);
+	ret = (gchar **)g_ptr_array_free (ptrar, FALSE);
 
 	if (!retval)
 	{
