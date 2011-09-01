@@ -1,3 +1,29 @@
+= gitg 0.2.5 =
+Version 0.2.5 was released on 2011-09-01
+
+== Features ==
+  * Allow redirection of stderr to stdout in shell/runner/io
+  * Added debugging of runner commands
+  * Better argument parsing (pass first argument to git log)
+  * Run commit-msg hook when commiting
+  * Improved format patch name mimicking git
+  * Added pre-commit and post-commit hook execution
+  * Use a checkbutton to switch the blame mode
+  * Change the single line (un)stage to use a pixbuf renderer
+
+== Bug fixes ==
+  * Fix segvs in arguments and environment parsing in GitgCommand
+  * Set working directory, GIT_DIR and GIT_INDEX_FILE when running hooks
+  * Fixed arguments passed to log for first arg
+  * gitg.desktop.in.in: Remove deprecated Encoding key from .desktop file
+  * Fix parsing changed file lines with spaces in filename
+  * Improved autogen.sh
+  * Do not alter selection when commiting through icons
+  * Code cleanup in gitg-commit-view
+  * Do not use GtkMisc as it is getting deprecated.
+  * preferences dialog: fix expand issues.
+  * Use GtkBox instead of Gtk[HV]Box
+
 = gitg 0.2.4 =
 Version 0.2.4 was released on 2011-07-25
 
