@@ -170,8 +170,6 @@ main (int argc, char **argv)
 {
 	gboolean ret;
 
-	g_thread_init (NULL);
-
 	gitg_debug_init ();
 
 	bindtextdomain (GETTEXT_PACKAGE, GITG_LOCALEDIR);
