@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.3 -->
+  <!-- interface-requires gitg 0.2 -->
+  <object class="GitgWindow" id="window">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">gitg</property>
+    <property name="default_width">800</property>
+    <property name="default_height">600</property>
+    <child>
+      <object class="GtkPaned" id="paned_main">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="position">200</property>
+        <property name="vexpand">True</property>
+        <property name="name">paned_main</property>
+        <child>
+          <object class="GtkEventBox" id="navigation_background">
+            <property name="visible">True</property>
+            <property name="name">navigation_background</property>
+            <child>
+              <object class="GtkGrid" id="grid_navigation">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="name">grid_navigation</property>
+                <property name="hexpand">True</property>
+                <property name="halign">fill</property>
+                <child>
+                  <object class="GtkToolbar" id="toolbar_topnav">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="toolbar_style">icons</property>
+                    <property name="icon-size">1</property>
+                    <property name="hexpand">True</property>
+                    <property name="halign">fill</property>
+                    <property name="name">toolbar_topnav</property>
+                    <property name="show-arrow">False</property>
+                    <style>
+                      <class name="inline-toolbar"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolled_window_navigation">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">never</property>
+                    <property name="vexpand">true</property>
+                    <property name="hexpand">true</property>
+                    <property name="shadow-type">none</property>
+                    <property name="name">scrolled_window_navigation</property>
+                    <child>
+                      <object class="GitgExtNavigationTreeView" id="tree_view_navigation">
+                        <property name="visible">True</property>
+                        <property name="headers-visible">False</property>
+                        <property name="name">tree_view_navigation</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolbar" id="toolbar_subnav">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="toolbar_style">icons</property>
+                    <property name="hexpand">True</property>
+                    <property name="icon-size">2</property>
+                    <property name="name">toolbar_subnav</property>
+                    <style>
+                      <class name="inline-toolbar"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="resize">False</property>
+            <property name="shrink">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkPaned" id="paned_panels">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkEventBox" id="frame_background">
+                <property name="visible">True</property>
+                <property name="name">frame_background</property>
+                <child>
+                  <object class="GtkFrame" id="frame_main">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="shadow_type">in</property>
+                    <property name="name">frame_main</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkNotebook" id="notebook_panels">
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="resize">True</property>
+            <property name="shrink">True</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
+
+<!-- ex:set ts=2 et: -->

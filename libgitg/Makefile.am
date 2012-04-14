@@ -3,97 +3,70 @@ lib_LTLIBRARIES = libgitg-1.0.la
 INCLUDES =								\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
-	$(GITG_CFLAGS)							\
+	$(LIBGITG_CFLAGS)						\
 	$(WARN_CFLAGS)							\
-	$(DISABLE_DEPRECATED_CFLAGS)					\
 	-DDATADIR=\""$(datadir)"\"					\
-	-DLIBDIR=\""$(libdir)"\"					\
-	-DGITG_LOCALEDIR=\""$(datadir)/locale"\"
+	-DLIBDIR=\""$(libdir)"\"
 
-libgitg_1_0_la_LDFLAGS = \
+libgitg_1_0_la_LDFLAGS = 		\
 	-export-dynamic -no-undefined -export-symbols-regex "^[^_].*"
 
-libgitg_1_0_la_LIBADD = $(GITG_LIBS)
+libgitg_1_0_la_LIBADD = $(LIBGITG_LIBS)
 
-BUILT_SOURCES =			\
-	gitg-enum-types.h	\
-	gitg-enum-types.c
+INST_H_FILES =				\
+	libgitg.h
 
-INST_H_FILES =			\
-	$(BUILT_H_FILES)	\
-	gitg-changed-file.h	\
-	gitg-color.h		\
-	gitg-commit.h		\
-	gitg-config.h		\
-	gitg-hash.h		\
-	gitg-lane.h		\
-	gitg-ref.h		\
-	gitg-repository.h	\
-	gitg-revision.h		\
-	gitg-runner.h		\
-	gitg-command.h		\
-	gitg-shell.h		\
-	gitg-io.h		\
-	gitg-line-parser.h
+VALAFLAGS = 				\
+	--pkg Ggit-1.0 			\
+	--pkg gio-2.0			\
+	--header libgitg.h		\
+	--includedir libgitg		\
+	--basedir $(top_srcdir)		\
+	--gir Gitg-1.0.gir		\
+	--library libgitg-1.0
 
-NOINST_H_FILES =			\
-	gitg-convert.h			\
-	gitg-debug.h			\
-	gitg-i18n.h			\
-	gitg-lanes.h			\
-	gitg-smart-charset-converter.h	\
-	gitg-encodings.h
+Gitg-1.0.gir: libgitg-1.0.la
 
-C_FILES =				\
-	$(BUILT_SOURCES)		\
-	gitg-changed-file.c		\
-	gitg-color.c			\
-	gitg-commit.c			\
-	gitg-config.c			\
-	gitg-convert.c			\
-	gitg-hash.c			\
-	gitg-i18n.c			\
-	gitg-lane.c			\
-	gitg-lanes.c			\
-	gitg-ref.c			\
-	gitg-repository.c		\
-	gitg-revision.c			\
-	gitg-runner.c			\
-	gitg-smart-charset-converter.c	\
-	gitg-encodings.c		\
-	gitg-command.c			\
-	gitg-io.c			\
-	gitg-shell.c			\
-	gitg-line-parser.c
+VALA_FILES =				\
+	gitg-repository.vala		\
+	gitg-ref.vala			\
+	gitg-lane.vala			\
+	gitg-lanes.vala			\
+	gitg-color.vala			\
+	gitg-init.vala			\
+	gitg-commit.vala		\
+	gitg-commit-model.vala
 
-if ENABLE_DEBUG
-C_FILES += gitg-debug.c
-endif
+# Ignore all warnings for vala code...
+libgitg_1_0_la_CFLAGS =		\
+	-w
 
-ENUM_H_FILES =			\
-	gitg-changed-file.h
-
-libgitg_1_0_la_SOURCES = 	\
-	$(INST_H_FILES)		\
-	$(NOINST_H_FILES)	\
-	$(C_FILES)
+libgitg_1_0_la_SOURCES = 		\
+	$(VALA_FILES)
 
 headerdir = $(prefix)/include/libgitg-1.0/libgitg
 header_DATA = $(INST_H_FILES)
 
-EXTRA_DIST = 				\
-	gitg-enum-types.h.template	\
-	gitg-enum-types.c.template
+girdir = $(INTROSPECTION_GIRDIR)
+gir_DATA = Gitg-1.0.gir
 
-CLEANFILES = $(BUILT_SOURCES)
+typelibdir = $(INTROSPECTION_TYPELIBDIR)
+typelib_DATA = Gitg-1.0.typelib
+
+%.typelib: %.gir
+	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. -o $@ $<
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libgitg-1.0.pc
+
+BUILT_SOURCES = \
+	$(gir_DATA) \
+	libgitg.h
+
+EXTRA_DIST = $(pkgconfig_DATA)
+CLEANFILES = $(VALA_FILES:.vala=.c)
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
-
-gitg-enum-types.h: gitg-enum-types.h.template $(ENUM_H_FILES) $(GLIB_MKENUMS)
-	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gitg-enum-types.h.template $(ENUM_H_FILES)) > $@
-
-gitg-enum-types.c: gitg-enum-types.c.template $(ENUM_H_FILES) $(GLIB_MKENUMS)
-	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gitg-enum-types.c.template $(ENUM_H_FILES)) > $@
 
 -include $(top_srcdir)/git.mk

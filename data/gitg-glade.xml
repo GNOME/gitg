@@ -3,15 +3,8 @@
 <glade-catalog name="gitg">
   <glade-widget-classes>
     <glade-widget-class name="GitgWindow" title="GitgWindow" generic-name="gitgwindow" parent="GtkWindow"/>
-    <glade-widget-class name="GitgCommitView" title="GitgCommitView" generic-name="gitgcommitview" parent="GtkVPaned"/>
-    <glade-widget-class name="GitgCellRendererPath" title="GitgCellRendererPath" generic-name="gitgcellrendererpath" parent="GtkCellRendererText"/>
-    <glade-widget-class name="GitgDiffView" title="GitgDiffView" generic-name="gitgdiffview" parent="GtkSourceView"/>
   </glade-widget-classes>
 
   <glade-widget-group name="gitg" title="gitg">
-    <glade-widget-class-ref name="GitgWindow" />
-    <glade-widget-class-ref name="GitgCommitView" />
-    <glade-widget-class-ref name="GitgCellRendererPath" />
-    <glade-widget-class-ref name="GitgDiffView" />
   </glade-widget-group>
 </glade-catalog>

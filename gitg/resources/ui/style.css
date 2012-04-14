@@ -1,0 +1,56 @@
+GtkToolbar#toolbar_topnav, GtkToolbar#toolbar_subnav {
+	border-left: 0px;
+	border-right: 0px;
+}
+
+GtkToolbar#toolbar_subnav {
+	border-bottom: 0px;
+}
+
+#navigation_background {
+	background-color: shade(@theme_bg_color, 0.85);
+	background-image: none;
+}
+
+#tree_view_navigation {
+	background-color: inherit;
+	background-image: none;
+	color: inherit;
+	background-color: shade(@theme_bg_color, 0.9);
+}
+
+#paned_main {
+	border-style: solid;
+	border-color: @borders;
+	border-width: 0px 0px 0px 1px;
+	padding: 0px;
+	border-radius: 0px;
+	background-color: inherit;
+}
+
+#tree_view_navigation.view:selected {
+	background-color: @theme_selected_bg_color;
+	color: @theme_selected_fg_color;
+}
+
+#frame_main {
+	padding: 0px 6px 6px 6px;
+}
+
+GtkLabel.title {
+	font-weight: bold;
+	font-size: 16;
+	color: @insensitive_fg_color;
+	text-shadow: 1 1 @theme_base_color;
+}
+
+GtkLabel.description {
+	padding-bottom: 12px;
+	color: @insensitive_fg_color;
+}
+
+GtkLabel.grid_title {
+	font-weight: bold;
+
+	text-shadow: 1 1 @theme_base_color;
+}
