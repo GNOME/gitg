@@ -74,8 +74,23 @@ public class CommitModel : Object
 		d_ids = new Gitg.Commit[0];
 		d_advertized_size = 0;
 
+		emit_started();
+		emit_finished();
+	}
+
+	protected virtual void emit_started()
+	{
 		started();
+	}
+
+	protected virtual void emit_finished()
+	{
 		finished();
+	}
+
+	protected virtual void emit_update(uint added)
+	{
+		update(added);
 	}
 
 	public void reload()
@@ -135,7 +150,7 @@ public class CommitModel : Object
 				uint added = newsize - d_advertized_size;
 				d_advertized_size = newsize;
 
-				update(added);
+				emit_update(added);
 
 				if (isend)
 				{
@@ -143,7 +158,7 @@ public class CommitModel : Object
 					d_thread = null;
 					d_cancellable = null;
 
-					finished();
+					emit_finished();
 				}
 			}
 
@@ -264,7 +279,7 @@ public class CommitModel : Object
 		}
 		catch
 		{
-			finished();
+			emit_finished();
 			d_cancellable = null;
 		}
 	}
