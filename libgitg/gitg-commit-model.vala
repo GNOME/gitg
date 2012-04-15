@@ -20,6 +20,18 @@ public class CommitModel : Object
 	public signal void update(uint added);
 	public signal void finished();
 
+	public Repository repository
+	{
+		get { return d_repository; }
+		set
+		{
+			cancel();
+
+			d_walker = null;
+			d_repository = value;
+		}
+	}
+
 	public CommitModel(Repository repository)
 	{
 		d_repository = repository;
