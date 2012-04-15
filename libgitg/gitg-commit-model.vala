@@ -13,9 +13,9 @@ public class CommitModel : Object
 
 	public uint limit { get; set; }
 
-	private Ggit.OId[] include { get; set; }
-	private Ggit.OId[] exclude { get; set; }
-	
+	private Ggit.OId[] d_include;
+	private Ggit.OId[] d_exclude;
+
 	public signal void started();
 	public signal void update(uint added);
 	public signal void finished();
@@ -40,6 +40,16 @@ public class CommitModel : Object
 	~CommitModel()
 	{
 		cancel();
+	}
+
+	public void set_include(Ggit.OId[] ids)
+	{
+		d_include = ids;
+	}
+
+	public void set_exclude(Ggit.OId[] ids)
+	{
+		d_exclude = ids;
 	}
 
 	private void cancel()
@@ -143,8 +153,8 @@ public class CommitModel : Object
 
 	private async void walk()
 	{
-		Ggit.OId[] included = include;
-		Ggit.OId[] excluded = exclude;
+		Ggit.OId[] included = d_include;
+		Ggit.OId[] excluded = d_exclude;
 
 		d_cancellable = new Cancellable();
 		uint limit = this.limit;
