@@ -196,7 +196,10 @@ GITG_PLUGIN_LIBDIR="$libdir/gitg/plugins"
 AC_SUBST(GITG_PLUGIN_LIBDIR)
 
 GITG_PLUGIN_CFLAGS="$GITG_CFLAGS"
-GITG_PLUGIN_LIBS="$GITG_LIBS"
+GITG_PLUGIN_LIBS="$GITG_LIBS 					\
+	\$(top_builddir)/libgitg/libgitg-1.0.la 		\
+	\$(top_builddir)/libgitg-ext/libgitg-ext-1.0.la 	\
+	\$(top_builddir)/libgitg-gtk/libgitg-gtk-1.0.la"
 
 AC_SUBST(GITG_PLUGIN_CFLAGS)
 AC_SUBST(GITG_PLUGIN_LIBS)
@@ -204,9 +207,11 @@ AC_SUBST(GITG_PLUGIN_LIBS)
 GITG_PLUGIN_LIBTOOL_FLAGS="-module -avoid-version"
 AC_SUBST(GITG_PLUGIN_LIBTOOL_FLAGS)
 
-GITG_PLUGIN_VALAFLAGS="--pkg GitgExt-1.0		\
+GITG_PLUGIN_VALAFLAGS="			\
+	--pkg GitgExt-1.0		\
 	--pkg Ggit-1.0 			\
 	--pkg Gitg-1.0			\
+	--pkg GitgGtk-1.0		\
 	--pkg gio-2.0			\
 	--pkg gtk+-3.0			\
 	--pkg libpeas-1.0		\
@@ -244,6 +249,8 @@ AC_CONFIG_FILES([
 Makefile
 libgitg/Makefile
 libgitg/libgitg-1.0.pc
+libgitg-gtk/Makefile
+libgitg-gtk/libgitg-gtk-1.0.pc
 libgitg-ext/Makefile
 libgitg-ext/libgitg-ext-1.0.pc
 gitg/Makefile

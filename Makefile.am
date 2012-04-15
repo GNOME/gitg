@@ -2,7 +2,7 @@
 
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
-SUBDIRS = libgitg gitg data po tests tools
+SUBDIRS = libgitg libgitg-gtk gitg data po tests tools
 
 DISTCLEANFILES = \
 	intltool-extract \
