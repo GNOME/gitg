@@ -12,20 +12,19 @@ plugin_DATA = history.plugin
 
 VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 VALA_SOURCES =								\
-	gitg-history.vala							\
+	gitg-history.vala						\
 	gitg-history-navigation.vala
 
 libhistory_la_LDFLAGS = $(GITG_PLUGIN_LIBTOOL_FLAGS)
-
 libhistory_la_LIBADD = $(GITG_PLUGIN_LIBS)
 libhistory_la_CFLAGS = -w
 
-libhistory_la_SOURCES = 				\
+libhistory_la_SOURCES = 			\
 	$(VALA_SOURCES)				\
 	gitg-history-resources.c
 
-BUILT_SOURCES = 						\
-	gitg-history-resources.c					\
+BUILT_SOURCES = 				\
+	gitg-history-resources.c		\
 	gitg-history-resources.h
 
 gitg-history-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)

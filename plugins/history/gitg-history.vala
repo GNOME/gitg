@@ -7,11 +7,20 @@ namespace GitgHistory
 	{
 		public GitgExt.Application? application { owned get; construct; }
 
+		private Gtk.TreeView d_view;
+		private GitgGtk.CommitModel? d_model;
+
 		private Gtk.Widget d_main;
 
 		public string id
 		{
 			owned get { return "/org/gnome/gitg/Views/History"; }
+		}
+
+		construct
+		{
+			d_model = new GitgGtk.CommitModel(application.repository);
+			application.bind_property("repository", d_model, "repository", BindingFlags.DEFAULT);
 		}
 
 		public bool is_available()
@@ -60,9 +69,33 @@ namespace GitgHistory
 
 		private void build_ui()
 		{
-			var ret = from_builder("view-history.ui", {"view"});
+			var ret = from_builder("view-history.ui", {"view", "commit_list_view"});
 
+			d_view = ret["commit_list_view"] as Gtk.TreeView;
+			d_view.model = d_model;
+
+			update_walker(null);
 			d_main = ret["view"] as Gtk.Widget;
+		}
+
+		private void update_walker(Ggit.Ref? head)
+		{
+			Ggit.Ref? th = head;
+
+			if (th == null && application.repository != null)
+			{
+				try
+				{
+					th = application.repository.get_head();
+				} catch {}
+			}
+
+			if (th != null)
+			{
+				d_model.set_include(new Ggit.OId[] { th.get_id() });
+			}
+
+			d_model.reload();
 		}
 
 		private Gee.HashMap<string, Object>? from_builder(string path, string[] ids)
