@@ -59,7 +59,10 @@ public class CommitModel : Object
 	public void reload()
 	{
 		cancel();
-		walk();
+
+		walk.begin((obj, res) => {
+			walk.end(res);
+		});
 	}
 
 	public uint size()
@@ -126,13 +129,15 @@ public class CommitModel : Object
 		});
 	}
 
-	private void walk()
+	private async void walk()
 	{
 		Ggit.OId[] included = include;
 		Ggit.OId[] excluded = exclude;
 
 		d_cancellable = new Cancellable();
 		uint limit = this.limit;
+
+		SourceFunc cb = walk.callback;
 
 		ThreadFunc<void*> run = () => {
 			if (d_walker == null)
@@ -226,12 +231,15 @@ public class CommitModel : Object
 			}
 
 			notify_batch(true);
+
+			cb();
 			return null;
 		};
 
 		try
 		{
 			d_thread = Thread.create<void*>(run, true);
+			yield;
 		}
 		catch
 		{
