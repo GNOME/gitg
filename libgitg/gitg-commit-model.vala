@@ -10,6 +10,7 @@ public class CommitModel : Object
 	private Ggit.RevisionWalker? d_walker;
 	private uint d_advertized_size;
 	private uint d_idleid;
+	private Lanes d_lanes;
 
 	public uint limit { get; set; }
 
@@ -35,6 +36,11 @@ public class CommitModel : Object
 	public CommitModel(Repository repository)
 	{
 		d_repository = repository;
+	}
+
+	construct
+	{
+		d_lanes = new Lanes();
 	}
 
 	~CommitModel()
@@ -80,6 +86,7 @@ public class CommitModel : Object
 
 	protected virtual void emit_started()
 	{
+		d_lanes.reset();
 		started();
 	}
 
@@ -253,6 +260,11 @@ public class CommitModel : Object
 				}
 
 				d_ids += commit;
+
+				int mylane;
+				var lanes = d_lanes.next(commit, out mylane);
+
+				commit.update_lanes((owned)lanes, mylane);
 
 				if (timer.elapsed() >= 200)
 				{
