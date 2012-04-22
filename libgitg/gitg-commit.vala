@@ -3,12 +3,13 @@ namespace Gitg
 
 public class Commit : Ggit.Commit
 {
-	public Lane.Tag tag { get; set; }
+	public LaneTag tag { get; set; }
+
+	private uint d_mylane;
+
 	public unowned SList<Lane> lanes { get; set; }
 
-	private ushort d_mylane;
-
-	public ushort mylane
+	public uint mylane
 	{
 		get	{ return d_mylane; }
 		set
@@ -18,7 +19,7 @@ public class Commit : Ggit.Commit
 		}
 	}
 
-	public unowned Lane lane
+	public Lane lane
 	{
 		get { return lanes.nth_data(d_mylane); }
 	}
@@ -38,14 +39,14 @@ public class Commit : Ggit.Commit
 			return;
 		}
 
-		lane.tag &= ~(Lane.Tag.SIGN_STASH |
-		              Lane.Tag.SIGN_STAGED |
-		              Lane.Tag.SIGN_UNSTAGED) | tag;
+		lane.tag &= ~(LaneTag.SIGN_STASH |
+		              LaneTag.SIGN_STAGED |
+		              LaneTag.SIGN_UNSTAGED) | tag;
 	}
 
-	public void update_lanes(SList<Lane> lanes, int mylane)
+	public void update_lanes(owned SList<Lane> lanes, int mylane)
 	{
-		this.lanes = lanes;
+		lanes = (owned)lanes;
 
 		if (mylane >= 0)
 		{
