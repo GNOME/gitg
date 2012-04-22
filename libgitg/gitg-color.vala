@@ -38,11 +38,26 @@ public class Color : Object
 		current_index = 0;
 	}
 
+	public double r
+	{
+		get { return palette[idx].r / 255.0; }
+	}
+
+	public double g
+	{
+		get { return palette[idx].g / 255.0; }
+	}
+
+	public double b
+	{
+		get { return palette[idx].b / 255.0; }
+	}
+
 	public void components(out double r, out double g, out double b)
 	{
-		r = palette[idx].r / 255.0;
-		g = palette[idx].g / 255.0;
-		b = palette[idx].b / 255.0;
+		r = this.r;
+		g = this.g;
+		b = this.b;
 	}
 
 	private static uint inc_index()
