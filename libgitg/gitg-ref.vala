@@ -130,6 +130,8 @@ public class Ref : Ggit.Ref
 	private ParsedRefName d_parsed_name;
 
 	public RefState state { get; set; }
+	public bool working { get; set; }
+
 	public ParsedRefName parsed_name
 	{
 		owned get
