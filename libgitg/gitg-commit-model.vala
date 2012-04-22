@@ -280,7 +280,7 @@ public class CommitModel : Object
 
 			notify_batch(true);
 
-			cb();
+			Idle.add((owned)cb);
 			return null;
 		};
 
