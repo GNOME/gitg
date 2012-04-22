@@ -85,7 +85,7 @@ public class Repository : Ggit.Repository
 		return base.create_symbolic_reference(name, target) as Ref;
 	}
 
-	public new Gitg.Ref get_head() throws Error
+	public new Ref get_head() throws Error
 	{
 		return base.get_head() as Ref;
 	}
