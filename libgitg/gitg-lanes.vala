@@ -20,9 +20,9 @@ public class Lanes : Object
 		public Ggit.OId? from;
 		public Ggit.OId? to;
 
-		public LaneContainer.with_color(Ggit.OId from,
-		                                Ggit.OId to,
-		                                Color?   color)
+		public LaneContainer.with_color(Ggit.OId? from,
+		                                Ggit.OId? to,
+		                                Color?    color)
 		{
 			this.from = from;
 			this.to = to;
@@ -40,7 +40,7 @@ public class Lanes : Object
 		{
 			lane = lane.copy();
 
-			lane.tag = Lane.Tag.NONE;
+			lane.tag = LaneTag.NONE;
 			lane.from = new SList<int>();
 			lane.from.prepend(index);
 
@@ -234,7 +234,7 @@ public class Lanes : Object
 			}
 			else
 			{
-				lane.tag |= Lane.Tag.END;
+				lane.tag |= LaneTag.END;
 				lane.boundary_id = container.to;
 			}
 
@@ -362,7 +362,7 @@ public class Lanes : Object
 			if (ptr.next == null || cnt + 1 == inactive_collapse)
 			{
 				copy.boundary_id = lane.from;
-				copy.tag |= Lane.Tag.START;
+				copy.tag |= LaneTag.START;
 			}
 			else
 			{

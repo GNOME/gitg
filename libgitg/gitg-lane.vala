@@ -1,23 +1,22 @@
 namespace Gitg
 {
 
-[Compact]
-public class Lane
+[Flags]
+public enum LaneTag
 {
-	[Flags]
-	public enum Tag
-	{
-		NONE = 0,
-		START = 1 << 0,
-		END = 1 << 1,
-		SIGN_STASH = 1 << 2,
-		SIGN_STAGED = 1 << 3,
-		SIGN_UNSTAGED = 1 << 4
-	}
+	NONE = 0,
+	START = 1 << 0,
+	END = 1 << 1,
+	SIGN_STASH = 1 << 2,
+	SIGN_STAGED = 1 << 3,
+	SIGN_UNSTAGED = 1 << 4
+}
 
+public class Lane : Object
+{
 	public Color color;
 	public SList<int> from;
-	public Tag tag;
+	public LaneTag tag;
 	public Ggit.OId? boundary_id;
 
 	public Lane()
