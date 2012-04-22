@@ -3,10 +3,18 @@ namespace Gitg
 
 public enum RefType
 {
+	NONE,
 	BRANCH,
 	REMOTE,
 	TAG,
 	STASH
+}
+
+public enum RefState
+{
+	NONE,
+	SELECTED,
+	PRELIGHT
 }
 
 /**
@@ -121,6 +129,7 @@ public class Ref : Ggit.Ref
 	private static Regex? s_remote_key_regex;
 	private ParsedRefName d_parsed_name;
 
+	public RefState state { get; set; }
 	public ParsedRefName parsed_name
 	{
 		owned get
