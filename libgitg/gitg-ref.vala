@@ -93,7 +93,7 @@ public class ParsedRefName : Object
 				continue;
 			}
 
-			rtype = (RefType)i;
+			rtype = (RefType)(i + 1);
 
 			if (rtype == RefType.STASH)
 			{
