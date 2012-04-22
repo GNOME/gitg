@@ -33,9 +33,11 @@ VALAFLAGS = 				\
 
 GitgGtk-1.0.gir: libgitg-gtk-1.0.la
 
-VALA_FILES =				\
-	gitg-gtk-commit-list-view.vala	\
-	gitg-gtk-commit-model.vala
+VALA_FILES =					\
+	gitg-gtk-commit-model.vala		\
+	gitg-gtk-label-renderer.vala		\
+	gitg-gtk-cell-renderer-lanes.vala	\
+	gitg-gtk-commit-list-view.vala
 
 # Ignore all warnings for vala code...
 libgitg_gtk_1_0_la_CFLAGS =		\
