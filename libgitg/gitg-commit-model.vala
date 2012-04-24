@@ -253,9 +253,12 @@ public class CommitModel : Object
 				{
 					lock(d_ids)
 					{
+						var oldlen = d_ids.length;
+
 						size *= 2;
 
 						d_ids.resize((int)size);
+						d_ids.length = oldlen;
 					}
 				}
 
