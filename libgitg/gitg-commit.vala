@@ -6,8 +6,12 @@ public class Commit : Ggit.Commit
 	public LaneTag tag { get; set; }
 
 	private uint d_mylane;
+	private SList<Lane> d_lanes;
 
-	public unowned SList<Lane> lanes { get; set; }
+	public unowned SList<Lane> get_lanes()
+	{
+		return d_lanes;
+	}
 
 	public uint mylane
 	{
@@ -21,18 +25,24 @@ public class Commit : Ggit.Commit
 
 	public Lane lane
 	{
-		get { return lanes.nth_data(d_mylane); }
+		get { return d_lanes.nth_data(d_mylane); }
+	}
+
+	public unowned SList<Lane> insert_lane(Lane lane, int idx)
+	{
+		d_lanes.insert(lane, idx);
+		return d_lanes;
 	}
 
 	public unowned SList<Lane> remove_lane(Lane lane)
 	{
-		lanes.remove(lane);
-		return lanes;
+		d_lanes.remove(lane);
+		return d_lanes;
 	}
 
 	private void update_lane_tag()
 	{
-		unowned Lane? lane = lanes.nth_data(d_mylane);
+		unowned Lane? lane = d_lanes.nth_data(d_mylane);
 
 		if (lane == null)
 		{
@@ -46,7 +56,7 @@ public class Commit : Ggit.Commit
 
 	public void update_lanes(owned SList<Lane> lanes, int mylane)
 	{
-		lanes = (owned)lanes;
+		d_lanes = (owned)lanes;
 
 		if (mylane >= 0)
 		{

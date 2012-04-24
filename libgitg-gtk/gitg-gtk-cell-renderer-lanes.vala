@@ -12,7 +12,7 @@ namespace GitgGtk
 
 		private uint num_lanes
 		{
-			get { return commit.lanes.length(); }
+			get { return commit.get_lanes().length(); }
 		}
 
 		private uint total_width(Gtk.Widget widget)
@@ -61,7 +61,7 @@ namespace GitgGtk
 		{
 			uint to = 0;
 
-			foreach (Gitg.Lane lane in commit.lanes)
+			foreach (var lane in commit.get_lanes())
 			{
 				var color = lane.color;
 				context.set_source_rgb(color.r, color.g, color.b);
@@ -93,7 +93,7 @@ namespace GitgGtk
 			double cw = lane_width;
 			double ch = area.height / 2.0;
 
-			foreach (var lane in commit.lanes)
+			foreach (var lane in commit.get_lanes())
 			{
 				var color = lane.color;
 				context.set_source_rgb(color.r, color.g, color.b);
@@ -185,26 +185,29 @@ namespace GitgGtk
 		                            Gdk.Rectangle         cell_area,
 		                            Gtk.CellRendererState flags)
 		{
+			var ncell_area = cell_area;
+			var narea = area;
+
 			d_last_height = area.height;
 
-			context.save();
+			if (commit != null)
+			{
+				context.save();
 
-			Gdk.cairo_rectangle(context, area);
-			context.clip();
+				Gdk.cairo_rectangle(context, area);
+				context.clip();
 
-			draw_paths(context, area);
-			draw_indicator(context, area);
-			draw_labels(context, area, widget);
+				draw_paths(context, area);
+				draw_indicator(context, area);
+				draw_labels(context, area, widget);
 
-			var narea = area;
-			var ncell_area = cell_area;
+				var tw = total_width(widget);
 
-			var tw = total_width(widget);
+				narea.x += (int)tw;
+				ncell_area.x += (int)tw;
 
-			narea.x += (int)tw;
-			ncell_area.x += (int)tw;
-
-			context.restore();
+				context.restore();
+			}
 
 			base.render(context, widget, narea, ncell_area, flags);
 		}

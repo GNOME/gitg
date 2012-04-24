@@ -213,6 +213,7 @@ namespace GitgGtk
 			return_val_if_fail(iter.stamp == d_stamp, null);
 
 			uint idx = (uint)(ulong)iter.user_data;
+
 			return base[idx];
 		}
 

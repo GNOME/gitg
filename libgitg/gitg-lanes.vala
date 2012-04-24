@@ -208,9 +208,8 @@ public class Lanes : Object
 		while (item != null)
 		{
 			var commit = item.data;
-			unowned SList<Lane> lns = commit.lanes;
-			unowned SList<Lane> lstlane = lns.nth(index);
-			unowned Lane lane = lstlane.data;
+			unowned SList<Lane> lns = commit.get_lanes();
+			unowned Lane lane = lns.nth_data(index);
 
 			if (item.next != null)
 			{
@@ -270,7 +269,7 @@ public class Lanes : Object
 	private int ensure_correct_index(Commit commit,
 	                                 int    index)
 	{
-		var len = commit.lanes.length();
+		var len = commit.get_lanes().length();
 
 		if (index > len)
 		{
@@ -357,7 +356,7 @@ public class Lanes : Object
 
 			// Insert new lane at the index
 			Lane copy = ln.copy();
-			unowned SList<Lane> lns = commit.lanes;
+			unowned SList<Lane> lns = commit.get_lanes();
 
 			if (ptr.next == null || cnt + 1 == inactive_collapse)
 			{
@@ -372,8 +371,7 @@ public class Lanes : Object
 				update_merge_indices(lns, (int)index, 1);
 			}
 
-			commit.lanes.insert((owned)copy, (int)index);
-			lns = commit.lanes;
+			commit.insert_lane(copy, (int)index);
 
 			var mylane = commit.mylane;
 
