@@ -365,17 +365,24 @@ public class NavigationTreeView : Gtk.TreeView
 
 			Gtk.CellRendererText t = cell as Gtk.CellRendererText;
 
-			if (hint == Hint.HEADER)
+			if (hint == Hint.HEADER && (model as Gtk.TreeStore).iter_depth(iter) == 0)
 			{
-				t.weight = Pango.Weight.BOLD;
 				t.background_rgba = d_header_bg;
 				t.foreground_rgba = d_header_fg;
 			}
 			else
 			{
-				t.weight = Pango.Weight.NORMAL;
 				t.background_set = false;
 				t.foreground_set = false;
+			}
+
+			if (hint == Hint.HEADER)
+			{
+				t.weight = Pango.Weight.BOLD;
+			}
+			else
+			{
+				t.weight = Pango.Weight.NORMAL;
 			}
 		});
 

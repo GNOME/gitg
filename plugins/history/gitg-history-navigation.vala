@@ -54,14 +54,7 @@ namespace GitgHistory
 						}
 						else
 						{
-							/*unowned List<Gitg.Ref> start = lst;
-
-							lst.insert_sorted(r, sort_refs);
-
-							if (lst != start)
-							{
-								remotes.insert(rname, lst.copy());
-							}*/
+							lst.prepend(r);
 						}
 					}
 
@@ -100,7 +93,14 @@ namespace GitgHistory
 
 			foreach (var rname in remotenames)
 			{
-				//model.append(item.parsed_name.remote_branch, null, null);
+				model.begin_header(rname, null);
+
+				foreach (var rref in remotes.lookup(rname))
+				{
+					model.append(rref.parsed_name.remote_branch, null, null);
+				}
+
+				model.end_header();
 			}
 
 			model.end_header();
