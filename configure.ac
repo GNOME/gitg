@@ -207,16 +207,19 @@ AC_SUBST(GITG_PLUGIN_LIBS)
 GITG_PLUGIN_LIBTOOL_FLAGS="-module -avoid-version"
 AC_SUBST(GITG_PLUGIN_LIBTOOL_FLAGS)
 
-GITG_PLUGIN_VALAFLAGS="			\
-	--pkg GitgExt-1.0		\
-	--pkg Ggit-1.0 			\
-	--pkg Gitg-1.0			\
-	--pkg GitgGtk-1.0		\
-	--pkg gio-2.0			\
-	--pkg gtk+-3.0			\
-	--pkg libpeas-1.0		\
-	--pkg gee-1.0			\
-	--vapidir \$(top_srcdir)/vapi	\
+GITG_PLUGIN_VALAFLAGS="				\
+	--pkg GitgExt-1.0			\
+	--pkg Ggit-1.0 				\
+	--pkg Gitg-1.0				\
+	--pkg GitgGtk-1.0			\
+	--pkg gio-2.0				\
+	--pkg gtk+-3.0				\
+	--pkg libpeas-1.0			\
+	--pkg gee-1.0				\
+	--vapidir \$(top_srcdir)/vapi		\
+	--girdir \$(top_builddir)/libgitg	\
+	--girdir \$(top_builddir)/libgitg-gtk	\
+	--girdir \$(top_builddir)/libgitg-ext	\
 	--pkg config"
 
 AC_SUBST(GITG_PLUGIN_VALAFLAGS)

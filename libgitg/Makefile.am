@@ -26,6 +26,7 @@ VALAFLAGS = 				\
 	--library libgitg-1.0
 
 Gitg-1.0.gir: libgitg-1.0.la
+libgitg.h: libgitg-1.0.la
 
 VALA_FILES =				\
 	gitg-repository.vala		\

@@ -18,7 +18,9 @@ VALAFLAGS = \
 	--pkg gtk+-3.0						\
 	--pkg gio-2.0						\
 	--pkg libpeas-1.0					\
-	--pkg gobject-introspection-1.0
+	--pkg gobject-introspection-1.0				\
+	--girdir "$(top_builddir)/libgitg"			\
+	--girdir "$(top_builddir)/libgitg-ext"
 
 VALASOURCES =							\
 	gitg.vala						\

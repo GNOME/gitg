@@ -29,9 +29,11 @@ VALAFLAGS = 				\
 	--includedir libgitg-gtk	\
 	--basedir $(top_srcdir)		\
 	--gir GitgGtk-1.0.gir		\
-	--library libgitg-gtk-1.0
+	--library libgitg-gtk-1.0	\
+	--girdir "$(top_builddir)/libgitg"
 
 GitgGtk-1.0.gir: libgitg-gtk-1.0.la
+libgitg-gtk.h: libgitg-gtk-1.0.la
 
 VALA_FILES =					\
 	gitg-gtk-commit-model.vala		\
@@ -56,7 +58,7 @@ typelibdir = $(INTROSPECTION_TYPELIBDIR)
 typelib_DATA = GitgGtk-1.0.typelib
 
 %.typelib: %.gir
-	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. -o $@ $<
+	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. --includedir="$(top_builddir)/libgitg" -o $@ $<
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgitg-gtk-1.0.pc

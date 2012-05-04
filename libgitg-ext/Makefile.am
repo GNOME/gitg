@@ -17,7 +17,8 @@ VALAFLAGS = 				\
 	--includedir libgitg-ext	\
 	--basedir $(top_srcdir)		\
 	--gir GitgExt-1.0.gir		\
-	--library libgitg-ext-1.0
+	--library libgitg-ext-1.0	\
+	--girdir $(top_builddir)/libgitg
 
 libgitg_ext_1_0_la_LDFLAGS = \
 	-export-dynamic -no-undefined -export-symbols-regex "^[^_].*"
@@ -45,6 +46,7 @@ headerdir = $(prefix)/include/libgitg-ext-1.0/libgitg-ext
 header_DATA = $(INST_H_FILES)
 
 GitgExt-1.0.gir: libgitg-ext-1.0.la
+libgitg-ext.h: libgitg-ext-1.0.la
 
 # Ignore all warnings for vala code...
 libgitg_ext_1_0_la_CFLAGS = \
@@ -57,7 +59,7 @@ typelibdir = $(INTROSPECTION_TYPELIBDIR)
 typelib_DATA = GitgExt-1.0.typelib
 
 %.typelib: %.gir
-	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. -o $@ $<
+	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. --includedir=$(top_builddir)/libgitg -o $@ $<
 
 if ENABLE_PYTHON
 overridesdir = $(pyoverridesdir)
