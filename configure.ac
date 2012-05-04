@@ -260,7 +260,6 @@ data/icons/Makefile
 data/org.gnome.gitg.gschema.xml.in
 po/Makefile.in
 tests/Makefile
-tools/Makefile
 plugins/Makefile
 plugins/dash/Makefile
 plugins/history/Makefile
