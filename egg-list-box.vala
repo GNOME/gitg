@@ -59,6 +59,13 @@ public class Egg.ListBox : Container {
     return null;
   }
 
+  public void select_child (Widget? child) {
+    unowned ChildInfo? info = null;
+    if (child != null)
+      info = child_hash.get (child);
+    update_selected (info);
+  }
+
   public virtual signal void child_selected (Widget? child) {
   }
 
