@@ -135,9 +135,11 @@ public class Egg.ListBox : Container {
       this.queue_resize ();
     }
     apply_filter (info.widget);
-    update_separator (info.iter);
-    update_separator (get_next_visible (info.iter));
-    update_separator (prev_next);
+    if (this.get_visible ()) {
+      update_separator (info.iter);
+      update_separator (get_next_visible (info.iter));
+      update_separator (prev_next);
+    }
 
   }
 
@@ -430,6 +432,11 @@ public class Egg.ListBox : Container {
       queue_draw ();
     }
     return false;
+  }
+
+  public override void show () {
+    reseparate ();
+    base.show ();
   }
 
   public override bool focus (DirectionType direction) {
@@ -756,10 +763,12 @@ public class Egg.ListBox : Container {
 
     apply_filter (widget);
 
-    var prev_next = get_next_visible (iter);
-    update_separator (iter);
-    update_separator (get_next_visible (iter));
-    update_separator (prev_next);
+    if (this.get_visible ()) {
+      var prev_next = get_next_visible (iter);
+      update_separator (iter);
+      update_separator (get_next_visible (iter));
+      update_separator (prev_next);
+    }
 
     info.iter = iter;
 
@@ -790,7 +799,8 @@ public class Egg.ListBox : Container {
     child_hash.remove (widget);
     children.remove (info.iter);
 
-    update_separator (next);
+    if (this.get_visible ())
+      update_separator (next);
 
     if (was_visible && this.get_visible ())
       this.queue_resize ();
