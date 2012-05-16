@@ -183,6 +183,20 @@ main (string[] args) {
 
   w.show_all ();
 
+  var provider = new Gtk.CssProvider ();
+  provider.load_from_data (
+"""
+EggListBox:prelight {
+background-color: green;
+}
+EggListBox:active {
+background-color: red;
+}
+""", -1);
+  Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+					    provider,
+					    600);
+
   Gtk.main ();
 
   return 0;
