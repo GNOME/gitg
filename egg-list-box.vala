@@ -541,36 +541,61 @@ public class Egg.ListBox : Container {
     return true;
   }
 
+  private struct ChildFlags {
+    unowned ChildInfo? child;
+    StateFlags state;
+
+    public static ChildFlags *find_or_add (ref ChildFlags[] array, ChildInfo? to_find) {
+      for (int i = 0; i < array.length; i++) {
+	if (array[i].child == to_find)
+	  return &array[i];
+      }
+      array.resize (array.length+1);
+      array[array.length-1].child = to_find;
+      array[array.length-1].state = 0;
+      return &array[array.length-1];
+    }
+  }
+
   public override bool draw (Cairo.Context cr) {
     Allocation allocation;
     this.get_allocation (out allocation);
 
     var context = this.get_style_context ();
 
-    context.save ();
     context.render_background (cr,
 			       0, 0, allocation.width, allocation.height);
 
+    ChildFlags[] flags = {};
+
     if (selected_child != null) {
-      context.set_state (StateFlags.SELECTED);
-      context.render_background (cr,
-				 0, selected_child.y,
-				 allocation.width, selected_child.height);
+      var found = ChildFlags.find_or_add (ref flags, selected_child);
+      found.state |= StateFlags.SELECTED;
     }
 
-    if (prelight_child != null && prelight_child != selected_child) {
-      context.set_state (StateFlags.PRELIGHT);
+    if (prelight_child != null) {
+      var found = ChildFlags.find_or_add (ref flags, prelight_child);
+      found.state |= StateFlags.PRELIGHT;
+    }
+
+    if (active_child != null && active_child_active) {
+      var found = ChildFlags.find_or_add (ref flags, active_child);
+      found.state |= StateFlags.ACTIVE;
+    }
+
+    foreach (unowned ChildFlags? flag in flags) {
+      context.save ();
+      context.set_state (flag.state);
       context.render_background (cr,
-				 0, prelight_child.y,
-				 allocation.width, prelight_child.height);
+				 0, flag.child.y,
+				 allocation.width, flag.child.height);
+      context.restore ();
     }
 
     if (has_visible_focus() && cursor_child != null) {
       context.render_focus (cr, 0, cursor_child.y,
 			    allocation.width, cursor_child.height);
     }
-
-    context.restore ();
 
     base.draw (cr);
 
