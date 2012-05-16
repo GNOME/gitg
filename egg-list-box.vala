@@ -38,8 +38,10 @@ public class Egg.ListBox : Container {
   private unowned ChildInfo? selected_child;
   private unowned ChildInfo? prelight_child;
   private unowned ChildInfo? cursor_child;
+  bool active_child_active;
+  private unowned ChildInfo? active_child;
   private SelectionMode selection_mode;
-  
+
 
   public ListBox () {
     set_can_focus (true);
@@ -140,7 +142,7 @@ public class Egg.ListBox : Container {
   private int do_sort (ChildInfo? a, ChildInfo? b) {
     return sort_func (a.widget, b.widget);
   }
-  
+
   [Signal (action=true)]
   public virtual signal void activate_cursor_child () {
     select_and_activate (cursor_child);
@@ -358,12 +360,21 @@ public class Egg.ListBox : Container {
     }
   }
 
+  private void update_active (ChildInfo? child) {
+    bool val = active_child == child;
+    if (active_child != null && val != active_child_active) {
+      active_child_active = val;
+      queue_draw ();
+    }
+  }
+
   public override bool enter_notify_event (Gdk.EventCrossing event) {
     if (event.window != get_window ())
       return false;
 
     unowned ChildInfo? child = find_child_at_y ((int)event.y);
     update_prelight (child);
+    update_active (child);
 
     return false;
   }
@@ -372,12 +383,14 @@ public class Egg.ListBox : Container {
     if (event.window != get_window ())
       return false;
 
+    unowned ChildInfo? child;
     if (event.detail != Gdk.NotifyType.INFERIOR) {
-      update_prelight (null);
+      child = null;
     } else {
-      unowned ChildInfo? child = find_child_at_y ((int)event.y);
-      update_prelight (child);
+      child = find_child_at_y ((int)event.y);
     }
+    update_prelight (child);
+    update_active (child);
 
     return false;
   }
@@ -385,15 +398,19 @@ public class Egg.ListBox : Container {
   public override bool motion_notify_event (Gdk.EventMotion event) {
     unowned ChildInfo? child = find_child_at_y ((int)event.y);
     update_prelight (child);
+    update_active (child);
+
     return false;
   }
 
-  private Widget? button_down_child;
   public override bool button_press_event (Gdk.EventButton event) {
     if (event.button == 1) {
       unowned ChildInfo? child = find_child_at_y ((int)event.y);
-      if (child != null)
-	button_down_child = child.widget;
+      if (child != null) {
+	active_child = child;
+	active_child_active = true;
+	queue_draw ();
+      }
 
       /* TODO: Should mark as active while down, and handle grab breaks */
     }
@@ -402,10 +419,11 @@ public class Egg.ListBox : Container {
 
   public override bool button_release_event (Gdk.EventButton event) {
     if (event.button == 1) {
-      unowned ChildInfo? child = find_child_at_y ((int)event.y);
-      if (child != null && child.widget == button_down_child)
-	select_and_activate (child);
-      button_down_child = null;
+      if (active_child != null && active_child_active)
+	select_and_activate (active_child);
+      active_child = null;
+      active_child_active = false;
+      queue_draw ();
     }
     return false;
   }
@@ -733,6 +751,8 @@ public class Egg.ListBox : Container {
       prelight_child = null;
     if (info == cursor_child)
       cursor_child = null;
+    if (info == active_child)
+      active_child = null;
 
     var next = get_next_visible (info.iter);
 
