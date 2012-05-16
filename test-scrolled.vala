@@ -61,7 +61,7 @@ main (string[] args) {
   hbox.add (scrolled);
   
   var list = new ListBox();
-  scrolled.add_with_viewport (list);
+  list.add_to_scrolled (scrolled);
 
   for (int i = 0; i < num_rows; i++) {
 	var row = new Row ();

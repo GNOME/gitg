@@ -45,7 +45,7 @@ public class Egg.ListBox : Container {
   bool active_child_active;
   private unowned ChildInfo active_child;
   private SelectionMode selection_mode;
-
+  private Adjustment? adjustment;
 
   public ListBox () {
     set_can_focus (true);
@@ -78,6 +78,15 @@ public class Egg.ListBox : Container {
   public virtual signal void child_activated (Widget? child) {
   }
 
+  public void set_adjustment (Adjustment? adjustment) {
+    this.adjustment = adjustment;
+    this.set_focus_vadjustment (adjustment);
+  }
+
+  public void add_to_scrolled (ScrolledWindow scrolled) {
+    scrolled.add_with_viewport (this);
+    this.set_adjustment (scrolled.get_vadjustment ());
+  }
 
   public void set_selection_mode (SelectionMode mode) {
     if (mode == SelectionMode.MULTIPLE) {
@@ -205,9 +214,8 @@ public class Egg.ListBox : Container {
       break;
     case MovementStep.PAGES:
       int page_size = 100;
-      var vadj = get_focus_vadjustment ();
-      if (vadj != null)
-	page_size = (int) vadj.get_page_increment ();
+      if (adjustment != null)
+	page_size = (int) adjustment.get_page_increment ();
 
       if (cursor_child != null) {
 	int start_y = cursor_child.y;
@@ -241,8 +249,8 @@ public class Egg.ListBox : Container {
 	  }
 	}
 	end_y = child.y;
-	if (end_y != start_y && vadj != null)
-	  vadj.value += end_y - start_y;
+	if (end_y != start_y && adjustment != null)
+	  adjustment.value += end_y - start_y;
 
       }
       break;
@@ -333,10 +341,9 @@ public class Egg.ListBox : Container {
     cursor_child = child;
     this.grab_focus ();
     this.queue_draw ();
-    unowned Adjustment? vadj = get_focus_vadjustment ();
-    if (child != null && vadj != null)
-      vadj.clamp_page (cursor_child.y,
-		       cursor_child.y + cursor_child.height);
+    if (child != null && adjustment != null)
+      adjustment.clamp_page (cursor_child.y,
+			     cursor_child.y + cursor_child.height);
   }
 
   private void update_selected (ChildInfo? child) {
