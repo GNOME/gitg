@@ -22,4 +22,4 @@ PKG_CHECK_MODULES(LISTBOX, [$pkg_modules])
 LISTBOX_PACKAGES="--pkg gtk+-3.0"
 AC_SUBST(LISTBOX_PACKAGES)
 
-AC_OUTPUT
+AC_OUTPUT( egg-list-box-uninstalled.pc )
