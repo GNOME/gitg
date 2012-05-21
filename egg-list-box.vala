@@ -645,6 +645,7 @@ public class Egg.ListBox : Container {
     var window = new Gdk.Window (get_parent_window (), attributes,
 				 Gdk.WindowAttributesType.X |
 				 Gdk.WindowAttributesType.Y);
+    this.get_style_context ().set_background (window);
     window.set_user_data (this);
     this.set_window (window);
   }
