@@ -946,11 +946,11 @@ public class Egg.ListBox : Container {
     context.get_style ("focus-line-width", out focus_width,
 		       "focus-padding", out focus_pad);
 
-    child_allocation.x = allocation.x + focus_width + focus_pad;
-    child_allocation.y = allocation.y;
+    child_allocation.x = 0 + focus_width + focus_pad;
+    child_allocation.y = 0;
     child_allocation.width = allocation.width - 2 * (focus_width + focus_pad);
 
-    separator_allocation.x = allocation.x;
+    separator_allocation.x = 0;
     separator_allocation.width = allocation.width;
 
     for (var iter = children.get_begin_iter (); !iter.is_end (); iter = iter.next ()) {
