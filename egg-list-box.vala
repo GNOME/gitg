@@ -47,7 +47,7 @@ public class Egg.ListBox : Container {
   private SelectionMode selection_mode;
   private Adjustment? adjustment;
 
-  public ListBox () {
+  construct {
     set_can_focus (true);
     set_has_window (true);
     set_redraw_on_allocate (true);
