@@ -38,7 +38,7 @@ test_list_VALAFLAGS = \
 	$(NULL)
 
 test_scrolled_SOURCES = \
-	test-list.vala \
+	test-scrolled.vala \
 	$(NULL)
 
 test_scrolled_LDADD = \
