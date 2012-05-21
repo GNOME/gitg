@@ -59,9 +59,16 @@ main (string[] args) {
   var scrolled = new ScrolledWindow (null, null);
   scrolled.set_policy (PolicyType.NEVER, PolicyType.AUTOMATIC);
   hbox.add (scrolled);
+
+  var scrolled_box = new Box(Orientation.VERTICAL, 0);
+  scrolled.add_with_viewport (scrolled_box);
+
+  var label = new Label ("This is \na LABEL\nwith rows");
+  scrolled_box.add (label);
   
   var list = new ListBox();
-  list.add_to_scrolled (scrolled);
+  scrolled_box.add (list);
+  list.set_adjustment (scrolled.get_vadjustment ());
 
   for (int i = 0; i < num_rows; i++) {
 	var row = new Row ();
