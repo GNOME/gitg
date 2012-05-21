@@ -36,6 +36,7 @@ public class Egg.ListBox : Container {
 
   private Sequence<ChildInfo> children;
   private HashTable<unowned Widget, unowned ChildInfo> child_hash;
+  private HashTable<unowned Widget, unowned ChildInfo> separator_hash;
   private CompareDataFunc<Widget>? sort_func;
   private FilterFunc? filter_func;
   private UpdateSeparatorFunc? update_separator_func;
@@ -56,6 +57,7 @@ public class Egg.ListBox : Container {
 
     children = new Sequence<ChildInfo>();
     child_hash = new HashTable<unowned Widget, unowned ChildInfo> (GLib.direct_hash, GLib.direct_equal);
+    separator_hash = new HashTable<unowned Widget, unowned ChildInfo> (GLib.direct_hash, GLib.direct_equal);
   }
 
   public unowned Widget? get_selected_child (){
@@ -738,15 +740,19 @@ public class Egg.ListBox : Container {
       var old_separator = info.separator;
       update_separator_func (ref info.separator, widget, before_widget);
       if (old_separator != info.separator) {
-	if (old_separator != null)
+	if (old_separator != null) {
 	  old_separator.unparent ();
+	  separator_hash.remove (old_separator);
+	}
 	if (info.separator != null) {
+	  separator_hash.set (info.separator, info);
 	  info.separator.set_parent (this);
 	  info.separator.show ();
 	}
 	this.queue_resize ();
       }
     } else if (info.separator != null) {
+      separator_hash.remove (info.separator);
       info.separator.unparent ();
       info.separator = null;
       this.queue_resize ();
@@ -768,6 +774,9 @@ public class Egg.ListBox : Container {
     else
       iter = children.append (info);
 
+    info.iter = iter;
+    widget.set_parent (this);
+
     apply_filter (widget);
 
     if (this.get_visible ()) {
@@ -776,17 +785,30 @@ public class Egg.ListBox : Container {
       update_separator (get_next_visible (iter));
       update_separator (prev_next);
     }
-
-    info.iter = iter;
-
-    widget.set_parent (this);
   }
 
   public override void remove (Widget widget) {
+    bool was_visible = widget.get_visible ();
+
     unowned ChildInfo? info = lookup_info (widget);
     if (info == null) {
-      warning ("Tried to remove non-child %p\n", widget);
+      info = separator_hash.get (widget);
+      if (info != null) {
+	separator_hash.remove (widget);
+	info.separator = null;
+	widget.unparent ();
+	if (was_visible && this.get_visible ())
+	  this.queue_resize ();
+
+      } else
+	warning ("Tried to remove non-child %p\n", widget);
       return;
+    }
+
+    if (info.separator != null) {
+      separator_hash.remove (info.separator);
+      info.separator.unparent ();
+      info.separator = null;
     }
 
     if (info == selected_child)
@@ -800,7 +822,6 @@ public class Egg.ListBox : Container {
 
     var next = get_next_visible (info.iter);
 
-    bool was_visible = widget.get_visible ();
     widget.unparent ();
 
     child_hash.remove (widget);
