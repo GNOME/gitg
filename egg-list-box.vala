@@ -343,9 +343,12 @@ public class Egg.ListBox : Container {
     cursor_child = child;
     this.grab_focus ();
     this.queue_draw ();
-    if (child != null && adjustment != null)
-      adjustment.clamp_page (cursor_child.y,
-			     cursor_child.y + cursor_child.height);
+    if (child != null && adjustment != null) {
+      Allocation allocation;
+      this.get_allocation (out allocation);
+      adjustment.clamp_page (cursor_child.y + allocation.y,
+			     cursor_child.y + allocation.y + cursor_child.height);
+    }
   }
 
   private void update_selected (ChildInfo? child) {
