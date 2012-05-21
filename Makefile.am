@@ -53,6 +53,8 @@ test_scrolled_VALAFLAGS = \
 
 CLEANFILES = \
 	$(test_list_SOURCES:.vala=.c) \
+	$(test_scrolled_SOURCES:.vala=.c) \
+	$(libegglistbox_la_SOURCES:.vala=.c) \
 	*.vapi *.stamp
 
 EXTRA_DIST = \
