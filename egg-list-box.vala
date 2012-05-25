@@ -139,7 +139,7 @@ public class Egg.ListBox : Container {
     if (info == null)
       return;
 
-    var prev_next = get_previous_visible (info.iter);
+    var prev_next = get_next_visible (info.iter);
 
     if (sort_func != null) {
       children.sort_changed (info.iter, do_sort);
