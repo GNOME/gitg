@@ -787,10 +787,24 @@ public class Egg.ListBox : Container {
       update_separator (iter);
       update_separator (get_next_visible (iter));
     }
+
+    widget.notify["visible"].connect (child_visibility_changed);
+  }
+
+  private void child_visibility_changed (Object object, ParamSpec pspec) {
+    if (this.get_visible ()) {
+      unowned ChildInfo? info = lookup_info (object as Widget);
+      if (info != null) {
+	update_separator (info.iter);
+	update_separator (get_next_visible (info.iter));
+      }
+    }
   }
 
   public override void remove (Widget widget) {
     bool was_visible = widget.get_visible ();
+
+    widget.notify["visible"].disconnect (child_visibility_changed);
 
     unowned ChildInfo? info = lookup_info (widget);
     if (info == null) {
