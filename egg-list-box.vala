@@ -784,10 +784,8 @@ public class Egg.ListBox : Container {
     apply_filter (widget);
 
     if (this.get_visible ()) {
-      var prev_next = get_next_visible (iter);
       update_separator (iter);
       update_separator (get_next_visible (iter));
-      update_separator (prev_next);
     }
   }
 
