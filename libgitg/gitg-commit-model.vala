@@ -245,6 +245,11 @@ public class CommitModel : Object
 				try
 				{
 					id = d_walker.next();
+					if (id == null)
+					{
+						break;
+					}
+
 					commit = d_repository.lookup(id, typeof(Gitg.Commit)) as Gitg.Commit;
 				} catch { break; }
 
