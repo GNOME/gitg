@@ -852,8 +852,10 @@ public class Egg.ListBox : Container {
 
   public override void forall_internal (bool include_internals,
 					Gtk.Callback callback) {
-    for (var iter = children.get_begin_iter (); !iter.is_end (); iter = iter.next ()) {
+    var iter = children.get_begin_iter ();
+    while (!iter.is_end ()) {
       unowned ChildInfo child_info = iter.get ();
+      iter = iter.next();
       if (child_info.separator != null && include_internals)
 	callback (child_info.separator);
       callback (child_info.widget);
