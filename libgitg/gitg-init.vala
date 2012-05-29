@@ -3,6 +3,8 @@ namespace Gitg
 
 public void init()
 {
+	Ggit.init();
+
 	var factory = Ggit.ObjectFactory.get_default();
 
 	factory.register(typeof(Ggit.Repository),
