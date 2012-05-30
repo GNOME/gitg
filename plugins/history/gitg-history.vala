@@ -69,13 +69,13 @@ namespace GitgHistory
 
 		private void build_ui()
 		{
-			var ret = from_builder("view-history.ui", {"view", "commit_list_view"});
+			var ret = from_builder("view-history.ui", {"scrolled_window_commit_list", "commit_list_view"});
 
 			d_view = ret["commit_list_view"] as Gtk.TreeView;
 			d_view.model = d_model;
 
 			update_walker(null);
-			d_main = ret["view"] as Gtk.Widget;
+			d_main = ret["scrolled_window_commit_list"] as Gtk.Widget;
 		}
 
 		private void update_walker(Ggit.Ref? head)
