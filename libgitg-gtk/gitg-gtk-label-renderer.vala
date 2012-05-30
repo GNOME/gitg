@@ -48,114 +48,34 @@ namespace GitgGtk
 			return ret + margin;
 		}
 
-		private static void
-		rounded_rectangle(Cairo.Context context,
-		                  double        x,
-		                  double        y,
-		                  double        width,
-		                  double        height,
-		                  double        radius)
+		private static string class_from_ref(Gitg.RefType type)
 		{
-			context.move_to(x + radius, y);
-			context.rel_line_to(width - 2 * radius, 0);
-			context.arc(x + width - radius, y + radius, radius, 1.5 * Math.PI, 0.0);
+			string style_class;
 
-			context.rel_line_to(0, height - 2 * radius);
-			context.arc(x + width - radius, y + height - radius, radius, 0.0, 0.5 * Math.PI);
-
-			context.rel_line_to(-(width - radius * 2), 0);
-			context.arc(x + radius, y + height - radius, radius, 0.5 * Math.PI, Math.PI);
-
-			context.rel_line_to(0, -(height - radius * 2));
-			context.arc(x + radius, y + radius, radius, Math.PI, 1.5 * Math.PI);
-		}
-
-		private static void get_type_color(Gitg.RefType type,
-		                                   out double   r,
-		                                   out double   g,
-		                                   out double   b)
-		{
 			switch (type)
 			{
-				case Gitg.RefType.NONE:
-					r = 1;
-					g = 1;
-					b = 0.8;
-				break;
 				case Gitg.RefType.BRANCH:
-					r = 0.8;
-					g = 1;
-					b = 0.5;
+					style_class = "branch";
 				break;
 				case Gitg.RefType.REMOTE:
-					r = 0.5;
-					g = 0.8;
-					b = 1;
+					style_class = "remote";
 				break;
 				case Gitg.RefType.TAG:
-					r = 1;
-					g = 1;
-					b = 0;
+					style_class = "tag";
 				break;
 				case Gitg.RefType.STASH:
-					r = 1;
-					g = 0.8;
-					b = 0.5;
+					style_class = "stash";
 				break;
 				default:
-					r = 1;
-					g = 1;
-					b = 1;
+					style_class = null;
 				break;
 			}
+
+			return style_class;
 		}
 
-		private static void get_ref_color(Gitg.Ref   rref,
-		                                  out double r,
-		                                  out double g,
-		                                  out double b)
-		{
-			if (rref.working)
-			{
-				r = 1;
-				g = 0.7;
-				b = 0;
-			}
-			else
-			{
-				get_type_color(rref.parsed_name.rtype, out r, out g, out b);
-			}
-		}
-
-		private static void set_source_for_ref_type(Cairo.Context context,
-		                                            Gitg.Ref      rref,
-		                                            bool          use_state)
-		{
-			if (use_state)
-			{
-				switch (rref.state)
-				{
-					case Gitg.RefState.SELECTED:
-						context.set_source_rgb(1, 1, 1);
-						return;
-					case Gitg.RefState.PRELIGHT:
-					{
-						double r, g, b;
-
-						get_ref_color(rref, out r, out g, out b);
-						context.set_source_rgba(r, g, b, 0.3);
-						return;
-					}
-				}
-			}
-
-			double r, g, b;
-			get_ref_color(rref, out r, out g, out b);
-
-			context.set_source_rgb(r, g, b);
-		}
-
-		private static int render_label(Cairo.Context context,
+		private static int render_label(Gtk.Widget    widget,
+		                                Cairo.Context cr,
 		                                Pango.Layout  layout,
 		                                Gitg.Ref      r,
 		                                int           x,
@@ -163,6 +83,7 @@ namespace GitgGtk
 		                                int           height,
 		                                bool          use_state)
 		{
+			var context = widget.get_style_context();
 			var smaller = label_text(r);
 
 			layout.set_markup(smaller, -1);
@@ -172,23 +93,30 @@ namespace GitgGtk
 
 			layout.get_pixel_size(out w, out h);
 
-			rounded_rectangle(context,
-			                  x + 0.5,
-			                  y + margin + 0.5,
-			                  w + padding * 2,
-			                  height - margin * 2,
-			                  5);
-
-			set_source_for_ref_type(context, r, use_state);
-			context.fill_preserve();
-
-			context.set_source_rgb(0, 0, 0);
-			context.stroke();
-
 			context.save();
 
-			context.translate(x + padding, y + (height - h) / 2.0 + 0.5);
-			Pango.cairo_show_layout(context, layout);
+			var style_class = class_from_ref(r.parsed_name.rtype);
+			if (style_class != null)
+			{
+				context.add_class(style_class);
+			}
+
+			context.render_background(cr,
+			                          x + 0.5,
+			                          y + margin + 0.5,
+			                          w + padding * 2,
+			                          height - margin * 2);
+
+			context.render_frame(cr,
+			                     x + 0.5,
+			                     y + margin + 0.5,
+			                     w + padding * 2,
+			                     height - margin * 2);
+
+			context.render_layout(cr,
+			                      x + padding,
+			                      y + (height - h) / 2.0 + 0.5,
+			                      layout);
 
 			context.restore();
 			return w;
@@ -212,7 +140,8 @@ namespace GitgGtk
 
 			foreach (Gitg.Ref r in labels)
 			{
-				var w = render_label(context,
+				var w = render_label(widget,
+				                     context,
 				                     layout,
 				                     r,
 				                     (int)pos,
@@ -312,7 +241,7 @@ namespace GitgGtk
 			var context = new Cairo.Context(surface);
 			context.set_line_width(1);
 
-			render_label(context, layout, r, 1, 1, height, false);
+			render_label(widget, context, layout, r, 1, 1, height, false);
 			var data = surface.get_data();
 
 			Gdk.Pixbuf ret = new Gdk.Pixbuf(Gdk.Colorspace.RGB,
