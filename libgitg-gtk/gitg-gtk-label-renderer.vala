@@ -115,7 +115,7 @@ namespace GitgGtk
 
 			context.render_layout(cr,
 			                      x + padding,
-			                      y + (height - h) / 2.0 + 0.5,
+			                      y + (height - h) / 2.0,
 			                      layout);
 
 			context.restore();
