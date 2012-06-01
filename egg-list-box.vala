@@ -425,9 +425,9 @@ public class Egg.ListBox : Container {
     if (event.button == 1) {
       unowned ChildInfo? child = find_child_at_y ((int)event.y);
       if (child != null) {
-	active_child = child;
-	active_child_active = true;
-	queue_draw ();
+        active_child = child;
+        active_child_active = true;
+        queue_draw ();
       }
 
       /* TODO: Should mark as active while down, and handle grab breaks */
@@ -438,7 +438,7 @@ public class Egg.ListBox : Container {
   public override bool button_release_event (Gdk.EventButton event) {
     if (event.button == 1) {
       if (active_child != null && active_child_active)
-	select_and_activate (active_child);
+        select_and_activate (active_child);
       active_child = null;
       active_child_active = false;
       queue_draw ();
