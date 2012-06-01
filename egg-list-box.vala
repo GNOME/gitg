@@ -47,6 +47,7 @@ public class Egg.ListBox : Container {
   private unowned ChildInfo active_child;
   private SelectionMode selection_mode;
   private Adjustment? adjustment;
+  private bool activate_single_click;
 
   construct {
     set_can_focus (true);
@@ -54,6 +55,7 @@ public class Egg.ListBox : Container {
     set_redraw_on_allocate (true);
 
     selection_mode = SelectionMode.SINGLE;
+    activate_single_click = true;
 
     children = new Sequence<ChildInfo>();
     child_hash = new HashTable<unowned Widget, unowned ChildInfo> (GLib.direct_hash, GLib.direct_equal);
@@ -152,6 +154,10 @@ public class Egg.ListBox : Container {
       update_separator (prev_next);
     }
 
+  }
+
+  public void set_activate_on_single_click (bool single) {
+    activate_single_click = single;
   }
 
   /****** Implementation ***********/
@@ -428,6 +434,10 @@ public class Egg.ListBox : Container {
         active_child = child;
         active_child_active = true;
         queue_draw ();
+
+        if (event.type == Gdk.EventType.2BUTTON_PRESS &&
+            !activate_single_click && child.widget != null)
+          child_activated (child.widget);
       }
 
       /* TODO: Should mark as active while down, and handle grab breaks */
@@ -438,7 +448,10 @@ public class Egg.ListBox : Container {
   public override bool button_release_event (Gdk.EventButton event) {
     if (event.button == 1) {
       if (active_child != null && active_child_active)
-        select_and_activate (active_child);
+        if (activate_single_click)
+          select_and_activate (active_child);
+        else
+          update_selected (active_child);
       active_child = null;
       active_child_active = false;
       queue_draw ();
