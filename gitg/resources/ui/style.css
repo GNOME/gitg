@@ -1,3 +1,38 @@
+@define-color butter1 #fce94f;
+@define-color butter2 #edd400;
+@define-color butter3 #c4a000;
+
+@define-color orange1 #fcaf3e;
+@define-color orange2 #f57900;
+@define-color orange3 #ce5c00;
+
+@define-color chocolate1 #e9b96e;
+@define-color chocolate2 #c17d11;
+@define-color chocolate3 #8f5902;
+
+@define-color chameleon1 #8ae234;
+@define-color chameleon2 #73d216;
+@define-color chameleon3 #4e9a06;
+
+@define-color skyblue1 #729fcf;
+@define-color skyblue2 #3465a4;
+@define-color skyblue3 #204a87;
+
+@define-color plum1 #ad7fa8;
+@define-color plum2 #75507b;
+@define-color plum3 #5c3566;
+
+@define-color scarletred1 #ef2929;
+@define-color scarletred2 #cc0000;
+@define-color scarletred3 #a40000;
+
+@define-color aluminium1 #eeeeec;
+@define-color aluminium2 #d3d7cf;
+@define-color aluminium3 #babdb6;
+@define-color aluminium4 #888a85;
+@define-color aluminium5 #555753;
+@define-color aluminium6 #2e3436;
+
 GtkToolbar#toolbar_topnav, GtkToolbar#toolbar_subnav {
 	border-left: 0px;
 	border-right: 0px;
@@ -37,7 +72,6 @@ GtkLabel.title {
 	font-weight: bold;
 	font-size: 16;
 	color: @insensitive_fg_color;
-	text-shadow: 1px 1px @theme_base_color;
 }
 
 GtkLabel.description {
@@ -47,40 +81,25 @@ GtkLabel.description {
 
 GtkLabel.grid_title {
 	font-weight: bold;
+}
 
-	text-shadow: 1px 1px @theme_base_color;
+.branch, .remote, .tag, .stash {
+	border-radius: 8px;
+	color: @aluminium1;
 }
 
 .branch {
-	border-style: solid;
-	border-radius: 5px;
-	border-width: 1px;
-	border-color: #204a87;
-	color: white;
-	background-color: #3465a4;
+	background-color: @skyblue3;
 }
 
 .remote {
-	border-style: solid;
-	border-radius: 5px;
-	border-width: 1px;
-	border-color: #4e9a06;
-	background-color: #73d216;
+	background-color: @chameleon3;
 }
 
 .tag {
-	border-style: solid;
-	border-radius: 5px;
-	border-width: 1px;
-	border-color: #ce5c00;
-	color: white;
-	background-color: #f57900;
+	background-color: @orange3;
 }
 
 .stash {
-	border-style: solid;
-	border-radius: 5px;
-	border-width: 1px;
-	border-color: #c4a000;
-	background-color: #edd400;
+	background-color: @butter3;
 }
