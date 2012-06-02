@@ -19,6 +19,8 @@ namespace GitgHistory
 			var repo = application.repository;
 
 			List<Gitg.Ref> branches = new List<Gitg.Ref>();
+			List<Gitg.Ref> tags = new List<Gitg.Ref>();
+
 			HashTable<string, List<Gitg.Ref>> remotes;
 			List<string> remotenames = new List<string>();
 
@@ -37,6 +39,10 @@ namespace GitgHistory
 					if (r.parsed_name.rtype == Gitg.RefType.BRANCH)
 					{
 						branches.insert_sorted(r, sort_refs);
+					}
+					else if (r.parsed_name.rtype == Gitg.RefType.TAG)
+					{
+						tags.insert_sorted(r, sort_refs);
 					}
 					else if (r.parsed_name.rtype == Gitg.RefType.REMOTE)
 					{
@@ -106,6 +112,12 @@ namespace GitgHistory
 			model.end_header();
 
 			// Tags
+			model.begin_header("Tags", null);
+
+			foreach (var item in tags)
+			{
+				model.append(item.parsed_name.shortname, null, null);
+			}
 		}
 
 		public GitgExt.NavigationSide navigation_side
