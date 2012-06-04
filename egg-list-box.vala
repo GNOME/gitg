@@ -69,6 +69,15 @@ public class Egg.ListBox : Container {
     return null;
   }
 
+  public unowned Widget? get_child_at_y (int y){
+      unowned ChildInfo? child = find_child_at_y (y);
+
+      if (child == null)
+        return null;
+
+      return child.widget;
+  }
+
   public void select_child (Widget? child) {
     unowned ChildInfo? info = null;
     if (child != null)
