@@ -487,8 +487,8 @@ public class Egg.ListBox : Container {
     if (had_focus) {
       /* If on row, going right, enter into possible container */
       if (direction == DirectionType.RIGHT || direction == DirectionType.TAB_FORWARD) {
-        /* TODO: Handle null cursor child */
-        recurse_into = cursor_child.widget;
+        if (cursor_child != null)
+          recurse_into = cursor_child.widget;
       }
       current_focus_child = cursor_child;
       /* Unless we're going up/down we're always leaving
