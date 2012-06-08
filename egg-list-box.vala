@@ -486,44 +486,39 @@ public class Egg.ListBox : Container {
 
     if (had_focus) {
       /* If on row, going right, enter into possible container */
-      if (direction == DirectionType.RIGHT ||
-	  direction == DirectionType.TAB_FORWARD) {
-	/* TODO: Handle null cursor child */
-	recurse_into = cursor_child.widget;
+      if (direction == DirectionType.RIGHT || direction == DirectionType.TAB_FORWARD) {
+        /* TODO: Handle null cursor child */
+        recurse_into = cursor_child.widget;
       }
       current_focus_child = cursor_child;
       /* Unless we're going up/down we're always leaving
-	 the container */
-      if (direction != DirectionType.UP &&
-	  direction != DirectionType.DOWN)
-	focus_into = false;
+      the container */
+      if (direction != DirectionType.UP && direction != DirectionType.DOWN)
+        focus_into = false;
     } else if (this.get_focus_child () != null) {
       /* There is a focus child, always navigat inside it first */
       recurse_into = this.get_focus_child ();
       current_focus_child = lookup_info (recurse_into);
 
       /* If exiting child container to the right, exit row */
-      if (direction == DirectionType.RIGHT ||
-	  direction == DirectionType.TAB_FORWARD)
-	focus_into = false;
+      if (direction == DirectionType.RIGHT || direction == DirectionType.TAB_FORWARD)
+        focus_into = false;
 
       /* If exiting child container to the left, select row or out */
-      if (direction == DirectionType.LEFT ||
-	  direction == DirectionType.TAB_BACKWARD) {
-	next_focus_child = current_focus_child;
+      if (direction == DirectionType.LEFT || direction == DirectionType.TAB_BACKWARD) {
+        next_focus_child = current_focus_child;
       }
     } else {
       /* If coming from the left, enter into possible container */
-      if (direction == DirectionType.LEFT ||
-	  direction == DirectionType.TAB_BACKWARD) {
-	if (selected_child != null)
-	  recurse_into = selected_child.widget;
+      if (direction == DirectionType.LEFT || direction == DirectionType.TAB_BACKWARD) {
+        if (selected_child != null)
+          recurse_into = selected_child.widget;
       }
     }
 
     if (recurse_into != null) {
       if (recurse_into.child_focus (direction))
-	return true;
+        return true;
     }
 
     if (!focus_into)
@@ -533,38 +528,38 @@ public class Egg.ListBox : Container {
 
     if (next_focus_child == null) {
       if (current_focus_child != null) {
-	if (direction == DirectionType.UP) {
-	  var i = get_previous_visible (current_focus_child.iter);
-	  if (i != null)
-	    next_focus_child = i.get ();
-	} else {
-	  var i = get_next_visible (current_focus_child.iter);
-	  if (!i.is_end ())
-	    next_focus_child = i.get ();
-	}
+        if (direction == DirectionType.UP) {
+          var i = get_previous_visible (current_focus_child.iter);
+          if (i != null)
+            next_focus_child = i.get ();
+        } else {
+          var i = get_next_visible (current_focus_child.iter);
+          if (!i.is_end ())
+            next_focus_child = i.get ();
+        }
       } else {
-	switch (direction) {
-	case DirectionType.DOWN:
-	case DirectionType.TAB_FORWARD:
-	  next_focus_child = get_first_visible ();
-	  break;
-	case DirectionType.UP:
-	case DirectionType.TAB_BACKWARD:
-	  next_focus_child = get_last_visible ();
-	  break;
-	default:
-	  next_focus_child = selected_child;
-	  if (next_focus_child == null)
-	    next_focus_child = get_first_visible ();
-	  break;
-	}
+          switch (direction) {
+            case DirectionType.DOWN:
+            case DirectionType.TAB_FORWARD:
+              next_focus_child = get_first_visible ();
+              break;
+            case DirectionType.UP:
+            case DirectionType.TAB_BACKWARD:
+              next_focus_child = get_last_visible ();
+              break;
+            default:
+              next_focus_child = selected_child;
+              if (next_focus_child == null)
+                next_focus_child = get_first_visible ();
+              break;
+           }
       }
     }
 
     if (next_focus_child == null) {
       if (direction == DirectionType.UP || direction == DirectionType.DOWN) {
-	error_bell ();
-	return true;
+        error_bell ();
+        return true;
       }
 
       return false;
@@ -576,7 +571,7 @@ public class Egg.ListBox : Container {
     if (Gtk.get_current_event_state (out state)) {
       var modify_mod_mask =  this.get_modifier_mask (Gdk.ModifierIntent.MODIFY_SELECTION);
       if ((state & modify_mod_mask) == modify_mod_mask)
-	modify_selection_pressed = true;
+        modify_selection_pressed = true;
     }
 
     update_cursor (next_focus_child);
