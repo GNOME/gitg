@@ -48,6 +48,7 @@ public class Egg.ListBox : Container {
   private SelectionMode selection_mode;
   private Adjustment? adjustment;
   private bool activate_single_click;
+  private Widget drag_highlighted_widget;
 
   construct {
     set_can_focus (true);
@@ -1019,5 +1020,29 @@ public class Egg.ListBox : Container {
 
       child_allocation.y += child_min + focus_width + focus_pad;
     }
+  }
+
+  /* DnD */
+
+  public void drag_unhighlight_widget () {
+    if (drag_highlighted_widget == null)
+      return;
+
+    Gtk.drag_unhighlight (drag_highlighted_widget);
+    drag_highlighted_widget = null;
+  }
+
+  public void drag_highlight_widget (Widget widget) {
+    if (drag_highlighted_widget == widget)
+      return;
+
+    drag_unhighlight_widget ();
+
+    Gtk.drag_highlight (widget);
+    drag_highlighted_widget = widget;
+  }
+
+  public override void drag_leave (Gdk.DragContext context, uint time_) {
+    drag_unhighlight_widget ();
   }
 }
