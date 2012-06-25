@@ -48,7 +48,10 @@ public class Egg.ListBox : Container {
   private SelectionMode selection_mode;
   private Adjustment? adjustment;
   private bool activate_single_click;
+
+  /* DnD */
   private Widget drag_highlighted_widget;
+  private uint auto_scroll_timeout_id;
 
   construct {
     set_can_focus (true);
@@ -61,6 +64,11 @@ public class Egg.ListBox : Container {
     children = new Sequence<ChildInfo>();
     child_hash = new HashTable<unowned Widget, unowned ChildInfo> (GLib.direct_hash, GLib.direct_equal);
     separator_hash = new HashTable<unowned Widget, unowned ChildInfo> (GLib.direct_hash, GLib.direct_equal);
+  }
+
+  ~ListBox (){
+    if (auto_scroll_timeout_id != 0)
+      Source.remove (auto_scroll_timeout_id);
   }
 
   public unowned Widget? get_selected_child (){
@@ -1044,5 +1052,47 @@ public class Egg.ListBox : Container {
 
   public override void drag_leave (Gdk.DragContext context, uint time_) {
     drag_unhighlight_widget ();
+
+    if (auto_scroll_timeout_id != 0) {
+      Source.remove (auto_scroll_timeout_id);
+      auto_scroll_timeout_id = 0;
+    }
+  }
+
+  public override bool drag_motion (Gdk.DragContext context, int x, int y, uint time_) {
+    /* Auto-scroll during Dnd if cursor is moving into the top/bottom portion of the
+     * box. */
+    if (auto_scroll_timeout_id != 0) {
+      Source.remove (auto_scroll_timeout_id);
+      auto_scroll_timeout_id = 0;
+    }
+
+    if (adjustment == null)
+     return false;
+
+    /* Part of the view triggering auto-scroll */
+    double size = 30;
+    int move = 0;
+
+    if (y < adjustment.value + size) {
+      /* Scroll up */
+      move = -1;
+    }
+    else if (y > (adjustment.value + adjustment.page_size) - size) {
+      /* Scroll down */
+      move = 1;
+    }
+
+    if (move == 0)
+      return false;
+
+    auto_scroll_timeout_id = Timeout.add (150, () =>
+      {
+        adjustment.value += (adjustment.step_increment * move);
+
+        return true;
+      });
+
+    return false;
   }
 }
