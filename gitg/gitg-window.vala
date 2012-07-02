@@ -313,7 +313,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	}
 
 	public static Window? create_new(Gtk.Application app,
-	                                 Repository repository,
+	                                 Repository? repository,
 	                                 GitgExt.ViewAction action)
 	{
 		Window? ret = Resource.load_object<Window>("ui/gitg-window.ui", "window");
