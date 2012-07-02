@@ -47,7 +47,7 @@ namespace GitgGtk
 		private uint d_size;
 		private int d_stamp;
 
-		public CommitModel(Gitg.Repository repository)
+		public CommitModel(Gitg.Repository? repository)
 		{
 			Object(repository: repository);
 		}
