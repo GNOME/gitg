@@ -1,137 +1,260 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.3 -->
-  <!-- interface-requires gitg 0.2 -->
+  <!-- interface-requires gitg 0.0 -->
   <object class="GitgWindow" id="window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">gitg</property>
     <property name="default_width">1000</property>
     <property name="default_height">600</property>
     <child>
-      <object class="GtkPaned" id="paned_main">
+      <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="position">200</property>
-        <property name="vexpand">True</property>
-        <property name="name">paned_main</property>
+        <property name="can_focus">False</property>
         <child>
-          <object class="GtkEventBox" id="navigation_background">
+          <object class="GtkToolbar" id="toolbar1">
             <property name="visible">True</property>
-            <property name="name">navigation_background</property>
+            <style>
+              <class name="menubar"/>
+            </style>
             <child>
-              <object class="GtkGrid" id="grid_navigation">
+              <object class="GtkToolItem" id="toolbutton1">
+                <property name="visible">True</property>
+                <style>
+                  <class name="raised"/>
+                </style>
+                <child>
+                  <object class="GtkAlignment" id="alignment1">
+                    <property name="visible">True</property>
+                    <property name="top_padding">5</property>
+                    <property name="bottom_padding">5</property>
+                    <property name="left_padding">10</property>
+                    <property name="right_padding">5</property>
+                    <child>
+                      <object class="GtkHBox" id="hbox1">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkAspectFrame" id="home-aspect-frame">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="xalign">0</property>
+                            <property name="ratio">1</property>
+                            <property name="shadow-type">none</property>
+                            <property name="obey-child">False</property>
+                            <child>
+                              <object class="GtkButton" id="home-button">
+                                <property name="use_action_appearance">False</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="no_show_all">True</property>
+                                <property name="use_action_appearance">False</property>
+                                <property name="image">image1</property>
+                                <property name="use_underline">True</property>
+                                <child internal-child="accessible">
+                                  <object class="AtkObject" id="home-button-atkobject">
+                                    <property name="AtkObject::accessible-name" translatable="yes">All Repositories</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkAlignment" id="entry-alignment">
+                            <property name="visible">True</property>
+                            <property name="xalign">1</property>
+                            <property name="xscale">0</property>
+                            <child>
+                              <object class="GtkBox" id="topright">
+                                <property name="visible">True</property>
+                                <property name="orientation">horizontal</property>
+                                <child>
+                                  <object class="GtkSearchEntry" id="search-entry">
+                                    <property name="width_request">210</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="invisible_char">&#x25CF;</property>
+                                    <property name="secondary-icon-name">edit-find-symbolic</property>
+                                    <property name="secondary-icon-activatable">False</property>
+                                    <property name="secondary-icon-sensitive">False</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLockButton" id="lock-button">
+                                    <property name="visible">False</property>
+                                    <property name="no_show_all">True</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkPaned" id="paned_main">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="vexpand">True</property>
+            <property name="position">200</property>
+            <property name="position_set">True</property>
+            <child>
+              <object class="GtkEventBox" id="navigation_background">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="name">grid_navigation</property>
-                <property name="hexpand">True</property>
-                <property name="halign">fill</property>
                 <child>
-                  <object class="GtkToolbar" id="toolbar_topnav">
+                  <object class="GtkGrid" id="grid_navigation">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="toolbar_style">icons</property>
-                    <property name="icon-size">1</property>
                     <property name="hexpand">True</property>
-                    <property name="halign">fill</property>
-                    <property name="name">toolbar_topnav</property>
-                    <property name="show-arrow">False</property>
-                    <style>
-                      <class name="inline-toolbar"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkScrolledWindow" id="scrolled_window_navigation">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="hscrollbar_policy">never</property>
-                    <property name="vexpand">true</property>
-                    <property name="hexpand">true</property>
-                    <property name="shadow-type">none</property>
-                    <property name="name">scrolled_window_navigation</property>
                     <child>
-                      <object class="GitgExtNavigationTreeView" id="tree_view_navigation">
+                      <object class="GtkToolbar" id="toolbar_topnav">
                         <property name="visible">True</property>
-                        <property name="headers-visible">False</property>
-                        <property name="name">tree_view_navigation</property>
+                        <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
+                        <property name="toolbar_style">icons</property>
+                        <property name="show_arrow">False</property>
+                        <property name="icon_size">1</property>
+                        <style>
+                          <class name="inline-toolbar"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">0</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolled_window_navigation">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
+                        <property name="hscrollbar_policy">never</property>
+                        <property name="name">scrolled_window_navigation</property>
+                        <child>
+                          <object class="GitgExtNavigationTreeView" id="tree_view_navigation">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="headers_visible">False</property>
+                            <property name="name">tree_view_navigation</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection" id="gitgextnavigationtreeView-selection"/>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">1</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToolbar" id="toolbar_subnav">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
+                        <property name="toolbar_style">icons</property>
+                        <property name="icon_size">2</property>
+                        <style>
+                          <class name="inline-toolbar"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">2</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">False</property>
+                <property name="shrink">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkPaned" id="paned_panels">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkEventBox" id="frame_background">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkFrame" id="frame_main">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label_xalign">0</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <placeholder/>
+                        </child>
                       </object>
                     </child>
                   </object>
                   <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
+                    <property name="resize">False</property>
+                    <property name="shrink">True</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolbar" id="toolbar_subnav">
+                  <object class="GtkNotebook" id="notebook_panels">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="toolbar_style">icons</property>
-                    <property name="hexpand">True</property>
-                    <property name="icon-size">2</property>
-                    <property name="name">toolbar_subnav</property>
-                    <style>
-                      <class name="inline-toolbar"/>
-                    </style>
+                    <property name="can_focus">True</property>
                   </object>
                   <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">2</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
+                    <property name="resize">True</property>
+                    <property name="shrink">True</property>
                   </packing>
                 </child>
               </object>
+              <packing>
+                <property name="resize">True</property>
+                <property name="shrink">True</property>
+              </packing>
             </child>
           </object>
           <packing>
-            <property name="resize">False</property>
-            <property name="shrink">True</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkPaned" id="paned_panels">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="orientation">vertical</property>
-            <child>
-              <object class="GtkEventBox" id="frame_background">
-                <property name="visible">True</property>
-                <property name="name">frame_background</property>
-                <child>
-                  <object class="GtkFrame" id="frame_main">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="shadow_type">in</property>
-                    <property name="name">frame_main</property>
-                    <child>
-                      <placeholder/>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkNotebook" id="notebook_panels">
-                <property name="visible">True</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="resize">True</property>
-            <property name="shrink">True</property>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
           </packing>
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">view-grid-symbolic</property>
+    <property name="use_fallback">True</property>
+    <property name="pixel-size">16</property>
   </object>
 </interface>
 
