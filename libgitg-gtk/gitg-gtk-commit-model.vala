@@ -84,7 +84,7 @@ namespace GitgGtk
 
 			while (d_size > 0)
 			{
-				path.down();
+				path.prev();
 				--d_size;
 
 				row_deleted(path.copy());
