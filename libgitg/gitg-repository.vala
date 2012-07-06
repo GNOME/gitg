@@ -32,6 +32,28 @@ public class Repository : Ggit.Repository
 		((Initable)this).init(null);
 	}
 
+	private void ensure_refs_add(Ggit.OId? id, Gitg.Ref r)
+	{
+		if (id == null)
+		{
+			return;
+		}
+
+		unowned SList<Gitg.Ref> refs;
+
+		if (d_refs.lookup_extended(id, null, out refs))
+		{
+			refs.append(r);
+		}
+		else
+		{
+			SList<Gitg.Ref> nrefs = new SList<Gitg.Ref>();
+			nrefs.append(r);
+
+			d_refs.insert(id, (owned)nrefs);
+		}
+	}
+
 	private void ensure_refs()
 	{
 		if (d_refs != null)
@@ -53,27 +75,34 @@ public class Repository : Ggit.Repository
 				}
 				catch { return 0; }
 
-				if (r != null)
+				if (r == null)
 				{
-					Ggit.OId? id = r.get_id();
+					return 0;
+				}
+
+				Ggit.OId? id = r.get_id();
+
+				if (id == null)
+				{
+					return 0;
+				}
+
+				ensure_refs_add(id, r);
+
+				// if it's a 'real' tag, then we are also going to store
+				// a ref to the underlying commit the tag points to
+				try
+				{
+					var tag = lookup(id, typeof(Ggit.Tag)) as Ggit.Tag;
+
+					// get the target id
+					id = tag.get_target_id();
 
 					if (id != null)
 					{
-						unowned SList<Gitg.Ref> refs;
-
-						if (d_refs.lookup_extended(id, null, out refs))
-						{
-							refs.append(r);
-						}
-						else
-						{
-							SList<Gitg.Ref> nrefs = new SList<Gitg.Ref>();
-							nrefs.append(r);
-
-							d_refs.insert(id, (owned)nrefs);
-						}
+						ensure_refs_add(id, r);
 					}
-				}
+				} catch {}
 
 				return 0;
 			});

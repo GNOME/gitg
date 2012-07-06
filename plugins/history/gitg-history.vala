@@ -110,21 +110,41 @@ namespace GitgHistory
 			d_main = ret["scrolled_window_commit_list"] as Gtk.Widget;
 		}
 
-		private void update_walker(Ggit.Ref? head)
+		private void update_walker(Gitg.Ref? head)
 		{
-			Ggit.Ref? th = head;
+			Ggit.OId? id = null;
 
-			if (th == null && application.repository != null)
+			if (head != null && head.parsed_name.rtype == Gitg.RefType.TAG)
+			{
+				// See to resolve to the commit
+				try
+				{
+					var t = application.repository.lookup(head.get_id(), typeof(Ggit.Tag)) as Ggit.Tag;
+
+					id = t.get_target_id();
+				} catch {}
+			}
+			else if (head != null)
+			{
+				id = head.get_id();
+			}
+
+			if (id == null && application.repository != null)
 			{
 				try
 				{
-					th = application.repository.get_head();
+					Gitg.Ref? th = application.repository.get_head();
+
+					if (th != null)
+					{
+						id = th.get_id();
+					}
 				} catch {}
 			}
 
-			if (th != null)
+			if (id != null)
 			{
-				d_model.set_include(new Ggit.OId[] { th.get_id() });
+				d_model.set_include(new Ggit.OId[] { id });
 			}
 
 			d_model.reload();
