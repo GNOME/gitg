@@ -19,6 +19,7 @@ INST_H_FILES =				\
 VALAFLAGS = 				\
 	--pkg Ggit-1.0 			\
 	--pkg gio-2.0			\
+	--target-glib 2.32		\
 	--header libgitg.h		\
 	--includedir libgitg		\
 	--basedir $(top_srcdir)		\

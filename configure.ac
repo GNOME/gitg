@@ -83,7 +83,7 @@ AC_DEFINE_UNQUOTED(GITG_LIBDIR,"$GITG_LIBDIR", [lib dir])
 
 AC_CHECK_LIB([m], [sinf])
 
-GLIB_REQUIRED_VERSION=2.26
+GLIB_REQUIRED_VERSION=2.32
 GTK_REQUIRED_VERSION=3.0.0
 GTKSOURCEVIEW_REQUIRED_VERSION=3.1.3
 INTROSPECTION_REQUIRED=0.10.1
@@ -216,6 +216,7 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg gtk+-3.0				\
 	--pkg libpeas-1.0			\
 	--pkg gee-1.0				\
+	--target-glib 2.32			\
 	--vapidir \$(top_srcdir)/vapi		\
 	--girdir \$(top_builddir)/libgitg	\
 	--girdir \$(top_builddir)/libgitg-gtk	\

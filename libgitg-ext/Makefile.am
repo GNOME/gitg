@@ -13,6 +13,7 @@ VALAFLAGS = 				\
 	--pkg Gitg-1.0			\
 	--pkg gio-2.0			\
 	--pkg gtk+-3.0			\
+	--target-glib 2.32		\
 	--header libgitg-ext.h		\
 	--includedir libgitg-ext	\
 	--basedir $(top_srcdir)		\

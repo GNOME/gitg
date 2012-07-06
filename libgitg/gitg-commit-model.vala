@@ -25,7 +25,7 @@ public class CommitModel : Object
 	private Repository d_repository;
 	private Cancellable? d_cancellable;
 	private Gitg.Commit[] d_ids;
-	private unowned Thread<void*>? d_thread;
+	private Thread<void*>? d_thread;
 	private Ggit.RevisionWalker? d_walker;
 	private uint d_advertized_size;
 	private uint d_idleid;
@@ -313,7 +313,7 @@ public class CommitModel : Object
 
 		try
 		{
-			d_thread = Thread.create<void*>(run, true);
+			d_thread = new Thread<void*>.try("gitg-history-walk", run);
 			yield;
 		}
 		catch
