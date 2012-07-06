@@ -22,6 +22,9 @@ namespace GitgHistory
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
+	/* The main history view. This view shows the equivalent of git log, but
+	 * in a nice way with lanes, merges, ref labels etc.
+	 */
 	public class View : Object, GitgExt.View
 	{
 		public GitgExt.Application? application { owned get; construct; }
@@ -39,6 +42,7 @@ namespace GitgHistory
 		construct
 		{
 			d_model = new GitgGtk.CommitModel(application.repository);
+
 			application.bind_property("repository", d_model, "repository", BindingFlags.DEFAULT);
 		}
 
@@ -75,7 +79,12 @@ namespace GitgHistory
 		{
 			owned get
 			{
+				// Create the sidebar navigation for the history. This navigation
+				// will show branches, remotes and tags which can be used to
+				// filter the history
 				var ret = new Navigation(application);
+
+				ret.ref_activated.connect(on_ref_activated);
 
 				return ret;
 			}
@@ -86,6 +95,11 @@ namespace GitgHistory
 			return application.repository != null && action == GitgExt.ViewAction.HISTORY;
 		}
 
+		private void on_ref_activated(Gitg.Ref r)
+		{
+			update_walker(r);
+		}
+
 		private void build_ui()
 		{
 			var ret = from_builder("view-history.ui", {"scrolled_window_commit_list", "commit_list_view"});
@@ -93,7 +107,6 @@ namespace GitgHistory
 			d_view = ret["commit_list_view"] as Gtk.TreeView;
 			d_view.model = d_model;
 
-			update_walker(null);
 			d_main = ret["scrolled_window_commit_list"] as Gtk.Widget;
 		}
 

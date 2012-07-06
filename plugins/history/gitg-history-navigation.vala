@@ -23,6 +23,8 @@ namespace GitgHistory
 	{
 		public GitgExt.Application? application { owned get; construct; }
 
+		public signal void ref_activated(Gitg.Ref r);
+
 		public Navigation(GitgExt.Application app)
 		{
 			Object(application: app);
@@ -99,15 +101,19 @@ namespace GitgHistory
 
 			foreach (var item in branches)
 			{
+				var it = item;
+
 				if (head != null && item.get_id().equal(head.get_id()))
 				{
 					model.append_default(item.parsed_name.shortname,
 					                     "object-select-symbolic",
-					                     null);
+					                     (nc) => ref_activated(it));
 				}
 				else
 				{
-					model.append(item.parsed_name.shortname, null, null);
+					model.append(item.parsed_name.shortname,
+					             null,
+					             (nc) => ref_activated(it));
 				}
 			}
 
@@ -122,7 +128,11 @@ namespace GitgHistory
 
 				foreach (var rref in remotes.lookup(rname))
 				{
-					model.append(rref.parsed_name.remote_branch, null, null);
+					var it = rref;
+
+					model.append(rref.parsed_name.remote_branch,
+					             null,
+					             (nc) => ref_activated(it));
 				}
 
 				model.end_header();
@@ -135,7 +145,11 @@ namespace GitgHistory
 
 			foreach (var item in tags)
 			{
-				model.append(item.parsed_name.shortname, null, null);
+				var it = item;
+
+				model.append(item.parsed_name.shortname,
+				             null,
+				             (nc) => ref_activated(it));
 			}
 		}
 
