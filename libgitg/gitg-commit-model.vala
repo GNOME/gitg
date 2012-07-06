@@ -206,8 +206,6 @@ public class CommitModel : Object
 				try
 				{
 					d_walker = new Ggit.RevisionWalker(d_repository);
-					d_walker.set_sort_mode(Ggit.SortMode.TOPOLOGICAL |
-					                       Ggit.SortMode.TIME);
 				}
 				catch
 				{
@@ -217,6 +215,7 @@ public class CommitModel : Object
 			}
 
 			d_walker.reset();
+			d_walker.set_sort_mode(Ggit.SortMode.TOPOLOGICAL | Ggit.SortMode.TIME);
 
 			foreach (Ggit.OId oid in included)
 			{
@@ -262,6 +261,7 @@ public class CommitModel : Object
 				try
 				{
 					id = d_walker.next();
+
 					if (id == null)
 					{
 						break;
