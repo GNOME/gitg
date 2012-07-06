@@ -124,13 +124,19 @@ AC_ARG_ENABLE(debug,
                               [disable debug information [default=yes]])],
               [enable_debug=$enableval], [enable_debug=yes])
 
+GITG_VALAFLAGS="--target-glib 2.32"
+
 if test "x$enable_debug" = "xyes"; then
 	LIBGITG_CFLAGS="$LIBGITG_CFLAGS -g -O0"
+	GITG_VALAFLAGS="$GITG_VALAFLAGS -g --save-temps"
+
 	AC_DEFINE([ENABLE_DEBUG],[1],[Whether debugging support is enabled])
 fi
 
 AC_SUBST(LIBGITG_CFLAGS)
 AC_SUBST(LIBGITG_LIBS)
+
+AC_SUBST(GITG_VALAFLAGS)
 
 PKG_CHECK_MODULES(LIBGITG_GTK, [
 	gtk+-3.0 >= $GTK_REQUIRED_VERSION
@@ -216,7 +222,7 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg gtk+-3.0				\
 	--pkg libpeas-1.0			\
 	--pkg gee-1.0				\
-	--target-glib 2.32			\
+	\$(GITG_VALAFLAGS)			\
 	--vapidir \$(top_srcdir)/vapi		\
 	--girdir \$(top_builddir)/libgitg	\
 	--girdir \$(top_builddir)/libgitg-gtk	\

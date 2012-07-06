@@ -25,7 +25,7 @@ VALAFLAGS = 				\
 	--pkg Gitg-1.0			\
 	--pkg gtk+-3.0			\
 	--pkg gio-2.0			\
-	--target-glib 2.32		\
+	$(GITG_VALAFLAGS)		\
 	--header libgitg-gtk.h		\
 	--includedir libgitg-gtk	\
 	--basedir $(top_srcdir)		\

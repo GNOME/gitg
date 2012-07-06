@@ -11,6 +11,7 @@ AM_CPPFLAGS =							\
 
 VALAFLAGS = \
 	--vapidir $(top_srcdir)/vapi				\
+	$(GITG_VALAFLAGS)					\
 	--pkg config						\
 	--pkg Ggit-1.0						\
 	--pkg Gitg-1.0						\
