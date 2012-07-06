@@ -43,7 +43,8 @@ EXTRA_DIST = $(plugin_DATA)			\
 
 CLEANFILES = 					\
 	$(VALA_SOURCES:.vala=.c)		\
-	$(BUILT_SOURCES)
+	$(BUILT_SOURCES)			\
+	libhistory_la_vala.stamp
 
 install-data-hook:
 	rm -f $(GITG_PLUGIN_LIBDIR)/libhistory.la
