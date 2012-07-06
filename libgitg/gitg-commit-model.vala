@@ -60,6 +60,8 @@ public class CommitModel : Object
 	construct
 	{
 		d_lanes = new Lanes();
+		d_cancellable = new Cancellable();
+		d_cancellable.cancel();
 	}
 
 	~CommitModel()
@@ -79,22 +81,19 @@ public class CommitModel : Object
 
 	private void cancel()
 	{
-		if (d_cancellable == null)
+		if (!d_cancellable.is_cancelled())
 		{
-			return;
-		}
+			d_cancellable.cancel();
 
-		d_cancellable.cancel();
-		d_thread.join();
+			d_thread.join();
+			d_thread = null;
+		}
 
 		if (d_idleid != 0)
 		{
 			Source.remove(d_idleid);
 			d_idleid = 0;
 		}
-
-		d_thread = null;
-		d_cancellable = null;
 
 		d_ids = new Gitg.Commit[0];
 		d_advertized_size = 0;
@@ -125,6 +124,10 @@ public class CommitModel : Object
 
 		walk.begin((obj, res) => {
 			walk.end(res);
+
+			d_cancellable.cancel();
+			d_thread.join();
+			d_thread = null;
 		});
 	}
 
@@ -180,10 +183,6 @@ public class CommitModel : Object
 
 				if (isend)
 				{
-					d_thread.join();
-					d_thread = null;
-					d_cancellable = null;
-
 					emit_finished();
 				}
 			}
@@ -197,7 +196,6 @@ public class CommitModel : Object
 		Ggit.OId[] included = d_include;
 		Ggit.OId[] excluded = d_exclude;
 
-		d_cancellable = new Cancellable();
 		uint limit = this.limit;
 
 		SourceFunc cb = walk.callback;
@@ -313,13 +311,16 @@ public class CommitModel : Object
 
 		try
 		{
+			d_cancellable.reset();
 			d_thread = new Thread<void*>.try("gitg-history-walk", run);
 			yield;
 		}
 		catch
 		{
 			emit_finished();
-			d_cancellable = null;
+
+			d_cancellable.cancel();
+			d_thread = null;
 		}
 	}
 }
