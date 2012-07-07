@@ -126,8 +126,11 @@ public class CommitModel : Object
 			walk.end(res);
 
 			d_cancellable.cancel();
-			d_thread.join();
-			d_thread = null;
+			if (d_thread != null)
+			{
+				d_thread.join();
+				d_thread = null;
+			}
 		});
 	}
 
