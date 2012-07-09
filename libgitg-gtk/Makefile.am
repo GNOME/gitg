@@ -25,7 +25,11 @@ VALAFLAGS = 				\
 	--pkg Gitg-1.0			\
 	--pkg gtk+-3.0			\
 	--pkg gio-2.0			\
+	--pkg webkitgtk-3.0		\
+	--pkg gee-1.0			\
+	--pkg json-glib-1.0		\
 	$(GITG_VALAFLAGS)		\
+	--vapidir $(top_srcdir)/vapi	\
 	--header libgitg-gtk.h		\
 	--includedir libgitg-gtk	\
 	--basedir $(top_srcdir)		\
@@ -40,14 +44,16 @@ VALA_FILES =					\
 	gitg-gtk-commit-model.vala		\
 	gitg-gtk-label-renderer.vala		\
 	gitg-gtk-cell-renderer-lanes.vala	\
-	gitg-gtk-commit-list-view.vala
+	gitg-gtk-commit-list-view.vala		\
+	gitg-gtk-diff-view.vala
 
 # Ignore all warnings for vala code...
 libgitg_gtk_1_0_la_CFLAGS =		\
 	-w
 
 libgitg_gtk_1_0_la_SOURCES = 		\
-	$(VALA_FILES)
+	$(VALA_FILES)			\
+	gitg-gtk-resources.c
 
 headerdir = $(prefix)/include/libgitg-gtk-1.0/libgitg-gtk
 header_DATA = $(INST_H_FILES)
@@ -64,11 +70,27 @@ typelib_DATA = GitgGtk-1.0.typelib
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgitg-gtk-1.0.pc
 
-BUILT_SOURCES = \
-	$(gir_DATA) \
-	libgitg-gtk.h
+gitg-gtk-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
+		--sourcedir $(srcdir)/resources 	\
+		--target "$@" "$<"
 
-EXTRA_DIST = $(pkgconfig_DATA)
+gitg-gtk-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+	$(GLIB_COMPILE_RESOURCES) --generate-header 	\
+		--sourcedir $(srcdir)/resources 	\
+		--target "$@" "$<"
+
+BUILT_SOURCES = 			\
+	$(gir_DATA) 			\
+	libgitg-gtk.h			\
+	gitg-gtk-resources.c		\
+	gitg-gtk-resources.h
+
+EXTRA_DIST = \
+	$(pkgconfig_DATA)		\
+	resources/resources.xml		\
+	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+
 CLEANFILES = $(VALA_FILES:.vala=.c)
 
 dist-hook:

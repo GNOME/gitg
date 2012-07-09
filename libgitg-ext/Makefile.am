@@ -93,9 +93,11 @@ EXTRA_DIST =				\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 
 CLEANFILES = 					\
-	$(VALA_FILES:.vala=.c)			\
+	$(VALA_FILES:.vala=.c)		\
 	GitgExt-1.0.gir				\
-	GitgExt-1.0.typelib
+	GitgExt-1.0.typelib			\
+	libgitg-ext-1.0.vapi		\
+	libgitg_ext_1_0_la_vala.stamp
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
