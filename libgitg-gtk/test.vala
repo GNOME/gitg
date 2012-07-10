@@ -1,17 +1,15 @@
 class Test
 {
-	private static int f(Ggit.DiffDelta? delta, Ggit.DiffRange? range, Ggit.DiffLineType t, uint8[] content)
-	{
-		var s = ((string)content).substring(0, content.length);
-		stdout.printf("hello: %s", s);
-		return 0;
-	}
 	public static void main(string[] args)
 	{
 		Gtk.init(ref args);
 
 		var wnd = new Gtk.Window();
-		var v = new GitgGtk.DiffView(File.new_for_path("base.js"));
+		wnd.set_default_size(800, 600);
+		var sw = new Gtk.ScrolledWindow(null, null);
+
+		var v = new GitgGtk.DiffView(null);
+		sw.add(v);
 
 		var repo = Ggit.Repository.open(File.new_for_path("../"));
 
@@ -30,9 +28,23 @@ class Test
 
 		var diff = new Ggit.Diff.workdir_to_index(repo, opts);
 
+		v.key_press_event.connect((vv, ev) => {
+			var state = ev.state & Gtk.accelerator_get_default_mod_mask();
+
+			if (ev.keyval == Gdk.Key.r && state == Gdk.ModifierType.CONTROL_MASK)
+			{
+				v.reload_bypass_cache();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		});
+
 		v.diff = diff;
 
-		wnd.add(v);
+		wnd.add(sw);
 		wnd.show_all();
 
 		Gtk.main();

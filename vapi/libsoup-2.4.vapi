@@ -716,16 +716,16 @@ namespace Soup {
 		public bool host_equal (Soup.URI v2);
 		public uint host_hash ();
 		public static string normalize (string part, string unescape_extra);
-		public void set_fragment (string fragment);
-		public void set_host (string host);
-		public void set_password (string password);
+		public void set_fragment (string? fragment);
+		public void set_host (string? host);
+		public void set_password (string? password);
 		public void set_path (string path);
 		public void set_port (uint port);
-		public void set_query (string query);
+		public void set_query (string? query);
 		public void set_query_from_fields (...);
 		public void set_query_from_form (GLib.HashTable<string,string> form);
 		public void set_scheme (string scheme);
-		public void set_user (string user);
+		public void set_user (string? user);
 		public string to_string (bool just_path_and_query);
 		public bool uses_default_port ();
 		[CCode (has_construct_function = false)]

@@ -1,5 +1,36 @@
 body {
-  background-color: #000;
+}
+
+div#diff {
+  font-family: monospace;
+}
+
+div#diff div.file div.header {
+  border: 1px solid #888a85;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eeeeec), to(#d3d7cf));
+
+  border-radius: 10px 10px 10px 10px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+div#diff div.file {
+  margin-bottom: 30px;
+}
+
+div#diff div.file div.hunk div.header {
+  background: -webkit-gradient(linear, left top, left bottom, from(#729fcf), to(#3465a4));
+  color: #eeeeec;
+  border: 1px solid #204a87;
+  border-radius: 5px 5px 5px 5px;
+}
+
+div#diff div.file span.old.prefix, div#diff div.file div.line.removed {
+  color: #a40000;
+}
+
+div#diff div.file span.new.prefix, div#diff div.file div.line.added {
+  color: #4e9a06;
 }
 
 /* vi:ts=2:et */

@@ -4578,6 +4578,7 @@ namespace WebKit {
 		[HasEmitter]
 		public virtual signal void redo ();
 		public virtual signal void resource_request_starting (WebKit.WebFrame p0, WebKit.WebResource p1, WebKit.NetworkRequest p2, WebKit.NetworkResponse p3);
+		public virtual signal void resource_response_received (WebKit.WebFrame p0, WebKit.WebResource p1, WebKit.NetworkResponse p2);
 		public virtual signal bool script_alert (WebKit.WebFrame frame, string alert_message);
 		public virtual signal bool script_confirm (WebKit.WebFrame frame, string confirm_message, void* did_confirm);
 		public virtual signal bool script_prompt (WebKit.WebFrame frame, string message, string default_value, void* value);
