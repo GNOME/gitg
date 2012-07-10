@@ -49,6 +49,7 @@ VALA_FILES =						\
 	gitg-gtk-diff-view-request.vala			\
 	gitg-gtk-diff-view-request-resource.vala	\
 	gitg-gtk-diff-view-request-diff.vala		\
+	gitg-gtk-dash-view.vala				\
 	egg-list-box/egg-list-box.vala
 
 # Ignore all warnings for vala code...
