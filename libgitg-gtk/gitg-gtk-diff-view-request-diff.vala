@@ -147,6 +147,44 @@ namespace GitgGtk
 			builder.end_object();
 		}
 
+		private void signature_to_json(Json.Builder builder, Ggit.Signature sig)
+		{
+			builder.begin_object();
+
+			builder.set_member_name("name");
+			builder.add_string_value(sig.get_name());
+
+			builder.set_member_name("email");
+			builder.add_string_value(sig.get_email());
+
+			builder.set_member_name("time");
+			builder.add_int_value(sig.get_time().to_unix());
+
+			builder.end_object();
+		}
+
+		private void commit_to_json(Json.Builder builder, Ggit.Commit commit)
+		{
+			builder.begin_object();
+
+			builder.set_member_name("id");
+			builder.add_string_value(commit.get_id().to_string());
+
+			builder.set_member_name("subject");
+			builder.add_string_value(commit.get_subject());
+
+			builder.set_member_name("message");
+			builder.add_string_value(commit.get_message());
+
+			builder.set_member_name("committer");
+			signature_to_json(builder, commit.get_committer());
+
+			builder.set_member_name("author");
+			signature_to_json(builder, commit.get_author());
+
+			builder.end_object();
+		}
+
 		private InputStream? run_diff(Ggit.Diff? diff, Cancellable? cancellable) throws GLib.Error
 		{
 			if (diff == null)
@@ -158,7 +196,15 @@ namespace GitgGtk
 			var builder = new Json.Builder();
 			DiffState state = new DiffState();
 
-			builder.begin_array();
+			builder.begin_object();
+
+			if (d_view.commit != null)
+			{
+				builder.set_member_name("commit");
+				commit_to_json(builder, d_view.commit);
+			}
+
+			builder.set_member_name("diff").begin_array();
 
 			diff.foreach(
 				(delta, progress) => {
@@ -210,6 +256,7 @@ namespace GitgGtk
 			}
 
 			builder.end_array();
+			builder.end_object();
 
 			var gen = new Json.Generator();
 			gen.set_root(builder.get_root());

@@ -75,9 +75,9 @@ function write_diff(res)
 	var content = $('#diff');
 	content.empty();
 
-	for (var i = 0; i < res.length; ++i)
+	for (var i = 0; i < res.diff.length; ++i)
 	{
-		content.append(diff_file(res[i]));
+		content.append(diff_file(res.diff[i]));
 	}
 }
 
@@ -87,6 +87,11 @@ function update_diff()
 
 	r.onload = function(e) {
 		j = JSON.parse(r.responseText);
+
+		if ('commit' in j)
+		{
+			console.log(JSON.stringify(j.commit, null, 2));
+		}
 
 		write_diff(j);
 	}

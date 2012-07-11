@@ -19,14 +19,15 @@ class Test
 			return;
 		}
 
-		var opts = new Ggit.DiffOptions(Ggit.DiffFlags.NORMAL,
+		v.options = new Ggit.DiffOptions(Ggit.DiffFlags.NORMAL,
 		                                3,
 		                                3,
 		                                null,
 		                                null,
 		                                null);
 
-		var diff = new Ggit.Diff.workdir_to_index(repo, opts);
+		var commit = repo.get_head().lookup() as Ggit.Commit;
+		v.commit = commit;
 
 		v.key_press_event.connect((vv, ev) => {
 			var state = ev.state & Gtk.accelerator_get_default_mod_mask();
@@ -41,8 +42,6 @@ class Test
 				return false;
 			}
 		});
-
-		v.diff = diff;
 
 		wnd.add(sw);
 		wnd.show_all();
