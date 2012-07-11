@@ -19,8 +19,8 @@
 using Gtk;
 
 public class GitgGtk.ListBox : Container {
-  public delegate bool FilterFunc (Widget child);
-  public delegate void UpdateSeparatorFunc (ref Widget? separator, Widget child, Widget? before);
+  private delegate bool FilterFunc (Widget child);
+  private delegate void UpdateSeparatorFunc (ref Widget? separator, Widget child, Widget? before);
 
   private class ChildInfo {
     public Widget widget;
@@ -120,16 +120,6 @@ public class GitgGtk.ListBox : Container {
       update_selected (null);
   }
 
-  public void set_filter_func (owned FilterFunc? f) {
-    filter_func = (owned)f;
-    refilter ();
-  }
-
-  public void set_separator_funcs (owned UpdateSeparatorFunc? update_separator) {
-    update_separator_func = (owned)update_separator;
-    reseparate ();
-  }
-
   public void refilter () {
     apply_filter_all ();
     reseparate ();
@@ -184,12 +174,10 @@ public class GitgGtk.ListBox : Container {
     return sort_func (a.widget, b.widget);
   }
 
-  [Signal (action=true)]
   public virtual signal void activate_cursor_child () {
     select_and_activate (cursor_child);
   }
 
-  [Signal (action=true)]
   public virtual signal void toggle_cursor_child () {
     if (cursor_child == null)
       return;
@@ -201,7 +189,6 @@ public class GitgGtk.ListBox : Container {
       select_and_activate (cursor_child);
   }
 
-  [Signal (action=true)]
   public virtual signal void move_cursor (MovementStep step, int count) {
     Gdk.ModifierType state;
 
