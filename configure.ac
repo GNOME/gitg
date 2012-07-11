@@ -230,6 +230,7 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg webkitgtk-3.0			\
 	\$(GITG_VALAFLAGS)			\
 	--vapidir \$(top_srcdir)/vapi		\
+	--girdir \$(top_srcdir)/vapi		\
 	--girdir \$(top_builddir)/libgitg	\
 	--girdir \$(top_builddir)/libgitg-gtk	\
 	--girdir \$(top_builddir)/libgitg-ext	\
