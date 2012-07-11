@@ -1,36 +1,118 @@
-body {
+body, html {
+  padding: 0;
+  margin: 0;
+}
+
+div#templates {
+  display: none;
 }
 
 div#diff {
   font-family: monospace;
+  -webkit-tab-size: 4;
 }
 
 div#diff div.file div.header {
-  border: 1px solid #888a85;
-  background: -webkit-gradient(linear, left top, left bottom, from(#eeeeec), to(#d3d7cf));
-
-  border-radius: 10px 10px 10px 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#729fcf), to(#3465a4));
+  color: #eeeeec;
   padding: 5px;
-  margin-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 div#diff div.file {
-  margin-bottom: 30px;
-}
-
-div#diff div.file div.hunk div.header {
-  background: -webkit-gradient(linear, left top, left bottom, from(#729fcf), to(#3465a4));
-  color: #eeeeec;
-  border: 1px solid #204a87;
-  border-radius: 5px 5px 5px 5px;
 }
 
 div#diff div.file span.old.prefix, div#diff div.file div.line.removed {
-  color: #a40000;
+  color: #ffcccc;
 }
 
 div#diff div.file span.new.prefix, div#diff div.file div.line.added {
-  color: #4e9a06;
+  color: #ccffcc;
+}
+
+div#diff div.hunk {
+  overflow: auto;
+}
+
+div#diff div.hunk table {
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: 1px solid #d3d7cf;
+}
+
+img.avatar {
+  float: right;
+  border-radius: 10px 10px 10px 10px;
+}
+
+div.commit {
+  padding: 10px;
+  font-family: sans-serif;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eeeeec), to(#d3d7cf));
+}
+
+div.commit table {
+  border-collapse: collapse;
+}
+
+div.commit table td:first-child {
+  font-weight: bold;
+  padding-right: 15px;
+}
+
+div.commit div.message {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+div#diff div.hunk table td {
+  white-space: pre;
+}
+
+span.tab {
+  overflow: hidden;
+  display: inline-block;
+}
+
+div#diff div.hunk table.wrapped td {
+  white-space: pre-wrap;
+}
+
+div#diff div.hunk table tr.added td:last-child {
+  background-color: #ccffcc;
+}
+
+div#diff div.hunk table tr.removed td:last-child {
+  background-color: #ffcccc;
+}
+
+div#diff div.hunk table thead th {
+  background: -webkit-gradient(linear, left top, left bottom, from(#eeeeec), to(#d3d7cf));
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+div#diff div.hunk table thead th.header {
+  text-align: left;
+  padding-left: 5px;
+}
+
+div#diff div.hunk table td {
+  vertical-align: top;
+}
+
+div#diff div.hunk table td.gutter {
+  padding-right: 2px;
+  padding-left: 2px;
+  background-color: #eeeeec;
+  text-align: right;
+  color: #888a85;
+}
+
+div#diff div.hunk table td:nth-child(2) {
+  border-right: 3px solid #d3d7cf;
+  border-left: 1px solid #d3d7cf;
 }
 
 /* vi:ts=2:et */

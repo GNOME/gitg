@@ -6,6 +6,64 @@
     <script type="text/javascript" src="base.js"></script>
   </head>
   <body>
+    <div id="templates">
+      <!-- Commit template -->
+      <div class="commit">
+        <img class="avatar"/>
+        <table>
+          <tr>
+            <td>SHA1:</td>
+            <td class="sha1"></td>
+          </tr>
+          <tr>
+            <td>Author:</td>
+            <td class="author"></td>
+          </tr>
+          <tr>
+            <td>Date:</td>
+            <td class="date"></td>
+          </tr>
+          <tr>
+            <td>Subject:</td>
+            <td class="subject"></td>
+          </tr>
+        </table>
+        <div class="message"></div>
+      </div>
+
+      <!-- File template -->
+      <div class="file">
+        <div class="header">
+          <span class="cmd">diff --git</span>
+          <span class="path old"></span>
+          <span class="path new"></span><br/>
+
+          <span class="old prefix">---</span>
+          <span class="path old prefix"></span><br/>
+
+          <span class="new prefix">+++</span>
+          <span class="path new prefix"></span>
+        </div>
+        <div class="hunks">
+        </div>
+      </div>
+
+      <!-- Hunk template -->
+      <div class="hunk">
+        <table class="contents">
+          <colgroup>
+            <col width="0">
+            <col width="0">
+            <col width="100%">
+          </colgroup>
+          <thead>
+            <th>-</th>
+            <th>+</th>
+            <th class="header"></th>
+          </thead>
+        </table>
+      </div>
+    </div>
     <div id="diff">
     </div>
   </body>

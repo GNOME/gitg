@@ -15,54 +15,142 @@ var params = function(query) {
 	return ret;
 }(document.location.search.substring(1));
 
-var file_template = '<div class="file"><div class="header"><span class="cmd">diff --git</span> <span class="path old">#{this.file.old.path}</span> <span class="path new">#{this.file.new.path}</span><br/><span class="old prefix">---</span> <span class="path old prefix">#{this.file.old.path}</span><br/><span class="new prefix">+++</span> <span class="path new prefix">#{this.file.new.path}</span></div><div class="hunks"></div></div>';
+var settings = {
+	wrap: true,
+	tab_width: 4,
+};
 
-var hunk_template = '<div class="hunk"><div class="header">@@ -#{this.range.old.start},#{this.range.old.lines} +#{this.range.new.start},#{this.range.new.lines} @@</div><div>';
-
-function run_template(html, context)
+if ('settings' in params)
 {
-	var r = /#{([^}]+)}/g;
+	settings = $.merge(settings, JSON.parse(params.setttings));
+}
 
-	return $(html.replace(r, function (m, p1) {
-		var f = function () {
-			return eval(p1);
+var templates = {};
+
+function create_template(name, bindmap)
+{
+	templ = $('#templates').children('.' + name);
+
+	if (templ.length != 1)
+	{
+		return;
+	}
+
+	templ = $(templ[0]);
+
+	props = [];
+
+	$.each(bindmap, function (key, callback) {
+		props.push({
+			elements: templ.find(key),
+			callback: callback
+		});
+	});
+
+	templates[name] = {
+		template: templ,
+		props: props,
+		execute: function (context) {
+			$.each(this.props, function (i, val) {
+				$.each(val.elements, function (i, e) {
+					var ee = $(e);
+
+					retval = val.callback.call(context, ee);
+
+					if (typeof(retval) == 'undefined')
+					{
+						return;
+					}
+
+					if (typeof(retval) == 'string')
+					{
+						ee.text(retval);
+					}
+					else if ('text' in retval)
+					{
+						ee.text(retval.text);
+					}
+					else if ('html' in retval)
+					{
+						ee.html(retval.html);
+					}
+				});
+			});
+
+			return this.template.clone();
 		}
+	};
 
-		return f.call(context);
-	}));
+	return templates[name];
+}
+
+function run_template(name, context)
+{
+	return templates[name].execute(context);
 }
 
 function diff_file(file)
 {
-	var f = run_template(file_template, file);
+	var f = run_template('file', file);
 
 	for (var i = 0; i < file.hunks.length; ++i)
 	{
 		var h = file.hunks[i];
-		var ht = run_template(hunk_template, h);
+		var ht = run_template('hunk', h);
+
+		var table = ht.children('table');
+
+		if (settings.wrap)
+		{
+			table.addClass('wrapped');
+		}
+
+		var cold = h.range.old.start;
+		var cnew = h.range.new.start;
 
 		for (var j = 0; j < h.lines.length; ++j)
 		{
 			var l = h.lines[j];
-
 			var o = String.fromCharCode(l.type);
 
-			var cls = {
-				' ': 'context',
-				'+': 'added',
-				'-': 'removed'
-			}[o];
+			var oldtd = $('<td/>', {'class': 'gutter'});
+			var newtd = $('<td/>', {'class': 'gutter'});
 
-			if (o == ' ')
+			var row = $('<tr/>');
+
+			switch (o)
 			{
-				o = '&nbsp';
+				case ' ':
+					row.addClass('context');
+
+					oldtd.text(cold);
+					newtd.text(cnew);
+
+					cold++;
+					cnew++;
+				break;
+				case '+':
+					row.addClass('added');
+
+					newtd.text(cnew);
+					cnew++;
+				break;
+				case '-':
+					row.addClass('removed');
+
+					oldtd.text(cold);
+					cold++;
+				break;
 			}
 
-			var ll = $('<div/>', {'class': 'line ' + cls}).html(o);
-			ll.append($('<span/>').text(l.content));
+			var texttd = $('<td/>').text(l.content);
 
-			ht.append(ll);
+			texttd.html(texttd.html().replace(/\t/g, '<span class="tab" style="width: ' + settings.tab_width + 'ex">\t</span>'));
+
+			row.append(oldtd).append(newtd).append(texttd);
+			table.append(row);
 		}
+
 
 		f.append(ht);
 	}
@@ -70,15 +158,20 @@ function diff_file(file)
 	return f;
 }
 
-function write_diff(res)
+function write_diff(content, res)
 {
-	var content = $('#diff');
-	content.empty();
-
-	for (var i = 0; i < res.diff.length; ++i)
+	for (var i = 0; i < res.length; ++i)
 	{
-		content.append(diff_file(res.diff[i]));
+		var df = diff_file(res[i]);
+
+		content.append(df);
 	}
+}
+
+function write_commit(content, commit)
+{
+	var c = run_template('commit', commit);
+	content.append(c);
 }
 
 function update_diff()
@@ -88,14 +181,47 @@ function update_diff()
 	r.onload = function(e) {
 		j = JSON.parse(r.responseText);
 
+		var content = $('#diff');
+		content.empty();
+
 		if ('commit' in j)
 		{
-			console.log(JSON.stringify(j.commit, null, 2));
+			write_commit(content, j.commit);
 		}
 
-		write_diff(j);
+		write_diff(content, j.diff);
 	}
 
 	r.open("GET", "gitg-internal:/diff/?viewid=" + params.viewid);
 	r.send();
 }
+
+addEventListener('DOMContentLoaded', function () {
+	create_template("file", {
+		'.path.old': function () { return this.file.old.path; },
+		'.path.new': function () { return this.file.new.path; }
+	});
+
+	create_template("hunk", {
+		'.header': function () { return this.header; }
+	});
+
+	create_template("commit", {
+		'.author': function () { return this.author.name + ' <' + this.author.email + '>'; },
+		'.date': function () {
+			var d = new Date();
+			d.setTime(this.author.time * 1000);
+			return {text: d.toLocaleString()};
+		},
+		'.subject': function () { return this.subject; },
+		'.message': function () { return this.message; },
+		'.sha1': function () { return this.id; },
+		'.avatar': function (e) {
+			var h = this.author.email_md5;
+
+			e.attr('src', 'http://www.gravatar.com/avatar/' + h + '?s=80');
+		},
+	});
+}, false);
+
+// vi:ts=4
