@@ -18,7 +18,7 @@
 
 using Gtk;
 
-public class Egg.ListBox : Container {
+public class GitgGtk.ListBox : Container {
   public delegate bool FilterFunc (Widget child);
   public delegate void UpdateSeparatorFunc (ref Widget? separator, Widget child, Widget? before);
 

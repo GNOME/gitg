@@ -48,7 +48,8 @@ VALA_FILES =						\
 	gitg-gtk-diff-view.vala				\
 	gitg-gtk-diff-view-request.vala			\
 	gitg-gtk-diff-view-request-resource.vala	\
-	gitg-gtk-diff-view-request-diff.vala
+	gitg-gtk-diff-view-request-diff.vala		\
+	egg-list-box/egg-list-box.vala
 
 # Ignore all warnings for vala code...
 libgitg_gtk_1_0_la_CFLAGS =		\
