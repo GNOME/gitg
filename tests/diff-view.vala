@@ -67,18 +67,32 @@ class TestDiffView
 			return 1;
 		}
 
-		Ggit.Ref head;
 		Ggit.Commit commit;
 
-		try
+		if (args.length > 2)
 		{
-			head = repo.get_head();
-			commit = head.lookup() as Ggit.Commit;
+			try
+			{
+				commit = repo.revparse(args[2]) as Ggit.Commit;
+			}
+			catch
+			{
+				stderr.printf("Failed to parse `%s' as a commit.\n", args[2]);
+				return 1;
+			}
 		}
-		catch
+		else
 		{
-			stderr.printf("The repository does not have a current HEAD\n");
-			return 1;
+			try
+			{
+				var head = repo.get_head();
+				commit = head.lookup() as Ggit.Commit;
+			}
+			catch
+			{
+				stderr.printf("The repository does not have a current HEAD\n");
+				return 1;
+			}
 		}
 
 		var wnd = new Gtk.Window();
