@@ -16,7 +16,7 @@ class TestDiffView
 
 			for (var i = 1; i < rargs.length - 1; ++i)
 			{
-				rargs[i] = rargs[i + 2];
+				rargs[i] = rargs[i + 1];
 			}
 
 			int status;
