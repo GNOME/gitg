@@ -1,8 +1,19 @@
 INCLUDES = -g -I$(top_srcdir) -I$(top_srcdir)/gitg -I$(top_srcdir)/libgitg $(GITG_DEBUG_FLAGS) $(GITG_CFLAGS)
 
-noinst_PROGRAMS = $(TEST_PROGS)
-progs_ldadd     = $(top_builddir)/libgitg/libgitg-1.0.la $(PACKAGE_LIBS) $(GITG_LIBS)
+noinst_PROGRAMS = $(TEST_PROGS) $(DEMO_PROGS)
+
+VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
+
+DEMO_PROGS = diff-view
+
+diff_view_SOURCES = diff-view.vala
+diff_view_LDADD = $(GITG_PLUGIN_LIBS)
+diff_view_CFLAGS = $(GITG_PLUGIN_CFLAGS) -w
 
 TESTS = $(TEST_PROGS)
+
+BUILT_SOURCES = 				\
+	diff_view_vala.stamp			\
+	$(diff_view_SOURCES:.vala=.c)
 
 -include $(top_srcdir)/git.mk
