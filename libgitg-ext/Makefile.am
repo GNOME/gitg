@@ -8,18 +8,19 @@ INCLUDES =								\
 	-DDATADIR=\""$(datadir)"\"					\
 	-DLIBDIR=\""$(libdir)"\"
 
-VALAFLAGS = 				\
-	--pkg Ggit-1.0 			\
-	--pkg Gitg-1.0			\
-	--pkg gio-2.0			\
-	--pkg gtk+-3.0			\
-	$(GITG_VALAFLAGS)		\
-	--header libgitg-ext.h		\
-	--includedir libgitg-ext	\
-	--basedir $(top_srcdir)		\
-	--gir GitgExt-1.0.gir		\
-	--library libgitg-ext-1.0	\
-	--girdir $(top_builddir)/libgitg
+VALAFLAGS = 					\
+	--pkg Ggit-1.0 				\
+	--pkg libgitg-1.0			\
+	--pkg gio-2.0				\
+	--pkg gtk+-3.0				\
+	$(GITG_VALAFLAGS)			\
+	--header libgitg-ext.h			\
+	--includedir libgitg-ext		\
+	--basedir $(top_srcdir)			\
+	--gir GitgExt-1.0.gir			\
+	--library libgitg-ext-1.0		\
+	--girdir $(top_builddir)/libgitg	\
+	--vapidir $(top_builddir)/libgitg
 
 libgitg_ext_1_0_la_LDFLAGS = \
 	-export-dynamic -no-undefined -export-symbols-regex "^[^_].*"
@@ -30,6 +31,7 @@ INST_H_FILES =				\
 	libgitg-ext.h
 
 VALA_FILES =					\
+	gitg-ext-assembly-info.vala		\
 	gitg-ext-application.vala		\
 	gitg-ext-panel.vala			\
 	gitg-ext-view.vala			\
@@ -45,6 +47,9 @@ libgitg_ext_1_0_la_SOURCES =		\
 
 headerdir = $(prefix)/include/libgitg-ext-1.0/libgitg-ext
 header_DATA = $(INST_H_FILES)
+
+vapidir = $(prefix)/share/vala/vapi
+vapi_DATA = libgitg-ext-1.0.vapi
 
 GitgExt-1.0.gir: libgitg-ext-1.0.la
 libgitg-ext.h: libgitg-ext-1.0.la

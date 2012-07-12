@@ -30,6 +30,7 @@ Gitg-1.0.gir: libgitg-1.0.la
 libgitg.h: libgitg-1.0.la
 
 VALA_FILES =				\
+	gitg-assembly-info.vala		\
 	gitg-repository.vala		\
 	gitg-ref.vala			\
 	gitg-lane.vala			\
@@ -48,6 +49,9 @@ libgitg_1_0_la_SOURCES = 		\
 
 headerdir = $(prefix)/include/libgitg-1.0/libgitg
 header_DATA = $(INST_H_FILES)
+
+vapidir = $(prefix)/share/vala/vapi
+vapi_DATA = libgitg-1.0.vapi
 
 girdir = $(INTROSPECTION_GIRDIR)
 gir_DATA = Gitg-1.0.gir

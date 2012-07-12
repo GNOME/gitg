@@ -14,14 +14,16 @@ VALAFLAGS = \
 	$(GITG_VALAFLAGS)					\
 	--pkg config						\
 	--pkg Ggit-1.0						\
-	--pkg Gitg-1.0						\
-	--pkg GitgExt-1.0					\
+	--pkg libgitg-1.0					\
+	--pkg libgitg-ext-1.0					\
 	--pkg gtk+-3.0						\
 	--pkg gio-2.0						\
 	--pkg libpeas-1.0					\
 	--pkg gobject-introspection-1.0				\
 	--girdir "$(top_builddir)/libgitg"			\
-	--girdir "$(top_builddir)/libgitg-ext"
+	--girdir "$(top_builddir)/libgitg-ext"			\
+	--vapidir "$(top_builddir)/libgitg"			\
+	--vapidir "$(top_builddir)/libgitg-ext"
 
 VALASOURCES =							\
 	gitg.vala						\

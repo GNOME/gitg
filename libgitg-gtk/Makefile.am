@@ -20,27 +20,29 @@ libgitg_gtk_1_0_la_LIBADD = 				\
 INST_H_FILES =				\
 	libgitg-gtk.h
 
-VALAFLAGS = 				\
-	--pkg Ggit-1.0 			\
-	--pkg Gitg-1.0			\
-	--pkg gtk+-3.0			\
-	--pkg gio-2.0			\
-	--pkg webkitgtk-3.0		\
-	--pkg gee-1.0			\
-	--pkg json-glib-1.0		\
-	$(GITG_VALAFLAGS)		\
-	--vapidir $(top_srcdir)/vapi	\
-	--header libgitg-gtk.h		\
-	--includedir libgitg-gtk	\
-	--basedir $(top_srcdir)		\
-	--gir GitgGtk-1.0.gir		\
-	--library libgitg-gtk-1.0	\
-	--girdir "$(top_builddir)/libgitg"
+VALAFLAGS = 					\
+	--pkg Ggit-1.0 				\
+	--pkg libgitg-1.0			\
+	--pkg gtk+-3.0				\
+	--pkg gio-2.0				\
+	--pkg webkitgtk-3.0			\
+	--pkg gee-1.0				\
+	--pkg json-glib-1.0			\
+	$(GITG_VALAFLAGS)			\
+	--vapidir $(top_srcdir)/vapi		\
+	--header libgitg-gtk.h			\
+	--includedir libgitg-gtk		\
+	--basedir $(top_srcdir)			\
+	--gir GitgGtk-1.0.gir			\
+	--library libgitg-gtk-1.0		\
+	--girdir "$(top_builddir)/libgitg"	\
+	--vapidir "$(top_builddir)/libgitg"
 
 GitgGtk-1.0.gir: libgitg-gtk-1.0.la
 libgitg-gtk.h: libgitg-gtk-1.0.la
 
 VALA_FILES =						\
+	gitg-gtk-assembly-info.vala			\
 	gitg-gtk-commit-model.vala			\
 	gitg-gtk-label-renderer.vala			\
 	gitg-gtk-cell-renderer-lanes.vala		\
@@ -62,6 +64,9 @@ libgitg_gtk_1_0_la_SOURCES = 		\
 
 headerdir = $(prefix)/include/libgitg-gtk-1.0/libgitg-gtk
 header_DATA = $(INST_H_FILES)
+
+vapidir = $(prefix)/share/vala/vapi
+vapi_DATA = libgitg-gtk-1.0.vapi
 
 girdir = $(INTROSPECTION_GIRDIR)
 gir_DATA = GitgGtk-1.0.gir
