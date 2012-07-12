@@ -124,9 +124,18 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 				po/Makefile \
 				po/POTFILES \
 				po/stamp-it \
+				po/Makevars.template \
+				po/Rules-quot \
+				"po/*@boldquot.header" \
+				"po/*@quot.header" \
+				po/insert-header.sin \
+				po/quot.sed \
+				po/remove-potcdate.sin \
+				po/boldquot.sed \
 				po/.intltool-merge-cache \
 				"po/*.gmo" \
 				"po/*.mo" \
+				"po/*~" \
 				po/$(GETTEXT_PACKAGE).pot \
 				intltool-extract.in \
 				intltool-merge.in \
@@ -172,6 +181,8 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 			"*~" \
 			".*.sw[nop]" \
 			".dirstamp" \
+			build-aux \
+			INSTALL \
 		; do echo /$$x; done; \
 	} | \
 	sed "s@^/`echo "$(srcdir)" | sed 's/\(.\)/[\1]/g'`/@/@" | \

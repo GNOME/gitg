@@ -33,7 +33,8 @@ VALASOURCES =							\
 
 BUILT_SOURCES = 						\
 	gitg-resources.c					\
-	gitg-resources.h
+	gitg-resources.h					\
+	gitg_vala.stamp
 
 gitg_SOURCES =							\
 	$(VALASOURCES)						\

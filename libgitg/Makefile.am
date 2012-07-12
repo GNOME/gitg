@@ -61,8 +61,11 @@ typelib_DATA = Gitg-1.0.typelib
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgitg-1.0.pc
 
-BUILT_SOURCES = \
-	$(gir_DATA) \
+BUILT_SOURCES =				\
+	$(gir_DATA)			\
+	$(typelib_DATA)			\
+	libgitg-1.0.vapi		\
+	libgitg_1_0_la_vala.stamp	\
 	libgitg.h
 
 EXTRA_DIST = $(pkgconfig_DATA)

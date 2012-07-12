@@ -86,9 +86,12 @@ gitg-gtk-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) 
 
 BUILT_SOURCES = 			\
 	$(gir_DATA) 			\
+	$(typelib_DATA)			\
 	libgitg-gtk.h			\
 	gitg-gtk-resources.c		\
-	gitg-gtk-resources.h
+	gitg-gtk-resources.h		\
+	libgitg_gtk_1_0_la_vala.stamp	\
+	libgitg-gtk-1.0.vapi
 
 EXTRA_DIST = \
 	$(pkgconfig_DATA)		\
