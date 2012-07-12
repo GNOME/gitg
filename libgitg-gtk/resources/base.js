@@ -62,6 +62,11 @@ function create_template(name, bindmap)
 						return;
 					}
 
+					if (retval.nodeType || retval.jquery)
+					{
+						ee.replace(retval);
+					}
+
 					if (typeof(retval) == 'string')
 					{
 						ee.text(retval);
@@ -91,12 +96,12 @@ function run_template(name, context)
 
 function diff_file(file)
 {
-	var f = run_template('file', file);
+	var f = $('<div/>');
 
 	for (var i = 0; i < file.hunks.length; ++i)
 	{
 		var h = file.hunks[i];
-		var ht = run_template('hunk', h);
+		var ht = run_template('hunk', {file: file, hunk: h});
 
 		var table = ht.children('table');
 
@@ -196,30 +201,90 @@ function update_diff()
 	r.send();
 }
 
-addEventListener('DOMContentLoaded', function () {
-	create_template("file", {
-		'.path.old': function () { return this.file.old.path; },
-		'.path.new': function () { return this.file.new.path; }
-	});
+function date_to_string(d)
+{
+	var t = ((new Date()).getTime() - d.getTime()) / 1000.0;
 
+	if (t < 1)
+	{
+		return "Less than a second ago";
+	}
+	else if (t < 60)
+	{
+		return "Less than a minute ago";
+	}
+	else if (t < 600)
+	{
+		return "Less than 10 minutes ago";
+	}
+	else if (t < 1800)
+	{
+		return "Half an hour ago";
+	}
+	else if (t < 3600)
+	{
+		return "One hour ago";
+	}
+	else if (t < 3600 * 12)
+	{
+		var tt = Math.round(t / 3600)
+		return tt + " hours ago";
+	}
+	else if (t < 3600 * 24)
+	{
+		return "One day ago";
+	}
+	else if (t < 3600 * 24 * 6)
+	{
+		return Math.Round(t / (3600 * 24)) + " days ago";
+	}
+
+	return d.toLocaleString();
+}
+
+addEventListener('DOMContentLoaded', function () {
 	create_template("hunk", {
-		'.header': function () { return this.header; }
+		'.filepath': function () {
+			var f = this.file.file;
+
+			if (f.new.path)
+			{
+				return f.new.path;
+			}
+			else
+			{
+				return f.old.path;
+			}
+		},
 	});
 
 	create_template("commit", {
-		'.author': function () { return this.author.name + ' <' + this.author.email + '>'; },
+		'.author': function () {
+			var name = $('<span/>', {'class': 'author name'}).text(this.author.name);
+			var a = $('<a/>', {href: this.author.email}).text(this.author.email);
+
+			return {html: $('<span/>').append(name).append(' <').append(a).append('>')};
+		},
 		'.date': function () {
 			var d = new Date();
 			d.setTime(this.author.time * 1000);
-			return {text: d.toLocaleString()};
+			return {text: date_to_string(d)};
 		},
-		'.subject': function () { return this.subject; },
-		'.message': function () { return this.message; },
-		'.sha1': function () { return this.id; },
+		'.subject': function () {
+			return this.subject;
+		},
+		'.message': function () {
+			return this.message;
+		},
+		'.sha1': function () {
+			return this.id;
+		},
 		'.avatar': function (e) {
 			var h = this.author.email_md5;
 
-			e.attr('src', 'http://www.gravatar.com/avatar/' + h + '?s=80');
+			var robo = 'http://robohash.org/' + h + '.png?size=80x80';
+
+			e.attr('src', 'http://www.gravatar.com/avatar/' + h + '?d=' + encodeURIComponent(robo) + '&s=80');
 		},
 	});
 }, false);

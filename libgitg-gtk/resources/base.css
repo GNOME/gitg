@@ -12,25 +12,6 @@ div#diff {
   -webkit-tab-size: 4;
 }
 
-div#diff div.file div.header {
-  background: -webkit-gradient(linear, left top, left bottom, from(#729fcf), to(#3465a4));
-  color: #eeeeec;
-  padding: 5px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-div#diff div.file {
-}
-
-div#diff div.file span.old.prefix, div#diff div.file div.line.removed {
-  color: #ffcccc;
-}
-
-div#diff div.file span.new.prefix, div#diff div.file div.line.added {
-  color: #ccffcc;
-}
-
 div#diff div.hunk {
   overflow: auto;
 }
@@ -88,21 +69,22 @@ div#diff div.hunk table tr.removed td:last-child {
 }
 
 div#diff div.hunk table thead th {
-  background: -webkit-gradient(linear, left top, left bottom, from(#eeeeec), to(#d3d7cf));
+  background-color: #eeeeec;
   padding-top: 3px;
   padding-bottom: 3px;
 }
 
-div#diff div.hunk table thead th.header {
+div#diff div.hunk table thead th.filepath {
   text-align: left;
   padding-left: 5px;
+  font-family: sans-serif;
 }
 
 div#diff div.hunk table td {
   vertical-align: top;
 }
 
-div#diff div.hunk table td.gutter {
+div#diff div.hunk table .gutter {
   padding-right: 2px;
   padding-left: 2px;
   background-color: #eeeeec;
@@ -110,9 +92,36 @@ div#diff div.hunk table td.gutter {
   color: #888a85;
 }
 
-div#diff div.hunk table td:nth-child(2) {
+div#diff div.hunk table th.gutter {
+  text-align: center;
+}
+
+div#diff div.hunk table td:nth-child(2), div#diff div.hunk table th:nth-child(2)  {
   border-right: 3px solid #d3d7cf;
   border-left: 1px solid #d3d7cf;
+}
+
+div.commit {
+  position: relative;
+}
+
+div.commit .date, div.commit .sha1 {
+  color: #888a85;
+  font-size: 0.8em;
+}
+
+div.commit .sha1 {
+  font-family: monospace;
+  text-align: right;
+}
+
+div.commit .message {
+  white-space: pre-wrap;
+  margin-bottom: 5px;
+}
+
+a {
+  color: #3465a4;
 }
 
 /* vi:ts=2:et */
