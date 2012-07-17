@@ -21,6 +21,9 @@ namespace GitgHistory
 {
 	private class Navigation : Object, GitgExt.Navigation
 	{
+		// Do this to pull in config.h before glib.h (for gettext...)
+		private const string version = Gitg.Config.VERSION;
+
 		public GitgExt.Application? application { owned get; construct set; }
 
 		public signal void ref_activated(Gitg.Ref r);
@@ -97,7 +100,7 @@ namespace GitgHistory
 			} catch {}
 
 			// Branches
-			model.begin_header("Branches", null);
+			model.begin_header(_("Branches"), null);
 
 			foreach (var item in branches)
 			{
@@ -120,7 +123,7 @@ namespace GitgHistory
 			model.end_header();
 
 			// Remotes
-			model.begin_header("Remotes", "network-server-symbolic");
+			model.begin_header(_("Remotes"), "network-server-symbolic");
 
 			foreach (var rname in remotenames)
 			{
@@ -141,7 +144,7 @@ namespace GitgHistory
 			model.end_header();
 
 			// Tags
-			model.begin_header("Tags", null);
+			model.begin_header(_("Tags"), null);
 
 			foreach (var item in tags)
 			{

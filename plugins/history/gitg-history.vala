@@ -19,14 +19,14 @@
 
 namespace GitgHistory
 {
-	// Do this to pull in config.h before glib.h (for gettext...)
-	private const string version = Gitg.Config.VERSION;
-
 	/* The main history view. This view shows the equivalent of git log, but
 	 * in a nice way with lanes, merges, ref labels etc.
 	 */
 	public class View : Object, GitgExt.UIElement, GitgExt.View, GitgExt.ObjectSelection
 	{
+		// Do this to pull in config.h before glib.h (for gettext...)
+		private const string version = Gitg.Config.VERSION;
+
 		public GitgExt.Application? application { owned get; construct set; }
 
 		private Gtk.TreeView d_view;
@@ -42,6 +42,7 @@ namespace GitgHistory
 		public void foreach_selected(GitgExt.ForeachObjectSelectionFunc func)
 		{
 			bool breakit = false;
+
 			d_view.get_selection().selected_foreach((model, path, iter) => {
 				if (!breakit)
 				{
@@ -65,7 +66,7 @@ namespace GitgHistory
 
 		public string display_name
 		{
-			owned get { return "History"; }
+			owned get { return _("History"); }
 		}
 
 		public Icon? icon
