@@ -45,16 +45,19 @@ namespace GitgDiff
 			owned get { return "/org/gnome/gitg/Panels/Diff"; }
 		}
 
-		public bool is_available()
+		public bool available
 		{
-			var view = application.current_view;
-
-			if (view == null)
+			get
 			{
-				return false;
-			}
+				var view = application.current_view;
 
-			return (view is GitgExt.ObjectSelection);
+				if (view == null)
+				{
+					return false;
+				}
+
+				return (view is GitgExt.ObjectSelection);
+			}
 		}
 
 		public string display_name
@@ -105,10 +108,12 @@ namespace GitgDiff
 			}
 		}
 
-		public bool is_enabled()
+		public bool enabled
 		{
-			// TODO
-			return true;
+			get
+			{
+				return true;
+			}
 		}
 	}
 }

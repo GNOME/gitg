@@ -86,12 +86,18 @@ public interface UIElement : Object
 	 * This method is used by gitg to verify whether or not a particular ui
 	 * element is available given the current state of the application.
 	 *
-	 * @return ``true`` if the view is available, ``false`` otherwise.
+	 */
+	public abstract bool available { get; }
+
+	/**
+	 * Check whether the ui element is enabled in the current application state.
+	 *
+	 * This method is used by gitg to verify whether or not a particular ui
+	 * element is enabled (sensitive) given the current state of the application.
 	 *
 	 */
-	public abstract bool is_available();
+	public abstract bool enabled { get; }
 
-	public abstract bool is_enabled();
 }
 
 }

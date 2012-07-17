@@ -108,7 +108,7 @@ public class UIElements<T>
 			var elem = obj as GitgExt.UIElement;
 
 			var wasavail = d_available_elements.lookup(elem.id);
-			bool isavail = elem.is_available();
+			bool isavail = elem.available;
 
 			if (wasavail != null && !isavail)
 			{
@@ -121,16 +121,16 @@ public class UIElements<T>
 			}
 			else if (wasavail != null && wasavail.navigation_button != null)
 			{
-				if (!wasavail.element.is_enabled() && d_current == wasavail)
+				if (!wasavail.element.enabled && d_current == wasavail)
 				{
 					d_current = null;
 				}
-				else if (wasavail.element.is_enabled() && d_current == null)
+				else if (wasavail.element.enabled && d_current == null)
 				{
 					set_current_impl(wasavail.element);
 				}
 
-				wasavail.navigation_button.set_sensitive(wasavail.element.is_enabled());
+				wasavail.navigation_button.set_sensitive(wasavail.element.enabled);
 			}
 		});
 	}
@@ -142,8 +142,8 @@ public class UIElements<T>
 
 	private void set_current_impl(GitgExt.UIElement element)
 	{
-		if (!element.is_available() ||
-		    !element.is_enabled() ||
+		if (!element.available ||
+		    !element.enabled ||
 		    (d_current != null && d_current.element == element))
 		{
 			return;
@@ -221,7 +221,7 @@ public class UIElements<T>
 
 		if (button != null)
 		{
-			button.set_sensitive(e.is_enabled());
+			button.set_sensitive(e.enabled);
 
 			d_toolbar.add(button);
 		}
@@ -234,18 +234,13 @@ public class UIElements<T>
 		});
 
 		d_available_elements.insert(e.id, ae);
-
-		if (d_current == null && e.is_enabled())
-		{
-			set_current_impl(ae.element);
-		}
 	}
 
 	private void add_ui_element(GitgExt.UIElement e)
 	{
 		d_elements.insert(e.id, e);
 
-		if (e.is_available())
+		if (e.available)
 		{
 			add_available(e);
 		}

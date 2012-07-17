@@ -48,16 +48,19 @@ namespace GitgFiles
 			owned get { return "/org/gnome/gitg/Panels/Files"; }
 		}
 
-		public bool is_available()
+		public bool available
 		{
-			var view = application.current_view;
-
-			if (view == null)
+			get
 			{
-				return false;
-			}
+				var view = application.current_view;
 
-			return (view is GitgExt.ObjectSelection);
+				if (view == null)
+				{
+					return false;
+				}
+
+				return (view is GitgExt.ObjectSelection);
+			}
 		}
 
 		public string display_name
@@ -278,10 +281,13 @@ namespace GitgFiles
 			set_viewer(wid);
 		}
 
-		public bool is_enabled()
+		public bool enabled
 		{
-			// TODO
-			return true;
+			get
+			{
+				// TODO
+				return true;
+			}
 		}
 	}
 }

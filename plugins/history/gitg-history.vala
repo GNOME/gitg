@@ -58,10 +58,13 @@ namespace GitgHistory
 			application.bind_property("repository", d_model, "repository", BindingFlags.DEFAULT);
 		}
 
-		public bool is_available()
+		public bool available
 		{
-			// The history view is available only when there is a repository
-			return application.repository != null;
+			get
+			{
+				// The history view is available only when there is a repository
+				return application.repository != null;
+			}
 		}
 
 		public string display_name
@@ -191,9 +194,12 @@ namespace GitgHistory
 			return ret;
 		}
 
-		public bool is_enabled()
+		public bool enabled
 		{
-			return true;
+			get
+			{
+				return true;
+			}
 		}
 	}
 }
