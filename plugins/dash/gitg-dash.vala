@@ -22,9 +22,9 @@ namespace GitgDash
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
-	public class View : Object, GitgExt.View
+	public class View : Object
 	{
-		public GitgExt.Application? application { owned get; construct; }
+		public GitgExt.Application? application { owned get; construct set; }
 		private Gtk.Notebook d_main;
 
 		private Gtk.Widget? d_open;
@@ -289,6 +289,11 @@ namespace GitgDash
 
 			application.open(f);
 		}
+
+		public bool is_enabled()
+		{
+			return true;
+		}
 	}
 }
 
@@ -297,8 +302,8 @@ public void peas_register_types(TypeModule module)
 {
 	Peas.ObjectModule mod = module as Peas.ObjectModule;
 
-	mod.register_extension_type(typeof(GitgExt.View),
-	                            typeof(GitgDash.View));
+	//mod.register_extension_type(typeof(GitgExt.View),
+	//                            typeof(GitgDash.View));
 }
 
 // ex: ts=4 noet
