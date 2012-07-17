@@ -41,6 +41,8 @@ AM_PROG_VALAC
 
 AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
+AC_PATH_PROG(GTK_UPDATE_ICON_CACHE, gtk-update-icon-cache-3.0)
+
 AC_PATH_PROG(VALADOC, valadoc)
 
 # Initialize libtool
@@ -293,6 +295,8 @@ tests/Makefile
 plugins/Makefile
 plugins/dash/Makefile
 plugins/history/Makefile
+plugins/diff/Makefile
+plugins/diff/icons/Makefile
 ])
 
 AC_OUTPUT
