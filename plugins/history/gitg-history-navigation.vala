@@ -96,7 +96,12 @@ namespace GitgHistory
 
 			try
 			{
-				head = repo.get_head();
+				head = repo.lookup_reference("HEAD");
+
+				if (head.get_reference_type() != Ggit.RefType.SYMBOLIC)
+				{
+					head = null;
+				}
 			} catch {}
 
 			// Branches
@@ -106,7 +111,7 @@ namespace GitgHistory
 			{
 				var it = item;
 
-				if (head != null && item.get_id().equal(head.get_id()))
+				if (head != null && item.get_name() == head.get_target())
 				{
 					model.append_default(item.parsed_name.shortname,
 					                     "object-select-symbolic",
