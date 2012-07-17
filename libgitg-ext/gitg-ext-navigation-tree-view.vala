@@ -57,6 +57,7 @@ public class NavigationTreeModel : Gtk.TreeStore
 			}
 		}
 	}
+
 	private SList<Gtk.TreeIter?> d_parents;
 	private uint d_sections;
 	private uint d_oid;
@@ -148,8 +149,13 @@ public class NavigationTreeModel : Gtk.TreeStore
 		return this;
 	}
 
-	public uint populate(GitgExt.Navigation nav)
+	public uint populate(GitgExt.Navigation? nav)
 	{
+		if (nav == null)
+		{
+			return 0;
+		}
+
 		uint ret = begin_section();
 
 		nav.populate(this);
