@@ -21,7 +21,7 @@ namespace GitgHistory
 {
 	private class Navigation : Object, GitgExt.Navigation
 	{
-		public GitgExt.Application? application { owned get; construct; }
+		public GitgExt.Application? application { owned get; construct set; }
 
 		public signal void ref_activated(Gitg.Ref r);
 
