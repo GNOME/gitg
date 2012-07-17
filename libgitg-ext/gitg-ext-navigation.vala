@@ -28,7 +28,7 @@ public enum NavigationSide
 
 public interface Navigation : Object
 {
-	public abstract Application? application { owned get; construct; }
+	public abstract Application? application { owned get; construct set; }
 
 	public abstract void populate(GitgExt.NavigationTreeModel model);
 	public abstract bool available { get; }
