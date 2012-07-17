@@ -97,6 +97,8 @@ namespace GitgDiff
 
 					d_view = objsel;
 					d_view.selection_changed.connect(on_selection_changed);
+
+					on_selection_changed(objsel);
 				}
 
 				return d_sw;
