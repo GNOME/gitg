@@ -130,19 +130,20 @@ namespace GitgHistory
 		{
 			Ggit.OId? id = null;
 
-			if (head != null && head.parsed_name.rtype == Gitg.RefType.TAG)
-			{
-				// See to resolve to the commit
-				try
-				{
-					var t = application.repository.lookup(head.get_id(), typeof(Ggit.Tag)) as Ggit.Tag;
-
-					id = t.get_target_id();
-				} catch {}
-			}
-			else if (head != null)
+			if (head != null)
 			{
 				id = head.get_id();
+
+				if (head.parsed_name.rtype == Gitg.RefType.TAG)
+				{
+					// See to resolve to the commit
+					try
+					{
+						var t = application.repository.lookup(head.get_id(), typeof(Ggit.Tag)) as Ggit.Tag;
+
+						id = t.get_target_id();
+					} catch {}
+				}
 			}
 
 			if (id == null && application.repository != null)
