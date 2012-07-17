@@ -80,8 +80,33 @@ namespace GitgGtk
 				settings.user_stylesheet_uri = custom_css.get_uri();
 			}
 
+			var dbg = Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != "";
+
+			if (dbg)
+			{
+				settings.enable_developer_extras = true;
+			}
+
 			settings.javascript_can_access_clipboard = true;
 			set_settings(settings);
+
+			if (dbg)
+			{
+				var inspector = get_inspector();
+
+				inspector.inspect_web_view.connect((insp, view) => {
+					var wnd = new Gtk.Window();
+					wnd.set_default_size(400, 300);
+
+					var nvw = new WebKit.WebView();
+					nvw.show();
+
+					wnd.add(nvw);
+					wnd.show();
+
+					return wnd.get_child() as WebKit.WebView;
+				});
+			}
 
 			++s_diff_id;
 			s_diffmap[s_diff_id.to_string()] = this;
