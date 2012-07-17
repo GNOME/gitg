@@ -40,7 +40,8 @@ VALA_FILES =					\
 	gitg-ext-navigation-tree-view.vala	\
 	gitg-ext-message-id.vala		\
 	gitg-ext-message.vala			\
-	gitg-ext-message-bus.vala
+	gitg-ext-message-bus.vala		\
+	gitg-ext-object-selection.vala
 
 libgitg_ext_1_0_la_SOURCES =		\
 	$(VALA_FILES)			\
