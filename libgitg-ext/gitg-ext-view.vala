@@ -54,7 +54,6 @@ public enum ViewAction
  * automatically in the gitg interface according to the various interface
  * methods and properties that need to be implemented.
  *
- * == Default View Navigation ==
  * To provide a default navigation when the view is active, the
  * #GitgExtView::navigation property should be implemented and should return a
  * non-null #GitgExtNavigation. This navigation section will always be present
@@ -97,7 +96,9 @@ public interface View : Object
 	public abstract Gtk.Widget? widget { owned get; }
 
 	/**
-	 * Main navigation for the view. When provided, the corresponding navigation
+	 * Main navigation for the view.
+	 *
+	 * When provided, the corresponding navigation
 	 * section will be added in the navigation panel when the view is activated.
 	 */
 	public abstract Navigation? navigation { owned get; }
@@ -114,14 +115,17 @@ public interface View : Object
 	public abstract bool is_available();
 
 	/**
-	 * @param action the action
+	 * Check whether the view is the default view for a particular action.
 	 *
 	 * Implement this method when a view should be the preferred default view
 	 * for a particular action. The first available view indicating to be
 	 * a default view will be used as the default activated view when launching
 	 * gitg (or when opening a repository).
 	 *
-	 * @return %TRUE if the view is a default for @action, %FALSE otherwise.
+	 * @param action the action
+	 *
+	 * @return ``true`` if the view is a default for @action, ``false`` otherwise.
+	 *
 	 */
 	public abstract bool is_default_for(ViewAction action);
 }
