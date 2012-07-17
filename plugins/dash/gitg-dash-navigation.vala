@@ -21,6 +21,9 @@ namespace GitgDash
 {
 	private class Navigation : Object, GitgExt.Navigation
 	{
+		// Do this to pull in config.h before glib.h (for gettext...)
+		private const string version = Gitg.Config.VERSION;
+
 		public GitgExt.Application? application { owned get; construct set; }
 
 		public signal void show_open();
@@ -35,12 +38,12 @@ namespace GitgDash
 
 		public void populate(GitgExt.NavigationTreeModel model)
 		{
-			model.begin_header("Repository", null)
-			     .append_default("Open", "document-open-symbolic", (c) => { show_open(); })
-			     .append("Create", "list-add-symbolic", (c) => { show_create(); })
+			model.begin_header(_("Repository"), null)
+			     .append_default(_("Open"), "document-open-symbolic", (c) => { show_open(); })
+			     .append(_("Create"), "list-add-symbolic", (c) => { show_create(); })
 			     .end_header();
 
-			model.begin_header("Recent", null);
+			model.begin_header(_("Recent"), null);
 
 			var manager = Gtk.RecentManager.get_default();
 			var list = new List<Gtk.RecentInfo>();

@@ -19,11 +19,11 @@
 
 namespace GitgDash
 {
-	// Do this to pull in config.h before glib.h (for gettext...)
-	private const string version = Gitg.Config.VERSION;
-
 	public class View : Object
 	{
+		// Do this to pull in config.h before glib.h (for gettext...)
+		private const string version = Gitg.Config.VERSION;
+
 		public GitgExt.Application? application { owned get; construct set; }
 		private Gtk.Notebook d_main;
 
@@ -66,7 +66,7 @@ namespace GitgDash
 
 		public string display_name
 		{
-			owned get { return "Dashboard"; }
+			owned get { return _("Dashboard"); }
 		}
 
 		public Icon? icon
@@ -300,7 +300,7 @@ namespace GitgDash
 [ModuleInit]
 public void peas_register_types(TypeModule module)
 {
-	Peas.ObjectModule mod = module as Peas.ObjectModule;
+	//Peas.ObjectModule mod = module as Peas.ObjectModule;
 
 	//mod.register_extension_type(typeof(GitgExt.View),
 	//                            typeof(GitgDash.View));
