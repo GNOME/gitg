@@ -240,11 +240,13 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg libgitg-gtk-1.0			\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
+	--pkg gtksourceview-3.0			\
 	--pkg libpeas-1.0			\
 	--pkg gee-1.0				\
 	--pkg json-glib-1.0			\
 	--pkg webkitgtk-3.0			\
 	--pkg config				\
+	--pkg posix				\
 	\$(GITG_VALAFLAGS)			\
 	--vapidir \$(top_srcdir)/vapi		\
 	--vapidir \$(top_builddir)/libgitg	\
@@ -297,6 +299,7 @@ plugins/dash/Makefile
 plugins/history/Makefile
 plugins/diff/Makefile
 plugins/diff/icons/Makefile
+plugins/files/Makefile
 ])
 
 AC_OUTPUT

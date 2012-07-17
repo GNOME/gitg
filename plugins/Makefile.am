@@ -1,3 +1,3 @@
-SUBDIRS = dash history diff
+SUBDIRS = dash history diff files
 
 -include $(top_srcdir)/git.mk
