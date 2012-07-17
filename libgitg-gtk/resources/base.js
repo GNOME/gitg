@@ -236,7 +236,7 @@ function date_to_string(d)
 	}
 	else if (t < 3600 * 24 * 6)
 	{
-		return Math.Round(t / (3600 * 24)) + " days ago";
+		return Math.round(t / (3600 * 24)) + " days ago";
 	}
 
 	return d.toLocaleString();
