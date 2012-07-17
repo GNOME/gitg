@@ -8,19 +8,22 @@ INCLUDES =								\
 	-DDATADIR=\""$(datadir)"\"					\
 	-DLIBDIR=\""$(libdir)"\"
 
-VALAFLAGS = 					\
+COMMON_VALA_FLAGS =				\
 	--pkg Ggit-1.0 				\
 	--pkg libgitg-1.0			\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
-	$(GITG_VALAFLAGS)			\
-	--header libgitg-ext.h			\
-	--includedir libgitg-ext		\
 	--basedir $(top_srcdir)			\
 	--gir GitgExt-1.0.gir			\
-	--library libgitg-ext-1.0		\
 	--girdir $(top_builddir)/libgitg	\
 	--vapidir $(top_builddir)/libgitg
+
+VALAFLAGS = 				\
+	$(COMMON_VALA_FLAGS)		\
+	--includedir libgitg-ext	\
+	--header libgitg-ext.h		\
+	--library libgitg-ext-1.0	\
+	$(GITG_VALAFLAGS)
 
 libgitg_ext_1_0_la_LDFLAGS = \
 	-export-dynamic -no-undefined -export-symbols-regex "^[^_].*"
@@ -59,6 +62,13 @@ libgitg-ext.h: libgitg-ext-1.0.la
 # Ignore all warnings for vala code...
 libgitg_ext_1_0_la_CFLAGS = \
 	-w
+
+if ENABLE_DOCS
+docs: $(VALA_FILES)
+	$(VALADOC) --directory $(top_builddir)/docs --package-name gitgext $(COMMON_VALA_FLAGS) $(VALA_FILES)
+else
+docs:
+endif
 
 girdir = $(INTROSPECTION_GIRDIR)
 gir_DATA = GitgExt-1.0.gir
@@ -110,3 +120,4 @@ dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
 
 -include $(top_srcdir)/git.mk
+-include $(top_srcdir)/valadoc.mk
