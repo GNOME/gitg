@@ -23,6 +23,7 @@ namespace GitgGtk
 	{
 		private Ggit.Diff? d_diff;
 		private Ggit.Commit? d_commit;
+		private Settings d_fontsettings;
 
 		private static Gee.HashMap<string, GitgGtk.DiffView> s_diffmap;
 		private static uint64 s_diff_id;
@@ -71,6 +72,52 @@ namespace GitgGtk
 			session.set_data("GitgGtkDiffViewMap", s_diffmap);
 		}
 
+		private void parse_font(string val, ref string family, ref int size)
+		{
+			var fdesc = Pango.FontDescription.from_string(val);
+
+			var f = fdesc.get_family();
+			var s = fdesc.get_size();
+
+			if (f != null && f != "")
+			{
+				family = f;
+			}
+
+			if (s != 0)
+			{
+				if (fdesc.get_size_is_absolute())
+				{
+					size = s;
+				}
+				else
+				{
+					size = s / Pango.SCALE;
+				}
+			}
+		}
+
+		private void update_font_settings()
+		{
+			var settings = get_settings();
+
+			var fname = settings.default_font_family;
+			var fsize = settings.default_font_size;
+
+			parse_font(d_fontsettings.get_string("font-name"), ref fname, ref fsize);
+
+			settings.default_font_family = fname;
+			settings.default_font_size = fsize;
+
+			fname = settings.monospace_font_family;
+			fsize = settings.default_monospace_font_size;
+
+			parse_font(d_fontsettings.get_string("monospace-font-name"), ref fname, ref fsize);
+
+			settings.monospace_font_family = fname;
+			settings.default_monospace_font_size = fsize;
+		}
+
 		construct
 		{
 			var settings = new WebKit.WebSettings();
@@ -88,7 +135,19 @@ namespace GitgGtk
 			}
 
 			settings.javascript_can_access_clipboard = true;
+
+			d_fontsettings = new Settings("org.gnome.desktop.interface");
 			set_settings(settings);
+
+			update_font_settings();
+
+			d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
+				update_font_settings();
+			});
+
+			d_fontsettings.changed["font-name"].connect((s, k) => {
+				update_font_settings();
+			});
 
 			if (dbg)
 			{
