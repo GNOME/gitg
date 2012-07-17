@@ -197,7 +197,9 @@ function update_diff()
 		write_diff(content, j.diff);
 	}
 
-	r.open("GET", "gitg-internal:/diff/?viewid=" + params.viewid);
+	var t = (new Date()).getTime()
+
+	r.open("GET", "gitg-internal:/diff/?t=" + t + "&viewid=" + params.viewid);
 	r.send();
 }
 
