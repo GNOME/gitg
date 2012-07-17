@@ -197,18 +197,35 @@ namespace GitgFiles
 			}
 		}
 
+		private void set_viewer(Gtk.Widget? wid)
+		{
+			var child = d_scrolled.get_child();
+
+			if (child != wid)
+			{
+				if (child != null)
+				{
+					d_scrolled.remove(d_scrolled.get_child());
+				}
+
+				if (wid != null)
+				{
+					d_scrolled.add(wid);
+				}
+			}
+		}
+
 		private void selection_changed(Gtk.TreeSelection selection)
 		{
 			Gtk.TreeModel mod;
 			Gtk.TreeIter iter;
 
-			selection.get_selected(out mod, out iter);
-
 			var buf = d_source.get_buffer() as GtkSource.Buffer;
 			buf.set_text("");
 
-			if (d_model.get_isdir(iter))
+			if (!selection.get_selected(out mod, out iter) || d_model.get_isdir(iter))
 			{
+				set_viewer(d_source);
 				return;
 			}
 
@@ -218,8 +235,10 @@ namespace GitgFiles
 			try
 			{
 				blob = application.repository.lookup(id, typeof(Ggit.Blob)) as Ggit.Blob;
-			} catch
+			}
+			catch
 			{
+				set_viewer(d_source);
 				return;
 			}
 
@@ -256,20 +275,7 @@ namespace GitgFiles
 				wid = d_source;
 			}
 
-			var child = d_scrolled.get_child();
-
-			if (child != wid)
-			{
-				if (child != null)
-				{
-					d_scrolled.remove(d_scrolled.get_child());
-				}
-
-				if (wid != null)
-				{
-					d_scrolled.add(wid);
-				}
-			}
+			set_viewer(wid);
 		}
 
 		public bool is_enabled()
