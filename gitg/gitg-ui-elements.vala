@@ -36,6 +36,7 @@ public class UIElements<T>
 	private Peas.ExtensionSet d_extensions;
 	private HashTable<string, ActiveUIElement> d_available_elements;
 	private HashTable<string, GitgExt.UIElement> d_elements;
+	private List<ActiveUIElement> d_available_sorted;
 	private Gtk.Toolbar? d_toolbar;
 	private ActiveUIElement? d_current;
 	private Gtk.Bin d_container;
@@ -200,6 +201,7 @@ public class UIElements<T>
 		{
 			if (ae.navigation_button != null)
 			{
+				d_available_sorted.remove(ae);
 				ae.navigation_button.destroy();
 			}
 
@@ -223,7 +225,12 @@ public class UIElements<T>
 		{
 			button.set_sensitive(e.enabled);
 
-			d_toolbar.add(button);
+			d_available_sorted.insert_sorted(ae, (a, b) => {
+				return a.element.negotiate_order(b.element);
+			});
+
+			d_toolbar.insert(button, d_available_sorted.index(ae));
+			update_visibility();
 		}
 
 		button.toggled.connect((b) => {
@@ -315,6 +322,11 @@ public class UIElements<T>
 		d_extensions.foreach(extension_added);
 		d_extensions.extension_added.connect(extension_added);
 		d_extensions.extension_removed.connect(extension_removed);
+
+		if (d_current == null && d_available_sorted != null)
+		{
+			set_current_impl(d_available_sorted.data.element);
+		}
 	}
 }
 

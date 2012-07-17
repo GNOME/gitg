@@ -98,6 +98,18 @@ public interface UIElement : Object
 	 */
 	public abstract bool enabled { get; }
 
+	/**
+	 * Negotiate the order with another UIElement.
+	 *
+	 * This method is used to determine the order in which elements need to
+	 * appear in the UI.
+	 *
+	 * @returns -1 if the element should appear before @other, 1 if the
+	 *          element should appear after @other and 0 if the order is
+	 *          unimportant.
+	 *
+	 */
+	public abstract int negotiate_order(UIElement other);
 }
 
 }

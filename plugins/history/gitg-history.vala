@@ -201,6 +201,11 @@ namespace GitgHistory
 				return true;
 			}
 		}
+
+		public int negotiate_order(GitgExt.UIElement other)
+		{
+			return -1;
+		}
 	}
 }
 

@@ -115,6 +115,19 @@ namespace GitgDiff
 				return true;
 			}
 		}
+
+		public int negotiate_order(GitgExt.UIElement other)
+		{
+			// Should appear before the files
+			if (other.id == "/org/gnome/gitg/plugins/Files")
+			{
+				return -1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
 	}
 }
 
