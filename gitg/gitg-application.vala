@@ -310,6 +310,9 @@ public class Application : Gtk.Application
 			                                         provider,
 			                                         600);
 		}
+
+		var theme = Gtk.IconTheme.get_default();
+		theme.prepend_search_path(Path.build_filename(Config.GITG_DATADIR, "icons"));
 	}
 
 	private GitgExt.ViewAction get_action_from_hint(string? hint)
