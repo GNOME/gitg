@@ -33,6 +33,11 @@ namespace GitgFiles
 		private Settings d_fontsettings;
 		private Settings d_stylesettings;
 
+		private Gtk.ScrolledWindow d_scrolled;
+
+		private Gtk.Viewport d_imagevp;
+		private Gtk.Image d_image;
+
 		construct
 		{
 			d_model = new TreeStore();
@@ -125,7 +130,7 @@ namespace GitgFiles
 
 		private void build_ui()
 		{
-			var ret = from_builder("view-files.ui", {"paned_files", "tree_view_files", "source_view_file"});
+			var ret = from_builder("view-files.ui", {"paned_files", "tree_view_files", "source_view_file", "scrolled_window_file"});
 
 			var tv = ret["tree_view_files"] as Gtk.TreeView;
 			tv.model = d_model;
@@ -134,6 +139,12 @@ namespace GitgFiles
 
 			d_source = ret["source_view_file"] as GtkSource.View;
 			d_paned = ret["paned_files"] as Gtk.Paned;
+			d_scrolled = ret["scrolled_window_file"] as Gtk.ScrolledWindow;
+
+			d_imagevp = new Gtk.Viewport(null, null);
+			d_image = new Gtk.Image();
+			d_imagevp.add(d_image);
+			d_imagevp.show_all();
 
 			d_fontsettings = new Settings("org.gnome.desktop.interface");
 
@@ -213,16 +224,51 @@ namespace GitgFiles
 			}
 
 			var fname = d_model.get_full_path(iter);
-			unowned uint8[] content = blob.get_content();
+			unowned uint8[] content = blob.get_raw_content();
 
 			var ct = ContentType.guess(fname, content, null);
+			Gtk.Widget? wid = null;
 
-			if (ContentType.is_a(ct, "text/plain"))
+			if (ContentType.is_a(ct, "image/*"))
+			{
+				wid = d_imagevp;
+				var mtype = ContentType.get_mime_type(ct);
+
+				d_image.pixbuf = null;
+
+				try
+				{
+					var loader = new Gdk.PixbufLoader.with_mime_type(mtype);
+
+					if (loader.write(content) && loader.close())
+					{
+						d_image.pixbuf = loader.get_pixbuf();
+					}
+				} catch {}
+			}
+			else if (ContentType.is_a(ct, "text/plain"))
 			{
 				var manager = GtkSource.LanguageManager.get_default();
 
 				buf.set_text((string)content);
 				buf.language = manager.guess_language(fname, ct);
+
+				wid = d_source;
+			}
+
+			var child = d_scrolled.get_child();
+
+			if (child != wid)
+			{
+				if (child != null)
+				{
+					d_scrolled.remove(d_scrolled.get_child());
+				}
+
+				if (wid != null)
+				{
+					d_scrolled.add(wid);
+				}
 			}
 		}
 
