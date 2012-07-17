@@ -25,9 +25,9 @@ namespace GitgHistory
 	/* The main history view. This view shows the equivalent of git log, but
 	 * in a nice way with lanes, merges, ref labels etc.
 	 */
-	public class View : Object, GitgExt.View
+	public class View : Object, GitgExt.UIElement, GitgExt.View, GitgExt.ObjectSelection
 	{
-		public GitgExt.Application? application { owned get; construct; }
+		public GitgExt.Application? application { owned get; construct set; }
 
 		private Gtk.TreeView d_view;
 		private GitgGtk.CommitModel? d_model;
@@ -37,6 +37,17 @@ namespace GitgHistory
 		public string id
 		{
 			owned get { return "/org/gnome/gitg/Views/History"; }
+		}
+
+		public void foreach_selected(GitgExt.ForeachObjectSelectionFunc func)
+		{
+			bool breakit = false;
+			d_view.get_selection().selected_foreach((model, path, iter) => {
+				if (!breakit)
+				{
+					breakit = !func(d_model.commit_from_iter(iter));
+				}
+			});
 		}
 
 		construct
@@ -107,6 +118,10 @@ namespace GitgHistory
 			d_view = ret["commit_list_view"] as Gtk.TreeView;
 			d_view.model = d_model;
 
+			d_view.get_selection().changed.connect((sel) => {
+				selection_changed();
+			});
+
 			d_main = ret["scrolled_window_commit_list"] as Gtk.Widget;
 		}
 
@@ -172,6 +187,11 @@ namespace GitgHistory
 			}
 
 			return ret;
+		}
+
+		public bool is_enabled()
+		{
+			return true;
 		}
 	}
 }
