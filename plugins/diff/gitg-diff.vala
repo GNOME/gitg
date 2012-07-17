@@ -19,11 +19,11 @@
 
 namespace GitgDiff
 {
-	// Do this to pull in config.h before glib.h (for gettext...)
-	private const string version = Gitg.Config.VERSION;
-
 	public class Panel : Object, GitgExt.UIElement, GitgExt.Panel
 	{
+		// Do this to pull in config.h before glib.h (for gettext...)
+		private const string version = Gitg.Config.VERSION;
+
 		public GitgExt.Application? application { owned get; construct set; }
 		private Gtk.ScrolledWindow d_sw;
 		private GitgGtk.DiffView d_diff;
@@ -59,7 +59,7 @@ namespace GitgDiff
 
 		public string display_name
 		{
-			owned get { return "Diff"; }
+			owned get { return _("Diff"); }
 		}
 
 		public Icon? icon
