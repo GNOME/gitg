@@ -139,7 +139,7 @@ namespace GitgHistory
 					// See to resolve to the commit
 					try
 					{
-						var t = application.repository.lookup(head.get_id(), typeof(Ggit.Tag)) as Ggit.Tag;
+						var t = application.repository.lookup(id, typeof(Ggit.Tag)) as Ggit.Tag;
 
 						id = t.get_target_id();
 					} catch {}
