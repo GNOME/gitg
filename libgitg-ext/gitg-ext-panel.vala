@@ -20,7 +20,6 @@
 namespace GitgExt
 {
 
-public interface Panel : Object
 /**
  * Panel interfaces implemented to show additional details of a particular view.
  *
@@ -36,15 +35,8 @@ public interface Panel : Object
  * displayed when the panel is activated.
  *
  */
+public interface Panel : Object, UIElement
 {
-	public abstract Application? application { owned get; construct; }
-
-	public abstract string id { owned get; }
-	public abstract string display_name { owned get; }
-	public abstract Icon? icon { owned get; }
-
-	public abstract bool supported { get; }
-	public abstract Gtk.Widget? widget { owned get; }
 }
 
 }

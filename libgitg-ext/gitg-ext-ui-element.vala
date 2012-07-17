@@ -21,30 +21,7 @@ namespace GitgExt
 {
 
 /**
- * A view action.
- *
- * A view action indicates a user preference to open gitg in a particular view.
- */
-public enum ViewAction
-{
-	/**
-	 * Open gitg in the History view.
-	 */
-	HISTORY,
-
-	/**
-	 * Open gitg in the Commit view.
-	 */
-	COMMIT,
-
-	/**
-	 * Open gitg in the default view.
-	 */
-	DEFAULT = HISTORY
-}
-
-/**
- * gitg View interface.
+ * gitg UIElement interface.
  *
  * The GitgExtView interface can be implemented to provide a main view in
  * gitg. An example of such views are the builtin Dashboard, History and
@@ -61,30 +38,60 @@ public enum ViewAction
  * export this type to Peas because you will end up having the navigation
  * shown twice in the UI.
  */
-public interface View : Object, UIElement
+public interface UIElement : Object
 {
 	/**
-	 * Main navigation for the view.
+	 * The main gitg application interface.
 	 *
-	 * When provided, the corresponding navigation
-	 * section will be added in the navigation panel when the view is activated.
+	 * This property is a "construct"
+	 * property and will be automatically set when an instance of the ui element
+	 * object is created.
 	 */
-	public abstract Navigation? navigation { owned get; }
+	public abstract GitgExt.Application? application { owned get; construct set; }
 
 	/**
-	 * Check whether the view is the default view for a particular action.
+	 * A unique id for the ui element.
 	 *
-	 * Implement this method when a view should be the preferred default view
-	 * for a particular action. The first available view indicating to be
-	 * a default view will be used as the default activated view when launching
-	 * gitg (or when opening a repository).
+	 * Ids in gitg are normally of the form /org/gnome/gitg/...
+	 */
+	public abstract string id { owned get; }
+
+	/**
+	 * The display name of the ui element.
 	 *
-	 * @param action the action
+	 * This should result in a string which can
+	 * be displayed in the gitg UI to identify the element.
+	 */
+	public abstract string display_name { owned get; }
+
+	/**
+	 * The ui element icon.
 	 *
-	 * @return ``true`` if the view is a default for @action, ``false`` otherwise.
+	 * If provided, the icon will be used in navigation toolbars
+	 * so that users can switch to the ui element.
+	 */
+	public abstract Icon? icon { owned get; }
+
+	/**
+	 * The ui element widget.
+	 *
+	 * This widget will be embedded in the gitg UI when
+	 * the element is activated.
+	 */
+	public abstract Gtk.Widget? widget { owned get; }
+
+	/**
+	 * Check whether the ui element is available in the current application state.
+	 *
+	 * This method is used by gitg to verify whether or not a particular ui
+	 * element is available given the current state of the application.
+	 *
+	 * @return ``true`` if the view is available, ``false`` otherwise.
 	 *
 	 */
-	public abstract bool is_default_for(ViewAction action);
+	public abstract bool is_available();
+
+	public abstract bool is_enabled();
 }
 
 }

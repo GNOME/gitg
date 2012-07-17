@@ -33,6 +33,7 @@ INST_H_FILES =				\
 VALA_FILES =					\
 	gitg-ext-assembly-info.vala		\
 	gitg-ext-application.vala		\
+	gitg-ext-ui-element.vala		\
 	gitg-ext-panel.vala			\
 	gitg-ext-view.vala			\
 	gitg-ext-navigation.vala		\
