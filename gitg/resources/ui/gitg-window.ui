@@ -110,7 +110,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkPaned" id="paned_main">
+          <object class="GtkPaned" id="paned_views">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="vexpand">True</property>
@@ -126,7 +126,7 @@
                     <property name="can_focus">False</property>
                     <property name="hexpand">True</property>
                     <child>
-                      <object class="GtkToolbar" id="toolbar_topnav">
+                      <object class="GtkToolbar" id="toolbar_views">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
@@ -172,7 +172,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToolbar" id="toolbar_subnav">
+                      <object class="GtkToolbar" id="toolbar_panels">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
@@ -202,12 +202,13 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="orientation">vertical</property>
+                <property name="position">300</property>
                 <child>
                   <object class="GtkEventBox" id="frame_background">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkFrame" id="frame_main">
+                      <object class="GitgAutohideFrame" id="frame_view">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label_xalign">0</property>
@@ -219,17 +220,22 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="resize">False</property>
+                    <property name="resize">True</property>
                     <property name="shrink">True</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkNotebook" id="notebook_panels">
+                  <object class="GitgAutohideFrame" id="frame_panel">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">in</property>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                   <packing>
-                    <property name="resize">True</property>
+                    <property name="resize">False</property>
                     <property name="shrink">True</property>
                   </packing>
                 </child>

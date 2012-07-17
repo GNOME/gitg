@@ -31,7 +31,9 @@ VALASOURCES =							\
 	gitg-window.vala					\
 	gitg-resource.vala					\
 	gitg-application.vala					\
-	gitg-plugins-engine.vala
+	gitg-plugins-engine.vala				\
+	gitg-ui-elements.vala					\
+	gitg-autohide-frame.vala
 
 BUILT_SOURCES = 						\
 	gitg-resources.c					\
