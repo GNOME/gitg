@@ -161,7 +161,36 @@ public class Application : Gtk.Application
 
 	private void on_app_about_activated()
 	{
-	
+		string[] authors = {"Jesse van den Kieboom <jessevdk@gnome.org>",
+		                    "Ignacio Casal Quinteiro <icq@gnome.org>"};
+
+		string copyright = "Copyright \xc2\xa9 2012 Jesse van den Kieboom";
+		string comments = _("gitg is a git repository viewer for gtk+/GNOME");
+
+		Gdk.Pixbuf? logo = null;
+
+		try
+		{
+			logo = new Gdk.Pixbuf.from_file(Dirs.build_data_file("icons", "gitg.svg"));
+		}
+		catch
+		{
+			try
+			{
+				logo = new Gdk.Pixbuf.from_file(Dirs.build_data_file("icons", "gitg128x128.png"));
+			}
+			catch {}
+		}
+
+		Gtk.show_about_dialog(null,
+		                      "authors", authors,
+		                      "copyright", copyright,
+		                      "comments", comments,
+		                      "version", Config.VERSION,
+		                      "website", Config.PACKAGE_URL,
+		                      "website-label", _("gitg homepage"),
+		                      "logo", logo,
+		                      "license-type", Gtk.License.GPL_2_0);
 	}
 
 	private void on_app_quit_activated()
