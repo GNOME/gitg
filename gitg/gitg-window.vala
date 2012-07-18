@@ -29,6 +29,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private UIElements<GitgExt.View> d_views;
 	private UIElements<GitgExt.Panel> d_panels;
 
+	private Gtk.Button d_config;
+
 	// Widgets
 	private Gtk.Toolbar d_toolbar_views;
 	private Gtk.Toolbar d_toolbar_panels;
@@ -69,8 +71,62 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_frame_panel = builder.get_object("frame_panel") as Gtk.Frame;
 
 		d_navigation = builder.get_object("tree_view_navigation") as GitgExt.NavigationTreeView;
+		d_config = builder.get_object("button_config") as Gtk.Button;
+
+		d_config.popup_menu.connect(on_config_popup);
+
+		d_config.button_press_event.connect((w, ev) => {
+			popup_config(ev);
+			return true;
+		});
 
 		base.parser_finished(builder);
+	}
+
+	private void popup_config(Gdk.EventButton? ev = null)
+	{
+		var model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu");
+		var menu = new Gtk.Menu.from_model(model);
+
+		menu.deactivate.connect((w) => w.destroy());
+
+		uint button;
+		uint evtime;
+
+		if (ev != null)
+		{
+			button = ev.button;
+			evtime = ev.time;
+		}
+		else
+		{
+			button = 0;
+			evtime = Gtk.get_current_event_time();
+		}
+
+		menu.attach_to_widget(d_config, null);
+		menu.popup(null, null, position_config_popup, button, evtime);
+	}
+
+	private void position_config_popup(Gtk.Menu menu, out int x, out int y, out bool pushin)
+	{
+		d_config.translate_coordinates(this, 0, 0, out x, out y);
+
+		int px;
+		int py;
+
+		get_window().get_origin(out px, out py);
+
+		x += px - menu.get_allocated_width() + d_config.get_allocated_width();
+		y += py + d_config.get_allocated_height();
+
+		pushin = false;
+	}
+
+	private bool on_config_popup(Gtk.Widget widget)
+	{
+		popup_config();
+		return true;
 	}
 
 	private void on_view_activated(UIElements elements,

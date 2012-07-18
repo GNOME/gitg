@@ -15,88 +15,37 @@
         <child>
           <object class="GtkToolbar" id="toolbar1">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="toolbar_style">icons</property>
+            <property name="icon_size">2</property>
             <style>
               <class name="menubar"/>
             </style>
             <child>
               <object class="GtkToolItem" id="toolbutton1">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <style>
                   <class name="raised"/>
                 </style>
                 <child>
-                  <object class="GtkAlignment" id="alignment1">
+                  <object class="GtkAlignment" id="entry-alignment">
                     <property name="visible">True</property>
-                    <property name="top_padding">5</property>
-                    <property name="bottom_padding">5</property>
-                    <property name="left_padding">10</property>
-                    <property name="right_padding">5</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">1</property>
+                    <property name="xscale">0</property>
                     <child>
-                      <object class="GtkHBox" id="hbox1">
+                      <object class="GtkEntry" id="search-entry">
+                        <property name="width_request">210</property>
                         <property name="visible">True</property>
-                        <child>
-                          <object class="GtkAspectFrame" id="home-aspect-frame">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
-                            <property name="ratio">1</property>
-                            <property name="shadow-type">none</property>
-                            <property name="obey-child">False</property>
-                            <child>
-                              <object class="GtkButton" id="home-button">
-                                <property name="use_action_appearance">False</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="no_show_all">True</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="image">image1</property>
-                                <property name="use_underline">True</property>
-                                <child internal-child="accessible">
-                                  <object class="AtkObject" id="home-button-atkobject">
-                                    <property name="AtkObject::accessible-name" translatable="yes">All Repositories</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkAlignment" id="entry-alignment">
-                            <property name="visible">True</property>
-                            <property name="xalign">1</property>
-                            <property name="xscale">0</property>
-                            <child>
-                              <object class="GtkBox" id="topright">
-                                <property name="visible">True</property>
-                                <property name="orientation">horizontal</property>
-                                <child>
-                                  <object class="GtkEntry" id="search-entry">
-                                    <property name="width_request">210</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
-                                    <property name="secondary-icon-name">edit-find-symbolic</property>
-                                    <property name="secondary-icon-activatable">False</property>
-                                    <property name="secondary-icon-sensitive">False</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkLockButton" id="lock-button">
-                                    <property name="visible">False</property>
-                                    <property name="no_show_all">True</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">●</property>
+                        <property name="invisible_char_set">True</property>
+                        <property name="secondary_icon_name">edit-find-symbolic</property>
+                        <property name="secondary_icon_activatable">False</property>
+                        <property name="secondary_icon_sensitive">False</property>
                       </object>
                     </child>
                   </object>
@@ -107,12 +56,36 @@
                 <property name="homogeneous">True</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkToolItem" id="toolbutton2">
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">6</property>
+                <child>
+                  <object class="GtkButton" id="button_config">
+                    <property name="visible">True</property>
+                    <property name="image">image_config</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
           </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
         </child>
         <child>
           <object class="GtkPaned" id="paned_views">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="position">200</property>
             <property name="position_set">True</property>
@@ -256,13 +229,10 @@
       </object>
     </child>
   </object>
-  <object class="GtkImage" id="image1">
+  <object class="GtkImage" id="image_config">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="icon_name">view-grid-symbolic</property>
-    <property name="use_fallback">True</property>
+    <property name="icon_name">preferences-system-symbolic</property>
     <property name="pixel-size">16</property>
   </object>
 </interface>
-
-<!-- ex:set ts=2 et: -->
