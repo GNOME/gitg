@@ -199,7 +199,9 @@ public class Application : Gtk.Application
 			catch {}
 		}
 
-		Gtk.show_about_dialog(null,
+		unowned List<Gtk.Window> wnds = get_windows();
+
+		Gtk.show_about_dialog(wnds != null ? wnds.data : null,
 		                      "authors", authors,
 		                      "copyright", copyright,
 		                      "comments", comments,
