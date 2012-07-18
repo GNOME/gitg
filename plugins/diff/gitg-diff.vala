@@ -119,7 +119,7 @@ namespace GitgDiff
 		public int negotiate_order(GitgExt.UIElement other)
 		{
 			// Should appear before the files
-			if (other.id == "/org/gnome/gitg/plugins/Files")
+			if (other.id == "/org/gnome/gitg/Panels/Files")
 			{
 				return -1;
 			}

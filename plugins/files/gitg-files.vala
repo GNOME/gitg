@@ -293,7 +293,7 @@ namespace GitgFiles
 		public int negotiate_order(GitgExt.UIElement other)
 		{
 			// Should appear after the diff
-			if (other.id == "/org/gnome/gitg/plugins/Diff")
+			if (other.id == "/org/gnome/gitg/Panels/Diff")
 			{
 				return 1;
 			}
