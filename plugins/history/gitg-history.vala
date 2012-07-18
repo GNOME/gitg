@@ -251,6 +251,9 @@ public void peas_register_types(TypeModule module)
 
 	mod.register_extension_type(typeof(GitgExt.CommandLine),
 	                            typeof(GitgHistory.CommandLine));
+
+	mod.register_extension_type(typeof(GitgExt.Preferences),
+	                            typeof(GitgHistory.Preferences));
 }
 
 // ex: ts=4 noet

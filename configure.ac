@@ -297,6 +297,7 @@ tests/Makefile
 plugins/Makefile
 plugins/dash/Makefile
 plugins/history/Makefile
+plugins/history/org.gnome.gitg.history.gschema.xml.in
 plugins/diff/Makefile
 plugins/diff/icons/Makefile
 plugins/files/Makefile
