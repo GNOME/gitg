@@ -45,7 +45,8 @@ VALA_FILES =					\
 	gitg-ext-message.vala			\
 	gitg-ext-message-bus.vala		\
 	gitg-ext-object-selection.vala		\
-	gitg-ext-command-line.vala
+	gitg-ext-command-line.vala		\
+	gitg-ext-preferences.vala
 
 libgitg_ext_1_0_la_SOURCES =		\
 	$(VALA_FILES)			\
