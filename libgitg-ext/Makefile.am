@@ -13,6 +13,7 @@ COMMON_VALA_FLAGS =				\
 	--pkg libgitg-1.0			\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
+	--pkg gee-1.0				\
 	--basedir $(top_srcdir)			\
 	--gir GitgExt-1.0.gir			\
 	--girdir $(top_builddir)/libgitg	\
@@ -46,7 +47,8 @@ VALA_FILES =					\
 	gitg-ext-message-bus.vala		\
 	gitg-ext-object-selection.vala		\
 	gitg-ext-command-line.vala		\
-	gitg-ext-preferences.vala
+	gitg-ext-preferences.vala		\
+	gitg-ext-ui.vala
 
 libgitg_ext_1_0_la_SOURCES =		\
 	$(VALA_FILES)			\
