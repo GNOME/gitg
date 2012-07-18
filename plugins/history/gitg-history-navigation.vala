@@ -116,24 +116,43 @@ namespace GitgHistory
 			foreach (var item in branches)
 			{
 				var it = item;
+				string? icon = null;
+				bool isdef = false;
 
 				if (head != null && item.get_name() == head.get_target())
 				{
+					icon = "object-select-symbolic";
+
+					if (!CommandLine.all)
+					{
+						isdef = true;
+					}
+				}
+
+				if (isdef)
+				{
 					model.append_default(item.parsed_name.shortname,
-					                     "object-select-symbolic",
+					                     icon,
 					                     (nc) => ref_activated(it));
 				}
 				else
 				{
 					model.append(item.parsed_name.shortname,
-					             null,
+					             icon,
 					             (nc) => ref_activated(it));
 				}
 			}
 
 			model.separator();
 
-			model.append(_("All"), null, (nc) => ref_activated(null));
+			if (CommandLine.all)
+			{
+				model.append_default(_("All"), null, (nc) => ref_activated(null));
+			}
+			else
+			{
+				model.append(_("All"), null, (nc) => ref_activated(null));
+			}
 
 			model.end_header();
 

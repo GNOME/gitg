@@ -84,7 +84,7 @@ public interface View : Object, UIElement
 	 * @return ``true`` if the view is a default for @action, ``false`` otherwise.
 	 *
 	 */
-	public abstract bool is_default_for(ViewAction action);
+	public abstract bool is_default_for(string action);
 }
 
 }

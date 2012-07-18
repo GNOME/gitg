@@ -144,9 +144,9 @@ namespace GitgHistory
 			}
 		}
 
-		public bool is_default_for(GitgExt.ViewAction action)
+		public bool is_default_for(string action)
 		{
-			return application.repository != null && action == GitgExt.ViewAction.HISTORY;
+			return application.repository != null && (action == "" || action == "history");
 		}
 
 		private void on_ref_activated(Navigation n, Gitg.Ref? r)
@@ -270,6 +270,9 @@ public void peas_register_types(TypeModule module)
 
 	mod.register_extension_type(typeof(GitgExt.View),
 	                            typeof(GitgHistory.View));
+
+	mod.register_extension_type(typeof(GitgExt.CommandLine),
+	                            typeof(GitgHistory.CommandLine));
 }
 
 // ex: ts=4 noet

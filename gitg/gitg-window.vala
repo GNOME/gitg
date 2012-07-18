@@ -24,7 +24,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 {
 	private Repository? d_repository;
 	private GitgExt.MessageBus d_message_bus;
-	private GitgExt.ViewAction d_action;
+	private string? d_action;
 
 	private UIElements<GitgExt.View> d_views;
 	private UIElements<GitgExt.Panel> d_panels;
@@ -154,7 +154,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 	public static Window? create_new(Gtk.Application app,
 	                                 Repository? repository,
-	                                 GitgExt.ViewAction action)
+	                                 string? action)
 	{
 		Window? ret = Resource.load_object<Window>("ui/gitg-window.ui", "window");
 

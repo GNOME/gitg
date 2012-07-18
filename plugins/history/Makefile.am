@@ -13,7 +13,8 @@ plugin_DATA = history.plugin
 VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 VALA_SOURCES =								\
 	gitg-history.vala						\
-	gitg-history-navigation.vala
+	gitg-history-navigation.vala					\
+	gitg-history-command-line.vala
 
 libhistory_la_LDFLAGS = $(GITG_PLUGIN_LIBTOOL_FLAGS)
 libhistory_la_LIBADD = $(GITG_PLUGIN_LIBS)

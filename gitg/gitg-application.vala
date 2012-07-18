@@ -33,8 +33,7 @@ public class Application : Gtk.Application
 	private struct Options
 	{
 		public static bool quit = false;
-		public static bool commit = false;
-		public static string? select = null;
+		public static string view;
 		public static bool startup = false;
 		public static bool no_wd = false;
 		public static ApplicationCommandLine command_line;
@@ -42,9 +41,8 @@ public class Application : Gtk.Application
 		public static const OptionEntry[] entries = {
 			{"version", 'v', OptionFlags.NO_ARG, OptionArg.CALLBACK,
 			 (void *)show_version_and_quit, N_("Show the application's version"), null},
-			{"commit", 'c', 0, OptionArg.NONE,
-			 ref commit, N_("Start gitg in commit mode"), null},
-			 {"select", 's', 0, OptionArg.STRING, ref select, N_("Select commit after loading the repository"), null},
+			{"view", '\0', 0, OptionArg.STRING,
+			 ref view, N_("Start gitg with a particular view"), null},
 			 {"no-wd", 0, 0, OptionArg.NONE,
 			 ref no_wd, N_("Do not try to load a repository from the current working directory"), null},
 			{null}
@@ -69,6 +67,22 @@ public class Application : Gtk.Application
 		ctx.add_main_entries(options.entries, Config.GETTEXT_PACKAGE);
 		ctx.add_group(Gtk.get_option_group(true));
 
+		// Add any option groups from plugins
+		var engine = PluginsEngine.get_default();
+
+		foreach (var info in engine.get_plugin_list())
+		{
+			if (info.get_external_data("CommandLine") != null)
+			{
+				var ext = engine.create_extension(info, typeof(GitgExt.CommandLine)) as GitgExt.CommandLine;
+
+				if (ext != null)
+				{
+					ctx.add_group(ext.get_option_group());
+				}
+			}
+		}
+
 		ctx.parse(ref argv);
 	}
 
@@ -78,8 +92,11 @@ public class Application : Gtk.Application
 		string[] cp = arguments;
 		unowned string[] argv = cp;
 
+		PluginsEngine.initialize();
+
 		try
 		{
+			// This is just for local things, like showing help
 			parse_command_line(ref argv);
 		}
 		catch (Error e)
@@ -135,7 +152,7 @@ public class Application : Gtk.Application
 				files += File.new_for_commandline_arg(arg);
 			}
 
-			open(files, open_hint_from_options);
+			open(files, options.view);
 		}
 		else
 		{
@@ -143,11 +160,6 @@ public class Application : Gtk.Application
 		}
 
 		return 1;
-	}
-
-	private string open_hint_from_options
-	{
-		get { return options.commit ? "commit" : "history"; }
 	}
 
 	private void on_app_new_window_activated()
@@ -248,8 +260,7 @@ public class Application : Gtk.Application
 			// Otherwise open repository from current dir
 			string? wd = options.command_line.get_cwd();
 
-			open(new File[] { File.new_for_path(wd) },
-			     open_hint_from_options);
+			open(new File[] { File.new_for_path(wd) }, options.view);
 		}
 
 		base.activate();
@@ -329,8 +340,6 @@ public class Application : Gtk.Application
 
 	private void app_init()
 	{
-		PluginsEngine.initialize();
-
 		Gtk.CssProvider? provider = Resource.load_css("style.css");
 
 		if (provider != null)
@@ -344,30 +353,9 @@ public class Application : Gtk.Application
 		theme.prepend_search_path(Path.build_filename(Config.GITG_DATADIR, "icons"));
 	}
 
-	private GitgExt.ViewAction get_action_from_hint(string? hint)
-	{
-		if (hint == null)
-		{
-			return GitgExt.ViewAction.DEFAULT;
-		}
-
-		EnumClass klass = (EnumClass)typeof(GitgExt.ViewAction).class_ref();
-		EnumValue? val = klass.get_value_by_nick(hint);
-
-		if (val == null)
-		{
-			return GitgExt.ViewAction.DEFAULT;
-		}
-		else
-		{
-			return (GitgExt.ViewAction)val.value;
-		}
-	}
-
 	private void new_window(Repository? repo = null, string? hint = null)
 	{
-		
-		add_window(Window.create_new(this, repo, get_action_from_hint(hint)));
+		add_window(Window.create_new(this, repo, hint));
 		present_window();
 	}
 
