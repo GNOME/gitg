@@ -33,7 +33,8 @@ private enum Hint
 {
 	NONE,
 	HEADER,
-	DEFAULT
+	DEFAULT,
+	SEPARATOR
 }
 
 public delegate void NavigationActivated(int numclick);
@@ -145,6 +146,14 @@ public class NavigationTreeModel : Gtk.TreeStore
 	{
 		Gtk.TreeIter iter;
 		append_one(text, icon_name, Hint.NONE, (owned)callback, out iter);
+
+		return this;
+	}
+
+	public new NavigationTreeModel separator()
+	{
+		Gtk.TreeIter iter;
+		append_one("", null, Hint.SEPARATOR, null, out iter);
 
 		return this;
 	}
@@ -409,6 +418,13 @@ public class NavigationTreeView : Gtk.TreeView
 			{
 				t.weight = Pango.Weight.NORMAL;
 			}
+		});
+
+		set_row_separator_func((model, iter) => {
+			Hint hint;
+			model.get(iter, Column.HINT, out hint);
+
+			return hint == Hint.SEPARATOR;
 		});
 
 		append_column(col);
