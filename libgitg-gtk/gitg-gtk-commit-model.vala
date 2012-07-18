@@ -167,6 +167,8 @@ namespace GitgGtk
 			uint idx = (uint)(ulong)iter.user_data;
 			Gitg.Commit? commit = base[idx];
 
+			val.init(get_column_type(column));
+
 			if (commit == null)
 			{
 				return;
@@ -175,53 +177,41 @@ namespace GitgGtk
 			switch (column)
 			{
 				case CommitModelColumns.SHA1:
-					val.init(typeof(string));
 					val.set_string(commit.get_id().to_string());
 				break;
 				case CommitModelColumns.SUBJECT:
-					val.init(typeof(string));
 					val.set_string(commit.get_subject());
 				break;
 				case CommitModelColumns.MESSAGE:
-					val.init(typeof(string));
 					val.set_string(commit.get_message());
 				break;
 				case CommitModelColumns.COMMITTER:
-					val.init(typeof(string));
 					val.set_string("%s <%s>".printf(commit.get_committer().get_name(),
 					                                commit.get_committer().get_email()));
 				break;
 				case CommitModelColumns.COMMITTER_NAME:
-					val.init(typeof(string));
 					val.set_string(commit.get_committer().get_name());
 				break;
 				case CommitModelColumns.COMMITTER_EMAIL:
-					val.init(typeof(string));
 					val.set_string(commit.get_committer().get_email());
 				break;
 				case CommitModelColumns.COMMITTER_DATE:
-					val.init(typeof(string));
 					val.set_string(commit.committer_date_for_display);
 				break;
 				case CommitModelColumns.AUTHOR:
-					val.init(typeof(string));
 					val.set_string("%s <%s>".printf(commit.get_author().get_name(),
 					                                commit.get_author().get_email()));
 				break;
 				case CommitModelColumns.AUTHOR_NAME:
-					val.init(typeof(string));
 					val.set_string(commit.get_author().get_name());
 				break;
 				case CommitModelColumns.AUTHOR_EMAIL:
-					val.init(typeof(string));
 					val.set_string(commit.get_author().get_email());
 				break;
 				case CommitModelColumns.AUTHOR_DATE:
-					val.init(typeof(string));
 					val.set_string(commit.author_date_for_display);
 				break;
 				case CommitModelColumns.COMMIT:
-					val.init(typeof(Gitg.Commit));
 					val.set_object(commit);
 				break;
 			}
