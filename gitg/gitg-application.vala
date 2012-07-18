@@ -51,6 +51,11 @@ public class Application : Gtk.Application
 
 	private static Options options;
 
+	static construct
+	{
+		options.view = "";
+	}
+
 	private static void show_version_and_quit()
 	{
 		stdout.printf("%s %s\n",
