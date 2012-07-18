@@ -31,6 +31,8 @@ namespace GitgHistory
 
 		private Gtk.TreeView d_view;
 		private GitgGtk.CommitModel? d_model;
+		private Gee.HashSet<Ggit.OId> d_selected;
+		private ulong d_insertsig;
 
 		private Gtk.Widget d_main;
 
@@ -54,8 +56,45 @@ namespace GitgHistory
 		construct
 		{
 			d_model = new GitgGtk.CommitModel(application.repository);
+			d_selected = new Gee.HashSet<Ggit.OId>(Ggit.OId.hash, (EqualFunc<Ggit.OId>)Ggit.OId.equal);
+
+			d_model.started.connect(on_commit_model_started);
+			d_model.finished.connect(on_commit_model_finished);
 
 			application.bind_property("repository", d_model, "repository", BindingFlags.DEFAULT);
+		}
+
+		private void on_commit_model_started(Gitg.CommitModel model)
+		{
+			if (d_selected.size > 0 && d_insertsig == 0)
+			{
+				d_insertsig = d_model.row_inserted.connect(on_row_inserted_select);
+			}
+		}
+
+		private void on_row_inserted_select(Gtk.TreeModel model, Gtk.TreePath path, Gtk.TreeIter iter)
+		{
+			var commit = d_model.commit_from_path(path);
+
+			if (d_selected.remove(commit.get_id()))
+			{
+				d_view.get_selection().select_path(path);
+
+				if (d_selected.size == 0)
+				{
+					d_model.disconnect(d_insertsig);
+					d_insertsig = 0;
+				}
+			}
+		}
+
+		private void on_commit_model_finished(Gitg.CommitModel model)
+		{
+			if (d_insertsig != 0)
+			{
+				d_model.disconnect(d_insertsig);
+				d_insertsig = 0;
+			}
 		}
 
 		public bool available
@@ -164,6 +203,9 @@ namespace GitgHistory
 
 			if (id != null)
 			{
+				d_selected.clear();
+				d_selected.add(id);
+
 				d_model.set_include(new Ggit.OId[] { id });
 			}
 

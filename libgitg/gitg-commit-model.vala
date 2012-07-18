@@ -315,6 +315,7 @@ public class CommitModel : Object
 		try
 		{
 			d_cancellable.reset();
+			emit_started();
 			d_thread = new Thread<void*>.try("gitg-history-walk", run);
 			yield;
 		}
