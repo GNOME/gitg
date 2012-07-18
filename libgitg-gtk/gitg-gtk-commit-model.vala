@@ -107,7 +107,7 @@ namespace GitgGtk
 				++d_size;
 
 				row_inserted(path.copy(), iter);
-				path.up();
+				path.next();
 			}
 
 			base.emit_update(added);
