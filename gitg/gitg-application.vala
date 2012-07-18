@@ -50,6 +50,7 @@ public class Application : Gtk.Application
 	}
 
 	private static Options options;
+	private PreferencesDialog d_preferences;
 
 	static construct
 	{
@@ -220,11 +221,38 @@ public class Application : Gtk.Application
 		}
 	}
 
+	private void on_preferences_activated()
+	{
+		unowned List<Gtk.Window> wnds = get_windows();
+
+		// Create preferences dialog if needed
+		if (d_preferences == null)
+		{
+			d_preferences = Resource.load_object<PreferencesDialog>("ui/gitg-preferences.ui", "preferences");
+
+			d_preferences.destroy.connect((w) => {
+				d_preferences = null;
+			});
+
+			d_preferences.response.connect((w, r) => {
+				d_preferences.destroy();
+			});
+		}
+
+		if (wnds != null)
+		{
+			d_preferences.set_transient_for(wnds.data);
+		}
+
+		d_preferences.present();
+	}
+
 	private static const ActionEntry[] app_entries = {
 		{"new", on_app_new_window_activated},
 		{"help", on_app_help_activated},
 		{"about", on_app_about_activated},
-		{"quit", on_app_quit_activated}
+		{"quit", on_app_quit_activated},
+		{"preferences", on_preferences_activated}
 	};
 
 	private void setup_menus()

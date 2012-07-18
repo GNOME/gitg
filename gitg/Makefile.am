@@ -20,6 +20,7 @@ VALAFLAGS = \
 	--pkg gio-2.0						\
 	--pkg libpeas-1.0					\
 	--pkg gobject-introspection-1.0				\
+	--pkg gee-1.0						\
 	--girdir "$(top_builddir)/libgitg"			\
 	--girdir "$(top_builddir)/libgitg-ext"			\
 	--vapidir "$(top_builddir)/libgitg"			\
@@ -33,7 +34,8 @@ VALASOURCES =							\
 	gitg-application.vala					\
 	gitg-plugins-engine.vala				\
 	gitg-ui-elements.vala					\
-	gitg-autohide-frame.vala
+	gitg-autohide-frame.vala				\
+	gitg-preferences-dialog.vala
 
 BUILT_SOURCES = 						\
 	gitg-resources.c					\
