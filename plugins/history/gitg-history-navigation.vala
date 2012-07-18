@@ -25,8 +25,9 @@ namespace GitgHistory
 		private const string version = Gitg.Config.VERSION;
 
 		public GitgExt.Application? application { owned get; construct set; }
+		private List<Gitg.Ref> d_all;
 
-		public signal void ref_activated(Gitg.Ref r);
+		public signal void ref_activated(Gitg.Ref? r);
 
 		public Navigation(GitgExt.Application app)
 		{
@@ -49,6 +50,7 @@ namespace GitgHistory
 			List<string> remotenames = new List<string>();
 
 			remotes = new HashTable<string, List<Gitg.Ref>>(str_hash, str_equal);
+			d_all = new List<Gitg.Ref>();
 
 			try
 			{
@@ -59,6 +61,8 @@ namespace GitgHistory
 					{
 						r = repo.lookup_reference(nm);
 					} catch { return 0; }
+
+					d_all.prepend(r);
 
 					if (r.parsed_name.rtype == Gitg.RefType.BRANCH)
 					{
@@ -92,6 +96,8 @@ namespace GitgHistory
 				});
 			} catch {}
 
+			d_all.reverse();
+
 			Gitg.Ref? head = null;
 
 			try
@@ -124,6 +130,10 @@ namespace GitgHistory
 					             (nc) => ref_activated(it));
 				}
 			}
+
+			model.separator();
+
+			model.append(_("All"), null, (nc) => ref_activated(null));
 
 			model.end_header();
 
@@ -159,6 +169,11 @@ namespace GitgHistory
 				             null,
 				             (nc) => ref_activated(it));
 			}
+		}
+
+		public List<Gitg.Ref> all
+		{
+			get { return d_all; }
 		}
 
 		public GitgExt.NavigationSide navigation_side

@@ -66,7 +66,7 @@ namespace GitgHistory
 
 		private void on_commit_model_started(Gitg.CommitModel model)
 		{
-			if (d_selected.size > 0 && d_insertsig == 0)
+			if (d_insertsig == 0)
 			{
 				d_insertsig = d_model.row_inserted.connect(on_row_inserted_select);
 			}
@@ -76,15 +76,15 @@ namespace GitgHistory
 		{
 			var commit = d_model.commit_from_path(path);
 
-			if (d_selected.remove(commit.get_id()))
+			if (d_selected.size == 0 || d_selected.remove(commit.get_id()))
 			{
 				d_view.get_selection().select_path(path);
+			}
 
-				if (d_selected.size == 0)
-				{
-					d_model.disconnect(d_insertsig);
-					d_insertsig = 0;
-				}
+			if (d_selected.size == 0)
+			{
+				d_model.disconnect(d_insertsig);
+				d_insertsig = 0;
 			}
 		}
 
@@ -138,7 +138,7 @@ namespace GitgHistory
 				// filter the history
 				var ret = new Navigation(application);
 
-				ret.ref_activated.connect(on_ref_activated);
+				ret.ref_activated.connect((r) => on_ref_activated(ret, r));
 
 				return ret;
 			}
@@ -149,9 +149,9 @@ namespace GitgHistory
 			return application.repository != null && action == GitgExt.ViewAction.HISTORY;
 		}
 
-		private void on_ref_activated(Gitg.Ref r)
+		private void on_ref_activated(Navigation n, Gitg.Ref? r)
 		{
-			update_walker(r);
+			update_walker(n, r);
 		}
 
 		private void build_ui()
@@ -168,7 +168,7 @@ namespace GitgHistory
 			d_main = ret["scrolled_window_commit_list"] as Gtk.Widget;
 		}
 
-		private void update_walker(Gitg.Ref? head)
+		private void update_walker(Navigation n, Gitg.Ref? head)
 		{
 			Ggit.OId? id = null;
 
@@ -188,25 +188,37 @@ namespace GitgHistory
 				}
 			}
 
-			if (id == null && application.repository != null)
-			{
-				try
-				{
-					Gitg.Ref? th = application.repository.get_head();
-
-					if (th != null)
-					{
-						id = th.get_id();
-					}
-				} catch {}
-			}
+			d_selected.clear();
 
 			if (id != null)
 			{
-				d_selected.clear();
 				d_selected.add(id);
-
 				d_model.set_include(new Ggit.OId[] { id });
+			}
+			else
+			{
+				var included = new Ggit.OId[] {};
+
+				// Simply push all the refs
+				foreach (Gitg.Ref r in n.all)
+				{
+					try
+					{
+						var resolved = r.resolve();
+
+						try
+						{
+							var t = application.repository.lookup(resolved.get_id(), typeof(Ggit.Tag)) as Ggit.Tag;
+							included += t.get_target_id();
+						}
+						catch
+						{
+							included += resolved.get_id();
+						}
+					} catch {}
+				}
+
+				d_model.set_include(included);
 			}
 
 			d_model.reload();
