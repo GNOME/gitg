@@ -105,30 +105,6 @@ namespace GitgDash
 			return application.repository == null;
 		}
 
-		private Gee.HashMap<string, Object>? from_builder(string path, string[] ids)
-		{
-			var builder = new Gtk.Builder();
-
-			try
-			{
-				builder.add_from_resource("/org/gnome/gitg/dash/" + path);
-			}
-			catch (Error e)
-			{
-				warning("Failed to load ui: %s", e.message);
-				return null;
-			}
-
-			Gee.HashMap<string, Object> ret = new Gee.HashMap<string, Object>();
-
-			foreach (string id in ids)
-			{
-				ret[id] = builder.get_object(id);
-			}
-
-			return ret;
-		}
-
 		private void connect_chooser_folder(Gtk.FileChooser ch)
 		{
 			if (d_open_folder == null)
@@ -156,9 +132,10 @@ namespace GitgDash
 		{
 			if (d_open == null)
 			{
-				var ret = from_builder("view-open.ui", {"view",
-				                                        "file_chooser",
-				                                        "button_open"});
+				var ret = GitgExt.UI.from_builder("dash/view-open.ui",
+				                                  "view",
+				                                  "file_chooser",
+				                                  "button_open");
 
 				d_open = ret["view"] as Gtk.Widget;
 
@@ -179,9 +156,10 @@ namespace GitgDash
 		{
 			if (d_create == null)
 			{
-				var ret = from_builder("view-create.ui", {"view",
-				                                          "file_chooser",
-				                                          "button_create"});
+				var ret = GitgExt.UI.from_builder("dash/view-create.ui",
+				                                  "view",
+				                                  "file_chooser",
+				                                  "button_create");
 
 				d_create = ret["view"] as Gtk.Widget;
 
@@ -243,11 +221,12 @@ namespace GitgDash
 
 			if (d_recent == null)
 			{
-				var ret = from_builder("view-recent.ui", {"view",
-				                                          "label_path_i",
-				                                          "label_last_used_i",
-				                                          "label_current_branch_i",
-				                                          "button_open"});
+				var ret = GitgExt.UI.from_builder("dash/view-recent.ui",
+				                                  "view",
+				                                  "label_path_i",
+				                                  "label_last_used_i",
+				                                  "label_current_branch_i",
+				                                  "button_open");
 
 				d_recent = ret["view"] as Gtk.Widget;
 				d_recent_path = ret["label_path_i"] as Gtk.Label;

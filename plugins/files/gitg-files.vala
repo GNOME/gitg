@@ -88,30 +88,6 @@ namespace GitgFiles
 			});
 		}
 
-		private Gee.HashMap<string, Object>? from_builder(string path, string[] ids)
-		{
-			var builder = new Gtk.Builder();
-
-			try
-			{
-				builder.add_from_resource("/org/gnome/gitg/files/" + path);
-			}
-			catch (Error e)
-			{
-				warning("Failed to load ui: %s", e.message);
-				return null;
-			}
-
-			Gee.HashMap<string, Object> ret = new Gee.HashMap<string, Object>();
-
-			foreach (string id in ids)
-			{
-				ret[id] = builder.get_object(id);
-			}
-
-			return ret;
-		}
-
 		private void update_font()
 		{
 			var fname = d_fontsettings.get_string("monospace-font-name");
@@ -133,7 +109,11 @@ namespace GitgFiles
 
 		private void build_ui()
 		{
-			var ret = from_builder("view-files.ui", {"paned_files", "tree_view_files", "source_view_file", "scrolled_window_file"});
+			var ret = GitgExt.UI.from_builder("files/view-files.ui",
+			                                  "paned_files",
+			                                  "tree_view_files",
+			                                  "source_view_file",
+			                                  "scrolled_window_file");
 
 			var tv = ret["tree_view_files"] as Gtk.TreeView;
 			tv.model = d_model;

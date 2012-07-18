@@ -156,7 +156,9 @@ namespace GitgHistory
 
 		private void build_ui()
 		{
-			var ret = from_builder("view-history.ui", {"scrolled_window_commit_list", "commit_list_view"});
+			var ret = GitgExt.UI.from_builder("history/view-history.ui",
+			                                  "scrolled_window_commit_list",
+			                                  "commit_list_view");
 
 			d_view = ret["commit_list_view"] as Gtk.TreeView;
 			d_view.model = d_model;
@@ -222,30 +224,6 @@ namespace GitgHistory
 			}
 
 			d_model.reload();
-		}
-
-		private Gee.HashMap<string, Object>? from_builder(string path, string[] ids)
-		{
-			var builder = new Gtk.Builder();
-
-			try
-			{
-				builder.add_from_resource("/org/gnome/gitg/history/" + path);
-			}
-			catch (Error e)
-			{
-				warning("Failed to load ui: %s", e.message);
-				return null;
-			}
-
-			Gee.HashMap<string, Object> ret = new Gee.HashMap<string, Object>();
-
-			foreach (string id in ids)
-			{
-				ret[id] = builder.get_object(id);
-			}
-
-			return ret;
 		}
 
 		public bool enabled
