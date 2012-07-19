@@ -3,14 +3,23 @@
 [encoding: UTF-8]
 data/gitg.desktop.in.in
 data/org.gnome.gitg.gschema.xml.in.in
+plugins/history/org.gnome.gitg.history.gschema.xml.in.in
 gitg/gitg-application.vala
 gitg/gitg.vala
+plugins/dash/gitg-dash-navigation.vala
 plugins/dash/gitg-dash.vala
+plugins/diff/gitg-diff.vala
+plugins/files/gitg-files.vala
+plugins/history/gitg-history-command-line.vala
 plugins/history/gitg-history-navigation.vala
+plugins/history/gitg-history-preferences.vala
 plugins/history/gitg-history.vala
 [type: gettext/glade]gitg/resources/ui/gitg-menus.ui
+[type: gettext/glade]gitg/resources/ui/gitg-preferences.ui
 [type: gettext/glade]gitg/resources/ui/gitg-window.ui
 [type: gettext/glade]plugins/dash/resources/view-create.ui
 [type: gettext/glade]plugins/dash/resources/view-open.ui
 [type: gettext/glade]plugins/dash/resources/view-recent.ui
+[type: gettext/glade]plugins/files/resources/view-files.ui
+[type: gettext/glade]plugins/history/resources/preferences.ui
 [type: gettext/glade]plugins/history/resources/view-history.ui
