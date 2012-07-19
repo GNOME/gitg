@@ -33,6 +33,7 @@ namespace GitgHistory
 		private GitgGtk.CommitModel? d_model;
 		private Gee.HashSet<Ggit.OId> d_selected;
 		private ulong d_insertsig;
+		private Settings d_settings;
 
 		private Gtk.Widget d_main;
 
@@ -61,7 +62,26 @@ namespace GitgHistory
 			d_model.started.connect(on_commit_model_started);
 			d_model.finished.connect(on_commit_model_finished);
 
+			d_settings = new Settings("org.gnome.gitg.history.preferences");
+			d_settings.changed["topological-order"].connect((s, k) => {
+				update_sort_mode();
+			});
+
+			update_sort_mode();
+
 			application.bind_property("repository", d_model, "repository", BindingFlags.DEFAULT);
+		}
+
+		private void update_sort_mode()
+		{
+			if (d_settings.get_boolean("topological-order"))
+			{
+				d_model.sort_mode |= Ggit.SortMode.TOPOLOGICAL;
+			}
+			else
+			{
+				d_model.sort_mode &= ~Ggit.SortMode.TOPOLOGICAL;
+			}
 		}
 
 		private void on_commit_model_started(Gitg.CommitModel model)
