@@ -1,0 +1,42 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <link rel="stylesheet" href="base.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="base.js"></script>
+  </head>
+  <body>
+    <div id="templates">
+      <!-- Commit template -->
+      <div class="commit">
+        <img class="avatar"/>
+        <p>
+          <span class="author"></span><br/>
+          <span class="date"></span>
+        </p>
+        <p class="message"></p>
+        <div class="sha1"></div>
+      </div>
+
+      <!-- Hunk template -->
+      <div class="hunk">
+        <table class="contents">
+          <colgroup>
+            <col width="0">
+            <col width="0">
+            <col width="100%">
+          </colgroup>
+          <thead>
+            <th class="gutter">-</th>
+            <th class="gutter">+</th>
+            <th class="filepath"></th>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div id="diff">
+    </div>
+  </body>
+<html>
+
+<!-- vi:ts=2:et >

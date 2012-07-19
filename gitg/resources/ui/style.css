@@ -1,0 +1,105 @@
+@define-color butter1 #fce94f;
+@define-color butter2 #edd400;
+@define-color butter3 #c4a000;
+
+@define-color orange1 #fcaf3e;
+@define-color orange2 #f57900;
+@define-color orange3 #ce5c00;
+
+@define-color chocolate1 #e9b96e;
+@define-color chocolate2 #c17d11;
+@define-color chocolate3 #8f5902;
+
+@define-color chameleon1 #8ae234;
+@define-color chameleon2 #73d216;
+@define-color chameleon3 #4e9a06;
+
+@define-color skyblue1 #729fcf;
+@define-color skyblue2 #3465a4;
+@define-color skyblue3 #204a87;
+
+@define-color plum1 #ad7fa8;
+@define-color plum2 #75507b;
+@define-color plum3 #5c3566;
+
+@define-color scarletred1 #ef2929;
+@define-color scarletred2 #cc0000;
+@define-color scarletred3 #a40000;
+
+@define-color aluminium1 #eeeeec;
+@define-color aluminium2 #d3d7cf;
+@define-color aluminium3 #babdb6;
+@define-color aluminium4 #888a85;
+@define-color aluminium5 #555753;
+@define-color aluminium6 #2e3436;
+
+GtkToolbar#toolbar_topnav, GtkToolbar#toolbar_subnav {
+	border-left: 0px;
+	border-right: 0px;
+}
+
+GtkToolbar#toolbar_subnav {
+	border-bottom: 0px;
+}
+
+#navigation_background {
+	background-color: shade(@theme_bg_color, 0.85);
+	background-image: none;
+}
+
+#tree_view_navigation {
+	background-color: inherit;
+	background-image: none;
+	color: inherit;
+	background-color: shade(@theme_bg_color, 0.9);
+}
+
+#paned_main {
+	border-style: solid;
+	border-color: @borders;
+	border-width: 0px 0px 0px 1px;
+	padding: 0px;
+	border-radius: 0px;
+	background-color: inherit;
+}
+
+#tree_view_navigation.view:selected {
+	background-color: @theme_selected_bg_color;
+	color: @theme_selected_fg_color;
+}
+
+GtkLabel.title {
+	font-weight: bold;
+	font-size: 16;
+	color: @insensitive_fg_color;
+}
+
+GtkLabel.description {
+	padding-bottom: 12px;
+	color: @insensitive_fg_color;
+}
+
+GtkLabel.grid_title {
+	font-weight: bold;
+}
+
+.branch, .remote, .tag, .stash {
+	border-radius: 8px;
+	color: @aluminium1;
+}
+
+.branch {
+	background-color: @skyblue3;
+}
+
+.remote {
+	background-color: @chameleon3;
+}
+
+.tag {
+	background-color: @orange3;
+}
+
+.stash {
+	background-color: @butter3;
+}

@@ -2,10 +2,7 @@
 
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
-SUBDIRS = libgitg gitg data po tests tools
-
-pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libgitg-1.0.pc
+SUBDIRS = libgitg libgitg-gtk libgitg-ext plugins gitg data po tests
 
 DISTCLEANFILES = \
 	intltool-extract \
@@ -17,8 +14,7 @@ EXTRA_DIST = \
 	MAINTAINERS \
 	intltool-extract.in \
 	intltool-merge.in \
-	intltool-update.in \
-	libgitg-1.0.pc.in
+	intltool-update.in
 
 MAINTAINERCLEANFILES = 		\
 	aclocal.m4		\

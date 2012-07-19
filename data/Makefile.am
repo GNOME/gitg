@@ -7,12 +7,6 @@ desktop_DATA 	 = $(desktop_in_files:.desktop.in=.desktop)
 
 man_MANS = gitg.1
 
-gitglangsdir = $(datadir)/gitg/language-specs
-gitglangs_DATA = gitgdiff.lang
-
-gitgstylesdir = $(datadir)/gitg/styles
-gitgstyles_DATA = gitgstyle.xml
-
 gsettings_SCHEMAS = org.gnome.gitg.gschema.xml
 
 if GLADE_CATALOG
@@ -26,8 +20,6 @@ endif
 
 EXTRA_DIST =				\
 	$(desktop_in_files)		\
-	$(gitglangs_DATA)		\
-	$(gitgstyles_DATA)		\
 	$(man_MANS)			\
 	org.gnome.gitg.gschema.xml.in.in
 

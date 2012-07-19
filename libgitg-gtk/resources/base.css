@@ -1,0 +1,127 @@
+body, html {
+  padding: 0;
+  margin: 0;
+}
+
+div#templates {
+  display: none;
+}
+
+div#diff {
+  font-family: monospace;
+  -webkit-tab-size: 4;
+}
+
+div#diff div.hunk {
+  overflow: auto;
+}
+
+div#diff div.hunk table {
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: 1px solid #d3d7cf;
+}
+
+img.avatar {
+  float: right;
+  border-radius: 10px 10px 10px 10px;
+}
+
+div.commit {
+  padding: 10px;
+  font-family: sans-serif;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eeeeec), to(#d3d7cf));
+}
+
+div.commit table {
+  border-collapse: collapse;
+}
+
+div.commit table td:first-child {
+  font-weight: bold;
+  padding-right: 15px;
+}
+
+div.commit div.message {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+div#diff div.hunk table td {
+  white-space: pre;
+}
+
+span.tab {
+  overflow: hidden;
+  display: inline-block;
+}
+
+div#diff div.hunk table.wrapped td {
+  white-space: pre-wrap;
+}
+
+div#diff div.hunk table tr.added td:last-child {
+  background-color: #ccffcc;
+}
+
+div#diff div.hunk table tr.removed td:last-child {
+  background-color: #ffcccc;
+}
+
+div#diff div.hunk table thead th {
+  background-color: #eeeeec;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+div#diff div.hunk table thead th.filepath {
+  text-align: left;
+  padding-left: 5px;
+  font-family: sans-serif;
+}
+
+div#diff div.hunk table td {
+  vertical-align: top;
+}
+
+div#diff div.hunk table .gutter {
+  padding-right: 2px;
+  padding-left: 2px;
+  background-color: #eeeeec;
+  text-align: right;
+  color: #888a85;
+}
+
+div#diff div.hunk table th.gutter {
+  text-align: center;
+}
+
+div#diff div.hunk table td:nth-child(2), div#diff div.hunk table th:nth-child(2)  {
+  border-right: 3px solid #d3d7cf;
+  border-left: 1px solid #d3d7cf;
+}
+
+div.commit {
+  position: relative;
+}
+
+div.commit .date, div.commit .sha1 {
+  color: #888a85;
+  font-size: 0.8em;
+}
+
+div.commit .sha1 {
+  font-family: monospace;
+  text-align: right;
+}
+
+div.commit .message {
+  white-space: pre-wrap;
+  margin-bottom: 5px;
+}
+
+a {
+  color: #3465a4;
+}
+
+/* vi:ts=2:et */
