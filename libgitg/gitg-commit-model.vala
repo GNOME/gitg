@@ -30,8 +30,22 @@ public class CommitModel : Object
 	private uint d_advertized_size;
 	private uint d_idleid;
 	private Lanes d_lanes;
+	private Ggit.SortMode d_sortmode;
 
 	public uint limit { get; set; }
+
+	public Ggit.SortMode sort_mode
+	{
+		get { return d_sortmode; }
+		set
+		{
+			if (d_sortmode != value)
+			{
+				d_sortmode = value;
+				reload();
+			}
+		}
+	}
 
 	private Ggit.OId[] d_include;
 	private Ggit.OId[] d_exclude;
@@ -62,6 +76,8 @@ public class CommitModel : Object
 		d_lanes = new Lanes();
 		d_cancellable = new Cancellable();
 		d_cancellable.cancel();
+
+		d_sortmode = Ggit.SortMode.TIME | Ggit.SortMode.TOPOLOGICAL;
 	}
 
 	~CommitModel()
@@ -121,6 +137,11 @@ public class CommitModel : Object
 	public void reload()
 	{
 		cancel();
+
+		if (d_include.length == 0)
+		{
+			return;
+		}
 
 		walk.begin((obj, res) => {
 			walk.end(res);
@@ -218,7 +239,7 @@ public class CommitModel : Object
 			}
 
 			d_walker.reset();
-			d_walker.set_sort_mode(Ggit.SortMode.TOPOLOGICAL | Ggit.SortMode.TIME);
+			d_walker.set_sort_mode(d_sortmode);
 
 			foreach (Ggit.OId oid in included)
 			{
