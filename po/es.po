@@ -4,52 +4,53 @@
 # This file is distributed under the same license as the gitg package.
 #
 # Chihau Chau <chihau@gmail.com>, 2009.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2011-08-10 10:32+0000\n"
-"PO-Revision-Date: 2011-08-12 15:16+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2012-07-19 18:23+0000\n"
+"PO-Revision-Date: 2012-07-21 18:41+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.5\n"
 
-#: ../data/gitg.desktop.in.in.h:1
-msgid "Git repository browser"
-msgstr "Examinador de repositorios Git"
-
-#. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg-branch-actions.c:169
-#: ../gitg/gitg-branch-actions.c:222 ../gitg/gitg.c:184
-#: ../gitg/gitg-window.c:1666 ../gitg/gitg-window.c:1680
-#: ../gitg/gitg-window.ui.h:16
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
 
+#: ../data/gitg.desktop.in.in.h:2
+msgid "Git repository browser"
+msgstr "Examinador de repositorios Git"
+
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Allow External Diff Program"
-msgstr "Permitir un programa diff externo"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
-msgstr "Permitir usar un programa diff externo al ver diferencias en gitg."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-msgid "Column at Which Right Margin is Shown"
-msgstr "Columna en el que se muestra el margen derecho"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
 msgid "Filter Revisions When Searching"
 msgstr "Filtrar revisiones al buscar"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+msgid ""
+"Whether searching filters the revisions in the history view instead of "
+"jumping to the first match."
+msgstr ""
+"Indica si la búsqueda filtra las revisiones en la vista del histórico en "
+"lugar de saltar a la primera coincidencia."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
+msgid "When to Collapse Inactive Lanes"
+msgstr "Cuándo contraer las líneas inactivas"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -57,15 +58,20 @@ msgstr ""
 "Ajuste que indica cuándo una línea inactiva debe contraerse. Los valores "
 "válidos son 0 - 4, donde 0 indica «pronto» y 4 indica «tarde»."
 
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
+msgid "Show History in Topological Order"
+msgstr "Mostrar el histórico por orden topológico"
+
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "Ajuste que indica si se debe mostrar el histórico en orden topológico."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Setting that sets files view to blame mode."
-msgstr ""
-"Ajuste que configura la vista de archivos en el modo acusador («blame»)."
+msgid "Show Main View in Vertical or Horizontal Layout"
+msgstr "Mostrar la vista principal en distribución vertical u horizontal"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
 msgid "Setting that sets the orientation layout of the main view."
@@ -74,12 +80,13 @@ msgstr ""
 "principal."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Show History in Topological Order"
-msgstr "Mostrar el histórico por orden topológico"
+msgid "Show files view in blame mode"
+msgstr "Mostrar archivos en modo acusador («blame»)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-msgid "Show Main View in Vertical or Horizontal Layout"
-msgstr "Mostrar la vista principal en distribución vertical u horizontal"
+msgid "Setting that sets files view to blame mode."
+msgstr ""
+"Ajuste que configura la vista de archivos en el modo acusador («blame»)."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
@@ -90,13 +97,13 @@ msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». Se "
-"puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
+"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». "
+"Se puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
 "columna en particular."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
-msgid "Show files view in blame mode"
-msgstr "Mostrar archivos en modo acusador («blame»)"
+msgid "Column at Which Right Margin is Shown"
+msgstr "Columna en el que se muestra el margen derecho"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid ""
@@ -107,1047 +114,947 @@ msgstr ""
 "margen derecho está establecida como verdadera."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+msgid "Allow External Diff Program"
+msgstr "Permitir un programa diff externo"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid "Allow an external diff program to be used when viewing diffs in gitg."
+msgstr "Permitir usar un programa diff externo al ver diferencias en gitg."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
 msgid "The command to handle GITG scheme URLs"
 msgstr "El comando para gestionar los URL de esquema de GITG"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
 msgid "The command to handle GITG scheme URLs."
 msgstr "El comando para gestionar los URL de esquema de GITG."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-msgid "When to Collapse Inactive Lanes"
-msgstr "Cuándo contraer las líneas inactivas"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "Whether command to handle GITG scheme URLs is enabled"
-msgstr ""
-"Indica si el comando para gestionar los URL de esquema de GITG está activado"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr ""
-"Indica si el comando para gestionar los URL de esquema de GITG está activado."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Whether command to handle GITG scheme URLs needs a terminal"
 msgstr ""
 "Indica si el comando para gestionar los URL de esquema de GITG necesita una "
 "terminal"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Whether command to handle GITG scheme URLs needs a terminal."
 msgstr ""
 "Indica si el comando para gestionar los URL de esquema de GITG necesita una "
 "terminal."
 
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+msgid "Whether command to handle GITG scheme URLs is enabled"
+msgstr ""
+"Indica si el comando para gestionar los URL de esquema de GITG está activado"
+
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+msgid "Whether command to handle GITG scheme URLs is enabled."
+msgstr ""
+"Indica si el comando para gestionar los URL de esquema de GITG está activado."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
 msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
 msgstr ""
-"Indica si la búsqueda filtra las revisiones en la vista del histórico en "
-"lugar de saltar a la primera coincidencia."
+"Ajuste que indica si se deben contraer las líneas del histórico que no "
+"tienen actividad. activar esto puede proporcionar una vista del histórico "
+"más limpia cuando hay mucho desarrollo en paralelo. Vea «collapse-inactive-"
+"lanes» para controlar cuándo se deben contraer las líneas."
 
-#: ../gitg/gitg-branch-actions.c:277
-#, c-format
-msgid "Branch <%s> could not be removed"
-msgstr "No se pudo eliminar la rama <%s>"
-
-#: ../gitg/gitg-branch-actions.c:278
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
+#| msgid ""
+#| "Setting that indicates whether to show the history in topological order."
 msgid ""
-"This usually means that the branch is not fully merged in HEAD. Do you want "
-"to forcefully remove the branch?"
+"Setting that indicates whether to show items for the stash in the history."
 msgstr ""
-"Esto generalmente significa que la rama no está completamente mezclada en la "
-"rama principal («HEAD»). ¿Quiere forzar quitar la rama?"
+"Ajuste que indica si se deben mostrar los elementos de reserva en el "
+"histórico."
 
-#: ../gitg/gitg-branch-actions.c:279
-msgid "Force remove"
-msgstr "Quitar a la fuerza"
-
-#: ../gitg/gitg-branch-actions.c:293
-#, c-format
-msgid "Branch <%s> could not be forcefully removed"
-msgstr "La rama <%s> no se pudo quitar a la fuerza"
-
-#: ../gitg/gitg-branch-actions.c:326
-#, c-format
-msgid "Failed to remove remote branch <%s>."
-msgstr "Falló al eliminar la rama remota <%s>."
-
-#: ../gitg/gitg-branch-actions.c:347
-#, c-format
-msgid "Are you sure you want to remove the remote branch <%s>?"
-msgstr "¿Está seguro de que quiere eliminar la rama remota <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:348
-msgid "This permanently removes the remote branch."
-msgstr "Esto quita permanentemente la rama remota."
-
-#: ../gitg/gitg-branch-actions.c:349 ../gitg/gitg-window.c:2862
-msgid "Remove remote branch"
-msgstr "Eliminar la rama remota"
-
-#: ../gitg/gitg-branch-actions.c:364 ../gitg/gitg-menus.xml.h:12
-msgid "Remove branch"
-msgstr "Eliminar rama"
-
-#: ../gitg/gitg-branch-actions.c:425
-msgid "Are you sure you want to remove this stash item?"
-msgstr "¿Está seguro de que quiere quitar este elemento de la reserva?"
-
-#: ../gitg/gitg-branch-actions.c:426
-msgid "This permanently removes the stash item"
-msgstr "Esto quita permanentemente el elemento de la reserva"
-
-#: ../gitg/gitg-branch-actions.c:427 ../gitg/gitg-window.c:2878
-msgid "Remove stash"
-msgstr "Quitar reserva"
-
-#: ../gitg/gitg-branch-actions.c:453
-msgid "Failed to remove stash"
-msgstr "Falló al quitar la reserva"
-
-#: ../gitg/gitg-branch-actions.c:454
-msgid "The stash item could not be successfully removed"
-msgstr "No se pudo quitar de forma satisfactoria el elemento de la reserva"
-
-#: ../gitg/gitg-branch-actions.c:485
-#, c-format
-msgid "Are you sure you want to remove the tag <%s>?"
-msgstr "¿Está seguro de que quiere eliminar la etiqueta <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:489 ../gitg/gitg-branch-actions.c:491
-#: ../gitg/gitg-window.c:2884
-msgid "Remove tag"
-msgstr "Eliminar etiqueta"
-
-#: ../gitg/gitg-branch-actions.c:508
-#, c-format
-msgid "The tag <%s> could not be successfully removed"
-msgstr "No se pudo quitar de forma satisfactoria la etiqueta <%s>"
-
-#: ../gitg/gitg-branch-actions.c:512
-msgid "Failed to remove tag"
-msgstr "Falló al eliminar la etiqueta"
-
-#: ../gitg/gitg-branch-actions.c:575
-#, c-format
-msgid "Branch <%s> could not be renamed to <%s>"
-msgstr "No se pudo renombrar la rama <%s> a <%s>"
-
-#: ../gitg/gitg-branch-actions.c:576
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
+#| msgid ""
+#| "Setting that indicates whether to show the history in topological order."
 msgid ""
-"This usually means that a branch with that name already exists. Do you want "
-"to overwrite the branch?"
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
 msgstr ""
-"Esto generalmente significa que ya existe una rama con ese nombre. ¿Quiere "
-"sobreescribir la rama?"
+"Ajuste que indica si se debe mostrar en el histórico un elemento virtual "
+"para los cambios reservados actualmente."
 
-#: ../gitg/gitg-branch-actions.c:577
-msgid "Force rename"
-msgstr "Forzar el renombrado"
-
-#: ../gitg/gitg-branch-actions.c:592
-#, c-format
-msgid "Branch <%s> could not be forcefully renamed"
-msgstr "No se pudo renombrar de forma forzada la rama <%s>"
-
-#: ../gitg/gitg-branch-actions.c:632 ../gitg/gitg-new-branch.ui.h:2
-#: ../gitg/gitg-preferences.ui.h:17 ../gitg/gitg-repository.ui.h:6
-#: ../gitg/gitg-tag.ui.h:4
-msgid "Name:"
-msgstr "Nombre:"
-
-#: ../gitg/gitg-branch-actions.c:754
-msgid "Do you want to temporarily stash these changes?"
-msgstr "¿Quiere reservar temporalmente estos cambios?"
-
-#: ../gitg/gitg-branch-actions.c:758
-msgid "Do you want to stash and reapply these changes?"
-msgstr "¿Quiere reservar y volver a aplicar estos cambios?"
-
-#: ../gitg/gitg-branch-actions.c:763
-msgid "You have uncommited changes in your current working tree"
-msgstr "Tiene cambios sin efectuar en su árbol de trabajo actual"
-
-#: ../gitg/gitg-branch-actions.c:765
-msgid "Stash changes"
-msgstr "Reservar los cambios"
-
-#: ../gitg/gitg-branch-actions.c:1020
-msgid "Failed to save current index state"
-msgstr "Falló al guardar el estado índice actual"
-
-#: ../gitg/gitg-branch-actions.c:1071 ../gitg/gitg-branch-actions.c:1367
-#: ../gitg/gitg-branch-actions.c:1658 ../gitg/gitg-branch-actions.c:1955
-#, c-format
-msgid "Failed to checkout local branch <%s>"
-msgstr "Falló al descargar («checkout») la rama local <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1109
-#, c-format
-msgid "Failed to checkout remote branch <%s> to local branch <%s>"
-msgstr ""
-"Falló al descargar («checkout») la rama remota <%s> en la rama local <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1148
-#, c-format
-msgid "Failed to checkout tag <%s> to local branch <%s>"
-msgstr "Falló al descargar («checkout») la etiqueta <%s> en la rama local <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1239
-#, c-format
-msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-msgstr "Falló al rebasar la rama %s <%s> en la rama %s <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1243
-#, c-format
-msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-msgstr "Falló al mezclar la rama %s <%s> con la rama %s <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
-#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
-#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
-#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
-msgid "local"
-msgstr "local"
-
-#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
-#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
-#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
-#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
-msgid "remote"
-msgstr "remota"
-
-#: ../gitg/gitg-branch-actions.c:1276 ../gitg/gitg-branch-actions.c:1869
-msgid "The stashed changes have been stored to be reapplied manually"
-msgstr ""
-"Se han almacenado los cambios reservados para volverlos a aplicar manualmente"
-
-#: ../gitg/gitg-branch-actions.c:1281 ../gitg/gitg-branch-actions.c:1874
-msgid "Failed to checkout previously checked out branch"
-msgstr "Falló al descargar («checkout») la rama anteriormente descargada"
-
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1900
-msgid "Failed to reapply stash correctly"
-msgstr "Falló al volver a aplicar la reserva correctamente"
-
-#: ../gitg/gitg-branch-actions.c:1308 ../gitg/gitg-branch-actions.c:1901
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
+#| msgid ""
+#| "Setting that indicates whether to show the history in topological order."
 msgid ""
-"There might be unresolved conflicts in the working tree or index which you "
-"need to resolve manually"
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
 msgstr ""
-"Pueden existir conflictos sin resolver en el árbol de trabajo o índice que "
-"debe resolver manualmente"
+"Ajuste que indica si se debe mostrar en el histórico un elemento virtual "
+"para los elementos no reservados actualmente."
 
-#: ../gitg/gitg-branch-actions.c:1329
-#, c-format
-msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-msgstr "¿Está seguro de que quiere mezclar la rama %s <%s> en la rama %s <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1337 ../gitg/gitg-branch-actions.c:1339
-#: ../gitg/gitg-branch-actions.c:1387 ../gitg/gitg-menus.xml.h:7
-msgid "Merge"
-msgstr "Mezclar"
-
-#: ../gitg/gitg-branch-actions.c:1368
-msgid "The branch on which to merge could not be checked out"
-msgstr "No se pudo descargar («checkout») la rama en la que mezclar"
-
-#: ../gitg/gitg-branch-actions.c:1374
-#, c-format
-msgid "Merging %s branch <%s> onto %s branch <%s>"
-msgstr "Mezclando la rama %s <%s> en la rama %s <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1410
-#, c-format
-msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-msgstr "¿Está seguro de que quiere rebasar la rama %s <%s> en la rama %s <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1418 ../gitg/gitg-branch-actions.c:1420
-#: ../gitg/gitg-branch-actions.c:1470 ../gitg/gitg-menus.xml.h:10
-msgid "Rebase"
-msgstr "Rebasar"
-
-#: ../gitg/gitg-branch-actions.c:1443
-msgid "Unable to rebase"
-msgstr "No se pudo rebasar"
-
-#: ../gitg/gitg-branch-actions.c:1444
-msgid ""
-"There are still uncommitted changes in your working tree and you are trying "
-"to rebase a branch onto the currently checked out branch. Either remove, "
-"stash or commit your changes first and try again"
-msgstr ""
-"Aún existen cambios sin efectuar en su árbol de trabajo y está intentando "
-"rebasar una rama en la rama de trabajo actualmente descargada. Quite, "
-"reserve o efectúe sus cambios antes e inténtelo de nuevo."
-
-#: ../gitg/gitg-branch-actions.c:1457
-#, c-format
-msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-msgstr "Rebasando la rama %s <%s> en la rama %s <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1496
-#, c-format
-msgid "Failed to push local branch <%s> to remote <%s>"
-msgstr "Falló al empujar la rama local <%s> en la remota <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1497
-msgid ""
-"This usually means that the remote branch could not be fast-forwarded. Try "
-"fetching the latest changes."
-msgstr ""
-"Esto generalmente significa que la rama remota no se pudo resolver por el "
-"método rápido («fast-forwarded»). Intentando obtener los últimos cambios."
-
-#: ../gitg/gitg-branch-actions.c:1521
-#, c-format
-msgid "Are you sure you want to push <%s> to <%s>?"
-msgstr "¿Está seguro de que quiere empujar <%s> en <%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1527 ../gitg/gitg-branch-actions.c:1529
-#: ../gitg/gitg-branch-actions.c:1550 ../gitg/gitg-branch-actions.c:1582
-#: ../gitg/gitg-branch-actions.c:1584 ../gitg/gitg-branch-actions.c:1607
-msgid "Push"
-msgstr "Empujar"
-
-#: ../gitg/gitg-branch-actions.c:1542
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s>"
-msgstr "Empujando la rama local <%s> en la rama remota <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1576
-#, c-format
-msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
-msgstr "¿Está seguro de que quiere empujar <%s> en la rama remota <%s/%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1594
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s/%s>"
-msgstr "Empujando la rama local <%s> en la rama remota <%s/%s>"
-
-#: ../gitg/gitg-branch-actions.c:1631
-#, c-format
-msgid "Are you sure you want to apply the stash item to local branch <%s>?"
-msgstr ""
-"¿Está seguro de que quiere aplicar la reserva del elemento en la rama local <"
-"%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1636 ../gitg/gitg-branch-actions.c:1638
-msgid "Apply stash"
-msgstr "Aplicar reserva"
-
-#: ../gitg/gitg-branch-actions.c:1677
-#, c-format
-msgid "The stash could not be applied to local branch <%s>"
-msgstr "No se pudo aplicar la reserva en la rama local <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1681
-msgid "Failed to apply stash"
-msgstr "Falló al aplicar la reserva"
-
-#: ../gitg/gitg-branch-actions.c:1724
-msgid "The branch could not be successfully created"
-msgstr "No se pudo crear correctamente la rama"
-
-#: ../gitg/gitg-branch-actions.c:1728
-msgid "Failed to create a branch"
-msgstr "Falló al crear una rama"
-
-#: ../gitg/gitg-branch-actions.c:1780
-msgid ""
-"The tag object could not be successfully created. Please make sure you have "
-"a GPG key and the key is unlocked"
-msgstr ""
-"No se pudo crear correctamente el objeto de etiqueta. Asegúrese de que tiene "
-"una clave GPG y de que la clave está desbloqueada."
-
-#: ../gitg/gitg-branch-actions.c:1784
-msgid "The tag object could not be successfully created"
-msgstr "No se pudo crear correctamente el objeto de etiqueta."
-
-#: ../gitg/gitg-branch-actions.c:1789
-msgid "Failed to create tag"
-msgstr "Falló al crear la etiqueta"
-
-#: ../gitg/gitg-branch-actions.c:1844
-#, c-format
-msgid "Failed to cherry-pick on <%s>"
-msgstr "Falló al aplicar el cambio en la revisión sobre <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1921
-#, c-format
-msgid "Are you sure you want to cherry-pick that revision on <%s>?"
-msgstr ""
-"¿Está seguro de que quiere aplicar los cambios («cherry-pick») en la revisión "
-"<%s>?"
-
-#: ../gitg/gitg-branch-actions.c:1926 ../gitg/gitg-branch-actions.c:1928
-#: ../gitg/gitg-branch-actions.c:1976
-msgid "Cherry-pick"
-msgstr "Aplicar los cambios («cherry-pick»)"
-
-#: ../gitg/gitg-branch-actions.c:1956
-msgid "The branch on which to cherry-pick could not be checked out"
-msgstr ""
-"No se pudo obtener la rama en la que aplicar los cambios («cherry-pick»)"
-
-#: ../gitg/gitg-branch-actions.c:1963
-#, c-format
-msgid "Cherry-picking on <%s>"
-msgstr "Aplicando los cambios ((«cherry-picking») en <%s>"
-
-#: ../gitg/gitg-branch-actions.c:2031
-msgid "Failed to generate format-patch"
-msgstr "Falló al generar la corrección"
-
-#: ../gitg/gitg-branch-actions.c:2081
-#, c-format
-msgid "Generating format-patch for <%s>"
-msgstr "Generando el parche de corrección para <%s>"
-
-#: ../gitg/gitg-branch-actions.c:2089 ../gitg/gitg-menus.xml.h:6
-msgid "Format patch"
-msgstr "Parche de corrección"
-
-#: ../gitg/gitg.c:52
+#: ../gitg/gitg-application.vala:43
 msgid "Show the application's version"
 msgstr "Mostrar la versión de la aplicación"
 
-#: ../gitg/gitg.c:53
-msgid "Start gitg in commit mode"
-msgstr "Iniciar gitg en modo «commit»"
+#: ../gitg/gitg-application.vala:45
+msgid "Start gitg with a particular view"
+msgstr "Iniciar gitg con una vista en particular"
 
-#: ../gitg/gitg.c:54
-msgid "Select commit after loading the repository"
-msgstr "Seleccionar el «commit» después de cargar el repositorio"
+#: ../gitg/gitg-application.vala:47
+msgid "Do not try to load a repository from the current working directory"
+msgstr "No intentar cargar un repositorio desde la carpeta actual"
 
-#: ../gitg/gitg.c:64
+#: ../gitg/gitg-application.vala:71
 msgid "- git repository viewer"
 msgstr "- visor de repositorios git"
 
-#: ../gitg/gitg-commit-view.c:300 ../gitg/gitg-revision-files-panel.c:478
-msgid "Cannot display file content as text"
-msgstr "No se puede mostrar el contenido del archivo como texto"
-
-#: ../gitg/gitg-commit-view.c:2557
-msgid "You must first stage some changes before committing"
-msgstr ""
-"Primero debe preseleccionar algunos cambios antes de realizar el «commit»"
-
-#: ../gitg/gitg-commit-view.c:2565
-msgid "Please enter a commit message before committing"
-msgstr "Introducir un mensaje de «commit» antes de realizar el «commit»"
-
-#: ../gitg/gitg-commit-view.c:2587
-msgid ""
-"Your user name or email could not be retrieved for use in the sign off "
-"message"
-msgstr ""
-"No se pudo obtener su nombre o correo-e para usarlo en el mensaje de firma"
-
-#: ../gitg/gitg-commit-view.c:2593
-msgid "Something went wrong while trying to commit"
-msgstr "Algo falló al intentar efectuar el «commit»"
-
-#: ../gitg/gitg-commit-view.c:2889
-msgid "Revert fail"
-msgstr "Falló al revertir"
-
-#: ../gitg/gitg-commit-view.c:2905
-msgid "Are you sure you want to revert these changes?"
-msgstr "¿Está seguro de que quiere revertir estos cambios?"
-
-#: ../gitg/gitg-commit-view.c:2909
-msgid "Reverting changes is permanent and cannot be undone"
-msgstr "Revertir los cambios es una acción permanente y no se puede deshacer"
-
-#: ../gitg/gitg-commit-view.c:2988
-msgid "Delete Failed"
-msgstr "Falló al eliminar"
-
-#: ../gitg/gitg-commit-view.c:3006
-msgid "Are you sure you want to delete these files?"
-msgstr "¿Está seguro de que quiere eliminar estos archivos?"
-
-#: ../gitg/gitg-commit-view.c:3009
-msgid "Deleting files is permanent and cannot be undone"
-msgstr "Eliminar los archivos es una acción permanente y no se puede deshacer"
-
-#: ../gitg/gitg-repository-dialog.c:223 ../gitg/gitg-repository.ui.h:4
-msgid "Fetch"
-msgstr "Obtener"
-
-#: ../gitg/gitg-repository-dialog.c:228
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: ../gitg/gitg-repository-dialog.c:551 ../gitg/gitg-repository.ui.h:7
-#: ../gitg/gitg-tag.ui.h:5
-msgid "Properties"
-msgstr "Propiedades"
-
-#: ../gitg/gitg-revision-changes-panel.c:270 ../gitg/gitg-window.ui.h:5
-msgid "Changes"
-msgstr "Cambios"
-
-#: ../gitg/gitg-revision-details-panel.c:118
-msgid "Details"
-msgstr "Detalles"
-
-#: ../gitg/gitg-revision-files-panel.c:315 ../gitg/gitg-window.ui.h:3
-msgid "Author"
-msgstr "Autor"
-
-#: ../gitg/gitg-revision-files-panel.c:316
-msgid "Committer"
-msgstr "Persona que efectúa el cambio:"
-
-#: ../gitg/gitg-revision-files-panel.c:317 ../gitg/gitg-window.ui.h:11
-msgid "Subject"
-msgstr "Asunto"
-
-#: ../gitg/gitg-revision-files-panel.c:884
-msgid "Files"
-msgstr "Archivos"
-
-#: ../gitg/gitg-revision-files-panel.c:1053
-msgid "(Empty)"
-msgstr "(Vacío)"
-
-#: ../gitg/gitg-window.c:680
-msgid "Select branch"
-msgstr "Seleccionar rama"
-
-#: ../gitg/gitg-window.c:749
-#, c-format
-msgid "Push local branch <%s> to remote branch <%s>"
-msgstr "Empujar la rama local <%s> en la rama remota <%s>"
-
-#: ../gitg/gitg-window.c:756
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
-msgstr "Mezclar/rebasar la rama local <%s> con/en la rama local <%s>"
-
-#: ../gitg/gitg-window.c:763
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
-msgstr "Mezclar rebasar la rama local <%s> con/en la rama remota <%s>"
-
-#: ../gitg/gitg-window.c:770
-#, c-format
-msgid "Apply stash to local branch <%s>"
-msgstr "Aplicar la reserva a la rama local <%s>"
-
-#: ../gitg/gitg-window.c:850
-#, c-format
-msgid "Cherry-pick revision on <%s>"
-msgstr "Aplicar el cambio en la revisión sobre <%s>"
-
-#: ../gitg/gitg-window.c:1213
-#, c-format
-msgid "Loaded %d revisions in %.2fs"
-msgstr "%d revisiones cargadas en %.2fs"
-
-#: ../gitg/gitg-window.c:1238
-#, c-format
-msgid "Loading %d revisions..."
-msgstr "Cargando %d revisiones…"
-
-#: ../gitg/gitg-window.c:1600
-msgid "Local branches"
-msgstr "Ramas locales"
-
-#: ../gitg/gitg-window.c:1621
-msgid "All branches"
-msgstr "Todas las ramas"
-
-#: ../gitg/gitg-window.c:1698
-msgid "Begin loading repository"
-msgstr "Iniciar la carga del repositorio"
-
-#: ../gitg/gitg-window.c:2139
-msgid "Open git repository"
-msgstr "Abrir repositorio git"
-
-#: ../gitg/gitg-window.c:2212
+#: ../gitg/gitg-application.vala:186
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg es un visor de repositorios git para GTk+/GNOME"
 
-#: ../gitg/gitg-window.c:2523
-msgid "new"
-msgstr "nueva"
-
-#: ../gitg/gitg-window.c:2851 ../gitg/gitg-window.c:2889
-#, c-format
-msgid "New local branch <%s>"
-msgstr "Rama local nueva <%s>"
-
-#: ../gitg/gitg-window.c:2867
-msgid "Checkout working copy"
-msgstr "Descargar («checkout») la copia de trabajo"
-
-#: ../gitg/gitg-window.c:2868
-msgid "Remove local branch"
-msgstr "Eliminar la rama local"
-
-#: ../gitg/gitg-window.c:2870
-msgid "Rename local branch"
-msgstr "Renombrar la copia local"
-
-#: ../gitg/gitg-window.c:3233 ../gitg/gitg-window.c:3289
-msgid "Not all fields are correctly filled in"
-msgstr "No se han rellenado correctamente todos los campos"
-
-#: ../gitg/gitg-window.c:3237
-msgid "Please make sure to fill in the branch name"
-msgstr "Asegúrese de rellenar el nombre de la rama"
-
-#: ../gitg/gitg-window.c:3276
-msgid "Please make sure to fill in both the tag name and the commit message"
-msgstr ""
-"Asegúrese de rellenar tanto el nombre de la etiqueta como el mensaje de "
-"«commit»"
-
-#: ../gitg/gitg-window.c:3280
-msgid "Please make sure to fill in the tag name"
-msgstr "Asegúrese de rellenar el nombre de la etiqueta"
-
-#: ../gitg/gitg-window.c:3357
-msgid "Format patch failed for unknown reason"
-msgstr "Falló el formateo del parche debido a una razón desconocida"
-
-#: ../gitg/gitg-window.c:3361
-msgid "Please check if you have the right permissions to write the file"
-msgstr "Compruebe si tiene los permisos correctos para escribir el archivo"
-
-#. Single one, pick filename
-#: ../gitg/gitg-window.c:3400
-msgid "Save format patch"
-msgstr "Guardar el parche de corrección"
-
-#: ../libgitg/gitg-encodings.c:144 ../libgitg/gitg-encodings.c:186
-#: ../libgitg/gitg-encodings.c:188 ../libgitg/gitg-encodings.c:190
-#: ../libgitg/gitg-encodings.c:192 ../libgitg/gitg-encodings.c:194
-#: ../libgitg/gitg-encodings.c:196 ../libgitg/gitg-encodings.c:198
-msgid "Unicode"
-msgstr "Unicode"
-
-#: ../libgitg/gitg-encodings.c:157 ../libgitg/gitg-encodings.c:181
-#: ../libgitg/gitg-encodings.c:231 ../libgitg/gitg-encodings.c:274
-msgid "Western"
-msgstr "Occidental"
-
-#: ../libgitg/gitg-encodings.c:159 ../libgitg/gitg-encodings.c:233
-#: ../libgitg/gitg-encodings.c:270
-msgid "Central European"
-msgstr "Centroeuropeo"
-
-#: ../libgitg/gitg-encodings.c:161
-msgid "South European"
-msgstr "Europa del sur"
-
-#: ../libgitg/gitg-encodings.c:163 ../libgitg/gitg-encodings.c:177
-#: ../libgitg/gitg-encodings.c:284
-msgid "Baltic"
-msgstr "Báltico"
-
-#: ../libgitg/gitg-encodings.c:165 ../libgitg/gitg-encodings.c:235
-#: ../libgitg/gitg-encodings.c:248 ../libgitg/gitg-encodings.c:252
-#: ../libgitg/gitg-encodings.c:254 ../libgitg/gitg-encodings.c:272
-msgid "Cyrillic"
-msgstr "Cirílico"
-
-#: ../libgitg/gitg-encodings.c:167 ../libgitg/gitg-encodings.c:241
-#: ../libgitg/gitg-encodings.c:282
-msgid "Arabic"
-msgstr "Árabe"
-
-#: ../libgitg/gitg-encodings.c:169 ../libgitg/gitg-encodings.c:276
-msgid "Greek"
-msgstr "Griego"
-
-#: ../libgitg/gitg-encodings.c:171
-msgid "Hebrew Visual"
-msgstr "Hebreo visual"
-
-#: ../libgitg/gitg-encodings.c:173 ../libgitg/gitg-encodings.c:237
-#: ../libgitg/gitg-encodings.c:278
-msgid "Turkish"
-msgstr "Turco"
-
-#: ../libgitg/gitg-encodings.c:175
-msgid "Nordic"
-msgstr "Nórdico"
-
-#: ../libgitg/gitg-encodings.c:179
-msgid "Celtic"
-msgstr "Celta"
-
-#: ../libgitg/gitg-encodings.c:183
-msgid "Romanian"
-msgstr "Rumano"
-
-#: ../libgitg/gitg-encodings.c:201
-msgid "Armenian"
-msgstr "Armenio"
-
-#: ../libgitg/gitg-encodings.c:203 ../libgitg/gitg-encodings.c:205
-#: ../libgitg/gitg-encodings.c:219
-msgid "Chinese Traditional"
-msgstr "Chino tradicional"
-
-#: ../libgitg/gitg-encodings.c:207
-msgid "Cyrillic/Russian"
-msgstr "Cirílico/Ruso"
-
-#: ../libgitg/gitg-encodings.c:210 ../libgitg/gitg-encodings.c:212
-#: ../libgitg/gitg-encodings.c:214 ../libgitg/gitg-encodings.c:244
-#: ../libgitg/gitg-encodings.c:259
-msgid "Japanese"
-msgstr "Japones"
-
-#: ../libgitg/gitg-encodings.c:217 ../libgitg/gitg-encodings.c:246
-#: ../libgitg/gitg-encodings.c:250 ../libgitg/gitg-encodings.c:265
-msgid "Korean"
-msgstr "Coreano"
-
-#: ../libgitg/gitg-encodings.c:222 ../libgitg/gitg-encodings.c:224
-#: ../libgitg/gitg-encodings.c:226
-msgid "Chinese Simplified"
-msgstr "Chino simplificado"
-
-#: ../libgitg/gitg-encodings.c:228
-msgid "Georgian"
-msgstr "Georgiano"
-
-#: ../libgitg/gitg-encodings.c:239 ../libgitg/gitg-encodings.c:280
-msgid "Hebrew"
-msgstr "Hebreo"
-
-#: ../libgitg/gitg-encodings.c:256
-msgid "Cyrillic/Ukrainian"
-msgstr "Cirílico/Ucraniano"
-
-#: ../libgitg/gitg-encodings.c:261 ../libgitg/gitg-encodings.c:267
-#: ../libgitg/gitg-encodings.c:286
-msgid "Vietnamese"
-msgstr "Vietnamita"
-
-#: ../libgitg/gitg-encodings.c:263
-msgid "Thai"
-msgstr "Tailandés"
-
-#: ../libgitg/gitg-encodings.c:479
-msgid "Unknown"
-msgstr "Desconocido"
-
-#: ../libgitg/gitg-repository.c:894
-msgid "Staged changes"
-msgstr "Cambios preseleccionados"
-
-#: ../libgitg/gitg-repository.c:898
-msgid "Unstaged changes"
-msgstr "Cambios no preseleccionados"
-
-#: ../libgitg/gitg-repository.c:1540
-msgid "Not a valid git repository"
-msgstr "No es un repositorio git válido"
-
-#: ../libgitg/gitg-smart-charset-converter.c:329
-msgid "It is not possible to detect the encoding automatically"
-msgstr "No se puede detectar la codificación automáticamente"
-
-#. ex:ts=8:noet:
-#: ../gitg/gitg-commit-menu.ui.h:1
-msgid "Ignore"
-msgstr "Ignorar"
-
-#: ../gitg/gitg-commit-menu.ui.h:2
-msgid "Revert"
-msgstr "Revertir"
-
-#: ../gitg/gitg-commit-menu.ui.h:3
-msgid "Stage"
-msgstr "Reservar"
-
-#: ../gitg/gitg-commit-menu.ui.h:4
-msgid "Unstage"
-msgstr "Quitar la reserva"
-
-#: ../gitg/gitg-menus.xml.h:1
-msgid "Apply stash to..."
-msgstr "Aplicar reserva a…"
-
-#: ../gitg/gitg-menus.xml.h:2
-msgid "Checkout branch"
-msgstr "Descargar rama («checkout»)"
-
-#: ../gitg/gitg-menus.xml.h:3
-msgid "Cherry-pick on..."
-msgstr "Aplicar los cambios («cherry-pick») en…"
-
-#: ../gitg/gitg-menus.xml.h:4 ../gitg/gitg-new-branch.ui.h:1
-msgid "Create branch"
-msgstr "Crear rama"
-
-#: ../gitg/gitg-menus.xml.h:5 ../gitg/gitg-tag.ui.h:2
-msgid "Create tag"
-msgstr "Crear etiqueta"
-
-#: ../gitg/gitg-menus.xml.h:8
-msgid "Merge branch with..."
-msgstr "Mezclar rama con…"
-
-#: ../gitg/gitg-menus.xml.h:9
-msgid "Push branch to..."
-msgstr "Empujar rama en…"
-
-#: ../gitg/gitg-menus.xml.h:11
-msgid "Rebase branch onto..."
-msgstr "Rebasar rama en…"
-
-#: ../gitg/gitg-menus.xml.h:13
-msgid "Rename branch"
-msgstr "Renombrar rama"
-
-#: ../gitg/gitg-menus.xml.h:14
-msgid "_Author"
-msgstr "_Autor"
-
-#: ../gitg/gitg-menus.xml.h:15
-msgid "_Date"
-msgstr "_Fecha"
-
-#: ../gitg/gitg-menus.xml.h:16
-msgid "_Hash"
-msgstr "_Hash"
-
-#: ../gitg/gitg-menus.xml.h:17
-msgid "_Subject"
-msgstr "A_sunto"
-
-#: ../gitg/gitg-preferences.ui.h:1
-msgid "<b>Commit Message</b>"
-msgstr "<b>Mensaje de «commit»</b>"
-
-#: ../gitg/gitg-preferences.ui.h:2
-msgid "<b>Diff Program</b>"
-msgstr "<b>Programa diff</b>"
-
-#: ../gitg/gitg-preferences.ui.h:3
-msgid "<b>Interface</b>"
-msgstr "<b>Interfaz</b>"
-
-#: ../gitg/gitg-preferences.ui.h:4
-msgid "<b>Revisions</b>"
-msgstr "<b>Revisiones</b>"
-
-#: ../gitg/gitg-preferences.ui.h:5 ../gitg/gitg-repository.ui.h:1
-msgid "<b>User</b>"
-msgstr "<b>Usuario</b>"
-
-#: ../gitg/gitg-preferences.ui.h:6
-msgid "Allow external diff program"
-msgstr "Permitir un programa diff externo"
-
-#: ../gitg/gitg-preferences.ui.h:7
-msgid "Collapse inactive lanes"
-msgstr "Contraer las líneas inactivas"
-
-#: ../gitg/gitg-preferences.ui.h:8 ../gitg/gitg-window.ui.h:7
-msgid "Commit"
-msgstr "Efectuar («commit»)"
-
-#: ../gitg/gitg-preferences.ui.h:9 ../gitg/gitg-repository.ui.h:2
-msgid "Configuration"
-msgstr "Configuración"
-
-#: ../gitg/gitg-preferences.ui.h:10
-msgid ""
-"Configure global git settings. This corresponds to the settings as stored in "
-"~/.gitconfig. Repository specific settings can be configured at the "
-"repository properties."
-msgstr ""
-"Configurar los ajustes globales de git. Corresponde con los ajustes "
-"almacenados en ~/.gitconfig. Los ajustes específicos de repositorio se "
-"pueden configurar en las propiedades del repositorio."
-
-#: ../gitg/gitg-preferences.ui.h:11
+#: ../gitg/gitg-application.vala:211
+msgid "gitg homepage"
+msgstr "Página principal de gitg"
+
+#: ../plugins/dash/gitg-dash-navigation.vala:41
+#| msgid "_Repository"
+msgid "Repository"
+msgstr "Repositorio"
+
+#: ../plugins/dash/gitg-dash-navigation.vala:42
+#| msgid "_Open..."
+msgid "Open"
+msgstr "Abrir"
+
+#: ../plugins/dash/gitg-dash-navigation.vala:43
+#: ../plugins/dash/resources/view-create.ui.h:3
+#| msgid "Create tag"
+msgid "Create"
+msgstr "Crear"
+
+#: ../plugins/dash/gitg-dash-navigation.vala:46
+msgid "Recent"
+msgstr "Recientes"
+
+#: ../plugins/dash/gitg-dash.vala:69
+msgid "Dashboard"
+msgstr "Tablero"
+
+#: ../plugins/dash/gitg-dash.vala:249
+#| msgid "Remove branch"
+msgid "(no branch)"
+msgstr "(sin rama)"
+
+#: ../plugins/diff/gitg-diff.vala:65
 msgid "Diff"
 msgstr "Diff"
 
-#: ../gitg/gitg-preferences.ui.h:12
-msgid "Display right _margin"
-msgstr "Mostrar el _margen derecho"
+#: ../plugins/files/gitg-files.vala:68
+msgid "Files"
+msgstr "Archivos"
 
-#: ../gitg/gitg-preferences.ui.h:13 ../gitg/gitg-repository.ui.h:3
-msgid "E-mail:"
-msgstr "Correo-e:"
+#: ../plugins/history/gitg-history-command-line.vala:31
+#| msgid "Show stash in history"
+msgid "Show all history"
+msgstr "Mostrar todo el histórico"
 
-#: ../gitg/gitg-preferences.ui.h:14
-msgid "Early"
-msgstr "Temprano"
+#: ../plugins/history/gitg-history-command-line.vala:38
+#| msgid "Show stash in history"
+msgid "Show gitg history options"
+msgstr "Mostrar las opciones del histórico de gitg"
 
-#: ../gitg/gitg-preferences.ui.h:15 ../gitg/gitg-window.ui.h:10
-msgid "History"
-msgstr "Histórico"
+#: ../plugins/history/gitg-history-command-line.vala:39
+msgid "gitg history options"
+msgstr "Opciones del histórico de gitg"
 
-#: ../gitg/gitg-preferences.ui.h:16
-msgid "Late"
-msgstr "Tarde"
+#. Branches
+#: ../plugins/history/gitg-history-navigation.vala:114
+#| msgid "Branch:"
+msgid "Branches"
+msgstr "Ramas"
 
-#: ../gitg/gitg-preferences.ui.h:18
-msgid "Preferences"
-msgstr "Preferencias"
+#: ../plugins/history/gitg-history-navigation.vala:150
+#: ../plugins/history/gitg-history-navigation.vala:154
+msgid "All"
+msgstr "Todos"
 
-#: ../gitg/gitg-preferences.ui.h:19
-msgid "Preferences that apply to the commit view"
-msgstr "Preferencias que se aplican a la vista de «commit»"
-
-#: ../gitg/gitg-preferences.ui.h:20
-msgid "Preferences that apply to the history view"
-msgstr "Preferencias que se aplican a la vista del histórico"
-
-#: ../gitg/gitg-preferences.ui.h:21
-msgid "Search filters revisions in the history view"
-msgstr "La búsqueda filtra las revisiones en la vista del histórico"
-
-#: ../gitg/gitg-preferences.ui.h:22
-msgid "Show history in topological order"
-msgstr "Mostrar histórico en orden topológico"
-
-#: ../gitg/gitg-preferences.ui.h:23
-msgid "Show staged changes in history"
-msgstr "Mostrar los cambios reservados en el histórico"
-
-#: ../gitg/gitg-preferences.ui.h:24
-msgid "Show stash in history"
-msgstr "Mostrar las reservas en el histórico"
-
-#: ../gitg/gitg-preferences.ui.h:25
-msgid "Show unstaged changes in history"
-msgstr "Mostrar los cambios sin reservar en el histórico"
-
-#: ../gitg/gitg-preferences.ui.h:26
-msgid "Use vertical layout"
-msgstr "Usar distribución vertical"
-
-#: ../gitg/gitg-preferences.ui.h:27
-msgid "_Right margin at column:"
-msgstr "Margen de_recho en la columna:"
-
-#: ../gitg/gitg-repository.ui.h:5
-msgid "Name"
-msgstr "Nombre"
-
-#: ../gitg/gitg-repository.ui.h:8
+#. Remotes
+#: ../plugins/history/gitg-history-navigation.vala:160
 msgid "Remotes"
 msgstr "Remotas"
 
-#: ../gitg/gitg-repository.ui.h:9
-msgid "URL"
-msgstr "URL"
+#. Tags
+#: ../plugins/history/gitg-history-navigation.vala:181
+msgid "Tags"
+msgstr "Etiquetas"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:1
-msgid "Author:"
-msgstr "Autor:"
+#: ../plugins/history/gitg-history-preferences.vala:136
+#: ../plugins/history/gitg-history.vala:131
+msgid "History"
+msgstr "Histórico"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:2
-msgid "Committer:"
-msgstr "Persona que efectúa el cambio:"
+#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "Ventana _nueva"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:3
-msgid "Parent:"
-msgstr "Padre:"
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+#| msgid "Preferences"
+msgid "_Preferences"
+msgstr "Prefere_ncias"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:4
-msgid "SHA:"
-msgstr "SHA:"
-
-#: ../gitg/gitg-revision-details-panel.ui.h:5
-msgid "Subject:"
-msgstr "Asunto:"
-
-#: ../gitg/gitg-revision-files-panel.ui.h:1
-msgid "Switch to Blame mode"
-msgstr "Cambiar al modo acusador («blame»)"
-
-#: ../gitg/gitg-tag.ui.h:1
-msgid "Create signed tag object"
-msgstr "Crear objeto de rama firmado"
-
-#: ../gitg/gitg-tag.ui.h:3
-msgid "Message:"
-msgstr "Mensaje:"
-
-#: ../gitg/gitg-ui.xml.h:1
-msgid "R_ecently Opened"
-msgstr "Abiertos _recientemente"
-
-#: ../gitg/gitg-ui.xml.h:2
-msgid "_Edit"
-msgstr "_Editar"
-
-#: ../gitg/gitg-ui.xml.h:3
-msgid "_File"
-msgstr "_Archivo"
-
-#: ../gitg/gitg-ui.xml.h:4
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
 msgid "_Help"
 msgstr "Ay_uda"
 
-#: ../gitg/gitg-ui.xml.h:5
-msgid "_Open..."
-msgstr "_Abrir…"
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "A_cerca de"
 
-#: ../gitg/gitg-ui.xml.h:6
-msgid "_View"
-msgstr "_Ver"
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "_Salir"
 
-#: ../gitg/gitg-window.ui.h:1
-msgid "Add signed-off-by"
-msgstr "Aádir firmado por"
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Close"
+msgstr "_Cerrar"
 
-#: ../gitg/gitg-window.ui.h:2
-msgid "Amend"
-msgstr "Completar"
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+#| msgid "Preferences"
+msgid "gitg Preferences"
+msgstr "Preferencias de gitg"
 
-#: ../gitg/gitg-window.ui.h:4
-msgid "Branch:"
-msgstr "Rama:"
+#: ../plugins/dash/resources/view-create.ui.h:1
+#| msgid "Open git repository"
+msgid "Create repository"
+msgstr "Crear repositorio"
 
-#: ../gitg/gitg-window.ui.h:6
-msgid "Co_mmit message"
-msgstr "_Mensaje de «commit»"
+#: ../plugins/dash/resources/view-create.ui.h:2
+msgid "Select a folder in which you want to create a new git repository."
+msgstr ""
 
-#: ../gitg/gitg-window.ui.h:8
-msgid "Context:"
-msgstr "Contexto:"
+#: ../plugins/dash/resources/view-open.ui.h:1
+#| msgid "Open git repository"
+msgid "Open repository"
+msgstr "Abrir repositorio"
 
-#: ../gitg/gitg-window.ui.h:9
+#: ../plugins/dash/resources/view-open.ui.h:2
+#| msgid "Select commit after loading the repository"
+msgid "Select a folder to open the corresponding git repository."
+msgstr "Seleccionar una carpeta para abrir el repositorio git correspondiente."
+
+#: ../plugins/dash/resources/view-recent.ui.h:1
+#| msgid "Open git repository"
+msgid "Recent repository"
+msgstr "Repositorio reciente"
+
+#: ../plugins/dash/resources/view-recent.ui.h:2
+#| msgid "Open git repository"
+msgid "Open a recently used repository."
+msgstr "Abrir un repositorio usado recientemente."
+
+#: ../plugins/dash/resources/view-recent.ui.h:3
+msgid "Path:"
+msgstr "Ruta:"
+
+#: ../plugins/dash/resources/view-recent.ui.h:4
+msgid "Last used:"
+msgstr "Último usado:"
+
+#: ../plugins/dash/resources/view-recent.ui.h:5
+#| msgid "Create branch"
+msgid "Current branch:"
+msgstr "Rama actual:"
+
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "columna"
+
+#: ../plugins/history/resources/preferences.ui.h:1
+#| msgid "<b>Commit Message</b>"
+msgid "<b>Commits</b>"
+msgstr "<b>Commits</b>"
+
+#: ../plugins/history/resources/preferences.ui.h:2
+msgid "    "
+msgstr "    "
+
+#: ../plugins/history/resources/preferences.ui.h:3
+msgid "Collapse inactive lanes"
+msgstr "Contraer las líneas inactivas"
+
+#: ../plugins/history/resources/preferences.ui.h:4
+msgid "Show stash in history"
+msgstr "Mostrar las reservas en el histórico"
+
+#: ../plugins/history/resources/preferences.ui.h:5
+msgid "Show staged changes in history"
+msgstr "Mostrar los cambios reservados en el histórico"
+
+#: ../plugins/history/resources/preferences.ui.h:6
+msgid "Show unstaged changes in history"
+msgstr "Mostrar los cambios sin reservar en el histórico"
+
+#: ../plugins/history/resources/preferences.ui.h:7
+msgid "Show history in topological order"
+msgstr "Mostrar histórico en orden topológico"
+
+#: ../plugins/history/resources/preferences.ui.h:8
+msgid "        "
+msgstr "        "
+
+#: ../plugins/history/resources/preferences.ui.h:9
+msgid "Early"
+msgstr "Temprano"
+
+#: ../plugins/history/resources/preferences.ui.h:10
+msgid "Late"
+msgstr "Tarde"
+
+#: ../plugins/history/resources/view-history.ui.h:1
+msgid "Subject"
+msgstr "Asunto"
+
+#: ../plugins/history/resources/view-history.ui.h:2
+msgid "Author"
+msgstr "Autor"
+
+#: ../plugins/history/resources/view-history.ui.h:3
 msgid "Date"
 msgstr "Fecha"
 
-#: ../gitg/gitg-window.ui.h:12
-msgid "Unstaged"
-msgstr "Sin reservar"
+#~ msgid "Branch <%s> could not be removed"
+#~ msgstr "No se pudo eliminar la rama <%s>"
 
-#: ../gitg/gitg-window.ui.h:13
-msgid "_Commit"
-msgstr "_Efectuar («commit»)"
+#~ msgid ""
+#~ "This usually means that the branch is not fully merged in HEAD. Do you "
+#~ "want to forcefully remove the branch?"
+#~ msgstr ""
+#~ "Esto generalmente significa que la rama no está completamente mezclada en "
+#~ "la rama principal («HEAD»). ¿Quiere forzar quitar la rama?"
 
-#: ../gitg/gitg-window.ui.h:14
-msgid "_Staged"
-msgstr "_Reservado"
+#~ msgid "Force remove"
+#~ msgstr "Quitar a la fuerza"
 
-#: ../gitg/gitg-window.ui.h:15
-msgid "_Unstaged"
-msgstr "_Sin reservar"
+#~ msgid "Branch <%s> could not be forcefully removed"
+#~ msgstr "La rama <%s> no se pudo quitar a la fuerza"
+
+#~ msgid "Failed to remove remote branch <%s>."
+#~ msgstr "Falló al eliminar la rama remota <%s>."
+
+#~ msgid "Are you sure you want to remove the remote branch <%s>?"
+#~ msgstr "¿Está seguro de que quiere eliminar la rama remota <%s>?"
+
+#~ msgid "This permanently removes the remote branch."
+#~ msgstr "Esto quita permanentemente la rama remota."
+
+#~ msgid "Remove remote branch"
+#~ msgstr "Eliminar la rama remota"
+
+#~ msgid "Are you sure you want to remove this stash item?"
+#~ msgstr "¿Está seguro de que quiere quitar este elemento de la reserva?"
+
+#~ msgid "This permanently removes the stash item"
+#~ msgstr "Esto quita permanentemente el elemento de la reserva"
+
+#~ msgid "Remove stash"
+#~ msgstr "Quitar reserva"
+
+#~ msgid "Failed to remove stash"
+#~ msgstr "Falló al quitar la reserva"
+
+#~ msgid "The stash item could not be successfully removed"
+#~ msgstr "No se pudo quitar de forma satisfactoria el elemento de la reserva"
+
+#~ msgid "Are you sure you want to remove the tag <%s>?"
+#~ msgstr "¿Está seguro de que quiere eliminar la etiqueta <%s>?"
+
+#~ msgid "Remove tag"
+#~ msgstr "Eliminar etiqueta"
+
+#~ msgid "The tag <%s> could not be successfully removed"
+#~ msgstr "No se pudo quitar de forma satisfactoria la etiqueta <%s>"
+
+#~ msgid "Failed to remove tag"
+#~ msgstr "Falló al eliminar la etiqueta"
+
+#~ msgid "Branch <%s> could not be renamed to <%s>"
+#~ msgstr "No se pudo renombrar la rama <%s> a <%s>"
+
+#~ msgid ""
+#~ "This usually means that a branch with that name already exists. Do you "
+#~ "want to overwrite the branch?"
+#~ msgstr ""
+#~ "Esto generalmente significa que ya existe una rama con ese nombre. "
+#~ "¿Quiere sobreescribir la rama?"
+
+#~ msgid "Force rename"
+#~ msgstr "Forzar el renombrado"
+
+#~ msgid "Branch <%s> could not be forcefully renamed"
+#~ msgstr "No se pudo renombrar de forma forzada la rama <%s>"
+
+#~ msgid "Name:"
+#~ msgstr "Nombre:"
+
+#~ msgid "Do you want to temporarily stash these changes?"
+#~ msgstr "¿Quiere reservar temporalmente estos cambios?"
+
+#~ msgid "Do you want to stash and reapply these changes?"
+#~ msgstr "¿Quiere reservar y volver a aplicar estos cambios?"
+
+#~ msgid "You have uncommited changes in your current working tree"
+#~ msgstr "Tiene cambios sin efectuar en su árbol de trabajo actual"
+
+#~ msgid "Stash changes"
+#~ msgstr "Reservar los cambios"
+
+#~ msgid "Failed to save current index state"
+#~ msgstr "Falló al guardar el estado índice actual"
+
+#~ msgid "Failed to checkout local branch <%s>"
+#~ msgstr "Falló al descargar («checkout») la rama local <%s>"
+
+#~ msgid "Failed to checkout remote branch <%s> to local branch <%s>"
+#~ msgstr ""
+#~ "Falló al descargar («checkout») la rama remota <%s> en la rama local <%s>"
+
+#~ msgid "Failed to checkout tag <%s> to local branch <%s>"
+#~ msgstr ""
+#~ "Falló al descargar («checkout») la etiqueta <%s> en la rama local <%s>"
+
+#~ msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
+#~ msgstr "Falló al rebasar la rama %s <%s> en la rama %s <%s>"
+
+#~ msgid "Failed to merge %s branch <%s> with %s branch <%s>"
+#~ msgstr "Falló al mezclar la rama %s <%s> con la rama %s <%s>"
+
+#~ msgid "local"
+#~ msgstr "local"
+
+#~ msgid "remote"
+#~ msgstr "remota"
+
+#~ msgid "The stashed changes have been stored to be reapplied manually"
+#~ msgstr ""
+#~ "Se han almacenado los cambios reservados para volverlos a aplicar "
+#~ "manualmente"
+
+#~ msgid "Failed to checkout previously checked out branch"
+#~ msgstr "Falló al descargar («checkout») la rama anteriormente descargada"
+
+#~ msgid "Failed to reapply stash correctly"
+#~ msgstr "Falló al volver a aplicar la reserva correctamente"
+
+#~ msgid ""
+#~ "There might be unresolved conflicts in the working tree or index which "
+#~ "you need to resolve manually"
+#~ msgstr ""
+#~ "Pueden existir conflictos sin resolver en el árbol de trabajo o índice "
+#~ "que debe resolver manualmente"
+
+#~ msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
+#~ msgstr ""
+#~ "¿Está seguro de que quiere mezclar la rama %s <%s> en la rama %s <%s>?"
+
+#~ msgid "Merge"
+#~ msgstr "Mezclar"
+
+#~ msgid "The branch on which to merge could not be checked out"
+#~ msgstr "No se pudo descargar («checkout») la rama en la que mezclar"
+
+#~ msgid "Merging %s branch <%s> onto %s branch <%s>"
+#~ msgstr "Mezclando la rama %s <%s> en la rama %s <%s>"
+
+#~ msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
+#~ msgstr ""
+#~ "¿Está seguro de que quiere rebasar la rama %s <%s> en la rama %s <%s>?"
+
+#~ msgid "Rebase"
+#~ msgstr "Rebasar"
+
+#~ msgid "Unable to rebase"
+#~ msgstr "No se pudo rebasar"
+
+#~ msgid ""
+#~ "There are still uncommitted changes in your working tree and you are "
+#~ "trying to rebase a branch onto the currently checked out branch. Either "
+#~ "remove, stash or commit your changes first and try again"
+#~ msgstr ""
+#~ "Aún existen cambios sin efectuar en su árbol de trabajo y está intentando "
+#~ "rebasar una rama en la rama de trabajo actualmente descargada. Quite, "
+#~ "reserve o efectúe sus cambios antes e inténtelo de nuevo."
+
+#~ msgid "Rebasing %s branch <%s> onto %s branch <%s>"
+#~ msgstr "Rebasando la rama %s <%s> en la rama %s <%s>"
+
+#~ msgid "Failed to push local branch <%s> to remote <%s>"
+#~ msgstr "Falló al empujar la rama local <%s> en la remota <%s>"
+
+#~ msgid ""
+#~ "This usually means that the remote branch could not be fast-forwarded. "
+#~ "Try fetching the latest changes."
+#~ msgstr ""
+#~ "Esto generalmente significa que la rama remota no se pudo resolver por el "
+#~ "método rápido («fast-forwarded»). Intentando obtener los últimos cambios."
+
+#~ msgid "Are you sure you want to push <%s> to <%s>?"
+#~ msgstr "¿Está seguro de que quiere empujar <%s> en <%s>?"
+
+#~ msgid "Push"
+#~ msgstr "Empujar"
+
+#~ msgid "Pushing local branch <%s> to remote branch <%s>"
+#~ msgstr "Empujando la rama local <%s> en la rama remota <%s>"
+
+#~ msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
+#~ msgstr "¿Está seguro de que quiere empujar <%s> en la rama remota <%s/%s>?"
+
+#~ msgid "Pushing local branch <%s> to remote branch <%s/%s>"
+#~ msgstr "Empujando la rama local <%s> en la rama remota <%s/%s>"
+
+#~ msgid "Are you sure you want to apply the stash item to local branch <%s>?"
+#~ msgstr ""
+#~ "¿Está seguro de que quiere aplicar la reserva del elemento en la rama "
+#~ "local <%s>?"
+
+#~ msgid "Apply stash"
+#~ msgstr "Aplicar reserva"
+
+#~ msgid "The stash could not be applied to local branch <%s>"
+#~ msgstr "No se pudo aplicar la reserva en la rama local <%s>"
+
+#~ msgid "Failed to apply stash"
+#~ msgstr "Falló al aplicar la reserva"
+
+#~ msgid "The branch could not be successfully created"
+#~ msgstr "No se pudo crear correctamente la rama"
+
+#~ msgid "Failed to create a branch"
+#~ msgstr "Falló al crear una rama"
+
+#~ msgid ""
+#~ "The tag object could not be successfully created. Please make sure you "
+#~ "have a GPG key and the key is unlocked"
+#~ msgstr ""
+#~ "No se pudo crear correctamente el objeto de etiqueta. Asegúrese de que "
+#~ "tiene una clave GPG y de que la clave está desbloqueada."
+
+#~ msgid "The tag object could not be successfully created"
+#~ msgstr "No se pudo crear correctamente el objeto de etiqueta."
+
+#~ msgid "Failed to create tag"
+#~ msgstr "Falló al crear la etiqueta"
+
+#~ msgid "Failed to cherry-pick on <%s>"
+#~ msgstr "Falló al aplicar el cambio en la revisión sobre <%s>"
+
+#~ msgid "Are you sure you want to cherry-pick that revision on <%s>?"
+#~ msgstr ""
+#~ "¿Está seguro de que quiere aplicar los cambios («cherry-pick») en la "
+#~ "revisión <%s>?"
+
+#~ msgid "Cherry-pick"
+#~ msgstr "Aplicar los cambios («cherry-pick»)"
+
+#~ msgid "The branch on which to cherry-pick could not be checked out"
+#~ msgstr ""
+#~ "No se pudo obtener la rama en la que aplicar los cambios («cherry-pick»)"
+
+#~ msgid "Cherry-picking on <%s>"
+#~ msgstr "Aplicando los cambios ((«cherry-picking») en <%s>"
+
+#~ msgid "Failed to generate format-patch"
+#~ msgstr "Falló al generar la corrección"
+
+#~ msgid "Generating format-patch for <%s>"
+#~ msgstr "Generando el parche de corrección para <%s>"
+
+#~ msgid "Format patch"
+#~ msgstr "Parche de corrección"
+
+#~ msgid "Start gitg in commit mode"
+#~ msgstr "Iniciar gitg en modo «commit»"
+
+#~ msgid "Cannot display file content as text"
+#~ msgstr "No se puede mostrar el contenido del archivo como texto"
+
+#~ msgid "You must first stage some changes before committing"
+#~ msgstr ""
+#~ "Primero debe preseleccionar algunos cambios antes de realizar el «commit»"
+
+#~ msgid "Please enter a commit message before committing"
+#~ msgstr "Introducir un mensaje de «commit» antes de realizar el «commit»"
+
+#~ msgid ""
+#~ "Your user name or email could not be retrieved for use in the sign off "
+#~ "message"
+#~ msgstr ""
+#~ "No se pudo obtener su nombre o correo-e para usarlo en el mensaje de firma"
+
+#~ msgid "Something went wrong while trying to commit"
+#~ msgstr "Algo falló al intentar efectuar el «commit»"
+
+#~ msgid "Revert fail"
+#~ msgstr "Falló al revertir"
+
+#~ msgid "Are you sure you want to revert these changes?"
+#~ msgstr "¿Está seguro de que quiere revertir estos cambios?"
+
+#~ msgid "Reverting changes is permanent and cannot be undone"
+#~ msgstr ""
+#~ "Revertir los cambios es una acción permanente y no se puede deshacer"
+
+#~ msgid "Delete Failed"
+#~ msgstr "Falló al eliminar"
+
+#~ msgid "Are you sure you want to delete these files?"
+#~ msgstr "¿Está seguro de que quiere eliminar estos archivos?"
+
+#~ msgid "Deleting files is permanent and cannot be undone"
+#~ msgstr ""
+#~ "Eliminar los archivos es una acción permanente y no se puede deshacer"
+
+#~ msgid "Fetch"
+#~ msgstr "Obtener"
+
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgid "Properties"
+#~ msgstr "Propiedades"
+
+#~ msgid "Changes"
+#~ msgstr "Cambios"
+
+#~ msgid "Details"
+#~ msgstr "Detalles"
+
+#~ msgid "Committer"
+#~ msgstr "Persona que efectúa el cambio:"
+
+#~ msgid "(Empty)"
+#~ msgstr "(Vacío)"
+
+#~ msgid "Select branch"
+#~ msgstr "Seleccionar rama"
+
+#~ msgid "Push local branch <%s> to remote branch <%s>"
+#~ msgstr "Empujar la rama local <%s> en la rama remota <%s>"
+
+#~ msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
+#~ msgstr "Mezclar/rebasar la rama local <%s> con/en la rama local <%s>"
+
+#~ msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
+#~ msgstr "Mezclar rebasar la rama local <%s> con/en la rama remota <%s>"
+
+#~ msgid "Apply stash to local branch <%s>"
+#~ msgstr "Aplicar la reserva a la rama local <%s>"
+
+#~ msgid "Cherry-pick revision on <%s>"
+#~ msgstr "Aplicar el cambio en la revisión sobre <%s>"
+
+#~ msgid "Loaded %d revisions in %.2fs"
+#~ msgstr "%d revisiones cargadas en %.2fs"
+
+#~ msgid "Loading %d revisions..."
+#~ msgstr "Cargando %d revisiones…"
+
+#~ msgid "Local branches"
+#~ msgstr "Ramas locales"
+
+#~ msgid "All branches"
+#~ msgstr "Todas las ramas"
+
+#~ msgid "Begin loading repository"
+#~ msgstr "Iniciar la carga del repositorio"
+
+#~ msgid "new"
+#~ msgstr "nueva"
+
+#~ msgid "New local branch <%s>"
+#~ msgstr "Rama local nueva <%s>"
+
+#~ msgid "Checkout working copy"
+#~ msgstr "Descargar («checkout») la copia de trabajo"
+
+#~ msgid "Remove local branch"
+#~ msgstr "Eliminar la rama local"
+
+#~ msgid "Rename local branch"
+#~ msgstr "Renombrar la copia local"
+
+#~ msgid "Not all fields are correctly filled in"
+#~ msgstr "No se han rellenado correctamente todos los campos"
+
+#~ msgid "Please make sure to fill in the branch name"
+#~ msgstr "Asegúrese de rellenar el nombre de la rama"
+
+#~ msgid "Please make sure to fill in both the tag name and the commit message"
+#~ msgstr ""
+#~ "Asegúrese de rellenar tanto el nombre de la etiqueta como el mensaje de "
+#~ "«commit»"
+
+#~ msgid "Please make sure to fill in the tag name"
+#~ msgstr "Asegúrese de rellenar el nombre de la etiqueta"
+
+#~ msgid "Format patch failed for unknown reason"
+#~ msgstr "Falló el formateo del parche debido a una razón desconocida"
+
+#~ msgid "Please check if you have the right permissions to write the file"
+#~ msgstr "Compruebe si tiene los permisos correctos para escribir el archivo"
+
+#~ msgid "Save format patch"
+#~ msgstr "Guardar el parche de corrección"
+
+#~ msgid "Unicode"
+#~ msgstr "Unicode"
+
+#~ msgid "Western"
+#~ msgstr "Occidental"
+
+#~ msgid "Central European"
+#~ msgstr "Centroeuropeo"
+
+#~ msgid "South European"
+#~ msgstr "Europa del sur"
+
+#~ msgid "Baltic"
+#~ msgstr "Báltico"
+
+#~ msgid "Cyrillic"
+#~ msgstr "Cirílico"
+
+#~ msgid "Arabic"
+#~ msgstr "Árabe"
+
+#~ msgid "Greek"
+#~ msgstr "Griego"
+
+#~ msgid "Hebrew Visual"
+#~ msgstr "Hebreo visual"
+
+#~ msgid "Turkish"
+#~ msgstr "Turco"
+
+#~ msgid "Nordic"
+#~ msgstr "Nórdico"
+
+#~ msgid "Celtic"
+#~ msgstr "Celta"
+
+#~ msgid "Romanian"
+#~ msgstr "Rumano"
+
+#~ msgid "Armenian"
+#~ msgstr "Armenio"
+
+#~ msgid "Chinese Traditional"
+#~ msgstr "Chino tradicional"
+
+#~ msgid "Cyrillic/Russian"
+#~ msgstr "Cirílico/Ruso"
+
+#~ msgid "Japanese"
+#~ msgstr "Japones"
+
+#~ msgid "Korean"
+#~ msgstr "Coreano"
+
+#~ msgid "Chinese Simplified"
+#~ msgstr "Chino simplificado"
+
+#~ msgid "Georgian"
+#~ msgstr "Georgiano"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebreo"
+
+#~ msgid "Cyrillic/Ukrainian"
+#~ msgstr "Cirílico/Ucraniano"
+
+#~ msgid "Vietnamese"
+#~ msgstr "Vietnamita"
+
+#~ msgid "Thai"
+#~ msgstr "Tailandés"
+
+#~ msgid "Unknown"
+#~ msgstr "Desconocido"
+
+#~ msgid "Staged changes"
+#~ msgstr "Cambios preseleccionados"
+
+#~ msgid "Unstaged changes"
+#~ msgstr "Cambios no preseleccionados"
+
+#~ msgid "Not a valid git repository"
+#~ msgstr "No es un repositorio git válido"
+
+#~ msgid "It is not possible to detect the encoding automatically"
+#~ msgstr "No se puede detectar la codificación automáticamente"
+
+#~ msgid "Ignore"
+#~ msgstr "Ignorar"
+
+#~ msgid "Revert"
+#~ msgstr "Revertir"
+
+#~ msgid "Stage"
+#~ msgstr "Reservar"
+
+#~ msgid "Unstage"
+#~ msgstr "Quitar la reserva"
+
+#~ msgid "Apply stash to..."
+#~ msgstr "Aplicar reserva a…"
+
+#~ msgid "Checkout branch"
+#~ msgstr "Descargar rama («checkout»)"
+
+#~ msgid "Cherry-pick on..."
+#~ msgstr "Aplicar los cambios («cherry-pick») en…"
+
+#~ msgid "Merge branch with..."
+#~ msgstr "Mezclar rama con…"
+
+#~ msgid "Push branch to..."
+#~ msgstr "Empujar rama en…"
+
+#~ msgid "Rebase branch onto..."
+#~ msgstr "Rebasar rama en…"
+
+#~ msgid "Rename branch"
+#~ msgstr "Renombrar rama"
+
+#~ msgid "_Author"
+#~ msgstr "_Autor"
+
+#~ msgid "_Date"
+#~ msgstr "_Fecha"
+
+#~ msgid "_Hash"
+#~ msgstr "_Hash"
+
+#~ msgid "_Subject"
+#~ msgstr "A_sunto"
+
+#~ msgid "<b>Diff Program</b>"
+#~ msgstr "<b>Programa diff</b>"
+
+#~ msgid "<b>Interface</b>"
+#~ msgstr "<b>Interfaz</b>"
+
+#~ msgid "<b>Revisions</b>"
+#~ msgstr "<b>Revisiones</b>"
+
+#~ msgid "<b>User</b>"
+#~ msgstr "<b>Usuario</b>"
+
+#~ msgid "Allow external diff program"
+#~ msgstr "Permitir un programa diff externo"
+
+#~ msgid "Commit"
+#~ msgstr "Efectuar («commit»)"
+
+#~ msgid "Configuration"
+#~ msgstr "Configuración"
+
+#~ msgid ""
+#~ "Configure global git settings. This corresponds to the settings as stored "
+#~ "in ~/.gitconfig. Repository specific settings can be configured at the "
+#~ "repository properties."
+#~ msgstr ""
+#~ "Configurar los ajustes globales de git. Corresponde con los ajustes "
+#~ "almacenados en ~/.gitconfig. Los ajustes específicos de repositorio se "
+#~ "pueden configurar en las propiedades del repositorio."
+
+#~ msgid "Display right _margin"
+#~ msgstr "Mostrar el _margen derecho"
+
+#~ msgid "E-mail:"
+#~ msgstr "Correo-e:"
+
+#~ msgid "Preferences that apply to the commit view"
+#~ msgstr "Preferencias que se aplican a la vista de «commit»"
+
+#~ msgid "Preferences that apply to the history view"
+#~ msgstr "Preferencias que se aplican a la vista del histórico"
+
+#~ msgid "Search filters revisions in the history view"
+#~ msgstr "La búsqueda filtra las revisiones en la vista del histórico"
+
+#~ msgid "Use vertical layout"
+#~ msgstr "Usar distribución vertical"
+
+#~ msgid "_Right margin at column:"
+#~ msgstr "Margen de_recho en la columna:"
+
+#~ msgid "Name"
+#~ msgstr "Nombre"
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#~ msgid "Author:"
+#~ msgstr "Autor:"
+
+#~ msgid "Committer:"
+#~ msgstr "Persona que efectúa el cambio:"
+
+#~ msgid "Parent:"
+#~ msgstr "Padre:"
+
+#~ msgid "SHA:"
+#~ msgstr "SHA:"
+
+#~ msgid "Subject:"
+#~ msgstr "Asunto:"
+
+#~ msgid "Switch to Blame mode"
+#~ msgstr "Cambiar al modo acusador («blame»)"
+
+#~ msgid "Create signed tag object"
+#~ msgstr "Crear objeto de rama firmado"
+
+#~ msgid "Message:"
+#~ msgstr "Mensaje:"
+
+#~ msgid "R_ecently Opened"
+#~ msgstr "Abiertos _recientemente"
+
+#~ msgid "_Edit"
+#~ msgstr "_Editar"
+
+#~ msgid "_File"
+#~ msgstr "_Archivo"
+
+#~ msgid "_View"
+#~ msgstr "_Ver"
+
+#~ msgid "Add signed-off-by"
+#~ msgstr "Aádir firmado por"
+
+#~ msgid "Amend"
+#~ msgstr "Completar"
+
+#~ msgid "Co_mmit message"
+#~ msgstr "_Mensaje de «commit»"
+
+#~ msgid "Context:"
+#~ msgstr "Contexto:"
+
+#~ msgid "Unstaged"
+#~ msgstr "Sin reservar"
+
+#~ msgid "_Commit"
+#~ msgstr "_Efectuar («commit»)"
+
+#~ msgid "_Staged"
+#~ msgstr "_Reservado"
+
+#~ msgid "_Unstaged"
+#~ msgstr "_Sin reservar"
 
 #~ msgid "unstage"
 #~ msgstr "quitar la reserva"
@@ -1205,9 +1112,6 @@ msgstr "_Sin reservar"
 
 #~ msgid "View"
 #~ msgstr "Ver"
-
-#~ msgid "_Repository"
-#~ msgstr "_Repositorio"
 
 #~ msgid "gtk-add"
 #~ msgstr "gtk-add"
