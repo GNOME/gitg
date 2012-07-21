@@ -286,7 +286,7 @@ addEventListener('DOMContentLoaded', function () {
 
 			var robo = 'http://robohash.org/' + h + '.png?size=80x80';
 
-			e.attr('src', 'http://www.gravatar.com/avatar/' + h + '?d=' + encodeURIComponent(robo) + '&s=80');
+			e.attr('src', 'http://www.gravatar.com/avatar/' + h + '?d=' + encodeURIComponent(robo) + '&s=50');
 		},
 	});
 }, false);
