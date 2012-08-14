@@ -867,7 +867,7 @@ public class Egg.ListBox : Container {
     widget.unparent ();
 
     child_hash.remove (widget);
-    children.remove (info.iter);
+    Sequence.remove (info.iter);
 
     if (this.get_visible ())
       update_separator (next);
