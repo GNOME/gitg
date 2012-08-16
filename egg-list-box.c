@@ -32,17 +32,16 @@ static gpointer _g_object_ref0 (gpointer self) {
 	return self ? g_object_ref (self) : NULL;
 }
 
-static void g_cclosure_user_marshal_VOID__ENUM_INT (GClosure             *closure,
-						    GValue               *return_value,
-						    guint                 n_param_values,
-						    const GValue         *param_values,
-						    gpointer              invocation_hint,
-						    gpointer              marshal_data);
-
-
-
-
-static void g_cclosure_user_marshal_VOID__ENUM_INT (GClosure * closure, GValue * return_value, guint n_param_values, const GValue * param_values, gpointer invocation_hint, gpointer marshal_data) {
+/* This already exists in gtk as _gtk_marshal_VOID__ENUM_INT, inline it here for now
+   to avoid separate marshallers file */
+static void
+_egg_marshal_VOID__ENUM_INT (GClosure * closure,
+			     GValue * return_value,
+			     guint n_param_values,
+			     const GValue * param_values,
+			     gpointer invocation_hint,
+			     gpointer marshal_data)
+{
   typedef void (*GMarshalFunc_VOID__ENUM_INT) (gpointer data1, gint arg_1, gint arg_2, gpointer data2);
   register GMarshalFunc_VOID__ENUM_INT callback;
   register GCClosure * cc;
@@ -367,7 +366,7 @@ egg_list_box_class_init (EggListBoxClass *klass)
 		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 		  G_STRUCT_OFFSET (EggListBoxClass, move_cursor),
 		  NULL, NULL,
-		  g_cclosure_user_marshal_VOID__ENUM_INT,
+		  _egg_marshal_VOID__ENUM_INT,
 		  G_TYPE_NONE, 2,
 		  GTK_TYPE_MOVEMENT_STEP, G_TYPE_INT);
 
