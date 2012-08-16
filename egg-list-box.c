@@ -168,21 +168,21 @@ static EggListBoxChildInfo *egg_list_box_get_last_visible                    (Eg
 static gboolean             egg_list_box_real_draw                           (GtkWidget           *base,
 									      cairo_t             *cr);
 static void                 egg_list_box_real_realize                        (GtkWidget           *base);
-static void                 egg_list_box_real_add                            (GtkContainer        *base,
+static void                 egg_list_box_real_add                            (GtkContainer        *container,
 									      GtkWidget           *widget);
 static void                 egg_list_box_child_visibility_changed            (EggListBox          *self,
 									      GObject             *object,
 									      GParamSpec          *pspec);
-static void                 egg_list_box_real_remove                         (GtkContainer        *base,
+static void                 egg_list_box_real_remove                         (GtkContainer        *container,
 									      GtkWidget           *widget);
-static void                 egg_list_box_real_forall_internal                (GtkContainer        *base,
+static void                 egg_list_box_real_forall_internal                (GtkContainer        *container,
 									      gboolean             include_internals,
 									      GtkCallback          callback,
 									      void                *callback_target);
 static void                 egg_list_box_real_compute_expand_internal        (GtkWidget           *base,
 									      gboolean            *hexpand,
 									      gboolean            *vexpand);
-static GType                egg_list_box_real_child_type                     (GtkContainer        *base);
+static GType                egg_list_box_real_child_type                     (GtkContainer        *container);
 static GtkSizeRequestMode   egg_list_box_real_get_request_mode               (GtkWidget           *base);
 static void                 egg_list_box_real_get_preferred_height           (GtkWidget           *base,
 									      gint                *minimum_height,
@@ -1292,9 +1292,9 @@ _egg_list_box_child_visibility_changed_g_object_notify (GObject* _sender, GParam
 }
 
 static void
-egg_list_box_real_add (GtkContainer* base, GtkWidget* child)
+egg_list_box_real_add (GtkContainer* container, GtkWidget* child)
 {
-  EggListBox *self = EGG_LIST_BOX (base);
+  EggListBox *self = EGG_LIST_BOX (container);
   EggListBoxChildInfo *info;
   GSequenceIter* iter = NULL;
   info = egg_list_box_child_info_new (child);
@@ -1335,9 +1335,9 @@ egg_list_box_child_visibility_changed (EggListBox *self, GObject* object, GParam
 }
 
 static void
-egg_list_box_real_remove (GtkContainer* base, GtkWidget* child)
+egg_list_box_real_remove (GtkContainer* container, GtkWidget* child)
 {
-  EggListBox *self = EGG_LIST_BOX (base);
+  EggListBox *self = EGG_LIST_BOX (container);
   gboolean was_visible;
   EggListBoxChildInfo *info;
   GSequenceIter *next;
@@ -1397,12 +1397,12 @@ egg_list_box_real_remove (GtkContainer* base, GtkWidget* child)
 
 
 static void
-egg_list_box_real_forall_internal (GtkContainer* base,
+egg_list_box_real_forall_internal (GtkContainer* container,
 				   gboolean include_internals,
 				   GtkCallback callback,
 				   void* callback_target)
 {
-  EggListBox *self = EGG_LIST_BOX (base);
+  EggListBox *self = EGG_LIST_BOX (container);
   GSequenceIter *iter;
   EggListBoxChildInfo *child_info;
 
@@ -1432,7 +1432,7 @@ egg_list_box_real_compute_expand_internal (GtkWidget* base,
 }
 
 static GType
-egg_list_box_real_child_type (GtkContainer* base)
+egg_list_box_real_child_type (GtkContainer* container)
 {
   return GTK_TYPE_WIDGET;
 }
