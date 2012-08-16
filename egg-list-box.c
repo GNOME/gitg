@@ -229,6 +229,157 @@ static void   _egg_list_box_child_visibility_changed_g_object_notify (GObject   
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
+
+EggListBox*
+egg_list_box_new (void)
+{
+  return g_object_new (EGG_TYPE_LIST_BOX, NULL);
+}
+
+static void
+egg_list_box_init (EggListBox *self)
+{
+  self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, EGG_TYPE_LIST_BOX, EggListBoxPrivate);
+
+  gtk_widget_set_can_focus ((GtkWidget*) self, TRUE);
+  gtk_widget_set_has_window ((GtkWidget*) self, TRUE);
+  gtk_widget_set_redraw_on_allocate ((GtkWidget*) self, TRUE);
+  self->priv->selection_mode = GTK_SELECTION_SINGLE;
+  self->priv->activate_single_click = TRUE;
+
+  self->priv->children = g_sequence_new ((GDestroyNotify)egg_list_box_child_info_free);
+  self->priv->child_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
+  self->priv->separator_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
+}
+
+static void
+egg_list_box_finalize (GObject *obj)
+{
+
+  EggListBox *self;
+  self = EGG_LIST_BOX (obj);
+
+  if (self->priv->auto_scroll_timeout_id != ((guint) 0))
+    g_source_remove (self->priv->auto_scroll_timeout_id);
+
+  if (self->priv->sort_func_target_destroy_notify != NULL)
+    self->priv->sort_func_target_destroy_notify (self->priv->sort_func_target);
+  if (self->priv->filter_func_target_destroy_notify != NULL)
+    self->priv->filter_func_target_destroy_notify (self->priv->filter_func_target);
+  if (self->priv->update_separator_func_target_destroy_notify != NULL)
+    self->priv->update_separator_func_target_destroy_notify (self->priv->update_separator_func_target);
+
+  if (self->priv->adjustment)
+    g_object_unref (self->priv->adjustment);
+
+  if (self->priv->drag_highlighted_widget)
+    g_object_unref (self->priv->drag_highlighted_widget);
+
+  g_sequence_free (self->priv->children);
+  g_hash_table_unref (self->priv->child_hash);
+  g_hash_table_unref (self->priv->separator_hash);
+
+  G_OBJECT_CLASS (egg_list_box_parent_class)->finalize (obj);
+}
+
+static void
+egg_list_box_class_init (EggListBoxClass *klass)
+{
+  GtkBindingSet *binding_set;
+
+  egg_list_box_parent_class = g_type_class_peek_parent (klass);
+
+  g_type_class_add_private (klass, sizeof (EggListBoxPrivate));
+
+  GTK_WIDGET_CLASS (klass)->enter_notify_event = egg_list_box_real_enter_notify_event;
+  GTK_WIDGET_CLASS (klass)->leave_notify_event = egg_list_box_real_leave_notify_event;
+  GTK_WIDGET_CLASS (klass)->motion_notify_event = egg_list_box_real_motion_notify_event;
+  GTK_WIDGET_CLASS (klass)->button_press_event = egg_list_box_real_button_press_event;
+  GTK_WIDGET_CLASS (klass)->button_release_event = egg_list_box_real_button_release_event;
+  GTK_WIDGET_CLASS (klass)->show = egg_list_box_real_show;
+  GTK_WIDGET_CLASS (klass)->focus = egg_list_box_real_focus;
+  GTK_WIDGET_CLASS (klass)->draw = egg_list_box_real_draw;
+  GTK_WIDGET_CLASS (klass)->realize = egg_list_box_real_realize;
+  GTK_CONTAINER_CLASS (klass)->add = egg_list_box_real_add;
+  GTK_CONTAINER_CLASS (klass)->remove = egg_list_box_real_remove;
+  GTK_CONTAINER_CLASS (klass)->forall = egg_list_box_real_forall_internal;
+  GTK_WIDGET_CLASS (klass)->compute_expand = egg_list_box_real_compute_expand_internal;
+  GTK_CONTAINER_CLASS (klass)->child_type = egg_list_box_real_child_type;
+  GTK_WIDGET_CLASS (klass)->get_request_mode = egg_list_box_real_get_request_mode;
+  GTK_WIDGET_CLASS (klass)->get_preferred_height = egg_list_box_real_get_preferred_height;
+  GTK_WIDGET_CLASS (klass)->get_preferred_height_for_width = egg_list_box_real_get_preferred_height_for_width;
+  GTK_WIDGET_CLASS (klass)->get_preferred_width = egg_list_box_real_get_preferred_width;
+  GTK_WIDGET_CLASS (klass)->get_preferred_width_for_height = egg_list_box_real_get_preferred_width_for_height;
+  GTK_WIDGET_CLASS (klass)->size_allocate = egg_list_box_real_size_allocate;
+  GTK_WIDGET_CLASS (klass)->drag_leave = egg_list_box_real_drag_leave;
+  GTK_WIDGET_CLASS (klass)->drag_motion = egg_list_box_real_drag_motion;
+  EGG_LIST_BOX_CLASS (klass)->activate_cursor_child = egg_list_box_real_activate_cursor_child;
+  EGG_LIST_BOX_CLASS (klass)->toggle_cursor_child = egg_list_box_real_toggle_cursor_child;
+  EGG_LIST_BOX_CLASS (klass)->move_cursor = egg_list_box_real_move_cursor;
+  G_OBJECT_CLASS (klass)->finalize = egg_list_box_finalize;
+
+  signals[CHILD_SELECTED] =
+    g_signal_new ("child-selected",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST,
+		  G_STRUCT_OFFSET (EggListBoxClass, child_selected),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__OBJECT,
+		  G_TYPE_NONE, 1,
+		  GTK_TYPE_WIDGET);
+  signals[CHILD_ACTIVATED] =
+    g_signal_new ("child-activated",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST,
+		  G_STRUCT_OFFSET (EggListBoxClass, child_activated),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__OBJECT,
+		  G_TYPE_NONE, 1,
+		  GTK_TYPE_WIDGET);
+  signals[ACTIVATE_CURSOR_CHILD] =
+    g_signal_new ("activate-cursor-child",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+		  G_STRUCT_OFFSET (EggListBoxClass, activate_cursor_child),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__VOID,
+		  G_TYPE_NONE, 0);
+  signals[TOGGLE_CURSOR_CHILD] =
+    g_signal_new ("toggle-cursor-child",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+		  G_STRUCT_OFFSET (EggListBoxClass, toggle_cursor_child),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__VOID,
+		  G_TYPE_NONE, 0);
+  signals[MOVE_CURSOR] =
+    g_signal_new ("move-cursor",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+		  G_STRUCT_OFFSET (EggListBoxClass, move_cursor),
+		  NULL, NULL,
+		  g_cclosure_user_marshal_VOID__ENUM_INT,
+		  G_TYPE_NONE, 2,
+		  GTK_TYPE_MOVEMENT_STEP, G_TYPE_INT);
+
+  GTK_WIDGET_CLASS (klass)->activate_signal = signals[ACTIVATE_CURSOR_CHILD];
+
+  binding_set = gtk_binding_set_by_class (klass);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Home, 0, GTK_MOVEMENT_BUFFER_ENDS, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Home, 0, GTK_MOVEMENT_BUFFER_ENDS, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_End, 0, GTK_MOVEMENT_BUFFER_ENDS, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_End, 0, GTK_MOVEMENT_BUFFER_ENDS, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Up, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Up, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Down, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Down, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Page_Up, 0, GTK_MOVEMENT_PAGES, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Up, 0, GTK_MOVEMENT_PAGES, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Page_Down, 0, GTK_MOVEMENT_PAGES, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Down, 0, GTK_MOVEMENT_PAGES, 1);
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_space, GDK_CONTROL_MASK, "toggle-cursor-child", 0, NULL);
+}
+
 GtkWidget *
 egg_list_box_get_selected_child (EggListBox *self)
 {
@@ -448,8 +599,6 @@ egg_list_box_set_activate_on_single_click (EggListBox *self,
 
   self->priv->activate_single_click = single;
 }
-
-/****** Implementation ***********/
 
 static gint
 egg_list_box_do_sort (EggListBox *self,
@@ -1600,12 +1749,6 @@ egg_list_box_real_drag_motion (GtkWidget *base, GdkDragContext *context,
   return FALSE;
 }
 
-EggListBox*
-egg_list_box_new (void)
-{
-  return g_object_new (EGG_TYPE_LIST_BOX, NULL);
-}
-
 static void
 egg_list_box_real_activate_cursor_child (EggListBox *self)
 {
@@ -1760,148 +1903,4 @@ egg_list_box_child_info_free (EggListBoxChildInfo *info)
   _g_object_unref0 (info->widget);
   _g_object_unref0 (info->separator);
   g_free (info);
-}
-
-static void
-egg_list_box_class_init (EggListBoxClass *klass)
-{
-  GtkBindingSet *binding_set;
-
-  egg_list_box_parent_class = g_type_class_peek_parent (klass);
-
-  g_type_class_add_private (klass, sizeof (EggListBoxPrivate));
-
-  GTK_WIDGET_CLASS (klass)->enter_notify_event = egg_list_box_real_enter_notify_event;
-  GTK_WIDGET_CLASS (klass)->leave_notify_event = egg_list_box_real_leave_notify_event;
-  GTK_WIDGET_CLASS (klass)->motion_notify_event = egg_list_box_real_motion_notify_event;
-  GTK_WIDGET_CLASS (klass)->button_press_event = egg_list_box_real_button_press_event;
-  GTK_WIDGET_CLASS (klass)->button_release_event = egg_list_box_real_button_release_event;
-  GTK_WIDGET_CLASS (klass)->show = egg_list_box_real_show;
-  GTK_WIDGET_CLASS (klass)->focus = egg_list_box_real_focus;
-  GTK_WIDGET_CLASS (klass)->draw = egg_list_box_real_draw;
-  GTK_WIDGET_CLASS (klass)->realize = egg_list_box_real_realize;
-  GTK_CONTAINER_CLASS (klass)->add = egg_list_box_real_add;
-  GTK_CONTAINER_CLASS (klass)->remove = egg_list_box_real_remove;
-  GTK_CONTAINER_CLASS (klass)->forall = egg_list_box_real_forall_internal;
-  GTK_WIDGET_CLASS (klass)->compute_expand = egg_list_box_real_compute_expand_internal;
-  GTK_CONTAINER_CLASS (klass)->child_type = egg_list_box_real_child_type;
-  GTK_WIDGET_CLASS (klass)->get_request_mode = egg_list_box_real_get_request_mode;
-  GTK_WIDGET_CLASS (klass)->get_preferred_height = egg_list_box_real_get_preferred_height;
-  GTK_WIDGET_CLASS (klass)->get_preferred_height_for_width = egg_list_box_real_get_preferred_height_for_width;
-  GTK_WIDGET_CLASS (klass)->get_preferred_width = egg_list_box_real_get_preferred_width;
-  GTK_WIDGET_CLASS (klass)->get_preferred_width_for_height = egg_list_box_real_get_preferred_width_for_height;
-  GTK_WIDGET_CLASS (klass)->size_allocate = egg_list_box_real_size_allocate;
-  GTK_WIDGET_CLASS (klass)->drag_leave = egg_list_box_real_drag_leave;
-  GTK_WIDGET_CLASS (klass)->drag_motion = egg_list_box_real_drag_motion;
-  EGG_LIST_BOX_CLASS (klass)->activate_cursor_child = egg_list_box_real_activate_cursor_child;
-  EGG_LIST_BOX_CLASS (klass)->toggle_cursor_child = egg_list_box_real_toggle_cursor_child;
-  EGG_LIST_BOX_CLASS (klass)->move_cursor = egg_list_box_real_move_cursor;
-  G_OBJECT_CLASS (klass)->finalize = egg_list_box_finalize;
-
-  signals[CHILD_SELECTED] =
-    g_signal_new ("child-selected",
-		  EGG_TYPE_LIST_BOX,
-		  G_SIGNAL_RUN_LAST,
-		  G_STRUCT_OFFSET (EggListBoxClass, child_selected),
-		  NULL, NULL,
-		  g_cclosure_marshal_VOID__OBJECT,
-		  G_TYPE_NONE, 1,
-		  GTK_TYPE_WIDGET);
-  signals[CHILD_ACTIVATED] =
-    g_signal_new ("child-activated",
-		  EGG_TYPE_LIST_BOX,
-		  G_SIGNAL_RUN_LAST,
-		  G_STRUCT_OFFSET (EggListBoxClass, child_activated),
-		  NULL, NULL,
-		  g_cclosure_marshal_VOID__OBJECT,
-		  G_TYPE_NONE, 1,
-		  GTK_TYPE_WIDGET);
-  signals[ACTIVATE_CURSOR_CHILD] =
-    g_signal_new ("activate-cursor-child",
-		  EGG_TYPE_LIST_BOX,
-		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		  G_STRUCT_OFFSET (EggListBoxClass, activate_cursor_child),
-		  NULL, NULL,
-		  g_cclosure_marshal_VOID__VOID,
-		  G_TYPE_NONE, 0);
-  signals[TOGGLE_CURSOR_CHILD] =
-    g_signal_new ("toggle-cursor-child",
-		  EGG_TYPE_LIST_BOX,
-		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		  G_STRUCT_OFFSET (EggListBoxClass, toggle_cursor_child),
-		  NULL, NULL,
-		  g_cclosure_marshal_VOID__VOID,
-		  G_TYPE_NONE, 0);
-  signals[MOVE_CURSOR] =
-    g_signal_new ("move-cursor",
-		  EGG_TYPE_LIST_BOX,
-		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		  G_STRUCT_OFFSET (EggListBoxClass, move_cursor),
-		  NULL, NULL,
-		  g_cclosure_user_marshal_VOID__ENUM_INT,
-		  G_TYPE_NONE, 2,
-		  GTK_TYPE_MOVEMENT_STEP, G_TYPE_INT);
-
-  GTK_WIDGET_CLASS (klass)->activate_signal = signals[ACTIVATE_CURSOR_CHILD];
-
-  binding_set = gtk_binding_set_by_class (klass);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Home, 0, GTK_MOVEMENT_BUFFER_ENDS, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Home, 0, GTK_MOVEMENT_BUFFER_ENDS, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_End, 0, GTK_MOVEMENT_BUFFER_ENDS, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_End, 0, GTK_MOVEMENT_BUFFER_ENDS, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Up, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Up, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Down, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Down, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Page_Up, 0, GTK_MOVEMENT_PAGES, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Up, 0, GTK_MOVEMENT_PAGES, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Page_Down, 0, GTK_MOVEMENT_PAGES, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Down, 0, GTK_MOVEMENT_PAGES, 1);
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_space, GDK_CONTROL_MASK, "toggle-cursor-child", 0, NULL);
-}
-
-static void
-egg_list_box_init (EggListBox *self)
-{
-  self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, EGG_TYPE_LIST_BOX, EggListBoxPrivate);
-
-  gtk_widget_set_can_focus ((GtkWidget*) self, TRUE);
-  gtk_widget_set_has_window ((GtkWidget*) self, TRUE);
-  gtk_widget_set_redraw_on_allocate ((GtkWidget*) self, TRUE);
-  self->priv->selection_mode = GTK_SELECTION_SINGLE;
-  self->priv->activate_single_click = TRUE;
-
-  self->priv->children = g_sequence_new ((GDestroyNotify)egg_list_box_child_info_free);
-  self->priv->child_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
-  self->priv->separator_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
-}
-
-static void
-egg_list_box_finalize (GObject *obj)
-{
-
-  EggListBox *self;
-  self = EGG_LIST_BOX (obj);
-
-  if (self->priv->auto_scroll_timeout_id != ((guint) 0))
-    g_source_remove (self->priv->auto_scroll_timeout_id);
-
-  if (self->priv->sort_func_target_destroy_notify != NULL)
-    self->priv->sort_func_target_destroy_notify (self->priv->sort_func_target);
-  if (self->priv->filter_func_target_destroy_notify != NULL)
-    self->priv->filter_func_target_destroy_notify (self->priv->filter_func_target);
-  if (self->priv->update_separator_func_target_destroy_notify != NULL)
-    self->priv->update_separator_func_target_destroy_notify (self->priv->update_separator_func_target);
-
-  if (self->priv->adjustment)
-    g_object_unref (self->priv->adjustment);
-
-  if (self->priv->drag_highlighted_widget)
-    g_object_unref (self->priv->drag_highlighted_widget);
-
-  g_sequence_free (self->priv->children);
-  g_hash_table_unref (self->priv->child_hash);
-  g_hash_table_unref (self->priv->separator_hash);
-
-  G_OBJECT_CLASS (egg_list_box_parent_class)->finalize (obj);
 }
