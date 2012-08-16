@@ -62,7 +62,6 @@ static void g_cclosure_user_marshal_VOID__ENUM_INT (GClosure * closure, GValue *
 }
 
 typedef struct _EggListBoxChildInfo EggListBoxChildInfo;
-typedef struct _EggListBoxChildFlags EggListBoxChildFlags;
 typedef struct _Block1Data Block1Data;
 
 struct _EggListBoxPrivate
@@ -107,12 +106,6 @@ struct _EggListBoxChildInfo
   GtkWidget *separator;
   gint y;
   gint height;
-};
-
-struct _EggListBoxChildFlags
-{
-  EggListBoxChildInfo *child;
-  GtkStateFlags state;
 };
 
 struct _Block1Data
@@ -188,9 +181,6 @@ static EggListBoxChildInfo * egg_list_box_get_first_visible                   (E
 static EggListBoxChildInfo * egg_list_box_get_last_visible                    (EggListBox           *self);
 static gboolean              egg_list_box_real_draw                           (GtkWidget            *base,
 cairo_t              *cr);
-static EggListBoxChildFlags *egg_list_box_child_flags_find_or_add             (EggListBoxChildFlags *array,
-int                  *array_length,
-EggListBoxChildInfo  *to_find);
 static void                  egg_list_box_real_realize                        (GtkWidget            *base);
 static void                  egg_list_box_real_add                            (GtkContainer         *base,
 GtkWidget            *widget);
@@ -850,14 +840,37 @@ egg_list_box_real_focus (GtkWidget* base, GtkDirectionType direction)
   return TRUE;
 }
 
+typedef struct {
+  EggListBoxChildInfo *child;
+  GtkStateFlags state;
+} ChildFlags;
+
+static ChildFlags*
+child_flags_find_or_add (ChildFlags *array,
+			 int *array_length,
+			 EggListBoxChildInfo *to_find)
+{
+  gint i;
+
+  for (i = 0; i < *array_length; i++)
+    {
+      if (array[i].child == to_find)
+	return &array[i];
+    }
+
+  *array_length = *array_length + 1;
+  array[*array_length - 1].child = to_find;
+  array[*array_length - 1].state = 0;
+  return &array[*array_length - 1];
+}
+
 static gboolean
 egg_list_box_real_draw (GtkWidget* base, cairo_t* cr)
 {
   EggListBox * self = EGG_LIST_BOX (base);
   GtkAllocation allocation = {0};
   GtkStyleContext* context;
-  EggListBoxChildFlags flags[3];
-  EggListBoxChildFlags *found;
+  ChildFlags flags[3], *found;
   gint flags_length;
   int i;
 
@@ -868,25 +881,25 @@ egg_list_box_real_draw (GtkWidget* base, cairo_t* cr)
 
   if (self->priv->selected_child != NULL)
     {
-      found = egg_list_box_child_flags_find_or_add (flags, &flags_length, self->priv->selected_child);
+      found = child_flags_find_or_add (flags, &flags_length, self->priv->selected_child);
       found->state |= GTK_STATE_FLAG_SELECTED;
     }
 
   if (self->priv->prelight_child != NULL)
     {
-      found = egg_list_box_child_flags_find_or_add (flags, &flags_length, self->priv->prelight_child);
+      found = child_flags_find_or_add (flags, &flags_length, self->priv->prelight_child);
       found->state |= GTK_STATE_FLAG_PRELIGHT;
     }
 
   if (self->priv->active_child != NULL && self->priv->active_child_active)
     {
-      found = egg_list_box_child_flags_find_or_add (flags, &flags_length, self->priv->active_child);
+      found = child_flags_find_or_add (flags, &flags_length, self->priv->active_child);
       found->state |= GTK_STATE_FLAG_ACTIVE;
     }
 
   for (i = 0; i < flags_length; i++)
     {
-      EggListBoxChildFlags *flag = &flags[i];
+      ChildFlags *flag = &flags[i];
       gtk_style_context_save (context);
       gtk_style_context_set_state (context, flag->state);
       gtk_render_background (context, cr, 0, flag->child->y, allocation.width, flag->child->height);
@@ -1776,25 +1789,6 @@ egg_list_box_child_info_free (EggListBoxChildInfo *info)
   _g_object_unref0 (info->widget);
   _g_object_unref0 (info->separator);
   g_free (info);
-}
-
-static EggListBoxChildFlags*
-egg_list_box_child_flags_find_or_add (EggListBoxChildFlags *array,
-				      int *array_length,
-				      EggListBoxChildInfo *to_find)
-{
-  gint i;
-
-  for (i = 0; i < *array_length; i++)
-    {
-      if (array[i].child == to_find)
-	return &array[i];
-    }
-
-  *array_length = *array_length + 1;
-  array[*array_length - 1].child = to_find;
-  array[*array_length - 1].state = 0;
-  return &array[*array_length - 1];
 }
 
 static void
