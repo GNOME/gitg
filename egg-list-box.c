@@ -32,57 +32,93 @@ static gpointer _g_object_ref0 (gpointer self) {
 	return self ? g_object_ref (self) : NULL;
 }
 
+static void g_cclosure_user_marshal_VOID__ENUM_INT (GClosure             *closure,
+						    GValue               *return_value,
+						    guint                 n_param_values,
+						    const GValue         *param_values,
+						    gpointer              invocation_hint,
+						    gpointer              marshal_data);
+
+
+
+
+static void g_cclosure_user_marshal_VOID__ENUM_INT (GClosure * closure, GValue * return_value, guint n_param_values, const GValue * param_values, gpointer invocation_hint, gpointer marshal_data) {
+  typedef void (*GMarshalFunc_VOID__ENUM_INT) (gpointer data1, gint arg_1, gint arg_2, gpointer data2);
+  register GMarshalFunc_VOID__ENUM_INT callback;
+  register GCClosure * cc;
+  register gpointer data1;
+  register gpointer data2;
+  cc = (GCClosure *) closure;
+  g_return_if_fail (n_param_values == 3);
+  if (G_CCLOSURE_SWAP_DATA (closure)) {
+    data1 = closure->data;
+    data2 = param_values->data[0].v_pointer;
+  } else {
+    data1 = param_values->data[0].v_pointer;
+    data2 = closure->data;
+  }
+  callback = (GMarshalFunc_VOID__ENUM_INT) (marshal_data ? marshal_data : cc->callback);
+  callback (data1, g_value_get_enum (param_values + 1), g_value_get_int (param_values + 2), data2);
+}
+
 typedef struct _EggListBoxChildInfo EggListBoxChildInfo;
 typedef struct _EggListBoxChildFlags EggListBoxChildFlags;
 typedef struct _Block1Data Block1Data;
 
 struct _EggListBoxPrivate
 {
-  GSequence* children;
-  GHashTable* child_hash;
-  GHashTable* separator_hash;
+  GSequence *children;
+  GHashTable *child_hash;
+  GHashTable *separator_hash;
+
   GCompareDataFunc sort_func;
   gpointer sort_func_target;
   GDestroyNotify sort_func_target_destroy_notify;
+
   EggListBoxFilterFunc filter_func;
   gpointer filter_func_target;
   GDestroyNotify filter_func_target_destroy_notify;
+
   EggListBoxUpdateSeparatorFunc update_separator_func;
   gpointer update_separator_func_target;
   GDestroyNotify update_separator_func_target_destroy_notify;
-  EggListBoxChildInfo* selected_child;
-  EggListBoxChildInfo* prelight_child;
-  EggListBoxChildInfo* cursor_child;
+
+  EggListBoxChildInfo *selected_child;
+  EggListBoxChildInfo *prelight_child;
+  EggListBoxChildInfo *cursor_child;
+
   gboolean active_child_active;
-  EggListBoxChildInfo* active_child;
+  EggListBoxChildInfo *active_child;
+
   GtkSelectionMode selection_mode;
-  GtkAdjustment* adjustment;
+
+  GtkAdjustment *adjustment;
   gboolean activate_single_click;
 
   /* DnD */
-  GtkWidget* drag_highlighted_widget;
+  GtkWidget *drag_highlighted_widget;
   guint auto_scroll_timeout_id;
 };
 
 struct _EggListBoxChildInfo
 {
-  GSequenceIter* iter;
-  GtkWidget* widget;
-  GtkWidget* separator;
+  GSequenceIter *iter;
+  GtkWidget *widget;
+  GtkWidget *separator;
   gint y;
   gint height;
 };
 
 struct _EggListBoxChildFlags
 {
-  EggListBoxChildInfo* child;
+  EggListBoxChildInfo *child;
   GtkStateFlags state;
 };
 
 struct _Block1Data
 {
   int _ref_count_;
-  EggListBox * self;
+  EggListBox *self;
   gint move;
 };
 
@@ -92,64 +128,123 @@ enum  {
 
 G_DEFINE_TYPE (EggListBox, egg_list_box, GTK_TYPE_CONTAINER)
 
-static EggListBoxChildInfo* egg_list_box_find_child_at_y (EggListBox* self, gint y);
-static EggListBoxChildInfo* egg_list_box_lookup_info (EggListBox* self, GtkWidget* widget);
-static void egg_list_box_update_selected (EggListBox* self, EggListBoxChildInfo* child);
-static void egg_list_box_apply_filter_all (EggListBox* self);
-static gint egg_list_box_do_sort (EggListBox* self, EggListBoxChildInfo* a, EggListBoxChildInfo* b);
-static gint _egg_list_box_do_sort_gcompare_data_func (gconstpointer a, gconstpointer b, gpointer self);
-static void egg_list_box_update_separator (EggListBox* self, GSequenceIter* iter);
-static GSequenceIter* egg_list_box_get_next_visible (EggListBox* self, GSequenceIter* _iter);
-static void egg_list_box_apply_filter (EggListBox* self, GtkWidget* child);
-static void egg_list_box_add_move_binding (GtkBindingSet* binding_set, guint keyval, GdkModifierType modmask, GtkMovementStep step, gint count);
-static void egg_list_box_update_cursor (EggListBox* self, EggListBoxChildInfo* child);
-static void egg_list_box_select_and_activate (EggListBox* self, EggListBoxChildInfo* child);
-static void egg_list_box_update_prelight (EggListBox* self, EggListBoxChildInfo* child);
-static void egg_list_box_update_active (EggListBox* self, EggListBoxChildInfo* child);
-static gboolean egg_list_box_real_enter_notify_event (GtkWidget* base, GdkEventCrossing* event);
-static gboolean egg_list_box_real_leave_notify_event (GtkWidget* base, GdkEventCrossing* event);
-static gboolean egg_list_box_real_motion_notify_event (GtkWidget* base, GdkEventMotion* event);
-static gboolean egg_list_box_real_button_press_event (GtkWidget* base, GdkEventButton* event);
-static gboolean egg_list_box_real_button_release_event (GtkWidget* base, GdkEventButton* event);
-static void egg_list_box_real_show (GtkWidget* base);
-static gboolean egg_list_box_real_focus (GtkWidget* base, GtkDirectionType direction);
-static GSequenceIter* egg_list_box_get_previous_visible (EggListBox* self, GSequenceIter* _iter);
-static EggListBoxChildInfo* egg_list_box_get_first_visible (EggListBox* self);
-static EggListBoxChildInfo* egg_list_box_get_last_visible (EggListBox* self);
-static gboolean egg_list_box_real_draw (GtkWidget* base, cairo_t* cr);
-static EggListBoxChildFlags* egg_list_box_child_flags_find_or_add (EggListBoxChildFlags* array, int* array_length, EggListBoxChildInfo* to_find);
-static void egg_list_box_real_realize (GtkWidget* base);
-static void egg_list_box_real_add (GtkContainer* base, GtkWidget* widget);
-static EggListBoxChildInfo* egg_list_box_child_info_new (GtkWidget* widget);
-static void egg_list_box_child_visibility_changed (EggListBox* self, GObject* object, GParamSpec* pspec);
-static void _egg_list_box_child_visibility_changed_g_object_notify (GObject* _sender, GParamSpec* pspec, gpointer self);
-static void egg_list_box_real_remove (GtkContainer* base, GtkWidget* widget);
-static void egg_list_box_real_forall_internal (GtkContainer* base, gboolean include_internals, GtkCallback callback, void* callback_target);
-static void egg_list_box_real_compute_expand_internal (GtkWidget* base, gboolean* hexpand, gboolean* vexpand);
-static GType egg_list_box_real_child_type (GtkContainer* base);
-static GtkSizeRequestMode egg_list_box_real_get_request_mode (GtkWidget* base);
-static void egg_list_box_real_get_preferred_height (GtkWidget* base, gint* minimum_height, gint* natural_height);
-static void egg_list_box_real_get_preferred_height_for_width (GtkWidget* base, gint width, gint* minimum_height, gint* natural_height);
-static void egg_list_box_real_get_preferred_width (GtkWidget* base, gint* minimum_width, gint* natural_width);
-static void egg_list_box_real_get_preferred_width_for_height (GtkWidget* base, gint height, gint* minimum_width, gint* natural_width);
-static void egg_list_box_real_size_allocate (GtkWidget* base, GtkAllocation* allocation);
-static void egg_list_box_real_drag_leave (GtkWidget* base, GdkDragContext* context, guint time_);
-static gboolean egg_list_box_real_drag_motion (GtkWidget* base, GdkDragContext* context, gint x, gint y, guint time_);
-static Block1Data* block1_data_ref (Block1Data* _data1_);
-static void block1_data_unref (void * _userdata_);
-static gboolean __lambda2_ (Block1Data* _data1_);
-static gboolean ___lambda2__gsource_func (gpointer self);
-static void egg_list_box_real_child_selected (EggListBox* self, GtkWidget* child);
-static void egg_list_box_real_child_activated (EggListBox* self, GtkWidget* child);
-static void egg_list_box_real_activate_cursor_child (EggListBox* self);
-static void egg_list_box_real_toggle_cursor_child (EggListBox* self);
-static void egg_list_box_real_move_cursor (EggListBox* self, GtkMovementStep step, gint count);
-static void g_cclosure_user_marshal_VOID__ENUM_INT (GClosure * closure, GValue * return_value, guint n_param_values, const GValue * param_values, gpointer invocation_hint, gpointer marshal_data);
-static void egg_list_box_child_info_free (EggListBoxChildInfo* obj);
-static void egg_list_box_finalize (GObject* obj);
+static EggListBoxChildInfo * egg_list_box_find_child_at_y                     (EggListBox           *self,
+gint                  y);
+static EggListBoxChildInfo * egg_list_box_lookup_info                         (EggListBox           *self,
+GtkWidget            *widget);
+static void                  egg_list_box_update_selected                     (EggListBox           *self,
+EggListBoxChildInfo  *child);
+static void                  egg_list_box_apply_filter_all                    (EggListBox           *self);
+static gint                  egg_list_box_do_sort                             (EggListBox           *self,
+EggListBoxChildInfo  *a,
+EggListBoxChildInfo  *b);
+static gint                  _egg_list_box_do_sort_gcompare_data_func         (gconstpointer         a,
+gconstpointer         b,
+gpointer              self);
+static void                  egg_list_box_update_separator                    (EggListBox           *self,
+GSequenceIter        *iter);
+static GSequenceIter *       egg_list_box_get_next_visible                    (EggListBox           *self,
+GSequenceIter        *_iter);
+static void                  egg_list_box_apply_filter                        (EggListBox           *self,
+GtkWidget            *child);
+static void                  egg_list_box_add_move_binding                    (GtkBindingSet        *binding_set,
+guint                 keyval,
+GdkModifierType       modmask,
+GtkMovementStep       step,
+gint                  count);
+static void                  egg_list_box_update_cursor                       (EggListBox           *self,
+EggListBoxChildInfo  *child);
+static void                  egg_list_box_select_and_activate                 (EggListBox           *self,
+EggListBoxChildInfo  *child);
+static void                  egg_list_box_update_prelight                     (EggListBox           *self,
+EggListBoxChildInfo  *child);
+static void                  egg_list_box_update_active                       (EggListBox           *self,
+EggListBoxChildInfo  *child);
+static gboolean              egg_list_box_real_enter_notify_event             (GtkWidget            *base,
+GdkEventCrossing     *event);
+static gboolean              egg_list_box_real_leave_notify_event             (GtkWidget            *base,
+GdkEventCrossing     *event);
+static gboolean              egg_list_box_real_motion_notify_event            (GtkWidget            *base,
+GdkEventMotion       *event);
+static gboolean              egg_list_box_real_button_press_event             (GtkWidget            *base,
+GdkEventButton       *event);
+static gboolean              egg_list_box_real_button_release_event           (GtkWidget            *base,
+GdkEventButton       *event);
+static void                  egg_list_box_real_show                           (GtkWidget            *base);
+static gboolean              egg_list_box_real_focus                          (GtkWidget            *base,
+GtkDirectionType      direction);
+static GSequenceIter*        egg_list_box_get_previous_visible                (EggListBox           *self,
+GSequenceIter        *_iter);
+static EggListBoxChildInfo * egg_list_box_get_first_visible                   (EggListBox           *self);
+static EggListBoxChildInfo * egg_list_box_get_last_visible                    (EggListBox           *self);
+static gboolean              egg_list_box_real_draw                           (GtkWidget            *base,
+cairo_t              *cr);
+static EggListBoxChildFlags *egg_list_box_child_flags_find_or_add             (EggListBoxChildFlags *array,
+int                  *array_length,
+EggListBoxChildInfo  *to_find);
+static void                  egg_list_box_real_realize                        (GtkWidget            *base);
+static void                  egg_list_box_real_add                            (GtkContainer         *base,
+GtkWidget            *widget);
+static EggListBoxChildInfo * egg_list_box_child_info_new                      (GtkWidget            *widget);
+static void                  egg_list_box_child_visibility_changed            (EggListBox           *self,
+GObject              *object,
+GParamSpec           *pspec);
+static void                  egg_list_box_real_remove                         (GtkContainer         *base,
+GtkWidget            *widget);
+static void                  egg_list_box_real_forall_internal                (GtkContainer         *base,
+gboolean              include_internals,
+GtkCallback           callback,
+void                 *callback_target);
+static void                  egg_list_box_real_compute_expand_internal        (GtkWidget            *base,
+gboolean             *hexpand,
+gboolean             *vexpand);
+static GType                 egg_list_box_real_child_type                     (GtkContainer         *base);
+static GtkSizeRequestMode    egg_list_box_real_get_request_mode               (GtkWidget            *base);
+static void                  egg_list_box_real_get_preferred_height           (GtkWidget            *base,
+gint                 *minimum_height,
+gint                 *natural_height);
+static void                  egg_list_box_real_get_preferred_height_for_width (GtkWidget            *base,
+gint                  width,
+gint                 *minimum_height,
+gint                 *natural_height);
+static void                  egg_list_box_real_get_preferred_width            (GtkWidget            *base,
+gint                 *minimum_width,
+gint                 *natural_width);
+static void                  egg_list_box_real_get_preferred_width_for_height (GtkWidget            *base,
+gint                  height,
+gint                 *minimum_width,
+gint                 *natural_width);
+static void                  egg_list_box_real_size_allocate                  (GtkWidget            *base,
+GtkAllocation        *allocation);
+static void                  egg_list_box_real_drag_leave                     (GtkWidget            *base,
+GdkDragContext       *context,
+guint                 time_);
+static gboolean              egg_list_box_real_drag_motion                    (GtkWidget            *base,
+GdkDragContext       *context,
+gint                  x,
+gint                  y,
+guint                 time_);
+static Block1Data*           block1_data_ref                                  (Block1Data           *_data1_);
+static void                  block1_data_unref                                (void                 *_userdata_);
+static gboolean              __lambda2_                                       (Block1Data           *_data1_);
+static gboolean              ___lambda2__gsource_func                         (gpointer              self);
+static void                  egg_list_box_real_child_selected                 (EggListBox           *self,
+GtkWidget            *child);
+static void                  egg_list_box_real_child_activated                (EggListBox           *self,
+GtkWidget            *child);
+static void                  egg_list_box_real_activate_cursor_child          (EggListBox           *self);
+static void                  egg_list_box_real_toggle_cursor_child            (EggListBox           *self);
+static void                  egg_list_box_real_move_cursor                    (EggListBox           *self,
+GtkMovementStep       step,
+gint                  count);
+static void                  egg_list_box_child_info_free                     (EggListBoxChildInfo  *obj);
+static void                  egg_list_box_finalize                            (GObject              *obj);
+static void   _egg_list_box_child_visibility_changed_g_object_notify (GObject              *_sender,
+								      GParamSpec           *pspec,
+								      gpointer              self);
 
 GtkWidget *
-egg_list_box_get_selected_child (EggListBox* self)
+egg_list_box_get_selected_child (EggListBox *self)
 {
   g_return_val_if_fail (self != NULL, NULL);
 
@@ -160,9 +255,9 @@ egg_list_box_get_selected_child (EggListBox* self)
 }
 
 GtkWidget *
-egg_list_box_get_child_at_y (EggListBox* self, gint y)
+egg_list_box_get_child_at_y (EggListBox *self, gint y)
 {
-  EggListBoxChildInfo* child;
+  EggListBoxChildInfo *child;
   
   g_return_val_if_fail (self != NULL, NULL);
 
@@ -175,9 +270,9 @@ egg_list_box_get_child_at_y (EggListBox* self, gint y)
 
 
 void
-egg_list_box_select_child (EggListBox* self, GtkWidget* child)
+egg_list_box_select_child (EggListBox *self, GtkWidget *child)
 {
-  EggListBoxChildInfo* info = NULL;
+  EggListBoxChildInfo *info = NULL;
 
   g_return_if_fail (self != NULL);
 
@@ -188,8 +283,8 @@ egg_list_box_select_child (EggListBox* self, GtkWidget* child)
 }
 
 void
-egg_list_box_set_adjustment (EggListBox* self,
-			     GtkAdjustment* adjustment)
+egg_list_box_set_adjustment (EggListBox *self,
+			     GtkAdjustment *adjustment)
 {
   g_return_if_fail (self != NULL);
 
@@ -201,8 +296,8 @@ egg_list_box_set_adjustment (EggListBox* self,
 }
 
 void
-egg_list_box_add_to_scrolled (EggListBox* self,
-			      GtkScrolledWindow* scrolled)
+egg_list_box_add_to_scrolled (EggListBox *self,
+			      GtkScrolledWindow *scrolled)
 {
   g_return_if_fail (self != NULL);
   g_return_if_fail (scrolled != NULL);
@@ -214,7 +309,7 @@ egg_list_box_add_to_scrolled (EggListBox* self,
 }
 
 
-void egg_list_box_set_selection_mode (EggListBox* self, GtkSelectionMode mode) {
+void egg_list_box_set_selection_mode (EggListBox *self, GtkSelectionMode mode) {
   g_return_if_fail (self != NULL);
 
   if (mode == GTK_SELECTION_MULTIPLE)
@@ -230,9 +325,9 @@ void egg_list_box_set_selection_mode (EggListBox* self, GtkSelectionMode mode) {
 
 
 void
-egg_list_box_set_filter_func (EggListBox* self,
+egg_list_box_set_filter_func (EggListBox *self,
 			      EggListBoxFilterFunc f,
-			      void* f_target,
+			      void *f_target,
 			      GDestroyNotify f_target_destroy_notify)
 {
   g_return_if_fail (self != NULL);
@@ -248,9 +343,9 @@ egg_list_box_set_filter_func (EggListBox* self,
 }
 
 void
-egg_list_box_set_separator_funcs (EggListBox* self,
+egg_list_box_set_separator_funcs (EggListBox *self,
 				  EggListBoxUpdateSeparatorFunc update_separator,
-				  void* update_separator_target,
+				  void *update_separator_target,
 				  GDestroyNotify update_separator_target_destroy_notify)
 {
   g_return_if_fail (self != NULL);
@@ -265,7 +360,7 @@ egg_list_box_set_separator_funcs (EggListBox* self,
 }
 
 void
-egg_list_box_refilter (EggListBox* self)
+egg_list_box_refilter (EggListBox *self)
 {
   g_return_if_fail (self != NULL);
 
@@ -287,7 +382,7 @@ _egg_list_box_do_sort_gcompare_data_func (gconstpointer a,
 
 
 void
-egg_list_box_resort (EggListBox* self)
+egg_list_box_resort (EggListBox *self)
 {
   g_return_if_fail (self != NULL);
 
@@ -297,9 +392,9 @@ egg_list_box_resort (EggListBox* self)
 }
 
 void
-egg_list_box_reseparate (EggListBox* self)
+egg_list_box_reseparate (EggListBox *self)
 {
-  GSequenceIter* iter;
+  GSequenceIter *iter;
 
   g_return_if_fail (self != NULL);
 
@@ -312,9 +407,9 @@ egg_list_box_reseparate (EggListBox* self)
 }
 
 void
-egg_list_box_set_sort_func (EggListBox* self,
+egg_list_box_set_sort_func (EggListBox *self,
 			    GCompareDataFunc f,
-			    void* f_target,
+			    void *f_target,
 			    GDestroyNotify f_target_destroy_notify)
 {
   g_return_if_fail (self != NULL);
@@ -329,10 +424,10 @@ egg_list_box_set_sort_func (EggListBox* self,
 }
 
 void
-egg_list_box_child_changed (EggListBox* self, GtkWidget* widget)
+egg_list_box_child_changed (EggListBox *self, GtkWidget *widget)
 {
-  EggListBoxChildInfo* info;
-  GSequenceIter* prev_next, *next;
+  EggListBoxChildInfo *info;
+  GSequenceIter *prev_next, *next;
 
   g_return_if_fail (self != NULL);
   g_return_if_fail (widget != NULL);
@@ -360,7 +455,7 @@ egg_list_box_child_changed (EggListBox* self, GtkWidget* widget)
 }
 
 void
-egg_list_box_set_activate_on_single_click (EggListBox* self,
+egg_list_box_set_activate_on_single_click (EggListBox *self,
 					   gboolean single)
 {
   g_return_if_fail (self != NULL);
@@ -371,16 +466,16 @@ egg_list_box_set_activate_on_single_click (EggListBox* self,
 /****** Implementation ***********/
 
 static gint
-egg_list_box_do_sort (EggListBox* self,
-		      EggListBoxChildInfo* a,
-		      EggListBoxChildInfo* b)
+egg_list_box_do_sort (EggListBox *self,
+		      EggListBoxChildInfo *a,
+		      EggListBoxChildInfo *b)
 {
   return self->priv->sort_func (a->widget, b->widget,
 				self->priv->sort_func_target);
 }
 
 static void
-egg_list_box_add_move_binding (GtkBindingSet* binding_set,
+egg_list_box_add_move_binding (GtkBindingSet *binding_set,
 			       guint keyval,
 			       GdkModifierType modmask,
 			       GtkMovementStep step,
@@ -397,11 +492,11 @@ egg_list_box_add_move_binding (GtkBindingSet* binding_set,
 }
 
 static EggListBoxChildInfo*
-egg_list_box_find_child_at_y (EggListBox* self, gint y)
+egg_list_box_find_child_at_y (EggListBox *self, gint y)
 {
-  EggListBoxChildInfo* child_info;
-  GSequenceIter* iter;
-  EggListBoxChildInfo* info;
+  EggListBoxChildInfo *child_info;
+  GSequenceIter *iter;
+  EggListBoxChildInfo *info;
 
   child_info = NULL;
   for (iter = g_sequence_get_begin_iter (self->priv->children);
@@ -420,8 +515,8 @@ egg_list_box_find_child_at_y (EggListBox* self, gint y)
 }
 
 static void
-egg_list_box_update_cursor (EggListBox* self,
-			    EggListBoxChildInfo* child)
+egg_list_box_update_cursor (EggListBox *self,
+			    EggListBoxChildInfo *child)
 {
   self->priv->cursor_child = child;
   gtk_widget_grab_focus ((GtkWidget*) self);
@@ -437,8 +532,8 @@ egg_list_box_update_cursor (EggListBox* self,
 }
 
 static void
-egg_list_box_update_selected (EggListBox* self,
-			      EggListBoxChildInfo* child)
+egg_list_box_update_selected (EggListBox *self,
+			      EggListBoxChildInfo *child)
 {
   if (child != self->priv->selected_child &&
       (child == NULL || self->priv->selection_mode != GTK_SELECTION_NONE))
@@ -453,9 +548,9 @@ egg_list_box_update_selected (EggListBox* self,
 }
 
 static void
-egg_list_box_select_and_activate (EggListBox* self, EggListBoxChildInfo* child)
+egg_list_box_select_and_activate (EggListBox *self, EggListBoxChildInfo *child)
 {
-  GtkWidget* w = NULL;
+  GtkWidget *w = NULL;
 
   if (child != NULL)
     w = child->widget;
@@ -467,7 +562,7 @@ egg_list_box_select_and_activate (EggListBox* self, EggListBoxChildInfo* child)
 }
 
 static void
-egg_list_box_update_prelight (EggListBox* self, EggListBoxChildInfo* child)
+egg_list_box_update_prelight (EggListBox *self, EggListBoxChildInfo *child)
 {
   if (child != self->priv->prelight_child)
     {
@@ -477,7 +572,7 @@ egg_list_box_update_prelight (EggListBox* self, EggListBoxChildInfo* child)
 }
 
 static void
-egg_list_box_update_active (EggListBox* self, EggListBoxChildInfo* child)
+egg_list_box_update_active (EggListBox *self, EggListBoxChildInfo *child)
 {
   gboolean val;
 
@@ -491,13 +586,12 @@ egg_list_box_update_active (EggListBox* self, EggListBoxChildInfo* child)
 }
 
 static gboolean
-egg_list_box_real_enter_notify_event (GtkWidget* base,
-				      GdkEventCrossing* event)
+egg_list_box_real_enter_notify_event (GtkWidget *base,
+				      GdkEventCrossing *event)
 {
-  EggListBox * self;
-  EggListBoxChildInfo* child;
+  EggListBox *self = EGG_LIST_BOX (base);
+  EggListBoxChildInfo *child;
 
-  self = (EggListBox*) base;
 
   if (event->window != gtk_widget_get_window ((GtkWidget*) self))
     return FALSE;
@@ -510,12 +604,11 @@ egg_list_box_real_enter_notify_event (GtkWidget* base,
 }
 
 static gboolean
-egg_list_box_real_leave_notify_event (GtkWidget* base,
-				      GdkEventCrossing* event)
+egg_list_box_real_leave_notify_event (GtkWidget *base,
+				      GdkEventCrossing *event)
 {
-  EggListBox * self;
-  EggListBoxChildInfo* child = NULL;
-  self = (EggListBox*) base;
+  EggListBox *self = EGG_LIST_BOX (base);
+  EggListBoxChildInfo *child = NULL;
 
   if (event->window != gtk_widget_get_window ((GtkWidget*) self))
     return FALSE;
@@ -532,13 +625,12 @@ egg_list_box_real_leave_notify_event (GtkWidget* base,
 }
 
 static gboolean
-egg_list_box_real_motion_notify_event (GtkWidget* base,
-				       GdkEventMotion* event)
+egg_list_box_real_motion_notify_event (GtkWidget *base,
+				       GdkEventMotion *event)
 {
-  EggListBox * self;
-  EggListBoxChildInfo* child;
+  EggListBox *self = EGG_LIST_BOX (base);
+  EggListBoxChildInfo *child;
 
-  self = (EggListBox*) base;
 
   child = egg_list_box_find_child_at_y (self, event->y);
   egg_list_box_update_prelight (self, child);
@@ -548,15 +640,14 @@ egg_list_box_real_motion_notify_event (GtkWidget* base,
 }
 
 static gboolean
-egg_list_box_real_button_press_event (GtkWidget* base,
-				      GdkEventButton* event)
+egg_list_box_real_button_press_event (GtkWidget *base,
+				      GdkEventButton *event)
 {
-  EggListBox * self;
-  self = (EggListBox*) base;
+  EggListBox *self = EGG_LIST_BOX (base);
 
   if (event->button == 1)
     {
-      EggListBoxChildInfo* child;
+      EggListBoxChildInfo *child;
       child = egg_list_box_find_child_at_y (self, event->y);
       if (child != NULL)
 	{
@@ -579,10 +670,10 @@ egg_list_box_real_button_press_event (GtkWidget* base,
 }
 
 static gboolean
-egg_list_box_real_button_release_event (GtkWidget* base,
-					GdkEventButton* event)
+egg_list_box_real_button_release_event (GtkWidget *base,
+					GdkEventButton *event)
 {
-  EggListBox * self = (EggListBox*) base;
+  EggListBox *self = EGG_LIST_BOX (base);
 
   if (event->button == 1)
     {
@@ -603,9 +694,9 @@ egg_list_box_real_button_release_event (GtkWidget* base,
 }
 
 static void
-egg_list_box_real_show (GtkWidget* base)
+egg_list_box_real_show (GtkWidget *base)
 {
-  EggListBox * self = (EggListBox*) base;
+  EggListBox * self = EGG_LIST_BOX (base);
   
   egg_list_box_reseparate (self);
   
@@ -620,8 +711,8 @@ egg_list_box_real_focus (GtkWidget* base, GtkDirectionType direction)
   gboolean had_focus = FALSE;
   gboolean focus_into = FALSE;
   GtkWidget* recurse_into;
-  EggListBoxChildInfo* current_focus_child;
-  EggListBoxChildInfo* next_focus_child;
+  EggListBoxChildInfo *current_focus_child;
+  EggListBoxChildInfo *next_focus_child;
   gboolean modify_selection_pressed;
   GdkModifierType state = 0;
 
@@ -754,11 +845,11 @@ egg_list_box_real_focus (GtkWidget* base, GtkDirectionType direction)
 static gboolean
 egg_list_box_real_draw (GtkWidget* base, cairo_t* cr)
 {
-  EggListBox * self = (EggListBox*) base;
+  EggListBox * self = EGG_LIST_BOX (base);
   GtkAllocation allocation = {0};
   GtkStyleContext* context;
   EggListBoxChildFlags flags[3];
-  EggListBoxChildFlags* found;
+  EggListBoxChildFlags *found;
   gint flags_length;
   int i;
 
@@ -787,7 +878,7 @@ egg_list_box_real_draw (GtkWidget* base, cairo_t* cr)
   
   for (i = 0; i < flags_length; i++)
     {
-      EggListBoxChildFlags* flag = &flags[i];
+      EggListBoxChildFlags *flag = &flags[i];
       gtk_style_context_save (context);
       gtk_style_context_set_state (context, flag->state);
       gtk_render_background (context, cr, 0, flag->child->y, allocation.width, flag->child->height);
@@ -806,10 +897,10 @@ egg_list_box_real_draw (GtkWidget* base, cairo_t* cr)
 static void
 egg_list_box_real_realize (GtkWidget* base)
 {
-  EggListBox * self = (EggListBox*) base;
+  EggListBox *self = EGG_LIST_BOX (base);
   GtkAllocation allocation;
   GdkWindowAttr attributes = {0};
-  GdkWindow* window;
+  GdkWindow *window;
 
   gtk_widget_get_allocation ((GtkWidget*) self, &allocation);
   gtk_widget_set_realized ((GtkWidget*) self, TRUE);
@@ -833,7 +924,7 @@ egg_list_box_real_realize (GtkWidget* base)
 
 
 static void
-egg_list_box_apply_filter (EggListBox* self, GtkWidget* child)
+egg_list_box_apply_filter (EggListBox *self, GtkWidget *child)
 {
   gboolean do_show;
 
@@ -845,10 +936,10 @@ egg_list_box_apply_filter (EggListBox* self, GtkWidget* child)
 }
 
 static void
-egg_list_box_apply_filter_all (EggListBox* self)
+egg_list_box_apply_filter_all (EggListBox *self)
 {
-  EggListBoxChildInfo* child_info;
-  GSequenceIter* iter;
+  EggListBoxChildInfo *child_info;
+  GSequenceIter *iter;
 
   for (iter = g_sequence_get_begin_iter (self->priv->children);
        !g_sequence_iter_is_end (iter);
@@ -860,20 +951,20 @@ egg_list_box_apply_filter_all (EggListBox* self)
 }
 
 static EggListBoxChildInfo*
-egg_list_box_get_first_visible (EggListBox* self)
+egg_list_box_get_first_visible (EggListBox *self)
 {
-  EggListBoxChildInfo* child_info;
-  GSequenceIter* iter;
-  GtkWidget* widget;
+  EggListBoxChildInfo *child_info;
+  GSequenceIter *iter;
+  GtkWidget *child;
 
   for (iter = g_sequence_get_begin_iter (self->priv->children);
        !g_sequence_iter_is_end (iter);
        iter = g_sequence_iter_next (iter))
     {
 	child_info = g_sequence_get (iter);
-	widget = child_info->widget;
-	if (gtk_widget_get_visible (widget) &&
-	    gtk_widget_get_child_visible (widget))
+	child = child_info->widget;
+	if (gtk_widget_get_visible (child) &&
+	    gtk_widget_get_child_visible (child))
 	  return child_info;
     }
 
@@ -882,20 +973,20 @@ egg_list_box_get_first_visible (EggListBox* self)
 
 
 static EggListBoxChildInfo*
-egg_list_box_get_last_visible (EggListBox* self)
+egg_list_box_get_last_visible (EggListBox *self)
 {
-  EggListBoxChildInfo* child_info;
+  EggListBoxChildInfo *child_info;
   GSequenceIter* iter;
-  GtkWidget* widget;
+  GtkWidget* child;
 
   iter = g_sequence_get_end_iter (self->priv->children);
   while (!g_sequence_iter_is_begin (iter))
     {
       iter = g_sequence_iter_prev (iter);
       child_info = g_sequence_get (iter);
-      widget = child_info->widget;
-      if (gtk_widget_get_visible (widget) &&
-	  gtk_widget_get_child_visible (widget))
+      child = child_info->widget;
+      if (gtk_widget_get_visible (child) &&
+	  gtk_widget_get_child_visible (child))
 	return child_info;
     }
 
@@ -903,11 +994,11 @@ egg_list_box_get_last_visible (EggListBox* self)
 }
 
 static GSequenceIter*
-egg_list_box_get_previous_visible (EggListBox* self,
+egg_list_box_get_previous_visible (EggListBox *self,
 				   GSequenceIter* iter)
 {
-  EggListBoxChildInfo* child_info;
-  GtkWidget* widget;
+  EggListBoxChildInfo *child_info;
+  GtkWidget *child;
 
   if (g_sequence_iter_is_begin (iter))
     return NULL;
@@ -916,9 +1007,9 @@ egg_list_box_get_previous_visible (EggListBox* self,
     {
       iter = g_sequence_iter_prev (iter);
       child_info = g_sequence_get (iter);
-      widget = child_info->widget;
-      if (gtk_widget_get_visible (widget) &&
-	  gtk_widget_get_child_visible (widget))
+      child = child_info->widget;
+      if (gtk_widget_get_visible (child) &&
+	  gtk_widget_get_child_visible (child))
 	return iter;
     }
   while (!g_sequence_iter_is_begin (iter));
@@ -927,10 +1018,10 @@ egg_list_box_get_previous_visible (EggListBox* self,
 }
 
 static GSequenceIter*
-egg_list_box_get_next_visible (EggListBox* self, GSequenceIter* iter)
+egg_list_box_get_next_visible (EggListBox *self, GSequenceIter* iter)
 {
-  EggListBoxChildInfo* child_info;
-  GtkWidget* widget;
+  EggListBoxChildInfo *child_info;
+  GtkWidget *child;
 
   if (g_sequence_iter_is_end (iter))
     return iter;
@@ -941,9 +1032,9 @@ egg_list_box_get_next_visible (EggListBox* self, GSequenceIter* iter)
       if (!g_sequence_iter_is_end (iter))
 	{
 	child_info = g_sequence_get (iter);
-	widget = child_info->widget;
-	if (gtk_widget_get_visible (widget) &&
-	    gtk_widget_get_child_visible (widget))
+	child = child_info->widget;
+	if (gtk_widget_get_visible (child) &&
+	    gtk_widget_get_child_visible (child))
 	  return iter;
 	}
     }
@@ -954,36 +1045,36 @@ egg_list_box_get_next_visible (EggListBox* self, GSequenceIter* iter)
 
 
 static void
-egg_list_box_update_separator (EggListBox* self, GSequenceIter* iter)
+egg_list_box_update_separator (EggListBox *self, GSequenceIter* iter)
 {
-  EggListBoxChildInfo* info;
-  GSequenceIter* before_iter;
-  GtkWidget* widget;
-  GtkWidget* before_widget;
-  EggListBoxChildInfo* before_info;
-  GtkWidget* old_separator;
+  EggListBoxChildInfo *info;
+  GSequenceIter *before_iter;
+  GtkWidget *child;
+  GtkWidget *before_child;
+  EggListBoxChildInfo *before_info;
+  GtkWidget *old_separator;
 
   if (iter == NULL || g_sequence_iter_is_end (iter))
     return;
 
   info = g_sequence_get (iter);
   before_iter = egg_list_box_get_previous_visible (self, iter);
-  widget = _g_object_ref0 (info->widget);
-  before_widget = NULL;
+  child = _g_object_ref0 (info->widget);
+  before_child = NULL;
   if (before_iter != NULL)
     {
       before_info = g_sequence_get (before_iter);
-      before_widget = _g_object_ref0 (before_info->widget);
+      before_child = _g_object_ref0 (before_info->widget);
     }
   
   if (self->priv->update_separator_func != NULL &&
-      gtk_widget_get_visible (widget) &&
-      gtk_widget_get_child_visible (widget))
+      gtk_widget_get_visible (child) &&
+      gtk_widget_get_child_visible (child))
     {
       old_separator = _g_object_ref0 (info->separator);
       self->priv->update_separator_func (&info->separator,
-					 widget,
-					 before_widget,
+					 child,
+					 before_child,
 					 self->priv->update_separator_func_target);
       if (old_separator != info->separator)
 	{
@@ -1012,14 +1103,14 @@ egg_list_box_update_separator (EggListBox* self, GSequenceIter* iter)
 	  gtk_widget_queue_resize ((GtkWidget*) self);
 	}
     }
-  _g_object_unref0 (before_widget);
-  _g_object_unref0 (widget);
+  _g_object_unref0 (before_child);
+  _g_object_unref0 (child);
 }
 
 static EggListBoxChildInfo*
-egg_list_box_lookup_info (EggListBox* self, GtkWidget* widget)
+egg_list_box_lookup_info (EggListBox *self, GtkWidget* child)
 {
-  return g_hash_table_lookup (self->priv->child_hash, widget);
+  return g_hash_table_lookup (self->priv->child_hash, child);
 }
 
 static void
@@ -1029,14 +1120,13 @@ _egg_list_box_child_visibility_changed_g_object_notify (GObject* _sender, GParam
 }
 
 static void
-egg_list_box_real_add (GtkContainer* base, GtkWidget* widget)
+egg_list_box_real_add (GtkContainer* base, GtkWidget* child)
 {
-  EggListBox * self;
-  EggListBoxChildInfo* info;
+  EggListBox *self = EGG_LIST_BOX (base);
+  EggListBoxChildInfo *info;
   GSequenceIter* iter = NULL;
-  self = (EggListBox*) base;
-  info = egg_list_box_child_info_new (widget);
-  g_hash_table_insert (self->priv->child_hash, widget, info);
+  info = egg_list_box_child_info_new (child);
+  g_hash_table_insert (self->priv->child_hash, child, info);
   if (self->priv->sort_func != NULL)
     iter = g_sequence_insert_sorted (self->priv->children, info,
 				     _egg_list_box_do_sort_gcompare_data_func, self);
@@ -1044,21 +1134,21 @@ egg_list_box_real_add (GtkContainer* base, GtkWidget* widget)
     iter = g_sequence_append (self->priv->children, info);
 
   info->iter = iter;
-  gtk_widget_set_parent (widget, (GtkWidget*) self);
-  egg_list_box_apply_filter (self, widget);
+  gtk_widget_set_parent (child, (GtkWidget*) self);
+  egg_list_box_apply_filter (self, child);
   if (gtk_widget_get_visible ((GtkWidget*) self))
     {
       egg_list_box_update_separator (self, iter);
       egg_list_box_update_separator (self, egg_list_box_get_next_visible (self, iter));
     }
-  g_signal_connect_object ((GObject*) widget, "notify::visible",
+  g_signal_connect_object (child, "notify::visible",
 			   (GCallback) _egg_list_box_child_visibility_changed_g_object_notify, self, 0);
 }
 
 static void
-egg_list_box_child_visibility_changed (EggListBox* self, GObject* object, GParamSpec* pspec)
+egg_list_box_child_visibility_changed (EggListBox *self, GObject* object, GParamSpec* pspec)
 {
-  EggListBoxChildInfo* info;
+  EggListBoxChildInfo *info;
 
   if (gtk_widget_get_visible ((GtkWidget*) self))
     {
@@ -1073,34 +1163,34 @@ egg_list_box_child_visibility_changed (EggListBox* self, GObject* object, GParam
 }
 
 static void
-egg_list_box_real_remove (GtkContainer* base, GtkWidget* widget)
+egg_list_box_real_remove (GtkContainer* base, GtkWidget* child)
 {
-  EggListBox * self;
+  EggListBox *self = EGG_LIST_BOX (base);
   gboolean was_visible;
-  EggListBoxChildInfo* info;
-  GSequenceIter* next;
-  self = (EggListBox*) base;
-  g_return_if_fail (widget != NULL);
-  was_visible = gtk_widget_get_visible (widget);
+  EggListBoxChildInfo *info;
+  GSequenceIter *next;
 
-  g_signal_handlers_disconnect_by_func(widget, (GCallback) _egg_list_box_child_visibility_changed_g_object_notify, self);
+  g_return_if_fail (child != NULL);
+  was_visible = gtk_widget_get_visible (child);
+
+  g_signal_handlers_disconnect_by_func (child, (GCallback) _egg_list_box_child_visibility_changed_g_object_notify, self);
   
-  info = egg_list_box_lookup_info (self, widget);
+  info = egg_list_box_lookup_info (self, child);
   if (info == NULL)
     {
-      info = g_hash_table_lookup (self->priv->separator_hash, widget);
+      info = g_hash_table_lookup (self->priv->separator_hash, child);
       if (info != NULL)
 	{
-	  g_hash_table_remove (self->priv->separator_hash, widget);
+	  g_hash_table_remove (self->priv->separator_hash, child);
 	  _g_object_unref0 (info->separator);
 	  info->separator = NULL;
-	  gtk_widget_unparent (widget);
+	  gtk_widget_unparent (child);
 	  if (was_visible && gtk_widget_get_visible ((GtkWidget*) self))
 	    gtk_widget_queue_resize ((GtkWidget*) self);
 	}
       else
 	{
-	  g_warning ("egg-list-box.vala:846: Tried to remove non-child %p\n", widget);
+	  g_warning ("egg-list-box.vala:846: Tried to remove non-child %p\n", child);
 	}
       return;
     }
@@ -1123,8 +1213,8 @@ egg_list_box_real_remove (GtkContainer* base, GtkWidget* widget)
     self->priv->active_child = NULL;
 
   next = egg_list_box_get_next_visible (self, info->iter);
-  gtk_widget_unparent (widget);
-  g_hash_table_remove (self->priv->child_hash, widget);
+  gtk_widget_unparent (child);
+  g_hash_table_remove (self->priv->child_hash, child);
   g_sequence_remove (info->iter);
   if (gtk_widget_get_visible ((GtkWidget*) self))
     egg_list_box_update_separator (self, next);
@@ -1140,11 +1230,10 @@ egg_list_box_real_forall_internal (GtkContainer* base,
 				   GtkCallback callback,
 				   void* callback_target)
 {
-  EggListBox * self;
-  GSequenceIter* iter;
-  EggListBoxChildInfo* child_info;
+  EggListBox *self = EGG_LIST_BOX (base);
+  GSequenceIter *iter;
+  EggListBoxChildInfo *child_info;
 
-  self = (EggListBox*) base;
 
   iter = g_sequence_get_begin_iter (self->priv->children);
   while (!g_sequence_iter_is_end (iter))
@@ -1197,14 +1286,13 @@ static void
 egg_list_box_real_get_preferred_height_for_width (GtkWidget* base, gint width,
 						  gint* minimum_height_out, gint* natural_height_out)
 {
-  EggListBox * self;
-  GSequenceIter* iter;
+  EggListBox *self = EGG_LIST_BOX (base);
+  GSequenceIter *iter;
   gint minimum_height;
   gint natural_height;
-  GtkStyleContext* context;
+  GtkStyleContext *context;
   gint focus_width;
   gint focus_pad;
-  self = (EggListBox*) base;
 
   minimum_height = 0;
 
@@ -1217,14 +1305,14 @@ egg_list_box_real_get_preferred_height_for_width (GtkWidget* base, gint width,
        !g_sequence_iter_is_end (iter);
        iter = g_sequence_iter_next (iter))
     {
-      EggListBoxChildInfo* child_info;
-      GtkWidget* widget;
+      EggListBoxChildInfo *child_info;
+      GtkWidget *child;
       gint child_min = 0;
       child_info = g_sequence_get (iter);
-      widget = child_info->widget;
+      child = child_info->widget;
 
-      if (!(gtk_widget_get_visible (widget) &&
-	    gtk_widget_get_child_visible (widget)))
+      if (!(gtk_widget_get_visible (child) &&
+	    gtk_widget_get_child_visible (child)))
 	continue;
 
       if (child_info->separator != NULL)
@@ -1232,7 +1320,7 @@ egg_list_box_real_get_preferred_height_for_width (GtkWidget* base, gint width,
 	  gtk_widget_get_preferred_height_for_width (child_info->separator, width, &child_min, NULL);
 	  minimum_height += child_min;
 	}
-      gtk_widget_get_preferred_height_for_width (widget, width - 2 * (focus_width + focus_pad),
+      gtk_widget_get_preferred_height_for_width (child, width - 2 * (focus_width + focus_pad),
 						 &child_min, NULL);
       minimum_height += child_min + 2 * (focus_width + focus_pad);
     }
@@ -1252,19 +1340,18 @@ egg_list_box_real_get_preferred_height_for_width (GtkWidget* base, gint width,
 static void
 egg_list_box_real_get_preferred_width (GtkWidget* base, gint* minimum_width_out, gint* natural_width_out)
 {
-  EggListBox *self;
+  EggListBox *self = EGG_LIST_BOX (base);
   gint minimum_width;
   gint natural_width;
-  GtkStyleContext* context;
+  GtkStyleContext *context;
   gint focus_width;
   gint focus_pad;
-  GSequenceIter* iter;
-  EggListBoxChildInfo* child_info;
-  GtkWidget* widget;
+  GSequenceIter *iter;
+  EggListBoxChildInfo *child_info;
+  GtkWidget *child;
   gint child_min;
   gint child_nat;
   
-  self = (EggListBox*) base;
   context = gtk_widget_get_style_context ((GtkWidget*) self);
   gtk_style_context_get_style (context, "focus-line-width", &focus_width, "focus-padding", &focus_pad, NULL);
   
@@ -1276,11 +1363,11 @@ egg_list_box_real_get_preferred_width (GtkWidget* base, gint* minimum_width_out,
        iter = g_sequence_iter_next (iter))
     {
       child_info = g_sequence_get (iter);
-      widget = child_info->widget;
-      if (!(gtk_widget_get_visible (widget) && gtk_widget_get_child_visible (widget)))
+      child = child_info->widget;
+      if (!(gtk_widget_get_visible (child) && gtk_widget_get_child_visible (child)))
 	continue;
 
-      gtk_widget_get_preferred_width (widget, &child_min, &child_nat);
+      gtk_widget_get_preferred_width (child, &child_min, &child_nat);
       minimum_width = MAX (minimum_width, child_min + 2 * (focus_width + focus_pad));
       natural_width = MAX (natural_width, child_nat + 2 * (focus_width + focus_pad));
 
@@ -1299,30 +1386,28 @@ egg_list_box_real_get_preferred_width (GtkWidget* base, gint* minimum_width_out,
 }
 
 static void
-egg_list_box_real_get_preferred_width_for_height (GtkWidget* base, gint height,
-						  gint* minimum_width, gint* natural_width)
+egg_list_box_real_get_preferred_width_for_height (GtkWidget *base, gint height,
+						  gint *minimum_width, gint *natural_width)
 {
-  EggListBox * self;
-  self = (EggListBox*) base;
+  EggListBox *self = EGG_LIST_BOX (base);
   egg_list_box_real_get_preferred_width ((GtkWidget*) self, minimum_width, natural_width);
 }
 
 static void
-egg_list_box_real_size_allocate (GtkWidget* base, GtkAllocation* allocation)
+egg_list_box_real_size_allocate (GtkWidget *base, GtkAllocation *allocation)
 {
-  EggListBox *self;
+  EggListBox *self = EGG_LIST_BOX (base);
   GtkAllocation child_allocation;
   GtkAllocation separator_allocation;
-  EggListBoxChildInfo* child_info;
-  GdkWindow* window;
-  GtkWidget *widget;
-  GSequenceIter* iter;
-  GtkStyleContext* context;
+  EggListBoxChildInfo *child_info;
+  GdkWindow *window;
+  GtkWidget *child;
+  GSequenceIter *iter;
+  GtkStyleContext *context;
   gint focus_width;
   gint focus_pad;
   int child_min;
 
-  self = (EggListBox*) base;
 
   child_allocation.x = 0;
   child_allocation.y = 0;
@@ -1357,8 +1442,8 @@ egg_list_box_real_size_allocate (GtkWidget* base, GtkAllocation* allocation)
        iter = g_sequence_iter_next (iter))
     {
       child_info = g_sequence_get (iter);
-      widget = child_info->widget;
-      if (!(gtk_widget_get_visible (widget) && gtk_widget_get_child_visible (widget)))
+      child = child_info->widget;
+      if (!(gtk_widget_get_visible (child) && gtk_widget_get_child_visible (child)))
 	{
 	  child_info->y = child_allocation.y;
 	  child_info->height = 0;
@@ -1379,18 +1464,18 @@ egg_list_box_real_size_allocate (GtkWidget* base, GtkAllocation* allocation)
       child_info->y = child_allocation.y;
       child_allocation.y += focus_width + focus_pad;
       
-      gtk_widget_get_preferred_height_for_width (widget, child_allocation.width, &child_min, NULL);
+      gtk_widget_get_preferred_height_for_width (child, child_allocation.width, &child_min, NULL);
       child_allocation.height = child_min;
 
       child_info->height = child_allocation.height + 2 * (focus_width + focus_pad);
-      gtk_widget_size_allocate (widget, &child_allocation);
+      gtk_widget_size_allocate (child, &child_allocation);
 
       child_allocation.y += child_min + focus_width + focus_pad;
     }
 }
 
 void
-egg_list_box_drag_unhighlight_widget (EggListBox* self)
+egg_list_box_drag_unhighlight_widget (EggListBox *self)
 {
   g_return_if_fail (self != NULL);
 
@@ -1404,30 +1489,29 @@ egg_list_box_drag_unhighlight_widget (EggListBox* self)
 
 
 void
-egg_list_box_drag_highlight_widget (EggListBox* self, GtkWidget* widget)
+egg_list_box_drag_highlight_widget (EggListBox *self, GtkWidget *child)
 {
   GtkWidget *old_highlight;
 
   g_return_if_fail (self != NULL);
-  g_return_if_fail (widget != NULL);
+  g_return_if_fail (child != NULL);
 
-  if (self->priv->drag_highlighted_widget == widget)
+  if (self->priv->drag_highlighted_widget == child)
     return;
 
   egg_list_box_drag_unhighlight_widget (self);
-  gtk_drag_highlight (widget);
+  gtk_drag_highlight (child);
   
   old_highlight = self->priv->drag_highlighted_widget;
-  self->priv->drag_highlighted_widget = g_object_ref (widget);
+  self->priv->drag_highlighted_widget = g_object_ref (child);
   if (old_highlight)
     g_object_unref (old_highlight);
 }
 
 static void
-egg_list_box_real_drag_leave (GtkWidget* base, GdkDragContext* context, guint time_)
+egg_list_box_real_drag_leave (GtkWidget *base, GdkDragContext *context, guint time_)
 {
-  EggListBox * self;
-  self = (EggListBox*) base;
+  EggListBox *self = EGG_LIST_BOX (base);
 
   egg_list_box_drag_unhighlight_widget (self);
   if (self->priv->auto_scroll_timeout_id != 0) {
@@ -1437,19 +1521,19 @@ egg_list_box_real_drag_leave (GtkWidget* base, GdkDragContext* context, guint ti
 }
 
 static Block1Data*
-block1_data_ref (Block1Data* _data1_)
+block1_data_ref (Block1Data *_data1_)
 {
   g_atomic_int_inc (&_data1_->_ref_count_);
   return _data1_;
 }
 
 static void
-block1_data_unref (void * _userdata_)
+block1_data_unref (void *_userdata_)
 {
-  Block1Data* _data1_;
+  Block1Data *_data1_;
   _data1_ = (Block1Data*) _userdata_;
   if (g_atomic_int_dec_and_test (&_data1_->_ref_count_)) {
-    EggListBox * self;
+    EggListBox *self;
     self = _data1_->self;
     _g_object_unref0 (self);
     g_slice_free (Block1Data, _data1_);
@@ -1457,9 +1541,9 @@ block1_data_unref (void * _userdata_)
 }
 
 static gboolean
-__lambda2_ (Block1Data* _data1_)
+__lambda2_ (Block1Data *_data1_)
 {
-  EggListBox * self;
+  EggListBox *self;
   self = _data1_->self;
   gtk_adjustment_set_value (self->priv->adjustment,
 			    gtk_adjustment_get_value (self->priv->adjustment) +
@@ -1474,13 +1558,12 @@ ___lambda2__gsource_func (gpointer self)
 }
 
 static gboolean
-egg_list_box_real_drag_motion (GtkWidget* base, GdkDragContext* context,
+egg_list_box_real_drag_motion (GtkWidget *base, GdkDragContext *context,
 			       gint x, gint y, guint time_)
 {
-  EggListBox * self;
-  Block1Data* _data1_;
+  EggListBox *self = EGG_LIST_BOX (base);
+  Block1Data *_data1_;
   gdouble size;
-  self = (EggListBox*) base;
 
   /* Auto-scroll during Dnd if cursor is moving into the top/bottom portion of the
      * box. */
@@ -1532,23 +1615,23 @@ egg_list_box_new (void)
 }
 
 static void
-egg_list_box_real_child_selected (EggListBox* self, GtkWidget* child)
+egg_list_box_real_child_selected (EggListBox *self, GtkWidget *child)
 {
 }
 
 static void
-egg_list_box_real_child_activated (EggListBox* self, GtkWidget* child)
+egg_list_box_real_child_activated (EggListBox *self, GtkWidget *child)
 {
 }
 
 static void
-egg_list_box_real_activate_cursor_child (EggListBox* self)
+egg_list_box_real_activate_cursor_child (EggListBox *self)
 {
   egg_list_box_select_and_activate (self, self->priv->cursor_child);
 }
 
 static void
-egg_list_box_real_toggle_cursor_child (EggListBox* self)
+egg_list_box_real_toggle_cursor_child (EggListBox *self)
 {
   if (self->priv->cursor_child == NULL)
     return;
@@ -1561,16 +1644,16 @@ egg_list_box_real_toggle_cursor_child (EggListBox* self)
 }
 
 static void
-egg_list_box_real_move_cursor (EggListBox* self, GtkMovementStep step, gint count)
+egg_list_box_real_move_cursor (EggListBox *self, GtkMovementStep step, gint count)
 {
   GdkModifierType state;
   gboolean modify_selection_pressed;
-  EggListBoxChildInfo* child;
+  EggListBoxChildInfo *child;
   GdkModifierType modify_mod_mask;
-  EggListBoxChildInfo* prev;
-  EggListBoxChildInfo* next;
+  EggListBoxChildInfo *prev;
+  EggListBoxChildInfo *next;
   gint page_size;
-  GSequenceIter* iter;
+  GSequenceIter *iter;
   gint start_y;
   gint end_y;
   
@@ -1679,30 +1762,10 @@ egg_list_box_real_move_cursor (EggListBox* self, GtkMovementStep step, gint coun
     egg_list_box_update_selected (self, child);
 }
 
-
-static void g_cclosure_user_marshal_VOID__ENUM_INT (GClosure * closure, GValue * return_value, guint n_param_values, const GValue * param_values, gpointer invocation_hint, gpointer marshal_data) {
-  typedef void (*GMarshalFunc_VOID__ENUM_INT) (gpointer data1, gint arg_1, gint arg_2, gpointer data2);
-  register GMarshalFunc_VOID__ENUM_INT callback;
-  register GCClosure * cc;
-  register gpointer data1;
-  register gpointer data2;
-  cc = (GCClosure *) closure;
-  g_return_if_fail (n_param_values == 3);
-  if (G_CCLOSURE_SWAP_DATA (closure)) {
-    data1 = closure->data;
-    data2 = param_values->data[0].v_pointer;
-  } else {
-    data1 = param_values->data[0].v_pointer;
-    data2 = closure->data;
-  }
-  callback = (GMarshalFunc_VOID__ENUM_INT) (marshal_data ? marshal_data : cc->callback);
-  callback (data1, g_value_get_enum (param_values + 1), g_value_get_int (param_values + 2), data2);
-}
-
 static EggListBoxChildInfo*
-egg_list_box_child_info_new (GtkWidget* widget)
+egg_list_box_child_info_new (GtkWidget *widget)
 {
-  EggListBoxChildInfo* info;
+  EggListBoxChildInfo *info;
 
   info = g_new0 (EggListBoxChildInfo, 1);
   info->widget = g_object_ref (widget);
@@ -1710,7 +1773,7 @@ egg_list_box_child_info_new (GtkWidget* widget)
 }
 
 static void
-egg_list_box_child_info_free (EggListBoxChildInfo* info)
+egg_list_box_child_info_free (EggListBoxChildInfo *info)
 {
   _g_object_unref0 (info->widget);
   _g_object_unref0 (info->separator);
@@ -1718,9 +1781,9 @@ egg_list_box_child_info_free (EggListBoxChildInfo* info)
 }
 
 static EggListBoxChildFlags*
-egg_list_box_child_flags_find_or_add (EggListBoxChildFlags* array,
-				      int* array_length,
-				      EggListBoxChildInfo* to_find)
+egg_list_box_child_flags_find_or_add (EggListBoxChildFlags *array,
+				      int *array_length,
+				      EggListBoxChildInfo *to_find)
 {
   gint i;
 
@@ -1737,9 +1800,9 @@ egg_list_box_child_flags_find_or_add (EggListBoxChildFlags* array,
 }
 
 static void
-egg_list_box_class_init (EggListBoxClass * klass)
+egg_list_box_class_init (EggListBoxClass *klass)
 {
-  GtkBindingSet* binding_set;
+  GtkBindingSet *binding_set;
 
   egg_list_box_parent_class = g_type_class_peek_parent (klass);
   
@@ -1799,7 +1862,7 @@ egg_list_box_class_init (EggListBoxClass * klass)
 }
 
 static void
-egg_list_box_init (EggListBox * self)
+egg_list_box_init (EggListBox *self)
 {
   self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, EGG_TYPE_LIST_BOX, EggListBoxPrivate);
 
@@ -1815,10 +1878,10 @@ egg_list_box_init (EggListBox * self)
 }
 
 static void
-egg_list_box_finalize (GObject* obj)
+egg_list_box_finalize (GObject *obj)
 {
 
-  EggListBox * self;
+  EggListBox *self;
   self = EGG_LIST_BOX (obj);
 
   if (self->priv->auto_scroll_timeout_id != ((guint) 0))
