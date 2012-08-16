@@ -27,11 +27,6 @@
 
 #include "egg-list-box.h"
 
-#define _g_object_unref0(var) ((var == NULL) ? NULL : (var = (g_object_unref (var), NULL)))
-static gpointer _g_object_ref0 (gpointer self) {
-	return self ? g_object_ref (self) : NULL;
-}
-
 /* This already exists in gtk as _gtk_marshal_VOID__ENUM_INT, inline it here for now
    to avoid separate marshallers file */
 static void
@@ -228,8 +223,8 @@ egg_list_box_child_info_new (GtkWidget *widget)
 static void
 egg_list_box_child_info_free (EggListBoxChildInfo *info)
 {
-  _g_object_unref0 (info->widget);
-  _g_object_unref0 (info->separator);
+  g_clear_object (&info->widget);
+  g_clear_object (&info->separator);
   g_free (info);
 }
 
@@ -274,11 +269,8 @@ egg_list_box_finalize (GObject *obj)
   if (priv->update_separator_func_target_destroy_notify != NULL)
     priv->update_separator_func_target_destroy_notify (priv->update_separator_func_target);
 
-  if (priv->adjustment)
-    g_object_unref (priv->adjustment);
-
-  if (priv->drag_highlighted_widget)
-    g_object_unref (priv->drag_highlighted_widget);
+  g_clear_object (&priv->adjustment);
+  g_clear_object (&priv->drag_highlighted_widget);
 
   g_sequence_free (priv->children);
   g_hash_table_unref (priv->child_hash);
@@ -451,7 +443,8 @@ egg_list_box_set_adjustment (EggListBox *list_box,
   g_return_if_fail (list_box != NULL);
 
   g_object_ref (adjustment);
-  _g_object_unref0 (priv->adjustment);
+  if (priv->adjustment)
+    g_object_unref (priv->adjustment);
   priv->adjustment = adjustment;
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list_box),
 				       adjustment);
@@ -1267,23 +1260,29 @@ egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
 
   info = g_sequence_get (iter);
   before_iter = egg_list_box_get_previous_visible (list_box, iter);
-  child = _g_object_ref0 (info->widget);
+  child = info->widget;
+  if (child)
+    g_object_ref (child);
   before_child = NULL;
   if (before_iter != NULL)
     {
       before_info = g_sequence_get (before_iter);
-      before_child = _g_object_ref0 (before_info->widget);
+      before_child = before_info->widget;
+      if (before_child)
+	g_object_ref (before_child);
     }
 
   if (priv->update_separator_func != NULL &&
       gtk_widget_get_visible (child) &&
       gtk_widget_get_child_visible (child))
     {
-      old_separator = _g_object_ref0 (info->separator);
+      old_separator = info->separator;
+      if (old_separator)
+	g_object_ref (old_separator);
       priv->update_separator_func (&info->separator,
-					 child,
-					 before_child,
-					 priv->update_separator_func_target);
+				   child,
+				   before_child,
+				   priv->update_separator_func_target);
       if (old_separator != info->separator)
 	{
 	  if (old_separator != NULL)
@@ -1299,7 +1298,8 @@ egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
 	    }
 	  gtk_widget_queue_resize ((GtkWidget*) list_box);
 	}
-      _g_object_unref0 (old_separator);
+      if (old_separator)
+	g_object_unref (old_separator);
     }
   else
     {
@@ -1307,12 +1307,14 @@ egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
 	{
 	  g_hash_table_remove (priv->separator_hash, info->separator);
 	  gtk_widget_unparent (info->separator);
-	  _g_object_unref0 (info->separator);
+	  g_clear_object (&info->separator);
 	  gtk_widget_queue_resize ((GtkWidget*) list_box);
 	}
     }
-  _g_object_unref0 (before_child);
-  _g_object_unref0 (child);
+  if (before_child)
+    g_object_unref (before_child);
+  if (child)
+    g_object_unref (child);
 }
 
 static EggListBoxChildInfo*
@@ -1388,8 +1390,7 @@ egg_list_box_real_remove (GtkContainer* container, GtkWidget* child)
       if (info != NULL)
 	{
 	  g_hash_table_remove (priv->separator_hash, child);
-	  _g_object_unref0 (info->separator);
-	  info->separator = NULL;
+	  g_clear_object (&info->separator);
 	  gtk_widget_unparent (child);
 	  if (was_visible && gtk_widget_get_visible ((GtkWidget*) list_box))
 	    gtk_widget_queue_resize ((GtkWidget*) list_box);
@@ -1405,8 +1406,7 @@ egg_list_box_real_remove (GtkContainer* container, GtkWidget* child)
     {
       g_hash_table_remove (priv->separator_hash, info->separator);
       gtk_widget_unparent (info->separator);
-      _g_object_unref0 (info->separator);
-      info->separator = NULL;
+      g_clear_object (&info->separator);
     }
 
   if (info == priv->selected_child)
@@ -1694,8 +1694,7 @@ egg_list_box_drag_unhighlight_widget (EggListBox *list_box)
     return;
 
   gtk_drag_unhighlight (priv->drag_highlighted_widget);
-  g_object_unref (priv->drag_highlighted_widget);
-  priv->drag_highlighted_widget = NULL;
+  g_clear_object (&priv->drag_highlighted_widget);
 }
 
 
