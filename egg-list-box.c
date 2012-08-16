@@ -25,7 +25,7 @@
 #include <string.h>
 #include <gobject/gvaluecollector.h>
 
-#include "list-box.h"
+#include "egg-list-box.h"
 
 #define _g_object_unref0(var) ((var == NULL) ? NULL : (var = (g_object_unref (var), NULL)))
 static gpointer _g_object_ref0 (gpointer self) {
