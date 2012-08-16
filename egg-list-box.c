@@ -122,68 +122,86 @@ enum  {
 
 G_DEFINE_TYPE (EggListBox, egg_list_box, GTK_TYPE_CONTAINER)
 
-static EggListBoxChildInfo *egg_list_box_find_child_at_y                     (EggListBox          *list_box,
-									      gint                 y);
-static EggListBoxChildInfo *egg_list_box_lookup_info                         (EggListBox          *list_box,
-									      GtkWidget           *widget);
-static void                 egg_list_box_update_selected                     (EggListBox          *list_box,
-									      EggListBoxChildInfo *child);
-static void                 egg_list_box_apply_filter_all                    (EggListBox          *list_box);
-static void                 egg_list_box_update_separator                    (EggListBox          *list_box,
-									      GSequenceIter       *iter);
-static GSequenceIter *      egg_list_box_get_next_visible                    (EggListBox          *list_box,
-									      GSequenceIter       *_iter);
-static void                 egg_list_box_apply_filter                        (EggListBox          *list_box,
-									      GtkWidget           *child);
-static void                 egg_list_box_add_move_binding                    (GtkBindingSet       *binding_set,
-									      guint                keyval,
-									      GdkModifierType      modmask,
-									      GtkMovementStep      step,
-									      gint                 count);
-static void                 egg_list_box_update_cursor                       (EggListBox          *list_box,
-									      EggListBoxChildInfo *child);
-static void                 egg_list_box_select_and_activate                 (EggListBox          *list_box,
-									      EggListBoxChildInfo *child);
-static void                 egg_list_box_update_prelight                     (EggListBox          *list_box,
-									      EggListBoxChildInfo *child);
-static void                 egg_list_box_update_active                       (EggListBox          *list_box,
-									      EggListBoxChildInfo *child);
-static gboolean             egg_list_box_real_enter_notify_event             (GtkWidget           *widget,
-									      GdkEventCrossing    *event);
-static gboolean             egg_list_box_real_leave_notify_event             (GtkWidget           *widget,
-									      GdkEventCrossing    *event);
-static gboolean             egg_list_box_real_motion_notify_event            (GtkWidget           *widget,
-									      GdkEventMotion      *event);
-static gboolean             egg_list_box_real_button_press_event             (GtkWidget           *widget,
-									      GdkEventButton      *event);
-static gboolean             egg_list_box_real_button_release_event           (GtkWidget           *widget,
-									      GdkEventButton      *event);
-static void                 egg_list_box_real_show                           (GtkWidget           *widget);
-static gboolean             egg_list_box_real_focus                          (GtkWidget           *widget,
-									      GtkDirectionType     direction);
-static GSequenceIter*       egg_list_box_get_previous_visible                (EggListBox          *list_box,
-									      GSequenceIter       *_iter);
-static EggListBoxChildInfo *egg_list_box_get_first_visible                   (EggListBox          *list_box);
-static EggListBoxChildInfo *egg_list_box_get_last_visible                    (EggListBox          *list_box);
-static gboolean             egg_list_box_real_draw                           (GtkWidget           *widget,
-									      cairo_t             *cr);
-static void                 egg_list_box_real_realize                        (GtkWidget           *widget);
-static void                 egg_list_box_real_add                            (GtkContainer        *container,
-									      GtkWidget           *widget);
-static void                 egg_list_box_child_visibility_changed            (EggListBox          *list_box,
-									      GObject             *object,
-									      GParamSpec          *pspec);
-static void                 egg_list_box_real_remove                         (GtkContainer        *container,
-									      GtkWidget           *widget);
-static void                 egg_list_box_real_forall_internal                (GtkContainer        *container,
-									      gboolean             include_internals,
-									      GtkCallback          callback,
-									      void                *callback_target);
-static void                 egg_list_box_real_compute_expand_internal        (GtkWidget           *widget,
-									      gboolean            *hexpand,
-									      gboolean            *vexpand);
-static GType                egg_list_box_real_child_type                     (GtkContainer        *container);
-static GtkSizeRequestMode   egg_list_box_real_get_request_mode               (GtkWidget           *widget);
+static EggListBoxChildInfo *egg_list_box_find_child_at_y              (EggListBox          *list_box,
+								       gint                 y);
+static EggListBoxChildInfo *egg_list_box_lookup_info                  (EggListBox          *list_box,
+								       GtkWidget           *widget);
+static void                 egg_list_box_update_selected              (EggListBox          *list_box,
+								       EggListBoxChildInfo *child);
+static void                 egg_list_box_apply_filter_all             (EggListBox          *list_box);
+static void                 egg_list_box_update_separator             (EggListBox          *list_box,
+								       GSequenceIter       *iter);
+static GSequenceIter *      egg_list_box_get_next_visible             (EggListBox          *list_box,
+								       GSequenceIter       *_iter);
+static void                 egg_list_box_apply_filter                 (EggListBox          *list_box,
+								       GtkWidget           *child);
+static void                 egg_list_box_add_move_binding             (GtkBindingSet       *binding_set,
+								       guint                keyval,
+								       GdkModifierType      modmask,
+								       GtkMovementStep      step,
+								       gint                 count);
+static void                 egg_list_box_update_cursor                (EggListBox          *list_box,
+								       EggListBoxChildInfo *child);
+static void                 egg_list_box_select_and_activate          (EggListBox          *list_box,
+								       EggListBoxChildInfo *child);
+static void                 egg_list_box_update_prelight              (EggListBox          *list_box,
+								       EggListBoxChildInfo *child);
+static void                 egg_list_box_update_active                (EggListBox          *list_box,
+								       EggListBoxChildInfo *child);
+static gboolean             egg_list_box_real_enter_notify_event      (GtkWidget           *widget,
+								       GdkEventCrossing    *event);
+static gboolean             egg_list_box_real_leave_notify_event      (GtkWidget           *widget,
+								       GdkEventCrossing    *event);
+static gboolean             egg_list_box_real_motion_notify_event     (GtkWidget           *widget,
+								       GdkEventMotion      *event);
+static gboolean             egg_list_box_real_button_press_event      (GtkWidget           *widget,
+								       GdkEventButton      *event);
+static gboolean             egg_list_box_real_button_release_event    (GtkWidget           *widget,
+								       GdkEventButton      *event);
+static void                 egg_list_box_real_show                    (GtkWidget           *widget);
+static gboolean             egg_list_box_real_focus                   (GtkWidget           *widget,
+								       GtkDirectionType     direction);
+static GSequenceIter*       egg_list_box_get_previous_visible         (EggListBox          *list_box,
+								       GSequenceIter       *_iter);
+static EggListBoxChildInfo *egg_list_box_get_first_visible            (EggListBox          *list_box);
+static EggListBoxChildInfo *egg_list_box_get_last_visible             (EggListBox          *list_box);
+static gboolean             egg_list_box_real_draw                    (GtkWidget           *widget,
+								       cairo_t             *cr);
+static void                 egg_list_box_real_realize                 (GtkWidget           *widget);
+static void                 egg_list_box_real_add                     (GtkContainer        *container,
+								       GtkWidget           *widget);
+static void                 egg_list_box_child_visibility_changed     (EggListBox          *list_box,
+								       GObject             *object,
+								       GParamSpec          *pspec);
+static void                 egg_list_box_real_remove                  (GtkContainer        *container,
+								       GtkWidget           *widget);
+static void                 egg_list_box_real_forall_internal         (GtkContainer        *container,
+								       gboolean             include_internals,
+								       GtkCallback          callback,
+								       void                *callback_target);
+static void                 egg_list_box_real_compute_expand_internal (GtkWidget           *widget,
+								       gboolean            *hexpand,
+								       gboolean            *vexpand);
+static GType                egg_list_box_real_child_type              (GtkContainer        *container);
+static GtkSizeRequestMode   egg_list_box_real_get_request_mode        (GtkWidget           *widget);
+static void                 egg_list_box_real_size_allocate           (GtkWidget           *widget,
+								       GtkAllocation       *allocation);
+static void                 egg_list_box_real_drag_leave              (GtkWidget           *widget,
+								       GdkDragContext      *context,
+								       guint                time_);
+static gboolean             egg_list_box_real_drag_motion             (GtkWidget           *widget,
+								       GdkDragContext      *context,
+								       gint                 x,
+								       gint                 y,
+								       guint                time_);
+static void                 egg_list_box_real_activate_cursor_child   (EggListBox          *list_box);
+static void                 egg_list_box_real_toggle_cursor_child     (EggListBox          *list_box);
+static void                 egg_list_box_real_move_cursor             (EggListBox          *list_box,
+								       GtkMovementStep      step,
+								       gint                 count);
+static void                 egg_list_box_finalize                     (GObject             *obj);
+
+
 static void                 egg_list_box_real_get_preferred_height           (GtkWidget           *widget,
 									      gint                *minimum_height,
 									      gint                *natural_height);
@@ -198,26 +216,9 @@ static void                 egg_list_box_real_get_preferred_width_for_height (Gt
 									      gint                 height,
 									      gint                *minimum_width,
 									      gint                *natural_width);
-static void                 egg_list_box_real_size_allocate                  (GtkWidget           *widget,
-									      GtkAllocation       *allocation);
-static void                 egg_list_box_real_drag_leave                     (GtkWidget           *widget,
-									      GdkDragContext      *context,
-									      guint                time_);
-static gboolean             egg_list_box_real_drag_motion                    (GtkWidget           *widget,
-									      GdkDragContext      *context,
-									      gint                 x,
-									      gint                 y,
-									      guint                time_);
-static void                 egg_list_box_real_activate_cursor_child          (EggListBox          *list_box);
-static void                 egg_list_box_real_toggle_cursor_child            (EggListBox          *list_box);
-static void                 egg_list_box_real_move_cursor                    (EggListBox          *list_box,
-									      GtkMovementStep      step,
-									      gint                 count);
-static void                 egg_list_box_finalize                            (GObject             *obj);
-
-static void   _egg_list_box_child_visibility_changed_g_object_notify (GObject              *_sender,
-								      GParamSpec           *pspec,
-								      gpointer              list_box);
+static void          _egg_list_box_child_visibility_changed_g_object_notify  (GObject              *_sender,
+									      GParamSpec           *pspec,
+									      gpointer              list_box);
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
