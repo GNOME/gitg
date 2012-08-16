@@ -170,9 +170,6 @@ static gboolean             egg_list_box_real_draw                    (GtkWidget
 static void                 egg_list_box_real_realize                 (GtkWidget           *widget);
 static void                 egg_list_box_real_add                     (GtkContainer        *container,
 								       GtkWidget           *widget);
-static void                 egg_list_box_child_visibility_changed     (EggListBox          *list_box,
-								       GObject             *object,
-								       GParamSpec          *pspec);
 static void                 egg_list_box_real_remove                  (GtkContainer        *container,
 								       GtkWidget           *widget);
 static void                 egg_list_box_real_forall_internal         (GtkContainer        *container,
@@ -216,9 +213,6 @@ static void                 egg_list_box_real_get_preferred_width_for_height (Gt
 									      gint                 height,
 									      gint                *minimum_width,
 									      gint                *natural_width);
-static void          _egg_list_box_child_visibility_changed_g_object_notify  (GObject              *_sender,
-									      GParamSpec           *pspec,
-									      gpointer              list_box);
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
@@ -1331,9 +1325,20 @@ egg_list_box_lookup_info (EggListBox *list_box, GtkWidget* child)
 }
 
 static void
-_egg_list_box_child_visibility_changed_g_object_notify (GObject* _sender, GParamSpec* pspec, gpointer list_box)
+child_visibility_changed (GObject* object, GParamSpec* pspec, EggListBox *list_box)
 {
-  egg_list_box_child_visibility_changed (list_box, _sender, pspec);
+  EggListBoxChildInfo *info;
+
+  if (gtk_widget_get_visible ((GtkWidget*) list_box))
+    {
+      info = egg_list_box_lookup_info (list_box, GTK_WIDGET (object));
+      if (info != NULL)
+	{
+	  egg_list_box_update_separator (list_box, info->iter);
+	  egg_list_box_update_separator (list_box,
+					 egg_list_box_get_next_visible (list_box, info->iter));
+	}
+    }
 }
 
 static void
@@ -1360,24 +1365,7 @@ egg_list_box_real_add (GtkContainer* container, GtkWidget* child)
       egg_list_box_update_separator (list_box, egg_list_box_get_next_visible (list_box, iter));
     }
   g_signal_connect_object (child, "notify::visible",
-			   (GCallback) _egg_list_box_child_visibility_changed_g_object_notify, list_box, 0);
-}
-
-static void
-egg_list_box_child_visibility_changed (EggListBox *list_box, GObject* object, GParamSpec* pspec)
-{
-  EggListBoxChildInfo *info;
-
-  if (gtk_widget_get_visible ((GtkWidget*) list_box))
-    {
-      info = egg_list_box_lookup_info (list_box, GTK_WIDGET (object));
-      if (info != NULL)
-	{
-	  egg_list_box_update_separator (list_box, info->iter);
-	  egg_list_box_update_separator (list_box,
-					 egg_list_box_get_next_visible (list_box, info->iter));
-	}
-    }
+			   (GCallback) child_visibility_changed, list_box, 0);
 }
 
 static void
@@ -1392,7 +1380,7 @@ egg_list_box_real_remove (GtkContainer* container, GtkWidget* child)
   g_return_if_fail (child != NULL);
   was_visible = gtk_widget_get_visible (child);
 
-  g_signal_handlers_disconnect_by_func (child, (GCallback) _egg_list_box_child_visibility_changed_g_object_notify, list_box);
+  g_signal_handlers_disconnect_by_func (child, (GCallback) child_visibility_changed, list_box);
 
   info = egg_list_box_lookup_info (list_box, child);
   if (info == NULL)
