@@ -1148,6 +1148,14 @@ egg_list_box_apply_filter_all (EggListBox *list_box)
     }
 }
 
+/* Children are visible if they are shown by the app (visible)
+   and not filtered out (child_visible) by the listbox */
+static gboolean
+child_is_visible (GtkWidget *child)
+{
+  return gtk_widget_get_visible (child) && gtk_widget_get_child_visible (child);
+}
+
 static EggListBoxChildInfo*
 egg_list_box_get_first_visible (EggListBox *list_box)
 {
@@ -1161,9 +1169,7 @@ egg_list_box_get_first_visible (EggListBox *list_box)
        iter = g_sequence_iter_next (iter))
     {
 	child_info = g_sequence_get (iter);
-	child = child_info->widget;
-	if (gtk_widget_get_visible (child) &&
-	    gtk_widget_get_child_visible (child))
+	if (child_is_visible (child_info->widget))
 	  return child_info;
     }
 
@@ -1177,16 +1183,13 @@ egg_list_box_get_last_visible (EggListBox *list_box)
   EggListBoxPrivate *priv = list_box->priv;
   EggListBoxChildInfo *child_info;
   GSequenceIter *iter;
-  GtkWidget *child;
 
   iter = g_sequence_get_end_iter (priv->children);
   while (!g_sequence_iter_is_begin (iter))
     {
       iter = g_sequence_iter_prev (iter);
       child_info = g_sequence_get (iter);
-      child = child_info->widget;
-      if (gtk_widget_get_visible (child) &&
-	  gtk_widget_get_child_visible (child))
+      if (child_is_visible (child_info->widget))
 	return child_info;
     }
 
@@ -1198,7 +1201,6 @@ egg_list_box_get_previous_visible (EggListBox *list_box,
 				   GSequenceIter* iter)
 {
   EggListBoxChildInfo *child_info;
-  GtkWidget *child;
 
   if (g_sequence_iter_is_begin (iter))
     return NULL;
@@ -1207,9 +1209,7 @@ egg_list_box_get_previous_visible (EggListBox *list_box,
     {
       iter = g_sequence_iter_prev (iter);
       child_info = g_sequence_get (iter);
-      child = child_info->widget;
-      if (gtk_widget_get_visible (child) &&
-	  gtk_widget_get_child_visible (child))
+      if (child_is_visible (child_info->widget))
 	return iter;
     }
   while (!g_sequence_iter_is_begin (iter));
@@ -1221,7 +1221,6 @@ static GSequenceIter*
 egg_list_box_get_next_visible (EggListBox *list_box, GSequenceIter* iter)
 {
   EggListBoxChildInfo *child_info;
-  GtkWidget *child;
 
   if (g_sequence_iter_is_end (iter))
     return iter;
@@ -1232,9 +1231,7 @@ egg_list_box_get_next_visible (EggListBox *list_box, GSequenceIter* iter)
       if (!g_sequence_iter_is_end (iter))
 	{
 	child_info = g_sequence_get (iter);
-	child = child_info->widget;
-	if (gtk_widget_get_visible (child) &&
-	    gtk_widget_get_child_visible (child))
+	if (child_is_visible (child_info->widget))
 	  return iter;
 	}
     }
@@ -1273,8 +1270,7 @@ egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
     }
 
   if (priv->update_separator_func != NULL &&
-      gtk_widget_get_visible (child) &&
-      gtk_widget_get_child_visible (child))
+      child_is_visible (child))
     {
       old_separator = info->separator;
       if (old_separator)
@@ -1518,8 +1514,7 @@ egg_list_box_real_get_preferred_height_for_width (GtkWidget* widget, gint width,
       child_info = g_sequence_get (iter);
       child = child_info->widget;
 
-      if (!(gtk_widget_get_visible (child) &&
-	    gtk_widget_get_child_visible (child)))
+      if (!child_is_visible (child))
 	continue;
 
       if (child_info->separator != NULL)
@@ -1572,7 +1567,7 @@ egg_list_box_real_get_preferred_width (GtkWidget* widget, gint* minimum_width_ou
     {
       child_info = g_sequence_get (iter);
       child = child_info->widget;
-      if (!(gtk_widget_get_visible (child) && gtk_widget_get_child_visible (child)))
+      if (!child_is_visible (child))
 	continue;
 
       gtk_widget_get_preferred_width (child, &child_min, &child_nat);
@@ -1652,7 +1647,7 @@ egg_list_box_real_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
     {
       child_info = g_sequence_get (iter);
       child = child_info->widget;
-      if (!(gtk_widget_get_visible (child) && gtk_widget_get_child_visible (child)))
+      if (!child_is_visible (child))
 	{
 	  child_info->y = child_allocation.y;
 	  child_info->height = 0;
