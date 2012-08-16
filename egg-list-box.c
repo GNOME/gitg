@@ -122,6 +122,15 @@ struct _Block1Data
   gint move;
 };
 
+enum {
+  CHILD_SELECTED,
+  CHILD_ACTIVATED,
+  ACTIVATE_CURSOR_CHILD,
+  TOGGLE_CURSOR_CHILD,
+  MOVE_CURSOR,
+  LAST_SIGNAL
+};
+
 enum  {
   PROP_0
 };
@@ -228,10 +237,6 @@ static Block1Data*           block1_data_ref                                  (B
 static void                  block1_data_unref                                (void                 *_userdata_);
 static gboolean              __lambda2_                                       (Block1Data           *_data1_);
 static gboolean              ___lambda2__gsource_func                         (gpointer              self);
-static void                  egg_list_box_real_child_selected                 (EggListBox           *self,
-GtkWidget            *child);
-static void                  egg_list_box_real_child_activated                (EggListBox           *self,
-GtkWidget            *child);
 static void                  egg_list_box_real_activate_cursor_child          (EggListBox           *self);
 static void                  egg_list_box_real_toggle_cursor_child            (EggListBox           *self);
 static void                  egg_list_box_real_move_cursor                    (EggListBox           *self,
@@ -242,6 +247,9 @@ static void                  egg_list_box_finalize                            (G
 static void   _egg_list_box_child_visibility_changed_g_object_notify (GObject              *_sender,
 								      GParamSpec           *pspec,
 								      gpointer              self);
+
+
+static guint signals[LAST_SIGNAL] = { 0 };
 
 GtkWidget *
 egg_list_box_get_selected_child (EggListBox *self)
@@ -258,7 +266,7 @@ GtkWidget *
 egg_list_box_get_child_at_y (EggListBox *self, gint y)
 {
   EggListBoxChildInfo *child;
-  
+
   g_return_val_if_fail (self != NULL, NULL);
 
   child = egg_list_box_find_child_at_y (self, y);
@@ -338,7 +346,7 @@ egg_list_box_set_filter_func (EggListBox *self,
   self->priv->filter_func = f;
   self->priv->filter_func_target = f_target;
   self->priv->filter_func_target_destroy_notify = f_target_destroy_notify;
-  
+
   egg_list_box_refilter (self);
 }
 
@@ -539,8 +547,8 @@ egg_list_box_update_selected (EggListBox *self,
       (child == NULL || self->priv->selection_mode != GTK_SELECTION_NONE))
     {
       self->priv->selected_child = child;
-      g_signal_emit_by_name (self, "child-selected",
-			     (self->priv->selected_child != NULL) ? self->priv->selected_child->widget : NULL);
+      g_signal_emit (self, signals[CHILD_SELECTED], 0,
+		     (self->priv->selected_child != NULL) ? self->priv->selected_child->widget : NULL);
       gtk_widget_queue_draw ((GtkWidget*) self);
     }
   if (child != NULL)
@@ -558,7 +566,7 @@ egg_list_box_select_and_activate (EggListBox *self, EggListBoxChildInfo *child)
   egg_list_box_update_selected (self, child);
 
   if (w != NULL)
-    g_signal_emit_by_name (self, "child-activated", w);
+    g_signal_emit (self, signals[CHILD_ACTIVATED], 0, w);
 }
 
 static void
@@ -612,7 +620,7 @@ egg_list_box_real_leave_notify_event (GtkWidget *base,
 
   if (event->window != gtk_widget_get_window ((GtkWidget*) self))
     return FALSE;
-  
+
   if (event->detail != GDK_NOTIFY_INFERIOR)
     child = NULL;
   else
@@ -657,8 +665,8 @@ egg_list_box_real_button_press_event (GtkWidget *base,
 	  if (event->type == GDK_2BUTTON_PRESS &&
 	      !self->priv->activate_single_click &&
 	      child->widget != NULL)
-	    g_signal_emit_by_name (self, "child-activated",
-				   child->widget);
+	    g_signal_emit (self, signals[CHILD_ACTIVATED], 0,
+			   child->widget);
 
 	}
       /* TODO:
@@ -697,9 +705,9 @@ static void
 egg_list_box_real_show (GtkWidget *base)
 {
   EggListBox * self = EGG_LIST_BOX (base);
-  
+
   egg_list_box_reseparate (self);
-  
+
   GTK_WIDGET_CLASS (egg_list_box_parent_class)->show ((GtkWidget*) G_TYPE_CHECK_INSTANCE_CAST (self, GTK_TYPE_CONTAINER, GtkContainer));
 }
 
@@ -779,16 +787,16 @@ egg_list_box_real_focus (GtkWidget* base, GtkDirectionType direction)
 	  if (direction == GTK_DIR_UP)
 	    {
 	      i = egg_list_box_get_previous_visible (self, current_focus_child->iter);
-	      if (i != NULL) 
+	      if (i != NULL)
 		next_focus_child = g_sequence_get (i);
-	      
+
 	    }
 	  else
 	    {
 	      i = egg_list_box_get_next_visible (self, current_focus_child->iter);
 	      if (!g_sequence_iter_is_end (i))
 		next_focus_child = g_sequence_get (i);
-	      
+
 	    }
 	}
       else
@@ -875,7 +883,7 @@ egg_list_box_real_draw (GtkWidget* base, cairo_t* cr)
       found = egg_list_box_child_flags_find_or_add (flags, &flags_length, self->priv->active_child);
       found->state |= GTK_STATE_FLAG_ACTIVE;
     }
-  
+
   for (i = 0; i < flags_length; i++)
     {
       EggListBoxChildFlags *flag = &flags[i];
@@ -1013,7 +1021,7 @@ egg_list_box_get_previous_visible (EggListBox *self,
 	return iter;
     }
   while (!g_sequence_iter_is_begin (iter));
-  
+
   return NULL;
 }
 
@@ -1066,7 +1074,7 @@ egg_list_box_update_separator (EggListBox *self, GSequenceIter* iter)
       before_info = g_sequence_get (before_iter);
       before_child = _g_object_ref0 (before_info->widget);
     }
-  
+
   if (self->priv->update_separator_func != NULL &&
       gtk_widget_get_visible (child) &&
       gtk_widget_get_child_visible (child))
@@ -1174,7 +1182,7 @@ egg_list_box_real_remove (GtkContainer* base, GtkWidget* child)
   was_visible = gtk_widget_get_visible (child);
 
   g_signal_handlers_disconnect_by_func (child, (GCallback) _egg_list_box_child_visibility_changed_g_object_notify, self);
-  
+
   info = egg_list_box_lookup_info (self, child);
   if (info == NULL)
     {
@@ -1194,7 +1202,7 @@ egg_list_box_real_remove (GtkContainer* base, GtkWidget* child)
 	}
       return;
     }
-  
+
   if (info->separator != NULL)
     {
       g_hash_table_remove (self->priv->separator_hash, info->separator);
@@ -1351,10 +1359,10 @@ egg_list_box_real_get_preferred_width (GtkWidget* base, gint* minimum_width_out,
   GtkWidget *child;
   gint child_min;
   gint child_nat;
-  
+
   context = gtk_widget_get_style_context ((GtkWidget*) self);
   gtk_style_context_get_style (context, "focus-line-width", &focus_width, "focus-padding", &focus_pad, NULL);
-  
+
   minimum_width = 0;
   natural_width = 0;
 
@@ -1418,10 +1426,10 @@ egg_list_box_real_size_allocate (GtkWidget *base, GtkAllocation *allocation)
   separator_allocation.y = 0;
   separator_allocation.width = 0;
   separator_allocation.height = 0;
-  
+
   gtk_widget_set_allocation ((GtkWidget*) self, allocation);
   window = gtk_widget_get_window ((GtkWidget*) self);
-  if (window != NULL) 
+  if (window != NULL)
     gdk_window_move_resize (window,
 			    allocation->x, allocation->y,
 			    allocation->width, allocation->height);
@@ -1449,7 +1457,7 @@ egg_list_box_real_size_allocate (GtkWidget *base, GtkAllocation *allocation)
 	  child_info->height = 0;
 	  continue;
 	}
-      
+
       if (child_info->separator != NULL)
 	{
 	  gtk_widget_get_preferred_height_for_width (child_info->separator,
@@ -1460,10 +1468,10 @@ egg_list_box_real_size_allocate (GtkWidget *base, GtkAllocation *allocation)
 				    &separator_allocation);
 	  child_allocation.y += child_min;
 	}
-      
+
       child_info->y = child_allocation.y;
       child_allocation.y += focus_width + focus_pad;
-      
+
       gtk_widget_get_preferred_height_for_width (child, child_allocation.width, &child_min, NULL);
       child_allocation.height = child_min;
 
@@ -1501,7 +1509,7 @@ egg_list_box_drag_highlight_widget (EggListBox *self, GtkWidget *child)
 
   egg_list_box_drag_unhighlight_widget (self);
   gtk_drag_highlight (child);
-  
+
   old_highlight = self->priv->drag_highlighted_widget;
   self->priv->drag_highlighted_widget = g_object_ref (child);
   if (old_highlight)
@@ -1579,7 +1587,7 @@ egg_list_box_real_drag_motion (GtkWidget *base, GdkDragContext *context,
   _data1_ = g_slice_new0 (Block1Data);
   _data1_->_ref_count_ = 1;
   _data1_->self = g_object_ref (self);
- 
+
   /* Part of the view triggering auto-scroll */
   size = 30;
   _data1_->move = 0;
@@ -1615,16 +1623,6 @@ egg_list_box_new (void)
 }
 
 static void
-egg_list_box_real_child_selected (EggListBox *self, GtkWidget *child)
-{
-}
-
-static void
-egg_list_box_real_child_activated (EggListBox *self, GtkWidget *child)
-{
-}
-
-static void
 egg_list_box_real_activate_cursor_child (EggListBox *self)
 {
   egg_list_box_select_and_activate (self, self->priv->cursor_child);
@@ -1656,7 +1654,7 @@ egg_list_box_real_move_cursor (EggListBox *self, GtkMovementStep step, gint coun
   GSequenceIter *iter;
   gint start_y;
   gint end_y;
-  
+
   modify_selection_pressed = FALSE;
 
   if (gtk_get_current_event_state (&state))
@@ -1666,7 +1664,7 @@ egg_list_box_real_move_cursor (EggListBox *self, GtkMovementStep step, gint coun
       if ((state & modify_mod_mask) == modify_mod_mask)
 	modify_selection_pressed = TRUE;
     }
-  
+
   child = NULL;
   switch (step)
     {
@@ -1680,7 +1678,7 @@ egg_list_box_real_move_cursor (EggListBox *self, GtkMovementStep step, gint coun
       if (self->priv->cursor_child != NULL)
 	{
 	  iter = self->priv->cursor_child->iter;
-	  
+
 	  while (count < 0  && iter != NULL)
 	    {
 	      iter = egg_list_box_get_previous_visible (self, iter);
@@ -1691,7 +1689,7 @@ egg_list_box_real_move_cursor (EggListBox *self, GtkMovementStep step, gint coun
 	      iter = egg_list_box_get_next_visible (self, iter);
 	      count = count - 1;
 	    }
-	  
+
 	  if (iter != NULL && !g_sequence_iter_is_end (iter))
 	    child = g_sequence_get (iter);
 	}
@@ -1706,7 +1704,7 @@ egg_list_box_real_move_cursor (EggListBox *self, GtkMovementStep step, gint coun
 	  start_y = self->priv->cursor_child->y;
 	  end_y = start_y;
 	  iter = self->priv->cursor_child->iter;
-	  
+
 	  child = self->priv->cursor_child;
 	  if (count < 0)
 	    {
@@ -1716,7 +1714,7 @@ egg_list_box_real_move_cursor (EggListBox *self, GtkMovementStep step, gint coun
 		  iter = egg_list_box_get_previous_visible (self, iter);
 		  if (iter == NULL)
 		    break;
-		
+
 		  prev = g_sequence_get (iter);
 		  if (prev->y < start_y - page_size)
 		    break;
@@ -1736,7 +1734,7 @@ egg_list_box_real_move_cursor (EggListBox *self, GtkMovementStep step, gint coun
 		  next = g_sequence_get (iter);
 		  if (next->y > start_y + page_size)
 		    break;
-		  
+
 		  child = next;
 		}
 	    }
@@ -1756,7 +1754,7 @@ egg_list_box_real_move_cursor (EggListBox *self, GtkMovementStep step, gint coun
       gtk_widget_error_bell ((GtkWidget*) self);
       return;
     }
-  
+
   egg_list_box_update_cursor (self, child);
   if (!modify_selection_pressed)
     egg_list_box_update_selected (self, child);
@@ -1792,7 +1790,7 @@ egg_list_box_child_flags_find_or_add (EggListBoxChildFlags *array,
       if (array[i].child == to_find)
 	return &array[i];
     }
-  
+
   *array_length = *array_length + 1;
   array[*array_length - 1].child = to_find;
   array[*array_length - 1].state = 0;
@@ -1805,9 +1803,9 @@ egg_list_box_class_init (EggListBoxClass *klass)
   GtkBindingSet *binding_set;
 
   egg_list_box_parent_class = g_type_class_peek_parent (klass);
-  
+
   g_type_class_add_private (klass, sizeof (EggListBoxPrivate));
-  
+
   GTK_WIDGET_CLASS (klass)->enter_notify_event = egg_list_box_real_enter_notify_event;
   GTK_WIDGET_CLASS (klass)->leave_notify_event = egg_list_box_real_leave_notify_event;
   GTK_WIDGET_CLASS (klass)->motion_notify_event = egg_list_box_real_motion_notify_event;
@@ -1830,20 +1828,57 @@ egg_list_box_class_init (EggListBoxClass *klass)
   GTK_WIDGET_CLASS (klass)->size_allocate = egg_list_box_real_size_allocate;
   GTK_WIDGET_CLASS (klass)->drag_leave = egg_list_box_real_drag_leave;
   GTK_WIDGET_CLASS (klass)->drag_motion = egg_list_box_real_drag_motion;
-  EGG_LIST_BOX_CLASS (klass)->child_selected = egg_list_box_real_child_selected;
-  EGG_LIST_BOX_CLASS (klass)->child_activated = egg_list_box_real_child_activated;
   EGG_LIST_BOX_CLASS (klass)->activate_cursor_child = egg_list_box_real_activate_cursor_child;
   EGG_LIST_BOX_CLASS (klass)->toggle_cursor_child = egg_list_box_real_toggle_cursor_child;
   EGG_LIST_BOX_CLASS (klass)->move_cursor = egg_list_box_real_move_cursor;
   G_OBJECT_CLASS (klass)->finalize = egg_list_box_finalize;
 
-  
-  g_signal_new ("child_selected", EGG_TYPE_LIST_BOX, G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (EggListBoxClass, child_selected), NULL, NULL, g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, GTK_TYPE_WIDGET);
-  g_signal_new ("child_activated", EGG_TYPE_LIST_BOX, G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (EggListBoxClass, child_activated), NULL, NULL, g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, GTK_TYPE_WIDGET);
-  g_signal_new ("activate_cursor_child", EGG_TYPE_LIST_BOX, G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION, G_STRUCT_OFFSET (EggListBoxClass, activate_cursor_child), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-  g_signal_new ("toggle_cursor_child", EGG_TYPE_LIST_BOX, G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION, G_STRUCT_OFFSET (EggListBoxClass, toggle_cursor_child), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-  g_signal_new ("move_cursor", EGG_TYPE_LIST_BOX, G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION, G_STRUCT_OFFSET (EggListBoxClass, move_cursor), NULL, NULL, g_cclosure_user_marshal_VOID__ENUM_INT, G_TYPE_NONE, 2, GTK_TYPE_MOVEMENT_STEP, G_TYPE_INT);
-  
+  signals[CHILD_SELECTED] =
+    g_signal_new ("child-selected",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST,
+		  G_STRUCT_OFFSET (EggListBoxClass, child_selected),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__OBJECT,
+		  G_TYPE_NONE, 1,
+		  GTK_TYPE_WIDGET);
+  signals[CHILD_ACTIVATED] =
+    g_signal_new ("child-activated",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST,
+		  G_STRUCT_OFFSET (EggListBoxClass, child_activated),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__OBJECT,
+		  G_TYPE_NONE, 1,
+		  GTK_TYPE_WIDGET);
+  signals[ACTIVATE_CURSOR_CHILD] =
+    g_signal_new ("activate-cursor-child",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+		  G_STRUCT_OFFSET (EggListBoxClass, activate_cursor_child),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__VOID,
+		  G_TYPE_NONE, 0);
+  signals[TOGGLE_CURSOR_CHILD] =
+    g_signal_new ("toggle-cursor-child",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+		  G_STRUCT_OFFSET (EggListBoxClass, toggle_cursor_child),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__VOID,
+		  G_TYPE_NONE, 0);
+  signals[MOVE_CURSOR] =
+    g_signal_new ("move-cursor",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+		  G_STRUCT_OFFSET (EggListBoxClass, move_cursor),
+		  NULL, NULL,
+		  g_cclosure_user_marshal_VOID__ENUM_INT,
+		  G_TYPE_NONE, 2,
+		  GTK_TYPE_MOVEMENT_STEP, G_TYPE_INT);
+
+  GTK_WIDGET_CLASS (klass)->activate_signal = signals[ACTIVATE_CURSOR_CHILD];
+
   binding_set = gtk_binding_set_by_class (klass);
   egg_list_box_add_move_binding (binding_set, GDK_KEY_Home, 0, GTK_MOVEMENT_BUFFER_ENDS, -1);
   egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Home, 0, GTK_MOVEMENT_BUFFER_ENDS, -1);
@@ -1858,7 +1893,6 @@ egg_list_box_class_init (EggListBoxClass *klass)
   egg_list_box_add_move_binding (binding_set, GDK_KEY_Page_Down, 0, GTK_MOVEMENT_PAGES, 1);
   egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Down, 0, GTK_MOVEMENT_PAGES, 1);
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_space, GDK_CONTROL_MASK, "toggle-cursor-child", 0, NULL);
-  GTK_WIDGET_CLASS (klass)->activate_signal = g_signal_lookup ("activate-cursor-child", EGG_TYPE_LIST_BOX);
 }
 
 static void
@@ -1871,7 +1905,7 @@ egg_list_box_init (EggListBox *self)
   gtk_widget_set_redraw_on_allocate ((GtkWidget*) self, TRUE);
   self->priv->selection_mode = GTK_SELECTION_SINGLE;
   self->priv->activate_single_click = TRUE;
-  
+
   self->priv->children = g_sequence_new ((GDestroyNotify)egg_list_box_child_info_free);
   self->priv->child_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
   self->priv->separator_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
@@ -1903,6 +1937,6 @@ egg_list_box_finalize (GObject *obj)
   g_sequence_free (self->priv->children);
   g_hash_table_unref (self->priv->child_hash);
   g_hash_table_unref (self->priv->separator_hash);
-  
+
   G_OBJECT_CLASS (egg_list_box_parent_class)->finalize (obj);
 }
