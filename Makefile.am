@@ -12,13 +12,7 @@ AM_VALAFLAGS = \
 
 noinst_LTLIBRARIES = libegglistbox.la
 
-libegglistbox_la_VALAFLAGS = \
-	$(AM_VALAFLAGS) \
-	--library=egglistbox \
-	--vapi egglistbox.vapi \
-	-H egg-list-box.h \
-	$(NULL)
-libegglistbox_la_SOURCES = egg-list-box.vala
+libegglistbox_la_SOURCES = egg-list-box.c egg-list-box.h
 libegglistbox_la_LIBADD = $(LISTBOX_LIBS)
 
 noinst_PROGRAMS = test-list test-scrolled
@@ -54,8 +48,7 @@ test_scrolled_VALAFLAGS = \
 CLEANFILES = \
 	$(test_list_SOURCES:.vala=.c) \
 	$(test_scrolled_SOURCES:.vala=.c) \
-	$(libegglistbox_la_SOURCES:.vala=.c) \
-	*.vapi *.stamp
+	*.stamp
 
 EXTRA_DIST = \
 	$(NULL)
