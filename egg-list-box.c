@@ -129,12 +129,6 @@ GtkWidget            *widget);
 static void                  egg_list_box_update_selected                     (EggListBox           *self,
 EggListBoxChildInfo  *child);
 static void                  egg_list_box_apply_filter_all                    (EggListBox           *self);
-static gint                  egg_list_box_do_sort                             (EggListBox           *self,
-EggListBoxChildInfo  *a,
-EggListBoxChildInfo  *b);
-static gint                  _egg_list_box_do_sort_gcompare_data_func         (gconstpointer         a,
-gconstpointer         b,
-gpointer              self);
 static void                  egg_list_box_update_separator                    (EggListBox           *self,
 GSequenceIter        *iter);
 static GSequenceIter *       egg_list_box_get_next_visible                    (EggListBox           *self,
@@ -508,22 +502,20 @@ egg_list_box_refilter (EggListBox *self)
 }
 
 static gint
-_egg_list_box_do_sort_gcompare_data_func (gconstpointer a,
-					  gconstpointer b,
-					  gpointer self)
+do_sort (EggListBoxChildInfo *a,
+	 EggListBoxChildInfo *b,
+	 EggListBox *self)
 {
-  return egg_list_box_do_sort (self,
-			       (EggListBoxChildInfo*)a,
-			       (EggListBoxChildInfo*)b);
+  return self->priv->sort_func (a->widget, b->widget,
+				self->priv->sort_func_target);
 }
-
 
 void
 egg_list_box_resort (EggListBox *self)
 {
   g_return_if_fail (self != NULL);
 
-  g_sequence_sort (self->priv->children, _egg_list_box_do_sort_gcompare_data_func, self);
+  g_sequence_sort (self->priv->children, (GCompareDataFunc)do_sort, self);
   egg_list_box_reseparate (self);
   gtk_widget_queue_resize ((GtkWidget*) self);
 }
@@ -577,7 +569,7 @@ egg_list_box_child_changed (EggListBox *self, GtkWidget *widget)
   if (self->priv->sort_func != NULL)
     {
       g_sequence_sort_changed (info->iter,
-			       _egg_list_box_do_sort_gcompare_data_func,
+			       (GCompareDataFunc)do_sort,
 			       self);
       gtk_widget_queue_resize ((GtkWidget*) self);
     }
@@ -598,15 +590,6 @@ egg_list_box_set_activate_on_single_click (EggListBox *self,
   g_return_if_fail (self != NULL);
 
   self->priv->activate_single_click = single;
-}
-
-static gint
-egg_list_box_do_sort (EggListBox *self,
-		      EggListBoxChildInfo *a,
-		      EggListBoxChildInfo *b)
-{
-  return self->priv->sort_func (a->widget, b->widget,
-				self->priv->sort_func_target);
 }
 
 static void
@@ -1287,7 +1270,7 @@ egg_list_box_real_add (GtkContainer* base, GtkWidget* child)
   g_hash_table_insert (self->priv->child_hash, child, info);
   if (self->priv->sort_func != NULL)
     iter = g_sequence_insert_sorted (self->priv->children, info,
-				     _egg_list_box_do_sort_gcompare_data_func, self);
+				     (GCompareDataFunc)do_sort, self);
   else
     iter = g_sequence_append (self->priv->children, info);
 
