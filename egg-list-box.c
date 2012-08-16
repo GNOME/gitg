@@ -62,7 +62,6 @@ static void g_cclosure_user_marshal_VOID__ENUM_INT (GClosure * closure, GValue *
 }
 
 typedef struct _EggListBoxChildInfo EggListBoxChildInfo;
-typedef struct _Block1Data Block1Data;
 
 struct _EggListBoxPrivate
 {
@@ -106,13 +105,6 @@ struct _EggListBoxChildInfo
   GtkWidget *separator;
   gint y;
   gint height;
-};
-
-struct _Block1Data
-{
-  int _ref_count_;
-  EggListBox *self;
-  gint move;
 };
 
 enum {
@@ -223,10 +215,6 @@ GdkDragContext       *context,
 gint                  x,
 gint                  y,
 guint                 time_);
-static Block1Data*           block1_data_ref                                  (Block1Data           *_data1_);
-static void                  block1_data_unref                                (void                 *_userdata_);
-static gboolean              __lambda2_                                       (Block1Data           *_data1_);
-static gboolean              ___lambda2__gsource_func                         (gpointer              self);
 static void                  egg_list_box_real_activate_cursor_child          (EggListBox           *self);
 static void                  egg_list_box_real_toggle_cursor_child            (EggListBox           *self);
 static void                  egg_list_box_real_move_cursor                    (EggListBox           *self,
@@ -1541,41 +1529,27 @@ egg_list_box_real_drag_leave (GtkWidget *base, GdkDragContext *context, guint ti
   }
 }
 
-static Block1Data*
-block1_data_ref (Block1Data *_data1_)
-{
-  g_atomic_int_inc (&_data1_->_ref_count_);
-  return _data1_;
-}
-
-static void
-block1_data_unref (void *_userdata_)
-{
-  Block1Data *_data1_;
-  _data1_ = (Block1Data*) _userdata_;
-  if (g_atomic_int_dec_and_test (&_data1_->_ref_count_)) {
-    EggListBox *self;
-    self = _data1_->self;
-    _g_object_unref0 (self);
-    g_slice_free (Block1Data, _data1_);
-  }
-}
-
-static gboolean
-__lambda2_ (Block1Data *_data1_)
+typedef struct
 {
   EggListBox *self;
-  self = _data1_->self;
-  gtk_adjustment_set_value (self->priv->adjustment,
-			    gtk_adjustment_get_value (self->priv->adjustment) +
-			    gtk_adjustment_get_step_increment (self->priv->adjustment) * _data1_->move);
-  return TRUE;
+  gint move;
+} MoveData;
+
+static void
+move_data_free (MoveData *data)
+{
+  g_slice_free (MoveData, data);
 }
 
 static gboolean
-___lambda2__gsource_func (gpointer self)
+drag_motion_timeout (MoveData *data)
 {
-  return  __lambda2_ (self);
+  EggListBox *self = data->self;
+
+  gtk_adjustment_set_value (self->priv->adjustment,
+			    gtk_adjustment_get_value (self->priv->adjustment) +
+			    gtk_adjustment_get_step_increment (self->priv->adjustment) * data->move);
+  return TRUE;
 }
 
 static gboolean
@@ -1583,7 +1557,8 @@ egg_list_box_real_drag_motion (GtkWidget *base, GdkDragContext *context,
 			       gint x, gint y, guint time_)
 {
   EggListBox *self = EGG_LIST_BOX (base);
-  Block1Data *_data1_;
+  int move;
+  MoveData *data;
   gdouble size;
 
   /* Auto-scroll during Dnd if cursor is moving into the top/bottom portion of the
@@ -1597,35 +1572,31 @@ egg_list_box_real_drag_motion (GtkWidget *base, GdkDragContext *context,
   if (self->priv->adjustment == NULL)
     return FALSE;
 
-  _data1_ = g_slice_new0 (Block1Data);
-  _data1_->_ref_count_ = 1;
-  _data1_->self = g_object_ref (self);
-
   /* Part of the view triggering auto-scroll */
   size = 30;
-  _data1_->move = 0;
+  move = 0;
 
   if (y < (gtk_adjustment_get_value (self->priv->adjustment) + size))
     {
       /* Scroll up */
-      _data1_->move = -1;
+      move = -1;
     }
   else if (y > ((gtk_adjustment_get_value (self->priv->adjustment) + gtk_adjustment_get_page_size (self->priv->adjustment)) - size))
     {
       /* Scroll down */
-      _data1_->move = 1;
+      move = 1;
     }
 
-  if (_data1_->move == 0) {
-    block1_data_unref (_data1_);
+  if (move == 0)
     return FALSE;
-  }
+
+  data = g_slice_new0 (MoveData);
+  data->self = self;
 
   self->priv->auto_scroll_timeout_id =
-    g_timeout_add_full (G_PRIORITY_DEFAULT, (guint) 150,
-			___lambda2__gsource_func, block1_data_ref (_data1_), block1_data_unref);
+    g_timeout_add_full (G_PRIORITY_DEFAULT, 150, (GSourceFunc)drag_motion_timeout,
+			data, (GDestroyNotify) move_data_free);
 
-  block1_data_unref (_data1_);
   return FALSE;
 }
 
