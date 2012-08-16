@@ -239,11 +239,12 @@ egg_list_box_init (EggListBox *list_box)
 {
   EggListBoxPrivate *priv;
 
-  priv = list_box->priv = G_TYPE_INSTANCE_GET_PRIVATE (list_box, EGG_TYPE_LIST_BOX, EggListBoxPrivate);
+  list_box->priv = priv =
+    G_TYPE_INSTANCE_GET_PRIVATE (list_box, EGG_TYPE_LIST_BOX, EggListBoxPrivate);
 
-  gtk_widget_set_can_focus ((GtkWidget*) list_box, TRUE);
-  gtk_widget_set_has_window ((GtkWidget*) list_box, TRUE);
-  gtk_widget_set_redraw_on_allocate ((GtkWidget*) list_box, TRUE);
+  gtk_widget_set_can_focus (GTK_WIDGET (list_box), TRUE);
+  gtk_widget_set_has_window (GTK_WIDGET (list_box), TRUE);
+  gtk_widget_set_redraw_on_allocate (GTK_WIDGET (list_box), TRUE);
   priv->selection_mode = GTK_SELECTION_SINGLE;
   priv->activate_single_click = TRUE;
 
@@ -255,7 +256,6 @@ egg_list_box_init (EggListBox *list_box)
 static void
 egg_list_box_finalize (GObject *obj)
 {
-
   EggListBox *list_box = EGG_LIST_BOX (obj);
   EggListBoxPrivate *priv = list_box->priv;
 
@@ -530,7 +530,7 @@ egg_list_box_refilter (EggListBox *list_box)
 
   egg_list_box_apply_filter_all (list_box);
   egg_list_box_reseparate (list_box);
-  gtk_widget_queue_resize ((GtkWidget*) list_box);
+  gtk_widget_queue_resize (GTK_WIDGET (list_box));
 }
 
 static gint
@@ -554,7 +554,7 @@ egg_list_box_resort (EggListBox *list_box)
   g_sequence_sort (priv->children,
 		   (GCompareDataFunc)do_sort, list_box);
   egg_list_box_reseparate (list_box);
-  gtk_widget_queue_resize ((GtkWidget*) list_box);
+  gtk_widget_queue_resize (GTK_WIDGET (list_box));
 }
 
 void
@@ -570,7 +570,7 @@ egg_list_box_reseparate (EggListBox *list_box)
        iter = g_sequence_iter_next (iter))
     egg_list_box_update_separator (list_box, iter);
 
-  gtk_widget_queue_resize ((GtkWidget*) list_box);
+  gtk_widget_queue_resize (GTK_WIDGET (list_box));
 }
 
 void
@@ -612,10 +612,10 @@ egg_list_box_child_changed (EggListBox *list_box, GtkWidget *widget)
       g_sequence_sort_changed (info->iter,
 			       (GCompareDataFunc)do_sort,
 			       list_box);
-      gtk_widget_queue_resize ((GtkWidget*) list_box);
+      gtk_widget_queue_resize (GTK_WIDGET (list_box));
     }
   egg_list_box_apply_filter (list_box, info->widget);
-  if (gtk_widget_get_visible ((GtkWidget*) list_box))
+  if (gtk_widget_get_visible (GTK_WIDGET (list_box)))
     {
       next = egg_list_box_get_next_visible (list_box, info->iter);
       egg_list_box_update_separator (list_box, info->iter);
@@ -683,12 +683,12 @@ egg_list_box_update_cursor (EggListBox *list_box,
   EggListBoxPrivate *priv = list_box->priv;
 
   priv->cursor_child = child;
-  gtk_widget_grab_focus ((GtkWidget*) list_box);
-  gtk_widget_queue_draw ((GtkWidget*) list_box);
+  gtk_widget_grab_focus (GTK_WIDGET (list_box));
+  gtk_widget_queue_draw (GTK_WIDGET (list_box));
   if (child != NULL && priv->adjustment != NULL)
     {
       GtkAllocation allocation;
-      gtk_widget_get_allocation ((GtkWidget*) list_box, &allocation);
+      gtk_widget_get_allocation (GTK_WIDGET (list_box), &allocation);
       gtk_adjustment_clamp_page (priv->adjustment,
 				 priv->cursor_child->y + allocation.y,
 				 priv->cursor_child->y + allocation.y + priv->cursor_child->height);
@@ -707,7 +707,7 @@ egg_list_box_update_selected (EggListBox *list_box,
       priv->selected_child = child;
       g_signal_emit (list_box, signals[CHILD_SELECTED], 0,
 		     (priv->selected_child != NULL) ? priv->selected_child->widget : NULL);
-      gtk_widget_queue_draw ((GtkWidget*) list_box);
+      gtk_widget_queue_draw (GTK_WIDGET (list_box));
     }
   if (child != NULL)
     egg_list_box_update_cursor (list_box, child);
@@ -735,7 +735,7 @@ egg_list_box_update_prelight (EggListBox *list_box, EggListBoxChildInfo *child)
   if (child != priv->prelight_child)
     {
       priv->prelight_child = child;
-      gtk_widget_queue_draw ((GtkWidget*) list_box);
+      gtk_widget_queue_draw (GTK_WIDGET (list_box));
     }
 }
 
@@ -750,7 +750,7 @@ egg_list_box_update_active (EggListBox *list_box, EggListBoxChildInfo *child)
       val != priv->active_child_active)
     {
       priv->active_child_active = val;
-      gtk_widget_queue_draw ((GtkWidget*) list_box);
+      gtk_widget_queue_draw (GTK_WIDGET (list_box));
     }
 }
 
@@ -762,7 +762,7 @@ egg_list_box_real_enter_notify_event (GtkWidget *widget,
   EggListBoxChildInfo *child;
 
 
-  if (event->window != gtk_widget_get_window ((GtkWidget*) list_box))
+  if (event->window != gtk_widget_get_window (GTK_WIDGET (list_box)))
     return FALSE;
 
   child = egg_list_box_find_child_at_y (list_box, event->y);
@@ -779,7 +779,7 @@ egg_list_box_real_leave_notify_event (GtkWidget *widget,
   EggListBox *list_box = EGG_LIST_BOX (widget);
   EggListBoxChildInfo *child = NULL;
 
-  if (event->window != gtk_widget_get_window ((GtkWidget*) list_box))
+  if (event->window != gtk_widget_get_window (GTK_WIDGET (list_box)))
     return FALSE;
 
   if (event->detail != GDK_NOTIFY_INFERIOR)
@@ -823,7 +823,7 @@ egg_list_box_real_button_press_event (GtkWidget *widget,
 	{
 	  priv->active_child = child;
 	  priv->active_child_active = TRUE;
-	  gtk_widget_queue_draw ((GtkWidget*) list_box);
+	  gtk_widget_queue_draw (GTK_WIDGET (list_box));
 	  if (event->type == GDK_2BUTTON_PRESS &&
 	      !priv->activate_single_click &&
 	      child->widget != NULL)
@@ -858,7 +858,7 @@ egg_list_box_real_button_release_event (GtkWidget *widget,
       }
     priv->active_child = NULL;
     priv->active_child_active = FALSE;
-    gtk_widget_queue_draw ((GtkWidget*) list_box);
+    gtk_widget_queue_draw (GTK_WIDGET (list_box));
   }
 
   return FALSE;
@@ -891,7 +891,7 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
   recurse_into = NULL;
   focus_into = TRUE;
 
-  g_object_get ((GtkWidget*) list_box, "has-focus", &had_focus, NULL);
+  g_object_get (GTK_WIDGET (list_box), "has-focus", &had_focus, NULL);
   current_focus_child = NULL;
   next_focus_child = NULL;
   if (had_focus)
@@ -989,7 +989,7 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
     {
       if (direction == GTK_DIR_UP || direction == GTK_DIR_DOWN)
 	{
-	  gtk_widget_error_bell ((GtkWidget*) list_box);
+	  gtk_widget_error_bell (GTK_WIDGET (list_box));
 	  return TRUE;
 	}
 
@@ -1001,7 +1001,7 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
     {
       GdkModifierType modify_mod_mask;
       modify_mod_mask =
-	gtk_widget_get_modifier_mask ((GtkWidget*) list_box,
+	gtk_widget_get_modifier_mask (GTK_WIDGET (list_box),
 				      GDK_MODIFIER_INTENT_MODIFY_SELECTION);
       if ((state & modify_mod_mask) == modify_mod_mask)
 	modify_selection_pressed = TRUE;
@@ -1049,8 +1049,8 @@ egg_list_box_real_draw (GtkWidget* widget, cairo_t* cr)
   gint flags_length;
   int i;
 
-  gtk_widget_get_allocation ((GtkWidget*) list_box, &allocation);
-  context = gtk_widget_get_style_context ((GtkWidget*) list_box);
+  gtk_widget_get_allocation (GTK_WIDGET (list_box), &allocation);
+  context = gtk_widget_get_style_context (GTK_WIDGET (list_box));
   gtk_render_background (context, cr, (gdouble) 0, (gdouble) 0, (gdouble) allocation.width, (gdouble) allocation.height);
   flags_length = 0;
 
@@ -1081,7 +1081,7 @@ egg_list_box_real_draw (GtkWidget* widget, cairo_t* cr)
       gtk_style_context_restore (context);
     }
 
-  if (gtk_widget_has_visible_focus ((GtkWidget*) list_box) && priv->cursor_child != NULL)
+  if (gtk_widget_has_visible_focus (GTK_WIDGET (list_box)) && priv->cursor_child != NULL)
     gtk_render_focus (context, cr, 0, priv->cursor_child->y, allocation.width, priv->cursor_child->height);
 
   GTK_WIDGET_CLASS (egg_list_box_parent_class)->draw ((GtkWidget*) G_TYPE_CHECK_INSTANCE_CAST (list_box, GTK_TYPE_CONTAINER, GtkContainer), cr);
@@ -1098,24 +1098,24 @@ egg_list_box_real_realize (GtkWidget* widget)
   GdkWindowAttr attributes = {0};
   GdkWindow *window;
 
-  gtk_widget_get_allocation ((GtkWidget*) list_box, &allocation);
-  gtk_widget_set_realized ((GtkWidget*) list_box, TRUE);
+  gtk_widget_get_allocation (GTK_WIDGET (list_box), &allocation);
+  gtk_widget_set_realized (GTK_WIDGET (list_box), TRUE);
 
   attributes.x = allocation.x;
   attributes.y = allocation.y;
   attributes.width = allocation.width;
   attributes.height = allocation.height;
   attributes.window_type = GDK_WINDOW_CHILD;
-  attributes.event_mask = gtk_widget_get_events ((GtkWidget*) list_box) |
+  attributes.event_mask = gtk_widget_get_events (GTK_WIDGET (list_box)) |
     GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_POINTER_MOTION_MASK |
     GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK;
   attributes.wclass = GDK_INPUT_OUTPUT;
 
-  window = gdk_window_new (gtk_widget_get_parent_window ((GtkWidget*) list_box),
+  window = gdk_window_new (gtk_widget_get_parent_window (GTK_WIDGET (list_box)),
 			   &attributes, GDK_WA_X | GDK_WA_Y);
-  gtk_style_context_set_background (gtk_widget_get_style_context ((GtkWidget*) list_box), window);
+  gtk_style_context_set_background (gtk_widget_get_style_context (GTK_WIDGET (list_box)), window);
   gdk_window_set_user_data (window, (GObject*) list_box);
-  gtk_widget_set_window ((GtkWidget*) list_box, window); /* Passes ownership */
+  gtk_widget_set_window (GTK_WIDGET (list_box), window); /* Passes ownership */
 }
 
 
@@ -1162,7 +1162,6 @@ egg_list_box_get_first_visible (EggListBox *list_box)
   EggListBoxPrivate *priv = list_box->priv;
   EggListBoxChildInfo *child_info;
   GSequenceIter *iter;
-  GtkWidget *child;
 
   for (iter = g_sequence_get_begin_iter (priv->children);
        !g_sequence_iter_is_end (iter);
@@ -1289,10 +1288,10 @@ egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
 	  if (info->separator != NULL)
 	    {
 	      g_hash_table_insert (priv->separator_hash, info->separator, info);
-	      gtk_widget_set_parent (info->separator, (GtkWidget*) list_box);
+	      gtk_widget_set_parent (info->separator, GTK_WIDGET (list_box));
 	      gtk_widget_show (info->separator);
 	    }
-	  gtk_widget_queue_resize ((GtkWidget*) list_box);
+	  gtk_widget_queue_resize (GTK_WIDGET (list_box));
 	}
       if (old_separator)
 	g_object_unref (old_separator);
@@ -1304,7 +1303,7 @@ egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
 	  g_hash_table_remove (priv->separator_hash, info->separator);
 	  gtk_widget_unparent (info->separator);
 	  g_clear_object (&info->separator);
-	  gtk_widget_queue_resize ((GtkWidget*) list_box);
+	  gtk_widget_queue_resize (GTK_WIDGET (list_box));
 	}
     }
   if (before_child)
@@ -1326,7 +1325,7 @@ child_visibility_changed (GObject* object, GParamSpec* pspec, EggListBox *list_b
 {
   EggListBoxChildInfo *info;
 
-  if (gtk_widget_get_visible ((GtkWidget*) list_box))
+  if (gtk_widget_get_visible (GTK_WIDGET (list_box)))
     {
       info = egg_list_box_lookup_info (list_box, GTK_WIDGET (object));
       if (info != NULL)
@@ -1354,9 +1353,9 @@ egg_list_box_real_add (GtkContainer* container, GtkWidget* child)
     iter = g_sequence_append (priv->children, info);
 
   info->iter = iter;
-  gtk_widget_set_parent (child, (GtkWidget*) list_box);
+  gtk_widget_set_parent (child, GTK_WIDGET (list_box));
   egg_list_box_apply_filter (list_box, child);
-  if (gtk_widget_get_visible ((GtkWidget*) list_box))
+  if (gtk_widget_get_visible (GTK_WIDGET (list_box)))
     {
       egg_list_box_update_separator (list_box, iter);
       egg_list_box_update_separator (list_box, egg_list_box_get_next_visible (list_box, iter));
@@ -1388,8 +1387,8 @@ egg_list_box_real_remove (GtkContainer* container, GtkWidget* child)
 	  g_hash_table_remove (priv->separator_hash, child);
 	  g_clear_object (&info->separator);
 	  gtk_widget_unparent (child);
-	  if (was_visible && gtk_widget_get_visible ((GtkWidget*) list_box))
-	    gtk_widget_queue_resize ((GtkWidget*) list_box);
+	  if (was_visible && gtk_widget_get_visible (GTK_WIDGET (list_box)))
+	    gtk_widget_queue_resize (GTK_WIDGET (list_box));
 	}
       else
 	{
@@ -1418,11 +1417,11 @@ egg_list_box_real_remove (GtkContainer* container, GtkWidget* child)
   gtk_widget_unparent (child);
   g_hash_table_remove (priv->child_hash, child);
   g_sequence_remove (info->iter);
-  if (gtk_widget_get_visible ((GtkWidget*) list_box))
+  if (gtk_widget_get_visible (GTK_WIDGET (list_box)))
     egg_list_box_update_separator (list_box, next);
 
-  if (was_visible && gtk_widget_get_visible ((GtkWidget*) list_box))
-    gtk_widget_queue_resize ((GtkWidget*) list_box);
+  if (was_visible && gtk_widget_get_visible (GTK_WIDGET (list_box)))
+    gtk_widget_queue_resize (GTK_WIDGET (list_box));
 }
 
 
@@ -1499,7 +1498,7 @@ egg_list_box_real_get_preferred_height_for_width (GtkWidget* widget, gint width,
 
   minimum_height = 0;
 
-  context = gtk_widget_get_style_context ((GtkWidget*) list_box);
+  context = gtk_widget_get_style_context (GTK_WIDGET (list_box));
   gtk_style_context_get_style (context,
 			       "focus-line-width", &focus_width,
 			       "focus-padding", &focus_pad, NULL);
@@ -1555,7 +1554,7 @@ egg_list_box_real_get_preferred_width (GtkWidget* widget, gint* minimum_width_ou
   gint child_min;
   gint child_nat;
 
-  context = gtk_widget_get_style_context ((GtkWidget*) list_box);
+  context = gtk_widget_get_style_context (GTK_WIDGET (list_box));
   gtk_style_context_get_style (context, "focus-line-width", &focus_width, "focus-padding", &focus_pad, NULL);
 
   minimum_width = 0;
@@ -1593,7 +1592,7 @@ egg_list_box_real_get_preferred_width_for_height (GtkWidget *widget, gint height
 						  gint *minimum_width, gint *natural_width)
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
-  egg_list_box_real_get_preferred_width ((GtkWidget*) list_box, minimum_width, natural_width);
+  egg_list_box_real_get_preferred_width (GTK_WIDGET (list_box), minimum_width, natural_width);
 }
 
 static void
@@ -1623,14 +1622,14 @@ egg_list_box_real_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
   separator_allocation.width = 0;
   separator_allocation.height = 0;
 
-  gtk_widget_set_allocation ((GtkWidget*) list_box, allocation);
-  window = gtk_widget_get_window ((GtkWidget*) list_box);
+  gtk_widget_set_allocation (GTK_WIDGET (list_box), allocation);
+  window = gtk_widget_get_window (GTK_WIDGET (list_box));
   if (window != NULL)
     gdk_window_move_resize (window,
 			    allocation->x, allocation->y,
 			    allocation->width, allocation->height);
 
-  context = gtk_widget_get_style_context ((GtkWidget*) list_box);
+  context = gtk_widget_get_style_context (GTK_WIDGET (list_box));
   gtk_style_context_get_style (context,
 			       "focus-line-width", &focus_width,
 			       "focus-padding", &focus_pad,
@@ -1844,7 +1843,7 @@ egg_list_box_real_move_cursor (EggListBox *list_box,
 
   if (gtk_get_current_event_state (&state))
     {
-      modify_mod_mask = gtk_widget_get_modifier_mask ((GtkWidget*) list_box,
+      modify_mod_mask = gtk_widget_get_modifier_mask (GTK_WIDGET (list_box),
 						      GDK_MODIFIER_INTENT_MODIFY_SELECTION);
       if ((state & modify_mod_mask) == modify_mod_mask)
 	modify_selection_pressed = TRUE;
@@ -1936,7 +1935,7 @@ egg_list_box_real_move_cursor (EggListBox *list_box,
 
   if (child == NULL)
     {
-      gtk_widget_error_bell ((GtkWidget*) list_box);
+      gtk_widget_error_bell (GTK_WIDGET (list_box));
       return;
     }
 
