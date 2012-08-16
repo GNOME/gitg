@@ -3,6 +3,7 @@ namespace Egg {
 	public class ListBox : Gtk.Container {
 		public delegate bool FilterFunc (Gtk.Widget child);
 		public delegate void UpdateSeparatorFunc (ref Gtk.Widget? separator, Gtk.Widget child, Gtk.Widget? before);
+		[CCode (has_construct_function = false)]
 		public ListBox ();
 		public override void add (Gtk.Widget widget);
 		public void add_to_scrolled (Gtk.ScrolledWindow scrolled);
