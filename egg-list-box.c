@@ -248,45 +248,47 @@ egg_list_box_new (void)
 static void
 egg_list_box_init (EggListBox *list_box)
 {
-  list_box->priv = G_TYPE_INSTANCE_GET_PRIVATE (list_box, EGG_TYPE_LIST_BOX, EggListBoxPrivate);
+  EggListBoxPrivate *priv;
+
+  priv = list_box->priv = G_TYPE_INSTANCE_GET_PRIVATE (list_box, EGG_TYPE_LIST_BOX, EggListBoxPrivate);
 
   gtk_widget_set_can_focus ((GtkWidget*) list_box, TRUE);
   gtk_widget_set_has_window ((GtkWidget*) list_box, TRUE);
   gtk_widget_set_redraw_on_allocate ((GtkWidget*) list_box, TRUE);
-  list_box->priv->selection_mode = GTK_SELECTION_SINGLE;
-  list_box->priv->activate_single_click = TRUE;
+  priv->selection_mode = GTK_SELECTION_SINGLE;
+  priv->activate_single_click = TRUE;
 
-  list_box->priv->children = g_sequence_new ((GDestroyNotify)egg_list_box_child_info_free);
-  list_box->priv->child_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
-  list_box->priv->separator_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
+  priv->children = g_sequence_new ((GDestroyNotify)egg_list_box_child_info_free);
+  priv->child_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
+  priv->separator_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
 }
 
 static void
 egg_list_box_finalize (GObject *obj)
 {
 
-  EggListBox *list_box;
-  list_box = EGG_LIST_BOX (obj);
+  EggListBox *list_box = EGG_LIST_BOX (obj);
+  EggListBoxPrivate *priv = list_box->priv;
 
-  if (list_box->priv->auto_scroll_timeout_id != ((guint) 0))
-    g_source_remove (list_box->priv->auto_scroll_timeout_id);
+  if (priv->auto_scroll_timeout_id != ((guint) 0))
+    g_source_remove (priv->auto_scroll_timeout_id);
 
-  if (list_box->priv->sort_func_target_destroy_notify != NULL)
-    list_box->priv->sort_func_target_destroy_notify (list_box->priv->sort_func_target);
-  if (list_box->priv->filter_func_target_destroy_notify != NULL)
-    list_box->priv->filter_func_target_destroy_notify (list_box->priv->filter_func_target);
-  if (list_box->priv->update_separator_func_target_destroy_notify != NULL)
-    list_box->priv->update_separator_func_target_destroy_notify (list_box->priv->update_separator_func_target);
+  if (priv->sort_func_target_destroy_notify != NULL)
+    priv->sort_func_target_destroy_notify (priv->sort_func_target);
+  if (priv->filter_func_target_destroy_notify != NULL)
+    priv->filter_func_target_destroy_notify (priv->filter_func_target);
+  if (priv->update_separator_func_target_destroy_notify != NULL)
+    priv->update_separator_func_target_destroy_notify (priv->update_separator_func_target);
 
-  if (list_box->priv->adjustment)
-    g_object_unref (list_box->priv->adjustment);
+  if (priv->adjustment)
+    g_object_unref (priv->adjustment);
 
-  if (list_box->priv->drag_highlighted_widget)
-    g_object_unref (list_box->priv->drag_highlighted_widget);
+  if (priv->drag_highlighted_widget)
+    g_object_unref (priv->drag_highlighted_widget);
 
-  g_sequence_free (list_box->priv->children);
-  g_hash_table_unref (list_box->priv->child_hash);
-  g_hash_table_unref (list_box->priv->separator_hash);
+  g_sequence_free (priv->children);
+  g_hash_table_unref (priv->child_hash);
+  g_hash_table_unref (priv->separator_hash);
 
   G_OBJECT_CLASS (egg_list_box_parent_class)->finalize (obj);
 }
@@ -408,10 +410,12 @@ egg_list_box_class_init (EggListBoxClass *klass)
 GtkWidget *
 egg_list_box_get_selected_child (EggListBox *list_box)
 {
+  EggListBoxPrivate *priv = list_box->priv;
+
   g_return_val_if_fail (list_box != NULL, NULL);
 
-  if (list_box->priv->selected_child != NULL)
-    return list_box->priv->selected_child->widget;
+  if (priv->selected_child != NULL)
+    return priv->selected_child->widget;
 
   return NULL;
 }
@@ -448,11 +452,13 @@ void
 egg_list_box_set_adjustment (EggListBox *list_box,
 			     GtkAdjustment *adjustment)
 {
+  EggListBoxPrivate *priv = list_box->priv;
+
   g_return_if_fail (list_box != NULL);
 
   g_object_ref (adjustment);
-  _g_object_unref0 (list_box->priv->adjustment);
-  list_box->priv->adjustment = adjustment;
+  _g_object_unref0 (priv->adjustment);
+  priv->adjustment = adjustment;
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list_box),
 				       adjustment);
 }
@@ -471,7 +477,11 @@ egg_list_box_add_to_scrolled (EggListBox *list_box,
 }
 
 
-void egg_list_box_set_selection_mode (EggListBox *list_box, GtkSelectionMode mode) {
+void
+egg_list_box_set_selection_mode (EggListBox *list_box, GtkSelectionMode mode)
+{
+  EggListBoxPrivate *priv = list_box->priv;
+
   g_return_if_fail (list_box != NULL);
 
   if (mode == GTK_SELECTION_MULTIPLE)
@@ -480,7 +490,7 @@ void egg_list_box_set_selection_mode (EggListBox *list_box, GtkSelectionMode mod
       return;
     }
 
-  list_box->priv->selection_mode = mode;
+  priv->selection_mode = mode;
   if (mode == GTK_SELECTION_NONE)
     egg_list_box_update_selected (list_box, NULL);
 }
@@ -492,14 +502,16 @@ egg_list_box_set_filter_func (EggListBox *list_box,
 			      void *f_target,
 			      GDestroyNotify f_target_destroy_notify)
 {
+  EggListBoxPrivate *priv = list_box->priv;
+
   g_return_if_fail (list_box != NULL);
 
-  if (list_box->priv->filter_func_target_destroy_notify != NULL)
-    list_box->priv->filter_func_target_destroy_notify (list_box->priv->filter_func_target);
+  if (priv->filter_func_target_destroy_notify != NULL)
+    priv->filter_func_target_destroy_notify (priv->filter_func_target);
 
-  list_box->priv->filter_func = f;
-  list_box->priv->filter_func_target = f_target;
-  list_box->priv->filter_func_target_destroy_notify = f_target_destroy_notify;
+  priv->filter_func = f;
+  priv->filter_func_target = f_target;
+  priv->filter_func_target_destroy_notify = f_target_destroy_notify;
 
   egg_list_box_refilter (list_box);
 }
@@ -510,14 +522,16 @@ egg_list_box_set_separator_funcs (EggListBox *list_box,
 				  void *update_separator_target,
 				  GDestroyNotify update_separator_target_destroy_notify)
 {
+  EggListBoxPrivate *priv = list_box->priv;
+
   g_return_if_fail (list_box != NULL);
 
-  if (list_box->priv->update_separator_func_target_destroy_notify != NULL)
-    list_box->priv->update_separator_func_target_destroy_notify (list_box->priv->update_separator_func_target);
+  if (priv->update_separator_func_target_destroy_notify != NULL)
+    priv->update_separator_func_target_destroy_notify (priv->update_separator_func_target);
 
-  list_box->priv->update_separator_func = update_separator;
-  list_box->priv->update_separator_func_target = update_separator_target;
-  list_box->priv->update_separator_func_target_destroy_notify = update_separator_target_destroy_notify;
+  priv->update_separator_func = update_separator;
+  priv->update_separator_func_target = update_separator_target;
+  priv->update_separator_func_target_destroy_notify = update_separator_target_destroy_notify;
   egg_list_box_reseparate (list_box);
 }
 
@@ -537,16 +551,21 @@ do_sort (EggListBoxChildInfo *a,
 	 EggListBoxChildInfo *b,
 	 EggListBox *list_box)
 {
-  return list_box->priv->sort_func (a->widget, b->widget,
-				list_box->priv->sort_func_target);
+  EggListBoxPrivate *priv = list_box->priv;
+
+  return priv->sort_func (a->widget, b->widget,
+			  priv->sort_func_target);
 }
 
 void
 egg_list_box_resort (EggListBox *list_box)
 {
+  EggListBoxPrivate *priv = list_box->priv;
+
   g_return_if_fail (list_box != NULL);
 
-  g_sequence_sort (list_box->priv->children, (GCompareDataFunc)do_sort, list_box);
+  g_sequence_sort (priv->children,
+		   (GCompareDataFunc)do_sort, list_box);
   egg_list_box_reseparate (list_box);
   gtk_widget_queue_resize ((GtkWidget*) list_box);
 }
@@ -554,11 +573,12 @@ egg_list_box_resort (EggListBox *list_box)
 void
 egg_list_box_reseparate (EggListBox *list_box)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   GSequenceIter *iter;
 
   g_return_if_fail (list_box != NULL);
 
-  for (iter = g_sequence_get_begin_iter (list_box->priv->children);
+  for (iter = g_sequence_get_begin_iter (priv->children);
        !g_sequence_iter_is_end (iter);
        iter = g_sequence_iter_next (iter))
     egg_list_box_update_separator (list_box, iter);
@@ -572,20 +592,23 @@ egg_list_box_set_sort_func (EggListBox *list_box,
 			    void *f_target,
 			    GDestroyNotify f_target_destroy_notify)
 {
+  EggListBoxPrivate *priv = list_box->priv;
+
   g_return_if_fail (list_box != NULL);
 
-  if (list_box->priv->sort_func_target_destroy_notify != NULL)
-    list_box->priv->sort_func_target_destroy_notify (list_box->priv->sort_func_target);
+  if (priv->sort_func_target_destroy_notify != NULL)
+    priv->sort_func_target_destroy_notify (priv->sort_func_target);
 
-  list_box->priv->sort_func = f;
-  list_box->priv->sort_func_target = f_target;
-  list_box->priv->sort_func_target_destroy_notify = f_target_destroy_notify;
+  priv->sort_func = f;
+  priv->sort_func_target = f_target;
+  priv->sort_func_target_destroy_notify = f_target_destroy_notify;
   egg_list_box_resort (list_box);
 }
 
 void
 egg_list_box_child_changed (EggListBox *list_box, GtkWidget *widget)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   EggListBoxChildInfo *info;
   GSequenceIter *prev_next, *next;
 
@@ -597,7 +620,7 @@ egg_list_box_child_changed (EggListBox *list_box, GtkWidget *widget)
     return;
 
   prev_next = egg_list_box_get_next_visible (list_box, info->iter);
-  if (list_box->priv->sort_func != NULL)
+  if (priv->sort_func != NULL)
     {
       g_sequence_sort_changed (info->iter,
 			       (GCompareDataFunc)do_sort,
@@ -618,9 +641,11 @@ void
 egg_list_box_set_activate_on_single_click (EggListBox *list_box,
 					   gboolean single)
 {
+  EggListBoxPrivate *priv = list_box->priv;
+
   g_return_if_fail (list_box != NULL);
 
-  list_box->priv->activate_single_click = single;
+  priv->activate_single_click = single;
 }
 
 static void
@@ -643,12 +668,13 @@ egg_list_box_add_move_binding (GtkBindingSet *binding_set,
 static EggListBoxChildInfo*
 egg_list_box_find_child_at_y (EggListBox *list_box, gint y)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   EggListBoxChildInfo *child_info;
   GSequenceIter *iter;
   EggListBoxChildInfo *info;
 
   child_info = NULL;
-  for (iter = g_sequence_get_begin_iter (list_box->priv->children);
+  for (iter = g_sequence_get_begin_iter (priv->children);
        !g_sequence_iter_is_end (iter);
        iter = g_sequence_iter_next (iter))
     {
@@ -667,16 +693,18 @@ static void
 egg_list_box_update_cursor (EggListBox *list_box,
 			    EggListBoxChildInfo *child)
 {
-  list_box->priv->cursor_child = child;
+  EggListBoxPrivate *priv = list_box->priv;
+
+  priv->cursor_child = child;
   gtk_widget_grab_focus ((GtkWidget*) list_box);
   gtk_widget_queue_draw ((GtkWidget*) list_box);
-  if (child != NULL && list_box->priv->adjustment != NULL)
+  if (child != NULL && priv->adjustment != NULL)
     {
       GtkAllocation allocation;
       gtk_widget_get_allocation ((GtkWidget*) list_box, &allocation);
-      gtk_adjustment_clamp_page (list_box->priv->adjustment,
-				 list_box->priv->cursor_child->y + allocation.y,
-				 list_box->priv->cursor_child->y + allocation.y + list_box->priv->cursor_child->height);
+      gtk_adjustment_clamp_page (priv->adjustment,
+				 priv->cursor_child->y + allocation.y,
+				 priv->cursor_child->y + allocation.y + priv->cursor_child->height);
   }
 }
 
@@ -684,12 +712,14 @@ static void
 egg_list_box_update_selected (EggListBox *list_box,
 			      EggListBoxChildInfo *child)
 {
-  if (child != list_box->priv->selected_child &&
-      (child == NULL || list_box->priv->selection_mode != GTK_SELECTION_NONE))
+  EggListBoxPrivate *priv = list_box->priv;
+
+  if (child != priv->selected_child &&
+      (child == NULL || priv->selection_mode != GTK_SELECTION_NONE))
     {
-      list_box->priv->selected_child = child;
+      priv->selected_child = child;
       g_signal_emit (list_box, signals[CHILD_SELECTED], 0,
-		     (list_box->priv->selected_child != NULL) ? list_box->priv->selected_child->widget : NULL);
+		     (priv->selected_child != NULL) ? priv->selected_child->widget : NULL);
       gtk_widget_queue_draw ((GtkWidget*) list_box);
     }
   if (child != NULL)
@@ -713,9 +743,11 @@ egg_list_box_select_and_activate (EggListBox *list_box, EggListBoxChildInfo *chi
 static void
 egg_list_box_update_prelight (EggListBox *list_box, EggListBoxChildInfo *child)
 {
-  if (child != list_box->priv->prelight_child)
+  EggListBoxPrivate *priv = list_box->priv;
+
+  if (child != priv->prelight_child)
     {
-      list_box->priv->prelight_child = child;
+      priv->prelight_child = child;
       gtk_widget_queue_draw ((GtkWidget*) list_box);
     }
 }
@@ -723,13 +755,14 @@ egg_list_box_update_prelight (EggListBox *list_box, EggListBoxChildInfo *child)
 static void
 egg_list_box_update_active (EggListBox *list_box, EggListBoxChildInfo *child)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   gboolean val;
 
-  val = list_box->priv->active_child == child;
-  if (list_box->priv->active_child != NULL &&
-      val != list_box->priv->active_child_active)
+  val = priv->active_child == child;
+  if (priv->active_child != NULL &&
+      val != priv->active_child_active)
     {
-      list_box->priv->active_child_active = val;
+      priv->active_child_active = val;
       gtk_widget_queue_draw ((GtkWidget*) list_box);
     }
 }
@@ -793,6 +826,7 @@ egg_list_box_real_button_press_event (GtkWidget *widget,
 				      GdkEventButton *event)
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
+  EggListBoxPrivate *priv = list_box->priv;
 
   if (event->button == 1)
     {
@@ -800,11 +834,11 @@ egg_list_box_real_button_press_event (GtkWidget *widget,
       child = egg_list_box_find_child_at_y (list_box, event->y);
       if (child != NULL)
 	{
-	  list_box->priv->active_child = child;
-	  list_box->priv->active_child_active = TRUE;
+	  priv->active_child = child;
+	  priv->active_child_active = TRUE;
 	  gtk_widget_queue_draw ((GtkWidget*) list_box);
 	  if (event->type == GDK_2BUTTON_PRESS &&
-	      !list_box->priv->activate_single_click &&
+	      !priv->activate_single_click &&
 	      child->widget != NULL)
 	    g_signal_emit (list_box, signals[CHILD_ACTIVATED], 0,
 			   child->widget);
@@ -823,19 +857,20 @@ egg_list_box_real_button_release_event (GtkWidget *widget,
 					GdkEventButton *event)
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
+  EggListBoxPrivate *priv = list_box->priv;
 
   if (event->button == 1)
     {
-    if (list_box->priv->active_child != NULL &&
-	list_box->priv->active_child_active)
+    if (priv->active_child != NULL &&
+	priv->active_child_active)
       {
-	if (list_box->priv->activate_single_click)
-	  egg_list_box_select_and_activate (list_box, list_box->priv->active_child);
+	if (priv->activate_single_click)
+	  egg_list_box_select_and_activate (list_box, priv->active_child);
 	else
-	  egg_list_box_update_selected (list_box, list_box->priv->active_child);
+	  egg_list_box_update_selected (list_box, priv->active_child);
       }
-    list_box->priv->active_child = NULL;
-    list_box->priv->active_child_active = FALSE;
+    priv->active_child = NULL;
+    priv->active_child_active = FALSE;
     gtk_widget_queue_draw ((GtkWidget*) list_box);
   }
 
@@ -856,7 +891,8 @@ egg_list_box_real_show (GtkWidget *widget)
 static gboolean
 egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
 {
-  EggListBox * list_box= (EggListBox*) widget;
+  EggListBox *list_box = EGG_LIST_BOX (widget);
+  EggListBoxPrivate *priv = list_box->priv;
   gboolean had_focus = FALSE;
   gboolean focus_into = FALSE;
   GtkWidget* recurse_into;
@@ -876,10 +912,10 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
       /* If on row, going right, enter into possible container */
       if (direction == GTK_DIR_RIGHT || direction == GTK_DIR_TAB_FORWARD)
 	{
-	  if (list_box->priv->cursor_child != NULL)
-	    recurse_into = list_box->priv->cursor_child->widget;
+	  if (priv->cursor_child != NULL)
+	    recurse_into = priv->cursor_child->widget;
 	}
-      current_focus_child = list_box->priv->cursor_child;
+      current_focus_child = priv->cursor_child;
       /* Unless we're going up/down we're always leaving
       the container */
       if (direction != GTK_DIR_UP && direction != GTK_DIR_DOWN)
@@ -904,8 +940,8 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
       /* If coming from the left, enter into possible container */
       if (direction == GTK_DIR_LEFT || direction == GTK_DIR_TAB_BACKWARD)
 	{
-	  if (list_box->priv->selected_child != NULL)
-	    recurse_into = list_box->priv->selected_child->widget;
+	  if (priv->selected_child != NULL)
+	    recurse_into = priv->selected_child->widget;
 	}
     }
 
@@ -953,7 +989,7 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
 	      next_focus_child = egg_list_box_get_last_visible (list_box);
 	      break;
 	    default:
-	      next_focus_child = list_box->priv->selected_child;
+	      next_focus_child = priv->selected_child;
 	      if (next_focus_child == NULL)
 		next_focus_child =
 		  egg_list_box_get_first_visible (list_box);
@@ -1019,6 +1055,7 @@ static gboolean
 egg_list_box_real_draw (GtkWidget* widget, cairo_t* cr)
 {
   EggListBox * list_box = EGG_LIST_BOX (widget);
+  EggListBoxPrivate *priv = list_box->priv;
   GtkAllocation allocation = {0};
   GtkStyleContext* context;
   ChildFlags flags[3], *found;
@@ -1030,21 +1067,21 @@ egg_list_box_real_draw (GtkWidget* widget, cairo_t* cr)
   gtk_render_background (context, cr, (gdouble) 0, (gdouble) 0, (gdouble) allocation.width, (gdouble) allocation.height);
   flags_length = 0;
 
-  if (list_box->priv->selected_child != NULL)
+  if (priv->selected_child != NULL)
     {
-      found = child_flags_find_or_add (flags, &flags_length, list_box->priv->selected_child);
+      found = child_flags_find_or_add (flags, &flags_length, priv->selected_child);
       found->state |= GTK_STATE_FLAG_SELECTED;
     }
 
-  if (list_box->priv->prelight_child != NULL)
+  if (priv->prelight_child != NULL)
     {
-      found = child_flags_find_or_add (flags, &flags_length, list_box->priv->prelight_child);
+      found = child_flags_find_or_add (flags, &flags_length, priv->prelight_child);
       found->state |= GTK_STATE_FLAG_PRELIGHT;
     }
 
-  if (list_box->priv->active_child != NULL && list_box->priv->active_child_active)
+  if (priv->active_child != NULL && priv->active_child_active)
     {
-      found = child_flags_find_or_add (flags, &flags_length, list_box->priv->active_child);
+      found = child_flags_find_or_add (flags, &flags_length, priv->active_child);
       found->state |= GTK_STATE_FLAG_ACTIVE;
     }
 
@@ -1057,8 +1094,8 @@ egg_list_box_real_draw (GtkWidget* widget, cairo_t* cr)
       gtk_style_context_restore (context);
     }
 
-  if (gtk_widget_has_visible_focus ((GtkWidget*) list_box) && list_box->priv->cursor_child != NULL)
-    gtk_render_focus (context, cr, 0, list_box->priv->cursor_child->y, allocation.width, list_box->priv->cursor_child->height);
+  if (gtk_widget_has_visible_focus ((GtkWidget*) list_box) && priv->cursor_child != NULL)
+    gtk_render_focus (context, cr, 0, priv->cursor_child->y, allocation.width, priv->cursor_child->height);
 
   GTK_WIDGET_CLASS (egg_list_box_parent_class)->draw ((GtkWidget*) G_TYPE_CHECK_INSTANCE_CAST (list_box, GTK_TYPE_CONTAINER, GtkContainer), cr);
 
@@ -1098,11 +1135,12 @@ egg_list_box_real_realize (GtkWidget* widget)
 static void
 egg_list_box_apply_filter (EggListBox *list_box, GtkWidget *child)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   gboolean do_show;
 
   do_show = TRUE;
-  if (list_box->priv->filter_func != NULL)
-    do_show = list_box->priv->filter_func (child, list_box->priv->filter_func_target);
+  if (priv->filter_func != NULL)
+    do_show = priv->filter_func (child, priv->filter_func_target);
 
   gtk_widget_set_child_visible (child, do_show);
 }
@@ -1110,10 +1148,11 @@ egg_list_box_apply_filter (EggListBox *list_box, GtkWidget *child)
 static void
 egg_list_box_apply_filter_all (EggListBox *list_box)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   EggListBoxChildInfo *child_info;
   GSequenceIter *iter;
 
-  for (iter = g_sequence_get_begin_iter (list_box->priv->children);
+  for (iter = g_sequence_get_begin_iter (priv->children);
        !g_sequence_iter_is_end (iter);
        iter = g_sequence_iter_next (iter))
     {
@@ -1125,11 +1164,12 @@ egg_list_box_apply_filter_all (EggListBox *list_box)
 static EggListBoxChildInfo*
 egg_list_box_get_first_visible (EggListBox *list_box)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   EggListBoxChildInfo *child_info;
   GSequenceIter *iter;
   GtkWidget *child;
 
-  for (iter = g_sequence_get_begin_iter (list_box->priv->children);
+  for (iter = g_sequence_get_begin_iter (priv->children);
        !g_sequence_iter_is_end (iter);
        iter = g_sequence_iter_next (iter))
     {
@@ -1147,11 +1187,12 @@ egg_list_box_get_first_visible (EggListBox *list_box)
 static EggListBoxChildInfo*
 egg_list_box_get_last_visible (EggListBox *list_box)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   EggListBoxChildInfo *child_info;
-  GSequenceIter* iter;
-  GtkWidget* child;
+  GSequenceIter *iter;
+  GtkWidget *child;
 
-  iter = g_sequence_get_end_iter (list_box->priv->children);
+  iter = g_sequence_get_end_iter (priv->children);
   while (!g_sequence_iter_is_begin (iter))
     {
       iter = g_sequence_iter_prev (iter);
@@ -1219,6 +1260,7 @@ egg_list_box_get_next_visible (EggListBox *list_box, GSequenceIter* iter)
 static void
 egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   EggListBoxChildInfo *info;
   GSequenceIter *before_iter;
   GtkWidget *child;
@@ -1239,25 +1281,25 @@ egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
       before_child = _g_object_ref0 (before_info->widget);
     }
 
-  if (list_box->priv->update_separator_func != NULL &&
+  if (priv->update_separator_func != NULL &&
       gtk_widget_get_visible (child) &&
       gtk_widget_get_child_visible (child))
     {
       old_separator = _g_object_ref0 (info->separator);
-      list_box->priv->update_separator_func (&info->separator,
+      priv->update_separator_func (&info->separator,
 					 child,
 					 before_child,
-					 list_box->priv->update_separator_func_target);
+					 priv->update_separator_func_target);
       if (old_separator != info->separator)
 	{
 	  if (old_separator != NULL)
 	    {
 	      gtk_widget_unparent (old_separator);
-	      g_hash_table_remove (list_box->priv->separator_hash, old_separator);
+	      g_hash_table_remove (priv->separator_hash, old_separator);
 	    }
 	  if (info->separator != NULL)
 	    {
-	      g_hash_table_insert (list_box->priv->separator_hash, info->separator, info);
+	      g_hash_table_insert (priv->separator_hash, info->separator, info);
 	      gtk_widget_set_parent (info->separator, (GtkWidget*) list_box);
 	      gtk_widget_show (info->separator);
 	    }
@@ -1269,7 +1311,7 @@ egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
     {
       if (info->separator != NULL)
 	{
-	  g_hash_table_remove (list_box->priv->separator_hash, info->separator);
+	  g_hash_table_remove (priv->separator_hash, info->separator);
 	  gtk_widget_unparent (info->separator);
 	  _g_object_unref0 (info->separator);
 	  gtk_widget_queue_resize ((GtkWidget*) list_box);
@@ -1282,7 +1324,9 @@ egg_list_box_update_separator (EggListBox *list_box, GSequenceIter* iter)
 static EggListBoxChildInfo*
 egg_list_box_lookup_info (EggListBox *list_box, GtkWidget* child)
 {
-  return g_hash_table_lookup (list_box->priv->child_hash, child);
+  EggListBoxPrivate *priv = list_box->priv;
+
+  return g_hash_table_lookup (priv->child_hash, child);
 }
 
 static void
@@ -1295,15 +1339,16 @@ static void
 egg_list_box_real_add (GtkContainer* container, GtkWidget* child)
 {
   EggListBox *list_box = EGG_LIST_BOX (container);
+  EggListBoxPrivate *priv = list_box->priv;
   EggListBoxChildInfo *info;
   GSequenceIter* iter = NULL;
   info = egg_list_box_child_info_new (child);
-  g_hash_table_insert (list_box->priv->child_hash, child, info);
-  if (list_box->priv->sort_func != NULL)
-    iter = g_sequence_insert_sorted (list_box->priv->children, info,
+  g_hash_table_insert (priv->child_hash, child, info);
+  if (priv->sort_func != NULL)
+    iter = g_sequence_insert_sorted (priv->children, info,
 				     (GCompareDataFunc)do_sort, list_box);
   else
-    iter = g_sequence_append (list_box->priv->children, info);
+    iter = g_sequence_append (priv->children, info);
 
   info->iter = iter;
   gtk_widget_set_parent (child, (GtkWidget*) list_box);
@@ -1338,6 +1383,7 @@ static void
 egg_list_box_real_remove (GtkContainer* container, GtkWidget* child)
 {
   EggListBox *list_box = EGG_LIST_BOX (container);
+  EggListBoxPrivate *priv = list_box->priv;
   gboolean was_visible;
   EggListBoxChildInfo *info;
   GSequenceIter *next;
@@ -1350,10 +1396,10 @@ egg_list_box_real_remove (GtkContainer* container, GtkWidget* child)
   info = egg_list_box_lookup_info (list_box, child);
   if (info == NULL)
     {
-      info = g_hash_table_lookup (list_box->priv->separator_hash, child);
+      info = g_hash_table_lookup (priv->separator_hash, child);
       if (info != NULL)
 	{
-	  g_hash_table_remove (list_box->priv->separator_hash, child);
+	  g_hash_table_remove (priv->separator_hash, child);
 	  _g_object_unref0 (info->separator);
 	  info->separator = NULL;
 	  gtk_widget_unparent (child);
@@ -1369,24 +1415,24 @@ egg_list_box_real_remove (GtkContainer* container, GtkWidget* child)
 
   if (info->separator != NULL)
     {
-      g_hash_table_remove (list_box->priv->separator_hash, info->separator);
+      g_hash_table_remove (priv->separator_hash, info->separator);
       gtk_widget_unparent (info->separator);
       _g_object_unref0 (info->separator);
       info->separator = NULL;
     }
 
-  if (info == list_box->priv->selected_child)
+  if (info == priv->selected_child)
       egg_list_box_update_selected (list_box, NULL);
-  if (info == list_box->priv->prelight_child)
-    list_box->priv->prelight_child = NULL;
-  if (info == list_box->priv->cursor_child)
-    list_box->priv->cursor_child = NULL;
-  if (info == list_box->priv->active_child)
-    list_box->priv->active_child = NULL;
+  if (info == priv->prelight_child)
+    priv->prelight_child = NULL;
+  if (info == priv->cursor_child)
+    priv->cursor_child = NULL;
+  if (info == priv->active_child)
+    priv->active_child = NULL;
 
   next = egg_list_box_get_next_visible (list_box, info->iter);
   gtk_widget_unparent (child);
-  g_hash_table_remove (list_box->priv->child_hash, child);
+  g_hash_table_remove (priv->child_hash, child);
   g_sequence_remove (info->iter);
   if (gtk_widget_get_visible ((GtkWidget*) list_box))
     egg_list_box_update_separator (list_box, next);
@@ -1403,11 +1449,11 @@ egg_list_box_real_forall_internal (GtkContainer* container,
 				   void* callback_target)
 {
   EggListBox *list_box = EGG_LIST_BOX (container);
+  EggListBoxPrivate *priv = list_box->priv;
   GSequenceIter *iter;
   EggListBoxChildInfo *child_info;
 
-
-  iter = g_sequence_get_begin_iter (list_box->priv->children);
+  iter = g_sequence_get_begin_iter (priv->children);
   while (!g_sequence_iter_is_end (iter))
     {
       child_info = g_sequence_get (iter);
@@ -1459,6 +1505,7 @@ egg_list_box_real_get_preferred_height_for_width (GtkWidget* widget, gint width,
 						  gint* minimum_height_out, gint* natural_height_out)
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
+  EggListBoxPrivate *priv = list_box->priv;
   GSequenceIter *iter;
   gint minimum_height;
   gint natural_height;
@@ -1473,7 +1520,7 @@ egg_list_box_real_get_preferred_height_for_width (GtkWidget* widget, gint width,
 			       "focus-line-width", &focus_width,
 			       "focus-padding", &focus_pad, NULL);
 
-  for (iter = g_sequence_get_begin_iter (list_box->priv->children);
+  for (iter = g_sequence_get_begin_iter (priv->children);
        !g_sequence_iter_is_end (iter);
        iter = g_sequence_iter_next (iter))
     {
@@ -1513,6 +1560,7 @@ static void
 egg_list_box_real_get_preferred_width (GtkWidget* widget, gint* minimum_width_out, gint* natural_width_out)
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
+  EggListBoxPrivate *priv = list_box->priv;
   gint minimum_width;
   gint natural_width;
   GtkStyleContext *context;
@@ -1530,7 +1578,7 @@ egg_list_box_real_get_preferred_width (GtkWidget* widget, gint* minimum_width_ou
   minimum_width = 0;
   natural_width = 0;
 
-  for (iter = g_sequence_get_begin_iter (list_box->priv->children);
+  for (iter = g_sequence_get_begin_iter (priv->children);
        !g_sequence_iter_is_end (iter);
        iter = g_sequence_iter_next (iter))
     {
@@ -1569,6 +1617,7 @@ static void
 egg_list_box_real_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
+  EggListBoxPrivate *priv = list_box->priv;
   GtkAllocation child_allocation;
   GtkAllocation separator_allocation;
   EggListBoxChildInfo *child_info;
@@ -1609,7 +1658,7 @@ egg_list_box_real_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
   separator_allocation.x = 0;
   separator_allocation.width = allocation->width;
 
-  for (iter = g_sequence_get_begin_iter (list_box->priv->children);
+  for (iter = g_sequence_get_begin_iter (priv->children);
        !g_sequence_iter_is_end (iter);
        iter = g_sequence_iter_next (iter))
     {
@@ -1649,33 +1698,36 @@ egg_list_box_real_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 void
 egg_list_box_drag_unhighlight_widget (EggListBox *list_box)
 {
+  EggListBoxPrivate *priv = list_box->priv;
+
   g_return_if_fail (list_box != NULL);
 
-  if (list_box->priv->drag_highlighted_widget == NULL)
+  if (priv->drag_highlighted_widget == NULL)
     return;
 
-  gtk_drag_unhighlight (list_box->priv->drag_highlighted_widget);
-  g_object_unref (list_box->priv->drag_highlighted_widget);
-  list_box->priv->drag_highlighted_widget = NULL;
+  gtk_drag_unhighlight (priv->drag_highlighted_widget);
+  g_object_unref (priv->drag_highlighted_widget);
+  priv->drag_highlighted_widget = NULL;
 }
 
 
 void
 egg_list_box_drag_highlight_widget (EggListBox *list_box, GtkWidget *child)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   GtkWidget *old_highlight;
 
   g_return_if_fail (list_box != NULL);
   g_return_if_fail (child != NULL);
 
-  if (list_box->priv->drag_highlighted_widget == child)
+  if (priv->drag_highlighted_widget == child)
     return;
 
   egg_list_box_drag_unhighlight_widget (list_box);
   gtk_drag_highlight (child);
 
-  old_highlight = list_box->priv->drag_highlighted_widget;
-  list_box->priv->drag_highlighted_widget = g_object_ref (child);
+  old_highlight = priv->drag_highlighted_widget;
+  priv->drag_highlighted_widget = g_object_ref (child);
   if (old_highlight)
     g_object_unref (old_highlight);
 }
@@ -1684,11 +1736,12 @@ static void
 egg_list_box_real_drag_leave (GtkWidget *widget, GdkDragContext *context, guint time_)
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
+  EggListBoxPrivate *priv = list_box->priv;
 
   egg_list_box_drag_unhighlight_widget (list_box);
-  if (list_box->priv->auto_scroll_timeout_id != 0) {
-    g_source_remove (list_box->priv->auto_scroll_timeout_id);
-    list_box->priv->auto_scroll_timeout_id = 0;
+  if (priv->auto_scroll_timeout_id != 0) {
+    g_source_remove (priv->auto_scroll_timeout_id);
+    priv->auto_scroll_timeout_id = 0;
   }
 }
 
@@ -1708,10 +1761,11 @@ static gboolean
 drag_motion_timeout (MoveData *data)
 {
   EggListBox *list_box = data->list_box;
+  EggListBoxPrivate *priv = list_box->priv;
 
-  gtk_adjustment_set_value (list_box->priv->adjustment,
-			    gtk_adjustment_get_value (list_box->priv->adjustment) +
-			    gtk_adjustment_get_step_increment (list_box->priv->adjustment) * data->move);
+  gtk_adjustment_set_value (priv->adjustment,
+			    gtk_adjustment_get_value (priv->adjustment) +
+			    gtk_adjustment_get_step_increment (priv->adjustment) * data->move);
   return TRUE;
 }
 
@@ -1720,31 +1774,32 @@ egg_list_box_real_drag_motion (GtkWidget *widget, GdkDragContext *context,
 			       gint x, gint y, guint time_)
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
+  EggListBoxPrivate *priv = list_box->priv;
   int move;
   MoveData *data;
   gdouble size;
 
   /* Auto-scroll during Dnd if cursor is moving into the top/bottom portion of the
      * box. */
-  if (list_box->priv->auto_scroll_timeout_id != 0)
+  if (priv->auto_scroll_timeout_id != 0)
     {
-      g_source_remove (list_box->priv->auto_scroll_timeout_id);
-      list_box->priv->auto_scroll_timeout_id = 0;
+      g_source_remove (priv->auto_scroll_timeout_id);
+      priv->auto_scroll_timeout_id = 0;
     }
 
-  if (list_box->priv->adjustment == NULL)
+  if (priv->adjustment == NULL)
     return FALSE;
 
   /* Part of the view triggering auto-scroll */
   size = 30;
   move = 0;
 
-  if (y < (gtk_adjustment_get_value (list_box->priv->adjustment) + size))
+  if (y < (gtk_adjustment_get_value (priv->adjustment) + size))
     {
       /* Scroll up */
       move = -1;
     }
-  else if (y > ((gtk_adjustment_get_value (list_box->priv->adjustment) + gtk_adjustment_get_page_size (list_box->priv->adjustment)) - size))
+  else if (y > ((gtk_adjustment_get_value (priv->adjustment) + gtk_adjustment_get_page_size (priv->adjustment)) - size))
     {
       /* Scroll down */
       move = 1;
@@ -1756,7 +1811,7 @@ egg_list_box_real_drag_motion (GtkWidget *widget, GdkDragContext *context,
   data = g_slice_new0 (MoveData);
   data->list_box = list_box;
 
-  list_box->priv->auto_scroll_timeout_id =
+  priv->auto_scroll_timeout_id =
     g_timeout_add_full (G_PRIORITY_DEFAULT, 150, (GSourceFunc)drag_motion_timeout,
 			data, (GDestroyNotify) move_data_free);
 
@@ -1766,25 +1821,32 @@ egg_list_box_real_drag_motion (GtkWidget *widget, GdkDragContext *context,
 static void
 egg_list_box_real_activate_cursor_child (EggListBox *list_box)
 {
-  egg_list_box_select_and_activate (list_box, list_box->priv->cursor_child);
+  EggListBoxPrivate *priv = list_box->priv;
+
+  egg_list_box_select_and_activate (list_box, priv->cursor_child);
 }
 
 static void
 egg_list_box_real_toggle_cursor_child (EggListBox *list_box)
 {
-  if (list_box->priv->cursor_child == NULL)
+  EggListBoxPrivate *priv = list_box->priv;
+
+  if (priv->cursor_child == NULL)
     return;
 
-  if (list_box->priv->selection_mode == GTK_SELECTION_SINGLE &&
-      list_box->priv->selected_child == list_box->priv->cursor_child)
+  if (priv->selection_mode == GTK_SELECTION_SINGLE &&
+      priv->selected_child == priv->cursor_child)
     egg_list_box_update_selected (list_box, NULL);
   else
-    egg_list_box_select_and_activate (list_box, list_box->priv->cursor_child);
+    egg_list_box_select_and_activate (list_box, priv->cursor_child);
 }
 
 static void
-egg_list_box_real_move_cursor (EggListBox *list_box, GtkMovementStep step, gint count)
+egg_list_box_real_move_cursor (EggListBox *list_box,
+			       GtkMovementStep step,
+			       gint count)
 {
+  EggListBoxPrivate *priv = list_box->priv;
   GdkModifierType state;
   gboolean modify_selection_pressed;
   EggListBoxChildInfo *child;
@@ -1816,9 +1878,9 @@ egg_list_box_real_move_cursor (EggListBox *list_box, GtkMovementStep step, gint 
 	child = egg_list_box_get_last_visible (list_box);
       break;
     case GTK_MOVEMENT_DISPLAY_LINES:
-      if (list_box->priv->cursor_child != NULL)
+      if (priv->cursor_child != NULL)
 	{
-	  iter = list_box->priv->cursor_child->iter;
+	  iter = priv->cursor_child->iter;
 
 	  while (count < 0  && iter != NULL)
 	    {
@@ -1837,16 +1899,16 @@ egg_list_box_real_move_cursor (EggListBox *list_box, GtkMovementStep step, gint 
       break;
     case GTK_MOVEMENT_PAGES:
       page_size = 100;
-      if (list_box->priv->adjustment != NULL)
-	page_size = gtk_adjustment_get_page_increment (list_box->priv->adjustment);
+      if (priv->adjustment != NULL)
+	page_size = gtk_adjustment_get_page_increment (priv->adjustment);
 
-      if (list_box->priv->cursor_child != NULL)
+      if (priv->cursor_child != NULL)
 	{
-	  start_y = list_box->priv->cursor_child->y;
+	  start_y = priv->cursor_child->y;
 	  end_y = start_y;
-	  iter = list_box->priv->cursor_child->iter;
+	  iter = priv->cursor_child->iter;
 
-	  child = list_box->priv->cursor_child;
+	  child = priv->cursor_child;
 	  if (count < 0)
 	    {
 	      /* Up */
@@ -1880,9 +1942,9 @@ egg_list_box_real_move_cursor (EggListBox *list_box, GtkMovementStep step, gint 
 		}
 	    }
 	  end_y = child->y;
-	  if (end_y != start_y && list_box->priv->adjustment != NULL)
-	    gtk_adjustment_set_value (list_box->priv->adjustment,
-				      gtk_adjustment_get_value (list_box->priv->adjustment) +
+	  if (end_y != start_y && priv->adjustment != NULL)
+	    gtk_adjustment_set_value (priv->adjustment,
+				      gtk_adjustment_get_value (priv->adjustment) +
 				      end_y - start_y);
 	}
       break;
