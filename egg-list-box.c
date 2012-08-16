@@ -294,38 +294,41 @@ egg_list_box_finalize (GObject *obj)
 static void
 egg_list_box_class_init (EggListBoxClass *klass)
 {
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
   GtkBindingSet *binding_set;
 
   egg_list_box_parent_class = g_type_class_peek_parent (klass);
 
   g_type_class_add_private (klass, sizeof (EggListBoxPrivate));
 
-  GTK_WIDGET_CLASS (klass)->enter_notify_event = egg_list_box_real_enter_notify_event;
-  GTK_WIDGET_CLASS (klass)->leave_notify_event = egg_list_box_real_leave_notify_event;
-  GTK_WIDGET_CLASS (klass)->motion_notify_event = egg_list_box_real_motion_notify_event;
-  GTK_WIDGET_CLASS (klass)->button_press_event = egg_list_box_real_button_press_event;
-  GTK_WIDGET_CLASS (klass)->button_release_event = egg_list_box_real_button_release_event;
-  GTK_WIDGET_CLASS (klass)->show = egg_list_box_real_show;
-  GTK_WIDGET_CLASS (klass)->focus = egg_list_box_real_focus;
-  GTK_WIDGET_CLASS (klass)->draw = egg_list_box_real_draw;
-  GTK_WIDGET_CLASS (klass)->realize = egg_list_box_real_realize;
-  GTK_CONTAINER_CLASS (klass)->add = egg_list_box_real_add;
-  GTK_CONTAINER_CLASS (klass)->remove = egg_list_box_real_remove;
-  GTK_CONTAINER_CLASS (klass)->forall = egg_list_box_real_forall_internal;
-  GTK_WIDGET_CLASS (klass)->compute_expand = egg_list_box_real_compute_expand_internal;
-  GTK_CONTAINER_CLASS (klass)->child_type = egg_list_box_real_child_type;
-  GTK_WIDGET_CLASS (klass)->get_request_mode = egg_list_box_real_get_request_mode;
-  GTK_WIDGET_CLASS (klass)->get_preferred_height = egg_list_box_real_get_preferred_height;
-  GTK_WIDGET_CLASS (klass)->get_preferred_height_for_width = egg_list_box_real_get_preferred_height_for_width;
-  GTK_WIDGET_CLASS (klass)->get_preferred_width = egg_list_box_real_get_preferred_width;
-  GTK_WIDGET_CLASS (klass)->get_preferred_width_for_height = egg_list_box_real_get_preferred_width_for_height;
-  GTK_WIDGET_CLASS (klass)->size_allocate = egg_list_box_real_size_allocate;
-  GTK_WIDGET_CLASS (klass)->drag_leave = egg_list_box_real_drag_leave;
-  GTK_WIDGET_CLASS (klass)->drag_motion = egg_list_box_real_drag_motion;
-  EGG_LIST_BOX_CLASS (klass)->activate_cursor_child = egg_list_box_real_activate_cursor_child;
-  EGG_LIST_BOX_CLASS (klass)->toggle_cursor_child = egg_list_box_real_toggle_cursor_child;
-  EGG_LIST_BOX_CLASS (klass)->move_cursor = egg_list_box_real_move_cursor;
-  G_OBJECT_CLASS (klass)->finalize = egg_list_box_finalize;
+  object_class->finalize = egg_list_box_finalize;
+  widget_class->enter_notify_event = egg_list_box_real_enter_notify_event;
+  widget_class->leave_notify_event = egg_list_box_real_leave_notify_event;
+  widget_class->motion_notify_event = egg_list_box_real_motion_notify_event;
+  widget_class->button_press_event = egg_list_box_real_button_press_event;
+  widget_class->button_release_event = egg_list_box_real_button_release_event;
+  widget_class->show = egg_list_box_real_show;
+  widget_class->focus = egg_list_box_real_focus;
+  widget_class->draw = egg_list_box_real_draw;
+  widget_class->realize = egg_list_box_real_realize;
+  widget_class->compute_expand = egg_list_box_real_compute_expand_internal;
+  widget_class->get_request_mode = egg_list_box_real_get_request_mode;
+  widget_class->get_preferred_height = egg_list_box_real_get_preferred_height;
+  widget_class->get_preferred_height_for_width = egg_list_box_real_get_preferred_height_for_width;
+  widget_class->get_preferred_width = egg_list_box_real_get_preferred_width;
+  widget_class->get_preferred_width_for_height = egg_list_box_real_get_preferred_width_for_height;
+  widget_class->size_allocate = egg_list_box_real_size_allocate;
+  widget_class->drag_leave = egg_list_box_real_drag_leave;
+  widget_class->drag_motion = egg_list_box_real_drag_motion;
+  container_class->add = egg_list_box_real_add;
+  container_class->remove = egg_list_box_real_remove;
+  container_class->forall = egg_list_box_real_forall_internal;
+  container_class->child_type = egg_list_box_real_child_type;
+  klass->activate_cursor_child = egg_list_box_real_activate_cursor_child;
+  klass->toggle_cursor_child = egg_list_box_real_toggle_cursor_child;
+  klass->move_cursor = egg_list_box_real_move_cursor;
 
   signals[CHILD_SELECTED] =
     g_signal_new ("child-selected",
@@ -371,22 +374,35 @@ egg_list_box_class_init (EggListBoxClass *klass)
 		  G_TYPE_NONE, 2,
 		  GTK_TYPE_MOVEMENT_STEP, G_TYPE_INT);
 
-  GTK_WIDGET_CLASS (klass)->activate_signal = signals[ACTIVATE_CURSOR_CHILD];
+  widget_class->activate_signal = signals[ACTIVATE_CURSOR_CHILD];
 
   binding_set = gtk_binding_set_by_class (klass);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Home, 0, GTK_MOVEMENT_BUFFER_ENDS, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Home, 0, GTK_MOVEMENT_BUFFER_ENDS, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_End, 0, GTK_MOVEMENT_BUFFER_ENDS, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_End, 0, GTK_MOVEMENT_BUFFER_ENDS, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Up, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Up, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Down, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Down, GDK_CONTROL_MASK, GTK_MOVEMENT_DISPLAY_LINES, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Page_Up, 0, GTK_MOVEMENT_PAGES, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Up, 0, GTK_MOVEMENT_PAGES, -1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_Page_Down, 0, GTK_MOVEMENT_PAGES, 1);
-  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Down, 0, GTK_MOVEMENT_PAGES, 1);
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_space, GDK_CONTROL_MASK, "toggle-cursor-child", 0, NULL);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Home, 0,
+				 GTK_MOVEMENT_BUFFER_ENDS, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Home, 0,
+				 GTK_MOVEMENT_BUFFER_ENDS, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_End, 0,
+				 GTK_MOVEMENT_BUFFER_ENDS, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_End, 0,
+				 GTK_MOVEMENT_BUFFER_ENDS, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Up, GDK_CONTROL_MASK,
+				 GTK_MOVEMENT_DISPLAY_LINES, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Up, GDK_CONTROL_MASK,
+				 GTK_MOVEMENT_DISPLAY_LINES, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Down, GDK_CONTROL_MASK,
+				 GTK_MOVEMENT_DISPLAY_LINES, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Down, GDK_CONTROL_MASK,
+				 GTK_MOVEMENT_DISPLAY_LINES, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Page_Up, 0,
+				 GTK_MOVEMENT_PAGES, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Up, 0,
+				 GTK_MOVEMENT_PAGES, -1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_Page_Down, 0,
+				 GTK_MOVEMENT_PAGES, 1);
+  egg_list_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Down, 0,
+				 GTK_MOVEMENT_PAGES, 1);
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_space, GDK_CONTROL_MASK,
+				"toggle-cursor-child", 0, NULL);
 }
 
 GtkWidget *
