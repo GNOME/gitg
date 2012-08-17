@@ -49,12 +49,11 @@ public class Application : Gtk.Application
 		};
 	}
 
-	private static Options options;
 	private PreferencesDialog d_preferences;
 
 	static construct
 	{
-		options.view = "";
+		Options.view = "";
 	}
 
 	private static void show_version_and_quit()
@@ -63,14 +62,14 @@ public class Application : Gtk.Application
 		              Environment.get_application_name(),
 		              Config.VERSION);
 
-		options.quit = true;
+		Options.quit = true;
 	}
 
 	private void parse_command_line(ref unowned string[] argv) throws OptionError
 	{
 		var ctx = new OptionContext(_("- git repository viewer"));
 
-		ctx.add_main_entries(options.entries, Config.GETTEXT_PACKAGE);
+		ctx.add_main_entries(Options.entries, Config.GETTEXT_PACKAGE);
 		ctx.add_group(Gtk.get_option_group(true));
 
 		// Add any option groups from plugins
@@ -111,7 +110,7 @@ public class Application : Gtk.Application
 			return true;
 		}
 
-		if (options.quit)
+		if (Options.quit)
 		{
 			exit_status = 0;
 			return true;
@@ -135,17 +134,17 @@ public class Application : Gtk.Application
 			return 1;
 		}
 
-		if (options.quit)
+		if (Options.quit)
 		{
 			return 0;
 		}
 
-		options.command_line = cmd;
+		Options.command_line = cmd;
 
-		if (options.startup)
+		if (Options.startup)
 		{
 			app_init();
-			options.startup = false;
+			Options.startup = false;
 		}
 
 		if (argv.length > 1)
@@ -158,7 +157,7 @@ public class Application : Gtk.Application
 				files += File.new_for_commandline_arg(arg);
 			}
 
-			open(files, options.view);
+			open(files, Options.view);
 		}
 		else
 		{
@@ -278,7 +277,7 @@ public class Application : Gtk.Application
 
 	protected override void startup()
 	{
-		options.startup = true;
+		Options.startup = true;
 		base.startup();
 
 		setup_menus();
@@ -297,16 +296,16 @@ public class Application : Gtk.Application
 		 * 1) --no-wd: present the window
 		 * 2) Get cwd from the commandline: open
 		 */
-		if (options.no_wd)
+		if (Options.no_wd)
 		{
 			present_window();
 		}
 		else
 		{
 			// Otherwise open repository from current dir
-			string? wd = options.command_line.get_cwd();
+			string? wd = Options.command_line.get_cwd();
 
-			open(new File[] { File.new_for_path(wd) }, options.view);
+			open(new File[] { File.new_for_path(wd) }, Options.view);
 		}
 
 		base.activate();
