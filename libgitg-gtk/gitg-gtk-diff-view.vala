@@ -32,6 +32,7 @@ namespace GitgGtk
 		public File? custom_js { get; construct; }
 		public Ggit.DiffOptions? options { get; construct set; }
 
+		private Cancellable d_cancellable;
 		private bool d_loaded;
 
 		public Ggit.Diff? diff
@@ -60,19 +61,67 @@ namespace GitgGtk
 
 		static construct
 		{
-			var r = new Soup.Requester();
-
-			r.add_feature(typeof(DiffViewRequest));
-
-			var session = WebKit.get_default_session();
-
-			session.add_feature(r);
-
 			s_diffmap = new Gee.HashMap<string, GitgGtk.DiffView>();
-			session.set_data("GitgGtkDiffViewMap", s_diffmap);
+
+			var context = WebKit.WebContext.get_default();
+			context.register_uri_scheme("gitg-diff", gitg_diff_request);
 		}
 
-		private void parse_font(string val, ref string family, ref int size)
+		private static DiffViewRequest? parse_request(WebKit.URISchemeRequest request)
+		{
+			var uri = new Soup.URI(request.get_uri());
+			var path = uri.get_path();
+			var parts = path.split("/", 3);
+
+			if (parts.length != 3)
+			{
+				return null;
+			}
+
+			uri.set_scheme(parts[1]);
+			uri.set_path("/" + parts[2]);
+
+			DiffView? view = null;
+
+			var q = uri.get_query();
+
+			if (q != null)
+			{
+				var f = Soup.Form.decode(q);
+				var vid = f.lookup("viewid");
+
+				if (vid != null && s_diffmap.has_key(vid))
+				{
+					view = s_diffmap[vid];
+				}
+			}
+
+			switch (parts[1])
+			{
+				case "resource":
+					return new DiffViewRequestResource(view, request, uri);
+				case "diff":
+					return new DiffViewRequestDiff(view, request, uri);
+			}
+
+			return null;
+		}
+
+		private static void gitg_diff_request(WebKit.URISchemeRequest request)
+		{
+			var req = parse_request(request);
+
+			if (req.view != null)
+			{
+				req.view.request(req);
+			}
+			else
+			{
+				req.run(null);
+			}
+		}
+
+		private void parse_font(string val, ref string family, ref uint size)
 		{
 			var fdesc = Pango.FontDescription.from_string(val);
 
@@ -97,6 +146,11 @@ namespace GitgGtk
 			}
 		}
 
+		public void request(DiffViewRequest request)
+		{
+			request.run(d_cancellable);
+		}
+
 		private void update_font_settings()
 		{
 			var settings = get_settings();
@@ -118,14 +172,11 @@ namespace GitgGtk
 			settings.default_monospace_font_size = fsize;
 		}
 
-		construct
+		protected override void constructed()
 		{
-			var settings = new WebKit.WebSettings();
+			base.constructed();
 
-			if (custom_css != null)
-			{
-				settings.user_stylesheet_uri = custom_css.get_uri();
-			}
+			var settings = new WebKit.Settings();
 
 			var dbg = Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != "";
 
@@ -149,39 +200,32 @@ namespace GitgGtk
 				update_font_settings();
 			});
 
-			if (dbg)
-			{
-				var inspector = get_inspector();
-
-				inspector.inspect_web_view.connect((insp, view) => {
-					var wnd = new Gtk.Window();
-					wnd.set_default_size(400, 300);
-
-					var nvw = new WebKit.WebView();
-					nvw.show();
-
-					wnd.add(nvw);
-					wnd.show();
-
-					return wnd.get_child() as WebKit.WebView;
-				});
-			}
-
 			++s_diff_id;
 			s_diffmap[s_diff_id.to_string()] = this;
 
-			document_load_finished.connect((v, fr) => {
-				d_loaded = true;
-				update();
+			d_cancellable = new Cancellable();
+
+			load_changed.connect((v, ev) => {
+				if (ev == WebKit.LoadEvent.FINISHED)
+				{
+					d_loaded = true;
+					update();
+				}
 			});
 
 			// Load the diff base html
-			var uri = "gitg-internal:///resource/org/gnome/gitg/gtk/diff-view/base.html?viewid=" + s_diff_id.to_string();
+			var uri = "gitg-diff:///resource/org/gnome/gitg/gtk/diff-view/base.html?viewid=" + s_diff_id.to_string();
 
 			// Add custom js as a query parameter
 			if (custom_js != null)
 			{
 				uri += "&js=" + Soup.URI.encode(custom_js.get_uri(), null);
+			}
+
+			// Add custom css as a query parameter
+			if (custom_css != null)
+			{
+				uri += "&css=" + Soup.URI.encode(custom_css.get_uri(), null);
 			}
 
 			d_loaded = false;
@@ -200,6 +244,10 @@ namespace GitgGtk
 			{
 				return;
 			}
+
+			// Cancel running operations
+			d_cancellable.cancel();
+			d_cancellable = new Cancellable();
 
 			if (d_commit != null)
 			{
@@ -239,7 +287,12 @@ namespace GitgGtk
 
 			if (d_diff != null)
 			{
-				execute_script("update_diff();");
+				run_javascript.begin("update_diff();", d_cancellable, (obj, res) => {
+					try
+					{
+						run_javascript.end(res);
+					} catch {}
+				});
 			}
 		}
 	}

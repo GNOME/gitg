@@ -201,7 +201,7 @@ function update_diff()
 
 	var t = (new Date()).getTime()
 
-	r.open("GET", "gitg-internal:/diff/?t=" + t + "&viewid=" + params.viewid);
+	r.open("GET", "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid);
 	r.send();
 }
 

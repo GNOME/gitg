@@ -18,11 +18,11 @@
  */
 namespace GitgGtk
 {
-	class DiffViewRequestDiff : DiffViewRequestHandler
+	class DiffViewRequestDiff : DiffViewRequest
 	{
-		public DiffViewRequestDiff(DiffView? view, Soup.URI uri)
+		public DiffViewRequestDiff(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
 		{
-			base(view, uri);
+			base(view, request, uri);
 			d_mimetype = "application/json";
 		}
 
@@ -282,7 +282,7 @@ namespace GitgGtk
 			return new MemoryInputStream.from_data(data, stream.destroy_function);
 		}
 
-		public override InputStream? send(Cancellable? cancellable) throws GLib.Error
+		public override InputStream? run_async(Cancellable? cancellable) throws GLib.Error
 		{
 			if (d_view == null)
 			{

@@ -154,11 +154,11 @@ AC_SUBST(LIBGITG_LIBS)
 
 AC_SUBST(GITG_VALAFLAGS)
 
-WEBKITGTK_REQUIRED_VERSION=1.8.0
+WEBKITGTK_REQUIRED_VERSION=1.9.6
 
 PKG_CHECK_MODULES(LIBGITG_GTK, [
 	gtk+-3.0 >= $GTK_REQUIRED_VERSION
-	webkitgtk-3.0 >= $WEBKITGTK_REQUIRED_VERSION
+	webkit2gtk-3.0 >= $WEBKITGTK_REQUIRED_VERSION
 	gee-1.0
 	json-glib-1.0
 ])
@@ -244,7 +244,8 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg libpeas-1.0			\
 	--pkg gee-1.0				\
 	--pkg json-glib-1.0			\
-	--pkg webkitgtk-3.0			\
+	--pkg libsoup-2.4			\
+	--pkg webkit2gtk-3.0			\
 	--pkg config				\
 	--pkg posix				\
 	\$(GITG_VALAFLAGS)			\

@@ -18,106 +18,48 @@
  */
 namespace GitgGtk
 {
-	class DiffViewRequestHandler
+	public class DiffViewRequest
 	{
 		protected DiffView? d_view;
 		protected Soup.URI d_uri;
 		protected string? d_mimetype;
 		protected int64 d_size;
+		protected WebKit.URISchemeRequest d_request;
 
-		public DiffViewRequestHandler(DiffView? view, Soup.URI uri)
+		public DiffViewRequest(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
 		{
 			d_view = view;
+			d_request = request;
 			d_uri = uri;
+			d_size = -1;
+			d_mimetype = null;
 		}
 
-		public virtual InputStream? send(Cancellable? cancellable) throws GLib.Error
+		public DiffView? view
+		{
+			get { return d_view; }
+		}
+
+		protected virtual InputStream? run_async(Cancellable? cancellable) throws GLib.Error
 		{
 			return null;
 		}
 
-		public virtual InputStream? send_async(Cancellable? cancellable) throws GLib.Error
+		private async InputStream? run_impl(Cancellable? cancellable) throws GLib.Error
 		{
-			return send(cancellable);
-		}
-
-		public virtual int64 get_content_length()
-		{
-			return d_size;
-		}
-
-		public virtual string get_content_type()
-		{
-			return d_mimetype;
-		}
-	}
-
-	class DiffViewRequest : Soup.Request
-	{
-		private DiffViewRequestHandler? d_handler;
-		private string? d_contenttype;
-
-		static construct
-		{
-			schemes = new string[] {"gitg-internal"};
-		}
-
-		public override InputStream? send(Cancellable? cancellable) throws GLib.Error
-		{
-			return d_handler.send(cancellable);
-		}
-
-		private class SendResult : Object, AsyncResult
-		{
-			public InputStream? stream;
-			public Object source;
-
-			public SendResult(Object source, InputStream? stream)
-			{
-				this.source = source;
-				this.stream = stream;
-			}
-
-			public Object get_source_object()
-			{
-				return source;
-			}
-
-			public void *get_user_data()
-			{
-				return (void *)stream;
-			}
-
-			public bool is_tagged(void *source_tag)
-			{
-				// FIXME: is this right?
-				return false;
-			}
-		}
-
-		public override InputStream? send_finish(AsyncResult result) throws GLib.Error
-		{
-			var res = result as SendResult;
-
-			return res.stream;
-		}
-
-		private async InputStream? run_async(Cancellable? cancellable)
-		{
-			SourceFunc callback = run_async.callback;
+			SourceFunc callback = run_impl.callback;
 			InputStream? ret = null;
 
 			new Thread<void*>("gitg-gtk-diff-view", () => {
 				// Actually do it
 				try
 				{
-					ret = d_handler.send_async(cancellable);
+					ret = run_async(cancellable);
 				}
 				catch {}
 
 				// Schedule the callback in idle
 				Idle.add((owned)callback);
-
 				return null;
 			});
 
@@ -128,90 +70,43 @@ namespace GitgGtk
 			return ret;
 		}
 
-		public override void send_async(Cancellable? cancellable,
-		                                AsyncReadyCallback callback) throws GLib.Error
+		public void run(Cancellable? cancellable)
 		{
-			// run the diff in a thread
-			run_async.begin(cancellable, (obj, res) => {
-				var r = new SendResult(obj, run_async.end(res));
+			run_impl.begin(cancellable, (obj, res) => {
+				InputStream? stream = null;
 
-				callback(this, r);
+				try
+				{
+					stream = run_impl.end(res);
+				}
+				catch {}
+
+				if (stream == null)
+				{
+					stream = new MemoryInputStream();
+				}
+
+				d_request.finish(stream,
+				                 get_content_length(),
+				                 get_content_type());
 			});
 		}
 
-		private Gee.HashMap<string, DiffView> diffmap
+		public virtual int64 get_content_length()
 		{
-			get
-			{
-				return session.get_data<Gee.HashMap<string, DiffView>>("GitgGtkDiffViewMap");
-			}
+			return d_size;
 		}
 
-		public override bool check_uri(Soup.URI uri)
+		public virtual string get_content_type()
 		{
-			var path = uri.get_path();
-			var parts = path.split("/", 3);
-
-			if (parts.length != 3)
+			if (d_mimetype != null)
 			{
-				return false;
+				return d_mimetype;
 			}
-
-			uri.set_scheme(parts[1]);
-			uri.set_path("/" + parts[2]);
-			d_handler = null;
-
-			DiffView? view = null;
-
-			var q = uri.get_query();
-
-			if (q != null)
+			else
 			{
-				var f = Soup.Form.decode(q);
-				var vid = f.lookup("viewid");
-
-				if (vid != null && diffmap.has_key(vid))
-				{
-					view = diffmap[vid];
-				}
+				return "application/octet-stream";
 			}
-
-			switch (parts[1])
-			{
-				case "resource":
-					d_handler = new DiffViewRequestResource(view, uri);
-				break;
-				case "diff":
-					d_handler = new DiffViewRequestDiff(view, uri);
-				break;
-			}
-
-			return d_handler != null;
-		}
-
-		public override int64 get_content_length()
-		{
-			if (d_handler != null)
-			{
-				return d_handler.get_content_length();
-			}
-
-			return 0;
-		}
-
-		public override unowned string? get_content_type()
-		{
-			if (d_handler != null)
-			{
-				d_contenttype = d_handler.get_content_type();
-			}
-
-			if (d_contenttype == null)
-			{
-				d_contenttype = "application/octet-stream";
-			}
-
-			return d_contenttype;
 		}
 	}
 }
