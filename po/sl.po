@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2012-08-25 09:49+0000\n"
-"PO-Revision-Date: 2012-08-29 09:12+0100\n"
+"POT-Creation-Date: 2012-08-29 07:14+0000\n"
+"PO-Revision-Date: 2012-09-14 22:07+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -126,22 +126,19 @@ msgstr "Ali je ukaz za upravljanje naslovov URL sheme GITG omogočen."
 
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
 msgid "Setting that indicates whether to collapse history lanes which do not show activity. Enabling this can provide a cleaner history view when there is a lot of parallel development. See collapse-inactive-lanes to control when lanes should be collapsed."
-msgstr ""
+msgstr "Nastavitev določa, ali naj bodo zgodovinske vrstice, ki ne kažejo dejavnosti, strnjene. Če to omogočite, lahko zagotovite preglednejši pogled zgodovine, ko je veliko vzporednega razvoja. Poglejte collapse-inactive-lanes za nadzor, kdaj naj bodo vrstice strnjene."
 
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-#, fuzzy
 msgid "Setting that indicates whether to show items for the stash in the history."
-msgstr "Nastavitev določi ali naj bo zgodovina prikazana v topološkem načinu razvrstitve."
+msgstr "Nastavitev določa, ali naj bodo prikazani predmeti za zalogo v zgodovini."
 
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-#, fuzzy
 msgid "Setting that indicates whether to show a virtual item for the currently staged changes in the history."
-msgstr "Nastavitev določi ali naj bo zgodovina prikazana v topološkem načinu razvrstitve."
+msgstr "Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne spremembe v pripravljenosti."
 
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-#, fuzzy
 msgid "Setting that indicates whether to show a virtual item for the currently unstaged changes in the history."
-msgstr "Nastavitev določi ali naj bo zgodovina prikazana v topološkem načinu razvrstitve."
+msgstr "Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne spremembe počiščene pripravljenosti."
 
 #: ../gitg/gitg-application.vala:43
 msgid "Show the application's version"
@@ -149,23 +146,23 @@ msgstr "Pokaži različico programa"
 
 #: ../gitg/gitg-application.vala:45
 msgid "Start gitg with a particular view"
-msgstr "Zagon programa git v izbranem pogledu"
+msgstr "Zagon programa gitg v izbranem pogledu"
 
 #: ../gitg/gitg-application.vala:47
 msgid "Do not try to load a repository from the current working directory"
-msgstr ""
+msgstr "Ne skušajte naložiti skladišča iz trenutne delovne mape"
 
 #: ../gitg/gitg-application.vala:70
 msgid "- git repository viewer"
-msgstr "- pregledovalnik skladišč Git"
+msgstr "- pregledovalnik skladišč git"
 
 #: ../gitg/gitg-application.vala:185
 msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg je pregledovalnik git skladišč za gtk+/GNOME"
+msgstr "gitg je pregledovalnik skladišč git za gtk+/GNOME"
 
 #: ../gitg/gitg-application.vala:210
 msgid "gitg homepage"
-msgstr "spletna stran programa git"
+msgstr "Spletna stran programa gitg"
 
 #: ../plugins/dash/gitg-dash-navigation.vala:41
 msgid "Repository"
@@ -206,11 +203,11 @@ msgstr "Pokaži vso zgodovino"
 
 #: ../plugins/history/gitg-history-command-line.vala:38
 msgid "Show gitg history options"
-msgstr "Pokaži možnosti zgodovine git"
+msgstr "Pokaži možnosti zgodovine gitg"
 
 #: ../plugins/history/gitg-history-command-line.vala:39
 msgid "gitg history options"
-msgstr "možnosti zgodovine git"
+msgstr "Možnosti zgodovine gitg"
 
 #. Branches
 #: ../plugins/history/gitg-history-navigation.vala:114
@@ -272,7 +269,7 @@ msgstr "Ustvari skladišče"
 
 #: ../plugins/dash/resources/view-create.ui.h:2
 msgid "Select a folder in which you want to create a new git repository."
-msgstr ""
+msgstr "Izberite mapo, v kateri želite ustvariti novo skladišče git."
 
 #: ../plugins/dash/resources/view-open.ui.h:1
 msgid "Open repository"
@@ -280,7 +277,7 @@ msgstr "Odpri skladišče"
 
 #: ../plugins/dash/resources/view-open.ui.h:2
 msgid "Select a folder to open the corresponding git repository."
-msgstr ""
+msgstr "Izberite mapo za odprtje ustreznega skladišča git."
 
 #: ../plugins/dash/resources/view-recent.ui.h:1
 msgid "Recent repository"
@@ -311,7 +308,6 @@ msgid "<b>Commits</b>"
 msgstr "<b>Uveljavljavitve</b>"
 
 #: ../plugins/history/resources/preferences.ui.h:2
-#, fuzzy
 msgid "    "
 msgstr "    "
 
@@ -333,7 +329,7 @@ msgstr "Pokaži spremembe počiščene pripravljenosti"
 
 #: ../plugins/history/resources/preferences.ui.h:7
 msgid "Show history in topological order"
-msgstr "Pokaži zgodovino v topološkem redu"
+msgstr "Pokaži zgodovino v topološkem zaporedju"
 
 #: ../plugins/history/resources/preferences.ui.h:8
 msgid "        "
@@ -359,683 +355,3 @@ msgstr "Avtor"
 msgid "Date"
 msgstr "Datum"
 
-#~ msgid "Branch <%s> could not be removed"
-#~ msgstr "Veje <%s> ni mogoče odstraniti"
-
-#~ msgid ""
-#~ "This usually means that the branch is not fully merged in HEAD. Do you "
-#~ "want to forcefully remove the branch?"
-#~ msgstr ""
-#~ "To običajno pomeni, da veja ni popolno združena v GLAVI. Ali želite "
-#~ "vsiljeno odstraniti to vejo?"
-
-#~ msgid "Force remove"
-#~ msgstr "Vsiljeno odstrani"
-
-#~ msgid "Branch <%s> could not be forcefully removed"
-#~ msgstr "Veje <%s> ni mogoče vsiljeno odstraniti"
-
-#~ msgid "Failed to remove remote branch <%s>."
-#~ msgstr "Odstranjevanje oddaljene veje <%s> je spodletelo."
-
-#~ msgid "Are you sure you want to remove the remote branch <%s>?"
-#~ msgstr "Ali ste prepričani, da želite odstraniti oddaljeno vejo <%s>?"
-
-#~ msgid "This permanently removes the remote branch."
-#~ msgstr "S tem bo oddaljena veja trajno odstranjena."
-
-#~ msgid "Remove remote branch"
-#~ msgstr "Odstrani oddaljeno vejo"
-
-#~ msgid "Are you sure you want to remove this stash item?"
-#~ msgstr "Ali ste prepričani, da želite odstraniti predmet zaloge?"
-
-#~ msgid "This permanently removes the stash item"
-#~ msgstr "S tem bo predmet zaloge trajno odstranjen."
-
-#~ msgid "Remove stash"
-#~ msgstr "Odstrani zalogo"
-
-#~ msgid "Failed to remove stash"
-#~ msgstr "Odstranjevanje zaloge je spodletelo"
-
-#~ msgid "The stash item could not be successfully removed"
-#~ msgstr "Predmeta zaloge ni mogoče uspešno odstraniti"
-
-#~ msgid "Are you sure you want to remove the tag <%s>?"
-#~ msgstr "Ali ste prepričani, da želite odstraniti oznako <%s>?"
-
-#~ msgid "Remove tag"
-#~ msgstr "Odstrani oznako"
-
-#~ msgid "The tag <%s> could not be successfully removed"
-#~ msgstr "Oznake <%s> ni mogoče odstraniti"
-
-#~ msgid "Failed to remove tag"
-#~ msgstr "Odstranjevanje oznake je spodletelo"
-
-#~ msgid "Branch <%s> could not be renamed to <%s>"
-#~ msgstr "Veje <%s> ni mogoče preimenovati v <%s>"
-
-#~ msgid ""
-#~ "This usually means that a branch with that name already exists. Do you "
-#~ "want to overwrite the branch?"
-#~ msgstr ""
-#~ "To običajno pomeni, da veja s tem imenom že obstaja. Ali želite vejo "
-#~ "prepisati?"
-
-#~ msgid "Force rename"
-#~ msgstr "Vsiljeno preimenuj"
-
-#~ msgid "Branch <%s> could not be forcefully renamed"
-#~ msgstr "Veje <%s> ni mogoče vsiljeno preimenovati"
-
-#~ msgid "Name:"
-#~ msgstr "Ime:"
-
-#~ msgid "Do you want to temporarily stash these changes?"
-#~ msgstr "Ali želite začasno založiti te spremembe?"
-
-#~ msgid "Do you want to stash and reapply these changes?"
-#~ msgstr "Ali želite založiti in ponovno uporabiti te spremembe?"
-
-#~ msgid "You have uncommited changes in your current working tree"
-#~ msgstr "V vašem delovnem drevesu so neuveljavljene spremembe"
-
-#~ msgid "Stash changes"
-#~ msgstr "Založi spremembe"
-
-#~ msgid "Failed to save current index state"
-#~ msgstr "Shranjevanje trenutnega stanja kazala je spodletelo"
-
-#~ msgid "Failed to checkout local branch <%s>"
-#~ msgstr "Prevzem krajevne veje <%s> je spodletel"
-
-#~ msgid "Failed to checkout remote branch <%s> to local branch <%s>"
-#~ msgstr "Prevzem oddaljene veje <%s> na krajevno vejo <%s> je spodletel"
-
-#~ msgid "Failed to checkout tag <%s> to local branch <%s>"
-#~ msgstr "Prevzem oznake <%s> na krajevno oznako <%s> je spodletel"
-
-#~ msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-#~ msgstr "Ponovno vzpostavljanje %s veje <%s> na %s veje <%s> je spodletelo"
-
-#~ msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-#~ msgstr "Združevanje %s veje <%s> z %s veje <%s> je spodletelo"
-
-#~ msgid "local"
-#~ msgstr "krajevno"
-
-#~ msgid "remote"
-#~ msgstr "oddaljeno"
-
-#~ msgid "The stashed changes have been stored to be reapplied manually"
-#~ msgstr "Spremembe zaloge so bile shranjene za ponovno ročno uporabo"
-
-#~ msgid "Failed to checkout previously checked out branch"
-#~ msgstr "Prevzem predhodno prevzete veje je spodletel"
-
-#~ msgid "Failed to reapply stash correctly"
-#~ msgstr "Ponovna uporaba zaloge je spodletela"
-
-#~ msgid ""
-#~ "There might be unresolved conflicts in the working tree or index which "
-#~ "you need to resolve manually"
-#~ msgstr ""
-#~ "Morda so v delovnem drevesu ali kazalu nerazrešeni spori, ki jih je treba "
-#~ "razrešiti ročno"
-
-#~ msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-#~ msgstr ""
-#~ "Ali ste prepričani, da želite združiti %s veje <%s> na %s veje <%s>?"
-
-#~ msgid "Merge"
-#~ msgstr "Združi"
-
-#~ msgid "The branch on which to merge could not be checked out"
-#~ msgstr "Veje za združevanje ni mogoče prevzeti"
-
-#~ msgid "Merging %s branch <%s> onto %s branch <%s>"
-#~ msgstr "Združevanje %s veje <%s> na %s veje <%s>"
-
-#~ msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-#~ msgstr ""
-#~ "Ali ste prepričani, da želite ponovno vzpostaviti %s veje <%s> na %s veje "
-#~ "<%s>?"
-
-#~ msgid "Rebase"
-#~ msgstr "Ponovno vzpostavi"
-
-#~ msgid "Unable to rebase"
-#~ msgstr "Ni mogoče ponovno vzpostaviti"
-
-#~ msgid ""
-#~ "There are still uncommitted changes in your working tree and you are "
-#~ "trying to rebase a branch onto the currently checked out branch. Either "
-#~ "remove, stash or commit your changes first and try again"
-#~ msgstr ""
-#~ "V vašem delovnem drevesu so še vedno neuveljavljene spremembe, vi pa "
-#~ "poskušate vejo ponovno vzpostaviti na trenutno uveljavljeno vejo. "
-#~ "Odstranite, založite ali uveljavite vaše spremembe in poskusite znova."
-
-#~ msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-#~ msgstr "Ponovno vzpostavljanje %s veje <%s> na %s vejo <%s>"
-
-#~ msgid "Failed to push local branch <%s> to remote <%s>"
-#~ msgstr "Objava krajevne veje <%s> na oddaljeno vejo <%s> je spodletela"
-
-#~ msgid ""
-#~ "This usually means that the remote branch could not be fast-forwarded. "
-#~ "Try fetching the latest changes."
-#~ msgstr ""
-#~ "To običajno pomeni, da oddaljene veje ni mogoče hitro posredovati. "
-#~ "Poskusite s posodobitvijo na zadnje spremembe."
-
-#~ msgid "Are you sure you want to push <%s> to <%s>?"
-#~ msgstr "Ali ste prepričani, da želite objaviti <%s> na <%s>?"
-
-#~ msgid "Push"
-#~ msgstr "Objavi"
-
-#~ msgid "Pushing local branch <%s> to remote branch <%s>"
-#~ msgstr "Objavljanje krajevne veje <%s> na oddaljeno vejo <%s>"
-
-#~ msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
-#~ msgstr "Ali ste prepričani, da želite objaviti <%s> na oddaljeno <%s/%s>?"
-
-#~ msgid "Pushing local branch <%s> to remote branch <%s/%s>"
-#~ msgstr "Objavljanje krajevne veje <%s> na oddaljeno vejo <%s/%s>"
-
-#~ msgid "Are you sure you want to apply the stash item to local branch <%s>?"
-#~ msgstr ""
-#~ "Ali ste prepričani, da želite uporabiti predmet zaloge na krajevni veji <"
-#~ "%s>?"
-
-#~ msgid "Apply stash"
-#~ msgstr "Uporabi zalogo"
-
-#~ msgid "The stash could not be applied to local branch <%s>"
-#~ msgstr "Zaloge ni mogoče uporabiti na krajevni veji <%s>"
-
-#~ msgid "Failed to apply stash"
-#~ msgstr "Uporaba zaloge je spodletela"
-
-#~ msgid "The branch could not be successfully created"
-#~ msgstr "Veje ni mogoče ustvariti."
-
-#~ msgid "Failed to create a branch"
-#~ msgstr "Napaka med ustvarjanjem veje"
-
-#~ msgid ""
-#~ "The tag object could not be successfully created. Please make sure you "
-#~ "have a GPG key and the key is unlocked"
-#~ msgstr ""
-#~ "Predmeta oznake ni mogoče uspešno ustvariti. Prepričajte se, da imate "
-#~ "odklenjen ključ GPG"
-
-#~ msgid "The tag object could not be successfully created"
-#~ msgstr "Predmeta oznake ni mogoče uspešno ustvariti"
-
-#~ msgid "Failed to create tag"
-#~ msgstr "Ustvarjanje oznake je spodletelo"
-
-#~ msgid "Failed to cherry-pick on <%s>"
-#~ msgstr "Ni mogoče uveljaviti z odbiro na <%s>"
-
-#~ msgid "Are you sure you want to cherry-pick that revision on <%s>?"
-#~ msgstr "Ali ste prepričani, da želite uveljaviti z odbiro na <%s>?"
-
-#~ msgid "Cherry-pick"
-#~ msgstr "Odbiranje"
-
-#~ msgid "The branch on which to cherry-pick could not be checked out"
-#~ msgstr "Veje za odbiro ni mogoče prevzeti"
-
-#~ msgid "Cherry-picking on <%s>"
-#~ msgstr "Uveljavljanje z odbiro na <%s>"
-
-#~ msgid "Failed to generate format-patch"
-#~ msgstr "Ustvarjanje oblike popravka je spodletelo"
-
-#~ msgid "Generating format-patch for <%s>"
-#~ msgstr "Ustvarjanje oblike popravka za <%s>"
-
-#~ msgid "Format patch"
-#~ msgstr "Oblikuj popravek"
-
-#~ msgid "Start gitg in commit mode"
-#~ msgstr "Zagon gitg v načinu uveljavitev"
-
-#~ msgid "Cannot display file content as text"
-#~ msgstr "Vsebine datoteke ni mogoče prikazati kot besedilo"
-
-#~ msgid "You must first stage some changes before committing"
-#~ msgstr ""
-#~ "Najprej je treba pripraviti spremembe, preden jih je mogoče uveljaviti."
-
-#~ msgid "Please enter a commit message before committing"
-#~ msgstr "Pred uveljavitvijo je treba vnesti sporočilo uveljavitve"
-
-#~ msgid ""
-#~ "Your user name or email could not be retrieved for use in the sign off "
-#~ "message"
-#~ msgstr ""
-#~ "Vašega uporabniškega imena ali elektronskega naslova za uporabo v "
-#~ "sporočilu podpisa ni mogoče pridobiti"
-
-#~ msgid "Something went wrong while trying to commit"
-#~ msgstr "Med poskusom uveljavitve je nekaj šlo narobe"
-
-#~ msgid "Revert fail"
-#~ msgstr "Povrnitev je spodletela"
-
-#~ msgid "Are you sure you want to revert these changes?"
-#~ msgstr "Ali ste prepričani, da želite povrniti te spremembe?"
-
-#~ msgid "Reverting changes is permanent and cannot be undone"
-#~ msgstr "Povrnitev sprememb je trajna in je ni mogoče razveljaviti"
-
-#~ msgid "Delete Failed"
-#~ msgstr "Izbriši spodletelo"
-
-#~ msgid "Are you sure you want to delete these files?"
-#~ msgstr "Ali ste prepričani, da želite izbrisati te datoteke?"
-
-#~ msgid "Deleting files is permanent and cannot be undone"
-#~ msgstr "Izbris datotek je trajen in ga ni mogoče razveljaviti"
-
-#~ msgid "Fetch"
-#~ msgstr "Pridobi"
-
-#~ msgid "Cancel"
-#~ msgstr "Prekliči"
-
-#~ msgid "Properties"
-#~ msgstr "Lastnosti"
-
-#~ msgid "Changes"
-#~ msgstr "Spremembe"
-
-#~ msgid "Details"
-#~ msgstr "Podrobnosti"
-
-#~ msgid "Committer"
-#~ msgstr "Uveljavitelj"
-
-#~ msgid "(Empty)"
-#~ msgstr "(Prazno)"
-
-#~ msgid "Select branch"
-#~ msgstr "Izbor veje"
-
-#~ msgid "Push local branch <%s> to remote branch <%s>"
-#~ msgstr "Objavi krajevno vejo <%s> na oddaljeno vejo <%s>"
-
-#~ msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
-#~ msgstr "Združi/ponovno vzpostavi krajevno vejo <%s> z/na krajevni veji <%s>"
-
-#~ msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
-#~ msgstr ""
-#~ "Združi/ponovno vzpostavi krajevno vejo <%s> z/na oddaljeni veji <%s>"
-
-#~ msgid "Apply stash to local branch <%s>"
-#~ msgstr "Uporabi zalogo na krajevni veji <%s>"
-
-#~ msgid "Cherry-pick revision on <%s>"
-#~ msgstr "Uveljavitev z odbiro na <%s>"
-
-#~ msgid "Loaded %d revisions in %.2fs"
-#~ msgstr "Naloženih %d predelav v %.2fs"
-
-#~ msgid "Loading %d revisions..."
-#~ msgstr "Nalaganje %d predelav ..."
-
-#~ msgid "Local branches"
-#~ msgstr "Krajevne veje"
-
-#~ msgid "All branches"
-#~ msgstr "Vse veje"
-
-#~ msgid "Begin loading repository"
-#~ msgstr "Začni nalaganje skladišča"
-
-#~ msgid "new"
-#~ msgstr "novo"
-
-#~ msgid "New local branch <%s>"
-#~ msgstr "Nova krajevna veja <%s>"
-
-#~ msgid "Checkout working copy"
-#~ msgstr "Prevzemi delovno kopijo"
-
-#~ msgid "Remove local branch"
-#~ msgstr "Odstrani krajevno vejo"
-
-#~ msgid "Rename local branch"
-#~ msgstr "Preimenuj krajevno vejo"
-
-#~ msgid "Not all fields are correctly filled in"
-#~ msgstr "Vsa polja niso pravilno izpolnjena"
-
-#~ msgid "Please make sure to fill in the branch name"
-#~ msgstr "Prepričajte se, da je določeno ime veje"
-
-#~ msgid "Please make sure to fill in both the tag name and the commit message"
-#~ msgstr ""
-#~ "Prepričajte se, da boste izpolnili ime oznake in sporočilo uveljavitve"
-
-#~ msgid "Please make sure to fill in the tag name"
-#~ msgstr "Prepričajte se, da ste izpolnili ime oznake"
-
-#~ msgid "Format patch failed for unknown reason"
-#~ msgstr "Popravek oblike je spodletel iz neznanega vzroka"
-
-#~ msgid "Please check if you have the right permissions to write the file"
-#~ msgstr "Preverite dovoljenja za pisanje datoteke"
-
-#~ msgid "Save format patch"
-#~ msgstr "Shrani obliko popravka"
-
-#~ msgid "Unicode"
-#~ msgstr "Unicode"
-
-#~ msgid "Western"
-#~ msgstr "zahodnoevropsko"
-
-#~ msgid "Central European"
-#~ msgstr "srednjeevropsko"
-
-#~ msgid "South European"
-#~ msgstr "južnoevropsko"
-
-#~ msgid "Baltic"
-#~ msgstr "baltsko"
-
-#~ msgid "Cyrillic"
-#~ msgstr "cirilica"
-
-#~ msgid "Arabic"
-#~ msgstr "arabsko"
-
-#~ msgid "Greek"
-#~ msgstr "grško"
-
-#~ msgid "Hebrew Visual"
-#~ msgstr "hebrejsko predočeno"
-
-#~ msgid "Turkish"
-#~ msgstr "turško"
-
-#~ msgid "Nordic"
-#~ msgstr "nordijsko"
-
-#~ msgid "Celtic"
-#~ msgstr "keltsko"
-
-#~ msgid "Romanian"
-#~ msgstr "romunsko"
-
-#~ msgid "Armenian"
-#~ msgstr "armensko"
-
-#~ msgid "Chinese Traditional"
-#~ msgstr "kitajsko tradicionalno"
-
-#~ msgid "Cyrillic/Russian"
-#~ msgstr "cirilica/rusko"
-
-#~ msgid "Japanese"
-#~ msgstr "japonsko"
-
-#~ msgid "Korean"
-#~ msgstr "korejsko"
-
-#~ msgid "Chinese Simplified"
-#~ msgstr "kitajsko poenostavljeno"
-
-#~ msgid "Georgian"
-#~ msgstr "gruzijsko"
-
-#~ msgid "Hebrew"
-#~ msgstr "hebrejsko"
-
-#~ msgid "Cyrillic/Ukrainian"
-#~ msgstr "cirilica/ukrajinsko"
-
-#~ msgid "Vietnamese"
-#~ msgstr "vietnamsko"
-
-#~ msgid "Thai"
-#~ msgstr "tajsko"
-
-#~ msgid "Unknown"
-#~ msgstr "Neznano"
-
-#~ msgid "Staged changes"
-#~ msgstr "Spremembe v pripravljenosti"
-
-#~ msgid "Unstaged changes"
-#~ msgstr "Spremembe počiščene pripravljenosti"
-
-#~ msgid "Not a valid git repository"
-#~ msgstr "Ni veljavno skladišče git"
-
-#~ msgid "It is not possible to detect the encoding automatically"
-#~ msgstr "Ni mogoče samodejno zaznati znakovnega kodiranja"
-
-#~ msgid "Ignore"
-#~ msgstr "Prezri"
-
-#~ msgid "Revert"
-#~ msgstr "Povrni"
-
-#~ msgid "Stage"
-#~ msgstr "V pripravljenost"
-
-#~ msgid "Unstage"
-#~ msgstr "Počisti pripravljenost"
-
-#~ msgid "Apply stash to..."
-#~ msgstr "Uporabi zalogo na ..."
-
-#~ msgid "Checkout branch"
-#~ msgstr "Prevzemi vejo"
-
-#~ msgid "Cherry-pick on..."
-#~ msgstr "Uveljavi z odbiro na ..."
-
-#~ msgid "Merge branch with..."
-#~ msgstr "Združi vejo z ..."
-
-#~ msgid "Push branch to..."
-#~ msgstr "Objavi vejo na ..."
-
-#~ msgid "Rebase branch onto..."
-#~ msgstr "Ponovno vzpostavi vejo na ..."
-
-#~ msgid "Rename branch"
-#~ msgstr "Preimenuj vejo"
-
-#~ msgid "_Author"
-#~ msgstr "_Avtor"
-
-#~ msgid "_Date"
-#~ msgstr "_Datum"
-
-#~ msgid "_Hash"
-#~ msgstr "_Razpršilo"
-
-#~ msgid "_Subject"
-#~ msgstr "_Zadeva"
-
-#~ msgid "<b>Diff Program</b>"
-#~ msgstr "<b>Program za primerjavo:</b>"
-
-#~ msgid "<b>Interface</b>"
-#~ msgstr "<b>Vmesnik</b>"
-
-#~ msgid "<b>Revisions</b>"
-#~ msgstr "<b>Predelave</b>"
-
-#~ msgid "<b>User</b>"
-#~ msgstr "<b>Uporabnik</b>"
-
-#~ msgid "Allow external diff program"
-#~ msgstr "Dovoli zunanji program za primerjavo"
-
-#~ msgid "Commit"
-#~ msgstr "Uveljavi"
-
-#~ msgid "Configuration"
-#~ msgstr "Nastavitev"
-
-#~ msgid ""
-#~ "Configure global git settings. This corresponds to the settings as stored "
-#~ "in ~/.gitconfig. Repository specific settings can be configured at the "
-#~ "repository properties."
-#~ msgstr ""
-#~ "Splošne nastavitve git. To ustreza nastavitvam, ki so shranjene v ~/."
-#~ "gitconfig. Nastavitve za določeno skladišče je mogoče spremeniti v "
-#~ "lastnostnih odložišča."
-
-#~ msgid "Display right _margin"
-#~ msgstr "Pokaži desni _rob"
-
-#~ msgid "E-mail:"
-#~ msgstr "Elektronski naslov:"
-
-#~ msgid "Preferences that apply to the commit view"
-#~ msgstr "Možnosti uporabljene za pogled uveljavitev"
-
-#~ msgid "Preferences that apply to the history view"
-#~ msgstr "Možnosti uveljavljene za pogled zgodovine"
-
-#~ msgid "Search filters revisions in the history view"
-#~ msgstr "Iskanje predelav filtrov v ogledu zgodovine"
-
-#~ msgid "Use vertical layout"
-#~ msgstr "Uporaba navpične razporeditve"
-
-#~ msgid "_Right margin at column:"
-#~ msgstr "_Desni rob na stolpcu:"
-
-#~ msgid "Name"
-#~ msgstr "Ime"
-
-#~ msgid "URL"
-#~ msgstr "Naslov URL"
-
-#~ msgid "Author:"
-#~ msgstr "Avtor:"
-
-#~ msgid "Committer:"
-#~ msgstr "Uveljavitelj:"
-
-#~ msgid "Parent:"
-#~ msgstr "Nadrejeni predmet:"
-
-#~ msgid "SHA:"
-#~ msgstr "SHA:"
-
-#~ msgid "Subject:"
-#~ msgstr "Zadeva:"
-
-#~ msgid "Switch to Blame mode"
-#~ msgstr "Preklopi na način krivde"
-
-#~ msgid "Create signed tag object"
-#~ msgstr "Ustvari podpisan predmet oznake"
-
-#~ msgid "Message:"
-#~ msgstr "Sporočilo:"
-
-#~ msgid "R_ecently Opened"
-#~ msgstr "N_edavno odprto"
-
-#~ msgid "_Edit"
-#~ msgstr "_Uredi"
-
-#~ msgid "_File"
-#~ msgstr "_Datoteka"
-
-#~ msgid "_View"
-#~ msgstr "_Pogled"
-
-#~ msgid "Add signed-off-by"
-#~ msgstr "Dodaj podpis"
-
-#~ msgid "Amend"
-#~ msgstr "Izboljšaj"
-
-#~ msgid "Co_mmit message"
-#~ msgstr "Sporočilo uve_ljavljanja"
-
-#~ msgid "Context:"
-#~ msgstr "Vsebina:"
-
-#~ msgid "Unstaged"
-#~ msgstr "Spremembe, ki niso v pripravljenosti"
-
-#~ msgid "_Commit"
-#~ msgstr "_Uveljavi"
-
-#~ msgid "_Staged"
-#~ msgstr "_V pripravljenost"
-
-#~ msgid "_Unstaged"
-#~ msgstr "_Počiščeno pripravljenosti"
-
-#~ msgid "unstage"
-#~ msgstr "počisti pripravljenost"
-
-#~ msgid "stage"
-#~ msgstr "pripravi"
-
-#~ msgid ""
-#~ "This program is free software; you can redistribute it and/or modify\n"
-#~ "it under the terms of the GNU General Public License as published by\n"
-#~ "the Free Software Foundation; either version 2 of the License, or\n"
-#~ "(at your option) any later version.\n"
-#~ "\n"
-#~ "This program is distributed in the hope that it will be useful,\n"
-#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-#~ "GNU General Public License for more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License\n"
-#~ "along with this program; if not, write to the Free Software\n"
-#~ "Foundation, Inc., 59 Temple Place, Suite 330,\n"
-#~ "Boston, MA 02111-1307, USA."
-#~ msgstr ""
-#~ "To je prosti program; lahko ga razširjate in/ali spreminjate\n"
-#~ "pod pogoji Splošne javne licence GNU, ki jo je objavila\n"
-#~ "Free Software Foundation; velja za različico licence 2 ali\n"
-#~ "(če želite) katero koli kasnejšo različico.\n"
-#~ "\n"
-#~ "Ta program razširjamo v upanju, da bo uporaben,\n"
-#~ "vendar BREZ KAKRŠNE KOLI GARANCIJE; celo brez implicitne garancije\n"
-#~ "USTREZNOSTI ZA TRŽENJE ali USTREZNOSTI ZA DOLOČEN NAMEN.  Oglejte si\n"
-#~ "Splošno javno licenco GNU za več podrobnosti.\n"
-#~ "\n"
-#~ "Splošno javno licenco GNU bi morali prejeti skupaj\n"
-#~ "s tem programom; če je niste, pišite na naslov: Free Software\n"
-#~ "Foundation, Inc., 59 Temple Place - Suite 330,\n"
-#~ "Boston, MA 02111-1307, USA."
-
-#~ msgid "_Changes"
-#~ msgstr "_Spremembe"
-
-#~ msgid "Could not find git repository"
-#~ msgstr "Skladišča git ni mogoče najti"
-
-#~ msgid "Date:"
-#~ msgstr "Datum:"
-
-#~ msgid "Tree"
-#~ msgstr "Drevo"
-
-#~ msgid "<b>Main</b>"
-#~ msgstr "<b>Glavni</b>"
-
-#~ msgid "View"
-#~ msgstr "Pogled"
