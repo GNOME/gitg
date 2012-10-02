@@ -12,7 +12,7 @@ AC_CONFIG_FILES([Makefile
 
 LT_INIT
 AC_PROG_CC
-AM_PROG_VALAC([0.16.1])
+AM_PROG_VALAC([0.16.0])
 AC_PROG_INSTALL
 
 pkg_modules="gtk+-3.0 >= 3.4.0
