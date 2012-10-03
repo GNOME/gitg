@@ -3,6 +3,7 @@ lib_LTLIBRARIES = libgitg-gtk-1.0.la
 INCLUDES =								\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
+	-I$(srcdir)/egg-list-box					\
 	$(LIBGITG_CFLAGS)						\
 	$(LIBGITG_GTK_CFLAGS)						\
 	$(WARN_CFLAGS)							\
@@ -20,7 +21,7 @@ libgitg_gtk_1_0_la_LIBADD = 				\
 INST_H_FILES =				\
 	libgitg-gtk.h
 
-VALAFLAGS = 					\
+AM_VALAFLAGS = 					\
 	--pkg Ggit-1.0 				\
 	--pkg libgitg-1.0			\
 	--pkg gtk+-3.0				\
@@ -28,8 +29,10 @@ VALAFLAGS = 					\
 	--pkg webkitgtk-3.0			\
 	--pkg gee-1.0				\
 	--pkg json-glib-1.0			\
+	--pkg egglistbox			\
 	$(GITG_VALAFLAGS)			\
 	--vapidir $(top_srcdir)/vapi		\
+	--vapidir $(srcdir)/egg-list-box	\
 	--header libgitg-gtk.h			\
 	--includedir libgitg-gtk		\
 	--basedir $(top_srcdir)			\
@@ -51,16 +54,16 @@ VALA_FILES =						\
 	gitg-gtk-diff-view-request.vala			\
 	gitg-gtk-diff-view-request-resource.vala	\
 	gitg-gtk-diff-view-request-diff.vala		\
-	gitg-gtk-dash-view.vala				\
-	egg-list-box/egg-list-box.vala
+	gitg-gtk-dash-view.vala
 
 # Ignore all warnings for vala code...
 libgitg_gtk_1_0_la_CFLAGS =		\
 	-w
 
 libgitg_gtk_1_0_la_SOURCES = 		\
-	$(VALA_FILES)			\
-	gitg-gtk-resources.c
+	egg-list-box/egg-list-box.c	\
+	gitg-gtk-resources.c		\
+	$(VALA_FILES)
 
 headerdir = $(prefix)/include/libgitg-gtk-1.0/libgitg-gtk
 header_DATA = $(INST_H_FILES)
@@ -102,6 +105,8 @@ BUILT_SOURCES = 			\
 EXTRA_DIST = \
 	$(pkgconfig_DATA)		\
 	resources/resources.xml		\
+	egg-list-box/egglistbox.vapi	\
+	egg-list-box/egg-list-box.h	\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 
 CLEANFILES = $(VALA_FILES:.vala=.c)

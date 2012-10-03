@@ -87,6 +87,12 @@ namespace GitgGtk
 			{
 				return (void *)stream;
 			}
+
+			public bool is_tagged(void *source_tag)
+			{
+				// FIXME: is this right?
+				return false;
+			}
 		}
 
 		public override InputStream? send_finish(AsyncResult result) throws GLib.Error

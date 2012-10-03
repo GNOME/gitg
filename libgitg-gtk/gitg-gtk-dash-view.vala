@@ -22,8 +22,9 @@ using Gtk;
 
 namespace GitgGtk
 {
-	public class DashView : ListBox
+	public class DashView : Box
 	{
+		private Egg.ListBox d_listbox;
 		private class RepositoryData
 		{
 			public Repository repository;
@@ -37,7 +38,18 @@ namespace GitgGtk
 
 		construct
 		{
-			set_activate_on_single_click(false);
+			d_listbox = new Egg.ListBox();
+			add(d_listbox);
+
+			d_listbox.set_activate_on_single_click(false);
+			d_listbox.child_activated.connect((listbox, child) => {
+				var data = child.get_data<RepositoryData>("data");
+
+				if (data != null)
+				{
+					repository_activated(data.repository);
+				}
+			});
 
 			var recent_manager = RecentManager.get_default();
 			var items = recent_manager.get_items();
@@ -129,17 +141,7 @@ namespace GitgGtk
 
 			data.grid.set_data<RepositoryData>("data", data);
 			data.grid.show_all();
-			add(data.grid);
-		}
-
-		public override void child_activated(Widget? child)
-		{
-			var data = child.get_data<RepositoryData>("data");
-
-			if (data != null)
-			{
-				repository_activated(data.repository);
-			}
+			d_listbox.add(data.grid);
 		}
 	}
 }
