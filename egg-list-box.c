@@ -1045,31 +1045,33 @@ egg_list_box_real_draw (GtkWidget* widget, cairo_t* cr)
   EggListBoxPrivate *priv = list_box->priv;
   GtkAllocation allocation = {0};
   GtkStyleContext* context;
+  GtkStateFlags state;
   ChildFlags flags[3], *found;
   gint flags_length;
   int i;
 
   gtk_widget_get_allocation (GTK_WIDGET (list_box), &allocation);
   context = gtk_widget_get_style_context (GTK_WIDGET (list_box));
+  state = gtk_widget_get_state_flags (widget);
   gtk_render_background (context, cr, (gdouble) 0, (gdouble) 0, (gdouble) allocation.width, (gdouble) allocation.height);
   flags_length = 0;
 
   if (priv->selected_child != NULL)
     {
       found = child_flags_find_or_add (flags, &flags_length, priv->selected_child);
-      found->state |= GTK_STATE_FLAG_SELECTED;
+      found->state |= (state | GTK_STATE_FLAG_SELECTED);
     }
 
   if (priv->prelight_child != NULL)
     {
       found = child_flags_find_or_add (flags, &flags_length, priv->prelight_child);
-      found->state |= GTK_STATE_FLAG_PRELIGHT;
+      found->state |= (state | GTK_STATE_FLAG_PRELIGHT);
     }
 
   if (priv->active_child != NULL && priv->active_child_active)
     {
       found = child_flags_find_or_add (flags, &flags_length, priv->active_child);
-      found->state |= GTK_STATE_FLAG_ACTIVE;
+      found->state |= (state | GTK_STATE_FLAG_ACTIVE);
     }
 
   for (i = 0; i < flags_length; i++)
