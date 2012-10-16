@@ -46,10 +46,10 @@ namespace GitgHistory
 			List<Gitg.Ref> branches = new List<Gitg.Ref>();
 			List<Gitg.Ref> tags = new List<Gitg.Ref>();
 
-			HashTable<string, List<Gitg.Ref>> remotes;
+			HashTable<string, Gee.LinkedList<Gitg.Ref>> remotes;
 			List<string> remotenames = new List<string>();
 
-			remotes = new HashTable<string, List<Gitg.Ref>>(str_hash, str_equal);
+			remotes = new HashTable<string, Gee.LinkedList<Gitg.Ref>>(str_hash, str_equal);
 			d_all = new List<Gitg.Ref>();
 
 			try
@@ -74,21 +74,21 @@ namespace GitgHistory
 					}
 					else if (r.parsed_name.rtype == Gitg.RefType.REMOTE)
 					{
-						unowned List<Gitg.Ref> lst;
+						Gee.LinkedList<Gitg.Ref> lst;
 
 						string rname = r.parsed_name.remote_name;
 
 						if (!remotes.lookup_extended(rname, null, out lst))
 						{
-							List<Gitg.Ref> nlst = new List<Gitg.Ref>();
-							nlst.prepend(r);
+							Gee.LinkedList<Gitg.Ref> nlst = new Gee.LinkedList<Gitg.Ref>();
+							nlst.insert(0, r);
 
-							remotes.insert(rname, (owned)nlst);
+							remotes.insert(rname, nlst);
 							remotenames.insert_sorted(rname, (a, b) => a.ascii_casecmp(b));
 						}
 						else
 						{
-							lst.prepend(r);
+							lst.insert(0, r);
 						}
 					}
 
