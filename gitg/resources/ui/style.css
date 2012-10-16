@@ -47,13 +47,6 @@ GtkToolbar#toolbar_subnav {
 	background-image: none;
 }
 
-#tree_view_navigation {
-	background-color: inherit;
-	background-image: none;
-	color: inherit;
-	background-color: shade(@theme_bg_color, 0.9);
-}
-
 #paned_main {
 	border-style: solid;
 	border-color: @borders;
@@ -61,11 +54,6 @@ GtkToolbar#toolbar_subnav {
 	padding: 0px;
 	border-radius: 0px;
 	background-color: inherit;
-}
-
-#tree_view_navigation.view:selected {
-	background-color: @theme_selected_bg_color;
-	color: @theme_selected_fg_color;
 }
 
 GtkLabel.title {

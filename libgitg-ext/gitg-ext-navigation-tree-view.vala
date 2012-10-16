@@ -350,11 +350,6 @@ public class NavigationRendererText : Gtk.CellRendererText
 
 		int xpad = 3;
 
-		if (hint != Hint.HEADER)
-		{
-			cell_area.x -= 15;
-		}
-
 		if (d_pixbuf == null)
 		{
 			base.render(ctx, widget, background_area, cell_area, state);
@@ -377,9 +372,6 @@ public class NavigationRendererText : Gtk.CellRendererText
 
 public class NavigationTreeView : Gtk.TreeView
 {
-	private Gdk.RGBA d_header_bg;
-	private Gdk.RGBA d_header_fg;
-
 	construct
 	{
 		var model = new NavigationTreeModel();
@@ -398,17 +390,6 @@ public class NavigationTreeView : Gtk.TreeView
 			model.get(iter, Column.HINT, out hint);
 
 			Gtk.CellRendererText t = cell as Gtk.CellRendererText;
-
-			if (hint == Hint.HEADER && (model as Gtk.TreeStore).iter_depth(iter) == 0)
-			{
-				t.background_rgba = d_header_bg;
-				t.foreground_rgba = d_header_fg;
-			}
-			else
-			{
-				t.background_set = false;
-				t.foreground_set = false;
-			}
 
 			if (hint == Hint.HEADER)
 			{
@@ -440,8 +421,6 @@ public class NavigationTreeView : Gtk.TreeView
 			return hint != Hint.HEADER;
 		});
 
-		update_header_colors();
-
 		get_selection().changed.connect((sel) => {
 			Gtk.TreeIter iter;
 
@@ -450,18 +429,6 @@ public class NavigationTreeView : Gtk.TreeView
 				model.activate(iter, 1);
 			}
 		});
-	}
-
-	protected override void style_updated()
-	{
-		base.style_updated();
-		update_header_colors();
-	}
-
-	private void update_header_colors()
-	{
-		get_style_context().lookup_color("insensitive_bg_color", out d_header_bg);
-		get_style_context().lookup_color("insensitive_fg_color", out d_header_fg);
 	}
 
 	public new NavigationTreeModel model
