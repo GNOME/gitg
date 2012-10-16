@@ -286,9 +286,21 @@ addEventListener('DOMContentLoaded', function () {
 		'.avatar': function (e) {
 			var h = this.author.email_md5;
 
-			var robo = 'http://robohash.org/' + h + '.png?size=80x80';
+			var loader = $('<img/>');
 
-			e.attr('src', 'http://www.gravatar.com/avatar/' + h + '?d=' + encodeURIComponent(robo) + '&s=50');
+			loader.on('error', function () {
+				var robosrc = 'http://robohash.org/' + h + '.png?size=50x50';
+
+				e.attr('src', robosrc);
+			});
+
+			var gravatar = 'http://www.gravatar.com/avatar/' + h + '?d=404&s=50';
+
+			loader.on('load', function () {
+				e.attr('src', gravatar);
+			});
+
+			loader.attr('src', gravatar);
 		},
 	});
 }, false);
