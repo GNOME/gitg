@@ -42,7 +42,7 @@ function create_template(name, bindmap)
 
 	$.each(bindmap, function (key, callback) {
 		props.push({
-			elements: templ.find(key),
+			selector: key,
 			callback: callback
 		});
 	});
@@ -51,8 +51,10 @@ function create_template(name, bindmap)
 		template: templ,
 		props: props,
 		execute: function (context) {
+			var ret = this.template.clone();
+
 			$.each(this.props, function (i, val) {
-				$.each(val.elements, function (i, e) {
+				ret.find(val.selector).each(function (i, e) {
 					var ee = $(e);
 
 					retval = val.callback.call(context, ee);
@@ -82,7 +84,7 @@ function create_template(name, bindmap)
 				});
 			});
 
-			return this.template.clone();
+			return ret;
 		}
 	};
 
