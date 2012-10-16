@@ -115,20 +115,21 @@ namespace GitgGtk
 			context.save();
 
 			var style_class = class_from_ref(r.parsed_name.rtype);
+
 			if (style_class != null)
 			{
 				context.add_class(style_class);
 			}
 
 			context.render_background(cr,
-			                          x + 0.5,
-			                          y + margin + 0.5,
+			                          x,
+			                          y + margin,
 			                          w + padding * 2,
 			                          height - margin * 2);
 
 			context.render_frame(cr,
-			                     x + 0.5,
-			                     y + margin + 0.5,
+			                     x,
+			                     y + margin,
 			                     w + padding * 2,
 			                     height - margin * 2);
 
