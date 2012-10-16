@@ -16,27 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Gitg
 {
 
-public void init()
+public class BranchBase : Ggit.Branch, Ref, Branch
 {
-	Ggit.init();
+	protected ParsedRefName d_parsed_name { get; set; }
 
-	var factory = Ggit.ObjectFactory.get_default();
+	protected List<Ref>? d_pushes { get; owned set; }
 
-	factory.register(typeof(Ggit.Repository),
-	                 typeof(Gitg.Repository));
+	public RefState state { get; set; }
+	public bool working { get; set; }
 
-	factory.register(typeof(Ggit.Ref),
-	                 typeof(Gitg.RefBase));
-
-	factory.register(typeof(Ggit.Branch),
-	                 typeof(Gitg.BranchBase));
-
-	factory.register(typeof(Ggit.Commit),
-	                 typeof(Gitg.Commit));
+	public new Gitg.Repository get_owner()
+	{
+		return (Gitg.Repository)base.get_owner();
+	}
 }
 
 }

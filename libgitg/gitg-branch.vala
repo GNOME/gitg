@@ -16,27 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Gitg
 {
 
-public void init()
+public interface Branch : Ggit.Branch, Ref
 {
-	Ggit.init();
-
-	var factory = Ggit.ObjectFactory.get_default();
-
-	factory.register(typeof(Ggit.Repository),
-	                 typeof(Gitg.Repository));
-
-	factory.register(typeof(Ggit.Ref),
-	                 typeof(Gitg.RefBase));
-
-	factory.register(typeof(Ggit.Branch),
-	                 typeof(Gitg.BranchBase));
-
-	factory.register(typeof(Ggit.Commit),
-	                 typeof(Gitg.Commit));
 }
 
 }

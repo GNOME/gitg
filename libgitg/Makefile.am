@@ -31,8 +31,11 @@ libgitg.h: libgitg-1.0.la
 
 VALA_FILES =				\
 	gitg-assembly-info.vala		\
+	gitg-branch.vala		\
+	gitg-branch-base.vala		\
 	gitg-repository.vala		\
 	gitg-ref.vala			\
+	gitg-ref-base.vala		\
 	gitg-lane.vala			\
 	gitg-lanes.vala			\
 	gitg-color.vala			\

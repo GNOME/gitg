@@ -141,15 +141,15 @@ public class ParsedRefName : Object
 	}
 }
 
-public class Ref : Ggit.Ref
+public interface Ref : Ggit.Ref
 {
-	private List<Ref>? d_pushes;
-
 	private static Regex? s_remote_key_regex;
-	private ParsedRefName d_parsed_name;
 
-	public RefState state { get; set; }
-	public bool working { get; set; }
+	protected abstract ParsedRefName d_parsed_name { get; set; }
+	protected abstract List<Ref>? d_pushes { get; owned set; }
+
+	public abstract RefState state { get; set; }
+	public abstract bool working { get; set; }
 
 	public ParsedRefName parsed_name
 	{
@@ -164,10 +164,7 @@ public class Ref : Ggit.Ref
 		}
 	}
 
-	public new Gitg.Repository get_owner()
-	{
-		return (Gitg.Repository)base.get_owner();
-	}
+	public abstract new Gitg.Repository get_owner();
 
 	private void add_push_ref(string spec)
 	{
