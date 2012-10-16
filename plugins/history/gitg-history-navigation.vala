@@ -115,6 +115,15 @@ namespace GitgHistory
 				}
 			} catch {}
 
+			if (CommandLine.all)
+			{
+				model.append_default(_("All commits"), null, (nc) => ref_activated(null));
+			}
+			else
+			{
+				model.append(_("All commits"), null, (nc) => ref_activated(null));
+			}
+
 			// Branches
 			model.begin_header(_("Branches"), null);
 
@@ -146,17 +155,6 @@ namespace GitgHistory
 					             icon,
 					             (nc) => ref_activated(it));
 				}
-			}
-
-			model.separator();
-
-			if (CommandLine.all)
-			{
-				model.append_default(_("All"), null, (nc) => ref_activated(null));
-			}
-			else
-			{
-				model.append(_("All"), null, (nc) => ref_activated(null));
 			}
 
 			model.end_header();
