@@ -39,6 +39,11 @@ namespace GitgHistory
 			return a.parsed_name.shortname.ascii_casecmp(b.parsed_name.shortname);
 		}
 
+		private static int sort_remote_refs(Gitg.Ref a, Gitg.Ref b)
+		{
+			return a.parsed_name.remote_branch.ascii_casecmp(b.parsed_name.remote_branch);
+		}
+
 		public void populate(GitgExt.NavigationTreeModel model)
 		{
 			var repo = application.repository;
@@ -162,6 +167,10 @@ namespace GitgHistory
 			foreach (var rname in remotenames)
 			{
 				model.begin_header(rname, null);
+
+				var rrefs = remotes.lookup(rname);
+
+				rrefs.sort((CompareFunc)sort_remote_refs);
 
 				foreach (var rref in remotes.lookup(rname))
 				{
