@@ -15,7 +15,7 @@ plugindir = $(GITG_PLUGIN_LIBDIR)
 plugin_LTLIBRARIES = libhistory.la
 plugin_DATA = history.plugin
 
-VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
+AM_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 VALA_SOURCES =								\
 	gitg-history.vala						\
 	gitg-history-navigation.vala					\

@@ -16,7 +16,7 @@ libgitg_1_0_la_LIBADD = $(LIBGITG_LIBS)
 INST_H_FILES =				\
 	libgitg.h
 
-VALAFLAGS = 				\
+AM_VALAFLAGS = 				\
 	--pkg Ggit-1.0 			\
 	--pkg gio-2.0			\
 	$(GITG_VALAFLAGS)		\

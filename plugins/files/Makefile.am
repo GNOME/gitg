@@ -10,7 +10,7 @@ plugindir = $(GITG_PLUGIN_LIBDIR)
 plugin_LTLIBRARIES = libfiles.la
 plugin_DATA = files.plugin
 
-VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
+AM_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 VALA_SOURCES =								\
 	gitg-files.vala							\
 	gitg-files-tree-store.vala

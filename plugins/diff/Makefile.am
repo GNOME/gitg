@@ -12,7 +12,7 @@ plugindir = $(GITG_PLUGIN_LIBDIR)
 plugin_LTLIBRARIES = libdiff.la
 plugin_DATA = diff.plugin
 
-VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
+AM_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 VALA_SOURCES =								\
 	gitg-diff.vala
 

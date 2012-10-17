@@ -2,7 +2,7 @@ INCLUDES = -g -I$(top_srcdir) -I$(top_srcdir)/gitg -I$(top_srcdir)/libgitg $(GIT
 
 noinst_PROGRAMS = $(TEST_PROGS) $(DEMO_PROGS)
 
-VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
+AM_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 
 DEMO_PROGS = diff-view dash-view
 

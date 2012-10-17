@@ -10,7 +10,7 @@ plugindir = $(GITG_PLUGIN_LIBDIR)
 plugin_LTLIBRARIES = libdash.la
 plugin_DATA = dash.plugin
 
-VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
+AM_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 VALA_SOURCES =								\
 	gitg-dash.vala							\
 	gitg-dash-navigation.vala

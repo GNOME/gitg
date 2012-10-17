@@ -9,7 +9,7 @@ AM_CPPFLAGS =							\
 	-DGITG_DATADIR=\""$(datadir)/gitg"\"			\
 	-DGITG_LOCALEDIR=\""$(datadir)/locale"\"
 
-VALAFLAGS = \
+AM_VALAFLAGS = \
 	--vapidir $(top_srcdir)/vapi				\
 	$(GITG_VALAFLAGS)					\
 	--pkg config						\

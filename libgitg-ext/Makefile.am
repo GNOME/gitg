@@ -19,7 +19,7 @@ COMMON_VALA_FLAGS =				\
 	--girdir $(top_builddir)/libgitg	\
 	--vapidir $(top_builddir)/libgitg
 
-VALAFLAGS = 				\
+AM_VALAFLAGS = 				\
 	$(COMMON_VALA_FLAGS)		\
 	--includedir libgitg-ext	\
 	--header libgitg-ext.h		\
