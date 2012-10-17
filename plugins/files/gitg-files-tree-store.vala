@@ -121,7 +121,7 @@ public class TreeStore : Gtk.TreeStore
 		{
 			d_tree.walk((root, entry) => {
 				var attr = entry.get_file_mode();
-				var isdir = Posix.S_ISDIR(attr);
+				var isdir = attr == Ggit.FileMode.TREE;
 
 				Gtk.TreeIter? parent = null;
 
