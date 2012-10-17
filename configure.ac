@@ -246,7 +246,6 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg json-glib-1.0			\
 	--pkg webkitgtk-3.0			\
 	--pkg config				\
-	--pkg posix				\
 	\$(GITG_VALAFLAGS)			\
 	--vapidir \$(top_srcdir)/vapi		\
 	--vapidir \$(top_builddir)/libgitg	\
