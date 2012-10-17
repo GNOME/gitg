@@ -195,6 +195,8 @@ namespace GitgHistory
 				             null,
 				             (nc) => ref_activated(it));
 			}
+
+			model.end_header();
 		}
 
 		public List<Gitg.Ref> all
