@@ -135,7 +135,8 @@ public class TreeStore : Gtk.TreeStore
 				set(iter,
 				    0, entry.get_name(),
 				    1, isdir,
-				    2, entry.get_id());
+				    2, entry.get_id(),
+				    -1);
 
 				if (isdir)
 				{
