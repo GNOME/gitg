@@ -155,7 +155,7 @@ public class TreeStore : Gtk.TreeStore
 				}
 
 				return 0;
-			}, Ggit.TreeWalkMode.POST);
+			}, Ggit.TreeWalkMode.PRE);
 		} catch (Error e) { }
 	}
 }
