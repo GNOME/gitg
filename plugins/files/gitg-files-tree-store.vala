@@ -36,7 +36,7 @@ public class TreeStore : Gtk.TreeStore
 
 	construct
 	{
-		set_column_types(new Type[] {typeof(string), typeof(bool), typeof(Ggit.OId)});
+		set_column_types(new Type[] {typeof(Icon), typeof(string), typeof(bool), typeof(Ggit.OId)});
 
 		set_sort_func(0, (model, a, b) => {
 			string aname;
@@ -44,8 +44,8 @@ public class TreeStore : Gtk.TreeStore
 			bool aisdir;
 			bool bisdir;
 
-			model.get(a, 0, out aname, 1, out aisdir);
-			model.get(b, 0, out bname, 1, out bisdir);
+			model.get(a, 1, out aname, 2, out aisdir);
+			model.get(b, 1, out bname, 2, out bisdir);
 
 			if (aisdir == bisdir)
 			{
@@ -69,7 +69,7 @@ public class TreeStore : Gtk.TreeStore
 	{
 		Ggit.OId ret;
 
-		get(iter, 2, out ret);
+		get(iter, 3, out ret);
 
 		return ret;
 	}
@@ -92,7 +92,7 @@ public class TreeStore : Gtk.TreeStore
 	{
 		string ret;
 
-		get(iter, 0, out ret);
+		get(iter, 1, out ret);
 
 		return ret;
 	}
@@ -101,7 +101,7 @@ public class TreeStore : Gtk.TreeStore
 	{
 		bool ret;
 
-		get(iter, 1, out ret);
+		get(iter, 2, out ret);
 
 		return ret;
 	}
@@ -130,12 +130,32 @@ public class TreeStore : Gtk.TreeStore
 					get_iter(out parent, paths.lookup(root));
 				}
 
+				Icon ?icon = null;
+				if (isdir)
+				{
+					icon = new ThemedIcon("folder");
+				}
+				else
+				{
+					var ct = ContentType.guess(entry.get_name(), null, null);
+
+					if (ContentType.is_unknown(ct))
+					{
+						icon = new ThemedIcon("text-x-generic");
+					}
+					else
+					{
+						icon = ContentType.get_icon(ct);
+					}
+				}
+
 				Gtk.TreeIter iter;
 				append(out iter, parent);
 				set(iter,
-				    0, entry.get_name(),
-				    1, isdir,
-				    2, entry.get_id(),
+				    0, icon,
+				    1, entry.get_name(),
+				    2, isdir,
+				    3, entry.get_id(),
 				    -1);
 
 				if (isdir)

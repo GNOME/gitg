@@ -26,9 +26,15 @@
                 <property name="sizing">autosize</property>
                 <property name="title" translatable="yes">column</property>
                 <child>
+                  <object class="GtkCellRendererPixbuf" id="cell_renderer_icon"/>
+                  <attributes>
+                    <attribute name="gicon">0</attribute>
+                  </attributes>
+                </child>
+                <child>
                   <object class="GtkCellRendererText" id="cell_renderer_name"/>
                   <attributes>
-                    <attribute name="text">0</attribute>
+                    <attribute name="text">1</attribute>
                   </attributes>
                 </child>
               </object>
