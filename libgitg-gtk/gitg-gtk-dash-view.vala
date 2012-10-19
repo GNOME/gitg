@@ -39,6 +39,7 @@ namespace GitgGtk
 		construct
 		{
 			d_listbox = new Egg.ListBox();
+			d_listbox.show();
 			add(d_listbox);
 
 			d_listbox.set_activate_on_single_click(false);
