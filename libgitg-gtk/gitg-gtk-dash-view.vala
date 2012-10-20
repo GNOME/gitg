@@ -39,6 +39,10 @@ namespace GitgGtk
 		construct
 		{
 			d_listbox = new Egg.ListBox();
+			var context = d_listbox.get_style_context();
+			context.add_class("view");
+			context.add_class("content-view");
+			d_listbox.set_separator_funcs(update_separator);
 			d_listbox.show();
 			add(d_listbox);
 
@@ -61,6 +65,15 @@ namespace GitgGtk
 				{
 					add_repository(item);
 				}
+			}
+		}
+
+		private void update_separator(ref Widget? separator, Widget widget, Widget? before_widget)
+		{
+			if (before_widget != null && separator == null) {
+				separator = new Separator(Orientation.HORIZONTAL);
+			} else {
+				separator = null;
 			}
 		}
 
