@@ -107,19 +107,20 @@ namespace GitgGtk
 			data.repository = repo;
 			data.grid = new Grid();
 			data.grid.margin = 12;
-			data.grid.set_column_spacing(10);
+			data.grid.column_spacing = 10;
 
 			File? workdir = repo.get_workdir();
 			var label = new Label((workdir != null) ? workdir.get_path() : repo_file.get_path());
-			label.set_ellipsize(Pango.EllipsizeMode.END);
-			label.set_valign(Align.START);
-			label.set_halign(Align.START);
+			label.ellipsize = Pango.EllipsizeMode.END;
+			label.valign = Align.START;
+			label.halign = Align.START;
+			label.hexpand = true;
 			data.grid.attach(label, 0, 0, 1, 1);
 
 			data.branch_label = new Label("");
-			data.branch_label.set_ellipsize(Pango.EllipsizeMode.END);
-			data.branch_label.set_valign(Align.START);
-			data.branch_label.set_halign(Align.START);
+			data.branch_label.ellipsize = Pango.EllipsizeMode.END;
+			data.branch_label.valign = Align.START;
+			data.branch_label.halign = Align.START;
 			data.grid.attach(data.branch_label, 0, 1, 1, 1);
 
 			Gitg.Ref? head = null;
@@ -152,6 +153,8 @@ namespace GitgGtk
 				}
 				catch {}
 			}
+
+			data.grid.attach(new Arrow(ArrowType.RIGHT, ShadowType.NONE), 1, 0, 1, 2);
 
 			data.grid.set_data<RepositoryData>("data", data);
 			data.grid.show_all();
