@@ -22,7 +22,7 @@ using Gtk;
 
 namespace GitgGtk
 {
-	public class DashView : Box
+	public class DashView : Grid
 	{
 		private Egg.ListBox d_listbox;
 		private class RepositoryData
@@ -70,9 +70,12 @@ namespace GitgGtk
 
 		private void update_separator(ref Widget? separator, Widget widget, Widget? before_widget)
 		{
-			if (before_widget != null && separator == null) {
+			if (before_widget != null && separator == null)
+			{
 				separator = new Separator(Orientation.HORIZONTAL);
-			} else {
+			}
+			else
+			{
 				separator = null;
 			}
 		}
