@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/gitg">
-    <file>ui/gitg-window.ui</file>
-    <file>ui/gitg-menus.ui</file>
-    <file>ui/style.css</file>
-    <file>ui/gitg-preferences.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/gitg-window.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/gitg-menus.ui</file>
+    <file compressed="true">ui/style.css</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/gitg-preferences.ui</file>
     <file alias="icons/gitg.svg" compressed="true" preprocess="xml-stripblanks">../../data/icons/gitg.svg</file>
     <file alias="icons/gitg128x128.png">../../data/icons/gitg128x128.png</file>
   </gresource>
