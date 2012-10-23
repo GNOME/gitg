@@ -24,9 +24,6 @@ private_icons = \
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t
 
-iconsdir = $(datadir)/gitg/icons
-icons_DATA = $(private_icons)
-
 update-icon-cache:
 	@-if test -z "$(DESTDIR)"; then \
 		echo "Updating Gtk icon cache."; \

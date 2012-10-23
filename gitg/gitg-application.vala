@@ -188,13 +188,13 @@ public class Application : Gtk.Application
 
 		try
 		{
-			logo = new Gdk.Pixbuf.from_file(Dirs.build_data_file("icons", "gitg.svg"));
+			logo = new Gdk.Pixbuf.from_resource("/org/gnome/gitg/icons/gitg.svg");
 		}
 		catch
 		{
 			try
 			{
-				logo = new Gdk.Pixbuf.from_file(Dirs.build_data_file("icons", "gitg128x128.png"));
+				logo = new Gdk.Pixbuf.from_resource("org/gnome/gitg/icons/gitg128x128.png");
 			}
 			catch {}
 		}
