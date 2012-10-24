@@ -112,8 +112,10 @@ namespace GitgGtk
 			data.grid.margin = 12;
 			data.grid.column_spacing = 10;
 
+			var label = new Label(null);
 			File? workdir = repo.get_workdir();
-			var label = new Label((workdir != null) ? workdir.get_path() : repo_file.get_path());
+			var label_text = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
+			label.set_markup("<b>%s</b>".printf(label_text));
 			label.ellipsize = Pango.EllipsizeMode.END;
 			label.valign = Align.START;
 			label.halign = Align.START;
