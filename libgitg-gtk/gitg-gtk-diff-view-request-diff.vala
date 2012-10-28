@@ -236,7 +236,11 @@ namespace GitgGtk
 						return 1;
 					}
 
-					line_cb(builder, delta, range, line_type, ((string)content).substring(0, content.length));
+					if (delta.get_binary() != 1)
+					{
+						line_cb(builder, delta, range, line_type, ((string)content).substring(0, content.length));
+					}
+
 					return 0;
 				}
 			);
