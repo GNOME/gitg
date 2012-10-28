@@ -226,6 +226,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		try
 		{
 			d_repository = new Gitg.Repository(repo, null);
+			notify_property("repository");
 		}
 		catch {}
 
