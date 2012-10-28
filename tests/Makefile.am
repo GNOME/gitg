@@ -18,6 +18,11 @@ TESTS = $(TEST_PROGS)
 
 BUILT_SOURCES = 				\
 	diff_view_vala.stamp			\
-	$(diff_view_SOURCES:.vala=.c)
+	dash_view_vala.stamp
+
+CLEANFILES =					\
+	$(diff_view_SOURCES:.vala=.c)		\
+	$(dash_view_SOURCES:.vala=.c)		\
+	$(BUILT_SOURCES)
 
 -include $(top_srcdir)/git.mk
