@@ -70,6 +70,10 @@ namespace GitgHistory
 			update_sort_mode();
 
 			application.bind_property("repository", d_model, "repository", BindingFlags.DEFAULT);
+
+			application.notify["repository"].connect((a, r) => {
+				notify_property("available");
+			});
 		}
 
 		private void update_sort_mode()

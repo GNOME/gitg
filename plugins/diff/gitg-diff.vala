@@ -38,6 +38,10 @@ namespace GitgDiff
 			d_diff.show();
 
 			d_sw.add(d_diff);
+
+			application.notify["current_view"].connect((a, v) => {
+				notify_property("available");
+			});
 		}
 
 		public string id

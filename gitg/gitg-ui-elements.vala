@@ -72,6 +72,8 @@ public class UIElements<T>
 			button = new Gtk.RadioToolButton(null);
 		}
 
+		e.bind_property("enabled", button, "sensitive", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+
 		button.set_icon_widget(img);
 		button.set_label(e.display_name);
 
@@ -130,8 +132,6 @@ public class UIElements<T>
 				{
 					set_current_impl(wasavail.element);
 				}
-
-				wasavail.navigation_button.set_sensitive(wasavail.element.enabled);
 			}
 		});
 	}
@@ -223,8 +223,6 @@ public class UIElements<T>
 
 		if (button != null)
 		{
-			button.set_sensitive(e.enabled);
-
 			d_available_sorted.insert_sorted(ae, (a, b) => {
 				return a.element.negotiate_order(b.element);
 			});
@@ -243,6 +241,11 @@ public class UIElements<T>
 		d_available_elements.insert(e.id, ae);
 	}
 
+	private void available_changed(Object o, ParamSpec spec)
+	{
+		update();
+	}
+
 	private void add_ui_element(GitgExt.UIElement e)
 	{
 		d_elements.insert(e.id, e);
@@ -251,11 +254,16 @@ public class UIElements<T>
 		{
 			add_available(e);
 		}
+
+		e.notify["available"].connect(available_changed);
 	}
 
 	private void remove_ui_element(GitgExt.UIElement e)
 	{
 		remove_available(e);
+
+		e.notify["available"].disconnect(available_changed);
+
 		d_elements.remove(e.id);
 	}
 

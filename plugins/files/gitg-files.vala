@@ -41,6 +41,10 @@ namespace GitgFiles
 		construct
 		{
 			d_model = new TreeStore();
+
+			application.notify["current_view"].connect((a, v) => {
+				notify_property("available");
+			});
 		}
 
 		public string id
