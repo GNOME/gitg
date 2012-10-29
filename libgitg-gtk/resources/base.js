@@ -96,9 +96,21 @@ function run_template(name, context)
 	return templates[name].execute(context);
 }
 
+var escapeDiv = document.createElement('div');
+var escapeElement = document.createTextNode('');
+escapeDiv.appendChild(escapeElement);
+
+function html_escape(str)
+{
+	escapeElement.data = str;
+	return escapeDiv.innerHTML;
+}
+
 function diff_file(file)
 {
-	var f = $('<div/>');
+	var f = '<div>';
+
+	tabrepl = '<span class="tab" style="width: ' + settings.tab_width + 'ex">\t</span>';
 
 	for (var i = 0; i < file.hunks.length; ++i)
 	{
@@ -115,70 +127,67 @@ function diff_file(file)
 		var cold = h.range.old.start;
 		var cnew = h.range.new.start;
 
+		var tablecontent = '';
+
 		for (var j = 0; j < h.lines.length; ++j)
 		{
 			var l = h.lines[j];
 			var o = String.fromCharCode(l.type);
 
-			var oldtd = $('<td/>', {'class': 'gutter'});
-			var newtd = $('<td/>', {'class': 'gutter'});
-
-			var row = $('<tr/>');
+			var row = '<tr class="';
 
 			switch (o)
 			{
 				case ' ':
-					row.addClass('context');
-
-					oldtd.text(cold);
-					newtd.text(cnew);
+					row += 'context"><td>' + cold + '</td><td>' + cnew + '</td>';
 
 					cold++;
 					cnew++;
 				break;
 				case '+':
-					row.addClass('added');
+					row += 'added"><td></td><td>' + cnew + '</td>';
 
-					newtd.text(cnew);
 					cnew++;
 				break;
 				case '-':
-					row.addClass('removed');
+					row += 'removed"><td>' + cold + '</td><td></td>';
 
-					oldtd.text(cold);
 					cold++;
+				break;
+				default:
+					row += '">';
 				break;
 			}
 
-			var texttd = $('<td/>').text(l.content);
-
-			texttd.html(texttd.html().replace(/\t/g, '<span class="tab" style="width: ' + settings.tab_width + 'ex">\t</span>'));
-
-			row.append(oldtd).append(newtd).append(texttd);
-			table.append(row);
+			row += '<td>' + html_escape(l.content).replace(/\t/g, tabrepl) + '</td>';
+			tablecontent += row;
 		}
 
+		var h = ht[0].outerHTML;
+		var findstr = '</table>';
+		var idx = h.indexOf(findstr);
 
-		f.append(ht);
+		f += h.substring(0, idx) + tablecontent + h.substring(idx);
+	}
+
+	return f + '</div>';
+}
+
+function write_diff(res)
+{
+	var f = '';
+
+	for (var i = 0; i < res.length; ++i)
+	{
+		f += diff_file(res[i]);
 	}
 
 	return f;
 }
 
-function write_diff(content, res)
+function write_commit(commit)
 {
-	for (var i = 0; i < res.length; ++i)
-	{
-		var df = diff_file(res[i]);
-
-		content.append(df);
-	}
-}
-
-function write_commit(content, commit)
-{
-	var c = run_template('commit', commit);
-	content.append(c);
+	return run_template('commit', commit);
 }
 
 function update_diff()
@@ -186,22 +195,22 @@ function update_diff()
 	var r = new XMLHttpRequest();
 
 	r.onload = function(e) {
-		j = JSON.parse(r.responseText);
+		var j = JSON.parse(r.responseText);
 
-		var content = $('#diff');
-		content.empty();
+		var html = '';
 
 		if ('commit' in j)
 		{
-			write_commit(content, j.commit);
+			$('#diff_header').html(write_commit(j.commit));
 		}
 
-		write_diff(content, j.diff);
+		var content = document.getElementById('diff_content');
+		content.innerHTML = write_diff(j.diff);
 	}
 
-	var t = (new Date()).getTime()
+	var t = (new Date()).getTime();
 
-	r.open("GET", "gitg-internal:/diff/?t=" + t + "&viewid=" + params.viewid);
+	r.open("GET", "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid);
 	r.send();
 }
 

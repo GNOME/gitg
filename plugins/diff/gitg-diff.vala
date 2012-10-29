@@ -25,19 +25,13 @@ namespace GitgDiff
 		private const string version = Gitg.Config.VERSION;
 
 		public GitgExt.Application? application { owned get; construct set; }
-		private Gtk.ScrolledWindow d_sw;
 		private GitgGtk.DiffView d_diff;
 		private GitgExt.ObjectSelection? d_view;
 
 		construct
 		{
 			d_diff = new GitgGtk.DiffView(null);
-			d_sw = new Gtk.ScrolledWindow(null, null);
-
-			d_sw.show();
 			d_diff.show();
-
-			d_sw.add(d_diff);
 
 			application.notify["current_view"].connect((a, v) => {
 				notify_property("available");
@@ -108,7 +102,7 @@ namespace GitgDiff
 					on_selection_changed(objsel);
 				}
 
-				return d_sw;
+				return d_diff;
 			}
 		}
 

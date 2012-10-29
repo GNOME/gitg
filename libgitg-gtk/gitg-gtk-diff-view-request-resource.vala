@@ -18,13 +18,13 @@
  */
 namespace GitgGtk
 {
-	class DiffViewRequestResource : DiffViewRequestHandler
+	class DiffViewRequestResource : DiffViewRequest
 	{
 		private File? d_resource;
 
-		public DiffViewRequestResource(DiffView? view, Soup.URI uri)
+		public DiffViewRequestResource(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
 		{
-			base(view, uri);
+			base(view, request, uri);
 		}
 
 		private File ensure_resource()
@@ -54,7 +54,7 @@ namespace GitgGtk
 			return d_resource;
 		}
 
-		public override InputStream? send(Cancellable? cancellable) throws GLib.Error
+		public override InputStream? run_async(Cancellable? cancellable) throws GLib.Error
 		{
 			var f = ensure_resource();
 
