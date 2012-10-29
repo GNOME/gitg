@@ -178,7 +178,7 @@ namespace GitgGtk
 
 			var settings = new WebKit.Settings();
 
-			var dbg = Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != "";
+			var dbg = Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null;
 
 			if (dbg)
 			{
