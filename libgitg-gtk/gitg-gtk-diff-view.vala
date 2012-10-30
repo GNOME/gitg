@@ -162,8 +162,6 @@ namespace GitgGtk
 
 			parse_font(d_fontsettings.get_string("font-name"), ref fname, ref fsize);
 
-			stdout.printf("%u\n", fsize);
-
 			settings.default_font_family = fname;
 			settings.default_font_size = fsize;
 
