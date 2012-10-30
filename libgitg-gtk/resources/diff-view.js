@@ -106,111 +106,88 @@ function html_escape(str)
 	return escapeDiv.innerHTML;
 }
 
-function diff_file(file)
-{
-	var f = '<div>';
-
-	tabrepl = '<span class="tab" style="width: ' + settings.tab_width + 'ex">\t</span>';
-
-	for (var i = 0; i < file.hunks.length; ++i)
-	{
-		var h = file.hunks[i];
-		var ht = run_template('hunk', {file: file, hunk: h});
-
-		var table = ht.children('table');
-
-		if (settings.wrap)
-		{
-			table.addClass('wrapped');
-		}
-
-		var cold = h.range.old.start;
-		var cnew = h.range.new.start;
-
-		var tablecontent = '';
-
-		for (var j = 0; j < h.lines.length; ++j)
-		{
-			var l = h.lines[j];
-			var o = String.fromCharCode(l.type);
-
-			var row = '<tr class="';
-
-			switch (o)
-			{
-				case ' ':
-					row += 'context"><td>' + cold + '</td><td>' + cnew + '</td>';
-
-					cold++;
-					cnew++;
-				break;
-				case '+':
-					row += 'added"><td></td><td>' + cnew + '</td>';
-
-					cnew++;
-				break;
-				case '-':
-					row += 'removed"><td>' + cold + '</td><td></td>';
-
-					cold++;
-				break;
-				default:
-					row += '">';
-				break;
-			}
-
-			row += '<td>' + html_escape(l.content).replace(/\t/g, tabrepl) + '</td>';
-			tablecontent += row;
-		}
-
-		var h = ht[0].outerHTML;
-		var findstr = '</table>';
-		var idx = h.indexOf(findstr);
-
-		f += h.substring(0, idx) + tablecontent + h.substring(idx);
-	}
-
-	return f + '</div>';
-}
-
-function write_diff(res)
-{
-	var f = '';
-
-	for (var i = 0; i < res.length; ++i)
-	{
-		f += diff_file(res[i]);
-	}
-
-	return f;
-}
 
 function write_commit(commit)
 {
 	return run_template('commit', commit);
 }
 
+var html_builder_worker = 0;
+var html_builder_tick = 0;
+
 function update_diff()
 {
+	if (html_builder_worker)
+	{
+		html_builder_worker.terminate();
+	}
+
+	html_builder_worker = new Worker('diff-view-html-builder.js');
+	html_builder_tick = 0;
+
+	var content = document.getElementById('diff_content');
+
+	html_builder_progress_timeout = setTimeout(function (){
+		var eta = 200 / html_builder_tick - 200;
+
+		if (eta > 1000)
+		{
+			// Show the progress
+			content.innerHTML = '<div class="loading">Loading diff...</div>.';
+		}
+
+		html_builder_progress_timeout = 0;
+	}, 200);
+
+	html_builder_worker.onmessage = function (event) {
+		if (event.data.log)
+		{
+			console.log(event.data.log);
+		}
+		else if (event.data.tick)
+		{
+			html_builder_tick = event.data.tick;
+		}
+		else
+		{
+			html_builder_worker.terminate();
+			html_builder_worker = 0;
+
+			if (html_builder_progress_timeout)
+			{
+				clearTimeout(html_builder_progress_timeout);
+				html_builder_progress_timeout = 0;
+			}
+
+			content.innerHTML = event.data.diff_html;
+		}
+	}
+
+	var t = (new Date()).getTime();
+
+	var hunk_template = $('#templates div.hunk')[0].outerHTML;
+
+	// Load the diff asynchronously
+	html_builder_worker.postMessage({
+		url: "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid + "&format=diff_only",
+		settings: settings,
+		hunk_template: hunk_template,
+	});
+
+	// Load the commit directly here
 	var r = new XMLHttpRequest();
 
 	r.onload = function(e) {
 		var j = JSON.parse(r.responseText);
 
-		var html = '';
-
 		if ('commit' in j)
 		{
 			$('#diff_header').html(write_commit(j.commit));
 		}
-
-		var content = document.getElementById('diff_content');
-		content.innerHTML = write_diff(j.diff);
 	}
 
-	var t = (new Date()).getTime();
-
-	r.open("GET", "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid);
+	t = (new Date()).getTime();
+	r.open("GET", "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid + "&format=commit_only");
 	r.send();
 }
 
@@ -256,21 +233,6 @@ function date_to_string(d)
 }
 
 addEventListener('DOMContentLoaded', function () {
-	create_template("hunk", {
-		'.filepath': function () {
-			var f = this.file.file;
-
-			if (f.new.path)
-			{
-				return f.new.path;
-			}
-			else
-			{
-				return f.old.path;
-			}
-		},
-	});
-
 	create_template("commit", {
 		'.author': function () {
 			var name = $('<span/>', {'class': 'author name'}).text(this.author.name);
