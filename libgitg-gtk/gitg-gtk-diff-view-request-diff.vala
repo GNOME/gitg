@@ -20,10 +20,34 @@ namespace GitgGtk
 {
 	class DiffViewRequestDiff : DiffViewRequest
 	{
+		private enum DiffType
+		{
+			DEFAULT,
+			DIFF_ONLY,
+			COMMIT_ONLY,
+		}
+
+		private DiffType d_diff_type;
+
 		public DiffViewRequestDiff(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
 		{
 			base(view, request, uri);
 			d_mimetype = "application/json";
+
+			var parsed = Soup.Form.decode(uri.query);
+			d_diff_type = DiffType.DEFAULT;
+
+			var format = parsed.lookup("format");
+
+			switch (format)
+			{
+				case "diff_only":
+					d_diff_type = DiffType.DIFF_ONLY;
+				break;
+				case "commit_only":
+					d_diff_type = DiffType.COMMIT_ONLY;
+				break;
+			}
 		}
 
 		private void file_to_json(Json.Builder builder, Ggit.DiffFile file)
@@ -188,26 +212,13 @@ namespace GitgGtk
 			builder.end_object();
 		}
 
-		private InputStream? run_diff(Ggit.Diff? diff, Cancellable? cancellable) throws GLib.Error
+		private void build_diff(Ggit.Diff? diff, Json.Builder builder, Cancellable? cancellable) throws GLib.Error
 		{
-			if (diff == null)
-			{
-				return null;
-			}
-
-			// create memory output stream
-			var builder = new Json.Builder();
 			DiffState state = new DiffState();
 
-			builder.begin_object();
-
-			if (d_view.commit != null)
-			{
-				builder.set_member_name("commit");
-				commit_to_json(builder, d_view.commit);
-			}
-
 			builder.set_member_name("diff").begin_array();
+
+			int64 numlines = 0;
 
 			diff.foreach(
 				(delta, progress) => {
@@ -238,6 +249,7 @@ namespace GitgGtk
 
 					if (delta.get_binary() != 1)
 					{
+						++numlines;
 						line_cb(builder, delta, range, line_type, ((string)content).substring(0, content.length));
 					}
 
@@ -263,6 +275,37 @@ namespace GitgGtk
 			}
 
 			builder.end_array();
+			builder.set_member_name("lines").add_int_value(numlines);
+		}
+
+		private void build_commit(Ggit.Diff? diff, Json.Builder builder, Cancellable? cancellable)
+		{
+			builder.set_member_name("commit");
+			commit_to_json(builder, d_view.commit);
+		}
+
+		private InputStream? run_diff(Ggit.Diff? diff, Cancellable? cancellable) throws GLib.Error
+		{
+			if (diff == null)
+			{
+				return null;
+			}
+
+			// create memory output stream
+			var builder = new Json.Builder();
+
+			builder.begin_object();
+
+			if (d_view.commit != null && d_diff_type != DiffType.DIFF_ONLY)
+			{
+				build_commit(diff, builder, cancellable);
+			}
+
+			if (d_diff_type != DiffType.COMMIT_ONLY)
+			{
+				build_diff(diff, builder, cancellable);
+			}
+
 			builder.end_object();
 
 			var gen = new Json.Generator();
