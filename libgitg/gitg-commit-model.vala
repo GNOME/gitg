@@ -54,6 +54,7 @@ public class CommitModel : Object
 	public signal void update(uint added);
 	public signal void finished();
 
+	[Notify]
 	public Repository repository
 	{
 		get { return d_repository; }
