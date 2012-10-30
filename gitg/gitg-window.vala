@@ -110,7 +110,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_views.foreach((element) => {
 			GitgExt.View view = (GitgExt.View)element;
 
-			if (view.is_default_for(d_action))
+			if (view.is_default_for(d_action != null ? d_action : ""))
 			{
 				if (d_views.current == view)
 				{
