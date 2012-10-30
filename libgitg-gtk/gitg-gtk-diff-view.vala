@@ -143,6 +143,8 @@ namespace GitgGtk
 				{
 					size = s / Pango.SCALE;
 				}
+
+				size = (uint)(size * get_screen().get_resolution() / 72.0);
 			}
 		}
 
@@ -159,6 +161,8 @@ namespace GitgGtk
 			var fsize = settings.default_font_size;
 
 			parse_font(d_fontsettings.get_string("font-name"), ref fname, ref fsize);
+
+			stdout.printf("%u\n", fsize);
 
 			settings.default_font_family = fname;
 			settings.default_font_size = fsize;
@@ -219,7 +223,7 @@ namespace GitgGtk
 			});
 
 			// Load the diff base html
-			var uri = "gitg-diff:///resource/org/gnome/gitg/gtk/diff-view/base.html?viewid=" + s_diff_id.to_string();
+			var uri = "gitg-diff:///resource/org/gnome/gitg/gtk/diff-view/diff-view.html?viewid=" + s_diff_id.to_string();
 
 			// Add custom js as a query parameter
 			if (custom_js != null)
