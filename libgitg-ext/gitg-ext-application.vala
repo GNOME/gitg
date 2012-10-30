@@ -33,7 +33,7 @@ public interface Application : Object
 	/**
 	 * The currently open repository.
 	 */
-	public abstract Gitg.Repository? repository { owned get; }
+	public abstract Gitg.Repository? repository { owned get; set; }
 
 	/**
 	 * An application wide message bus over which plugins can communicate.

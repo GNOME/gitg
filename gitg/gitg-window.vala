@@ -55,9 +55,23 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		owned get { return d_message_bus; }
 	}
 
+	[Notify]
 	public Repository? repository
 	{
 		owned get { return d_repository; }
+		set
+		{
+			close();
+			d_repository = value;
+
+			repository_changed();
+		}
+	}
+
+	private void repository_changed()
+	{
+		d_views.update();
+		activate_default_view();
 	}
 
 	protected override bool window_state_event(Gdk.EventWindowState event)
@@ -136,6 +150,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		// Update panels
 		d_panels.update();
+		notify_property("current_view");
 	}
 
 	private void on_panel_activated(UIElements elements,
@@ -243,6 +258,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			((Initable)ret).init(null);
 		} catch {}
 
+		ret.repository_changed();
 		return ret;
 	}
 
@@ -269,6 +285,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	public void open(File path)
 	{
 		File repo;
+		Gitg.Repository? repository = null;
 
 		if (d_repository != null &&
 		    d_repository.get_location().equal(path))
@@ -286,19 +303,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			return;
 		}
 
-		if (d_repository != null)
-		{
-			close();
-		}
-
 		try
 		{
-			d_repository = new Gitg.Repository(repo, null);
-			notify_property("repository");
+			repository = new Gitg.Repository(repo, null);
 		}
 		catch {}
 
-		d_views.update();
+		this.repository = repository;
 	}
 
 	public void create(File path)
