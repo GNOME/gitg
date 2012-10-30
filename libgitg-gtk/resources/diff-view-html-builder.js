@@ -53,7 +53,7 @@ function diff_file(file, lnstate, data)
 
 			lnstate.processed++;
 
-			proc = lnstate.lines / lnstate.processed;
+			proc = lnstate.processed / lnstate.lines;
 
 			if (proc >= lnstate.nexttick)
 			{
