@@ -15,15 +15,15 @@ COMMON_VALA_FLAGS =				\
 	--pkg gtk+-3.0				\
 	--pkg gee-1.0				\
 	--basedir $(top_srcdir)			\
-	--gir GitgExt-1.0.gir			\
-	--girdir $(top_builddir)/libgitg	\
 	--vapidir $(top_builddir)/libgitg
 
-AM_VALAFLAGS = 				\
-	$(COMMON_VALA_FLAGS)		\
-	--includedir libgitg-ext	\
-	--header libgitg-ext.h		\
-	--library libgitg-ext-1.0	\
+AM_VALAFLAGS = 					\
+	$(COMMON_VALA_FLAGS)			\
+	--gir GitgExt-1.0.gir			\
+	--girdir $(top_builddir)/libgitg	\
+	--includedir libgitg-ext		\
+	--header libgitg-ext.h			\
+	--library libgitg-ext-1.0		\
 	$(GITG_VALAFLAGS)
 
 libgitg_ext_1_0_la_LDFLAGS = \
