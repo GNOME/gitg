@@ -27,7 +27,7 @@ namespace GitgExt
  * application instance. It contains properties to access the currently open
  * repository as well as methods to open or create repositories.
  *
- **/
+ */
 public interface Application : Object
 {
 	/**
@@ -36,7 +36,7 @@ public interface Application : Object
 	public abstract Gitg.Repository? repository { owned get; }
 
 	/**
-	 * A application wide message bus over which plugins can communicate.
+	 * An application wide message bus over which plugins can communicate.
 	 */
 	public abstract GitgExt.MessageBus message_bus { owned get; }
 
@@ -48,7 +48,7 @@ public interface Application : Object
 	/**
 	 * Set the current application main view.
 	 *
-	 * @param id the id of the view {@link View.id}.
+	 * @param id the id of the view {@link UIElement.id}.
 	 *
 	 * @return the created new main view, or ``null`` if no view with the
 	 *         given id exists.

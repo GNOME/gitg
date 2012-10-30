@@ -25,13 +25,13 @@ namespace GitgExt
  *
  * The panel interface can be implemented to show additional details of a
  * {@link View}. The panel will be shown in a split view below the main view
- * when activated. Panels should implement the {@link is_available} method to
+ * when activated. Panels should implement the {@link UIElement.available} property to
  * indicate for which state of the application the panel is active. This usually
  * involves checking which view is currently active using
  * {@link Application.current_view}.
  *
  * Each panel should have a unique id, a display name and an icon which will
- * be used in the interface to activate the panel. The {@link widget} is
+ * be used in the interface to activate the panel. The {@link UIElement.widget} is
  * displayed when the panel is activated.
  *
  */

@@ -104,7 +104,7 @@ public interface UIElement : Object
 	 * This method is used to determine the order in which elements need to
 	 * appear in the UI.
 	 *
-	 * @returns -1 if the element should appear before @other, 1 if the
+	 * @return -1 if the element should appear before @other, 1 if the
 	 *          element should appear after @other and 0 if the order is
 	 *          unimportant.
 	 *

@@ -46,7 +46,7 @@ public enum ViewAction
 /**
  * gitg View interface.
  *
- * The GitgExtView interface can be implemented to provide a main view in
+ * The View interface can be implemented to provide a main view in
  * gitg. An example of such views are the builtin Dashboard, History and
  * Commit views.
  *
