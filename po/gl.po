@@ -1,26 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 # Ignacio Casal Quinteiro <icq@gnome.org>, 2009.
 # Fran Diéguez <frandieguez@gnome.org>, 2010, 2011.
 # Fran Dieguez <frandieguez@gnome.org>, 2012.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-30 14:59+0200\n"
-"PO-Revision-Date: 2012-08-30 15:05+0200\n"
+"POT-Creation-Date: 2012-10-31 11:10+0100\n"
+"PO-Revision-Date: 2012-10-31 11:11+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
-"Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
+"Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Gtranslator 2.91.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -118,36 +115,6 @@ msgstr "Permitir un programa diff externo"
 msgid "Allow an external diff program to be used when viewing diffs in gitg."
 msgstr "Permitir usar un programa diff externo ao ver diferenzas en gitg."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-msgid "The command to handle GITG scheme URLs"
-msgstr "A orde para xestionar os URL de esquema de GITG"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "The command to handle GITG scheme URLs."
-msgstr "A orde para xestionar os URL de esquema de GITG."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-msgid "Whether command to handle GITG scheme URLs needs a terminal"
-msgstr ""
-"Indica se a orde para xestionar os URL de esquema de GITG necesita unha "
-"terminal."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
-msgid "Whether command to handle GITG scheme URLs needs a terminal."
-msgstr ""
-"Indica se a orde para xestionar os URL de esquema de GITG necesita unha "
-"terminal."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
-msgid "Whether command to handle GITG scheme URLs is enabled"
-msgstr ""
-"Indica se a orde para xestionar os URL de esquema de GITG está activada"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
-msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr ""
-"Indica se a orde para xestionar os URL de esquema de GITG está activada."
-
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
@@ -232,11 +199,11 @@ msgstr "Taboleiro"
 msgid "(no branch)"
 msgstr "(sen rama)"
 
-#: ../plugins/diff/gitg-diff.vala:65
+#: ../plugins/diff/gitg-diff.vala:63
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/files/gitg-files.vala:68
+#: ../plugins/files/gitg-files.vala:72
 msgid "Files"
 msgstr "Ficheiros"
 
@@ -252,28 +219,28 @@ msgstr "Mostrar as opcións do historial de gitg"
 msgid "gitg history options"
 msgstr "Opcións do historial de gitg"
 
+#: ../plugins/history/gitg-history-navigation.vala:120
+#: ../plugins/history/gitg-history-navigation.vala:124
+msgid "All commits"
+msgstr "Todas as remisións"
+
 #. Branches
-#: ../plugins/history/gitg-history-navigation.vala:114
+#: ../plugins/history/gitg-history-navigation.vala:128
 msgid "Branches"
 msgstr "Ramas"
 
-#: ../plugins/history/gitg-history-navigation.vala:150
-#: ../plugins/history/gitg-history-navigation.vala:154
-msgid "All"
-msgstr "Todos"
-
 #. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:160
+#: ../plugins/history/gitg-history-navigation.vala:163
 msgid "Remotes"
 msgstr "Remotos"
 
 #. Tags
-#: ../plugins/history/gitg-history-navigation.vala:181
+#: ../plugins/history/gitg-history-navigation.vala:188
 msgid "Tags"
 msgstr "Etiquetas"
 
 #: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:131
+#: ../plugins/history/gitg-history.vala:135
 msgid "History"
 msgstr "Historial"
 
@@ -397,6 +364,33 @@ msgstr "Autor"
 #: ../plugins/history/resources/view-history.ui.h:3
 msgid "Date"
 msgstr "Data"
+
+#~ msgid "The command to handle GITG scheme URLs"
+#~ msgstr "A orde para xestionar os URL de esquema de GITG"
+
+#~ msgid "The command to handle GITG scheme URLs."
+#~ msgstr "A orde para xestionar os URL de esquema de GITG."
+
+#~ msgid "Whether command to handle GITG scheme URLs needs a terminal"
+#~ msgstr ""
+#~ "Indica se a orde para xestionar os URL de esquema de GITG necesita unha "
+#~ "terminal."
+
+#~ msgid "Whether command to handle GITG scheme URLs needs a terminal."
+#~ msgstr ""
+#~ "Indica se a orde para xestionar os URL de esquema de GITG necesita unha "
+#~ "terminal."
+
+#~ msgid "Whether command to handle GITG scheme URLs is enabled"
+#~ msgstr ""
+#~ "Indica se a orde para xestionar os URL de esquema de GITG está activada"
+
+#~ msgid "Whether command to handle GITG scheme URLs is enabled."
+#~ msgstr ""
+#~ "Indica se a orde para xestionar os URL de esquema de GITG está activada."
+
+#~ msgid "All"
+#~ msgstr "Todos"
 
 #~ msgid "Branch <%s> could not be removed"
 #~ msgstr "Non foi posíbel eliminar a rama <%s>"
