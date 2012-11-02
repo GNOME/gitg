@@ -76,6 +76,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		var model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu");
 		d_config.menu_model = model;
 
+		var settings = new Settings("org.gnome.gitg.preferences.interface");
+
+		settings.bind("orientation",
+		              d_paned_panels,
+		              "orientation",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 		base.parser_finished(builder);
 	}
 
