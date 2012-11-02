@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2012-10-17 19:19+0000\n"
-"PO-Revision-Date: 2012-10-18 08:00+0100\n"
+"POT-Creation-Date: 2012-11-02 18:41+0000\n"
+"PO-Revision-Date: 2012-11-02 21:52+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -40,6 +40,7 @@ msgstr "Filtriraj predelave med iskanjem"
 msgid "Whether searching filters the revisions in the history view instead of jumping to the first match."
 msgstr "Ali iskanje v pogledu zgodovine, filtrira predelave namesto neposrednega skoka na prvi zadetek."
 
+#. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
@@ -61,84 +62,36 @@ msgid "Setting that indicates whether to show the history in topological order."
 msgstr "Nastavitev določi ali naj bo zgodovina prikazana v topološkem načinu razvrstitve."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Show Main View in Vertical or Horizontal Layout"
-msgstr "Pokaži glavni pogled v navpični ali vodoravni razporeditvi"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Usmeritev glavnega vmesnika (vodoravno ali navpično)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation layout of the main view."
-msgstr "Nastavitev določi usmeritev razporeditve glavnega pogleda."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Nastavitev določi usmeritev glavnega pogleda."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Show files view in blame mode"
-msgstr "Pokaži pogled datotek v načinu krivde"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-msgid "Setting that sets files view to blame mode."
-msgstr "Nastavitev tega nastavi pogled v način krivde."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
 msgstr "Pokaži desni rob v pogledu sporočil uveljavitev"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
 msgid "Show a right margin indicator in the commit message view. This can be used to easily see where to break the commit message at a particular column."
 msgstr "Prikaz določila desnega roba v pogledu sporočila uveljavitev. Možnost omogoča enostaven pogled za lažji prelom besedila sporočila uveljavitve v določenem stolpcu."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Column at Which Right Margin is Shown"
 msgstr "Stolpec na katerem je prikazan desni rob"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid "The column at which the right margin is shown if the right-margin preference is set to TRUE."
 msgstr "Stolpec na katerem je prikazan desni rob, v primeru da je izbrana možnost desnega robu."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "Allow External Diff Program"
 msgstr "Dovoli zunanji program za primerjavo"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid "Allow an external diff program to be used when viewing diffs in gitg."
 msgstr "Dovoli zunanji program za primerjavo za ogled razlik v programu gitg."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-msgid "The command to handle GITG scheme URLs"
-msgstr "Ukaz za upravljanje z naslovi URL sheme GITG"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "The command to handle GITG scheme URLs."
-msgstr "Ukaz za upravljanje z naslovi URL sheme GITG."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-msgid "Whether command to handle GITG scheme URLs needs a terminal"
-msgstr "Ali ukaz za upravljanje naslovov URL sheme GITG zahteva terminal"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
-msgid "Whether command to handle GITG scheme URLs needs a terminal."
-msgstr "Ali ukaz za upravljanje naslovov URL sheme GITG zahteva terminal."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
-msgid "Whether command to handle GITG scheme URLs is enabled"
-msgstr "Ali je ukaz za upravljanje naslovov URL sheme GITG omogočen"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
-msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr "Ali je ukaz za upravljanje naslovov URL sheme GITG omogočen."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
-msgid "Setting that indicates whether to collapse history lanes which do not show activity. Enabling this can provide a cleaner history view when there is a lot of parallel development. See collapse-inactive-lanes to control when lanes should be collapsed."
-msgstr "Nastavitev določa, ali naj bodo zgodovinske vrstice, ki ne kažejo dejavnosti, strnjene. Če to omogočite, lahko zagotovite preglednejši pogled zgodovine, ko je veliko vzporednega razvoja. Poglejte collapse-inactive-lanes za nadzor, kdaj naj bodo vrstice strnjene."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-msgid "Setting that indicates whether to show items for the stash in the history."
-msgstr "Nastavitev določa, ali naj bodo prikazani predmeti za zalogo v zgodovini."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-msgid "Setting that indicates whether to show a virtual item for the currently staged changes in the history."
-msgstr "Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne spremembe v pripravljenosti."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-msgid "Setting that indicates whether to show a virtual item for the currently unstaged changes in the history."
-msgstr "Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne spremembe počiščene pripravljenosti."
 
 #: ../gitg/gitg-application.vala:43
 msgid "Show the application's version"
@@ -163,6 +116,52 @@ msgstr "gitg je pregledovalnik skladišč git za gtk+/GNOME"
 #: ../gitg/gitg-application.vala:210
 msgid "gitg homepage"
 msgstr "Spletna stran programa gitg"
+
+#: ../gitg/gitg-preferences-interface.vala:83
+msgid "Interface"
+msgstr "Vmesnik"
+
+#. ex:set ts=4 noet
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "_Novo okno"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+msgid "_Preferences"
+msgstr "_Možnosti"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Help"
+msgstr "Pomo_č"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "_O programu"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "_Končaj"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Close"
+msgstr "_Zapri"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "<b>Layout</b>"
+msgstr "<b>Razporeditev</b>"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+#: ../plugins/history/resources/preferences.ui.h:2
+msgid "    "
+msgstr "    "
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
+msgid "Use horizontal layout"
+msgstr "Uporabi vodoravno razporeditev"
+
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "gitg Preferences"
+msgstr "Možnosti"
 
 #: ../plugins/dash/gitg-dash-navigation.vala:41
 msgid "Repository"
@@ -189,80 +188,7 @@ msgstr "Nadzorna plošča"
 msgid "(no branch)"
 msgstr "(ni določene veje)"
 
-#: ../plugins/diff/gitg-diff.vala:65
-msgid "Diff"
-msgstr "Primerjava"
-
-#: ../plugins/files/gitg-files.vala:68
-msgid "Files"
-msgstr "Datoteke"
-
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Pokaži vso zgodovino"
-
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Pokaži možnosti zgodovine gitg"
-
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "Možnosti zgodovine gitg"
-
-#: ../plugins/history/gitg-history-navigation.vala:120
-#: ../plugins/history/gitg-history-navigation.vala:124
-msgid "All commits"
-msgstr "Vse uveljavitve"
-
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:128
-msgid "Branches"
-msgstr "Veje"
-
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:163
-msgid "Remotes"
-msgstr "Oddaljeno"
-
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:188
-msgid "Tags"
-msgstr "Oznake"
-
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:131
-msgid "History"
-msgstr "Zgodovina"
-
 #. ex: ts=4 noet
-#: ../gitg/resources/ui/gitg-menus.ui.h:1
-msgid "_New Window"
-msgstr "_Novo okno"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:2
-msgid "_Preferences"
-msgstr "_Možnosti"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:3
-msgid "_Help"
-msgstr "Pomo_č"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:4
-msgid "_About"
-msgstr "_O programu"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Quit"
-msgstr "_Končaj"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Close"
-msgstr "_Zapri"
-
-#: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Možnosti"
-
 #: ../plugins/dash/resources/view-create.ui.h:1
 msgid "Create repository"
 msgstr "Ustvari skladišče"
@@ -299,17 +225,75 @@ msgstr "Nazadnje uporabljeno:"
 msgid "Current branch:"
 msgstr "Trenutna veja:"
 
+#: ../plugins/diff/gitg-diff.vala:63
+msgid "Diff"
+msgstr "Primerjava"
+
+#: ../plugins/files/gitg-files.vala:72
+msgid "Files"
+msgstr "Datoteke"
+
+#. ex: ts=4 noet
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "stolpec"
 
+#: ../plugins/history/gitg-history-command-line.vala:31
+msgid "Show all history"
+msgstr "Pokaži vso zgodovino"
+
+#: ../plugins/history/gitg-history-command-line.vala:38
+msgid "Show gitg history options"
+msgstr "Pokaži možnosti zgodovine gitg"
+
+#: ../plugins/history/gitg-history-command-line.vala:39
+msgid "gitg history options"
+msgstr "Možnosti zgodovine gitg"
+
+#: ../plugins/history/gitg-history-navigation.vala:120
+#: ../plugins/history/gitg-history-navigation.vala:124
+msgid "All commits"
+msgstr "Vse uveljavitve"
+
+#. Branches
+#: ../plugins/history/gitg-history-navigation.vala:128
+msgid "Branches"
+msgstr "Veje"
+
+#. Remotes
+#: ../plugins/history/gitg-history-navigation.vala:163
+msgid "Remotes"
+msgstr "Oddaljeno"
+
+#. Tags
+#: ../plugins/history/gitg-history-navigation.vala:188
+msgid "Tags"
+msgstr "Oznake"
+
+#: ../plugins/history/gitg-history-preferences.vala:136
+#: ../plugins/history/gitg-history.vala:135
+msgid "History"
+msgstr "Zgodovina"
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
+msgid "Setting that indicates whether to collapse history lanes which do not show activity. Enabling this can provide a cleaner history view when there is a lot of parallel development. See collapse-inactive-lanes to control when lanes should be collapsed."
+msgstr "Nastavitev določa, ali naj bodo zgodovinske vrstice, ki ne kažejo dejavnosti, strnjene. Če to omogočite, lahko zagotovite preglednejši pogled zgodovine, ko je veliko vzporednega razvoja. Poglejte collapse-inactive-lanes za nadzor, kdaj naj bodo vrstice strnjene."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
+msgid "Setting that indicates whether to show items for the stash in the history."
+msgstr "Nastavitev določa, ali naj bodo prikazani predmeti za zalogo v zgodovini."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
+msgid "Setting that indicates whether to show a virtual item for the currently staged changes in the history."
+msgstr "Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne spremembe v pripravljenosti."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
+msgid "Setting that indicates whether to show a virtual item for the currently unstaged changes in the history."
+msgstr "Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne spremembe počiščene pripravljenosti."
+
 #: ../plugins/history/resources/preferences.ui.h:1
 msgid "<b>Commits</b>"
 msgstr "<b>Uveljavljavitve</b>"
-
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
 
 #: ../plugins/history/resources/preferences.ui.h:3
 msgid "Collapse inactive lanes"
@@ -354,6 +338,33 @@ msgstr "Avtor"
 #: ../plugins/history/resources/view-history.ui.h:3
 msgid "Date"
 msgstr "Datum"
+
+#~ msgid "Show Main View in Vertical or Horizontal Layout"
+#~ msgstr "Pokaži glavni pogled v navpični ali vodoravni razporeditvi"
+
+#~ msgid "Show files view in blame mode"
+#~ msgstr "Pokaži pogled datotek v načinu krivde"
+
+#~ msgid "Setting that sets files view to blame mode."
+#~ msgstr "Nastavitev tega nastavi pogled v način krivde."
+
+#~ msgid "The command to handle GITG scheme URLs"
+#~ msgstr "Ukaz za upravljanje z naslovi URL sheme GITG"
+
+#~ msgid "The command to handle GITG scheme URLs."
+#~ msgstr "Ukaz za upravljanje z naslovi URL sheme GITG."
+
+#~ msgid "Whether command to handle GITG scheme URLs needs a terminal"
+#~ msgstr "Ali ukaz za upravljanje naslovov URL sheme GITG zahteva terminal"
+
+#~ msgid "Whether command to handle GITG scheme URLs needs a terminal."
+#~ msgstr "Ali ukaz za upravljanje naslovov URL sheme GITG zahteva terminal."
+
+#~ msgid "Whether command to handle GITG scheme URLs is enabled"
+#~ msgstr "Ali je ukaz za upravljanje naslovov URL sheme GITG omogočen"
+
+#~ msgid "Whether command to handle GITG scheme URLs is enabled."
+#~ msgstr "Ali je ukaz za upravljanje naslovov URL sheme GITG omogočen."
 
 #~ msgid "All"
 #~ msgstr "Vse"
