@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-17 21:18+0200\n"
-"PO-Revision-Date: 2012-10-17 21:19+0200\n"
+"POT-Creation-Date: 2012-11-02 19:38+0100\n"
+"PO-Revision-Date: 2012-11-02 19:40+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -44,6 +44,7 @@ msgstr ""
 "Określa, czy wyszukiwanie filtruje wersje w widoku historii zamiast "
 "przechodzić do pierwszego wyniku."
 
+#. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
@@ -72,26 +73,18 @@ msgstr ""
 "Ustawienie wskazujące, czy wyświetlać historię w porządku topologicznym."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Show Main View in Vertical or Horizontal Layout"
-msgstr "Wyświetlanie głównego widoku w układzie pionowym lub poziomym"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Ułożenie głównego interfejsu (pionowe lub poziome)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation layout of the main view."
-msgstr "Ustawienie, które ustawia układ położenia głównego widoku."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Ustawienie, które ustawia ułożenie głównego interfejsu."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Show files view in blame mode"
-msgstr "Wyświetlanie plików w trybie odpowiedzialności"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-msgid "Setting that sets files view to blame mode."
-msgstr "Ustawienie, które ustawia widok plików na tryb odpowiedzialności."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
 msgstr "Wyświetlanie prawego marginesu w widoku komunikatu zatwierdzenia"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -99,11 +92,11 @@ msgstr ""
 "Wyświetlanie wskaźnika prawego marginesu w widoku komunikatu zatwierdzenia. "
 "Może być używane, aby łatwo podzielić tekst na wiersze."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Column at Which Right Margin is Shown"
 msgstr "Kolumna, w której wyświetlany jest prawy margines"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "The column at which the right margin is shown if the right-margin preference "
 "is set to TRUE."
@@ -111,80 +104,15 @@ msgstr ""
 "Kolumna, w której wyświetlany jest prawy margines, jeśli preferencja \"right-"
 "margin\" jest ustawiona na wartość \"true\"."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "Allow External Diff Program"
 msgstr "Pozwolenie na zewnętrzny program wyświetlania różnic"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid "Allow an external diff program to be used when viewing diffs in gitg."
 msgstr ""
 "Pozwolenie na używanie zewnętrznego programu wyświetlania różnic podczas ich "
 "wyświetlania w programie gitg."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-msgid "The command to handle GITG scheme URLs"
-msgstr "Polecenie do obsługiwania adresów URL schematu gitg"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "The command to handle GITG scheme URLs."
-msgstr "Polecenie do obsługiwania adresów URL schematu gitg."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-msgid "Whether command to handle GITG scheme URLs needs a terminal"
-msgstr ""
-"Określa, czy polecenie do obsługiwania adresów URL schematu gitg wymaga "
-"terminala"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
-msgid "Whether command to handle GITG scheme URLs needs a terminal."
-msgstr ""
-"Określa, czy polecenie do obsługiwania adresów URL schematu gitg wymaga "
-"terminala."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
-msgid "Whether command to handle GITG scheme URLs is enabled"
-msgstr ""
-"Określa, czy polecenie do obsługiwania adresów URL schematu gitg jest "
-"włączone"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
-msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr ""
-"Określa, czy polecenie do obsługiwania adresów URL schematu gitg jest "
-"włączone."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-"Ustawienie wskazujące, czy zwijać nieaktywne linie historii. Włączenie tej "
-"opcji powoduje wyświetlanie czystszej historii w przypadkach, gdy "
-"repozytorium jest rozwijane w wielu kierunkach jednocześnie. Opcja "
-"\"collapse-inactive-lanes\" kontroluje, kiedy linie powinny być zwijane."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr "Ustawienie wskazujące, czy wyświetlać elementy dla schowka w historii."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-"Ustawienie wskazujące, czy wyświetlać w historii wirtualny element dla zmian "
-"będących w przechowalni."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-"Ustawienie wskazujące, czy wyświetlać w historii wirtualny element dla zmian "
-"nie będących w przechowalni."
 
 #: ../gitg/gitg-application.vala:43
 msgid "Show the application's version"
@@ -209,6 +137,52 @@ msgstr "gitg to przeglądarka repozytoriów git dla GTK+/GNOME"
 #: ../gitg/gitg-application.vala:210
 msgid "gitg homepage"
 msgstr "Witryna programu gitg"
+
+#: ../gitg/gitg-preferences-interface.vala:83
+msgid "Interface"
+msgstr "Interfejs"
+
+#. ex:set ts=4 noet
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "_Nowe okno"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+msgid "_Preferences"
+msgstr "_Preferencje"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Help"
+msgstr "Pomo_c"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "_O programie"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "Za_kończ"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Close"
+msgstr "_Zamknij"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "<b>Layout</b>"
+msgstr "<b>Układ</b>"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+#: ../plugins/history/resources/preferences.ui.h:2
+msgid "    "
+msgstr "    "
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
+msgid "Use horizontal layout"
+msgstr "Użycie poziomego układu"
+
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "gitg Preferences"
+msgstr "Preferencje programu gitg"
 
 #: ../plugins/dash/gitg-dash-navigation.vala:41
 msgid "Repository"
@@ -235,80 +209,7 @@ msgstr "Główny panel"
 msgid "(no branch)"
 msgstr "(brak gałęzi)"
 
-#: ../plugins/diff/gitg-diff.vala:65
-msgid "Diff"
-msgstr "Różnica"
-
-#: ../plugins/files/gitg-files.vala:68
-msgid "Files"
-msgstr "Pliki"
-
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Wyświetl całą historię"
-
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Wyświetl opcje historii programu gitg"
-
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "Opcje historii programu gitg"
-
-#: ../plugins/history/gitg-history-navigation.vala:120
-#: ../plugins/history/gitg-history-navigation.vala:124
-msgid "All commits"
-msgstr "Wszystkie zatwierdzenia"
-
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:128
-msgid "Branches"
-msgstr "Gałęzie"
-
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:163
-msgid "Remotes"
-msgstr "Zdalne"
-
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:188
-msgid "Tags"
-msgstr "Etykiety"
-
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:131
-msgid "History"
-msgstr "Historia"
-
 #. ex: ts=4 noet
-#: ../gitg/resources/ui/gitg-menus.ui.h:1
-msgid "_New Window"
-msgstr "_Nowe okno"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:2
-msgid "_Preferences"
-msgstr "_Preferencje"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:3
-msgid "_Help"
-msgstr "Pomo_c"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:4
-msgid "_About"
-msgstr "_O programie"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Quit"
-msgstr "Za_kończ"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Close"
-msgstr "_Zamknij"
-
-#: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Preferencje programu gitg"
-
 #: ../plugins/dash/resources/view-create.ui.h:1
 msgid "Create repository"
 msgstr "Utwórz repozytorium"
@@ -345,17 +246,92 @@ msgstr "Ostatnio używane:"
 msgid "Current branch:"
 msgstr "Bieżąca gałąź:"
 
+#: ../plugins/diff/gitg-diff.vala:63
+msgid "Diff"
+msgstr "Różnica"
+
+#: ../plugins/files/gitg-files.vala:72
+msgid "Files"
+msgstr "Pliki"
+
+#. ex: ts=4 noet
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "kolumna"
 
+#: ../plugins/history/gitg-history-command-line.vala:31
+msgid "Show all history"
+msgstr "Wyświetl całą historię"
+
+#: ../plugins/history/gitg-history-command-line.vala:38
+msgid "Show gitg history options"
+msgstr "Wyświetl opcje historii programu gitg"
+
+#: ../plugins/history/gitg-history-command-line.vala:39
+msgid "gitg history options"
+msgstr "Opcje historii programu gitg"
+
+#: ../plugins/history/gitg-history-navigation.vala:120
+#: ../plugins/history/gitg-history-navigation.vala:124
+msgid "All commits"
+msgstr "Wszystkie zatwierdzenia"
+
+#. Branches
+#: ../plugins/history/gitg-history-navigation.vala:128
+msgid "Branches"
+msgstr "Gałęzie"
+
+#. Remotes
+#: ../plugins/history/gitg-history-navigation.vala:163
+msgid "Remotes"
+msgstr "Zdalne"
+
+#. Tags
+#: ../plugins/history/gitg-history-navigation.vala:188
+msgid "Tags"
+msgstr "Etykiety"
+
+#: ../plugins/history/gitg-history-preferences.vala:136
+#: ../plugins/history/gitg-history.vala:135
+msgid "History"
+msgstr "Historia"
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Ustawienie wskazujące, czy zwijać nieaktywne linie historii. Włączenie tej "
+"opcji powoduje wyświetlanie czystszej historii w przypadkach, gdy "
+"repozytorium jest rozwijane w wielu kierunkach jednocześnie. Opcja "
+"\"collapse-inactive-lanes\" kontroluje, kiedy linie powinny być zwijane."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr "Ustawienie wskazujące, czy wyświetlać elementy dla schowka w historii."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Ustawienie wskazujące, czy wyświetlać w historii wirtualny element dla zmian "
+"będących w przechowalni."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Ustawienie wskazujące, czy wyświetlać w historii wirtualny element dla zmian "
+"nie będących w przechowalni."
+
 #: ../plugins/history/resources/preferences.ui.h:1
 msgid "<b>Commits</b>"
 msgstr "<b>Zatwierdzenia</b>"
-
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
 
 #: ../plugins/history/resources/preferences.ui.h:3
 msgid "Collapse inactive lanes"
