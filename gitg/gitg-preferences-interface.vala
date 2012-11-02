@@ -53,22 +53,13 @@ class PreferencesInterface : Object, GitgExt.Preferences
 				return;
 			}
 
-			d_block = true;
-
-			if (!settings.set_enum("orientation", check.active ? 1 : 0))
+			if (!settings.set_enum("orientation", check.active ? 0 : 1))
 			{
 				check.active = settings.get_enum("orientation") == 0;
 			}
-
-			d_block = false;
 		});
 
 		settings.changed["orientation"].connect((s, k) => {
-			if (d_block)
-			{
-				return;
-			}
-
 			d_block = true;
 			check.active = settings.get_enum("orientation") == 0;
 			d_block = false;
