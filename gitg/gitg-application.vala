@@ -269,10 +269,12 @@ public class Application : Gtk.Application
 	{
 		add_action_entries(app_entries, this);
 
-		MenuModel[] menus = Resource.load_objects<MenuModel>("ui/gitg-menus.ui", {"app-menu", "win-menu"});
+		MenuModel? menu = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "app-menu");
 
-		set_app_menu(menus[0]);
-		//set_menubar(menus[1]);
+		if (menu != null)
+		{
+			set_app_menu(menu);
+		}
 	}
 
 	protected override void startup()
