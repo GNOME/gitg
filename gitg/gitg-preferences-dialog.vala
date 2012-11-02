@@ -35,6 +35,26 @@ class PreferencesDialog : Gtk.Dialog, Gtk.Buildable
 		base.parser_finished(builder);
 	}
 
+	private void add_page(GitgExt.Preferences pref, HashTable<string, Gtk.Box> pages)
+	{
+		Gtk.Box page;
+
+		if (!pages.lookup_extended(pref.id, null, out page))
+		{
+			page = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
+
+			page.show();
+			pages.insert(pref.id, page);
+
+			var lbl = new Gtk.Label(pref.display_name);
+			lbl.show();
+
+			d_notebook.append_page(page, lbl);
+		}
+
+		page.add(pref.widget);
+	}
+
 	public void populate()
 	{
 		var engine = PluginsEngine.get_default();
@@ -42,24 +62,10 @@ class PreferencesDialog : Gtk.Dialog, Gtk.Buildable
 
 		var pages = new HashTable<string, Gtk.Box>(str_hash, str_equal);
 
+		add_page(new PreferencesInterface(), pages);
+
 		ext.foreach((s, info, e) => {
-			var pref = e as GitgExt.Preferences;
-			Gtk.Box page;
-
-			if (!pages.lookup_extended(pref.id, null, out page))
-			{
-				page = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
-
-				page.show();
-				pages.insert(pref.id, page);
-
-				var lbl = new Gtk.Label(pref.display_name);
-				lbl.show();
-
-				d_notebook.append_page(page, lbl);
-			}
-
-			page.add(pref.widget);
+			add_page(e as GitgExt.Preferences, pages);
 		});
 	}
 }
