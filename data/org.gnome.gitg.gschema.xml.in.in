@@ -55,21 +55,12 @@
       <!-- TODO: add _descriptions -->
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.main" path="/org/gnome/gitg/preferences/view/main/">
-    <key name="layout-vertical" enum="org.gnome.gitg.Layout">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.interface" path="/org/gnome/gitg/preferences/interface/">
+    <key name="orientation" enum="org.gnome.gitg.Layout">
       <default>'vertical'</default>
-      <_summary>Show Main View in Vertical or Horizontal Layout</_summary>
+      <_summary>Orientation of the main interface (vertical or horizontal)</_summary>
       <_description>
-        Setting that sets the orientation layout of the main view.
-      </_description>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.files" path="/org/gnome/gitg/preferences/view/files/">
-    <key name="blame-mode" type="b">
-      <default>false</default>
-      <_summary>Show files view in blame mode</_summary>
-      <_description>
-        Setting that sets files view to blame mode.
+        Setting that sets the orientation of the main interface.
       </_description>
     </key>
   </schema>
