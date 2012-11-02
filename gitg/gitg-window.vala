@@ -81,7 +81,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		settings.bind("orientation",
 		              d_paned_panels,
 		              "orientation",
-		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+		              SettingsBindFlags.GET);
 
 		base.parser_finished(builder);
 	}
