@@ -15,7 +15,7 @@ noinst_LTLIBRARIES = libegglistbox.la
 libegglistbox_la_SOURCES = egg-list-box.c egg-list-box.h
 libegglistbox_la_LIBADD = $(LISTBOX_LIBS)
 
-noinst_PROGRAMS = test-list test-scrolled
+noinst_PROGRAMS = test-list test-scrolled test-focus
 
 test_list_SOURCES = \
 	test-list.vala \
@@ -43,6 +43,15 @@ test_scrolled_LDADD = \
 test_scrolled_VALAFLAGS = \
 	$(AM_VALAFLAGS) \
 	--pkg egglistbox \
+	$(NULL)
+
+test_focus_SOURCES = \
+	test-focus.c \
+	$(NULL)
+
+test_focus_LDADD = \
+	$(LISTBOX_LIBS) \
+	libegglistbox.la \
 	$(NULL)
 
 CLEANFILES = \
