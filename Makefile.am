@@ -15,7 +15,16 @@ noinst_LTLIBRARIES = libegglistbox.la
 libegglistbox_la_SOURCES = egg-list-box.c egg-list-box.h
 libegglistbox_la_LIBADD = $(LISTBOX_LIBS)
 
-noinst_PROGRAMS = test-list test-scrolled test-focus
+noinst_PROGRAMS = test-list test-scrolled test-focus test-sel
+
+test_sel_SOURCES = \
+	test-sel.c \
+	$(NULL)
+
+test_sel_LDADD = \
+	$(LISTBOX_LIBS) \
+	libegglistbox.la \
+	$(NULL)
 
 test_list_SOURCES = \
 	test-list.vala \
