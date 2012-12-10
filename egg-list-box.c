@@ -967,13 +967,11 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
 	{
 	  switch (direction)
 	    {
-	    case GTK_DIR_DOWN:
-	    case GTK_DIR_TAB_FORWARD:
-	      next_focus_child = egg_list_box_get_first_visible (list_box);
-	      break;
 	    case GTK_DIR_UP:
 	    case GTK_DIR_TAB_BACKWARD:
-	      next_focus_child = egg_list_box_get_last_visible (list_box);
+	      next_focus_child = priv->selected_child;
+	      if (next_focus_child == NULL)
+		next_focus_child = egg_list_box_get_last_visible (list_box);
 	      break;
 	    default:
 	      next_focus_child = priv->selected_child;
