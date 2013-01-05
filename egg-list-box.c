@@ -799,9 +799,22 @@ egg_list_box_real_motion_notify_event (GtkWidget *widget,
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
   EggListBoxChildInfo *child;
+  GdkWindow *window, *event_window;
+  gint relative_y;
+  gdouble parent_y;
 
+  window = gtk_widget_get_window (GTK_WIDGET (list_box));
+  event_window = event->window;
+  relative_y = event->y;
 
-  child = egg_list_box_find_child_at_y (list_box, event->y);
+  while ((event_window != NULL) && (event_window != window))
+    {
+      gdk_window_coords_to_parent (event_window, 0, relative_y, NULL, &parent_y);
+      relative_y = parent_y;
+      event_window = gdk_window_get_effective_parent (event_window);
+    }
+
+  child = egg_list_box_find_child_at_y (list_box, relative_y);
   egg_list_box_update_prelight (list_box, child);
   egg_list_box_update_active (list_box, child);
 
