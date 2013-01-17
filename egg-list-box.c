@@ -861,17 +861,17 @@ egg_list_box_real_button_release_event (GtkWidget *widget,
 
   if (event->button == 1)
     {
-    if (priv->active_child != NULL &&
-	priv->active_child_active)
-      {
-	if (priv->activate_single_click)
-	  egg_list_box_select_and_activate (list_box, priv->active_child);
-	else
-	  egg_list_box_update_selected (list_box, priv->active_child);
-      }
-    priv->active_child = NULL;
-    priv->active_child_active = FALSE;
-    gtk_widget_queue_draw (GTK_WIDGET (list_box));
+      if (priv->active_child != NULL &&
+          priv->active_child_active)
+        {
+          if (priv->activate_single_click)
+            egg_list_box_select_and_activate (list_box, priv->active_child);
+          else
+            egg_list_box_update_selected (list_box, priv->active_child);
+        }
+      priv->active_child = NULL;
+      priv->active_child_active = FALSE;
+      gtk_widget_queue_draw (GTK_WIDGET (list_box));
   }
 
   return FALSE;
