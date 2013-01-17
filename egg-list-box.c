@@ -854,8 +854,7 @@ egg_list_box_real_button_press_event (GtkWidget *widget,
 	  priv->active_child_active = TRUE;
 	  gtk_widget_queue_draw (GTK_WIDGET (list_box));
 	  if (event->type == GDK_2BUTTON_PRESS &&
-	      !priv->activate_single_click &&
-	      child->widget != NULL)
+	      !priv->activate_single_click)
 	    g_signal_emit (list_box, signals[CHILD_ACTIVATED], 0,
 			   child->widget);
 
