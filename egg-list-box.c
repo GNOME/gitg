@@ -107,6 +107,7 @@ enum {
   ACTIVATE_CURSOR_CHILD,
   TOGGLE_CURSOR_CHILD,
   MOVE_CURSOR,
+  REFILTER,
   LAST_SIGNAL
 };
 
@@ -190,6 +191,7 @@ static void                 egg_list_box_real_toggle_cursor_child     (EggListBo
 static void                 egg_list_box_real_move_cursor             (EggListBox          *list_box,
 								       GtkMovementStep      step,
 								       gint                 count);
+static void                 egg_list_box_real_refilter                (EggListBox          *list_box);
 static void                 egg_list_box_finalize                     (GObject             *obj);
 
 
@@ -317,6 +319,7 @@ egg_list_box_class_init (EggListBoxClass *klass)
   klass->activate_cursor_child = egg_list_box_real_activate_cursor_child;
   klass->toggle_cursor_child = egg_list_box_real_toggle_cursor_child;
   klass->move_cursor = egg_list_box_real_move_cursor;
+  klass->refilter = egg_list_box_real_refilter;
 
   signals[CHILD_SELECTED] =
     g_signal_new ("child-selected",
@@ -361,6 +364,14 @@ egg_list_box_class_init (EggListBoxClass *klass)
 		  _egg_marshal_VOID__ENUM_INT,
 		  G_TYPE_NONE, 2,
 		  GTK_TYPE_MOVEMENT_STEP, G_TYPE_INT);
+  signals[REFILTER] =
+    g_signal_new ("refilter",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST,
+		  G_STRUCT_OFFSET (EggListBoxClass, refilter),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__VOID,
+		  G_TYPE_NONE, 0);
 
   widget_class->activate_signal = signals[ACTIVATE_CURSOR_CHILD];
 
@@ -522,15 +533,20 @@ egg_list_box_set_separator_funcs (EggListBox *list_box,
   egg_list_box_reseparate (list_box);
 }
 
+static void
+egg_list_box_real_refilter (EggListBox *list_box)
+{
+  egg_list_box_apply_filter_all (list_box);
+  egg_list_box_reseparate (list_box);
+  gtk_widget_queue_resize (GTK_WIDGET (list_box));
+}
+
 void
 egg_list_box_refilter (EggListBox *list_box)
 {
   g_return_if_fail (list_box != NULL);
 
-
-  egg_list_box_apply_filter_all (list_box);
-  egg_list_box_reseparate (list_box);
-  gtk_widget_queue_resize (GTK_WIDGET (list_box));
+  g_signal_emit (list_box, signals[REFILTER], 0);
 }
 
 static gint

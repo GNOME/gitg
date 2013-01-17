@@ -32,6 +32,7 @@ struct _EggListBoxClass
   void (*activate_cursor_child) (EggListBox* self);
   void (*toggle_cursor_child) (EggListBox* self);
   void (*move_cursor) (EggListBox* self, GtkMovementStep step, gint count);
+  void (*refilter) (EggListBox* self);
 };
 
 typedef gboolean (*EggListBoxFilterFunc) (GtkWidget* child, void* user_data);
