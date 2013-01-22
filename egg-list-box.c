@@ -1015,8 +1015,8 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
     {
       if (direction == GTK_DIR_UP || direction == GTK_DIR_DOWN)
 	{
-	  gtk_widget_error_bell (GTK_WIDGET (list_box));
-	  return TRUE;
+          if (gtk_widget_keynav_failed (GTK_WIDGET (list_box), direction))
+	    return TRUE;
 	}
 
       return FALSE;
@@ -1970,7 +1970,20 @@ egg_list_box_real_move_cursor (EggListBox *list_box,
 
   if (child == NULL)
     {
-      gtk_widget_error_bell (GTK_WIDGET (list_box));
+      GtkDirectionType direction = count < 0 ? GTK_DIR_UP : GTK_DIR_DOWN;
+
+      if (!gtk_widget_keynav_failed (GTK_WIDGET (list_box), direction))
+        {
+          GtkWidget *toplevel = gtk_widget_get_toplevel (GTK_WIDGET (list_box));
+
+          if (toplevel)
+            gtk_widget_child_focus (toplevel,
+                                    direction == GTK_DIR_UP ?
+                                    GTK_DIR_TAB_BACKWARD :
+                                    GTK_DIR_TAB_FORWARD);
+
+        }
+
       return;
     }
 
