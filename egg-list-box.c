@@ -1968,7 +1968,7 @@ egg_list_box_real_move_cursor (EggListBox *list_box,
       return;
     }
 
-  if (child == NULL)
+  if (child == NULL || child == priv->cursor_child)
     {
       GtkDirectionType direction = count < 0 ? GTK_DIR_UP : GTK_DIR_DOWN;
 
