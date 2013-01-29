@@ -26,6 +26,7 @@
 #include <gobject/gvaluecollector.h>
 
 #include "egg-list-box.h"
+#include "egg-list-box-accessible.h"
 
 /* This already exists in gtk as _gtk_marshal_VOID__ENUM_INT, inline it here for now
    to avoid separate marshallers file */
@@ -292,6 +293,8 @@ egg_list_box_class_init (EggListBoxClass *klass)
   egg_list_box_parent_class = g_type_class_peek_parent (klass);
 
   g_type_class_add_private (klass, sizeof (EggListBoxPrivate));
+
+  gtk_widget_class_set_accessible_type (widget_class, EGG_TYPE_LIST_BOX_ACCESSIBLE);
 
   object_class->finalize = egg_list_box_finalize;
   widget_class->enter_notify_event = egg_list_box_real_enter_notify_event;
@@ -709,6 +712,7 @@ egg_list_box_update_cursor (EggListBox *list_box,
 				 priv->cursor_child->y + allocation.y,
 				 priv->cursor_child->y + allocation.y + priv->cursor_child->height);
   }
+  _egg_list_box_accessible_update_cursor (list_box, child ? child->widget : NULL);
 }
 
 static void
@@ -725,6 +729,7 @@ egg_list_box_update_selected (EggListBox *list_box,
 		     (priv->selected_child != NULL) ? priv->selected_child->widget : NULL);
       gtk_widget_queue_draw (GTK_WIDGET (list_box));
     }
+  _egg_list_box_accessible_update_selected (list_box, child ? child->widget : NULL);
   if (child != NULL)
     egg_list_box_update_cursor (list_box, child);
 }

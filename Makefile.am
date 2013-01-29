@@ -12,7 +12,10 @@ AM_VALAFLAGS = \
 
 noinst_LTLIBRARIES = libegglistbox.la
 
-libegglistbox_la_SOURCES = egg-list-box.c egg-list-box.h
+libegglistbox_la_SOURCES = \
+	egg-list-box.c egg-list-box.h \
+	egg-list-box-accessible.c egg-list-box-accessible.h
+
 libegglistbox_la_LIBADD = $(LISTBOX_LIBS)
 
 noinst_PROGRAMS = test-list test-scrolled test-focus test-sel
