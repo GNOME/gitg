@@ -29,8 +29,36 @@ egg_list_box_accessible_init (EggListBoxAccessible *accessible)
 }
 
 static void
+egg_list_box_accessible_initialize (AtkObject *obj,
+                                    gpointer   data)
+{
+  ATK_OBJECT_CLASS (egg_list_box_accessible_parent_class)->initialize (obj, data);
+
+  obj->role = ATK_ROLE_LIST_BOX;
+}
+
+static AtkStateSet*
+egg_list_box_accessible_ref_state_set (AtkObject *obj)
+{
+  AtkStateSet *state_set;
+  GtkWidget *widget;
+
+  state_set = ATK_OBJECT_CLASS (egg_list_box_accessible_parent_class)->ref_state_set (obj);
+  widget = gtk_accessible_get_widget (GTK_ACCESSIBLE (obj));
+
+  if (widget != NULL)
+    atk_state_set_add_state (state_set, ATK_STATE_MANAGES_DESCENDANTS);
+
+  return state_set;
+}
+
+static void
 egg_list_box_accessible_class_init (EggListBoxAccessibleClass *klass)
 {
+  AtkObjectClass *object_class = ATK_OBJECT_CLASS (klass);
+
+  object_class->initialize = egg_list_box_accessible_initialize;
+  object_class->ref_state_set = egg_list_box_accessible_ref_state_set;
 }
 
 static gboolean
