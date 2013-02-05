@@ -1038,8 +1038,9 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
 	modify_selection_pressed = TRUE;
     }
 
-  egg_list_box_update_cursor (list_box, next_focus_child);
-  if (!modify_selection_pressed)
+  if (modify_selection_pressed)
+    egg_list_box_update_cursor (list_box, next_focus_child);
+  else
     egg_list_box_update_selected (list_box, next_focus_child);
 
   return TRUE;
