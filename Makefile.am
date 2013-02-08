@@ -10,7 +10,10 @@ AM_VALAFLAGS = \
 	--vapidir=. \
 	$(NULL)
 
-noinst_LTLIBRARIES = libegglistbox.la
+noinst_LTLIBRARIES = \
+	libegglistbox.la \
+	libeggflowbox.la \
+	$(NULL)
 
 libegglistbox_la_SOURCES = \
 	egg-list-box.c egg-list-box.h \
@@ -18,7 +21,12 @@ libegglistbox_la_SOURCES = \
 
 libegglistbox_la_LIBADD = $(LISTBOX_LIBS)
 
-noinst_PROGRAMS = test-list test-scrolled test-focus test-sel
+libeggflowbox_la_SOURCES = \
+	egg-flow-box.c egg-flow-box.h
+
+libeggflowbox_la_LIBADD = $(LISTBOX_LIBS)
+
+noinst_PROGRAMS = test-list test-scrolled test-focus test-sel test-flow-box
 
 test_sel_SOURCES = \
 	test-sel.c \
@@ -64,6 +72,15 @@ test_focus_SOURCES = \
 test_focus_LDADD = \
 	$(LISTBOX_LIBS) \
 	libegglistbox.la \
+	$(NULL)
+
+test_flow_box_SOURCES = \
+	test-flow-box.c \
+	$(NULL)
+
+test_flow_box_LDADD = \
+	$(LISTBOX_LIBS) \
+	libeggflowbox.la \
 	$(NULL)
 
 CLEANFILES = \
