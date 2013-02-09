@@ -45,6 +45,8 @@
 
 #define P_(msgid) (msgid)
 
+#define DEFAULT_MAX_CHILDREN_PER_LINE 7
+
 enum {
   CHILD_ACTIVATED,
   SELECTED_CHILDREN_CHANGED,
@@ -2321,7 +2323,7 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
                                                       P_("The minimum number of children to allocate "
                                                          "consecutively in the given orientation."),
                                                       0,
-                                                      65535,
+                                                      G_MAXUINT,
                                                       0,
                                                       G_PARAM_READWRITE));
 
@@ -2338,8 +2340,8 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
                                                       P_("The maximum amount of children to request space for "
                                                          "consecutively in the given orientation."),
                                                       0,
-                                                      65535,
-                                                      0,
+                                                      G_MAXUINT,
+                                                      DEFAULT_MAX_CHILDREN_PER_LINE,
                                                       G_PARAM_READWRITE));
 
   /**
@@ -2354,7 +2356,7 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
                                                       P_("Vertical spacing"),
                                                       P_("The amount of vertical space between two children"),
                                                       0,
-                                                      65535,
+                                                      G_MAXUINT,
                                                       0,
                                                       G_PARAM_READWRITE));
 
@@ -2370,7 +2372,7 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
                                                       P_("Horizontal spacing"),
                                                       P_("The amount of horizontal space between two children"),
                                                       0,
-                                                      65535,
+                                                      G_MAXUINT,
                                                       0,
                                                       G_PARAM_READWRITE));
 
@@ -2405,6 +2407,7 @@ egg_flow_box_init (EggFlowBox *box)
   priv->selection_mode = GTK_SELECTION_SINGLE;
   priv->halign_policy = GTK_ALIGN_FILL;
   priv->valign_policy = GTK_ALIGN_START;
+  priv->max_children_per_line = DEFAULT_MAX_CHILDREN_PER_LINE;
   priv->column_spacing = 0;
   priv->row_spacing = 0;
   priv->children = g_sequence_new ((GDestroyNotify)egg_flow_box_child_info_free);
