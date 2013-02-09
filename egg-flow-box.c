@@ -47,6 +47,7 @@
 
 enum {
   CHILD_ACTIVATED,
+  SELECTED_CHILDREN_CHANGED,
   LAST_SIGNAL
 };
 
@@ -60,6 +61,7 @@ enum {
   PROP_ROW_SPACING,
   PROP_MIN_CHILDREN_PER_LINE,
   PROP_MAX_CHILDREN_PER_LINE,
+  PROP_SELECTION_MODE,
   PROP_ACTIVATE_ON_SINGLE_CLICK
 };
 
@@ -71,6 +73,7 @@ struct _EggFlowBoxPrivate {
   GtkAlign       valign_policy;
   guint          homogeneous : 1;
   guint          activate_on_single_click : 1;
+  GtkSelectionMode selection_mode;
 
   guint          row_spacing;
   guint          column_spacing;
@@ -89,10 +92,8 @@ struct _EggFlowBoxChildInfo
 {
   GSequenceIter *iter;
   GtkWidget *widget;
-  gint x;
-  gint y;
-  gint width;
-  gint height;
+  guint selected : 1;
+  GdkRectangle area;
 };
 
 static guint signals[LAST_SIGNAL] = { 0 };
@@ -772,10 +773,10 @@ egg_flow_box_real_size_allocate (GtkWidget     *widget,
 
       if (!gtk_widget_get_visible (child))
         {
-          child_info->x = child_allocation.x;
-          child_info->y = child_allocation.y;
-          child_info->width = 0;
-          child_info->height = 0;
+          child_info->area.x = child_allocation.x;
+          child_info->area.y = child_allocation.y;
+          child_info->area.width = 0;
+          child_info->area.height = 0;
           continue;
         }
 
@@ -878,10 +879,10 @@ egg_flow_box_real_size_allocate (GtkWidget     *widget,
           child_allocation.height = this_item_size;
         }
 
-      child_info->x = child_allocation.x;
-      child_info->y = child_allocation.y;
-      child_info->width = child_allocation.width;
-      child_info->height = child_allocation.height;
+      child_info->area.x = child_allocation.x;
+      child_info->area.y = child_allocation.y;
+      child_info->area.width = child_allocation.width;
+      child_info->area.height = child_allocation.height;
       gtk_widget_size_allocate (child, &child_allocation);
 
       item_offset += this_item_size;
@@ -921,25 +922,31 @@ egg_flow_box_real_remove (GtkContainer *container,
   EggFlowBox *box = EGG_FLOW_BOX (container);
   EggFlowBoxPrivate *priv = box->priv;
   gboolean was_visible;
-  EggFlowBoxChildInfo *info;
+  gboolean was_selected;
+  EggFlowBoxChildInfo *child_info;
 
   g_return_if_fail (child != NULL);
 
   was_visible = gtk_widget_get_visible (child);
 
-  info = egg_flow_box_lookup_info (box, child);
-  if (info == NULL)
+  child_info = egg_flow_box_lookup_info (box, child);
+  if (child_info == NULL)
     {
       g_warning ("Tried to remove non-child %p\n", child);
       return;
     }
 
+  was_selected = child_info->selected;
+
   gtk_widget_unparent (child);
   g_hash_table_remove (priv->child_hash, child);
-  g_sequence_remove (info->iter);
+  g_sequence_remove (child_info->iter);
 
   if (was_visible && gtk_widget_get_visible (GTK_WIDGET (box)))
     gtk_widget_queue_resize (GTK_WIDGET (box));
+
+  if (was_selected)
+    g_signal_emit (box, signals[SELECTED_CHILDREN_CHANGED], 0);
 }
 
 static void
@@ -1872,6 +1879,9 @@ egg_flow_box_get_property (GObject      *object,
     case PROP_MAX_CHILDREN_PER_LINE:
       g_value_set_uint (value, priv->max_children_per_line);
       break;
+    case PROP_SELECTION_MODE:
+      g_value_set_enum (value, priv->selection_mode);
+      break;
     case PROP_ACTIVATE_ON_SINGLE_CLICK:
       g_value_set_boolean (value, priv->activate_on_single_click);
       break;
@@ -1919,6 +1929,9 @@ egg_flow_box_set_property (GObject      *object,
     case PROP_MAX_CHILDREN_PER_LINE:
       egg_flow_box_set_max_children_per_line (box, g_value_get_uint (value));
       break;
+    case PROP_SELECTION_MODE:
+      egg_flow_box_set_selection_mode (box, g_value_get_enum (value));
+      break;
     case PROP_ACTIVATE_ON_SINGLE_CLICK:
       egg_flow_box_set_activate_on_single_click (box, g_value_get_boolean (value));
       break;
@@ -1944,8 +1957,8 @@ egg_flow_box_find_child_at_pos (EggFlowBox *box,
        iter = g_sequence_iter_next (iter))
     {
       info = (EggFlowBoxChildInfo *) g_sequence_get (iter);
-      if (x >= info->x && x < (info->x + info->width)
-          && y >= info->y && y < (info->y + info->height))
+      if (x >= info->area.x && x < (info->area.x + info->area.width)
+          && y >= info->area.y && y < (info->area.y + info->area.height))
         {
           child_info = info;
           break;
@@ -1964,17 +1977,17 @@ egg_flow_box_real_button_press_event (GtkWidget      *widget,
 
   if (event->button == 1)
     {
-      EggFlowBoxChildInfo *child;
-      child = egg_flow_box_find_child_at_pos (box, event->x, event->y);
-      if (child != NULL)
+      EggFlowBoxChildInfo *child_info;
+      child_info = egg_flow_box_find_child_at_pos (box, event->x, event->y);
+      if (child_info != NULL)
         {
-          priv->active_child = child;
+          priv->active_child = child_info;
           priv->active_child_active = TRUE;
           if (event->type == GDK_2BUTTON_PRESS &&
               !priv->activate_on_single_click)
             g_signal_emit (box,
                            signals[CHILD_ACTIVATED], 0,
-                           child->widget);
+                           child_info->widget);
         }
     }
 
@@ -1982,13 +1995,72 @@ egg_flow_box_real_button_press_event (GtkWidget      *widget,
 }
 
 static void
+egg_flow_box_queue_draw_child (EggFlowBox          *box,
+                               EggFlowBoxChildInfo *child_info)
+{
+  GdkRectangle rect;
+  GdkWindow *window;
+
+  rect = child_info->area;
+
+  window = gtk_widget_get_window (GTK_WIDGET (box));
+  gdk_window_invalidate_rect (window, &rect, TRUE);
+}
+
+static gboolean
+egg_flow_box_unselect_all_internal (EggFlowBox *box)
+{
+  EggFlowBoxChildInfo *child_info;
+  GSequenceIter *iter;
+  gboolean dirty = FALSE;
+
+  if (box->priv->selection_mode == GTK_SELECTION_NONE)
+    return FALSE;
+
+  for (iter = g_sequence_get_begin_iter (box->priv->children);
+       !g_sequence_iter_is_end (iter);
+       iter = g_sequence_iter_next (iter))
+    {
+      child_info = g_sequence_get (iter);
+      if (child_info->selected)
+        {
+          child_info->selected = FALSE;
+          egg_flow_box_queue_draw_child (box, child_info);
+          dirty = TRUE;
+        }
+    }
+
+}
+
+static void
+egg_flow_box_select_child_info (EggFlowBox          *box,
+                                EggFlowBoxChildInfo *child_info)
+{
+  if (child_info->selected)
+    return;
+
+  if (box->priv->selection_mode == GTK_SELECTION_NONE)
+    return;
+  else if (box->priv->selection_mode != GTK_SELECTION_MULTIPLE)
+    egg_flow_box_unselect_all_internal (box);
+
+  child_info->selected = TRUE;
+
+  g_signal_emit (box, signals[SELECTED_CHILDREN_CHANGED], 0);
+
+  egg_flow_box_queue_draw_child (box, child_info);
+}
+
+static void
 egg_flow_box_select_and_activate (EggFlowBox          *box,
-                                  EggFlowBoxChildInfo *child)
+                                  EggFlowBoxChildInfo *child_info)
 {
   GtkWidget *w = NULL;
 
-  if (child != NULL)
-    w = child->widget;
+  if (child_info != NULL)
+    w = child_info->widget;
+
+  egg_flow_box_select_child_info (box, child_info);
 
   if (w != NULL)
     g_signal_emit (box, signals[CHILD_ACTIVATED], 0, w);
@@ -2015,6 +2087,81 @@ egg_flow_box_real_button_release_event (GtkWidget      *widget,
   }
 
   return FALSE;
+}
+
+typedef struct {
+  EggFlowBoxChildInfo *child;
+  GtkStateFlags state;
+} ChildFlags;
+
+static ChildFlags *
+child_flags_find_or_add (ChildFlags          *array,
+                         int                 *array_length,
+                         EggFlowBoxChildInfo *to_find)
+{
+  gint i;
+
+  for (i = 0; i < *array_length; i++)
+    {
+      if (array[i].child == to_find)
+        return &array[i];
+    }
+
+  *array_length = *array_length + 1;
+  array[*array_length - 1].child = to_find;
+  array[*array_length - 1].state = 0;
+  return &array[*array_length - 1];
+}
+
+static gboolean
+egg_flow_box_real_draw (GtkWidget *widget,
+                        cairo_t   *cr)
+{
+  EggFlowBox *box = EGG_FLOW_BOX (widget);
+  EggFlowBoxPrivate *priv = box->priv;
+  GtkAllocation allocation = {0};
+  GtkStyleContext* context;
+  GtkStateFlags state;
+  gint focus_pad;
+  int i;
+  GSequenceIter *iter;
+
+  gtk_widget_get_allocation (GTK_WIDGET (box), &allocation);
+  context = gtk_widget_get_style_context (GTK_WIDGET (box));
+  state = gtk_widget_get_state_flags (widget);
+  gtk_render_background (context, cr, (gdouble) 0, (gdouble) 0, (gdouble) allocation.width, (gdouble) allocation.height);
+
+  for (iter = g_sequence_get_begin_iter (box->priv->children);
+       !g_sequence_iter_is_end (iter);
+       iter = g_sequence_iter_next (iter))
+    {
+      EggFlowBoxChildInfo *child_info;
+      ChildFlags flags[3], *found;
+      gint flags_length;
+
+      child_info = g_sequence_get (iter);
+      if (child_info->selected)
+        {
+          flags_length = 0;
+          found = child_flags_find_or_add (flags, &flags_length, child_info);
+          found->state |= (state | GTK_STATE_FLAG_SELECTED);
+
+          for (i = 0; i < flags_length; i++)
+            {
+              ChildFlags *flag = &flags[i];
+              gtk_style_context_save (context);
+              gtk_style_context_set_state (context, flag->state);
+              gtk_render_background (context, cr,
+                                     flag->child->area.x, flag->child->area.y,
+                                     flag->child->area.width, flag->child->area.height);
+              gtk_style_context_restore (context);
+            }
+        }
+    }
+
+  GTK_WIDGET_CLASS (egg_flow_box_parent_class)->draw ((GtkWidget *) G_TYPE_CHECK_INSTANCE_CAST (box, GTK_TYPE_CONTAINER, GtkContainer), cr);
+
+  return TRUE;
 }
 
 static void
@@ -2070,6 +2217,7 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
 
   widget_class->size_allocate = egg_flow_box_real_size_allocate;
   widget_class->realize = egg_flow_box_real_realize;
+  widget_class->draw = egg_flow_box_real_draw;
   widget_class->button_press_event = egg_flow_box_real_button_press_event;
   widget_class->button_release_event = egg_flow_box_real_button_release_event;
   widget_class->get_request_mode = egg_flow_box_real_get_request_mode;
@@ -2084,8 +2232,16 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
   container_class->child_type = egg_flow_box_real_child_type;
   gtk_container_class_handle_border_width (container_class);
 
-  /* GObjectClass properties */
   g_object_class_override_property (object_class, PROP_ORIENTATION, "orientation");
+
+  g_object_class_install_property (object_class,
+                                   PROP_SELECTION_MODE,
+                                   g_param_spec_enum ("selection-mode",
+                                                      P_("Selection mode"),
+                                                      P_("The selection mode"),
+                                                      GTK_TYPE_SELECTION_MODE,
+                                                      GTK_SELECTION_SINGLE,
+                                                      G_PARAM_READWRITE));
 
   g_object_class_install_property (object_class,
                                    PROP_ACTIVATE_ON_SINGLE_CLICK,
@@ -2212,6 +2368,14 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
                                            G_TYPE_NONE, 1,
                                            GTK_TYPE_WIDGET);
 
+  signals[SELECTED_CHILDREN_CHANGED] = g_signal_new ("selected-children-changed",
+                                                     EGG_TYPE_FLOW_BOX,
+                                                     G_SIGNAL_RUN_FIRST,
+                                                     G_STRUCT_OFFSET (EggFlowBoxClass, selected_children_changed),
+                                                     NULL, NULL,
+                                                     g_cclosure_marshal_VOID__VOID,
+                                                     G_TYPE_NONE, 0);
+
   g_type_class_add_private (class, sizeof (EggFlowBoxPrivate));
 }
 
@@ -2223,6 +2387,7 @@ egg_flow_box_init (EggFlowBox *box)
   box->priv = priv = G_TYPE_INSTANCE_GET_PRIVATE (box, EGG_TYPE_FLOW_BOX, EggFlowBoxPrivate);
 
   priv->orientation = GTK_ORIENTATION_HORIZONTAL;
+  priv->selection_mode = GTK_SELECTION_SINGLE;
   priv->halign_policy = GTK_ALIGN_FILL;
   priv->valign_policy = GTK_ALIGN_START;
   priv->column_spacing = 0;
@@ -2245,4 +2410,123 @@ GtkWidget *
 egg_flow_box_new (void)
 {
   return (GtkWidget *)g_object_new (EGG_TYPE_FLOW_BOX, NULL);
+}
+
+static void
+egg_flow_box_unselect_all (EggFlowBox *box)
+{
+  gboolean dirty = FALSE;
+
+  g_return_if_fail (EGG_IS_FLOW_BOX (box));
+
+  if (box->priv->selection_mode == GTK_SELECTION_BROWSE)
+    return;
+
+  dirty = egg_flow_box_unselect_all_internal (box);
+
+  if (dirty)
+    g_signal_emit (box, signals[SELECTED_CHILDREN_CHANGED], 0);
+}
+
+/**
+ * egg_flow_box_get_selected_children:
+ * @box: An #EggFlowBox.
+ *
+ * Creates a list of all selected children.
+ *
+ * Return value: (element-type GtkWidget) (transfer container): A #GList containing the #GtkWidget for each selected child.
+ **/
+GList *
+egg_flow_box_get_selected_children (EggFlowBox *box)
+{
+  EggFlowBoxChildInfo *child_info;
+  GSequenceIter *iter;
+  GList *selected = NULL;
+
+  g_return_if_fail (box != NULL);
+
+  for (iter = g_sequence_get_begin_iter (box->priv->children);
+       !g_sequence_iter_is_end (iter);
+       iter = g_sequence_iter_next (iter))
+    {
+      child_info = g_sequence_get (iter);
+      if (child_info->selected)
+        selected = g_list_prepend (selected, child_info->widget);
+    }
+
+  return g_list_reverse (selected);
+}
+
+void
+egg_flow_box_select_child (EggFlowBox *box,
+                           GtkWidget  *child)
+{
+  EggFlowBoxChildInfo *child_info;
+
+  g_return_if_fail (EGG_IS_FLOW_BOX (box));
+  g_return_if_fail (child != NULL);
+
+  child_info = egg_flow_box_lookup_info (box, child);
+  if (child_info == NULL)
+    {
+      g_warning ("Tried to select non-child %p\n", child);
+      return;
+    }
+
+  egg_flow_box_select_child_info (box, child_info);
+}
+
+/**
+ * egg_flow_box_selected_foreach:
+ * @flow_box: An #EggFlowBox.
+ * @func: (scope call): The function to call for each selected child.
+ * @data: User data to pass to the function.
+ *
+ * Calls a function for each selected child. Note that the
+ * selection cannot be modified from within this function.
+ */
+void
+egg_flow_box_selected_foreach (EggFlowBox           *box,
+                               EggFlowBoxForeachFunc func,
+                               gpointer              data)
+{
+  EggFlowBoxChildInfo *child_info;
+  GSequenceIter *iter;
+
+  g_return_if_fail (EGG_IS_FLOW_BOX (box));
+
+  for (iter = g_sequence_get_begin_iter (box->priv->children);
+       !g_sequence_iter_is_end (iter);
+       iter = g_sequence_iter_next (iter))
+    {
+      child_info = g_sequence_get (iter);
+      if (child_info->selected)
+        (* func) (box, child_info->widget, data);
+    }
+}
+
+void
+egg_flow_box_set_selection_mode (EggFlowBox *box,
+                                 GtkSelectionMode mode)
+{
+  g_return_if_fail (EGG_IS_FLOW_BOX (box));
+
+  if (mode == box->priv->selection_mode)
+    return;
+
+  if (mode == GTK_SELECTION_NONE ||
+      box->priv->selection_mode == GTK_SELECTION_MULTIPLE)
+    egg_flow_box_unselect_all (box);
+
+  box->priv->selection_mode = mode;
+
+  g_object_notify (G_OBJECT (box), "selection-mode");
+}
+
+GtkSelectionMode
+egg_flow_box_get_selection_mode (EggFlowBox *box)
+{
+  g_return_val_if_fail (EGG_IS_FLOW_BOX (box), GTK_SELECTION_SINGLE);
+
+  return box->priv->selection_mode;
 }

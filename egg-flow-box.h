@@ -36,6 +36,19 @@ typedef struct _EggFlowBox            EggFlowBox;
 typedef struct _EggFlowBoxPrivate     EggFlowBoxPrivate;
 typedef struct _EggFlowBoxClass       EggFlowBoxClass;
 
+/**
+ * EggFlowBoxForeachFunc:
+ * @flow_box: an #EggFlowBox
+ * @child: The child #GtkWidget
+ * @data: user data
+ *
+ * A function used by egg_flow_box_selected_foreach() to map all
+ * selected children.  It will be called on every selected child in the box.
+ */
+typedef void (* EggFlowBoxForeachFunc)     (EggFlowBox      *flow_box,
+                                            GtkWidget       *child,
+                                            gpointer         data);
+
 struct _EggFlowBox
 {
   GtkContainer container;
@@ -49,6 +62,7 @@ struct _EggFlowBoxClass
   GtkContainerClass parent_class;
 
   void (* child_activated) (EggFlowBox *self, GtkWidget *child);
+  void (* selected_children_changed) (EggFlowBox *self);
 };
 
 GType                 egg_flow_box_get_type                  (void) G_GNUC_CONST;
@@ -83,6 +97,16 @@ guint                 egg_flow_box_get_max_children_per_line (EggFlowBox        
 gboolean              egg_flow_box_get_activate_on_single_click (EggFlowBox        *box);
 void                  egg_flow_box_set_activate_on_single_click (EggFlowBox        *box,
                                                                  gboolean           single);
+
+GList                *egg_flow_box_get_selected_children        (EggFlowBox        *box);
+void                  egg_flow_box_selected_foreach             (EggFlowBox        *box,
+                                                                 EggFlowBoxForeachFunc func,
+                                                                 gpointer           data);
+void                  egg_flow_box_select_child                 (EggFlowBox        *box,
+                                                                 GtkWidget         *child);
+GtkSelectionMode      egg_flow_box_get_selection_mode           (EggFlowBox        *box);
+void                  egg_flow_box_set_selection_mode           (EggFlowBox        *box,
+                                                                 GtkSelectionMode   mode);
 
 G_END_DECLS
 

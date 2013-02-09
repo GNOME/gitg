@@ -211,6 +211,15 @@ orientation_changed (GtkComboBox   *box,
 }
 
 static void
+selection_mode_changed (GtkComboBox *box,
+                        EggFlowBox  *flowbox)
+{
+  GtkSelectionMode mode = gtk_combo_box_get_active (box);
+
+  egg_flow_box_set_selection_mode (flowbox, mode);
+}
+
+static void
 line_length_changed (GtkSpinButton *spin,
                      EggFlowBox *flowbox)
 {
@@ -277,6 +286,23 @@ on_child_activated (EggFlowBox *self,
   g_message ("Child activated %p: %s", child, id);
 }
 
+static void
+selection_foreach (EggFlowBox *self,
+                   GtkWidget  *child,
+                   gpointer    data)
+{
+  const char *id;
+  id = g_object_get_data (G_OBJECT (child), "id");
+  g_message ("Child selected %p: %s", child, id);
+}
+
+static void
+on_selected_children_changed (EggFlowBox *self)
+{
+  g_message ("Selection changed");
+  egg_flow_box_selected_foreach (self, selection_foreach, NULL);
+}
+
 static GtkWidget *
 create_window (void)
 {
@@ -313,6 +339,7 @@ create_window (void)
   gtk_container_add (GTK_CONTAINER (swindow), flowbox);
 
   g_signal_connect (flowbox, "child-activated", G_CALLBACK (on_child_activated), NULL);
+  g_signal_connect (flowbox, "selected-children-changed", G_CALLBACK (on_selected_children_changed), NULL);
 
   /* Add Flowbox test control frame */
   expander = gtk_expander_new ("Flow Box controls");
@@ -374,6 +401,21 @@ create_window (void)
 
   g_signal_connect (G_OBJECT (widget), "changed",
                     G_CALLBACK (orientation_changed), flowbox);
+
+  /* Add selection mode control */
+  widget = gtk_combo_box_text_new ();
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), "None");
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), "Single");
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), "Browse");
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), "Multiple");
+  gtk_combo_box_set_active (GTK_COMBO_BOX (widget), 1);
+  gtk_widget_show (widget);
+
+  gtk_widget_set_tooltip_text (widget, "Set the selection mode");
+  gtk_box_pack_start (GTK_BOX (flowbox_cntl), widget, FALSE, FALSE, 0);
+
+  g_signal_connect (G_OBJECT (widget), "changed",
+                    G_CALLBACK (selection_mode_changed), flowbox);
 
   /* Add minimum line length in items control */
   widget = gtk_spin_button_new_with_range (1, 10, 1);
