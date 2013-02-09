@@ -138,7 +138,7 @@ populate_flowbox_images (EggFlowBox *flowbox)
       widget = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
       gtk_widget_set_hexpand (widget, TRUE);
 
-      image = gtk_image_new_from_icon_name ("face-sad", GTK_ICON_SIZE_DIALOG);
+      image = gtk_image_new_from_icon_name ("face-wink", GTK_ICON_SIZE_DIALOG);
       gtk_widget_set_hexpand (image, TRUE);
       gtk_image_set_pixel_size (GTK_IMAGE (image), 256);
 
