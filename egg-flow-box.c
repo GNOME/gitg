@@ -579,12 +579,18 @@ egg_flow_box_real_size_allocate (GtkWidget     *widget,
   item_align = ORIENTATION_ALIGN_POLICY (box);
   line_align = OPPOSING_ORIENTATION_ALIGN_POLICY (box);
 
+  /* Get how many lines we'll be needing to flow */
+  n_children = get_visible_children (box);
+  if (n_children <= 0)
+    return;
 
   /*
    * Deal with ALIGNED/HOMOGENEOUS modes first, start with
    * initial guesses at item/line sizes
    */
   get_average_item_size (box, priv->orientation, &min_item_size, &nat_item_size);
+  if (nat_item_size <= 0)
+    return;
 
   /* By default flow at the natural item width */
   line_length = avail_size / (nat_item_size + item_spacing);
@@ -597,9 +603,6 @@ egg_flow_box_real_size_allocate (GtkWidget     *widget,
    * minimum item flow length */
   line_length = MAX (min_items, line_length);
   line_length = MIN (line_length, priv->max_children_per_line);
-
-  /* Get how many lines we'll be needing to flow */
-  n_children = get_visible_children (box);
 
   /* Here we just use the largest height-for-width and use that for the height
    * of all lines */
@@ -1258,14 +1261,19 @@ egg_flow_box_real_get_preferred_height_for_width (GtkWidget *widget,
       gint item_size, extra_pixels;
 
       n_children = get_visible_children (box);
+      if (n_children <= 0)
+        goto out;
 
       /* Make sure its no smaller than the minimum */
       GTK_WIDGET_GET_CLASS (widget)->get_preferred_width (widget, &min_width, NULL);
 
       avail_size  = MAX (width, min_width);
+      if (avail_size <= 0)
+        goto out;
 
       get_average_item_size (box, GTK_ORIENTATION_HORIZONTAL, &min_item_width, &nat_item_width);
-
+      if (nat_item_width <= 0)
+        goto out;
       /* By default flow at the natural item width */
       line_length = avail_size / (nat_item_width + priv->column_spacing);
 
@@ -1379,6 +1387,8 @@ egg_flow_box_real_get_preferred_height_for_width (GtkWidget *widget,
       GTK_WIDGET_GET_CLASS (widget)->get_preferred_height (widget, &min_height, &nat_height);
     }
 
+ out:
+
   if (minimum_height)
     *minimum_height = min_height;
 
@@ -1416,11 +1426,15 @@ egg_flow_box_real_get_preferred_width_for_height (GtkWidget *widget,
       gint item_size, extra_pixels;
 
       n_children = get_visible_children (box);
+      if (n_children <= 0)
+        goto out;
 
       /* Make sure its no smaller than the minimum */
       GTK_WIDGET_GET_CLASS (widget)->get_preferred_height (widget, &min_height, NULL);
 
       avail_size = MAX (height, min_height);
+      if (avail_size <= 0)
+        goto out;
 
       get_average_item_size (box, GTK_ORIENTATION_VERTICAL, &min_item_height, &nat_item_height);
 
@@ -1532,6 +1546,7 @@ egg_flow_box_real_get_preferred_width_for_height (GtkWidget *widget,
         }
     }
 
+ out:
   if (minimum_width)
     *minimum_width = min_width;
 
