@@ -2000,6 +2000,7 @@ egg_flow_box_real_button_press_event (GtkWidget      *widget,
         {
           priv->active_child = child_info;
           priv->active_child_active = TRUE;
+          gtk_widget_queue_draw (GTK_WIDGET (box));
           if (event->type == GDK_2BUTTON_PRESS &&
               !priv->activate_on_single_click)
             g_signal_emit (box,
@@ -2097,6 +2098,8 @@ egg_flow_box_real_button_release_event (GtkWidget      *widget,
         {
           if (priv->activate_on_single_click)
             egg_flow_box_select_and_activate (box, priv->active_child);
+          else
+            egg_flow_box_select_child_info (box, priv->active_child);
         }
       priv->active_child = NULL;
       priv->active_child_active = FALSE;
