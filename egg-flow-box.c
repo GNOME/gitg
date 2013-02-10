@@ -82,6 +82,7 @@ struct _EggFlowBoxPrivate {
 
   gboolean       active_child_active;
   EggFlowBoxChildInfo *active_child;
+  EggFlowBoxChildInfo *prelight_child;
 
   guint16        min_children_per_line;
   guint16        max_children_per_line;
@@ -942,6 +943,11 @@ egg_flow_box_real_remove (GtkContainer *container,
     }
 
   was_selected = child_info->selected;
+
+  if (child_info == priv->prelight_child)
+    priv->prelight_child = NULL;
+  if (child_info == priv->active_child)
+    priv->active_child = NULL;
 
   gtk_widget_unparent (child);
   g_hash_table_remove (priv->child_hash, child);
@@ -1985,6 +1991,109 @@ egg_flow_box_find_child_at_pos (EggFlowBox *box,
   return child_info;
 }
 
+static void
+egg_flow_box_update_prelight (EggFlowBox          *box,
+                              EggFlowBoxChildInfo *child)
+{
+  EggFlowBoxPrivate *priv = box->priv;
+
+  if (child != priv->prelight_child)
+    {
+      priv->prelight_child = child;
+      gtk_widget_queue_draw (GTK_WIDGET (box));
+    }
+}
+
+static void
+egg_flow_box_update_active (EggFlowBox          *box,
+                            EggFlowBoxChildInfo *child)
+{
+  EggFlowBoxPrivate *priv = box->priv;
+  gboolean val;
+
+  val = priv->active_child == child;
+  if (priv->active_child != NULL &&
+      val != priv->active_child_active)
+    {
+      priv->active_child_active = val;
+      gtk_widget_queue_draw (GTK_WIDGET (box));
+    }
+}
+
+static gboolean
+egg_flow_box_real_enter_notify_event (GtkWidget        *widget,
+                                      GdkEventCrossing *event)
+{
+  EggFlowBox *box = EGG_FLOW_BOX (widget);
+  EggFlowBoxChildInfo *child_info;
+
+
+  if (event->window != gtk_widget_get_window (GTK_WIDGET (box)))
+    return FALSE;
+
+  child_info = egg_flow_box_find_child_at_pos (box, event->x, event->y);
+  egg_flow_box_update_prelight (box, child_info);
+  egg_flow_box_update_active (box, child_info);
+
+  return FALSE;
+}
+
+static gboolean
+egg_flow_box_real_leave_notify_event (GtkWidget        *widget,
+                                      GdkEventCrossing *event)
+{
+  EggFlowBox *box = EGG_FLOW_BOX (widget);
+  EggFlowBoxChildInfo *child_info = NULL;
+
+  if (event->window != gtk_widget_get_window (GTK_WIDGET (box)))
+    return FALSE;
+
+  if (event->detail != GDK_NOTIFY_INFERIOR)
+    child_info = NULL;
+  else
+    child_info = egg_flow_box_find_child_at_pos (box, event->x, event->y);
+
+  egg_flow_box_update_prelight (box, child_info);
+  egg_flow_box_update_active (box, child_info);
+
+  return FALSE;
+}
+
+static gboolean
+egg_flow_box_real_motion_notify_event (GtkWidget      *widget,
+                                       GdkEventMotion *event)
+{
+  EggFlowBox *box = EGG_FLOW_BOX (widget);
+  EggFlowBoxChildInfo *child_info;
+  GdkWindow *window;
+  GdkWindow *event_window;
+  gint relative_x;
+  gint relative_y;
+  gdouble parent_x;
+  gdouble parent_y;
+
+  window = gtk_widget_get_window (GTK_WIDGET (box));
+  event_window = event->window;
+  relative_x = event->x;
+  relative_y = event->y;
+
+  while ((event_window != NULL) && (event_window != window))
+    {
+      gdk_window_coords_to_parent (event_window,
+                                   relative_x, relative_y,
+                                   &parent_x, &parent_y);
+      relative_x = parent_x;
+      relative_y = parent_y;
+      event_window = gdk_window_get_effective_parent (event_window);
+    }
+
+  child_info = egg_flow_box_find_child_at_pos (box, relative_x, relative_y);
+  egg_flow_box_update_prelight (box, child_info);
+  egg_flow_box_update_active (box, child_info);
+
+  return FALSE;
+}
+
 static gboolean
 egg_flow_box_real_button_press_event (GtkWidget      *widget,
                                       GdkEventButton *event)
@@ -2160,22 +2269,36 @@ egg_flow_box_real_draw (GtkWidget *widget,
       gint flags_length;
 
       child_info = g_sequence_get (iter);
+
+      flags_length = 0;
+
       if (child_info->selected)
         {
-          flags_length = 0;
           found = child_flags_find_or_add (flags, &flags_length, child_info);
           found->state |= (state | GTK_STATE_FLAG_SELECTED);
+        }
 
-          for (i = 0; i < flags_length; i++)
-            {
-              ChildFlags *flag = &flags[i];
-              gtk_style_context_save (context);
-              gtk_style_context_set_state (context, flag->state);
-              gtk_render_background (context, cr,
-                                     flag->child->area.x, flag->child->area.y,
-                                     flag->child->area.width, flag->child->area.height);
-              gtk_style_context_restore (context);
-            }
+      if (priv->prelight_child == child_info)
+        {
+          found = child_flags_find_or_add (flags, &flags_length, child_info);
+          found->state |= (state | GTK_STATE_FLAG_PRELIGHT);
+        }
+
+      if (priv->active_child == child_info && priv->active_child_active)
+        {
+          found = child_flags_find_or_add (flags, &flags_length, child_info);
+          found->state |= (state | GTK_STATE_FLAG_ACTIVE);
+        }
+
+      for (i = 0; i < flags_length; i++)
+        {
+          ChildFlags *flag = &flags[i];
+          gtk_style_context_save (context);
+          gtk_style_context_set_state (context, flag->state);
+          gtk_render_background (context, cr,
+                                 flag->child->area.x, flag->child->area.y,
+                                 flag->child->area.width, flag->child->area.height);
+          gtk_style_context_restore (context);
         }
     }
 
@@ -2235,6 +2358,9 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
   object_class->get_property = egg_flow_box_get_property;
   object_class->set_property = egg_flow_box_set_property;
 
+  widget_class->enter_notify_event = egg_flow_box_real_enter_notify_event;
+  widget_class->leave_notify_event = egg_flow_box_real_leave_notify_event;
+  widget_class->motion_notify_event = egg_flow_box_real_motion_notify_event;
   widget_class->size_allocate = egg_flow_box_real_size_allocate;
   widget_class->realize = egg_flow_box_real_realize;
   widget_class->draw = egg_flow_box_real_draw;
