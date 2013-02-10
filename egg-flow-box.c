@@ -42,6 +42,33 @@
 
 #include <gtk/gtk.h>
 #include "egg-flow-box.h"
+/* This already exists in gtk as _gtk_marshal_VOID__ENUM_INT, inline it here for now
+   to avoid separate marshallers file */
+static void
+_egg_marshal_VOID__ENUM_INT (GClosure * closure,
+                             GValue * return_value,
+                             guint n_param_values,
+                             const GValue * param_values,
+                             gpointer invocation_hint,
+                             gpointer marshal_data)
+{
+  typedef void (*GMarshalFunc_VOID__ENUM_INT) (gpointer data1, gint arg_1, gint arg_2, gpointer data2);
+  register GMarshalFunc_VOID__ENUM_INT callback;
+  register GCClosure * cc;
+  register gpointer data1;
+  register gpointer data2;
+  cc = (GCClosure *) closure;
+  g_return_if_fail (n_param_values == 3);
+  if (G_CCLOSURE_SWAP_DATA (closure)) {
+    data1 = closure->data;
+    data2 = param_values->data[0].v_pointer;
+  } else {
+    data1 = param_values->data[0].v_pointer;
+    data2 = closure->data;
+  }
+  callback = (GMarshalFunc_VOID__ENUM_INT) (marshal_data ? marshal_data : cc->callback);
+  callback (data1, g_value_get_enum (param_values + 1), g_value_get_int (param_values + 2), data2);
+}
 
 #define P_(msgid) (msgid)
 
@@ -50,6 +77,9 @@
 enum {
   CHILD_ACTIVATED,
   SELECTED_CHILDREN_CHANGED,
+  ACTIVATE_CURSOR_CHILD,
+  TOGGLE_CURSOR_CHILD,
+  MOVE_CURSOR,
   LAST_SIGNAL
 };
 
@@ -76,6 +106,7 @@ struct _EggFlowBoxPrivate {
   guint          homogeneous : 1;
   guint          activate_on_single_click : 1;
   GtkSelectionMode selection_mode;
+  GtkAdjustment *adjustment;
 
   guint          row_spacing;
   guint          column_spacing;
@@ -83,9 +114,12 @@ struct _EggFlowBoxPrivate {
   gboolean       active_child_active;
   EggFlowBoxChildInfo *active_child;
   EggFlowBoxChildInfo *prelight_child;
+  EggFlowBoxChildInfo *cursor_child;
+  EggFlowBoxChildInfo *selected_child;
 
   guint16        min_children_per_line;
   guint16        max_children_per_line;
+  guint16        cur_children_per_line;
 
   GSequence     *children;
   GHashTable    *child_hash;
@@ -140,6 +174,21 @@ egg_flow_box_lookup_info (EggFlowBox *flow_box, GtkWidget* child)
   return g_hash_table_lookup (priv->child_hash, child);
 }
 
+void
+egg_flow_box_set_adjustment (EggFlowBox    *box,
+                             GtkAdjustment *adjustment)
+{
+  EggFlowBoxPrivate *priv = box->priv;
+
+  g_return_if_fail (box != NULL);
+
+  g_object_ref (adjustment);
+  g_clear_object (&priv->adjustment);
+  priv->adjustment = adjustment;
+  gtk_container_set_focus_vadjustment (GTK_CONTAINER (box),
+                                       adjustment);
+}
+
 /**
  * egg_flow_box_get_homogeneous:
  * @box: a #EggFlowBox
@@ -185,6 +234,14 @@ egg_flow_box_set_homogeneous (EggFlowBox *box,
     }
 }
 
+/* Children are visible if they are shown by the app (visible)
+   and not filtered out (child_visible) by the box */
+static gboolean
+child_is_visible (GtkWidget *child)
+{
+  return gtk_widget_get_visible (child) && gtk_widget_get_child_visible (child);
+}
+
 static gint
 get_visible_children (EggFlowBox *box)
 {
@@ -202,7 +259,7 @@ get_visible_children (EggFlowBox *box)
       child_info = g_sequence_get (iter);
       child = child_info->widget;
 
-      if (!gtk_widget_get_visible (child))
+      if (!child_is_visible (child))
         continue;
 
       i++;
@@ -236,7 +293,7 @@ get_average_item_size (EggFlowBox    *box,
       child_info = g_sequence_get (iter);
       child = child_info->widget;
 
-      if (!gtk_widget_get_visible (child))
+      if (!child_is_visible (child))
         continue;
 
       if (orientation == GTK_ORIENTATION_HORIZONTAL)
@@ -281,7 +338,7 @@ get_largest_size_for_opposing_orientation (EggFlowBox    *box,
       child_info = g_sequence_get (iter);
       child = child_info->widget;
 
-      if (!gtk_widget_get_visible (child))
+      if (!child_is_visible (child))
         continue;
 
       if (orientation == GTK_ORIENTATION_HORIZONTAL)
@@ -335,7 +392,7 @@ get_largest_size_for_line_in_opposing_orientation (EggFlowBox       *box,
       child_info = g_sequence_get (iter);
       child = child_info->widget;
 
-      if (!gtk_widget_get_visible (child))
+      if (!child_is_visible (child))
         continue;
 
       /* Distribute the extra pixels to the first children in the line
@@ -402,7 +459,7 @@ gather_aligned_item_requests (EggFlowBox       *box,
       child_info = g_sequence_get (iter);
       child = child_info->widget;
 
-      if (!gtk_widget_get_visible (child))
+      if (!child_is_visible (child))
         continue;
 
       if (orientation == GTK_ORIENTATION_HORIZONTAL)
@@ -715,6 +772,8 @@ egg_flow_box_real_size_allocate (GtkWidget     *widget,
    * go on to distribute expand space if needed.
    */
 
+  priv->cur_children_per_line = line_length;
+
   /* FIXME: This portion needs to consider which columns
    * and rows asked for expand space and distribute those
    * accordingly for the case of ALIGNED allocation.
@@ -777,7 +836,7 @@ egg_flow_box_real_size_allocate (GtkWidget     *widget,
       child_info = g_sequence_get (iter);
       child = child_info->widget;
 
-      if (!gtk_widget_get_visible (child))
+      if (!child_is_visible (child))
         {
           child_info->area.x = child_allocation.x;
           child_info->area.y = child_allocation.y;
@@ -933,7 +992,7 @@ egg_flow_box_real_remove (GtkContainer *container,
 
   g_return_if_fail (child != NULL);
 
-  was_visible = gtk_widget_get_visible (child);
+  was_visible = child_is_visible (child);
 
   child_info = egg_flow_box_lookup_info (box, child);
   if (child_info == NULL)
@@ -948,6 +1007,8 @@ egg_flow_box_real_remove (GtkContainer *container,
     priv->prelight_child = NULL;
   if (child_info == priv->active_child)
     priv->active_child = NULL;
+  if (child_info == priv->selected_child)
+    priv->selected_child = NULL;
 
   gtk_widget_unparent (child);
   g_hash_table_remove (priv->child_hash, child);
@@ -1033,7 +1094,7 @@ get_largest_aligned_line_length (EggFlowBox     *box,
       child_info = g_sequence_get (iter);
       child = child_info->widget;
 
-      if (!gtk_widget_get_visible (child))
+      if (!child_is_visible (child))
         continue;
 
       if (orientation == GTK_ORIENTATION_HORIZONTAL)
@@ -2160,6 +2221,46 @@ egg_flow_box_unselect_all_internal (EggFlowBox *box)
 }
 
 static void
+egg_flow_box_unselect_child_info (EggFlowBox          *box,
+                                  EggFlowBoxChildInfo *child_info)
+{
+  if (!child_info->selected)
+    return;
+
+  if (box->priv->selection_mode == GTK_SELECTION_NONE)
+    return;
+  else if (box->priv->selection_mode != GTK_SELECTION_MULTIPLE)
+    egg_flow_box_unselect_all_internal (box);
+  else
+    child_info->selected = TRUE;
+
+  g_signal_emit (box, signals[SELECTED_CHILDREN_CHANGED], 0);
+
+  egg_flow_box_queue_draw_child (box, child_info);
+}
+
+static void
+egg_flow_box_update_cursor (EggFlowBox          *box,
+                            EggFlowBoxChildInfo *child_info)
+{
+  EggFlowBoxPrivate *priv = box->priv;
+
+  priv->cursor_child = child_info;
+  gtk_widget_grab_focus (GTK_WIDGET (box));
+  gtk_widget_queue_draw (GTK_WIDGET (box));
+
+  if (child_info != NULL && priv->adjustment != NULL)
+    {
+      GtkAllocation allocation;
+
+      gtk_widget_get_allocation (GTK_WIDGET (box), &allocation);
+      gtk_adjustment_clamp_page (priv->adjustment,
+                                 priv->cursor_child->area.y + allocation.y,
+                                 priv->cursor_child->area.y + allocation.y + priv->cursor_child->area.height);
+  }
+}
+
+static void
 egg_flow_box_select_child_info (EggFlowBox          *box,
                                 EggFlowBoxChildInfo *child_info)
 {
@@ -2172,10 +2273,13 @@ egg_flow_box_select_child_info (EggFlowBox          *box,
     egg_flow_box_unselect_all_internal (box);
 
   child_info->selected = TRUE;
+  box->priv->selected_child = child_info;
 
   g_signal_emit (box, signals[SELECTED_CHILDREN_CHANGED], 0);
 
   egg_flow_box_queue_draw_child (box, child_info);
+
+  egg_flow_box_update_cursor (box, child_info);
 }
 
 static void
@@ -2218,6 +2322,285 @@ egg_flow_box_real_button_release_event (GtkWidget      *widget,
   return FALSE;
 }
 
+static EggFlowBoxChildInfo *
+egg_flow_box_get_first_visible (EggFlowBox *box)
+{
+  EggFlowBoxPrivate *priv = box->priv;
+  EggFlowBoxChildInfo *child_info;
+  GSequenceIter *iter;
+
+  for (iter = g_sequence_get_begin_iter (priv->children);
+       !g_sequence_iter_is_end (iter);
+       iter = g_sequence_iter_next (iter))
+    {
+        child_info = g_sequence_get (iter);
+        if (child_is_visible (child_info->widget))
+          return child_info;
+    }
+
+  return NULL;
+}
+
+static EggFlowBoxChildInfo *
+egg_flow_box_get_last_visible (EggFlowBox *box)
+{
+  EggFlowBoxPrivate *priv = box->priv;
+  EggFlowBoxChildInfo *child_info;
+  GSequenceIter *iter;
+
+  iter = g_sequence_get_end_iter (priv->children);
+  while (!g_sequence_iter_is_begin (iter))
+    {
+      iter = g_sequence_iter_prev (iter);
+      child_info = g_sequence_get (iter);
+      if (child_is_visible (child_info->widget))
+        return child_info;
+    }
+
+  return NULL;
+}
+
+static GSequenceIter *
+egg_flow_box_get_previous_visible (EggFlowBox    *box,
+                                   GSequenceIter *iter)
+{
+  EggFlowBoxChildInfo *child_info;
+
+  if (g_sequence_iter_is_begin (iter))
+    return NULL;
+
+  do
+    {
+      iter = g_sequence_iter_prev (iter);
+      child_info = g_sequence_get (iter);
+      if (child_is_visible (child_info->widget))
+        return iter;
+    }
+  while (!g_sequence_iter_is_begin (iter));
+
+  return NULL;
+}
+
+static GSequenceIter *
+egg_flow_box_get_next_visible (EggFlowBox    *box,
+                               GSequenceIter *iter)
+{
+  EggFlowBoxChildInfo *child_info;
+
+  if (g_sequence_iter_is_end (iter))
+    return iter;
+
+  do
+    {
+      iter = g_sequence_iter_next (iter);
+      if (!g_sequence_iter_is_end (iter))
+        {
+        child_info = g_sequence_get (iter);
+        if (child_is_visible (child_info->widget))
+          return iter;
+        }
+    }
+  while (!g_sequence_iter_is_end (iter));
+
+  return iter;
+}
+
+static GSequenceIter *
+egg_flow_box_get_above_visible (EggFlowBox    *box,
+                                GSequenceIter *iter)
+{
+  EggFlowBoxChildInfo *child_info;
+  GSequenceIter *ret = NULL;
+  gint i;
+
+  if (g_sequence_iter_is_begin (iter))
+    return NULL;
+
+  i = 0;
+  do
+    {
+      iter = g_sequence_iter_prev (iter);
+      child_info = g_sequence_get (iter);
+      if (child_is_visible (child_info->widget))
+        i++;
+    }
+  while (!g_sequence_iter_is_begin (iter)
+         && i < box->priv->cur_children_per_line);
+
+  if (i == box->priv->cur_children_per_line)
+    ret = iter;
+
+  return ret;
+}
+
+static GSequenceIter *
+egg_flow_box_get_below_visible (EggFlowBox    *box,
+                                GSequenceIter *iter)
+{
+  EggFlowBoxChildInfo *child_info;
+  GSequenceIter *ret = NULL;
+  gint i;
+
+  if (g_sequence_iter_is_end (iter))
+    return iter;
+
+  i = 0;
+  do
+    {
+      iter = g_sequence_iter_next (iter);
+      if (!g_sequence_iter_is_end (iter))
+        {
+          child_info = g_sequence_get (iter);
+          if (child_is_visible (child_info->widget))
+            i++;
+        }
+    }
+  while (!g_sequence_iter_is_end (iter)
+         && i < box->priv->cur_children_per_line);
+
+  if (i == box->priv->cur_children_per_line)
+    ret = iter;
+
+  return ret;
+}
+
+static gboolean
+egg_flow_box_real_focus (GtkWidget       *widget,
+                         GtkDirectionType direction)
+{
+  EggFlowBox *box = EGG_FLOW_BOX (widget);
+  EggFlowBoxPrivate *priv = box->priv;
+  gboolean had_focus = FALSE;
+  GtkWidget *recurse_into;
+  EggFlowBoxChildInfo *current_focus_child;
+  EggFlowBoxChildInfo *next_focus_child;
+  gboolean modify_selection_pressed;
+  GdkModifierType state = 0;
+
+  recurse_into = NULL;
+
+  g_object_get (GTK_WIDGET (box), "has-focus", &had_focus, NULL);
+  current_focus_child = NULL;
+  next_focus_child = NULL;
+
+  if (had_focus)
+    {
+      /* If on row, going right, enter into possible container */
+      if (direction == GTK_DIR_RIGHT || direction == GTK_DIR_TAB_FORWARD)
+        {
+          if (priv->cursor_child != NULL)
+            recurse_into = priv->cursor_child->widget;
+        }
+      current_focus_child = priv->cursor_child;
+    }
+  else if (gtk_container_get_focus_child ((GtkContainer *) box) != NULL)
+    {
+      /* There is a focus child, always navigate inside it first */
+      recurse_into = gtk_container_get_focus_child ((GtkContainer *) box);
+      current_focus_child = egg_flow_box_lookup_info (box, recurse_into);
+
+      /* If exiting child container to the left, select row or out */
+      if (direction == GTK_DIR_LEFT || direction == GTK_DIR_TAB_BACKWARD)
+        next_focus_child = current_focus_child;
+    }
+  else
+    {
+      /* If coming from the left, enter into possible container */
+      if (direction == GTK_DIR_LEFT || direction == GTK_DIR_TAB_BACKWARD)
+        {
+          if (priv->selected_child != NULL)
+            recurse_into = priv->selected_child->widget;
+        }
+    }
+
+  if (recurse_into != NULL)
+    {
+      if (gtk_widget_child_focus (recurse_into, direction))
+        return TRUE;
+    }
+
+  if (next_focus_child == NULL)
+    {
+      if (current_focus_child != NULL)
+        {
+          GSequenceIter *i;
+
+          if (direction == GTK_DIR_LEFT)
+            {
+              i = egg_flow_box_get_previous_visible (box, current_focus_child->iter);
+              if (i != NULL)
+                next_focus_child = g_sequence_get (i);
+            }
+          else if (direction == GTK_DIR_RIGHT)
+            {
+              i = egg_flow_box_get_next_visible (box, current_focus_child->iter);
+              if (i != NULL && !g_sequence_iter_is_end (i))
+                next_focus_child = g_sequence_get (i);
+            }
+          else if (direction == GTK_DIR_UP)
+            {
+              i = egg_flow_box_get_above_visible (box, current_focus_child->iter);
+              if (i != NULL && !g_sequence_iter_is_end (i))
+                next_focus_child = g_sequence_get (i);
+            }
+          else if (direction == GTK_DIR_DOWN)
+            {
+              i = egg_flow_box_get_below_visible (box, current_focus_child->iter);
+              if (i != NULL && !g_sequence_iter_is_end (i))
+                next_focus_child = g_sequence_get (i);
+            }
+        }
+      else
+        {
+          switch (direction)
+            {
+            case GTK_DIR_UP:
+            case GTK_DIR_TAB_BACKWARD:
+              next_focus_child = priv->selected_child;
+              if (next_focus_child == NULL)
+                next_focus_child = egg_flow_box_get_last_visible (box);
+              break;
+            default:
+              next_focus_child = priv->selected_child;
+              if (next_focus_child == NULL)
+                next_focus_child =
+                  egg_flow_box_get_first_visible (box);
+              break;
+            }
+        }
+    }
+
+  if (next_focus_child == NULL)
+    {
+      if (direction == GTK_DIR_UP || direction == GTK_DIR_DOWN
+          || direction == GTK_DIR_LEFT || direction == GTK_DIR_RIGHT)
+        {
+          if (gtk_widget_keynav_failed (GTK_WIDGET (box), direction))
+            return TRUE;
+        }
+
+      return FALSE;
+    }
+
+  modify_selection_pressed = FALSE;
+  if (gtk_get_current_event_state (&state))
+    {
+      GdkModifierType modify_mod_mask;
+
+      modify_mod_mask = gtk_widget_get_modifier_mask (GTK_WIDGET (box),
+                                                      GDK_MODIFIER_INTENT_MODIFY_SELECTION);
+      if ((state & modify_mod_mask) == modify_mod_mask)
+        modify_selection_pressed = TRUE;
+    }
+
+  if (modify_selection_pressed)
+    egg_flow_box_update_cursor (box, next_focus_child);
+  else
+    egg_flow_box_select_child_info (box, next_focus_child);
+
+  return TRUE;
+}
+
 typedef struct {
   EggFlowBoxChildInfo *child;
   GtkStateFlags state;
@@ -2240,6 +2623,204 @@ child_flags_find_or_add (ChildFlags          *array,
   array[*array_length - 1].child = to_find;
   array[*array_length - 1].state = 0;
   return &array[*array_length - 1];
+}
+
+static void
+egg_flow_box_add_move_binding (GtkBindingSet  *binding_set,
+                               guint           keyval,
+                               GdkModifierType modmask,
+                               GtkMovementStep step,
+                               gint            count)
+{
+  gtk_binding_entry_add_signal (binding_set,
+                                keyval,
+                                modmask,
+                                "move-cursor",
+                                (guint) 2,
+                                GTK_TYPE_MOVEMENT_STEP,
+                                step,
+                                G_TYPE_INT,
+                                count,
+                                NULL);
+
+  if ((modmask & GDK_CONTROL_MASK) == GDK_CONTROL_MASK)
+    return;
+
+  gtk_binding_entry_add_signal (binding_set,
+                                keyval,
+                                GDK_CONTROL_MASK,
+                                "move-cursor",
+                                (guint) 2,
+                                GTK_TYPE_MOVEMENT_STEP,
+                                step,
+                                G_TYPE_INT,
+                                count,
+                                NULL);
+}
+
+static void
+egg_flow_box_real_activate_cursor_child (EggFlowBox *box)
+{
+  EggFlowBoxPrivate *priv = box->priv;
+
+  egg_flow_box_select_and_activate (box, priv->cursor_child);
+}
+
+static void
+egg_flow_box_real_toggle_cursor_child (EggFlowBox *box)
+{
+  EggFlowBoxPrivate *priv = box->priv;
+
+  if (priv->cursor_child == NULL)
+    return;
+
+  if (priv->selection_mode == GTK_SELECTION_SINGLE &&
+      priv->cursor_child->selected)
+    egg_flow_box_unselect_child_info (box, priv->cursor_child);
+  else
+    egg_flow_box_select_and_activate (box, priv->cursor_child);
+}
+
+static void
+egg_flow_box_real_move_cursor (EggFlowBox     *box,
+                               GtkMovementStep step,
+                               gint            count)
+{
+  EggFlowBoxPrivate *priv = box->priv;
+  GdkModifierType state;
+  gboolean modify_selection_pressed;
+  EggFlowBoxChildInfo *child;
+  GdkModifierType modify_mod_mask;
+  EggFlowBoxChildInfo *prev;
+  EggFlowBoxChildInfo *next;
+  gint page_size;
+  GSequenceIter *iter;
+  gint start_y;
+  gint end_y;
+
+  modify_selection_pressed = FALSE;
+
+  if (gtk_get_current_event_state (&state))
+    {
+      modify_mod_mask = gtk_widget_get_modifier_mask (GTK_WIDGET (box),
+                                                      GDK_MODIFIER_INTENT_MODIFY_SELECTION);
+      if ((state & modify_mod_mask) == modify_mod_mask)
+        modify_selection_pressed = TRUE;
+    }
+
+  child = NULL;
+  switch (step)
+    {
+    case GTK_MOVEMENT_BUFFER_ENDS:
+      if (count < 0)
+        child = egg_flow_box_get_first_visible (box);
+      else
+        child = egg_flow_box_get_last_visible (box);
+      break;
+    case GTK_MOVEMENT_DISPLAY_LINES:
+      if (priv->cursor_child != NULL)
+        {
+          iter = priv->cursor_child->iter;
+
+          while (count < 0  && iter != NULL)
+            {
+              iter = egg_flow_box_get_previous_visible (box, iter);
+              count = count + 1;
+            }
+          while (count > 0  && iter != NULL)
+            {
+              iter = egg_flow_box_get_next_visible (box, iter);
+              count = count - 1;
+            }
+
+          if (iter != NULL && !g_sequence_iter_is_end (iter))
+            child = g_sequence_get (iter);
+        }
+      break;
+    case GTK_MOVEMENT_PAGES:
+      page_size = 100;
+      if (priv->adjustment != NULL)
+        page_size = gtk_adjustment_get_page_increment (priv->adjustment);
+
+      if (priv->cursor_child != NULL)
+        {
+          start_y = priv->cursor_child->area.y;
+          end_y = start_y;
+          iter = priv->cursor_child->iter;
+
+          child = priv->cursor_child;
+          if (count < 0)
+            {
+              gint i = 0;
+
+              /* Up */
+              while (iter != NULL && !g_sequence_iter_is_begin (iter))
+                {
+                  iter = egg_flow_box_get_previous_visible (box, iter);
+                  if (iter == NULL)
+                    break;
+
+                  prev = g_sequence_get (iter);
+
+                  /* go up an even number of rows */
+                  if (i % priv->cur_children_per_line == 0
+                      && prev->area.y < start_y - page_size)
+                    break;
+
+                  child = prev;
+                  i++;
+                }
+            }
+          else
+            {
+              gint i = 0;
+
+              /* Down */
+              while (iter != NULL && !g_sequence_iter_is_end (iter))
+                {
+                  iter = egg_flow_box_get_next_visible (box, iter);
+                  if (g_sequence_iter_is_end (iter))
+                    break;
+
+                  next = g_sequence_get (iter);
+
+                  if (i % priv->cur_children_per_line == 0
+                      && next->area.y > start_y + page_size)
+                    break;
+
+                  child = next;
+                  i++;
+                }
+            }
+          end_y = child->area.y;
+        }
+      break;
+    default:
+      return;
+    }
+
+  if (child == NULL || child == priv->cursor_child)
+    {
+      GtkDirectionType direction = count < 0 ? GTK_DIR_UP : GTK_DIR_DOWN;
+
+      if (!gtk_widget_keynav_failed (GTK_WIDGET (box), direction))
+        {
+          GtkWidget *toplevel = gtk_widget_get_toplevel (GTK_WIDGET (box));
+
+          if (toplevel)
+            gtk_widget_child_focus (toplevel,
+                                    direction == GTK_DIR_UP ?
+                                    GTK_DIR_TAB_BACKWARD :
+                                    GTK_DIR_TAB_FORWARD);
+
+        }
+
+      return;
+    }
+
+  egg_flow_box_update_cursor (box, child);
+  if (!modify_selection_pressed)
+    egg_flow_box_select_child_info (box, child);
 }
 
 static gboolean
@@ -2343,6 +2924,7 @@ egg_flow_box_finalize (GObject *obj)
 
   g_sequence_free (priv->children);
   g_hash_table_unref (priv->child_hash);
+  g_clear_object (&priv->adjustment);
 
   G_OBJECT_CLASS (egg_flow_box_parent_class)->finalize (obj);
 }
@@ -2353,6 +2935,7 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
   GObjectClass      *object_class = G_OBJECT_CLASS (class);
   GtkWidgetClass    *widget_class = GTK_WIDGET_CLASS (class);
   GtkContainerClass *container_class = GTK_CONTAINER_CLASS (class);
+  GtkBindingSet     *binding_set;
 
   object_class->finalize = egg_flow_box_finalize;
   object_class->get_property = egg_flow_box_get_property;
@@ -2363,6 +2946,7 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
   widget_class->motion_notify_event = egg_flow_box_real_motion_notify_event;
   widget_class->size_allocate = egg_flow_box_real_size_allocate;
   widget_class->realize = egg_flow_box_real_realize;
+  widget_class->focus = egg_flow_box_real_focus;
   widget_class->draw = egg_flow_box_real_draw;
   widget_class->button_press_event = egg_flow_box_real_button_press_event;
   widget_class->button_release_event = egg_flow_box_real_button_release_event;
@@ -2377,6 +2961,10 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
   container_class->forall = egg_flow_box_real_forall;
   container_class->child_type = egg_flow_box_real_child_type;
   gtk_container_class_handle_border_width (container_class);
+
+  class->activate_cursor_child = egg_flow_box_real_activate_cursor_child;
+  class->toggle_cursor_child = egg_flow_box_real_toggle_cursor_child;
+  class->move_cursor = egg_flow_box_real_move_cursor;
 
   g_object_class_override_property (object_class, PROP_ORIENTATION, "orientation");
 
@@ -2521,6 +3109,59 @@ egg_flow_box_class_init (EggFlowBoxClass *class)
                                                      NULL, NULL,
                                                      g_cclosure_marshal_VOID__VOID,
                                                      G_TYPE_NONE, 0);
+  signals[ACTIVATE_CURSOR_CHILD] = g_signal_new ("activate-cursor-child",
+                                                 EGG_TYPE_FLOW_BOX,
+                                                 G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+                                                 G_STRUCT_OFFSET (EggFlowBoxClass, activate_cursor_child),
+                                                 NULL, NULL,
+                                                 g_cclosure_marshal_VOID__VOID,
+                                                 G_TYPE_NONE, 0);
+  signals[TOGGLE_CURSOR_CHILD] = g_signal_new ("toggle-cursor-child",
+                                               EGG_TYPE_FLOW_BOX,
+                                               G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+                                               G_STRUCT_OFFSET (EggFlowBoxClass, toggle_cursor_child),
+                                               NULL, NULL,
+                                               g_cclosure_marshal_VOID__VOID,
+                                               G_TYPE_NONE, 0);
+  signals[MOVE_CURSOR] = g_signal_new ("move-cursor",
+                                       EGG_TYPE_FLOW_BOX,
+                                       G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+                                       G_STRUCT_OFFSET (EggFlowBoxClass, move_cursor),
+                                       NULL, NULL,
+                                       _egg_marshal_VOID__ENUM_INT,
+                                       G_TYPE_NONE, 2,
+                                       GTK_TYPE_MOVEMENT_STEP, G_TYPE_INT);
+
+  widget_class->activate_signal = signals[ACTIVATE_CURSOR_CHILD];
+
+  binding_set = gtk_binding_set_by_class (class);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_Home, 0,
+                                 GTK_MOVEMENT_BUFFER_ENDS, -1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_KP_Home, 0,
+                                 GTK_MOVEMENT_BUFFER_ENDS, -1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_End, 0,
+                                 GTK_MOVEMENT_BUFFER_ENDS, 1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_KP_End, 0,
+                                 GTK_MOVEMENT_BUFFER_ENDS, 1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_Up, GDK_CONTROL_MASK,
+                                 GTK_MOVEMENT_DISPLAY_LINES, -1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_KP_Up, GDK_CONTROL_MASK,
+                                 GTK_MOVEMENT_DISPLAY_LINES, -1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_Down, GDK_CONTROL_MASK,
+                                 GTK_MOVEMENT_DISPLAY_LINES, 1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_KP_Down, GDK_CONTROL_MASK,
+                                 GTK_MOVEMENT_DISPLAY_LINES, 1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_Page_Up, 0,
+                                 GTK_MOVEMENT_PAGES, -1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Up, 0,
+                                 GTK_MOVEMENT_PAGES, -1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_Page_Down, 0,
+                                 GTK_MOVEMENT_PAGES, 1);
+  egg_flow_box_add_move_binding (binding_set, GDK_KEY_KP_Page_Down, 0,
+                                 GTK_MOVEMENT_PAGES, 1);
+
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_space, GDK_CONTROL_MASK,
+                                "toggle-cursor-child", 0, NULL);
 
   g_type_class_add_private (class, sizeof (EggFlowBoxPrivate));
 }
@@ -2543,6 +3184,7 @@ egg_flow_box_init (EggFlowBox *box)
   priv->child_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
   priv->activate_on_single_click = TRUE;
 
+  gtk_widget_set_can_focus (GTK_WIDGET (box), TRUE);
   gtk_widget_set_has_window (GTK_WIDGET (box), TRUE);
 }
 

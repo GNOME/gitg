@@ -338,6 +338,9 @@ create_window (void)
   gtk_widget_show (flowbox);
   gtk_container_add (GTK_CONTAINER (swindow), flowbox);
 
+  egg_flow_box_set_adjustment (EGG_FLOW_BOX (flowbox),
+                               gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (swindow)));
+
   g_signal_connect (flowbox, "child-activated", G_CALLBACK (on_child_activated), NULL);
   g_signal_connect (flowbox, "selected-children-changed", G_CALLBACK (on_selected_children_changed), NULL);
 

@@ -63,6 +63,9 @@ struct _EggFlowBoxClass
 
   void (* child_activated) (EggFlowBox *self, GtkWidget *child);
   void (* selected_children_changed) (EggFlowBox *self);
+  void (*activate_cursor_child) (EggFlowBox *self);
+  void (*toggle_cursor_child) (EggFlowBox *self);
+  void (*move_cursor) (EggFlowBox *self, GtkMovementStep step, gint count);
 };
 
 GType                 egg_flow_box_get_type                  (void) G_GNUC_CONST;
@@ -107,6 +110,8 @@ void                  egg_flow_box_select_child                 (EggFlowBox     
 GtkSelectionMode      egg_flow_box_get_selection_mode           (EggFlowBox        *box);
 void                  egg_flow_box_set_selection_mode           (EggFlowBox        *box,
                                                                  GtkSelectionMode   mode);
+void                  egg_flow_box_set_adjustment               (EggFlowBox        *box,
+                                                                 GtkAdjustment     *adjustment);
 
 G_END_DECLS
 
