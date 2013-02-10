@@ -113,7 +113,10 @@ enum {
 };
 
 enum  {
-  PROP_0
+  PROP_0,
+  PROP_SELECTION_MODE,
+  PROP_ACTIVATE_ON_SINGLE_CLICK,
+  LAST_PROPERTY
 };
 
 G_DEFINE_TYPE (EggListBox, egg_list_box, GTK_TYPE_CONTAINER)
@@ -211,6 +214,7 @@ static void                 egg_list_box_real_get_preferred_width_for_height (Gt
 									      gint                *minimum_width,
 									      gint                *natural_width);
 
+static GParamSpec *properties[LAST_PROPERTY] = { NULL, };
 static guint signals[LAST_SIGNAL] = { 0 };
 
 static EggListBoxChildInfo*
@@ -257,6 +261,50 @@ egg_list_box_init (EggListBox *list_box)
 }
 
 static void
+egg_list_box_get_property (GObject    *obj,
+                           guint       property_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
+{
+  EggListBox *list_box = EGG_LIST_BOX (obj);
+
+  switch (property_id)
+    {
+    case PROP_SELECTION_MODE:
+      g_value_set_enum (value, list_box->priv->selection_mode);
+      break;
+    case PROP_ACTIVATE_ON_SINGLE_CLICK:
+      g_value_set_boolean (value, list_box->priv->activate_single_click);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, property_id, pspec);
+      break;
+    }
+}
+
+static void
+egg_list_box_set_property (GObject      *obj,
+                           guint         property_id,
+                           const GValue *value,
+                           GParamSpec   *pspec)
+{
+  EggListBox *list_box = EGG_LIST_BOX (obj);
+
+  switch (property_id)
+    {
+    case PROP_SELECTION_MODE:
+      egg_list_box_set_selection_mode (list_box, g_value_get_enum (value));
+      break;
+    case PROP_ACTIVATE_ON_SINGLE_CLICK:
+      egg_list_box_set_activate_on_single_click (list_box, g_value_get_boolean (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, property_id, pspec);
+      break;
+    }
+}
+
+static void
 egg_list_box_finalize (GObject *obj)
 {
   EggListBox *list_box = EGG_LIST_BOX (obj);
@@ -296,6 +344,8 @@ egg_list_box_class_init (EggListBoxClass *klass)
 
   gtk_widget_class_set_accessible_type (widget_class, EGG_TYPE_LIST_BOX_ACCESSIBLE);
 
+  object_class->get_property = egg_list_box_get_property;
+  object_class->set_property = egg_list_box_set_property;
   object_class->finalize = egg_list_box_finalize;
   widget_class->enter_notify_event = egg_list_box_real_enter_notify_event;
   widget_class->leave_notify_event = egg_list_box_real_leave_notify_event;
@@ -323,6 +373,23 @@ egg_list_box_class_init (EggListBoxClass *klass)
   klass->toggle_cursor_child = egg_list_box_real_toggle_cursor_child;
   klass->move_cursor = egg_list_box_real_move_cursor;
   klass->refilter = egg_list_box_real_refilter;
+
+  properties[PROP_SELECTION_MODE] =
+    g_param_spec_enum ("selection-mode",
+                       "Selection mode",
+                       "The selection mode",
+                       GTK_TYPE_SELECTION_MODE,
+                       GTK_SELECTION_SINGLE,
+                       G_PARAM_READWRITE);
+
+  properties[PROP_ACTIVATE_ON_SINGLE_CLICK] =
+    g_param_spec_boolean ("activate-on-single-click",
+                          "Activate on Single Click",
+                          "Activate row on a single click",
+                          TRUE,
+                          G_PARAM_READWRITE);
+
+  g_object_class_install_properties (object_class, LAST_PROPERTY, properties);
 
   signals[CHILD_SELECTED] =
     g_signal_new ("child-selected",
@@ -487,13 +554,18 @@ egg_list_box_set_selection_mode (EggListBox *list_box, GtkSelectionMode mode)
 
   if (mode == GTK_SELECTION_MULTIPLE)
     {
-      g_warning ("egg-list-box.vala:115: Multiple selections not supported");
+      g_warning ("Multiple selections not supported");
       return;
     }
+
+  if (priv->selection_mode == mode)
+    return;
 
   priv->selection_mode = mode;
   if (mode == GTK_SELECTION_NONE)
     egg_list_box_update_selected (list_box, NULL);
+
+  g_object_notify_by_pspec (G_OBJECT (list_box), properties[PROP_SELECTION_MODE]);
 }
 
 
@@ -651,7 +723,14 @@ egg_list_box_set_activate_on_single_click (EggListBox *list_box,
 
   g_return_if_fail (list_box != NULL);
 
+  single = single != FALSE;
+
+  if (priv->activate_single_click == single)
+    return;
+
   priv->activate_single_click = single;
+
+  g_object_notify_by_pspec (G_OBJECT (list_box), properties[PROP_ACTIVATE_ON_SINGLE_CLICK]);
 }
 
 static void
