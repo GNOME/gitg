@@ -2218,6 +2218,7 @@ egg_flow_box_unselect_all_internal (EggFlowBox *box)
         }
     }
 
+  return dirty;
 }
 
 static void
@@ -3232,7 +3233,7 @@ egg_flow_box_get_selected_children (EggFlowBox *box)
   GSequenceIter *iter;
   GList *selected = NULL;
 
-  g_return_if_fail (box != NULL);
+  g_return_val_if_fail (box != NULL, NULL);
 
   for (iter = g_sequence_get_begin_iter (box->priv->children);
        !g_sequence_iter_is_end (iter);
