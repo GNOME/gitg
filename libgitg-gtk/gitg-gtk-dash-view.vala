@@ -145,7 +145,7 @@ namespace GitgGtk
 						{
 							Ref? reference = repo.lookup_reference("refs/heads/" + branch_name);
 
-							if (reference != null && reference.get_id().equal(head.get_id()))
+							if (reference != null && reference.get_target().equal(head.get_target()))
 							{
 								data.branch_label.set_text(branch_name);
 								return 1;

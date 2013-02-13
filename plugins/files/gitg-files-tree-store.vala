@@ -119,7 +119,7 @@ public class TreeStore : Gtk.TreeStore
 
 		try
 		{
-			d_tree.walk((root, entry) => {
+			d_tree.walk(Ggit.TreeWalkMode.PRE, (root, entry) => {
 				var attr = entry.get_file_mode();
 				var isdir = attr == Ggit.FileMode.TREE;
 
@@ -175,7 +175,7 @@ public class TreeStore : Gtk.TreeStore
 				}
 
 				return 0;
-			}, Ggit.TreeWalkMode.PRE);
+			});
 		} catch (Error e) { }
 	}
 }

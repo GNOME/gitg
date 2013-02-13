@@ -274,16 +274,16 @@ namespace GitgGtk
 						if (i == 0)
 						{
 							d_diff = new Ggit.Diff.tree_to_tree(repo,
-							                                    options,
 							                                    parent.get_tree(),
-							                                    d_commit.get_tree());
+							                                    d_commit.get_tree(),
+							                                    options);
 						}
 						else
 						{
 							var d = new Ggit.Diff.tree_to_tree(repo,
-							                                   options,
 							                                   parent.get_tree(),
-							                                   d_commit.get_tree());
+							                                   d_commit.get_tree(),
+							                                   options);
 
 							d_diff.merge(d);
 						}

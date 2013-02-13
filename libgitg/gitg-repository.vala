@@ -80,7 +80,7 @@ public class Repository : Ggit.Repository
 					return 0;
 				}
 
-				Ggit.OId? id = r.get_id();
+				Ggit.OId? id = r.get_target();
 
 				if (id == null)
 				{
