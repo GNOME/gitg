@@ -200,7 +200,7 @@ namespace GitgHistory
 
 			if (head != null)
 			{
-				id = head.get_id();
+				id = head.get_target();
 
 				if (head.parsed_name.rtype == Gitg.RefType.TAG)
 				{
@@ -234,12 +234,12 @@ namespace GitgHistory
 
 						try
 						{
-							var t = application.repository.lookup(resolved.get_id(), typeof(Ggit.Tag)) as Ggit.Tag;
+							var t = application.repository.lookup(resolved.get_target(), typeof(Ggit.Tag)) as Ggit.Tag;
 							included += t.get_target_id();
 						}
 						catch
 						{
-							included += resolved.get_id();
+							included += resolved.get_target();
 						}
 					} catch {}
 				}

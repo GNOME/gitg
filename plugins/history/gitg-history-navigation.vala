@@ -133,7 +133,7 @@ namespace GitgHistory
 				string? icon = null;
 				bool isdef = false;
 
-				if (head != null && item.get_name() == head.get_target())
+				if (head != null && item.get_name() == head.get_name())
 				{
 					icon = "object-select-symbolic";
 
