@@ -555,8 +555,7 @@ egg_list_box_add_to_scrolled (EggListBox *list_box,
   g_return_if_fail (list_box != NULL);
   g_return_if_fail (scrolled != NULL);
 
-  gtk_scrolled_window_add_with_viewport (scrolled,
-					 GTK_WIDGET (list_box));
+  gtk_container_add (GTK_CONTAINER (scrolled), GTK_WIDGET (list_box));
   egg_list_box_set_adjustment (list_box,
 			       gtk_scrolled_window_get_vadjustment (scrolled));
 }
