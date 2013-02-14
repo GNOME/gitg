@@ -474,6 +474,14 @@ egg_list_box_class_init (EggListBoxClass *klass)
 				"toggle-cursor-child", 0, NULL);
 }
 
+/**
+ * egg_list_box_get_selected_child:
+ * @self: An #EggListBox.
+ *
+ * Gets the selected child.
+ *
+ * Return value: (transfer none): The selected #GtkWidget.
+ **/
 GtkWidget *
 egg_list_box_get_selected_child (EggListBox *list_box)
 {
@@ -487,6 +495,15 @@ egg_list_box_get_selected_child (EggListBox *list_box)
   return NULL;
 }
 
+/**
+ * egg_list_box_get_child_at_y:
+ * @self: An #EggListBox.
+ * @y: position
+ *
+ * Gets the child at the position.
+ *
+ * Return value: (transfer none): The child #GtkWidget.
+ **/
 GtkWidget *
 egg_list_box_get_child_at_y (EggListBox *list_box, gint y)
 {

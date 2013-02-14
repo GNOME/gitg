@@ -3268,7 +3268,7 @@ egg_flow_box_select_child (EggFlowBox *box,
 
 /**
  * egg_flow_box_selected_foreach:
- * @flow_box: An #EggFlowBox.
+ * @box: An #EggFlowBox.
  * @func: (scope call): The function to call for each selected child.
  * @data: User data to pass to the function.
  *
