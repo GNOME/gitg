@@ -112,7 +112,11 @@ Egg_1_0_gir_INCLUDES = GObject-2.0 Gtk-3.0
 Egg_1_0_gir_FILES = $(libegglistbox_la_SOURCES) $(libeggflowbox_la_SOURCES)
 INTROSPECTION_GIRS += Egg-1.0.gir
 
-noinst_DATA = $(INTROSPECTION_GIRS)
+girdir= $(pkgdatadir)/gir-1.0
+typelibdir= $(pkglibdir)/girepository-1.0
+
+gir_DATA = $(INTROSPECTION_GIRS)
+typelib_DATA = $(gir_DATA:.gir=.typelib)
 
 CLEANFILES += $(gir_DATA) $(typelib_DATA)
 MAINTAINERCLEANFILES = $(srcdir)/Egg-1.0.gir
