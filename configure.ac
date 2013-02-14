@@ -279,8 +279,17 @@ fi
 
 AM_CONDITIONAL(ENABLE_PYTHON, test x"$enable_python" = "xyes")
 
+dnl libgd
+LIBGD_INIT([
+	stack
+	revealer
+	static
+	vapi
+])
+
 AC_CONFIG_FILES([
 Makefile
+libgd/Makefile
 libgitg/Makefile
 libgitg/libgitg-1.0.pc
 libgitg-gtk/Makefile
