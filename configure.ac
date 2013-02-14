@@ -16,6 +16,8 @@ AC_PROG_CC
 AM_PROG_VALAC([0.16.0])
 AC_PROG_INSTALL
 
+GOBJECT_INTROSPECTION_REQUIRE([0.9.7])
+
 pkg_modules="gtk+-3.0 >= 3.7.6
 	     glib-2.0 >= 2.31.10"
 PKG_CHECK_MODULES(LISTBOX, [$pkg_modules])

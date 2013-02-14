@@ -90,3 +90,31 @@ CLEANFILES = \
 
 EXTRA_DIST = \
 	$(NULL)
+
+include $(INTROSPECTION_MAKEFILE)
+INTROSPECTION_GIRS =
+INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir) --warn-all
+INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
+
+if HAVE_INTROSPECTION
+
+Egg-1.0.gir: libegglistbox.la Makefile
+Egg_1_0_gir_NAMESPACE = Egg
+Egg_1_0_gir_VERSION = 1.0
+Egg_1_0_gir_LIBS = libegglistbox.la libeggflowbox.la
+Egg_1_0_gir_CFLAGS = $(LISTBOX_CFLAGS)
+Egg_1_0_gir_SCANNERFLAGS =			\
+       --warn-all				\
+       --symbol-prefix=egg			\
+       --identifier-prefix=Egg			\
+       $(NULL)
+Egg_1_0_gir_INCLUDES = GObject-2.0 Gtk-3.0
+Egg_1_0_gir_FILES = $(libegglistbox_la_SOURCES) $(libeggflowbox_la_SOURCES)
+INTROSPECTION_GIRS += Egg-1.0.gir
+
+noinst_DATA = $(INTROSPECTION_GIRS)
+
+CLEANFILES += $(gir_DATA) $(typelib_DATA)
+MAINTAINERCLEANFILES = $(srcdir)/Egg-1.0.gir
+
+endif
