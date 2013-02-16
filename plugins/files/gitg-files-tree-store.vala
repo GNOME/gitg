@@ -22,6 +22,13 @@ namespace GitgFiles
 
 public class TreeStore : Gtk.TreeStore
 {
+	struct Item
+	{
+		string root;
+		Ggit.TreeEntry entry;
+	}
+
+	private uint d_update_id;
 	private Ggit.Tree d_tree;
 
 	public Ggit.Tree? tree
@@ -106,8 +113,40 @@ public class TreeStore : Gtk.TreeStore
 		return ret;
 	}
 
+	private Icon get_entry_icon(Ggit.TreeEntry entry)
+	{
+		Icon icon;
+		var isdir = entry.get_file_mode() == Ggit.FileMode.TREE;
+
+		if (isdir)
+		{
+			icon = new ThemedIcon("folder");
+		}
+		else
+		{
+			var ct = ContentType.guess(entry.get_name(), null, null);
+
+			if (ContentType.is_unknown(ct))
+			{
+				icon = new ThemedIcon("text-x-generic");
+			}
+			else
+			{
+				icon = ContentType.get_icon(ct);
+			}
+		}
+
+		return icon;
+	}
+
 	private void update()
 	{
+		if (d_update_id != 0)
+		{
+			Source.remove(d_update_id);
+			d_update_id = 0;
+		}
+
 		clear();
 
 		if (d_tree == null)
@@ -115,67 +154,63 @@ public class TreeStore : Gtk.TreeStore
 			return;
 		}
 
-		var paths = new HashTable<string, Gtk.TreePath>(str_hash, str_equal);
+		List<Item?>? items = null;
 
 		try
 		{
 			d_tree.walk(Ggit.TreeWalkMode.PRE, (root, entry) => {
-				var attr = entry.get_file_mode();
-				var isdir = attr == Ggit.FileMode.TREE;
-
-				Gtk.TreeIter? parent = null;
-
-				if (root != "")
-				{
-					get_iter(out parent, paths.lookup(root));
-				}
-
-				Icon ?icon = null;
-				if (isdir)
-				{
-					icon = new ThemedIcon("folder");
-				}
-				else
-				{
-					var ct = ContentType.guess(entry.get_name(), null, null);
-
-					if (ContentType.is_unknown(ct))
-					{
-						icon = new ThemedIcon("text-x-generic");
-					}
-					else
-					{
-						icon = ContentType.get_icon(ct);
-					}
-				}
-
-				Gtk.TreeIter iter;
-				append(out iter, parent);
-				set(iter,
-				    0, icon,
-				    1, entry.get_name(),
-				    2, isdir,
-				    3, entry.get_id());
-
-				if (isdir)
-				{
-					string path;
-
-					if (root == "")
-					{
-						path = entry.get_name() + Path.DIR_SEPARATOR_S;
-					}
-					else
-					{
-						path = root + entry.get_name() + Path.DIR_SEPARATOR_S;
-					}
-
-					paths.insert(path, get_path(iter));
-				}
-
+				var item = Item();
+				item.root = root;
+				item.entry = entry;
+				items.prepend(item);
 				return 0;
 			});
 		} catch (Error e) { }
+
+		items.reverse();
+
+		var paths = new HashTable<string, Gtk.TreePath>(str_hash, str_equal);
+		var i = 0;
+		d_update_id = Idle.add(() => {
+			Item? item = items.nth_data(i);
+			i++;
+
+			if (item == null)
+			{
+				d_update_id = 0;
+				return false;
+			}
+
+			var root = item.root;
+			var entry = item.entry;
+			var isdir = entry.get_file_mode() == Ggit.FileMode.TREE;
+
+			Gtk.TreeIter? parent = null;
+
+			if (root != "")
+			{
+				get_iter(out parent, paths.lookup(root));
+			}
+
+			Icon icon = get_entry_icon(entry);
+
+			Gtk.TreeIter iter;
+			append(out iter, parent);
+			set(iter,
+			    0, icon,
+			    1, entry.get_name(),
+			    2, isdir,
+			    3, entry.get_id());
+
+			if (isdir)
+			{
+				string path = root + entry.get_name() + Path.DIR_SEPARATOR_S;
+
+				paths.insert(path, get_path(iter));
+			}
+
+			return true;
+		});
 	}
 }
 
