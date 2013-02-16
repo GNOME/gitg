@@ -3,6 +3,7 @@ bin_PROGRAMS = gitg
 AM_CPPFLAGS =							\
 	-I$(top_srcdir)						\
 	-I$(srcdir)						\
+	-I$(top_srcdir)/libgd					\
 	$(GITG_CFLAGS)						\
 	$(WARN_CFLAGS)						\
 	-DDATADIR=\""$(datadir)"\"				\
@@ -21,8 +22,11 @@ AM_VALAFLAGS = \
 	--pkg libpeas-1.0					\
 	--pkg gobject-introspection-1.0				\
 	--pkg gee-1.0						\
+	--pkg gd-1.0						\
+	--girdir "$(top_builddir)/libgd"			\
 	--girdir "$(top_builddir)/libgitg"			\
 	--girdir "$(top_builddir)/libgitg-ext"			\
+	--vapidir "$(top_builddir)/libgd"			\
 	--vapidir "$(top_builddir)/libgitg"			\
 	--vapidir "$(top_builddir)/libgitg-ext"
 
@@ -50,6 +54,7 @@ gitg_SOURCES =							\
 gitg_LDADD =							\
 	$(GITG_LIBS)						\
 	$(PACKAGE_LIBS) 					\
+	$(top_builddir)/libgd/libgd.la				\
 	$(top_builddir)/libgitg/libgitg-1.0.la			\
 	$(top_builddir)/libgitg-ext/libgitg-ext-1.0.la
 

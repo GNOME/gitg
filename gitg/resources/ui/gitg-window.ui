@@ -2,6 +2,7 @@
 <interface>
   <!-- interface-requires gtk+ 3.3 -->
   <!-- interface-requires gitg 0.0 -->
+  <!-- interface-requires gd 1.0 -->
   <object class="GtkImage" id="image_config">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -32,22 +33,24 @@
               <object class="GtkToolItem" id="toolbutton1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <style>
-                  <class name="raised"/>
-                </style>
                 <child>
-                  <object class="GtkAlignment" id="entry-alignment">
+                  <object class="GtkAlignment" id="search-button-alignment">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xalign">1</property>
                     <property name="xscale">0</property>
                     <child>
-                      <object class="GtkSearchEntry" id="search-entry">
-                        <property name="width_request">210</property>
+                      <object class="GtkToggleButton" id="search-button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
+                        <property name="receives_default">True</property>
+                        <child>
+                          <object class="GtkImage" id="image1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">edit-find-symbolic</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -81,6 +84,66 @@
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GdRevealer" id="search-revealer">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">horizontal</property>
+            <property name="reveal-child">False</property>
+            <child>
+              <object class="GtkToolbar" id="toolbar-search">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <style>
+                  <class name="inline-toolbar"/>
+                </style>
+                <child>
+                  <object class="GtkToolItem" id="toolbutton3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkAlignment" id="alignment-search-entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="xalign">0.5</property>
+                        <property name="left-padding">200</property>
+                        <property name="right-padding">200</property>
+                        <property name="top-padding">2</property>
+                        <property name="bottom-padding">2</property>
+                        <child>
+                          <object class="GtkGrid" id="grid-search-entry">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkSearchEntry" id="search-entry">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="invisible_char">●</property>
+                                <property name="invisible_char_set">True</property>
+                                <property name="hexpand">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
             <property name="width">1</property>
             <property name="height">1</property>
           </packing>
@@ -228,7 +291,7 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
+            <property name="top_attach">2</property>
             <property name="width">1</property>
             <property name="height">1</property>
           </packing>

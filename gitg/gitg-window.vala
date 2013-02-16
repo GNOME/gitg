@@ -76,6 +76,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		var model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu");
 		d_config.menu_model = model;
 
+		var search_button = builder.get_object("search-button");
+		var revealer = builder.get_object("search-revealer") as Gd.Revealer;
+		search_button.bind_property("active", revealer, "reveal-child");
+
 		var settings = new Settings("org.gnome.gitg.preferences.interface");
 
 		settings.bind("orientation",
