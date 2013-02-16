@@ -167,19 +167,24 @@ public class TreeStore : Gtk.TreeStore
 			});
 		} catch (Error e) { }
 
+		if (items == null)
+		{
+			return;
+		}
+
 		items.reverse();
 
+		unowned List<Item?>? i = items;
 		var paths = new HashTable<string, Gtk.TreePath>(str_hash, str_equal);
-		var i = 0;
 		d_update_id = Idle.add(() => {
-			Item? item = items.nth_data(i);
-			i++;
-
-			if (item == null)
+			if (i == null)
 			{
 				d_update_id = 0;
 				return false;
 			}
+
+			Item item = i.data;
+			i = i.next;
 
 			var root = item.root;
 			var entry = item.entry;
