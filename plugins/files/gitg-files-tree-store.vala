@@ -72,6 +72,17 @@ public class TreeStore : Gtk.TreeStore
 		set_sort_column_id(0, Gtk.SortType.ASCENDING);
 	}
 
+	protected override void dispose()
+	{
+		if (d_update_id != 0)
+		{
+			Source.remove(d_update_id);
+			d_update_id = 0;
+		}
+
+		base.dispose();
+	}
+
 	public Ggit.OId get_id(Gtk.TreeIter iter)
 	{
 		Ggit.OId ret;
