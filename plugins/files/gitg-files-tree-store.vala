@@ -174,17 +174,16 @@ public class TreeStore : Gtk.TreeStore
 
 		items.reverse();
 
-		unowned List<Item?>? i = items;
 		var paths = new HashTable<string, Gtk.TreePath>(str_hash, str_equal);
 		d_update_id = Idle.add(() => {
-			if (i == null)
+			if (items == null)
 			{
 				d_update_id = 0;
 				return false;
 			}
 
-			Item item = i.data;
-			i = i.next;
+			Item item = items.data;
+			items.remove_link(items);
 
 			var root = item.root;
 			var entry = item.entry;
