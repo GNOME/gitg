@@ -79,6 +79,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		var search_button = builder.get_object("search-button");
 		var revealer = builder.get_object("search-revealer") as Gd.Revealer;
 		search_button.bind_property("active", revealer, "reveal-child");
+		var entry = builder.get_object("search-entry") as Gd.TaggedEntry;
 
 		var settings = new Settings("org.gnome.gitg.preferences.interface");
 
