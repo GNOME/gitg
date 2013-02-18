@@ -38,8 +38,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private Gtk.Paned d_paned_views;
 	private Gtk.Paned d_paned_panels;
 
-	private Gtk.Frame d_frame_view;
-	private Gtk.Frame d_frame_panel;
+	private Gd.Stack d_stack_view;
+	private Gd.Stack d_stack_panel;
 
 	private GitgExt.NavigationTreeView d_navigation;
 
@@ -67,8 +67,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_toolbar_panels = builder.get_object("toolbar_panels") as Gtk.Toolbar;
 		d_paned_panels = builder.get_object("paned_panels") as Gtk.Paned;
 
-		d_frame_view = builder.get_object("frame_view") as Gtk.Frame;
-		d_frame_panel = builder.get_object("frame_panel") as Gtk.Frame;
+		d_stack_view = builder.get_object("stack_view") as Gd.Stack;
+		d_stack_panel = builder.get_object("stack_panel") as Gd.Stack;
 
 		d_navigation = builder.get_object("tree_view_navigation") as GitgExt.NavigationTreeView;
 		d_config = builder.get_object("button_config") as Gtk.MenuButton;
@@ -151,7 +151,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		                                                            typeof(GitgExt.View),
 		                                                            "application",
 		                                                            this),
-		                                       d_frame_view,
+		                                       d_stack_view,
 		                                       d_toolbar_views);
 
 		d_views.activated.connect(on_view_activated);
@@ -160,7 +160,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		                                                               typeof(GitgExt.Panel),
 		                                                               "application",
 		                                                               this),
-		                                         d_frame_panel,
+		                                         d_stack_panel,
 		                                         d_toolbar_panels);
 
 		d_panels.activated.connect(on_panel_activated);
