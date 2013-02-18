@@ -39,7 +39,7 @@ public class UIElements<T>
 	private List<ActiveUIElement> d_available_sorted;
 	private Gtk.Toolbar? d_toolbar;
 	private ActiveUIElement? d_current;
-	private Gtk.Bin d_container;
+	private Gd.Stack d_stack;
 
 	public signal void activated(GitgExt.UIElement element);
 
@@ -169,24 +169,9 @@ public class UIElements<T>
 				el.navigation_button.active = true;
 			}
 
-			if (d_container != null)
+			if (d_stack != null)
 			{
-				var child = d_container.get_child();
-
-				if (child != null)
-				{
-					d_container.remove(child);
-				}
-
-				var widget = el.element.widget;
-
-				if (widget != null)
-				{
-					widget.show();
-				}
-
-				d_container.add(widget);
-				d_container.show();
+				d_stack.set_visible_child(el.element.widget);
 			}
 
 			activated(el.element);
@@ -210,6 +195,7 @@ public class UIElements<T>
 				d_current = null;
 			}
 
+			d_stack.remove(ae.element.widget);
 			d_available_elements.remove(e.id);
 		}
 	}
@@ -238,6 +224,7 @@ public class UIElements<T>
 			}
 		});
 
+		d_stack.add(ae.element.widget);
 		d_available_elements.insert(e.id, ae);
 	}
 
@@ -308,12 +295,12 @@ public class UIElements<T>
 	}
 
 	public UIElements(Peas.ExtensionSet extensions,
-	                  Gtk.Bin? container = null,
+	                  Gd.Stack? stack = null,
 	                  Gtk.Toolbar? toolbar = null)
 	{
 		d_extensions = extensions;
 		d_toolbar = toolbar;
-		d_container = container;
+		d_stack = stack;
 
 		d_available_elements = new HashTable<string, ActiveUIElement>(str_hash, str_equal);
 		d_elements = new HashTable<string, GitgExt.UIElement>(str_hash, str_equal);
