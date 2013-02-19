@@ -61,7 +61,7 @@ main (string[] args) {
   hbox.add (scrolled);
 
   var scrolled_box = new Box(Orientation.VERTICAL, 0);
-  scrolled.add_with_viewport (scrolled_box);
+  scrolled.add (scrolled_box);
 
   var label = new Label ("This is \na LABEL\nwith rows");
   scrolled_box.add (label);

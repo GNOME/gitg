@@ -26,6 +26,7 @@
 #include <gobject/gvaluecollector.h>
 
 #include "egg-list-box.h"
+#include "egg-list-box-accessible.h"
 
 /* This already exists in gtk as _gtk_marshal_VOID__ENUM_INT, inline it here for now
    to avoid separate marshallers file */
@@ -107,11 +108,15 @@ enum {
   ACTIVATE_CURSOR_CHILD,
   TOGGLE_CURSOR_CHILD,
   MOVE_CURSOR,
+  REFILTER,
   LAST_SIGNAL
 };
 
 enum  {
-  PROP_0
+  PROP_0,
+  PROP_SELECTION_MODE,
+  PROP_ACTIVATE_ON_SINGLE_CLICK,
+  LAST_PROPERTY
 };
 
 G_DEFINE_TYPE (EggListBox, egg_list_box, GTK_TYPE_CONTAINER)
@@ -190,6 +195,7 @@ static void                 egg_list_box_real_toggle_cursor_child     (EggListBo
 static void                 egg_list_box_real_move_cursor             (EggListBox          *list_box,
 								       GtkMovementStep      step,
 								       gint                 count);
+static void                 egg_list_box_real_refilter                (EggListBox          *list_box);
 static void                 egg_list_box_finalize                     (GObject             *obj);
 
 
@@ -208,6 +214,7 @@ static void                 egg_list_box_real_get_preferred_width_for_height (Gt
 									      gint                *minimum_width,
 									      gint                *natural_width);
 
+static GParamSpec *properties[LAST_PROPERTY] = { NULL, };
 static guint signals[LAST_SIGNAL] = { 0 };
 
 static EggListBoxChildInfo*
@@ -254,6 +261,50 @@ egg_list_box_init (EggListBox *list_box)
 }
 
 static void
+egg_list_box_get_property (GObject    *obj,
+                           guint       property_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
+{
+  EggListBox *list_box = EGG_LIST_BOX (obj);
+
+  switch (property_id)
+    {
+    case PROP_SELECTION_MODE:
+      g_value_set_enum (value, list_box->priv->selection_mode);
+      break;
+    case PROP_ACTIVATE_ON_SINGLE_CLICK:
+      g_value_set_boolean (value, list_box->priv->activate_single_click);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, property_id, pspec);
+      break;
+    }
+}
+
+static void
+egg_list_box_set_property (GObject      *obj,
+                           guint         property_id,
+                           const GValue *value,
+                           GParamSpec   *pspec)
+{
+  EggListBox *list_box = EGG_LIST_BOX (obj);
+
+  switch (property_id)
+    {
+    case PROP_SELECTION_MODE:
+      egg_list_box_set_selection_mode (list_box, g_value_get_enum (value));
+      break;
+    case PROP_ACTIVATE_ON_SINGLE_CLICK:
+      egg_list_box_set_activate_on_single_click (list_box, g_value_get_boolean (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, property_id, pspec);
+      break;
+    }
+}
+
+static void
 egg_list_box_finalize (GObject *obj)
 {
   EggListBox *list_box = EGG_LIST_BOX (obj);
@@ -291,6 +342,10 @@ egg_list_box_class_init (EggListBoxClass *klass)
 
   g_type_class_add_private (klass, sizeof (EggListBoxPrivate));
 
+  gtk_widget_class_set_accessible_type (widget_class, EGG_TYPE_LIST_BOX_ACCESSIBLE);
+
+  object_class->get_property = egg_list_box_get_property;
+  object_class->set_property = egg_list_box_set_property;
   object_class->finalize = egg_list_box_finalize;
   widget_class->enter_notify_event = egg_list_box_real_enter_notify_event;
   widget_class->leave_notify_event = egg_list_box_real_leave_notify_event;
@@ -317,6 +372,24 @@ egg_list_box_class_init (EggListBoxClass *klass)
   klass->activate_cursor_child = egg_list_box_real_activate_cursor_child;
   klass->toggle_cursor_child = egg_list_box_real_toggle_cursor_child;
   klass->move_cursor = egg_list_box_real_move_cursor;
+  klass->refilter = egg_list_box_real_refilter;
+
+  properties[PROP_SELECTION_MODE] =
+    g_param_spec_enum ("selection-mode",
+                       "Selection mode",
+                       "The selection mode",
+                       GTK_TYPE_SELECTION_MODE,
+                       GTK_SELECTION_SINGLE,
+                       G_PARAM_READWRITE);
+
+  properties[PROP_ACTIVATE_ON_SINGLE_CLICK] =
+    g_param_spec_boolean ("activate-on-single-click",
+                          "Activate on Single Click",
+                          "Activate row on a single click",
+                          TRUE,
+                          G_PARAM_READWRITE);
+
+  g_object_class_install_properties (object_class, LAST_PROPERTY, properties);
 
   signals[CHILD_SELECTED] =
     g_signal_new ("child-selected",
@@ -361,6 +434,14 @@ egg_list_box_class_init (EggListBoxClass *klass)
 		  _egg_marshal_VOID__ENUM_INT,
 		  G_TYPE_NONE, 2,
 		  GTK_TYPE_MOVEMENT_STEP, G_TYPE_INT);
+  signals[REFILTER] =
+    g_signal_new ("refilter",
+		  EGG_TYPE_LIST_BOX,
+		  G_SIGNAL_RUN_LAST,
+		  G_STRUCT_OFFSET (EggListBoxClass, refilter),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__VOID,
+		  G_TYPE_NONE, 0);
 
   widget_class->activate_signal = signals[ACTIVATE_CURSOR_CHILD];
 
@@ -393,6 +474,14 @@ egg_list_box_class_init (EggListBoxClass *klass)
 				"toggle-cursor-child", 0, NULL);
 }
 
+/**
+ * egg_list_box_get_selected_child:
+ * @self: An #EggListBox.
+ *
+ * Gets the selected child.
+ *
+ * Return value: (transfer none): The selected #GtkWidget.
+ **/
 GtkWidget *
 egg_list_box_get_selected_child (EggListBox *list_box)
 {
@@ -406,6 +495,15 @@ egg_list_box_get_selected_child (EggListBox *list_box)
   return NULL;
 }
 
+/**
+ * egg_list_box_get_child_at_y:
+ * @self: An #EggListBox.
+ * @y: position
+ *
+ * Gets the child at the position.
+ *
+ * Return value: (transfer none): The child #GtkWidget.
+ **/
 GtkWidget *
 egg_list_box_get_child_at_y (EggListBox *list_box, gint y)
 {
@@ -457,8 +555,7 @@ egg_list_box_add_to_scrolled (EggListBox *list_box,
   g_return_if_fail (list_box != NULL);
   g_return_if_fail (scrolled != NULL);
 
-  gtk_scrolled_window_add_with_viewport (scrolled,
-					 GTK_WIDGET (list_box));
+  gtk_container_add (GTK_CONTAINER (scrolled), GTK_WIDGET (list_box));
   egg_list_box_set_adjustment (list_box,
 			       gtk_scrolled_window_get_vadjustment (scrolled));
 }
@@ -473,13 +570,18 @@ egg_list_box_set_selection_mode (EggListBox *list_box, GtkSelectionMode mode)
 
   if (mode == GTK_SELECTION_MULTIPLE)
     {
-      g_warning ("egg-list-box.vala:115: Multiple selections not supported");
+      g_warning ("Multiple selections not supported");
       return;
     }
+
+  if (priv->selection_mode == mode)
+    return;
 
   priv->selection_mode = mode;
   if (mode == GTK_SELECTION_NONE)
     egg_list_box_update_selected (list_box, NULL);
+
+  g_object_notify_by_pspec (G_OBJECT (list_box), properties[PROP_SELECTION_MODE]);
 }
 
 
@@ -522,15 +624,20 @@ egg_list_box_set_separator_funcs (EggListBox *list_box,
   egg_list_box_reseparate (list_box);
 }
 
+static void
+egg_list_box_real_refilter (EggListBox *list_box)
+{
+  egg_list_box_apply_filter_all (list_box);
+  egg_list_box_reseparate (list_box);
+  gtk_widget_queue_resize (GTK_WIDGET (list_box));
+}
+
 void
 egg_list_box_refilter (EggListBox *list_box)
 {
   g_return_if_fail (list_box != NULL);
 
-
-  egg_list_box_apply_filter_all (list_box);
-  egg_list_box_reseparate (list_box);
-  gtk_widget_queue_resize (GTK_WIDGET (list_box));
+  g_signal_emit (list_box, signals[REFILTER], 0);
 }
 
 static gint
@@ -632,7 +739,14 @@ egg_list_box_set_activate_on_single_click (EggListBox *list_box,
 
   g_return_if_fail (list_box != NULL);
 
+  single = single != FALSE;
+
+  if (priv->activate_single_click == single)
+    return;
+
   priv->activate_single_click = single;
+
+  g_object_notify_by_pspec (G_OBJECT (list_box), properties[PROP_ACTIVATE_ON_SINGLE_CLICK]);
 }
 
 static void
@@ -693,6 +807,7 @@ egg_list_box_update_cursor (EggListBox *list_box,
 				 priv->cursor_child->y + allocation.y,
 				 priv->cursor_child->y + allocation.y + priv->cursor_child->height);
   }
+  _egg_list_box_accessible_update_cursor (list_box, child ? child->widget : NULL);
 }
 
 static void
@@ -709,6 +824,7 @@ egg_list_box_update_selected (EggListBox *list_box,
 		     (priv->selected_child != NULL) ? priv->selected_child->widget : NULL);
       gtk_widget_queue_draw (GTK_WIDGET (list_box));
     }
+  _egg_list_box_accessible_update_selected (list_box, child ? child->widget : NULL);
   if (child != NULL)
     egg_list_box_update_cursor (list_box, child);
 }
@@ -799,9 +915,22 @@ egg_list_box_real_motion_notify_event (GtkWidget *widget,
 {
   EggListBox *list_box = EGG_LIST_BOX (widget);
   EggListBoxChildInfo *child;
+  GdkWindow *window, *event_window;
+  gint relative_y;
+  gdouble parent_y;
 
+  window = gtk_widget_get_window (GTK_WIDGET (list_box));
+  event_window = event->window;
+  relative_y = event->y;
 
-  child = egg_list_box_find_child_at_y (list_box, event->y);
+  while ((event_window != NULL) && (event_window != window))
+    {
+      gdk_window_coords_to_parent (event_window, 0, relative_y, NULL, &parent_y);
+      relative_y = parent_y;
+      event_window = gdk_window_get_effective_parent (event_window);
+    }
+
+  child = egg_list_box_find_child_at_y (list_box, relative_y);
   egg_list_box_update_prelight (list_box, child);
   egg_list_box_update_active (list_box, child);
 
@@ -825,8 +954,7 @@ egg_list_box_real_button_press_event (GtkWidget *widget,
 	  priv->active_child_active = TRUE;
 	  gtk_widget_queue_draw (GTK_WIDGET (list_box));
 	  if (event->type == GDK_2BUTTON_PRESS &&
-	      !priv->activate_single_click &&
-	      child->widget != NULL)
+	      !priv->activate_single_click)
 	    g_signal_emit (list_box, signals[CHILD_ACTIVATED], 0,
 			   child->widget);
 
@@ -848,17 +976,17 @@ egg_list_box_real_button_release_event (GtkWidget *widget,
 
   if (event->button == 1)
     {
-    if (priv->active_child != NULL &&
-	priv->active_child_active)
-      {
-	if (priv->activate_single_click)
-	  egg_list_box_select_and_activate (list_box, priv->active_child);
-	else
-	  egg_list_box_update_selected (list_box, priv->active_child);
-      }
-    priv->active_child = NULL;
-    priv->active_child_active = FALSE;
-    gtk_widget_queue_draw (GTK_WIDGET (list_box));
+      if (priv->active_child != NULL &&
+          priv->active_child_active)
+        {
+          if (priv->activate_single_click)
+            egg_list_box_select_and_activate (list_box, priv->active_child);
+          else
+            egg_list_box_update_selected (list_box, priv->active_child);
+        }
+      priv->active_child = NULL;
+      priv->active_child_active = FALSE;
+      gtk_widget_queue_draw (GTK_WIDGET (list_box));
   }
 
   return FALSE;
@@ -967,13 +1095,11 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
 	{
 	  switch (direction)
 	    {
-	    case GTK_DIR_DOWN:
-	    case GTK_DIR_TAB_FORWARD:
-	      next_focus_child = egg_list_box_get_first_visible (list_box);
-	      break;
 	    case GTK_DIR_UP:
 	    case GTK_DIR_TAB_BACKWARD:
-	      next_focus_child = egg_list_box_get_last_visible (list_box);
+	      next_focus_child = priv->selected_child;
+	      if (next_focus_child == NULL)
+		next_focus_child = egg_list_box_get_last_visible (list_box);
 	      break;
 	    default:
 	      next_focus_child = priv->selected_child;
@@ -989,8 +1115,8 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
     {
       if (direction == GTK_DIR_UP || direction == GTK_DIR_DOWN)
 	{
-	  gtk_widget_error_bell (GTK_WIDGET (list_box));
-	  return TRUE;
+          if (gtk_widget_keynav_failed (GTK_WIDGET (list_box), direction))
+	    return TRUE;
 	}
 
       return FALSE;
@@ -1007,8 +1133,9 @@ egg_list_box_real_focus (GtkWidget* widget, GtkDirectionType direction)
 	modify_selection_pressed = TRUE;
     }
 
-  egg_list_box_update_cursor (list_box, next_focus_child);
-  if (!modify_selection_pressed)
+  if (modify_selection_pressed)
+    egg_list_box_update_cursor (list_box, next_focus_child);
+  else
     egg_list_box_update_selected (list_box, next_focus_child);
 
   return TRUE;
@@ -1045,31 +1172,34 @@ egg_list_box_real_draw (GtkWidget* widget, cairo_t* cr)
   EggListBoxPrivate *priv = list_box->priv;
   GtkAllocation allocation = {0};
   GtkStyleContext* context;
+  GtkStateFlags state;
   ChildFlags flags[3], *found;
   gint flags_length;
+  gint focus_pad;
   int i;
 
   gtk_widget_get_allocation (GTK_WIDGET (list_box), &allocation);
   context = gtk_widget_get_style_context (GTK_WIDGET (list_box));
+  state = gtk_widget_get_state_flags (widget);
   gtk_render_background (context, cr, (gdouble) 0, (gdouble) 0, (gdouble) allocation.width, (gdouble) allocation.height);
   flags_length = 0;
 
   if (priv->selected_child != NULL)
     {
       found = child_flags_find_or_add (flags, &flags_length, priv->selected_child);
-      found->state |= GTK_STATE_FLAG_SELECTED;
+      found->state |= (state | GTK_STATE_FLAG_SELECTED);
     }
 
   if (priv->prelight_child != NULL)
     {
       found = child_flags_find_or_add (flags, &flags_length, priv->prelight_child);
-      found->state |= GTK_STATE_FLAG_PRELIGHT;
+      found->state |= (state | GTK_STATE_FLAG_PRELIGHT);
     }
 
   if (priv->active_child != NULL && priv->active_child_active)
     {
       found = child_flags_find_or_add (flags, &flags_length, priv->active_child);
-      found->state |= GTK_STATE_FLAG_ACTIVE;
+      found->state |= (state | GTK_STATE_FLAG_ACTIVE);
     }
 
   for (i = 0; i < flags_length; i++)
@@ -1082,7 +1212,13 @@ egg_list_box_real_draw (GtkWidget* widget, cairo_t* cr)
     }
 
   if (gtk_widget_has_visible_focus (GTK_WIDGET (list_box)) && priv->cursor_child != NULL)
-    gtk_render_focus (context, cr, 0, priv->cursor_child->y, allocation.width, priv->cursor_child->height);
+    {
+      gtk_style_context_get_style (context,
+                                   "focus-padding", &focus_pad,
+                                   NULL);
+      gtk_render_focus (context, cr, focus_pad, priv->cursor_child->y + focus_pad,
+                        allocation.width - 2 * focus_pad, priv->cursor_child->height - 2 * focus_pad);
+    }
 
   GTK_WIDGET_CLASS (egg_list_box_parent_class)->draw ((GtkWidget*) G_TYPE_CHECK_INSTANCE_CAST (list_box, GTK_TYPE_CONTAINER, GtkContainer), cr);
 
@@ -1933,9 +2069,22 @@ egg_list_box_real_move_cursor (EggListBox *list_box,
       return;
     }
 
-  if (child == NULL)
+  if (child == NULL || child == priv->cursor_child)
     {
-      gtk_widget_error_bell (GTK_WIDGET (list_box));
+      GtkDirectionType direction = count < 0 ? GTK_DIR_UP : GTK_DIR_DOWN;
+
+      if (!gtk_widget_keynav_failed (GTK_WIDGET (list_box), direction))
+        {
+          GtkWidget *toplevel = gtk_widget_get_toplevel (GTK_WIDGET (list_box));
+
+          if (toplevel)
+            gtk_widget_child_focus (toplevel,
+                                    direction == GTK_DIR_UP ?
+                                    GTK_DIR_TAB_BACKWARD :
+                                    GTK_DIR_TAB_FORWARD);
+
+        }
+
       return;
     }
 
