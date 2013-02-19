@@ -25,8 +25,8 @@
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="toolbar_style">icons</property>
-            <property name="icon_size">2</property>
             <style>
+              <class name="horizontal"/>
               <class name="menubar"/>
             </style>
             <child>
@@ -48,6 +48,7 @@
                           <object class="GtkImage" id="image1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="icon_size">1</property>
                             <property name="icon_name">edit-find-symbolic</property>
                           </object>
                         </child>
