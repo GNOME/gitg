@@ -63,6 +63,7 @@ libgitg_gtk_1_0_la_CFLAGS =		\
 
 libgitg_gtk_1_0_la_SOURCES = 		\
 	egg-list-box/egg-list-box.c	\
+	egg-list-box/egg-list-box-accessible.c	\
 	gitg-gtk-resources.c		\
 	$(VALA_FILES)
 
@@ -108,6 +109,7 @@ EXTRA_DIST = \
 	resources/resources.xml		\
 	egg-list-box/egglistbox.vapi	\
 	egg-list-box/egg-list-box.h	\
+	egg-list-box/egg-list-box-accessible.h \
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 
 CLEANFILES = $(VALA_FILES:.vala=.c)
