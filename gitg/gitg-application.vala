@@ -367,7 +367,7 @@ public class Application : Gtk.Application
 			if (window != null)
 			{
 				// Present the window with this repository open
-				window.present_with_time(Gdk.CURRENT_TIME);
+				window.present();
 				continue;
 			}
 
@@ -393,12 +393,6 @@ public class Application : Gtk.Application
 			new_window(repo, hint);
 			opened = true;
 		}
-
-		if (!opened)
-		{
-			// still open a window
-			present_window();
-		}
 	}
 
 	private void new_window(Repository? repo = null, string? hint = null)
@@ -421,7 +415,7 @@ public class Application : Gtk.Application
 			return;
 		}
 
-		windows.data.present_with_time(Gdk.CURRENT_TIME);
+		windows.data.present();
 	}
 }
 
