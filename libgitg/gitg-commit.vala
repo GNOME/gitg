@@ -89,7 +89,7 @@ public class Commit : Ggit.Commit
 	{
 		owned get
 		{
-			return get_subject().replace(" ", "-").replace("/", "-");;
+			return get_subject().replace(" ", "-").replace("/", "-");
 		}
 	}
 

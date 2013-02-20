@@ -3,12 +3,6 @@
   <!-- interface-requires gtk+ 3.3 -->
   <!-- interface-requires gitg 0.0 -->
   <!-- interface-requires gd 1.0 -->
-  <object class="GtkImage" id="image_config">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixel_size">16</property>
-    <property name="icon_name">emblem-system-symbolic</property>
-  </object>
   <object class="GitgWindow" id="window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">gitg</property>
@@ -20,65 +14,27 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkToolbar" id="toolbar1">
+          <object class="GdHeaderBar" id="header-bar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="toolbar_style">icons</property>
-            <style>
-              <class name="horizontal"/>
-              <class name="menubar"/>
-            </style>
             <child>
-              <object class="GtkToolItem" id="toolbutton1">
+              <object class="GdHeaderMenuButton" id="button_config">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkAlignment" id="search-button-alignment">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">1</property>
-                    <property name="xscale">0</property>
-                    <child>
-                      <object class="GtkToggleButton" id="search-button">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <child>
-                          <object class="GtkImage" id="image1">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="icon_size">1</property>
-                            <property name="icon_name">edit-find-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
+                <property name="symbolic_icon_name">emblem-system-symbolic</property>
               </object>
               <packing>
-                <property name="expand">True</property>
-                <property name="homogeneous">True</property>
+                <property name="pack_type">end</property>
               </packing>
             </child>
             <child>
-              <object class="GtkToolItem" id="toolbutton2">
+              <object class="GdHeaderToggleButton" id="search-button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkMenuButton" id="button_config">
-                    <property name="use_action_appearance">False</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_left">6</property>
-                    <property name="image">image_config</property>
-                  </object>
-                </child>
+                <property name="symbolic_icon_name">edit-find-symbolic</property>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
+                <property name="pack_type">end</property>
               </packing>
             </child>
           </object>

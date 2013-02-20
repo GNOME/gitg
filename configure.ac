@@ -281,6 +281,7 @@ AM_CONDITIONAL(ENABLE_PYTHON, test x"$enable_python" = "xyes")
 
 dnl libgd
 LIBGD_INIT([
+	header-bar
 	tagged-entry
 	stack
 	revealer
