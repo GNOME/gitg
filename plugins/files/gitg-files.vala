@@ -30,9 +30,11 @@ namespace GitgFiles
 		private TreeStore d_model;
 		private Gtk.Paned d_paned;
 		private GtkSource.View d_source;
+		private Settings d_interfacesettings;
 		private Settings d_fontsettings;
 		private Settings d_stylesettings;
 
+		private Gtk.ScrolledWindow d_scrolled_files;
 		private Gtk.ScrolledWindow d_scrolled;
 
 		private Gtk.Viewport d_imagevp;
@@ -41,6 +43,7 @@ namespace GitgFiles
 		construct
 		{
 			d_model = new TreeStore();
+			d_interfacesettings = new Settings("org.gnome.gitg.preferences.interface");
 
 			application.notify["current_view"].connect((a, v) => {
 				notify_property("available");
@@ -111,10 +114,29 @@ namespace GitgFiles
 			}
 		}
 
+		private void update_packing()
+		{
+			var layout = d_interfacesettings.get_enum("orientation");
+			d_paned.remove(d_scrolled);
+			d_paned.remove(d_scrolled_files);
+
+			if (layout == Gtk.Orientation.HORIZONTAL)
+			{
+				d_paned.pack1(d_scrolled, true, true);
+				d_paned.pack2(d_scrolled_files, false, true);
+			}
+			else
+			{
+				d_paned.pack2(d_scrolled, true, true);
+				d_paned.pack1(d_scrolled_files, false, true);
+			}
+		}
+
 		private void build_ui()
 		{
 			var ret = GitgExt.UI.from_builder("files/view-files.ui",
 			                                  "paned_files",
+			                                  "scrolled_window_files",
 			                                  "tree_view_files",
 			                                  "source_view_file",
 			                                  "scrolled_window_file");
@@ -124,6 +146,7 @@ namespace GitgFiles
 
 			tv.get_selection().changed.connect(selection_changed);
 
+			d_scrolled_files = ret["scrolled_window_files"] as Gtk.ScrolledWindow;
 			d_source = ret["source_view_file"] as GtkSource.View;
 			d_paned = ret["paned_files"] as Gtk.Paned;
 			d_scrolled = ret["scrolled_window_file"] as Gtk.ScrolledWindow;
@@ -140,6 +163,8 @@ namespace GitgFiles
 				d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
 					update_font();
 				});
+
+				update_font();
 			}
 
 			d_stylesettings = new Settings("org.gnome.gedit.preferences.editor");
@@ -153,7 +178,14 @@ namespace GitgFiles
 				update_style();
 			}
 
-			update_font();
+			if (d_interfacesettings != null)
+			{
+				d_interfacesettings.changed["orientation"].connect((s, k) => {
+					update_packing();
+				});
+
+				update_packing();
+			}
 		}
 
 		public Gtk.Widget? widget
