@@ -361,16 +361,6 @@ public class Application : Gtk.Application
 		// Set of files are potential git repositories
 		foreach (File f in files)
 		{
-			// See if the repository is already open somewhere
-			Window? window = find_window_for_file(f);
-
-			if (window != null)
-			{
-				// Present the window with this repository open
-				window.present();
-				continue;
-			}
-
 			File? resolved;
 
 			// Try to open a repository at this location
@@ -379,6 +369,16 @@ public class Application : Gtk.Application
 				resolved = Ggit.Repository.discover(f);
 			}
 			catch { continue; }
+
+			// See if the repository is already open somewhere
+			Window? window = find_window_for_file(resolved);
+
+			if (window != null)
+			{
+				// Present the window with this repository open
+				window.present();
+				continue;
+			}
 
 			// Open the repository
 			Repository? repo;
