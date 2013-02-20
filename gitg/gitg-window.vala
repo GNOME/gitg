@@ -29,6 +29,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private UIElements<GitgExt.View> d_views;
 	private UIElements<GitgExt.Panel> d_panels;
 
+	private Gd.HeaderBar d_header_bar;
 	private Gtk.MenuButton d_config;
 
 	// Widgets
@@ -76,7 +77,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		var model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu");
 		d_config.menu_model = model;
 
-		var header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
+		d_header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
 		var search_button = builder.get_object("search-button") as Gd.HeaderToggleButton;
 		var revealer = builder.get_object("search-revealer") as Gd.Revealer;
 		search_button.bind_property("active", revealer, "reveal-child");
@@ -166,6 +167,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		                                         d_toolbar_panels);
 
 		d_panels.activated.connect(on_panel_activated);
+
+		// FIXME: this should happen when updating the repository
+		File? workdir = (d_repository != null) ? d_repository.get_workdir() : null;
+		if (workdir != null)
+		{
+			d_header_bar.title = workdir.get_basename();
+		}
 
 		activate_default_view();
 		return true;
