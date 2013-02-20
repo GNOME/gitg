@@ -265,29 +265,25 @@ public class Application : Gtk.Application
 		{"preferences", on_preferences_activated}
 	};
 
-	private void setup_menus()
-	{
-		add_action_entries(app_entries, this);
-
-		MenuModel? menu = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "app-menu");
-
-		if (menu != null)
-		{
-			set_app_menu(menu);
-		}
-	}
-
 	protected override void startup()
 	{
 		base.startup();
 
+		// Handle the state setting in the application
 		d_state_settings = new Settings("org.gnome.gitg.state.window");
 		d_state_settings.delay();
 
-		setup_menus();
+		// App menu
+		add_action_entries(app_entries, this);
 
+		MenuModel? menu = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "app-menu");
+		if (menu != null)
+		{
+			set_app_menu(menu);
+		}
+
+		// Use our own css provider
 		Gtk.CssProvider? provider = Resource.load_css("style.css");
-
 		if (provider != null)
 		{
 			Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
