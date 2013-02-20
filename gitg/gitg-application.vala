@@ -41,7 +41,6 @@ public class Application : Gtk.Application
 	{
 		public static bool quit = false;
 		public static string view;
-		public static bool startup = false;
 		public static bool no_wd = false;
 		public static ApplicationCommandLine command_line;
 
@@ -147,12 +146,6 @@ public class Application : Gtk.Application
 		}
 
 		Options.command_line = cmd;
-
-		if (Options.startup)
-		{
-			app_init();
-			Options.startup = false;
-		}
 
 		if (argv.length > 1)
 		{
@@ -286,13 +279,24 @@ public class Application : Gtk.Application
 
 	protected override void startup()
 	{
+		base.startup();
+
 		d_state_settings = new Settings("org.gnome.gitg.state.window");
 		d_state_settings.delay();
 
-		Options.startup = true;
-		base.startup();
-
 		setup_menus();
+
+		Gtk.CssProvider? provider = Resource.load_css("style.css");
+
+		if (provider != null)
+		{
+			Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
+			                                         provider,
+			                                         600);
+		}
+
+		var theme = Gtk.IconTheme.get_default();
+		theme.prepend_search_path(Path.build_filename(Config.GITG_DATADIR, "icons"));
 	}
 
 	protected override void shutdown()
@@ -399,21 +403,6 @@ public class Application : Gtk.Application
 			// still open a window
 			present_window();
 		}
-	}
-
-	private void app_init()
-	{
-		Gtk.CssProvider? provider = Resource.load_css("style.css");
-
-		if (provider != null)
-		{
-			Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
-			                                         provider,
-			                                         600);
-		}
-
-		var theme = Gtk.IconTheme.get_default();
-		theme.prepend_search_path(Path.build_filename(Config.GITG_DATADIR, "icons"));
 	}
 
 	private void new_window(Repository? repo = null, string? hint = null)
