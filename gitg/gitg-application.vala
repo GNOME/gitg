@@ -22,6 +22,13 @@ namespace Gitg
 
 public class Application : Gtk.Application
 {
+	private Settings d_state_settings;
+
+	public Settings state_settings
+	{
+		owned get { return d_state_settings; }
+	}
+
 	public Application()
 	{
 		Object(application_id: "org.gnome.gitg",
@@ -279,10 +286,19 @@ public class Application : Gtk.Application
 
 	protected override void startup()
 	{
+		d_state_settings = new Settings("org.gnome.gitg.state.window");
+		d_state_settings.delay();
+
 		Options.startup = true;
 		base.startup();
 
 		setup_menus();
+	}
+
+	protected override void shutdown()
+	{
+		d_state_settings.apply();
+		base.shutdown();
 	}
 
 	protected override void activate()

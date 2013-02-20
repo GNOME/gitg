@@ -22,6 +22,7 @@ namespace Gitg
 
 public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.Buildable
 {
+	private Settings d_state_settings;
 	private Repository? d_repository;
 	private GitgExt.MessageBus d_message_bus;
 	private string? d_action;
@@ -57,6 +58,22 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	public Repository? repository
 	{
 		owned get { return d_repository; }
+	}
+
+	protected override bool window_state_event(Gdk.EventWindowState event)
+	{
+		d_state_settings.set_int("state", event.new_window_state);
+		return base.window_state_event(event);
+	}
+
+	protected override bool configure_event(Gdk.EventConfigure event)
+	{
+		if (this.get_realized() && !(Gdk.WindowState.MAXIMIZED in get_window().get_state()))
+		{
+			d_state_settings.set("size", "(ii)", event.width, event.height);
+		}
+
+		return base.configure_event(event);
 	}
 
 	private void parser_finished(Gtk.Builder builder)
@@ -144,6 +161,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 	private bool init(Cancellable? cancellable)
 	{
+		// Settings
+		var app = application as Gitg.Application;
+		d_state_settings = app.state_settings;
+
 		// Setup message bus
 		d_message_bus = new GitgExt.MessageBus();
 
@@ -175,6 +196,16 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_header_bar.title = workdir.get_basename();
 		}
 
+		// Setup window geometry saving
+		Gdk.WindowState window_state = (Gdk.WindowState)d_state_settings.get_int("state");
+		if (Gdk.WindowState.MAXIMIZED in window_state) {
+			maximize ();
+		}
+
+		int width, height;
+		d_state_settings.get ("size", "(ii)", out width, out height);
+		resize (width, height);
+
 		activate_default_view();
 		return true;
 	}
@@ -187,6 +218,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		if (ret != null)
 		{
+			ret.application = app;
 			ret.d_repository = repository;
 			ret.d_action = action;
 		}
