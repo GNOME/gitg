@@ -418,7 +418,7 @@ public class Application : Gtk.Application
 
 	private void new_window(Repository? repo = null, string? hint = null)
 	{
-		add_window(Window.create_new(this, repo, hint));
+		Window.create_new(this, repo, hint);
 		present_window();
 	}
 
