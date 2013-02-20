@@ -169,6 +169,7 @@ public class Application : Gtk.Application
 
 	private void on_app_new_window_activated()
 	{
+		new_window();
 	}
 
 	private void on_app_help_activated()
