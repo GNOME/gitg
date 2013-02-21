@@ -113,6 +113,44 @@ public class Commit : Ggit.Commit
 			return date_for_display(get_author().get_time());
 		}
 	}
+
+	public Ggit.Diff get_diff(Ggit.DiffOptions? options)
+	{
+		Ggit.Diff? diff = null;
+
+		var repo = get_owner();
+
+		try
+		{
+			var parents = get_parents();
+
+			// Create a new diff from the parents to the commit tree
+			for (var i = 0; i < parents.size(); ++i)
+			{
+				var parent = parents.get(0);
+
+				if (i == 0)
+				{
+					diff = new Ggit.Diff.tree_to_tree(repo,
+					                                  parent.get_tree(),
+					                                  get_tree(),
+					                                  options);
+				}
+				else
+				{
+					var d = new Ggit.Diff.tree_to_tree(repo,
+					                                   parent.get_tree(),
+					                                   get_tree(),
+					                                   options);
+
+					diff.merge(d);
+				}
+			}
+		}
+		catch {}
+
+		return diff;
+	}
 }
 
 }

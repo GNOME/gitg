@@ -22,7 +22,7 @@ namespace GitgGtk
 	public class DiffView : WebKit.WebView
 	{
 		private Ggit.Diff? d_diff;
-		private Ggit.Commit? d_commit;
+		private Gitg.Commit? d_commit;
 		private Settings d_fontsettings;
 
 		private static Gee.HashMap<string, GitgGtk.DiffView> s_diffmap;
@@ -47,7 +47,7 @@ namespace GitgGtk
 			}
 		}
 
-		public Ggit.Commit? commit
+		public Gitg.Commit? commit
 		{
 			get { return d_commit; }
 			set
@@ -258,38 +258,7 @@ namespace GitgGtk
 
 			if (d_commit != null)
 			{
-				d_diff = null;
-
-				var repo = d_commit.get_owner();
-
-				try
-				{
-					var parents = d_commit.get_parents();
-
-					// Create a new diff from the parents to the commit tree
-					for (var i = 0; i < parents.size(); ++i)
-					{
-						var parent = parents.get(0);
-
-						if (i == 0)
-						{
-							d_diff = new Ggit.Diff.tree_to_tree(repo,
-							                                    parent.get_tree(),
-							                                    d_commit.get_tree(),
-							                                    options);
-						}
-						else
-						{
-							var d = new Ggit.Diff.tree_to_tree(repo,
-							                                   parent.get_tree(),
-							                                   d_commit.get_tree(),
-							                                   options);
-
-							d_diff.merge(d);
-						}
-					}
-				}
-				catch {}
+				d_diff = d_commit.get_diff(options);
 			}
 
 			if (d_diff != null)
