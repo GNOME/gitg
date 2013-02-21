@@ -86,6 +86,9 @@ namespace GitgGtk
 					                          lanes_data_func);
 				}
 			}
+
+			var context = get_style_context();
+			context.add_class("content-view");
 		}
 	}
 }
