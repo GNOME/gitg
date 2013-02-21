@@ -30,12 +30,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private UIElements<GitgExt.View> d_views;
 	private UIElements<GitgExt.Panel> d_panels;
 
+
+	// Widgets
 	private Gd.HeaderBar d_header_bar;
 	private Gtk.MenuButton d_config;
 
-	// Widgets
-	private Gtk.Toolbar d_toolbar_views;
-	private Gtk.Toolbar d_toolbar_panels;
+	private Gtk.Box d_header_box;
 
 	private Gtk.Paned d_paned_views;
 	private Gtk.Paned d_paned_panels;
@@ -79,10 +79,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private void parser_finished(Gtk.Builder builder)
 	{
 		// Extract widgets from the builder
-		d_toolbar_views = builder.get_object("toolbar_views") as Gtk.Toolbar;
-		d_paned_views = builder.get_object("paned_views") as Gtk.Paned;
+		d_header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
+		d_header_box = builder.get_object("header-bar-box") as Gtk.Box;
 
-		d_toolbar_panels = builder.get_object("toolbar_panels") as Gtk.Toolbar;
+		d_paned_views = builder.get_object("paned_views") as Gtk.Paned;
 		d_paned_panels = builder.get_object("paned_panels") as Gtk.Paned;
 
 		d_stack_view = builder.get_object("stack_view") as Gd.Stack;
@@ -94,7 +94,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		var model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu");
 		d_config.menu_model = model;
 
-		d_header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
 		var search_button = builder.get_object("search-button") as Gd.HeaderToggleButton;
 		var revealer = builder.get_object("search-revealer") as Gd.Revealer;
 		var entry = builder.get_object("search-entry") as Gd.TaggedEntry;
@@ -182,8 +181,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		                                                            typeof(GitgExt.View),
 		                                                            "application",
 		                                                            this),
-		                                       d_stack_view,
-		                                       d_toolbar_views);
+		                                       d_stack_view);
 
 		d_views.activated.connect(on_view_activated);
 
@@ -192,7 +190,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		                                                               "application",
 		                                                               this),
 		                                         d_stack_panel,
-		                                         d_toolbar_panels);
+		                                         d_header_box);
 
 		d_panels.activated.connect(on_panel_activated);
 
