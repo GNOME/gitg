@@ -97,8 +97,15 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
 		var search_button = builder.get_object("search-button") as Gd.HeaderToggleButton;
 		var revealer = builder.get_object("search-revealer") as Gd.Revealer;
-		search_button.bind_property("active", revealer, "reveal-child");
 		var entry = builder.get_object("search-entry") as Gd.TaggedEntry;
+
+		search_button.bind_property("active", revealer, "reveal-child");
+		search_button.toggled.connect((b) => {
+			if (b.get_active())
+			{
+				entry.grab_focus();
+			}
+		});
 
 		var settings = new Settings("org.gnome.gitg.preferences.interface");
 
