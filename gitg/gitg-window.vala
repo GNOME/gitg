@@ -213,6 +213,16 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_state_settings.get ("size", "(ii)", out width, out height);
 		resize (width, height);
 
+		d_state_settings.bind("paned-views-position",
+		                      d_paned_views,
+		                      "position",
+		                      SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_state_settings.bind("paned-panels-position",
+		                      d_paned_panels,
+		                      "position",
+		                      SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 		activate_default_view();
 		return true;
 	}
