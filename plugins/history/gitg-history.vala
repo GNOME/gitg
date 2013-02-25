@@ -135,9 +135,9 @@ namespace GitgHistory
 			owned get { return _("History"); }
 		}
 
-		public Icon? icon
+		public string? icon
 		{
-			owned get { return new ThemedIcon("view-list-symbolic"); }
+			owned get { return "view-list-symbolic"; }
 		}
 
 		public Gtk.Widget? widget

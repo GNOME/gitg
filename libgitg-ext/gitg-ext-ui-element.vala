@@ -70,7 +70,7 @@ public interface UIElement : Object
 	 * If provided, the icon will be used in navigation toolbars
 	 * so that users can switch to the ui element.
 	 */
-	public abstract Icon? icon { owned get; }
+	public abstract string? icon { owned get; }
 
 	/**
 	 * The ui element widget.

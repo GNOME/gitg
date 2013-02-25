@@ -75,9 +75,9 @@ namespace GitgFiles
 			owned get { return _("Files"); }
 		}
 
-		public Icon? icon
+		public string? icon
 		{
-			owned get { return new ThemedIcon("system-file-manager-symbolic"); }
+			owned get { return "system-file-manager-symbolic"; }
 		}
 
 		private void on_selection_changed(GitgExt.ObjectSelection selection)

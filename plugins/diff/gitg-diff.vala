@@ -68,15 +68,15 @@ namespace GitgDiff
 			owned get { return _("Diff"); }
 		}
 
-		public Icon? icon
+		public string? icon
 		{
-			owned get { return new ThemedIcon("diff-symbolic"); }
+			owned get { return "diff-symbolic"; }
 		}
 
 		private void on_selection_changed(GitgExt.ObjectSelection selection)
 		{
 			selection.foreach_selected((commit) => {
-				var c = commit as Ggit.Commit;
+				var c = commit as Gitg.Commit;
 
 				if (c != null)
 				{

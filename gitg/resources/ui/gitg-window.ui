@@ -17,6 +17,7 @@
           <object class="GdHeaderBar" id="header-bar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="vexpand">False</property>
             <child>
               <object class="GdHeaderToggleButton" id="search-button">
                 <property name="visible">True</property>
@@ -28,7 +29,9 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox" id="header-bar-box"/>
+              <object class="GdStackSwitcher" id="commit-view-switcher">
+                <property name="visible">True</property>
+              </object>
               <packing>
                 <property name="pack_type">end</property>
               </packing>

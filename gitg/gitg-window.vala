@@ -35,7 +35,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private Gd.HeaderBar d_header_bar;
 	private Gtk.MenuButton d_config;
 
-	private Gtk.Box d_header_box;
+	private Gd.StackSwitcher d_commit_view_switcher;
 
 	private Gtk.Paned d_paned_views;
 	private Gtk.Paned d_paned_panels;
@@ -80,13 +80,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	{
 		// Extract widgets from the builder
 		d_header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
-		d_header_box = builder.get_object("header-bar-box") as Gtk.Box;
 
 		d_paned_views = builder.get_object("paned_views") as Gtk.Paned;
 		d_paned_panels = builder.get_object("paned_panels") as Gtk.Paned;
 
 		d_stack_view = builder.get_object("stack_view") as Gd.Stack;
 		d_stack_panel = builder.get_object("stack_panel") as Gd.Stack;
+		d_commit_view_switcher = builder.get_object("commit-view-switcher") as Gd.StackSwitcher;
+		d_commit_view_switcher.stack = d_stack_panel;
 
 		d_navigation = builder.get_object("tree_view_navigation") as GitgExt.NavigationTreeView;
 		d_config = builder.get_object("button_config") as Gtk.MenuButton;
@@ -189,8 +190,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		                                                               typeof(GitgExt.Panel),
 		                                                               "application",
 		                                                               this),
-		                                         d_stack_panel,
-		                                         d_header_box);
+		                                         d_stack_panel);
 
 		d_panels.activated.connect(on_panel_activated);
 

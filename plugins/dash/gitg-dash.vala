@@ -69,11 +69,11 @@ namespace GitgDash
 			owned get { return _("Dashboard"); }
 		}
 
-		public Icon? icon
+		public string? icon
 		{
 			owned get
 			{
-				return new ThemedIcon("document-open-recent-symbolic");
+				return "document-open-recent-symbolic";
 			}
 		}
 
