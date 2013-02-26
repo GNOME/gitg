@@ -132,6 +132,7 @@ public class UIElements<T>
 	private void add_available(GitgExt.UIElement e)
 	{
 		d_stack.add_with_properties(e.widget,
+		                            "name", e.id,
 		                            "title", e.display_name,
 		                            "symbolic-icon-name", e.icon);
 		d_available_elements.insert(e.id, e);
