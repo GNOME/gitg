@@ -19,6 +19,16 @@
             <property name="can_focus">False</property>
             <property name="vexpand">False</property>
             <child>
+              <object class="GdHeaderSimpleButton" id="button_dash">
+                <property name="visible">False</property>
+                <property name="can_focus">False</property>
+                <property name="symbolic_icon_name">view-list-symbolic</property>
+              </object>
+              <packing>
+                <property name="pack_type">start</property>
+              </packing>
+            </child>
+            <child>
               <object class="GdHeaderToggleButton" id="search-button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -30,7 +40,7 @@
             </child>
             <child>
               <object class="GdStackSwitcher" id="commit-view-switcher">
-                <property name="visible">True</property>
+                <property name="visible">False</property>
               </object>
               <packing>
                 <property name="pack_type">end</property>
@@ -115,91 +125,65 @@
           </packing>
         </child>
         <child>
-          <object class="GtkPaned" id="paned_views">
+          <object class="GdStack" id="main_stack">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <property name="position">200</property>
-            <property name="position_set">True</property>
             <child>
-              <object class="GtkEventBox" id="navigation_background">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <style>
-                  <class name="sidebar"/>
-                </style>
-                <child>
-                  <object class="GtkGrid" id="grid_navigation">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="hexpand">True</property>
-                    <child>
-                      <object class="GtkScrolledWindow" id="scrolled_window_navigation">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="hscrollbar_policy">never</property>
-                        <property name="name">scrolled_window_navigation</property>
-                        <child>
-                          <object class="GitgExtNavigationTreeView" id="tree_view_navigation">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="headers_visible">False</property>
-                            <property name="name">tree_view_navigation</property>
-                            <child internal-child="selection">
-                              <object class="GtkTreeSelection" id="gitgextnavigationtreeView-selection"/>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="resize">False</property>
-                <property name="shrink">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkPaned" id="paned_panels">
+              <object class="GitgGtkDashView" id="dash_view">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="orientation">vertical</property>
-                <property name="position">300</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkPaned" id="paned_views">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="position">200</property>
+                <property name="position_set">True</property>
                 <child>
-                  <object class="GtkEventBox" id="frame_background">
+                  <object class="GtkEventBox" id="navigation_background">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <style>
+                      <class name="sidebar"/>
+                    </style>
                     <child>
-                      <object class="GdStack" id="stack_view">
+                      <object class="GtkGrid" id="grid_navigation">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
                         <child>
-                          <placeholder/>
+                          <object class="GtkScrolledWindow" id="scrolled_window_navigation">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="hexpand">True</property>
+                            <property name="vexpand">True</property>
+                            <property name="hscrollbar_policy">never</property>
+                            <property name="name">scrolled_window_navigation</property>
+                            <child>
+                              <object class="GitgExtNavigationTreeView" id="tree_view_navigation">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="headers_visible">False</property>
+                                <property name="name">tree_view_navigation</property>
+                                <child internal-child="selection">
+                                  <object class="GtkTreeSelection" id="gitgextnavigationtreeView-selection"/>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                            <property name="width">1</property>
+                            <property name="height">1</property>
+                          </packing>
                         </child>
                       </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="resize">True</property>
-                    <property name="shrink">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GdStack" id="stack_panel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <placeholder/>
                     </child>
                   </object>
                   <packing>
@@ -207,11 +191,51 @@
                     <property name="shrink">True</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkPaned" id="paned_panels">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="orientation">vertical</property>
+                    <property name="position">300</property>
+                    <child>
+                      <object class="GtkEventBox" id="frame_background">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GdStack" id="stack_view">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <placeholder/>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="resize">True</property>
+                        <property name="shrink">True</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GdStack" id="stack_panel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="resize">False</property>
+                        <property name="shrink">True</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="resize">True</property>
+                    <property name="shrink">True</property>
+                  </packing>
+                </child>
               </object>
-              <packing>
-                <property name="resize">True</property>
-                <property name="shrink">True</property>
-              </packing>
             </child>
           </object>
           <packing>

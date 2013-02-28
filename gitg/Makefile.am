@@ -17,18 +17,23 @@ AM_VALAFLAGS = \
 	--pkg Ggit-1.0						\
 	--pkg libgitg-1.0					\
 	--pkg libgitg-ext-1.0					\
+	--pkg libgitg-gtk-1.0					\
 	--pkg gtk+-3.0						\
 	--pkg gio-2.0						\
 	--pkg libpeas-1.0					\
 	--pkg gobject-introspection-1.0				\
 	--pkg gee-1.0						\
 	--pkg gd-1.0						\
+	--pkg webkit2gtk-3.0					\
 	--girdir "$(top_builddir)/libgd"			\
 	--girdir "$(top_builddir)/libgitg"			\
 	--girdir "$(top_builddir)/libgitg-ext"			\
+	--girdir "$(top_builddir)/libgitg-gtk"			\
+	--vapidir "$(top_srcdir)/vapi"				\
 	--vapidir "$(top_builddir)/libgd"			\
 	--vapidir "$(top_builddir)/libgitg"			\
-	--vapidir "$(top_builddir)/libgitg-ext"
+	--vapidir "$(top_builddir)/libgitg-ext"			\
+	--vapidir "$(top_builddir)/libgitg-gtk"
 
 VALASOURCES =							\
 	gitg.vala						\
@@ -55,7 +60,8 @@ gitg_LDADD =							\
 	$(PACKAGE_LIBS) 					\
 	$(top_builddir)/libgd/libgd.la				\
 	$(top_builddir)/libgitg/libgitg-1.0.la			\
-	$(top_builddir)/libgitg-ext/libgitg-ext-1.0.la
+	$(top_builddir)/libgitg-ext/libgitg-ext-1.0.la		\
+	$(top_builddir)/libgitg-gtk/libgitg-gtk-1.0.la
 
 gitg_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
 
