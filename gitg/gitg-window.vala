@@ -262,6 +262,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 	private void activate_default_view()
 	{
+		bool didactivate = false;
+
 		d_views.foreach((element) => {
 			GitgExt.View view = (GitgExt.View)element;
 
@@ -276,11 +278,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 					d_views.current = view;
 				}
 
+				didactivate = true;
 				return false;
 			}
 
 			return true;
 		});
+
+		if (!didactivate && d_views.current != null)
+		{
+			on_view_activated(d_views, d_views.current);
+		}
 	}
 
 	private bool init(Cancellable? cancellable)
