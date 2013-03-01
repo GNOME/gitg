@@ -34,6 +34,7 @@ namespace GitgGtk
 
 		private Cancellable d_cancellable;
 		private bool d_loaded;
+		private ulong d_diffid;
 
 		public Ggit.Diff? diff
 		{
@@ -150,7 +151,21 @@ namespace GitgGtk
 
 		public void request(DiffViewRequest request)
 		{
-			request.run(d_cancellable);
+			var did = request.parameter("diffid");
+
+			if (did != null)
+			{
+				uint64 i = uint64.parse(did);
+				
+				if (i == d_diffid)
+				{
+					request.run(d_cancellable);
+					return;
+				}
+			}
+
+			// Still finish request, but with something bogus
+			request.finish_empty();
 		}
 
 		private void update_font_settings()
@@ -256,6 +271,8 @@ namespace GitgGtk
 			d_cancellable.cancel();
 			d_cancellable = new Cancellable();
 
+			++d_diffid;
+
 			if (d_commit != null)
 			{
 				d_diff = d_commit.get_diff(options);
@@ -263,7 +280,7 @@ namespace GitgGtk
 
 			if (d_diff != null)
 			{
-				run_javascript.begin("update_diff();", d_cancellable, (obj, res) => {
+				run_javascript.begin("update_diff(%lu);".printf(d_diffid), d_cancellable, (obj, res) => {
 					try
 					{
 						run_javascript.end(res);

@@ -25,6 +25,8 @@ namespace GitgGtk
 		protected string? d_mimetype;
 		protected int64 d_size;
 		protected WebKit.URISchemeRequest d_request;
+		private HashTable<string, string>? d_form;
+		protected bool d_hasView;
 
 		public DiffViewRequest(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
 		{
@@ -33,6 +35,44 @@ namespace GitgGtk
 			d_uri = uri;
 			d_size = -1;
 			d_mimetype = null;
+			d_form = null;
+			d_hasView = view != null;
+		}
+
+		public Soup.URI uri
+		{
+			get { return d_uri; }
+		}
+
+		public bool has_view
+		{
+			get { return d_hasView; }
+		}
+
+		public void finish_empty()
+		{
+			d_request.finish(new MemoryInputStream(),
+			                 get_content_length(),
+			                 get_content_type());
+		}
+
+		public string? parameter(string v)
+		{
+			if (d_form == null)
+			{
+				var q = d_uri.get_query();
+
+				if (q != null)
+				{
+					d_form = Soup.Form.decode(q);
+				}
+				else
+				{
+					d_form = new HashTable<string, string>(str_hash, str_equal);
+				}
+			}
+
+			return d_form.lookup(v);
 		}
 
 		public DiffView? view

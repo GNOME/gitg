@@ -115,7 +115,7 @@ function write_commit(commit)
 var html_builder_worker = 0;
 var html_builder_tick = 0;
 
-function update_diff()
+function update_diff(id)
 {
 	if (html_builder_worker)
 	{
@@ -169,7 +169,7 @@ function update_diff()
 
 	// Load the diff asynchronously
 	html_builder_worker.postMessage({
-		url: "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid + "&format=diff_only",
+		url: "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid + "&diffid=" + id + "&format=diff_only",
 		settings: settings,
 		hunk_template: hunk_template,
 	});
@@ -187,7 +187,7 @@ function update_diff()
 	}
 
 	t = (new Date()).getTime();
-	r.open("GET", "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid + "&format=commit_only");
+	r.open("GET", "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid + "&diffid=" + id + "&format=commit_only");
 	r.send();
 }
 

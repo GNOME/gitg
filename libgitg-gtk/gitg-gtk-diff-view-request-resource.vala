@@ -25,6 +25,8 @@ namespace GitgGtk
 		public DiffViewRequestResource(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
 		{
 			base(view, request, uri);
+			d_view = null;
+			d_hasView = false;
 		}
 
 		private File ensure_resource()

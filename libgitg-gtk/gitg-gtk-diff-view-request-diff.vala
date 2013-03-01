@@ -28,16 +28,23 @@ namespace GitgGtk
 		}
 
 		private DiffType d_diff_type;
+		private Ggit.Diff? d_diff;
+		private Ggit.Commit? d_commit;
 
 		public DiffViewRequestDiff(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
 		{
 			base(view, request, uri);
-			d_mimetype = "application/json";
 
-			var parsed = Soup.Form.decode(uri.query);
+			d_mimetype = "application/json";
 			d_diff_type = DiffType.DEFAULT;
 
-			var format = parsed.lookup("format");
+			if (has_view)
+			{
+				d_commit = d_view.commit;
+				d_diff = d_view.diff;
+			}
+
+			var format = parameter("format");
 
 			switch (format)
 			{
@@ -281,7 +288,7 @@ namespace GitgGtk
 		private void build_commit(Ggit.Diff? diff, Json.Builder builder, Cancellable? cancellable)
 		{
 			builder.set_member_name("commit");
-			commit_to_json(builder, d_view.commit);
+			commit_to_json(builder, d_commit);
 		}
 
 		private InputStream? run_diff(Ggit.Diff? diff, Cancellable? cancellable) throws GLib.Error
@@ -296,7 +303,7 @@ namespace GitgGtk
 
 			builder.begin_object();
 
-			if (d_view.commit != null && d_diff_type != DiffType.DIFF_ONLY)
+			if (d_commit != null && d_diff_type != DiffType.DIFF_ONLY)
 			{
 				build_commit(diff, builder, cancellable);
 			}
@@ -331,12 +338,12 @@ namespace GitgGtk
 
 		public override InputStream? run_async(Cancellable? cancellable) throws GLib.Error
 		{
-			if (d_view == null)
+			if (!has_view)
 			{
 				throw new IOError.NOT_FOUND("Could not find diff view with corresponding id");
 			}
 
-			return run_diff(d_view.diff, cancellable);
+			return run_diff(d_diff, cancellable);
 		}
 	}
 }
