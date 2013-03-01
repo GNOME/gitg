@@ -331,7 +331,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		                      "position",
 		                      SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-		activate_default_view();
 		return true;
 	}
 
