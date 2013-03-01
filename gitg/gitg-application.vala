@@ -263,13 +263,17 @@ public class Application : Gtk.Application
 		d_state_settings = new Settings("org.gnome.gitg.state.window");
 		d_state_settings.delay();
 
-		// App menu
 		add_action_entries(app_entries, this);
 
-		MenuModel? menu = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "app-menu");
-		if (menu != null)
+		// App menu
+		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
 		{
-			set_app_menu(menu);
+			MenuModel? menu = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "app-menu");
+
+			if (menu != null)
+			{
+				set_app_menu(menu);
+			}
 		}
 
 		// Use our own css provider
