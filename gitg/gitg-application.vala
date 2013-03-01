@@ -354,8 +354,6 @@ public class Application : Gtk.Application
 			return;
 		}
 
-		bool opened = false;
-
 		// Set of files are potential git repositories
 		foreach (File f in files)
 		{
@@ -389,7 +387,6 @@ public class Application : Gtk.Application
 
 			// Finally, create a window for the repository
 			new_window(repo, hint);
-			opened = true;
 		}
 	}
 
