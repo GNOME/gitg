@@ -160,7 +160,7 @@ namespace GitgHistory
 			model.end_header();
 
 			// Remotes
-			model.begin_header(_("Remotes"), "network-server-symbolic");
+			model.begin_header(_("Remotes"), null);
 
 			foreach (var rname in remotenames)
 			{
