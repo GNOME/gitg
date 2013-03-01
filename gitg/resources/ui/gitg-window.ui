@@ -131,9 +131,25 @@
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <child>
-              <object class="GitgGtkDashView" id="dash_view">
+              <object class="GtkScrolledWindow" id="dash_scrolled_window">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkViewport" id="dash_viewport">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GitgGtkDashView" id="dash_view">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <style>
+                          <class name="view"/>
+                          <class name="content-view"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
             <child>

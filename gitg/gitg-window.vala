@@ -40,6 +40,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 	private Gd.Stack d_main_stack;
 
+	private Gtk.ScrolledWindow d_dash_scrolled_window;
 	private GitgGtk.DashView d_dash_view;
 
 	private Gtk.Paned d_paned_views;
@@ -93,7 +94,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		{
 			title = "gitg";
 
-			d_main_stack.set_visible_child(d_dash_view);
+			d_main_stack.set_visible_child(d_dash_scrolled_window);
 			d_commit_view_switcher.hide();
 			d_button_dash.hide();
 		}
@@ -129,6 +130,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		d_main_stack = builder.get_object("main_stack") as Gd.Stack;
 
+		d_dash_scrolled_window = builder.get_object("dash_scrolled_window") as Gtk.ScrolledWindow;
 		d_dash_view = builder.get_object("dash_view") as GitgGtk.DashView;
 		d_dash_view.repository_activated.connect((r) => {
 			repository = r;
