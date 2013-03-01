@@ -35,6 +35,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private Gd.HeaderBar d_header_bar;
 	private Gtk.MenuButton d_config;
 
+	private Gd.HeaderSimpleButton d_button_open_repository;
 	private Gd.HeaderSimpleButton d_button_dash;
 	private Gd.StackSwitcher d_commit_view_switcher;
 
@@ -89,6 +90,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_main_stack.set_visible_child(d_paned_views);
 			d_commit_view_switcher.show();
 			d_button_dash.show();
+			d_button_open_repository.hide();
 		}
 		else
 		{
@@ -97,6 +99,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_main_stack.set_visible_child(d_dash_scrolled_window);
 			d_commit_view_switcher.hide();
 			d_button_dash.hide();
+			d_button_open_repository.show();
 		}
 
 		d_views.update();
@@ -119,10 +122,29 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		return base.configure_event(event);
 	}
 
+	private void on_open_repository(Gtk.Button button)
+	{
+		Gtk.FileChooserDialog chooser = Resource.load_object<Gtk.FileChooserDialog>("ui/gitg-window.ui", "filechooserdialog_open");
+		chooser.transient_for = this;
+		chooser.show();
+
+		chooser.response.connect((c, id) => {
+			if (id == Gtk.ResponseType.OK)
+			{
+				var folder = chooser.get_current_folder_file();
+				open(folder);
+			}
+
+			c.destroy();
+		});
+	}
+
 	private void parser_finished(Gtk.Builder builder)
 	{
 		// Extract widgets from the builder
 		d_header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
+		d_button_open_repository = builder.get_object("button_open_repository") as Gd.HeaderSimpleButton;
+		d_button_open_repository.clicked.connect(on_open_repository);
 		d_button_dash = builder.get_object("button_dash") as Gd.HeaderSimpleButton;
 		d_button_dash.clicked.connect((b) => {
 			repository = null;
