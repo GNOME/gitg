@@ -131,8 +131,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		chooser.response.connect((c, id) => {
 			if (id == Gtk.ResponseType.OK)
 			{
-				var folder = chooser.get_current_folder_file();
-				open(folder);
+				open(chooser.get_current_folder_file());
 			}
 
 			c.destroy();
