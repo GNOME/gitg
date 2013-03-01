@@ -325,6 +325,10 @@ public class Application : Gtk.Application
 			string? wd = Options.command_line.get_cwd();
 
 			open(new File[] { File.new_for_path(wd) }, Options.view);
+
+			// Forcing present here covers the case where no window was opened
+			// because wd is not an actual git repository
+			present_window();
 		}
 
 		base.activate();
@@ -404,7 +408,7 @@ public class Application : Gtk.Application
 
 	private void present_window()
 	{
-		/* Present the first window in the windows registered on the
+		/* Present the last window in the windows registered on the
 		 * application. If there are no windows, then create a new empty
 		 * window.
 		 */
@@ -416,7 +420,7 @@ public class Application : Gtk.Application
 			return;
 		}
 
-		windows.data.present();
+		windows.last().data.present();
 	}
 }
 
