@@ -23,8 +23,8 @@ namespace Gitg
 public class UIElements<T>
 {
 	private Peas.ExtensionSet d_extensions;
-	private HashTable<string, GitgExt.UIElement> d_available_elements;
 	private HashTable<string, GitgExt.UIElement> d_elements;
+	private List<GitgExt.UIElement> d_available_elements;
 	private GitgExt.UIElement? d_current;
 	private Gd.Stack d_stack;
 
@@ -58,75 +58,90 @@ public class UIElements<T>
 		d_extensions.foreach((extset, info, obj) => {
 			var elem = obj as GitgExt.UIElement;
 
-			var wasavail = d_available_elements.lookup(elem.id);
+			bool wasavail = is_available(elem);
 			bool isavail = elem.available;
 
-			if (wasavail != null && !isavail)
+			if (wasavail && !isavail)
 			{
 				remove_available(elem);
 			}
-			else if (wasavail == null && isavail)
+			else if (!wasavail && isavail)
 			{
-				// Note that this will also set elem to current if needed
 				add_available(elem);
 			}
-			else if (wasavail != null)
+			else if (wasavail)
 			{
-				if (!wasavail.enabled && d_current == wasavail)
+				if (!elem.enabled && d_current == elem)
 				{
 					d_current = null;
 				}
-				else if (wasavail.enabled && d_current == null)
-				{
-					set_current_impl(wasavail);
-				}
 			}
 		});
+
+		set_first_enabled_current();
+	}
+
+	private void set_first_enabled_current()
+	{
+		if (d_current != null)
+		{
+			return;
+		}
+
+		foreach (var item in d_available_elements)
+		{
+			if (item.enabled)
+			{
+				set_current_impl(item);
+				break;
+			}
+		}
 	}
 
 	public T? lookup(string id)
 	{
 		return (T)d_elements.lookup(id);
 	}
+	
+	private bool is_available(GitgExt.UIElement element)
+	{
+		return d_available_elements.find(element) != null;
+	}
 
 	private void set_current_impl(GitgExt.UIElement element)
 	{
 		if (!element.available ||
 		    !element.enabled ||
-		    (d_current != null && d_current == element))
+		    (d_current != null && d_current == element) ||
+		    !is_available(element))
 		{
 			return;
 		}
 
-		GitgExt.UIElement? el = d_available_elements.lookup(element.id);
+		d_current = element;
 
-		if (el != null)
+		if (d_stack != null)
 		{
-			d_current = el;
-
-			if (d_stack != null)
-			{
-				d_stack.set_visible_child(el.widget);
-			}
-
-			activated(el);
+			d_stack.set_visible_child(element.widget);
 		}
+
+		activated(element);
 	}
 
 	private void remove_available(GitgExt.UIElement e)
 	{
-		GitgExt.UIElement ae;
-
-		if (d_available_elements.lookup_extended(e.id, null, out ae))
+		if (!is_available(e))
 		{
-			if (ae == d_current)
-			{
-				d_current = null;
-			}
-
-			d_stack.remove(ae.widget);
-			d_available_elements.remove(e.id);
+			return;
 		}
+
+		if (e == d_current)
+		{
+			d_current = null;
+		}
+
+		d_stack.remove(e.widget);
+		d_available_elements.remove(e);
 	}
 
 	private void add_available(GitgExt.UIElement e)
@@ -135,7 +150,18 @@ public class UIElements<T>
 		                            "name", e.id,
 		                            "title", e.display_name,
 		                            "symbolic-icon-name", e.icon);
-		d_available_elements.insert(e.id, e);
+
+		int insert_position = 0;
+		unowned List<GitgExt.UIElement> item = d_available_elements;
+
+		while (item != null && item.data.negotiate_order(e) <= 0)
+		{
+			item = item.next;
+			insert_position++;
+		}
+
+		d_available_elements.insert(e, insert_position);
+		d_stack.child_set(e.widget, "position", insert_position);
 	}
 
 	private void available_changed(Object o, ParamSpec spec)
@@ -164,11 +190,19 @@ public class UIElements<T>
 		d_elements.remove(e.id);
 	}
 
+	private void extension_initial(Peas.ExtensionSet s,
+	                               Peas.PluginInfo info,
+	                               Object obj)
+	{
+		add_ui_element(obj as GitgExt.UIElement);
+	}
+
 	private void extension_added(Peas.ExtensionSet s,
 	                             Peas.PluginInfo info,
 	                             Object obj)
 	{
 		add_ui_element(obj as GitgExt.UIElement);
+		set_first_enabled_current();
 	}
 
 	private void extension_removed(Peas.ExtensionSet s,
@@ -182,7 +216,7 @@ public class UIElements<T>
 
 	public void foreach(ForeachUIElementFunc func)
 	{
-		var vals = d_available_elements.get_values();
+		var vals = d_available_elements.copy();
 
 		foreach (var val in vals)
 		{
@@ -199,11 +233,12 @@ public class UIElements<T>
 		d_extensions = extensions;
 		d_stack = stack;
 
-		d_available_elements = new HashTable<string, GitgExt.UIElement>(str_hash, str_equal);
 		d_elements = new HashTable<string, GitgExt.UIElement>(str_hash, str_equal);
 
 		// Add all the extensions
-		d_extensions.foreach(extension_added);
+		d_extensions.foreach(extension_initial);
+		set_first_enabled_current();
+
 		d_extensions.extension_added.connect(extension_added);
 		d_extensions.extension_removed.connect(extension_removed);
 	}
