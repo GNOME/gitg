@@ -1,23 +1,25 @@
 # Brazilian Portuguese translation for gitg.
-# Copyright (C) 2010 gitg's COPYRIGHT HOLDER
+# Copyright (C) 2013 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 # vinnyparker <vinny.parker@gmail.com>, 2010.
 # Gabriel F. Vilar <cogumm@gmail.com>, 2011.
+# Enrico Nicoletto <liverig@gmail.com>, 2013.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2012-11-09 11:50+0000\n"
-"PO-Revision-Date: 2012-12-22 10:11-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
-"Language-Team: GNOME Português Brasileiro\n"
+"POT-Creation-Date: 2013-02-28 20:15+0000\n"
+"PO-Revision-Date: 2013-02-28 21:12-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 0.5.2\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -110,27 +112,27 @@ msgstr ""
 "Permite que o diff de um programa externo seja usado ao visualizar diffs no "
 "gitg."
 
-#: ../gitg/gitg-application.vala:43
+#: ../gitg/gitg-application.vala:49
 msgid "Show the application's version"
 msgstr "Visualizar a versão do aplicativo"
 
-#: ../gitg/gitg-application.vala:45
+#: ../gitg/gitg-application.vala:51
 msgid "Start gitg with a particular view"
 msgstr "Iniciar gitg com uma visão particular"
 
-#: ../gitg/gitg-application.vala:47
+#: ../gitg/gitg-application.vala:53
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Não tente carregar um repositório do diretório de trabalho atual"
 
-#: ../gitg/gitg-application.vala:70
+#: ../gitg/gitg-application.vala:76
 msgid "- git repository viewer"
 msgstr "- visualizador de repositórios git"
 
-#: ../gitg/gitg-application.vala:185
+#: ../gitg/gitg-application.vala:186
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "O gitg é um visualizador de repositórios git para gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:210
+#: ../gitg/gitg-application.vala:211
 msgid "gitg homepage"
 msgstr "Página inicial do gitg"
 
@@ -203,7 +205,7 @@ msgstr "Painel"
 
 #: ../plugins/dash/gitg-dash.vala:249
 msgid "(no branch)"
-msgstr "(nenhum branch)"
+msgstr "(nenhum ramo)"
 
 #. ex: ts=4 noet
 #: ../plugins/dash/resources/view-create.ui.h:1
@@ -240,13 +242,13 @@ msgstr "Último uso:"
 
 #: ../plugins/dash/resources/view-recent.ui.h:5
 msgid "Current branch:"
-msgstr "Branch em uso:"
+msgstr "Ramo em uso:"
 
-#: ../plugins/diff/gitg-diff.vala:63
+#: ../plugins/diff/gitg-diff.vala:68
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/files/gitg-files.vala:72
+#: ../plugins/files/gitg-files.vala:75
 msgid "Files"
 msgstr "Arquivos"
 
@@ -275,7 +277,7 @@ msgstr "Todos os commits"
 #. Branches
 #: ../plugins/history/gitg-history-navigation.vala:128
 msgid "Branches"
-msgstr "Branches"
+msgstr "Ramos"
 
 #. Remotes
 #: ../plugins/history/gitg-history-navigation.vala:163
@@ -285,7 +287,7 @@ msgstr "Remotos"
 #. Tags
 #: ../plugins/history/gitg-history-navigation.vala:188
 msgid "Tags"
-msgstr "Tags"
+msgstr "Marcadores (tags)"
 
 #: ../plugins/history/gitg-history-preferences.vala:136
 #: ../plugins/history/gitg-history.vala:135
@@ -317,7 +319,7 @@ msgid ""
 "staged changes in the history."
 msgstr ""
 "Configuração que indica se deve ou não mostrar um item virtual para as "
-"atuais mudanças staged no histórico"
+"atuais mudanças apresentadas no histórico."
 
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
 msgid ""
@@ -325,7 +327,7 @@ msgid ""
 "unstaged changes in the history."
 msgstr ""
 "Configuração que indica se deve ou não mostrar um item virtual para as "
-"atuais mudanças do fora do stage no histórico"
+"atuais mudanças não apresentadas no histórico."
 
 #: ../plugins/history/resources/preferences.ui.h:1
 msgid "<b>Commits</b>"
@@ -341,11 +343,11 @@ msgstr "Mostrar stash no histórico"
 
 #: ../plugins/history/resources/preferences.ui.h:5
 msgid "Show staged changes in history"
-msgstr "Mostrar alterações staged no histórico"
+msgstr "Mostrar alterações apresentadas no histórico"
 
 #: ../plugins/history/resources/preferences.ui.h:6
 msgid "Show unstaged changes in history"
-msgstr "Mostrar alterações fora do stage no histórico"
+msgstr "Mostrar alterações não apresentadas no histórico"
 
 #: ../plugins/history/resources/preferences.ui.h:7
 msgid "Show history in topological order"
