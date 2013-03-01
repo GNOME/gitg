@@ -60,7 +60,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		owned get { return d_message_bus; }
 	}
 
-	[Notify]
+	[CCode(notify = false)]
 	public Repository? repository
 	{
 		owned get { return d_repository; }
@@ -69,6 +69,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			close();
 			d_repository = value;
 
+			notify_property("repository");
 			repository_changed();
 		}
 	}
