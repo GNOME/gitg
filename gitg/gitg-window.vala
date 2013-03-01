@@ -52,6 +52,20 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 	private GitgExt.NavigationTreeView d_navigation;
 
+	private static const ActionEntry[] win_entries = {
+		{"close", on_close_activated},
+	};
+
+	construct
+	{
+		add_action_entries(win_entries, this);
+	}
+
+	private void on_close_activated()
+	{
+		destroy();
+	}
+
 	public GitgExt.View? current_view
 	{
 		owned get { return d_views.current; }
@@ -172,7 +186,18 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_navigation = builder.get_object("tree_view_navigation") as GitgExt.NavigationTreeView;
 		d_config = builder.get_object("button_config") as Gtk.MenuButton;
 
-		var model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu");
+		string menuname;
+
+		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
+		{
+			menuname = "win-menu";
+		}
+		else
+		{
+			menuname = "app-win-menu";
+		}
+
+		var model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname);
 		d_config.menu_model = model;
 
 		var search_button = builder.get_object("search-button") as Gd.HeaderToggleButton;
