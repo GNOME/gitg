@@ -77,12 +77,21 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	{
 		if (d_repository != null)
 		{
+			// set title
+			File? workdir = (d_repository != null) ? d_repository.get_workdir() : null;
+			if (workdir != null)
+			{
+				title = "(%s) - gitg".printf(workdir.get_parse_name());
+			}
+
 			d_main_stack.set_visible_child(d_paned_views);
 			d_commit_view_switcher.show();
 			d_button_dash.show();
 		}
 		else
 		{
+			title = "gitg";
+
 			d_main_stack.set_visible_child(d_dash_view);
 			d_commit_view_switcher.hide();
 			d_button_dash.hide();
@@ -237,13 +246,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		                                         d_stack_panel);
 
 		d_panels.activated.connect(on_panel_activated);
-
-		// FIXME: this should happen when updating the repository
-		File? workdir = (d_repository != null) ? d_repository.get_workdir() : null;
-		if (workdir != null)
-		{
-			d_header_bar.title = workdir.get_basename();
-		}
 
 		// Setup window geometry saving
 		Gdk.WindowState window_state = (Gdk.WindowState)d_state_settings.get_int("state");
