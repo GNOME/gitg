@@ -78,7 +78,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		if (d_repository != null)
 		{
 			// set title
-			File? workdir = (d_repository != null) ? d_repository.get_workdir() : null;
+			File? workdir = d_repository.get_workdir();
 			if (workdir != null)
 			{
 				title = "(%s) - gitg".printf(workdir.get_parse_name());
