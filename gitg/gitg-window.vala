@@ -124,9 +124,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 	private void on_open_repository(Gtk.Button button)
 	{
-		Gtk.FileChooserDialog chooser = Resource.load_object<Gtk.FileChooserDialog>("ui/gitg-window.ui", "filechooserdialog_open");
-		chooser.transient_for = this;
-		chooser.show();
+		var chooser = new Gtk.FileChooserDialog (_("Select Repository"), this,
+		                                         Gtk.FileChooserAction.SELECT_FOLDER,
+		                                         Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL,
+		                                         Gtk.Stock.OPEN, Gtk.ResponseType.OK);
+		chooser.modal = true;
 
 		chooser.response.connect((c, id) => {
 			if (id == Gtk.ResponseType.OK)
@@ -136,6 +138,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 			c.destroy();
 		});
+
+		chooser.show();
 	}
 
 	private void parser_finished(Gtk.Builder builder)
