@@ -28,6 +28,7 @@ namespace GitgDiff
 		private Gtk.ScrolledWindow d_sw;
 		private GitgGtk.DiffView d_diff;
 		private GitgExt.ObjectSelection? d_view;
+		private GitgGtk.WhenMapped d_whenMapped;
 
 		construct
 		{
@@ -37,6 +38,8 @@ namespace GitgDiff
 			d_diff = new GitgGtk.DiffView(null);
 			d_diff.show();
 			d_sw.add(d_diff);
+
+			d_whenMapped = new GitgGtk.WhenMapped(d_sw);
 
 			application.notify["current_view"].connect((a, v) => {
 				notify_property("available");
@@ -80,7 +83,10 @@ namespace GitgDiff
 
 				if (c != null)
 				{
-					d_diff.commit = c;
+					d_whenMapped.update(() => {
+						d_diff.commit = c;
+					}, this);
+
 					return false;
 				}
 

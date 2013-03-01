@@ -40,6 +40,8 @@ namespace GitgFiles
 		private Gtk.Viewport d_imagevp;
 		private Gtk.Image d_image;
 
+		private GitgGtk.WhenMapped d_whenMapped;
+
 		construct
 		{
 			d_model = new TreeStore();
@@ -87,7 +89,10 @@ namespace GitgFiles
 
 				if (c != null)
 				{
-					d_model.tree = c.get_tree();
+					d_whenMapped.update(() => {
+						d_model.tree = c.get_tree();
+					}, this);
+
 					return false;
 				}
 
@@ -186,6 +191,8 @@ namespace GitgFiles
 
 				update_packing();
 			}
+
+			d_whenMapped = new GitgGtk.WhenMapped(d_paned);
 		}
 
 		public Gtk.Widget? widget
