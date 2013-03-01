@@ -81,3 +81,5 @@ generate-changelog:
 .PHONY: generate-changelog
 
 -include $(top_srcdir)/git.mk
+
+.NOTPARALLEL:
