@@ -24,6 +24,7 @@ private enum Column
 {
 	ICON_NAME,
 	TEXT,
+	HEADER,
 	HINT,
 	SECTION,
 	OID
@@ -66,7 +67,7 @@ public class NavigationTreeModel : Gtk.TreeStore
 
 	construct
 	{
-		set_column_types({typeof(string), typeof(string), typeof(uint), typeof(uint), typeof(uint)});
+		set_column_types({typeof(string), typeof(string), typeof(string), typeof(uint), typeof(uint), typeof(uint)});
 
 		d_callbacks = new Activated[100];
 		d_callbacks.length = 0;
@@ -100,7 +101,7 @@ public class NavigationTreeModel : Gtk.TreeStore
 
 		@set(iter,
 		     Column.ICON_NAME, icon_name,
-		     Column.TEXT, text,
+		     hint == Hint.HEADER ? Column.HEADER : Column.TEXT, text,
 		     Column.HINT, hint,
 		     Column.SECTION, d_sections,
 		     Column.OID, d_oid);
@@ -247,7 +248,8 @@ public class NavigationRendererText : Gtk.CellRendererText
 		}
 	}
 
-	public uint hint { get; set; }
+	public uint hint
+	{ get; set; }
 
 	construct
 	{
@@ -348,8 +350,6 @@ public class NavigationRendererText : Gtk.CellRendererText
 		var stx = widget.get_style_context();
 		ensure_pixbuf(stx);
 
-		int xpad = 3;
-
 		if (d_pixbuf == null)
 		{
 			base.render(ctx, widget, background_area, cell_area, state);
@@ -358,14 +358,14 @@ public class NavigationRendererText : Gtk.CellRendererText
 		{
 			// render the text with an additional padding
 			Gdk.Rectangle area = cell_area;
-			area.x += d_pixbuf.width + xpad;
+			area.x += d_pixbuf.width + 3;
 
 			base.render(ctx, widget, background_area, area, state);
 
 			// render the pixbuf
-			int ypad = (cell_area.height - d_pixbuf.height) / 2;
+			int yp = (cell_area.height - d_pixbuf.height) / 2;
 
-			stx.render_icon(ctx, d_pixbuf, cell_area.x, cell_area.y + ypad);
+			stx.render_icon(ctx, d_pixbuf, cell_area.x, cell_area.y + yp);
 		}
 	}
 }
@@ -377,28 +377,41 @@ public class NavigationTreeView : Gtk.TreeView
 		var model = new NavigationTreeModel();
 		set_model(model);
 
+		var col = new Gtk.TreeViewColumn();
+
+		var padcell = new Gtk.CellRendererText();
+		var headercell = new NavigationRendererText();
 		var cell = new NavigationRendererText();
-		var col = new Gtk.TreeViewColumn.with_attributes("text",
-		                                                  cell,
-		                                                  "icon_name", Column.ICON_NAME,
-		                                                  "text", Column.TEXT,
-		                                                  "hint", Column.HINT);
 
-		col.set_cell_data_func(cell, (col, cell, model, iter) => {
-			uint hint;
+		padcell.xpad = 6;
+		headercell.ypad = 6;
 
+		headercell.weight = Pango.Weight.BOLD;
+
+		col.pack_start(padcell, false);
+		col.pack_start(headercell, true);
+		col.pack_start(cell, true);
+
+		col.set_attributes(headercell,
+		                   "icon_name", Column.ICON_NAME,
+		                   "text", Column.HEADER);
+
+		col.set_attributes(cell,
+		                   "icon_name", Column.ICON_NAME,
+		                   "text", Column.TEXT);
+
+		col.set_cell_data_func(headercell, (layout, cell, model, iter) => {
+			Hint hint;
 			model.get(iter, Column.HINT, out hint);
 
-			Gtk.CellRendererText t = cell as Gtk.CellRendererText;
+			cell.visible = (hint == Hint.HEADER);
+		});
 
-			if (hint == Hint.HEADER)
-			{
-				t.weight = Pango.Weight.BOLD;
-			}
-			else
-			{
-				t.weight = Pango.Weight.NORMAL;
-			}
+		col.set_cell_data_func(cell, (layout, cell, model, iter) => {
+			Hint hint;
+			model.get(iter, Column.HINT, out hint);
+
+			cell.visible = (hint != Hint.HEADER);
 		});
 
 		set_row_separator_func((model, iter) => {

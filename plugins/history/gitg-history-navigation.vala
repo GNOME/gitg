@@ -213,6 +213,11 @@ namespace GitgHistory
 		{
 			get { return true; }
 		}
+
+		public bool show_expanders
+		{
+			get { return false; }
+		}
 	}
 }
 

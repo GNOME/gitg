@@ -32,6 +32,7 @@ public interface Navigation : Object
 
 	public abstract void populate(GitgExt.NavigationTreeModel model);
 	public abstract bool available { get; }
+	public abstract bool show_expanders { get; }
 
 	public abstract NavigationSide navigation_side { get; }
 }

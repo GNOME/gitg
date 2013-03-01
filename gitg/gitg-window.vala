@@ -205,14 +205,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		// 1) Clear the navigation tree
 		d_navigation.model.clear();
 
-		if (view != null)
+		if (view != null && view.navigation != null)
 		{
+			d_navigation.set_show_expanders(view.navigation.show_expanders);
+
+			if (view.navigation.show_expanders)
+			{
+				d_navigation.set_level_indentation(0);
+			}
+			else
+			{
+				d_navigation.set_level_indentation(12);
+			}
+
 			// 2) Populate the navigation tree for this view
 			d_navigation.model.populate(view.navigation);
-			d_navigation.expand_all();
-
-			d_navigation.select_first();
 		}
+		
+		d_navigation.expand_all();
+		d_navigation.select_first();
 
 		// Update panels
 		d_panels.update();
