@@ -221,16 +221,6 @@ public class Application : Gtk.Application
 		}
 	}
 
-	private void on_win_close_activated()
-	{
-		unowned List<Gtk.Window> wnds = get_windows();
-
-		if (wnds != null)
-		{
-			wnds.data.destroy();
-		}
-	}
-
 	private void on_preferences_activated()
 	{
 		unowned List<Gtk.Window> wnds = get_windows();
@@ -262,7 +252,6 @@ public class Application : Gtk.Application
 		{"help", on_app_help_activated},
 		{"about", on_app_about_activated},
 		{"quit", on_app_quit_activated},
-		{"winclose", on_win_close_activated},
 		{"preferences", on_preferences_activated}
 	};
 
