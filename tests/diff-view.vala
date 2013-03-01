@@ -67,13 +67,13 @@ class TestDiffView
 			return 1;
 		}
 
-		Ggit.Commit commit;
+		Gitg.Commit commit;
 
 		if (args.length > 2)
 		{
 			try
 			{
-				commit = repo.revparse(args[2]) as Ggit.Commit;
+				commit = repo.revparse(args[2]) as Gitg.Commit;
 			}
 			catch
 			{
@@ -86,7 +86,7 @@ class TestDiffView
 			try
 			{
 				var head = repo.get_head();
-				commit = head.lookup() as Ggit.Commit;
+				commit = head.lookup() as Gitg.Commit;
 			}
 			catch
 			{
