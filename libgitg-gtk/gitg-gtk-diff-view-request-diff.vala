@@ -226,6 +226,7 @@ namespace GitgGtk
 			builder.set_member_name("diff").begin_array();
 
 			int64 numlines = 0;
+			int64 maxlines = 0;
 
 			diff.foreach(
 				(delta, progress) => {
@@ -244,6 +245,16 @@ namespace GitgGtk
 						return 1;
 					}
 
+					var maxold = range.get_old_start() + range.get_old_lines();
+					var maxnew = range.get_new_start() + range.get_new_lines();
+
+					var ml = int64.max(maxold, maxnew);
+
+					if (ml > maxlines)
+					{
+						maxlines = ml;
+					}
+
 					hunk_cb(builder, state, delta, range, ((string)header).substring(0, header.length));
 					return 0;
 				},
@@ -257,6 +268,7 @@ namespace GitgGtk
 					if (delta.get_binary() != 1)
 					{
 						++numlines;
+
 						line_cb(builder, delta, range, line_type, ((string)content).substring(0, content.length));
 					}
 
@@ -283,6 +295,7 @@ namespace GitgGtk
 
 			builder.end_array();
 			builder.set_member_name("lines").add_int_value(numlines);
+			builder.set_member_name("maxlines").add_int_value(maxlines);
 		}
 
 		private void build_commit(Ggit.Diff? diff, Json.Builder builder, Cancellable? cancellable)
