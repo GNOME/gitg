@@ -250,6 +250,11 @@ namespace GitgGtk
 				uri += "&css=" + Soup.URI.encode(custom_css.get_uri(), null);
 			}
 
+			if (dbg)
+			{
+				uri += "&debug=true";
+			}
+
 			d_loaded = false;
 
 			load_uri(uri);

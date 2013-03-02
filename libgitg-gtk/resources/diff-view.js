@@ -18,6 +18,7 @@ var params = function(query) {
 var settings = {
 	wrap: true,
 	tab_width: 4,
+	debug: false,
 };
 
 if ('settings' in params)
@@ -122,7 +123,15 @@ function update_diff(id)
 		html_builder_worker.terminate();
 	}
 
-	html_builder_worker = new Worker('diff-view-html-builder.js');
+	workeruri = 'diff-view-html-builder.js';
+
+	if (settings.debug)
+	{
+		var t = (new Date()).getTime();
+		workeruri += '?t' + t;
+	}
+
+	html_builder_worker = new Worker(workeruri);
 	html_builder_tick = 0;
 
 	var content = document.getElementById('diff_content');
