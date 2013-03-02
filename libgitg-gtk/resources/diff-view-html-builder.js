@@ -5,9 +5,11 @@ function html_escape(s)
 
 function diff_file(file, lnstate, data)
 {
-	var f = '<div>';
-
 	tabrepl = '<span class="tab" style="width: ' + data.settings.tab_width + 'ex">\t</span>';
+
+	var tablecontent = '';
+	var added = 0;
+	var removed = 0;
 
 	for (var i = 0; i < file.hunks.length; ++i)
 	{
@@ -16,7 +18,13 @@ function diff_file(file, lnstate, data)
 		var cold = h.range.old.start;
 		var cnew = h.range.new.start;
 
-		var tablecontent = '';
+		var hunkheader = '@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@';
+
+		tablecontent += '<tr class="hunk_header">\
+			<td class="gutter old">' + lnstate.gutterdots + '</td> \
+			<td class="gutter new">' + lnstate.gutterdots + '</td> \
+			<td class="hunk_header">' + hunkheader + '</td> \
+		</tr>';
 
 		for (var j = 0; j < h.lines.length; ++j)
 		{
@@ -28,20 +36,28 @@ function diff_file(file, lnstate, data)
 			switch (o)
 			{
 				case ' ':
-					row += 'context"><td>' + cold + '</td><td>' + cnew + '</td>';
+					row += 'context"> \
+						<td class="gutter old">' + cold + '</td> \
+						<td class="gutter new">' + cnew + '</td>';
 
 					cold++;
 					cnew++;
 				break;
 				case '+':
-					row += 'added"><td></td><td>' + cnew + '</td>';
+					row += 'added"> \
+						<td class="gutter old"></td> \
+						<td class="gutter new">' + cnew + '</td>';
 
 					cnew++;
+					added++;
 				break;
 				case '-':
-					row += 'removed"><td>' + cold + '</td><td></td>';
+					row += 'removed"> \
+						<td class="gutter old">' + cold + '</td> \
+						<td class="gutter new"></td>';
 
 					cold++;
+					removed++;
 				break;
 				default:
 					row += '">';
@@ -65,29 +81,68 @@ function diff_file(file, lnstate, data)
 				}
 			}
 		}
-
-		var filepath;
-
-		if (file.file.new.path)
-		{
-			filepath = file.file.new.path;
-		}
-		else
-		{
-			filepath = file.file.old.path;
-		}
-
-		var template = data.hunk_template.replace('<!-- ${FILEPATH} -->', filepath);
-		f += template.replace('<!-- ${TABLE_BODY} -->', tablecontent);
 	}
 
-	return f + '</div>';
+	var filepath;
+
+	if (file.file.new.path)
+	{
+		filepath = file.file.new.path;
+	}
+	else
+	{
+		filepath = file.file.old.path;
+	}
+
+	var total = added + removed;
+	var addedp = Math.floor(added / total * 100);
+	var removedp = 100 - addedp;
+
+	var stats = '<div class="stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></div>';
+
+	var template = data.file_template;
+	var repls = {
+		'FILEPATH': filepath,
+		'TABLE_BODY': tablecontent,
+		'STATS': stats,
+	};
+
+	for (var r in repls)
+	{
+		log([template, lnstate.replacements[r], repls[r]]);
+		template = template.replace(lnstate.replacements[r], repls[r]);
+	}
+
+	return template;
 }
 
-function diff_files(files, lines, data)
+function diff_files(files, lines, maxlines, data)
 {
 	var f = '';
-	lnstate = {lines: lines, processed: 0, nexttick: 0, tickfreq: 0.01};
+
+	var repl = [
+		'FILEPATH',
+		'GUTTER_DOTS',
+		'TABLE_BODY',
+		'STATS'
+	];
+
+	var replacements = {};
+
+	for (var r in repl)
+	{
+		replacements[repl[r]] = new RegExp('<!-- \\$\\{' + repl[r] + '\\} -->', 'g');
+	}
+
+	var lnstate = {
+		lines: lines,
+		maxlines: maxlines,
+		gutterdots: new Array(maxlines.toString().length + 1).join('.'),
+		processed: 0,
+		nexttick: 0,
+		tickfreq: 0.01,
+		replacements: replacements,
+	};
 
 	for (var i = 0; i < files.length; ++i)
 	{
@@ -95,6 +150,11 @@ function diff_files(files, lines, data)
 	}
 
 	return f;
+}
+
+function log(e)
+{
+	self.postMessage({'log': e});
 }
 
 self.onmessage = function(event) {
@@ -105,7 +165,7 @@ self.onmessage = function(event) {
 
 	r.onload = function(e) {
 		var j = JSON.parse(r.responseText);
-		var html = diff_files(j.diff, j.lines, data);
+		var html = diff_files(j.diff, j.lines, j.maxlines, data);
 
 		self.postMessage({url: data.url, diff_html: html});
 	}

@@ -12,14 +12,13 @@ div#diff {
   -webkit-tab-size: 4;
 }
 
-div#diff div.hunk {
+div#diff div.file {
   overflow: auto;
 }
 
-div#diff div.hunk table {
+div#diff div.file table {
   border-collapse: collapse;
   width: 100%;
-  border-bottom: 1px solid #d3d7cf;
 }
 
 img.avatar {
@@ -47,7 +46,15 @@ div.commit div.message {
   margin-bottom: 15px;
 }
 
-div#diff div.hunk table td {
+div#diff div.file table .gutter {
+  padding-left: 6px;
+  padding-right: 6px;
+  background-color: #ececec;
+  color: #aaa;
+  text-align: right;
+}
+
+div#diff div.file table td {
   white-space: pre;
 }
 
@@ -56,49 +63,109 @@ span.tab {
   display: inline-block;
 }
 
-div#diff div.hunk table.wrapped td {
+div#diff div.file table.wrapped td {
   white-space: pre-wrap;
 }
 
-div#diff div.hunk table tr.added td:last-child {
-  background-color: #ccffcc;
+div#diff div.file table.contents {
+  margin-top: 50px;
 }
 
-div#diff div.hunk table tr.removed td:last-child {
-  background-color: #ffcccc;
+div#diff div.file:first-child table.contents {
+  margin-top: 0px;
 }
 
-div#diff div.hunk table thead th {
-  background-color: #eeeeec;
-  padding-top: 3px;
-  padding-bottom: 3px;
+div#diff div.file table tr.context td:last-child {
+  background-color: #fafafa;
 }
 
-div#diff div.hunk table thead th.filepath {
-  text-align: left;
-  padding-left: 5px;
-  font-family: sans-serif;
+
+div#diff div.file table tr.added td:last-child {
+  background-color: #ddffdd;
 }
 
-div#diff div.hunk table td {
+div#diff div.file table tr.removed td:last-child {
+  background-color: #ffdddd;
+}
+
+div#diff div.file table tr.hunk_header td {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+div.file tr.file_header td {
+  border-bottom: 1px solid #ccc;
+  text-shadow: 1px 1px #fff;
+}
+
+div.file:first-child table.contents tr.file_header td {
+  background: -webkit-gradient(linear, left top, left bottom, from(#d3d7cf), to(#eeeeec));
+}
+
+div.stats {
+  width: 75px;
+  background-color: #ececec;
+  padding: 6px;
+  border-radius: 5px;
+  box-shadow: 1px 1px #ccc inset;
+  margin: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+div.stats .number, div.stats .bar {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+div.stats .bar {
+  width: 100%;
+  padding: 0px 0px 0px 6px;
+}
+
+div.stats .added, div.stats .removed {
+  height: 5px;
+  float: left;
+  display: block;
+}
+
+div.stats .added {
+  background-color: #33cc33;
+}
+
+div.stats .removed {
+  background-color: #cc3333;
+}
+
+div#diff div.file table tr.file_header td {
+  vertical-align: middle;
+}
+
+div#diff div.file table tr.file_header + tr.hunk_header td.hunk_header {
+  border-top: 0px;
+}
+
+div#diff div.file table td.hunk_header {
+  color: #aaa;
+  background-color: #ececec;
+  border-top: 1px solid #d3d7cf;
+  border-bottom: 1px solid #d3d7cf;
+}
+
+div#diff div.file table td {
   vertical-align: top;
 }
 
-div#diff div.hunk div#diff div.hunk table td:nth-child(0), div#diff div.hunk div#diff div.hunk table td:nth-child(1) {
-  padding-right: 2px;
-  padding-left: 2px;
-  background-color: #eeeeec;
-  text-align: right;
-  color: #888a85;
-}
-
-div#diff div.hunk table th.gutter {
-  text-align: center;
-}
-
-div#diff div.hunk table td:nth-child(2), div#diff div.hunk table th:nth-child(2)  {
+div#diff div.file table td.gutter.new {
   border-right: 3px solid #d3d7cf;
-  border-left: 1px solid #d3d7cf;
+}
+
+div#diff div.file table tr.hunk_header td.gutter.new {
+  border: 0;
+}
+
+div#diff div.file table td.gutter.old {
+  border-right: 1px solid #d3d7cf;
 }
 
 div.commit {

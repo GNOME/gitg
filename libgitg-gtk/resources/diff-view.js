@@ -174,13 +174,13 @@ function update_diff(id)
 
 	var t = (new Date()).getTime();
 
-	var hunk_template = $('#templates div.hunk')[0].outerHTML;
+	var file_template = $('#templates div.file')[0].outerHTML;
 
 	// Load the diff asynchronously
 	html_builder_worker.postMessage({
 		url: "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid + "&diffid=" + id + "&format=diff_only",
 		settings: settings,
-		hunk_template: hunk_template,
+		file_template: file_template,
 	});
 
 	// Load the commit directly here

@@ -19,19 +19,17 @@
       </div>
 
       <!-- Hunk template -->
-      <div class="hunk">
+      <div class="file">
         <table class="contents">
           <colgroup>
             <col width="0">
             <col width="0">
             <col width="100%">
           </colgroup>
-          <thead>
-            <th class="gutter">-</th>
-            <th class="gutter">+</th>
-            <th class="filepath"><!-- ${FILEPATH} --></th>
-          </thead>
           <tbody>
+            <tr class="file_header">
+              <td colspan="3"><!-- ${STATS} --><!-- ${FILEPATH} --></td>
+            </tr>
             <!-- ${TABLE_BODY} -->
           </tbody>
         </table>
