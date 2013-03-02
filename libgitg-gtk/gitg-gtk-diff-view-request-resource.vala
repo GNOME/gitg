@@ -50,7 +50,25 @@ namespace GitgGtk
 					path = path.substring(pre.length);
 				}
 
-				d_resource = File.new_for_path("resources" + path);
+				File? repopath;
+
+				try
+				{
+					repopath = Ggit.Repository.discover(File.new_for_path("."));
+				}
+				catch
+				{
+					repopath = null;
+				}
+
+				if (repopath != null)
+				{
+					d_resource = File.new_for_path(Path.build_filename(repopath.get_path(), "..", "libgitg-gtk", "resources", path));
+				}
+				else
+				{
+					d_resource = File.new_for_path(Path.build_filename("resources", path));
+				}
 			}
 
 			return d_resource;
