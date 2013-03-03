@@ -119,7 +119,7 @@ namespace GitgGtk
 
 			builder.set_member_name("status").add_int_value(delta.get_status());
 			builder.set_member_name("similarity").add_int_value(delta.get_similarity());
-			builder.set_member_name("binary").add_int_value(delta.get_binary());
+			builder.set_member_name("binary").add_int_value((int64)((delta.get_flags() & Ggit.DiffFlag.NOT_BINARY) == 0));
 
 			builder.set_member_name("hunks").begin_array();
 
@@ -265,7 +265,7 @@ namespace GitgGtk
 						return 1;
 					}
 
-					if (delta.get_binary() != 1)
+					if ((delta.get_flags() & Ggit.DiffFlag.NOT_BINARY) == 0)
 					{
 						++numlines;
 
