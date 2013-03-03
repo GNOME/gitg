@@ -2,808 +2,314 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 # Gintautas Miliauskas <gintas@akl.lt>, 2009.
+# Aurimas Černius <aurisc4@gmail.com>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-15 03:01+0300\n"
-"PO-Revision-Date: 2009-09-15 03:04+0300\n"
-"Last-Translator: Gintautas Miliauskas <gintautas@miliauskas.lt>\n"
-"Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gitg&keywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2013-03-01 18:39+0000\n"
+"PO-Revision-Date: 2013-03-03 23:32+0200\n"
+"Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
+"Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
-#: ../data/gitg.desktop.in.in.h:1
-msgid "Git repository browser"
-msgstr "Git repozitorijų naršyklė"
-
-#. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:179
-#: ../gitg/gitg-window.c:1017 ../gitg/gitg-window.c:1030
-#: ../gitg/gitg-branch-actions.c:146 ../gitg/gitg-branch-actions.c:199
-#: ../gitg/gitg-window.ui.h:18
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
 
-#: ../data/gitg.schemas.in.h:1
-msgid "Column at Which Right Margin is Shown"
-msgstr ""
+#: ../data/gitg.desktop.in.in.h:2
+msgid "Git repository browser"
+msgstr "Git saugyklų naršyklė"
 
-#: ../data/gitg.schemas.in.h:2
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
 msgid "Filter Revisions When Searching"
-msgstr ""
+msgstr "Filtruoti saugyklas ieškant"
 
-#: ../data/gitg.schemas.in.h:3
-msgid ""
-"Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
-msgstr ""
-
-#: ../data/gitg.schemas.in.h:4
-msgid "Show Right Margin in Commit Message View"
-msgstr ""
-
-#: ../data/gitg.schemas.in.h:5
-msgid ""
-"Show a right margin indicator in the commit message view. This can be used "
-"to easily see where to break the commit message at a particular column."
-msgstr ""
-
-#: ../data/gitg.schemas.in.h:6
-msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
-msgstr ""
-
-#: ../data/gitg.schemas.in.h:7
-msgid "When to Collapse Inactive Lanes"
-msgstr ""
-
-#: ../data/gitg.schemas.in.h:8
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
 msgid ""
 "Whether searching filters the revisions in the history view instead of "
 "jumping to the first match."
 msgstr ""
+"Ar paieška filtruoja saugyklas istorijos rodinyje užuot peršokus prie "
+"pirmojo atitikmens."
 
-#: ../gitg/gitg.c:52
+#. ex: ts=4 noet
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
+msgid "When to Collapse Inactive Lanes"
+msgstr "Kada sutraukti neaktyvias eilutes"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
+msgid ""
+"Setting that indicates when an inactive lane should be collapsed. Valid "
+"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+msgstr ""
+"To nustatymas nurodo, kada neaktyvi eilutės turi būti sutraukta. Galimos "
+"vertės yra 0 - 4, kur 0 nurodo „anksti“ ir 4 reiškia „vėlai“."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
+msgid "Show History in Topological Order"
+msgstr "Rodyti istorija topologijos tvarka"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
+msgid ""
+"Setting that indicates whether to show the history in topological order."
+msgstr "To nustatymas nurodo, ar istorija bus rodoma topologijos tvarka."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Pagrindinės sąsajos orientacija (vertikali arba horizontali)"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+msgid "Setting that sets the orientation of the main interface."
+msgstr "To nustatymas nurodo pagrindinės sąsajos orientaciją."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid "Show Right Margin in Commit Message View"
+msgstr "Rodyti dešinę paraštę patvirtinimo pranešimo rodinyje"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid ""
+"Show a right margin indicator in the commit message view. This can be used "
+"to easily see where to break the commit message at a particular column."
+msgstr ""
+"Rodyti dešinės paraštės indikatorių patvirtinimo pranešimo rodinyje. Tai "
+"gali būti naudojama lengvam pastebėjimui, kur laužyti patvirtinimo "
+"pranešimus."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+msgid "Column at Which Right Margin is Shown"
+msgstr "Stulpelis, kuriame rodoma dešinė paraštė"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+msgid ""
+"The column at which the right margin is shown if the right-margin preference "
+"is set to TRUE."
+msgstr ""
+"Stulpelis, kuriame rodoma dešinė paraštė, jei right-margin nustatymas yra "
+"nustatytas TEIGIAMAI."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+msgid "Allow External Diff Program"
+msgstr "Leisti išorinę Diff programą"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+msgid "Allow an external diff program to be used when viewing diffs in gitg."
+msgstr "Leisti naudoti išorinę diff programą rodant pakeitimus gitg."
+
+#: ../gitg/gitg-application.vala:49
 msgid "Show the application's version"
-msgstr ""
+msgstr "Rodyti programos versiją"
 
-#: ../gitg/gitg.c:53
-msgid "Start gitg in commit mode"
-msgstr ""
+#: ../gitg/gitg-application.vala:51
+msgid "Start gitg with a particular view"
+msgstr "Paleisti gitg su tam tikru rodiniu"
 
-#: ../gitg/gitg.c:63
+#: ../gitg/gitg-application.vala:53
+msgid "Do not try to load a repository from the current working directory"
+msgstr "Nebandyti įkelti saugyklos iš esamo katalogo"
+
+#: ../gitg/gitg-application.vala:76
 msgid "- git repository viewer"
-msgstr ""
+msgstr "- git saugyklos žiūryklė"
 
-#: ../gitg/gitg-commit-view.c:208 ../gitg/gitg-revision-tree-view.c:183
-msgid "Cannot display file content as text"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1437
-msgid "You must first stage some changes before committing"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1445
-msgid "Please enter a commit message before committing"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1457
-msgid ""
-"Your user name or email could not be retrieved for use in the sign off "
-"message"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1459
-msgid "Something went wrong while trying to commit"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1618
-msgid "Revert fail"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1629
-msgid "Are you sure you want to revert these changes?"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1632
-msgid "Reverting changes is permanent and cannot be undone"
-msgstr ""
-
-#: ../gitg/gitg-repository.c:591
-msgid "Staged changes"
-msgstr ""
-
-#: ../gitg/gitg-repository.c:593
-msgid "Unstaged changes"
-msgstr ""
-
-#: ../gitg/gitg-repository.c:1155
-msgid "Not a valid git repository"
-msgstr ""
-
-#: ../gitg/gitg-revision-tree-view.c:513
-msgid "(Empty)"
-msgstr ""
-
-#: ../gitg/gitg-window.c:423
-msgid "Select branch"
-msgstr ""
-
-#: ../gitg/gitg-window.c:485
-#, c-format
-msgid "Push local branch <%s> to remote branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-window.c:492
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-window.c:499
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-window.c:506
-#, c-format
-msgid "Apply stash to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-window.c:774
-msgid "Begin loading repository"
-msgstr ""
-
-#: ../gitg/gitg-window.c:783
-#, c-format
-msgid "Loaded %d revisions in %.2fs"
-msgstr ""
-
-#: ../gitg/gitg-window.c:794
-#, c-format
-msgid "Loading %d revisions..."
-msgstr ""
-
-#: ../gitg/gitg-window.c:803
-msgid "Could not find git repository"
-msgstr ""
-
-#: ../gitg/gitg-window.c:995
-msgid "All branches"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1206
-msgid "Open git repository"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1327
+#: ../gitg/gitg-application.vala:186
 msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr ""
+msgstr "gitg yra git saugyklos žiūryklė gtk+/GNOME aplinkai"
 
-#: ../gitg/gitg-window.c:1328
-msgid ""
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 59 Temple Place, Suite 330,\n"
-"Boston, MA 02111-1307, USA."
-msgstr ""
+#: ../gitg/gitg-application.vala:211
+msgid "gitg homepage"
+msgstr "gitg namų tinklapis"
 
-#: ../gitg/gitg-window.c:1790
-msgid "new"
-msgstr ""
+#: ../gitg/gitg-preferences-interface.vala:83
+msgid "Interface"
+msgstr "Sąsaja"
 
-#: ../gitg/gitg-window.c:1898 ../gitg/gitg-window.c:1937
-#, c-format
-msgid "New local branch <%s>"
-msgstr ""
+#. ex:set ts=4 noet
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "_Naujas langas"
 
-#: ../gitg/gitg-window.c:1910 ../gitg/gitg-branch-actions.c:316
-msgid "Remove remote branch"
-msgstr ""
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+msgid "_Preferences"
+msgstr "_Nustatymai"
 
-#: ../gitg/gitg-window.c:1915
-msgid "Checkout working copy"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1916
-msgid "Remove local branch"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1918
-msgid "Rename local branch"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1926 ../gitg/gitg-branch-actions.c:392
-msgid "Remove stash"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1932 ../gitg/gitg-branch-actions.c:454
-#: ../gitg/gitg-branch-actions.c:456
-msgid "Remove tag"
-msgstr ""
-
-#: ../gitg/gitg-window.c:2107
-msgid "Not all fields are correctly filled in"
-msgstr ""
-
-#: ../gitg/gitg-window.c:2109
-msgid "Please make sure to fill in both the tag name and the commit message"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:249
-#, c-format
-msgid "Branch <%s> could not be removed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:250
-msgid ""
-"This usually means that the branch is not fully merged in HEAD. Do you want "
-"to forcefully remove the branch?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:251
-msgid "Force remove"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:260
-#, c-format
-msgid "Branch <%s> could not be forcefully removed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:293
-#, c-format
-msgid "Failed to remove remote branch <%s>."
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:314
-#, c-format
-msgid "Are you sure you want to remove the remote branch <%s>?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:315
-msgid "This permanently removes the remote branch."
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:332 ../gitg/gitg-menus.xml.h:9
-msgid "Remove branch"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:390
-msgid "Are you sure you want to remove this stash item?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:391
-msgid "This permanently removes the stash item"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:418
-msgid "Failed to remove stash"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:419
-msgid "The stash item could not be successfully removed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:450
-#, c-format
-msgid "Are you sure you want to remove the tag <%s>?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:473
-#, c-format
-msgid "The tag <%s> could not be successfully removed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:477
-msgid "Failed to remove tag"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:534
-#, c-format
-msgid "Branch <%s> could not be renamed to <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:535
-msgid ""
-"This usually means that a branch with that name already exists. Do you want "
-"to overwrite the branch?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:536
-msgid "Force rename"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:545
-#, c-format
-msgid "Branch <%s> could not be forcefully renamed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:585 ../gitg/gitg-preferences.ui.h:12
-#: ../gitg/gitg-repository.ui.h:6 ../gitg/gitg-tag.ui.h:4
-msgid "Name:"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:693
-msgid "Do you want to temporarily stash these changes?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:697
-msgid "Do you want to stash and reapply these changes?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:702
-msgid "You have uncommited changes in your current working tree"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:704
-msgid "Stash changes"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:880
-msgid "Failed to save current index state"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:934 ../gitg/gitg-branch-actions.c:1216
-#: ../gitg/gitg-branch-actions.c:1508
-#, c-format
-msgid "Failed to checkout local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:972
-#, c-format
-msgid "Failed to checkout remote branch <%s> to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1012
-#, c-format
-msgid "Failed to checkout tag <%s> to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1103
-#, c-format
-msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1107
-#, c-format
-msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1115 ../gitg/gitg-branch-actions.c:1117
-#: ../gitg/gitg-branch-actions.c:1183 ../gitg/gitg-branch-actions.c:1185
-#: ../gitg/gitg-branch-actions.c:1224 ../gitg/gitg-branch-actions.c:1226
-#: ../gitg/gitg-branch-actions.c:1260 ../gitg/gitg-branch-actions.c:1262
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1309
-msgid "local"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1115 ../gitg/gitg-branch-actions.c:1117
-#: ../gitg/gitg-branch-actions.c:1183 ../gitg/gitg-branch-actions.c:1185
-#: ../gitg/gitg-branch-actions.c:1224 ../gitg/gitg-branch-actions.c:1226
-#: ../gitg/gitg-branch-actions.c:1260 ../gitg/gitg-branch-actions.c:1262
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1309
-msgid "remote"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1134
-msgid "The stashed changes have been stored to be reapplied manually"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1139
-msgid "Failed to checkout previously checked out branch"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1160
-msgid "Failed to reapply stash correctly"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1161
-msgid ""
-"There might be unresolved conflicts in the working tree or index which you "
-"need to resolve manually"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1182
-#, c-format
-msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1190 ../gitg/gitg-branch-actions.c:1192
-#: ../gitg/gitg-branch-actions.c:1236 ../gitg/gitg-menus.xml.h:4
-msgid "Merge"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1217
-msgid "The branch on which to merge could not be checked out"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1223
-#, c-format
-msgid "Merging %s branch <%s> onto %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1259
-#, c-format
-msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1267 ../gitg/gitg-branch-actions.c:1269
-#: ../gitg/gitg-branch-actions.c:1319 ../gitg/gitg-menus.xml.h:7
-msgid "Rebase"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1292
-msgid "Unable to rebase"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1293
-msgid ""
-"There are still uncommitted changes in your working tree and you are trying "
-"to rebase a branch onto the currently checked out branch. Either remove, "
-"stash or commit your changes first and try again"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1306
-#, c-format
-msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1345
-#, c-format
-msgid "Failed to push local branch <%s> to remote <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1346
-msgid ""
-"This usually means that the remote branch could not be fast-forwarded. Try "
-"fetching the latest changes."
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1370
-#, c-format
-msgid "Are you sure you want to push <%s> to <%s>?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1376 ../gitg/gitg-branch-actions.c:1378
-#: ../gitg/gitg-branch-actions.c:1399 ../gitg/gitg-branch-actions.c:1432
-#: ../gitg/gitg-branch-actions.c:1434 ../gitg/gitg-branch-actions.c:1457
-msgid "Push"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1391
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1426
-#, c-format
-msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1444
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s/%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1481
-#, c-format
-msgid "Are you sure you want to apply the stash item to local branch <%s>?"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1486 ../gitg/gitg-branch-actions.c:1488
-msgid "Apply stash"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1527
-#, c-format
-msgid "The stash could not be applied to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1531
-msgid "Failed to apply stash"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1577
-msgid ""
-"The tag object could not be successfully created. Please make sure you have "
-"a GPG key and the key is unlocked"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1581
-msgid "The tag object could not be successfully created"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1586
-msgid "Failed to create tag"
-msgstr ""
-
-#: ../gitg/gitg-repository-dialog.c:173 ../gitg/gitg-repository.ui.h:4
-msgid "Fetch"
-msgstr ""
-
-#: ../gitg/gitg-repository-dialog.c:178
-msgid "Cancel"
-msgstr ""
-
-#: ../gitg/gitg-repository-dialog.c:441 ../gitg/gitg-repository.ui.h:7
-#: ../gitg/gitg-tag.ui.h:5
-msgid "Properties"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:1
-msgid "Add signed-off-by"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:2
-msgid "Amend"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:3
-msgid "Author:"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:4
-msgid "Branch:"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:5
-msgid "Co_mmit message"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:6 ../gitg/gitg-preferences.ui.h:5
-msgid "Commit"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:7
-msgid "Context:"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:8
-msgid "Date:"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:9
-msgid "Details"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:10
-msgid "History"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:11
-msgid "Parent:"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:12
-msgid "SHA:"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:13
-msgid "Subject:"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:14
-msgid "Tree"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:15
-msgid "_Changes"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:16
-msgid "_Staged"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:17
-msgid "_Unstaged"
-msgstr ""
-
-#: ../gitg/gitg-commit-menu.ui.h:1 ../gitg/gitg-ui.xml.h:1
-msgid "Ignore"
-msgstr ""
-
-#: ../gitg/gitg-commit-menu.ui.h:2 ../gitg/gitg-ui.xml.h:3
-msgid "Revert"
-msgstr ""
-
-#: ../gitg/gitg-commit-menu.ui.h:3 ../gitg/gitg-ui.xml.h:4
-msgid "Stage"
-msgstr ""
-
-#: ../gitg/gitg-commit-menu.ui.h:4 ../gitg/gitg-ui.xml.h:5
-msgid "Unstage"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:1
-msgid "<b>Commit Message</b>"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:2
-msgid "<b>History</b>"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:3 ../gitg/gitg-repository.ui.h:1
-msgid "<b>User</b>"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:4
-msgid "Collapse inactive lanes"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:6 ../gitg/gitg-repository.ui.h:2
-msgid "Configuration"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:7
-msgid ""
-"Configure global git settings. This corresponds to the settings as stored in "
-"~/.gitconfig. Repository specific settings can be configured at the "
-"repository properties."
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:8
-msgid "Display right _margin"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:9 ../gitg/gitg-repository.ui.h:3
-msgid "E-mail:"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:10
-msgid "Early"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:11
-msgid "Late"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:13
-msgid "Preferences"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:14
-msgid "Preferences that apply to the commit view"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:15
-msgid "Preferences that apply to the revision view"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:16
-msgid "Search filters revisions in the history view"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:17
-msgid "Show staged changes in history"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:18
-msgid "Show stash in history"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:19
-msgid "Show unstaged changes in history"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:20
-msgid "View"
-msgstr ""
-
-#: ../gitg/gitg-preferences.ui.h:21
-msgid "_Right margin at column:"
-msgstr ""
-
-#: ../gitg/gitg-repository.ui.h:5
-msgid "Name"
-msgstr ""
-
-#: ../gitg/gitg-repository.ui.h:8
-msgid "Remotes"
-msgstr ""
-
-#: ../gitg/gitg-repository.ui.h:9
-msgid "URL"
-msgstr ""
-
-#: ../gitg/gitg-repository.ui.h:10
-msgid "gtk-add"
-msgstr ""
-
-#: ../gitg/gitg-repository.ui.h:11
-msgid "gtk-remove"
-msgstr ""
-
-#: ../gitg/gitg-tag.ui.h:1
-msgid "Create signed tag object"
-msgstr ""
-
-#: ../gitg/gitg-tag.ui.h:2 ../gitg/gitg-menus.xml.h:3
-msgid "Create tag"
-msgstr ""
-
-#: ../gitg/gitg-tag.ui.h:3
-msgid "Message:"
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:1
-msgid "Apply stash to..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:2
-msgid "Checkout branch"
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:5
-msgid "Merge branch with..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:6
-msgid "Push branch to..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:8
-msgid "Rebase branch onto..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:10
-msgid "Rename branch"
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:11
-msgid "_Author"
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:12
-msgid "_Date"
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:13
-msgid "_Hash"
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:14
-msgid "_Subject"
-msgstr ""
-
-#: ../gitg/gitg-ui.xml.h:2
-msgid "R_ecently Opened"
-msgstr ""
-
-#: ../gitg/gitg-ui.xml.h:6
-msgid "_Edit"
-msgstr ""
-
-#: ../gitg/gitg-ui.xml.h:7
-msgid "_File"
-msgstr ""
-
-#: ../gitg/gitg-ui.xml.h:8
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
 msgid "_Help"
-msgstr ""
+msgstr "_Žinynas"
 
-#: ../gitg/gitg-ui.xml.h:9
-msgid "_Open..."
-msgstr ""
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "_Apie"
 
-#: ../gitg/gitg-ui.xml.h:10
-msgid "_Repository"
-msgstr ""
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "_Išeiti"
 
-#: ../gitg/gitg-ui.xml.h:11
-msgid "_View"
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Close"
+msgstr "_Užverti"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "<b>Layout</b>"
+msgstr "<b>Layout</b>"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+#: ../plugins/history/resources/preferences.ui.h:2
+msgid "    "
+msgstr "    "
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
+msgid "Use horizontal layout"
+msgstr "Naudoti horizontalų išdėstymą"
+
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "gitg Preferences"
+msgstr "gitg nustatymai"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Open Repository"
+msgstr "Atverti saugyklą"
+
+#: ../plugins/diff/gitg-diff.vala:71
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/files/gitg-files.vala:77
+msgid "Files"
+msgstr "Failai"
+
+#. ex: ts=4 noet
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "stulpelis"
+
+#: ../plugins/history/gitg-history-command-line.vala:31
+msgid "Show all history"
+msgstr "Rodyti visą istoriją"
+
+#: ../plugins/history/gitg-history-command-line.vala:38
+msgid "Show gitg history options"
+msgstr "Rodyti gitg istorijos parinktis"
+
+#: ../plugins/history/gitg-history-command-line.vala:39
+msgid "gitg history options"
+msgstr "gitg istorijos parinktys"
+
+#: ../plugins/history/gitg-history-navigation.vala:120
+#: ../plugins/history/gitg-history-navigation.vala:124
+msgid "All commits"
+msgstr "Visi pakeitimai"
+
+#. Branches
+#: ../plugins/history/gitg-history-navigation.vala:128
+msgid "Branches"
+msgstr "Šakos"
+
+#. Remotes
+#: ../plugins/history/gitg-history-navigation.vala:163
+msgid "Remotes"
+msgstr "Nutolusios saugyklos"
+
+#. Tags
+#: ../plugins/history/gitg-history-navigation.vala:188
+msgid "Tags"
+msgstr "Žymos"
+
+#: ../plugins/history/gitg-history-preferences.vala:136
+#: ../plugins/history/gitg-history.vala:135
+msgid "History"
+msgstr "Istorija"
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
 msgstr ""
+"To nustatymas nurodo sutraukti eilutes, kurios nerodo veiklos. Tai įjungus "
+"gali būti rodoma švaresnė istorija, kai yra daug lygiagretaus kūrimo. "
+"Žiūrėkite collapse-inactive-lanes valdymui, kada eilutės turi būti "
+"sutrauktos."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr "To nustatymas nurodo, kada rodyti elementus istorijoje."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"To nustatymas nurodo, ar rodyti istorijoje virtualų elementą šiuo metu "
+"paruoštiems pakeitimams."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"To nustatymas nurodo, ar rodyti virtualų elementą istorijoje šiuo metu "
+"neparuoštiems pakeitimams."
+
+#: ../plugins/history/resources/preferences.ui.h:1
+msgid "<b>Commits</b>"
+msgstr "<b>Pakeitimai</b>"
+
+#: ../plugins/history/resources/preferences.ui.h:3
+msgid "Collapse inactive lanes"
+msgstr "Sutraukti neaktyvias eilutes"
+
+#: ../plugins/history/resources/preferences.ui.h:4
+msgid "Show stash in history"
+msgstr "Rodyti istoriją"
+
+#: ../plugins/history/resources/preferences.ui.h:5
+msgid "Show staged changes in history"
+msgstr "Rodyti istorijoje paruoštus pakeitimus"
+
+#: ../plugins/history/resources/preferences.ui.h:6
+msgid "Show unstaged changes in history"
+msgstr "Rodyti istorijoje neparuoštus pakeitimus"
+
+#: ../plugins/history/resources/preferences.ui.h:7
+msgid "Show history in topological order"
+msgstr "Rodyti istoriją topologijos tvarka"
+
+#: ../plugins/history/resources/preferences.ui.h:8
+msgid "        "
+msgstr "        "
+
+#: ../plugins/history/resources/preferences.ui.h:9
+msgid "Early"
+msgstr "Anksti"
+
+#: ../plugins/history/resources/preferences.ui.h:10
+msgid "Late"
+msgstr "Vėlai"
+
+#: ../plugins/history/resources/view-history.ui.h:1
+msgid "Subject"
+msgstr "Santrauka"
+
+#: ../plugins/history/resources/view-history.ui.h:2
+msgid "Author"
+msgstr "Autorius"
+
+#: ../plugins/history/resources/view-history.ui.h:3
+msgid "Date"
+msgstr "Data"
