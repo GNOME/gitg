@@ -5,22 +5,22 @@
 #
 # Chihau Chau <chihau@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011, 2012.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2012-11-02 18:38+0000\n"
-"PO-Revision-Date: 2012-11-08 13:08+0100\n"
+"POT-Creation-Date: 2013-03-01 18:39+0000\n"
+"PO-Revision-Date: 2013-03-04 13:31+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: Gtranslator 2.91.5\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
@@ -75,7 +75,6 @@ msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Orientación de la interfaz principal (vertical u horizontal)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-#| msgid "Setting that sets the orientation layout of the main view."
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Ajuste que configura la orientación de la interfaz principal."
 
@@ -88,8 +87,8 @@ msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». "
-"Se puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
+"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». Se "
+"puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
 "columna en particular."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
@@ -112,32 +111,31 @@ msgstr "Permitir un programa diff externo"
 msgid "Allow an external diff program to be used when viewing diffs in gitg."
 msgstr "Permitir usar un programa diff externo al ver diferencias en gitg."
 
-#: ../gitg/gitg-application.vala:43
+#: ../gitg/gitg-application.vala:49
 msgid "Show the application's version"
 msgstr "Mostrar la versión de la aplicación"
 
-#: ../gitg/gitg-application.vala:45
+#: ../gitg/gitg-application.vala:51
 msgid "Start gitg with a particular view"
 msgstr "Iniciar gitg con una vista en particular"
 
-#: ../gitg/gitg-application.vala:47
+#: ../gitg/gitg-application.vala:53
 msgid "Do not try to load a repository from the current working directory"
 msgstr "No intentar cargar un repositorio desde la carpeta actual"
 
-#: ../gitg/gitg-application.vala:70
+#: ../gitg/gitg-application.vala:76
 msgid "- git repository viewer"
 msgstr "- visor de repositorios git"
 
-#: ../gitg/gitg-application.vala:185
+#: ../gitg/gitg-application.vala:186
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg es un visor de repositorios git para GTk+/GNOME"
 
-#: ../gitg/gitg-application.vala:210
+#: ../gitg/gitg-application.vala:211
 msgid "gitg homepage"
 msgstr "Página principal de gitg"
 
 #: ../gitg/gitg-preferences-interface.vala:83
-#| msgid "<b>Interface</b>"
 msgid "Interface"
 msgstr "Interfaz"
 
@@ -167,7 +165,6 @@ msgid "_Close"
 msgstr "_Cerrar"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-#| msgid "<b>Commits</b>"
 msgid "<b>Layout</b>"
 msgstr "<b>Distribución</b>"
 
@@ -177,7 +174,6 @@ msgid "    "
 msgstr "    "
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
-#| msgid "Use vertical layout"
 msgid "Use horizontal layout"
 msgstr "Usar distribución horizontal"
 
@@ -185,74 +181,16 @@ msgstr "Usar distribución horizontal"
 msgid "gitg Preferences"
 msgstr "Preferencias de gitg"
 
-#: ../plugins/dash/gitg-dash-navigation.vala:41
-msgid "Repository"
-msgstr "Repositorio"
-
-#: ../plugins/dash/gitg-dash-navigation.vala:42
-msgid "Open"
-msgstr "Abrir"
-
-#: ../plugins/dash/gitg-dash-navigation.vala:43
-#: ../plugins/dash/resources/view-create.ui.h:3
-msgid "Create"
-msgstr "Crear"
-
-#: ../plugins/dash/gitg-dash-navigation.vala:46
-msgid "Recent"
-msgstr "Recientes"
-
-#: ../plugins/dash/gitg-dash.vala:69
-msgid "Dashboard"
-msgstr "Tablero"
-
-#: ../plugins/dash/gitg-dash.vala:249
-msgid "(no branch)"
-msgstr "(sin rama)"
-
-#. ex: ts=4 noet
-#: ../plugins/dash/resources/view-create.ui.h:1
-msgid "Create repository"
-msgstr "Crear repositorio"
-
-#: ../plugins/dash/resources/view-create.ui.h:2
-msgid "Select a folder in which you want to create a new git repository."
-msgstr ""
-"Seleccione una carpeta en la que quiere crear un repositorio git nuevo."
-
-#: ../plugins/dash/resources/view-open.ui.h:1
-msgid "Open repository"
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+#| msgid "Open repository"
+msgid "Open Repository"
 msgstr "Abrir repositorio"
 
-#: ../plugins/dash/resources/view-open.ui.h:2
-msgid "Select a folder to open the corresponding git repository."
-msgstr "Seleccionar una carpeta para abrir el repositorio git correspondiente."
-
-#: ../plugins/dash/resources/view-recent.ui.h:1
-msgid "Recent repository"
-msgstr "Repositorio reciente"
-
-#: ../plugins/dash/resources/view-recent.ui.h:2
-msgid "Open a recently used repository."
-msgstr "Abrir un repositorio usado recientemente."
-
-#: ../plugins/dash/resources/view-recent.ui.h:3
-msgid "Path:"
-msgstr "Ruta:"
-
-#: ../plugins/dash/resources/view-recent.ui.h:4
-msgid "Last used:"
-msgstr "Último usado:"
-
-#: ../plugins/dash/resources/view-recent.ui.h:5
-msgid "Current branch:"
-msgstr "Rama actual:"
-
-#: ../plugins/diff/gitg-diff.vala:63
+#: ../plugins/diff/gitg-diff.vala:71
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/files/gitg-files.vala:72
+#: ../plugins/files/gitg-files.vala:77
 msgid "Files"
 msgstr "Archivos"
 
@@ -380,6 +318,50 @@ msgstr "Autor"
 #: ../plugins/history/resources/view-history.ui.h:3
 msgid "Date"
 msgstr "Fecha"
+
+#~ msgid "Repository"
+#~ msgstr "Repositorio"
+
+#~ msgid "Open"
+#~ msgstr "Abrir"
+
+#~ msgid "Create"
+#~ msgstr "Crear"
+
+#~ msgid "Recent"
+#~ msgstr "Recientes"
+
+#~ msgid "Dashboard"
+#~ msgstr "Tablero"
+
+#~ msgid "(no branch)"
+#~ msgstr "(sin rama)"
+
+#~ msgid "Create repository"
+#~ msgstr "Crear repositorio"
+
+#~ msgid "Select a folder in which you want to create a new git repository."
+#~ msgstr ""
+#~ "Seleccione una carpeta en la que quiere crear un repositorio git nuevo."
+
+#~ msgid "Select a folder to open the corresponding git repository."
+#~ msgstr ""
+#~ "Seleccionar una carpeta para abrir el repositorio git correspondiente."
+
+#~ msgid "Recent repository"
+#~ msgstr "Repositorio reciente"
+
+#~ msgid "Open a recently used repository."
+#~ msgstr "Abrir un repositorio usado recientemente."
+
+#~ msgid "Path:"
+#~ msgstr "Ruta:"
+
+#~ msgid "Last used:"
+#~ msgstr "Último usado:"
+
+#~ msgid "Current branch:"
+#~ msgstr "Rama actual:"
 
 #~ msgid "Show Main View in Vertical or Horizontal Layout"
 #~ msgstr "Mostrar la vista principal en distribución vertical u horizontal"
