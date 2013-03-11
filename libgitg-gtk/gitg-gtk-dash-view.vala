@@ -46,7 +46,8 @@ namespace GitgGtk
 			d_listbox.show();
 			add(d_listbox);
 
-			d_listbox.set_activate_on_single_click(false);
+			d_listbox.set_selection_mode (Gtk.SelectionMode.NONE);
+
 			d_listbox.child_activated.connect((listbox, child) => {
 				var data = child.get_data<RepositoryData>("data");
 
