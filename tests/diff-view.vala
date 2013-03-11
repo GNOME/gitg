@@ -3,7 +3,7 @@ class TestDiffView
 	public static int main(string[] args)
 	{
 		Gtk.init(ref args);
-		Ggit.init();
+		Gitg.init();
 
 		if (Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != "local" && args.length > 1 && args[1] == "--local")
 		{
@@ -102,13 +102,6 @@ class TestDiffView
 
 		var v = new GitgGtk.DiffView(null);
 		sw.add(v);
-
-		v.options = new Ggit.DiffOptions(Ggit.DiffOption.NORMAL,
-		                                 3,
-		                                 0,
-		                                 null,
-		                                 null,
-		                                 null);
 
 		v.commit = commit;
 
