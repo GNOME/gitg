@@ -107,12 +107,7 @@ namespace GitgHistory
 
 			try
 			{
-				head = repo.lookup_reference("HEAD");
-
-				if (head.get_reference_type() != Ggit.RefType.SYMBOLIC)
-				{
-					head = null;
-				}
+				head = repo.get_head();
 			} catch {}
 
 			if (CommandLine.all)
@@ -133,7 +128,7 @@ namespace GitgHistory
 				string? icon = null;
 				bool isdef = false;
 
-				if (head != null && item.get_name() == head.get_name())
+				if (head != null && item.get_target().equal(head.get_target()))
 				{
 					icon = "object-select-symbolic";
 
