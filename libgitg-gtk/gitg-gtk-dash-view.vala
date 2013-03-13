@@ -29,6 +29,7 @@ namespace GitgGtk
 		private class RepositoryData
 		{
 			public Repository repository;
+			public DateTime time;
 			public Grid grid;
 			public Label repository_label;
 			public Label branch_label;
@@ -46,6 +47,7 @@ namespace GitgGtk
 			context.add_class("content-view");
 			d_listbox.set_separator_funcs(update_separator);
 			d_listbox.set_filter_func(null);
+			d_listbox.set_sort_func(compare_widgets);
 			d_listbox.show();
 			add(d_listbox);
 
@@ -67,7 +69,7 @@ namespace GitgGtk
 			{
 				if (item.has_group("gitg"))
 				{
-					add_repository(item);
+					add_recent_info(item);
 				}
 			}
 		}
@@ -91,7 +93,14 @@ namespace GitgGtk
 			return text.contains(d_filter_text);
 		}
 
-		private void add_repository(RecentInfo info)
+		private int compare_widgets(Widget a, Widget b)
+		{
+			var data_a = a.get_data<RepositoryData>("data");
+			var data_b = b.get_data<RepositoryData>("data");
+			return data_a.time.compare(data_b.time);
+		}
+
+		private void add_recent_info(RecentInfo info)
 		{
 			File info_file = File.new_for_uri(info.get_uri());
 			File repo_file;
@@ -117,14 +126,21 @@ namespace GitgGtk
 				return;
 			}
 
+			add_repository(repo);
+		}
+
+		private void add_repository(Gitg.Repository repository)
+		{
 			var data = new RepositoryData();
-			data.repository = repo;
+			data.repository = repository;
+			data.time = new DateTime.now_local();
 			data.grid = new Grid();
 			data.grid.margin = 12;
 			data.grid.column_spacing = 10;
 
 			data.repository_label = new Label(null);
-			File? workdir = repo.get_workdir();
+			File? repo_file = repository.get_location();
+			File? workdir = repository.get_workdir();
 			var label_text = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
 			data.repository_label.set_markup("<b>%s</b>".printf(label_text));
 			data.repository_label.ellipsize = Pango.EllipsizeMode.END;
@@ -142,7 +158,7 @@ namespace GitgGtk
 			Gitg.Ref? head = null;
 			try
 			{
-				head = repo.get_head();
+				head = repository.get_head();
 			}
 			catch {}
 
@@ -151,10 +167,10 @@ namespace GitgGtk
 			{
 				try
 				{
-					repo.branches_foreach(Ggit.BranchType.LOCAL, (branch_name, branch_type) => {
+					repository.branches_foreach(Ggit.BranchType.LOCAL, (branch_name, branch_type) => {
 						try
 						{
-							Ref? reference = repo.lookup_reference("refs/heads/" + branch_name);
+							Ref? reference = repository.lookup_reference("refs/heads/" + branch_name);
 
 							if (reference != null && reference.get_target().equal(head.get_target()))
 							{
