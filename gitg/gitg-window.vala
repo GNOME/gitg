@@ -106,6 +106,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_commit_view_switcher.show();
 			d_button_dash.show();
 			d_button_open_repository.hide();
+			d_dash_view.add_repository(d_repository);
 		}
 		else
 		{

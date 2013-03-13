@@ -97,7 +97,7 @@ namespace GitgGtk
 		{
 			var data_a = a.get_data<RepositoryData>("data");
 			var data_b = b.get_data<RepositoryData>("data");
-			return data_a.time.compare(data_b.time);
+			return - data_a.time.compare(data_b.time);
 		}
 
 		private void add_recent_info(RecentInfo info)
@@ -129,68 +129,89 @@ namespace GitgGtk
 			add_repository(repo);
 		}
 
-		private void add_repository(Gitg.Repository repository)
+		public void add_repository(Gitg.Repository repository)
 		{
-			var data = new RepositoryData();
-			data.repository = repository;
-			data.time = new DateTime.now_local();
-			data.grid = new Grid();
-			data.grid.margin = 12;
-			data.grid.column_spacing = 10;
+			RepositoryData? data = null;
 
-			data.repository_label = new Label(null);
-			File? repo_file = repository.get_location();
-			File? workdir = repository.get_workdir();
-			var label_text = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
-			data.repository_label.set_markup("<b>%s</b>".printf(label_text));
-			data.repository_label.ellipsize = Pango.EllipsizeMode.END;
-			data.repository_label.valign = Align.START;
-			data.repository_label.halign = Align.START;
-			data.repository_label.hexpand = true;
-			data.grid.attach(data.repository_label, 0, 0, 1, 1);
-
-			data.branch_label = new Label("");
-			data.branch_label.ellipsize = Pango.EllipsizeMode.END;
-			data.branch_label.valign = Align.START;
-			data.branch_label.halign = Align.START;
-			data.grid.attach(data.branch_label, 0, 1, 1, 1);
-
-			Gitg.Ref? head = null;
-			try
+			foreach (var child in d_listbox.get_children())
 			{
-				head = repository.get_head();
+				var d = child.get_data<RepositoryData>("data");
+				if (d.repository == repository)
+				{
+					data = d;
+					break;
+				}
 			}
-			catch {}
 
-			// show the active branch
-			if (head != null)
+			if (data == null)
 			{
+				data = new RepositoryData();
+				data.repository = repository;
+				data.time = new DateTime.now_local();
+				data.grid = new Grid();
+				data.grid.margin = 12;
+				data.grid.column_spacing = 10;
+
+				data.repository_label = new Label(null);
+				File? repo_file = repository.get_location();
+				File? workdir = repository.get_workdir();
+				var label_text = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
+				data.repository_label.set_markup("<b>%s</b>".printf(label_text));
+				data.repository_label.ellipsize = Pango.EllipsizeMode.END;
+				data.repository_label.valign = Align.START;
+				data.repository_label.halign = Align.START;
+				data.repository_label.hexpand = true;
+				data.grid.attach(data.repository_label, 0, 0, 1, 1);
+
+				data.branch_label = new Label("");
+				data.branch_label.ellipsize = Pango.EllipsizeMode.END;
+				data.branch_label.valign = Align.START;
+				data.branch_label.halign = Align.START;
+				data.grid.attach(data.branch_label, 0, 1, 1, 1);
+
+				Gitg.Ref? head = null;
 				try
 				{
-					repository.branches_foreach(Ggit.BranchType.LOCAL, (branch_name, branch_type) => {
-						try
-						{
-							Ref? reference = repository.lookup_reference("refs/heads/" + branch_name);
-
-							if (reference != null && reference.get_target().equal(head.get_target()))
-							{
-								data.branch_label.set_text(branch_name);
-								return 1;
-							}
-						}
-						catch {}
-
-						return 0;
-					});
+					head = repository.get_head();
 				}
 				catch {}
+
+				// show the active branch
+				if (head != null)
+				{
+					try
+					{
+						repository.branches_foreach(Ggit.BranchType.LOCAL, (branch_name, branch_type) => {
+							try
+							{
+								Ref? reference = repository.lookup_reference("refs/heads/" + branch_name);
+
+								if (reference != null && reference.get_target().equal(head.get_target()))
+								{
+									data.branch_label.set_text(branch_name);
+									return 1;
+								}
+							}
+							catch {}
+
+							return 0;
+						});
+					}
+					catch {}
+				}
+
+				data.grid.attach(new Arrow(ArrowType.RIGHT, ShadowType.NONE), 1, 0, 1, 2);
+
+				data.grid.set_data<RepositoryData>("data", data);
+				data.grid.show_all();
+				d_listbox.add(data.grid);
 			}
-
-			data.grid.attach(new Arrow(ArrowType.RIGHT, ShadowType.NONE), 1, 0, 1, 2);
-
-			data.grid.set_data<RepositoryData>("data", data);
-			data.grid.show_all();
-			d_listbox.add(data.grid);
+			else
+			{
+				// to get the item sorted to the beginning of the list
+				data.time = new DateTime.now_local();
+				d_listbox.resort();
+			}
 		}
 
 		public void filter_text(string? text)
