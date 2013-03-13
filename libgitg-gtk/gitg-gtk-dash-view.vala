@@ -94,8 +94,10 @@ namespace GitgGtk
 		private void add_recent_info()
 		{
 			var recent_manager = RecentManager.get_default();
+			var reversed_items = recent_manager.get_items();
+			reversed_items.reverse();
 
-			foreach (var item in recent_manager.get_items())
+			foreach (var item in reversed_items)
 			{
 				if (item.has_group("gitg"))
 				{
@@ -139,13 +141,14 @@ namespace GitgGtk
 
 		public void add_repository(Gitg.Repository repository)
 		{
-			File? repo_file = repository.get_location();
 			RepositoryData? data = null;
+			File? workdir = repository.get_workdir();
+			File? repo_file = repository.get_location();
 
 			foreach (var child in d_listbox.get_children())
 			{
 				var d = child.get_data<RepositoryData>("data");
-				if (d.repository == repository)
+				if (d.repository.get_location().equal(repository.get_location()))
 				{
 					data = d;
 					break;
@@ -162,7 +165,6 @@ namespace GitgGtk
 				data.grid.column_spacing = 10;
 
 				data.repository_label = new Label(null);
-				File? workdir = repository.get_workdir();
 				var label_text = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
 				data.repository_label.set_markup("<b>%s</b>".printf(label_text));
 				data.repository_label.ellipsize = Pango.EllipsizeMode.END;
@@ -223,7 +225,12 @@ namespace GitgGtk
 
 			// add repository to recent manager
 			var recent_manager = RecentManager.get_default();
-			recent_manager.add_item(repo_file.get_uri());
+			var item = RecentData();
+			item.app_name = Environment.get_application_name();
+			item.mime_type = "inode/directory";
+			item.app_exec = string.join(" ", Environment.get_prgname(), "%f");
+			item.groups = { "gitg", null };
+			recent_manager.add_full(workdir.get_uri(), item);
 		}
 
 		public void filter_text(string? text)
