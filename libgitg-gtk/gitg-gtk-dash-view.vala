@@ -62,16 +62,7 @@ namespace GitgGtk
 				}
 			});
 
-			var recent_manager = RecentManager.get_default();
-			var items = recent_manager.get_items();
-
-			foreach (var item in items)
-			{
-				if (item.has_group("gitg"))
-				{
-					add_recent_info(item);
-				}
-			}
+			add_recent_info();
 		}
 
 		private void update_separator(ref Widget? separator, Widget widget, Widget? before_widget)
@@ -100,33 +91,42 @@ namespace GitgGtk
 			return - data_a.time.compare(data_b.time);
 		}
 
-		private void add_recent_info(RecentInfo info)
+		private void add_recent_info()
 		{
-			File info_file = File.new_for_uri(info.get_uri());
-			File repo_file;
+			var recent_manager = RecentManager.get_default();
 
-			try
+			foreach (var item in recent_manager.get_items())
 			{
-				repo_file = Ggit.Repository.discover(info_file);
-			}
-			catch
-			{
-				// TODO: remove from the recent manager
-				return;
-			}
+				if (item.has_group("gitg"))
+				{
+					File info_file = File.new_for_uri(item.get_uri());
+					File repo_file;
 
-			Gitg.Repository repo;
+					try
+					{
+						repo_file = Ggit.Repository.discover(info_file);
+					}
+					catch
+					{
+						recent_manager.remove_item(item.get_uri());
+						return;
+					}
 
-			try
-			{
-				repo = new Gitg.Repository(repo_file, null);
-			}
-			catch
-			{
-				return;
-			}
+					Gitg.Repository repo;
 
-			add_repository(repo);
+					try
+					{
+						repo = new Gitg.Repository(repo_file, null);
+					}
+					catch
+					{
+						recent_manager.remove_item(item.get_uri());
+						return;
+					}
+
+					add_repository(repo);
+				}
+			}
 		}
 
 		public void add_repository(Gitg.Repository repository)
