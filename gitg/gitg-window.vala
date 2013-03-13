@@ -39,6 +39,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private Gd.HeaderSimpleButton d_button_dash;
 	private Gd.StackSwitcher d_commit_view_switcher;
 
+	private Gd.TaggedEntry d_search_entry;
+
 	private Gd.Stack d_main_stack;
 
 	private Gtk.ScrolledWindow d_dash_scrolled_window;
@@ -202,13 +204,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		var search_button = builder.get_object("search-button") as Gd.HeaderToggleButton;
 		var revealer = builder.get_object("search-revealer") as Gd.Revealer;
-		var entry = builder.get_object("search-entry") as Gd.TaggedEntry;
+		d_search_entry = builder.get_object("search-entry") as Gd.TaggedEntry;
 
 		search_button.bind_property("active", revealer, "reveal-child");
 		search_button.toggled.connect((b) => {
 			if (b.get_active())
 			{
-				entry.grab_focus();
+				d_search_entry.grab_focus();
+			}
+			else
+			{
+				d_search_entry.set_text("");
+			}
+		});
+
+		d_search_entry.changed.connect((e) => {
+			// FIXME: this is a weird way to know the dash is visible
+			if (d_repository == null)
+			{
+				d_dash_view.filter_text((e as Gtk.Entry).text);
 			}
 		});
 

@@ -24,11 +24,13 @@ namespace GitgGtk
 {
 	public class DashView : Grid
 	{
+		private string? d_filter_text;
 		private Egg.ListBox d_listbox;
 		private class RepositoryData
 		{
 			public Repository repository;
 			public Grid grid;
+			public Label repository_label;
 			public Label branch_label;
 		}
 
@@ -43,6 +45,7 @@ namespace GitgGtk
 			context.add_class("view");
 			context.add_class("content-view");
 			d_listbox.set_separator_funcs(update_separator);
+			d_listbox.set_filter_func(null);
 			d_listbox.show();
 			add(d_listbox);
 
@@ -81,6 +84,13 @@ namespace GitgGtk
 			}
 		}
 
+		private bool filter(Widget widget)
+		{
+			var data = widget.get_data<RepositoryData>("data");
+			var text = data.repository_label.get_text();
+			return text.contains(d_filter_text);
+		}
+
 		private void add_repository(RecentInfo info)
 		{
 			File info_file = File.new_for_uri(info.get_uri());
@@ -113,15 +123,15 @@ namespace GitgGtk
 			data.grid.margin = 12;
 			data.grid.column_spacing = 10;
 
-			var label = new Label(null);
+			data.repository_label = new Label(null);
 			File? workdir = repo.get_workdir();
 			var label_text = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
-			label.set_markup("<b>%s</b>".printf(label_text));
-			label.ellipsize = Pango.EllipsizeMode.END;
-			label.valign = Align.START;
-			label.halign = Align.START;
-			label.hexpand = true;
-			data.grid.attach(label, 0, 0, 1, 1);
+			data.repository_label.set_markup("<b>%s</b>".printf(label_text));
+			data.repository_label.ellipsize = Pango.EllipsizeMode.END;
+			data.repository_label.valign = Align.START;
+			data.repository_label.halign = Align.START;
+			data.repository_label.hexpand = true;
+			data.grid.attach(data.repository_label, 0, 0, 1, 1);
 
 			data.branch_label = new Label("");
 			data.branch_label.ellipsize = Pango.EllipsizeMode.END;
@@ -165,6 +175,20 @@ namespace GitgGtk
 			data.grid.set_data<RepositoryData>("data", data);
 			data.grid.show_all();
 			d_listbox.add(data.grid);
+		}
+
+		public void filter_text(string? text)
+		{
+			d_filter_text = text;
+
+			if (text != null && text != "")
+			{
+				d_listbox.set_filter_func(filter);
+			}
+			else
+			{
+				d_listbox.set_filter_func(null);
+			}
 		}
 	}
 }
