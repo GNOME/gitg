@@ -108,7 +108,11 @@ namespace GitgGtk
 					}
 					catch
 					{
-						recent_manager.remove_item(item.get_uri());
+						try
+						{
+							recent_manager.remove_item(item.get_uri());
+						}
+						catch {}
 						return;
 					}
 
@@ -120,7 +124,11 @@ namespace GitgGtk
 					}
 					catch
 					{
-						recent_manager.remove_item(item.get_uri());
+						try
+						{
+							recent_manager.remove_item(item.get_uri());
+						}
+						catch {}
 						return;
 					}
 
@@ -131,6 +139,7 @@ namespace GitgGtk
 
 		public void add_repository(Gitg.Repository repository)
 		{
+			File? repo_file = repository.get_location();
 			RepositoryData? data = null;
 
 			foreach (var child in d_listbox.get_children())
@@ -153,7 +162,6 @@ namespace GitgGtk
 				data.grid.column_spacing = 10;
 
 				data.repository_label = new Label(null);
-				File? repo_file = repository.get_location();
 				File? workdir = repository.get_workdir();
 				var label_text = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
 				data.repository_label.set_markup("<b>%s</b>".printf(label_text));
@@ -212,6 +220,10 @@ namespace GitgGtk
 				data.time = new DateTime.now_local();
 				d_listbox.resort();
 			}
+
+			// add repository to recent manager
+			var recent_manager = RecentManager.get_default();
+			recent_manager.add_item(repo_file.get_uri());
 		}
 
 		public void filter_text(string? text)
