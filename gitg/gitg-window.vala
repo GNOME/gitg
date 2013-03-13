@@ -84,7 +84,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		owned get { return d_repository; }
 		set
 		{
-			close();
 			d_repository = value;
 
 			notify_property("repository");
@@ -398,7 +397,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		}
 	}
 
-	public void open(File path)
+	private void open(File path)
 	{
 		File repo;
 		Gitg.Repository? repository = null;
@@ -426,16 +425,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		catch {}
 
 		this.repository = repository;
-	}
-
-	public void create(File path)
-	{
-		// TODO
-	}
-
-	public void close()
-	{
-		// TODO
 	}
 }
 

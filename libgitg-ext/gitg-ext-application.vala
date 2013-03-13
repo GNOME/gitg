@@ -54,28 +54,6 @@ public interface Application : Object
 	 *         given id exists.
 	 */
 	public abstract GitgExt.View? view(string id);
-
-	/**
-	 * Open an existing repository.
-	 *
-	 * @param repository the path to the repository to open.
-	 *
-	 */
-	public abstract void open(File repository);
-
-	/**
-	 * Create and open a new repository.
-	 *
-	 * @param repository the path at which the new repository is to be created.
-	 *
-	 */
-	public abstract void create(File repository);
-
-	/**
-	 * Close the currently open repository.
-	 *
-	 **/
-	public abstract void close();
 }
 
 }
