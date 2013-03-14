@@ -71,7 +71,7 @@ namespace GitgGtk
 
 		private void update_separator(ref Widget? separator, Widget widget, Widget? before_widget)
 		{
-			if (before_widget != null && separator == null)
+			if (before_widget != null)
 			{
 				separator = new Separator(Orientation.HORIZONTAL);
 			}
