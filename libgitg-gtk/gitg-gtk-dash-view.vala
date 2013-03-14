@@ -177,6 +177,7 @@ namespace GitgGtk
 				data.branch_label.ellipsize = Pango.EllipsizeMode.END;
 				data.branch_label.valign = Align.START;
 				data.branch_label.halign = Align.START;
+				data.branch_label.get_style_context().add_class("dim-label");
 				data.grid.attach(data.branch_label, 0, 1, 1, 1);
 
 				Gitg.Ref? head = null;
