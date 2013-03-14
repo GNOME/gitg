@@ -24,6 +24,7 @@ namespace GitgGtk
 {
 	public class DashView : Grid
 	{
+		private static Gtk.IconSize d_icon_size;
 		private string? d_filter_text;
 		private Egg.ListBox d_listbox;
 		private class RepositoryData
@@ -31,6 +32,7 @@ namespace GitgGtk
 			public Repository repository;
 			public DateTime time;
 			public Grid grid;
+			public Image image;
 			public Label repository_label;
 			public Label branch_label;
 		}
@@ -41,6 +43,8 @@ namespace GitgGtk
 
 		construct
 		{
+			d_icon_size = Gtk.icon_size_register ("gitg", 64, 64);
+
 			d_listbox = new Egg.ListBox();
 			var context = d_listbox.get_style_context();
 			context.add_class("view");
@@ -164,6 +168,13 @@ namespace GitgGtk
 				data.grid.margin = 12;
 				data.grid.column_spacing = 10;
 
+				// FIXME: choose the folder image in relation to the next:
+				// - the repository is local
+				// - the repository has a remote
+				// - the repository uses github...
+				data.image = new Image.from_icon_name("folder", d_icon_size);
+				data.grid.attach(data.image, 0, 0, 1, 2);
+
 				data.repository_label = new Label(null);
 				var label_text = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
 				data.repository_label.set_markup("<b>%s</b>".printf(label_text));
@@ -171,14 +182,14 @@ namespace GitgGtk
 				data.repository_label.valign = Align.START;
 				data.repository_label.halign = Align.START;
 				data.repository_label.hexpand = true;
-				data.grid.attach(data.repository_label, 0, 0, 1, 1);
+				data.grid.attach(data.repository_label, 1, 0, 1, 1);
 
 				data.branch_label = new Label("");
 				data.branch_label.ellipsize = Pango.EllipsizeMode.END;
 				data.branch_label.valign = Align.START;
 				data.branch_label.halign = Align.START;
 				data.branch_label.get_style_context().add_class("dim-label");
-				data.grid.attach(data.branch_label, 0, 1, 1, 1);
+				data.grid.attach(data.branch_label, 1, 1, 1, 1);
 
 				Gitg.Ref? head = null;
 				try
@@ -211,7 +222,7 @@ namespace GitgGtk
 					catch {}
 				}
 
-				data.grid.attach(new Arrow(ArrowType.RIGHT, ShadowType.NONE), 1, 0, 1, 2);
+				data.grid.attach(new Arrow(ArrowType.RIGHT, ShadowType.NONE), 2, 0, 1, 2);
 
 				data.grid.set_data<RepositoryData>("data", data);
 				data.grid.show_all();
