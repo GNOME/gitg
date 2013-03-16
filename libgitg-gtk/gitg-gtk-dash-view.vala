@@ -37,9 +37,7 @@ namespace GitgGtk
 			public Label branch_label;
 		}
 
-		public virtual signal void repository_activated(Repository repository)
-		{
-		}
+		public signal void repository_activated(Repository repository);
 
 		construct
 		{
