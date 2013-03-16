@@ -62,6 +62,21 @@ GtkLabel.grid_title {
 	font-weight: bold;
 }
 
+.sidebar-paned.pane-separator,
+.sidebar-paned.pane-separator:hover {
+	border-width: 1px 1px 0 0;
+	border-style: solid;
+	border-color: @borders;
+	background-color: @sidebar_bg;
+	color: shade (@theme_bg_color, 0.9);
+}
+
+.sidebar-paned.pane-separator:backdrop,
+.sidebar-paned.pane-separator:hover:backdrop {
+	border-color: @unfocused_borders;
+	background-color: @sidebar_bg_unfocused;
+}
+
 .branch, .remote, .tag, .stash {
 	border-radius: 6px;
 	border: 1px solid @theme_bg_color;

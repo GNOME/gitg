@@ -33,7 +33,6 @@ namespace GitgDiff
 		construct
 		{
 			d_sw = new Gtk.ScrolledWindow(null, null);
-			d_sw.shadow_type = Gtk.ShadowType.IN;
 			d_sw.show();
 			d_diff = new GitgGtk.DiffView(null);
 			d_diff.show();
