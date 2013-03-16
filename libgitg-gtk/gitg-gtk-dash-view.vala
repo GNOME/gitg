@@ -177,8 +177,8 @@ namespace GitgGtk
 				var label_text = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
 				data.repository_label.set_markup("<b>%s</b>".printf(label_text));
 				data.repository_label.ellipsize = Pango.EllipsizeMode.END;
-				data.repository_label.valign = Align.START;
 				data.repository_label.halign = Align.START;
+				data.repository_label.valign = Align.END;
 				data.repository_label.hexpand = true;
 				data.grid.attach(data.repository_label, 1, 0, 1, 1);
 
@@ -208,7 +208,7 @@ namespace GitgGtk
 
 								if (reference != null && reference.get_target().equal(head.get_target()))
 								{
-									data.branch_label.set_text(branch_name);
+									data.branch_label.set_markup("<small>%s</small>".printf(branch_name));
 									return 1;
 								}
 							}
