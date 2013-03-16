@@ -102,6 +102,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 				title = "(%s) - gitg".printf(workdir.get_parse_name());
 			}
 
+			d_main_stack.transition_type = Gd.StackTransitionType.SLIDE_LEFT;
 			d_main_stack.set_visible_child(d_paned_views);
 			d_commit_view_switcher.show();
 			d_button_dash.show();
@@ -112,6 +113,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		{
 			title = "gitg";
 
+			d_main_stack.transition_type = Gd.StackTransitionType.SLIDE_RIGHT;
 			d_main_stack.set_visible_child(d_dash_scrolled_window);
 			d_commit_view_switcher.hide();
 			d_button_dash.hide();
