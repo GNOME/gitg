@@ -33,7 +33,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 	// Widgets
 	private Gd.HeaderBar d_header_bar;
-	private Gtk.MenuButton d_config;
+	private Gtk.MenuButton d_gear_menu;
 
 	private Gd.HeaderSimpleButton d_button_open_repository;
 	private Gd.HeaderSimpleButton d_button_dash;
@@ -55,6 +55,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private GitgExt.NavigationTreeView d_navigation;
 
 	private static const ActionEntry[] win_entries = {
+		{"gear-menu", on_gear_menu_activated, null, "false", null},
 		{"close", on_close_activated},
 	};
 
@@ -66,6 +67,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private void on_close_activated()
 	{
 		destroy();
+	}
+
+	private void on_gear_menu_activated(SimpleAction action) {
+		var state = action.get_state().get_boolean();
+		action.set_state(new Variant.boolean(!state));
 	}
 
 	public GitgExt.View? current_view
@@ -188,7 +194,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_commit_view_switcher.stack = d_stack_panel;
 
 		d_navigation = builder.get_object("tree_view_navigation") as GitgExt.NavigationTreeView;
-		d_config = builder.get_object("button_config") as Gtk.MenuButton;
+		d_gear_menu = builder.get_object("gear-menubutton") as Gtk.MenuButton;
 
 		string menuname;
 
@@ -202,7 +208,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		}
 
 		var model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname);
-		d_config.menu_model = model;
+		d_gear_menu.menu_model = model;
 
 		var search_button = builder.get_object("search-button") as Gd.HeaderToggleButton;
 		var revealer = builder.get_object("search-revealer") as Gd.Revealer;

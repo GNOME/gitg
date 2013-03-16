@@ -276,6 +276,8 @@ public class Application : Gtk.Application
 			}
 		}
 
+		add_accelerator("F10", "win.gear-menu", null);
+
 		// Use our own css provider
 		Gtk.CssProvider? provider = Resource.load_css("style.css");
 		if (provider != null)
