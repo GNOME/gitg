@@ -70,8 +70,8 @@ pkgconfig_DATA = libgitg-1.0.pc
 
 BUILT_SOURCES =				\
 	$(gir_DATA)			\
+	$(vapi_DATA)			\
 	$(typelib_DATA)			\
-	libgitg-1.0.vapi		\
 	libgitg_1_0_la_vala.stamp	\
 	libgitg.h
 
