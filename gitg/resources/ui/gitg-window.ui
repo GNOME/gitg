@@ -228,18 +228,9 @@
                     <property name="orientation">vertical</property>
                     <property name="position">300</property>
                     <child>
-                      <object class="GtkEventBox" id="frame_background">
+                      <object class="GdStack" id="stack_view">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <child>
-                          <object class="GdStack" id="stack_view">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <child>
-                              <placeholder/>
-                            </child>
-                          </object>
-                        </child>
                       </object>
                       <packing>
                         <property name="resize">True</property>
