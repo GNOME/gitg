@@ -49,6 +49,7 @@ EXTRA_DIST = $(plugin_DATA)			\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 
 CLEANFILES = 					\
+	$(gsettings_SCHEMAS)			\
 	$(VALA_SOURCES:.vala=.c)		\
 	$(BUILT_SOURCES)			\
 	libhistory_la_vala.stamp
