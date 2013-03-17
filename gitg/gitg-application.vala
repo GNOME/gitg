@@ -276,6 +276,7 @@ public class Application : Gtk.Application
 			}
 		}
 
+		add_accelerator("<Control>F", "win.search", null);
 		add_accelerator("F10", "win.gear-menu", null);
 
 		// Use our own css provider

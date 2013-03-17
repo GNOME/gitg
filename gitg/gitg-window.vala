@@ -55,6 +55,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private GitgExt.NavigationTreeView d_navigation;
 
 	private static const ActionEntry[] win_entries = {
+		{"search", on_search_activated, null, "false", null},
 		{"gear-menu", on_gear_menu_activated, null, "false", null},
 		{"close", on_close_activated},
 	};
@@ -67,6 +68,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private void on_close_activated()
 	{
 		destroy();
+	}
+
+	private void on_search_activated(SimpleAction action) {
+		var state = action.get_state().get_boolean();
+		action.set_state(new Variant.boolean(!state));
 	}
 
 	private void on_gear_menu_activated(SimpleAction action) {
