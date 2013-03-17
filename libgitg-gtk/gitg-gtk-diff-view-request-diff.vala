@@ -189,7 +189,7 @@ namespace GitgGtk
 			builder.add_string_value(sig.get_email());
 
 			builder.set_member_name("email_md5");
-			builder.add_string_value(Checksum.compute_for_string(ChecksumType.MD5, sig.get_email()));
+			builder.add_string_value(Checksum.compute_for_string(ChecksumType.MD5, sig.get_email().down()));
 
 			builder.set_member_name("time");
 			builder.add_int_value(sig.get_time().to_unix());
