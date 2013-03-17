@@ -222,7 +222,7 @@ function date_to_string(d)
 	}
 	else if (t < 3600)
 	{
-		return "One hour ago";
+		return "An hour ago";
 	}
 	else if (t < 3600 * 12)
 	{
@@ -231,7 +231,7 @@ function date_to_string(d)
 	}
 	else if (t < 3600 * 24)
 	{
-		return "One day ago";
+		return "A day ago";
 	}
 	else if (t < 3600 * 24 * 6)
 	{

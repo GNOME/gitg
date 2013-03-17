@@ -95,6 +95,41 @@ public class Commit : Ggit.Commit
 
 	private string date_for_display(DateTime dt)
 	{
+		var t = (new DateTime.now_local()).to_unix() - dt.to_unix();
+
+		if (t < 1)
+		{
+			return "Less than a second ago";
+		}
+		else if (t < 60)
+		{
+			return "Less than a minute ago";
+		}
+		else if (t < 600)
+		{
+			return "Less than 10 minutes ago";
+		}
+		else if (t < 1800)
+		{
+			return "Half an hour ago";
+		}
+		else if (t < 3600)
+		{
+			return "An hour ago";
+		}
+		else if (t < 3600 * 12)
+		{
+			return "%d hours ago".printf((int)Math.round(t / 3600));
+		}
+		else if (t < 3600 * 24)
+		{
+			return "A day ago";
+		}
+		else if (t < 3600 * 24 * 6)
+		{
+			return "%d days ago".printf((int)Math.round(t / (3600 * 24)));
+		}
+
 		return dt.format("%c");
 	}
 
