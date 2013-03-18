@@ -223,6 +223,7 @@ AC_SUBST(GITG_PLUGIN_LIBDIR)
 
 GITG_PLUGIN_CFLAGS="$GITG_CFLAGS"
 GITG_PLUGIN_LIBS="$GITG_LIBS 					\
+	\$(top_builddir)/libgd/libgd.la				\
 	\$(top_builddir)/libgitg/libgitg-1.0.la 		\
 	\$(top_builddir)/libgitg-ext/libgitg-ext-1.0.la 	\
 	\$(top_builddir)/libgitg-gtk/libgitg-gtk-1.0.la"
@@ -247,11 +248,13 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg libsoup-2.4			\
 	--pkg webkit2gtk-3.0			\
 	--pkg config				\
+	--pkg gd-1.0				\
 	\$(GITG_VALAFLAGS)			\
 	--vapidir \$(top_srcdir)/vapi		\
 	--vapidir \$(top_builddir)/libgitg	\
 	--vapidir \$(top_builddir)/libgitg-gtk	\
-	--vapidir \$(top_builddir)/libgitg-ext"
+	--vapidir \$(top_builddir)/libgitg-ext	\
+	--vapidir \$(top_builddir)/libgd"
 
 AC_SUBST(GITG_PLUGIN_VALAFLAGS)
 
@@ -285,6 +288,7 @@ LIBGD_INIT([
 	tagged-entry
 	stack
 	revealer
+	_view-common
 	static
 	vapi
 ])
