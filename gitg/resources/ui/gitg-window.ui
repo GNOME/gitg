@@ -176,43 +176,24 @@
                   <class name="sidebar-paned"/>
                 </style>
                 <child>
-                  <object class="GtkEventBox" id="navigation_background">
+                  <object class="GtkScrolledWindow" id="scrolled_window_navigation">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="hscrollbar_policy">never</property>
+                    <property name="name">scrolled_window_navigation</property>
                     <style>
                       <class name="sidebar"/>
                     </style>
                     <child>
-                      <object class="GtkGrid" id="grid_navigation">
+                      <object class="GitgExtNavigationTreeView" id="tree_view_navigation">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="hexpand">True</property>
-                        <child>
-                          <object class="GtkScrolledWindow" id="scrolled_window_navigation">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="hexpand">True</property>
-                            <property name="vexpand">True</property>
-                            <property name="hscrollbar_policy">never</property>
-                            <property name="name">scrolled_window_navigation</property>
-                            <child>
-                              <object class="GitgExtNavigationTreeView" id="tree_view_navigation">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="headers_visible">False</property>
-                                <property name="name">tree_view_navigation</property>
-                                <child internal-child="selection">
-                                  <object class="GtkTreeSelection" id="gitgextnavigationtreeView-selection"/>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">1</property>
-                            <property name="width">1</property>
-                            <property name="height">1</property>
-                          </packing>
+                        <property name="can_focus">True</property>
+                        <property name="headers_visible">False</property>
+                        <property name="name">tree_view_navigation</property>
+                        <child internal-child="selection">
+                          <object class="GtkTreeSelection" id="gitgextnavigationtreeView-selection"/>
                         </child>
                       </object>
                     </child>
