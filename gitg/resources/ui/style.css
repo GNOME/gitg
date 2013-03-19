@@ -62,6 +62,8 @@ GtkLabel.grid_title {
 	font-weight: bold;
 }
 
+.panels-paned.pane-separator,
+.panels-paned.pane-separator:hover,
 .sidebar-paned.pane-separator,
 .sidebar-paned.pane-separator:hover {
 	border-width: 0 1px 0 0;
@@ -71,11 +73,19 @@ GtkLabel.grid_title {
 	color: shade (@theme_bg_color, 0.9);
 }
 
+.panels-paned.pane-separator,
+.panels-paned.pane-separator:hover {
+	border-width: 1px 0 0 0;
+}
+
+.panels-paned.pane-separator:backdrop,
+.panels-paned.pane-separator:hover:backdrop,
 .sidebar-paned.pane-separator:backdrop,
 .sidebar-paned.pane-separator:hover:backdrop {
 	border-color: @unfocused_borders;
 	background-color: @sidebar_bg_unfocused;
 }
+
 
 .branch, .remote, .tag, .stash {
 	border-radius: 6px;
