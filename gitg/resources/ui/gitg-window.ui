@@ -19,10 +19,27 @@
             <property name="can_focus">False</property>
             <property name="vexpand">False</property>
             <child>
-              <object class="GdHeaderSimpleButton" id="button_open_repository">
+              <object class="GtkBox" id="dash_buttons_box">
                 <property name="visible">False</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Open Repository</property>
+                <property name="orientation">horizontal</property>
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GdHeaderSimpleButton" id="button_open_repository">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Open Repository</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GdHeaderSimpleButton" id="button_clone_repository">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Clone Repository</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="pack_type">start</property>

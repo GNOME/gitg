@@ -35,7 +35,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private Gd.HeaderBar d_header_bar;
 	private Gtk.MenuButton d_gear_menu;
 
-	private Gd.HeaderSimpleButton d_button_open_repository;
+	private Gtk.Box d_dash_buttons_box;
 	private Gd.HeaderSimpleButton d_button_dash;
 	private Gd.StackSwitcher d_commit_view_switcher;
 
@@ -118,7 +118,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_main_stack.set_visible_child(d_paned_views);
 			d_commit_view_switcher.show();
 			d_button_dash.show();
-			d_button_open_repository.hide();
+			d_dash_buttons_box.hide();
 			d_dash_view.add_repository(d_repository);
 		}
 		else
@@ -129,7 +129,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_main_stack.set_visible_child(d_dash_scrolled_window);
 			d_commit_view_switcher.hide();
 			d_button_dash.hide();
-			d_button_open_repository.show();
+			d_dash_buttons_box.show();
 		}
 
 		d_views.update();
@@ -176,8 +176,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	{
 		// Extract widgets from the builder
 		d_header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
-		d_button_open_repository = builder.get_object("button_open_repository") as Gd.HeaderSimpleButton;
-		d_button_open_repository.clicked.connect(on_open_repository);
+
+		d_dash_buttons_box = builder.get_object("dash_buttons_box") as Gtk.Box;
+		var button_open_repository = builder.get_object("button_open_repository") as Gd.HeaderSimpleButton;
+		button_open_repository.clicked.connect(on_open_repository);
+		var button_clone_repository = builder.get_object("button_clone_repository") as Gd.HeaderSimpleButton;
+
 		d_button_dash = builder.get_object("button_dash") as Gd.HeaderSimpleButton;
 		d_button_dash.clicked.connect((b) => {
 			repository = null;
