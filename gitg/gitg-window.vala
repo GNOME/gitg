@@ -172,6 +172,38 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		chooser.show();
 	}
 
+	private void on_clone_repository(Gtk.Button button)
+	{
+		var ret = GitgExt.UI.from_builder("ui/gitg-clone-dialog.ui",
+		                                  "dialog-clone",
+		                                  "entry-url",
+		                                  "filechooserbutton-location",
+		                                  "ok-button");
+
+		var dlg = ret["dialog-clone"] as Gtk.Dialog;
+		var entry_url = ret["entry-url"] as Gtk.Entry;
+		var chooser = ret["filechooserbutton-location"] as Gtk.FileChooserButton;
+		var ok_button = ret["ok-button"] as Gtk.Button;
+
+		dlg.modal = true;
+		dlg.set_transient_for(this);
+
+		entry_url.changed.connect((e) => {
+			ok_button.set_sensitive(entry_url.text_length != 0);
+		});
+
+		dlg.response.connect((d, id) => {
+			if (id == Gtk.ResponseType.OK)
+			{
+				//FIXME
+			}
+
+			d.destroy();
+		});
+
+		dlg.show();
+	}
+
 	private void parser_finished(Gtk.Builder builder)
 	{
 		// Extract widgets from the builder
@@ -181,6 +213,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		var button_open_repository = builder.get_object("button_open_repository") as Gd.HeaderSimpleButton;
 		button_open_repository.clicked.connect(on_open_repository);
 		var button_clone_repository = builder.get_object("button_clone_repository") as Gd.HeaderSimpleButton;
+		button_clone_repository.clicked.connect(on_clone_repository);
 
 		d_button_dash = builder.get_object("button_dash") as Gd.HeaderSimpleButton;
 		d_button_dash.clicked.connect((b) => {
