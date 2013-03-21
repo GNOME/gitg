@@ -203,7 +203,7 @@ namespace GitgGtk
 			{
 				data.arrow.hide();
 				data.spinner = new Spinner();
-				data.grid.attach(data.arrow, 2, 0, 1, 2);
+				data.grid.attach(data.spinner, 3, 0, 1, 2);
 				data.spinner.show();
 				data.spinner.start();
 			}
@@ -255,24 +255,55 @@ namespace GitgGtk
 			add_repository_to_recent_manager(uri);
 		}
 
-		public void clone_repository(string url, File location)
+		private async Gitg.Repository? clone(string url, File location)
 		{
+			SourceFunc callback = clone.callback;
 			Gitg.Repository? repository = null;
+
+			ThreadFunc<void*> run = () => {
+				try
+				{
+					repository = Ggit.Repository.clone(url, location, null) as Gitg.Repository;
+				}
+				catch {}
+
+				Idle.add((owned) callback);
+				return null;
+			};
 
 			try
 			{
-				repository = Ggit.Repository.clone(url, location, null) as Gitg.Repository;
-				add_repository(repository);
-
-				RepositoryData? data = get_data_for_repository(repository);
-				data.arrow.hide();
-
-				data.spinner = new Spinner();
-				data.grid.attach(data.spinner, 2, 0, 1, 2);
-				data.spinner.show();
-				data.spinner.start();
+				new Thread<void*>.try("gitg-clone-thread", run);
+				yield;
 			}
 			catch {}
+
+			return repository;
+		}
+
+		public void clone_repository(string url, File location)
+		{
+			RepositoryData? data = create_repository_data(location.get_path(), "Cloning...", true);
+
+			clone.begin(url, location, (obj, res) => {
+				Gitg.Repository? repository = clone.end(res);
+
+				Gitg.Ref? head = null;
+				string branch_name = "";
+
+				try
+				{
+					head = repository.get_head();
+					branch_name = head.parsed_name.shortname;
+				}
+				catch {}
+
+				data.repository = repository;
+				data.branch_label.set_markup("<small>%s</small>".printf(branch_name));
+				data.spinner.stop();
+				data.spinner.hide();
+				data.arrow.show();
+			});
 		}
 
 		public void filter_text(string? text)
