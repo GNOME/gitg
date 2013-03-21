@@ -265,7 +265,14 @@ namespace GitgGtk
 				{
 					repository = Ggit.Repository.clone(url, location, null) as Gitg.Repository;
 				}
-				catch {}
+				catch (Ggit.Error e)
+				{
+					warning("error cloning: %s", e.message);
+				}
+				catch (GLib.Error e)
+				{
+					warning("error cloning: %s", e.message);
+				}
 
 				Idle.add((owned) callback);
 				return null;
@@ -287,16 +294,20 @@ namespace GitgGtk
 
 			clone.begin(url, location, (obj, res) => {
 				Gitg.Repository? repository = clone.end(res);
-
-				Gitg.Ref? head = null;
 				string branch_name = "";
 
-				try
+				// FIXME: show an error
+				if (repository != null)
 				{
-					head = repository.get_head();
-					branch_name = head.parsed_name.shortname;
+					Gitg.Ref? head = null;
+
+					try
+					{
+						head = repository.get_head();
+						branch_name = head.parsed_name.shortname;
+					}
+					catch {}
 				}
-				catch {}
 
 				data.repository = repository;
 				data.branch_label.set_markup("<small>%s</small>".printf(branch_name));
