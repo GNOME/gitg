@@ -36,6 +36,7 @@ namespace GitgGtk
 			public Label repository_label;
 			public Label branch_label;
 			public Arrow arrow;
+			public Spinner spinner;
 		}
 
 		public signal void repository_activated(Repository repository);
@@ -250,6 +251,26 @@ namespace GitgGtk
 			item.app_exec = string.join(" ", Environment.get_prgname(), "%f");
 			item.groups = { "gitg", null };
 			recent_manager.add_full(workdir.get_uri(), item);
+		}
+
+		public void clone_repository(string url, File location)
+		{
+			Gitg.Repository? repository = null;
+
+			try
+			{
+				repository = Ggit.Repository.clone(url, location, null) as Gitg.Repository;
+				add_repository(repository);
+
+				RepositoryData? data = get_data_for_repository(repository);
+				data.arrow.hide();
+
+				data.spinner = new Spinner();
+				data.grid.attach(data.spinner, 2, 0, 1, 2);
+				data.spinner.show();
+				data.spinner.start();
+			}
+			catch {}
 		}
 
 		public void filter_text(string? text)

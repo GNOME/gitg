@@ -195,7 +195,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		dlg.response.connect((d, id) => {
 			if (id == Gtk.ResponseType.OK)
 			{
-				//FIXME
+				d_dash_view.clone_repository(entry_url.get_text(), chooser.get_file());
 			}
 
 			d.destroy();
