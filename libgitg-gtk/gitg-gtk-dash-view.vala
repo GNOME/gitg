@@ -60,7 +60,7 @@ namespace GitgGtk
 			d_listbox.child_activated.connect((listbox, child) => {
 				var data = child.get_data<RepositoryData>("data");
 
-				if (data != null)
+				if (data != null && data.repository != null)
 				{
 					repository_activated(data.repository);
 				}
