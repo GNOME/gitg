@@ -299,6 +299,11 @@ namespace GitgGtk
 				// FIXME: show an error
 				if (repository != null)
 				{
+					File? workdir = repository.get_workdir();
+					File? repo_file = repository.get_location();
+					var uri = (workdir != null) ? workdir.get_uri() : repo_file.get_uri();
+					add_repository_to_recent_manager(uri);
+
 					Gitg.Ref? head = null;
 
 					try
