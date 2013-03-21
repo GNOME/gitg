@@ -35,6 +35,7 @@ namespace GitgGtk
 			public Image image;
 			public Label repository_label;
 			public Label branch_label;
+			public Arrow arrow;
 		}
 
 		public signal void repository_activated(Repository repository);
@@ -141,11 +142,9 @@ namespace GitgGtk
 			}
 		}
 
-		public void add_repository(Gitg.Repository repository)
+		private RepositoryData get_data_for_repository(Gitg.Repository repository)
 		{
 			RepositoryData? data = null;
-			File? workdir = repository.get_workdir();
-			File? repo_file = repository.get_location();
 
 			foreach (var child in d_listbox.get_children())
 			{
@@ -156,6 +155,15 @@ namespace GitgGtk
 					break;
 				}
 			}
+
+			return data;
+		}
+
+		public void add_repository(Gitg.Repository repository)
+		{
+			RepositoryData? data = get_data_for_repository(repository);
+			File? workdir = repository.get_workdir();
+			File? repo_file = repository.get_location();
 
 			if (data == null)
 			{
@@ -220,7 +228,8 @@ namespace GitgGtk
 					catch {}
 				}
 
-				data.grid.attach(new Arrow(ArrowType.RIGHT, ShadowType.NONE), 2, 0, 1, 2);
+				data.arrow = new Arrow(ArrowType.RIGHT, ShadowType.NONE);
+				data.grid.attach(data.arrow, 2, 0, 1, 2);
 
 				data.grid.set_data<RepositoryData>("data", data);
 				data.grid.show_all();
