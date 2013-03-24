@@ -24,6 +24,13 @@ public class Repository : Ggit.Repository
 {
 	private HashTable<Ggit.OId, SList<Gitg.Ref>> d_refs;
 
+	public string? name {
+		owned get {
+			var f = workdir != null ? workdir : location;
+			return f != null ? f.get_basename() : null;
+		}
+	}
+
 	public Repository(File location, File? workdir) throws Error
 	{
 		Object(location: location,

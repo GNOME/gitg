@@ -225,23 +225,19 @@ namespace GitgGtk
 		public void add_repository(Gitg.Repository repository)
 		{
 			RepositoryData? data = get_data_for_repository(repository);
-			File? workdir = repository.get_workdir();
-			File? repo_file = repository.get_location();
 
 			if (data == null)
 			{
-				var name = (workdir != null) ? workdir.get_basename() : repo_file.get_basename();
-				Gitg.Ref? head = null;
-				string branch_name = "";
+				string head_name = "";
 
 				try
 				{
-					head = repository.get_head();
-					branch_name = head.parsed_name.shortname;
+					var head = repository.get_head();
+					head_name = head.parsed_name.shortname;
 				}
 				catch {}
 
-				data = create_repository_data(name, branch_name, false);
+				data = create_repository_data(repository.name, head_name, false);
 				data.repository = repository;
 			}
 			else
@@ -251,8 +247,11 @@ namespace GitgGtk
 				d_listbox.resort();
 			}
 
-			var uri = (workdir != null) ? workdir.get_uri() : repo_file.get_uri();
-			add_repository_to_recent_manager(uri);
+			var f = repository.workdir != null ? repository.workdir : repository.location;
+			if (f != null)
+			{
+				add_repository_to_recent_manager(f.get_uri());
+			}
 		}
 
 		private async Gitg.Repository? clone(string url, File location)
