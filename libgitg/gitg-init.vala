@@ -22,6 +22,11 @@ namespace Gitg
 
 public void init()
 {
+	if ((Ggit.get_capabilities() & Ggit.CapFlags.THREADS) == 0)
+	{
+		error("libgit2 must be build with thread support in order to run gitg");
+	}
+
 	Ggit.init();
 
 	var factory = Ggit.ObjectFactory.get_default();
