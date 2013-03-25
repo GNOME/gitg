@@ -104,35 +104,25 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <style>
-                  <class name="inline-toolbar"/>
+                  <class name="primary-toolbar"/>
                 </style>
                 <child>
                   <object class="GtkToolItem" id="toolbutton3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkAlignment" id="alignment-search-entry">
+                      <object class="GtkBox" id="box-search-entry">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0.5</property>
-                        <property name="left-padding">200</property>
-                        <property name="right-padding">200</property>
-                        <property name="top-padding">2</property>
-                        <property name="bottom-padding">2</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
                         <child>
-                          <object class="GtkGrid" id="grid-search-entry">
+                          <object class="GdTaggedEntry" id="search-entry">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="can_focus">False</property>
-                            <child>
-                              <object class="GdTaggedEntry" id="search-entry">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">●</property>
-                                <property name="invisible_char_set">True</property>
-                                <property name="hexpand">True</property>
-                              </object>
-                            </child>
+                            <property name="can_focus">True</property>
+                            <property name="invisible_char">●</property>
+                            <property name="invisible_char_set">True</property>
+                            <property name="width-request">500</property>
                           </object>
                         </child>
                       </object>
