@@ -254,7 +254,7 @@ namespace GitgGtk
 			}
 		}
 
-		private async Gitg.Repository? clone(string url, File location)
+		private async Gitg.Repository? clone(string url, File location, bool is_bare)
 		{
 			SourceFunc callback = clone.callback;
 			Gitg.Repository? repository = null;
@@ -262,7 +262,10 @@ namespace GitgGtk
 			ThreadFunc<void*> run = () => {
 				try
 				{
-					repository = Ggit.Repository.clone(url, location, null) as Gitg.Repository;
+					var options = new Ggit.CloneOptions();
+					options.set_is_bare(is_bare);
+
+					repository = Ggit.Repository.clone(url, location, options) as Gitg.Repository;
 				}
 				catch (Ggit.Error e)
 				{
@@ -287,13 +290,20 @@ namespace GitgGtk
 			return repository;
 		}
 
-		public void clone_repository(string url, File location)
+		public void clone_repository(string url, File location, bool is_bare)
 		{
 			// create subfolder
 			var subfolder_name = url.substring(url.last_index_of_char('/') + 1);
 			if (subfolder_name.has_suffix(".git"))
 			{
-				subfolder_name = subfolder_name.slice(0, - ".git".length);
+				if (!is_bare)
+				{
+					subfolder_name = subfolder_name.slice(0, - ".git".length);
+				}
+			}
+			else
+			{
+				subfolder_name += ".git";
 			}
 
 			var subfolder = location.resolve_relative_path(subfolder_name);
@@ -311,7 +321,7 @@ namespace GitgGtk
 			// Clone
 			RepositoryData? data = create_repository_data(subfolder_name, "Cloning...", true);
 
-			clone.begin(url, subfolder, (obj, res) => {
+			clone.begin(url, subfolder, is_bare, (obj, res) => {
 				Gitg.Repository? repository = clone.end(res);
 				string branch_name = "";
 
