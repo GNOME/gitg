@@ -289,9 +289,29 @@ namespace GitgGtk
 
 		public void clone_repository(string url, File location)
 		{
-			RepositoryData? data = create_repository_data(location.get_path(), "Cloning...", true);
+			// create subfolder
+			var subfolder_name = url.substring(url.last_index_of_char('/') + 1);
+			if (subfolder_name.has_suffix(".git"))
+			{
+				subfolder_name = subfolder_name.slice(0, - ".git".length);
+			}
 
-			clone.begin(url, location, (obj, res) => {
+			var subfolder = location.resolve_relative_path(subfolder_name);
+
+			try
+			{
+				subfolder.make_directory_with_parents(null);
+			}
+			catch (GLib.Error e)
+			{
+				warning("error creating subfolder: %s", e.message);
+				return;
+			}
+
+			// Clone
+			RepositoryData? data = create_repository_data(subfolder_name, "Cloning...", true);
+
+			clone.begin(url, subfolder, (obj, res) => {
 				Gitg.Repository? repository = clone.end(res);
 				string branch_name = "";
 
@@ -303,11 +323,9 @@ namespace GitgGtk
 					var uri = (workdir != null) ? workdir.get_uri() : repo_file.get_uri();
 					add_repository_to_recent_manager(uri);
 
-					Gitg.Ref? head = null;
-
 					try
 					{
-						head = repository.get_head();
+						var head = repository.get_head();
 						branch_name = head.parsed_name.shortname;
 					}
 					catch {}
