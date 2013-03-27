@@ -21,6 +21,8 @@
  */
 
 #include <gtksourceview/gtksourceview.h>
+#include <gtksourceview/gtksourcebuffer.h>
+#include <gtksourceview/gtksourcegutter.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
 #include <string.h>
 #include <glib/gi18n.h>

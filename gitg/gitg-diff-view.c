@@ -24,6 +24,7 @@
 #include "gitg-diff-line-renderer.h"
 #include "gitg-utils.h"
 
+#include <gtksourceview/gtksourcegutter.h>
 #include <string.h>
 #include <stdlib.h>
 
