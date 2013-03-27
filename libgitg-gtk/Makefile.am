@@ -56,7 +56,8 @@ VALA_FILES =						\
 	gitg-gtk-diff-view-request-resource.vala	\
 	gitg-gtk-diff-view-request-diff.vala		\
 	gitg-gtk-dash-view.vala				\
-	gitg-gtk-when-mapped.vala
+	gitg-gtk-when-mapped.vala			\
+	gitg-gtk-progress-bin.vala
 
 # Ignore all warnings for vala code...
 libgitg_gtk_1_0_la_CFLAGS =		\

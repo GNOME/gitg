@@ -31,7 +31,7 @@ namespace GitgGtk
 		{
 			public Repository? repository;
 			public DateTime time;
-			public Grid grid;
+			public ProgressBin bin;
 			public Image image;
 			public Label repository_label;
 			public Label branch_label;
@@ -165,16 +165,18 @@ namespace GitgGtk
 			var data = new RepositoryData();
 			data.repository = null;
 			data.time = new DateTime.now_local();
-			data.grid = new Grid();
-			data.grid.margin = 12;
-			data.grid.column_spacing = 10;
+			data.bin = new ProgressBin();
+			var grid = new Grid();
+			grid.margin = 12;
+			grid.column_spacing = 10;
+			data.bin.add(grid);
 
 			// FIXME: choose the folder image in relation to the next:
 			// - the repository is local
 			// - the repository has a remote
 			// - the repository uses github...
 			data.image = new Image.from_icon_name("folder", d_icon_size);
-			data.grid.attach(data.image, 0, 0, 1, 2);
+			grid.attach(data.image, 0, 0, 1, 2);
 
 			data.repository_label = new Label(null);
 			data.repository_label.set_markup("<b>%s</b>".printf(name));
@@ -182,7 +184,7 @@ namespace GitgGtk
 			data.repository_label.halign = Align.START;
 			data.repository_label.valign = Align.END;
 			data.repository_label.hexpand = true;
-			data.grid.attach(data.repository_label, 1, 0, 1, 1);
+			grid.attach(data.repository_label, 1, 0, 1, 1);
 
 			data.branch_label = new Label("");
 			data.branch_label.set_markup("<small>%s</small>".printf(branch_name));
@@ -190,20 +192,20 @@ namespace GitgGtk
 			data.branch_label.valign = Align.START;
 			data.branch_label.halign = Align.START;
 			data.branch_label.get_style_context().add_class("dim-label");
-			data.grid.attach(data.branch_label, 1, 1, 1, 1);
+			grid.attach(data.branch_label, 1, 1, 1, 1);
 
 			data.arrow = new Arrow(ArrowType.RIGHT, ShadowType.NONE);
-			data.grid.attach(data.arrow, 2, 0, 1, 2);
+			grid.attach(data.arrow, 2, 0, 1, 2);
 
-			data.grid.set_data<RepositoryData>("data", data);
-			data.grid.show_all();
-			d_listbox.add(data.grid);
+			data.bin.set_data<RepositoryData>("data", data);
+			data.bin.show_all();
+			d_listbox.add(data.bin);
 
 			if (spin)
 			{
 				data.arrow.hide();
 				data.spinner = new Spinner();
-				data.grid.attach(data.spinner, 3, 0, 1, 2);
+				grid.attach(data.spinner, 3, 0, 1, 2);
 				data.spinner.show();
 				data.spinner.start();
 			}
@@ -254,7 +256,7 @@ namespace GitgGtk
 			}
 		}
 
-		private async Gitg.Repository? clone(string url, File location, bool is_bare)
+		private async Gitg.Repository? clone(RepositoryData data, string url, File location, bool is_bare)
 		{
 			SourceFunc callback = clone.callback;
 			Gitg.Repository? repository = null;
@@ -264,6 +266,10 @@ namespace GitgGtk
 				{
 					var options = new Ggit.CloneOptions();
 					options.set_is_bare(is_bare);
+					options.set_fetch_progress_callback((stats) => {
+						data.bin.fraction = (stats.get_received_objects() + stats.get_indexed_objects()) / (double)(2 * stats.get_total_objects());
+						return 0;
+					});
 
 					repository = Ggit.Repository.clone(url, location, options) as Gitg.Repository;
 				}
@@ -321,7 +327,7 @@ namespace GitgGtk
 			// Clone
 			RepositoryData? data = create_repository_data(subfolder_name, "Cloning...", true);
 
-			clone.begin(url, subfolder, is_bare, (obj, res) => {
+			clone.begin(data, url, subfolder, is_bare, (obj, res) => {
 				Gitg.Repository? repository = clone.end(res);
 				string branch_name = "";
 
@@ -346,6 +352,7 @@ namespace GitgGtk
 				data.spinner.stop();
 				data.spinner.hide();
 				data.arrow.show();
+				data.bin.fraction = 0;
 			});
 		}
 
