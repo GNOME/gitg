@@ -34,7 +34,18 @@
       </item>
     </section>
   </menu>
-  <menu id="win-menu">
+  <menu id="win-menu-dash">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Open Repository</attribute>
+        <attribute name="action">win.open-repository</attribute>
+        <attribute name="accel">&lt;Primary&gt;o</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Clone Repository</attribute>
+        <attribute name="action">win.clone-repository</attribute>
+      </item>
+    </section>
     <section>
       <item>
         <attribute name="label" translatable="yes">_Close</attribute>
@@ -43,7 +54,65 @@
       </item>
     </section>
   </menu>
-  <menu id="app-win-menu">
+  <menu id="win-menu-views">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Close</attribute>
+        <attribute name="action">win.close</attribute>
+        <attribute name="accel">&lt;Primary&gt;w</attribute>
+      </item>
+    </section>
+  </menu>
+   <menu id="app-win-menu-dash">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_New Window</attribute>
+        <attribute name="action">app.new</attribute>
+        <attribute name="accel">&lt;Primary&gt;n</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Open Repository</attribute>
+        <attribute name="action">win.open-repository</attribute>
+        <attribute name="accel">&lt;Primary&gt;o</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Clone Repository</attribute>
+        <attribute name="action">win.clone-repository</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Help</attribute>
+        <attribute name="action">app.help</attribute>
+        <attribute name="accel">F1</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_About</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Close</attribute>
+        <attribute name="action">win.close</attribute>
+        <attribute name="accel">&lt;Primary&gt;w</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Quit</attribute>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="accel">&lt;Primary&gt;q</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="app-win-menu-views">
     <section>
       <item>
         <attribute name="label" translatable="yes">_New Window</attribute>

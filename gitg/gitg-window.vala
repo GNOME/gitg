@@ -34,8 +34,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	// Widgets
 	private Gd.HeaderBar d_header_bar;
 	private Gtk.MenuButton d_gear_menu;
+	private MenuModel d_dash_model;
+	private MenuModel d_views_model;
 
-	private Gtk.Box d_dash_buttons_box;
 	private Gd.HeaderSimpleButton d_button_dash;
 	private Gd.StackSwitcher d_commit_view_switcher;
 
@@ -57,6 +58,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private static const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
 		{"gear-menu", on_gear_menu_activated, null, "false", null},
+		{"open-repository", on_open_repository},
+		{"clone-repository", on_clone_repository},
 		{"close", on_close_activated},
 	};
 
@@ -131,8 +134,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_main_stack.set_visible_child(d_paned_views);
 			d_commit_view_switcher.show();
 			d_button_dash.show();
-			d_dash_buttons_box.hide();
 			d_dash_view.add_repository(d_repository);
+			d_gear_menu.menu_model = d_views_model;
 		}
 		else
 		{
@@ -145,7 +148,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_main_stack.set_visible_child(d_dash_scrolled_window);
 			d_commit_view_switcher.hide();
 			d_button_dash.hide();
-			d_dash_buttons_box.show();
+			d_gear_menu.menu_model = d_dash_model;
 		}
 
 		d_views.update();
@@ -168,7 +171,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		return base.configure_event(event);
 	}
 
-	private void on_open_repository(Gtk.Button button)
+	private void on_open_repository()
 	{
 		var chooser = new Gtk.FileChooserDialog (_("Select Repository"), this,
 		                                         Gtk.FileChooserAction.SELECT_FOLDER,
@@ -188,7 +191,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		chooser.show();
 	}
 
-	private void on_clone_repository(Gtk.Button button)
+	private void on_clone_repository()
 	{
 		var ret = GitgExt.UI.from_builder("ui/gitg-clone-dialog.ui",
 		                                  "dialog-clone",
@@ -227,12 +230,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		// Extract widgets from the builder
 		d_header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
 
-		d_dash_buttons_box = builder.get_object("dash_buttons_box") as Gtk.Box;
-		var button_open_repository = builder.get_object("button_open_repository") as Gd.HeaderSimpleButton;
-		button_open_repository.clicked.connect(on_open_repository);
-		var button_clone_repository = builder.get_object("button_clone_repository") as Gd.HeaderSimpleButton;
-		button_clone_repository.clicked.connect(on_clone_repository);
-
 		d_button_dash = builder.get_object("button_dash") as Gd.HeaderSimpleButton;
 		d_button_dash.clicked.connect((b) => {
 			repository = null;
@@ -268,8 +265,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			menuname = "app-win-menu";
 		}
 
-		var model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname);
-		d_gear_menu.menu_model = model;
+		d_dash_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
+		d_views_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
 
 		var search_button = builder.get_object("search-button") as Gd.HeaderToggleButton;
 		var revealer = builder.get_object("search-revealer") as Gd.Revealer;
