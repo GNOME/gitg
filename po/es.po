@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-03-28 16:26+0000\n"
-"PO-Revision-Date: 2013-03-28 17:27+0100\n"
+"POT-Creation-Date: 2013-03-28 16:53+0000\n"
+"PO-Revision-Date: 2013-03-28 17:54+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -139,24 +139,22 @@ msgstr "Página principal de gitg"
 msgid "Interface"
 msgstr "Interfaz"
 
-#: ../gitg/gitg-window.vala:141
+#: ../gitg/gitg-window.vala:144
 msgid "Projects"
 msgstr "Proyectos"
 
-#: ../gitg/gitg-window.vala:173
-#| msgid "Recent repository"
+#: ../gitg/gitg-window.vala:176
 msgid "Select Repository"
 msgstr "Seleccionar reciente"
 
 #. ex:ts=4 noet
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-#| msgid "Open Repository"
 msgid "Clone Repository..."
 msgstr "Clonar repositorio…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 msgid "Cl_one"
-msgstr ""
+msgstr "Cl_onar"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
 msgid "URL:"
@@ -171,7 +169,6 @@ msgid "Select location..."
 msgstr "Seleccionar ubicación…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
-#| msgid "Create repository"
 msgid "Bare repository"
 msgstr "Vaciar repositorio"
 
@@ -196,11 +193,20 @@ msgid "_Quit"
 msgstr "_Salir"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
+#| msgid "Open Repository"
+msgid "_Open Repository"
+msgstr "_Abrir repositorio"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#| msgid "Clone Repository"
+msgid "_Clone Repository"
+msgstr "_Clonar repositorio"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Close"
 msgstr "_Cerrar"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-#| msgid "<b>Layout</b>"
 msgid "Layout"
 msgstr "Distribución"
 
@@ -216,15 +222,6 @@ msgstr "Usar distribución horizontal"
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "gitg Preferences"
 msgstr "Preferencias de gitg"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:2
-msgid "Open Repository"
-msgstr "Abrir repositorio"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:3
-#| msgid "Open Repository"
-msgid "Clone Repository"
-msgstr "Clonar repositorio"
 
 #: ../plugins/diff/gitg-diff.vala:70
 msgid "Diff"
@@ -312,7 +309,6 @@ msgstr ""
 "para los elementos no reservados actualmente."
 
 #: ../plugins/history/resources/preferences.ui.h:1
-#| msgid "Commit"
 msgid "Commits"
 msgstr "Commits"
 
