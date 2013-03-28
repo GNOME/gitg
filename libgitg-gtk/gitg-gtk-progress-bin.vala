@@ -98,7 +98,7 @@ namespace GitgGtk
 			context.render_background(cr, 0, 0, allocation.width, allocation.height);
 
 			context.save();
-			context.add_class("progress-grid");
+			context.add_class("progress-bin");
 
 			context.render_background(cr, 0, 0, allocation.width * d_fraction, allocation.height);
 			context.restore();
