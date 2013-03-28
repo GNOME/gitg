@@ -300,14 +300,11 @@ namespace GitgGtk
 		{
 			// create subfolder
 			var subfolder_name = url.substring(url.last_index_of_char('/') + 1);
-			if (subfolder_name.has_suffix(".git"))
+			if (subfolder_name.has_suffix(".git") && !is_bare)
 			{
-				if (!is_bare)
-				{
-					subfolder_name = subfolder_name.slice(0, - ".git".length);
-				}
+				subfolder_name = subfolder_name.slice(0, - ".git".length);
 			}
-			else
+			else if (is_bare)
 			{
 				subfolder_name += ".git";
 			}
