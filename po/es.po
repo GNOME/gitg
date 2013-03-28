@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-03-01 18:39+0000\n"
-"PO-Revision-Date: 2013-03-04 13:31+0100\n"
+"POT-Creation-Date: 2013-03-28 16:26+0000\n"
+"PO-Revision-Date: 2013-03-28 17:27+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.5\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
@@ -87,8 +87,8 @@ msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». Se "
-"puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
+"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». "
+"Se puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
 "columna en particular."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
@@ -139,7 +139,42 @@ msgstr "Página principal de gitg"
 msgid "Interface"
 msgstr "Interfaz"
 
-#. ex:set ts=4 noet
+#: ../gitg/gitg-window.vala:141
+msgid "Projects"
+msgstr "Proyectos"
+
+#: ../gitg/gitg-window.vala:173
+#| msgid "Recent repository"
+msgid "Select Repository"
+msgstr "Seleccionar reciente"
+
+#. ex:ts=4 noet
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+#| msgid "Open Repository"
+msgid "Clone Repository..."
+msgstr "Clonar repositorio…"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+msgid "Cl_one"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "URL:"
+msgstr "URL:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "Location:"
+msgstr "Ubicación:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "Select location..."
+msgstr "Seleccionar ubicación…"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+#| msgid "Create repository"
+msgid "Bare repository"
+msgstr "Vaciar repositorio"
+
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "Ventana _nueva"
@@ -165,8 +200,9 @@ msgid "_Close"
 msgstr "_Cerrar"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-msgid "<b>Layout</b>"
-msgstr "<b>Distribución</b>"
+#| msgid "<b>Layout</b>"
+msgid "Layout"
+msgstr "Distribución"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
 #: ../plugins/history/resources/preferences.ui.h:2
@@ -182,11 +218,15 @@ msgid "gitg Preferences"
 msgstr "Preferencias de gitg"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:2
-#| msgid "Open repository"
 msgid "Open Repository"
 msgstr "Abrir repositorio"
 
-#: ../plugins/diff/gitg-diff.vala:71
+#: ../gitg/resources/ui/gitg-window.ui.h:3
+#| msgid "Open Repository"
+msgid "Clone Repository"
+msgstr "Clonar repositorio"
+
+#: ../plugins/diff/gitg-diff.vala:70
 msgid "Diff"
 msgstr "Diff"
 
@@ -211,23 +251,23 @@ msgstr "Mostrar las opciones del histórico de gitg"
 msgid "gitg history options"
 msgstr "Opciones del histórico de gitg"
 
-#: ../plugins/history/gitg-history-navigation.vala:120
-#: ../plugins/history/gitg-history-navigation.vala:124
+#: ../plugins/history/gitg-history-navigation.vala:115
+#: ../plugins/history/gitg-history-navigation.vala:119
 msgid "All commits"
 msgstr "Todos los «commit»"
 
 #. Branches
-#: ../plugins/history/gitg-history-navigation.vala:128
+#: ../plugins/history/gitg-history-navigation.vala:123
 msgid "Branches"
 msgstr "Ramas"
 
 #. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:163
+#: ../plugins/history/gitg-history-navigation.vala:158
 msgid "Remotes"
 msgstr "Remotas"
 
 #. Tags
-#: ../plugins/history/gitg-history-navigation.vala:188
+#: ../plugins/history/gitg-history-navigation.vala:183
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -272,8 +312,9 @@ msgstr ""
 "para los elementos no reservados actualmente."
 
 #: ../plugins/history/resources/preferences.ui.h:1
-msgid "<b>Commits</b>"
-msgstr "<b>Commits</b>"
+#| msgid "Commit"
+msgid "Commits"
+msgstr "Commits"
 
 #: ../plugins/history/resources/preferences.ui.h:3
 msgid "Collapse inactive lanes"
@@ -319,6 +360,9 @@ msgstr "Autor"
 msgid "Date"
 msgstr "Fecha"
 
+#~ msgid "<b>Commits</b>"
+#~ msgstr "<b>Commits</b>"
+
 #~ msgid "Repository"
 #~ msgstr "Repositorio"
 
@@ -337,9 +381,6 @@ msgstr "Fecha"
 #~ msgid "(no branch)"
 #~ msgstr "(sin rama)"
 
-#~ msgid "Create repository"
-#~ msgstr "Crear repositorio"
-
 #~ msgid "Select a folder in which you want to create a new git repository."
 #~ msgstr ""
 #~ "Seleccione una carpeta en la que quiere crear un repositorio git nuevo."
@@ -347,9 +388,6 @@ msgstr "Fecha"
 #~ msgid "Select a folder to open the corresponding git repository."
 #~ msgstr ""
 #~ "Seleccionar una carpeta para abrir el repositorio git correspondiente."
-
-#~ msgid "Recent repository"
-#~ msgstr "Repositorio reciente"
 
 #~ msgid "Open a recently used repository."
 #~ msgstr "Abrir un repositorio usado recientemente."
@@ -929,9 +967,6 @@ msgstr "Fecha"
 
 #~ msgid "Allow external diff program"
 #~ msgstr "Permitir un programa diff externo"
-
-#~ msgid "Commit"
-#~ msgstr "Efectuar («commit»)"
 
 #~ msgid "Configuration"
 #~ msgstr "Configuración"
