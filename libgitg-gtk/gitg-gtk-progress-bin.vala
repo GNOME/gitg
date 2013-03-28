@@ -80,10 +80,11 @@ namespace GitgGtk
 			if (child != null && child.get_visible())
 			{
 				Gtk.Allocation child_allocation = {};
-				child_allocation.x = 0;
-				child_allocation.y = 0;
-				child_allocation.width = allocation.width;
-				child_allocation.height = allocation.height;
+				int border_width = (int)get_border_width();
+				child_allocation.x = border_width;
+				child_allocation.y = border_width;
+				child_allocation.width = allocation.width - 2 * border_width;
+				child_allocation.height = allocation.height - 2 * border_width;
 
 				child.size_allocate(child_allocation);
 			}
