@@ -103,13 +103,6 @@ namespace GitgHistory
 
 			d_all.reverse();
 
-			Gitg.Ref? head = null;
-
-			try
-			{
-				head = repo.get_head();
-			} catch {}
-
 			if (CommandLine.all)
 			{
 				model.append_default(_("All commits"), null, (nc) => ref_activated(null));
@@ -124,31 +117,35 @@ namespace GitgHistory
 
 			foreach (var item in branches)
 			{
-				var it = item;
+				var branch = item as Ggit.Branch;
 				string? icon = null;
 				bool isdef = false;
 
-				if (head != null && item.get_target().equal(head.get_target()))
+				try
 				{
-					icon = "object-select-symbolic";
-
-					if (!CommandLine.all)
+					if (branch.is_head())
 					{
-						isdef = true;
+						icon = "object-select-symbolic";
+
+						if (!CommandLine.all)
+						{
+							isdef = true;
+						}
 					}
 				}
+				catch {}
 
 				if (isdef)
 				{
 					model.append_default(item.parsed_name.shortname,
 					                     icon,
-					                     (nc) => ref_activated(it));
+					                     (nc) => ref_activated(item));
 				}
 				else
 				{
 					model.append(item.parsed_name.shortname,
 					             icon,
-					             (nc) => ref_activated(it));
+					             (nc) => ref_activated(item));
 				}
 			}
 
