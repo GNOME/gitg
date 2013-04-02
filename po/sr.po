@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&k"
 "eywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-03-01 18:39+0000\n"
-"PO-Revision-Date: 2013-03-07 11:37+0200\n"
+"POT-Creation-Date: 2013-04-01 14:05+0000\n"
+"PO-Revision-Date: 2013-04-02 11:06+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -139,7 +139,43 @@ msgstr "Матична страница гитг-а"
 msgid "Interface"
 msgstr "Сучеље"
 
-#. ex:set ts=4 noet
+#: ../gitg/gitg-window.vala:144
+msgid "Projects"
+msgstr "Пројекти"
+
+#: ../gitg/gitg-window.vala:176
+#| msgid "Open Repository"
+msgid "Select Repository"
+msgstr "Изабери ризницу"
+
+#. ex:ts=4 noet
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+#| msgid "Open Repository"
+msgid "Clone Repository..."
+msgstr "Пресликај ризницу..."
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+msgid "Cl_one"
+msgstr "_Пресликај"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+#| msgid "Remotes"
+msgid "Remote _URL:"
+msgstr "Удаљена _адреса:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "_Local Folder:"
+msgstr "_Месна фасцикла:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "Select location..."
+msgstr "Изаберите место..."
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+#| msgid "Open Repository"
+msgid "Bare repository"
+msgstr "Гола ризница"
+
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "_Нови прозор"
@@ -161,12 +197,23 @@ msgid "_Quit"
 msgstr "_Изађи"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
+#| msgid "Open Repository"
+msgid "_Open Repository"
+msgstr "_Отвори ризницу"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#| msgid "Open Repository"
+msgid "_Clone Repository"
+msgstr "_Пресликај ризницу"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Close"
 msgstr "_Затвори"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-msgid "<b>Layout</b>"
-msgstr "<b>Изглед</b>"
+#| msgid "<b>Layout</b>"
+msgid "Layout"
+msgstr "Распоред"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
 #: ../plugins/history/resources/preferences.ui.h:2
@@ -181,12 +228,7 @@ msgstr "Користи водоравни распоред"
 msgid "gitg Preferences"
 msgstr "Поставке гитг-а"
 
-#: ../gitg/resources/ui/gitg-window.ui.h:2
-#| msgid "Open repository"
-msgid "Open Repository"
-msgstr "Отвори ризницу"
-
-#: ../plugins/diff/gitg-diff.vala:71
+#: ../plugins/diff/gitg-diff.vala:70
 msgid "Diff"
 msgstr "Разлике"
 
@@ -211,23 +253,23 @@ msgstr "Прикажи могућности историјата гитг-а"
 msgid "gitg history options"
 msgstr "Могућности историјата гитг-а"
 
-#: ../plugins/history/gitg-history-navigation.vala:120
-#: ../plugins/history/gitg-history-navigation.vala:124
+#: ../plugins/history/gitg-history-navigation.vala:108
+#: ../plugins/history/gitg-history-navigation.vala:112
 msgid "All commits"
 msgstr "Сва предавања"
 
 #. Branches
-#: ../plugins/history/gitg-history-navigation.vala:128
+#: ../plugins/history/gitg-history-navigation.vala:116
 msgid "Branches"
 msgstr "Гране"
 
 #. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:163
+#: ../plugins/history/gitg-history-navigation.vala:155
 msgid "Remotes"
 msgstr "Удаљени"
 
 #. Tags
-#: ../plugins/history/gitg-history-navigation.vala:188
+#: ../plugins/history/gitg-history-navigation.vala:180
 msgid "Tags"
 msgstr "Ознаке"
 
@@ -271,8 +313,9 @@ msgstr ""
 "тренутно не уштекане измене у историјату."
 
 #: ../plugins/history/resources/preferences.ui.h:1
-msgid "<b>Commits</b>"
-msgstr "<b>Предавања</b>"
+#| msgid "<b>Commits</b>"
+msgid "Commits"
+msgstr "Предавања"
 
 #: ../plugins/history/resources/preferences.ui.h:3
 msgid "Collapse inactive lanes"
