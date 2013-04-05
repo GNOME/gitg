@@ -234,6 +234,18 @@ gitg_window_dispose (GObject *object)
 		self->priv->hidden_settings = NULL;
 	}
 
+	if (self->priv->edit_group)
+	{
+		g_object_unref(self->priv->edit_group);
+		self->priv->edit_group = NULL;
+	}
+
+	if (self->priv->repository_group)
+	{
+		g_object_unref(self->priv->repository_group);
+		self->priv->repository_group = NULL;
+	}
+
 	G_OBJECT_CLASS (gitg_window_parent_class)->dispose (object);
 }
 
@@ -930,8 +942,8 @@ gitg_window_parser_finished (GtkBuildable *buildable,
 
 	gtk_window_add_accel_group (GTK_WINDOW (window), gtk_ui_manager_get_accel_group (uiman));
 
-	window->priv->edit_group = GTK_ACTION_GROUP(gtk_builder_get_object (b, "action_group_menu_edit"));
-	window->priv->repository_group = GTK_ACTION_GROUP(gtk_builder_get_object (b, "action_group_menu_repository"));
+	window->priv->edit_group = g_object_ref(GTK_ACTION_GROUP(gtk_builder_get_object (b, "action_group_menu_edit")));
+	window->priv->repository_group = g_object_ref(GTK_ACTION_GROUP(gtk_builder_get_object (b, "action_group_menu_repository")));
 
 	gtk_builder_connect_signals (b, window);
 	g_object_unref (b);
