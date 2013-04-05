@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-03-11 15:48+0000\n"
-"PO-Revision-Date: 2013-03-12 09:23-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2013-04-04 19:19+0000\n"
+"PO-Revision-Date: 2013-04-05 19:00-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -39,8 +39,8 @@ msgid ""
 "Whether searching filters the revisions in the history view instead of "
 "jumping to the first match."
 msgstr ""
-"Filtrar de pesquisa de revisões na visão de histórico em vez de pular para o "
-"primeira correspondência."
+"Se ao pesquisar as revisões devem ou não serem filtradas na visão de "
+"histórico ao invés de saltar à primeira correspondência."
 
 #. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
@@ -140,7 +140,39 @@ msgstr "Página inicial do gitg"
 msgid "Interface"
 msgstr "Interface"
 
-#. ex:set ts=4 noet
+#: ../gitg/gitg-window.vala:144
+msgid "Projects"
+msgstr "Projetos"
+
+#: ../gitg/gitg-window.vala:176
+msgid "Select Repository"
+msgstr "Selecionar repositório"
+
+#. ex:ts=4 noet
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+msgid "Clone Repository..."
+msgstr "Clonar repositório..."
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+msgid "Cl_one"
+msgstr "Cl_onar"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "Remote _URL:"
+msgstr "_URL remoto:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "_Local Folder:"
+msgstr "Pasta _local:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "Select location..."
+msgstr "Selecionar localização..."
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+msgid "Bare repository"
+msgstr "Esvaziar repositório"
+
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "_Nova janela"
@@ -162,12 +194,20 @@ msgid "_Quit"
 msgstr "_Sair"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Open Repository"
+msgstr "_Abrir repositório"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Clone Repository"
+msgstr "_Clonar repositório"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Close"
 msgstr "_Fechar"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-msgid "<b>Layout</b>"
-msgstr "<b>Layout</b>"
+msgid "Layout"
+msgstr "Disposição"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
 #: ../plugins/history/resources/preferences.ui.h:2
@@ -176,17 +216,13 @@ msgstr "    "
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "Use horizontal layout"
-msgstr "Usar layout horizontal"
+msgstr "Usar disposição horizontal"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "gitg Preferences"
 msgstr "Preferências do gitg"
 
-#: ../gitg/resources/ui/gitg-window.ui.h:2
-msgid "Open Repository"
-msgstr "Abrir um repositório"
-
-#: ../plugins/diff/gitg-diff.vala:71
+#: ../plugins/diff/gitg-diff.vala:70
 msgid "Diff"
 msgstr "Diff"
 
@@ -211,23 +247,23 @@ msgstr "Mostrar opções de histórico do gitg"
 msgid "gitg history options"
 msgstr "opções de histórico do gitg"
 
-#: ../plugins/history/gitg-history-navigation.vala:115
-#: ../plugins/history/gitg-history-navigation.vala:119
+#: ../plugins/history/gitg-history-navigation.vala:108
+#: ../plugins/history/gitg-history-navigation.vala:112
 msgid "All commits"
 msgstr "Todos os commits"
 
 #. Branches
-#: ../plugins/history/gitg-history-navigation.vala:123
+#: ../plugins/history/gitg-history-navigation.vala:116
 msgid "Branches"
 msgstr "Ramos"
 
 #. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:158
+#: ../plugins/history/gitg-history-navigation.vala:155
 msgid "Remotes"
 msgstr "Remotos"
 
 #. Tags
-#: ../plugins/history/gitg-history-navigation.vala:183
+#: ../plugins/history/gitg-history-navigation.vala:180
 msgid "Tags"
 msgstr "Marcadores (tags)"
 
@@ -272,8 +308,8 @@ msgstr ""
 "atuais mudanças não apresentadas no histórico."
 
 #: ../plugins/history/resources/preferences.ui.h:1
-msgid "<b>Commits</b>"
-msgstr "<b>Commits</b>"
+msgid "Commits"
+msgstr "Commits"
 
 #: ../plugins/history/resources/preferences.ui.h:3
 msgid "Collapse inactive lanes"
@@ -319,6 +355,9 @@ msgstr "Autor"
 msgid "Date"
 msgstr "Data"
 
+#~ msgid "<b>Commits</b>"
+#~ msgstr "<b>Commits</b>"
+
 #~ msgid "Repository"
 #~ msgstr "Repositório"
 
@@ -337,18 +376,12 @@ msgstr "Data"
 #~ msgid "(no branch)"
 #~ msgstr "(nenhum ramo)"
 
-#~ msgid "Create repository"
-#~ msgstr "Criar um repositório"
-
 #~ msgid "Select a folder in which you want to create a new git repository."
 #~ msgstr ""
 #~ "Selecione uma pasta na qual você deseja criar um novo repositório git."
 
 #~ msgid "Select a folder to open the corresponding git repository."
 #~ msgstr "Selecione uma pasta para abrir o repositório correspondente."
-
-#~ msgid "Recent repository"
-#~ msgstr "Repositório recente"
 
 #~ msgid "Open a recently used repository."
 #~ msgstr "Abrir um repositório recentemente usado"
@@ -936,9 +969,6 @@ msgstr "Data"
 
 #~ msgid "Allow external diff program"
 #~ msgstr "Permitir programa externo de diff"
-
-#~ msgid "Commit"
-#~ msgstr "Commit"
 
 #~ msgid "Configuration"
 #~ msgstr "Configuração"
