@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-03-28 16:53+0000\n"
-"PO-Revision-Date: 2013-03-28 17:54+0100\n"
+"POT-Creation-Date: 2013-04-05 22:04+0000\n"
+"PO-Revision-Date: 2013-04-07 18:56+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -157,12 +157,13 @@ msgid "Cl_one"
 msgstr "Cl_onar"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-msgid "URL:"
-msgstr "URL:"
+#| msgid "Remotes"
+msgid "Remote _URL:"
+msgstr "_URL remoto:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
-msgid "Location:"
-msgstr "Ubicación:"
+msgid "_Local Folder:"
+msgstr "Carpeta _local:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
 msgid "Select location..."
@@ -193,12 +194,10 @@ msgid "_Quit"
 msgstr "_Salir"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
-#| msgid "Open Repository"
 msgid "_Open Repository"
 msgstr "_Abrir repositorio"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:7
-#| msgid "Clone Repository"
 msgid "_Clone Repository"
 msgstr "_Clonar repositorio"
 
@@ -248,23 +247,23 @@ msgstr "Mostrar las opciones del histórico de gitg"
 msgid "gitg history options"
 msgstr "Opciones del histórico de gitg"
 
-#: ../plugins/history/gitg-history-navigation.vala:115
-#: ../plugins/history/gitg-history-navigation.vala:119
+#: ../plugins/history/gitg-history-navigation.vala:108
+#: ../plugins/history/gitg-history-navigation.vala:112
 msgid "All commits"
 msgstr "Todos los «commit»"
 
 #. Branches
-#: ../plugins/history/gitg-history-navigation.vala:123
+#: ../plugins/history/gitg-history-navigation.vala:116
 msgid "Branches"
 msgstr "Ramas"
 
 #. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:158
+#: ../plugins/history/gitg-history-navigation.vala:155
 msgid "Remotes"
 msgstr "Remotas"
 
 #. Tags
-#: ../plugins/history/gitg-history-navigation.vala:183
+#: ../plugins/history/gitg-history-navigation.vala:180
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -355,6 +354,12 @@ msgstr "Autor"
 #: ../plugins/history/resources/view-history.ui.h:3
 msgid "Date"
 msgstr "Fecha"
+
+#~ msgid "URL:"
+#~ msgstr "URL:"
+
+#~ msgid "Location:"
+#~ msgstr "Ubicación:"
 
 #~ msgid "<b>Commits</b>"
 #~ msgstr "<b>Commits</b>"
