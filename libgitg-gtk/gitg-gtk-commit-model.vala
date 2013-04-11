@@ -124,8 +124,10 @@ namespace GitgGtk
 			       Gtk.TreeModelFlags.ITERS_PERSIST;
 		}
 
-		public bool get_iter(ref Gtk.TreeIter iter, Gtk.TreePath path)
+		public bool get_iter(out Gtk.TreeIter iter, Gtk.TreePath path)
 		{
+			iter = {};
+
 			int[] indices = path.get_indices();
 
 			if (indices.length != 1)
@@ -160,8 +162,10 @@ namespace GitgGtk
 			return new Gtk.TreePath.from_indices((int)id);
 		}
 
-		public void get_value(Gtk.TreeIter iter, int column, ref Value val)
+		public void get_value(Gtk.TreeIter iter, int column, out Value val)
 		{
+			val = {};
+
 			return_if_fail(iter.stamp == d_stamp);
 
 			uint idx = (uint)(ulong)iter.user_data;
@@ -238,8 +242,10 @@ namespace GitgGtk
 			return base[(uint)indices[0]];
 		}
 
-		public bool iter_children(ref Gtk.TreeIter iter, Gtk.TreeIter? parent)
+		public bool iter_children(out Gtk.TreeIter iter, Gtk.TreeIter? parent)
 		{
+			iter = {};
+
 			if (parent == null)
 			{
 				iter.user_data = (void *)(ulong)0;
@@ -290,8 +296,10 @@ namespace GitgGtk
 			}
 		}
 
-		public bool iter_nth_child(ref Gtk.TreeIter iter, Gtk.TreeIter? parent, int n)
+		public bool iter_nth_child(out Gtk.TreeIter iter, Gtk.TreeIter? parent, int n)
 		{
+			iter = {};
+
 			if (parent != null || (uint)n >= d_size)
 			{
 				return false;
@@ -303,8 +311,10 @@ namespace GitgGtk
 			return true;
 		}
 
-		public bool iter_parent(ref Gtk.TreeIter parent, Gtk.TreeIter iter)
+		public bool iter_parent(out Gtk.TreeIter parent, Gtk.TreeIter iter)
 		{
+			parent = {};
+
 			return_val_if_fail(iter.stamp == d_stamp, false);
 
 			return false;
