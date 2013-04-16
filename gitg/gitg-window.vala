@@ -208,7 +208,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		dlg.set_transient_for(this);
 
 		entry_url.changed.connect((e) => {
-			dlg.set_response_sensitive(Gtk.ResponseType.OK, entry_url.text_length > 0);
+			dlg.set_response_sensitive(Gtk.ResponseType.OK, Ggit.Remote.is_supported_url(entry_url.get_text()));
 		});
 
 		dlg.response.connect((d, id) => {
