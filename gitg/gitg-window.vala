@@ -197,20 +197,18 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		                                  "dialog-clone",
 		                                  "entry-url",
 		                                  "filechooserbutton-location",
-		                                  "checkbutton-bare-repository",
-		                                  "ok-button");
+		                                  "checkbutton-bare-repository");
 
 		var dlg = ret["dialog-clone"] as Gtk.Dialog;
 		var entry_url = ret["entry-url"] as Gtk.Entry;
 		var chooser = ret["filechooserbutton-location"] as Gtk.FileChooserButton;
 		var bare = ret["checkbutton-bare-repository"] as Gtk.CheckButton;
-		var ok_button = ret["ok-button"] as Gtk.Button;
 
 		dlg.modal = true;
 		dlg.set_transient_for(this);
 
 		entry_url.changed.connect((e) => {
-			ok_button.set_sensitive(entry_url.text_length != 0);
+			dlg.set_response_sensitive(Gtk.ResponseType.OK, entry_url.text_length > 0);
 		});
 
 		dlg.response.connect((d, id) => {
