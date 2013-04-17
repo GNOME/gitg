@@ -208,7 +208,20 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		dlg.set_transient_for(this);
 
 		entry_url.changed.connect((e) => {
-			dlg.set_response_sensitive(Gtk.ResponseType.OK, Ggit.Remote.is_supported_url(entry_url.get_text()));
+			string ?tooltip_text = null;
+			string ?icon_name = null;
+			bool url_supported = Ggit.Remote.is_supported_url(entry_url.get_text());
+
+			if (!url_supported && (entry_url.get_text_length() > 0))
+			{
+				icon_name = "dialog-warning-symbolic";
+				tooltip_text = _("The URL introduced is not supported");
+			}
+
+			entry_url.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, icon_name);
+			entry_url.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, tooltip_text);
+
+			dlg.set_response_sensitive(Gtk.ResponseType.OK, url_supported);
 		});
 
 		dlg.response.connect((d, id) => {
