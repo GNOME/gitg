@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-04-05 22:04+0000\n"
-"PO-Revision-Date: 2013-04-07 18:56+0200\n"
+"POT-Creation-Date: 2013-04-17 09:18+0000\n"
+"PO-Revision-Date: 2013-04-18 13:07+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: Gtranslator 2.91.5\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
@@ -87,8 +87,8 @@ msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». "
-"Se puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
+"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». Se "
+"puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
 "columna en particular."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
@@ -147,6 +147,10 @@ msgstr "Proyectos"
 msgid "Select Repository"
 msgstr "Seleccionar reciente"
 
+#: ../gitg/gitg-window.vala:218
+msgid "The URL introduced is not supported"
+msgstr "El URL introducido no está soportado"
+
 #. ex:ts=4 noet
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository..."
@@ -157,7 +161,6 @@ msgid "Cl_one"
 msgstr "Cl_onar"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-#| msgid "Remotes"
 msgid "Remote _URL:"
 msgstr "_URL remoto:"
 
