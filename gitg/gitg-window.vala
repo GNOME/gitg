@@ -23,6 +23,7 @@ namespace Gitg
 public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.Buildable
 {
 	private Settings d_state_settings;
+	private Settings d_main_settings;
 	private Repository? d_repository;
 	private GitgExt.MessageBus d_message_bus;
 	private string? d_action;
@@ -66,6 +67,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	construct
 	{
 		add_action_entries(win_entries, this);
+
+		d_main_settings = new Settings("org.gnome.gitg.preferences.view.main");
 	}
 
 	private void on_close_activated()
@@ -206,6 +209,19 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		dlg.modal = true;
 		dlg.set_transient_for(this);
+
+		var default_dir = d_main_settings.get_string("clone-directory");
+
+		if (default_dir == "")
+		{
+			default_dir = Environment.get_home_dir();
+		}
+
+		chooser.set_current_folder(default_dir);
+
+		chooser.selection_changed.connect((c) => {
+			d_main_settings.set_string("clone-directory", c.get_file().get_path());
+		});
 
 		entry_url.changed.connect((e) => {
 			string ?tooltip_text = null;
