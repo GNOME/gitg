@@ -24,6 +24,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 {
 	private Settings d_state_settings;
 	private Settings d_main_settings;
+	private Settings d_interface_settings;
 	private Repository? d_repository;
 	private GitgExt.MessageBus d_message_bus;
 	private string? d_action;
@@ -69,6 +70,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		add_action_entries(win_entries, this);
 
 		d_main_settings = new Settings("org.gnome.gitg.preferences.view.main");
+		d_interface_settings = new Settings("org.gnome.gitg.preferences.interface");
 	}
 
 	private void on_close_activated()
@@ -319,9 +321,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			}
 		});
 
-		var settings = new Settings("org.gnome.gitg.preferences.interface");
-
-		settings.bind("orientation",
+		d_interface_settings.bind("orientation",
 		              d_paned_panels,
 		              "orientation",
 		              SettingsBindFlags.GET);
