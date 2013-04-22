@@ -211,6 +211,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		dlg.modal = true;
 		dlg.set_transient_for(this);
+		dlg.set_resizable(false);
 
 		var default_dir = d_main_settings.get_string("clone-directory");
 
