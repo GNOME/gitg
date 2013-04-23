@@ -200,47 +200,6 @@ function update_diff(id)
 	r.send();
 }
 
-function date_to_string(d)
-{
-	var t = ((new Date()).getTime() - d.getTime()) / 1000.0;
-
-	if (t < 1)
-	{
-		return "Less than a second ago";
-	}
-	else if (t < 60)
-	{
-		return "Less than a minute ago";
-	}
-	else if (t < 600)
-	{
-		return "Less than 10 minutes ago";
-	}
-	else if (t < 1800)
-	{
-		return "Half an hour ago";
-	}
-	else if (t < 3600)
-	{
-		return "An hour ago";
-	}
-	else if (t < 3600 * 12)
-	{
-		var tt = Math.round(t / 3600)
-		return tt + " hours ago";
-	}
-	else if (t < 3600 * 24)
-	{
-		return "A day ago";
-	}
-	else if (t < 3600 * 24 * 6)
-	{
-		return Math.round(t / (3600 * 24)) + " days ago";
-	}
-
-	return d.toLocaleString();
-}
-
 addEventListener('DOMContentLoaded', function () {
 	create_template("commit", {
 		'.author': function () {
@@ -250,9 +209,7 @@ addEventListener('DOMContentLoaded', function () {
 			return {html: $('<span/>').append(name).append(' <').append(a).append('>')};
 		},
 		'.date': function () {
-			var d = new Date();
-			d.setTime(this.author.time * 1000);
-			return {text: date_to_string(d)};
+			return {text: this.author.time};
 		},
 		'.subject': function () {
 			return this.subject;

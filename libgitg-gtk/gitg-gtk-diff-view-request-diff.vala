@@ -192,7 +192,7 @@ namespace GitgGtk
 			builder.add_string_value(Checksum.compute_for_string(ChecksumType.MD5, sig.get_email().down()));
 
 			builder.set_member_name("time");
-			builder.add_int_value(sig.get_time().to_unix());
+			builder.add_string_value(sig.get_time().to_timezone(sig.get_time_zone()).format("%x %X %z"));
 
 			builder.end_object();
 		}

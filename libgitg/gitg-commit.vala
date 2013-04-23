@@ -93,7 +93,7 @@ public class Commit : Ggit.Commit
 		}
 	}
 
-	private string date_for_display(DateTime dt)
+	private string date_for_display(DateTime dt, TimeZone timeZone)
 	{
 		var t = (new DateTime.now_local()).to_unix() - dt.to_unix();
 
@@ -130,14 +130,14 @@ public class Commit : Ggit.Commit
 			return "%d days ago".printf((int)Math.round(t / (3600 * 24)));
 		}
 
-		return dt.format("%c");
+		return dt.to_timezone(timeZone).format("%x %X %z");
 	}
 
 	public string committer_date_for_display
 	{
 		owned get
 		{
-			return date_for_display(get_committer().get_time());
+			return date_for_display(get_committer().get_time(), get_committer().get_time_zone());
 		}
 	}
 
@@ -145,7 +145,7 @@ public class Commit : Ggit.Commit
 	{
 		owned get
 		{
-			return date_for_display(get_author().get_time());
+			return date_for_display(get_author().get_time(), get_author().get_time_zone());
 		}
 	}
 
