@@ -93,7 +93,7 @@ public class Commit : Ggit.Commit
 		}
 	}
 
-	private string date_for_display(DateTime dt, TimeZone timeZone)
+	private string date_for_display(DateTime dt, TimeZone time_zone)
 	{
 		var t = (new DateTime.now_local()).to_unix() - dt.to_unix();
 
@@ -130,7 +130,7 @@ public class Commit : Ggit.Commit
 			return "%d days ago".printf((int)Math.round(t / (3600 * 24)));
 		}
 
-		return dt.to_timezone(timeZone).format("%x %X %z");
+		return dt.to_timezone(time_zone).format("%x %X %z");
 	}
 
 	public string committer_date_for_display
