@@ -117,11 +117,11 @@ public class Commit : Ggit.Commit
 		{
 			return "An hour ago";
 		}
-		else if (t < 3600 * 12)
+		else if (t < 3600 * 24)
 		{
 			return "%d hours ago".printf((int)Math.round(t / 3600));
 		}
-		else if (t < 3600 * 24)
+		else if (t < 3600 * 24 * 2)
 		{
 			return "A day ago";
 		}
