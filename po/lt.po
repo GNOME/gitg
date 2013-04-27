@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-04-01 14:05+0000\n"
-"PO-Revision-Date: 2013-04-01 20:10+0300\n"
+"POT-Creation-Date: 2013-04-17 09:18+0000\n"
+"PO-Revision-Date: 2013-04-27 23:36+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -145,6 +145,10 @@ msgstr "Projektai"
 msgid "Select Repository"
 msgstr "Atverti saugyklą"
 
+#: ../gitg/gitg-window.vala:218
+msgid "The URL introduced is not supported"
+msgstr "Įtrauktas URL nepalaikomas"
+
 #. ex:ts=4 noet
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository..."
@@ -155,7 +159,6 @@ msgid "Cl_one"
 msgstr "Kl_onuoti"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-#| msgid "Remotes"
 msgid "Remote _URL:"
 msgstr "Nutolęs _URL:"
 
@@ -168,7 +171,6 @@ msgid "Select location..."
 msgstr "Pasirinkite vietą..."
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
-#| msgid "Open Repository"
 msgid "Bare repository"
 msgstr "Tuščia saugykla"
 
@@ -193,12 +195,10 @@ msgid "_Quit"
 msgstr "_Išeiti"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
-#| msgid "Open Repository"
 msgid "_Open Repository"
 msgstr "_Atverti saugyklą"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:7
-#| msgid "Clone Repository"
 msgid "_Clone Repository"
 msgstr "_Klonuoti saugyklą"
 
@@ -207,7 +207,6 @@ msgid "_Close"
 msgstr "_Užverti"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-#| msgid "<b>Layout</b>"
 msgid "Layout"
 msgstr "Išdėstymas"
 
@@ -308,7 +307,6 @@ msgstr ""
 "neparuoštiems pakeitimams."
 
 #: ../plugins/history/resources/preferences.ui.h:1
-#| msgid "<b>Commits</b>"
 msgid "Commits"
 msgstr "Pakeitimai"
 
@@ -355,4 +353,3 @@ msgstr "Autorius"
 #: ../plugins/history/resources/view-history.ui.h:3
 msgid "Date"
 msgstr "Data"
-
