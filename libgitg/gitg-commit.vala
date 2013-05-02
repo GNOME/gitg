@@ -129,8 +129,12 @@ public class Commit : Ggit.Commit
 		{
 			return "%d days ago".printf((int)Math.round(t / (3600 * 24)));
 		}
-
-		return dt.to_timezone(time_zone).format("%x %X %z");
+		// FIXME: Localize these date formats, Bug 699196
+		else if (dt.get_year() == new DateTime.now_local().get_year())
+		{
+			return dt.to_timezone(time_zone).format("%h %e, %I:%M %P");
+		}
+		return dt.to_timezone(time_zone).format("%h %e %Y, %I:%M %P");
 	}
 
 	public string committer_date_for_display
