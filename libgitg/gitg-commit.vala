@@ -95,39 +95,32 @@ public class Commit : Ggit.Commit
 
 	private string date_for_display(DateTime dt, TimeZone time_zone)
 	{
-		var t = (new DateTime.now_local()).to_unix() - dt.to_unix();
-
-		if (t < 1)
+		TimeSpan t = (new DateTime.now_local()).difference(dt);
+		
+		float time_in_seconds = (float) t / TimeSpan.SECOND;
+		float time_in_hours = (float) t / TimeSpan.HOUR;
+		
+		if (time_in_seconds < 60)
 		{
-			return "Less than a second ago";
+			return "A minute ago";
 		}
-		else if (t < 60)
+		else if (time_in_seconds < 60 * 30)
 		{
-			return "Less than a minute ago";
+			return "%d minutes ago".printf((int) Math.round(time_in_seconds / 60));
 		}
-		else if (t < 600)
-		{
-			return "Less than 10 minutes ago";
-		}
-		else if (t < 1800)
+		else if (time_in_seconds < 60 * 45)
 		{
 			return "Half an hour ago";
 		}
-		else if (t < 3600)
+		else if (time_in_hours < 23.5)
 		{
-			return "An hour ago";
+			int rounded_hours = (int) Math.round(time_in_hours);
+			return rounded_hours == 1 ? "An hour ago" : "%d hours ago".printf(rounded_hours);
 		}
-		else if (t < 3600 * 24)
+		else if (time_in_hours < 24 * 7)
 		{
-			return "%d hours ago".printf((int)Math.round(t / 3600));
-		}
-		else if (t < 3600 * 24 * 2)
-		{
-			return "A day ago";
-		}
-		else if (t < 3600 * 24 * 6)
-		{
-			return "%d days ago".printf((int)Math.round(t / (3600 * 24)));
+			int rounded_days = (int) Math.round(time_in_hours / 24);
+			return rounded_days == 1 ? "A day ago" : "%d days ago".printf(rounded_days);
 		}
 		// FIXME: Localize these date formats, Bug 699196
 		else if (dt.get_year() == new DateTime.now_local().get_year())
