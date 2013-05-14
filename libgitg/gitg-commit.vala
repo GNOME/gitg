@@ -93,33 +93,27 @@ public class Commit : Ggit.Commit
 		}
 	}
 
-	private string date_for_display(DateTime dt, TimeZone time_zone)
+private string date_for_display(DateTime dt, TimeZone time_zone)
 	{
 		TimeSpan t = (new DateTime.now_local()).difference(dt);
-		
-		float time_in_seconds = (float) t / TimeSpan.SECOND;
-		float time_in_hours = (float) t / TimeSpan.HOUR;
-		
-		if (time_in_seconds < 60)
+
+		if (t < TimeSpan.MINUTE * 29.5)
 		{
-			return "A minute ago";
+			int rounded_minutes = (int) Math.round((float) t / TimeSpan.MINUTE);
+			return rounded_minutes <= 1 ? "A minute ago" : "%d minutes ago".printf(rounded_minutes);
 		}
-		else if (time_in_seconds < 60 * 30)
-		{
-			return "%d minutes ago".printf((int) Math.round(time_in_seconds / 60));
-		}
-		else if (time_in_seconds < 60 * 45)
+		else if (t < TimeSpan.MINUTE * 45)
 		{
 			return "Half an hour ago";
 		}
-		else if (time_in_hours < 23.5)
+		else if (t < TimeSpan.HOUR * 23.5)
 		{
-			int rounded_hours = (int) Math.round(time_in_hours);
+			int rounded_hours = (int) Math.round((float) t / TimeSpan.HOUR);
 			return rounded_hours == 1 ? "An hour ago" : "%d hours ago".printf(rounded_hours);
 		}
-		else if (time_in_hours < 24 * 7)
+		else if (t < TimeSpan.DAY * 7)
 		{
-			int rounded_days = (int) Math.round(time_in_hours / 24);
+			int rounded_days = (int) Math.round((float) t / TimeSpan.DAY);
 			return rounded_days == 1 ? "A day ago" : "%d days ago".printf(rounded_days);
 		}
 		// FIXME: Localize these date formats, Bug 699196
