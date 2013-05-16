@@ -167,7 +167,7 @@ public class Lanes : Object
 					mylane.to = poid;
 					mylane.from = myoid;
 					mylane.lane.from.append(lnpos);
-					mylane.lane.color = Color.next();
+					mylane.lane.color = mylane.lane.color.copy();
 					mylane.inactive = 0;
 					d_lanes.remove(container);
 				}
@@ -175,7 +175,7 @@ public class Lanes : Object
 				{
 					container.from = myoid;
 					container.lane.from.append(pos);
-					container.lane.color.next_index();
+					container.lane.color = container.lane.color.copy();
 					container.inactive = 0;
 				}
 
@@ -187,14 +187,7 @@ public class Lanes : Object
 				// commit lane, so set it now
 				mylane.to = poid;
 
-				if (parents.size() > 1)
-				{
-					mylane.lane.color = Color.next();
-				}
-				else
-				{
-					mylane.lane.color = mylane.lane.color.copy();
-				}
+				mylane.lane.color = mylane.lane.color.copy();
 			}
 			else
 			{
