@@ -157,14 +157,27 @@ public class Lanes : Object
 			if (container != null)
 			{
 				// there is already a lane for this parent. This means that
-				// we add pos as a merge for the lane, also this means the
-				// color of this lane incluis the merge should change to
-				// one color
-				container.lane.from.append(pos);
-				container.lane.color.next_index();
-
-				container.inactive = 0;
-				container.from = myoid;
+				// we add pos as a merge for the lane.
+				if (i == 0 && pos < lnpos)
+				{
+					// we are at the mainline of a merge, and this parent has
+					// already been assigned to an existing lane, if our
+					// lane's pos is smaller, then the this parent should be in
+					// our lane instead.
+					mylane.to = poid;
+					mylane.from = myoid;
+					mylane.lane.from.append(lnpos);
+					mylane.lane.color = Color.next();
+					mylane.inactive = 0;
+					d_lanes.remove(container);
+				}
+				else
+				{
+					container.from = myoid;
+					container.lane.from.append(pos);
+					container.lane.color.next_index();
+					container.inactive = 0;
+				}
 
 				continue;
 			}
