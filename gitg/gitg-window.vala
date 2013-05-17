@@ -208,11 +208,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	
 	private void on_reload_activated()
 	{
-		// Check to ensure history is active
-		if (d_repository != null)
-		{
-			repository_changed();
-		}
+		repository_changed();
 	}
 
 	private void on_clone_repository()
