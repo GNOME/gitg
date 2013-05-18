@@ -415,7 +415,7 @@ public class Application : Gtk.Application
 			return;
 		}
 
-		windows.last().data.present();
+		windows.first().data.present();
 	}
 }
 
