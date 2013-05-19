@@ -208,7 +208,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 	private void on_reload_activated()
 	{
-		repository_changed();
+		this.repository = new Gitg.Repository(this.repository.get_location(),
+		                                      null);
 	}
 
 	private void on_clone_repository()
