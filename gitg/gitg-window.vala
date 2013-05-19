@@ -205,7 +205,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		chooser.show();
 	}
-	
+
 	private void on_reload_activated()
 	{
 		repository_changed();
