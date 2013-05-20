@@ -8,64 +8,57 @@
     <property name="title" translatable="yes">gitg</property>
     <property name="default_width">1000</property>
     <property name="default_height">600</property>
-    <property name="hide_titlebar_when_maximized">True</property>
+    <child type="titlebar">
+      <object class="GtkHeaderBar" id="header-bar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="vexpand">False</property>
+        <child>
+          <object class="GdHeaderSimpleButton" id="button_dash">
+            <property name="visible">False</property>
+            <property name="can_focus">False</property>
+            <property name="symbolic_icon_name">go-previous-symbolic</property>
+          </object>
+          <packing>
+            <property name="pack_type">start</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GdHeaderToggleButton" id="search-button">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="symbolic_icon_name">edit-find-symbolic</property>
+            <property name="action_name">win.search</property>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GdStackSwitcher" id="commit-view-switcher">
+            <property name="visible">False</property>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GdHeaderMenuButton" id="gear-menubutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="symbolic_icon_name">emblem-system-symbolic</property>
+            <property name="action_name">win.gear-menu</property>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+      </object>
+    </child>
     <child>
       <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <child>
-          <object class="GdHeaderBar" id="header-bar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="vexpand">False</property>
-            <child>
-              <object class="GdHeaderSimpleButton" id="button_dash">
-                <property name="visible">False</property>
-                <property name="can_focus">False</property>
-                <property name="symbolic_icon_name">go-previous-symbolic</property>
-              </object>
-              <packing>
-                <property name="pack_type">start</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GdHeaderToggleButton" id="search-button">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="symbolic_icon_name">edit-find-symbolic</property>
-                <property name="action_name">win.search</property>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GdStackSwitcher" id="commit-view-switcher">
-                <property name="visible">False</property>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GdHeaderMenuButton" id="gear-menubutton">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="symbolic_icon_name">emblem-system-symbolic</property>
-                <property name="action_name">win.gear-menu</property>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
         <child>
           <object class="GdRevealer" id="search-revealer">
             <property name="visible">True</property>

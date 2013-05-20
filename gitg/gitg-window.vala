@@ -34,7 +34,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 
 	// Widgets
-	private Gd.HeaderBar d_header_bar;
+	private Gtk.HeaderBar d_header_bar;
 	private Gtk.MenuButton d_gear_menu;
 	private MenuModel d_dash_model;
 	private MenuModel d_views_model;
@@ -417,7 +417,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private void parser_finished(Gtk.Builder builder)
 	{
 		// Extract widgets from the builder
-		d_header_bar = builder.get_object("header-bar") as Gd.HeaderBar;
+		d_header_bar = builder.get_object("header-bar") as Gtk.HeaderBar;
 
 		d_button_dash = builder.get_object("button_dash") as Gd.HeaderSimpleButton;
 		d_button_dash.clicked.connect((b) => {
