@@ -49,13 +49,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private Gtk.ScrolledWindow d_dash_scrolled_window;
 	private GitgGtk.DashView d_dash_view;
 
-	private Gtk.Paned d_paned_views;
 	private Gtk.Paned d_paned_panels;
 
 	private Gd.Stack d_stack_view;
 	private Gd.Stack d_stack_panel;
-
-	private GitgExt.NavigationTreeView d_navigation;
 
 	private static const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
@@ -146,7 +143,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_header_bar.set_subtitle(Markup.escape_text(head_name));
 
 			d_main_stack.transition_type = Gd.StackTransitionType.SLIDE_LEFT;
-			d_main_stack.set_visible_child(d_paned_views);
+			d_main_stack.set_visible_child(d_paned_panels);
 			d_commit_view_switcher.show();
 			d_button_dash.show();
 			d_dash_view.add_repository(d_repository);
@@ -436,7 +433,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			repository = r;
 		});
 
-		d_paned_views = builder.get_object("paned_views") as Gtk.Paned;
 		d_paned_panels = builder.get_object("paned_panels") as Gtk.Paned;
 
 		d_stack_view = builder.get_object("stack_view") as Gd.Stack;
@@ -444,7 +440,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_commit_view_switcher = builder.get_object("commit-view-switcher") as Gd.StackSwitcher;
 		d_commit_view_switcher.stack = d_stack_panel;
 
-		d_navigation = builder.get_object("tree_view_navigation") as GitgExt.NavigationTreeView;
 		d_gear_menu = builder.get_object("gear-menubutton") as Gtk.MenuButton;
 
 		string menuname;
@@ -498,31 +493,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	{
 		GitgExt.View? view = (GitgExt.View?)element;
 
-		// 1) Clear the navigation tree
-		d_navigation.model.clear();
-
-		if (view != null && view.navigation != null)
+		if (view != null)
 		{
-			d_navigation.set_show_expanders(view.navigation.show_expanders);
-
-			if (view.navigation.show_expanders)
-			{
-				d_navigation.set_level_indentation(0);
-			}
-			else
-			{
-				d_navigation.set_level_indentation(12);
-			}
-
-			// 2) Populate the navigation tree for this view
-			d_navigation.model.populate(view.navigation);
+			view.on_view_activated();
 		}
-
-		d_navigation.expand_all();
-		d_navigation.select_first();
 
 		// Update panels
 		d_panels.update();
+
 		notify_property("current_view");
 	}
 
@@ -599,11 +577,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		int width, height;
 		d_state_settings.get ("size", "(ii)", out width, out height);
 		resize (width, height);
-
-		d_state_settings.bind("paned-views-position",
-		                      d_paned_views,
-		                      "position",
-		                      SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 		d_state_settings.bind("paned-panels-position",
 		                      d_paned_panels,

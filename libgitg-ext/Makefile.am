@@ -40,8 +40,6 @@ VALA_FILES =					\
 	gitg-ext-ui-element.vala		\
 	gitg-ext-panel.vala			\
 	gitg-ext-view.vala			\
-	gitg-ext-navigation.vala		\
-	gitg-ext-navigation-tree-view.vala	\
 	gitg-ext-message-id.vala		\
 	gitg-ext-message.vala			\
 	gitg-ext-message-bus.vala		\

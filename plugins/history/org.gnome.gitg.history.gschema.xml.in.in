@@ -1,6 +1,12 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.history" path="/org/gnome/gitg/history/">
+    <child name="state" schema="org.gnome.gitg.history.state"/>
     <child name="preferences" schema="org.gnome.gitg.history.preferences" />
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.history.state" path="/org/gnome/gitg/history/state/">
+    <key name="paned-views-position" type="i">
+      <default>200</default>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.history.preferences" path="/org/gnome/gitg/history/preferences/">
     <key name="collapse-inactive-lanes" type="i">

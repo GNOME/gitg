@@ -53,23 +53,17 @@ public enum ViewAction
  * Implementations of the GitgExtView interface will be integrated
  * automatically in the gitg interface according to the various interface
  * methods and properties that need to be implemented.
- *
- * To provide a default navigation when the view is active, the
- * #GitgExtView::navigation property should be implemented and should return a
- * non-null #GitgExtNavigation. This navigation section will always be present
- * at the top of the navigation menu. Note that you should normally ''not''
- * export this type to Peas because you will end up having the navigation
- * shown twice in the UI.
  */
 public interface View : Object, UIElement
 {
 	/**
-	 * Main navigation for the view.
+	 * Give the view itself a chance to perform some actions after being
+	 * activated.
 	 *
-	 * When provided, the corresponding navigation
-	 * section will be added in the navigation panel when the view is activated.
+	 * @return void
+	 *
 	 */
-	public abstract Navigation? navigation { owned get; }
+	public abstract void on_view_activated();
 
 	/**
 	 * Check whether the view is the default view for a particular action.
