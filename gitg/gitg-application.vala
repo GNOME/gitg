@@ -174,7 +174,6 @@ public class Application : Gtk.Application
 
 	private void on_app_help_activated()
 	{
-	
 	}
 
 	private void on_app_about_activated()

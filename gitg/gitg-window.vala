@@ -517,7 +517,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			// 2) Populate the navigation tree for this view
 			d_navigation.model.populate(view.navigation);
 		}
-		
+
 		d_navigation.expand_all();
 		d_navigation.select_first();
 
