@@ -184,19 +184,19 @@ namespace GitgHistory
 			                                  "scrolled_window_commit_list",
 			                                  "commit_list_view",
 			                                  "renderer_commit_list_author",
-			                                  "renderer_commit_list_date");
+			                                  "renderer_commit_list_author_date");
+
+			d_main = ret["scrolled_window_commit_list"] as Gtk.Widget;
 
 			d_view = ret["commit_list_view"] as Gtk.TreeView;
 			d_view.model = d_model;
-
-			(ret["renderer_commit_list_author"] as Gd.StyledTextRenderer).add_class("dim-label");
-			(ret["renderer_commit_list_date"] as Gd.StyledTextRenderer).add_class("dim-label");
-
 			d_view.get_selection().changed.connect((sel) => {
 				selection_changed();
 			});
 
-			d_main = ret["scrolled_window_commit_list"] as Gtk.Widget;
+			(ret["renderer_commit_list_author"] as Gd.StyledTextRenderer).add_class("dim-label");
+			(ret["renderer_commit_list_author_date"] as Gd.StyledTextRenderer).add_class("dim-label");
+
 		}
 
 		private void update_walker(Navigation n, Gitg.Ref? head)
