@@ -36,11 +36,18 @@ namespace GitgHistory
 
 		private Gtk.Paned d_main;
 		private GitgHistory.NavigationView d_navigation;
+		private Gtk.Paned d_paned_panels;
+		private Gd.Stack d_stack_panel;
 		private Gtk.TreeView d_commit_list;
 
 		public string id
 		{
 			owned get { return "/org/gnome/gitg/Views/History"; }
+		}
+
+		public Gd.Stack stack_panel
+		{
+			get { return d_stack_panel; }
 		}
 
 		public void foreach_selected(GitgExt.ForeachObjectSelectionFunc func)
@@ -181,6 +188,8 @@ namespace GitgHistory
 		{
 			var ret = GitgExt.UI.from_builder("history/view-history.ui",
 			                                  "paned_views",
+			                                  "paned_panels",
+			                                  "stack_panel",
 			                                  "navigation_view",
 			                                  "commit_list_view",
 			                                  "renderer_commit_list_author",
@@ -206,6 +215,9 @@ namespace GitgHistory
 				d_navigation.set_level_indentation(12);
 			}
 
+			d_paned_panels = ret["paned_panels"] as Gtk.Paned;
+			d_stack_panel = ret["stack_panel"] as Gd.Stack;
+
 			d_commit_list = ret["commit_list_view"] as Gtk.TreeView;
 			d_commit_list.model = d_model;
 			d_commit_list.get_selection().changed.connect((sel) => {
@@ -220,6 +232,16 @@ namespace GitgHistory
 			                    d_main,
 			                    "position",
 			                    SettingsBindFlags.GET | SettingsBindFlags.SET);
+			state_settings.bind("paned-panels-position",
+			                    d_paned_panels,
+			                    "position",
+			                    SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+			var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
+			interface_settings.bind("orientation",
+			                          d_paned_panels,
+			                          "orientation",
+			                          SettingsBindFlags.GET);
 		}
 
 		private void update_walker(Navigation n, Gitg.Ref? head)

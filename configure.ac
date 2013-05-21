@@ -221,12 +221,12 @@ AC_SUBST(GITG_PLUGIN_DATADIR)
 GITG_PLUGIN_LIBDIR="$libdir/gitg/plugins"
 AC_SUBST(GITG_PLUGIN_LIBDIR)
 
-GITG_PLUGIN_CFLAGS="$GITG_CFLAGS"
+GITG_PLUGIN_CFLAGS="-I\$(top_srcdir)/libgd $GITG_CFLAGS"
 GITG_PLUGIN_LIBS="$GITG_LIBS 					\
-	\$(top_builddir)/libgd/libgd.la				\
 	\$(top_builddir)/libgitg/libgitg-1.0.la 		\
 	\$(top_builddir)/libgitg-ext/libgitg-ext-1.0.la 	\
-	\$(top_builddir)/libgitg-gtk/libgitg-gtk-1.0.la"
+	\$(top_builddir)/libgitg-gtk/libgitg-gtk-1.0.la		\
+	\$(top_builddir)/libgd/libgd.la"
 
 AC_SUBST(GITG_PLUGIN_CFLAGS)
 AC_SUBST(GITG_PLUGIN_LIBS)

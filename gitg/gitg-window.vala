@@ -49,10 +49,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private Gtk.ScrolledWindow d_dash_scrolled_window;
 	private GitgGtk.DashView d_dash_view;
 
-	private Gtk.Paned d_paned_panels;
-
 	private Gd.Stack d_stack_view;
-	private Gd.Stack d_stack_panel;
 
 	private static const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
@@ -143,7 +140,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_header_bar.set_subtitle(Markup.escape_text(head_name));
 
 			d_main_stack.transition_type = Gd.StackTransitionType.SLIDE_LEFT;
-			d_main_stack.set_visible_child(d_paned_panels);
+			d_main_stack.set_visible_child(d_stack_view);
 			d_commit_view_switcher.show();
 			d_button_dash.show();
 			d_dash_view.add_repository(d_repository);
@@ -435,12 +432,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			repository = r;
 		});
 
-		d_paned_panels = builder.get_object("paned_panels") as Gtk.Paned;
-
 		d_stack_view = builder.get_object("stack_view") as Gd.Stack;
-		d_stack_panel = builder.get_object("stack_panel") as Gd.Stack;
+
 		d_commit_view_switcher = builder.get_object("commit-view-switcher") as Gd.StackSwitcher;
-		d_commit_view_switcher.stack = d_stack_panel;
 
 		d_gear_menu = builder.get_object("gear-menubutton") as Gtk.MenuButton;
 
@@ -482,11 +476,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			}
 		});
 
-		d_interface_settings.bind("orientation",
-		              d_paned_panels,
-		              "orientation",
-		              SettingsBindFlags.GET);
-
 		base.parser_finished(builder);
 	}
 
@@ -497,11 +486,27 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		if (view != null)
 		{
-			view.on_view_activated();
-		}
+			if (view.stack_panel != null)
+			{
+				d_commit_view_switcher.stack = view.stack_panel; //todo
 
-		// Update panels
-		d_panels.update();
+				// Initialize peas extensions set for this view
+				var engine = PluginsEngine.get_default();
+
+				d_panels = new UIElements<GitgExt.Panel>(new Peas.ExtensionSet(engine,
+				                                                               typeof(GitgExt.Panel),
+				                                                               "application",
+				                                                               this),
+				                                         view.stack_panel);
+
+				d_panels.activated.connect(on_panel_activated);
+
+			}
+
+			view.on_view_activated();
+
+			d_panels.update();
+		}
 
 		notify_property("current_view");
 	}
@@ -568,14 +573,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		d_views.activated.connect(on_view_activated);
 
-		d_panels = new UIElements<GitgExt.Panel>(new Peas.ExtensionSet(engine,
-		                                                               typeof(GitgExt.Panel),
-		                                                               "application",
-		                                                               this),
-		                                         d_stack_panel);
-
-		d_panels.activated.connect(on_panel_activated);
-
 		// Setup window geometry saving
 		Gdk.WindowState window_state = (Gdk.WindowState)d_state_settings.get_int("state");
 		if (Gdk.WindowState.MAXIMIZED in window_state) {
@@ -585,11 +582,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		int width, height;
 		d_state_settings.get ("size", "(ii)", out width, out height);
 		resize (width, height);
-
-		d_state_settings.bind("paned-panels-position",
-		                      d_paned_panels,
-		                      "position",
-		                      SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 		return true;
 	}

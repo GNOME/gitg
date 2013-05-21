@@ -37,69 +37,95 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="scrolled_window_commit_list">
+      <object class="GtkPaned" id="paned_panels">
         <property name="visible">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="can_focus">True</property>
-        <property name="shadow-type">none</property>
+        <property name="orientation">vertical</property>
+        <property name="position">300</property>
+        <style>
+          <class name="panels-paned"/>
+        </style>
         <child>
-          <object class="GitgGtkCommitListView" id="commit_list_view">
+          <object class="GtkScrolledWindow" id="scrolled_window_commit_list">
             <property name="visible">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
             <property name="can_focus">True</property>
-            <property name="rules_hint">True</property>
-            <property name="fixed-height-mode">True</property>
-            <property name="headers-visible">False</property>
+            <property name="shadow-type">none</property>
             <child>
-              <object class="GtkTreeViewColumn" id="column_commit_list_subject">
-                <property name="title" translatable="yes">Subject</property>
-                <property name="sizing">fixed</property>
-                <property name="resizable">True</property>
-                <property name="expand">True</property>
-                <property name="fixed-width">600</property>
+              <object class="GitgGtkCommitListView" id="commit_list_view">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="rules_hint">True</property>
+                <property name="fixed-height-mode">True</property>
+                <property name="headers-visible">False</property>
                 <child>
-                  <object class="GitgGtkCellRendererLanes" id="renderer_commit_list_subject">
-                    <property name="ellipsize">end</property>
+                  <object class="GtkTreeViewColumn" id="column_commit_list_subject">
+                    <property name="title" translatable="yes">Subject</property>
+                    <property name="sizing">fixed</property>
+                    <property name="resizable">True</property>
+                    <property name="expand">True</property>
+                    <property name="fixed-width">600</property>
+                    <child>
+                      <object class="GitgGtkCellRendererLanes" id="renderer_commit_list_subject">
+                        <property name="ellipsize">end</property>
+                      </object>
+                      <attributes>
+                        <attribute name="text">1</attribute>
+                      </attributes>
+                    </child>
                   </object>
-                  <attributes>
-                    <attribute name="text">1</attribute>
-                  </attributes>
                 </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="column_commit_list_author">
-                <property name="title" translatable="yes">Author</property>
-                <property name="sizing">fixed</property>
-                <property name="resizable">True</property>
-                <property name="fixed-width">200</property>
                 <child>
-                  <object class="GdStyledTextRenderer" id="renderer_commit_list_author">
-                    <property name="ellipsize">end</property>
+                  <object class="GtkTreeViewColumn" id="column_commit_list_author">
+                    <property name="title" translatable="yes">Author</property>
+                    <property name="sizing">fixed</property>
+                    <property name="resizable">True</property>
+                    <property name="fixed-width">200</property>
+                    <child>
+                      <object class="GdStyledTextRenderer" id="renderer_commit_list_author">
+                        <property name="ellipsize">end</property>
+                      </object>
+                      <attributes>
+                        <attribute name="text">4</attribute>
+                      </attributes>
+                    </child>
                   </object>
-                  <attributes>
-                    <attribute name="text">4</attribute>
-                  </attributes>
                 </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="column_commit_list_author_date">
-                <property name="title" translatable="yes">Date</property>
-                <property name="sizing">fixed</property>
-                <property name="resizable">True</property>
-                <property name="fixed-width">250</property>
                 <child>
-                  <object class="GdStyledTextRenderer" id="renderer_commit_list_author_date">
-                    <property name="ellipsize">end</property>
+                  <object class="GtkTreeViewColumn" id="column_commit_list_author_date">
+                    <property name="title" translatable="yes">Date</property>
+                    <property name="sizing">fixed</property>
+                    <property name="resizable">True</property>
+                    <property name="fixed-width">250</property>
+                    <child>
+                      <object class="GdStyledTextRenderer" id="renderer_commit_list_author_date">
+                        <property name="ellipsize">end</property>
+                      </object>
+                      <attributes>
+                        <attribute name="text">6</attribute>
+                      </attributes>
+                    </child>
                   </object>
-                  <attributes>
-                    <attribute name="text">6</attribute>
-                  </attributes>
                 </child>
               </object>
             </child>
           </object>
+        </child>
+        <child>
+          <object class="GdStack" id="stack_panel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="resize">True</property>
+            <property name="shrink">True</property>
+          </packing>
         </child>
       </object>
     </child>
