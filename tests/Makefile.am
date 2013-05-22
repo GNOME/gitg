@@ -22,11 +22,13 @@ TESTS = $(TEST_PROGS)
 
 BUILT_SOURCES = 				\
 	diff_view_vala.stamp			\
-	dash_view_vala.stamp
+	dash_view_vala.stamp			\
+	progress_bin_vala.stamp
 
 CLEANFILES =					\
 	$(diff_view_SOURCES:.vala=.c)		\
 	$(dash_view_SOURCES:.vala=.c)		\
+	$(progress_bin_SOURCES:.vala=.c)		\
 	$(BUILT_SOURCES)
 
 -include $(top_srcdir)/git.mk
