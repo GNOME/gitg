@@ -143,6 +143,11 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 				po/POTFILES \
 				po/stamp-it \
 				po/.intltool-merge-cache \
+				po/Makevars.template \
+				po/Rules-quot \
+				"po/*.header" \
+				"po/*.sin" \
+				"po/*.sed" \
 				"po/*.gmo" \
 				"po/*.mo" \
 				po/$(GETTEXT_PACKAGE).pot \

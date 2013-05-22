@@ -11,12 +11,15 @@ DISTCLEANFILES = \
 
 EXTRA_DIST = \
 	autogen.sh \
-	MAINTAINERS \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
+	MAINTAINERS
 
 MAINTAINERCLEANFILES = 		\
+	INSTALL			\
+	configure		\
+	build-aux/*		\
+	intltool-extract.in	\
+	intltool-merge.in	\
+	intltool-update.in	\
 	aclocal.m4		\
 	config.guess		\
 	config.h.in		\
@@ -65,7 +68,12 @@ MAINTAINERCLEANFILES = 		\
 	m4/wchar_t.m4 		\
 	m4/wint_t.m4 		\
 	m4/xsize.m4 		\
+	po/*.sin		\
+	po/*.sed		\
+	po/*.header		\
 	po/missing		\
+	po/Rules-quot		\
+	po/Makevars.template	\
 	`find "$(srcdir)" -type f -name Makefile.in -print`
 
 dist-hook: generate-changelog
