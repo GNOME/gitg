@@ -100,7 +100,10 @@ namespace GitgHistory
 			set
 			{
 				d_repository = value;
-				reload();
+				if (d_repository != null)
+				{
+					reload();
+				}
 			}
 		}
 
