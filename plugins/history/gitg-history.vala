@@ -186,6 +186,9 @@ namespace GitgHistory
 			d_navigation.model.ref_activated.connect((r) => {
 				on_ref_activated(d_navigation.model, r);
 			});
+
+			application.bind_property("repository", d_navigation.model, "repository", BindingFlags.DEFAULT);
+
 			d_navigation.set_show_expanders(d_navigation.model.show_expanders);
 			if (d_navigation.model.show_expanders)
 			{

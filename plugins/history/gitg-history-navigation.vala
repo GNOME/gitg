@@ -93,6 +93,17 @@ namespace GitgHistory
 			populate(d_repository);
 		}
 
+		[Notify]
+		public Gitg.Repository repository
+		{
+			get { return d_repository; }
+			set
+			{
+				d_repository = value;
+				reload();
+			}
+		}
+
 		private static int sort_refs(Gitg.Ref a, Gitg.Ref b)
 		{
 			return a.parsed_name.shortname.ascii_casecmp(b.parsed_name.shortname);
@@ -397,6 +408,12 @@ namespace GitgHistory
 			d_oid = 0;
 			d_sections = 0;
 			d_callbacks.length = 0;
+		}
+
+		public void reload()
+		{
+			clear();
+			populate(d_repository);
 		}
 
 		public void activate(Gtk.TreeIter iter, int numclick)
