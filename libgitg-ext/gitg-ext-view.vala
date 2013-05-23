@@ -56,6 +56,8 @@ public enum ViewAction
  */
 public interface View : Object, UIElement
 {
+	public abstract void reload();
+
 	/**
 	 * Give the view itself a chance to perform some actions after being
 	 * activated.

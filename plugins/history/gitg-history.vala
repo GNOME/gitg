@@ -170,6 +170,13 @@ namespace GitgHistory
 			d_navigation.select_first();
 		}
 
+		public void reload()
+		{
+			d_navigation.model.reload();
+			d_navigation.expand_all();
+			d_navigation.select_first();
+		}
+
 		private void build_ui()
 		{
 			var ret = GitgExt.UI.from_builder("history/view-history.ui",
