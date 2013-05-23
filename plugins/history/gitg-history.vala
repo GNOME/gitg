@@ -182,7 +182,7 @@ namespace GitgHistory
 			d_main = ret["paned_views"] as Gtk.Paned;
 
 			d_navigation = ret["navigation_view"] as GitgHistory.NavigationView;
-			d_navigation.model.populate(application.repository);
+			d_navigation.model = new Navigation(application.repository);
 			d_navigation.model.ref_activated.connect((r) => {
 				on_ref_activated(d_navigation.model, r);
 			});

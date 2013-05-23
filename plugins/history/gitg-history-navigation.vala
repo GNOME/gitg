@@ -73,10 +73,11 @@ namespace GitgHistory
 		private SList<Gtk.TreeIter?> d_parents;
 		private uint d_sections;
 		private Activated[] d_callbacks;
+		private Gitg.Repository d_repository;
 
 		public signal void ref_activated(Gitg.Ref? r);
 
-		construct
+		public Navigation(Gitg.Repository repo)
 		{
 			set_column_types({typeof(string),
 			                  typeof(string),
@@ -88,6 +89,8 @@ namespace GitgHistory
 
 			d_callbacks = new Activated[100];
 			d_callbacks.length = 0;
+			d_repository = repo;
+			populate(d_repository);
 		}
 
 		private static int sort_refs(Gitg.Ref a, Gitg.Ref b)
@@ -100,7 +103,7 @@ namespace GitgHistory
 			return a.parsed_name.remote_branch.ascii_casecmp(b.parsed_name.remote_branch);
 		}
 
-		public void populate(Gitg.Repository repo)
+		private void populate(Gitg.Repository repo)
 		{
 			List<Gitg.Ref> branches = new List<Gitg.Ref>();
 			List<Gitg.Ref> tags = new List<Gitg.Ref>();
@@ -411,11 +414,8 @@ namespace GitgHistory
 
 	public class NavigationView : Gtk.TreeView
 	{
-		construct
+		private void build_ui()
 		{
-			var model = new Navigation();
-			set_model(model);
-
 			var col = new Gtk.TreeViewColumn();
 
 			var padcell = new Gtk.CellRendererText();
@@ -486,6 +486,7 @@ namespace GitgHistory
 		public new Navigation model
 		{
 			get { return base.get_model() as Navigation; }
+			set { set_model(value); build_ui(); }
 		}
 
 		private bool select_first_in(Gtk.TreeIter? parent, bool seldef)
