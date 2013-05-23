@@ -75,6 +75,10 @@ namespace GitgDiff
 			owned get { return "diff-symbolic"; }
 		}
 
+		public void on_panel_activated()
+		{
+		}
+
 		private void on_selection_changed(GitgExt.ObjectSelection selection)
 		{
 			selection.foreach_selected((commit) => {

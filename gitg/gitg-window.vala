@@ -509,6 +509,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private void on_panel_activated(UIElements elements,
 	                                GitgExt.UIElement element)
 	{
+		GitgExt.Panel? panel = (GitgExt.Panel?)element;
+
+		if (panel != null)
+		{
+			panel.on_panel_activated();
+		}
 	}
 
 	private void activate_default_view()

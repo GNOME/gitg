@@ -37,6 +37,14 @@ namespace GitgExt
  */
 public interface Panel : Object, UIElement
 {
+	/**
+	 * Give the panel itself a chance to perform some actions after being
+	 * activated.
+	 *
+	 * @return void
+	 *
+	 */
+	public abstract void on_panel_activated();
 }
 
 }

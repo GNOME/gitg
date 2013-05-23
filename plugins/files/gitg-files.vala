@@ -82,6 +82,10 @@ namespace GitgFiles
 			owned get { return "system-file-manager-symbolic"; }
 		}
 
+		public void on_panel_activated()
+		{
+		}
+
 		private void on_selection_changed(GitgExt.ObjectSelection selection)
 		{
 			selection.foreach_selected((commit) => {
