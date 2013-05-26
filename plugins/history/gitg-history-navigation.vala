@@ -233,7 +233,7 @@ namespace GitgHistory
 
 				var rrefs = remotes.lookup(rname);
 
-				rrefs.sort((CompareFunc)sort_remote_refs);
+				rrefs.sort((CompareDataFunc)sort_remote_refs);
 
 				foreach (var rref in remotes.lookup(rname))
 				{

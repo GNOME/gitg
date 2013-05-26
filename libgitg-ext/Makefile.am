@@ -14,7 +14,7 @@ COMMON_VALA_FLAGS =				\
 	--pkg libgitg-1.0			\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
-	--pkg gee-1.0				\
+	--pkg gee-0.8				\
 	--pkg gd-1.0				\
 	--basedir $(top_srcdir)			\
 	--vapidir $(top_builddir)/libgd		\

@@ -22,7 +22,7 @@ AM_VALAFLAGS = \
 	--pkg gio-2.0						\
 	--pkg libpeas-1.0					\
 	--pkg gobject-introspection-1.0				\
-	--pkg gee-1.0						\
+	--pkg gee-0.8						\
 	--pkg gd-1.0						\
 	--pkg webkit2gtk-3.0					\
 	--girdir "$(top_builddir)/libgd"			\

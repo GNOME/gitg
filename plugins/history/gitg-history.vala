@@ -65,7 +65,7 @@ namespace GitgHistory
 		construct
 		{
 			d_model = new GitgGtk.CommitModel(application.repository);
-			d_selected = new Gee.HashSet<Ggit.OId>(Ggit.OId.hash, (EqualFunc<Ggit.OId>)Ggit.OId.equal);
+			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash, (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
 
 			d_model.started.connect(on_commit_model_started);
 			d_model.finished.connect(on_commit_model_finished);
