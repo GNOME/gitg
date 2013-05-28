@@ -424,6 +424,20 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			repository = null;
 		});
 
+		// Extract widgets from the builder
+		var close_button = builder.get_object("close_button") as Gtk.Button;
+		close_button.clicked.connect((b) => {
+			Gdk.Event event;
+
+			event = new Gdk.Event(Gdk.EventType.DELETE);
+
+			event.any.window = this.get_window();
+			event.any.send_event = 1;
+
+			Gtk.main_do_event(event);
+			event.free();
+		});
+
 		d_main_stack = builder.get_object("main_stack") as Gd.Stack;
 
 		d_dash_scrolled_window = builder.get_object("dash_scrolled_window") as Gtk.ScrolledWindow;
