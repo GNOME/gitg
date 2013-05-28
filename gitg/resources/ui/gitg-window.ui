@@ -14,21 +14,41 @@
         <property name="can_focus">False</property>
         <property name="vexpand">False</property>
         <child>
-          <object class="GdHeaderSimpleButton" id="button_dash">
+          <object class="GtkButton" id="button_dash">
             <property name="visible">False</property>
+            <property name="valign">center</property>
             <property name="can_focus">False</property>
-            <property name="symbolic_icon_name">go-previous-symbolic</property>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="dash_image">
+                <property name="visible">True</property>
+                <property name="icon_size">1</property>
+                <property name="icon_name">go-previous-symbolic</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="pack_type">start</property>
           </packing>
         </child>
         <child>
-          <object class="GdHeaderToggleButton" id="search-button">
+          <object class="GtkToggleButton" id="search-button">
             <property name="visible">True</property>
+            <property name="valign">center</property>
             <property name="can_focus">False</property>
-            <property name="symbolic_icon_name">edit-find-symbolic</property>
             <property name="action_name">win.search</property>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="search_image">
+                <property name="visible">True</property>
+                <property name="icon_size">1</property>
+                <property name="icon_name">edit-find-symbolic</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="pack_type">end</property>
@@ -43,11 +63,21 @@
           </packing>
         </child>
         <child>
-          <object class="GdHeaderMenuButton" id="gear-menubutton">
+          <object class="GtkMenuButton" id="gear-menubutton">
             <property name="visible">True</property>
+            <property name="valign">center</property>
             <property name="can_focus">False</property>
-            <property name="symbolic_icon_name">emblem-system-symbolic</property>
             <property name="action_name">win.gear-menu</property>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="gear_image">
+                <property name="visible">True</property>
+                <property name="icon_size">1</property>
+                <property name="icon_name">emblem-system-symbolic</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="pack_type">end</property>

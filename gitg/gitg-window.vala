@@ -39,7 +39,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private MenuModel d_dash_model;
 	private MenuModel d_views_model;
 
-	private Gd.HeaderSimpleButton d_button_dash;
+	private Gtk.Button d_button_dash;
 	private Gd.StackSwitcher d_commit_view_switcher;
 
 	private Gd.TaggedEntry d_search_entry;
@@ -419,7 +419,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		// Extract widgets from the builder
 		d_header_bar = builder.get_object("header-bar") as Gtk.HeaderBar;
 
-		d_button_dash = builder.get_object("button_dash") as Gd.HeaderSimpleButton;
+		d_button_dash = builder.get_object("button_dash") as Gtk.Button;
 		d_button_dash.clicked.connect((b) => {
 			repository = null;
 		});
@@ -466,7 +466,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_dash_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
 		d_views_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
 
-		var search_button = builder.get_object("search-button") as Gd.HeaderToggleButton;
+		var search_button = builder.get_object("search-button") as Gtk.ToggleButton;
 		var revealer = builder.get_object("search-revealer") as Gd.Revealer;
 		d_search_entry = builder.get_object("search-entry") as Gd.TaggedEntry;
 
