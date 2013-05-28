@@ -202,10 +202,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 	private void on_reload_activated()
 	{
-		d_repository = new Gitg.Repository(this.repository.get_location(),
-		                                   null);
-		notify_property("repository");
-		d_views.current.reload();
+		try
+		{
+			d_repository = new Gitg.Repository(this.repository.get_location(),
+				                               null);
+			notify_property("repository");
+			d_views.current.reload();
+		}
+		catch {}
 	}
 
 	private void on_clone_repository()
