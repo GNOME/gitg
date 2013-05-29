@@ -471,7 +471,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		d_views_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
 
 		var search_button = builder.get_object("search-button") as Gtk.ToggleButton;
-		var revealer = builder.get_object("search-revealer") as Gd.Revealer;
+		var revealer = builder.get_object("search-revealer") as Gtk.Revealer;
 		d_search_entry = builder.get_object("search-entry") as Gd.TaggedEntry;
 
 		search_button.bind_property("active", revealer, "reveal-child");

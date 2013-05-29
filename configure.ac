@@ -286,7 +286,6 @@ dnl libgd
 LIBGD_INIT([
 	tagged-entry
 	stack
-	revealer
 	_view-common
 	static
 	vapi
