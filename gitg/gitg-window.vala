@@ -504,7 +504,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 		if (view != null)
 		{
-			if (view.stack_panel != null)
+			if (view.stack_panel != null && d_panels == null)
 			{
 				d_commit_view_switcher.stack = view.stack_panel; //todo
 
