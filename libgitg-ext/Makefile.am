@@ -3,7 +3,6 @@ lib_LTLIBRARIES = libgitg-ext-1.0.la
 INCLUDES =								\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
-	-I$(top_srcdir)/libgd						\
 	$(LIBGITG_EXT_CFLAGS)						\
 	$(WARN_CFLAGS)							\
 	-DDATADIR=\""$(datadir)"\"					\
@@ -15,15 +14,12 @@ COMMON_VALA_FLAGS =				\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
 	--pkg gee-0.8				\
-	--pkg gd-1.0				\
 	--basedir $(top_srcdir)			\
-	--vapidir $(top_builddir)/libgd		\
 	--vapidir $(top_builddir)/libgitg
 
 AM_VALAFLAGS = 					\
 	$(COMMON_VALA_FLAGS)			\
 	--gir GitgExt-1.0.gir			\
-	--girdir $(top_builddir)/libgd		\
 	--girdir $(top_builddir)/libgitg	\
 	--includedir libgitg-ext		\
 	--header libgitg-ext.h			\
@@ -83,7 +79,7 @@ typelibdir = $(INTROSPECTION_TYPELIBDIR)
 typelib_DATA = GitgExt-1.0.typelib
 
 %.typelib: %.gir
-	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. --includedir=$(top_builddir)/libgd --includedir=$(top_builddir)/libgitg -o $@ $<
+	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. --includedir=$(top_builddir)/libgitg -o $@ $<
 
 if ENABLE_PYTHON
 overridesdir = $(pyoverridesdir)

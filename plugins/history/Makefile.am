@@ -1,6 +1,7 @@
 INCLUDES =								\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
+	-I$(top_srcdir)/libgd						\
 	$(GITG_PLUGIN_CFLAGS)						\
 	$(WARN_CFLAGS)							\
 	-DDATADIR=\""$(datadir)"\"					\
