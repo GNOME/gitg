@@ -56,6 +56,12 @@ public enum ViewAction
  */
 public interface View : Object, UIElement
 {
+	/**
+	 * Method called to reload the view.
+	 *
+	 * @return void
+	 *
+	 */
 	public abstract void reload();
 
 	/**
@@ -82,6 +88,13 @@ public interface View : Object, UIElement
 	 */
 	public abstract bool is_default_for(string action);
 
+	/**
+	 * A Gtk Builder element that the panel plugins will be
+	 * populated into.
+	 *
+	 * @return Gtk.Stack
+	 *
+	 */
 	public abstract Gtk.Stack stack_panel { get; }
 }
 
