@@ -45,7 +45,7 @@ namespace GitgHistory
 			owned get { return "/org/gnome/gitg/Views/History"; }
 		}
 
-		public Gtk.Stack stack_panel
+		public Gtk.Stack? stack_panel
 		{
 			get { return d_stack_panel; }
 		}

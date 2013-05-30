@@ -92,10 +92,10 @@ public interface View : Object, UIElement
 	 * A Gtk Builder element that the panel plugins will be
 	 * populated into.
 	 *
-	 * @return Gtk.Stack
+	 * @return Gtk.Stack?
 	 *
 	 */
-	public abstract Gtk.Stack stack_panel { get; }
+	public abstract Gtk.Stack? stack_panel { get; }
 }
 
 }
