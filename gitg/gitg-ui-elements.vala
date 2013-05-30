@@ -26,7 +26,7 @@ public class UIElements<T>
 	private HashTable<string, GitgExt.UIElement> d_elements;
 	private List<GitgExt.UIElement> d_available_elements;
 	private GitgExt.UIElement? d_current;
-	private Gd.Stack d_stack;
+	private Gtk.Stack d_stack;
 
 	public signal void activated(GitgExt.UIElement element);
 
@@ -149,7 +149,7 @@ public class UIElements<T>
 		d_stack.add_with_properties(e.widget,
 		                            "name", e.id,
 		                            "title", e.display_name,
-		                            "symbolic-icon-name", e.icon);
+		                            "icon-name", e.icon);
 
 		int insert_position = 0;
 		unowned List<GitgExt.UIElement> item = d_available_elements;
@@ -228,7 +228,7 @@ public class UIElements<T>
 	}
 
 	public UIElements(Peas.ExtensionSet extensions,
-	                  Gd.Stack? stack = null)
+	                  Gtk.Stack? stack = null)
 	{
 		d_extensions = extensions;
 		d_stack = stack;

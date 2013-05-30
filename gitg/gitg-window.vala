@@ -40,16 +40,16 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private MenuModel d_views_model;
 
 	private Gtk.Button d_button_dash;
-	private Gd.StackSwitcher d_commit_view_switcher;
+	private Gtk.StackSwitcher d_commit_view_switcher;
 
 	private Gd.TaggedEntry d_search_entry;
 
-	private Gd.Stack d_main_stack;
+	private Gtk.Stack d_main_stack;
 
 	private Gtk.ScrolledWindow d_dash_scrolled_window;
 	private GitgGtk.DashView d_dash_view;
 
-	private Gd.Stack d_stack_view;
+	private Gtk.Stack d_stack_view;
 
 	private static const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
@@ -139,7 +139,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 
 			d_header_bar.set_subtitle(Markup.escape_text(head_name));
 
-			d_main_stack.transition_type = Gd.StackTransitionType.SLIDE_LEFT;
+			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
 			d_main_stack.set_visible_child(d_stack_view);
 			d_commit_view_switcher.show();
 			d_button_dash.show();
@@ -153,7 +153,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_header_bar.set_title(_("Projects"));
 			d_header_bar.set_subtitle(null);
 
-			d_main_stack.transition_type = Gd.StackTransitionType.SLIDE_RIGHT;
+			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT;
 			d_main_stack.set_visible_child(d_dash_scrolled_window);
 			d_commit_view_switcher.hide();
 			d_button_dash.hide();
@@ -442,7 +442,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			event.free();
 		});
 
-		d_main_stack = builder.get_object("main_stack") as Gd.Stack;
+		d_main_stack = builder.get_object("main_stack") as Gtk.Stack;
 
 		d_dash_scrolled_window = builder.get_object("dash_scrolled_window") as Gtk.ScrolledWindow;
 		d_dash_view = builder.get_object("dash_view") as GitgGtk.DashView;
@@ -450,9 +450,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			repository = r;
 		});
 
-		d_stack_view = builder.get_object("stack_view") as Gd.Stack;
+		d_stack_view = builder.get_object("stack_view") as Gtk.Stack;
 
-		d_commit_view_switcher = builder.get_object("commit-view-switcher") as Gd.StackSwitcher;
+		d_commit_view_switcher = builder.get_object("commit-view-switcher") as Gtk.StackSwitcher;
 
 		d_gear_menu = builder.get_object("gear-menubutton") as Gtk.MenuButton;
 

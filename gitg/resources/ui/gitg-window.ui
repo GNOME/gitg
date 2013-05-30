@@ -55,7 +55,7 @@
           </packing>
         </child>
         <child>
-          <object class="GdStackSwitcher" id="commit-view-switcher">
+          <object class="GtkStackSwitcher" id="commit-view-switcher">
             <property name="visible">False</property>
           </object>
           <packing>
@@ -169,7 +169,7 @@
           </packing>
         </child>
         <child>
-          <object class="GdStack" id="main_stack">
+          <object class="GtkStack" id="main_stack">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
@@ -197,7 +197,7 @@
               </object>
             </child>
             <child>
-              <object class="GdStack" id="stack_view">
+              <object class="GtkStack" id="stack_view">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
               </object>

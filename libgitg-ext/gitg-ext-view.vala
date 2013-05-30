@@ -82,7 +82,7 @@ public interface View : Object, UIElement
 	 */
 	public abstract bool is_default_for(string action);
 
-	public abstract Gd.Stack stack_panel { get; }
+	public abstract Gtk.Stack stack_panel { get; }
 }
 
 }

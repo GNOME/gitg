@@ -37,7 +37,7 @@ namespace GitgHistory
 		private Gtk.Paned d_main;
 		private GitgHistory.NavigationView d_navigation;
 		private Gtk.Paned d_paned_panels;
-		private Gd.Stack d_stack_panel;
+		private Gtk.Stack d_stack_panel;
 		private Gtk.TreeView d_commit_list;
 
 		public string id
@@ -45,7 +45,7 @@ namespace GitgHistory
 			owned get { return "/org/gnome/gitg/Views/History"; }
 		}
 
-		public Gd.Stack stack_panel
+		public Gtk.Stack stack_panel
 		{
 			get { return d_stack_panel; }
 		}
@@ -216,7 +216,7 @@ namespace GitgHistory
 			}
 
 			d_paned_panels = ret["paned_panels"] as Gtk.Paned;
-			d_stack_panel = ret["stack_panel"] as Gd.Stack;
+			d_stack_panel = ret["stack_panel"] as Gtk.Stack;
 
 			d_commit_list = ret["commit_list_view"] as Gtk.TreeView;
 			d_commit_list.model = d_model;
