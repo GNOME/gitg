@@ -186,7 +186,9 @@ namespace GitgHistory
 
 		public void reload()
 		{
+			d_navigation.set_model(null);
 			d_navigation_model.reload();
+			d_navigation.set_model(d_navigation_model);
 			d_navigation.expand_all();
 			d_navigation.select_first();
 		}
