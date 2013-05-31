@@ -100,10 +100,6 @@ namespace GitgHistory
 			set
 			{
 				d_repository = value;
-				if (d_repository != null)
-				{
-					reload();
-				}
 			}
 		}
 
@@ -415,8 +411,11 @@ namespace GitgHistory
 
 		public void reload()
 		{
-			clear();
-			populate(d_repository);
+			if (d_repository != null)
+			{
+				clear();
+				populate(d_repository);
+			}
 		}
 
 		public void activate(Gtk.TreeIter iter, int numclick)
