@@ -3,21 +3,22 @@
   <!-- interface-requires gtk+ 3.3 -->
   <!-- interface-requires gitg 0.0 -->
   <!-- interface-requires gd 1.0 -->
-  <object class="GitgWindow" id="window">
+  <template class="GitgWindow" parent="Gtk.Window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">gitg</property>
     <property name="default_width">1000</property>
     <property name="default_height">600</property>
     <child type="titlebar">
-      <object class="GtkHeaderBar" id="header-bar">
+      <object class="GtkHeaderBar" id="d_header_bar">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="vexpand">False</property>
         <child>
-          <object class="GtkButton" id="button_dash">
+          <object class="GtkButton" id="d_dash_button">
             <property name="visible">False</property>
             <property name="valign">center</property>
             <property name="can_focus">False</property>
+            <signal name="clicked" handler="dash_button_clicked" object="GitgWindow" swapped="no"/>
             <style>
               <class name="image-button"/>
             </style>
@@ -34,11 +35,12 @@
           </packing>
         </child>
         <child>
-          <object class="GtkToggleButton" id="search-button">
+          <object class="GtkToggleButton" id="d_search_button">
             <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="can_focus">False</property>
             <property name="action_name">win.search</property>
+            <signal name="toggled" handler="search_button_toggled" object="GitgWindow" swapped="no"/>
             <style>
               <class name="image-button"/>
             </style>
@@ -55,7 +57,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkStackSwitcher" id="commit-view-switcher">
+          <object class="GtkStackSwitcher" id="d_commit_view_switcher">
             <property name="visible">False</property>
           </object>
           <packing>
@@ -63,7 +65,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkMenuButton" id="gear-menubutton">
+          <object class="GtkMenuButton" id="d_gear_menu">
             <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="can_focus">False</property>
@@ -94,10 +96,11 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="close_button">
+          <object class="GtkButton" id="d_close_button">
             <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="relief">none</property>
+            <signal name="clicked" handler="close_button_clicked" object="GitgWindow" swapped="no"/>
             <style>
               <class name="image-button"/>
             </style>
@@ -120,12 +123,12 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkRevealer" id="search-revealer">
+          <object class="GtkRevealer" id="d_search_revealer">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="reveal-child">False</property>
             <child>
-              <object class="GtkToolbar" id="toolbar-search">
+              <object class="GtkToolbar" id="toolbar_search">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <style>
@@ -136,18 +139,19 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkBox" id="box-search-entry">
+                      <object class="GtkBox" id="box_search_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="can_focus">False</property>
                         <property name="halign">center</property>
                         <child>
-                          <object class="GdTaggedEntry" id="search-entry">
+                          <object class="GdTaggedEntry" id="d_search_entry">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="invisible_char">●</property>
                             <property name="invisible_char_set">True</property>
                             <property name="width-request">500</property>
+                            <signal name="changed" handler="search_entry_changed" object="GitgWindow" swapped="no"/>
                           </object>
                         </child>
                       </object>
@@ -169,13 +173,13 @@
           </packing>
         </child>
         <child>
-          <object class="GtkStack" id="main_stack">
+          <object class="GtkStack" id="d_main_stack">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <child>
-              <object class="GtkScrolledWindow" id="dash_scrolled_window">
+              <object class="GtkScrolledWindow" id="d_dash_scrolled_window">
                 <property name="visible">True</property>
                 <property name="vexpand">True</property>
                 <property name="hexpand">True</property>
@@ -187,7 +191,7 @@
                   <object class="GtkViewport" id="dash_viewport">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GitgGtkDashView" id="dash_view">
+                      <object class="GitgGtkDashView" id="d_dash_view">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
@@ -197,7 +201,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkStack" id="stack_view">
+              <object class="GtkStack" id="d_stack_view">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
               </object>
@@ -212,5 +216,5 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>

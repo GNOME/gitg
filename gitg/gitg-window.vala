@@ -20,7 +20,8 @@
 namespace Gitg
 {
 
-public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.Buildable
+[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-window.ui")]
+public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 {
 	private Settings d_state_settings;
 	private Settings d_main_settings;
@@ -32,23 +33,35 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	private UIElements<GitgExt.View> d_views;
 	private UIElements<GitgExt.Panel> d_panels;
 
-
 	// Widgets
+	[GtkChild]
 	private Gtk.HeaderBar d_header_bar;
+	[GtkChild]
+	private Gtk.ToggleButton d_search_button;
+	[GtkChild]
 	private Gtk.MenuButton d_gear_menu;
 	private MenuModel d_dash_model;
 	private MenuModel d_views_model;
 
-	private Gtk.Button d_button_dash;
+	[GtkChild]
+	private Gtk.Button d_dash_button;
+	[GtkChild]
 	private Gtk.StackSwitcher d_commit_view_switcher;
 
+	[GtkChild]
+	private Gtk.Revealer d_search_revealer;
+	[GtkChild]
 	private Gd.TaggedEntry d_search_entry;
 
+	[GtkChild]
 	private Gtk.Stack d_main_stack;
 
+	[GtkChild]
 	private Gtk.ScrolledWindow d_dash_scrolled_window;
+	[GtkChild]
 	private GitgGtk.DashView d_dash_view;
 
+	[GtkChild]
 	private Gtk.Stack d_stack_view;
 
 	private static const ActionEntry[] win_entries = {
@@ -62,12 +75,76 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		{"user-information-repo", on_repo_user_info_activated},
 	};
 
+	[GtkCallback]
+	private void close_button_clicked(Gtk.Button button)
+	{
+		Gdk.Event event;
+
+		event = new Gdk.Event(Gdk.EventType.DELETE);
+
+		event.any.window = this.get_window();
+		event.any.send_event = 1;
+
+		Gtk.main_do_event(event);
+		event.free();
+	}
+
+	[GtkCallback]
+	private void dash_button_clicked(Gtk.Button dash)
+	{
+		repository = null;
+	}
+
+	[GtkCallback]
+	private void search_button_toggled(Gtk.ToggleButton button)
+	{
+		if (button.get_active())
+		{
+			d_search_entry.grab_focus();
+		}
+		else
+		{
+			d_search_entry.set_text("");
+		}
+	}
+
+	[GtkCallback]
+	private void search_entry_changed(Gtk.Entry entry)
+	{
+		// FIXME: this is a weird way to know the dash is visible
+		if (d_repository == null)
+		{
+			d_dash_view.filter_text(entry.text);
+		}
+	}
+
 	construct
 	{
 		add_action_entries(win_entries, this);
 
 		d_main_settings = new Settings("org.gnome.gitg.preferences.view.main");
 		d_interface_settings = new Settings("org.gnome.gitg.preferences.interface");
+
+		string menuname;
+
+		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
+		{
+			menuname = "win-menu";
+		}
+		else
+		{
+			menuname = "app-win-menu";
+		}
+
+		d_dash_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
+		d_views_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
+
+		d_search_button.bind_property("active", d_search_revealer, "reveal-child");
+
+		// FIXME: for some reason if I create a signal in the ui file for this it crashes
+		d_dash_view.repository_activated.connect((r) => {
+			repository = r;
+		});
 	}
 
 	private void on_close_activated()
@@ -142,7 +219,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
 			d_main_stack.set_visible_child(d_stack_view);
 			d_commit_view_switcher.show();
-			d_button_dash.show();
+			d_dash_button.show();
 			d_dash_view.add_repository(d_repository);
 			d_gear_menu.menu_model = d_views_model;
 		}
@@ -156,7 +233,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT;
 			d_main_stack.set_visible_child(d_dash_scrolled_window);
 			d_commit_view_switcher.hide();
-			d_button_dash.hide();
+			d_dash_button.hide();
 			d_gear_menu.menu_model = d_dash_model;
 		}
 
@@ -418,85 +495,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 		});
 	}
 
-	private void parser_finished(Gtk.Builder builder)
-	{
-		// Extract widgets from the builder
-		d_header_bar = builder.get_object("header-bar") as Gtk.HeaderBar;
-
-		d_button_dash = builder.get_object("button_dash") as Gtk.Button;
-		d_button_dash.clicked.connect((b) => {
-			repository = null;
-		});
-
-		// Extract widgets from the builder
-		var close_button = builder.get_object("close_button") as Gtk.Button;
-		close_button.clicked.connect((b) => {
-			Gdk.Event event;
-
-			event = new Gdk.Event(Gdk.EventType.DELETE);
-
-			event.any.window = this.get_window();
-			event.any.send_event = 1;
-
-			Gtk.main_do_event(event);
-			event.free();
-		});
-
-		d_main_stack = builder.get_object("main_stack") as Gtk.Stack;
-
-		d_dash_scrolled_window = builder.get_object("dash_scrolled_window") as Gtk.ScrolledWindow;
-		d_dash_view = builder.get_object("dash_view") as GitgGtk.DashView;
-		d_dash_view.repository_activated.connect((r) => {
-			repository = r;
-		});
-
-		d_stack_view = builder.get_object("stack_view") as Gtk.Stack;
-
-		d_commit_view_switcher = builder.get_object("commit-view-switcher") as Gtk.StackSwitcher;
-
-		d_gear_menu = builder.get_object("gear-menubutton") as Gtk.MenuButton;
-
-		string menuname;
-
-		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
-		{
-			menuname = "win-menu";
-		}
-		else
-		{
-			menuname = "app-win-menu";
-		}
-
-		d_dash_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
-		d_views_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
-
-		var search_button = builder.get_object("search-button") as Gtk.ToggleButton;
-		var revealer = builder.get_object("search-revealer") as Gtk.Revealer;
-		d_search_entry = builder.get_object("search-entry") as Gd.TaggedEntry;
-
-		search_button.bind_property("active", revealer, "reveal-child");
-		search_button.toggled.connect((b) => {
-			if (b.get_active())
-			{
-				d_search_entry.grab_focus();
-			}
-			else
-			{
-				d_search_entry.set_text("");
-			}
-		});
-
-		d_search_entry.changed.connect((e) => {
-			// FIXME: this is a weird way to know the dash is visible
-			if (d_repository == null)
-			{
-				d_dash_view.filter_text((e as Gtk.Entry).text);
-			}
-		});
-
-		base.parser_finished(builder);
-	}
-
 	private void on_view_activated(UIElements elements,
 	                               GitgExt.UIElement element)
 	{
@@ -608,7 +606,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable, Gtk.
 	                                 Repository? repository,
 	                                 string? action)
 	{
-		Window? ret = Resource.load_object<Window>("ui/gitg-window.ui", "window");
+		Window? ret = new Window();
 
 		if (ret != null)
 		{
