@@ -73,7 +73,7 @@ namespace GitgHistory
 		private SList<Gtk.TreeIter?> d_parents;
 		private uint d_sections;
 		private Activated[] d_callbacks;
-		private Gitg.Repository d_repository;
+		private Gitg.Repository? d_repository;
 
 		public signal void ref_activated(Gitg.Ref? r);
 
