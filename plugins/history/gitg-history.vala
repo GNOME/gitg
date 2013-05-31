@@ -29,6 +29,7 @@ namespace GitgHistory
 
 		public GitgExt.Application? application { owned get; construct set; }
 
+		private Navigation? d_navigation_model;
 		private GitgGtk.CommitModel? d_commit_list_model;
 		private Gee.HashSet<Ggit.OId> d_selected;
 		private ulong d_insertsig;
@@ -71,12 +72,18 @@ namespace GitgHistory
 
 			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash, (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
 
+			d_navigation_model = new Navigation(application.repository);
+			d_navigation_model.ref_activated.connect((r) => {
+				on_ref_activated(d_navigation_model, r);
+			});
+
 			d_commit_list_model = new GitgGtk.CommitModel(application.repository);
 			d_commit_list_model.started.connect(on_commit_model_started);
 			d_commit_list_model.finished.connect(on_commit_model_finished);
 
 			update_sort_mode();
 
+			application.bind_property("repository", d_navigation_model, "repository", BindingFlags.DEFAULT);
 			application.bind_property("repository", d_commit_list_model, "repository", BindingFlags.DEFAULT);
 
 			application.notify["repository"].connect((a, r) => {
@@ -179,7 +186,7 @@ namespace GitgHistory
 
 		public void reload()
 		{
-			d_navigation.model.reload();
+			d_navigation_model.reload();
 			d_navigation.expand_all();
 			d_navigation.select_first();
 		}
@@ -201,12 +208,7 @@ namespace GitgHistory
 			d_stack_panel = ret["stack_panel"] as Gtk.Stack;
 
 			d_navigation = ret["navigation_view"] as GitgHistory.NavigationView;
-			d_navigation.model = new Navigation(application.repository);
-			d_navigation.model.ref_activated.connect((r) => {
-				on_ref_activated(d_navigation.model, r);
-			});
-
-			application.bind_property("repository", d_navigation.model, "repository", BindingFlags.DEFAULT);
+			d_navigation.model = d_navigation_model;
 
 			d_navigation.set_show_expanders(d_navigation.model.show_expanders);
 			if (d_navigation.model.show_expanders)
