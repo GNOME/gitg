@@ -210,16 +210,6 @@ namespace GitgHistory
 			d_navigation = ret["navigation_view"] as GitgHistory.NavigationView;
 			d_navigation.model = d_navigation_model;
 
-			d_navigation.set_show_expanders(d_navigation.model.show_expanders);
-			if (d_navigation.model.show_expanders)
-			{
-				d_navigation.set_level_indentation(0);
-			}
-			else
-			{
-				d_navigation.set_level_indentation(12);
-			}
-
 			d_commit_list = ret["commit_list_view"] as Gtk.TreeView;
 			d_commit_list.model = d_commit_list_model;
 			d_commit_list.get_selection().changed.connect((sel) => {

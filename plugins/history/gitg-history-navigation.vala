@@ -501,6 +501,16 @@ namespace GitgHistory
 					model.activate(iter, 1);
 				}
 			});
+
+			set_show_expanders(model.show_expanders);
+			if (model.show_expanders)
+			{
+				set_level_indentation(0);
+			}
+			else
+			{
+				set_level_indentation(12);
+			}
 		}
 
 		public new Navigation model
