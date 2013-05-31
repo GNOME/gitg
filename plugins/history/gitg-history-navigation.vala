@@ -30,6 +30,7 @@ namespace GitgHistory
 	private enum Column
 	{
 		ICON_NAME,
+		NAME,
 		TEXT,
 		HEADER,
 		HINT,
@@ -74,12 +75,15 @@ namespace GitgHistory
 		private uint d_sections;
 		private Activated[] d_callbacks;
 		private Gitg.Repository? d_repository;
+		private string? d_selected_head;
+		private Gtk.TreeIter? d_selected_iter;
 
 		public signal void ref_activated(Gitg.Ref? r);
 
 		public Navigation(Gitg.Repository repo)
 		{
 			set_column_types({typeof(string),
+			                  typeof(string),
 			                  typeof(string),
 			                  typeof(string),
 			                  typeof(uint),
@@ -101,6 +105,12 @@ namespace GitgHistory
 			{
 				d_repository = value;
 			}
+		}
+
+		public Gtk.TreeIter? selected_iter
+		{
+			get { return d_selected_iter; }
+			set { d_selected_iter = value; }
 		}
 
 		private static int sort_refs(Gitg.Ref a, Gitg.Ref b)
@@ -174,11 +184,11 @@ namespace GitgHistory
 
 			if (CommandLine.all)
 			{
-				append_default(_("All commits"), null, (nc) => ref_activated(null));
+				append_default(_("All commits"), null, null, (nc) => activate_ref(null));
 			}
 			else
 			{
-				append(_("All commits"), null, (nc) => ref_activated(null));
+				append(_("All commits"), null, null, (nc) => activate_ref(null));
 			}
 
 			// Branches
@@ -207,14 +217,16 @@ namespace GitgHistory
 				if (isdef)
 				{
 					append_default(item.parsed_name.shortname,
+					               item.parsed_name.name,
 					               icon,
-					               (nc) => ref_activated(item));
+					               (nc) => activate_ref(item));
 				}
 				else
 				{
 					append(item.parsed_name.shortname,
+					       item.parsed_name.name,
 					       icon,
-					       (nc) => ref_activated(item));
+					       (nc) => activate_ref(item));
 				}
 			}
 
@@ -236,8 +248,9 @@ namespace GitgHistory
 					var it = rref;
 
 					append(rref.parsed_name.remote_branch,
+					       rref.parsed_name.name,
 					       null,
-					       (nc) => ref_activated(it));
+					       (nc) => activate_ref(it));
 				}
 
 				end_header();
@@ -253,8 +266,9 @@ namespace GitgHistory
 				var it = item;
 
 				append(item.parsed_name.shortname,
+				       item.parsed_name.name,
 				       null,
-				       (nc) => ref_activated(it));
+				       (nc) => activate_ref(it));
 			}
 
 			end_header();
@@ -283,6 +297,7 @@ namespace GitgHistory
 		}
 
 		private void append_one(string text,
+		                        string? name,
 		                        string? icon_name,
 		                        uint hint,
 		                        owned NavigationActivated? callback,
@@ -299,31 +314,40 @@ namespace GitgHistory
 
 			@set(iter,
 			     Column.ICON_NAME, icon_name,
+			     Column.NAME, name,
 			     hint == Hint.HEADER ? Column.HEADER : Column.TEXT, text,
 			     Column.HINT, hint,
 			     Column.SECTION, d_sections,
 			     Column.OID, d_oid);
+
+			if (d_selected_head == name && name != null ||
+			    d_selected_head == "--ALL REFS--" && text == _("All commits"))
+			{
+				d_selected_iter = iter;
+			}
 
 			d_callbacks += new Activated((owned)callback);
 			++d_oid;
 		}
 
 		public new Navigation append(string text,
+		                             string? name,
 		                             string? icon_name,
 		                             owned NavigationActivated? callback)
 		{
 			Gtk.TreeIter iter;
-			append_one(text, icon_name, Hint.NONE, (owned)callback, out iter);
+			append_one(text, name, icon_name, Hint.NONE, (owned)callback, out iter);
 
 			return this;
 		}
 
 		public new Navigation append_default(string text,
+		                                     string? name,
 		                                     string? icon_name,
 		                                     owned NavigationActivated? callback)
 		{
 			Gtk.TreeIter iter;
-			append_one(text, icon_name, Hint.DEFAULT, (owned)callback, out iter);
+			append_one(text, name, icon_name, Hint.DEFAULT, (owned)callback, out iter);
 
 			return this;
 		}
@@ -331,7 +355,7 @@ namespace GitgHistory
 		public new Navigation append_separator()
 		{
 			Gtk.TreeIter iter;
-			append_one("", null, Hint.SEPARATOR, null, out iter);
+			append_one("", null, null, Hint.SEPARATOR, null, out iter);
 
 			return this;
 		}
@@ -341,7 +365,7 @@ namespace GitgHistory
 		{
 			Gtk.TreeIter iter;
 
-			append_one(text, icon_name, Hint.HEADER, null, out iter);
+			append_one(text, null, icon_name, Hint.HEADER, null, out iter);
 			d_parents.prepend(iter);
 
 			return this;
@@ -428,6 +452,18 @@ namespace GitgHistory
 			{
 				d_callbacks[oid].activate(numclick);
 			}
+		}
+
+		private void activate_ref(Gitg.Ref? r) {
+			if (r != null)
+			{
+				d_selected_head = r.parsed_name.name;
+			}
+			else
+			{
+				d_selected_head = "--ALL REFS--";
+			}
+			ref_activated(r);
 		}
 	}
 
@@ -556,6 +592,18 @@ namespace GitgHistory
 		public void select_first()
 		{
 			select_first_in(null, true) || select_first_in(null, false);
+		}
+
+		public void select()
+		{
+			if (model.selected_iter != null) {
+				get_selection().select_iter(model.selected_iter);
+				model.selected_iter = null;
+			}
+			else
+			{
+				select_first();
+			}
 		}
 
 		protected override void row_activated(Gtk.TreePath path, Gtk.TreeViewColumn col)
