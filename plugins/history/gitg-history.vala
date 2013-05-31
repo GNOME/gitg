@@ -64,16 +64,16 @@ namespace GitgHistory
 
 		construct
 		{
-			d_commit_list_model = new GitgGtk.CommitModel(application.repository);
-			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash, (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
-
-			d_commit_list_model.started.connect(on_commit_model_started);
-			d_commit_list_model.finished.connect(on_commit_model_finished);
-
 			d_settings = new Settings("org.gnome.gitg.history.preferences");
 			d_settings.changed["topological-order"].connect((s, k) => {
 				update_sort_mode();
 			});
+
+			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash, (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
+
+			d_commit_list_model = new GitgGtk.CommitModel(application.repository);
+			d_commit_list_model.started.connect(on_commit_model_started);
+			d_commit_list_model.finished.connect(on_commit_model_finished);
 
 			update_sort_mode();
 
@@ -197,6 +197,9 @@ namespace GitgHistory
 
 			d_main = ret["paned_views"] as Gtk.Paned;
 
+			d_paned_panels = ret["paned_panels"] as Gtk.Paned;
+			d_stack_panel = ret["stack_panel"] as Gtk.Stack;
+
 			d_navigation = ret["navigation_view"] as GitgHistory.NavigationView;
 			d_navigation.model = new Navigation(application.repository);
 			d_navigation.model.ref_activated.connect((r) => {
@@ -214,9 +217,6 @@ namespace GitgHistory
 			{
 				d_navigation.set_level_indentation(12);
 			}
-
-			d_paned_panels = ret["paned_panels"] as Gtk.Paned;
-			d_stack_panel = ret["stack_panel"] as Gtk.Stack;
 
 			d_commit_list = ret["commit_list_view"] as Gtk.TreeView;
 			d_commit_list.model = d_commit_list_model;
