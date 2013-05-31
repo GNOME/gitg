@@ -506,7 +506,7 @@ namespace GitgHistory
 		public new Navigation model
 		{
 			get { return base.get_model() as Navigation; }
-			set { set_model(value); build_ui(); }
+			set { base.set_model(value); build_ui(); }
 		}
 
 		private bool select_first_in(Gtk.TreeIter? parent, bool seldef)
