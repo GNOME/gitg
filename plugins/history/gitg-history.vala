@@ -29,7 +29,7 @@ namespace GitgHistory
 
 		public GitgExt.Application? application { owned get; construct set; }
 
-		private GitgGtk.CommitModel? d_model;
+		private GitgGtk.CommitModel? d_commit_list_model;
 		private Gee.HashSet<Ggit.OId> d_selected;
 		private ulong d_insertsig;
 		private Settings d_settings;
@@ -57,18 +57,18 @@ namespace GitgHistory
 			d_commit_list.get_selection().selected_foreach((model, path, iter) => {
 				if (!breakit)
 				{
-					breakit = !func(d_model.commit_from_iter(iter));
+					breakit = !func(d_commit_list_model.commit_from_iter(iter));
 				}
 			});
 		}
 
 		construct
 		{
-			d_model = new GitgGtk.CommitModel(application.repository);
+			d_commit_list_model = new GitgGtk.CommitModel(application.repository);
 			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash, (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
 
-			d_model.started.connect(on_commit_model_started);
-			d_model.finished.connect(on_commit_model_finished);
+			d_commit_list_model.started.connect(on_commit_model_started);
+			d_commit_list_model.finished.connect(on_commit_model_finished);
 
 			d_settings = new Settings("org.gnome.gitg.history.preferences");
 			d_settings.changed["topological-order"].connect((s, k) => {
@@ -77,7 +77,7 @@ namespace GitgHistory
 
 			update_sort_mode();
 
-			application.bind_property("repository", d_model, "repository", BindingFlags.DEFAULT);
+			application.bind_property("repository", d_commit_list_model, "repository", BindingFlags.DEFAULT);
 
 			application.notify["repository"].connect((a, r) => {
 				notify_property("available");
@@ -88,11 +88,11 @@ namespace GitgHistory
 		{
 			if (d_settings.get_boolean("topological-order"))
 			{
-				d_model.sort_mode |= Ggit.SortMode.TOPOLOGICAL;
+				d_commit_list_model.sort_mode |= Ggit.SortMode.TOPOLOGICAL;
 			}
 			else
 			{
-				d_model.sort_mode &= ~Ggit.SortMode.TOPOLOGICAL;
+				d_commit_list_model.sort_mode &= ~Ggit.SortMode.TOPOLOGICAL;
 			}
 		}
 
@@ -100,13 +100,13 @@ namespace GitgHistory
 		{
 			if (d_insertsig == 0)
 			{
-				d_insertsig = d_model.row_inserted.connect(on_row_inserted_select);
+				d_insertsig = d_commit_list_model.row_inserted.connect(on_row_inserted_select);
 			}
 		}
 
 		private void on_row_inserted_select(Gtk.TreeModel model, Gtk.TreePath path, Gtk.TreeIter iter)
 		{
-			var commit = d_model.commit_from_path(path);
+			var commit = d_commit_list_model.commit_from_path(path);
 
 			if (d_selected.size == 0 || d_selected.remove(commit.get_id()))
 			{
@@ -115,7 +115,7 @@ namespace GitgHistory
 
 			if (d_selected.size == 0)
 			{
-				d_model.disconnect(d_insertsig);
+				d_commit_list_model.disconnect(d_insertsig);
 				d_insertsig = 0;
 			}
 		}
@@ -124,7 +124,7 @@ namespace GitgHistory
 		{
 			if (d_insertsig != 0)
 			{
-				d_model.disconnect(d_insertsig);
+				d_commit_list_model.disconnect(d_insertsig);
 				d_insertsig = 0;
 			}
 		}
@@ -219,7 +219,7 @@ namespace GitgHistory
 			d_stack_panel = ret["stack_panel"] as Gtk.Stack;
 
 			d_commit_list = ret["commit_list_view"] as Gtk.TreeView;
-			d_commit_list.model = d_model;
+			d_commit_list.model = d_commit_list_model;
 			d_commit_list.get_selection().changed.connect((sel) => {
 				selection_changed();
 			});
@@ -269,7 +269,7 @@ namespace GitgHistory
 			if (id != null)
 			{
 				d_selected.add(id);
-				d_model.set_include(new Ggit.OId[] { id });
+				d_commit_list_model.set_include(new Ggit.OId[] { id });
 			}
 			else
 			{
@@ -294,10 +294,10 @@ namespace GitgHistory
 					} catch {}
 				}
 
-				d_model.set_include(included);
+				d_commit_list_model.set_include(included);
 			}
 
-			d_model.reload();
+			d_commit_list_model.reload();
 		}
 
 		public bool enabled
