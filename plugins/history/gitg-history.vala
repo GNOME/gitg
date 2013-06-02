@@ -186,11 +186,15 @@ namespace GitgHistory
 
 		public void reload()
 		{
+			double vadj = d_navigation.get_vadjustment().get_value();
 			d_navigation.set_model(null);
 			d_navigation_model.reload();
 			d_navigation.set_model(d_navigation_model);
 			d_navigation.expand_all();
 			d_navigation.select();
+			d_navigation.size_allocate.connect((a) => {
+				d_navigation.get_vadjustment().set_value(vadj);
+			});
 		}
 
 		private void build_ui()
