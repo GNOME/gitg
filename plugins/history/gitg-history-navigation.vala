@@ -38,12 +38,6 @@ namespace GitgHistory
 		OID
 	}
 
-	public enum NavigationSide
-	{
-		LEFT = 0,
-		TOP = 1
-	}
-
 	public delegate void NavigationActivated(int numclick);
 
 	private class Activated : Object
@@ -289,11 +283,6 @@ namespace GitgHistory
 		public bool show_expanders
 		{
 			get { return false; }
-		}
-
-		public NavigationSide navigation_side
-		{
-			get { return NavigationSide.LEFT; }
 		}
 
 		private new void append(string text,
