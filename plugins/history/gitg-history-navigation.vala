@@ -275,11 +275,6 @@ namespace GitgHistory
 			get { return d_all; }
 		}
 
-		public bool available
-		{
-			get { return true; }
-		}
-
 		public bool show_expanders
 		{
 			get { return false; }
