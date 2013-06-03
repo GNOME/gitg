@@ -188,7 +188,7 @@ namespace GitgHistory
 			}
 			else
 			{
-				append(_("All commits"), null, null, (nc) => activate_ref(null));
+				append_normal(_("All commits"), null, null, (nc) => activate_ref(null));
 			}
 
 			// Branches
@@ -223,7 +223,7 @@ namespace GitgHistory
 				}
 				else
 				{
-					append(item.parsed_name.shortname,
+					append_normal(item.parsed_name.shortname,
 					       item.parsed_name.name,
 					       icon,
 					       (nc) => activate_ref(item));
@@ -247,7 +247,7 @@ namespace GitgHistory
 				{
 					var it = rref;
 
-					append(rref.parsed_name.remote_branch,
+					append_normal(rref.parsed_name.remote_branch,
 					       rref.parsed_name.name,
 					       null,
 					       (nc) => activate_ref(it));
@@ -265,7 +265,7 @@ namespace GitgHistory
 			{
 				var it = item;
 
-				append(item.parsed_name.shortname,
+				append_normal(item.parsed_name.shortname,
 				       item.parsed_name.name,
 				       null,
 				       (nc) => activate_ref(it));
@@ -296,7 +296,7 @@ namespace GitgHistory
 			get { return NavigationSide.LEFT; }
 		}
 
-		private void append_one(string text,
+		private new void append(string text,
 		                        string? name,
 		                        string? icon_name,
 		                        uint hint,
@@ -330,32 +330,32 @@ namespace GitgHistory
 			++d_oid;
 		}
 
-		private new Navigation append(string text,
-		                              string? name,
-		                              string? icon_name,
-		                              owned NavigationActivated? callback)
+		private Navigation append_normal(string text,
+		                                 string? name,
+		                                 string? icon_name,
+		                                 owned NavigationActivated? callback)
 		{
 			Gtk.TreeIter iter;
-			append_one(text, name, icon_name, Hint.NONE, (owned)callback, out iter);
+			append(text, name, icon_name, Hint.NONE, (owned)callback, out iter);
 
 			return this;
 		}
 
-		private new Navigation append_default(string text,
-		                                      string? name,
-		                                      string? icon_name,
-		                                      owned NavigationActivated? callback)
+		private Navigation append_default(string text,
+		                                  string? name,
+		                                  string? icon_name,
+		                                  owned NavigationActivated? callback)
 		{
 			Gtk.TreeIter iter;
-			append_one(text, name, icon_name, Hint.DEFAULT, (owned)callback, out iter);
+			append(text, name, icon_name, Hint.DEFAULT, (owned)callback, out iter);
 
 			return this;
 		}
 
-		private new Navigation append_separator()
+		private Navigation append_separator()
 		{
 			Gtk.TreeIter iter;
-			append_one("", null, null, Hint.SEPARATOR, null, out iter);
+			append("", null, null, Hint.SEPARATOR, null, out iter);
 
 			return this;
 		}
@@ -365,7 +365,7 @@ namespace GitgHistory
 		{
 			Gtk.TreeIter iter;
 
-			append_one(text, null, icon_name, Hint.HEADER, null, out iter);
+			append(text, null, icon_name, Hint.HEADER, null, out iter);
 			d_parents.prepend(iter);
 
 			return this;
