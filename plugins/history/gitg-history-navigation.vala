@@ -68,6 +68,7 @@ namespace GitgHistory
 		private SList<Gtk.TreeIter?> d_parents;
 		private uint d_sections;
 		private Activated[] d_callbacks;
+		private bool d_reloading;
 		private Gitg.Repository? d_repository;
 		private string? d_selected_head;
 		private Gtk.TreeIter? d_selected_iter;
@@ -381,8 +382,10 @@ namespace GitgHistory
 		{
 			if (d_repository != null)
 			{
+				d_reloading = true;
 				clear();
 				populate(d_repository);
+				d_reloading = false;
 			}
 		}
 
@@ -400,6 +403,11 @@ namespace GitgHistory
 
 		private void activate_ref(Gitg.Ref? r)
 		{
+			if (d_reloading)
+			{
+				return;
+			}
+
 			if (r != null)
 			{
 				d_selected_head = r.parsed_name.name;
