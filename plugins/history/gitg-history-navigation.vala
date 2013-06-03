@@ -330,10 +330,10 @@ namespace GitgHistory
 			++d_oid;
 		}
 
-		public new Navigation append(string text,
-		                             string? name,
-		                             string? icon_name,
-		                             owned NavigationActivated? callback)
+		private new Navigation append(string text,
+		                              string? name,
+		                              string? icon_name,
+		                              owned NavigationActivated? callback)
 		{
 			Gtk.TreeIter iter;
 			append_one(text, name, icon_name, Hint.NONE, (owned)callback, out iter);
@@ -341,10 +341,10 @@ namespace GitgHistory
 			return this;
 		}
 
-		public new Navigation append_default(string text,
-		                                     string? name,
-		                                     string? icon_name,
-		                                     owned NavigationActivated? callback)
+		private new Navigation append_default(string text,
+		                                      string? name,
+		                                      string? icon_name,
+		                                      owned NavigationActivated? callback)
 		{
 			Gtk.TreeIter iter;
 			append_one(text, name, icon_name, Hint.DEFAULT, (owned)callback, out iter);
@@ -352,7 +352,7 @@ namespace GitgHistory
 			return this;
 		}
 
-		public new Navigation append_separator()
+		private new Navigation append_separator()
 		{
 			Gtk.TreeIter iter;
 			append_one("", null, null, Hint.SEPARATOR, null, out iter);
@@ -360,8 +360,8 @@ namespace GitgHistory
 			return this;
 		}
 
-		public Navigation begin_header(string text,
-		                               string? icon_name)
+		private Navigation begin_header(string text,
+		                                string? icon_name)
 		{
 			Gtk.TreeIter iter;
 
@@ -371,7 +371,7 @@ namespace GitgHistory
 			return this;
 		}
 
-		public Navigation end_header()
+		private Navigation end_header()
 		{
 			if (d_parents != null)
 			{
@@ -381,18 +381,18 @@ namespace GitgHistory
 			return this;
 		}
 
-		public uint begin_section()
+		private uint begin_section()
 		{
 			d_parents = null;
 			return d_sections;
 		}
 
-		public void end_section()
+		private void end_section()
 		{
 			++d_sections;
 		}
 
-		public void remove_section(uint section)
+		private void remove_section(uint section)
 		{
 			Gtk.TreeIter iter;
 
