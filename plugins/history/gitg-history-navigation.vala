@@ -91,6 +91,11 @@ namespace GitgHistory
 			populate(d_repository);
 		}
 
+		public List<Gitg.Ref> all
+		{
+			get { return d_all; }
+		}
+
 		[Notify]
 		public Gitg.Repository repository
 		{
@@ -105,6 +110,11 @@ namespace GitgHistory
 		{
 			get { return d_selected_iter; }
 			set { d_selected_iter = value; }
+		}
+
+		public bool show_expanders
+		{
+			get { return false; }
 		}
 
 		private static int sort_refs(Gitg.Ref a, Gitg.Ref b)
@@ -268,16 +278,6 @@ namespace GitgHistory
 			end_header();
 
 			end_section();
-		}
-
-		public List<Gitg.Ref> all
-		{
-			get { return d_all; }
-		}
-
-		public bool show_expanders
-		{
-			get { return false; }
 		}
 
 		private new void append(string text,
