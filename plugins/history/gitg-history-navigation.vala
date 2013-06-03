@@ -336,14 +336,6 @@ namespace GitgHistory
 			return this;
 		}
 
-		private Navigation append_separator()
-		{
-			Gtk.TreeIter iter;
-			append("", null, null, Hint.SEPARATOR, null, out iter);
-
-			return this;
-		}
-
 		private Navigation begin_header(string text,
 		                                string? icon_name)
 		{
