@@ -398,7 +398,8 @@ namespace GitgHistory
 			}
 		}
 
-		private void activate_ref(Gitg.Ref? r) {
+		private void activate_ref(Gitg.Ref? r)
+		{
 			if (r != null)
 			{
 				d_selected_head = r.parsed_name.name;
@@ -540,7 +541,8 @@ namespace GitgHistory
 
 		public void select()
 		{
-			if (model.selected_iter != null) {
+			if (model.selected_iter != null)
+			{
 				get_selection().select_iter(model.selected_iter);
 				model.selected_iter = null;
 			}
