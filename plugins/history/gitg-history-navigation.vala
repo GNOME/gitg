@@ -368,38 +368,6 @@ namespace GitgHistory
 			++d_sections;
 		}
 
-		private void remove_section(uint section)
-		{
-			Gtk.TreeIter iter;
-
-			if (!get_iter_first(out iter))
-			{
-				return;
-			}
-
-			while (true)
-			{
-				uint s;
-
-				@get(iter, Column.SECTION, out s);
-
-				if (s == section)
-				{
-					if (!base.remove(ref iter))
-					{
-						break;
-					}
-				}
-				else
-				{
-					if (!iter_next(ref iter))
-					{
-						break;
-					}
-				}
-			}
-		}
-
 		public new void clear()
 		{
 			base.clear();
