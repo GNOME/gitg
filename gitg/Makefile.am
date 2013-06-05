@@ -33,7 +33,8 @@ AM_VALAFLAGS = \
 	--vapidir "$(top_builddir)/libgd"			\
 	--vapidir "$(top_builddir)/libgitg"			\
 	--vapidir "$(top_builddir)/libgitg-ext"			\
-	--vapidir "$(top_builddir)/libgitg-gtk"
+	--vapidir "$(top_builddir)/libgitg-gtk"			\
+	--gresources "$(top_srcdir)/gitg/resources/gitg-resources.xml"
 
 VALASOURCES =							\
 	gitg.vala						\

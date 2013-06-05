@@ -18,7 +18,7 @@
             <property name="visible">False</property>
             <property name="valign">center</property>
             <property name="can_focus">False</property>
-            <signal name="clicked" handler="dash_button_clicked" object="GitgWindow" swapped="no"/>
+            <signal name="clicked" handler="dash_button_clicked" swapped="no"/>
             <style>
               <class name="image-button"/>
             </style>
@@ -40,7 +40,7 @@
             <property name="valign">center</property>
             <property name="can_focus">False</property>
             <property name="action_name">win.search</property>
-            <signal name="toggled" handler="search_button_toggled" object="GitgWindow" swapped="no"/>
+            <signal name="toggled" handler="search_button_toggled" swapped="no"/>
             <style>
               <class name="image-button"/>
             </style>
@@ -100,7 +100,7 @@
             <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="relief">none</property>
-            <signal name="clicked" handler="close_button_clicked" object="GitgWindow" swapped="no"/>
+            <signal name="clicked" handler="close_button_clicked" swapped="no"/>
             <style>
               <class name="image-button"/>
             </style>
@@ -151,7 +151,7 @@
                             <property name="invisible_char">●</property>
                             <property name="invisible_char_set">True</property>
                             <property name="width-request">500</property>
-                            <signal name="changed" handler="search_entry_changed" object="GitgWindow" swapped="no"/>
+                            <signal name="changed" handler="search_entry_changed" swapped="no"/>
                           </object>
                         </child>
                       </object>
@@ -194,6 +194,7 @@
                       <object class="GitgGtkDashView" id="d_dash_view">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <signal name="repository_activated" handler="dash_view_repository_activated" swapped="no"/>
                       </object>
                     </child>
                   </object>

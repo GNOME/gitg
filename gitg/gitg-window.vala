@@ -109,13 +109,19 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	}
 
 	[GtkCallback]
-	private void search_entry_changed(Gtk.Entry entry)
+	private void search_entry_changed(Gtk.Editable entry)
 	{
 		// FIXME: this is a weird way to know the dash is visible
 		if (d_repository == null)
 		{
-			d_dash_view.filter_text(entry.text);
+			d_dash_view.filter_text((entry as Gtk.Entry).text);
 		}
+	}
+
+	[GtkCallback]
+	private void dash_view_repository_activated(Repository r)
+	{
+		repository = r;
 	}
 
 	construct
@@ -140,11 +146,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_views_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
 
 		d_search_button.bind_property("active", d_search_revealer, "reveal-child");
-
-		// FIXME: for some reason if I create a signal in the ui file for this it crashes
-		d_dash_view.repository_activated.connect((r) => {
-			repository = r;
-		});
 	}
 
 	private void on_close_activated()
