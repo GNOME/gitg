@@ -73,7 +73,7 @@ public class Repository : Ggit.Repository
 
 		try
 		{
-			references_foreach(Ggit.RefType.LISTALL, (name) => {
+			references_foreach_name((name) => {
 				Gitg.Ref? r;
 
 				try

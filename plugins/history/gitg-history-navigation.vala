@@ -141,7 +141,7 @@ namespace GitgHistory
 
 			try
 			{
-				repo.references_foreach(Ggit.RefType.LISTALL, (nm) => {
+				repo.references_foreach_name((nm) => {
 					Gitg.Ref? r;
 
 					try
