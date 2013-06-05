@@ -86,7 +86,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		event.any.send_event = 1;
 
 		Gtk.main_do_event(event);
-		event.free();
 	}
 
 	[GtkCallback]
