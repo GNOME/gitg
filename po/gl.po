@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Ignacio Casal Quinteiro <icq@gnome.org>, 2009.
 # Fran Diéguez <frandieguez@gnome.org>, 2010, 2011.
-# Fran Dieguez <frandieguez@gnome.org>, 2012.
+# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-31 11:10+0100\n"
-"PO-Revision-Date: 2012-10-31 11:11+0200\n"
+"POT-Creation-Date: 2013-06-06 16:12+0200\n"
+"PO-Revision-Date: 2013-06-06 16:16+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -40,6 +40,7 @@ msgstr ""
 "Indica se a busca filtra as revisións na visualización do historial no lugar "
 "de saltar á primeira aparición."
 
+#. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
@@ -66,27 +67,18 @@ msgid ""
 msgstr "Opción que indica se se debe mostrar o historial en orde topolóxico."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Show Main View in Vertical or Horizontal Layout"
-msgstr "Mostra a vista principal en distribución vertical ou horizontal"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Orientación da interface principal (vertical ou horizontal)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation layout of the main view."
-msgstr ""
-"Opción que estabelece a orientación da distribución na xanela principal."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Opción que estabelece a orientación da interface principal."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Show files view in blame mode"
-msgstr "Mostrar ficheiros en modo acusador («blame»)"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-msgid "Setting that sets files view to blame mode."
-msgstr "Opción que configura a vista de ficheiros no modo acusador («blame»)."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
 msgstr "Mostrar a marxe dereito na vista de mensaxe de «commit». "
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -95,11 +87,11 @@ msgstr ""
 "pode ser útil para ver de forma doada onde romper a mensaxe de «commit» "
 "nunha columna específica."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Column at Which Right Margin is Shown"
 msgstr "Columna na cal se mostra o marxe dereito"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "The column at which the right margin is shown if the right-margin preference "
 "is set to TRUE."
@@ -107,13 +99,222 @@ msgstr ""
 "A columna na que se mostra a marxe dereita se a opción de marxe dereita está "
 "estabelecida como verdadeira."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "Allow External Diff Program"
 msgstr "Permitir un programa diff externo"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid "Allow an external diff program to be used when viewing diffs in gitg."
 msgstr "Permitir usar un programa diff externo ao ver diferenzas en gitg."
+
+#: ../gitg/gitg-application.vala:49
+msgid "Show the application's version"
+msgstr "Mostrar a versión do aplicativo"
+
+#: ../gitg/gitg-application.vala:51
+msgid "Start gitg with a particular view"
+msgstr "Iniciar gitg con unha vista en particular"
+
+#: ../gitg/gitg-application.vala:53
+msgid "Do not try to load a repository from the current working directory"
+msgstr "Non tentar cargar un repositorio desde o cartafol actual"
+
+#: ../gitg/gitg-application.vala:76
+msgid "- git repository viewer"
+msgstr "- visor de repositorios git"
+
+#: ../gitg/gitg-application.vala:185
+msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgstr "gitg é un visor de repositorios git para gtk+/GNOME"
+
+#: ../gitg/gitg-application.vala:210
+msgid "gitg homepage"
+msgstr "Páxina web de gitg"
+
+#: ../gitg/gitg-preferences-interface.vala:83
+msgid "Interface"
+msgstr "Interface"
+
+#: ../gitg/gitg-window.vala:230
+msgid "Projects"
+msgstr "Proxectos"
+
+#: ../gitg/gitg-window.vala:262
+msgid "Open Repository"
+msgstr "Abrir repositorio"
+
+#: ../gitg/gitg-window.vala:329
+msgid "The URL introduced is not supported"
+msgstr "O URL introducido non é compatíbel"
+
+#. ex:ts=4 noet
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+msgid "Clone Repository"
+msgstr "Clonar repositorio"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+msgid "Cl_one"
+msgstr "Cl_onar"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "Remote _URL:"
+msgstr "_URL remoto:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "_Local Folder:"
+msgstr "Cartafol _local:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "Select location..."
+msgstr "Seleccionar localización…"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+msgid "Bare repository"
+msgstr "Repositorio baleiro"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "Xanela _nova"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+msgid "_Preferences"
+msgstr "_Preferencias"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Help"
+msgstr "A_xuda"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "So_bre"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "_Saír"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Open Repository…"
+msgstr "_Abrir repositorio…"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Clone Repository…"
+msgstr "_Clonar repositorio…"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
+msgid "_User Information"
+msgstr "Información do _usuario"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Close"
+msgstr "Pe_char"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:10
+msgid "_Reload"
+msgstr "_Recargar"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Layout"
+msgstr "Distribución"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+#: ../plugins/history/resources/preferences.ui.h:2
+msgid "    "
+msgstr "    "
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
+msgid "Use horizontal layout"
+msgstr "Usar distribución horizontal"
+
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "gitg Preferences"
+msgstr "Preferencias de gitg"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:1
+msgid "User Information"
+msgstr "Información do usuario"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The git config file '%s' does not exist."
+msgstr "Nota: O ficheiro de configuración de git «%s» non existe."
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr ""
+"Escriba a información para configurar como predeterminados para todos os "
+"seus repositorios:"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for %s repository:"
+msgstr "Escriba a información para o repositorio %s:"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "Correo electrónico:"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:8
+msgid "Name: "
+msgstr "Nome:"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:10
+msgid "Save"
+msgstr "Gardar"
+
+#: ../plugins/diff/gitg-diff.vala:70
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/files/gitg-files.vala:77
+msgid "Files"
+msgstr "Ficheiros"
+
+#. ex: ts=4 noet
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "columna"
+
+#: ../plugins/history/gitg-history-command-line.vala:31
+msgid "Show all history"
+msgstr "Mostrar todo o historial"
+
+#: ../plugins/history/gitg-history-command-line.vala:38
+msgid "Show gitg history options"
+msgstr "Mostrar as opcións do historial de gitg"
+
+#: ../plugins/history/gitg-history-command-line.vala:39
+msgid "gitg history options"
+msgstr "Opcións do historial de gitg"
+
+#: ../plugins/history/gitg-history-navigation.vala:192
+#: ../plugins/history/gitg-history-navigation.vala:196
+#: ../plugins/history/gitg-history-navigation.vala:309
+msgid "All commits"
+msgstr "Todas as remisións"
+
+#. Branches
+#: ../plugins/history/gitg-history-navigation.vala:200
+msgid "Branches"
+msgstr "Ramas"
+
+#. Remotes
+#: ../plugins/history/gitg-history-navigation.vala:241
+msgid "Remotes"
+msgstr "Remotos"
+
+#. Tags
+#: ../plugins/history/gitg-history-navigation.vala:267
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: ../plugins/history/gitg-history-preferences.vala:136
+#: ../plugins/history/gitg-history.vala:163
+msgid "History"
+msgstr "Historial"
 
 #: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
 msgid ""
@@ -150,176 +351,9 @@ msgstr ""
 "Configuración que indica se se debe mostrar no historial un elemento virtual "
 "para os elementos non reservados actualmente."
 
-#: ../gitg/gitg-application.vala:43
-msgid "Show the application's version"
-msgstr "Mostrar a versión do aplicativo"
-
-#: ../gitg/gitg-application.vala:45
-msgid "Start gitg with a particular view"
-msgstr "Iniciar gitg con unha vista en particular"
-
-#: ../gitg/gitg-application.vala:47
-msgid "Do not try to load a repository from the current working directory"
-msgstr "Non tentar cargar un repositorio desde o cartafol actual"
-
-#: ../gitg/gitg-application.vala:70
-msgid "- git repository viewer"
-msgstr "- visor de repositorios git"
-
-#: ../gitg/gitg-application.vala:185
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg é un visor de repositorios git para gtk+/GNOME"
-
-#: ../gitg/gitg-application.vala:210
-msgid "gitg homepage"
-msgstr "Páxina web de gitg"
-
-#: ../plugins/dash/gitg-dash-navigation.vala:41
-msgid "Repository"
-msgstr "Repositorio"
-
-#: ../plugins/dash/gitg-dash-navigation.vala:42
-msgid "Open"
-msgstr "Abrir"
-
-#: ../plugins/dash/gitg-dash-navigation.vala:43
-#: ../plugins/dash/resources/view-create.ui.h:3
-msgid "Create"
-msgstr "Crear"
-
-#: ../plugins/dash/gitg-dash-navigation.vala:46
-msgid "Recent"
-msgstr "Recentes"
-
-#: ../plugins/dash/gitg-dash.vala:69
-msgid "Dashboard"
-msgstr "Taboleiro"
-
-#: ../plugins/dash/gitg-dash.vala:249
-msgid "(no branch)"
-msgstr "(sen rama)"
-
-#: ../plugins/diff/gitg-diff.vala:63
-msgid "Diff"
-msgstr "Diff"
-
-#: ../plugins/files/gitg-files.vala:72
-msgid "Files"
-msgstr "Ficheiros"
-
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Mostrar todo o historial"
-
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Mostrar as opcións do historial de gitg"
-
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "Opcións do historial de gitg"
-
-#: ../plugins/history/gitg-history-navigation.vala:120
-#: ../plugins/history/gitg-history-navigation.vala:124
-msgid "All commits"
-msgstr "Todas as remisións"
-
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:128
-msgid "Branches"
-msgstr "Ramas"
-
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:163
-msgid "Remotes"
-msgstr "Remotos"
-
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:188
-msgid "Tags"
-msgstr "Etiquetas"
-
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:135
-msgid "History"
-msgstr "Historial"
-
-#. ex: ts=4 noet
-#: ../gitg/resources/ui/gitg-menus.ui.h:1
-msgid "_New Window"
-msgstr "Xanela _nova"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:2
-msgid "_Preferences"
-msgstr "_Preferencias"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:3
-msgid "_Help"
-msgstr "A_xuda"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:4
-msgid "_About"
-msgstr "So_bre"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Quit"
-msgstr "_Saír"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Close"
-msgstr "Pe_char"
-
-#: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Preferencias de gitg"
-
-#: ../plugins/dash/resources/view-create.ui.h:1
-msgid "Create repository"
-msgstr "Crear repositorio"
-
-#: ../plugins/dash/resources/view-create.ui.h:2
-msgid "Select a folder in which you want to create a new git repository."
-msgstr "Seleccione un cartafol no que quere crear un repositorio git novo."
-
-#: ../plugins/dash/resources/view-open.ui.h:1
-msgid "Open repository"
-msgstr "Abrir repositorio"
-
-#: ../plugins/dash/resources/view-open.ui.h:2
-msgid "Select a folder to open the corresponding git repository."
-msgstr "Seleccionar un cartafol para abrir o repositorio git correspondente."
-
-#: ../plugins/dash/resources/view-recent.ui.h:1
-msgid "Recent repository"
-msgstr "Repositorio recente"
-
-#: ../plugins/dash/resources/view-recent.ui.h:2
-msgid "Open a recently used repository."
-msgstr "Abrir un repositorio usado recentemente."
-
-#: ../plugins/dash/resources/view-recent.ui.h:3
-msgid "Path:"
-msgstr "Ruta:"
-
-#: ../plugins/dash/resources/view-recent.ui.h:4
-msgid "Last used:"
-msgstr "Último usado:"
-
-#: ../plugins/dash/resources/view-recent.ui.h:5
-msgid "Current branch:"
-msgstr "Rama actual:"
-
-#: ../plugins/files/resources/view-files.ui.h:1
-msgid "column"
-msgstr "columna"
-
 #: ../plugins/history/resources/preferences.ui.h:1
-msgid "<b>Commits</b>"
-msgstr "<b>Remisións</b>"
-
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
+msgid "Commits"
+msgstr "Remisións"
 
 #: ../plugins/history/resources/preferences.ui.h:3
 msgid "Collapse inactive lanes"
@@ -364,6 +398,56 @@ msgstr "Autor"
 #: ../plugins/history/resources/view-history.ui.h:3
 msgid "Date"
 msgstr "Data"
+
+#~ msgid "Show Main View in Vertical or Horizontal Layout"
+#~ msgstr "Mostra a vista principal en distribución vertical ou horizontal"
+
+#~ msgid "Show files view in blame mode"
+#~ msgstr "Mostrar ficheiros en modo acusador («blame»)"
+
+#~ msgid "Setting that sets files view to blame mode."
+#~ msgstr ""
+#~ "Opción que configura a vista de ficheiros no modo acusador («blame»)."
+
+#~ msgid "Open"
+#~ msgstr "Abrir"
+
+#~ msgid "Create"
+#~ msgstr "Crear"
+
+#~ msgid "Recent"
+#~ msgstr "Recentes"
+
+#~ msgid "Dashboard"
+#~ msgstr "Taboleiro"
+
+#~ msgid "(no branch)"
+#~ msgstr "(sen rama)"
+
+#~ msgid "Select a folder in which you want to create a new git repository."
+#~ msgstr "Seleccione un cartafol no que quere crear un repositorio git novo."
+
+#~ msgid "Select a folder to open the corresponding git repository."
+#~ msgstr ""
+#~ "Seleccionar un cartafol para abrir o repositorio git correspondente."
+
+#~ msgid "Recent repository"
+#~ msgstr "Repositorio recente"
+
+#~ msgid "Open a recently used repository."
+#~ msgstr "Abrir un repositorio usado recentemente."
+
+#~ msgid "Path:"
+#~ msgstr "Ruta:"
+
+#~ msgid "Last used:"
+#~ msgstr "Último usado:"
+
+#~ msgid "Current branch:"
+#~ msgstr "Rama actual:"
+
+#~ msgid "<b>Commits</b>"
+#~ msgstr "<b>Remisións</b>"
 
 #~ msgid "The command to handle GITG scheme URLs"
 #~ msgstr "A orde para xestionar os URL de esquema de GITG"
@@ -462,9 +546,6 @@ msgstr "Data"
 
 #~ msgid "Branch <%s> could not be forcefully renamed"
 #~ msgstr "Non foi posíbel renomear a rama <%s> á forza"
-
-#~ msgid "Name:"
-#~ msgstr "Nome:"
 
 #~ msgid "Do you want to temporarily stash these changes?"
 #~ msgstr "Ten certeza que quere reservar temporalmente estes cambios?"
@@ -689,9 +770,6 @@ msgstr "Data"
 #~ msgid "Fetch"
 #~ msgstr "Obter"
 
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
 #~ msgid "Properties"
 #~ msgstr "Propiedades"
 
@@ -910,12 +988,6 @@ msgstr "Data"
 #~ msgid "Cherry-pick on..."
 #~ msgstr "Aplicar cambios («Cherry-pick») en…"
 
-#~ msgid "<b>Interface</b>"
-#~ msgstr "<b>Interface</b>"
-
-#~ msgid "Use vertical layout"
-#~ msgstr "Usar distribución vertical"
-
 #~ msgid "<b>Revisions</b>"
 #~ msgstr "<b>Revisións</b>"
 
@@ -934,9 +1006,6 @@ msgstr "Data"
 #~ msgid "Preferences that apply to the commit view"
 #~ msgstr "Preferencias que se aplican á vista de «commit»"
 
-#~ msgid "Commit"
-#~ msgstr "Remitir («commit»)"
-
 #~ msgid "<b>Diff Program</b>"
 #~ msgstr "<b>Programa «diff»</b>"
 
@@ -945,9 +1014,6 @@ msgstr "Data"
 
 #~ msgid "<b>User</b>"
 #~ msgstr "<b>Usuario</b>"
-
-#~ msgid "E-mail:"
-#~ msgstr "Correo electrónico:"
 
 #~ msgid ""
 #~ "Configure global git settings. This corresponds to the settings as stored "
