@@ -385,6 +385,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		try
 		{
+			config.refresh();
 			user_name = config.get_string("user.name");
 		}
 		catch {}
