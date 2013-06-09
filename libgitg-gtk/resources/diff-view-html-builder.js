@@ -106,7 +106,7 @@ function diff_file(file, lnstate, data)
 	var addedp = Math.floor(added / total * 100);
 	var removedp = 100 - addedp;
 
-	var stats = '<div class="stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></div>';
+	var stats = '<div class="expander">-</div><div class="stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></div>';
 
 	var template = data.file_template;
 	var repls = {

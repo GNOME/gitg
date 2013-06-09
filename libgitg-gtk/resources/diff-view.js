@@ -169,6 +169,27 @@ function update_diff(id)
 			}
 
 			content.innerHTML = event.data.diff_html;
+
+			$(".expander").click(function()
+			{
+				var expander = $(this);
+
+				// If expanded, will be true
+				var toExpand = expander.text() == "+";
+
+				if (toExpand)
+				{
+					// next step to close it
+					expander.text("-");
+				}
+				else
+				{
+					// next step is to open it
+					expander.text("+");
+				}
+
+				expander.closest('tbody').toggleClass("collapsed");
+			});
 		}
 	}
 

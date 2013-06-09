@@ -96,6 +96,25 @@ div.file tr.file_header td {
   background: #d3d7cf;
 }
 
+div.expander {
+  float:left;
+
+  background-color: #ececec;
+  border-radius: 5px;
+  box-shadow: 1px 1px #ccc inset;
+  margin: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  cursor: pointer;
+}
+
+tbody.collapsed > :not(.file_header) {
+  display:none;
+}
+
 div.stats {
   width: 75px;
   background-color: #ececec;
