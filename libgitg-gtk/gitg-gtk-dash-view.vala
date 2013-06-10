@@ -288,7 +288,7 @@ namespace GitgGtk
 
 			try
 			{
-				new Thread<void*>.try("gitg-clone-thread", run);
+				new Thread<void*>.try("gitg-clone-thread", (owned)run);
 				yield;
 			}
 			catch {}
