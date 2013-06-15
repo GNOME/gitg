@@ -59,6 +59,14 @@ function diff_file(file, lnstate, data)
 					cold++;
 					removed++;
 				break;
+				case '=':
+				case '>':
+				case '<':
+					row += 'context"> \
+						<td class="gutter old"></td> \
+						<td class="gutter new"></td>';
+						l.content = l.content.substr(1, l.content.length);
+				break;
 				default:
 					row += '">';
 				break;
