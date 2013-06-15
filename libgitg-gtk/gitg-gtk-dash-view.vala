@@ -160,7 +160,7 @@ namespace GitgGtk
 			return data;
 		}
 
-		private RepositoryData create_repository_data(string name, string branch_name, bool spin)
+		private RepositoryData create_repository_data(string name, string branch_name, bool spin, bool local)
 		{
 			var data = new RepositoryData();
 			data.repository = null;
@@ -171,11 +171,9 @@ namespace GitgGtk
 			grid.column_spacing = 10;
 			data.bin.add(grid);
 
-			// FIXME: choose the folder image in relation to the next:
-			// - the repository is local
-			// - the repository has a remote
-			// - the repository uses github...
-			data.image = new Image.from_icon_name("folder", d_icon_size);
+			// FIXME: Change folder image for a repository uses github remote.
+			var folder_icon_name = local ? "folder" : "folder-remote";
+			data.image = new Image.from_icon_name(folder_icon_name, d_icon_size);
 			grid.attach(data.image, 0, 0, 1, 2);
 
 			data.repository_label = new Label(null);
@@ -231,15 +229,21 @@ namespace GitgGtk
 			if (data == null)
 			{
 				string head_name = "";
+				bool local = false;
 
 				try
 				{
 					var head = repository.get_head();
 					head_name = head.parsed_name.shortname;
+					var remotes = repository.list_remotes();
+					if (remotes.length == 0)
+					{
+						local = true;
+					}
 				}
 				catch {}
 
-				data = create_repository_data(repository.name, head_name, false);
+				data = create_repository_data(repository.name, head_name, false, local);
 				data.repository = repository;
 			}
 			else
@@ -322,7 +326,7 @@ namespace GitgGtk
 			}
 
 			// Clone
-			RepositoryData? data = create_repository_data(subfolder_name, "Cloning...", true);
+			RepositoryData? data = create_repository_data(subfolder_name, "Cloning...", true, false);
 
 			clone.begin(data, url, subfolder, is_bare, (obj, res) => {
 				Gitg.Repository? repository = clone.end(res);
