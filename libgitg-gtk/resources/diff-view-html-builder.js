@@ -117,8 +117,14 @@ function diff_file(file, lnstate, data)
 
 	for (var r in repls)
 	{
-		log([template, lnstate.replacements[r], repls[r]]);
-		template = template.replace(lnstate.replacements[r], repls[r]);
+		// As we are using the repl in the later 'template.replace()'
+		// as the replacement in which character '$' is special, we
+		// need to make sure each occurence of '$' character in the
+		// replacement is represented as '$$' (which stands for a
+		// literal '$'), so, we need to use '$$$$' here to get '$$'.
+		var repl = repls[r].replace(/\$/g, '$$$$');
+		log([template, lnstate.replacements[r], repl]);
+		template = template.replace(lnstate.replacements[r], repl);
 	}
 
 	return template;
