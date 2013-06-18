@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-05-26 14:32+0000\n"
-"PO-Revision-Date: 2013-05-27 13:25+0200\n"
+"POT-Creation-Date: 2013-06-15 12:00+0000\n"
+"PO-Revision-Date: 2013-06-18 11:10+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -139,15 +139,15 @@ msgstr "Página principal de gitg"
 msgid "Interface"
 msgstr "Interfaz"
 
-#: ../gitg/gitg-window.vala:159
+#: ../gitg/gitg-window.vala:230
 msgid "Projects"
 msgstr "Proyectos"
 
-#: ../gitg/gitg-window.vala:191
+#: ../gitg/gitg-window.vala:262
 msgid "Open Repository"
 msgstr "Abrir repositorio"
 
-#: ../gitg/gitg-window.vala:252
+#: ../gitg/gitg-window.vala:329
 msgid "The URL introduced is not supported"
 msgstr "El URL introducido no está soportado"
 
@@ -234,7 +234,6 @@ msgid "gitg Preferences"
 msgstr "Preferencias de gitg"
 
 #: ../gitg/resources/ui/gitg-user-dialog.ui.h:1
-#| msgid "_User Information"
 msgid "User Information"
 msgstr "Información del usuario"
 
@@ -251,8 +250,9 @@ msgstr ""
 
 #: ../gitg/resources/ui/gitg-user-dialog.ui.h:6
 #, no-c-format
-msgid "Enter details for %s repository:"
-msgstr "Introduzca los detalles para el repositorio:"
+#| msgid "Enter details for %s repository:"
+msgid "Enter details for repository '%s':"
+msgstr "Introduzca los detalles para el repositorio «%s»:"
 
 #: ../gitg/resources/ui/gitg-user-dialog.ui.h:7
 msgid "E-mail: "
@@ -295,28 +295,29 @@ msgstr "Mostrar las opciones del histórico de gitg"
 msgid "gitg history options"
 msgstr "Opciones del histórico de gitg"
 
-#: ../plugins/history/gitg-history-navigation.vala:108
-#: ../plugins/history/gitg-history-navigation.vala:112
+#: ../plugins/history/gitg-history-navigation.vala:192
+#: ../plugins/history/gitg-history-navigation.vala:196
+#: ../plugins/history/gitg-history-navigation.vala:309
 msgid "All commits"
 msgstr "Todos los «commit»"
 
 #. Branches
-#: ../plugins/history/gitg-history-navigation.vala:116
+#: ../plugins/history/gitg-history-navigation.vala:200
 msgid "Branches"
 msgstr "Ramas"
 
 #. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:155
+#: ../plugins/history/gitg-history-navigation.vala:241
 msgid "Remotes"
 msgstr "Remotas"
 
 #. Tags
-#: ../plugins/history/gitg-history-navigation.vala:180
+#: ../plugins/history/gitg-history-navigation.vala:267
 msgid "Tags"
 msgstr "Etiquetas"
 
 #: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:135
+#: ../plugins/history/gitg-history.vala:163
 msgid "History"
 msgstr "Histórico"
 
