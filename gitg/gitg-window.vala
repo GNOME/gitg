@@ -75,8 +75,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{"user-information-repo", on_repo_user_info_activated},
 	};
 
-	[GtkCallback]
-	private void close_button_clicked(Gtk.Button button)
+	private void send_delete_event()
 	{
 		Gdk.Event event;
 
@@ -86,6 +85,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		event.any.send_event = 1;
 
 		Gtk.main_do_event(event);
+	}
+
+	[GtkCallback]
+	private void close_button_clicked(Gtk.Button button)
+	{
+		send_delete_event();
 	}
 
 	[GtkCallback]
@@ -149,7 +154,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private void on_close_activated()
 	{
-		destroy();
+		send_delete_event();
 	}
 
 	private void on_search_activated(SimpleAction action) {
