@@ -151,25 +151,35 @@ private string date_for_display(DateTime dt, TimeZone time_zone)
 			var parents = get_parents();
 
 			// Create a new diff from the parents to the commit tree
-			for (var i = 0; i < parents.size(); ++i)
+			if (parents.size() == 0)
 			{
-				var parent = parents.get(0);
-
-				if (i == 0)
+				diff = new Ggit.Diff.tree_to_tree(repo,
+				                                  null,
+				                                  get_tree(),
+				                                  options);
+			}
+			else
+			{
+				for (var i = 0; i < parents.size(); ++i)
 				{
-					diff = new Ggit.Diff.tree_to_tree(repo,
-					                                  parent.get_tree(),
-					                                  get_tree(),
-					                                  options);
-				}
-				else
-				{
-					var d = new Ggit.Diff.tree_to_tree(repo,
-					                                   parent.get_tree(),
-					                                   get_tree(),
-					                                   options);
+					var parent = parents.get(0);
 
-					diff.merge(d);
+					if (i == 0)
+					{
+						diff = new Ggit.Diff.tree_to_tree(repo,
+						                                  parent.get_tree(),
+						                                  get_tree(),
+						                                  options);
+					}
+					else
+					{
+						var d = new Ggit.Diff.tree_to_tree(repo,
+						                                   parent.get_tree(),
+						                                   get_tree(),
+						                                   options);
+
+						diff.merge(d);
+					}
 				}
 			}
 		}
