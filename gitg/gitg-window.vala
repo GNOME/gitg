@@ -64,6 +64,15 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.Stack d_stack_view;
 
+	[GtkChild]
+	private Gtk.InfoBar infobar;
+	[GtkChild]
+	private Gtk.Label infobar_primary_label;
+	[GtkChild]
+	private Gtk.Label infobar_secondary_label;
+	[GtkChild]
+	private Gtk.Button infobar_close_button;
+
 	private static const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
 		{"gear-menu", on_gear_menu_activated, null, "false", null},
@@ -208,6 +217,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 					parent_path = parent_path.replace(Environment.get_home_dir(), "~");
 				}
 				title = @"$(d_repository.name) ($parent_path) - gitg";
+				infobar.hide();
 			}
 
 			d_header_bar.set_title(d_repository.name);
@@ -667,9 +677,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			repo = Ggit.Repository.discover(path);
 		}
-		catch
+		catch (Error e)
 		{
-			// TODO: make error thingie
+			string repo_name = path.get_basename();
+			var primary_msg = ("\"%s\" is not a Git repository!").printf(repo_name);
+			show_infobar(primary_msg, e.message, Gtk.MessageType.WARNING);
 			return;
 		}
 
@@ -680,6 +692,18 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		catch {}
 
 		this.repository = repository;
+	}
+
+	private void show_infobar(string primary_msg, string secondary_msg, Gtk.MessageType type)
+	{
+		infobar.message_type = type;
+		infobar_primary_label.set_label ("<b>%s</b>".printf (Markup.escape_text(primary_msg)));
+		infobar_secondary_label.set_label ("<small>%s</small>".printf (Markup.escape_text(secondary_msg)));
+		infobar.show ();
+
+		infobar_close_button.clicked.connect (() => {
+			infobar.hide ();
+		});
 	}
 }
 

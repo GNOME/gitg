@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+`<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.3 -->
   <!-- interface-requires gitg 0.0 -->
@@ -122,6 +122,64 @@
       <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+         <child>
+          <object class="GtkInfoBar" id="infobar">
+             <property name="visible">False</property>
+             <child internal-child="content_area">
+               <object class="GtkBox" id="infobar_content_area">
+                 <property name="visible">True</property>
+                 <property name="can_focus">False</property>
+                 <property name="border_width">8</property>
+                 <property name="orientation">vertical</property>
+                 <property name="spacing">16</property>
+                 <child>
+                   <object class="GtkLabel" id="infobar_primary_label">
+                     <property name="visible">True</property>
+                     <property name="can_focus">True</property>
+                     <property name="selectable">True</property>
+                     <property name="use-markup">True</property>
+                     <property name="halign">GTK_ALIGN_START</property>
+                   </object>
+                   <packing>
+                     <property name="expand">False</property>
+                     <property name="fill">True</property>
+                     <property name="position">0</property>
+                   </packing>
+                 </child>
+                 <child>
+                   <object class="GtkLabel" id="infobar_secondary_label">
+                     <property name="visible">True</property>
+                     <property name="can_focus">True</property>
+                     <property name="selectable">True</property>
+                     <property name="use-markup">True</property>
+                     <property name="halign">GTK_ALIGN_START</property>
+                   </object>
+                   <packing>
+                     <property name="expand">False</property>
+                     <property name="fill">True</property>
+                     <property name="position">1</property>
+                   </packing>
+                 </child>
+                 <child internal-child="action_area">
+                   <object class="GtkButtonBox" id="infobar_action_area">
+                     <property name="visible">True</property>
+                     <property name="can_focus">False</property>
+                     <property name="border_width">5</property>
+                     <property name="orientation">vertical</property>
+                     <property name="spacing">6</property>
+                     <property name="layout_style">end</property>
+                 <child>
+                   <object class="GtkButton" id="infobar_close_button">
+                     <property name="visible">True</property>
+                     <property name="label" translatable="yes">Close</property>
+                    </object>
+                 </child>
+                   </object>
+                 </child>
+               </object>
+            </child>
+          </object>
+         </child>
         <child>
           <object class="GtkSearchBar" id="d_search_bar">
             <property name="visible">True</property>
