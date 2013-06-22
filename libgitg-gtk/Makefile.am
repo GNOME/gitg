@@ -3,7 +3,6 @@ lib_LTLIBRARIES = libgitg-gtk-1.0.la
 INCLUDES =								\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
-	-I$(srcdir)/egg-list-box					\
 	$(LIBGITG_CFLAGS)						\
 	$(LIBGITG_GTK_CFLAGS)						\
 	$(WARN_CFLAGS)							\
@@ -30,10 +29,8 @@ AM_VALAFLAGS = 					\
 	--pkg webkit2gtk-3.0			\
 	--pkg gee-0.8				\
 	--pkg json-glib-1.0			\
-	--pkg egglistbox			\
 	$(GITG_VALAFLAGS)			\
 	--vapidir $(top_srcdir)/vapi		\
-	--vapidir $(srcdir)/egg-list-box	\
 	--header libgitg-gtk.h			\
 	--includedir libgitg-gtk		\
 	--basedir $(top_srcdir)			\
@@ -64,8 +61,6 @@ libgitg_gtk_1_0_la_CFLAGS =		\
 	-w
 
 libgitg_gtk_1_0_la_SOURCES = 		\
-	egg-list-box/egg-list-box.c	\
-	egg-list-box/egg-list-box-accessible.c	\
 	gitg-gtk-resources.c		\
 	$(VALA_FILES)
 
@@ -109,9 +104,6 @@ BUILT_SOURCES = 			\
 EXTRA_DIST = \
 	$(pkgconfig_DATA)		\
 	resources/resources.xml		\
-	egg-list-box/egglistbox.vapi	\
-	egg-list-box/egg-list-box.h	\
-	egg-list-box/egg-list-box-accessible.h \
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 
 CLEANFILES = $(VALA_FILES:.vala=.c)
