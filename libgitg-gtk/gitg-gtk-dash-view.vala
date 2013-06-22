@@ -26,8 +26,9 @@ namespace GitgGtk
 	{
 		private static Gtk.IconSize d_icon_size;
 		private string? d_filter_text;
-		private Egg.ListBox d_listbox;
-		private class RepositoryData
+		private ListBox d_listbox;
+
+		private class DashRow : ListBoxRow
 		{
 			public Repository? repository;
 			public DateTime time;
@@ -45,11 +46,11 @@ namespace GitgGtk
 		{
 			d_icon_size = Gtk.icon_size_register ("gitg", 64, 64);
 
-			d_listbox = new Egg.ListBox();
+			d_listbox = new ListBox();
 			var context = d_listbox.get_style_context();
 			context.add_class("view");
 			context.add_class("content-view");
-			d_listbox.set_separator_funcs(update_separator);
+			d_listbox.set_header_func(update_header);
 			d_listbox.set_filter_func(null);
 			d_listbox.set_sort_func(compare_widgets);
 			d_listbox.show();
@@ -57,42 +58,32 @@ namespace GitgGtk
 
 			d_listbox.set_selection_mode (Gtk.SelectionMode.NONE);
 
-			d_listbox.child_activated.connect((listbox, child) => {
-				var data = child.get_data<RepositoryData>("data");
+			d_listbox.row_activated.connect((listbox, row) => {
+				var r = row as DashRow;
 
-				if (data != null && data.repository != null)
+				if (r.repository != null)
 				{
-					repository_activated(data.repository);
+					repository_activated(r.repository);
 				}
 			});
 
 			add_recent_info();
 		}
 
-		private void update_separator(ref Widget? separator, Widget widget, Widget? before_widget)
+		private void update_header(ListBoxRow row, ListBoxRow? before)
 		{
-			if (before_widget != null)
-			{
-				separator = new Separator(Orientation.HORIZONTAL);
-			}
-			else
-			{
-				separator = null;
-			}
+			row.set_header(before != null ? new Separator(Orientation.HORIZONTAL) : null);
 		}
 
-		private bool filter(Widget widget)
+		private bool filter(ListBoxRow row)
 		{
-			var data = widget.get_data<RepositoryData>("data");
-			var text = data.repository_label.get_text();
+			var text = (row as DashRow).repository_label.get_text();
 			return text.contains(d_filter_text);
 		}
 
-		private int compare_widgets(Widget a, Widget b)
+		private int compare_widgets(ListBoxRow a, ListBoxRow b)
 		{
-			var data_a = a.get_data<RepositoryData>("data");
-			var data_b = b.get_data<RepositoryData>("data");
-			return - data_a.time.compare(data_b.time);
+			return - (a as DashRow).time.compare((b as DashRow).time);
 		}
 
 		private void add_recent_info()
@@ -143,72 +134,72 @@ namespace GitgGtk
 			}
 		}
 
-		private RepositoryData get_data_for_repository(Gitg.Repository repository)
+		private DashRow get_row_for_repository(Gitg.Repository repository)
 		{
-			RepositoryData? data = null;
+			DashRow? row = null;
 
 			foreach (var child in d_listbox.get_children())
 			{
-				var d = child.get_data<RepositoryData>("data");
+				var d = child as DashRow;
 				if (d.repository.get_location().equal(repository.get_location()))
 				{
-					data = d;
+					row = d;
 					break;
 				}
 			}
 
-			return data;
+			return row;
 		}
 
-		private RepositoryData create_repository_data(string name, string branch_name, bool spin, bool local)
+		private DashRow create_repository_row(string name, string branch_name, bool spin, bool local)
 		{
-			var data = new RepositoryData();
-			data.repository = null;
-			data.time = new DateTime.now_local();
-			data.bin = new ProgressBin();
+			var row = new DashRow();
+			row.repository = null;
+			row.time = new DateTime.now_local();
+			row.bin = new ProgressBin();
+			row.add(row.bin);
 			var grid = new Grid();
 			grid.margin = 12;
 			grid.column_spacing = 10;
-			data.bin.add(grid);
+			row.bin.add(grid);
 
 			// FIXME: Change folder image for a repository uses github remote.
 			var folder_icon_name = local ? "folder" : "folder-remote";
-			data.image = new Image.from_icon_name(folder_icon_name, d_icon_size);
-			grid.attach(data.image, 0, 0, 1, 2);
+			row.image = new Image.from_icon_name(folder_icon_name, d_icon_size);
+			grid.attach(row.image, 0, 0, 1, 2);
 
-			data.repository_label = new Label(null);
-			data.repository_label.set_markup("<b>%s</b>".printf(name));
-			data.repository_label.ellipsize = Pango.EllipsizeMode.END;
-			data.repository_label.halign = Align.START;
-			data.repository_label.valign = Align.END;
-			data.repository_label.hexpand = true;
-			grid.attach(data.repository_label, 1, 0, 1, 1);
+			row.repository_label = new Label(null);
+			row.repository_label.set_markup("<b>%s</b>".printf(name));
+			row.repository_label.ellipsize = Pango.EllipsizeMode.END;
+			row.repository_label.halign = Align.START;
+			row.repository_label.valign = Align.END;
+			row.repository_label.hexpand = true;
+			grid.attach(row.repository_label, 1, 0, 1, 1);
 
-			data.branch_label = new Label("");
-			data.branch_label.set_markup("<small>%s</small>".printf(branch_name));
-			data.branch_label.ellipsize = Pango.EllipsizeMode.END;
-			data.branch_label.valign = Align.START;
-			data.branch_label.halign = Align.START;
-			data.branch_label.get_style_context().add_class("dim-label");
-			grid.attach(data.branch_label, 1, 1, 1, 1);
+			row.branch_label = new Label("");
+			row.branch_label.set_markup("<small>%s</small>".printf(branch_name));
+			row.branch_label.ellipsize = Pango.EllipsizeMode.END;
+			row.branch_label.valign = Align.START;
+			row.branch_label.halign = Align.START;
+			row.branch_label.get_style_context().add_class("dim-label");
+			grid.attach(row.branch_label, 1, 1, 1, 1);
 
-			data.arrow = new Arrow(ArrowType.RIGHT, ShadowType.NONE);
-			grid.attach(data.arrow, 2, 0, 1, 2);
+			row.arrow = new Arrow(ArrowType.RIGHT, ShadowType.NONE);
+			grid.attach(row.arrow, 2, 0, 1, 2);
 
-			data.bin.set_data<RepositoryData>("data", data);
-			data.bin.show_all();
-			d_listbox.add(data.bin);
+			row.show_all();
+			d_listbox.add(row);
 
 			if (spin)
 			{
-				data.arrow.hide();
-				data.spinner = new Spinner();
-				grid.attach(data.spinner, 3, 0, 1, 2);
-				data.spinner.show();
-				data.spinner.start();
+				row.arrow.hide();
+				row.spinner = new Spinner();
+				grid.attach(row.spinner, 3, 0, 1, 2);
+				row.spinner.show();
+				row.spinner.start();
 			}
 
-			return data;
+			return row;
 		}
 
 		private void add_repository_to_recent_manager(string uri)
@@ -224,9 +215,9 @@ namespace GitgGtk
 
 		public void add_repository(Gitg.Repository repository)
 		{
-			RepositoryData? data = get_data_for_repository(repository);
+			DashRow? row = get_row_for_repository(repository);
 
-			if (data == null)
+			if (row == null)
 			{
 				string head_name = "";
 				bool local = false;
@@ -243,14 +234,14 @@ namespace GitgGtk
 				}
 				catch {}
 
-				data = create_repository_data(repository.name, head_name, false, local);
-				data.repository = repository;
+				row = create_repository_row(repository.name, head_name, false, local);
+				row.repository = repository;
 			}
 			else
 			{
 				// to get the item sorted to the beginning of the list
-				data.time = new DateTime.now_local();
-				d_listbox.resort();
+				row.time = new DateTime.now_local();
+				d_listbox.invalidate_filter();
 			}
 
 			var f = repository.workdir != null ? repository.workdir : repository.location;
@@ -260,7 +251,7 @@ namespace GitgGtk
 			}
 		}
 
-		private async Gitg.Repository? clone(RepositoryData data, string url, File location, bool is_bare)
+		private async Gitg.Repository? clone(DashRow row, string url, File location, bool is_bare)
 		{
 			SourceFunc callback = clone.callback;
 			Gitg.Repository? repository = null;
@@ -271,7 +262,7 @@ namespace GitgGtk
 					var options = new Ggit.CloneOptions();
 					options.set_is_bare(is_bare);
 					options.set_fetch_progress_callback((stats) => {
-						data.bin.fraction = (stats.get_received_objects() + stats.get_indexed_objects()) / (double)(2 * stats.get_total_objects());
+						row.bin.fraction = (stats.get_received_objects() + stats.get_indexed_objects()) / (double)(2 * stats.get_total_objects());
 						return 0;
 					});
 
@@ -326,9 +317,9 @@ namespace GitgGtk
 			}
 
 			// Clone
-			RepositoryData? data = create_repository_data(subfolder_name, "Cloning...", true, false);
+			DashRow? row = create_repository_row(subfolder_name, "Cloning...", true, false);
 
-			clone.begin(data, url, subfolder, is_bare, (obj, res) => {
+			clone.begin(row, url, subfolder, is_bare, (obj, res) => {
 				Gitg.Repository? repository = clone.end(res);
 				string branch_name = "";
 
@@ -348,12 +339,12 @@ namespace GitgGtk
 					catch {}
 				}
 
-				data.repository = repository;
-				data.branch_label.set_markup("<small>%s</small>".printf(branch_name));
-				data.spinner.stop();
-				data.spinner.hide();
-				data.arrow.show();
-				data.bin.fraction = 0;
+				row.repository = repository;
+				row.branch_label.set_markup("<small>%s</small>".printf(branch_name));
+				row.spinner.stop();
+				row.spinner.hide();
+				row.arrow.show();
+				row.bin.fraction = 0;
 			});
 		}
 
