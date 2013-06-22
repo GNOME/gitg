@@ -49,7 +49,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.StackSwitcher d_commit_view_switcher;
 
 	[GtkChild]
-	private Gtk.Revealer d_search_revealer;
+	private Gtk.SearchBar d_search_bar;
 	[GtkChild]
 	private Gd.TaggedEntry d_search_entry;
 
@@ -149,7 +149,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_dash_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
 		d_views_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
 
-		d_search_button.bind_property("active", d_search_revealer, "reveal-child");
+		// search bar
+		d_search_bar.connect_entry(d_search_entry);
+		d_search_button.bind_property("active", d_search_bar, "search-mode-enabled");
 	}
 
 	private void on_close_activated()
