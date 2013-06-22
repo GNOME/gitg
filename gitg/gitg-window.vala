@@ -151,7 +151,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		// search bar
 		d_search_bar.connect_entry(d_search_entry);
-		d_search_button.bind_property("active", d_search_bar, "search-mode-enabled");
+		d_search_button.bind_property("active", d_search_bar, "search-mode-enabled", BindingFlags.BIDIRECTIONAL);
 	}
 
 	private void on_close_activated()
