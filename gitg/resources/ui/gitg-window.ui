@@ -219,15 +219,10 @@
                   <class name="content-view"/>
                 </style>
                 <child>
-                  <object class="GtkViewport" id="dash_viewport">
+                  <object class="GitgGtkDashView" id="d_dash_view">
                     <property name="visible">True</property>
-                    <child>
-                      <object class="GitgGtkDashView" id="d_dash_view">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <signal name="repository_activated" handler="dash_view_repository_activated" swapped="no"/>
-                      </object>
-                    </child>
+                    <property name="can_focus">True</property>
+                    <signal name="repository_activated" handler="dash_view_repository_activated" swapped="no"/>
                   </object>
                 </child>
               </object>
