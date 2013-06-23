@@ -17,7 +17,7 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GitgGtk
+namespace Gitg
 {
 	public class DiffView : WebKit.WebView
 	{
@@ -25,7 +25,7 @@ namespace GitgGtk
 		private Gitg.Commit? d_commit;
 		private Settings d_fontsettings;
 
-		private static Gee.HashMap<string, GitgGtk.DiffView> s_diffmap;
+		private static Gee.HashMap<string, Gitg.DiffView> s_diffmap;
 		private static uint64 s_diff_id;
 
 		public File? custom_css { get; construct; }
@@ -62,7 +62,7 @@ namespace GitgGtk
 
 		static construct
 		{
-			s_diffmap = new Gee.HashMap<string, GitgGtk.DiffView>();
+			s_diffmap = new Gee.HashMap<string, Gitg.DiffView>();
 
 			var context = WebKit.WebContext.get_default();
 			context.register_uri_scheme("gitg-diff", gitg_diff_request);

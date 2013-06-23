@@ -20,7 +20,7 @@
 using Gitg;
 using Gtk;
 
-namespace GitgGtk
+namespace Gitg
 {
 	public class DashView : ListBox
 	{

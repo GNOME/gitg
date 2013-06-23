@@ -40,7 +40,7 @@ namespace GitgFiles
 		private Gtk.Viewport d_imagevp;
 		private Gtk.Image d_image;
 
-		private GitgGtk.WhenMapped d_whenMapped;
+		private Gitg.WhenMapped d_whenMapped;
 
 		construct
 		{
@@ -196,7 +196,7 @@ namespace GitgFiles
 				update_packing();
 			}
 
-			d_whenMapped = new GitgGtk.WhenMapped(d_paned);
+			d_whenMapped = new Gitg.WhenMapped(d_paned);
 		}
 
 		public Gtk.Widget? widget

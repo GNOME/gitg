@@ -17,18 +17,18 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GitgGtk
+namespace Gitg
 {
 	public class CommitListView : Gtk.TreeView, Gtk.Buildable
 	{
-		public CommitListView(GitgGtk.CommitModel model)
+		public CommitListView(Gitg.CommitModel model)
 		{
 			Object(model: model);
 		}
 
 		public CommitListView.for_repository(Gitg.Repository repository)
 		{
-			this(new GitgGtk.CommitModel(repository));
+			this(new Gitg.CommitModel(repository));
 		}
 
 		private void lanes_data_func(Gtk.CellLayout   layout,

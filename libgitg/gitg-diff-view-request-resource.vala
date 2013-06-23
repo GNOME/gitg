@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
-namespace GitgGtk
+namespace Gitg
 {
 	class DiffViewRequestResource : DiffViewRequest
 	{
@@ -63,7 +63,7 @@ namespace GitgGtk
 
 				if (repopath != null)
 				{
-					d_resource = File.new_for_path(Path.build_filename(repopath.get_path(), "..", "libgitg-gtk", "resources", path));
+					d_resource = File.new_for_path(Path.build_filename(repopath.get_path(), "..", "libgitg", "resources", path));
 				}
 				else
 				{

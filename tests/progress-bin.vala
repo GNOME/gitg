@@ -1,5 +1,5 @@
 using Gtk;
-using GitgGtk;
+using Gitg;
 
 class TestProgressGrid
 {

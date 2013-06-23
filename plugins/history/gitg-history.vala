@@ -30,7 +30,7 @@ namespace GitgHistory
 		public GitgExt.Application? application { owned get; construct set; }
 
 		private Navigation? d_navigation_model;
-		private GitgGtk.CommitModel? d_commit_list_model;
+		private Gitg.CommitModel? d_commit_list_model;
 		private Gee.HashSet<Ggit.OId> d_selected;
 		private ulong d_insertsig;
 		private Settings d_settings;
@@ -89,7 +89,7 @@ namespace GitgHistory
 				on_ref_activated(d_navigation_model, r);
 			});
 
-			d_commit_list_model = new GitgGtk.CommitModel(application.repository);
+			d_commit_list_model = new Gitg.CommitModel(application.repository);
 			d_commit_list_model.started.connect(on_commit_model_started);
 			d_commit_list_model.finished.connect(on_commit_model_finished);
 
@@ -116,7 +116,7 @@ namespace GitgHistory
 			}
 		}
 
-		private void on_commit_model_started(GitgGtk.CommitModel model)
+		private void on_commit_model_started(Gitg.CommitModel model)
 		{
 			if (d_insertsig == 0)
 			{
@@ -140,7 +140,7 @@ namespace GitgHistory
 			}
 		}
 
-		private void on_commit_model_finished(GitgGtk.CommitModel model)
+		private void on_commit_model_finished(Gitg.CommitModel model)
 		{
 			if (d_insertsig != 0)
 			{

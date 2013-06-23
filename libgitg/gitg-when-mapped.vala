@@ -1,4 +1,4 @@
-namespace GitgGtk
+namespace Gitg
 {
 	public class WhenMapped
 	{

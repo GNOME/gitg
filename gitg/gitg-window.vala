@@ -59,7 +59,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.ScrolledWindow d_dash_scrolled_window;
 	[GtkChild]
-	private GitgGtk.DashView d_dash_view;
+	private Gitg.DashView d_dash_view;
 
 	[GtkChild]
 	private Gtk.Stack d_stack_view;

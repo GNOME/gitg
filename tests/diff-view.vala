@@ -9,7 +9,7 @@ class TestDiffView
 		{
 			// Launch in local mode
 			var path = File.new_for_path(args[0]);
-			var gtk = path.get_parent().get_parent().get_parent().get_child("libgitg-gtk");
+			var gtk = path.get_parent().get_parent().get_parent().get_child("libgitg");
 
 			var rargs = args;
 
@@ -100,7 +100,7 @@ class TestDiffView
 		wnd.set_default_size(800, 600);
 		var sw = new Gtk.ScrolledWindow(null, null);
 
-		var v = new GitgGtk.DiffView(null);
+		var v = new Gitg.DiffView(null);
 		sw.add(v);
 
 		v.commit = commit;

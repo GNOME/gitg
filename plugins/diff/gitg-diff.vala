@@ -26,19 +26,19 @@ namespace GitgDiff
 
 		public GitgExt.Application? application { owned get; construct set; }
 		private Gtk.ScrolledWindow d_sw;
-		private GitgGtk.DiffView d_diff;
+		private Gitg.DiffView d_diff;
 		private GitgExt.ObjectSelection? d_view;
-		private GitgGtk.WhenMapped d_whenMapped;
+		private Gitg.WhenMapped d_whenMapped;
 
 		construct
 		{
 			d_sw = new Gtk.ScrolledWindow(null, null);
 			d_sw.show();
-			d_diff = new GitgGtk.DiffView(null);
+			d_diff = new Gitg.DiffView(null);
 			d_diff.show();
 			d_sw.add(d_diff);
 
-			d_whenMapped = new GitgGtk.WhenMapped(d_sw);
+			d_whenMapped = new Gitg.WhenMapped(d_sw);
 
 			application.notify["current_view"].connect((a, v) => {
 				notify_property("available");

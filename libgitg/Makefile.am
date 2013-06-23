@@ -18,8 +18,14 @@ INST_H_FILES =				\
 
 AM_VALAFLAGS = 				\
 	--pkg Ggit-1.0 			\
+	--pkg gtk+-3.0			\
 	--pkg gio-2.0			\
+	--pkg libsoup-2.4		\
+	--pkg webkit2gtk-3.0		\
+	--pkg gee-0.8			\
+	--pkg json-glib-1.0		\
 	$(GITG_VALAFLAGS)		\
+	--vapidir $(top_srcdir)/vapi	\
 	--header libgitg.h		\
 	--includedir libgitg		\
 	--basedir $(top_srcdir)		\
@@ -29,24 +35,36 @@ AM_VALAFLAGS = 				\
 Gitg-1.0.gir: libgitg-1.0.la
 libgitg.h: libgitg-1.0.la
 
-VALA_FILES =				\
-	gitg-assembly-info.vala		\
-	gitg-branch.vala		\
-	gitg-branch-base.vala		\
-	gitg-repository.vala		\
-	gitg-ref.vala			\
-	gitg-ref-base.vala		\
-	gitg-lane.vala			\
-	gitg-lanes.vala			\
-	gitg-color.vala			\
-	gitg-init.vala			\
-	gitg-commit.vala
+VALA_FILES =					\
+	gitg-assembly-info.vala			\
+	gitg-branch.vala			\
+	gitg-branch-base.vala			\
+	gitg-repository.vala			\
+	gitg-ref.vala				\
+	gitg-ref-base.vala			\
+	gitg-lane.vala				\
+	gitg-lanes.vala				\
+	gitg-color.vala				\
+	gitg-init.vala				\
+	gitg-commit.vala			\
+	gitg-commit-model.vala			\
+	gitg-label-renderer.vala		\
+	gitg-cell-renderer-lanes.vala		\
+	gitg-commit-list-view.vala		\
+	gitg-diff-view.vala			\
+	gitg-diff-view-request.vala		\
+	gitg-diff-view-request-resource.vala	\
+	gitg-diff-view-request-diff.vala	\
+	gitg-dash-view.vala			\
+	gitg-when-mapped.vala			\
+	gitg-progress-bin.vala
 
 # Ignore all warnings for vala code...
 libgitg_1_0_la_CFLAGS =		\
 	-w
 
 libgitg_1_0_la_SOURCES = 		\
+	gitg-resources.c		\
 	$(VALA_FILES)
 
 headerdir = $(prefix)/include/libgitg-1.0/libgitg
@@ -67,14 +85,30 @@ typelib_DATA = Gitg-1.0.typelib
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgitg-1.0.pc
 
+gitg-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
+		--sourcedir $(srcdir)/resources 	\
+		--target "$@" "$<"
+
+gitg-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+	$(GLIB_COMPILE_RESOURCES) --generate-header 	\
+		--sourcedir $(srcdir)/resources 	\
+		--target "$@" "$<"
+
 BUILT_SOURCES =				\
 	$(gir_DATA)			\
 	$(vapi_DATA)			\
 	$(typelib_DATA)			\
 	libgitg_1_0_la_vala.stamp	\
+	gitg-resources.c		\
+	gitg-resources.h		\
 	libgitg.h
 
-EXTRA_DIST = $(pkgconfig_DATA)
+EXTRA_DIST = \
+	$(pkgconfig_DATA)		\
+	resources/resources.xml		\
+	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+
 CLEANFILES = $(VALA_FILES:.vala=.c)
 
 dist-hook:

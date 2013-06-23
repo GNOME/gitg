@@ -17,7 +17,7 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GitgGtk
+namespace Gitg
 {
 	public class ProgressBin : Gtk.Bin
 	{

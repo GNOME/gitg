@@ -55,7 +55,7 @@
             <property name="can_focus">True</property>
             <property name="shadow-type">none</property>
             <child>
-              <object class="GitgGtkCommitListView" id="commit_list_view">
+              <object class="GitgCommitListView" id="commit_list_view">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="rules_hint">True</property>
@@ -69,7 +69,7 @@
                     <property name="expand">True</property>
                     <property name="fixed-width">600</property>
                     <child>
-                      <object class="GitgGtkCellRendererLanes" id="renderer_commit_list_subject">
+                      <object class="GitgCellRendererLanes" id="renderer_commit_list_subject">
                         <property name="ellipsize">end</property>
                       </object>
                       <attributes>
