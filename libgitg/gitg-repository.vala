@@ -23,6 +23,7 @@ namespace Gitg
 public class Repository : Ggit.Repository
 {
 	private HashTable<Ggit.OId, SList<Gitg.Ref>> d_refs;
+	private weak Stage ?d_stage;
 
 	public string? name {
 		owned get {
@@ -143,6 +144,23 @@ public class Repository : Ggit.Repository
 	public new Ref get_head() throws Error
 	{
 		return base.get_head() as Ref;
+	}
+
+	public Stage get_stage()
+	{
+		Stage ret;
+
+		if (d_stage == null)
+		{
+			ret = new Stage(this);
+			d_stage = ret;
+		}
+		else
+		{
+			ret = d_stage;
+		}
+
+		return (owned)ret;
 	}
 }
 
