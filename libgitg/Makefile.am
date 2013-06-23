@@ -40,8 +40,7 @@ VALA_FILES =				\
 	gitg-lanes.vala			\
 	gitg-color.vala			\
 	gitg-init.vala			\
-	gitg-commit.vala		\
-	gitg-commit-model.vala
+	gitg-commit.vala
 
 # Ignore all warnings for vala code...
 libgitg_1_0_la_CFLAGS =		\

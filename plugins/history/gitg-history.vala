@@ -116,7 +116,7 @@ namespace GitgHistory
 			}
 		}
 
-		private void on_commit_model_started(Gitg.CommitModel model)
+		private void on_commit_model_started(GitgGtk.CommitModel model)
 		{
 			if (d_insertsig == 0)
 			{
@@ -140,7 +140,7 @@ namespace GitgHistory
 			}
 		}
 
-		private void on_commit_model_finished(Gitg.CommitModel model)
+		private void on_commit_model_finished(GitgGtk.CommitModel model)
 		{
 			if (d_insertsig != 0)
 			{
