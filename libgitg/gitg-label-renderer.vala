@@ -24,14 +24,14 @@ namespace Gitg
 		private static const int margin = 3;
 		private static const int padding = 4;
 
-		private static string label_text(Gitg.Ref r)
+		private static string label_text(Ref r)
 		{
 			var escaped = Markup.escape_text(r.parsed_name.shortname);
 			return "<span size='smaller'>%s</span>".printf(escaped);
 		}
 
 		private static int get_label_width(Pango.Layout layout,
-		                                   Gitg.Ref     r)
+		                                   Ref          r)
 		{
 			var smaller = label_text(r);
 
@@ -45,7 +45,7 @@ namespace Gitg
 
 		public static int width(Gtk.Widget             widget,
 		                        Pango.FontDescription *font,
-		                        SList<Gitg.Ref>        labels)
+		                        SList<Ref>             labels)
 		{
 			if (labels == null)
 			{
@@ -59,7 +59,7 @@ namespace Gitg
 
 			layout.set_font_description(font);
 
-			foreach (Gitg.Ref r in labels)
+			foreach (Ref r in labels)
 			{
 				ret += get_label_width(layout, r) + margin;
 			}
@@ -67,22 +67,22 @@ namespace Gitg
 			return ret + margin;
 		}
 
-		private static string class_from_ref(Gitg.RefType type)
+		private static string class_from_ref(RefType type)
 		{
 			string style_class;
 
 			switch (type)
 			{
-				case Gitg.RefType.BRANCH:
+				case RefType.BRANCH:
 					style_class = "branch";
 				break;
-				case Gitg.RefType.REMOTE:
+				case RefType.REMOTE:
 					style_class = "remote";
 				break;
-				case Gitg.RefType.TAG:
+				case RefType.TAG:
 					style_class = "tag";
 				break;
-				case Gitg.RefType.STASH:
+				case RefType.STASH:
 					style_class = "stash";
 				break;
 				default:
@@ -96,7 +96,7 @@ namespace Gitg
 		private static int render_label(Gtk.Widget    widget,
 		                                Cairo.Context cr,
 		                                Pango.Layout  layout,
-		                                Gitg.Ref      r,
+		                                Ref           r,
 		                                int           x,
 		                                int           y,
 		                                int           height,
@@ -145,7 +145,7 @@ namespace Gitg
 		public static void draw(Gtk.Widget            widget,
 		                        Pango.FontDescription font,
 		                        Cairo.Context         context,
-		                        SList<Gitg.Ref>       labels,
+		                        SList<Ref>            labels,
 		                        Gdk.Rectangle         area)
 		{
 			double pos = margin + 0.5;
@@ -158,7 +158,7 @@ namespace Gitg
 
 			layout.set_font_description(font);
 
-			foreach (Gitg.Ref r in labels)
+			foreach (Ref r in labels)
 			{
 				var w = render_label(widget,
 				                     context,
@@ -175,11 +175,11 @@ namespace Gitg
 			context.restore();
 		}
 
-		public static Gitg.Ref? get_ref_at_pos(Gtk.Widget            widget,
-		                                       Pango.FontDescription font,
-		                                       SList<Gitg.Ref>       labels,
-		                                       int                   x,
-		                                       out int               hot_x)
+		public static Ref? get_ref_at_pos(Gtk.Widget            widget,
+		                                  Pango.FontDescription font,
+		                                  SList<Ref>            labels,
+		                                  int                   x,
+		                                  out int               hot_x)
 		{
 			hot_x = 0;
 
@@ -194,9 +194,9 @@ namespace Gitg
 			layout.set_font_description(font);
 
 			int start = margin;
-			Gitg.Ref? ret = null;
+			Ref? ret = null;
 
-			foreach (Gitg.Ref r in labels)
+			foreach (Ref r in labels)
 			{
 				int width = get_label_width(layout, r);
 
@@ -243,7 +243,7 @@ namespace Gitg
 
 		public static Gdk.Pixbuf render_ref(Gtk.Widget            widget,
 		                                    Pango.FontDescription font,
-		                                    Gitg.Ref              r,
+		                                    Ref                   r,
 		                                    int                   height,
 		                                    int                   minwidth)
 		{
@@ -278,4 +278,4 @@ namespace Gitg
 	}
 }
 
-// vi:ts=4
+// ex:ts=4 noet

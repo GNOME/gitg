@@ -52,7 +52,7 @@ namespace Gitg
 				case AUTHOR_DATE:
 					return typeof(string);
 				case COMMIT:
-					return typeof(Gitg.Commit);
+					return typeof(Commit);
 				default:
 				break;
 			}
@@ -63,14 +63,14 @@ namespace Gitg
 
 	public class CommitModel : Object, Gtk.TreeModel
 	{
-		private Gitg.Repository d_repository;
+		private Repository d_repository;
 		private Cancellable? d_cancellable;
-		private Gitg.Commit[] d_ids;
+		private Commit[] d_ids;
 		private Thread<void*>? d_thread;
 		private Ggit.RevisionWalker? d_walker;
 		private uint d_advertized_size;
 		private uint d_idleid;
-		private Gitg.Lanes d_lanes;
+		private Lanes d_lanes;
 		private Ggit.SortMode d_sortmode;
 
 		private Ggit.OId[] d_include;
@@ -95,7 +95,7 @@ namespace Gitg
 		}
 
 		[Notify]
-		public Gitg.Repository repository
+		public Repository repository
 		{
 			get { return d_repository; }
 			set
@@ -111,14 +111,14 @@ namespace Gitg
 		public signal void update(uint added);
 		public signal void finished();
 
-		public CommitModel(Gitg.Repository? repository)
+		public CommitModel(Repository? repository)
 		{
 			Object(repository: repository);
 		}
 
 		construct
 		{
-			d_lanes = new Gitg.Lanes();
+			d_lanes = new Lanes();
 			d_cancellable = new Cancellable();
 			d_cancellable.cancel();
 
@@ -146,7 +146,7 @@ namespace Gitg
 				d_idleid = 0;
 			}
 
-			d_ids = new Gitg.Commit[0];
+			d_ids = new Commit[0];
 			d_advertized_size = 0;
 
 			emit_started();
@@ -179,9 +179,9 @@ namespace Gitg
 			return d_advertized_size;
 		}
 
-		public new Gitg.Commit? @get(uint idx)
+		public new Commit? @get(uint idx)
 		{
-			Gitg.Commit? ret;
+			Commit? ret;
 
 			if (idx >= d_advertized_size)
 			{
@@ -291,7 +291,7 @@ namespace Gitg
 				// Pre-allocate array to store commits
 				lock(d_ids)
 				{
-					d_ids = new Gitg.Commit[1000];
+					d_ids = new Commit[1000];
 
 					size = d_ids.length;
 
@@ -304,7 +304,7 @@ namespace Gitg
 				while (true)
 				{
 					Ggit.OId? id;
-					Gitg.Commit? commit;
+					Commit? commit;
 
 					if (d_cancellable.is_cancelled())
 					{
@@ -320,7 +320,7 @@ namespace Gitg
 							break;
 						}
 
-						commit = d_repository.lookup(id, typeof(Gitg.Commit)) as Gitg.Commit;
+						commit = d_repository.lookup(id, typeof(Commit)) as Commit;
 					} catch { break; }
 
 					// Add the id
@@ -477,7 +477,7 @@ namespace Gitg
 			return_if_fail(iter.stamp == d_stamp);
 
 			uint idx = (uint)(ulong)iter.user_data;
-			Gitg.Commit? commit = this[idx];
+			Commit? commit = this[idx];
 
 			val.init(get_column_type(column));
 
@@ -529,7 +529,7 @@ namespace Gitg
 			}
 		}
 
-		public Gitg.Commit? commit_from_iter(Gtk.TreeIter iter)
+		public Commit? commit_from_iter(Gtk.TreeIter iter)
 		{
 			return_val_if_fail(iter.stamp == d_stamp, null);
 
@@ -538,7 +538,7 @@ namespace Gitg
 			return this[idx];
 		}
 
-		public Gitg.Commit? commit_from_path(Gtk.TreePath path)
+		public Commit? commit_from_path(Gtk.TreePath path)
 		{
 			int[] indices = path.get_indices();
 
@@ -630,4 +630,4 @@ namespace Gitg
 	}
 }
 
-// ex:set ts=4 noet
+// ex:ts=4 noet

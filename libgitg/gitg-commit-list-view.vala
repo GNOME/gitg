@@ -21,14 +21,14 @@ namespace Gitg
 {
 	public class CommitListView : Gtk.TreeView, Gtk.Buildable
 	{
-		public CommitListView(Gitg.CommitModel model)
+		public CommitListView(CommitModel model)
 		{
 			Object(model: model);
 		}
 
-		public CommitListView.for_repository(Gitg.Repository repository)
+		public CommitListView.for_repository(Repository repository)
 		{
-			this(new Gitg.CommitModel(repository));
+			this(new CommitModel(repository));
 		}
 
 		private void lanes_data_func(Gtk.CellLayout   layout,
@@ -44,7 +44,7 @@ namespace Gitg
 			}
 
 			CellRendererLanes lanes = (CellRendererLanes)cell;
-			Gitg.Commit? commit = m.commit_from_iter(iter);
+			Commit? commit = m.commit_from_iter(iter);
 
 			if (commit == null)
 			{
@@ -52,14 +52,14 @@ namespace Gitg
 			}
 
 			var cp = iter;
-			Gitg.Commit? next_commit = null;
+			Commit? next_commit = null;
 
 			if (m.iter_next(ref cp))
 			{
 				next_commit = m.commit_from_iter(cp);
 			}
 
-			unowned SList<Gitg.Ref> labels = m.repository.refs_for_id(commit.get_id());
+			unowned SList<Ref> labels = m.repository.refs_for_id(commit.get_id());
 
 			lanes.commit = commit;
 			lanes.next_commit = next_commit;
@@ -90,4 +90,4 @@ namespace Gitg
 	}
 }
 
-// vi:ts=4
+// ex:ts=4 noet

@@ -21,11 +21,11 @@ namespace Gitg
 {
 	class CellRendererLanes : Gtk.CellRendererText
 	{
-		public Gitg.Commit? commit { get; set; }
-		public Gitg.Commit? next_commit { get; set; }
+		public Commit? commit { get; set; }
+		public Commit? next_commit { get; set; }
 		public uint lane_width { get; set; default = 16; }
 		public uint dot_width { get; set; default = 10; }
-		public unowned SList<Gitg.Ref> labels { get; set; }
+		public unowned SList<Ref> labels { get; set; }
 
 		private int d_last_height;
 
@@ -85,11 +85,11 @@ namespace Gitg
 				var color = lane.color;
 				context.set_source_rgb(color.r, color.g, color.b);
 
-				if (lane.tag == Gitg.LaneTag.START)
+				if (lane.tag == LaneTag.START)
 				{
 					draw_arrow(context, area, to, true);
 				}
-				else if (lane.tag == Gitg.LaneTag.END)
+				else if (lane.tag == LaneTag.END)
 				{
 					draw_arrow(context, area, to, false);
 				}
@@ -100,7 +100,7 @@ namespace Gitg
 
 		private void draw_paths_real(Cairo.Context context,
 		                             Gdk.Rectangle area,
-		                             Gitg.Commit?  commit,
+		                             Commit?       commit,
 		                             double        yoffset)
 		{
 			if (commit == null)
@@ -233,4 +233,4 @@ namespace Gitg
 	}
 }
 
-// vi:ts=4
+// ex:ts=4 noet

@@ -17,31 +17,28 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Gitg;
-using Gtk;
-
 namespace Gitg
 {
-	public class DashView : ListBox
+	public class DashView : Gtk.ListBox
 	{
 		private static Gtk.IconSize d_icon_size;
 		private string? d_filter_text;
 
-		private class DashRow : ListBoxRow
+		private class DashRow : Gtk.ListBoxRow
 		{
 			public Repository? repository;
 			public DateTime time;
 			public ProgressBin bin;
-			public Image image;
-			public Label repository_label;
-			public Label branch_label;
-			public Arrow arrow;
-			public Spinner spinner;
+			public Gtk.Image image;
+			public Gtk.Label repository_label;
+			public Gtk.Label branch_label;
+			public Gtk.Arrow arrow;
+			public Gtk.Spinner spinner;
 		}
 
 		public signal void repository_activated(Repository repository);
 
-		protected override void row_activated(ListBoxRow row)
+		protected override void row_activated(Gtk.ListBoxRow row)
 		{
 			var r = row as DashRow;
 
@@ -65,25 +62,25 @@ namespace Gitg
 			add_recent_info();
 		}
 
-		private void update_header(ListBoxRow row, ListBoxRow? before)
+		private void update_header(Gtk.ListBoxRow row, Gtk.ListBoxRow? before)
 		{
-			row.set_header(before != null ? new Separator(Orientation.HORIZONTAL) : null);
+			row.set_header(before != null ? new Gtk.Separator(Gtk.Orientation.HORIZONTAL) : null);
 		}
 
-		private bool filter(ListBoxRow row)
+		private bool filter(Gtk.ListBoxRow row)
 		{
 			var text = (row as DashRow).repository_label.get_text();
 			return text.contains(d_filter_text);
 		}
 
-		private int compare_widgets(ListBoxRow a, ListBoxRow b)
+		private int compare_widgets(Gtk.ListBoxRow a, Gtk.ListBoxRow b)
 		{
 			return - (a as DashRow).time.compare((b as DashRow).time);
 		}
 
 		private void add_recent_info()
 		{
-			var recent_manager = RecentManager.get_default();
+			var recent_manager = Gtk.RecentManager.get_default();
 			var reversed_items = recent_manager.get_items();
 			reversed_items.reverse();
 
@@ -108,11 +105,11 @@ namespace Gitg
 						return;
 					}
 
-					Gitg.Repository repo;
+					Repository repo;
 
 					try
 					{
-						repo = new Gitg.Repository(repo_file, null);
+						repo = new Repository(repo_file, null);
 					}
 					catch
 					{
@@ -129,7 +126,7 @@ namespace Gitg
 			}
 		}
 
-		private DashRow get_row_for_repository(Gitg.Repository repository)
+		private DashRow get_row_for_repository(Repository repository)
 		{
 			DashRow? row = null;
 
@@ -153,33 +150,33 @@ namespace Gitg
 			row.time = new DateTime.now_local();
 			row.bin = new ProgressBin();
 			row.add(row.bin);
-			var grid = new Grid();
+			var grid = new Gtk.Grid();
 			grid.margin = 12;
 			grid.column_spacing = 10;
 			row.bin.add(grid);
 
 			// FIXME: Change folder image for a repository uses github remote.
 			var folder_icon_name = local ? "folder" : "folder-remote";
-			row.image = new Image.from_icon_name(folder_icon_name, d_icon_size);
+			row.image = new Gtk.Image.from_icon_name(folder_icon_name, d_icon_size);
 			grid.attach(row.image, 0, 0, 1, 2);
 
-			row.repository_label = new Label(null);
+			row.repository_label = new Gtk.Label(null);
 			row.repository_label.set_markup("<b>%s</b>".printf(name));
 			row.repository_label.ellipsize = Pango.EllipsizeMode.END;
-			row.repository_label.halign = Align.START;
-			row.repository_label.valign = Align.END;
+			row.repository_label.halign = Gtk.Align.START;
+			row.repository_label.valign = Gtk.Align.END;
 			row.repository_label.hexpand = true;
 			grid.attach(row.repository_label, 1, 0, 1, 1);
 
-			row.branch_label = new Label("");
+			row.branch_label = new Gtk.Label("");
 			row.branch_label.set_markup("<small>%s</small>".printf(branch_name));
 			row.branch_label.ellipsize = Pango.EllipsizeMode.END;
-			row.branch_label.valign = Align.START;
-			row.branch_label.halign = Align.START;
+			row.branch_label.valign = Gtk.Align.START;
+			row.branch_label.halign = Gtk.Align.START;
 			row.branch_label.get_style_context().add_class("dim-label");
 			grid.attach(row.branch_label, 1, 1, 1, 1);
 
-			row.arrow = new Arrow(ArrowType.RIGHT, ShadowType.NONE);
+			row.arrow = new Gtk.Arrow(Gtk.ArrowType.RIGHT, Gtk.ShadowType.NONE);
 			grid.attach(row.arrow, 2, 0, 1, 2);
 
 			row.show_all();
@@ -188,7 +185,7 @@ namespace Gitg
 			if (spin)
 			{
 				row.arrow.hide();
-				row.spinner = new Spinner();
+				row.spinner = new Gtk.Spinner();
 				grid.attach(row.spinner, 3, 0, 1, 2);
 				row.spinner.show();
 				row.spinner.start();
@@ -199,8 +196,8 @@ namespace Gitg
 
 		private void add_repository_to_recent_manager(string uri)
 		{
-			var recent_manager = RecentManager.get_default();
-			var item = RecentData();
+			var recent_manager = Gtk.RecentManager.get_default();
+			var item = Gtk.RecentData();
 			item.app_name = Environment.get_application_name();
 			item.mime_type = "inode/directory";
 			item.app_exec = string.join(" ", Environment.get_prgname(), "%f");
@@ -208,7 +205,7 @@ namespace Gitg
 			recent_manager.add_full(uri, item);
 		}
 
-		public void add_repository(Gitg.Repository repository)
+		public void add_repository(Repository repository)
 		{
 			DashRow? row = get_row_for_repository(repository);
 
@@ -246,10 +243,10 @@ namespace Gitg
 			}
 		}
 
-		private async Gitg.Repository? clone(DashRow row, string url, File location, bool is_bare)
+		private async Repository? clone(DashRow row, string url, File location, bool is_bare)
 		{
 			SourceFunc callback = clone.callback;
-			Gitg.Repository? repository = null;
+			Repository? repository = null;
 
 			ThreadFunc<void*> run = () => {
 				try
@@ -261,7 +258,7 @@ namespace Gitg
 						return 0;
 					});
 
-					repository = Ggit.Repository.clone(url, location, options) as Gitg.Repository;
+					repository = Ggit.Repository.clone(url, location, options) as Repository;
 				}
 				catch (Ggit.Error e)
 				{
