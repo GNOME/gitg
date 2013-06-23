@@ -55,9 +55,6 @@ namespace GitgGtk
 		{
 			d_icon_size = Gtk.icon_size_register ("gitg", 64, 64);
 
-			var context = get_style_context();
-			context.add_class("view");
-			context.add_class("content-view");
 			set_header_func(update_header);
 			set_filter_func(null);
 			set_sort_func(compare_widgets);
