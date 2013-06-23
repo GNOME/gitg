@@ -22,11 +22,10 @@ using Gtk;
 
 namespace GitgGtk
 {
-	public class DashView : Grid
+	public class DashView : ListBox
 	{
 		private static Gtk.IconSize d_icon_size;
 		private string? d_filter_text;
-		private ListBox d_listbox;
 
 		private class DashRow : ListBoxRow
 		{
@@ -42,30 +41,29 @@ namespace GitgGtk
 
 		public signal void repository_activated(Repository repository);
 
+		protected override void row_activated(ListBoxRow row)
+		{
+			var r = row as DashRow;
+
+			if (r.repository != null)
+			{
+				repository_activated(r.repository);
+			}
+		}
+
 		construct
 		{
 			d_icon_size = Gtk.icon_size_register ("gitg", 64, 64);
 
-			d_listbox = new ListBox();
-			var context = d_listbox.get_style_context();
+			var context = get_style_context();
 			context.add_class("view");
 			context.add_class("content-view");
-			d_listbox.set_header_func(update_header);
-			d_listbox.set_filter_func(null);
-			d_listbox.set_sort_func(compare_widgets);
-			d_listbox.show();
-			add(d_listbox);
+			set_header_func(update_header);
+			set_filter_func(null);
+			set_sort_func(compare_widgets);
+			show();
 
-			d_listbox.set_selection_mode (Gtk.SelectionMode.NONE);
-
-			d_listbox.row_activated.connect((listbox, row) => {
-				var r = row as DashRow;
-
-				if (r.repository != null)
-				{
-					repository_activated(r.repository);
-				}
-			});
+			set_selection_mode (Gtk.SelectionMode.NONE);
 
 			add_recent_info();
 		}
@@ -138,7 +136,7 @@ namespace GitgGtk
 		{
 			DashRow? row = null;
 
-			foreach (var child in d_listbox.get_children())
+			foreach (var child in get_children())
 			{
 				var d = child as DashRow;
 				if (d.repository.get_location().equal(repository.get_location()))
@@ -188,7 +186,7 @@ namespace GitgGtk
 			grid.attach(row.arrow, 2, 0, 1, 2);
 
 			row.show_all();
-			d_listbox.add(row);
+			add(row);
 
 			if (spin)
 			{
@@ -241,7 +239,7 @@ namespace GitgGtk
 			{
 				// to get the item sorted to the beginning of the list
 				row.time = new DateTime.now_local();
-				d_listbox.invalidate_filter();
+				invalidate_filter();
 			}
 
 			var f = repository.workdir != null ? repository.workdir : repository.location;
@@ -354,11 +352,11 @@ namespace GitgGtk
 
 			if (text != null && text != "")
 			{
-				d_listbox.set_filter_func(filter);
+				set_filter_func(filter);
 			}
 			else
 			{
-				d_listbox.set_filter_func(null);
+				set_filter_func(null);
 			}
 		}
 	}
