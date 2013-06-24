@@ -93,7 +93,7 @@ public class Commit : Ggit.Commit
 		}
 	}
 
-private string date_for_display(DateTime dt, TimeZone time_zone)
+	private string date_for_display(DateTime dt, TimeZone time_zone)
 	{
 		TimeSpan t = (new DateTime.now_local()).difference(dt);
 
