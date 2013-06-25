@@ -30,7 +30,8 @@ AM_VALAFLAGS = 				\
 	--includedir libgitg		\
 	--basedir $(top_srcdir)		\
 	--gir Gitg-1.0.gir		\
-	--library libgitg-1.0
+	--library libgitg-1.0		\
+	--gresources "$(top_srcdir)/libgitg/resources/resources.xml"
 
 Gitg-1.0.gir: libgitg-1.0.la
 libgitg.h: libgitg-1.0.la

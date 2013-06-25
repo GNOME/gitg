@@ -24,16 +24,101 @@ namespace Gitg
 		private static Gtk.IconSize d_icon_size;
 		private string? d_filter_text;
 
+		[GtkTemplate (ui = "/org/gnome/gitg/gtk/dash-view/gitg-dash-view-row.ui")]
 		private class DashRow : Gtk.ListBoxRow
 		{
-			public Repository? repository;
-			public DateTime time;
-			public ProgressBin bin;
-			public Gtk.Image image;
-			public Gtk.Label repository_label;
-			public Gtk.Label branch_label;
-			public Gtk.Arrow arrow;
-			public Gtk.Spinner spinner;
+			private Repository? d_repository;
+			private DateTime d_time;
+			private bool d_loading;
+			[GtkChild]
+			private ProgressBin d_progress_bin;
+			[GtkChild]
+			private Gtk.Image d_image;
+			[GtkChild]
+			private Gtk.Label d_repository_label;
+			[GtkChild]
+			private Gtk.Label d_branch_label;
+			[GtkChild]
+			private Gtk.Arrow d_arrow;
+			[GtkChild]
+			private Gtk.Spinner d_spinner;
+
+			public Repository? repository
+			{
+				get { return d_repository; }
+				set
+				{
+					d_repository = value;
+
+					branch_name = "";
+					if (d_repository != null)
+					{
+						try
+						{
+							var head = d_repository.get_head();
+							branch_name = head.parsed_name.shortname;
+						}
+						catch {}
+					}
+				}
+			}
+
+			public DateTime time
+			{
+				get { return d_time; }
+				set { d_time = value; }
+			}
+
+			public double fraction
+			{
+				set { d_progress_bin.fraction = value; }
+			}
+
+			public string? repository_name
+			{
+				get { return d_repository_label.get_text(); }
+				set { d_repository_label.set_markup("<b>%s</b>".printf(value)); }
+			}
+
+			public string? branch_name
+			{
+				get { return d_branch_label.get_text(); }
+				set { d_branch_label.set_markup("<small>%s</small>".printf(value)); }
+			}
+
+			public bool loading
+			{
+				get { return d_loading; }
+				set
+				{
+					d_loading = value;
+
+					if (d_loading)
+					{
+						d_spinner.stop();
+						d_spinner.hide();
+						d_arrow.show();
+						d_progress_bin.fraction = 0;
+					}
+					else
+					{
+						d_arrow.hide();
+						d_spinner.show();
+						d_spinner.start();
+					}
+				}
+			}
+
+			public DashRow(string name, string branch_name, bool local)
+			{
+				d_time = new DateTime.now_local();
+				repository_name = name;
+
+				// FIXME: Change folder image for a repository uses github remote.
+				var folder_icon_name = local ? "folder" : "folder-remote";
+				d_image.set_from_icon_name(folder_icon_name, d_icon_size);
+				d_branch_label.set_markup("<small>%s</small>".printf(branch_name));
+			}
 		}
 
 		public signal void repository_activated(Repository repository);
@@ -69,8 +154,7 @@ namespace Gitg
 
 		private bool filter(Gtk.ListBoxRow row)
 		{
-			var text = (row as DashRow).repository_label.get_text();
-			return text.contains(d_filter_text);
+			return (row as DashRow).repository_name.contains(d_filter_text);
 		}
 
 		private int compare_widgets(Gtk.ListBoxRow a, Gtk.ListBoxRow b)
@@ -143,57 +227,6 @@ namespace Gitg
 			return row;
 		}
 
-		private DashRow create_repository_row(string name, string branch_name, bool spin, bool local)
-		{
-			var row = new DashRow();
-			row.repository = null;
-			row.time = new DateTime.now_local();
-			row.bin = new ProgressBin();
-			row.add(row.bin);
-			var grid = new Gtk.Grid();
-			grid.margin = 12;
-			grid.column_spacing = 10;
-			row.bin.add(grid);
-
-			// FIXME: Change folder image for a repository uses github remote.
-			var folder_icon_name = local ? "folder" : "folder-remote";
-			row.image = new Gtk.Image.from_icon_name(folder_icon_name, d_icon_size);
-			grid.attach(row.image, 0, 0, 1, 2);
-
-			row.repository_label = new Gtk.Label(null);
-			row.repository_label.set_markup("<b>%s</b>".printf(name));
-			row.repository_label.ellipsize = Pango.EllipsizeMode.END;
-			row.repository_label.halign = Gtk.Align.START;
-			row.repository_label.valign = Gtk.Align.END;
-			row.repository_label.hexpand = true;
-			grid.attach(row.repository_label, 1, 0, 1, 1);
-
-			row.branch_label = new Gtk.Label("");
-			row.branch_label.set_markup("<small>%s</small>".printf(branch_name));
-			row.branch_label.ellipsize = Pango.EllipsizeMode.END;
-			row.branch_label.valign = Gtk.Align.START;
-			row.branch_label.halign = Gtk.Align.START;
-			row.branch_label.get_style_context().add_class("dim-label");
-			grid.attach(row.branch_label, 1, 1, 1, 1);
-
-			row.arrow = new Gtk.Arrow(Gtk.ArrowType.RIGHT, Gtk.ShadowType.NONE);
-			grid.attach(row.arrow, 2, 0, 1, 2);
-
-			row.show_all();
-			add(row);
-
-			if (spin)
-			{
-				row.arrow.hide();
-				row.spinner = new Gtk.Spinner();
-				grid.attach(row.spinner, 3, 0, 1, 2);
-				row.spinner.show();
-				row.spinner.start();
-			}
-
-			return row;
-		}
-
 		private void add_repository_to_recent_manager(string uri)
 		{
 			var recent_manager = Gtk.RecentManager.get_default();
@@ -226,8 +259,10 @@ namespace Gitg
 				}
 				catch {}
 
-				row = create_repository_row(repository.name, head_name, false, local);
+				row = new DashRow(repository.name, head_name, local);
 				row.repository = repository;
+				row.show();
+				add(row);
 			}
 			else
 			{
@@ -254,7 +289,7 @@ namespace Gitg
 					var options = new Ggit.CloneOptions();
 					options.set_is_bare(is_bare);
 					options.set_fetch_progress_callback((stats) => {
-						row.bin.fraction = (stats.get_received_objects() + stats.get_indexed_objects()) / (double)(2 * stats.get_total_objects());
+						row.fraction = (stats.get_received_objects() + stats.get_indexed_objects()) / (double)(2 * stats.get_total_objects());
 						return 0;
 					});
 
@@ -309,11 +344,13 @@ namespace Gitg
 			}
 
 			// Clone
-			DashRow? row = create_repository_row(subfolder_name, "Cloning...", true, false);
+			DashRow row = new DashRow(subfolder_name, "Cloning...", false);
+			row.loading = true;
+			row.show();
+			add(row);
 
 			clone.begin(row, url, subfolder, is_bare, (obj, res) => {
 				Gitg.Repository? repository = clone.end(res);
-				string branch_name = "";
 
 				// FIXME: show an error
 				if (repository != null)
@@ -322,21 +359,10 @@ namespace Gitg
 					File? repo_file = repository.get_location();
 					var uri = (workdir != null) ? workdir.get_uri() : repo_file.get_uri();
 					add_repository_to_recent_manager(uri);
-
-					try
-					{
-						var head = repository.get_head();
-						branch_name = head.parsed_name.shortname;
-					}
-					catch {}
 				}
 
 				row.repository = repository;
-				row.branch_label.set_markup("<small>%s</small>".printf(branch_name));
-				row.spinner.stop();
-				row.spinner.hide();
-				row.arrow.show();
-				row.bin.fraction = 0;
+				row.loading = false;
 			});
 		}
 
