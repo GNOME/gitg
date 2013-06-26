@@ -125,7 +125,7 @@ namespace Gitg
 
 		protected override void row_activated(Gtk.ListBoxRow row)
 		{
-			var r = row as DashRow;
+			var r = (DashRow)row;
 
 			if (r.repository != null)
 			{
@@ -154,12 +154,12 @@ namespace Gitg
 
 		private bool filter(Gtk.ListBoxRow row)
 		{
-			return (row as DashRow).repository_name.contains(d_filter_text);
+			return ((DashRow)row).repository_name.contains(d_filter_text);
 		}
 
 		private int compare_widgets(Gtk.ListBoxRow a, Gtk.ListBoxRow b)
 		{
-			return - (a as DashRow).time.compare((b as DashRow).time);
+			return - ((DashRow)a).time.compare(((DashRow)b).time);
 		}
 
 		private void add_recent_info()
@@ -216,7 +216,7 @@ namespace Gitg
 
 			foreach (var child in get_children())
 			{
-				var d = child as DashRow;
+				var d = (DashRow)child;
 				if (d.repository.get_location().equal(repository.get_location()))
 				{
 					row = d;
@@ -293,7 +293,7 @@ namespace Gitg
 						return 0;
 					});
 
-					repository = Ggit.Repository.clone(url, location, options) as Repository;
+					repository = (Repository)Ggit.Repository.clone(url, location, options);
 				}
 				catch (Ggit.Error e)
 				{
