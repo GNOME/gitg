@@ -30,6 +30,7 @@ namespace Gitg
 			private Repository? d_repository;
 			private DateTime d_time;
 			private bool d_loading;
+			private bool d_has_remote;
 			[GtkChild]
 			private ProgressBin d_progress_bin;
 			[GtkChild]
@@ -67,6 +68,7 @@ namespace Gitg
 			{
 				get { return d_time; }
 				set { d_time = value; }
+				default = new DateTime.now_local();
 			}
 
 			public double fraction
@@ -109,15 +111,21 @@ namespace Gitg
 				}
 			}
 
-			public DashRow(string name, string branch_name, bool local)
+			public bool has_remote
 			{
-				d_time = new DateTime.now_local();
-				repository_name = name;
+				get { return d_has_remote; }
+				set
+				{
+					d_has_remote = value;
 
-				// FIXME: Change folder image for a repository uses github remote.
-				var folder_icon_name = local ? "folder" : "folder-remote";
-				d_image.set_from_icon_name(folder_icon_name, d_icon_size);
-				d_branch_label.set_markup("<small>%s</small>".printf(branch_name));
+					var folder_icon_name = d_has_remote ? "folder-remote" : "folder";
+					d_image.set_from_icon_name(folder_icon_name, d_icon_size);
+				}
+			}
+
+			public DashRow(string name, string branch_name, bool has_remote)
+			{
+				Object(repository_name: name, branch_name: branch_name, has_remote: has_remote);
 			}
 		}
 
@@ -245,7 +253,7 @@ namespace Gitg
 			if (row == null)
 			{
 				string head_name = "";
-				bool local = false;
+				bool has_remote = true;
 
 				try
 				{
@@ -254,12 +262,12 @@ namespace Gitg
 					var remotes = repository.list_remotes();
 					if (remotes.length == 0)
 					{
-						local = true;
+						has_remote = false;
 					}
 				}
 				catch {}
 
-				row = new DashRow(repository.name, head_name, local);
+				row = new DashRow(repository.name, head_name, has_remote);
 				row.repository = repository;
 				row.show();
 				add(row);
@@ -344,7 +352,7 @@ namespace Gitg
 			}
 
 			// Clone
-			DashRow row = new DashRow(subfolder_name, "Cloning...", false);
+			DashRow row = new DashRow(subfolder_name, "Cloning...", true);
 			row.loading = true;
 			row.show();
 			add(row);
