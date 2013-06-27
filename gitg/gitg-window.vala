@@ -374,7 +374,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 			if (Ggit.Config.find_global().get_path() == null)
 			{
-				show_config_error(user_information_dialog, "Unable to open the .gitconfig file", "");
+				show_config_error(user_information_dialog, _("Unable to open the .gitconfig file."), "");
 				return;
 			}
 		}
@@ -447,7 +447,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 				}
 				catch (Error e)
 				{
-					show_config_error(user_information_dialog, "Failed to set Git user config.", e.message);
+					show_config_error(user_information_dialog, _("Failed to set Git user config."), e.message);
 					d.destroy();
 					return;
 				}
@@ -668,7 +668,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		catch (Error e)
 		{
 			string repo_name = path.get_basename();
-			var primary_msg = ("\"%s\" is not a Git repository!").printf(repo_name);
+			var primary_msg = _("'%s' is not a Git repository.").printf(repo_name);
 			show_infobar(primary_msg, e.message, Gtk.MessageType.WARNING);
 			return;
 		}

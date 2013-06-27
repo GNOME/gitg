@@ -6,7 +6,8 @@ AM_CPPFLAGS =								\
 	$(LIBGITG_CFLAGS)						\
 	$(WARN_CFLAGS)							\
 	-DDATADIR=\""$(datadir)"\"					\
-	-DLIBDIR=\""$(libdir)"\"
+	-DLIBDIR=\""$(libdir)"\"					\
+	-DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\"
 
 libgitg_1_0_la_LDFLAGS = 		\
 	-export-dynamic -no-undefined -export-symbols-regex "^[^_].*"
