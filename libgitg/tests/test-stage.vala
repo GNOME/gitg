@@ -37,6 +37,10 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 
 	protected virtual signal void test_index_files()
 	{
+		/* Test whether the different file statuses created by the set_up()
+		 * are properly reported by the stage file status enumerator.
+		 */
+
 		var stage = d_repository.get_stage();
 		var e = stage.file_status();
 
@@ -47,9 +51,12 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 
 			assert(files.length == 3);
 
+			var seen = new Gee.HashSet<string>();
+
 			foreach (var f in files)
 			{
 				assert(f.path == "a" || f.path == "b" || f.path == "c");
+				seen.add(f.path);
 
 				switch (f.path)
 				{
@@ -65,6 +72,10 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 					break;
 				}
 			}
+
+			assert("a" in seen);
+			assert("b" in seen);
+			assert("c" in seen);
 
 			loop.quit();
 		});
