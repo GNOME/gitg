@@ -101,7 +101,7 @@ public class Repository : Ggit.Repository
 				// a ref to the underlying commit the tag points to
 				try
 				{
-					var tag = lookup(id, typeof(Ggit.Tag)) as Ggit.Tag;
+					var tag = lookup<Ggit.Tag>(id);
 
 					// get the target id
 					id = tag.get_target_id();
@@ -123,6 +123,11 @@ public class Repository : Ggit.Repository
 		ensure_refs();
 
 		return d_refs.lookup(id);
+	}
+
+	public new T? lookup<T>(Ggit.OId id) throws Error
+	{
+		return (T?)base.lookup(id, typeof(T));
 	}
 
 	// Wrappers for Gitg.Ref

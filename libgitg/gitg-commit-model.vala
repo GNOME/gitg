@@ -320,7 +320,7 @@ namespace Gitg
 							break;
 						}
 
-						commit = d_repository.lookup(id, typeof(Commit)) as Commit;
+						commit = d_repository.lookup<Commit>(id);
 					} catch { break; }
 
 					// Add the id
