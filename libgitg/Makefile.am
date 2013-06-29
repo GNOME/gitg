@@ -41,6 +41,7 @@ libgitg.h: libgitg-1.0.la
 
 VALA_FILES =					\
 	gitg-assembly-info.vala			\
+	gitg-async.vala				\
 	gitg-branch.vala			\
 	gitg-branch-base.vala			\
 	gitg-repository.vala			\
