@@ -23,6 +23,7 @@ namespace Gitg
 public class Stage : Object
 {
 	private Repository d_repository;
+	private StageStatusEnumerator ?d_enumerator;
 
 	internal Stage(Repository repository)
 	{
@@ -31,7 +32,12 @@ public class Stage : Object
 
 	public StageStatusEnumerator file_status()
 	{
-		return new StageStatusEnumerator(d_repository);
+		if (d_enumerator == null)
+		{
+			d_enumerator = new StageStatusEnumerator(d_repository);
+		}
+
+		return d_enumerator;
 	}
 }
 
