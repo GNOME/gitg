@@ -152,7 +152,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 
 		try
 		{
-			tree = (Ggit.Tree)d_repository.lookup(treeoid, typeof(Ggit.Tree));
+			tree = d_repository.lookup<Ggit.Tree>(treeoid); 
 		}
 		catch (GLib.Error e)
 		{
@@ -191,8 +191,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 
 		try
 		{
-			d_last_commit = (Ggit.Commit)d_repository.lookup(commitoid,
-			                                                 typeof(Ggit.Commit));
+			d_last_commit = d_repository.lookup<Ggit.Commit>(commitoid);
 		}
 		catch (GLib.Error e)
 		{

@@ -256,7 +256,7 @@ namespace GitgHistory
 					// See to resolve to the commit
 					try
 					{
-						var t = application.repository.lookup(id, typeof(Ggit.Tag)) as Ggit.Tag;
+						var t = application.repository.lookup<Ggit.Tag>(id);
 
 						id = t.get_target_id();
 					} catch {}
@@ -283,7 +283,7 @@ namespace GitgHistory
 
 						try
 						{
-							var t = application.repository.lookup(resolved.get_target(), typeof(Ggit.Tag)) as Ggit.Tag;
+							var t = application.repository.lookup<Ggit.Tag>(resolved.get_target());
 							included += t.get_target_id();
 						}
 						catch

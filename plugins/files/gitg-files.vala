@@ -227,7 +227,7 @@ namespace GitgFiles
 
 			try
 			{
-				blob = application.repository.lookup(id, typeof(Ggit.Blob)) as Ggit.Blob;
+				blob = application.repository.lookup<Ggit.Blob>(id);
 			}
 			catch
 			{
