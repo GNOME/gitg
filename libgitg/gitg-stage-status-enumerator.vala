@@ -20,7 +20,7 @@
 namespace Gitg
 {
 
-public class StageStatusFile
+public class StageStatusFile : Object
 {
 	private string d_path;
 	private Ggit.StatusFlags d_flags;
@@ -42,7 +42,7 @@ public class StageStatusFile
 	}
 }
 
-public class StageStatusEnumerator
+public class StageStatusEnumerator : Object
 {
 	private Repository d_repository;
 	private Thread<void *> d_thread;

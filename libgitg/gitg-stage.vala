@@ -20,7 +20,7 @@
 namespace Gitg
 {
 
-public class Stage
+public class Stage : Object
 {
 	private Repository d_repository;
 
