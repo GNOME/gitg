@@ -1,6 +1,6 @@
 lib_LTLIBRARIES = libgitg-1.0.la
 
-INCLUDES =								\
+AM_CPPFLAGS =								\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
 	$(LIBGITG_CFLAGS)						\

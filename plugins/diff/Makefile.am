@@ -1,6 +1,6 @@
 SUBDIRS = icons
 
-INCLUDES =								\
+AM_CPPFLAGS =								\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
 	$(GITG_PLUGIN_CFLAGS)						\
