@@ -1,3 +1,5 @@
+SUBDIRS = tests
+
 lib_LTLIBRARIES = libgitg-1.0.la
 
 AM_CPPFLAGS =								\
