@@ -88,7 +88,7 @@ public class StageStatusEnumerator : Object
 				{
 					d_files += new StageStatusFile(path, flags);
 
-					if (d_callback != null && d_files.length >= d_callback_num)
+					if (d_callback != null && d_callback_num != -1 && d_files.length >= d_callback_num)
 					{
 						var cb = (owned)d_callback;
 						d_callback = null;
@@ -109,6 +109,14 @@ public class StageStatusEnumerator : Object
 		lock (d_files)
 		{
 			d_cancellable = null;
+
+			if (d_callback != null && d_callback_num == -1)
+			{
+				var cb = (owned)d_callback;
+				d_callback = null;
+
+				Idle.add((owned)cb);
+			}
 		}
 
 		return null;
@@ -117,6 +125,11 @@ public class StageStatusEnumerator : Object
 	private StageStatusFile[] fill_files(int num)
 	{
 		int n = 0;
+
+		if (num == -1)
+		{
+			num = d_files.length - d_offset;
+		}
 
 		StageStatusFile[] ret = new StageStatusFile[int.min(num, d_files.length - d_offset)];
 		ret.length = 0;
