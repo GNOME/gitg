@@ -85,7 +85,7 @@ class Gitg.Test.Main
 			}
 
 			var c = new TestCase(test,
-			                     q.signal_name[5:-1],
+			                     q.signal_name[5:q.signal_name.length],
 			                     q.signal_id);
 
 			s_cases += c;
