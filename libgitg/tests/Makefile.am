@@ -24,6 +24,6 @@ CLEANFILES =					\
 	$(test_libgitg_SOURCES:.vala=.c)	\
 	$(BUILT_SOURCES)
 
-EXTRA_DIST = gitg-assert.h
+EXTRA_DIST = gitg-assert.h gitg-assert.vapi
 
 -include $(top_srcdir)/git.mk
