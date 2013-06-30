@@ -17,8 +17,13 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Gitg.Test.Assert;
+
 class Gitg.Test.Stage : Gitg.Test.Repository
 {
+	/**
+	 * Create basic repository with files in a variety of states.
+	 */
 	protected override void set_up()
 	{
 		base.set_up();
@@ -35,49 +40,160 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 		index_modify("b", "staged changes\n");
 	}
 
-	protected virtual signal void test_index_files()
+	private void check_file_status(MainLoop loop, Gee.HashMap<string, Ggit.StatusFlags> cfiles)
 	{
-		/* Test whether the different file statuses created by the set_up()
-		 * are properly reported by the stage file status enumerator.
-		 */
+		var seen = new Gee.HashSet<string>();
+
+		foreach (var f in cfiles.keys)
+		{
+			seen.add(f);
+		}
 
 		var stage = d_repository.get_stage();
 		var e = stage.file_status();
 
-		var loop = new GLib.MainLoop();
-
 		e.next_files.begin(-1, (obj, res) => {
 			var files = e.next_files.end(res);
 
-			assert(files.length == 3);
-
-			var seen = new Gee.HashSet<string>();
+			assert(files.length == cfiles.size);
 
 			foreach (var f in files)
 			{
-				assert(f.path == "a" || f.path == "b" || f.path == "c");
-				seen.add(f.path);
+				assert(cfiles.has_key(f.path));
+				assert_inteq(cfiles[f.path], f.flags);
 
-				switch (f.path)
-				{
-				case "a":
-					assert(f.flags == Ggit.StatusFlags.WORKING_TREE_MODIFIED);
-					break;
-				case "b":
-					assert(f.flags == (Ggit.StatusFlags.WORKING_TREE_MODIFIED |
-					                   Ggit.StatusFlags.INDEX_MODIFIED));
-					break;
-				case "c":
-					assert(f.flags == Ggit.StatusFlags.WORKING_TREE_DELETED);
-					break;
-				}
+				seen.remove(f.path);
 			}
 
-			assert("a" in seen);
-			assert("b" in seen);
-			assert("c" in seen);
-
+			assert(seen.size == 0);
 			loop.quit();
+		});
+	}
+
+	/**
+	 * Test whether the different file statuses created by the set_up()
+	 * are properly reported by the stage file status enumerator.
+	 */
+	protected virtual signal void test_file_status()
+	{
+		var m = new Gee.HashMap<string, Ggit.StatusFlags>();
+
+		m["a"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED;
+		m["b"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED | Ggit.StatusFlags.INDEX_MODIFIED;
+		m["c"] = Ggit.StatusFlags.WORKING_TREE_DELETED;
+
+		var loop = new GLib.MainLoop();
+
+		check_file_status(loop, m);
+		loop.run();
+	}
+
+	/**
+	 * test staging a complete file in the index.
+	 */
+	protected virtual signal void test_stage()
+	{
+		var stage = d_repository.get_stage();
+
+		var f = d_repository.get_workdir().get_child("a");
+		var loop = new MainLoop();
+
+		stage.stage.begin(f, (obj, res) => {
+			try
+			{
+				stage.stage.end(res);
+			} catch (Error e) { assert_no_error(e); }
+
+			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
+
+			m["a"] = Ggit.StatusFlags.INDEX_MODIFIED;
+			m["b"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED | Ggit.StatusFlags.INDEX_MODIFIED;
+			m["c"] = Ggit.StatusFlags.WORKING_TREE_DELETED;
+
+			check_file_status(loop, m);
+		});
+
+		loop.run();
+	}
+
+	/**
+	 * test staging a complete file in the index.
+	 */
+	protected virtual signal void test_unstage()
+	{
+		var stage = d_repository.get_stage();
+
+		var f = d_repository.get_workdir().get_child("b");
+		var loop = new MainLoop();
+
+		stage.unstage.begin(f, (obj, res) => {
+			try
+			{
+				stage.unstage.end(res);
+			} catch (Error e) { assert_no_error(e); }
+
+			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
+
+			m["a"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED;
+			m["b"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED;
+			m["c"] = Ggit.StatusFlags.WORKING_TREE_DELETED;
+
+			check_file_status(loop, m);
+		});
+
+		loop.run();
+	}
+
+	/**
+	 * test reverting a complete file in the index.
+	 */
+	protected virtual signal void test_revert()
+	{
+		var stage = d_repository.get_stage();
+
+		var f = d_repository.get_workdir().get_child("a");
+		var loop = new MainLoop();
+
+		stage.revert.begin(f, (obj, res) => {
+			try
+			{
+				stage.revert.end(res);
+			} catch (Error e) { assert_no_error(e); }
+
+			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
+
+			m["b"] = Ggit.StatusFlags.INDEX_MODIFIED | Ggit.StatusFlags.WORKING_TREE_MODIFIED;
+			m["c"] = Ggit.StatusFlags.WORKING_TREE_DELETED;
+
+			check_file_status(loop, m);
+		});
+
+		loop.run();
+	}
+
+	/**
+	 * test deleting a file in the index.
+	 */
+	protected virtual signal void test_delete()
+	{
+		var stage = d_repository.get_stage();
+
+		var f = d_repository.get_workdir().get_child("c");
+		var loop = new MainLoop();
+
+		stage.delete.begin(f, (obj, res) => {
+			try
+			{
+				stage.delete.end(res);
+			} catch (Error e) { assert_no_error(e); }
+
+			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
+
+			m["a"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED;
+			m["b"] = Ggit.StatusFlags.INDEX_MODIFIED | Ggit.StatusFlags.WORKING_TREE_MODIFIED;
+			m["c"] = Ggit.StatusFlags.INDEX_DELETED;
+
+			check_file_status(loop, m);
 		});
 
 		loop.run();
