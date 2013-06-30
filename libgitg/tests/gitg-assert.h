@@ -17,27 +17,16 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Gitg.Test.Test : Object
-{
-	private GLib.TestSuite d_suite;
+#ifndef __GITG_ASSERT_H__
+#define __GITG_ASSERT_H__
 
-	construct
-	{
-		d_suite = new GLib.TestSuite(get_type().name());
-	}
+#include <glib.h>
 
-	public GLib.TestSuite suite
-	{
-		get { return d_suite; }
-	}
+#define gitg_test_assert_assert_no_error(error) g_assert_no_error(error)
+#define gitg_test_assert_assert_streq(a, b) g_assert_cmpstr(a, ==, b)
+#define gitg_test_assert_assert_inteq(a, b) g_assert_cmpint(a, ==, b)
+#define gitg_test_assert_assert_uinteq(a, b) g_assert_cmpuint(a, ==, b)
+#define gitg_test_assert_assert_floateq(a, b) g_assert_cmpfloat(a, ==, b)
 
-	public virtual void set_up()
-	{
-	}
+#endif /* __GITG_ASSERT_H__ */
 
-	public virtual void tear_down()
-	{
-	}
-}
-
-// ex:set ts=4 noet

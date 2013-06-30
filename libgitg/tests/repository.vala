@@ -17,6 +17,8 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Gitg.Test.Assert;
+
 class Gitg.Test.Repository : Gitg.Test.Test
 {
 	protected Gitg.Repository? d_repository;
@@ -80,7 +82,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_noerror(e);
+				assert_no_error(e);
 			}
 		}
 	}
@@ -105,7 +107,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_noerror(e);
+			assert_no_error(e);
 			return;
 		}
 
@@ -117,7 +119,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_noerror(e);
+				assert_no_error(e);
 			}
 		}
 
@@ -130,7 +132,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_noerror(e);
+			assert_no_error(e);
 			return;
 		}
 
@@ -144,7 +146,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_noerror(e);
+			assert_no_error(e);
 			return;
 		}
 
@@ -156,7 +158,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_noerror(e);
+			assert_no_error(e);
 			return;
 		}
 
@@ -185,7 +187,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_noerror(e);
+			assert_no_error(e);
 			return;
 		}
 
@@ -195,7 +197,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_noerror(e);
+			assert_no_error(e);
 		}
 	}
 
@@ -219,7 +221,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_noerror(e);
+				assert_no_error(e);
 			}
 		}
 	}
@@ -254,7 +256,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_noerror(e);
+			assert_no_error(e);
 			return;
 		}
 
@@ -267,7 +269,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_noerror(e);
+				assert_no_error(e);
 				continue;
 			}
 
@@ -278,7 +280,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_noerror(e);
+				assert_no_error(e);
 			}
 		}
 
@@ -288,7 +290,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_noerror(e);
+			assert_no_error(e);
 		}
 	}
 
@@ -296,13 +298,15 @@ class Gitg.Test.Repository : Gitg.Test.Test
 	{
 		string wd;
 
+		d_last_commit = null;
+
 		try
 		{
 			wd = GLib.DirUtils.make_tmp("gitg-test-XXXXXX");
 		}
 		catch (GLib.Error e)
 		{
-			assert_noerror(e);
+			assert_no_error(e);
 			return;
 		}
 
@@ -315,7 +319,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		catch (GLib.Error e)
 		{
 			GLib.DirUtils.remove(wd);
-			assert_noerror(e);
+			assert_no_error(e);
 		}
 	}
 
