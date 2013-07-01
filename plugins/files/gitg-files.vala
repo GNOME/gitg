@@ -19,13 +19,13 @@
 
 namespace GitgFiles
 {
-	public class Panel : Object, GitgExt.UIElement, GitgExt.Panel
+	public class Panel : Object, GitgExt.UIElement, GitgExt.HistoryPanel
 	{
 		// Do this to pull in config.h before glib.h (for gettext...)
 		private const string version = Gitg.Config.VERSION;
 
 		public GitgExt.Application? application { owned get; construct set; }
-		private GitgExt.ObjectSelection? d_view;
+		public GitgExt.History? history { owned get; construct set; }
 
 		private TreeStore d_model;
 		private Gtk.Paned d_paned;
@@ -50,6 +50,8 @@ namespace GitgFiles
 			application.notify["current_view"].connect((a, v) => {
 				notify_property("available");
 			});
+
+			history.selection_changed.connect(on_selection_changed);
 		}
 
 		public string id
@@ -59,17 +61,7 @@ namespace GitgFiles
 
 		public bool available
 		{
-			get
-			{
-				var view = application.current_view;
-
-				if (view == null)
-				{
-					return false;
-				}
-
-				return (view is GitgExt.ObjectSelection);
-			}
+			get { return true; }
 		}
 
 		public string display_name
@@ -82,13 +74,9 @@ namespace GitgFiles
 			owned get { return "system-file-manager-symbolic"; }
 		}
 
-		public void on_panel_activated()
+		private void on_selection_changed(GitgExt.History history)
 		{
-		}
-
-		private void on_selection_changed(GitgExt.ObjectSelection selection)
-		{
-			selection.foreach_selected((commit) => {
+			history.foreach_selected((commit) => {
 				var c = commit as Ggit.Commit;
 
 				if (c != null)
@@ -203,21 +191,6 @@ namespace GitgFiles
 		{
 			owned get
 			{
-				var objsel = (GitgExt.ObjectSelection)application.current_view;
-
-				if (objsel != d_view)
-				{
-					if (d_view != null)
-					{
-						d_view.selection_changed.disconnect(on_selection_changed);
-					}
-
-					d_view = objsel;
-					d_view.selection_changed.connect(on_selection_changed);
-
-					on_selection_changed(objsel);
-				}
-
 				if (d_paned == null)
 				{
 					build_ui();
@@ -337,7 +310,7 @@ public void peas_register_types(TypeModule module)
 {
 	Peas.ObjectModule mod = module as Peas.ObjectModule;
 
-	mod.register_extension_type(typeof(GitgExt.Panel),
+	mod.register_extension_type(typeof(GitgExt.HistoryPanel),
 	                            typeof(GitgFiles.Panel));
 }
 

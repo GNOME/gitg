@@ -19,30 +19,32 @@
 
 namespace GitgDiff
 {
-	public class Panel : Object, GitgExt.UIElement, GitgExt.Panel
+	public class Panel : Object, GitgExt.UIElement, GitgExt.HistoryPanel
 	{
 		// Do this to pull in config.h before glib.h (for gettext...)
 		private const string version = Gitg.Config.VERSION;
 
 		public GitgExt.Application? application { owned get; construct set; }
+		public GitgExt.History? history { owned get; construct set; }
+
 		private Gtk.ScrolledWindow d_sw;
 		private Gitg.DiffView d_diff;
-		private GitgExt.ObjectSelection? d_view;
 		private Gitg.WhenMapped d_whenMapped;
 
 		construct
 		{
 			d_sw = new Gtk.ScrolledWindow(null, null);
 			d_sw.show();
+
 			d_diff = new Gitg.DiffView(null);
 			d_diff.show();
+
 			d_sw.add(d_diff);
 
 			d_whenMapped = new Gitg.WhenMapped(d_sw);
 
-			application.notify["current_view"].connect((a, v) => {
-				notify_property("available");
-			});
+			history.selection_changed.connect(on_selection_changed);
+			on_selection_changed(history);
 		}
 
 		public string id
@@ -52,17 +54,7 @@ namespace GitgDiff
 
 		public bool available
 		{
-			get
-			{
-				var view = application.current_view;
-
-				if (view == null)
-				{
-					return false;
-				}
-
-				return (view is GitgExt.ObjectSelection);
-			}
+			get { return true; }
 		}
 
 		public string display_name
@@ -75,13 +67,9 @@ namespace GitgDiff
 			owned get { return "diff-symbolic"; }
 		}
 
-		public void on_panel_activated()
+		private void on_selection_changed(GitgExt.History history)
 		{
-		}
-
-		private void on_selection_changed(GitgExt.ObjectSelection selection)
-		{
-			selection.foreach_selected((commit) => {
+			history.foreach_selected((commit) => {
 				var c = commit as Gitg.Commit;
 
 				if (c != null)
@@ -99,33 +87,12 @@ namespace GitgDiff
 
 		public Gtk.Widget? widget
 		{
-			owned get
-			{
-				var objsel = (GitgExt.ObjectSelection)application.current_view;
-
-				if (objsel != d_view)
-				{
-					if (d_view != null)
-					{
-						d_view.selection_changed.disconnect(on_selection_changed);
-					}
-
-					d_view = objsel;
-					d_view.selection_changed.connect(on_selection_changed);
-
-					on_selection_changed(objsel);
-				}
-
-				return d_sw;
-			}
+			owned get { return d_sw; }
 		}
 
 		public bool enabled
 		{
-			get
-			{
-				return true;
-			}
+			get { return true; }
 		}
 
 		public int negotiate_order(GitgExt.UIElement other)
@@ -148,7 +115,7 @@ public void peas_register_types(TypeModule module)
 {
 	Peas.ObjectModule mod = module as Peas.ObjectModule;
 
-	mod.register_extension_type(typeof(GitgExt.Panel),
+	mod.register_extension_type(typeof(GitgExt.HistoryPanel),
 	                            typeof(GitgDiff.Panel));
 }
 
