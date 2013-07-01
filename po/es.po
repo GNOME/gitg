@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-06-23 10:52+0000\n"
-"PO-Revision-Date: 2013-06-24 16:04+0200\n"
+"POT-Creation-Date: 2013-06-30 10:43+0000\n"
+"PO-Revision-Date: 2013-07-01 14:43+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -139,19 +139,145 @@ msgstr "Página principal de gitg"
 msgid "Interface"
 msgstr "Interfaz"
 
-#: ../gitg/gitg-window.vala:247
+#: ../gitg/gitg-window.vala:235
 msgid "Projects"
 msgstr "Proyectos"
 
-#: ../gitg/gitg-window.vala:279
+#: ../gitg/gitg-window.vala:267
 msgid "Open Repository"
 msgstr "Abrir repositorio"
 
-#: ../gitg/gitg-window.vala:346
+#: ../gitg/gitg-window.vala:334
 msgid "The URL introduced is not supported"
 msgstr "El URL introducido no está soportado"
 
-#. ex:ts=4 noet
+#: ../gitg/gitg-window.vala:377
+msgid "Unable to open the .gitconfig file."
+msgstr "No se pudo abrir el archivo .gitconfig."
+
+#: ../gitg/gitg-window.vala:450
+#| msgid "Failed to create tag"
+msgid "Failed to set Git user config."
+msgstr "Falló al establecer la configuración de usuario de Git."
+
+#: ../gitg/gitg-window.vala:671
+#, c-format
+#| msgid "Could not find git repository"
+msgid "'%s' is not a Git repository."
+msgstr "«%s» no es un repositorio Git."
+
+#: ../libgitg/gitg-commit.vala:103
+msgid "A minute ago"
+msgstr "Hace un minuto"
+
+#: ../libgitg/gitg-commit.vala:103
+#, c-format
+msgid "%d minutes ago"
+msgstr "Hace %d minutos"
+
+#: ../libgitg/gitg-commit.vala:107
+msgid "Half an hour ago"
+msgstr "Hace media hora"
+
+#: ../libgitg/gitg-commit.vala:112
+msgid "An hour ago"
+msgstr "Hace una hora"
+
+#: ../libgitg/gitg-commit.vala:112
+#, c-format
+msgid "%d hours ago"
+msgstr "hace %d horas"
+
+#: ../libgitg/gitg-commit.vala:117
+msgid "A day ago"
+msgstr "Hace 1 día"
+
+#: ../libgitg/gitg-commit.vala:117
+#, c-format
+msgid "%d days ago"
+msgstr "Hace %d días"
+
+#: ../plugins/diff/gitg-diff.vala:70
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/files/gitg-files.vala:77
+msgid "Files"
+msgstr "Archivos"
+
+#: ../plugins/history/gitg-history-command-line.vala:31
+msgid "Show all history"
+msgstr "Mostrar todo el histórico"
+
+#: ../plugins/history/gitg-history-command-line.vala:38
+msgid "Show gitg history options"
+msgstr "Mostrar las opciones del histórico de gitg"
+
+#: ../plugins/history/gitg-history-command-line.vala:39
+msgid "gitg history options"
+msgstr "Opciones del histórico de gitg"
+
+#: ../plugins/history/gitg-history-navigation.vala:192
+#: ../plugins/history/gitg-history-navigation.vala:196
+#: ../plugins/history/gitg-history-navigation.vala:309
+msgid "All commits"
+msgstr "Todos los «commit»"
+
+#. Branches
+#: ../plugins/history/gitg-history-navigation.vala:200
+msgid "Branches"
+msgstr "Ramas"
+
+#. Remotes
+#: ../plugins/history/gitg-history-navigation.vala:241
+msgid "Remotes"
+msgstr "Remotas"
+
+#. Tags
+#: ../plugins/history/gitg-history-navigation.vala:267
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: ../plugins/history/gitg-history-preferences.vala:136
+#: ../plugins/history/gitg-history.vala:163
+msgid "History"
+msgstr "Histórico"
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Ajuste que indica si se deben contraer las líneas del histórico que no "
+"tienen actividad. activar esto puede proporcionar una vista del histórico "
+"más limpia cuando hay mucho desarrollo en paralelo. Vea «collapse-inactive-"
+"lanes» para controlar cuándo se deben contraer las líneas."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Ajuste que indica si se deben mostrar los elementos de reserva en el "
+"histórico."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Ajuste que indica si se debe mostrar en el histórico un elemento virtual "
+"para los cambios reservados actualmente."
+
+#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Ajuste que indica si se debe mostrar en el histórico un elemento virtual "
+"para los elementos no reservados actualmente."
+
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository"
 msgstr "Clonar repositorio"
@@ -266,95 +392,12 @@ msgid "Save"
 msgstr "Guardar"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:2
-#| msgid "_Close"
 msgid "Close"
 msgstr "Cerrar"
 
-#: ../plugins/diff/gitg-diff.vala:70
-msgid "Diff"
-msgstr "Diff"
-
-#: ../plugins/files/gitg-files.vala:77
-msgid "Files"
-msgstr "Archivos"
-
-#. ex: ts=4 noet
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "columna"
-
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Mostrar todo el histórico"
-
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Mostrar las opciones del histórico de gitg"
-
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "Opciones del histórico de gitg"
-
-#: ../plugins/history/gitg-history-navigation.vala:192
-#: ../plugins/history/gitg-history-navigation.vala:196
-#: ../plugins/history/gitg-history-navigation.vala:309
-msgid "All commits"
-msgstr "Todos los «commit»"
-
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:200
-msgid "Branches"
-msgstr "Ramas"
-
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:241
-msgid "Remotes"
-msgstr "Remotas"
-
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:267
-msgid "Tags"
-msgstr "Etiquetas"
-
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:163
-msgid "History"
-msgstr "Histórico"
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-"Ajuste que indica si se deben contraer las líneas del histórico que no "
-"tienen actividad. activar esto puede proporcionar una vista del histórico "
-"más limpia cuando hay mucho desarrollo en paralelo. Vea «collapse-inactive-"
-"lanes» para controlar cuándo se deben contraer las líneas."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr ""
-"Ajuste que indica si se deben mostrar los elementos de reserva en el "
-"histórico."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-"Ajuste que indica si se debe mostrar en el histórico un elemento virtual "
-"para los cambios reservados actualmente."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-"Ajuste que indica si se debe mostrar en el histórico un elemento virtual "
-"para los elementos no reservados actualmente."
 
 #: ../plugins/history/resources/preferences.ui.h:1
 msgid "Commits"
@@ -712,9 +755,6 @@ msgstr "Fecha"
 
 #~ msgid "The tag object could not be successfully created"
 #~ msgstr "No se pudo crear correctamente el objeto de etiqueta."
-
-#~ msgid "Failed to create tag"
-#~ msgstr "Falló al crear la etiqueta"
 
 #~ msgid "Failed to cherry-pick on <%s>"
 #~ msgstr "Falló al aplicar el cambio en la revisión sobre <%s>"
@@ -1155,9 +1195,6 @@ msgstr "Fecha"
 
 #~ msgid "_Changes"
 #~ msgstr "_Cambios"
-
-#~ msgid "Could not find git repository"
-#~ msgstr "No se pudo encontrar el repositorio git"
 
 #~ msgid "Date:"
 #~ msgstr "Fecha:"
