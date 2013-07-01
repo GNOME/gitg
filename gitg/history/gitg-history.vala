@@ -180,7 +180,7 @@ namespace GitgHistory
 
 		public bool is_default_for(string action)
 		{
-			return application.repository != null && (action == "" || action == "history");
+			return (action == "" || action == "history");
 		}
 
 		private void on_ref_activated(Navigation n, Gitg.Ref? r)
