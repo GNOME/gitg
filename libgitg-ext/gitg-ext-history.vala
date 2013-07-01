@@ -1,7 +1,7 @@
 /*
  * This file is part of gitg
  *
- * Copyright (C) 2012 - Jesse van den Kieboom
+ * Copyright (C) 2013 - Jesse van den Kieboom
  *
  * gitg is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,13 +19,16 @@
 
 namespace GitgExt
 {
-	public delegate bool ForeachObjectSelectionFunc(Ggit.Object? object);
 
-	public interface ObjectSelection : Object
-	{
-		public abstract void foreach_selected(ForeachObjectSelectionFunc func);
-		public signal void selection_changed();
-	}
+public delegate bool ForeachCommitSelectionFunc(Ggit.Commit object);
+
+public interface History : Object, View
+{
+
+	public signal void selection_changed();
+	public abstract void foreach_selected(ForeachCommitSelectionFunc func);
+}
+
 }
 
 // ex: ts=4 noet

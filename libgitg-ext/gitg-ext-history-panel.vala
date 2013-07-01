@@ -21,30 +21,27 @@ namespace GitgExt
 {
 
 /**
- * Panel interfaces implemented to show additional details of a particular view.
+ * Panel interfaces implemented to show additional details of selections in
+ * the history.
  *
- * The panel interface can be implemented to show additional details of a
- * {@link View}. The panel will be shown in a split view below the main view
+ * The panel interface can be implemented to show additional details of the
+ * history view. The panel will be shown in a split view below the history
  * when activated. Panels should implement the {@link UIElement.available} property to
- * indicate for which state of the application the panel is active. This usually
- * involves checking which view is currently active using
- * {@link Application.current_view}.
+ * indicate for which state of the application the panel is active.
  *
  * Each panel should have a unique id, a display name and an icon which will
  * be used in the interface to activate the panel. The {@link UIElement.widget} is
  * displayed when the panel is activated.
  *
  */
-public interface Panel : Object, UIElement
+public interface HistoryPanel : Object, UIElement
 {
 	/**
-	 * Give the panel itself a chance to perform some actions after being
-	 * activated.
-	 *
-	 * @return void
-	 *
+	 * The history to which the panel belongs. This property is a construct
+	 * property and will be automatically set when an instance of the panel
+	 * is created.
 	 */
-	public abstract void on_panel_activated();
+	public abstract GitgExt.History? history { owned get; construct set; }
 }
 
 }

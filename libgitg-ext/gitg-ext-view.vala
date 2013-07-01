@@ -21,81 +21,19 @@ namespace GitgExt
 {
 
 /**
- * A view action.
- *
- * A view action indicates a user preference to open gitg in a particular view.
- */
-public enum ViewAction
-{
-	/**
-	 * Open gitg in the History view.
-	 */
-	HISTORY,
-
-	/**
-	 * Open gitg in the Commit view.
-	 */
-	COMMIT,
-
-	/**
-	 * Open gitg in the default view.
-	 */
-	DEFAULT = HISTORY
-}
-
-/**
  * gitg View interface.
  *
  * The View interface can be implemented to provide a main view in
- * gitg. An example of such views are the builtin Dashboard, History and
+ * gitg. An example of such views are the builtin History and
  * Commit views.
- *
- * Implementations of the GitgExtView interface will be integrated
- * automatically in the gitg interface according to the various interface
- * methods and properties that need to be implemented.
  */
 public interface View : Object, UIElement
 {
 	/**
 	 * Method called to reload the view.
 	 *
-	 * @return void
-	 *
 	 */
 	public abstract void reload();
-
-	/**
-	 * Give the view itself a chance to perform some actions after being
-	 * activated.
-	 *
-	 * @return void
-	 *
-	 */
-	public abstract void on_view_activated();
-
-	/**
-	 * Check whether the view is the default view for a particular action.
-	 *
-	 * Implement this method when a view should be the preferred default view
-	 * for a particular action. The first available view indicating to be
-	 * a default view will be used as the default activated view when launching
-	 * gitg (or when opening a repository).
-	 *
-	 * @param action the action
-	 *
-	 * @return ``true`` if the view is a default for @action, ``false`` otherwise.
-	 *
-	 */
-	public abstract bool is_default_for(string action);
-
-	/**
-	 * A Gtk Builder element that the panel plugins will be
-	 * populated into.
-	 *
-	 * @return Gtk.Stack?
-	 *
-	 */
-	public abstract Gtk.Stack? stack_panel { get; }
 }
 
 }

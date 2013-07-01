@@ -41,12 +41,12 @@ VALA_FILES =					\
 	gitg-ext-assembly-info.vala		\
 	gitg-ext-application.vala		\
 	gitg-ext-ui-element.vala		\
-	gitg-ext-panel.vala			\
 	gitg-ext-view.vala			\
 	gitg-ext-message-id.vala		\
 	gitg-ext-message.vala			\
 	gitg-ext-message-bus.vala		\
-	gitg-ext-object-selection.vala		\
+	gitg-ext-history.vala			\
+	gitg-ext-history-panel.vala		\
 	gitg-ext-command-line.vala		\
 	gitg-ext-preferences.vala		\
 	gitg-ext-ui.vala

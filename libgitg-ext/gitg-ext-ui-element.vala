@@ -77,7 +77,8 @@ public interface UIElement : Object
 	 * Check whether the ui element is available in the current application state.
 	 *
 	 * This method is used by gitg to verify whether or not a particular ui
-	 * element is available given the current state of the application.
+	 * element is available given the current state of the application. If the
+	 * element is not available, it will not be shown.
 	 *
 	 */
 	public abstract bool available { get; }
@@ -103,6 +104,17 @@ public interface UIElement : Object
 	 *
 	 */
 	public abstract int negotiate_order(UIElement other);
+
+	/**
+	 * Activate the UIELement.
+	 *
+	 * This signal is emitted when the UIElement has been activated.
+	 * Implementations can override the default handler to do any necessary
+	 * setup when the ui element is activated.
+	 */
+	public virtual signal void activate()
+	{
+	}
 }
 
 }
