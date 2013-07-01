@@ -47,10 +47,6 @@ namespace GitgFiles
 			d_model = new TreeStore();
 			d_interfacesettings = new Settings("org.gnome.gitg.preferences.interface");
 
-			application.notify["current_view"].connect((a, v) => {
-				notify_property("available");
-			});
-
 			history.selection_changed.connect(on_selection_changed);
 		}
 
