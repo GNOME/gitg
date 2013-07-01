@@ -46,11 +46,6 @@ namespace GitgHistory
 			owned get { return "/org/gnome/gitg/Views/History"; }
 		}
 
-		public Gtk.Stack? stack_panel
-		{
-			get { return d_stack_panel; }
-		}
-
 		[Notify]
 		public Gitg.Repository repository
 		{
@@ -214,7 +209,7 @@ namespace GitgHistory
 
 		private void build_ui()
 		{
-			var ret = GitgExt.UI.from_builder("history/view-history.ui",
+			var ret = GitgExt.UI.from_builder("ui/gitg-view-history.ui",
 			                                  "paned_views",
 			                                  "paned_panels",
 			                                  "stack_panel",
