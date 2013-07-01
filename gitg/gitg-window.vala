@@ -31,7 +31,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private string? d_action;
 
 	private UIElements<GitgExt.View> d_views;
-	private UIElements<GitgExt.Panel> d_panels;
 
 	// Widgets
 	[GtkChild]
@@ -501,78 +500,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		});
 	}
 
-	private void on_view_activated(UIElements elements,
-	                               GitgExt.UIElement element)
+	private void on_current_view_changed(Object obj, ParamSpec pspec)
 	{
-		GitgExt.View? view = (GitgExt.View?)element;
-
-		if (view != null)
-		{
-			if (view.stack_panel != null && d_panels == null)
-			{
-				d_commit_view_switcher.stack = view.stack_panel; //todo
-
-				// Initialize peas extensions set for this view
-				var engine = PluginsEngine.get_default();
-
-				d_panels = new UIElements<GitgExt.Panel>(new Peas.ExtensionSet(engine,
-				                                                               typeof(GitgExt.Panel),
-				                                                               "application",
-				                                                               this),
-				                                         view.stack_panel);
-
-				d_panels.activated.connect(on_panel_activated);
-
-			}
-
-			view.on_view_activated();
-
-			d_panels.update();
-		}
-
 		notify_property("current_view");
-	}
-
-	private void on_panel_activated(UIElements elements,
-	                                GitgExt.UIElement element)
-	{
-		GitgExt.Panel? panel = (GitgExt.Panel?)element;
-
-		if (panel != null)
-		{
-			panel.on_panel_activated();
-		}
-	}
-
-	private void activate_default_view()
-	{
-		bool didactivate = false;
-
-		d_views.foreach((element) => {
-			GitgExt.View view = (GitgExt.View)element;
-
-			if (view.is_default_for(d_action != null ? d_action : ""))
-			{
-				if (d_views.current == view)
-				{
-					on_view_activated(d_views, view);
-				}
-				else
-				{
-					d_views.current = view;
-				}
-
-				didactivate = true;
-				return false;
-			}
-
-			return true;
-		});
-
-		if (!didactivate && d_views.current != null)
-		{
-			on_view_activated(d_views, d_views.current);
-		}
 	}
 
 	private bool init(Cancellable? cancellable)
