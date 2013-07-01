@@ -244,6 +244,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 
 		d_views.update();
+
+		if (d_repository != null)
+		{
+			activate_default_view();
+		}
 	}
 
 	protected override bool window_state_event(Gdk.EventWindowState event)
@@ -509,6 +514,27 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void on_current_view_changed(Object obj, ParamSpec pspec)
 	{
 		notify_property("current_view");
+	}
+
+	private void activate_default_view()
+	{
+		GitgExt.View? def = null;
+
+		d_views.foreach((element) => {
+				GitgExt.View view = (GitgExt.View)element;
+
+				if (view.is_default_for(d_action != null ? d_action : ""))
+				{
+					def = view;
+				}
+
+				return true;
+		});
+
+		if (def != null)
+		{
+			d_views.current = def;
+		}
 	}
 
 	private bool init(Cancellable? cancellable)
