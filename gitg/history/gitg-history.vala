@@ -106,16 +106,6 @@ namespace GitgHistory
 
 			application.bind_property("repository", this,
 			                          "repository", BindingFlags.DEFAULT);
-
-			var engine = Gitg.PluginsEngine.get_default();
-
-			var extset = new Peas.ExtensionSet(engine,
-			                                   typeof(GitgExt.HistoryPanel),
-			                                   "history",
-			                                   this);
-
-			d_panels = new Gitg.UIElements<GitgExt.HistoryPanel>(extset,
-			                                                     d_stack_panel);
 		}
 
 		private void update_sort_mode()
@@ -277,6 +267,16 @@ namespace GitgHistory
 			                        d_paned_panels,
 			                        "orientation",
 			                        SettingsBindFlags.GET);
+
+			var engine = Gitg.PluginsEngine.get_default();
+
+			var extset = new Peas.ExtensionSet(engine,
+			                                   typeof(GitgExt.HistoryPanel),
+			                                   "history",
+			                                   this);
+
+			d_panels = new Gitg.UIElements<GitgExt.HistoryPanel>(extset,
+			                                                     d_stack_panel);
 		}
 
 		private void update_walker(Navigation n, Gitg.Ref? head)
