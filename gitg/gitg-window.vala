@@ -194,6 +194,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			// set title
 			File? workdir = d_repository.get_workdir();
+
 			if (workdir != null)
 			{
 				string parent_path = workdir.get_parent().get_path();
@@ -203,6 +204,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 				{
 					parent_path = parent_path.replace(Environment.get_home_dir(), "~");
 				}
+
 				title = @"$(d_repository.name) ($parent_path) - gitg";
 				infobar.hide();
 			}
@@ -242,7 +244,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 
 		d_views.update();
-		activate_default_view();
 	}
 
 	protected override bool window_state_event(Gdk.EventWindowState event)
@@ -267,6 +268,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		                                         Gtk.FileChooserAction.SELECT_FOLDER,
 		                                         Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL,
 		                                         Gtk.Stock.OPEN, Gtk.ResponseType.OK);
+
 		chooser.modal = true;
 
 		chooser.response.connect((c, id) => {
@@ -286,7 +288,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		try
 		{
 			d_repository = new Gitg.Repository(this.repository.get_location(),
-				                               null);
+			                                   null);
+
 			notify_property("repository");
 			d_views.current.reload();
 		}
@@ -451,8 +454,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 					return;
 				}
 			}
+
 			d.destroy();
 		});
+
 		user_information_dialog.show();
 	}
 
@@ -495,6 +500,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		error_dialog.secondary_text = secondary_message;
 		error_dialog.show();
+
 		error_dialog.response.connect((d, id) => {
 			error_dialog.destroy();
 		});
@@ -528,13 +534,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		// Setup window geometry saving
 		Gdk.WindowState window_state = (Gdk.WindowState)d_state_settings.get_int("state");
-		if (Gdk.WindowState.MAXIMIZED in window_state) {
-			maximize ();
+
+		if (Gdk.WindowState.MAXIMIZED in window_state)
+		{
+			maximize();
 		}
 
-		int width, height;
-		d_state_settings.get ("size", "(ii)", out width, out height);
-		resize (width, height);
+		int width;
+		int height;
+
+		d_state_settings.get("size", "(ii)", out width, out height);
+		resize(width, height);
 
 		return true;
 	}
@@ -599,8 +609,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		catch (Error e)
 		{
 			string repo_name = path.get_basename();
+
 			var primary_msg = _("'%s' is not a Git repository.").printf(repo_name);
 			show_infobar(primary_msg, e.message, Gtk.MessageType.WARNING);
+
 			return;
 		}
 
@@ -616,12 +628,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void show_infobar(string primary_msg, string secondary_msg, Gtk.MessageType type)
 	{
 		infobar.message_type = type;
-		infobar_primary_label.set_label ("<b>%s</b>".printf (Markup.escape_text(primary_msg)));
-		infobar_secondary_label.set_label ("<small>%s</small>".printf (Markup.escape_text(secondary_msg)));
-		infobar.show ();
+		infobar_primary_label.set_label("<b>%s</b>".printf(Markup.escape_text(primary_msg)));
+		infobar_secondary_label.set_label("<small>%s</small>".printf(Markup.escape_text(secondary_msg)));
+		infobar.show();
 
-		infobar_close_button.clicked.connect (() => {
-			infobar.hide ();
+		infobar_close_button.clicked.connect(() => {
+			infobar.hide();
 		});
 	}
 }
