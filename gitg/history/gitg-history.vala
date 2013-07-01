@@ -82,7 +82,8 @@ namespace GitgHistory
 				update_sort_mode();
 			});
 
-			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash, (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
+			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash,
+			                                       (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
 
 			d_navigation_model = new Navigation(application.repository);
 			d_navigation_model.ref_activated.connect((r) => {
@@ -95,9 +96,14 @@ namespace GitgHistory
 
 			update_sort_mode();
 
-			application.bind_property("repository", d_navigation_model, "repository", BindingFlags.DEFAULT);
-			application.bind_property("repository", d_commit_list_model, "repository", BindingFlags.DEFAULT);
-			application.bind_property("repository", this, "repository", BindingFlags.DEFAULT);
+			application.bind_property("repository", d_navigation_model,
+			                          "repository", BindingFlags.DEFAULT);
+
+			application.bind_property("repository", d_commit_list_model,
+			                          "repository", BindingFlags.DEFAULT);
+
+			application.bind_property("repository", this,
+			                          "repository", BindingFlags.DEFAULT);
 
 			application.notify["repository"].connect((a, r) => {
 				notify_property("available");
@@ -250,9 +256,9 @@ namespace GitgHistory
 			var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
 
 			interface_settings.bind("orientation",
-			                          d_paned_panels,
-			                          "orientation",
-			                          SettingsBindFlags.GET);
+			                        d_paned_panels,
+			                        "orientation",
+			                        SettingsBindFlags.GET);
 		}
 
 		private void update_walker(Navigation n, Gitg.Ref? head)
