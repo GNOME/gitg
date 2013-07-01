@@ -183,6 +183,16 @@ namespace GitgHistory
 			return (action == "" || action == "history");
 		}
 
+		public bool enabled
+		{
+			get { return true; }
+		}
+
+		public int negotiate_order(GitgExt.UIElement other)
+		{
+			return -1;
+		}
+
 		private void on_ref_activated(Navigation n, Gitg.Ref? r)
 		{
 			update_walker(n, r);
@@ -310,16 +320,6 @@ namespace GitgHistory
 			}
 
 			d_commit_list_model.reload();
-		}
-
-		public bool enabled
-		{
-			get { return true; }
-		}
-
-		public int negotiate_order(GitgExt.UIElement other)
-		{
-			return -1;
 		}
 	}
 }
