@@ -43,6 +43,11 @@ namespace GitgHistory
 
 		private Gitg.UIElements<GitgExt.HistoryPanel> d_panels;
 
+		public View(GitgExt.Application application)
+		{
+			Object(application: application);
+		}
+
 		public string id
 		{
 			owned get { return "/org/gnome/gitg/Views/History"; }
