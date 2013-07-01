@@ -73,18 +73,11 @@ namespace GitgFiles
 		private void on_selection_changed(GitgExt.History history)
 		{
 			history.foreach_selected((commit) => {
-				var c = commit as Ggit.Commit;
+				d_whenMapped.update(() => {
+					d_model.tree = c.get_tree();
+				}, this);
 
-				if (c != null)
-				{
-					d_whenMapped.update(() => {
-						d_model.tree = c.get_tree();
-					}, this);
-
-					return false;
-				}
-
-				return true;
+				return false;
 			});
 		}
 
@@ -181,6 +174,7 @@ namespace GitgFiles
 			}
 
 			d_whenMapped = new Gitg.WhenMapped(d_paned);
+			on_selection_changed(history);
 		}
 
 		public Gtk.Widget? widget
