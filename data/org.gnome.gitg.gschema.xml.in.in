@@ -5,14 +5,16 @@
   </enum>
 
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences" path="/org/gnome/gitg/preferences/">
-    <child name="view" schema="org.gnome.gitg.preferences.view" />
+    <child name="main" schema="org.gnome.gitg.preferences.main" />
     <child name="commit" schema="org.gnome.gitg.preferences.commit" />
     <child name="diff" schema="org.gnome.gitg.preferences.diff" />
     <child name="hidden" schema="org.gnome.gitg.preferences.hidden" />
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view" path="/org/gnome/gitg/preferences/view/">
-    <child name="history" schema="org.gnome.gitg.preferences.view.history" />
-    <child name="main" schema="org.gnome.gitg.preferences.view.main" />
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.main" path="/org/gnome/gitg/preferences/main/">
+    <key name="clone-directory" type="s">
+      <default>""</default>
+      <!-- TODO: add _descriptions -->
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.view.history" path="/org/gnome/gitg/preferences/view/history/">
     <key name="search-filter" type="b">

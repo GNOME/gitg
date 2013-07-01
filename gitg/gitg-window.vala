@@ -128,7 +128,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	{
 		add_action_entries(win_entries, this);
 
-		d_main_settings = new Settings("org.gnome.gitg.preferences.view.main");
+		d_main_settings = new Settings("org.gnome.gitg.preferences.main");
 		d_interface_settings = new Settings("org.gnome.gitg.preferences.interface");
 
 		string menuname;
