@@ -41,6 +41,8 @@ namespace GitgHistory
 		private Gtk.Stack d_stack_panel;
 		private Gtk.TreeView d_commit_list;
 
+		private Gitg.UIElements<GitgExt.HistoryPanel> d_panels;
+
 		public string id
 		{
 			owned get { return "/org/gnome/gitg/Views/History"; }
@@ -99,6 +101,16 @@ namespace GitgHistory
 
 			application.bind_property("repository", this,
 			                          "repository", BindingFlags.DEFAULT);
+
+			var engine = Gitg.PluginsEngine.get_default();
+
+			var extset = new Peas.ExtensionSet(engine,
+			                                   typeof(GitgExt.HistoryPanel),
+			                                   "history",
+			                                   this);
+
+			d_panels = new Gitg.UIElements<GitgExt.HistoryPanel>(extset,
+			                                                     d_stack_panel);
 		}
 
 		private void update_sort_mode()
