@@ -63,6 +63,7 @@ class PreferencesDialog : Gtk.Dialog, Gtk.Buildable
 		var pages = new HashTable<string, Gtk.Box>(str_hash, str_equal);
 
 		add_page(new PreferencesInterface(), pages);
+		add_page(new PreferencesHistory(), pages);
 
 		ext.foreach((s, info, e) => {
 			add_page(e as GitgExt.Preferences, pages);
