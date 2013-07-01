@@ -549,11 +549,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		// Initialize peas extensions set for views
 		var engine = PluginsEngine.get_default();
 
-		d_views = new UIElements<GitgExt.View>.with_builtin(new GitgExt.View[] {},
-		                                                    new Peas.ExtensionSet(engine,
-		                                                            typeof(GitgExt.View),
-		                                                            "application",
-		                                                            this),
+		var builtins = new GitgExt.View[] {
+			new GitgHistory.View(this)
+		};
+
+		var extset = new Peas.ExtensionSet(engine,
+		                                   typeof(GitgExt.View),
+		                                   "application",
+		                                   this);
+
+		d_views = new UIElements<GitgExt.View>.with_builtin(builtins,
+		                                                    extset,
 		                                                    d_stack_view);
 
 		d_views.notify["current"].connect(on_current_view_changed);
