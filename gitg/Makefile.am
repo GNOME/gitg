@@ -43,6 +43,9 @@ VALASOURCES =							\
 	gitg-ui-elements.vala					\
 	preferences/gitg-preferences-dialog.vala		\
 	preferences/gitg-preferences-interface.vala		\
+	preferences/gitg-preferences-history.vala		\
+	history/gitg-history.vala				\
+	history/gitg-history-navigation.vala
 
 BUILT_SOURCES = 						\
 	gitg-resources.c					\

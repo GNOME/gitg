@@ -187,14 +187,7 @@ namespace GitgHistory
 
 			begin_section();
 
-			if (CommandLine.all)
-			{
-				append_default(_("All commits"), null, null, (nc) => activate_ref(null));
-			}
-			else
-			{
-				append_normal(_("All commits"), null, null, (nc) => activate_ref(null));
-			}
+			append_normal(_("All commits"), null, null, (nc) => activate_ref(null));
 
 			// Branches
 			begin_header(_("Branches"), null);
@@ -210,11 +203,7 @@ namespace GitgHistory
 					if (branch.is_head())
 					{
 						icon = "object-select-symbolic";
-
-						if (!CommandLine.all)
-						{
-							isdef = true;
-						}
+						isdef = true;
 					}
 				}
 				catch {}

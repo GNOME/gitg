@@ -22,7 +22,7 @@ namespace GitgHistory
 	/* The main history view. This view shows the equivalent of git log, but
 	 * in a nice way with lanes, merges, ref labels etc.
 	 */
-	public class View : Object, GitgExt.UIElement, GitgExt.View, GitgExt.ObjectSelection
+	public class View : Object, GitgExt.UIElement, GitgExt.View, GitgExt.History
 	{
 		// Do this to pull in config.h before glib.h (for gettext...)
 		private const string version = Gitg.Config.VERSION;
@@ -63,7 +63,7 @@ namespace GitgHistory
 			}
 		}
 
-		public void foreach_selected(GitgExt.ForeachObjectSelectionFunc func)
+		public void foreach_selected(GitgExt.ForeachCommitSelectionFunc func)
 		{
 			bool breakit = false;
 
@@ -77,7 +77,7 @@ namespace GitgHistory
 
 		construct
 		{
-			d_settings = new Settings("org.gnome.gitg.history.preferences");
+			d_settings = new Settings("org.gnome.gitg.preferences.history");
 			d_settings.changed["topological-order"].connect((s, k) => {
 				update_sort_mode();
 			});
@@ -151,11 +151,7 @@ namespace GitgHistory
 
 		public bool available
 		{
-			get
-			{
-				// The history view is available only when there is a repository
-				return application.repository != null;
-			}
+			get { return true; }
 		}
 
 		public string display_name
@@ -191,7 +187,7 @@ namespace GitgHistory
 			update_walker(n, r);
 		}
 
-		public void on_view_activated()
+		public void activate()
 		{
 			d_navigation.expand_all();
 			d_navigation.select_first();
@@ -200,9 +196,11 @@ namespace GitgHistory
 		public void reload()
 		{
 			double vadj = d_navigation.get_vadjustment().get_value();
+
 			d_navigation_model.reload();
 			d_navigation.expand_all();
 			d_navigation.select();
+
 			d_navigation.size_allocate.connect((a) => {
 				d_navigation.get_vadjustment().set_value(vadj);
 			});
@@ -229,6 +227,7 @@ namespace GitgHistory
 
 			d_commit_list = ret["commit_list_view"] as Gtk.TreeView;
 			d_commit_list.model = d_commit_list_model;
+
 			d_commit_list.get_selection().changed.connect((sel) => {
 				selection_changed();
 			});
@@ -236,17 +235,20 @@ namespace GitgHistory
 			(ret["renderer_commit_list_author"] as Gd.StyledTextRenderer).add_class("dim-label");
 			(ret["renderer_commit_list_author_date"] as Gd.StyledTextRenderer).add_class("dim-label");
 
-			var state_settings = new Settings("org.gnome.gitg.history.state");
+			var state_settings = new Settings("org.gnome.gitg.state.history");
+
 			state_settings.bind("paned-views-position",
 			                    d_main,
 			                    "position",
 			                    SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 			state_settings.bind("paned-panels-position",
 			                    d_paned_panels,
 			                    "position",
 			                    SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
+
 			interface_settings.bind("orientation",
 			                          d_paned_panels,
 			                          "orientation",
@@ -311,10 +313,7 @@ namespace GitgHistory
 
 		public bool enabled
 		{
-			get
-			{
-				return true;
-			}
+			get { return true; }
 		}
 
 		public int negotiate_order(GitgExt.UIElement other)
@@ -322,21 +321,6 @@ namespace GitgHistory
 			return -1;
 		}
 	}
-}
-
-[ModuleInit]
-public void peas_register_types(TypeModule module)
-{
-	Peas.ObjectModule mod = module as Peas.ObjectModule;
-
-	mod.register_extension_type(typeof(GitgExt.View),
-	                            typeof(GitgHistory.View));
-
-	mod.register_extension_type(typeof(GitgExt.CommandLine),
-	                            typeof(GitgHistory.CommandLine));
-
-	mod.register_extension_type(typeof(GitgExt.Preferences),
-	                            typeof(GitgHistory.Preferences));
 }
 
 // ex: ts=4 noet
