@@ -25,7 +25,7 @@ namespace GitgExt
  * the history.
  *
  * The panel interface can be implemented to show additional details of the
- * history view. The panel will be shown in a split view below the history
+ * history activity. The panel will be shown in a split view below the history
  * when activated. Panels should implement the {@link UIElement.available} property to
  * indicate for which state of the application the panel is active.
  *

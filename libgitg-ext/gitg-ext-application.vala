@@ -41,19 +41,19 @@ public interface Application : Object
 	public abstract GitgExt.MessageBus message_bus { owned get; }
 
 	/**
-	 * The current application main view.
+	 * The current application main activity.
 	 */
-	public abstract GitgExt.View? current_view { owned get; }
+	public abstract GitgExt.Activity? current_activity { owned get; }
 
 	/**
-	 * Set the current application main view.
+	 * Set the current application main activity.
 	 *
-	 * @param id the id of the view {@link UIElement.id}.
+	 * @param id the id of the activity {@link UIElement.id}.
 	 *
-	 * @return the created new main view, or ``null`` if no view with the
+	 * @return the created new main activity, or ``null`` if no activity with the
 	 *         given id exists.
 	 */
-	public abstract GitgExt.View? view(string id);
+	public abstract GitgExt.Activity? activity(string id);
 }
 
 }

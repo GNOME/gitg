@@ -23,13 +23,6 @@ namespace GitgExt
 /**
  * gitg UIElement interface.
  *
- * The GitgExtView interface can be implemented to provide a main view in
- * gitg. An example of such views are the builtin Dashboard, History and
- * Commit views.
- *
- * Implementations of the GitgExtView interface will be integrated
- * automatically in the gitg interface according to the various interface
- * methods and properties that need to be implemented.
  */
 public interface UIElement : Object
 {

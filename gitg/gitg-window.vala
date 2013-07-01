@@ -30,7 +30,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private GitgExt.MessageBus d_message_bus;
 	private string? d_action;
 
-	private UIElements<GitgExt.View> d_views;
+	private UIElements<GitgExt.Activity> d_activities;
 
 	// Widgets
 	[GtkChild]
@@ -40,7 +40,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.MenuButton d_gear_menu;
 	private MenuModel d_dash_model;
-	private MenuModel d_views_model;
+	private MenuModel d_activities_model;
 
 	[GtkChild]
 	private Gtk.Button d_dash_button;
@@ -61,7 +61,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gitg.DashView d_dash_view;
 
 	[GtkChild]
-	private Gtk.Stack d_stack_view;
+	private Gtk.Stack d_stack_activities;
 
 	[GtkChild]
 	private Gtk.InfoBar infobar;
@@ -143,7 +143,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 
 		d_dash_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
-		d_views_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
+		d_activities_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
 
 		// search bar
 		d_search_bar.connect_entry(d_search_entry);
@@ -165,9 +165,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		action.set_state(new Variant.boolean(!state));
 	}
 
-	public GitgExt.View? current_view
+	public GitgExt.Activity? current_activity
 	{
-		owned get { return d_views.current; }
+		owned get { return d_activities.current; }
 	}
 
 	public GitgExt.MessageBus message_bus
@@ -223,11 +223,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_header_bar.set_subtitle(Markup.escape_text(head_name));
 
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
-			d_main_stack.set_visible_child(d_stack_view);
+			d_main_stack.set_visible_child(d_stack_activities);
 			d_commit_view_switcher.show();
 			d_dash_button.show();
 			d_dash_view.add_repository(d_repository);
-			d_gear_menu.menu_model = d_views_model;
+			d_gear_menu.menu_model = d_activities_model;
 		}
 		else
 		{
@@ -243,11 +243,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_gear_menu.menu_model = d_dash_model;
 		}
 
-		d_views.update();
+		d_activities.update();
 
 		if (d_repository != null)
 		{
-			activate_default_view();
+			activate_default_activity();
 		}
 	}
 
@@ -296,7 +296,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			                                   null);
 
 			notify_property("repository");
-			d_views.current.reload();
+			d_activities.current.reload();
 		}
 		catch {}
 	}
@@ -511,21 +511,21 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		});
 	}
 
-	private void on_current_view_changed(Object obj, ParamSpec pspec)
+	private void on_current_activity_changed(Object obj, ParamSpec pspec)
 	{
-		notify_property("current_view");
+		notify_property("current_activity");
 	}
 
-	private void activate_default_view()
+	private void activate_default_activity()
 	{
-		GitgExt.View? def = null;
+		GitgExt.Activity? def = null;
 
-		d_views.foreach((element) => {
-				GitgExt.View view = (GitgExt.View)element;
+		d_activities.foreach((element) => {
+				GitgExt.Activity activity = (GitgExt.Activity)element;
 
-				if (view.is_default_for(d_action != null ? d_action : ""))
+				if (activity.is_default_for(d_action != null ? d_action : ""))
 				{
-					def = view;
+					def = activity;
 				}
 
 				return true;
@@ -533,7 +533,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		if (def != null)
 		{
-			d_views.current = def;
+			d_activities.current = def;
 		}
 	}
 
@@ -546,23 +546,23 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		// Setup message bus
 		d_message_bus = new GitgExt.MessageBus();
 
-		// Initialize peas extensions set for views
+		// Initialize peas extensions set for activities
 		var engine = PluginsEngine.get_default();
 
-		var builtins = new GitgExt.View[] {
-			new GitgHistory.View(this)
+		var builtins = new GitgExt.Activity[] {
+			new GitgHistory.Activity(this)
 		};
 
 		var extset = new Peas.ExtensionSet(engine,
-		                                   typeof(GitgExt.View),
+		                                   typeof(GitgExt.Activity),
 		                                   "application",
 		                                   this);
 
-		d_views = new UIElements<GitgExt.View>.with_builtin(builtins,
+		d_activities = new UIElements<GitgExt.Activity>.with_builtin(builtins,
 		                                                    extset,
-		                                                    d_stack_view);
+		                                                    d_stack_activities);
 
-		d_views.notify["current"].connect(on_current_view_changed);
+		d_activities.notify["current"].connect(on_current_activity_changed);
 
 		// Setup window geometry saving
 		Gdk.WindowState window_state = (Gdk.WindowState)d_state_settings.get_int("state");
@@ -604,16 +604,16 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	}
 
 	/* public API implementation of GitgExt.Application */
-	public GitgExt.View? view(string id)
+	public GitgExt.Activity? activity(string id)
 	{
-		GitgExt.View? v = d_views.lookup(id);
+		GitgExt.Activity? v = d_activities.lookup(id);
 
 		if (v != null)
 		{
-			d_views.current = v;
+			d_activities.current = v;
 		}
 
-		if (d_views.current == v)
+		if (d_activities.current == v)
 		{
 			return v;
 		}

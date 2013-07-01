@@ -22,7 +22,7 @@ namespace GitgExt
 
 public delegate bool ForeachCommitSelectionFunc(Ggit.Commit object);
 
-public interface History : Object, View
+public interface History : Object, Activity
 {
 
 	public signal void selection_changed();

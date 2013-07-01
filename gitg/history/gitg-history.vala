@@ -22,7 +22,7 @@ namespace GitgHistory
 	/* The main history view. This view shows the equivalent of git log, but
 	 * in a nice way with lanes, merges, ref labels etc.
 	 */
-	public class View : Object, GitgExt.UIElement, GitgExt.View, GitgExt.History
+	public class Activity : Object, GitgExt.UIElement, GitgExt.Activity, GitgExt.History
 	{
 		// Do this to pull in config.h before glib.h (for gettext...)
 		private const string version = Gitg.Config.VERSION;
@@ -43,7 +43,7 @@ namespace GitgHistory
 
 		private Gitg.UIElements<GitgExt.HistoryPanel> d_panels;
 
-		public View(GitgExt.Application application)
+		public Activity(GitgExt.Application application)
 		{
 			Object(application: application);
 		}

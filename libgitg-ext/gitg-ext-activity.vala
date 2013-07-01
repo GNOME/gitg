@@ -21,26 +21,27 @@ namespace GitgExt
 {
 
 /**
- * gitg View interface.
+ * gitg Activity interface.
  *
- * The View interface can be implemented to provide a main view in
- * gitg. An example of such views are the builtin History and
- * Commit views.
+ * The Activity interface can be implemented to provide a main activity in
+ * gitg. An example of such activities are the builtin History and
+ * Commit activities.
  */
-public interface View : Object, UIElement
+public interface Activity : Object, UIElement
 {
 	/**
-	 * Method called to reload the view.
+	 * Method called to reload the activity.
 	 *
 	 */
 	public abstract void reload();
 
 	/**
-	 * Whether the view is the default for the specified action.
+	 * Whether the activity is the default for the specified action.
 	 *
 	 * @param action the action.
 	 *
-	 * Returns %TRUE if the view is the default view for @action, %FALSE otherwise.
+	 * Returns %TRUE if the activity is the default activity for @action,
+	 * %FALSE otherwise.
 	 *
 	 */
 	public abstract bool is_default_for(string action);

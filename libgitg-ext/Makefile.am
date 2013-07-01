@@ -41,7 +41,7 @@ VALA_FILES =					\
 	gitg-ext-assembly-info.vala		\
 	gitg-ext-application.vala		\
 	gitg-ext-ui-element.vala		\
-	gitg-ext-view.vala			\
+	gitg-ext-activity.vala			\
 	gitg-ext-message-id.vala		\
 	gitg-ext-message.vala			\
 	gitg-ext-message-bus.vala		\
