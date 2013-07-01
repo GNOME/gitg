@@ -74,7 +74,7 @@ namespace GitgFiles
 		{
 			history.foreach_selected((commit) => {
 				d_whenMapped.update(() => {
-					d_model.tree = c.get_tree();
+					d_model.tree = commit.get_tree();
 				}, this);
 
 				return false;
