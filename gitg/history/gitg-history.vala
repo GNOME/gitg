@@ -99,10 +99,6 @@ namespace GitgHistory
 
 			application.bind_property("repository", this,
 			                          "repository", BindingFlags.DEFAULT);
-
-			application.notify["repository"].connect((a, r) => {
-				notify_property("available");
-			});
 		}
 
 		private void update_sort_mode()
