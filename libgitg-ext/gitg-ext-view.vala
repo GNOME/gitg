@@ -34,6 +34,16 @@ public interface View : Object, UIElement
 	 *
 	 */
 	public abstract void reload();
+
+	/**
+	 * Whether the view is the default for the specified action.
+	 *
+	 * @param action the action.
+	 *
+	 * Returns %TRUE if the view is the default view for @action, %FALSE otherwise.
+	 *
+	 */
+	public abstract bool is_default_for(string action);
 }
 
 }
