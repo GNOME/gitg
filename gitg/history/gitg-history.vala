@@ -46,7 +46,7 @@ namespace GitgHistory
 
 		public string id
 		{
-			owned get { return "/org/gnome/gitg/Views/History"; }
+			owned get { return "/org/gnome/gitg/Activities/History"; }
 		}
 
 		[Notify]
