@@ -68,7 +68,12 @@ namespace GitgHistory
 			d_main.commit_list_view.get_selection().selected_foreach((model, path, iter) => {
 				if (!breakit)
 				{
-					breakit = !func(d_commit_list_model.commit_from_iter(iter));
+					var c = d_commit_list_model.commit_from_iter(iter);
+
+					if (c != null)
+					{
+						breakit = !func(c);
+					}
 				}
 			});
 		}
