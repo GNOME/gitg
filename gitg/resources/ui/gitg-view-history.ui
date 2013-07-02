@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.3 -->
-  <object class="GtkPaned" id="paned_views">
+  <!-- interface-requires gitg 0.0 -->
+  <!-- interface-requires gd 1.0 -->
+  <template class="GitgHistoryPaned" parent="Gtk.Paned">
     <property name="visible">True</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
@@ -12,23 +14,43 @@
       <class name="sidebar-paned"/>
     </style>
     <child>
-      <object class="GtkScrolledWindow" id="scrolled_window_navigation">
+      <object class="GtkBox" id="d_box_sidebar">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
-        <property name="hscrollbar_policy">never</property>
-        <property name="name">scrolled_window_navigation</property>
-        <style>
-          <class name="sidebar"/>
-        </style>
         <child>
-          <object class="GitgHistoryNavigationView" id="navigation_view">
+          <object class="GtkScrolledWindow" id="scrolled_window_navigation">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="headers_visible">False</property>
-            <property name="name">tree_view_navigation</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="hscrollbar_policy">never</property>
+            <property name="name">scrolled_window_navigation</property>
+            <style>
+              <class name="sidebar"/>
+            </style>
+            <child>
+              <object class="GitgHistoryNavigationView" id="d_navigation_view">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="headers_visible">False</property>
+                <property name="name">tree_view_navigation</property>
+              </object>
+            </child>
           </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolbar" id="d_toolbar_panels">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
         </child>
       </object>
       <packing>
@@ -37,7 +59,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkPaned" id="paned_panels">
+      <object class="GtkPaned" id="d_paned_panels">
         <property name="visible">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
@@ -55,7 +77,7 @@
             <property name="can_focus">True</property>
             <property name="shadow-type">none</property>
             <child>
-              <object class="GitgCommitListView" id="commit_list_view">
+              <object class="GitgCommitListView" id="d_commit_list_view">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="rules_hint">True</property>
@@ -85,7 +107,7 @@
                     <property name="resizable">True</property>
                     <property name="fixed-width">200</property>
                     <child>
-                      <object class="GdStyledTextRenderer" id="renderer_commit_list_author">
+                      <object class="GdStyledTextRenderer" id="d_renderer_commit_list_author">
                         <property name="ellipsize">end</property>
                       </object>
                       <attributes>
@@ -101,7 +123,7 @@
                     <property name="resizable">True</property>
                     <property name="fixed-width">250</property>
                     <child>
-                      <object class="GdStyledTextRenderer" id="renderer_commit_list_author_date">
+                      <object class="GdStyledTextRenderer" id="d_renderer_commit_list_author_date">
                         <property name="ellipsize">end</property>
                       </object>
                       <attributes>
@@ -115,7 +137,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkStack" id="stack_panel">
+          <object class="GtkStack" id="d_stack_panel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
@@ -129,7 +151,7 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>
 
 <!-- ex:set ts=2 et: -->

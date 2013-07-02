@@ -35,11 +35,7 @@ namespace GitgHistory
 		private ulong d_insertsig;
 		private Settings d_settings;
 
-		private Gtk.Paned d_main;
-		private GitgHistory.NavigationView d_navigation;
-		private Gtk.Paned d_paned_panels;
-		private Gtk.Stack d_stack_panel;
-		private Gtk.TreeView d_commit_list;
+		private Paned d_main;
 
 		private Gitg.UIElements<GitgExt.HistoryPanel> d_panels;
 
@@ -69,7 +65,7 @@ namespace GitgHistory
 		{
 			bool breakit = false;
 
-			d_commit_list.get_selection().selected_foreach((model, path, iter) => {
+			d_main.commit_list_view.get_selection().selected_foreach((model, path, iter) => {
 				if (!breakit)
 				{
 					breakit = !func(d_commit_list_model.commit_from_iter(iter));
@@ -134,7 +130,7 @@ namespace GitgHistory
 
 			if (d_selected.size == 0 || d_selected.remove(commit.get_id()))
 			{
-				d_commit_list.get_selection().select_path(path);
+				d_main.commit_list_view.get_selection().select_path(path);
 			}
 
 			if (d_selected.size == 0)
@@ -203,70 +199,33 @@ namespace GitgHistory
 
 		public void activate()
 		{
-			d_navigation.expand_all();
-			d_navigation.select_first();
+			d_main.navigation_view.expand_all();
+			d_main.navigation_view.select_first();
 		}
 
 		public void reload()
 		{
-			double vadj = d_navigation.get_vadjustment().get_value();
+			double vadj = d_main.navigation_view.get_vadjustment().get_value();
 
 			d_navigation_model.reload();
-			d_navigation.expand_all();
-			d_navigation.select();
+			d_main.navigation_view.expand_all();
+			d_main.navigation_view.select();
 
-			d_navigation.size_allocate.connect((a) => {
-				d_navigation.get_vadjustment().set_value(vadj);
+			d_main.navigation_view.size_allocate.connect((a) => {
+				d_main.navigation_view.get_vadjustment().set_value(vadj);
 			});
 		}
 
 		private void build_ui()
 		{
-			var ret = GitgExt.UI.from_builder("ui/gitg-view-history.ui",
-			                                  "paned_views",
-			                                  "paned_panels",
-			                                  "stack_panel",
-			                                  "navigation_view",
-			                                  "commit_list_view",
-			                                  "renderer_commit_list_author",
-			                                  "renderer_commit_list_author_date");
+			d_main = new Paned();
 
-			d_main = ret["paned_views"] as Gtk.Paned;
+			d_main.navigation_view.model = d_navigation_model;
+			d_main.commit_list_view.model = d_commit_list_model;
 
-			d_paned_panels = ret["paned_panels"] as Gtk.Paned;
-			d_stack_panel = ret["stack_panel"] as Gtk.Stack;
-
-			d_navigation = ret["navigation_view"] as GitgHistory.NavigationView;
-			d_navigation.model = d_navigation_model;
-
-			d_commit_list = ret["commit_list_view"] as Gtk.TreeView;
-			d_commit_list.model = d_commit_list_model;
-
-			d_commit_list.get_selection().changed.connect((sel) => {
+			d_main.commit_list_view.get_selection().changed.connect((sel) => {
 				selection_changed();
 			});
-
-			(ret["renderer_commit_list_author"] as Gd.StyledTextRenderer).add_class("dim-label");
-			(ret["renderer_commit_list_author_date"] as Gd.StyledTextRenderer).add_class("dim-label");
-
-			var state_settings = new Settings("org.gnome.gitg.state.history");
-
-			state_settings.bind("paned-views-position",
-			                    d_main,
-			                    "position",
-			                    SettingsBindFlags.GET | SettingsBindFlags.SET);
-
-			state_settings.bind("paned-panels-position",
-			                    d_paned_panels,
-			                    "position",
-			                    SettingsBindFlags.GET | SettingsBindFlags.SET);
-
-			var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
-
-			interface_settings.bind("orientation",
-			                        d_paned_panels,
-			                        "orientation",
-			                        SettingsBindFlags.GET);
 
 			var engine = Gitg.PluginsEngine.get_default();
 
@@ -276,7 +235,7 @@ namespace GitgHistory
 			                                   this);
 
 			d_panels = new Gitg.UIElements<GitgExt.HistoryPanel>(extset,
-			                                                     d_stack_panel);
+			                                                     d_main.stack_panel);
 		}
 
 		private void update_walker(Navigation n, Gitg.Ref? head)
