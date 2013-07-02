@@ -89,7 +89,7 @@ class Paned : Gtk.Paned
 	{
 		var state_settings = new Settings("org.gnome.gitg.state.history");
 
-		state_settings.bind("paned-views-position",
+		state_settings.bind("paned-sidebar-position",
 		                    this,
 		                    "position",
 		                    SettingsBindFlags.GET | SettingsBindFlags.SET);
