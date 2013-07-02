@@ -28,7 +28,7 @@ namespace Gitg
 		}
 
 		private DiffType d_diff_type;
-		private Ggit.Diff? d_diff;
+		private Ggit.DiffList? d_diff;
 		private Ggit.Commit? d_commit;
 
 		public DiffViewRequestDiff(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
@@ -219,7 +219,7 @@ namespace Gitg
 			builder.end_object();
 		}
 
-		private void build_diff(Ggit.Diff? diff, Json.Builder builder, Cancellable? cancellable) throws GLib.Error
+		private void build_diff(Ggit.DiffList? diff, Json.Builder builder, Cancellable? cancellable) throws GLib.Error
 		{
 			DiffState state = new DiffState();
 
@@ -298,13 +298,13 @@ namespace Gitg
 			builder.set_member_name("maxlines").add_int_value(maxlines);
 		}
 
-		private void build_commit(Ggit.Diff? diff, Json.Builder builder, Cancellable? cancellable)
+		private void build_commit(Ggit.DiffList? diff, Json.Builder builder, Cancellable? cancellable)
 		{
 			builder.set_member_name("commit");
 			commit_to_json(builder, d_commit);
 		}
 
-		private InputStream? run_diff(Ggit.Diff? diff, Cancellable? cancellable) throws GLib.Error
+		private InputStream? run_diff(Ggit.DiffList? diff, Cancellable? cancellable) throws GLib.Error
 		{
 			if (diff == null)
 			{

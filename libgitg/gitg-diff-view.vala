@@ -21,7 +21,7 @@ namespace Gitg
 {
 	public class DiffView : WebKit.WebView
 	{
-		private Ggit.Diff? d_diff;
+		private Ggit.DiffList? d_diff;
 		private Commit? d_commit;
 		private Settings d_fontsettings;
 
@@ -36,7 +36,7 @@ namespace Gitg
 		private bool d_loaded;
 		private ulong d_diffid;
 
-		public Ggit.Diff? diff
+		public Ggit.DiffList? diff
 		{
 			get { return d_diff; }
 			set
