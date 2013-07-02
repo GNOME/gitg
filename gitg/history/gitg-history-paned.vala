@@ -30,7 +30,7 @@ class Paned : Gtk.Paned
 	private Gtk.Paned d_paned_panels;
 
 	[GtkChild]
-	private Gtk.Toolbar d_toolbar_panels;
+	private Gtk.StackSwitcher d_stack_switcher_panels;
 
 	[GtkChild]
 	private NavigationView d_navigation_view;
@@ -70,6 +70,8 @@ class Paned : Gtk.Paned
 
 		d_renderer_commit_list_author.add_class("dim-label");
 		d_renderer_commit_list_author_date.add_class("dim-label");
+
+		d_stack_switcher_panels.set_stack(d_stack_panel);
 	}
 
 	public Paned()
