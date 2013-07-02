@@ -20,7 +20,7 @@
 namespace GitgHistory
 {
 
-[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-view-history.ui")]
+[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-history-paned.ui")]
 class Paned : Gtk.Paned
 {
 	[GtkChild]
