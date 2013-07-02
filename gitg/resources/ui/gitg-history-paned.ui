@@ -19,6 +19,7 @@
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_window_navigation">
             <property name="visible">True</property>
@@ -48,7 +49,7 @@
           <object class="GtkStackSwitcher" id="d_stack_switcher_panels">
             <property name="visible">True</property>
             <property name="halign">center</property>
-            <property name="margin">6</property>
+            <property name="margin-bottom">6</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -143,6 +144,7 @@
           <object class="GtkStack" id="d_stack_panel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="border-width">6</property>
             <child>
               <placeholder/>
             </child>

@@ -98,6 +98,32 @@ class Paned : Gtk.Paned
 	{
 		get { return d_stack_panel; }
 	}
+
+	protected override bool draw(Cairo.Context context)
+	{
+		var ret = base.draw(context);
+
+		var c = get_style_context();
+		c.save();
+
+		c.add_region("panel-switcher", 0);
+
+		Gtk.Allocation alloc;
+		d_stack_switcher_panels.get_allocation(out alloc);
+
+		var y = alloc.y - d_box_sidebar.spacing;
+		var hw = get_handle_window().get_width();
+		var w = position + hw;
+		var h = alloc.height + d_box_sidebar.spacing + d_stack_switcher_panels.margin_bottom;
+
+		c.render_frame(context, 0, y, w, h);
+
+		c.render_background(context, position, y, hw, h);
+
+		c.restore();
+
+		return ret;
+	}
 }
 
 }
