@@ -669,11 +669,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		this.repository = repository;
 	}
 
-	private void show_infobar(string primary_msg, string secondary_msg, Gtk.MessageType type)
+	public void show_infobar(string          primary_msg,
+	                         string          secondary_msg,
+	                         Gtk.MessageType type)
 	{
 		infobar.message_type = type;
-		infobar_primary_label.set_label("<b>%s</b>".printf(Markup.escape_text(primary_msg)));
-		infobar_secondary_label.set_label("<small>%s</small>".printf(Markup.escape_text(secondary_msg)));
+
+		var primary = "<b>%s</b>".printf(Markup.escape_text(primary_msg));
+		var secondary = "<small>%s</small>".printf(Markup.escape_text(secondary_msg));
+
+		infobar_primary_label.set_label(primary);
+		infobar_secondary_label.set_label(secondary);
 		infobar.show();
 
 		infobar_close_button.clicked.connect(() => {

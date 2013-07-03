@@ -54,6 +54,10 @@ public interface Application : Object
 	 *         given id exists.
 	 */
 	public abstract GitgExt.Activity? activity(string id);
+
+	public abstract void show_infobar(string          primary_msg,
+	                                  string          secondary_msg,
+	                                  Gtk.MessageType type);
 }
 
 }
