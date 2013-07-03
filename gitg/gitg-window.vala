@@ -45,7 +45,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.Button d_dash_button;
 	[GtkChild]
-	private Gtk.StackSwitcher d_commit_view_switcher;
+	private Gtk.StackSwitcher d_activities_switcher;
 
 	[GtkChild]
 	private Gtk.SearchBar d_search_bar;
@@ -148,6 +148,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		// search bar
 		d_search_bar.connect_entry(d_search_entry);
 		d_search_button.bind_property("active", d_search_bar, "search-mode-enabled", BindingFlags.BIDIRECTIONAL);
+
+		d_activities_switcher.set_stack(d_stack_activities);
 	}
 
 	private void on_close_activated()
@@ -224,7 +226,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
 			d_main_stack.set_visible_child(d_stack_activities);
-			d_commit_view_switcher.show();
+			d_activities_switcher.show();
 			d_dash_button.show();
 			d_dash_view.add_repository(d_repository);
 			d_gear_menu.menu_model = d_activities_model;
@@ -238,7 +240,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT;
 			d_main_stack.set_visible_child(d_dash_scrolled_window);
-			d_commit_view_switcher.hide();
+			d_activities_switcher.hide();
 			d_dash_button.hide();
 			d_gear_menu.menu_model = d_dash_model;
 		}
