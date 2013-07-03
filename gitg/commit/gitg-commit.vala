@@ -228,6 +228,7 @@ namespace GitgCommit
 				}
 
 				model.clear();
+				d_main.diff_view.diff = null;
 
 				model.begin_header(_("Staged"));
 
