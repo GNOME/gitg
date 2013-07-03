@@ -21,6 +21,11 @@ var settings = {
 	debug: false,
 	staged: false,
 	unstaged: false,
+	strings: {
+		stage: 'stage',
+		unstage: 'unstage',
+		loading_diff: 'Loading diff...'
+	}
 };
 
 if ('settings' in params)
@@ -146,7 +151,7 @@ function update_diff(id, lsettings)
 		if (eta > 1000)
 		{
 			// Show the progress
-			content.innerHTML = '<div class="loading">Loading diff...</div>.';
+			content.innerHTML = '<div class="loading">' + settings.strings.loading_diff + '</div>.';
 		}
 
 		html_builder_progress_timeout = 0;

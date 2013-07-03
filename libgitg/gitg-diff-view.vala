@@ -83,6 +83,14 @@ namespace Gitg
 			o.set_boolean_member("unstaged", unstaged);
 			o.set_boolean_member("debug", Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null);
 
+			var strings = new Json.Object();
+
+			strings.set_string_member("stage", _("stage"));
+			strings.set_string_member("unstage", _("unstage"));
+			strings.set_string_member("loading_diff", _("Loading diff..."));
+
+			o.set_object_member("strings", strings);
+
 			var gen = new Json.Generator();
 
 			var node = new Json.Node(Json.NodeType.OBJECT);
