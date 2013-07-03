@@ -75,7 +75,12 @@ namespace GitgHistory
 
 		public signal void ref_activated(Gitg.Ref? r);
 
-		public Navigation(Gitg.Repository repo)
+		public Navigation(Gitg.Repository? repo)
+		{
+			Object(repository: repo);
+		}
+
+		construct
 		{
 			set_column_types({typeof(string),
 			                  typeof(string),
@@ -88,8 +93,6 @@ namespace GitgHistory
 
 			d_callbacks = new Activated[100];
 			d_callbacks.length = 0;
-			d_repository = repo;
-			populate(d_repository);
 		}
 
 		public List<Gitg.Ref> all
@@ -104,6 +107,7 @@ namespace GitgHistory
 			set
 			{
 				d_repository = value;
+				reload();
 			}
 		}
 
