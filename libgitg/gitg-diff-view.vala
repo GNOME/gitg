@@ -287,8 +287,20 @@ namespace Gitg
 
 		private void update()
 		{
-			if (!d_loaded || (d_diff == null && d_commit == null))
+			if (!d_loaded)
 			{
+				return;
+			}
+
+			if (d_diff == null && d_commit == null)
+			{
+				run_javascript.begin("update_diff();", d_cancellable, (obj, res) => {
+					try
+					{
+						run_javascript.end(res);
+					} catch {}
+				});
+
 				return;
 			}
 

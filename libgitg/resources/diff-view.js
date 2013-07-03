@@ -125,11 +125,22 @@ var html_builder_tick = 0;
 
 function update_diff(id, lsettings)
 {
-	$.extend(settings, lsettings);
-
 	if (html_builder_worker)
 	{
 		html_builder_worker.terminate();
+	}
+
+	var content = document.getElementById('diff_content');
+
+	if (typeof id == 'undefined')
+	{
+		$(content).empty();
+		return;
+	}
+
+	if (typeof lsettings != 'undefined')
+	{
+		$.extend(settings, lsettings);
 	}
 
 	workeruri = 'diff-view-html-builder.js';
@@ -142,8 +153,6 @@ function update_diff(id, lsettings)
 
 	html_builder_worker = new Worker(workeruri);
 	html_builder_tick = 0;
-
-	var content = document.getElementById('diff_content');
 
 	html_builder_progress_timeout = setTimeout(function (){
 		var eta = 200 / html_builder_tick - 200;
