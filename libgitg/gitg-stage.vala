@@ -162,7 +162,9 @@ public class Stage : Object
 
 	public async Ggit.DiffList? diff_index(StageStatusFile f) throws Error
 	{
-		var opts = new Ggit.DiffOptions(Ggit.DiffOption.NORMAL,
+		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
+		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
+		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
 		                                3,
 		                                3,
 		                                null,
@@ -179,7 +181,9 @@ public class Stage : Object
 
 	public async Ggit.DiffList? diff_workdir(StageStatusFile f) throws Error
 	{
-		var opts = new Ggit.DiffOptions(Ggit.DiffOption.NORMAL,
+		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
+		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
+		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
 		                                3,
 		                                3,
 		                                null,
