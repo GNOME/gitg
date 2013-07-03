@@ -19,11 +19,13 @@ var settings = {
 	wrap: true,
 	tab_width: 4,
 	debug: false,
+	staged: false,
+	unstaged: false,
 };
 
 if ('settings' in params)
 {
-	settings = $.merge(settings, JSON.parse(params.setttings));
+	$.extend(settings, JSON.parse(params.settings));
 }
 
 var templates = {};
@@ -116,8 +118,10 @@ function write_commit(commit)
 var html_builder_worker = 0;
 var html_builder_tick = 0;
 
-function update_diff(id)
+function update_diff(id, lsettings)
 {
+	$.extend(settings, lsettings);
+
 	if (html_builder_worker)
 	{
 		html_builder_worker.terminate();
