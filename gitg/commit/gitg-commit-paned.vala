@@ -29,7 +29,7 @@ class Paned : Gtk.Paned
 	[GtkChild (name = "diff_view")]
 	private Gitg.DiffView d_diff_view;
 
-	public Gitg.Sidebar tree_view_files
+	public Gitg.Sidebar sidebar
 	{
 		get { return d_tree_view_files; }
 	}

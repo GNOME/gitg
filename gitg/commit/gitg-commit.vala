@@ -180,7 +180,7 @@ namespace GitgCommit
 
 		public void reload()
 		{
-			var model = d_main.tree_view_files.model;
+			var model = d_main.sidebar.model;
 
 			var stage = application.repository.stage;
 
@@ -255,7 +255,7 @@ namespace GitgCommit
 
 				model.end_header();
 
-				d_main.tree_view_files.expand_all();
+				d_main.sidebar.expand_all();
 			});
 		}
 
