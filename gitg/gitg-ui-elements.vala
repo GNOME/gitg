@@ -167,11 +167,6 @@ public class UIElements<T> : Object
 
 	private void add_available(GitgExt.UIElement e)
 	{
-		d_stack.add_with_properties(e.widget,
-		                            "name", e.id,
-		                            "title", e.display_name,
-		                            "icon-name", e.icon);
-
 		int insert_position = 0;
 		unowned List<GitgExt.UIElement> item = d_available_elements;
 
@@ -182,7 +177,12 @@ public class UIElements<T> : Object
 		}
 
 		d_available_elements.insert(e, insert_position);
-		d_stack.child_set(e.widget, "position", insert_position);
+
+		d_stack.add_with_properties(e.widget,
+		                            "name", e.id,
+		                            "title", e.display_name,
+		                            "icon-name", e.icon,
+		                            "position", insert_position);
 	}
 
 	private void available_changed(Object o, ParamSpec spec)
