@@ -160,6 +160,37 @@ public class Stage : Object
 		});
 	}
 
+	public async Ggit.DiffList? diff_index(StageStatusFile f) throws Error
+	{
+		var opts = new Ggit.DiffOptions(Ggit.DiffOption.NORMAL,
+		                                3,
+		                                3,
+		                                null,
+		                                null,
+		                                new string[] {f.path});
+
+		var tree = yield get_head_tree();
+
+		return new Ggit.DiffList.tree_to_index(d_repository,
+		                                       tree,
+		                                       d_repository.get_index(),
+		                                       opts);
+	}
+
+	public async Ggit.DiffList? diff_workdir(StageStatusFile f) throws Error
+	{
+		var opts = new Ggit.DiffOptions(Ggit.DiffOption.NORMAL,
+		                                3,
+		                                3,
+		                                null,
+		                                null,
+		                                new string[] {f.path});
+
+		return new Ggit.DiffList.index_to_workdir(d_repository,
+		                                          d_repository.get_index(),
+		                                          opts);
+	}
+
 	/**
 	 * Unstage a file from the index.
 	 *
