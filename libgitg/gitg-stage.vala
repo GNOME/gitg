@@ -95,6 +95,47 @@ public class Stage : Object
 	}
 
 	/**
+	 * Revert index changes.
+	 *
+	 * @param file the file to revert.
+	 *
+	 * Revert a file in the index to the version currently recorded in HEAD.
+	 * Note that this only affects the index, not the working directory.
+	 */
+	public async void revert_index(File file) throws Error
+	{
+		var tree = yield get_head_tree();
+
+		yield thread_index((index) => {
+			// get path relative to the repository working directory
+			var wd = d_repository.get_workdir();
+			var path = wd.get_relative_path(file);
+
+			// get the tree entry of that file
+			var entry = tree.get_by_path(path);
+			var id = entry.get_id();
+
+			var ientry = d_repository.create_index_entry_for_file(file, id);
+			index.add(ientry);
+
+			index.write();
+		});
+	}
+
+	/**
+	 * Revert index changes.
+	 *
+	 * @param path path relative to the working directory.
+	 *
+	 * Revert a path in the index to the version currently recorded in HEAD.
+	 * Note that this only affects the index, not the working directory.
+	 */
+	public async void revert_index_path(string path) throws Error
+	{
+		yield revert_index(d_repository.get_workdir().resolve_relative_path(path));
+	}
+
+	/**
 	 * Revert working directory changes.
 	 *
 	 * @param file the file to revert.

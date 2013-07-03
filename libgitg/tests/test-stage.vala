@@ -95,10 +95,9 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 	{
 		var stage = d_repository.stage;
 
-		var f = d_repository.get_workdir().get_child("a");
 		var loop = new MainLoop();
 
-		stage.stage.begin(f, (obj, res) => {
+		stage.stage_path.begin("a", (obj, res) => {
 			try
 			{
 				stage.stage.end(res);
@@ -123,10 +122,9 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 	{
 		var stage = d_repository.stage;
 
-		var f = d_repository.get_workdir().get_child("b");
 		var loop = new MainLoop();
 
-		stage.unstage.begin(f, (obj, res) => {
+		stage.unstage_path.begin("b", (obj, res) => {
 			try
 			{
 				stage.unstage.end(res);
@@ -151,10 +149,9 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 	{
 		var stage = d_repository.stage;
 
-		var f = d_repository.get_workdir().get_child("a");
 		var loop = new MainLoop();
 
-		stage.revert.begin(f, (obj, res) => {
+		stage.revert_path.begin("a", (obj, res) => {
 			try
 			{
 				stage.revert.end(res);
@@ -172,16 +169,42 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 	}
 
 	/**
+	 * test reverting a complete file from the index.
+	 */
+	protected virtual signal void test_revert_index()
+	{
+		var stage = d_repository.stage;
+
+		var loop = new MainLoop();
+
+		stage.revert_index_path.begin("b", (obj, res) => {
+			try
+			{
+				stage.revert_index.end(res);
+			} catch (Error e) { assert_no_error(e); }
+
+			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
+
+			m["a"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED;
+			m["b"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED;
+			m["c"] = Ggit.StatusFlags.WORKING_TREE_DELETED;
+
+			check_file_status(loop, m);
+		});
+
+		loop.run();
+	}
+
+	/**
 	 * test deleting a file in the index.
 	 */
 	protected virtual signal void test_delete()
 	{
 		var stage = d_repository.stage;
 
-		var f = d_repository.get_workdir().get_child("c");
 		var loop = new MainLoop();
 
-		stage.delete.begin(f, (obj, res) => {
+		stage.delete_path.begin("c", (obj, res) => {
 			try
 			{
 				stage.delete.end(res);
