@@ -131,7 +131,10 @@ namespace GitgCommit
 						d_main.diff_view.diff = null;
 					}
 				});
-
+			}
+			else
+			{
+				// Stage the whole file
 			}
 		}
 
@@ -178,7 +181,6 @@ namespace GitgCommit
 		public void reload()
 		{
 			var model = d_main.tree_view_files.model;
-			model.clear();
 
 			var stage = application.repository.stage;
 
@@ -224,6 +226,8 @@ namespace GitgCommit
 						unstaged += f;
 					}
 				}
+
+				model.clear();
 
 				model.begin_header(_("Staged"));
 
