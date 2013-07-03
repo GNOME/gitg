@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.3 -->
+  <!-- interface-requires gitg 0.0 -->
+  <!-- interface-requires gd 1.0 -->
+  <template class="GitgCommitPaned" parent="Gtk.Paned">
+    <property name="visible">True</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="can_focus">True</property>
+    <property name="position">200</property>
+    <property name="position_set">True</property>
+    <style>
+      <class name="sidebar-paned"/>
+    </style>
+    <child>
+      <object class="GtkBox" id="box_sidebar">
+        <property name="visible">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolled_window_files">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="hscrollbar_policy">never</property>
+            <property name="name">scrolled_window_files</property>
+            <style>
+              <class name="sidebar"/>
+            </style>
+            <child>
+              <object class="GitgSidebar" id="tree_view_files">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="headers_visible">False</property>
+                <property name="name">tree_view_files</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GitgDiffView" id="diff_view">
+        <property name="visible">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="can_focus">True</property>
+      </object>
+    </child>
+  </template>
+</interface>
+
+<!-- ex:set ts=2 et: -->

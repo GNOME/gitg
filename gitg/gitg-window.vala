@@ -561,7 +561,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		var engine = PluginsEngine.get_default();
 
 		var builtins = new GitgExt.Activity[] {
-			new GitgHistory.Activity(this)
+			new GitgHistory.Activity(this),
+			new GitgCommit.Activity(this)
 		};
 
 		var extset = new Peas.ExtensionSet(engine,

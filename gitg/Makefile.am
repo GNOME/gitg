@@ -46,7 +46,9 @@ VALASOURCES =							\
 	preferences/gitg-preferences-history.vala		\
 	history/gitg-history.vala				\
 	history/gitg-history-navigation.vala			\
-	history/gitg-history-paned.vala
+	history/gitg-history-paned.vala				\
+	commit/gitg-commit.vala					\
+	commit/gitg-commit-paned.vala
 
 BUILT_SOURCES = 						\
 	gitg-resources.c					\

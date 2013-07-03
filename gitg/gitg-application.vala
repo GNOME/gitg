@@ -42,7 +42,13 @@ public class Application : Gtk.Application
 		public static bool quit = false;
 		public static string activity;
 		public static bool no_wd = false;
+
 		public static ApplicationCommandLine command_line;
+
+		private static void commit_activity()
+		{
+			activity = "commit";
+		}
 
 		public static const OptionEntry[] entries = {
 			{"version", 'v', OptionFlags.NO_ARG, OptionArg.CALLBACK,
@@ -50,8 +56,13 @@ public class Application : Gtk.Application
 
 			{"activity", '\0', 0, OptionArg.STRING,
 			 ref activity, N_("Start gitg with a particular activity"), null},
+
+			{"commit", 'c', OptionFlags.NO_ARG, OptionArg.CALLBACK,
+			 (void *)commit_activity, N_("Start gitg with the commit activity (shorthand for --view commit)"), null},
+
 			 {"no-wd", 0, 0, OptionArg.NONE,
 			 ref no_wd, N_("Do not try to load a repository from the current working directory"), null},
+
 			{null}
 		};
 	}
