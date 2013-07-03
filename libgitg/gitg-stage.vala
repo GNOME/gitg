@@ -130,6 +130,21 @@ public class Stage : Object
 	}
 
 	/**
+	 * Revert working directory changes.
+	 *
+	 * @param path path relative to the working directory.
+	 *
+	 * Revert a path to the version currently recorded in HEAD. This will delete
+	 * any modifications done in the current working directory to this file,
+	 * so use with care! Note that this only affects the working directory,
+	 * not the index.
+	 */
+	public async void revert_path(string path) throws Error
+	{
+		yield revert(d_repository.get_workdir().resolve_relative_path(path));
+	}
+
+	/**
 	 * Delete a file from the index.
 	 *
 	 * @param file the file to delete.
@@ -142,6 +157,18 @@ public class Stage : Object
 			index.remove(file, 0);
 			index.write();
 		});
+	}
+
+	/**
+	 * Delete a relative path from the index.
+	 *
+	 * @param path path relative to the working directory.
+	 *
+	 * Delete the relative path from the index.
+	 */
+	public async void delete_path(string path) throws Error
+	{
+		yield this.delete(d_repository.get_workdir().resolve_relative_path(path));
 	}
 
 	/**
@@ -160,39 +187,17 @@ public class Stage : Object
 		});
 	}
 
-	public async Ggit.DiffList? diff_index(StageStatusFile f) throws Error
+	/**
+	 * Stage a path to the index.
+	 *
+	 * @param path path relative to the working directory.
+	 *
+	 * Stage a relative path to the index. This will record the state of the file in
+	 * the working directory to the index.
+	 */
+	public async void stage_path(string path) throws Error
 	{
-		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
-		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
-		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
-		                                3,
-		                                3,
-		                                null,
-		                                null,
-		                                new string[] {f.path});
-
-		var tree = yield get_head_tree();
-
-		return new Ggit.DiffList.tree_to_index(d_repository,
-		                                       tree,
-		                                       d_repository.get_index(),
-		                                       opts);
-	}
-
-	public async Ggit.DiffList? diff_workdir(StageStatusFile f) throws Error
-	{
-		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
-		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
-		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
-		                                3,
-		                                3,
-		                                null,
-		                                null,
-		                                new string[] {f.path});
-
-		return new Ggit.DiffList.index_to_workdir(d_repository,
-		                                          d_repository.get_index(),
-		                                          opts);
+		yield stage(d_repository.get_workdir().resolve_relative_path(path));
 	}
 
 	/**
@@ -229,6 +234,54 @@ public class Stage : Object
 			index.add(ientry);
 			index.write();
 		});
+	}
+
+	/**
+	 * Unstage a path from the index.
+	 *
+	 * @param path path relative to the working directory.
+	 *
+	 * Unstage changes in the specified relative path from the index. This will record
+	 * the state of the file in HEAD to the index.
+	 */
+	public async void unstage_path(string path) throws Error
+	{
+		yield unstage(d_repository.get_workdir().resolve_relative_path(path));
+	}
+
+	public async Ggit.DiffList? diff_index(StageStatusFile f) throws Error
+	{
+		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
+		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
+		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
+		                                3,
+		                                3,
+		                                null,
+		                                null,
+		                                new string[] {f.path});
+
+		var tree = yield get_head_tree();
+
+		return new Ggit.DiffList.tree_to_index(d_repository,
+		                                       tree,
+		                                       d_repository.get_index(),
+		                                       opts);
+	}
+
+	public async Ggit.DiffList? diff_workdir(StageStatusFile f) throws Error
+	{
+		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
+		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
+		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
+		                                3,
+		                                3,
+		                                null,
+		                                null,
+		                                new string[] {f.path});
+
+		return new Ggit.DiffList.index_to_workdir(d_repository,
+		                                          d_repository.get_index(),
+		                                          opts);
 	}
 }
 
