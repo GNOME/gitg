@@ -361,6 +361,21 @@ namespace GitgCommit
 				model.end_header();
 
 				d_main.sidebar.expand_all();
+
+				if (staged.length == 0)
+				{
+					d_main.label_commit_summary.label = _("No files staged to be committed.");
+					d_main.button_commit.sensitive = false;
+				}
+				else
+				{
+					d_main.label_commit_summary.label =
+						ngettext(_("1 file staged to be committed."),
+						         _("%d files staged to be commited.").printf(staged.length),
+						         staged.length);
+
+					d_main.button_commit.sensitive = true;
+				}
 			});
 		}
 
