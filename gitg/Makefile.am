@@ -24,6 +24,7 @@ AM_VALAFLAGS = \
 	--pkg gee-0.8						\
 	--pkg gd-1.0						\
 	--pkg webkit2gtk-3.0					\
+	--pkg gtksourceview-3.0					\
 	--girdir "$(top_builddir)/libgd"			\
 	--girdir "$(top_builddir)/libgitg"			\
 	--girdir "$(top_builddir)/libgitg-ext"			\
@@ -48,7 +49,8 @@ VALASOURCES =							\
 	history/gitg-history-navigation.vala			\
 	history/gitg-history-paned.vala				\
 	commit/gitg-commit.vala					\
-	commit/gitg-commit-paned.vala
+	commit/gitg-commit-paned.vala				\
+	commit/gitg-commit-dialog.vala
 
 BUILT_SOURCES = 						\
 	gitg-resources.c					\

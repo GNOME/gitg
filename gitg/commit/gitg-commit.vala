@@ -384,12 +384,30 @@ namespace GitgCommit
 			reload();
 		}
 
+		private void on_commit_clicked()
+		{
+			var dlg = new Dialog();
+
+			dlg.set_transient_for((Gtk.Window)d_main.get_toplevel());
+			dlg.set_default_response(Gtk.ResponseType.OK);
+
+			dlg.response.connect((d, id) => {
+				d.destroy();
+			});
+
+			dlg.show();
+		}
+
 		private void build_ui()
 		{
 			d_main = new Paned();
 
 			d_main.sidebar.deselected.connect(() => {
 				d_main.diff_view.diff = null;
+			});
+
+			d_main.button_commit.clicked.connect(() => {
+				on_commit_clicked();
 			});
 		}
 	}
