@@ -23,10 +23,12 @@ namespace Gitg
 public class Repository : Ggit.Repository
 {
 	private HashTable<Ggit.OId, SList<Gitg.Ref>> d_refs;
-	private weak Stage ?d_stage;
+	private Stage ?d_stage;
 
-	public string? name {
-		owned get {
+	public string? name
+	{
+		owned get
+		{
 			var f = workdir != null ? workdir : location;
 			return f != null ? f.get_basename() : null;
 		}
@@ -151,21 +153,17 @@ public class Repository : Ggit.Repository
 		return base.get_head() as Ref;
 	}
 
-	public Stage get_stage()
+	public Stage stage
 	{
-		Stage ret;
-
-		if (d_stage == null)
+		owned get
 		{
-			ret = new Stage(this);
-			d_stage = ret;
-		}
-		else
-		{
-			ret = d_stage;
-		}
+			if (d_stage == null)
+			{
+				d_stage = new Stage(this);
+			}
 
-		return (owned)ret;
+			return d_stage;
+		}
 	}
 }
 

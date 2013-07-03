@@ -33,7 +33,7 @@ public class StageStatusFile : Object
 
 	public string path
 	{
-		get { return d_path; }
+		owned get { return d_path; }
 	}
 
 	public Ggit.StatusFlags flags
