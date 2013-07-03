@@ -100,7 +100,7 @@ class TestDiffView
 		wnd.set_default_size(800, 600);
 		var sw = new Gtk.ScrolledWindow(null, null);
 
-		var v = new Gitg.DiffView(null);
+		var v = new Gitg.DiffView();
 		sw.add(v);
 
 		v.commit = commit;
