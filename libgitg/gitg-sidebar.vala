@@ -67,6 +67,7 @@ public class SidebarStore : Gtk.TreeStore
 	private uint d_oid;
 	private uint d_sections;
 	private SList<Gtk.TreeIter?> d_parents;
+	private bool d_clearing;
 
 	construct
 	{
@@ -167,9 +168,16 @@ public class SidebarStore : Gtk.TreeStore
 		++d_sections;
 	}
 
+	public bool clearing
+	{
+		get { return d_clearing; }
+	}
+
 	public new void clear()
 	{
+		d_clearing = true;
 		base.clear();
+		d_clearing = false;
 
 		d_oid = 0;
 		d_sections = 0;
@@ -398,6 +406,11 @@ public class Sidebar : Gtk.TreeView
 
 		sel.changed.connect((sel) => {
 			Gtk.TreeIter iter;
+
+			if (model.clearing)
+			{
+				return;
+			}
 
 			if (sel.get_selected(null, out iter))
 			{
