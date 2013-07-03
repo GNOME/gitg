@@ -49,7 +49,7 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 			seen.add(f);
 		}
 
-		var stage = d_repository.get_stage();
+		var stage = d_repository.stage;
 		var e = stage.file_status(null);
 
 		e.next_files.begin(-1, (obj, res) => {
@@ -93,7 +93,7 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 	 */
 	protected virtual signal void test_stage()
 	{
-		var stage = d_repository.get_stage();
+		var stage = d_repository.stage;
 
 		var f = d_repository.get_workdir().get_child("a");
 		var loop = new MainLoop();
@@ -121,7 +121,7 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 	 */
 	protected virtual signal void test_unstage()
 	{
-		var stage = d_repository.get_stage();
+		var stage = d_repository.stage;
 
 		var f = d_repository.get_workdir().get_child("b");
 		var loop = new MainLoop();
@@ -149,7 +149,7 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 	 */
 	protected virtual signal void test_revert()
 	{
-		var stage = d_repository.get_stage();
+		var stage = d_repository.stage;
 
 		var f = d_repository.get_workdir().get_child("a");
 		var loop = new MainLoop();
@@ -176,7 +176,7 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 	 */
 	protected virtual signal void test_delete()
 	{
-		var stage = d_repository.get_stage();
+		var stage = d_repository.stage;
 
 		var f = d_repository.get_workdir().get_child("c");
 		var loop = new MainLoop();
