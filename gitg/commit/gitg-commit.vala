@@ -109,57 +109,112 @@ namespace GitgCommit
 
 		private delegate void StageUnstageCallback(Gitg.StageStatusFile f, int numclick);
 
+		private void show_unstaged_diff(Gitg.StageStatusFile f)
+		{
+			var stage = application.repository.stage;
+
+			stage.diff_workdir.begin(f, (obj, res) => {
+				try
+				{
+					var d = stage.diff_workdir.end(res);
+
+					d_main.diff_view.unstaged = true;
+					d_main.diff_view.staged = false;
+
+					d_main.diff_view.diff = d;
+				}
+				catch
+				{
+					// TODO: show error in diff
+					d_main.diff_view.diff = null;
+				}
+			});
+		}
+
+		private void stage_file(Gitg.StageStatusFile f)
+		{
+			var stage = application.repository.stage;
+
+			stage.stage_path.begin(f.path, (obj, res) => {
+				try
+				{
+					stage.stage_path.end(res);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to stage the file `%s'").printf(f.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+				}
+
+				reload();
+			});
+		}
+
+		private void delete_file(Gitg.StageStatusFile f)
+		{
+			var stage = application.repository.stage;
+
+			stage.delete_path.begin(f.path, (obj, res) => {
+				try
+				{
+					stage.delete_path.end(res);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to stage the removal of file `%s'").printf(f.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+				}
+
+				reload();
+			});
+		}
+
 		private void on_unstaged_activated(Gitg.StageStatusFile f, int numclick)
 		{
 			if (numclick == 1)
 			{
-				var stage = application.repository.stage;
-
-				stage.diff_workdir.begin(f, (obj, res) => {
-					try
-					{
-						var d = stage.diff_workdir.end(res);
-
-						d_main.diff_view.unstaged = true;
-						d_main.diff_view.staged = false;
-
-						d_main.diff_view.diff = d;
-					}
-					catch
-					{
-						// TODO: error reporting
-						d_main.diff_view.diff = null;
-					}
-				});
+				show_unstaged_diff(f);
 			}
 			else
 			{
-				// Stage the whole file
+				if ((f.flags & Ggit.StatusFlags.WORKING_TREE_DELETED) != 0)
+				{
+					delete_file(f);
+				}
+				else
+				{
+					stage_file(f);
+				}
 			}
+		}
+
+		private void show_staged_diff(Gitg.StageStatusFile f)
+		{
+			var stage = application.repository.stage;
+
+			stage.diff_index.begin(f, (obj, res) => {
+				try
+				{
+					var d = stage.diff_index.end(res);
+
+					d_main.diff_view.unstaged = false;
+					d_main.diff_view.staged = true;
+
+					d_main.diff_view.diff = d;
+				}
+				catch
+				{
+					// TODO: error reporting
+					d_main.diff_view.diff = null;
+				}
+			});
 		}
 
 		private void on_staged_activated(Gitg.StageStatusFile f, int numclick)
 		{
 			if (numclick == 1)
 			{
-				var stage = application.repository.stage;
-
-				stage.diff_index.begin(f, (obj, res) => {
-					try
-					{
-						var d = stage.diff_index.end(res);
-
-						d_main.diff_view.unstaged = false;
-						d_main.diff_view.staged = true;
-
-						d_main.diff_view.diff = d;
-					}
-					catch
-					{
-						// TODO: error reporting
-						d_main.diff_view.diff = null;
-					}
-				});
+				show_staged_diff(f);
 			}
 		}
 
