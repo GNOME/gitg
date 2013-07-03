@@ -46,11 +46,8 @@
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="can_focus">True</property>
+            <property name="vexpand">True</property>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-          </packing>
         </child>
         <child>
           <object class="GtkFrame" id="frame_commit">
@@ -67,11 +64,10 @@
                   <object class="GtkLabel" id="label_commit_summary">
                     <property name="visible">True</property>
                     <property name="halign">start</property>
+                    <property name="hexpand">True</property>
                   </object>
                   <packing>
                     <property name="pack-type">start</property>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
                   </packing>
                 </child>
                 <child>
@@ -82,17 +78,11 @@
                   </object>
                   <packing>
                     <property name="pack-type">end</property>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
                   </packing>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-          </packing>
         </child>
       </object>
     </child>
