@@ -157,13 +157,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		close();
 	}
 
-	private void on_search_activated(SimpleAction action) {
+	private void on_search_activated(SimpleAction action)
+	{
 		var state = action.get_state().get_boolean();
+
 		action.set_state(new Variant.boolean(!state));
 	}
 
-	private void on_gear_menu_activated(SimpleAction action) {
+	private void on_gear_menu_activated(SimpleAction action)
+	{
 		var state = action.get_state().get_boolean();
+
 		action.set_state(new Variant.boolean(!state));
 	}
 
@@ -390,6 +394,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		else
 		{
 			label_view.label = label_view.label.printf(repository_name);
+
 			label_view.show();
 			label_dash.hide();
 		}
@@ -414,6 +419,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			input_name.set_text(user_name);
 		}
+
 		if (user_email != "")
 		{
 			input_email.set_text(user_email);
@@ -471,6 +477,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void on_global_user_info_activated()
 	{
 		Ggit.Config global_config = null;
+
 		try
 		{
 			global_config = new Ggit.Config.default();
@@ -486,6 +493,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void on_repo_user_info_activated()
 	{
 		Ggit.Config repo_config = null;
+
 		try
 		{
 			repo_config = d_repository.get_config();
@@ -494,6 +502,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			return;
 		}
+
 		show_user_information_dialog(repo_config, d_repository.name);
 	}
 
@@ -561,8 +570,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		                                   this);
 
 		d_activities = new UIElements<GitgExt.Activity>.with_builtin(builtins,
-		                                                    extset,
-		                                                    d_stack_activities);
+		                                                             extset,
+		                                                             d_stack_activities);
 
 		d_activities.notify["current"].connect(on_current_activity_changed);
 
