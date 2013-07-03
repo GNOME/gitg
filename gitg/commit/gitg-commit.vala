@@ -210,11 +210,60 @@ namespace GitgCommit
 			});
 		}
 
+		private void delete_index_file(Gitg.StageStatusFile f)
+		{
+			var stage = application.repository.stage;
+
+			stage.revert_index_path.begin(f.path, (obj, res) => {
+				try
+				{
+					stage.revert_index_path.end(res);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to unstage the removal of file `%s'").printf(f.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+				}
+
+				reload();
+			});
+		}
+
+		private void unstage_file(Gitg.StageStatusFile f)
+		{
+			var stage = application.repository.stage;
+
+			stage.unstage_path.begin(f.path, (obj, res) => {
+				try
+				{
+					stage.unstage_path.end(res);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to unstage the file `%s'").printf(f.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+				}
+
+				reload();
+			});
+		}
+
 		private void on_staged_activated(Gitg.StageStatusFile f, int numclick)
 		{
 			if (numclick == 1)
 			{
 				show_staged_diff(f);
+			}
+			else
+			{
+				if ((f.flags & Ggit.StatusFlags.INDEX_DELETED) != 0)
+				{
+					delete_index_file(f);
+				}
+				else
+				{
+					unstage_file(f);
+				}
 			}
 		}
 
