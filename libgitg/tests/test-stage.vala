@@ -50,7 +50,7 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 		}
 
 		var stage = d_repository.get_stage();
-		var e = stage.file_status();
+		var e = stage.file_status(null);
 
 		e.next_files.begin(-1, (obj, res) => {
 			var files = e.next_files.end(res);
