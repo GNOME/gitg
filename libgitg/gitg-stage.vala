@@ -24,6 +24,7 @@ public class Stage : Object
 {
 	private weak Repository d_repository;
 	private Mutex d_index_mutex;
+	private Ggit.Tree? d_head_tree;
 
 	internal Stage(Repository repository)
 	{
@@ -37,11 +38,36 @@ public class Stage : Object
 		});
 	}
 
-	public StageStatusEnumerator file_status()
+	public async Ggit.Tree? get_head_tree() throws Error
 	{
-		if (d_enumerator == null)
+		if (d_head_tree != null)
 		{
+			return d_head_tree;
 		}
+
+		Error? e = null;
+
+		yield Async.thread(() => {
+			try
+			{
+				var head = d_repository.get_head();
+				var commit = (Ggit.Commit)head.lookup();
+
+				d_head_tree = commit.get_tree();
+			}
+			catch (Error err)
+			{
+				e = err;
+			}
+		});
+
+		if (e != null)
+		{
+			throw e;
+		}
+
+		return d_head_tree;
+	}
 
 	public StageStatusEnumerator file_status(Ggit.StatusOptions? options = null)
 	{
@@ -80,12 +106,9 @@ public class Stage : Object
 	 */
 	public async void revert(File file) throws Error
 	{
-		yield thread_index((index) => {
-			// lookup the tree of HEAD
-			var head = d_repository.get_head();
-			var commit = (Ggit.Commit)head.lookup();
-			var tree = commit.get_tree();
+		var tree = yield get_head_tree();
 
+		yield thread_index((index) => {
 			// get path relative to the repository working directory
 			var wd = d_repository.get_workdir();
 			var path = wd.get_relative_path(file);
@@ -98,6 +121,7 @@ public class Stage : Object
 			var blob = d_repository.lookup<Ggit.Blob>(id);
 
 			var stream = file.replace(null, false, FileCreateFlags.NONE);
+
 			stream.write_all(blob.get_raw_content(), null);
 			stream.close();
 
