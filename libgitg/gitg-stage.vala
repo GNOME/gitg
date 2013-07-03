@@ -22,8 +22,8 @@ namespace Gitg
 
 public class Stage : Object
 {
-	private Repository d_repository;
 	private StageStatusEnumerator ?d_enumerator;
+	private weak Repository d_repository;
 	private Mutex d_index_mutex;
 
 	internal Stage(Repository repository)
