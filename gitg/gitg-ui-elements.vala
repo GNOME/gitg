@@ -24,10 +24,10 @@ public class UIElements<T> : Object
 {
 	private Peas.ExtensionSet d_extensions;
 	private Gee.HashMap<string, GitgExt.UIElement> d_elements;
-	private Gee.HashSet<string> d_builtin_elements;
 	private List<GitgExt.UIElement> d_available_elements;
 	private GitgExt.UIElement? d_current;
 	private Gtk.Stack d_stack;
+	private Gee.HashMap<string, int> d_builtin_elements;
 
 	[Notify]
 	public T? current
@@ -146,12 +146,20 @@ public class UIElements<T> : Object
 
 	private bool order_after(GitgExt.UIElement a, GitgExt.UIElement b)
 	{
-		var ab = a.id in d_builtin_elements;
-		var bb = b.id in d_builtin_elements;
+		var ab = d_builtin_elements.has_key(a.id);
+		var bb = d_builtin_elements.has_key(b.id);
 
 		if (ab != bb)
 		{
 			return ab ? false : true;
+		}
+
+		if (ab && bb)
+		{
+			int ai = d_builtin_elements[a.id];
+			int bi = d_builtin_elements[b.id];
+
+			return ai > bi;
 		}
 
 		return a.negotiate_order(b) > 0;
@@ -253,15 +261,17 @@ public class UIElements<T> : Object
 	{
 		d_extensions = extensions;
 		d_stack = stack;
-		d_builtin_elements = new Gee.HashSet<string>();
+		d_builtin_elements = new Gee.HashMap<string, int>();
 
 		d_elements = new Gee.HashMap<string, GitgExt.UIElement>();
+
+		int i = 0;
 
 		foreach (var b in builtin)
 		{
 			GitgExt.UIElement elem = (GitgExt.UIElement)b;
 
-			d_builtin_elements.add(elem.id);
+			d_builtin_elements[elem.id] = i++;
 			add_ui_element(elem);
 		}
 
