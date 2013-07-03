@@ -33,8 +33,6 @@ public class Stage : Object
 
 	public async void refresh() throws Error
 	{
-		d_enumerator = null;
-
 		yield thread_index((index) => {
 			index.read();
 		});
@@ -44,10 +42,11 @@ public class Stage : Object
 	{
 		if (d_enumerator == null)
 		{
-			d_enumerator = new StageStatusEnumerator(d_repository);
 		}
 
-		return d_enumerator;
+	public StageStatusEnumerator file_status(Ggit.StatusOptions? options = null)
+	{
+		return new StageStatusEnumerator(d_repository, options);
 	}
 
 	private delegate void WithIndexFunc(Ggit.Index index) throws Error;

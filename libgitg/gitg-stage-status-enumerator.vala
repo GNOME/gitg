@@ -51,10 +51,13 @@ public class StageStatusEnumerator : Object
 	private int d_callback_num;
 	private Cancellable d_cancellable;
 	private SourceFunc d_callback;
+	private Ggit.StatusOptions? d_options;
 
-	internal StageStatusEnumerator(Repository repository)
+	internal StageStatusEnumerator(Repository repository,
+	                               Ggit.StatusOptions? options = null)
 	{
 		d_repository = repository;
+		d_options = options;
 
 		d_files = new StageStatusFile[100];
 		d_files.length = 0;
@@ -83,7 +86,7 @@ public class StageStatusEnumerator : Object
 	{
 		try
 		{
-			d_repository.file_status_foreach(null, (path, flags) => {
+			d_repository.file_status_foreach(d_options, (path, flags) => {
 				lock (d_files)
 				{
 					d_files += new StageStatusFile(path, flags);
