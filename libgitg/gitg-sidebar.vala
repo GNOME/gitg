@@ -356,6 +356,8 @@ public class Sidebar : Gtk.TreeView
 	[GtkChild (name = "renderer_text")]
 	private SidebarRendererText d_renderer_text;
 
+	public signal void deselected();
+
 	construct
 	{
 		d_column.set_cell_data_func(d_renderer_header, (layout, cell, model, iter) => {
@@ -415,6 +417,10 @@ public class Sidebar : Gtk.TreeView
 			if (sel.get_selected(null, out iter))
 			{
 				model.activate(iter, 1);
+			}
+			else
+			{
+				deselected();
 			}
 		});
 	}

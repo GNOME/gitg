@@ -267,6 +267,10 @@ namespace GitgCommit
 		private void build_ui()
 		{
 			d_main = new Paned();
+
+			d_main.sidebar.deselected.connect(() => {
+				d_main.diff_view.diff = null;
+			});
 		}
 	}
 }
