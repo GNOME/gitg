@@ -64,7 +64,8 @@ VALA_FILES =					\
 	gitg-when-mapped.vala			\
 	gitg-progress-bin.vala			\
 	gitg-stage.vala				\
-	gitg-stage-status-enumerator.vala
+	gitg-stage-status-enumerator.vala	\
+	gitg-sidebar.vala
 
 # Ignore all warnings for vala code...
 libgitg_1_0_la_CFLAGS =		\
