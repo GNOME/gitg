@@ -113,6 +113,7 @@
   <schema id="org.gnome.gitg.state" path="/org/gnome/gitg/state/">
     <child name="window" schema="org.gnome.gitg.state.window"/>
     <child name="history" schema="org.gnome.gitg.state.history"/>
+    <child name="commit" schema="org.gnome.gitg.state.commit"/>
   </schema>
   <schema id="org.gnome.gitg.state.window" path="/org/gnome/gitg/state/window/">
     <key name="state" type="i">
@@ -140,6 +141,11 @@
     </key>
     <key name="paned-panels-position" type="i">
       <default>450</default>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.state.commit" path="/org/gnome/gitg/state/commit/">
+    <key name="paned-sidebar-position" type="i">
+      <default>200</default>
     </key>
   </schema>
 </schemalist>

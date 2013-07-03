@@ -40,15 +40,16 @@ public class Application : Gtk.Application
 	private struct Options
 	{
 		public static bool quit = false;
-		public static string view;
+		public static string activity;
 		public static bool no_wd = false;
 		public static ApplicationCommandLine command_line;
 
 		public static const OptionEntry[] entries = {
 			{"version", 'v', OptionFlags.NO_ARG, OptionArg.CALLBACK,
 			 (void *)show_version_and_quit, N_("Show the application's version"), null},
-			{"view", '\0', 0, OptionArg.STRING,
-			 ref view, N_("Start gitg with a particular view"), null},
+
+			{"activity", '\0', 0, OptionArg.STRING,
+			 ref activity, N_("Start gitg with a particular activity"), null},
 			 {"no-wd", 0, 0, OptionArg.NONE,
 			 ref no_wd, N_("Do not try to load a repository from the current working directory"), null},
 			{null}
@@ -59,7 +60,7 @@ public class Application : Gtk.Application
 
 	static construct
 	{
-		Options.view = "";
+		Options.activity = "";
 	}
 
 	private static void show_version_and_quit()
@@ -157,7 +158,7 @@ public class Application : Gtk.Application
 				files += File.new_for_commandline_arg(arg);
 			}
 
-			open(files, Options.view);
+			open(files, Options.activity);
 		}
 		else
 		{
@@ -322,7 +323,7 @@ public class Application : Gtk.Application
 			// Otherwise open repository from current dir
 			string? wd = Options.command_line.get_cwd();
 
-			open(new File[] { File.new_for_path(wd) }, Options.view);
+			open(new File[] { File.new_for_path(wd) }, Options.activity);
 
 			// Forcing present here covers the case where no window was opened
 			// because wd is not an actual git repository
