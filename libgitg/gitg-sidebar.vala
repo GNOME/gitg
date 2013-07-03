@@ -419,6 +419,21 @@ public class Sidebar : Gtk.TreeView
 		});
 	}
 
+	protected override void row_activated(Gtk.TreePath path, Gtk.TreeViewColumn column)
+	{
+		if (model.clearing)
+		{
+			return;
+		}
+
+		Gtk.TreeIter iter;
+
+		if (model.get_iter(out iter, path))
+		{
+			model.activate(iter, 2);
+		}
+	}
+
 	public new SidebarStore model
 	{
 		get { return base.get_model() as SidebarStore; }
