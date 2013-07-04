@@ -386,7 +386,31 @@ namespace GitgCommit
 
 		private void do_commit(Dialog dlg)
 		{
-			
+			var stage = application.repository.stage;
+
+			Gitg.StageCommitOptions opts = 0;
+
+			if (dlg.amend)
+			{
+				opts |= Gitg.StageCommitOptions.AMEND;
+			}
+
+			if (dlg.sign_off)
+			{
+				opts |= Gitg.StageCommitOptions.SIGN_OFF;
+			}
+
+			stage.commit.begin(dlg.message, opts, (obj, res) => {
+				try
+				{
+					var o = stage.commit.end(res);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to commit");
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+				}
+			});
 		}
 
 		private void on_commit_clicked()

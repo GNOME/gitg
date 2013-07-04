@@ -20,6 +20,14 @@
 namespace Gitg
 {
 
+[Flags]
+public enum StageCommitOptions
+{
+	NONE     = 0,
+	SIGN_OFF = 1 << 0,
+	AMEND    = 1 << 1
+}
+
 public class Stage : Object
 {
 	private weak Repository d_repository;
@@ -120,6 +128,84 @@ public class Stage : Object
 
 			index.write();
 		});
+	}
+
+	private string message_with_sign_off(Ggit.Config conf, string message) throws Error
+	{
+		string? user;
+		string? email;
+
+		user = conf.get_string("user.name");
+		email = conf.get_string("user.email");
+
+		if (user != null && email != null)
+		{
+			return "%s\nSigned-off-by: %s <%s>\n".printf(message, user, email);
+		}
+		else
+		{
+			return message;
+		}
+	}
+
+	private string convert_message_to_encoding(Ggit.Config conf, string message)
+	{
+		string? encoding;
+
+		try
+		{
+			encoding = conf.get_string("i18n.commitencoding");
+		}
+		catch
+		{
+			return message;
+		}
+
+		if (encoding != null &&
+		    encoding != "" &&
+		    encoding.ascii_casecmp("UTF-8") != 0)
+		{
+			try
+			{
+				return convert(message, -1, encoding, "UTF-8");
+			}
+			catch {}
+		}
+
+		return message;
+	}
+
+	public async Ggit.OId commit(string             message,
+	                             StageCommitOptions options) throws Error
+	{
+		yield thread_index((index) => {
+			// TODO: run pre-commit hook
+
+			// Write tree from index
+			var tree = index.write_tree();
+
+			// TODO: write COMMIT_EDITMSG and run commit-msg hook
+
+			var conf = d_repository.get_config();
+			conf.refresh();
+
+			string emsg = message;
+
+			if ((options & StageCommitOptions.SIGN_OFF) != 0)
+			{
+				emsg = message_with_sign_off(conf, emsg);
+			}
+
+			emsg = convert_message_to_encoding(conf, emsg);
+
+			// TODO: commit
+
+			// TODO: update ref with subject of message
+
+			// TODO: run post-commit hook
+		});
+
+		return null;
 	}
 
 	/**

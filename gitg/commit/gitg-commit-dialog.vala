@@ -29,6 +29,12 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "ok-button")]
 	private Gtk.Button d_button_ok;
 
+	[GtkChild (name = "check_button_amend")]
+	private Gtk.CheckButton d_check_button_amend;
+
+	[GtkChild (name = "check_button_sign_off")]
+	private Gtk.CheckButton d_check_button_sign_off;
+
 	private Settings d_fontsettings;
 
 	public GtkSource.View source_view_message
@@ -48,6 +54,16 @@ class Dialog : Gtk.Dialog
 			b.get_bounds(out start, out end);
 			return Ggit.message_prettify(b.get_text(start, end, false), false);
 		}
+	}
+
+	public bool amend
+	{
+		get { return d_check_button_amend.active; }
+	}
+
+	public bool sign_off
+	{
+		get { return d_check_button_sign_off.active; }
 	}
 
 	construct
