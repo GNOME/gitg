@@ -27,6 +27,7 @@ AM_VALAFLAGS = 				\
 	--pkg webkit2gtk-3.0		\
 	--pkg gee-0.8			\
 	--pkg json-glib-1.0		\
+	--pkg gio-unix-2.0		\
 	$(GITG_VALAFLAGS)		\
 	--vapidir $(top_srcdir)/vapi	\
 	--header libgitg.h		\
@@ -65,7 +66,8 @@ VALA_FILES =					\
 	gitg-progress-bin.vala			\
 	gitg-stage.vala				\
 	gitg-stage-status-enumerator.vala	\
-	gitg-sidebar.vala
+	gitg-sidebar.vala			\
+	gitg-hook.vala
 
 # Ignore all warnings for vala code...
 libgitg_1_0_la_CFLAGS =		\

@@ -384,6 +384,11 @@ namespace GitgCommit
 			reload();
 		}
 
+		private void do_commit(Dialog dlg)
+		{
+			
+		}
+
 		private void on_commit_clicked()
 		{
 			var dlg = new Dialog();
@@ -392,7 +397,14 @@ namespace GitgCommit
 			dlg.set_default_response(Gtk.ResponseType.OK);
 
 			dlg.response.connect((d, id) => {
-				d.destroy();
+				if (id == Gtk.ResponseType.OK)
+				{
+					do_commit(dlg);
+				}
+				else
+				{
+					d.destroy();
+				}
 			});
 
 			dlg.show();
