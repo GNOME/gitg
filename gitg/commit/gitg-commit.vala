@@ -305,10 +305,11 @@ namespace GitgCommit
 			                 Ggit.StatusFlags.INDEX_RENAMED |
 			                 Ggit.StatusFlags.INDEX_TYPECHANGE;
 
-			var workflags = Ggit.StatusFlags.WORKING_TREE_NEW |
-			                Ggit.StatusFlags.WORKING_TREE_MODIFIED |
+			var workflags = Ggit.StatusFlags.WORKING_TREE_MODIFIED |
 			                Ggit.StatusFlags.WORKING_TREE_DELETED |
 			                Ggit.StatusFlags.WORKING_TREE_TYPECHANGE;
+
+			var untrackedflags = Ggit.StatusFlags.WORKING_TREE_NEW;
 
 			enumerator.next_files.begin(-1, (obj, res) => {
 				var files = enumerator.next_files.end(res);
@@ -318,6 +319,9 @@ namespace GitgCommit
 
 				var unstaged = new Gitg.StageStatusFile[files.length];
 				unstaged.length = 0;
+
+				var untracked = new Gitg.StageStatusFile[files.length];
+				untracked.length = 0;
 
 				foreach (var f in files)
 				{
@@ -329,6 +333,11 @@ namespace GitgCommit
 					if ((f.flags & workflags) != 0)
 					{
 						unstaged += f;
+					}
+
+					if ((f.flags & untrackedflags) != 0)
+					{
+						untracked += f;
 					}
 				}
 
@@ -357,6 +366,19 @@ namespace GitgCommit
 				else
 				{
 					append_files(model, unstaged, on_unstaged_activated);
+				}
+
+				model.end_header();
+
+				model.begin_header(_("Untracked"));
+
+				if (untracked.length == 0)
+				{
+					model.append_dummy(_("No untracked files"));
+				}
+				else
+				{
+					append_files(model, untracked, on_unstaged_activated);
 				}
 
 				model.end_header();
