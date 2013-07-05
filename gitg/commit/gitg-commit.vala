@@ -430,7 +430,7 @@ namespace GitgCommit
 			}
 			catch (Gitg.StageError e)
 			{
-				application.show_infobar("Failed to pass pre-commit",
+				application.show_infobar(_("Failed to pass pre-commit"),
 				                         e.message,
 				                         Gtk.MessageType.ERROR);
 
