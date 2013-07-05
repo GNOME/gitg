@@ -408,7 +408,8 @@ namespace GitgCommit
 			                   opts, (obj, res) => {
 				try
 				{
-					var o = stage.commit.end(res);
+					stage.commit.end(res);
+					reload();
 				}
 				catch (Error e)
 				{
