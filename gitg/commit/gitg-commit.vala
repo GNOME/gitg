@@ -416,6 +416,8 @@ namespace GitgCommit
 					var msg = _("Failed to commit");
 					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
 				}
+
+				dlg.destroy();
 			});
 		}
 
