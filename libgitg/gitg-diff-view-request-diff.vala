@@ -255,7 +255,20 @@ namespace Gitg
 						maxlines = ml;
 					}
 
-					hunk_cb(builder, state, delta, range, ((string)header).substring(0, header.length));
+					// There seems to be a bug where sometimes the hunk header
+					// contains null-bytes. As a temporary fix, we scan the
+					// header for the first null byte and truncate it
+					//
+					// see: https://github.com/libgit2/libgit2/issues/1710
+					for (int i = 0; i < header.length; ++i)
+					{
+						if (header[i] == 0)
+						{
+							header.length = i;
+						}
+					}
+
+					hunk_cb(builder, state, delta, range, ((string)header)[0:header.length]);
 					return 0;
 				},
 
@@ -269,7 +282,7 @@ namespace Gitg
 					{
 						++numlines;
 
-						line_cb(builder, delta, range, line_type, ((string)content).substring(0, content.length));
+						line_cb(builder, delta, range, line_type, ((string)content)[0:content.length]);
 					}
 
 					return 0;
