@@ -207,7 +207,6 @@ public class Stage : Object
 
 	public async void pre_commit_hook(Ggit.Signature author) throws StageError
 	{
-		SourceFunc cb = pre_commit_hook.callback;
 		string? errormsg = null;
 
 		yield Async.thread(() => {
@@ -216,23 +215,17 @@ public class Stage : Object
 
 			setup_commit_hook_environment(hook, author);
 
-			hook.run.begin(d_repository, (obj, res) => {
-				try
+			try
+			{
+				int status = hook.run_sync(d_repository);
+
+				if (status != 0)
 				{
-					int status = hook.run.end(res);
-
-					if (status != 0)
-					{
-						errormsg = string.joinv("\n", hook.output);
-					}
+					errormsg = string.joinv("\n", hook.output);
 				}
-				catch (SpawnError e) {}
-
-				cb();
-			});
+			}
+			catch (SpawnError e) {}
 		});
-
-		yield;
 
 		if (errormsg != null)
 		{
