@@ -2,7 +2,7 @@ AM_CPPFLAGS = -g -I$(top_srcdir) -I$(top_srcdir)/gitg -I$(top_srcdir)/libgitg $(
 
 noinst_PROGRAMS = $(TEST_PROGS)
 
-AM_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS) --vapidir $(srcdir) --pkg posix --pkg gitg-assert
+AM_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS) --disable-warnings --vapidir $(srcdir) --pkg posix --pkg gitg-assert
 
 TEST_PROGS = test-libgitg
 
@@ -10,7 +10,8 @@ test_libgitg_SOURCES =				\
 	test.vala				\
 	main.vala				\
 	repository.vala				\
-	test-stage.vala
+	test-stage.vala				\
+	test-date.vala
 
 test_libgitg_LDADD = $(GITG_PLUGIN_LIBS)
 test_libgitg_CFLAGS = $(GITG_PLUGIN_CFLAGS) -w

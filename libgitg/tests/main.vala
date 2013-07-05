@@ -27,6 +27,7 @@ class Gitg.Test.Main
 		GLib.Test.init(ref args);
 
 		add(new Stage());
+		add(new Date());
 
 		GLib.Test.run();
 	}

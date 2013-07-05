@@ -67,7 +67,8 @@ VALA_FILES =					\
 	gitg-stage.vala				\
 	gitg-stage-status-enumerator.vala	\
 	gitg-sidebar.vala			\
-	gitg-hook.vala
+	gitg-hook.vala				\
+	gitg-date.vala
 
 # Ignore all warnings for vala code...
 libgitg_1_0_la_CFLAGS =		\
