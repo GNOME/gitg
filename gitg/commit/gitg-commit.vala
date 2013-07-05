@@ -395,6 +395,8 @@ namespace GitgCommit
 				opts |= Gitg.StageCommitOptions.AMEND;
 			}
 
+			
+
 			if (dlg.sign_off)
 			{
 				opts |= Gitg.StageCommitOptions.SIGN_OFF;
