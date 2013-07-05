@@ -64,13 +64,15 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.Stack d_stack_activities;
 
 	[GtkChild]
-	private Gtk.InfoBar infobar;
+	private Gtk.Revealer d_infobar_revealer;
 	[GtkChild]
-	private Gtk.Label infobar_primary_label;
+	private Gtk.InfoBar d_infobar;
 	[GtkChild]
-	private Gtk.Label infobar_secondary_label;
+	private Gtk.Label d_infobar_primary_label;
 	[GtkChild]
-	private Gtk.Button infobar_close_button;
+	private Gtk.Label d_infobar_secondary_label;
+	[GtkChild]
+	private Gtk.Button d_infobar_close_button;
 
 	private static const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
@@ -212,7 +214,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 				}
 
 				title = @"$(d_repository.name) ($parent_path) - gitg";
-				infobar.hide();
+				d_infobar_revealer.set_reveal_child(false);
 			}
 
 			d_header_bar.set_title(d_repository.name);
@@ -670,13 +672,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private void show_infobar(string primary_msg, string secondary_msg, Gtk.MessageType type)
 	{
-		infobar.message_type = type;
-		infobar_primary_label.set_label("<b>%s</b>".printf(Markup.escape_text(primary_msg)));
-		infobar_secondary_label.set_label("<small>%s</small>".printf(Markup.escape_text(secondary_msg)));
-		infobar.show();
+		d_infobar.message_type = type;
+		d_infobar_primary_label.set_label("<b>%s</b>".printf(Markup.escape_text(primary_msg)));
+		d_infobar_secondary_label.set_label("<small>%s</small>".printf(Markup.escape_text(secondary_msg)));
+		d_infobar_revealer.set_reveal_child(true);
 
-		infobar_close_button.clicked.connect(() => {
-			infobar.hide();
+		d_infobar_close_button.clicked.connect(() => {
+			d_infobar_revealer.set_reveal_child(false);
 		});
 	}
 }
