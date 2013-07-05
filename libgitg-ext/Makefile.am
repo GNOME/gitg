@@ -34,9 +34,6 @@ libgitg_ext_1_0_la_LDFLAGS = \
 
 libgitg_ext_1_0_la_LIBADD = $(LIBGITG_EXT_LIBS)
 
-INST_H_FILES =				\
-	libgitg-ext.h
-
 VALA_FILES =					\
 	gitg-ext-assembly-info.vala		\
 	gitg-ext-application.vala		\
@@ -56,7 +53,7 @@ libgitg_ext_1_0_la_SOURCES =		\
 	gitg-ext-resources.c
 
 headerdir = $(prefix)/include/libgitg-ext-1.0/libgitg-ext
-header_DATA = $(INST_H_FILES)
+header_DATA = libgitg-ext.h
 
 vapidir = $(prefix)/share/vala/vapi
 vapi_DATA = libgitg-ext-1.0.vapi

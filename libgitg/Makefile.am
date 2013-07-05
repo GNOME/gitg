@@ -16,9 +16,6 @@ libgitg_1_0_la_LDFLAGS = 		\
 
 libgitg_1_0_la_LIBADD = $(LIBGITG_LIBS)
 
-INST_H_FILES =				\
-	libgitg.h
-
 AM_VALAFLAGS = 				\
 	--pkg Ggit-1.0 			\
 	--pkg gtk+-3.0			\
@@ -79,7 +76,7 @@ libgitg_1_0_la_SOURCES = 		\
 	$(VALA_FILES)
 
 headerdir = $(prefix)/include/libgitg-1.0/libgitg
-header_DATA = $(INST_H_FILES)
+header_HEADERS = libgitg.h
 
 vapidir = $(prefix)/share/vala/vapi
 vapi_DATA = libgitg-1.0.vapi
