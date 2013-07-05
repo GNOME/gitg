@@ -24,6 +24,7 @@ namespace GitgCommit
 		// Do this to pull in config.h before glib.h (for gettext...)
 		private const string version = Gitg.Config.VERSION;
 		private Paned? d_main;
+		private bool d_reloading;
 
 		public GitgExt.Application? application { owned get; construct set; }
 
@@ -284,6 +285,13 @@ namespace GitgCommit
 
 		public void reload()
 		{
+			if (d_reloading)
+			{
+				return;
+			}
+
+			d_reloading = true;
+
 			var model = d_main.sidebar.model;
 
 			var stage = application.repository.stage;
@@ -393,6 +401,8 @@ namespace GitgCommit
 				{
 					d_main.button_commit.sensitive = true;
 				}
+
+				d_reloading = false;
 			});
 		}
 
