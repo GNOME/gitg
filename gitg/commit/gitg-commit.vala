@@ -325,7 +325,8 @@ namespace GitgCommit
 					{
 						staged += f;
 					}
-					else if ((f.flags & workflags) != 0)
+
+					if ((f.flags & workflags) != 0)
 					{
 						unstaged += f;
 					}
