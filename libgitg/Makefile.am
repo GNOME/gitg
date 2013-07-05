@@ -1,3 +1,5 @@
+SUBDIRS = tests
+
 lib_LTLIBRARIES = libgitg-1.0.la
 
 AM_CPPFLAGS =								\
@@ -25,6 +27,7 @@ AM_VALAFLAGS = 				\
 	--pkg webkit2gtk-3.0		\
 	--pkg gee-0.8			\
 	--pkg json-glib-1.0		\
+	--pkg gio-unix-2.0		\
 	$(GITG_VALAFLAGS)		\
 	--vapidir $(top_srcdir)/vapi	\
 	--header libgitg.h		\
@@ -39,6 +42,7 @@ libgitg.h: libgitg-1.0.la
 
 VALA_FILES =					\
 	gitg-assembly-info.vala			\
+	gitg-async.vala				\
 	gitg-branch.vala			\
 	gitg-branch-base.vala			\
 	gitg-repository.vala			\
@@ -59,7 +63,11 @@ VALA_FILES =					\
 	gitg-diff-view-request-diff.vala	\
 	gitg-dash-view.vala			\
 	gitg-when-mapped.vala			\
-	gitg-progress-bin.vala
+	gitg-progress-bin.vala			\
+	gitg-stage.vala				\
+	gitg-stage-status-enumerator.vala	\
+	gitg-sidebar.vala			\
+	gitg-hook.vala
 
 # Ignore all warnings for vala code...
 libgitg_1_0_la_CFLAGS =		\

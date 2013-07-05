@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.3 -->
+  <!-- interface-requires gitg 0.0 -->
+  <!-- interface-requires gd 1.0 -->
+  <template class="GitgSidebar">
+    <property name="model">sidebar_store</property>
+    <property name="show-expanders">False</property>
+    <property name="headers-visible">False</property>
+    <property name="level-indentation">12</property>
+    <child>
+      <object class="GtkTreeViewColumn" id="column">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkCellRendererText" id="renderer_padding">
+            <property name="xpad">6</property>
+            <property name="visible">True</property>
+          </object>
+          <cell-packing>
+            <property name="expand">False</property>
+          </cell-packing>
+        </child>
+        <child>
+          <object class="GitgSidebarRendererText" id="renderer_header">
+            <property name="ypad">6</property>
+            <property name="weight">700</property>
+          </object>
+          <attributes>
+            <attribute name="icon_name">0</attribute>
+            <attribute name="text">3</attribute>
+          </attributes>
+          <cell-packing>
+            <property name="expand">True</property>
+          </cell-packing>
+        </child>
+        <child>
+          <object class="GitgSidebarRendererText" id="renderer_text">
+          </object>
+          <attributes>
+            <attribute name="icon_name">0</attribute>
+            <attribute name="text">2</attribute>
+          </attributes>
+          <cell-packing>
+            <property name="expand">True</property>
+          </cell-packing>
+        </child>
+      </object>
+    </child>
+  </template>
+  <object class="GitgSidebarStore" id="sidebar_store">
+    <columns>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="guint"/>
+      <column type="guint"/>
+      <column type="guint"/>
+    </columns>
+  </object>
+</interface>
+
+<!-- ex:set ts=2 et: -->

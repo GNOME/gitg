@@ -23,9 +23,12 @@ namespace Gitg
 public class Repository : Ggit.Repository
 {
 	private HashTable<Ggit.OId, SList<Gitg.Ref>> d_refs;
+	private Stage ?d_stage;
 
-	public string? name {
-		owned get {
+	public string? name
+	{
+		owned get
+		{
 			var f = workdir != null ? workdir : location;
 			return f != null ? f.get_basename() : null;
 		}
@@ -100,7 +103,7 @@ public class Repository : Ggit.Repository
 				// a ref to the underlying commit the tag points to
 				try
 				{
-					var tag = lookup(id, typeof(Ggit.Tag)) as Ggit.Tag;
+					var tag = lookup<Ggit.Tag>(id);
 
 					// get the target id
 					id = tag.get_target_id();
@@ -124,6 +127,11 @@ public class Repository : Ggit.Repository
 		return d_refs.lookup(id);
 	}
 
+	public new T? lookup<T>(Ggit.OId id) throws Error
+	{
+		return (T?)base.lookup(id, typeof(T));
+	}
+
 	// Wrappers for Gitg.Ref
 	public new Ref lookup_reference(string name) throws Error
 	{
@@ -143,6 +151,19 @@ public class Repository : Ggit.Repository
 	public new Ref get_head() throws Error
 	{
 		return base.get_head() as Ref;
+	}
+
+	public Stage stage
+	{
+		owned get
+		{
+			if (d_stage == null)
+			{
+				d_stage = new Stage(this);
+			}
+
+			return d_stage;
+		}
 	}
 }
 

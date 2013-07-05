@@ -18,7 +18,25 @@ function diff_file(file, lnstate, data)
 		var cold = h.range.old.start;
 		var cnew = h.range.new.start;
 
-		var hunkheader = '@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@';
+		var hunkheader = '<span class="hunk_header">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
+
+		if (data.settings.staged || data.settings.unstaged)
+		{
+			var cls;
+
+			if (data.settings.staged)
+			{
+				cls = 'unstage';
+				nm = data.settings.strings.unstage;
+			}
+			else
+			{
+				cls = 'stage';
+				nm = data.settings.strings.stage;
+			}
+
+			hunkheader = '<span class="' + cls + '">' + nm + '</span>' + hunkheader;
+		}
 
 		tablecontent += '<tr class="hunk_header">\
 			<td class="gutter old">' + lnstate.gutterdots + '</td> \
@@ -107,6 +125,24 @@ function diff_file(file, lnstate, data)
 	var removedp = 100 - addedp;
 
 	var stats = '<div class="expander">-</div><div class="stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></div>';
+
+	if (data.settings.staged || data.settings.unstaged)
+	{
+		var cls;
+
+		if (data.settings.staged)
+		{
+			cls = 'unstage';
+			nm = data.settings.strings.unstage;
+		}
+		else
+		{
+			cls = 'stage';
+			nm = data.settings.strings.stage;
+		}
+
+		stats += '<span class="' + cls + '">' + nm + '</span>';
+	}
 
 	var template = data.file_template;
 	var repls = {

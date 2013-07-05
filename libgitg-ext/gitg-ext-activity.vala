@@ -33,7 +33,9 @@ public interface Activity : Object, UIElement
 	 * Method called to reload the activity.
 	 *
 	 */
-	public abstract void reload();
+	public virtual void reload()
+	{
+	}
 
 	/**
 	 * Whether the activity is the default for the specified action.
@@ -44,7 +46,10 @@ public interface Activity : Object, UIElement
 	 * %FALSE otherwise.
 	 *
 	 */
-	public abstract bool is_default_for(string action);
+	public virtual bool is_default_for(string action)
+	{
+		return false;
+	}
 }
 
 }

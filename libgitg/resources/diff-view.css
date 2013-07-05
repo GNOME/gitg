@@ -216,4 +216,32 @@ div.loading {
   font-family: sans-serif;
 }
 
+span.stage, span.unstage {
+  border-radius: 5px;
+  padding: 1px 3px 1px 3px;
+  color: #3465a4;
+  cursor: pointer;
+  margin-right: 6px;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 1px 1px #d3d7cf inset;
+}
+
+tr.file_header span.stage, tr.file_header span.unstage {
+  box-shadow: 1px 1px #ccc inset;
+}
+
+span.stage {
+  background-color: #ddffdd;
+}
+
+span.unstage {
+  background-color: #ffdddd;
+}
+
+span.hunk_header, span.file_path {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 /* vi:ts=2:et */

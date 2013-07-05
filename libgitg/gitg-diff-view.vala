@@ -60,12 +60,47 @@ namespace Gitg
 			}
 		}
 
+		public bool wrap { get; set; default = true; }
+		public bool staged { get; set; default = false; }
+		public bool unstaged { get; set; default = false; }
+		public int tab_width { get; set; default = 4; }
+
 		static construct
 		{
 			s_diffmap = new Gee.HashMap<string, DiffView>();
 
 			var context = WebKit.WebContext.get_default();
 			context.register_uri_scheme("gitg-diff", gitg_diff_request);
+		}
+
+		private string json_settings()
+		{
+			var o = new Json.Object();
+
+			o.set_boolean_member("wrap", wrap);
+			o.set_int_member("tab_width", tab_width);
+			o.set_boolean_member("staged", staged);
+			o.set_boolean_member("unstaged", unstaged);
+			o.set_boolean_member("debug", Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null);
+
+			var strings = new Json.Object();
+
+			strings.set_string_member("stage", _("stage"));
+			strings.set_string_member("unstage", _("unstage"));
+			strings.set_string_member("loading_diff", _("Loading diff..."));
+
+			o.set_object_member("strings", strings);
+
+			var gen = new Json.Generator();
+
+			var node = new Json.Node(Json.NodeType.OBJECT);
+			node.set_object(o);
+
+			gen.set_root(node);
+
+			size_t l;
+			var ret = gen.to_data(out l);
+			return ret[0:(long)l];
 		}
 
 		private static DiffViewRequest? parse_request(WebKit.URISchemeRequest request)
@@ -238,37 +273,34 @@ namespace Gitg
 			// Load the diff base html
 			var uri = "gitg-diff:///resource/org/gnome/gitg/gtk/diff-view/diff-view.html?viewid=" + s_diff_id.to_string();
 
-			// Add custom js as a query parameter
-			if (custom_js != null)
-			{
-				uri += "&js=" + Soup.URI.encode(custom_js.get_uri(), null);
-			}
-
-			// Add custom css as a query parameter
-			if (custom_css != null)
-			{
-				uri += "&css=" + Soup.URI.encode(custom_css.get_uri(), null);
-			}
-
-			if (dbg)
-			{
-				uri += "&debug=true";
-			}
+			uri += "&settings=" + Soup.URI.encode(json_settings(), null);
 
 			d_loaded = false;
 
 			load_uri(uri);
 		}
 
-		public DiffView(File? custom_js)
+		public DiffView()
 		{
-			Object(custom_js: custom_js);
+			Object();
 		}
 
 		private void update()
 		{
-			if (!d_loaded || (d_diff == null && d_commit == null))
+			if (!d_loaded)
 			{
+				return;
+			}
+
+			if (d_diff == null && d_commit == null)
+			{
+				run_javascript.begin("update_diff();", d_cancellable, (obj, res) => {
+					try
+					{
+						run_javascript.end(res);
+					} catch {}
+				});
+
 				return;
 			}
 
@@ -285,7 +317,7 @@ namespace Gitg
 
 			if (d_diff != null)
 			{
-				run_javascript.begin("update_diff(%lu);".printf(d_diffid), d_cancellable, (obj, res) => {
+				run_javascript.begin("update_diff(%lu, %s);".printf(d_diffid, json_settings()), d_cancellable, (obj, res) => {
 					try
 					{
 						run_javascript.end(res);

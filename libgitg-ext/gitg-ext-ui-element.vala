@@ -74,7 +74,10 @@ public interface UIElement : Object
 	 * element is not available, it will not be shown.
 	 *
 	 */
-	public abstract bool available { get; }
+	public virtual bool available
+	{
+		get { return true; }
+	}
 
 	/**
 	 * Check whether the ui element is enabled in the current application state.
@@ -83,7 +86,10 @@ public interface UIElement : Object
 	 * element is enabled (sensitive) given the current state of the application.
 	 *
 	 */
-	public abstract bool enabled { get; }
+	public virtual bool enabled
+	{
+		get { return true; }
+	}
 
 	/**
 	 * Negotiate the order with another UIElement.
@@ -96,7 +102,10 @@ public interface UIElement : Object
 	 *          unimportant.
 	 *
 	 */
-	public abstract int negotiate_order(UIElement other);
+	public virtual int negotiate_order(UIElement other)
+	{
+		return -1;
+	}
 
 	/**
 	 * Activate the UIELement.

@@ -19,11 +19,18 @@ var settings = {
 	wrap: true,
 	tab_width: 4,
 	debug: false,
+	staged: false,
+	unstaged: false,
+	strings: {
+		stage: 'stage',
+		unstage: 'unstage',
+		loading_diff: 'Loading diff...'
+	}
 };
 
 if ('settings' in params)
 {
-	settings = $.merge(settings, JSON.parse(params.setttings));
+	$.extend(settings, JSON.parse(params.settings));
 }
 
 var templates = {};
@@ -116,11 +123,24 @@ function write_commit(commit)
 var html_builder_worker = 0;
 var html_builder_tick = 0;
 
-function update_diff(id)
+function update_diff(id, lsettings)
 {
 	if (html_builder_worker)
 	{
 		html_builder_worker.terminate();
+	}
+
+	var content = document.getElementById('diff_content');
+
+	if (typeof id == 'undefined')
+	{
+		$(content).empty();
+		return;
+	}
+
+	if (typeof lsettings != 'undefined')
+	{
+		$.extend(settings, lsettings);
 	}
 
 	workeruri = 'diff-view-html-builder.js';
@@ -134,15 +154,13 @@ function update_diff(id)
 	html_builder_worker = new Worker(workeruri);
 	html_builder_tick = 0;
 
-	var content = document.getElementById('diff_content');
-
 	html_builder_progress_timeout = setTimeout(function (){
 		var eta = 200 / html_builder_tick - 200;
 
 		if (eta > 1000)
 		{
 			// Show the progress
-			content.innerHTML = '<div class="loading">Loading diff...</div>.';
+			content.innerHTML = '<div class="loading">' + settings.strings.loading_diff + '</div>.';
 		}
 
 		html_builder_progress_timeout = 0;

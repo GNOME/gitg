@@ -40,17 +40,29 @@ public class Application : Gtk.Application
 	private struct Options
 	{
 		public static bool quit = false;
-		public static string view;
+		public static string activity;
 		public static bool no_wd = false;
+
 		public static ApplicationCommandLine command_line;
+
+		private static void commit_activity()
+		{
+			activity = "commit";
+		}
 
 		public static const OptionEntry[] entries = {
 			{"version", 'v', OptionFlags.NO_ARG, OptionArg.CALLBACK,
 			 (void *)show_version_and_quit, N_("Show the application's version"), null},
-			{"view", '\0', 0, OptionArg.STRING,
-			 ref view, N_("Start gitg with a particular view"), null},
+
+			{"activity", '\0', 0, OptionArg.STRING,
+			 ref activity, N_("Start gitg with a particular activity"), null},
+
+			{"commit", 'c', OptionFlags.NO_ARG, OptionArg.CALLBACK,
+			 (void *)commit_activity, N_("Start gitg with the commit activity (shorthand for --view commit)"), null},
+
 			 {"no-wd", 0, 0, OptionArg.NONE,
 			 ref no_wd, N_("Do not try to load a repository from the current working directory"), null},
+
 			{null}
 		};
 	}
@@ -59,7 +71,7 @@ public class Application : Gtk.Application
 
 	static construct
 	{
-		Options.view = "";
+		Options.activity = "";
 	}
 
 	private static void show_version_and_quit()
@@ -145,6 +157,12 @@ public class Application : Gtk.Application
 			return 0;
 		}
 
+		if (!cmd.get_is_remote())
+		{
+			Options.command_line = cmd;
+		}
+
+		var tmpcmd = Options.command_line;
 		Options.command_line = cmd;
 
 		if (argv.length > 1)
@@ -157,12 +175,14 @@ public class Application : Gtk.Application
 				files += File.new_for_commandline_arg(arg);
 			}
 
-			open(files, Options.view);
+			open(files, Options.activity);
 		}
 		else
 		{
 			activate();
 		}
+
+		Options.command_line = tmpcmd;
 
 		return 1;
 	}
@@ -322,7 +342,7 @@ public class Application : Gtk.Application
 			// Otherwise open repository from current dir
 			string? wd = Options.command_line.get_cwd();
 
-			open(new File[] { File.new_for_path(wd) }, Options.view);
+			open(new File[] { File.new_for_path(wd) }, Options.activity);
 
 			// Forcing present here covers the case where no window was opened
 			// because wd is not an actual git repository
@@ -377,6 +397,7 @@ public class Application : Gtk.Application
 			if (window != null)
 			{
 				// Present the window with this repository open
+				window.set_environment(Options.command_line.get_environ());
 				window.present();
 				continue;
 			}
@@ -397,7 +418,13 @@ public class Application : Gtk.Application
 
 	private void new_window(Repository? repo = null, string? hint = null)
 	{
-		Window.create_new(this, repo, hint);
+		var window = Window.create_new(this, repo, hint);
+
+		if (window != null)
+		{
+			window.set_environment(Options.command_line.get_environ());
+		}
+
 		present_window();
 	}
 
@@ -415,7 +442,10 @@ public class Application : Gtk.Application
 			return;
 		}
 
-		windows.first().data.present();
+		var w = (Gitg.Window)windows.first().data;
+
+		w.set_environment(Options.command_line.get_environ());
+		w.present();
 	}
 }
 

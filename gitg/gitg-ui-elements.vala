@@ -255,6 +255,16 @@ public class UIElements<T> : Object
 		}
 	}
 
+	private void on_visible_child_changed(Object obj, ParamSpec pspec)
+	{
+		string? name = d_stack.get_visible_child_name();
+
+		if (name != null)
+		{
+			set_current_impl(d_elements[name]);
+		}
+	}
+
 	public UIElements.with_builtin(T[] builtin,
 	                               Peas.ExtensionSet extensions,
 	                               Gtk.Stack? stack = null)
@@ -281,6 +291,11 @@ public class UIElements<T> : Object
 
 		d_extensions.extension_added.connect(extension_added);
 		d_extensions.extension_removed.connect(extension_removed);
+
+		if (d_stack != null)
+		{
+			d_stack.notify["visible-child"].connect(on_visible_child_changed);
+		}
 	}
 
 	public UIElements(Peas.ExtensionSet extensions,

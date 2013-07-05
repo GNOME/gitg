@@ -36,7 +36,7 @@ namespace GitgDiff
 			d_sw = new Gtk.ScrolledWindow(null, null);
 			d_sw.show();
 
-			d_diff = new Gitg.DiffView(null);
+			d_diff = new Gitg.DiffView();
 			d_diff.show();
 
 			d_sw.add(d_diff);

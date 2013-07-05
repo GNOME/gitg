@@ -29,6 +29,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Repository? d_repository;
 	private GitgExt.MessageBus d_message_bus;
 	private string? d_action;
+	private Gee.HashMap<string, string> d_environment;
 
 	private UIElements<GitgExt.Activity> d_activities;
 
@@ -41,6 +42,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.MenuButton d_gear_menu;
 	private MenuModel d_dash_model;
 	private MenuModel d_activities_model;
+
+
 
 	[GtkChild]
 	private Gtk.Button d_dash_button;
@@ -152,6 +155,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_search_button.bind_property("active", d_search_bar, "search-mode-enabled", BindingFlags.BIDIRECTIONAL);
 
 		d_activities_switcher.set_stack(d_stack_activities);
+
+		d_environment = new Gee.HashMap<string, string>();
+
+		foreach (var e in Environment.list_variables())
+		{
+			d_environment[e] = Environment.get_variable(e);
+		}
 	}
 
 	private void on_close_activated()
@@ -563,7 +573,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		var engine = PluginsEngine.get_default();
 
 		var builtins = new GitgExt.Activity[] {
-			new GitgHistory.Activity(this)
+			new GitgHistory.Activity(this),
+			new GitgCommit.Activity(this)
 		};
 
 		var extset = new Peas.ExtensionSet(engine,
@@ -592,6 +603,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		resize(width, height);
 
 		return true;
+	}
+
+	public void set_environment(string[] environment)
+	{
+		d_environment = new Gee.HashMap<string, string>();
+
+		foreach (var e in environment)
+		{
+			string[] parts = e.split("=", 2);
+
+			if (parts.length == 1)
+			{
+				d_environment[parts[0]] = "";
+			}
+			else
+			{
+				d_environment[parts[0]] = parts[1];
+			}
+		}
 	}
 
 	public static Window? create_new(Gtk.Application app,
@@ -670,16 +700,27 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		this.repository = repository;
 	}
 
-	private void show_infobar(string primary_msg, string secondary_msg, Gtk.MessageType type)
+	public void show_infobar(string          primary_msg,
+	                         string          secondary_msg,
+	                         Gtk.MessageType type)
 	{
 		d_infobar.message_type = type;
-		d_infobar_primary_label.set_label("<b>%s</b>".printf(Markup.escape_text(primary_msg)));
-		d_infobar_secondary_label.set_label("<small>%s</small>".printf(Markup.escape_text(secondary_msg)));
+
+		var primary = "<b>%s</b>".printf(Markup.escape_text(primary_msg));
+		var secondary = "<small>%s</small>".printf(Markup.escape_text(secondary_msg));
+
+		d_infobar_primary_label.set_label(primary);
+		d_infobar_secondary_label.set_label(secondary);
 		d_infobar_revealer.set_reveal_child(true);
 
 		d_infobar_close_button.clicked.connect(() => {
 			d_infobar_revealer.set_reveal_child(false);
 		});
+	}
+
+	public Gee.Map<string, string> environment
+	{
+		owned get { return d_environment; }
 	}
 }
 
