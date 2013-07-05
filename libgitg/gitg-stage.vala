@@ -369,7 +369,11 @@ public class Stage : Object
 			}
 
 			var treeoid = index.write_tree();
-			var head = d_repository.get_head();
+
+			// Note: get the symbolic ref here
+			var head = d_repository.lookup_reference("HEAD");
+
+			// Resolve the ref and get the actual target id
 			var headoid = head.resolve().get_target();
 
 			ret = d_repository.create_commit_from_oids("HEAD",
@@ -380,12 +384,40 @@ public class Stage : Object
 			                                           treeoid,
 			                                           new Ggit.OId[] { headoid });
 
-			if (head.has_reflog())
+			bool always_update = false;
+
+			try
 			{
-				// Update reflog
+				always_update = conf.get_bool("core.logAllRefUpdates");
+			} catch {}
+
+			var reflogmsg = "commit: " + get_subject(message);
+
+			// Update reflog of HEAD
+			try
+			{
+				if (always_update || head.has_reflog())
+				{
+					var reflog = head.get_reflog();
+					reflog.append(ret, committer, reflogmsg);
+					reflog.write();
+				}
+			} catch {}
+
+			if (head.get_reference_type() == Ggit.RefType.SYMBOLIC)
+			{
+				// Update reflog of whereever HEAD points to
 				try
 				{
-					head.create_reflog(ret, committer, get_subject(message));
+					var resolved = head.resolve();
+
+					if (always_update || resolved.has_reflog())
+					{
+						var reflog = resolved.get_reflog();
+
+						reflog.append(ret, committer, reflogmsg);
+						reflog.write();
+					}
 				} catch {}
 			}
 
