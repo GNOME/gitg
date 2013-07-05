@@ -29,6 +29,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Repository? d_repository;
 	private GitgExt.MessageBus d_message_bus;
 	private string? d_action;
+	private Gee.HashMap<string, string> d_environment;
 
 	private UIElements<GitgExt.Activity> d_activities;
 
@@ -41,6 +42,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.MenuButton d_gear_menu;
 	private MenuModel d_dash_model;
 	private MenuModel d_activities_model;
+
+
 
 	[GtkChild]
 	private Gtk.Button d_dash_button;
@@ -150,6 +153,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_search_button.bind_property("active", d_search_bar, "search-mode-enabled", BindingFlags.BIDIRECTIONAL);
 
 		d_activities_switcher.set_stack(d_stack_activities);
+
+		d_environment = new Gee.HashMap<string, string>();
+
+		foreach (var e in Environment.list_variables())
+		{
+			d_environment[e] = Environment.get_variable(e);
+		}
 	}
 
 	private void on_close_activated()
@@ -593,6 +603,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		return true;
 	}
 
+	public void set_environment(string[] environment)
+	{
+		d_environment = new Gee.HashMap<string, string>();
+
+		foreach (var e in environment)
+		{
+			string[] parts = e.split("=", 2);
+
+			if (parts.length == 1)
+			{
+				d_environment[parts[0]] = "";
+			}
+			else
+			{
+				d_environment[parts[0]] = parts[1];
+			}
+		}
+	}
+
 	public static Window? create_new(Gtk.Application app,
 	                                 Repository? repository,
 	                                 string? action)
@@ -685,6 +714,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		infobar_close_button.clicked.connect(() => {
 			infobar.hide();
 		});
+	}
+
+	public Gee.Map<string, string> environment
+	{
+		owned get { return d_environment; }
 	}
 }
 

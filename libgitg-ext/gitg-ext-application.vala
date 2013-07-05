@@ -58,6 +58,8 @@ public interface Application : Object
 	public abstract void show_infobar(string          primary_msg,
 	                                  string          secondary_msg,
 	                                  Gtk.MessageType type);
+
+	public abstract Gee.Map<string, string> environment { owned get; }
 }
 
 }
