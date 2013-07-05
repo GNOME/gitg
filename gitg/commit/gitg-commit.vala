@@ -364,16 +364,10 @@ namespace GitgCommit
 
 				if (staged.length == 0)
 				{
-					d_main.label_commit_summary.label = _("No files staged to be committed.");
 					d_main.button_commit.sensitive = false;
 				}
 				else
 				{
-					d_main.label_commit_summary.label =
-						ngettext(_("1 file staged to be committed."),
-						         _("%d files staged to be commited.").printf(staged.length),
-						         staged.length);
-
 					d_main.button_commit.sensitive = true;
 				}
 			});
@@ -384,7 +378,10 @@ namespace GitgCommit
 			reload();
 		}
 
-		private void do_commit(Dialog dlg)
+		private void do_commit(Dialog         dlg,
+		                       bool           skip_hooks,
+		                       Ggit.Signature author,
+		                       Ggit.Signature committer)
 		{
 			var stage = application.repository.stage;
 
@@ -395,14 +392,20 @@ namespace GitgCommit
 				opts |= Gitg.StageCommitOptions.AMEND;
 			}
 
-			
-
 			if (dlg.sign_off)
 			{
 				opts |= Gitg.StageCommitOptions.SIGN_OFF;
 			}
 
-			stage.commit.begin(dlg.message, opts, (obj, res) => {
+			if (skip_hooks)
+			{
+				opts |= Gitg.StageCommitOptions.SKIP_HOOKS;
+			}
+
+			stage.commit.begin(dlg.message,
+			                   author,
+			                   committer,
+			                   opts, (obj, res) => {
 				try
 				{
 					var o = stage.commit.end(res);
@@ -415,7 +418,27 @@ namespace GitgCommit
 			});
 		}
 
-		private void on_commit_clicked()
+		private async bool pre_commit(Ggit.Signature author)
+		{
+			try
+			{
+				yield application.repository.stage.pre_commit_hook(author);
+			}
+			catch (Gitg.StageError e)
+			{
+				application.show_infobar("Failed to pass pre-commit",
+				                         e.message,
+				                         Gtk.MessageType.ERROR);
+
+				return false;
+			}
+
+			return true;
+		}
+
+		private void run_commit_dialog(bool           skip_hooks,
+		                               Ggit.Signature author,
+		                               Ggit.Signature committer)
 		{
 			var dlg = new Dialog();
 
@@ -425,7 +448,7 @@ namespace GitgCommit
 			dlg.response.connect((d, id) => {
 				if (id == Gtk.ResponseType.OK)
 				{
-					do_commit(dlg);
+					do_commit(dlg, skip_hooks, author, committer);
 				}
 				else
 				{
@@ -434,6 +457,117 @@ namespace GitgCommit
 			});
 
 			dlg.show();
+		}
+
+		private Ggit.Signature get_signature(string envname) throws Error
+		{
+			string? user = null;
+			string? email = null;
+
+			var env = application.environment;
+
+			var nameenv = @"GIT_$(envname)_NAME";
+			var emailenv = @"GIT_$(envname)_EMAIL";
+
+			if (env.has_key(nameenv))
+			{
+				user = env[nameenv];
+			}
+
+			if (env.has_key(emailenv))
+			{
+				email = env[emailenv];
+			}
+
+			var conf = application.repository.get_config();
+
+			if (user == null)
+			{
+				try
+				{
+					user = conf.get_string("user.name");
+				} catch {}
+			}
+
+			if (email == null)
+			{
+				try
+				{
+					email = conf.get_string("user.email");
+				} catch {}
+			}
+
+			return new Ggit.Signature.now(user != null ? user : "",
+			                              email != null ? email : "");
+		}
+
+		private void on_commit_clicked()
+		{
+			string? user = null;
+			string? email = null;
+			Ggit.Signature? committer = null;
+			Ggit.Signature? author = null;
+
+			try
+			{
+				committer = get_signature("COMMITTER");
+				author = get_signature("AUTHOR");
+
+				user = committer.get_name();
+				email = committer.get_email();
+
+				if (user == "")
+				{
+					user = null;
+				}
+
+				if (email == "")
+				{
+					email = null;
+				}
+			}
+			catch {}
+
+			if (user == null || email == null)
+			{
+				string secmsg;
+
+				if (user == null && email == null)
+				{
+					secmsg = _("Your user name and email are not configured yet. Please go to the user configuration and provide your name and email.");
+				}
+				else if (user == null)
+				{
+					secmsg = _("Your user name is not configured yet. Please go to the user configuration and provide your name.");
+				}
+				else
+				{
+					secmsg = _("Your email is not configured yet. Please go to the user configuration and provide your email.");
+				}
+			
+				// TODO: better to show user info dialog directly or something
+				application.show_infobar(_("Failed to pass pre-commit"),
+				                         secmsg,
+				                         Gtk.MessageType.ERROR);
+
+				return;
+			}
+
+			if (d_main.skip_hooks)
+			{
+				run_commit_dialog(true, author, committer);
+			}
+			else
+			{
+				pre_commit.begin(author, (obj, res) => {
+					if (!pre_commit.end(res))
+					{
+						return;
+					}
+
+					run_commit_dialog(false, author, committer);
+				});
+			}
 		}
 
 		private void build_ui()

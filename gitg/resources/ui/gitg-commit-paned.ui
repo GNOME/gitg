@@ -61,10 +61,11 @@
                 <property name="visible">True</property>
                 <property name="margin">6</property>
                 <child>
-                  <object class="GtkLabel" id="label_commit_summary">
+                  <object class="GtkCheckButton" id="check_button_skip_hooks">
                     <property name="visible">True</property>
                     <property name="halign">start</property>
                     <property name="hexpand">True</property>
+                    <property name="label" translatable="yes">Skip commit hooks</property>
                   </object>
                   <packing>
                     <property name="pack-type">start</property>

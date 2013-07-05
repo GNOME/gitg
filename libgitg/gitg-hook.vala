@@ -24,7 +24,7 @@ public class Hook : Object
 {
 	public Gee.HashMap<string, string> environment { get; set; }
 	public string name { get; set; }
-	public string[] arguments { get; set; }
+	private string[] d_arguments;
 	public File? working_directory { get; set; }
 
 	private string[] d_output;
@@ -42,6 +42,11 @@ public class Hook : Object
 	public Hook(string name)
 	{
 		Object(name: name);
+	}
+
+	public void add_argument(string arg)
+	{
+		d_arguments += arg;
 	}
 
 	private string[]? flat_environment()
@@ -79,7 +84,7 @@ public class Hook : Object
 			{
 				var s = stream.read_line_async.end(res);
 
-				if (s.length != 0)
+				if (s != null)
 				{
 					d_output += s;
 
@@ -99,39 +104,100 @@ public class Hook : Object
 		stream_read_async(dstream);
 	}
 
+	private File hook_file(Ggit.Repository repository)
+	{
+		var hooksdir = repository.get_location().get_child("hooks");
+		var script = hooksdir.resolve_relative_path(name);
+
+		return script;
+	}
+
+	public bool exists_in(Ggit.Repository repository)
+	{
+		var script = hook_file(repository);
+
+		try
+		{
+			var info = script.query_info(FileAttribute.ACCESS_CAN_EXECUTE,
+			                             FileQueryInfoFlags.NONE);
+
+			return info.get_attribute_boolean(FileAttribute.ACCESS_CAN_EXECUTE);
+		}
+		catch
+		{
+			return false;
+		}
+	}
+
+	public int run_sync(Ggit.Repository repository) throws SpawnError
+	{
+		var m = new MainLoop();
+		SpawnError? e = null;
+		int status = 0;
+
+		run.begin(repository, (obj, res) => {
+			try
+			{
+				status = run.end(res);
+			}
+			catch (SpawnError err)
+			{
+				e = err;
+			}
+
+			m.quit();
+		});
+
+		m.run();
+
+		if (e != null)
+		{
+			throw e;
+		}
+
+		return status;
+	}
+
 	public async int run(Ggit.Repository repository) throws SpawnError
 	{
-		File? wd = working_directory;
 		SourceFunc callback = run.callback;
 
 		d_output = new string[256];
 		d_output.length = 0;
 
-		if (wd == null)
+		File wd;
+
+		if (working_directory == null)
+		{
+			wd = working_directory;
+		}
+		else
 		{
 			wd = repository.get_workdir();
 		}
 
-		var hooksdir = repository.get_location().get_child("hooks");
-		var script = hooksdir.resolve_relative_path(name);
-		var args = new string[arguments.length + 1];
+		var script = hook_file(repository);
+		var args = new string[d_arguments.length + 1];
 
 		args.length = 0;
 
 		args += script.get_path();
 
-		foreach (var a in arguments)
+		foreach (var a in d_arguments)
 		{
 			args += a;
 		}
 
+		var env = flat_environment();
+
 		Pid pid;
+
 		int pstdout;
 		int pstderr;
 
 		Process.spawn_async_with_pipes(wd.get_path(),
 		                               args,
-		                               flat_environment(),
+		                               env,
 		                               SpawnFlags.DO_NOT_REAP_CHILD,
 		                               null,
 		                               out pid,

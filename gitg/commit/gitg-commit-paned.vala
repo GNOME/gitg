@@ -29,8 +29,8 @@ class Paned : Gtk.Paned
 	[GtkChild (name = "diff_view")]
 	private Gitg.DiffView d_diff_view;
 
-	[GtkChild (name = "label_commit_summary")]
-	private Gtk.Label d_label_commit_summary;
+	[GtkChild (name = "check_button_skip_hooks")]
+	private Gtk.CheckButton d_check_button_skip_hooks;
 
 	[GtkChild (name = "button_commit")]
 	private Gtk.Button d_button_commit;
@@ -45,9 +45,9 @@ class Paned : Gtk.Paned
 		get { return d_diff_view; }
 	}
 
-	public Gtk.Label label_commit_summary
+	public bool skip_hooks
 	{
-		get { return d_label_commit_summary; }
+		get { return d_check_button_skip_hooks.active; }
 	}
 
 	public Gtk.Button button_commit

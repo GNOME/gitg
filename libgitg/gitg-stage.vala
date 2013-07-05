@@ -23,9 +23,17 @@ namespace Gitg
 [Flags]
 public enum StageCommitOptions
 {
-	NONE     = 0,
-	SIGN_OFF = 1 << 0,
-	AMEND    = 1 << 1
+	NONE       = 0,
+	SIGN_OFF   = 1 << 0,
+	AMEND      = 1 << 1,
+	SKIP_HOOKS = 1 << 2
+}
+
+public errordomain StageError
+{
+	PRE_COMMIT_HOOK_FAILED,
+	COMMIT_MSG_HOOK_FAILED,
+	NOTHING_TO_COMMIT
 }
 
 public class Stage : Object
@@ -130,27 +138,19 @@ public class Stage : Object
 		});
 	}
 
-	private string message_with_sign_off(Ggit.Config conf, string message) throws Error
+	private string message_with_sign_off(string         message,
+	                                     Ggit.Signature committer)
 	{
-		string? user;
-		string? email;
-
-		user = conf.get_string("user.name");
-		email = conf.get_string("user.email");
-
-		if (user != null && email != null)
-		{
-			return "%s\nSigned-off-by: %s <%s>\n".printf(message, user, email);
-		}
-		else
-		{
-			return message;
-		}
+		return "%s\nSigned-off-by: %s <%s>\n".printf(message,
+		                                             committer.get_name(),
+		                                             committer.get_email());
 	}
 
-	private string convert_message_to_encoding(Ggit.Config conf, string message)
+	private string convert_message_to_encoding(Ggit.Config conf,
+	                                           string      message,
+	                                           out string? encoding)
 	{
-		string? encoding;
+		encoding = null;
 
 		try
 		{
@@ -158,6 +158,7 @@ public class Stage : Object
 		}
 		catch
 		{
+			encoding = null;
 			return message;
 		}
 
@@ -169,43 +170,237 @@ public class Stage : Object
 			{
 				return convert(message, -1, encoding, "UTF-8");
 			}
-			catch {}
+			catch
+			{
+				encoding = null;
+			}
+		}
+		else
+		{
+			encoding = null;
 		}
 
 		return message;
 	}
 
-	public async Ggit.OId commit(string             message,
-	                             StageCommitOptions options) throws Error
+	private void setup_commit_hook_environment(Gitg.Hook       hook,
+	                                           Ggit.Signature? author)
 	{
+		var wd = d_repository.get_workdir();
+		var gd = d_repository.get_location();
+
+		hook.working_directory = wd;
+
+		var gitdir = wd.get_relative_path(gd);
+
+		hook.environment["GIT_DIR"] = gitdir;
+		hook.environment["GIT_INDEX_FILE"] = Path.build_filename(gitdir, "index");
+		hook.environment["GIT_PREFIX"] = ".";
+
+		if (author != null)
+		{
+			hook.environment["GIT_AUTHOR_NAME"] = author.get_name();
+			hook.environment["GIT_AUTHOR_EMAIL"] = author.get_email();
+			hook.environment["GIT_AUTHOR_DATE"] = author.get_email();
+		}
+	}
+
+	public async void pre_commit_hook(Ggit.Signature author) throws StageError
+	{
+		SourceFunc cb = pre_commit_hook.callback;
+		string? errormsg = null;
+
+		yield Async.thread(() => {
+			// First run the pre-commit hook
+			var hook = new Gitg.Hook("pre-commit");
+
+			setup_commit_hook_environment(hook, author);
+
+			hook.run.begin(d_repository, (obj, res) => {
+				try
+				{
+					int status = hook.run.end(res);
+
+					if (status != 0)
+					{
+						errormsg = string.joinv("\n", hook.output);
+					}
+				}
+				catch (SpawnError e) {}
+
+				cb();
+			});
+		});
+
+		yield;
+
+		if (errormsg != null)
+		{
+			throw new StageError.PRE_COMMIT_HOOK_FAILED(errormsg);
+		}
+	}
+
+	private bool has_index_changes()
+	{
+		var opts = Ggit.StatusOption.EXCLUDE_SUBMODULES;
+		var show = Ggit.StatusShow.INDEX_ONLY;
+
+		var options = new Ggit.StatusOptions(opts, show, null);
+		bool has_changes = false;
+
+		try
+		{
+			d_repository.file_status_foreach(options, (path, flags) => {
+				has_changes = true;
+				return -1;
+			});
+		} catch {}
+
+		return has_changes;
+	}
+
+	private string commit_msg_hook(string         message,
+	                               Ggit.Signature author,
+	                               Ggit.Signature committer) throws StageError
+	{
+		var hook = new Gitg.Hook("commit-msg");
+
+		if (!hook.exists_in(d_repository))
+		{
+			return message;
+		}
+
+		setup_commit_hook_environment(hook, author);
+
+		var msgfile = d_repository.get_location().get_child("COMMIT_EDITMSG");
+
+		try
+		{
+			FileUtils.set_contents(msgfile.get_path(), message);
+		}
+		catch { return message; }
+
+		hook.add_argument(msgfile.get_path());
+
+		int status;
+
+		try
+		{
+			status = hook.run_sync(d_repository);
+		}
+		catch { return message; }
+
+		if (status != 0)
+		{
+			throw new StageError.COMMIT_MSG_HOOK_FAILED(string.joinv("\n", hook.output));
+		}
+
+		// Read back the message
+		try
+		{
+			string newmessage;
+
+			FileUtils.get_contents(msgfile.get_path(), out newmessage);
+			return newmessage;
+		}
+		catch (Error e)
+		{
+			throw new StageError.COMMIT_MSG_HOOK_FAILED(_("Could not read commit message after running commit-msg hook: %s").printf(e.message));
+		}
+		finally
+		{
+			FileUtils.remove(msgfile.get_path());
+		}
+	}
+
+	private void post_commit_hook(Ggit.Signature author)
+	{
+		var hook = new Gitg.Hook("post-commit");
+
+		setup_commit_hook_environment(hook, author);
+
+		hook.run.begin(d_repository, (obj, res) => {
+			try
+			{
+				hook.run.end(res);
+			} catch {}
+		});
+	}
+
+	private string get_subject(string message)
+	{
+		var nlpos = message.index_of("\n");
+
+		if (nlpos == -1)
+		{
+			return message;
+		}
+		else
+		{
+			return message[0:nlpos];
+		}
+	}
+
+	public async Ggit.OId? commit(string             message,
+	                              Ggit.Signature     author,
+	                              Ggit.Signature     committer,
+	                              StageCommitOptions options) throws Error
+	{
+		Ggit.OId? ret = null;
+
+		bool skip_hooks = (options & StageCommitOptions.SKIP_HOOKS) != 0;
+
 		yield thread_index((index) => {
-			// TODO: run pre-commit hook
+			if (!has_index_changes())
+			{
+				throw new StageError.NOTHING_TO_COMMIT("Nothing to commit");
+			}
 
 			// Write tree from index
-			var tree = index.write_tree();
-
-			// TODO: write COMMIT_EDITMSG and run commit-msg hook
-
 			var conf = d_repository.get_config();
-			conf.refresh();
 
 			string emsg = message;
 
 			if ((options & StageCommitOptions.SIGN_OFF) != 0)
 			{
-				emsg = message_with_sign_off(conf, emsg);
+				emsg = message_with_sign_off(emsg, committer);
 			}
 
-			emsg = convert_message_to_encoding(conf, emsg);
+			string? encoding;
 
-			// TODO: commit
+			emsg = convert_message_to_encoding(conf, emsg, out encoding);
 
-			// TODO: update ref with subject of message
+			if (!skip_hooks)
+			{
+				emsg = commit_msg_hook(emsg, author, committer);
+			}
 
-			// TODO: run post-commit hook
+			var treeoid = index.write_tree();
+			var head = d_repository.get_head();
+			var headoid = head.resolve().get_target();
+
+			ret = d_repository.create_commit_from_oids("HEAD",
+			                                           author,
+			                                           committer,
+			                                           encoding,
+			                                           emsg,
+			                                           treeoid,
+			                                           new Ggit.OId[] { headoid });
+
+			if (head.has_reflog())
+			{
+				// Update reflog
+				try
+				{
+					head.create_reflog(ret, committer, get_subject(message));
+				} catch {}
+			}
+
+			// run post commit
+			post_commit_hook(author);
 		});
 
-		return null;
+		return ret;
 	}
 
 	/**
@@ -337,12 +532,9 @@ public class Stage : Object
 	 */
 	public async void unstage(File file) throws Error
 	{
-		yield thread_index((index) => {
-			// lookup the tree of HEAD
-			var head = d_repository.get_head();
-			var commit = (Ggit.Commit)head.lookup();
-			var tree = commit.get_tree();
+		var tree = yield get_head_tree();
 
+		yield thread_index((index) => {
 			// get path relative to the repository working directory
 			var wd = d_repository.get_workdir();
 			var path = wd.get_relative_path(file);
