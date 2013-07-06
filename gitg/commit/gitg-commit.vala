@@ -472,6 +472,25 @@ namespace GitgCommit
 			return true;
 		}
 
+		private async string? get_head_message()
+		{
+			string? retval = null;
+
+			yield Gitg.Async.thread(() => {
+				var repo = application.repository;
+
+				try
+				{
+					var head = repo.get_head();
+					var commit = repo.lookup<Ggit.Commit>(head.get_target());
+
+					retval = commit.get_message();
+				} catch {}
+			});
+
+			return retval;
+		}
+
 		private void run_commit_dialog(bool           skip_hooks,
 		                               Ggit.Signature author,
 		                               Ggit.Signature committer)
@@ -489,6 +508,20 @@ namespace GitgCommit
 				else
 				{
 					d.destroy();
+				}
+			});
+
+			dlg.notify["amend"].connect((obj, pspec) => {
+				if (dlg.message.strip() == "")
+				{
+					get_head_message.begin((obj, res) => {
+						string? message = get_head_message.end(res);
+
+						if (message != null && dlg.message.strip() == "")
+						{
+							dlg.message = message;
+						}
+					});
 				}
 			});
 
