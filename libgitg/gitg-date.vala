@@ -302,6 +302,51 @@ public class Date : Object, Initable
 		((Initable)this).init(null);
 	}
 
+	public string for_display()
+	{
+		var dt = d_datetime;
+		TimeSpan t = (new DateTime.now_local()).difference(dt);
+
+		if (t < TimeSpan.MINUTE * 29.5)
+		{
+			int rounded_minutes = (int) Math.round((float) t / TimeSpan.MINUTE);
+
+			if (rounded_minutes == 0)
+			{
+				return _("Now");
+			}
+			else
+			{
+				return ngettext(_("A minute ago"), _("%d minutes ago"), rounded_minutes).printf(rounded_minutes);
+			}
+		}
+		else if (t < TimeSpan.MINUTE * 45)
+		{
+			return _("Half an hour ago");
+		}
+		else if (t < TimeSpan.HOUR * 23.5)
+		{
+			int rounded_hours = (int) Math.round((float) t / TimeSpan.HOUR);
+			return ngettext(_("An hour ago"), _("%d hours ago"), rounded_hours).printf(rounded_hours);
+		}
+		else if (t < TimeSpan.DAY * 7)
+		{
+			int rounded_days = (int) Math.round((float) t / TimeSpan.DAY);
+			return ngettext(_("A day ago"), _("%d days ago"), rounded_days).printf(rounded_days);
+		}
+		// FIXME: Localize these date formats, Bug 699196
+		else if (dt.get_year() == new DateTime.now_local().get_year())
+		{
+			return dt.format("%h %e, %I:%M %P");
+		}
+		return dt.format("%h %e %Y, %I:%M %P");
+	}
+
+	public Date.for_date_time(DateTime dt)
+	{
+		d_datetime = dt;
+	}
+
 	public static DateTime parse(string date) throws Error
 	{
 		return (new Date(date)).date;
