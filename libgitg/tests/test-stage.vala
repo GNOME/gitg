@@ -169,33 +169,6 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 	}
 
 	/**
-	 * test reverting a complete file from the index.
-	 */
-	protected virtual signal void test_revert_index()
-	{
-		var stage = d_repository.stage;
-
-		var loop = new MainLoop();
-
-		stage.revert_index_path.begin("b", (obj, res) => {
-			try
-			{
-				stage.revert_index.end(res);
-			} catch (Error e) { assert_no_error(e); }
-
-			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
-
-			m["a"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED;
-			m["b"] = Ggit.StatusFlags.WORKING_TREE_MODIFIED;
-			m["c"] = Ggit.StatusFlags.WORKING_TREE_DELETED;
-
-			check_file_status(loop, m);
-		});
-
-		loop.run();
-	}
-
-	/**
 	 * test deleting a file in the index.
 	 */
 	protected virtual signal void test_delete()
