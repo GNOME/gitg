@@ -42,6 +42,7 @@ VALASOURCES =							\
 	gitg-application.vala					\
 	gitg-plugins-engine.vala				\
 	gitg-ui-elements.vala					\
+	preferences/gitg-preferences-commit.vala		\
 	preferences/gitg-preferences-dialog.vala		\
 	preferences/gitg-preferences-interface.vala		\
 	preferences/gitg-preferences-history.vala		\
