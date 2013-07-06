@@ -41,10 +41,15 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
+		settings.bind("show-right-margin",
+		              d_spin_button_right_margin,
+		              "sensitive",
+		              SettingsBindFlags.GET);
+
 		settings.bind("right-margin-at",
 		              d_spin_button_right_margin,
 		              "value",
-		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+		              SettingsBindFlags.GET | SettingsBindFlags.SET | SettingsBindFlags.NO_SENSITIVITY);
 	}
 
 	public Gtk.Widget widget
