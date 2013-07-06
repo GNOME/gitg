@@ -91,3 +91,5 @@ generate-changelog:
 -include $(top_srcdir)/git.mk
 
 .NOTPARALLEL:
+
+# vi:ts=8:noet

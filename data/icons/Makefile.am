@@ -65,3 +65,5 @@ EXTRA_DIST = 				\
 	$(private_icons)
 
 -include $(top_srcdir)/git.mk
+
+# vi:ts=8:noet

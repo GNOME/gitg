@@ -32,3 +32,5 @@ DISTCLEANFILES =			\
 	$(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk
+
+# vi:ts=8:noet

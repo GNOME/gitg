@@ -51,3 +51,5 @@ install-data-hook:
 	rm -f $(GITG_PLUGIN_LIBDIR)/libfiles.la
 
 -include $(top_srcdir)/git.mk
+
+# vi:ts=8:noet

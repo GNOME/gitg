@@ -94,4 +94,4 @@ CLEANFILES = 				\
 
 -include $(top_srcdir)/git.mk
 
-# vi:ts=8
+# vi:ts=8:noet

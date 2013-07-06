@@ -28,7 +28,9 @@ BUILT_SOURCES = 				\
 CLEANFILES =					\
 	$(diff_view_SOURCES:.vala=.c)		\
 	$(dash_view_SOURCES:.vala=.c)		\
-	$(progress_bin_SOURCES:.vala=.c)		\
+	$(progress_bin_SOURCES:.vala=.c)	\
 	$(BUILT_SOURCES)
 
 -include $(top_srcdir)/git.mk
+
+# vi:ts=8:noet
