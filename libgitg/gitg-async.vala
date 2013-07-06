@@ -20,7 +20,7 @@
 namespace Gitg
 {
 
-internal class Async
+public class Async
 {
 	public delegate void ThreadFunc();
 
