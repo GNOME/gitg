@@ -215,10 +215,10 @@ namespace GitgCommit
 		{
 			var stage = application.repository.stage;
 
-			stage.revert_index_path.begin(f.path, (obj, res) => {
+			stage.unstage_path.begin(f.path, (obj, res) => {
 				try
 				{
-					stage.revert_index_path.end(res);
+					stage.unstage_path.end(res);
 				}
 				catch (Error e)
 				{
