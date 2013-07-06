@@ -153,6 +153,21 @@ class Dialog : Gtk.Dialog
 				d_image_avatar.set_from_pixbuf(pixbuf);
 			}
 		});
+
+		var message_settings = new Settings("org.gnome.gitg.preferences.commit.message");
+
+		message_settings.bind("show-right-margin",
+		                      d_source_view_message,
+		                      "show-right-margin",
+		                      SettingsBindFlags.GET |
+		                      SettingsBindFlags.SET);
+
+		message_settings.bind("right-margin-at",
+		                      d_source_view_message,
+		                      "right-margin-position",
+		                      SettingsBindFlags.GET |
+		                      SettingsBindFlags.SET);
+
 	}
 
 	public Dialog(Ggit.Signature author)
