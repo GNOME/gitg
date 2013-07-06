@@ -435,7 +435,7 @@ namespace GitgCommit
 				opts |= Gitg.StageCommitOptions.SKIP_HOOKS;
 			}
 
-			stage.commit.begin(dlg.message,
+			stage.commit.begin(dlg.pretty_message,
 			                   author,
 			                   committer,
 			                   opts, (obj, res) => {

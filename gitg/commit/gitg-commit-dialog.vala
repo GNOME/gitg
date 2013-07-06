@@ -42,6 +42,23 @@ class Dialog : Gtk.Dialog
 		get { return d_source_view_message; }
 	}
 
+	public string pretty_message
+	{
+		owned get
+		{
+			var pretty = Ggit.message_prettify(message, false);
+
+			if (pretty == null)
+			{
+				return "";
+			}
+			else
+			{
+				return pretty;
+			}
+		}
+	}
+
 	public string message
 	{
 		owned get
@@ -52,7 +69,7 @@ class Dialog : Gtk.Dialog
 			Gtk.TextIter end;
 
 			b.get_bounds(out start, out end);
-			return Ggit.message_prettify(b.get_text(start, end, false), false);
+			return b.get_text(start, end, false);
 		}
 	}
 
@@ -75,7 +92,7 @@ class Dialog : Gtk.Dialog
 		var b = d_source_view_message.buffer;
 
 		d_source_view_message.buffer.changed.connect(() => {
-			d_button_ok.sensitive = message != "";
+			d_button_ok.sensitive = pretty_message != "";
 		});
 
 		d_check_button_amend.bind_property("active",
