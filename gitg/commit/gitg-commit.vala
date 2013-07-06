@@ -495,7 +495,7 @@ namespace GitgCommit
 		                               Ggit.Signature author,
 		                               Ggit.Signature committer)
 		{
-			var dlg = new Dialog();
+			var dlg = new Dialog(author);
 
 			dlg.set_transient_for((Gtk.Window)d_main.get_toplevel());
 			dlg.set_default_response(Gtk.ResponseType.OK);

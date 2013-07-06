@@ -35,6 +35,15 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "check_button_sign_off")]
 	private Gtk.CheckButton d_check_button_sign_off;
 
+	[GtkChild (name = "image_avatar")]
+	private Gtk.Image d_image_avatar;
+
+	[GtkChild (name = "label_user")]
+	private Gtk.Label d_label_user;
+
+	[GtkChild (name = "label_date")]
+	private Gtk.Label d_label_date;
+
 	private Settings d_fontsettings;
 
 	public GtkSource.View source_view_message
@@ -83,6 +92,16 @@ class Dialog : Gtk.Dialog
 	[Notify]
 	public bool sign_off { get; set; }
 
+	[Notify]
+	public Ggit.Signature author { owned get; construct set; }
+
+	private Cancellable d_cancel_avatar;
+
+	~Dialog()
+	{
+		d_cancel_avatar.cancel();
+	}
+
 	construct
 	{
 		d_fontsettings = new Settings("org.gnome.desktop.interface");
@@ -116,6 +135,29 @@ class Dialog : Gtk.Dialog
 		                     "sign-off",
 		                     SettingsBindFlags.GET |
 		                     SettingsBindFlags.SET);
+
+		var name = author.get_name();
+		var email = author.get_email();
+
+		d_label_user.set_label(@"$name <$email>");
+		d_label_date.set_label((new Gitg.Date.for_date_time(author.get_time())).for_display());
+
+		var ac = Gitg.AvatarCache.default();
+		d_cancel_avatar = new Cancellable();
+
+		ac.load.begin(author.get_email(), d_cancel_avatar, (obj, res) => {
+			var pixbuf = ac.load.end(res);
+
+			if (pixbuf != null && !d_cancel_avatar.is_cancelled())
+			{
+				d_image_avatar.set_from_pixbuf(pixbuf);
+			}
+		});
+	}
+
+	public Dialog(Ggit.Signature author)
+	{
+		Object(author: author);
 	}
 
 	private void update_font_settings()
