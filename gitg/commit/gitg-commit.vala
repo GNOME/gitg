@@ -43,10 +43,7 @@ namespace GitgCommit
 		{
 			set
 			{
-				if (value != null)
-				{
-					reload();
-				}
+				reload();
 			}
 		}
 
@@ -296,7 +293,9 @@ namespace GitgCommit
 
 		public void reload()
 		{
-			if (d_reloading)
+			var repository = application.repository;
+
+			if (repository == null || d_reloading)
 			{
 				return;
 			}
@@ -305,7 +304,7 @@ namespace GitgCommit
 
 			var model = d_main.sidebar.model;
 
-			var stage = application.repository.stage;
+			var stage = repository.stage;
 
 			var opts = Ggit.StatusOption.INCLUDE_UNTRACKED |
 			           Ggit.StatusOption.RECURSE_UNTRACKED_DIRS |
