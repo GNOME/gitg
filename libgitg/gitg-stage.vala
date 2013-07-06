@@ -361,13 +361,15 @@ public class Stage : Object
 
 			Ggit.OId[] parents;
 
+			var amend = (options & StageCommitOptions.AMEND) != 0;
+
 			if (headoid == null)
 			{
 				parents = new Ggit.OId[] {};
 			}
 			else
 			{
-				if ((options & StageCommitOptions.AMEND) != 0)
+				if (amend)
 				{
 					var commit = d_repository.lookup<Ggit.Commit>(headoid);
 					var p = commit.get_parents();
@@ -400,7 +402,14 @@ public class Stage : Object
 				always_update = conf.get_bool("core.logAllRefUpdates");
 			} catch {}
 
-			var reflogmsg = "commit: " + get_subject(message);
+			string reflogmsg = "commit";
+
+			if (amend)
+			{
+				reflogmsg += " (amend)";
+			}
+
+			reflogmsg += ": " + get_subject(message);
 
 			// Update reflog of HEAD
 			try
