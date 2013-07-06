@@ -93,7 +93,7 @@ public class Commit : Ggit.Commit
 		}
 	}
 
-	private string date_for_display(DateTime dt, TimeZone time_zone)
+	private string date_for_display(DateTime dt)
 	{
 		TimeSpan t = (new DateTime.now_local()).difference(dt);
 
@@ -119,16 +119,16 @@ public class Commit : Ggit.Commit
 		// FIXME: Localize these date formats, Bug 699196
 		else if (dt.get_year() == new DateTime.now_local().get_year())
 		{
-			return dt.to_timezone(time_zone).format("%h %e, %I:%M %P");
+			return dt.format("%h %e, %I:%M %P");
 		}
-		return dt.to_timezone(time_zone).format("%h %e %Y, %I:%M %P");
+		return dt.format("%h %e %Y, %I:%M %P");
 	}
 
 	public string committer_date_for_display
 	{
 		owned get
 		{
-			return date_for_display(get_committer().get_time(), get_committer().get_time_zone());
+			return date_for_display(get_committer().get_time());
 		}
 	}
 
@@ -136,7 +136,7 @@ public class Commit : Ggit.Commit
 	{
 		owned get
 		{
-			return date_for_display(get_author().get_time(), get_author().get_time_zone());
+			return date_for_display(get_author().get_time());
 		}
 	}
 
