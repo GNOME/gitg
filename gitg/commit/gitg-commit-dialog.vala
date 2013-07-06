@@ -93,13 +93,53 @@ class Dialog : Gtk.Dialog
 	public bool sign_off { get; set; }
 
 	[Notify]
-	public Ggit.Signature author { owned get; construct set; }
+	public Ggit.Signature author
+	{
+		owned get { return d_author; }
 
-	private Cancellable d_cancel_avatar;
+		construct set
+		{
+			d_author = value;
+			load_author_info();
+		}
+	}
+
+	private void load_author_info()
+	{
+		if (d_cancel_avatar != null)
+		{
+			d_cancel_avatar.cancel();
+			d_cancel_avatar = new Cancellable();
+		}
+
+		var name = d_author.get_name();
+		var email = d_author.get_email();
+
+		d_label_user.set_label(@"$name <$email>");
+		d_label_date.set_label((new Gitg.Date.for_date_time(d_author.get_time())).for_display());
+
+		var ac = Gitg.AvatarCache.default();
+		d_cancel_avatar = new Cancellable();
+
+		ac.load.begin(d_author.get_email(), d_cancel_avatar, (obj, res) => {
+			var pixbuf = ac.load.end(res);
+
+			if (pixbuf != null && !d_cancel_avatar.is_cancelled())
+			{
+				d_image_avatar.set_from_pixbuf(pixbuf);
+			}
+		});
+	}
+
+	private Ggit.Signature d_author;
+	private Cancellable? d_cancel_avatar;
 
 	~Dialog()
 	{
-		d_cancel_avatar.cancel();
+		if (d_cancel_avatar != null)
+		{
+			d_cancel_avatar.cancel();
+		}
 	}
 
 	construct
@@ -136,24 +176,6 @@ class Dialog : Gtk.Dialog
 		                     SettingsBindFlags.GET |
 		                     SettingsBindFlags.SET);
 
-		var name = author.get_name();
-		var email = author.get_email();
-
-		d_label_user.set_label(@"$name <$email>");
-		d_label_date.set_label((new Gitg.Date.for_date_time(author.get_time())).for_display());
-
-		var ac = Gitg.AvatarCache.default();
-		d_cancel_avatar = new Cancellable();
-
-		ac.load.begin(author.get_email(), d_cancel_avatar, (obj, res) => {
-			var pixbuf = ac.load.end(res);
-
-			if (pixbuf != null && !d_cancel_avatar.is_cancelled())
-			{
-				d_image_avatar.set_from_pixbuf(pixbuf);
-			}
-		});
-
 		var message_settings = new Settings("org.gnome.gitg.preferences.commit.message");
 
 		message_settings.bind("show-right-margin",
@@ -167,7 +189,6 @@ class Dialog : Gtk.Dialog
 		                      "right-margin-position",
 		                      SettingsBindFlags.GET |
 		                      SettingsBindFlags.SET);
-
 	}
 
 	public Dialog(Ggit.Signature author)

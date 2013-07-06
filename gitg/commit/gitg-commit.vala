@@ -483,9 +483,9 @@ namespace GitgCommit
 			return true;
 		}
 
-		private async string? get_head_message()
+		private async Gitg.Commit? get_head_commit()
 		{
-			string? retval = null;
+			Gitg.Commit? retval = null;
 
 			yield Gitg.Async.thread(() => {
 				var repo = application.repository;
@@ -493,9 +493,7 @@ namespace GitgCommit
 				try
 				{
 					var head = repo.get_head();
-					var commit = repo.lookup<Ggit.Commit>(head.get_target());
-
-					retval = commit.get_message();
+					retval = repo.lookup<Gitg.Commit>(head.get_target());
 				} catch {}
 			});
 
@@ -514,7 +512,7 @@ namespace GitgCommit
 			dlg.response.connect((d, id) => {
 				if (id == Gtk.ResponseType.OK)
 				{
-					do_commit(dlg, skip_hooks, author, committer);
+					do_commit(dlg, skip_hooks, dlg.author, committer);
 				}
 				else
 				{
@@ -523,14 +521,23 @@ namespace GitgCommit
 			});
 
 			dlg.notify["amend"].connect((obj, pspec) => {
-				if (dlg.message.strip() == "")
+				if (!dlg.amend)
 				{
-					get_head_message.begin((obj, res) => {
-						string? message = get_head_message.end(res);
+					dlg.author = author;
+				}
+				else
+				{
+					get_head_commit.begin((obj, res) => {
+						var commit = get_head_commit.end(res);
 
-						if (message != null && dlg.message.strip() == "")
+						if (commit != null)
 						{
-							dlg.message = message;
+							if (dlg.message.strip() == "")
+							{
+								dlg.message = commit.get_message();
+							}
+
+							dlg.author = commit.get_author();
 						}
 					});
 				}
