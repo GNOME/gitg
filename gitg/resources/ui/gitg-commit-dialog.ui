@@ -93,7 +93,8 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkCheckButton" id="check_button_amend">
-                    <property name="label" translatable="yes">Amend previous commit</property>
+                    <property name="label" translatable="yes">_Amend previous commit</property>
+                    <property name="use_underline">True</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -108,7 +109,8 @@
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="check_button_sign_off">
-                    <property name="label" translatable="yes">Add signed-off-by signature</property>
+                    <property name="label" translatable="yes">Add _signed-off-by signature</property>
+                    <property name="use_underline">True</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
