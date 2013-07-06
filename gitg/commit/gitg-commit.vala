@@ -532,11 +532,13 @@ namespace GitgCommit
 		{
 			string? user = null;
 			string? email = null;
+			DateTime? date = null;
 
 			var env = application.environment;
 
 			var nameenv = @"GIT_$(envname)_NAME";
 			var emailenv = @"GIT_$(envname)_EMAIL";
+			var dateenv = @"GIT_$(envname)_DATE";
 
 			if (env.has_key(nameenv))
 			{
@@ -546,6 +548,20 @@ namespace GitgCommit
 			if (env.has_key(emailenv))
 			{
 				email = env[emailenv];
+			}
+
+			if (env.has_key(dateenv))
+			{
+				try
+				{
+					date = Gitg.Date.parse(env[dateenv]);
+				}
+				catch {}
+			}
+
+			if (date == null)
+			{
+				date = new DateTime.now_local();
 			}
 
 			var conf = application.repository.get_config();
@@ -566,8 +582,9 @@ namespace GitgCommit
 				} catch {}
 			}
 
-			return new Ggit.Signature.now(user != null ? user : "",
-			                              email != null ? email : "");
+			return new Ggit.Signature(user != null ? user : "",
+			                          email != null ? email : "",
+			                          date);
 		}
 
 		private void on_commit_clicked()
