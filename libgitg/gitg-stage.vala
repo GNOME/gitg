@@ -173,7 +173,13 @@ public class Stage : Object
 		{
 			hook.environment["GIT_AUTHOR_NAME"] = author.get_name();
 			hook.environment["GIT_AUTHOR_EMAIL"] = author.get_email();
-			hook.environment["GIT_AUTHOR_DATE"] = author.get_email();
+
+			var date = author.get_time();
+
+			var un = date.to_unix();
+			var tz = date.to_timezone(author.get_time_zone()).format("%z");
+
+			hook.environment["GIT_AUTHOR_DATE"] = @"@$(un) $(tz)";
 		}
 	}
 
