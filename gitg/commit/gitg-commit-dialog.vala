@@ -56,15 +56,11 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
-	public bool amend
-	{
-		get { return d_check_button_amend.active; }
-	}
+	[Notify]
+	public bool amend { get; set; }
 
-	public bool sign_off
-	{
-		get { return d_check_button_sign_off.active; }
-	}
+	[Notify]
+	public bool sign_off { get; set; }
 
 	construct
 	{
@@ -81,6 +77,24 @@ class Dialog : Gtk.Dialog
 		d_source_view_message.buffer.changed.connect(() => {
 			d_button_ok.sensitive = message != "";
 		});
+
+		d_check_button_amend.bind_property("active",
+		                                   this, "amend",
+		                                   BindingFlags.BIDIRECTIONAL |
+		                                   BindingFlags.SYNC_CREATE);
+
+		d_check_button_sign_off.bind_property("active",
+		                                      this, "sign-off",
+		                                      BindingFlags.BIDIRECTIONAL |
+		                                      BindingFlags.SYNC_CREATE);
+
+		var commit_settings = new Settings("org.gnome.gitg.state.commit");
+
+		commit_settings.bind("sign-off",
+		                     this,
+		                     "sign-off",
+		                     SettingsBindFlags.GET |
+		                     SettingsBindFlags.SET);
 	}
 
 	private void update_font_settings()
