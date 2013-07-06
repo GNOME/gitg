@@ -104,6 +104,9 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
+	[Notify]
+	public int subject_right_margin_position { get; set; }
+
 	private void load_author_info()
 	{
 		if (d_cancel_avatar != null)
@@ -189,6 +192,123 @@ class Dialog : Gtk.Dialog
 		                      "right-margin-position",
 		                      SettingsBindFlags.GET |
 		                      SettingsBindFlags.SET);
+
+		message_settings.bind("subject-right-margin-at",
+		                      this,
+		                      "subject-right-margin-position",
+		                      SettingsBindFlags.GET |
+		                      SettingsBindFlags.SET);
+
+		init_message_area();
+	}
+
+	private Gtk.TextTag d_subject_tag;
+	private Gtk.TextTag d_too_long_tag;
+
+	private void init_message_area()
+	{
+		var b = d_source_view_message.buffer;
+
+		var ctx = d_source_view_message.get_style_context();
+		ctx.save();
+		ctx.add_class("warning");
+		var fg = ctx.get_color(Gtk.StateFlags.NORMAL);
+		var bg = ctx.get_background_color(Gtk.StateFlags.NORMAL);
+		ctx.restore();
+
+		d_subject_tag = b.create_tag("subject",
+		                             "weight", Pango.Weight.BOLD);
+
+		d_too_long_tag = b.create_tag("too-long",
+		                              "background-rgba", bg,
+		                              "foreground-rgba", fg);
+
+		b.changed.connect(() => {
+			do_highlight();
+		});
+
+		d_source_view_message.notify["show-right-margin"].connect(() => {
+			do_highlight();
+		});
+	}
+
+	private void do_highlight()
+	{
+		var b = d_source_view_message.buffer;
+
+		Gtk.TextIter start;
+		Gtk.TextIter end;
+
+		b.get_bounds(out start, out end);
+		b.remove_tag(d_subject_tag, start, end);
+		b.remove_tag(d_too_long_tag, start, end);
+
+		if (!d_source_view_message.show_right_margin)
+		{
+			return;
+		}
+
+		Gtk.TextIter sstart;
+		Gtk.TextIter send;
+
+		if (!start.forward_search("\n\n",
+		                          Gtk.TextSearchFlags.TEXT_ONLY,
+		                          out sstart,
+		                          out send,
+		                          null))
+		{
+			sstart = end;
+			send = end;
+		}
+
+		b.apply_tag(d_subject_tag, start, sstart);
+
+		var toolong = sstart;
+		var smargin = subject_right_margin_position;
+
+		while (true)
+		{
+			var off = toolong.get_line_offset();
+
+			if (off > smargin)
+			{
+				var border = toolong;
+				border.set_line_offset(smargin);
+
+				b.apply_tag(d_too_long_tag, border, toolong);
+			}
+
+			if (toolong.get_line() == 0)
+			{
+				break;
+			}
+
+			toolong.backward_line();
+			toolong.forward_to_line_end();
+		}
+
+		var rmargin = (int)d_source_view_message.right_margin_position;
+
+		while (!send.equal(end))
+		{
+			if (!send.ends_line())
+			{
+				send.forward_to_line_end();
+			}
+
+			if (send.get_line_offset() > rmargin)
+			{
+				var lstart = send;
+				lstart.set_line_offset(rmargin);
+
+				b.apply_tag(d_too_long_tag, lstart, send);
+			}
+
+			if (!send.forward_line())
+			{
+				break;
+			}
+		}
 	}
 
 	public Dialog(Ggit.Signature author)
