@@ -351,8 +351,39 @@ public class Stage : Object
 			// Note: get the symbolic ref here
 			var head = d_repository.lookup_reference("HEAD");
 
-			// Resolve the ref and get the actual target id
-			var headoid = head.resolve().get_target();
+			Ggit.OId? headoid = null;
+
+			try
+			{
+				// Resolve the ref and get the actual target id
+				headoid = head.resolve().get_target();
+			} catch {}
+
+			Ggit.OId[] parents;
+
+			if (headoid == null)
+			{
+				parents = new Ggit.OId[] {};
+			}
+			else
+			{
+				if ((options & StageCommitOptions.AMEND) != 0)
+				{
+					var commit = d_repository.lookup<Ggit.Commit>(headoid);
+					var p = commit.get_parents();
+
+					parents = new Ggit.OId[p.size()];
+
+					for (int i = 0; i < p.size(); ++i)
+					{
+						parents[i] = p.get_id(i);
+					}
+				}
+				else
+				{
+					parents = new Ggit.OId[] { headoid };
+				}
+			}
 
 			ret = d_repository.create_commit_from_oids("HEAD",
 			                                           author,
@@ -360,7 +391,7 @@ public class Stage : Object
 			                                           encoding,
 			                                           emsg,
 			                                           treeoid,
-			                                           new Ggit.OId[] { headoid });
+			                                           parents);
 
 			bool always_update = false;
 
