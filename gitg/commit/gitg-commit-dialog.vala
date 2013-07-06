@@ -71,6 +71,10 @@ class Dialog : Gtk.Dialog
 			b.get_bounds(out start, out end);
 			return b.get_text(start, end, false);
 		}
+		set
+		{
+			d_source_view_message.buffer.set_text(value);
+		}
 	}
 
 	[Notify]
