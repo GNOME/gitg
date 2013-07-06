@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-06-30 10:43+0000\n"
-"PO-Revision-Date: 2013-07-02 07:34+0200\n"
+"POT-Creation-Date: 2013-07-06 10:10+0000\n"
+"PO-Revision-Date: 2013-07-06 23:44+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -30,25 +30,18 @@ msgid "Git repository browser"
 msgstr "Prohlížeč repozitářů Git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Filter Revisions When Searching"
-msgstr "Filtrovat revize během hledání"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Orientace hlavního rozhraní („vertical“ nebo „horizontal“)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr ""
-"Zda vyhledávání filtruje revize v zobrazení historie místo toho, aby se "
-"skočilo na první nalezenou shodu."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Nastavení, které nastavuje orientaci hlavního rozhraní."
 
-#. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
 msgstr "Kdy sbalit neaktivní cesty"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -57,31 +50,55 @@ msgstr ""
 "jsou 0 - 4, kde 0 představuje „brzy“ a 4 představuje „pozdě“."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Nastavení, které určuje, zda se mají sbalit cesty historie, které "
+"nezobrazují aktivitu. Zapnutím této funkce si můžete zpřehlednit zobrazení "
+"historie, pokud obsahuje hodně paralelního vývoje. Viz collapse-inactive-"
+"lanes pro ovládání, kdy se mají cesty sbalit."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid "Show History in Topological Order"
 msgstr "Zobrazovat historii v topologickém uspořádání"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Nastavení, které určuje, zda se má historie zobrazovat v topologickém "
 "uspořádání."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr "Orientace hlavního rozhraní („vertical“ nebo „horizontal“)"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation of the main interface."
-msgstr "Nastavení, které nastavuje orientaci hlavního rozhraní."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Nastavení, které určuje, zda se mají v historii zobrazovat položky pro skrýš."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Nastavení, které určuje, zda se mají v historii zobrazovat virtuální položky "
+"pro aktuálně připravené změny."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Nastavení, které určuje, zda se mají v historii zobrazovat virtuální položky "
+"pro aktuálně nepřipravené změny."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
 msgstr "Zobrazit pravý okraj v zobrazení Zpráva k zařazení"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -89,11 +106,11 @@ msgstr ""
 "Zobrazit ukazatel pravého okraje v zobrazení Zpráva k zařazení. Tak snadno "
 "poznáte, kde je komentáře zapotřebí zalomit na příslušný sloupec."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "Column at Which Right Margin is Shown"
 msgstr "Sloupec, ve kterém je zobrazen pravý okraj"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid ""
 "The column at which the right margin is shown if the right-margin preference "
 "is set to TRUE."
@@ -101,67 +118,178 @@ msgstr ""
 "Sloupec, ve kterém je zobrazen pravý okraj v případě, že předvolba right-"
 "margin je nastavená na ZAPNUTO."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
 msgid "Allow External Diff Program"
 msgstr "Povolit externí program Diff"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid "Allow an external diff program to be used when viewing diffs in gitg."
 msgstr ""
 "Povolit externí program diff, který se použije při prohlížení rozdílů v gitg."
 
-#: ../gitg/gitg-application.vala:49
+#: ../gitg/commit/gitg-commit.vala:61
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgid "Commit"
+msgstr "Zařazení"
+
+#: ../gitg/commit/gitg-commit.vala:146
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Selhala příprava souboru „%s“ k zápisu"
+
+#: ../gitg/commit/gitg-commit.vala:165
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Selhala příprava souboru „%s“ k odstranění"
+
+#: ../gitg/commit/gitg-commit.vala:225
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Selhalo zrušení připravenosti souboru „%s“ k odstranění"
+
+#: ../gitg/commit/gitg-commit.vala:244
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Selhalo zrušení připravenosti souboru „%s“ k zápisu"
+
+#: ../gitg/commit/gitg-commit.vala:355
+msgid "Staged"
+msgstr "Připraveno"
+
+#: ../gitg/commit/gitg-commit.vala:359
+msgid "No staged files"
+msgstr "Žádné připravené soubory"
+
+#: ../gitg/commit/gitg-commit.vala:368
+msgid "Unstaged"
+msgstr "Nepřipraveno"
+
+#: ../gitg/commit/gitg-commit.vala:372
+msgid "No unstaged files"
+msgstr "Žádné nepřipravené soubory"
+
+#: ../gitg/commit/gitg-commit.vala:381
+msgid "Untracked"
+msgstr "Nesledováno"
+
+#: ../gitg/commit/gitg-commit.vala:385
+msgid "No untracked files"
+msgstr "Žádné nesledované soubory"
+
+#: ../gitg/commit/gitg-commit.vala:449
+msgid "Failed to commit"
+msgstr "Selhalo zařazení"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:465 ../gitg/commit/gitg-commit.vala:618
+msgid "Failed to pass pre-commit"
+msgstr "Selhal průchod před zařazením"
+
+#: ../gitg/commit/gitg-commit.vala:606
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"Vaše uživatelské jméno a e-mail doposud nejsou nastaveny. Jděte prosím do "
+"nastavení uživatele a poskytněte své jméno a e-mail."
+
+#: ../gitg/commit/gitg-commit.vala:610
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+"Vaše uživatelské jméno doposud není nastaveno. Jděte prosím do nastavení "
+"uživatele a poskytněte své jméno."
+
+#: ../gitg/commit/gitg-commit.vala:614
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"Váš e-mail doposud není nastaven. Jděte prosím do nastavení uživatele a "
+"poskytněte svůj e-mail."
+
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Zobrazit verzi aplikace"
 
-#: ../gitg/gitg-application.vala:51
-msgid "Start gitg with a particular view"
-msgstr "Spustit gitg s konkrétním zobrazením"
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "Spustit gitg s konkrétní činností"
 
-#: ../gitg/gitg-application.vala:53
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgstr "Spustit gitg s činností zařazování (zkratka pro --view commit)"
+
+#: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Nezkoušet načíst repozitář z aktuální pracovní složky"
 
-#: ../gitg/gitg-application.vala:76
+#: ../gitg/gitg-application.vala:88
 msgid "- git repository viewer"
 msgstr "– prohlížeč repozitářů git"
 
-#: ../gitg/gitg-application.vala:185
+#: ../gitg/gitg-application.vala:205
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg je prohlížeč repozitářů git pro gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:210
+#: ../gitg/gitg-application.vala:230
 msgid "gitg homepage"
 msgstr "domovská stránka gitg"
 
-#: ../gitg/gitg-preferences-interface.vala:83
-msgid "Interface"
-msgstr "Rozhraní"
-
-#: ../gitg/gitg-window.vala:235
+#: ../gitg/gitg-window.vala:254
 msgid "Projects"
 msgstr "Projekty"
 
-#: ../gitg/gitg-window.vala:267
+#: ../gitg/gitg-window.vala:290
 msgid "Open Repository"
 msgstr "Otevření repozitáře"
 
-#: ../gitg/gitg-window.vala:334
+#: ../gitg/gitg-window.vala:359
 msgid "The URL introduced is not supported"
 msgstr "Uvedená adresa URL není podporována"
 
-#: ../gitg/gitg-window.vala:377
+#: ../gitg/gitg-window.vala:402
 msgid "Unable to open the .gitconfig file."
 msgstr "Nelze otevřít soubor .gitconfig."
 
-#: ../gitg/gitg-window.vala:450
+#: ../gitg/gitg-window.vala:477
 msgid "Failed to set Git user config."
 msgstr "Selhalo nastavení údajů o uživateli pro Git."
 
-#: ../gitg/gitg-window.vala:671
+#: ../gitg/gitg-window.vala:688
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ není repozitář Git."
+
+#: ../gitg/history/gitg-history-navigation.vala:194
+#: ../gitg/history/gitg-history-navigation.vala:302
+msgid "All commits"
+msgstr "Všechna zařazení"
+
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:197
+msgid "Branches"
+msgstr "Větve"
+
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:234
+msgid "Remotes"
+msgstr "Vzdálené"
+
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:260
+msgid "Tags"
+msgstr "Štítky"
+
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:138
+msgid "History"
+msgstr "Historie"
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:83
+msgid "Interface"
+msgstr "Rozhraní"
 
 #: ../libgitg/gitg-commit.vala:103
 msgid "A minute ago"
@@ -194,86 +322,32 @@ msgstr "před jedním dnem"
 msgid "%d days ago"
 msgstr "před %d dny"
 
-#: ../plugins/diff/gitg-diff.vala:70
+#: ../libgitg/gitg-diff-view.vala:88
+msgid "stage"
+msgstr "připravit"
+
+#: ../libgitg/gitg-diff-view.vala:89
+msgid "unstage"
+msgstr "zrušit připravenost"
+
+#: ../libgitg/gitg-diff-view.vala:90
+msgid "Loading diff..."
+msgstr "Načítá se rozdíl…"
+
+#: ../libgitg/gitg-stage.vala:273
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr "Nelze přečíst zprávu o zařazení po spuštění háčku commit-msg: %s"
+
+#: ../plugins/diff/gitg-diff.vala:62
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/files/gitg-files.vala:77
+#: ../plugins/files/gitg-files.vala:65
 msgid "Files"
 msgstr "Soubory"
 
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Zobrazit veškerou historii"
-
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Zobrazit volby historie gitg"
-
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "volby historie gitg"
-
-#: ../plugins/history/gitg-history-navigation.vala:192
-#: ../plugins/history/gitg-history-navigation.vala:196
-#: ../plugins/history/gitg-history-navigation.vala:309
-msgid "All commits"
-msgstr "Všechna zařazení"
-
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:200
-msgid "Branches"
-msgstr "Větve"
-
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:241
-msgid "Remotes"
-msgstr "Vzdálené"
-
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:267
-msgid "Tags"
-msgstr "Štítky"
-
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:163
-msgid "History"
-msgstr "Historie"
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-"Nastavení, které určuje, zda se mají sbalit cesty historie, které "
-"nezobrazují aktivitu. Zapnutím této funkce si můžete zpřehlednit zobrazení "
-"historie, pokud obsahuje hodně paralelního vývoje. Viz collapse-inactive-"
-"lanes pro ovládání, kdy se mají cesty sbalit."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr ""
-"Nastavení, které určuje, zda se mají v historii zobrazovat položky pro skrýš."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-"Nastavení, které určuje, zda se mají v historii zobrazovat virtuální položky "
-"pro aktuálně připravené změny."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-"Nastavení, které určuje, zda se mají v historii zobrazovat virtuální položky "
-"pro aktuálně nepřipravené změny."
-
+#. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository"
 msgstr "Klonování repozitáře"
@@ -297,6 +371,38 @@ msgstr "Vybrat umístění…"
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
 msgstr "Prázdný repozitář"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+msgid "C_ommit"
+msgstr "Zařa_dit"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+msgid "_Amend previous commit"
+msgstr "Odvol_at předchozí zařazení"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "Add _signed-off-by signature"
+msgstr "Přidat podpis _signed-off-by"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "Při zařazování vynechat _háčky"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "_Commit"
+msgstr "_Zařadit"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Předmět"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Autor"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Datum"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
@@ -334,14 +440,50 @@ msgstr "Informace o _uživateli"
 msgid "_Reload"
 msgstr "Znovu načí_st"
 
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Zařazení"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+msgid "    "
+msgstr "    "
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Collapse inactive lanes"
+msgstr "Sbalit neaktivní cesty"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show stash in history"
+msgstr "Zobrazovat skrýš v historii"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show staged changes in history"
+msgstr "Zobrazovat připravené změny v historii"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show unstaged changes in history"
+msgstr "Zobrazovat nepřipravené změny v historii"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Show history in topological order"
+msgstr "Zobrazovat historii v topologickém uspořádání"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "        "
+msgstr "        "
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:9
+msgid "Early"
+msgstr "Brzy"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:10
+msgid "Late"
+msgstr "Pozdě"
+
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Layout"
 msgstr "Rozvržení"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "Use horizontal layout"
@@ -392,51 +534,3 @@ msgstr "Zavřít"
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "sloupec"
-
-#: ../plugins/history/resources/preferences.ui.h:1
-msgid "Commits"
-msgstr "Zařazení"
-
-#: ../plugins/history/resources/preferences.ui.h:3
-msgid "Collapse inactive lanes"
-msgstr "Sbalit neaktivní cesty"
-
-#: ../plugins/history/resources/preferences.ui.h:4
-msgid "Show stash in history"
-msgstr "Zobrazovat skrýš v historii"
-
-#: ../plugins/history/resources/preferences.ui.h:5
-msgid "Show staged changes in history"
-msgstr "Zobrazovat připravené změny v historii"
-
-#: ../plugins/history/resources/preferences.ui.h:6
-msgid "Show unstaged changes in history"
-msgstr "Zobrazovat nepřipravené změny v historii"
-
-#: ../plugins/history/resources/preferences.ui.h:7
-msgid "Show history in topological order"
-msgstr "Zobrazovat historii v topologickém uspořádání"
-
-#: ../plugins/history/resources/preferences.ui.h:8
-msgid "        "
-msgstr "        "
-
-#: ../plugins/history/resources/preferences.ui.h:9
-msgid "Early"
-msgstr "Brzy"
-
-#: ../plugins/history/resources/preferences.ui.h:10
-msgid "Late"
-msgstr "Pozdě"
-
-#: ../plugins/history/resources/view-history.ui.h:1
-msgid "Subject"
-msgstr "Předmět"
-
-#: ../plugins/history/resources/view-history.ui.h:2
-msgid "Author"
-msgstr "Autor"
-
-#: ../plugins/history/resources/view-history.ui.h:3
-msgid "Date"
-msgstr "Datum"
