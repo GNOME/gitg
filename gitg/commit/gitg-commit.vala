@@ -223,10 +223,10 @@ namespace GitgCommit
 		{
 			var stage = application.repository.stage;
 
-			stage.unstage_path.begin(f.path, (obj, res) => {
+			stage.delete_path.begin(f.path, (obj, res) => {
 				try
 				{
-					stage.unstage_path.end(res);
+					stage.delete_path.end(res);
 				}
 				catch (Error e)
 				{
@@ -265,7 +265,7 @@ namespace GitgCommit
 			}
 			else
 			{
-				if ((f.flags & Ggit.StatusFlags.INDEX_DELETED) != 0)
+				if ((f.flags & Ggit.StatusFlags.INDEX_NEW) != 0)
 				{
 					delete_index_file(f);
 				}
