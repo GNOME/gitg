@@ -119,7 +119,18 @@ class Dialog : Gtk.Dialog
 		var email = d_author.get_email();
 
 		d_label_user.set_label(@"$name <$email>");
-		d_label_date.set_label((new Gitg.Date.for_date_time(d_author.get_time())).for_display());
+
+		var t = d_author.get_time();
+		var now = new DateTime.now_local();
+
+		if (now.difference(t) < TimeSpan.SECOND * 5)
+		{
+			d_label_date.set_label("");
+		}
+		else
+		{
+			d_label_date.set_label((new Gitg.Date.for_date_time(t)).for_display());
+		}
 
 		var ac = Gitg.AvatarCache.default();
 		d_cancel_avatar = new Cancellable();
