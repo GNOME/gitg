@@ -56,7 +56,7 @@ public class Gitg.AvatarCache : Object
 
 		var pixbuf = yield read_avatar_from_file(id, gfile, cancellable);
 
-		if (pixbuf == null)
+		if (pixbuf == null && (cancellable == null || !cancellable.is_cancelled()))
 		{
 			gravatar = @"http://robohash.org/$(id).png?size=50x50";
 			gfile = File.new_for_uri(gravatar);
