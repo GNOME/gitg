@@ -21,7 +21,7 @@ namespace Gitg
 {
 	public class LabelRenderer
 	{
-		private static const int margin = 3;
+		private static const int margin = 2;
 		private static const int padding = 4;
 
 		private static string label_text(Ref r)
@@ -97,8 +97,8 @@ namespace Gitg
 		                                Cairo.Context cr,
 		                                Pango.Layout  layout,
 		                                Ref           r,
-		                                int           x,
-		                                int           y,
+		                                double        x,
+		                                double        y,
 		                                int           height,
 		                                bool          use_state)
 		{
@@ -135,7 +135,7 @@ namespace Gitg
 
 			context.render_layout(cr,
 			                      x + padding,
-			                      y + (height - h) / 2.0,
+			                      y + (height - h) / 2.0 - 1,
 			                      layout);
 
 			context.restore();
