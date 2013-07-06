@@ -54,15 +54,32 @@ public class Gitg.AvatarCache : Object
 		var gravatar = @"http://www.gravatar.com/avatar/$(id)?d=404&s=50";
 		var gfile = File.new_for_uri(gravatar);
 
+		var pixbuf = yield read_avatar_from_file(id, gfile, cancellable);
+
+		if (pixbuf == null)
+		{
+			gravatar = @"http://robohash.org/$(id).png?size=50x50";
+			gfile = File.new_for_uri(gravatar);
+
+			pixbuf = yield read_avatar_from_file(id, gfile, cancellable);
+		}
+
+		d_cache[id] = pixbuf;
+		return pixbuf;
+	}
+
+	private async Gdk.Pixbuf? read_avatar_from_file(string       id,
+	                                                File         file,
+	                                                Cancellable? cancellable)
+	{
 		InputStream stream;
 
 		try
 		{
-			stream = yield gfile.read_async(Priority.LOW, cancellable);
+			stream = yield file.read_async(Priority.LOW, cancellable);
 		}
 		catch
 		{
-			d_cache[id] = null;
 			return null;
 		}
 
@@ -71,17 +88,14 @@ public class Gitg.AvatarCache : Object
 
 		loader.set_size(50, 50);
 
-		var pixbuf = yield read_avatar(id, stream, buffer, loader, cancellable);
-		d_cache[id] = pixbuf;
-
-		return pixbuf;
+		return yield read_avatar(id, stream, buffer, loader, cancellable);
 	}
 
 	private async Gdk.Pixbuf? read_avatar(string           id,
 	                                      InputStream      stream,
 	                                      uint8[]          buffer,
 	                                      Gdk.PixbufLoader loader,
-	                                      Cancellable?     cancellable = null)
+	                                      Cancellable?     cancellable)
 	{
 		ssize_t n;
 
