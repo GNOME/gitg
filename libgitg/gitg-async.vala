@@ -29,7 +29,7 @@ public class Async
 		SourceFunc callback = thread.callback;
 		Error? err = null;
 
-		var t = new Thread<void *>.try("gitg-status-enumerator", () => {
+		var t = new Thread<void *>.try("gitg-async", () => {
 			try
 			{
 				func();
