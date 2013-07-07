@@ -4,25 +4,31 @@
   <object class="GtkGrid" id="main">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="has_focus">False</property>
+    <property name="is_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="border_width">12</property>
     <property name="row_spacing">18</property>
     <property name="column_spacing">18</property>
     <child>
-      <object class="GtkGrid" id="grid2">
+      <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="has_focus">False</property>
+        <property name="is_focus">False</property>
         <property name="hexpand">True</property>
         <property name="row_spacing">6</property>
         <child>
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="has_focus">False</property>
+            <property name="is_focus">False</property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">Layout</property>
             <attributes>
-             <attribute name="weight" value="bold"/>
+              <attribute name="weight" value="bold"/>
             </attributes>
           </object>
           <packing>
@@ -33,27 +39,18 @@
           </packing>
         </child>
         <child>
-          <object class="GtkGrid" id="grid3">
+          <object class="GtkAlignment" id="alignment1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
+            <property name="has_focus">False</property>
+            <property name="is_focus">False</property>
+            <property name="left_padding">12</property>
             <child>
-              <object class="GtkLabel" id="label2">
+              <object class="GtkGrid" id="grid2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">    </property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkGrid" id="grid4">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="has_focus">False</property>
+                <property name="is_focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="row_spacing">6</property>
@@ -63,8 +60,9 @@
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="has_focus">False</property>
+                    <property name="is_focus">False</property>
                     <property name="receives_default">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
                   </object>
@@ -76,12 +74,6 @@
                   </packing>
                 </child>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
           </object>
           <packing>
