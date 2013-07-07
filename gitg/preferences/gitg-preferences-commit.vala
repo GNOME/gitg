@@ -48,6 +48,9 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "spin_button_right_margin")]
 	private Gtk.SpinButton d_spin_button_right_margin;
 
+	[GtkChild (name = "enable_spell_checking")]
+	private Gtk.CheckButton d_enable_spell_checking;
+
 	construct
 	{
 		var settings = new Settings("org.gnome.gitg.preferences.commit.message");
@@ -90,6 +93,11 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		settings.bind("right-margin-position",
 		              d_spin_button_right_margin,
 		              "value",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("enable-spell-checking",
+		              d_enable_spell_checking,
+		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 

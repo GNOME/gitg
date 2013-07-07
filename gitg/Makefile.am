@@ -25,6 +25,7 @@ AM_VALAFLAGS = \
 	--pkg gd-1.0						\
 	--pkg webkit2gtk-3.0					\
 	--pkg gtksourceview-3.0					\
+	--pkg GtkSpell-3.0					\
 	--girdir "$(top_builddir)/libgd"			\
 	--girdir "$(top_builddir)/libgitg"			\
 	--girdir "$(top_builddir)/libgitg-ext"			\

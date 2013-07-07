@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkAdjustment" id="spin_button_right_margin_adjustment">
+    <property name="lower">1</property>
+    <property name="upper">160</property>
+    <property name="value">72</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="spin_button_subject_margin_adjustment">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <template class="GitgPreferencesCommit" parent="GtkGrid">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -64,8 +76,6 @@
                         <property name="can_focus">False</property>
                         <property name="has_focus">False</property>
                         <property name="is_focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
                         <property name="row_spacing">6</property>
                         <property name="column_spacing">6</property>
                         <child>
@@ -184,6 +194,24 @@
                     <property name="height">1</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkCheckButton" id="enable_spell_checking">
+                    <property name="label" translatable="yes">Enable spell checking</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="has_focus">False</property>
+                    <property name="is_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
               </object>
             </child>
           </object>
@@ -222,16 +250,4 @@
       </packing>
     </child>
   </template>
-  <object class="GtkAdjustment" id="spin_button_right_margin_adjustment">
-    <property name="lower">1</property>
-    <property name="upper">160</property>
-    <property name="value">72</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="spin_button_subject_margin_adjustment">
-    <property name="upper">100</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
 </interface>

@@ -23,6 +23,9 @@ namespace GitgCommit
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-commit-dialog.ui")]
 class Dialog : Gtk.Dialog
 {
+	// Do this to pull in config.h before glib.h (for gettext...)
+	private const string version = Gitg.Config.VERSION;
+
 	[GtkChild (name = "source_view_message")]
 	private GtkSource.View d_source_view_message;
 
@@ -70,6 +73,9 @@ class Dialog : Gtk.Dialog
 	private Settings? d_message_settings;
 	private Settings? d_font_settings;
 	private Settings? d_commit_settings;
+	private bool d_enable_spell_checking;
+	private string? d_spell_checking_language;
+	private GtkSpell.Checker? d_spell_checker;
 
 	public GtkSource.View source_view_message
 	{
@@ -159,7 +165,6 @@ class Dialog : Gtk.Dialog
 		default = true;
 	}
 
-
 	[Notify]
 	public int right_margin_position
 	{
@@ -197,6 +202,67 @@ class Dialog : Gtk.Dialog
 		{
 			d_author = value;
 			load_author_info();
+		}
+	}
+
+	[Notify]
+	public string? spell_checking_language
+	{
+		get { return d_spell_checking_language; }
+
+		set
+		{
+			d_spell_checking_language = value;
+			set_spell_language();
+		}
+	}
+
+	[Notify]
+	public bool enable_spell_checking
+	{
+		get { return d_enable_spell_checking; }
+		set
+		{
+			d_enable_spell_checking = value;
+
+			if (d_enable_spell_checking)
+			{
+				if (d_spell_checker == null)
+				{
+					d_spell_checker = new GtkSpell.Checker();
+					d_spell_checker.attach(d_source_view_message);
+
+					set_spell_language();
+
+					d_spell_checker.language_changed.connect(() => {
+						spell_checking_language = d_spell_checker.get_language();
+					});
+				}
+			}
+			else
+			{
+				if (d_spell_checker != null)
+				{
+					d_spell_checker.detach();
+					d_spell_checker = null;
+				}
+			}
+		}
+	}
+
+	private void set_spell_language()
+	{
+		if (d_spell_checker != null && d_spell_checking_language != "")
+		{
+			try
+			{
+				d_spell_checker.set_language(d_spell_checking_language);
+			}
+			catch
+			{
+				warning(_("Cannot set spell checking language: %s"), d_spell_checking_language);
+				d_spell_checking_language = "";
+			}
 		}
 	}
 
@@ -312,6 +378,16 @@ class Dialog : Gtk.Dialog
 		                        this,
 		                        "subject-margin-position",
 		                        SettingsBindFlags.GET);
+
+		d_message_settings.bind("enable-spell-checking",
+		                        this,
+		                        "enable-spell-checking",
+		                        SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_message_settings.bind("spell-checking-language",
+		                        this,
+		                        "spell-checking-language",
+		                        SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 		d_constructed = true;
 
