@@ -320,9 +320,10 @@ public class Stage : Object
 		Ggit.OId? ret = null;
 
 		bool skip_hooks = (options & StageCommitOptions.SKIP_HOOKS) != 0;
+		bool amend = (options & StageCommitOptions.AMEND) != 0;
 
 		yield thread_index((index) => {
-			if (!has_index_changes())
+			if (!amend && !has_index_changes())
 			{
 				throw new StageError.NOTHING_TO_COMMIT("Nothing to commit");
 			}
@@ -360,8 +361,6 @@ public class Stage : Object
 			} catch {}
 
 			Ggit.OId[] parents;
-
-			var amend = (options & StageCommitOptions.AMEND) != 0;
 
 			if (headoid == null)
 			{
