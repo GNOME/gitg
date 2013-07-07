@@ -62,8 +62,7 @@ MAINTAINERCLEANFILES = 		\
 	po/*.header		\
 	po/missing		\
 	po/Rules-quot		\
-	po/Makevars.template	\
-	`find "$(srcdir)" -type f -name Makefile.in -print`
+	po/Makevars.template
 
 dist-hook: generate-changelog
 
