@@ -20,57 +20,47 @@
 namespace Gitg
 {
 
-class PreferencesInterface : Object, GitgExt.Preferences
+[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-preferences-interface.ui")]
+public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 	private bool d_block;
 
-	private Gtk.Widget d_widget;
+	[GtkChild (name = "horizontal_layout_enabled")]
+	Gtk.CheckButton d_horizontal_layout_enabled;
 
-	private Gtk.Widget build_ui()
+	construct
 	{
-		if (d_widget != null)
-		{
-			return d_widget;
-		}
-
 		var settings = new Settings("org.gnome.gitg.preferences.interface");
 
-		var ret = GitgExt.UI.from_builder("ui/gitg-preferences-interface.ui",
-		                                  "main",
-		                                  "horizontal_layout_enabled");
+		d_horizontal_layout_enabled.active = settings.get_enum("orientation") == 0;
 
-		d_widget = ret["main"] as Gtk.Widget;
-
-		var check = ret["horizontal_layout_enabled"] as Gtk.CheckButton;
-
-		check.active = settings.get_enum("orientation") == 0;
-
-		check.notify["active"].connect((obj, spec)=> {
+		d_horizontal_layout_enabled.notify["active"].connect((obj, spec)=> {
 			if (d_block)
 			{
 				return;
 			}
 
-			if (!settings.set_enum("orientation", check.active ? 0 : 1))
+			if (!settings.set_enum("orientation", d_horizontal_layout_enabled.active ? 0 : 1))
 			{
-				check.active = settings.get_enum("orientation") == 0;
+				d_horizontal_layout_enabled.active = settings.get_enum("orientation") == 0;
 			}
 		});
 
 		settings.changed["orientation"].connect((s, k) => {
 			d_block = true;
-			check.active = settings.get_enum("orientation") == 0;
+			d_horizontal_layout_enabled.active = settings.get_enum("orientation") == 0;
 			d_block = false;
 		});
-
-		return d_widget;
 	}
 
 	public Gtk.Widget widget
 	{
-		owned get { return build_ui(); }
+		owned get
+		{
+			return this;
+		}
 	}
 
 	public string id
