@@ -86,7 +86,10 @@ public class Hook : Object
 
 				if (s != null)
 				{
-					d_output += s;
+					if (s.validate())
+					{
+						d_output += s;
+					}
 
 					// Continue reading
 					stream_read_async(stream);
