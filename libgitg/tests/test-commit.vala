@@ -113,13 +113,18 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 		loop.run();
 	}
 
-	protected virtual signal void test_pre_commit_hook()
+	private void setup_failing_pre_commit_hook()
 	{
 		var hookdir = d_repository.get_location().get_child("hooks");
 		var pc = hookdir.get_child("pre-commit").get_path();
 
 		assert(FileUtils.set_contents(pc, "#!/bin/bash\n\necho 'pre-commit failed'; exit 1;\n"));
 		assert_inteq(FileUtils.chmod(pc, 0744), 0);
+	}
+
+	protected virtual signal void test_pre_commit_hook()
+	{
+		setup_failing_pre_commit_hook();
 
 		var stage = d_repository.stage;
 		var loop = new MainLoop();
@@ -179,6 +184,88 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 
 		loop.run();
 	}
+
+	protected virtual signal void test_skip_hooks()
+	{
+		var hookdir = d_repository.get_location().get_child("hooks");
+		var pc = hookdir.get_child("commit-msg").get_path();
+
+		assert(FileUtils.set_contents(pc, "#!/bin/bash\n\necho 'override message' > $1\n"));
+		assert_inteq(FileUtils.chmod(pc, 0744), 0);
+
+		var stage = d_repository.stage;
+		var loop = new MainLoop();
+
+		var msg = "original message\n";
+
+		var sig = new Ggit.Signature.now("Jesse van den Kieboom",
+		                                 "jessevdk@gnome.org");
+
+		stage.commit.begin(msg,
+		                   sig,
+		                   sig,
+		                   StageCommitOptions.SKIP_HOOKS, (obj, res) => {
+			var oid = stage.commit.end(res);
+
+			var commit = d_repository.lookup<Gitg.Commit>(oid);
+			assert_streq(commit.get_message(), "original message\n");
+
+			loop.quit();
+		});
+
+		loop.run();
+	}
+
+	protected virtual signal void test_amend()
+	{
+		commit("a", "lala\n",
+		       "b", "for real\n");
+
+		var stage = d_repository.stage;
+		var loop = new MainLoop();
+
+		var sig = new Ggit.Signature.now("Jesse van den Kieboom",
+		                                 "jessevdk@gnome.org");
+
+		var headoid = d_repository.get_head().get_target();
+		var headc = d_repository.lookup<Ggit.Commit>(headoid);
+
+		var msg = "This is the commit\n\nWith a message.\n";
+
+		stage.commit.begin(msg,
+		                   headc.get_author(),
+		                   sig,
+		                   StageCommitOptions.AMEND, (obj, res) => {
+
+			var oid = stage.commit.end(res);
+			var commit = d_repository.lookup<Gitg.Commit>(oid);
+
+			assert_streq(commit.get_author().get_name(), "gitg tester");
+			assert_streq(commit.get_author().get_email(), "gitg-tester@gnome.org");
+
+			assert_streq(commit.get_committer().get_name(), sig.get_name());
+			assert_streq(commit.get_committer().get_email(), sig.get_email());
+
+			assert_streq(commit.get_message(), msg);
+			assert_streq(commit.get_subject(), "This is the commit");
+
+			assert_streq(d_repository.get_head().get_target().to_string(),
+			             oid.to_string());
+
+			assert_uinteq(commit.get_parents().size(), 0);
+
+			var reflog = d_repository.lookup_reference("HEAD").get_reflog();
+			var entry = reflog.get_entry_from_index(0);
+
+			assert_streq(entry.get_new_id().to_string(), oid.to_string());
+			assert_streq(entry.get_message(), "commit (amend): This is the commit");
+
+			loop.quit();
+		});
+
+		loop.run();
+	}
+
 }
 
 // ex:set ts=4 noet
