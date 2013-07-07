@@ -14,25 +14,19 @@ EXTRA_DIST = \
 	MAINTAINERS
 
 MAINTAINERCLEANFILES = 		\
+	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL) \
 	INSTALL			\
 	configure		\
 	build-aux/*		\
 	intltool-extract.in	\
 	intltool-merge.in	\
 	intltool-update.in	\
-	aclocal.m4		\
-	config.guess		\
-	config.h.in		\
-	config.sub		\
-	depcomp			\
 	ABOUT-NLS		\
 	config.rpath		\
-	install-sh		\
-	ltmain.sh		\
 	omf.make		\
 	xmldocs.make		\
-	missing			\
-	mkinstalldirs		\
 	m4/codeset.m4 		\
 	m4/gettext.m4 		\
 	m4/glibc21.m4 		\
@@ -50,13 +44,8 @@ MAINTAINERCLEANFILES = 		\
 	m4/lib-ld.m4 		\
 	m4/lib-link.m4 		\
 	m4/lib-prefix.m4 	\
-	m4/libtool.m4 		\
 	m4/lock.m4 		\
 	m4/longlong.m4 		\
-	m4/lt~obsolete.m4 	\
-	m4/ltoptions.m4 	\
-	m4/ltsugar.m4 		\
-	m4/ltversion.m4 	\
 	m4/nls.m4 		\
 	m4/po.m4 		\
 	m4/printf-posix.m4 	\
