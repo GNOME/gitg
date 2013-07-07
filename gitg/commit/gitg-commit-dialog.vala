@@ -338,8 +338,24 @@ class Dialog : Gtk.Dialog
 		d_too_long_tag.foreground_rgba = fg;
 	}
 
+	private bool on_commit_message_key_press_event(Gtk.Widget widget, Gdk.EventKey event)
+	{
+		var mmask = Gtk.accelerator_get_default_mod_mask();
+
+		if ((mmask & event.state) == Gdk.ModifierType.CONTROL_MASK &&
+		    (event.keyval == Gdk.Key.Return || event.keyval == Gdk.Key.KP_Enter))
+		{
+			d_button_ok.activate();
+			return true;
+		}
+
+		return false;
+	}
+
 	private void init_message_area()
 	{
+		d_source_view_message.key_press_event.connect(on_commit_message_key_press_event);
+
 		var b = d_source_view_message.buffer;
 
 		d_subject_tag = b.create_tag("subject",
