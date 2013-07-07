@@ -486,15 +486,18 @@ namespace GitgCommit
 		{
 			Gitg.Commit? retval = null;
 
-			yield Gitg.Async.thread(() => {
-				var repo = application.repository;
+			try
+			{
+				yield Gitg.Async.thread(() => {
+					var repo = application.repository;
 
-				try
-				{
-					var head = repo.get_head();
-					retval = repo.lookup<Gitg.Commit>(head.get_target());
-				} catch {}
-			});
+					try
+					{
+						var head = repo.get_head();
+						retval = repo.lookup<Gitg.Commit>(head.get_target());
+					} catch {}
+				});
+			} catch {}
 
 			return retval;
 		}
