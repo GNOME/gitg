@@ -92,14 +92,11 @@ public class Stage : Object
 
 	private delegate void WithIndexFunc(Ggit.Index index) throws Error;
 
-	private void with_index(WithIndexFunc func)
+	private void with_index(WithIndexFunc func) throws Error
 	{
 		lock(d_index_mutex)
 		{
-			try
-			{
-				func(d_repository.get_index());
-			} catch {}
+			func(d_repository.get_index());
 		}
 	}
 
@@ -187,23 +184,26 @@ public class Stage : Object
 	{
 		string? errormsg = null;
 
-		yield Async.thread(() => {
-			// First run the pre-commit hook
-			var hook = new Gitg.Hook("pre-commit");
+		try
+		{
+			yield Async.thread(() => {
+				// First run the pre-commit hook
+				var hook = new Gitg.Hook("pre-commit");
 
-			setup_commit_hook_environment(hook, author);
+				setup_commit_hook_environment(hook, author);
 
-			try
-			{
-				int status = hook.run_sync(d_repository);
-
-				if (status != 0)
+				try
 				{
-					errormsg = string.joinv("\n", hook.output);
+					int status = hook.run_sync(d_repository);
+
+					if (status != 0)
+					{
+						errormsg = string.joinv("\n", hook.output);
+					}
 				}
-			}
-			catch (SpawnError e) {}
-		});
+				catch (SpawnError e) {}
+			});
+		} catch {}
 
 		if (errormsg != null)
 		{
@@ -232,7 +232,7 @@ public class Stage : Object
 
 	private string commit_msg_hook(string         message,
 	                               Ggit.Signature author,
-	                               Ggit.Signature committer) throws StageError
+	                               Ggit.Signature committer) throws Error
 	{
 		var hook = new Gitg.Hook("commit-msg");
 

@@ -22,26 +22,35 @@ namespace Gitg
 
 public class Async
 {
-	public delegate void ThreadFunc();
+	public delegate void ThreadFunc() throws Error;
 
-	public static async void thread(ThreadFunc func)
+	public static async void thread(ThreadFunc func) throws Error
 	{
 		SourceFunc callback = thread.callback;
+		Error? err = null;
 
-		try
-		{
-			var t = new Thread<void *>.try("gitg-status-enumerator", () => {
+		var t = new Thread<void *>.try("gitg-status-enumerator", () => {
+			try
+			{
 				func();
-				Idle.add((owned)callback);
+			}
+			catch (Error e)
+			{
+				err = e;
+			}
 
-				return null;
-			});
+			Idle.add((owned)callback);
+			return null;
+		});
 
-			yield;
+		yield;
 
-			t.join();
+		t.join();
+
+		if (err != null)
+		{
+			throw err;
 		}
-		catch {}
 	}
 }
 
