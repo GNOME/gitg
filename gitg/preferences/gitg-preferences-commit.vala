@@ -32,17 +32,21 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "grid_show_markup")]
 	private Gtk.Grid d_grid_show_markup;
 
-	[GtkChild (name = "check_button_show_right_margin")]
-	private Gtk.CheckButton d_check_button_show_right_margin;
-
-	[GtkChild (name = "spin_button_right_margin")]
-	private Gtk.SpinButton d_spin_button_right_margin;
-
 	[GtkChild (name = "check_button_show_subject_margin")]
 	private Gtk.CheckButton d_check_button_show_subject_margin;
 
+	[GtkChild (name = "spin_button_subject_margin_grid")]
+	private Gtk.Grid d_spin_button_subject_margin_grid;
 	[GtkChild (name = "spin_button_subject_margin")]
 	private Gtk.SpinButton d_spin_button_subject_margin;
+
+	[GtkChild (name = "check_button_show_right_margin")]
+	private Gtk.CheckButton d_check_button_show_right_margin;
+
+	[GtkChild (name = "spin_button_right_margin_grid")]
+	private Gtk.Grid d_spin_button_right_margin_grid;
+	[GtkChild (name = "spin_button_right_margin")]
+	private Gtk.SpinButton d_spin_button_right_margin;
 
 	construct
 	{
@@ -58,36 +62,35 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		              "sensitive",
 		              SettingsBindFlags.GET);
 
-		settings.bind("show-right-margin",
-		              d_check_button_show_right_margin,
-		              "active",
-		              SettingsBindFlags.GET | SettingsBindFlags.SET);
-
-		settings.bind("show-right-margin",
-		              d_spin_button_right_margin,
-		              "sensitive",
-		              SettingsBindFlags.GET);
-
-		settings.bind("right-margin-position",
-		              d_spin_button_right_margin,
-		              "value",
-		              SettingsBindFlags.GET | SettingsBindFlags.SET | SettingsBindFlags.NO_SENSITIVITY);
-
 		settings.bind("show-subject-margin",
 		              d_check_button_show_subject_margin,
 		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 		settings.bind("show-subject-margin",
-		              d_spin_button_subject_margin,
+		              d_spin_button_subject_margin_grid,
 		              "sensitive",
 		              SettingsBindFlags.GET);
 
 		settings.bind("subject-margin-position",
 		              d_spin_button_subject_margin,
 		              "value",
-		              SettingsBindFlags.GET | SettingsBindFlags.SET | SettingsBindFlags.NO_SENSITIVITY);
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
+		settings.bind("show-right-margin",
+		              d_check_button_show_right_margin,
+		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("show-right-margin",
+		              d_spin_button_right_margin_grid,
+		              "sensitive",
+		              SettingsBindFlags.GET);
+
+		settings.bind("right-margin-position",
+		              d_spin_button_right_margin,
+		              "value",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 
 	public Gtk.Widget widget

@@ -100,15 +100,21 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinButton" id="spin_button_subject_margin">
+              <object class="GtkGrid" id="spin_button_subject_margin_grid">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="text" translatable="yes">50</property>
-                <property name="adjustment">spin_button_subject_margin_adjustment</property>
-                <property name="climb_rate">1</property>
-                <property name="snap_to_ticks">True</property>
-                <property name="numeric">True</property>
-                <property name="value">50</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkSpinButton" id="spin_button_subject_margin">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="text" translatable="yes">50</property>
+                    <property name="adjustment">spin_button_subject_margin_adjustment</property>
+                    <property name="climb_rate">1</property>
+                    <property name="snap_to_ticks">True</property>
+                    <property name="numeric">True</property>
+                    <property name="value">50</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -137,15 +143,21 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinButton" id="spin_button_right_margin">
+              <object class="GtkGrid" id="spin_button_right_margin_grid">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="text" translatable="yes">72</property>
-                <property name="adjustment">spin_button_right_margin_adjustment</property>
-                <property name="climb_rate">1</property>
-                <property name="snap_to_ticks">True</property>
-                <property name="numeric">True</property>
-                <property name="value">72</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkSpinButton" id="spin_button_right_margin">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="text" translatable="yes">72</property>
+                    <property name="adjustment">spin_button_right_margin_adjustment</property>
+                    <property name="climb_rate">1</property>
+                    <property name="snap_to_ticks">True</property>
+                    <property name="numeric">True</property>
+                    <property name="value">72</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="left_attach">1</property>
