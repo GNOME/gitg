@@ -77,6 +77,9 @@
     <child name="message" schema="org.gnome.gitg.preferences.commit.message" />
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.message" path="/org/gnome/gitg/preferences/commit/message/">
+    <key name="show-markup" type="b">
+      <default>true</default>
+    </key>
     <key name="show-right-margin" type="b">
       <default>true</default>
       <_summary>Show Right Margin in Commit Message View</_summary>
@@ -86,20 +89,28 @@
         a particular column.
       </_description>
     </key>
-    <key name="right-margin-at" type="i">
+    <key name="right-margin-position" type="i">
       <default>72</default>
       <_summary>Column at Which Right Margin is Shown</_summary>
       <_description>
-        The column at which the right margin is shown if the right-margin 
+        The column at which the right margin is shown if the show-right-margin
         preference is set to TRUE.
       </_description>
     </key>
-    <key name="subject-right-margin-at" type="i">
-      <default>50</default>
-      <_summary>Column at Which Subject Right Margin is Shown</_summary>
+    <key name="show-subject-margin" type="b">
+      <default>true</default>
+      <_summary>Show Subject Margin in Commit Message View</_summary>
       <_description>
-        The column at which the right margin is shown for the subject
-        if the right-margin preference is set to TRUE.
+        Highlight the subject text of the commit message when it passes the
+        margin specified by subject-margin-position.
+      </_description>
+    </key>
+    <key name="subject-margin-position" type="i">
+      <default>50</default>
+      <_summary>Column at Which Subject Margin is Shown</_summary>
+      <_description>
+        The column at which the subject margin is shown if the show-subject-margin
+        preference is set to TRUE.
       </_description>
     </key>
   </schema>

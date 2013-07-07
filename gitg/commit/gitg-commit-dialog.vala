@@ -44,7 +44,17 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "label_date")]
 	private Gtk.Label d_label_date;
 
-	private Settings d_fontsettings;
+	private bool d_show_markup;
+	private bool d_show_right_margin;
+	private bool d_show_subject_margin;
+	private int d_right_margin_position;
+	private int d_subject_margin_position;
+	private Ggit.Signature d_author;
+	private Cancellable? d_cancel_avatar;
+	private bool d_constructed;
+	private Settings? d_message_settings;
+	private Settings? d_font_settings;
+	private Settings? d_commit_settings;
 
 	public GtkSource.View source_view_message
 	{
@@ -93,6 +103,77 @@ class Dialog : Gtk.Dialog
 	public bool sign_off { get; set; }
 
 	[Notify]
+	public bool show_markup
+	{
+		get { return d_show_markup; }
+
+		set
+		{
+			d_show_markup = value;
+			update_highlight();
+		}
+
+		default = true;
+	}
+
+	[Notify]
+	public bool show_right_margin
+	{
+		get { return d_show_right_margin; }
+
+		construct set
+		{
+			d_show_right_margin = value;
+			update_highlight();
+		}
+
+		default = true;
+	}
+
+	[Notify]
+	public bool show_subject_margin
+	{
+		get { return d_show_subject_margin; }
+
+		construct set
+		{
+			d_show_subject_margin = value;
+			update_highlight();
+		}
+
+		default = true;
+	}
+
+
+	[Notify]
+	public int right_margin_position
+	{
+		get { return d_right_margin_position; }
+
+		construct set
+		{
+			d_right_margin_position = value;
+			update_highlight();
+		}
+
+		default = 72;
+	}
+
+	[Notify]
+	public int subject_margin_position
+	{
+		get { return d_subject_margin_position; }
+
+		construct set
+		{
+			d_subject_margin_position = value;
+			update_highlight();
+		}
+
+		default = 50;
+	}
+
+	[Notify]
 	public Ggit.Signature author
 	{
 		owned get { return d_author; }
@@ -103,9 +184,6 @@ class Dialog : Gtk.Dialog
 			load_author_info();
 		}
 	}
-
-	[Notify]
-	public int subject_right_margin_position { get; set; }
 
 	private void load_author_info()
 	{
@@ -145,24 +223,27 @@ class Dialog : Gtk.Dialog
 		});
 	}
 
-	private Ggit.Signature d_author;
-	private Cancellable? d_cancel_avatar;
-
-	~Dialog()
+	protected override void destroy()
 	{
 		if (d_cancel_avatar != null)
 		{
 			d_cancel_avatar.cancel();
 		}
+
+		d_message_settings = null;
+		d_font_settings = null;
+		d_commit_settings = null;
+
+		base.destroy();
 	}
 
 	construct
 	{
-		d_fontsettings = new Settings("org.gnome.desktop.interface");
+		d_font_settings = new Settings("org.gnome.desktop.interface");
 
 		update_font_settings();
 
-		d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
+		d_font_settings.changed["monospace-font-name"].connect((s, k) => {
 			update_font_settings();
 		});
 
@@ -182,33 +263,42 @@ class Dialog : Gtk.Dialog
 		                                      BindingFlags.BIDIRECTIONAL |
 		                                      BindingFlags.SYNC_CREATE);
 
-		var commit_settings = new Settings("org.gnome.gitg.state.commit");
+		d_commit_settings = new Settings("org.gnome.gitg.state.commit");
 
-		commit_settings.bind("sign-off",
+		d_commit_settings.bind("sign-off",
 		                     this,
 		                     "sign-off",
 		                     SettingsBindFlags.GET |
 		                     SettingsBindFlags.SET);
 
-		var message_settings = new Settings("org.gnome.gitg.preferences.commit.message");
+		d_message_settings = new Settings("org.gnome.gitg.preferences.commit.message");
 
-		message_settings.bind("show-right-margin",
-		                      d_source_view_message,
-		                      "show-right-margin",
-		                      SettingsBindFlags.GET |
-		                      SettingsBindFlags.SET);
+		d_message_settings.bind("show-markup",
+		                        this,
+		                        "show-markup",
+		                        SettingsBindFlags.GET);
 
-		message_settings.bind("right-margin-at",
-		                      d_source_view_message,
-		                      "right-margin-position",
-		                      SettingsBindFlags.GET |
-		                      SettingsBindFlags.SET);
+		d_message_settings.bind("show-right-margin",
+		                        this,
+		                        "show-right-margin",
+		                        SettingsBindFlags.GET);
 
-		message_settings.bind("subject-right-margin-at",
-		                      this,
-		                      "subject-right-margin-position",
-		                      SettingsBindFlags.GET |
-		                      SettingsBindFlags.SET);
+		d_message_settings.bind("right-margin-position",
+		                        this,
+		                        "right-margin-position",
+		                        SettingsBindFlags.GET);
+
+		d_message_settings.bind("show-subject-margin",
+		                        this,
+		                        "show-subject-margin",
+		                        SettingsBindFlags.GET);
+
+		d_message_settings.bind("subject-margin-position",
+		                        this,
+		                        "subject-margin-position",
+		                        SettingsBindFlags.GET);
+
+		d_constructed = true;
 
 		init_message_area();
 	}
@@ -216,31 +306,56 @@ class Dialog : Gtk.Dialog
 	private Gtk.TextTag d_subject_tag;
 	private Gtk.TextTag d_too_long_tag;
 
+	private void update_too_long_tag()
+	{
+		// Get the warning fg/bg colors
+		var ctx = d_source_view_message.get_style_context();
+
+		ctx.save();
+		ctx.add_class("warning");
+
+		var fg = ctx.get_color(Gtk.StateFlags.NORMAL);
+		var bg = ctx.get_background_color(Gtk.StateFlags.NORMAL);
+
+		ctx.restore();
+
+		d_too_long_tag.background_rgba = bg;
+		d_too_long_tag.foreground_rgba = fg;
+	}
+
 	private void init_message_area()
 	{
 		var b = d_source_view_message.buffer;
 
-		var ctx = d_source_view_message.get_style_context();
-		ctx.save();
-		ctx.add_class("warning");
-		var fg = ctx.get_color(Gtk.StateFlags.NORMAL);
-		var bg = ctx.get_background_color(Gtk.StateFlags.NORMAL);
-		ctx.restore();
-
 		d_subject_tag = b.create_tag("subject",
 		                             "weight", Pango.Weight.BOLD);
 
-		d_too_long_tag = b.create_tag("too-long",
-		                              "background-rgba", bg,
-		                              "foreground-rgba", fg);
+		d_too_long_tag = b.create_tag("too-long");
+
+		update_too_long_tag();
+
+		d_source_view_message.style_updated.connect(() => {
+			update_too_long_tag();
+		});
 
 		b.changed.connect(() => {
 			do_highlight();
 		});
 
-		d_source_view_message.notify["show-right-margin"].connect(() => {
-			do_highlight();
-		});
+		update_highlight();
+	}
+
+	private void update_highlight()
+	{
+		if (!d_constructed)
+		{
+			return;
+		}
+
+		d_source_view_message.show_right_margin = (d_show_markup && d_show_right_margin);
+		d_source_view_message.right_margin_position = d_right_margin_position;
+
+		do_highlight();
 	}
 
 	private void do_highlight()
@@ -254,7 +369,7 @@ class Dialog : Gtk.Dialog
 		b.remove_tag(d_subject_tag, start, end);
 		b.remove_tag(d_too_long_tag, start, end);
 
-		if (!d_source_view_message.show_right_margin)
+		if (!d_show_markup)
 		{
 			return;
 		}
@@ -274,50 +389,53 @@ class Dialog : Gtk.Dialog
 
 		b.apply_tag(d_subject_tag, start, sstart);
 
-		var toolong = sstart;
-		var smargin = subject_right_margin_position;
-
-		while (true)
+		if (d_show_subject_margin)
 		{
-			var off = toolong.get_line_offset();
+			var toolong = sstart;
 
-			if (off > smargin)
+			while (true)
 			{
-				var border = toolong;
-				border.set_line_offset(smargin);
+				var off = toolong.get_line_offset();
 
-				b.apply_tag(d_too_long_tag, border, toolong);
+				if (off > d_subject_margin_position)
+				{
+					var border = toolong;
+					border.set_line_offset(d_subject_margin_position);
+
+					b.apply_tag(d_too_long_tag, border, toolong);
+				}
+
+				if (toolong.get_line() == 0)
+				{
+					break;
+				}
+
+				toolong.backward_line();
+				toolong.forward_to_line_end();
 			}
-
-			if (toolong.get_line() == 0)
-			{
-				break;
-			}
-
-			toolong.backward_line();
-			toolong.forward_to_line_end();
 		}
 
-		var rmargin = (int)d_source_view_message.right_margin_position;
-
-		while (!send.equal(end))
+		if (d_show_right_margin)
 		{
-			if (!send.ends_line())
+			while (!send.equal(end))
 			{
-				send.forward_to_line_end();
-			}
+				if (!send.ends_line())
+				{
+					send.forward_to_line_end();
+				}
 
-			if (send.get_line_offset() > rmargin)
-			{
-				var lstart = send;
-				lstart.set_line_offset(rmargin);
+				if (send.get_line_offset() > d_right_margin_position)
+				{
+					var lstart = send;
+					lstart.set_line_offset(d_right_margin_position);
 
-				b.apply_tag(d_too_long_tag, lstart, send);
-			}
+					b.apply_tag(d_too_long_tag, lstart, send);
+				}
 
-			if (!send.forward_line())
-			{
-				break;
+				if (!send.forward_line())
+				{
+					break;
+				}
 			}
 		}
 	}
@@ -329,7 +447,7 @@ class Dialog : Gtk.Dialog
 
 	private void update_font_settings()
 	{
-		var mfont = d_fontsettings.get_string("monospace-font-name");
+		var mfont = d_font_settings.get_string("monospace-font-name");
 		var desc = Pango.FontDescription.from_string(mfont);
 
 		d_source_view_message.override_font(desc);
