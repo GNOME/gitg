@@ -28,7 +28,7 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	private bool d_block;
 
 	[GtkChild (name = "horizontal_layout_enabled")]
-	Gtk.CheckButton d_horizontal_layout_enabled;
+	private Gtk.CheckButton d_horizontal_layout_enabled;
 
 	construct
 	{

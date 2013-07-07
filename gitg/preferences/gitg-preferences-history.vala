@@ -20,22 +20,32 @@
 namespace Gitg
 {
 
-public class PreferencesHistory : Object, GitgExt.Preferences
+[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-preferences-history.ui")]
+public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
-
-	private Gtk.Widget? d_widget;
 	private bool d_block;
 
-	private void bind_check(Settings settings, string setting, Object obj)
-	{
-		settings.bind(setting,
-		              obj,
-		              "active",
-		              SettingsBindFlags.GET |
-		              SettingsBindFlags.SET);
-	}
+	[GtkChild (name = "collapse_inactive_lanes_enabled")]
+	private Gtk.CheckButton d_collapse_inactive_lanes_enabled;
+
+	[GtkChild (name = "adjustment_collapse")]
+	private Gtk.Adjustment d_adjustment_collapse;
+	[GtkChild (name = "collapse_inactive_lanes")]
+	private Gtk.Scale d_collapse_inactive_lanes;
+
+	[GtkChild (name = "topological_order")]
+	private Gtk.CheckButton d_topological_order;
+
+	[GtkChild (name = "show_stash")]
+	private Gtk.CheckButton d_show_stash;
+
+	[GtkChild (name = "show_staged")]
+	private Gtk.CheckButton d_show_staged;
+
+	[GtkChild (name = "show_unstaged")]
+	private Gtk.CheckButton d_show_unstaged;
 
 	private static int round_val(double val)
 	{
@@ -44,38 +54,36 @@ public class PreferencesHistory : Object, GitgExt.Preferences
 		return ival + (int)(val - ival > 0.5);
 	}
 
-	private Gtk.Widget build_ui()
+	construct
 	{
-		if (d_widget != null)
-		{
-			return d_widget;
-		}
-
 		var settings = new Settings("org.gnome.gitg.preferences.history");
 
-		var ret = GitgExt.UI.from_builder("ui/gitg-preferences-history.ui",
-		                                  "main",
-		                                  "collapse_inactive_lanes_enabled",
-		                                  "collapse_inactive_lanes",
-		                                  "topological_order",
-		                                  "show_stash",
-		                                  "show_staged",
-		                                  "show_unstaged");
+		settings.bind("collapse-inactive-lanes-enabled",
+		              d_collapse_inactive_lanes_enabled,
+		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-		d_widget = ret["main"] as Gtk.Widget;
+		settings.bind("topological-order",
+		              d_topological_order,
+		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-		bind_check(settings,
-		           "collapse-inactive-lanes-enabled",
-		           ret["collapse_inactive_lanes_enabled"]);
+		settings.bind("show-stash",
+		              d_show_stash,
+		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-		bind_check(settings, "topological-order", ret["topological_order"]);
-		bind_check(settings, "show-stash", ret["show_stash"]);
-		bind_check(settings, "show-staged", ret["show_staged"]);
-		bind_check(settings, "show-unstaged", ret["show_unstaged"]);
+		settings.bind("show-staged",
+		              d_show_staged,
+		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-		var collapse = ret["collapse_inactive_lanes"] as Gtk.Scale;
+		settings.bind("show-unstaged",
+		              d_show_unstaged,
+		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-		collapse.get_adjustment().value_changed.connect((adj) => {
+		d_adjustment_collapse.value_changed.connect((adj) => {
 			if (d_block)
 			{
 				return;
@@ -96,27 +104,25 @@ public class PreferencesHistory : Object, GitgExt.Preferences
 
 		var monsig = settings.changed["collapse-inactive-lanes"].connect((s, k) => {
 			d_block = true;
-			update_collapse_inactive_lanes(settings, collapse);
+			update_collapse_inactive_lanes(settings);
 			d_block = false;
 		});
 
-		d_widget.destroy.connect((w) => {
+		destroy.connect((w) => {
 			settings.disconnect(monsig);
 		});
 
-		update_collapse_inactive_lanes(settings, collapse);
-
-		return d_widget;
+		update_collapse_inactive_lanes(settings);
 	}
 
-	private static void update_collapse_inactive_lanes(Settings settings, Gtk.Scale collapse)
+	private void update_collapse_inactive_lanes(Settings settings)
 	{
-		var val = round_val(collapse.get_value());
+		var val = round_val(d_collapse_inactive_lanes.get_value());
 		var nval = settings.get_int("collapse-inactive-lanes");
 
 		if (val != nval)
 		{
-			collapse.set_value((double)nval);
+			d_collapse_inactive_lanes.set_value((double)nval);
 		}
 	}
 
@@ -124,7 +130,7 @@ public class PreferencesHistory : Object, GitgExt.Preferences
 	{
 		owned get
 		{
-			return build_ui();
+			return this;
 		}
 	}
 
