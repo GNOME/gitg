@@ -44,6 +44,21 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "label_date")]
 	private Gtk.Label d_label_date;
 
+	[GtkChild (name = "infobar")]
+	private Gtk.InfoBar d_infobar;
+
+	[GtkChild (name = "infobar_revealer")]
+	private Gtk.Revealer d_infobar_revealer;
+
+	[GtkChild (name = "infobar_primary_label")]
+	private Gtk.Label d_infobar_primary_label;
+
+	[GtkChild (name = "infobar_secondary_label")]
+	private Gtk.Label d_infobar_secondary_label;
+
+	[GtkChild (name = "infobar_close_button")]
+	private Gtk.Button d_infobar_close_button;
+
 	private bool d_show_markup;
 	private bool d_show_right_margin;
 	private bool d_show_subject_margin;
@@ -451,6 +466,24 @@ class Dialog : Gtk.Dialog
 		var desc = Pango.FontDescription.from_string(mfont);
 
 		d_source_view_message.override_font(desc);
+	}
+
+	public void show_infobar(string          primary_msg,
+	                         string          secondary_msg,
+	                         Gtk.MessageType type)
+	{
+		d_infobar.message_type = type;
+
+		var primary = "<b>%s</b>".printf(Markup.escape_text(primary_msg));
+		var secondary = "<small>%s</small>".printf(Markup.escape_text(secondary_msg));
+
+		d_infobar_primary_label.set_label(primary);
+		d_infobar_secondary_label.set_label(secondary);
+		d_infobar_revealer.set_reveal_child(true);
+
+		d_infobar_close_button.clicked.connect(() => {
+			d_infobar_revealer.set_reveal_child(false);
+		});
 	}
 }
 

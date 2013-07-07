@@ -25,6 +25,7 @@ namespace GitgCommit
 		private const string version = Gitg.Config.VERSION;
 		private Paned? d_main;
 		private bool d_reloading;
+		private bool d_has_staged;
 
 		public GitgExt.Application? application { owned get; construct set; }
 
@@ -402,15 +403,7 @@ namespace GitgCommit
 				model.end_header();
 
 				d_main.sidebar.expand_all();
-
-				if (staged.length == 0)
-				{
-					d_main.button_commit.sensitive = false;
-				}
-				else
-				{
-					d_main.button_commit.sensitive = true;
-				}
+				d_has_staged = staged.length != 0;
 
 				d_reloading = false;
 			});
@@ -433,6 +426,13 @@ namespace GitgCommit
 			if (dlg.amend)
 			{
 				opts |= Gitg.StageCommitOptions.AMEND;
+			}
+			else if (!d_has_staged)
+			{
+				dlg.show_infobar(_("There are no changes to be committed"),
+				                 _("Use amend to change the commit message of the previous commit"),
+				                 Gtk.MessageType.INFO);
+				return;
 			}
 
 			if (dlg.sign_off)

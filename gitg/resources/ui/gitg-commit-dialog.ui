@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <!-- interface-requires gtk+ 3.10 -->
   <!-- interface-requires gtksourceview 3.0 -->
   <template class="GitgCommitDialog" parent="GtkDialog">
     <property name="can_focus">False</property>
@@ -64,6 +64,84 @@
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
+              <object class="GtkImage" id="image_avatar">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="pixel_size">50</property>
+                <property name="icon_size">6</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label_user">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="valign">end</property>
+                <property name="hexpand">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label_date">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="valign">start</property>
+                <property name="hexpand">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="check_button_sign_off">
+                <property name="label" translatable="yes">Add _signed-off-by signature</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">5</property>
+                <property name="width">2</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="check_button_amend">
+                <property name="label" translatable="yes">_Amend previous commit</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+                <property name="width">2</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkScrolledWindow" id="scrolled_window_message">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -85,86 +163,77 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-                <property name="width">2</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="check_button_amend">
-                <property name="label" translatable="yes">_Amend previous commit</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
                 <property name="top_attach">3</property>
                 <property name="width">2</property>
                 <property name="height">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="check_button_sign_off">
-                <property name="label" translatable="yes">Add _signed-off-by signature</property>
+              <object class="GtkRevealer" id="infobar_revealer">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
+                <child>
+                  <object class="GtkInfoBar" id="infobar">
+                    <property name="visible">True</property>
+                    <child internal-child="content_area">
+                      <object class="GtkBox" id="infobar_content_area">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="border_width">8</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">16</property>
+                        <child>
+                          <object class="GtkLabel" id="infobar_primary_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="selectable">True</property>
+                            <property name="use-markup">True</property>
+                            <property name="halign">GTK_ALIGN_START</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="infobar_secondary_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="selectable">True</property>
+                            <property name="use-markup">True</property>
+                            <property name="halign">GTK_ALIGN_START</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child internal-child="action_area">
+                          <object class="GtkButtonBox" id="infobar_action_area">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="border_width">5</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">6</property>
+                            <property name="layout_style">end</property>
+                            <child>
+                              <object class="GtkButton" id="infobar_close_button">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Close</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">4</property>
+                <property name="top_attach">2</property>
                 <property name="width">2</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkImage" id="image_avatar">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="pixel_size">50</property>
-                <property name="icon_size">6</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_user">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="hexpand">True</property>
-                <property name="valign">end</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_date">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="hexpand">True</property>
-                <property name="valign">start</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
             </child>
