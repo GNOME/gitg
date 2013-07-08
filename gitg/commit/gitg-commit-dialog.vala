@@ -477,6 +477,12 @@ class Dialog : Gtk.Dialog
 
 	private void update_min_stat_size(int num)
 	{
+		if (num == 0)
+		{
+			d_scrolled_window_stats.hide();
+			return;
+		}
+
 		int n = int.min(num, max_visible_stat_items);
 
 		var lastrow = d_list_box_stats.get_row_at_index(n - 1);
