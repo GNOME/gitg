@@ -67,7 +67,8 @@ VALA_FILES =					\
 	gitg-sidebar.vala			\
 	gitg-hook.vala				\
 	gitg-date.vala				\
-	gitg-avatar-cache.vala
+	gitg-avatar-cache.vala			\
+	gitg-diff-stat.vala
 
 # Ignore all warnings for vala code...
 libgitg_1_0_la_CFLAGS =		\
