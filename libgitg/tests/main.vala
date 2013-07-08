@@ -29,6 +29,7 @@ class Gitg.Test.Main
 		add(new Stage());
 		add(new Date());
 		add(new Commit());
+		add(new Encoding());
 
 		GLib.Test.run();
 	}

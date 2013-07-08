@@ -26,7 +26,8 @@ test_libgitg_SOURCES =				\
 	repository.vala				\
 	test-stage.vala				\
 	test-date.vala				\
-	test-commit.vala
+	test-commit.vala			\
+	test-encoding.vala
 
 test_libgitg_CFLAGS = $(LIBGITG_CFLAGS) -w
 
