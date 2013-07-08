@@ -146,7 +146,7 @@ namespace Gitg
 			d_icon_size = Gtk.icon_size_register ("gitg", 64, 64);
 
 			set_header_func(update_header);
-			set_filter_func(null);
+			set_filter_func(filter);
 			set_sort_func(compare_widgets);
 			show();
 
@@ -162,7 +162,7 @@ namespace Gitg
 
 		private bool filter(Gtk.ListBoxRow row)
 		{
-			return ((DashRow)row).repository_name.contains(d_filter_text);
+			return d_filter_text != null ? ((DashRow)row).repository_name.contains(d_filter_text) : true;
 		}
 
 		private int compare_widgets(Gtk.ListBoxRow a, Gtk.ListBoxRow b)
@@ -378,14 +378,7 @@ namespace Gitg
 		{
 			d_filter_text = text;
 
-			if (text != null && text != "")
-			{
-				set_filter_func(filter);
-			}
-			else
-			{
-				set_filter_func(null);
-			}
+			invalidate_filter();
 		}
 	}
 }
