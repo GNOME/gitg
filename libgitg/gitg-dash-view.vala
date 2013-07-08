@@ -276,7 +276,7 @@ namespace Gitg
 			{
 				// to get the item sorted to the beginning of the list
 				row.time = new DateTime.now_local();
-				invalidate_filter();
+				invalidate_sort();
 			}
 
 			var f = repository.workdir != null ? repository.workdir : repository.location;
