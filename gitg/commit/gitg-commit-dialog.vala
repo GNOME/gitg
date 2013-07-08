@@ -451,19 +451,21 @@ class Dialog : Gtk.Dialog
 			var nf = delta.get_new_file();
 			var path = nf.get_path();
 
-			var row = new Gtk.Grid();
-			row.column_spacing = 6;
+			var row = new Gtk.ListBoxRow();
+			var grid = new Gtk.Grid();
+			row.add(grid);
+			grid.column_spacing = 6;
 
 			var ds = new Gitg.DiffStat();
 
 			ds.added = (uint)add;
 			ds.removed = (uint)remove;
 
-			row.attach(ds, 0, 0, 1, 1);
+			grid.attach(ds, 0, 0, 1, 1);
 
 			var lbl = new Gtk.Label(path);
 
-			row.attach(lbl, 1, 0, 1, 1);
+			grid.attach(lbl, 1, 0, 1, 1);
 			row.show_all();
 
 			d_list_box_stats.add(row);
