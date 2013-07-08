@@ -65,6 +65,9 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "list_box_stats")]
 	private Gtk.ListBox d_list_box_stats;
 
+	[GtkChild (name = "scrolled_window_stats")]
+	private Gtk.ScrolledWindow d_scrolled_window_stats;
+
 	private bool d_show_markup;
 	private bool d_show_right_margin;
 	private bool d_show_subject_margin;
@@ -85,6 +88,13 @@ class Dialog : Gtk.Dialog
 	{
 		owned get { return d_diff_list; }
 		construct set { d_diff_list = value; }
+	}
+
+	public int max_visible_stat_items
+	{
+		get;
+		construct set;
+		default = 3;
 	}
 
 	public GtkSource.View source_view_message
@@ -418,6 +428,7 @@ class Dialog : Gtk.Dialog
 	private void iterate_diff_list()
 	{
 		var n = diff_list.get_num_deltas();
+		int num = 0;
 
 		for (var i = 0; i < n; ++i)
 		{
@@ -456,7 +467,30 @@ class Dialog : Gtk.Dialog
 			row.show_all();
 
 			d_list_box_stats.add(row);
+			++num;
 		}
+
+		d_list_box_stats.size_allocate.connect(() => {
+			update_min_stat_size(num);
+		});
+	}
+
+	private void update_min_stat_size(int num)
+	{
+		int n = int.min(num, max_visible_stat_items);
+
+		var lastrow = d_list_box_stats.get_row_at_index(n - 1);
+
+		Gtk.Allocation allocation;
+		lastrow.get_allocation(out allocation);
+
+		if (n == num)
+		{
+			d_scrolled_window_stats.set_policy(Gtk.PolicyType.NEVER,
+			                                   Gtk.PolicyType.NEVER);
+		}
+
+		d_scrolled_window_stats.set_min_content_height(allocation.y + allocation.height);
 	}
 
 	private void update_too_long_tag()
