@@ -502,11 +502,64 @@ namespace GitgCommit
 			return retval;
 		}
 
+		private async Ggit.DiffList? index_diff_list()
+		{
+			var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
+			                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
+			                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
+			                                3,
+			                                3,
+			                                null,
+			                                null,
+			                                null);
+
+			var stage = application.repository.stage;
+
+			Ggit.Tree tree;
+
+			try
+			{
+				tree = yield stage.get_head_tree();
+			}
+			catch { return null; }
+
+			Ggit.DiffList? diff_list = null;
+
+			try
+			{
+				var index = application.repository.get_index();
+
+				yield Gitg.Async.thread(() => {
+					diff_list = new Ggit.DiffList.tree_to_index(application.repository,
+					                                            tree,
+					                                            index,
+					                                            opts);
+				});
+			} catch { return null; }
+
+			return diff_list;
+		}
+
 		private void run_commit_dialog(bool           skip_hooks,
 		                               Ggit.Signature author,
 		                               Ggit.Signature committer)
 		{
-			var dlg = new Dialog(author);
+			index_diff_list.begin((obj, res) => {
+				var diff_list = index_diff_list.end(res);
+
+				run_commit_dialog_with_diff_list(skip_hooks,
+				                                 author,
+				                                 committer,
+				                                 diff_list);
+			});
+		}
+
+		private void run_commit_dialog_with_diff_list(bool skip_hooks,
+		                                              Ggit.Signature author,
+		                                              Ggit.Signature committer,
+		                                              Ggit.DiffList? diff_list)
+		{
+			var dlg = new Dialog(author, diff_list);
 
 			dlg.set_transient_for((Gtk.Window)d_main.get_toplevel());
 			dlg.set_default_response(Gtk.ResponseType.OK);

@@ -119,7 +119,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">5</property>
+                <property name="top_attach">6</property>
                 <property name="width">2</property>
                 <property name="height">1</property>
               </packing>
@@ -136,7 +136,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">4</property>
+                <property name="top_attach">5</property>
                 <property name="width">2</property>
                 <property name="height">1</property>
               </packing>
@@ -233,6 +233,34 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">2</property>
+                <property name="width">2</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolled_window_stats">
+                <property name="visible">True</property>
+                <property name="vexpand">True</property>
+                <property name="shadow_type">in</property>
+                <style>
+                  <class name="view"/>
+                  <class name="content-view"/>
+                </style>
+                <child>
+                  <object class="GtkListBox" id="list_box_stats">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="selection_mode">none</property>
+                    <style>
+                      <class name="view"/>
+                      <class name="content-view"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
                 <property name="width">2</property>
                 <property name="height">1</property>
               </packing>

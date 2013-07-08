@@ -62,6 +62,9 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "infobar_close_button")]
 	private Gtk.Button d_infobar_close_button;
 
+	[GtkChild (name = "list_box_stats")]
+	private Gtk.ListBox d_list_box_stats;
+
 	private bool d_show_markup;
 	private bool d_show_right_margin;
 	private bool d_show_subject_margin;
@@ -76,6 +79,13 @@ class Dialog : Gtk.Dialog
 	private bool d_enable_spell_checking;
 	private string? d_spell_checking_language;
 	private GtkSpell.Checker? d_spell_checker;
+	private Ggit.DiffList d_diff_list;
+
+	public Ggit.DiffList? diff_list
+	{
+		owned get { return d_diff_list; }
+		construct set { d_diff_list = value; }
+	}
 
 	public GtkSource.View source_view_message
 	{
@@ -392,10 +402,62 @@ class Dialog : Gtk.Dialog
 		d_constructed = true;
 
 		init_message_area();
+
+		if (diff_list != null)
+		{
+			iterate_diff_list();
+		}
+		else
+		{
+		}
 	}
 
 	private Gtk.TextTag d_subject_tag;
 	private Gtk.TextTag d_too_long_tag;
+
+	private void iterate_diff_list()
+	{
+		var n = diff_list.get_num_deltas();
+
+		for (var i = 0; i < n; ++i)
+		{
+			Ggit.DiffDelta delta;
+			Ggit.DiffPatch patch;
+
+			try
+			{
+				diff_list.get_patch(i, out patch, out delta);
+			} catch { continue; }
+
+			size_t add;
+			size_t remove;
+
+			try
+			{
+				patch.get_line_stats(null, out add, out remove);
+			} catch { continue; }
+
+			var nf = delta.get_new_file();
+			var path = nf.get_path();
+
+			var row = new Gtk.Grid();
+			row.column_spacing = 6;
+
+			var ds = new Gitg.DiffStat();
+
+			ds.added = (uint)add;
+			ds.removed = (uint)remove;
+
+			row.attach(ds, 0, 0, 1, 1);
+
+			var lbl = new Gtk.Label(path);
+
+			row.attach(lbl, 1, 0, 1, 1);
+			row.show_all();
+
+			d_list_box_stats.add(row);
+		}
+	}
 
 	private void update_too_long_tag()
 	{
@@ -547,9 +609,10 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
-	public Dialog(Ggit.Signature author)
+	public Dialog(Ggit.Signature author,
+	              Ggit.DiffList? diff_list)
 	{
-		Object(author: author);
+		Object(author: author, diff_list: diff_list);
 	}
 
 	private void update_font_settings()
