@@ -1,7 +1,7 @@
 using Gtk;
 using Gitg;
 
-class TestDashView
+class TestRepositoryListBox
 {
 	public static int main(string[] args)
 	{
@@ -10,7 +10,7 @@ class TestDashView
 
 		var window = new Window();
 		window.set_default_size(300, 300);
-		window.add(new DashView());
+		window.add(new RepositoryListBox());
 		window.show_all();
 
 		window.delete_event.connect((w, ev) => {

@@ -59,7 +59,7 @@ VALA_FILES =					\
 	gitg-diff-view-request.vala		\
 	gitg-diff-view-request-resource.vala	\
 	gitg-diff-view-request-diff.vala	\
-	gitg-dash-view.vala			\
+	gitg-repository-list-box.vala		\
 	gitg-when-mapped.vala			\
 	gitg-progress-bin.vala			\
 	gitg-stage.vala				\

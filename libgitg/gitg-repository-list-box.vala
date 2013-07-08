@@ -19,13 +19,13 @@
 
 namespace Gitg
 {
-	public class DashView : Gtk.ListBox
+	public class RepositoryListBox : Gtk.ListBox
 	{
 		private static Gtk.IconSize d_icon_size;
 		private string? d_filter_text;
 
-		[GtkTemplate (ui = "/org/gnome/gitg/gtk/dash-view/gitg-dash-view-row.ui")]
-		private class DashRow : Gtk.ListBoxRow
+		[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-repository-list-box-row.ui")]
+		private class Row : Gtk.ListBoxRow
 		{
 			private Repository? d_repository;
 			private DateTime d_time;
@@ -123,7 +123,7 @@ namespace Gitg
 				}
 			}
 
-			public DashRow(string name, string branch_name, bool has_remote)
+			public Row(string name, string branch_name, bool has_remote)
 			{
 				Object(repository_name: name, branch_name: branch_name, has_remote: has_remote);
 			}
@@ -133,7 +133,7 @@ namespace Gitg
 
 		protected override void row_activated(Gtk.ListBoxRow row)
 		{
-			var r = (DashRow)row;
+			var r = (Row)row;
 
 			if (r.repository != null)
 			{
@@ -162,12 +162,12 @@ namespace Gitg
 
 		private bool filter(Gtk.ListBoxRow row)
 		{
-			return d_filter_text != null ? ((DashRow)row).repository_name.contains(d_filter_text) : true;
+			return d_filter_text != null ? ((Row)row).repository_name.contains(d_filter_text) : true;
 		}
 
 		private int compare_widgets(Gtk.ListBoxRow a, Gtk.ListBoxRow b)
 		{
-			return - ((DashRow)a).time.compare(((DashRow)b).time);
+			return - ((Row)a).time.compare(((Row)b).time);
 		}
 
 		private void add_recent_info()
@@ -218,13 +218,13 @@ namespace Gitg
 			}
 		}
 
-		private DashRow get_row_for_repository(Repository repository)
+		private Row get_row_for_repository(Repository repository)
 		{
-			DashRow? row = null;
+			Row? row = null;
 
 			foreach (var child in get_children())
 			{
-				var d = (DashRow)child;
+				var d = (Row)child;
 				if (d.repository.get_location().equal(repository.get_location()))
 				{
 					row = d;
@@ -248,7 +248,7 @@ namespace Gitg
 
 		public void add_repository(Repository repository)
 		{
-			DashRow? row = get_row_for_repository(repository);
+			Row? row = get_row_for_repository(repository);
 
 			if (row == null)
 			{
@@ -267,7 +267,7 @@ namespace Gitg
 				}
 				catch {}
 
-				row = new DashRow(repository.name, head_name, has_remote);
+				row = new Row(repository.name, head_name, has_remote);
 				row.repository = repository;
 				row.show();
 				add(row);
@@ -286,7 +286,7 @@ namespace Gitg
 			}
 		}
 
-		private async Repository? clone(DashRow row, string url, File location, bool is_bare)
+		private async Repository? clone(Row row, string url, File location, bool is_bare)
 		{
 			SourceFunc callback = clone.callback;
 			Repository? repository = null;
@@ -352,7 +352,7 @@ namespace Gitg
 			}
 
 			// Clone
-			DashRow row = new DashRow(subfolder_name, "Cloning...", true);
+			Row row = new Row(subfolder_name, "Cloning...", true);
 			row.loading = true;
 			row.show();
 			add(row);
