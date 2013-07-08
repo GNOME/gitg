@@ -35,6 +35,7 @@ AM_VALAFLAGS = 				\
 	--gresources "$(top_srcdir)/libgitg/resources/resources.xml"
 
 Gitg-1.0.gir: libgitg-1.0.la
+libgitg-1.0.vapi: libgitg-1.0.la
 libgitg.h: libgitg-1.0.la
 
 VALA_FILES =					\
