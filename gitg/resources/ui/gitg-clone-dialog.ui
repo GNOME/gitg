@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkDialog" id="dialog-clone">
+  <template class="GitgCloneDialog" parent="GtkDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Clone Repository</property>
@@ -69,7 +69,7 @@
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">Remote _URL:</property>
                 <property name="use_underline">True</property>
-                <property name="mnemonic_widget">entry-url</property>
+                <property name="mnemonic_widget">entry_url</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -79,7 +79,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entry-url">
+              <object class="GtkEntry" id="entry_url">
                 <property name="width_request">350</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -100,7 +100,7 @@
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Local Folder:</property>
                 <property name="use_underline">True</property>
-                <property name="mnemonic_widget">filechooserbutton-location</property>
+                <property name="mnemonic_widget">button_location</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -110,7 +110,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkFileChooserButton" id="filechooserbutton-location">
+              <object class="GtkFileChooserButton" id="button_location">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
@@ -125,7 +125,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="checkbutton-bare-repository">
+              <object class="GtkCheckButton" id="bare_repository">
                 <property name="label" translatable="yes">Bare repository</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -153,5 +153,5 @@
       <action-widget response="-6">cancel-button</action-widget>
       <action-widget response="-5">ok-button</action-widget>
     </action-widgets>
-  </object>
+  </template>
 </interface>

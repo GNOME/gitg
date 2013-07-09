@@ -39,6 +39,7 @@ VALASOURCES =							\
 	gitg.vala						\
 	gitg-dirs.vala						\
 	gitg-window.vala					\
+	gitg-clone-dialog.vala					\
 	gitg-resource.vala					\
 	gitg-application.vala					\
 	gitg-plugins-engine.vala				\

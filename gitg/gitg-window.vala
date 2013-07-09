@@ -24,7 +24,6 @@ namespace Gitg
 public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 {
 	private Settings d_state_settings;
-	private Settings d_main_settings;
 	private Settings d_interface_settings;
 	private Repository? d_repository;
 	private GitgExt.MessageBus d_message_bus;
@@ -133,7 +132,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	{
 		add_action_entries(win_entries, this);
 
-		d_main_settings = new Settings("org.gnome.gitg.preferences.main");
 		d_interface_settings = new Settings("org.gnome.gitg.preferences.interface");
 
 		string menuname;
@@ -321,54 +319,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private void on_clone_repository()
 	{
-		var ret = GitgExt.UI.from_builder("ui/gitg-clone-dialog.ui",
-		                                  "dialog-clone",
-		                                  "entry-url",
-		                                  "filechooserbutton-location",
-		                                  "checkbutton-bare-repository");
-
-		var dlg = ret["dialog-clone"] as Gtk.Dialog;
-		var entry_url = ret["entry-url"] as Gtk.Entry;
-		var chooser = ret["filechooserbutton-location"] as Gtk.FileChooserButton;
-		var bare = ret["checkbutton-bare-repository"] as Gtk.CheckButton;
-
-		dlg.set_transient_for(this);
-		dlg.set_default_response(Gtk.ResponseType.OK);
-
-		var default_dir = d_main_settings.get_string("clone-directory");
-
-		if (default_dir == "")
-		{
-			default_dir = Environment.get_home_dir();
-		}
-
-		chooser.set_current_folder(default_dir);
-
-		chooser.selection_changed.connect((c) => {
-			d_main_settings.set_string("clone-directory", c.get_file().get_path());
-		});
-
-		entry_url.changed.connect((e) => {
-			string ?tooltip_text = null;
-			string ?icon_name = null;
-			bool url_supported = Ggit.Remote.is_supported_url(entry_url.get_text());
-
-			if (!url_supported && (entry_url.get_text_length() > 0))
-			{
-				icon_name = "dialog-warning-symbolic";
-				tooltip_text = _("The URL introduced is not supported");
-			}
-
-			entry_url.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, icon_name);
-			entry_url.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, tooltip_text);
-
-			dlg.set_response_sensitive(Gtk.ResponseType.OK, url_supported);
-		});
+		var dlg = new CloneDialog(this);
 
 		dlg.response.connect((d, id) => {
 			if (id == Gtk.ResponseType.OK)
 			{
-				d_dash_view.clone_repository(entry_url.get_text(), chooser.get_file(), bare.get_active());
+				d_dash_view.clone_repository(dlg.url, dlg.location, dlg.is_bare);
 			}
 
 			d.destroy();
