@@ -237,7 +237,9 @@ namespace GitgHistory
 			var extset = new Peas.ExtensionSet(engine,
 			                                   typeof(GitgExt.HistoryPanel),
 			                                   "history",
-			                                   this);
+			                                   this,
+			                                   "application",
+			                                   application);
 
 			d_panels = new Gitg.UIElements<GitgExt.HistoryPanel>(extset,
 			                                                     d_main.stack_panel);
