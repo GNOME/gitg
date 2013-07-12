@@ -52,17 +52,6 @@ namespace GitgCommit
 		{
 			application.bind_property("repository", this,
 			                          "repository", BindingFlags.DEFAULT);
-
-			// Preload author avatar
-			try
-			{
-				var author = get_signature("AUTHOR");
-				var ac = Gitg.AvatarCache.default();
-
-				ac.load.begin(author.get_email(), null, (obj, res) => {
-					ac.load.end(res);
-				});
-			} catch {}
 		}
 
 		public string display_name
@@ -302,6 +291,17 @@ namespace GitgCommit
 			}
 
 			d_reloading = true;
+
+			// Preload author avatar
+			try
+			{
+				var author = get_signature("AUTHOR");
+				var ac = Gitg.AvatarCache.default();
+
+				ac.load.begin(author.get_email(), null, (obj, res) => {
+					ac.load.end(res);
+				});
+			} catch {}
 
 			var model = d_main.sidebar.model;
 
