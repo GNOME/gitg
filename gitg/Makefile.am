@@ -40,6 +40,7 @@ VALASOURCES =							\
 	gitg-dirs.vala						\
 	gitg-window.vala					\
 	gitg-clone-dialog.vala					\
+	gitg-author-details-dialog.vala					\
 	gitg-resource.vala					\
 	gitg-application.vala					\
 	gitg-plugins-engine.vala				\

@@ -85,8 +85,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{"clone-repository", on_clone_repository},
 		{"close", on_close_activated},
 		{"reload", on_reload_activated},
-		{"user-information-global", on_global_user_info_activated},
-		{"user-information-repo", on_repo_user_info_activated},
+		{"author-details-global", on_global_author_details_activated},
+		{"author-details-repo", on_repo_author_details_activated},
 	};
 
 	[GtkCallback]
@@ -338,116 +338,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		dlg.show();
 	}
 
-	private void show_user_information_dialog(Ggit.Config config, string? repository_name)
-	{
-		var ret = GitgExt.UI.from_builder("ui/gitg-user-dialog.ui",
-		                                  "dialog",
-		                                  "input-name",
-		                                  "input-email",
-		                                  "label-view",
-		                                  "label-dash");
-
-		var user_information_dialog = ret["dialog"] as Gtk.Dialog;
-		var input_name = ret["input-name"] as Gtk.Entry;
-		var input_email = ret["input-email"] as Gtk.Entry;
-		var label_view = ret["label-view"] as Gtk.Label;
-		var label_dash = ret["label-dash"] as Gtk.Label;
-
-		if (repository_name == null)
-		{
-			label_view.hide();
-			label_dash.show();
-
-			if (Ggit.Config.find_global().get_path() == null)
-			{
-				show_config_error(user_information_dialog, _("Unable to open the .gitconfig file."), "");
-				return;
-			}
-		}
-		else
-		{
-			label_view.label = label_view.label.printf(repository_name);
-
-			label_view.show();
-			label_dash.hide();
-		}
-
-		string user_name = "";
-		string user_email = "";
-
-		try
-		{
-			config.refresh();
-			user_name = config.get_string("user.name");
-		}
-		catch {}
-
-		try
-		{
-			user_email = config.get_string("user.email");
-		}
-		catch {}
-
-		if (user_name != "")
-		{
-			input_name.set_text(user_name);
-		}
-
-		if (user_email != "")
-		{
-			input_email.set_text(user_email);
-		}
-
-		user_information_dialog.set_transient_for(this);
-
-		user_information_dialog.set_response_sensitive(Gtk.ResponseType.OK, false);
-
-		input_name.changed.connect((e) => {
-			user_information_dialog.set_response_sensitive(Gtk.ResponseType.OK, true);
-		});
-
-		input_email.changed.connect((e) => {
-			user_information_dialog.set_response_sensitive(Gtk.ResponseType.OK, true);
-		});
-
-		user_information_dialog.response.connect((d, id) => {
-			if (id == Gtk.ResponseType.OK)
-			{
-				try
-				{
-					if (input_name.get_text() == "")
-					{
-						config.delete_entry("user.name");
-					}
-					else
-					{
-						config.set_string("user.name", input_name.get_text());
-					}
-
-					if (input_email.get_text() == "")
-					{
-						config.delete_entry("user.email");
-					}
-					else
-					{
-						config.set_string("user.email", input_email.get_text());
-					}
-				}
-				catch (Error e)
-				{
-					show_config_error(user_information_dialog, _("Failed to set Git user config."), e.message);
-					d.destroy();
-					return;
-				}
-			}
-
-			d.destroy();
-		});
-
-		user_information_dialog.show();
-	}
-
-	private void on_global_user_info_activated()
+	private void on_global_author_details_activated()
 	{
 		Ggit.Config global_config = null;
 
@@ -460,10 +351,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			return;
 		}
 
-		show_user_information_dialog(global_config, null);
+		var author_details = new AuthorDetailsDialog(this, global_config, null);
+		author_details.show();
 	}
 
-	private void on_repo_user_info_activated()
+	private void on_repo_author_details_activated()
 	{
 		Ggit.Config repo_config = null;
 
@@ -476,23 +368,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			return;
 		}
 
-		show_user_information_dialog(repo_config, d_repository.name);
-	}
-
-	private void show_config_error(Gtk.Window parent, string primary_message, string secondary_message)
-	{
-		var error_dialog = new Gtk.MessageDialog(parent,
-		                                         Gtk.DialogFlags.DESTROY_WITH_PARENT,
-		                                         Gtk.MessageType.ERROR,
-		                                         Gtk.ButtonsType.OK,
-		                                         primary_message);
-
-		error_dialog.secondary_text = secondary_message;
-		error_dialog.show();
-
-		error_dialog.response.connect((d, id) => {
-			error_dialog.destroy();
-		});
+		var author_details = new AuthorDetailsDialog(this, repo_config, d_repository.name);
+		author_details.show();
 	}
 
 	private void on_current_activity_changed(Object obj, ParamSpec pspec)
