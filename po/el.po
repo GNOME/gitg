@@ -1,15 +1,14 @@
 # Greek translation for gitg.
 # Copyright (C) 2013 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
-# Dimitris Spingos <dmtrs32@gmail.com>, 2013.
 # Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&k"
 "eywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-05-19 09:09+0000\n"
-"PO-Revision-Date: 2013-05-21 09:21+0300\n"
+"POT-Creation-Date: 2013-07-07 20:31+0000\n"
+"PO-Revision-Date: 2013-07-13 15:56+0300\n"
 "Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
 "Language-Team: team@gnome.gr\n"
 "Language: el\n"
@@ -30,25 +29,18 @@ msgid "Git repository browser"
 msgstr "Περιηγητής αποθετηρίου Git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Filter Revisions When Searching"
-msgstr "Φιλτράρισμα αναθεωρήσεων κατά την αναζήτηση"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Προσανατολισμός της κύριας διεπαφής (κάθετης ή οριζόντιας)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr ""
-"Αν η αναζήτηση φιλτράρει τις αναθεωρήσεις στην προβολή ιστορικού αντί να "
-"μεταβαίνει στην πρώτη συμφωνία."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Ο ορισμός του ρυθμίζει τον προσανατολισμό της κύριας διεπαφής."
 
-#. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
 msgstr "Πότε να συμπτύσσονται οι ανενεργές γραμμές"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -57,30 +49,54 @@ msgstr ""
 "Έγκυρες τιμές είναι 0 - 4, όπου 0 δείχνει 'πρώιμες' και 4 δείχνει 'όψιμες'."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Ορισμός του δείχνει αν θα συμπτύσσονται οι γραμμές ιστορικού οι οποίες δεν "
+"εμφανίζουν δραστηριότητα. Ενεργοποίηση αυτού μπορεί να δώσει μια πιο καθαρή "
+"προβολή ιστορικού όταν υπάρχει πολλή παράλληλη ανάπτυξη. Δείτε τις ανενεργές "
+"γραμμές σύμπτυξης για να ελέγξετε πότε οι γραμμές πρέπει να συμπτύσσονται."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid "Show History in Topological Order"
 msgstr "Εμφάνιση ιστορικού με τοπολογική σειρά"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Ο ορισμός του δείχνει αν θα εμφανίζεται το ιστορικό με τοπολογική σειρά."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr "Προσανατολισμός της κύριας διεπαφής (κάθετης ή οριζόντιας)"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation of the main interface."
-msgstr "Ο ορισμός του ρυθμίζει τον προσανατολισμό της κύριας διεπαφής."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Ορισμός του δείχνει αν θα εμφανίζονται στοιχεία για την κρύπτη στο ιστορικό."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Ο ορισμός του δείχνει αν θα εμφανίζεται ένα εικονικό στοιχείο για τις "
+"τρέχουσες έτοιμες αλλαγές στο ιστορικό."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Ο ορισμός του δείχνει αν θα εμφανίζεται ένα εικονικό στοιχείο για τις "
+"τρέχουσες ανακαλεσμένες αλλαγές στο ιστορικό."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
 msgstr "Εμφάνιση δεξιού περιθωρίου στη προβολή μηνύματος υποβολής"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -89,71 +105,299 @@ msgstr ""
 "μπορεί να χρησιμοποιηθεί για να δείτε εύκολα πού θα σπάσει το μήνυμα "
 "υποβολής σε μια συγκεκριμένη στήλη."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "Column at Which Right Margin is Shown"
 msgstr "Στήλη στην οποία προβάλλεται το δεξιό περιθώριο"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
-msgstr ""
-"Η στήλη στην οποία εμφανίζεται το δεξιό περιθώριο αν η προτίμηση του δεξιού "
-"περιθωρίου ορίζεται σε ΑΛΗΘΗ."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
-msgid "Allow External Diff Program"
-msgstr "Να επιτρέπεται εξωτερικό πρόγραμμα διαφορών"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
+#| msgid ""
+#| "The column at which the right margin is shown if the right-margin "
+#| "preference is set to TRUE."
+msgid ""
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
-"Να επιτρέπεται ένα εξωτερικό πρόγραμμα διαφορών να χρησιμοποιηθεί κατά την "
-"προβολή διαφορών στο gitg."
+"Η στήλη στην οποία εμφανίζεται το δεξιό περιθώριο αν η προτίμηση της "
+"εμφάνισης δεξιού περιθωρίου ορίζεται σε ΑΛΗΘΗ."
 
-#: ../gitg/gitg-application.vala:49
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#| msgid "Show Right Margin in Commit Message View"
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Εμφάνιση θέματος περιθωρίου στη προβολή μηνύματος υποβολής"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
+"Επισήμανση του κειμένου θέματος του μηνύματος υποβολής, όταν περνά το "
+"περιθώριο που ορίστηκε από τη θέση περιθωρίου θέματος."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#| msgid "Column at Which Right Margin is Shown"
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Στήλη στην οποία προβάλλεται το περιθώριο θέματος"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+#| msgid ""
+#| "The column at which the right margin is shown if the right-margin "
+#| "preference is set to TRUE."
+msgid ""
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
+msgstr ""
+"Η στήλη στην οποία εμφανίζεται το περιθώριο θέματος αν η προτίμηση της "
+"εμφάνισης περιθωρίου θέματος ορίζεται σε ΑΛΗΘΗ."
+
+#: ../gitg/commit/gitg-commit-dialog.vala:263
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Αδύνατος ο ορισμός γλώσσας ορθογραφικού ελέγχου: %s"
+
+#: ../gitg/commit/gitg-commit.vala:70
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+#| msgid "Commits"
+msgid "Commit"
+msgstr "Υποβολή"
+
+#: ../gitg/commit/gitg-commit.vala:155
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Αποτυχία ετοιμασίας του αρχείου `%s'"
+
+#: ../gitg/commit/gitg-commit.vala:174
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Αποτυχία ετοιμασίας της αφαίρεσης του αρχείου `%s'"
+
+#: ../gitg/commit/gitg-commit.vala:234
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Αποτυχία ανάκλησης της αφαίρεσης του αρχείου `%s'"
+
+#: ../gitg/commit/gitg-commit.vala:253
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Αποτυχία ανάκλησης του αρχείου `%s'"
+
+#: ../gitg/commit/gitg-commit.vala:366
+msgid "Staged"
+msgstr "Έτοιμο"
+
+#: ../gitg/commit/gitg-commit.vala:370
+msgid "No staged files"
+msgstr "Χωρίς έτοιμα αρχεία"
+
+#: ../gitg/commit/gitg-commit.vala:379
+msgid "Unstaged"
+msgstr "Ανακαλεσμένο"
+
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "No unstaged files"
+msgstr "Χωρίς ανακαλεσμένα αρχεία"
+
+#: ../gitg/commit/gitg-commit.vala:392
+msgid "Untracked"
+msgstr "Απαρακολούθητα"
+
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "No untracked files"
+msgstr "Χωρίς απαρακολούθητα αρχεία"
+
+#: ../gitg/commit/gitg-commit.vala:432
+msgid "There are no changes to be committed"
+msgstr "Δεν υπάρχουν αλλαγές για υποβολή"
+
+#: ../gitg/commit/gitg-commit.vala:433
+msgid "Use amend to change the commit message of the previous commit"
+msgstr ""
+"Χρησιμοποιήστε amend για να αλλάξετε το μήνυμα υποβολής της προηγούμενης "
+"υποβολής"
+
+#: ../gitg/commit/gitg-commit.vala:459
+msgid "Failed to commit"
+msgstr "Αποτυχία υποβολής"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:655
+msgid "Failed to pass pre-commit"
+msgstr "Αποτυχία μεταβίβασης προϋποβολής"
+
+#: ../gitg/commit/gitg-commit.vala:643
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"Το όνομα χρήστη και το ηλεκτρονικό ταχυδρομείο δε ρυθμίστηκαν ακόμα. "
+"Παρακαλούμε, πηγαίνετε στις ρυθμίσεις χρήστη και δώστε το όνομά σας και την "
+"ηλεκτρονική διεύθυνσή σας."
+
+#: ../gitg/commit/gitg-commit.vala:647
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+"Το όνομα χρήστη δε ρυθμίστηκε ακόμα. Παρακαλούμε, πηγαίνετε στις ρυθμίσεις "
+"χρήστη και δώστε το όνομά σας."
+
+#: ../gitg/commit/gitg-commit.vala:651
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"Η ηλεκτρονική διεύθυνσή σας δε ρυθμίστηκε ακόμα. Παρακαλούμε, πηγαίνετε στις "
+"ρυθμίσεις χρήστη και δώστε την ηλεκτρονική σας διεύθυνση."
+
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Εμφάνιση της έκδοσης της εφαρμογής"
 
-#: ../gitg/gitg-application.vala:51
-msgid "Start gitg with a particular view"
-msgstr "Έναρξη του gitg με συγκεκριμένη προβολή"
+#: ../gitg/gitg-application.vala:58
+#| msgid "Start gitg with a particular view"
+msgid "Start gitg with a particular activity"
+msgstr "Έναρξη του gitg με συγκεκριμένη ενέργεια"
 
-#: ../gitg/gitg-application.vala:53
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgstr ""
+"Έναρξη του gitg με την ενέργεια υποβολής (συντόμευση για την υποβολή --view)"
+
+#: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr ""
 "Μην προσπαθείτε να φορτώσετε ένα αποθετήριο από τον τρέχοντα κατάλογο "
 "εργασίας"
 
-#: ../gitg/gitg-application.vala:76
+#: ../gitg/gitg-application.vala:88
 msgid "- git repository viewer"
 msgstr "- προβολέας αποθετηρίου git"
 
-#: ../gitg/gitg-application.vala:186
+#: ../gitg/gitg-application.vala:205
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg είναι ένας προβολέας αποθετηρίου git για το gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:211
+#: ../gitg/gitg-application.vala:230
 msgid "gitg homepage"
 msgstr "Η αρχική σελίδα του gitg"
 
-#: ../gitg/gitg-preferences-interface.vala:83
-msgid "Interface"
-msgstr "Διεπαφή"
-
-#: ../gitg/gitg-window.vala:159
+#: ../gitg/gitg-window.vala:254
 msgid "Projects"
 msgstr "Έργα"
 
-#: ../gitg/gitg-window.vala:191
+#: ../gitg/gitg-window.vala:290
 msgid "Open Repository"
 msgstr "Άνοιγμα αποθετηρίου"
 
-#: ../gitg/gitg-window.vala:251
+#: ../gitg/gitg-window.vala:359
 msgid "The URL introduced is not supported"
 msgstr "Το URL που εισήχθη δεν υποστηρίζεται"
 
-#. ex:ts=4 noet
+#: ../gitg/gitg-window.vala:402
+msgid "Unable to open the .gitconfig file."
+msgstr "Αδύνατο το άνοιγμα του αρχείου .gitconfig."
+
+#: ../gitg/gitg-window.vala:477
+msgid "Failed to set Git user config."
+msgstr "Αποτυχία ορισμού ρυθμίσεων χρήστη Git."
+
+#: ../gitg/gitg-window.vala:688
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "Το '%s' δεν είναι αποθετήριο Git."
+
+#: ../gitg/history/gitg-history-navigation.vala:194
+#: ../gitg/history/gitg-history-navigation.vala:302
+msgid "All commits"
+msgstr "Όλες οι υποβολές"
+
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:197
+msgid "Branches"
+msgstr "Κλάδοι"
+
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:234
+msgid "Remotes"
+msgstr "Απομακρυσμένοι"
+
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:260
+msgid "Tags"
+msgstr "Ετικέτες"
+
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
+msgid "History"
+msgstr "Ιστορικό"
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+msgid "Interface"
+msgstr "Διεπαφή"
+
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "Τώρα"
+
+#: ../libgitg/gitg-date.vala:320
+msgid "A minute ago"
+msgstr "Ένα λεπτό πριν"
+
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "%d minutes ago"
+msgstr "%d λεπτά πριν"
+
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "Πριν μισή ώρα"
+
+#: ../libgitg/gitg-date.vala:330
+msgid "An hour ago"
+msgstr "Πριν μια ώρα"
+
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "%d hours ago"
+msgstr "%d ώρες πριν"
+
+#: ../libgitg/gitg-date.vala:335
+msgid "A day ago"
+msgstr "Μια ημέρα πριν"
+
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "%d days ago"
+msgstr "%d μέρες πριν"
+
+#: ../libgitg/gitg-diff-view.vala:88
+msgid "stage"
+msgstr "ετοιμασία"
+
+#: ../libgitg/gitg-diff-view.vala:89
+msgid "unstage"
+msgstr "ανάκληση"
+
+#: ../libgitg/gitg-diff-view.vala:90
+msgid "Loading diff..."
+msgstr "Φορτώνονται οι διαφορές..."
+
+#: ../libgitg/gitg-stage.vala:279
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+"Αδύνατη η ανάγνωση μηνύματος υποβολής μετά την εκτέλεση του άγκιστρου "
+"commit-msg: %s"
+
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "Διαφορές"
+
+#: ../plugins/files/gitg-files.vala:65
+msgid "Files"
+msgstr "Αρχεία"
+
+#. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository"
 msgstr "Κλωνοποίηση αποθετηρίου"
@@ -177,6 +421,42 @@ msgstr "Επιλογή τοποθεσίας..."
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
 msgstr "Γυμνό αποθετήριο"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+#| msgid "Commits"
+msgid "C_ommit"
+msgstr "_Υποβολή"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+msgid "Add _signed-off-by signature"
+msgstr "Προσθήκη υπογραφής _κλείσιμο από"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "_Amend previous commit"
+msgstr "_Τροποποίηση της προηγούμενης υποβολής"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+#| msgid "_Close"
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "Παράλειψη α_γκίστρων υποβολής"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Θέμα"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Συγγραφέας"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Ημερομηνία"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
@@ -211,23 +491,67 @@ msgid "_User Information"
 msgstr "Πληροφορίες _χρήστη"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:9
-msgid "_Close"
-msgstr "_Κλείσιμο"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:10
 msgid "_Reload"
 msgstr "_Επαναφόρτωση"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Εμφάνιση επισήμανσης"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "Εμφάνιση περιθωρίου _θέματος στη στήλη:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "Προβολή δεξιού _περιθωρίου στη στήλη:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Ενεργοποίηση ορθογραφικού ελέγχου"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+#| msgid "Commits"
+msgid "Commit Message"
+msgstr "Μήνυμα Υποβολής"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Υποβολές"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Σύμπτυξη ανενεργών γραμμών"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Εμφάνιση κρύπτης στο ιστορικό"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Εμφάνιση έτοιμων αλλαγών στο ιστορικό"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "Εμφάνιση ανακαλεσμένων αλλαγών στο ιστορικό"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Εμφάνιση ιστορικού με τοπολογική σειρά"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Πρώιμα"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Όψιμα"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Layout"
 msgstr "Διάταξη"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "Use horizontal layout"
 msgstr "Χρήση οριζόντιας διάταξης"
 
@@ -235,166 +559,78 @@ msgstr "Χρήση οριζόντιας διάταξης"
 msgid "gitg Preferences"
 msgstr "Προτιμήσεις gitg"
 
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:1
+#| msgid "_User Information"
+msgid "User Information"
+msgstr "Πληροφορίες χρήστη"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:3
 #, no-c-format
 msgid "Note: The git config file '%s' does not exist."
 msgstr "Σημείωση: το αρχείο git config '%s' δεν υπάρχει."
 
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:4
 msgid "Enter details to set as default for all repositories:"
 msgstr ""
 "Εισάγετε λεπτομέρειες που θα οριστούν ως προεπιλεγμένες για όλα τα "
 "αποθετήρια:"
 
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:5
-#, no-c-format
-msgid "Enter details for %s repository:"
-msgstr "Εισάγετε λεπτομέρειες για το αποθετήριο %s:"
-
 #: ../gitg/resources/ui/gitg-user-dialog.ui.h:6
+#, no-c-format
+#| msgid "Enter details for %s repository:"
+msgid "Enter details for repository '%s':"
+msgstr "Εισάγετε λεπτομέρειες για το αποθετήριο '%s':"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:7
 msgid "E-mail: "
 msgstr "Ηλεκτρονική διεύθυνση: "
 
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:7
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:8
 msgid "Name: "
 msgstr "Όνομα: "
 
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:8
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:9
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:9
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:10
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: ../plugins/diff/gitg-diff.vala:70
-msgid "Diff"
-msgstr "Διαφορές"
-
-#: ../plugins/files/gitg-files.vala:77
-msgid "Files"
-msgstr "Αρχεία"
-
-#. ex: ts=4 noet
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "στήλη"
 
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Εμφάνιση πλήρους ιστορικού"
+#~ msgid "Filter Revisions When Searching"
+#~ msgstr "Φιλτράρισμα αναθεωρήσεων κατά την αναζήτηση"
 
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Εμφάνιση επιλογών ιστορικού gitg"
+#~ msgid ""
+#~ "Whether searching filters the revisions in the history view instead of "
+#~ "jumping to the first match."
+#~ msgstr ""
+#~ "Αν η αναζήτηση φιλτράρει τις αναθεωρήσεις στην προβολή ιστορικού αντί να "
+#~ "μεταβαίνει στην πρώτη συμφωνία."
 
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "Επιλογές ιστορικού gitg"
+#~ msgid "Allow External Diff Program"
+#~ msgstr "Να επιτρέπεται εξωτερικό πρόγραμμα διαφορών"
 
-#: ../plugins/history/gitg-history-navigation.vala:108
-#: ../plugins/history/gitg-history-navigation.vala:112
-msgid "All commits"
-msgstr "Όλες οι υποβολές"
+#~ msgid ""
+#~ "Allow an external diff program to be used when viewing diffs in gitg."
+#~ msgstr ""
+#~ "Να επιτρέπεται ένα εξωτερικό πρόγραμμα διαφορών να χρησιμοποιηθεί κατά "
+#~ "την προβολή διαφορών στο gitg."
 
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:116
-msgid "Branches"
-msgstr "Κλάδοι"
+#~ msgid "    "
+#~ msgstr "    "
 
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:155
-msgid "Remotes"
-msgstr "Απομακρυσμένοι"
+#~ msgid "Show all history"
+#~ msgstr "Εμφάνιση πλήρους ιστορικού"
 
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:180
-msgid "Tags"
-msgstr "Ετικέτες"
+#~ msgid "Show gitg history options"
+#~ msgstr "Εμφάνιση επιλογών ιστορικού gitg"
 
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:135
-msgid "History"
-msgstr "Ιστορικό"
+#~ msgid "gitg history options"
+#~ msgstr "Επιλογές ιστορικού gitg"
 
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-"Ορισμός του δείχνει αν θα συμπτύσσονται οι γραμμές ιστορικού οι οποίες δεν "
-"εμφανίζουν δραστηριότητα. Ενεργοποίηση αυτού μπορεί να δώσει μια πιο καθαρή "
-"προβολή ιστορικού όταν υπάρχει πολλή παράλληλη ανάπτυξη. Δείτε τις ανενεργές "
-"γραμμές σύμπτυξης για να ελέγξετε πότε οι γραμμές πρέπει να συμπτύσσονται."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr ""
-"Ορισμός του δείχνει αν θα εμφανίζονται στοιχεία για την κρύπτη στο ιστορικό."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-"Ο ορισμός του δείχνει αν θα εμφανίζεται ένα εικονικό στοιχείο για τις "
-"τρέχουσες σκηνικές αλλαγές στο ιστορικό."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-"Ο ορισμός του δείχνει αν θα εμφανίζεται ένα εικονικό στοιχείο για τις "
-"τρέχουσες αλλαγές εκτός σκηνής στο ιστορικό."
-
-#: ../plugins/history/resources/preferences.ui.h:1
-msgid "Commits"
-msgstr "Υποβολές"
-
-#: ../plugins/history/resources/preferences.ui.h:3
-msgid "Collapse inactive lanes"
-msgstr "Σύμπτυξη ανενεργών γραμμών"
-
-#: ../plugins/history/resources/preferences.ui.h:4
-msgid "Show stash in history"
-msgstr "Εμφάνιση κρύπτης στο ιστορικό"
-
-#: ../plugins/history/resources/preferences.ui.h:5
-msgid "Show staged changes in history"
-msgstr "Εμφάνιση σκηνικών αλλαγών στο ιστορικό"
-
-#: ../plugins/history/resources/preferences.ui.h:6
-msgid "Show unstaged changes in history"
-msgstr "Εμφάνιση αλλαγών εκτός σκηνής στο ιστορικό"
-
-#: ../plugins/history/resources/preferences.ui.h:7
-msgid "Show history in topological order"
-msgstr "Εμφάνιση ιστορικού με τοπολογική σειρά"
-
-#: ../plugins/history/resources/preferences.ui.h:8
-msgid "        "
-msgstr "        "
-
-#: ../plugins/history/resources/preferences.ui.h:9
-msgid "Early"
-msgstr "Πρώιμα"
-
-#: ../plugins/history/resources/preferences.ui.h:10
-msgid "Late"
-msgstr "Όψιμα"
-
-#: ../plugins/history/resources/view-history.ui.h:1
-msgid "Subject"
-msgstr "Θέμα"
-
-#: ../plugins/history/resources/view-history.ui.h:2
-msgid "Author"
-msgstr "Συγγραφέας"
-
-#: ../plugins/history/resources/view-history.ui.h:3
-msgid "Date"
-msgstr "Ημερομηνία"
+#~ msgid "        "
+#~ msgstr "        "
