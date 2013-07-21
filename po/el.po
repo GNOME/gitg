@@ -1,0 +1,1147 @@
+# Greek translation for gitg.
+# Copyright (C) 2013 gitg's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gitg package.
+# Dimitris Spingos <dmtrs32@gmail.com>, 2013.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: gitg gitg-0-2\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&k"
+"eywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2013-04-05 21:46+0000\n"
+"PO-Revision-Date: 2013-07-21 07:18+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Language-Team: team@gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#. Translators: this is the application name as in g_set_application_name
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg-branch-actions.c:169
+#: ../gitg/gitg-branch-actions.c:222 ../gitg/gitg.c:182
+#: ../gitg/gitg-window.c:1678 ../gitg/gitg-window.c:1692
+#: ../gitg/gitg-window.ui.h:1
+msgid "gitg"
+msgstr "gitg"
+
+#: ../data/gitg.desktop.in.in.h:2
+msgid "Git repository browser"
+msgstr "Προβολέας αποθετηρίου Git"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+msgid "Filter Revisions When Searching"
+msgstr "Φιλτράρισμα αναθεωρήσεων κατά την αναζήτηση"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+msgid ""
+"Whether searching filters the revisions in the history view instead of "
+"jumping to the first match."
+msgstr ""
+"Αν η αναζήτηση φιλτράρει τις αναθεωρήσεις στην προβολή ιστορικού αντί να "
+"μεταβαίνει στην πρώτη συμφωνία."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+msgid "When to Collapse Inactive Lanes"
+msgstr "Πότε να συμπτύσσονται οι ανενεργές γραμμές"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+msgid ""
+"Setting that indicates when an inactive lane should be collapsed. Valid "
+"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+msgstr ""
+"Ο ορισμός του δείχνει πότε ένα ανενεργό μονοπάτι πρέπει να συμπτύσσεται. "
+"Έγκυρες τιμές είναι 0 - 4, όπου 0 δείχνει 'πρώιμες' και 4 δείχνει 'όψιμες'."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+msgid "Show History in Topological Order"
+msgstr "Εμφάνιση ιστορικού με τοπολογική σειρά"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+msgid ""
+"Setting that indicates whether to show the history in topological order."
+msgstr ""
+"Ο ορισμός του δείχνει αν θα εμφανίζεται το ιστορικό με τοπολογική σειρά."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+msgid "Show Main View in Vertical or Horizontal Layout"
+msgstr "Εμφάνιση κύριας προβολής σε κάθετη ή οριζόντια διάταξη"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+msgid "Setting that sets the orientation layout of the main view."
+msgstr ""
+"Ρυθμίζοντας αυτό ορίζει την διάταξη προσανατολισμού της κύριας προβολής."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid "Show files view in blame mode"
+msgstr "Εμφάνιση προβολής αρχείων σε κατάσταση blame"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid "Setting that sets files view to blame mode."
+msgstr "Ρυθμίζοντας το ορίζει την προβολή αρχείων σε κατάσταση blame."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+msgid "Show Right Margin in Commit Message View"
+msgstr "Εμφάνιση δεξιού περιθωρίου στη προβολή μηνύματος υποβολής"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+msgid ""
+"Show a right margin indicator in the commit message view. This can be used "
+"to easily see where to break the commit message at a particular column."
+msgstr ""
+"Εμφάνιση δεξιού περιθωρίου δείκτη στην προβολή υποβολής μηνύματος. Αυτό "
+"μπορεί να χρησιμοποιηθεί για να δείτε εύκολα πού θα σπάσει το μήνυμα "
+"υποβολής σε μια συγκεκριμένη στήλη."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+msgid "Column at Which Right Margin is Shown"
+msgstr "Στήλη στην οποία προβάλλεται το δεξιό περιθώριο"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+msgid ""
+"The column at which the right margin is shown if the right-margin preference "
+"is set to TRUE."
+msgstr ""
+"Η στήλη στην οποία εμφανίζεται το δεξιό περιθώριο αν η προτίμηση του δεξιού "
+"περιθωρίου ορίζεται σε ΑΛΗΘΗ."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+msgid "Allow External Diff Program"
+msgstr "Να επιτρέπεται εξωτερικό πρόγραμμα διαφορών"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid "Allow an external diff program to be used when viewing diffs in gitg."
+msgstr ""
+"Να επιτρέπεται ένα εξωτερικό πρόγραμμα διαφορών να χρησιμοποιηθεί κατά την "
+"προβολή διαφορών στο gitg."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+msgid "The command to handle GITG scheme URLs"
+msgstr "Η εντολή για URLs χειρισμού σχήματος GITG"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+msgid "The command to handle GITG scheme URLs."
+msgstr "Η εντολή για URLs χειρισμού σχήματος GITG."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
+msgid "Whether command to handle GITG scheme URLs needs a terminal"
+msgstr "Αν η εντολή χειρισμού URLs σχήματος GITG χρειάζεται τερματικό"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+msgid "Whether command to handle GITG scheme URLs needs a terminal."
+msgstr "Αν η εντολή χειρισμού URLs σχήματος GITG χρειάζεται τερματικό."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+msgid "Whether command to handle GITG scheme URLs is enabled"
+msgstr "Αν η εντολή χειρισμού URLs σχήματος GITG είναι ενεργή"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+msgid "Whether command to handle GITG scheme URLs is enabled."
+msgstr "Αν η εντολή χειρισμού URLs σχήματος GITG είναι ενεργή."
+
+#: ../gitg/gitg-branch-actions.c:277
+#, c-format
+msgid "Branch <%s> could not be removed"
+msgstr "Αδύνατη η διαγραφή του κλάδου <%s>"
+
+#: ../gitg/gitg-branch-actions.c:278
+msgid ""
+"This usually means that the branch is not fully merged in HEAD. Do you want "
+"to forcefully remove the branch?"
+msgstr ""
+"Αυτό συνήθως σημαίνει ότι ο κλάδος δεν είναι πλήρως συγχωνευμένος στην "
+"ΚΕΦΑΛΙΔΑ. Θέλετε να αφαιρέσετε αναγκαστικά τον κλάδο;"
+
+#: ../gitg/gitg-branch-actions.c:279
+msgid "Force remove"
+msgstr "Αναγκαστική αφαίρεση"
+
+#: ../gitg/gitg-branch-actions.c:293
+#, c-format
+msgid "Branch <%s> could not be forcefully removed"
+msgstr "Αδύνατη η αναγκαστική διαγραφή του κλάδου <%s>"
+
+#: ../gitg/gitg-branch-actions.c:326
+#, c-format
+msgid "Failed to remove remote branch <%s>."
+msgstr "Αποτυχία αφαίρεσης απομακρυσμένου κλάδου <%s>."
+
+#: ../gitg/gitg-branch-actions.c:347
+#, c-format
+msgid "Are you sure you want to remove the remote branch <%s>?"
+msgstr "Είστε βέβαιοι για την αφαίρεση του απομακρυσμένου κλάδου <%s>;"
+
+#: ../gitg/gitg-branch-actions.c:348
+msgid "This permanently removes the remote branch."
+msgstr "Αυτό αφαιρεί μόνιμα τον απομακρυσμένο κλάδο."
+
+#: ../gitg/gitg-branch-actions.c:349 ../gitg/gitg-window.c:2898
+msgid "Remove remote branch"
+msgstr "Αφαίρεση απομακρυσμένου κλάδου"
+
+#: ../gitg/gitg-branch-actions.c:364 ../gitg/gitg-menus.xml.h:6
+msgid "Remove branch"
+msgstr "Αφαίρεση κλάδου"
+
+#: ../gitg/gitg-branch-actions.c:425
+msgid "Are you sure you want to remove this stash item?"
+msgstr "Είστε βέβαιοι για την αφαίρεση αυτού του στοιχείου κρύπτης;"
+
+#: ../gitg/gitg-branch-actions.c:426
+msgid "This permanently removes the stash item"
+msgstr "Αυτό αφαιρεί μόνιμα το στοιχείο κρύπτης"
+
+#: ../gitg/gitg-branch-actions.c:427 ../gitg/gitg-window.c:2914
+msgid "Remove stash"
+msgstr "Αφαίρεση κρύπτης"
+
+#: ../gitg/gitg-branch-actions.c:453
+msgid "Failed to remove stash"
+msgstr "Αποτυχία αφαίρεσης κρύπτης"
+
+#: ../gitg/gitg-branch-actions.c:454
+msgid "The stash item could not be successfully removed"
+msgstr "Το στοιχείο κρύπτης δεν μπόρεσε να αφαιρεθεί με επιτυχία"
+
+#: ../gitg/gitg-branch-actions.c:485
+#, c-format
+msgid "Are you sure you want to remove the tag <%s>?"
+msgstr "Είστε σίγουροι ότι θέλετε να αφαιρέσετε την ετικέτα <%s>;"
+
+#: ../gitg/gitg-branch-actions.c:489 ../gitg/gitg-branch-actions.c:491
+#: ../gitg/gitg-window.c:2920
+msgid "Remove tag"
+msgstr "Αφαίρεση ετικέτας"
+
+#: ../gitg/gitg-branch-actions.c:508
+#, c-format
+msgid "The tag <%s> could not be successfully removed"
+msgstr "Αποτυχία αφαίρεσης με επιτυχία της ετικέτας <%s>"
+
+#: ../gitg/gitg-branch-actions.c:512
+msgid "Failed to remove tag"
+msgstr "Αποτυχία αφαίρεσης ετικέτας"
+
+#: ../gitg/gitg-branch-actions.c:575
+#, c-format
+msgid "Branch <%s> could not be renamed to <%s>"
+msgstr "Αδύνατη η μετονομασία του κλάδου <%s> σε <%s>"
+
+#: ../gitg/gitg-branch-actions.c:576
+msgid ""
+"This usually means that a branch with that name already exists. Do you want "
+"to overwrite the branch?"
+msgstr ""
+"Αυτό συνήθως σημαίνει ότι ένας κλάδος με αυτό το όνομα υπάρχει ήδη. Θέλετε "
+"να επικαλύψετε αυτόν τον κλάδο;"
+
+#: ../gitg/gitg-branch-actions.c:577
+msgid "Force rename"
+msgstr "Αναγκαστική μετονομασία"
+
+#: ../gitg/gitg-branch-actions.c:592
+#, c-format
+msgid "Branch <%s> could not be forcefully renamed"
+msgstr "Αδύνατη η αναγκαστική μετονομασία του κλάδου <%s>"
+
+#: ../gitg/gitg-branch-actions.c:632 ../gitg/gitg-new-branch.ui.h:2
+#: ../gitg/gitg-preferences.ui.h:24 ../gitg/gitg-repository.ui.h:7
+#: ../gitg/gitg-tag.ui.h:2
+msgid "Name:"
+msgstr "Όνομα:"
+
+#: ../gitg/gitg-branch-actions.c:754
+msgid "Do you want to temporarily stash these changes?"
+msgstr "Θέλετε να κρύψετε προσωρινά αυτές τις αλλαγές;"
+
+#: ../gitg/gitg-branch-actions.c:758
+msgid "Do you want to stash and reapply these changes?"
+msgstr "Θέλετε να κρύψετε και να ξαναεφαρμόσετε αυτές τις αλλαγές;"
+
+#: ../gitg/gitg-branch-actions.c:763
+msgid "You have uncommited changes in your current working tree"
+msgstr "Έχετε αλλαγές χωρίς υποβολή στο τρέχον δένδρο εργασίας"
+
+#: ../gitg/gitg-branch-actions.c:765
+msgid "Stash changes"
+msgstr "Κρύψιμο αλλαγών"
+
+#: ../gitg/gitg-branch-actions.c:1020
+msgid "Failed to save current index state"
+msgstr "Αποτυχία αποθήκευσης τρέχουσας κατάστασης δείκτη"
+
+#: ../gitg/gitg-branch-actions.c:1071 ../gitg/gitg-branch-actions.c:1367
+#: ../gitg/gitg-branch-actions.c:1658 ../gitg/gitg-branch-actions.c:1955
+#, c-format
+msgid "Failed to checkout local branch <%s>"
+msgstr "Αποτυχία ελέγχου τοπικού κλάδου <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1109
+#, c-format
+msgid "Failed to checkout remote branch <%s> to local branch <%s>"
+msgstr "Αποτυχία ελέγχου απομακρυσμένου κλάδου <%s> σε τοπικό κλάδο <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1148
+#, c-format
+msgid "Failed to checkout tag <%s> to local branch <%s>"
+msgstr "Αποτυχία ελέγχου ετικέτας <%s> σε τοπικό κλάδο <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1239
+#, c-format
+msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
+msgstr "Αποτυχία για νέα βάση κλάδου %s <%s> στον κλάδο %s <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1243
+#, c-format
+msgid "Failed to merge %s branch <%s> with %s branch <%s>"
+msgstr "Αποτυχία συγχώνευσης κλάδου %s <%s> με τον κλάδο %s <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
+#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
+#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
+#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
+#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
+msgid "local"
+msgstr "τοπικό"
+
+#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
+#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
+#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
+#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
+#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
+msgid "remote"
+msgstr "απομακρυσμένο"
+
+#: ../gitg/gitg-branch-actions.c:1276 ../gitg/gitg-branch-actions.c:1869
+msgid "The stashed changes have been stored to be reapplied manually"
+msgstr "Οι κρυμμένες αλλαγές αποθηκεύτηκαν για να ξαναεφαρμοστούν χειροκίνητα"
+
+#: ../gitg/gitg-branch-actions.c:1281 ../gitg/gitg-branch-actions.c:1874
+msgid "Failed to checkout previously checked out branch"
+msgstr "Αποτυχία ελέγχου προηγουμένως ελεγμένου κλάδου"
+
+#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1900
+msgid "Failed to reapply stash correctly"
+msgstr "Αποτυχία νέας εφαρμογής κρύπτης σωστά"
+
+#: ../gitg/gitg-branch-actions.c:1308 ../gitg/gitg-branch-actions.c:1901
+msgid ""
+"There might be unresolved conflicts in the working tree or index which you "
+"need to resolve manually"
+msgstr ""
+"Μπορεί να υπάρχουν ανεπίλυτες συγκρούσεις στο δένδρο εργασίας ή δείκτη που "
+"χρειάζεστε για χειροκίνητη επίλυση"
+
+#: ../gitg/gitg-branch-actions.c:1329
+#, c-format
+msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
+msgstr ""
+"Είσαστε βέβαιος ότι θέλετε να συγχωνεύσετε τον κλάδο %s <%s> στον κλάδο %s <"
+"%s>;"
+
+#: ../gitg/gitg-branch-actions.c:1337 ../gitg/gitg-branch-actions.c:1339
+#: ../gitg/gitg-branch-actions.c:1387 ../gitg/gitg-menus.xml.h:12
+msgid "Merge"
+msgstr "Συγχώνευση"
+
+#: ../gitg/gitg-branch-actions.c:1368
+msgid "The branch on which to merge could not be checked out"
+msgstr "Ο κλάδος στον οποίο θα συγχωνευτεί δεν μπόρεσε να ελεγχθεί"
+
+#: ../gitg/gitg-branch-actions.c:1374
+#, c-format
+msgid "Merging %s branch <%s> onto %s branch <%s>"
+msgstr "Συγχώνευση του κλάδου %s <%s> στον κλάδο %s <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1410
+#, c-format
+msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
+msgstr ""
+"Είσαστε βέβαιος ότι θέλετε να αλλάξετε βάση του κλάδου %s <%s> στον κλάδο %s "
+"<%s>;"
+
+#: ../gitg/gitg-branch-actions.c:1418 ../gitg/gitg-branch-actions.c:1420
+#: ../gitg/gitg-branch-actions.c:1470 ../gitg/gitg-menus.xml.h:13
+msgid "Rebase"
+msgstr "Νέα βάση"
+
+#: ../gitg/gitg-branch-actions.c:1443
+msgid "Unable to rebase"
+msgstr "Αδύνατη η αλλαγή βάσης"
+
+#: ../gitg/gitg-branch-actions.c:1444
+msgid ""
+"There are still uncommitted changes in your working tree and you are trying "
+"to rebase a branch onto the currently checked out branch. Either remove, "
+"stash or commit your changes first and try again"
+msgstr ""
+"Υπάρχουν ακόμα ακαταχώριστες αλλαγές στο δένδρο εργασίας και προσπαθείτε να "
+"αλλάξετε βάση ενός κλάδου στον τρέχοντα ελεγχόμενο κλάδο. Ή αφαιρέστε, "
+"κρύψτε ή υποβάλετε τις αλλαγές σας πρώτα και ξαναπροσπαθήστε"
+
+#: ../gitg/gitg-branch-actions.c:1457
+#, c-format
+msgid "Rebasing %s branch <%s> onto %s branch <%s>"
+msgstr "Νέα βάση του κλάδου %s <%s> στον κλάδο %s <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1496
+#, c-format
+msgid "Failed to push local branch <%s> to remote <%s>"
+msgstr "Αποτυχία προώθησης τοπικού κλάδου <%s> σε απομακρυσμένο <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1497
+msgid ""
+"This usually means that the remote branch could not be fast-forwarded. Try "
+"fetching the latest changes."
+msgstr ""
+"Αυτό συνήθως σημαίνει ότι ο απομακρυσμένος κλάδος δεν μπόρεσε να προωθηθεί "
+"γρήγορα. Δοκιμάστε να προσκομίσετε τις τελευταίες αλλαγές."
+
+#: ../gitg/gitg-branch-actions.c:1521
+#, c-format
+msgid "Are you sure you want to push <%s> to <%s>?"
+msgstr "Είστε σίγουροι ότι θέλετε να προωθήσετε το <%s> στο <%s>;"
+
+#: ../gitg/gitg-branch-actions.c:1527 ../gitg/gitg-branch-actions.c:1529
+#: ../gitg/gitg-branch-actions.c:1550 ../gitg/gitg-branch-actions.c:1582
+#: ../gitg/gitg-branch-actions.c:1584 ../gitg/gitg-branch-actions.c:1607
+msgid "Push"
+msgstr "Προώθηση"
+
+#: ../gitg/gitg-branch-actions.c:1542
+#, c-format
+msgid "Pushing local branch <%s> to remote branch <%s>"
+msgstr "Προώθηση τοπικού κλάδου <%s> στον απομακρυσμένο κλάδο <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1576
+#, c-format
+msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
+msgstr ""
+"Είστε σίγουροι ότι θέλετε να προωθήσετε το <%s> στο απομακρυσμένο <%s/%s>;"
+
+#: ../gitg/gitg-branch-actions.c:1594
+#, c-format
+msgid "Pushing local branch <%s> to remote branch <%s/%s>"
+msgstr "Προώθηση τοπικού κλάδου <%s> στον απομακρυσμένο κλάδο <%s/%s>"
+
+#: ../gitg/gitg-branch-actions.c:1631
+#, c-format
+msgid "Are you sure you want to apply the stash item to local branch <%s>?"
+msgstr ""
+"Είσαστε βέβαιοι ότι θέλετε να εφαρμόσετε το στοιχείο κρύπτης στον τοπικό "
+"κλάδο <%s>;"
+
+#: ../gitg/gitg-branch-actions.c:1636 ../gitg/gitg-branch-actions.c:1638
+msgid "Apply stash"
+msgstr "Εφαρμογή κρύπτης"
+
+#: ../gitg/gitg-branch-actions.c:1677
+#, c-format
+msgid "The stash could not be applied to local branch <%s>"
+msgstr "Αδύνατη η εφαρμογή της κρύπτης στον τοπικό κλάδο <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1681
+msgid "Failed to apply stash"
+msgstr "Αποτυχία εφαρμογής της κρύπτης"
+
+#: ../gitg/gitg-branch-actions.c:1724
+msgid "The branch could not be successfully created"
+msgstr "Αδύνατη η πετυχημένη δημιουργία του κλάδου"
+
+#: ../gitg/gitg-branch-actions.c:1728
+msgid "Failed to create a branch"
+msgstr "Αποτυχία δημιουργίας κλάδου"
+
+#: ../gitg/gitg-branch-actions.c:1780
+msgid ""
+"The tag object could not be successfully created. Please make sure you have "
+"a GPG key and the key is unlocked"
+msgstr ""
+"Αδύνατη η πετυχημένη δημιουργία αντικειμένου ετικέτας. Παρακαλούμε, "
+"βεβαιωθείτε ότι έχετε ένα κλειδί GPG και το κλειδί είναι ξεκλειδωμένο"
+
+#: ../gitg/gitg-branch-actions.c:1784
+msgid "The tag object could not be successfully created"
+msgstr "Αδύνατη η πετυχημένη δημιουργία του αντικειμένου ετικέτας"
+
+#: ../gitg/gitg-branch-actions.c:1789
+msgid "Failed to create tag"
+msgstr "Αποτυχία δημιουργίας ετικέτας"
+
+#: ../gitg/gitg-branch-actions.c:1844
+#, c-format
+msgid "Failed to cherry-pick on <%s>"
+msgstr "Αποτυχία επιλεκτικής συγχώνευσης στο <%s>"
+
+#: ../gitg/gitg-branch-actions.c:1921
+#, c-format
+msgid "Are you sure you want to cherry-pick that revision on <%s>?"
+msgstr ""
+"Είσαστε βέβαιοι ότι θέλετε επιλεκτική συγχώνευση αυτής της αναθεώρησης στο <"
+"%s>;"
+
+#: ../gitg/gitg-branch-actions.c:1926 ../gitg/gitg-branch-actions.c:1928
+#: ../gitg/gitg-branch-actions.c:1976
+msgid "Cherry-pick"
+msgstr "Επιλεκτική συγχώνευση"
+
+#: ../gitg/gitg-branch-actions.c:1956
+msgid "The branch on which to cherry-pick could not be checked out"
+msgstr "Ο κλάδος στον οποίο θα συγχωνευτεί επιλεκτικά δεν μπόρεσε να ελεγχθεί"
+
+#: ../gitg/gitg-branch-actions.c:1963
+#, c-format
+msgid "Cherry-picking on <%s>"
+msgstr "Επιλεκτική συγχώνευση στο <%s>"
+
+#: ../gitg/gitg-branch-actions.c:2031
+msgid "Failed to generate format-patch"
+msgstr "Αποτυχία δημιουργίας μπαλώματος μορφής"
+
+#: ../gitg/gitg-branch-actions.c:2081
+#, c-format
+msgid "Generating format-patch for <%s>"
+msgstr "Δημιουργείται μπάλωμα μορφής για <%s>"
+
+#: ../gitg/gitg-branch-actions.c:2089 ../gitg/gitg-menus.xml.h:17
+msgid "Format patch"
+msgstr "Μπάλωμα μορφής"
+
+#: ../gitg/gitg.c:52
+msgid "Show the application's version"
+msgstr "Εμφάνιση της έκδοσης της εφαρμογής"
+
+#: ../gitg/gitg.c:53
+msgid "Start gitg in commit mode"
+msgstr "Έναρξη του gitg σε κατάσταση υποβολής"
+
+#: ../gitg/gitg.c:54
+msgid "Select commit after loading the repository"
+msgstr "Επιλέξτε υποβολή μετά τη φόρτωση του αποθετηρίου"
+
+#: ../gitg/gitg.c:64
+msgid "- git repository viewer"
+msgstr "- προβολή αποθετηρίου git"
+
+#: ../gitg/gitg-commit-view.c:303 ../gitg/gitg-revision-files-panel.c:480
+msgid "Cannot display file content as text"
+msgstr "Αδύνατη η εμφάνιση περιεχομένου αρχείου ως κειμένου"
+
+#: ../gitg/gitg-commit-view.c:2560
+msgid "You must first stage some changes before committing"
+msgstr "Πρέπει πρώτα να κάνετε κάποιες αλλαγές πριν την υποβολή"
+
+#: ../gitg/gitg-commit-view.c:2568
+msgid "Please enter a commit message before committing"
+msgstr "Παρακαλούμε, εισάγετε ένα μήνυμα υποβολής πριν την υποβολή"
+
+#: ../gitg/gitg-commit-view.c:2590
+msgid ""
+"Your user name or email could not be retrieved for use in the sign off "
+"message"
+msgstr ""
+"Το όνομα χρήστη ή το ηλεκτρονικό ταχυδρομείο δεν μπόρεσε να ανακτηθεί για "
+"χρήση στο μήνυμα αποσύνδεσης"
+
+#: ../gitg/gitg-commit-view.c:2596
+msgid "Something went wrong while trying to commit"
+msgstr "Συνέβη κάποιο λάθος κατά την προσπάθεια υποβολής"
+
+#: ../gitg/gitg-commit-view.c:2892
+msgid "Revert fail"
+msgstr "Αποτυχία επαναφοράς"
+
+#: ../gitg/gitg-commit-view.c:2908
+msgid "Are you sure you want to revert these changes?"
+msgstr "Είστε βέβαιοι ότι θέλετε να επαναφέρετε αυτές τις αλλαγές;"
+
+#: ../gitg/gitg-commit-view.c:2912
+msgid "Reverting changes is permanent and cannot be undone"
+msgstr "Η επαναφορά αλλαγών είναι μόνιμη και δεν μπορεί να αναιρεθεί"
+
+#: ../gitg/gitg-commit-view.c:2991
+msgid "Delete Failed"
+msgstr "Αποτυχία διαγραφής"
+
+#: ../gitg/gitg-commit-view.c:3009
+msgid "Are you sure you want to delete these files?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε αυτά τα αρχεία;"
+
+#: ../gitg/gitg-commit-view.c:3012
+msgid "Deleting files is permanent and cannot be undone"
+msgstr "Η διαγραφή αρχείων είναι μόνιμη και δεν μπορεί να αναιρεθεί"
+
+#: ../gitg/gitg-repository-dialog.c:223 ../gitg/gitg-repository.ui.h:4
+msgid "Fetch"
+msgstr "Προσκόμιση"
+
+#: ../gitg/gitg-repository-dialog.c:228
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: ../gitg/gitg-repository-dialog.c:551 ../gitg/gitg-repository.ui.h:1
+#: ../gitg/gitg-tag.ui.h:1
+msgid "Properties"
+msgstr "Ιδιότητες"
+
+#: ../gitg/gitg-revision-changes-panel.c:271 ../gitg/gitg-window.ui.h:7
+msgid "Changes"
+msgstr "Αλλαγές"
+
+#: ../gitg/gitg-revision-details-panel.c:118
+msgid "Details"
+msgstr "Λεπτομέρειες"
+
+#: ../gitg/gitg-revision-files-panel.c:317 ../gitg/gitg-window.ui.h:4
+msgid "Author"
+msgstr "Συντάκτης"
+
+#: ../gitg/gitg-revision-files-panel.c:318
+msgid "Committer"
+msgstr "Καταχωριστής"
+
+#: ../gitg/gitg-revision-files-panel.c:319 ../gitg/gitg-window.ui.h:3
+msgid "Subject"
+msgstr "Θέμα"
+
+#: ../gitg/gitg-revision-files-panel.c:886
+msgid "Files"
+msgstr "Αρχεία"
+
+#: ../gitg/gitg-revision-files-panel.c:1055
+msgid "(Empty)"
+msgstr "(Κενό)"
+
+#: ../gitg/gitg-window.c:692
+msgid "Select branch"
+msgstr "Επιλογή κλάδου"
+
+#: ../gitg/gitg-window.c:761
+#, c-format
+msgid "Push local branch <%s> to remote branch <%s>"
+msgstr "Προώθηση τοπικού κλάδου <%s> στον απομακρυσμένο κλάδο <%s>"
+
+#: ../gitg/gitg-window.c:768
+#, c-format
+msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
+msgstr "Συγχώνευση/νέα βάση τοπικού κλάδου <%s> με/σε τοπικό κλάδο <%s>"
+
+#: ../gitg/gitg-window.c:775
+#, c-format
+msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
+msgstr "Συγχώνευση/νέα βάση τοπικού κλάδου <%s> με/σε απομακρυσμένο κλάδο <%s>"
+
+#: ../gitg/gitg-window.c:782
+#, c-format
+msgid "Apply stash to local branch <%s>"
+msgstr "Εφαρμογή κρύπτης σε τοπικό κλάδο <%s>"
+
+#: ../gitg/gitg-window.c:862
+#, c-format
+msgid "Cherry-pick revision on <%s>"
+msgstr "Επιλεκτική συγχώνευση αναθεώρησης στο <%s>"
+
+#: ../gitg/gitg-window.c:1225
+#, c-format
+msgid "Loaded %d revisions in %.2fs"
+msgstr "Φορτώθηκαν %d αναθεωρήσεις στο %.2fs"
+
+#: ../gitg/gitg-window.c:1250
+#, c-format
+msgid "Loading %d revisions..."
+msgstr "Φορτώνονται %d αναθεωρήσεις..."
+
+#: ../gitg/gitg-window.c:1612
+msgid "Local branches"
+msgstr "Τοπικοί κλάδοι"
+
+#: ../gitg/gitg-window.c:1633
+msgid "All branches"
+msgstr "Όλοι οι κλάδοι"
+
+#: ../gitg/gitg-window.c:1710
+msgid "Begin loading repository"
+msgstr "Έναρξη φόρτωσης αποθετηρίου"
+
+#: ../gitg/gitg-window.c:2175
+msgid "Open git repository"
+msgstr "Άνοιγμα αποθετηρίου git"
+
+#: ../gitg/gitg-window.c:2248
+msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgstr "Το gitg είναι μια προβολή αποθετηρίου git για το gtk+/GNOME"
+
+#: ../gitg/gitg-window.c:2559
+msgid "new"
+msgstr "νέος"
+
+#: ../gitg/gitg-window.c:2887 ../gitg/gitg-window.c:2925
+#, c-format
+msgid "New local branch <%s>"
+msgstr "Νέος τοπικός κλάδος <%s>"
+
+#: ../gitg/gitg-window.c:2903
+msgid "Checkout working copy"
+msgstr "Έλεγχος αντιγράφου εργασίας"
+
+#: ../gitg/gitg-window.c:2904
+msgid "Remove local branch"
+msgstr "Αφαίρεση τοπικού κλάδου"
+
+#: ../gitg/gitg-window.c:2906
+msgid "Rename local branch"
+msgstr "Μετονομασία τοπικού κλάδου"
+
+#: ../gitg/gitg-window.c:3269 ../gitg/gitg-window.c:3325
+msgid "Not all fields are correctly filled in"
+msgstr "Δεν συμπληρώθηκαν όλα τα πεδία σωστά στο"
+
+#: ../gitg/gitg-window.c:3273
+msgid "Please make sure to fill in the branch name"
+msgstr "Παρακαλούμε, βεβαιωθείτε ότι συμπληρώσατε το όνομα του κλάδου"
+
+#: ../gitg/gitg-window.c:3312
+msgid "Please make sure to fill in both the tag name and the commit message"
+msgstr ""
+"Παρακαλούμε, βεβαιωθείτε ότι συμπληρώσατε και το όνομα ετικέτας και το "
+"μήνυμα υποβολής"
+
+#: ../gitg/gitg-window.c:3316
+msgid "Please make sure to fill in the tag name"
+msgstr "Παρακαλούμε, βεβαιωθείτε ότι συμπληρώσατε το όνομα ετικέτας"
+
+#: ../gitg/gitg-window.c:3393
+msgid "Format patch failed for unknown reason"
+msgstr "Αποτυχία μπαλώματος μορφής για άγνωστο λόγο"
+
+#: ../gitg/gitg-window.c:3397
+msgid "Please check if you have the right permissions to write the file"
+msgstr ""
+"Παρακαλούμε, ελέγξτε αν έχετε τα σωστά δικαιώματα για εγγραφή στο αρχείο"
+
+#. Single one, pick filename
+#: ../gitg/gitg-window.c:3436
+msgid "Save format patch"
+msgstr "Αποθήκευση μπαλώματος μορφής"
+
+#: ../libgitg/gitg-encodings.c:144 ../libgitg/gitg-encodings.c:186
+#: ../libgitg/gitg-encodings.c:188 ../libgitg/gitg-encodings.c:190
+#: ../libgitg/gitg-encodings.c:192 ../libgitg/gitg-encodings.c:194
+#: ../libgitg/gitg-encodings.c:196 ../libgitg/gitg-encodings.c:198
+msgid "Unicode"
+msgstr "Unicode"
+
+#: ../libgitg/gitg-encodings.c:157 ../libgitg/gitg-encodings.c:181
+#: ../libgitg/gitg-encodings.c:231 ../libgitg/gitg-encodings.c:274
+msgid "Western"
+msgstr "Δυτική"
+
+#: ../libgitg/gitg-encodings.c:159 ../libgitg/gitg-encodings.c:233
+#: ../libgitg/gitg-encodings.c:270
+msgid "Central European"
+msgstr "Κεντρική Ευρώπη"
+
+#: ../libgitg/gitg-encodings.c:161
+msgid "South European"
+msgstr "Νότια Ευρώπη"
+
+#: ../libgitg/gitg-encodings.c:163 ../libgitg/gitg-encodings.c:177
+#: ../libgitg/gitg-encodings.c:284
+msgid "Baltic"
+msgstr "Βαλτική"
+
+#: ../libgitg/gitg-encodings.c:165 ../libgitg/gitg-encodings.c:235
+#: ../libgitg/gitg-encodings.c:248 ../libgitg/gitg-encodings.c:252
+#: ../libgitg/gitg-encodings.c:254 ../libgitg/gitg-encodings.c:272
+msgid "Cyrillic"
+msgstr "Κυριλλική"
+
+#: ../libgitg/gitg-encodings.c:167 ../libgitg/gitg-encodings.c:241
+#: ../libgitg/gitg-encodings.c:282
+msgid "Arabic"
+msgstr "Αραβική"
+
+#: ../libgitg/gitg-encodings.c:169 ../libgitg/gitg-encodings.c:276
+msgid "Greek"
+msgstr "Ελληνική"
+
+#: ../libgitg/gitg-encodings.c:171
+msgid "Hebrew Visual"
+msgstr "Οπτική εβραϊκή"
+
+#: ../libgitg/gitg-encodings.c:173 ../libgitg/gitg-encodings.c:237
+#: ../libgitg/gitg-encodings.c:278
+msgid "Turkish"
+msgstr "Τουρκική"
+
+#: ../libgitg/gitg-encodings.c:175
+msgid "Nordic"
+msgstr "Σκανδιναβική"
+
+#: ../libgitg/gitg-encodings.c:179
+msgid "Celtic"
+msgstr "Κελτική"
+
+#: ../libgitg/gitg-encodings.c:183
+msgid "Romanian"
+msgstr "Ρουμανική"
+
+#: ../libgitg/gitg-encodings.c:201
+msgid "Armenian"
+msgstr "Αρμενική"
+
+#: ../libgitg/gitg-encodings.c:203 ../libgitg/gitg-encodings.c:205
+#: ../libgitg/gitg-encodings.c:219
+msgid "Chinese Traditional"
+msgstr "Παραδοσιακή κινεζική"
+
+#: ../libgitg/gitg-encodings.c:207
+msgid "Cyrillic/Russian"
+msgstr "Κυριλλική/Ρωσική"
+
+#: ../libgitg/gitg-encodings.c:210 ../libgitg/gitg-encodings.c:212
+#: ../libgitg/gitg-encodings.c:214 ../libgitg/gitg-encodings.c:244
+#: ../libgitg/gitg-encodings.c:259
+msgid "Japanese"
+msgstr "Ιαπωνική"
+
+#: ../libgitg/gitg-encodings.c:217 ../libgitg/gitg-encodings.c:246
+#: ../libgitg/gitg-encodings.c:250 ../libgitg/gitg-encodings.c:265
+msgid "Korean"
+msgstr "Κορεατική"
+
+#: ../libgitg/gitg-encodings.c:222 ../libgitg/gitg-encodings.c:224
+#: ../libgitg/gitg-encodings.c:226
+msgid "Chinese Simplified"
+msgstr "Απλοποιημένη κινέζικη"
+
+#: ../libgitg/gitg-encodings.c:228
+msgid "Georgian"
+msgstr "Γεωργιανή"
+
+#: ../libgitg/gitg-encodings.c:239 ../libgitg/gitg-encodings.c:280
+msgid "Hebrew"
+msgstr "Εβραϊκή"
+
+#: ../libgitg/gitg-encodings.c:256
+msgid "Cyrillic/Ukrainian"
+msgstr "Κυριλλική/Ουκρανική"
+
+#: ../libgitg/gitg-encodings.c:261 ../libgitg/gitg-encodings.c:267
+#: ../libgitg/gitg-encodings.c:286
+msgid "Vietnamese"
+msgstr "Βιετναμική"
+
+#: ../libgitg/gitg-encodings.c:263
+msgid "Thai"
+msgstr "Τάι"
+
+#: ../libgitg/gitg-encodings.c:479
+msgid "Unknown"
+msgstr "Άγνωστη"
+
+#: ../libgitg/gitg-repository.c:894
+msgid "Staged changes"
+msgstr "Αλλαγές επί σκηνής"
+
+#: ../libgitg/gitg-repository.c:898
+msgid "Unstaged changes"
+msgstr "Αλλαγές εκτός σκηνής"
+
+#: ../libgitg/gitg-repository.c:1540
+msgid "Not a valid git repository"
+msgstr "Δεν είναι έγκυρο αποθετήριο git"
+
+#: ../libgitg/gitg-smart-charset-converter.c:329
+msgid "It is not possible to detect the encoding automatically"
+msgstr "Είναι αδύνατη η αυτόματη αναγνώριση της κωδικοποίησης"
+
+#. ex:ts=8:noet:
+#: ../gitg/gitg-commit-menu.ui.h:1
+msgid "Stage"
+msgstr "Επί σκηνής"
+
+#: ../gitg/gitg-commit-menu.ui.h:2
+msgid "Unstage"
+msgstr "Εκτός σκηνής"
+
+#: ../gitg/gitg-commit-menu.ui.h:3
+msgid "Revert"
+msgstr "Επαναφορά"
+
+#: ../gitg/gitg-commit-menu.ui.h:4
+msgid "Ignore"
+msgstr "Παράβλεψη"
+
+#: ../gitg/gitg-menus.xml.h:1
+msgid "_Subject"
+msgstr "_Θέμα"
+
+#: ../gitg/gitg-menus.xml.h:2
+msgid "_Author"
+msgstr "_Συντάκτης"
+
+#: ../gitg/gitg-menus.xml.h:3
+msgid "_Date"
+msgstr "_Ημερομηνία"
+
+#: ../gitg/gitg-menus.xml.h:4
+msgid "_Hash"
+msgstr "_Κατακερματισμός"
+
+#: ../gitg/gitg-menus.xml.h:5
+msgid "Checkout branch"
+msgstr "Κλάδος ελέγχου"
+
+#: ../gitg/gitg-menus.xml.h:7
+msgid "Rename branch"
+msgstr "Μετονομασία κλάδου"
+
+#: ../gitg/gitg-menus.xml.h:8
+msgid "Rebase branch onto..."
+msgstr "Νέα βάση κλάδου στο..."
+
+#: ../gitg/gitg-menus.xml.h:9
+msgid "Merge branch with..."
+msgstr "Συγχώνευση κλάδου με..."
+
+#: ../gitg/gitg-menus.xml.h:10
+msgid "Push branch to..."
+msgstr "Προώθηση κλάδου σε..."
+
+#: ../gitg/gitg-menus.xml.h:11
+msgid "Apply stash to..."
+msgstr "Εφαρμογή κρύπτης σε..."
+
+#: ../gitg/gitg-menus.xml.h:14 ../gitg/gitg-new-branch.ui.h:1
+msgid "Create branch"
+msgstr "Δημιουργία κλάδου"
+
+#: ../gitg/gitg-menus.xml.h:15 ../gitg/gitg-tag.ui.h:5
+msgid "Create tag"
+msgstr "Δημιουργία ετικέτας"
+
+#: ../gitg/gitg-menus.xml.h:16
+msgid "Cherry-pick on..."
+msgstr "Επιλεκτική συγχώνευση σε..."
+
+#: ../gitg/gitg-preferences.ui.h:1
+msgid "Preferences"
+msgstr "Προτιμήσεις"
+
+#: ../gitg/gitg-preferences.ui.h:2
+msgid "<b>Interface</b>"
+msgstr "<b>Διεπαφή</b>"
+
+#: ../gitg/gitg-preferences.ui.h:3
+msgid "Use vertical layout"
+msgstr "Χρήση κάθετης διάταξης"
+
+#: ../gitg/gitg-preferences.ui.h:4
+msgid "<b>Revisions</b>"
+msgstr "<b>Αναθεωρήσεις</b>"
+
+#: ../gitg/gitg-preferences.ui.h:5
+msgid "Search filters revisions in the history view"
+msgstr "Αναζήτηση αναθεωρήσεων φίλτρων στην προβολή ιστορικού"
+
+#: ../gitg/gitg-preferences.ui.h:6
+msgid "Collapse inactive lanes"
+msgstr "Σύμπτυξη ανενεργών λωρίδων"
+
+#: ../gitg/gitg-preferences.ui.h:7
+msgid "Early"
+msgstr "Πρώιμα"
+
+#: ../gitg/gitg-preferences.ui.h:8
+msgid "Late"
+msgstr "Όψιμα"
+
+#: ../gitg/gitg-preferences.ui.h:9
+msgid "Show stash in history"
+msgstr "Εμφάνιση κρύπτης στο ιστορικό"
+
+#: ../gitg/gitg-preferences.ui.h:10
+msgid "Show staged changes in history"
+msgstr "Εμφάνιση αλλαγών επί σκηνής στο ιστορικό"
+
+#: ../gitg/gitg-preferences.ui.h:11
+msgid "Show unstaged changes in history"
+msgstr "Εμφάνιση αλλαγών εκτός σκηνής στο ιστορικό"
+
+#: ../gitg/gitg-preferences.ui.h:12
+msgid "Show history in topological order"
+msgstr "Εμφάνιση ιστορικού με τοπολογική σειρά"
+
+#: ../gitg/gitg-preferences.ui.h:13
+msgid "Preferences that apply to the history view"
+msgstr "Προτιμήσεις που εφαρμόζονται στην προβολή ιστορικού"
+
+#: ../gitg/gitg-preferences.ui.h:14 ../gitg/gitg-window.ui.h:6
+msgid "History"
+msgstr "Ιστορικό"
+
+#: ../gitg/gitg-preferences.ui.h:15
+msgid "<b>Commit Message</b>"
+msgstr "<b>Μήνυμα υποβολής</b>"
+
+#: ../gitg/gitg-preferences.ui.h:16
+msgid "Display right _margin"
+msgstr "Εμφάνιση δεξιού πε_ριθωρίου"
+
+#: ../gitg/gitg-preferences.ui.h:17
+msgid "_Right margin at column:"
+msgstr "_Δεξιό περιθώριο στη στήλη:"
+
+#: ../gitg/gitg-preferences.ui.h:18
+msgid "Preferences that apply to the commit view"
+msgstr "Προτιμήσεις που εφαρμόζονται στην προβολή υποβολών"
+
+#: ../gitg/gitg-preferences.ui.h:19 ../gitg/gitg-window.ui.h:16
+msgid "Commit"
+msgstr "Υποβολή"
+
+#: ../gitg/gitg-preferences.ui.h:20
+msgid "<b>Diff Program</b>"
+msgstr "<b>Πρόγραμμα διαφορών</b>"
+
+#: ../gitg/gitg-preferences.ui.h:21
+msgid "Allow external diff program"
+msgstr "Να επιτρέπεται εξωτερικό πρόγραμμα διαφορών"
+
+#: ../gitg/gitg-preferences.ui.h:22
+msgid "Diff"
+msgstr "Διαφορές"
+
+#: ../gitg/gitg-preferences.ui.h:23 ../gitg/gitg-repository.ui.h:6
+msgid "<b>User</b>"
+msgstr "<b>Χρήστης</b>"
+
+#: ../gitg/gitg-preferences.ui.h:25 ../gitg/gitg-repository.ui.h:8
+msgid "E-mail:"
+msgstr "Ηλεκτρονικό ταχυδρομείο:"
+
+#: ../gitg/gitg-preferences.ui.h:26
+msgid ""
+"Configure global git settings. This corresponds to the settings as stored in "
+"~/.gitconfig. Repository specific settings can be configured at the "
+"repository properties."
+msgstr ""
+"Διαμόρφωση καθολικών ρυθμίσεων git. Αυτό αντιστοιχεί στις ρυθμίσεις όπως "
+"αποθηκεύονται στο ~/.gitconfig. Οι ειδικές ρυθμίσεις αποθετηρίου μπορούν να "
+"ρυθμιστούν στις ιδιότητες αποθετηρίου."
+
+#: ../gitg/gitg-preferences.ui.h:27 ../gitg/gitg-repository.ui.h:9
+msgid "Configuration"
+msgstr "Διαμόρφωση"
+
+#: ../gitg/gitg-repository.ui.h:2
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../gitg/gitg-repository.ui.h:3
+msgid "URL"
+msgstr "URL"
+
+#: ../gitg/gitg-repository.ui.h:5
+msgid "Remotes"
+msgstr "Απομακρυσμένοι"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:1
+msgid "SHA:"
+msgstr "SHA:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:2
+msgid "Author:"
+msgstr "Συντάκτης:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:3
+msgid "Committer:"
+msgstr "Καταχωριστής:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:4
+msgid "Subject:"
+msgstr "Θέμα:"
+
+#: ../gitg/gitg-revision-details-panel.ui.h:5
+msgid "Parent:"
+msgstr "Γονέας:"
+
+#: ../gitg/gitg-revision-files-panel.ui.h:1
+msgid "Switch to Blame mode"
+msgstr "Μετάβαση σε κατάσταση Blame"
+
+#: ../gitg/gitg-tag.ui.h:3
+msgid "Message:"
+msgstr "Μήνυμα:"
+
+#: ../gitg/gitg-tag.ui.h:4
+msgid "Create signed tag object"
+msgstr "Δημιουργία υπογραμμένου αντικειμένου ετικέτας"
+
+#: ../gitg/gitg-ui.xml.h:1
+msgid "_File"
+msgstr "_Αρχείο"
+
+#: ../gitg/gitg-ui.xml.h:2
+msgid "_Edit"
+msgstr "_Επεξεργασία"
+
+#: ../gitg/gitg-ui.xml.h:3
+msgid "_View"
+msgstr "_Προβολή"
+
+#: ../gitg/gitg-ui.xml.h:4
+msgid "_Help"
+msgstr "_Βοήθεια"
+
+#: ../gitg/gitg-ui.xml.h:5
+msgid "_Open..."
+msgstr "Άν_οιγμα..."
+
+#: ../gitg/gitg-ui.xml.h:6
+msgid "R_ecently Opened"
+msgstr "Πρόσ_φατα ανοιγμένα"
+
+#: ../gitg/gitg-window.ui.h:2
+msgid "Branch:"
+msgstr "Κλάδος:"
+
+#: ../gitg/gitg-window.ui.h:5
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: ../gitg/gitg-window.ui.h:8
+msgid "Context:"
+msgstr "Περιεχόμενο:"
+
+#: ../gitg/gitg-window.ui.h:9
+msgid "_Unstaged"
+msgstr "Ε_κτός σκηνής"
+
+#: ../gitg/gitg-window.ui.h:10
+msgid "Unstaged"
+msgstr "Εκτός σκηνής"
+
+#: ../gitg/gitg-window.ui.h:11
+msgid "Co_mmit message"
+msgstr "Μήνυμα _υποβολής"
+
+#: ../gitg/gitg-window.ui.h:12
+msgid "Amend"
+msgstr "Τροποποίηση"
+
+#: ../gitg/gitg-window.ui.h:13
+msgid "Add signed-off-by"
+msgstr "Προσθήκη αποσύνδεσης κατά"
+
+#: ../gitg/gitg-window.ui.h:14
+msgid "_Commit"
+msgstr "_Υποβολή"
+
+#: ../gitg/gitg-window.ui.h:15
+msgid "_Staged"
+msgstr "Ε_πί σκηνής"
