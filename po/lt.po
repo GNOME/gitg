@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-04-17 09:18+0000\n"
-"PO-Revision-Date: 2013-04-27 23:36+0300\n"
+"POT-Creation-Date: 2013-07-18 18:02+0000\n"
+"PO-Revision-Date: 2013-07-27 22:54+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -31,25 +31,18 @@ msgid "Git repository browser"
 msgstr "Git saugyklų naršyklė"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Filter Revisions When Searching"
-msgstr "Filtruoti saugyklas ieškant"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Pagrindinės sąsajos orientacija (vertikali arba horizontali)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr ""
-"Ar paieška filtruoja saugyklas istorijos rodinyje užuot peršokus prie "
-"pirmojo atitikmens."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "To nustatymas nurodo pagrindinės sąsajos orientaciją."
 
-#. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
 msgstr "Kada sutraukti neaktyvias eilutes"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -58,29 +51,52 @@ msgstr ""
 "vertės yra 0 - 4, kur 0 nurodo „anksti“ ir 4 reiškia „vėlai“."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"To nustatymas nurodo sutraukti eilutes, kurios nerodo veiklos. Tai įjungus "
+"gali būti rodoma švaresnė istorija, kai yra daug lygiagretaus kūrimo. "
+"Žiūrėkite collapse-inactive-lanes valdymui, kada eilutės turi būti "
+"sutrauktos."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid "Show History in Topological Order"
 msgstr "Rodyti istorija topologijos tvarka"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "To nustatymas nurodo, ar istorija bus rodoma topologijos tvarka."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr "Pagrindinės sąsajos orientacija (vertikali arba horizontali)"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation of the main interface."
-msgstr "To nustatymas nurodo pagrindinės sąsajos orientaciją."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr "To nustatymas nurodo, kada rodyti elementus istorijoje."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"To nustatymas nurodo, ar rodyti istorijoje virtualų elementą šiuo metu "
+"paruoštiems pakeitimams."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"To nustatymas nurodo, ar rodyti virtualų elementą istorijoje šiuo metu "
+"neparuoštiems pakeitimams."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
 msgstr "Rodyti dešinę paraštę patvirtinimo pranešimo rodinyje"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -89,70 +105,297 @@ msgstr ""
 "gali būti naudojama lengvam pastebėjimui, kur laužyti patvirtinimo "
 "pranešimus."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "Column at Which Right Margin is Shown"
 msgstr "Stulpelis, kuriame rodoma dešinė paraštė"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#| msgid ""
+#| "The column at which the right margin is shown if the right-margin "
+#| "preference is set to TRUE."
 msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
 "Stulpelis, kuriame rodoma dešinė paraštė, jei right-margin nustatymas yra "
 "nustatytas TEIGIAMAI."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
-msgid "Allow External Diff Program"
-msgstr "Leisti išorinę Diff programą"
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#| msgid "Show Right Margin in Commit Message View"
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Rodyti dešinę paraštę patvirtinimo pranešimo rodinyje"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
-msgstr "Leisti naudoti išorinę diff programą rodant pakeitimus gitg."
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
+"Paryškinti antraštės tekstą patvirtinimo pranešime, kai jis peržengia "
+"subject-margin-position nurodytą paraštę."
 
-#: ../gitg/gitg-application.vala:49
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#| msgid "Column at Which Right Margin is Shown"
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Stulpelis, kuriame rodoma antraštės paraštė"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+#| msgid ""
+#| "The column at which the right margin is shown if the right-margin "
+#| "preference is set to TRUE."
+msgid ""
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
+msgstr ""
+"Stulpelis, kuriame rodoma antraštės paraštė, jei show-subject-margin "
+"nustatymas yra nustatytas TEIGIAMAI."
+
+#: ../gitg/commit/gitg-commit-dialog.vala:283
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Nepavyksta tikrinti rašybos kalbai: %s"
+
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+#| msgid "Commits"
+msgid "Commit"
+msgstr "Patvirtinti"
+
+#: ../gitg/commit/gitg-commit.vala:144
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Nepavyko paruošti failo „%s“"
+
+#: ../gitg/commit/gitg-commit.vala:163
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Nepavyko paruošti failo „%s“ pašalinimo"
+
+#: ../gitg/commit/gitg-commit.vala:223
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Nepavyko pašalinti failo „%s“ ištrynimo paruošimo"
+
+#: ../gitg/commit/gitg-commit.vala:242
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Nepavyko pašalinti failo „%s“ paruošimo"
+
+#: ../gitg/commit/gitg-commit.vala:366
+msgid "Staged"
+msgstr "Paruošti"
+
+#: ../gitg/commit/gitg-commit.vala:370
+msgid "No staged files"
+msgstr "Nėra paruoštų failų"
+
+#: ../gitg/commit/gitg-commit.vala:379
+msgid "Unstaged"
+msgstr "Neparuošti"
+
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "No unstaged files"
+msgstr "Nėra neparuoštų failų"
+
+#: ../gitg/commit/gitg-commit.vala:392
+msgid "Untracked"
+msgstr "Nesekami"
+
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "No untracked files"
+msgstr "Nėra nesekamų failų"
+
+#: ../gitg/commit/gitg-commit.vala:432
+msgid "There are no changes to be committed"
+msgstr "Nėra pakeitimų patvirtinimui"
+
+#: ../gitg/commit/gitg-commit.vala:433
+msgid "Use amend to change the commit message of the previous commit"
+msgstr "Pakeisti prieš tai buvusio patvirtinimo pranešimą"
+
+#: ../gitg/commit/gitg-commit.vala:459
+msgid "Failed to commit"
+msgstr "Nepavyko patvirtinti"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+msgid "Failed to pass pre-commit"
+msgstr "Nepavyko praeiti prieš-patvirtinimo"
+
+#: ../gitg/commit/gitg-commit.vala:696
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"Jūsų naudotojo vardas ir el. paštas dar nenustatyti. Eikite į naudotojo "
+"konfigūraciją ir nurodykite savo vardą ir el. paštą."
+
+#: ../gitg/commit/gitg-commit.vala:700
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+"Jūsų naudotojo vardas dar nenustatyta. Eikite į naudojo konfigūraciją ir "
+"nurodykite savo vardą."
+
+#: ../gitg/commit/gitg-commit.vala:704
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"Jūsų el. paštas dar nenustatytas. Eikite į naudotojo konfigūraciją ir "
+"nurodykite savo el. paštą."
+
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Rodyti programos versiją"
 
-#: ../gitg/gitg-application.vala:51
-msgid "Start gitg with a particular view"
-msgstr "Paleisti gitg su tam tikru rodiniu"
+#: ../gitg/gitg-application.vala:58
+#| msgid "Start gitg with a particular view"
+msgid "Start gitg with a particular activity"
+msgstr "Paleisti gitg su tam tikra veiklą"
 
-#: ../gitg/gitg-application.vala:53
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgstr "Paleisti gitg su patvirtinimo veikla (--view commit sutrumpinimas)"
+
+#: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Nebandyti įkelti saugyklos iš esamo katalogo"
 
-#: ../gitg/gitg-application.vala:76
+#: ../gitg/gitg-application.vala:88
 msgid "- git repository viewer"
 msgstr "- git saugyklos žiūryklė"
 
-#: ../gitg/gitg-application.vala:186
+#: ../gitg/gitg-application.vala:205
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg yra git saugyklos žiūryklė gtk+/GNOME aplinkai"
 
-#: ../gitg/gitg-application.vala:211
+#: ../gitg/gitg-application.vala:230
 msgid "gitg homepage"
 msgstr "gitg namų tinklapis"
 
-#: ../gitg/gitg-preferences-interface.vala:83
-msgid "Interface"
-msgstr "Sąsaja"
-
-#: ../gitg/gitg-window.vala:144
-msgid "Projects"
-msgstr "Projektai"
-
-#: ../gitg/gitg-window.vala:176
-msgid "Select Repository"
-msgstr "Atverti saugyklą"
-
-#: ../gitg/gitg-window.vala:218
+#: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
 msgstr "Įtrauktas URL nepalaikomas"
 
-#. ex:ts=4 noet
+#: ../gitg/gitg-window.vala:252
+msgid "Projects"
+msgstr "Projektai"
+
+#: ../gitg/gitg-window.vala:288
+#| msgid "_Open Repository"
+msgid "Open Repository"
+msgstr "Atverti saugyklą"
+
+#: ../gitg/gitg-window.vala:358
+msgid "Unable to open the .gitconfig file."
+msgstr "Nepavyko atverti .gitconfig failo."
+
+#: ../gitg/gitg-window.vala:433
+msgid "Failed to set Git user config."
+msgstr "Nepavyko nustatyti Git naudotojo konfigūracijos."
+
+#: ../gitg/gitg-window.vala:644
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "„%s“ nėra Git saugykla."
+
+#: ../gitg/history/gitg-history-navigation.vala:194
+#: ../gitg/history/gitg-history-navigation.vala:302
+msgid "All commits"
+msgstr "Visi pakeitimai"
+
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:197
+msgid "Branches"
+msgstr "Šakos"
+
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:234
+msgid "Remotes"
+msgstr "Nutolusios saugyklos"
+
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:260
+msgid "Tags"
+msgstr "Žymos"
+
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
+msgid "History"
+msgstr "Istorija"
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+msgid "Interface"
+msgstr "Sąsaja"
+
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "Dabar"
+
+#: ../libgitg/gitg-date.vala:320
+msgid "A minute ago"
+msgstr "Prieš minutę"
+
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "%d minutes ago"
+msgstr "Prieš %d minutes"
+
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "Prieš pusė valandos"
+
+#: ../libgitg/gitg-date.vala:330
+msgid "An hour ago"
+msgstr "Prieš valandą"
+
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "%d hours ago"
+msgstr "Prieš %d valandas"
+
+#: ../libgitg/gitg-date.vala:335
+msgid "A day ago"
+msgstr "Prieš dieną"
+
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "%d days ago"
+msgstr "Prieš %d dienas"
+
+#: ../libgitg/gitg-diff-view.vala:88
+msgid "stage"
+msgstr "paruošti"
+
+#: ../libgitg/gitg-diff-view.vala:89
+msgid "unstage"
+msgstr "atšaukti paruošimą"
+
+#: ../libgitg/gitg-diff-view.vala:90
+msgid "Loading diff..."
+msgstr "Įkeliami skirtumai..."
+
+#: ../libgitg/gitg-stage.vala:279
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+"Nepayvko perskaityti patvirtinimo pranešimo vykdant commit-msg susiejimą: %s"
+
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Failai"
+
+#. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-msgid "Clone Repository..."
-msgstr "Klonuoti saugyklą..."
+#| msgid "_Clone Repository"
+msgid "Clone Repository"
+msgstr "Klonuoti saugyklą"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 msgid "Cl_one"
@@ -173,6 +416,42 @@ msgstr "Pasirinkite vietą..."
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
 msgstr "Tuščia saugykla"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+#| msgid "Commits"
+msgid "C_ommit"
+msgstr "_Patvirtinti"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+msgid "Add _signed-off-by signature"
+msgstr "Pridėti pa_sirašymą"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "_Amend previous commit"
+msgstr "Pa_keisti paskutinį patvirtinimą"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+#| msgid "_Close"
+msgid "Close"
+msgstr "Užverti"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "Praleisti patvirtinimo susie_jimus"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Santrauka"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Autorius"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Data"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
@@ -195,27 +474,81 @@ msgid "_Quit"
 msgstr "_Išeiti"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Open Repository"
-msgstr "_Atverti saugyklą"
+#| msgid "_Open Repository"
+msgid "_Open Repository…"
+msgstr "_Atverti saugyklą…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:7
-msgid "_Clone Repository"
-msgstr "_Klonuoti saugyklą"
+#| msgid "_Clone Repository"
+msgid "_Clone Repository…"
+msgstr "_Klonuoti saugyklą…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-msgid "_Close"
-msgstr "_Užverti"
+msgid "_User Information"
+msgstr "Na_udotojo informacija"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "Įkelti iš _naujo"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Rodyti ženklinimą"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "Rodyti _antraštės paraštę stulpelyje:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "Rodyti dešinę _paraštę stulpelyje:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Įjungti rašybos tikrinimą"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+#| msgid "Commits"
+msgid "Commit Message"
+msgstr "Patvirtinimo pranešimas"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Pakeitimai"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Sutraukti neaktyvias eilutes"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Rodyti istoriją"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Rodyti istorijoje paruoštus pakeitimus"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "Rodyti istorijoje neparuoštus pakeitimus"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Rodyti istoriją topologijos tvarka"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Anksti"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Vėlai"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Layout"
 msgstr "Išdėstymas"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "Use horizontal layout"
 msgstr "Naudoti horizontalų išdėstymą"
 
@@ -223,133 +556,41 @@ msgstr "Naudoti horizontalų išdėstymą"
 msgid "gitg Preferences"
 msgstr "gitg nustatymai"
 
-#: ../plugins/diff/gitg-diff.vala:70
-msgid "Diff"
-msgstr "Diff"
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:1
+msgid "User Information"
+msgstr "Naudotojo informacija"
 
-#: ../plugins/files/gitg-files.vala:77
-msgid "Files"
-msgstr "Failai"
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The git config file '%s' does not exist."
+msgstr "Pastaba: git konfigūracijos failo „%s“ nėra."
 
-#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr "Įveskite numatytąją informaciją visoms saugykloms:"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Įveskite informaciją saugyklai „%s“:"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "El. paštas:"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:8
+msgid "Name: "
+msgstr "Vardas:"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Atsisakyti"
+
+#: ../gitg/resources/ui/gitg-user-dialog.ui.h:10
+msgid "Save"
+msgstr "Įrašyti"
+
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "stulpelis"
 
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Rodyti visą istoriją"
-
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Rodyti gitg istorijos parinktis"
-
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "gitg istorijos parinktys"
-
-#: ../plugins/history/gitg-history-navigation.vala:108
-#: ../plugins/history/gitg-history-navigation.vala:112
-msgid "All commits"
-msgstr "Visi pakeitimai"
-
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:116
-msgid "Branches"
-msgstr "Šakos"
-
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:155
-msgid "Remotes"
-msgstr "Nutolusios saugyklos"
-
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:180
-msgid "Tags"
-msgstr "Žymos"
-
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:135
-msgid "History"
-msgstr "Istorija"
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-"To nustatymas nurodo sutraukti eilutes, kurios nerodo veiklos. Tai įjungus "
-"gali būti rodoma švaresnė istorija, kai yra daug lygiagretaus kūrimo. "
-"Žiūrėkite collapse-inactive-lanes valdymui, kada eilutės turi būti "
-"sutrauktos."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr "To nustatymas nurodo, kada rodyti elementus istorijoje."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-"To nustatymas nurodo, ar rodyti istorijoje virtualų elementą šiuo metu "
-"paruoštiems pakeitimams."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-"To nustatymas nurodo, ar rodyti virtualų elementą istorijoje šiuo metu "
-"neparuoštiems pakeitimams."
-
-#: ../plugins/history/resources/preferences.ui.h:1
-msgid "Commits"
-msgstr "Pakeitimai"
-
-#: ../plugins/history/resources/preferences.ui.h:3
-msgid "Collapse inactive lanes"
-msgstr "Sutraukti neaktyvias eilutes"
-
-#: ../plugins/history/resources/preferences.ui.h:4
-msgid "Show stash in history"
-msgstr "Rodyti istoriją"
-
-#: ../plugins/history/resources/preferences.ui.h:5
-msgid "Show staged changes in history"
-msgstr "Rodyti istorijoje paruoštus pakeitimus"
-
-#: ../plugins/history/resources/preferences.ui.h:6
-msgid "Show unstaged changes in history"
-msgstr "Rodyti istorijoje neparuoštus pakeitimus"
-
-#: ../plugins/history/resources/preferences.ui.h:7
-msgid "Show history in topological order"
-msgstr "Rodyti istoriją topologijos tvarka"
-
-#: ../plugins/history/resources/preferences.ui.h:8
-msgid "        "
-msgstr "        "
-
-#: ../plugins/history/resources/preferences.ui.h:9
-msgid "Early"
-msgstr "Anksti"
-
-#: ../plugins/history/resources/preferences.ui.h:10
-msgid "Late"
-msgstr "Vėlai"
-
-#: ../plugins/history/resources/view-history.ui.h:1
-msgid "Subject"
-msgstr "Santrauka"
-
-#: ../plugins/history/resources/view-history.ui.h:2
-msgid "Author"
-msgstr "Autorius"
-
-#: ../plugins/history/resources/view-history.ui.h:3
-msgid "Date"
-msgstr "Data"
