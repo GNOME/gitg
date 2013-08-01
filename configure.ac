@@ -146,7 +146,7 @@ AC_ARG_ENABLE(debug,
                               [disable debug information [default=yes]])],
               [enable_debug=$enableval], [enable_debug=yes])
 
-GITG_VALAFLAGS="--target-glib 2.32"
+GITG_VALAFLAGS="--target-glib 2.38"
 
 if test "x$enable_debug" = "xyes"; then
 	LIBGITG_CFLAGS="$LIBGITG_CFLAGS -g -O0"
