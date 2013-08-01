@@ -42,7 +42,6 @@ public enum SidebarColumn
 
 public delegate void SidebarActivated(int numclick);
 
-[GtkTemplate ( ui = "/org/gnome/gitg/gtk/sidebar/sidebar-store.ui" )]
 public class SidebarStore : Gtk.TreeStore
 {
 	private class Activated : Object
