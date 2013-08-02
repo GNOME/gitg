@@ -128,7 +128,6 @@ AC_ARG_ENABLE(deprecations,
 
 if test "x$USE_MAINTAINER_MODE" = "xyes"; then
 LIBGITG_CFLAGS="$LIBGITG_CFLAGS -Wall -Werror -Wuninitialized -Wmissing-declarations"
-enable_deprecations="yes"
 fi
 
 if test "$enable_deprecations" = "yes"; then
