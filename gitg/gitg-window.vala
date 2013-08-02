@@ -287,8 +287,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	{
 		var chooser = new Gtk.FileChooserDialog (_("Open Repository"), this,
 		                                         Gtk.FileChooserAction.SELECT_FOLDER,
-		                                         Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL,
-		                                         Gtk.Stock.OPEN, Gtk.ResponseType.OK);
+		                                         _("_Cancel"), Gtk.ResponseType.CANCEL,
+		                                         _("_Open"), Gtk.ResponseType.OK);
 
 		chooser.modal = true;
 
