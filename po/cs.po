@@ -1,7 +1,6 @@
 # Czech translation for gitg.
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
-#
 # Marek Černocký <marek@manet.cz>, 2013.
 #
 msgid ""
@@ -9,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-07-10 19:28+0000\n"
-"PO-Revision-Date: 2013-07-11 12:06+0200\n"
+"POT-Creation-Date: 2013-08-02 13:05+0000\n"
+"PO-Revision-Date: 2013-08-03 12:07+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -147,28 +146,28 @@ msgstr ""
 msgid "Cannot set spell checking language: %s"
 msgstr "Nelze nastavit jazyk pro kontrolu pravopisu: %s"
 
-#: ../gitg/commit/gitg-commit.vala:70
+#: ../gitg/commit/gitg-commit.vala:59
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
 msgstr "Zařazení"
 
-#: ../gitg/commit/gitg-commit.vala:155
+#: ../gitg/commit/gitg-commit.vala:144
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Selhala příprava souboru „%s“ k zápisu"
 
-#: ../gitg/commit/gitg-commit.vala:174
+#: ../gitg/commit/gitg-commit.vala:163
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Selhala příprava souboru „%s“ k odstranění"
 
-#: ../gitg/commit/gitg-commit.vala:234
+#: ../gitg/commit/gitg-commit.vala:223
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Selhalo zrušení připravenosti souboru „%s“ k odstranění"
 
-#: ../gitg/commit/gitg-commit.vala:253
+#: ../gitg/commit/gitg-commit.vala:242
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Selhalo zrušení připravenosti souboru „%s“ k zápisu"
@@ -278,6 +277,14 @@ msgstr "Projekty"
 msgid "Open Repository"
 msgstr "Otevření repozitáře"
 
+#: ../gitg/gitg-window.vala:290
+msgid "_Cancel"
+msgstr "_Zrušit"
+
+#: ../gitg/gitg-window.vala:291
+msgid "_Open"
+msgstr "_Otevřít"
+
 #: ../gitg/gitg-window.vala:358
 msgid "Unable to open the .gitconfig file."
 msgstr "Nelze otevřít soubor .gitconfig."
@@ -376,7 +383,7 @@ msgstr "Nelze přečíst zprávu o zařazení po spuštění háčku commit-msg:
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/files/gitg-files.vala:65
+#: ../plugins/files/gitg-files.vala:63
 msgid "Files"
 msgstr "Soubory"
 
