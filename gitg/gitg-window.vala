@@ -88,12 +88,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	};
 
 	[GtkCallback]
-	private void close_button_clicked(Gtk.Button button)
-	{
-		close();
-	}
-
-	[GtkCallback]
 	private void dash_button_clicked(Gtk.Button dash)
 	{
 		repository = null;
