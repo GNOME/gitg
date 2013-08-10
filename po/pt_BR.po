@@ -13,9 +13,9 @@ msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-08-07 07:42+0000\n"
-"PO-Revision-Date: 2013-08-10 14:36-0300\n"
-"Last-Translator: Júnior Pires <juniorpiresupe@gmail.com>\n"
+"POT-Creation-Date: 2013-08-10 19:02+0000\n"
+"PO-Revision-Date: 2013-08-10 16:20-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgid ""
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr ""
 "Configuração que indica quando uma pista inativa deve ser recolhida. Valores "
-"validos são 0 - 4, onde 0 indica 'cedo' e 4 indica 'atrasado'."
+"validos são 0 - 4, onde 0 indica \"cedo\" e 4 indica \"atrasado\"."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
 msgid ""
@@ -116,48 +116,36 @@ msgid "Column at Which Right Margin is Shown"
 msgstr "Coluna que é mostrada na margem direita"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-#, fuzzy
-#| msgid ""
-#| "The column at which the right margin is shown if the right-margin "
-#| "preference is set to TRUE."
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr ""
-"A coluna na qual a margem da direita é mostrada se a preferência da margem "
-"direita está definida como VERDADEIRA."
+"A coluna na qual a margem da direita é mostrada se a preferência \"show-"
+"right-margin\" está definida como VERDADEIRA."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-#, fuzzy
-#| msgid "Show Right Margin in Commit Message View"
 msgid "Show Subject Margin in Commit Message View"
-msgstr "Mostrar margem direita na visão da mensagem de commit"
+msgstr "Mostrar margem assunto na visão da mensagem de commit"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
 msgstr ""
-"Destaca o texto da mensagem do commit quando passar da margem especificada "
-"pela propriedade 'subject-margin-position'"
+"Destaca o texto assunto da mensagem do commit quando passa da margem "
+"especificada pela propriedade \"subject-margin-position\"."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-#, fuzzy
-#| msgid "Column at Which Right Margin is Shown"
 msgid "Column at Which Subject Margin is Shown"
-msgstr "Coluna que é mostrada na margem direita"
+msgstr "Coluna que é mostrada na margem assunto"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-#, fuzzy
-#| msgid ""
-#| "The column at which the right margin is shown if the right-margin "
-#| "preference is set to TRUE."
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
 msgstr ""
-"A coluna na qual a margem da direita é mostrada se a preferência da margem "
-"direita está definida como VERDADEIRA."
+"A coluna na qual a margem assunto é mostrada se a preferência \"show-subject-"
+"margin\" está definida como VERDADEIRA."
 
 #: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
@@ -167,54 +155,44 @@ msgstr "Não é possível configurar a verificação ortográfica do idioma: %s"
 #: ../gitg/commit/gitg-commit.vala:59
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#, fuzzy
-#| msgid "Commits"
 msgid "Commit"
-msgstr "Commits"
+msgstr "Submeter (commit)"
 
 #: ../gitg/commit/gitg-commit.vala:144
-#, fuzzy, c-format
-#| msgid "Failed to save current index state"
+#, c-format
 msgid "Failed to stage the file `%s'"
-msgstr "Falha ao salvar o estado do index atual"
+msgstr "Ocorreu falha ao apresentar o arquivo \"%s\""
 
 #: ../gitg/commit/gitg-commit.vala:163
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
-msgstr "Ocorreu falha ao apresentar a remoção do arquivo `%s'"
+msgstr "Ocorreu falha ao apresentar a remoção do arquivo \"%s\""
 
 #: ../gitg/commit/gitg-commit.vala:223
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
-msgstr "Ocorreu falha ao não apresentar a remoção do arquivo '%s'"
+msgstr "Ocorreu falha ao não apresentar a remoção do arquivo \"%s\""
 
 #: ../gitg/commit/gitg-commit.vala:242
-#, fuzzy, c-format
-#| msgid "Failed to save current index state"
+#, c-format
 msgid "Failed to unstage the file `%s'"
-msgstr "Falha ao salvar o estado do index atual"
+msgstr "Ocorreu falha ao não apresentar o arquivo \"%s\""
 
 #: ../gitg/commit/gitg-commit.vala:366
-#, fuzzy
-#| msgid "Stage"
 msgid "Staged"
-msgstr "Stage"
+msgstr "Apresentado"
 
 #: ../gitg/commit/gitg-commit.vala:370
 msgid "No staged files"
 msgstr "Arquivos não apresentados"
 
 #: ../gitg/commit/gitg-commit.vala:379
-#, fuzzy
-#| msgid "Unstage"
 msgid "Unstaged"
-msgstr "Unstage"
+msgstr "Não apresentado"
 
 #: ../gitg/commit/gitg-commit.vala:383
-#, fuzzy
-#| msgid "Unstaged changes"
 msgid "No unstaged files"
-msgstr "Alterações fora do stage"
+msgstr "Não há arquivos não apresentados"
 
 #: ../gitg/commit/gitg-commit.vala:392
 msgid "Untracked"
@@ -229,23 +207,17 @@ msgid "There are no changes to be committed"
 msgstr "Não existem mudanças a serem submetidas"
 
 #: ../gitg/commit/gitg-commit.vala:433
-#, fuzzy
-#| msgid "Please enter a commit message before committing"
 msgid "Use amend to change the commit message of the previous commit"
-msgstr "Por favor, digite uma mensagem de commit antes de submeter"
+msgstr "Use \"amend\" para alterar a mensagem de commit da submissão anterior"
 
 #: ../gitg/commit/gitg-commit.vala:459
-#, fuzzy
-#| msgid "Failed to remove tag"
 msgid "Failed to commit"
-msgstr "Falha ao remover a tag"
+msgstr "Ocorreu falha ao efetuar submissão"
 
 #. TODO: better to show user info dialog directly or something
 #: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
-#, fuzzy
-#| msgid "Failed to remove tag"
 msgid "Failed to pass pre-commit"
-msgstr "Falha ao remover a tag"
+msgstr "Ocorreu falha na fase de pré-submissão"
 
 #: ../gitg/commit/gitg-commit.vala:696
 msgid ""
@@ -312,16 +284,12 @@ msgid "Open Repository"
 msgstr "Abrir repositório"
 
 #: ../gitg/gitg-window.vala:284
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
-msgstr "Cancelar"
+msgstr "_Cancelar"
 
 #: ../gitg/gitg-window.vala:285
-#, fuzzy
-#| msgid "Open"
 msgid "_Open"
-msgstr "Abrir"
+msgstr "_Abrir"
 
 #: ../gitg/gitg-window.vala:352
 msgid "Unable to open the .gitconfig file."
@@ -409,10 +377,8 @@ msgid "unstage"
 msgstr "unstage"
 
 #: ../libgitg/gitg-diff-view.vala:90
-#, fuzzy
-#| msgid "Loading %d revisions..."
 msgid "Loading diff..."
-msgstr "Carregando %d revisões..."
+msgstr "Carregando comparação (diff)..."
 
 #: ../libgitg/gitg-stage.vala:279
 #, c-format
@@ -456,16 +422,12 @@ msgstr "Esvaziar repositório"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
-#, fuzzy
-#| msgid "Commits"
 msgid "C_ommit"
-msgstr "Commits"
+msgstr "C_ommit"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
-#, fuzzy
-#| msgid "Add signed-off-by"
 msgid "Add _signed-off-by signature"
-msgstr "Adicionar signed-off-by"
+msgstr "Adicionar a_ssinatura signed-off-by"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "_Amend previous commit"
@@ -533,26 +495,20 @@ msgid "Show markup"
 msgstr "Mostrar marcação"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-#, fuzzy
-#| msgid "_Right margin at column:"
 msgid "Display _subject margin at column:"
-msgstr "Margem di_reita na coluna:"
+msgstr "Exibir margem a_ssunto na coluna:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-#, fuzzy
-#| msgid "Display right _margin"
 msgid "Display right _margin at column:"
-msgstr "Exibir _margem direita"
+msgstr "Exibir _margem direita na coluna:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
 msgid "Enable spell checking"
 msgstr "Habilitar verificação ortográfica"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-#, fuzzy
-#| msgid "Co_mmit message"
 msgid "Commit Message"
-msgstr "Mensagem de co_mmit"
+msgstr "Mensagem do commit"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
 msgid "Commits"
