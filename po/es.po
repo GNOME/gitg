@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-07-07 20:31+0000\n"
-"PO-Revision-Date: 2013-07-12 14:38+0200\n"
+"POT-Creation-Date: 2013-08-02 13:05+0000\n"
+"PO-Revision-Date: 2013-08-14 13:35+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -114,9 +114,6 @@ msgid "Column at Which Right Margin is Shown"
 msgstr "Columna en el que se muestra el margen derecho"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-#| msgid ""
-#| "The column at which the right margin is shown if the right-margin "
-#| "preference is set to TRUE."
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -125,7 +122,6 @@ msgstr ""
 "margen derecho está establecida a cierto."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-#| msgid "Show Right Margin in Commit Message View"
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Mostrar el margen del asunto en la vista de mensaje de «commit»"
 
@@ -136,14 +132,10 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-#| msgid "Column at Which Right Margin is Shown"
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Columna en el que se muestra el margen del asunto"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-#| msgid ""
-#| "The column at which the right margin is shown if the right-margin "
-#| "preference is set to TRUE."
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -151,42 +143,38 @@ msgstr ""
 "La columna en la que se muestra el margen del asunto si la preferencia de "
 "margen del asunto está establecida a cierto."
 
-#: ../gitg/commit/gitg-commit-dialog.vala:263
+#: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "No se puede establecer el idioma de la comprobación ortográfica: %s"
 
-#: ../gitg/commit/gitg-commit.vala:70
+#: ../gitg/commit/gitg-commit.vala:59
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#| msgid "Commits"
 msgid "Commit"
 msgstr "Commit"
 
-#: ../gitg/commit/gitg-commit.vala:155
+#: ../gitg/commit/gitg-commit.vala:144
 #, c-format
-#| msgid "Failed to save current index state"
 msgid "Failed to stage the file `%s'"
 msgstr "Falló al reservar el archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:174
+#: ../gitg/commit/gitg-commit.vala:163
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Falló al reservar la eliminación del archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:234
+#: ../gitg/commit/gitg-commit.vala:223
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Falló al quitar la reserva de eliminación del archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:253
+#: ../gitg/commit/gitg-commit.vala:242
 #, c-format
-#| msgid "Failed to save current index state"
 msgid "Failed to unstage the file `%s'"
 msgstr "Falló al quitar la reserva del archivo «%s»"
 
 #: ../gitg/commit/gitg-commit.vala:366
-#| msgid "_Staged"
 msgid "Staged"
 msgstr "Reservado"
 
@@ -199,7 +187,6 @@ msgid "Unstaged"
 msgstr "Sin reservar"
 
 #: ../gitg/commit/gitg-commit.vala:383
-#| msgid "Unstaged changes"
 msgid "No unstaged files"
 msgstr "No hay archivos sin reservar"
 
@@ -222,18 +209,17 @@ msgid "Use amend to change the commit message of the previous commit"
 msgstr "Introducir un mensaje de «commit» antes de realizar el «commit»"
 
 #: ../gitg/commit/gitg-commit.vala:459
-#| msgid "Failed to remove tag"
 msgid "Failed to commit"
 msgstr "Falló al hacer el «commit»"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:655
+#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
 #, fuzzy
 #| msgid "Failed to remove tag"
 msgid "Failed to pass pre-commit"
 msgstr "Falló al eliminar la etiqueta"
 
-#: ../gitg/commit/gitg-commit.vala:643
+#: ../gitg/commit/gitg-commit.vala:696
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -241,7 +227,7 @@ msgstr ""
 "Su nombre de usuario y su correo-e no están configurados todavía. Vaya a la "
 "configuración del usuario y proporcione su nombre y su correo-e."
 
-#: ../gitg/commit/gitg-commit.vala:647
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -249,7 +235,7 @@ msgstr ""
 "Su nombre de usuario no está configurado todavía. Vaya a la configuración "
 "del usuario y proporcione su nombre."
 
-#: ../gitg/commit/gitg-commit.vala:651
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -262,7 +248,6 @@ msgid "Show the application's version"
 msgstr "Mostrar la versión de la aplicación"
 
 #: ../gitg/gitg-application.vala:58
-#| msgid "Start gitg with a particular view"
 msgid "Start gitg with a particular activity"
 msgstr "Iniciar gitg con una actividad en particular"
 
@@ -286,27 +271,37 @@ msgstr "gitg es un visor de repositorios git para GTk+/GNOME"
 msgid "gitg homepage"
 msgstr "Página principal de gitg"
 
-#: ../gitg/gitg-window.vala:254
-msgid "Projects"
-msgstr "Proyectos"
-
-#: ../gitg/gitg-window.vala:290
-msgid "Open Repository"
-msgstr "Abrir repositorio"
-
-#: ../gitg/gitg-window.vala:359
+#: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
 msgstr "El URL introducido no está soportado"
 
-#: ../gitg/gitg-window.vala:402
+#: ../gitg/gitg-window.vala:252
+msgid "Projects"
+msgstr "Proyectos"
+
+#: ../gitg/gitg-window.vala:288
+msgid "Open Repository"
+msgstr "Abrir repositorio"
+
+#: ../gitg/gitg-window.vala:290
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: ../gitg/gitg-window.vala:291
+#| msgid "Open"
+msgid "_Open"
+msgstr "_Abrir"
+
+#: ../gitg/gitg-window.vala:358
 msgid "Unable to open the .gitconfig file."
 msgstr "No se pudo abrir el archivo .gitconfig."
 
-#: ../gitg/gitg-window.vala:477
+#: ../gitg/gitg-window.vala:433
 msgid "Failed to set Git user config."
 msgstr "Falló al establecer la configuración de usuario de Git."
 
-#: ../gitg/gitg-window.vala:688
+#: ../gitg/gitg-window.vala:644
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» no es un repositorio Git."
@@ -384,7 +379,6 @@ msgid "unstage"
 msgstr "quitar la reserva"
 
 #: ../libgitg/gitg-diff-view.vala:90
-#| msgid "Loading %d revisions..."
 msgid "Loading diff..."
 msgstr "Cargando diferencias…"
 
@@ -397,7 +391,7 @@ msgstr ""
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/files/gitg-files.vala:65
+#: ../plugins/files/gitg-files.vala:63
 msgid "Files"
 msgstr "Archivos"
 
@@ -428,13 +422,11 @@ msgstr "Repositorio vacío"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
-#, fuzzy
 #| msgid "Commits"
 msgid "C_ommit"
-msgstr "Commits"
+msgstr "C_ommit"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
-#| msgid "Add signed-off-by"
 msgid "Add _signed-off-by signature"
 msgstr "Añadir _firmado por"
 
@@ -504,12 +496,10 @@ msgid "Show markup"
 msgstr "Mostrar marcado"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-#| msgid "_Right margin at column:"
 msgid "Display _subject margin at column:"
 msgstr "Mostrar el _margen del asunto en la columna:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-#| msgid "Display right _margin"
 msgid "Display right _margin at column:"
 msgstr "Mostrar el _margen derecho en la columna:"
 
@@ -518,7 +508,6 @@ msgid "Enable spell checking"
 msgstr "Activar comprobación de la ortografía"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-#| msgid "Co_mmit message"
 msgid "Commit Message"
 msgstr "Mensaje de «commit»"
 
@@ -655,9 +644,6 @@ msgstr "columna"
 
 #~ msgid "Repository"
 #~ msgstr "Repositorio"
-
-#~ msgid "Open"
-#~ msgstr "Abrir"
 
 #~ msgid "Create"
 #~ msgstr "Crear"
