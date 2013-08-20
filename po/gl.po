@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-06 16:12+0200\n"
-"PO-Revision-Date: 2013-06-06 16:16+0200\n"
+"POT-Creation-Date: 2013-08-21 00:35+0200\n"
+"PO-Revision-Date: 2013-08-21 00:45+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -29,25 +29,18 @@ msgid "Git repository browser"
 msgstr "Explorador de repositorios Git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Filter Revisions When Searching"
-msgstr "Filtrar revisións ao buscar"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Orientación da interface principal (vertical ou horizontal)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr ""
-"Indica se a busca filtra as revisións na visualización do historial no lugar "
-"de saltar á primeira aparición."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Opción que estabelece a orientación da interface principal."
 
-#. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
 msgstr "Cando contraer as liñas inactivas"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -56,29 +49,54 @@ msgstr ""
 "correctos son 0 - 4, onde 0 indica «pronto» e 4 indica «máis tarde»."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Configuración que indica se se deben contraer as liñas do historial que non "
+"teñen actividade.Activando isto pode fornecer unha vista do historial máis "
+"limpa cando hai moito desenvolvemento en paralelo. Vexa «collapse-inactive-"
+"lanes» para controlar cando se deben contraer as liñas."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid "Show History in Topological Order"
 msgstr "Mostrar o historial por orde topolóxico"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "Opción que indica se se debe mostrar o historial en orde topolóxico."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr "Orientación da interface principal (vertical ou horizontal)"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation of the main interface."
-msgstr "Opción que estabelece a orientación da interface principal."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Configuración que indica se se deben mostrar os elementos de reserva no "
+"historial."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Configuración que indica se se debe mostrar no historial un elemento visual "
+"para os cambios reservados actualmente."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Configuración que indica se se debe mostrar no historial un elemento virtual "
+"para os elementos non reservados actualmente."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
 msgstr "Mostrar a marxe dereito na vista de mensaxe de «commit». "
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -87,67 +105,291 @@ msgstr ""
 "pode ser útil para ver de forma doada onde romper a mensaxe de «commit» "
 "nunha columna específica."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "Column at Which Right Margin is Shown"
 msgstr "Columna na cal se mostra o marxe dereito"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
-msgstr ""
-"A columna na que se mostra a marxe dereita se a opción de marxe dereita está "
-"estabelecida como verdadeira."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
-msgid "Allow External Diff Program"
-msgstr "Permitir un programa diff externo"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
-msgstr "Permitir usar un programa diff externo ao ver diferenzas en gitg."
+msgid ""
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
+msgstr ""
+"A columna na que se mostra a marxe dereita se a opción show-right-margin "
+"está estabelecida como verdadeira."
 
-#: ../gitg/gitg-application.vala:49
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Mostrar a marxe do asunto na vista de mensaxe de remisión. "
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
+"Realzar o texto do asunto na mensaxe de remisión ao pasarse do marxe "
+"especificado por subject-margin-position."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Columna na cal se mostra a marxe do asunto"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+msgid ""
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
+msgstr ""
+"A columna na que se mostra a marxe do asunto se a opción show-subject-margin "
+"está estabelecida como verdadeira."
+
+#: ../gitg/commit/gitg-commit-dialog.vala:283
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Non é posíbel comprobar a ortografía do idioma: %s"
+
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgid "Commit"
+msgstr "Remitir"
+
+#: ../gitg/commit/gitg-commit.vala:144
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Produciuse un fallo ao reservar o ficheiro «%s» "
+
+#: ../gitg/commit/gitg-commit.vala:163
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Produciuse un fallo ao reservar a eliminación do ficheiro «%s»"
+
+#: ../gitg/commit/gitg-commit.vala:223
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Produciuse un fallo ao desreservar a eliminación do ficheiro «%s»"
+
+#: ../gitg/commit/gitg-commit.vala:242
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Produciuse un fallo desreservar o ficheiro «%s»"
+
+#: ../gitg/commit/gitg-commit.vala:366
+msgid "Staged"
+msgstr "Reservado"
+
+#: ../gitg/commit/gitg-commit.vala:370
+msgid "No staged files"
+msgstr "Non hai ningún ficheiro reservado"
+
+#: ../gitg/commit/gitg-commit.vala:379
+msgid "Unstaged"
+msgstr "Sen reservar"
+
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "No unstaged files"
+msgstr "Non hai ficheiro sen reservar"
+
+#: ../gitg/commit/gitg-commit.vala:392
+msgid "Untracked"
+msgstr "Sen seguimento"
+
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "No untracked files"
+msgstr "Non hai ficheiro sen seguimento"
+
+#: ../gitg/commit/gitg-commit.vala:432
+msgid "There are no changes to be committed"
+msgstr "Non hai cambios para remitir"
+
+#: ../gitg/commit/gitg-commit.vala:433
+msgid "Use amend to change the commit message of the previous commit"
+msgstr "Use engadir para cambiar a mensaxe de remisión da anterior remisión"
+
+#: ../gitg/commit/gitg-commit.vala:459
+msgid "Failed to commit"
+msgstr "Produciuse un fallo ao remitir"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+msgid "Failed to pass pre-commit"
+msgstr "Produciuse un fallo ao pasar a pre-remisión"
+
+#: ../gitg/commit/gitg-commit.vala:696
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"O seu nome de usuario e correo electrónico non están configurados aínda. "
+"Vaia á configuración do usuario e forneza un nome e correo."
+
+#: ../gitg/commit/gitg-commit.vala:700
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+"O seu nome de usuario non están configurado aínda. Vaia á configuración do "
+"usuario e forneza un nome."
+
+#: ../gitg/commit/gitg-commit.vala:704
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"O seu correo electrónico non están configurado aínda. Vaia á configuración "
+"do usuario e forneza un correo."
+
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Mostrar a versión do aplicativo"
 
-#: ../gitg/gitg-application.vala:51
-msgid "Start gitg with a particular view"
-msgstr "Iniciar gitg con unha vista en particular"
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "Iniciar gitg con unha actividade en particular"
 
-#: ../gitg/gitg-application.vala:53
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgstr "Iniciar gitg coa actividade de remisión (atallo para --view commit)"
+
+#: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Non tentar cargar un repositorio desde o cartafol actual"
 
-#: ../gitg/gitg-application.vala:76
+#: ../gitg/gitg-application.vala:88
 msgid "- git repository viewer"
 msgstr "- visor de repositorios git"
 
-#: ../gitg/gitg-application.vala:185
+#: ../gitg/gitg-application.vala:205
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg é un visor de repositorios git para gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:210
+#: ../gitg/gitg-application.vala:230
 msgid "gitg homepage"
 msgstr "Páxina web de gitg"
 
-#: ../gitg/gitg-preferences-interface.vala:83
-msgid "Interface"
-msgstr "Interface"
-
-#: ../gitg/gitg-window.vala:230
-msgid "Projects"
-msgstr "Proxectos"
-
-#: ../gitg/gitg-window.vala:262
-msgid "Open Repository"
-msgstr "Abrir repositorio"
-
-#: ../gitg/gitg-window.vala:329
+#: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
 msgstr "O URL introducido non é compatíbel"
 
-#. ex:ts=4 noet
+#: ../gitg/gitg-window.vala:246
+msgid "Projects"
+msgstr "Proxectos"
+
+#: ../gitg/gitg-window.vala:282
+msgid "Open Repository"
+msgstr "Abrir repositorio"
+
+#: ../gitg/gitg-window.vala:284
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: ../gitg/gitg-window.vala:285
+msgid "_Open"
+msgstr "_Abrir"
+
+#: ../gitg/gitg-window.vala:352
+msgid "Unable to open the .gitconfig file."
+msgstr "Non foi posíbel abrir o ficheiro .gitconfig."
+
+#: ../gitg/gitg-window.vala:427
+msgid "Failed to set Git user config."
+msgstr "Produciuse un fallo ao estabelecer a configuración de Git do usuario."
+
+#: ../gitg/gitg-window.vala:638
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "«%s» non é un repositorio Git."
+
+#: ../gitg/history/gitg-history-navigation.vala:194
+#: ../gitg/history/gitg-history-navigation.vala:302
+msgid "All commits"
+msgstr "Todas as remisións"
+
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:197
+msgid "Branches"
+msgstr "Ramas"
+
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:234
+msgid "Remotes"
+msgstr "Remotos"
+
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:260
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
+msgid "History"
+msgstr "Historial"
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+msgid "Interface"
+msgstr "Interface"
+
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "Agora"
+
+#: ../libgitg/gitg-date.vala:320
+msgid "A minute ago"
+msgstr "Hai un minuto"
+
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "%d minutes ago"
+msgstr "Hai %d minutos"
+
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "Hai media hora"
+
+#: ../libgitg/gitg-date.vala:330
+msgid "An hour ago"
+msgstr "Hai unha hora"
+
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "%d hours ago"
+msgstr "Hai %d horas"
+
+#: ../libgitg/gitg-date.vala:335
+msgid "A day ago"
+msgstr "Hai un día"
+
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "%d days ago"
+msgstr "Hai %d días"
+
+#: ../libgitg/gitg-diff-view.vala:88
+msgid "stage"
+msgstr "preseleccionar"
+
+#: ../libgitg/gitg-diff-view.vala:89
+msgid "unstage"
+msgstr "Non preseleccionar"
+
+#: ../libgitg/gitg-diff-view.vala:90
+msgid "Loading diff..."
+msgstr "Cargando diferenzas…"
+
+#: ../libgitg/gitg-stage.vala:279
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+"Non foi posíbel ler a mensaxe de remisión despois de executar o hook commit-"
+"msg: %s"
+
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Ficheiros"
+
+#. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository"
 msgstr "Clonar repositorio"
@@ -171,6 +413,40 @@ msgstr "Seleccionar localización…"
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
 msgstr "Repositorio baleiro"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "R_emitir"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+msgid "Add _signed-off-by signature"
+msgstr "Engadir a sinatura _signed-off-by"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "_Amend previous commit"
+msgstr "_Corrixir a remisión anterior"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Close"
+msgstr "Pechar"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "Omitir _hooks de remisión"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Asunto"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Autor"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Data"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
@@ -205,23 +481,66 @@ msgid "_User Information"
 msgstr "Información do _usuario"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:9
-msgid "_Close"
-msgstr "Pe_char"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:10
 msgid "_Reload"
 msgstr "_Recargar"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Mostra marcado"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "Mostra a marxe do a_sunto na columna:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "Mostrar a _marxe dereita na columna:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Activar verificación ortográfica"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+msgid "Commit Message"
+msgstr "Mensaxe de remisión"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Remisións"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Contraer as liñas inactivas"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Mostrar as reservas no historial"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Mostrar os cambios preseleccionados no historial"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "Mostrar os cambios non seleccionados no historial"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Mostrar historial en orde topolóxico"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Pronto"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Tarde"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Layout"
 msgstr "Distribución"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "Use horizontal layout"
 msgstr "Usar distribución horizontal"
 
@@ -246,7 +565,7 @@ msgstr ""
 
 #: ../gitg/resources/ui/gitg-user-dialog.ui.h:6
 #, no-c-format
-msgid "Enter details for %s repository:"
+msgid "Enter details for repository '%s':"
 msgstr "Escriba a información para o repositorio %s:"
 
 #: ../gitg/resources/ui/gitg-user-dialog.ui.h:7
@@ -265,139 +584,41 @@ msgstr "Cancelar"
 msgid "Save"
 msgstr "Gardar"
 
-#: ../plugins/diff/gitg-diff.vala:70
-msgid "Diff"
-msgstr "Diff"
-
-#: ../plugins/files/gitg-files.vala:77
-msgid "Files"
-msgstr "Ficheiros"
-
-#. ex: ts=4 noet
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "columna"
 
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Mostrar todo o historial"
+#~ msgid "Filter Revisions When Searching"
+#~ msgstr "Filtrar revisións ao buscar"
 
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Mostrar as opcións do historial de gitg"
+#~ msgid ""
+#~ "Whether searching filters the revisions in the history view instead of "
+#~ "jumping to the first match."
+#~ msgstr ""
+#~ "Indica se a busca filtra as revisións na visualización do historial no "
+#~ "lugar de saltar á primeira aparición."
 
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "Opcións do historial de gitg"
+#~ msgid "Allow External Diff Program"
+#~ msgstr "Permitir un programa diff externo"
 
-#: ../plugins/history/gitg-history-navigation.vala:192
-#: ../plugins/history/gitg-history-navigation.vala:196
-#: ../plugins/history/gitg-history-navigation.vala:309
-msgid "All commits"
-msgstr "Todas as remisións"
+#~ msgid ""
+#~ "Allow an external diff program to be used when viewing diffs in gitg."
+#~ msgstr "Permitir usar un programa diff externo ao ver diferenzas en gitg."
 
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:200
-msgid "Branches"
-msgstr "Ramas"
+#~ msgid "    "
+#~ msgstr "    "
 
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:241
-msgid "Remotes"
-msgstr "Remotos"
+#~ msgid "Show all history"
+#~ msgstr "Mostrar todo o historial"
 
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:267
-msgid "Tags"
-msgstr "Etiquetas"
+#~ msgid "Show gitg history options"
+#~ msgstr "Mostrar as opcións do historial de gitg"
 
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:163
-msgid "History"
-msgstr "Historial"
+#~ msgid "gitg history options"
+#~ msgstr "Opcións do historial de gitg"
 
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-"Configuración que indica se se deben contraer as liñas do historial que non "
-"teñen actividade.Activando isto pode fornecer unha vista do historial máis "
-"limpa cando hai moito desenvolvemento en paralelo. Vexa «collapse-inactive-"
-"lanes» para controlar cando se deben contraer as liñas."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr ""
-"Configuración que indica se se deben mostrar os elementos de reserva no "
-"historial."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-"Configuración que indica se se debe mostrar no historial un elemento visual "
-"para os cambios reservados actualmente."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-"Configuración que indica se se debe mostrar no historial un elemento virtual "
-"para os elementos non reservados actualmente."
-
-#: ../plugins/history/resources/preferences.ui.h:1
-msgid "Commits"
-msgstr "Remisións"
-
-#: ../plugins/history/resources/preferences.ui.h:3
-msgid "Collapse inactive lanes"
-msgstr "Contraer as liñas inactivas"
-
-#: ../plugins/history/resources/preferences.ui.h:4
-msgid "Show stash in history"
-msgstr "Mostrar as reservas no historial"
-
-#: ../plugins/history/resources/preferences.ui.h:5
-msgid "Show staged changes in history"
-msgstr "Mostrar os cambios preseleccionados no historial"
-
-#: ../plugins/history/resources/preferences.ui.h:6
-msgid "Show unstaged changes in history"
-msgstr "Mostrar os cambios non seleccionados no historial"
-
-#: ../plugins/history/resources/preferences.ui.h:7
-msgid "Show history in topological order"
-msgstr "Mostrar historial en orde topolóxico"
-
-#: ../plugins/history/resources/preferences.ui.h:8
-msgid "        "
-msgstr "        "
-
-#: ../plugins/history/resources/preferences.ui.h:9
-msgid "Early"
-msgstr "Pronto"
-
-#: ../plugins/history/resources/preferences.ui.h:10
-msgid "Late"
-msgstr "Tarde"
-
-#: ../plugins/history/resources/view-history.ui.h:1
-msgid "Subject"
-msgstr "Asunto"
-
-#: ../plugins/history/resources/view-history.ui.h:2
-msgid "Author"
-msgstr "Autor"
-
-#: ../plugins/history/resources/view-history.ui.h:3
-msgid "Date"
-msgstr "Data"
+#~ msgid "        "
+#~ msgstr "        "
 
 #~ msgid "Show Main View in Vertical or Horizontal Layout"
 #~ msgstr "Mostra a vista principal en distribución vertical ou horizontal"
@@ -408,9 +629,6 @@ msgstr "Data"
 #~ msgid "Setting that sets files view to blame mode."
 #~ msgstr ""
 #~ "Opción que configura a vista de ficheiros no modo acusador («blame»)."
-
-#~ msgid "Open"
-#~ msgstr "Abrir"
 
 #~ msgid "Create"
 #~ msgstr "Crear"
@@ -528,9 +746,6 @@ msgstr "Data"
 #~ msgid "The tag <%s> could not be successfully removed"
 #~ msgstr "Non foi posíbel eliminar de forma satisfactoria a etiqueta <%s>"
 
-#~ msgid "Failed to remove tag"
-#~ msgstr "Produciuse un fallo ao eliminar a etiqueta"
-
 #~ msgid "Branch <%s> could not be renamed to <%s>"
 #~ msgstr "Non foi posíbel renomear a rama <%s> a <%s>"
 
@@ -558,9 +773,6 @@ msgstr "Data"
 
 #~ msgid "Stash changes"
 #~ msgstr "Reservar os cambios"
-
-#~ msgid "Failed to save current index state"
-#~ msgstr "Produciuse un fallo ao gardar o estado actual do índice"
 
 #~ msgid "Failed to checkout local branch <%s>"
 #~ msgstr "Produciuse un fallo ao obter («checkout») a rama local <%s>"
@@ -692,9 +904,6 @@ msgstr "Data"
 #~ msgid "The tag object could not be successfully created"
 #~ msgstr "Non foi posíbel crear correctamente o obxecto de etiqueta."
 
-#~ msgid "Failed to create tag"
-#~ msgstr "Produciuse un fallo ao crear a etiqueta"
-
 #~ msgid "Failed to cherry-pick on <%s>"
 #~ msgstr ""
 #~ "Produciuse un fallo ao aplicar os cambios da revisión («cherry-pick») "
@@ -734,9 +943,6 @@ msgstr "Data"
 #~ msgid "You must first stage some changes before committing"
 #~ msgstr ""
 #~ "Primeiro debe preseleccionar algúns cambios antes de remitir («commit»)"
-
-#~ msgid "Please enter a commit message before committing"
-#~ msgstr "Escriba unha mensaxe de commit antes de remitir («commit»)"
 
 #~ msgid ""
 #~ "Your user name or email could not be retrieved for use in the sign off "
@@ -805,9 +1011,6 @@ msgstr "Data"
 
 #~ msgid "Loaded %d revisions in %.2fs"
 #~ msgstr "%d revisións cargadas en %.2fs"
-
-#~ msgid "Loading %d revisions..."
-#~ msgstr "Cargando %d revisións…"
 
 #~ msgid "Local branches"
 #~ msgstr "Ramas locais"
@@ -934,9 +1137,6 @@ msgstr "Data"
 #~ msgid "Staged changes"
 #~ msgstr "Cambios preseleccionados"
 
-#~ msgid "Unstaged changes"
-#~ msgstr "Cambios non preseleccionados"
-
 #~ msgid "Not a valid git repository"
 #~ msgstr "Non é un repositorio git válido"
 
@@ -996,12 +1196,6 @@ msgstr "Data"
 
 #~ msgid "Preferences that apply to the history view"
 #~ msgstr "Preferencias que se aplican á vista de historial"
-
-#~ msgid "Display right _margin"
-#~ msgstr "Mostrar a _marxe dereita"
-
-#~ msgid "_Right margin at column:"
-#~ msgstr "Marxe _dereita na columna:"
 
 #~ msgid "Preferences that apply to the commit view"
 #~ msgstr "Preferencias que se aplican á vista de «commit»"
@@ -1075,29 +1269,11 @@ msgstr "Data"
 #~ msgid "_Unstaged"
 #~ msgstr "_Sen reservar"
 
-#~ msgid "Unstaged"
-#~ msgstr "Sen reservar"
-
-#~ msgid "Co_mmit message"
-#~ msgstr "_Mensaxe de remisión («commit»)"
-
 #~ msgid "Amend"
 #~ msgstr "Completar («amend»)"
 
-#~ msgid "Add signed-off-by"
-#~ msgstr "Engadir «firmado por»"
-
 #~ msgid "_Commit"
 #~ msgstr "_Remitir («commit»)"
-
-#~ msgid "_Staged"
-#~ msgstr "_Reservado"
-
-#~ msgid "unstage"
-#~ msgstr "Non preseleccionar"
-
-#~ msgid "stage"
-#~ msgstr "preseleccionar"
 
 #~ msgid ""
 #~ "This program is free software; you can redistribute it and/or modify\n"
@@ -1132,9 +1308,6 @@ msgstr "Data"
 
 #~ msgid "_Changes"
 #~ msgstr "_Cambios"
-
-#~ msgid "Could not find git repository"
-#~ msgstr "Non se puido encontrar o repositorio git"
 
 #~ msgid "Date:"
 #~ msgstr "Data:"
