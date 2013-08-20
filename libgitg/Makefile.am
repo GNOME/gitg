@@ -58,6 +58,7 @@ VALA_FILES =					\
 	gitg-diff-view.vala			\
 	gitg-diff-view-request.vala		\
 	gitg-diff-view-request-resource.vala	\
+	gitg-diff-view-request-patch.vala	\
 	gitg-diff-view-request-diff.vala	\
 	gitg-repository-list-box.vala		\
 	gitg-when-mapped.vala			\

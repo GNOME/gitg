@@ -86,6 +86,9 @@ namespace Gitg
 			return null;
 		}
 
+		protected virtual void run_after_async()
+		{}
+
 		private async InputStream? run_impl(Cancellable? cancellable) throws GLib.Error
 		{
 			SourceFunc callback = run_impl.callback;
@@ -103,6 +106,8 @@ namespace Gitg
 				Idle.add((owned)callback);
 				return null;
 			});
+
+			run_after_async();
 
 			// Wait for it to finish, yield to caller
 			yield;

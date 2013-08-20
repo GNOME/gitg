@@ -138,6 +138,8 @@ namespace Gitg
 					return new DiffViewRequestResource(view, request, uri);
 				case "diff":
 					return new DiffViewRequestDiff(view, request, uri);
+				case "patch":
+					return new DiffViewRequestPatch(view, request, uri);
 			}
 
 			return null;
@@ -191,7 +193,7 @@ namespace Gitg
 			if (did != null)
 			{
 				uint64 i = uint64.parse(did);
-				
+
 				if (i == d_diffid)
 				{
 					request.run(d_cancellable);

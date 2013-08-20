@@ -231,6 +231,12 @@ function update_diff(id, lsettings)
 		if ('commit' in j)
 		{
 			$('#diff_header').html(write_commit(j.commit));
+			$(".format_patch_button").click(function()
+			{
+				var patch_request = new XMLHttpRequest();
+				patch_request.open("GET", "gitg-diff:/patch/?id=" + j.commit.id + "&viewid=" + params.viewid);
+				patch_request.send();
+			});
 		}
 	}
 
