@@ -96,15 +96,8 @@ typelib_DATA = Gitg-1.0.typelib
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgitg-1.0.pc
 
-gitg-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
-	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
-		--sourcedir $(srcdir)/resources 	\
-		--target "$@" "$<"
-
-gitg-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
-	$(GLIB_COMPILE_RESOURCES) --generate-header 	\
-		--sourcedir $(srcdir)/resources 	\
-		--target "$@" "$<"
+gitg-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir=$(srcdir)/resources --generate-source $(srcdir)/resources/resources.xml
 
 BUILT_SOURCES =				\
 	$(gir_DATA)			\
@@ -118,7 +111,7 @@ BUILT_SOURCES =				\
 EXTRA_DIST = \
 	$(pkgconfig_DATA)		\
 	resources/resources.xml		\
-	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 
 CLEANFILES = $(VALA_FILES:.vala=.c)
 
