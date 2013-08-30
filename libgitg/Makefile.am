@@ -105,7 +105,6 @@ BUILT_SOURCES =				\
 	$(typelib_DATA)			\
 	libgitg_1_0_la_vala.stamp	\
 	gitg-resources.c		\
-	gitg-resources.h		\
 	libgitg.h
 
 EXTRA_DIST = \
