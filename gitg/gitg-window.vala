@@ -47,6 +47,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.Button d_dash_button;
 	[GtkChild]
+	private Gtk.Image dash_image;
+	[GtkChild]
 	private Gtk.StackSwitcher d_activities_switcher;
 
 	[GtkChild]
@@ -153,6 +155,15 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		foreach (var e in Environment.list_variables())
 		{
 			d_environment[e] = Environment.get_variable(e);
+		}
+
+		if (get_direction () == Gtk.TextDirection.RTL)
+		{
+			dash_image.icon_name = "go-previous-rtl-symbolic";
+		}
+		else
+		{
+			dash_image.icon_name = "go-previous-symbolic";
 		}
 	}
 
