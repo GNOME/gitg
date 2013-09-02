@@ -71,6 +71,7 @@ namespace Gitg
 
 			var context = WebKit.WebContext.get_default();
 			context.register_uri_scheme("gitg-diff", gitg_diff_request);
+			context.set_cache_model(WebKit.CacheModel.DOCUMENT_VIEWER);
 		}
 
 		private string json_settings()
@@ -245,6 +246,7 @@ namespace Gitg
 			}
 
 			settings.javascript_can_access_clipboard = true;
+			settings.enable_page_cache = false;
 
 			d_fontsettings = new Settings("org.gnome.desktop.interface");
 			set_settings(settings);
