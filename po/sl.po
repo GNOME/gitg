@@ -2,16 +2,16 @@
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 #
-# Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2009 - 2010.
-# Matej Urbančič <mateju@svn.gnome.org>, 2012 - 2013.
+# Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2009-2010.
+# Matej Urbančič <mateju@svn.gnome.org>, 2012-2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-05-03 17:51+0000\n"
-"PO-Revision-Date: 2013-05-04 20:52+0100\n"
+"POT-Creation-Date: 2013-09-02 17:11+0000\n"
+"PO-Revision-Date: 2013-09-03 22:47+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -33,25 +33,18 @@ msgid "Git repository browser"
 msgstr "Brskalnik skladišč Git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Filter Revisions When Searching"
-msgstr "Filtriraj predelave med iskanjem"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Usmeritev glavnega vmesnika (vodoravno ali navpično)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr ""
-"Ali iskanje v pogledu zgodovine, filtrira predelave namesto neposrednega "
-"skoka na prvi zadetek."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Nastavitev določi usmeritev glavnega pogleda."
 
-#. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
 msgstr "Kdaj naj se zložijo nedejavne vrstice"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -61,31 +54,55 @@ msgstr ""
 "'pozno'."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Nastavitev določa, ali naj bodo zgodovinske vrstice, ki ne kažejo "
+"dejavnosti, strnjene. Če to omogočite, lahko zagotovite preglednejši pogled "
+"zgodovine, ko je veliko vzporednega razvoja. Poglejte collapse-inactive-"
+"lanes za nadzor, kdaj naj bodo vrstice strnjene."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid "Show History in Topological Order"
 msgstr "Pokaži zgodovino v topološkem načinu razvrstitve"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Nastavitev določi ali naj bo zgodovina prikazana v topološkem načinu "
 "razvrstitve."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr "Usmeritev glavnega vmesnika (vodoravno ali navpično)"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation of the main interface."
-msgstr "Nastavitev določi usmeritev glavnega pogleda."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Nastavitev določa, ali naj bodo prikazani predmeti za zalogo v zgodovini."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne "
+"spremembe v pripravljenosti."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne "
+"spremembe počiščene pripravljenosti."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
 msgstr "Pokaži desni rob v pogledu sporočil uveljavitev"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -94,67 +111,337 @@ msgstr ""
 "omogoča enostaven pogled za lažji prelom besedila sporočila uveljavitve v "
 "določenem stolpcu."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "Column at Which Right Margin is Shown"
 msgstr "Stolpec na katerem je prikazan desni rob"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#, fuzzy
 msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
 "Stolpec na katerem je prikazan desni rob, v primeru da je izbrana možnost "
 "desnega robu."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
-msgid "Allow External Diff Program"
-msgstr "Dovoli zunanji program za primerjavo"
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#, fuzzy
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Pokaži desni rob v pogledu sporočil uveljavitev"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
-msgstr "Dovoli zunanji program za primerjavo za ogled razlik v programu gitg."
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
 
-#: ../gitg/gitg-application.vala:49
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#, fuzzy
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Stolpec na katerem je prikazan desni rob"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+#, fuzzy
+msgid ""
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
+msgstr ""
+"Stolpec na katerem je prikazan desni rob, v primeru da je izbrana možnost "
+"desnega robu."
+
+#: ../gitg/commit/gitg-commit-dialog.vala:283
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Ni mogoče nastaviti jezika za črkovanje: %s"
+
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+#, fuzzy
+msgid "Commit"
+msgstr "Uveljavi"
+
+#: ../gitg/commit/gitg-commit.vala:144
+#, fuzzy, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Odstranjevanje datoteke `%s' je spodletelo: %s"
+
+#: ../gitg/commit/gitg-commit.vala:163
+#, fuzzy, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Napaka med shranjevanjem datoteke predpomnilnika \"%s\": %s."
+
+#: ../gitg/commit/gitg-commit.vala:223
+#, fuzzy, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Napaka med shranjevanjem datoteke predpomnilnika \"%s\": %s."
+
+#: ../gitg/commit/gitg-commit.vala:242
+#, fuzzy, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Odstranjevanje datoteke `%s' je spodletelo: %s"
+
+#: ../gitg/commit/gitg-commit.vala:366
+#, fuzzy
+msgid "Staged"
+msgstr "_V pripravljenost"
+
+#: ../gitg/commit/gitg-commit.vala:370
+#, fuzzy
+msgid "No staged files"
+msgstr "Ni izbranih datoteke v pripravljenosti."
+
+#: ../gitg/commit/gitg-commit.vala:379
+#, fuzzy
+msgid "Unstaged"
+msgstr "Spremembe, ki niso v pripravljenosti"
+
+#: ../gitg/commit/gitg-commit.vala:383
+#, fuzzy
+msgid "No unstaged files"
+msgstr "Ni najdenih datotek"
+
+#: ../gitg/commit/gitg-commit.vala:392
+#, fuzzy
+msgid "Untracked"
+msgstr "Brez sledenja"
+
+#: ../gitg/commit/gitg-commit.vala:396
+#, fuzzy
+msgid "No untracked files"
+msgstr "Ni najdenih datotek"
+
+#: ../gitg/commit/gitg-commit.vala:432
+#, fuzzy
+msgid "There are no changes to be committed"
+msgstr "Ni izbranih izrezkov za izvoz"
+
+#: ../gitg/commit/gitg-commit.vala:433
+msgid "Use amend to change the commit message of the previous commit"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:459
+#, fuzzy
+msgid "Failed to commit"
+msgstr "Uveljavi za povrnitev:"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+msgid "Failed to pass pre-commit"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:696
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:700
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:704
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Pokaži različico programa"
 
-#: ../gitg/gitg-application.vala:51
-msgid "Start gitg with a particular view"
-msgstr "Zagon programa gitg v izbranem pogledu"
+#: ../gitg/gitg-application.vala:58
+#, fuzzy
+msgid "Start gitg with a particular activity"
+msgstr "Zagon programa git v izbranem pogledu"
 
-#: ../gitg/gitg-application.vala:53
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgstr ""
+
+#: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Ne skušajte naložiti skladišča iz trenutne delovne mape"
 
-#: ../gitg/gitg-application.vala:76
+#: ../gitg/gitg-application.vala:88
 msgid "- git repository viewer"
 msgstr "- pregledovalnik skladišč git"
 
-#: ../gitg/gitg-application.vala:186
+#: ../gitg/gitg-application.vala:205
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg je pregledovalnik skladišč git za gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:211
+#: ../gitg/gitg-application.vala:230
 msgid "gitg homepage"
 msgstr "Spletna stran programa gitg"
 
-#: ../gitg/gitg-preferences-interface.vala:83
-msgid "Interface"
-msgstr "Vmesnik"
+#: ../gitg/gitg-author-details-dialog.vala:65
+#, fuzzy
+msgid "Unable to open the .gitconfig file."
+msgstr "Ni mogoče odpreti datoteke pomoči"
 
-#: ../gitg/gitg-window.vala:156
-msgid "Projects"
-msgstr "Projekti"
+#: ../gitg/gitg-author-details-dialog.vala:147
+msgid "Failed to set Git user config."
+msgstr "Nastavljanje uporabniških določil je spodletelo."
 
-#: ../gitg/gitg-window.vala:188
-msgid "Open Repository"
-msgstr "Odpri skladišče"
-
-#: ../gitg/gitg-window.vala:243
+#: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
 msgstr "Podan naslov URL ni podprt"
 
-#. ex:ts=4 noet
+#: ../gitg/gitg-window.vala:257
+msgid "Projects"
+msgstr "Projekti"
+
+#: ../gitg/gitg-window.vala:293
+msgid "Open Repository"
+msgstr "Odpri skladišče"
+
+#: ../gitg/gitg-window.vala:295
+msgid "_Cancel"
+msgstr "_Prekliči"
+
+#: ../gitg/gitg-window.vala:296
+msgid "_Open"
+msgstr "_Odpri"
+
+#: ../gitg/gitg-window.vala:526
+#, fuzzy, c-format
+msgid "'%s' is not a Git repository."
+msgstr "Nepričakovana napaka: odjavna mapa checkoutdir ni pravo skladišče git:"
+
+#: ../gitg/history/gitg-history-navigation.vala:194
+#: ../gitg/history/gitg-history-navigation.vala:302
+msgid "All commits"
+msgstr "Vse uveljavitve"
+
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:197
+msgid "Branches"
+msgstr "Veje"
+
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:234
+msgid "Remotes"
+msgstr "Oddaljeno"
+
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:260
+msgid "Tags"
+msgstr "Oznake"
+
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
+msgid "History"
+msgstr "Zgodovina"
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+msgid "Interface"
+msgstr "Vmesnik"
+
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "Takoj"
+
+#: ../libgitg/gitg-date.vala:320
+#, fuzzy
+msgid "A minute ago"
+msgstr "Pred %d minutami"
+
+#: ../libgitg/gitg-date.vala:320
+#, fuzzy, c-format
+msgid "%d minutes ago"
+msgstr "pred {0} dnevi, {1}"
+
+#: ../libgitg/gitg-date.vala:325
+#, fuzzy
+msgid "Half an hour ago"
+msgstr "pred %lu urami\n"
+
+#: ../libgitg/gitg-date.vala:330
+#, fuzzy
+msgid "An hour ago"
+msgstr "Pred %d urami"
+
+#: ../libgitg/gitg-date.vala:330
+#, fuzzy, c-format
+msgid "%d hours ago"
+msgstr "pred {0} dnevi, {1}"
+
+#: ../libgitg/gitg-date.vala:335
+#, fuzzy
+msgid "A day ago"
+msgstr "pred {0} dnevi, {1}"
+
+#: ../libgitg/gitg-date.vala:335
+#, fuzzy, c-format
+msgid "%d days ago"
+msgstr "Pred {0} dnevi, {1}"
+
+#: ../libgitg/gitg-diff-view.vala:89
+#, fuzzy
+msgid "stage"
+msgstr "V pripravljenost"
+
+#: ../libgitg/gitg-diff-view.vala:90
+#, fuzzy
+msgid "unstage"
+msgstr "Počisti pripravljenost"
+
+#: ../libgitg/gitg-diff-view.vala:91
+#, fuzzy
+msgid "Loading diff..."
+msgstr "Običajna primerjava"
+
+#: ../libgitg/gitg-stage.vala:279
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "Primerjava"
+
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Datoteke"
+
+#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Podrobnosti avtorja"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The git config file '%s' does not exist."
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, fuzzy, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Vnesite podrobnosti novega računa"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "Elektronska pošta:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Ime: "
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Shrani"
+
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository"
 msgstr "Kloniraj skladišče"
@@ -178,6 +465,43 @@ msgstr "Izberi mesto ..."
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
 msgstr "Golo skladišče"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "_Uveljavi"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+#, fuzzy
+msgid "Add _signed-off-by signature"
+msgstr "Dodaj odpis po vrsticah"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+#, fuzzy
+msgid "_Amend previous commit"
+msgstr "Izboljšava predhodne uveljavitve"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Close"
+msgstr "Zapri"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+#, fuzzy
+msgid "Skip commit _hooks"
+msgstr "Izboljšava predhodne uveljavitve"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Zadeva"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Avtor"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Datum"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
@@ -208,19 +532,76 @@ msgid "_Clone Repository…"
 msgstr "_Kloniraj skladišče ..."
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-msgid "_Close"
-msgstr "_Zapri"
+#, fuzzy
+msgid "_Author Details"
+msgstr "Podrobnosti modula:"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "_Ponovno naloži"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+#, fuzzy
+msgid "Show markup"
+msgstr "Pokaži/Skrij kodne oznake."
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+#, fuzzy
+msgid "Display _subject margin at column:"
+msgstr "Prikaži desni _rob na stolpcu:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+#, fuzzy
+msgid "Display right _margin at column:"
+msgstr "Prikaži desni _rob na stolpcu:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+#, fuzzy
+msgid "Enable spell checking"
+msgstr "Omogoči črkovanje"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+#, fuzzy
+msgid "Commit Message"
+msgstr "<b>Sporočilo uveljavljanja</b>"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "<b>Uveljavitve</b>"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Zloži nedejavne vrstice"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Pokaži zalogo v zgodovini"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Pokaži spremembe v pripravljenosti"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "Pokaži spremembe počiščene pripravljenosti"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Pokaži zgodovino v topološkem zaporedju"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Zgodnje"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Pozno"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Layout"
 msgstr "Razporeditev"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "Use horizontal layout"
 msgstr "Uporabi vodoravno razporeditev"
 
@@ -228,137 +609,42 @@ msgstr "Uporabi vodoravno razporeditev"
 msgid "gitg Preferences"
 msgstr "Možnosti"
 
-#: ../plugins/diff/gitg-diff.vala:70
-msgid "Diff"
-msgstr "Primerjava"
-
-#: ../plugins/files/gitg-files.vala:77
-msgid "Files"
-msgstr "Datoteke"
-
-#. ex: ts=4 noet
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "stolpec"
 
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Pokaži vso zgodovino"
+#~ msgid "Filter Revisions When Searching"
+#~ msgstr "Filtriraj predelave med iskanjem"
 
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Pokaži možnosti zgodovine gitg"
+#~ msgid ""
+#~ "Whether searching filters the revisions in the history view instead of "
+#~ "jumping to the first match."
+#~ msgstr ""
+#~ "Ali iskanje v pogledu zgodovine, filtrira predelave namesto neposrednega "
+#~ "skoka na prvi zadetek."
 
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "Možnosti zgodovine gitg"
+#~ msgid "Allow External Diff Program"
+#~ msgstr "Dovoli zunanji program za primerjavo"
 
-#: ../plugins/history/gitg-history-navigation.vala:108
-#: ../plugins/history/gitg-history-navigation.vala:112
-msgid "All commits"
-msgstr "Vse uveljavitve"
+#~ msgid ""
+#~ "Allow an external diff program to be used when viewing diffs in gitg."
+#~ msgstr ""
+#~ "Dovoli zunanji program za primerjavo za ogled razlik v programu gitg."
 
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:116
-msgid "Branches"
-msgstr "Veje"
+#~ msgid "    "
+#~ msgstr "    "
 
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:155
-msgid "Remotes"
-msgstr "Oddaljeno"
+#~ msgid "Show all history"
+#~ msgstr "Pokaži vso zgodovino"
 
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:180
-msgid "Tags"
-msgstr "Oznake"
+#~ msgid "Show gitg history options"
+#~ msgstr "Pokaži možnosti zgodovine gitg"
 
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:135
-msgid "History"
-msgstr "Zgodovina"
+#~ msgid "gitg history options"
+#~ msgstr "Možnosti zgodovine gitg"
 
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-"Nastavitev določa, ali naj bodo zgodovinske vrstice, ki ne kažejo "
-"dejavnosti, strnjene. Če to omogočite, lahko zagotovite preglednejši pogled "
-"zgodovine, ko je veliko vzporednega razvoja. Poglejte collapse-inactive-"
-"lanes za nadzor, kdaj naj bodo vrstice strnjene."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr ""
-"Nastavitev določa, ali naj bodo prikazani predmeti za zalogo v zgodovini."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-"Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne "
-"spremembe v pripravljenosti."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-"Nastavitev določa, ali naj bo prikazan navidezni predmet za trenutne "
-"spremembe počiščene pripravljenosti."
-
-#: ../plugins/history/resources/preferences.ui.h:1
-msgid "Commits"
-msgstr "<b>Uveljavitve</b>"
-
-#: ../plugins/history/resources/preferences.ui.h:3
-msgid "Collapse inactive lanes"
-msgstr "Zloži nedejavne vrstice"
-
-#: ../plugins/history/resources/preferences.ui.h:4
-msgid "Show stash in history"
-msgstr "Pokaži zalogo v zgodovini"
-
-#: ../plugins/history/resources/preferences.ui.h:5
-msgid "Show staged changes in history"
-msgstr "Pokaži spremembe v pripravljenosti"
-
-#: ../plugins/history/resources/preferences.ui.h:6
-msgid "Show unstaged changes in history"
-msgstr "Pokaži spremembe počiščene pripravljenosti"
-
-#: ../plugins/history/resources/preferences.ui.h:7
-msgid "Show history in topological order"
-msgstr "Pokaži zgodovino v topološkem zaporedju"
-
-#: ../plugins/history/resources/preferences.ui.h:8
-msgid "        "
-msgstr "        "
-
-#: ../plugins/history/resources/preferences.ui.h:9
-msgid "Early"
-msgstr "Zgodnje"
-
-#: ../plugins/history/resources/preferences.ui.h:10
-msgid "Late"
-msgstr "Pozno"
-
-#: ../plugins/history/resources/view-history.ui.h:1
-msgid "Subject"
-msgstr "Zadeva"
-
-#: ../plugins/history/resources/view-history.ui.h:2
-msgid "Author"
-msgstr "Avtor"
-
-#: ../plugins/history/resources/view-history.ui.h:3
-msgid "Date"
-msgstr "Datum"
+#~ msgid "        "
+#~ msgstr "        "
 
 #~ msgid "Select Repository"
 #~ msgstr "Izberi skladišče"
