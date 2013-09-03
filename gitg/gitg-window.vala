@@ -124,6 +124,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		repository = r;
 	}
 
+	[GtkCallback]
+	private void dash_view_show_error(string primary_msg, string secondary_message)
+	{
+		show_infobar(primary_msg, secondary_message, Gtk.MessageType.ERROR);
+	}
+
 	construct
 	{
 		add_action_entries(win_entries, this);

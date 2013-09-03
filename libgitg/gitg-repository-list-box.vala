@@ -130,6 +130,7 @@ namespace Gitg
 		}
 
 		public signal void repository_activated(Repository repository);
+		public signal void show_error(string primary_message, string secondary_message);
 
 		protected override void row_activated(Gtk.ListBoxRow row)
 		{
@@ -305,11 +306,11 @@ namespace Gitg
 				}
 				catch (Ggit.Error e)
 				{
-					warning("error cloning: %s", e.message);
+					show_error("Gitg could not clone the git repository.", e.message);
 				}
 				catch (GLib.Error e)
 				{
-					warning("error cloning: %s", e.message);
+					show_error("Gitg could not clone the git repository.", e.message);
 				}
 
 				Idle.add((owned) callback);
@@ -347,7 +348,7 @@ namespace Gitg
 			}
 			catch (GLib.Error e)
 			{
-				warning("error creating subfolder: %s", e.message);
+				show_error("Gitg could not clone the git repository.", e.message);
 				return;
 			}
 

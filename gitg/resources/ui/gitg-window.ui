@@ -197,6 +197,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <signal name="repository_activated" handler="dash_view_repository_activated" swapped="no"/>
+                    <signal name="show_error" handler="dash_view_show_error" swapped="no"/>
                     <style>
                       <class name="view"/>
                       <class name="content-view"/>
