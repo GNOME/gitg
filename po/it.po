@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-27 13:21+0200\n"
-"PO-Revision-Date: 2013-08-27 13:23+0200\n"
+"POT-Creation-Date: 2013-09-05 15:58+0200\n"
+"PO-Revision-Date: 2013-09-05 15:59+0200\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: \n"
@@ -272,35 +272,35 @@ msgstr "gitg è un visualizzatore di repository git per gtk+/GNOME"
 msgid "gitg homepage"
 msgstr "Sito web di gitg"
 
+#: ../gitg/gitg-author-details-dialog.vala:65
+msgid "Unable to open the .gitconfig file."
+msgstr "Impossibile aprire il file .gitconfig."
+
+#: ../gitg/gitg-author-details-dialog.vala:147
+msgid "Failed to set Git user config."
+msgstr "Impostazione della configurazione utente git non riuscita."
+
 #: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
 msgstr "Lo URL utilizzato non è supportato"
 
-#: ../gitg/gitg-window.vala:246
+#: ../gitg/gitg-window.vala:257
 msgid "Projects"
 msgstr "Progetti"
 
-#: ../gitg/gitg-window.vala:282
+#: ../gitg/gitg-window.vala:293
 msgid "Open Repository"
 msgstr "Apri repository"
 
-#: ../gitg/gitg-window.vala:284
+#: ../gitg/gitg-window.vala:295
 msgid "_Cancel"
 msgstr "A_nnulla"
 
-#: ../gitg/gitg-window.vala:285
+#: ../gitg/gitg-window.vala:296
 msgid "_Open"
 msgstr "_Apri"
 
-#: ../gitg/gitg-window.vala:352
-msgid "Unable to open the .gitconfig file."
-msgstr "Impossibile aprire il file .gitconfig."
-
-#: ../gitg/gitg-window.vala:427
-msgid "Failed to set Git user config."
-msgstr "Impostazione della configurazione utente git non riuscita."
-
-#: ../gitg/gitg-window.vala:638
+#: ../gitg/gitg-window.vala:526
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» non è un repository git."
@@ -369,15 +369,15 @@ msgstr "Un giorno fa"
 msgid "%d days ago"
 msgstr "%d giorni fa"
 
-#: ../libgitg/gitg-diff-view.vala:88
+#: ../libgitg/gitg-diff-view.vala:89
 msgid "stage"
 msgstr "indicizzato"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view.vala:90
 msgid "unstage"
 msgstr "non indicizzato"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:91
 msgid "Loading diff..."
 msgstr "Caricamento diff..."
 
@@ -397,6 +397,40 @@ msgid "Files"
 msgstr "File"
 
 #. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Dettagli autore"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The git config file '%s' does not exist."
+msgstr "Nota: il file di configurazione git «%s» non esiste."
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr "Inserire i dettagli predefiniti per tutti i repository:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Inserire i dettagli per il repository «%s»:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "Email: "
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Nome: "
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Annulla"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Salva"
+
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository"
 msgstr "Clona repository"
@@ -484,8 +518,8 @@ msgid "_Clone Repository…"
 msgstr "C_lona repository..."
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-msgid "_User Information"
-msgstr "I_nformazioni utente"
+msgid "_Author Details"
+msgstr "_Dettagli autore"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:9
 msgid "_Reload"
@@ -555,40 +589,6 @@ msgstr "Usare visualizzazione verticale"
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "gitg Preferences"
 msgstr "Preferenze di gitg"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:1
-msgid "User Information"
-msgstr "Informazioni utente"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:3
-#, no-c-format
-msgid "Note: The git config file '%s' does not exist."
-msgstr "Nota: il file di configurazione git «%s» non esiste."
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:4
-msgid "Enter details to set as default for all repositories:"
-msgstr "Inserire i dettagli predefiniti per tutti i repository:"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:6
-#, no-c-format
-msgid "Enter details for repository '%s':"
-msgstr "Inserire i dettagli per il repository «%s»:"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:7
-msgid "E-mail: "
-msgstr "Email: "
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:8
-msgid "Name: "
-msgstr "Nome: "
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:9
-msgid "Cancel"
-msgstr "Annulla"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:10
-msgid "Save"
-msgstr "Salva"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
