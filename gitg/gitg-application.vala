@@ -41,6 +41,7 @@ public class Application : Gtk.Application
 	{
 		public static bool quit = false;
 		public static string activity;
+		public static string rebase;
 		public static bool no_wd = false;
 
 		public static ApplicationCommandLine command_line;
@@ -63,6 +64,9 @@ public class Application : Gtk.Application
 			 {"no-wd", 0, 0, OptionArg.NONE,
 			 ref no_wd, N_("Do not try to load a repository from the current working directory"), null},
 
+			{"rebase", '\0', 0, OptionArg.STRING,
+			 ref rebase, N_("Start gitg in rebase mode"), null},
+
 			{null}
 		};
 	}
@@ -72,6 +76,7 @@ public class Application : Gtk.Application
 	static construct
 	{
 		Options.activity = "";
+		Options.rebase = "";
 	}
 
 	private static void show_version_and_quit()
@@ -154,6 +159,14 @@ public class Application : Gtk.Application
 
 		if (Options.quit)
 		{
+			return 0;
+		}
+
+		if (Options.rebase != "")
+		{
+			stderr.printf("Starting rebase: %s", Options.rebase);
+			var rebase_window = new RebaseWindow();
+			rebase_window.start();
 			return 0;
 		}
 
