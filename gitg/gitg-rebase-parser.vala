@@ -29,19 +29,32 @@ namespace Gitg
 		{
 			string contents;
 			int line_number=0;
+//			string[,] rebase_array = {};
 
 			try
 			{
 				FileUtils.get_contents(filename, out contents);
 			}
-			catch{}
+			catch(Glib.Error e)
+			{
+				stdout.printf("The file does not exist!");
+			}
 
 			var file_lines = contents.split("\n");
-			while (file_lines[line_number][0] != '#')
+			while (file_lines[line_number][0] != '#' && file_lines[line_number] != "")
 			{
-				stdout.printf("\n" + file_lines[line_number]);
+				string[] temp_array = new string [3];
+				string current_line = file_lines[line_number];
+				var line_words = current_line.split(" ");
+				temp_array[0] = line_words[0];
+				temp_array[1] = line_words[1];
+				temp_array[2] = string.joinv(" ", line_words[2:line_words.length-1]);
+//				rebase_array += temp_array;
+				stdout.printf("\naction: %s sha: %s msg: %s\n", temp_array[0], temp_array[1], temp_array[2]);
 				line_number++;
 			}
+
+
 		}
 	}
 }
