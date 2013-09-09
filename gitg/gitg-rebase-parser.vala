@@ -28,8 +28,20 @@ namespace Gitg
 		public void parse_rebase_todo(string filename)
 		{
 			string contents;
-			FileUtils.get_contents(filename, out contents);
-			stdout.printf("Contents: %s", contents);
+			int line_number=0;
+
+			try
+			{
+				FileUtils.get_contents(filename, out contents);
+			}
+			catch{}
+
+			var file_lines = contents.split("\n");
+			while (file_lines[line_number][0] != '#')
+			{
+				stdout.printf("\n" + file_lines[line_number]);
+				line_number++;
+			}
 		}
 	}
 }
