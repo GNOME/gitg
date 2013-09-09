@@ -42,6 +42,7 @@ VALASOURCES =							\
 	gitg-clone-dialog.vala					\
 	gitg-author-details-dialog.vala					\
 	gitg-resource.vala					\
+	gitg-rebase-list-box.vala				\
 	gitg-rebase-parser.vala					\
 	gitg-rebase-window.vala					\
 	gitg-application.vala					\

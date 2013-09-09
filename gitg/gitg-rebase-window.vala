@@ -27,6 +27,14 @@ public class RebaseWindow : Gtk.Window
 	{
 		this.title = "gitg Rebase";
 		destroy.connect (Gtk.main_quit);
+		var rebase_listbox = new RebaseListBox();
+		rebase_listbox.add_rebase_row("sha1", "msg");
+		rebase_listbox.add_rebase_row("sha2", "msg");
+		rebase_listbox.add_rebase_row("sha3", "msg");
+		var hbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 1);
+		hbox.homogeneous = true;
+		hbox.add (rebase_listbox);
+		add (hbox);
 	}
 }
 

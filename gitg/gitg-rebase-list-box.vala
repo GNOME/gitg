@@ -53,6 +53,10 @@ namespace Gitg
 			row.show();
 			add(row);
 		}
+
+		construct {
+			show ();
+		}
 	}
 
 }
