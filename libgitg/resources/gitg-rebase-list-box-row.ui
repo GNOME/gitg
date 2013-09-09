@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.8 -->
+  <template class="GitgRepositoryListBoxRow" parent="GtkListBoxRow">
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <child>
+          <object class="GtkLabel" id="r_commit_sha">
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="r_commit_message">
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
