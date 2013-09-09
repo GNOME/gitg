@@ -46,6 +46,13 @@ namespace Gitg
 				Object(commit_sha: commit_sha, commit_msg: commit_msg);
 			}
 		}
+
+		public void add_rebase_row(string sha, string msg)
+		{
+			var row = new Row (sha, msg);
+			row.show();
+			add(row);
+		}
 	}
 
 }
