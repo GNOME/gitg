@@ -19,7 +19,7 @@
 
 namespace Gitg
 {
-	public class RepositoryListBox : Gtk.ListBox
+	public class RebaseListBox : Gtk.ListBox
 	{
 		[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-rebase-list-box-row.ui")]
 		private class Row : Gtk.ListBoxRow

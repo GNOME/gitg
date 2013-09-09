@@ -26,7 +26,7 @@ public class RebaseWindow : Gtk.Window
 	public RebaseWindow()
 	{
 		this.title = "gitg Rebase";
-
+		destroy.connect (Gtk.main_quit);
 	}
 }
 
