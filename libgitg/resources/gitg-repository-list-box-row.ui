@@ -70,6 +70,26 @@
               </packing>
             </child>
             <child>
+              <object class="GtkLabel" id="d_branch_info">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_focus">False</property>
+                <property name="is_focus">False</property>
+                <property name="halign">start</property>
+                <property name="valign">start</property>
+                <property name="ellipsize">end</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkArrow" id="d_arrow">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>

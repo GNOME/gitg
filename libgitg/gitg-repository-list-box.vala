@@ -40,6 +40,8 @@ namespace Gitg
 			[GtkChild]
 			private Gtk.Label d_branch_label;
 			[GtkChild]
+			private Gtk.Label d_branch_info;
+			[GtkChild]
 			private Gtk.Arrow d_arrow;
 			[GtkChild]
 			private Gtk.Spinner d_spinner;
@@ -58,6 +60,7 @@ namespace Gitg
 						{
 							var head = d_repository.get_head();
 							branch_name = head.parsed_name.shortname;
+							branch_info = "Blah!";
 						}
 						catch {}
 					}
@@ -86,6 +89,12 @@ namespace Gitg
 			{
 				get { return d_branch_label.get_text(); }
 				set { d_branch_label.set_markup("<small>%s</small>".printf(value)); }
+			}
+
+			public string? branch_info
+			{
+				get { return d_branch_info.get_text(); }
+				set { d_branch_info.set_markup("<small>%s</small>".printf(value)); }
 			}
 
 			public bool loading
@@ -125,7 +134,7 @@ namespace Gitg
 
 			public Row(string name, string branch_name, bool has_remote)
 			{
-				Object(repository_name: name, branch_name: branch_name, has_remote: has_remote);
+				Object(repository_name: name, branch_name: branch_name, branch_info: branch_info, has_remote: has_remote);
 			}
 		}
 
