@@ -165,8 +165,9 @@ public class Application : Gtk.Application
 		if (Options.rebase != "")
 		{
 			stderr.printf("Starting rebase: %s", Options.rebase);
-			var rebase_window = new RebaseWindow();
-			rebase_window.start();
+			var parser = new RebaseParser();
+			parser.parse_rebase_todo("/home/sindhus/git-rebase-todo");
+//			var rebase_window = new RebaseWindow();
 			return 0;
 		}
 
