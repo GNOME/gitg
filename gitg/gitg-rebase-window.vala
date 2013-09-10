@@ -17,25 +17,34 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 namespace Gitg
 {
 
 public class RebaseWindow : Gtk.Window
 {
+	private RebaseListBox r_rebase_list_box;
 	public RebaseWindow()
 	{
 		this.title = "gitg Rebase";
 		destroy.connect (Gtk.main_quit);
-		var rebase_listbox = new RebaseListBox();
-		rebase_listbox.add_rebase_row("sha1", "msg");
-		rebase_listbox.add_rebase_row("sha2", "msg");
-		rebase_listbox.add_rebase_row("sha3", "msg");
+		r_rebase_list_box = new RebaseListBox();
 		var hbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 1);
 		hbox.homogeneous = true;
-		hbox.add (rebase_listbox);
+		hbox.add (r_rebase_list_box);
 		add (hbox);
 	}
+
+	public void load_rebase_todo(string filepath)
+	{
+		var parser = new RebaseParser();
+		var rebase_array = parser.parse_rebase_todo(filepath);
+		foreach (var rebase_row in rebase_array)
+		{
+			r_rebase_list_box.add_rebase_row(rebase_row[1], rebase_row[2]);
+		}
+	}
 }
+
+
 
 }

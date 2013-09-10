@@ -25,12 +25,11 @@ namespace Gitg
 		{
 		}
 
-		public void parse_rebase_todo(string filename)
+		public Gee.ArrayList<Gee.ArrayList<string>> parse_rebase_todo(string filename)
 		{
 			string contents;
 			int line_number=0;
-			string[,] rebase_array = new string[3,3];
-
+			Gee.ArrayList<Gee.ArrayList<string>> rebase_array = new Gee.ArrayList<Gee.ArrayList<string>> ();
 			try
 			{
 				FileUtils.get_contents(filename, out contents);
@@ -42,13 +41,21 @@ namespace Gitg
 			{
 				string current_line = file_lines[line_number];
 				var line_words = current_line.split(" ");
-				rebase_array[line_number,0] = line_words[0];
-				rebase_array[line_number,1] = line_words[1];
-				rebase_array[line_number,2] = string.joinv(" ", line_words[2:line_words.length-1]);
-
-				stdout.printf("\naction: %s sha: %s msg: %s\n", rebase_array[line_number,0], rebase_array[line_number,1], rebase_array[line_number,2]);
+				Gee.ArrayList<string> rebase_row = new Gee.ArrayList<string>();
+				rebase_row.add(line_words[0]);
+				rebase_row.add(line_words[1]);
+				rebase_row.add(string.joinv(" ", line_words[2:line_words.length-1]));
+				rebase_array.add(rebase_row);
 				line_number++;
 			}
+
+			return rebase_array;
+		}
+
+		public string generate_rebase_todo(string[,] rebase_array)
+		{
+			// Write function to generate rebase todo file back again
+			return "";
 		}
 	}
 }
