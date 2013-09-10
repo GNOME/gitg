@@ -31,6 +31,10 @@ public class RebaseWindow : Gtk.Window
 		var hbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 1);
 		hbox.homogeneous = true;
 		hbox.add (r_rebase_list_box);
+		var start_button = new Gtk.Button();
+		start_button.label = "Start Rebase";
+		start_button.clicked.connect(start_rebase);
+		hbox.add(start_button);
 		add (hbox);
 	}
 
@@ -42,6 +46,11 @@ public class RebaseWindow : Gtk.Window
 		{
 			r_rebase_list_box.add_rebase_row(rebase_row[0], rebase_row[1], rebase_row[2]);
 		}
+	}
+
+	private void start_rebase()
+	{
+		stdout.printf("Starting rebase, baby!!");
 	}
 }
 
