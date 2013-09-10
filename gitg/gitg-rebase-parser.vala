@@ -52,10 +52,16 @@ namespace Gitg
 			return rebase_array;
 		}
 
-		public string generate_rebase_todo(string[,] rebase_array)
+		public string generate_rebase_todo(Gee.ArrayList<Gee.ArrayList<string>> rebase_array)
 		{
-			// Write function to generate rebase todo file back again
-			return "";
+			string result = "";
+			foreach (var rebase_row in rebase_array)
+			{
+				result += rebase_row[0] + " ";
+				result += rebase_row[1] + " ";
+				result += rebase_row[2] + "\n";
+			}
+			return result;
 		}
 	}
 }

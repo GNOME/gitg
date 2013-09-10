@@ -46,11 +46,21 @@ namespace Gitg
 			public string? commit_action
 			{
 				get {
+/*
 						Gtk.TreeIter selected_iter;
 						r_commit_action.get_active_iter(out selected_iter);
-						Value action_name;
+						Value action_name = new Value();
 						r_commit_action.get_model().get_value(selected_iter, 0, out action_name);
 						return action_name.get_string();
+*/
+						int action_id = r_commit_action.active;
+						switch(action_id)
+						{
+							case 0: return "pick";
+							case 1: return "squash";
+							case 2: return "fixup";
+						}
+						return "pick";
 				}
 				set {
 						var action_id = 0;
@@ -84,6 +94,22 @@ namespace Gitg
 		construct {
 			show ();
 		}
+
+		public Gee.ArrayList<Gee.ArrayList<string>> get_rebase_array()
+		{
+			Gee.ArrayList<Gee.ArrayList<string>> rebase_array = new Gee.ArrayList<Gee.ArrayList<string>>();
+			foreach (var child in get_children())
+			{
+				var row = (Row) child;
+				Gee.ArrayList<string> rebase_row = new Gee.ArrayList<string>();
+				rebase_row.add(row.commit_action);
+				rebase_row.add(row.commit_sha);
+				rebase_row.add(row.commit_msg);
+				rebase_array.add(rebase_row);
+			}
+			return rebase_array;
+		}
+
 	}
 
 }

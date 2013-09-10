@@ -50,10 +50,12 @@ public class RebaseWindow : Gtk.Window
 
 	private void start_rebase()
 	{
-		stdout.printf("Starting rebase, baby!!");
+		var parser = new RebaseParser();
+		var rebase_array = r_rebase_list_box.get_rebase_array();
+		string rebase_output = "";
+		rebase_output = parser.generate_rebase_todo(rebase_array);
+		stdout.printf("\nrebase_output: \n%s", rebase_output);
 	}
 }
-
-
 
 }
