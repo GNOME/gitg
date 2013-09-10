@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+    <object class="GtkListStore" id="r_model_actions">
+    <columns>
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">pick</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">squash</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">fixup</col>
+      </row>
+    </data>
+  </object>
   <!-- interface-requires gtk+ 3.8 -->
   <template class="GitgRebaseListBoxRow" parent="GtkListBoxRow">
     <child>
       <object class="GtkBox" id="r_gtk_box">
         <property name="orientation">horizontal</property>
+        <child>
+          <object class="GtkComboBox" id="r_action_combo">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="model">r_model_actions</property>
+            <child>
+              <object class="GtkCellRendererText" id="r_action_renderer"/>
+              <attributes>
+                <attribute name="text">0</attribute>
+              </attributes>
+            </child>
+          </object>
+        </child>
         <child>
           <object class="GtkLabel" id="r_commit_sha">
           </object>
@@ -17,3 +46,4 @@
     </child>
   </template>
 </interface>
+
