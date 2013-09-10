@@ -28,6 +28,8 @@ namespace Gitg
 			private Gtk.Label r_commit_sha;
 			[GtkChild]
 			private Gtk.Label r_commit_msg;
+			[GtkChild]
+			private Gtk.ComboBox r_commit_action;
 
 			public string? commit_sha
 			{
@@ -41,15 +43,40 @@ namespace Gitg
 				set { r_commit_msg.set_markup("<b>%s</b>".printf(value)); }
 			}
 
-			public Row(string commit_sha, string commit_msg)
+			public string? commit_action
 			{
-				Object(commit_sha: commit_sha, commit_msg: commit_msg);
+				get {
+						Gtk.TreeIter selected_iter;
+						r_commit_action.get_active_iter(out selected_iter);
+						Value action_name;
+						r_commit_action.get_model().get_value(selected_iter, 0, out action_name);
+						return action_name.get_string();
+				}
+				set {
+						var action_id = 0;
+						switch (value)
+						{
+							case "pick": action_id = 0;
+										 break;
+							case "squash": action_id = 1;
+										   break;
+							case "fixup": action_id = 2;
+										  break;
+						}
+
+						r_commit_action.set_active(action_id);
+					}
+			}
+
+			public Row(string commit_action, string commit_sha, string commit_msg)
+			{
+				Object(commit_action: commit_action, commit_sha: commit_sha, commit_msg: commit_msg);
 			}
 		}
 
-		public void add_rebase_row(string sha, string msg)
+		public void add_rebase_row(string action, string sha, string msg)
 		{
-			var row = new Row (sha, msg);
+			var row = new Row (action, sha, msg);
 			row.show();
 			add(row);
 		}

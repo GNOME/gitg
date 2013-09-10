@@ -40,7 +40,7 @@ public class RebaseWindow : Gtk.Window
 		var rebase_array = parser.parse_rebase_todo(filepath);
 		foreach (var rebase_row in rebase_array)
 		{
-			r_rebase_list_box.add_rebase_row(rebase_row[1], rebase_row[2]);
+			r_rebase_list_box.add_rebase_row(rebase_row[0], rebase_row[1], rebase_row[2]);
 		}
 	}
 }
