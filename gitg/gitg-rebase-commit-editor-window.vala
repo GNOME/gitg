@@ -21,9 +21,28 @@ namespace Gitg
 {
 	public class RebaseCommitEditorWindow : Gtk.Window
 	{
+		private GtkSource.View r_commit_editor;
+
 		public RebaseCommitEditorWindow()
 		{
 			this.title = "Rebase Commit Editor";
+			destroy.connect (Gtk.main_quit);
+			r_commit_editor = new GtkSource.View();
+			var hbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 1);
+			hbox.homogeneous = true;
+			hbox.add (r_commit_editor);
+			add (hbox);
+		}
+
+		public void load_commit_file(string filename)
+		{
+			string contents = "";
+			try
+			{
+				FileUtils.get_contents(filename, out contents);
+			}
+			catch {}
+			r_commit_editor.buffer.set_text(contents);
 		}
 	}
 

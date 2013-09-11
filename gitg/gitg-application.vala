@@ -180,7 +180,7 @@ public class Application : Gtk.Application
 		{
 
 			var rebase_commit_editor_window = new RebaseCommitEditorWindow();
-//			rebase_window.load_rebase_todo(Options.rebase);
+			rebase_commit_editor_window.load_commit_file(Options.rebase_commit_editor);
 			rebase_commit_editor_window.show_all();
 			Gtk.main();
 			return 0;
