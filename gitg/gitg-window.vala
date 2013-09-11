@@ -87,6 +87,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{"reload", on_reload_activated},
 		{"author-details-global", on_global_author_details_activated},
 		{"author-details-repo", on_repo_author_details_activated},
+		{"interactive-rebase", on_interactive_rebase_activated},
 	};
 
 	[GtkCallback]
@@ -376,6 +377,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		var author_details = new AuthorDetailsDialog(this, repo_config, d_repository.name);
 		author_details.show();
+	}
+
+	private void on_interactive_rebase_activated()
+	{
+		stdout.printf("Starting Interactive Rebase");
 	}
 
 	private void on_current_activity_changed(Object obj, ParamSpec pspec)
