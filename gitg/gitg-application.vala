@@ -42,6 +42,7 @@ public class Application : Gtk.Application
 		public static bool quit = false;
 		public static string activity;
 		public static string rebase;
+		public static string rebase_commit_editor;
 		public static bool no_wd = false;
 
 		public static ApplicationCommandLine command_line;
@@ -67,6 +68,8 @@ public class Application : Gtk.Application
 			{"rebase", '\0', 0, OptionArg.STRING,
 			 ref rebase, N_("Start gitg in rebase mode"), null},
 
+			{"rebase-commit-editor", '\0', 0, OptionArg.STRING,
+			 ref rebase_commit_editor, N_("Rebase commit message editor"), null},
 			{null}
 		};
 	}
@@ -77,6 +80,7 @@ public class Application : Gtk.Application
 	{
 		Options.activity = "";
 		Options.rebase = "";
+		Options.rebase_commit_editor = "";
 	}
 
 	private static void show_version_and_quit()
@@ -168,6 +172,16 @@ public class Application : Gtk.Application
 			var rebase_window = new RebaseWindow();
 			rebase_window.load_rebase_todo(Options.rebase);
 			rebase_window.show_all();
+			Gtk.main();
+			return 0;
+		}
+
+		if (Options.rebase_commit_editor != "")
+		{
+
+			var rebase_commit_editor_window = new RebaseCommitEditorWindow();
+//			rebase_window.load_rebase_todo(Options.rebase);
+			rebase_commit_editor_window.show_all();
 			Gtk.main();
 			return 0;
 		}
