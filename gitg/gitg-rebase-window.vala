@@ -58,7 +58,11 @@ public class RebaseWindow : Gtk.Window
 		string rebase_output = "";
 		rebase_output = parser.generate_rebase_todo(rebase_array);
 		stdout.printf("\nrebase_output: \n%s", rebase_output);
-		FileUtils.set_contents(r_filepath, rebase_output);
+		try
+		{
+			FileUtils.set_contents(r_filepath, rebase_output);
+		}
+		catch {}
 		destroy();
 	}
 }

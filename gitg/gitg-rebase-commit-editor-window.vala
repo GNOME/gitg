@@ -22,6 +22,7 @@ namespace Gitg
 	public class RebaseCommitEditorWindow : Gtk.Window
 	{
 		private GtkSource.View r_commit_editor;
+		private string r_filepath;
 
 		public RebaseCommitEditorWindow()
 		{
@@ -31,18 +32,38 @@ namespace Gitg
 			var hbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 1);
 			hbox.homogeneous = true;
 			hbox.add (r_commit_editor);
+			var save_button = new Gtk.Button();
+			save_button.label = "Save and load next...";
+			save_button.clicked.connect(save_and_continue);
+			hbox.add(save_button);
 			add (hbox);
 		}
 
 		public void load_commit_file(string filename)
 		{
+			r_filepath = filename;
 			string contents = "";
+
 			try
 			{
 				FileUtils.get_contents(filename, out contents);
 			}
 			catch {}
 			r_commit_editor.buffer.set_text(contents);
+		}
+
+		private void save_and_continue()
+		{
+			var buffer = r_commit_editor.buffer;
+			Gtk.TextIter start, end;
+			buffer.get_bounds(out start, out end);
+			string contents = buffer.get_text(start, end, false);
+			try
+			{
+				FileUtils.set_contents(r_filepath, contents);
+			}
+			catch {}
+			destroy();
 		}
 	}
 
