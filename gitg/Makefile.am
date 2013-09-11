@@ -45,6 +45,7 @@ VALASOURCES =							\
 	gitg-rebase-list-box.vala				\
 	gitg-rebase-parser.vala					\
 	gitg-rebase-window.vala					\
+	gitg-rebase-controller.vala				\
 	gitg-rebase-commit-editor-window.vala	\
 	gitg-application.vala					\
 	gitg-plugins-engine.vala				\
