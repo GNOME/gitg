@@ -382,7 +382,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void on_interactive_rebase_activated()
 	{
 		var rebase_controller = new RebaseController();
-		rebase_controller.start_rebase();
+		rebase_controller.start_rebase(this, d_repository);
 	}
 
 	private void on_current_activity_changed(Object obj, ParamSpec pspec)
