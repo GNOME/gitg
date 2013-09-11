@@ -59,6 +59,7 @@ namespace Gitg
 							case 0: return "pick";
 							case 1: return "squash";
 							case 2: return "fixup";
+							case 3: return "reword";
 						}
 						return "pick";
 				}
@@ -72,6 +73,8 @@ namespace Gitg
 										   break;
 							case "fixup": action_id = 2;
 										  break;
+							case "reword": action_id = 3;
+										   break;
 						}
 
 						r_commit_action.set_active(action_id);
