@@ -30,11 +30,7 @@ namespace Gitg
 			var hbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 1);
 			hbox.homogeneous = true;
 			hbox.add (output_view);
-			var ok_button = new Gtk.Button();
-			ok_button.label = "Return to gitg";
-			ok_button.clicked.connect(return_to_gitg);
-			hbox.add(ok_button);
-			add (hbox)
+			get_content_area().add(hbox);
 		}
 
 		public void set_rebase_output(string output)

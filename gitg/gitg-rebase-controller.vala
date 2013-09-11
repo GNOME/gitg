@@ -21,28 +21,32 @@ namespace Gitg
 {
 	public class RebaseController
 	{
+		private string output;
 		public RebaseController()
-		{}
+		{
+			output = "";
+		}
 
-		private static bool process_line (IOChannel channel, IOCondition condition, string stream_name) {
+		private static string process_line (IOChannel channel, IOCondition condition, string stream_name)
+		{
+			string streamoutput = "";
 			if (condition == IOCondition.HUP) {
-				stdout.printf ("%s: The fd has been closed.\n", stream_name);
-				return false;
+				streamoutput += "%s: The fd has been closed.\n".printf(stream_name);
+				return "";
 			}
 
 			try {
 				string line;
 				channel.read_line (out line, null, null);
-				stdout.printf ("%s: %s", stream_name, line);
+				streamoutput += "%s: %s".printf(stream_name, line);
 			} catch (IOChannelError e) {
-				stdout.printf ("%s: IOChannelError: %s\n", stream_name, e.message);
-				return false;
+				streamoutput += "%s: IOChannelError: %s\n".printf(stream_name, e.message);
+				return "";
 			} catch (ConvertError e) {
-				stdout.printf ("%s: ConvertError: %s\n", stream_name, e.message);
-				return false;
+				streamoutput += "%s: ConvertError: %s\n".printf(stream_name, e.message);
+				return "";
 			}
-
-			return true;
+			return streamoutput;
 		}
 
 		public void start_rebase(Gtk.Window parent, Gitg.Repository repository)
@@ -60,8 +64,8 @@ namespace Gitg
 
 			string[] spawn_args = {"/usr/bin/git", "rebase", "-i", "HEAD~5"};
 			string[] spawn_env = Environ.get ();
-			Environ.set_variable(spawn_env, "GIT_SEQUENCE_EDITOR", "jhbuild run gitg --rebase");
-			Environ.set_variable(spawn_env, "GIT_EDITOR", "jhbuild run gitg --rebase-commit-editor");
+			spawn_env = Environ.set_variable(spawn_env, "GIT_SEQUENCE_EDITOR", "jhbuild run gitg --rebase", true);
+			spawn_env = Environ.set_variable(spawn_env, "GIT_EDITOR", "jhbuild run gitg --rebase-commit-editor", true);
 			Pid child_pid;
 
 			int standard_input;
@@ -71,25 +75,40 @@ namespace Gitg
 			Process.spawn_async_with_pipes (repo_path,
 				spawn_args,
 				spawn_env,
-				SpawnFlags.SEARCH_PATH,
+				SpawnFlags.SEARCH_PATH|SpawnFlags.DO_NOT_REAP_CHILD,
 				null,
 				out child_pid,
 				out standard_input,
 				out standard_output,
 				out standard_error
 			);
+		
+			// stdout:
+			IOChannel iooutput = new IOChannel.unix_new (standard_output);
+			iooutput.add_watch (IOCondition.IN | IOCondition.HUP, (channel, condition) => {
+				string line = "";
+				line = process_line (channel, condition, "stdout");
+				output += line;
+				return line != ""; 
+			});
 
-// stdout:
-		IOChannel output = new IOChannel.unix_new (standard_output);
-		output.add_watch (IOCondition.IN | IOCondition.HUP, (channel, condition) => {
-			return process_line (channel, condition, "stdout");
-		});
+			// stderr:
+			IOChannel error = new IOChannel.unix_new (standard_error);
+			error.add_watch (IOCondition.IN | IOCondition.HUP, (channel, condition) => {
+				string line = "";
+				line = process_line (channel, condition, "stderr");
+				output +=line;
+				return line != "";
+			});
 
-		// stderr:
-		IOChannel error = new IOChannel.unix_new (standard_error);
-		error.add_watch (IOCondition.IN | IOCondition.HUP, (channel, condition) => {
-			return process_line (channel, condition, "stderr");
-		});
+			ChildWatch.add (child_pid, (pid, status) => {
+				// Triggered when the child indicated by child_pid exits
+				Process.close_pid (pid);
+				stdout.printf("Rebase output: %s", output);
+				var rebase_result_dialog = new RebaseResultDialog();
+				rebase_result_dialog.set_rebase_output(output);
+				rebase_result_dialog.show_all();
+			});
 
 		}
 	}
