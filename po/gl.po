@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-21 00:35+0200\n"
-"PO-Revision-Date: 2013-08-21 00:45+0200\n"
+"POT-Creation-Date: 2013-09-13 00:39+0200\n"
+"PO-Revision-Date: 2013-09-13 00:39+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -265,35 +265,35 @@ msgstr "gitg é un visor de repositorios git para gtk+/GNOME"
 msgid "gitg homepage"
 msgstr "Páxina web de gitg"
 
+#: ../gitg/gitg-author-details-dialog.vala:65
+msgid "Unable to open the .gitconfig file."
+msgstr "Non foi posíbel abrir o ficheiro .gitconfig."
+
+#: ../gitg/gitg-author-details-dialog.vala:147
+msgid "Failed to set Git user config."
+msgstr "Produciuse un fallo ao estabelecer a configuración de Git do usuario."
+
 #: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
 msgstr "O URL introducido non é compatíbel"
 
-#: ../gitg/gitg-window.vala:246
+#: ../gitg/gitg-window.vala:263
 msgid "Projects"
 msgstr "Proxectos"
 
-#: ../gitg/gitg-window.vala:282
+#: ../gitg/gitg-window.vala:299
 msgid "Open Repository"
 msgstr "Abrir repositorio"
 
-#: ../gitg/gitg-window.vala:284
+#: ../gitg/gitg-window.vala:301
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gitg/gitg-window.vala:285
+#: ../gitg/gitg-window.vala:302
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../gitg/gitg-window.vala:352
-msgid "Unable to open the .gitconfig file."
-msgstr "Non foi posíbel abrir o ficheiro .gitconfig."
-
-#: ../gitg/gitg-window.vala:427
-msgid "Failed to set Git user config."
-msgstr "Produciuse un fallo ao estabelecer a configuración de Git do usuario."
-
-#: ../gitg/gitg-window.vala:638
+#: ../gitg/gitg-window.vala:532
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» non é un repositorio Git."
@@ -362,15 +362,15 @@ msgstr "Hai un día"
 msgid "%d days ago"
 msgstr "Hai %d días"
 
-#: ../libgitg/gitg-diff-view.vala:88
+#: ../libgitg/gitg-diff-view.vala:89
 msgid "stage"
 msgstr "preseleccionar"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view.vala:90
 msgid "unstage"
 msgstr "Non preseleccionar"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:91
 msgid "Loading diff..."
 msgstr "Cargando diferenzas…"
 
@@ -390,6 +390,42 @@ msgid "Files"
 msgstr "Ficheiros"
 
 #. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Detalles do autor"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The git config file '%s' does not exist."
+msgstr "Nota: O ficheiro de configuración de git «%s» non existe."
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr ""
+"Escriba a información para configurar como predeterminados para todos os "
+"seus repositorios:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Escriba a información para o repositorio %s:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "Correo electrónico:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Nome:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Gardar"
+
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository"
 msgstr "Clonar repositorio"
@@ -477,8 +513,8 @@ msgid "_Clone Repository…"
 msgstr "_Clonar repositorio…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-msgid "_User Information"
-msgstr "Información do _usuario"
+msgid "_Author Details"
+msgstr "Detalles do _autor"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:9
 msgid "_Reload"
@@ -548,45 +584,15 @@ msgstr "Usar distribución horizontal"
 msgid "gitg Preferences"
 msgstr "Preferencias de gitg"
 
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:1
-msgid "User Information"
-msgstr "Información do usuario"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:3
-#, no-c-format
-msgid "Note: The git config file '%s' does not exist."
-msgstr "Nota: O ficheiro de configuración de git «%s» non existe."
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:4
-msgid "Enter details to set as default for all repositories:"
-msgstr ""
-"Escriba a información para configurar como predeterminados para todos os "
-"seus repositorios:"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:6
-#, no-c-format
-msgid "Enter details for repository '%s':"
-msgstr "Escriba a información para o repositorio %s:"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:7
-msgid "E-mail: "
-msgstr "Correo electrónico:"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:8
-msgid "Name: "
-msgstr "Nome:"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:9
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:10
-msgid "Save"
-msgstr "Gardar"
-
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "columna"
+
+#~ msgid "_User Information"
+#~ msgstr "Información do _usuario"
+
+#~ msgid "User Information"
+#~ msgstr "Información do usuario"
 
 #~ msgid "Filter Revisions When Searching"
 #~ msgstr "Filtrar revisións ao buscar"
@@ -981,9 +987,6 @@ msgstr "columna"
 
 #~ msgid "Changes"
 #~ msgstr "Cambios"
-
-#~ msgid "Details"
-#~ msgstr "Detalles"
 
 #~ msgid "Committer"
 #~ msgstr "Remisor"
