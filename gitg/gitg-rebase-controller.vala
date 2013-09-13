@@ -22,6 +22,7 @@ namespace Gitg
 	public class RebaseController
 	{
 		private string output;
+		private string repo_path;
 		public RebaseController()
 		{
 			output = "";
@@ -49,7 +50,7 @@ namespace Gitg
 			return streamoutput;
 		}
 
-		public void start_rebase(Gtk.Window parent, Gitg.Repository repository)
+		public void start_rebase()
 		{
 			string gitg_path = "";
 			string git_path = "";
@@ -58,9 +59,6 @@ namespace Gitg
 			git_path = Environment.find_program_in_path("git");
 			stdout.printf("gitg path: %s\n", gitg_path);
 			stdout.printf("git path: %s\n", git_path);
-
-			File? workdir = repository.get_workdir();
-			string repo_path = workdir.get_path();
 
 			string[] spawn_args = {"/usr/bin/git", "rebase", "-i", "HEAD~5"};
 			string[] spawn_env = Environ.get ();

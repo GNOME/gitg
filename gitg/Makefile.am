@@ -47,6 +47,7 @@ VALASOURCES =							\
 	gitg-rebase-window.vala					\
 	gitg-rebase-result-dialog.vala			\
 	gitg-rebase-controller.vala				\
+	gitg-rebase-start-dialog.vala			\
 	gitg-rebase-commit-editor-window.vala	\
 	gitg-application.vala					\
 	gitg-plugins-engine.vala				\

@@ -19,22 +19,17 @@
 
 namespace Gitg
 {
-	[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-rebase-result-dialog.ui")]
-	public class RebaseResultDialog: Gtk.Dialog
+	[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-rebase-start-dialog.ui")]
+	public class RebaseStartDialog : Gtk.Dialog
 	{
-		[GtkChild (name = "rebase_result_output")]
-		private Gtk.TextView r_result_output;
+		[GtkChild (name = "rebase_spinbutton")]
+		private Gtk.SpinButton r_rebase_spinbutton;
+		private string repository_path;
 
-		public RebaseResultDialog()
-		{}
-
-		public void set_rebase_output(string output)
+		public RebaseStartDialog(Gitg.Repository repository)
 		{
-			r_result_output.buffer.set_text(output);
-		}
-
-		public void return_to_gitg()
-		{
+			File? workdir = repository.get_workdir();
+			repository_path = workdir.get_path();
 		}
 	}
 }
