@@ -33,7 +33,8 @@ namespace Gitg
 			repository_path = workdir.get_path();
 		}
 
-		public override void response(int id) {
+		public override void response(int id)
+		{
 			if (id == Gtk.ResponseType.OK)
 			{
 				var rebase_controller = new RebaseController(repository_path);
@@ -44,7 +45,6 @@ namespace Gitg
 			}
 			destroy();
 		}
-
 
 	}
 }

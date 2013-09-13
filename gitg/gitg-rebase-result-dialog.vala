@@ -33,8 +33,10 @@ namespace Gitg
 			r_result_output.buffer.set_text(output);
 		}
 
-		public void return_to_gitg()
+		public override void response(int id)
 		{
+			destroy();
 		}
+
 	}
 }
