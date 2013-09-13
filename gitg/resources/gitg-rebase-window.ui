@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkWindow" id="rebase_editor_window">
+  <template class="GitgRebaseWindow" parent="Gtk.Window">
     <property name="can_focus">False</property>
     <child>
       <object class="GtkBox" id="rebase_container">
@@ -24,10 +24,9 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="rebase_listbox">
+          <object class="GitgRebaseListBox" id="rebase_listbox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">label</property>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -77,5 +76,5 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>

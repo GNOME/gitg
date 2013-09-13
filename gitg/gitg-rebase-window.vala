@@ -19,52 +19,50 @@
 
 namespace Gitg
 {
-
-public class RebaseWindow : Gtk.Window
-{
-	private RebaseListBox r_rebase_list_box;
-	private string r_filepath;
-
-	public RebaseWindow()
+	[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-rebase-window.ui")]
+	public class RebaseWindow : Gtk.Window
 	{
-		this.title = "gitg Rebase";
-		destroy.connect (Gtk.main_quit);
-		r_rebase_list_box = new RebaseListBox();
-		var hbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 1);
-		hbox.homogeneous = true;
-		hbox.add (r_rebase_list_box);
-		var start_button = new Gtk.Button();
-		start_button.label = "Start Rebase";
-		start_button.clicked.connect(start_rebase);
-		hbox.add(start_button);
-		add (hbox);
-	}
+		[GtkChild (name = "rebase_listbox")]
+		private RebaseListBox r_rebase_list_box;
 
-	public void load_rebase_todo(string filepath)
-	{
-		r_filepath = filepath;
-		var parser = new RebaseParser();
-		var rebase_array = parser.parse_rebase_todo(r_filepath);
-		foreach (var rebase_row in rebase_array)
+		[GtkChild (name = "start_rebase_button")]
+		private Gtk.Button r_rebase_start_button;
+
+		[GtkChild (name = "abort_rebase_button")]
+		private Gtk.Button r_rebase_abort_button;
+
+		private string r_filepath;
+		public RebaseWindow()
 		{
-			r_rebase_list_box.add_rebase_row(rebase_row[0], rebase_row[1], rebase_row[2]);
+			destroy.connect (Gtk.main_quit);
+			r_rebase_start_button.clicked.connect(start_rebase);
+		}
+
+		public void load_rebase_todo(string filepath)
+		{
+			r_filepath = filepath;
+			var parser = new RebaseParser();
+			var rebase_array = parser.parse_rebase_todo(r_filepath);
+			foreach (var rebase_row in rebase_array)
+			{
+				r_rebase_list_box.add_rebase_row(rebase_row[0], rebase_row[1], rebase_row[2]);
+			}
+		}
+
+		private void start_rebase()
+		{
+			var parser = new RebaseParser();
+			var rebase_array = r_rebase_list_box.get_rebase_array();
+			string rebase_output = "";
+			rebase_output = parser.generate_rebase_todo(rebase_array);
+			stdout.printf("\nrebase_output: \n%s", rebase_output);
+			try
+			{
+				FileUtils.set_contents(r_filepath, rebase_output);
+			}
+			catch {}
+			destroy();
 		}
 	}
-
-	private void start_rebase()
-	{
-		var parser = new RebaseParser();
-		var rebase_array = r_rebase_list_box.get_rebase_array();
-		string rebase_output = "";
-		rebase_output = parser.generate_rebase_todo(rebase_array);
-		stdout.printf("\nrebase_output: \n%s", rebase_output);
-		try
-		{
-			FileUtils.set_contents(r_filepath, rebase_output);
-		}
-		catch {}
-		destroy();
-	}
-}
 
 }
