@@ -29,7 +29,21 @@ namespace Gitg
 		public RebaseStartDialog(Gitg.Repository repository)
 		{
 			File? workdir = repository.get_workdir();
+			r_rebase_spinbutton.set_range(0,30);
 			repository_path = workdir.get_path();
 		}
+
+		public override void response(int id) {
+			if (id == Gtk.ResponseType.OK)
+			{
+				var rebase_controller = new RebaseController(repository_path);
+				int num_of_commits = 5;
+				// FIXME: User should be able to enter N
+				// int num_of_commits = r_rebase_spinbutton.get_value_as_int();
+			}
+			destroy();
+		}
+
+
 	}
 }

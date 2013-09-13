@@ -23,8 +23,9 @@ namespace Gitg
 	{
 		private string output;
 		private string repo_path;
-		public RebaseController()
+		public RebaseController(string repository_path)
 		{
+			repo_path = repository_path;
 			output = "";
 		}
 
