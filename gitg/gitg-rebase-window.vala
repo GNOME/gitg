@@ -36,6 +36,7 @@ namespace Gitg
 		{
 			destroy.connect (Gtk.main_quit);
 			r_rebase_start_button.clicked.connect(start_rebase);
+			r_rebase_abort_button.clicked.connect(abort_rebase);
 		}
 
 		public void load_rebase_todo(string filepath)
@@ -59,6 +60,16 @@ namespace Gitg
 			try
 			{
 				FileUtils.set_contents(r_filepath, rebase_output);
+			}
+			catch {}
+			destroy();
+		}
+
+		private void abort_rebase()
+		{
+			try
+			{
+				FileUtils.set_contents(r_filepath, "");
 			}
 			catch {}
 			destroy();
