@@ -19,23 +19,18 @@
 
 namespace Gitg
 {
+	[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-rebase-result-dialog.ui")]
 	public class RebaseResultDialog: Gtk.Dialog
 	{
-		private Gtk.TextView output_view;
+		[GtkChild (name = "rebase_result_output")]
+		private Gtk.TextView r_result_output;
 
 		public RebaseResultDialog()
-		{
-			this.title = "Rebase Result";
-			output_view = new Gtk.TextView();
-			var hbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 1);
-			hbox.homogeneous = true;
-			hbox.add (output_view);
-			get_content_area().add(hbox);
-		}
+		{}
 
 		public void set_rebase_output(string output)
 		{
-			output_view.buffer.set_text(output);
+			r_result_output.buffer.set_text(output);
 		}
 
 		public void return_to_gitg()

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkDialog" id="rebase_result_dialog">
+  <template class="GitgRebaseResultDialog" parent="Gtk.Dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="type_hint">dialog</property>
@@ -76,5 +76,5 @@
     <action-widgets>
       <action-widget response="0">rebase_result_ok</action-widget>
     </action-widgets>
-  </object>
+  </template>
 </interface>
