@@ -40,6 +40,7 @@ namespace Gitg
 				int num_of_commits = 5;
 				// FIXME: User should be able to enter N
 				// int num_of_commits = r_rebase_spinbutton.get_value_as_int();
+				rebase_controller.start_rebase("HEAD~%d".printf(num_of_commits));
 			}
 			destroy();
 		}

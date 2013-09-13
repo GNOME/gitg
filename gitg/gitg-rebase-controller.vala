@@ -51,7 +51,7 @@ namespace Gitg
 			return streamoutput;
 		}
 
-		public void start_rebase()
+		public void start_rebase(string range)
 		{
 			string gitg_path = "";
 			string git_path = "";
@@ -61,10 +61,10 @@ namespace Gitg
 			stdout.printf("gitg path: %s\n", gitg_path);
 			stdout.printf("git path: %s\n", git_path);
 
-			string[] spawn_args = {"/usr/bin/git", "rebase", "-i", "HEAD~5"};
+			string[] spawn_args = {"/usr/bin/git", "rebase", "-i", range};
 			string[] spawn_env = Environ.get ();
-			spawn_env = Environ.set_variable(spawn_env, "GIT_SEQUENCE_EDITOR", "jhbuild run gitg --rebase", true);
-			spawn_env = Environ.set_variable(spawn_env, "GIT_EDITOR", "jhbuild run gitg --rebase-commit-editor", true);
+			spawn_env = Environ.set_variable(spawn_env, "GIT_SEQUENCE_EDITOR", "%s --rebase".printf(gitg_path), true);
+			spawn_env = Environ.set_variable(spawn_env, "GIT_EDITOR", "%s --rebase-commit-editor".printf(gitg_path), true);
 			Pid child_pid;
 
 			int standard_input;
