@@ -37,6 +37,7 @@ namespace Gitg
 		{
 			destroy.connect (Gtk.main_quit);
 			r_rebase_continue_button.clicked.connect(save_and_continue);
+			r_rebase_abort_button.clicked.connect(abort_rebase);
 		}
 
 		public void load_commit_file(string filename)
@@ -64,6 +65,14 @@ namespace Gitg
 				FileUtils.set_contents(r_filepath, contents);
 			}
 			catch {}
+			destroy();
+		}
+
+		private void abort_rebase()
+		{
+			string repository_path;
+			var rebase_controller = new RebaseController(".");
+			rebase_controller.abort_rebase();
 			destroy();
 		}
 	}
