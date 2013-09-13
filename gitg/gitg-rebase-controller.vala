@@ -107,7 +107,39 @@ namespace Gitg
 				var rebase_result_dialog = new RebaseResultDialog();
 				rebase_result_dialog.set_rebase_output(output);
 				rebase_result_dialog.show_all();
+
+				if (status != 0)
+				{
+					this.abort_rebase();
+				}
 			});
+		}
+
+		public void abort_rebase()
+		{
+			string[] spawn_args = {"git", "rebase", "--abort"};
+			string[] spawn_env = Environ.get ();
+			string ls_stdout;
+			string ls_stderr;
+			int ls_status;
+
+			Process.spawn_sync (repo_path,
+								spawn_args,
+								spawn_env,
+								SpawnFlags.SEARCH_PATH,
+								null,
+								out ls_stdout,
+								out ls_stderr,
+								out ls_status);
+
+			// Output: <File list>
+			stdout.printf ("stdout:\n");
+			// Output: ````
+			stdout.puts (ls_stdout);
+			stdout.printf ("stderr:\n");
+			stdout.puts (ls_stderr);
+			// Output: ``0``
+			stdout.printf ("status: %d\n", ls_status);
 
 		}
 	}
