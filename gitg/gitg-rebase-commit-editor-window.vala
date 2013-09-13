@@ -19,24 +19,24 @@
 
 namespace Gitg
 {
+	[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-rebase-commit-editor.ui")]
 	public class RebaseCommitEditorWindow : Gtk.Window
 	{
+		[GtkChild (name = "commit_editor")]
 		private GtkSource.View r_commit_editor;
+
+		[GtkChild (name = "continue_rebase_button")]
+		private Gtk.Button r_rebase_continue_button;
+
+		[GtkChild (name = "abort_rebase_button")]
+		private Gtk.Button r_rebase_abort_button;
+
 		private string r_filepath;
 
 		public RebaseCommitEditorWindow()
 		{
-			this.title = "Rebase Commit Editor";
 			destroy.connect (Gtk.main_quit);
-			r_commit_editor = new GtkSource.View();
-			var hbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 1);
-			hbox.homogeneous = true;
-			hbox.add (r_commit_editor);
-			var save_button = new Gtk.Button();
-			save_button.label = "Save and load next...";
-			save_button.clicked.connect(save_and_continue);
-			hbox.add(save_button);
-			add (hbox);
+			r_rebase_continue_button.clicked.connect(save_and_continue);
 		}
 
 		public void load_commit_file(string filename)
@@ -49,6 +49,7 @@ namespace Gitg
 				FileUtils.get_contents(filename, out contents);
 			}
 			catch {}
+
 			r_commit_editor.buffer.set_text(contents);
 		}
 

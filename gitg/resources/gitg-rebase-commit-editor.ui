@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkWindow" id="rebase_editor_window">
+  <template class="GitgRebaseCommitEditorWindow" parent="Gtk.Window">
     <property name="can_focus">False</property>
     <child>
       <object class="GtkBox" id="rebase_container">
@@ -24,10 +24,9 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="rebase_listbox">
+          <object class="GtkSourceView" id="commit_editor">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">label</property>
+            <property name="can_focus">True</property>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -56,7 +55,7 @@
             </child>
             <child>
               <object class="GtkButton" id="continue_rebase_button">
-                <property name="label" translatable="yes">Start Rebase</property>
+                <property name="label" translatable="yes">Save and load next...</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
@@ -77,5 +76,5 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>
