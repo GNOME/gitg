@@ -1,1149 +1,1129 @@
 # Korean translation for gitg.
 # Copyright (C) 2012 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012.
-#
-# 참고 :
-#  - diff : 상황에 따라 고유명사일 수도 있고 동작의 명칭일 수도 있습니다. #: 디스크립션 참조.
-#  - push : 푸시하기
-#  - rebase : 기준 정하기
-#  - cherry-pick : "열매따기"처럼 번역하지 않습니다. "체리피킹"
-#  - fetch : 가져오기
-#  - commit : 커밋
-#  - blame mode : 책임자를 표시하는 모드 입니다. 그래서 "책임자 모드" 로 번역
-#  - lane : 그냥 레인으로 번역할 것.
-#  - stage : 커밋할 내용을 스테이지에 올린다는 뜻인데, 그냥 "등록"으로 번역합니다.
-#  - stash : "은닉 항목"으로 번역합니다. stash item의 경우에도 그냥 "은닉 항목" 이라고 합니다. 
-#  - revert : "되돌리기"
-#  - change : "바뀐 점" --> 그놈 표준 번역 적용.
-#  - "diff 프로그램"을 "비교 프로그램"으로 바꾸지 않도록 합니다.
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2012-03-21 20:08+0000\n"
-"PO-Revision-Date: 2012-03-11 05:01+0900\n"
+"POT-Creation-Date: 2013-09-12 22:39+0000\n"
+"PO-Revision-Date: 2013-09-18 12:53+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.5\n"
 
-#. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg-branch-actions.c:169
-#: ../gitg/gitg-branch-actions.c:222 ../gitg/gitg.c:182
-#: ../gitg/gitg-window.c:1666 ../gitg/gitg-window.c:1680
-#: ../gitg/gitg-window.ui.h:1
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
 
 #: ../data/gitg.desktop.in.in.h:2
 msgid "Git repository browser"
-msgstr "Git 저장소 탐색기"
+msgstr "git 저장소 탐색기"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Filter Revisions When Searching"
-msgstr "검색할 때 리비전 구분"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "주 인터페이스 방향(수직 또는 수평)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr ""
-"처음 일치하는 내용으로 건너 뛰는 대신 기록 보기의 리비전을 구분하여 검색할 지"
-"에 대한 여부입니다."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "메인 인터페이스 방향을 설정합니다."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
 msgid "When to Collapse Inactive Lanes"
-msgstr "비활성 레인을 축소 할 때"
+msgstr "비활성 레인을 숨길 때"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr ""
-"비활성 레인을 축소할 때 나타내는 설정입니다. 값은 0부터 4까지이며, 0은 '빨"
-"리' 4는 '늦게'를 나타냅니다."
+"비활성 레인을 숨길 때 나타내는 설정입니다. 값은 0부터 4까지이며, 0은 '빨리' 4"
+"는 '늦게'를 나타냅니다."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-msgid "Show History in Topological Order"
-msgstr "위상 순서대로 기록 보기"
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"활동을 보여주지 않을 기록 레인을 숨길지 여부를 나타내는 설정입니다. 이 설정"
+"을 활성화하면 여러 동시 개발을 진행중일 때 더욱 깔끔하게 기록을 볼 수 있습니"
+"다. 레인을 숨겨야 할 경우를 다루려면 collapse-inactive-lanes를 참조하십시오."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
-msgid ""
-"Setting that indicates whether to show the history in topological order."
-msgstr "기록을 위상 순서로 보일 것인지 나타내는 설정입니다."
+msgid "Show History in Topological Order"
+msgstr "전후 순서대로 기록 보기"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Show Main View in Vertical or Horizontal Layout"
-msgstr "메인 보기를 수직 또는 수평 배치로 보기"
+msgid ""
+"Setting that indicates whether to show the history in topological order."
+msgstr "기록을 전후 순서로 표시할 지 여부를 나타내는 설정입니다."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation layout of the main view."
-msgstr "메인 보기의 배치 방향을 설정합니다."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr "기록의 stash 항목을 표시할 것인를 나타내는 설정입니다."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Show files view in blame mode"
-msgstr "책임자 모드로 파일 보기"
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"기록의 현재 스테이지에 등록한 바뀐 내용에 대해 가상 항목을 보여줄 것인지를 나"
+"타내는 설정입니다."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-msgid "Setting that sets files view to blame mode."
-msgstr "책임자 모드로 파일보기를 설정합니다."
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"기록의 아직 스테이지에 등록하지 않은 바뀐 내용에 대해 가상 항목을 보여줄 것인"
+"지를 나타내는 설정입니다."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
-msgstr "커밋 메시지 보기에 오른쪽 여백 보기"
+msgstr "커밋 메시지 보기에 오른쪽 여백 표시"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"커밋 메시지 보기에서 오른쪽 여백 표시를 보여줍니다. 이는 제각각의 칸에서 커"
-"밋 메시지가 끊어지는 부분을 쉽게 볼 때 사용할 수 있습니다."
+"커밋 메시지 보기에서 오른쪽 여백 표시를 보여줍니다. 제각각의 칸에서 커밋 메시"
+"지가 끊어지는 부분을 쉽게 볼 때 사용할 수 있습니다."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "Column at Which Right Margin is Shown"
-msgstr "오른쪽 여백을 보일 칸"
+msgstr "오른쪽 여백을 표시할 칸"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
-"오른쪽 여백 기본 설정을 참으로 설정 했을 때 오른쪽 여백이 보이는 칸입니다."
+"show-right-margin 기본 설정값을 참으로 설정했을 때 오른쪽 여백에 표시할 칸입"
+"니다."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-msgid "Allow External Diff Program"
-msgstr "외부 diff 프로그램 허용"
+msgid "Show Subject Margin in Commit Message View"
+msgstr "커밋 메시지 보기에 주제 여백 표시"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
-msgstr "gitg에서 비교 내용을 볼 때 외부 diff 프로그램 사용을 허용합니다."
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
+"subject-margin-position으로 지정한 여백을 지나칠 경우 커밋 메시지의 주제 텍스"
+"트를 강조합니다."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-msgid "The command to handle GITG scheme URLs"
-msgstr "GITG 스킴 URL을 다룰 명령"
+msgid "Column at Which Subject Margin is Shown"
+msgstr "주제 여백을 표시할 칸"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "The command to handle GITG scheme URLs."
-msgstr "GITG 스킴 URL을 다룰 명령입니다."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-msgid "Whether command to handle GITG scheme URLs needs a terminal"
-msgstr "GITG 스킴 URL을 다루는 명령어가 터미널을 필요로 하는 지에 대한 여부"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
-msgid "Whether command to handle GITG scheme URLs needs a terminal."
-msgstr ""
-"GITG 스킴 URL을 다루는 명령어가 터미널을 필요로 하는 지에 대한 여부입니다."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
-msgid "Whether command to handle GITG scheme URLs is enabled"
-msgstr "GITG 스킴 URL을 다루는 명령어를 활성화 할 지에 대한 여부"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
-msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr "GITG 스킴 URL을 다루는 명령어를 활성화 할 지에 대한 여부입니다."
-
-#: ../gitg/gitg-branch-actions.c:277
-#, c-format
-msgid "Branch <%s> could not be removed"
-msgstr "<%s> 브랜치를 제거할 수 없습니다"
-
-#: ../gitg/gitg-branch-actions.c:278
 msgid ""
-"This usually means that the branch is not fully merged in HEAD. Do you want "
-"to forcefully remove the branch?"
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
 msgstr ""
-"이는 보통 HEAD에 브랜치를 완전히 병합하지 않았음을 의미합니다. 브랜치를 강제"
-"로 제거하시겠습니까?"
+"show-subject-margin 기본 설정을 참으로 설정했을 때 주제 여백을 표시할 칸입니"
+"다."
 
-#: ../gitg/gitg-branch-actions.c:279
-msgid "Force remove"
-msgstr "강제 제거"
-
-#: ../gitg/gitg-branch-actions.c:293
+#: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
-msgid "Branch <%s> could not be forcefully removed"
-msgstr "<%s> 브랜치를 강제로 제거할 수 없습니다"
+msgid "Cannot set spell checking language: %s"
+msgstr "철자 검사 언어를 설정할 수 없습니다: %s"
 
-#: ../gitg/gitg-branch-actions.c:326
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgid "Commit"
+msgstr "커밋"
+
+#: ../gitg/commit/gitg-commit.vala:144
 #, c-format
-msgid "Failed to remove remote branch <%s>."
-msgstr "<%s> 원격 브랜치를 제거하는데 실패했습니다."
+msgid "Failed to stage the file `%s'"
+msgstr "'%s' 파일을 스테이지에 등록하는데 실패했습니다"
 
-#: ../gitg/gitg-branch-actions.c:347
+#: ../gitg/commit/gitg-commit.vala:163
 #, c-format
-msgid "Are you sure you want to remove the remote branch <%s>?"
-msgstr "정말로 <%s> 원격 브랜치를 제거하시겠습니까?"
+msgid "Failed to stage the removal of file `%s'"
+msgstr "삭제한 '%s' 파일을 스테이지에 등록하는데 실패했습니다"
 
-#: ../gitg/gitg-branch-actions.c:348
-msgid "This permanently removes the remote branch."
-msgstr "원격 브랜치를 영원히 제거합니다."
-
-#: ../gitg/gitg-branch-actions.c:349 ../gitg/gitg-window.c:2886
-msgid "Remove remote branch"
-msgstr "원격 브랜치 제거"
-
-#: ../gitg/gitg-branch-actions.c:364 ../gitg/gitg-menus.xml.h:6
-msgid "Remove branch"
-msgstr "브랜치 제거"
-
-#: ../gitg/gitg-branch-actions.c:425
-msgid "Are you sure you want to remove this stash item?"
-msgstr "정말로 이 숨김 항목(stash)을 제거하시겠습니까?"
-
-#: ../gitg/gitg-branch-actions.c:426
-msgid "This permanently removes the stash item"
-msgstr "숨김 항목을 영원히 제거합니다"
-
-#: ../gitg/gitg-branch-actions.c:427 ../gitg/gitg-window.c:2902
-msgid "Remove stash"
-msgstr "숨김 항목 제거"
-
-#: ../gitg/gitg-branch-actions.c:453
-msgid "Failed to remove stash"
-msgstr "숨김 항목 제거에 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:454
-msgid "The stash item could not be successfully removed"
-msgstr "숨김 항목을 성공적으로 제거할 수 없습니다"
-
-#: ../gitg/gitg-branch-actions.c:485
+#: ../gitg/commit/gitg-commit.vala:223
 #, c-format
-msgid "Are you sure you want to remove the tag <%s>?"
-msgstr "정말로 <%s> 태그를 제거하시겠습니까?"
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "삭제한 '%s' 파일을 스테이지에서 제외하는데 실패했습니다"
 
-#: ../gitg/gitg-branch-actions.c:489 ../gitg/gitg-branch-actions.c:491
-#: ../gitg/gitg-window.c:2908
-msgid "Remove tag"
-msgstr "태그 제거"
-
-#: ../gitg/gitg-branch-actions.c:508
+#: ../gitg/commit/gitg-commit.vala:242
 #, c-format
-msgid "The tag <%s> could not be successfully removed"
-msgstr "<%s> 태그를 성공적으로 제거할 수 없습니다"
+msgid "Failed to unstage the file `%s'"
+msgstr "'%s' 파일을 스테이지에서 제외하는데 실패했습니다"
 
-#: ../gitg/gitg-branch-actions.c:512
-msgid "Failed to remove tag"
-msgstr "태그를 제거하는데 실패했습니다"
+#: ../gitg/commit/gitg-commit.vala:366
+msgid "Staged"
+msgstr "스테이지에 등록함"
 
-#: ../gitg/gitg-branch-actions.c:575
-#, c-format
-msgid "Branch <%s> could not be renamed to <%s>"
-msgstr "<%s> 브랜치의 이름을 <%s>(으)로 바꿀 수 없습니다"
+#: ../gitg/commit/gitg-commit.vala:370
+msgid "No staged files"
+msgstr "스테이지에 등록한 파일이 없습니다"
 
-#: ../gitg/gitg-branch-actions.c:576
+#: ../gitg/commit/gitg-commit.vala:379
+msgid "Unstaged"
+msgstr "등록하지 않음"
+
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "No unstaged files"
+msgstr "스테이지에 등록하지 않은 파일이 없습니다"
+
+#: ../gitg/commit/gitg-commit.vala:392
+msgid "Untracked"
+msgstr "추적하지 않는 파일"
+
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "No untracked files"
+msgstr "추적하지 않는 파일이 없습니다"
+
+#: ../gitg/commit/gitg-commit.vala:432
+msgid "There are no changes to be committed"
+msgstr "커밋할 바뀐 내용이 없습니다"
+
+#: ../gitg/commit/gitg-commit.vala:433
+msgid "Use amend to change the commit message of the previous commit"
+msgstr "커밋하기 전에 커밋 메시지를 바꾸려면 amend를 사용하십시오"
+
+#: ../gitg/commit/gitg-commit.vala:459
+msgid "Failed to commit"
+msgstr "커밋에 실패했습니다"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+msgid "Failed to pass pre-commit"
+msgstr "커밋 이전 통과에 실패했습니다"
+
+#: ../gitg/commit/gitg-commit.vala:696
 msgid ""
-"This usually means that a branch with that name already exists. Do you want "
-"to overwrite the branch?"
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
 msgstr ""
-"이는 흔히 이런 이름을 가진 브랜치가 이미 있다는 것을 의미합니다. 브랜치를 덮"
-"어쓰시겠습니까?"
+"사용자 이름과 전자 메일 주소를 아직 설정하지 않았습니다. 사용자 설정으로 이동"
+"하여 사용자 이름과 전자 메일 주소를 설정하십시오."
 
-#: ../gitg/gitg-branch-actions.c:577
-msgid "Force rename"
-msgstr "강제로 이름 바꾸기"
-
-#: ../gitg/gitg-branch-actions.c:592
-#, c-format
-msgid "Branch <%s> could not be forcefully renamed"
-msgstr "<%s> 브랜치의 이름을 강제로 바꿀 수 없습니다"
-
-#: ../gitg/gitg-branch-actions.c:632 ../gitg/gitg-new-branch.ui.h:2
-#: ../gitg/gitg-preferences.ui.h:24 ../gitg/gitg-repository.ui.h:7
-#: ../gitg/gitg-tag.ui.h:2
-msgid "Name:"
-msgstr "이름:"
-
-#: ../gitg/gitg-branch-actions.c:754
-msgid "Do you want to temporarily stash these changes?"
-msgstr "이 바뀐 점들을 임시로 숨기시겠습니까?"
-
-#: ../gitg/gitg-branch-actions.c:758
-msgid "Do you want to stash and reapply these changes?"
-msgstr "이 바뀐 점들을 숨기고 다시 적용하시겠습니까?"
-
-#: ../gitg/gitg-branch-actions.c:763
-msgid "You have uncommited changes in your current working tree"
-msgstr "현재 작업 트리에서 커밋하지 않은 바뀐 점이 있습니다"
-
-#: ../gitg/gitg-branch-actions.c:765
-msgid "Stash changes"
-msgstr "숨김 항목 바뀐 점"
-
-#: ../gitg/gitg-branch-actions.c:1020
-msgid "Failed to save current index state"
-msgstr "현재 인덱스 숨김 항목을 저장하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1071 ../gitg/gitg-branch-actions.c:1367
-#: ../gitg/gitg-branch-actions.c:1658 ../gitg/gitg-branch-actions.c:1955
-#, c-format
-msgid "Failed to checkout local branch <%s>"
-msgstr "<%s> 지역 브랜치를 체크아웃하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1109
-#, c-format
-msgid "Failed to checkout remote branch <%s> to local branch <%s>"
-msgstr "<%s> 원격 브랜치를 <%s> 지역 브랜치로 체크아웃하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1148
-#, c-format
-msgid "Failed to checkout tag <%s> to local branch <%s>"
-msgstr "<%s> 태그를 <%s> 지역 브랜치에 체크아웃하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1239
-#, c-format
-msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-msgstr ""
-"<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 기준을 정하는데 실패했"
-"습니다"
-
-#: ../gitg/gitg-branch-actions.c:1243
-#, c-format
-msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-msgstr ""
-"<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 병합하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
-#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
-#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
-#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
-msgid "local"
-msgstr "지역"
-
-#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
-#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
-#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
-#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
-msgid "remote"
-msgstr "원격"
-
-#: ../gitg/gitg-branch-actions.c:1276 ../gitg/gitg-branch-actions.c:1869
-msgid "The stashed changes have been stored to be reapplied manually"
-msgstr "저장한 숨김 항목 바뀐 점을 수동으로 다시 적용할 것입니다"
-
-#: ../gitg/gitg-branch-actions.c:1281 ../gitg/gitg-branch-actions.c:1874
-msgid "Failed to checkout previously checked out branch"
-msgstr "이전에 체크아웃한 브랜치를 체크아웃하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1900
-msgid "Failed to reapply stash correctly"
-msgstr "숨김 항목을 올바르게 다시 적용하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1308 ../gitg/gitg-branch-actions.c:1901
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
-"There might be unresolved conflicts in the working tree or index which you "
-"need to resolve manually"
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
 msgstr ""
-"작업 트리에 해결하지 못한 충돌이 있거나 수동으로 해결해야 할 인덱스가 있는 "
-"것 같습니다"
+"사용자 이름을 아직 설정하지 않았습니다. 사용자 설정으로 이동하여 사용자 이름"
+"을 설정하십시오."
 
-#: ../gitg/gitg-branch-actions.c:1329
-#, c-format
-msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-msgstr ""
-"<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 병합하시겠습니까?"
-
-#: ../gitg/gitg-branch-actions.c:1337 ../gitg/gitg-branch-actions.c:1339
-#: ../gitg/gitg-branch-actions.c:1387 ../gitg/gitg-menus.xml.h:12
-msgid "Merge"
-msgstr "병합"
-
-#: ../gitg/gitg-branch-actions.c:1368
-msgid "The branch on which to merge could not be checked out"
-msgstr "병합할 브랜치를 체크아웃 할 수 없습니다"
-
-#: ../gitg/gitg-branch-actions.c:1374
-#, c-format
-msgid "Merging %s branch <%s> onto %s branch <%s>"
-msgstr "<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 병합하는 중"
-
-#: ../gitg/gitg-branch-actions.c:1410
-#, c-format
-msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-msgstr ""
-"<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 기준을 정하시겠습니까?"
-
-#: ../gitg/gitg-branch-actions.c:1418 ../gitg/gitg-branch-actions.c:1420
-#: ../gitg/gitg-branch-actions.c:1470 ../gitg/gitg-menus.xml.h:13
-msgid "Rebase"
-msgstr "기준 정하기"
-
-#: ../gitg/gitg-branch-actions.c:1443
-msgid "Unable to rebase"
-msgstr "기준을 정할 수 없습니다"
-
-#: ../gitg/gitg-branch-actions.c:1444
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
-"There are still uncommitted changes in your working tree and you are trying "
-"to rebase a branch onto the currently checked out branch. Either remove, "
-"stash or commit your changes first and try again"
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
 msgstr ""
-"작업 트리에 커밋하지 않은 바뀐 점이 있고 현재 체크아웃한 브랜치로 브랜치의 기"
-"준을 잡으려 하고 있습니다. 바뀐 점을 우선적으로 제거하거나, 은닉, 커밋하시고 "
-"다시 시도하십시오"
+"전자 메일 주소를 아직 설정하지 않았습니다. 사용자 설정으로 이동하여 전자 메"
+"일 주소를 설정하십시오."
 
-#: ../gitg/gitg-branch-actions.c:1457
-#, c-format
-msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-msgstr "<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 기준 정하는 중"
-
-#: ../gitg/gitg-branch-actions.c:1496
-#, c-format
-msgid "Failed to push local branch <%s> to remote <%s>"
-msgstr "<%s> 지역 브랜치를 <%s> 원격 브랜치로 푸시하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1497
-msgid ""
-"This usually means that the remote branch could not be fast-forwarded. Try "
-"fetching the latest changes."
-msgstr ""
-"이는 보통 원격 브랜치를 이전 내용으로 전달할 수 없음을 의미합니다. 최근 바뀐 "
-"점을 가져와 보십시오."
-
-#: ../gitg/gitg-branch-actions.c:1521
-#, c-format
-msgid "Are you sure you want to push <%s> to <%s>?"
-msgstr "정말로 <%s>을(를) <%s>(으)로  푸시하시겠습니까?"
-
-#: ../gitg/gitg-branch-actions.c:1527 ../gitg/gitg-branch-actions.c:1529
-#: ../gitg/gitg-branch-actions.c:1550 ../gitg/gitg-branch-actions.c:1582
-#: ../gitg/gitg-branch-actions.c:1584 ../gitg/gitg-branch-actions.c:1607
-msgid "Push"
-msgstr "푸시하기"
-
-#: ../gitg/gitg-branch-actions.c:1542
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s>"
-msgstr "<%s> 지역 브랜치를 <%s> 원격 브랜치로 푸시하는 중"
-
-#: ../gitg/gitg-branch-actions.c:1576
-#, c-format
-msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
-msgstr "정말로 <%s>을(를) 원격 <%s/%s>(으)로 푸시하시겠습니까?"
-
-#: ../gitg/gitg-branch-actions.c:1594
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s/%s>"
-msgstr "<%s> 지역 브랜치를 <%s/%s> 원격 브랜치로 푸시하는 중"
-
-#: ../gitg/gitg-branch-actions.c:1631
-#, c-format
-msgid "Are you sure you want to apply the stash item to local branch <%s>?"
-msgstr "정말로 은닉 항목을 <%s> 지역 브랜치에 적용하시겠습니까?"
-
-#: ../gitg/gitg-branch-actions.c:1636 ../gitg/gitg-branch-actions.c:1638
-msgid "Apply stash"
-msgstr "은닉 항목 적용"
-
-#: ../gitg/gitg-branch-actions.c:1677
-#, c-format
-msgid "The stash could not be applied to local branch <%s>"
-msgstr "<%s> 지역 브랜치에 은닉 항목을 적용할 수 없습니다"
-
-#: ../gitg/gitg-branch-actions.c:1681
-msgid "Failed to apply stash"
-msgstr "은닉 항목을 적용하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1724
-msgid "The branch could not be successfully created"
-msgstr "브랜치를 성공적으로 만들 수 없습니다"
-
-#: ../gitg/gitg-branch-actions.c:1728
-msgid "Failed to create a branch"
-msgstr "브랜치를 만드는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1780
-msgid ""
-"The tag object could not be successfully created. Please make sure you have "
-"a GPG key and the key is unlocked"
-msgstr ""
-"태그 객체를 성공적으로 만들 수 없습니다. GPG 키를 가지고 있고 키가 잠금 해제 "
-"되어 있는지 확인하여 주십시오"
-
-#: ../gitg/gitg-branch-actions.c:1784
-msgid "The tag object could not be successfully created"
-msgstr "태그 객체를 성공적으로 만들 수 없습니다"
-
-#: ../gitg/gitg-branch-actions.c:1789
-msgid "Failed to create tag"
-msgstr "태그를 만드는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1844
-#, c-format
-msgid "Failed to cherry-pick on <%s>"
-msgstr "<%s>에서 체리피킹하는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:1921
-#, c-format
-msgid "Are you sure you want to cherry-pick that revision on <%s>?"
-msgstr "정말로 <%s>의 리비전을 체리피킹 하시겠습니까?"
-
-#: ../gitg/gitg-branch-actions.c:1926 ../gitg/gitg-branch-actions.c:1928
-#: ../gitg/gitg-branch-actions.c:1976
-msgid "Cherry-pick"
-msgstr "체리피킹"
-
-#: ../gitg/gitg-branch-actions.c:1956
-msgid "The branch on which to cherry-pick could not be checked out"
-msgstr "체리피킹한 브랜치를 체크아웃 할 수 없습니다"
-
-#: ../gitg/gitg-branch-actions.c:1963
-#, c-format
-msgid "Cherry-picking on <%s>"
-msgstr "<%s>에서 체리피킹"
-
-#: ../gitg/gitg-branch-actions.c:2031
-msgid "Failed to generate format-patch"
-msgstr "패치를 만드는데 실패했습니다"
-
-#: ../gitg/gitg-branch-actions.c:2081
-#, c-format
-msgid "Generating format-patch for <%s>"
-msgstr "<%s>에 대한 패치 생성중"
-
-#: ../gitg/gitg-branch-actions.c:2089 ../gitg/gitg-menus.xml.h:17
-msgid "Format patch"
-msgstr "패치"
-
-#: ../gitg/gitg.c:52
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
-msgstr "프로그램의 버전 보기"
+msgstr "프로그램 버전 표시"
 
-#: ../gitg/gitg.c:53
-msgid "Start gitg in commit mode"
-msgstr "gitg를 커밋 모드로 시작하기"
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "gitg를 지정 동작으로 시작"
 
-#: ../gitg/gitg.c:54
-msgid "Select commit after loading the repository"
-msgstr "저장소를 불러온 다음 커밋을 선택"
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgstr "gitg를 커밋 동작으로 시작(--view commit에 대한 요약)"
 
-#: ../gitg/gitg.c:64
+#: ../gitg/gitg-application.vala:64
+msgid "Do not try to load a repository from the current working directory"
+msgstr "현재 작업 디렉터리에서 저장소를 불러오려 하지 마십시오"
+
+#: ../gitg/gitg-application.vala:88
 msgid "- git repository viewer"
 msgstr "- git 저장소 탐색기"
 
-#: ../gitg/gitg-commit-view.c:300 ../gitg/gitg-revision-files-panel.c:478
-msgid "Cannot display file content as text"
-msgstr "파일 내용을 텍스트로 표시할 수 없습니다"
+#: ../gitg/gitg-application.vala:205
+msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgstr "gitg는 gtk+/GNOME용 git 저장소 보기 프로그램입니다"
 
-#: ../gitg/gitg-commit-view.c:2557
-msgid "You must first stage some changes before committing"
-msgstr "커밋하기 전에 바뀐 점을 먼저 등록해야 합니다"
+#: ../gitg/gitg-application.vala:230
+msgid "gitg homepage"
+msgstr "gitg 홈페이지"
 
-#: ../gitg/gitg-commit-view.c:2565
-msgid "Please enter a commit message before committing"
-msgstr "커밋하기 전에 커밋 메시지를 입력하여 주십시오"
+#: ../gitg/gitg-author-details-dialog.vala:65
+msgid "Unable to open the .gitconfig file."
+msgstr ".gitconfig 파일을 열 수 없습니다."
 
-#: ../gitg/gitg-commit-view.c:2587
-msgid ""
-"Your user name or email could not be retrieved for use in the sign off "
-"message"
-msgstr "승인 메시지에 사용할 사용자 이름 또는 이메일을 찾을 수 없습니다"
+#: ../gitg/gitg-author-details-dialog.vala:147
+msgid "Failed to set Git user config."
+msgstr "git 사용자 설정을 설정하는데 실패했습니다."
 
-#: ../gitg/gitg-commit-view.c:2593
-msgid "Something went wrong while trying to commit"
-msgstr "커밋을 시도할 때 무언가가 잘못되었습니다"
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr "제공한 URL을 지원하지 않습니다"
 
-#: ../gitg/gitg-commit-view.c:2889
-msgid "Revert fail"
-msgstr "되돌리기 실패"
+#: ../gitg/gitg-window.vala:263
+msgid "Projects"
+msgstr "프로젝트"
 
-#: ../gitg/gitg-commit-view.c:2905
-msgid "Are you sure you want to revert these changes?"
-msgstr "정말로 이 바뀐 점을 되돌리시겠습니까?"
+#: ../gitg/gitg-window.vala:299
+msgid "Open Repository"
+msgstr "저장소 열기"
 
-#: ../gitg/gitg-commit-view.c:2909
-msgid "Reverting changes is permanent and cannot be undone"
-msgstr "바뀐 점을 되돌리는 것은 되돌릴 수 없습니다"
+#: ../gitg/gitg-window.vala:301
+msgid "_Cancel"
+msgstr "취소(_C)"
 
-#: ../gitg/gitg-commit-view.c:2988
-msgid "Delete Failed"
-msgstr "삭제 실패"
+#: ../gitg/gitg-window.vala:302
+msgid "_Open"
+msgstr "열기(_O)"
 
-#: ../gitg/gitg-commit-view.c:3006
-msgid "Are you sure you want to delete these files?"
-msgstr "정말로 이 파일들을 삭제하시겠습니까?"
+#: ../gitg/gitg-window.vala:532
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "'%s'은(는) git 저장소가 아닙니다."
 
-#: ../gitg/gitg-commit-view.c:3009
-msgid "Deleting files is permanent and cannot be undone"
-msgstr "파일들을 삭제하는 것은 되돌릴 수 없습니다"
+#: ../gitg/history/gitg-history-navigation.vala:194
+#: ../gitg/history/gitg-history-navigation.vala:302
+msgid "All commits"
+msgstr "모든 커밋"
 
-#: ../gitg/gitg-repository-dialog.c:223 ../gitg/gitg-repository.ui.h:4
-msgid "Fetch"
-msgstr "가져오기"
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:197
+msgid "Branches"
+msgstr "브랜치"
 
-#: ../gitg/gitg-repository-dialog.c:228
-msgid "Cancel"
-msgstr "취소"
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:234
+msgid "Remotes"
+msgstr "원격"
 
-#: ../gitg/gitg-repository-dialog.c:551 ../gitg/gitg-repository.ui.h:1
-#: ../gitg/gitg-tag.ui.h:1
-msgid "Properties"
-msgstr "속성"
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:260
+msgid "Tags"
+msgstr "태그"
 
-#: ../gitg/gitg-revision-changes-panel.c:270 ../gitg/gitg-window.ui.h:7
-msgid "Changes"
-msgstr "바뀐 점"
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
+msgid "History"
+msgstr "기록"
 
-#: ../gitg/gitg-revision-details-panel.c:118
-msgid "Details"
-msgstr "세부 내용"
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+msgid "Interface"
+msgstr "인터페이스"
 
-#: ../gitg/gitg-revision-files-panel.c:315 ../gitg/gitg-window.ui.h:4
-msgid "Author"
-msgstr "저작자"
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "지금"
 
-#: ../gitg/gitg-revision-files-panel.c:316
-msgid "Committer"
-msgstr "커미터"
+#: ../libgitg/gitg-date.vala:320
+msgid "A minute ago"
+msgstr "1분 전"
 
-#: ../gitg/gitg-revision-files-panel.c:317 ../gitg/gitg-window.ui.h:3
-msgid "Subject"
-msgstr "제목"
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "%d minutes ago"
+msgstr "%d분 전"
 
-#: ../gitg/gitg-revision-files-panel.c:884
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "30분 전"
+
+#: ../libgitg/gitg-date.vala:330
+msgid "An hour ago"
+msgstr "1시간 전"
+
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "%d hours ago"
+msgstr "%d시간 전"
+
+#: ../libgitg/gitg-date.vala:335
+msgid "A day ago"
+msgstr "1일 전"
+
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "%d days ago"
+msgstr "%d일 전"
+
+#: ../libgitg/gitg-diff-view.vala:89
+msgid "stage"
+msgstr "스테이지에 등록"
+
+#: ../libgitg/gitg-diff-view.vala:90
+msgid "unstage"
+msgstr "스테이지에서 제외"
+
+#: ../libgitg/gitg-diff-view.vala:91
+msgid "Loading diff..."
+msgstr "diff 불러오는 중..."
+
+# commit-msg: 훅 이름임. 번역하지 말것.
+#: ../libgitg/gitg-stage.vala:279
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr "commit-msg 훅을 실행한 뒤에 커밋 메시지를 읽을 수 없습니다: %s"
+
+# 기본 설정 창에 있는 탭 이름. 동작의 이름이므로 비교라고 번역합니다
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "비교"
+
+#: ../plugins/files/gitg-files.vala:63
 msgid "Files"
 msgstr "파일"
 
-#: ../gitg/gitg-revision-files-panel.c:1053
-msgid "(Empty)"
-msgstr "(비어 있음)"
-
-#: ../gitg/gitg-window.c:680
-msgid "Select branch"
-msgstr "브랜치 선택"
-
-#: ../gitg/gitg-window.c:749
-#, c-format
-msgid "Push local branch <%s> to remote branch <%s>"
-msgstr "<%s> 지역 브랜치를 <%s> 원격 브랜치로 푸시하기"
-
-#: ../gitg/gitg-window.c:756
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
-msgstr "<%s> 지역 브랜치를 <%s> 지역 브랜치로 병합하거나 기준 정하기"
-
-#: ../gitg/gitg-window.c:763
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
-msgstr "<%s> 지역 브랜치에서 <%s> 원격 브랜치로 병합하거나 기준 정하기"
-
-#: ../gitg/gitg-window.c:770
-#, c-format
-msgid "Apply stash to local branch <%s>"
-msgstr "은닉 항목을 <%s> 지역 브랜치에 적용"
-
-#: ../gitg/gitg-window.c:850
-#, c-format
-msgid "Cherry-pick revision on <%s>"
-msgstr "<%s>에서 리비전을 체리피킹하기"
-
-#: ../gitg/gitg-window.c:1213
-#, c-format
-msgid "Loaded %d revisions in %.2fs"
-msgstr "%d개의 리비전을 %.2f초에 불러왔습니다"
-
-#: ../gitg/gitg-window.c:1238
-#, c-format
-msgid "Loading %d revisions..."
-msgstr "%d개의 리비전 불러오는 중..."
-
-#: ../gitg/gitg-window.c:1600
-msgid "Local branches"
-msgstr "지역 브랜치"
-
-#: ../gitg/gitg-window.c:1621
-msgid "All branches"
-msgstr "모든 브랜치"
-
-#: ../gitg/gitg-window.c:1698
-msgid "Begin loading repository"
-msgstr "저장소 불러오기 시작"
-
-#: ../gitg/gitg-window.c:2163
-msgid "Open git repository"
-msgstr "git 저장소 열기"
-
-#: ../gitg/gitg-window.c:2236
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg는 gtk+/GNOME을 위한 git 저장소 보기 프로그램입니다."
-
-#: ../gitg/gitg-window.c:2547
-msgid "new"
-msgstr "새 브랜치"
-
-#: ../gitg/gitg-window.c:2875 ../gitg/gitg-window.c:2913
-#, c-format
-msgid "New local branch <%s>"
-msgstr "새 지역 브랜치 <%s>"
-
-#: ../gitg/gitg-window.c:2891
-msgid "Checkout working copy"
-msgstr "작업 복사본 체크아웃"
-
-#: ../gitg/gitg-window.c:2892
-msgid "Remove local branch"
-msgstr "지역 브랜치 제거"
-
-#: ../gitg/gitg-window.c:2894
-msgid "Rename local branch"
-msgstr "지역 브랜치 이름 바꾸기"
-
-#: ../gitg/gitg-window.c:3257 ../gitg/gitg-window.c:3313
-msgid "Not all fields are correctly filled in"
-msgstr "모든 필드가 올바르게 채워지지 않았습니다"
-
-#: ../gitg/gitg-window.c:3261
-msgid "Please make sure to fill in the branch name"
-msgstr "브랜치 이름을 채웠는지 확인해 주십시오"
-
-#: ../gitg/gitg-window.c:3300
-msgid "Please make sure to fill in both the tag name and the commit message"
-msgstr "태그 이름과 커밋 메시지를 채웠는지 확인해 주십시오"
-
-#: ../gitg/gitg-window.c:3304
-msgid "Please make sure to fill in the tag name"
-msgstr "태그 이름을 채웠는지 확인해 주십시오"
-
-#: ../gitg/gitg-window.c:3381
-msgid "Format patch failed for unknown reason"
-msgstr "알 수 없는 이유로 패치 실패"
-
-#: ../gitg/gitg-window.c:3385
-msgid "Please check if you have the right permissions to write the file"
-msgstr ""
-"파일에 기록하기 위해 올바른 권한을 가지고 있는지 확인하여 주시기 바랍니다"
-
-#. Single one, pick filename
-#: ../gitg/gitg-window.c:3424
-msgid "Save format patch"
-msgstr "패치 저장"
-
-#: ../libgitg/gitg-encodings.c:144 ../libgitg/gitg-encodings.c:186
-#: ../libgitg/gitg-encodings.c:188 ../libgitg/gitg-encodings.c:190
-#: ../libgitg/gitg-encodings.c:192 ../libgitg/gitg-encodings.c:194
-#: ../libgitg/gitg-encodings.c:196 ../libgitg/gitg-encodings.c:198
-msgid "Unicode"
-msgstr "유니코드"
-
-#: ../libgitg/gitg-encodings.c:157 ../libgitg/gitg-encodings.c:181
-#: ../libgitg/gitg-encodings.c:231 ../libgitg/gitg-encodings.c:274
-msgid "Western"
-msgstr "서부유럽어"
-
-#: ../libgitg/gitg-encodings.c:159 ../libgitg/gitg-encodings.c:233
-#: ../libgitg/gitg-encodings.c:270
-msgid "Central European"
-msgstr "중앙유럽"
-
-#: ../libgitg/gitg-encodings.c:161
-msgid "South European"
-msgstr "남유럽어"
-
-#: ../libgitg/gitg-encodings.c:163 ../libgitg/gitg-encodings.c:177
-#: ../libgitg/gitg-encodings.c:284
-msgid "Baltic"
-msgstr "발트어"
-
-#: ../libgitg/gitg-encodings.c:165 ../libgitg/gitg-encodings.c:235
-#: ../libgitg/gitg-encodings.c:248 ../libgitg/gitg-encodings.c:252
-#: ../libgitg/gitg-encodings.c:254 ../libgitg/gitg-encodings.c:272
-msgid "Cyrillic"
-msgstr "키릴어"
-
-#: ../libgitg/gitg-encodings.c:167 ../libgitg/gitg-encodings.c:241
-#: ../libgitg/gitg-encodings.c:282
-msgid "Arabic"
-msgstr "아라비아어"
-
-#: ../libgitg/gitg-encodings.c:169 ../libgitg/gitg-encodings.c:276
-msgid "Greek"
-msgstr "그리스어"
-
-#: ../libgitg/gitg-encodings.c:171
-msgid "Hebrew Visual"
-msgstr "히브리 상형문자"
-
-#: ../libgitg/gitg-encodings.c:173 ../libgitg/gitg-encodings.c:237
-#: ../libgitg/gitg-encodings.c:278
-msgid "Turkish"
-msgstr "터키어"
-
-#: ../libgitg/gitg-encodings.c:175
-msgid "Nordic"
-msgstr "노르웨이어"
-
-#: ../libgitg/gitg-encodings.c:179
-msgid "Celtic"
-msgstr "켈트어"
-
-#: ../libgitg/gitg-encodings.c:183
-msgid "Romanian"
-msgstr "루마니아어"
-
-#: ../libgitg/gitg-encodings.c:201
-msgid "Armenian"
-msgstr "아르메니아어"
-
-#: ../libgitg/gitg-encodings.c:203 ../libgitg/gitg-encodings.c:205
-#: ../libgitg/gitg-encodings.c:219
-msgid "Chinese Traditional"
-msgstr "중국어 번체"
-
-#: ../libgitg/gitg-encodings.c:207
-msgid "Cyrillic/Russian"
-msgstr "키릴/러시아어"
-
-#: ../libgitg/gitg-encodings.c:210 ../libgitg/gitg-encodings.c:212
-#: ../libgitg/gitg-encodings.c:214 ../libgitg/gitg-encodings.c:244
-#: ../libgitg/gitg-encodings.c:259
-msgid "Japanese"
-msgstr "일본어"
-
-#: ../libgitg/gitg-encodings.c:217 ../libgitg/gitg-encodings.c:246
-#: ../libgitg/gitg-encodings.c:250 ../libgitg/gitg-encodings.c:265
-msgid "Korean"
-msgstr "한국어"
-
-#: ../libgitg/gitg-encodings.c:222 ../libgitg/gitg-encodings.c:224
-#: ../libgitg/gitg-encodings.c:226
-msgid "Chinese Simplified"
-msgstr "중국어 간체"
-
-#: ../libgitg/gitg-encodings.c:228
-msgid "Georgian"
-msgstr "조지아어"
-
-#: ../libgitg/gitg-encodings.c:239 ../libgitg/gitg-encodings.c:280
-msgid "Hebrew"
-msgstr "히브리어"
-
-#: ../libgitg/gitg-encodings.c:256
-msgid "Cyrillic/Ukrainian"
-msgstr "키릴/우크라이나어"
-
-#: ../libgitg/gitg-encodings.c:261 ../libgitg/gitg-encodings.c:267
-#: ../libgitg/gitg-encodings.c:286
-msgid "Vietnamese"
-msgstr "베트남어"
-
-#: ../libgitg/gitg-encodings.c:263
-msgid "Thai"
-msgstr "타이어"
-
-#: ../libgitg/gitg-encodings.c:479
-msgid "Unknown"
-msgstr "알 수 없음"
-
-#: ../libgitg/gitg-repository.c:894
-msgid "Staged changes"
-msgstr "등록한 바뀐 점"
-
-#: ../libgitg/gitg-repository.c:898
-msgid "Unstaged changes"
-msgstr "등록하지 않은 바뀐 점"
-
-#: ../libgitg/gitg-repository.c:1540
-msgid "Not a valid git repository"
-msgstr "올바른 git 저장소가 아닙니다"
-
-#: ../libgitg/gitg-smart-charset-converter.c:329
-msgid "It is not possible to detect the encoding automatically"
-msgstr "인코딩을 자동으로 감지할 수 없습니다"
-
-#. ex:ts=8:noet:
-#: ../gitg/gitg-commit-menu.ui.h:1
-msgid "Stage"
-msgstr "등록"
-
-#: ../gitg/gitg-commit-menu.ui.h:2
-msgid "Unstage"
-msgstr "등록 취소"
-
-#: ../gitg/gitg-commit-menu.ui.h:3
-msgid "Revert"
-msgstr "되돌리기"
-
-#: ../gitg/gitg-commit-menu.ui.h:4
-msgid "Ignore"
-msgstr "무시"
-
-#: ../gitg/gitg-menus.xml.h:1
-msgid "_Subject"
-msgstr "제목(_S)"
-
-#: ../gitg/gitg-menus.xml.h:2
-msgid "_Author"
-msgstr "저작자(_A)"
-
-#: ../gitg/gitg-menus.xml.h:3
-msgid "_Date"
-msgstr "날짜(_D)"
-
-#: ../gitg/gitg-menus.xml.h:4
-msgid "_Hash"
-msgstr "해시(_H)"
-
-#: ../gitg/gitg-menus.xml.h:5
-msgid "Checkout branch"
-msgstr "브랜치 체크아웃"
-
-#: ../gitg/gitg-menus.xml.h:7
-msgid "Rename branch"
-msgstr "브랜치 이름 바꾸기"
-
-#: ../gitg/gitg-menus.xml.h:8
-msgid "Rebase branch onto..."
-msgstr "다음으로 브랜치 기준 정하기..."
-
-#: ../gitg/gitg-menus.xml.h:9
-msgid "Merge branch with..."
-msgstr "다음과 브랜치 병합하기..."
-
-#: ../gitg/gitg-menus.xml.h:10
-msgid "Push branch to..."
-msgstr "다음으로 브랜치 푸시하기..."
-
-#: ../gitg/gitg-menus.xml.h:11
-msgid "Apply stash to..."
-msgstr "다음에 은닉 항목 적용..."
-
-#: ../gitg/gitg-menus.xml.h:14 ../gitg/gitg-new-branch.ui.h:1
-msgid "Create branch"
-msgstr "브랜치 만들기"
-
-#: ../gitg/gitg-menus.xml.h:15 ../gitg/gitg-tag.ui.h:5
-msgid "Create tag"
-msgstr "태그 만들기"
-
-#: ../gitg/gitg-menus.xml.h:16
-msgid "Cherry-pick on..."
-msgstr "다음 으로부터 체리피킹..."
-
-#: ../gitg/gitg-preferences.ui.h:1
-msgid "Preferences"
-msgstr "기본 설정"
-
-#: ../gitg/gitg-preferences.ui.h:2
-msgid "<b>Interface</b>"
-msgstr "<b>인터페이스</b>"
-
-#: ../gitg/gitg-preferences.ui.h:3
-msgid "Use vertical layout"
-msgstr "수직 배치 사용"
-
-#: ../gitg/gitg-preferences.ui.h:4
-msgid "<b>Revisions</b>"
-msgstr "<b>리비전</b>"
-
-#: ../gitg/gitg-preferences.ui.h:5
-msgid "Search filters revisions in the history view"
-msgstr "기록 보기에 리비전 구분하여 검색"
-
-#: ../gitg/gitg-preferences.ui.h:6
+#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "작성자 세부 내용"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The git config file '%s' does not exist."
+msgstr "참고: '%s' git 설정 파일이 없습니다."
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr "모든 저장소에 기본값으로 설정할 자세한 설명을 입력하십시오:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "'%s' 저장소의 자세한 설명을 입력하십시오:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "전자 메일:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "이름:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "취소"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "저장"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+msgid "Clone Repository"
+msgstr "저장소 클론"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+msgid "Cl_one"
+msgstr "클론(_O)"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "Remote _URL:"
+msgstr "원격 URL(_U):"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "_Local Folder:"
+msgstr "로컬 폴더(_L):"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "Select location..."
+msgstr "위치를 선택하십시오..."
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+msgid "Bare repository"
+msgstr "비어있는 저장소"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "커밋(_O)"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+msgid "Add _signed-off-by signature"
+msgstr "signed-off-by 서명 추가(_S)"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "_Amend previous commit"
+msgstr "이전 커밋 개정(amend)(_A)"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Close"
+msgstr "닫기"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "커밋 훅 건너뛰기(_H)"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "주제"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "작성자"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "날짜"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "새 창(_N)"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+msgid "_Preferences"
+msgstr "기본 설정(_P)"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Help"
+msgstr "도움말(_H)"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "정보(_A)"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "끝내기(_Q)"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Open Repository…"
+msgstr "저장소 열기(_O)…"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Clone Repository…"
+msgstr "저장소 클론(_C)…"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
+msgid "_Author Details"
+msgstr "작성자 세부 내용(_A)"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "다시 읽기(_R)"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "마크업 표시"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "다음 칸에 주제 여백 표시(_S):"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "다음 칸에 오른쪽 여백 표시(_M):"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "철자 검사 활성화"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+msgid "Commit Message"
+msgstr "커밋 메시지"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "커밋"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
 msgid "Collapse inactive lanes"
-msgstr "비활성화 레인 축소"
+msgstr "비활성 레인 숨기기"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "기록에 stash 항목 표시"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "기록에 스테이지에 등록한 바뀐 내용 표시"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "기록에 스테이지에 등록하지 않은 바뀐 내용 표시"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "위상 순서로 기록 표시"
 
 # 기본 설정 History(기록) 탭에 있는 스크롤 막대 레이블
-#: ../gitg/gitg-preferences.ui.h:7
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Early"
 msgstr "빨리"
 
 # 기본 설정 History(기록) 탭에 있는 스크롤 막대 레이블
-#: ../gitg/gitg-preferences.ui.h:8
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
 msgid "Late"
 msgstr "늦게"
 
-#: ../gitg/gitg-preferences.ui.h:9
-msgid "Show stash in history"
-msgstr "기록에 은닉 항목 보기"
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Layout"
+msgstr "배치"
 
-#: ../gitg/gitg-preferences.ui.h:10
-msgid "Show staged changes in history"
-msgstr "기록에 등록한 바뀐 점 보기"
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+msgid "Use horizontal layout"
+msgstr "수평 배치 사용"
 
-#: ../gitg/gitg-preferences.ui.h:11
-msgid "Show unstaged changes in history"
-msgstr "기록에 등록하지 않은 바뀐 점 보기"
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "gitg Preferences"
+msgstr "gitg 기본 설정"
 
-#: ../gitg/gitg-preferences.ui.h:12
-msgid "Show history in topological order"
-msgstr "위상 순서로 기록 보기"
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "컬럼"
 
-#: ../gitg/gitg-preferences.ui.h:13
-msgid "Preferences that apply to the history view"
-msgstr "기록 보기에 적용할 기본 설정"
+#~ msgid "Filter Revisions When Searching"
+#~ msgstr "검색할 때 리비전 구분"
 
-#: ../gitg/gitg-preferences.ui.h:14 ../gitg/gitg-window.ui.h:6
-msgid "History"
-msgstr "기록"
+#~ msgid ""
+#~ "Whether searching filters the revisions in the history view instead of "
+#~ "jumping to the first match."
+#~ msgstr ""
+#~ "처음 일치하는 내용으로 건너 뛰는 대신 기록 보기의 리비전을 구분하여 검색"
+#~ "할 지에 대한 여부입니다."
 
-#: ../gitg/gitg-preferences.ui.h:15
-msgid "<b>Commit Message</b>"
-msgstr "<b>커밋 메시지</b>"
+#~ msgid "Show Main View in Vertical or Horizontal Layout"
+#~ msgstr "메인 보기를 수직 또는 수평 배치로 보기"
 
-#: ../gitg/gitg-preferences.ui.h:16
-msgid "Display right _margin"
-msgstr "오른쪽 여백 표시(_M)"
+#~ msgid "Show files view in blame mode"
+#~ msgstr "책임자 모드로 파일 보기"
 
-#: ../gitg/gitg-preferences.ui.h:17
-msgid "_Right margin at column:"
-msgstr "칸의 오른쪽 여백(_R):"
+#~ msgid "Setting that sets files view to blame mode."
+#~ msgstr "책임자 모드로 파일보기를 설정합니다."
 
-#: ../gitg/gitg-preferences.ui.h:18
-msgid "Preferences that apply to the commit view"
-msgstr "커밋 보기에 적용할 기본 설정"
+#~ msgid "Allow External Diff Program"
+#~ msgstr "외부 diff 프로그램 허용"
 
-#: ../gitg/gitg-preferences.ui.h:19 ../gitg/gitg-window.ui.h:16
-msgid "Commit"
-msgstr "커밋"
+#~ msgid ""
+#~ "Allow an external diff program to be used when viewing diffs in gitg."
+#~ msgstr "gitg에서 비교 내용을 볼 때 외부 diff 프로그램 사용을 허용합니다."
 
-# diff는 일종의 명사와 같이 쓰이므로 비교라고 번역하지 말 것
-#: ../gitg/gitg-preferences.ui.h:20
-msgid "<b>Diff Program</b>"
-msgstr "<b>diff 프로그램</b>"
+#~ msgid "The command to handle GITG scheme URLs"
+#~ msgstr "GITG 스킴 URL을 다룰 명령"
 
-#: ../gitg/gitg-preferences.ui.h:21
-msgid "Allow external diff program"
-msgstr "외부 diff 프로그램 허용"
+#~ msgid "The command to handle GITG scheme URLs."
+#~ msgstr "GITG 스킴 URL을 다룰 명령입니다."
 
-# 기본 설정 창에 있는 탭 이름. 동작의 이름이므로 비교라고 번역합니다
-#: ../gitg/gitg-preferences.ui.h:22
-msgid "Diff"
-msgstr "비교"
+#~ msgid "Whether command to handle GITG scheme URLs needs a terminal"
+#~ msgstr "GITG 스킴 URL을 다루는 명령어가 터미널을 필요로 하는 지에 대한 여부"
 
-#: ../gitg/gitg-preferences.ui.h:23 ../gitg/gitg-repository.ui.h:6
-msgid "<b>User</b>"
-msgstr "<b>사용자</b>"
+#~ msgid "Whether command to handle GITG scheme URLs needs a terminal."
+#~ msgstr ""
+#~ "GITG 스킴 URL을 다루는 명령어가 터미널을 필요로 하는 지에 대한 여부입니다."
 
-#: ../gitg/gitg-preferences.ui.h:25 ../gitg/gitg-repository.ui.h:8
-msgid "E-mail:"
-msgstr "이메일:"
+#~ msgid "Whether command to handle GITG scheme URLs is enabled"
+#~ msgstr "GITG 스킴 URL을 다루는 명령어를 활성화 할 지에 대한 여부"
 
-#: ../gitg/gitg-preferences.ui.h:26
-msgid ""
-"Configure global git settings. This corresponds to the settings as stored in "
-"~/.gitconfig. Repository specific settings can be configured at the "
-"repository properties."
-msgstr ""
-"전체적인 git를 설정합니다. 이는 ~/.gitconfig에 저장하는 설정 내용과 관련이 있"
-"습니다. 저장소 관련 설정은 저장소 속성에서 설정할 수 있습니다."
+#~ msgid "Whether command to handle GITG scheme URLs is enabled."
+#~ msgstr "GITG 스킴 URL을 다루는 명령어를 활성화 할 지에 대한 여부입니다."
 
-#: ../gitg/gitg-preferences.ui.h:27 ../gitg/gitg-repository.ui.h:9
-msgid "Configuration"
-msgstr "설정"
+#~ msgid "Branch <%s> could not be removed"
+#~ msgstr "<%s> 브랜치를 제거할 수 없습니다"
 
-#: ../gitg/gitg-repository.ui.h:2
-msgid "Name"
-msgstr "이름"
+#~ msgid ""
+#~ "This usually means that the branch is not fully merged in HEAD. Do you "
+#~ "want to forcefully remove the branch?"
+#~ msgstr ""
+#~ "이는 보통 HEAD에 브랜치를 완전히 병합하지 않았음을 의미합니다. 브랜치를 강"
+#~ "제로 제거하시겠습니까?"
 
-#: ../gitg/gitg-repository.ui.h:3
-msgid "URL"
-msgstr "URL"
+#~ msgid "Force remove"
+#~ msgstr "강제 제거"
 
-#: ../gitg/gitg-repository.ui.h:5
-msgid "Remotes"
-msgstr "원격"
+#~ msgid "Branch <%s> could not be forcefully removed"
+#~ msgstr "<%s> 브랜치를 강제로 제거할 수 없습니다"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:1
-msgid "SHA:"
-msgstr "SHA:"
+#~ msgid "Failed to remove remote branch <%s>."
+#~ msgstr "<%s> 원격 브랜치를 제거하는데 실패했습니다."
 
-#: ../gitg/gitg-revision-details-panel.ui.h:2
-msgid "Author:"
-msgstr "저작자:"
+#~ msgid "Are you sure you want to remove the remote branch <%s>?"
+#~ msgstr "정말로 <%s> 원격 브랜치를 제거하시겠습니까?"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:3
-msgid "Committer:"
-msgstr "커미터:"
+#~ msgid "This permanently removes the remote branch."
+#~ msgstr "원격 브랜치를 영원히 제거합니다."
 
-#: ../gitg/gitg-revision-details-panel.ui.h:4
-msgid "Subject:"
-msgstr "제목:"
+#~ msgid "Remove remote branch"
+#~ msgstr "원격 브랜치 제거"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:5
-msgid "Parent:"
-msgstr "상위:"
+#~ msgid "Remove branch"
+#~ msgstr "브랜치 제거"
 
-#: ../gitg/gitg-revision-files-panel.ui.h:1
-msgid "Switch to Blame mode"
-msgstr "책임자 모드로 전환"
+#~ msgid "Are you sure you want to remove this stash item?"
+#~ msgstr "정말로 이 숨김 항목(stash)을 제거하시겠습니까?"
 
-#: ../gitg/gitg-tag.ui.h:3
-msgid "Message:"
-msgstr "메시지:"
+#~ msgid "This permanently removes the stash item"
+#~ msgstr "숨김 항목을 영원히 제거합니다"
 
-#: ../gitg/gitg-tag.ui.h:4
-msgid "Create signed tag object"
-msgstr "서명 태그 객체 만들기"
+#~ msgid "Remove stash"
+#~ msgstr "숨김 항목 제거"
 
-#: ../gitg/gitg-ui.xml.h:1
-msgid "_File"
-msgstr "파일(_F)"
+#~ msgid "Failed to remove stash"
+#~ msgstr "숨김 항목 제거에 실패했습니다"
 
-#: ../gitg/gitg-ui.xml.h:2
-msgid "_Edit"
-msgstr "편집(_E)"
+#~ msgid "The stash item could not be successfully removed"
+#~ msgstr "숨김 항목을 성공적으로 제거할 수 없습니다"
 
-#: ../gitg/gitg-ui.xml.h:3
-msgid "_View"
-msgstr "보기(_V)"
+#~ msgid "Are you sure you want to remove the tag <%s>?"
+#~ msgstr "정말로 <%s> 태그를 제거하시겠습니까?"
 
-#: ../gitg/gitg-ui.xml.h:4
-msgid "_Help"
-msgstr "도움말(_H)"
+#~ msgid "Remove tag"
+#~ msgstr "태그 제거"
 
-#: ../gitg/gitg-ui.xml.h:5
-msgid "_Open..."
-msgstr "열기(_O)..."
+#~ msgid "The tag <%s> could not be successfully removed"
+#~ msgstr "<%s> 태그를 성공적으로 제거할 수 없습니다"
 
-#: ../gitg/gitg-ui.xml.h:6
-msgid "R_ecently Opened"
-msgstr "최근 목록(_E)"
+#~ msgid "Branch <%s> could not be renamed to <%s>"
+#~ msgstr "<%s> 브랜치의 이름을 <%s>(으)로 바꿀 수 없습니다"
 
-#: ../gitg/gitg-window.ui.h:2
-msgid "Branch:"
-msgstr "브랜치:"
+#~ msgid ""
+#~ "This usually means that a branch with that name already exists. Do you "
+#~ "want to overwrite the branch?"
+#~ msgstr ""
+#~ "이는 흔히 이런 이름을 가진 브랜치가 이미 있다는 것을 의미합니다. 브랜치를 "
+#~ "덮어쓰시겠습니까?"
 
-#: ../gitg/gitg-window.ui.h:5
-msgid "Date"
-msgstr "날짜"
+#~ msgid "Force rename"
+#~ msgstr "강제로 이름 바꾸기"
 
-#: ../gitg/gitg-window.ui.h:8
-msgid "Context:"
-msgstr "문맥 수:"
+#~ msgid "Branch <%s> could not be forcefully renamed"
+#~ msgstr "<%s> 브랜치의 이름을 강제로 바꿀 수 없습니다"
 
-#: ../gitg/gitg-window.ui.h:9
-msgid "_Unstaged"
-msgstr "등록하지 않음(_U)"
+#~ msgid "Do you want to temporarily stash these changes?"
+#~ msgstr "이 바뀐 점들을 임시로 숨기시겠습니까?"
 
-#: ../gitg/gitg-window.ui.h:10
-msgid "Unstaged"
-msgstr "등록하지 않음"
+#~ msgid "Do you want to stash and reapply these changes?"
+#~ msgstr "이 바뀐 점들을 숨기고 다시 적용하시겠습니까?"
 
-#: ../gitg/gitg-window.ui.h:11
-msgid "Co_mmit message"
-msgstr "메시지 커밋(_M)"
+#~ msgid "You have uncommited changes in your current working tree"
+#~ msgstr "현재 작업 트리에서 커밋하지 않은 바뀐 점이 있습니다"
 
-#: ../gitg/gitg-window.ui.h:12
-msgid "Amend"
-msgstr "개정"
+#~ msgid "Stash changes"
+#~ msgstr "숨김 항목 바뀐 점"
 
-#: ../gitg/gitg-window.ui.h:13
-msgid "Add signed-off-by"
-msgstr "승인자 추가"
+#~ msgid "Failed to checkout local branch <%s>"
+#~ msgstr "<%s> 지역 브랜치를 체크아웃하는데 실패했습니다"
 
-#: ../gitg/gitg-window.ui.h:14
-msgid "_Commit"
-msgstr "커밋(_C)"
+#~ msgid "Failed to checkout remote branch <%s> to local branch <%s>"
+#~ msgstr "<%s> 원격 브랜치를 <%s> 지역 브랜치로 체크아웃하는데 실패했습니다"
 
-#: ../gitg/gitg-window.ui.h:15
-msgid "_Staged"
-msgstr "등록함(_S)"
+#~ msgid "Failed to checkout tag <%s> to local branch <%s>"
+#~ msgstr "<%s> 태그를 <%s> 지역 브랜치에 체크아웃하는데 실패했습니다"
+
+#~ msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
+#~ msgstr ""
+#~ "<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 기준을 정하는데 실패"
+#~ "했습니다"
+
+#~ msgid "Failed to merge %s branch <%s> with %s branch <%s>"
+#~ msgstr ""
+#~ "<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 병합하는데 실패했습"
+#~ "니다"
+
+#~ msgid "local"
+#~ msgstr "지역"
+
+#~ msgid "remote"
+#~ msgstr "원격"
+
+#~ msgid "The stashed changes have been stored to be reapplied manually"
+#~ msgstr "저장한 숨김 항목 바뀐 점을 수동으로 다시 적용할 것입니다"
+
+#~ msgid "Failed to checkout previously checked out branch"
+#~ msgstr "이전에 체크아웃한 브랜치를 체크아웃하는데 실패했습니다"
+
+#~ msgid "Failed to reapply stash correctly"
+#~ msgstr "숨김 항목을 올바르게 다시 적용하는데 실패했습니다"
+
+#~ msgid ""
+#~ "There might be unresolved conflicts in the working tree or index which "
+#~ "you need to resolve manually"
+#~ msgstr ""
+#~ "작업 트리에 해결하지 못한 충돌이 있거나 수동으로 해결해야 할 인덱스가 있"
+#~ "는 것 같습니다"
+
+#~ msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
+#~ msgstr ""
+#~ "<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 병합하시겠습니까?"
+
+#~ msgid "Merge"
+#~ msgstr "병합"
+
+#~ msgid "The branch on which to merge could not be checked out"
+#~ msgstr "병합할 브랜치를 체크아웃 할 수 없습니다"
+
+#~ msgid "Merging %s branch <%s> onto %s branch <%s>"
+#~ msgstr "<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 병합하는 중"
+
+#~ msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
+#~ msgstr ""
+#~ "<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 기준을 정하시겠습니"
+#~ "까?"
+
+#~ msgid "Rebase"
+#~ msgstr "기준 정하기"
+
+#~ msgid "Unable to rebase"
+#~ msgstr "기준을 정할 수 없습니다"
+
+#~ msgid ""
+#~ "There are still uncommitted changes in your working tree and you are "
+#~ "trying to rebase a branch onto the currently checked out branch. Either "
+#~ "remove, stash or commit your changes first and try again"
+#~ msgstr ""
+#~ "작업 트리에 커밋하지 않은 바뀐 점이 있고 현재 체크아웃한 브랜치로 브랜치"
+#~ "의 기준을 잡으려 하고 있습니다. 바뀐 점을 우선적으로 제거하거나, 은닉, 커"
+#~ "밋하시고 다시 시도하십시오"
+
+#~ msgid "Rebasing %s branch <%s> onto %s branch <%s>"
+#~ msgstr ""
+#~ "<%2$s> 브랜치의 %1$s을(를) <%4$s> 브랜치의 %3$s(으)로 기준 정하는 중"
+
+#~ msgid "Failed to push local branch <%s> to remote <%s>"
+#~ msgstr "<%s> 지역 브랜치를 <%s> 원격 브랜치로 푸시하는데 실패했습니다"
+
+#~ msgid ""
+#~ "This usually means that the remote branch could not be fast-forwarded. "
+#~ "Try fetching the latest changes."
+#~ msgstr ""
+#~ "이는 보통 원격 브랜치를 이전 내용으로 전달할 수 없음을 의미합니다. 최근 바"
+#~ "뀐 점을 가져와 보십시오."
+
+#~ msgid "Are you sure you want to push <%s> to <%s>?"
+#~ msgstr "정말로 <%s>을(를) <%s>(으)로  푸시하시겠습니까?"
+
+#~ msgid "Push"
+#~ msgstr "푸시하기"
+
+#~ msgid "Pushing local branch <%s> to remote branch <%s>"
+#~ msgstr "<%s> 지역 브랜치를 <%s> 원격 브랜치로 푸시하는 중"
+
+#~ msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
+#~ msgstr "정말로 <%s>을(를) 원격 <%s/%s>(으)로 푸시하시겠습니까?"
+
+#~ msgid "Pushing local branch <%s> to remote branch <%s/%s>"
+#~ msgstr "<%s> 지역 브랜치를 <%s/%s> 원격 브랜치로 푸시하는 중"
+
+#~ msgid "Are you sure you want to apply the stash item to local branch <%s>?"
+#~ msgstr "정말로 은닉 항목을 <%s> 지역 브랜치에 적용하시겠습니까?"
+
+#~ msgid "Apply stash"
+#~ msgstr "은닉 항목 적용"
+
+#~ msgid "The stash could not be applied to local branch <%s>"
+#~ msgstr "<%s> 지역 브랜치에 은닉 항목을 적용할 수 없습니다"
+
+#~ msgid "Failed to apply stash"
+#~ msgstr "은닉 항목을 적용하는데 실패했습니다"
+
+#~ msgid "The branch could not be successfully created"
+#~ msgstr "브랜치를 성공적으로 만들 수 없습니다"
+
+#~ msgid "Failed to create a branch"
+#~ msgstr "브랜치를 만드는데 실패했습니다"
+
+#~ msgid ""
+#~ "The tag object could not be successfully created. Please make sure you "
+#~ "have a GPG key and the key is unlocked"
+#~ msgstr ""
+#~ "태그 객체를 성공적으로 만들 수 없습니다. GPG 키를 가지고 있고 키가 잠금 해"
+#~ "제 되어 있는지 확인하여 주십시오"
+
+#~ msgid "The tag object could not be successfully created"
+#~ msgstr "태그 객체를 성공적으로 만들 수 없습니다"
+
+#~ msgid "Failed to cherry-pick on <%s>"
+#~ msgstr "<%s>에서 체리피킹하는데 실패했습니다"
+
+#~ msgid "Are you sure you want to cherry-pick that revision on <%s>?"
+#~ msgstr "정말로 <%s>의 리비전을 체리피킹 하시겠습니까?"
+
+#~ msgid "Cherry-pick"
+#~ msgstr "체리피킹"
+
+#~ msgid "The branch on which to cherry-pick could not be checked out"
+#~ msgstr "체리피킹한 브랜치를 체크아웃 할 수 없습니다"
+
+#~ msgid "Cherry-picking on <%s>"
+#~ msgstr "<%s>에서 체리피킹"
+
+#~ msgid "Failed to generate format-patch"
+#~ msgstr "패치를 만드는데 실패했습니다"
+
+#~ msgid "Generating format-patch for <%s>"
+#~ msgstr "<%s>에 대한 패치 생성중"
+
+#~ msgid "Format patch"
+#~ msgstr "패치"
+
+#~ msgid "Start gitg in commit mode"
+#~ msgstr "gitg를 커밋 모드로 시작하기"
+
+#~ msgid "Select commit after loading the repository"
+#~ msgstr "저장소를 불러온 다음 커밋을 선택"
+
+#~ msgid "Cannot display file content as text"
+#~ msgstr "파일 내용을 텍스트로 표시할 수 없습니다"
+
+#~ msgid "You must first stage some changes before committing"
+#~ msgstr "커밋하기 전에 바뀐 점을 먼저 등록해야 합니다"
+
+#~ msgid ""
+#~ "Your user name or email could not be retrieved for use in the sign off "
+#~ "message"
+#~ msgstr "승인 메시지에 사용할 사용자 이름 또는 이메일을 찾을 수 없습니다"
+
+#~ msgid "Something went wrong while trying to commit"
+#~ msgstr "커밋을 시도할 때 무언가가 잘못되었습니다"
+
+#~ msgid "Revert fail"
+#~ msgstr "되돌리기 실패"
+
+#~ msgid "Are you sure you want to revert these changes?"
+#~ msgstr "정말로 이 바뀐 점을 되돌리시겠습니까?"
+
+#~ msgid "Reverting changes is permanent and cannot be undone"
+#~ msgstr "바뀐 점을 되돌리는 것은 되돌릴 수 없습니다"
+
+#~ msgid "Delete Failed"
+#~ msgstr "삭제 실패"
+
+#~ msgid "Are you sure you want to delete these files?"
+#~ msgstr "정말로 이 파일들을 삭제하시겠습니까?"
+
+#~ msgid "Deleting files is permanent and cannot be undone"
+#~ msgstr "파일들을 삭제하는 것은 되돌릴 수 없습니다"
+
+#~ msgid "Fetch"
+#~ msgstr "가져오기"
+
+#~ msgid "Properties"
+#~ msgstr "속성"
+
+#~ msgid "Changes"
+#~ msgstr "바뀐 점"
+
+#~ msgid "Committer"
+#~ msgstr "커미터"
+
+#~ msgid "(Empty)"
+#~ msgstr "(비어 있음)"
+
+#~ msgid "Select branch"
+#~ msgstr "브랜치 선택"
+
+#~ msgid "Push local branch <%s> to remote branch <%s>"
+#~ msgstr "<%s> 지역 브랜치를 <%s> 원격 브랜치로 푸시하기"
+
+#~ msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
+#~ msgstr "<%s> 지역 브랜치를 <%s> 지역 브랜치로 병합하거나 기준 정하기"
+
+#~ msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
+#~ msgstr "<%s> 지역 브랜치에서 <%s> 원격 브랜치로 병합하거나 기준 정하기"
+
+#~ msgid "Apply stash to local branch <%s>"
+#~ msgstr "은닉 항목을 <%s> 지역 브랜치에 적용"
+
+#~ msgid "Cherry-pick revision on <%s>"
+#~ msgstr "<%s>에서 리비전을 체리피킹하기"
+
+#~ msgid "Loaded %d revisions in %.2fs"
+#~ msgstr "%d개의 리비전을 %.2f초에 불러왔습니다"
+
+#~ msgid "Local branches"
+#~ msgstr "지역 브랜치"
+
+#~ msgid "All branches"
+#~ msgstr "모든 브랜치"
+
+#~ msgid "new"
+#~ msgstr "새 브랜치"
+
+#~ msgid "New local branch <%s>"
+#~ msgstr "새 지역 브랜치 <%s>"
+
+#~ msgid "Checkout working copy"
+#~ msgstr "작업 복사본 체크아웃"
+
+#~ msgid "Remove local branch"
+#~ msgstr "지역 브랜치 제거"
+
+#~ msgid "Rename local branch"
+#~ msgstr "지역 브랜치 이름 바꾸기"
+
+#~ msgid "Not all fields are correctly filled in"
+#~ msgstr "모든 필드가 올바르게 채워지지 않았습니다"
+
+#~ msgid "Please make sure to fill in the branch name"
+#~ msgstr "브랜치 이름을 채웠는지 확인해 주십시오"
+
+#~ msgid "Please make sure to fill in both the tag name and the commit message"
+#~ msgstr "태그 이름과 커밋 메시지를 채웠는지 확인해 주십시오"
+
+#~ msgid "Please make sure to fill in the tag name"
+#~ msgstr "태그 이름을 채웠는지 확인해 주십시오"
+
+#~ msgid "Format patch failed for unknown reason"
+#~ msgstr "알 수 없는 이유로 패치 실패"
+
+#~ msgid "Please check if you have the right permissions to write the file"
+#~ msgstr ""
+#~ "파일에 기록하기 위해 올바른 권한을 가지고 있는지 확인하여 주시기 바랍니다"
+
+#~ msgid "Save format patch"
+#~ msgstr "패치 저장"
+
+#~ msgid "Unicode"
+#~ msgstr "유니코드"
+
+#~ msgid "Western"
+#~ msgstr "서부유럽어"
+
+#~ msgid "Central European"
+#~ msgstr "중앙유럽"
+
+#~ msgid "South European"
+#~ msgstr "남유럽어"
+
+#~ msgid "Baltic"
+#~ msgstr "발트어"
+
+#~ msgid "Cyrillic"
+#~ msgstr "키릴어"
+
+#~ msgid "Arabic"
+#~ msgstr "아라비아어"
+
+#~ msgid "Greek"
+#~ msgstr "그리스어"
+
+#~ msgid "Hebrew Visual"
+#~ msgstr "히브리 상형문자"
+
+#~ msgid "Turkish"
+#~ msgstr "터키어"
+
+#~ msgid "Nordic"
+#~ msgstr "노르웨이어"
+
+#~ msgid "Celtic"
+#~ msgstr "켈트어"
+
+#~ msgid "Romanian"
+#~ msgstr "루마니아어"
+
+#~ msgid "Armenian"
+#~ msgstr "아르메니아어"
+
+#~ msgid "Chinese Traditional"
+#~ msgstr "중국어 번체"
+
+#~ msgid "Cyrillic/Russian"
+#~ msgstr "키릴/러시아어"
+
+#~ msgid "Japanese"
+#~ msgstr "일본어"
+
+#~ msgid "Korean"
+#~ msgstr "한국어"
+
+#~ msgid "Chinese Simplified"
+#~ msgstr "중국어 간체"
+
+#~ msgid "Georgian"
+#~ msgstr "조지아어"
+
+#~ msgid "Hebrew"
+#~ msgstr "히브리어"
+
+#~ msgid "Cyrillic/Ukrainian"
+#~ msgstr "키릴/우크라이나어"
+
+#~ msgid "Vietnamese"
+#~ msgstr "베트남어"
+
+#~ msgid "Thai"
+#~ msgstr "타이어"
+
+#~ msgid "Unknown"
+#~ msgstr "알 수 없음"
+
+#~ msgid "Staged changes"
+#~ msgstr "등록한 바뀐 점"
+
+#~ msgid "It is not possible to detect the encoding automatically"
+#~ msgstr "인코딩을 자동으로 감지할 수 없습니다"
+
+#~ msgid "Stage"
+#~ msgstr "등록"
+
+#~ msgid "Revert"
+#~ msgstr "되돌리기"
+
+#~ msgid "Ignore"
+#~ msgstr "무시"
+
+#~ msgid "_Subject"
+#~ msgstr "제목(_S)"
+
+#~ msgid "_Author"
+#~ msgstr "저작자(_A)"
+
+#~ msgid "_Date"
+#~ msgstr "날짜(_D)"
+
+#~ msgid "_Hash"
+#~ msgstr "해시(_H)"
+
+#~ msgid "Checkout branch"
+#~ msgstr "브랜치 체크아웃"
+
+#~ msgid "Rename branch"
+#~ msgstr "브랜치 이름 바꾸기"
+
+#~ msgid "Rebase branch onto..."
+#~ msgstr "다음으로 브랜치 기준 정하기..."
+
+#~ msgid "Merge branch with..."
+#~ msgstr "다음과 브랜치 병합하기..."
+
+#~ msgid "Push branch to..."
+#~ msgstr "다음으로 브랜치 푸시하기..."
+
+#~ msgid "Apply stash to..."
+#~ msgstr "다음에 은닉 항목 적용..."
+
+#~ msgid "Create branch"
+#~ msgstr "브랜치 만들기"
+
+#~ msgid "Create tag"
+#~ msgstr "태그 만들기"
+
+#~ msgid "Cherry-pick on..."
+#~ msgstr "다음 으로부터 체리피킹..."
+
+#~ msgid "<b>Revisions</b>"
+#~ msgstr "<b>리비전</b>"
+
+#~ msgid "Search filters revisions in the history view"
+#~ msgstr "기록 보기에 리비전 구분하여 검색"
+
+#~ msgid "Preferences that apply to the history view"
+#~ msgstr "기록 보기에 적용할 기본 설정"
+
+#~ msgid "<b>Commit Message</b>"
+#~ msgstr "<b>커밋 메시지</b>"
+
+#~ msgid "Preferences that apply to the commit view"
+#~ msgstr "커밋 보기에 적용할 기본 설정"
