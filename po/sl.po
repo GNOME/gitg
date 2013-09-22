@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-09-02 17:11+0000\n"
-"PO-Revision-Date: 2013-09-03 22:47+0100\n"
+"POT-Creation-Date: 2013-09-03 20:48+0000\n"
+"PO-Revision-Date: 2013-09-20 22:59+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -157,7 +157,6 @@ msgstr "Ni mogoče nastaviti jezika za črkovanje: %s"
 #: ../gitg/commit/gitg-commit.vala:59
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#, fuzzy
 msgid "Commit"
 msgstr "Uveljavi"
 
@@ -345,39 +344,35 @@ msgid "Now"
 msgstr "Takoj"
 
 #: ../libgitg/gitg-date.vala:320
-#, fuzzy
 msgid "A minute ago"
-msgstr "Pred %d minutami"
+msgstr "Pred minuto"
 
 #: ../libgitg/gitg-date.vala:320
-#, fuzzy, c-format
+#, c-format
 msgid "%d minutes ago"
-msgstr "pred {0} dnevi, {1}"
+msgstr "Pred %d minutami"
 
 #: ../libgitg/gitg-date.vala:325
-#, fuzzy
 msgid "Half an hour ago"
-msgstr "pred %lu urami\n"
+msgstr "Pred pol ure"
 
 #: ../libgitg/gitg-date.vala:330
-#, fuzzy
 msgid "An hour ago"
+msgstr "Pred eno uro"
+
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "%d hours ago"
 msgstr "Pred %d urami"
 
-#: ../libgitg/gitg-date.vala:330
-#, fuzzy, c-format
-msgid "%d hours ago"
-msgstr "pred {0} dnevi, {1}"
-
 #: ../libgitg/gitg-date.vala:335
-#, fuzzy
 msgid "A day ago"
-msgstr "pred {0} dnevi, {1}"
+msgstr "Pred enim dnevom"
 
 #: ../libgitg/gitg-date.vala:335
-#, fuzzy, c-format
+#, c-format
 msgid "%d days ago"
-msgstr "Pred {0} dnevi, {1}"
+msgstr "Pred %d dnevi"
 
 #: ../libgitg/gitg-diff-view.vala:89
 #, fuzzy
@@ -532,18 +527,16 @@ msgid "_Clone Repository…"
 msgstr "_Kloniraj skladišče ..."
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-#, fuzzy
 msgid "_Author Details"
-msgstr "Podrobnosti modula:"
+msgstr "Podrobnosti _avtorja"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:9
 msgid "_Reload"
 msgstr "_Ponovno naloži"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
-#, fuzzy
 msgid "Show markup"
-msgstr "Pokaži/Skrij kodne oznake."
+msgstr "Pokaži kodne oznake"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
 #, fuzzy
@@ -556,7 +549,6 @@ msgid "Display right _margin at column:"
 msgstr "Prikaži desni _rob na stolpcu:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
-#, fuzzy
 msgid "Enable spell checking"
 msgstr "Omogoči črkovanje"
 
@@ -612,48 +604,3 @@ msgstr "Možnosti"
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "stolpec"
-
-#~ msgid "Filter Revisions When Searching"
-#~ msgstr "Filtriraj predelave med iskanjem"
-
-#~ msgid ""
-#~ "Whether searching filters the revisions in the history view instead of "
-#~ "jumping to the first match."
-#~ msgstr ""
-#~ "Ali iskanje v pogledu zgodovine, filtrira predelave namesto neposrednega "
-#~ "skoka na prvi zadetek."
-
-#~ msgid "Allow External Diff Program"
-#~ msgstr "Dovoli zunanji program za primerjavo"
-
-#~ msgid ""
-#~ "Allow an external diff program to be used when viewing diffs in gitg."
-#~ msgstr ""
-#~ "Dovoli zunanji program za primerjavo za ogled razlik v programu gitg."
-
-#~ msgid "    "
-#~ msgstr "    "
-
-#~ msgid "Show all history"
-#~ msgstr "Pokaži vso zgodovino"
-
-#~ msgid "Show gitg history options"
-#~ msgstr "Pokaži možnosti zgodovine gitg"
-
-#~ msgid "gitg history options"
-#~ msgstr "Možnosti zgodovine gitg"
-
-#~ msgid "        "
-#~ msgstr "        "
-
-#~ msgid "Select Repository"
-#~ msgstr "Izberi skladišče"
-
-#~ msgid "Clone Repository..."
-#~ msgstr "Kloniraj skladišče ..."
-
-#~ msgid "URL:"
-#~ msgstr "Naslov URL:"
-
-#~ msgid "Location:"
-#~ msgstr "Mesto:"
