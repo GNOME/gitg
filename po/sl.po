@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-09-03 20:48+0000\n"
-"PO-Revision-Date: 2013-09-20 22:59+0100\n"
+"POT-Creation-Date: 2013-09-22 19:22+0000\n"
+"PO-Revision-Date: 2013-09-25 17:02+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -116,18 +116,16 @@ msgid "Column at Which Right Margin is Shown"
 msgstr "Stolpec na katerem je prikazan desni rob"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-#, fuzzy
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr ""
-"Stolpec na katerem je prikazan desni rob, v primeru da je izbrana možnost "
-"desnega robu."
+"Stolpec, pri katerem je prikazan desni rob, kadar je izbrana možnost "
+"prikaza desnega robu."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-#, fuzzy
 msgid "Show Subject Margin in Commit Message View"
-msgstr "Pokaži desni rob v pogledu sporočil uveljavitev"
+msgstr "Pokaži rob zadeve v pogledu sporočil uveljavitev"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid ""
@@ -136,18 +134,16 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-#, fuzzy
 msgid "Column at Which Subject Margin is Shown"
-msgstr "Stolpec na katerem je prikazan desni rob"
+msgstr "Stolpec, pri katerem je prikazan rob zadeve"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-#, fuzzy
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
 msgstr ""
-"Stolpec na katerem je prikazan desni rob, v primeru da je izbrana možnost "
-"desnega robu."
+"Stolpec, pri katerem je prikazan rob zadeve, kadar je izbrana možnost "
+"prikaza robu zadeve."
 
 #: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
@@ -161,68 +157,60 @@ msgid "Commit"
 msgstr "Uveljavi"
 
 #: ../gitg/commit/gitg-commit.vala:144
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to stage the file `%s'"
-msgstr "Odstranjevanje datoteke `%s' je spodletelo: %s"
+msgstr "Postavljanje datoteke `%s' v pripravljenost je spodletelo."
 
 #: ../gitg/commit/gitg-commit.vala:163
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to stage the removal of file `%s'"
-msgstr "Napaka med shranjevanjem datoteke predpomnilnika \"%s\": %s."
+msgstr "Postavljanje odstranitve datoteke `%s' v pripravljenost je spodletelo."
 
 #: ../gitg/commit/gitg-commit.vala:223
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to unstage the removal of file `%s'"
-msgstr "Napaka med shranjevanjem datoteke predpomnilnika \"%s\": %s."
+msgstr "Postavljanje odstranitve datoteke `%s' iz pripravljenosti je spodletelo."
 
 #: ../gitg/commit/gitg-commit.vala:242
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to unstage the file `%s'"
-msgstr "Odstranjevanje datoteke `%s' je spodletelo: %s"
+msgstr "Postavljanje datoteke `%s' iz pripravljenosti je spodletelo"
 
 #: ../gitg/commit/gitg-commit.vala:366
-#, fuzzy
 msgid "Staged"
-msgstr "_V pripravljenost"
+msgstr "V pripravljenosti"
 
 #: ../gitg/commit/gitg-commit.vala:370
-#, fuzzy
 msgid "No staged files"
-msgstr "Ni izbranih datoteke v pripravljenosti."
+msgstr "Ni datotek v pripravljenosti."
 
 #: ../gitg/commit/gitg-commit.vala:379
-#, fuzzy
 msgid "Unstaged"
-msgstr "Spremembe, ki niso v pripravljenosti"
+msgstr "Nepripravljeno"
 
 #: ../gitg/commit/gitg-commit.vala:383
-#, fuzzy
 msgid "No unstaged files"
-msgstr "Ni najdenih datotek"
+msgstr "Ni nepripravljenih datotek."
 
 #: ../gitg/commit/gitg-commit.vala:392
-#, fuzzy
 msgid "Untracked"
 msgstr "Brez sledenja"
 
 #: ../gitg/commit/gitg-commit.vala:396
-#, fuzzy
 msgid "No untracked files"
-msgstr "Ni najdenih datotek"
+msgstr "Ni datotek brez sledenja."
 
 #: ../gitg/commit/gitg-commit.vala:432
-#, fuzzy
 msgid "There are no changes to be committed"
-msgstr "Ni izbranih izrezkov za izvoz"
+msgstr "Ni sprememb za uveljavitev"
 
 #: ../gitg/commit/gitg-commit.vala:433
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 
 #: ../gitg/commit/gitg-commit.vala:459
-#, fuzzy
 msgid "Failed to commit"
-msgstr "Uveljavi za povrnitev:"
+msgstr "Uveljavitev je spodletela"
 
 #. TODO: better to show user info dialog directly or something
 #: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
@@ -234,31 +222,36 @@ msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr ""
+"Vaše uporabniško ime in elektronski naslov še nista nastavljena. Odprite "
+"nastavitve uporabnika in manjkajoče podatke vnesite."
 
 #: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr ""
+"Vaše ime še ni nastavljeno. Odprite nastavitve uporabnika in vnesite "
+"podatek."
 
 #: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
+"Vaš elektronski naslov še ni nastavljen. Odprite nastavitve uporabnika in "
+"vnesite podatek."
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Pokaži različico programa"
 
 #: ../gitg/gitg-application.vala:58
-#, fuzzy
 msgid "Start gitg with a particular activity"
-msgstr "Zagon programa git v izbranem pogledu"
+msgstr "Zaženi gitg z določeno dejavnostjo"
 
 #: ../gitg/gitg-application.vala:61
 msgid "Start gitg with the commit activity (shorthand for --view commit)"
-msgstr ""
+msgstr "Zaženi gitg z dejavnostjo uveljavljanja (okrajšava za --view commit)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
@@ -277,9 +270,8 @@ msgid "gitg homepage"
 msgstr "Spletna stran programa gitg"
 
 #: ../gitg/gitg-author-details-dialog.vala:65
-#, fuzzy
 msgid "Unable to open the .gitconfig file."
-msgstr "Ni mogoče odpreti datoteke pomoči"
+msgstr "Datoteke .gitconfig ni mogoče odpreti."
 
 #: ../gitg/gitg-author-details-dialog.vala:147
 msgid "Failed to set Git user config."
@@ -289,26 +281,26 @@ msgstr "Nastavljanje uporabniških določil je spodletelo."
 msgid "The URL introduced is not supported"
 msgstr "Podan naslov URL ni podprt"
 
-#: ../gitg/gitg-window.vala:257
+#: ../gitg/gitg-window.vala:263
 msgid "Projects"
 msgstr "Projekti"
 
-#: ../gitg/gitg-window.vala:293
+#: ../gitg/gitg-window.vala:299
 msgid "Open Repository"
 msgstr "Odpri skladišče"
 
-#: ../gitg/gitg-window.vala:295
+#: ../gitg/gitg-window.vala:301
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: ../gitg/gitg-window.vala:296
+#: ../gitg/gitg-window.vala:302
 msgid "_Open"
 msgstr "_Odpri"
 
-#: ../gitg/gitg-window.vala:526
-#, fuzzy, c-format
+#: ../gitg/gitg-window.vala:532
+#, c-format
 msgid "'%s' is not a Git repository."
-msgstr "Nepričakovana napaka: odjavna mapa checkoutdir ni pravo skladišče git:"
+msgstr "'%s' ni skladišče Git."
 
 #: ../gitg/history/gitg-history-navigation.vala:194
 #: ../gitg/history/gitg-history-navigation.vala:302
@@ -375,19 +367,16 @@ msgid "%d days ago"
 msgstr "Pred %d dnevi"
 
 #: ../libgitg/gitg-diff-view.vala:89
-#, fuzzy
 msgid "stage"
-msgstr "V pripravljenost"
+msgstr "v pripravljenost"
 
 #: ../libgitg/gitg-diff-view.vala:90
-#, fuzzy
 msgid "unstage"
-msgstr "Počisti pripravljenost"
+msgstr "iz pripravljenosti"
 
 #: ../libgitg/gitg-diff-view.vala:91
-#, fuzzy
 msgid "Loading diff..."
-msgstr "Običajna primerjava"
+msgstr "Nalaganje primerjave ..."
 
 #: ../libgitg/gitg-stage.vala:279
 #, c-format
@@ -414,12 +403,12 @@ msgstr ""
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
 msgid "Enter details to set as default for all repositories:"
-msgstr ""
+msgstr "Vnesite privzete podrobnosti za vsa skladišča:"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Enter details for repository '%s':"
-msgstr "Vnesite podrobnosti novega računa"
+msgstr "Vnesite podrobnosti za skladišče  '%s':"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
 msgid "E-mail: "
@@ -467,14 +456,12 @@ msgid "C_ommit"
 msgstr "_Uveljavi"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
-#, fuzzy
 msgid "Add _signed-off-by signature"
-msgstr "Dodaj odpis po vrsticah"
+msgstr ""
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
-#, fuzzy
 msgid "_Amend previous commit"
-msgstr "Izboljšava predhodne uveljavitve"
+msgstr "_Dopolni predhodno uveljavitev"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 #: ../gitg/resources/ui/gitg-window.ui.h:2
@@ -482,9 +469,8 @@ msgid "Close"
 msgstr "Zapri"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
-#, fuzzy
 msgid "Skip commit _hooks"
-msgstr "Izboljšava predhodne uveljavitve"
+msgstr ""
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -539,23 +525,20 @@ msgid "Show markup"
 msgstr "Pokaži kodne oznake"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-#, fuzzy
 msgid "Display _subject margin at column:"
-msgstr "Prikaži desni _rob na stolpcu:"
+msgstr "Prikaži _rob zadeve v stolpcu:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-#, fuzzy
 msgid "Display right _margin at column:"
-msgstr "Prikaži desni _rob na stolpcu:"
+msgstr "Prikaži desni _rob pri stolpcu:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
 msgid "Enable spell checking"
 msgstr "Omogoči črkovanje"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-#, fuzzy
 msgid "Commit Message"
-msgstr "<b>Sporočilo uveljavljanja</b>"
+msgstr "Sporočilo uveljavljanja"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
 msgid "Commits"
