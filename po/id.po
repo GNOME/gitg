@@ -1,15 +1,15 @@
 # Indonesian translation for gitg.
 # Copyright (C) 2012 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
-# Andika Triwidada <andika@gmail.com>, 2012.
+# Andika Triwidada <andika@gmail.com>, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2012-10-20 13:42+0000\n"
-"PO-Revision-Date: 2012-10-21 18:35+0700\n"
+"POT-Creation-Date: 2013-09-02 17:08+0000\n"
+"PO-Revision-Date: 2013-10-04 13:04+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -29,24 +29,18 @@ msgid "Git repository browser"
 msgstr "Peramban repositori git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Filter Revisions When Searching"
-msgstr "Saring Revisi Ketika Mencari"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Orientasi antar muka utama (vertikal atau horisontal)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr ""
-"Apakah pencarian menyaring revisi dalam tilikan riwayat dan bukan melompat "
-"ke kecocokan pertama."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Pengaturan yang menentukan orientasi dari antar muka utama."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
 msgstr "Kapan Melipat Lajur Tak Aktif"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -56,33 +50,50 @@ msgstr ""
 "4 mengindikasikan 'masa akhir'."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Pengaturan yang mengindikasikan apakah melipat jalur riwayat yang tak "
+"menunjukkan aktivitas. Memfungsikan ini dapat memberikan tampilan riwayat "
+"yang lebih bersih ketika ada banyak pengembangan paralel. Lihat collapse-"
+"inactive-lanes untuk mengendalikan kapan jalur mesti dilipat."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid "Show History in Topological Order"
 msgstr "Tampilkan Riwayat dalam Urutan Topologis"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Pengaturan yang mengindikasikan apakah menampilkan riwayat dalam urutan "
 "topologis."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Show Main View in Vertical or Horizontal Layout"
-msgstr "Tampilkan Tilikan Utama dalam Tata Letak Vertikal atau Horisontal"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation layout of the main view."
-msgstr "Pengaturan yang menentukan orientasi tata letak dari tilikan utama."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Pengaturan yang mengindikasikan apakah menampilkan butir bagi stash dalam "
+"riwayat."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Show files view in blame mode"
-msgstr "Tampilkan tilikan berkas dalam mode blame"
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Pengaturan yang mengindikasikan apakah menampilkan butir virtual bagi "
+"perubahan yang kini disetor dalam riwayat."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-msgid "Setting that sets files view to blame mode."
-msgstr "Pengaturan yang menata tilikan berkas ke mode blame."
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Pengaturan yang mengindikasikan apakah menampilkan butir virtual bagi "
+"perubahan yang kini belum disetor dalam riwayat."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
@@ -103,177 +114,376 @@ msgstr "Kolom Dimana Marjin Kanan Ditampilkan"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
-"Kolom dimana marjin kanan ditampilkan bila preferensi right-margin ditata ke "
-"TRUE."
+"Kolom dimana marjin kanan ditampilkan bila preferensi show-right-margin "
+"ditata ke TRUE."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-msgid "Allow External Diff Program"
-msgstr "Ijinkan Program Diff Eksternal"
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Tampilkan Marjin Subjek dalam Tilikan Pesan Komit"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
 msgstr ""
-"Mengijinkan program diff eksternal dipakai ketika menilik diff dalam gitg."
+"Sorot teks subjek dari pesan commit ketika itu melewati marjin yang "
+"dinyatakan oleh subject-margin-position."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-msgid "The command to handle GITG scheme URLs"
-msgstr "Perintah untuk menangani URL skema GITG"
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Kolom Tempat Marjin Subjek Ditampilkan"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "The command to handle GITG scheme URLs."
-msgstr "Perintah untuk menangani URL skema GITG."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-msgid "Whether command to handle GITG scheme URLs needs a terminal"
-msgstr ""
-"Apakah perintah untuk menangani URL skema GITG memerlukan suatu terminal"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
-msgid "Whether command to handle GITG scheme URLs needs a terminal."
-msgstr ""
-"Apakah perintah untuk menangani URL skema GITG memerlukan suatu terminal."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
-msgid "Whether command to handle GITG scheme URLs is enabled"
-msgstr "Apakah perintah untuk menangani URL skema GITG difungsikan"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
-msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr "Apakah perintah untuk menangani URL skema GITG difungsikan."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
 msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
 msgstr ""
-"Pengaturan yang mengindikasikan apakah melipat jalur riwayat yang tak "
-"menunjukkan aktivitas. Memfungsikan ini dapat memberikan tampilan riwayat "
-"yang lebih bersih ketika ada banyak pengembangan paralel. Lihat collapse-"
-"inactive-lanes untuk mengendalikan kapan jalur mesti dilipat."
+"Kolom dimana marjin subjek ditampilkan bila preferensi show-subject-margin "
+"ditata ke TRUE."
 
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
+#: ../gitg/commit/gitg-commit-dialog.vala:283
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Tak bisa menata bahasa pemeriksaan ejaan: %s"
+
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgid "Commit"
+msgstr "Komit"
+
+#: ../gitg/commit/gitg-commit.vala:144
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Gagal men-stage berkas '%s'"
+
+#: ../gitg/commit/gitg-commit.vala:163
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Gagal men-stage penghapusan berkas '%s'"
+
+#: ../gitg/commit/gitg-commit.vala:223
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Gagal meng-unstage penghapusan berkas '%s'"
+
+#: ../gitg/commit/gitg-commit.vala:242
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Gagal meng-unstage berkas '%s'"
+
+#: ../gitg/commit/gitg-commit.vala:366
+msgid "Staged"
+msgstr "Di-stage"
+
+#: ../gitg/commit/gitg-commit.vala:370
+msgid "No staged files"
+msgstr "Tak ada berkas yang di-stage"
+
+#: ../gitg/commit/gitg-commit.vala:379
+msgid "Unstaged"
+msgstr "Di-unstage"
+
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "No unstaged files"
+msgstr "Tak ada berkas yang di-unstage"
+
+#: ../gitg/commit/gitg-commit.vala:392
+msgid "Untracked"
+msgstr "Tak dilacak"
+
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "No untracked files"
+msgstr "Tak ada berkas yang tak dilacak"
+
+#: ../gitg/commit/gitg-commit.vala:432
+msgid "There are no changes to be committed"
+msgstr "Tak ada perubahan untuk dikomit"
+
+#: ../gitg/commit/gitg-commit.vala:433
+msgid "Use amend to change the commit message of the previous commit"
+msgstr "Pakai amend untuk mengubah pesan komit dari komit sebelumnya"
+
+#: ../gitg/commit/gitg-commit.vala:459
+msgid "Failed to commit"
+msgstr "Gagal komit"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+msgid "Failed to pass pre-commit"
+msgstr "Gagal lolos prakomit"
+
+#: ../gitg/commit/gitg-commit.vala:696
 msgid ""
-"Setting that indicates whether to show items for the stash in the history."
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
 msgstr ""
-"Pengaturan yang mengindikasikan apakah menampilkan butir bagi stash dalam "
-"riwayat."
+"Nama pengguna dan surel Anda belum ditata. Harap pergi ke konfigurasi "
+"pengguna dan isikan nama serta surel Anda."
 
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
 msgstr ""
-"Pengaturan yang mengindikasikan apakah menampilkan butir virtual bagi "
-"perubahan yang kini disetor dalam riwayat."
+"Nama pengguna Anda belum ditata. Harap pergi ke konfigurasi pengguna dan "
+"isikan nama Anda."
 
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
 msgstr ""
-"Pengaturan yang mengindikasikan apakah menampilkan butir virtual bagi "
-"perubahan yang kini belum disetor dalam riwayat."
+"Surel Anda belum ditata. Harap pergi ke konfigurasi pengguna dan isikan "
+"surel Anda."
 
-#: ../gitg/gitg-application.vala:43
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Tampilkan versi aplikasi"
 
-#: ../gitg/gitg-application.vala:45
-msgid "Start gitg with a particular view"
-msgstr "Mulai gitg dengan suatu tilikan tertentu"
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "Mulai gitg dengan suatu aktivitas tertentu"
 
-#: ../gitg/gitg-application.vala:47
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgstr "Mulai gitg dengan suatu aktivitas komit (singkatan dari --view commit)"
+
+#: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Jangan coba memuat suatu repositori dari direktori kerja kini"
 
-#: ../gitg/gitg-application.vala:70
+#: ../gitg/gitg-application.vala:88
 msgid "- git repository viewer"
 msgstr "- penampil repositori Git"
 
-#: ../gitg/gitg-application.vala:185
+#: ../gitg/gitg-application.vala:205
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg adalah penilik repositori git untuk gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:210
+#: ../gitg/gitg-application.vala:230
 msgid "gitg homepage"
 msgstr "Situs web gitg"
 
-#: ../plugins/dash/gitg-dash-navigation.vala:41
-msgid "Repository"
-msgstr "Repositori"
+#: ../gitg/gitg-author-details-dialog.vala:65
+msgid "Unable to open the .gitconfig file."
+msgstr "Tak bisa membuka berkas .gitconfig."
 
-#: ../plugins/dash/gitg-dash-navigation.vala:42
-msgid "Open"
-msgstr "Buka"
+#: ../gitg/gitg-author-details-dialog.vala:147
+msgid "Failed to set Git user config."
+msgstr "Gagal menata konfig pengguna Git."
 
-#: ../plugins/dash/gitg-dash-navigation.vala:43
-#: ../plugins/dash/resources/view-create.ui.h:3
-msgid "Create"
-msgstr "Buat"
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr "URL yang diperkenalkan tak didukung"
 
-#: ../plugins/dash/gitg-dash-navigation.vala:46
-msgid "Recent"
-msgstr "Terkini"
+#: ../gitg/gitg-window.vala:257
+msgid "Projects"
+msgstr "Projek"
 
-#: ../plugins/dash/gitg-dash.vala:69
-msgid "Dashboard"
-msgstr "Dashboard"
+#: ../gitg/gitg-window.vala:293
+msgid "Open Repository"
+msgstr "Buka Repositori"
 
-#: ../plugins/dash/gitg-dash.vala:249
-msgid "(no branch)"
-msgstr "(tak ada branch)"
+#: ../gitg/gitg-window.vala:295
+msgid "_Cancel"
+msgstr "_Batal"
 
-#: ../plugins/diff/gitg-diff.vala:65
-msgid "Diff"
-msgstr "Diff"
+#: ../gitg/gitg-window.vala:296
+msgid "_Open"
+msgstr "B_uka"
 
-#: ../plugins/files/gitg-files.vala:68
-msgid "Files"
-msgstr "Berkas"
+#: ../gitg/gitg-window.vala:526
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "'%s' bukan suatu repositori Git."
 
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Tampilkan semua riwayat"
-
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Tampilkan opsi riwayat gitg"
-
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "opsi riwayat gitg"
-
-#: ../plugins/history/gitg-history-navigation.vala:120
-#: ../plugins/history/gitg-history-navigation.vala:124
+#: ../gitg/history/gitg-history-navigation.vala:194
+#: ../gitg/history/gitg-history-navigation.vala:302
 msgid "All commits"
 msgstr "Semua komit"
 
 #. Branches
-#: ../plugins/history/gitg-history-navigation.vala:128
+#: ../gitg/history/gitg-history-navigation.vala:197
 msgid "Branches"
 msgstr "Branch"
 
 #. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:163
+#: ../gitg/history/gitg-history-navigation.vala:234
 msgid "Remotes"
 msgstr "Remote"
 
 #. Tags
-#: ../plugins/history/gitg-history-navigation.vala:188
+#: ../gitg/history/gitg-history-navigation.vala:260
 msgid "Tags"
 msgstr "Tag"
 
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:131
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
 msgid "History"
 msgstr "Riwayat"
 
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+msgid "Interface"
+msgstr "Antar Muka"
+
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "Sekarang"
+
+#: ../libgitg/gitg-date.vala:320
+msgid "A minute ago"
+msgstr "Semenit yang lalu"
+
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "%d minutes ago"
+msgstr "%d menit yang lalu"
+
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "Setengah jam yang lalu"
+
+#: ../libgitg/gitg-date.vala:330
+msgid "An hour ago"
+msgstr "Sejam yang lalu"
+
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "%d hours ago"
+msgstr "%d jam yang lalu"
+
+#: ../libgitg/gitg-date.vala:335
+msgid "A day ago"
+msgstr "Sehari yang lalu"
+
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "%d days ago"
+msgstr "%d hari yang lalu"
+
+#: ../libgitg/gitg-diff-view.vala:89
+msgid "stage"
+msgstr "stage"
+
+#: ../libgitg/gitg-diff-view.vala:90
+msgid "unstage"
+msgstr "unstage"
+
+#: ../libgitg/gitg-diff-view.vala:91
+msgid "Loading diff..."
+msgstr "Memuat diff..."
+
+#: ../libgitg/gitg-stage.vala:279
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr "Tak bisa membaca pesan komit setelah menjalankan hook commit-msg: %s"
+
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Berkas"
+
 #. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Rincian Penulis"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The git config file '%s' does not exist."
+msgstr "Catatan: Berkas konfig git '%s' tak ada."
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr ""
+"Masukkan rincian untuk ditata sebagai nilai baku bagi semua repositori:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Masukkan rincian bagi repositori '%s':"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "Surel:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Nama:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Batal"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Simpan"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+msgid "Clone Repository"
+msgstr "Klon Repositori"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+msgid "Cl_one"
+msgstr "Kl_on"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "Remote _URL:"
+msgstr "_URL Remote:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "_Local Folder:"
+msgstr "Folder _Lokal:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "Select location..."
+msgstr "Pilih lokasi..."
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+msgid "Bare repository"
+msgstr "Repositori polos"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "K_omit"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+msgid "Add _signed-off-by signature"
+msgstr "Tambahkan tanda tangan _signed-off-by"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "_Amend previous commit"
+msgstr "_Amend komit sebelumnya"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Close"
+msgstr "Tutup"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "Lewati _hook komit"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Subjek"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Penulis"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Tanggal"
+
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "Je_ndela Baru"
@@ -295,101 +505,85 @@ msgid "_Quit"
 msgstr "_Keluar"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Close"
-msgstr "_Tutup"
+msgid "_Open Repository…"
+msgstr "Buka Rep_ositori..."
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Clone Repository…"
+msgstr "_Klon Repositori..."
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
+msgid "_Author Details"
+msgstr "Rinci_an Penulis"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "_Muat Ulang"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Tampilkan markup"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "Tampilkan marjin _subjek pada kolom:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "Tampilkan _marjin kanan pada kolom:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Fungsikan pemeriksaan ejaan"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+msgid "Commit Message"
+msgstr "Pesan Komit"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Komit"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Lipat jalur yang tak aktif"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Tampilkan stash dalam riwayat"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Tampilkan perubahan yang telah disetor dalam riwayat"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "Tampilkan perubahan yang belum disetor dalam riwayat"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Tampilkan riwayat dalam urutan topologis"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Masa Awal"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Masa Akhir"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Layout"
+msgstr "Tata letak"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+msgid "Use horizontal layout"
+msgstr "Pakai tata letak horisontal"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "gitg Preferences"
 msgstr "Preferensi gitg"
 
-#: ../plugins/dash/resources/view-create.ui.h:1
-msgid "Create repository"
-msgstr "Buat repositori"
-
-#: ../plugins/dash/resources/view-create.ui.h:2
-msgid "Select a folder in which you want to create a new git repository."
-msgstr "Pilih folder dimana Anda ingin membuat suatu repositori git baru."
-
-#: ../plugins/dash/resources/view-open.ui.h:1
-msgid "Open repository"
-msgstr "Buka repositori"
-
-#: ../plugins/dash/resources/view-open.ui.h:2
-msgid "Select a folder to open the corresponding git repository."
-msgstr "Pilih suatu folder untuk membuka repositori git terkait."
-
-#: ../plugins/dash/resources/view-recent.ui.h:1
-msgid "Recent repository"
-msgstr "Repositori baru-baru ini"
-
-#: ../plugins/dash/resources/view-recent.ui.h:2
-msgid "Open a recently used repository."
-msgstr "Membuka repositori yang akhir-akhir ini dipakai."
-
-#: ../plugins/dash/resources/view-recent.ui.h:3
-msgid "Path:"
-msgstr "Path:"
-
-#: ../plugins/dash/resources/view-recent.ui.h:4
-msgid "Last used:"
-msgstr "Terakhir dipakai:"
-
-#: ../plugins/dash/resources/view-recent.ui.h:5
-msgid "Current branch:"
-msgstr "Branch kini:"
-
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "kolom"
-
-#: ../plugins/history/resources/preferences.ui.h:1
-msgid "<b>Commits</b>"
-msgstr "<b>Komit</b>"
-
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
-
-#: ../plugins/history/resources/preferences.ui.h:3
-msgid "Collapse inactive lanes"
-msgstr "Lipat jalur yang tak aktif"
-
-#: ../plugins/history/resources/preferences.ui.h:4
-msgid "Show stash in history"
-msgstr "Tampilkan stash dalam riwayat"
-
-#: ../plugins/history/resources/preferences.ui.h:5
-msgid "Show staged changes in history"
-msgstr "Tampilkan perubahan yang telah disetor dalam riwayat"
-
-#: ../plugins/history/resources/preferences.ui.h:6
-msgid "Show unstaged changes in history"
-msgstr "Tampilkan perubahan yang belum disetor dalam riwayat"
-
-#: ../plugins/history/resources/preferences.ui.h:7
-msgid "Show history in topological order"
-msgstr "Tampilkan riwayat dalam urutan topologis"
-
-#: ../plugins/history/resources/preferences.ui.h:8
-msgid "        "
-msgstr "        "
-
-#: ../plugins/history/resources/preferences.ui.h:9
-msgid "Early"
-msgstr "Masa Awal"
-
-#: ../plugins/history/resources/preferences.ui.h:10
-msgid "Late"
-msgstr "Masa Akhir"
-
-#: ../plugins/history/resources/view-history.ui.h:1
-msgid "Subject"
-msgstr "Subjek"
-
-#: ../plugins/history/resources/view-history.ui.h:2
-msgid "Author"
-msgstr "Penulis"
-
-#: ../plugins/history/resources/view-history.ui.h:3
-msgid "Date"
-msgstr "Tanggal"
