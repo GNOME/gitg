@@ -11,7 +11,7 @@ AC_INIT([gitg],
         [gitg_version],
         [https://bugzilla.gnome.org/enter_bug.cgi?product=gitg],
         [gitg],
-        [http://live.gnome.org/Gitg])
+        [http://wiki.gnome.org/Apps/Gitg])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_SRCDIR([gitg/gitg.vala])
