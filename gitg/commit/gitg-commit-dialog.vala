@@ -82,12 +82,12 @@ class Dialog : Gtk.Dialog
 	private bool d_enable_spell_checking;
 	private string? d_spell_checking_language;
 	private GtkSpell.Checker? d_spell_checker;
-	private Ggit.DiffList d_diff_list;
+	private Ggit.Diff d_diff;
 
-	public Ggit.DiffList? diff_list
+	public Ggit.Diff? diff
 	{
-		owned get { return d_diff_list; }
-		construct set { d_diff_list = value; }
+		owned get { return d_diff; }
+		construct set { d_diff = value; }
 	}
 
 	public int max_visible_stat_items
@@ -413,9 +413,9 @@ class Dialog : Gtk.Dialog
 
 		init_message_area();
 
-		if (diff_list != null)
+		if (diff != null)
 		{
-			iterate_diff_list();
+			iterate_diff();
 		}
 		else
 		{
@@ -425,19 +425,18 @@ class Dialog : Gtk.Dialog
 	private Gtk.TextTag d_subject_tag;
 	private Gtk.TextTag d_too_long_tag;
 
-	private void iterate_diff_list()
+	private void iterate_diff()
 	{
-		var n = diff_list.get_num_deltas();
+		var n = diff.get_num_deltas();
 		int num = 0;
 
 		for (var i = 0; i < n; ++i)
 		{
-			Ggit.DiffDelta delta;
-			Ggit.DiffPatch patch;
+			Ggit.Patch patch;
 
 			try
 			{
-				diff_list.get_patch(i, out patch, out delta);
+				patch = new Ggit.Patch.from_diff(diff, i);
 			} catch { continue; }
 
 			size_t add;
@@ -447,6 +446,8 @@ class Dialog : Gtk.Dialog
 			{
 				patch.get_line_stats(null, out add, out remove);
 			} catch { continue; }
+
+			var delta = patch.get_delta();
 
 			var nf = delta.get_new_file();
 			var path = nf.get_path();
@@ -652,9 +653,9 @@ class Dialog : Gtk.Dialog
 	}
 
 	public Dialog(Ggit.Signature author,
-	              Ggit.DiffList? diff_list)
+	              Ggit.Diff?     diff)
 	{
-		Object(author: author, diff_list: diff_list);
+		Object(author: author, diff: diff);
 	}
 
 	private void update_font_settings()

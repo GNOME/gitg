@@ -502,9 +502,9 @@ namespace GitgCommit
 			return retval;
 		}
 
-		private async Ggit.DiffList? index_diff_list()
+		private async Ggit.Diff? index_diff()
 		{
-			var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
+			var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED |
 			                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
 			                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
 			                                3,
@@ -523,43 +523,43 @@ namespace GitgCommit
 			}
 			catch { return null; }
 
-			Ggit.DiffList? diff_list = null;
+			Ggit.Diff? diff = null;
 
 			try
 			{
 				var index = application.repository.get_index();
 
 				yield Gitg.Async.thread(() => {
-					diff_list = new Ggit.DiffList.tree_to_index(application.repository,
-					                                            tree,
-					                                            index,
-					                                            opts);
+					diff = new Ggit.Diff.tree_to_index(application.repository,
+					                                   tree,
+					                                   index,
+					                                   opts);
 				});
 			} catch { return null; }
 
-			return diff_list;
+			return diff;
 		}
 
 		private void run_commit_dialog(bool           skip_hooks,
 		                               Ggit.Signature author,
 		                               Ggit.Signature committer)
 		{
-			index_diff_list.begin((obj, res) => {
-				var diff_list = index_diff_list.end(res);
+			index_diff.begin((obj, res) => {
+				var diff = index_diff.end(res);
 
-				run_commit_dialog_with_diff_list(skip_hooks,
-				                                 author,
-				                                 committer,
-				                                 diff_list);
+				run_commit_dialog_with_diff(skip_hooks,
+				                            author,
+				                            committer,
+				                            diff);
 			});
 		}
 
-		private void run_commit_dialog_with_diff_list(bool skip_hooks,
-		                                              Ggit.Signature author,
-		                                              Ggit.Signature committer,
-		                                              Ggit.DiffList? diff_list)
+		private void run_commit_dialog_with_diff(bool           skip_hooks,
+		                                         Ggit.Signature author,
+		                                         Ggit.Signature committer,
+		                                         Ggit.Diff?     diff)
 		{
-			var dlg = new Dialog(author, diff_list);
+			var dlg = new Dialog(author, diff);
 
 			dlg.set_transient_for((Gtk.Window)d_main.get_toplevel());
 			dlg.set_default_response(Gtk.ResponseType.OK);
