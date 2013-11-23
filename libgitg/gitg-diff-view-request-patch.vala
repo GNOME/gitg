@@ -97,11 +97,11 @@ namespace Gitg
 				commit_subject = "";
 			}
 
-			var chooser = new Gtk.FileChooserDialog("Save Patch File", null,
+			var chooser = new Gtk.FileChooserDialog(_("Save Patch File"), null,
 			                                        Gtk.FileChooserAction.SAVE,
-			                                        Gtk.Stock.CANCEL,
+			                                        _("_Cancel"),
 			                                        Gtk.ResponseType.CANCEL,
-			                                        Gtk.Stock.SAVE,
+			                                        _("_Save"),
 			                                        Gtk.ResponseType.OK);
 
 			chooser.do_overwrite_confirmation = true;
