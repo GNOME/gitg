@@ -50,7 +50,7 @@ public class Stage : Object
 	public async void refresh() throws Error
 	{
 		yield thread_index((index) => {
-			index.read();
+			index.read(false);
 		});
 	}
 
