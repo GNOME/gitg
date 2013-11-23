@@ -111,9 +111,9 @@ public class Commit : Ggit.Commit
 		}
 	}
 
-	public Ggit.DiffList get_diff(Ggit.DiffOptions? options)
+	public Ggit.Diff get_diff(Ggit.DiffOptions? options)
 	{
-		Ggit.DiffList? diff = null;
+		Ggit.Diff? diff = null;
 
 		var repo = get_owner();
 
@@ -124,10 +124,10 @@ public class Commit : Ggit.Commit
 			// Create a new diff from the parents to the commit tree
 			if (parents.size() == 0)
 			{
-				diff = new Ggit.DiffList.tree_to_tree(repo,
-				                                      null,
-				                                      get_tree(),
-				                                      options);
+				diff = new Ggit.Diff.tree_to_tree(repo,
+				                                  null,
+				                                  get_tree(),
+				                                  options);
 			}
 			else
 			{
@@ -137,17 +137,17 @@ public class Commit : Ggit.Commit
 
 					if (i == 0)
 					{
-						diff = new Ggit.DiffList.tree_to_tree(repo,
-						                                      parent.get_tree(),
-						                                      get_tree(),
-						                                      options);
+						diff = new Ggit.Diff.tree_to_tree(repo,
+						                                  parent.get_tree(),
+						                                  get_tree(),
+						                                  options);
 					}
 					else
 					{
-						var d = new Ggit.DiffList.tree_to_tree(repo,
-						                                       parent.get_tree(),
-						                                       get_tree(),
-						                                       options);
+						var d = new Ggit.Diff.tree_to_tree(repo,
+						                                   parent.get_tree(),
+						                                   get_tree(),
+						                                   options);
 
 						diff.merge(d);
 					}

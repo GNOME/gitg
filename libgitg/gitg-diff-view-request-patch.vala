@@ -47,19 +47,21 @@ namespace Gitg
 			string patch_content = "";
 			try
 			{
-				Ggit.DiffList diff = selected_commit.get_diff(null);
-				Ggit.DiffPatch patch;
-				Ggit.DiffDelta delta;
+				Ggit.Diff diff = selected_commit.get_diff(null);
+
 				var number_of_deltas = diff.get_num_deltas();
 
 				patch_content += "From %s %s".printf(sha1, legacydate);
 				patch_content += "\nFrom: %s <%s>".printf(author, author_email);
 				patch_content += "\nDate: %s".printf(datetime);
 				patch_content += "\nSubject: [PATCH] %s\n\n".printf(commit_message);
-				for (var i = 0; i < number_of_deltas; i++) {
-					diff.get_patch(i, out patch, out delta);
+
+				for (var i = 0; i < number_of_deltas; i++)
+				{
+					var patch = new Ggit.Patch.from_diff(diff, i);
 					patch_content += patch.to_string();
 				}
+
 				patch_content += "--\n";
 				patch_content += "Gitg\n\n";
 
@@ -101,6 +103,7 @@ namespace Gitg
 			                                        Gtk.ResponseType.CANCEL,
 			                                        Gtk.Stock.SAVE,
 			                                        Gtk.ResponseType.OK);
+
 			chooser.do_overwrite_confirmation = true;
 			chooser.set_current_name(commit_subject + ".patch");
 

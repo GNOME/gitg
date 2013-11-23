@@ -597,9 +597,9 @@ public class Stage : Object
 		yield unstage(d_repository.get_workdir().resolve_relative_path(path));
 	}
 
-	public async Ggit.DiffList? diff_index(StageStatusFile f) throws Error
+	public async Ggit.Diff? diff_index(StageStatusFile f) throws Error
 	{
-		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
+		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED |
 		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
 		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
 		                                3,
@@ -610,15 +610,15 @@ public class Stage : Object
 
 		var tree = yield get_head_tree();
 
-		return new Ggit.DiffList.tree_to_index(d_repository,
-		                                       tree,
-		                                       d_repository.get_index(),
-		                                       opts);
+		return new Ggit.Diff.tree_to_index(d_repository,
+		                                   tree,
+		                                   d_repository.get_index(),
+		                                   opts);
 	}
 
-	public async Ggit.DiffList? diff_workdir(StageStatusFile f) throws Error
+	public async Ggit.Diff? diff_workdir(StageStatusFile f) throws Error
 	{
-		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED_CONTENT |
+		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED |
 		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
 		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
 		                                3,
@@ -627,9 +627,9 @@ public class Stage : Object
 		                                null,
 		                                new string[] {f.path});
 
-		return new Ggit.DiffList.index_to_workdir(d_repository,
-		                                          d_repository.get_index(),
-		                                          opts);
+		return new Ggit.Diff.index_to_workdir(d_repository,
+		                                      d_repository.get_index(),
+		                                      opts);
 	}
 }
 

@@ -28,7 +28,7 @@ namespace Gitg
 		}
 
 		private DiffType d_diff_type;
-		private Ggit.DiffList? d_diff;
+		private Ggit.Diff? d_diff;
 		private Ggit.Commit? d_commit;
 
 		public DiffViewRequestDiff(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
@@ -126,11 +126,11 @@ namespace Gitg
 			state.in_file = true;
 		}
 
-		private void hunk_cb(Json.Builder builder,
-		                     DiffState    state,
+		private void hunk_cb(Json.Builder   builder,
+		                     DiffState      state,
 		                     Ggit.DiffDelta delta,
-		                     Ggit.DiffRange range,
-		                     string header)
+		                     Ggit.DiffHunk  hunk,
+		                     string         header)
 		{
 			if (state.in_hunk)
 			{
@@ -147,12 +147,12 @@ namespace Gitg
 			builder.begin_object();
 			{
 				range_to_json(builder.set_member_name("old"),
-				              range.get_old_start(),
-				              range.get_old_lines());
+				              hunk.get_old_start(),
+				              hunk.get_old_lines());
 
 				range_to_json(builder.set_member_name("new"),
-				              range.get_new_start(),
-				              range.get_new_lines());
+				              hunk.get_new_start(),
+				              hunk.get_new_lines());
 			}
 			builder.end_object();
 
@@ -164,16 +164,17 @@ namespace Gitg
 			state.in_hunk = true;
 		}
 
-		private void line_cb(Json.Builder builder,
+		private void line_cb(Json.Builder   builder,
 		                     Ggit.DiffDelta delta,
-		                     Ggit.DiffRange range,
-		                     Ggit.DiffLineType line_type,
-		                     string content)
+		                     Ggit.DiffHunk  hunk,
+		                     Ggit.DiffLine  line)
 		{
 			builder.begin_object();
 			{
-				builder.set_member_name("type").add_int_value(line_type);
-				builder.set_member_name("content").add_string_value(content);
+				var content = line.get_content();
+
+				builder.set_member_name("type").add_int_value((int)line.get_origin());
+				builder.set_member_name("content").add_string_value((string)content);
 			}
 			builder.end_object();
 		}
@@ -219,7 +220,7 @@ namespace Gitg
 			builder.end_object();
 		}
 
-		private void build_diff(Ggit.DiffList? diff, Json.Builder builder, Cancellable? cancellable) throws GLib.Error
+		private void build_diff(Ggit.Diff? diff, Json.Builder builder, Cancellable? cancellable) throws GLib.Error
 		{
 			DiffState state = new DiffState();
 
@@ -239,14 +240,14 @@ namespace Gitg
 					return 0;
 				},
 
-				(delta, range, header) => {
+				(delta, hunk) => {
 					if (cancellable != null && cancellable.is_cancelled())
 					{
 						return 1;
 					}
 
-					var maxold = range.get_old_start() + range.get_old_lines();
-					var maxnew = range.get_new_start() + range.get_new_lines();
+					var maxold = hunk.get_old_start() + hunk.get_old_lines();
+					var maxnew = hunk.get_new_start() + hunk.get_new_lines();
 
 					var ml = int64.max(maxold, maxnew);
 
@@ -255,24 +256,13 @@ namespace Gitg
 						maxlines = ml;
 					}
 
-					// There seems to be a bug where sometimes the hunk header
-					// contains null-bytes. As a temporary fix, we scan the
-					// header for the first null byte and truncate it
-					//
-					// see: https://github.com/libgit2/libgit2/issues/1710
-					for (int i = 0; i < header.length; ++i)
-					{
-						if (header[i] == 0)
-						{
-							header.length = i;
-						}
-					}
+					var header = hunk.get_header();
 
-					hunk_cb(builder, state, delta, range, ((string)header)[0:header.length]);
+					hunk_cb(builder, state, delta, hunk, header);
 					return 0;
 				},
 
-				(delta, range, line_type, content) => {
+				(delta, hunk, line) => {
 					if (cancellable != null && cancellable.is_cancelled())
 					{
 						return 1;
@@ -282,7 +272,7 @@ namespace Gitg
 					{
 						++numlines;
 
-						line_cb(builder, delta, range, line_type, ((string)content)[0:content.length]);
+						line_cb(builder, delta, hunk, line);
 					}
 
 					return 0;
@@ -311,13 +301,13 @@ namespace Gitg
 			builder.set_member_name("maxlines").add_int_value(maxlines);
 		}
 
-		private void build_commit(Ggit.DiffList? diff, Json.Builder builder, Cancellable? cancellable)
+		private void build_commit(Ggit.Diff? diff, Json.Builder builder, Cancellable? cancellable)
 		{
 			builder.set_member_name("commit");
 			commit_to_json(builder, d_commit);
 		}
 
-		private InputStream? run_diff(Ggit.DiffList? diff, Cancellable? cancellable) throws GLib.Error
+		private InputStream? run_diff(Ggit.Diff? diff, Cancellable? cancellable) throws GLib.Error
 		{
 			if (diff == null)
 			{
