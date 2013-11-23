@@ -287,6 +287,26 @@ namespace Gitg
 			}
 		}
 
+		class CloneProgress : Ggit.RemoteCallbacks
+		{
+			private Row d_row;
+
+			public CloneProgress(Row row)
+			{
+				d_row = row;
+			}
+
+			protected override bool transfer_progress(Ggit.TransferProgress stats) throws Error
+			{
+				var recvobj = stats.get_received_objects();
+				var indxobj = stats.get_indexed_objects();
+				var totaobj = stats.get_total_objects();
+
+				d_row.fraction = (recvobj + indxobj) / (double)(2 * totaobj);
+				return true;
+			}
+		}
+
 		private async Repository? clone(Row row, string url, File location, bool is_bare)
 		{
 			SourceFunc callback = clone.callback;
@@ -296,11 +316,9 @@ namespace Gitg
 				try
 				{
 					var options = new Ggit.CloneOptions();
+
 					options.set_is_bare(is_bare);
-					options.set_fetch_progress_callback((stats) => {
-						row.fraction = (stats.get_received_objects() + stats.get_indexed_objects()) / (double)(2 * stats.get_total_objects());
-						return 0;
-					});
+					options.set_remote_callbacks(new CloneProgress(row));
 
 					repository = (Repository)Ggit.Repository.clone(url, location, options);
 				}
