@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-09-02 17:08+0000\n"
-"PO-Revision-Date: 2013-10-08 11:36+0200\n"
+"POT-Creation-Date: 2013-11-23 19:27+0000\n"
+"PO-Revision-Date: 2013-11-25 16:49+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -205,7 +205,6 @@ msgid "There are no changes to be committed"
 msgstr "No hay cambios que efectuar"
 
 #: ../gitg/commit/gitg-commit.vala:433
-#| msgid "Please enter a commit message before committing"
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Use «amend» para cambiar el mensaje del «commit» anterior"
 
@@ -215,7 +214,6 @@ msgstr "Falló al hacer el «commit»"
 
 #. TODO: better to show user info dialog directly or something
 #: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
-#| msgid "Failed to remove tag"
 msgid "Failed to pass pre-commit"
 msgstr "Falló al pasar el «pre-commit»"
 
@@ -284,23 +282,24 @@ msgstr "Falló al establecer la configuración de usuario de Git."
 msgid "The URL introduced is not supported"
 msgstr "El URL introducido no está soportado"
 
-#: ../gitg/gitg-window.vala:257
+#: ../gitg/gitg-window.vala:263
 msgid "Projects"
 msgstr "Proyectos"
 
-#: ../gitg/gitg-window.vala:293
+#: ../gitg/gitg-window.vala:299
 msgid "Open Repository"
 msgstr "Abrir repositorio"
 
-#: ../gitg/gitg-window.vala:295
+#: ../gitg/gitg-window.vala:301
+#: ../libgitg/gitg-diff-view-request-patch.vala:102
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gitg/gitg-window.vala:296
+#: ../gitg/gitg-window.vala:302
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../gitg/gitg-window.vala:526
+#: ../gitg/gitg-window.vala:532
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» no es un repositorio Git."
@@ -369,6 +368,15 @@ msgstr "Hace 1 día"
 msgid "%d days ago"
 msgstr "Hace %d días"
 
+#: ../libgitg/gitg-diff-view-request-patch.vala:100
+msgid "Save Patch File"
+msgstr "Guardar archivo de parche"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:104
+#| msgid "Save"
+msgid "_Save"
+msgstr "_Guardar"
+
 #: ../libgitg/gitg-diff-view.vala:89
 msgid "stage"
 msgstr "Reservar"
@@ -398,7 +406,6 @@ msgstr "Archivos"
 
 #. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
-#| msgid "Details"
 msgid "Author Details"
 msgstr "Detalles del autor"
 
@@ -521,7 +528,6 @@ msgid "_Clone Repository…"
 msgstr "_Clonar repositorio…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-#| msgid "Details"
 msgid "_Author Details"
 msgstr "Detalles del _autor"
 
