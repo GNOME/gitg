@@ -10,17 +10,8 @@ public_icons = \
 	hicolor_apps_24x24_gitg.png \
 	hicolor_apps_32x32_gitg.png \
 	hicolor_apps_48x48_gitg.png \
-	hicolor_apps_scalable_gitg.svg
-
-private_icons = \
-	gitg16x16.png	\
-	gitg22x22.png	\
-	gitg24x24.png	\
-	gitg32x32.png	\
-	gitg48x48.png	\
-	gitg64x64.png	\
-	gitg128x128.png \
-	gitg.svg
+	hicolor_apps_256x256_gitg.png \
+	hicolor_apps_512x512_gitg.png
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t
 
@@ -61,8 +52,7 @@ install-data-local: install-icons update-icon-cache
 uninstall-local: uninstall-icons update-icon-cache
 
 EXTRA_DIST = 				\
-	$(public_icons) \
-	$(private_icons)
+	$(public_icons)
 
 -include $(top_srcdir)/git.mk
 
