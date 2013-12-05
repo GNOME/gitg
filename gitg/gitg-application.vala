@@ -208,13 +208,13 @@ public class Application : Gtk.Application
 
 		try
 		{
-			logo = new Gdk.Pixbuf.from_resource("/org/gnome/gitg/icons/gitg.svg");
+			logo = new Gdk.Pixbuf.from_resource("/org/gnome/gitg/icons/gitg256.png");
 		}
 		catch
 		{
 			try
 			{
-				logo = new Gdk.Pixbuf.from_resource("org/gnome/gitg/icons/gitg128x128.png");
+				logo = new Gdk.Pixbuf.from_resource("org/gnome/gitg/icons/gitg512.png");
 			}
 			catch {}
 		}
