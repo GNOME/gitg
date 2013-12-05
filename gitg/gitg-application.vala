@@ -204,21 +204,6 @@ public class Application : Gtk.Application
 		string copyright = "Copyright \xc2\xa9 2012 Jesse van den Kieboom";
 		string comments = _("gitg is a git repository viewer for gtk+/GNOME");
 
-		Gdk.Pixbuf? logo = null;
-
-		try
-		{
-			logo = new Gdk.Pixbuf.from_resource("/org/gnome/gitg/icons/gitg256.png");
-		}
-		catch
-		{
-			try
-			{
-				logo = new Gdk.Pixbuf.from_resource("org/gnome/gitg/icons/gitg512.png");
-			}
-			catch {}
-		}
-
 		unowned List<Gtk.Window> wnds = get_windows();
 
 		Gtk.show_about_dialog(wnds != null ? wnds.data : null,
@@ -228,7 +213,7 @@ public class Application : Gtk.Application
 		                      "version", Config.VERSION,
 		                      "website", Config.PACKAGE_URL,
 		                      "website-label", _("gitg homepage"),
-		                      "logo", logo,
+		                      "logo-icon-name", Config.PACKAGE_NAME,
 		                      "license-type", Gtk.License.GPL_2_0);
 	}
 
