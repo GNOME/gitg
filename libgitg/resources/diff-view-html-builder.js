@@ -7,9 +7,10 @@ function diff_file(file, lnstate, data)
 {
 	tabrepl = '<span class="tab" style="width: ' + data.settings.tab_width + 'ex">\t</span>';
 
-	var tablecontent = '';
 	var added = 0;
 	var removed = 0;
+
+	var table_body = '';
 
 	for (var i = 0; i < file.hunks.length; ++i)
 	{
@@ -38,7 +39,7 @@ function diff_file(file, lnstate, data)
 			hunkheader = '<span class="' + cls + '">' + nm + '</span>' + hunkheader;
 		}
 
-		tablecontent += '<tr class="hunk_header">\
+		table_body += '<tr class="hunk_header">\
 			<td class="gutter old">' + lnstate.gutterdots + '</td> \
 			<td class="gutter new">' + lnstate.gutterdots + '</td> \
 			<td class="hunk_header">' + hunkheader + '</td> \
@@ -91,7 +92,8 @@ function diff_file(file, lnstate, data)
 			}
 
 			row += '<td>' + html_escape(l.content).replace(/\t/g, tabrepl) + '</td>';
-			tablecontent += row;
+
+			table_body += row;
 
 			lnstate.processed++;
 
@@ -147,7 +149,7 @@ function diff_file(file, lnstate, data)
 	var template = data.file_template;
 	var repls = {
 		'FILEPATH': filepath,
-		'TABLE_BODY': tablecontent,
+		'TABLE_BODY': table_body,
 		'STATS': stats,
 	};
 
