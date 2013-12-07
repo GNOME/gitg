@@ -25,7 +25,7 @@ var settings = {
 		stage: 'stage',
 		unstage: 'unstage',
 		loading_diff: 'Loading diff...'
-	}
+	},
 };
 
 if ('settings' in params)

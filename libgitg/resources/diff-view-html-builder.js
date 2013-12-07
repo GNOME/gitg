@@ -171,7 +171,6 @@ function diff_files(files, lines, maxlines, data)
 
 	var repl = [
 		'FILEPATH',
-		'GUTTER_DOTS',
 		'TABLE_BODY',
 		'STATS'
 	];
