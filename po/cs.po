@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-09-02 17:08+0000\n"
-"PO-Revision-Date: 2013-09-04 22:41+0200\n"
+"POT-Creation-Date: 2013-11-23 19:27+0000\n"
+"PO-Revision-Date: 2013-12-07 18:39+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -277,23 +277,24 @@ msgstr "Selhalo nastavení údajů o uživateli pro Git."
 msgid "The URL introduced is not supported"
 msgstr "Uvedená adresa URL není podporována"
 
-#: ../gitg/gitg-window.vala:257
+#: ../gitg/gitg-window.vala:263
 msgid "Projects"
 msgstr "Projekty"
 
-#: ../gitg/gitg-window.vala:293
+#: ../gitg/gitg-window.vala:299
 msgid "Open Repository"
 msgstr "Otevření repozitáře"
 
-#: ../gitg/gitg-window.vala:295
+#: ../gitg/gitg-window.vala:301
+#: ../libgitg/gitg-diff-view-request-patch.vala:102
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: ../gitg/gitg-window.vala:296
+#: ../gitg/gitg-window.vala:302
 msgid "_Open"
 msgstr "_Otevřít"
 
-#: ../gitg/gitg-window.vala:526
+#: ../gitg/gitg-window.vala:532
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ není repozitář Git."
@@ -361,6 +362,14 @@ msgstr "před jedním dnem"
 #, c-format
 msgid "%d days ago"
 msgstr "před %d dny"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:100
+msgid "Save Patch File"
+msgstr "Uložení záplaty do souboru"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:104
+msgid "_Save"
+msgstr "_Uložit"
 
 #: ../libgitg/gitg-diff-view.vala:89
 msgid "stage"
