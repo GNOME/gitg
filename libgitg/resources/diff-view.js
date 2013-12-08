@@ -130,11 +130,11 @@ function update_diff(id, lsettings)
 		html_builder_worker.terminate();
 	}
 
-	var content = document.getElementById('diff_content');
+	var content = $('#diff_content');
 
 	if (typeof id == 'undefined')
 	{
-		$(content).empty();
+		content.empty();
 		return;
 	}
 
@@ -160,11 +160,11 @@ function update_diff(id, lsettings)
 		if (eta > 1000)
 		{
 			// Show the progress
-			content.innerHTML = '\
+			content.html('\
 				<div class="loading">\
 					' + settings.strings.loading_diff + '\
 				</div>\
-			';
+			');
 		}
 
 		html_builder_progress_timeout = 0;
@@ -190,7 +190,7 @@ function update_diff(id, lsettings)
 				html_builder_progress_timeout = 0;
 			}
 
-			content.innerHTML = event.data.diff_html;
+			content.html(event.data.diff_html);
 
 			$(".expander").click(function()
 			{
