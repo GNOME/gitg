@@ -93,6 +93,8 @@ function diff_file(file, lnstate, data)
 
 			row += '<td>' + html_escape(l.content).replace(/\t/g, tabrepl) + '</td>';
 
+			row += '</tr>';
+
 			table_body += row;
 
 			lnstate.processed++;
