@@ -98,9 +98,7 @@ div.file tr.file_header td {
   background: #d3d7cf;
 }
 
-div.expander {
-  float:left;
-
+span.expander {
   background-color: #ececec;
   border-radius: 5px;
   box-shadow: 1px 1px #ccc inset;
@@ -117,7 +115,7 @@ tbody.collapsed > :not(.file_header) {
   display:none;
 }
 
-div.stats {
+span.stats {
   width: 75px;
   background-color: #ececec;
   padding: 3px;
@@ -128,27 +126,27 @@ div.stats {
   vertical-align: middle;
 }
 
-div.stats .number, div.stats .bar {
+span.stats .number, span.stats .bar {
   display: table-cell;
   vertical-align: middle;
 }
 
-div.stats .bar {
+span.stats .bar {
   width: 100%;
   padding: 0px 0px 0px 6px;
 }
 
-div.stats .added, div.stats .removed {
+span.stats .added, span.stats .removed {
   height: 5px;
   float: left;
   display: block;
 }
 
-div.stats .added {
+span.stats .added {
   background-color: #33cc33;
 }
 
-div.stats .removed {
+span.stats .removed {
   background-color: #cc3333;
 }
 
