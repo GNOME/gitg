@@ -238,11 +238,6 @@ namespace Gitg
 			if (dbg)
 			{
 				settings.enable_developer_extras = true;
-
-				Timeout.add(500, () => {
-					get_inspector().show();
-					return false;
-				});
 			}
 
 			settings.javascript_can_access_clipboard = true;
