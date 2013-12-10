@@ -99,7 +99,11 @@ function diff_file(file, lnstate, data)
 
 	var file_path;
 
-	if (file.file.new.path)
+	if (file.similarity > 0)
+	{
+		file_path = file.file.new.path + ' ← ' +file.file.old.path;
+	}
+	else if (file.file.new.path)
 	{
 		file_path = file.file.new.path;
 	}

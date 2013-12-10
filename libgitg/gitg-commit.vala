@@ -153,6 +153,8 @@ public class Commit : Ggit.Commit
 					}
 				}
 			}
+
+			diff.find_similar();
 		}
 		catch {}
 
