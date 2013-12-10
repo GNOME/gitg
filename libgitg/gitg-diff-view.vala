@@ -291,6 +291,8 @@ namespace Gitg
 				return;
 			}
 
+			// If both `d_diff` and `d_commit` are null, clear
+			// the diff content
 			if (d_diff == null && d_commit == null)
 			{
 				run_javascript.begin("update_diff();", d_cancellable, (obj, res) => {
