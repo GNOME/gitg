@@ -265,7 +265,7 @@ namespace Gitg
 				if (ev == WebKit.LoadEvent.FINISHED)
 				{
 					d_loaded = true;
-					update();
+					(v as Gitg.DiffView).update();
 				}
 			});
 
