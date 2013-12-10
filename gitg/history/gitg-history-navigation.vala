@@ -185,6 +185,11 @@ namespace GitgHistory
 
 					return 0;
 				});
+
+				if (repo.is_head_detached())
+				{
+					d_all.prepend(repo.get_head());
+				}
 			} catch {}
 
 			d_all.reverse();
