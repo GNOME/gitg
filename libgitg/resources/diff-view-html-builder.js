@@ -19,7 +19,7 @@ function diff_file(file, lnstate, data)
 		var cold = h.range.old.start;
 		var cnew = h.range.new.start;
 
-		var hunk_header = '<span class="hunk_header">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
+		var hunk_header = '<span class="hunk_stats">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
 
 		if (data.settings.staged || data.settings.unstaged)
 		{
