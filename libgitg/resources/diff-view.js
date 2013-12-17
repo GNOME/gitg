@@ -160,7 +160,7 @@ function update_diff(id, lsettings)
 		if (eta > 1000)
 		{
 			// Show the progress
-			content.innerHTML = '<div class="loading">' + settings.strings.loading_diff + '</div>.';
+			content.innerHTML = '<div class="loading">' + settings.strings.loading_diff + '</div>';
 		}
 
 		html_builder_progress_timeout = 0;
