@@ -19,7 +19,7 @@ function diff_file(file, lnstate, data)
 		var cold = h.range.old.start;
 		var cnew = h.range.new.start;
 
-		var hunkheader = '<span class="hunk_header">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
+		var hunk_header = '<span class="hunk_header">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
 
 		if (data.settings.staged || data.settings.unstaged)
 		{
@@ -36,13 +36,13 @@ function diff_file(file, lnstate, data)
 				nm = data.settings.strings.stage;
 			}
 
-			hunkheader = '<span class="' + cls + '">' + nm + '</span>' + hunkheader;
+			hunk_header = '<span class="' + cls + '">' + nm + '</span>' + hunk_header;
 		}
 
 		file_body += '<tr class="hunk_header">\
 			<td class="gutter old">' + lnstate.gutterdots + '</td> \
 			<td class="gutter new">' + lnstate.gutterdots + '</td> \
-			<td class="hunk_header">' + hunkheader + '</td> \
+			<td class="hunk_header">' + hunk_header + '</td> \
 		</tr>';
 
 		for (var j = 0; j < h.lines.length; ++j)
