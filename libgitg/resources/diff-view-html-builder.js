@@ -113,15 +113,15 @@ function diff_file(file, lnstate, data)
 		}
 	}
 
-	var filepath;
+	var file_path;
 
 	if (file.file.new.path)
 	{
-		filepath = file.file.new.path;
+		file_path = file.file.new.path;
 	}
 	else
 	{
-		filepath = file.file.old.path;
+		file_path = file.file.old.path;
 	}
 
 	var total = added + removed;
@@ -150,7 +150,7 @@ function diff_file(file, lnstate, data)
 
 	var template = data.file_template;
 	var repls = {
-		'FILEPATH': filepath,
+		'FILE_PATH': file_path,
 		'TABLE_BODY': table_body,
 		'STATS': stats,
 	};
@@ -174,7 +174,7 @@ function diff_files(files, lines, maxlines, data)
 	var f = '';
 
 	var repl = [
-		'FILEPATH',
+		'FILE_PATH',
 		'TABLE_BODY',
 		'STATS'
 	];
