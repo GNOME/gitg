@@ -91,7 +91,7 @@ function diff_file(file, lnstate, data)
 				break;
 			}
 
-			row += '<td>' + html_escape(l.content).replace(/\t/g, tabrepl) + '</td>';
+			row += '<td class="code">' + html_escape(l.content).replace(/\t/g, tabrepl) + '</td>';
 
 			row += '</tr>';
 
