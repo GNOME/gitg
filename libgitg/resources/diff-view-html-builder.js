@@ -128,7 +128,7 @@ function diff_file(file, lnstate, data)
 	var addedp = Math.floor(added / total * 100);
 	var removedp = 100 - addedp;
 
-	var stats = '<span class="expander">-</span><span class="stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
+	var file_stats = '<span class="expander">-</span><span class="file_stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
 
 	if (data.settings.staged || data.settings.unstaged)
 	{
@@ -145,14 +145,14 @@ function diff_file(file, lnstate, data)
 			nm = data.settings.strings.stage;
 		}
 
-		stats += '<span class="' + cls + '">' + nm + '</span>';
+		file_stats += '<span class="' + cls + '">' + nm + '</span>';
 	}
 
 	var template = data.file_template;
 	var repls = {
 		'FILE_PATH': file_path,
 		'FILE_BODY': file_body,
-		'STATS': stats,
+		'FILE_STATS': file_stats,
 	};
 
 	for (var r in repls)
@@ -176,7 +176,7 @@ function diff_files(files, lines, maxlines, data)
 	var repl = [
 		'FILE_PATH',
 		'FILE_BODY',
-		'STATS'
+		'FILE_STATS'
 	];
 
 	var replacements = {};

@@ -115,7 +115,7 @@ tbody.collapsed > :not(.file_header) {
   display:none;
 }
 
-span.stats {
+span.file_stats {
   width: 75px;
   background-color: #ececec;
   padding: 3px;
@@ -126,27 +126,27 @@ span.stats {
   vertical-align: middle;
 }
 
-span.stats .number, span.stats .bar {
+span.file_stats .number, span.file_stats .bar {
   display: table-cell;
   vertical-align: middle;
 }
 
-span.stats .bar {
+span.file_stats .bar {
   width: 100%;
   padding: 0px 0px 0px 6px;
 }
 
-span.stats .added, span.stats .removed {
+span.file_stats .added, span.file_stats .removed {
   height: 5px;
   float: left;
   display: block;
 }
 
-span.stats .added {
+span.file_stats .added {
   background-color: #33cc33;
 }
 
-span.stats .removed {
+span.file_stats .removed {
   background-color: #cc3333;
 }
 
