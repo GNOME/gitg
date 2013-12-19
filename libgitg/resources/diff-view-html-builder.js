@@ -159,7 +159,6 @@ function diff_file(file, lnstate, data)
 		// replacement is represented as '$$' (which stands for a
 		// literal '$'), so, we need to use '$$$$' here to get '$$'.
 		var repl = repls[r].replace(/\$/g, '$$$$');
-		log([template, lnstate.replacements[r], repl]);
 		template = template.replace(lnstate.replacements[r], repl);
 	}
 
