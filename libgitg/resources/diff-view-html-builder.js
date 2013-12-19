@@ -5,8 +5,6 @@ function html_escape(s)
 
 function diff_file(file, lnstate, data)
 {
-	tabrepl = '<span class="tab" style="width: ' + data.settings.tab_width + 'ex">\t</span>';
-
 	var added = 0;
 	var removed = 0;
 
@@ -75,7 +73,9 @@ function diff_file(file, lnstate, data)
 				break;
 			}
 
-			row += '<td class="code">' + html_escape(l.content).replace(/\t/g, tabrepl) + '</td>';
+			l.content = html_escape(l.content).replace(/\t/g, '<span class="tab" style="width: ' + data.settings.tab_width + 'ex">\t</span>');
+
+			row += '<td class="code">' + l.content + '</td>';
 
 			row += '</tr>';
 
