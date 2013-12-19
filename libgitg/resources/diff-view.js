@@ -163,6 +163,7 @@ function update_diff(id, lsettings)
 			content.html('\
 				<div class="loading">\
 					' + settings.strings.loading_diff + '\
+					<progress value="' + html_builder_tick + '"></progress>\
 				</div>\
 			');
 		}
@@ -178,6 +179,11 @@ function update_diff(id, lsettings)
 		else if (event.data.tick)
 		{
 			html_builder_tick = event.data.tick;
+
+			if ($('progress'))
+			{
+				$($('progress')[0]).attr('value', html_builder_tick);
+			}
 		}
 		else
 		{
