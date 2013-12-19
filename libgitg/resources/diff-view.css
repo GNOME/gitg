@@ -35,12 +35,12 @@ div.commit {
   background: #f3f3f3;
 }
 
-div.commit div.message {
+div.commit .message {
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
-div#diff div.file table .gutter {
+div#diff div.file table td.gutter {
   padding-left: 6px;
   padding-right: 6px;
   background-color: #ececec;
@@ -79,7 +79,7 @@ div#diff div.file table tr.hunk_header td {
   padding-bottom: 6px;
 }
 
-div.file tr.file_header td {
+div#diff div.file table tr.file_header td {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   background: #d3d7cf;
@@ -145,7 +145,7 @@ div#diff div.file table tr.file_header + tr.hunk_header td.hunk_header {
   border-top: 0px;
 }
 
-div#diff div.file table td.hunk_header {
+div#diff div.file table tr.hunk_header td.hunk_header {
   color: #aaa;
   background-color: #ececec;
   border-top: 1px solid #d3d7cf;
