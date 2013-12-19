@@ -30,11 +30,10 @@ function diff_file(file, lnstate, data)
 		for (var j = 0; j < h.lines.length; ++j)
 		{
 			var l = h.lines[j];
-			var o = String.fromCharCode(l.type);
 
 			var row = '<tr class="';
 
-			switch (o)
+			switch (String.fromCharCode(l.type))
 			{
 				case ' ':
 					row += 'context"> \
