@@ -14,9 +14,6 @@ function diff_file(file, lnstate, data)
 	{
 		var h = file.hunks[i];
 
-		var cold = h.range.old.start;
-		var cnew = h.range.new.start;
-
 		var hunk_header = '<span class="hunk_stats">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
 
 		hunk_header = lnstate.stagebutton + hunk_header;
@@ -27,11 +24,14 @@ function diff_file(file, lnstate, data)
 			<td class="hunk_header">' + hunk_header + '</td> \
 		</tr>';
 
+		var l, row, proc;
+		var cold = h.range.old.start;
+		var cnew = h.range.new.start;
 		for (var j = 0; j < h.lines.length; ++j)
 		{
-			var l = h.lines[j];
+			l = h.lines[j];
 
-			var row = '<tr class="';
+			row = '<tr class="';
 
 			switch (String.fromCharCode(l.type))
 			{
