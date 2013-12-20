@@ -3,97 +3,104 @@ function html_escape(s)
 	return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+function diff_hunk(hunk, lnstate, data)
+{
+	var hunk_body = '';
+
+	var hunk_header = '<span class="hunk_stats">@@ -' + hunk.range.old.start + ',' + hunk.range.old.lines + ' +' + hunk.range.new.start + ',' + hunk.range.new.lines + ' @@</span>';
+
+	hunk_header = lnstate.stagebutton + hunk_header;
+
+	hunk_body += '<tr class="hunk_header">\
+		<td class="gutter old">' + lnstate.gutterdots + '</td> \
+		<td class="gutter new">' + lnstate.gutterdots + '</td> \
+		<td class="hunk_header">' + hunk_header + '</td> \
+	</tr>';
+
+	var row, line, proc;
+	var cold = hunk.range.old.start;
+	var cnew = hunk.range.new.start;
+	for (var i = 0; i < hunk.lines.length; ++i)
+	{
+		row = '<tr class="';
+
+		line = hunk.lines[i];
+
+		switch (String.fromCharCode(line.type))
+		{
+			case ' ':
+				row += 'context"> \
+					<td class="gutter old">' + cold + '</td> \
+					<td class="gutter new">' + cnew + '</td>';
+
+				cold++;
+				cnew++;
+				break;
+			case '+':
+				row += 'added"> \
+					<td class="gutter old"></td> \
+					<td class="gutter new">' + cnew + '</td>';
+
+				cnew++;
+				lnstate.added++;
+				break;
+			case '-':
+				row += 'removed"> \
+					<td class="gutter old">' + cold + '</td> \
+					<td class="gutter new"></td>';
+
+				cold++;
+				lnstate.removed++;
+				break;
+			case '=':
+			case '>':
+			case '<':
+				row += 'context"> \
+					<td class="gutter old"></td> \
+					<td class="gutter new"></td>';
+					line.content = line.content.substr(1, line.content.length);
+				break;
+			default:
+				row += '">';
+				break;
+		}
+
+		line.content = html_escape(line.content).replace(/\t/g, '<span class="tab" style="width: ' + data.settings.tab_width + 'ex">\t</span>');
+
+		row += '<td class="code">' + line.content + '</td>';
+
+		row += '</tr>';
+
+		hunk_body += row;
+
+		lnstate.processed++;
+
+		proc = lnstate.processed / lnstate.lines;
+
+		if (proc >= lnstate.nexttick)
+		{
+			self.postMessage({tick: proc});
+
+			while (proc >= lnstate.nexttick)
+			{
+				lnstate.nexttick += lnstate.tickfreq;
+			}
+		}
+	}
+
+	return hunk_body;
+}
+
 function diff_file(file, lnstate, data)
 {
-	var added = 0;
-	var removed = 0;
+	lnstate.added = 0;
+	lnstate.removed = 0;
 
 	var file_body = '';
 
 	for (var i = 0; i < file.hunks.length; ++i)
 	{
-		var h = file.hunks[i];
-
-		var hunk_header = '<span class="hunk_stats">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
-
-		hunk_header = lnstate.stagebutton + hunk_header;
-
-		file_body += '<tr class="hunk_header">\
-			<td class="gutter old">' + lnstate.gutterdots + '</td> \
-			<td class="gutter new">' + lnstate.gutterdots + '</td> \
-			<td class="hunk_header">' + hunk_header + '</td> \
-		</tr>';
-
-		var l, row, proc;
-		var cold = h.range.old.start;
-		var cnew = h.range.new.start;
-		for (var j = 0; j < h.lines.length; ++j)
-		{
-			l = h.lines[j];
-
-			row = '<tr class="';
-
-			switch (String.fromCharCode(l.type))
-			{
-				case ' ':
-					row += 'context"> \
-						<td class="gutter old">' + cold + '</td> \
-						<td class="gutter new">' + cnew + '</td>';
-
-					cold++;
-					cnew++;
-				break;
-				case '+':
-					row += 'added"> \
-						<td class="gutter old"></td> \
-						<td class="gutter new">' + cnew + '</td>';
-
-					cnew++;
-					added++;
-				break;
-				case '-':
-					row += 'removed"> \
-						<td class="gutter old">' + cold + '</td> \
-						<td class="gutter new"></td>';
-
-					cold++;
-					removed++;
-				break;
-				case '=':
-				case '>':
-				case '<':
-					row += 'context"> \
-						<td class="gutter old"></td> \
-						<td class="gutter new"></td>';
-						l.content = l.content.substr(1, l.content.length);
-				break;
-				default:
-					row += '">';
-				break;
-			}
-
-			l.content = html_escape(l.content).replace(/\t/g, '<span class="tab" style="width: ' + data.settings.tab_width + 'ex">\t</span>');
-
-			row += '<td class="code">' + l.content + '</td>';
-
-			row += '</tr>';
-
-			file_body += row;
-
-			lnstate.processed++;
-
-			proc = lnstate.processed / lnstate.lines;
-
-			if (proc >= lnstate.nexttick)
-			{
-				self.postMessage({tick: proc});
-
-				while (proc >= lnstate.nexttick)
-				{
-					lnstate.nexttick += lnstate.tickfreq;
-				}
-			}
-		}
+		file_body += diff_hunk(file.hunks[i], lnstate, data);
 	}
 
 	var file_path;
@@ -107,11 +114,11 @@ function diff_file(file, lnstate, data)
 		file_path = file.file.old.path;
 	}
 
-	var total = added + removed;
-	var addedp = Math.floor(added / total * 100);
+	var total = lnstate.added + lnstate.removed;
+	var addedp = Math.floor(lnstate.added / total * 100);
 	var removedp = 100 - addedp;
 
-	var file_stats = '<span class="file_stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
+	var file_stats = '<span class="file_stats"><span class="number">' + (lnstate.added + lnstate.removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
 
 	file_stats = lnstate.stagebutton + file_stats;
 
