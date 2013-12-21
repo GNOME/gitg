@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-09-12 22:39+0000\n"
-"PO-Revision-Date: 2013-09-18 12:53+0900\n"
+"POT-Creation-Date: 2013-12-07 17:40+0000\n"
+"PO-Revision-Date: 2013-12-16 20:21+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -140,7 +140,7 @@ msgstr ""
 #: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
 msgid "Cannot set spell checking language: %s"
-msgstr "철자 검사 언어를 설정할 수 없습니다: %s"
+msgstr "맞춤법 검사 언어를 설정할 수 없습니다: %s"
 
 #: ../gitg/commit/gitg-commit.vala:59
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
@@ -243,7 +243,7 @@ msgstr "gitg를 지정 동작으로 시작"
 
 #: ../gitg/gitg-application.vala:61
 msgid "Start gitg with the commit activity (shorthand for --view commit)"
-msgstr "gitg를 커밋 동작으로 시작(--view commit에 대한 요약)"
+msgstr "gitg를 커밋 동작으로 시작(--view commit 요약)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
@@ -257,7 +257,7 @@ msgstr "- git 저장소 탐색기"
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg는 gtk+/GNOME용 git 저장소 보기 프로그램입니다"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:215
 msgid "gitg homepage"
 msgstr "gitg 홈페이지"
 
@@ -282,6 +282,7 @@ msgid "Open Repository"
 msgstr "저장소 열기"
 
 #: ../gitg/gitg-window.vala:301
+#: ../libgitg/gitg-diff-view-request-patch.vala:102
 msgid "_Cancel"
 msgstr "취소(_C)"
 
@@ -357,6 +358,14 @@ msgstr "1일 전"
 #, c-format
 msgid "%d days ago"
 msgstr "%d일 전"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:100
+msgid "Save Patch File"
+msgstr "패치 파일 저장"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:104
+msgid "_Save"
+msgstr "저장(_S)"
 
 #: ../libgitg/gitg-diff-view.vala:89
 msgid "stage"
@@ -508,7 +517,7 @@ msgstr "저장소 클론(_C)…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Author Details"
-msgstr "작성자 세부 내용(_A)"
+msgstr "작성자 세부 정보(_A)"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:9
 msgid "_Reload"
@@ -528,7 +537,7 @@ msgstr "다음 칸에 오른쪽 여백 표시(_M):"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
 msgid "Enable spell checking"
-msgstr "철자 검사 활성화"
+msgstr "맞춤법 검사 활성화"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
 msgid "Commit Message"
