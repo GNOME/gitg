@@ -128,7 +128,7 @@ function diff_file(file, lnstate, data)
 	var addedp = Math.floor(added / total * 100);
 	var removedp = 100 - addedp;
 
-	var file_stats = '<span class="expander">-</span><span class="file_stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
+	var file_stats = '<span class="file_stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
 
 	if (data.settings.staged || data.settings.unstaged)
 	{
