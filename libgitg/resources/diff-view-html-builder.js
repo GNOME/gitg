@@ -21,23 +21,7 @@ function diff_file(file, lnstate, data)
 
 		var hunk_header = '<span class="hunk_stats">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
 
-		if (data.settings.staged || data.settings.unstaged)
-		{
-			var cls;
-
-			if (data.settings.staged)
-			{
-				cls = 'unstage';
-				nm = data.settings.strings.unstage;
-			}
-			else
-			{
-				cls = 'stage';
-				nm = data.settings.strings.stage;
-			}
-
-			hunk_header = '<span class="' + cls + '">' + nm + '</span>' + hunk_header;
-		}
+		hunk_header = lnstate.stagebutton + hunk_header;
 
 		file_body += '<tr class="hunk_header">\
 			<td class="gutter old">' + lnstate.gutterdots + '</td> \
@@ -130,23 +114,7 @@ function diff_file(file, lnstate, data)
 
 	var file_stats = '<span class="file_stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
 
-	if (data.settings.staged || data.settings.unstaged)
-	{
-		var cls;
-
-		if (data.settings.staged)
-		{
-			cls = 'unstage';
-			nm = data.settings.strings.unstage;
-		}
-		else
-		{
-			cls = 'stage';
-			nm = data.settings.strings.stage;
-		}
-
-		file_stats += '<span class="' + cls + '">' + nm + '</span>';
-	}
+	file_stats = lnstate.stagebutton + file_stats;
 
 	var template = data.file_template;
 	var repls = {
@@ -193,8 +161,28 @@ function diff_files(files, lines, maxlines, data)
 		processed: 0,
 		nexttick: 0,
 		tickfreq: 0.01,
+		stagebutton: '',
 		replacements: replacements,
 	};
+
+	if (data.settings.staged || data.settings.unstaged)
+	{
+		var cls;
+		var nm;
+
+		if (data.settings.staged)
+		{
+			cls = 'unstage';
+			nm = data.settings.strings.unstage;
+		}
+		else
+		{
+			cls = 'stage';
+			nm = data.settings.strings.stage;
+		}
+
+		lnstate.stagebutton = '<span class="' + cls + '">' + nm + '</span>';
+	}
 
 	for (var i = 0; i < files.length; ++i)
 	{
