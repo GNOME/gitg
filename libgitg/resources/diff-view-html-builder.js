@@ -134,9 +134,9 @@ function diff_file(file, lnstate, data)
 
 	return exec_template(data.file_template, {
 		'STAGEBUTTON': lnstate.stagebutton,
+		'FILE_STATS': file_stats,
 		'FILE_PATH': file_path,
 		'FILE_BODY': file_body,
-		'FILE_STATS': file_stats,
 	});
 }
 
