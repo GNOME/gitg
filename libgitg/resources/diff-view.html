@@ -20,6 +20,11 @@
       </div>
 
       <!-- Diff template -->
+      <div class="diff">
+        <!-- ${DIFF_BODY} -->
+      </div>
+
+      <!-- Diff File template -->
       <div class="file">
         <table>
           <colgroup>
@@ -27,18 +32,43 @@
             <col width="0">
             <col width="100%">
           </colgroup>
-          <tbody>
-            <tr class="file_header">
+          <tbody class="file_header">
+            <tr>
               <td colspan="3">
                 <span class="expander">-</span>
-                <!-- ${FILE_STATS} -->
+                <span class="stagebutton"><!-- ${STAGEBUTTON} --></span>
+                <span class="file_stats"><!-- ${FILE_STATS} --></span>
                 <span class="file_path"><!-- ${FILE_PATH} --></span>
               </td>
             </tr>
-            <!-- ${FILE_BODY} -->
           </tbody>
+          <!-- ${FILE_BODY} -->
         </table>
       </div>
+
+      <!-- Diff Hunk template -->
+      <table>
+        <tbody class="hunk">
+          <tr class="hunk_header">
+            <td class="gutter old"><!-- ${GUTTER_OLD} --></td>
+            <td class="gutter new"><!-- ${GUTTER_NEW} --></td>
+            <td class="hunk_header">
+              <span class="stagebutton"><!-- ${STAGEBUTTON} --></span>
+              <span class="hunk_stats"><!-- ${HUNK_STATS} --></span>
+            </td>
+          </tr>
+          <!-- ${HUNK_BODY} -->
+        </tbody>
+      </table>
+
+      <!-- Diff line template -->
+      <table>
+          <tr class="line <!-- ${LINE_CLASS} -->">
+            <td class="gutter old"><!-- ${GUTTER_OLD} --></td>
+            <td class="gutter new"><!-- ${GUTTER_NEW} --></td>
+            <td class="code"><!-- ${CODE} --></td>
+          </tr>
+      </table>
     </div>
     <div id="diff">
       <div id="diff_header"></div>

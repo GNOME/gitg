@@ -79,7 +79,7 @@ div#diff div.file table tr.hunk_header td {
   padding-bottom: 6px;
 }
 
-div#diff div.file table tr.file_header td {
+div#diff div.file table tbody.file_header td {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   background: #d3d7cf;
@@ -98,7 +98,7 @@ span.expander {
   cursor: pointer;
 }
 
-tbody.collapsed > :not(.file_header) {
+table.collapsed > :not(.file_header) {
   display:none;
 }
 
@@ -137,11 +137,11 @@ span.file_stats .removed {
   background-color: #cc3333;
 }
 
-div#diff div.file table tr.file_header td {
+div#diff div.file table tbody.file_header td {
   vertical-align: middle;
 }
 
-div#diff div.file table tr.file_header + tr.hunk_header td.hunk_header {
+div#diff div.file table tbody.file_header + tr.hunk_header td.hunk_header {
   border-top: 0px;
 }
 
@@ -214,7 +214,7 @@ span.stage, span.unstage {
   box-shadow: 1px 1px #d3d7cf inset;
 }
 
-tr.file_header span.stage, tr.file_header span.unstage {
+tbody.file_header span.stage, tbody.file_header span.unstage {
   box-shadow: 1px 1px #ccc inset;
 }
 

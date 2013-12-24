@@ -210,20 +210,26 @@ function update_diff(id, lsettings)
 					expander.text("+");
 				}
 
-				expander.closest('tbody').toggleClass("collapsed");
+				expander.closest('table').toggleClass("collapsed");
 			});
 		}
 	}
 
 	var t = (new Date()).getTime();
 
-	var file_template = $('#templates div.file')[0].outerHTML;
+	var diff_template = $('#templates .diff')[0].outerHTML;
+	var file_template = $('#templates .file')[0].outerHTML;
+	var hunk_template = $('#templates .hunk')[0].outerHTML;
+	var line_template = $('#templates .line')[0].outerHTML;
 
 	// Load the diff asynchronously
 	html_builder_worker.postMessage({
 		url: "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid + "&diffid=" + id + "&format=diff_only",
 		settings: settings,
+		diff_template: diff_template,
 		file_template: file_template,
+		hunk_template: hunk_template,
+		line_template: line_template,
 	});
 
 	// Load the commit directly here
