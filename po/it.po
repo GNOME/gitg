@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-05 15:58+0200\n"
-"PO-Revision-Date: 2013-09-05 15:59+0200\n"
+"POT-Creation-Date: 2013-12-24 10:35+0100\n"
+"PO-Revision-Date: 2013-12-24 10:36+0100\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: \n"
@@ -268,7 +268,7 @@ msgstr "- Visualizzatore di repository git"
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg è un visualizzatore di repository git per gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:215
 msgid "gitg homepage"
 msgstr "Sito web di gitg"
 
@@ -284,23 +284,24 @@ msgstr "Impostazione della configurazione utente git non riuscita."
 msgid "The URL introduced is not supported"
 msgstr "Lo URL utilizzato non è supportato"
 
-#: ../gitg/gitg-window.vala:257
+#: ../gitg/gitg-window.vala:263
 msgid "Projects"
 msgstr "Progetti"
 
-#: ../gitg/gitg-window.vala:293
+#: ../gitg/gitg-window.vala:299
 msgid "Open Repository"
 msgstr "Apri repository"
 
-#: ../gitg/gitg-window.vala:295
+#: ../gitg/gitg-window.vala:301
+#: ../libgitg/gitg-diff-view-request-patch.vala:102
 msgid "_Cancel"
 msgstr "A_nnulla"
 
-#: ../gitg/gitg-window.vala:296
+#: ../gitg/gitg-window.vala:302
 msgid "_Open"
 msgstr "_Apri"
 
-#: ../gitg/gitg-window.vala:526
+#: ../gitg/gitg-window.vala:532
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» non è un repository git."
@@ -368,6 +369,14 @@ msgstr "Un giorno fa"
 #, c-format
 msgid "%d days ago"
 msgstr "%d giorni fa"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:100
+msgid "Save Patch File"
+msgstr "Salva file patch"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:104
+msgid "_Save"
+msgstr "_Salva"
 
 #: ../libgitg/gitg-diff-view.vala:89
 msgid "stage"
