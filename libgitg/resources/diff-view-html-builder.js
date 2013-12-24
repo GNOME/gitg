@@ -3,6 +3,22 @@ function html_escape(s)
 	return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+function exec_template(template, replacements) {
+	for (var r in replacements)
+	{
+		// As we are using the repl in the later 'template.replace()'
+		// as the replacement in which character '$' is special, we
+		// need to make sure each occurence of '$' character in the
+		// replacement is represented as '$$' (which stands for a
+		// literal '$'), so, we need to use '$$$$' here to get '$$'.
+		var replacement = replacements[r].replace(/\$/g, '$$$$');
+		var placeholder = new RegExp('<!-- \\$\\{' + r + '\\} -->', 'g');
+		template = template.replace(placeholder, replacement);
+	}
+
+	return template;
+}
+
 function diff_hunk(hunk, lnstate, data)
 {
 	var hunk_body = '';
@@ -122,43 +138,16 @@ function diff_file(file, lnstate, data)
 
 	file_stats = lnstate.stagebutton + file_stats;
 
-	var template = data.file_template;
-	var repls = {
+	return exec_template(data.file_template, {
 		'FILE_PATH': file_path,
 		'FILE_BODY': file_body,
 		'FILE_STATS': file_stats,
-	};
-
-	for (var r in repls)
-	{
-		// As we are using the repl in the later 'template.replace()'
-		// as the replacement in which character '$' is special, we
-		// need to make sure each occurence of '$' character in the
-		// replacement is represented as '$$' (which stands for a
-		// literal '$'), so, we need to use '$$$$' here to get '$$'.
-		var repl = repls[r].replace(/\$/g, '$$$$');
-		template = template.replace(lnstate.replacements[r], repl);
-	}
-
-	return template;
+	});
 }
 
 function diff_files(files, lines, maxlines, data)
 {
 	var f = '';
-
-	var repl = [
-		'FILE_PATH',
-		'FILE_BODY',
-		'FILE_STATS'
-	];
-
-	var replacements = {};
-
-	for (var r in repl)
-	{
-		replacements[repl[r]] = new RegExp('<!-- \\$\\{' + repl[r] + '\\} -->', 'g');
-	}
 
 	var lnstate = {
 		lines: lines,
@@ -168,7 +157,6 @@ function diff_files(files, lines, maxlines, data)
 		nexttick: 0,
 		tickfreq: 0.01,
 		stagebutton: '',
-		replacements: replacements,
 	};
 
 	if (data.settings.staged || data.settings.unstaged)
