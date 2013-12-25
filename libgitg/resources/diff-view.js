@@ -24,7 +24,6 @@ var settings = {
 	strings: {
 		stage: 'stage',
 		unstage: 'unstage',
-		loading_diff: 'Loading diff...'
 	},
 };
 
@@ -162,7 +161,6 @@ function update_diff(id, lsettings)
 			// Show the progress
 			content.html('\
 				<div class="loading">\
-					' + settings.strings.loading_diff + '\
 					<progress value="' + html_builder_tick + '"></progress>\
 				</div>\
 			');
