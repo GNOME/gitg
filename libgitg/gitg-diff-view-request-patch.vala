@@ -74,7 +74,7 @@ namespace Gitg
 			}
 		}
 
-		public override void run_after_async()
+		protected override InputStream? run_async(Cancellable? cancellable)
 		{
 			var selected_commit = (Gitg.Commit) d_commit;
 			string commit_subject = selected_commit.get_subject();
@@ -97,23 +97,37 @@ namespace Gitg
 				commit_subject = "";
 			}
 
-			var chooser = new Gtk.FileChooserDialog(_("Save Patch File"), null,
-			                                        Gtk.FileChooserAction.SAVE,
-			                                        _("_Cancel"),
-			                                        Gtk.ResponseType.CANCEL,
-			                                        _("_Save"),
-			                                        Gtk.ResponseType.OK);
-
-			chooser.do_overwrite_confirmation = true;
-			chooser.set_current_name(commit_subject + ".patch");
-
-			chooser.show();
-			chooser.response.connect((dialog, id) => {
-				if (id != -6) {
-					create_patch (selected_commit, chooser.get_file());
+			// Show file chooser and finish create patch in idle.
+			Idle.add(() => {
+				if (cancellable.is_cancelled())
+				{
+					return false;
 				}
-				chooser.destroy();
+
+				var chooser = new Gtk.FileChooserDialog(_("Save Patch File"), null,
+				                                        Gtk.FileChooserAction.SAVE,
+				                                        _("_Cancel"),
+				                                        Gtk.ResponseType.CANCEL,
+				                                        _("_Save"),
+				                                        Gtk.ResponseType.OK);
+
+				chooser.do_overwrite_confirmation = true;
+				chooser.set_current_name(commit_subject + ".patch");
+
+				chooser.show();
+				chooser.response.connect((dialog, id) => {
+					if (!cancellable.is_cancelled() && id != -6)
+					{
+						create_patch (selected_commit, chooser.get_file());
+					}
+
+					chooser.destroy();
+				});
+
+				return false;
 			});
+
+			return null;
 		}
 	}
 }
