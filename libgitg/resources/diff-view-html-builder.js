@@ -21,7 +21,7 @@ function diff_file(file, lnstate, data)
 
 		var hunk_header = '<span class="hunk_stats">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
 
-		hunk_header = lnstate.stagebutton + hunk_header;
+		hunk_header = hunk_header;
 
 		file_body += '<tr class="hunk_header">\
 			<td class="gutter old">' + lnstate.gutterdots + '</td> \
@@ -114,13 +114,12 @@ function diff_file(file, lnstate, data)
 
 	var file_stats = '<span class="file_stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
 
-	file_stats = lnstate.stagebutton + file_stats;
-
 	var template = data.file_template;
 	var repls = {
 		'FILE_PATH': file_path,
 		'FILE_BODY': file_body,
 		'FILE_STATS': file_stats,
+		'FILE_STAGE': lnstate.stagebutton,
 	};
 
 	for (var r in repls)
@@ -144,7 +143,8 @@ function diff_files(files, lines, maxlines, data)
 	var repl = [
 		'FILE_PATH',
 		'FILE_BODY',
-		'FILE_STATS'
+		'FILE_STATS',
+		'FILE_STAGE'
 	];
 
 	var replacements = {};
