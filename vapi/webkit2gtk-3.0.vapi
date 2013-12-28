@@ -407,6 +407,7 @@ namespace WebKit {
 		[CCode (has_construct_function = false)]
 		protected URISchemeRequest ();
 		public void finish (GLib.InputStream stream, int64 stream_length, string? mime_type);
+		public void finish_error (GLib.Error error);
 		public unowned string get_path ();
 		public unowned string get_scheme ();
 		public unowned string get_uri ();

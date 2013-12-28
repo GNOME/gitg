@@ -90,6 +90,7 @@ namespace Gitg
 		{
 			SourceFunc callback = run_impl.callback;
 			InputStream? ret = null;
+			Error? err = null;
 
 			new Thread<void*>("gitg-gtk-diff-view", () => {
 				// Actually do it
@@ -97,7 +98,10 @@ namespace Gitg
 				{
 					ret = run_async(cancellable);
 				}
-				catch {}
+				catch (Error e)
+				{
+					err = e;
+				}
 
 				// Schedule the callback in idle
 				Idle.add((owned)callback);
@@ -106,6 +110,11 @@ namespace Gitg
 
 			// Wait for it to finish, yield to caller
 			yield;
+
+			if (err != null)
+			{
+				throw err;
+			}
 
 			// Return the input stream
 			return ret;
@@ -120,7 +129,11 @@ namespace Gitg
 				{
 					stream = run_impl.end(res);
 				}
-				catch {}
+				catch (Error e)
+				{
+					d_request.finish_error(e);
+					return;
+				}
 
 				if (stream == null)
 				{

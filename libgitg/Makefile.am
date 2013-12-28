@@ -60,8 +60,10 @@ VALA_FILES =					\
 	gitg-diff-view-request-resource.vala	\
 	gitg-diff-view-request-patch.vala	\
 	gitg-diff-view-request-diff.vala	\
+	gitg-diff-view-request-stage.vala	\
 	gitg-repository-list-box.vala		\
 	gitg-when-mapped.vala			\
+	gitg-patch-set.vala			\
 	gitg-progress-bin.vala			\
 	gitg-stage.vala				\
 	gitg-stage-status-enumerator.vala	\
