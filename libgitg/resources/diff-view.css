@@ -217,26 +217,37 @@ div.loading {
 }
 
 span.stage, span.unstage {
-  border-radius: 5px;
-  padding: 1px 3px 1px 3px;
-  color: #3465a4;
+  border-radius: 3px;
+  padding: 2px 5px 2px 5px;
   cursor: pointer;
-  margin-right: 6px;
   display: inline-block;
   vertical-align: middle;
-  box-shadow: 1px 1px #d3d7cf inset;
-}
-
-tr.file_header span.stage, tr.file_header span.unstage {
-  box-shadow: 1px 1px #ccc inset;
+  text-align: center;
+  border: 1px solid #999;
+  box-shadow: inset 1px 1px 1px 0px #fff;
+  color: #333;
 }
 
 span.stage {
-  background-color: #ddffdd;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ddffdd), color-stop(1, #99dd99));
+  text-shadow: 1px 1px #99ff99;
+  border: 1px solid #6a6;
+}
+
+span.stage:hover {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ddffdd), color-stop(1, #bbddbb));
+  border: 1px solid #6c6;
 }
 
 span.unstage {
-  background-color: #ffdddd;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffdddd), color-stop(1, #dd9999));
+  text-shadow: 1px 1px #ff9999;
+  border: 1px solid #a66;
+}
+
+span.unstage:hover {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffdddd), color-stop(1, #ddbbbb));
+  border: 1px solid #c66;
 }
 
 span.hunk_stats, span.file_path {
