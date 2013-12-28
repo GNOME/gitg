@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-09-02 17:08+0000\n"
-"PO-Revision-Date: 2013-10-04 13:04+0700\n"
+"POT-Creation-Date: 2013-12-18 19:24+0000\n"
+"PO-Revision-Date: 2013-12-28 15:38+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -264,7 +264,7 @@ msgstr "- penampil repositori Git"
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg adalah penilik repositori git untuk gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:215
 msgid "gitg homepage"
 msgstr "Situs web gitg"
 
@@ -280,23 +280,24 @@ msgstr "Gagal menata konfig pengguna Git."
 msgid "The URL introduced is not supported"
 msgstr "URL yang diperkenalkan tak didukung"
 
-#: ../gitg/gitg-window.vala:257
+#: ../gitg/gitg-window.vala:263
 msgid "Projects"
 msgstr "Projek"
 
-#: ../gitg/gitg-window.vala:293
+#: ../gitg/gitg-window.vala:299
 msgid "Open Repository"
 msgstr "Buka Repositori"
 
-#: ../gitg/gitg-window.vala:295
+#: ../gitg/gitg-window.vala:301
+#: ../libgitg/gitg-diff-view-request-patch.vala:102
 msgid "_Cancel"
 msgstr "_Batal"
 
-#: ../gitg/gitg-window.vala:296
+#: ../gitg/gitg-window.vala:302
 msgid "_Open"
 msgstr "B_uka"
 
-#: ../gitg/gitg-window.vala:526
+#: ../gitg/gitg-window.vala:532
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "'%s' bukan suatu repositori Git."
@@ -364,6 +365,14 @@ msgstr "Sehari yang lalu"
 #, c-format
 msgid "%d days ago"
 msgstr "%d hari yang lalu"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:100
+msgid "Save Patch File"
+msgstr "Simpan Berkas Patch"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:104
+msgid "_Save"
+msgstr "_Simpan"
 
 #: ../libgitg/gitg-diff-view.vala:89
 msgid "stage"
