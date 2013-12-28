@@ -238,6 +238,7 @@ namespace Gitg
 			if (dbg)
 			{
 				settings.enable_developer_extras = true;
+				settings.enable_write_console_messages_to_stdout = true;
 			}
 
 			settings.javascript_can_access_clipboard = true;

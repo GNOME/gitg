@@ -366,6 +366,7 @@ namespace WebKit {
 		public bool enable_tabs_to_links { get; set construct; }
 		public bool enable_webaudio { get; set construct; }
 		public bool enable_webgl { get; set construct; }
+		public bool enable_write_console_messages_to_stdout { get; set construct; }
 		public bool enable_xss_auditor { get; set construct; }
 		public string fantasy_font_family { get; set construct; }
 		public bool javascript_can_access_clipboard { get; set construct; }
