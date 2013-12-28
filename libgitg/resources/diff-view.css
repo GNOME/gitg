@@ -70,6 +70,14 @@ div#diff div.file table tr.added td:last-child {
   background-color: #ddffdd;
 }
 
+div#diff div.file table tr.added.selected td:last-child {
+  background-color: #a8cfd6;
+}
+
+div#diff div.file table tr.removed.selected td:last-child {
+  background-color: #b8bed6;
+}
+
 div#diff div.file table tr.removed td:last-child {
   background-color: #ffdddd;
 }
@@ -150,6 +158,11 @@ div#diff div.file table tr.hunk_header td.hunk_header {
   background-color: #ececec;
   border-top: 1px solid #d3d7cf;
   border-bottom: 1px solid #d3d7cf;
+}
+
+div#diff div.file table tr.hunk_header.selected td.hunk_header {
+  color: #aaa;
+  background-color: #ececff;
 }
 
 div#diff div.file table td {

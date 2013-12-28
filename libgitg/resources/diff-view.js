@@ -144,6 +144,24 @@ function expand_collapse()
 	expander.closest('tbody').toggleClass("collapsed");
 }
 
+
+function stage_unstage_hunk()
+{
+	var addrm = $(this).nextUntil('tr.file_header, tr.hunk_header').filter('tr.added, tr.removed');
+
+	var unsel = $.grep(addrm, function(e) { return !$(e).hasClass('selected'); });
+	addrm.removeClass('selected');
+
+	if (unsel.length != 0)
+	{
+		addrm.addClass('selected');
+	}
+}
+
+function stage_unstage_line()
+{
+	$(this).toggleClass("selected");
+}
 function update_diff(id, lsettings)
 {
 	if (html_builder_worker)
@@ -214,6 +232,8 @@ function update_diff(id, lsettings)
 			content.html(event.data.diff_html);
 
 			$(".expander").click(expand_collapse);
+			$("tr.hunk_header").click(stage_unstage_hunk);
+			$("tr.added, tr.removed").click(stage_unstage_line);
 		}
 	}
 
