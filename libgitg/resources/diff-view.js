@@ -162,6 +162,7 @@ function stage_unstage_line()
 {
 	$(this).toggleClass("selected");
 }
+
 function update_diff(id, lsettings)
 {
 	if (html_builder_worker)
