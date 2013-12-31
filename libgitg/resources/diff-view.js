@@ -191,6 +191,8 @@ function prepare_patchset(filediv)
 	var a = "a".charCodeAt(0);
 	var r = "r".charCodeAt(0);
 
+	var last = null;
+
 	while (elem != null)
 	{
 		var e = elem;
@@ -210,8 +212,18 @@ function prepare_patchset(filediv)
 
 		if (selected)
 		{
-			// [sign, old_offset, new_offset, length]
-			patches.push([added ? a : r, offset + doffset, offset, length]);
+			var tp = added ? a : r;
+
+			if (last != null && last[0] == tp && last[2] + last[3] == offset)
+			{
+				last[3] += length;
+			}
+			else
+			{
+				// [sign, old_offset, new_offset, length]
+				last = [tp, offset + doffset, offset, length];
+				patches.push(last);
+			}
 
 			doffset += added ? -length : length;
 		}
