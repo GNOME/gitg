@@ -60,6 +60,7 @@
                 <property name="orientation">horizontal</property>
                 <property name="visible">True</property>
                 <property name="margin">6</property>
+                <property name="spacing">6</property>
                 <child>
                   <object class="GtkCheckButton" id="check_button_skip_hooks">
                     <property name="visible">True</property>
@@ -77,6 +78,17 @@
                     <property name="visible">True</property>
                     <property name="use_underline">True</property>
                     <property name="label" translatable="yes">C_ommit</property>
+                  </object>
+                  <packing>
+                    <property name="pack-type">end</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_stage">
+                    <property name="visible">True</property>
+                    <property name="use_underline">True</property>
+                    <property name="label" translatable="yes">S_tage selection</property>
+                    <property name="sensitive">False</property>
                   </object>
                   <packing>
                     <property name="pack-type">end</property>

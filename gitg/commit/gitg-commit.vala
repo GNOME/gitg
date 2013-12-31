@@ -120,6 +120,8 @@ namespace GitgCommit
 					d_main.diff_view.unstaged = true;
 					d_main.diff_view.staged = false;
 
+					d_main.button_stage.label = _("_Stage selection");
+
 					d_main.diff_view.diff = d;
 				}
 				catch
@@ -198,6 +200,8 @@ namespace GitgCommit
 
 					d_main.diff_view.unstaged = false;
 					d_main.diff_view.staged = true;
+
+					d_main.button_stage.label = _("_Unstage selection");
 
 					d_main.diff_view.diff = d;
 				}
@@ -740,6 +744,11 @@ namespace GitgCommit
 			d_main.button_commit.clicked.connect(() => {
 				on_commit_clicked();
 			});
+
+			d_main.diff_view.bind_property("has-selection",
+			                               d_main.button_stage,
+			                               "sensitive",
+			                               BindingFlags.DEFAULT);
 		}
 	}
 }
