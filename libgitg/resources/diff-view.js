@@ -224,13 +224,9 @@ function prepare_patchset(filediv)
 				last = [tp, offset + doffset, offset, length];
 				patches.push(last);
 			}
+		}
 
-			doffset += added ? -length : length;
-		}
-		else
-		{
-			doffset += added ? -length : length;
-		}
+		doffset += added ? -length : length;
 	}
 
 	var filename = filediv.getAttribute('data-filename');
