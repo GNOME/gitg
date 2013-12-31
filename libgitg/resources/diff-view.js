@@ -1,4 +1,4 @@
-var id = 1;
+var current_diff;
 
 // Extract query parameters
 var params = function(query) {
@@ -161,10 +161,32 @@ function stage_unstage_hunk()
 function stage_unstage_line()
 {
 	$(this).toggleClass("selected");
+
+function xhr_get(action, data, onload)
+{
+	var r = new XMLHttpRequest();
+
+	if (onload)
+	{
+		r.onload = function(e) { onload(r.responseText); }
+	}
+
+	t = (new Date()).getTime();
+	d = '?_t=' + t + '&viewid=' + params.viewid + "&diffid=" + current_diff;
+
+	for (var k in data)
+	{
+		d += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+	}
+
+	r.open("GET", "gitg-diff:/" + action + "/" + d);
+	r.send();
 }
 
 function update_diff(id, lsettings)
 {
+	current_diff = id;
+
 	if (html_builder_worker)
 	{
 		html_builder_worker.terminate();
@@ -249,27 +271,18 @@ function update_diff(id, lsettings)
 		file_template: file_template,
 	});
 
-	// Load the commit directly here
-	var r = new XMLHttpRequest();
-
-	r.onload = function(e) {
-		var j = JSON.parse(r.responseText);
+	xhr_get("diff", {format: "commit_only"}, function(r) {
+		var j = JSON.parse(r);
 
 		if ('commit' in j)
 		{
 			$('#diff_header').html(write_commit(j.commit));
-			$(".format_patch_button").click(function()
-			{
-				var patch_request = new XMLHttpRequest();
-				patch_request.open("GET", "gitg-diff:/patch/?id=" + j.commit.id + "&viewid=" + params.viewid);
-				patch_request.send();
+
+			$(".format_patch_button").click(function() {
+				xhr_get('patch', {id: j.commit.id});
 			});
 		}
-	}
-
-	t = (new Date()).getTime();
-	r.open("GET", "gitg-diff:/diff/?t=" + t + "&viewid=" + params.viewid + "&diffid=" + id + "&format=commit_only");
-	r.send();
+	});
 }
 
 addEventListener('DOMContentLoaded', function () {
