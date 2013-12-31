@@ -44,7 +44,7 @@ function diff_file(file, lnstate, data)
 			var l = h.lines[j];
 			var o = String.fromCharCode(l.type);
 
-			var row = '<tr class="';
+			var row = '<tr data-offset="' + l.offset + '" data-length="' + l.length + '" class="';
 
 			switch (o)
 			{
