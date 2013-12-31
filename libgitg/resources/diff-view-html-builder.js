@@ -16,6 +16,16 @@ function diff_file(file, lnstate, data)
 	{
 		var h = file.hunks[i];
 
+		if (!h)
+		{
+			file_body += '<tr class="context">\
+				<td class="gutter old">' + lnstate.gutterdots + '</td>\
+				<td class="gutter new">' + lnstate.gutterdots + '</td>\
+				<td></td>\
+			</tr>';
+			continue;
+		}
+
 		var cold = h.range.old.start;
 		var cnew = h.range.new.start;
 
@@ -97,22 +107,31 @@ function diff_file(file, lnstate, data)
 		}
 	}
 
-	var file_path;
+	var file_path = '';
+	var file_stats = '';
+	var file_classes = '';
 
-	if (file.file.new.path)
+	if (file.file)
 	{
-		file_path = file.file.new.path;
+		if (file.file.new.path)
+		{
+			file_path = file.file.new.path;
+		}
+		else
+		{
+			file_path = file.file.old.path;
+		}
+
+		var total = added + removed;
+		var addedp = Math.floor(added / total * 100);
+		var removedp = 100 - addedp;
+
+		file_stats = '<span class="file_stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
 	}
 	else
 	{
-		file_path = file.file.old.path;
+		file_classes = 'background';
 	}
-
-	var total = added + removed;
-	var addedp = Math.floor(added / total * 100);
-	var removedp = 100 - addedp;
-
-	var file_stats = '<span class="file_stats"><span class="number">' + (added + removed)  + '</span><span class="bar"><span class="added" style="width: ' + addedp + '%;"></span><span class="removed" style="width: ' + removedp + '%;"></span></span></span>';
 
 	var template = data.file_template;
 	var repls = {
@@ -120,6 +139,7 @@ function diff_file(file, lnstate, data)
 		'FILE_BODY': file_body,
 		'FILE_STATS': file_stats,
 		'FILE_STAGE': lnstate.stagebutton,
+		'FILE_CLASSES': file_classes
 	};
 
 	for (var r in repls)
@@ -145,6 +165,7 @@ function diff_files(files, lines, maxlines, data)
 		'FILE_BODY',
 		'FILE_STATS',
 		'FILE_STAGE'
+		'FILE_CLASSES'
 	];
 
 	var replacements = {};
@@ -183,6 +204,8 @@ function diff_files(files, lines, maxlines, data)
 
 		lnstate.stagebutton = '<span class="' + cls + '">' + nm + '</span>';
 	}
+	// special empty background filler
+	f += diff_file({hunks: [null]}, lnstate, data);
 
 	for (var i = 0; i < files.length; ++i)
 	{

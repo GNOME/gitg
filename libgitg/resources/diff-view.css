@@ -1,6 +1,7 @@
 body, html {
   padding: 0;
   margin: 0;
+  min-height: 100%;
 }
 
 div#templates {
@@ -19,6 +20,24 @@ div#diff div.file {
 div#diff div.file table {
   border-collapse: collapse;
   width: 100%;
+}
+
+div#diff div.file.background tr.file_header {
+  display: none;
+}
+
+div#diff div.file.background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+div#diff div.file.background table.file {
+  height: 100%;
 }
 
 img.avatar {
