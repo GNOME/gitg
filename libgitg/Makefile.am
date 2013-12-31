@@ -25,6 +25,7 @@ AM_VALAFLAGS = 				\
 	--pkg gee-0.8			\
 	--pkg json-glib-1.0		\
 	--pkg gio-unix-2.0		\
+	--pkg gitg-js-utils		\
 	$(GITG_VALAFLAGS)		\
 	--vapidir $(top_srcdir)/vapi	\
 	--header libgitg.h		\
@@ -77,10 +78,11 @@ libgitg_1_0_la_CFLAGS =		\
 
 libgitg_1_0_la_SOURCES = 		\
 	gitg-resources.c		\
+	gitg-js-utils.c			\
 	$(VALA_FILES)
 
 headerdir = $(prefix)/include/libgitg-1.0/libgitg
-header_HEADERS = libgitg.h
+header_HEADERS = libgitg.h gitg-js-utils.h
 
 vapidir = $(prefix)/share/vala/vapi
 vapi_DATA = libgitg-1.0.vapi

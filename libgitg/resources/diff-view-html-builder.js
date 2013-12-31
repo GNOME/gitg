@@ -138,7 +138,7 @@ function diff_file(file, lnstate, data)
 		'FILE_PATH': file_path,
 		'FILE_BODY': file_body,
 		'FILE_STATS': file_stats,
-		'FILE_STAGE': lnstate.stagebutton,
+		'FILE_FILENAME': file_path,
 		'FILE_CLASSES': file_classes
 	};
 
@@ -164,7 +164,7 @@ function diff_files(files, lines, maxlines, data)
 		'FILE_PATH',
 		'FILE_BODY',
 		'FILE_STATS',
-		'FILE_STAGE'
+		'FILE_FILENAME',
 		'FILE_CLASSES'
 	];
 
@@ -172,7 +172,8 @@ function diff_files(files, lines, maxlines, data)
 
 	for (var r in repl)
 	{
-		replacements[repl[r]] = new RegExp('<!-- \\$\\{' + repl[r] + '\\} -->', 'g');
+		var varspec = '\\$\\{' + repl[r] + '\\}';
+		replacements[repl[r]] = new RegExp('<!-- ' + varspec + ' -->|' + varspec, 'g');
 	}
 
 	var lnstate = {
@@ -182,28 +183,9 @@ function diff_files(files, lines, maxlines, data)
 		processed: 0,
 		nexttick: 0,
 		tickfreq: 0.01,
-		stagebutton: '',
 		replacements: replacements,
 	};
 
-	if (data.settings.staged || data.settings.unstaged)
-	{
-		var cls;
-		var nm;
-
-		if (data.settings.staged)
-		{
-			cls = 'unstage';
-			nm = data.settings.strings.unstage;
-		}
-		else
-		{
-			cls = 'stage';
-			nm = data.settings.strings.stage;
-		}
-
-		lnstate.stagebutton = '<span class="' + cls + '">' + nm + '</span>';
-	}
 	// special empty background filler
 	f += diff_file({hunks: [null]}, lnstate, data);
 
