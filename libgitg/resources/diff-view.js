@@ -240,7 +240,10 @@ function get_selection()
 
 	for (var i = 0; i < files.length; i++)
 	{
-		ret.push(prepare_patchset(files[i]));
+		if (!has_class(files[i], 'background'))
+		{
+			ret.push(prepare_patchset(files[i]));
+		}
 	}
 
 	return ret;
