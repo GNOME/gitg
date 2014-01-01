@@ -50,29 +50,10 @@ public class PatchSet
 		size_t old_offset;
 		size_t new_offset;
 		size_t length;
-
-		public string to_string()
-		{
-			var tp = type == Type.ADD ? "add" : "remove";
-			return @"$tp[old_offset: $old_offset, new_offset: $new_offset, length: $length]";
-		}
 	}
 
 	public string  filename;
 	public Patch[] patches;
-
-	public string to_string()
-	{
-		var ps = new string[patches.length];
-
-		for (var i = 0; i < patches.length; i++)
-		{
-			ps[i] = patches[i].to_string();
-		}
-
-		var p = string.joinv(", ", ps);
-		return @"$filename: $p";
-	}
 }
 
 public class Stage : Object
