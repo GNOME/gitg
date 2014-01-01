@@ -733,6 +733,36 @@ namespace GitgCommit
 			}
 		}
 
+		private async void stage_selection() throws Error
+		{
+			var selection = yield d_main.diff_view.get_selection();
+			var stage = application.repository.stage;
+
+			foreach (var pset in selection)
+			{
+				yield stage.stage_patch(pset);
+			}
+		}
+
+		private void on_stage_clicked()
+		{
+			stage_selection.begin((obj, res) => {
+				try
+				{
+					stage_selection.end(res);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to stage selection");
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+
+					return;
+				}
+
+				reload();
+			});
+		}
+
 		private void build_ui()
 		{
 			d_main = new Paned();
@@ -743,6 +773,10 @@ namespace GitgCommit
 
 			d_main.button_commit.clicked.connect(() => {
 				on_commit_clicked();
+			});
+
+			d_main.button_stage.clicked.connect(() => {
+				on_stage_clicked();
 			});
 
 			d_main.diff_view.bind_property("has-selection",

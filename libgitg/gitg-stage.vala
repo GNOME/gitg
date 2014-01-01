@@ -33,7 +33,8 @@ public errordomain StageError
 {
 	PRE_COMMIT_HOOK_FAILED,
 	COMMIT_MSG_HOOK_FAILED,
-	NOTHING_TO_COMMIT
+	NOTHING_TO_COMMIT,
+	INDEX_ENTRY_NOT_FOUND
 }
 
 public class PatchSet
@@ -569,6 +570,88 @@ public class Stage : Object
 	public async void stage_path(string path) throws Error
 	{
 		yield stage(d_repository.get_workdir().resolve_relative_path(path));
+	}
+
+	/**
+	 * Stage a patch to the index.
+	 *
+	 * @param patch the patch to stage.
+	 *
+	 * Stage a provided patch to the index. The patch should contain changes
+	 * of the file in the current working directory to the contents of the
+	 * index (i.e. as obtained from diff_workdir)
+	 */
+	public async void stage_patch(PatchSet patch) throws Error
+	{
+		// new file is the current file in the working directory
+		var newf = d_repository.get_workdir().resolve_relative_path(patch.filename);
+		var new_stream = yield newf.read_async();
+
+		yield thread_index((index) => {
+			var entries = index.get_entries();
+			var entry = entries.get_by_path(newf, 0);
+
+			if (entry == null)
+			{
+				throw new StageError.INDEX_ENTRY_NOT_FOUND(patch.filename);
+			}
+
+			var old_blob = d_repository.lookup<Ggit.Blob>(entry.get_id());
+			unowned uchar[] old_content = old_blob.get_raw_content();
+
+			var patched_stream = d_repository.create_blob();
+
+			size_t oldptr = 0;
+			size_t newptr = 0;
+
+			// Copy old_content to patched_stream while applying patches as
+			// specified in patch.patches from new_stream
+			foreach (var p in patch.patches)
+			{
+				if (p.old_offset != oldptr)
+				{
+					patched_stream.write(old_content[oldptr:p.old_offset]);
+					oldptr = p.old_offset;
+				}
+
+				if (p.type == PatchSet.Type.REMOVE)
+				{
+					oldptr += p.length;
+				}
+				else
+				{
+					// Copy in from new_stream
+					if (newptr != p.new_offset)
+					{
+						new_stream.seek(p.new_offset, SeekType.SET);
+					}
+
+					var buf = new uint8[p.length];
+
+					new_stream.read_all(buf, null);
+					patched_stream.write_all(buf, null);
+
+					newptr = p.new_offset + p.length;
+				}
+			}
+
+			// Copy remaining part of old
+			if (oldptr != old_content.length)
+			{
+				patched_stream.write_all(old_content[oldptr:old_content.length], null);
+			}
+
+			new_stream.close();
+			patched_stream.close();
+
+			var new_id = patched_stream.get_id();
+
+			var new_entry = d_repository.create_index_entry_for_path(patch.filename,
+			                                                         new_id);
+
+			index.add(new_entry);
+			index.write();
+		});
 	}
 
 	/**
