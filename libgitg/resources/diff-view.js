@@ -173,7 +173,6 @@ function update_has_selection()
 		has_selection = hs;
 
 		var v = has_selection ? "yes" : "no";
-
 		xhr_get('internal', {action: 'selection-changed', value: v});
 	}
 }
@@ -333,8 +332,6 @@ function xhr_get(action, data, onload)
 
 function update_diff(id, lsettings)
 {
-	current_diff = id;
-
 	if (html_builder_worker)
 	{
 		html_builder_worker.terminate();
@@ -345,8 +342,11 @@ function update_diff(id, lsettings)
 	if (typeof id == 'undefined')
 	{
 		content.empty();
+		update_has_selection();
 		return;
 	}
+
+	current_diff = id;
 
 	if (typeof lsettings != 'undefined')
 	{
@@ -375,6 +375,8 @@ function update_diff(id, lsettings)
 					' + settings.strings.loading_diff + '\
 				</div>\
 			');
+
+			update_has_selection();
 		}
 
 		html_builder_progress_timeout = 0;
@@ -401,6 +403,7 @@ function update_diff(id, lsettings)
 			}
 
 			content.html(event.data.diff_html);
+			update_has_selection();
 
 			$(".expander").click(expand_collapse);
 
