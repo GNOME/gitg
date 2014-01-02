@@ -21,6 +21,7 @@ function diff_file(file, lnstate, data)
 			file_body += '<tr class="context">\
 				<td class="gutter old">' + lnstate.gutterdots + '</td>\
 				<td class="gutter new">' + lnstate.gutterdots + '</td>\
+				<td class="gutter type">&nbsp;</td>\
 				<td></td>\
 			</tr>';
 			continue;
@@ -36,6 +37,7 @@ function diff_file(file, lnstate, data)
 		file_body += '<tr class="hunk_header">\
 			<td class="gutter old">' + lnstate.gutterdots + '</td> \
 			<td class="gutter new">' + lnstate.gutterdots + '</td> \
+			<td class="gutter type">&nbsp;</td> \
 			<td class="hunk_header">' + hunk_header + '</td> \
 		</tr>';
 
@@ -78,13 +80,20 @@ function diff_file(file, lnstate, data)
 					row += 'context"> \
 						<td class="gutter old"></td> \
 						<td class="gutter new"></td>';
-						l.content = l.content.substr(1, l.content.length);
+					l.content = l.content.substr(1, l.content.length);
 				break;
 				default:
+					o = ' ';
 					row += '">';
 				break;
 			}
 
+			if (o == ' ')
+			{
+				o = '&nbsp;';
+			}
+
+			row += '<td class="gutter type">' + o + '</td>';
 			row += '<td class="code">' + html_escape(l.content).replace(/\t/g, tabrepl) + '</td>';
 
 			row += '</tr>';
