@@ -317,7 +317,7 @@ public class Date : Object, Initable
 			}
 			else
 			{
-				return ngettext(_("A minute ago"), _("%d minutes ago"), rounded_minutes).printf(rounded_minutes);
+				return ngettext("A minute ago", "%d minutes ago", rounded_minutes).printf(rounded_minutes);
 			}
 		}
 		else if (t < TimeSpan.MINUTE * 45)
@@ -327,12 +327,12 @@ public class Date : Object, Initable
 		else if (t < TimeSpan.HOUR * 23.5)
 		{
 			int rounded_hours = (int) Math.round((float) t / TimeSpan.HOUR);
-			return ngettext(_("An hour ago"), _("%d hours ago"), rounded_hours).printf(rounded_hours);
+			return ngettext("An hour ago", "%d hours ago", rounded_hours).printf(rounded_hours);
 		}
 		else if (t < TimeSpan.DAY * 7)
 		{
 			int rounded_days = (int) Math.round((float) t / TimeSpan.DAY);
-			return ngettext(_("A day ago"), _("%d days ago"), rounded_days).printf(rounded_days);
+			return ngettext("A day ago", "%d days ago", rounded_days).printf(rounded_days);
 		}
 		// FIXME: Localize these date formats, Bug 699196
 		else if (dt.get_year() == new DateTime.now_local().get_year())
