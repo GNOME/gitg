@@ -185,7 +185,6 @@ function prepare_patchset(filediv)
 	elem = next_element(elem);
 
 	var patches = [];
-
 	var doffset = 0;
 
 	var a = "a".charCodeAt(0);
@@ -220,13 +219,24 @@ function prepare_patchset(filediv)
 			}
 			else
 			{
+				var o = {old: offset, new: offset};
+
+				if (added)
+				{
+					o.old -= doffset;
+				}
+				else
+				{
+					o.new += doffset;
+				}
+
 				// [sign, old_offset, new_offset, length]
-				last = [tp, offset + doffset, offset, length];
+				last = [tp, o.old, o.new, length];
 				patches.push(last);
 			}
 		}
 
-		doffset += added ? -length : length;
+		doffset += added ? length : -length;
 	}
 
 	var filename = filediv.getAttribute('data-filename');
