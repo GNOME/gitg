@@ -370,10 +370,10 @@ function update_diff(id, lsettings)
 		if (eta > 1000)
 		{
 			// Show the progress
-			content.html('\
-				<div class="loading">\
-					' + settings.strings.loading_diff + '\
-				</div>\
+			content.html(' \
+				<div class="loading"> \
+					' + settings.strings.loading_diff + ' \
+				</div> \
 			');
 
 			update_has_selection();

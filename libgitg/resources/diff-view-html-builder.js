@@ -18,11 +18,11 @@ function diff_file(file, lnstate, data)
 
 		if (!h)
 		{
-			file_body += '<tr class="context">\
-				<td class="gutter old">' + lnstate.gutterdots + '</td>\
-				<td class="gutter new">' + lnstate.gutterdots + '</td>\
-				<td class="gutter type">&nbsp;</td>\
-				<td></td>\
+			file_body += '<tr class="context"> \
+				<td class="gutter old">' + lnstate.gutterdots + '</td> \
+				<td class="gutter new">' + lnstate.gutterdots + '</td> \
+				<td class="gutter type">&nbsp;</td> \
+				<td></td> \
 			</tr>';
 			continue;
 		}
@@ -34,7 +34,7 @@ function diff_file(file, lnstate, data)
 
 		hunk_header = hunk_header;
 
-		file_body += '<tr class="hunk_header">\
+		file_body += '<tr class="hunk_header"> \
 			<td class="gutter old">' + lnstate.gutterdots + '</td> \
 			<td class="gutter new">' + lnstate.gutterdots + '</td> \
 			<td class="gutter type">&nbsp;</td> \
