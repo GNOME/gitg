@@ -1,9 +1,15 @@
 = General Information =
-gitg is a GitX clone for GNOME/gtk+. It aims at being a small, fast and
-convenient tool to visualize git history and actions that benefit from a
-graphical presentation.
+gitg is a git interface application for GNOME/gtk+. It aims at being a small,
+fast and convenient tool to visualize git history. Although primarily a
+tool for visualization, gitg also provides several convenient interactions with
+git repositories:
 
-The latest version of gitg is 0.2.7.
+ * Quickly clone new repositories
+ * Manage basic git user information
+ * Create new commits, with precise control over the staging area
+   (including per hunk/line staging)
+
+The latest version of gitg is 0.3.1.
 
 Website:      https://live.gnome.org/Apps/Gitg
 Bugs:         http://bugzilla.gnome.org/browse.cgi?product=gitg
@@ -11,21 +17,20 @@ Download:     http://download.gnome.org/sources/gitg/
 Mailing list: http://mail.gnome.org/mailman/listinfo/gitg-list
 
 = Installing gitg =
-To install the latest version of gitg, make sure to download gitg-0.2.7.tar.xz
+To install the latest version of gitg, make sure to download gitg-0.3.1.tar.xz
 from the download site. After downloading the following procedure installs
 gitg:
 
-	$ tar Jxf gitg-0.2.7.tar.xz
-	$ cd gitg-0.2.7
+	$ tar Jxf gitg-0.3.1.tar.xz
+	$ cd gitg-0.3.1
 	$ ./configure
 	$ make
 	$ sudo make install
 
-For more information on installing gitg, please view INSTALL.
+For more information on installing gitg, please see INSTALL.
 
 = Building gitg from git =
-The gitg repository is hosted on git.gnome.org. To build from git, use the
-following:
+The gitg repository is hosted on git.gnome.org. To build from git:
 
 	$ git clone git://git.gnome.org/gitg
 	$ cd gitg
@@ -34,5 +39,5 @@ following:
 
 = Using gitg =
 When gitg is installed, you can run gitg from the GNOME menu, or from a
-terminal by issuing: 'gitg'. Type 'gitg --help' to show the options you can
+terminal by issueing: 'gitg'. Type 'gitg --help' to show the options you can
 specify on the command line.

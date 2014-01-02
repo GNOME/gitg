@@ -1,3 +1,22 @@
+= gitg 0.3.1 =
+Version 0.3.1 was released on 2013-02-01
+
+This is the first release of a major rewrite of gitg. We have since moved from
+C to Vala to implement gitg, easing development. More importantly, gitg is now
+using libgit2 (instead of calling out to git) which vastly improves gitg's
+quality. The interface has also had a significant overhaul, conforming to the
+latest GNOME 3 apps interface development guidelines.
+
+Although the most prominent features of gitg are present in this release, there
+are still some notable regressions which will be implemented in subsequent
+releases and this release should therefore be considered unstable.
+
+== Known regressions ==
+  * Push, pull branch
+  * Create/rename/delete branch
+  * Create/rename/delete tag
+  * Basic remote branch management
+
 = gitg 0.2.5 =
 Version 0.2.5 was released on 2011-09-01
 
