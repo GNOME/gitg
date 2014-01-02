@@ -1,6 +1,4 @@
 # To implement
-* Per hunk staging
-* Per line staging
 * Rendering of permission changes
 * Selecting multiple files
 * DND
@@ -12,6 +10,5 @@
 Bug 603585 - When a merge conflic is commited, gitg taints the status
 
 # To check
-* Handling of encodings/conversions
 * Handling of binary files/diffs
 * Support for symbolic links
