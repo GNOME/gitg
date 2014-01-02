@@ -733,29 +733,47 @@ namespace GitgCommit
 			}
 		}
 
-		private async void stage_selection() throws Error
+		private async void stage_unstage_selection(bool staging) throws Error
 		{
 			var selection = yield d_main.diff_view.get_selection();
 			var stage = application.repository.stage;
 
 			foreach (var pset in selection)
 			{
-				yield stage.stage_patch(pset);
+				if (staging)
+				{
+					yield stage.stage_patch(pset);
+				}
+				else
+				{
+					yield stage.unstage_patch(pset);
+				}
 			}
 		}
 
 		private void on_stage_clicked()
 		{
-			stage_selection.begin((obj, res) => {
+			var staging = d_main.diff_view.unstaged;
+
+			stage_unstage_selection.begin(staging, (obj, res) => {
 				try
 				{
-					stage_selection.end(res);
+					stage_unstage_selection.end(res);
 				}
 				catch (Error e)
 				{
-					var msg = _("Failed to stage selection");
-					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+					string msg;
 
+					if (staging)
+					{
+						msg = _("Failed to stage selection");
+					}
+					else
+					{
+						msg = _("Failed to unstage selection");
+					}
+
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
 					return;
 				}
 
