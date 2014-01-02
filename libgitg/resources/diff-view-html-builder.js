@@ -3,6 +3,56 @@ function html_escape(s)
 	return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+function Template(template, placeholders)
+{
+	var components = [template];
+
+	for (var i = 0; i < placeholders.length; i++)
+	{
+		var name = placeholders[i];
+		var varspec = '\\$\\{' + name + '\\}';
+		var r = new RegExp('<!-- ' + varspec + ' -->|' + varspec, 'g');
+
+		var newcomp = [];
+
+		for (var j = 0; j < components.length; j += 2)
+		{
+			var parts = components[j].split(r);
+
+			for (var k = 0; k < parts.length; k++)
+			{
+				newcomp.push(parts[k]);
+
+				if (k != parts.length - 1)
+				{
+					newcomp.push(name);
+				}
+			}
+
+			if (j < components.length - 1)
+			{
+				newcomp.push(components[j + 1]);
+			}
+		}
+
+		components = newcomp;
+	}
+
+	this.components = components;
+}
+
+Template.prototype.execute = function(replacements) {
+	var ret = '';
+
+	for (var i = 0; i < this.components.length - 1; i += 2)
+	{
+		var name = this.components[i + 1];
+		ret += this.components[i] + replacements[name];
+	}
+
+	return ret + this.components[this.components.length - 1];
+}
+
 function diff_file(file, lnstate, data)
 {
 	tabrepl = '<span class="tab" style="width: ' + data.settings.tab_width + 'ex">\t</span>';
@@ -142,7 +192,6 @@ function diff_file(file, lnstate, data)
 		file_classes = 'background';
 	}
 
-	var template = data.file_template;
 	var repls = {
 		'FILE_PATH': file_path,
 		'FILE_BODY': file_body,
@@ -151,25 +200,12 @@ function diff_file(file, lnstate, data)
 		'FILE_CLASSES': file_classes
 	};
 
-	for (var r in repls)
-	{
-		// As we are using the repl in the later 'template.replace()'
-		// as the replacement in which character '$' is special, we
-		// need to make sure each occurence of '$' character in the
-		// replacement is represented as '$$' (which stands for a
-		// literal '$'), so, we need to use '$$$$' here to get '$$'.
-		var repl = repls[r].replace(/\$/g, '$$$$');
-		template = template.replace(lnstate.replacements[r], repl);
-	}
-
-	return template;
+	return lnstate.template.execute(repls);
 }
 
 function diff_files(files, lines, maxlines, data)
 {
-	var f = '';
-
-	var repl = [
+	var placeholders = [
 		'FILE_PATH',
 		'FILE_BODY',
 		'FILE_STATS',
@@ -177,13 +213,7 @@ function diff_files(files, lines, maxlines, data)
 		'FILE_CLASSES'
 	];
 
-	var replacements = {};
-
-	for (var r in repl)
-	{
-		var varspec = '\\$\\{' + repl[r] + '\\}';
-		replacements[repl[r]] = new RegExp('<!-- ' + varspec + ' -->|' + varspec, 'g');
-	}
+	var template = new Template(data.file_template, placeholders);
 
 	var lnstate = {
 		lines: lines,
@@ -192,11 +222,11 @@ function diff_files(files, lines, maxlines, data)
 		processed: 0,
 		nexttick: 0,
 		tickfreq: 0.01,
-		replacements: replacements,
+		template: template,
 	};
 
 	// special empty background filler
-	f += diff_file({hunks: [null]}, lnstate, data);
+	var f = diff_file({hunks: [null]}, lnstate, data);
 
 	for (var i = 0; i < files.length; ++i)
 	{
