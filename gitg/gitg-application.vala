@@ -85,7 +85,7 @@ public class Application : Gtk.Application
 
 	private void parse_command_line(ref unowned string[] argv) throws OptionError
 	{
-		var ctx = new OptionContext(_("- git repository viewer"));
+		var ctx = new OptionContext(_("- Git repository viewer"));
 
 		ctx.add_main_entries(Options.entries, Config.GETTEXT_PACKAGE);
 		ctx.add_group(Gtk.get_option_group(true));
@@ -202,7 +202,7 @@ public class Application : Gtk.Application
 		                    "Ignacio Casal Quinteiro <icq@gnome.org>"};
 
 		string copyright = "Copyright \xc2\xa9 2012 Jesse van den Kieboom";
-		string comments = _("gitg is a git repository viewer for gtk+/GNOME");
+		string comments = _("gitg is a Git repository viewer for gtk+/GNOME");
 
 		unowned List<Gtk.Window> wnds = get_windows();
 
