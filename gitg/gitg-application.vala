@@ -210,6 +210,7 @@ public class Application : Gtk.Application
 		                      "authors", authors,
 		                      "copyright", copyright,
 		                      "comments", comments,
+		                      "translator-credits", _("translator-credits"),
 		                      "version", Config.VERSION,
 		                      "website", Config.PACKAGE_URL,
 		                      "website-label", _("gitg homepage"),
