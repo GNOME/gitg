@@ -1,4 +1,5 @@
 AM_CPPFLAGS = -g -I$(top_srcdir) -I$(top_srcdir)/gitg -I$(top_srcdir)/libgitg $(GITG_DEBUG_FLAGS) $(GITG_CFLAGS)
+SUBDIRS = libgitg
 
 noinst_PROGRAMS = $(TEST_PROGS) $(DEMO_PROGS)
 
