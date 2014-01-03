@@ -286,7 +286,6 @@ Makefile
 libgd/Makefile
 libgitg/Makefile
 libgitg/libgitg-1.0.pc
-libgitg/tests/Makefile
 libgitg-ext/Makefile
 libgitg-ext/libgitg-ext-1.0.pc
 gitg/Makefile
@@ -296,6 +295,7 @@ data/icons/Makefile
 data/org.gnome.gitg.gschema.xml.in
 po/Makefile.in
 tests/Makefile
+tests/libgitg/Makefile
 plugins/Makefile
 plugins/diff/Makefile
 plugins/diff/icons/Makefile

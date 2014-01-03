@@ -1,8 +1,14 @@
-AM_CPPFLAGS = -g -I$(top_srcdir) -I$(top_srcdir)/gitg -I$(top_srcdir)/libgitg $(GITG_DEBUG_FLAGS) $(GITG_CFLAGS)
+TEST_PROGS = test-libgitg
 
+TESTS = $(TEST_PROGS)
 noinst_PROGRAMS = $(TEST_PROGS)
 
-AM_VALAFLAGS = \
+test_libgitg_CPPFLAGS = 			\
+	-I$(top_srcdir) 			\
+	-I$(top_srcdir)/gitg 			\
+	-I$(top_srcdir)/libgitg
+
+test_libgitg_VALAFLAGS =			\
 	--pkg posix --pkg gitg-assert		\
 	--pkg Ggit-1.0				\
 	--pkg libgitg-1.0			\
@@ -18,7 +24,16 @@ AM_VALAFLAGS = \
 	--vapidir $(top_builddir)/libgitg	\
 	--disable-warnings
 
-TEST_PROGS = test-libgitg
+test_libgitg_CFLAGS =				\
+	$(GITG_DEBUG_FLAGS)			\
+	$(GITG_CFLAGS)				\
+	$(LIBGITG_CFLAGS)			\
+	-g					\
+	-w
+
+test_libgitg_LDADD = \
+	$(top_builddir)/libgitg/libgitg-1.0.la	\
+	$(LIBGITG_LIBS)
 
 test_libgitg_SOURCES =				\
 	test.vala				\
@@ -28,21 +43,6 @@ test_libgitg_SOURCES =				\
 	test-date.vala				\
 	test-commit.vala			\
 	test-encoding.vala
-
-test_libgitg_CFLAGS = $(LIBGITG_CFLAGS) -w
-
-test_libgitg_LDADD = \
-	$(top_builddir)/libgitg/libgitg-1.0.la	\
-	$(LIBGITG_LIBS)
-
-TESTS = $(TEST_PROGS)
-
-BUILT_SOURCES =					\
-	test_libgitg_vala.stamp
-
-CLEANFILES =					\
-	$(test_libgitg_SOURCES:.vala=.c)	\
-	$(BUILT_SOURCES)
 
 EXTRA_DIST = gitg-assert.h gitg-assert.vapi
 
