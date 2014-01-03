@@ -101,11 +101,6 @@ gitg-ext-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) 
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
-gitg-ext-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
-	$(GLIB_COMPILE_RESOURCES) --generate-header 	\
-		--sourcedir $(srcdir)/resources 	\
-		--target "$@" "$<"
-
 CLEANFILES = $(libgitg_ext_1_0_la_typelib_DATA)
 
 EXTRA_DIST =					\

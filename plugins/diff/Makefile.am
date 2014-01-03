@@ -31,11 +31,6 @@ gitg-diff-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES)
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
-gitg-diff-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
-	$(GLIB_COMPILE_RESOURCES) --generate-header 	\
-		--sourcedir $(srcdir)/resources 	\
-		--target "$@" "$<"
-
 EXTRA_DIST =					\
 	$(libdiff_la_plugin_DATA)		\
 	resources/resources.xml			\

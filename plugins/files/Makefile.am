@@ -30,11 +30,6 @@ gitg-files-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
-gitg-files-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
-	$(GLIB_COMPILE_RESOURCES) --generate-header 	\
-		--sourcedir $(srcdir)/resources 	\
-		--target "$@" "$<"
-
 EXTRA_DIST =					\
 	$(libfiles_la_plugin_DATA)		\
 	resources/resources.xml			\
