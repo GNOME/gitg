@@ -64,10 +64,6 @@ header_DATA = libgitg-ext.h
 vapidir = $(prefix)/share/vala/vapi
 vapi_DATA = libgitg-ext-1.0.vapi
 
-GitgExt-1.0.gir: libgitg-ext-1.0.la
-libgitg-ext-1.0.vapi: libgitg-ext-1.0.la
-libgitg-ext.h: libgitg-ext-1.0.la
-
 if ENABLE_DOCS
 docs: $(VALA_FILES)
 	$(VALADOC)				\
