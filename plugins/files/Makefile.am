@@ -34,6 +34,9 @@ GITIGNOREFILES =				\
 	$(libfiles_la_VALASOURCES:%.vala=%.c)	\
 	libfiles_la_vala.stamp
 
+CLEANFILES =					\
+	gitg-files-resources.c
+
 EXTRA_DIST =					\
 	$(libfiles_la_plugin_DATA)		\
 	resources/resources.xml			\

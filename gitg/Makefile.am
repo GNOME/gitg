@@ -81,6 +81,8 @@ GITIGNOREFILES =				\
 	$(gitg_VALASOURCES:%.vala=%.c)		\
 	gitg_vala.stamp
 
+CLEANFILES = gitg-resources.c
+
 EXTRA_DIST = 					\
 	resources/gitg-resources.xml		\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/gitg-resources.xml)
