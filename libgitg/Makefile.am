@@ -104,6 +104,7 @@ CLEANFILES = $(libgitg_1_0_la_typelib_DATA)
 
 EXTRA_DIST =					\
 	$(libgitg_1_0_la_pkgconfig_DATA)	\
+	$(libgitg_1_0_la_gir_DATA)		\
 	resources/resources.xml			\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 
