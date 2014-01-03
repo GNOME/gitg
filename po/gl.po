@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Ignacio Casal Quinteiro <icq@gnome.org>, 2009.
 # Fran Diéguez <frandieguez@gnome.org>, 2010, 2011.
-# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013.
+# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-13 00:39+0200\n"
-"PO-Revision-Date: 2013-09-13 00:39+0200\n"
+"POT-Creation-Date: 2014-01-03 02:11+0100\n"
+"PO-Revision-Date: 2014-01-03 02:14+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -152,68 +152,76 @@ msgstr "Non é posíbel comprobar a ortografía do idioma: %s"
 msgid "Commit"
 msgstr "Remitir"
 
-#: ../gitg/commit/gitg-commit.vala:144
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "Selección de _reserva"
+
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Produciuse un fallo ao reservar o ficheiro «%s» "
 
-#: ../gitg/commit/gitg-commit.vala:163
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Produciuse un fallo ao reservar a eliminación do ficheiro «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "Selección de _desreserva"
+
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Produciuse un fallo ao desreservar a eliminación do ficheiro «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:242
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Produciuse un fallo desreservar o ficheiro «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:366
+#: ../gitg/commit/gitg-commit.vala:370
 msgid "Staged"
 msgstr "Reservado"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:374
 msgid "No staged files"
 msgstr "Non hai ningún ficheiro reservado"
 
-#: ../gitg/commit/gitg-commit.vala:379
+#: ../gitg/commit/gitg-commit.vala:383
 msgid "Unstaged"
 msgstr "Sen reservar"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:387
 msgid "No unstaged files"
 msgstr "Non hai ficheiro sen reservar"
 
-#: ../gitg/commit/gitg-commit.vala:392
+#: ../gitg/commit/gitg-commit.vala:396
 msgid "Untracked"
 msgstr "Sen seguimento"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:400
 msgid "No untracked files"
 msgstr "Non hai ficheiro sen seguimento"
 
-#: ../gitg/commit/gitg-commit.vala:432
+#: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
 msgstr "Non hai cambios para remitir"
 
-#: ../gitg/commit/gitg-commit.vala:433
+#: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Use engadir para cambiar a mensaxe de remisión da anterior remisión"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
 msgstr "Produciuse un fallo ao remitir"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
 msgstr "Produciuse un fallo ao pasar a pre-remisión"
 
-#: ../gitg/commit/gitg-commit.vala:696
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -221,7 +229,7 @@ msgstr ""
 "O seu nome de usuario e correo electrónico non están configurados aínda. "
 "Vaia á configuración do usuario e forneza un nome e correo."
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -229,13 +237,21 @@ msgstr ""
 "O seu nome de usuario non están configurado aínda. Vaia á configuración do "
 "usuario e forneza un nome."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "O seu correo electrónico non están configurado aínda. Vaia á configuración "
 "do usuario e forneza un correo."
+
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "Produciuse un fallo na selección da reserva"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "Produciuse un fallo na selección de desreserva"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -254,14 +270,18 @@ msgid "Do not try to load a repository from the current working directory"
 msgstr "Non tentar cargar un repositorio desde o cartafol actual"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
-msgstr "- visor de repositorios git"
+msgid "- Git repository viewer"
+msgstr "- Explorador de repositorios Git"
 
 #: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg é un visor de repositorios git para gtk+/GNOME"
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "gitg é un explorador de repositorios Git para gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:213
+msgid "translator-credits"
+msgstr "Fran Dieguez <frandieguez@gnome.org>, 2014."
+
+#: ../gitg/gitg-application.vala:216
 msgid "gitg homepage"
 msgstr "Páxina web de gitg"
 
@@ -286,6 +306,7 @@ msgid "Open Repository"
 msgstr "Abrir repositorio"
 
 #: ../gitg/gitg-window.vala:301
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -298,23 +319,23 @@ msgstr "_Abrir"
 msgid "'%s' is not a Git repository."
 msgstr "«%s» non é un repositorio Git."
 
-#: ../gitg/history/gitg-history-navigation.vala:194
-#: ../gitg/history/gitg-history-navigation.vala:302
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
 msgstr "Todas as remisións"
 
 #. Branches
-#: ../gitg/history/gitg-history-navigation.vala:197
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "Ramas"
 
 #. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:234
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "Remotos"
 
 #. Tags
-#: ../gitg/history/gitg-history-navigation.vala:260
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -332,49 +353,51 @@ msgid "Now"
 msgstr "Agora"
 
 #: ../libgitg/gitg-date.vala:320
-msgid "A minute ago"
-msgstr "Hai un minuto"
-
-#: ../libgitg/gitg-date.vala:320
 #, c-format
-msgid "%d minutes ago"
-msgstr "Hai %d minutos"
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Hai un minuto"
+msgstr[1] "Hai %d minutos"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "Hai media hora"
 
 #: ../libgitg/gitg-date.vala:330
+#, c-format
 msgid "An hour ago"
-msgstr "Hai unha hora"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "Hai %d horas"
+msgid_plural "%d hours ago"
+msgstr[0] "Hai unha hora"
+msgstr[1] "Hai %d horas"
 
 #: ../libgitg/gitg-date.vala:335
+#, c-format
 msgid "A day ago"
-msgstr "Hai un día"
+msgid_plural "%d days ago"
+msgstr[0] "Hai un día"
+msgstr[1] "Hai %d días"
 
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "Hai %d días"
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
+msgid "Save Patch File"
+msgstr "Gardar ficheiro de parche"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
+msgid "_Save"
+msgstr "_Gardar"
+
+#: ../libgitg/gitg-diff-view.vala:120
 msgid "stage"
 msgstr "preseleccionar"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:121
 msgid "unstage"
 msgstr "Non preseleccionar"
 
-#: ../libgitg/gitg-diff-view.vala:91
-msgid "Loading diff..."
+#: ../libgitg/gitg-diff-view.vala:122
+msgid "Loading diff…"
 msgstr "Cargando diferenzas…"
 
-#: ../libgitg/gitg-stage.vala:279
+#: ../libgitg/gitg-stage.vala:300
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
@@ -396,8 +419,8 @@ msgstr "Detalles do autor"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 #, no-c-format
-msgid "Note: The git config file '%s' does not exist."
-msgstr "Nota: O ficheiro de configuración de git «%s» non existe."
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "Nota: O ficheiro de configuración de Git «%s» non existe."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
 msgid "Enter details to set as default for all repositories:"
@@ -443,7 +466,7 @@ msgid "_Local Folder:"
 msgstr "Cartafol _local:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
+msgid "Select location…"
 msgstr "Seleccionar localización…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
@@ -471,6 +494,10 @@ msgstr "Pechar"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
 msgstr "Omitir _hooks de remisión"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "Selección de _reserva"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -581,12 +608,24 @@ msgid "Use horizontal layout"
 msgstr "Usar distribución horizontal"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Preferencias de gitg"
+msgid "Preferences"
+msgstr "Preferencias"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "columna"
+
+#~ msgid "%d minutes ago"
+#~ msgstr "Hai %d minutos"
+
+#~ msgid "%d hours ago"
+#~ msgstr "Hai %d horas"
+
+#~ msgid "%d days ago"
+#~ msgstr "Hai %d días"
+
+#~ msgid "gitg Preferences"
+#~ msgstr "Preferencias de gitg"
 
 #~ msgid "_User Information"
 #~ msgstr "Información do _usuario"
