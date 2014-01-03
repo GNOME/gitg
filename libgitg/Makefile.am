@@ -100,6 +100,7 @@ libgitg_1_0_la_pkgconfig_DATA = libgitg-1.0.pc
 gitg-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir=$(srcdir)/resources --generate-source $(srcdir)/resources/resources.xml
 
+CLEANFILES = $(libgitg_1_0_la_typelib_DATA)
 
 EXTRA_DIST =					\
 	$(libgitg_1_0_la_pkgconfig_DATA)	\
