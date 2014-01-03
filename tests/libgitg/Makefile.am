@@ -44,6 +44,10 @@ test_libgitg_SOURCES =				\
 	test-commit.vala			\
 	test-encoding.vala
 
+GITIGNOREFILES =				\
+	$(test_libgitg_SOURCES:%.vala=%.c)	\
+	test_libgitg_vala.stamp
+
 EXTRA_DIST = gitg-assert.h gitg-assert.vapi
 
 -include $(top_srcdir)/git.mk

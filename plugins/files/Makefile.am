@@ -30,6 +30,10 @@ gitg-files-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
+GITIGNOREFILES =				\
+	$(libfiles_la_VALASOURCES:%.vala=%.c)	\
+	libfiles_la_vala.stamp
+
 EXTRA_DIST =					\
 	$(libfiles_la_plugin_DATA)		\
 	resources/resources.xml			\

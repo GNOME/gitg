@@ -101,7 +101,16 @@ gitg-ext-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) 
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
-CLEANFILES = $(libgitg_ext_1_0_la_typelib_DATA)
+GITIGNOREFILES =					\
+	$(libgitg_ext_1_0_la_VALA_FILES:%.vala=%.c)	\
+	gitg-ext-resources.c				\
+	$(libgitg_ext_1_0_la_gir_DATA)			\
+	libgitg-ext-1.0.vapi				\
+	libgitg-ext.h					\
+	libgitg_ext_1_0_la_vala.stamp
+
+CLEANFILES =						\
+	$(libgitg_ext_1_0_la_typelib_DATA)
 
 EXTRA_DIST =					\
 	$(libgitg_ext_1_0_la_pkgconfig_DATA)	\

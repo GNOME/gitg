@@ -33,6 +33,14 @@ progress_bin_LDADD = $(GITG_PLUGIN_LIBS)
 progress_bin_CFLAGS = $(tests_common_cflags)
 progress_bin_CPPFLAGS = $(tests_common_cppflags)
 
+GITIGNOREFILES =					\
+	$(diff_view_SOURCES:%.vala=%.c)			\
+	diff_view_vala.stamp				\
+	$(repository_list_box_SOURCES:%.vala=%.c)	\
+	repository_list_box_vala.stamp			\
+	$(progress_bin_SOURCES:%.vala=%.c)		\
+	progress_bin_vala.stamp
+
 -include $(top_srcdir)/git.mk
 
 # vi:ts=8:noet

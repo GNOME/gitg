@@ -31,6 +31,10 @@ gitg-diff-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES)
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
+GITIGNOREFILES =				\
+	$(libdiff_la_VALASOURCES:%.vala=%.c)	\
+	libdiff_la_vala.stamp
+
 EXTRA_DIST =					\
 	$(libdiff_la_plugin_DATA)		\
 	resources/resources.xml			\

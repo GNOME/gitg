@@ -77,6 +77,10 @@ gitg-resources.c: resources/gitg-resources.xml $(shell $(GLIB_COMPILE_RESOURCES)
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
+GITIGNOREFILES =				\
+	$(gitg_VALASOURCES:%.vala=%.c)		\
+	gitg_vala.stamp
+
 EXTRA_DIST = 					\
 	resources/gitg-resources.xml		\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/gitg-resources.xml)

@@ -101,6 +101,12 @@ gitg-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --ge
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir=$(srcdir)/resources --generate-source $(srcdir)/resources/resources.xml
 
 CLEANFILES = $(libgitg_1_0_la_typelib_DATA)
+GITIGNOREFILES =				\
+	$(libgitg_1_0_la_VALA_FILES:%.vala=%.c)	\
+	$(libgitg_1_0_la_gir_DATA)		\
+	libgitg-1.0.vapi			\
+	libgitg.h				\
+	libgitg_1_0_la_vala.stamp
 
 EXTRA_DIST =					\
 	$(libgitg_1_0_la_pkgconfig_DATA)	\
