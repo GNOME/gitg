@@ -65,7 +65,7 @@ vapidir = $(prefix)/share/vala/vapi
 vapi_DATA = libgitg-ext-1.0.vapi
 
 if ENABLE_DOCS
-docs: $(VALA_FILES)
+docs: $(libgitg_ext_1_0_la_VALASOURCES)
 	$(VALADOC)				\
 	--directory $(top_builddir)/docs	\
 	--package-name gitgext			\
@@ -73,7 +73,7 @@ docs: $(VALA_FILES)
 	--basedir $(top_srcdir)			\
 	--vapidir $(top_srcdir)/vapi		\
 	--vapidir $(top_builddir)/libgitg	\
-	$(VALA_FILES)
+	$(libgitg_ext_1_0_la_VALASOURCES)
 else
 docs:
 endif
