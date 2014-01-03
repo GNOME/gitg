@@ -1,10 +1,8 @@
 SUBDIRS = icons
 
-AM_CPPFLAGS =								\
+libdiff_la_CPPFLAGS =							\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
-	$(GITG_PLUGIN_CFLAGS)						\
-	$(WARN_CFLAGS)							\
 	-DDATADIR=\""$(datadir)"\"					\
 	-DLIBDIR=\""$(libdir)"\"
 
@@ -12,14 +10,17 @@ plugindir = $(GITG_PLUGIN_LIBDIR)
 plugin_LTLIBRARIES = libdiff.la
 plugin_DATA = diff.plugin
 
-AM_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 VALA_SOURCES =								\
 	gitg-diff.vala
+libdiff_la_CFLAGS =							\
+	$(GITG_PLUGIN_CFLAGS)						\
+	$(WARN_CFLAGS)							\
+	-w
 
 libdiff_la_LDFLAGS = $(GITG_PLUGIN_LIBTOOL_FLAGS)
 
 libdiff_la_LIBADD = $(GITG_PLUGIN_LIBS)
-libdiff_la_CFLAGS = -w
+libdiff_la_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 
 libdiff_la_SOURCES = 				\
 	$(VALA_SOURCES)				\

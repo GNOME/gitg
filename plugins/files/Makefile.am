@@ -1,8 +1,6 @@
-AM_CPPFLAGS =								\
+libfiles_la_CPPFLAGS =							\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
-	$(GITG_PLUGIN_CFLAGS)						\
-	$(WARN_CFLAGS)							\
 	-DDATADIR=\""$(datadir)"\"					\
 	-DLIBDIR=\""$(libdir)"\"
 
@@ -10,15 +8,18 @@ plugindir = $(GITG_PLUGIN_LIBDIR)
 plugin_LTLIBRARIES = libfiles.la
 plugin_DATA = files.plugin
 
-AM_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 VALA_SOURCES =								\
 	gitg-files.vala							\
 	gitg-files-tree-store.vala
+libfiles_la_CFLAGS = 							\
+	$(GITG_PLUGIN_CFLAGS)						\
+	$(WARN_CFLAGS)							\
+	-w
 
 libfiles_la_LDFLAGS = $(GITG_PLUGIN_LIBTOOL_FLAGS)
-
 libfiles_la_LIBADD = $(GITG_PLUGIN_LIBS)
-libfiles_la_CFLAGS = -w
+libfiles_la_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
+
 
 libfiles_la_SOURCES = 				\
 	$(VALA_SOURCES)				\

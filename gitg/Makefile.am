@@ -1,16 +1,19 @@
 bin_PROGRAMS = gitg
 
-AM_CPPFLAGS =							\
+gitg_CPPFLAGS =							\
 	-I$(top_srcdir)						\
 	-I$(srcdir)						\
 	-I$(top_srcdir)/libgd					\
-	$(GITG_CFLAGS)						\
-	$(WARN_CFLAGS)						\
 	-DDATADIR=\""$(datadir)"\"				\
 	-DGITG_DATADIR=\""$(datadir)/gitg"\"			\
 	-DGITG_LOCALEDIR=\""$(datadir)/locale"\"
 
-AM_VALAFLAGS = \
+gitg_CFLAGS =							\
+	$(GITG_CFLAGS)						\
+	$(WARN_CFLAGS)						\
+	-w
+
+gitg_VALAFLAGS =						\
 	--vapidir $(top_srcdir)/vapi				\
 	$(GITG_VALAFLAGS)					\
 	--pkg config						\
@@ -35,7 +38,16 @@ AM_VALAFLAGS = \
 	--vapidir "$(top_builddir)/libgitg-ext"			\
 	--gresources "$(top_srcdir)/gitg/resources/gitg-resources.xml"
 
-VALASOURCES =							\
+gitg_LDADD =							\
+	$(GITG_LIBS)						\
+	$(PACKAGE_LIBS) 					\
+	$(top_builddir)/libgd/libgd.la				\
+	$(top_builddir)/libgitg/libgitg-1.0.la			\
+	$(top_builddir)/libgitg-ext/libgitg-ext-1.0.la
+
+gitg_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
+
+gitg_VALASOURCES =						\
 	gitg.vala						\
 	gitg-dirs.vala						\
 	gitg-window.vala					\
@@ -69,15 +81,6 @@ gitg_SOURCES =							\
 	$(VALASOURCES)						\
 	gitg-resources.c
 
-gitg_LDADD =							\
-	$(GITG_LIBS)						\
-	$(PACKAGE_LIBS) 					\
-	$(top_builddir)/libgd/libgd.la				\
-	$(top_builddir)/libgitg/libgitg-1.0.la			\
-	$(top_builddir)/libgitg-ext/libgitg-ext-1.0.la
-
-gitg_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
-
 gitg-resources.c: resources/gitg-resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/gitg-resources.xml)
 	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
 		--sourcedir $(srcdir)/resources 	\
@@ -87,10 +90,6 @@ gitg-resources.h: resources/gitg-resources.xml $(shell $(GLIB_COMPILE_RESOURCES)
 	$(GLIB_COMPILE_RESOURCES) --generate-header 	\
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
-
-# Ignore all warnings for vala code...
-gitg_CFLAGS = \
-	-w
 
 EXTRA_DIST = 				\
 	resources/gitg-resources.xml		\

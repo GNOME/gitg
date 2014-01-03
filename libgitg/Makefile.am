@@ -1,20 +1,25 @@
 lib_LTLIBRARIES = libgitg-1.0.la
 
-AM_CPPFLAGS =								\
-	-I$(top_srcdir)							\
-	-I$(srcdir)							\
-	$(LIBGITG_CFLAGS)						\
-	$(WARN_CFLAGS)							\
-	-DDATADIR=\""$(datadir)"\"					\
-	-DLIBDIR=\""$(libdir)"\"					\
+libgitg_1_0_la_CPPFLAGS =				\
+	-I$(top_srcdir)					\
+	-I$(srcdir)					\
+	-DDATADIR=\""$(datadir)"\"			\
+	-DLIBDIR=\""$(libdir)"\"			\
 	-DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\"
 
+libgitg_1_0_la_CFLAGS =		\
+	$(LIBGITG_CFLAGS)	\
+	$(WARN_CFLAGS)		\
+	-w
+
 libgitg_1_0_la_LDFLAGS = 		\
-	-export-dynamic -no-undefined -export-symbols-regex "^[^_].*"
+	-export-dynamic			\
+	-no-undefined			\
+	-export-symbols-regex "^[^_].*"
 
 libgitg_1_0_la_LIBADD = $(LIBGITG_LIBS)
 
-AM_VALAFLAGS = 				\
+libgitg_1_0_la_VALAFLAGS =		\
 	--pkg Ggit-1.0 			\
 	--pkg gtk+-3.0			\
 	--pkg gio-2.0			\
@@ -69,10 +74,6 @@ VALA_FILES =					\
 	gitg-date.vala				\
 	gitg-avatar-cache.vala			\
 	gitg-diff-stat.vala
-
-# Ignore all warnings for vala code...
-libgitg_1_0_la_CFLAGS =		\
-	-w
 
 libgitg_1_0_la_SOURCES = 		\
 	gitg-resources.c		\

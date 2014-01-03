@@ -1,36 +1,42 @@
 lib_LTLIBRARIES = libgitg-ext-1.0.la
 
-AM_CPPFLAGS =								\
-	-I$(top_srcdir)							\
-	-I$(srcdir)							\
-	$(LIBGITG_EXT_CFLAGS)						\
-	$(WARN_CFLAGS)							\
-	-DDATADIR=\""$(datadir)"\"					\
+libgitg_ext_1_0_la_CPPFLAGS =			\
+	-I$(top_srcdir)				\
+	-I$(srcdir)				\
+	-DDATADIR=\""$(datadir)"\"		\
 	-DLIBDIR=\""$(libdir)"\"
 
-COMMON_VALA_FLAGS =				\
+libgitg_ext_1_0_la_CFLAGS =			\
+	$(LIBGITG_EXT_CFLAGS)			\
+	$(WARN_CFLAGS)				\
+	-w
+
+libgitg_ext_1_0_la_VALAPKGS =			\
 	--pkg Ggit-1.0 				\
 	--pkg libgitg-1.0			\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
 	--pkg libsoup-2.4			\
 	--pkg webkit2gtk-3.0			\
-	--pkg gee-0.8				\
+	--pkg gee-0.8
+
+libgitg_ext_1_0_la_VALAFLAGS = 			\
+	$(libgitg_ext_1_0_la_VALAPKGS)		\
 	--basedir $(top_srcdir)			\
 	--vapidir $(top_srcdir)/vapi		\
-	--vapidir $(top_builddir)/libgitg
-
-AM_VALAFLAGS = 					\
-	$(COMMON_VALA_FLAGS)			\
+	--vapidir $(top_builddir)/libgitg	\
 	--gir GitgExt-1.0.gir			\
+	--vapi libgitg-ext-1.0.vapi		\
 	--girdir $(top_builddir)/libgitg	\
 	--includedir libgitg-ext		\
 	--header libgitg-ext.h			\
 	--library libgitg-ext-1.0		\
 	$(GITG_VALAFLAGS)
 
-libgitg_ext_1_0_la_LDFLAGS = \
-	-export-dynamic -no-undefined -export-symbols-regex "^[^_].*"
+libgitg_ext_1_0_la_LDFLAGS = 			\
+	-export-dynamic				\
+	-no-undefined				\
+	-export-symbols-regex "^[^_].*"
 
 libgitg_ext_1_0_la_LIBADD = $(LIBGITG_EXT_LIBS)
 
@@ -62,13 +68,16 @@ GitgExt-1.0.gir: libgitg-ext-1.0.la
 libgitg-ext-1.0.vapi: libgitg-ext-1.0.la
 libgitg-ext.h: libgitg-ext-1.0.la
 
-# Ignore all warnings for vala code...
-libgitg_ext_1_0_la_CFLAGS = \
-	-w
-
 if ENABLE_DOCS
 docs: $(VALA_FILES)
-	$(VALADOC) --directory $(top_builddir)/docs --package-name gitgext $(COMMON_VALA_FLAGS) $(VALA_FILES)
+	$(VALADOC)				\
+	--directory $(top_builddir)/docs	\
+	--package-name gitgext			\
+	$(libgitg_ext_1_0_la_VALAPKGS)		\
+	--basedir $(top_srcdir)			\
+	--vapidir $(top_srcdir)/vapi		\
+	--vapidir $(top_builddir)/libgitg	\
+	$(VALA_FILES)
 else
 docs:
 endif
