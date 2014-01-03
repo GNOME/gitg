@@ -1,6 +1,5 @@
 SUBDIRS = libgitg
 
-noinst_PROGRAMS = $(TEST_PROGS) $(DEMO_PROGS)
 tests_common_cppflags =			\
 	-I$(top_srcdir)			\
 	-I$(top_srcdir)/gitg		\
@@ -14,6 +13,7 @@ tests_common_cflags = 			\
 
 tests_common_valaflags = $(GITG_PLUGIN_VALAFLAGS)
 
+noinst_PROGRAMS = $(DEMO_PROGS)
 
 DEMO_PROGS = diff-view repository-list-box progress-bin
 
@@ -30,8 +30,6 @@ repository_list_box_CPPFLAGS = $(tests_common_cppflags)
 
 progress_bin_SOURCES = progress-bin.vala
 progress_bin_LDADD = $(GITG_PLUGIN_LIBS)
-
-TESTS = $(TEST_PROGS)
 progress_bin_CFLAGS = $(tests_common_cflags)
 progress_bin_CPPFLAGS = $(tests_common_cppflags)
 
