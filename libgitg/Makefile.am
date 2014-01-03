@@ -98,23 +98,11 @@ pkgconfig_DATA = libgitg-1.0.pc
 gitg-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir=$(srcdir)/resources --generate-source $(srcdir)/resources/resources.xml
 
-BUILT_SOURCES =				\
-	$(gir_DATA)			\
-	$(vapi_DATA)			\
-	$(typelib_DATA)			\
-	libgitg_1_0_la_vala.stamp	\
-	gitg-resources.c		\
-	libgitg.h
 
 EXTRA_DIST = \
 	$(pkgconfig_DATA)		\
 	resources/resources.xml		\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
-
-CLEANFILES = $(VALA_FILES:.vala=.c)
-
-dist-hook:
-	cd $(distdir); rm -f $(BUILT_SOURCES)
 
 -include $(top_srcdir)/git.mk
 

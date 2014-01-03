@@ -26,9 +26,6 @@ libdiff_la_SOURCES = 				\
 	$(VALA_SOURCES)				\
 	gitg-diff-resources.c
 
-BUILT_SOURCES = 						\
-	gitg-diff-resources.c					\
-	gitg-diff-resources.h
 
 gitg-diff-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
@@ -43,14 +40,6 @@ gitg-diff-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES)
 EXTRA_DIST = $(plugin_DATA)			\
 	resources/resources.xml			\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
-
-CLEANFILES = 					\
-	$(VALA_SOURCES:.vala=.c)		\
-	$(BUILT_SOURCES)			\
-	libdiff_la_vala.stamp
-
-install-data-hook:
-	rm -f $(GITG_PLUGIN_LIBDIR)/libdiff.la
 
 -include $(top_srcdir)/git.mk
 

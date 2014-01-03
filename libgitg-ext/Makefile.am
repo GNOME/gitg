@@ -106,11 +106,6 @@ gitg-ext-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) 
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
-BUILT_SOURCES =				\
-	$(gir_DATA)			\
-	libgitg-ext.h			\
-	gitg-ext-resources.c		\
-	gitg-ext-resources.h
 
 EXTRA_DIST =				\
 	$(pkgconfig_DATA)		\
@@ -118,14 +113,8 @@ EXTRA_DIST =				\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 
 CLEANFILES = 					\
-	$(VALA_FILES:.vala=.c)			\
-	GitgExt-1.0.gir				\
 	GitgExt-1.0.typelib			\
-	libgitg-ext-1.0.vapi			\
-	libgitg_ext_1_0_la_vala.stamp
 
-dist-hook:
-	cd $(distdir); rm -f $(BUILT_SOURCES)
 
 -include $(top_srcdir)/git.mk
 -include $(top_srcdir)/valadoc.mk

@@ -32,17 +32,6 @@ progress_bin_SOURCES = progress-bin.vala
 progress_bin_LDADD = $(GITG_PLUGIN_LIBS)
 
 TESTS = $(TEST_PROGS)
-
-BUILT_SOURCES = 				\
-	diff_view_vala.stamp			\
-	repository_list_box_vala.stamp			\
-	progress_bin_vala.stamp
-
-CLEANFILES =					\
-	$(diff_view_SOURCES:.vala=.c)		\
-	$(repository_list_box_SOURCES:.vala=.c)		\
-	$(progress_bin_SOURCES:.vala=.c)	\
-	$(BUILT_SOURCES)
 progress_bin_CFLAGS = $(tests_common_cflags)
 progress_bin_CPPFLAGS = $(tests_common_cppflags)
 

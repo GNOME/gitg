@@ -68,15 +68,6 @@ gitg_VALASOURCES =						\
 	commit/gitg-commit-paned.vala				\
 	commit/gitg-commit-dialog.vala
 
-# Explicitely list vapi files of our libs, so that dependencies
-# are properly respected on boostrap
-BUILT_SOURCES = 						\
-	$(top_builddir)/libgitg/libgitg-1.0.vapi		\
-	$(top_builddir)/libgitg-ext/libgitg-ext-1.0.vapi	\
-	gitg-resources.c					\
-	gitg-resources.h					\
-	gitg_vala.stamp
-
 gitg_SOURCES =							\
 	$(VALASOURCES)						\
 	gitg-resources.c
@@ -94,10 +85,6 @@ gitg-resources.h: resources/gitg-resources.xml $(shell $(GLIB_COMPILE_RESOURCES)
 EXTRA_DIST = 				\
 	resources/gitg-resources.xml		\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/gitg-resources.xml)
-
-CLEANFILES = 				\
-	$(VALASOURCES:.vala=.c)		\
-	$(BUILT_SOURCES)
 
 -include $(top_srcdir)/git.mk
 

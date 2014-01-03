@@ -25,9 +25,6 @@ libfiles_la_SOURCES = 				\
 	$(VALA_SOURCES)				\
 	gitg-files-resources.c
 
-BUILT_SOURCES = 						\
-	gitg-files-resources.c					\
-	gitg-files-resources.h
 
 gitg-files-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
@@ -42,14 +39,6 @@ gitg-files-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES
 EXTRA_DIST = $(plugin_DATA)			\
 	resources/resources.xml			\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
-
-CLEANFILES = 					\
-	$(VALA_SOURCES:.vala=.c)		\
-	$(BUILT_SOURCES)			\
-	libfiles_la_vala.stamp
-
-install-data-hook:
-	rm -f $(GITG_PLUGIN_LIBDIR)/libfiles.la
 
 -include $(top_srcdir)/git.mk
 
