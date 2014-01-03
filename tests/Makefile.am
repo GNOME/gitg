@@ -24,11 +24,13 @@ diff_view_CFLAGS = $(tests_common_cflags)
 diff_view_CPPFLAGS = $(tests_common_cppflags)
 
 repository_list_box_SOURCES = repository-list-box.vala
+repository_list_box_VALAFLAGS = $(tests_common_valaflags)
 repository_list_box_LDADD = $(GITG_PLUGIN_LIBS)
 repository_list_box_CFLAGS = $(tests_common_cflags)
 repository_list_box_CPPFLAGS = $(tests_common_cppflags)
 
 progress_bin_SOURCES = progress-bin.vala
+progress_bin_VALAFLAGS = $(tests_common_valaflags)
 progress_bin_LDADD = $(GITG_PLUGIN_LIBS)
 progress_bin_CFLAGS = $(tests_common_cflags)
 progress_bin_CPPFLAGS = $(tests_common_cppflags)
