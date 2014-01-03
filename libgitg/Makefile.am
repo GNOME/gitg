@@ -35,6 +35,7 @@ libgitg_1_0_la_VALAFLAGS =		\
 	--includedir libgitg		\
 	--basedir $(top_srcdir)		\
 	--gir Gitg-1.0.gir		\
+	--vapi libgitg-1.0.vapi		\
 	--library libgitg-1.0		\
 	--gresources "$(top_srcdir)/libgitg/resources/resources.xml"
 
