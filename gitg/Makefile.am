@@ -69,7 +69,7 @@ gitg_VALASOURCES =						\
 	commit/gitg-commit-dialog.vala
 
 gitg_SOURCES =							\
-	$(VALASOURCES)						\
+	$(gitg_VALASOURCES)					\
 	gitg-resources.c
 
 gitg-resources.c: resources/gitg-resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/gitg-resources.xml)

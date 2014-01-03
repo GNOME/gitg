@@ -39,7 +39,7 @@ libgitg_1_0_la_VALAFLAGS =		\
 	--library libgitg-1.0		\
 	--gresources "$(top_srcdir)/libgitg/resources/resources.xml"
 
-VALA_FILES =					\
+libgitg_1_0_la_VALA_FILES =			\
 	gitg-assembly-info.vala			\
 	gitg-async.vala				\
 	gitg-branch.vala			\
@@ -73,35 +73,37 @@ VALA_FILES =					\
 	gitg-diff-stat.vala
 
 libgitg_1_0_la_SOURCES = 		\
+	$(libgitg_1_0_la_VALA_FILES)	\
 	gitg-resources.c		\
-	gitg-js-utils.c			\
-	$(VALA_FILES)
+	gitg-js-utils.c
 
-headerdir = $(prefix)/include/libgitg-1.0/libgitg
-header_HEADERS = libgitg.h gitg-js-utils.h
+libgitg_1_0_la_headerdir = $(prefix)/include/libgitg-1.0/libgitg
+libgitg_1_0_la_header_HEADERS = libgitg.h
 
-vapidir = $(prefix)/share/vala/vapi
-vapi_DATA = libgitg-1.0.vapi
+noinst_HEADERS = gitg-js-utils.h
 
-girdir = $(INTROSPECTION_GIRDIR)
-gir_DATA = Gitg-1.0.gir
+libgitg_1_0_la_vapidir = $(prefix)/share/vala/vapi
+libgitg_1_0_la_vapi_DATA = libgitg-1.0.vapi
 
-typelibdir = $(INTROSPECTION_TYPELIBDIR)
-typelib_DATA = Gitg-1.0.typelib
+libgitg_1_0_la_girdir = $(INTROSPECTION_GIRDIR)
+libgitg_1_0_la_gir_DATA = Gitg-1.0.gir
+
+libgitg_1_0_la_typelibdir = $(INTROSPECTION_TYPELIBDIR)
+libgitg_1_0_la_typelib_DATA = Gitg-1.0.typelib
 
 %.typelib: %.gir
 	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. -o $@ $<
 
-pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libgitg-1.0.pc
+libgitg_1_0_la_pkgconfigdir = $(libdir)/pkgconfig
+libgitg_1_0_la_pkgconfig_DATA = libgitg-1.0.pc
 
 gitg-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir=$(srcdir)/resources --generate-source $(srcdir)/resources/resources.xml
 
 
-EXTRA_DIST = \
-	$(pkgconfig_DATA)		\
-	resources/resources.xml		\
+EXTRA_DIST =					\
+	$(libgitg_1_0_la_pkgconfig_DATA)	\
+	resources/resources.xml			\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 
 -include $(top_srcdir)/git.mk

@@ -40,7 +40,7 @@ libgitg_ext_1_0_la_LDFLAGS = 			\
 
 libgitg_ext_1_0_la_LIBADD = $(LIBGITG_EXT_LIBS)
 
-VALA_FILES =					\
+libgitg_ext_1_0_la_VALA_FILES =			\
 	gitg-ext-assembly-info.vala		\
 	gitg-ext-application.vala		\
 	gitg-ext-ui-element.vala		\
@@ -54,8 +54,8 @@ VALA_FILES =					\
 	gitg-ext-preferences.vala		\
 	gitg-ext-ui.vala
 
-libgitg_ext_1_0_la_SOURCES =		\
-	$(VALA_FILES)			\
+libgitg_ext_1_0_la_SOURCES =			\
+	$(libgitg_ext_1_0_la_VALA_FILES)	\
 	gitg-ext-resources.c
 
 headerdir = $(prefix)/include/libgitg-ext-1.0/libgitg-ext
@@ -78,11 +78,11 @@ else
 docs:
 endif
 
-girdir = $(INTROSPECTION_GIRDIR)
-gir_DATA = GitgExt-1.0.gir
+libgitg_ext_1_0_la_girdir = $(INTROSPECTION_GIRDIR)
+libgitg_ext_1_0_la_gir_DATA = GitgExt-1.0.gir
 
-typelibdir = $(INTROSPECTION_TYPELIBDIR)
-typelib_DATA = GitgExt-1.0.typelib
+libgitg_ext_1_0_la_typelibdir = $(INTROSPECTION_TYPELIBDIR)
+libgitg_ext_1_0_la_typelib_DATA = GitgExt-1.0.typelib
 
 %.typelib: %.gir
 	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. --includedir=$(top_builddir)/libgitg -o $@ $<
@@ -93,8 +93,8 @@ overrides_PYTHON = \
 	GitgExt.py
 endif
 
-pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libgitg-ext-1.0.pc
+libgitg_ext_1_0_la_pkgconfigdir = $(libdir)/pkgconfig
+libgitg_ext_1_0_la_pkgconfig_DATA = libgitg-ext-1.0.pc
 
 gitg-ext-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
@@ -106,15 +106,12 @@ gitg-ext-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) 
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
+CLEANFILES = $(libgitg_ext_1_0_la_typelib_DATA)
 
-EXTRA_DIST =				\
-	$(pkgconfig_DATA)		\
-	resources/resources.xml		\
-	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
-
-CLEANFILES = 					\
-	GitgExt-1.0.typelib			\
-
+EXTRA_DIST =					\
+	$(libgitg_ext_1_0_la_pkgconfig_DATA)	\
+	resources/resources.xml			\
+	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 
 -include $(top_srcdir)/git.mk
 -include $(top_srcdir)/valadoc.mk

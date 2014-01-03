@@ -4,13 +4,6 @@ libfiles_la_CPPFLAGS =							\
 	-DDATADIR=\""$(datadir)"\"					\
 	-DLIBDIR=\""$(libdir)"\"
 
-plugindir = $(GITG_PLUGIN_LIBDIR)
-plugin_LTLIBRARIES = libfiles.la
-plugin_DATA = files.plugin
-
-VALA_SOURCES =								\
-	gitg-files.vala							\
-	gitg-files-tree-store.vala
 libfiles_la_CFLAGS = 							\
 	$(GITG_PLUGIN_CFLAGS)						\
 	$(WARN_CFLAGS)							\
@@ -20,11 +13,17 @@ libfiles_la_LDFLAGS = $(GITG_PLUGIN_LIBTOOL_FLAGS)
 libfiles_la_LIBADD = $(GITG_PLUGIN_LIBS)
 libfiles_la_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 
+libfiles_la_VALASOURCES =						\
+	gitg-files.vala							\
+	gitg-files-tree-store.vala
 
-libfiles_la_SOURCES = 				\
-	$(VALA_SOURCES)				\
+libfiles_la_SOURCES = 							\
+	$(libfiles_la_VALASOURCES)					\
 	gitg-files-resources.c
 
+libfiles_la_plugindir = $(GITG_PLUGIN_LIBDIR)
+libfiles_la_plugin_LTLIBRARIES = libfiles.la
+libfiles_la_plugin_DATA = files.plugin
 
 gitg-files-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
@@ -36,7 +35,8 @@ gitg-files-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
-EXTRA_DIST = $(plugin_DATA)			\
+EXTRA_DIST =					\
+	$(libfiles_la_plugin_DATA)		\
 	resources/resources.xml			\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
 
