@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-02 18:14+0100\n"
-"PO-Revision-Date: 2014-01-02 18:15+0100\n"
+"POT-Creation-Date: 2014-01-03 15:34+0100\n"
+"PO-Revision-Date: 2014-01-03 15:35+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -277,14 +277,20 @@ msgid "Do not try to load a repository from the current working directory"
 msgstr "Bez próby wczytania repozytorium z bieżącego katalogu roboczego"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
+msgid "- Git repository viewer"
 msgstr "- przeglądarka repozytoriów git"
 
 #: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg to przeglądarka repozytoriów git dla GTK+/GNOME"
 
-#: ../gitg/gitg-application.vala:215
+#: ../gitg/gitg-application.vala:213
+msgid "translator-credits"
+msgstr ""
+"Piotr Drąg <piotrdrag@gmail.com>, 2012-2014\n"
+"Aviary.pl <gnomepl@aviary.pl>, 2012-2014"
+
+#: ../gitg/gitg-application.vala:216
 msgid "gitg homepage"
 msgstr "Witryna programu gitg"
 
@@ -356,35 +362,32 @@ msgid "Now"
 msgstr "Teraz"
 
 #: ../libgitg/gitg-date.vala:320
-msgid "A minute ago"
-msgstr "Minuta temu"
-
-#: ../libgitg/gitg-date.vala:320
 #, c-format
-msgid "%d minutes ago"
-msgstr "%d minut temu"
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Minuta temu"
+msgstr[1] "%d minuty temu"
+msgstr[2] "%d minut temu"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "Pół godziny temu"
 
 #: ../libgitg/gitg-date.vala:330
+#, c-format
 msgid "An hour ago"
-msgstr "Godzina temu"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "%d godzin temu"
+msgid_plural "%d hours ago"
+msgstr[0] "Godzina temu"
+msgstr[1] "%d godziny temu"
+msgstr[2] "%d godzin temu"
 
 #: ../libgitg/gitg-date.vala:335
+#, c-format
 msgid "A day ago"
-msgstr "Jeden dzień temu"
-
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "%d dni temu"
+msgid_plural "%d days ago"
+msgstr[0] "Jeden dzień temu"
+msgstr[1] "%d dni temu"
+msgstr[2] "%d dni temu"
 
 #: ../libgitg/gitg-diff-view-request-patch.vala:107
 msgid "Save Patch File"
@@ -403,8 +406,8 @@ msgid "unstage"
 msgstr "przenieś z przechowalni"
 
 #: ../libgitg/gitg-diff-view.vala:122
-msgid "Loading diff..."
-msgstr "Wczytywanie różnicy..."
+msgid "Loading diff…"
+msgstr "Wczytywanie różnicy…"
 
 #: ../libgitg/gitg-stage.vala:300
 #, c-format
@@ -428,7 +431,7 @@ msgstr "Informacje o autorze"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 #, no-c-format
-msgid "Note: The git config file '%s' does not exist."
+msgid "Note: The Git config file '%s' does not exist."
 msgstr "Uwaga: plik konfiguracji git \"%s\" nie istnieje."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
@@ -475,8 +478,8 @@ msgid "_Local Folder:"
 msgstr "_Lokalny katalog:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
-msgstr "Wybierz położenie..."
+msgid "Select location…"
+msgstr "Wybierz położenie…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
@@ -617,8 +620,8 @@ msgid "Use horizontal layout"
 msgstr "Użycie poziomego układu"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Preferencje programu gitg"
+msgid "Preferences"
+msgstr "Preferencje"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
