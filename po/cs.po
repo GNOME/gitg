@@ -1,15 +1,15 @@
 # Czech translation for gitg.
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
-# Marek Černocký <marek@manet.cz>, 2013.
+# Marek Černocký <marek@manet.cz>, 2013, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-11-23 19:27+0000\n"
-"PO-Revision-Date: 2013-12-07 18:39+0100\n"
+"POT-Creation-Date: 2014-01-02 19:14+0000\n"
+"PO-Revision-Date: 2014-01-03 08:32+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -152,68 +152,76 @@ msgstr "Nelze nastavit jazyk pro kontrolu pravopisu: %s"
 msgid "Commit"
 msgstr "Zařazení"
 
-#: ../gitg/commit/gitg-commit.vala:144
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "Výběr do _připravených"
+
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Selhala příprava souboru „%s“ k zápisu"
 
-#: ../gitg/commit/gitg-commit.vala:163
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Selhala příprava souboru „%s“ k odstranění"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "Výběr do _nepřipravených"
+
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Selhalo zrušení připravenosti souboru „%s“ k odstranění"
 
-#: ../gitg/commit/gitg-commit.vala:242
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Selhalo zrušení připravenosti souboru „%s“ k zápisu"
 
-#: ../gitg/commit/gitg-commit.vala:366
+#: ../gitg/commit/gitg-commit.vala:370
 msgid "Staged"
 msgstr "Připraveno"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:374
 msgid "No staged files"
 msgstr "Žádné připravené soubory"
 
-#: ../gitg/commit/gitg-commit.vala:379
+#: ../gitg/commit/gitg-commit.vala:383
 msgid "Unstaged"
 msgstr "Nepřipraveno"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:387
 msgid "No unstaged files"
 msgstr "Žádné nepřipravené soubory"
 
-#: ../gitg/commit/gitg-commit.vala:392
+#: ../gitg/commit/gitg-commit.vala:396
 msgid "Untracked"
 msgstr "Nesledováno"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:400
 msgid "No untracked files"
 msgstr "Žádné nesledované soubory"
 
-#: ../gitg/commit/gitg-commit.vala:432
+#: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
 msgstr "Nejsou žádné změny k zařazení"
 
-#: ../gitg/commit/gitg-commit.vala:433
+#: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Použít odvolání ke změně zařazené zprávy z předchozího zařazení"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
 msgstr "Selhalo zařazení"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
 msgstr "Selhal průchod před zařazením"
 
-#: ../gitg/commit/gitg-commit.vala:696
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -221,7 +229,7 @@ msgstr ""
 "Vaše uživatelské jméno a e-mail doposud nejsou nastaveny. Jděte prosím do "
 "nastavení uživatele a poskytněte své jméno a e-mail."
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -229,13 +237,21 @@ msgstr ""
 "Vaše uživatelské jméno doposud není nastaveno. Jděte prosím do nastavení "
 "uživatele a poskytněte své jméno."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "Váš e-mail doposud není nastaven. Jděte prosím do nastavení uživatele a "
 "poskytněte svůj e-mail."
+
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "Selhala příprava vybraných souborů k zápisu"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "Selhalo zrušení připravenosti vybraných souborů k zápisu"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -254,14 +270,18 @@ msgid "Do not try to load a repository from the current working directory"
 msgstr "Nezkoušet načíst repozitář z aktuální pracovní složky"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
-msgstr "– prohlížeč repozitářů git"
+msgid "- Git repository viewer"
+msgstr "– prohlížeč repozitářů Git"
 
 #: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg je prohlížeč repozitářů git pro gtk+/GNOME"
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "gitg je prohlížeč repozitářů Git pro gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:213
+msgid "translator-credits"
+msgstr "Marek Černocký <marek@manet.cz>"
+
+#: ../gitg/gitg-application.vala:216
 msgid "gitg homepage"
 msgstr "domovská stránka gitg"
 
@@ -286,7 +306,7 @@ msgid "Open Repository"
 msgstr "Otevření repozitáře"
 
 #: ../gitg/gitg-window.vala:301
-#: ../libgitg/gitg-diff-view-request-patch.vala:102
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
 msgid "_Cancel"
 msgstr "_Zrušit"
 
@@ -299,23 +319,23 @@ msgstr "_Otevřít"
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ není repozitář Git."
 
-#: ../gitg/history/gitg-history-navigation.vala:194
-#: ../gitg/history/gitg-history-navigation.vala:302
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
 msgstr "Všechna zařazení"
 
 #. Branches
-#: ../gitg/history/gitg-history-navigation.vala:197
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "Větve"
 
 #. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:234
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "Vzdálené"
 
 #. Tags
-#: ../gitg/history/gitg-history-navigation.vala:260
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "Štítky"
 
@@ -333,57 +353,54 @@ msgid "Now"
 msgstr "právě teď"
 
 #: ../libgitg/gitg-date.vala:320
-msgid "A minute ago"
-msgstr "před minutou"
-
-#: ../libgitg/gitg-date.vala:320
 #, c-format
-msgid "%d minutes ago"
-msgstr "před %d minutami"
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "před minutou"
+msgstr[1] "před %d minutami"
+msgstr[2] "před %d minutami"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "před půl hodinou"
 
 #: ../libgitg/gitg-date.vala:330
+#, c-format
 msgid "An hour ago"
-msgstr "před hodinou"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "před %d hodinami"
+msgid_plural "%d hours ago"
+msgstr[0] "před hodinou"
+msgstr[1] "před %d hodinami"
+msgstr[2] "před %d hodinami"
 
 #: ../libgitg/gitg-date.vala:335
+#, c-format
 msgid "A day ago"
-msgstr "před jedním dnem"
+msgid_plural "%d days ago"
+msgstr[0] "před jedním dnem"
+msgstr[1] "před %d dny"
+msgstr[2] "před %d dny"
 
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "před %d dny"
-
-#: ../libgitg/gitg-diff-view-request-patch.vala:100
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
 msgid "Save Patch File"
 msgstr "Uložení záplaty do souboru"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:104
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
 msgid "_Save"
 msgstr "_Uložit"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view.vala:120
 msgid "stage"
 msgstr "připravit"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:121
 msgid "unstage"
 msgstr "zrušit připravenost"
 
-#: ../libgitg/gitg-diff-view.vala:91
-msgid "Loading diff..."
+#: ../libgitg/gitg-diff-view.vala:122
+msgid "Loading diff…"
 msgstr "Načítá se rozdíl…"
 
-#: ../libgitg/gitg-stage.vala:279
+#: ../libgitg/gitg-stage.vala:300
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Nelze přečíst zprávu o zařazení po spuštění háčku commit-msg: %s"
@@ -403,8 +420,8 @@ msgstr "Podrobnosti o autorovi"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 #, no-c-format
-msgid "Note: The git config file '%s' does not exist."
-msgstr "Upozornění: Soubor „%s“ s nastavením git neexistuje."
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "Upozornění: Soubor „%s“ s nastavením Git neexistuje."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
 msgid "Enter details to set as default for all repositories:"
@@ -448,7 +465,7 @@ msgid "_Local Folder:"
 msgstr "Místní s_ložka:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
+msgid "Select location…"
 msgstr "Vybrat umístění…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
@@ -476,6 +493,10 @@ msgstr "Zavřít"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
 msgstr "Při zařazování vynechat _háčky"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "Výběr do _připravených"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -586,8 +607,8 @@ msgid "Use horizontal layout"
 msgstr "Používat vodorovné rozvržení"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Předvolby gitg"
+msgid "Preferences"
+msgstr "Předvolby"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
