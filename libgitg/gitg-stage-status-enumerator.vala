@@ -69,7 +69,7 @@ public class StageStatusEnumerator : Object
 		} catch {}
 	}
 
-	~StageStatusEnumerator()
+	public void cancel()
 	{
 		lock (d_files)
 		{
@@ -79,7 +79,11 @@ public class StageStatusEnumerator : Object
 			}
 		}
 
-		d_thread.join();
+		if (d_thread != null)
+		{
+			d_thread.join();
+			d_thread = null;
+		}
 	}
 
 	private void *run_status()
@@ -178,6 +182,11 @@ public class StageStatusEnumerator : Object
 		lock (d_files)
 		{
 			ret = fill_files(num);
+		}
+
+		if (ret.length != num)
+		{
+			cancel();
 		}
 
 		return ret;
