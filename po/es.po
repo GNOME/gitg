@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-01-02 12:40+0000\n"
-"PO-Revision-Date: 2014-01-02 16:15+0100\n"
+"POT-Creation-Date: 2014-01-03 13:15+0000\n"
+"PO-Revision-Date: 2014-01-03 14:44+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -250,12 +250,10 @@ msgstr ""
 "usuario y proporcione su correo-e."
 
 #: ../gitg/commit/gitg-commit.vala:769
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to stage selection"
 msgstr "Falló al reservar la selección"
 
 #: ../gitg/commit/gitg-commit.vala:773
-#| msgid "Failed to unstage the file `%s'"
 msgid "Failed to unstage selection"
 msgstr "Falló al quitar la reserva de la selección"
 
@@ -277,14 +275,20 @@ msgid "Do not try to load a repository from the current working directory"
 msgstr "No intentar cargar un repositorio desde la carpeta actual"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
-msgstr "- visor de repositorios git"
+#| msgid "- git repository viewer"
+msgid "- Git repository viewer"
+msgstr "- Visor de repositorios git"
 
 #: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg es un visor de repositorios git para GTk+/GNOME"
+#| msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "gitg es un visor de repositorios Git para GTK+/GNOME"
 
-#: ../gitg/gitg-application.vala:215
+#: ../gitg/gitg-application.vala:213
+msgid "translator-credits"
+msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2013"
+
+#: ../gitg/gitg-application.vala:216
 msgid "gitg homepage"
 msgstr "Página principal de gitg"
 
@@ -356,35 +360,32 @@ msgid "Now"
 msgstr "Ahora"
 
 #: ../libgitg/gitg-date.vala:320
-msgid "A minute ago"
-msgstr "Hace un minuto"
-
-#: ../libgitg/gitg-date.vala:320
 #, c-format
-msgid "%d minutes ago"
-msgstr "Hace %d minutos"
+#| msgid "A minute ago"
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Hace un minuto"
+msgstr[1] "Hace %d minutos"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "Hace media hora"
 
 #: ../libgitg/gitg-date.vala:330
+#, c-format
+#| msgid "An hour ago"
 msgid "An hour ago"
-msgstr "Hace una hora"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "hace %d horas"
+msgid_plural "%d hours ago"
+msgstr[0] "Hace una hora"
+msgstr[1] "Hace %d horas"
 
 #: ../libgitg/gitg-date.vala:335
+#, c-format
+#| msgid "A day ago"
 msgid "A day ago"
-msgstr "Hace 1 día"
-
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "Hace %d días"
+msgid_plural "%d days ago"
+msgstr[0] "Hace 1 día"
+msgstr[1] "Hace %d días"
 
 #: ../libgitg/gitg-diff-view-request-patch.vala:107
 msgid "Save Patch File"
@@ -403,7 +404,8 @@ msgid "unstage"
 msgstr "quitar la reserva"
 
 #: ../libgitg/gitg-diff-view.vala:122
-msgid "Loading diff..."
+#| msgid "Loading diff..."
+msgid "Loading diff…"
 msgstr "Cargando diferencias…"
 
 #: ../libgitg/gitg-stage.vala:300
@@ -428,7 +430,8 @@ msgstr "Detalles del autor"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 #, no-c-format
-msgid "Note: The git config file '%s' does not exist."
+#| msgid "Note: The git config file '%s' does not exist."
+msgid "Note: The Git config file '%s' does not exist."
 msgstr "Nota: el archivo de configuración de git «%s» no existe."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
@@ -475,7 +478,8 @@ msgid "_Local Folder:"
 msgstr "Carpeta _local:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
+#| msgid "Select location..."
+msgid "Select location…"
 msgstr "Seleccionar ubicación…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
@@ -617,12 +621,25 @@ msgid "Use horizontal layout"
 msgstr "Usar distribución horizontal"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Preferencias de gitg"
+#| msgid "_Preferences"
+msgid "Preferences"
+msgstr "Preferencias"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "columna"
+
+#~ msgid "%d minutes ago"
+#~ msgstr "Hace %d minutos"
+
+#~ msgid "%d hours ago"
+#~ msgstr "hace %d horas"
+
+#~ msgid "%d days ago"
+#~ msgstr "Hace %d días"
+
+#~ msgid "gitg Preferences"
+#~ msgstr "Preferencias de gitg"
 
 #~ msgid "_User Information"
 #~ msgstr "Información del _usuario"
