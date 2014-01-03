@@ -39,7 +39,7 @@ libgitg_1_0_la_VALAFLAGS =		\
 	--library libgitg-1.0		\
 	--gresources "$(top_srcdir)/libgitg/resources/resources.xml"
 
-libgitg_1_0_la_VALA_FILES =			\
+libgitg_1_0_la_VALASOURCES =			\
 	gitg-assembly-info.vala			\
 	gitg-async.vala				\
 	gitg-branch.vala			\
@@ -73,7 +73,7 @@ libgitg_1_0_la_VALA_FILES =			\
 	gitg-diff-stat.vala
 
 libgitg_1_0_la_SOURCES = 		\
-	$(libgitg_1_0_la_VALA_FILES)	\
+	$(libgitg_1_0_la_VALASOURCES)	\
 	gitg-resources.c		\
 	gitg-js-utils.c
 
@@ -100,11 +100,11 @@ libgitg_1_0_la_pkgconfig_DATA = libgitg-1.0.pc
 gitg-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir=$(srcdir)/resources --generate-source $(srcdir)/resources/resources.xml
 
-GITIGNOREFILES =				\
-	$(libgitg_1_0_la_VALA_FILES:%.vala=%.c)	\
-	$(libgitg_1_0_la_gir_DATA)		\
-	libgitg-1.0.vapi			\
-	libgitg.h				\
+GITIGNOREFILES =					\
+	$(libgitg_1_0_la_VALASOURCES:%.vala=%.c)	\
+	$(libgitg_1_0_la_gir_DATA)			\
+	libgitg-1.0.vapi				\
+	libgitg.h					\
 	libgitg_1_0_la_vala.stamp
 
 CLEANFILES =					\

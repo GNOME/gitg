@@ -40,7 +40,7 @@ libgitg_ext_1_0_la_LDFLAGS = 			\
 
 libgitg_ext_1_0_la_LIBADD = $(LIBGITG_EXT_LIBS)
 
-libgitg_ext_1_0_la_VALA_FILES =			\
+libgitg_ext_1_0_la_VALASOURCES =		\
 	gitg-ext-assembly-info.vala		\
 	gitg-ext-application.vala		\
 	gitg-ext-ui-element.vala		\
@@ -55,7 +55,7 @@ libgitg_ext_1_0_la_VALA_FILES =			\
 	gitg-ext-ui.vala
 
 libgitg_ext_1_0_la_SOURCES =			\
-	$(libgitg_ext_1_0_la_VALA_FILES)	\
+	$(libgitg_ext_1_0_la_VALASOURCES)	\
 	gitg-ext-resources.c
 
 headerdir = $(prefix)/include/libgitg-ext-1.0/libgitg-ext
@@ -102,7 +102,7 @@ gitg-ext-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) 
 		--target "$@" "$<"
 
 GITIGNOREFILES =					\
-	$(libgitg_ext_1_0_la_VALA_FILES:%.vala=%.c)	\
+	$(libgitg_ext_1_0_la_VALASOURCES:%.vala=%.c)	\
 	gitg-ext-resources.c				\
 	$(libgitg_ext_1_0_la_gir_DATA)			\
 	libgitg-ext-1.0.vapi				\
