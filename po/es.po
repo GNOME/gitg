@@ -5,15 +5,15 @@
 #
 # Chihau Chau <chihau@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011, 2012, 2013.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011, 2012, 2013, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-11-23 19:27+0000\n"
-"PO-Revision-Date: 2013-11-25 16:49+0100\n"
+"POT-Creation-Date: 2014-01-02 12:40+0000\n"
+"PO-Revision-Date: 2014-01-02 16:15+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -105,8 +105,8 @@ msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». Se "
-"puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
+"Mostrar un indicador de margen derecho en la vista de mensaje de «commit». "
+"Se puede usar para ver fácilmente dónde romper el mensaje de «commit» en una "
 "columna en particular."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
@@ -130,8 +130,8 @@ msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
 msgstr ""
-"Resaltar el texto del asunto del mensaje del «commit» cuando supera el margen "
-"especificado por la posición del margen del asunto."
+"Resaltar el texto del asunto del mensaje del «commit» cuando supera el "
+"margen especificado por la posición del margen del asunto."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
 msgid "Column at Which Subject Margin is Shown"
@@ -156,68 +156,76 @@ msgstr "No se puede establecer el idioma de la comprobación ortográfica: %s"
 msgid "Commit"
 msgstr "Commit"
 
-#: ../gitg/commit/gitg-commit.vala:144
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "_Reservar selección"
+
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Falló al reservar el archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:163
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Falló al reservar la eliminación del archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "Q_uitar la reserva de la selección"
+
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Falló al quitar la reserva de eliminación del archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:242
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Falló al quitar la reserva del archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:366
+#: ../gitg/commit/gitg-commit.vala:370
 msgid "Staged"
 msgstr "Reservado"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:374
 msgid "No staged files"
 msgstr "No hay archivos reservados"
 
-#: ../gitg/commit/gitg-commit.vala:379
+#: ../gitg/commit/gitg-commit.vala:383
 msgid "Unstaged"
 msgstr "Sin reservar"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:387
 msgid "No unstaged files"
 msgstr "No hay archivos sin reservar"
 
-#: ../gitg/commit/gitg-commit.vala:392
+#: ../gitg/commit/gitg-commit.vala:396
 msgid "Untracked"
 msgstr "No registrados"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:400
 msgid "No untracked files"
 msgstr "No hay archivos sin registrar"
 
-#: ../gitg/commit/gitg-commit.vala:432
+#: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
 msgstr "No hay cambios que efectuar"
 
-#: ../gitg/commit/gitg-commit.vala:433
+#: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Use «amend» para cambiar el mensaje del «commit» anterior"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
 msgstr "Falló al hacer el «commit»"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
 msgstr "Falló al pasar el «pre-commit»"
 
-#: ../gitg/commit/gitg-commit.vala:696
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -225,7 +233,7 @@ msgstr ""
 "Su nombre de usuario y su correo-e no están configurados todavía. Vaya a la "
 "configuración del usuario y proporcione su nombre y su correo-e."
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -233,13 +241,23 @@ msgstr ""
 "Su nombre de usuario no está configurado todavía. Vaya a la configuración "
 "del usuario y proporcione su nombre."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "Su su correo-e no está configurado todavía. Vaya a la configuración del "
 "usuario y proporcione su correo-e."
+
+#: ../gitg/commit/gitg-commit.vala:769
+#| msgid "Failed to stage the file `%s'"
+msgid "Failed to stage selection"
+msgstr "Falló al reservar la selección"
+
+#: ../gitg/commit/gitg-commit.vala:773
+#| msgid "Failed to unstage the file `%s'"
+msgid "Failed to unstage selection"
+msgstr "Falló al quitar la reserva de la selección"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -266,7 +284,7 @@ msgstr "- visor de repositorios git"
 msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgstr "gitg es un visor de repositorios git para GTk+/GNOME"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:215
 msgid "gitg homepage"
 msgstr "Página principal de gitg"
 
@@ -291,7 +309,7 @@ msgid "Open Repository"
 msgstr "Abrir repositorio"
 
 #: ../gitg/gitg-window.vala:301
-#: ../libgitg/gitg-diff-view-request-patch.vala:102
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -304,23 +322,23 @@ msgstr "_Abrir"
 msgid "'%s' is not a Git repository."
 msgstr "«%s» no es un repositorio Git."
 
-#: ../gitg/history/gitg-history-navigation.vala:194
-#: ../gitg/history/gitg-history-navigation.vala:302
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
 msgstr "Todos los «commit»"
 
 #. Branches
-#: ../gitg/history/gitg-history-navigation.vala:197
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "Ramas"
 
 #. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:234
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "Remotas"
 
 #. Tags
-#: ../gitg/history/gitg-history-navigation.vala:260
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -368,28 +386,27 @@ msgstr "Hace 1 día"
 msgid "%d days ago"
 msgstr "Hace %d días"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:100
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
 msgid "Save Patch File"
 msgstr "Guardar archivo de parche"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:104
-#| msgid "Save"
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
 msgid "_Save"
 msgstr "_Guardar"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view.vala:120
 msgid "stage"
 msgstr "Reservar"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:121
 msgid "unstage"
 msgstr "quitar la reserva"
 
-#: ../libgitg/gitg-diff-view.vala:91
+#: ../libgitg/gitg-diff-view.vala:122
 msgid "Loading diff..."
 msgstr "Cargando diferencias…"
 
-#: ../libgitg/gitg-stage.vala:279
+#: ../libgitg/gitg-stage.vala:300
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
@@ -486,6 +503,10 @@ msgstr "Cerrar"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
 msgstr "Omitir «hooks» de los «commit»"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "R_eservar selección"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
