@@ -260,12 +260,13 @@ AC_ARG_ENABLE([python],
               [enable_python="auto"])
 
 if test "x$enable_python" = "xauto"; then
-        PKG_CHECK_EXISTS([pygobject-3.0 >= $PYGOBJECT_REQUIRED],
-                         [enable_python=yes],[enable_python=no])
+	PKG_CHECK_EXISTS([pygobject-3.0 >= $PYGOBJECT_REQUIRED],
+	                 [enable_python=yes],[enable_python=no])
 fi
 
 if test "x$enable_python" = "xyes"; then
-        PKG_CHECK_MODULES(PYTHON, [pygobject-3.0 >= $PYGOBJECT_REQUIRED])
+
+	PKG_CHECK_MODULES(PYTHON, [pygobject-3.0 >= $PYGOBJECT_REQUIRED])
 
 	pyoverridesdir="\$(pyexecdir)/gi/overrides"
 	AC_SUBST(pyoverridesdir)
