@@ -96,7 +96,7 @@ endif
 libgitg_ext_1_0_la_pkgconfigdir = $(libdir)/pkgconfig
 libgitg_ext_1_0_la_pkgconfig_DATA = libgitg-ext-1.0.pc
 
-gitg-ext-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+gitg-ext-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"

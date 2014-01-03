@@ -72,7 +72,7 @@ gitg_SOURCES =							\
 	$(gitg_VALASOURCES)					\
 	gitg-resources.c
 
-gitg-resources.c: resources/gitg-resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/gitg-resources.xml)
+gitg-resources.c: resources/gitg-resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/gitg-resources.xml)
 	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
@@ -82,9 +82,9 @@ gitg-resources.h: resources/gitg-resources.xml $(shell $(GLIB_COMPILE_RESOURCES)
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
 
-EXTRA_DIST = 				\
+EXTRA_DIST = 					\
 	resources/gitg-resources.xml		\
-	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/gitg-resources.xml)
+	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/gitg-resources.xml)
 
 -include $(top_srcdir)/git.mk
 

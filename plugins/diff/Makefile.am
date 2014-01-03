@@ -26,7 +26,7 @@ libdiff_la_plugindir = $(GITG_PLUGIN_LIBDIR)
 libdiff_la_plugin_LTLIBRARIES = libdiff.la
 libdiff_la_plugin_DATA = diff.plugin
 
-gitg-diff-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+gitg-diff-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
 		--sourcedir $(srcdir)/resources 	\
 		--target "$@" "$<"
@@ -39,7 +39,7 @@ gitg-diff-resources.h: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES)
 EXTRA_DIST =					\
 	$(libdiff_la_plugin_DATA)		\
 	resources/resources.xml			\
-	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources resources/resources.xml)
+	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 
 -include $(top_srcdir)/git.mk
 
