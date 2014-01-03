@@ -85,7 +85,7 @@ libgitg_ext_1_0_la_typelibdir = $(INTROSPECTION_TYPELIBDIR)
 libgitg_ext_1_0_la_typelib_DATA = GitgExt-1.0.typelib
 
 %.typelib: %.gir
-	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. --includedir=$(top_builddir)/libgitg -o $@ $<
+	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. --includedir=$(top_srcdir)/libgitg -o $@ $<
 
 if ENABLE_PYTHON
 overridesdir = $(pyoverridesdir)
