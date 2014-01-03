@@ -36,7 +36,6 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PATH_PROG(GZIP, gzip)
 
-AM_PATH_PYTHON([3.2.3])
 AM_PROG_VALAC([0.20.1.23])
 
 AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
@@ -265,6 +264,7 @@ if test "x$enable_python" = "xauto"; then
 fi
 
 if test "x$enable_python" = "xyes"; then
+	AM_PATH_PYTHON([3.2.3])
 
 	PKG_CHECK_MODULES(PYTHON, [pygobject-3.0 >= $PYGOBJECT_REQUIRED])
 
