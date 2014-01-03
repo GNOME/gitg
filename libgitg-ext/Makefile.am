@@ -110,6 +110,5 @@ EXTRA_DIST =					\
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
 
 -include $(top_srcdir)/git.mk
--include $(top_srcdir)/valadoc.mk
 
 # vi:ts=8:noet
