@@ -50,6 +50,15 @@ class Paned : Gtk.Paned
 	[GtkChild]
 	private Gtk.ScrolledWindow d_scrolled_window_commit_list;
 
+	[GtkChild]
+	private Gtk.TreeViewColumn d_column_commit_list_subject;
+
+	[GtkChild]
+	private Gtk.TreeViewColumn d_column_commit_list_author;
+
+	[GtkChild]
+	private Gtk.TreeViewColumn d_column_commit_list_author_date;
+
 	[Notify]
 	public Gtk.Orientation inner_orientation
 	{
@@ -110,6 +119,20 @@ class Paned : Gtk.Paned
 		d_renderer_commit_list_author_date.add_class("dim-label");
 
 		d_stack_switcher_panels.set_stack(d_stack_panel);
+
+		d_commit_list_view.size_allocate.connect(on_list_view_size_allocate);
+	}
+
+	private void on_list_view_size_allocate(Gtk.Widget view, Gtk.Allocation alloc)
+	{
+		// Resize columns
+		int subject = (int)(0.6 * alloc.width);
+		int author = (int)(0.6 * (alloc.width - subject));
+		int date = alloc.width - subject - author;
+
+		d_column_commit_list_subject.fixed_width = subject;
+		d_column_commit_list_author.fixed_width = author;
+		d_column_commit_list_author_date.fixed_width = date;
 	}
 
 	public Paned()
