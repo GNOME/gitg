@@ -287,7 +287,6 @@ Makefile
 libgd/Makefile
 libgitg/libgitg-1.0.pc
 libgitg-ext/libgitg-ext-1.0.pc
-gitg/Makefile
 data/Makefile
 data/gitg.desktop.in
 data/icons/Makefile

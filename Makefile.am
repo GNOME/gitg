@@ -2,7 +2,7 @@
 
 ACLOCAL_AMFLAGS = -I m4 -I libgd ${ACLOCAL_FLAGS}
 
-SUBDIRS = libgd plugins gitg data po tests
+SUBDIRS = libgd plugins data po tests
 
 DISTCLEANFILES = \
 	intltool-extract \
@@ -82,9 +82,11 @@ noinst_HEADERS  =
 GITIGNOREFILES  =
 CLEANFILES      =
 lib_LTLIBRARIES =
+bin_PROGRAMS    =
 
 include libgitg/Makefile.am
 include libgitg-ext/Makefile.am
+include gitg/Makefile.am
 
 %.typelib: %.gir
 	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. -o $@ $<
