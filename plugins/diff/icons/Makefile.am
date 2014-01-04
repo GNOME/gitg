@@ -1,6 +1,3 @@
-ICONS = diff-symbolic.svg
-
-include $(top_srcdir)/icons.mk
--include $(top_srcdir)/git.mk
+ICONS += diff-symbolic.svg
 
 # vi:ts=8:noet

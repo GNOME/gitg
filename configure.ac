@@ -294,10 +294,6 @@ data/org.gnome.gitg.gschema.xml.in
 po/Makefile.in
 tests/Makefile
 tests/libgitg/Makefile
-plugins/Makefile
-plugins/diff/Makefile
-plugins/diff/icons/Makefile
-plugins/files/Makefile
 ])
 
 AC_OUTPUT

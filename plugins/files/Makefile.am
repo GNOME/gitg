@@ -1,47 +1,43 @@
-libfiles_la_CPPFLAGS =							\
+plugins_files_libfiles_la_plugindir = $(GITG_PLUGIN_LIBDIR)
+plugins_files_libfiles_la_plugin_LTLIBRARIES = plugins/files/libfiles.la
+plugins_files_libfiles_la_plugin_DATA = plugins/files/files.plugin
+
+plugins_files_libfiles_la_CPPFLAGS =					\
 	-I$(top_srcdir)							\
 	-I$(srcdir)							\
 	-DDATADIR=\""$(datadir)"\"					\
 	-DLIBDIR=\""$(libdir)"\"
 
-libfiles_la_CFLAGS = 							\
+plugins_files_libfiles_la_CFLAGS = 					\
 	$(GITG_PLUGIN_CFLAGS)						\
 	$(WARN_CFLAGS)							\
 	-w
 
-libfiles_la_LDFLAGS = $(GITG_PLUGIN_LIBTOOL_FLAGS)
-libfiles_la_LIBADD = $(GITG_PLUGIN_LIBS)
-libfiles_la_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
+plugins_files_libfiles_la_LDFLAGS = $(GITG_PLUGIN_LIBTOOL_FLAGS)
+plugins_files_libfiles_la_LIBADD = $(GITG_PLUGIN_LIBS)
+plugins_files_libfiles_la_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 
-libfiles_la_VALASOURCES =						\
-	gitg-files.vala							\
-	gitg-files-tree-store.vala
+plugins_files_libfiles_la_VALASOURCES =					\
+	plugins/files/gitg-files.vala					\
+	plugins/files/gitg-files-tree-store.vala
 
-libfiles_la_SOURCES = 							\
-	$(libfiles_la_VALASOURCES)					\
-	gitg-files-resources.c
+plugins_files_libfiles_la_SOURCES = 					\
+	$(plugins_files_libfiles_la_VALASOURCES)			\
+	plugins/files/gitg-files-resources.c
 
-libfiles_la_plugindir = $(GITG_PLUGIN_LIBDIR)
-libfiles_la_plugin_LTLIBRARIES = libfiles.la
-libfiles_la_plugin_DATA = files.plugin
+plugins_files_libfiles_resources_deps = $(call GRESDEPS,plugins/files/resources/resources.xml)
+plugins/files/gitg-files-resources.c: $(plugins_files_libfiles_resources_deps)
+	$(GRESGEN)
 
-gitg-files-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
-	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
-		--sourcedir $(srcdir)/resources 	\
-		--target "$@" "$<"
+GITIGNOREFILES +=						\
+	$(plugins_files_libfiles_la_VALASOURCES:%.vala=%.c)	\
+	plugins_files_libfiles_la_vala.stamp
 
-GITIGNOREFILES =				\
-	$(libfiles_la_VALASOURCES:%.vala=%.c)	\
-	libfiles_la_vala.stamp
+CLEANFILES +=							\
+	plugins/files/gitg-files-resources.c
 
-CLEANFILES =					\
-	gitg-files-resources.c
-
-EXTRA_DIST =					\
-	$(libfiles_la_plugin_DATA)		\
-	resources/resources.xml			\
-	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
-
--include $(top_srcdir)/git.mk
+EXTRA_DIST +=							\
+	$(plugins_files_libfiles_la_plugin_DATA)		\
+	$(plugins_files_libfiles_resources_deps)
 
 # vi:ts=8:noet
