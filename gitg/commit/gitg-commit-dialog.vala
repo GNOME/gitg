@@ -306,6 +306,10 @@ class Dialog : Gtk.Dialog
 		{
 			d_label_user.xalign = 1.0f;
 		}
+		else
+		{
+			d_label_user.xalign = 0.0f;
+		}
 
 		var t = d_author.get_time();
 		var now = new DateTime.now_local();
@@ -325,6 +329,10 @@ class Dialog : Gtk.Dialog
 		if (rtl == (Pango.find_base_dir(date_string, -1) != Pango.Direction.RTL))
 		{
 			d_label_date.xalign = 1.0f;
+		}
+		else
+		{
+			d_label_date.xalign = 0.0f;
 		}
 
 		var ac = Gitg.AvatarCache.default();
