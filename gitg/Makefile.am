@@ -37,17 +37,17 @@ gitg_gitg_VALAFLAGS =						\
 	--vapidir "$(top_builddir)/libgitg-ext"			\
 	--gresources "$(top_srcdir)/gitg/resources/gitg-resources.xml"
 
-gitg_gitg_LDADD =							\
-	$(GITG_LIBS)						\
-	$(PACKAGE_LIBS) 					\
-	$(top_builddir)/libgd/libgd.la				\
-	$(top_builddir)/libgitg/libgitg-1.0.la			\
-	$(top_builddir)/libgitg-ext/libgitg-ext-1.0.la
+gitg_gitg_LDADD =						\
+	libgd/libgd.la						\
+	libgitg/libgitg-1.0.la					\
+	libgitg-ext/libgitg-ext-1.0.la
 
 gitg_gitg_LDFLAGS =						\
 	-export-dynamic						\
 	-no-undefined						\
-	-export-symbols-regex "^[[^_]].*"
+	-export-symbols-regex "^[[^_]].*"			\
+	$(GITG_LIBS)						\
+	$(PACKAGE_LIBS)
 
 gitg_gitg_VALASOURCES =						\
 	gitg/gitg.vala						\

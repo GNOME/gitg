@@ -33,9 +33,11 @@ tests_libgitg_test_libgitg_CFLAGS =		\
 	-g					\
 	-w
 
-tests_libgitg_test_libgitg_LDADD =		\
-	$(top_builddir)/libgitg/libgitg-1.0.la	\
+tests_libgitg_test_libgitg_LDFLAGS =		\
 	$(LIBGITG_LIBS)
+
+tests_libgitg_test_libgitg_LDADD =		\
+	libgitg/libgitg-1.0.la
 
 tests_libgitg_test_libgitg_SOURCES =		\
 	tests/libgitg/test.vala			\
