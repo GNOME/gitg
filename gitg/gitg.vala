@@ -36,6 +36,9 @@ public class Main
 
 		Gitg.init();
 
+		// Make sure to pull in gd symbols since libgd gets linked statically
+		Gd.ensure_types();
+
 		Application app = new Application();
 		return app.run(args);
 	}
