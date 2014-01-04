@@ -329,16 +329,34 @@ public class SidebarRendererText : Gtk.CellRendererText
 		}
 		else
 		{
+			var rtl = (stx.get_state() & Gtk.StateFlags.DIR_RTL) != 0;
+
 			// render the text with an additional padding
 			Gdk.Rectangle area = cell_area;
-			area.x += d_pixbuf.width + 3;
+
+			var pad = d_pixbuf.width + 3;
+
+			if (rtl)
+			{
+				area.width -= pad;
+			}
+			else
+			{
+				area.x += pad;
+			}
 
 			base.render(ctx, widget, background_area, area, state);
 
 			// render the pixbuf
 			int yp = (cell_area.height - d_pixbuf.height) / 2;
+			int x = cell_area.x;
 
-			stx.render_icon(ctx, d_pixbuf, cell_area.x, cell_area.y + yp);
+			if (rtl)
+			{
+				x += cell_area.width - d_pixbuf.width;
+			}
+
+			stx.render_icon(ctx, d_pixbuf, x, cell_area.y + yp);
 		}
 	}
 }
