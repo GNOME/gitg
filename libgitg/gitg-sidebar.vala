@@ -282,17 +282,21 @@ public class SidebarRendererText : Gtk.CellRendererText
 
 	protected override void get_preferred_width(Gtk.Widget widget,
 	                                            out int    minimum_width,
-	                                            out int    minimum_height)
+	                                            out int    natural_width)
 	{
 		ensure_pixbuf(widget.get_style_context());
 
 		// Size of text
-		base.get_preferred_width(widget, out minimum_width, out minimum_height);
+		base.get_preferred_width(widget, out minimum_width, out natural_width);
 
 		if (d_pixbuf != null)
 		{
-			minimum_width += d_pixbuf.get_width() + 3;
-			minimum_height += d_pixbuf.get_height();
+			var w = d_pixbuf.get_width() + 3;
+
+			if (w > minimum_width)
+			{
+				minimum_width = w;
+			}
 		}
 	}
 

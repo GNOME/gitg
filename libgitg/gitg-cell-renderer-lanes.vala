@@ -42,16 +42,18 @@ namespace Gitg
 			       LabelRenderer.width(widget, font_desc, labels);
 		}
 
-		public override void get_size(Gtk.Widget     widget,
-		                              Gdk.Rectangle? area,
-		                              out int        xoffset,
-		                              out int        yoffset,
-		                              out int        width,
-		                              out int        height)
+		public override void get_preferred_width(Gtk.Widget widget,
+		                                         out int    minimum_width,
+		                                         out int    natural_width)
 		{
-			base.get_size(widget, area, out xoffset, out yoffset, out width, out height);
+			base.get_preferred_width(widget, out minimum_width, out natural_width);
 
-			width += (int)total_width(widget);
+			var w = (int)total_width(widget);
+
+			if (w > minimum_width)
+			{
+				minimum_width = w;
+			}
 		}
 
 		private void draw_arrow(Cairo.Context context,
