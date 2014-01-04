@@ -687,6 +687,8 @@ namespace GitgHistory
 			var stx = widget.get_style_context();
 			ensure_pixbuf(stx);
 
+			var rtl = (stx.get_state() & Gtk.StateFlags.DIR_RTL) != 0;
+
 			if (d_pixbuf == null)
 			{
 				base.render(ctx, widget, background_area, cell_area, state);
@@ -695,14 +697,32 @@ namespace GitgHistory
 			{
 				// render the text with an additional padding
 				Gdk.Rectangle area = cell_area;
-				area.x += d_pixbuf.width + 3;
+
+				if (!rtl)
+				{
+					area.x += d_pixbuf.width + 3;
+				}
+				else
+				{
+					area.x -= d_pixbuf.width + 3;
+				}
 
 				base.render(ctx, widget, background_area, area, state);
 
 				// render the pixbuf
 				int yp = (cell_area.height - d_pixbuf.height) / 2;
+				int x;
 
-				stx.render_icon(ctx, d_pixbuf, cell_area.x, cell_area.y + yp);
+				if (!rtl)
+				{
+					x = cell_area.x;
+				}
+				else
+				{
+					x = cell_area.x + cell_area.width - d_pixbuf.width - 3;
+				}
+
+				stx.render_icon(ctx, d_pixbuf, x, cell_area.y + yp);
 			}
 		}
 	}
