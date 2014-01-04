@@ -1,17 +1,17 @@
-lib_LTLIBRARIES = libgitg-ext-1.0.la
+lib_LTLIBRARIES += libgitg-ext/libgitg-ext-1.0.la
 
-libgitg_ext_1_0_la_CPPFLAGS =			\
+libgitg_ext_libgitg_ext_1_0_la_CPPFLAGS =	\
 	-I$(top_srcdir)				\
 	-I$(srcdir)				\
 	-DDATADIR=\""$(datadir)"\"		\
 	-DLIBDIR=\""$(libdir)"\"
 
-libgitg_ext_1_0_la_CFLAGS =			\
+libgitg_ext_libgitg_ext_1_0_la_CFLAGS =		\
 	$(LIBGITG_EXT_CFLAGS)			\
 	$(WARN_CFLAGS)				\
 	-w
 
-libgitg_ext_1_0_la_VALAPKGS =			\
+libgitg_ext_libgitg_ext_1_0_la_VALAPKGS =	\
 	--pkg Ggit-1.0 				\
 	--pkg libgitg-1.0			\
 	--pkg gio-2.0				\
@@ -20,104 +20,96 @@ libgitg_ext_1_0_la_VALAPKGS =			\
 	--pkg webkit2gtk-3.0			\
 	--pkg gee-0.8
 
-libgitg_ext_1_0_la_VALAFLAGS = 			\
-	$(libgitg_ext_1_0_la_VALAPKGS)		\
-	--basedir $(top_srcdir)			\
-	--vapidir $(top_srcdir)/vapi		\
-	--vapidir $(top_builddir)/libgitg	\
-	--gir GitgExt-1.0.gir			\
-	--vapi libgitg-ext-1.0.vapi		\
-	--girdir $(top_builddir)/libgitg	\
-	--includedir libgitg-ext		\
-	--header libgitg-ext.h			\
-	--library libgitg-ext-1.0		\
+libgitg_ext_libgitg_ext_1_0_la_VALAFLAGS =		\
+	$(libgitg_ext_libgitg_ext_1_0_la_VALAPKGS)	\
+	--basedir $(top_srcdir)				\
+	--vapidir $(top_srcdir)/vapi			\
+	--vapidir $(top_builddir)/libgitg		\
+	--gir GitgExt-1.0.gir				\
+	--vapi libgitg-ext/libgitg-ext-1.0.vapi		\
+	--girdir $(top_builddir)/libgitg		\
+	--includedir libgitg-ext			\
+	--header libgitg-ext/libgitg-ext.h		\
+	--library libgitg-ext/libgitg-ext-1.0		\
 	$(GITG_VALAFLAGS)
 
-libgitg_ext_1_0_la_LDFLAGS = 			\
+libgitg_ext_libgitg_ext_1_0_la_LDFLAGS = 	\
 	-export-dynamic				\
 	-no-undefined				\
 	-export-symbols-regex "^[^_].*"
 
-libgitg_ext_1_0_la_LIBADD = $(LIBGITG_EXT_LIBS)
+libgitg_ext_libgitg_ext_1_0_la_LIBADD = $(LIBGITG_EXT_LIBS)
 
-libgitg_ext_1_0_la_VALASOURCES =		\
-	gitg-ext-assembly-info.vala		\
-	gitg-ext-application.vala		\
-	gitg-ext-ui-element.vala		\
-	gitg-ext-activity.vala			\
-	gitg-ext-message-id.vala		\
-	gitg-ext-message.vala			\
-	gitg-ext-message-bus.vala		\
-	gitg-ext-history.vala			\
-	gitg-ext-history-panel.vala		\
-	gitg-ext-command-line.vala		\
-	gitg-ext-preferences.vala		\
-	gitg-ext-ui.vala
+libgitg_ext_libgitg_ext_1_0_la_VALASOURCES =		\
+	libgitg-ext/gitg-ext-assembly-info.vala		\
+	libgitg-ext/gitg-ext-application.vala		\
+	libgitg-ext/gitg-ext-ui-element.vala		\
+	libgitg-ext/gitg-ext-activity.vala		\
+	libgitg-ext/gitg-ext-message-id.vala		\
+	libgitg-ext/gitg-ext-message.vala		\
+	libgitg-ext/gitg-ext-message-bus.vala		\
+	libgitg-ext/gitg-ext-history.vala		\
+	libgitg-ext/gitg-ext-history-panel.vala		\
+	libgitg-ext/gitg-ext-command-line.vala		\
+	libgitg-ext/gitg-ext-preferences.vala		\
+	libgitg-ext/gitg-ext-ui.vala
 
-libgitg_ext_1_0_la_SOURCES =			\
-	$(libgitg_ext_1_0_la_VALASOURCES)	\
-	gitg-ext-resources.c
+libgitg_ext_libgitg_ext_1_0_la_SOURCES =		\
+	$(libgitg_ext_libgitg_ext_1_0_la_VALASOURCES)	\
+	libgitg-ext/gitg-ext-resources.c
 
-headerdir = $(prefix)/include/libgitg-ext-1.0/libgitg-ext
-header_DATA = libgitg-ext.h
+libgitg_ext_libgitg_ext_1_0_headerdir = $(prefix)/include/libgitg-ext-1.0/libgitg-ext
+libgitg_ext_libgitg_ext_1_0_header_DATA = libgitg-ext/libgitg-ext.h
 
-vapidir = $(prefix)/share/vala/vapi
-vapi_DATA = libgitg-ext-1.0.vapi
+libgitg_ext_libgitg_ext_1_0_vapidir = $(prefix)/share/vala/vapi
+libgitg_ext_libgitg_ext_1_0_vapi_DATA = libgitg-ext/libgitg-ext-1.0.vapi
 
 if ENABLE_DOCS
-docs: $(libgitg_ext_1_0_la_VALASOURCES)
-	$(VALADOC)				\
-	--directory $(top_builddir)/docs	\
-	--package-name gitgext			\
-	$(libgitg_ext_1_0_la_VALAPKGS)		\
-	--basedir $(top_srcdir)			\
-	--vapidir $(top_srcdir)/vapi		\
-	--vapidir $(top_builddir)/libgitg	\
-	$(libgitg_ext_1_0_la_VALASOURCES)
-else
-docs:
+libgitg-ext-docs: $(libgitg_ext_libgitg_ext_1_0_la_VALASOURCES)
+	$(VALADOC)					\
+	--directory $(top_builddir)/docs		\
+	--package-name gitgext				\
+	$(libgitg_ext_libgitg_ext_1_0_la_VALAPKGS)	\
+	--basedir $(top_srcdir)				\
+	--vapidir $(top_srcdir)/vapi			\
+	--vapidir $(top_builddir)/libgitg		\
+	$(libgitg_ext_libgitg_ext_1_0_la_VALASOURCES)
+
+docs: libgitg-ext-docs
 endif
 
-libgitg_ext_1_0_la_girdir = $(INTROSPECTION_GIRDIR)
-libgitg_ext_1_0_la_gir_DATA = GitgExt-1.0.gir
+libgitg_ext_libgitg_ext_1_0_la_girdir = $(INTROSPECTION_GIRDIR)
+libgitg_ext_libgitg_ext_1_0_la_gir_DATA = GitgExt-1.0.gir
 
-libgitg_ext_1_0_la_typelibdir = $(INTROSPECTION_TYPELIBDIR)
-libgitg_ext_1_0_la_typelib_DATA = GitgExt-1.0.typelib
-
-%.typelib: %.gir
-	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. --includedir=$(top_srcdir)/libgitg -o $@ $<
+libgitg_ext_libgitg_ext_1_0_la_typelibdir = $(INTROSPECTION_TYPELIBDIR)
+libgitg_ext_libgitg_ext_1_0_la_typelib_DATA = GitgExt-1.0.typelib
 
 if ENABLE_PYTHON
-overridesdir = $(pyoverridesdir)
-overrides_PYTHON = \
-	GitgExt.py
+libgitg_ext_libgitg_ext_1_0_la_overridesdir = $(pyoverridesdir)
+libgitg_ext_libgitg_ext_1_0_la_overrides_PYTHON = libgitg-ext/GitgExt.py
 endif
 
-libgitg_ext_1_0_la_pkgconfigdir = $(libdir)/pkgconfig
-libgitg_ext_1_0_la_pkgconfig_DATA = libgitg-ext-1.0.pc
+libgitg_ext_libgitg_ext_1_0_la_pkgconfigdir = $(libdir)/pkgconfig
+libgitg_ext_libgitg_ext_1_0_la_pkgconfig_DATA = libgitg-ext/libgitg-ext-1.0.pc
 
-gitg-ext-resources.c: resources/resources.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
-	$(GLIB_COMPILE_RESOURCES) --generate-source 	\
-		--sourcedir $(srcdir)/resources 	\
-		--target "$@" "$<"
+libgitg_ext_resources_deps = $(call GRESDEPS,libgitg-ext/resources/resources.xml)
+libgitg-ext/gitg-ext-resources.c: $(libgitg_ext_resources_deps)
+	$(GRESGEN)
 
-GITIGNOREFILES =					\
-	$(libgitg_ext_1_0_la_VALASOURCES:%.vala=%.c)	\
-	gitg-ext-resources.c				\
-	$(libgitg_ext_1_0_la_gir_DATA)			\
-	libgitg-ext-1.0.vapi				\
-	libgitg-ext.h					\
-	libgitg_ext_1_0_la_vala.stamp
+GITIGNOREFILES +=							\
+	$(libgitg_ext_libgitg_ext_1_0_la_VALASOURCES:%.vala=%.c)	\
+	libgitg-ext/gitg-ext-resources.c				\
+	$(libgitg_ext_libgitg_ext_1_0_la_gir_DATA)			\
+	libgitg-ext/libgitg-ext-1.0.vapi				\
+	libgitg-ext/libgitg-ext.h					\
+	libgitg_ext_libgitg_ext_1_0_la_vala.stamp
 
-CLEANFILES =						\
-	$(libgitg_ext_1_0_la_typelib_DATA)
+CLEANFILES +=								\
+	$(libgitg_ext_libgitg_ext_1_0_la_typelib_DATA)
 
-EXTRA_DIST =					\
-	$(libgitg_ext_1_0_la_pkgconfig_DATA)	\
-	$(libgitg_ext_1_0_la_gir_DATA)		\
-	resources/resources.xml			\
-	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/resources $(srcdir)/resources/resources.xml)
-
--include $(top_srcdir)/git.mk
+EXTRA_DIST +=								\
+	$(libgitg_ext_libgitg_ext_1_0_la_pkgconfig_DATA)		\
+	$(libgitg_ext_libgitg_ext_1_0_la_gir_DATA)			\
+	$(libgitg_ext_resources_deps)
 
 # vi:ts=8:noet

@@ -286,7 +286,6 @@ AC_CONFIG_FILES([
 Makefile
 libgd/Makefile
 libgitg/libgitg-1.0.pc
-libgitg-ext/Makefile
 libgitg-ext/libgitg-ext-1.0.pc
 gitg/Makefile
 data/Makefile
