@@ -53,6 +53,6 @@ install-data-hook: data-icons-update-icon-cache
 uninstall-local: data-icons-uninstall-icons
 uninstall-hook: data-icons-update-icon-cache
 
-EXTRA_DIST += $(data_icons_public_icons)
+EXTRA_DIST += $(addprefix data/icons/,$(data_icons_public_icons))
 
 # vi:ts=8:noet
