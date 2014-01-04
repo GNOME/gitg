@@ -121,6 +121,13 @@ namespace Gitg
 				context.add_class(style_class);
 			}
 
+			var rtl = (widget.get_style_context().get_state() & Gtk.StateFlags.DIR_RTL) != 0;
+
+			if (rtl)
+			{
+				x -= w + padding * 2;
+			}
+
 			context.render_background(cr,
 			                          x,
 			                          y + margin,
@@ -148,7 +155,18 @@ namespace Gitg
 		                        SList<Ref>            labels,
 		                        Gdk.Rectangle         area)
 		{
-			double pos = margin + 0.5;
+			double pos;
+
+			var rtl = (widget.get_style_context().get_state() & Gtk.StateFlags.DIR_RTL) != 0;
+
+			if (!rtl)
+			{
+				pos = area.x + margin + 0.5;
+			}
+			else
+			{
+				pos = area.x + area.width - margin - 0.5;
+			}
 
 			context.save();
 			context.set_line_width(1.0);
@@ -169,7 +187,8 @@ namespace Gitg
 				                     area.height,
 				                     true);
 
-				pos += w + padding * 2 + margin;
+				var o = w + padding * 2 + margin;
+				pos += rtl ? -o : o;
 			}
 
 			context.restore();
