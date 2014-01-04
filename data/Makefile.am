@@ -1,40 +1,29 @@
-SUBDIRS = icons
+data_desktopdir = $(datadir)/applications
+data_desktop_in_files = data/gitg.desktop.in
+data_desktop_DATA = $(data_desktop_in_files:.desktop.in=.desktop)
 
-desktopdir 	 = $(datadir)/applications
-desktop_in_files = gitg.desktop.in
-desktop_DATA 	 = $(desktop_in_files:.desktop.in=.desktop)
-@INTLTOOL_DESKTOP_RULE@
+data_appdatadir = $(datadir)/appdata
+data_appdata_DATA = data/gitg.appdata.xml
 
-appdatadir = $(datadir)/appdata
-appdata_DATA = gitg.appdata.xml
+data_mandir = $(mandir)
+data_man_MANS = data/gitg.1
 
-man_MANS = gitg.1
-
-gsettings_SCHEMAS = org.gnome.gitg.gschema.xml
+gsettings_SCHEMAS += data/org.gnome.gitg.gschema.xml
 
 if GLADE_CATALOG
-catalogdir = $(GLADE_CATALOG_DIR)
-dist_catalog_DATA = gitg-glade.xml
+data_catalogdir = $(GLADE_CATALOG_DIR)
+dist_data_catalog_DATA = data/gitg-glade.xml
 endif
 
-@INTLTOOL_XML_NOMERGE_RULE@
+EXTRA_DIST +=					\
+	$(data_desktop_in_files)		\
+	$(data_man_MANS)			\
+	data/gitg.appdata.xml			\
+	data/org.gnome.gitg.gschema.xml.in.in
 
-@GSETTINGS_RULES@
+CLEANFILES += $(data_desktop_DATA)
+DISTCLEANFILES += $(data_desktop_DATA)
 
-EXTRA_DIST =				\
-	$(desktop_in_files)		\
-	$(man_MANS)			\
-	gitg.appdata.xml		\
-	org.gnome.gitg.gschema.xml.in.in
-
-CLEANFILES =				\
-	$(desktop_DATA)			\
-	$(gsettings_SCHEMAS)
-
-DISTCLEANFILES =			\
-	$(desktop_DATA)			\
-	$(gsettings_SCHEMAS)
-
--include $(top_srcdir)/git.mk
+include data/icons/Makefile.am
 
 # vi:ts=8:noet

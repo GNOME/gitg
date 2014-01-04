@@ -2,7 +2,7 @@
 
 ACLOCAL_AMFLAGS = -I m4 -I libgd ${ACLOCAL_FLAGS}
 
-SUBDIRS = libgd data po tests
+SUBDIRS = libgd po tests
 
 DISTCLEANFILES = \
 	intltool-extract \
@@ -78,19 +78,25 @@ GRESDEPS = $(srcdir)/$1 $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencie
 
 GRESGEN = $(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir="$(dir $<)" --generate-source "$<"
 
-noinst_HEADERS  =
-GITIGNOREFILES  =
-CLEANFILES      =
-lib_LTLIBRARIES =
-bin_PROGRAMS    =
-SCALABLE_ICONS  =
+noinst_HEADERS    =
+GITIGNOREFILES    =
+CLEANFILES        =
+lib_LTLIBRARIES   =
+bin_PROGRAMS      =
+SCALABLE_ICONS    =
+gsettings_SCHEMAS =
 
 include libgitg/Makefile.am
 include libgitg-ext/Makefile.am
 include plugins/Makefile.am
 include gitg/Makefile.am
+include data/Makefile.am
 
 include icons.mk
+
+@INTLTOOL_DESKTOP_RULE@
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 %.typelib: %.gir
 	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. -o $@ $<
