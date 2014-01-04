@@ -283,6 +283,11 @@ namespace Gitg
 				context.restore();
 			}
 
+			if (rtl == (Pango.find_base_dir(text, -1) != Pango.Direction.RTL))
+			{
+				xalign = 1.0f;
+			}
+
 			base.render(context, widget, narea, ncell_area, flags);
 		}
 	}
