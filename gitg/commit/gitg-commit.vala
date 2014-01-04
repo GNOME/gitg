@@ -87,7 +87,7 @@ namespace GitgCommit
 			if ((status & (Ggit.StatusFlags.INDEX_NEW |
 			               Ggit.StatusFlags.WORKING_TREE_NEW)) != 0)
 			{
-				return "document-new";
+				return "list-add-symbolic";
 			}
 			else if ((status & (Ggit.StatusFlags.INDEX_MODIFIED |
 			                    Ggit.StatusFlags.INDEX_RENAMED |
@@ -95,12 +95,12 @@ namespace GitgCommit
 			                    Ggit.StatusFlags.WORKING_TREE_MODIFIED |
 			                    Ggit.StatusFlags.WORKING_TREE_TYPECHANGE)) != 0)
 			{
-				return "gtk-edit";
+				return "text-editor-symbolic";
 			}
 			else if ((status & (Ggit.StatusFlags.INDEX_DELETED |
 			                    Ggit.StatusFlags.WORKING_TREE_DELETED)) != 0)
 			{
-				return "edit-delete";
+				return "edit-delete-symbolic";
 			}
 
 			return null;
