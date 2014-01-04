@@ -104,7 +104,7 @@ include icons.mk
 GITIGNOREFILES += $(gsettings_SCHEMAS)
 
 %.typelib: %.gir
-	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. -o $@ $<
+	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=$(top_srcdir) -o $@ $<
 
 .PHONY: generate-changelog
 
