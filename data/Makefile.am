@@ -21,8 +21,13 @@ EXTRA_DIST +=					\
 	data/gitg.appdata.xml			\
 	data/org.gnome.gitg.gschema.xml.in.in
 
-CLEANFILES += $(data_desktop_DATA)
-DISTCLEANFILES += $(data_desktop_DATA)
+CLEANFILES += 					\
+	$(data_desktop_DATA)			\
+	data/org.gnome.gitg.gschema.xml
+
+DISTCLEANFILES +=				\
+	$(data_desktop_DATA)			\
+	data/org.gnome.gitg.gschema.xml
 
 include data/icons/Makefile.am
 
