@@ -78,9 +78,9 @@ GRESDEPS = $(srcdir)/$1 $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencie
 
 GRESGEN = $(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir="$(dir $<)" --generate-source "$<"
 
-noinst_HEADERS =
-GITIGNOREFILES =
-CLEANFILES =
+noinst_HEADERS  =
+GITIGNOREFILES  =
+CLEANFILES      =
 lib_LTLIBRARIES =
 
 include libgitg/Makefile.am
