@@ -297,18 +297,34 @@ class Dialog : Gtk.Dialog
 		var name = d_author.get_name();
 		var email = d_author.get_email();
 
-		d_label_user.set_label(@"$name <$email>");
+		var s = @"$name <$email>";
+		d_label_user.set_label(s);
+
+		var rtl = (get_style_context().get_state() & Gtk.StateFlags.DIR_RTL) != 0;
+
+		if (rtl == (Pango.find_base_dir(s, -1) != Pango.Direction.RTL))
+		{
+			d_label_user.xalign = 1.0f;
+		}
 
 		var t = d_author.get_time();
 		var now = new DateTime.now_local();
+		string date_string;
 
 		if (now.difference(t) < TimeSpan.SECOND * 5)
 		{
-			d_label_date.set_label("");
+			date_string = "";
 		}
 		else
 		{
-			d_label_date.set_label((new Gitg.Date.for_date_time(t)).for_display());
+			date_string = (new Gitg.Date.for_date_time(t)).for_display();
+		}
+
+		d_label_date.set_label(date_string);
+
+		if (rtl == (Pango.find_base_dir(date_string, -1) != Pango.Direction.RTL))
+		{
+			d_label_date.xalign = 1.0f;
 		}
 
 		var ac = Gitg.AvatarCache.default();
