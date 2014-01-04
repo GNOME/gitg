@@ -101,6 +101,8 @@ include icons.mk
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@
 
+GITIGNOREFILES += $(gsettings_SCHEMAS)
+
 %.typelib: %.gir
 	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. -o $@ $<
 

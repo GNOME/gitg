@@ -45,7 +45,7 @@
 # build dir.
 #
 # This file knows how to handle autoconf, automake, libtool, gtk-doc,
-# gnome-doc-utils, yelp.m4, mallard, intltool, gsettings, dejagnu.
+# gnome-doc-utils, yelp.m4, mallard, intltool, gsettings, dejagnu, appdata.
 #
 # This makefile provides the following targets:
 #
@@ -75,36 +75,47 @@
 # toplevel MAINTAINERCLEANFILES:
 GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL = \
 	$(srcdir)/aclocal.m4 \
-	$(srcdir)/ar-lib \
 	$(srcdir)/autoscan.log \
-	$(srcdir)/compile \
-	$(srcdir)/config.guess \
-	$(srcdir)/config.h.in \
-	$(srcdir)/config.sub \
 	$(srcdir)/configure.scan \
-	$(srcdir)/depcomp \
-	$(srcdir)/install-sh \
-	$(srcdir)/ltmain.sh \
-	$(srcdir)/missing \
-	$(srcdir)/mkinstalldirs
+	`AUX_DIR=$(srcdir)/$$(cd $(top_srcdir); $(AUTOCONF) --trace 'AC_CONFIG_AUX_DIR:$$1' ./configure.ac); \
+	 test "x$$AUX_DIR" = "x$(srcdir)/" && AUX_DIR=$(srcdir); \
+	 for x in \
+		ar-lib \
+		compile \
+		config.guess \
+		config.sub \
+		depcomp \
+		install-sh \
+		ltmain.sh \
+		missing \
+		mkinstalldirs \
+		test-driver \
+	 ; do echo "$$AUX_DIR/$$x"; done` \
+	`cd $(top_srcdir); $(AUTOCONF) --trace 'AC_CONFIG_HEADERS:$$1' ./configure.ac | \
+	head -n 1 | while read f; do echo "$(srcdir)/$$f.in"; done`
 #
 # All modules should also be fine including the following variable, which
 # removes automake-generated Makefile.in files:
 GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN = \
-	`$(AUTOCONF) --trace 'AC_CONFIG_FILES:$$1' $(srcdir)/configure.ac | \
+	`cd $(top_srcdir); $(AUTOCONF) --trace 'AC_CONFIG_FILES:$$1' ./configure.ac | \
 	while read f; do \
 	  case $$f in Makefile|*/Makefile) \
 	    test -f "$(srcdir)/$$f.am" && echo "$(srcdir)/$$f.in";; esac; \
 	done`
 #
-# Modules that use libtool /and/ use  AC_CONFIG_MACRO_DIR([m4]) may also
-# include this:
+# Modules that use libtool and use  AC_CONFIG_MACRO_DIR() may also include this,
+# though it's harmless to include regardless.
 GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL = \
-	$(srcdir)/m4/libtool.m4 \
-	$(srcdir)/m4/ltoptions.m4 \
-	$(srcdir)/m4/ltsugar.m4 \
-	$(srcdir)/m4/ltversion.m4 \
-	$(srcdir)/m4/lt~obsolete.m4
+	`MACRO_DIR=$(srcdir)/$$(cd $(top_srcdir); $(AUTOCONF) --trace 'AC_CONFIG_MACRO_DIR:$$1' ./configure.ac); \
+	 if test "x$$MACRO_DIR" != "x$(srcdir)/"; then \
+		for x in \
+			libtool.m4 \
+			ltoptions.m4 \
+			ltsugar.m4 \
+			ltversion.m4 \
+			lt~obsolete.m4 \
+		; do echo "$$MACRO_DIR/$$x"; done; \
+	 fi`
 
 
 
@@ -155,6 +166,8 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 				"tmpl/*.bak" \
 				xml html \
 			; do echo "/$$x"; done; \
+			FLAVOR=$$(cd $(top_srcdir); $(AUTOCONF) --trace 'GTK_DOC_CHECK:$$2' ./configure.ac); \
+			case $$FLAVOR in *no-tmpl*) echo /tmpl;; esac; \
 		fi; \
 		if test "x$(DOC_MODULE)$(DOC_ID)" = x -o "x$(DOC_LINGUAS)" = x; then :; else \
 			for lc in $(DOC_LINGUAS); do \
@@ -187,6 +200,11 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 			for x in \
 				$(gsettings_SCHEMAS:.xml=.valid) \
 				$(gsettings__enum_file) \
+			; do echo "/$$x"; done; \
+		fi; \
+		if test "x$(appdata_XML)" = x; then :; else \
+			for x in \
+				$(appdata_XML:.xml=.valid) \
 			; do echo "/$$x"; done; \
 		fi; \
 		if test -f $(srcdir)/po/Makefile.in.in; then \
@@ -230,12 +248,16 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 		if test "x$(am__dirstamp)" = x; then :; else \
 			echo "$(am__dirstamp)"; \
 		fi; \
-		if test "x$(LTCOMPILE)" = x; then :; else \
+		if test "x$(DEPDIR)" = x; then :; else \
+			echo "$(DEPDIR)"; \
+		fi; \
+		if test "x$(LTCOMPILE)" = x -a "x$(GTKDOC_RUN)" = x; then :; else \
 			for x in \
 				"*.lo" \
 				".libs" "_libs" \
 			; do echo "$$x"; done; \
 		fi; \
+		echo "*.$(OBJEXT)"; \
 		for x in \
 			.gitignore \
 			$(GITIGNOREFILES) \
@@ -245,7 +267,9 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 			$(LTLIBRARIES) $(check_LTLIBRARIES) $(EXTRA_LTLIBRARIES) \
 			so_locations \
 			$(MOSTLYCLEANFILES) \
-			"*.$(OBJEXT)" \
+			$(TEST_LOGS) \
+			$(TEST_LOGS:.log=.trs) \
+			$(TEST_SUITE_LOG) \
 			$(DISTCLEANFILES) \
 			$(am__CONFIG_DISTCLEAN_FILES) \
 			$(CONFIG_CLEAN_FILES) \
@@ -254,6 +278,10 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 			$(MAINTAINERCLEANFILES) \
 			$(BUILT_SOURCES) \
 			$(DEPDIR) \
+			$(patsubst %.vala,%.c,$(filter %.vala,$(SOURCES))) \
+			$(filter %_vala.stamp,$(DIST_COMMON)) \
+			$(filter %.vapi,$(DIST_COMMON)) \
+			$(filter %$(patsubst %.vapi,%.h,$(filter %.vapi,$(DIST_COMMON))),$(DIST_COMMON)) \
 			Makefile \
 			Makefile.in \
 			"*.orig" \
@@ -276,12 +304,12 @@ gitignore-recurse-maybe:
 	@for subdir in $(DIST_SUBDIRS); do \
 	  case " $(SUBDIRS) " in \
 	    *" $$subdir "*) :;; \
-	    *) test "$$subdir" = . -o -e "$$subdir/.git" || (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) .gitignore gitignore-recurse-maybe || echo "Skipping $$subdir");; \
+	    *) test "$$subdir" = . -o -e "$$subdir/.git" || (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) gitignore || echo "Skipping $$subdir");; \
 	  esac; \
 	done
 gitignore-recurse:
 	@for subdir in $(DIST_SUBDIRS); do \
-	    test "$$subdir" = . -o -e "$$subdir/.git" || (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) .gitignore gitignore-recurse || echo "Skipping $$subdir"); \
+	    test "$$subdir" = . -o -e "$$subdir/.git" || (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) gitignore || echo "Skipping $$subdir"); \
 	done
 
 maintainer-clean: gitignore-clean
