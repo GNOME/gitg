@@ -1,5 +1,3 @@
-SUBDIRS = libgitg
-
 tests_common_cppflags =			\
 	-I$(top_srcdir)			\
 	-I$(top_srcdir)/gitg		\
@@ -13,36 +11,39 @@ tests_common_cflags = 			\
 
 tests_common_valaflags = $(GITG_PLUGIN_VALAFLAGS)
 
-noinst_PROGRAMS = $(DEMO_PROGS)
+noinst_PROGRAMS += $(TESTS_DEMO_PROGS)
 
-DEMO_PROGS = diff-view repository-list-box progress-bin
+TESTS_DEMO_PROGS =			\
+	tests/diff-view			\
+	tests/repository-list-box	\
+	tests/progress-bin
 
-diff_view_SOURCES = diff-view.vala
-diff_view_VALAFLAGS = $(tests_common_valaflags)
-diff_view_LDADD = $(GITG_PLUGIN_LIBS)
-diff_view_CFLAGS = $(tests_common_cflags)
-diff_view_CPPFLAGS = $(tests_common_cppflags)
+tests_diff_view_SOURCES = tests/diff-view.vala
+tests_diff_view_VALAFLAGS = $(tests_common_valaflags)
+tests_diff_view_LDADD = $(GITG_PLUGIN_LIBS)
+tests_diff_view_CFLAGS = $(tests_common_cflags)
+tests_diff_view_CPPFLAGS = $(tests_common_cppflags)
 
-repository_list_box_SOURCES = repository-list-box.vala
-repository_list_box_VALAFLAGS = $(tests_common_valaflags)
-repository_list_box_LDADD = $(GITG_PLUGIN_LIBS)
-repository_list_box_CFLAGS = $(tests_common_cflags)
-repository_list_box_CPPFLAGS = $(tests_common_cppflags)
+tests_repository_list_box_SOURCES = tests/repository-list-box.vala
+tests_repository_list_box_VALAFLAGS = $(tests_common_valaflags)
+tests_repository_list_box_LDADD = $(GITG_PLUGIN_LIBS)
+tests_repository_list_box_CFLAGS = $(tests_common_cflags)
+tests_repository_list_box_CPPFLAGS = $(tests_common_cppflags)
 
-progress_bin_SOURCES = progress-bin.vala
-progress_bin_VALAFLAGS = $(tests_common_valaflags)
-progress_bin_LDADD = $(GITG_PLUGIN_LIBS)
-progress_bin_CFLAGS = $(tests_common_cflags)
-progress_bin_CPPFLAGS = $(tests_common_cppflags)
+tests_progress_bin_SOURCES = tests/progress-bin.vala
+tests_progress_bin_VALAFLAGS = $(tests_common_valaflags)
+tests_progress_bin_LDADD = $(GITG_PLUGIN_LIBS)
+tests_progress_bin_CFLAGS = $(tests_common_cflags)
+tests_progress_bin_CPPFLAGS = $(tests_common_cppflags)
 
-GITIGNOREFILES =					\
-	$(diff_view_SOURCES:%.vala=%.c)			\
-	diff_view_vala.stamp				\
-	$(repository_list_box_SOURCES:%.vala=%.c)	\
-	repository_list_box_vala.stamp			\
-	$(progress_bin_SOURCES:%.vala=%.c)		\
-	progress_bin_vala.stamp
+GITIGNOREFILES +=					\
+	$(tests_diff_view_SOURCES:%.vala=%.c)		\
+	tests_diff_view_vala.stamp			\
+	$(tests_repository_list_box_SOURCES:%.vala=%.c)	\
+	tests_repository_list_box_vala.stamp		\
+	$(tests_progress_bin_SOURCES:%.vala=%.c)	\
+	tests_progress_bin_vala.stamp
 
--include $(top_srcdir)/git.mk
+include tests/libgitg/Makefile.am
 
 # vi:ts=8:noet

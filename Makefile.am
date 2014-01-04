@@ -2,7 +2,7 @@
 
 ACLOCAL_AMFLAGS = -I m4 -I libgd ${ACLOCAL_FLAGS}
 
-SUBDIRS = libgd po tests
+SUBDIRS = libgd po
 
 DISTCLEANFILES = \
 	intltool-extract \
@@ -83,14 +83,17 @@ GITIGNOREFILES    =
 CLEANFILES        =
 lib_LTLIBRARIES   =
 bin_PROGRAMS      =
+noinst_PROGRAMS   =
 SCALABLE_ICONS    =
 gsettings_SCHEMAS =
+TESTS             =
 
 include libgitg/Makefile.am
 include libgitg-ext/Makefile.am
 include plugins/Makefile.am
 include gitg/Makefile.am
 include data/Makefile.am
+include tests/Makefile.am
 
 include icons.mk
 

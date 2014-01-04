@@ -290,8 +290,6 @@ libgitg-ext/libgitg-ext-1.0.pc
 data/gitg.desktop.in
 data/org.gnome.gitg.gschema.xml.in
 po/Makefile.in
-tests/Makefile
-tests/libgitg/Makefile
 ])
 
 AC_OUTPUT
