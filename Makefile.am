@@ -2,7 +2,7 @@
 
 ACLOCAL_AMFLAGS = -I m4 -I libgd ${ACLOCAL_FLAGS}
 
-SUBDIRS = libgd libgitg libgitg-ext plugins gitg data po tests
+SUBDIRS = libgd libgitg-ext plugins gitg data po tests
 
 DISTCLEANFILES = \
 	intltool-extract \
@@ -73,6 +73,20 @@ generate-changelog:
 	  | sed -e "s/^\(commit [abcdef0-9]\{40\}\) (.*refs\/tags\/\(v\([0-9.]\+\)\).*)/$$sep\nVersion \3\n$$sep\n\n\1/g" -e 's/^\(commit [abcdef0-9]\{40\}\).*/\1/g' | ruby -e 'puts STDIN.read.gsub(/commit\s*(.*)\nAuthor:\s*(.*)\nDate:\s*(.*)\n/, "\\3 \\2\ncommit \\1\n")' > $(distdir)/c-l; \
 	  mv $(distdir)/c-l $(distdir)/ChangeLog; \
 	fi
+
+GRESDEPS = $(srcdir)/$1 $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir)/$(dir $1) $(srcdir)/$1)
+
+GRESGEN = $(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir="$(dir $<)" --generate-source "$<"
+
+noinst_HEADERS =
+GITIGNOREFILES =
+CLEANFILES =
+lib_LTLIBRARIES =
+
+include libgitg/Makefile.am
+
+%.typelib: %.gir
+	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=. -o $@ $<
 
 .PHONY: generate-changelog
 
