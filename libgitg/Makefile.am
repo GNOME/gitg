@@ -31,12 +31,12 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg gitg-js-utils		\
 	$(GITG_VALAFLAGS)		\
 	--vapidir $(top_srcdir)/vapi	\
-	--header libgitg/libgitg.h	\
 	--includedir libgitg		\
 	--basedir $(top_srcdir)		\
 	--gir Gitg-1.0.gir		\
 	--vapi libgitg/libgitg-1.0.vapi	\
 	--library libgitg/libgitg-1.0	\
+	--header libgitg/libgitg.h	\
 	--gresources "$(top_srcdir)/libgitg/resources/resources.xml"
 
 libgitg_libgitg_1_0_la_VALASOURCES =			\
