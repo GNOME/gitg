@@ -4,4 +4,11 @@ THIS_DIR = $(dir $(THIS_FILENAME))
 all:
 	$(MAKE) -C $(THIS_DIR) $(TARGETS)
 
-.PHONY: all
+ifneq ($(INSTALL_TARGETS),)
+install:
+	$(MAKE) -C $(THIS_DIR) $(INSTALL_TARGETS)
+else:
+install:
+endif
+
+.PHONY: all install
