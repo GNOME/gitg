@@ -31,7 +31,7 @@ data-icons-install-icons:
 		CONTEXT=`echo $$icon | cut -d_ -f2`; \
 		SIZE=`echo $$icon | cut -d_ -f3`; \
 		ICONFILE=`echo $$icon | cut -d_ -f4`; \
-		mkdir -p $(DESTDIR)$(datadir)/icons/$$THEME/$$SIZE/$$CONTEXT; \
+		$(MKDIR_P) $(DESTDIR)$(datadir)/icons/$$THEME/$$SIZE/$$CONTEXT; \
 		$(INSTALL_DATA) $(srcdir)/data/icons/$$icon $(DESTDIR)$(datadir)/icons/$$THEME/$$SIZE/$$CONTEXT/$$ICONFILE; \
 	done;
 
