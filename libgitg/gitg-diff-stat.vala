@@ -80,9 +80,17 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 				border-radius: 3px 0px 0px 3px;
 			}
 
+			GitgDiffStat added:dir(rtl) {
+				border-radius: 0px 3px 3px 0px;
+			}
+
 			GitgDiffStat removed {
 				background-color: #cc3333;
 				border-radius: 0px 3px 3px 0px;
+			}
+
+			GitgDiffStat removed:dir(rtl) {
+				border-radius: 3px 0px 0px 3px;
 			}
 
 			GitgDiffStat removed:only-child,
@@ -163,8 +171,20 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 		Pango.Rectangle rect;
 		d_layout.get_extents(null, out rect);
 
+		var rtl = (sctx.get_state() & Gtk.StateFlags.DIR_RTL) != 0;
+		int x;
+
+		if (!rtl)
+		{
+			x = padding.left + border.left + rect.x / Pango.SCALE;
+		}
+		else
+		{
+			x = w - padding.right - border.right - rect.width / Pango.SCALE;
+		}
+
 		sctx.render_layout(context,
-		                   padding.left + border.left + rect.x / Pango.SCALE,
+		                   x,
 		                   (h - rect.height / Pango.SCALE) / 2 + rect.y / Pango.SCALE,
 		                   d_layout);
 
@@ -172,7 +192,6 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 		sctx.get_style("bar-height", out hbar);
 		var ybar = (h - hbar) / 2;
 
-		var xbar = padding.left * 2 + border.left + (rect.x + rect.width) / Pango.SCALE;
 		var wrest = (int)(w - padding.left * 2 - (rect.x + rect.width) / Pango.SCALE - padding.right - border.left - border.right);
 
 		double afrac = 0;
@@ -185,22 +204,33 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 
 		var wbar = (int)(wrest * afrac);
 
+		if (!rtl)
+		{
+			x += padding.left + rect.width / Pango.SCALE;
+		}
+		else
+		{
+			x -= padding.right + wbar;
+		}
+
 		sctx.save();
 		sctx.add_region("added",
 		                Gtk.RegionFlags.FIRST |
 		                (removed == 0 ? Gtk.RegionFlags.ONLY : 0));
 
-		sctx.render_background(context, xbar, ybar, wbar, hbar);
+		sctx.render_background(context, x, ybar, wbar, hbar);
 
 		sctx.restore();
 		sctx.save();
+
+		x += rtl ? (wbar - wrest) : wbar;
 
 		sctx.add_region("removed",
 		                Gtk.RegionFlags.LAST |
 		                (added == 0 ? Gtk.RegionFlags.ONLY : 0));
 
 		sctx.render_background(context,
-		                       xbar + wbar,
+		                       x,
 		                       ybar,
 		                       wrest - wbar,
 		                       hbar);
