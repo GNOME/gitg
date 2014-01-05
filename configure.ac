@@ -40,7 +40,7 @@ AM_PROG_VALAC([0.20.1.23])
 
 AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
-AC_PATH_PROG(GTK_UPDATE_ICON_CACHE, gtk-update-icon-cache-3.0)
+AC_PATH_PROG(GTK_UPDATE_ICON_CACHE, gtk-update-icon-cache)
 
 AC_PATH_PROG(VALADOC, valadoc)
 
