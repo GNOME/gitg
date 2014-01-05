@@ -198,6 +198,7 @@ public class Application : Gtk.Application
 
 	private void on_app_about_activated()
 	{
+		string[] artists = {"Jakub Steiner <jimmac@gmail.com>"};
 		string[] authors = {"Jesse van den Kieboom <jessevdk@gnome.org>",
 		                    "Ignacio Casal Quinteiro <icq@gnome.org>"};
 
@@ -207,6 +208,7 @@ public class Application : Gtk.Application
 		unowned List<Gtk.Window> wnds = get_windows();
 
 		Gtk.show_about_dialog(wnds != null ? wnds.data : null,
+		                      "artists", artists,
 		                      "authors", authors,
 		                      "copyright", copyright,
 		                      "comments", comments,
