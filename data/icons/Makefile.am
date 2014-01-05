@@ -10,7 +10,7 @@ data_icons_public_icons = \
 	hicolor_apps_256x256_gitg.png \
 	hicolor_apps_512x512_gitg.png
 
-data_icons_gtk_update_icon_cache = gtk-update-icon-cache -f -t
+data_icons_gtk_update_icon_cache = $(GTK_UPDATE_ICON_CACHE) -f -t
 
 data-icons-update-icon-cache:
 	@-if test -z "$(DESTDIR)"; then \
