@@ -81,7 +81,6 @@ GRESGEN = $(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target="$@" --sourcedir="$(dir
 noinst_HEADERS    =
 GITIGNOREFILES    =
 CLEANFILES        =
-lib_LTLIBRARIES   =
 bin_PROGRAMS      =
 noinst_PROGRAMS   =
 SCALABLE_ICONS    =
