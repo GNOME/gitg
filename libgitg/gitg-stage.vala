@@ -55,6 +55,39 @@ public class PatchSet
 
 	public string  filename;
 	public Patch[] patches;
+
+	public PatchSet reversed()
+	{
+		var ret = new PatchSet();
+
+		ret.filename = filename;
+		ret.patches = new Patch[patches.length];
+
+		for (int i = 0; i < patches.length; i++)
+		{
+			var orig = patches[i];
+
+			var p = Patch() {
+				old_offset = orig.new_offset,
+				new_offset = orig.old_offset,
+				length = orig.length
+			};
+
+			switch (patches[i].type)
+			{
+				case Type.ADD:
+					p.type = Type.REMOVE;
+					break;
+				case Type.REMOVE:
+					p.type = Type.ADD;
+					break;
+			}
+
+			ret.patches[i] = p;
+		}
+
+		return ret;
+	}
 }
 
 public class Stage : Object
@@ -755,7 +788,9 @@ public class Stage : Object
 			var head_stream = new MemoryInputStream.from_bytes(new Bytes(head_content));
 			var index_stream = new MemoryInputStream.from_bytes(new Bytes(index_content));
 
-			apply_patch(index, head_stream, index_stream, patch);
+			var reversed = patch.reversed();
+
+			apply_patch(index, index_stream, head_stream, reversed);
 
 			head_stream.close();
 			index_stream.close();
