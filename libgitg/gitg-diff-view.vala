@@ -101,7 +101,10 @@ namespace Gitg
 			s_diff_map = new Gee.HashMap<string, DiffView>();
 
 			var context = WebKit.WebContext.get_default();
+
 			context.register_uri_scheme("gitg-diff", gitg_diff_request);
+			context.register_uri_scheme("mailto", gitg_diff_mailto_request);
+
 			context.set_cache_model(WebKit.CacheModel.DOCUMENT_VIEWER);
 		}
 
@@ -177,6 +180,14 @@ namespace Gitg
 			}
 
 			return null;
+		}
+
+		private static void gitg_diff_mailto_request(WebKit.URISchemeRequest request)
+		{
+			try
+			{
+				Gtk.show_uri(null, request.get_uri(), 0);
+			} catch {}
 		}
 
 		private static void gitg_diff_request(WebKit.URISchemeRequest request)
