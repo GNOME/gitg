@@ -282,6 +282,12 @@ public class Application : Gtk.Application
 				set_app_menu(menu);
 			}
 		}
+		else
+		{
+			add_accelerator("<Primary>N", "app.new", null);
+			add_accelerator("<Primary>Q", "app.quit", null);
+			add_accelerator("F1", "app.help", null);
+		}
 
 		add_accelerator("<Control>F", "win.search", null);
 		add_accelerator("<Control>W", "win.close", null);
