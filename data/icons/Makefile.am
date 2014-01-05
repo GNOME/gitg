@@ -1,8 +1,5 @@
 data_icons_public_icons_themes = \
-	hicolor	\
-	HighContrastLargePrint \
-	HighContrastLargePrintInverse \
-	LowContrastLargePrint
+	hicolor
 
 data_icons_public_icons = \
 	hicolor_apps_16x16_gitg.png \
