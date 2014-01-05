@@ -444,7 +444,7 @@ addEventListener('DOMContentLoaded', function () {
 	create_template("commit", {
 		'.author': function () {
 			var name = $('<span/>', {'class': 'author name'}).text(this.author.name);
-			var a = $('<a/>', {href: this.author.email}).text(this.author.email);
+			var a = $('<a/>', {href: 'mailto:' + this.author.email}).text(this.author.email);
 
 			return {html: $('<span/>').append(name).append(' <').append(a).append('>')};
 		},
