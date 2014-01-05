@@ -26,7 +26,8 @@ plugins_diff_libdiff_la_VALASOURCES =					\
 
 plugins_diff_libdiff_la_SOURCES = 					\
 	$(plugins_diff_libdiff_la_VALASOURCES)				\
-	plugins/diff/gitg-diff-resources.c
+	plugins/diff/gitg-diff-resources.c				\
+	$(GITG_PLUGIN_VAPISOURCES)
 
 plugins_diff_libdiff_resources_deps = $(call GRESDEPS,plugins/diff/resources/resources.xml)
 plugins/diff/gitg-diff-resources.c: $(plugins_diff_libdiff_resources_deps)

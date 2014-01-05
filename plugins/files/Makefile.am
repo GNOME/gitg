@@ -23,7 +23,8 @@ plugins_files_libfiles_la_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 
 plugins_files_libfiles_la_VALASOURCES =					\
 	plugins/files/gitg-files.vala					\
-	plugins/files/gitg-files-tree-store.vala
+	plugins/files/gitg-files-tree-store.vala			\
+	$(GITG_PLUGIN_VAPISOURCES)
 
 plugins_files_libfiles_la_SOURCES = 					\
 	$(plugins_files_libfiles_la_VALASOURCES)			\

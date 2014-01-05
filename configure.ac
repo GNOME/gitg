@@ -225,8 +225,6 @@ AC_SUBST(GITG_PLUGIN_LIBTOOL_FLAGS)
 
 GITG_PLUGIN_VALAFLAGS="				\
 	--pkg Ggit-1.0 				\
-	--pkg libgitg-ext-1.0			\
-	--pkg libgitg-1.0			\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
 	--pkg gtksourceview-3.0			\

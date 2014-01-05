@@ -14,7 +14,6 @@ libgitg_ext_libgitg_ext_1_0_la_CFLAGS =		\
 
 libgitg_ext_libgitg_ext_1_0_la_VALAPKGS =	\
 	--pkg Ggit-1.0 				\
-	--pkg libgitg-1.0			\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
 	--pkg libsoup-2.4			\
@@ -25,7 +24,6 @@ libgitg_ext_libgitg_ext_1_0_la_VALAFLAGS =		\
 	$(libgitg_ext_libgitg_ext_1_0_la_VALAPKGS)	\
 	--basedir $(top_srcdir)				\
 	--vapidir $(top_srcdir)/vapi			\
-	--vapidir $(top_builddir)/libgitg		\
 	--gir GitgExt-1.0.gir				\
 	--vapi libgitg-ext/libgitg-ext-1.0.vapi		\
 	--girdir $(top_builddir)/libgitg		\
@@ -55,7 +53,8 @@ libgitg_ext_libgitg_ext_1_0_la_VALASOURCES =		\
 	libgitg-ext/gitg-ext-history-panel.vala		\
 	libgitg-ext/gitg-ext-command-line.vala		\
 	libgitg-ext/gitg-ext-preferences.vala		\
-	libgitg-ext/gitg-ext-ui.vala
+	libgitg-ext/gitg-ext-ui.vala			\
+	libgitg/libgitg-1.0.vapi
 
 libgitg_ext_libgitg_ext_1_0_la_SOURCES =		\
 	$(libgitg_ext_libgitg_ext_1_0_la_VALASOURCES)	\

@@ -13,7 +13,6 @@ tests_libgitg_test_libgitg_VALAFLAGS =		\
 	--pkg posix				\
 	--pkg gitg-assert			\
 	--pkg Ggit-1.0				\
-	--pkg libgitg-1.0			\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
 	--pkg gee-0.8				\
@@ -23,7 +22,6 @@ tests_libgitg_test_libgitg_VALAFLAGS =		\
 	$(GITG_VALAFLAGS)			\
 	--vapidir $(top_srcdir)/tests/libgitg	\
 	--vapidir $(top_srcdir)/vapi		\
-	--vapidir $(top_builddir)/libgitg	\
 	--disable-warnings
 
 tests_libgitg_test_libgitg_CFLAGS =		\
@@ -46,7 +44,8 @@ tests_libgitg_test_libgitg_SOURCES =		\
 	tests/libgitg/test-stage.vala		\
 	tests/libgitg/test-date.vala		\
 	tests/libgitg/test-commit.vala		\
-	tests/libgitg/test-encoding.vala
+	tests/libgitg/test-encoding.vala	\
+	$(GITG_PLUGIN_VAPISOURCES)
 
 GITIGNOREFILES +=						\
 	$(tests_libgitg_test_libgitg_SOURCES:%.vala=%.c)	\

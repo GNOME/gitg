@@ -87,6 +87,10 @@ SCALABLE_ICONS    =
 gsettings_SCHEMAS =
 TESTS             =
 
+GITG_PLUGIN_VAPISOURCES =			\
+	libgitg-ext/libgitg-ext-1.0.vapi	\
+	libgitg/libgitg-1.0.vapi
+
 include libgitg/Makefile.am
 include libgitg-ext/Makefile.am
 include plugins/Makefile.am

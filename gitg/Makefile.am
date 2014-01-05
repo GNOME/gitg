@@ -18,8 +18,6 @@ gitg_gitg_VALAFLAGS =						\
 	$(GITG_VALAFLAGS)					\
 	--pkg config						\
 	--pkg Ggit-1.0						\
-	--pkg libgitg-1.0					\
-	--pkg libgitg-ext-1.0					\
 	--pkg gtk+-3.0						\
 	--pkg gio-2.0						\
 	--pkg libpeas-1.0					\
@@ -68,7 +66,9 @@ gitg_gitg_VALASOURCES =						\
 	gitg/history/gitg-history-paned.vala			\
 	gitg/commit/gitg-commit.vala				\
 	gitg/commit/gitg-commit-paned.vala			\
-	gitg/commit/gitg-commit-dialog.vala
+	gitg/commit/gitg-commit-dialog.vala			\
+	libgitg/libgitg-1.0.vapi				\
+	libgitg-ext/libgitg-ext-1.0.vapi
 
 gitg_gitg_SOURCES =						\
 	$(gitg_gitg_VALASOURCES)				\
