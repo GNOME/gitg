@@ -5,8 +5,7 @@ data_desktop_DATA = $(data_desktop_in_files:.desktop.in=.desktop)
 data_appdatadir = $(datadir)/appdata
 data_appdata_DATA = data/gitg.appdata.xml
 
-data_mandir = $(mandir)
-data_man_MANS = data/gitg.1
+dist_man_MANS = data/gitg.1
 
 gsettings_SCHEMAS += data/org.gnome.gitg.gschema.xml
 
@@ -17,7 +16,6 @@ endif
 
 EXTRA_DIST +=					\
 	$(data_desktop_in_files)		\
-	$(data_man_MANS)			\
 	data/gitg.appdata.xml			\
 	data/org.gnome.gitg.gschema.xml.in.in
 
