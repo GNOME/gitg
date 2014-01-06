@@ -425,8 +425,14 @@ namespace GitgHistory
 			var col = new Gtk.TreeViewColumn();
 
 			var padcell = new Gtk.CellRendererText();
-			var headercell = new NavigationRendererText();
-			var cell = new NavigationRendererText();
+			var iconcell = new Gtk.CellRendererPixbuf();
+
+			var headercell = new Gtk.CellRendererText();
+			var cell = new Gtk.CellRendererText();
+
+			iconcell.follow_state = true;
+			headercell.ellipsize = Pango.EllipsizeMode.MIDDLE;
+			cell.ellipsize = Pango.EllipsizeMode.MIDDLE;
 
 			padcell.xpad = 6;
 			headercell.ypad = 6;
@@ -434,16 +440,20 @@ namespace GitgHistory
 			headercell.weight = Pango.Weight.BOLD;
 
 			col.pack_start(padcell, false);
+			col.pack_start(iconcell, false);
 			col.pack_start(headercell, true);
 			col.pack_start(cell, true);
 
-			col.set_attributes(headercell,
-			                   "icon_name", Column.ICON_NAME,
-			                   "text", Column.HEADER);
+			col.set_attributes(iconcell, "icon-name", Column.ICON_NAME);
+			col.set_attributes(headercell, "text", Column.HEADER);
+			col.set_attributes(cell, "text", Column.TEXT);
 
-			col.set_attributes(cell,
-			                   "icon_name", Column.ICON_NAME,
-			                   "text", Column.TEXT);
+			col.set_cell_data_func(iconcell, (layout, cell, model, iter) => {
+				string? icon_name;
+				model.get(iter, Column.ICON_NAME, out icon_name);
+
+				cell.visible = (icon_name != null);
+			});
 
 			col.set_cell_data_func(headercell, (layout, cell, model, iter) => {
 				Hint hint;
@@ -489,6 +499,7 @@ namespace GitgHistory
 			});
 
 			set_show_expanders(model.show_expanders);
+
 			if (model.show_expanders)
 			{
 				set_level_indentation(0);
@@ -563,167 +574,6 @@ namespace GitgHistory
 			Gtk.TreeIter iter;
 			model.get_iter(out iter, path);
 			model.activate(iter, 2);
-		}
-	}
-
-	public class NavigationRendererText : Gtk.CellRendererText
-	{
-		private string d_icon_name;
-		private Gdk.Pixbuf d_pixbuf;
-		private Gtk.StateFlags d_state;
-
-		public string? icon_name
-		{
-			get { return d_icon_name;}
-			set
-			{
-				if (d_icon_name != value)
-				{
-					d_icon_name = value;
-					reset_pixbuf();
-				}
-			}
-		}
-
-		public uint hint
-		{ get; set; }
-
-		construct
-		{
-			ellipsize = Pango.EllipsizeMode.MIDDLE;
-		}
-
-		private void reset_pixbuf()
-		{
-			d_pixbuf = null;
-		}
-
-		private void ensure_pixbuf(Gtk.StyleContext ctx)
-		{
-			if (d_icon_name == null || (d_pixbuf != null && d_state == ctx.get_state()))
-			{
-				return;
-			}
-
-			d_pixbuf = null;
-
-			d_state = ctx.get_state();
-			var screen = ctx.get_screen();
-			var settings = Gtk.Settings.get_for_screen(screen);
-
-			int w = 16;
-			int h = 16;
-
-			Gtk.icon_size_lookup_for_settings(settings, Gtk.IconSize.MENU, out w, out h);
-
-			Gtk.IconInfo? info = Gtk.IconTheme.get_default().lookup_icon(d_icon_name,
-			                                                             int.min(w, h),
-			                                                             Gtk.IconLookupFlags.USE_BUILTIN);
-
-			if (info == null)
-			{
-				return;
-			}
-
-			bool symbolic = false;
-
-			try
-			{
-				d_pixbuf = info.load_symbolic_for_context(ctx, out symbolic);
-			} catch {};
-
-			if (d_pixbuf != null)
-			{
-				var source = new Gtk.IconSource();
-				source.set_pixbuf(d_pixbuf);
-
-				source.set_size(Gtk.IconSize.SMALL_TOOLBAR);
-				source.set_size_wildcarded(false);
-
-				d_pixbuf = ctx.render_icon_pixbuf(source, Gtk.IconSize.SMALL_TOOLBAR);
-			}
-		}
-
-		protected override void get_preferred_width(Gtk.Widget widget,
-		                                            out int minimum_width,
-		                                            out int minimum_height)
-		{
-			ensure_pixbuf(widget.get_style_context());
-
-			// Size of text
-			base.get_preferred_width(widget, out minimum_width, out minimum_height);
-
-			if (d_pixbuf != null)
-			{
-				minimum_width += d_pixbuf.get_width() + 3;
-				minimum_height += d_pixbuf.get_height();
-			}
-		}
-
-		protected override void get_preferred_height_for_width(Gtk.Widget widget,
-		                                                       int width,
-		                                                       out int minimum_height,
-		                                                       out int natural_height)
-		{
-			base.get_preferred_height_for_width(widget, width,
-			                                    out minimum_height,
-			                                    out natural_height);
-
-			ensure_pixbuf(widget.get_style_context());
-
-			if (d_pixbuf != null)
-			{
-				minimum_height = int.max(minimum_height, d_pixbuf.height);
-				natural_height = int.max(natural_height, d_pixbuf.height);
-			}
-		}
-
-		protected override void render(Cairo.Context ctx,
-		                               Gtk.Widget widget,
-		                               Gdk.Rectangle background_area,
-		                               Gdk.Rectangle cell_area,
-		                               Gtk.CellRendererState state)
-		{
-			var stx = widget.get_style_context();
-			ensure_pixbuf(stx);
-
-			var rtl = (stx.get_state() & Gtk.StateFlags.DIR_RTL) != 0;
-
-			if (d_pixbuf == null)
-			{
-				base.render(ctx, widget, background_area, cell_area, state);
-			}
-			else
-			{
-				// render the text with an additional padding
-				Gdk.Rectangle area = cell_area;
-
-				if (!rtl)
-				{
-					area.x += d_pixbuf.width + 3;
-				}
-				else
-				{
-					area.x -= d_pixbuf.width + 3;
-				}
-
-				base.render(ctx, widget, background_area, area, state);
-
-				// render the pixbuf
-				int yp = (cell_area.height - d_pixbuf.height) / 2;
-				int x;
-
-				if (!rtl)
-				{
-					x = cell_area.x;
-				}
-				else
-				{
-					x = cell_area.x + cell_area.width - d_pixbuf.width - 3;
-				}
-
-				stx.render_icon(ctx, d_pixbuf, x, cell_area.y + yp);
-			}
 		}
 	}
 }
