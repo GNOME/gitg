@@ -155,7 +155,7 @@ git-mk-install:
 # Actual .gitignore generation:
 ###############################################################################
 
-$(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
+$(srcdir)/.gitignore: $(srcdir)/Makefile.in $(top_srcdir)/git.mk
 	@echo "git.mk: Generating $@"
 	@{ \
 		if test "x$(DOC_MODULE)" = x -o "x$(DOC_MAIN_SGML_FILE)" = x; then :; else \
