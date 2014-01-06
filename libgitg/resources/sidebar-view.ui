@@ -21,12 +21,23 @@
           </cell-packing>
         </child>
         <child>
-          <object class="GitgSidebarRendererText" id="renderer_header">
-            <property name="ypad">6</property>
-            <property name="weight">700</property>
+          <object class="GtkCellRendererPixbuf" id="renderer_icon">
+            <property name="follow_state">True</property>
           </object>
           <attributes>
             <attribute name="icon_name">0</attribute>
+          </attributes>
+          <cell-packing>
+            <property name="expand">False</property>
+          </cell-packing>
+        </child>
+        <child>
+          <object class="GtkCellRendererText" id="renderer_header">
+            <property name="ypad">6</property>
+            <property name="weight">700</property>
+            <property name="ellipsize">middle</property>
+          </object>
+          <attributes>
             <attribute name="text">3</attribute>
           </attributes>
           <cell-packing>
@@ -34,10 +45,10 @@
           </cell-packing>
         </child>
         <child>
-          <object class="GitgSidebarRendererText" id="renderer_text">
+          <object class="GtkCellRendererText" id="renderer_text">
+            <property name="ellipsize">middle</property>
           </object>
           <attributes>
-            <attribute name="icon_name">0</attribute>
             <attribute name="text">2</attribute>
           </attributes>
           <cell-packing>

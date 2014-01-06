@@ -196,191 +196,32 @@ public class SidebarStore : Gtk.TreeStore
 	}
 }
 
-public class SidebarRendererText : Gtk.CellRendererText
-{
-	private string d_icon_name;
-	private Gdk.Pixbuf d_pixbuf;
-	private Gtk.StateFlags d_state;
-
-	public string? icon_name
-	{
-		get { return d_icon_name;}
-		set
-		{
-			if (d_icon_name != value)
-			{
-				d_icon_name = value;
-				reset_pixbuf();
-			}
-		}
-	}
-
-	public uint hint
-	{
-		get;
-		set;
-	}
-
-	construct
-	{
-		ellipsize = Pango.EllipsizeMode.MIDDLE;
-	}
-
-	private void reset_pixbuf()
-	{
-		d_pixbuf = null;
-	}
-
-	private void ensure_pixbuf(Gtk.StyleContext ctx)
-	{
-		if (d_icon_name == null || (d_pixbuf != null && d_state == ctx.get_state()))
-		{
-			return;
-		}
-
-		d_pixbuf = null;
-
-		d_state = ctx.get_state();
-
-		var screen = ctx.get_screen();
-		var settings = Gtk.Settings.get_for_screen(screen);
-
-		int w = 16;
-		int h = 16;
-
-		Gtk.icon_size_lookup_for_settings(settings, Gtk.IconSize.MENU, out w, out h);
-
-		var theme = Gtk.IconTheme.get_default();
-
-		Gtk.IconInfo? info = theme.lookup_icon(d_icon_name,
-		                                       int.min(w, h),
-		                                       Gtk.IconLookupFlags.USE_BUILTIN);
-
-		if (info == null)
-		{
-			return;
-		}
-
-		bool symbolic = false;
-
-		try
-		{
-			d_pixbuf = info.load_symbolic_for_context(ctx, out symbolic);
-		} catch {};
-
-		if (d_pixbuf != null)
-		{
-			var source = new Gtk.IconSource();
-			source.set_pixbuf(d_pixbuf);
-
-			source.set_size(Gtk.IconSize.SMALL_TOOLBAR);
-			source.set_size_wildcarded(false);
-
-			d_pixbuf = ctx.render_icon_pixbuf(source, Gtk.IconSize.SMALL_TOOLBAR);
-		}
-	}
-
-	protected override void get_preferred_width(Gtk.Widget widget,
-	                                            out int    minimum_width,
-	                                            out int    natural_width)
-	{
-		ensure_pixbuf(widget.get_style_context());
-
-		// Size of text
-		base.get_preferred_width(widget, out minimum_width, out natural_width);
-
-		if (d_pixbuf != null)
-		{
-			var w = d_pixbuf.get_width() + 3;
-
-			if (w > minimum_width)
-			{
-				minimum_width = w;
-			}
-		}
-	}
-
-	protected override void get_preferred_height_for_width(Gtk.Widget widget,
-	                                                       int        width,
-	                                                       out int    minimum_height,
-	                                                       out int    natural_height)
-	{
-		base.get_preferred_height_for_width(widget, width,
-		                                    out minimum_height,
-		                                    out natural_height);
-
-		ensure_pixbuf(widget.get_style_context());
-
-		if (d_pixbuf != null)
-		{
-			minimum_height = int.max(minimum_height, d_pixbuf.height);
-			natural_height = int.max(natural_height, d_pixbuf.height);
-		}
-	}
-
-	protected override void render(Cairo.Context         ctx,
-	                               Gtk.Widget            widget,
-	                               Gdk.Rectangle         background_area,
-	                               Gdk.Rectangle         cell_area,
-	                               Gtk.CellRendererState state)
-	{
-		var stx = widget.get_style_context();
-		ensure_pixbuf(stx);
-
-		if (d_pixbuf == null)
-		{
-			base.render(ctx, widget, background_area, cell_area, state);
-		}
-		else
-		{
-			var rtl = (stx.get_state() & Gtk.StateFlags.DIR_RTL) != 0;
-
-			// render the text with an additional padding
-			Gdk.Rectangle area = cell_area;
-
-			var pad = d_pixbuf.width + 3;
-
-			if (rtl)
-			{
-				area.width -= pad;
-			}
-			else
-			{
-				area.x += pad;
-			}
-
-			base.render(ctx, widget, background_area, area, state);
-
-			// render the pixbuf
-			int yp = (cell_area.height - d_pixbuf.height) / 2;
-			int x = cell_area.x;
-
-			if (rtl)
-			{
-				x += cell_area.width - d_pixbuf.width;
-			}
-
-			stx.render_icon(ctx, d_pixbuf, x, cell_area.y + yp);
-		}
-	}
-}
-
 [GtkTemplate ( ui = "/org/gnome/gitg/gtk/sidebar/sidebar-view.ui" )]
 public class Sidebar : Gtk.TreeView
 {
 	[GtkChild (name = "column")]
 	private Gtk.TreeViewColumn d_column;
 
+	[GtkChild (name = "renderer_icon")]
+	private Gtk.CellRendererPixbuf d_renderer_icon;
+
 	[GtkChild (name = "renderer_header")]
-	private SidebarRendererText d_renderer_header;
+	private Gtk.CellRendererText d_renderer_header;
 
 	[GtkChild (name = "renderer_text")]
-	private SidebarRendererText d_renderer_text;
+	private Gtk.CellRendererText d_renderer_text;
 
 	public signal void deselected();
 
 	construct
 	{
+		d_column.set_cell_data_func(d_renderer_icon, (layout, cell, model, iter) => {
+			string? icon_name;
+			model.get(iter, SidebarColumn.ICON_NAME, out icon_name);
+
+			cell.visible = (icon_name != null);
+		});
+
 		d_column.set_cell_data_func(d_renderer_header, (layout, cell, model, iter) => {
 			SidebarHint hint;
 			model.get(iter, SidebarColumn.HINT, out hint);
