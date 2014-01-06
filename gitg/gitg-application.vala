@@ -262,6 +262,12 @@ public class Application : Gtk.Application
 		{"preferences", on_preferences_activated}
 	};
 
+	struct Accel
+	{
+		string name;
+		string accel;
+	}
+
 	protected override void startup()
 	{
 		base.startup();
@@ -270,9 +276,26 @@ public class Application : Gtk.Application
 		d_state_settings = new Settings("org.gnome.gitg.state.window");
 		d_state_settings.delay();
 
+		// Application menu entries
 		add_action_entries(app_entries, this);
 
-		// App menu
+		const Accel[] accels = {
+			{"app.new", "<Primary>N"},
+			{"app.quit", "<Primary>Q"},
+			{"app.help", "F1"},
+
+			{"win.search", "<Primary>F"},
+			{"win.close", "<Primary>Q"},
+			{"win.reload", "<Primary>R"},
+			{"win.gear-menu", "F10"},
+			{"win.open-repository", "<Primary>O"}
+		};
+
+		foreach (var accel in accels)
+		{
+			add_accelerator(accel.accel, accel.name, null);
+		}
+
 		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
 		{
 			MenuModel? menu = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "app-menu");
@@ -282,21 +305,10 @@ public class Application : Gtk.Application
 				set_app_menu(menu);
 			}
 		}
-		else
-		{
-			add_accelerator("<Primary>N", "app.new", null);
-			add_accelerator("<Primary>Q", "app.quit", null);
-			add_accelerator("F1", "app.help", null);
-		}
-
-		add_accelerator("<Primary>F", "win.search", null);
-		add_accelerator("<Primary>W", "win.close", null);
-		add_accelerator("F5", "win.reload", null);
-		add_accelerator("<Primary>R", "win.reload", null);
-		add_accelerator("F10", "win.gear-menu", null);
 
 		// Use our own css provider
 		Gtk.CssProvider? provider = Resource.load_css("style.css");
+
 		if (provider != null)
 		{
 			Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
