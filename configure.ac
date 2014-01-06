@@ -107,6 +107,27 @@ PKG_CHECK_MODULES(LIBGITG, [
 	json-glib-1.0
 ])
 
+AC_MSG_CHECKING([for libgit2-glib threading support])
+
+cflags_save="${CFLAGS}"
+libs_save="${LIBS}"
+
+CFLAGS="${LIBGITG_CFLAGS}"
+LIBS="${LIBGITG_LIBS}"
+
+AC_TRY_RUN([
+	#include <libgit2-glib/ggit.h>
+	int
+	main(int argc, const char *argv[])
+	{
+		ggit_init ();
+		return ((ggit_get_capabilities() & GGIT_CAP_THREADS) != 0) ? 0 : 1;
+	}
+],[AC_MSG_RESULT([yes])],[AC_MSG_ERROR([no, please recompile a threadsafe version of libgit2 (-DTHREADSAFE:BOOL=ON)])])
+
+CFLAGS="${cflags_save}"
+LIBS="${libs_save}"
+
 AC_ARG_ENABLE(docs,
               [AS_HELP_STRING([--enable-docs],
                               [enable generating documentation [default=no]])],
