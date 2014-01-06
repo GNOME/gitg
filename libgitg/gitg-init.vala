@@ -20,11 +20,34 @@
 namespace Gitg
 {
 
-public void init()
+public errordomain InitError
 {
+	THREADS_UNSAFE
+}
+
+private static bool gitg_inited = false;
+private static InitError? gitg_initerr = null;
+
+public void init() throws Error
+{
+	if (gitg_inited)
+	{
+		if (gitg_initerr != null)
+		{
+			throw gitg_initerr;
+		}
+
+		return;
+	}
+
+	gitg_inited = true;
+
 	if ((Ggit.get_capabilities() & Ggit.CapFlags.THREADS) == 0)
 	{
-		error("libgit2 must be built with threading support in order to run gitg");
+		gitg_initerr = new InitError.THREADS_UNSAFE("no thread support");
+	
+		warning("libgit2 must be built with threading support in order to run gitg");
+		throw gitg_initerr;
 	}
 
 	Ggit.init();
