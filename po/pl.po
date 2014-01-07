@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-03 15:34+0100\n"
-"PO-Revision-Date: 2014-01-03 15:35+0100\n"
+"POT-Creation-Date: 2014-01-07 23:40+0100\n"
+"PO-Revision-Date: 2014-01-07 23:41+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Poedit-Language: Polish\n"
 "X-Poedit-Country: Poland\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -267,10 +267,10 @@ msgid "Start gitg with a particular activity"
 msgstr "Uruchamia program gitg w podanej aktywności"
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
-"Uruchamia program gitg w aktywności zatwierdzania (skrót dla \"--view commit"
-"\")"
+"Uruchamia program gitg w aktywności zatwierdzania (skrót dla \"--activity "
+"commit\")"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
@@ -280,17 +280,17 @@ msgstr "Bez próby wczytania repozytorium z bieżącego katalogu roboczego"
 msgid "- Git repository viewer"
 msgstr "- przeglądarka repozytoriów git"
 
-#: ../gitg/gitg-application.vala:205
+#: ../gitg/gitg-application.vala:206
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg to przeglądarka repozytoriów git dla GTK+/GNOME"
 
-#: ../gitg/gitg-application.vala:213
+#: ../gitg/gitg-application.vala:215
 msgid "translator-credits"
 msgstr ""
 "Piotr Drąg <piotrdrag@gmail.com>, 2012-2014\n"
 "Aviary.pl <gnomepl@aviary.pl>, 2012-2014"
 
-#: ../gitg/gitg-application.vala:216
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "Witryna programu gitg"
 
@@ -305,6 +305,26 @@ msgstr "Ustawienie konfiguracji użytkownika Git się nie powiodło."
 #: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
 msgstr "Wprowadzony adres URL nie jest obsługiwany"
+
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"Program gitg wymaga skompilowania libgit2 (biblioteki, od której zależy "
+"program gitg) z obsługą wątków.\n"
+"\n"
+"Jeśli ręcznie skompilowano bibliotekę libgit2, to proszę ją skonfigurować za "
+"pomocą opcji -DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"W przeciwnym przypadku proszę zgłosić błąd w systemie zgłaszania błędów "
+"dystrybucji z informacją, że biblioteka libgit2 nie dostarcza obsługi wątków."
 
 #: ../gitg/gitg-window.vala:263
 msgid "Projects"
@@ -397,19 +417,19 @@ msgstr "Zapis pliku łaty"
 msgid "_Save"
 msgstr "_Zapisz"
 
-#: ../libgitg/gitg-diff-view.vala:120
+#: ../libgitg/gitg-diff-view.vala:123
 msgid "stage"
 msgstr "przenieś do przechowalni"
 
-#: ../libgitg/gitg-diff-view.vala:121
+#: ../libgitg/gitg-diff-view.vala:124
 msgid "unstage"
 msgstr "przenieś z przechowalni"
 
-#: ../libgitg/gitg-diff-view.vala:122
+#: ../libgitg/gitg-diff-view.vala:125
 msgid "Loading diff…"
 msgstr "Wczytywanie różnicy…"
 
-#: ../libgitg/gitg-stage.vala:300
+#: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
