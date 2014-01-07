@@ -35,20 +35,19 @@
           </packing>
         </child>
         <child>
-          <object class="GtkToggleButton" id="d_search_button">
+          <object class="GtkMenuButton" id="d_gear_menu">
             <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="can_focus">False</property>
-            <property name="action_name">win.search</property>
-            <signal name="toggled" handler="search_button_toggled" swapped="no"/>
+            <property name="action_name">win.gear-menu</property>
             <style>
               <class name="image-button"/>
             </style>
             <child>
-              <object class="GtkImage" id="search_image">
+              <object class="GtkImage" id="gear_image">
                 <property name="visible">True</property>
                 <property name="icon_size">1</property>
-                <property name="icon_name">edit-find-symbolic</property>
+                <property name="icon_name">emblem-system-symbolic</property>
               </object>
             </child>
           </object>
@@ -65,19 +64,20 @@
           </packing>
         </child>
         <child>
-          <object class="GtkMenuButton" id="d_gear_menu">
+          <object class="GtkToggleButton" id="d_search_button">
             <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="can_focus">False</property>
-            <property name="action_name">win.gear-menu</property>
+            <property name="action_name">win.search</property>
+            <signal name="toggled" handler="search_button_toggled" swapped="no"/>
             <style>
               <class name="image-button"/>
             </style>
             <child>
-              <object class="GtkImage" id="gear_image">
+              <object class="GtkImage" id="search_image">
                 <property name="visible">True</property>
                 <property name="icon_size">1</property>
-                <property name="icon_name">emblem-system-symbolic</property>
+                <property name="icon_name">edit-find-symbolic</property>
               </object>
             </child>
           </object>
