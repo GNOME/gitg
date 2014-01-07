@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-02 21:08+0200\n"
-"PO-Revision-Date: 2014-01-02 21:08+0200\n"
+"POT-Creation-Date: 2014-01-07 16:26+0200\n"
+"PO-Revision-Date: 2014-01-07 16:32+0200\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
@@ -149,7 +149,7 @@ msgstr "לא ניתן להגדיר שפה לבדיקת איות: %s"
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
-msgstr "ביצוע"
+msgstr "הגשה"
 
 #: ../gitg/commit/gitg-commit.vala:123
 msgid "_Stage selection"
@@ -205,20 +205,20 @@ msgstr "אין קבצים שאינם במעקב"
 
 #: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
-msgstr "אין שינויים לביצוע"
+msgstr "אין שינויים להגשה"
 
 #: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
-msgstr "ניתן להשתמש בתיקון לשינוי הודעת הביצוע הקודם"
+msgstr "ניתן להשתמש בתיקון לשינוי הודעת ההגשה הקודמת"
 
 #: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
-msgstr "נכשל הביצוע"
+msgstr "נכשלה ההגשה"
 
 #. TODO: better to show user info dialog directly or something
 #: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
-msgstr "נכשל העברת קדם ביצוע"
+msgstr "נכשלה העברת קדם הגשה"
 
 #: ../gitg/commit/gitg-commit.vala:700
 msgid ""
@@ -257,8 +257,8 @@ msgid "Start gitg with a particular activity"
 msgstr "Start gitg with a particular activity"
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
-msgstr "Start gitg with the commit activity (shorthand for --view commit)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr "Start gitg with the commit activity (shorthand for --activity commit)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
@@ -268,15 +268,15 @@ msgstr "Do not try to load a repository from the current working directory"
 msgid "- Git repository viewer"
 msgstr "- מציג מאגר Git"
 
-#: ../gitg/gitg-application.vala:205
+#: ../gitg/gitg-application.vala:206
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "‏gitg הוא מציג מאגרי Git עבור gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:213
+#: ../gitg/gitg-application.vala:215
 msgid "translator-credits"
 msgstr "יוסף אור בוצ׳קו <yoseforb@gmail.com>"
 
-#: ../gitg/gitg-application.vala:216
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "אתר הבית של gitg"
 
@@ -317,7 +317,7 @@ msgstr "‏`%s` אינו מאגר Git"
 #: ../gitg/history/gitg-history-navigation.vala:199
 #: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
-msgstr "כל הביצועים"
+msgstr "כל ההגשות"
 
 #. Branches
 #: ../gitg/history/gitg-history-navigation.vala:202
@@ -383,22 +383,22 @@ msgstr "שמירת טלאי לקובץ"
 msgid "_Save"
 msgstr "_שמירה"
 
-#: ../libgitg/gitg-diff-view.vala:120
+#: ../libgitg/gitg-diff-view.vala:123
 msgid "stage"
 msgstr "שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:121
+#: ../libgitg/gitg-diff-view.vala:124
 msgid "unstage"
 msgstr "ביטול שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:122
+#: ../libgitg/gitg-diff-view.vala:125
 msgid "Loading diff…"
 msgstr "טוען הבדלים…"
 
-#: ../libgitg/gitg-stage.vala:300
+#: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
-msgstr "לא ניתן לקרוא הודעה ביצוע אחרי הרצת commit-msg hook: ‏%s"
+msgstr "לא ניתן לקרוא הודעת הגשה אחרי הרצת commit-msg hook: ‏%s"
 
 #: ../plugins/diff/gitg-diff.vala:62
 msgid "Diff"
@@ -453,11 +453,11 @@ msgstr "_שיבוט"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
 msgid "Remote _URL:"
-msgstr "כתובת URL מרוחקת:"
+msgstr "כתובת _URL מרוחקת:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
 msgid "_Local Folder:"
-msgstr "תיקייה מקומית:"
+msgstr "תיקייה _מקומית:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
 msgid "Select location…"
@@ -474,11 +474,11 @@ msgstr "_ביצוע"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
 msgid "Add _signed-off-by signature"
-msgstr "הוספת חתימה"
+msgstr "הוספת _חתימה"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "_Amend previous commit"
-msgstr "לתקן ביצוע _קודם"
+msgstr "לתקן הגשה _קודמת"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 #: ../gitg/resources/ui/gitg-window.ui.h:2
@@ -487,7 +487,7 @@ msgstr "סגירה"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
-msgstr "לדלג על ביצוע hooks"
+msgstr "לדלג על הגשת _hooks"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 msgid "S_tage selection"
@@ -535,7 +535,7 @@ msgstr "_שיבוט מאגר…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Author Details"
-msgstr "פרטי יוצר"
+msgstr "פרטי יו_צר"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:9
 msgid "_Reload"
@@ -547,11 +547,11 @@ msgstr "הצגת סימון"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
 msgid "Display _subject margin at column:"
-msgstr "הצגת שוליים בכותרת בעמודה:"
+msgstr "הצגת שוליים בכותרת ב_עמודה:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
 msgid "Display right _margin at column:"
-msgstr "הצגת שוליים ימניים בעמודה:"
+msgstr "הצגת שוליים י_מניים בעמודה:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
 msgid "Enable spell checking"
@@ -559,11 +559,11 @@ msgstr "לאפשר בדיקת איות"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
 msgid "Commit Message"
-msgstr "הודעת ביצוע"
+msgstr "הודעת הגשה"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
 msgid "Commits"
-msgstr "ביצועים"
+msgstr "הגשות"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
 msgid "Collapse inactive lanes"
