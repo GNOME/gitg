@@ -30,8 +30,8 @@ namespace GitgFiles
 		private TreeStore d_model;
 		private Gtk.Paned d_paned;
 		private GtkSource.View d_source;
-		private Settings d_fontsettings;
-		private Settings d_stylesettings;
+		private Settings? d_fontsettings;
+		private Settings? d_stylesettings;
 
 		private Gtk.ScrolledWindow d_scrolled_files;
 		private Gtk.ScrolledWindow d_scrolled;
@@ -98,6 +98,23 @@ namespace GitgFiles
 			}
 		}
 
+		private Settings? try_settings(string schema_id)
+		{
+			var source = SettingsSchemaSource.get_default();
+
+			if (source == null)
+			{
+				return null;
+			}
+
+			if (source.lookup(schema_id, true) != null)
+			{
+				return new Settings(schema_id);
+			}
+
+			return null;
+		}
+
 		private void build_ui()
 		{
 			var ret = GitgExt.UI.from_builder("files/view-files.ui",
@@ -122,7 +139,7 @@ namespace GitgFiles
 			d_imagevp.add(d_image);
 			d_imagevp.show_all();
 
-			d_fontsettings = new Settings("org.gnome.desktop.interface");
+			d_fontsettings = try_settings("org.gnome.desktop.interface");
 
 			if (d_fontsettings != null)
 			{
@@ -133,7 +150,7 @@ namespace GitgFiles
 				update_font();
 			}
 
-			d_stylesettings = new Settings("org.gnome.gedit.preferences.editor");
+			d_stylesettings = try_settings("org.gnome.gedit.preferences.editor");
 
 			if (d_stylesettings != null)
 			{

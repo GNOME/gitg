@@ -47,7 +47,7 @@ namespace Gitg
 
 		private Ggit.Diff? d_diff;
 		private Commit? d_commit;
-		private Settings d_fontsettings;
+		private Settings? d_fontsettings;
 		private bool d_has_selection;
 
 		private static Gee.HashMap<string, DiffView> s_diff_map;
@@ -276,6 +276,23 @@ namespace Gitg
 			settings.default_monospace_font_size = fsize;
 		}
 
+		private Settings? try_settings(string schema_id)
+		{
+			var source = SettingsSchemaSource.get_default();
+
+			if (source == null)
+			{
+				return null;
+			}
+
+			if (source.lookup(schema_id, true) != null)
+			{
+				return new Settings(schema_id);
+			}
+
+			return null;
+		}
+
 		protected override void constructed()
 		{
 			base.constructed();
@@ -293,18 +310,22 @@ namespace Gitg
 			settings.javascript_can_access_clipboard = true;
 			settings.enable_page_cache = false;
 
-			d_fontsettings = new Settings("org.gnome.desktop.interface");
 			set_settings(settings);
 
-			update_font_settings();
+			d_fontsettings = try_settings("org.gnome.desktop.interface");
 
-			d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
+			if (d_fontsettings != null)
+			{
 				update_font_settings();
-			});
 
-			d_fontsettings.changed["font-name"].connect((s, k) => {
-				update_font_settings();
-			});
+				d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
+					update_font_settings();
+				});
+
+				d_fontsettings.changed["font-name"].connect((s, k) => {
+					update_font_settings();
+				});
+			}
 
 			++s_diff_id;
 			s_diff_map[s_diff_id.to_string()] = this;
