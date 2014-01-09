@@ -25,10 +25,10 @@ class MessageBus(GitgExt.MessageBus):
 MessageBus = override(MessageBus)
 __all__.append('MessageBus')
 
-class Message(Gedit.Message):
+class Message(GitgExt.Message):
     def __getattribute__(self, name):
         try:
-            return Gedit.Message.__getattribute__(self, name)
+            return GitgExt.Message.__getattribute__(self, name)
         except:
             return getattr(self.props, name)
 
