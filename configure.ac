@@ -208,6 +208,17 @@ AC_SUBST(GITG_LIBS)
 GOBJECT_INTROSPECTION_REQUIRE($INTROSPECTION_REQUIRED)
 AC_SUBST(INTROSPECTION_REQUIRED)
 
+INTROSPECTION_GIRDIR=`$PKG_CONFIG \
+--define-variable="prefix=${prefix}" \
+--define-variable="datarootdir=${datarootdir}" \
+--define-variable="datadir=${datadir}" \
+--variable=girdir gobject-introspection-1.0`
+
+INTROSPECTION_TYPELIBDIR=`$PKG_CONFIG \
+--define-variable="prefix=${prefix}" \
+--define-variable="libdir=${libdir}" \
+--variable=typelibdir gobject-introspection-1.0`
+
 GNOME_COMPILE_WARNINGS([maximum])
 
 GLIB_GSETTINGS
