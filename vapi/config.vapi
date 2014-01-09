@@ -9,6 +9,10 @@ namespace Gitg.Config
 	public const string GITG_LOCALEDIR;
 	public const string GITG_LIBDIR;
 	public const string VERSION;
+
+	// temporary check for 3.11 to switch header bar buttons. This check can
+	// be removed when we bump the gtk+ requirement to 3.12
+	public const bool GTK_VERSION_AT_LEAST_3_11;
 }
 
 // ex:ts=4 noet

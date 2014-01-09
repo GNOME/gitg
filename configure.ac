@@ -107,6 +107,16 @@ PKG_CHECK_MODULES(LIBGITG, [
 	json-glib-1.0
 ])
 
+dnl temporary check for 3.11 to switch header bar buttons. This check can
+dnl be removed when we bump the gtk+ requirement to 3.12
+PKG_CHECK_EXISTS(gtk+-3.0 >= 3.11,
+                 [GTK_VERSION_AT_LEAST_3_11=TRUE],
+                 [GTK_VERSION_AT_LEAST_3_11=FALSE])
+
+AC_DEFINE_UNQUOTED([GTK_VERSION_AT_LEAST_3_11],
+                   $GTK_VERSION_AT_LEAST_3_11,
+                   [Set if the gtk+ version is at least 3.11])
+
 AC_MSG_CHECKING([for libgit2-glib threading support])
 
 cflags_save="${CFLAGS}"

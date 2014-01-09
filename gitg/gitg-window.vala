@@ -171,6 +171,19 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			dash_image.icon_name = "go-previous-symbolic";
 		}
+
+		// temporary check for 3.11 to switch header bar buttons. This check can
+		// be removed when we bump the gtk+ requirement to 3.12
+		if (Config.GTK_VERSION_AT_LEAST_3_11)
+		{
+			d_header_bar.remove(d_activities_switcher);
+			d_header_bar.remove(d_search_button);
+			d_header_bar.remove(d_gear_menu);
+
+			d_header_bar.pack_end(d_gear_menu);
+			d_header_bar.pack_end(d_search_button);
+			d_header_bar.pack_end(d_activities_switcher);
+		}
 	}
 
 	private void on_close_activated()
