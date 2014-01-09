@@ -1,5 +1,5 @@
-libgitgdir = $(libdir)
-libgitg_LTLIBRARIES = libgitg/libgitg-1.0.la
+libgitgexecdir = $(libdir)
+libgitgexec_LTLIBRARIES = libgitg/libgitg-1.0.la
 
 libgitg_libgitg_1_0_la_CPPFLAGS =			\
 	-I$(top_srcdir)					\

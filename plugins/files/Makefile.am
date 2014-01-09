@@ -1,6 +1,8 @@
-plugins_files_libfiles_la_plugindir = $(GITG_PLUGIN_LIBDIR)
-plugins_files_libfiles_la_plugin_LTLIBRARIES = plugins/files/libfiles.la
-plugins_files_libfiles_la_plugin_DATA = plugins/files/files.plugin
+plugins_files_libfiles_la_pluginexecdir = $(GITG_PLUGIN_LIBDIR)
+plugins_files_libfiles_la_pluginexec_LTLIBRARIES = plugins/files/libfiles.la
+
+plugins_files_libfiles_la_plugindatadir = $(GITG_PLUGIN_LIBDIR)
+plugins_files_libfiles_la_plugindata_DATA = plugins/files/files.plugin
 
 plugins_files_libfiles_la_CPPFLAGS =					\
 	-I$(top_srcdir)							\
@@ -42,7 +44,7 @@ CLEANFILES +=							\
 	plugins/files/gitg-files-resources.c
 
 EXTRA_DIST +=							\
-	$(plugins_files_libfiles_la_plugin_DATA)		\
+	$(plugins_files_libfiles_la_plugindata_DATA)		\
 	$(plugins_files_libfiles_resources_deps)
 
 # vi:ts=8:noet

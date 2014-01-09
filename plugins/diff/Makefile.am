@@ -1,6 +1,8 @@
-plugins_diff_libdiff_la_plugindir = $(GITG_PLUGIN_LIBDIR)
-plugins_diff_libdiff_la_plugin_LTLIBRARIES = plugins/diff/libdiff.la
-plugins_diff_libdiff_la_plugin_DATA = plugins/diff/diff.plugin
+plugins_diff_libdiff_la_pluginexecdir = $(GITG_PLUGIN_LIBDIR)
+plugins_diff_libdiff_la_pluginexec_LTLIBRARIES = plugins/diff/libdiff.la
+
+plugins_diff_libdiff_la_plugindatadir = $(GITG_PLUGIN_LIBDIR)
+plugins_diff_libdiff_la_plugindata_DATA = plugins/diff/diff.plugin
 
 plugins_diff_libdiff_la_CPPFLAGS =					\
 	-I$(top_srcdir)							\
@@ -41,7 +43,7 @@ CLEANFILES +=					\
 	plugins/diff/gitg-diff-resources.c
 
 EXTRA_DIST +=						\
-	$(plugins_diff_libdiff_la_plugin_DATA)		\
+	$(plugins_diff_libdiff_la_plugindata_DATA)	\
 	$(plugins_diff_libdiff_resources_deps)
 
 SCALABLE_ICONS += plugins/diff/icons/diff-symbolic.svg

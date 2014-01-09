@@ -1,5 +1,5 @@
-libgitg_extdir = $(libdir)
-libgitg_ext_LTLIBRARIES = libgitg-ext/libgitg-ext-1.0.la
+libgitg_extexecdir = $(libdir)
+libgitg_extexec_LTLIBRARIES = libgitg-ext/libgitg-ext-1.0.la
 
 libgitg_ext_libgitg_ext_1_0_la_CPPFLAGS =	\
 	-I$(top_srcdir)				\
