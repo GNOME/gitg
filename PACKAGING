@@ -1,0 +1,110 @@
+This is a short document describing some details of gitg related to packaging
+it for distributions. This is not in any way a guide or instructions for
+packagers to follow. Rather, it describes some of the layout and installed
+files of gitg which can be useful for packagers.
+
+= Components =
+gitg is written as a set of core libraries, plugins and the main application.
+The following sections briefly describe each component. Note that the lists
+of provided files might not be entirely recent, so please do not take them
+as authoritive.
+
+== libgitg (unstable) ==
+libgitg is a reusable shared library containing several utility classes and
+widgets that can be reused by other applications. The library can be packaged
+separately and used independently of other gitg components.
+gobject-introspection and vapi files are also available for this library.
+
+Relevant installed files are:
+
+Library:
+- ${libdir}/libgitg-1.0.so.0
+- ${libdir}/libgitg-1.0.so.0.0.0
+- ${libdir}/girepository-1.0/Gitg-1.0.typelib
+
+Development:
+- ${datadir}/gir-1.0/Gitg-1.0.gir
+- ${datadir}/vala/vapi/libgitg-1.0.vapi
+- ${libdir}/libgitg-1.0.so
+- ${libdir}/libgitg-1.0.la
+- ${libdir}/pkgconfig/libgitg-1.0.pc
+- ${prefix}/include/libgitg-1.0/libgitg/libgitg.h
+
+
+== libgitg-ext (unstable) ==
+libgitg-ext is a shared library containing extension interfaces to be
+implemented by extensions of the main gitg application. Extensions can link
+against this library and implement (for example) GitgExtActivity to provide
+a new, dynamically loaded, activity for gitg.
+
+Revelant installed files are:
+
+Library:
+- ${libdir}/libgitg-ext-1.0.so.0
+- ${libdir}/libgitg-ext-1.0.so.0.0.0
+- ${libdir}/girepository-1.0/GitgExt-1.0.typelib
+- ${python_libdir}/site-packages/gi/overrides/GitgExt.py
+
+Development:
+- ${datadir}/gir-1.0/GitgExt-1.0.gir
+- ${datadir}/vala/vapi/libgitg-ext-1.0.vapi
+- ${libdir}/libgitg-ext-1.0.so
+- ${libdir}/libgitg-ext-1.0.la
+- ${libdir}/pkgconfig/libgitg-ext-1.0.pc
+- ${prefix}/include/libgitg-ext-1.0/libgitg-ext/libgitg-ext.h
+
+
+== Plugins ==
+gitg currently implements two functionalities itself as plugins, using
+libgitg-ext. The plugins are installed as shared libraries which are loaded
+at runtime. Since these plugins are considered core functionality, they should
+be installed with the gitg application and not as a separate package.
+
+Installed:
+- ${libdir}/gitg/plugins/libfiles.so
+- ${libdir}/gitg/plugins/files.plugin
+- ${libdir}/gitg/plugins/libdiff.so
+- ${libdir}/gitg/plugins/diff.plugin
+
+
+== gitg ==
+The main gitg application is installed as a standard binary, a man page,
+several icons, appdata, a desktop file, gsettings schema and locale translations.
+
+Installed:
+- ${bindir}/gitg
+- ${datadir}/glib-2.0/schemas/org.gnome.gitg.gschema.xml
+- ${datadir}/icons/hicolor/{512x512,256x256,48x48,32x32,24x24,22x22,16x16}/apps/gitg.png
+- ${datadir}/icons/hicolor/scalable/actions/diff-symbolic.svg
+- ${datadir}/appdata/gitg.appdata.xml
+- ${datadir}/applications/gitg.desktop
+- ${datadir}/man/man1/gitg.1
+- ${datadir}/locale/*/LC_MESSAGES/gitg.mo
+
+
+
+= Dependencies =
+Following is a list of dependencies of gitg. Note that these are subject to
+change and a definite list can be obtained by inspecting configure.ac instead:
+
+- glib >= 2.38
+- gtk+ >= 3.10
+- gtksourceview >= 3.10
+- gobject-introspection >= 0.10.1
+- webkit2 >= 2.2
+- libgit2-glib >= 0.0.10
+  - libgit2 is a dependency of libgit2-glib. Please make sure that libgit2
+    is compiled with threading support (-DTHREADSAFE:BOOL=ON). gitg will refuse
+    to configure if libgit2 is not available with threading support
+- gee-0.8
+- json-glib >= 0.16
+- gsettings-desktop-schemas
+- libpeas >= 1.5.0
+- libpeas-gtk >= 1.5.0
+- gtkspell3 => 3.0.3
+
+gitg has a soft dependency on python due to its plugin system. Building gitg
+without python is perfectly possible, and since there are currently no plugins
+implemented in python, it will not affect core functionality. However, we would
+like to be able to have third party developers write plugins in python and it
+is therefore recommended to have python as a dependency for gitg.
