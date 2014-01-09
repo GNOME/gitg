@@ -114,4 +114,13 @@ EXTRA_DIST +=								\
 	$(libgitg_ext_libgitg_ext_1_0_la_gir_DATA)			\
 	$(libgitg_ext_resources_deps)
 
+# This is a hack to make parallel install work. libtool needs to relink at
+# install (on some platforms) which requires dependency libraries to be
+# already installed. automake does not generate the appropriate dependency
+# so we do it here automatically. As an additional bonus, we have to trick
+# automake using a variable indirection for the rule because it would otherwise
+# omit the default install rule.
+install_libgitg_extexecLTLIBRARIES = install-libgitg_extexecLTLIBRARIES
+$(install_libgitg_extexecLTLIBRARIES): install-libgitgexecLTLIBRARIES
+
 # vi:ts=8:noet

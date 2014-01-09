@@ -48,4 +48,13 @@ EXTRA_DIST +=						\
 
 SCALABLE_ICONS += plugins/diff/icons/diff-symbolic.svg
 
+# This is a hack to make parallel install work. libtool needs to relink at
+# install (on some platforms) which requires dependency libraries to be
+# already installed. automake does not generate the appropriate dependency
+# so we do it here automatically. As an additional bonus, we have to trick
+# automake using a variable indirection for the rule because it would otherwise
+# omit the default install rule.
+install_plugins_diff_libdiff_la_pluginexecLTLIBRARIES = install-plugins_diff_libdiff_la_pluginexecLTLIBRARIES
+$(install_plugins_diff_libdiff_la_pluginexecLTLIBRARIES): install-libgitg_extexecLTLIBRARIES
+
 # vi:ts=8:noet
