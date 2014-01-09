@@ -10,7 +10,8 @@ DISTCLEANFILES = \
 	intltool-update
 
 EXTRA_DIST = \
-	autogen.sh
+	autogen.sh \
+	PACKAGING
 
 MAINTAINERCLEANFILES = 		\
 	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
