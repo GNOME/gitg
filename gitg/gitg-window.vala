@@ -174,7 +174,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		// temporary check for 3.11 to switch header bar buttons. This check can
 		// be removed when we bump the gtk+ requirement to 3.12
-		if (Config.GTK_VERSION_AT_LEAST_3_11)
+		if (Gtk.check_version(3, 11, 0) == null)
 		{
 			d_header_bar.remove(d_activities_switcher);
 			d_header_bar.remove(d_search_button);
