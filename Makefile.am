@@ -106,6 +106,18 @@ include icons.mk
 
 GITIGNOREFILES += $(gsettings_SCHEMAS)
 
+EXTRA_DIST +=				\
+	vapi/config.vapi		\
+	vapi/gitg-js-utils.vapi		\
+	vapi/gobject-introspection.vapi	\
+	vapi/gtksourceview-3.0.deps	\
+	vapi/gtksourceview-3.0.vapi	\
+	vapi/libpeas-1.0.vapi		\
+	vapi/libsoup-2.4.deps		\
+	vapi/libsoup-2.4.vapi		\
+	vapi/webkit2gtk-3.0.deps	\
+	vapi/webkit2gtk-3.0.vapi
+
 %.typelib: %.gir
 	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=$(top_srcdir) -o $@ $<
 
