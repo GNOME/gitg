@@ -1,5 +1,5 @@
 # ITALIAN GITG TRANSLATION.
-# Copyright (C) 2009, 2010, 2013 Free Software Foundation, Inc.
+# Copyright (C) 2009, 2010, 2013, 2014 Free Software Foundation, Inc.
 # This file is distributed under the same license as the GITG package.
 #
 # Glossario:
@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-06 08:30+0100\n"
-"PO-Revision-Date: 2014-01-06 09:07+0100\n"
+"POT-Creation-Date: 2014-01-10 08:51+0100\n"
+"PO-Revision-Date: 2014-01-10 08:51+0100\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: \n"
@@ -27,7 +27,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -269,8 +269,9 @@ msgid "Start gitg with a particular activity"
 msgstr "Avvia gitg con una specifica attività"
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
-msgstr "Avvia gitg con l'attività dei commit (scorciatoia per --view commit)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr ""
+"Avvia gitg con l'attività dei commit (scorciatoia per --activity commit)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
@@ -304,24 +305,44 @@ msgstr "Impostazione della configurazione utente git non riuscita."
 msgid "The URL introduced is not supported"
 msgstr "Lo URL utilizzato non è supportato"
 
-#: ../gitg/gitg-window.vala:263
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"gitg richiede libgit2 (una libreria su cui gitg dipende) per essere "
+"compilato con il supporto ai thread.\n"
+"\n"
+"Se la libreria libgit2 è stata compilata manualmente, configurare libgit2 "
+"con -DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Altrimenti, segnalare un bug attraverso l'apposito sistema utilizzato dalla "
+"distribuzione in uso."
+
+#: ../gitg/gitg-window.vala:276
 msgid "Projects"
 msgstr "Progetti"
 
-#: ../gitg/gitg-window.vala:299
+#: ../gitg/gitg-window.vala:312
 msgid "Open Repository"
 msgstr "Apri repository"
 
-#: ../gitg/gitg-window.vala:301
+#: ../gitg/gitg-window.vala:314
 #: ../libgitg/gitg-diff-view-request-patch.vala:109
 msgid "_Cancel"
 msgstr "A_nnulla"
 
-#: ../gitg/gitg-window.vala:302
+#: ../gitg/gitg-window.vala:315
 msgid "_Open"
 msgstr "_Apri"
 
-#: ../gitg/gitg-window.vala:532
+#: ../gitg/gitg-window.vala:545
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» non è un repository git."
