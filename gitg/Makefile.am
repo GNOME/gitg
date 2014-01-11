@@ -78,10 +78,6 @@ gitg_resources_deps = $(call GRESDEPS,gitg/resources/gitg-resources.xml)
 gitg/gitg-resources.c: $(gitg_resources_deps)
 	$(GRESGEN)
 
-GITIGNOREFILES +=						\
-	$(gitg_gitg_VALASOURCES:%.vala=%.c)			\
-	gitg_gitg_vala.stamp
-
 CLEANFILES += gitg/gitg-resources.c
 EXTRA_DIST += $(gitg_resources_deps)
 

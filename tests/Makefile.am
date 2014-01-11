@@ -42,14 +42,6 @@ tests_progress_bin_LDFLAGS = $(tests_common_ldflags)
 tests_progress_bin_CPPFLAGS = $(tests_common_cppflags)
 tests_progress_bin_LDADD = libgitg/libgitg-1.0.la
 
-GITIGNOREFILES +=					\
-	$(tests_diff_view_SOURCES:%.vala=%.c)		\
-	tests_diff_view_vala.stamp			\
-	$(tests_repository_list_box_SOURCES:%.vala=%.c)	\
-	tests_repository_list_box_vala.stamp		\
-	$(tests_progress_bin_SOURCES:%.vala=%.c)	\
-	tests_progress_bin_vala.stamp
-
 include tests/libgitg/Makefile.am
 
 # vi:ts=8:noet

@@ -35,10 +35,6 @@ plugins_diff_libdiff_resources_deps = $(call GRESDEPS,plugins/diff/resources/res
 plugins/diff/gitg-diff-resources.c: $(plugins_diff_libdiff_resources_deps)
 	$(GRESGEN)
 
-GITIGNOREFILES +=						\
-	$(plugins_diff_libdiff_la_VALASOURCES:%.vala=%.c)	\
-	plugins_diff_libdiff_la_vala.stamp
-
 CLEANFILES +=					\
 	plugins/diff/gitg-diff-resources.c
 

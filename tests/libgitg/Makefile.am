@@ -47,10 +47,6 @@ tests_libgitg_test_libgitg_SOURCES =		\
 	tests/libgitg/test-encoding.vala	\
 	$(GITG_PLUGIN_VAPISOURCES)
 
-GITIGNOREFILES +=						\
-	$(tests_libgitg_test_libgitg_SOURCES:%.vala=%.c)	\
-	tests_libgitg_test_libgitg_vala.stamp
-
 EXTRA_DIST +=					\
 	tests/libgitg/gitg-assert.h		\
 	tests/libgitg/gitg-assert.vapi

@@ -36,10 +36,6 @@ plugins_files_libfiles_resources_deps = $(call GRESDEPS,plugins/files/resources/
 plugins/files/gitg-files-resources.c: $(plugins_files_libfiles_resources_deps)
 	$(GRESGEN)
 
-GITIGNOREFILES +=						\
-	$(plugins_files_libfiles_la_VALASOURCES:%.vala=%.c)	\
-	plugins_files_libfiles_la_vala.stamp
-
 CLEANFILES +=							\
 	plugins/files/gitg-files-resources.c
 

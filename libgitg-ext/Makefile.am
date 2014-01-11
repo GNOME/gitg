@@ -99,12 +99,9 @@ libgitg-ext/gitg-ext-resources.c: $(libgitg_ext_resources_deps)
 	$(GRESGEN)
 
 GITIGNOREFILES +=							\
-	$(libgitg_ext_libgitg_ext_1_0_la_VALASOURCES:%.vala=%.c)	\
 	libgitg-ext/gitg-ext-resources.c				\
 	$(libgitg_ext_libgitg_ext_1_0_la_gir_DATA)			\
-	libgitg-ext/libgitg-ext-1.0.vapi				\
-	libgitg-ext/libgitg-ext.h					\
-	libgitg_ext_libgitg_ext_1_0_la_vala.stamp
+	libgitg-ext/libgitg-ext.h
 
 CLEANFILES +=								\
 	$(libgitg_ext_libgitg_ext_1_0_la_typelib_DATA)
