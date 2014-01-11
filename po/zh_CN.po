@@ -2,77 +2,92 @@
 # Copyright (C) 2010 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 # lainme <lainme993@gmail.com>, 2010.
+# Wylmer Wang <wantinghard@gmail.com>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2011-08-06 17:00+0000\n"
+"POT-Creation-Date: 2014-01-07 00:07+0000\n"
 "PO-Revision-Date: 2011-08-16 15:05+0000\n"
-"Last-Translator: lainme <lainme993@gmail.com>\n"
+"Last-Translator: Wylmer Wang <wantinghard@gmail.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"nplurals=1, plural=0"
 
-#: ../data/gitg.desktop.in.in.h:1
-msgid "Git repository browser"
-msgstr "Git 版本库浏览器"
-
-#. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg-branch-actions.c:169
-#: ../gitg/gitg-branch-actions.c:222 ../gitg/gitg.c:184
-#: ../gitg/gitg-window.c:1666 ../gitg/gitg-window.c:1680
-#: ../gitg/gitg-window.ui.h:16
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
+#: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
 
+#: ../data/gitg.desktop.in.in.h:2
+msgid "Git repository browser"
+msgstr "Git 版本库浏览器"
+
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Allow External Diff Program"
-msgstr "允许外部 Diff 程序"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "主界面方向(横向或纵向)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
-msgstr "在 gitg 中查看差异时允许使用外部的 diff 程序。"
+#| msgid "Setting that sets the orientation layout of the main view."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "设定主界面方向布局的设置。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-msgid "Column at Which Right Margin is Shown"
-msgstr "显示右边距的列"
+#, fuzzy
+msgid "When to Collapse Inactive Lanes"
+msgstr "何时折叠不活动的路线"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-msgid "Filter Revisions When Searching"
-msgstr "在搜索时过滤修订版本"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
 #, fuzzy
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr "该设置指示何时折叠不活动的路线。有效值为 0-4，0 表示“早”，4 表示“晚”。"
 
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+msgid "Show History in Topological Order"
+msgstr "以拓扑顺序显示历史"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "指示是否以拓扑顺序显示历史的设置。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-#, fuzzy
-#| msgid "Setting that sets the orientation layout of the main view."
-msgid "Setting that sets files view to blame mode."
-msgstr "设定主视图方向布局的设置。"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation layout of the main view."
-msgstr "设定主视图方向布局的设置。"
+#| msgid ""
+#| "Setting that indicates whether to show the history in topological order."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr "指示是否在历史中显示储藏项的设置。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Show History in Topological Order"
-msgstr "以拓扑顺序显示历史"
+#| msgid ""
+#| "Setting that indicates whether to show the history in topological order."
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr "指示是否在历史中显示对应当前已暂存变更的虚项(virtual item)的设置。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-msgid "Show Main View in Vertical or Horizontal Layout"
-msgstr "以竖直布局或水平布局显示主视图"
+#| msgid ""
+#| "Setting that indicates whether to show the history in topological order."
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr "指示是否在历史中显示对应当前撤回的变更的虚项。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
@@ -87,1065 +102,1152 @@ msgstr ""
 "息。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
-msgid "Show files view in blame mode"
-msgstr ""
+msgid "Column at Which Right Margin is Shown"
+msgstr "显示右边距的列"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#| msgid ""
+#| "The column at which the right margin is shown if the right-margin "
+#| "preference is set to TRUE."
 msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
-msgstr "如果右边距首选项设为 TRUE 的话，显示右边距的列。"
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
+msgstr "若 show-right-margin 首选项设为 TRUE，显示右边界的列。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-msgid "The command to handle GITG scheme URLs"
-msgstr ""
+#| msgid "Show Right Margin in Commit Message View"
+msgid "Show Subject Margin in Commit Message View"
+msgstr "在提交消息视图中显示主题边距"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
-msgid "The command to handle GITG scheme URLs."
-msgstr ""
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr "在提交消息的主题文字超出 subject-margin-position 指定的边界时，高亮显示越界部分。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-#, fuzzy
-msgid "When to Collapse Inactive Lanes"
-msgstr "何时折叠不活动的路线"
+#| msgid "Column at Which Right Margin is Shown"
+msgid "Column at Which Subject Margin is Shown"
+msgstr "显示主题边界的列"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "Whether command to handle GITG scheme URLs is enabled"
-msgstr ""
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr ""
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
-msgid "Whether command to handle GITG scheme URLs needs a terminal"
-msgstr ""
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
-msgid "Whether command to handle GITG scheme URLs needs a terminal."
-msgstr ""
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+#| msgid ""
+#| "The column at which the right margin is shown if the right-margin "
+#| "preference is set to TRUE."
 msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr "搜索时是对历史视图中的修订进行筛选，还是直接跳到第一个匹配项。"
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
+msgstr "若 show-subject-margin 首选项设为 TRUE，显示主题边界的列。"
 
-#: ../gitg/gitg-branch-actions.c:277
+#: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
-msgid "Branch <%s> could not be removed"
-msgstr "分支 <%s> 无法删除"
+msgid "Cannot set spell checking language: %s"
+msgstr "无法设置拼写检查语言：%s"
 
-#: ../gitg/gitg-branch-actions.c:278
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgid "Commit"
+msgstr "提交"
+
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "_Stage 选择"
+
+#: ../gitg/commit/gitg-commit.vala:146
+#, c-format
+#| msgid "Failed to save current index state"
+msgid "Failed to stage the file `%s'"
+msgstr "无法暂存文件“%s”"
+
+#: ../gitg/commit/gitg-commit.vala:165
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "无法 stage 移除文件“%s”"
+
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "撤回选择内容(_U)"
+
+#: ../gitg/commit/gitg-commit.vala:227
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "无法撤回移除文件“%s”"
+
+#: ../gitg/commit/gitg-commit.vala:246
+#, c-format
+#| msgid "Failed to save current index state"
+msgid "Failed to unstage the file `%s'"
+msgstr "撤回文件“%s”失败"
+
+#: ../gitg/commit/gitg-commit.vala:370
+#| msgid "_Staged"
+msgid "Staged"
+msgstr "已暂存"
+
+#: ../gitg/commit/gitg-commit.vala:374
+msgid "No staged files"
+msgstr "无已暂存的文件"
+
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "Unstaged"
+msgstr "已撤回"
+
+#: ../gitg/commit/gitg-commit.vala:387
+#| msgid "Unstaged changes"
+msgid "No unstaged files"
+msgstr "无撤回的文件"
+
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "Untracked"
+msgstr "未跟踪"
+
+#: ../gitg/commit/gitg-commit.vala:400
+msgid "No untracked files"
+msgstr "无未跟踪的文件"
+
+#: ../gitg/commit/gitg-commit.vala:436
+msgid "There are no changes to be committed"
+msgstr "没有要提交的变更"
+
+#: ../gitg/commit/gitg-commit.vala:437
+#| msgid "Please enter a commit message before committing"
+msgid "Use amend to change the commit message of the previous commit"
+msgstr "请使用 amend 更改上资提交的提交消息"
+
+#: ../gitg/commit/gitg-commit.vala:463
+#| msgid "Failed to create tag"
+msgid "Failed to commit"
+msgstr "提交失败"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
+#| msgid "Failed to remove tag"
+msgid "Failed to pass pre-commit"
+msgstr "无法通过预提交"
+
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
-"This usually means that the branch is not fully merged in HEAD. Do you want "
-"to forcefully remove the branch?"
-msgstr "这通常表示分支没有完全合并到 HEAD。您想强制删除分支吗？"
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr "您的用户名和邮箱尚未配置。请转到用户配置，填写您的姓名和邮箱。"
 
-#: ../gitg/gitg-branch-actions.c:279
-msgid "Force remove"
-msgstr "强制删除"
-
-#: ../gitg/gitg-branch-actions.c:293
-#, c-format
-msgid "Branch <%s> could not be forcefully removed"
-msgstr "分支 <%s> 无法强制删除"
-
-#: ../gitg/gitg-branch-actions.c:326
-#, c-format
-msgid "Failed to remove remote branch <%s>."
-msgstr "无法删除远程分支 <%s>。"
-
-#: ../gitg/gitg-branch-actions.c:347
-#, c-format
-msgid "Are you sure you want to remove the remote branch <%s>?"
-msgstr "您确定要删除远程分支 <%s> 吗？"
-
-#: ../gitg/gitg-branch-actions.c:348
-msgid "This permanently removes the remote branch."
-msgstr "这会永久删除远程分支。"
-
-#: ../gitg/gitg-branch-actions.c:349 ../gitg/gitg-window.c:2862
-msgid "Remove remote branch"
-msgstr "删除远程分支"
-
-#: ../gitg/gitg-branch-actions.c:364 ../gitg/gitg-menus.xml.h:12
-msgid "Remove branch"
-msgstr "删除分支"
-
-#: ../gitg/gitg-branch-actions.c:425
-#, fuzzy
-msgid "Are you sure you want to remove this stash item?"
-msgstr "您确定要删除这个储藏项吗？"
-
-#: ../gitg/gitg-branch-actions.c:426
-#, fuzzy
-msgid "This permanently removes the stash item"
-msgstr "这会永久删除储藏项"
-
-#: ../gitg/gitg-branch-actions.c:427 ../gitg/gitg-window.c:2878
-#, fuzzy
-msgid "Remove stash"
-msgstr "删除储藏"
-
-#: ../gitg/gitg-branch-actions.c:453
-#, fuzzy
-msgid "Failed to remove stash"
-msgstr "无法删除储藏"
-
-#: ../gitg/gitg-branch-actions.c:454
-#, fuzzy
-msgid "The stash item could not be successfully removed"
-msgstr "储藏项无法成功删除"
-
-#: ../gitg/gitg-branch-actions.c:485
-#, c-format
-msgid "Are you sure you want to remove the tag <%s>?"
-msgstr "您确定要删除标签 <%s> 吗？"
-
-#: ../gitg/gitg-branch-actions.c:489 ../gitg/gitg-branch-actions.c:491
-#: ../gitg/gitg-window.c:2884
-msgid "Remove tag"
-msgstr "删除标签"
-
-#: ../gitg/gitg-branch-actions.c:508
-#, c-format
-msgid "The tag <%s> could not be successfully removed"
-msgstr "标签 <%s> 无法成功删除"
-
-#: ../gitg/gitg-branch-actions.c:512
-msgid "Failed to remove tag"
-msgstr "无法删除标签"
-
-#: ../gitg/gitg-branch-actions.c:575
-#, c-format
-msgid "Branch <%s> could not be renamed to <%s>"
-msgstr "分支 <%s> 无法重命名为 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:576
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
-"This usually means that a branch with that name already exists. Do you want "
-"to overwrite the branch?"
-msgstr "这通常表示以此为名的分支已经存在。您想覆盖这个分支吗？"
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr "您的用户名尚未配置。请转到用户配置，填写您的姓名。"
 
-#: ../gitg/gitg-branch-actions.c:577
-msgid "Force rename"
-msgstr "强制重命名"
-
-#: ../gitg/gitg-branch-actions.c:592
-#, c-format
-msgid "Branch <%s> could not be forcefully renamed"
-msgstr "分支 <%s> 无法强制重命名"
-
-#: ../gitg/gitg-branch-actions.c:632 ../gitg/gitg-new-branch.ui.h:2
-#: ../gitg/gitg-preferences.ui.h:17 ../gitg/gitg-repository.ui.h:6
-#: ../gitg/gitg-tag.ui.h:4
-msgid "Name:"
-msgstr "名称："
-
-#: ../gitg/gitg-branch-actions.c:754
-#, fuzzy
-msgid "Do you want to temporarily stash these changes?"
-msgstr "您想临时储藏这些变更吗？"
-
-#: ../gitg/gitg-branch-actions.c:758
-#, fuzzy
-msgid "Do you want to stash and reapply these changes?"
-msgstr "您想储藏并重新应用这些变更？"
-
-#: ../gitg/gitg-branch-actions.c:763
-msgid "You have uncommited changes in your current working tree"
-msgstr "您在当前工作树下有未提交的变更"
-
-#: ../gitg/gitg-branch-actions.c:765
-#, fuzzy
-msgid "Stash changes"
-msgstr "储藏变更"
-
-#: ../gitg/gitg-branch-actions.c:1020
-msgid "Failed to save current index state"
-msgstr "无法保存当前索引状态"
-
-#: ../gitg/gitg-branch-actions.c:1071 ../gitg/gitg-branch-actions.c:1367
-#: ../gitg/gitg-branch-actions.c:1658 ../gitg/gitg-branch-actions.c:1955
-#, c-format
-msgid "Failed to checkout local branch <%s>"
-msgstr "无法检出本地分支 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1109
-#, c-format
-msgid "Failed to checkout remote branch <%s> to local branch <%s>"
-msgstr "无法将远程分支 <%s> 检出到本地分支 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1148
-#, c-format
-msgid "Failed to checkout tag <%s> to local branch <%s>"
-msgstr "无法将标签 <%s> 检出到本地分支 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1239
-#, c-format
-msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-msgstr "无法衍合 %s 分支 <%s> 到 %s 分支 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1243
-#, c-format
-msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-msgstr "无法将 %s 分支 <%s> 与 %s 分支 <%s> 合并"
-
-#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
-#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
-#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
-#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
-msgid "local"
-msgstr "本地"
-
-#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
-#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
-#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
-#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
-msgid "remote"
-msgstr "远程"
-
-#: ../gitg/gitg-branch-actions.c:1276 ../gitg/gitg-branch-actions.c:1869
-#, fuzzy
-msgid "The stashed changes have been stored to be reapplied manually"
-msgstr "储藏的变更已被储存，以便手动重新应用"
-
-#: ../gitg/gitg-branch-actions.c:1281 ../gitg/gitg-branch-actions.c:1874
-msgid "Failed to checkout previously checked out branch"
-msgstr "无法检出之前被检出的分支"
-
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1900
-#, fuzzy
-msgid "Failed to reapply stash correctly"
-msgstr "无法正确重新应用储藏"
-
-#: ../gitg/gitg-branch-actions.c:1308 ../gitg/gitg-branch-actions.c:1901
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
-"There might be unresolved conflicts in the working tree or index which you "
-"need to resolve manually"
-msgstr "在工作树或索引中有未解决的冲突，您需要手动解决"
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr "您的邮箱尚未配置。请转到用户配置，填写您的邮箱。"
 
-#: ../gitg/gitg-branch-actions.c:1329
-#, c-format
-msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-msgstr "您确定要将 %s 分支 <%s> 合并到 %s 分支 <%s> 吗？"
+#: ../gitg/commit/gitg-commit.vala:769
+#| msgid "Failed to create tag"
+msgid "Failed to stage selection"
+msgstr "暂存选择内容失败"
 
-#: ../gitg/gitg-branch-actions.c:1337 ../gitg/gitg-branch-actions.c:1339
-#: ../gitg/gitg-branch-actions.c:1387 ../gitg/gitg-menus.xml.h:7
-msgid "Merge"
-msgstr "合并"
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "撤回选择内容失败"
 
-#: ../gitg/gitg-branch-actions.c:1368
-msgid "The branch on which to merge could not be checked out"
-msgstr "要合并的分支无法被检出"
-
-#: ../gitg/gitg-branch-actions.c:1374
-#, c-format
-msgid "Merging %s branch <%s> onto %s branch <%s>"
-msgstr "合并 %s 分支 <%s> 到 %s 分支 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1410
-#, c-format
-msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-msgstr "您确定要将 %s 分支 <%s> 衍合到 %s 分支 <%s> 吗？"
-
-#: ../gitg/gitg-branch-actions.c:1418 ../gitg/gitg-branch-actions.c:1420
-#: ../gitg/gitg-branch-actions.c:1470 ../gitg/gitg-menus.xml.h:10
-msgid "Rebase"
-msgstr "衍合"
-
-#: ../gitg/gitg-branch-actions.c:1443
-msgid "Unable to rebase"
-msgstr "无法衍合"
-
-#: ../gitg/gitg-branch-actions.c:1444
-#, fuzzy
-msgid ""
-"There are still uncommitted changes in your working tree and you are trying "
-"to rebase a branch onto the currently checked out branch. Either remove, "
-"stash or commit your changes first and try again"
-msgstr ""
-"在您的工作树中仍有未提交的变更，而您正尝试将一个分支衍合到当前检出的分支中。"
-"首先删除、储藏或者提交您的变更然后重试"
-
-#: ../gitg/gitg-branch-actions.c:1457
-#, c-format
-msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-msgstr "正在衍合 %s 分支 <%s> 到 %s 分支 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1496
-#, fuzzy, c-format
-msgid "Failed to push local branch <%s> to remote <%s>"
-msgstr "无法推送本地分支 <%s> 到远程 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1497
-msgid ""
-"This usually means that the remote branch could not be fast-forwarded. Try "
-"fetching the latest changes."
-msgstr "这通常意味着远程分支无法快进。请尝试取回最新的修改。"
-
-#: ../gitg/gitg-branch-actions.c:1521
-#, fuzzy, c-format
-msgid "Are you sure you want to push <%s> to <%s>?"
-msgstr "您确定要将 <%s> 推送到 <%s> 吗？"
-
-#: ../gitg/gitg-branch-actions.c:1527 ../gitg/gitg-branch-actions.c:1529
-#: ../gitg/gitg-branch-actions.c:1550 ../gitg/gitg-branch-actions.c:1582
-#: ../gitg/gitg-branch-actions.c:1584 ../gitg/gitg-branch-actions.c:1607
-#, fuzzy
-msgid "Push"
-msgstr "推送"
-
-#: ../gitg/gitg-branch-actions.c:1542
-#, fuzzy, c-format
-msgid "Pushing local branch <%s> to remote branch <%s>"
-msgstr "正在将本地分支 <%s> 推送到远程分支 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1576
-#, fuzzy, c-format
-msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
-msgstr "您确定要将 <%s> 推送到远程 <%s/%s> 吗?"
-
-#: ../gitg/gitg-branch-actions.c:1594
-#, fuzzy, c-format
-msgid "Pushing local branch <%s> to remote branch <%s/%s>"
-msgstr "正在将本地分支 <%s> 推送到远程分支 <%s/%s>"
-
-#: ../gitg/gitg-branch-actions.c:1631
-#, fuzzy, c-format
-msgid "Are you sure you want to apply the stash item to local branch <%s>?"
-msgstr "您确定要将储藏项应用到本地分支 <%s> 吗？"
-
-#: ../gitg/gitg-branch-actions.c:1636 ../gitg/gitg-branch-actions.c:1638
-#, fuzzy
-msgid "Apply stash"
-msgstr "应用储藏"
-
-#: ../gitg/gitg-branch-actions.c:1677
-#, fuzzy, c-format
-msgid "The stash could not be applied to local branch <%s>"
-msgstr "储藏无法被应用到本地分支 <%s>"
-
-#: ../gitg/gitg-branch-actions.c:1681
-#, fuzzy
-msgid "Failed to apply stash"
-msgstr "无法应用储藏"
-
-#: ../gitg/gitg-branch-actions.c:1724
-#, fuzzy
-#| msgid "The tag object could not be successfully created"
-msgid "The branch could not be successfully created"
-msgstr "无法成功创建储藏"
-
-#: ../gitg/gitg-branch-actions.c:1728
-msgid "Failed to create a branch"
-msgstr "创建分支失败"
-
-#: ../gitg/gitg-branch-actions.c:1780
-msgid ""
-"The tag object could not be successfully created. Please make sure you have "
-"a GPG key and the key is unlocked"
-msgstr "无法成功创建标签对象。请确保您拥有一个 GPG 密钥且密钥没有被锁定"
-
-#: ../gitg/gitg-branch-actions.c:1784
-msgid "The tag object could not be successfully created"
-msgstr "无法成功创建标签对象"
-
-#: ../gitg/gitg-branch-actions.c:1789
-msgid "Failed to create tag"
-msgstr "无法创建标签"
-
-#: ../gitg/gitg-branch-actions.c:1844
-#, c-format
-msgid "Failed to cherry-pick on <%s>"
-msgstr "无法在 <%s> 上挑拣"
-
-#: ../gitg/gitg-branch-actions.c:1921
-#, c-format
-msgid "Are you sure you want to cherry-pick that revision on <%s>?"
-msgstr "您确定要在 <%s> 上挑拣那个修订版本吗？"
-
-#: ../gitg/gitg-branch-actions.c:1926 ../gitg/gitg-branch-actions.c:1928
-#: ../gitg/gitg-branch-actions.c:1976
-msgid "Cherry-pick"
-msgstr "挑拣"
-
-#: ../gitg/gitg-branch-actions.c:1956
-msgid "The branch on which to cherry-pick could not be checked out"
-msgstr "要进行挑拣的分支无法被检出"
-
-#: ../gitg/gitg-branch-actions.c:1963
-#, c-format
-msgid "Cherry-picking on <%s>"
-msgstr "在 <%s> 上挑拣"
-
-#: ../gitg/gitg-branch-actions.c:2031
-msgid "Failed to generate format-patch"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:2081
-#, c-format
-msgid "Generating format-patch for <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:2089 ../gitg/gitg-menus.xml.h:6
-msgid "Format patch"
-msgstr ""
-
-#: ../gitg/gitg.c:52
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "显示应用程序的版本"
 
-#: ../gitg/gitg.c:53
-msgid "Start gitg in commit mode"
-msgstr "以提交模式启动 gitg"
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "以特定活动启动 gitg"
 
-#: ../gitg/gitg.c:54
-msgid "Select commit after loading the repository"
-msgstr "在载入版本库后选择提交"
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr "以提交活动启动 gitg (是 --activity commit 的简写)"
 
-#: ../gitg/gitg.c:64
-msgid "- git repository viewer"
-msgstr "- git 版本库查看器"
+#: ../gitg/gitg-application.vala:64
+msgid "Do not try to load a repository from the current working directory"
+msgstr "不尝试从当前工作目录加载仓库"
 
-#: ../gitg/gitg-commit-view.c:300 ../gitg/gitg-revision-files-panel.c:478
-msgid "Cannot display file content as text"
-msgstr "无法将文件内容显示为文本"
+#: ../gitg/gitg-application.vala:88
+#| msgid "- git repository viewer"
+msgid "- Git repository viewer"
+msgstr "- Git 版本库查看器"
 
-#: ../gitg/gitg-commit-view.c:2557
-msgid "You must first stage some changes before committing"
-msgstr "您在提交前必须首先暂存一些变更"
+#: ../gitg/gitg-application.vala:206
+#| msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "gitg 是用于 gtk+/GNOME 的一个 Git 版本库查看器"
 
-#: ../gitg/gitg-commit-view.c:2565
-msgid "Please enter a commit message before committing"
-msgstr "请在提交前输入一个提交信息"
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr "lainme <lainme993@gmail.com>\n"
+"Wylmer Wang <wantinghard@gmail.com>"
 
-#: ../gitg/gitg-commit-view.c:2587
+#: ../gitg/gitg-application.vala:218
+msgid "gitg homepage"
+msgstr "gitg 主页"
+
+#: ../gitg/gitg-author-details-dialog.vala:65
+msgid "Unable to open the .gitconfig file."
+msgstr "无法打开 .gitconfig 文件。"
+
+#: ../gitg/gitg-author-details-dialog.vala:147
+#| msgid "Failed to create tag"
+msgid "Failed to set Git user config."
+msgstr "无法设置 Git 用户配置。"
+
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr ""
+
+#: ../gitg/gitg.vala:64
 msgid ""
-"Your user name or email could not be retrieved for use in the sign off "
-"message"
-msgstr "无法获取您的用户名或电子邮箱以用于签发信息。"
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr "非常抱歉，gitg 需要带线程支持的 libgit2 编译库(gitg 的一个依赖库)。\n"
+"\n"
+"如果您是手动编译的 libgit2，请在配置 libgit2 时加上 -DTHREADSAFE:BOOL=ON。\n"
+"\n"
+"否则，请在您发行版的 BUG 提交系统中报告一条“libgit2 未带有线程支持”的 BUG。"
 
-#: ../gitg/gitg-commit-view.c:2593
-msgid "Something went wrong while trying to commit"
-msgstr "尝试提交时出现了一些错误"
+#: ../gitg/gitg-window.vala:263
+msgid "Projects"
+msgstr "项目"
 
-#: ../gitg/gitg-commit-view.c:2889
-msgid "Revert fail"
-msgstr "恢复失败"
+#: ../gitg/gitg-window.vala:299
+#| msgid "Open git repository"
+msgid "Open Repository"
+msgstr "打开版本库"
 
-#: ../gitg/gitg-commit-view.c:2905
-msgid "Are you sure you want to revert these changes?"
-msgstr "您确定要恢复这些变更吗？"
+#: ../gitg/gitg-window.vala:301
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "取消(_C)"
 
-#: ../gitg/gitg-commit-view.c:2909
-msgid "Reverting changes is permanent and cannot be undone"
-msgstr "恢复变更是永久的并且不能撤销"
+#: ../gitg/gitg-window.vala:302
+#| msgid "_Open..."
+msgid "_Open"
+msgstr "打开(_O)"
 
-#: ../gitg/gitg-commit-view.c:2988
-#, fuzzy
-#| msgid "Details"
-msgid "Delete Failed"
-msgstr "详情"
+#: ../gitg/gitg-window.vala:532
+#, c-format
+#| msgid "Not a valid git repository"
+msgid "'%s' is not a Git repository."
+msgstr "“%s”不是有效的 Git 版本库。"
 
-#: ../gitg/gitg-commit-view.c:3006
-#, fuzzy
-#| msgid "Are you sure you want to revert these changes?"
-msgid "Are you sure you want to delete these files?"
-msgstr "您确定要恢复这些变更吗？"
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
+msgid "All commits"
+msgstr "所有提交"
 
-#: ../gitg/gitg-commit-view.c:3009
-#, fuzzy
-#| msgid "Reverting changes is permanent and cannot be undone"
-msgid "Deleting files is permanent and cannot be undone"
-msgstr "恢复变更是永久的并且不能撤销"
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:202
+#| msgid "Branch:"
+msgid "Branches"
+msgstr "分支"
 
-#: ../gitg/gitg-repository-dialog.c:223 ../gitg/gitg-repository.ui.h:4
-msgid "Fetch"
-msgstr "获取"
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:239
+msgid "Remotes"
+msgstr "远程"
 
-#: ../gitg/gitg-repository-dialog.c:228
-msgid "Cancel"
-msgstr "取消"
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:265
+msgid "Tags"
+msgstr "标签"
 
-#: ../gitg/gitg-repository-dialog.c:551 ../gitg/gitg-repository.ui.h:7
-#: ../gitg/gitg-tag.ui.h:5
-msgid "Properties"
-msgstr "属性"
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
+msgid "History"
+msgstr "历史"
 
-#: ../gitg/gitg-revision-changes-panel.c:270 ../gitg/gitg-window.ui.h:5
-msgid "Changes"
-msgstr "变更"
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+#| msgid "<b>Interface</b>"
+msgid "Interface"
+msgstr "界面"
 
-#: ../gitg/gitg-revision-details-panel.c:118
-msgid "Details"
-msgstr "详情"
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "现在"
 
-#: ../gitg/gitg-revision-files-panel.c:315 ../gitg/gitg-window.ui.h:3
-msgid "Author"
-msgstr "作者"
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "%d 分钟前"
 
-#: ../gitg/gitg-revision-files-panel.c:316
-#, fuzzy
-#| msgid "Committer:"
-msgid "Committer"
-msgstr "提交者："
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "半小时前"
 
-#: ../gitg/gitg-revision-files-panel.c:317 ../gitg/gitg-window.ui.h:11
-msgid "Subject"
-msgstr "主题"
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "An hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "%d 小时前"
 
-#: ../gitg/gitg-revision-files-panel.c:884
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "A day ago"
+msgid_plural "%d days ago"
+msgstr[0] "%d 天前"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
+msgid "Save Patch File"
+msgstr "保存补丁文件"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
+msgid "_Save"
+msgstr "保存(_S)"
+
+#: ../libgitg/gitg-diff-view.vala:123
+msgid "stage"
+msgstr "暂存"
+
+#: ../libgitg/gitg-diff-view.vala:124
+msgid "unstage"
+msgstr "撤回"
+
+#: ../libgitg/gitg-diff-view.vala:125
+msgid "Loading diff…"
+msgstr "正在加载 diff..."
+
+#: ../libgitg/gitg-stage.vala:333
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "差异"
+
+#: ../plugins/files/gitg-files.vala:63
 msgid "Files"
 msgstr "文件"
 
-#: ../gitg/gitg-revision-files-panel.c:1053
-msgid "(Empty)"
-msgstr "(空的)"
+#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+#| msgid "Details"
+msgid "Author Details"
+msgstr "作者详情"
 
-#: ../gitg/gitg-window.c:680
-msgid "Select branch"
-msgstr "选择分支"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "注意：Git 配置文件“%s”不存在。"
 
-#: ../gitg/gitg-window.c:749
-#, fuzzy, c-format
-msgid "Push local branch <%s> to remote branch <%s>"
-msgstr "将本地分支 <%s> 推送到远程分支 <%s>"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr "请输入所有仓库的默认详细信息："
 
-#: ../gitg/gitg-window.c:756
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
-msgstr "合并/衍合本地分支 <%s> 与/到本地分支 <%s>"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "输入仓库“%s”的默认详细信息："
 
-#: ../gitg/gitg-window.c:763
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
-msgstr "合并/衍合本地分支 <%s> 与/到远程分支 <%s>"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+#| msgid "E-mail:"
+msgid "E-mail: "
+msgstr "电子邮件："
 
-#: ../gitg/gitg-window.c:770
-#, fuzzy, c-format
-msgid "Apply stash to local branch <%s>"
-msgstr "将储藏应用到本地分支 <%s>"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+#| msgid "Name:"
+msgid "Name: "
+msgstr "姓名："
 
-#: ../gitg/gitg-window.c:850
-#, c-format
-msgid "Cherry-pick revision on <%s>"
-msgstr "在 <%s> 上挑拣修订版本"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "取消"
 
-#: ../gitg/gitg-window.c:1213
-#, c-format
-msgid "Loaded %d revisions in %.2fs"
-msgstr "已载入 %d 条修订，用时 %.2fs"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "保存"
 
-#: ../gitg/gitg-window.c:1238
-#, c-format
-msgid "Loading %d revisions..."
-msgstr "正在载入 %d 修订版本..."
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+#| msgid "Begin loading repository"
+msgid "Clone Repository"
+msgstr "克隆仓库"
 
-#: ../gitg/gitg-window.c:1600
-msgid "Local branches"
-msgstr "本地分支"
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+msgid "Cl_one"
+msgstr "克隆(_O)"
 
-#: ../gitg/gitg-window.c:1621
-msgid "All branches"
-msgstr "所有分支"
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+#| msgid "Remotes"
+msgid "Remote _URL:"
+msgstr "远程 _URL："
 
-#: ../gitg/gitg-window.c:1698
-msgid "Begin loading repository"
-msgstr "开始载入版本库"
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "_Local Folder:"
+msgstr "本地文件夹(_L)："
 
-#: ../gitg/gitg-window.c:2139
-msgid "Open git repository"
-msgstr "打开 git 版本库"
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "Select location…"
+msgstr "选择位置..."
 
-#: ../gitg/gitg-window.c:2212
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg 是用于 gtk+/GNOME 的一个 git 版本库查看器"
-
-#: ../gitg/gitg-window.c:2523
-msgid "new"
-msgstr "新的"
-
-#: ../gitg/gitg-window.c:2851 ../gitg/gitg-window.c:2889
-#, c-format
-msgid "New local branch <%s>"
-msgstr "新的本地分支 <%s>"
-
-#: ../gitg/gitg-window.c:2867
-msgid "Checkout working copy"
-msgstr "检出工作拷贝"
-
-#: ../gitg/gitg-window.c:2868
-msgid "Remove local branch"
-msgstr "删除本地分支"
-
-#: ../gitg/gitg-window.c:2870
-msgid "Rename local branch"
-msgstr "重命名本地分支"
-
-#: ../gitg/gitg-window.c:3233 ../gitg/gitg-window.c:3289
-msgid "Not all fields are correctly filled in"
-msgstr "并非所有字段都已正确填写"
-
-#: ../gitg/gitg-window.c:3237
-msgid "Please make sure to fill in the branch name"
-msgstr "请确保填写了分支名称"
-
-#: ../gitg/gitg-window.c:3276
-msgid "Please make sure to fill in both the tag name and the commit message"
-msgstr "请确保同时填写标签名称和提交信息"
-
-#: ../gitg/gitg-window.c:3280
-msgid "Please make sure to fill in the tag name"
-msgstr "请确保填写标签名称"
-
-#: ../gitg/gitg-window.c:3357
-msgid "Format patch failed for unknown reason"
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+#| msgid "Open git repository"
+msgid "Bare repository"
 msgstr ""
 
-#: ../gitg/gitg-window.c:3361
-msgid "Please check if you have the right permissions to write the file"
-msgstr "请检查您是否有写文件的权限"
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+#| msgid "Commit"
+msgid "C_ommit"
+msgstr "提交(_O)"
 
-#. Single one, pick filename
-#: ../gitg/gitg-window.c:3400
-msgid "Save format patch"
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+msgid "Add _signed-off-by signature"
+msgstr "添加 _signed-off-by 签名"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "_Amend previous commit"
+msgstr "修正上次提交(_A)"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Close"
+msgstr "关闭"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
 msgstr ""
 
-#: ../libgitg/gitg-encodings.c:144 ../libgitg/gitg-encodings.c:186
-#: ../libgitg/gitg-encodings.c:188 ../libgitg/gitg-encodings.c:190
-#: ../libgitg/gitg-encodings.c:192 ../libgitg/gitg-encodings.c:194
-#: ../libgitg/gitg-encodings.c:196 ../libgitg/gitg-encodings.c:198
-msgid "Unicode"
-msgstr "Unicode"
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "暂存选择内容(_T)"
 
-#: ../libgitg/gitg-encodings.c:157 ../libgitg/gitg-encodings.c:181
-#: ../libgitg/gitg-encodings.c:231 ../libgitg/gitg-encodings.c:274
-msgid "Western"
-msgstr "西方"
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "主题"
 
-#: ../libgitg/gitg-encodings.c:159 ../libgitg/gitg-encodings.c:233
-#: ../libgitg/gitg-encodings.c:270
-msgid "Central European"
-msgstr "中欧"
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "作者"
 
-#: ../libgitg/gitg-encodings.c:161
-msgid "South European"
-msgstr "南欧"
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "日期"
 
-#: ../libgitg/gitg-encodings.c:163 ../libgitg/gitg-encodings.c:177
-#: ../libgitg/gitg-encodings.c:284
-msgid "Baltic"
-msgstr "波罗的语"
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "新建窗口(_N)"
 
-#: ../libgitg/gitg-encodings.c:165 ../libgitg/gitg-encodings.c:235
-#: ../libgitg/gitg-encodings.c:248 ../libgitg/gitg-encodings.c:252
-#: ../libgitg/gitg-encodings.c:254 ../libgitg/gitg-encodings.c:272
-msgid "Cyrillic"
-msgstr "西里尔文"
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+#| msgid "Preferences"
+msgid "_Preferences"
+msgstr "首选项(_P)"
 
-#: ../libgitg/gitg-encodings.c:167 ../libgitg/gitg-encodings.c:241
-#: ../libgitg/gitg-encodings.c:282
-msgid "Arabic"
-msgstr "阿拉伯语"
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Help"
+msgstr "帮助(_H)"
 
-#: ../libgitg/gitg-encodings.c:169 ../libgitg/gitg-encodings.c:276
-msgid "Greek"
-msgstr "德语"
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "关于(_A)"
 
-#: ../libgitg/gitg-encodings.c:171
-msgid "Hebrew Visual"
-msgstr ""
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "退出(_Q)"
 
-#: ../libgitg/gitg-encodings.c:173 ../libgitg/gitg-encodings.c:237
-#: ../libgitg/gitg-encodings.c:278
-msgid "Turkish"
-msgstr "土耳其语"
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+#| msgid "Open git repository"
+msgid "_Open Repository…"
+msgstr "打开仓库(_O)..."
 
-#: ../libgitg/gitg-encodings.c:175
-msgid "Nordic"
-msgstr "北欧语"
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Clone Repository…"
+msgstr "克隆仓库(_C)..."
 
-#: ../libgitg/gitg-encodings.c:179
-msgid "Celtic"
-msgstr "凯尔特语"
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
+#| msgid "Details"
+msgid "_Author Details"
+msgstr "作者详情(_A)"
 
-#: ../libgitg/gitg-encodings.c:183
-msgid "Romanian"
-msgstr "罗马尼亚语"
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "重新加载(_R)"
 
-#: ../libgitg/gitg-encodings.c:201
-msgid "Armenian"
-msgstr "美式英语"
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "显示标记(markup)"
 
-#: ../libgitg/gitg-encodings.c:203 ../libgitg/gitg-encodings.c:205
-#: ../libgitg/gitg-encodings.c:219
-msgid "Chinese Traditional"
-msgstr "繁体中文"
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+#| msgid "_Right margin at column:"
+msgid "Display _subject margin at column:"
+msgstr "显示主题边距的列(_S)："
 
-#: ../libgitg/gitg-encodings.c:207
-msgid "Cyrillic/Russian"
-msgstr "斯拉夫/俄语"
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+#| msgid "Display right _margin"
+msgid "Display right _margin at column:"
+msgstr "显示右边距的列(_M)："
 
-#: ../libgitg/gitg-encodings.c:210 ../libgitg/gitg-encodings.c:212
-#: ../libgitg/gitg-encodings.c:214 ../libgitg/gitg-encodings.c:244
-#: ../libgitg/gitg-encodings.c:259
-msgid "Japanese"
-msgstr "日语"
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "启用拼写检查"
 
-#: ../libgitg/gitg-encodings.c:217 ../libgitg/gitg-encodings.c:246
-#: ../libgitg/gitg-encodings.c:250 ../libgitg/gitg-encodings.c:265
-msgid "Korean"
-msgstr "朝语"
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+#| msgid "Co_mmit message"
+msgid "Commit Message"
+msgstr "提交消息"
 
-#: ../libgitg/gitg-encodings.c:222 ../libgitg/gitg-encodings.c:224
-#: ../libgitg/gitg-encodings.c:226
-msgid "Chinese Simplified"
-msgstr "简体中文"
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+#| msgid "Commit"
+msgid "Commits"
+msgstr "提交"
 
-#: ../libgitg/gitg-encodings.c:228
-msgid "Georgian"
-msgstr "格鲁吉亚语"
-
-#: ../libgitg/gitg-encodings.c:239 ../libgitg/gitg-encodings.c:280
-msgid "Hebrew"
-msgstr "希伯来语"
-
-#: ../libgitg/gitg-encodings.c:256
-msgid "Cyrillic/Ukrainian"
-msgstr "斯拉夫/乌克兰语"
-
-#: ../libgitg/gitg-encodings.c:261 ../libgitg/gitg-encodings.c:267
-#: ../libgitg/gitg-encodings.c:286
-msgid "Vietnamese"
-msgstr "越南语"
-
-#: ../libgitg/gitg-encodings.c:263
-msgid "Thai"
-msgstr "泰语"
-
-#: ../libgitg/gitg-encodings.c:479
-msgid "Unknown"
-msgstr "未知"
-
-#: ../libgitg/gitg-repository.c:894
-msgid "Staged changes"
-msgstr "暂存的变更"
-
-#: ../libgitg/gitg-repository.c:898
-msgid "Unstaged changes"
-msgstr "撤回的变更"
-
-#: ../libgitg/gitg-repository.c:1540
-msgid "Not a valid git repository"
-msgstr "不是有效的 git 版本库"
-
-#: ../libgitg/gitg-smart-charset-converter.c:329
-msgid "It is not possible to detect the encoding automatically"
-msgstr "无法自动检测编码"
-
-#. ex:ts=8:noet:
-#: ../gitg/gitg-commit-menu.ui.h:1
-msgid "Ignore"
-msgstr "忽略"
-
-#: ../gitg/gitg-commit-menu.ui.h:2
-msgid "Revert"
-msgstr "恢复"
-
-#: ../gitg/gitg-commit-menu.ui.h:3
-msgid "Stage"
-msgstr "暂存"
-
-#: ../gitg/gitg-commit-menu.ui.h:4
-msgid "Unstage"
-msgstr "撤回"
-
-#: ../gitg/gitg-menus.xml.h:1
-#, fuzzy
-msgid "Apply stash to..."
-msgstr "将储藏应用到..."
-
-#: ../gitg/gitg-menus.xml.h:2
-msgid "Checkout branch"
-msgstr "检出分支"
-
-#: ../gitg/gitg-menus.xml.h:3
-msgid "Cherry-pick on..."
-msgstr "挑拣在..."
-
-#: ../gitg/gitg-menus.xml.h:4 ../gitg/gitg-new-branch.ui.h:1
-msgid "Create branch"
-msgstr "创建分支"
-
-#: ../gitg/gitg-menus.xml.h:5 ../gitg/gitg-tag.ui.h:2
-msgid "Create tag"
-msgstr "创建标签"
-
-#: ../gitg/gitg-menus.xml.h:8
-msgid "Merge branch with..."
-msgstr "合并分支与..."
-
-#: ../gitg/gitg-menus.xml.h:9
-#, fuzzy
-msgid "Push branch to..."
-msgstr "推送分支到..."
-
-#: ../gitg/gitg-menus.xml.h:11
-msgid "Rebase branch onto..."
-msgstr "衍合分支到..."
-
-#: ../gitg/gitg-menus.xml.h:13
-msgid "Rename branch"
-msgstr "重命名分支"
-
-#: ../gitg/gitg-menus.xml.h:14
-msgid "_Author"
-msgstr "作者(_A)"
-
-#: ../gitg/gitg-menus.xml.h:15
-msgid "_Date"
-msgstr "日期(_D)"
-
-#: ../gitg/gitg-menus.xml.h:16
-msgid "_Hash"
-msgstr "哈希(_H)"
-
-#: ../gitg/gitg-menus.xml.h:17
-msgid "_Subject"
-msgstr "主题(_S)"
-
-#: ../gitg/gitg-preferences.ui.h:1
-msgid "<b>Commit Message</b>"
-msgstr "<b>提交信息</b>"
-
-#: ../gitg/gitg-preferences.ui.h:2
-msgid "<b>Diff Program</b>"
-msgstr "<b>Diff 程序</b>"
-
-#: ../gitg/gitg-preferences.ui.h:3
-msgid "<b>Interface</b>"
-msgstr "<b>界面</b>"
-
-#: ../gitg/gitg-preferences.ui.h:4
-msgid "<b>Revisions</b>"
-msgstr "<b>修订版本</b>"
-
-#: ../gitg/gitg-preferences.ui.h:5 ../gitg/gitg-repository.ui.h:1
-msgid "<b>User</b>"
-msgstr "<b>用户</b>"
-
-#: ../gitg/gitg-preferences.ui.h:6
-msgid "Allow external diff program"
-msgstr "允许外部 diff 程序"
-
-#: ../gitg/gitg-preferences.ui.h:7
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
 #, fuzzy
 msgid "Collapse inactive lanes"
 msgstr "折叠不活动路线"
 
-#: ../gitg/gitg-preferences.ui.h:8 ../gitg/gitg-window.ui.h:7
-msgid "Commit"
-msgstr "提交"
-
-#: ../gitg/gitg-preferences.ui.h:9 ../gitg/gitg-repository.ui.h:2
-msgid "Configuration"
-msgstr "配置"
-
-#: ../gitg/gitg-preferences.ui.h:10
-msgid ""
-"Configure global git settings. This corresponds to the settings as stored in "
-"~/.gitconfig. Repository specific settings can be configured at the "
-"repository properties."
-msgstr ""
-"配置全局 git 设置。这对应于 ~/.gitconfig 中存储的设置。版本库的特定设置可以在"
-"版本库属性中配置。"
-
-#: ../gitg/gitg-preferences.ui.h:11
-msgid "Diff"
-msgstr "差异"
-
-#: ../gitg/gitg-preferences.ui.h:12
-msgid "Display right _margin"
-msgstr "显示右边距(_M)"
-
-#: ../gitg/gitg-preferences.ui.h:13 ../gitg/gitg-repository.ui.h:3
-msgid "E-mail:"
-msgstr "电子邮件："
-
-#: ../gitg/gitg-preferences.ui.h:14
-#, fuzzy
-msgid "Early"
-msgstr "早先"
-
-#: ../gitg/gitg-preferences.ui.h:15 ../gitg/gitg-window.ui.h:10
-msgid "History"
-msgstr "历史"
-
-#: ../gitg/gitg-preferences.ui.h:16
-#, fuzzy
-msgid "Late"
-msgstr "后来的"
-
-#: ../gitg/gitg-preferences.ui.h:18
-msgid "Preferences"
-msgstr "首选项"
-
-#: ../gitg/gitg-preferences.ui.h:19
-msgid "Preferences that apply to the commit view"
-msgstr "应用于提交视图的首选项"
-
-#: ../gitg/gitg-preferences.ui.h:20
-msgid "Preferences that apply to the history view"
-msgstr "应用于历史视图的首选项"
-
-#: ../gitg/gitg-preferences.ui.h:21
-msgid "Search filters revisions in the history view"
-msgstr "搜索时对历史视图中的修订进行筛选"
-
-#: ../gitg/gitg-preferences.ui.h:22
-msgid "Show history in topological order"
-msgstr "以拓扑顺序显示历史"
-
-#: ../gitg/gitg-preferences.ui.h:23
-msgid "Show staged changes in history"
-msgstr "在历史中显示暂存变更"
-
-#: ../gitg/gitg-preferences.ui.h:24
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
 #, fuzzy
 msgid "Show stash in history"
 msgstr "在历史中显示储藏"
 
-#: ../gitg/gitg-preferences.ui.h:25
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "在历史中显示暂存变更"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
 msgid "Show unstaged changes in history"
 msgstr "在历史中显示撤回的变更"
 
-#: ../gitg/gitg-preferences.ui.h:26
-msgid "Use vertical layout"
-msgstr "使用竖直布局"
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "以拓扑顺序显示历史"
 
-#: ../gitg/gitg-preferences.ui.h:27
-msgid "_Right margin at column:"
-msgstr "列的右边距(_R)："
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "早"
 
-#: ../gitg/gitg-repository.ui.h:5
-msgid "Name"
-msgstr "名称"
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "晚"
 
-#: ../gitg/gitg-repository.ui.h:8
-msgid "Remotes"
-msgstr "远程"
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Layout"
+msgstr "布局"
 
-#: ../gitg/gitg-repository.ui.h:9
-msgid "URL"
-msgstr "URL"
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+#| msgid "Use vertical layout"
+msgid "Use horizontal layout"
+msgstr "使用水平布局"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:1
-msgid "Author:"
-msgstr "作者："
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "Preferences"
+msgstr "首选项"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:2
-msgid "Committer:"
-msgstr "提交者："
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "列"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:3
-msgid "Parent:"
-msgstr "父树"
+#~ msgid "Allow External Diff Program"
+#~ msgstr "允许外部 Diff 程序"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:4
-msgid "SHA:"
-msgstr "SHA："
+#~ msgid ""
+#~ "Allow an external diff program to be used when viewing diffs in gitg."
+#~ msgstr "在 gitg 中查看差异时允许使用外部的 diff 程序。"
 
-#: ../gitg/gitg-revision-details-panel.ui.h:5
-msgid "Subject:"
-msgstr "主题："
+#~ msgid "Filter Revisions When Searching"
+#~ msgstr "在搜索时过滤修订版本"
 
-#: ../gitg/gitg-revision-files-panel.ui.h:1
-msgid "Switch to Blame mode"
-msgstr ""
-
-#: ../gitg/gitg-tag.ui.h:1
-msgid "Create signed tag object"
-msgstr "创建签名的标签对象"
-
-#: ../gitg/gitg-tag.ui.h:3
-msgid "Message:"
-msgstr "信息："
-
-#: ../gitg/gitg-ui.xml.h:1
-msgid "R_ecently Opened"
-msgstr "最近打开的(_E)"
-
-#: ../gitg/gitg-ui.xml.h:2
-msgid "_Edit"
-msgstr "编辑(_E)"
-
-#: ../gitg/gitg-ui.xml.h:3
-msgid "_File"
-msgstr "文件(_F)"
-
-#: ../gitg/gitg-ui.xml.h:4
-msgid "_Help"
-msgstr "帮助(_H)"
-
-#: ../gitg/gitg-ui.xml.h:5
-msgid "_Open..."
-msgstr "打开(_O)..."
-
-#: ../gitg/gitg-ui.xml.h:6
-msgid "_View"
-msgstr "视图(_V)"
-
-#: ../gitg/gitg-window.ui.h:1
-msgid "Add signed-off-by"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:2
-msgid "Amend"
-msgstr "修订"
-
-#: ../gitg/gitg-window.ui.h:4
-msgid "Branch:"
-msgstr "分支："
-
-#: ../gitg/gitg-window.ui.h:6
-msgid "Co_mmit message"
-msgstr "提交信息(_M)"
-
-#: ../gitg/gitg-window.ui.h:8
-msgid "Context:"
-msgstr "内容："
-
-#: ../gitg/gitg-window.ui.h:9
-msgid "Date"
-msgstr "日期"
-
-#: ../gitg/gitg-window.ui.h:12
-msgid "Unstaged"
-msgstr "撤回"
-
-#: ../gitg/gitg-window.ui.h:13
 #, fuzzy
-#| msgid "Commit"
-msgid "_Commit"
-msgstr "提交"
+#~| msgid "Setting that sets the orientation layout of the main view."
+#~ msgid "Setting that sets files view to blame mode."
+#~ msgstr "设定主视图方向布局的设置。"
 
-#: ../gitg/gitg-window.ui.h:14
-msgid "_Staged"
-msgstr "暂存(_S)"
+#~ msgid "Show Main View in Vertical or Horizontal Layout"
+#~ msgstr "以竖直布局或水平布局显示主视图"
 
-#: ../gitg/gitg-window.ui.h:15
-msgid "_Unstaged"
-msgstr "撤回(_U)"
+#~ msgid ""
+#~ "Whether searching filters the revisions in the history view instead of "
+#~ "jumping to the first match."
+#~ msgstr "搜索时是对历史视图中的修订进行筛选，还是直接跳到第一个匹配项。"
 
-#~ msgid "unstage"
+#~ msgid "Branch <%s> could not be removed"
+#~ msgstr "分支 <%s> 无法删除"
+
+#~ msgid ""
+#~ "This usually means that the branch is not fully merged in HEAD. Do you "
+#~ "want to forcefully remove the branch?"
+#~ msgstr "这通常表示分支没有完全合并到 HEAD。您想强制删除分支吗？"
+
+#~ msgid "Force remove"
+#~ msgstr "强制删除"
+
+#~ msgid "Branch <%s> could not be forcefully removed"
+#~ msgstr "分支 <%s> 无法强制删除"
+
+#~ msgid "Failed to remove remote branch <%s>."
+#~ msgstr "无法删除远程分支 <%s>。"
+
+#~ msgid "Are you sure you want to remove the remote branch <%s>?"
+#~ msgstr "您确定要删除远程分支 <%s> 吗？"
+
+#~ msgid "This permanently removes the remote branch."
+#~ msgstr "这会永久删除远程分支。"
+
+#~ msgid "Remove remote branch"
+#~ msgstr "删除远程分支"
+
+#~ msgid "Remove branch"
+#~ msgstr "删除分支"
+
+#, fuzzy
+#~ msgid "Are you sure you want to remove this stash item?"
+#~ msgstr "您确定要删除这个储藏项吗？"
+
+#, fuzzy
+#~ msgid "This permanently removes the stash item"
+#~ msgstr "这会永久删除储藏项"
+
+#, fuzzy
+#~ msgid "Remove stash"
+#~ msgstr "删除储藏"
+
+#, fuzzy
+#~ msgid "Failed to remove stash"
+#~ msgstr "无法删除储藏"
+
+#, fuzzy
+#~ msgid "The stash item could not be successfully removed"
+#~ msgstr "储藏项无法成功删除"
+
+#~ msgid "Are you sure you want to remove the tag <%s>?"
+#~ msgstr "您确定要删除标签 <%s> 吗？"
+
+#~ msgid "Remove tag"
+#~ msgstr "删除标签"
+
+#~ msgid "The tag <%s> could not be successfully removed"
+#~ msgstr "标签 <%s> 无法成功删除"
+
+#~ msgid "Branch <%s> could not be renamed to <%s>"
+#~ msgstr "分支 <%s> 无法重命名为 <%s>"
+
+#~ msgid ""
+#~ "This usually means that a branch with that name already exists. Do you "
+#~ "want to overwrite the branch?"
+#~ msgstr "这通常表示以此为名的分支已经存在。您想覆盖这个分支吗？"
+
+#~ msgid "Force rename"
+#~ msgstr "强制重命名"
+
+#~ msgid "Branch <%s> could not be forcefully renamed"
+#~ msgstr "分支 <%s> 无法强制重命名"
+
+#, fuzzy
+#~ msgid "Do you want to temporarily stash these changes?"
+#~ msgstr "您想临时储藏这些变更吗？"
+
+#, fuzzy
+#~ msgid "Do you want to stash and reapply these changes?"
+#~ msgstr "您想储藏并重新应用这些变更？"
+
+#~ msgid "You have uncommited changes in your current working tree"
+#~ msgstr "您在当前工作树下有未提交的变更"
+
+#, fuzzy
+#~ msgid "Stash changes"
+#~ msgstr "储藏变更"
+
+#~ msgid "Failed to checkout local branch <%s>"
+#~ msgstr "无法检出本地分支 <%s>"
+
+#~ msgid "Failed to checkout remote branch <%s> to local branch <%s>"
+#~ msgstr "无法将远程分支 <%s> 检出到本地分支 <%s>"
+
+#~ msgid "Failed to checkout tag <%s> to local branch <%s>"
+#~ msgstr "无法将标签 <%s> 检出到本地分支 <%s>"
+
+#~ msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
+#~ msgstr "无法衍合 %s 分支 <%s> 到 %s 分支 <%s>"
+
+#~ msgid "Failed to merge %s branch <%s> with %s branch <%s>"
+#~ msgstr "无法将 %s 分支 <%s> 与 %s 分支 <%s> 合并"
+
+#~ msgid "local"
+#~ msgstr "本地"
+
+#~ msgid "remote"
+#~ msgstr "远程"
+
+#, fuzzy
+#~ msgid "The stashed changes have been stored to be reapplied manually"
+#~ msgstr "储藏的变更已被储存，以便手动重新应用"
+
+#~ msgid "Failed to checkout previously checked out branch"
+#~ msgstr "无法检出之前被检出的分支"
+
+#, fuzzy
+#~ msgid "Failed to reapply stash correctly"
+#~ msgstr "无法正确重新应用储藏"
+
+#~ msgid ""
+#~ "There might be unresolved conflicts in the working tree or index which "
+#~ "you need to resolve manually"
+#~ msgstr "在工作树或索引中有未解决的冲突，您需要手动解决"
+
+#~ msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
+#~ msgstr "您确定要将 %s 分支 <%s> 合并到 %s 分支 <%s> 吗？"
+
+#~ msgid "Merge"
+#~ msgstr "合并"
+
+#~ msgid "The branch on which to merge could not be checked out"
+#~ msgstr "要合并的分支无法被检出"
+
+#~ msgid "Merging %s branch <%s> onto %s branch <%s>"
+#~ msgstr "合并 %s 分支 <%s> 到 %s 分支 <%s>"
+
+#~ msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
+#~ msgstr "您确定要将 %s 分支 <%s> 衍合到 %s 分支 <%s> 吗？"
+
+#~ msgid "Rebase"
+#~ msgstr "衍合"
+
+#~ msgid "Unable to rebase"
+#~ msgstr "无法衍合"
+
+#, fuzzy
+#~ msgid ""
+#~ "There are still uncommitted changes in your working tree and you are "
+#~ "trying to rebase a branch onto the currently checked out branch. Either "
+#~ "remove, stash or commit your changes first and try again"
+#~ msgstr ""
+#~ "在您的工作树中仍有未提交的变更，而您正尝试将一个分支衍合到当前检出的分支"
+#~ "中。首先删除、储藏或者提交您的变更然后重试"
+
+#~ msgid "Rebasing %s branch <%s> onto %s branch <%s>"
+#~ msgstr "正在衍合 %s 分支 <%s> 到 %s 分支 <%s>"
+
+#, fuzzy
+#~ msgid "Failed to push local branch <%s> to remote <%s>"
+#~ msgstr "无法推送本地分支 <%s> 到远程 <%s>"
+
+#~ msgid ""
+#~ "This usually means that the remote branch could not be fast-forwarded. "
+#~ "Try fetching the latest changes."
+#~ msgstr "这通常意味着远程分支无法快进。请尝试取回最新的修改。"
+
+#, fuzzy
+#~ msgid "Are you sure you want to push <%s> to <%s>?"
+#~ msgstr "您确定要将 <%s> 推送到 <%s> 吗？"
+
+#, fuzzy
+#~ msgid "Push"
+#~ msgstr "推送"
+
+#, fuzzy
+#~ msgid "Pushing local branch <%s> to remote branch <%s>"
+#~ msgstr "正在将本地分支 <%s> 推送到远程分支 <%s>"
+
+#, fuzzy
+#~ msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
+#~ msgstr "您确定要将 <%s> 推送到远程 <%s/%s> 吗?"
+
+#, fuzzy
+#~ msgid "Pushing local branch <%s> to remote branch <%s/%s>"
+#~ msgstr "正在将本地分支 <%s> 推送到远程分支 <%s/%s>"
+
+#, fuzzy
+#~ msgid "Are you sure you want to apply the stash item to local branch <%s>?"
+#~ msgstr "您确定要将储藏项应用到本地分支 <%s> 吗？"
+
+#, fuzzy
+#~ msgid "Apply stash"
+#~ msgstr "应用储藏"
+
+#, fuzzy
+#~ msgid "The stash could not be applied to local branch <%s>"
+#~ msgstr "储藏无法被应用到本地分支 <%s>"
+
+#, fuzzy
+#~ msgid "Failed to apply stash"
+#~ msgstr "无法应用储藏"
+
+#, fuzzy
+#~| msgid "The tag object could not be successfully created"
+#~ msgid "The branch could not be successfully created"
+#~ msgstr "无法成功创建储藏"
+
+#~ msgid "Failed to create a branch"
+#~ msgstr "创建分支失败"
+
+#~ msgid ""
+#~ "The tag object could not be successfully created. Please make sure you "
+#~ "have a GPG key and the key is unlocked"
+#~ msgstr "无法成功创建标签对象。请确保您拥有一个 GPG 密钥且密钥没有被锁定"
+
+#~ msgid "The tag object could not be successfully created"
+#~ msgstr "无法成功创建标签对象"
+
+#~ msgid "Failed to cherry-pick on <%s>"
+#~ msgstr "无法在 <%s> 上挑拣"
+
+#~ msgid "Are you sure you want to cherry-pick that revision on <%s>?"
+#~ msgstr "您确定要在 <%s> 上挑拣那个修订版本吗？"
+
+#~ msgid "Cherry-pick"
+#~ msgstr "挑拣"
+
+#~ msgid "The branch on which to cherry-pick could not be checked out"
+#~ msgstr "要进行挑拣的分支无法被检出"
+
+#~ msgid "Cherry-picking on <%s>"
+#~ msgstr "在 <%s> 上挑拣"
+
+#~ msgid "Start gitg in commit mode"
+#~ msgstr "以提交模式启动 gitg"
+
+#~ msgid "Select commit after loading the repository"
+#~ msgstr "在载入版本库后选择提交"
+
+#~ msgid "Cannot display file content as text"
+#~ msgstr "无法将文件内容显示为文本"
+
+#~ msgid "You must first stage some changes before committing"
+#~ msgstr "您在提交前必须首先暂存一些变更"
+
+#~ msgid ""
+#~ "Your user name or email could not be retrieved for use in the sign off "
+#~ "message"
+#~ msgstr "无法获取您的用户名或电子邮箱以用于签发信息。"
+
+#~ msgid "Something went wrong while trying to commit"
+#~ msgstr "尝试提交时出现了一些错误"
+
+#~ msgid "Revert fail"
+#~ msgstr "恢复失败"
+
+#~ msgid "Are you sure you want to revert these changes?"
+#~ msgstr "您确定要恢复这些变更吗？"
+
+#~ msgid "Reverting changes is permanent and cannot be undone"
+#~ msgstr "恢复变更是永久的并且不能撤销"
+
+#, fuzzy
+#~| msgid "Details"
+#~ msgid "Delete Failed"
+#~ msgstr "详情"
+
+#, fuzzy
+#~| msgid "Are you sure you want to revert these changes?"
+#~ msgid "Are you sure you want to delete these files?"
+#~ msgstr "您确定要恢复这些变更吗？"
+
+#, fuzzy
+#~| msgid "Reverting changes is permanent and cannot be undone"
+#~ msgid "Deleting files is permanent and cannot be undone"
+#~ msgstr "恢复变更是永久的并且不能撤销"
+
+#~ msgid "Fetch"
+#~ msgstr "获取"
+
+#~ msgid "Properties"
+#~ msgstr "属性"
+
+#~ msgid "Changes"
+#~ msgstr "变更"
+
+#, fuzzy
+#~| msgid "Committer:"
+#~ msgid "Committer"
+#~ msgstr "提交者："
+
+#~ msgid "(Empty)"
+#~ msgstr "(空的)"
+
+#~ msgid "Select branch"
+#~ msgstr "选择分支"
+
+#, fuzzy
+#~ msgid "Push local branch <%s> to remote branch <%s>"
+#~ msgstr "将本地分支 <%s> 推送到远程分支 <%s>"
+
+#~ msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
+#~ msgstr "合并/衍合本地分支 <%s> 与/到本地分支 <%s>"
+
+#~ msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
+#~ msgstr "合并/衍合本地分支 <%s> 与/到远程分支 <%s>"
+
+#, fuzzy
+#~ msgid "Apply stash to local branch <%s>"
+#~ msgstr "将储藏应用到本地分支 <%s>"
+
+#~ msgid "Cherry-pick revision on <%s>"
+#~ msgstr "在 <%s> 上挑拣修订版本"
+
+#~ msgid "Loaded %d revisions in %.2fs"
+#~ msgstr "已载入 %d 条修订，用时 %.2fs"
+
+#~ msgid "Loading %d revisions..."
+#~ msgstr "正在载入 %d 修订版本..."
+
+#~ msgid "Local branches"
+#~ msgstr "本地分支"
+
+#~ msgid "All branches"
+#~ msgstr "所有分支"
+
+#~ msgid "new"
+#~ msgstr "新的"
+
+#~ msgid "New local branch <%s>"
+#~ msgstr "新的本地分支 <%s>"
+
+#~ msgid "Checkout working copy"
+#~ msgstr "检出工作拷贝"
+
+#~ msgid "Remove local branch"
+#~ msgstr "删除本地分支"
+
+#~ msgid "Rename local branch"
+#~ msgstr "重命名本地分支"
+
+#~ msgid "Not all fields are correctly filled in"
+#~ msgstr "并非所有字段都已正确填写"
+
+#~ msgid "Please make sure to fill in the branch name"
+#~ msgstr "请确保填写了分支名称"
+
+#~ msgid "Please make sure to fill in both the tag name and the commit message"
+#~ msgstr "请确保同时填写标签名称和提交信息"
+
+#~ msgid "Please make sure to fill in the tag name"
+#~ msgstr "请确保填写标签名称"
+
+#~ msgid "Please check if you have the right permissions to write the file"
+#~ msgstr "请检查您是否有写文件的权限"
+
+#~ msgid "Unicode"
+#~ msgstr "Unicode"
+
+#~ msgid "Western"
+#~ msgstr "西方"
+
+#~ msgid "Central European"
+#~ msgstr "中欧"
+
+#~ msgid "South European"
+#~ msgstr "南欧"
+
+#~ msgid "Baltic"
+#~ msgstr "波罗的语"
+
+#~ msgid "Cyrillic"
+#~ msgstr "西里尔文"
+
+#~ msgid "Arabic"
+#~ msgstr "阿拉伯语"
+
+#~ msgid "Greek"
+#~ msgstr "德语"
+
+#~ msgid "Turkish"
+#~ msgstr "土耳其语"
+
+#~ msgid "Nordic"
+#~ msgstr "北欧语"
+
+#~ msgid "Celtic"
+#~ msgstr "凯尔特语"
+
+#~ msgid "Romanian"
+#~ msgstr "罗马尼亚语"
+
+#~ msgid "Armenian"
+#~ msgstr "美式英语"
+
+#~ msgid "Chinese Traditional"
+#~ msgstr "繁体中文"
+
+#~ msgid "Cyrillic/Russian"
+#~ msgstr "斯拉夫/俄语"
+
+#~ msgid "Japanese"
+#~ msgstr "日语"
+
+#~ msgid "Korean"
+#~ msgstr "朝语"
+
+#~ msgid "Chinese Simplified"
+#~ msgstr "简体中文"
+
+#~ msgid "Georgian"
+#~ msgstr "格鲁吉亚语"
+
+#~ msgid "Hebrew"
+#~ msgstr "希伯来语"
+
+#~ msgid "Cyrillic/Ukrainian"
+#~ msgstr "斯拉夫/乌克兰语"
+
+#~ msgid "Vietnamese"
+#~ msgstr "越南语"
+
+#~ msgid "Thai"
+#~ msgstr "泰语"
+
+#~ msgid "Unknown"
+#~ msgstr "未知"
+
+#~ msgid "Staged changes"
+#~ msgstr "暂存的变更"
+
+#~ msgid "It is not possible to detect the encoding automatically"
+#~ msgstr "无法自动检测编码"
+
+#~ msgid "Ignore"
+#~ msgstr "忽略"
+
+#~ msgid "Revert"
+#~ msgstr "恢复"
+
+#~ msgid "Stage"
+#~ msgstr "暂存"
+
+#~ msgid "Unstage"
 #~ msgstr "撤回"
 
-#~ msgid "stage"
-#~ msgstr "暂存"
+#, fuzzy
+#~ msgid "Apply stash to..."
+#~ msgstr "将储藏应用到..."
+
+#~ msgid "Checkout branch"
+#~ msgstr "检出分支"
+
+#~ msgid "Cherry-pick on..."
+#~ msgstr "挑拣在..."
+
+#~ msgid "Create branch"
+#~ msgstr "创建分支"
+
+#~ msgid "Create tag"
+#~ msgstr "创建标签"
+
+#~ msgid "Merge branch with..."
+#~ msgstr "合并分支与..."
+
+#, fuzzy
+#~ msgid "Push branch to..."
+#~ msgstr "推送分支到..."
+
+#~ msgid "Rebase branch onto..."
+#~ msgstr "衍合分支到..."
+
+#~ msgid "Rename branch"
+#~ msgstr "重命名分支"
+
+#~ msgid "_Author"
+#~ msgstr "作者(_A)"
+
+#~ msgid "_Date"
+#~ msgstr "日期(_D)"
+
+#~ msgid "_Hash"
+#~ msgstr "哈希(_H)"
+
+#~ msgid "_Subject"
+#~ msgstr "主题(_S)"
+
+#~ msgid "<b>Commit Message</b>"
+#~ msgstr "<b>提交信息</b>"
+
+#~ msgid "<b>Diff Program</b>"
+#~ msgstr "<b>Diff 程序</b>"
+
+#~ msgid "<b>Revisions</b>"
+#~ msgstr "<b>修订版本</b>"
+
+#~ msgid "<b>User</b>"
+#~ msgstr "<b>用户</b>"
+
+#~ msgid "Allow external diff program"
+#~ msgstr "允许外部 diff 程序"
+
+#~ msgid "Configuration"
+#~ msgstr "配置"
+
+#~ msgid ""
+#~ "Configure global git settings. This corresponds to the settings as stored "
+#~ "in ~/.gitconfig. Repository specific settings can be configured at the "
+#~ "repository properties."
+#~ msgstr ""
+#~ "配置全局 git 设置。这对应于 ~/.gitconfig 中存储的设置。版本库的特定设置可"
+#~ "以在版本库属性中配置。"
+
+#~ msgid "Preferences that apply to the commit view"
+#~ msgstr "应用于提交视图的首选项"
+
+#~ msgid "Preferences that apply to the history view"
+#~ msgstr "应用于历史视图的首选项"
+
+#~ msgid "Search filters revisions in the history view"
+#~ msgstr "搜索时对历史视图中的修订进行筛选"
+
+#~ msgid "Name"
+#~ msgstr "名称"
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#~ msgid "Author:"
+#~ msgstr "作者："
+
+#~ msgid "Committer:"
+#~ msgstr "提交者："
+
+#~ msgid "Parent:"
+#~ msgstr "父树"
+
+#~ msgid "SHA:"
+#~ msgstr "SHA："
+
+#~ msgid "Subject:"
+#~ msgstr "主题："
+
+#~ msgid "Create signed tag object"
+#~ msgstr "创建签名的标签对象"
+
+#~ msgid "Message:"
+#~ msgstr "信息："
+
+#~ msgid "R_ecently Opened"
+#~ msgstr "最近打开的(_E)"
+
+#~ msgid "_Edit"
+#~ msgstr "编辑(_E)"
+
+#~ msgid "_File"
+#~ msgstr "文件(_F)"
+
+#~ msgid "_View"
+#~ msgstr "视图(_V)"
+
+#~ msgid "Amend"
+#~ msgstr "修订"
+
+#~ msgid "Context:"
+#~ msgstr "内容："
+
+#, fuzzy
+#~| msgid "Commit"
+#~ msgid "_Commit"
+#~ msgstr "提交"
+
+#~ msgid "_Unstaged"
+#~ msgstr "撤回(_U)"
 
 #~ msgid ""
 #~ "This program is free software; you can redistribute it and/or modify\n"
