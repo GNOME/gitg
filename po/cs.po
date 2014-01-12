@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-01-02 19:14+0000\n"
-"PO-Revision-Date: 2014-01-03 08:32+0100\n"
+"POT-Creation-Date: 2014-01-07 00:07+0000\n"
+"PO-Revision-Date: 2014-01-12 09:05+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -262,8 +262,8 @@ msgid "Start gitg with a particular activity"
 msgstr "Spustit gitg s konkrétní činností"
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
-msgstr "Spustit gitg s činností zařazování (zkratka pro --view commit)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr "Spustit gitg s činností zařazování (zkratka pro --activity commit)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
@@ -273,15 +273,15 @@ msgstr "Nezkoušet načíst repozitář z aktuální pracovní složky"
 msgid "- Git repository viewer"
 msgstr "– prohlížeč repozitářů Git"
 
-#: ../gitg/gitg-application.vala:205
+#: ../gitg/gitg-application.vala:206
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg je prohlížeč repozitářů Git pro gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:213
+#: ../gitg/gitg-application.vala:215
 msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
 
-#: ../gitg/gitg-application.vala:216
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "domovská stránka gitg"
 
@@ -296,6 +296,26 @@ msgstr "Selhalo nastavení údajů o uživateli pro Git."
 #: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
 msgstr "Uvedená adresa URL není podporována"
+
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"Je nám velice líto, ale gitg vyžaduje libgit2 (knihovna, na které gitg "
+"závisí) přeloženou s podporou vláken.\n"
+"\n"
+"Pokud si libgit2 překládáte sami, nastavte jej prosím pomocí -DTHREADSAFE:"
+"BOOL=ON.\n"
+"\n"
+"Jinak nahlaste chybu autorům své distribuce, že poskytují libgit2 bez "
+"podpory vláken."
 
 #: ../gitg/gitg-window.vala:263
 msgid "Projects"
@@ -388,19 +408,19 @@ msgstr "Uložení záplaty do souboru"
 msgid "_Save"
 msgstr "_Uložit"
 
-#: ../libgitg/gitg-diff-view.vala:120
+#: ../libgitg/gitg-diff-view.vala:123
 msgid "stage"
 msgstr "připravit"
 
-#: ../libgitg/gitg-diff-view.vala:121
+#: ../libgitg/gitg-diff-view.vala:124
 msgid "unstage"
 msgstr "zrušit připravenost"
 
-#: ../libgitg/gitg-diff-view.vala:122
+#: ../libgitg/gitg-diff-view.vala:125
 msgid "Loading diff…"
 msgstr "Načítá se rozdíl…"
 
-#: ../libgitg/gitg-stage.vala:300
+#: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Nelze přečíst zprávu o zařazení po spuštění háčku commit-msg: %s"
