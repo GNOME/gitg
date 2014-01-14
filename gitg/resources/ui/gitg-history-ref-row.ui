@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.3 -->
+  <!-- interface-requires gitg 0.0 -->
+  <!-- interface-requires gd 1.0 -->
+  <template class="GitgHistoryRefRow">
+    <property name="orientation">horizontal</property>
+    <property name="visible">True</property>
+    <property name="margin_left">16</property>
+    <child>
+      <object class="GtkImage" id="d_icon">
+        <property name="icon_size">1</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="d_label">
+        <property name="visible">True</property>
+        <property name="ellipsize">middle</property>
+        <property name="xalign">0</property>
+      </object>
+    </child>
+  </template>
+</interface>
+<!-- vi:ts=2:et -->

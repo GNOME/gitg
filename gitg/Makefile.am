@@ -64,7 +64,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/preferences/gitg-preferences-interface.vala	\
 	gitg/preferences/gitg-preferences-history.vala		\
 	gitg/history/gitg-history.vala				\
-	gitg/history/gitg-history-navigation.vala		\
+	gitg/history/gitg-history-refs-list.vala		\
 	gitg/history/gitg-history-paned.vala			\
 	gitg/commit/gitg-commit.vala				\
 	gitg/commit/gitg-commit-paned.vala			\

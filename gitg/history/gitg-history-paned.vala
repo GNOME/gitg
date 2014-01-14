@@ -33,7 +33,7 @@ class Paned : Gtk.Paned
 	private Gtk.StackSwitcher d_stack_switcher_panels;
 
 	[GtkChild]
-	private NavigationView d_navigation_view;
+	private RefsList d_refs_list;
 
 	[GtkChild]
 	private Gtk.TreeView d_commit_list_view;
@@ -117,9 +117,9 @@ class Paned : Gtk.Paned
 		Object(orientation: Gtk.Orientation.HORIZONTAL);
 	}
 
-	public NavigationView navigation_view
+	public RefsList refs_list
 	{
-		get { return d_navigation_view; }
+		get { return d_refs_list; }
 	}
 
 	public Gtk.TreeView commit_list_view
