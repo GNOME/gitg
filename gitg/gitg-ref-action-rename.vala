@@ -22,21 +22,36 @@ namespace Gitg
 
 class RefActionRename : GitgExt.Action, GitgExt.RefAction, Object
 {
-	public Ggit.Ref reference { get; construct set; }
+	// Do this to pull in config.h before glib.h (for gettext...)
+	private const string version = Gitg.Config.VERSION;
+
 	public GitgExt.ActionInterface action_interface { get; construct set; }
+	public Ggit.Ref reference { get; construct set; }
+
+	public RefActionRename(GitgExt.ActionInterface action_interface, Ggit.Ref reference)
+	{
+		Object(action_interface: action_interface, reference: reference);
+	}
 
 	public string label
 	{
-		get { return "Rename"; }
+		get { return _("Rename"); }
 	}
 
-	public bool enabled
+	public bool visible
 	{
 		get { return true; }
 	}
 
-	public void activate()
+	public bool enabled
 	{
+		get
+		{
+			var r = reference as Gitg.Ref;
+			var rtype = r.parsed_name.rtype;
+
+			return rtype == RefType.BRANCH || rtype == RefType.TAG;
+		}
 	}
 }
 
