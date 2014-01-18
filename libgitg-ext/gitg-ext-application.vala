@@ -46,6 +46,11 @@ public interface Application : Object
 	public abstract GitgExt.Activity? current_activity { owned get; }
 
 	/**
+	 * The application action interface.
+	 */
+	public abstract GitgExt.ActionInterface action_interface { owned get; }
+
+	/**
 	 * Set the current application main activity.
 	 *
 	 * @param id the id of the activity {@link UIElement.id}.
