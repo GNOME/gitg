@@ -26,8 +26,30 @@ public interface Action : Object
 
 	public abstract string label { get; }
 	public abstract bool enabled { get; }
+	public abstract bool visible { get; }
 
-	public abstract void activate();
+	public virtual signal void activated()
+	{
+	}
+
+	public virtual void populate_menu(Gtk.Menu menu)
+	{
+		var item = new Gtk.MenuItem.with_label(label);
+
+		if (enabled)
+		{
+			item.activate.connect(() => {
+				activated();
+			});
+		}
+		else
+		{
+			item.sensitive = false;
+		}
+
+		item.show();
+		menu.append(item);
+	}
 }
 
 }

@@ -20,7 +20,7 @@
 namespace Gitg
 {
 
-class RefActionRename : GitgExt.RefAction, GitgExt.Action, Object
+class RefActionRename : GitgExt.Action, GitgExt.RefAction, Object
 {
 	public Ggit.Ref reference { get; construct set; }
 	public GitgExt.ActionInterface action_interface { get; construct set; }
