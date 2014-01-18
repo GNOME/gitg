@@ -661,61 +661,7 @@ namespace GitgCommit
 
 		private Ggit.Signature get_signature(string envname) throws Error
 		{
-			string? user = null;
-			string? email = null;
-			DateTime? date = null;
-
-			var env = application.environment;
-
-			var nameenv = @"GIT_$(envname)_NAME";
-			var emailenv = @"GIT_$(envname)_EMAIL";
-			var dateenv = @"GIT_$(envname)_DATE";
-
-			if (env.has_key(nameenv))
-			{
-				user = env[nameenv];
-			}
-
-			if (env.has_key(emailenv))
-			{
-				email = env[emailenv];
-			}
-
-			if (env.has_key(dateenv))
-			{
-				try
-				{
-					date = Gitg.Date.parse(env[dateenv]);
-				}
-				catch {}
-			}
-
-			if (date == null)
-			{
-				date = new DateTime.now_local();
-			}
-
-			var conf = application.repository.get_config();
-
-			if (user == null)
-			{
-				try
-				{
-					user = conf.get_string("user.name");
-				} catch {}
-			}
-
-			if (email == null)
-			{
-				try
-				{
-					email = conf.get_string("user.email");
-				} catch {}
-			}
-
-			return new Ggit.Signature(user != null ? user : "",
-			                          email != null ? email : "",
-			                          date);
+			return application.repository.get_signature_with_environment(application.environment, envname);
 		}
 
 		private void on_commit_clicked()

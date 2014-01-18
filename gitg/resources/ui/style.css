@@ -76,6 +76,15 @@ GitgHistoryPaned panel-switcher {
 	background-color: @theme_bg_color;
 }
 
+GitgHistoryPaned GtkEntry.ref_editing_entry {
+	padding: 0;
+	border: 0;
+}
+
+GitgHistoryPaned GtkEntry.ref_editing_entry:selected {
+	background-color: lighter(@theme_selected_bg_color);
+}
+
 .progress-bin {
 	background-color: shade (@theme_bg_color, 0.9);
 }

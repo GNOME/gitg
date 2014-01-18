@@ -48,6 +48,7 @@ public class ParsedRefName : Object
 	private string d_name;
 	private string d_remote_name;
 	private string d_remote_branch;
+	private string? d_prefix;
 
 	/**
 	 * The type of ref.
@@ -92,6 +93,11 @@ public class ParsedRefName : Object
 		parse_name(name);
 	}
 
+	public string? prefix
+	{
+		get { return d_prefix; }
+	}
+
 	private void parse_name(string name)
 	{
 		d_name = name;
@@ -104,6 +110,7 @@ public class ParsedRefName : Object
 		};
 
 		d_shortname = name;
+		d_prefix = null;
 
 		for (var i = 0; i < prefixes.length; ++i)
 		{
@@ -112,15 +119,18 @@ public class ParsedRefName : Object
 				continue;
 			}
 
+			d_prefix = prefixes[i];
+
 			rtype = (RefType)(i + 1);
 
 			if (rtype == RefType.STASH)
 			{
+				d_prefix = "refs/";
 				d_shortname = "stash";
 			}
 			else
 			{
-				d_shortname = d_name[prefixes[i].length:d_name.length];
+				d_shortname = d_name[d_prefix.length:d_name.length];
 			}
 
 			if (rtype == RefType.REMOTE)
