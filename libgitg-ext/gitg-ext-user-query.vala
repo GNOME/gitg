@@ -47,4 +47,3 @@ public class UserQuery : Object
 }
 
 // ex:set ts=4 noet:
-
