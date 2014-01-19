@@ -64,6 +64,11 @@ public class Repository : Ggit.Repository
 		}
 	}
 
+	public void clear_refs_cache()
+	{
+		d_refs = null;
+	}
+
 	private void ensure_refs()
 	{
 		if (d_refs != null)
