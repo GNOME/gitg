@@ -37,13 +37,19 @@ private int ref_type_sort_order(Gitg.RefType ref_type)
 	return 4;
 }
 
+private enum RefAnimation
+{
+	NONE,
+	ANIMATE
+}
+
 private interface RefTyped : Object
 {
 	public abstract Gitg.RefType ref_type { get; }
 }
 
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-history-ref-row.ui")]
-private class RefRow : RefTyped, Gtk.Box
+private class RefRow : RefTyped, Gtk.ListBoxRow
 {
 	private const string version = Gitg.Config.VERSION;
 
@@ -53,22 +59,36 @@ private class RefRow : RefTyped, Gtk.Box
 	[GtkChild]
 	private Gtk.Label d_label;
 
+	[GtkChild]
+	private Gtk.Box d_box;
+
+	[GtkChild]
+	private Gtk.Revealer d_revealer;
+
 	public Gitg.Ref? reference { get; set; }
 
 	private Gtk.Entry? d_editing_entry;
 	private uint d_idle_finish;
-	public signal void editing_done(string new_text, bool cancelled);
+
+	private GitgExt.RefNameEditingDone? d_edit_done_callback;
 
 	public Gitg.RefType ref_type
 	{
 		get { return reference != null ? reference.parsed_name.rtype : Gitg.RefType.NONE; }
 	}
 
-	public RefRow(Gitg.Ref? reference)
+	public RefRow(Gitg.Ref? reference, RefAnimation animation = RefAnimation.NONE)
 	{
-		Object(orientation: Gtk.Orientation.HORIZONTAL, spacing: 6);
-
 		this.reference = reference;
+
+		if (animation == RefAnimation.ANIMATE)
+		{
+			d_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+		}
+		else
+		{
+			d_revealer.set_reveal_child(true);
+		}
 
 		d_label.label = label_text();
 
@@ -87,6 +107,26 @@ private class RefRow : RefTyped, Gtk.Box
 		{
 			margin_left += 12;
 		}
+
+		d_revealer.notify["child-revealed"].connect(on_child_revealed);
+	}
+
+	private void on_child_revealed(Object obj, ParamSpec spec)
+	{
+		if (!d_revealer.child_revealed)
+		{
+			Gtk.Allocation alloc;
+			d_revealer.get_allocation(out alloc);
+
+			destroy();
+		}
+	}
+
+	protected override void map()
+	{
+		base.map();
+
+		d_revealer.set_reveal_child(true);
 	}
 
 	private string label_text()
@@ -183,7 +223,7 @@ private class RefRow : RefTyped, Gtk.Box
 		return t1.casefold().collate(t2.casefold());
 	}
 
-	public void begin_editing()
+	public void begin_editing(owned GitgExt.RefNameEditingDone done)
 	{
 		if (d_editing_entry != null)
 		{
@@ -197,8 +237,10 @@ private class RefRow : RefTyped, Gtk.Box
 
 		d_editing_entry.set_text(label_text());
 
+		d_edit_done_callback = (owned)done;
+
 		d_label.hide();
-		pack_start(d_editing_entry);
+		d_box.pack_start(d_editing_entry);
 
 		d_editing_entry.grab_focus();
 		d_editing_entry.select_region(0, -1);
@@ -238,7 +280,8 @@ private class RefRow : RefTyped, Gtk.Box
 
 			d_label.show();
 
-			editing_done(new_text, cancelled);
+			d_edit_done_callback(new_text, cancelled);
+			d_edit_done_callback = null;
 			return false;
 		});
 	}
@@ -265,13 +308,20 @@ private class RefRow : RefTyped, Gtk.Box
 
 		return false;
 	}
+
+	public void unreveal()
+	{
+		d_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+		d_revealer.set_reveal_child(false);
+	}
 }
 
-private class RefHeader : RefTyped, Gtk.Label
+private class RefHeader : RefTyped, Gtk.ListBoxRow
 {
 	private Gitg.RefType d_rtype;
 	private bool d_is_sub_header_remote;
 	private string d_name;
+	private Gtk.Label d_label;
 
 	public Gitg.RefType ref_type
 	{
@@ -280,24 +330,30 @@ private class RefHeader : RefTyped, Gtk.Label
 
 	public RefHeader(Gitg.RefType rtype, string name)
 	{
+		d_label = new Gtk.Label(null);
+		d_label.show();
+
+		add(d_label);
+
 		var escaped = Markup.escape_text(name);
 
-		set_markup(@"<b>$escaped</b>");
-		xalign = 0;
+		d_label.set_markup(@"<b>$escaped</b>");
+		d_label.xalign = 0;
 
 		d_name = name;
 		d_rtype = rtype;
 
-		margin_top = 3;
-		margin_bottom = 3;
-		margin_left = 16;
+		d_label.margin_top = 3;
+		d_label.margin_bottom = 3;
+		d_label.margin_left = 16;
 	}
 
 	public RefHeader.remote(string name)
 	{
 		this(Gitg.RefType.REMOTE, name);
+
 		d_is_sub_header_remote = true;
-		margin_left += 12;
+		d_label.margin_left += 12;
 	}
 
 	public bool is_sub_header_remote
@@ -321,8 +377,6 @@ public class RefsList : Gtk.ListBox
 {
 	private Gitg.Repository? d_repository;
 	private Gee.HashMap<Gitg.Ref, RefRow> d_ref_map;
-
-	public signal void editing_done(Gitg.Ref reference, string new_text, bool cancelled);
 
 	private class RemoteHeader
 	{
@@ -365,11 +419,8 @@ public class RefsList : Gtk.ListBox
 
 	private int sort_rows(Gtk.ListBoxRow row1, Gtk.ListBoxRow row2)
 	{
-		var c1 = row1.get_child();
-		var c2 = row2.get_child();
-
-		var r1 = ((RefTyped)c1).ref_type;
-		var r2 = ((RefTyped)c2).ref_type;
+		var r1 = ((RefTyped)row1).ref_type;
+		var r2 = ((RefTyped)row2).ref_type;
 
 		// Compare types first
 		var rs1 = ref_type_sort_order(r1);
@@ -380,11 +431,11 @@ public class RefsList : Gtk.ListBox
 			return rs1 < rs2 ? -1 : 1;
 		}
 
-		var head1 = c1 as RefHeader;
-		var ref1 = c1 as RefRow;
+		var head1 = row1 as RefHeader;
+		var ref1 = row1 as RefRow;
 
-		var head2 = c2 as RefHeader;
-		var ref2 = c2 as RefRow;
+		var head2 = row2 as RefHeader;
+		var ref2 = row2 as RefRow;
 
 		if ((head1 == null) != (head2 == null))
 		{
@@ -429,9 +480,9 @@ public class RefsList : Gtk.ListBox
 		add(header);
 	}
 
-	private void add_ref_row(Gitg.Ref? reference)
+	private void add_ref_row(Gitg.Ref? reference, RefAnimation animation = RefAnimation.NONE)
 	{
-		var row = new RefRow(reference);
+		var row = new RefRow(reference, animation);
 		row.show();
 
 		add(row);
@@ -442,7 +493,7 @@ public class RefsList : Gtk.ListBox
 		}
 	}
 
-	public void add_ref(Gitg.Ref reference)
+	private void add_ref_internal(Gitg.Ref reference, RefAnimation animation = RefAnimation.NONE)
 	{
 		if (d_ref_map.has_key(reference))
 		{
@@ -461,7 +512,12 @@ public class RefsList : Gtk.ListBox
 			d_header_map[remote].references.add(reference);
 		}
 
-		add_ref_row(reference);
+		add_ref_row(reference, animation);
+	}
+
+	public void add_ref(Gitg.Ref reference)
+	{
+		add_ref_internal(reference, RefAnimation.ANIMATE);
 	}
 
 	public void replace_ref(Gitg.Ref old_ref, Gitg.Ref new_ref)
@@ -470,15 +526,15 @@ public class RefsList : Gtk.ListBox
 
 		if (d_ref_map.has_key(old_ref))
 		{
-			select = (get_selected_row().get_child() == d_ref_map[old_ref]);
+			select = (get_selected_row() == d_ref_map[old_ref]);
 		}
 
-		remove_ref(old_ref);
-		add_ref(new_ref);
+		remove_ref_internal(old_ref, RefAnimation.ANIMATE);
+		add_ref_internal(new_ref, RefAnimation.ANIMATE);
 
 		if (select)
 		{
-			select_row(d_ref_map[new_ref].get_parent() as Gtk.ListBoxRow);
+			select_row(d_ref_map[new_ref]);
 		}
 	}
 
@@ -504,14 +560,24 @@ public class RefsList : Gtk.ListBox
 		return name == "HEAD";
 	}
 
-	public void remove_ref(Gitg.Ref reference)
+	private void remove_ref_internal(Gitg.Ref reference, RefAnimation animation = RefAnimation.NONE)
 	{
 		if (!d_ref_map.has_key(reference))
 		{
 			return;
 		}
 
-		d_ref_map[reference].get_parent().destroy();
+		var row = d_ref_map[reference];
+
+		if (animation == RefAnimation.NONE)
+		{
+			row.destroy();
+		}
+		else
+		{
+			row.unreveal();
+		}
+
 		d_ref_map.unset(reference);
 
 		if (reference.parsed_name.rtype == Gitg.RefType.REMOTE)
@@ -523,10 +589,15 @@ public class RefsList : Gtk.ListBox
 
 			if (remote_header.references.is_empty)
 			{
-				remote_header.header.get_parent().destroy();
+				remote_header.header.destroy();
 				d_header_map.unset(remote);
 			}
 		}
+	}
+
+	public void remove_ref(Gitg.Ref reference)
+	{
+		remove_ref_internal(reference);
 	}
 
 	public void refresh()
@@ -561,7 +632,7 @@ public class RefsList : Gtk.ListBox
 					return 0;
 				}
 
-				add_ref(r);
+				add_ref_internal(r);
 				return 0;
 			});
 		} catch {}
@@ -574,12 +645,12 @@ public class RefsList : Gtk.ListBox
 			return null;
 		}
 
-		return row.get_child() as RefRow;
+		return row as RefRow;
 	}
 
 	private RefHeader? get_ref_header(Gtk.ListBoxRow row)
 	{
-		return row.get_child() as RefHeader;
+		return row as RefHeader;
 	}
 
 	public Gee.List<Gitg.Ref> all
@@ -679,25 +750,16 @@ public class RefsList : Gtk.ListBox
 		notify_property("selection");
 	}
 
-	private void on_row_editing_done(RefRow row, string new_text, bool cancelled)
-	{
-		editing_done(row.reference, new_text, cancelled);
-		row.editing_done.disconnect(on_row_editing_done);
-	}
-
-	public bool begin_editing(Gitg.Ref reference)
+	public void edit(Gitg.Ref reference, owned GitgExt.RefNameEditingDone done)
 	{
 		if (!d_ref_map.has_key(reference))
 		{
-			return false;
+			done("", true);
+			return;
 		}
 
 		var row = d_ref_map[reference];
-
-		row.editing_done.connect(on_row_editing_done);
-		row.begin_editing();
-
-		return true;
+		row.begin_editing((owned)done);
 	}
 }
 
