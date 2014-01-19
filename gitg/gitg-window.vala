@@ -123,9 +123,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, GitgExt.Action
 	}
 
 	[GtkCallback]
-	private void dash_view_show_error(string primary_msg, string secondary_message)
+	private void dash_view_show_error(string title, string message)
 	{
-		show_infobar(primary_msg, secondary_message, Gtk.MessageType.ERROR);
+		show_infobar(title, message, Gtk.MessageType.ERROR);
 	}
 
 	construct
@@ -542,8 +542,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, GitgExt.Action
 		{
 			string repo_name = path.get_basename();
 
-			var primary_msg = _("'%s' is not a Git repository.").printf(repo_name);
-			show_infobar(primary_msg, e.message, Gtk.MessageType.WARNING);
+			var title = _("'%s' is not a Git repository.").printf(repo_name);
+			show_infobar(title, e.message, Gtk.MessageType.WARNING);
 
 			return;
 		}

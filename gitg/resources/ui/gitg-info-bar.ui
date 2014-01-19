@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.3 -->
+  <!-- interface-requires gitg 0.0 -->
+  <template class="GitgInfoBar" parent="GtkInfoBar">
+    <child internal-child="content_area">
+      <object class="GtkBox" id="content_area">
+        <property name="visible">True</property>
+        <property name="border_width">8</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">16</property>
+        <child>
+          <object class="GtkLabel" id="d_title_label">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="selectable">True</property>
+            <property name="use-markup">True</property>
+            <property name="halign">GTK_ALIGN_START</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="d_message_label">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="selectable">True</property>
+            <property name="use-markup">True</property>
+            <property name="halign">GTK_ALIGN_START</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
+<!-- vi:ts=2:et -->
