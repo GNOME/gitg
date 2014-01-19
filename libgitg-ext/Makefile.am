@@ -43,7 +43,7 @@ libgitg_ext_libgitg_ext_1_0_la_LIBADD = 	\
 
 libgitg_ext_libgitg_ext_1_0_la_VALASOURCES =		\
 	libgitg-ext/gitg-ext-assembly-info.vala		\
-	libgitg-ext/gitg-ext-action-interface.vala	\
+	libgitg-ext/gitg-ext-ref-action-interface.vala	\
 	libgitg-ext/gitg-ext-action.vala		\
 	libgitg-ext/gitg-ext-commit-action.vala		\
 	libgitg-ext/gitg-ext-ref-action.vala		\

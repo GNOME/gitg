@@ -22,8 +22,6 @@ namespace GitgExt
 
 public interface Action : Object
 {
-	public abstract ActionInterface action_interface { get; construct set; }
-
 	public abstract string label { get; }
 	public abstract bool enabled { get; }
 	public abstract bool visible { get; }

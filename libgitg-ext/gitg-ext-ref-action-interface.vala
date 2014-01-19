@@ -20,8 +20,17 @@
 namespace GitgExt
 {
 
-public interface ActionInterface : Object
+public delegate void RefNameEditingDone(string new_name, bool cancelled);
+
+public interface RefActionInterface : Object
 {
+	public abstract Application application { owned get; construct set; }
+
+	public abstract void add_ref(Gitg.Ref reference);
+	public abstract void remove_ref(Gitg.Ref reference);
+	public abstract void replace_ref(Gitg.Ref old_ref, Gitg.Ref new_ref);
+	public abstract void set_busy(Gitg.Ref reference, bool busy);
+	public abstract void edit_ref_name(Gitg.Ref reference, owned RefNameEditingDone callback);
 }
 
 }

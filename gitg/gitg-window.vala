@@ -21,7 +21,7 @@ namespace Gitg
 {
 
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-window.ui")]
-public class Window : Gtk.ApplicationWindow, GitgExt.Application, GitgExt.ActionInterface, Initable
+public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 {
 	private Settings d_state_settings;
 	private Settings d_interface_settings;
@@ -647,11 +647,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, GitgExt.Action
 				win.set_cursor(null);
 			}
 		}
-	}
-
-	public GitgExt.ActionInterface action_interface
-	{
-		owned get { return this; }
 	}
 }
 

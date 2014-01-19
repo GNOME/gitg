@@ -22,7 +22,8 @@ namespace GitgExt
 
 public interface RefAction : Action
 {
-	public abstract Ggit.Ref reference { get; construct set; }
+	public abstract RefActionInterface action_interface { get; construct set; }
+	public abstract Gitg.Ref reference { get; construct set; }
 }
 
 }

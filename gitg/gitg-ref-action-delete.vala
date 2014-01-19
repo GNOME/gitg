@@ -25,10 +25,10 @@ class RefActionDelete : GitgExt.Action, GitgExt.RefAction, Object
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
-	public GitgExt.ActionInterface action_interface { get; construct set; }
-	public Ggit.Ref reference { get; construct set; }
+	public GitgExt.RefActionInterface action_interface { get; construct set; }
+	public Gitg.Ref reference { get; construct set; }
 
-	public RefActionDelete(GitgExt.ActionInterface action_interface, Ggit.Ref reference)
+	public RefActionDelete(GitgExt.RefActionInterface action_interface, Gitg.Ref reference)
 	{
 		Object(action_interface: action_interface, reference: reference);
 	}
@@ -42,12 +42,9 @@ class RefActionDelete : GitgExt.Action, GitgExt.RefAction, Object
 	{
 		get
 		{
-			var r = reference as Gitg.Ref;
-			var rtype = r.parsed_name.rtype;
-
-			return    rtype == RefType.BRANCH
-			       || rtype == RefType.TAG
-			       || rtype == RefType.REMOTE;
+			return    reference.is_branch()
+			       || reference.is_tag()
+			       || reference.is_remote();
 		}
 	}
 

@@ -57,6 +57,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-resource.vala					\
 	gitg/gitg-application.vala				\
 	gitg/gitg-plugins-engine.vala				\
+	gitg/gitg-popup-menu.vala				\
 	gitg/gitg-ui-elements.vala				\
 	gitg/gitg-ref-action-rename.vala			\
 	gitg/gitg-ref-action-delete.vala			\
@@ -65,6 +66,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/preferences/gitg-preferences-interface.vala	\
 	gitg/preferences/gitg-preferences-history.vala		\
 	gitg/history/gitg-history.vala				\
+	gitg/history/gitg-history-action-interface.vala		\
 	gitg/history/gitg-history-refs-list.vala		\
 	gitg/history/gitg-history-paned.vala			\
 	gitg/commit/gitg-commit.vala				\
