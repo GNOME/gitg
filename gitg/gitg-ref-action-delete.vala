@@ -55,6 +55,89 @@ class RefActionDelete : GitgExt.Action, GitgExt.RefAction, Object
 
 	public void activated()
 	{
+		var query = new GitgExt.UserQuery();
+
+		var name = reference.get_shorthand();
+
+		if (reference.is_branch())
+		{
+			query.title = (_("Delete branch %s")).printf(name);
+			query.message = (_("Are you sure that you want to permanently delete the branch %s?")).printf(name);
+		}
+		else if (reference.is_tag())
+		{
+			query.title = (_("Delete tag %s")).printf(name);
+			query.message = (_("Are you sure that you want to permanently delete the tag %s?")).printf(name);
+		}
+		else
+		{
+			query.title = (_("Delete remote branch %s")).printf(name);
+			query.message = (_("Are you sure that you want to permanently delete the remote branch %s?")).printf(name);
+		}
+
+		query.responses = new GitgExt.UserQueryResponse[] {
+			new GitgExt.UserQueryResponse(_("Delete"), Gtk.ResponseType.OK),
+			new GitgExt.UserQueryResponse(_("Cancel"), Gtk.ResponseType.CANCEL)
+		};
+
+		query.default_response = Gtk.ResponseType.OK;
+		query.response.connect(on_response);
+
+		action_interface.application.user_query(query);
+	}
+
+	private bool on_response(Gtk.ResponseType response)
+	{
+		if (response != Gtk.ResponseType.OK)
+		{
+			return true;
+		}
+
+		if (reference.is_remote())
+		{
+			// TODO
+			return true;
+		}
+		else
+		{
+			try
+			{
+				reference.delete();
+			}
+			catch (Error e)
+			{
+				string title;
+				string message;
+
+				var name = reference.get_shorthand();
+
+				if (reference.is_tag())
+				{
+					// Translators: %s is the name of the tag
+					title = _("Failed to delete tag %s").printf(name);
+
+					// Translators: the first %s is the name of the tag, the second is an error message
+					message = _("The tag %s could not be deleted: %s").printf(name, e.message);
+				}
+				else
+				{
+					// Translators: %s is the name of the branch
+					title = _("Failed to delete branch %s").printf(name);
+
+					// Translators: the first %s is the name of the branch, the second is an error message
+					message = _("The branch %s could not be deleted: %s").printf(name, e.message);
+				}
+
+				action_interface.application.show_infobar(title,
+				                                          message,
+				                                          Gtk.MessageType.ERROR);
+
+				return true;
+			}
+		}
+
+		action_interface.remove_ref(reference);
+		return true;
 	}
 }
 
