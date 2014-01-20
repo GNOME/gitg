@@ -35,16 +35,19 @@ class ActionInterface : Object, GitgExt.RefActionInterface
 
 	public void add_ref(Gitg.Ref reference)
 	{
+		application.repository.clear_refs_cache();
 		d_refs_list.add_ref(reference);
 	}
 
 	public void remove_ref(Gitg.Ref reference)
 	{
+		application.repository.clear_refs_cache();
 		d_refs_list.remove_ref(reference);
 	}
 
 	public void replace_ref(Gitg.Ref old_ref, Gitg.Ref new_ref)
 	{
+		application.repository.clear_refs_cache();
 		d_refs_list.replace_ref(old_ref, new_ref);
 	}
 

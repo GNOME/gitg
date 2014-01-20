@@ -119,7 +119,6 @@ class RefActionRename : GitgExt.Action, GitgExt.RefAction, Object
 			return;
 		}
 
-		action_interface.application.repository.clear_refs_cache();
 		action_interface.replace_ref(reference, new_ref);
 	}
 }
