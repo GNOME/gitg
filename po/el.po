@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&k"
-"eywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-07-07 20:31+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gitg&keywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2014-02-11 18:40+0000\n"
 "PO-Revision-Date: 2013-07-13 15:56+0300\n"
 "Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
 "Language-Team: team@gnome.gr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -110,9 +110,6 @@ msgid "Column at Which Right Margin is Shown"
 msgstr "Στήλη στην οποία προβάλλεται το δεξιό περιθώριο"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-#| msgid ""
-#| "The column at which the right margin is shown if the right-margin "
-#| "preference is set to TRUE."
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -121,7 +118,6 @@ msgstr ""
 "εμφάνισης δεξιού περιθωρίου ορίζεται σε ΑΛΗΘΗ."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-#| msgid "Show Right Margin in Commit Message View"
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Εμφάνιση θέματος περιθωρίου στη προβολή μηνύματος υποβολής"
 
@@ -134,14 +130,10 @@ msgstr ""
 "περιθώριο που ορίστηκε από τη θέση περιθωρίου θέματος."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-#| msgid "Column at Which Right Margin is Shown"
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Στήλη στην οποία προβάλλεται το περιθώριο θέματος"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-#| msgid ""
-#| "The column at which the right margin is shown if the right-margin "
-#| "preference is set to TRUE."
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -149,82 +141,89 @@ msgstr ""
 "Η στήλη στην οποία εμφανίζεται το περιθώριο θέματος αν η προτίμηση της "
 "εμφάνισης περιθωρίου θέματος ορίζεται σε ΑΛΗΘΗ."
 
-#: ../gitg/commit/gitg-commit-dialog.vala:263
+#: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Αδύνατος ο ορισμός γλώσσας ορθογραφικού ελέγχου: %s"
 
-#: ../gitg/commit/gitg-commit.vala:70
+#: ../gitg/commit/gitg-commit.vala:59
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#| msgid "Commits"
 msgid "Commit"
 msgstr "Υποβολή"
 
-#: ../gitg/commit/gitg-commit.vala:155
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Αποτυχία ετοιμασίας του αρχείου `%s'"
 
-#: ../gitg/commit/gitg-commit.vala:174
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Αποτυχία ετοιμασίας της αφαίρεσης του αρχείου `%s'"
 
-#: ../gitg/commit/gitg-commit.vala:234
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Αποτυχία ανάκλησης της αφαίρεσης του αρχείου `%s'"
 
-#: ../gitg/commit/gitg-commit.vala:253
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Αποτυχία ανάκλησης του αρχείου `%s'"
 
-#: ../gitg/commit/gitg-commit.vala:366
+#: ../gitg/commit/gitg-commit.vala:370
 msgid "Staged"
 msgstr "Έτοιμο"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:374
 msgid "No staged files"
 msgstr "Χωρίς έτοιμα αρχεία"
 
-#: ../gitg/commit/gitg-commit.vala:379
+#: ../gitg/commit/gitg-commit.vala:383
 msgid "Unstaged"
 msgstr "Ανακαλεσμένο"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:387
 msgid "No unstaged files"
 msgstr "Χωρίς ανακαλεσμένα αρχεία"
 
-#: ../gitg/commit/gitg-commit.vala:392
+#: ../gitg/commit/gitg-commit.vala:396
 msgid "Untracked"
 msgstr "Απαρακολούθητα"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:400
 msgid "No untracked files"
 msgstr "Χωρίς απαρακολούθητα αρχεία"
 
-#: ../gitg/commit/gitg-commit.vala:432
+#: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
 msgstr "Δεν υπάρχουν αλλαγές για υποβολή"
 
-#: ../gitg/commit/gitg-commit.vala:433
+#: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Χρησιμοποιήστε amend για να αλλάξετε το μήνυμα υποβολής της προηγούμενης "
 "υποβολής"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
 msgstr "Αποτυχία υποβολής"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:655
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
 msgstr "Αποτυχία μεταβίβασης προϋποβολής"
 
-#: ../gitg/commit/gitg-commit.vala:643
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -233,7 +232,7 @@ msgstr ""
 "Παρακαλούμε, πηγαίνετε στις ρυθμίσεις χρήστη και δώστε το όνομά σας και την "
 "ηλεκτρονική διεύθυνσή σας."
 
-#: ../gitg/commit/gitg-commit.vala:647
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -241,7 +240,7 @@ msgstr ""
 "Το όνομα χρήστη δε ρυθμίστηκε ακόμα. Παρακαλούμε, πηγαίνετε στις ρυθμίσεις "
 "χρήστη και δώστε το όνομά σας."
 
-#: ../gitg/commit/gitg-commit.vala:651
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -249,17 +248,30 @@ msgstr ""
 "Η ηλεκτρονική διεύθυνσή σας δε ρυθμίστηκε ακόμα. Παρακαλούμε, πηγαίνετε στις "
 "ρυθμίσεις χρήστη και δώστε την ηλεκτρονική σας διεύθυνση."
 
+#: ../gitg/commit/gitg-commit.vala:769
+#, fuzzy
+#| msgid "Failed to stage the file `%s'"
+msgid "Failed to stage selection"
+msgstr "Αποτυχία ετοιμασίας του αρχείου `%s'"
+
+#: ../gitg/commit/gitg-commit.vala:773
+#, fuzzy
+#| msgid "Failed to unstage the file `%s'"
+msgid "Failed to unstage selection"
+msgstr "Αποτυχία ανάκλησης του αρχείου `%s'"
+
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Εμφάνιση της έκδοσης της εφαρμογής"
 
 #: ../gitg/gitg-application.vala:58
-#| msgid "Start gitg with a particular view"
 msgid "Start gitg with a particular activity"
 msgstr "Έναρξη του gitg με συγκεκριμένη ενέργεια"
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
+#, fuzzy
+#| msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Έναρξη του gitg με την ενέργεια υποβολής (συντόμευση για την υποβολή --view)"
 
@@ -270,59 +282,90 @@ msgstr ""
 "εργασίας"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
+#, fuzzy
+#| msgid "- git repository viewer"
+msgid "- Git repository viewer"
 msgstr "- προβολέας αποθετηρίου git"
 
-#: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
+#: ../gitg/gitg-application.vala:206
+#, fuzzy
+#| msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg είναι ένας προβολέας αποθετηρίου git για το gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr ""
+
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "Η αρχική σελίδα του gitg"
 
-#: ../gitg/gitg-window.vala:254
-msgid "Projects"
-msgstr "Έργα"
-
-#: ../gitg/gitg-window.vala:290
-msgid "Open Repository"
-msgstr "Άνοιγμα αποθετηρίου"
-
-#: ../gitg/gitg-window.vala:359
-msgid "The URL introduced is not supported"
-msgstr "Το URL που εισήχθη δεν υποστηρίζεται"
-
-#: ../gitg/gitg-window.vala:402
+#: ../gitg/gitg-author-details-dialog.vala:65
 msgid "Unable to open the .gitconfig file."
 msgstr "Αδύνατο το άνοιγμα του αρχείου .gitconfig."
 
-#: ../gitg/gitg-window.vala:477
+#: ../gitg/gitg-author-details-dialog.vala:147
 msgid "Failed to set Git user config."
 msgstr "Αποτυχία ορισμού ρυθμίσεων χρήστη Git."
 
-#: ../gitg/gitg-window.vala:688
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr "Το URL που εισήχθη δεν υποστηρίζεται"
+
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+
+#: ../gitg/gitg-window.vala:276
+msgid "Projects"
+msgstr "Έργα"
+
+#: ../gitg/gitg-window.vala:312
+msgid "Open Repository"
+msgstr "Άνοιγμα αποθετηρίου"
+
+#: ../gitg/gitg-window.vala:314
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Ακύρωση"
+
+#: ../gitg/gitg-window.vala:315
+msgid "_Open"
+msgstr ""
+
+#: ../gitg/gitg-window.vala:545
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "Το '%s' δεν είναι αποθετήριο Git."
 
-#: ../gitg/history/gitg-history-navigation.vala:194
-#: ../gitg/history/gitg-history-navigation.vala:302
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
 msgstr "Όλες οι υποβολές"
 
 #. Branches
-#: ../gitg/history/gitg-history-navigation.vala:197
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "Κλάδοι"
 
 #. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:234
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "Απομακρυσμένοι"
 
 #. Tags
-#: ../gitg/history/gitg-history-navigation.vala:260
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "Ετικέτες"
 
@@ -340,64 +383,112 @@ msgid "Now"
 msgstr "Τώρα"
 
 #: ../libgitg/gitg-date.vala:320
+#, fuzzy, c-format
+#| msgid "A minute ago"
 msgid "A minute ago"
-msgstr "Ένα λεπτό πριν"
-
-#: ../libgitg/gitg-date.vala:320
-#, c-format
-msgid "%d minutes ago"
-msgstr "%d λεπτά πριν"
+msgid_plural "%d minutes ago"
+msgstr[0] "Ένα λεπτό πριν"
+msgstr[1] "Ένα λεπτό πριν"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "Πριν μισή ώρα"
 
 #: ../libgitg/gitg-date.vala:330
+#, fuzzy, c-format
+#| msgid "An hour ago"
 msgid "An hour ago"
-msgstr "Πριν μια ώρα"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "%d ώρες πριν"
+msgid_plural "%d hours ago"
+msgstr[0] "Πριν μια ώρα"
+msgstr[1] "Πριν μια ώρα"
 
 #: ../libgitg/gitg-date.vala:335
+#, fuzzy, c-format
+#| msgid "A day ago"
 msgid "A day ago"
-msgstr "Μια ημέρα πριν"
+msgid_plural "%d days ago"
+msgstr[0] "Μια ημέρα πριν"
+msgstr[1] "Μια ημέρα πριν"
 
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "%d μέρες πριν"
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
+msgid "Save Patch File"
+msgstr ""
 
-#: ../libgitg/gitg-diff-view.vala:88
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
+#, fuzzy
+#| msgid "Save"
+msgid "_Save"
+msgstr "Αποθήκευση"
+
+#: ../libgitg/gitg-diff-view.vala:123
 msgid "stage"
 msgstr "ετοιμασία"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view.vala:124
 msgid "unstage"
 msgstr "ανάκληση"
 
-#: ../libgitg/gitg-diff-view.vala:90
-msgid "Loading diff..."
+#: ../libgitg/gitg-diff-view.vala:125
+#, fuzzy
+#| msgid "Loading diff..."
+msgid "Loading diff…"
 msgstr "Φορτώνονται οι διαφορές..."
 
-#: ../libgitg/gitg-stage.vala:279
+#: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
-"Αδύνατη η ανάγνωση μηνύματος υποβολής μετά την εκτέλεση του άγκιστρου "
-"commit-msg: %s"
+"Αδύνατη η ανάγνωση μηνύματος υποβολής μετά την εκτέλεση του άγκιστρου commit-"
+"msg: %s"
 
 #: ../plugins/diff/gitg-diff.vala:62
 msgid "Diff"
 msgstr "Διαφορές"
 
-#: ../plugins/files/gitg-files.vala:65
+#: ../plugins/files/gitg-files.vala:63
 msgid "Files"
 msgstr "Αρχεία"
 
 #. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+#, fuzzy
+#| msgid "Author"
+msgid "Author Details"
+msgstr "Συγγραφέας"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, fuzzy, no-c-format
+#| msgid "Note: The git config file '%s' does not exist."
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "Σημείωση: το αρχείο git config '%s' δεν υπάρχει."
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr ""
+"Εισάγετε λεπτομέρειες που θα οριστούν ως προεπιλεγμένες για όλα τα "
+"αποθετήρια:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Εισάγετε λεπτομέρειες για το αποθετήριο '%s':"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "Ηλεκτρονική διεύθυνση: "
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Όνομα: "
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Αποθήκευση"
+
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository"
 msgstr "Κλωνοποίηση αποθετηρίου"
@@ -415,7 +506,9 @@ msgid "_Local Folder:"
 msgstr "_Τοπικός φάκελος:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
+#, fuzzy
+#| msgid "Select location..."
+msgid "Select location…"
 msgstr "Επιλογή τοποθεσίας..."
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
@@ -424,7 +517,6 @@ msgstr "Γυμνό αποθετήριο"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
-#| msgid "Commits"
 msgid "C_ommit"
 msgstr "_Υποβολή"
 
@@ -438,13 +530,16 @@ msgstr "_Τροποποίηση της προηγούμενης υποβολής
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 #: ../gitg/resources/ui/gitg-window.ui.h:2
-#| msgid "_Close"
 msgid "Close"
 msgstr "Κλείσιμο"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
 msgstr "Παράλειψη α_γκίστρων υποβολής"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr ""
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -487,8 +582,8 @@ msgid "_Clone Repository…"
 msgstr "_Κλωνοποίηση αποθετηρίου…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-msgid "_User Information"
-msgstr "Πληροφορίες _χρήστη"
+msgid "_Author Details"
+msgstr ""
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:9
 msgid "_Reload"
@@ -511,7 +606,6 @@ msgid "Enable spell checking"
 msgstr "Ενεργοποίηση ορθογραφικού ελέγχου"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-#| msgid "Commits"
 msgid "Commit Message"
 msgstr "Μήνυμα Υποβολής"
 
@@ -556,50 +650,33 @@ msgid "Use horizontal layout"
 msgstr "Χρήση οριζόντιας διάταξης"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Προτιμήσεις gitg"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:1
-#| msgid "_User Information"
-msgid "User Information"
-msgstr "Πληροφορίες χρήστη"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:3
-#, no-c-format
-msgid "Note: The git config file '%s' does not exist."
-msgstr "Σημείωση: το αρχείο git config '%s' δεν υπάρχει."
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:4
-msgid "Enter details to set as default for all repositories:"
-msgstr ""
-"Εισάγετε λεπτομέρειες που θα οριστούν ως προεπιλεγμένες για όλα τα "
-"αποθετήρια:"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:6
-#, no-c-format
-#| msgid "Enter details for %s repository:"
-msgid "Enter details for repository '%s':"
-msgstr "Εισάγετε λεπτομέρειες για το αποθετήριο '%s':"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:7
-msgid "E-mail: "
-msgstr "Ηλεκτρονική διεύθυνση: "
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:8
-msgid "Name: "
-msgstr "Όνομα: "
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:9
-msgid "Cancel"
-msgstr "Ακύρωση"
-
-#: ../gitg/resources/ui/gitg-user-dialog.ui.h:10
-msgid "Save"
-msgstr "Αποθήκευση"
+#, fuzzy
+#| msgid "_Preferences"
+msgid "Preferences"
+msgstr "_Προτιμήσεις"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "στήλη"
+
+#~ msgid "%d minutes ago"
+#~ msgstr "%d λεπτά πριν"
+
+#~ msgid "%d hours ago"
+#~ msgstr "%d ώρες πριν"
+
+#~ msgid "%d days ago"
+#~ msgstr "%d μέρες πριν"
+
+#~ msgid "_User Information"
+#~ msgstr "Πληροφορίες _χρήστη"
+
+#~ msgid "gitg Preferences"
+#~ msgstr "Προτιμήσεις gitg"
+
+#~| msgid "_User Information"
+#~ msgid "User Information"
+#~ msgstr "Πληροφορίες χρήστη"
 
 #~ msgid "Filter Revisions When Searching"
 #~ msgstr "Φιλτράρισμα αναθεωρήσεων κατά την αναζήτηση"
