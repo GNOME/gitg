@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 # Gintautas Miliauskas <gintas@akl.lt>, 2009.
-# Aurimas Černius <aurisc4@gmail.com>, 2013.
+# Aurimas Černius <aurisc4@gmail.com>, 2013, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-09-02 17:08+0000\n"
-"PO-Revision-Date: 2013-09-05 21:06+0300\n"
+"POT-Creation-Date: 2014-02-15 06:42+0000\n"
+"PO-Revision-Date: 2014-02-15 19:57+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -152,68 +152,76 @@ msgstr "Nepavyksta tikrinti rašybos kalbai: %s"
 msgid "Commit"
 msgstr "Patvirtinti"
 
-#: ../gitg/commit/gitg-commit.vala:144
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "_Paruošti pažymėjimą"
+
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Nepavyko paruošti failo „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:163
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Nepavyko paruošti failo „%s“ pašalinimo"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "Pašalinti žymėjimą ir pa_ruošimo"
+
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Nepavyko pašalinti failo „%s“ ištrynimo paruošimo"
 
-#: ../gitg/commit/gitg-commit.vala:242
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Nepavyko pašalinti failo „%s“ paruošimo"
 
-#: ../gitg/commit/gitg-commit.vala:366
+#: ../gitg/commit/gitg-commit.vala:370
 msgid "Staged"
 msgstr "Paruošti"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:374
 msgid "No staged files"
 msgstr "Nėra paruoštų failų"
 
-#: ../gitg/commit/gitg-commit.vala:379
+#: ../gitg/commit/gitg-commit.vala:383
 msgid "Unstaged"
 msgstr "Neparuošti"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:387
 msgid "No unstaged files"
 msgstr "Nėra neparuoštų failų"
 
-#: ../gitg/commit/gitg-commit.vala:392
+#: ../gitg/commit/gitg-commit.vala:396
 msgid "Untracked"
 msgstr "Nesekami"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:400
 msgid "No untracked files"
 msgstr "Nėra nesekamų failų"
 
-#: ../gitg/commit/gitg-commit.vala:432
+#: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
 msgstr "Nėra pakeitimų patvirtinimui"
 
-#: ../gitg/commit/gitg-commit.vala:433
+#: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Pakeisti prieš tai buvusio patvirtinimo pranešimą"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
 msgstr "Nepavyko patvirtinti"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
 msgstr "Nepavyko praeiti prieš-patvirtinimo"
 
-#: ../gitg/commit/gitg-commit.vala:696
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -221,7 +229,7 @@ msgstr ""
 "Jūsų naudotojo vardas ir el. paštas dar nenustatyti. Eikite į naudotojo "
 "konfigūraciją ir nurodykite savo vardą ir el. paštą."
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -229,13 +237,23 @@ msgstr ""
 "Jūsų naudotojo vardas dar nenustatyta. Eikite į naudojo konfigūraciją ir "
 "nurodykite savo vardą."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "Jūsų el. paštas dar nenustatytas. Eikite į naudotojo konfigūraciją ir "
 "nurodykite savo el. paštą."
+
+#: ../gitg/commit/gitg-commit.vala:769
+#| msgid "Failed to stage the file `%s'"
+msgid "Failed to stage selection"
+msgstr "Nepavyko paruošti žymėjimo"
+
+#: ../gitg/commit/gitg-commit.vala:773
+#| msgid "Failed to unstage the file `%s'"
+msgid "Failed to unstage selection"
+msgstr "Nepavyko pašalinti žymėjimo iš paruošimo"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -246,22 +264,31 @@ msgid "Start gitg with a particular activity"
 msgstr "Paleisti gitg su tam tikra veiklą"
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
-msgstr "Paleisti gitg su patvirtinimo veikla (--view commit sutrumpinimas)"
+#| msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr "Paleisti gitg su patvirtinimo veikla (--activity commit sutrumpinimas)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Nebandyti įkelti saugyklos iš esamo katalogo"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
-msgstr "- git saugyklos žiūryklė"
+#| msgid "- git repository viewer"
+msgid "- Git repository viewer"
+msgstr "- Git saugyklos žiūryklė"
 
-#: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg yra git saugyklos žiūryklė gtk+/GNOME aplinkai"
+#: ../gitg/gitg-application.vala:206
+#| msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "gitg yra Git saugyklos žiūryklė gtk+/GNOME aplinkai"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr ""
+"išvertė:\n"
+"Aurimas Černius <aurisc4@gmail.com>"
+
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "gitg namų tinklapis"
 
@@ -277,44 +304,65 @@ msgstr "Nepavyko nustatyti Git naudotojo konfigūracijos."
 msgid "The URL introduced is not supported"
 msgstr "Įtrauktas URL nepalaikomas"
 
-#: ../gitg/gitg-window.vala:257
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"Atsiprašome, bet gitg reikalauja, kad libgit2 (naudojama biblioteka) būtų "
+"sukompiliuota su gijų palaikymu.\n"
+"\n"
+"Jei pats sukompiliavote libgit2, tuomet konfigūruokite su -DTHREADSAFE:"
+"BOOL=ON.\n"
+"\n"
+"Priešingu atveju praneškite apie klaidą savo distribucijos klaidų sistemoje, "
+"prašydami pateikti libgit2 su gijų palaikymu."
+
+#: ../gitg/gitg-window.vala:276
 msgid "Projects"
 msgstr "Projektai"
 
-#: ../gitg/gitg-window.vala:293
+#: ../gitg/gitg-window.vala:312
 msgid "Open Repository"
 msgstr "Atverti saugyklą"
 
-#: ../gitg/gitg-window.vala:295
+#: ../gitg/gitg-window.vala:314
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
 msgid "_Cancel"
 msgstr "At_sisakyti"
 
-#: ../gitg/gitg-window.vala:296
+#: ../gitg/gitg-window.vala:315
 msgid "_Open"
 msgstr "_Atverti"
 
-#: ../gitg/gitg-window.vala:526
+#: ../gitg/gitg-window.vala:545
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ nėra Git saugykla."
 
-#: ../gitg/history/gitg-history-navigation.vala:194
-#: ../gitg/history/gitg-history-navigation.vala:302
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
 msgstr "Visi pakeitimai"
 
 #. Branches
-#: ../gitg/history/gitg-history-navigation.vala:197
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "Šakos"
 
 #. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:234
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "Nutolusios saugyklos"
 
 #. Tags
-#: ../gitg/history/gitg-history-navigation.vala:260
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "Žymos"
 
@@ -332,49 +380,59 @@ msgid "Now"
 msgstr "Dabar"
 
 #: ../libgitg/gitg-date.vala:320
-msgid "A minute ago"
-msgstr "Prieš minutę"
-
-#: ../libgitg/gitg-date.vala:320
 #, c-format
-msgid "%d minutes ago"
-msgstr "Prieš %d minutes"
+#| msgid "A minute ago"
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Prieš %d minutę"
+msgstr[1] "Prieš %d minutes"
+msgstr[2] "Prieš %d minučių"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "Prieš pusė valandos"
 
 #: ../libgitg/gitg-date.vala:330
+#, c-format
+#| msgid "An hour ago"
 msgid "An hour ago"
-msgstr "Prieš valandą"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "Prieš %d valandas"
+msgid_plural "%d hours ago"
+msgstr[0] "Prieš %d valandą"
+msgstr[1] "Prieš %d valandas"
+msgstr[2] "Prieš %d valandų"
 
 #: ../libgitg/gitg-date.vala:335
+#, c-format
+#| msgid "A day ago"
 msgid "A day ago"
-msgstr "Prieš dieną"
+msgid_plural "%d days ago"
+msgstr[0] "Prieš %d dieną"
+msgstr[1] "Prieš %d dienas"
+msgstr[2] "Prieš %d dienų"
 
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "Prieš %d dienas"
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
+msgid "Save Patch File"
+msgstr "Įrašyti pataisos failą"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
+#| msgid "Save"
+msgid "_Save"
+msgstr "Į_rašyti"
+
+#: ../libgitg/gitg-diff-view.vala:123
 msgid "stage"
 msgstr "paruošti"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:124
 msgid "unstage"
 msgstr "atšaukti paruošimą"
 
-#: ../libgitg/gitg-diff-view.vala:91
-msgid "Loading diff..."
-msgstr "Įkeliami skirtumai..."
+#: ../libgitg/gitg-diff-view.vala:125
+#| msgid "Loading diff..."
+msgid "Loading diff…"
+msgstr "Įkeliami skirtumai…"
 
-#: ../libgitg/gitg-stage.vala:279
+#: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
@@ -390,14 +448,14 @@ msgstr "Failai"
 
 #. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
-#| msgid "Author"
 msgid "Author Details"
 msgstr "Autoriaus informacija"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 #, no-c-format
-msgid "Note: The git config file '%s' does not exist."
-msgstr "Pastaba: git konfigūracijos failo „%s“ nėra."
+#| msgid "Note: The git config file '%s' does not exist."
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "Pastaba: Git konfigūracijos failo „%s“ nėra."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
 msgid "Enter details to set as default for all repositories:"
@@ -441,8 +499,9 @@ msgid "_Local Folder:"
 msgstr "Vietinis ap_lankas:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
-msgstr "Pasirinkite vietą..."
+#| msgid "Select location..."
+msgid "Select location…"
+msgstr "Pasirinkite vietą…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
@@ -469,6 +528,10 @@ msgstr "Užverti"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
 msgstr "Praleisti patvirtinimo susie_jimus"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "_Paruošti žymėjimą"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -579,8 +642,9 @@ msgid "Use horizontal layout"
 msgstr "Naudoti horizontalų išdėstymą"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "gitg nustatymai"
+#| msgid "_Preferences"
+msgid "Preferences"
+msgstr "Nustatymai"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
