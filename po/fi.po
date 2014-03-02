@@ -2,15 +2,15 @@
 # Copyright (C) 2013 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2013.
+# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2013, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-09-12 22:39+0000\n"
-"PO-Revision-Date: 2013-09-16 17:42+0300\n"
+"POT-Creation-Date: 2014-01-07 00:07+0000\n"
+"PO-Revision-Date: 2014-01-22 21:59+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -31,7 +31,7 @@ msgstr "Git-tietovarastojen selain"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
 msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr ""
+msgstr "Käyttöliittymän suunta (pysty tai vaaka)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
 msgid "Setting that sets the orientation of the main interface."
@@ -130,70 +130,78 @@ msgstr "Oikolukukielen asettaminen ei onnistunut: %s"
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
-msgstr ""
+msgstr "Pysyvä muutos"
 
-#: ../gitg/commit/gitg-commit.vala:144
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "_Lavasta valinta"
+
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
 msgid "Failed to stage the file `%s'"
-msgstr ""
+msgstr "Tiedoston \"%s\" lavastaminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:163
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
-msgstr ""
+msgstr "Tiedoston \"%s\" poistamisen lavastaminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "_Poista lavastus valinnalta"
+
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
-msgstr ""
+msgstr "Tiedoston \"%s\" poistamisen lavastamisen kumoaminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:242
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to unstage the file `%s'"
-msgstr ""
-
-#: ../gitg/commit/gitg-commit.vala:366
-msgid "Staged"
-msgstr ""
+msgstr "Lavastamisen poistaminen tiedostolta \"%s\" epäonnistui."
 
 #: ../gitg/commit/gitg-commit.vala:370
-msgid "No staged files"
-msgstr ""
+msgid "Staged"
+msgstr "Lavastetut"
 
-#: ../gitg/commit/gitg-commit.vala:379
-msgid "Unstaged"
-msgstr ""
+#: ../gitg/commit/gitg-commit.vala:374
+msgid "No staged files"
+msgstr "Ei lavastettuja tiedostoja"
 
 #: ../gitg/commit/gitg-commit.vala:383
-msgid "No unstaged files"
-msgstr ""
+msgid "Unstaged"
+msgstr "Lavastamattomat"
 
-#: ../gitg/commit/gitg-commit.vala:392
-msgid "Untracked"
-msgstr ""
+#: ../gitg/commit/gitg-commit.vala:387
+msgid "No unstaged files"
+msgstr "Ei lavastamattomia tiedostoja"
 
 #: ../gitg/commit/gitg-commit.vala:396
+msgid "Untracked"
+msgstr "Seuraamattomat"
+
+#: ../gitg/commit/gitg-commit.vala:400
 msgid "No untracked files"
-msgstr ""
+msgstr "Ei seuraamattomia tiedostoja"
 
-#: ../gitg/commit/gitg-commit.vala:432
+#: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
-msgstr "Ei muutoksia commitoitavaksi"
+msgstr "Ei muutoksia vietäväksi pysyvään muutokseen"
 
-#: ../gitg/commit/gitg-commit.vala:433
+#: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
-msgstr ""
+msgstr "Käytä amend-oikaisua muuttaaksesi edellisen pysyvän muutoksen viestiä"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
-msgstr "Commit epäonnistui"
+msgstr "Pysyvän muutoksen tekeminen epäonnistui"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
-msgstr ""
+msgstr "Pre-commitin välittäminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:696
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -201,7 +209,7 @@ msgstr ""
 "Käyttäjänimeäsi ja sähköpostiosoitettasi ei ole vielä määritelty. Määritä "
 "kyseiset tiedot käyttäjäasetuksissa."
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -209,13 +217,21 @@ msgstr ""
 "Käyttäjänimeäsi ei ole vielä määritelty. Määritä kyseinen tieto "
 "käyttäjäasetuksissa."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "Sähköpostiosoitettasi ei ole vielä määritelty. Määritä kyseinen tieto "
 "käyttäjäasetuksissa."
+
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "Valinnan lavastaminen epäonnistui"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "Lavastamisen poistaminen valinnalta epäonnistui"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -226,22 +242,28 @@ msgid "Start gitg with a particular activity"
 msgstr ""
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
-msgstr ""
+msgstr "Älä yritä ladata tietovarastoa nykyisestä työskentelyhakemistosta"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
-msgstr "- git-tietovarastojen selain"
+#| msgid "- git repository viewer"
+msgid "- Git repository viewer"
+msgstr "- Git-tietovarastojen selain"
 
-#: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg on git-tietovarastojen selain gtk+:lle/Gnomelle"
+#: ../gitg/gitg-application.vala:206
+#| msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "gitg on Git-tietovarastojen selain gtk+:lle/Gnomelle"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr "Jiri Grönroos"
+
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "gitg-verkkosivusto"
 
@@ -251,10 +273,22 @@ msgstr ".gitconfig-tiedoston avaaminen ei onnistunut."
 
 #: ../gitg/gitg-author-details-dialog.vala:147
 msgid "Failed to set Git user config."
-msgstr ""
+msgstr "Git-käyttäjäasetustiedoston asettaminen epäonnistui."
 
 #: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
+msgstr ""
+
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
 msgstr ""
 
 #: ../gitg/gitg-window.vala:263
@@ -266,6 +300,7 @@ msgid "Open Repository"
 msgstr "Avaa tietovarasto"
 
 #: ../gitg/gitg-window.vala:301
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
 msgid "_Cancel"
 msgstr "_Peru"
 
@@ -278,23 +313,23 @@ msgstr "_Avaa"
 msgid "'%s' is not a Git repository."
 msgstr "\"%s\" ei ole Git-tietovarasto."
 
-#: ../gitg/history/gitg-history-navigation.vala:194
-#: ../gitg/history/gitg-history-navigation.vala:302
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
-msgstr "Kaikki commitit"
+msgstr "Kaikki pysyvät muutokset"
 
 #. Branches
-#: ../gitg/history/gitg-history-navigation.vala:197
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "Kehityshaarat"
 
 #. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:234
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "Etätietovarastot"
 
 #. Tags
-#: ../gitg/history/gitg-history-navigation.vala:260
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "Tagit"
 
@@ -305,56 +340,63 @@ msgstr "Historia"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:73
 msgid "Interface"
-msgstr ""
+msgstr "Käyttöliittymä"
 
 #: ../libgitg/gitg-date.vala:316
 msgid "Now"
 msgstr "Nyt"
 
 #: ../libgitg/gitg-date.vala:320
-msgid "A minute ago"
-msgstr "Minuutti sitten"
-
-#: ../libgitg/gitg-date.vala:320
 #, c-format
-msgid "%d minutes ago"
-msgstr "%d minuuttia sitten"
+#| msgid "A minute ago"
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Minuutti sitten"
+msgstr[1] "%d minuuttia sitten"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "Puoli tuntia sitten"
 
 #: ../libgitg/gitg-date.vala:330
+#, c-format
+#| msgid "An hour ago"
 msgid "An hour ago"
-msgstr "Tunti sitten"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "%d tuntia sitten"
+msgid_plural "%d hours ago"
+msgstr[0] "Tunti sitten"
+msgstr[1] "%d tuntia sitten"
 
 #: ../libgitg/gitg-date.vala:335
+#, c-format
+#| msgid "A day ago"
 msgid "A day ago"
-msgstr "Päivä sitten"
+msgid_plural "%d days ago"
+msgstr[0] "Päivä sitten"
+msgstr[1] "%d päivää sitten"
 
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "%d päivää sitten"
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
+msgid "Save Patch File"
+msgstr "Tallenna paikkatiedosto"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
+#| msgid "Save"
+msgid "_Save"
+msgstr "_Tallenna"
+
+#: ../libgitg/gitg-diff-view.vala:123
 msgid "stage"
-msgstr ""
+msgstr "lavasta"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:124
 msgid "unstage"
-msgstr ""
+msgstr "poista lavastus"
 
-#: ../libgitg/gitg-diff-view.vala:91
-msgid "Loading diff..."
-msgstr "Ladataan diffiä..."
+#: ../libgitg/gitg-diff-view.vala:125
+#| msgid "Loading diff..."
+msgid "Loading diff…"
+msgstr "Ladataan diffiä…"
 
-#: ../libgitg/gitg-stage.vala:279
+#: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
@@ -370,11 +412,12 @@ msgstr "Tiedostot"
 #. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
 msgid "Author Details"
-msgstr ""
+msgstr "Tekijän tiedot"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 #, no-c-format
-msgid "Note: The git config file '%s' does not exist."
+#| msgid "Note: The git config file '%s' does not exist."
+msgid "Note: The Git config file '%s' does not exist."
 msgstr "Huomio: git-asetustiedostoa \"%s\" ei ole olemassa."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
@@ -419,8 +462,9 @@ msgid "_Local Folder:"
 msgstr "_Paikallinen kansio:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
-msgstr "Valitse sijainti..."
+#| msgid "Select location..."
+msgid "Select location…"
+msgstr "Valitse sijainti…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
@@ -429,7 +473,7 @@ msgstr "Tyhjä tietovarasto"
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
 msgid "C_ommit"
-msgstr "Tee _commit"
+msgstr "Tee _pysyvä muutos"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
 msgid "Add _signed-off-by signature"
@@ -437,7 +481,7 @@ msgstr "Lisää _signed-off-by-allekirjoitus"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "_Amend previous commit"
-msgstr ""
+msgstr "_Oikaise edellinen pysyvä muutos"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 #: ../gitg/resources/ui/gitg-window.ui.h:2
@@ -446,7 +490,11 @@ msgstr "Sulje"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
-msgstr ""
+msgstr "Ohita pysyvän muutoksen _liipasimet"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "L_avasta valinta"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -514,11 +562,11 @@ msgstr "Käytä oikolukua"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
 msgid "Commit Message"
-msgstr "Commit-viesti"
+msgstr "Pysyvän muutoksen viesti"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
 msgid "Commits"
-msgstr "Commitit"
+msgstr "Pysyvät muutokset"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
 msgid "Collapse inactive lanes"
@@ -530,23 +578,23 @@ msgstr ""
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
 msgid "Show staged changes in history"
-msgstr ""
+msgstr "Näytä lavastetut muutokset historiassa"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
 msgid "Show unstaged changes in history"
-msgstr ""
+msgstr "Näytä lavastamattomat muutokset historiassa"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
 msgid "Show history in topological order"
-msgstr ""
+msgstr "Näytä historia topologisessa järjestyksessä"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Early"
-msgstr ""
+msgstr "Varhainen"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
 msgid "Late"
-msgstr ""
+msgstr "Myöhäinen"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Layout"
@@ -554,12 +602,25 @@ msgstr "Asettelu"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
 msgid "Use horizontal layout"
-msgstr ""
+msgstr "Käytä vaakatason asettelua"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "gitg - asetukset"
+#| msgid "_Preferences"
+msgid "Preferences"
+msgstr "Asetukset"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "sarake"
+
+#~ msgid "%d minutes ago"
+#~ msgstr "%d minuuttia sitten"
+
+#~ msgid "%d hours ago"
+#~ msgstr "%d tuntia sitten"
+
+#~ msgid "%d days ago"
+#~ msgstr "%d päivää sitten"
+
+#~ msgid "gitg Preferences"
+#~ msgstr "gitg - asetukset"
