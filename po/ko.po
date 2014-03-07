@@ -1,15 +1,15 @@
 # Korean translation for gitg.
 # Copyright (C) 2012 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012, 2013.
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012, 2013, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-12-07 17:40+0000\n"
-"PO-Revision-Date: 2013-12-16 20:21+0900\n"
+"POT-Creation-Date: 2014-01-12 08:06+0000\n"
+"PO-Revision-Date: 2014-01-20 21:06+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -148,68 +148,76 @@ msgstr "맞춤법 검사 언어를 설정할 수 없습니다: %s"
 msgid "Commit"
 msgstr "커밋"
 
-#: ../gitg/commit/gitg-commit.vala:144
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "선택 항목 스테이지에 등록(_S)"
+
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "'%s' 파일을 스테이지에 등록하는데 실패했습니다"
 
-#: ../gitg/commit/gitg-commit.vala:163
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "삭제한 '%s' 파일을 스테이지에 등록하는데 실패했습니다"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "선택 항목 스테이지에서 제외(_U)"
+
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "삭제한 '%s' 파일을 스테이지에서 제외하는데 실패했습니다"
 
-#: ../gitg/commit/gitg-commit.vala:242
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "'%s' 파일을 스테이지에서 제외하는데 실패했습니다"
 
-#: ../gitg/commit/gitg-commit.vala:366
+#: ../gitg/commit/gitg-commit.vala:370
 msgid "Staged"
 msgstr "스테이지에 등록함"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:374
 msgid "No staged files"
 msgstr "스테이지에 등록한 파일이 없습니다"
 
-#: ../gitg/commit/gitg-commit.vala:379
-msgid "Unstaged"
-msgstr "등록하지 않음"
-
 #: ../gitg/commit/gitg-commit.vala:383
+msgid "Unstaged"
+msgstr "스테이지에 등록하지 않음"
+
+#: ../gitg/commit/gitg-commit.vala:387
 msgid "No unstaged files"
 msgstr "스테이지에 등록하지 않은 파일이 없습니다"
 
-#: ../gitg/commit/gitg-commit.vala:392
+#: ../gitg/commit/gitg-commit.vala:396
 msgid "Untracked"
 msgstr "추적하지 않는 파일"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:400
 msgid "No untracked files"
 msgstr "추적하지 않는 파일이 없습니다"
 
-#: ../gitg/commit/gitg-commit.vala:432
+#: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
 msgstr "커밋할 바뀐 내용이 없습니다"
 
-#: ../gitg/commit/gitg-commit.vala:433
+#: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "커밋하기 전에 커밋 메시지를 바꾸려면 amend를 사용하십시오"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
 msgstr "커밋에 실패했습니다"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
 msgstr "커밋 이전 통과에 실패했습니다"
 
-#: ../gitg/commit/gitg-commit.vala:696
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -217,7 +225,7 @@ msgstr ""
 "사용자 이름과 전자 메일 주소를 아직 설정하지 않았습니다. 사용자 설정으로 이동"
 "하여 사용자 이름과 전자 메일 주소를 설정하십시오."
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -225,13 +233,21 @@ msgstr ""
 "사용자 이름을 아직 설정하지 않았습니다. 사용자 설정으로 이동하여 사용자 이름"
 "을 설정하십시오."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "전자 메일 주소를 아직 설정하지 않았습니다. 사용자 설정으로 이동하여 전자 메"
 "일 주소를 설정하십시오."
+
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "선택 항목을 스테이지에 등록하는데 실패했습니다"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "선택 항목을 스테이지에서 제외하는데 실패했습니다"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -242,22 +258,26 @@ msgid "Start gitg with a particular activity"
 msgstr "gitg를 지정 동작으로 시작"
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
-msgstr "gitg를 커밋 동작으로 시작(--view commit 요약)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr "gitg를 커밋 동작으로 시작(--activity commit 요약)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "현재 작업 디렉터리에서 저장소를 불러오려 하지 마십시오"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
-msgstr "- git 저장소 탐색기"
+msgid "- Git repository viewer"
+msgstr "- git 저장소 보기 프로그램"
 
-#: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
+#: ../gitg/gitg-application.vala:206
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg는 gtk+/GNOME용 git 저장소 보기 프로그램입니다"
 
 #: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr "Seong-ho Cho <darkcircle.0426@gmail.com>"
+
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "gitg 홈페이지"
 
@@ -273,45 +293,65 @@ msgstr "git 사용자 설정을 설정하는데 실패했습니다."
 msgid "The URL introduced is not supported"
 msgstr "제공한 URL을 지원하지 않습니다"
 
-#: ../gitg/gitg-window.vala:263
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"정말로 죄송하지만, gitg는 스레드를 지원하도록 컴파일한 libgit2(gitg가 의존하"
+"는 라이브러리)가 필요합니다.\n"
+"\n"
+"직접 libgit2를 컴파일 했다면, -DTHREADSAFE:BOOL=ON 옵션을 주고 libgit2를 컴파"
+"일 전 설정하십시오.\n"
+"\n"
+"아니면, libgit2가 스레드를 지원하지 않은 상태로 제공됨을 배포판 버그 보고 시"
+"스템에 버그로 보고하십시오."
+
+#: ../gitg/gitg-window.vala:276
 msgid "Projects"
 msgstr "프로젝트"
 
-#: ../gitg/gitg-window.vala:299
+#: ../gitg/gitg-window.vala:312
 msgid "Open Repository"
 msgstr "저장소 열기"
 
-#: ../gitg/gitg-window.vala:301
-#: ../libgitg/gitg-diff-view-request-patch.vala:102
+#: ../gitg/gitg-window.vala:314
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
 msgid "_Cancel"
 msgstr "취소(_C)"
 
-#: ../gitg/gitg-window.vala:302
+#: ../gitg/gitg-window.vala:315
 msgid "_Open"
 msgstr "열기(_O)"
 
-#: ../gitg/gitg-window.vala:532
+#: ../gitg/gitg-window.vala:545
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "'%s'은(는) git 저장소가 아닙니다."
 
-#: ../gitg/history/gitg-history-navigation.vala:194
-#: ../gitg/history/gitg-history-navigation.vala:302
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
 msgstr "모든 커밋"
 
 #. Branches
-#: ../gitg/history/gitg-history-navigation.vala:197
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "브랜치"
 
 #. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:234
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "원격"
 
 #. Tags
-#: ../gitg/history/gitg-history-navigation.vala:260
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "태그"
 
@@ -329,58 +369,49 @@ msgid "Now"
 msgstr "지금"
 
 #: ../libgitg/gitg-date.vala:320
-msgid "A minute ago"
-msgstr "1분 전"
-
-#: ../libgitg/gitg-date.vala:320
 #, c-format
-msgid "%d minutes ago"
-msgstr "%d분 전"
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "%d분 전\t"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "30분 전"
 
 #: ../libgitg/gitg-date.vala:330
+#, c-format
 msgid "An hour ago"
-msgstr "1시간 전"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "%d시간 전"
+msgid_plural "%d hours ago"
+msgstr[0] "%d시간 전"
 
 #: ../libgitg/gitg-date.vala:335
+#, c-format
 msgid "A day ago"
-msgstr "1일 전"
+msgid_plural "%d days ago"
+msgstr[0] "%d일 전"
 
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "%d일 전"
-
-#: ../libgitg/gitg-diff-view-request-patch.vala:100
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
 msgid "Save Patch File"
 msgstr "패치 파일 저장"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:104
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
 msgid "_Save"
 msgstr "저장(_S)"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view.vala:123
 msgid "stage"
 msgstr "스테이지에 등록"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:124
 msgid "unstage"
 msgstr "스테이지에서 제외"
 
-#: ../libgitg/gitg-diff-view.vala:91
-msgid "Loading diff..."
-msgstr "diff 불러오는 중..."
+#: ../libgitg/gitg-diff-view.vala:125
+msgid "Loading diff…"
+msgstr "diff 불러오는 중…"
 
 # commit-msg: 훅 이름임. 번역하지 말것.
-#: ../libgitg/gitg-stage.vala:279
+#: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "commit-msg 훅을 실행한 뒤에 커밋 메시지를 읽을 수 없습니다: %s"
@@ -401,7 +432,7 @@ msgstr "작성자 세부 내용"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 #, no-c-format
-msgid "Note: The git config file '%s' does not exist."
+msgid "Note: The Git config file '%s' does not exist."
 msgstr "참고: '%s' git 설정 파일이 없습니다."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
@@ -446,8 +477,8 @@ msgid "_Local Folder:"
 msgstr "로컬 폴더(_L):"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
-msgstr "위치를 선택하십시오..."
+msgid "Select location…"
+msgstr "위치를 선택하십시오…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
@@ -474,6 +505,10 @@ msgstr "닫기"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
 msgstr "커밋 훅 건너뛰기(_H)"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "선택 항목 스테이지에 등록(_T)"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -586,12 +621,24 @@ msgid "Use horizontal layout"
 msgstr "수평 배치 사용"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "gitg 기본 설정"
+msgid "Preferences"
+msgstr "기본 설정"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "컬럼"
+
+#~ msgid "%d minutes ago"
+#~ msgstr "%d분 전"
+
+#~ msgid "%d hours ago"
+#~ msgstr "%d시간 전"
+
+#~ msgid "%d days ago"
+#~ msgstr "%d일 전"
+
+#~ msgid "gitg Preferences"
+#~ msgstr "gitg 기본 설정"
 
 #~ msgid "Filter Revisions When Searching"
 #~ msgstr "검색할 때 리비전 구분"
