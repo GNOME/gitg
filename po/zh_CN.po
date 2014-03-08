@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-01-07 00:07+0000\n"
-"PO-Revision-Date: 2011-08-16 15:05+0000\n"
+"POT-Creation-Date: 2014-03-08 06:42+0000\n"
+"PO-Revision-Date: 2014-03-08 20:05+0800\n"
 "Last-Translator: Wylmer Wang <wantinghard@gmail.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"nplurals=1, plural=0"
+"nplurals=1, plural=0\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -33,17 +33,14 @@ msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "主界面方向(横向或纵向)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-#| msgid "Setting that sets the orientation layout of the main view."
 msgid "Setting that sets the orientation of the main interface."
 msgstr "设定主界面方向布局的设置。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-#, fuzzy
 msgid "When to Collapse Inactive Lanes"
 msgstr "何时折叠不活动的路线"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-#, fuzzy
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -55,7 +52,8 @@ msgid ""
 "activity. Enabling this can provide a cleaner history view when there is a "
 "lot of parallel development. See collapse-inactive-lanes to control when "
 "lanes should be collapsed."
-msgstr ""
+msgstr "设置说明是否折叠历史路线，不显示活动。启用它会使历史视图更加简洁，"
+"如果有很多并行开发的话。关于控制何时折叠路线，参阅 collapse-inactive-lanes。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid "Show History in Topological Order"
@@ -67,23 +65,17 @@ msgid ""
 msgstr "指示是否以拓扑顺序显示历史的设置。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-#| msgid ""
-#| "Setting that indicates whether to show the history in topological order."
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr "指示是否在历史中显示储藏项的设置。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-#| msgid ""
-#| "Setting that indicates whether to show the history in topological order."
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
 msgstr "指示是否在历史中显示对应当前已暂存变更的虚项(virtual item)的设置。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-#| msgid ""
-#| "Setting that indicates whether to show the history in topological order."
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -106,16 +98,12 @@ msgid "Column at Which Right Margin is Shown"
 msgstr "显示右边距的列"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-#| msgid ""
-#| "The column at which the right margin is shown if the right-margin "
-#| "preference is set to TRUE."
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr "若 show-right-margin 首选项设为 TRUE，显示右边界的列。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-#| msgid "Show Right Margin in Commit Message View"
 msgid "Show Subject Margin in Commit Message View"
 msgstr "在提交消息视图中显示主题边距"
 
@@ -123,17 +111,15 @@ msgstr "在提交消息视图中显示主题边距"
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
-msgstr "在提交消息的主题文字超出 subject-margin-position 指定的边界时，高亮显示越界部分。"
+msgstr ""
+"在提交消息的主题文字超出 subject-margin-position 指定的边界时，高亮显示越界部"
+"分。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-#| msgid "Column at Which Right Margin is Shown"
 msgid "Column at Which Subject Margin is Shown"
 msgstr "显示主题边界的列"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-#| msgid ""
-#| "The column at which the right margin is shown if the right-margin "
-#| "preference is set to TRUE."
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -156,7 +142,6 @@ msgstr "_Stage 选择"
 
 #: ../gitg/commit/gitg-commit.vala:146
 #, c-format
-#| msgid "Failed to save current index state"
 msgid "Failed to stage the file `%s'"
 msgstr "无法暂存文件“%s”"
 
@@ -176,12 +161,10 @@ msgstr "无法撤回移除文件“%s”"
 
 #: ../gitg/commit/gitg-commit.vala:246
 #, c-format
-#| msgid "Failed to save current index state"
 msgid "Failed to unstage the file `%s'"
 msgstr "撤回文件“%s”失败"
 
 #: ../gitg/commit/gitg-commit.vala:370
-#| msgid "_Staged"
 msgid "Staged"
 msgstr "已暂存"
 
@@ -194,7 +177,6 @@ msgid "Unstaged"
 msgstr "已撤回"
 
 #: ../gitg/commit/gitg-commit.vala:387
-#| msgid "Unstaged changes"
 msgid "No unstaged files"
 msgstr "无撤回的文件"
 
@@ -211,18 +193,15 @@ msgid "There are no changes to be committed"
 msgstr "没有要提交的变更"
 
 #: ../gitg/commit/gitg-commit.vala:437
-#| msgid "Please enter a commit message before committing"
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "请使用 amend 更改上资提交的提交消息"
 
 #: ../gitg/commit/gitg-commit.vala:463
-#| msgid "Failed to create tag"
 msgid "Failed to commit"
 msgstr "提交失败"
 
 #. TODO: better to show user info dialog directly or something
 #: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
-#| msgid "Failed to remove tag"
 msgid "Failed to pass pre-commit"
 msgstr "无法通过预提交"
 
@@ -245,7 +224,6 @@ msgid ""
 msgstr "您的邮箱尚未配置。请转到用户配置，填写您的邮箱。"
 
 #: ../gitg/commit/gitg-commit.vala:769
-#| msgid "Failed to create tag"
 msgid "Failed to stage selection"
 msgstr "暂存选择内容失败"
 
@@ -270,18 +248,17 @@ msgid "Do not try to load a repository from the current working directory"
 msgstr "不尝试从当前工作目录加载仓库"
 
 #: ../gitg/gitg-application.vala:88
-#| msgid "- git repository viewer"
 msgid "- Git repository viewer"
 msgstr "- Git 版本库查看器"
 
 #: ../gitg/gitg-application.vala:206
-#| msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg 是用于 gtk+/GNOME 的一个 Git 版本库查看器"
 
 #: ../gitg/gitg-application.vala:215
 msgid "translator-credits"
-msgstr "lainme <lainme993@gmail.com>\n"
+msgstr ""
+"lainme <lainme993@gmail.com>\n"
 "Wylmer Wang <wantinghard@gmail.com>"
 
 #: ../gitg/gitg-application.vala:218
@@ -293,13 +270,12 @@ msgid "Unable to open the .gitconfig file."
 msgstr "无法打开 .gitconfig 文件。"
 
 #: ../gitg/gitg-author-details-dialog.vala:147
-#| msgid "Failed to create tag"
 msgid "Failed to set Git user config."
 msgstr "无法设置 Git 用户配置。"
 
 #: ../gitg/gitg-clone-dialog.vala:88
 msgid "The URL introduced is not supported"
-msgstr ""
+msgstr "不支持引入的 URI"
 
 #: ../gitg/gitg.vala:64
 msgid ""
@@ -311,35 +287,32 @@ msgid ""
 "\n"
 "Otherwise, report a bug in your distributions' bug reporting system for "
 "providing libgit2 without threading support."
-msgstr "非常抱歉，gitg 需要带线程支持的 libgit2 编译库(gitg 的一个依赖库)。\n"
+msgstr ""
+"非常抱歉，gitg 需要带线程支持的 libgit2 编译库(gitg 的一个依赖库)。\n"
 "\n"
 "如果您是手动编译的 libgit2，请在配置 libgit2 时加上 -DTHREADSAFE:BOOL=ON。\n"
 "\n"
 "否则，请在您发行版的 BUG 提交系统中报告一条“libgit2 未带有线程支持”的 BUG。"
 
-#: ../gitg/gitg-window.vala:263
+#: ../gitg/gitg-window.vala:276
 msgid "Projects"
 msgstr "项目"
 
-#: ../gitg/gitg-window.vala:299
-#| msgid "Open git repository"
+#: ../gitg/gitg-window.vala:312
 msgid "Open Repository"
 msgstr "打开版本库"
 
-#: ../gitg/gitg-window.vala:301
+#: ../gitg/gitg-window.vala:314
 #: ../libgitg/gitg-diff-view-request-patch.vala:109
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../gitg/gitg-window.vala:302
-#| msgid "_Open..."
+#: ../gitg/gitg-window.vala:315
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: ../gitg/gitg-window.vala:532
+#: ../gitg/gitg-window.vala:545
 #, c-format
-#| msgid "Not a valid git repository"
 msgid "'%s' is not a Git repository."
 msgstr "“%s”不是有效的 Git 版本库。"
 
@@ -350,7 +323,6 @@ msgstr "所有提交"
 
 #. Branches
 #: ../gitg/history/gitg-history-navigation.vala:202
-#| msgid "Branch:"
 msgid "Branches"
 msgstr "分支"
 
@@ -370,7 +342,6 @@ msgid "History"
 msgstr "历史"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:73
-#| msgid "<b>Interface</b>"
 msgid "Interface"
 msgstr "界面"
 
@@ -423,7 +394,7 @@ msgstr "正在加载 diff..."
 #: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
-msgstr ""
+msgstr "在运行 commit-msg 钩子(hook)后无法读取 commit 消息：%s"
 
 #: ../plugins/diff/gitg-diff.vala:62
 msgid "Diff"
@@ -435,7 +406,6 @@ msgstr "文件"
 
 #. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
-#| msgid "Details"
 msgid "Author Details"
 msgstr "作者详情"
 
@@ -454,12 +424,10 @@ msgid "Enter details for repository '%s':"
 msgstr "输入仓库“%s”的默认详细信息："
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
-#| msgid "E-mail:"
 msgid "E-mail: "
 msgstr "电子邮件："
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
-#| msgid "Name:"
 msgid "Name: "
 msgstr "姓名："
 
@@ -472,7 +440,6 @@ msgid "Save"
 msgstr "保存"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-#| msgid "Begin loading repository"
 msgid "Clone Repository"
 msgstr "克隆仓库"
 
@@ -481,7 +448,6 @@ msgid "Cl_one"
 msgstr "克隆(_O)"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-#| msgid "Remotes"
 msgid "Remote _URL:"
 msgstr "远程 _URL："
 
@@ -494,13 +460,11 @@ msgid "Select location…"
 msgstr "选择位置..."
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
-#| msgid "Open git repository"
 msgid "Bare repository"
-msgstr ""
+msgstr "空仓库"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
-#| msgid "Commit"
 msgid "C_ommit"
 msgstr "提交(_O)"
 
@@ -519,7 +483,7 @@ msgstr "关闭"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
-msgstr ""
+msgstr "跳过提交钩子(_H)"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 msgid "S_tage selection"
@@ -542,7 +506,6 @@ msgid "_New Window"
 msgstr "新建窗口(_N)"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:2
-#| msgid "Preferences"
 msgid "_Preferences"
 msgstr "首选项(_P)"
 
@@ -559,7 +522,6 @@ msgid "_Quit"
 msgstr "退出(_Q)"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
-#| msgid "Open git repository"
 msgid "_Open Repository…"
 msgstr "打开仓库(_O)..."
 
@@ -568,7 +530,6 @@ msgid "_Clone Repository…"
 msgstr "克隆仓库(_C)..."
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-#| msgid "Details"
 msgid "_Author Details"
 msgstr "作者详情(_A)"
 
@@ -581,12 +542,10 @@ msgid "Show markup"
 msgstr "显示标记(markup)"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-#| msgid "_Right margin at column:"
 msgid "Display _subject margin at column:"
 msgstr "显示主题边距的列(_S)："
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-#| msgid "Display right _margin"
 msgid "Display right _margin at column:"
 msgstr "显示右边距的列(_M)："
 
@@ -595,24 +554,20 @@ msgid "Enable spell checking"
 msgstr "启用拼写检查"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-#| msgid "Co_mmit message"
 msgid "Commit Message"
 msgstr "提交消息"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-#| msgid "Commit"
 msgid "Commits"
 msgstr "提交"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
-#, fuzzy
 msgid "Collapse inactive lanes"
 msgstr "折叠不活动路线"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
-#, fuzzy
 msgid "Show stash in history"
-msgstr "在历史中显示储藏"
+msgstr "在历史中显示储藏(stash)"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
 msgid "Show staged changes in history"
@@ -639,7 +594,6 @@ msgid "Layout"
 msgstr "布局"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#| msgid "Use vertical layout"
 msgid "Use horizontal layout"
 msgstr "使用水平布局"
 
