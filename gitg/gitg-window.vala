@@ -319,7 +319,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		chooser.response.connect((c, id) => {
 			if (id == Gtk.ResponseType.OK)
 			{
-				open_repository(chooser.get_current_folder_file());
+				var file = chooser.get_file();
+
+				if (file == null)
+				{
+					file = chooser.get_current_folder_file();
+				}
+
+				open_repository(file);
 			}
 
 			c.destroy();
