@@ -2,61 +2,54 @@
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same licence as the gitg package.
 # Serhij Dubyk <dubyk@ukr.net>, 2011.
+# Daniel Korostil <ted.korostiled@gmail.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-12 01:58+0300\n"
-"PO-Revision-Date: 2011-02-12 11:59+0300\n"
-"Last-Translator: Serhij Dubyk <serhijdubyk@gmail.com>\n"
-"Language-Team: Ukrainian Linux Translators <translation@linux.org.ua>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&ke"
+"ywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2014-01-31 13:57+0000\n"
+"PO-Revision-Date: 2014-03-17 00:17+0300\n"
+"Last-Translator: Daniel Korostil <ted.korostiled@gmail.com>\n"
+"Language-Team: linux.org.ua\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.0.5\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Virtaal 0.7.1\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: UKRAINE\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Project-Style: gnome\n"
 
-#: ../data/gitg.desktop.in.in.h:1
-msgid "Git repository browser"
-msgstr "Оглядач сховища Git"
-
-#. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg-branch-actions.c:167
-#: ../gitg/gitg-branch-actions.c:220 ../gitg/gitg.c:185
-#: ../gitg/gitg-window.c:1673 ../gitg/gitg-window.c:1687
-#: ../gitg/gitg-window.ui.h:15
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
+#: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
 
-# Дозволити зовнішні програми порівняння
+#: ../data/gitg.desktop.in.in.h:2
+msgid "Git repository browser"
+msgstr "Оглядач сховища Git"
+
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Allow External Diff Program"
-msgstr "Дозволити зовнішню програму порівняння"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Орієнтація головного інтерфейсу (вертикальна або горизонтальна)"
 
-# Дозволити зовнішню програму змін, які будуть використовуватися при перегляді відмінностей у gitg.
+# Параметр, який задає орієнтацію розташування на головному екрані.
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
-msgstr ""
-"Дозволити зовнішню програму порівняння, яка буде використовуватися для "
-"переглядання відмінностей у gitg."
+#| msgid "Setting that sets the orientation layout of the main view."
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Параметр, який задає орієнтацію головного інтерфейсу."
 
-# Колонка на якому правому краю показано
+# Коли Згорнути Неактивні Лейнс
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-msgid "Column at Which Right Margin is Shown"
-msgstr "Позиція у рядку, на якій показується правий край"
-
-# Фільтр Зміни при пошуку
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-msgid "Filter Revisions When Searching"
-msgstr "Фільтрувати версії при пошуку"
+msgid "When to Collapse Inactive Lanes"
+msgstr "Коли згортати неактивні смуги"
 
 # Параметр, який вказує, коли неактивні смуги повинні бути згорнуті. Допустимі значення: 0 - 4, де 0 означає &quot;ранні&quot; та 4 вказує на &quot;пізно&quot;.
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -64,1396 +57,1543 @@ msgstr ""
 "Параметр, який вказує, коли неактивні смуги повинні бути згорнуті. Допустимі "
 "значення: 0 - 4, де 0 означає «раніше» та 4 вказує на «пізніше»."
 
-# Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Параметри, що визначають, чи ховати текст історії, який не показує "
+"діяльності. Ввімкнення може забезпечити чистішу історію, коли паралельно "
+"багато розроблень. Гляньте на «collapse-inactive-lanes», щоб визначити, коли "
+"ховати, а коли ні."
+
+# Показати історію у топологічному порядку
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+msgid "Show History in Topological Order"
+msgstr "Показувати історію в топологічному порядку"
+
+# Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Параметр, який вказує, чи потрібно показувати історію в топологічному "
 "порядку."
 
-# Параметр, який задає орієнтацію розташування на головному екрані.
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Setting that sets the orientation layout of the main view."
-msgstr "Параметр, який задає орієнтацію розташування на основному екрані."
-
-# Показати історію у топологічному порядку
+# Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Show History in Topological Order"
-msgstr "Показувати історію в топологічному порядку"
+#| msgid ""
+#| "Setting that indicates whether to show the history in topological order."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Параметр, який вказує, чи потрібно показувати об'єкти для реєстру в історії."
 
-# Показати Головна Дивитися у Вертикальне розташування
+# Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-#, fuzzy
-msgid "Show Main View in Vertical or Horizontal Layout"
-msgstr "Показувати основний екран у вертикальному розташуванні"
+#| msgid ""
+#| "Setting that indicates whether to show the history in topological order."
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Параметр, який вказує, чи потрібно показувати віртуальні об'єкти для поточно "
+"позначених змін в історії."
+
+# Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#| msgid ""
+#| "Setting that indicates whether to show the history in topological order."
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Параметр, який вказує, чи потрібно показувати віртуальні об'єкти для поточно "
+"непозначених змін в історії."
 
 # Показати правому краю у фіксації повідомлення Переглянути
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
-msgstr "Показати праву межу в перегляді повідомлення щодо внесків"
+msgstr "Показати праве поле в перегляді повідомлення щодо внесків"
 
 # Показати право показник маржі у фіксації зору. Це може бути використано, щоб легко побачити, де розбити фіксації у певному стовпці.
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Показати покажчик правої межі у перегляді повідомлення щодо внесків. "
-"Це може бути використано, щоб легко побачити, де зробити перехід на новий "
-"рядок у повідомленні щодо внесків."
+"Показати покажчик правого поля у перегляді повідомлення щодо внесків. Це "
+"може бути використано, щоб легко побачити, де зробити перехід на новий рядок "
+"у повідомленні щодо внесків."
+
+# Колонка на якому правому краю показано
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+msgid "Column at Which Right Margin is Shown"
+msgstr "Позиція у рядку, на якій показується праве поле"
 
 # Стовпця, на якому праве поле з’являється, якщо право-маржа перевагу встановлений у значення TRUE.
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
-msgstr ""
-"Стовпчик рядка, правий кут якого показується, якщо параметр правого краю "
-"встановлена у значення TRUE."
-
-# Команди для обробки GITG схемою URL-адреси
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
-msgid "The command to handle GITG scheme URLs"
-msgstr ""
-
-# Команди для обробки GITG схемою URL.
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-msgid "The command to handle GITG scheme URLs."
+#| msgid ""
+#| "The column at which the right margin is shown if the right-margin "
+#| "preference is set to TRUE."
+msgid ""
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
+"Стовпчик рядка, праве поле якого показується, якщо параметр «show-right-"
+"margin» вказано як TRUE."
 
-# Коли Згорнути Неактивні Лейнс
+# Показати правому краю у фіксації повідомлення Переглянути
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-msgid "When to Collapse Inactive Lanes"
-msgstr "Коли згортати неактивні смуги"
+#| msgid "Show Right Margin in Commit Message View"
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Показати поле теми в перегляді повідомлення щодо внесків"
 
-# Лі команда для обробки GITG схемою URL-адреси включена
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
-msgid "Whether command to handle GITG scheme URLs is enabled"
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
 msgstr ""
+"Підсвітити текст теми повідомлення щодо внеску, коли він відповідає полю, "
+"яке вказано через «subject-margin-position»."
 
-# Лі команда для обробки GITG схемою URL-адреси включена.
+# Колонка на якому правому краю показано
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr ""
+#| msgid "Column at Which Right Margin is Shown"
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Позиція у рядку, на якій показується поле теми"
 
-# Лі команда для обробки GITG схемою URL-адреси потреби терміналу
+# Стовпця, на якому праве поле з’являється, якщо право-маржа перевагу встановлений у значення TRUE.
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "Whether command to handle GITG scheme URLs needs a terminal"
-msgstr ""
-
-# Лі команда для обробки GITG схемою URL-адреси потреби терміналу.
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-msgid "Whether command to handle GITG scheme URLs needs a terminal."
-msgstr ""
-
-# Лі пошук фільтри зміни у історії перегляду, а не стрибати у першому матчі.
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+#| msgid ""
+#| "The column at which the right margin is shown if the right-margin "
+#| "preference is set to TRUE."
 msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
 msgstr ""
-"Чи використовувати пошукові фільтри за версіями при перегляді історії "
-"замість того, щоб переходити до першого збігу"
+"Стовпчик рядка, поле теми якого показується, якщо параметр «show-subject-"
+"margin» вказано як TRUE."
 
-# Відділення<%s>не можуть бути вилучені
-#: ../gitg/gitg-branch-actions.c:275
+#: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
-msgid "Branch <%s> could not be removed"
-msgstr "Гілку <%s> неможливо вилучити"
+msgid "Cannot set spell checking language: %s"
+msgstr "Неможливо вказати мову для перевіряння орфографії: %s"
 
-# Це зазвичай означає, що філія не є повністю об’єднані у голові. Ви хочете, щоб примусово видворити гілку?
-#: ../gitg/gitg-branch-actions.c:276
-#, fuzzy
-msgid ""
-"This usually means that the branch is not fully merged in HEAD. Do you want "
-"to forcefully remove the branch?"
-msgstr ""
-"Це зазвичай означає, що гілка не є повністю об’єднана у HEAD. Примусово "
-"вилучити гілку?"
+# Здійснювати
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgid "Commit"
+msgstr "Внести"
 
-# Група вилучити
-#: ../gitg/gitg-branch-actions.c:277
-#, fuzzy
-msgid "Force remove"
-msgstr "Примусово вилучити"
-
-# Відділення<%s>не може бути насильно вилучені
-#: ../gitg/gitg-branch-actions.c:291
-#, c-format
-msgid "Branch <%s> could not be forcefully removed"
-msgstr "Гілку <%s> неможливо примусово вилучити"
-
-# Не вдалося вилучити віддаленого філії<%s>.
-#: ../gitg/gitg-branch-actions.c:324
-#, c-format
-msgid "Failed to remove remote branch <%s>."
-msgstr "Не вдалось вилучити віддалену гілку <%s>."
-
-# Ви впевнені, що хочете вилучити віддаленого філії<%s>?
-#: ../gitg/gitg-branch-actions.c:345
-#, c-format
-msgid "Are you sure you want to remove the remote branch <%s>?"
-msgstr "Вилучити віддалену гілку <%s>?"
-
-# Це назавжди видаляє віддаленого філії.
-#: ../gitg/gitg-branch-actions.c:346
-msgid "This permanently removes the remote branch."
-msgstr "Це безповортно вилучить віддалену гілку."
-
-# Вилучити віддаленого філії
-#: ../gitg/gitg-branch-actions.c:347 ../gitg/gitg-window.c:2883
-msgid "Remove remote branch"
-msgstr "Вилучити віддалену гілку"
-
-# Вилучити філії
-#: ../gitg/gitg-branch-actions.c:362 ../gitg/gitg-menus.xml.h:12
-msgid "Remove branch"
-msgstr "Вилучити гілку"
-
-# Ви впевнені, що хочете вилучити цей пункт накопичувати?
-#: ../gitg/gitg-branch-actions.c:421
-#, fuzzy
-msgid "Are you sure you want to remove this stash item?"
-msgstr "Вилучити цей об'єкт реєстру?"
-
-# Це назавжди видаляє збирати пункту
-#: ../gitg/gitg-branch-actions.c:422
-#, fuzzy
-msgid "This permanently removes the stash item"
-msgstr "Це остаточно вилучає об'єкти реєстру"
-
-# Вилучити притон
-#: ../gitg/gitg-branch-actions.c:423 ../gitg/gitg-window.c:2899
-#, fuzzy
-msgid "Remove stash"
-msgstr "Вилучити реєстр"
-
-# Не вдалося вилучити притон
-#: ../gitg/gitg-branch-actions.c:449
-#, fuzzy
-msgid "Failed to remove stash"
-msgstr "Не вдалось вилучити реєстр"
-
-# Притон пункт не може бути успішно вилучений
-#: ../gitg/gitg-branch-actions.c:450
-#, fuzzy
-msgid "The stash item could not be successfully removed"
-msgstr "Об'єкт реєстру неможливо успішно вилучити"
-
-# Ви впевнені, що хочете вилучити тег<%s>?
-#: ../gitg/gitg-branch-actions.c:481
-#, fuzzy, c-format
-msgid "Are you sure you want to remove the tag <%s>?"
-msgstr "Вилучити мітку <%s> ?"
-
-# Вилучити тег
-#: ../gitg/gitg-branch-actions.c:485 ../gitg/gitg-branch-actions.c:487
-#: ../gitg/gitg-window.c:2905
-#, fuzzy
-msgid "Remove tag"
-msgstr "Вилучити мітку"
-
-# Теги<%s>не може бути успішно вилучений
-#: ../gitg/gitg-branch-actions.c:504
-#, fuzzy, c-format
-msgid "The tag <%s> could not be successfully removed"
-msgstr "Мітку <%s> неможливо успішно вилучити"
-
-# Не вдалося вилучити теги
-#: ../gitg/gitg-branch-actions.c:508
-#, fuzzy
-msgid "Failed to remove tag"
-msgstr "Не вдалось вилучити мітку"
-
-# Відділення<%s>не може бути перейменований в<%s>
-#: ../gitg/gitg-branch-actions.c:571
-#, c-format
-msgid "Branch <%s> could not be renamed to <%s>"
-msgstr "Гілку <%s> неможливо перейменувати у <%s>"
-
-# Це зазвичай означає, що галузь з таким ім’ям вже існує. Ви хочете, щоб перезаписати філії?
-#: ../gitg/gitg-branch-actions.c:572
-msgid ""
-"This usually means that a branch with that name already exists. Do you want "
-"to overwrite the branch?"
-msgstr ""
-"Це зазвичай означає, що гілка з такою назвою вже існує. Перезаписати "
-"гілку?"
-
-# Групою перейменувати
-#: ../gitg/gitg-branch-actions.c:573
-#, fuzzy
-msgid "Force rename"
-msgstr "Примусово перейменувати"
-
-# Відділення<%s>не може бути насильно перейменований
-#: ../gitg/gitg-branch-actions.c:588
-#, c-format
-msgid "Branch <%s> could not be forcefully renamed"
-msgstr "Гілку <%s> неможливо примусово перейменувати"
-
-# Ім’я (є в закладці Користувач)
-#: ../gitg/gitg-branch-actions.c:632 ../gitg/gitg-new-branch.ui.h:2
-#: ../gitg/gitg-preferences.ui.h:17 ../gitg/gitg-repository.ui.h:6
-#: ../gitg/gitg-tag.ui.h:4
-msgid "Name:"
-msgstr "Назва:"
-
-# Ви хочете, щоб тимчасово заховати ці зміни?
-#: ../gitg/gitg-branch-actions.c:754
-#, fuzzy
-msgid "Do you want to temporarily stash these changes?"
-msgstr "Тимчасово зберегти ці зміни?"
-
-# Ви хочете, щоб заховати і повторно ці зміни?
-#: ../gitg/gitg-branch-actions.c:758
-#, fuzzy
-msgid "Do you want to stash and reapply these changes?"
-msgstr "Зберегти і повторно застосувати ці зміни?"
-
-# Ви непідтвердженими змінами у поточній робочої дерева
-#: ../gitg/gitg-branch-actions.c:763
-msgid "You have uncommited changes in your current working tree"
-msgstr "У вас є невнесені зміни у поточному робочому дереві"
-
-# Stash зміни
-#: ../gitg/gitg-branch-actions.c:765
-#, fuzzy
-msgid "Stash changes"
-msgstr "Зберегти зміни"
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "_Позначити вибране"
 
 # Не вдалося зберегти поточний стан індекс
-#: ../gitg/gitg-branch-actions.c:1020
-#, fuzzy
-msgid "Failed to save current index state"
-msgstr "Не вдалоья зберегти поточний стан індексу"
-
-# Помилка перевірки місцевого відділення<%s>
-#: ../gitg/gitg-branch-actions.c:1071 ../gitg/gitg-branch-actions.c:1367
-#: ../gitg/gitg-branch-actions.c:1658 ../gitg/gitg-branch-actions.c:1955
-#, fuzzy, c-format
-msgid "Failed to checkout local branch <%s>"
-msgstr "Помилка перевіряння локальної гілки <%s>"
-
-# Помилка перевірки віддаленого філії<%s>в місцевому відділенні<%s>
-#: ../gitg/gitg-branch-actions.c:1109
-#, fuzzy, c-format
-msgid "Failed to checkout remote branch <%s> to local branch <%s>"
-msgstr "Помилка перевіряння віддаленої гілки <%s> у локальній гілці <%s>"
-
-# Помилка перевірки теги<%s>в місцевому відділенні<%s>
-#: ../gitg/gitg-branch-actions.c:1148
-#, fuzzy, c-format
-msgid "Failed to checkout tag <%s> to local branch <%s>"
-msgstr "Помилка перевіряння мітки <%s> в локальній гілці <%s>"
-
-# Не вдалося перебазуватися %s філії<%s>на %s філії<%s>
-#: ../gitg/gitg-branch-actions.c:1239
-#, fuzzy, c-format
-msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-msgstr "Не вдалось перебазуватися %s філії <%s> на %s філії <%s>"
-
-# Не вдалося об’єднати %s філії<%s>з %s філії<%s>
-#: ../gitg/gitg-branch-actions.c:1243
-#, fuzzy, c-format
-msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-msgstr "Не вдалося об’єднати %s філії <%s> з %s філії <%s>"
-
-# місцевих
-#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
-#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
-#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
-#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
-msgid "local"
-msgstr "локальне"
-
-# віддалений
-#: ../gitg/gitg-branch-actions.c:1251 ../gitg/gitg-branch-actions.c:1253
-#: ../gitg/gitg-branch-actions.c:1330 ../gitg/gitg-branch-actions.c:1332
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
-#: ../gitg/gitg-branch-actions.c:1411 ../gitg/gitg-branch-actions.c:1413
-#: ../gitg/gitg-branch-actions.c:1458 ../gitg/gitg-branch-actions.c:1460
-msgid "remote"
-msgstr "віддалене"
-
-# Заховано зміни були збережені бути повторно вручну
-#: ../gitg/gitg-branch-actions.c:1276 ../gitg/gitg-branch-actions.c:1869
-#, fuzzy
-msgid "The stashed changes have been stored to be reapplied manually"
-msgstr "Заховано зміни були збережені бути повторно вручну"
-
-# Помилка перевірки раніше перевірили філія
-#: ../gitg/gitg-branch-actions.c:1281 ../gitg/gitg-branch-actions.c:1874
-#, fuzzy
-msgid "Failed to checkout previously checked out branch"
-msgstr "Помилка перевірки раніше перевірили філія"
-
-# Не вдалося повторно збирати правильно
-#: ../gitg/gitg-branch-actions.c:1307 ../gitg/gitg-branch-actions.c:1900
-#, fuzzy
-msgid "Failed to reapply stash correctly"
-msgstr "Не вдалося повторно збирати правильно"
-
-# Там можуть бути невирішені конфлікти у робочому дереві або індексу, яке необхідно вирішити вручну
-#: ../gitg/gitg-branch-actions.c:1308 ../gitg/gitg-branch-actions.c:1901
-#, fuzzy
-msgid ""
-"There might be unresolved conflicts in the working tree or index which you "
-"need to resolve manually"
-msgstr ""
-"Там можуть бути невирішені конфлікти в робочому дереві або індексу, яке "
-"необхідно вирішити вручну"
-
-# Ви впевнені, що хочете об’єднати %s філії<%s>на %s філії<%s>?
-#: ../gitg/gitg-branch-actions.c:1329
-#, fuzzy, c-format
-msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-msgstr "Ви впевнені, що хочете об’єднати %s філії <%s> на %s філії <%s> ?"
-
-# Злиття
-#: ../gitg/gitg-branch-actions.c:1337 ../gitg/gitg-branch-actions.c:1339
-#: ../gitg/gitg-branch-actions.c:1387 ../gitg/gitg-menus.xml.h:7
-#, fuzzy
-msgid "Merge"
-msgstr "Злиття"
-
-# Сук, на якому для об’єднання не можуть бути перевірені
-#: ../gitg/gitg-branch-actions.c:1368
-#, fuzzy
-msgid "The branch on which to merge could not be checked out"
-msgstr "Сук, на якому для об’єднання не можуть бути перевірені"
-
-# Злиття %s філії<%s>на %s філії<%s>
-#: ../gitg/gitg-branch-actions.c:1374
-#, fuzzy, c-format
-msgid "Merging %s branch <%s> onto %s branch <%s>"
-msgstr "Злиття %s філії <%s> на %s філії <%s>"
-
-# Ви впевнені, що хочете перебазуватися %s філії<%s>на %s філії<%s>?
-#: ../gitg/gitg-branch-actions.c:1410
-#, fuzzy, c-format
-msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-msgstr "Ви впевнені, що хочете перебазуватися %s філії <%s> на %s філії <%s> ?"
-
-# Rebase
-#: ../gitg/gitg-branch-actions.c:1418 ../gitg/gitg-branch-actions.c:1420
-#: ../gitg/gitg-branch-actions.c:1470 ../gitg/gitg-menus.xml.h:10
-#, fuzzy
-msgid "Rebase"
-msgstr "Rebase"
-
-# Неможливо REBASE
-#: ../gitg/gitg-branch-actions.c:1443
-#, fuzzy
-msgid "Unable to rebase"
-msgstr "Неможливо переформувати"
-
-# Є ще незавершені зміни у вашій робочої дерева і Ви намагаєтеся REBASE філії на даний час перевірені відділення. Або вилучите, збирати або зафіксувати зміни першої та спробуйте ще раз
-#: ../gitg/gitg-branch-actions.c:1444
-#, fuzzy
-msgid ""
-"There are still uncommitted changes in your working tree and you are trying "
-"to rebase a branch onto the currently checked out branch. Either remove, "
-"stash or commit your changes first and try again"
-msgstr ""
-"Все ще є незафіксовані зміни у Вашому робочому дереві а Ви намагаєтеся "
-"виконати REBASE гілки  у поточну даний час перевірені гілку. Або ж вилучіть, "
-"збирати чи зафіксуйте Ваші зміни перш ніж спробувати ще раз"
-
-# Переклад розрахунків %s філії<%s>на %s філії<%s>
-#: ../gitg/gitg-branch-actions.c:1457
-#, fuzzy, c-format
-msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-msgstr "Переклад розрахунків %s філії <%s> на %s філії <%s>"
-
-# Не вдалося натиснути місцевого відділення<%s>до віддалених<%s>
-#: ../gitg/gitg-branch-actions.c:1496
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
-msgid "Failed to push local branch <%s> to remote <%s>"
-msgstr "Не вдалось надіслати локальну гілку <%s> до віддаленої <%s>"
+msgid "Failed to stage the file `%s'"
+msgstr "Не вдалося позначити файл «%s»"
 
-# Це зазвичай означає, що віддалений філія не може бути швидко спрямовані. Спробуйте вибірка останніх змін.
-#: ../gitg/gitg-branch-actions.c:1497
-#, fuzzy
-msgid ""
-"This usually means that the remote branch could not be fast-forwarded. Try "
-"fetching the latest changes."
-msgstr ""
-"Це зазвичай означає, що віддалена гілка не може бути швидко переспрямована. "
-"Спробуйте отримати останні зміни."
-
-# Ви впевнені, що хочете натиснути<%s>до<%s>?
-#: ../gitg/gitg-branch-actions.c:1521
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
-msgid "Are you sure you want to push <%s> to <%s>?"
-msgstr "Надіслати <%s> до <%s> ?"
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Не вдалося позначити вилучений файл «%s»"
 
-# Поштовх
-#: ../gitg/gitg-branch-actions.c:1527 ../gitg/gitg-branch-actions.c:1529
-#: ../gitg/gitg-branch-actions.c:1550 ../gitg/gitg-branch-actions.c:1582
-#: ../gitg/gitg-branch-actions.c:1584 ../gitg/gitg-branch-actions.c:1607
-msgid "Push"
-msgstr "Надіслати"
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "_Непозначений вибір"
 
-# Прагнення місцевого відділення<%s>для віддаленого філії<%s>
-#: ../gitg/gitg-branch-actions.c:1542
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
-msgid "Pushing local branch <%s> to remote branch <%s>"
-msgstr "Надсилання локальної гілки <%s> до віддаленої гілки <%s>"
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Не вдалося зняти позначення з вилученого файла «%s»"
 
-# Ви впевнені, що хочете натиснути<%s>до віддалених<%s/%s>?
-#: ../gitg/gitg-branch-actions.c:1576
+# Не вдалося зберегти поточний стан індекс
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
-msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
-msgstr "Надіслати <%s> до віддаленої <%s/%s>?"
+msgid "Failed to unstage the file `%s'"
+msgstr "Не вдалося зняти позначення з файла «%s»"
 
-# Прагнення місцевого відділення<%s>для віддаленого філії<%s/%s>
-#: ../gitg/gitg-branch-actions.c:1594
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s/%s>"
-msgstr "Надсилання локальної гілки <%s> до віддаленої гілки <%s/%s>"
+# Поетапний
+#: ../gitg/commit/gitg-commit.vala:370
+#| msgid "_Staged"
+msgid "Staged"
+msgstr "Позначено"
 
-# Ви впевнені, що хочете застосувати збирати елемент місцевого відділення<%s>?
-#: ../gitg/gitg-branch-actions.c:1631
-#, fuzzy, c-format
-msgid "Are you sure you want to apply the stash item to local branch <%s>?"
-msgstr ""
-"Ви впевнені, що хочете застосувати збирати елемент місцевого відділення <"
-"%s> ?"
+#: ../gitg/commit/gitg-commit.vala:374
+msgid "No staged files"
+msgstr "Немає позначених файлів"
 
-# Застосувати притон
-#: ../gitg/gitg-branch-actions.c:1636 ../gitg/gitg-branch-actions.c:1638
-#, fuzzy
-msgid "Apply stash"
-msgstr "Застосувати притон"
+# Unstaged
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "Unstaged"
+msgstr "Непозначено"
 
-# Схованка не можуть бути застосовані до місцевим відділенням<%s>
-#: ../gitg/gitg-branch-actions.c:1677
-#, fuzzy, c-format
-msgid "The stash could not be applied to local branch <%s>"
-msgstr "Схованка не можуть бути застосовані до місцевим відділенням <%s>"
+# Unstaged зміни
+#: ../gitg/commit/gitg-commit.vala:387
+#| msgid "Unstaged changes"
+msgid "No unstaged files"
+msgstr "Немає непозначених файлів"
 
-# Не вдалося застосувати притон
-#: ../gitg/gitg-branch-actions.c:1681
-#, fuzzy
-msgid "Failed to apply stash"
-msgstr "Не вдалось застосувати керування"
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "Untracked"
+msgstr "Не враховано"
 
-# Відділення не може бути успішно створена
-#: ../gitg/gitg-branch-actions.c:1724
-#, fuzzy
-msgid "The branch could not be successfully created"
-msgstr "Тег об’єкта не може бути успішно створена"
+#: ../gitg/commit/gitg-commit.vala:400
+msgid "No untracked files"
+msgstr "Не враховано файлів"
 
-# Не вдалося створити філію
-#: ../gitg/gitg-branch-actions.c:1728
-msgid "Failed to create a branch"
-msgstr "Не вдалось створити гілку"
+#: ../gitg/commit/gitg-commit.vala:436
+msgid "There are no changes to be committed"
+msgstr "Немає змін, що їх внести"
 
-# Тег об’єкта не може бути успішно створена. Будь ласка, переконайтеся, що Ви GPG ключ і ключ розблокована
-#: ../gitg/gitg-branch-actions.c:1780
-#, fuzzy
-msgid ""
-"The tag object could not be successfully created. Please make sure you have "
-"a GPG key and the key is unlocked"
-msgstr ""
-"Тег об’єкта не може бути успішно створена. Будь ласка, переконайтеся, що ви "
-"GPG ключ і ключ розблокована"
-
-# Тег об’єкта не може бути успішно створена
-#: ../gitg/gitg-branch-actions.c:1784
-#, fuzzy
-msgid "The tag object could not be successfully created"
-msgstr "Мітка об'єкта неможливо успішно створити"
+# Будь ласка, введіть повідомлення зробити перед тим,
+#: ../gitg/commit/gitg-commit.vala:437
+#| msgid "Please enter a commit message before committing"
+msgid "Use amend to change the commit message of the previous commit"
+msgstr "Внести зміни до повідомлення щодо внеску попереднього внеску"
 
 # Не вдалося створити тег
-#: ../gitg/gitg-branch-actions.c:1789
-#, fuzzy
-msgid "Failed to create tag"
-msgstr "Не вдалось створити мітку"
+#: ../gitg/commit/gitg-commit.vala:463
+msgid "Failed to commit"
+msgstr "Не вдалося внести"
 
-# Не вдалося робити вибір на<%s>
-#: ../gitg/gitg-branch-actions.c:1844
-#, fuzzy, c-format
-msgid "Failed to cherry-pick on <%s>"
-msgstr "Помилка перевірки локальної гілки <%s>"
+# Не вдалося вилучити теги
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
+msgid "Failed to pass pre-commit"
+msgstr "Не вдалось пропустити попередній внесок"
 
-# Ви впевнені, що Ви хочете робити вибір, що перегляд за<%s>?
-#: ../gitg/gitg-branch-actions.c:1921
-#, fuzzy, c-format
-msgid "Are you sure you want to cherry-pick that revision on <%s>?"
-msgstr "Ви впевнені, що хочете натиснути <%s> до <%s> ?"
-
-# Черрі-Піка
-#: ../gitg/gitg-branch-actions.c:1926 ../gitg/gitg-branch-actions.c:1928
-#: ../gitg/gitg-branch-actions.c:1976
-msgid "Cherry-pick"
+#: ../gitg/commit/gitg-commit.vala:700
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
 msgstr ""
+"Ще не налаштовано користувача та пошту. Перейдіть у користувацькі параметри "
+"і вкажіть їх."
 
-# Сук, на якому у виробляти вибір не може бути витягнутий
-#: ../gitg/gitg-branch-actions.c:1956
-#, fuzzy
-msgid "The branch on which to cherry-pick could not be checked out"
-msgstr "Сук, на якому для об’єднання не можуть бути перевірені"
-
-# Черрі-збір на<%s>
-#: ../gitg/gitg-branch-actions.c:1963
-#, c-format
-msgid "Cherry-picking on <%s>"
+#: ../gitg/commit/gitg-commit.vala:704
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
 msgstr ""
+"Ще не налаштовано користувача. Перейдіть у користувацькі параметри і вкажіть "
+"його."
 
-# Не вдалося створити формат-патч
-#: ../gitg/gitg-branch-actions.c:2031
-#, fuzzy
-msgid "Failed to generate format-patch"
-msgstr "Не вдалось створити мітку"
-
-# Створення формату-патч для<%s>
-#: ../gitg/gitg-branch-actions.c:2081
-#, c-format
-msgid "Generating format-patch for <%s>"
+#: ../gitg/commit/gitg-commit.vala:708
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
 msgstr ""
+"Ще не налаштовано пошту. Перейдіть у користувацькі параметри і вкажіть її."
 
-# Формат патч
-#: ../gitg/gitg-branch-actions.c:2089 ../gitg/gitg-menus.xml.h:6
-msgid "Format patch"
-msgstr ""
+# Не вдалося створити тег
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "Не вдалося позначити вибране"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "Не вдалося зняти позначення з вибраного"
 
 # Показати версію програми
-#: ../gitg/gitg.c:52
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Показати версію програми"
 
-# Початок gitg у вчинення режимі
-#: ../gitg/gitg.c:53
-msgid "Start gitg in commit mode"
-msgstr "Запустити gitg у режимі внесення змін"
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "Запустити програму з частковою діяльністю"
 
-# Виберіть зробити після звантаження сховища
-#: ../gitg/gitg.c:54
-#, fuzzy
-msgid "Select commit after loading the repository"
-msgstr "Початок завантаження сховища"
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr ""
+"Запустити програму з робочою дільністю (підручна команда: --activity commit)"
+
+#: ../gitg/gitg-application.vala:64
+msgid "Do not try to load a repository from the current working directory"
+msgstr "Не намагайтесь завантажувати сховище з поточного робочого каталогу"
 
 # - Git репозиторій перегляду
-#: ../gitg/gitg.c:64
-msgid "- git repository viewer"
+#: ../gitg/gitg-application.vala:88
+#| msgid "- git repository viewer"
+msgid "- Git repository viewer"
 msgstr "— переглядач сховища Git"
 
-# Не вдається відобразити вміст файлу у вигляді тексту
-#: ../gitg/gitg-commit-view.c:224 ../gitg/gitg-revision-files-panel.c:256
-msgid "Cannot display file content as text"
-msgstr "Не вдалось показати вміст файла як текст"
-
-# unstage
-#: ../gitg/gitg-commit-view.c:1178
-#, fuzzy
-msgid "unstage"
-msgstr "не позначати"
-
-# етап
-#: ../gitg/gitg-commit-view.c:1179
-#, fuzzy
-msgid "stage"
-msgstr "позначити"
-
-# Ви повинні першому етапі деякі зміни перед тим,
-#: ../gitg/gitg-commit-view.c:2033
-msgid "You must first stage some changes before committing"
-msgstr ""
-"Ви повинні спершу позначити деякі зміни перед тим, як їх внести"
-
-# Будь ласка, введіть повідомлення зробити перед тим,
-#: ../gitg/gitg-commit-view.c:2041
-msgid "Please enter a commit message before committing"
-msgstr ""
-"Будь ласка, введіть описове повідомлення про внесення змін перед тим, як "
-"їх виконати"
-
-# Ваше ім’я користувача або по електронній пошті не може бути відновлена для використання у підписати повідомлення
-#: ../gitg/gitg-commit-view.c:2053
-#, fuzzy
-msgid ""
-"Your user name or email could not be retrieved for use in the sign off "
-"message"
-msgstr ""
-"Вашого користувача або електронну пошту неможливо відновити для "
-"використання в підписати повідомлення"
-
-# Щось пішло не так при спробі вчинити
-#: ../gitg/gitg-commit-view.c:2055
-msgid "Something went wrong while trying to commit"
-msgstr "Щось пішло не так при спробі внести зміни"
-
-# Повернути невдача
-#: ../gitg/gitg-commit-view.c:2248
-#, fuzzy
-msgid "Revert fail"
-msgstr "Помилка повернення"
-
-# Ви впевнені, що хочете повернути ці зміни?
-#: ../gitg/gitg-commit-view.c:2259
-#, fuzzy
-msgid "Are you sure you want to revert these changes?"
-msgstr "Повернути ці зміни?"
-
-# Повертаючись змін є постійним і не може бути скасовано
-#: ../gitg/gitg-commit-view.c:2262
-#, fuzzy
-msgid "Reverting changes is permanent and cannot be undone"
-msgstr "Повернення змін є безповоротним і його неможливо скасувати"
-
-# Отримувати
-#: ../gitg/gitg-repository-dialog.c:245 ../gitg/gitg-repository.ui.h:4
-msgid "Fetch"
-msgstr "Отримати"
-
-# Скасувати
-#: ../gitg/gitg-repository-dialog.c:250
-msgid "Cancel"
-msgstr "Скасувати"
-
-# Властивості
-#: ../gitg/gitg-repository-dialog.c:634 ../gitg/gitg-repository.ui.h:7
-#: ../gitg/gitg-tag.ui.h:5
-msgid "Properties"
-msgstr "Властивості"
-
-# Зміни
-#: ../gitg/gitg-revision-changes-panel.c:270
-msgid "Changes"
-msgstr "Зміни"
-
-# Детальна інформація
-#: ../gitg/gitg-revision-details-panel.c:114
-msgid "Details"
-msgstr "Подробиці"
-
-# Файли
-#: ../gitg/gitg-revision-files-panel.c:600
-msgid "Files"
-msgstr "Файли"
-
-# (Пусто)
-#: ../gitg/gitg-revision-files-panel.c:769
-msgid "(Empty)"
-msgstr "(пусто)"
-
-# Виберіть філія
-#: ../gitg/gitg-window.c:682
-msgid "Select branch"
-msgstr "Вибір гілки"
-
-# Натисніть місцевого відділення<%s>до віддалених філії<%s>
-#: ../gitg/gitg-window.c:751
-#, c-format
-msgid "Push local branch <%s> to remote branch <%s>"
-msgstr "Відправити локальну гілку <%s> до віддаленої гілки <%s>"
-
-# Злиття/REBASE місцевого відділення<%s>з/на місцеве відділення<%s>
-#: ../gitg/gitg-window.c:758
-#, fuzzy, c-format
-msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
-msgstr "Злити/переформувати локальну гілку <%s> з/на локальну гілку <%s>"
-
-# Злиття/REBASE місцевого відділення<%s>з/на віддалений філія<%s>
-#: ../gitg/gitg-window.c:765
-#, fuzzy, c-format
-msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
-msgstr "Злити/переформувати локальну гілку <%s> з/на віддалену гілку <%s>"
-
-# Застосувати схованку з місцевим відділенням<%s>
-#: ../gitg/gitg-window.c:772
-#, fuzzy, c-format
-msgid "Apply stash to local branch <%s>"
-msgstr "Застосувати керування до локальної гілки <%s>"
-
-# Черрі-Піка ревізію на<%s>
-#: ../gitg/gitg-window.c:852
-#, c-format
-msgid "Cherry-pick revision on <%s>"
-msgstr ""
-
-# Звантажено %d зміни в% .2 FS
-#: ../gitg/gitg-window.c:1219
-#, c-format
-msgid "Loaded %d revisions in %.2fs"
-msgstr "Завантажено %d версій за %.2f сек."
-
-# Звантаження %d зміни…
-#: ../gitg/gitg-window.c:1244
-#, c-format
-msgid "Loading %d revisions..."
-msgstr "Завантажується %d версій…"
-
-# Місцеві відділення
-#: ../gitg/gitg-window.c:1606
-msgid "Local branches"
-msgstr "Локальні гілки"
-
-# Усі філії
-#: ../gitg/gitg-window.c:1627
-msgid "All branches"
-msgstr "Усі гілки"
-
-# Початок звантаження сховища
-#: ../gitg/gitg-window.c:1705
-msgid "Begin loading repository"
-msgstr "Початок завантаження сховища"
-
-# Відкрити Git репозиторій
-#: ../gitg/gitg-window.c:2146
-msgid "Open git repository"
-msgstr "Відкрити сховище Git"
-
 # gitg є Git репозиторій перегляду для GTK +/GNOME
-#: ../gitg/gitg-window.c:2219
-msgid "gitg is a git repository viewer for gtk+/GNOME"
+#: ../gitg/gitg-application.vala:206
+#| msgid "gitg is a git repository viewer for gtk+/GNOME"
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg — це переглядач сховища Git для GTK+/GNOME"
 
-#: ../gitg/gitg-window.c:2220
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr "Daniel Korostil <ted.korostiled@gmail.com>"
+
+#: ../gitg/gitg-application.vala:218
+msgid "gitg homepage"
+msgstr "Домашня сторінка gitg"
+
+#: ../gitg/gitg-author-details-dialog.vala:65
+msgid "Unable to open the .gitconfig file."
+msgstr "Неможливо відкрити файл .gitconfig"
+
+# Не вдалося створити тег
+#: ../gitg/gitg-author-details-dialog.vala:147
+msgid "Failed to set Git user config."
+msgstr "Не вдалося вказати користувацькі налаштування Git."
+
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr "Представлений URL не підтримується"
+
+#: ../gitg/gitg.vala:64
 msgid ""
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
 "\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
 "\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 59 Temple Place, Suite 330,\n"
-"Boston, MA 02111-1307, USA."
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
 msgstr ""
-"Ця програма є вільним програмним засобом, і ви можете її "
-"розповсюджувати та/чи модифікувати\n"
-"відповідно до умов ліцензії „GNU General Public License“, опублікованої\n"
-"організацією „Free Software Foundation“; 2-ої версії цієї ліцензії, чи\n"
-"(за вашим вибором) будь-якої новішої версії.\n"
+"На превеликий жаль, gitg потребує libgit2 (бібліотека від якої gitg залежить)"
+", щоб зібрати потокове підтримування.\n"
 "\n"
-"Ця програма розповсюджується із сподіванням, що вона буде корисною,\n"
-"але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ, навіть без неявної гарантії\n"
-"щодо ПРИДАТНОСТІ. Перегляньте ліцензію\n"
-"„GNU General Public License“ щодо більш докладної інформації.\n"
+"Якщо ви вручну збиратиме libgit2, вкажіть -DTHREADSAFE:BOOL=ON.\n"
 "\n"
-"Ви повинні були отримати копію ліцензії „GNU General Public License“\n"
-"разом з цією програмою, а якщо її немає, напишіть за адресою: \n"
-"Free Software Foundation, Inc, 59 Temple Place, Suite 330,\n"
-"Boston, MA 02111-1307, USA."
+"В іншому випадку, звітуйте ваду до ваших дистрибутивів, щоб вони надали "
+"libgit2 без потокового підтримування."
 
-# нових
-#: ../gitg/gitg-window.c:2542
-#, fuzzy
-msgid "new"
-msgstr "нових"
+#: ../gitg/gitg-window.vala:276
+msgid "Projects"
+msgstr "Проекти"
 
-# Нові місцевого відділення<%s>
-#: ../gitg/gitg-window.c:2872 ../gitg/gitg-window.c:2910
+# Відкрити Git репозиторій
+#: ../gitg/gitg-window.vala:312
+#| msgid "Open git repository"
+msgid "Open Repository"
+msgstr "Відкрити сховище"
+
+# Скасувати
+#: ../gitg/gitg-window.vala:314
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "_Скасувати"
+
+# Відкрити…
+#: ../gitg/gitg-window.vala:315
+#| msgid "_Open..."
+msgid "_Open"
+msgstr "_Відкрити"
+
+# Не вдалося знайти Git репозиторій
+#: ../gitg/gitg-window.vala:545
 #, c-format
-msgid "New local branch <%s>"
-msgstr "Нова локальна гілка <%s>"
-
-# Оформити замовлення робочої копії
-#: ../gitg/gitg-window.c:2888
-#, fuzzy
-msgid "Checkout working copy"
-msgstr "Завантажити робочу копію"
-
-# Вилучити місцевого відділення
-#: ../gitg/gitg-window.c:2889
-msgid "Remove local branch"
-msgstr "Вилучити локальну гілку"
-
-# Перейменувати місцевого відділення
-#: ../gitg/gitg-window.c:2891
-msgid "Rename local branch"
-msgstr "Перейменувати локальну гілку"
-
-# Не усі поля повинні бути правильно заповнені
-#: ../gitg/gitg-window.c:3257 ../gitg/gitg-window.c:3313
-#, fuzzy
-msgid "Not all fields are correctly filled in"
-msgstr "Не усі поля повинні бути правильно заповнені"
-
-# Будь ласка, не забудьте заповнити назва філії
-#: ../gitg/gitg-window.c:3261
-#, fuzzy
-msgid "Please make sure to fill in the branch name"
-msgstr ""
-"Будь ласка, не забудьте заповнити як назву мітки та повідомлення щодо "
-"внесення змін"
-
-# Будь ласка, не забудьте заповнити як ім’я тега і повідомлення вчинення
-#: ../gitg/gitg-window.c:3300
-msgid "Please make sure to fill in both the tag name and the commit message"
-msgstr ""
-"Будь ласка, не забудьте заповнити як назву мітки та повідомлення щодо "
-"внесення змін"
-
-# Будь ласка, не забудьте заповнити ім’я тега
-#: ../gitg/gitg-window.c:3304
-#, fuzzy
-msgid "Please make sure to fill in the tag name"
-msgstr ""
-"Будь ласка, не забудьте заповнити як назву мітки та повідомлення щодо "
-"фіксацію змін"
-
-# Формат виправлення вдалася з невідомої причини
-#: ../gitg/gitg-window.c:3381
-msgid "Format patch failed for unknown reason"
-msgstr ""
-
-# Будь ласка, перевірте, якщо у Вас є права доступу для запису файлу
-#: ../gitg/gitg-window.c:3385
-msgid "Please check if you have the right permissions to write the file"
-msgstr "Будь ласка, перевірте, чи у вас є права доступу для запису файла"
-
-# Зберегти формат патч
-#. Single one, pick filename
-#: ../gitg/gitg-window.c:3426
-msgid "Save format patch"
-msgstr ""
-
-# Unicode
-#: ../libgitg/gitg-encodings.c:144 ../libgitg/gitg-encodings.c:186
-#: ../libgitg/gitg-encodings.c:188 ../libgitg/gitg-encodings.c:190
-#: ../libgitg/gitg-encodings.c:192 ../libgitg/gitg-encodings.c:194
-#: ../libgitg/gitg-encodings.c:196 ../libgitg/gitg-encodings.c:198
-msgid "Unicode"
-msgstr "Унікод"
-
-# Західна
-#: ../libgitg/gitg-encodings.c:157 ../libgitg/gitg-encodings.c:181
-#: ../libgitg/gitg-encodings.c:231 ../libgitg/gitg-encodings.c:274
-msgid "Western"
-msgstr "Західна"
-
-# Центральної Європи
-#: ../libgitg/gitg-encodings.c:159 ../libgitg/gitg-encodings.c:233
-#: ../libgitg/gitg-encodings.c:270
-msgid "Central European"
-msgstr "Центрально-європейська"
-
-# Південної Європи
-#: ../libgitg/gitg-encodings.c:161
-msgid "South European"
-msgstr "Південно-європейська"
-
-# Балтійського
-#: ../libgitg/gitg-encodings.c:163 ../libgitg/gitg-encodings.c:177
-#: ../libgitg/gitg-encodings.c:284
-msgid "Baltic"
-msgstr "Балтійська"
-
-# Кирилиця
-#: ../libgitg/gitg-encodings.c:165 ../libgitg/gitg-encodings.c:235
-#: ../libgitg/gitg-encodings.c:248 ../libgitg/gitg-encodings.c:252
-#: ../libgitg/gitg-encodings.c:254 ../libgitg/gitg-encodings.c:272
-msgid "Cyrillic"
-msgstr "Кирилична"
-
-# Арабська
-#: ../libgitg/gitg-encodings.c:167 ../libgitg/gitg-encodings.c:241
-#: ../libgitg/gitg-encodings.c:282
-msgid "Arabic"
-msgstr "Арабська"
-
-# Грецький
-#: ../libgitg/gitg-encodings.c:169 ../libgitg/gitg-encodings.c:276
-msgid "Greek"
-msgstr "Грецька"
-
-# Іврит Visual
-#: ../libgitg/gitg-encodings.c:171
-msgid "Hebrew Visual"
-msgstr "Іврит, з візуальним порядком"
-
-# Турецька
-#: ../libgitg/gitg-encodings.c:173 ../libgitg/gitg-encodings.c:237
-#: ../libgitg/gitg-encodings.c:278
-msgid "Turkish"
-msgstr "Турецька"
-
-# Скандинавський
-#: ../libgitg/gitg-encodings.c:175
-msgid "Nordic"
-msgstr "Скандинавська"
-
-# Кельтський
-#: ../libgitg/gitg-encodings.c:179
-msgid "Celtic"
-msgstr "Кельтська"
-
-# Румунська
-#: ../libgitg/gitg-encodings.c:183
-msgid "Romanian"
-msgstr "Румунська"
-
-# Вірменська
-#: ../libgitg/gitg-encodings.c:201
-msgid "Armenian"
-msgstr "Вірменська"
-
-# Китайський традиційний
-#: ../libgitg/gitg-encodings.c:203 ../libgitg/gitg-encodings.c:205
-#: ../libgitg/gitg-encodings.c:219
-msgid "Chinese Traditional"
-msgstr "Китайська традиційна"
-
-# Кирилиця/Російська
-#: ../libgitg/gitg-encodings.c:207
-msgid "Cyrillic/Russian"
-msgstr "Кирилична/російська"
-
-# Японський
-#: ../libgitg/gitg-encodings.c:210 ../libgitg/gitg-encodings.c:212
-#: ../libgitg/gitg-encodings.c:214 ../libgitg/gitg-encodings.c:244
-#: ../libgitg/gitg-encodings.c:259
-msgid "Japanese"
-msgstr "Японська"
-
-# Корейська
-#: ../libgitg/gitg-encodings.c:217 ../libgitg/gitg-encodings.c:246
-#: ../libgitg/gitg-encodings.c:250 ../libgitg/gitg-encodings.c:265
-msgid "Korean"
-msgstr "Корейська"
-
-# Китайський спрощений
-#: ../libgitg/gitg-encodings.c:222 ../libgitg/gitg-encodings.c:224
-#: ../libgitg/gitg-encodings.c:226
-msgid "Chinese Simplified"
-msgstr "Китайська спрощена"
-
-# Грузинський
-#: ../libgitg/gitg-encodings.c:228
-msgid "Georgian"
-msgstr "Грузинська"
-
-# Іврит
-#: ../libgitg/gitg-encodings.c:239 ../libgitg/gitg-encodings.c:280
-msgid "Hebrew"
-msgstr "Іврит"
-
-# Кирилиця/Український
-#: ../libgitg/gitg-encodings.c:256
-msgid "Cyrillic/Ukrainian"
-msgstr "Кирилична/українська"
-
-# В’єтнамський
-#: ../libgitg/gitg-encodings.c:261 ../libgitg/gitg-encodings.c:267
-#: ../libgitg/gitg-encodings.c:286
-msgid "Vietnamese"
-msgstr "В’єтнамська"
-
-# Тайська
-#: ../libgitg/gitg-encodings.c:263
-msgid "Thai"
-msgstr "Тайська"
-
-# Невідомо
-#: ../libgitg/gitg-encodings.c:479
-msgid "Unknown"
-msgstr "Невідомо"
-
-# Постановка змін
-#: ../libgitg/gitg-repository.c:892
-msgid "Staged changes"
-msgstr "Позначені зміни"
-
-# Unstaged зміни
-#: ../libgitg/gitg-repository.c:896
-msgid "Unstaged changes"
-msgstr "Непозначені зміни"
-
-# Не дійсні Git репозиторій
-#: ../libgitg/gitg-repository.c:1533
-msgid "Not a valid git repository"
-msgstr "Не є правильним сховищем git"
-
-# Це не представляється можливим визначити кодування автоматично
-#: ../libgitg/gitg-smart-charset-converter.c:329
-msgid "It is not possible to detect the encoding automatically"
-msgstr "Неможливо визначити кодування автоматично"
-
-# Ігнорувати
-#. ex:ts=8:noet:
-#: ../gitg/gitg-commit-menu.ui.h:1
-msgid "Ignore"
-msgstr "Ігнорувати"
-
-# Повертатися
-#: ../gitg/gitg-commit-menu.ui.h:2
-#, fuzzy
-msgid "Revert"
-msgstr "Повернути"
-
-# Етап
-#: ../gitg/gitg-commit-menu.ui.h:3
-msgid "Stage"
-msgstr "Позначити"
-
-# Unstage
-#: ../gitg/gitg-commit-menu.ui.h:4
-msgid "Unstage"
-msgstr "Не позначати"
-
-# Застосувати громадити, щоб…
-#: ../gitg/gitg-menus.xml.h:1
-#, fuzzy
-msgid "Apply stash to..."
-msgstr "Застосувати керування до…"
-
-# Оформити замовлення філії
-#: ../gitg/gitg-menus.xml.h:2
-#, fuzzy
-msgid "Checkout branch"
-msgstr "Завантажити гілку"
-
-# Черрі-Піка на…
-#: ../gitg/gitg-menus.xml.h:3
-msgid "Cherry-pick on..."
-msgstr ""
-
-# Створення філії
-#: ../gitg/gitg-menus.xml.h:4 ../gitg/gitg-new-branch.ui.h:1
-msgid "Create branch"
-msgstr "Створити гілку"
-
-# Створіть тег
-#: ../gitg/gitg-menus.xml.h:5 ../gitg/gitg-tag.ui.h:2
-msgid "Create tag"
-msgstr "Створити мітку"
-
-# Злиття гілка з…
-#: ../gitg/gitg-menus.xml.h:8
-#, fuzzy
-msgid "Merge branch with..."
-msgstr "Злиття гілки з…"
-
-# Натисніть гілки…
-#: ../gitg/gitg-menus.xml.h:9
-msgid "Push branch to..."
-msgstr "Відправити гілку до…"
-
-# Rebase філії на…
-#: ../gitg/gitg-menus.xml.h:11
-#, fuzzy
-msgid "Rebase branch onto..."
-msgstr "Переформувати гілку на…"
-
-# Перейменувати філія
-#: ../gitg/gitg-menus.xml.h:13
-msgid "Rename branch"
-msgstr "Перейменувати гілку"
-
-# Автор
-#: ../gitg/gitg-menus.xml.h:14
-msgid "_Author"
-msgstr "_Автор"
-
-# Дата
-#: ../gitg/gitg-menus.xml.h:15
-msgid "_Date"
-msgstr "_Дата"
-
-# Додати
-#: ../gitg/gitg-menus.xml.h:16
-#, fuzzy
-msgid "_Hash"
-msgstr "Додати"
-
-# Тема
-#: ../gitg/gitg-menus.xml.h:17
-msgid "_Subject"
-msgstr "_Тема"
-
-# <b>Повідомлення про фіксацію</b>
-#: ../gitg/gitg-preferences.ui.h:1
-msgid "<b>Commit Message</b>"
-msgstr "<b>Повідомлення про фіксацію</b>"
-
-# <b>я</b>
-#: ../gitg/gitg-preferences.ui.h:2
-msgid "<b>Diff Program</b>"
-msgstr "<b>Програма порівняння</b>"
-
-#: ../gitg/gitg-preferences.ui.h:3
-msgid "<b>Interface</b>"
-msgstr "<b>Інтерфейс</b>"
-
-# <b>Зміни</b>
-#: ../gitg/gitg-preferences.ui.h:4
-msgid "<b>Revisions</b>"
-msgstr "<b>Версії</b>"
-
-# <b>Користувач</b>
-#: ../gitg/gitg-preferences.ui.h:5 ../gitg/gitg-repository.ui.h:1
-msgid "<b>User</b>"
-msgstr "<b>Користувач</b>"
-
-# Дозволити зовнішні програми порівняння
-#: ../gitg/gitg-preferences.ui.h:6
-msgid "Allow external diff program"
-msgstr "Дозволити зовнішню програму порівняння"
-
-# Згорнути неактивних смуги
-#: ../gitg/gitg-preferences.ui.h:7
-msgid "Collapse inactive lanes"
-msgstr "Згортати неактивні смуги"
-
-# Здійснювати
-#: ../gitg/gitg-preferences.ui.h:8 ../gitg/gitg-window.ui.h:6
-msgid "Commit"
-msgstr "Фіксація змін"
-
-# Конфігурація
-#: ../gitg/gitg-preferences.ui.h:9 ../gitg/gitg-repository.ui.h:2
-msgid "Configuration"
-msgstr "Налаштування"
-
-# Налаштування глобальних параметрів Git. Це відповідає налаштування зберігаються у файлі ~ /. Gitconfig. Репозиторій конкретні параметри можуть бути налаштовані у сховищі властивостей.
-#: ../gitg/gitg-preferences.ui.h:10
-msgid ""
-"Configure global git settings. This corresponds to the settings as stored in "
-"~/.gitconfig. Repository specific settings can be configured at the "
-"repository properties."
-msgstr ""
-"Налаштування глобальних параметрів Git. Це відповідає налаштуванням, що "
-"зберігаються у файлі ~/.gitconfig. Деякі конкретні параметри сховища можуть "
-"бути налаштовані у властивостях сховища."
-
-# Diff
-#: ../gitg/gitg-preferences.ui.h:11
-msgid "Diff"
-msgstr "Порівняння"
-
-# Показати правому краю
-#: ../gitg/gitg-preferences.ui.h:12
-msgid "Display right _margin"
-msgstr "Показувати правий _край"
-
-# Електронна пошта:
-#: ../gitg/gitg-preferences.ui.h:13 ../gitg/gitg-repository.ui.h:3
-msgid "E-mail:"
-msgstr "Електронна пошта:"
-
-# Рання
-#: ../gitg/gitg-preferences.ui.h:14
-msgid "Early"
-msgstr "Раніше"
-
-# Історія
-#: ../gitg/gitg-preferences.ui.h:15 ../gitg/gitg-window.ui.h:9
-msgid "History"
-msgstr "Історія"
-
-# Пізно
-#: ../gitg/gitg-preferences.ui.h:16
-msgid "Late"
-msgstr "Пізніше"
-
-# Установки
-#: ../gitg/gitg-preferences.ui.h:18
-msgid "Preferences"
-msgstr "Налаштування"
-
-# Установки, які застосовуються до скоєння зору
-#: ../gitg/gitg-preferences.ui.h:19
-msgid "Preferences that apply to the commit view"
-msgstr "Налаштування, що застосовуються для перегляду фіксацій змін"
-
-# Установки, які відносяться до історії перегляду
-#: ../gitg/gitg-preferences.ui.h:20
-msgid "Preferences that apply to the history view"
-msgstr "Налаштування, які застосовуються до перегляду історії"
-
-# Пошук фільтрів зміни у історії перегляду
-#: ../gitg/gitg-preferences.ui.h:21
-msgid "Search filters revisions in the history view"
-msgstr "Пошукові фільтри для версій у перегляді історії"
-
-# Показати історію у топологічному порядку
-#: ../gitg/gitg-preferences.ui.h:22
-msgid "Show history in topological order"
-msgstr "Показувати історію в топологічному порядку"
-
-# Показати поставив зміни у історії
-#: ../gitg/gitg-preferences.ui.h:23
-msgid "Show staged changes in history"
-msgstr "Показати підготовлені зміни в історії"
-
-# Показати схованку у історії
-#: ../gitg/gitg-preferences.ui.h:24
-#, fuzzy
-msgid "Show stash in history"
-msgstr "Показати схованку в історії"
-
-# Показати unstaged зміни у історії
-#: ../gitg/gitg-preferences.ui.h:25
-msgid "Show unstaged changes in history"
-msgstr "Показати непідготовлені зміни в історії"
-
-# Використання вертикального макету
-#: ../gitg/gitg-preferences.ui.h:26
-msgid "Use vertical layout"
-msgstr "Використовувати вертикальне компонування"
-
-# Праве поле у стовпці:
-#: ../gitg/gitg-preferences.ui.h:27
-msgid "_Right margin at column:"
-msgstr "_Правий край на позиції рядка:"
-
-# Назва
-#: ../gitg/gitg-repository.ui.h:5
-msgid "Name"
-msgstr "Назва"
+#| msgid "Could not find git repository"
+msgid "'%s' is not a Git repository."
+msgstr "«%s» — не сховище Git."
+
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
+msgid "All commits"
+msgstr "Всі внески"
+
+# Відділення:
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:202
+#| msgid "Branch:"
+msgid "Branches"
+msgstr "Гілки"
 
 # Дистанційне керування
-#: ../gitg/gitg-repository.ui.h:8
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "Віддалені"
 
-# URL
-#: ../gitg/gitg-repository.ui.h:9
-msgid "URL"
-msgstr "URL"
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:265
+msgid "Tags"
+msgstr "Мітки"
 
-# Автор:
-#: ../gitg/gitg-revision-details-panel.ui.h:1
-msgid "Author:"
-msgstr "Автор:"
+# Історія
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
+msgid "History"
+msgstr "Історія"
 
-# Комміттера:
-#: ../gitg/gitg-revision-details-panel.ui.h:2
-msgid "Committer:"
-msgstr "Зафісовувач:"
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+#| msgid "<b>Interface</b>"
+msgid "Interface"
+msgstr "Інтерфейс"
 
-# Батько:
-#: ../gitg/gitg-revision-details-panel.ui.h:3
-msgid "Parent:"
-msgstr "Предок:"
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "Зараз"
 
-# ССЗ:
-#: ../gitg/gitg-revision-details-panel.ui.h:4
-msgid "SHA:"
-msgstr "SHA:"
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "%d хвилину тому"
+msgstr[1] "%d хвилини тому"
+msgstr[2] "%d хвилин тому"
 
-# Тема:
-#: ../gitg/gitg-revision-details-panel.ui.h:5
-msgid "Subject:"
-msgstr "Тема:"
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "Півгодини тому"
 
-# Створити підписав тега об’єкта
-#: ../gitg/gitg-tag.ui.h:1
-#, fuzzy
-msgid "Create signed tag object"
-msgstr "Створити підписав тега об’єкта"
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "An hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "%d годину тому"
+msgstr[1] "%d години тому"
+msgstr[2] "%d годин тому"
 
-# Повідомлення:
-#: ../gitg/gitg-tag.ui.h:3
-msgid "Message:"
-msgstr "Повідомлення:"
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "A day ago"
+msgid_plural "%d days ago"
+msgstr[0] "%d день тому"
+msgstr[1] "%d дні тому"
+msgstr[2] "%d днів тому"
 
-# Нещодавно відкритий
-#: ../gitg/gitg-ui.xml.h:1
-msgid "R_ecently Opened"
-msgstr "Не_щодавно відкриті"
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
+msgid "Save Patch File"
+msgstr "Зберегти файл латки"
 
-# Змінити
-#: ../gitg/gitg-ui.xml.h:2
-msgid "_Edit"
-msgstr "З_міни"
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
+msgid "_Save"
+msgstr "З_берегти"
 
-# Файл
-#: ../gitg/gitg-ui.xml.h:3
-msgid "_File"
-msgstr "_Файл"
+# етап
+#: ../libgitg/gitg-diff-view.vala:123
+msgid "stage"
+msgstr "позначено"
 
-# Довідка
-#: ../gitg/gitg-ui.xml.h:4
-msgid "_Help"
-msgstr "_Довідка"
+# unstage
+#: ../libgitg/gitg-diff-view.vala:124
+msgid "unstage"
+msgstr "непозначено"
 
-# Відкрити…
-#: ../gitg/gitg-ui.xml.h:5
-msgid "_Open..."
-msgstr "_Відкрити…"
+#: ../libgitg/gitg-diff-view.vala:125
+msgid "Loading diff…"
+msgstr "Завантаження різниці…"
 
-# Відкрити
-#: ../gitg/gitg-ui.xml.h:6
-msgid "_View"
-msgstr "П_ерегляд"
+#: ../libgitg/gitg-stage.vala:333
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+"Неможливо прочитати повідомлення щодо внеску після запуску commit-msg hook: "
+"%s"
+
+# Diff
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "Порівняти"
+
+# Файли
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Файли"
+
+# Детальна інформація
+#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+#| msgid "Details"
+msgid "Author Details"
+msgstr "Подробиці про автора"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "Примітки: файл налаштувань Git «%s» не існує."
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr "Введіть подробиці типові для всіх сховищ:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Введіть подробиці про сховище «%s»:"
+
+# Електронна пошта:
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+#| msgid "E-mail:"
+msgid "E-mail: "
+msgstr "Пошта:"
+
+# Ім’я (є в закладці Користувач)
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+#| msgid "Name:"
+msgid "Name: "
+msgstr "Ім'я:"
+
+# Скасувати
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Зберегти"
+
+# Сховище
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+#| msgid "_Repository"
+msgid "Clone Repository"
+msgstr "Клонувати сховище"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+msgid "Cl_one"
+msgstr "_Клонувати"
+
+# Дистанційне керування
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+#| msgid "Remotes"
+msgid "Remote _URL:"
+msgstr "Віддалена _адреса:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "_Local Folder:"
+msgstr "_Локальна тека:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "Select location…"
+msgstr "Вибрати адресу…"
+
+# Відкрити Git репозиторій
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+#| msgid "Open git repository"
+msgid "Bare repository"
+msgstr "Голе сховище"
+
+# Здійснювати
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+#| msgid "Commit"
+msgid "C_ommit"
+msgstr "В_нести"
 
 # Додати підписаний-офф-на
-#: ../gitg/gitg-window.ui.h:1
-#, fuzzy
-msgid "Add signed-off-by"
-msgstr "Додати підписаний-офф-на"
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+msgid "Add _signed-off-by signature"
+msgstr "Додати під_тверджувальний підпис"
 
-# Змінити
-#: ../gitg/gitg-window.ui.h:2
-#, fuzzy
-msgid "Amend"
-msgstr "Змінити"
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "_Amend previous commit"
+msgstr "_Залучити попередні внески"
 
-# Автор
-#: ../gitg/gitg-window.ui.h:3
-msgid "Author"
-msgstr "Автор"
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Close"
+msgstr "Закрити"
 
-# Відділення:
-#: ../gitg/gitg-window.ui.h:4
-msgid "Branch:"
-msgstr "Гілка:"
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "Пропусти _запобіжник внеску"
 
-# Фіксація повідомлення
-#: ../gitg/gitg-window.ui.h:5
-msgid "Co_mmit message"
-msgstr "Повідомлення про _фіксацію змін"
-
-# Контекст:
-#: ../gitg/gitg-window.ui.h:7
-msgid "Context:"
-msgstr "Контекст:"
-
-# Дата
-#: ../gitg/gitg-window.ui.h:8
-msgid "Date"
-msgstr "Дата"
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "П_означити вибране"
 
 # Тема
-#: ../gitg/gitg-window.ui.h:10
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
 msgstr "Тема"
 
-# Unstaged
-#: ../gitg/gitg-window.ui.h:11
-msgid "Unstaged"
-msgstr "Непідготовлене"
+# Автор
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Автор"
+
+# Дата
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Дата"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "_Створити вікно"
+
+# Установки
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+#| msgid "Preferences"
+msgid "_Preferences"
+msgstr "П_араметри"
+
+# Довідка
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Help"
+msgstr "_Довідка"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "_Про програму"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "Ви_йти"
+
+# Відкрити Git репозиторій
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+#| msgid "Open git repository"
+msgid "_Open Repository…"
+msgstr "_Відкрити сховище…"
+
+# Сховище
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#| msgid "_Repository"
+msgid "_Clone Repository…"
+msgstr "_Клонувати сховище…"
+
+# Детальна інформація
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
+#| msgid "Details"
+msgid "_Author Details"
+msgstr "Подробиці про _автора"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "_Оновити"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Показувати розмітку"
+
+# Праве поле у стовпці:
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+#| msgid "_Right margin at column:"
+msgid "Display _subject margin at column:"
+msgstr "Показувати поле _теми у стовпчику:"
+
+# Показати правому краю
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+#| msgid "Display right _margin"
+msgid "Display right _margin at column:"
+msgstr "Показувати _праве поле у стовпчику:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Увімкнути перевіряння орфографії"
+
+# Фіксація повідомлення
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+#| msgid "Co_mmit message"
+msgid "Commit Message"
+msgstr "Повідомлення щодо внеску"
+
+# Здійснювати
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+#| msgid "Commit"
+msgid "Commits"
+msgstr "Внески"
+
+# Згорнути неактивних смуги
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Згортати неактивні смуги"
+
+# Показати схованку у історії
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Показати реєстр в історії"
+
+# Показати поставив зміни у історії
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Показати підготовлені зміни в історії"
+
+# Показати unstaged зміни у історії
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "Показати непідготовлені зміни в історії"
+
+# Показати історію у топологічному порядку
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Показувати історію в топологічному порядку"
+
+# Рання
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Раніше"
+
+# Пізно
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Пізніше"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Layout"
+msgstr "Компонування"
+
+# Використання вертикального макету
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+#| msgid "Use vertical layout"
+msgid "Use horizontal layout"
+msgstr "Використовувати вертикальне компонування"
+
+# Установки
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "Preferences"
+msgstr "Параметри"
+
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "стовпчик"
+
+# Дозволити зовнішні програми порівняння
+#~ msgid "Allow External Diff Program"
+#~ msgstr "Дозволити зовнішню програму порівняння"
+
+# Дозволити зовнішню програму змін, які будуть використовуватися при перегляді відмінностей у gitg.
+#~ msgid ""
+#~ "Allow an external diff program to be used when viewing diffs in gitg."
+#~ msgstr ""
+#~ "Дозволити зовнішню програму порівняння, яка буде використовуватися для "
+#~ "переглядання відмінностей у gitg."
+
+# Фільтр Зміни при пошуку
+#~ msgid "Filter Revisions When Searching"
+#~ msgstr "Фільтрувати версії при пошуку"
+
+# Показати Головна Дивитися у Вертикальне розташування
+#, fuzzy
+#~ msgid "Show Main View in Vertical or Horizontal Layout"
+#~ msgstr "Показувати основний екран у вертикальному розташуванні"
+
+# Лі пошук фільтри зміни у історії перегляду, а не стрибати у першому матчі.
+#~ msgid ""
+#~ "Whether searching filters the revisions in the history view instead of "
+#~ "jumping to the first match."
+#~ msgstr ""
+#~ "Чи використовувати пошукові фільтри за версіями при перегляді історії "
+#~ "замість того, щоб переходити до першого збігу"
+
+# Відділення<%s>не можуть бути вилучені
+#~ msgid "Branch <%s> could not be removed"
+#~ msgstr "Гілку <%s> неможливо вилучити"
+
+# Це зазвичай означає, що філія не є повністю об’єднані у голові. Ви хочете, щоб примусово видворити гілку?
+#, fuzzy
+#~ msgid ""
+#~ "This usually means that the branch is not fully merged in HEAD. Do you "
+#~ "want to forcefully remove the branch?"
+#~ msgstr ""
+#~ "Це зазвичай означає, що гілка не є повністю об’єднана у HEAD. Примусово "
+#~ "вилучити гілку?"
+
+# Група вилучити
+#, fuzzy
+#~ msgid "Force remove"
+#~ msgstr "Примусово вилучити"
+
+# Відділення<%s>не може бути насильно вилучені
+#~ msgid "Branch <%s> could not be forcefully removed"
+#~ msgstr "Гілку <%s> неможливо примусово вилучити"
+
+# Не вдалося вилучити віддаленого філії<%s>.
+#~ msgid "Failed to remove remote branch <%s>."
+#~ msgstr "Не вдалось вилучити віддалену гілку <%s>."
+
+# Ви впевнені, що хочете вилучити віддаленого філії<%s>?
+#~ msgid "Are you sure you want to remove the remote branch <%s>?"
+#~ msgstr "Вилучити віддалену гілку <%s>?"
+
+# Це назавжди видаляє віддаленого філії.
+#~ msgid "This permanently removes the remote branch."
+#~ msgstr "Це безповортно вилучить віддалену гілку."
+
+# Вилучити віддаленого філії
+#~ msgid "Remove remote branch"
+#~ msgstr "Вилучити віддалену гілку"
+
+# Вилучити філії
+#~ msgid "Remove branch"
+#~ msgstr "Вилучити гілку"
+
+# Ви впевнені, що хочете вилучити цей пункт накопичувати?
+#, fuzzy
+#~ msgid "Are you sure you want to remove this stash item?"
+#~ msgstr "Вилучити цей об'єкт реєстру?"
+
+# Це назавжди видаляє збирати пункту
+#, fuzzy
+#~ msgid "This permanently removes the stash item"
+#~ msgstr "Це остаточно вилучає об'єкти реєстру"
+
+# Вилучити притон
+#, fuzzy
+#~ msgid "Remove stash"
+#~ msgstr "Вилучити реєстр"
+
+# Не вдалося вилучити притон
+#, fuzzy
+#~ msgid "Failed to remove stash"
+#~ msgstr "Не вдалось вилучити реєстр"
+
+# Притон пункт не може бути успішно вилучений
+#, fuzzy
+#~ msgid "The stash item could not be successfully removed"
+#~ msgstr "Об'єкт реєстру неможливо успішно вилучити"
+
+# Ви впевнені, що хочете вилучити тег<%s>?
+#, fuzzy
+#~ msgid "Are you sure you want to remove the tag <%s>?"
+#~ msgstr "Вилучити мітку <%s> ?"
+
+# Вилучити тег
+#, fuzzy
+#~ msgid "Remove tag"
+#~ msgstr "Вилучити мітку"
+
+# Теги<%s>не може бути успішно вилучений
+#, fuzzy
+#~ msgid "The tag <%s> could not be successfully removed"
+#~ msgstr "Мітку <%s> неможливо успішно вилучити"
+
+# Відділення<%s>не може бути перейменований в<%s>
+#~ msgid "Branch <%s> could not be renamed to <%s>"
+#~ msgstr "Гілку <%s> неможливо перейменувати у <%s>"
+
+# Це зазвичай означає, що галузь з таким ім’ям вже існує. Ви хочете, щоб перезаписати філії?
+#~ msgid ""
+#~ "This usually means that a branch with that name already exists. Do you "
+#~ "want to overwrite the branch?"
+#~ msgstr ""
+#~ "Це зазвичай означає, що гілка з такою назвою вже існує. Перезаписати "
+#~ "гілку?"
+
+# Групою перейменувати
+#, fuzzy
+#~ msgid "Force rename"
+#~ msgstr "Примусово перейменувати"
+
+# Відділення<%s>не може бути насильно перейменований
+#~ msgid "Branch <%s> could not be forcefully renamed"
+#~ msgstr "Гілку <%s> неможливо примусово перейменувати"
+
+# Ви хочете, щоб тимчасово заховати ці зміни?
+#, fuzzy
+#~ msgid "Do you want to temporarily stash these changes?"
+#~ msgstr "Тимчасово зберегти ці зміни?"
+
+# Ви хочете, щоб заховати і повторно ці зміни?
+#, fuzzy
+#~ msgid "Do you want to stash and reapply these changes?"
+#~ msgstr "Зберегти і повторно застосувати ці зміни?"
+
+# Ви непідтвердженими змінами у поточній робочої дерева
+#~ msgid "You have uncommited changes in your current working tree"
+#~ msgstr "У вас є невнесені зміни у поточному робочому дереві"
+
+# Stash зміни
+#, fuzzy
+#~ msgid "Stash changes"
+#~ msgstr "Зберегти зміни"
+
+# Помилка перевірки місцевого відділення<%s>
+#, fuzzy
+#~ msgid "Failed to checkout local branch <%s>"
+#~ msgstr "Помилка перевіряння локальної гілки <%s>"
+
+# Помилка перевірки віддаленого філії<%s>в місцевому відділенні<%s>
+#, fuzzy
+#~ msgid "Failed to checkout remote branch <%s> to local branch <%s>"
+#~ msgstr "Помилка перевіряння віддаленої гілки <%s> у локальній гілці <%s>"
+
+# Помилка перевірки теги<%s>в місцевому відділенні<%s>
+#, fuzzy
+#~ msgid "Failed to checkout tag <%s> to local branch <%s>"
+#~ msgstr "Помилка перевіряння мітки <%s> в локальній гілці <%s>"
+
+# Не вдалося перебазуватися %s філії<%s>на %s філії<%s>
+#, fuzzy
+#~ msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
+#~ msgstr "Не вдалось перебазуватися %s філії <%s> на %s філії <%s>"
+
+# Не вдалося об’єднати %s філії<%s>з %s філії<%s>
+#, fuzzy
+#~ msgid "Failed to merge %s branch <%s> with %s branch <%s>"
+#~ msgstr "Не вдалося об’єднати %s філії <%s> з %s філії <%s>"
+
+# місцевих
+#~ msgid "local"
+#~ msgstr "локальне"
+
+# віддалений
+#~ msgid "remote"
+#~ msgstr "віддалене"
+
+# Заховано зміни були збережені бути повторно вручну
+#, fuzzy
+#~ msgid "The stashed changes have been stored to be reapplied manually"
+#~ msgstr "Заховано зміни були збережені бути повторно вручну"
+
+# Помилка перевірки раніше перевірили філія
+#, fuzzy
+#~ msgid "Failed to checkout previously checked out branch"
+#~ msgstr "Помилка перевірки раніше перевірили філія"
+
+# Не вдалося повторно збирати правильно
+#, fuzzy
+#~ msgid "Failed to reapply stash correctly"
+#~ msgstr "Не вдалося повторно збирати правильно"
+
+# Там можуть бути невирішені конфлікти у робочому дереві або індексу, яке необхідно вирішити вручну
+#, fuzzy
+#~ msgid ""
+#~ "There might be unresolved conflicts in the working tree or index which "
+#~ "you need to resolve manually"
+#~ msgstr ""
+#~ "Там можуть бути невирішені конфлікти в робочому дереві або індексу, яке "
+#~ "необхідно вирішити вручну"
+
+# Ви впевнені, що хочете об’єднати %s філії<%s>на %s філії<%s>?
+#, fuzzy
+#~ msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
+#~ msgstr "Ви впевнені, що хочете об’єднати %s філії <%s> на %s філії <%s> ?"
+
+# Злиття
+#, fuzzy
+#~ msgid "Merge"
+#~ msgstr "Злиття"
+
+# Сук, на якому для об’єднання не можуть бути перевірені
+#, fuzzy
+#~ msgid "The branch on which to merge could not be checked out"
+#~ msgstr "Сук, на якому для об’єднання не можуть бути перевірені"
+
+# Злиття %s філії<%s>на %s філії<%s>
+#, fuzzy
+#~ msgid "Merging %s branch <%s> onto %s branch <%s>"
+#~ msgstr "Злиття %s філії <%s> на %s філії <%s>"
+
+# Ви впевнені, що хочете перебазуватися %s філії<%s>на %s філії<%s>?
+#, fuzzy
+#~ msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
+#~ msgstr ""
+#~ "Ви впевнені, що хочете перебазуватися %s філії <%s> на %s філії <%s> ?"
+
+# Rebase
+#, fuzzy
+#~ msgid "Rebase"
+#~ msgstr "Rebase"
+
+# Неможливо REBASE
+#, fuzzy
+#~ msgid "Unable to rebase"
+#~ msgstr "Неможливо переформувати"
+
+# Є ще незавершені зміни у вашій робочої дерева і Ви намагаєтеся REBASE філії на даний час перевірені відділення. Або вилучите, збирати або зафіксувати зміни першої та спробуйте ще раз
+#, fuzzy
+#~ msgid ""
+#~ "There are still uncommitted changes in your working tree and you are "
+#~ "trying to rebase a branch onto the currently checked out branch. Either "
+#~ "remove, stash or commit your changes first and try again"
+#~ msgstr ""
+#~ "Все ще є незафіксовані зміни у Вашому робочому дереві а Ви намагаєтеся "
+#~ "виконати REBASE гілки  у поточну даний час перевірені гілку. Або ж "
+#~ "вилучіть, збирати чи зафіксуйте Ваші зміни перш ніж спробувати ще раз"
+
+# Переклад розрахунків %s філії<%s>на %s філії<%s>
+#, fuzzy
+#~ msgid "Rebasing %s branch <%s> onto %s branch <%s>"
+#~ msgstr "Переклад розрахунків %s філії <%s> на %s філії <%s>"
+
+# Не вдалося натиснути місцевого відділення<%s>до віддалених<%s>
+#~ msgid "Failed to push local branch <%s> to remote <%s>"
+#~ msgstr "Не вдалось надіслати локальну гілку <%s> до віддаленої <%s>"
+
+# Це зазвичай означає, що віддалений філія не може бути швидко спрямовані. Спробуйте вибірка останніх змін.
+#, fuzzy
+#~ msgid ""
+#~ "This usually means that the remote branch could not be fast-forwarded. "
+#~ "Try fetching the latest changes."
+#~ msgstr ""
+#~ "Це зазвичай означає, що віддалена гілка не може бути швидко "
+#~ "переспрямована. Спробуйте отримати останні зміни."
+
+# Ви впевнені, що хочете натиснути<%s>до<%s>?
+#~ msgid "Are you sure you want to push <%s> to <%s>?"
+#~ msgstr "Надіслати <%s> до <%s> ?"
+
+# Поштовх
+#~ msgid "Push"
+#~ msgstr "Надіслати"
+
+# Прагнення місцевого відділення<%s>для віддаленого філії<%s>
+#~ msgid "Pushing local branch <%s> to remote branch <%s>"
+#~ msgstr "Надсилання локальної гілки <%s> до віддаленої гілки <%s>"
+
+# Ви впевнені, що хочете натиснути<%s>до віддалених<%s/%s>?
+#~ msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
+#~ msgstr "Надіслати <%s> до віддаленої <%s/%s>?"
+
+# Прагнення місцевого відділення<%s>для віддаленого філії<%s/%s>
+#~ msgid "Pushing local branch <%s> to remote branch <%s/%s>"
+#~ msgstr "Надсилання локальної гілки <%s> до віддаленої гілки <%s/%s>"
+
+# Ви впевнені, що хочете застосувати збирати елемент місцевого відділення<%s>?
+#, fuzzy
+#~ msgid "Are you sure you want to apply the stash item to local branch <%s>?"
+#~ msgstr ""
+#~ "Ви впевнені, що хочете застосувати збирати елемент місцевого відділення <"
+#~ "%s> ?"
+
+# Застосувати притон
+#, fuzzy
+#~ msgid "Apply stash"
+#~ msgstr "Застосувати притон"
+
+# Схованка не можуть бути застосовані до місцевим відділенням<%s>
+#, fuzzy
+#~ msgid "The stash could not be applied to local branch <%s>"
+#~ msgstr "Схованка не можуть бути застосовані до місцевим відділенням <%s>"
+
+# Не вдалося застосувати притон
+#, fuzzy
+#~ msgid "Failed to apply stash"
+#~ msgstr "Не вдалось застосувати керування"
+
+# Відділення не може бути успішно створена
+#, fuzzy
+#~ msgid "The branch could not be successfully created"
+#~ msgstr "Тег об’єкта не може бути успішно створена"
+
+# Не вдалося створити філію
+#~ msgid "Failed to create a branch"
+#~ msgstr "Не вдалось створити гілку"
+
+# Тег об’єкта не може бути успішно створена. Будь ласка, переконайтеся, що Ви GPG ключ і ключ розблокована
+#, fuzzy
+#~ msgid ""
+#~ "The tag object could not be successfully created. Please make sure you "
+#~ "have a GPG key and the key is unlocked"
+#~ msgstr ""
+#~ "Тег об’єкта не може бути успішно створена. Будь ласка, переконайтеся, що "
+#~ "ви GPG ключ і ключ розблокована"
+
+# Тег об’єкта не може бути успішно створена
+#, fuzzy
+#~ msgid "The tag object could not be successfully created"
+#~ msgstr "Мітка об'єкта неможливо успішно створити"
+
+# Не вдалося робити вибір на<%s>
+#, fuzzy
+#~ msgid "Failed to cherry-pick on <%s>"
+#~ msgstr "Помилка перевірки локальної гілки <%s>"
+
+# Ви впевнені, що Ви хочете робити вибір, що перегляд за<%s>?
+#, fuzzy
+#~ msgid "Are you sure you want to cherry-pick that revision on <%s>?"
+#~ msgstr "Ви впевнені, що хочете натиснути <%s> до <%s> ?"
+
+# Сук, на якому у виробляти вибір не може бути витягнутий
+#, fuzzy
+#~ msgid "The branch on which to cherry-pick could not be checked out"
+#~ msgstr "Сук, на якому для об’єднання не можуть бути перевірені"
+
+# Не вдалося створити формат-патч
+#, fuzzy
+#~ msgid "Failed to generate format-patch"
+#~ msgstr "Не вдалось створити мітку"
+
+# Початок gitg у вчинення режимі
+#~ msgid "Start gitg in commit mode"
+#~ msgstr "Запустити gitg у режимі внесення змін"
+
+# Виберіть зробити після звантаження сховища
+#, fuzzy
+#~ msgid "Select commit after loading the repository"
+#~ msgstr "Початок завантаження сховища"
+
+# Не вдається відобразити вміст файлу у вигляді тексту
+#~ msgid "Cannot display file content as text"
+#~ msgstr "Не вдалось показати вміст файла як текст"
+
+# Ви повинні першому етапі деякі зміни перед тим,
+#~ msgid "You must first stage some changes before committing"
+#~ msgstr "Ви повинні спершу позначити деякі зміни перед тим, як їх внести"
+
+# Ваше ім’я користувача або по електронній пошті не може бути відновлена для використання у підписати повідомлення
+#, fuzzy
+#~ msgid ""
+#~ "Your user name or email could not be retrieved for use in the sign off "
+#~ "message"
+#~ msgstr ""
+#~ "Вашого користувача або електронну пошту неможливо відновити для "
+#~ "використання в підписати повідомлення"
+
+# Щось пішло не так при спробі вчинити
+#~ msgid "Something went wrong while trying to commit"
+#~ msgstr "Щось пішло не так при спробі внести зміни"
+
+# Повернути невдача
+#, fuzzy
+#~ msgid "Revert fail"
+#~ msgstr "Помилка повернення"
+
+# Ви впевнені, що хочете повернути ці зміни?
+#, fuzzy
+#~ msgid "Are you sure you want to revert these changes?"
+#~ msgstr "Повернути ці зміни?"
+
+# Повертаючись змін є постійним і не може бути скасовано
+#, fuzzy
+#~ msgid "Reverting changes is permanent and cannot be undone"
+#~ msgstr "Повернення змін є безповоротним і його неможливо скасувати"
+
+# Отримувати
+#~ msgid "Fetch"
+#~ msgstr "Отримати"
+
+# Властивості
+#~ msgid "Properties"
+#~ msgstr "Властивості"
 
 # Зміни
-#: ../gitg/gitg-window.ui.h:12
-msgid "_Changes"
-msgstr "_Зміни"
+#~ msgid "Changes"
+#~ msgstr "Зміни"
 
-# Поетапний
-#: ../gitg/gitg-window.ui.h:13
-msgid "_Staged"
-msgstr "_Позначено"
+# (Пусто)
+#~ msgid "(Empty)"
+#~ msgstr "(пусто)"
+
+# Виберіть філія
+#~ msgid "Select branch"
+#~ msgstr "Вибір гілки"
+
+# Натисніть місцевого відділення<%s>до віддалених філії<%s>
+#~ msgid "Push local branch <%s> to remote branch <%s>"
+#~ msgstr "Відправити локальну гілку <%s> до віддаленої гілки <%s>"
+
+# Злиття/REBASE місцевого відділення<%s>з/на місцеве відділення<%s>
+#, fuzzy
+#~ msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
+#~ msgstr "Злити/переформувати локальну гілку <%s> з/на локальну гілку <%s>"
+
+# Злиття/REBASE місцевого відділення<%s>з/на віддалений філія<%s>
+#, fuzzy
+#~ msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
+#~ msgstr "Злити/переформувати локальну гілку <%s> з/на віддалену гілку <%s>"
+
+# Застосувати схованку з місцевим відділенням<%s>
+#, fuzzy
+#~ msgid "Apply stash to local branch <%s>"
+#~ msgstr "Застосувати керування до локальної гілки <%s>"
+
+# Звантажено %d зміни в% .2 FS
+#~ msgid "Loaded %d revisions in %.2fs"
+#~ msgstr "Завантажено %d версій за %.2f сек."
+
+# Звантаження %d зміни…
+#~ msgid "Loading %d revisions..."
+#~ msgstr "Завантажується %d версій…"
+
+# Місцеві відділення
+#~ msgid "Local branches"
+#~ msgstr "Локальні гілки"
+
+# Усі філії
+#~ msgid "All branches"
+#~ msgstr "Усі гілки"
+
+# Початок звантаження сховища
+#~ msgid "Begin loading repository"
+#~ msgstr "Початок завантаження сховища"
+
+#~ msgid ""
+#~ "This program is free software; you can redistribute it and/or modify\n"
+#~ "it under the terms of the GNU General Public License as published by\n"
+#~ "the Free Software Foundation; either version 2 of the License, or\n"
+#~ "(at your option) any later version.\n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful,\n"
+#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+#~ "GNU General Public License for more details.\n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License\n"
+#~ "along with this program; if not, write to the Free Software\n"
+#~ "Foundation, Inc., 59 Temple Place, Suite 330,\n"
+#~ "Boston, MA 02111-1307, USA."
+#~ msgstr ""
+#~ "Ця програма є вільним програмним засобом, і ви можете її розповсюджувати "
+#~ "та/чи модифікувати\n"
+#~ "відповідно до умов ліцензії „GNU General Public License“, опублікованої\n"
+#~ "організацією „Free Software Foundation“; 2-ої версії цієї ліцензії, чи\n"
+#~ "(за вашим вибором) будь-якої новішої версії.\n"
+#~ "\n"
+#~ "Ця програма розповсюджується із сподіванням, що вона буде корисною,\n"
+#~ "але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ, навіть без неявної гарантії\n"
+#~ "щодо ПРИДАТНОСТІ. Перегляньте ліцензію\n"
+#~ "„GNU General Public License“ щодо більш докладної інформації.\n"
+#~ "\n"
+#~ "Ви повинні були отримати копію ліцензії „GNU General Public License“\n"
+#~ "разом з цією програмою, а якщо її немає, напишіть за адресою: \n"
+#~ "Free Software Foundation, Inc, 59 Temple Place, Suite 330,\n"
+#~ "Boston, MA 02111-1307, USA."
+
+# нових
+#, fuzzy
+#~ msgid "new"
+#~ msgstr "нових"
+
+# Нові місцевого відділення<%s>
+#~ msgid "New local branch <%s>"
+#~ msgstr "Нова локальна гілка <%s>"
+
+# Оформити замовлення робочої копії
+#, fuzzy
+#~ msgid "Checkout working copy"
+#~ msgstr "Завантажити робочу копію"
+
+# Вилучити місцевого відділення
+#~ msgid "Remove local branch"
+#~ msgstr "Вилучити локальну гілку"
+
+# Перейменувати місцевого відділення
+#~ msgid "Rename local branch"
+#~ msgstr "Перейменувати локальну гілку"
+
+# Не усі поля повинні бути правильно заповнені
+#, fuzzy
+#~ msgid "Not all fields are correctly filled in"
+#~ msgstr "Не усі поля повинні бути правильно заповнені"
+
+# Будь ласка, не забудьте заповнити назва філії
+#, fuzzy
+#~ msgid "Please make sure to fill in the branch name"
+#~ msgstr ""
+#~ "Будь ласка, не забудьте заповнити як назву мітки та повідомлення щодо "
+#~ "внесення змін"
+
+# Будь ласка, не забудьте заповнити як ім’я тега і повідомлення вчинення
+#~ msgid "Please make sure to fill in both the tag name and the commit message"
+#~ msgstr ""
+#~ "Будь ласка, не забудьте заповнити як назву мітки та повідомлення щодо "
+#~ "внесення змін"
+
+# Будь ласка, не забудьте заповнити ім’я тега
+#, fuzzy
+#~ msgid "Please make sure to fill in the tag name"
+#~ msgstr ""
+#~ "Будь ласка, не забудьте заповнити як назву мітки та повідомлення щодо "
+#~ "фіксацію змін"
+
+# Будь ласка, перевірте, якщо у Вас є права доступу для запису файлу
+#~ msgid "Please check if you have the right permissions to write the file"
+#~ msgstr "Будь ласка, перевірте, чи у вас є права доступу для запису файла"
+
+# Unicode
+#~ msgid "Unicode"
+#~ msgstr "Унікод"
+
+# Західна
+#~ msgid "Western"
+#~ msgstr "Західна"
+
+# Центральної Європи
+#~ msgid "Central European"
+#~ msgstr "Центрально-європейська"
+
+# Південної Європи
+#~ msgid "South European"
+#~ msgstr "Південно-європейська"
+
+# Балтійського
+#~ msgid "Baltic"
+#~ msgstr "Балтійська"
+
+# Кирилиця
+#~ msgid "Cyrillic"
+#~ msgstr "Кирилична"
+
+# Арабська
+#~ msgid "Arabic"
+#~ msgstr "Арабська"
+
+# Грецький
+#~ msgid "Greek"
+#~ msgstr "Грецька"
+
+# Іврит Visual
+#~ msgid "Hebrew Visual"
+#~ msgstr "Іврит, з візуальним порядком"
+
+# Турецька
+#~ msgid "Turkish"
+#~ msgstr "Турецька"
+
+# Скандинавський
+#~ msgid "Nordic"
+#~ msgstr "Скандинавська"
+
+# Кельтський
+#~ msgid "Celtic"
+#~ msgstr "Кельтська"
+
+# Румунська
+#~ msgid "Romanian"
+#~ msgstr "Румунська"
+
+# Вірменська
+#~ msgid "Armenian"
+#~ msgstr "Вірменська"
+
+# Китайський традиційний
+#~ msgid "Chinese Traditional"
+#~ msgstr "Китайська традиційна"
+
+# Кирилиця/Російська
+#~ msgid "Cyrillic/Russian"
+#~ msgstr "Кирилична/російська"
+
+# Японський
+#~ msgid "Japanese"
+#~ msgstr "Японська"
+
+# Корейська
+#~ msgid "Korean"
+#~ msgstr "Корейська"
+
+# Китайський спрощений
+#~ msgid "Chinese Simplified"
+#~ msgstr "Китайська спрощена"
+
+# Грузинський
+#~ msgid "Georgian"
+#~ msgstr "Грузинська"
+
+# Іврит
+#~ msgid "Hebrew"
+#~ msgstr "Іврит"
+
+# Кирилиця/Український
+#~ msgid "Cyrillic/Ukrainian"
+#~ msgstr "Кирилична/українська"
+
+# В’єтнамський
+#~ msgid "Vietnamese"
+#~ msgstr "В’єтнамська"
+
+# Тайська
+#~ msgid "Thai"
+#~ msgstr "Тайська"
+
+# Невідомо
+#~ msgid "Unknown"
+#~ msgstr "Невідомо"
+
+# Постановка змін
+#~ msgid "Staged changes"
+#~ msgstr "Позначені зміни"
+
+# Не дійсні Git репозиторій
+#~ msgid "Not a valid git repository"
+#~ msgstr "Не є правильним сховищем git"
+
+# Це не представляється можливим визначити кодування автоматично
+#~ msgid "It is not possible to detect the encoding automatically"
+#~ msgstr "Неможливо визначити кодування автоматично"
+
+# Ігнорувати
+#~ msgid "Ignore"
+#~ msgstr "Ігнорувати"
+
+# Повертатися
+#, fuzzy
+#~ msgid "Revert"
+#~ msgstr "Повернути"
+
+# Етап
+#~ msgid "Stage"
+#~ msgstr "Позначити"
+
+# Unstage
+#~ msgid "Unstage"
+#~ msgstr "Не позначати"
+
+# Застосувати громадити, щоб…
+#, fuzzy
+#~ msgid "Apply stash to..."
+#~ msgstr "Застосувати керування до…"
+
+# Оформити замовлення філії
+#, fuzzy
+#~ msgid "Checkout branch"
+#~ msgstr "Завантажити гілку"
+
+# Створення філії
+#~ msgid "Create branch"
+#~ msgstr "Створити гілку"
+
+# Створіть тег
+#~ msgid "Create tag"
+#~ msgstr "Створити мітку"
+
+# Злиття гілка з…
+#, fuzzy
+#~ msgid "Merge branch with..."
+#~ msgstr "Злиття гілки з…"
+
+# Натисніть гілки…
+#~ msgid "Push branch to..."
+#~ msgstr "Відправити гілку до…"
+
+# Rebase філії на…
+#, fuzzy
+#~ msgid "Rebase branch onto..."
+#~ msgstr "Переформувати гілку на…"
+
+# Перейменувати філія
+#~ msgid "Rename branch"
+#~ msgstr "Перейменувати гілку"
+
+# Автор
+#~ msgid "_Author"
+#~ msgstr "_Автор"
+
+# Дата
+#~ msgid "_Date"
+#~ msgstr "_Дата"
+
+# Додати
+#, fuzzy
+#~ msgid "_Hash"
+#~ msgstr "Додати"
+
+# Тема
+#~ msgid "_Subject"
+#~ msgstr "_Тема"
+
+# <b>Повідомлення про фіксацію</b>
+#~ msgid "<b>Commit Message</b>"
+#~ msgstr "<b>Повідомлення про фіксацію</b>"
+
+# <b>я</b>
+#~ msgid "<b>Diff Program</b>"
+#~ msgstr "<b>Програма порівняння</b>"
+
+# <b>Зміни</b>
+#~ msgid "<b>Revisions</b>"
+#~ msgstr "<b>Версії</b>"
+
+# <b>Користувач</b>
+#~ msgid "<b>User</b>"
+#~ msgstr "<b>Користувач</b>"
+
+# Дозволити зовнішні програми порівняння
+#~ msgid "Allow external diff program"
+#~ msgstr "Дозволити зовнішню програму порівняння"
+
+# Конфігурація
+#~ msgid "Configuration"
+#~ msgstr "Налаштування"
+
+# Налаштування глобальних параметрів Git. Це відповідає налаштування зберігаються у файлі ~ /. Gitconfig. Репозиторій конкретні параметри можуть бути налаштовані у сховищі властивостей.
+#~ msgid ""
+#~ "Configure global git settings. This corresponds to the settings as stored "
+#~ "in ~/.gitconfig. Repository specific settings can be configured at the "
+#~ "repository properties."
+#~ msgstr ""
+#~ "Налаштування глобальних параметрів Git. Це відповідає налаштуванням, що "
+#~ "зберігаються у файлі ~/.gitconfig. Деякі конкретні параметри сховища "
+#~ "можуть бути налаштовані у властивостях сховища."
+
+# Установки, які застосовуються до скоєння зору
+#~ msgid "Preferences that apply to the commit view"
+#~ msgstr "Налаштування, що застосовуються для перегляду фіксацій змін"
+
+# Установки, які відносяться до історії перегляду
+#~ msgid "Preferences that apply to the history view"
+#~ msgstr "Налаштування, які застосовуються до перегляду історії"
+
+# Пошук фільтрів зміни у історії перегляду
+#~ msgid "Search filters revisions in the history view"
+#~ msgstr "Пошукові фільтри для версій у перегляді історії"
+
+# Назва
+#~ msgid "Name"
+#~ msgstr "Назва"
+
+# URL
+#~ msgid "URL"
+#~ msgstr "URL"
+
+# Автор:
+#~ msgid "Author:"
+#~ msgstr "Автор:"
+
+# Комміттера:
+#~ msgid "Committer:"
+#~ msgstr "Зафісовувач:"
+
+# Батько:
+#~ msgid "Parent:"
+#~ msgstr "Предок:"
+
+# ССЗ:
+#~ msgid "SHA:"
+#~ msgstr "SHA:"
+
+# Тема:
+#~ msgid "Subject:"
+#~ msgstr "Тема:"
+
+# Створити підписав тега об’єкта
+#, fuzzy
+#~ msgid "Create signed tag object"
+#~ msgstr "Створити підписав тега об’єкта"
+
+# Повідомлення:
+#~ msgid "Message:"
+#~ msgstr "Повідомлення:"
+
+# Нещодавно відкритий
+#~ msgid "R_ecently Opened"
+#~ msgstr "Не_щодавно відкриті"
+
+# Змінити
+#~ msgid "_Edit"
+#~ msgstr "З_міни"
+
+# Файл
+#~ msgid "_File"
+#~ msgstr "_Файл"
+
+# Відкрити
+#~ msgid "_View"
+#~ msgstr "П_ерегляд"
+
+# Змінити
+#, fuzzy
+#~ msgid "Amend"
+#~ msgstr "Змінити"
+
+# Контекст:
+#~ msgid "Context:"
+#~ msgstr "Контекст:"
+
+# Зміни
+#~ msgid "_Changes"
+#~ msgstr "_Зміни"
 
 # Unstaged
-#: ../gitg/gitg-window.ui.h:14
-msgid "_Unstaged"
-msgstr "_Непозначене"
-
-# Не вдалося знайти Git репозиторій
-#~ msgid "Could not find git repository"
-#~ msgstr "Не вдалося знайти git-сховище"
+#~ msgid "_Unstaged"
+#~ msgstr "_Непозначене"
 
 # Дата:
 #~ msgid "Date:"
@@ -1470,10 +1610,6 @@ msgstr "_Непозначене"
 # Відкрити
 #~ msgid "View"
 #~ msgstr "Перегляд"
-
-# Сховище
-#~ msgid "_Repository"
-#~ msgstr "_Сховище"
 
 # Дерево
 #~ msgid "Tree"
