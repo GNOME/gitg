@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation for gitg.
-# Copyright (C) 2013 gitg's COPYRIGHT HOLDER
+# Copyright (C) 2014 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 # vinnyparker <vinny.parker@gmail.com>, 2010.
 # Gabriel F. Vilar <cogumm@gmail.com>, 2011.
@@ -7,24 +7,25 @@
 # Rafael Ferreira <rafael.f.f1@gmail.com>, 2013.
 # Georges Basile Stavracas Neto <georges.stavracas@gmail.com>, 2013.
 # Júnior Pires <juniorpiresupe@gmail.com>, 2013.
+# Antonio Fernandes C. Neto <fernandesn@gnome.org>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-11-23 19:31+0000\n"
-"PO-Revision-Date: 2013-11-25 08:25-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2014-03-19 18:42+0000\n"
+"PO-Revision-Date: 2014-03-19 10:48-0300\n"
+"Last-Translator: Antonio Fernandes C. Neto <fernandesn@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.4\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -158,68 +159,77 @@ msgstr "Não é possível configurar a verificação ortográfica do idioma: %s"
 msgid "Commit"
 msgstr "Submeter (commit)"
 
-#: ../gitg/commit/gitg-commit.vala:144
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "Apresentar _seleção"
+
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Ocorreu falha ao apresentar o arquivo \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:163
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Ocorreu falha ao apresentar a remoção do arquivo \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "_Não apresentar seleção"
+
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Ocorreu falha ao não apresentar a remoção do arquivo \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:242
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Ocorreu falha ao não apresentar o arquivo \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:366
+#: ../gitg/commit/gitg-commit.vala:370
 msgid "Staged"
 msgstr "Apresentado"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:374
 msgid "No staged files"
 msgstr "Arquivos não apresentados"
 
-#: ../gitg/commit/gitg-commit.vala:379
+#: ../gitg/commit/gitg-commit.vala:383
 msgid "Unstaged"
 msgstr "Não apresentado"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:387
 msgid "No unstaged files"
 msgstr "Não há arquivos não apresentados"
 
-#: ../gitg/commit/gitg-commit.vala:392
+#: ../gitg/commit/gitg-commit.vala:396
 msgid "Untracked"
 msgstr "Não rastreado"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:400
 msgid "No untracked files"
 msgstr "Arquivos não rastreados"
 
-#: ../gitg/commit/gitg-commit.vala:432
+#: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
 msgstr "Não existem mudanças a serem submetidas"
 
-#: ../gitg/commit/gitg-commit.vala:433
+#: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
-msgstr "Use \"amend\" para alterar a mensagem de commit da submissão anterior"
+msgstr ""
+"Use \"corrigir\" para alterar a mensagem de commit da submissão anterior"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
 msgstr "Ocorreu falha ao efetuar submissão"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
 msgstr "Ocorreu falha na fase de pré-submissão"
 
-#: ../gitg/commit/gitg-commit.vala:696
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -227,7 +237,7 @@ msgstr ""
 "Seu nome de usuário e e-mail não estão configurados ainda. Por favor, vá na "
 "configuração de usuário e forneça seu nome e e-mail."
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -235,7 +245,7 @@ msgstr ""
 "Seu nome de usuário não está configurado ainda. Por favor, vá na "
 "configuração de usuário e forneça seu nome."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -243,31 +253,51 @@ msgstr ""
 "Seu e-mail não está configurado ainda. Por favor, vá na configuração de "
 "usuário e forneça seu e-mail."
 
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "Ocorreu falha ao apresentar a seleção"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "Ocorreu falha ao não apresentar a seleção"
+
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
-msgstr "Visualizar a versão do aplicativo"
+msgstr "Visualiza a versão do aplicativo"
 
 #: ../gitg/gitg-application.vala:58
 msgid "Start gitg with a particular activity"
 msgstr "Inicia gitg com uma atividade particular"
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
-msgstr "Inicia gitg com a atividade commit (abreviatura para --view commit)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr ""
+"Inicia gitg com a atividade commit (abreviatura para --activity commit)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Não tente carregar um repositório do diretório de trabalho atual"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
-msgstr "- visualizador de repositórios git"
+msgid "- Git repository viewer"
+msgstr "- Visualizador de repositórios Git"
 
-#: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
+#: ../gitg/gitg-application.vala:206
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "O gitg é um visualizador de repositórios git para gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:230
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr ""
+"vinnyparker <vinny.parker@gmail.com>\n"
+"Gabriel F. Vilar <cogumm@gmail.com>\n"
+"Enrico Nicoletto <liverig@gmail.com>\n"
+"Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"Georges Basile Stavracas Neto <georges.stavracas@gmail.com>\n"
+"Júnior Pires <juniorpiresupe@gmail.com>\n"
+"Antonio Fernandes C. Neto <fernandesn@gnome.org>"
+
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "Página inicial do gitg"
 
@@ -283,45 +313,65 @@ msgstr "Falha ao definir configurações Git de usuário."
 msgid "The URL introduced is not supported"
 msgstr "Não há suporte à URL introduzida"
 
-#: ../gitg/gitg-window.vala:263
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"Nos desculpe, mas o gitg requer a libgit2 (uma biblioteca na qual o gitg "
+"depende) pra ser compilada com suporte a \"threading\".\n"
+"\n"
+"Se você compilou manualmente, então por favor, configure a libgit2 com -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Caso contrário, reporte um bug no sistema de relatórios de bugs de sua "
+"distribuição por fornecer a libgit2 sem suporte a \"threading\"."
+
+#: ../gitg/gitg-window.vala:276
 msgid "Projects"
 msgstr "Projetos"
 
-#: ../gitg/gitg-window.vala:299
+#: ../gitg/gitg-window.vala:312
 msgid "Open Repository"
 msgstr "Abrir repositório"
 
-#: ../gitg/gitg-window.vala:301
-#: ../libgitg/gitg-diff-view-request-patch.vala:102
+#: ../gitg/gitg-window.vala:314
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gitg/gitg-window.vala:302
+#: ../gitg/gitg-window.vala:315
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../gitg/gitg-window.vala:532
+#: ../gitg/gitg-window.vala:545
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "\"%s\" não é um repositório Git."
 
-#: ../gitg/history/gitg-history-navigation.vala:194
-#: ../gitg/history/gitg-history-navigation.vala:302
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
 msgstr "Todos os commits"
 
 #. Branches
-#: ../gitg/history/gitg-history-navigation.vala:197
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "Ramos"
 
 #. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:234
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "Remotos"
 
 #. Tags
-#: ../gitg/history/gitg-history-navigation.vala:260
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "Marcadores (tags)"
 
@@ -339,57 +389,51 @@ msgid "Now"
 msgstr "Agora"
 
 #: ../libgitg/gitg-date.vala:320
-msgid "A minute ago"
-msgstr "Um minuto atrás"
-
-#: ../libgitg/gitg-date.vala:320
 #, c-format
-msgid "%d minutes ago"
-msgstr "%d minutos atrás"
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Um minuto atrás"
+msgstr[1] "%d minutos atrás"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "Meia hora atrás"
 
 #: ../libgitg/gitg-date.vala:330
+#, c-format
 msgid "An hour ago"
-msgstr "Uma hora atrás"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "%d horas atrás"
+msgid_plural "%d hours ago"
+msgstr[0] "Uma hora atrás"
+msgstr[1] "%d horas atrás"
 
 #: ../libgitg/gitg-date.vala:335
+#, c-format
 msgid "A day ago"
-msgstr "Um dia atrás"
+msgid_plural "%d days ago"
+msgstr[0] "Um dia atrás"
+msgstr[1] "%d dias atrás"
 
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "%d dias atrás"
-
-#: ../libgitg/gitg-diff-view-request-patch.vala:100
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
 msgid "Save Patch File"
 msgstr "Salva arquivo patch"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:104
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
 msgid "_Save"
 msgstr "_Salvar"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view.vala:123
 msgid "stage"
 msgstr "stage"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:124
 msgid "unstage"
 msgstr "unstage"
 
-#: ../libgitg/gitg-diff-view.vala:91
-msgid "Loading diff..."
-msgstr "Carregando comparação (diff)..."
+#: ../libgitg/gitg-diff-view.vala:125
+msgid "Loading diff…"
+msgstr "Carregando comparação (diff)"
 
-#: ../libgitg/gitg-stage.vala:279
+#: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
@@ -411,7 +455,7 @@ msgstr "Detalhes do autor"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 #, no-c-format
-msgid "Note: The git config file '%s' does not exist."
+msgid "Note: The Git config file '%s' does not exist."
 msgstr "Nota: o arquivo de configuração do git \"%s\" não existe."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
@@ -457,8 +501,8 @@ msgid "_Local Folder:"
 msgstr "Pasta _local:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
-msgstr "Selecionar localização..."
+msgid "Select location…"
+msgstr "Selecionar localização…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
@@ -485,6 +529,10 @@ msgstr "Fechar"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
 msgstr "Ignorar _rotinas de commit"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "Apresen_tar seleção"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -595,12 +643,24 @@ msgid "Use horizontal layout"
 msgstr "Usar disposição horizontal"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Preferências do gitg"
+msgid "Preferences"
+msgstr "Preferências"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "coluna"
+
+#~ msgid "%d minutes ago"
+#~ msgstr "%d minutos atrás"
+
+#~ msgid "%d hours ago"
+#~ msgstr "%d horas atrás"
+
+#~ msgid "%d days ago"
+#~ msgstr "%d dias atrás"
+
+#~ msgid "gitg Preferences"
+#~ msgstr "Preferências do gitg"
 
 #~ msgid "_User Information"
 #~ msgstr "Informações do _usuário"
