@@ -1,0 +1,632 @@
+# Hungarian translation of gitg
+# Copyright (C) 2014. Free Software Foundation, Inc.
+# This file is distributed under the same license as the gitg package.
+#
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: gitg master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gitg&keywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2014-02-28 06:41+0000\n"
+"PO-Revision-Date: 2014-03-23 02:10+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
+"Language-Team: Hungarian <openscope at googlegroups dot com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
+#: ../gitg/resources/ui/gitg-window.ui.h:1
+msgid "gitg"
+msgstr "gitg"
+
+#: ../data/gitg.desktop.in.in.h:2
+msgid "Git repository browser"
+msgstr "Git tárolóböngésző"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "A fő felület tájolása (függőleges vagy vízszintes)"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+msgid "Setting that sets the orientation of the main interface."
+msgstr "A fő felület tájolásának beállítása."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+msgid "When to Collapse Inactive Lanes"
+msgstr "Mikor csukja össze az inaktív pályákat"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+msgid ""
+"Setting that indicates when an inactive lane should be collapsed. Valid "
+"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+msgstr ""
+"Jelzi, hogy egy inaktív pálya mikor legyen összecsukva. A lehetséges értékek: "
+"0 - 4, ahol a 0 jelentése „korán”, a 4 jelentése „későn”."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Jelzi, hogy az aktivitást nem mutató előzménypályák össze legyenek-e csukva. "
+"Ezt bekapcsolva az előzménynézet tisztább lehet, ha sok párhuzamos fejlesztés "
+"történik. A pályák összecsukásának szabályozásához lásd a "
+"collapse-inactive-lanes kulcsot."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+msgid "Show History in Topological Order"
+msgstr "Előzmények megjelenítése topológiai sorrendben"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+msgid ""
+"Setting that indicates whether to show the history in topological order."
+msgstr "Jelzi, hogy az előzmények topológiai sorrendben jelenjenek-e meg."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr "Jelzi, hogy megjelenjenek-e a stash elemei az előzményekben."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Jelzi, hogy megjelenjen-e egy virtuális elem a jelenleg sorba állított "
+"változtatásokhoz az előzményekben."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Jelzi, hogy megjelenjen-e egy virtuális elem a jelenleg sorba nem állított "
+"változtatásokhoz az előzményekben."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+msgid "Show Right Margin in Commit Message View"
+msgstr "Jobb margó megjelenítése a kommit üzenet nézetben"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+msgid ""
+"Show a right margin indicator in the commit message view. This can be used "
+"to easily see where to break the commit message at a particular column."
+msgstr ""
+"A jobb margó jelzésének megjelenítése a kommit üzenet nézetben. Ezáltal "
+"egyszerűen látható, hogy a kommit üzenetet hol kell eltörni adott oszlopnál."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+msgid "Column at Which Right Margin is Shown"
+msgstr "Jobb margó megjelenítése ezen oszlopnál"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+msgid ""
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
+msgstr ""
+"A jobb margó megjelenítése ezen oszlopnál, ha a show-right-margin be van "
+"állítva."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Tárgy margó megjelenítése a kommit üzenet nézetben"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
+"A kommit üzenet tárgyszövegének kiemelése, amikor átlépi a "
+"subject-margin-position kulcsban megadott margót."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Tárgy margó megjelenítése ezen oszlopnál"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+msgid ""
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
+msgstr ""
+"A tárgy margó megjelenítése ezen oszlopnál, ha a show-subject-margin be van "
+"állítva."
+
+#: ../gitg/commit/gitg-commit-dialog.vala:283
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Nem állítható be a helyesírás-ellenőrzés nyelve: %s"
+
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgid "Commit"
+msgstr "Véglegesítés"
+
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "_Kijelölés sorba állítása"
+
+#: ../gitg/commit/gitg-commit.vala:146
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "„%s” fájl sorba állítása sikertelen"
+
+#: ../gitg/commit/gitg-commit.vala:165
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "„%s” fájl eltávolításának sorba állítása sikertelen"
+
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "Kijelölés sorba állításának _törlése"
+
+#: ../gitg/commit/gitg-commit.vala:227
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "„%s” fájl eltávolításának sorba állításának törlése sikertelen"
+
+#: ../gitg/commit/gitg-commit.vala:246
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "„%s” fájl sorba állításának törlése sikertelen"
+
+#: ../gitg/commit/gitg-commit.vala:370
+msgid "Staged"
+msgstr "Sorba állítva"
+
+#: ../gitg/commit/gitg-commit.vala:374
+msgid "No staged files"
+msgstr "Nincsenek sorba állított fájlok"
+
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "Unstaged"
+msgstr "Sorba állítás törölve"
+
+#: ../gitg/commit/gitg-commit.vala:387
+msgid "No unstaged files"
+msgstr "Nincsenek a sorból törölt fájlok"
+
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "Untracked"
+msgstr "Követetlen"
+
+#: ../gitg/commit/gitg-commit.vala:400
+msgid "No untracked files"
+msgstr "Nincsenek követetlen fájlok"
+
+#: ../gitg/commit/gitg-commit.vala:436
+msgid "There are no changes to be committed"
+msgstr "Nincsenek kommitolandó változtatások"
+
+#: ../gitg/commit/gitg-commit.vala:437
+msgid "Use amend to change the commit message of the previous commit"
+msgstr "Az amend használata az előző kommit kommit üzenetének módosításához"
+
+#: ../gitg/commit/gitg-commit.vala:463
+msgid "Failed to commit"
+msgstr "Nem sikerült kommitolni"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
+msgid "Failed to pass pre-commit"
+msgstr "Nem sikerült a pre-kommit"
+
+#: ../gitg/commit/gitg-commit.vala:700
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"A felhasználóneve és e-mail címe még nincs beállítva. Nyissa meg a "
+"felhasználói beállításokat, és adja meg nevét és e-mail címét."
+
+#: ../gitg/commit/gitg-commit.vala:704
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+"A felhasználóneve még nincs beállítva. Nyissa meg a felhasználói "
+"beállításokat, és adja meg nevét."
+
+#: ../gitg/commit/gitg-commit.vala:708
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"Az e-mail címe még nincs beállítva. Nyissa meg a felhasználói beállításokat, "
+"és adja meg e-mail címét."
+
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "A kijelölés sorba állítása sikertelen"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "A kijelölés sorba állításának törlése sikertelen"
+
+#: ../gitg/gitg-application.vala:55
+msgid "Show the application's version"
+msgstr "Az alkalmazás verziószámának megjelenítése"
+
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "A gitg indítása adott tevékenységgel"
+
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr "A gitg indítása a commit tevékenységgel (a --activity commit röviden)"
+
+#: ../gitg/gitg-application.vala:64
+msgid "Do not try to load a repository from the current working directory"
+msgstr "Ne próbáljon tárolót betölteni az aktuális munkakönyvtárból"
+
+#: ../gitg/gitg-application.vala:88
+msgid "- Git repository viewer"
+msgstr "– Git tárolómegjelenítő"
+
+#: ../gitg/gitg-application.vala:206
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "A gitg egy Git tárolómegjelenítő GTK+/GNOME-hoz"
+
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr "Kelemen Gábor <kelemeng at gnome dot hu>"
+
+#: ../gitg/gitg-application.vala:218
+msgid "gitg homepage"
+msgstr "A gitg honlapja"
+
+#: ../gitg/gitg-author-details-dialog.vala:65
+msgid "Unable to open the .gitconfig file."
+msgstr "Nem nyitható meg a .gitconfig fájl."
+
+#: ../gitg/gitg-author-details-dialog.vala:147
+msgid "Failed to set Git user config."
+msgstr "A Git felhasználói beállítások megadása sikertelen."
+
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr "A megadott URL nem támogatott"
+
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"Rettentően sajnáljuk, de a gitg számára a libgit2 (egy programkönyvtár, "
+"amelyre a gitg "
+"épül) szálkezelési támogatással fordított verziója szükséges.\n"
+"\n"
+"Ha saját maga fordította a libgit2-t, akkor a libgit2 konfigurálásához "
+"használja a -DTHREADSAFE:BOOL=ON kapcsolót.\n"
+"\n"
+"Egyébként jelentsen hibát a disztribúciója hibakövető rendszerébe, mert a "
+"libgit2-t szálkezelési támogatás nélkül fordították."
+
+#: ../gitg/gitg-window.vala:276
+msgid "Projects"
+msgstr "Projektek"
+
+#: ../gitg/gitg-window.vala:312
+msgid "Open Repository"
+msgstr "Tároló megnyitása"
+
+#: ../gitg/gitg-window.vala:314
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
+msgid "_Cancel"
+msgstr "Mé_gse"
+
+#: ../gitg/gitg-window.vala:315
+msgid "_Open"
+msgstr "_Megnyitás"
+
+#: ../gitg/gitg-window.vala:545
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "„%s” nem Git tároló."
+
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
+msgid "All commits"
+msgstr "Minden kommit"
+
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:202
+msgid "Branches"
+msgstr "Ágak"
+
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:239
+msgid "Remotes"
+msgstr "Távoli ágak"
+
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:265
+msgid "Tags"
+msgstr "Címkék"
+
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
+msgid "History"
+msgstr "Előzmények"
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+msgid "Interface"
+msgstr "Felület"
+
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "Most"
+
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Egy perccel ezelőtt"
+msgstr[1] "%d perce"
+
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "Fél órája"
+
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "An hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "Egy órával ezelőtt"
+msgstr[1] "%d órája"
+
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "A day ago"
+msgid_plural "%d days ago"
+msgstr[0] "Egy napja"
+msgstr[1] "%d napja"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
+msgid "Save Patch File"
+msgstr "Foltfájl mentése"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
+msgid "_Save"
+msgstr "M_entés"
+
+#: ../libgitg/gitg-diff-view.vala:123
+msgid "stage"
+msgstr "sorba állítás"
+
+#: ../libgitg/gitg-diff-view.vala:124
+msgid "unstage"
+msgstr "sorba állítás törlése"
+
+#: ../libgitg/gitg-diff-view.vala:125
+msgid "Loading diff…"
+msgstr "Diff betöltése…"
+
+#: ../libgitg/gitg-stage.vala:333
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr "Nem olvasható a kommit üzenet a commit-msg hook futtatása után: %s"
+
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Fájlok"
+
+#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Szerző adatai"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "Megjegyzés: a Git konfigurációs fájl („%s”) nem létezik."
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr "Adja meg az összes tárolóhoz alapértelmezésként beállítandó adatokat:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Adja meg a(z) „%s” tárolóhoz az adatait:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "E-mail: "
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Név: "
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Mégse"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Mentés"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+msgid "Clone Repository"
+msgstr "Tároló klónozása"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+msgid "Cl_one"
+msgstr "_Klónozás"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "Remote _URL:"
+msgstr "Távoli _URL:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "_Local Folder:"
+msgstr "_Helyi mappa:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "Select location…"
+msgstr "Válasszon helyet…"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+msgid "Bare repository"
+msgstr "Üres tároló"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "_Kommit"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+msgid "Add _signed-off-by signature"
+msgstr "A _signed-off-by aláírás hozzáadása"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "_Amend previous commit"
+msgstr "_Előző kommit javítása"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Close"
+msgstr "Bezárás"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "Kommit _hookok kihagyása"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "_Kijelölés sorba állítása"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Tárgy"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Szerző"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Dátum"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "Új _ablak"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+msgid "_Preferences"
+msgstr "_Beállítások"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Help"
+msgstr "_Súgó"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "_Névjegy"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "_Kilépés"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Open Repository…"
+msgstr "_Tároló megnyitása…"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Clone Repository…"
+msgstr "Tároló _klónozása…"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
+msgid "_Author Details"
+msgstr "S_zerző adatai"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "_Frissítés"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Jelölés megjelenítése"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "_Tárgy margó ebben az oszlopban:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "_Jobb margó ebben az oszlopban:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Helyesírás-ellenőrzés bekapcsolása"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+msgid "Commit Message"
+msgstr "Kommit üzenet"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Kommitok"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Inaktív pályák összecsukása"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Stash megjelenítése az előzményekben"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Sorba állított változtatások megjelenítése az előzményekben"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "Sorba nem állított változtatások megjelenítése az előzményekben"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Előzmények megjelenítése topológiai sorrendben"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Korai"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Kései"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Layout"
+msgstr "Elrendezés"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+msgid "Use horizontal layout"
+msgstr "Vízszintes elrendezés használata"
+
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "Preferences"
+msgstr "Beállítások"
+
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "oszlop"
+
+
