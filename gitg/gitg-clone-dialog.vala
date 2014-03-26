@@ -52,7 +52,7 @@ public class CloneDialog : Gtk.Dialog
 
 	public CloneDialog(Gtk.Window? parent)
 	{
-		Object();
+		Object(use_header_bar: 1);
 
 		if (parent != null)
 		{
