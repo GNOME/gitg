@@ -679,7 +679,7 @@ class Dialog : Gtk.Dialog
 	public Dialog(Ggit.Signature author,
 	              Ggit.Diff?     diff)
 	{
-		Object(author: author, diff: diff);
+		Object(author: author, diff: diff, use_header_bar: 1);
 	}
 
 	private void update_font_settings()
