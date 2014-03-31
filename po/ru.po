@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: gitg 0.0.6\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-01-07 00:07+0000\n"
-"PO-Revision-Date: 2014-03-14 22:23+0300\n"
-"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
+"POT-Creation-Date: 2014-03-31 17:58+0000\n"
+"PO-Revision-Date: 2014-03-31 23:34+0400\n"
+"Last-Translator: Yuri Myasoedov <ymyasoedov@yandex.ru>\n"
 "Language-Team: ru <gnome-cyr@gnome.org>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.4\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -34,7 +34,6 @@ msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Расположение основного интерфейса (вертикальное или горизонтальное)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-#, fuzzy
 #| msgid "Setting that sets the orientation layout of the main view."
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Этот параметр устанавливает положение раскладки главного окна."
@@ -58,6 +57,10 @@ msgid ""
 "lot of parallel development. See collapse-inactive-lanes to control when "
 "lanes should be collapsed."
 msgstr ""
+"Этот параметр управляет отображением путей в истории, по которым отсутствует "
+"активность. Включение этого параметра может очистить просмотр истории от "
+"множества параллельных разрабатываемых путей. Параметр collapse-inactive-"
+"lanes управляет сворачиванием путей."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid "Show History in Topological Order"
@@ -66,41 +69,34 @@ msgstr "Показывать историю в топологическом по
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
-msgstr ""
-"Этот параметр показывает, будет ли история показываться в топологическом "
-"порядке."
+msgstr "Этот параметр управляет отображением истории в топологическом порядке."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-#, fuzzy
 #| msgid ""
 #| "Setting that indicates whether to show the history in topological order."
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
-msgstr ""
-"Этот параметр показывает, будет ли история показываться в топологическом "
-"порядке."
+msgstr "Этот параметр управляет отображением скрытых элементов в истории."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-#, fuzzy
 #| msgid ""
 #| "Setting that indicates whether to show the history in topological order."
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
 msgstr ""
-"Этот параметр показывает, будет ли история показываться в топологическом "
-"порядке."
+"Этот параметр управляет отображением виртуальных элементов для только что "
+"проиндексированных изменений в истории."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-#, fuzzy
 #| msgid ""
 #| "Setting that indicates whether to show the history in topological order."
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
 msgstr ""
-"Этот параметр показывает, будет ли история показываться в топологическом "
-"порядке."
+"Этот параметр управляет отображением виртуальных элементов для изменений в "
+"истории, для которых только что была отменена индексация."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
@@ -119,7 +115,6 @@ msgid "Column at Which Right Margin is Shown"
 msgstr "Столбец отображения правого поля"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-#, fuzzy
 #| msgid ""
 #| "The column at which the right margin is shown if the right-margin "
 #| "preference is set to TRUE."
@@ -127,29 +122,28 @@ msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr ""
-"Столбец в позиции которого отображается правое поле, если отмечена "
-"соответствующая опция"
+"Столбец, в котором будет показано правое поле, если параметр show-right-"
+"margin выставлен в значение TRUE."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-#, fuzzy
 #| msgid "Show Right Margin in Commit Message View"
 msgid "Show Subject Margin in Commit Message View"
-msgstr "Показывать правый отступ в сообщении фиксации"
+msgstr "Показывать поле с темой при просмотре сообщения о фиксации"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
 msgstr ""
+"Выделять текст темы сообщения о фиксации; поле задаётся в параметром subject-"
+"margin-position."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-#, fuzzy
 #| msgid "Column at Which Right Margin is Shown"
 msgid "Column at Which Subject Margin is Shown"
-msgstr "Столбец отображения правого поля"
+msgstr "Столбец, в котором отображается поле с темой"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-#, fuzzy
 #| msgid ""
 #| "The column at which the right margin is shown if the right-margin "
 #| "preference is set to TRUE."
@@ -157,8 +151,8 @@ msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
 msgstr ""
-"Столбец в позиции которого отображается правое поле, если отмечена "
-"соответствующая опция"
+"Столбец, в котором будет показано поле с темой, если параметр show-subject-"
+"margin выставлен в значение TRUE."
 
 #: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
@@ -169,15 +163,14 @@ msgstr "Не удалось назначить язык для проверки 
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
-msgstr "Фиксировать"
+msgstr "Фиксация"
 
 #: ../gitg/commit/gitg-commit.vala:123
 msgid "_Stage selection"
-msgstr ""
+msgstr "_Проиндексировать"
 
 #: ../gitg/commit/gitg-commit.vala:146
 #, c-format
-#| msgid "Failed to save current index state"
 msgid "Failed to stage the file `%s'"
 msgstr "Не удалось проиндексировать файл «%s»"
 
@@ -188,7 +181,7 @@ msgstr "Не удалось индексировать удаление файл
 
 #: ../gitg/commit/gitg-commit.vala:204
 msgid "_Unstage selection"
-msgstr ""
+msgstr "_Отменить индексацию"
 
 #: ../gitg/commit/gitg-commit.vala:227
 #, c-format
@@ -197,12 +190,10 @@ msgstr "Не удалось отменить индексирование уда
 
 #: ../gitg/commit/gitg-commit.vala:246
 #, c-format
-#| msgid "Failed to save current index state"
 msgid "Failed to unstage the file `%s'"
 msgstr "Не удалось отменить индексирование файла «%s»"
 
 #: ../gitg/commit/gitg-commit.vala:370
-#| msgid "_Staged"
 msgid "Staged"
 msgstr "Проиндексированные"
 
@@ -215,7 +206,6 @@ msgid "Unstaged"
 msgstr "Неиндексированные"
 
 #: ../gitg/commit/gitg-commit.vala:387
-#| msgid "Unstaged changes"
 msgid "No unstaged files"
 msgstr "Нет непроиндексированных файлов"
 
@@ -232,23 +222,20 @@ msgid "There are no changes to be committed"
 msgstr "Нет изменений для фиксации"
 
 #: ../gitg/commit/gitg-commit.vala:437
-#| msgid "Please enter a commit message before committing"
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Используйте дополнение фиксации, чтобы изменить сообщение о предыдущей "
 "фиксации"
 
 #: ../gitg/commit/gitg-commit.vala:463
-#| msgid "Failed to create tag"
 msgid "Failed to commit"
 msgstr "Не удалось фиксировать"
 
 #. TODO: better to show user info dialog directly or something
 #: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
-#, fuzzy
 #| msgid "Failed to remove tag"
 msgid "Failed to pass pre-commit"
-msgstr "Не удалось удалить метку"
+msgstr "Не удалось пройти перехватчик pre-commit"
 
 #: ../gitg/commit/gitg-commit.vala:700
 msgid ""
@@ -274,14 +261,13 @@ msgstr ""
 "E-mail ещё не настроен. Перейдите к настройке пользователя и укажите e-mail."
 
 #: ../gitg/commit/gitg-commit.vala:769
-#, fuzzy
 #| msgid "Failed to create tag"
 msgid "Failed to stage selection"
-msgstr "Не удалось создать метку"
+msgstr "Не удалось проиндексировать"
 
 #: ../gitg/commit/gitg-commit.vala:773
 msgid "Failed to unstage selection"
-msgstr ""
+msgstr "Не удалось отменить индексацию"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -289,23 +275,21 @@ msgstr "Показать версию программы"
 
 #: ../gitg/gitg-application.vala:58
 msgid "Start gitg with a particular activity"
-msgstr ""
+msgstr "Начать работу с gitg с определённого действия"
 
 #: ../gitg/gitg-application.vala:61
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
-msgstr ""
+msgstr "Начать работу с gitg с фиксации (сокращение для --activity commit)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Не пытаться загрузить репозиторий из текущего рабочего каталога"
 
 #: ../gitg/gitg-application.vala:88
-#| msgid "- git repository viewer"
 msgid "- Git repository viewer"
 msgstr "— просмотр репозитория Git"
 
 #: ../gitg/gitg-application.vala:206
-#| msgid "gitg is a git repository viewer for gtk+/GNOME"
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg — программа просмотра репозиториев Git для gtk+/GNOME"
 
@@ -322,7 +306,6 @@ msgid "Unable to open the .gitconfig file."
 msgstr "Невозможно открыть файл .gitconfig."
 
 #: ../gitg/gitg-author-details-dialog.vala:147
-#, fuzzy
 #| msgid "Failed to create tag"
 msgid "Failed to set Git user config."
 msgstr "Не удалось установить пользовательскую настройку Git."
@@ -342,30 +325,34 @@ msgid ""
 "Otherwise, report a bug in your distributions' bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
+"Мы ужасно извиняемся, но gitg требует для своей работы библиотеку libgit2, "
+"собранную с поддержкой потоков.\n"
+"\n"
+"Если вы собирали libgit2 самостоятельно, убедитесь, что libgit2 была "
+"сконфигурирована с ключом -DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"В противном случае, сообщите в системе учёта ошибок вашего дистрибутива о "
+"том, что libgit2 был собран без поддержки потоков."
 
-#: ../gitg/gitg-window.vala:263
+#: ../gitg/gitg-window.vala:276
 msgid "Projects"
 msgstr "Проекты"
 
-#: ../gitg/gitg-window.vala:299
-#| msgid "Open git repository"
+#: ../gitg/gitg-window.vala:312
 msgid "Open Repository"
 msgstr "Открыть репозиторий"
 
-#: ../gitg/gitg-window.vala:301
+#: ../gitg/gitg-window.vala:314
 #: ../libgitg/gitg-diff-view-request-patch.vala:109
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "_Отменить"
 
-#: ../gitg/gitg-window.vala:302
-#| msgid "_Open..."
+#: ../gitg/gitg-window.vala:315
 msgid "_Open"
 msgstr "_Открыть"
 
-#: ../gitg/gitg-window.vala:532
+#: ../gitg/gitg-window.vala:545
 #, c-format
-#| msgid "Not a valid git repository"
 msgid "'%s' is not a Git repository."
 msgstr "«%s» не является репозиторием Git."
 
@@ -376,7 +363,6 @@ msgstr "Все фиксации"
 
 #. Branches
 #: ../gitg/history/gitg-history-navigation.vala:202
-#| msgid "Branch:"
 msgid "Branches"
 msgstr "Ветви"
 
@@ -396,7 +382,6 @@ msgid "History"
 msgstr "История"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:73
-#| msgid "<b>Interface</b>"
 msgid "Interface"
 msgstr "Интерфейс"
 
@@ -441,16 +426,14 @@ msgid "_Save"
 msgstr "_Сохранить"
 
 #: ../libgitg/gitg-diff-view.vala:123
-#, fuzzy
 #| msgid "Unstage"
 msgid "stage"
 msgstr "индексировать"
 
 #: ../libgitg/gitg-diff-view.vala:124
-#, fuzzy
 #| msgid "Unstage"
 msgid "unstage"
-msgstr "Не этапировать"
+msgstr "отменить индексацию"
 
 #: ../libgitg/gitg-diff-view.vala:125
 msgid "Loading diff…"
@@ -473,7 +456,6 @@ msgstr "Файлы"
 
 #. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
-#| msgid "Details"
 msgid "Author Details"
 msgstr "Сведения об авторе"
 
@@ -492,12 +474,10 @@ msgid "Enter details for repository '%s':"
 msgstr "Введите сведения для репозитория «%s»:"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
-#| msgid "E-mail:"
 msgid "E-mail: "
 msgstr "Эл. почта:"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
-#| msgid "Name:"
 msgid "Name: "
 msgstr "Имя:"
 
@@ -510,7 +490,6 @@ msgid "Save"
 msgstr "Сохранить"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-#| msgid "Begin loading repository"
 msgid "Clone Repository"
 msgstr "Клонировать репозиторий"
 
@@ -519,7 +498,6 @@ msgid "Cl_one"
 msgstr "Кл_онировать"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-#| msgid "Remotes"
 msgid "Remote _URL:"
 msgstr "_URL удалённого репозитория:"
 
@@ -532,18 +510,15 @@ msgid "Select location…"
 msgstr "Выбрать местоположение…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
-#| msgid "Open git repository"
 msgid "Bare repository"
 msgstr "Репозиторий без рабочего каталога"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
-#| msgid "Commit"
 msgid "C_ommit"
 msgstr "Ф_иксировать"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
-#| msgid "Add signed-off-by"
 msgid "Add _signed-off-by signature"
 msgstr "Добавить _подпись"
 
@@ -562,7 +537,7 @@ msgstr "Пропустить _перехватчики фиксации"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 msgid "S_tage selection"
-msgstr ""
+msgstr "Про_индексировать"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -581,7 +556,6 @@ msgid "_New Window"
 msgstr "_Создать окно"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:2
-#| msgid "Preferences"
 msgid "_Preferences"
 msgstr "_Параметры"
 
@@ -598,7 +572,6 @@ msgid "_Quit"
 msgstr "_Закончить"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
-#| msgid "Open git repository"
 msgid "_Open Repository…"
 msgstr "_Открыть репозиторий…"
 
@@ -607,41 +580,36 @@ msgid "_Clone Repository…"
 msgstr "_Клонировать репозиторий…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-#| msgid "Details"
 msgid "_Author Details"
 msgstr "Сведения об _авторе"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:9
 msgid "_Reload"
-msgstr ""
+msgstr "_Перезагрузить"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
 msgid "Show markup"
-msgstr ""
+msgstr "Показывать разметку"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-#, fuzzy
 #| msgid "_Right margin at column:"
 msgid "Display _subject margin at column:"
-msgstr "_Правое поле у столбца:"
+msgstr "Показывать поле с _темой в столбце:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-#, fuzzy
 #| msgid "Display right _margin"
 msgid "Display right _margin at column:"
-msgstr "_Показывать правое поле"
+msgstr "Показывать _правое поле в столбце:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
 msgid "Enable spell checking"
 msgstr "Включить проверку правописания"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-#| msgid "Co_mmit message"
 msgid "Commit Message"
 msgstr "Сообщение фиксации"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-#| msgid "Commit"
 msgid "Commits"
 msgstr "Фиксации"
 
@@ -678,7 +646,6 @@ msgid "Layout"
 msgstr "Расположение"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#| msgid "Use vertical layout"
 msgid "Use horizontal layout"
 msgstr "Использовать горизонтальное расположение"
 
@@ -688,7 +655,7 @@ msgstr "Параметры"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
-msgstr ""
+msgstr "столбец"
 
 #~ msgid "Allow External Diff Program"
 #~ msgstr "Разрешить внешнюю программу сравнения"
