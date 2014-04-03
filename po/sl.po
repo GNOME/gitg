@@ -3,26 +3,27 @@
 # This file is distributed under the same license as the gitg package.
 #
 # Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2009-2010.
-# Matej Urbančič <mateju@svn.gnome.org>, 2012-2013.
+# Matej Urbančič <mateju@svn.gnome.org>, 2012-2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-12-21 19:16+0000\n"
-"PO-Revision-Date: 2013-12-22 19:12+0100\n"
+"POT-Creation-Date: 2014-04-03 17:52+0000\n"
+"PO-Revision-Date: 2014-04-03 20:57+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -157,69 +158,77 @@ msgstr "Ni mogoče nastaviti jezika za črkovanje: %s"
 msgid "Commit"
 msgstr "Uveljavi"
 
-#: ../gitg/commit/gitg-commit.vala:144
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "_Izbor datotek v pripravljenosti"
+
+#: ../gitg/commit/gitg-commit.vala:146
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Postavljanje datoteke `%s' v pripravljenost je spodletelo."
 
-#: ../gitg/commit/gitg-commit.vala:163
+#: ../gitg/commit/gitg-commit.vala:165
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Postavljanje odstranitve datoteke `%s' v pripravljenost je spodletelo."
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "_Odstranitev datotek iz pripravljenosti"
+
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr ""
 "Postavljanje odstranitve datoteke `%s' iz pripravljenosti je spodletelo."
 
-#: ../gitg/commit/gitg-commit.vala:242
+#: ../gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Postavljanje datoteke `%s' iz pripravljenosti je spodletelo"
 
-#: ../gitg/commit/gitg-commit.vala:366
+#: ../gitg/commit/gitg-commit.vala:370
 msgid "Staged"
 msgstr "V pripravljenosti"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:374
 msgid "No staged files"
 msgstr "Ni datotek v pripravljenosti."
 
-#: ../gitg/commit/gitg-commit.vala:379
+#: ../gitg/commit/gitg-commit.vala:383
 msgid "Unstaged"
 msgstr "Nepripravljeno"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:387
 msgid "No unstaged files"
 msgstr "Ni nepripravljenih datotek."
 
-#: ../gitg/commit/gitg-commit.vala:392
+#: ../gitg/commit/gitg-commit.vala:396
 msgid "Untracked"
 msgstr "Brez sledenja"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:400
 msgid "No untracked files"
 msgstr "Ni datotek brez sledenja."
 
-#: ../gitg/commit/gitg-commit.vala:432
+#: ../gitg/commit/gitg-commit.vala:436
 msgid "There are no changes to be committed"
 msgstr "Ni sprememb za uveljavitev"
 
-#: ../gitg/commit/gitg-commit.vala:433
+#: ../gitg/commit/gitg-commit.vala:437
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Uporabi dopolnitev za spremembo sporočila predhodne uveljavitve"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "Failed to commit"
 msgstr "Uveljavitev je spodletela"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:475 ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
 msgid "Failed to pass pre-commit"
 msgstr "Pred-uveljavitev je spodletela"
 
-#: ../gitg/commit/gitg-commit.vala:696
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -227,20 +236,28 @@ msgstr ""
 "Vaše uporabniško ime in elektronski naslov še nista nastavljena. Odprite "
 "nastavitve uporabnika in manjkajoče podatke vnesite."
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr ""
 "Vaše ime še ni nastavljeno. Odprite nastavitve uporabnika in vnesite podatek."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "Vaš elektronski naslov še ni nastavljen. Odprite nastavitve uporabnika in "
 "vnesite podatek."
+
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "Postavljanje datotek v pripravljenost je spodletelo"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "Odstranitev postavljanja datotek iz pripravljenosti je spodletelo"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -251,22 +268,27 @@ msgid "Start gitg with a particular activity"
 msgstr "Zaženi gitg z določeno dejavnostjo"
 
 #: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --view commit)"
-msgstr "Zaženi gitg z dejavnostjo uveljavljanja (okrajšava za --view commit)"
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr ""
+"Zaženi gitg z dejavnostjo uveljavljanja (okrajšava za --activity commit)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Ne skušajte naložiti skladišča iz trenutne delovne mape"
 
 #: ../gitg/gitg-application.vala:88
-msgid "- git repository viewer"
-msgstr "- pregledovalnik skladišč git"
+msgid "- Git repository viewer"
+msgstr "- Pregledovalnik skladišč Git"
 
-#: ../gitg/gitg-application.vala:205
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg je pregledovalnik skladišč git za gtk+/GNOME"
+#: ../gitg/gitg-application.vala:206
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "Program gitg je pregledovalnik git skladišč za gtk+/GNOME"
 
 #: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr "Matej Urbančič <mateju@svn.gnome.org>"
+
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "Spletna stran programa gitg"
 
@@ -282,45 +304,57 @@ msgstr "Nastavljanje uporabniških določil je spodletelo."
 msgid "The URL introduced is not supported"
 msgstr "Podan naslov URL ni podprt"
 
-#: ../gitg/gitg-window.vala:263
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+
+#: ../gitg/gitg-window.vala:276
 msgid "Projects"
 msgstr "Projekti"
 
-#: ../gitg/gitg-window.vala:299
+#: ../gitg/gitg-window.vala:312
 msgid "Open Repository"
 msgstr "Odpri skladišče"
 
-#: ../gitg/gitg-window.vala:301
-#: ../libgitg/gitg-diff-view-request-patch.vala:102
+#: ../gitg/gitg-window.vala:314
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: ../gitg/gitg-window.vala:302
+#: ../gitg/gitg-window.vala:315
 msgid "_Open"
 msgstr "_Odpri"
 
-#: ../gitg/gitg-window.vala:532
+#: ../gitg/gitg-window.vala:545
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "'%s' ni skladišče Git."
 
-#: ../gitg/history/gitg-history-navigation.vala:194
-#: ../gitg/history/gitg-history-navigation.vala:302
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
 msgid "All commits"
 msgstr "Vse uveljavitve"
 
 #. Branches
-#: ../gitg/history/gitg-history-navigation.vala:197
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "Veje"
 
 #. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:234
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
 msgstr "Oddaljeno"
 
 #. Tags
-#: ../gitg/history/gitg-history-navigation.vala:260
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "Oznake"
 
@@ -338,57 +372,57 @@ msgid "Now"
 msgstr "Takoj"
 
 #: ../libgitg/gitg-date.vala:320
-msgid "A minute ago"
-msgstr "Pred minuto"
-
-#: ../libgitg/gitg-date.vala:320
 #, c-format
-msgid "%d minutes ago"
-msgstr "Pred %d minutami"
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Pred %d minutami"
+msgstr[1] "Pred %d minuto"
+msgstr[2] "Pred %d minutama"
+msgstr[3] "Pred %d minutami"
 
 #: ../libgitg/gitg-date.vala:325
 msgid "Half an hour ago"
 msgstr "Pred pol ure"
 
 #: ../libgitg/gitg-date.vala:330
+#, c-format
 msgid "An hour ago"
-msgstr "Pred eno uro"
-
-#: ../libgitg/gitg-date.vala:330
-#, c-format
-msgid "%d hours ago"
-msgstr "Pred %d urami"
+msgid_plural "%d hours ago"
+msgstr[0] "Pred %d urami"
+msgstr[1] "Pred %d uro"
+msgstr[2] "Pred %d urama"
+msgstr[3] "Pred %d urami"
 
 #: ../libgitg/gitg-date.vala:335
+#, c-format
 msgid "A day ago"
-msgstr "Pred enim dnevom"
+msgid_plural "%d days ago"
+msgstr[0] "Pred %d dnevi"
+msgstr[1] "Pred %d dnevom"
+msgstr[2] "Pred %d dnevoma"
+msgstr[3] "Pred %d dnevi"
 
-#: ../libgitg/gitg-date.vala:335
-#, c-format
-msgid "%d days ago"
-msgstr "Pred %d dnevi"
-
-#: ../libgitg/gitg-diff-view-request-patch.vala:100
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
 msgid "Save Patch File"
 msgstr "Shrani datoteko popravka"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:104
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
 msgid "_Save"
 msgstr "_Shrani"
 
-#: ../libgitg/gitg-diff-view.vala:89
+#: ../libgitg/gitg-diff-view.vala:123
 msgid "stage"
 msgstr "v pripravljenost"
 
-#: ../libgitg/gitg-diff-view.vala:90
+#: ../libgitg/gitg-diff-view.vala:124
 msgid "unstage"
 msgstr "iz pripravljenosti"
 
-#: ../libgitg/gitg-diff-view.vala:91
-msgid "Loading diff..."
-msgstr "Nalaganje primerjave ..."
+#: ../libgitg/gitg-diff-view.vala:125
+msgid "Loading diff…"
+msgstr "Nalaganje programa diff ..."
 
-#: ../libgitg/gitg-stage.vala:279
+#: ../libgitg/gitg-stage.vala:333
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
@@ -410,7 +444,7 @@ msgstr "Podrobnosti avtorja"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 #, no-c-format
-msgid "Note: The git config file '%s' does not exist."
+msgid "Note: The Git config file '%s' does not exist."
 msgstr "Opomba: nastavitvena datoteka git '%s' ne obstaja."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
@@ -455,8 +489,8 @@ msgid "_Local Folder:"
 msgstr "_Krajevna mapa:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
-msgstr "Izberi mesto ..."
+msgid "Select location…"
+msgstr "Izbor mesta ..."
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Bare repository"
@@ -483,6 +517,10 @@ msgstr "Zapri"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
 msgstr "Preskoči skriptne _kljuke uveljavitev"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "Izbor datotek v _pripravljenosti"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -593,9 +631,21 @@ msgid "Use horizontal layout"
 msgstr "Uporabi vodoravno razporeditev"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
+msgid "Preferences"
 msgstr "Možnosti"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "stolpec"
+
+#~ msgid "%d minutes ago"
+#~ msgstr "Pred %d minutami"
+
+#~ msgid "%d hours ago"
+#~ msgstr "Pred %d urami"
+
+#~ msgid "%d days ago"
+#~ msgstr "Pred %d dnevi"
+
+#~ msgid "gitg Preferences"
+#~ msgstr "Možnosti"
