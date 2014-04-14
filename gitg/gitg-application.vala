@@ -240,10 +240,6 @@ public class Application : Gtk.Application
 			d_preferences.destroy.connect((w) => {
 				d_preferences = null;
 			});
-
-			d_preferences.response.connect((w, r) => {
-				d_preferences.destroy();
-			});
 		}
 
 		if (wnds != null)
