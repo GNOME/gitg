@@ -43,6 +43,8 @@ namespace Gitg
 
 		public AuthorDetailsDialog (Gtk.Window? parent, Ggit.Config config, string? repository_name)
 		{
+			Object (use_header_bar: 1);
+
 			if (parent != null)
 			{
 				set_transient_for (parent);
