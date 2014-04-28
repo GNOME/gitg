@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-04-03 17:52+0000\n"
-"PO-Revision-Date: 2014-04-03 20:57+0100\n"
+"POT-Creation-Date: 2014-04-28 17:31+0000\n"
+"PO-Revision-Date: 2014-04-28 19:54+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -292,11 +292,11 @@ msgstr "Matej Urbančič <mateju@svn.gnome.org>"
 msgid "gitg homepage"
 msgstr "Spletna stran programa gitg"
 
-#: ../gitg/gitg-author-details-dialog.vala:65
+#: ../gitg/gitg-author-details-dialog.vala:67
 msgid "Unable to open the .gitconfig file."
 msgstr "Datoteke .gitconfig ni mogoče odpreti."
 
-#: ../gitg/gitg-author-details-dialog.vala:147
+#: ../gitg/gitg-author-details-dialog.vala:149
 msgid "Failed to set Git user config."
 msgstr "Nastavljanje uporabniških določil je spodletelo."
 
@@ -315,6 +315,14 @@ msgid ""
 "Otherwise, report a bug in your distributions' bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
+"Program gitg zahteva namestitev libgit2 (knjižnica odvisnosti), ki je "
+"izgrajena s podporo za nitenje.\n"
+"\n"
+"Kadar je izgradnja knjižnice libgit2 izvedena ročno, mora biti uporabljena "
+"možnost -DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Seveda se lahko zgodi, da je tudi sistemska knjižnica izgrajena brez "
+"ustrezne podpore. V tem primeru je treba poslati poročilo o hrošču."
 
 #: ../gitg/gitg-window.vala:276
 msgid "Projects"
@@ -326,6 +334,8 @@ msgstr "Odpri skladišče"
 
 #: ../gitg/gitg-window.vala:314
 #: ../libgitg/gitg-diff-view-request-patch.vala:109
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 msgid "_Cancel"
 msgstr "_Prekliči"
 
@@ -476,40 +486,40 @@ msgstr "Shrani"
 msgid "Clone Repository"
 msgstr "Kloniraj skladišče"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
 msgid "Cl_one"
 msgstr "Kl_oniraj"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
 msgid "Remote _URL:"
 msgstr "Oddaljen naslov _URL:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
 msgid "_Local Folder:"
 msgstr "_Krajevna mapa:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Select location…"
 msgstr "Izbor mesta ..."
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
 msgid "Bare repository"
 msgstr "Golo skladišče"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
 msgid "C_ommit"
 msgstr "_Uveljavi"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "Add _signed-off-by signature"
 msgstr "Dodaj podpis 'podpisnika'"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 msgid "_Amend previous commit"
 msgstr "_Dopolni predhodno uveljavitev"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Close"
 msgstr "Zapri"
