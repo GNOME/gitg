@@ -16,19 +16,18 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2012-08-12 17:25+0000\n"
-"PO-Revision-Date: 2012-08-10 19:22+0100\n"
-"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"POT-Creation-Date: 2014-04-25 05:31+0000\n"
+"PO-Revision-Date: 2014-04-27 20:59+0100\n"
+"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
-"Language: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
+"X-Generator: Poedit 1.6.4\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -38,24 +37,18 @@ msgid "Git repository browser"
 msgstr "Browser für Git-Softwarebestände"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Filter Revisions When Searching"
-msgstr "Revisionen während der Suche filtern"
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Ausrichtung der Hauptoberfläche (vertikal oder horizontal)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr ""
-"Legt fest, ob die Revisionen in der Chronikansicht gefiltert werden sollen, "
-"anstellen zur ersten Übereinstimmung zu springen"
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Diese Einstellung legt die Ausrichtung der Hauptansicht fest."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
 msgstr "Einklappen inaktiver Pfade"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -64,33 +57,51 @@ msgstr ""
 "liegen zwischen 0 und 4, wobei 0 »früh« bezeichnet und 4 »spät«."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Damit wird festgelegt, ob Chronikpfade eingeklappt werden sollen, für die "
+"keine Aktivität erkannt wurde. Wenn dies aktiviert ist, erscheint die "
+"Chronik übersichtlicher, wenn mehrere parallele Entwicklungsabläufe "
+"vorhanden sind. In collapse-inactive-lanes finden Sie weitere Informationen "
+"darüber, wann Pfade eingeklappt werden sollen."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid "Show History in Topological Order"
 msgstr "Chronik in topologischer Ordnung zeigen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Damit wird festgelegt, ob die Chronik in topologischer Ordnung angezeigt "
 "werden soll."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Show Main View in Vertical or Horizontal Layout"
-msgstr "Hauptansicht in vertikaler oder horizontaler Anordnung zeigen"
-
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation layout of the main view."
-msgstr "Dies legt die Ausrichtung der Hauptansicht fest."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Damit wird festgelegt, ob Objekte für die derzeit zurückgestellten "
+"Änderungen in der Chronik angezeigt werden sollen."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Show files view in blame mode"
-msgstr "Dateien im Blame-Modus anzeigen"
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Damit wird festgelegt, ob ein virtuelles Objekt für die derzeit "
+"bereitgestellten Änderungen in der Chronik angezeigt werden soll."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-msgid "Setting that sets files view to blame mode."
-msgstr "Dateien im Blame-Modus anzeigen."
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Damit wird festgelegt, ob ein virtuelles Objekt für die derzeit nicht "
+"bereitgestellten Änderungen in der Chronik angezeigt werden soll."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Show Right Margin in Commit Message View"
@@ -111,181 +122,438 @@ msgstr "Spalte, in welcher der rechte Rand angezeigt wird"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
 "Die Spalte, in welcher der rechte Rand angezeigt wird, falls die Einstellung "
-"für den rechten Rand auf »WAHR« gesetzt ist."
+"»show-right-margin« auf »WAHR« gesetzt ist."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-msgid "Allow External Diff Program"
-msgstr "Externes Diff-Programm verwenden"
+#, fuzzy
+#| msgid "Show Right Margin in Commit Message View"
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Den Rand für Betreffe in der Einspielnachrichtenanzeige anzeigen"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
-msgstr "Externes Diff-Programm verwenden, um Unterschiede mit gitg einzusehen."
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-msgid "The command to handle GITG scheme URLs"
-msgstr "Der Befehl, um Schema-Adressen von GITG zu verarbeiten"
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Spalte, in welcher der Rand des Betreffs angezeigt wird"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "The command to handle GITG scheme URLs."
-msgstr "Der Befehl, um Schema-Adressen von GITG zu verarbeiten."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-msgid "Whether command to handle GITG scheme URLs needs a terminal"
-msgstr ""
-"Der Befehl zur Verarbeitung von Schema-Adressen von GITG erfordert ein "
-"Terminal"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
-msgid "Whether command to handle GITG scheme URLs needs a terminal."
-msgstr ""
-"Der Befehl zur Verarbeitung von Schema-Adressen von GITG erfordert ein "
-"Terminal."
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
-msgid "Whether command to handle GITG scheme URLs is enabled"
-msgstr "Den Befehl zur Verarbeitung von Schema-Adressen von GITG einschalten"
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
-msgid "Whether command to handle GITG scheme URLs is enabled."
-msgstr "Den Befehl zur Verarbeitung von Schema-Adressen von GITG einschalten."
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
 msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
 msgstr ""
-"Damit wird festgelegt, ob Chronikpfade eingeklappt werden sollen, für die "
-"keine Aktivität erkannt wurde. Wenn dies aktiviert ist, erscheint die "
-"Chronik übersichtlicher, wenn mehrere parallele Entwicklungsabläufe "
-"vorhanden sind. In collapse-inactive-lanes finden Sie weitere Informationen "
-"darüber, wann Pfade eingeklappt werden sollen."
+"Die Spalte, in welcher der rechte Rand für den Betreff angezeigt wird, falls "
+"die Einstellung »show-subject-margin« auf »WAHR« gesetzt ist."
 
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
+#: ../gitg/commit/gitg-commit-dialog.vala:283
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Sie Sprache der Rechtschreibkorrektur kann nicht festgelegt werden: %s"
+
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgid "Commit"
+msgstr "Einspielen"
+
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "Auswahl _bereitstellen"
+
+#: ../gitg/commit/gitg-commit.vala:146
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Bereitstellen der Datei »%s« ist gescheitert"
+
+#: ../gitg/commit/gitg-commit.vala:165
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Bereitstellung zum Entfernen der Datei »%s« fehlgeschlagen"
+
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "Bereitstellung der Auswahl _zurücknehmen"
+
+#: ../gitg/commit/gitg-commit.vala:227
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr ""
+"Zurücknehmen der Bereitstellung zum Entfernen der Datei »%s« fehlgeschlagen"
+
+#: ../gitg/commit/gitg-commit.vala:246
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Zurücknehmen der Bereitstellung der Datei »%s« ist gescheitert"
+
+#: ../gitg/commit/gitg-commit.vala:370
+msgid "Staged"
+msgstr "Bereit gestellt"
+
+#: ../gitg/commit/gitg-commit.vala:374
+msgid "No staged files"
+msgstr "Keine bereit gestellten Dateien"
+
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "Unstaged"
+msgstr "Bereitstellung zurückgenommen"
+
+#: ../gitg/commit/gitg-commit.vala:387
+msgid "No unstaged files"
+msgstr "Keine von einer Bereitstellung zurückgenommene Dateien"
+
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "Untracked"
+msgstr "Nicht verfolgt"
+
+#: ../gitg/commit/gitg-commit.vala:400
+msgid "No untracked files"
+msgstr "Keine nicht verfolgten Dateien"
+
+#: ../gitg/commit/gitg-commit.vala:436
+msgid "There are no changes to be committed"
+msgstr "Es gibt keine Änderungen zum Einspielen"
+
+#: ../gitg/commit/gitg-commit.vala:437
+msgid "Use amend to change the commit message of the previous commit"
+msgstr ""
+"Verwenden Sie Abändern zum Ändern der Einspielmeldung der vorhergehenden "
+"Einspielung"
+
+#: ../gitg/commit/gitg-commit.vala:463
+msgid "Failed to commit"
+msgstr "Einspielen schlug fehl"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
+msgid "Failed to pass pre-commit"
+msgstr "pre-commit ist gescheitert"
+
+#: ../gitg/commit/gitg-commit.vala:700
 msgid ""
-"Setting that indicates whether to show items for the stash in the history."
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
 msgstr ""
-"Damit wird festgelegt, ob Objekte für die derzeit zurückgestellten "
-"Änderungen in der Chronik angezeigt werden sollen."
+"Ihr Benutzername und E-Mail sind noch nicht eingerichtet. Bitte wechseln Sie "
+"in die Benutzerkonfiguration und geben Sie Ihren Namen und Ihre E-Mail ein."
 
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
+#: ../gitg/commit/gitg-commit.vala:704
 msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
 msgstr ""
-"Damit wird festgelegt, ob ein virtuelles Objekt für die derzeit "
-"bereitgestellten Änderungen in der Chronik angezeigt werden soll."
+"Ihr Benutzername ist noch nicht eingerichtet. Bitte wechseln Sie in die "
+"Benutzerkonfiguration und geben Sie Ihren Namen ein."
 
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
+#: ../gitg/commit/gitg-commit.vala:708
 msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
 msgstr ""
-"Damit wird festgelegt, ob ein virtuelles Objekt für die derzeit nicht "
-"bereitgestellten Änderungen in der Chronik angezeigt werden soll."
+"Ihre E-Mail ist noch nicht eingerichtet. Bitte wechseln Sie in die "
+"Benutzerkonfiguration und geben Sie Ihre E-Mail ein."
 
-#: ../gitg/gitg-application.vala:43
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "Bereitstellen der Auswahl ist gescheitert"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "Zurücknehmen der Bereitstellung der Auswahl ist gescheitert"
+
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Version der Anwendung anzeigen"
 
-#: ../gitg/gitg-application.vala:45
-msgid "Start gitg with a particular view"
-msgstr "gitg mit einer speziellen Ansicht starten"
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "gitg mit einer speziellen Aktivität starten"
 
-#: ../gitg/gitg-application.vala:47
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr ""
+
+#: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
 msgstr ""
 "Nicht versuchen, einen Softwarebestand aus dem aktuellen Arbeitsordner zu "
 "laden"
 
-#: ../gitg/gitg-application.vala:71
-msgid "- git repository viewer"
+#: ../gitg/gitg-application.vala:88
+msgid "- Git repository viewer"
 msgstr "- Betrachter für Git-Softwarebestände"
 
-#: ../gitg/gitg-application.vala:186
-msgid "gitg is a git repository viewer for gtk+/GNOME"
+#: ../gitg/gitg-application.vala:206
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg ist ein Betrachter für Git-Softwarebestände für gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:211
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr ""
+"Mario Blättermann <mario.blaettermann@gmail.com>, 2008, 2012, 2013\n"
+"Christian Kirbach <christian.kirbach@gmail.com>, 2013, 2014\n"
+"Benjamin Steinwender <b@stbe.at>, 2014"
+
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
 msgstr "gitg-Homepage"
 
-#: ../plugins/dash/gitg-dash-navigation.vala:41
-msgid "Repository"
-msgstr "Softwarebestand"
+#: ../gitg/gitg-author-details-dialog.vala:67
+msgid "Unable to open the .gitconfig file."
+msgstr "Die Datei ».gitconfig« kann nicht geöffnet werden."
 
-#: ../plugins/dash/gitg-dash-navigation.vala:42
-msgid "Open"
-msgstr "Öffnen"
+#: ../gitg/gitg-author-details-dialog.vala:149
+msgid "Failed to set Git user config."
+msgstr "Festlegen der Git Benutzerkonfiguration ist gescheitert."
 
-#: ../plugins/dash/gitg-dash-navigation.vala:43
-#: ../plugins/dash/resources/view-create.ui.h:3
-msgid "Create"
-msgstr "Erstellen"
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr "Die angegebene Adresse wird nicht unterstützt"
 
-#: ../plugins/dash/gitg-dash-navigation.vala:46
-msgid "Recent"
-msgstr "Zuletzt verwendet"
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"Wir bedauern es sehr, aber gitg erfordert libgit2 (eine Bibliothek, von der "
+"gitg abhängt) zum Kompilieren mit Unterstützung für Threading.\n"
+"\n"
+"Falls Sie libgit2 händisch übersetzt haben, so richten Sie bitte libgit2 mit "
+"»-DTHREADSAFE:BOOL=ON« ein.\n"
+"\n"
+"Andernfalls erstellen Sie einen Fehlerbericht mit Hilfe des Programms Ihrer "
+"Distribution, um die Bereitstellung von libgit2 ohne Unterstützung für "
+"Threading zu melden."
 
-#: ../plugins/dash/gitg-dash.vala:69
-msgid "Dashboard"
-msgstr "Dashboard"
+#: ../gitg/gitg-window.vala:276
+msgid "Projects"
+msgstr "Projekte"
 
-#: ../plugins/dash/gitg-dash.vala:249
-msgid "(no branch)"
-msgstr "(kein Zweig)"
+#: ../gitg/gitg-window.vala:312
+msgid "Open Repository"
+msgstr "Softwarebestand öffnen"
 
-#: ../plugins/diff/gitg-diff.vala:65
-msgid "Diff"
-msgstr "Diff"
+#: ../gitg/gitg-window.vala:314
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+msgid "_Cancel"
+msgstr "A_bbrechen"
 
-#: ../plugins/files/gitg-files.vala:68
-msgid "Files"
-msgstr "Dateien"
+#: ../gitg/gitg-window.vala:315
+msgid "_Open"
+msgstr "Ö_ffnen"
 
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr "Gesamte Chronik anzeigen"
+#: ../gitg/gitg-window.vala:545
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "»%s« ist kein gültiger Git-Softwarebestand."
 
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr "Optionen der gitg-Chronik anzeigen"
-
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr "Optionen der gitg-Chronik"
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
+msgid "All commits"
+msgstr "Alle Einspielungen"
 
 #. Branches
-#: ../plugins/history/gitg-history-navigation.vala:114
+#: ../gitg/history/gitg-history-navigation.vala:202
 msgid "Branches"
 msgstr "Zweige"
 
-#: ../plugins/history/gitg-history-navigation.vala:150
-#: ../plugins/history/gitg-history-navigation.vala:154
-msgid "All"
-msgstr "Alle"
-
 #. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:160
+#: ../gitg/history/gitg-history-navigation.vala:239
 msgid "Remotes"
-msgstr "Entfernte"
+msgstr "Entfernte Quellen"
 
 #. Tags
-#: ../plugins/history/gitg-history-navigation.vala:181
+#: ../gitg/history/gitg-history-navigation.vala:265
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:131
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
 msgid "History"
 msgstr "Chronik"
 
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+msgid "Interface"
+msgstr "Schnittstelle"
+
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "Jetzt"
+
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Vor einer Minute"
+msgstr[1] "Vor %d Minuten"
+
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "Vor einer halben Stunde"
+
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "An hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "Vor einer Stunde"
+msgstr[1] "Vor %d Stunden"
+
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "A day ago"
+msgid_plural "%d days ago"
+msgstr[0] "Vor einem Tag"
+msgstr[1] "Vor %d Tagen"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
+msgid "Save Patch File"
+msgstr "Patch-Datei speichern"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
+msgid "_Save"
+msgstr "_Speichern"
+
+#: ../libgitg/gitg-diff-view.vala:123
+msgid "stage"
+msgstr "Bereitstellen"
+
+#: ../libgitg/gitg-diff-view.vala:124
+msgid "unstage"
+msgstr "Bereitstellung zurücknehmen"
+
+#: ../libgitg/gitg-diff-view.vala:125
+msgid "Loading diff…"
+msgstr "diff wird geladen …"
+
+#: ../libgitg/gitg-stage.vala:333
+#, fuzzy, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+"Einspielmeldung konnte nicht nach der Ausführung des gekoppelten "
+"Einspielskriptes »commit-msg hook« gelesen werden: %s"
+
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "Diff"
+
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Dateien"
+
 #. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Details des Autors"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "Hinweis: Die Git-Konfigurationsdatei »%s« ist nicht vorhanden."
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr ""
+"Geben Sie die Details ein, die als Vorgabe für alle Softwarebestände dienen "
+"sollen:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Geben Sie die Details für Softwarebestand »%s« ein:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "E-Mail:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Name:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Speichern"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+msgid "Clone Repository"
+msgstr "Softwarebestand klonen"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "Cl_one"
+msgstr "_Klonen"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "Remote _URL:"
+msgstr "Entfernte _Adresse:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "_Local Folder:"
+msgstr "_Lokaler Ordner:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+msgid "Select location…"
+msgstr "Ort wählen …"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
+msgid "Bare repository"
+msgstr "Reiner Softwarebestand"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "_Einspielen"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "Add _signed-off-by signature"
+msgstr "_Freigabesignatur (signed-off-by) hinzufügen"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+msgid "_Amend previous commit"
+msgstr "Vorherige Einspielung _abändern"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Close"
+msgstr "Schließen"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+#, fuzzy
+msgid "Skip commit _hooks"
+msgstr "Gekoppelte Einspielskripte über_springen"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "Auswahl _bereitstellen"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Betreff"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Autor"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Datum"
+
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "_Neues Fenster"
@@ -307,107 +575,201 @@ msgid "_Quit"
 msgstr "_Beenden"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Close"
-msgstr "_Schließen"
+msgid "_Open Repository…"
+msgstr "Softwarebestand ö_ffnen …"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Clone Repository…"
+msgstr "Softwarebestand _klonen …"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
+msgid "_Author Details"
+msgstr "Details des _Autors"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "_Neu laden"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Quelltexthervorhebung anzeigen"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+#, fuzzy
+msgid "Display _subject margin at column:"
+msgstr "_Rechten Rand anzeigen bei Spalte:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "_Rechten Rand anzeigen bei Spalte:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Rechtschreibprüfung einschalten"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+msgid "Commit Message"
+msgstr "Einspielmeldung"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Einspielungen"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Inaktive Pfade einklappen"
+
+# stash ist mehr so eine Art Zwischenlager …
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Zwischenlager in der Chronik anzeigen"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Bereitgestellte Änderungen in der Chronik anzeigen"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "Nicht bereitgestellte Änderungen in der Chronik anzeigen"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Chronik in topologischer Ordnung zeigen"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Früh"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Spät"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Layout"
+msgstr "Ansicht"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+msgid "Use horizontal layout"
+msgstr "Horizontales Layout verwenden"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr "Einstellungen von gitg"
-
-#: ../plugins/dash/resources/view-create.ui.h:1
-msgid "Create repository"
-msgstr "Softwarebestand erstellen"
-
-#: ../plugins/dash/resources/view-create.ui.h:2
-msgid "Select a folder in which you want to create a new git repository."
-msgstr ""
-"Wählen Sie einen Ordner, in dem ein neuer git-Softwarebestand erstellt "
-"werden soll."
-
-#: ../plugins/dash/resources/view-open.ui.h:1
-msgid "Open repository"
-msgstr "Softwarebestand öffnen"
-
-#: ../plugins/dash/resources/view-open.ui.h:2
-msgid "Select a folder to open the corresponding git repository."
-msgstr ""
-"Einen Ordner zum Öffnen des zugehörigen gitg-Softwarebestandes auswählen."
-
-#: ../plugins/dash/resources/view-recent.ui.h:1
-msgid "Recent repository"
-msgstr "Letzter Softwarebestand"
-
-#: ../plugins/dash/resources/view-recent.ui.h:2
-msgid "Open a recently used repository."
-msgstr "Einen zuletzt verwendeten Softwarebestand öffnen."
-
-#: ../plugins/dash/resources/view-recent.ui.h:3
-msgid "Path:"
-msgstr "Pfad:"
-
-#: ../plugins/dash/resources/view-recent.ui.h:4
-msgid "Last used:"
-msgstr "Zuletzt verwendet:"
-
-#: ../plugins/dash/resources/view-recent.ui.h:5
-msgid "Current branch:"
-msgstr "Aktueller Zweig:"
+msgid "Preferences"
+msgstr "Einstellungen"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "Spalte"
 
-#: ../plugins/history/resources/preferences.ui.h:1
-msgid "<b>Commits</b>"
-msgstr "<b>Einspielvorgänge</b>"
+#~ msgid "Filter Revisions When Searching"
+#~ msgstr "Revisionen während der Suche filtern"
 
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
+#~ msgid ""
+#~ "Whether searching filters the revisions in the history view instead of "
+#~ "jumping to the first match."
+#~ msgstr ""
+#~ "Legt fest, ob die Revisionen in der Chronikansicht gefiltert werden "
+#~ "sollen, anstellen zur ersten Übereinstimmung zu springen"
 
-#: ../plugins/history/resources/preferences.ui.h:3
-msgid "Collapse inactive lanes"
-msgstr "Inaktive Pfade einklappen"
+#~ msgid "Show Main View in Vertical or Horizontal Layout"
+#~ msgstr "Hauptansicht in vertikaler oder horizontaler Anordnung zeigen"
 
-#: ../plugins/history/resources/preferences.ui.h:4
-msgid "Show stash in history"
-msgstr "Sicherung in der Chronik anzeigen"
+#~ msgid "Show files view in blame mode"
+#~ msgstr "Dateien im Blame-Modus anzeigen"
 
-#: ../plugins/history/resources/preferences.ui.h:5
-msgid "Show staged changes in history"
-msgstr "Bereitgestellte Änderungen in der Chronik anzeigen"
+#~ msgid "Setting that sets files view to blame mode."
+#~ msgstr "Dateien im Blame-Modus anzeigen."
 
-#: ../plugins/history/resources/preferences.ui.h:6
-msgid "Show unstaged changes in history"
-msgstr "Nicht bereitgestellte Änderungen in der Chronik anzeigen"
+#~ msgid "Allow External Diff Program"
+#~ msgstr "Externes Diff-Programm verwenden"
 
-#: ../plugins/history/resources/preferences.ui.h:7
-msgid "Show history in topological order"
-msgstr "Chronik in topologischer Ordnung zeigen"
+#~ msgid ""
+#~ "Allow an external diff program to be used when viewing diffs in gitg."
+#~ msgstr ""
+#~ "Externes Diff-Programm verwenden, um Unterschiede mit gitg einzusehen."
 
-#: ../plugins/history/resources/preferences.ui.h:8
-msgid "        "
-msgstr "        "
+#~ msgid "The command to handle GITG scheme URLs"
+#~ msgstr "Der Befehl, um Schema-Adressen von GITG zu verarbeiten"
 
-#: ../plugins/history/resources/preferences.ui.h:9
-msgid "Early"
-msgstr "Früh"
+#~ msgid "The command to handle GITG scheme URLs."
+#~ msgstr "Der Befehl, um Schema-Adressen von GITG zu verarbeiten."
 
-#: ../plugins/history/resources/preferences.ui.h:10
-msgid "Late"
-msgstr "Spät"
+#~ msgid "Whether command to handle GITG scheme URLs needs a terminal"
+#~ msgstr ""
+#~ "Der Befehl zur Verarbeitung von Schema-Adressen von GITG erfordert ein "
+#~ "Terminal"
 
-#: ../plugins/history/resources/view-history.ui.h:1
-msgid "Subject"
-msgstr "Betreff"
+#~ msgid "Whether command to handle GITG scheme URLs needs a terminal."
+#~ msgstr ""
+#~ "Der Befehl zur Verarbeitung von Schema-Adressen von GITG erfordert ein "
+#~ "Terminal."
 
-#: ../plugins/history/resources/view-history.ui.h:2
-msgid "Author"
-msgstr "Autor"
+#~ msgid "Whether command to handle GITG scheme URLs is enabled"
+#~ msgstr ""
+#~ "Den Befehl zur Verarbeitung von Schema-Adressen von GITG einschalten"
 
-#: ../plugins/history/resources/view-history.ui.h:3
-msgid "Date"
-msgstr "Datum"
+#~ msgid "Whether command to handle GITG scheme URLs is enabled."
+#~ msgstr ""
+#~ "Den Befehl zur Verarbeitung von Schema-Adressen von GITG einschalten."
+
+#~ msgid "Create"
+#~ msgstr "Erstellen"
+
+#~ msgid "Recent"
+#~ msgstr "Zuletzt verwendet"
+
+#~ msgid "Dashboard"
+#~ msgstr "Dashboard"
+
+#~ msgid "(no branch)"
+#~ msgstr "(kein Zweig)"
+
+#~ msgid "Show all history"
+#~ msgstr "Gesamte Chronik anzeigen"
+
+#~ msgid "Show gitg history options"
+#~ msgstr "Optionen der gitg-Chronik anzeigen"
+
+#~ msgid "gitg history options"
+#~ msgstr "Optionen der gitg-Chronik"
+
+#~ msgid "All"
+#~ msgstr "Alle"
+
+#~ msgid "gitg Preferences"
+#~ msgstr "Einstellungen von gitg"
+
+#~ msgid "Select a folder in which you want to create a new git repository."
+#~ msgstr ""
+#~ "Wählen Sie einen Ordner, in dem ein neuer git-Softwarebestand erstellt "
+#~ "werden soll."
+
+#~ msgid "Select a folder to open the corresponding git repository."
+#~ msgstr ""
+#~ "Einen Ordner zum Öffnen des zugehörigen gitg-Softwarebestandes auswählen."
+
+#~ msgid "Recent repository"
+#~ msgstr "Letzter Softwarebestand"
+
+#~ msgid "Open a recently used repository."
+#~ msgstr "Einen zuletzt verwendeten Softwarebestand öffnen."
+
+#~ msgid "Path:"
+#~ msgstr "Pfad:"
+
+#~ msgid "Last used:"
+#~ msgstr "Zuletzt verwendet:"
+
+#~ msgid "Current branch:"
+#~ msgstr "Aktueller Zweig:"
+
+#~ msgid "<b>Commits</b>"
+#~ msgstr "<b>Einspielvorgänge</b>"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "        "
+#~ msgstr "        "
 
 #~ msgid "Branch <%s> could not be removed"
 #~ msgstr "Zweig <%s> konnte nicht entfernt werden"
@@ -461,9 +823,6 @@ msgstr "Datum"
 #~ msgid "The tag <%s> could not be successfully removed"
 #~ msgstr "Der Tag <%s> konnte nicht erfolgreich entfernt werden"
 
-#~ msgid "Failed to remove tag"
-#~ msgstr "Entfernen des Tags ist gescheitert"
-
 #~ msgid "Branch <%s> could not be renamed to <%s>"
 #~ msgstr "Zweig <%s> konnte nicht in <%s> umbenannt werden"
 
@@ -480,9 +839,6 @@ msgstr "Datum"
 #~ msgid "Branch <%s> could not be forcefully renamed"
 #~ msgstr "Entfernung des Zweiges <%s> konnte nicht erzwungen werden"
 
-#~ msgid "Name:"
-#~ msgstr "Name:"
-
 #~ msgid "Do you want to temporarily stash these changes?"
 #~ msgstr "Wollen Sie diese Änderungen vorübergehend sichern?"
 
@@ -494,9 +850,6 @@ msgstr "Datum"
 
 #~ msgid "Stash changes"
 #~ msgstr "Änderungen sichern"
-
-#~ msgid "Failed to save current index state"
-#~ msgstr "Speichern des derzeitigen Indexstatus ist gescheitert"
 
 #~ msgid "Failed to checkout local branch <%s>"
 #~ msgstr "Auschecken des lokalen Zweiges <%s> ist gescheitert"
@@ -639,9 +992,6 @@ msgstr "Datum"
 #~ msgid "The tag object could not be successfully created"
 #~ msgstr "Das Tag-Objekt konnte nicht erfolgreich angelegt werden"
 
-#~ msgid "Failed to create tag"
-#~ msgstr "Tag kann nicht erzeugt werden"
-
 #~ msgid "Failed to cherry-pick on <%s>"
 #~ msgstr "Handverlesen von <%s> ist gescheitert"
 
@@ -678,9 +1028,6 @@ msgstr "Datum"
 #~ msgstr ""
 #~ "Vor dem Einspielen müssen Sie zunächst einige Änderungen bereitstellen"
 
-#~ msgid "Please enter a commit message before committing"
-#~ msgstr "Bitte geben Sie vor dem Einspielen eine Einspielmeldung an"
-
 #~ msgid ""
 #~ "Your user name or email could not be retrieved for use in the sign off "
 #~ "message"
@@ -715,20 +1062,11 @@ msgstr "Datum"
 #~ msgid "Fetch"
 #~ msgstr "Holen"
 
-#~ msgid "Cancel"
-#~ msgstr "Abbrechen"
-
 #~ msgid "Properties"
 #~ msgstr "Eigenschaften"
 
 #~ msgid "Changes"
 #~ msgstr "Änderungen"
-
-#~ msgid "Details"
-#~ msgstr "Details"
-
-#~ msgid "Committer"
-#~ msgstr "Einspieler"
 
 #~ msgid "(Empty)"
 #~ msgstr "(Leer)"
@@ -887,12 +1225,6 @@ msgstr "Datum"
 #~ msgid "Staged changes"
 #~ msgstr "Bereitgestellte Änderungen"
 
-#~ msgid "Unstaged changes"
-#~ msgstr "Nicht bereitgestellte Änderungen"
-
-#~ msgid "Not a valid git repository"
-#~ msgstr "Kein gültiger Git-Softwarebestand"
-
 #~ msgid "It is not possible to detect the encoding automatically"
 #~ msgstr "Die Kodierung kann nicht automatisch erkannt werden"
 
@@ -901,12 +1233,6 @@ msgstr "Datum"
 
 #~ msgid "Revert"
 #~ msgstr "Zurücknehmen"
-
-#~ msgid "Stage"
-#~ msgstr "Bereitstellen"
-
-#~ msgid "Unstage"
-#~ msgstr "Bereitstellung zurücknehmen"
 
 #~ msgid "Apply stash to..."
 #~ msgstr "Sicherung anwenden auf …"
@@ -944,9 +1270,6 @@ msgstr "Datum"
 #~ msgid "<b>Diff Program</b>"
 #~ msgstr "<b>Diff-Programm</b>"
 
-#~ msgid "<b>Interface</b>"
-#~ msgstr "<b>Schnittstelle</b>"
-
 #~ msgid "<b>Revisions</b>"
 #~ msgstr "<b>Revisionen</b>"
 
@@ -955,9 +1278,6 @@ msgstr "Datum"
 
 #~ msgid "Allow external diff program"
 #~ msgstr "Externes Diff-Programm verwenden"
-
-#~ msgid "Commit"
-#~ msgstr "Einspielen"
 
 #~ msgid "Configuration"
 #~ msgstr "Konfiguration"
@@ -971,12 +1291,6 @@ msgstr "Datum"
 #~ "in ~/.gitconfig gespeicherten Einstellungen. Für die Softwarebestände "
 #~ "können Einstellungen in den Softwarebestand-Eigenschaften festgelegt "
 #~ "werden."
-
-#~ msgid "Display right _margin"
-#~ msgstr "_Rechten Rand anzeigen"
-
-#~ msgid "E-mail:"
-#~ msgstr "E-Mail:"
 
 #~ msgid "Preferences that apply to the commit view"
 #~ msgstr "Einstellungen der Einspielansicht"
