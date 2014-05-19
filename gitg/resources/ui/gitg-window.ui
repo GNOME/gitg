@@ -192,7 +192,6 @@
                 <property name="hexpand">True</property>
                 <style>
                   <class name="view"/>
-                  <class name="content-view"/>
                 </style>
                 <child>
                   <object class="GitgRepositoryListBox" id="d_dash_view">
@@ -202,7 +201,6 @@
                     <signal name="show_error" handler="dash_view_show_error" swapped="no"/>
                     <style>
                       <class name="view"/>
-                      <class name="content-view"/>
                     </style>
                   </object>
                 </child>
