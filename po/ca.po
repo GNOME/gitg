@@ -8,161 +8,533 @@ msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2013-04-01 14:05+0000\n"
-"PO-Revision-Date: 2013-04-16 17:11+0200\n"
-"Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
+"POT-Creation-Date: 2014-05-10 17:36+0000\n"
+"PO-Revision-Date: 2014-03-16 07:55+0100\n"
+"Last-Translator: Pau Iranzo <paugnu@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Gtranslator 2.91.6\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:35
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
 
 #: ../data/gitg.desktop.in.in.h:2
 msgid "Git repository browser"
-msgstr ""
+msgstr "Navegador de dipòsits Git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Filter Revisions When Searching"
-msgstr ""
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Orientació de la interfície principal (vertical o horitzontal)"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
-msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
-msgstr ""
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Paràmetre que estableix l'orientació de la interfície principal."
 
-#. ex: ts=4 noet
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:1
 msgid "When to Collapse Inactive Lanes"
-msgstr ""
+msgstr "Quan contraure els carrils inactius"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:2
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr ""
+"Paràmetre que indica quan s'ha de contraure un carril inactiu. Els valors "
+"vàlids són 0 - 4, on 0 indica «d'hora» i 4 indica «tard»."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:4
-msgid "Show History in Topological Order"
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
 msgstr ""
+"Paràmetre que indica si s'han de contraure carrils de l'historial que no "
+"mostren cap activitat. Si habiliteu aquesta opció la visualització de "
+"l'historial serà més neta quan hi ha molts desenvolupaments en paral·lel. "
+"Vegeu l'opció «collapse-inactive-lanes» per controlar quan s'han de "
+"contraure els carrils."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:5
-msgid ""
-"Setting that indicates whether to show the history in topological order."
-msgstr ""
+msgid "Show History in Topological Order"
+msgstr "Mostra l'historial en ordre topològic"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr ""
+msgid ""
+"Setting that indicates whether to show the history in topological order."
+msgstr "Paràmetre que indica si es mostra l'historial en ordre topològic."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that sets the orientation of the main interface."
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
 msgstr ""
+"Paràmetre que indica si es mostren elements de desat temporal a l'historial."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Show Right Margin in Commit Message View"
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
 msgstr ""
+"Paràmetre que indica si es mostra un element virtual pel desat temporal "
+"actual a l'historial."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Paràmetre que indica si es mostra un element virtual per als canvis que "
+"encara no estan al desat temporal actualment a l'historial."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+msgid "Show Right Margin in Commit Message View"
+msgstr "Mostra el marge dret a la vista de missatge de publicació"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
-msgid "Column at Which Right Margin is Shown"
-msgstr ""
-
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
-msgstr ""
+"Mostra un indicador al marge dret a la vista de missatge de publicació. "
+"D'aquesta manera es facilita saber per on trencar el missatge d'enviament a "
+"partir d'una certa columna."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
-msgid "Allow External Diff Program"
-msgstr ""
+msgid "Column at Which Right Margin is Shown"
+msgstr "Columna on es mostra el marge dret"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-msgid "Allow an external diff program to be used when viewing diffs in gitg."
+msgid ""
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
+"La columna on es mostra el marge dret si el paràmetre «show-right-margin» és "
+"«TRUE» (cert)."
 
-#: ../gitg/gitg-application.vala:49
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Mostra el marge de l'assumpte a la vista de missatge de publicació"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
+"Realça el text de l'assumpte del missatge de publicació quan se sobrepassa "
+"el marge especificat a «subject-margin-position»."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Columna on es mostra el marge de l'assumpte"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+msgid ""
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
+msgstr ""
+"La columna a la qual es mostra el marge de l'assumpte si el paràmetre «show-"
+"subject-margin» és «TRUE» (cert)."
+
+#: ../gitg/commit/gitg-commit-dialog.vala:283
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "No es pot establir la llengua per a la verificació ortogràfica: %s"
+
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgid "Commit"
+msgstr "Publicació"
+
+#: ../gitg/commit/gitg-commit.vala:123
+msgid "_Stage selection"
+msgstr "_Desa temporalment la selecció"
+
+#: ../gitg/commit/gitg-commit.vala:146
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "No s'ha pogut desar temporalment el fitxer «%s»"
+
+#: ../gitg/commit/gitg-commit.vala:165
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "No s'ha pogut desar temporalment l'eliminació del fitxer «%s»"
+
+#: ../gitg/commit/gitg-commit.vala:204
+msgid "_Unstage selection"
+msgstr "_Treu del desat temporal la selecció"
+
+#: ../gitg/commit/gitg-commit.vala:227
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "No s'ha pogut treure del desat temporal l'eliminació del fitxer «%s»"
+
+#: ../gitg/commit/gitg-commit.vala:246
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "No s'ha pogut treure del desat temporal el fitxer «%s»"
+
+#: ../gitg/commit/gitg-commit.vala:370
+msgid "Staged"
+msgstr "En el desat temporal"
+
+#: ../gitg/commit/gitg-commit.vala:374
+msgid "No staged files"
+msgstr "Fitxers que no estan al desat temporal"
+
+#: ../gitg/commit/gitg-commit.vala:383
+msgid "Unstaged"
+msgstr "Trets del desat temporal"
+
+#: ../gitg/commit/gitg-commit.vala:387
+msgid "No unstaged files"
+msgstr "No hi ha fitxers trets del desat temporal"
+
+#: ../gitg/commit/gitg-commit.vala:396
+msgid "Untracked"
+msgstr "Sense seguiment"
+
+#: ../gitg/commit/gitg-commit.vala:400
+msgid "No untracked files"
+msgstr "No hi ha cap fitxer sense seguiment"
+
+#: ../gitg/commit/gitg-commit.vala:436
+msgid "There are no changes to be committed"
+msgstr "No hi ha cap canvi per publicar"
+
+#: ../gitg/commit/gitg-commit.vala:437
+msgid "Use amend to change the commit message of the previous commit"
+msgstr ""
+"Utilitzeu «corregeix» per canviar el missatge de publicació de l'última "
+"publicació"
+
+#: ../gitg/commit/gitg-commit.vala:463
+msgid "Failed to commit"
+msgstr "No s'ha pogut publicar"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
+msgid "Failed to pass pre-commit"
+msgstr "No s'ha passat la pre-publicació"
+
+#: ../gitg/commit/gitg-commit.vala:700
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"No heu configurat el vostre nom d'usuari ni el correu electrònic. Aneu a la "
+"configuració d'usuari i afegiu-hi el vostre nom i correu."
+
+#: ../gitg/commit/gitg-commit.vala:704
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+"No heu configurat el vostre nom d'usuari. Aneu a la configuració d'usuari i "
+"afegiu-li."
+
+#: ../gitg/commit/gitg-commit.vala:708
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"No heu configurat el vostre correu electrònic. Aneu a la configuració "
+"d'usuari i afegiu-li."
+
+#: ../gitg/commit/gitg-commit.vala:769
+msgid "Failed to stage selection"
+msgstr "No s'ha pogut desar temporalment la selecció"
+
+#: ../gitg/commit/gitg-commit.vala:773
+msgid "Failed to unstage selection"
+msgstr "No s'ha pogut treure del desat temporalment la selecció"
+
+#: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
 msgstr "Mostra la versió de l'aplicació"
 
-#: ../gitg/gitg-application.vala:51
-msgid "Start gitg with a particular view"
-msgstr ""
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "Inicieu el gitg amb una activitat en concret"
 
-#: ../gitg/gitg-application.vala:53
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr ""
+"Inicieu el gitg amb l'activitat de publicació (abreviatura per a «--activity "
+"commit»)"
+
+#: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
-msgstr ""
+msgstr "No provis de carregar un dipòsit des del directori de treball actual"
 
-#: ../gitg/gitg-application.vala:76
-msgid "- git repository viewer"
-msgstr ""
+#: ../gitg/gitg-application.vala:88
+msgid "- Git repository viewer"
+msgstr "- visualitzador de dipòsits Git"
 
-#: ../gitg/gitg-application.vala:186
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr ""
+#: ../gitg/gitg-application.vala:206
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "El gitg és un visualitzador de dipòsits Git per a gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:211
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr "Pau Iranzo <pau.iranzo@softcatala.org>"
+
+#: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
-msgstr ""
+msgstr "Pàgina d'inici del gitg"
 
-#: ../gitg/gitg-preferences-interface.vala:83
+#: ../gitg/gitg-author-details-dialog.vala:67
+msgid "Unable to open the .gitconfig file."
+msgstr "No s'ha pogut obrir el fitxer .gitconfig."
+
+#: ../gitg/gitg-author-details-dialog.vala:149
+msgid "Failed to set Git user config."
+msgstr "No s'ha pogut definir la configuració d'usuari Git."
+
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr "L'URL que s'ha introduït no és compatible"
+
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"gitg requereix la libgit2 (una biblioteca de la qual depèn el gitg) "
+"compilada amb compatibilitat de fils.\n"
+"\n"
+"Si heu compilat manualment la libgit2, configureu-a amb -DTHREADSAFE:"
+"BOOL=ON.\n"
+"\n"
+"Si no és el cas, llavors envieu un informe d'errada a l'eina d'informació "
+"d'errades de la vostra distribució per tal que es proporcioni la libgit2 amb "
+"compatibilitat de fils."
+
+#: ../gitg/gitg-window.vala:276
+msgid "Projects"
+msgstr "Projectes"
+
+#: ../gitg/gitg-window.vala:312
+msgid "Open Repository"
+msgstr "Obre el dipòsit"
+
+#: ../gitg/gitg-window.vala:314
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+msgid "_Cancel"
+msgstr "_Cancel·la"
+
+#: ../gitg/gitg-window.vala:315
+msgid "_Open"
+msgstr "_Obre"
+
+#: ../gitg/gitg-window.vala:552
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "«%s» no és un dipòsit Git."
+
+#: ../gitg/history/gitg-history-navigation.vala:199
+#: ../gitg/history/gitg-history-navigation.vala:307
+msgid "All commits"
+msgstr "Totes les publicacions"
+
+#. Branches
+#: ../gitg/history/gitg-history-navigation.vala:202
+msgid "Branches"
+msgstr "Branques"
+
+#. Remotes
+#: ../gitg/history/gitg-history-navigation.vala:239
+msgid "Remotes"
+msgstr "Ubicacions remotes"
+
+#. Tags
+#: ../gitg/history/gitg-history-navigation.vala:265
+msgid "Tags"
+msgstr "Etiquetes"
+
+#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/preferences/gitg-preferences-history.vala:144
+msgid "History"
+msgstr "Historial"
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
 msgid "Interface"
 msgstr "Interfície"
 
-#: ../gitg/gitg-window.vala:144
-msgid "Projects"
+#: ../libgitg/gitg-date.vala:316
+msgid "Now"
+msgstr "Ara"
+
+#: ../libgitg/gitg-date.vala:320
+#, c-format
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Fa un minut"
+msgstr[1] "Fa %d minuts"
+
+#: ../libgitg/gitg-date.vala:325
+msgid "Half an hour ago"
+msgstr "Fa mitja hora"
+
+#: ../libgitg/gitg-date.vala:330
+#, c-format
+msgid "An hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "Fa una hora"
+msgstr[1] "Fa %d hores"
+
+#: ../libgitg/gitg-date.vala:335
+#, c-format
+msgid "A day ago"
+msgid_plural "%d days ago"
+msgstr[0] "Fa un dia"
+msgstr[1] "Fa %d dies"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:107
+msgid "Save Patch File"
+msgstr "Desa el fitxer de pedaç"
+
+#: ../libgitg/gitg-diff-view-request-patch.vala:111
+msgid "_Save"
+msgstr "De_sa"
+
+#: ../libgitg/gitg-diff-view.vala:123
+msgid "stage"
+msgstr "desa temporalment"
+
+#: ../libgitg/gitg-diff-view.vala:124
+msgid "unstage"
+msgstr "treu del desat temporal"
+
+#: ../libgitg/gitg-diff-view.vala:125
+msgid "Loading diff…"
+msgstr "S'està carregant les diferències…"
+
+#: ../libgitg/gitg-stage.vala:333
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
+"No s'ha pogut llegir el missatge de publicació després de l'execució del "
+"lligam commit-msg: %s"
 
-#: ../gitg/gitg-window.vala:176
-#| msgid "Repository"
-msgid "Select Repository"
-msgstr "Selecciona el dipòsit"
+#: ../plugins/diff/gitg-diff.vala:62
+msgid "Diff"
+msgstr "Diferència"
 
-#. ex:ts=4 noet
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Fitxers"
+
+#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Dades de l'autor"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "Nota: no existeix el fitxer de configuració Git «%s»."
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr ""
+"Introduïu les dades que s'utilitzaran per defecte per a tots els dipòsits:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Introduïu les dades per al dipòsit «%s»:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "Correu electrònic:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Nom:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Desa"
+
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-#| msgid "Repository"
-msgid "Clone Repository..."
-msgstr "Clona el dipòsit..."
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
-msgid "Cl_one"
-msgstr ""
+msgid "Clone Repository"
+msgstr "Clona el dipòsit"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-#| msgid "Remotes"
+msgid "Cl_one"
+msgstr "Cl_ona"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
 msgid "Remote _URL:"
 msgstr "_URL remota:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
-msgid "_Local Folder:"
-msgstr ""
-
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "Select location..."
-msgstr ""
+msgid "_Local Folder:"
+msgstr "Carpeta _local:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
-#, fuzzy
-#| msgid "Repository"
+msgid "Select location…"
+msgstr "Selecciona la ubicació…"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
 msgid "Bare repository"
-msgstr "Dipòsit"
+msgstr "Dipòsit buit"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "_Publica"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "Add _signed-off-by signature"
+msgstr "Afegeix la _signatura «signed-off-by»"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+msgid "_Amend previous commit"
+msgstr "_Corregeix la publicació anterior"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Close"
+msgstr "Tanca"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "Omet els _lligams de publicació"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "_Desa temporalment la selecció"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Assumpte"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Autor"
+
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Data"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
@@ -185,170 +557,86 @@ msgid "_Quit"
 msgstr "_Surt"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
-#| msgid "Repository"
-msgid "_Open Repository"
-msgstr "_Obre el dipòsit"
+msgid "_Open Repository…"
+msgstr "_Obre el dipòsit…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:7
-#| msgid "Repository"
-msgid "_Clone Repository"
-msgstr "_Clona el dipòsit"
+msgid "_Clone Repository…"
+msgstr "_Clona el dipòsit…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
-msgid "_Close"
-msgstr "_Tanca"
+msgid "_Author Details"
+msgstr "Dades de l'_autor"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "To_rna a carregar"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Mostra l'etiquetatge"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "Mo_stra el marge de l'assumpte a la columna:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "Mostra el _marge dret a la columna:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Habilita la verificació ortogràfica"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+msgid "Commit Message"
+msgstr "Missatge de publicació"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Publicacions"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Contrau els carrils inactius"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Mostra el desat temporal a l'historial"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Mostra els desats temporals a l'historial"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr ""
+"Mostra els canvis que encara no estan en el desat temporal a l'historial"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Mostra l'historial en ordre topològic"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Aviat"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Tard"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Layout"
 msgstr "Disposició"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#: ../plugins/history/resources/preferences.ui.h:2
-msgid "    "
-msgstr "    "
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "Use horizontal layout"
-msgstr ""
+msgstr "Utilitza la disposició horitzontal"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "gitg Preferences"
-msgstr ""
+msgid "Preferences"
+msgstr "Preferències"
 
-#: ../plugins/diff/gitg-diff.vala:70
-msgid "Diff"
-msgstr "Diferència"
-
-#: ../plugins/files/gitg-files.vala:77
-msgid "Files"
-msgstr "Fitxers"
-
-#. ex: ts=4 noet
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "columna"
-
-#: ../plugins/history/gitg-history-command-line.vala:31
-msgid "Show all history"
-msgstr ""
-
-#: ../plugins/history/gitg-history-command-line.vala:38
-msgid "Show gitg history options"
-msgstr ""
-
-#: ../plugins/history/gitg-history-command-line.vala:39
-msgid "gitg history options"
-msgstr ""
-
-#: ../plugins/history/gitg-history-navigation.vala:108
-#: ../plugins/history/gitg-history-navigation.vala:112
-msgid "All commits"
-msgstr ""
-
-#. Branches
-#: ../plugins/history/gitg-history-navigation.vala:116
-msgid "Branches"
-msgstr "Branques"
-
-#. Remotes
-#: ../plugins/history/gitg-history-navigation.vala:155
-msgid "Remotes"
-msgstr "Ubicacions remotes"
-
-#. Tags
-#: ../plugins/history/gitg-history-navigation.vala:180
-msgid "Tags"
-msgstr "Etiquetes"
-
-#: ../plugins/history/gitg-history-preferences.vala:136
-#: ../plugins/history/gitg-history.vala:135
-msgid "History"
-msgstr "Historial"
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:3
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:6
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr ""
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:7
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-
-#: ../plugins/history/org.gnome.gitg.history.gschema.xml.in.in.h:8
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-
-#: ../plugins/history/resources/preferences.ui.h:1
-msgid "Commits"
-msgstr ""
-
-#: ../plugins/history/resources/preferences.ui.h:3
-msgid "Collapse inactive lanes"
-msgstr ""
-
-#: ../plugins/history/resources/preferences.ui.h:4
-msgid "Show stash in history"
-msgstr ""
-
-#: ../plugins/history/resources/preferences.ui.h:5
-msgid "Show staged changes in history"
-msgstr ""
-
-#: ../plugins/history/resources/preferences.ui.h:6
-msgid "Show unstaged changes in history"
-msgstr ""
-
-#: ../plugins/history/resources/preferences.ui.h:7
-msgid "Show history in topological order"
-msgstr ""
-
-#: ../plugins/history/resources/preferences.ui.h:8
-msgid "        "
-msgstr "        "
-
-#: ../plugins/history/resources/preferences.ui.h:9
-msgid "Early"
-msgstr ""
-
-#: ../plugins/history/resources/preferences.ui.h:10
-msgid "Late"
-msgstr ""
-
-#: ../plugins/history/resources/view-history.ui.h:1
-msgid "Subject"
-msgstr "Assumpte"
-
-#: ../plugins/history/resources/view-history.ui.h:2
-msgid "Author"
-msgstr "Autor"
-
-#: ../plugins/history/resources/view-history.ui.h:3
-msgid "Date"
-msgstr "Data"
-
-#~ msgid "Open"
-#~ msgstr "Obre"
-
-#~ msgid "Create"
-#~ msgstr "Crea"
-
-#~ msgid "Recent"
-#~ msgstr "Recent"
-
-#~ msgid "Dashboard"
-#~ msgstr "Consola"
-
-#~ msgid "Path:"
-#~ msgstr "Camini:"
