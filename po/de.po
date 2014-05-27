@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-04-25 05:31+0000\n"
-"PO-Revision-Date: 2014-04-27 20:59+0100\n"
+"POT-Creation-Date: 2014-05-24 05:33+0000\n"
+"PO-Revision-Date: 2014-05-24 13:09+0100\n"
 "Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.5\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -129,7 +129,6 @@ msgstr ""
 "»show-right-margin« auf »WAHR« gesetzt ist."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-#, fuzzy
 #| msgid "Show Right Margin in Commit Message View"
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Den Rand für Betreffe in der Einspielnachrichtenanzeige anzeigen"
@@ -139,6 +138,8 @@ msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
 msgstr ""
+"Den Betreff der Einspielnachricht hervorheben, sobald die Nachricht den "
+"durch »subject-margin-position« spezifizierten Rand überschreitet."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
 msgid "Column at Which Subject Margin is Shown"
@@ -278,6 +279,7 @@ msgstr "gitg mit einer speziellen Aktivität starten"
 #: ../gitg/gitg-application.vala:61
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
+"gitg mit der Einspielaktivität starten (Abkürzung für »--activity commit«)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
@@ -356,7 +358,7 @@ msgstr "A_bbrechen"
 msgid "_Open"
 msgstr "Ö_ffnen"
 
-#: ../gitg/gitg-window.vala:545
+#: ../gitg/gitg-window.vala:552
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "»%s« ist kein gültiger Git-Softwarebestand."
@@ -440,7 +442,7 @@ msgid "Loading diff…"
 msgstr "diff wird geladen …"
 
 #: ../libgitg/gitg-stage.vala:333
-#, fuzzy, c-format
+#, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
 "Einspielmeldung konnte nicht nach der Ausführung des gekoppelten "
@@ -534,7 +536,6 @@ msgid "Close"
 msgstr "Schließen"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
-#, fuzzy
 msgid "Skip commit _hooks"
 msgstr "Gekoppelte Einspielskripte über_springen"
 
@@ -597,7 +598,7 @@ msgstr "Quelltexthervorhebung anzeigen"
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
 #, fuzzy
 msgid "Display _subject margin at column:"
-msgstr "_Rechten Rand anzeigen bei Spalte:"
+msgstr "_Rand für Betreff anzeigen bei Spalte:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
 msgid "Display right _margin at column:"
