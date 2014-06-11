@@ -27,8 +27,8 @@ public class Lanes : Object
 	public int inactive_gap { get; set; }
 	public bool inactive_enabled { get; set; }
 
-	private SList<Commit> d_previous;
 	private SList<LaneContainer> d_lanes;
+	private SList<weak Commit> d_previous;
 	private HashTable<Ggit.OId, CollapsedLane> d_collapsed;
 
 	[Compact]
@@ -96,8 +96,8 @@ public class Lanes : Object
 
 	public void reset()
 	{
-		d_previous = new SList<Commit>();
 		d_lanes = new SList<LaneContainer>();
+		d_previous = new SList<weak Commit>();
 
 		Color.reset();
 
@@ -228,7 +228,7 @@ public class Lanes : Object
 	{
 		add_collapsed(container, index);
 
-		unowned SList<Commit> item = d_previous;
+		unowned SList<weak Commit> item = d_previous;
 
 		while (item != null)
 		{
