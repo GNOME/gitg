@@ -125,7 +125,7 @@ namespace Gitg
 			d_sortmode = Ggit.SortMode.TIME | Ggit.SortMode.TOPOLOGICAL;
 		}
 
-		~CommitModel()
+		public override void dispose()
 		{
 			cancel();
 		}
