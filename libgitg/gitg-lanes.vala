@@ -27,11 +27,10 @@ public class Lanes : Object
 	public int inactive_gap { get; set; }
 	public bool inactive_enabled { get; set; }
 
-	private SList<LaneContainer> d_lanes;
 	private SList<weak Commit> d_previous;
+	private Gee.LinkedList<LaneContainer> d_lanes;
 	private HashTable<Ggit.OId, CollapsedLane> d_collapsed;
 
-	[Compact]
 	class LaneContainer
 	{
 		public Lane lane;
@@ -96,8 +95,8 @@ public class Lanes : Object
 
 	public void reset()
 	{
-		d_lanes = new SList<LaneContainer>();
 		d_previous = new SList<weak Commit>();
+		d_lanes = new Gee.LinkedList<LaneContainer>();
 
 		Color.reset();
 
@@ -115,13 +114,13 @@ public class Lanes : Object
 			expand_lanes(next);
 		}
 
-		unowned LaneContainer? mylane = find_lane_by_oid(myoid, out nextpos);
+		LaneContainer? mylane = find_lane_by_oid(myoid, out nextpos);
 
 		if (mylane == null)
 		{
 			// there is no lane reserver for this comit, add a new lane
-			d_lanes.append(new LaneContainer(myoid, null));
-			nextpos = (int)d_lanes.length() - 1;
+			d_lanes.add(new LaneContainer(myoid, null));
+			nextpos = (int)d_lanes.size - 1;
 		}
 		else
 		{
@@ -145,14 +144,14 @@ public class Lanes : Object
 		var myoid = next.get_id();
 
 		init_next_layer();
-		unowned LaneContainer mylane = d_lanes.nth_data(pos);
+		var mylane = d_lanes[pos];
 
 		for (uint i = 0; i < parents.size(); ++i)
 		{
 			int lnpos;
 			var poid = parents.get_id(i);
 
-			unowned LaneContainer? container = find_lane_by_oid(poid, out lnpos);
+			var container = find_lane_by_oid(poid, out lnpos);
 
 			if (container != null)
 			{
@@ -169,6 +168,7 @@ public class Lanes : Object
 					mylane.lane.from.append(lnpos);
 					mylane.lane.color = mylane.lane.color.copy();
 					mylane.inactive = 0;
+
 					d_lanes.remove(container);
 				}
 				else
@@ -192,10 +192,10 @@ public class Lanes : Object
 			else
 			{
 				// generate a new lane for this parent
-				LaneContainer newlane = new LaneContainer(myoid, poid);
+				var newlane = new LaneContainer(myoid, poid);
 
 				newlane.lane.from.prepend(pos);
-				d_lanes.append((owned)newlane);
+				d_lanes.add(newlane);
 			}
 		}
 
@@ -269,15 +269,15 @@ public class Lanes : Object
 	private void collapse_lanes()
 	{
 		int index = 0;
-		unowned SList<LaneContainer> item = d_lanes;
 
-		while (item != null)
+		var iter = d_lanes.iterator();
+
+		while (iter.next())
 		{
-			unowned LaneContainer container = item.data;
+			var container = iter.get();
 
 			if (container.inactive != inactive_max + inactive_gap)
 			{
-				item = item.next;
 				++index;
 				continue;
 			}
@@ -285,9 +285,7 @@ public class Lanes : Object
 			collapse_lane(container, container.lane.from.data);
 			update_current_lane_merge_indices(index, -1);
 
-			unowned SList<LaneContainer> next = item.next;
-			d_lanes.remove_link(item);
-			item = next;
+			iter.remove();
 		}
 	}
 
@@ -335,7 +333,7 @@ public class Lanes : Object
 	private void update_current_lane_merge_indices(int index,
 	                                               int direction)
 	{
-		foreach (unowned LaneContainer container in d_lanes)
+		foreach (var container in d_lanes)
 		{
 			update_lane_merge_indices(container.lane.from,
 			                          index,
@@ -347,7 +345,7 @@ public class Lanes : Object
 	{
 		var index = lane.index;
 		var ln = new Lane.with_color(lane.color);
-		var len = d_lanes.length();
+		var len = d_lanes.size;
 
 		if (index > len)
 		{
@@ -363,7 +361,7 @@ public class Lanes : Object
 		update_current_lane_merge_indices((int)index, 1);
 
 		container.lane.from.prepend(next);
-		d_lanes.insert((owned)container, (int)index);
+		d_lanes.insert((int)index, container);
 
 		index = next;
 		uint cnt = 0;
@@ -439,22 +437,19 @@ public class Lanes : Object
 	{
 		int index = 0;
 
-		foreach (unowned LaneContainer container in d_lanes)
+		foreach (var container in d_lanes)
 		{
 			container.next(index++);
 		}
 	}
 
-	private unowned LaneContainer? find_lane_by_oid(Ggit.OId id,
-	                                                out int  pos)
+	private LaneContainer? find_lane_by_oid(Ggit.OId id,
+	                                        out int  pos)
 	{
 		int p = 0;
-		unowned SList<LaneContainer> ptr = d_lanes;
 
-		while (ptr != null)
+		foreach (var container in d_lanes)
 		{
-			unowned LaneContainer? container = ptr.data;
-
 			if (container != null &&
 			    id.equal(container.to))
 			{
@@ -463,7 +458,6 @@ public class Lanes : Object
 			}
 
 			++p;
-			ptr = ptr.next;
 		}
 
 		pos = -1;
@@ -474,7 +468,7 @@ public class Lanes : Object
 	{
 		var ret = new SList<Lane>();
 
-		foreach (unowned LaneContainer container in d_lanes)
+		foreach (var container in d_lanes)
 		{
 			ret.prepend(container.lane.copy());
 		}
