@@ -70,7 +70,7 @@ class PopupMenu : Object
 
 	private bool on_button_press_event(Gtk.Widget widget, Gdk.EventButton event)
 	{
-		Gdk.Event *ev = (Gdk.Event *)(&event);
+		Gdk.Event *ev = (Gdk.Event *)(event);
 
 		if (!ev->triggers_context_menu())
 		{
