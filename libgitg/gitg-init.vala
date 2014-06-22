@@ -42,7 +42,7 @@ public void init() throws Error
 
 	gitg_inited = true;
 
-	if ((Ggit.get_capabilities() & Ggit.CapFlags.THREADS) == 0)
+	if ((Ggit.get_features() & Ggit.FeatureFlags.THREADS) == 0)
 	{
 		gitg_initerr = new InitError.THREADS_UNSAFE("no thread support");
 	

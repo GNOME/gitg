@@ -121,7 +121,7 @@ AC_TRY_RUN([
 	main(int argc, const char *argv[])
 	{
 		ggit_init ();
-		return ((ggit_get_capabilities() & GGIT_CAP_THREADS) != 0) ? 0 : 1;
+		return ((ggit_get_features() & GGIT_FEATURE_THREADS) != 0) ? 0 : 1;
 	}
 ],[AC_MSG_RESULT([yes])],[AC_MSG_ERROR([no, please recompile a threadsafe version of libgit2 (-DTHREADSAFE:BOOL=ON)])])
 
