@@ -440,13 +440,13 @@ public class Stage : Object
 				}
 			}
 
-			ret = d_repository.create_commit_from_oids("HEAD",
-			                                           author,
-			                                           committer,
-			                                           encoding,
-			                                           emsg,
-			                                           treeoid,
-			                                           parents);
+			ret = d_repository.create_commit_from_ids("HEAD",
+			                                          author,
+			                                          committer,
+			                                          encoding,
+			                                          emsg,
+			                                          treeoid,
+			                                          parents);
 
 			bool always_update = false;
 
