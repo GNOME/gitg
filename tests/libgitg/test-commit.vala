@@ -65,7 +65,7 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 			assert_streq(d_repository.get_head().get_target().to_string(),
 			             oid.to_string());
 
-			var reflog = d_repository.lookup_reference("HEAD").get_reflog();
+			var reflog = d_repository.lookup_reference("HEAD").get_log();
 			var entry = reflog.get_entry_from_index(0);
 
 			assert_streq(entry.get_new_id().to_string(), oid.to_string());
@@ -254,7 +254,7 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 
 			assert_uinteq(commit.get_parents().size(), 0);
 
-			var reflog = d_repository.lookup_reference("HEAD").get_reflog();
+			var reflog = d_repository.lookup_reference("HEAD").get_log();
 			var entry = reflog.get_entry_from_index(0);
 
 			assert_streq(entry.get_new_id().to_string(), oid.to_string());

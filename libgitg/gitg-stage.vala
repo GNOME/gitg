@@ -467,9 +467,9 @@ public class Stage : Object
 			// Update reflog of HEAD
 			try
 			{
-				if (always_update || head.has_reflog())
+				if (always_update || head.has_log())
 				{
-					var reflog = head.get_reflog();
+					var reflog = head.get_log();
 					reflog.append(ret, committer, reflogmsg);
 					reflog.write();
 				}
@@ -482,9 +482,9 @@ public class Stage : Object
 				{
 					var resolved = head.resolve();
 
-					if (always_update || resolved.has_reflog())
+					if (always_update || resolved.has_log())
 					{
-						var reflog = resolved.get_reflog();
+						var reflog = resolved.get_log();
 
 						reflog.append(ret, committer, reflogmsg);
 						reflog.write();
