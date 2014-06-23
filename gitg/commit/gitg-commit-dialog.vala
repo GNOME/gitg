@@ -106,7 +106,7 @@ class Dialog : Gtk.Dialog
 	{
 		owned get
 		{
-			var pretty = Ggit.message_prettify(message, false);
+			var pretty = Ggit.message_prettify(message, false, '#');
 
 			if (pretty == null)
 			{
