@@ -138,14 +138,14 @@ public class Repository : Ggit.Repository
 		return base.lookup_reference(name) as Ref;
 	}
 
-	public new Ref create_reference(string name, Ggit.OId oid) throws Error
+	public new Ref create_reference(string name, Ggit.OId oid, Ggit.Signature signature, string message) throws Error
 	{
-		return base.create_reference(name, oid) as Ref;
+		return base.create_reference(name, oid, signature, message) as Ref;
 	}
 
-	public new Ref create_symbolic_reference(string name, string target) throws Error
+	public new Ref create_symbolic_reference(string name, string target, Ggit.Signature signature, string message) throws Error
 	{
-		return base.create_symbolic_reference(name, target) as Ref;
+		return base.create_symbolic_reference(name, target, signature, message) as Ref;
 	}
 
 	public new Ref get_head() throws Error
