@@ -414,39 +414,39 @@ public class Stage : Object
 				headoid = head.resolve().get_target();
 			} catch {}
 
-			Ggit.OId[] parents;
+			if (!amend)
+			{
+				Ggit.OId[] parents;
 
-			if (headoid == null)
-			{
-				parents = new Ggit.OId[] {};
-			}
-			else
-			{
-				if (amend)
+				if (headoid == null)
 				{
-					var commit = d_repository.lookup<Ggit.Commit>(headoid);
-					var p = commit.get_parents();
-
-					parents = new Ggit.OId[p.size()];
-
-					for (int i = 0; i < p.size(); ++i)
-					{
-						parents[i] = p.get_id(i);
-					}
+					parents = new Ggit.OId[] {};
 				}
 				else
 				{
 					parents = new Ggit.OId[] { headoid };
 				}
-			}
 
-			ret = d_repository.create_commit_from_ids("HEAD",
-			                                          author,
-			                                          committer,
-			                                          encoding,
-			                                          emsg,
-			                                          treeoid,
-			                                          parents);
+				ret = d_repository.create_commit_from_ids("HEAD",
+				                                          author,
+				                                          committer,
+				                                          encoding,
+				                                          emsg,
+				                                          treeoid,
+				                                          parents);
+			}
+			else
+			{
+				var headcommit = d_repository.lookup<Ggit.Commit>(headoid);
+				var tree = d_repository.lookup<Ggit.Tree>(treeoid);
+
+				ret = headcommit.amend("HEAD",
+				                       author,
+				                       committer,
+				                       encoding,
+				                       emsg,
+				                       tree);
+			}
 
 			bool always_update = false;
 
