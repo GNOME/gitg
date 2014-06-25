@@ -43,6 +43,10 @@ namespace Gitg
 			private Gtk.Arrow d_arrow;
 			[GtkChild]
 			private Gtk.Spinner d_spinner;
+			[GtkChild]
+			private Gtk.Button d_remove_button;
+
+			public signal void request_remove();
 
 			public Repository? repository
 			{
@@ -61,6 +65,14 @@ namespace Gitg
 						}
 						catch {}
 					}
+				}
+			}
+
+			public bool can_remove
+			{
+				set
+				{
+					d_remove_button.sensitive = value;
 				}
 			}
 
@@ -126,6 +138,12 @@ namespace Gitg
 			public Row(string name, string branch_name, bool has_remote)
 			{
 				Object(repository_name: name, branch_name: branch_name, has_remote: has_remote);
+			}
+
+			[GtkCallback]
+			private void remove_button_clicked(Gtk.Button remove)
+			{
+				request_remove();
 			}
 		}
 
@@ -251,6 +269,8 @@ namespace Gitg
 		{
 			Row? row = get_row_for_repository(repository);
 
+			var f = repository.workdir != null ? repository.workdir : repository.location;
+
 			if (row == null)
 			{
 				string head_name = "";
@@ -271,6 +291,26 @@ namespace Gitg
 				row = new Row(repository.name, head_name, has_remote);
 				row.repository = repository;
 				row.show();
+
+				if (f != null)
+				{
+					row.request_remove.connect(() => {
+						try
+						{
+							var recent_manager = Gtk.RecentManager.get_default();
+							recent_manager.remove_item(f.get_uri());
+						} catch {}
+
+						remove(row);
+					});
+
+					row.can_remove = true;
+				}
+				else
+				{
+					row.can_remove = false;
+				}
+
 				add(row);
 			}
 			else
@@ -280,7 +320,6 @@ namespace Gitg
 				invalidate_sort();
 			}
 
-			var f = repository.workdir != null ? repository.workdir : repository.location;
 			if (f != null)
 			{
 				add_repository_to_recent_manager(f.get_uri());
