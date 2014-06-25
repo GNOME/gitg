@@ -341,9 +341,18 @@ class Dialog : Gtk.Dialog
 		ac.load.begin(d_author.get_email(), d_cancel_avatar, (obj, res) => {
 			var pixbuf = ac.load.end(res);
 
-			if (pixbuf != null && !d_cancel_avatar.is_cancelled())
+			if (d_cancel_avatar.is_cancelled())
+			{
+				return;
+			}
+
+			if (pixbuf != null)
 			{
 				d_image_avatar.set_from_pixbuf(pixbuf);
+			}
+			else
+			{
+				d_image_avatar.set_from_icon_name("avatar-default-symbolic", Gtk.IconSize.DIALOG);
 			}
 		});
 	}
