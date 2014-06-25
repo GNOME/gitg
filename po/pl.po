@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-07 23:40+0100\n"
-"PO-Revision-Date: 2014-01-07 23:41+0100\n"
+"POT-Creation-Date: 2014-06-25 23:10+0200\n"
+"PO-Revision-Date: 2014-06-25 23:11+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -149,84 +149,84 @@ msgstr ""
 msgid "Cannot set spell checking language: %s"
 msgstr "Nie można ustawić języka sprawdzania pisowni: %s"
 
-#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/commit/gitg-commit.vala:105
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
 msgstr "Zatwierdzenie"
 
-#: ../gitg/commit/gitg-commit.vala:123
+#: ../gitg/commit/gitg-commit.vala:145
 msgid "_Stage selection"
 msgstr "_Przenieś zaznaczone do przechowalni"
 
-#: ../gitg/commit/gitg-commit.vala:146
+#: ../gitg/commit/gitg-commit.vala:168
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Przeniesienie pliku \"%s\" do przechowalni się nie powiodło."
 
-#: ../gitg/commit/gitg-commit.vala:165
+#: ../gitg/commit/gitg-commit.vala:187
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Przeniesienie usunięcia pliku \"%s\" do przechowalni się nie powiodło"
 
-#: ../gitg/commit/gitg-commit.vala:204
+#: ../gitg/commit/gitg-commit.vala:229
 msgid "_Unstage selection"
 msgstr "_Przenieś zaznaczone z przechowalni"
 
-#: ../gitg/commit/gitg-commit.vala:227
+#: ../gitg/commit/gitg-commit.vala:252
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Przeniesienie usunięcia pliku \"%s\" z przechowalni się nie powiodło"
 
-#: ../gitg/commit/gitg-commit.vala:246
+#: ../gitg/commit/gitg-commit.vala:271
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Przeniesienie pliku \"%s\" z przechowalni się nie powiodło"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:412
 msgid "Staged"
 msgstr "W przechowalni"
 
-#: ../gitg/commit/gitg-commit.vala:374
+#: ../gitg/commit/gitg-commit.vala:419
 msgid "No staged files"
 msgstr "Brak plików w przechowalni"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:431
 msgid "Unstaged"
 msgstr "Nie w przechowalni"
 
-#: ../gitg/commit/gitg-commit.vala:387
+#: ../gitg/commit/gitg-commit.vala:435
 msgid "No unstaged files"
 msgstr "Brak plików nie będących w przechowalni"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:447
 msgid "Untracked"
 msgstr "Nieśledzone"
 
-#: ../gitg/commit/gitg-commit.vala:400
+#: ../gitg/commit/gitg-commit.vala:451
 msgid "No untracked files"
 msgstr "Brak nieśledzonych plików"
 
-#: ../gitg/commit/gitg-commit.vala:436
+#: ../gitg/commit/gitg-commit.vala:506
 msgid "There are no changes to be committed"
 msgstr "Brak zmian do zatwierdzenia"
 
-#: ../gitg/commit/gitg-commit.vala:437
+#: ../gitg/commit/gitg-commit.vala:507
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Należy użyć polecenia \"amend\", aby zmienić komunikat poprzedniego "
 "zatwierdzenia"
 
-#: ../gitg/commit/gitg-commit.vala:463
+#: ../gitg/commit/gitg-commit.vala:533
 msgid "Failed to commit"
 msgstr "Zatwierdzenie się nie powiodło"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
+#: ../gitg/commit/gitg-commit.vala:549 ../gitg/commit/gitg-commit.vala:782
 msgid "Failed to pass pre-commit"
 msgstr "Przejście sprawdzania przed zatwierdzeniem się nie powiodło"
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:770
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -234,7 +234,7 @@ msgstr ""
 "Nazwa użytkownika i adres e-mail nie zostały jeszcze skonfigurowane. Proszę "
 "przejść do konfiguracji użytkownika i je podać."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:774
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -242,7 +242,7 @@ msgstr ""
 "Nazwa użytkownika nie została jeszcze skonfigurowana. Proszę przejść do "
 "konfiguracji użytkownika i ją podać."
 
-#: ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:778
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -250,11 +250,11 @@ msgstr ""
 "Adres e-mail nie został jeszcze skonfigurowany. Proszę przejść do "
 "konfiguracji użytkownika i go podać."
 
-#: ../gitg/commit/gitg-commit.vala:769
+#: ../gitg/commit/gitg-commit.vala:839
 msgid "Failed to stage selection"
 msgstr "Przeniesienie zaznaczonego do przechowalni się nie powiodło"
 
-#: ../gitg/commit/gitg-commit.vala:773
+#: ../gitg/commit/gitg-commit.vala:843
 msgid "Failed to unstage selection"
 msgstr "Przeniesienie zaznaczonego z przechowalni się nie powiodło"
 
@@ -294,11 +294,11 @@ msgstr ""
 msgid "gitg homepage"
 msgstr "Witryna programu gitg"
 
-#: ../gitg/gitg-author-details-dialog.vala:65
+#: ../gitg/gitg-author-details-dialog.vala:67
 msgid "Unable to open the .gitconfig file."
 msgstr "Nie można otworzyć pliku .gitconfig."
 
-#: ../gitg/gitg-author-details-dialog.vala:147
+#: ../gitg/gitg-author-details-dialog.vala:149
 msgid "Failed to set Git user config."
 msgstr "Ustawienie konfiguracji użytkownika Git się nie powiodło."
 
@@ -326,24 +326,26 @@ msgstr ""
 "W przeciwnym przypadku proszę zgłosić błąd w systemie zgłaszania błędów "
 "dystrybucji z informacją, że biblioteka libgit2 nie dostarcza obsługi wątków."
 
-#: ../gitg/gitg-window.vala:263
+#: ../gitg/gitg-window.vala:276
 msgid "Projects"
 msgstr "Projekty"
 
-#: ../gitg/gitg-window.vala:299
+#: ../gitg/gitg-window.vala:312
 msgid "Open Repository"
 msgstr "Otwarcie repozytorium"
 
-#: ../gitg/gitg-window.vala:301
+#: ../gitg/gitg-window.vala:314
 #: ../libgitg/gitg-diff-view-request-patch.vala:109
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: ../gitg/gitg-window.vala:302
+#: ../gitg/gitg-window.vala:315
 msgid "_Open"
 msgstr "_Otwórz"
 
-#: ../gitg/gitg-window.vala:532
+#: ../gitg/gitg-window.vala:552
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "\"%s\" nie jest repozytorium Git."
@@ -429,7 +431,7 @@ msgstr "przenieś z przechowalni"
 msgid "Loading diff…"
 msgstr "Wczytywanie różnicy…"
 
-#: ../libgitg/gitg-stage.vala:333
+#: ../libgitg/gitg-stage.vala:335
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
@@ -485,40 +487,40 @@ msgstr "Zapisz"
 msgid "Clone Repository"
 msgstr "Sklonowanie repozytorium"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
 msgid "Cl_one"
 msgstr "Skl_onuj"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
 msgid "Remote _URL:"
 msgstr "Zdalny adres _URL:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
 msgid "_Local Folder:"
 msgstr "_Lokalny katalog:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Select location…"
 msgstr "Wybierz położenie…"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
 msgid "Bare repository"
 msgstr "Puste repozytorium"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
 msgid "C_ommit"
 msgstr "_Zatwierdzenie"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "Add _signed-off-by signature"
 msgstr "Dodanie podpisu \"_signed-off-by\""
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 msgid "_Amend previous commit"
 msgstr "_Poprawienie poprzedniego zatwierdzenia"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Close"
 msgstr "Zamknij"
@@ -642,6 +644,12 @@ msgstr "Użycie poziomego układu"
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "Preferences"
 msgstr "Preferencje"
+
+#: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
+msgid ""
+"Remove the repository from the list (does not delete the repository from "
+"disk)"
+msgstr "Usuwa repozytorium z listy (nie usuwa repozytorium z dysku)"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
