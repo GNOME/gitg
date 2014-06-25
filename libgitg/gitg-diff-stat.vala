@@ -70,31 +70,45 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 				-GitgDiffStat-bar-height: 5px;
 			}
 
+			GitgDiffStat.no-frame {
+				border: 0;
+				border-radius: 0;
+				background-color: inherit;
+			}
+
 			GitgDiffStat added,
-			GitgDiffStat removed {
+			GitgDiffStat removed,
+			GitgDiffStat.no-frame added,
+			GitgDiffStat.no-frame removed {
 				border: 0;
 			}
 
-			GitgDiffStat added {
+			GitgDiffStat added,
+			GitgDiffStat.no-frame added {
 				background-color: #33cc33;
 				border-radius: 3px 0px 0px 3px;
 			}
 
-			GitgDiffStat added:dir(rtl) {
+			GitgDiffStat added:dir(rtl),
+			GitgDiffStat.no-frame added:dir(rtl) {
 				border-radius: 0px 3px 3px 0px;
 			}
 
-			GitgDiffStat removed {
+			GitgDiffStat removed,
+			GitgDiffStat.no-frame removed {
 				background-color: #cc3333;
 				border-radius: 0px 3px 3px 0px;
 			}
 
-			GitgDiffStat removed:dir(rtl) {
+			GitgDiffStat removed:dir(rtl),
+			GitgDiffStat.no-frame removed:dir(rtl) {
 				border-radius: 3px 0px 0px 3px;
 			}
 
 			GitgDiffStat removed:only-child,
-			GitgDiffStat added:only-child {
+			GitgDiffStat added:only-child,
+			GitgDiffStat.no-frame removed:only-child,
+			GitgDiffStat.no-frame added:only-child {
 				border-radius: 3px;
 			}
 		";
