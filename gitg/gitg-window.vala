@@ -163,13 +163,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_environment[e] = Environment.get_variable(e);
 		}
 
-		if (get_direction () == Gtk.TextDirection.RTL)
+		if (Gtk.check_version(3, 13, 2) != null &&
+		    get_direction () == Gtk.TextDirection.RTL)
 		{
 			dash_image.icon_name = "go-previous-rtl-symbolic";
-		}
-		else
-		{
-			dash_image.icon_name = "go-previous-symbolic";
 		}
 
 		d_header_bar.remove(d_activities_switcher);
