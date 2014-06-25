@@ -103,6 +103,8 @@ public class Stage : Object
 
 	public async void refresh() throws Error
 	{
+		d_head_tree = null;
+
 		yield thread_index((index) => {
 			index.read(false);
 		});
@@ -491,6 +493,8 @@ public class Stage : Object
 					}
 				} catch {}
 			}
+
+			d_head_tree = null;
 
 			// run post commit
 			post_commit_hook(author);
