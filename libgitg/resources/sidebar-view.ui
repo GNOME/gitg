@@ -24,9 +24,6 @@
           <object class="GtkCellRendererPixbuf" id="renderer_icon">
             <property name="follow_state">True</property>
           </object>
-          <attributes>
-            <attribute name="icon_name">0</attribute>
-          </attributes>
           <cell-packing>
             <property name="expand">False</property>
           </cell-packing>
@@ -37,9 +34,6 @@
             <property name="weight">700</property>
             <property name="ellipsize">middle</property>
           </object>
-          <attributes>
-            <attribute name="text">3</attribute>
-          </attributes>
           <cell-packing>
             <property name="expand">True</property>
           </cell-packing>
@@ -48,9 +42,6 @@
           <object class="GtkCellRendererText" id="renderer_text">
             <property name="ellipsize">middle</property>
           </object>
-          <attributes>
-            <attribute name="text">2</attribute>
-          </attributes>
           <cell-packing>
             <property name="expand">True</property>
           </cell-packing>
@@ -60,13 +51,9 @@
   </template>
   <object class="GitgSidebarStore" id="sidebar_store">
     <columns>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
       <column type="guint"/>
       <column type="guint"/>
-      <column type="guint"/>
+      <column type="GitgSidebarItem"/>
     </columns>
   </object>
 </interface>

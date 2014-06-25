@@ -26,8 +26,54 @@ namespace GitgCommit
 		private Paned? d_main;
 		private bool d_reloading;
 		private bool d_has_staged;
+		private Gitg.StageStatusFile? d_current_file;
+		private bool d_current_staged;
 
 		public GitgExt.Application? application { owned get; construct set; }
+
+		private class SidebarFile : Object, Gitg.SidebarItem
+		{
+			Gitg.StageStatusFile d_file;
+
+			public SidebarFile(Gitg.StageStatusFile f)
+			{
+				d_file = f;
+			}
+
+			public string text
+			{
+				owned get { return d_file.path; }
+			}
+
+			private string? icon_for_status(Ggit.StatusFlags status)
+			{
+				if ((status & (Ggit.StatusFlags.INDEX_NEW |
+					           Ggit.StatusFlags.WORKING_TREE_NEW)) != 0)
+				{
+					return "list-add-symbolic";
+				}
+				else if ((status & (Ggit.StatusFlags.INDEX_MODIFIED |
+					                Ggit.StatusFlags.INDEX_RENAMED |
+					                Ggit.StatusFlags.INDEX_TYPECHANGE |
+					                Ggit.StatusFlags.WORKING_TREE_MODIFIED |
+					                Ggit.StatusFlags.WORKING_TREE_TYPECHANGE)) != 0)
+				{
+					return "text-editor-symbolic";
+				}
+				else if ((status & (Ggit.StatusFlags.INDEX_DELETED |
+					                Ggit.StatusFlags.WORKING_TREE_DELETED)) != 0)
+				{
+					return "edit-delete-symbolic";
+				}
+
+				return null;
+			}
+
+			public string? icon_name
+			{
+				owned get { return icon_for_status(d_file.flags); }
+			}
+		}
 
 		public Activity(GitgExt.Application application)
 		{
@@ -80,30 +126,6 @@ namespace GitgCommit
 		public bool is_default_for(string action)
 		{
 			return action == "commit";
-		}
-
-		private string? icon_for_status(Ggit.StatusFlags status)
-		{
-			if ((status & (Ggit.StatusFlags.INDEX_NEW |
-			               Ggit.StatusFlags.WORKING_TREE_NEW)) != 0)
-			{
-				return "list-add-symbolic";
-			}
-			else if ((status & (Ggit.StatusFlags.INDEX_MODIFIED |
-			                    Ggit.StatusFlags.INDEX_RENAMED |
-			                    Ggit.StatusFlags.INDEX_TYPECHANGE |
-			                    Ggit.StatusFlags.WORKING_TREE_MODIFIED |
-			                    Ggit.StatusFlags.WORKING_TREE_TYPECHANGE)) != 0)
-			{
-				return "text-editor-symbolic";
-			}
-			else if ((status & (Ggit.StatusFlags.INDEX_DELETED |
-			                    Ggit.StatusFlags.WORKING_TREE_DELETED)) != 0)
-			{
-				return "edit-delete-symbolic";
-			}
-
-			return null;
 		}
 
 		private delegate void StageUnstageCallback(Gitg.StageStatusFile f, int numclick);
@@ -172,6 +194,9 @@ namespace GitgCommit
 
 		private void on_unstaged_activated(Gitg.StageStatusFile f, int numclick)
 		{
+			d_current_file = f;
+			d_current_staged = false;
+
 			if (numclick == 1)
 			{
 				show_unstaged_diff(f);
@@ -253,6 +278,9 @@ namespace GitgCommit
 
 		private void on_staged_activated(Gitg.StageStatusFile f, int numclick)
 		{
+			d_current_file = f;
+			d_current_staged = true;
+
 			if (numclick == 1)
 			{
 				show_staged_diff(f);
@@ -270,19 +298,30 @@ namespace GitgCommit
 			}
 		}
 
-		private void append_files(Gitg.SidebarStore      model,
-		                          Gitg.StageStatusFile[] files,
-		                          StageUnstageCallback?  callback)
+		private SidebarFile? append_files(Gitg.SidebarStore      model,
+		                                  Gitg.StageStatusFile[] files,
+		                                  Gitg.StageStatusFile?  current,
+		                                  StageUnstageCallback?  callback)
 		{
+			SidebarFile? citem = null;
+	
 			foreach (var f in files)
 			{
-				model.append_normal(f.path, null, icon_for_status(f.flags), (numclick) => {
-					if (callback != null)
-					{
-						callback(f, numclick);
-					}
+				var item = new SidebarFile(f);
+
+				if (current != null && f.path == current.path)
+				{
+					citem = item;
+				}
+
+				item.activated.connect((numclick) => {
+					callback(f, numclick);
 				});
+
+				model.append(item);
 			}
+
+			return citem;
 		}
 
 		public void reload()
@@ -295,6 +334,9 @@ namespace GitgCommit
 			}
 
 			d_reloading = true;
+
+			var currentfile = d_current_file;
+			d_current_file = null;
 
 			// Preload author avatar
 			try
@@ -369,13 +411,19 @@ namespace GitgCommit
 
 				model.begin_header(_("Staged"));
 
+				SidebarFile? current_staged = null;
+				SidebarFile? current_unstaged = null;
+
 				if (staged.length == 0)
 				{
 					model.append_dummy(_("No staged files"));
 				}
 				else
 				{
-					append_files(model, staged, on_staged_activated);
+					current_staged = append_files(model,
+					                              staged,
+					                              currentfile,
+					                              on_staged_activated);
 				}
 
 				model.end_header();
@@ -388,7 +436,10 @@ namespace GitgCommit
 				}
 				else
 				{
-					append_files(model, unstaged, on_unstaged_activated);
+					current_unstaged = append_files(model,
+					                                unstaged,
+					                                currentfile,
+					                                on_unstaged_activated);
 				}
 
 				model.end_header();
@@ -401,7 +452,7 @@ namespace GitgCommit
 				}
 				else
 				{
-					append_files(model, untracked, on_unstaged_activated);
+					append_files(model, untracked, null, on_unstaged_activated);
 				}
 
 				model.end_header();
@@ -410,6 +461,25 @@ namespace GitgCommit
 				d_has_staged = staged.length != 0;
 
 				d_reloading = false;
+
+				if (currentfile != null)
+				{
+					SidebarFile? sel = null;
+
+					if (d_current_staged)
+					{
+						sel = (current_staged != null) ? current_staged : current_unstaged;
+					}
+					else
+					{
+						sel = (current_unstaged != null) ? current_unstaged : current_staged;
+					}
+
+					if (sel != null)
+					{
+						d_main.sidebar.select(sel);
+					}
+				}
 			});
 		}
 
