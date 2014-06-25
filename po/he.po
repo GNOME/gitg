@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-14 11:07+0300\n"
-"PO-Revision-Date: 2014-04-14 11:08+0300\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
+"POT-Creation-Date: 2014-06-25 23:59+0300\n"
+"PO-Revision-Date: 2014-06-26 00:01+0300\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -145,106 +145,106 @@ msgstr ""
 msgid "Cannot set spell checking language: %s"
 msgstr "לא ניתן להגדיר שפה לבדיקת איות: %s"
 
-#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/commit/gitg-commit.vala:105
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
 msgstr "הגשה"
 
-#: ../gitg/commit/gitg-commit.vala:123
+#: ../gitg/commit/gitg-commit.vala:145
 msgid "_Stage selection"
 msgstr "_שילוב הבחירה"
 
-#: ../gitg/commit/gitg-commit.vala:146
+#: ../gitg/commit/gitg-commit.vala:168
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "שילוב הקובץ `%s` נכשל"
 
-#: ../gitg/commit/gitg-commit.vala:165
+#: ../gitg/commit/gitg-commit.vala:187
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "שילוב מחיקת הקובץ `%s` נכשל"
 
-#: ../gitg/commit/gitg-commit.vala:204
+#: ../gitg/commit/gitg-commit.vala:229
 msgid "_Unstage selection"
 msgstr "_ביטול שילוב הבחירה"
 
-#: ../gitg/commit/gitg-commit.vala:227
+#: ../gitg/commit/gitg-commit.vala:252
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "נכשל שילוב מחיקת הקובץ `%s`"
 
-#: ../gitg/commit/gitg-commit.vala:246
+#: ../gitg/commit/gitg-commit.vala:271
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "ביטול שילוב הקובץ `%s` נכשל"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:412
 msgid "Staged"
 msgstr "משולב"
 
-#: ../gitg/commit/gitg-commit.vala:374
+#: ../gitg/commit/gitg-commit.vala:419
 msgid "No staged files"
 msgstr "אין קבצים משולבים"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:431
 msgid "Unstaged"
 msgstr "לא משולב"
 
-#: ../gitg/commit/gitg-commit.vala:387
+#: ../gitg/commit/gitg-commit.vala:435
 msgid "No unstaged files"
 msgstr "אין קבצים שאינם משולבים"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:447
 msgid "Untracked"
 msgstr "לא במעקב"
 
-#: ../gitg/commit/gitg-commit.vala:400
+#: ../gitg/commit/gitg-commit.vala:451
 msgid "No untracked files"
 msgstr "אין קבצים שאינם במעקב"
 
-#: ../gitg/commit/gitg-commit.vala:436
+#: ../gitg/commit/gitg-commit.vala:506
 msgid "There are no changes to be committed"
 msgstr "אין שינויים להגשה"
 
-#: ../gitg/commit/gitg-commit.vala:437
+#: ../gitg/commit/gitg-commit.vala:507
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "ניתן להשתמש בתיקון לשינוי הודעת ההגשה הקודמת"
 
-#: ../gitg/commit/gitg-commit.vala:463
+#: ../gitg/commit/gitg-commit.vala:533
 msgid "Failed to commit"
 msgstr "נכשלה ההגשה"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
+#: ../gitg/commit/gitg-commit.vala:549 ../gitg/commit/gitg-commit.vala:782
 msgid "Failed to pass pre-commit"
 msgstr "נכשלה העברת קדם הגשה"
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:770
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr ""
 "שם המשתמש וכתובת הדוא״ל שלך טרם הוגדרו. יש לגשת לתצורת משתמש ולספק פרטים אלה."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:774
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "שם המשתמש שלך טרם הוגדר. יש לגשת לתצורת משתמש ולספק את השם שלך."
 
-#: ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:778
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "כתובת הדוא״ל שלך טרם הוגדרה. יש לגשת לתצורת המשתמש ולספק את כתובת הדוא״ל שלך."
 
-#: ../gitg/commit/gitg-commit.vala:769
+#: ../gitg/commit/gitg-commit.vala:839
 msgid "Failed to stage selection"
 msgstr "שילוב הבחירה נכשל"
 
-#: ../gitg/commit/gitg-commit.vala:773
+#: ../gitg/commit/gitg-commit.vala:843
 msgid "Failed to unstage selection"
 msgstr "ביטול שילוב הבחירה נכשל"
 
@@ -333,7 +333,7 @@ msgstr "_ביטול"
 msgid "_Open"
 msgstr "_פתיחה"
 
-#: ../gitg/gitg-window.vala:545
+#: ../gitg/gitg-window.vala:552
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "‏`%s` אינו מאגר Git"
@@ -419,7 +419,7 @@ msgstr "ביטול שילוב"
 msgid "Loading diff…"
 msgstr "הבדלים נטענים…"
 
-#: ../libgitg/gitg-stage.vala:333
+#: ../libgitg/gitg-stage.vala:335
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "לא ניתן לקרוא הודעת הגשה אחרי הרצת commit-msg hook: ‏%s"
@@ -628,6 +628,13 @@ msgstr "שימוש בפריסה אופקית"
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "Preferences"
 msgstr "העדפות"
+
+#: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
+msgid ""
+"Remove the repository from the list (does not delete the repository from "
+"disk)"
+msgstr ""
+"מחיקת המאגר מהרשימה (לא מוחק את המאגר מהכונן)"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
