@@ -144,7 +144,21 @@ function diff_file(file, lnstate, data)
 			}
 
 			row += '<td class="gutter type">' + o + '</td>';
-			row += '<td class="code">' + html_escape(l.content).replace(/\t/g, tabrepl) + '</td>';
+
+			var content = html_escape(l.content);
+			content = content.replace(/\t/g, tabrepl);
+
+			var ws = '';
+
+			if (l.trailing_whitespace.length > 0)
+			{
+				ws = html_escape(l.trailing_whitespace);
+				ws = ws.replace(/\t/g, tabrepl);
+
+				ws = '<span class="trailing-whitespace">' + ws + '</span>';
+			}
+
+			row += '<td class="code">' + content + ws + '</td>';
 
 			row += '</tr>';
 

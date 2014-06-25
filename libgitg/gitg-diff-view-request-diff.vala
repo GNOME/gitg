@@ -172,9 +172,15 @@ namespace Gitg
 			builder.begin_object();
 			{
 				var content = line.get_content();
+				var text = line.get_text();
+
+				// Split off trailing whitespace
+				var chomped = text.chomp();
+				var ws = text.slice(chomped.length, text.length);
 
 				builder.set_member_name("type").add_int_value((int64)line.get_origin());
-				builder.set_member_name("content").add_string_value(line.get_text());
+				builder.set_member_name("content").add_string_value(chomped);
+				builder.set_member_name("trailing_whitespace").add_string_value(ws);
 				builder.set_member_name("offset").add_int_value((int64)line.get_content_offset());
 				builder.set_member_name("length").add_int_value((int64)content.length);
 			}
