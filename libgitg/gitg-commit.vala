@@ -156,6 +156,11 @@ public class Commit : Ggit.Commit
 		}
 		catch {}
 
+		try
+		{
+			diff.find_similar(null);
+		} catch {}
+
 		return diff;
 	}
 }
