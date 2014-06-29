@@ -36,6 +36,9 @@ namespace Gitg
 						case "selection-changed":
 							d_view.update_has_selection(parameter("value") == "yes");
 							break;
+						case "loaded":
+							d_view.loaded();
+							break;
 					}
 
 					return false;
@@ -334,14 +337,6 @@ namespace Gitg
 
 			d_loaded = false;
 
-			load_changed.connect((v, ev) => {
-				if (ev == WebKit.LoadEvent.FINISHED)
-				{
-					d_loaded = true;
-					update();
-				}
-			});
-
 			// Load the diff base html
 			var uri = "gitg-diff:///resource/org/gnome/gitg/gtk/diff-view/diff-view.html?viewid=" + s_diff_id.to_string();
 
@@ -353,6 +348,12 @@ namespace Gitg
 		public DiffView()
 		{
 			Object();
+		}
+
+		public void loaded()
+		{
+			d_loaded = true;
+			update();
 		}
 
 		private void update()

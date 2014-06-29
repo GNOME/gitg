@@ -480,6 +480,8 @@ addEventListener('DOMContentLoaded', function () {
 			loader.attr('src', gravatar);
 		},
 	});
+
+	xhr_get('internal', {action: 'loaded'});
 }, false);
 
 // vi:ts=4
