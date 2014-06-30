@@ -109,13 +109,18 @@ namespace Gitg
 			get { return (options.flags & Ggit.DiffOption.IGNORE_WHITESPACE) != 0; }
 			set
 			{
-				if (value)
+				if (value != ignore_whitespace)
 				{
-					options.flags |= Ggit.DiffOption.IGNORE_WHITESPACE;
-				}
-				else
-				{
-					options.flags &= ~Ggit.DiffOption.IGNORE_WHITESPACE;
+					if (value)
+					{
+						options.flags |= Ggit.DiffOption.IGNORE_WHITESPACE;
+					}
+					else
+					{
+						options.flags &= ~Ggit.DiffOption.IGNORE_WHITESPACE;
+					}
+
+					update();
 				}
 			}
 		}
@@ -504,6 +509,11 @@ namespace Gitg
 		                                     Gdk.Event            event,
 		                                     WebKit.HitTestResult hit_test_result)
 		{
+			if (d_commit == null)
+			{
+				return true;
+			}
+
 			var m = new Gtk.Menu();
 
 			var item = new Gtk.CheckMenuItem.with_label(_("Ignore whitespace changes"));
