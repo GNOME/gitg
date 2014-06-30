@@ -52,13 +52,18 @@ namespace Gitg
 		private Commit? d_commit;
 		private Settings? d_fontsettings;
 		private bool d_has_selection;
+		private Ggit.DiffOptions d_options;
 
 		private static Gee.HashMap<string, DiffView> s_diff_map;
 		private static uint64 s_diff_id;
 
 		public File? custom_css { get; construct; }
 		public File? custom_js { get; construct; }
-		public Ggit.DiffOptions? options { get; construct set; }
+
+		public Ggit.DiffOptions options
+		{
+			get { return d_options; }
+		}
 
 		[Notify]
 		public bool has_selection
@@ -300,6 +305,8 @@ namespace Gitg
 		{
 			base.constructed();
 
+			d_options = new Ggit.DiffOptions();
+
 			var settings = new WebKit.Settings();
 
 			var dbg = Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null;
@@ -385,7 +392,7 @@ namespace Gitg
 
 			if (d_commit != null)
 			{
-				d_diff = d_commit.get_diff(options);
+				d_diff = d_commit.get_diff(d_options);
 			}
 
 			if (d_diff != null)

@@ -578,14 +578,14 @@ namespace GitgCommit
 
 		private async Ggit.Diff? index_diff()
 		{
-			var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED |
-			                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
-			                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
-			                                3,
-			                                3,
-			                                null,
-			                                null,
-			                                null);
+			var opts = new Ggit.DiffOptions();
+
+			opts.flags = Ggit.DiffOption.INCLUDE_UNTRACKED |
+			             Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
+			             Ggit.DiffOption.RECURSE_UNTRACKED_DIRS;
+
+			opts.n_context_lines = 3;
+			opts.n_interhunk_lines = 3;
 
 			var stage = application.repository.stage;
 

@@ -803,14 +803,16 @@ public class Stage : Object
 
 	public async Ggit.Diff? diff_index(StageStatusFile f) throws Error
 	{
-		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED |
-		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
-		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
-		                                3,
-		                                3,
-		                                null,
-		                                null,
-		                                new string[] {f.path});
+		var opts = new Ggit.DiffOptions();
+
+		opts.flags = Ggit.DiffOption.INCLUDE_UNTRACKED |
+		             Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
+		             Ggit.DiffOption.RECURSE_UNTRACKED_DIRS;
+
+		opts.n_context_lines = 3;
+		opts.n_interhunk_lines = 3;
+
+		opts.pathspec = new string[] {f.path};
 
 		var tree = yield get_head_tree();
 
@@ -822,14 +824,16 @@ public class Stage : Object
 
 	public async Ggit.Diff? diff_workdir(StageStatusFile f) throws Error
 	{
-		var opts = new Ggit.DiffOptions(Ggit.DiffOption.INCLUDE_UNTRACKED |
-		                                Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
-		                                Ggit.DiffOption.RECURSE_UNTRACKED_DIRS,
-		                                3,
-		                                3,
-		                                null,
-		                                null,
-		                                new string[] {f.path});
+		var opts = new Ggit.DiffOptions();
+
+		opts.flags = Ggit.DiffOption.INCLUDE_UNTRACKED |
+		             Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
+		             Ggit.DiffOption.RECURSE_UNTRACKED_DIRS;
+
+		opts.n_context_lines = 3;
+		opts.n_interhunk_lines = 3;
+
+		opts.pathspec = new string[] {f.path};
 
 		return new Ggit.Diff.index_to_workdir(d_repository,
 		                                      d_repository.get_index(),

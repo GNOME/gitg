@@ -20,7 +20,7 @@ libgitg_libgitg_1_0_la_LDFLAGS = 	\
 	$(LIBGITG_LIBS)
 
 libgitg_libgitg_1_0_la_VALAFLAGS =	\
-	--pkg Ggit-1.0 			\
+	--pkg ggit-1.0 			\
 	--pkg gtk+-3.0			\
 	--pkg gio-2.0			\
 	--pkg libsoup-2.4		\
