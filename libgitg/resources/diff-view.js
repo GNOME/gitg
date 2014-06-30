@@ -433,7 +433,7 @@ function update_diff(id, lsettings)
 		{
 			$('#diff_header').html(write_commit(j.commit));
 
-			$(".format_patch_button").click(function() {
+			$('.format_patch').click(function() {
 				xhr_get('patch', {id: j.commit.id});
 			});
 		}
