@@ -22,10 +22,10 @@ namespace Gitg
 
 public class Lanes : Object
 {
-	public int inactive_max { get; set; }
-	public int inactive_collapse { get; set; }
-	public int inactive_gap { get; set; }
-	public bool inactive_enabled { get; set; }
+	public int inactive_max { get; set; default = 30; }
+	public int inactive_collapse { get; set; default = 10; }
+	public int inactive_gap { get; set; default = 10; }
+	public bool inactive_enabled { get; set; default = true; }
 
 	private SList<weak Commit> d_previous;
 	private Gee.LinkedList<LaneContainer> d_lanes;
