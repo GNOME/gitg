@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-25 23:59+0300\n"
-"PO-Revision-Date: 2014-06-26 00:01+0300\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"POT-Creation-Date: 2014-07-01 00:04+0300\n"
+"PO-Revision-Date: 2014-07-01 00:05+0300\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -314,26 +314,26 @@ msgstr ""
 "בכל מקרה אחר, עליך לדווח על תקלה מול ההפצה שלך על כך לך libgit2 ללא תמיכה "
 "בריבוי תהליכים."
 
-#: ../gitg/gitg-window.vala:276
+#: ../gitg/gitg-window.vala:268
 msgid "Projects"
 msgstr "מיזמים"
 
-#: ../gitg/gitg-window.vala:312
+#: ../gitg/gitg-window.vala:304
 msgid "Open Repository"
 msgstr "פתיחת מאגר"
 
-#: ../gitg/gitg-window.vala:314
+#: ../gitg/gitg-window.vala:306
 #: ../libgitg/gitg-diff-view-request-patch.vala:109
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 msgid "_Cancel"
 msgstr "_ביטול"
 
-#: ../gitg/gitg-window.vala:315
+#: ../gitg/gitg-window.vala:307
 msgid "_Open"
 msgstr "_פתיחה"
 
-#: ../gitg/gitg-window.vala:552
+#: ../gitg/gitg-window.vala:544
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "‏`%s` אינו מאגר Git"
@@ -407,24 +407,28 @@ msgstr "שמירת טלאי לקובץ"
 msgid "_Save"
 msgstr "_שמירה"
 
-#: ../libgitg/gitg-diff-view.vala:123
+#: ../libgitg/gitg-diff-view.vala:152
 msgid "stage"
 msgstr "שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:124
+#: ../libgitg/gitg-diff-view.vala:153
 msgid "unstage"
 msgstr "ביטול שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:125
+#: ../libgitg/gitg-diff-view.vala:154
 msgid "Loading diff…"
 msgstr "הבדלים נטענים…"
+
+#: ../libgitg/gitg-diff-view.vala:519
+msgid "Ignore whitespace changes"
+msgstr "התעלמות משינויי רווחים לבנים"
 
 #: ../libgitg/gitg-stage.vala:335
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "לא ניתן לקרוא הודעת הגשה אחרי הרצת commit-msg hook: ‏%s"
 
-#: ../plugins/diff/gitg-diff.vala:62
+#: ../plugins/diff/gitg-diff.vala:71
 msgid "Diff"
 msgstr "הבדלים"
 
@@ -633,8 +637,7 @@ msgstr "העדפות"
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
-msgstr ""
-"מחיקת המאגר מהרשימה (לא מוחק את המאגר מהכונן)"
+msgstr "מחיקת המאגר מהרשימה (לא מוחק את המאגר מהכונן)"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
