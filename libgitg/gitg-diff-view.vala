@@ -104,6 +104,22 @@ namespace Gitg
 		public bool unstaged { get; set; default = false; }
 		public int tab_width { get; set; default = 4; }
 
+		public bool ignore_whitespace
+		{
+			get { return (options.flags & Ggit.DiffOption.IGNORE_WHITESPACE) != 0; }
+			set
+			{
+				if (value)
+				{
+					options.flags |= Ggit.DiffOption.IGNORE_WHITESPACE;
+				}
+				else
+				{
+					options.flags &= ~Ggit.DiffOption.IGNORE_WHITESPACE;
+				}
+			}
+		}
+
 		static construct
 		{
 			s_diff_map = new Gee.HashMap<string, DiffView>();
@@ -482,6 +498,37 @@ namespace Gitg
 			}
 
 			return ret;
+		}
+
+		protected override bool context_menu(WebKit.ContextMenu   menu,
+		                                     Gdk.Event            event,
+		                                     WebKit.HitTestResult hit_test_result)
+		{
+			var m = new Gtk.Menu();
+
+			var item = new Gtk.CheckMenuItem.with_label(_("Ignore whitespace changes"));
+			item.active = ignore_whitespace;
+
+			item.toggled.connect((i) => {
+				ignore_whitespace = i.active;
+			});
+
+			m.append(item);
+			m.show_all();
+
+			m.attach_to_widget(this, null);
+
+			if (event.type == Gdk.EventType.BUTTON_PRESS ||
+			    event.type == Gdk.EventType.BUTTON_RELEASE)
+			{
+				m.popup(null, null, null, event.button.button, event.button.time);
+			}
+			else
+			{
+				m.popup(null, null, null, 0, Gdk.CURRENT_TIME);
+			}
+
+			return true;
 		}
 	}
 }
