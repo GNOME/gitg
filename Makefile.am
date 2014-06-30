@@ -109,7 +109,7 @@ GITIGNOREFILES += $(gsettings_SCHEMAS)
 EXTRA_DIST +=				\
 	vapi/config.vapi		\
 	vapi/gitg-js-utils.vapi		\
-	vapi/gobject-introspection.vapi	\
+	vapi/gobject-introspection-1.0.vapi \
 	vapi/gtksourceview-3.0.deps	\
 	vapi/gtksourceview-3.0.vapi	\
 	vapi/libpeas-1.0.vapi		\
