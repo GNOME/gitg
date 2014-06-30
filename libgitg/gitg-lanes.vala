@@ -90,6 +90,18 @@ public class Lanes : Object
 		d_collapsed = new HashTable<Ggit.OId, CollapsedLane>(Ggit.OId.hash,
 		                                                     Ggit.OId.equal);
 
+		var settings = new Settings("org.gnome.gitg.preferences.history");
+
+		settings.bind("collapse-inactive-lanes-enabled",
+		              this,
+		              "inactive-enabled",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("collapse-inactive-lanes",
+		              this,
+		              "inactive-collapse",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 		reset();
 	}
 
