@@ -37,6 +37,15 @@ namespace GitgDiff
 			d_sw.show();
 
 			d_diff = new Gitg.DiffView();
+
+			var settings = new Settings("org.gnome.gitg.state.diff");
+
+			settings.bind("ignore-whitespace",
+			              d_diff,
+			              "ignore-whitespace",
+			              SettingsBindFlags.GET |
+			              SettingsBindFlags.SET);
+
 			d_diff.show();
 
 			d_sw.add(d_diff);
