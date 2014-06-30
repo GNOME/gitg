@@ -154,12 +154,18 @@ public class Commit : Ggit.Commit
 				}
 			}
 		}
-		catch {}
-
-		try
+		catch (Error e)
 		{
-			diff.find_similar(null);
-		} catch {}
+			stderr.printf("Error when getting diff: %s\n", e.message);
+		}
+
+		if (diff != null)
+		{
+			try
+			{
+				diff.find_similar(null);
+			} catch {}
+		}
 
 		return diff;
 	}
