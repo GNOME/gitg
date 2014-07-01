@@ -552,6 +552,100 @@ public class Stage : Object
 	}
 
 	/**
+	 * Revert a patch in the working directory.
+	 *
+	 * @param patch the patch to revert.
+	 *
+	 * Revert a provided patch from the working directory. The patch should
+	 * contain changes of the file in the current working directory to the contents
+	 * of the index (i.e. as obtained from diff_workdir)
+	 */
+	public async void revert_patch(PatchSet patch) throws Error
+	{
+		// new file is the current file in the working directory
+		var workdirf = d_repository.get_workdir().resolve_relative_path(patch.filename);
+		var workdirf_stream = yield workdirf.read_async();
+
+		yield thread_index((index) => {
+			var entries = index.get_entries();
+			var entry = entries.get_by_path(workdirf, 0);
+
+			if (entry == null)
+			{
+				throw new StageError.INDEX_ENTRY_NOT_FOUND(patch.filename);
+			}
+
+			var index_blob = d_repository.lookup<Ggit.Blob>(entry.get_id());
+			unowned uchar[] index_content = index_blob.get_raw_content();
+
+			var index_stream = new MemoryInputStream.from_bytes(new Bytes(index_content));
+			var reversed = patch.reversed();
+
+			FileIOStream? out_stream = null;
+			File ?outf = null;
+
+			try
+			{
+				outf = File.new_tmp(null, out out_stream);
+
+				apply_patch_stream(workdirf_stream,
+				                   index_stream,
+				                   out_stream.output_stream,
+				                   reversed);
+			}
+			catch (Error e)
+			{
+				workdirf_stream.close();
+				index_stream.close();
+
+				if (outf != null)
+				{
+					try
+					{
+						outf.delete();
+					} catch {}
+				}
+
+				throw e;
+			}
+
+			workdirf_stream.close();
+			index_stream.close();
+
+			if (out_stream != null)
+			{
+				out_stream.close();
+			}
+
+			// Move outf to workdirf
+			try
+			{
+				var repl = workdirf.replace(null,
+				                            false,
+				                            FileCreateFlags.NONE);
+
+				repl.splice(outf.read(),
+				            OutputStreamSpliceFlags.CLOSE_SOURCE |
+				            OutputStreamSpliceFlags.CLOSE_TARGET);
+			}
+			catch (Error e)
+			{
+				try
+				{
+					outf.delete();
+				} catch {}
+
+				throw e;
+			}
+
+			try
+			{
+				outf.delete();
+			} catch {}
+		});
+	}
+
+	/**
 	 * Delete a file from the index.
 	 *
 	 * @param file the file to delete.
@@ -628,10 +722,30 @@ public class Stage : Object
 		pos += length;
 	}
 
-	private void apply_patch(Ggit.Index index, InputStream old_stream, InputStream new_stream, PatchSet patch) throws Error
+	private void apply_patch(Ggit.Index  index,
+	                         InputStream old_stream,
+	                         InputStream new_stream,
+	                         PatchSet    patch) throws Error
 	{
 		var patched_stream = d_repository.create_blob();
 
+		apply_patch_stream(old_stream, new_stream, patched_stream, patch);
+
+		patched_stream.close();
+		var new_id = patched_stream.get_id();
+
+		var new_entry = d_repository.create_index_entry_for_path(patch.filename,
+		                                                         new_id);
+
+		index.add(new_entry);
+		index.write();
+	}
+
+	private void apply_patch_stream(InputStream  old_stream,
+	                                InputStream  new_stream,
+	                                OutputStream patched_stream,
+	                                PatchSet     patch) throws Error
+	{
 		size_t old_ptr = 0;
 		size_t new_ptr = 0;
 
@@ -665,15 +779,6 @@ public class Stage : Object
 
 		// Copy remaining part of old
 		patched_stream.splice(old_stream, OutputStreamSpliceFlags.NONE);
-		patched_stream.close();
-
-		var new_id = patched_stream.get_id();
-
-		var new_entry = d_repository.create_index_entry_for_path(patch.filename,
-		                                                         new_id);
-
-		index.add(new_entry);
-		index.write();
 	}
 
 	/**

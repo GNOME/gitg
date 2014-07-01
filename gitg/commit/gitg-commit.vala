@@ -148,6 +148,7 @@ namespace GitgCommit
 					d_main.diff_view.staged = false;
 
 					d_main.button_stage.label = _("_Stage selection");
+					d_main.button_discard.visible = true;
 
 					d_main.diff_view.diff = d;
 				}
@@ -232,6 +233,7 @@ namespace GitgCommit
 					d_main.diff_view.staged = true;
 
 					d_main.button_stage.label = _("_Unstage selection");
+					d_main.button_discard.visible = false;
 
 					d_main.diff_view.diff = d;
 				}
@@ -826,6 +828,72 @@ namespace GitgCommit
 			}
 		}
 
+		private async void discard_selection() throws Error
+		{
+			var selection = yield d_main.diff_view.get_selection();
+			var stage = application.repository.stage;
+
+			foreach (var pset in selection)
+			{
+				yield stage.revert_patch(pset);
+			}
+		}
+
+		private void on_discard_clicked()
+		{
+			var primary = _("Discard changes");
+			var secondary = _("Are you sure you want to permanently discard the selected changes in the file `%s'?").printf(d_current_file.path);
+
+			var q = new GitgExt.UserQuery();
+
+			q.title = primary;
+			q.message = secondary;
+			q.message_type = Gtk.MessageType.QUESTION;
+
+			q.responses = new GitgExt.UserQueryResponse[] {
+				new GitgExt.UserQueryResponse(_("Discard"), Gtk.ResponseType.OK),
+				new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL)
+			};
+
+			q.default_response = Gtk.ResponseType.OK;
+
+			q.response.connect((w, r) => {
+				if (r == Gtk.ResponseType.OK)
+				{
+					return do_discard_selection(q);
+				}
+
+				return true;
+			});
+
+			application.user_query(q);
+		}
+
+		private bool do_discard_selection(GitgExt.UserQuery q)
+		{
+			application.busy = true;
+
+			discard_selection.begin((obj, res) => {
+				try
+				{
+					discard_selection.end(res);
+				}
+				catch (Error e)
+				{
+					application.show_infobar(_("Failed to discard selection"),
+					                         e.message,
+					                         Gtk.MessageType.ERROR);
+				}
+
+				q.quit();
+				application.busy = false;
+
+				reload();
+			});
+
+			return false;
+		}
+
 		private void on_stage_clicked()
 		{
 			var staging = d_main.diff_view.unstaged;
@@ -944,10 +1012,19 @@ namespace GitgCommit
 				on_stage_clicked();
 			});
 
+			d_main.button_discard.clicked.connect(() => {
+				on_discard_clicked();
+			});
+
 			d_main.sidebar.populate_popup.connect(do_populate_menu);
 
 			d_main.diff_view.bind_property("has-selection",
 			                               d_main.button_stage,
+			                               "sensitive",
+			                               BindingFlags.DEFAULT);
+
+			d_main.diff_view.bind_property("has-selection",
+			                               d_main.button_discard,
 			                               "sensitive",
 			                               BindingFlags.DEFAULT);
 		}

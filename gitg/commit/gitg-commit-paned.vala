@@ -38,6 +38,9 @@ class Paned : Gtk.Paned
 	[GtkChild (name = "button_stage")]
 	private Gtk.Button d_button_stage;
 
+	[GtkChild (name = "button_discard")]
+	private Gtk.Button d_button_discard;
+
 	public Gitg.Sidebar sidebar
 	{
 		get { return d_tree_view_files; }
@@ -61,6 +64,11 @@ class Paned : Gtk.Paned
 	public Gtk.Button button_stage
 	{
 		get { return d_button_stage; }
+	}
+
+	public Gtk.Button button_discard
+	{
+		get { return d_button_discard; }
 	}
 
 	construct
