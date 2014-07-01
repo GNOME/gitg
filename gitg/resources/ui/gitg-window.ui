@@ -95,8 +95,9 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkRevealer" id="d_infobar_revealer">
+          <object class="GtkBox" id="d_infobar_placeholder">
             <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
             <child>
               <object class="GtkInfoBar" id="d_infobar">
                 <property name="visible">True</property>

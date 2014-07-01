@@ -68,15 +68,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.Stack d_stack_activities;
 
 	[GtkChild]
-	private Gtk.Revealer d_infobar_revealer;
-	[GtkChild]
 	private Gtk.InfoBar d_infobar;
 	[GtkChild]
 	private Gtk.Label d_infobar_primary_label;
 	[GtkChild]
 	private Gtk.Label d_infobar_secondary_label;
-	[GtkChild]
-	private Gtk.Button d_infobar_close_button;
 
 	private static const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
@@ -176,6 +172,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_header_bar.pack_end(d_gear_menu);
 		d_header_bar.pack_end(d_search_button);
 		d_header_bar.pack_end(d_activities_switcher);
+
+		d_infobar.response.connect((w, r) => {
+			d_infobar.hide();
+		});
 	}
 
 	private void on_close_activated()
@@ -238,7 +238,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 				}
 
 				title = @"$(d_repository.name) ($parent_path) - gitg";
-				d_infobar_revealer.set_reveal_child(false);
+				d_infobar.hide();
 			}
 
 			d_header_bar.set_title(d_repository.name);
@@ -556,21 +556,19 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		this.repository = repository;
 	}
 
-	public void show_infobar(string          primary_msg,
-	                         string          secondary_msg,
+	public void show_infobar(string          title,
+	                         string          message,
 	                         Gtk.MessageType type)
 	{
-		d_infobar.message_type = type;
-
-		var primary = "<b>%s</b>".printf(Markup.escape_text(primary_msg));
-		var secondary = "<small>%s</small>".printf(Markup.escape_text(secondary_msg));
+		var primary = "<b>%s</b>".printf(Markup.escape_text(title));
+		var secondary = "<small>%s</small>".printf(Markup.escape_text(message));
 
 		d_infobar_primary_label.set_label(primary);
 		d_infobar_secondary_label.set_label(secondary);
-		d_infobar_revealer.set_reveal_child(true);
+		d_infobar.message_type = type;
 
-		d_infobar_close_button.clicked.connect(() => {
-			d_infobar_revealer.set_reveal_child(false);
+		d_infobar.show();
+
 		});
 	}
 
