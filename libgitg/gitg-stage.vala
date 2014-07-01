@@ -533,8 +533,6 @@ public class Stage : Object
 
 			stream.write_all(blob.get_raw_content(), null);
 			stream.close();
-
-			index.write();
 		});
 	}
 
