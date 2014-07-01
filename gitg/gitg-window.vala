@@ -29,6 +29,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private GitgExt.MessageBus d_message_bus;
 	private string? d_action;
 	private Gee.HashMap<string, string> d_environment;
+	private Gtk.Dialog? d_dialog;
 
 	private UIElements<GitgExt.Activity> d_activities;
 
@@ -568,8 +569,49 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_infobar.message_type = type;
 
 		d_infobar.show();
+	}
 
+	public void user_query(GitgExt.UserQuery query)
+	{
+		var dlg = new Gtk.MessageDialog(this,
+		                                Gtk.DialogFlags.MODAL,
+		                                query.message_type,
+		                                Gtk.ButtonsType.NONE,
+		                                "");
+
+		var primary = "<b>%s</b>".printf(Markup.escape_text(query.title));
+		dlg.set_markup(primary);
+
+		dlg.format_secondary_text("%s", query.message);
+
+		foreach (var response in query.responses)
+		{
+			dlg.add_button(response.text, response.response_type);
+		}
+
+		dlg.set_default_response(query.default_response);
+
+		d_dialog = dlg;
+		dlg.add_weak_pointer(&d_dialog);
+
+		ulong qid = 0;
+
+		qid = query.quit.connect(() => {
+			dlg.destroy();
+			query.disconnect(qid);
 		});
+
+		dlg.response.connect((w, r) => {
+			dlg.sensitive = false;
+
+			if (query.response((Gtk.ResponseType)r))
+			{
+				dlg.destroy();
+				query.disconnect(qid);
+			}
+		});
+
+		dlg.show();
 	}
 
 	public Gee.Map<string, string> environment
