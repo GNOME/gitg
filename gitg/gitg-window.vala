@@ -29,6 +29,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private GitgExt.MessageBus d_message_bus;
 	private string? d_action;
 	private Gee.HashMap<string, string> d_environment;
+	private bool d_busy;
 	private Gtk.Dialog? d_dialog;
 
 	private UIElements<GitgExt.Activity> d_activities;
@@ -617,6 +618,36 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	public Gee.Map<string, string> environment
 	{
 		owned get { return d_environment; }
+	}
+
+	public bool busy
+	{
+		get { return d_busy; }
+		set
+		{
+			d_busy = value;
+
+			Gdk.Window win;
+
+			if (d_dialog != null)
+			{
+				win = d_dialog.get_window();
+			}
+			else
+			{
+				win = get_window();
+			}
+
+			if (d_busy)
+			{
+				win.set_cursor(new Gdk.Cursor.for_display(get_display(),
+				                                          Gdk.CursorType.WATCH));
+			}
+			else
+			{
+				win.set_cursor(null);
+			}
+		}
 	}
 }
 

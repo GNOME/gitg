@@ -61,6 +61,8 @@ public interface Application : Object
 	                                  string          secondary_msg,
 	                                  Gtk.MessageType type);
 
+	public abstract bool busy { get; set; }
+
 	public abstract Gee.Map<string, string> environment { owned get; }
 }
 
