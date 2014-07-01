@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-25 23:10+0200\n"
-"PO-Revision-Date: 2014-06-25 23:11+0200\n"
+"POT-Creation-Date: 2014-07-01 09:34+0200\n"
+"PO-Revision-Date: 2014-07-01 09:35+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -326,26 +326,26 @@ msgstr ""
 "W przeciwnym przypadku proszę zgłosić błąd w systemie zgłaszania błędów "
 "dystrybucji z informacją, że biblioteka libgit2 nie dostarcza obsługi wątków."
 
-#: ../gitg/gitg-window.vala:276
+#: ../gitg/gitg-window.vala:268
 msgid "Projects"
 msgstr "Projekty"
 
-#: ../gitg/gitg-window.vala:312
+#: ../gitg/gitg-window.vala:304
 msgid "Open Repository"
 msgstr "Otwarcie repozytorium"
 
-#: ../gitg/gitg-window.vala:314
+#: ../gitg/gitg-window.vala:306
 #: ../libgitg/gitg-diff-view-request-patch.vala:109
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: ../gitg/gitg-window.vala:315
+#: ../gitg/gitg-window.vala:307
 msgid "_Open"
 msgstr "_Otwórz"
 
-#: ../gitg/gitg-window.vala:552
+#: ../gitg/gitg-window.vala:544
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "\"%s\" nie jest repozytorium Git."
@@ -419,17 +419,21 @@ msgstr "Zapis pliku łaty"
 msgid "_Save"
 msgstr "_Zapisz"
 
-#: ../libgitg/gitg-diff-view.vala:123
+#: ../libgitg/gitg-diff-view.vala:152
 msgid "stage"
 msgstr "przenieś do przechowalni"
 
-#: ../libgitg/gitg-diff-view.vala:124
+#: ../libgitg/gitg-diff-view.vala:153
 msgid "unstage"
 msgstr "przenieś z przechowalni"
 
-#: ../libgitg/gitg-diff-view.vala:125
+#: ../libgitg/gitg-diff-view.vala:154
 msgid "Loading diff…"
 msgstr "Wczytywanie różnicy…"
+
+#: ../libgitg/gitg-diff-view.vala:519
+msgid "Ignore whitespace changes"
+msgstr "Ignorowanie zmian spacji"
 
 #: ../libgitg/gitg-stage.vala:335
 #, c-format
@@ -438,7 +442,7 @@ msgstr ""
 "Nie można odczytać komunikatu zatwierdzenia po wykonaniu haka \"commit-msg"
 "\": %s"
 
-#: ../plugins/diff/gitg-diff.vala:62
+#: ../plugins/diff/gitg-diff.vala:71
 msgid "Diff"
 msgstr "Różnica"
 
