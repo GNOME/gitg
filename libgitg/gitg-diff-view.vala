@@ -200,6 +200,8 @@ namespace Gitg
 			{
 				case "resource":
 					return new DiffViewRequestResource(view, request, uri);
+				case "icon":
+					return new DiffViewRequestIcon(view, request, uri);
 				case "diff":
 					return new DiffViewRequestDiff(view, request, uri);
 				case "patch":
@@ -524,6 +526,21 @@ namespace Gitg
 			});
 
 			m.append(item);
+
+			var dbg = Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null;
+
+			if (dbg)
+			{
+				var dev = new Gtk.MenuItem.with_label("Developer tools");
+
+				dev.activate.connect(() => {
+					var inspector = get_inspector();
+					inspector.show();
+				});
+
+				m.append(dev);
+			}
+
 			m.show_all();
 
 			m.attach_to_widget(this, null);

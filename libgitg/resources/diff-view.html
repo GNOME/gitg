@@ -7,20 +7,6 @@
   </head>
   <body>
     <div id="templates">
-      <!-- Commit template -->
-      <div class="commit">
-        <div class="diff_actions">
-          <button class="format_patch">Get patch</button>
-        </div>
-        <img class="avatar" src="avatar.png" />
-        <p>
-          <span class="author"></span><br/>
-          <span class="date"></span>
-        </p>
-        <p class="message"></p>
-        <div class="sha1"></div>
-      </div>
-
       <!-- Diff template -->
       <div class="file ${FILE_CLASSES}" data-filename="${FILE_FILENAME}">
         <table class="file">
@@ -44,7 +30,20 @@
       </div>
     </div>
     <div id="diff">
-      <div id="diff_header"></div>
+      <div id="diff_header">
+        <div class="commit">
+          <div class="diff_actions">
+            <button class="format_patch">Get patch</button>
+          </div>
+          <img class="avatar" data-id="avatar" src="gitg-diff:/icon/avatar-default-symbolic?size=50"/>
+          <p>
+            <span class="author" data-id="author"></span><br/>
+            <span class="date" data-id="date"></span>
+          </p>
+          <p class="message" data-id="message"></p>
+          <div class="sha1" data-id="sha1"></div>
+        </div>
+      </div>
       <div id="diff_content"></div>
     </div>
   </body>

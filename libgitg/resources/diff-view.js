@@ -28,80 +28,11 @@ var settings = {
 	},
 };
 
+var avatar_cache = {};
+
 if ('settings' in params)
 {
 	$.extend(settings, JSON.parse(params.settings));
-}
-
-var templates = {};
-
-function create_template(name, bindmap)
-{
-	templ = $('#templates').children('.' + name);
-
-	if (templ.length != 1)
-	{
-		return;
-	}
-
-	templ = $(templ[0]);
-
-	props = [];
-
-	$.each(bindmap, function (key, callback) {
-		props.push({
-			selector: key,
-			callback: callback
-		});
-	});
-
-	templates[name] = {
-		template: templ,
-		props: props,
-		execute: function (context) {
-			var ret = this.template.clone();
-
-			$.each(this.props, function (i, val) {
-				ret.find(val.selector).each(function (i, e) {
-					var ee = $(e);
-
-					retval = val.callback.call(context, ee);
-
-					if (typeof(retval) == 'undefined')
-					{
-						return;
-					}
-
-					if (retval.nodeType || retval.jquery)
-					{
-						ee.replace(retval);
-					}
-
-					if (typeof(retval) == 'string')
-					{
-						ee.text(retval);
-					}
-					else if ('text' in retval)
-					{
-						ee.text(retval.text);
-					}
-					else if ('html' in retval)
-					{
-						ee.html(retval.html);
-					}
-				});
-			});
-
-			return ret;
-		}
-	};
-
-	return templates[name];
-}
-
-function run_template(name, context)
-{
-	return templates[name].execute(context);
 }
 
 var escapeDiv = document.createElement('div');
@@ -114,10 +45,84 @@ function html_escape(str)
 	return escapeDiv.innerHTML;
 }
 
+var commit_elements = null;
 
-function write_commit(commit)
+function get_commit_elements(content)
 {
-	return run_template('commit', commit);
+	if (commit_elements != null)
+	{
+		return commit_elements;
+	}
+
+	var elems = content.find('[data-id]');
+
+	commit_elements = {};
+
+	for (var i = 0; i < elems.length; i++)
+	{
+		var elem = $(elems[i]);
+		var name = elem.attr('data-id');
+
+		commit_elements[name] = elem;
+	}
+
+	return commit_elements;
+}
+
+function write_avatar(avatar, commit)
+{
+	var h = commit.author.email_md5;
+
+	if (h in avatar_cache)
+	{
+		var avc = avatar_cache[h];
+
+		if (avc != null && avatar.attr('src') != avc)
+		{
+			avatar.attr('src', avc);
+		}
+
+		return;
+	}
+
+	var loader = $('<img/>');
+	var gravatar = 'http://www.gravatar.com/avatar/' + h + '?d=404&s=50';
+
+	loader.on('load', function () {
+		avatar_cache[h] = gravatar;
+
+		avatar.attr('src', gravatar);
+	});
+
+	loader.on('error', function () {
+		var avc = 'gitg-diff:/icon/avatar-default-symbolic?size=50';
+
+		avatar_cache[h] = avc;
+		avatar.attr('src', avc);
+	});
+
+	loader.attr('src', gravatar);
+}
+
+function write_commit(content, commit)
+{
+	var elems = get_commit_elements(content);
+
+	// Author
+	var name = $('<span/>', {'class': 'author name'}).text(commit.author.name);
+	var a = $('<a/>', {href: 'mailto:' + commit.author.email}).text(commit.author.email);
+	elems.author.html($('<span/>').append(name).append(' <').append(a).append('>'));
+
+	// Date
+	elems.date.text(commit.author.time);
+
+	// Message
+	elems.message.text(commit.message);
+
+	// Sha1
+	elems.sha1.text(commit.id);
+
+	write_avatar(elems.avatar, commit);
 }
 
 var html_builder_worker = 0;
@@ -431,56 +436,21 @@ function update_diff(id, lsettings)
 
 		if ('commit' in j)
 		{
-			$('#diff_header').html(write_commit(j.commit));
+			write_commit($('#diff_header .commit'), j.commit);
+			$('#diff_header').show();
 
 			$('.format_patch').click(function() {
 				xhr_get('patch', {id: j.commit.id});
 			});
 		}
+		else
+		{
+			$('#diff_header').hide();
+		}
 	});
 }
 
 addEventListener('DOMContentLoaded', function () {
-	create_template("commit", {
-		'.author': function () {
-			var name = $('<span/>', {'class': 'author name'}).text(this.author.name);
-			var a = $('<a/>', {href: 'mailto:' + this.author.email}).text(this.author.email);
-
-			return {html: $('<span/>').append(name).append(' <').append(a).append('>')};
-		},
-		'.date': function () {
-			return {text: this.author.time};
-		},
-		'.subject': function () {
-			return this.subject;
-		},
-		'.message': function () {
-			return this.message;
-		},
-		'.sha1': function () {
-			return this.id;
-		},
-		'.avatar': function (e) {
-			var h = this.author.email_md5;
-
-			var loader = $('<img/>');
-
-			loader.on('error', function () {
-				var robosrc = 'http://robohash.org/' + h + '.png?size=50x50';
-
-				e.attr('src', robosrc);
-			});
-
-			var gravatar = 'http://www.gravatar.com/avatar/' + h + '?d=404&s=50';
-
-			loader.on('load', function () {
-				e.attr('src', gravatar);
-			});
-
-			loader.attr('src', gravatar);
-		},
-	});
-
 	xhr_get('internal', {action: 'loaded'});
 }, false);
 
