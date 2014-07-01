@@ -40,6 +40,11 @@ namespace GitgCommit
 				d_file = f;
 			}
 
+			public Gitg.StageStatusFile file
+			{
+				get { return d_file; }
+			}
+
 			public string text
 			{
 				owned get { return d_file.path; }
@@ -851,6 +856,78 @@ namespace GitgCommit
 			});
 		}
 
+		private bool do_discard_file(GitgExt.UserQuery q, Gitg.StageStatusFile f)
+		{
+			var stage = application.repository.stage;
+
+			application.busy = true;
+
+			stage.revert_path.begin(f.path, (o, ret) => {
+				try
+				{
+					stage.revert_path.end(ret);
+				}
+				catch (Error e)
+				{
+					application.show_infobar(_("Failed to discard changes"),
+					                         e.message,
+					                         Gtk.MessageType.ERROR);
+				}
+
+				application.busy = false;
+				q.quit();
+
+				reload();
+			});
+
+			return false;
+		}
+
+		private void do_populate_menu(Gtk.Menu menu)
+		{
+			var f = d_main.sidebar.get_selected_item<SidebarFile>();
+
+			if (f == null)
+			{
+				return;
+			}
+
+			if (!d_current_staged)
+			{
+				var discard = new Gtk.MenuItem.with_label(_("Discard changes"));
+				menu.append(discard);
+
+				discard.activate.connect(() => {
+					var primary = _("Discard changes");
+					var secondary = _("Are you sure you want to permanently discard all changes made to the file `%s'?").printf(f.file.path);
+
+					var q = new GitgExt.UserQuery();
+
+					q.title = primary;
+					q.message = secondary;
+					q.message_type = Gtk.MessageType.QUESTION;
+
+					q.responses = new GitgExt.UserQueryResponse[] {
+						new GitgExt.UserQueryResponse(_("Discard"), Gtk.ResponseType.OK),
+						new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL)
+					};
+
+					q.default_response = Gtk.ResponseType.OK;
+
+					q.response.connect((w, r) => {
+						if (r == Gtk.ResponseType.OK)
+						{
+							return do_discard_file(q, f.file);
+						}
+
+						return true;
+					});
+
+					application.user_query(q);
+				});
+			}
+		}
+
 		private void build_ui()
 		{
 			d_main = new Paned();
@@ -866,6 +943,8 @@ namespace GitgCommit
 			d_main.button_stage.clicked.connect(() => {
 				on_stage_clicked();
 			});
+
+			d_main.sidebar.populate_popup.connect(do_populate_menu);
 
 			d_main.diff_view.bind_property("has-selection",
 			                               d_main.button_stage,
