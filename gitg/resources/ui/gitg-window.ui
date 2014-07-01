@@ -20,6 +20,7 @@
             <property name="visible">False</property>
             <property name="valign">center</property>
             <property name="can_focus">False</property>
+            <property name="tooltip-text" translatable="yes">Show the list of recently used repositories</property>
             <signal name="clicked" handler="dash_button_clicked" swapped="no"/>
             <style>
               <class name="image-button"/>
@@ -42,6 +43,7 @@
             <property name="valign">center</property>
             <property name="can_focus">False</property>
             <property name="action_name">win.search</property>
+            <property name="tooltip-text" translatable="yes">Find a word or phrase</property>
             <signal name="toggled" handler="search_button_toggled" swapped="no"/>
             <style>
               <class name="image-button"/>
@@ -73,6 +75,7 @@
             <property name="can_focus">False</property>
             <property name="use_popover">True</property>
             <property name="action_name">win.gear-menu</property>
+            <property name="tooltip-text" translatable="yes">General settings and options</property>
             <style>
               <class name="image-button"/>
             </style>
