@@ -166,20 +166,13 @@ function has_class(e, cls)
 	return e.classList.contains(cls);
 }
 
-var has_selection = false;
-
 function update_has_selection()
 {
 	var selection = document.querySelectorAll('tr.added.selected, tr.removed.selected');
 	var hs = (selection.length != 0);
 
-	if (hs != has_selection)
-	{
-		has_selection = hs;
-
-		var v = has_selection ? "yes" : "no";
-		xhr_get('internal', {action: 'selection-changed', value: v});
-	}
+	var v = hs ? "yes" : "no";
+	xhr_get('internal', {action: 'selection-changed', value: v});
 }
 
 function prepare_patchset(filediv)
