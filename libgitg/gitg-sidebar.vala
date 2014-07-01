@@ -193,6 +193,8 @@ public class Sidebar : Gtk.TreeView
 
 	public signal void deselected();
 
+	public signal void populate_popup(Gtk.Menu menu);
+
 	construct
 	{
 		d_column.set_cell_data_func(d_renderer_icon, (layout, cell, model, iter) => {
@@ -323,6 +325,52 @@ public class Sidebar : Gtk.TreeView
 	{
 		get { return base.get_model() as SidebarStore; }
 		set { base.set_model(value); }
+	}
+
+	private bool do_populate_popup(Gdk.EventButton? event)
+	{
+		Gtk.Menu menu = new Gtk.Menu();
+
+		populate_popup(menu);
+
+		if (menu.get_children() == null)
+		{
+			return false;
+		}
+
+		menu.show_all();
+		menu.attach_to_widget(this, null);
+
+		uint button = 0;
+		uint32 t = Gdk.CURRENT_TIME;
+
+		if (event != null)
+		{
+			button = event.button;
+			t = event.time;
+		}
+
+		menu.popup(null, null, null, button, t);
+		return true;
+	}
+
+	protected override bool button_press_event(Gdk.EventButton event)
+	{
+		var ret = base.button_press_event(event);
+
+		Gdk.Event *ev = (Gdk.Event *)event;
+
+		if (ev->triggers_context_menu())
+		{
+			return do_populate_popup(event);
+		}
+
+		return ret;
+	}
+
+	protected override bool popup_menu()
+	{
+		return do_populate_popup(null);
 	}
 }
 
