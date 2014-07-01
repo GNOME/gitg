@@ -164,6 +164,11 @@ namespace GitgHistory
 			owned get { return _("History"); }
 		}
 
+		public string description
+		{
+			owned get { return _("Examine the history of the repository"); }
+		}
+
 		public string? icon
 		{
 			owned get { return "view-list-symbolic"; }

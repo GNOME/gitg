@@ -51,6 +51,14 @@ public interface UIElement : Object
 	public abstract string display_name { owned get; }
 
 	/**
+	 * The description of the ui element.
+	 *
+	 * This should result in a string which can
+	 * be displayed in the gitg UI to describe the element.
+	 */
+	public abstract string description { owned get; }
+
+	/**
 	 * The ui element icon.
 	 *
 	 * If provided, the icon will be used in navigation toolbars

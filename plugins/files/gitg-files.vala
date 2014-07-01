@@ -63,6 +63,11 @@ namespace GitgFiles
 			owned get { return _("Files"); }
 		}
 
+		public string description
+		{
+			owned get { return _("Show the files in the tree of the selected commit"); }
+		}
+
 		public string? icon
 		{
 			owned get { return "system-file-manager-symbolic"; }

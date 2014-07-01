@@ -71,6 +71,11 @@ namespace GitgDiff
 			owned get { return _("Diff"); }
 		}
 
+		public string description
+		{
+			owned get { return _("Show the changes introduced by the selected commit"); }
+		}
+
 		public string? icon
 		{
 			owned get { return "diff-symbolic"; }

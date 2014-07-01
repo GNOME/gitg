@@ -180,7 +180,7 @@ public class UIElements<T> : Object
 
 		d_stack.add_with_properties(e.widget,
 		                            "name", e.id,
-		                            "title", e.display_name,
+		                            "title", e.description,
 		                            "icon-name", e.icon,
 		                            "position", insert_position);
 	}

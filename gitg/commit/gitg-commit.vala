@@ -110,6 +110,11 @@ namespace GitgCommit
 			owned get { return _("Commit"); }
 		}
 
+		public string description
+		{
+			owned get { return _("Create new commits and manage the staging area"); }
+		}
+
 		public string? icon
 		{
 			owned get { return "document-save-symbolic"; }
