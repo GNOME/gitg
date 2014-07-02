@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-06-30 05:37+0000\n"
-"PO-Revision-Date: 2014-06-30 09:47+0100\n"
+"POT-Creation-Date: 2014-07-02 05:35+0000\n"
+"PO-Revision-Date: 2014-07-02 10:53+0100\n"
 "Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
@@ -157,85 +157,89 @@ msgstr ""
 msgid "Cannot set spell checking language: %s"
 msgstr "Sie Sprache der Rechtschreibkorrektur kann nicht festgelegt werden: %s"
 
-#: ../gitg/commit/gitg-commit.vala:105
+#: ../gitg/commit/gitg-commit.vala:110
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
 msgstr "Einspielen"
 
-#: ../gitg/commit/gitg-commit.vala:145
+#: ../gitg/commit/gitg-commit.vala:115
+msgid "Create new commits and manage the staging area"
+msgstr "Neue Einspielpunkte erstellen und den Bereitstellungsbereich verwalten"
+
+#: ../gitg/commit/gitg-commit.vala:155
 msgid "_Stage selection"
 msgstr "Auswahl _bereitstellen"
 
-#: ../gitg/commit/gitg-commit.vala:168
+#: ../gitg/commit/gitg-commit.vala:179
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Bereitstellen der Datei »%s« ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:187
+#: ../gitg/commit/gitg-commit.vala:198
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Bereitstellung zum Entfernen der Datei »%s« fehlgeschlagen"
 
-#: ../gitg/commit/gitg-commit.vala:229
+#: ../gitg/commit/gitg-commit.vala:240
 msgid "_Unstage selection"
 msgstr "Bereitstellung der Auswahl _zurücknehmen"
 
-#: ../gitg/commit/gitg-commit.vala:252
+#: ../gitg/commit/gitg-commit.vala:264
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr ""
 "Zurücknehmen der Bereitstellung zum Entfernen der Datei »%s« fehlgeschlagen"
 
-#: ../gitg/commit/gitg-commit.vala:271
+#: ../gitg/commit/gitg-commit.vala:283
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Zurücknehmen der Bereitstellung der Datei »%s« ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:412
+#: ../gitg/commit/gitg-commit.vala:424
 msgid "Staged"
 msgstr "Bereit gestellt"
 
-#: ../gitg/commit/gitg-commit.vala:419
+#: ../gitg/commit/gitg-commit.vala:431
 msgid "No staged files"
 msgstr "Keine bereit gestellten Dateien"
 
-#: ../gitg/commit/gitg-commit.vala:431
+#: ../gitg/commit/gitg-commit.vala:443
 msgid "Unstaged"
 msgstr "Bereitstellung zurückgenommen"
 
-#: ../gitg/commit/gitg-commit.vala:435
+#: ../gitg/commit/gitg-commit.vala:447
 msgid "No unstaged files"
 msgstr "Keine von einer Bereitstellung zurückgenommene Dateien"
 
-#: ../gitg/commit/gitg-commit.vala:447
+#: ../gitg/commit/gitg-commit.vala:459
 msgid "Untracked"
 msgstr "Nicht verfolgt"
 
-#: ../gitg/commit/gitg-commit.vala:451
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "No untracked files"
 msgstr "Keine nicht verfolgten Dateien"
 
-#: ../gitg/commit/gitg-commit.vala:506
+#: ../gitg/commit/gitg-commit.vala:518
 msgid "There are no changes to be committed"
 msgstr "Es gibt keine Änderungen zum Einspielen"
 
-#: ../gitg/commit/gitg-commit.vala:507
+#: ../gitg/commit/gitg-commit.vala:519
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Verwenden Sie Abändern zum Ändern der Einspielmeldung der vorhergehenden "
 "Einspielung"
 
-#: ../gitg/commit/gitg-commit.vala:533
+#: ../gitg/commit/gitg-commit.vala:545
 msgid "Failed to commit"
 msgstr "Einspielen schlug fehl"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:549 ../gitg/commit/gitg-commit.vala:782
+#: ../gitg/commit/gitg-commit.vala:561 ../gitg/commit/gitg-commit.vala:794
 msgid "Failed to pass pre-commit"
 msgstr "pre-commit ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:770
+#: ../gitg/commit/gitg-commit.vala:782
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -243,7 +247,7 @@ msgstr ""
 "Ihr Benutzername und E-Mail sind noch nicht eingerichtet. Bitte wechseln Sie "
 "in die Benutzerkonfiguration und geben Sie Ihren Namen und Ihre E-Mail ein."
 
-#: ../gitg/commit/gitg-commit.vala:774
+#: ../gitg/commit/gitg-commit.vala:786
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -251,7 +255,7 @@ msgstr ""
 "Ihr Benutzername ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihren Namen ein."
 
-#: ../gitg/commit/gitg-commit.vala:778
+#: ../gitg/commit/gitg-commit.vala:790
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -259,13 +263,58 @@ msgstr ""
 "Ihre E-Mail ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihre E-Mail ein."
 
-#: ../gitg/commit/gitg-commit.vala:839
+#: ../gitg/commit/gitg-commit.vala:849 ../gitg/commit/gitg-commit.vala:970
+#: ../gitg/commit/gitg-commit.vala:974
+#| msgid "Staged changes"
+msgid "Discard changes"
+msgstr "Änderungen verwerfen"
+
+#: ../gitg/commit/gitg-commit.vala:850
+#, c-format
+#| msgid "Are you sure you want to delete these files?"
+msgid ""
+"Are you sure you want to permanently discard the selected changes in the "
+"file `%s'?"
+msgstr ""
+"Möchten Sie wirklich die gewählten Änderungen der Datei »%s« verwerfen?"
+
+#: ../gitg/commit/gitg-commit.vala:859 ../gitg/commit/gitg-commit.vala:984
+msgid "Discard"
+msgstr "Verwerfen"
+
+#: ../gitg/commit/gitg-commit.vala:860 ../gitg/commit/gitg-commit.vala:985
+#: ../gitg/gitg-window.vala:308
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+msgid "_Cancel"
+msgstr "A_bbrechen"
+
+#: ../gitg/commit/gitg-commit.vala:888
+#| msgid "Failed to stage selection"
+msgid "Failed to discard selection"
+msgstr "Verwerfen der Auswahl ist gescheitert"
+
+#: ../gitg/commit/gitg-commit.vala:917
 msgid "Failed to stage selection"
 msgstr "Bereitstellen der Auswahl ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:843
+#: ../gitg/commit/gitg-commit.vala:921
 msgid "Failed to unstage selection"
 msgstr "Zurücknehmen der Bereitstellung der Auswahl ist gescheitert"
+
+#: ../gitg/commit/gitg-commit.vala:945
+#| msgid "Failed to set Git user config."
+msgid "Failed to discard changes"
+msgstr "Verwerfen der Änderungen ist gescheitert"
+
+#: ../gitg/commit/gitg-commit.vala:975
+#, c-format
+#| msgid "Are you sure you want to delete these files?"
+msgid ""
+"Are you sure you want to permanently discard all changes made to the file `"
+"%s'?"
+msgstr "Möchten Sie wirklich alle Änderungen der Datei »%s« verwerfen?"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -338,26 +387,19 @@ msgstr ""
 "Distribution, um die Bereitstellung von libgit2 ohne Unterstützung für "
 "Threading zu melden."
 
-#: ../gitg/gitg-window.vala:268
+#: ../gitg/gitg-window.vala:270
 msgid "Projects"
 msgstr "Projekte"
 
-#: ../gitg/gitg-window.vala:304
+#: ../gitg/gitg-window.vala:306
 msgid "Open Repository"
 msgstr "Softwarebestand öffnen"
 
-#: ../gitg/gitg-window.vala:306
-#: ../libgitg/gitg-diff-view-request-patch.vala:109
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
-msgid "_Cancel"
-msgstr "A_bbrechen"
-
-#: ../gitg/gitg-window.vala:307
+#: ../gitg/gitg-window.vala:309
 msgid "_Open"
 msgstr "Ö_ffnen"
 
-#: ../gitg/gitg-window.vala:544
+#: ../gitg/gitg-window.vala:546
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "»%s« ist kein gültiger Git-Softwarebestand."
@@ -386,6 +428,10 @@ msgstr "Schlagwörter"
 #: ../gitg/preferences/gitg-preferences-history.vala:144
 msgid "History"
 msgstr "Chronik"
+
+#: ../gitg/history/gitg-history.vala:169
+msgid "Examine the history of the repository"
+msgstr "Die Geschichte des Softwarebestandes untersuchen"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:73
 msgid "Interface"
@@ -428,17 +474,21 @@ msgstr "Patch-Datei speichern"
 msgid "_Save"
 msgstr "_Speichern"
 
-#: ../libgitg/gitg-diff-view.vala:126
+#: ../libgitg/gitg-diff-view.vala:152
 msgid "stage"
 msgstr "Bereitstellen"
 
-#: ../libgitg/gitg-diff-view.vala:127
+#: ../libgitg/gitg-diff-view.vala:153
 msgid "unstage"
 msgstr "Bereitstellung zurücknehmen"
 
-#: ../libgitg/gitg-diff-view.vala:128
+#: ../libgitg/gitg-diff-view.vala:154
 msgid "Loading diff…"
 msgstr "diff wird geladen …"
+
+#: ../libgitg/gitg-diff-view.vala:521
+msgid "Ignore whitespace changes"
+msgstr "Änderungen der Leerzeichen ignorieren"
 
 #: ../libgitg/gitg-stage.vala:335
 #, c-format
@@ -447,13 +497,21 @@ msgstr ""
 "Einspielmeldung konnte nicht nach der Ausführung des gekoppelten "
 "Einspielskriptes »commit-msg hook« gelesen werden: %s"
 
-#: ../plugins/diff/gitg-diff.vala:62
+#: ../plugins/diff/gitg-diff.vala:71
 msgid "Diff"
 msgstr "Diff"
+
+#: ../plugins/diff/gitg-diff.vala:76
+msgid "Show the changes introduced by the selected commit"
+msgstr "Die Änderungen des gewählten Einspielspeicherpunktes anzeigen"
 
 #: ../plugins/files/gitg-files.vala:63
 msgid "Files"
 msgstr "Dateien"
+
+#: ../plugins/files/gitg-files.vala:68
+msgid "Show the files in the tree of the selected commit"
+msgstr "Dateien des gewählten Einspielspeicherpunktes anzeigen"
 
 #. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
@@ -530,7 +588,7 @@ msgid "_Amend previous commit"
 msgstr "Vorherige Einspielung _abändern"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
-#: ../gitg/resources/ui/gitg-window.ui.h:2
+#: ../gitg/resources/ui/gitg-window.ui.h:5
 msgid "Close"
 msgstr "Schließen"
 
@@ -541,6 +599,11 @@ msgstr "Gekoppelte Einspielskripte über_springen"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 msgid "S_tage selection"
 msgstr "Auswahl _bereitstellen"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
+#| msgid "_Unstage selection"
+msgid "D_iscard selection"
+msgstr "Auswahl ver_werfen"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -655,6 +718,19 @@ msgstr "Horizontales Layout verwenden"
 msgid "Preferences"
 msgstr "Einstellungen"
 
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+#| msgid "Open a recently used repository."
+msgid "Show the list of recently used repositories"
+msgstr "Die Liste der zuletzt verwendeten Softwarebestände anzeigen"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Find a word or phrase"
+msgstr "Ein Wort oder eine Wortkette suchen"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+msgid "General settings and options"
+msgstr "Generelle Einstellungen und Optionen"
+
 #: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
@@ -756,9 +832,6 @@ msgstr "Spalte"
 
 #~ msgid "Recent repository"
 #~ msgstr "Letzter Softwarebestand"
-
-#~ msgid "Open a recently used repository."
-#~ msgstr "Einen zuletzt verwendeten Softwarebestand öffnen."
 
 #~ msgid "Path:"
 #~ msgstr "Pfad:"
@@ -1059,9 +1132,6 @@ msgstr "Spalte"
 #~ msgid "Delete Failed"
 #~ msgstr "Löschen fehlgeschlagen"
 
-#~ msgid "Are you sure you want to delete these files?"
-#~ msgstr "Wollen Sie diese Dateien wirklich löschen?"
-
 #~ msgid "Deleting files is permanent and cannot be undone"
 #~ msgstr ""
 #~ "Löschen von Dateien ist dauerhaft und kann nicht rückgängig gemacht werden"
@@ -1228,9 +1298,6 @@ msgstr "Spalte"
 
 #~ msgid "Unknown"
 #~ msgstr "Unbekannt"
-
-#~ msgid "Staged changes"
-#~ msgstr "Bereitgestellte Änderungen"
 
 #~ msgid "It is not possible to detect the encoding automatically"
 #~ msgstr "Die Kodierung kann nicht automatisch erkannt werden"
