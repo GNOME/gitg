@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gitg 0.0.6\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-06-26 05:37+0000\n"
-"PO-Revision-Date: 2014-06-26 21:17+0400\n"
+"POT-Creation-Date: 2014-07-02 05:35+0000\n"
+"PO-Revision-Date: 2014-07-02 18:12+0400\n"
 "Last-Translator: Yuri Myasoedov <ymyasoedov@yandex.ru>\n"
 "Language-Team: ru <gnome-cyr@gnome.org>\n"
 "Language: ru_RU\n"
@@ -144,84 +144,88 @@ msgstr ""
 msgid "Cannot set spell checking language: %s"
 msgstr "Не удалось назначить язык для проверки правописания: %s"
 
-#: ../gitg/commit/gitg-commit.vala:105
+#: ../gitg/commit/gitg-commit.vala:110
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
 msgstr "Фиксация"
 
-#: ../gitg/commit/gitg-commit.vala:145
+#: ../gitg/commit/gitg-commit.vala:115
+msgid "Create new commits and manage the staging area"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:155
 msgid "_Stage selection"
 msgstr "_Проиндексировать"
 
-#: ../gitg/commit/gitg-commit.vala:168
+#: ../gitg/commit/gitg-commit.vala:179
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Не удалось проиндексировать файл «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:187
+#: ../gitg/commit/gitg-commit.vala:198
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Не удалось индексировать удаление файла «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:229
+#: ../gitg/commit/gitg-commit.vala:240
 msgid "_Unstage selection"
 msgstr "_Отменить индексацию"
 
-#: ../gitg/commit/gitg-commit.vala:252
+#: ../gitg/commit/gitg-commit.vala:264
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Не удалось отменить индексирование удаления файла «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:271
+#: ../gitg/commit/gitg-commit.vala:283
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Не удалось отменить индексирование файла «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:412
+#: ../gitg/commit/gitg-commit.vala:424
 msgid "Staged"
 msgstr "Проиндексированные"
 
-#: ../gitg/commit/gitg-commit.vala:419
+#: ../gitg/commit/gitg-commit.vala:431
 msgid "No staged files"
 msgstr "Нет проиндексированных файлов"
 
-#: ../gitg/commit/gitg-commit.vala:431
+#: ../gitg/commit/gitg-commit.vala:443
 msgid "Unstaged"
 msgstr "Неиндексированные"
 
-#: ../gitg/commit/gitg-commit.vala:435
+#: ../gitg/commit/gitg-commit.vala:447
 msgid "No unstaged files"
 msgstr "Нет непроиндексированных файлов"
 
-#: ../gitg/commit/gitg-commit.vala:447
+#: ../gitg/commit/gitg-commit.vala:459
 msgid "Untracked"
 msgstr "Неотслеживаемые"
 
-#: ../gitg/commit/gitg-commit.vala:451
+#: ../gitg/commit/gitg-commit.vala:463
 msgid "No untracked files"
 msgstr "Нет неотслеживаемых файлов"
 
-#: ../gitg/commit/gitg-commit.vala:506
+#: ../gitg/commit/gitg-commit.vala:518
 msgid "There are no changes to be committed"
 msgstr "Нет изменений для фиксации"
 
-#: ../gitg/commit/gitg-commit.vala:507
+#: ../gitg/commit/gitg-commit.vala:519
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Используйте дополнение фиксации, чтобы изменить сообщение о предыдущей "
 "фиксации"
 
-#: ../gitg/commit/gitg-commit.vala:533
+#: ../gitg/commit/gitg-commit.vala:545
 msgid "Failed to commit"
 msgstr "Не удалось фиксировать"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:549 ../gitg/commit/gitg-commit.vala:782
+#: ../gitg/commit/gitg-commit.vala:561 ../gitg/commit/gitg-commit.vala:794
 msgid "Failed to pass pre-commit"
 msgstr "Не удалось пройти перехватчик pre-commit"
 
-#: ../gitg/commit/gitg-commit.vala:770
+#: ../gitg/commit/gitg-commit.vala:782
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -229,7 +233,7 @@ msgstr ""
 "Имя пользователя и e-mail ещё не настроены. Перейдите к настройке "
 "пользователя и укажите имя пользователя и e-mail."
 
-#: ../gitg/commit/gitg-commit.vala:774
+#: ../gitg/commit/gitg-commit.vala:786
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -237,20 +241,63 @@ msgstr ""
 "Имя пользователя ещё не настроено. Перейдите к настройке пользователя и "
 "укажите имя пользователя."
 
-#: ../gitg/commit/gitg-commit.vala:778
+#: ../gitg/commit/gitg-commit.vala:790
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "E-mail ещё не настроен. Перейдите к настройке пользователя и укажите e-mail."
 
-#: ../gitg/commit/gitg-commit.vala:839
+#: ../gitg/commit/gitg-commit.vala:849 ../gitg/commit/gitg-commit.vala:970
+#: ../gitg/commit/gitg-commit.vala:974
+msgid "Discard changes"
+msgstr "Отменить изменения"
+
+#: ../gitg/commit/gitg-commit.vala:850
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard the selected changes in the "
+"file `%s'?"
+msgstr ""
+"Уверены, что хотите отменить выбранные изменения сделанные в файле «%s»?"
+
+#: ../gitg/commit/gitg-commit.vala:859 ../gitg/commit/gitg-commit.vala:984
+msgid "Discard"
+msgstr "Отменить"
+
+#: ../gitg/commit/gitg-commit.vala:860 ../gitg/commit/gitg-commit.vala:985
+#: ../gitg/gitg-window.vala:308
+#: ../libgitg/gitg-diff-view-request-patch.vala:109
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+msgid "_Cancel"
+msgstr "_Отменить"
+
+#: ../gitg/commit/gitg-commit.vala:888
+#, fuzzy
+#| msgid "Failed to stage selection"
+msgid "Failed to discard selection"
+msgstr "Не удалось отменить выделение"
+
+#: ../gitg/commit/gitg-commit.vala:917
 msgid "Failed to stage selection"
 msgstr "Не удалось проиндексировать"
 
-#: ../gitg/commit/gitg-commit.vala:843
+#: ../gitg/commit/gitg-commit.vala:921
 msgid "Failed to unstage selection"
 msgstr "Не удалось отменить индексацию"
+
+#: ../gitg/commit/gitg-commit.vala:945
+#| msgid "Failed to set Git user config."
+msgid "Failed to discard changes"
+msgstr "Не удалось отменить изменения"
+
+#: ../gitg/commit/gitg-commit.vala:975
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the file `"
+"%s'?"
+msgstr "Уверены, что хотите отменить все изменения сделанные в файле «%s»?"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -316,26 +363,19 @@ msgstr ""
 "В противном случае, сообщите в системе учёта ошибок вашего дистрибутива о "
 "том, что libgit2 был собран без поддержки потоков."
 
-#: ../gitg/gitg-window.vala:268
+#: ../gitg/gitg-window.vala:270
 msgid "Projects"
 msgstr "Проекты"
 
-#: ../gitg/gitg-window.vala:304
+#: ../gitg/gitg-window.vala:306
 msgid "Open Repository"
 msgstr "Открыть репозиторий"
 
-#: ../gitg/gitg-window.vala:306
-#: ../libgitg/gitg-diff-view-request-patch.vala:109
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
-msgid "_Cancel"
-msgstr "_Отменить"
-
-#: ../gitg/gitg-window.vala:307
+#: ../gitg/gitg-window.vala:309
 msgid "_Open"
 msgstr "_Открыть"
 
-#: ../gitg/gitg-window.vala:544
+#: ../gitg/gitg-window.vala:546
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» не является репозиторием Git."
@@ -364,6 +404,10 @@ msgstr "Метки"
 #: ../gitg/preferences/gitg-preferences-history.vala:144
 msgid "History"
 msgstr "История"
+
+#: ../gitg/history/gitg-history.vala:169
+msgid "Examine the history of the repository"
+msgstr ""
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:73
 msgid "Interface"
@@ -409,17 +453,21 @@ msgstr "Сохранить файл-заплатку"
 msgid "_Save"
 msgstr "_Сохранить"
 
-#: ../libgitg/gitg-diff-view.vala:123
+#: ../libgitg/gitg-diff-view.vala:152
 msgid "stage"
 msgstr "индексировать"
 
-#: ../libgitg/gitg-diff-view.vala:124
+#: ../libgitg/gitg-diff-view.vala:153
 msgid "unstage"
 msgstr "отменить индексацию"
 
-#: ../libgitg/gitg-diff-view.vala:125
+#: ../libgitg/gitg-diff-view.vala:154
 msgid "Loading diff…"
 msgstr "Загрузка различий…"
+
+#: ../libgitg/gitg-diff-view.vala:521
+msgid "Ignore whitespace changes"
+msgstr "Игнорировать изменения пробелов и табуляций"
 
 #: ../libgitg/gitg-stage.vala:335
 #, c-format
@@ -428,13 +476,21 @@ msgstr ""
 "Не удалось прочитать сообщение фиксации после запуска перехватчика commit-"
 "msg: %s"
 
-#: ../plugins/diff/gitg-diff.vala:62
+#: ../plugins/diff/gitg-diff.vala:71
 msgid "Diff"
 msgstr "Различия"
+
+#: ../plugins/diff/gitg-diff.vala:76
+msgid "Show the changes introduced by the selected commit"
+msgstr "Показать изменения, внесённые выбранной фиксацией"
 
 #: ../plugins/files/gitg-files.vala:63
 msgid "Files"
 msgstr "Файлы"
+
+#: ../plugins/files/gitg-files.vala:68
+msgid "Show the files in the tree of the selected commit"
+msgstr "Показать файлы в дереве выбранной фиксации"
 
 #. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
@@ -509,7 +565,7 @@ msgid "_Amend previous commit"
 msgstr "_Дополнить предыдущую фиксацию"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
-#: ../gitg/resources/ui/gitg-window.ui.h:2
+#: ../gitg/resources/ui/gitg-window.ui.h:5
 msgid "Close"
 msgstr "Закрыть"
 
@@ -520,6 +576,12 @@ msgstr "Пропустить _перехватчики фиксации"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 msgid "S_tage selection"
 msgstr "Про_индексировать"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
+#, fuzzy
+#| msgid "_Unstage selection"
+msgid "D_iscard selection"
+msgstr "_Отменить индексацию"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -632,6 +694,18 @@ msgstr "Использовать горизонтальное расположе
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "Preferences"
 msgstr "Параметры"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Show the list of recently used repositories"
+msgstr "Показать список недавно использовавшихся репозиториев"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Find a word or phrase"
+msgstr "Найти слово или словосочетание"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+msgid "General settings and options"
+msgstr "Основные параметры"
 
 #: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
 msgid ""
