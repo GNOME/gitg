@@ -9,6 +9,7 @@
     <child name="history" schema="org.gnome.gitg.preferences.history" />
     <child name="commit" schema="org.gnome.gitg.preferences.commit" />
     <child name="hidden" schema="org.gnome.gitg.preferences.hidden" />
+    <child name="diff" schema="org.gnome.gitg.preferences.diff" />
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.main" path="/org/gnome/gitg/preferences/main/">
     <key name="clone-directory" type="s">
@@ -125,11 +126,21 @@
       <!-- TODO _description -->
     </key>
   </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.diff" path="/org/gnome/gitg/preferences/diff/">
+    <key name="ignore-whitespace" type="b">
+      <default>false</default>
+    </key>
+    <key name="changes-inline" type="b">
+      <default>false</default>
+    </key>
+    <key name="context-lines" type="i">
+      <default>3</default>
+    </key>
+  </schema>
   <schema id="org.gnome.gitg.state" path="/org/gnome/gitg/state/">
     <child name="window" schema="org.gnome.gitg.state.window"/>
     <child name="history" schema="org.gnome.gitg.state.history"/>
     <child name="commit" schema="org.gnome.gitg.state.commit"/>
-    <child name="diff" schema="org.gnome.gitg.state.diff"/>
   </schema>
   <schema id="org.gnome.gitg.state.window" path="/org/gnome/gitg/state/window/">
     <key name="state" type="i">
@@ -164,11 +175,6 @@
       <default>200</default>
     </key>
     <key name="sign-off" type="b">
-      <default>false</default>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.state.diff" path="/org/gnome/gitg/state/diff/">
-    <key name="ignore-whitespace" type="b">
       <default>false</default>
     </key>
   </schema>

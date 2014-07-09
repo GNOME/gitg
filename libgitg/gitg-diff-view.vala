@@ -104,25 +104,63 @@ namespace Gitg
 		public bool unstaged { get; set; default = false; }
 		public int tab_width { get; set; default = 4; }
 
+		private bool flag_get(Ggit.DiffOption f)
+		{
+			return (options.flags & f) != 0;
+		}
+
+		private void flag_set(Ggit.DiffOption f, bool val)
+		{
+			if (val)
+			{
+				options.flags |= f;
+			}
+			else
+			{
+				options.flags &= ~f;
+			}
+
+			update();
+		}
+
 		public bool ignore_whitespace
 		{
-			get { return (options.flags & Ggit.DiffOption.IGNORE_WHITESPACE) != 0; }
+			get { return flag_get(Ggit.DiffOption.IGNORE_WHITESPACE); }
+			set { flag_set(Ggit.DiffOption.IGNORE_WHITESPACE, value); }
+			default = false;
+		}
+
+		private bool d_changes_inline;
+
+		public bool changes_inline
+		{
+			get { return d_changes_inline; }
 			set
 			{
-				if (value != ignore_whitespace)
+				if (d_changes_inline != value)
 				{
-					if (value)
-					{
-						options.flags |= Ggit.DiffOption.IGNORE_WHITESPACE;
-					}
-					else
-					{
-						options.flags &= ~Ggit.DiffOption.IGNORE_WHITESPACE;
-					}
-
-					update();
+					d_changes_inline = value;
 				}
+
+				update();
 			}
+
+			default = false;
+		}
+
+		public int context_lines
+		{
+			get { return options.n_context_lines; }
+
+			set
+			{
+				options.n_context_lines = value;
+				options.n_interhunk_lines = value;
+
+				update();
+			}
+
+			default = 3;
 		}
 
 		static construct
@@ -146,6 +184,7 @@ namespace Gitg
 			o.set_boolean_member("staged", staged);
 			o.set_boolean_member("unstaged", unstaged);
 			o.set_boolean_member("debug", Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null);
+			o.set_boolean_member("changes_inline", changes_inline);
 
 			var strings = new Json.Object();
 
@@ -516,44 +555,26 @@ namespace Gitg
 				return true;
 			}
 
-			var m = new Gtk.Menu();
+			var m = new Gtk.Popover(this);
+			var opts = new DiffViewOptions(this);
 
-			var item = new Gtk.CheckMenuItem.with_label(_("Ignore whitespace changes"));
-			item.active = ignore_whitespace;
-
-			item.toggled.connect((i) => {
-				ignore_whitespace = i.active;
-			});
-
-			m.append(item);
-
-			var dbg = Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null;
-
-			if (dbg)
-			{
-				var dev = new Gtk.MenuItem.with_label("Developer tools");
-
-				dev.activate.connect(() => {
-					var inspector = get_inspector();
-					inspector.show();
-				});
-
-				m.append(dev);
-			}
-
-			m.show_all();
-
-			m.attach_to_widget(this, null);
+			m.add(opts);
 
 			if (event.type == Gdk.EventType.BUTTON_PRESS ||
 			    event.type == Gdk.EventType.BUTTON_RELEASE)
 			{
-				m.popup(null, null, null, event.button.button, event.button.time);
+				var r = Gdk.Rectangle() {
+					x = (int)event.button.x,
+					y = (int)event.button.y,
+					width = 1,
+					height = 1
+				};
+
+				m.set_pointing_to(r);
 			}
-			else
-			{
-				m.popup(null, null, null, 0, Gdk.CURRENT_TIME);
-			}
+
+			opts.show();
+			m.show();
 
 			return true;
 		}

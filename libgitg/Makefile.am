@@ -57,6 +57,7 @@ libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-cell-renderer-lanes.vala		\
 	libgitg/gitg-commit-list-view.vala		\
 	libgitg/gitg-diff-view.vala			\
+	libgitg/gitg-diff-view-options.vala		\
 	libgitg/gitg-diff-view-request.vala		\
 	libgitg/gitg-diff-view-request-icon.vala	\
 	libgitg/gitg-diff-view-request-resource.vala	\

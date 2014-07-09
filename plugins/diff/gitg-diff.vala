@@ -38,11 +38,23 @@ namespace GitgDiff
 
 			d_diff = new Gitg.DiffView();
 
-			var settings = new Settings("org.gnome.gitg.state.diff");
+			var settings = new Settings("org.gnome.gitg.preferences.diff");
 
 			settings.bind("ignore-whitespace",
 			              d_diff,
 			              "ignore-whitespace",
+			              SettingsBindFlags.GET |
+			              SettingsBindFlags.SET);
+
+			settings.bind("changes-inline",
+			              d_diff,
+			              "changes-inline",
+			              SettingsBindFlags.GET |
+			              SettingsBindFlags.SET);
+
+			settings.bind("context-lines",
+			              d_diff,
+			              "context-lines",
 			              SettingsBindFlags.GET |
 			              SettingsBindFlags.SET);
 
