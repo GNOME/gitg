@@ -176,7 +176,15 @@ namespace Gitg
 
 				// Split off trailing whitespace
 				var chomped = text.chomp();
-				var ws = text.slice(chomped.length, text.length);
+
+				var l = text.length;
+
+				if (l > 0 && text[l - 1] == '\n')
+				{
+					l--;
+				}
+
+				var ws = text.slice(chomped.length, l);
 
 				builder.set_member_name("type").add_int_value((int64)line.get_origin());
 				builder.set_member_name("content").add_string_value(chomped);
