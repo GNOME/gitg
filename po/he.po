@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-01 23:49+0300\n"
-"PO-Revision-Date: 2014-07-01 23:59+0300\n"
+"POT-Creation-Date: 2014-07-09 22:48+0300\n"
+"PO-Revision-Date: 2014-07-09 22:49+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
@@ -447,32 +447,28 @@ msgstr "שמירת טלאי לקובץ"
 msgid "_Save"
 msgstr "_שמירה"
 
-#: ../libgitg/gitg-diff-view.vala:152
+#: ../libgitg/gitg-diff-view.vala:191
 msgid "stage"
 msgstr "שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:153
+#: ../libgitg/gitg-diff-view.vala:192
 msgid "unstage"
 msgstr "ביטול שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:154
+#: ../libgitg/gitg-diff-view.vala:193
 msgid "Loading diff…"
 msgstr "הבדלים נטענים…"
-
-#: ../libgitg/gitg-diff-view.vala:521
-msgid "Ignore whitespace changes"
-msgstr "התעלמות משינויי רווחים לבנים"
 
 #: ../libgitg/gitg-stage.vala:335
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "לא ניתן לקרוא הודעת הגשה אחרי הרצת commit-msg hook: ‏%s"
 
-#: ../plugins/diff/gitg-diff.vala:71
+#: ../plugins/diff/gitg-diff.vala:83
 msgid "Diff"
 msgstr "הבדלים"
 
-#: ../plugins/diff/gitg-diff.vala:76
+#: ../plugins/diff/gitg-diff.vala:88
 msgid "Show the changes introduced by the selected commit"
 msgstr "הצגת השינויים שבוצעו בהגשה הנבחרת"
 
@@ -702,6 +698,22 @@ msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
 msgstr "מחיקת המאגר מהרשימה (לא מוחק את המאגר מהכונן)"
+
+#: ../libgitg/resources/diff-view-options.ui.h:1
+msgid "Ignore whitespace changes"
+msgstr "התעלמות משינויי רווחים לבנים"
+
+#: ../libgitg/resources/diff-view-options.ui.h:2
+msgid "Show changes inline"
+msgstr "הצגת שינויים בשורה"
+
+#: ../libgitg/resources/diff-view-options.ui.h:3
+msgid "Context"
+msgstr "הקשר"
+
+#: ../libgitg/resources/diff-view-options.ui.h:4
+msgid "Developer tools"
+msgstr "כלי פיתוח"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
