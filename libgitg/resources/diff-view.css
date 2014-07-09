@@ -69,6 +69,7 @@ div#diff div.file table td.gutter {
 
 div#diff div.file table td.code {
   white-space: pre;
+  padding: 0;
 }
 
 span.tab {
@@ -84,12 +85,14 @@ div#diff div.file table.wrapped td.code {
   white-space: pre-wrap;
 }
 
-div#diff div.file table tr.context td:last-child {
+div#diff div.file table tr.context td:last-child,
+div#diff div.file table td:last-child span.context {
   background-color: #fafafa;
 }
 
 
-div#diff div.file table tr.added td:last-child {
+div#diff div.file table tr.added td:last-child,
+div#diff div.file table td:last-child span.added {
   background-color: #ddffdd;
 }
 
@@ -101,7 +104,8 @@ div#diff div.file table tr.removed.selected td:last-child {
   background-color: #b8bed6;
 }
 
-div#diff div.file table tr.removed td:last-child {
+div#diff div.file table tr.removed td:last-child,
+div#diff div.file table td:last-child span.removed {
   background-color: #ffdddd;
 }
 

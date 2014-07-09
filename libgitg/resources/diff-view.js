@@ -212,6 +212,7 @@ function prepare_patchset(filediv)
 
 			if (last != null && last[0] == tp && last[2] + last[3] == offset)
 			{
+				// Contiguous block, just add the length
 				last[3] += length;
 			}
 			else
@@ -233,6 +234,7 @@ function prepare_patchset(filediv)
 			}
 		}
 
+		// Keep track of the total offset difference between old and new
 		doffset += added ? length : -length;
 	}
 
@@ -425,6 +427,11 @@ function update_diff(id, lsettings)
 	});
 
 	xhr_get("diff", {format: "commit_only"}, function(r) {
+		if (!r)
+		{
+			return;
+		}
+
 		var j = JSON.parse(r);
 
 		if ('commit' in j)
