@@ -121,7 +121,7 @@ namespace Gitg
 				if (d_tab_width != value)
 				{
 					d_tab_width = value;
-					update();
+					update_tab_width();
 				}
 			}
 			default = 4;
@@ -450,6 +450,21 @@ namespace Gitg
 		{
 			d_loaded = true;
 			update();
+		}
+
+		private void update_tab_width()
+		{
+			if (!d_loaded)
+			{
+				return;
+			}
+
+			run_javascript.begin(@"update_tab_width($d_tab_width);", null, (obj, res) => {
+				try
+				{
+					run_javascript.end(res);
+				} catch {}
+			});
 		}
 
 		private void update()
