@@ -11,39 +11,30 @@
             <property name="can_focus">False</property>
             <property name="has_focus">False</property>
             <property name="is_focus">False</property>
-            <property name="margin_left">12</property>
-            <property name="margin_right">12</property>
+            <property name="margin_start">12</property>
+            <property name="margin_end">12</property>
             <property name="margin_top">12</property>
             <property name="margin_bottom">12</property>
             <property name="column_spacing">10</property>
             <child>
-              <object class="GtkAlignment" id="delete_button_align">
+              <object class="GtkButton" id="d_remove_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="has_focus">False</property>
                 <property name="is_focus">False</property>
-                <property name="yscale">0</property>
-                <property name="yalign">0.5</property>
+                <property name="vexpand">False</property>
+                <property name="valign">center</property>
+                <property name="relief">none</property>
+                <property name="tooltip_text" translatable="yes">Remove the repository from the list (does not delete the repository from disk)</property>
+                <signal name="clicked" handler="remove_button_clicked" swapped="no"/>
+                <style>
+                  <class name="image-button"/>
+                </style>
                 <child>
-                  <object class="GtkButton" id="d_remove_button">
+                  <object class="GtkImage" id="delete_image">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="has_focus">False</property>
-                    <property name="is_focus">False</property>
-                    <property name="vexpand">False</property>
-                    <property name="relief">none</property>
-                    <property name="tooltip_text" translatable="yes">Remove the repository from the list (does not delete the repository from disk)</property>
-                    <signal name="clicked" handler="remove_button_clicked" swapped="no"/>
-                    <style>
-                      <class name="image-button"/>
-                    </style>
-                    <child>
-                      <object class="GtkImage" id="delete_image">
-                        <property name="visible">True</property>
-                        <property name="pixel_size">16</property>
-                        <property name="icon_name">list-remove-symbolic</property>
-                      </object>
-                    </child>
+                    <property name="pixel_size">16</property>
+                    <property name="icon_name">list-remove-symbolic</property>
                   </object>
                 </child>
               </object>

@@ -304,11 +304,11 @@ class Dialog : Gtk.Dialog
 
 		if (rtl == (Pango.find_base_dir(s, -1) != Pango.Direction.RTL))
 		{
-			d_label_user.xalign = 1.0f;
+			d_label_user.halign = Gtk.Align.END;
 		}
 		else
 		{
-			d_label_user.xalign = 0.0f;
+			d_label_user.halign = Gtk.Align.START;
 		}
 
 		var t = d_author.get_time();
@@ -328,11 +328,11 @@ class Dialog : Gtk.Dialog
 
 		if (rtl == (Pango.find_base_dir(date_string, -1) != Pango.Direction.RTL))
 		{
-			d_label_date.xalign = 1.0f;
+			d_label_date.halign = Gtk.Align.END;
 		}
 		else
 		{
-			d_label_date.xalign = 0.0f;
+			d_label_date.halign = Gtk.Align.START;
 		}
 
 		var ac = Gitg.AvatarCache.default();
