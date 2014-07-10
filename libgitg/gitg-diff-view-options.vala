@@ -133,6 +133,7 @@ public class DiffViewOptions : Gtk.Grid
 	private void on_button_developer_tools_clicked()
 	{
 		view.get_inspector().show();
+		hide();
 	}
 }
 

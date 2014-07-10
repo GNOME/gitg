@@ -603,6 +603,10 @@ namespace Gitg
 			opts.show();
 			m.show();
 
+			opts.notify["visible"].connect(() => {
+				m.destroy();
+			});
+
 			return true;
 		}
 	}
