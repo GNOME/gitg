@@ -32,6 +32,9 @@ public class DiffViewOptions : Gtk.Grid
 	[GtkChild (name = "adjustment_context")]
 	private Gtk.Adjustment d_adjustment_context;
 
+	[GtkChild (name = "adjustment_tab_width")]
+	private Gtk.Adjustment d_adjustment_tab_width;
+
 	[GtkChild (name = "button_developer_tools")]
 	private Gtk.Button d_button_developer_tools;
 
@@ -41,6 +44,7 @@ public class DiffViewOptions : Gtk.Grid
 	public bool changes_inline { get; set; }
 	public bool ignore_whitespace { get; set; }
 	public int context_lines { get; set; }
+	public int tab_width { get; set; }
 
 	public DiffView view { get; construct set; }
 
@@ -85,6 +89,12 @@ public class DiffViewOptions : Gtk.Grid
 		                   BindingFlags.BIDIRECTIONAL |
 		                   BindingFlags.SYNC_CREATE);
 
+		view.bind_property("tab-width",
+		                   this,
+		                   "tab-width",
+		                   BindingFlags.BIDIRECTIONAL |
+		                   BindingFlags.SYNC_CREATE);
+
 		bind_property("changes-inline",
 		              d_switch_changes_inline,
 		              "active",
@@ -99,6 +109,14 @@ public class DiffViewOptions : Gtk.Grid
 
 		bind_property("context-lines",
 		              d_adjustment_context,
+		              "value",
+		              BindingFlags.BIDIRECTIONAL |
+		              BindingFlags.SYNC_CREATE,
+		              transform_int_to_double,
+		              transform_double_to_int);
+
+		bind_property("tab-width",
+		              d_adjustment_tab_width,
 		              "value",
 		              BindingFlags.BIDIRECTIONAL |
 		              BindingFlags.SYNC_CREATE,

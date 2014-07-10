@@ -102,7 +102,22 @@ namespace Gitg
 		public bool wrap { get; set; default = true; }
 		public bool staged { get; set; default = false; }
 		public bool unstaged { get; set; default = false; }
-		public int tab_width { get; set; default = 4; }
+
+		int d_tab_width;
+
+		public int tab_width
+		{
+			get { return d_tab_width; }
+			construct set
+			{
+				if (d_tab_width != value)
+				{
+					d_tab_width = value;
+					update();
+				}
+			}
+			default = 4;
+		}
 
 		private bool flag_get(Ggit.DiffOption f)
 		{

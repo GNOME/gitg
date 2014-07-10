@@ -58,6 +58,12 @@ namespace GitgDiff
 			              SettingsBindFlags.GET |
 			              SettingsBindFlags.SET);
 
+			settings.bind("tab-width",
+			              d_diff,
+			              "tab-width",
+			              SettingsBindFlags.GET |
+			              SettingsBindFlags.SET);
+
 			d_diff.show();
 
 			d_sw.add(d_diff);

@@ -8,6 +8,13 @@
     <property name="step_increment">1</property>
     <property name="page_increment">3</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment_tab_width">
+    <property name="lower">1</property>
+    <property name="upper">16</property>
+    <property name="value">4</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">4</property>
+  </object>
   <template class="GitgDiffViewOptions" parent="GtkGrid">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -29,8 +36,8 @@
       <object class="GtkLabel" id="label_ignore_whitespace">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="hexpand">True</property>
         <property name="halign">start</property>
+        <property name="hexpand">True</property>
         <property name="label" translatable="yes">Ignore whitespace changes</property>
       </object>
       <packing>
@@ -54,8 +61,8 @@
       <object class="GtkLabel" id="label_changes_inline">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="hexpand">True</property>
         <property name="halign">start</property>
+        <property name="hexpand">True</property>
         <property name="label" translatable="yes">Show changes inline</property>
       </object>
       <packing>
@@ -75,51 +82,8 @@
       </packing>
     </child>
     <child>
-      <object class="GtkBox" id="box_context">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="hexpand">True</property>
-        <property name="spacing">12</property>
-        <child>
-          <object class="GtkLabel" id="label_context">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Context</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkScale" id="scale_context">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hexpand">True</property>
-            <property name="adjustment">adjustment_context</property>
-            <property name="round_digits">0</property>
-            <property name="digits">0</property>
-            <property name="value_pos">right</property>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
       <object class="GtkButton" id="button_developer_tools">
         <property name="label" translatable="yes">Developer tools</property>
-        <property name="visible">False</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
         <property name="relief">none</property>
@@ -127,7 +91,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
+        <property name="top_attach">6</property>
         <property name="width">2</property>
       </packing>
     </child>
@@ -138,8 +102,62 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
+        <property name="top_attach">5</property>
         <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_context1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">Tab width</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSpinButton" id="spin_button_tab_width">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="adjustment">adjustment_tab_width</property>
+        <property name="snap_to_ticks">True</property>
+        <property name="numeric">True</property>
+        <property name="value">4</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_context">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
+        <property name="label" translatable="yes">Context</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSpinButton" id="spin_button_context">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="input_purpose">digits</property>
+        <property name="adjustment">adjustment_context</property>
+        <property name="snap_to_ticks">True</property>
+        <property name="numeric">True</property>
+        <property name="value">3</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">3</property>
       </packing>
     </child>
   </template>
