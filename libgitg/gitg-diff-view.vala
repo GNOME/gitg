@@ -111,16 +111,22 @@ namespace Gitg
 
 		private void flag_set(Ggit.DiffOption f, bool val)
 		{
+			var flags = options.flags;
+
 			if (val)
 			{
-				options.flags |= f;
+				flags |= f;
 			}
 			else
 			{
-				options.flags &= ~f;
+				flags &= ~f;
 			}
 
-			update();
+			if (flags != options.flags)
+			{
+				options.flags = flags;
+				update();
+			}
 		}
 
 		public bool ignore_whitespace
@@ -140,9 +146,8 @@ namespace Gitg
 				if (d_changes_inline != value)
 				{
 					d_changes_inline = value;
+					update();
 				}
-
-				update();
 			}
 
 			default = false;
@@ -154,10 +159,13 @@ namespace Gitg
 
 			set
 			{
-				options.n_context_lines = value;
-				options.n_interhunk_lines = value;
+				if (options.n_context_lines != value)
+				{
+					options.n_context_lines = value;
+					options.n_interhunk_lines = value;
 
-				update();
+					update();
+				}
 			}
 
 			default = 3;
