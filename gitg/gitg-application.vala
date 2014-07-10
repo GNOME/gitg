@@ -281,7 +281,6 @@ public class Application : Gtk.Application
 			{"app.help", "F1"},
 
 			{"win.search", "<Primary>F"},
-			{"win.close", "<Primary>Q"},
 			{"win.reload", "<Primary>R"},
 			{"win.gear-menu", "F10"},
 			{"win.open-repository", "<Primary>O"},
