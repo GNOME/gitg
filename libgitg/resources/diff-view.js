@@ -24,7 +24,8 @@ var settings = {
 	strings: {
 		stage: 'stage',
 		unstage: 'unstage',
-		loading_diff: 'Loading diff...'
+		loading_diff: 'Loading diff...',
+		get_patch: 'Get Patch'
 	},
 };
 
@@ -121,6 +122,9 @@ function write_commit(content, commit)
 
 	// Sha1
 	elems.sha1.text(commit.id);
+
+	// Get patch string
+	elems.format_patch.text(settings.strings.get_patch);
 
 	write_avatar(elems.avatar, commit);
 }

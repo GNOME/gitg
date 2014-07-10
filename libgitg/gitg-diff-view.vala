@@ -199,6 +199,7 @@ namespace Gitg
 			strings.set_string_member("stage", _("stage"));
 			strings.set_string_member("unstage", _("unstage"));
 			strings.set_string_member("loading_diff", _("Loading diff…"));
+			strings.set_string_member("get_patch", _("Get Patch"));
 
 			o.set_object_member("strings", strings);
 
