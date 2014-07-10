@@ -32,6 +32,8 @@ namespace GitgHistory
 		private Navigation? d_navigation_model;
 		private Gitg.CommitModel? d_commit_list_model;
 		private Gee.HashSet<Ggit.OId> d_selected;
+		private Ggit.OId? d_scroll_to;
+		private float d_scroll_y;
 		private ulong d_insertsig;
 		private Settings d_settings;
 
@@ -142,6 +144,17 @@ namespace GitgHistory
 			if (d_selected.size == 0 || d_selected.remove(commit.get_id()))
 			{
 				d_main.commit_list_view.get_selection().select_path(path);
+
+				if (commit.get_id().equal(d_scroll_to))
+				{
+					d_main.commit_list_view.scroll_to_cell(path,
+					                                       null,
+					                                       true,
+					                                       d_scroll_y,
+					                                       0);
+
+					d_scroll_to = null;
+				}
 			}
 
 			if (d_selected.size == 0)
@@ -221,9 +234,48 @@ namespace GitgHistory
 
 		private void reload()
 		{
+			var view = d_main.commit_list_view;
+
 			double vadj = d_main.navigation_view.get_vadjustment().get_value();
 
+			d_selected.clear();
 
+			Gtk.TreePath startp, endp;
+			view.get_visible_range(out startp, out endp);
+
+			d_scroll_to = null;
+
+			view.get_selection().selected_foreach((model, path, iter) => {
+				var c = d_commit_list_model.commit_from_iter(iter);
+
+				if (c != null)
+				{
+					d_selected.add(c.get_id());
+
+					if (d_scroll_to == null &&
+					    startp.compare(path) <= 0 && endp.compare(path) >= 0)
+					{
+						Gdk.Rectangle rect;
+						Gdk.Rectangle visrect;
+
+						view.get_cell_area(path, null, out rect);
+						view.get_visible_rect(out visrect);
+
+						int x, y;
+
+						view.convert_tree_to_bin_window_coords(visrect.x,
+						                                       visrect.y,
+						                                       out x,
+						                                       out y);
+
+						// + 2 seems to work correctly here, but this is probably
+						// something related to a border or padding of the
+						// treeview (i.e. theme related)
+						d_scroll_y = (float)(rect.y + rect.height / 2.0 - y + 2) / (float)visrect.height;
+						d_scroll_to = c.get_id();
+					}
+				}
+			});
 
 			// Clears the commit model
 			d_commit_list_model.repository = repository;
@@ -290,11 +342,8 @@ namespace GitgHistory
 				}
 			}
 
-			d_selected.clear();
-
 			if (id != null)
 			{
-				d_selected.add(id);
 				d_commit_list_model.set_include(new Ggit.OId[] { id });
 			}
 			else
