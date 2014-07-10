@@ -222,7 +222,9 @@ public class Application : Gtk.Application
 
 	private void on_app_quit_activated()
 	{
-		foreach (var window in get_windows())
+		var wnds = get_windows().copy();
+
+		foreach (var window in wnds)
 		{
 			window.destroy();
 		}
