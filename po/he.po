@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 15:18+0300\n"
-"PO-Revision-Date: 2014-07-10 15:19+0300\n"
+"POT-Creation-Date: 2014-07-10 17:10+0300\n"
+"PO-Revision-Date: 2014-07-10 17:09+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
@@ -407,11 +407,11 @@ msgstr "לבחון את ההיסטוריה של המאגר"
 msgid "Interface"
 msgstr "מנשק"
 
-#: ../libgitg/gitg-date.vala:316
+#: ../libgitg/gitg-date.vala:346
 msgid "Now"
 msgstr "עכשיו"
 
-#: ../libgitg/gitg-date.vala:320
+#: ../libgitg/gitg-date.vala:350
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
@@ -419,11 +419,11 @@ msgstr[0] "לפני דקה"
 msgstr[1] "לפני %d דקות"
 msgstr[2] "לפני שתי דקות"
 
-#: ../libgitg/gitg-date.vala:325
+#: ../libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
 msgstr "לפני חצי שעה"
 
-#: ../libgitg/gitg-date.vala:330
+#: ../libgitg/gitg-date.vala:360
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
@@ -431,13 +431,41 @@ msgstr[0] "לפני שעה"
 msgstr[1] "לפני %d שעות"
 msgstr[2] "לפני שעתיים"
 
-#: ../libgitg/gitg-date.vala:335
+#: ../libgitg/gitg-date.vala:365
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
 msgstr[0] "אתמול"
 msgstr[1] "לפני %d ימים"
 msgstr[2] "שלשום"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 24 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:374
+msgid "%b %e, %H:%M"
+msgstr "%e ב%b, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 12 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:381
+msgid "%b %e, %I:%M %p"
+msgstr "%e ב%b, %I:%M %p"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 24
+#. hour clock.
+#: ../libgitg/gitg-date.vala:391
+msgid "%b %e %Y, %H:%M"
+msgstr "%e ב%b ‏%Y, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 12
+#. hour clock.
+#: ../libgitg/gitg-date.vala:398
+msgid "%b %e %Y, %I:%M %p"
+msgstr "%e ב%b ‏%Y, %I:%M %p"
 
 #: ../libgitg/gitg-diff-view-request-patch.vala:107
 msgid "Save Patch File"
