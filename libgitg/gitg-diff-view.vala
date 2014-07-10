@@ -148,7 +148,6 @@ namespace Gitg
 		{
 			get { return flag_get(Ggit.DiffOption.IGNORE_WHITESPACE); }
 			set { flag_set(Ggit.DiffOption.IGNORE_WHITESPACE, value); }
-			default = false;
 		}
 
 		private bool d_changes_inline;
@@ -164,15 +163,13 @@ namespace Gitg
 					update();
 				}
 			}
-
-			default = false;
 		}
 
 		public int context_lines
 		{
 			get { return options.n_context_lines; }
 
-			set
+			construct set
 			{
 				if (options.n_context_lines != value)
 				{
