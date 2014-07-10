@@ -284,7 +284,8 @@ public class Application : Gtk.Application
 			{"win.close", "<Primary>Q"},
 			{"win.reload", "<Primary>R"},
 			{"win.gear-menu", "F10"},
-			{"win.open-repository", "<Primary>O"}
+			{"win.open-repository", "<Primary>O"},
+			{"win.close", "<Primary>W"}
 		};
 
 		foreach (var accel in accels)
