@@ -8,7 +8,6 @@
     <child name="main" schema="org.gnome.gitg.preferences.main" />
     <child name="history" schema="org.gnome.gitg.preferences.history" />
     <child name="commit" schema="org.gnome.gitg.preferences.commit" />
-    <child name="hidden" schema="org.gnome.gitg.preferences.hidden" />
     <child name="diff" schema="org.gnome.gitg.preferences.diff" />
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.main" path="/org/gnome/gitg/preferences/main/">
@@ -119,12 +118,6 @@
     </key>
     <key name="spell-checking-language" type="s">
       <default>''</default>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.hidden" path="/org/gnome/gitg/preferences/hidden/">
-    <key name="sign-tag" type="b">
-      <default>true</default>
-      <!-- TODO _description -->
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.diff" path="/org/gnome/gitg/preferences/diff/">
