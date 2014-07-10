@@ -337,7 +337,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			                                   null);
 
 			notify_property("repository");
-			d_activities.current.reload();
 		}
 		catch {}
 	}

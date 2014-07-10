@@ -347,7 +347,7 @@ namespace GitgCommit
 			return citem;
 		}
 
-		public void reload()
+		private void reload()
 		{
 			var repository = application.repository;
 

@@ -49,14 +49,26 @@ namespace GitgHistory
 			owned get { return "/org/gnome/gitg/Activities/History"; }
 		}
 
+		private Gitg.Repository d_repository;
+
 		[Notify]
 		public Gitg.Repository repository
 		{
+			get
+			{
+				return d_repository;
+			}
+
 			set
 			{
-				if (value != null)
+				if (d_repository != value)
 				{
-					reload();
+					d_repository = value;
+
+					if (value != null)
+					{
+						reload();
+					}
 				}
 			}
 		}
@@ -98,12 +110,6 @@ namespace GitgHistory
 			d_commit_list_model.finished.connect(on_commit_model_finished);
 
 			update_sort_mode();
-
-			application.bind_property("repository", d_navigation_model,
-			                          "repository", BindingFlags.DEFAULT);
-
-			application.bind_property("repository", d_commit_list_model,
-			                          "repository", BindingFlags.DEFAULT);
 
 			application.bind_property("repository", this,
 			                          "repository", BindingFlags.DEFAULT);
@@ -213,17 +219,31 @@ namespace GitgHistory
 			d_main.navigation_view.select_first();
 		}
 
-		public void reload()
+		private void reload()
 		{
 			double vadj = d_main.navigation_view.get_vadjustment().get_value();
 
-			d_navigation_model.reload();
+
+
+			// Clears the commit model
+			d_commit_list_model.repository = repository;
+
+			// Reloads branches, tags, etc.
+			d_navigation_model.repository = repository;
+
+			ulong sid = 0;
+
+			sid = d_main.navigation_view.size_allocate.connect((a) => {
+				d_main.navigation_view.get_vadjustment().set_value(vadj);
+
+				if (sid != 0)
+				{
+					d_main.navigation_view.disconnect(sid);
+				}
+			});
+
 			d_main.navigation_view.expand_all();
 			d_main.navigation_view.select();
-
-			d_main.navigation_view.size_allocate.connect((a) => {
-				d_main.navigation_view.get_vadjustment().set_value(vadj);
-			});
 		}
 
 		private void build_ui()
