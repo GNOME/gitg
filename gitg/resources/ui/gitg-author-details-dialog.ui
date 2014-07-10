@@ -23,7 +23,7 @@
         <child>
           <object class="GtkLabel" id="label_file_not_found">
             <property name="can_focus">False</property>
-            <property name="xalign">0</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Note: The Git config file '%s' does not exist.</property>
           </object>
           <packing>
@@ -36,7 +36,7 @@
         <child>
           <object class="GtkLabel" id="label_dash">
             <property name="can_focus">False</property>
-            <property name="xalign">0</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Enter details to set as default for all repositories:</property>
           </object>
           <packing>
@@ -49,7 +49,7 @@
         <child>
           <object class="GtkLabel" id="label_view">
             <property name="can_focus">False</property>
-            <property name="xalign">0</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Enter details for repository '%s':</property>
           </object>
           <packing>
@@ -138,7 +138,6 @@
                 <property name="label" translatable="yes">Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="use_stock">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -154,7 +153,6 @@
                 <property name="has_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="can_default">True</property>
-                <property name="use_stock">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
