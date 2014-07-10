@@ -13,7 +13,11 @@
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.main" path="/org/gnome/gitg/preferences/main/">
     <key name="clone-directory" type="s">
       <default>""</default>
-      <!-- TODO: add _descriptions -->
+      <_summary>Default Clone Directory</_summary>
+      <_description>
+        The default directory in which new repositories should be suggested
+        to be cloned.
+      </_description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.interface" path="/org/gnome/gitg/preferences/interface/">
@@ -52,6 +56,7 @@
     </key>
     <key name="show-stash" type="b">
       <default>true</default>
+      <_summary>Show Stashed Changes</_summary>
       <_description>
         Setting that indicates whether to show items for the stash in the
         history.
@@ -59,6 +64,7 @@
     </key>
     <key name="show-staged" type="b">
       <default>true</default>
+      <_summary>Show Staged Changes</_summary>
       <_description>
          Setting that indicates whether to show a virtual item for the currently
          staged changes in the history.
@@ -66,6 +72,7 @@
     </key>
     <key name="show-unstaged" type="b">
       <default>true</default>
+      <_summary>Show Unstaged Changes</_summary>
       <_description>
          Setting that indicates whether to show a virtual item for the currently
          unstaged changes in the history.
@@ -115,23 +122,53 @@
     </key>
     <key name="enable-spell-checking" type="b">
       <default>true</default>
+      <_summary>Enable Spell Checking</_summary>
+      <_description>
+        Setting which determines whether or not spell checking is enabled
+        when writing a commit message.
+      </_description>
     </key>
     <key name="spell-checking-language" type="s">
       <default>''</default>
+      <_summary>Spell Checking Language</_summary>
+      <_description>
+        The language to use when spell checking is enabled for writing a
+        commit message.
+      </_description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.diff" path="/org/gnome/gitg/preferences/diff/">
     <key name="ignore-whitespace" type="b">
       <default>false</default>
+      <_summary>Ignore Whitespace Changes</_summary>
+      <_description>
+         Setting that indicates whether to ignore whitespace changes when showing
+         the diff of a commit.
+      </_description>
     </key>
     <key name="changes-inline" type="b">
       <default>false</default>
+      <_summary>Show Changes Inline</_summary>
+      <_description>
+         Setting that indicates whether changes within lines should be shown
+         inline.
+      </_description>
     </key>
     <key name="context-lines" type="i">
       <default>3</default>
+      <_summary>Number of Before/After Context Lines</_summary>
+      <_description>
+         Setting that determines how many lines of context (before and after)
+         should be shown when showing the diff of a commit.
+      </_description>
     </key>
     <key name="tab-width" type="i">
       <default>4</default>
+      <_summary>Rendered Width of a Tab Character</_summary>
+      <_description>
+         Setting that determines how much space a tab character should occupy
+         when showing the diff of a commit.
+      </_description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.diff" path="/org/gnome/gitg/preferences/commit/diff/">
