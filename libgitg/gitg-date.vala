@@ -31,6 +31,9 @@ public class Date : Object, Initable
 	private static Regex s_iso8601;
 	private static Regex s_internal;
 
+	private static Settings? s_gnome_interface_settings;
+	private static bool s_tried_gnome_interface_settings;
+
 	private static string?[] s_months = new string?[] {
 		null,
 		"Jan",
@@ -302,6 +305,33 @@ public class Date : Object, Initable
 		((Initable)this).init(null);
 	}
 
+	private bool is_24h
+	{
+		get
+		{
+			if (s_gnome_interface_settings == null && !s_tried_gnome_interface_settings)
+			{
+				var source = SettingsSchemaSource.get_default();
+
+				s_tried_gnome_interface_settings = true;
+
+				var schema_id = "org.gnome.desktop.interface";
+
+				if (source != null && source.lookup(schema_id, true) != null)
+				{
+					s_gnome_interface_settings = new Settings(schema_id);
+				}
+			}
+
+			if (s_gnome_interface_settings == null)
+			{
+				return false;
+			}
+
+			return s_gnome_interface_settings.get_enum("clock-format") == GDesktop.ClockFormat.24H;
+		}
+	}
+
 	public string for_display()
 	{
 		var dt = d_datetime;
@@ -334,12 +364,40 @@ public class Date : Object, Initable
 			int rounded_days = (int) Math.round((float) t / TimeSpan.DAY);
 			return ngettext("A day ago", "%d days ago", rounded_days).printf(rounded_days);
 		}
-		// FIXME: Localize these date formats, Bug 699196
 		else if (dt.get_year() == new DateTime.now_local().get_year())
 		{
-			return dt.format("%h %e, %I:%M %P");
+			if (is_24h)
+			{
+				/* Translators: this is a strftime type date format which is
+				   used when the date is in the current year and uses a 24 hour
+				   clock.*/
+				return dt.format(_("%b %e, %H:%M"));
+			}
+			else
+			{
+				/* Translators: this is a strftime type date format which is
+				   used when the date is in the current year and uses a 12 hour
+				   clock.*/
+				return dt.format(_("%b %e, %I:%M %p"));
+			}
 		}
-		return dt.format("%h %e %Y, %I:%M %P");
+		else
+		{
+			if (is_24h)
+			{
+				/* Translators: this is a strftime type date format which is
+				   used when the date is not in the current year and uses a 24
+				   hour clock.*/
+				return dt.format(_("%b %e %Y, %H:%M"));
+			}
+			else
+			{
+				/* Translators: this is a strftime type date format which is
+				   used when the date is not in the current year and uses a 12
+				   hour clock.*/
+				return dt.format(_("%b %e %Y, %I:%M %p"));
+			}
+		}
 	}
 
 	public Date.for_date_time(DateTime dt)

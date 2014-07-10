@@ -29,6 +29,7 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg json-glib-1.0		\
 	--pkg gio-unix-2.0		\
 	--pkg gitg-js-utils		\
+	--pkg gdesktop-enums-3.0	\
 	$(GITG_VALAFLAGS)		\
 	--vapidir $(top_srcdir)/vapi	\
 	--includedir libgitg		\

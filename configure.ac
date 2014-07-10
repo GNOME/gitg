@@ -103,6 +103,7 @@ PKG_CHECK_MODULES(LIBGITG, [
 	libgit2-glib-1.0 >= $LIBGIT2_GLIB_REQUIRED_VERSION
 	gtk+-3.0 >= $GTK_REQUIRED_VERSION
 	webkit2gtk-3.0 >= $WEBKITGTK_REQUIRED_VERSION
+	gsettings-desktop-schemas
 	gee-0.8
 	json-glib-1.0
 ])
