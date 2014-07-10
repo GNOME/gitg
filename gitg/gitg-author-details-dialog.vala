@@ -172,3 +172,5 @@ namespace Gitg
 		}
 	}
 }
+
+/* vi:ts=4 */
