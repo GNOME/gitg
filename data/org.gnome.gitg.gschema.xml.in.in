@@ -75,6 +75,7 @@
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit" path="/org/gnome/gitg/preferences/commit/">
     <child name="message" schema="org.gnome.gitg.preferences.commit.message" />
+    <child name="diff" schema="org.gnome.gitg.preferences.commit.diff" />
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.message" path="/org/gnome/gitg/preferences/commit/message/">
     <key name="show-markup" type="b">
@@ -138,6 +139,25 @@
     </key>
     <key name="tab-width" type="i">
       <default>4</default>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.diff" path="/org/gnome/gitg/preferences/commit/diff/">
+    <key name="context-lines" type="i">
+      <default>3</default>
+      <_summary>Number of Before/After Context Lines</_summary>
+      <_description>
+         Setting that determines how many lines of context (before and after)
+         should be shown when showing the diff to be staged/unstaged in the
+         commit area.
+      </_description>
+    </key>
+    <key name="tab-width" type="i">
+      <default>4</default>
+      <_summary>Rendered Width of a Tab Character</_summary>
+      <_description>
+         Setting that determines how much space a tab character should occupy
+         when showing the diff of a commit.
+      </_description>
     </key>
   </schema>
   <schema id="org.gnome.gitg.state" path="/org/gnome/gitg/state/">

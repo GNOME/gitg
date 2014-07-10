@@ -140,11 +140,14 @@ namespace GitgCommit
 
 		private delegate void StageUnstageCallback(Gitg.StageStatusFile f, int numclick);
 
+		private delegate void UpdateDiffCallback();
+		private UpdateDiffCallback? d_update_diff_callback;
+
 		private void show_unstaged_diff(Gitg.StageStatusFile f)
 		{
 			var stage = application.repository.stage;
 
-			stage.diff_workdir.begin(f, (obj, res) => {
+			stage.diff_workdir.begin(f, d_main.diff_view.options, (obj, res) => {
 				try
 				{
 					var d = stage.diff_workdir.end(res);
@@ -163,6 +166,10 @@ namespace GitgCommit
 					d_main.diff_view.diff = null;
 				}
 			});
+
+			d_update_diff_callback = () => {
+				show_unstaged_diff(f);
+			};
 		}
 
 		private void stage_file(Gitg.StageStatusFile f)
@@ -229,7 +236,7 @@ namespace GitgCommit
 		{
 			var stage = application.repository.stage;
 
-			stage.diff_index.begin(f, (obj, res) => {
+			stage.diff_index.begin(f, d_main.diff_view.options, (obj, res) => {
 				try
 				{
 					var d = stage.diff_index.end(res);
@@ -248,6 +255,10 @@ namespace GitgCommit
 					d_main.diff_view.diff = null;
 				}
 			});
+
+			d_update_diff_callback = () => {
+				show_staged_diff(f);
+			};
 		}
 
 		private void delete_index_file(Gitg.StageStatusFile f)
@@ -1005,6 +1016,13 @@ namespace GitgCommit
 		{
 			d_main = new Paned();
 
+			d_main.diff_view.options_changed.connect(() => {
+				if (d_update_diff_callback != null)
+				{
+					d_update_diff_callback();
+				}
+			});
+
 			d_main.sidebar.deselected.connect(() => {
 				d_main.diff_view.diff = null;
 			});
@@ -1022,6 +1040,20 @@ namespace GitgCommit
 			});
 
 			d_main.sidebar.populate_popup.connect(do_populate_menu);
+
+			var settings = new Settings("org.gnome.gitg.preferences.commit.diff");
+
+			settings.bind("context-lines",
+			              d_main.diff_view,
+			              "context-lines",
+			              SettingsBindFlags.GET |
+			              SettingsBindFlags.SET);
+
+			settings.bind("tab-width",
+			              d_main.diff_view,
+			              "tab-width",
+			              SettingsBindFlags.GET |
+			              SettingsBindFlags.SET);
 
 			d_main.diff_view.bind_property("has-selection",
 			                               d_main.button_stage,

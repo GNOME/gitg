@@ -60,6 +60,14 @@ namespace Gitg
 		public File? custom_css { get; construct; }
 		public File? custom_js { get; construct; }
 
+		public virtual signal void options_changed()
+		{
+			if (d_commit != null)
+			{
+				update();
+			}
+		}
+
 		public Ggit.DiffOptions options
 		{
 			get
@@ -148,7 +156,8 @@ namespace Gitg
 			if (flags != options.flags)
 			{
 				options.flags = flags;
-				update();
+
+				options_changed();
 			}
 		}
 
@@ -168,7 +177,8 @@ namespace Gitg
 				if (d_changes_inline != value)
 				{
 					d_changes_inline = value;
-					update();
+
+					options_changed();
 				}
 			}
 		}
@@ -184,7 +194,7 @@ namespace Gitg
 					options.n_context_lines = value;
 					options.n_interhunk_lines = value;
 
-					update();
+					options_changed();
 				}
 			}
 
@@ -592,11 +602,6 @@ namespace Gitg
 		                                     Gdk.Event            event,
 		                                     WebKit.HitTestResult hit_test_result)
 		{
-			if (d_commit == null)
-			{
-				return true;
-			}
-
 			var m = new Gtk.Popover(this);
 			var opts = new DiffViewOptions(this);
 

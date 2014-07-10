@@ -26,8 +26,14 @@ public class DiffViewOptions : Gtk.Grid
 	[GtkChild (name = "switch_changes_inline")]
 	private Gtk.Switch d_switch_changes_inline;
 
+	[GtkChild (name = "label_changes_inline")]
+	private Gtk.Label d_label_changes_inline;
+
 	[GtkChild (name = "switch_ignore_whitespace")]
 	private Gtk.Switch d_switch_ignore_whitespace;
+
+	[GtkChild (name = "label_ignore_whitespace")]
+	private Gtk.Label d_label_ignore_whitespace;
 
 	[GtkChild (name = "adjustment_context")]
 	private Gtk.Adjustment d_adjustment_context;
@@ -40,6 +46,9 @@ public class DiffViewOptions : Gtk.Grid
 
 	[GtkChild (name = "separator_developer_tools")]
 	private Gtk.Separator d_separator_developer_tools;
+
+	[GtkChild (name = "separator_first_options")]
+	private Gtk.Separator d_separator_first_options;
 
 	public bool changes_inline { get; set; }
 	public bool ignore_whitespace { get; set; }
@@ -127,6 +136,17 @@ public class DiffViewOptions : Gtk.Grid
 
 		d_separator_developer_tools.visible = dbg;
 		d_button_developer_tools.visible = dbg;
+
+		if (view.commit == null)
+		{
+			d_label_changes_inline.visible = false;
+			d_switch_changes_inline.visible = false;
+
+			d_label_ignore_whitespace.visible = false;
+			d_switch_ignore_whitespace.visible = false;
+
+			d_separator_first_options.visible = false;
+		}
 	}
 
 	[GtkCallback]
