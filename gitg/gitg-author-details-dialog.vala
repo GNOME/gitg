@@ -94,12 +94,12 @@ namespace Gitg
 
 			if (author_name != "")
 			{
-				d_input_name.set_text(author_name);
+				d_input_name.set_text(author_name.chomp());
 			}
 
 			if (author_email != "")
 			{
-				d_input_email.set_text(author_email);
+				d_input_email.set_text(author_email.chomp());
 			}
 
 			set_response_sensitive(Gtk.ResponseType.OK, false);
