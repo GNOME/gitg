@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 17:10+0300\n"
-"PO-Revision-Date: 2014-07-10 17:09+0300\n"
+"POT-Creation-Date: 2014-07-10 17:30+0300\n"
+"PO-Revision-Date: 2014-07-10 17:29+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
@@ -475,19 +475,19 @@ msgstr "שמירת טלאי לקובץ"
 msgid "_Save"
 msgstr "_שמירה"
 
-#: ../libgitg/gitg-diff-view.vala:199
+#: ../libgitg/gitg-diff-view.vala:211
 msgid "stage"
 msgstr "שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:200
+#: ../libgitg/gitg-diff-view.vala:212
 msgid "unstage"
 msgstr "ביטול שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:201
+#: ../libgitg/gitg-diff-view.vala:213
 msgid "Loading diff…"
 msgstr "הבדלים נטענים…"
 
-#: ../libgitg/gitg-diff-view.vala:202
+#: ../libgitg/gitg-diff-view.vala:214
 msgid "Get Patch"
 msgstr "קבלת הטלאי"
 
@@ -496,11 +496,11 @@ msgstr "קבלת הטלאי"
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "לא ניתן לקרוא הודעת הגשה אחרי הרצת commit-msg hook: ‏%s"
 
-#: ../plugins/diff/gitg-diff.vala:83
+#: ../plugins/diff/gitg-diff.vala:89
 msgid "Diff"
 msgstr "הבדלים"
 
-#: ../plugins/diff/gitg-diff.vala:88
+#: ../plugins/diff/gitg-diff.vala:94
 msgid "Show the changes introduced by the selected commit"
 msgstr "הצגת השינויים שבוצעו בהגשה הנבחרת"
 
@@ -740,12 +740,16 @@ msgid "Show changes inline"
 msgstr "הצגת שינויים בשורה"
 
 #: ../libgitg/resources/diff-view-options.ui.h:3
-msgid "Context"
-msgstr "הקשר"
-
-#: ../libgitg/resources/diff-view-options.ui.h:4
 msgid "Developer tools"
 msgstr "כלי פיתוח"
+
+#: ../libgitg/resources/diff-view-options.ui.h:4
+msgid "Tab width"
+msgstr "רוחב טאב"
+
+#: ../libgitg/resources/diff-view-options.ui.h:5
+msgid "Context"
+msgstr "הקשר"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
