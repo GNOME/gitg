@@ -334,6 +334,22 @@ function xhr_get(action, data, onload)
 	r.send();
 }
 
+var tab_width_rule = null;
+
+function update_tab_width(width)
+{
+	settings.tab_width = width;
+
+	if (tab_width_rule == null)
+	{
+		var sheet = document.getElementById('dynamic_styles').sheet;
+		sheet.addRule('#diff td.code', 'tab-size: ' + width, 0);
+		tab_width_rule = sheet.rules[0];
+	}
+
+	tab_width_rule.style.tabSize = width;
+}
+
 function update_diff(id, lsettings)
 {
 	if (html_builder_worker)
@@ -364,6 +380,8 @@ function update_diff(id, lsettings)
 		var t = (new Date()).getTime();
 		workeruri += '?t' + t;
 	}
+
+	update_tab_width(settings.tab_width);
 
 	html_builder_worker = new Worker(workeruri);
 	html_builder_tick = 0;

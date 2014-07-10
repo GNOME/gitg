@@ -212,20 +212,20 @@ function split_words(lines)
 	return ret;
 }
 
-function make_content(content, ccontext)
+function make_content(content)
 {
-	return html_escape(content).replace(/\t/g, ccontext.tabrepl);
+	return html_escape(content);;
 }
 
-function make_content_cell(content, tws, ccontext)
+function make_content_cell(content, tws)
 {
-	content = make_content(content, ccontext);
+	content = make_content(content);
 
 	var ws = '';
 
 	if (tws)
 	{
-		ws = make_content(tws, ccontext);
+		ws = make_content(tws);
 		ws = '<span class="trailing-whitespace">' + ws + '</span>';
 	}
 
@@ -371,7 +371,7 @@ function lines_to_word_diff_rows(removed, added, ccontext)
 		}
 		else
 		{
-			var content = make_content(word, ccontext);
+			var content = make_content(word);
 			var cls = edit_type_to_cls(dist.moves[i]);
 
 			if (cls.length != 0)
@@ -449,7 +449,7 @@ function line_to_row(l, ccontext)
 	}
 
 	row += '<td class="gutter type">' + o + '</td>';
-	row += make_content_cell(l.content, l.trailing_whitespace, ccontext);
+	row += make_content_cell(l.content, l.trailing_whitespace);
 	row += '</tr>';
 
 	return row;
@@ -457,12 +457,9 @@ function line_to_row(l, ccontext)
 
 function diff_file(file, lnstate, data)
 {
-	var tabrepl = '<span class="tab" style="width: ' + data.settings.tab_width + 'ex">\t</span>';
-
 	var file_body = '';
 
 	var ccontext = {
-		tabrepl: tabrepl,
 		added: 0,
 		removed: 0,
 		old: 0,
