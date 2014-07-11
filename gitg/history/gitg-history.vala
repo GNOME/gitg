@@ -240,10 +240,11 @@ namespace GitgHistory
 
 			d_selected.clear();
 
-			Gtk.TreePath startp, endp;
-			view.get_visible_range(out startp, out endp);
-
 			d_scroll_to = null;
+
+			Gtk.TreePath startp, endp;
+
+			var isvis = view.get_visible_range(out startp, out endp);
 
 			view.get_selection().selected_foreach((model, path, iter) => {
 				var c = d_commit_list_model.commit_from_iter(iter);
@@ -253,25 +254,33 @@ namespace GitgHistory
 					d_selected.add(c.get_id());
 
 					if (d_scroll_to == null &&
-					    startp.compare(path) <= 0 && endp.compare(path) >= 0)
+					    (!isvis || startp.compare(path) <= 0 && endp.compare(path) >= 0))
 					{
-						Gdk.Rectangle rect;
-						Gdk.Rectangle visrect;
+						if (isvis)
+						{
+							Gdk.Rectangle rect;
+							Gdk.Rectangle visrect;
 
-						view.get_cell_area(path, null, out rect);
-						view.get_visible_rect(out visrect);
+							view.get_cell_area(path, null, out rect);
+							view.get_visible_rect(out visrect);
 
-						int x, y;
+							int x, y;
 
-						view.convert_tree_to_bin_window_coords(visrect.x,
-						                                       visrect.y,
-						                                       out x,
-						                                       out y);
+							view.convert_tree_to_bin_window_coords(visrect.x,
+							                                       visrect.y,
+							                                       out x,
+							                                       out y);
 
-						// + 2 seems to work correctly here, but this is probably
-						// something related to a border or padding of the
-						// treeview (i.e. theme related)
-						d_scroll_y = (float)(rect.y + rect.height / 2.0 - y + 2) / (float)visrect.height;
+							// + 2 seems to work correctly here, but this is probably
+							// something related to a border or padding of the
+							// treeview (i.e. theme related)
+							d_scroll_y = (float)(rect.y + rect.height / 2.0 - y + 2) / (float)visrect.height;
+						}
+						else
+						{
+							d_scroll_y = 0.5f;
+						}
+
 						d_scroll_to = c.get_id();
 					}
 				}
