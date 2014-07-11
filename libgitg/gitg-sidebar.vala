@@ -54,7 +54,7 @@ public class SidebarStore : Gtk.TreeStore
 	private SList<Gtk.TreeIter?> d_parents;
 	private bool d_clearing;
 
-	private class SidebarText : Object, SidebarItem
+	protected class SidebarText : Object, SidebarItem
 	{
 		private string d_text;
 
@@ -71,6 +71,23 @@ public class SidebarStore : Gtk.TreeStore
 		public string? icon_name
 		{
 			owned get { return null; }
+		}
+	}
+
+	public class SidebarHeader : SidebarText
+	{
+		private uint d_id;
+
+		public uint id
+		{
+			get { return d_id; }
+		}
+
+		public SidebarHeader(string text, uint id)
+		{
+			base(text);
+
+			d_id = id;
 		}
 	}
 
@@ -109,14 +126,16 @@ public class SidebarStore : Gtk.TreeStore
 		return this;
 	}
 
-	public SidebarStore begin_header(string text)
+	public SidebarHeader begin_header(string text, uint id = 0)
 	{
 		Gtk.TreeIter iter;
 
-		append_real(new SidebarText(text), SidebarHint.HEADER, out iter);
+		var item = new SidebarHeader(text, id);
+
+		append_real(item, SidebarHint.HEADER, out iter);
 		d_parents.prepend(iter);
 
-		return this;
+		return item;
 	}
 
 	public SidebarStore end_header()
@@ -250,26 +269,41 @@ public class Sidebar : Gtk.TreeView
 
 		var sel = get_selection();
 
-		sel.set_select_function((sel, model, path, cursel) => {
-			Gtk.TreeIter iter;
-			model.get_iter(out iter, path);
+		sel.set_select_function(select_function);
 
-			uint hint;
+		sel.changed.connect(selection_changed);
+	}
 
+	protected virtual bool select_function(Gtk.TreeSelection sel,
+	                                       Gtk.TreeModel     model,
+	                                       Gtk.TreePath      path,
+	                                       bool              cursel)
+	{
+		Gtk.TreeIter iter;
+		model.get_iter(out iter, path);
+
+		uint hint;
+
+		model.get(iter, SidebarColumn.HINT, out hint);
+
+		return hint != SidebarHint.HEADER && hint != SidebarHint.DUMMY;
+	}
+
+	protected virtual void selection_changed(Gtk.TreeSelection sel)
+	{
+		Gtk.TreeIter iter;
+
+		if (model.clearing)
+		{
+			return;
+		}
+
+		if (get_selected_iter(out iter))
+		{
+			SidebarHint hint;
 			model.get(iter, SidebarColumn.HINT, out hint);
 
-			return hint != SidebarHint.HEADER && hint != SidebarHint.DUMMY;
-		});
-
-		sel.changed.connect((sel) => {
-			Gtk.TreeIter iter;
-
-			if (model.clearing)
-			{
-				return;
-			}
-
-			if (sel.get_selected(null, out iter))
+			if (hint != SidebarHint.HEADER && hint != SidebarHint.DUMMY)
 			{
 				model.activate(iter, 1);
 			}
@@ -277,20 +311,63 @@ public class Sidebar : Gtk.TreeView
 			{
 				deselected();
 			}
-		});
+		}
+		else
+		{
+			deselected();
+		}
+	}
+
+	protected bool get_selected_iter(out Gtk.TreeIter iter)
+	{
+		var sel = get_selection();
+
+		if (sel.count_selected_rows() == 1)
+		{
+			Gtk.TreeModel m;
+
+			var rows = sel.get_selected_rows(out m);
+			m.get_iter(out iter, rows.data);
+
+			return true;
+		}
+		else
+		{
+			iter = Gtk.TreeIter();
+		}
+
+		return false;
 	}
 
 	public T? get_selected_item<T>()
 	{
-		var sel = get_selection();
 		Gtk.TreeIter iter;
 
-		if (sel.get_selected(null, out iter))
+		if (get_selected_iter(out iter))
 		{
 			return (T)model.item_for_iter(iter);
 		}
 
 		return null;
+	}
+
+	public T[] get_selected_items<T>()
+	{
+		var sel = get_selection();
+
+		Gtk.TreeModel m;
+		Gtk.TreeIter iter;
+
+		var rows = sel.get_selected_rows(out m);
+		var ret = new T[0];
+
+		foreach (var row in rows)
+		{
+			m.get_iter(out iter, row);
+			ret += (T)model.item_for_iter(iter);
+		}
+
+		return ret;
 	}
 
 	public void select(SidebarItem item)
@@ -356,16 +433,21 @@ public class Sidebar : Gtk.TreeView
 
 	protected override bool button_press_event(Gdk.EventButton event)
 	{
-		var ret = base.button_press_event(event);
-
 		Gdk.Event *ev = (Gdk.Event *)event;
 
 		if (ev->triggers_context_menu())
 		{
+			if (get_selection().count_selected_rows() <= 1)
+			{
+				base.button_press_event(event);
+			}
+
 			return do_populate_popup(event);
 		}
-
-		return ret;
+		else
+		{
+			return base.button_press_event(event);
+		}
 	}
 
 	protected override bool popup_menu()

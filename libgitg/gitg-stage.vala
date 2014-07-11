@@ -904,7 +904,8 @@ public class Stage : Object
 		});
 	}
 
-	public async Ggit.Diff? diff_index(StageStatusFile f, Ggit.DiffOptions? defopts = null) throws Error
+	public async Ggit.Diff? diff_index_all(StageStatusFile[] files,
+	                                       Ggit.DiffOptions? defopts = null) throws Error
 	{
 		var opts = new Ggit.DiffOptions();
 
@@ -912,7 +913,14 @@ public class Stage : Object
 		             Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
 		             Ggit.DiffOption.RECURSE_UNTRACKED_DIRS;
 
-		opts.pathspec = new string[] {f.path};
+		var pspec = new string[files.length];
+
+		for (var i = 0; i < files.length; i++)
+		{
+			pspec[i] = files[i].path;
+		}
+
+		opts.pathspec = pspec;
 
 		if (defopts != null)
 		{
@@ -933,7 +941,14 @@ public class Stage : Object
 		                                   opts);
 	}
 
-	public async Ggit.Diff? diff_workdir(StageStatusFile f, Ggit.DiffOptions? defopts = null) throws Error
+	public async Ggit.Diff? diff_index(StageStatusFile   f,
+	                                   Ggit.DiffOptions? defopts = null) throws Error
+	{
+		return yield diff_index_all(new StageStatusFile[] {f}, defopts);
+	}
+
+	public async Ggit.Diff? diff_workdir_all(StageStatusFile[] files,
+	                                         Ggit.DiffOptions? defopts = null) throws Error
 	{
 		var opts = new Ggit.DiffOptions();
 
@@ -941,7 +956,14 @@ public class Stage : Object
 		             Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
 		             Ggit.DiffOption.RECURSE_UNTRACKED_DIRS;
 
-		opts.pathspec = new string[] {f.path};
+		var pspec = new string[files.length];
+
+		for (var i = 0; i < files.length; i++)
+		{
+			pspec[i] = files[i].path;
+		}
+
+		opts.pathspec = pspec;
 
 		if (defopts != null)
 		{
@@ -957,6 +979,12 @@ public class Stage : Object
 		return new Ggit.Diff.index_to_workdir(d_repository,
 		                                      d_repository.get_index(),
 		                                      opts);
+	}
+
+	public async Ggit.Diff? diff_workdir(StageStatusFile   f,
+	                                     Ggit.DiffOptions? defopts = null) throws Error
+	{
+		return yield diff_workdir_all(new StageStatusFile[] {f}, defopts);
 	}
 }
 
