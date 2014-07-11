@@ -100,12 +100,12 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 
 		if (reference != null)
 		{
-			margin_left += 12;
+			margin_start += 12;
 		}
 
 		if (ref_type == Gitg.RefType.REMOTE)
 		{
-			margin_left += 12;
+			margin_start += 12;
 		}
 
 		d_revealer.notify["child-revealed"].connect(on_child_revealed);
@@ -338,14 +338,14 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 		var escaped = Markup.escape_text(name);
 
 		d_label.set_markup(@"<b>$escaped</b>");
-		d_label.xalign = 0;
+		d_label.halign = Gtk.Align.START;
 
 		d_name = name;
 		d_rtype = rtype;
 
 		d_label.margin_top = 3;
 		d_label.margin_bottom = 3;
-		d_label.margin_left = 16;
+		d_label.margin_start = 16;
 	}
 
 	public RefHeader.remote(string name)
@@ -353,7 +353,7 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 		this(Gitg.RefType.REMOTE, name);
 
 		d_is_sub_header_remote = true;
-		d_label.margin_left += 12;
+		d_label.margin_start += 12;
 	}
 
 	public bool is_sub_header_remote
