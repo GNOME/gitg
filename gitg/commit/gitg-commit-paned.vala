@@ -24,7 +24,7 @@ namespace GitgCommit
 class Paned : Gtk.Paned
 {
 	[GtkChild (name = "tree_view_files")]
-	private Gitg.Sidebar d_tree_view_files;
+	private Sidebar d_tree_view_files;
 
 	[GtkChild (name = "diff_view")]
 	private Gitg.DiffView d_diff_view;
@@ -41,7 +41,7 @@ class Paned : Gtk.Paned
 	[GtkChild (name = "button_discard")]
 	private Gtk.Button d_button_discard;
 
-	public Gitg.Sidebar sidebar
+	public Sidebar sidebar
 	{
 		get { return d_tree_view_files; }
 	}
