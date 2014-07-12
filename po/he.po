@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 15:21+0300\n"
-"PO-Revision-Date: 2014-07-11 15:22+0300\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"POT-Creation-Date: 2014-07-12 22:00+0300\n"
+"PO-Revision-Date: 2014-07-12 22:07+0300\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -247,160 +247,164 @@ msgstr ""
 msgid "Cannot set spell checking language: %s"
 msgstr "לא ניתן להגדיר שפה לבדיקת איות: %s"
 
-#: ../gitg/commit/gitg-commit.vala:124
+#: ../gitg/commit/gitg-commit.vala:64
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
 msgstr "הגשה"
 
-#: ../gitg/commit/gitg-commit.vala:129
+#: ../gitg/commit/gitg-commit.vala:69
 msgid "Create new commits and manage the staging area"
 msgstr "יצירת הגשה חדשה וניהול האזור הזמני"
 
-#: ../gitg/commit/gitg-commit.vala:172
+#: ../gitg/commit/gitg-commit.vala:112
 msgid "_Stage selection"
 msgstr "_שילוב הבחירה"
 
-#: ../gitg/commit/gitg-commit.vala:200
-#, c-format
-msgid "Failed to stage the file `%s'"
-msgstr "שילוב הקובץ `%s` נכשל"
-
-#: ../gitg/commit/gitg-commit.vala:219
+#: ../gitg/commit/gitg-commit.vala:143
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "שילוב מחיקת הקובץ `%s` נכשל"
 
-#: ../gitg/commit/gitg-commit.vala:261
+#: ../gitg/commit/gitg-commit.vala:157
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "שילוב הקובץ `%s` נכשל"
+
+#: ../gitg/commit/gitg-commit.vala:187
 msgid "_Unstage selection"
 msgstr "_ביטול שילוב הבחירה"
 
-#: ../gitg/commit/gitg-commit.vala:289
+#: ../gitg/commit/gitg-commit.vala:218
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "נכשל שילוב מחיקת הקובץ `%s`"
 
-#: ../gitg/commit/gitg-commit.vala:308
+#: ../gitg/commit/gitg-commit.vala:232
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "ביטול שילוב הקובץ `%s` נכשל"
 
-#: ../gitg/commit/gitg-commit.vala:450
+#: ../gitg/commit/gitg-commit.vala:373
 msgid "Staged"
 msgstr "משולב"
 
-#: ../gitg/commit/gitg-commit.vala:457
+#: ../gitg/commit/gitg-commit.vala:384
 msgid "No staged files"
 msgstr "אין קבצים משולבים"
 
-#: ../gitg/commit/gitg-commit.vala:470
+#: ../gitg/commit/gitg-commit.vala:399
 msgid "Unstaged"
 msgstr "לא משולב"
 
-#: ../gitg/commit/gitg-commit.vala:474
+#: ../gitg/commit/gitg-commit.vala:407
 msgid "No unstaged files"
 msgstr "אין קבצים שאינם משולבים"
 
-#: ../gitg/commit/gitg-commit.vala:487
+#: ../gitg/commit/gitg-commit.vala:422
 msgid "Untracked"
 msgstr "לא במעקב"
 
-#: ../gitg/commit/gitg-commit.vala:491
+#: ../gitg/commit/gitg-commit.vala:426
 msgid "No untracked files"
 msgstr "אין קבצים שאינם במעקב"
 
-#: ../gitg/commit/gitg-commit.vala:550
+#: ../gitg/commit/gitg-commit.vala:510
 msgid "There are no changes to be committed"
 msgstr "אין שינויים להגשה"
 
-#: ../gitg/commit/gitg-commit.vala:551
+#: ../gitg/commit/gitg-commit.vala:511
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "ניתן להשתמש בתיקון לשינוי הודעת ההגשה הקודמת"
 
-#: ../gitg/commit/gitg-commit.vala:577
+#: ../gitg/commit/gitg-commit.vala:537
 msgid "Failed to commit"
 msgstr "נכשלה ההגשה"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:593 ../gitg/commit/gitg-commit.vala:826
+#: ../gitg/commit/gitg-commit.vala:553 ../gitg/commit/gitg-commit.vala:732
 msgid "Failed to pass pre-commit"
 msgstr "נכשלה העברת קדם הגשה"
 
-#: ../gitg/commit/gitg-commit.vala:814
+#: ../gitg/commit/gitg-commit.vala:720
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr ""
 "שם המשתמש וכתובת הדוא״ל שלך טרם הוגדרו. יש לגשת לתצורת משתמש ולספק פרטים אלה."
 
-#: ../gitg/commit/gitg-commit.vala:818
+#: ../gitg/commit/gitg-commit.vala:724
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "שם המשתמש שלך טרם הוגדר. יש לגשת לתצורת משתמש ולספק את השם שלך."
 
-#: ../gitg/commit/gitg-commit.vala:822
+#: ../gitg/commit/gitg-commit.vala:728
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 "כתובת הדוא״ל שלך טרם הוגדרה. יש לגשת לתצורת המשתמש ולספק את כתובת הדוא״ל שלך."
 
-#: ../gitg/commit/gitg-commit.vala:881 ../gitg/commit/gitg-commit.vala:993
+#: ../gitg/commit/gitg-commit.vala:787 ../gitg/commit/gitg-commit.vala:914
 msgid "Discard changes"
 msgstr "השלכת שינויים"
 
-#: ../gitg/commit/gitg-commit.vala:882
-#, c-format
-msgid ""
-"Are you sure you want to permanently discard the selected changes in the "
-"file `%s'?"
-msgstr "האם ברצונך להשליך לצמיתות את השינויים הנבחרים בקובץ '%s'?"
+#: ../gitg/commit/gitg-commit.vala:788
+msgid "Are you sure you want to permanently discard the selected changes?"
+msgstr "האם ברצונך להשליך לצמיתות את השינויים הנבחרים?"
 
-#: ../gitg/commit/gitg-commit.vala:891 ../gitg/commit/gitg-commit.vala:1003
+#: ../gitg/commit/gitg-commit.vala:797 ../gitg/commit/gitg-commit.vala:940
 msgid "Discard"
 msgstr "השלכה"
 
-#: ../gitg/commit/gitg-commit.vala:892 ../gitg/commit/gitg-commit.vala:1004
-#: ../gitg/gitg-window.vala:308
+#: ../gitg/commit/gitg-commit.vala:798 ../gitg/commit/gitg-commit.vala:941
+#: ../gitg/gitg-window.vala:325
 #: ../libgitg/gitg-diff-view-request-patch.vala:109
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 msgid "_Cancel"
 msgstr "_ביטול"
 
-#: ../gitg/commit/gitg-commit.vala:920
+#: ../gitg/commit/gitg-commit.vala:826
 msgid "Failed to discard selection"
 msgstr "ארע כשל בהשלכת הבחירה"
 
-#: ../gitg/commit/gitg-commit.vala:949
+#: ../gitg/commit/gitg-commit.vala:855
 msgid "Failed to stage selection"
 msgstr "ארע כשל בשילוב הבחירה"
 
-#: ../gitg/commit/gitg-commit.vala:953
+#: ../gitg/commit/gitg-commit.vala:859
 msgid "Failed to unstage selection"
 msgstr "ארע כשל בביטול שילוב הבחירה"
 
-#: ../gitg/commit/gitg-commit.vala:977
+#: ../gitg/commit/gitg-commit.vala:898
 msgid "Failed to discard changes"
 msgstr "ארע כשל בהשלכת השינויים"
 
-#: ../gitg/commit/gitg-commit.vala:994
+#: ../gitg/commit/gitg-commit.vala:919
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
 "%s'?"
 msgstr "האם ברצונך להשליך לצמיתות את כל השינויים שבוצעו בקובץ '%s'?"
 
-#: ../gitg/commit/gitg-commit.vala:1033
+#: ../gitg/commit/gitg-commit.vala:930
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the files "
+"%s and `%s'?"
+msgstr "האם ברצונך להשליך לצמיתות את כל השינויים שבוצעו בקבצים '%s' ו־'%s'?"
+
+#: ../gitg/commit/gitg-commit.vala:974
 msgid "_Stage changes"
 msgstr "_שילוב שינויים"
 
-#: ../gitg/commit/gitg-commit.vala:1043
+#: ../gitg/commit/gitg-commit.vala:984
 msgid "_Unstage changes"
 msgstr "_ביטול שילוב שינויים"
 
-#: ../gitg/commit/gitg-commit.vala:1053
+#: ../gitg/commit/gitg-commit.vala:994
 msgid "_Discard changes"
 msgstr "ה_שלכת שינויים"
 
@@ -450,6 +454,87 @@ msgstr "הגדרת תצורת המשתמש עבור Git נכשלה."
 msgid "The URL introduced is not supported"
 msgstr "הכתובת שסופקה אינה נתמכת"
 
+#: ../gitg/gitg-ref-action-delete.vala:38
+#: ../gitg/gitg-ref-action-delete.vala:78
+msgid "Delete"
+msgstr "מחיקה"
+
+#: ../gitg/gitg-ref-action-delete.vala:63
+#, c-format
+msgid "Delete branch %s"
+msgstr "מחיקת ענף %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:64
+#, c-format
+msgid "Are you sure that you want to permanently delete the branch %s?"
+msgstr "האם ברצונך למחוק לצמיתות את הענף %s?"
+
+#: ../gitg/gitg-ref-action-delete.vala:68
+#, c-format
+msgid "Delete tag %s"
+msgstr "מחיקת תג %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:69
+#, c-format
+msgid "Are you sure that you want to permanently delete the tag %s?"
+msgstr "האם ברצונך למחוק לצמיתות את התג %s?"
+
+#: ../gitg/gitg-ref-action-delete.vala:73
+#, c-format
+msgid "Delete remote branch %s"
+msgstr "מחיקת ענך מרוחק %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:74
+#, c-format
+msgid "Are you sure that you want to permanently delete the remote branch %s?"
+msgstr "האם ברצונך למחוק לצמיתות את הענף המרוחק %s?"
+
+#: ../gitg/gitg-ref-action-delete.vala:79
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "ביטול"
+
+#. Translators: %s is the name of the tag
+#: ../gitg/gitg-ref-action-delete.vala:109
+#, c-format
+msgid "Failed to delete tag %s"
+msgstr "ארע כשל במחיקת תג %s"
+
+#. Translators: the first %s is the name of the tag, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:112
+#, c-format
+msgid "The tag %s could not be deleted: %s"
+msgstr "לא ניתן למחוק את התג %s: ‏%s"
+
+#. Translators: %s is the name of the branch
+#: ../gitg/gitg-ref-action-delete.vala:117
+#, c-format
+msgid "Failed to delete branch %s"
+msgstr "ארע כשל במחיקת ענף %s"
+
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:120
+#, c-format
+msgid "The branch %s could not be deleted: %s"
+msgstr "לא ניתן למחוק את הענף %s: ‏%s"
+
+#: ../gitg/gitg-ref-action-rename.vala:38
+msgid "Rename"
+msgstr "שינוי שם"
+
+#: ../gitg/gitg-ref-action-rename.vala:90
+#, c-format
+msgid "The specified name ‘%s’ contains invalid characters"
+msgstr "השם המסוים '%s' מכיל תווים לא תקניים"
+
+#: ../gitg/gitg-ref-action-rename.vala:92
+msgid "Invalid name"
+msgstr "שם לא תקין"
+
+#: ../gitg/gitg-ref-action-rename.vala:131
+msgid "Failed to rename"
+msgstr "ארע כשל בשינוי השם"
+
 #: ../gitg/gitg.vala:64
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
@@ -470,49 +555,45 @@ msgstr ""
 "בכל מקרה אחר, עליך לדווח על תקלה מול ההפצה שלך על כך לך libgit2 ללא תמיכה "
 "בריבוי תהליכים."
 
-#: ../gitg/gitg-window.vala:270
+#: ../gitg/gitg-window.vala:286
 msgid "Projects"
 msgstr "מיזמים"
 
-#: ../gitg/gitg-window.vala:306
+#: ../gitg/gitg-window.vala:323
 msgid "Open Repository"
 msgstr "פתיחת מאגר"
 
-#: ../gitg/gitg-window.vala:309
+#: ../gitg/gitg-window.vala:326
 msgid "_Open"
 msgstr "_פתיחה"
 
-#: ../gitg/gitg-window.vala:545
+#: ../gitg/gitg-window.vala:569
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "‏`%s` אינו מאגר Git"
 
-#: ../gitg/history/gitg-history-navigation.vala:199
-#: ../gitg/history/gitg-history-navigation.vala:307
+#: ../gitg/history/gitg-history-refs-list.vala:136
 msgid "All commits"
 msgstr "כל ההגשות"
 
-#. Branches
-#: ../gitg/history/gitg-history-navigation.vala:202
+#: ../gitg/history/gitg-history-refs-list.vala:674
 msgid "Branches"
 msgstr "ענפים"
 
-#. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:239
+#: ../gitg/history/gitg-history-refs-list.vala:675
 msgid "Remotes"
 msgstr "מרוחקים"
 
-#. Tags
-#: ../gitg/history/gitg-history-navigation.vala:265
+#: ../gitg/history/gitg-history-refs-list.vala:676
 msgid "Tags"
 msgstr "תגיות"
 
-#: ../gitg/history/gitg-history.vala:183
+#: ../gitg/history/gitg-history.vala:223
 #: ../gitg/preferences/gitg-preferences-history.vala:144
 msgid "History"
 msgstr "היסטוריה"
 
-#: ../gitg/history/gitg-history.vala:188
+#: ../gitg/history/gitg-history.vala:228
 msgid "Examine the history of the repository"
 msgstr "לבחון את ההיסטוריה של המאגר"
 
@@ -651,10 +732,6 @@ msgstr "דוא״ל:"
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
 msgid "Name: "
 msgstr "שם:"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
-msgid "Cancel"
-msgstr "ביטול"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
 msgid "Save"
@@ -838,12 +915,6 @@ msgstr "חיפוש מילה או ביטוי"
 msgid "General settings and options"
 msgstr "הגדרות כלליות ואפשרויות"
 
-#: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
-msgid ""
-"Remove the repository from the list (does not delete the repository from "
-"disk)"
-msgstr "מחיקת המאגר מהרשימה (לא מוחק את המאגר מהכונן)"
-
 #: ../libgitg/resources/diff-view-options.ui.h:1
 msgid "Ignore whitespace changes"
 msgstr "התעלמות משינויי רווחים לבנים"
@@ -863,6 +934,12 @@ msgstr "רוחב טאב"
 #: ../libgitg/resources/diff-view-options.ui.h:5
 msgid "Context"
 msgstr "הקשר"
+
+#: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
+msgid ""
+"Remove the repository from the list (does not delete the repository from "
+"disk)"
+msgstr "מחיקת המאגר מהרשימה (לא מוחק את המאגר מהכונן)"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
