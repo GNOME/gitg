@@ -43,8 +43,7 @@ class RefActionDelete : GitgExt.Action, GitgExt.RefAction, Object
 		get
 		{
 			return    reference.is_branch()
-			       || reference.is_tag()
-			       || reference.is_remote();
+			       || reference.is_tag();
 		}
 	}
 
@@ -93,47 +92,39 @@ class RefActionDelete : GitgExt.Action, GitgExt.RefAction, Object
 			return true;
 		}
 
-		if (reference.is_remote())
+		try
 		{
-			// TODO
-			return true;
+			reference.delete();
 		}
-		else
+		catch (Error e)
 		{
-			try
+			string title;
+			string message;
+
+			var name = reference.get_shorthand();
+
+			if (reference.is_tag())
 			{
-				reference.delete();
+				// Translators: %s is the name of the tag
+				title = _("Failed to delete tag %s").printf(name);
+
+				// Translators: the first %s is the name of the tag, the second is an error message
+				message = _("The tag %s could not be deleted: %s").printf(name, e.message);
 			}
-			catch (Error e)
+			else
 			{
-				string title;
-				string message;
+				// Translators: %s is the name of the branch
+				title = _("Failed to delete branch %s").printf(name);
 
-				var name = reference.get_shorthand();
-
-				if (reference.is_tag())
-				{
-					// Translators: %s is the name of the tag
-					title = _("Failed to delete tag %s").printf(name);
-
-					// Translators: the first %s is the name of the tag, the second is an error message
-					message = _("The tag %s could not be deleted: %s").printf(name, e.message);
-				}
-				else
-				{
-					// Translators: %s is the name of the branch
-					title = _("Failed to delete branch %s").printf(name);
-
-					// Translators: the first %s is the name of the branch, the second is an error message
-					message = _("The branch %s could not be deleted: %s").printf(name, e.message);
-				}
-
-				action_interface.application.show_infobar(title,
-				                                          message,
-				                                          Gtk.MessageType.ERROR);
-
-				return true;
+				// Translators: the first %s is the name of the branch, the second is an error message
+				message = _("The branch %s could not be deleted: %s").printf(name, e.message);
 			}
+
+			action_interface.application.show_infobar(title,
+			                                          message,
+			                                          Gtk.MessageType.ERROR);
+
+			return true;
 		}
 
 		action_interface.remove_ref(reference);
