@@ -105,6 +105,37 @@ function write_avatar(avatar, commit)
 	loader.attr('src', gravatar);
 }
 
+function prettify_message(message)
+{
+	var lines = message.split(/\n/);
+	var ret = '';
+	var isempty = false;
+
+	for (var i = 0; i < lines.length; i++)
+	{
+		var l = lines[i];
+		l = l.trimRight();
+
+		if (isempty && l.length != 0)
+		{
+			ret += '\n\n';
+		}
+		else if (l.match(/^[^a-zA-Z_]/))
+		{
+			ret += '\n';
+		}
+		else if (l.length != 0 && ret.length != 0)
+		{
+			ret += ' ';
+		}
+
+		ret += l;
+		isempty = (l.length == 0);
+	}
+
+	return ret;
+}
+
 function write_commit(content, commit)
 {
 	var elems = get_commit_elements(content);
@@ -118,7 +149,7 @@ function write_commit(content, commit)
 	elems.date.text(commit.author.time);
 
 	// Message
-	elems.message.text(commit.message);
+	elems.message.text(prettify_message(commit.message));
 
 	// Sha1
 	elems.sha1.text(commit.id);
