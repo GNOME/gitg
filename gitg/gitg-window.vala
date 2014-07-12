@@ -76,6 +76,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.Label d_infobar_secondary_label;
 
+	enum Mode
+	{
+		DASH,
+		ACTIVITY
+	}
+
+	private Mode d_mode;
+
 	private static const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
 		{"gear-menu", on_gear_menu_activated, null, "false", null},
@@ -109,8 +117,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkCallback]
 	private void search_entry_changed(Gtk.Editable entry)
 	{
-		// FIXME: this is a weird way to know the dash is visible
-		if (d_repository == null)
+		if (d_mode == Mode.DASH)
 		{
 			d_dash_view.filter_text((entry as Gtk.Entry).text);
 		}
@@ -150,7 +157,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		// search bar
 		d_search_bar.connect_entry(d_search_entry);
-		d_search_button.bind_property("active", d_search_bar, "search-mode-enabled", BindingFlags.BIDIRECTIONAL);
+		d_search_button.bind_property("active",
+		                              d_search_bar,
+		                              "search-mode-enabled",
+		                              BindingFlags.BIDIRECTIONAL);
 
 		d_activities_switcher.set_stack(d_stack_activities);
 
@@ -187,9 +197,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private void on_search_activated(SimpleAction action)
 	{
-		var state = action.get_state().get_boolean();
-
-		action.set_state(new Variant.boolean(!state));
+		if (d_search_button.visible)
+		{
+			var state = action.get_state().get_boolean();
+			action.set_state(new Variant.boolean(!state));
+		}
 	}
 
 	private void on_gear_menu_activated(SimpleAction action)
@@ -254,6 +266,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			}
 			catch {}
 
+			d_mode = Mode.ACTIVITY;
+
 			d_header_bar.set_subtitle(Markup.escape_text(head_name));
 
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
@@ -267,6 +281,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			title = "gitg";
 
+			d_mode = Mode.DASH;
+
 			d_header_bar.set_title(_("Projects"));
 			d_header_bar.set_subtitle(null);
 
@@ -275,6 +291,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_activities_switcher.hide();
 			d_dash_button.hide();
 			d_gear_menu.menu_model = d_dash_model;
+			d_search_button.visible = true;
 		}
 
 		d_activities.update();
@@ -394,6 +411,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void on_current_activity_changed(Object obj, ParamSpec pspec)
 	{
 		notify_property("current_activity");
+
+		d_search_button.visible = (d_activities.current.supports_search);
+
+		if (!d_search_button.visible)
+		{
+			d_search_button.active = false;
+		}
 	}
 
 	private void activate_default_activity()

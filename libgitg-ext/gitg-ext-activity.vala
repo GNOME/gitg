@@ -42,6 +42,8 @@ public interface Activity : Object, UIElement
 	{
 		return false;
 	}
+
+	public abstract bool supports_search { get; }
 }
 
 }
