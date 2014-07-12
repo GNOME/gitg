@@ -873,6 +873,19 @@ public class RefsList : Gtk.ListBox
 		var row = d_ref_map[reference];
 		row.begin_editing((owned)done);
 	}
+
+	protected override bool button_press_event(Gdk.EventButton button)
+	{
+		var ret = base.button_press_event(button);
+		var row = get_row_at_y((int)button.y);
+
+		if (row != null && row != get_selected_row())
+		{
+			select_row(row);
+		}
+
+		return ret;
+	}
 }
 
 }
