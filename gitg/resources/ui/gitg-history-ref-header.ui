@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.3 -->
+  <!-- interface-requires gitg 0.0 -->
+  <!-- interface-requires gd 1.0 -->
+  <template class="GitgHistoryRefHeader" parent="GtkListBoxRow">
+    <property name="visible">True</property>
+    <style>
+      <class name="sidebar"/>
+    </style>
+    <child>
+      <object class="GtkLabel" id="d_label">
+        <property name="visible">True</property>
+        <property name="margin_top">3</property>
+        <property name="margin_bottom">3</property>
+        <property name="margin_start">16</property>
+        <property name="halign">start</property>
+      </object>
+    </child>
+  </template>
+</interface>
+<!-- vi:ts=2:et -->

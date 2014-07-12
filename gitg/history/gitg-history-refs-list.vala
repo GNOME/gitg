@@ -316,11 +316,14 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 	}
 }
 
+[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-history-ref-header.ui")]
 private class RefHeader : RefTyped, Gtk.ListBoxRow
 {
 	private Gitg.RefType d_rtype;
 	private bool d_is_sub_header_remote;
 	private string d_name;
+
+	[GtkChild]
 	private Gtk.Label d_label;
 
 	public Gitg.RefType ref_type
@@ -335,22 +338,12 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 
 	public RefHeader(Gitg.RefType rtype, string name)
 	{
-		d_label = new Gtk.Label(null);
-		d_label.show();
-
-		add(d_label);
-
 		var escaped = Markup.escape_text(name);
 
 		d_label.set_markup(@"<b>$escaped</b>");
-		d_label.halign = Gtk.Align.START;
 
 		d_name = name;
 		d_rtype = rtype;
-
-		d_label.margin_top = 3;
-		d_label.margin_bottom = 3;
-		d_label.margin_start = 16;
 	}
 
 	public RefHeader.remote(string name)
