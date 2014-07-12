@@ -765,6 +765,23 @@ public class RefsList : Gtk.ListBox
 		}
 	}
 
+	public bool is_all
+	{
+		get
+		{
+			var row = get_selected_row();
+
+			if (row == null)
+			{
+				return true;
+			}
+
+			var ref_row = get_ref_row(row);
+
+			return (ref_row != null && ref_row.reference == null);
+		}
+	}
+
 	[Notify]
 	public Gee.List<Gitg.Ref> selection
 	{

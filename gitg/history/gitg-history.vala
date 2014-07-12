@@ -137,9 +137,11 @@ namespace GitgHistory
 		{
 			var commit = d_commit_list_model.commit_from_path(path);
 
+			var sel = d_main.commit_list_view.get_selection();
+
 			if (d_selected.size == 0 || d_selected.remove(commit.get_id()))
 			{
-				d_main.commit_list_view.get_selection().select_path(path);
+				sel.select_path(path);
 
 				if (commit.get_id().equal(d_scroll_to))
 				{
@@ -153,8 +155,12 @@ namespace GitgHistory
 				}
 			}
 
-			if (d_selected.size == 0)
+			if (d_selected.size == 0 || (sel.count_selected_rows() != 0 &&
+			                             (sel.mode == Gtk.SelectionMode.SINGLE ||
+			                              sel.mode == Gtk.SelectionMode.BROWSE)))
 			{
+				d_selected.clear();
+
 				d_commit_list_model.disconnect(d_insertsig);
 				d_insertsig = 0;
 			}
