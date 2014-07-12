@@ -426,26 +426,38 @@ namespace GitgHistory
 		{
 			d_selected.clear();
 
+			var include = new Ggit.OId[0];
+			var isall = d_main.refs_list.is_all;
+
 			foreach (var r in d_main.refs_list.selection)
 			{
 				try
 				{
 					var resolved = r.resolve();
+					Ggit.OId? id;
 
 					if (resolved.is_tag())
 					{
 						var t = application.repository.lookup<Ggit.Tag>(resolved.get_target());
-						d_selected.add(t.get_target_id());
+
+						id = t.get_target_id();
 					}
 					else
 					{
-						d_selected.add(resolved.get_target());
+						id = resolved.get_target();
+					}
+
+					include += id;
+
+					if (!isall)
+					{
+						d_selected.add(id);
 					}
 				}
 				catch {}
 			}
 
-			d_commit_list_model.set_include(d_selected.to_array());
+			d_commit_list_model.set_include(include);
 			d_commit_list_model.reload();
 		}
 	}
