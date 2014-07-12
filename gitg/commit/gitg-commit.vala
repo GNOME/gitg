@@ -474,8 +474,15 @@ namespace GitgCommit
 				}
 				else
 				{
-					// Select unstaged header
-					d_main.sidebar.select(unstaged_header);
+					// Select staged/unstaged header
+					if (unstaged.length == 0)
+					{
+						d_main.sidebar.select(staged_header);
+					}
+					else
+					{
+						d_main.sidebar.select(unstaged_header);
+					}
 				}
 			});
 		}
