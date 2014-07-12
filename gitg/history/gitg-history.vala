@@ -166,6 +166,37 @@ namespace GitgHistory
 			}
 		}
 
+		private void scroll_into_view()
+		{
+			if (d_main == null)
+			{
+				return;
+			}
+
+			var sel = d_main.commit_list_view.get_selection();
+
+			Gtk.TreeModel m;
+			var rows = sel.get_selected_rows(out m);
+
+			if (rows == null)
+			{
+				return;
+			}
+
+			var row = rows.data;
+
+			Gtk.TreePath startp;
+			Gtk.TreePath endp;
+
+			if (d_main.commit_list_view.get_visible_range(out startp, out endp))
+			{
+				if (row.compare(startp) < 0 || row.compare(endp) > 0)
+				{
+					d_main.commit_list_view.scroll_to_cell(row, null, true, 0, 0);
+				}
+			}
+		}
+
 		private void on_commit_model_finished(Gitg.CommitModel model)
 		{
 			if (d_insertsig != 0)
@@ -173,6 +204,8 @@ namespace GitgHistory
 				d_commit_list_model.disconnect(d_insertsig);
 				d_insertsig = 0;
 			}
+
+			scroll_into_view();
 		}
 
 		public bool available
