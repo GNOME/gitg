@@ -755,7 +755,7 @@ public class RefsList : Gtk.ListBox
 
 			try
 			{
-				if (d_repository.is_head_detached())
+				if (d_repository != null && d_repository.is_head_detached())
 				{
 					ret.add(d_repository.get_head());
 				}
