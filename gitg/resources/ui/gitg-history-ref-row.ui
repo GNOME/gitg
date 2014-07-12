@@ -5,6 +5,9 @@
   <!-- interface-requires gd 1.0 -->
   <template class="GitgHistoryRefRow" parent="GtkListBoxRow">
     <property name="visible">True</property>
+    <style>
+      <class name="sidebar"/>
+    </style>
     <child>
       <object class="GtkRevealer" id="d_revealer">
         <property name="visible">True</property>
