@@ -372,6 +372,10 @@ namespace GitgCommit
 
 				var staged_header = model.begin_header(_("Staged"), (uint)Sidebar.File.Type.STAGED);
 
+				staged_header.activated.connect((numclick) => {
+					on_unstage_selected_items();
+				});
+
 				var current_staged = new Sidebar.File[0];
 				var current_unstaged = new Sidebar.File[0];
 
@@ -393,6 +397,10 @@ namespace GitgCommit
 				model.end_header();
 
 				var unstaged_header = model.begin_header(_("Unstaged"), (uint)Sidebar.File.Type.UNSTAGED);
+
+				unstaged_header.activated.connect((numclick) => {
+					on_stage_selected_items();
+				});
 
 				if (unstaged.length == 0)
 				{
@@ -1053,6 +1061,33 @@ namespace GitgCommit
 			}
 		}
 
+		private void on_stage_selected_items()
+		{
+			var sel = d_main.sidebar.get_selected_items<Gitg.SidebarItem>();
+			Sidebar.File.Type type;
+
+			var files = files_for_items(sel, out type);
+
+			if (files.length != 0 && (type == Sidebar.File.Type.UNSTAGED ||
+			                          type == Sidebar.File.Type.UNTRACKED))
+			{
+				on_unstaged_activated(files);
+			}
+		}
+
+		private void on_unstage_selected_items()
+		{
+			var sel = d_main.sidebar.get_selected_items<Gitg.SidebarItem>();
+			Sidebar.File.Type type;
+
+			var files = files_for_items(sel, out type);
+
+			if (files.length != 0 && type == Sidebar.File.Type.STAGED)
+			{
+				on_staged_activated(files);
+			}
+		}
+
 		private void build_ui()
 		{
 			d_main = new Paned();
@@ -1068,30 +1103,8 @@ namespace GitgCommit
 				d_main.diff_view.diff = null;
 			});
 
-			d_main.sidebar.stage_selection.connect(() => {
-				var sel = d_main.sidebar.get_selected_items<Gitg.SidebarItem>();
-				Sidebar.File.Type type;
-
-				var files = files_for_items(sel, out type);
-
-				if (files.length != 0 && (type == Sidebar.File.Type.UNSTAGED ||
-				                          type == Sidebar.File.Type.UNTRACKED))
-				{
-					on_unstaged_activated(files);
-				}
-			});
-
-			d_main.sidebar.unstage_selection.connect(() => {
-				var sel = d_main.sidebar.get_selected_items<Gitg.SidebarItem>();
-				Sidebar.File.Type type;
-
-				var files = files_for_items(sel, out type);
-
-				if (files.length != 0 && type == Sidebar.File.Type.STAGED)
-				{
-					on_staged_activated(files);
-				}
-			});
+			d_main.sidebar.stage_selection.connect(on_stage_selected_items);
+			d_main.sidebar.unstage_selection.connect(on_unstage_selected_items);
 
 			d_main.sidebar.discard_selection.connect(() => {
 				var sel = d_main.sidebar.get_selected_items<Gitg.SidebarItem>();
