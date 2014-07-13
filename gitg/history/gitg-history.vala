@@ -52,11 +52,6 @@ namespace GitgHistory
 			owned get { return "/org/gnome/gitg/Activities/History"; }
 		}
 
-		public bool supports_search
-		{
-			get { return false; }
-		}
-
 		private Gitg.Repository d_repository;
 
 		[Notify]

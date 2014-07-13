@@ -39,11 +39,6 @@ namespace GitgCommit
 			owned get { return "/org/gnome/gitg/Activities/Commit"; }
 		}
 
-		public bool supports_search
-		{
-			get { return false; }
-		}
-
 		[Notify]
 		public Gitg.Repository repository
 		{
