@@ -52,6 +52,21 @@ public class UIElements<T> : Object
 		}
 	}
 
+	public T[] available_elements
+	{
+		owned get
+		{
+			var ret = new T[0];
+
+			foreach (var elem in d_available_elements)
+			{
+				ret += (T)elem;
+			}
+
+			return ret;
+		}
+	}
+
 	public void update()
 	{
 		// Update active elements based on availability
