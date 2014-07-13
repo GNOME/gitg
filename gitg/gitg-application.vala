@@ -266,6 +266,12 @@ public class Application : Gtk.Application
 		string accel;
 	}
 
+	struct MultiAccel
+	{
+		string name;
+		string[] accels;
+	}
+
 	protected override void startup()
 	{
 		base.startup();
@@ -277,21 +283,32 @@ public class Application : Gtk.Application
 		// Application menu entries
 		add_action_entries(app_entries, this);
 
-		const Accel[] accels = {
-			{"app.new", "<Primary>N"},
+		const Accel[] single_accels = {
+			{"app.new", "<Primary>N",},
 			{"app.quit", "<Primary>Q"},
 			{"app.help", "F1"},
 
 			{"win.search", "<Primary>F"},
-			{"win.reload", "<Primary>R"},
 			{"win.gear-menu", "F10"},
 			{"win.open-repository", "<Primary>O"},
 			{"win.close", "<Primary>W"}
 		};
 
-		foreach (var accel in accels)
+		var multi_accels = new MultiAccel[] {
+			MultiAccel() {
+				name = "win.reload",
+				accels = new string[] {"<Primary>R", "F5"}
+			}
+		};
+
+		foreach (var accel in single_accels)
 		{
-			add_accelerator(accel.accel, accel.name, null);
+			set_accels_for_action(accel.name, new string[] {accel.accel});
+		}
+
+		foreach (var accel in multi_accels)
+		{
+			set_accels_for_action(accel.name, accel.accels);
 		}
 
 		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
