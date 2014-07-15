@@ -750,6 +750,20 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
+	[GtkCallback]
+	private bool dash_view_button_press(Gdk.EventButton event)
+	{
+		Gdk.Event *ev = (Gdk.Event *)event;
+
+		if (ev->triggers_context_menu() && !d_dash_view.is_selection)
+		{
+			d_select_button.active = true;
+			return true;
+		}
+
+		return false;
+	}
+
 	private Gtk.Widget make_dash_select_actions()
 	{
 		var ab = new Gtk.ActionBar();

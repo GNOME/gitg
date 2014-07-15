@@ -240,6 +240,7 @@
                     <property name="can_focus">True</property>
                     <signal name="repository_activated" handler="dash_view_repository_activated" swapped="no"/>
                     <signal name="show_error" handler="dash_view_show_error" swapped="no"/>
+                    <signal name="button_press_event" handler="dash_view_button_press"/>
                     <style>
                       <class name="view"/>
                     </style>
