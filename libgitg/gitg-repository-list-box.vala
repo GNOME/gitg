@@ -25,7 +25,7 @@ namespace Gitg
 		private string? d_filter_text;
 
 		[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-repository-list-box-row.ui")]
-		private class Row : Gtk.ListBoxRow
+		public class Row : Gtk.ListBoxRow
 		{
 			private Repository? d_repository;
 			private DateTime d_time;
@@ -44,9 +44,48 @@ namespace Gitg
 			[GtkChild]
 			private Gtk.Spinner d_spinner;
 			[GtkChild]
-			private Gtk.Button d_remove_button;
+			private Gtk.CheckButton d_remove_check_button;
+			[GtkChild]
+			private Gtk.Revealer d_remove_revealer;
 
 			public signal void request_remove();
+
+			private bool d_is_selection;
+
+			public bool is_selection
+			{
+				get
+				{
+					return d_is_selection;
+				}
+
+				set
+				{
+					if (d_is_selection != value)
+					{
+						d_is_selection = value;
+
+						d_remove_revealer.reveal_child = d_is_selection;
+
+						d_remove_check_button.active = false;
+					}
+				}
+			}
+
+			[Notify]
+			public new bool is_selected
+			{
+				get; set;
+			}
+
+			construct
+			{
+				d_remove_check_button.bind_property("active",
+				                                    this,
+				                                    "is-selected",
+				                                    BindingFlags.BIDIRECTIONAL |
+				                                    BindingFlags.SYNC_CREATE);
+			}
 
 			public Repository? repository
 			{
@@ -70,10 +109,8 @@ namespace Gitg
 
 			public bool can_remove
 			{
-				set
-				{
-					d_remove_button.sensitive = value;
-				}
+				get { return d_remove_check_button.sensitive; }
+				set { d_remove_check_button.sensitive = value; }
 			}
 
 			public DateTime time
@@ -139,19 +176,27 @@ namespace Gitg
 			{
 				Object(repository_name: name, branch_name: branch_name, has_remote: has_remote);
 			}
-
-			[GtkCallback]
-			private void remove_button_clicked(Gtk.Button remove)
-			{
-				request_remove();
-			}
 		}
 
 		public signal void repository_activated(Repository repository);
 		public signal void show_error(string primary_message, string secondary_message);
 
+		public bool is_selection { get; set; }
+
 		protected override void row_activated(Gtk.ListBoxRow row)
 		{
+			if (is_selection)
+			{
+				var r = row as Row;
+
+				if (r != null && r.is_selection)
+				{
+					r.is_selected = !r.is_selected;
+				}
+
+				return;
+			}
+
 			var r = (Row)row;
 
 			if (r.repository != null)
@@ -294,6 +339,17 @@ namespace Gitg
 
 				if (f != null)
 				{
+					bind_property("is-selection",
+					              row,
+					              "is-selection");
+				}
+
+				if (f != null)
+				{
+					row.notify["is-selected"].connect(() => {
+						notify_property("has-selection");
+					});
+
 					row.request_remove.connect(() => {
 						try
 						{
@@ -323,6 +379,44 @@ namespace Gitg
 			if (f != null)
 			{
 				add_repository_to_recent_manager(f.get_uri());
+			}
+		}
+
+		public Row[] selection
+		{
+			owned get
+			{
+				var ret = new Row[0];
+
+				foreach (var row in get_children())
+				{
+					var r = row as Row;
+
+					if (r != null && r.can_remove && r.is_selected)
+					{
+						ret += r;
+					}
+				}
+
+				return ret;
+			}
+		}
+
+		public bool has_selection
+		{
+			get
+			{
+				foreach (var row in get_children())
+				{
+					var r = row as Row;
+
+					if (r != null && r.can_remove && r.is_selected)
+					{
+						return true;
+					}
+				}
+
+				return false;
 			}
 		}
 

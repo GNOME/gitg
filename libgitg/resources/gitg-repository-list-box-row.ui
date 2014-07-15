@@ -17,24 +17,21 @@
             <property name="margin_bottom">12</property>
             <property name="column_spacing">10</property>
             <child>
-              <object class="GtkButton" id="d_remove_button">
+              <object class="GtkRevealer" id="d_remove_revealer">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="has_focus">False</property>
-                <property name="is_focus">False</property>
+                <property name="has_focus">True</property>
                 <property name="vexpand">False</property>
                 <property name="valign">center</property>
-                <property name="relief">none</property>
-                <property name="tooltip_text" translatable="yes">Remove the repository from the list (does not delete the repository from disk)</property>
-                <signal name="clicked" handler="remove_button_clicked" swapped="no"/>
-                <style>
-                  <class name="image-button"/>
-                </style>
+                <property name="transition_type">slide-left</property>
                 <child>
-                  <object class="GtkImage" id="delete_image">
+                  <object class="GtkCheckButton" id="d_remove_check_button">
                     <property name="visible">True</property>
-                    <property name="pixel_size">16</property>
-                    <property name="icon_name">list-remove-symbolic</property>
+                    <property name="can_focus">True</property>
+                    <property name="has_focus">False</property>
+                    <property name="vexpand">False</property>
+                    <property name="valign">center</property>
+                    <property name="tooltip_text" translatable="yes">Remove the repository from the list (does not delete the repository from disk)</property>
                   </object>
                 </child>
               </object>

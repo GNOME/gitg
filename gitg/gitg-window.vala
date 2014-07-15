@@ -31,6 +31,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gee.HashMap<string, string> d_environment;
 	private bool d_busy;
 	private Gtk.Dialog? d_dialog;
+	private Gtk.Widget? d_select_actions;
 
 	private UIElements<GitgExt.Activity> d_activities;
 
@@ -44,7 +45,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private MenuModel d_dash_model;
 	private MenuModel d_activities_model;
 
+	[GtkChild]
+	private Gtk.Grid d_grid_main;
 
+	[GtkChild]
+	private Gtk.ToggleButton d_select_button;
+	[GtkChild]
+	private Gtk.Button d_select_cancel_button;
 
 	[GtkChild]
 	private Gtk.Button d_dash_button;
@@ -126,6 +133,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{"reload", on_reload_activated},
 		{"author-details-global", on_global_author_details_activated},
 		{"author-details-repo", on_repo_author_details_activated},
+		{"select", on_select_activated, null, "false", null}
 	};
 
 	[GtkCallback]
@@ -212,9 +220,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		d_header_bar.remove(d_activities_switcher);
 		d_header_bar.remove(d_search_button);
+		d_header_bar.remove(d_select_button);
 		d_header_bar.remove(d_gear_menu);
 
 		d_header_bar.pack_end(d_gear_menu);
+		d_header_bar.pack_end(d_select_button);
 		d_header_bar.pack_end(d_search_button);
 		d_header_bar.pack_end(d_activities_switcher);
 
@@ -234,6 +244,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			                            typeof(int),
 			                            i);
 		}
+
+		Gtk.BindingEntry.add_signal(bset,
+		                            Gdk.Key.Escape,
+		                            0,
+		                            "cancel",
+		                            0);
 	}
 
 	private void on_close_activated()
@@ -338,6 +354,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_dash_button.hide();
 			d_gear_menu.menu_model = d_dash_model;
 			d_search_button.visible = true;
+			d_select_button.visible = true;
 		}
 
 		d_activities.update();
@@ -458,11 +475,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	{
 		notify_property("current_activity");
 
-		d_search_button.visible = (d_activities.current.supports_search);
+		d_search_button.visible = (d_activities.current is GitgExt.Searchable);
+		d_select_button.visible = (d_activities.current is GitgExt.Selectable);
 
 		if (!d_search_button.visible)
 		{
 			d_search_button.active = false;
+		}
+
+		if (!d_select_button.visible)
+		{
+			d_select_button.active = false;
 		}
 	}
 
@@ -716,6 +739,125 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			{
 				win.set_cursor(null);
 			}
+		}
+	}
+
+	private void remove_selected_repositories()
+	{
+		foreach (var sel in d_dash_view.selection)
+		{
+			sel.request_remove();
+		}
+	}
+
+	private Gtk.Widget make_dash_select_actions()
+	{
+		var ab = new Gtk.ActionBar();
+
+		var del = new Gtk.Button.with_mnemonic(_("_Delete"));
+		del.sensitive = false;
+		del.show();
+
+		del.clicked.connect(() => {
+			remove_selected_repositories();
+			d_select_button.active = false;
+		});
+
+		d_dash_view.bind_property("has-selection",
+		                          del,
+		                          "sensitive");
+
+		ab.pack_end(del);
+
+		return ab;
+	}
+
+	private void on_select_activated(SimpleAction action)
+	{
+		if (d_mode != Mode.DASH && !(d_activities.current is GitgExt.Selectable))
+		{
+			return;
+		}
+
+		var state = action.get_state().get_boolean();
+		var nstate = !state;
+
+		Gtk.Widget? select_actions = null;
+
+		if (d_mode == Mode.ACTIVITY)
+		{
+			var selectable = d_activities.current as GitgExt.Selectable;
+
+			if (selectable == null)
+			{
+				return;
+			}
+
+			if (nstate)
+			{
+				selectable.mode = GitgExt.SelectionMode.SELECT;
+			}
+			else
+			{
+				selectable.mode = GitgExt.SelectionMode.NORMAL;
+			}
+		}
+		else
+		{
+			d_dash_view.is_selection = nstate;
+
+			if (nstate)
+			{
+				select_actions = make_dash_select_actions();
+			}
+		}
+
+		var ctx = d_header_bar.get_style_context();
+
+		if (nstate)
+		{
+			ctx.add_class("selection-mode");
+
+			d_select_actions = select_actions;
+
+			if (d_select_actions != null)
+			{
+				d_grid_main.attach(d_select_actions, 0, 3, 1, 1);
+				d_select_actions.show();
+			}
+		}
+		else
+		{
+			ctx.remove_class("selection-mode");
+
+			if (d_select_actions != null)
+			{
+				d_select_actions.destroy();
+				d_select_actions = null;
+			}
+		}
+
+		d_header_bar.show_close_button = !nstate;
+		d_search_button.visible = !nstate;
+		d_gear_menu.visible = !nstate;
+		d_select_button.visible = !nstate;
+		d_select_cancel_button.visible = nstate;
+
+		action.set_state(new Variant.boolean(nstate));
+	}
+
+	[GtkCallback]
+	private void on_select_cancel_button_clicked()
+	{
+		d_select_button.active = false;
+	}
+
+	[Signal(action = true)]
+	public virtual signal void cancel()
+	{
+		if (d_select_button.active)
+		{
+			d_select_button.active = false;
 		}
 	}
 }

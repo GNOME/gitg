@@ -58,6 +58,7 @@ libgitg_ext_libgitg_ext_1_0_la_VALASOURCES =		\
 	libgitg-ext/gitg-ext-command-line.vala		\
 	libgitg-ext/gitg-ext-preferences.vala		\
 	libgitg-ext/gitg-ext-searchable.vala		\
+	libgitg-ext/gitg-ext-selectable.vala		\
 	libgitg-ext/gitg-ext-ui.vala			\
 	libgitg-ext/gitg-ext-user-query.vala		\
 	libgitg/libgitg-1.0.vapi
