@@ -28,6 +28,9 @@ namespace GitgExt
  */
 public interface Searchable : Object, Activity
 {
+	public abstract string search_text { owned get; set; }
+	public abstract bool search_visible { get; set; }
+	public abstract bool search_enabled { get; set; }
 }
 
 }

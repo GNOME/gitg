@@ -23,7 +23,7 @@ namespace GitgExt
 public enum SelectionMode
 {
 	NORMAL,
-	SELECT
+	SELECTION
 }
 
 /**
@@ -34,7 +34,10 @@ public enum SelectionMode
  */
 public interface Selectable : Object, Activity
 {
-	public abstract SelectionMode mode { set; }
+	[Notify]
+	public abstract SelectionMode selectable_mode { get; set; }
+
+	public abstract Gtk.Widget? action_widget { owned get; }
 
 }
 

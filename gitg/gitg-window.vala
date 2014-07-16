@@ -33,6 +33,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.Dialog? d_dialog;
 	private Gtk.Widget? d_select_actions;
 
+	private Binding? d_selectable_mode_binding;
+	private GitgExt.SelectionMode d_selectable_mode;
+
 	private UIElements<GitgExt.Activity> d_activities;
 
 	// Widgets
@@ -71,7 +74,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.ScrolledWindow d_dash_scrolled_window;
 	[GtkChild]
-	private Gitg.RepositoryListBox d_dash_view;
+	private DashView d_dash_view;
 
 	[GtkChild]
 	private Gtk.Stack d_stack_activities;
@@ -145,22 +148,30 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkCallback]
 	private void search_button_toggled(Gtk.ToggleButton button)
 	{
+		var searchable = current_activity as GitgExt.Searchable;
+
 		if (button.get_active())
 		{
 			d_search_entry.grab_focus();
+
+			d_search_entry.text = searchable.search_text;
+			searchable.search_visible = true;
 		}
 		else
 		{
-			d_search_entry.set_text("");
+			searchable.search_visible = false;
 		}
 	}
 
 	[GtkCallback]
 	private void search_entry_changed(Gtk.Editable entry)
 	{
-		if (d_mode == Mode.DASH)
+		var searchable = current_activity as GitgExt.Searchable;
+		var ntext = (entry as Gtk.Entry).text;
+
+		if (ntext != searchable.search_text)
 		{
-			d_dash_view.filter_text((entry as Gtk.Entry).text);
+			searchable.search_text = ntext;
 		}
 	}
 
@@ -179,6 +190,21 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	construct
 	{
 		add_action_entries(win_entries, this);
+
+		var selact = lookup_action("select");
+
+		selact.notify["state"].connect(() => {
+			var st = selact.get_state().get_boolean();
+
+			if (st)
+			{
+				selectable_mode = GitgExt.SelectionMode.SELECTION;
+			}
+			else
+			{
+				selectable_mode = GitgExt.SelectionMode.NORMAL;
+			}
+		});
 
 		d_interface_settings = new Settings("org.gnome.gitg.preferences.interface");
 
@@ -275,7 +301,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	public GitgExt.Activity? current_activity
 	{
-		owned get { return d_activities.current; }
+		owned get
+		{
+			if (d_mode == Mode.ACTIVITY)
+			{
+				return d_activities.current;
+			}
+			else
+			{
+				return d_dash_view;
+			}
+		}
 	}
 
 	public GitgExt.MessageBus message_bus
@@ -353,8 +389,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_activities_switcher.hide();
 			d_dash_button.hide();
 			d_gear_menu.menu_model = d_dash_model;
-			d_search_button.visible = true;
-			d_select_button.visible = true;
 		}
 
 		d_activities.update();
@@ -362,6 +396,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (d_repository != null)
 		{
 			activate_default_activity();
+		}
+
+		if (d_mode == Mode.DASH)
+		{
+			on_current_activity_changed();
 		}
 	}
 
@@ -471,19 +510,44 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		author_details.show();
 	}
 
-	private void on_current_activity_changed(Object obj, ParamSpec pspec)
+	private void on_current_activity_changed()
 	{
 		notify_property("current_activity");
 
-		d_search_button.visible = (d_activities.current is GitgExt.Searchable);
-		d_select_button.visible = (d_activities.current is GitgExt.Selectable);
+		var current = current_activity;
 
-		if (!d_search_button.visible)
+		var searchable = current as GitgExt.Searchable;
+
+		if (searchable != null)
 		{
+			d_search_button.visible = true;
+			d_search_entry.text = searchable.search_text;
+			d_search_button.active = searchable.search_visible;
+		}
+		else
+		{
+			d_search_button.visible = false;
 			d_search_button.active = false;
+			d_search_entry.text = "";
 		}
 
-		if (!d_select_button.visible)
+		var selectable = (current as GitgExt.Selectable);
+		d_select_button.visible = (selectable != null);
+
+		if (d_selectable_mode_binding != null)
+		{
+			d_selectable_mode_binding.unbind();
+			d_selectable_mode_binding = null;
+		}
+
+		if (selectable != null)
+		{
+			d_selectable_mode_binding = selectable.bind_property("selectable-mode",
+			                                                     this,
+			                                                     "selectable-mode",
+			                                                     BindingFlags.DEFAULT);
+		}
+		else
 		{
 			d_select_button.active = false;
 		}
@@ -742,122 +806,60 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
-	private void remove_selected_repositories()
-	{
-		foreach (var sel in d_dash_view.selection)
-		{
-			sel.request_remove();
-		}
-	}
-
-	[GtkCallback]
-	private bool dash_view_button_press(Gdk.EventButton event)
-	{
-		Gdk.Event *ev = (Gdk.Event *)event;
-
-		if (ev->triggers_context_menu() && !d_dash_view.is_selection)
-		{
-			d_select_button.active = true;
-			return true;
-		}
-
-		return false;
-	}
-
-	private Gtk.Widget make_dash_select_actions()
-	{
-		var ab = new Gtk.ActionBar();
-
-		var del = new Gtk.Button.with_mnemonic(_("_Delete"));
-		del.sensitive = false;
-		del.show();
-
-		del.clicked.connect(() => {
-			remove_selected_repositories();
-			d_select_button.active = false;
-		});
-
-		d_dash_view.bind_property("has-selection",
-		                          del,
-		                          "sensitive");
-
-		ab.pack_end(del);
-
-		return ab;
-	}
-
 	private void on_select_activated(SimpleAction action)
 	{
-		if (d_mode != Mode.DASH && !(d_activities.current is GitgExt.Selectable))
+		var st = action.get_state().get_boolean();
+		action.set_state(new Variant.boolean(!st));
+	}
+
+	public GitgExt.SelectionMode selectable_mode
+	{
+		get { return d_selectable_mode; }
+		set
 		{
-			return;
-		}
-
-		var state = action.get_state().get_boolean();
-		var nstate = !state;
-
-		Gtk.Widget? select_actions = null;
-
-		if (d_mode == Mode.ACTIVITY)
-		{
-			var selectable = d_activities.current as GitgExt.Selectable;
+			var selectable = current_activity as GitgExt.Selectable;
 
 			if (selectable == null)
 			{
 				return;
 			}
 
-			if (nstate)
+			d_selectable_mode = value;
+			selectable.selectable_mode = value;
+
+			var ctx = d_header_bar.get_style_context();
+
+			if (d_selectable_mode == GitgExt.SelectionMode.SELECTION)
 			{
-				selectable.mode = GitgExt.SelectionMode.SELECT;
+				ctx.add_class("selection-mode");
+
+				d_select_actions = selectable.action_widget;
+
+				if (d_select_actions != null)
+				{
+					d_grid_main.attach(d_select_actions, 0, 3, 1, 1);
+					d_select_actions.show();
+				}
 			}
 			else
 			{
-				selectable.mode = GitgExt.SelectionMode.NORMAL;
+				ctx.remove_class("selection-mode");
+
+				if (d_select_actions != null)
+				{
+					d_select_actions.destroy();
+					d_select_actions = null;
+				}
 			}
+
+			var issel = (d_selectable_mode == GitgExt.SelectionMode.SELECTION);
+
+			d_header_bar.show_close_button = !issel;
+			d_search_button.visible = !issel;
+			d_gear_menu.visible = !issel;
+			d_select_button.visible = !issel;
+			d_select_cancel_button.visible = issel;
 		}
-		else
-		{
-			d_dash_view.is_selection = nstate;
-
-			if (nstate)
-			{
-				select_actions = make_dash_select_actions();
-			}
-		}
-
-		var ctx = d_header_bar.get_style_context();
-
-		if (nstate)
-		{
-			ctx.add_class("selection-mode");
-
-			d_select_actions = select_actions;
-
-			if (d_select_actions != null)
-			{
-				d_grid_main.attach(d_select_actions, 0, 3, 1, 1);
-				d_select_actions.show();
-			}
-		}
-		else
-		{
-			ctx.remove_class("selection-mode");
-
-			if (d_select_actions != null)
-			{
-				d_select_actions.destroy();
-				d_select_actions = null;
-			}
-		}
-
-		d_header_bar.show_close_button = !nstate;
-		d_search_button.visible = !nstate;
-		d_gear_menu.visible = !nstate;
-		d_select_button.visible = !nstate;
-		d_select_cancel_button.visible = nstate;
-
-		action.set_state(new Variant.boolean(nstate));
 	}
 
 	[GtkCallback]

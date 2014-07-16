@@ -19,10 +19,18 @@
 
 namespace Gitg
 {
+	public enum SelectionMode
+	{
+		NORMAL,
+		SELECTION
+	}
+
 	public class RepositoryListBox : Gtk.ListBox
 	{
-		private static Gtk.IconSize d_icon_size;
 		private string? d_filter_text;
+
+		public signal void repository_activated(Repository repository);
+		public signal void show_error(string primary_message, string secondary_message);
 
 		[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-repository-list-box-row.ui")]
 		public class Row : Gtk.ListBoxRow
@@ -50,22 +58,26 @@ namespace Gitg
 
 			public signal void request_remove();
 
-			private bool d_is_selection;
+			private SelectionMode d_mode;
 
-			public bool is_selection
+			private static Gtk.IconSize s_icon_size;
+
+			static construct
 			{
-				get
-				{
-					return d_is_selection;
-				}
+				s_icon_size = Gtk.icon_size_register("gitg", 64, 64);
+			}
+
+			public SelectionMode mode
+			{
+				get { return d_mode; }
 
 				set
 				{
-					if (d_is_selection != value)
+					if (d_mode != value)
 					{
-						d_is_selection = value;
+						d_mode = value;
 
-						d_remove_revealer.reveal_child = d_is_selection;
+						d_remove_revealer.reveal_child = (d_mode == SelectionMode.SELECTION);
 
 						d_remove_check_button.active = false;
 					}
@@ -73,7 +85,7 @@ namespace Gitg
 			}
 
 			[Notify]
-			public new bool is_selected
+			public new bool selected
 			{
 				get; set;
 			}
@@ -82,7 +94,7 @@ namespace Gitg
 			{
 				d_remove_check_button.bind_property("active",
 				                                    this,
-				                                    "is-selected",
+				                                    "selected",
 				                                    BindingFlags.BIDIRECTIONAL |
 				                                    BindingFlags.SYNC_CREATE);
 			}
@@ -95,6 +107,7 @@ namespace Gitg
 					d_repository = value;
 
 					branch_name = "";
+
 					if (d_repository != null)
 					{
 						try
@@ -168,7 +181,7 @@ namespace Gitg
 					d_has_remote = value;
 
 					var folder_icon_name = d_has_remote ? "folder-remote" : "folder";
-					d_image.set_from_icon_name(folder_icon_name, d_icon_size);
+					d_image.set_from_icon_name(folder_icon_name, s_icon_size);
 				}
 			}
 
@@ -178,26 +191,31 @@ namespace Gitg
 			}
 		}
 
-		public signal void repository_activated(Repository repository);
-		public signal void show_error(string primary_message, string secondary_message);
+		[Notify]
+		public SelectionMode mode { get; set; }
 
-		public bool is_selection { get; set; }
+		protected override bool button_press_event(Gdk.EventButton event)
+		{
+			Gdk.Event *ev = (Gdk.Event *)event;
+
+			if (ev->triggers_context_menu() && mode == SelectionMode.NORMAL)
+			{
+				mode = SelectionMode.SELECTION;
+				return true;
+			}
+
+			return false;
+		}
 
 		protected override void row_activated(Gtk.ListBoxRow row)
 		{
-			if (is_selection)
+			var r = (Row)row;
+
+			if (mode == SelectionMode.SELECTION)
 			{
-				var r = row as Row;
-
-				if (r != null && r.is_selection)
-				{
-					r.is_selected = !r.is_selected;
-				}
-
+				r.selected = !r.selected;
 				return;
 			}
-
-			var r = (Row)row;
 
 			if (r.repository != null)
 			{
@@ -207,14 +225,12 @@ namespace Gitg
 
 		construct
 		{
-			d_icon_size = Gtk.icon_size_register ("gitg", 64, 64);
-
 			set_header_func(update_header);
 			set_filter_func(filter);
 			set_sort_func(compare_widgets);
 			show();
 
-			set_selection_mode (Gtk.SelectionMode.NONE);
+			set_selection_mode(Gtk.SelectionMode.NONE);
 
 			add_recent_info();
 		}
@@ -289,6 +305,7 @@ namespace Gitg
 			foreach (var child in get_children())
 			{
 				var d = (Row)child;
+
 				if (d.repository.get_location().equal(repository.get_location()))
 				{
 					row = d;
@@ -339,14 +356,14 @@ namespace Gitg
 
 				if (f != null)
 				{
-					bind_property("is-selection",
+					bind_property("mode",
 					              row,
-					              "is-selection");
+					              "mode");
 				}
 
 				if (f != null)
 				{
-					row.notify["is-selected"].connect(() => {
+					row.notify["selected"].connect(() => {
 						notify_property("has-selection");
 					});
 
@@ -390,9 +407,9 @@ namespace Gitg
 
 				foreach (var row in get_children())
 				{
-					var r = row as Row;
+					var r = (Row)row;
 
-					if (r != null && r.can_remove && r.is_selected)
+					if (r.selected)
 					{
 						ret += r;
 					}
@@ -408,9 +425,9 @@ namespace Gitg
 			{
 				foreach (var row in get_children())
 				{
-					var r = row as Row;
+					var r = (Row)row;
 
-					if (r != null && r.can_remove && r.is_selected)
+					if (r.selected)
 					{
 						return true;
 					}
@@ -504,7 +521,7 @@ namespace Gitg
 			}
 
 			// Clone
-			Row row = new Row(subfolder_name, "Cloning...", true);
+			var row = new Row(subfolder_name, "Cloning...", true);
 			row.loading = true;
 			row.show();
 			add(row);
