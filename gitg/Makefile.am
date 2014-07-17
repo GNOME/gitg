@@ -53,7 +53,6 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-window.vala					\
 	gitg/gitg-clone-dialog.vala				\
 	gitg/gitg-author-details-dialog.vala			\
-	gitg/gitg-info-bar.vala					\
 	gitg/gitg-resource.vala					\
 	gitg/gitg-dash-view.vala				\
 	gitg/gitg-application.vala				\
