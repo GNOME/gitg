@@ -63,6 +63,7 @@ public class AnimatedPaned : Gtk.Paned
 
 		var pos = (int)Math.round((d_target_pos - d_start_pos) * factor) + d_start_pos;
 		set_position(pos);
+		queue_draw();
 
 		if (pos == d_target_pos)
 		{
