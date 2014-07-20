@@ -118,7 +118,7 @@ public interface UIElement : Object
 	 */
 	public virtual int negotiate_order(UIElement other)
 	{
-		return -1;
+		return 0;
 	}
 
 	/**
