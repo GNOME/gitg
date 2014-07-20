@@ -3,7 +3,7 @@
   <!-- interface-requires gtk+ 3.3 -->
   <!-- interface-requires gitg 0.0 -->
   <!-- interface-requires gd 1.0 -->
-  <template class="GitgHistoryPaned" parent="GtkPaned">
+  <template class="GitgHistoryPaned" parent="GitgAnimatedPaned">
     <property name="visible">True</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
@@ -64,7 +64,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkPaned" id="d_paned_panels">
+      <object class="GitgAnimatedPaned" id="d_paned_panels">
         <property name="visible">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>

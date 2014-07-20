@@ -1,7 +1,7 @@
 /*
  * This file is part of gitg
  *
- * Copyright (C) 2014 - Jesse van den Kieboom
+ * Copyright (C) 2012 - Jesse van den Kieboom
  *
  * gitg is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,14 +17,42 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GitgExt
+namespace Gitg
 {
 
-public interface CommitAction : Action
+[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-create-branch-dialog.ui")]
+class CreateBranchDialog : Gtk.Dialog
 {
-	public abstract RefActionInterface action_interface { get; construct set; }
-	public abstract Gitg.Commit commit { get; construct set; }
-	public signal void finished();
+	[GtkChild]
+	private Gtk.Button d_button_create;
+
+	[GtkChild]
+	private Gtk.Entry d_entry_branch_name;
+
+	construct
+	{
+		d_entry_branch_name.changed.connect(() => {
+			d_button_create.sensitive = (new_branch_name.length != 0);
+		});
+	}
+
+	public CreateBranchDialog(Gtk.Window? parent)
+	{
+		Object(use_header_bar : 1);
+
+		if (parent != null)
+		{
+			set_transient_for(parent);
+		}
+	}
+
+	public string new_branch_name
+	{
+		owned get
+		{
+			return d_entry_branch_name.text.strip();
+		}
+	}
 }
 
 }

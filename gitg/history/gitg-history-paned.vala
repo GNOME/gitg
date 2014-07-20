@@ -21,13 +21,13 @@ namespace GitgHistory
 {
 
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-history-paned.ui")]
-class Paned : Gtk.Paned
+class Paned : Gitg.AnimatedPaned
 {
 	[GtkChild]
 	private Gtk.Box d_box_sidebar;
 
 	[GtkChild]
-	private Gtk.Paned d_paned_panels;
+	private Gitg.AnimatedPaned d_paned_panels;
 
 	[GtkChild]
 	private Gtk.StackSwitcher d_stack_switcher_panels;
@@ -85,19 +85,95 @@ class Paned : Gtk.Paned
 		}
 	}
 
+	private void slide_in()
+	{
+		slide(Gitg.SlidePanedChild.FIRST, Gitg.SlideDirection.IN);
+
+		Gitg.SlidePanedChild child;
+
+		if (inner_orientation == Gtk.Orientation.HORIZONTAL)
+		{
+			child = Gitg.SlidePanedChild.FIRST;
+		}
+		else
+		{
+			child = Gitg.SlidePanedChild.SECOND;
+		}
+
+		d_paned_panels.slide(child, Gitg.SlideDirection.IN);
+	}
+
+	private void slide_out()
+	{
+		slide(Gitg.SlidePanedChild.FIRST, Gitg.SlideDirection.OUT);
+
+		Gitg.SlidePanedChild child;
+
+		if (inner_orientation == Gtk.Orientation.HORIZONTAL)
+		{
+			child = Gitg.SlidePanedChild.FIRST;
+		}
+		else
+		{
+			child = Gitg.SlidePanedChild.SECOND;
+		}
+
+		d_paned_panels.slide(child, Gitg.SlideDirection.OUT);
+	}
+
+	private GitgExt.SelectionMode d_selectable_mode;
+
+	[Notify]
+	public GitgExt.SelectionMode selectable_mode
+	{
+		get { return d_selectable_mode; }
+		set
+		{
+			if (d_selectable_mode != value)
+			{
+				d_selectable_mode = value;
+
+				if (d_selectable_mode == GitgExt.SelectionMode.NORMAL)
+				{
+					slide_in();
+				}
+				else
+				{
+					slide_out();
+				}
+			}
+		}
+	}
+
+	private void store_paned_position(Gitg.AnimatedPaned paned, Settings settings, string key)
+	{
+		if (paned.is_animating)
+		{
+			return;
+		}
+
+		if (!paned.get_child1().visible || !paned.get_child2().visible)
+		{
+			return;
+		}
+
+		settings.set_int(key, paned.get_position());
+	}
+
 	construct
 	{
 		var state_settings = new Settings("org.gnome.gitg.state.history");
 
-		state_settings.bind("paned-sidebar-position",
-		                    this,
-		                    "position",
-		                    SettingsBindFlags.GET | SettingsBindFlags.SET);
+		position = state_settings.get_int("paned-sidebar-position");
+		d_paned_panels.position = state_settings.get_int("paned-panels-position");
 
-		state_settings.bind("paned-panels-position",
-		                    d_paned_panels,
-		                    "position",
-		                    SettingsBindFlags.GET | SettingsBindFlags.SET);
+		notify["position"].connect(() => {
+			store_paned_position(this, state_settings, "paned-sidebar-position");
+		});
+
+		d_paned_panels.notify["position"].connect(() => {
+			store_paned_position(d_paned_panels, state_settings, "paned-panels-position");
+		});
 
 		var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
 
@@ -140,6 +216,11 @@ class Paned : Gtk.Paned
 	protected override bool draw(Cairo.Context context)
 	{
 		var ret = base.draw(context);
+
+		if (!get_child1().visible || !get_child2().visible)
+		{
+			return ret;
+		}
 
 		var window = d_box_sidebar.get_window();
 		var handlewin = get_handle_window();

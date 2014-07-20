@@ -22,7 +22,7 @@ namespace GitgHistory
 	/* The main history view. This view shows the equivalent of git log, but
 	 * in a nice way with lanes, merges, ref labels etc.
 	 */
-	public class Activity : Object, GitgExt.UIElement, GitgExt.Activity, GitgExt.History
+	public class Activity : Object, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectable, GitgExt.History
 	{
 		// Do this to pull in config.h before glib.h (for gettext...)
 		private const string version = Gitg.Config.VERSION;
@@ -39,6 +39,7 @@ namespace GitgHistory
 
 		private Paned d_main;
 		private Gitg.PopupMenu d_refs_list_popup;
+		private Gitg.PopupMenu d_commit_list_popup;
 
 		private Gitg.UIElements<GitgExt.HistoryPanel> d_panels;
 
@@ -357,15 +358,30 @@ namespace GitgHistory
 				update_walker();
 			});
 
+			d_commit_list_popup = new Gitg.PopupMenu(d_main.commit_list_view);
+			d_commit_list_popup.populate_menu.connect(on_commit_list_populate_menu);
+
 			application.bind_property("repository", d_main.refs_list,
 			                          "repository",
 			                          BindingFlags.DEFAULT |
 			                          BindingFlags.SYNC_CREATE);
+
+			bind_property("selectable-mode",
+			              d_main,
+			              "selectable-mode",
+			              BindingFlags.BIDIRECTIONAL);
 		}
 
-		private void add_ref_action(Gee.LinkedList<GitgExt.RefAction> actions, GitgExt.RefAction? action)
+		private Gtk.Menu? on_commit_list_populate_menu(Gdk.EventButton? event)
 		{
-			if (action.available)
+			selectable_mode = GitgExt.SelectionMode.SELECTION;
+			return null;
+		}
+
+		private void add_ref_action(Gee.LinkedList<GitgExt.RefAction> actions,
+		                            GitgExt.RefAction?                action)
+		{
+			if (action != null && action.available)
 			{
 				actions.add(action);
 			}
@@ -461,6 +477,91 @@ namespace GitgHistory
 
 			d_commit_list_model.set_include(include);
 			d_commit_list_model.reload();
+		}
+
+		[Notify]
+		public GitgExt.SelectionMode selectable_mode
+		{
+			get; set;
+		}
+
+		private void add_commit_action(Gee.LinkedList<GitgExt.CommitAction> actions,
+		                               GitgExt.CommitAction?                action)
+		{
+			if (action != null && action.available)
+			{
+				actions.add(action);
+				action.finished.connect(() => {
+					selectable_mode = GitgExt.SelectionMode.NORMAL;
+				});
+			}
+		}
+
+		public Gtk.Widget? action_widget
+		{
+			owned get
+			{
+				Gitg.Commit? commit = null;
+
+				foreach_selected((c) => {
+					commit = (Gitg.Commit)c;
+					return false;
+				});
+
+				var af = new ActionInterface(application, d_main.refs_list);
+
+				var actions = new Gee.LinkedList<GitgExt.CommitAction>();
+
+				add_commit_action(actions,
+				                  new Gitg.CommitActionCreateBranch(application,
+				                                                    af,
+				                                                    commit));
+
+				var exts = new Peas.ExtensionSet(Gitg.PluginsEngine.get_default(),
+				                                 typeof(GitgExt.CommitAction),
+				                                 "application",
+				                                 application,
+				                                 "action_interface",
+				                                 af,
+				                                 "commit",
+				                                 commit);
+
+				exts.foreach((extset, info, extension) => {
+					add_commit_action(actions, extension as GitgExt.CommitAction);
+				});
+
+				var ab = new Gtk.ActionBar();
+				ab.show();
+
+				var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+				box.margin = 6;
+				box.homogeneous = true;
+				box.show();
+
+				foreach (var action in actions)
+				{
+					var widget = action.widget;
+
+					if (widget == null)
+					{
+						var button = new Gtk.Button.with_label(action.display_name);
+						button.tooltip_text = action.description;
+
+						button.clicked.connect(() => {
+							action.activate();
+						});
+
+						widget = button;
+					}
+
+					widget.show();
+					box.add(widget);
+				}
+
+				ab.set_center_widget(box);
+
+				return ab;
+			}
 		}
 	}
 }

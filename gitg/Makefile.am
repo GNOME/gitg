@@ -58,9 +58,12 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-application.vala				\
 	gitg/gitg-plugins-engine.vala				\
 	gitg/gitg-popup-menu.vala				\
+	gitg/gitg-animated-paned.vala				\
 	gitg/gitg-ui-elements.vala				\
 	gitg/gitg-ref-action-rename.vala			\
 	gitg/gitg-ref-action-delete.vala			\
+	gitg/gitg-commit-action-create-branch.vala		\
+	gitg/gitg-create-branch-dialog.vala			\
 	gitg/preferences/gitg-preferences-commit.vala		\
 	gitg/preferences/gitg-preferences-dialog.vala		\
 	gitg/preferences/gitg-preferences-interface.vala	\
