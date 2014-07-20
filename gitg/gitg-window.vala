@@ -880,7 +880,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[Signal(action = true)]
 	public virtual signal void cancel()
 	{
-		selectable_mode = GitgExt.SelectionMode.NORMAL;
+		if (d_infobar.visible)
+		{
+			d_infobar.hide();
+		}
+		else
+		{
+			selectable_mode = GitgExt.SelectionMode.NORMAL;
+		}
 	}
 }
 
