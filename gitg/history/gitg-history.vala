@@ -365,7 +365,7 @@ namespace GitgHistory
 
 		private void add_ref_action(Gee.LinkedList<GitgExt.RefAction> actions, GitgExt.RefAction? action)
 		{
-			if (action.visible)
+			if (action.available)
 			{
 				actions.add(action);
 			}
@@ -391,11 +391,13 @@ namespace GitgHistory
 
 			var af = new ActionInterface(application, d_main.refs_list);
 
-			add_ref_action(actions, new Gitg.RefActionRename(af, reference));
-			add_ref_action(actions, new Gitg.RefActionDelete(af, reference));
+			add_ref_action(actions, new Gitg.RefActionRename(application, af, reference));
+			add_ref_action(actions, new Gitg.RefActionDelete(application, af, reference));
 
 			var exts = new Peas.ExtensionSet(Gitg.PluginsEngine.get_default(),
 			                                 typeof(GitgExt.RefAction),
+			                                 "application",
+			                                 application,
 			                                 "action_interface",
 			                                 af,
 			                                 "reference",

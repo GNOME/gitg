@@ -20,22 +20,37 @@
 namespace Gitg
 {
 
-class RefActionDelete : GitgExt.Action, GitgExt.RefAction, Object
+class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Object
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
+	public GitgExt.Application? application { owned get; construct set; }
 	public GitgExt.RefActionInterface action_interface { get; construct set; }
 	public Gitg.Ref reference { get; construct set; }
 
-	public RefActionDelete(GitgExt.RefActionInterface action_interface, Gitg.Ref reference)
+	public RefActionDelete(GitgExt.Application        application,
+	                       GitgExt.RefActionInterface action_interface,
+	                       Gitg.Ref                   reference)
 	{
-		Object(action_interface: action_interface, reference: reference);
+		Object(application:      application,
+		       action_interface: action_interface,
+		       reference:        reference);
 	}
 
-	public string label
+	public string id
 	{
-		get { return _("Delete"); }
+		owned get { return "/org/gnome/gitg/ref-actions/delete"; }
+	}
+
+	public string display_name
+	{
+		owned get { return _("Delete"); }
+	}
+
+	public string description
+	{
+		owned get { return _("Delete the selected reference"); }
 	}
 
 	public bool enabled
@@ -47,12 +62,17 @@ class RefActionDelete : GitgExt.Action, GitgExt.RefAction, Object
 		}
 	}
 
-	public bool visible
+	public Gtk.Widget? widget
 	{
-		get { return true; }
+		owned get { return null; }
 	}
 
-	public void activated()
+	public string? icon
+	{
+		owned get { return null; }
+	}
+
+	public void activate()
 	{
 		var query = new GitgExt.UserQuery();
 

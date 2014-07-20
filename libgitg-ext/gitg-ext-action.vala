@@ -20,24 +20,22 @@
 namespace GitgExt
 {
 
-public interface Action : Object
+public interface Action : UIElement
 {
-	public abstract string label { get; }
-	public abstract bool enabled { get; }
-	public abstract bool visible { get; }
-
-	public virtual signal void activated()
-	{
-	}
-
 	public virtual void populate_menu(Gtk.Menu menu)
 	{
-		var item = new Gtk.MenuItem.with_label(label);
+		if (!available)
+		{
+			return;
+		}
+
+		var item = new Gtk.MenuItem.with_label(display_name);
+		item.tooltip_text = description;
 
 		if (enabled)
 		{
 			item.activate.connect(() => {
-				activated();
+				activate();
 			});
 		}
 		else

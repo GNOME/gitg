@@ -20,27 +20,37 @@
 namespace Gitg
 {
 
-class RefActionRename : GitgExt.Action, GitgExt.RefAction, Object
+class RefActionRename : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Object
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
+	public GitgExt.Application? application { owned get; construct set; }
 	public GitgExt.RefActionInterface action_interface { get; construct set; }
 	public Gitg.Ref reference { get; construct set; }
 
-	public RefActionRename(GitgExt.RefActionInterface action_interface, Gitg.Ref reference)
+	public RefActionRename(GitgExt.Application        application,
+	                       GitgExt.RefActionInterface action_interface,
+	                       Gitg.Ref                   reference)
 	{
-		Object(action_interface: action_interface, reference: reference);
+		Object(application:      application,
+		       action_interface: action_interface,
+		       reference:        reference);
 	}
 
-	public string label
+	public string id
 	{
-		get { return _("Rename"); }
+		owned get { return "/org/gnome/gitg/ref-actions/rename"; }
 	}
 
-	public bool visible
+	public string display_name
 	{
-		get { return true; }
+		owned get { return _("Rename"); }
+	}
+
+	public string description
+	{
+		owned get { return _("Rename the selected reference"); }
 	}
 
 	public bool enabled
@@ -52,7 +62,17 @@ class RefActionRename : GitgExt.Action, GitgExt.RefAction, Object
 		}
 	}
 
-	public void activated()
+	public Gtk.Widget? widget
+	{
+		owned get { return null; }
+	}
+
+	public string? icon
+	{
+		owned get { return null; }
+	}
+
+	public void activate()
 	{
 		action_interface.edit_ref_name(reference, on_ref_name_editing_done);
 	}
