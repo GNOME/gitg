@@ -824,7 +824,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			var selectable = current_activity as GitgExt.Selectable;
 
-			if (selectable == null)
+			if (selectable == null || d_selectable_mode == value)
 			{
 				return;
 			}
