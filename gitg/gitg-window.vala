@@ -874,16 +874,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkCallback]
 	private void on_select_cancel_button_clicked()
 	{
-		d_select_button.active = false;
+		selectable_mode = GitgExt.SelectionMode.NORMAL;
 	}
 
 	[Signal(action = true)]
 	public virtual signal void cancel()
 	{
-		if (d_select_button.active)
-		{
-			d_select_button.active = false;
-		}
+		selectable_mode = GitgExt.SelectionMode.NORMAL;
 	}
 }
 
