@@ -97,6 +97,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[Signal(action = true)]
 	public virtual signal bool change_to_activity(int i)
 	{
+		if (d_selectable_mode == GitgExt.SelectionMode.SELECTION)
+		{
+			return false;
+		}
+
 		if (i == 0)
 		{
 			if (d_mode == Mode.ACTIVITY)
