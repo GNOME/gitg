@@ -34,6 +34,9 @@ class CreateBranchDialog : Gtk.Dialog
 		d_entry_branch_name.changed.connect(() => {
 			d_button_create.sensitive = (new_branch_name.length != 0);
 		});
+
+		set_default(d_button_create);
+		set_default_response(Gtk.ResponseType.OK);
 	}
 
 	public CreateBranchDialog(Gtk.Window? parent)
