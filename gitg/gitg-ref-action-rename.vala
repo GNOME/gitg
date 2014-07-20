@@ -62,16 +62,6 @@ class RefActionRename : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 		}
 	}
 
-	public Gtk.Widget? widget
-	{
-		owned get { return null; }
-	}
-
-	public string? icon
-	{
-		owned get { return null; }
-	}
-
 	public void activate()
 	{
 		action_interface.edit_ref_name(reference, on_ref_name_editing_done);

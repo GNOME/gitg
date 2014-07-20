@@ -62,16 +62,6 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 		}
 	}
 
-	public Gtk.Widget? widget
-	{
-		owned get { return null; }
-	}
-
-	public string? icon
-	{
-		owned get { return null; }
-	}
-
 	public void activate()
 	{
 		var query = new GitgExt.UserQuery();

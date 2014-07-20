@@ -64,7 +64,10 @@ public interface UIElement : Object
 	 * If provided, the icon will be used in navigation toolbars
 	 * so that users can switch to the ui element.
 	 */
-	public abstract string? icon { owned get; }
+	public virtual string? icon
+	{
+		owned get { return null; }
+	}
 
 	/**
 	 * The ui element widget.
@@ -72,7 +75,10 @@ public interface UIElement : Object
 	 * This widget will be embedded in the gitg UI when
 	 * the element is activated.
 	 */
-	public abstract Gtk.Widget? widget { owned get; }
+	public virtual Gtk.Widget? widget
+	{
+		owned get { return null; }
+	}
 
 	/**
 	 * Check whether the ui element is available in the current application state.
