@@ -863,7 +863,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_search_button.visible = !issel;
 			d_gear_menu.visible = !issel;
 			d_select_button.visible = !issel;
+			d_dash_button.visible = !issel;
+			d_activities_switcher.visible = !issel;
 			d_select_cancel_button.visible = issel;
+
+			d_select_button.active = issel;
 		}
 	}
 
