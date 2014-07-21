@@ -204,7 +204,7 @@ namespace Gitg
 				return true;
 			}
 
-			return false;
+			return base.button_press_event(event);
 		}
 
 		protected override void row_activated(Gtk.ListBoxRow row)
