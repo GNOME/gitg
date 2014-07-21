@@ -62,7 +62,6 @@ libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-diff-view-request.vala		\
 	libgitg/gitg-diff-view-request-icon.vala	\
 	libgitg/gitg-diff-view-request-resource.vala	\
-	libgitg/gitg-diff-view-request-patch.vala	\
 	libgitg/gitg-diff-view-request-diff.vala	\
 	libgitg/gitg-repository-list-box.vala		\
 	libgitg/gitg-when-mapped.vala			\

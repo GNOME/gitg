@@ -24,8 +24,7 @@ var settings = {
 	strings: {
 		stage: 'stage',
 		unstage: 'unstage',
-		loading_diff: 'Loading diff...',
-		get_patch: 'Get Patch'
+		loading_diff: 'Loading diff...'
 	},
 };
 
@@ -153,9 +152,6 @@ function write_commit(content, commit)
 
 	// Sha1
 	elems.sha1.text(commit.id);
-
-	// Get patch string
-	elems.format_patch.text(settings.strings.get_patch);
 
 	write_avatar(elems.avatar, commit);
 }
@@ -491,10 +487,6 @@ function update_diff(id, lsettings)
 		{
 			write_commit($('#diff_header .commit'), j.commit);
 			$('#diff_header').show();
-
-			$('.format_patch').click(function() {
-				xhr_get('patch', {id: j.commit.id});
-			});
 		}
 		else
 		{
