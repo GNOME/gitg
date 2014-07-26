@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-07-20 17:04+0000\n"
-"PO-Revision-Date: 2014-07-20 21:57+0300\n"
+"POT-Creation-Date: 2014-07-26 17:41+0000\n"
+"PO-Revision-Date: 2014-07-27 00:59+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -82,7 +82,6 @@ msgid ""
 msgstr "To nustatymas nurodo, ar istorija bus rodoma topologijos tvarka."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-#| msgid "Show staged changes in history"
 msgid "Show Stashed Changes"
 msgstr "Rodyti atidėtus pakeitimus"
 
@@ -92,7 +91,6 @@ msgid ""
 msgstr "To nustatymas nurodo, kada rodyti elementus istorijoje."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-#| msgid "Show staged changes in history"
 msgid "Show Staged Changes"
 msgstr "Rodyti paruoštus pakeitimus"
 
@@ -105,7 +103,6 @@ msgstr ""
 "paruoštiems pakeitimams."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-#| msgid "Show unstaged changes in history"
 msgid "Show Unstaged Changes"
 msgstr "Rodyti neparuoštus pakeitimus"
 
@@ -167,7 +164,6 @@ msgstr ""
 "nustatymas yra nustatytas TEIGIAMAI."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
-#| msgid "Enable spell checking"
 msgid "Enable Spell Checking"
 msgstr "Įjungti rašybos tikrinimą"
 
@@ -180,7 +176,6 @@ msgstr ""
 "patvirtinimo pranešimą."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
-#| msgid "Cannot set spell checking language: %s"
 msgid "Spell Checking Language"
 msgstr "Rašybos tikrinimo kalba"
 
@@ -191,13 +186,10 @@ msgid ""
 msgstr "Kalba, naudojama tikrinant rašybą patvirtinimo pranešimui."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
-#| msgid "Ignore whitespace changes"
 msgid "Ignore Whitespace Changes"
 msgstr "Nepaisyti nespausdinamų simbolių pakeitimų"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -209,8 +201,6 @@ msgid "Show Changes Inline"
 msgstr "Tiesiogiai rodyti pakeitimus"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr "To nustatymas nurodo, ar eilučių pakeitimus rodyti tiesiogiai."
@@ -360,16 +350,12 @@ msgid "Discard changes"
 msgstr "Atmesti pakeitimus"
 
 #: ../gitg/commit/gitg-commit.vala:783
-#| msgid ""
-#| "Are you sure you want to permanently discard the selected changes in the "
-#| "file `%s'?"
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Ar tikrai norite visam laikui atsisakyti pasirinktų?"
 
 #: ../gitg/commit/gitg-commit.vala:792 ../gitg/commit/gitg-commit.vala:936
-#: ../gitg/gitg-window.vala:432
-#: ../libgitg/gitg-diff-view-request-patch.vala:109
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/gitg-commit-action-create-patch.vala:143
+#: ../gitg/gitg-window.vala:432 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
@@ -406,9 +392,6 @@ msgstr "Ar tikrai norite visam laikui atmesti visus failo „%s“ pakeitimus?"
 
 #: ../gitg/commit/gitg-commit.vala:925
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the file "
-#| "`%s'?"
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and `%s'?"
@@ -416,17 +399,14 @@ msgstr ""
 "Ar tikrai norite visam laikui atmesti visus failų „%s“ ir „%s“ pakeitimus?"
 
 #: ../gitg/commit/gitg-commit.vala:969
-#| msgid "Discard changes"
 msgid "_Stage changes"
 msgstr "_Paruošti pakeitimus"
 
 #: ../gitg/commit/gitg-commit.vala:979
-#| msgid "_Unstage selection"
 msgid "_Unstage changes"
 msgstr "Pašalinti pakeitimus iš pa_ruošimo"
 
 #: ../gitg/commit/gitg-commit.vala:989
-#| msgid "Discard changes"
 msgid "_Discard changes"
 msgstr "_Atmesti pakeitimus"
 
@@ -476,6 +456,64 @@ msgstr "Nepavyko nustatyti Git naudotojo konfigūracijos."
 msgid "The URL introduced is not supported"
 msgstr "Įtrauktas URL nepalaikomas"
 
+#: ../gitg/gitg-commit-action-create-branch.vala:48
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
+msgid "Create Branch"
+msgstr "Sukurti šaką"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:53
+msgid "Create a new branch at the selected commit"
+msgstr "Sukurti naują šaką ties pažymėtu patvirtinimu"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:85
+msgid "Failed to create branch"
+msgstr "Nepavyko sukurti šakos"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:63
+#| msgid "Create Branch"
+msgid "Create Patch"
+msgstr "Sukurti pataisą"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:68
+#| msgid "Create a new branch at the selected commit"
+msgid "Create a patch from the selected commit"
+msgstr "Sukurti pataisą pagal pažymėtą patvirtinimą"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:141
+msgid "Save Patch File"
+msgstr "Įrašyti pataisos failą"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:145
+#| msgid "Save Patch File"
+msgid "_Save Patch"
+msgstr "Į_rašyti pataisą"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:168
+#| msgid "Failed to create branch"
+msgid "Failed to create patch"
+msgstr "Nepavyko sukurti pataisos"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:48
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
+msgid "Create Tag"
+msgstr "Sukurti žymą"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:53
+msgid "Create a new tag at the selected commit"
+msgstr "Sukurti naują žymą ties pažymėtu patvirtinimu"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:92
+msgid "Failed to create tag"
+msgstr "Nepavyko sukurti žymos"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:109
+msgid "Failed to lookup tag"
+msgstr "Nepavyko surasti žymos"
+
+#: ../gitg/gitg-create-tag-dialog.vala:106
+msgid "Provide a message to create an annotated tag"
+msgstr "Pateikite pranešimą anotuotos žymos sukūrimui"
+
 #: ../gitg/gitg-dash-view.vala:141
 msgid "_Delete"
 msgstr "Iš_trinti"
@@ -496,9 +534,6 @@ msgstr "Ištrinti šaką %s"
 
 #: ../gitg/gitg-ref-action-delete.vala:74
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard the selected changes in the "
-#| "file `%s'?"
 msgid "Are you sure that you want to permanently delete the branch %s?"
 msgstr "Ar tikrai norite visam laikui ištrinti šaką %s?"
 
@@ -509,9 +544,6 @@ msgstr "Trinama žyma %s"
 
 #: ../gitg/gitg-ref-action-delete.vala:79
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard the selected changes in the "
-#| "file `%s'?"
 msgid "Are you sure that you want to permanently delete the tag %s?"
 msgstr "Ar tikrai norite visam laikui ištrinti žymą %s?"
 
@@ -522,9 +554,6 @@ msgstr "Ištrinti nutolusią šaką %s"
 
 #: ../gitg/gitg-ref-action-delete.vala:84
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard the selected changes in the "
-#| "file `%s'?"
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
 msgstr "Ar tikrai norite visam laikui ištrinti nutolusią šaką %s?"
 
@@ -536,7 +565,6 @@ msgstr "Atsisakyti"
 #. Translators: %s is the name of the tag
 #: ../gitg/gitg-ref-action-delete.vala:119
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to delete tag %s"
 msgstr "Nepavyko ištrinti žymos %s"
 
@@ -549,7 +577,6 @@ msgstr "Nepavyko ištrinti žymos %s: %s"
 #. Translators: %s is the name of the branch
 #: ../gitg/gitg-ref-action-delete.vala:127
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to delete branch %s"
 msgstr "Nepavyko ištrinti šakos %s"
 
@@ -577,44 +604,8 @@ msgid "Invalid name"
 msgstr "Netinkamas pavadinimas"
 
 #: ../gitg/gitg-ref-action-rename.vala:141
-#| msgid "Failed to commit"
 msgid "Failed to rename"
 msgstr "Nepavyko pervadinti"
-
-#: ../gitg/gitg-commit-action-create-branch.vala:48
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
-msgid "Create Branch"
-msgstr "Sukurti šaką"
-
-#: ../gitg/gitg-commit-action-create-branch.vala:53
-#| msgid "Show the changes introduced by the selected commit"
-msgid "Create a new branch at the selected commit"
-msgstr "Sukurti naują šaką ties pažymėtu patvirtinimu"
-
-#: ../gitg/gitg-commit-action-create-branch.vala:85
-#| msgid "Failed to discard changes"
-msgid "Failed to create branch"
-msgstr "Nepavyko sukurti šakos"
-
-#: ../gitg/gitg-commit-action-create-tag.vala:48
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
-msgid "Create Tag"
-msgstr "Sukurti žymą"
-
-#: ../gitg/gitg-commit-action-create-tag.vala:53
-#| msgid "Show the files in the tree of the selected commit"
-msgid "Create a new tag at the selected commit"
-msgstr "Sukurti naują žymą ties pažymėtu patvirtinimu"
-
-#: ../gitg/gitg-commit-action-create-tag.vala:92
-#| msgid "Failed to commit"
-msgid "Failed to create tag"
-msgstr "Nepavyko sukurti žymos"
-
-#: ../gitg/gitg-commit-action-create-tag.vala:109
-#| msgid "Failed to commit"
-msgid "Failed to lookup tag"
-msgstr "Nepavyko surasti žymos"
 
 #: ../gitg/gitg.vala:64
 msgid ""
@@ -742,14 +733,6 @@ msgstr "%Y %b %e, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%Yn%b %e, %I:%M"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:107
-msgid "Save Patch File"
-msgstr "Įrašyti pataisos failą"
-
-#: ../libgitg/gitg-diff-view-request-patch.vala:111
-msgid "_Save"
-msgstr "Į_rašyti"
-
 #: ../libgitg/gitg-diff-view.vala:229
 msgid "stage"
 msgstr "paruošti"
@@ -761,10 +744,6 @@ msgstr "atšaukti paruošimą"
 #: ../libgitg/gitg-diff-view.vala:231
 msgid "Loading diff…"
 msgstr "Įkeliami skirtumai…"
-
-#: ../libgitg/gitg-diff-view.vala:232
-msgid "Get Patch"
-msgstr "Gauti pataisymą"
 
 #: ../libgitg/gitg-stage.vala:335
 #, c-format
@@ -879,7 +858,6 @@ msgid "C_reate"
 msgstr "Su_kurti"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
-#| msgid "Branches"
 msgid "Branch _name:"
 msgstr "Šakos _pavadinimas:"
 
@@ -1016,7 +994,6 @@ msgid "Ignore whitespace changes"
 msgstr "Nepaisyti nespausdinamų simbolių pakeitimų"
 
 #: ../libgitg/resources/diff-view-options.ui.h:2
-#| msgid "Show staged changes in history"
 msgid "Show changes inline"
 msgstr "Rodyti pakeitimus tiesiogiai"
 
@@ -1041,3 +1018,4 @@ msgstr "Pašalinti saugyklą iš sąrašo (neištrina saugyklos iš disko)"
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "stulpelis"
+
