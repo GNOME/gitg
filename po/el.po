@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-07-21 08:12+0000\n"
-"PO-Revision-Date: 2014-08-02 14:29+0200\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
+"POT-Creation-Date: 2014-08-03 05:41+0000\n"
+"PO-Revision-Date: 2014-08-03 22:06+0200\n"
+"Last-Translator: Maria Mavridou <mavridou@gmail.com>\n"
 "Language-Team: team@lists.gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
@@ -83,7 +83,6 @@ msgid ""
 msgstr "Ρύθμιση που ορίζει αν θα εμφανίζεται το ιστορικό με τοπολογική σειρά."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-#| msgid "Show staged changes in history"
 msgid "Show Stashed Changes"
 msgstr "Εμφάνιση αλλαγών στην κρύπτη"
 
@@ -94,7 +93,6 @@ msgstr ""
 "Ρύθμιση που ορίζει αν θα εμφανίζονται στοιχεία για την κρύπτη στο ιστορικό."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-#| msgid "Show staged changes in history"
 msgid "Show Staged Changes"
 msgstr "Εμφάνιση έτοιμων αλλαγών"
 
@@ -107,7 +105,6 @@ msgstr ""
 "έτοιμες αλλαγές στο ιστορικό."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-#| msgid "Show unstaged changes in history"
 msgid "Show Unstaged Changes"
 msgstr "Εμφάνιση αλλαγών που ανακλήθηκαν"
 
@@ -169,7 +166,6 @@ msgstr ""
 "την εμφάνιση περιθωρίου θέματος ορισθεί σε ΑΛΗΘΗ."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
-#| msgid "Enable spell checking"
 msgid "Enable Spell Checking"
 msgstr "Ενεργοποίηση ορθογραφικού ελέγχου"
 
@@ -182,7 +178,6 @@ msgstr ""
 "κατά τη συγγραφή του μηνύματος υποβολής."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
-#| msgid "Cannot set spell checking language: %s"
 msgid "Spell Checking Language"
 msgstr "Γλώσσα ορθογραφικού ελέγχου"
 
@@ -195,38 +190,39 @@ msgstr ""
 "έλεγχος, για τη συγγραφή του μηνύματος υποβολής."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
-#| msgid "Ignore whitespace changes"
 msgid "Ignore Whitespace Changes"
 msgstr "Αγνόηση αλλαγών κενών διαστημάτων"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr ""
+"Ρύθμιση που ορίζει αν θα πρέπει να αγνοούνται αλλαγές σε κενά διαστήματα "
+"κατά την εμφάνιση των διαφορών μιας υποβολής."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
 msgid "Show Changes Inline"
-msgstr ""
+msgstr "Ενσωματωμένη εμφάνιση αλλαγών "
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
+"Ρύθμιση που υποδεικνύει αν οι αλλαγές μέσα σε γραμμές θα πρέπει να "
+"εμφανίζονται ενσωματωμένες "
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
 msgid "Number of Before/After Context Lines"
-msgstr ""
+msgstr "Αριθμός των πριν/μετά γραμμών περιεχομένου"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr ""
+"Ρύθμιση που καθορίζει πόσες γραμμές του περιεχομένου (πριν και μετά) θα "
+"πρέπει να εμφανίζονται κατά την εμφάνιση των διαφορών μιας υποβολής."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
 msgid "Rendered Width of a Tab Character"
@@ -237,12 +233,17 @@ msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr ""
+"Ρύθμιση που καθορίζει πόσο διάστημα θα πρέπει να καταλαμβάνει ένας "
+"χαρακτήρας στηλοθέτη κατά την εμφάνιση των διαφορών μιας υποβολής."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
+"Ρύθμιση που καθορίζει πόσες γραμμές του περιεχομένου (πριν και μετά) θα "
+"πρέπει να εμφανίζονται κατά την εμφάνιση των διαφορών των ετοίμων/"
+"ανακληθέντων στην περιοχή υποβολής."
 
 #: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
@@ -360,9 +361,6 @@ msgid "Discard changes"
 msgstr "Απόρριψη αλλαγών"
 
 #: ../gitg/commit/gitg-commit.vala:783
-#| msgid ""
-#| "Are you sure you want to permanently discard the selected changes in the "
-#| "file `%s'?"
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 "Είστε σίγουροι ότι θέλετε να απορρίψετε μόνιμα τις επιλεγμένες αλλαγές;"
@@ -408,9 +406,6 @@ msgstr ""
 
 #: ../gitg/commit/gitg-commit.vala:925
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the file "
-#| "`%s'?"
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and `%s'?"
@@ -419,17 +414,14 @@ msgstr ""
 "στα αρχεία %s και `%s';"
 
 #: ../gitg/commit/gitg-commit.vala:969
-#| msgid "Discard changes"
 msgid "_Stage changes"
 msgstr "_Επιβεβαίωση αλλαγών"
 
 #: ../gitg/commit/gitg-commit.vala:979
-#| msgid "_Unstage selection"
 msgid "_Unstage changes"
 msgstr "Α_νάκληση αλλαγών"
 
 #: ../gitg/commit/gitg-commit.vala:989
-#| msgid "Discard changes"
 msgid "_Discard changes"
 msgstr "Από_ρριψη αλλαγών"
 
@@ -493,12 +485,10 @@ msgid "Create Branch"
 msgstr "Δημιουργία κλάδου"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:53
-#| msgid "Show the changes introduced by the selected commit"
 msgid "Create a new branch at the selected commit"
 msgstr "Δημιουργία νέου κλάδου από την επιλεγμένη υποβολή"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:85
-#| msgid "Failed to discard changes"
 msgid "Failed to create branch"
 msgstr "Αποτυχία δημιουργίας κλάδου"
 
@@ -507,7 +497,6 @@ msgid "Create Patch"
 msgstr "Δημιουργία διόρθωσης"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:68
-#| msgid "Show the files in the tree of the selected commit"
 msgid "Create a patch from the selected commit"
 msgstr "Δημιουργία νέας διόρθωσης από την επιλεγμένη υποβολή"
 
@@ -516,12 +505,10 @@ msgid "Save Patch File"
 msgstr "Αποθήκευση αρχείου διόρθωσης"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#| msgid "Save Patch File"
 msgid "_Save Patch"
 msgstr "_Αποθήκευση διόρθωσης"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:168
-#| msgid "Failed to discard changes"
 msgid "Failed to create patch"
 msgstr "Αποτυχία δημιουργίας διόρθωσης"
 
@@ -531,23 +518,20 @@ msgid "Create Tag"
 msgstr "Δημιουργία ετικέτας"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:53
-#| msgid "Show the files in the tree of the selected commit"
 msgid "Create a new tag at the selected commit"
 msgstr "Δημιουργία νέας ετικέτας από την επιλεγμένη υποβολή"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:92
-#| msgid "Failed to commit"
 msgid "Failed to create tag"
 msgstr "Αποτυχία δημιουργίας ετικέτας"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:109
-#| msgid "Failed to commit"
 msgid "Failed to lookup tag"
 msgstr "Αποτυχία αναζήτησης ετικέτας"
 
 #: ../gitg/gitg-create-tag-dialog.vala:106
 msgid "Provide a message to create an annotated tag"
-msgstr ""
+msgstr "Εισάγετε ένα μήνυμα για να δημιουργήσετε μια σχολιασμένη ετικέτα"
 
 #: ../gitg/gitg-dash-view.vala:141
 msgid "_Delete"
@@ -569,9 +553,6 @@ msgstr "Διαγραφή κλάδου %s"
 
 #: ../gitg/gitg-ref-action-delete.vala:74
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard the selected changes in the "
-#| "file `%s'?"
 msgid "Are you sure that you want to permanently delete the branch %s?"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε μόνιμα τον κλάδο %s;"
 
@@ -582,9 +563,6 @@ msgstr "Διαγραφή ετικέτας %s"
 
 #: ../gitg/gitg-ref-action-delete.vala:79
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard the selected changes in the "
-#| "file `%s'?"
 msgid "Are you sure that you want to permanently delete the tag %s?"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε μόνιμα την ετικέτα %s;"
 
@@ -595,9 +573,6 @@ msgstr "Διαγραφή απομακρυσμένου κλάδου %s"
 
 #: ../gitg/gitg-ref-action-delete.vala:84
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard the selected changes in the "
-#| "file `%s'?"
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
 msgstr ""
 "Είστε σίγουροι ότι θέλετε να διαγράψετε μόνιμα τον απομακρυσμένο κλάδο %s;"
@@ -610,7 +585,6 @@ msgstr "Ακύρωση"
 #. Translators: %s is the name of the tag
 #: ../gitg/gitg-ref-action-delete.vala:119
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to delete tag %s"
 msgstr "Αποτυχία διαγραφής της ετικέτας %s"
 
@@ -623,7 +597,6 @@ msgstr "Αδυναμία διαγραφής της ετικέτας %s: %s"
 #. Translators: %s is the name of the branch
 #: ../gitg/gitg-ref-action-delete.vala:127
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to delete branch %s"
 msgstr "Αποτυχία διαγραφής κλάδου %s"
 
@@ -651,7 +624,6 @@ msgid "Invalid name"
 msgstr "Άκυρο όνομα"
 
 #: ../gitg/gitg-ref-action-rename.vala:141
-#| msgid "Failed to commit"
 msgid "Failed to rename"
 msgstr "Αποτυχία μετονομασίας"
 
@@ -908,7 +880,6 @@ msgid "C_reate"
 msgstr "Δη_μιουργία"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
-#| msgid "Branches"
 msgid "Branch _name:"
 msgstr "Ό_νομα κλάδου"
 
@@ -1045,9 +1016,8 @@ msgid "Ignore whitespace changes"
 msgstr "Αγνόηση αλλαγών κενών διαστημάτων"
 
 #: ../libgitg/resources/diff-view-options.ui.h:2
-#| msgid "Show staged changes in history"
 msgid "Show changes inline"
-msgstr ""
+msgstr "Ενσωματωμένη εμφάνιση αλλαγών"
 
 #: ../libgitg/resources/diff-view-options.ui.h:3
 msgid "Developer tools"
