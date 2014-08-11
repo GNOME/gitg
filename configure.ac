@@ -85,6 +85,15 @@ AC_DEFINE_UNQUOTED(GITG_LIBDIR,"$GITG_LIBDIR", [lib dir])
 
 AC_CHECK_LIB([m], [sinf])
 
+# Pick from supported API versions of WebKit2
+PKG_CHECK_EXISTS([webkit2gtk-4.0], [
+	WEBKIT_PKGCONFIG=webkit2gtk-4.0
+	AC_SUBST([WEBKIT_PKGCONFIG])
+], [
+	WEBKIT_PKGCONFIG=webkit2gtk-3.0
+	AC_SUBST([WEBKIT_PKGCONFIG])
+])
+
 GLIB_REQUIRED_VERSION=2.38
 GTK_REQUIRED_VERSION=3.12.0
 GTKSOURCEVIEW_REQUIRED_VERSION=3.10
@@ -102,7 +111,7 @@ PKG_CHECK_MODULES(LIBGITG, [
 	gobject-introspection-1.0 >= $INTROSPECTION_REQUIRED
 	libgit2-glib-1.0 >= $LIBGIT2_GLIB_REQUIRED_VERSION
 	gtk+-3.0 >= $GTK_REQUIRED_VERSION
-	webkit2gtk-3.0 >= $WEBKITGTK_REQUIRED_VERSION
+	$WEBKIT_PKGCONFIG >= WEBKITGTK_REQUIRED_VERSION
 	gsettings-desktop-schemas
 	gee-0.8
 	json-glib-1.0
@@ -265,7 +274,7 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg gee-0.8				\
 	--pkg json-glib-1.0			\
 	--pkg libsoup-2.4			\
-	--pkg webkit2gtk-3.0			\
+	--pkg $WEBKIT_PKGCONFIG			\
 	--pkg config				\
 	--pkg gd-1.0				\
 	\$(GITG_VALAFLAGS)			\

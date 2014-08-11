@@ -24,7 +24,7 @@ gitg_gitg_VALAFLAGS =						\
 	--pkg gobject-introspection-1.0				\
 	--pkg gee-0.8						\
 	--pkg gd-1.0						\
-	--pkg webkit2gtk-3.0					\
+	--pkg $(WEBKIT_PKGCONFIG)				\
 	--pkg gtksourceview-3.0					\
 	--pkg GtkSpell-3.0					\
 	--girdir "$(top_builddir)/libgd"			\

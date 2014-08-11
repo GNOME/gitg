@@ -116,7 +116,9 @@ EXTRA_DIST +=				\
 	vapi/libsoup-2.4.deps		\
 	vapi/libsoup-2.4.vapi		\
 	vapi/webkit2gtk-3.0.deps	\
-	vapi/webkit2gtk-3.0.vapi
+	vapi/webkit2gtk-3.0.vapi	\
+	vapi/webkit2gtk-4.0.deps	\
+	vapi/webkit2gtk-4.0.vapi
 
 %.typelib: %.gir
 	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=$(top_srcdir) -o $@ $<

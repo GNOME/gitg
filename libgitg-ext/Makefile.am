@@ -17,7 +17,7 @@ libgitg_ext_libgitg_ext_1_0_la_VALAPKGS =	\
 	--pkg gio-2.0				\
 	--pkg gtk+-3.0				\
 	--pkg libsoup-2.4			\
-	--pkg webkit2gtk-3.0			\
+	--pkg $(WEBKIT_PKGCONFIG)		\
 	--pkg gee-0.8
 
 libgitg_ext_libgitg_ext_1_0_la_VALAFLAGS =		\

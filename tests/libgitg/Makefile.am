@@ -17,7 +17,7 @@ tests_libgitg_test_libgitg_VALAFLAGS =		\
 	--pkg gtk+-3.0				\
 	--pkg gee-0.8				\
 	--pkg libsoup-2.4			\
-	--pkg webkit2gtk-3.0			\
+	--pkg $(WEBKIT_PKGCONFIG)		\
 	--pkg config				\
 	$(GITG_VALAFLAGS)			\
 	--vapidir $(top_srcdir)/tests/libgitg	\
