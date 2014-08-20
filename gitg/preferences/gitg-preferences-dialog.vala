@@ -53,6 +53,8 @@ class PreferencesDialog : Gtk.Dialog, Gtk.Buildable
 		}
 
 		page.add(pref.widget);
+
+		d_notebook.child_set_property (page, "tab-expand", true);
 	}
 
 	public void populate()
