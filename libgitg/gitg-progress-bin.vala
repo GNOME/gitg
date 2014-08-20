@@ -53,7 +53,10 @@ namespace Gitg
 			attributes.height = allocation.height;
 			attributes.window_type = Gdk.WindowType.CHILD;
 			attributes.wclass = Gdk.WindowWindowClass.INPUT_OUTPUT;
-			attributes.event_mask = get_events() | Gdk.EventMask.EXPOSURE_MASK;
+			attributes.event_mask = get_events() |
+			                        Gdk.EventMask.EXPOSURE_MASK |
+			                        Gdk.EventMask.BUTTON_PRESS_MASK |
+			                        Gdk.EventMask.BUTTON_RELEASE_MASK;
 
 			var attributes_mask = Gdk.WindowAttributesType.X | Gdk.WindowAttributesType.Y;
 			var window = new Gdk.Window(get_parent_window(),
