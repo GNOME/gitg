@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-15 21:46+0300\n"
-"PO-Revision-Date: 2014-07-15 21:45+0300\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"POT-Creation-Date: 2014-08-20 10:59+0300\n"
+"PO-Revision-Date: 2014-08-20 11:10+0300\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -355,10 +355,11 @@ msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "האם ברצונך להשליך לצמיתות את השינויים הנבחרים?"
 
 #: ../gitg/commit/gitg-commit.vala:792 ../gitg/commit/gitg-commit.vala:936
-#: ../gitg/gitg-window.vala:388
-#: ../libgitg/gitg-diff-view-request-patch.vala:109
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/gitg-commit-action-create-patch.vala:143
+#: ../gitg/gitg-window.vala:432 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-window.ui.h:5
 msgid "_Cancel"
 msgstr "_ביטול"
@@ -455,84 +456,150 @@ msgstr "הגדרת תצורת המשתמש עבור Git נכשלה."
 msgid "The URL introduced is not supported"
 msgstr "הכתובת שסופקה אינה נתמכת"
 
-#: ../gitg/gitg-ref-action-delete.vala:38
-#: ../gitg/gitg-ref-action-delete.vala:78
+#: ../gitg/gitg-commit-action-create-branch.vala:48
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
+msgid "Create Branch"
+msgstr "יצירת ענף"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:53
+msgid "Create a new branch at the selected commit"
+msgstr "יצירת ענף מההגשה הנבחרת"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:85
+msgid "Failed to create branch"
+msgstr "ארע כשל ביצירת ענף"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:63
+msgid "Create Patch"
+msgstr "יצירת טלאי"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:68
+msgid "Create a patch from the selected commit"
+msgstr "יצירת טלאי מההגשה הנבחרת"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:141
+msgid "Save Patch File"
+msgstr "שמירת טלאי לקובץ"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:145
+msgid "_Save Patch"
+msgstr "_שמירת טלאי"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:168
+msgid "Failed to create patch"
+msgstr "ארע כשל ביצירת הטלאי"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:48
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
+msgid "Create Tag"
+msgstr "יצירת תגית"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:53
+msgid "Create a new tag at the selected commit"
+msgstr "יצירת תגית חדשה מההגשה הנבחרת"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:92
+msgid "Failed to create tag"
+msgstr "ארע כשל ביצירת התגית"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:109
+msgid "Failed to lookup tag"
+msgstr ""
+
+#: ../gitg/gitg-create-tag-dialog.vala:106
+msgid "Provide a message to create an annotated tag"
+msgstr "יש לספק הודעה ליצירת תגית עם הסבר"
+
+#: ../gitg/gitg-dash-view.vala:141
+msgid "_Delete"
+msgstr "_מחיקה"
+
+#: ../gitg/gitg-ref-action-delete.vala:48
+#: ../gitg/gitg-ref-action-delete.vala:88
 msgid "Delete"
 msgstr "מחיקה"
 
-#: ../gitg/gitg-ref-action-delete.vala:63
+#: ../gitg/gitg-ref-action-delete.vala:53
+msgid "Delete the selected reference"
+msgstr "מחיקת ההפניה הנבחרת"
+
+#: ../gitg/gitg-ref-action-delete.vala:73
 #, c-format
 msgid "Delete branch %s"
 msgstr "מחיקת ענף %s"
 
-#: ../gitg/gitg-ref-action-delete.vala:64
+#: ../gitg/gitg-ref-action-delete.vala:74
 #, c-format
 msgid "Are you sure that you want to permanently delete the branch %s?"
 msgstr "האם ברצונך למחוק לצמיתות את הענף %s?"
 
-#: ../gitg/gitg-ref-action-delete.vala:68
+#: ../gitg/gitg-ref-action-delete.vala:78
 #, c-format
 msgid "Delete tag %s"
 msgstr "מחיקת תג %s"
 
-#: ../gitg/gitg-ref-action-delete.vala:69
+#: ../gitg/gitg-ref-action-delete.vala:79
 #, c-format
 msgid "Are you sure that you want to permanently delete the tag %s?"
 msgstr "האם ברצונך למחוק לצמיתות את התג %s?"
 
-#: ../gitg/gitg-ref-action-delete.vala:73
+#: ../gitg/gitg-ref-action-delete.vala:83
 #, c-format
 msgid "Delete remote branch %s"
 msgstr "מחיקת ענך מרוחק %s"
 
-#: ../gitg/gitg-ref-action-delete.vala:74
+#: ../gitg/gitg-ref-action-delete.vala:84
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
 msgstr "האם ברצונך למחוק לצמיתות את הענף המרוחק %s?"
 
-#: ../gitg/gitg-ref-action-delete.vala:79
+#: ../gitg/gitg-ref-action-delete.vala:89
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
 msgid "Cancel"
 msgstr "ביטול"
 
 #. Translators: %s is the name of the tag
-#: ../gitg/gitg-ref-action-delete.vala:109
+#: ../gitg/gitg-ref-action-delete.vala:119
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr "ארע כשל במחיקת תג %s"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: ../gitg/gitg-ref-action-delete.vala:112
+#: ../gitg/gitg-ref-action-delete.vala:122
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr "לא ניתן למחוק את התג %s: ‏%s"
 
 #. Translators: %s is the name of the branch
-#: ../gitg/gitg-ref-action-delete.vala:117
+#: ../gitg/gitg-ref-action-delete.vala:127
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr "ארע כשל במחיקת ענף %s"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: ../gitg/gitg-ref-action-delete.vala:120
+#: ../gitg/gitg-ref-action-delete.vala:130
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "לא ניתן למחוק את הענף %s: ‏%s"
 
-#: ../gitg/gitg-ref-action-rename.vala:38
+#: ../gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr "שינוי שם"
 
-#: ../gitg/gitg-ref-action-rename.vala:90
+#: ../gitg/gitg-ref-action-rename.vala:53
+msgid "Rename the selected reference"
+msgstr "שינוי שם ההפניה הנבחרת"
+
+#: ../gitg/gitg-ref-action-rename.vala:100
 #, c-format
 msgid "The specified name ‘%s’ contains invalid characters"
 msgstr "השם המסוים '%s' מכיל תווים לא תקניים"
 
-#: ../gitg/gitg-ref-action-rename.vala:92
+#: ../gitg/gitg-ref-action-rename.vala:102
 msgid "Invalid name"
 msgstr "שם לא תקין"
 
-#: ../gitg/gitg-ref-action-rename.vala:131
+#: ../gitg/gitg-ref-action-rename.vala:141
 msgid "Failed to rename"
 msgstr "ארע כשל בשינוי השם"
 
@@ -556,26 +623,22 @@ msgstr ""
 "בכל מקרה אחר, עליך לדווח על תקלה מול ההפצה שלך על כך לך libgit2 ללא תמיכה "
 "בריבוי תהליכים."
 
-#: ../gitg/gitg-window.vala:348
+#: ../gitg/gitg-window.vala:389
 msgid "Projects"
 msgstr "מיזמים"
 
-#: ../gitg/gitg-window.vala:386
+#: ../gitg/gitg-window.vala:430
 msgid "Open Repository"
 msgstr "פתיחת מאגר"
 
-#: ../gitg/gitg-window.vala:389
+#: ../gitg/gitg-window.vala:433
 msgid "_Open"
 msgstr "_פתיחה"
 
-#: ../gitg/gitg-window.vala:638
+#: ../gitg/gitg-window.vala:707
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "‏`%s` אינו מאגר Git"
-
-#: ../gitg/gitg-window.vala:771
-msgid "_Delete"
-msgstr "_מחיקה"
 
 #: ../gitg/history/gitg-history-refs-list.vala:136
 msgid "All commits"
@@ -593,12 +656,12 @@ msgstr "מרוחקים"
 msgid "Tags"
 msgstr "תגיות"
 
-#: ../gitg/history/gitg-history.vala:218
+#: ../gitg/history/gitg-history.vala:219
 #: ../gitg/preferences/gitg-preferences-history.vala:144
 msgid "History"
 msgstr "היסטוריה"
 
-#: ../gitg/history/gitg-history.vala:223
+#: ../gitg/history/gitg-history.vala:224
 msgid "Examine the history of the repository"
 msgstr "לבחון את ההיסטוריה של המאגר"
 
@@ -666,14 +729,6 @@ msgstr "%e ב%b ‏%Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e ב%b ‏%Y, %I:%M %p"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:107
-msgid "Save Patch File"
-msgstr "שמירת טלאי לקובץ"
-
-#: ../libgitg/gitg-diff-view-request-patch.vala:111
-msgid "_Save"
-msgstr "_שמירה"
-
 #: ../libgitg/gitg-diff-view.vala:229
 msgid "stage"
 msgstr "שילוב"
@@ -685,10 +740,6 @@ msgstr "ביטול שילוב"
 #: ../libgitg/gitg-diff-view.vala:231
 msgid "Loading diff…"
 msgstr "הבדלים נטענים…"
-
-#: ../libgitg/gitg-diff-view.vala:232
-msgid "Get Patch"
-msgstr "קבלת הטלאי"
 
 #: ../libgitg/gitg-stage.vala:335
 #, c-format
@@ -795,6 +846,19 @@ msgstr "_שילוב הבחירה"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
 msgid "D_iscard selection"
 msgstr "ה_שלכת הבחירה"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
+msgid "C_reate"
+msgstr "י_צירה"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
+msgid "Branch _name:"
+msgstr "שם ענף:"
+
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
+msgid "Tag _name:"
+msgstr "שם תגית:"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -949,6 +1013,9 @@ msgstr "מחיקת המאגר מהרשימה (לא מוחק את המאגר מה
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "עמודה"
+
+#~ msgid "_Save"
+#~ msgstr "_שמירה"
 
 #~ msgid "gitg Preferences"
 #~ msgstr "העדפות gitg"
