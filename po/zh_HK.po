@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
 "POT-Creation-Date: 2014-08-21 05:41+0000\n"
-"PO-Revision-Date: 2014-08-21 17:04+0800\n"
+"PO-Revision-Date: 2014-08-25 14:04+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "Language: zh_TW\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.3\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -623,35 +623,29 @@ msgid "'%s' is not a Git repository."
 msgstr "「%s」不是 Git 倉儲。"
 
 #: ../gitg/history/gitg-history-refs-list.vala:136
-#, fuzzy
 msgid "All commits"
-msgstr "提交"
+msgstr "所有的提交"
 
 #: ../gitg/history/gitg-history-refs-list.vala:674
-#, fuzzy
 msgid "Branches"
 msgstr "分支"
 
 #: ../gitg/history/gitg-history-refs-list.vala:675
-#, fuzzy
 msgid "Remotes"
 msgstr "遠端"
 
 #: ../gitg/history/gitg-history-refs-list.vala:676
-#, fuzzy
 msgid "Tags"
-msgstr "標籤(_T)…"
+msgstr "標籤"
 
 #: ../gitg/history/gitg-history.vala:219
 #: ../gitg/preferences/gitg-preferences-history.vala:144
-#, fuzzy
 msgid "History"
-msgstr "歷史(_H)"
+msgstr "歷史"
 
 #: ../gitg/history/gitg-history.vala:224
-#, fuzzy
 msgid "Examine the history of the repository"
-msgstr "檢驗"
+msgstr "檢驗倉儲的歷史"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:73
 msgid "Interface"
@@ -687,33 +681,29 @@ msgstr[0] "%d 天前"
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
 #: ../libgitg/gitg-date.vala:374
-#, fuzzy
 msgid "%b %e, %H:%M"
-msgstr "%b%e日%A %H:%M"
+msgstr "%b%e日，%H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: ../libgitg/gitg-date.vala:381
-#, fuzzy
 msgid "%b %e, %I:%M %p"
-msgstr "%Y年%b%e日,%p %I:%M:%S"
+msgstr "%b%e日，%p %I:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: ../libgitg/gitg-date.vala:391
-#, fuzzy
 msgid "%b %e %Y, %H:%M"
-msgstr "%Y年%b%e日%A %H:%M"
+msgstr "%Y年%b%e日，%H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: ../libgitg/gitg-date.vala:398
-#, fuzzy
 msgid "%b %e %Y, %I:%M %p"
-msgstr "%Y年%b%e日,%p %I:%M:%S"
+msgstr "%Y年%b%e日，%p %I:%M"
 
 #: ../libgitg/gitg-diff-view.vala:229
 #, fuzzy
@@ -765,9 +755,9 @@ msgid "Enter details to set as default for all repositories:"
 msgstr "輸入詳細資料以設為所有倉儲的預設值："
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Enter details for repository '%s':"
-msgstr "請輸入你的帳號詳細資料"
+msgstr "請輸入倉儲「%s」的詳細資料："
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
 msgid "E-mail: "
@@ -782,24 +772,20 @@ msgid "Save"
 msgstr "儲存"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-#, fuzzy
 msgid "Clone Repository"
-msgstr "重製(_C)"
+msgstr "重製倉儲"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-#, fuzzy
 msgid "Cl_one"
-msgstr "清除(_E)"
+msgstr "重製(_O)"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
-#, fuzzy
 msgid "Remote _URL:"
-msgstr "遠端桌面的 URL 應該寄送至這個電郵地址"
+msgstr "遠端 _URL："
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-#, fuzzy
 msgid "_Local Folder:"
-msgstr "如果要開啟遠端的檔案，請先將檔案複製至本地的資料夾才進行拖曳的動作。"
+msgstr "本地資料夾(_L):"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Select location…"
@@ -816,14 +802,12 @@ msgid "C_ommit"
 msgstr "提交(_O)"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
-#, fuzzy
 msgid "Add _signed-off-by signature"
-msgstr "加入 signed-off-by line"
+msgstr "加入 _signed-off-by 簽署"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
-#, fuzzy
 msgid "_Amend previous commit"
-msgstr "修正上一次提交"
+msgstr "修正上一次提交(_A)"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
 #: ../gitg/resources/ui/gitg-window.ui.h:6
@@ -831,9 +815,8 @@ msgid "Close"
 msgstr "關閉"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
-#, fuzzy
 msgid "Skip commit _hooks"
-msgstr "跳至"
+msgstr "略過提交掛鉤(_H)"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 #, fuzzy
@@ -841,30 +824,25 @@ msgid "S_tage selection"
 msgstr "「%s」無法加入到選取區。"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
-#, fuzzy
 msgid "D_iscard selection"
-msgstr "選取區(_S)"
+msgstr "放棄選取區(_I)"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
-#, fuzzy
 msgid "C_reate"
 msgstr "建立(_R)"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
-#, fuzzy
 msgid "Branch _name:"
-msgstr "分支名稱："
+msgstr "分支名稱(_N):"
 
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
-#, fuzzy
 msgid "Tag _name:"
-msgstr "標記名稱"
+msgstr "標籤名稱(_N):"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
-#, fuzzy
 msgid "Subject"
-msgstr "(沒有主旨)"
+msgstr "主旨"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:2
 msgid "Author"
@@ -895,14 +873,12 @@ msgid "_Quit"
 msgstr "退出(_Q)"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:6
-#, fuzzy
 msgid "_Open Repository…"
-msgstr "倉儲："
+msgstr "開啟倉儲(_O)…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:7
-#, fuzzy
 msgid "_Clone Repository…"
-msgstr "重製(_C)"
+msgstr "重製倉儲(_C)…"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Author Details"
@@ -917,12 +893,10 @@ msgid "Show markup"
 msgstr "顯示標記"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-#, fuzzy
 msgid "Display _subject margin at column:"
-msgstr "顯示主旨邊界於哪一欄"
+msgstr "顯示主旨邊界於哪一欄(_S):"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-#, fuzzy
 msgid "Display right _margin at column:"
 msgstr "顯示右邊邊界於(_M):"
 
@@ -984,42 +958,34 @@ msgid "Preferences"
 msgstr "偏好設定"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:2
-#, fuzzy
 msgid "Show the list of recently used repositories"
-msgstr "目前使用的資源清單大小"
+msgstr "顯示目前使用的倉儲清單"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
-#, fuzzy
 msgid "Find a word or phrase"
-msgstr "在文件中尋找字詞"
+msgstr "尋找字詞"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:4
-#, fuzzy
 msgid "General settings and options"
-msgstr "一般選項"
+msgstr "一般設定值與選項"
 
 #: ../libgitg/resources/diff-view-options.ui.h:1
-#, fuzzy
 msgid "Ignore whitespace changes"
 msgstr "忽略空白字符的更改"
 
 #: ../libgitg/resources/diff-view-options.ui.h:2
-#, fuzzy
 msgid "Show changes inline"
 msgstr "顯示行內更改"
 
 #: ../libgitg/resources/diff-view-options.ui.h:3
-#, fuzzy
 msgid "Developer tools"
-msgstr "啟用 WebKit 開發者工具"
+msgstr "開發者工具"
 
 #: ../libgitg/resources/diff-view-options.ui.h:4
-#, fuzzy
 msgid "Tab width"
 msgstr "Tab 字符闊度"
 
 #: ../libgitg/resources/diff-view-options.ui.h:5
-#, fuzzy
 msgid "Context"
 msgstr "脈絡"
 
@@ -1030,7 +996,6 @@ msgid ""
 msgstr "從清單中移除倉儲 (不會將倉儲自硬碟上刪除)"
 
 #: ../plugins/files/resources/view-files.ui.h:1
-#, fuzzy
 msgid "column"
 msgstr "欄"
 
