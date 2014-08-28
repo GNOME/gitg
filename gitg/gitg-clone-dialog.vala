@@ -42,7 +42,7 @@ public class CloneDialog : Gtk.Dialog
 
 	public File location
 	{
-		get { return d_button_location.get_file(); }
+		owned get { return d_button_location.get_file(); }
 	}
 
 	public string url
