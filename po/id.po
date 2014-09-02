@@ -6,19 +6,19 @@
 # Dirgita <dirgitadevina@yahoo.co.id>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: gitg master\n"
+"Project-Id-Version: gitg gnome-3-12\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-04-05 17:57+0000\n"
-"PO-Revision-Date: 2014-04-09 05:37+0700\n"
-"Last-Translator: Dirgita <dirgitadevina@yahoo.co.id>\n"
+"POT-Creation-Date: 2014-09-02 05:41+0000\n"
+"PO-Revision-Date: 2014-09-02 15:48+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -150,82 +150,82 @@ msgstr ""
 msgid "Cannot set spell checking language: %s"
 msgstr "Tak bisa menata bahasa pemeriksaan ejaan: %s"
 
-#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/commit/gitg-commit.vala:105
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
 msgstr "Komit"
 
-#: ../gitg/commit/gitg-commit.vala:123
+#: ../gitg/commit/gitg-commit.vala:145
 msgid "_Stage selection"
 msgstr "_Stage-kan pilihan"
 
-#: ../gitg/commit/gitg-commit.vala:146
+#: ../gitg/commit/gitg-commit.vala:168
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Gagal men-stage berkas '%s'"
 
-#: ../gitg/commit/gitg-commit.vala:165
+#: ../gitg/commit/gitg-commit.vala:187
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Gagal men-stage penghapusan berkas '%s'"
 
-#: ../gitg/commit/gitg-commit.vala:204
+#: ../gitg/commit/gitg-commit.vala:229
 msgid "_Unstage selection"
 msgstr "_Unstage-kan pilihan"
 
-#: ../gitg/commit/gitg-commit.vala:227
+#: ../gitg/commit/gitg-commit.vala:252
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Gagal meng-unstage penghapusan berkas '%s'"
 
-#: ../gitg/commit/gitg-commit.vala:246
+#: ../gitg/commit/gitg-commit.vala:271
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Gagal meng-unstage berkas '%s'"
 
-#: ../gitg/commit/gitg-commit.vala:370
+#: ../gitg/commit/gitg-commit.vala:412
 msgid "Staged"
 msgstr "Di-stage"
 
-#: ../gitg/commit/gitg-commit.vala:374
+#: ../gitg/commit/gitg-commit.vala:419
 msgid "No staged files"
 msgstr "Tak ada berkas yang di-stage"
 
-#: ../gitg/commit/gitg-commit.vala:383
+#: ../gitg/commit/gitg-commit.vala:431
 msgid "Unstaged"
 msgstr "Di-unstage"
 
-#: ../gitg/commit/gitg-commit.vala:387
+#: ../gitg/commit/gitg-commit.vala:435
 msgid "No unstaged files"
 msgstr "Tak ada berkas yang di-unstage"
 
-#: ../gitg/commit/gitg-commit.vala:396
+#: ../gitg/commit/gitg-commit.vala:447
 msgid "Untracked"
 msgstr "Tak dilacak"
 
-#: ../gitg/commit/gitg-commit.vala:400
+#: ../gitg/commit/gitg-commit.vala:451
 msgid "No untracked files"
 msgstr "Tak ada berkas yang tak dilacak"
 
-#: ../gitg/commit/gitg-commit.vala:436
+#: ../gitg/commit/gitg-commit.vala:506
 msgid "There are no changes to be committed"
 msgstr "Tak ada perubahan untuk dikomit"
 
-#: ../gitg/commit/gitg-commit.vala:437
+#: ../gitg/commit/gitg-commit.vala:507
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Pakai amend untuk mengubah pesan komit dari komit sebelumnya"
 
-#: ../gitg/commit/gitg-commit.vala:463
+#: ../gitg/commit/gitg-commit.vala:533
 msgid "Failed to commit"
 msgstr "Gagal komit"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:479 ../gitg/commit/gitg-commit.vala:712
+#: ../gitg/commit/gitg-commit.vala:549 ../gitg/commit/gitg-commit.vala:782
 msgid "Failed to pass pre-commit"
 msgstr "Gagal lolos prakomit"
 
-#: ../gitg/commit/gitg-commit.vala:700
+#: ../gitg/commit/gitg-commit.vala:770
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -233,7 +233,7 @@ msgstr ""
 "Nama pengguna dan surel Anda belum ditata. Harap pergi ke konfigurasi "
 "pengguna dan isikan nama serta surel Anda."
 
-#: ../gitg/commit/gitg-commit.vala:704
+#: ../gitg/commit/gitg-commit.vala:774
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -241,7 +241,7 @@ msgstr ""
 "Nama pengguna Anda belum ditata. Harap pergi ke konfigurasi pengguna dan "
 "isikan nama Anda."
 
-#: ../gitg/commit/gitg-commit.vala:708
+#: ../gitg/commit/gitg-commit.vala:778
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -249,11 +249,11 @@ msgstr ""
 "Surel Anda belum ditata. Harap pergi ke konfigurasi pengguna dan isikan "
 "surel Anda."
 
-#: ../gitg/commit/gitg-commit.vala:769
+#: ../gitg/commit/gitg-commit.vala:839
 msgid "Failed to stage selection"
 msgstr "Gagal men-stage pilihan"
 
-#: ../gitg/commit/gitg-commit.vala:773
+#: ../gitg/commit/gitg-commit.vala:843
 msgid "Failed to unstage selection"
 msgstr "Gagal meng-unstage pilihan"
 
@@ -290,11 +290,11 @@ msgstr "Andika Triwidada <andika@gmail.com>, 2012, 2013, 2014."
 msgid "gitg homepage"
 msgstr "Situs web gitg"
 
-#: ../gitg/gitg-author-details-dialog.vala:65
+#: ../gitg/gitg-author-details-dialog.vala:67
 msgid "Unable to open the .gitconfig file."
 msgstr "Tak bisa membuka berkas .gitconfig."
 
-#: ../gitg/gitg-author-details-dialog.vala:147
+#: ../gitg/gitg-author-details-dialog.vala:149
 msgid "Failed to set Git user config."
 msgstr "Gagal menata konfig pengguna Git."
 
@@ -322,24 +322,26 @@ msgstr ""
 "Bila tidak, laporkan suatu kutu dalam sistem pelaporan kutu distribusi Anda "
 "bagi libgit2 yang tanpa dukungan thread."
 
-#: ../gitg/gitg-window.vala:276
+#: ../gitg/gitg-window.vala:268
 msgid "Projects"
 msgstr "Proyek"
 
-#: ../gitg/gitg-window.vala:312
+#: ../gitg/gitg-window.vala:304
 msgid "Open Repository"
 msgstr "Buka Repositori"
 
-#: ../gitg/gitg-window.vala:314
+#: ../gitg/gitg-window.vala:306
 #: ../libgitg/gitg-diff-view-request-patch.vala:109
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 msgid "_Cancel"
 msgstr "_Batal"
 
-#: ../gitg/gitg-window.vala:315
+#: ../gitg/gitg-window.vala:307
 msgid "_Open"
 msgstr "B_uka"
 
-#: ../gitg/gitg-window.vala:545
+#: ../gitg/gitg-window.vala:544
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "'%s' bukan suatu repositori Git."
@@ -407,19 +409,19 @@ msgstr "Simpan Berkas Patch"
 msgid "_Save"
 msgstr "_Simpan"
 
-#: ../libgitg/gitg-diff-view.vala:123
+#: ../libgitg/gitg-diff-view.vala:126
 msgid "stage"
 msgstr "stage"
 
-#: ../libgitg/gitg-diff-view.vala:124
+#: ../libgitg/gitg-diff-view.vala:127
 msgid "unstage"
 msgstr "unstage"
 
-#: ../libgitg/gitg-diff-view.vala:125
+#: ../libgitg/gitg-diff-view.vala:128
 msgid "Loading diff…"
 msgstr "Memuat diff…"
 
-#: ../libgitg/gitg-stage.vala:333
+#: ../libgitg/gitg-stage.vala:335
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Tak bisa membaca pesan komit setelah menjalankan hook commit-msg: %s"
@@ -472,40 +474,40 @@ msgstr "Simpan"
 msgid "Clone Repository"
 msgstr "Klon Repositori"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
 msgid "Cl_one"
 msgstr "Kl_on"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
 msgid "Remote _URL:"
 msgstr "_URL Remote:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
 msgid "_Local Folder:"
 msgstr "Folder _Lokal:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Select location…"
 msgstr "Pilih lokasi…"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
 msgid "Bare repository"
 msgstr "Repositori polos"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
 msgid "C_ommit"
 msgstr "K_omit"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "Add _signed-off-by signature"
 msgstr "Tambahkan tanda tangan _signed-off-by"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 msgid "_Amend previous commit"
 msgstr "_Amend komit sebelumnya"
 
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Close"
 msgstr "Tutup"
@@ -630,7 +632,12 @@ msgstr "Pakai tata letak horisontal"
 msgid "Preferences"
 msgstr "Preferensi"
 
+#: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
+msgid ""
+"Remove the repository from the list (does not delete the repository from "
+"disk)"
+msgstr "Buang repositori dari daftar (tak menghapus repositori dari disk)"
+
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "kolom"
-
