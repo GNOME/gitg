@@ -1,805 +1,1029 @@
 # Swedish translation for gitg.
-# Copyright (C) 2009 Free Software Foundation, Inc.
+# Copyright © 2009-2014 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gitg package.
 # Daniel Nylander <po@danielnylander.se>, 2009.
+# Sebastian Rasmussen <sebras@gmail.com>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-05 21:28+0200\n"
-"PO-Revision-Date: 2009-04-22 09:47+0100\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gitg&keywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2014-09-15 17:36+0000\n"
+"PO-Revision-Date: 2014-09-16 23:24+0100\n"
+"Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: ../data/gitg.desktop.in.in.h:1
-msgid "Git repository browser"
-msgstr ""
-
-#. Translators: this is the application name as in g_set_application_name
-#: ../data/gitg.desktop.in.in.h:2 ../gitg/gitg.c:169
-#: ../gitg/gitg-window.c:1005 ../gitg/gitg-window.c:1018
-#: ../gitg/gitg-branch-actions.c:146 ../gitg/gitg-branch-actions.c:199
-#: ../gitg/gitg-window.ui.h:18
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
+#: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
 
-#: ../data/gitg.schemas.in.h:1
-msgid "Column at Which Right Margin is Shown"
-msgstr ""
+#: ../data/gitg.desktop.in.in.h:2
+msgid "Git repository browser"
+msgstr "Git-arkivsbläddrare"
 
-#: ../data/gitg.schemas.in.h:2
-msgid "Filter Revisions When Searching"
-msgstr ""
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+msgid "Default Clone Directory"
+msgstr "Standard klonmapp"
 
-#: ../data/gitg.schemas.in.h:3
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+msgid ""
+"The default directory in which new repositories should be suggested to be "
+"cloned."
+msgstr "Standardmapp i vilken nya arkiv bör föreslås att bli klonade."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Orienteringen för huvudgränssnittet (vertikal eller horisontell)"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Inställning som sätter orienteringen för huvudgränssnittet."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+msgid "When to Collapse Inactive Lanes"
+msgstr "När inaktiva banor ska fällas ihop"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr ""
+"Inställning som indikerar när en inaktiv bana ska fällas ihop. Giltiga "
+"värden är 0 - 4, där 0 indikerar “tidigt“ och 4 indikerar “sent“."
 
-#: ../data/gitg.schemas.in.h:4
-msgid "Show Right Margin in Commit Message View"
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
 msgstr ""
+"Inställning som indikerar huruvida historikbanor som inte har någon "
+"aktivitet ska fällas ihop. Att aktivera detta kan ge en renare historikvy "
+"när det finns mycket parallell utveckling. Se collapse-inactive-lanes för "
+"att kontrollera när banor ska kollapsa."
 
-#: ../data/gitg.schemas.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+msgid "Show History in Topological Order"
+msgstr "Visa historik i topologisk ordning"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid ""
+"Setting that indicates whether to show the history in topological order."
+msgstr ""
+"Inställning som indikerar huruvida historiken ska visas i topologisk ordning."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid "Show Stashed Changes"
+msgstr "Visa stashade ändringar"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Inställning som indikerar huruvida objekt ska visas för stashen i historiken."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+msgid "Show Staged Changes"
+msgstr "Visa köade ändringar"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Inställning som indikerar huruvida ett virtuellt objekt ska visas för de för "
+"närvarande köade ändringarna i historiken."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+msgid "Show Unstaged Changes"
+msgstr "Visa oköade ändringar"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Inställning som indikerar huruvida ett virtuellt objekt ska visas för de för "
+"närvarande oköade ändringarna i historiken."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid "Show Right Margin in Commit Message View"
+msgstr "Visa högermarginal i vyn för incheckningsmeddelande"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
+"Visa högermaginalsindikator i vyn för incheckningsmeddelanden. Denna kan "
+"användas för att lätt se vid vilken kolumn du bör bryta rader i "
+"incheckningsmeddelandet."
 
-#: ../data/gitg.schemas.in.h:6
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+msgid "Column at Which Right Margin is Shown"
+msgstr "Kolumn vid vilken högermarginalen visas"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
 msgid ""
-"The column at which the right margin is shown if the right-margin preference "
-"is set to TRUE."
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
+"Kolumnen vid vilken högermarginalen visas om inställningen show-right-margin "
+"är satt till TRUE."
 
-#: ../data/gitg.schemas.in.h:7
-msgid "When to Collapse Inactive Lanes"
-msgstr ""
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Visa ämnesmarginal i vyn för incheckningsmeddelande"
 
-#: ../data/gitg.schemas.in.h:8
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
 msgid ""
-"Whether searching filters the revisions in the history view instead of "
-"jumping to the first match."
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
 msgstr ""
+"Markera ämnestexten i incheckningsmeddelandet när den passerar marginalen "
+"angiven av subject-margin-position."
 
-#: ../gitg/gitg.c:43
-msgid "Start gitg in commit mode"
-msgstr ""
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Kolumn vid vilken ämnesmarginalen visas"
 
-#: ../gitg/gitg.c:53
-msgid "- git repository viewer"
-msgstr "- git-förrådsvisare"
-
-#: ../gitg/gitg-commit-view.c:208 ../gitg/gitg-revision-tree-view.c:181
-msgid "Cannot display file content as text"
-msgstr "Kan inte visa filens innehåll som text"
-
-#: ../gitg/gitg-commit-view.c:1431
-msgid "You must first stage some changes before committing"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1439
-msgid "Please enter a commit message before committing"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1451
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
 msgid ""
-"Your user name or email could not be retrieved for use in the sign off "
-"message"
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
 msgstr ""
+"Kolumnen vid vilken ämnesmarginalen visas om inställningen show-subject-"
+"margin är satt till TRUE."
 
-#: ../gitg/gitg-commit-view.c:1453
-msgid "Something went wrong while trying to commit"
-msgstr ""
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+msgid "Enable Spell Checking"
+msgstr "Aktivera rättstavning"
 
-#: ../gitg/gitg-commit-view.c:1612
-msgid "Revert fail"
-msgstr ""
-
-#: ../gitg/gitg-commit-view.c:1623
-msgid "Are you sure you want to revert these changes?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
-
-#: ../gitg/gitg-commit-view.c:1626
-msgid "Reverting changes is permanent and cannot be undone"
-msgstr "Återställning av ändringar är permanent och kan inte ångras"
-
-#: ../gitg/gitg-repository.c:591
-msgid "Staged changes"
-msgstr ""
-
-#: ../gitg/gitg-repository.c:593
-msgid "Unstaged changes"
-msgstr ""
-
-#: ../gitg/gitg-repository.c:1148
-msgid "Not a valid git repository"
-msgstr "Inte ett giltigt git-förråd"
-
-#: ../gitg/gitg-revision-tree-view.c:507
-msgid "(Empty)"
-msgstr "(Tom)"
-
-#: ../gitg/gitg-window.c:420
-msgid "Select branch"
-msgstr "Välj gren"
-
-#: ../gitg/gitg-window.c:482
-#, c-format
-msgid "Push local branch <%s> to remote branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-window.c:489
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-window.c:496
-#, c-format
-msgid "Merge/rebase local branch <%s> with/on remote branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-window.c:503
-#, c-format
-msgid "Apply stash to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-window.c:771
-msgid "Begin loading repository"
-msgstr ""
-
-#: ../gitg/gitg-window.c:780
-#, c-format
-msgid "Loaded %d revisions in %.2fs"
-msgstr "Läste in %d revisioner på %.2fs"
-
-#: ../gitg/gitg-window.c:791
-#, c-format
-msgid "Loading %d revisions..."
-msgstr "Läser in %d revisioner..."
-
-#: ../gitg/gitg-window.c:800
-msgid "Could not find git repository"
-msgstr "Kunde inte hitta git-förrådet"
-
-#: ../gitg/gitg-window.c:983
-msgid "All branches"
-msgstr "Alla grenar"
-
-#: ../gitg/gitg-window.c:1192
-msgid "Open git repository"
-msgstr "Öppna git-förråd"
-
-#: ../gitg/gitg-window.c:1313
-msgid "gitg is a git repository viewer for gtk+/GNOME"
-msgstr "gitg är en git-förrådsvisare för gtk+/GNOME"
-
-#: ../gitg/gitg-window.c:1314
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
 msgid ""
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 59 Temple Place, Suite 330,\n"
-"Boston, MA 02111-1307, USA."
+"Setting which determines whether or not spell checking is enabled when "
+"writing a commit message."
 msgstr ""
-"Följande text är en informell översättning som enbart tillhandahålls i\n"
-"informativt syfte. För alla juridiska tolkningar gäller den engelska\n"
-"originaltexten.\n"
-"\n"
-"Detta program är fri programvara. Du kan distribuera det och/eller\n"
-"modifiera det under villkoren i GNU General Public License, publicerad\n"
-"av Free Software Foundation, antingen version 2 eller (om du så vill)\n"
-"någon senare version.\n"
-"\n"
-"Detta program distribueras i hopp om att det ska vara användbart,\n"
-"men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd garanti\n"
-"om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se GNU\n"
-"General Public License för ytterligare information.\n"
-"\n"
-"Du bör ha fått en kopia av GNU General Public License tillsammans\n"
-"med detta program. Om inte, skriv till Free Software Foundation,\n"
-"Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA."
+"Inställning som bestämmer huruvida rättstavning är aktiverat vid inmatning "
+"av incheckningsmeddelande."
 
-#: ../gitg/gitg-window.c:1775 ../gitg/gitg-window.c:1809
-#, fuzzy, c-format
-msgid "New local branch <%s>"
-msgstr "Alla grenar"
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+msgid "Spell Checking Language"
+msgstr "Rättstavningsspråk"
 
-#: ../gitg/gitg-window.c:1787 ../gitg/gitg-branch-actions.c:316
-#, fuzzy
-msgid "Remove remote branch"
-msgstr "Välj gren"
-
-#: ../gitg/gitg-window.c:1791
-msgid "Checkout working copy"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1792
-#, fuzzy
-msgid "Remove local branch"
-msgstr "Välj gren"
-
-#: ../gitg/gitg-window.c:1800 ../gitg/gitg-branch-actions.c:391
-msgid "Remove stash"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1805 ../gitg/gitg-branch-actions.c:456
-#: ../gitg/gitg-branch-actions.c:458
-#, fuzzy
-msgid "Remove tag"
-msgstr "Återställ"
-
-#: ../gitg/gitg-window.c:1984
-msgid "Not all fields are correctly filled in"
-msgstr ""
-
-#: ../gitg/gitg-window.c:1986
-msgid "Please make sure to fill in both the tag name and the commit message"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:249
-#, c-format
-msgid "Branch <%s> could not be removed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:250
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
 msgid ""
-"This usually means that the branch is not fully merged in HEAD. Do you want "
-"to forcefully remove the branch?"
+"The language to use when spell checking is enabled for writing a commit "
+"message."
 msgstr ""
+"Språket som används när rättstavning är aktiverat för inmatning av "
+"incheckningsmeddelande."
 
-#: ../gitg/gitg-branch-actions.c:251
-msgid "Force remove"
-msgstr ""
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
+msgid "Ignore Whitespace Changes"
+msgstr "Ignorera tomrumsändringar"
 
-#: ../gitg/gitg-branch-actions.c:260
-#, c-format
-msgid "Branch <%s> could not be forcefully removed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:293
-#, c-format
-msgid "Failed to remove remote branch <%s>."
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:314
-#, fuzzy, c-format
-msgid "Are you sure you want to remove the remote branch <%s>?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
-
-#: ../gitg/gitg-branch-actions.c:315
-msgid "This permanently removes the remote branch."
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:332 ../gitg/gitg-menus.xml.h:9
-#, fuzzy
-msgid "Remove branch"
-msgstr "Välj gren"
-
-#: ../gitg/gitg-branch-actions.c:389
-#, fuzzy
-msgid "Are you sure you want to remove this stash item?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
-
-#: ../gitg/gitg-branch-actions.c:390
-msgid "This permanently removes the stash item"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:417
-msgid "Failed to remove stash"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:418
-msgid "The stash item could not be successfully removed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:452
-#, fuzzy, c-format
-msgid "Are you sure you want to remove the tag <%s>?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
-
-#: ../gitg/gitg-branch-actions.c:475
-#, c-format
-msgid "The tag <%s> could not be successfully removed"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:479
-msgid "Failed to remove tag"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:579
-#, fuzzy
-msgid "Do you want to temporarily stash these changes?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
-
-#: ../gitg/gitg-branch-actions.c:583
-#, fuzzy
-msgid "Do you want to stash and reapply these changes?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
-
-#: ../gitg/gitg-branch-actions.c:588
-msgid "You have uncommited changes in your current working tree"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:590
-msgid "Stash changes"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:766
-msgid "Failed to save current index state"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:820 ../gitg/gitg-branch-actions.c:1102
-#: ../gitg/gitg-branch-actions.c:1397
-#, c-format
-msgid "Failed to checkout local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:858
-#, c-format
-msgid "Failed to checkout remote branch <%s> to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:898
-#, c-format
-msgid "Failed to checkout tag <%s> to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:989
-#, c-format
-msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:993
-#, c-format
-msgid "Failed to merge %s branch <%s> with %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1001 ../gitg/gitg-branch-actions.c:1003
-#: ../gitg/gitg-branch-actions.c:1069 ../gitg/gitg-branch-actions.c:1071
-#: ../gitg/gitg-branch-actions.c:1110 ../gitg/gitg-branch-actions.c:1112
-#: ../gitg/gitg-branch-actions.c:1146 ../gitg/gitg-branch-actions.c:1148
-#: ../gitg/gitg-branch-actions.c:1193 ../gitg/gitg-branch-actions.c:1195
-msgid "local"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1001 ../gitg/gitg-branch-actions.c:1003
-#: ../gitg/gitg-branch-actions.c:1069 ../gitg/gitg-branch-actions.c:1071
-#: ../gitg/gitg-branch-actions.c:1110 ../gitg/gitg-branch-actions.c:1112
-#: ../gitg/gitg-branch-actions.c:1146 ../gitg/gitg-branch-actions.c:1148
-#: ../gitg/gitg-branch-actions.c:1193 ../gitg/gitg-branch-actions.c:1195
-#, fuzzy
-msgid "remote"
-msgstr "Träd"
-
-#: ../gitg/gitg-branch-actions.c:1020
-msgid "The stashed changes have been stored to be reapplied manually"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1025
-msgid "Failed to checkout previously checked out branch"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1046
-msgid "Failed to reapply stash correctly"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1047
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
 msgid ""
-"There might be unresolved conflicts in the working tree or index which you "
-"need to resolve manually"
+"Setting that indicates whether to ignore whitespace changes when showing the "
+"diff of a commit."
 msgstr ""
+"Inställning som indikerar huruvida tomrumsändringar ska ignoreras när diffen "
+"för en incheckning visas."
 
-#: ../gitg/gitg-branch-actions.c:1068
-#, fuzzy, c-format
-msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+msgid "Show Changes Inline"
+msgstr "Visa ändringar inbäddade"
 
-#: ../gitg/gitg-branch-actions.c:1076 ../gitg/gitg-branch-actions.c:1078
-#: ../gitg/gitg-branch-actions.c:1122 ../gitg/gitg-menus.xml.h:4
-msgid "Merge"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1103
-msgid "The branch on which to merge could not be checked out"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1109
-#, c-format
-msgid "Merging %s branch <%s> onto %s branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1145
-#, fuzzy, c-format
-msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
-
-#: ../gitg/gitg-branch-actions.c:1153 ../gitg/gitg-branch-actions.c:1155
-#: ../gitg/gitg-branch-actions.c:1205 ../gitg/gitg-menus.xml.h:7
-msgid "Rebase"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1178
-msgid "Unable to rebase"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1179
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
 msgid ""
-"There are still uncommitted changes in your working tree and you are trying "
-"to rebase a branch onto the currently checked out branch. Either remove, "
-"stash or commit your changes first and try again"
+"Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
+"Inställning som indikerar huruvida ändringar inom rader ska visas inbäddade."
 
-#: ../gitg/gitg-branch-actions.c:1192
-#, c-format
-msgid "Rebasing %s branch <%s> onto %s branch <%s>"
-msgstr ""
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+msgid "Number of Before/After Context Lines"
+msgstr "Antal kontextrader före/efter"
 
-#: ../gitg/gitg-branch-actions.c:1231
-#, c-format
-msgid "Failed to push local branch <%s> to remote <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1232
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
 msgid ""
-"This usually means that the remote branch could not be fast-forwarded. Try "
-"fetching the latest changes."
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff of a commit."
 msgstr ""
+"Inställningen som bestämmer hur många rader kontext (före och efter) som ska "
+"visas när diffen för en incheckning visas."
 
-#: ../gitg/gitg-branch-actions.c:1256
-#, fuzzy, c-format
-msgid "Are you sure you want to push <%s> to <%s>?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+msgid "Rendered Width of a Tab Character"
+msgstr "Visad bredd för ett tabbtecken"
 
-#: ../gitg/gitg-branch-actions.c:1262 ../gitg/gitg-branch-actions.c:1264
-#: ../gitg/gitg-branch-actions.c:1285 ../gitg/gitg-branch-actions.c:1317
-#: ../gitg/gitg-branch-actions.c:1319 ../gitg/gitg-branch-actions.c:1346
-msgid "Push"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1277 ../gitg/gitg-branch-actions.c:1331
-#, c-format
-msgid "Pushing local branch <%s> to remote branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1311
-#, fuzzy, c-format
-msgid "Are you sure you want to push <%s> to remote <%s>?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
-
-#: ../gitg/gitg-branch-actions.c:1370
-#, fuzzy, c-format
-msgid "Are you sure you want to apply the stash item to local branch <%s>?"
-msgstr "Är du säker på att du vill återställa dessa ändringar?"
-
-#: ../gitg/gitg-branch-actions.c:1375 ../gitg/gitg-branch-actions.c:1377
-msgid "Apply stash"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1416
-#, c-format
-msgid "The stash could not be applied to local branch <%s>"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1420
-msgid "Failed to apply stash"
-msgstr ""
-
-#: ../gitg/gitg-branch-actions.c:1466
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
 msgid ""
-"The tag object could not be successfully created. Please make sure you have "
-"a GPG key and the key is unlocked"
+"Setting that determines how much space a tab character should occupy when "
+"showing the diff of a commit."
 msgstr ""
+"Inställning som bestämmer hur många blanksteg ett tabbtecken ska uppta när "
+"diffen för en incheckning visas."
 
-#: ../gitg/gitg-branch-actions.c:1470
-msgid "The tag object could not be successfully created"
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
+"Inställning som bestämmer hur många rader kontext (före och efter) som ska "
+"visas när diffen som ska köas upp/tas bort ur kön visas i "
+"incheckningsområdet."
 
-#: ../gitg/gitg-branch-actions.c:1475
-msgid "Failed to create tag"
-msgstr ""
+#: ../gitg/commit/gitg-commit-dialog.vala:283
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Kan inte ställa in rättstavningsspråket: %s"
 
-#: ../gitg/gitg-repository-dialog.c:173 ../gitg/gitg-repository.ui.h:4
-msgid "Fetch"
-msgstr ""
-
-#: ../gitg/gitg-repository-dialog.c:178
-msgid "Cancel"
-msgstr ""
-
-#: ../gitg/gitg-repository-dialog.c:441 ../gitg/gitg-repository.ui.h:7
-#: ../gitg/gitg-tag.ui.h:5
-msgid "Properties"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:1
-msgid "Add signed-off-by"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:2
-msgid "Amend"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:3
-msgid "Author:"
-msgstr "Upphovsman:"
-
-#: ../gitg/gitg-window.ui.h:4
-msgid "Branch:"
-msgstr "Gren:"
-
-#: ../gitg/gitg-window.ui.h:5
-msgid "Co_mmit message"
-msgstr ""
-
-#: ../gitg/gitg-window.ui.h:6 ../gitg/gitg-preferences.ui.h:5
+#: ../gitg/commit/gitg-commit.vala:59
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
+msgstr "Incheckning"
+
+#: ../gitg/commit/gitg-commit.vala:64
+msgid "Create new commits and manage the staging area"
+msgstr "Skapa nya incheckningar och hantera köområdet"
+
+#: ../gitg/commit/gitg-commit.vala:107
+msgid "_Stage selection"
+msgstr "_Köa upp markering"
+
+#: ../gitg/commit/gitg-commit.vala:138
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Misslyckades att köa upp borttagningen av filen “%s“"
+
+#: ../gitg/commit/gitg-commit.vala:152
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Misslyckades att köa upp filen “%s“"
+
+#: ../gitg/commit/gitg-commit.vala:182
+msgid "_Unstage selection"
+msgstr "_Ta bort markering från kön"
+
+#: ../gitg/commit/gitg-commit.vala:213
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Misslyckades att ta bort borttagningen av filen “%s“ från kön"
+
+#: ../gitg/commit/gitg-commit.vala:227
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Misslyckades att ta bort filen “%s“ från kön"
+
+#: ../gitg/commit/gitg-commit.vala:368
+msgid "Staged"
+msgstr "Köade"
+
+#: ../gitg/commit/gitg-commit.vala:379
+msgid "No staged files"
+msgstr "Inga köade filer"
+
+#: ../gitg/commit/gitg-commit.vala:394
+msgid "Unstaged"
+msgstr "Oköade"
+
+#: ../gitg/commit/gitg-commit.vala:402
+msgid "No unstaged files"
+msgstr "Inga oköade ändringar"
+
+#: ../gitg/commit/gitg-commit.vala:417
+msgid "Untracked"
+msgstr "Ospårade"
+
+#: ../gitg/commit/gitg-commit.vala:421
+msgid "No untracked files"
+msgstr "Inga ospårade filer"
+
+#: ../gitg/commit/gitg-commit.vala:505
+msgid "There are no changes to be committed"
+msgstr "Det finns inga ändringar att checka in"
+
+#: ../gitg/commit/gitg-commit.vala:506
+msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
+"Använd utöka för att ändra incheckningsmeddelandet för den föregående "
+"incheckningen"
 
-#: ../gitg/gitg-window.ui.h:7
-msgid "Context:"
-msgstr "Kontext:"
+#: ../gitg/commit/gitg-commit.vala:532
+msgid "Failed to commit"
+msgstr "Misslyckades att checka in"
 
-#: ../gitg/gitg-window.ui.h:8
-msgid "Date:"
-msgstr "Datum:"
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:548 ../gitg/commit/gitg-commit.vala:727
+msgid "Failed to pass pre-commit"
+msgstr "Misslyckades att passera pre-commit"
 
-#: ../gitg/gitg-window.ui.h:9
-msgid "Details"
-msgstr "Detaljer"
+#: ../gitg/commit/gitg-commit.vala:715
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"Ditt användarnamn och e-post är inte konfigurerade än. Gå till "
+"användarkonfigurationen och ange ditt namn och e-post."
 
-#: ../gitg/gitg-window.ui.h:10
+#: ../gitg/commit/gitg-commit.vala:719
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+"Ditt användarnamn är inte konfigurerat än. Gå till användarkonfigurationen "
+"och ange ditt namn."
+
+#: ../gitg/commit/gitg-commit.vala:723
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"Din e-post är inte konfigurerad än. Gå till användarkonfigurationen och ange "
+"din e-post."
+
+#: ../gitg/commit/gitg-commit.vala:782 ../gitg/commit/gitg-commit.vala:909
+msgid "Discard changes"
+msgstr "Förkasta ändringar"
+
+#: ../gitg/commit/gitg-commit.vala:783
+msgid "Are you sure you want to permanently discard the selected changes?"
+msgstr ""
+"Är du säker på att du permanent vill förkasta de markerade ändringarna?"
+
+#: ../gitg/commit/gitg-commit.vala:792 ../gitg/commit/gitg-commit.vala:936
+#: ../gitg/gitg-commit-action-create-patch.vala:143
+#: ../gitg/gitg-window.vala:432 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-window.ui.h:5
+msgid "_Cancel"
+msgstr "_Avbryt"
+
+#: ../gitg/commit/gitg-commit.vala:793 ../gitg/commit/gitg-commit.vala:935
+msgid "Discard"
+msgstr "Förkasta"
+
+#: ../gitg/commit/gitg-commit.vala:821
+msgid "Failed to discard selection"
+msgstr "Misslyckades att förkasta markeringen"
+
+#: ../gitg/commit/gitg-commit.vala:850
+msgid "Failed to stage selection"
+msgstr "Misslyckades att köa upp markeringen"
+
+#: ../gitg/commit/gitg-commit.vala:854
+msgid "Failed to unstage selection"
+msgstr "Misslyckades med att ta bort markingen ur kön"
+
+#: ../gitg/commit/gitg-commit.vala:893
+msgid "Failed to discard changes"
+msgstr "Misslyckades med att förkasta ändringar"
+
+#: ../gitg/commit/gitg-commit.vala:914
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the file `"
+"%s'?"
+msgstr ""
+"Är du säker på att du permanent vill förkasta alla ändringar som gjorts till "
+"filen “%s“?"
+
+#: ../gitg/commit/gitg-commit.vala:925
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the files "
+"%s and `%s'?"
+msgstr ""
+"Är du säker på att du permanent vill förkasta alla ändringar som gjorts till "
+"filerna %s och “%s“?"
+
+#: ../gitg/commit/gitg-commit.vala:969
+msgid "_Stage changes"
+msgstr "_Köa ändringar"
+
+#: ../gitg/commit/gitg-commit.vala:979
+msgid "_Unstage changes"
+msgstr "_Ta bort ändringar ur kön"
+
+#: ../gitg/commit/gitg-commit.vala:989
+msgid "_Discard changes"
+msgstr "_Förkasta ändringar"
+
+#: ../gitg/gitg-application.vala:55
+msgid "Show the application's version"
+msgstr "Visa applikationens version"
+
+#: ../gitg/gitg-application.vala:58
+msgid "Start gitg with a particular activity"
+msgstr "Starta gitg med en specifik aktivitet"
+
+#: ../gitg/gitg-application.vala:61
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr ""
+"Starta gitg med incheckningsaktiviteten (kortform för --activity commit)"
+
+#: ../gitg/gitg-application.vala:64
+msgid "Do not try to load a repository from the current working directory"
+msgstr "Försök inte att läsa ett arkiv från den aktuella arbetskatalogen"
+
+#: ../gitg/gitg-application.vala:88
+msgid "- Git repository viewer"
+msgstr "- Git-arkivsvisare"
+
+#: ../gitg/gitg-application.vala:206
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "gitg är en git-arkivsvisare för gtk+/GNOME"
+
+#: ../gitg/gitg-application.vala:215
+msgid "translator-credits"
+msgstr ""
+"Sebastian Rasmussen <sebras@gmail.com>\n"
+"\n"
+"Skicka synpunkter på översättningen till\n"
+"<tp-sv@listor.tp-sv.se>."
+
+#: ../gitg/gitg-application.vala:218
+msgid "gitg homepage"
+msgstr "gitgs hemsida"
+
+#: ../gitg/gitg-author-details-dialog.vala:67
+msgid "Unable to open the .gitconfig file."
+msgstr "Kunde inte öppna filen .gitconfig."
+
+#: ../gitg/gitg-author-details-dialog.vala:149
+msgid "Failed to set Git user config."
+msgstr "Misslyckades att ställa in Git användarkonfiguration."
+
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr "Den introducerade URL:en saknar stöd"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:48
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
+msgid "Create Branch"
+msgstr "Skapa gren"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:53
+msgid "Create a new branch at the selected commit"
+msgstr "Skapa en ny gren vid den markerade incheckningen"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:85
+msgid "Failed to create branch"
+msgstr "Misslyckades med att ta bort gren"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:63
+msgid "Create Patch"
+msgstr "Skapa patch"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:68
+msgid "Create a patch from the selected commit"
+msgstr "Skapa en patch från den markerade incheckningen"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:141
+msgid "Save Patch File"
+msgstr "Spara patchfil"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:145
+msgid "_Save Patch"
+msgstr "_Spara patch"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:168
+msgid "Failed to create patch"
+msgstr "Misslyckades att skapa patch"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:48
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
+msgid "Create Tag"
+msgstr "Skapa tagg"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:53
+msgid "Create a new tag at the selected commit"
+msgstr "Skapa en tagg vid den markerade incheckningen"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:92
+msgid "Failed to create tag"
+msgstr "Misslyckades att skapa tagg"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:109
+msgid "Failed to lookup tag"
+msgstr "Misslyckades att slå upp tagg"
+
+#: ../gitg/gitg-create-tag-dialog.vala:106
+msgid "Provide a message to create an annotated tag"
+msgstr "Ange ett meddelande för att skapa en annoterad tagg"
+
+#: ../gitg/gitg-dash-view.vala:141
+msgid "_Delete"
+msgstr "_Ta bort"
+
+#: ../gitg/gitg-ref-action-delete.vala:48
+#: ../gitg/gitg-ref-action-delete.vala:88
+msgid "Delete"
+msgstr "Ta bort"
+
+#: ../gitg/gitg-ref-action-delete.vala:53
+msgid "Delete the selected reference"
+msgstr "Ta bort den markerade referensen"
+
+#: ../gitg/gitg-ref-action-delete.vala:73
+#, c-format
+msgid "Delete branch %s"
+msgstr "Ta bort gren %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:74
+#, c-format
+msgid "Are you sure that you want to permanently delete the branch %s?"
+msgstr "Är du säker på att du permanent vill ta bort grenen %s?"
+
+#: ../gitg/gitg-ref-action-delete.vala:78
+#, c-format
+msgid "Delete tag %s"
+msgstr "Ta bort tagg %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:79
+#, c-format
+msgid "Are you sure that you want to permanently delete the tag %s?"
+msgstr "Är du säker på att du permanent vill ta bort taggen %s?"
+
+#: ../gitg/gitg-ref-action-delete.vala:83
+#, c-format
+msgid "Delete remote branch %s"
+msgstr "Ta bort fjärrgren %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:84
+#, c-format
+msgid "Are you sure that you want to permanently delete the remote branch %s?"
+msgstr "Är du säker på att du permanent vill ta bort fjärrgrenen %s?"
+
+#: ../gitg/gitg-ref-action-delete.vala:89
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. Translators: %s is the name of the tag
+#: ../gitg/gitg-ref-action-delete.vala:119
+#, c-format
+msgid "Failed to delete tag %s"
+msgstr "Misslyckades att ta bort tagg %s"
+
+#. Translators: the first %s is the name of the tag, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:122
+#, c-format
+msgid "The tag %s could not be deleted: %s"
+msgstr "Taggen %s kunde inte tas bort: %s"
+
+#. Translators: %s is the name of the branch
+#: ../gitg/gitg-ref-action-delete.vala:127
+#, c-format
+msgid "Failed to delete branch %s"
+msgstr "Misslyckades att ta bort grenen %s"
+
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:130
+#, c-format
+msgid "The branch %s could not be deleted: %s"
+msgstr "Grenen %s kunde inte tas bort: %s"
+
+#: ../gitg/gitg-ref-action-rename.vala:48
+msgid "Rename"
+msgstr "Byt namn"
+
+#: ../gitg/gitg-ref-action-rename.vala:53
+msgid "Rename the selected reference"
+msgstr "Byt namn på den markerade referensen"
+
+#: ../gitg/gitg-ref-action-rename.vala:100
+#, c-format
+msgid "The specified name ‘%s’ contains invalid characters"
+msgstr "Det specificerade namnet “%s“ innehåller ogiltiga tecken"
+
+#: ../gitg/gitg-ref-action-rename.vala:102
+msgid "Invalid name"
+msgstr "Ogiltigt namn"
+
+#: ../gitg/gitg-ref-action-rename.vala:141
+msgid "Failed to rename"
+msgstr "Misslyckades med att byta namn"
+
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"Vi är väldig ledsna, men gitg kräver libgit2 (ett bibliotek som gitg beror "
+"av) för att kompileras med trådningsstöd.\n"
+"\n"
+"Om du kompilerat libgit2 manuellt, konfigurera då libgit2 med -DTHREADSAFE:"
+"BOOL=ON.\n"
+"\n"
+"Annars, rapportera ett fel i din distributions felhanteringssystem om att "
+"libgit2 saknar trådningsstöd."
+
+#: ../gitg/gitg-window.vala:389
+msgid "Projects"
+msgstr "Projekt"
+
+#: ../gitg/gitg-window.vala:430
+msgid "Open Repository"
+msgstr "Öppna git-arkiv"
+
+#: ../gitg/gitg-window.vala:433
+msgid "_Open"
+msgstr "_Öppna"
+
+#: ../gitg/gitg-window.vala:707
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "”%s“ är inte ett Git-arkiv."
+
+#: ../gitg/history/gitg-history-refs-list.vala:136
+msgid "All commits"
+msgstr "Alla incheckningar"
+
+#: ../gitg/history/gitg-history-refs-list.vala:674
+msgid "Branches"
+msgstr "Grenar"
+
+#: ../gitg/history/gitg-history-refs-list.vala:675
+msgid "Remotes"
+msgstr "Fjärrar"
+
+#: ../gitg/history/gitg-history-refs-list.vala:676
+msgid "Tags"
+msgstr "Taggar"
+
+#: ../gitg/history/gitg-history.vala:219
+#: ../gitg/preferences/gitg-preferences-history.vala:144
 msgid "History"
 msgstr "Historik"
 
-#: ../gitg/gitg-window.ui.h:11
-msgid "Parent:"
-msgstr "Förälder:"
+#: ../gitg/history/gitg-history.vala:224
+msgid "Examine the history of the repository"
+msgstr "Undersök arkivets historik"
 
-#: ../gitg/gitg-window.ui.h:12
-msgid "SHA:"
-msgstr "SHA:"
+#: ../gitg/preferences/gitg-preferences-interface.vala:73
+msgid "Interface"
+msgstr "Gränssnitt"
 
-#: ../gitg/gitg-window.ui.h:13
-msgid "Subject:"
+#: ../libgitg/gitg-date.vala:346
+msgid "Now"
+msgstr "Nu"
+
+#: ../libgitg/gitg-date.vala:350
+#, c-format
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "För en minut sedan"
+msgstr[1] "För %d minuter sedan"
+
+#: ../libgitg/gitg-date.vala:355
+msgid "Half an hour ago"
+msgstr "För en halvtimme sedan"
+
+#: ../libgitg/gitg-date.vala:360
+#, c-format
+msgid "An hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "För en timme sedan"
+msgstr[1] "För %d timmar sedan"
+
+#: ../libgitg/gitg-date.vala:365
+#, c-format
+msgid "A day ago"
+msgid_plural "%d days ago"
+msgstr[0] "För en dag sedan"
+msgstr[1] "För %d dagar sedan"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 24 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:374
+msgid "%b %e, %H:%M"
+msgstr "%e %b, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 12 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:381
+msgid "%b %e, %I:%M %p"
+msgstr "%e %b, %I:%M %p"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 24
+#. hour clock.
+#: ../libgitg/gitg-date.vala:391
+msgid "%b %e %Y, %H:%M"
+msgstr "%e %b %Y, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 12
+#. hour clock.
+#: ../libgitg/gitg-date.vala:398
+msgid "%b %e %Y, %I:%M %p"
+msgstr "%e %b %Y, %I:%M %p"
+
+#: ../libgitg/gitg-diff-view.vala:229
+msgid "stage"
+msgstr "köa"
+
+#: ../libgitg/gitg-diff-view.vala:230
+msgid "unstage"
+msgstr "ta bort ur kön"
+
+#: ../libgitg/gitg-diff-view.vala:231
+msgid "Loading diff…"
+msgstr "Läs in diff…"
+
+#: ../libgitg/gitg-stage.vala:335
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
+"Kunde inte läsa incheckningsmeddelande efter att ha kört kroken commit-msg: "
+"%s"
 
-#: ../gitg/gitg-window.ui.h:14
-msgid "Tree"
-msgstr "Träd"
+#: ../plugins/diff/gitg-diff.vala:89
+msgid "Diff"
+msgstr "Diff"
 
-#: ../gitg/gitg-window.ui.h:15
-msgid "_Changes"
-msgstr "Ä_ndringar"
+#: ../plugins/diff/gitg-diff.vala:94
+msgid "Show the changes introduced by the selected commit"
+msgstr "Visa ändringarna som introducerades av den markerade incheckningen"
 
-#: ../gitg/gitg-window.ui.h:16
-msgid "_Staged"
-msgstr ""
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Filer"
 
-#: ../gitg/gitg-window.ui.h:17
-msgid "_Unstaged"
-msgstr ""
+#: ../plugins/files/gitg-files.vala:68
+msgid "Show the files in the tree of the selected commit"
+msgstr "Visa filerna i trädet för den markerade incheckningen"
 
-#: ../gitg/gitg-commit-menu.ui.h:1 ../gitg/gitg-ui.xml.h:1
-msgid "Ignore"
-msgstr "Ignorera"
+#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Författardetaljer"
 
-#: ../gitg/gitg-commit-menu.ui.h:2 ../gitg/gitg-ui.xml.h:3
-msgid "Revert"
-msgstr "Återställ"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The Git config file '%s' does not exist."
+msgstr "Notera: Gits konfigurationsfil “%s“ existerar inte."
 
-#: ../gitg/gitg-commit-menu.ui.h:3 ../gitg/gitg-ui.xml.h:4
-msgid "Stage"
-msgstr ""
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr "Mata in detaljer som sätts som standard för alla arkiv:"
 
-#: ../gitg/gitg-commit-menu.ui.h:4 ../gitg/gitg-ui.xml.h:5
-msgid "Unstage"
-msgstr ""
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Mata in detaljer om arkiv “%s“:"
 
-#: ../gitg/gitg-preferences.ui.h:1
-msgid "<b>Commit Message</b>"
-msgstr ""
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "E-post: "
 
-#: ../gitg/gitg-preferences.ui.h:2
-msgid "<b>History</b>"
-msgstr "<b>Historik</b>"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Namn: "
 
-#: ../gitg/gitg-preferences.ui.h:3 ../gitg/gitg-repository.ui.h:1
-#, fuzzy
-msgid "<b>User</b>"
-msgstr "<b>Historik</b>"
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Spara"
 
-#: ../gitg/gitg-preferences.ui.h:4
-msgid "Collapse inactive lanes"
-msgstr ""
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+msgid "Clone Repository"
+msgstr "Klona arkiv"
 
-#: ../gitg/gitg-preferences.ui.h:6 ../gitg/gitg-repository.ui.h:2
-msgid "Configuration"
-msgstr ""
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "Cl_one"
+msgstr "_Klona"
 
-#: ../gitg/gitg-preferences.ui.h:7
-msgid ""
-"Configure global git settings. This corresponds to the settings as stored in "
-"~/.gitconfig. Repository specific settings can be configured at the "
-"repository properties."
-msgstr ""
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "Remote _URL:"
+msgstr "Fjärr-_URL:"
 
-#: ../gitg/gitg-preferences.ui.h:8
-msgid "Display right _margin"
-msgstr ""
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "_Local Folder:"
+msgstr "_Lokal mapp:"
 
-#: ../gitg/gitg-preferences.ui.h:9 ../gitg/gitg-repository.ui.h:3
-msgid "E-mail:"
-msgstr ""
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+msgid "Select location…"
+msgstr "Välj plats…"
 
-#: ../gitg/gitg-preferences.ui.h:10
-msgid "Early"
-msgstr ""
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
+msgid "Bare repository"
+msgstr "Naket arkiv"
 
-#: ../gitg/gitg-preferences.ui.h:11
-msgid "Late"
-msgstr ""
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "_Checka in"
 
-#: ../gitg/gitg-preferences.ui.h:12 ../gitg/gitg-repository.ui.h:6
-#: ../gitg/gitg-tag.ui.h:4
-#, fuzzy
-msgid "Name:"
-msgstr "Datum:"
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "Add _signed-off-by signature"
+msgstr "Lägg till _signed-off-by-signatur"
 
-#: ../gitg/gitg-preferences.ui.h:13
-msgid "Preferences"
-msgstr "Inställningar"
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+msgid "_Amend previous commit"
+msgstr "_Utöka föregående incheckning"
 
-#: ../gitg/gitg-preferences.ui.h:14
-msgid "Preferences that apply to the commit view"
-msgstr ""
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:6
+msgid "Close"
+msgstr "Stäng"
 
-#: ../gitg/gitg-preferences.ui.h:15
-msgid "Preferences that apply to the revision view"
-msgstr ""
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "Hoppa över incheckningskrokar"
 
-#: ../gitg/gitg-preferences.ui.h:16
-msgid "Search filters revisions in the history view"
-msgstr ""
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "_Köa markering"
 
-#: ../gitg/gitg-preferences.ui.h:17
-msgid "Show staged changes in history"
-msgstr ""
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
+msgid "D_iscard selection"
+msgstr "_Förkasta markering"
 
-#: ../gitg/gitg-preferences.ui.h:18
-msgid "Show stash in history"
-msgstr ""
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
+msgid "C_reate"
+msgstr "_Skapa"
 
-#: ../gitg/gitg-preferences.ui.h:19
-msgid "Show unstaged changes in history"
-msgstr ""
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
+msgid "Branch _name:"
+msgstr "Grennamn:"
 
-#: ../gitg/gitg-preferences.ui.h:20
-msgid "View"
-msgstr "Visa"
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
+msgid "Tag _name:"
+msgstr "_Taggnamn:"
 
-#: ../gitg/gitg-preferences.ui.h:21
-msgid "_Right margin at column:"
-msgstr ""
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Ämne"
 
-#: ../gitg/gitg-repository.ui.h:5
-#, fuzzy
-msgid "Name"
-msgstr "Datum:"
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Författare"
 
-#: ../gitg/gitg-repository.ui.h:8
-msgid "Remotes"
-msgstr ""
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Datum"
 
-#: ../gitg/gitg-repository.ui.h:9
-msgid "URL"
-msgstr ""
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "_Nytt fönster"
 
-#: ../gitg/gitg-repository.ui.h:10
-msgid "gtk-add"
-msgstr ""
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+msgid "_Preferences"
+msgstr "_Inställningar"
 
-#: ../gitg/gitg-repository.ui.h:11
-msgid "gtk-remove"
-msgstr ""
-
-#: ../gitg/gitg-tag.ui.h:1
-msgid "Create signed tag object"
-msgstr ""
-
-#: ../gitg/gitg-tag.ui.h:2 ../gitg/gitg-menus.xml.h:3
-msgid "Create tag"
-msgstr ""
-
-#: ../gitg/gitg-tag.ui.h:3
-msgid "Message:"
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:1
-msgid "Apply stash to..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:2
-#, fuzzy
-msgid "Checkout branch"
-msgstr "Välj gren"
-
-#: ../gitg/gitg-menus.xml.h:5
-msgid "Merge branch with..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:6
-msgid "Push branch to..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:8
-msgid "Rebase branch onto..."
-msgstr ""
-
-#: ../gitg/gitg-menus.xml.h:10
-msgid "_Author"
-msgstr "U_pphovsman"
-
-#: ../gitg/gitg-menus.xml.h:11
-msgid "_Date"
-msgstr "_Datum"
-
-#: ../gitg/gitg-menus.xml.h:12
-msgid "_Hash"
-msgstr "_Hash"
-
-#: ../gitg/gitg-menus.xml.h:13
-msgid "_Subject"
-msgstr ""
-
-#: ../gitg/gitg-ui.xml.h:2
-msgid "R_ecently Opened"
-msgstr ""
-
-#: ../gitg/gitg-ui.xml.h:6
-msgid "_Edit"
-msgstr "_Redigera"
-
-#: ../gitg/gitg-ui.xml.h:7
-msgid "_File"
-msgstr "_Arkiv"
-
-#: ../gitg/gitg-ui.xml.h:8
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../gitg/gitg-ui.xml.h:9
-msgid "_Open..."
-msgstr "_Öppna..."
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "_Om"
 
-#: ../gitg/gitg-ui.xml.h:10
-#, fuzzy
-msgid "_Repository"
-msgstr "Öppna git-förråd"
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "_Avsluta"
 
-#: ../gitg/gitg-ui.xml.h:11
-msgid "_View"
-msgstr "_Visa"
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Open Repository…"
+msgstr "_Öppna arkiv…"
 
-#~ msgid "Author"
-#~ msgstr "Upphovsman"
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Clone Repository…"
+msgstr "_Klona arkiv…"
 
-#~ msgid "Date"
-#~ msgstr "Datum"
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
+msgid "_Author Details"
+msgstr "_Författardetaljer"
 
-#~ msgid "Filename"
-#~ msgstr "Filnamn"
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "_Läs om"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Visa kod"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "Visa _ämnesmarginal vid kolumn:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "Visa höger _marginal vid kolumn:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Aktivera stavningskontroll"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+msgid "Commit Message"
+msgstr "Incheckningsmeddelande"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Incheckningar"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr "Fäll ihop inaktiva banor"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Show stash in history"
+msgstr "Visa stash i historiken"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Show staged changes in history"
+msgstr "Visa köade ändringar i historiken"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show unstaged changes in history"
+msgstr "Visa oköade ändringar i historiken"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Show history in topological order"
+msgstr "Visa historik i topologisk ordning"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Early"
+msgstr "Tidig"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Late"
+msgstr "Sen"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Layout"
+msgstr "Layout"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+msgid "Use horizontal layout"
+msgstr "Använd horisontell layout"
+
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "Preferences"
+msgstr "Inställningar"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Show the list of recently used repositories"
+msgstr "Visa listan över senast använda arkiv"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Find a word or phrase"
+msgstr "Hitta ett ord eller en fras"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+msgid "General settings and options"
+msgstr "Generalla inställningar och alternativ"
+
+#: ../libgitg/resources/diff-view-options.ui.h:1
+msgid "Ignore whitespace changes"
+msgstr "Ignorera blankteckensändringar"
+
+#: ../libgitg/resources/diff-view-options.ui.h:2
+msgid "Show changes inline"
+msgstr "Visa ändringar inbäddade"
+
+#: ../libgitg/resources/diff-view-options.ui.h:3
+msgid "Developer tools"
+msgstr "Utvecklarverktyg"
+
+#: ../libgitg/resources/diff-view-options.ui.h:4
+msgid "Tab width"
+msgstr "Tabbredd"
+
+#: ../libgitg/resources/diff-view-options.ui.h:5
+msgid "Context"
+msgstr "Kontext"
+
+#: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
+msgid ""
+"Remove the repository from the list (does not delete the repository from "
+"disk)"
+msgstr "Ta bort arkivet från listan (tar inte bort arkivet från disken)"
+
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "kolumn"
