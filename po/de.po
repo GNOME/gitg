@@ -10,14 +10,15 @@
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2012.
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010, 2011.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2009, 2010, 2012.
+# Benjamin Steinwender <b@stbe.at>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-07-02 05:35+0000\n"
-"PO-Revision-Date: 2014-07-02 10:53+0100\n"
+"POT-Creation-Date: 2014-09-22 17:44+0000\n"
+"PO-Revision-Date: 2014-09-23 21:45+0100\n"
 "Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -37,18 +38,30 @@ msgid "Git repository browser"
 msgstr "Browser für Git-Softwarebestände"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+msgid "Default Clone Directory"
+msgstr "Voreingestellter Ordner zum Klonen"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+msgid ""
+"The default directory in which new repositories should be suggested to be "
+"cloned."
+msgstr ""
+"Der voreingestellte Ordner in dem neue Software-Bestände geklont werden "
+"sollen."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Ausrichtung der Hauptoberfläche (vertikal oder horizontal)"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Diese Einstellung legt die Ausrichtung der Hauptansicht fest."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
 msgid "When to Collapse Inactive Lanes"
 msgstr "Einklappen inaktiver Pfade"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -56,7 +69,7 @@ msgstr ""
 "Diese Einstellung legt das Einklappen inaktiver Pfade fest. Gültige Werte "
 "liegen zwischen 0 und 4, wobei 0 »früh« bezeichnet und 4 »spät«."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -69,25 +82,33 @@ msgstr ""
 "vorhanden sind. In collapse-inactive-lanes finden Sie weitere Informationen "
 "darüber, wann Pfade eingeklappt werden sollen."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
 msgid "Show History in Topological Order"
 msgstr "Chronik in topologischer Ordnung zeigen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Damit wird festgelegt, ob die Chronik in topologischer Ordnung angezeigt "
 "werden soll."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid "Show Stashed Changes"
+msgstr "Zurückgestellte Änderungen anzeigen"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
-"Damit wird festgelegt, ob Objekte für die derzeit zurückgestellten "
-"Änderungen in der Chronik angezeigt werden sollen."
+"Legt fest, ob Objekte für die derzeit zurückgestellten Änderungen in der "
+"Chronik angezeigt werden sollen."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+msgid "Show Staged Changes"
+msgstr "Bereitgestellte Änderungen anzeigen"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -95,7 +116,11 @@ msgstr ""
 "Damit wird festgelegt, ob ein virtuelles Objekt für die derzeit "
 "bereitgestellten Änderungen in der Chronik angezeigt werden soll."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+msgid "Show Unstaged Changes"
+msgstr "Nicht bereitgestellte Änderungen anzeigen"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -103,11 +128,11 @@ msgstr ""
 "Damit wird festgelegt, ob ein virtuelles Objekt für die derzeit nicht "
 "bereitgestellten Änderungen in der Chronik angezeigt werden soll."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid "Show Right Margin in Commit Message View"
 msgstr "Rechten Rand in der Ansicht der Einspielmeldungen anzeigen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -116,11 +141,11 @@ msgstr ""
 "anzeigen. Dadurch lässt sich leicht erkennen, wo die Einspielmeldung an "
 "einer bestimmten Spalte einen Zeilenumbruch erhalten sollte."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
 msgid "Column at Which Right Margin is Shown"
 msgstr "Spalte, in welcher der rechte Rand angezeigt wird"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -128,11 +153,11 @@ msgstr ""
 "Die Spalte, in welcher der rechte Rand angezeigt wird, falls die Einstellung "
 "»show-right-margin« auf »WAHR« gesetzt ist."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Den Rand für Betreffe in der Einspielnachrichtenanzeige anzeigen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -140,11 +165,11 @@ msgstr ""
 "Den Betreff der Einspielnachricht hervorheben, sobald die Nachricht den "
 "durch »subject-margin-position« spezifizierten Rand überschreitet."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Spalte, in welcher der Rand des Betreffs angezeigt wird"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -152,94 +177,174 @@ msgstr ""
 "Die Spalte, in welcher der rechte Rand für den Betreff angezeigt wird, falls "
 "die Einstellung »show-subject-margin« auf »WAHR« gesetzt ist."
 
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+msgid "Enable Spell Checking"
+msgstr "Rechtschreibprüfung einschalten"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+msgid ""
+"Setting which determines whether or not spell checking is enabled when "
+"writing a commit message."
+msgstr ""
+"Legt fest, ob beim Schreiben der Einspielnachricht die Rechtschreibprüfung "
+"eingeschaltet sein soll."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+msgid "Spell Checking Language"
+msgstr "Sprache der Rechtschreibprüfung"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+msgid ""
+"The language to use when spell checking is enabled for writing a commit "
+"message."
+msgstr ""
+"Die bei der Rechtschreibprüfung von Einspielnachrichten zu verwendende "
+"Sprache."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
+msgid "Ignore Whitespace Changes"
+msgstr "Änderungen der Leerzeichen ignorieren"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
+msgid ""
+"Setting that indicates whether to ignore whitespace changes when showing the "
+"diff of a commit."
+msgstr ""
+"Die Einstellung legt fest, ob bei der Anzeige der Änderungen einer "
+"Einspielung geänderte Leerzeichen ignoriert werden sollen."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+msgid "Show Changes Inline"
+msgstr "Änderungen in der Zeile anzeigen"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
+msgid ""
+"Setting that indicates whether changes within lines should be shown inline."
+msgstr ""
+"Die Einstellung legt fest, ob Änderungen direkt in der Zeile dargestellt "
+"werden sollen."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+msgid "Number of Before/After Context Lines"
+msgstr "Anzahl der Kontextzeilen (zuvor/danach)"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff of a commit."
+msgstr ""
+"Legt fest, wie viele Kontext-Zeilen (davor und danach) beim Darstellen der "
+"Änderungen einer Einspielung angezeigt werden sollen."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+msgid "Rendered Width of a Tab Character"
+msgstr "Dargestellte Breite eines Tabulatorzeichens"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
+msgid ""
+"Setting that determines how much space a tab character should occupy when "
+"showing the diff of a commit."
+msgstr ""
+"Die Einstellung legt fest, wie viel Platz ein Tabulatorzeichen beim "
+"Darstellen der Änderungen einer Einspielung belegen soll."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff to be staged/unstaged in the commit area."
+msgstr ""
+"Die Einstellung legt fest, wie viele Kontext-Zeilen (davor und danach) beim "
+"Darstellen der Änderungen für die Bereitstellung einer Einspielung angezeigt "
+"werden sollen."
+
 #: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Sie Sprache der Rechtschreibkorrektur kann nicht festgelegt werden: %s"
 
-#: ../gitg/commit/gitg-commit.vala:110
+#: ../gitg/commit/gitg-commit.vala:59
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
 msgstr "Einspielen"
 
-#: ../gitg/commit/gitg-commit.vala:115
+#: ../gitg/commit/gitg-commit.vala:64
 msgid "Create new commits and manage the staging area"
 msgstr "Neue Einspielpunkte erstellen und den Bereitstellungsbereich verwalten"
 
-#: ../gitg/commit/gitg-commit.vala:155
+#: ../gitg/commit/gitg-commit.vala:107
 msgid "_Stage selection"
 msgstr "Auswahl _bereitstellen"
 
-#: ../gitg/commit/gitg-commit.vala:179
-#, c-format
-msgid "Failed to stage the file `%s'"
-msgstr "Bereitstellen der Datei »%s« ist gescheitert"
-
-#: ../gitg/commit/gitg-commit.vala:198
+#: ../gitg/commit/gitg-commit.vala:138
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Bereitstellung zum Entfernen der Datei »%s« fehlgeschlagen"
 
-#: ../gitg/commit/gitg-commit.vala:240
+#: ../gitg/commit/gitg-commit.vala:152
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Bereitstellen der Datei »%s« ist gescheitert"
+
+#: ../gitg/commit/gitg-commit.vala:182
 msgid "_Unstage selection"
 msgstr "Bereitstellung der Auswahl _zurücknehmen"
 
-#: ../gitg/commit/gitg-commit.vala:264
+#: ../gitg/commit/gitg-commit.vala:213
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr ""
 "Zurücknehmen der Bereitstellung zum Entfernen der Datei »%s« fehlgeschlagen"
 
-#: ../gitg/commit/gitg-commit.vala:283
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Zurücknehmen der Bereitstellung der Datei »%s« ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:424
+#: ../gitg/commit/gitg-commit.vala:368
 msgid "Staged"
 msgstr "Bereit gestellt"
 
-#: ../gitg/commit/gitg-commit.vala:431
+#: ../gitg/commit/gitg-commit.vala:379
 msgid "No staged files"
 msgstr "Keine bereit gestellten Dateien"
 
-#: ../gitg/commit/gitg-commit.vala:443
+#: ../gitg/commit/gitg-commit.vala:394
 msgid "Unstaged"
 msgstr "Bereitstellung zurückgenommen"
 
-#: ../gitg/commit/gitg-commit.vala:447
+#: ../gitg/commit/gitg-commit.vala:402
 msgid "No unstaged files"
 msgstr "Keine von einer Bereitstellung zurückgenommene Dateien"
 
-#: ../gitg/commit/gitg-commit.vala:459
+#: ../gitg/commit/gitg-commit.vala:417
 msgid "Untracked"
 msgstr "Nicht verfolgt"
 
-#: ../gitg/commit/gitg-commit.vala:463
+#: ../gitg/commit/gitg-commit.vala:421
 msgid "No untracked files"
 msgstr "Keine nicht verfolgten Dateien"
 
-#: ../gitg/commit/gitg-commit.vala:518
+#: ../gitg/commit/gitg-commit.vala:505
 msgid "There are no changes to be committed"
 msgstr "Es gibt keine Änderungen zum Einspielen"
 
-#: ../gitg/commit/gitg-commit.vala:519
+#: ../gitg/commit/gitg-commit.vala:506
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Verwenden Sie Abändern zum Ändern der Einspielmeldung der vorhergehenden "
 "Einspielung"
 
-#: ../gitg/commit/gitg-commit.vala:545
+#: ../gitg/commit/gitg-commit.vala:532
 msgid "Failed to commit"
 msgstr "Einspielen schlug fehl"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:561 ../gitg/commit/gitg-commit.vala:794
+#: ../gitg/commit/gitg-commit.vala:548 ../gitg/commit/gitg-commit.vala:727
 msgid "Failed to pass pre-commit"
 msgstr "pre-commit ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:782
+#: ../gitg/commit/gitg-commit.vala:715
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -247,7 +352,7 @@ msgstr ""
 "Ihr Benutzername und E-Mail sind noch nicht eingerichtet. Bitte wechseln Sie "
 "in die Benutzerkonfiguration und geben Sie Ihren Namen und Ihre E-Mail ein."
 
-#: ../gitg/commit/gitg-commit.vala:786
+#: ../gitg/commit/gitg-commit.vala:719
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -255,7 +360,7 @@ msgstr ""
 "Ihr Benutzername ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihren Namen ein."
 
-#: ../gitg/commit/gitg-commit.vala:790
+#: ../gitg/commit/gitg-commit.vala:723
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -263,58 +368,71 @@ msgstr ""
 "Ihre E-Mail ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihre E-Mail ein."
 
-#: ../gitg/commit/gitg-commit.vala:849 ../gitg/commit/gitg-commit.vala:970
-#: ../gitg/commit/gitg-commit.vala:974
-#| msgid "Staged changes"
+#: ../gitg/commit/gitg-commit.vala:782 ../gitg/commit/gitg-commit.vala:909
 msgid "Discard changes"
 msgstr "Änderungen verwerfen"
 
-#: ../gitg/commit/gitg-commit.vala:850
-#, c-format
-#| msgid "Are you sure you want to delete these files?"
-msgid ""
-"Are you sure you want to permanently discard the selected changes in the "
-"file `%s'?"
-msgstr ""
-"Möchten Sie wirklich die gewählten Änderungen der Datei »%s« verwerfen?"
+#: ../gitg/commit/gitg-commit.vala:783
+msgid "Are you sure you want to permanently discard the selected changes?"
+msgstr "Möchten Sie wirklich die gewählten Änderungen dauerhaft verwerfen?"
 
-#: ../gitg/commit/gitg-commit.vala:859 ../gitg/commit/gitg-commit.vala:984
-msgid "Discard"
-msgstr "Verwerfen"
-
-#: ../gitg/commit/gitg-commit.vala:860 ../gitg/commit/gitg-commit.vala:985
-#: ../gitg/gitg-window.vala:308
-#: ../libgitg/gitg-diff-view-request-patch.vala:109
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/commit/gitg-commit.vala:792 ../gitg/commit/gitg-commit.vala:936
+#: ../gitg/gitg-commit-action-create-patch.vala:143
+#: ../gitg/gitg-window.vala:432 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-window.ui.h:5
 msgid "_Cancel"
 msgstr "A_bbrechen"
 
-#: ../gitg/commit/gitg-commit.vala:888
-#| msgid "Failed to stage selection"
+#: ../gitg/commit/gitg-commit.vala:793 ../gitg/commit/gitg-commit.vala:935
+msgid "Discard"
+msgstr "Verwerfen"
+
+#: ../gitg/commit/gitg-commit.vala:821
 msgid "Failed to discard selection"
 msgstr "Verwerfen der Auswahl ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:917
+#: ../gitg/commit/gitg-commit.vala:850
 msgid "Failed to stage selection"
 msgstr "Bereitstellen der Auswahl ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:921
+#: ../gitg/commit/gitg-commit.vala:854
 msgid "Failed to unstage selection"
 msgstr "Zurücknehmen der Bereitstellung der Auswahl ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:945
-#| msgid "Failed to set Git user config."
+#: ../gitg/commit/gitg-commit.vala:893
 msgid "Failed to discard changes"
 msgstr "Verwerfen der Änderungen ist gescheitert"
 
-#: ../gitg/commit/gitg-commit.vala:975
+#: ../gitg/commit/gitg-commit.vala:914
 #, c-format
-#| msgid "Are you sure you want to delete these files?"
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
 "%s'?"
 msgstr "Möchten Sie wirklich alle Änderungen der Datei »%s« verwerfen?"
+
+#: ../gitg/commit/gitg-commit.vala:925
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the files "
+"%s and `%s'?"
+msgstr ""
+"Möchten Sie wirklich alle Änderungen der Dateien %s und »%s« dauerhaft "
+"verwerfen?"
+
+#: ../gitg/commit/gitg-commit.vala:969
+msgid "_Stage changes"
+msgstr "Änderungen _bereitstellen"
+
+#: ../gitg/commit/gitg-commit.vala:979
+msgid "_Unstage changes"
+msgstr "Bereitstellung der Änderungen ver_werfen"
+
+#: ../gitg/commit/gitg-commit.vala:989
+msgid "_Discard changes"
+msgstr "Änderungen _verwerfen"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -366,6 +484,155 @@ msgstr "Festlegen der Git Benutzerkonfiguration ist gescheitert."
 msgid "The URL introduced is not supported"
 msgstr "Die angegebene Adresse wird nicht unterstützt"
 
+#: ../gitg/gitg-commit-action-create-branch.vala:48
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
+msgid "Create Branch"
+msgstr "Zweig erstellen"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:53
+msgid "Create a new branch at the selected commit"
+msgstr "Einen neuen Zweig beim gewählten Einspielpunkt anlegen"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:85
+msgid "Failed to create branch"
+msgstr "Erstellen des Zweigs ist fehlgeschlagen"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:63
+msgid "Create Patch"
+msgstr "Patch erstellen"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:68
+msgid "Create a patch from the selected commit"
+msgstr "Einen Patch vom gewählten Einspielpunkt erstellen"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:141
+msgid "Save Patch File"
+msgstr "Patch-Datei speichern"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:145
+msgid "_Save Patch"
+msgstr "Patch _speichern"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:168
+msgid "Failed to create patch"
+msgstr "Erstellen des Patches ist fehlgeschlagen"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:48
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
+msgid "Create Tag"
+msgstr "Tag erstellen"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:53
+msgid "Create a new tag at the selected commit"
+msgstr "Einen neuen Tag beim gewählten Einspielpunkt anlegen"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:92
+msgid "Failed to create tag"
+msgstr "Erstellen des Tags ist fehlgeschlagen"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:109
+msgid "Failed to lookup tag"
+msgstr "Nachschlagen des Tags ist fehlgeschlagen"
+
+#: ../gitg/gitg-create-tag-dialog.vala:106
+msgid "Provide a message to create an annotated tag"
+msgstr ""
+"Geben Sie eine Nachricht an, um einen mit Anmerkungen versehenen Tag zu "
+"erstellen"
+
+#: ../gitg/gitg-dash-view.vala:141
+msgid "_Delete"
+msgstr "_Löschen"
+
+#: ../gitg/gitg-ref-action-delete.vala:48
+#: ../gitg/gitg-ref-action-delete.vala:88
+msgid "Delete"
+msgstr "Löschen"
+
+#: ../gitg/gitg-ref-action-delete.vala:53
+msgid "Delete the selected reference"
+msgstr "Die gewählte Referenz löschen"
+
+#: ../gitg/gitg-ref-action-delete.vala:73
+#, c-format
+msgid "Delete branch %s"
+msgstr "Zweig %s löschen"
+
+#: ../gitg/gitg-ref-action-delete.vala:74
+#, c-format
+msgid "Are you sure that you want to permanently delete the branch %s?"
+msgstr "Wollen Sie wirklich den Zweig %s dauerhaft löschen?"
+
+#: ../gitg/gitg-ref-action-delete.vala:78
+#, c-format
+msgid "Delete tag %s"
+msgstr "Tag %s löschen"
+
+#: ../gitg/gitg-ref-action-delete.vala:79
+#, c-format
+msgid "Are you sure that you want to permanently delete the tag %s?"
+msgstr "Wollen Sie wirklich den Tag %s dauerhaft löschen?"
+
+#: ../gitg/gitg-ref-action-delete.vala:83
+#, c-format
+msgid "Delete remote branch %s"
+msgstr "Entfernt liegenden Zweig %s löschen"
+
+#: ../gitg/gitg-ref-action-delete.vala:84
+#, c-format
+msgid "Are you sure that you want to permanently delete the remote branch %s?"
+msgstr "Wollen Sie wirklich den entfernt liegenden Zweig %s dauerhaft löschen?"
+
+#: ../gitg/gitg-ref-action-delete.vala:89
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. Translators: %s is the name of the tag
+#: ../gitg/gitg-ref-action-delete.vala:119
+#, c-format
+msgid "Failed to delete tag %s"
+msgstr "Löschen von Tag %s ist gescheitert"
+
+#. Translators: the first %s is the name of the tag, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:122
+#, c-format
+msgid "The tag %s could not be deleted: %s"
+msgstr "Der Tag %s konnte nicht gelöscht werden: %s"
+
+#. Translators: %s is the name of the branch
+#: ../gitg/gitg-ref-action-delete.vala:127
+#, c-format
+msgid "Failed to delete branch %s"
+msgstr "Löschen des Zweigs %s ist fehlgeschlagen"
+
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:130
+#, c-format
+msgid "The branch %s could not be deleted: %s"
+msgstr "Der Zweig %s konnte nicht gelöscht werden: %s"
+
+#: ../gitg/gitg-ref-action-rename.vala:48
+msgid "Rename"
+msgstr "Umbenennen"
+
+#: ../gitg/gitg-ref-action-rename.vala:53
+msgid "Rename the selected reference"
+msgstr "Die gewählte Referenz umbenennen"
+
+#: ../gitg/gitg-ref-action-rename.vala:100
+#, c-format
+msgid "The specified name ‘%s’ contains invalid characters"
+msgstr "Der angegebene Name »%s« enthält ungültige Zeichen"
+
+#: ../gitg/gitg-ref-action-rename.vala:102
+msgid "Invalid name"
+msgstr "Ungültiger Name"
+
+#: ../gitg/gitg-ref-action-rename.vala:141
+msgid "Failed to rename"
+msgstr "Umbenennen ist gescheitert"
+
 #: ../gitg/gitg.vala:64
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
@@ -387,49 +654,45 @@ msgstr ""
 "Distribution, um die Bereitstellung von libgit2 ohne Unterstützung für "
 "Threading zu melden."
 
-#: ../gitg/gitg-window.vala:270
+#: ../gitg/gitg-window.vala:389
 msgid "Projects"
 msgstr "Projekte"
 
-#: ../gitg/gitg-window.vala:306
+#: ../gitg/gitg-window.vala:430
 msgid "Open Repository"
 msgstr "Softwarebestand öffnen"
 
-#: ../gitg/gitg-window.vala:309
+#: ../gitg/gitg-window.vala:433
 msgid "_Open"
 msgstr "Ö_ffnen"
 
-#: ../gitg/gitg-window.vala:546
+#: ../gitg/gitg-window.vala:707
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "»%s« ist kein gültiger Git-Softwarebestand."
 
-#: ../gitg/history/gitg-history-navigation.vala:199
-#: ../gitg/history/gitg-history-navigation.vala:307
+#: ../gitg/history/gitg-history-refs-list.vala:136
 msgid "All commits"
 msgstr "Alle Einspielungen"
 
-#. Branches
-#: ../gitg/history/gitg-history-navigation.vala:202
+#: ../gitg/history/gitg-history-refs-list.vala:674
 msgid "Branches"
 msgstr "Zweige"
 
-#. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:239
+#: ../gitg/history/gitg-history-refs-list.vala:675
 msgid "Remotes"
 msgstr "Entfernte Quellen"
 
-#. Tags
-#: ../gitg/history/gitg-history-navigation.vala:265
+#: ../gitg/history/gitg-history-refs-list.vala:676
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/history/gitg-history.vala:219
 #: ../gitg/preferences/gitg-preferences-history.vala:144
 msgid "History"
 msgstr "Chronik"
 
-#: ../gitg/history/gitg-history.vala:169
+#: ../gitg/history/gitg-history.vala:224
 msgid "Examine the history of the repository"
 msgstr "Die Geschichte des Softwarebestandes untersuchen"
 
@@ -437,58 +700,74 @@ msgstr "Die Geschichte des Softwarebestandes untersuchen"
 msgid "Interface"
 msgstr "Schnittstelle"
 
-#: ../libgitg/gitg-date.vala:316
+#: ../libgitg/gitg-date.vala:346
 msgid "Now"
 msgstr "Jetzt"
 
-#: ../libgitg/gitg-date.vala:320
+#: ../libgitg/gitg-date.vala:350
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "Vor einer Minute"
 msgstr[1] "Vor %d Minuten"
 
-#: ../libgitg/gitg-date.vala:325
+#: ../libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
 msgstr "Vor einer halben Stunde"
 
-#: ../libgitg/gitg-date.vala:330
+#: ../libgitg/gitg-date.vala:360
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "Vor einer Stunde"
 msgstr[1] "Vor %d Stunden"
 
-#: ../libgitg/gitg-date.vala:335
+#: ../libgitg/gitg-date.vala:365
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
 msgstr[0] "Vor einem Tag"
 msgstr[1] "Vor %d Tagen"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:107
-msgid "Save Patch File"
-msgstr "Patch-Datei speichern"
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 24 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:374
+msgid "%b %e, %H:%M"
+msgstr "%e. %b, %H:%M"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:111
-msgid "_Save"
-msgstr "_Speichern"
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 12 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:381
+msgid "%b %e, %I:%M %p"
+msgstr "%e. %b, %I:%M %p"
 
-#: ../libgitg/gitg-diff-view.vala:152
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 24
+#. hour clock.
+#: ../libgitg/gitg-date.vala:391
+msgid "%b %e %Y, %H:%M"
+msgstr "%e. %b %Y, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 12
+#. hour clock.
+#: ../libgitg/gitg-date.vala:398
+msgid "%b %e %Y, %I:%M %p"
+msgstr "%e. %b %Y, %I:%M %p"
+
+#: ../libgitg/gitg-diff-view.vala:229
 msgid "stage"
 msgstr "Bereitstellen"
 
-#: ../libgitg/gitg-diff-view.vala:153
+#: ../libgitg/gitg-diff-view.vala:230
 msgid "unstage"
 msgstr "Bereitstellung zurücknehmen"
 
-#: ../libgitg/gitg-diff-view.vala:154
+#: ../libgitg/gitg-diff-view.vala:231
 msgid "Loading diff…"
 msgstr "diff wird geladen …"
-
-#: ../libgitg/gitg-diff-view.vala:521
-msgid "Ignore whitespace changes"
-msgstr "Änderungen der Leerzeichen ignorieren"
 
 #: ../libgitg/gitg-stage.vala:335
 #, c-format
@@ -497,11 +776,11 @@ msgstr ""
 "Einspielmeldung konnte nicht nach der Ausführung des gekoppelten "
 "Einspielskriptes »commit-msg hook« gelesen werden: %s"
 
-#: ../plugins/diff/gitg-diff.vala:71
+#: ../plugins/diff/gitg-diff.vala:89
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/diff/gitg-diff.vala:76
+#: ../plugins/diff/gitg-diff.vala:94
 msgid "Show the changes introduced by the selected commit"
 msgstr "Die Änderungen des gewählten Einspielspeicherpunktes anzeigen"
 
@@ -541,10 +820,6 @@ msgstr "E-Mail:"
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
 msgid "Name: "
 msgstr "Name:"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
-msgid "Cancel"
-msgstr "Abbrechen"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
 msgid "Save"
@@ -588,7 +863,7 @@ msgid "_Amend previous commit"
 msgstr "Vorherige Einspielung _abändern"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
-#: ../gitg/resources/ui/gitg-window.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:6
 msgid "Close"
 msgstr "Schließen"
 
@@ -601,9 +876,21 @@ msgid "S_tage selection"
 msgstr "Auswahl _bereitstellen"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
-#| msgid "_Unstage selection"
 msgid "D_iscard selection"
 msgstr "Auswahl ver_werfen"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
+msgid "C_reate"
+msgstr "_Erstellen"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
+msgid "Branch _name:"
+msgstr "Zweig_name:"
+
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
+msgid "Tag _name:"
+msgstr "_Name des Tags:"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -719,7 +1006,6 @@ msgid "Preferences"
 msgstr "Einstellungen"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:2
-#| msgid "Open a recently used repository."
 msgid "Show the list of recently used repositories"
 msgstr "Die Liste der zuletzt verwendeten Softwarebestände anzeigen"
 
@@ -730,6 +1016,26 @@ msgstr "Ein Wort oder eine Wortkette suchen"
 #: ../gitg/resources/ui/gitg-window.ui.h:4
 msgid "General settings and options"
 msgstr "Generelle Einstellungen und Optionen"
+
+#: ../libgitg/resources/diff-view-options.ui.h:1
+msgid "Ignore whitespace changes"
+msgstr "Änderungen der Leerzeichen ignorieren"
+
+#: ../libgitg/resources/diff-view-options.ui.h:2
+msgid "Show changes inline"
+msgstr "Änderungen in der Zeile anzeigen"
+
+#: ../libgitg/resources/diff-view-options.ui.h:3
+msgid "Developer tools"
+msgstr "Entwickler-Werkzeuge"
+
+#: ../libgitg/resources/diff-view-options.ui.h:4
+msgid "Tab width"
+msgstr "Tabulatorbreite"
+
+#: ../libgitg/resources/diff-view-options.ui.h:5
+msgid "Context"
+msgstr "Kontext"
 
 #: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
 msgid ""
@@ -742,6 +1048,9 @@ msgstr ""
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "Spalte"
+
+#~ msgid "_Save"
+#~ msgstr "_Speichern"
 
 #~ msgid "Filter Revisions When Searching"
 #~ msgstr "Revisionen während der Suche filtern"
@@ -794,9 +1103,6 @@ msgstr "Spalte"
 #~ msgstr ""
 #~ "Den Befehl zur Verarbeitung von Schema-Adressen von GITG einschalten."
 
-#~ msgid "Create"
-#~ msgstr "Erstellen"
-
 #~ msgid "Recent"
 #~ msgstr "Zuletzt verwendet"
 
@@ -839,9 +1145,6 @@ msgstr "Spalte"
 #~ msgid "Last used:"
 #~ msgstr "Zuletzt verwendet:"
 
-#~ msgid "Current branch:"
-#~ msgstr "Aktueller Zweig:"
-
 #~ msgid "<b>Commits</b>"
 #~ msgstr "<b>Einspielvorgänge</b>"
 
@@ -870,14 +1173,8 @@ msgstr "Spalte"
 #~ msgid "Failed to remove remote branch <%s>."
 #~ msgstr "Löschen des entfernten Zweiges <%s> ist gescheitert."
 
-#~ msgid "Are you sure you want to remove the remote branch <%s>?"
-#~ msgstr "Wollen Sie wirklich den entfernten Zweig <%s> löschen?"
-
 #~ msgid "This permanently removes the remote branch."
 #~ msgstr "Dadurch wird der entfernte Zweig dauerhaft gelöscht."
-
-#~ msgid "Remove remote branch"
-#~ msgstr "Entfernten Zweig löschen"
 
 #~ msgid "Are you sure you want to remove this stash item?"
 #~ msgstr "Wollen Sie wirklich das Sicherungsobjekt löschen?"
@@ -888,20 +1185,11 @@ msgstr "Spalte"
 #~ msgid "Remove stash"
 #~ msgstr "Sicherung entfernen"
 
-#~ msgid "Failed to remove stash"
-#~ msgstr "Entfernung der Sicherung ist gescheitert"
-
 #~ msgid "The stash item could not be successfully removed"
 #~ msgstr "Ein Sicherungsobjekt konnte nicht erfolgreich entfernt werden"
 
-#~ msgid "Are you sure you want to remove the tag <%s>?"
-#~ msgstr "Wollen Sie den Tag <%s> wirklich entfernen?"
-
 #~ msgid "Remove tag"
 #~ msgstr "Tag entfernen"
-
-#~ msgid "The tag <%s> could not be successfully removed"
-#~ msgstr "Der Tag <%s> konnte nicht erfolgreich entfernt werden"
 
 #~ msgid "Branch <%s> could not be renamed to <%s>"
 #~ msgstr "Zweig <%s> konnte nicht in <%s> umbenannt werden"
@@ -927,9 +1215,6 @@ msgstr "Spalte"
 
 #~ msgid "You have uncommited changes in your current working tree"
 #~ msgstr "Es gibt nicht gespeicherte Änderungen in Ihrem lokalen Arbeitsbaum"
-
-#~ msgid "Stash changes"
-#~ msgstr "Änderungen sichern"
 
 #~ msgid "Failed to checkout local branch <%s>"
 #~ msgstr "Auschecken des lokalen Zweiges <%s> ist gescheitert"
@@ -1052,15 +1337,6 @@ msgstr "Spalte"
 #~ msgstr ""
 #~ "Die Sicherung konnte nicht auf den lokalen Zweig <%s> angewendet werden"
 
-#~ msgid "Failed to apply stash"
-#~ msgstr "Anwenden der Sicherung ist gescheitert"
-
-#~ msgid "The branch could not be successfully created"
-#~ msgstr "Der Zweig konnte nicht erfolgreich angelegt werden"
-
-#~ msgid "Failed to create a branch"
-#~ msgstr "Zweig kann nicht erstellt werden"
-
 #~ msgid ""
 #~ "The tag object could not be successfully created. Please make sure you "
 #~ "have a GPG key and the key is unlocked"
@@ -1129,9 +1405,6 @@ msgstr "Spalte"
 #~ "Zurückgenommene Änderungen sind dauerhaft und können nicht rückgängig "
 #~ "gemacht werden"
 
-#~ msgid "Delete Failed"
-#~ msgstr "Löschen fehlgeschlagen"
-
 #~ msgid "Deleting files is permanent and cannot be undone"
 #~ msgstr ""
 #~ "Löschen von Dateien ist dauerhaft und kann nicht rückgängig gemacht werden"
@@ -1147,9 +1420,6 @@ msgstr "Spalte"
 
 #~ msgid "(Empty)"
 #~ msgstr "(Leer)"
-
-#~ msgid "Select branch"
-#~ msgstr "Zweig auswählen"
 
 #~ msgid "Push local branch <%s> to remote branch <%s>"
 #~ msgstr "Lokalen Zweig <%s> in den entfernten Zweig <%s> einbringen"
@@ -1325,9 +1595,6 @@ msgstr "Spalte"
 
 #~ msgid "Rebase branch onto..."
 #~ msgstr "Zweig umstellen zu …"
-
-#~ msgid "Rename branch"
-#~ msgstr "Zweig umbenennen"
 
 #~ msgid "_Author"
 #~ msgstr "_Autor"
