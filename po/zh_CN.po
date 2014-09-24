@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-07-28 17:37+0000\n"
-"PO-Revision-Date: 2014-03-08 20:05+0800\n"
-"Last-Translator: Wylmer Wang <wantinghard@gmail.com>\n"
+"POT-Creation-Date: 2014-07-29 05:41+0000\n"
+"PO-Revision-Date: 2014-07-29 13:57+0800\n"
+"Last-Translator: Yunqiang Su <wzssyqa@gmail.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"nplurals=1, plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.6.7\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -29,24 +30,34 @@ msgid "Git repository browser"
 msgstr "Git 版本库浏览器"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+msgid "Default Clone Directory"
+msgstr "默认克隆的目录"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+msgid ""
+"The default directory in which new repositories should be suggested to be "
+"cloned."
+msgstr "建议克隆新仓库到的默认路径。"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "主界面方向(横向或纵向)"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
 msgid "Setting that sets the orientation of the main interface."
 msgstr "设定主界面方向布局的设置。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
 msgid "When to Collapse Inactive Lanes"
 msgstr "何时折叠不活动的路线"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr "该设置指示何时折叠不活动的路线。有效值为 0-4，0 表示“早”，4 表示“晚”。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -56,37 +67,49 @@ msgstr ""
 "设置说明是否折叠历史路线，不显示活动。启用它会使历史视图更加简洁，如果有很多"
 "并行开发的话。关于控制何时折叠路线，参阅 collapse-inactive-lanes。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
 msgid "Show History in Topological Order"
 msgstr "以拓扑顺序显示历史"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "指示是否以拓扑顺序显示历史的设置。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid "Show Stashed Changes"
+msgstr "显示储藏变更"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr "指示是否在历史中显示储藏项的设置。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+msgid "Show Staged Changes"
+msgstr "显示暂存的变更"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
 msgstr "指示是否在历史中显示对应当前已暂存变更的虚项(virtual item)的设置。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+msgid "Show Unstaged Changes"
+msgstr "显示未暂存的变更"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
 msgstr "指示是否在历史中显示对应当前撤回的变更的虚项。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid "Show Right Margin in Commit Message View"
 msgstr "在提交信息视图中显示右边距"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -94,21 +117,21 @@ msgstr ""
 "在提交信息视图中显示一个右边距指示器。这可以用来方便地看出在哪一列打断提交信"
 "息。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
 msgid "Column at Which Right Margin is Shown"
 msgstr "显示右边距的列"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr "若 show-right-margin 首选项设为 TRUE，显示右边界的列。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Show Subject Margin in Commit Message View"
 msgstr "在提交消息视图中显示主题边距"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -116,121 +139,246 @@ msgstr ""
 "在提交消息的主题文字超出 subject-margin-position 指定的边界时，高亮显示越界部"
 "分。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
 msgid "Column at Which Subject Margin is Shown"
 msgstr "显示主题边界的列"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
 msgstr "若 show-subject-margin 首选项设为 TRUE，显示主题边界的列。"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+msgid "Enable Spell Checking"
+msgstr "启用拼写检查"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+msgid ""
+"Setting which determines whether or not spell checking is enabled when "
+"writing a commit message."
+msgstr "设置在写提交消息时是否启用拼写检查。"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+msgid "Spell Checking Language"
+msgstr "拼写检查语言"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+msgid ""
+"The language to use when spell checking is enabled for writing a commit "
+"message."
+msgstr "对写作提交消息启用拼写检查时使用的语言。"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
+msgid "Ignore Whitespace Changes"
+msgstr "忽略空白变更"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
+msgid ""
+"Setting that indicates whether to ignore whitespace changes when showing the "
+"diff of a commit."
+msgstr "设置显示提交间的不同时是否忽略空白变更。"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+msgid "Show Changes Inline"
+msgstr "行内显示变更"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
+msgid ""
+"Setting that indicates whether changes within lines should be shown inline."
+msgstr "设置行内变更是否在行内显示。"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+msgid "Number of Before/After Context Lines"
+msgstr "前／后上下文行数"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff of a commit."
+msgstr "设置显示一个提交的变更时应该显示的上下文行数。"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+msgid "Rendered Width of a Tab Character"
+msgstr "制表符(Tab) 的宽度"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
+msgid ""
+"Setting that determines how much space a tab character should occupy when "
+"showing the diff of a commit."
+msgstr "设置显示提交的变更时，一个制表符(Tab)应该占用几个空格。"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff to be staged/unstaged in the commit area."
+msgstr "设置显示已暂存和未暂存的不同时应该显示的上下文行数。"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "无法设置拼写检查语言：%s"
 
-#: ../gitg/commit/gitg-commit.vala:105
+#: ../gitg/commit/gitg-commit.vala:59
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
 msgstr "提交"
 
-#: ../gitg/commit/gitg-commit.vala:145
+#: ../gitg/commit/gitg-commit.vala:64
+msgid "Create new commits and manage the staging area"
+msgstr "创建新的提交及管理暂存区"
+
+#: ../gitg/commit/gitg-commit.vala:107
 msgid "_Stage selection"
 msgstr "_Stage 选择"
 
-#: ../gitg/commit/gitg-commit.vala:168
-#, c-format
-msgid "Failed to stage the file `%s'"
-msgstr "无法暂存文件“%s”"
-
-#: ../gitg/commit/gitg-commit.vala:187
+#: ../gitg/commit/gitg-commit.vala:138
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "无法 stage 移除文件“%s”"
 
-#: ../gitg/commit/gitg-commit.vala:229
+#: ../gitg/commit/gitg-commit.vala:152
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "无法暂存文件“%s”"
+
+#: ../gitg/commit/gitg-commit.vala:182
 msgid "_Unstage selection"
 msgstr "撤回选择内容(_U)"
 
-#: ../gitg/commit/gitg-commit.vala:252
+#: ../gitg/commit/gitg-commit.vala:213
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "无法撤回移除文件“%s”"
 
-#: ../gitg/commit/gitg-commit.vala:271
+#: ../gitg/commit/gitg-commit.vala:227
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "撤回文件“%s”失败"
 
-#: ../gitg/commit/gitg-commit.vala:412
+#: ../gitg/commit/gitg-commit.vala:368
 msgid "Staged"
 msgstr "已暂存"
 
-#: ../gitg/commit/gitg-commit.vala:419
+#: ../gitg/commit/gitg-commit.vala:379
 msgid "No staged files"
 msgstr "无已暂存的文件"
 
-#: ../gitg/commit/gitg-commit.vala:431
+#: ../gitg/commit/gitg-commit.vala:394
 msgid "Unstaged"
 msgstr "已撤回"
 
-#: ../gitg/commit/gitg-commit.vala:435
+#: ../gitg/commit/gitg-commit.vala:402
 msgid "No unstaged files"
 msgstr "无撤回的文件"
 
-#: ../gitg/commit/gitg-commit.vala:447
+#: ../gitg/commit/gitg-commit.vala:417
 msgid "Untracked"
 msgstr "未跟踪"
 
-#: ../gitg/commit/gitg-commit.vala:451
+#: ../gitg/commit/gitg-commit.vala:421
 msgid "No untracked files"
 msgstr "无未跟踪的文件"
 
-#: ../gitg/commit/gitg-commit.vala:506
+#: ../gitg/commit/gitg-commit.vala:505
 msgid "There are no changes to be committed"
 msgstr "没有要提交的变更"
 
-#: ../gitg/commit/gitg-commit.vala:507
+#: ../gitg/commit/gitg-commit.vala:506
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "请使用 amend 更改上资提交的提交消息"
 
-#: ../gitg/commit/gitg-commit.vala:533
+#: ../gitg/commit/gitg-commit.vala:532
 msgid "Failed to commit"
 msgstr "提交失败"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:549 ../gitg/commit/gitg-commit.vala:782
+#: ../gitg/commit/gitg-commit.vala:548 ../gitg/commit/gitg-commit.vala:727
 msgid "Failed to pass pre-commit"
 msgstr "无法通过预提交"
 
-#: ../gitg/commit/gitg-commit.vala:770
+#: ../gitg/commit/gitg-commit.vala:715
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr "您的用户名和邮箱尚未配置。请转到用户配置，填写您的姓名和邮箱。"
 
-#: ../gitg/commit/gitg-commit.vala:774
+#: ../gitg/commit/gitg-commit.vala:719
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "您的用户名尚未配置。请转到用户配置，填写您的姓名。"
 
-#: ../gitg/commit/gitg-commit.vala:778
+#: ../gitg/commit/gitg-commit.vala:723
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr "您的邮箱尚未配置。请转到用户配置，填写您的邮箱。"
 
-#: ../gitg/commit/gitg-commit.vala:839
+#: ../gitg/commit/gitg-commit.vala:782 ../gitg/commit/gitg-commit.vala:909
+msgid "Discard changes"
+msgstr "丢弃变更"
+
+#: ../gitg/commit/gitg-commit.vala:783
+msgid "Are you sure you want to permanently discard the selected changes?"
+msgstr "确定要永久丢弃选中的变更吗？"
+
+#: ../gitg/commit/gitg-commit.vala:792 ../gitg/commit/gitg-commit.vala:936
+#: ../gitg/gitg-commit-action-create-patch.vala:143
+#: ../gitg/gitg-window.vala:432 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-window.ui.h:5
+msgid "_Cancel"
+msgstr "取消(_C)"
+
+#: ../gitg/commit/gitg-commit.vala:793 ../gitg/commit/gitg-commit.vala:935
+msgid "Discard"
+msgstr "丢弃"
+
+#: ../gitg/commit/gitg-commit.vala:821
+msgid "Failed to discard selection"
+msgstr "丢弃选择的变更失败"
+
+#: ../gitg/commit/gitg-commit.vala:850
 msgid "Failed to stage selection"
 msgstr "暂存选择内容失败"
 
-#: ../gitg/commit/gitg-commit.vala:843
+#: ../gitg/commit/gitg-commit.vala:854
 msgid "Failed to unstage selection"
 msgstr "撤回选择内容失败"
+
+#: ../gitg/commit/gitg-commit.vala:893
+msgid "Failed to discard changes"
+msgstr "丢弃变更失败"
+
+#: ../gitg/commit/gitg-commit.vala:914
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the file `"
+"%s'?"
+msgstr "确定要永久丢弃对文件 `%s' 的所有变更吗？"
+
+#: ../gitg/commit/gitg-commit.vala:925
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the files "
+"%s and `%s'?"
+msgstr "确定要永久丢弃对文件 %s 和 `%s' 的所有变更吗？"
+
+#: ../gitg/commit/gitg-commit.vala:969
+msgid "_Stage changes"
+msgstr "暂存变更(_S)"
+
+#: ../gitg/commit/gitg-commit.vala:979
+msgid "_Unstage changes"
+msgstr "取消变更暂存"
+
+#: ../gitg/commit/gitg-commit.vala:989
+msgid "_Discard changes"
+msgstr "丢弃变更(_D)"
 
 #: ../gitg/gitg-application.vala:55
 msgid "Show the application's version"
@@ -278,6 +426,153 @@ msgstr "无法设置 Git 用户配置。"
 msgid "The URL introduced is not supported"
 msgstr "不支持引入的 URI"
 
+#: ../gitg/gitg-commit-action-create-branch.vala:48
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
+msgid "Create Branch"
+msgstr "创建分支"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:53
+msgid "Create a new branch at the selected commit"
+msgstr "在选中的提交上创建一个新分支"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:85
+msgid "Failed to create branch"
+msgstr "创建分支失败"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:63
+msgid "Create Patch"
+msgstr "创建补丁"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:68
+msgid "Create a patch from the selected commit"
+msgstr "从选中的提交创建补丁"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:141
+msgid "Save Patch File"
+msgstr "保存补丁文件"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:145
+msgid "_Save Patch"
+msgstr "保存补丁(_S)"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:168
+msgid "Failed to create patch"
+msgstr "创建补丁失败"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:48
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
+msgid "Create Tag"
+msgstr "创建标签"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:53
+msgid "Create a new tag at the selected commit"
+msgstr "在选中的提交上创建新标签"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:92
+msgid "Failed to create tag"
+msgstr "创建标签失败"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:109
+msgid "Failed to lookup tag"
+msgstr "无法找到标签"
+
+#: ../gitg/gitg-create-tag-dialog.vala:106
+msgid "Provide a message to create an annotated tag"
+msgstr "请提供一段消息以创建带注释的标签"
+
+#: ../gitg/gitg-dash-view.vala:141
+msgid "_Delete"
+msgstr "删除(_D)"
+
+#: ../gitg/gitg-ref-action-delete.vala:48
+#: ../gitg/gitg-ref-action-delete.vala:88
+msgid "Delete"
+msgstr "删除"
+
+#: ../gitg/gitg-ref-action-delete.vala:53
+msgid "Delete the selected reference"
+msgstr "删除选中的引用"
+
+#: ../gitg/gitg-ref-action-delete.vala:73
+#, c-format
+msgid "Delete branch %s"
+msgstr "删除分支 %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:74
+#, c-format
+msgid "Are you sure that you want to permanently delete the branch %s?"
+msgstr "您确定要永久删除分支 %s 吗？"
+
+#: ../gitg/gitg-ref-action-delete.vala:78
+#, c-format
+msgid "Delete tag %s"
+msgstr "删除标签 %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:79
+#, c-format
+msgid "Are you sure that you want to permanently delete the tag %s?"
+msgstr "您确定要永久删除标签 %s 吗？"
+
+#: ../gitg/gitg-ref-action-delete.vala:83
+#, c-format
+msgid "Delete remote branch %s"
+msgstr "删除远程分支 %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:84
+#, c-format
+msgid "Are you sure that you want to permanently delete the remote branch %s?"
+msgstr "您确定要永久删除远程分支 %s 吗？"
+
+#: ../gitg/gitg-ref-action-delete.vala:89
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+msgid "Cancel"
+msgstr "取消"
+
+#. Translators: %s is the name of the tag
+#: ../gitg/gitg-ref-action-delete.vala:119
+#, c-format
+msgid "Failed to delete tag %s"
+msgstr "无法删除标签：%s"
+
+#. Translators: the first %s is the name of the tag, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:122
+#, c-format
+msgid "The tag %s could not be deleted: %s"
+msgstr "标签 %s 无法成功删除：%s"
+
+#. Translators: %s is the name of the branch
+#: ../gitg/gitg-ref-action-delete.vala:127
+#, c-format
+msgid "Failed to delete branch %s"
+msgstr "删除分支 %s 失败"
+
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:130
+#, c-format
+msgid "The branch %s could not be deleted: %s"
+msgstr "删除分之 %s 失败：%s"
+
+#: ../gitg/gitg-ref-action-rename.vala:48
+msgid "Rename"
+msgstr "重命名"
+
+#: ../gitg/gitg-ref-action-rename.vala:53
+msgid "Rename the selected reference"
+msgstr "重命名选中的引用"
+
+#: ../gitg/gitg-ref-action-rename.vala:100
+#, c-format
+msgid "The specified name ‘%s’ contains invalid characters"
+msgstr "指定的名称 ‘%s’  包含无效字符"
+
+#: ../gitg/gitg-ref-action-rename.vala:102
+msgid "Invalid name"
+msgstr "无效名称"
+
+#: ../gitg/gitg-ref-action-rename.vala:141
+msgid "Failed to rename"
+msgstr "重命名失败"
+
 #: ../gitg/gitg.vala:64
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
@@ -295,102 +590,115 @@ msgstr ""
 "\n"
 "否则，请在您发行版的 BUG 提交系统中报告一条“libgit2 未带有线程支持”的 BUG。"
 
-#: ../gitg/gitg-window.vala:268
+#: ../gitg/gitg-window.vala:389
 msgid "Projects"
 msgstr "项目"
 
-#: ../gitg/gitg-window.vala:304
+#: ../gitg/gitg-window.vala:430
 msgid "Open Repository"
 msgstr "打开版本库"
 
-#: ../gitg/gitg-window.vala:306
-#: ../libgitg/gitg-diff-view-request-patch.vala:109
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
-msgid "_Cancel"
-msgstr "取消(_C)"
-
-#: ../gitg/gitg-window.vala:307
+#: ../gitg/gitg-window.vala:433
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: ../gitg/gitg-window.vala:544
+#: ../gitg/gitg-window.vala:707
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "“%s”不是有效的 Git 版本库。"
 
-#: ../gitg/history/gitg-history-navigation.vala:199
-#: ../gitg/history/gitg-history-navigation.vala:307
+#: ../gitg/history/gitg-history-refs-list.vala:136
 msgid "All commits"
 msgstr "所有提交"
 
-#. Branches
-#: ../gitg/history/gitg-history-navigation.vala:202
+#: ../gitg/history/gitg-history-refs-list.vala:674
 msgid "Branches"
 msgstr "分支"
 
-#. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:239
+#: ../gitg/history/gitg-history-refs-list.vala:675
 msgid "Remotes"
 msgstr "远程"
 
-#. Tags
-#: ../gitg/history/gitg-history-navigation.vala:265
+#: ../gitg/history/gitg-history-refs-list.vala:676
 msgid "Tags"
 msgstr "标签"
 
-#: ../gitg/history/gitg-history.vala:164
+#: ../gitg/history/gitg-history.vala:219
 #: ../gitg/preferences/gitg-preferences-history.vala:144
 msgid "History"
 msgstr "历史"
+
+#: ../gitg/history/gitg-history.vala:224
+msgid "Examine the history of the repository"
+msgstr "查看仓库的历史"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:73
 msgid "Interface"
 msgstr "界面"
 
-#: ../libgitg/gitg-date.vala:316
+#: ../libgitg/gitg-date.vala:346
 msgid "Now"
 msgstr "现在"
 
-#: ../libgitg/gitg-date.vala:320
+#: ../libgitg/gitg-date.vala:350
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "%d 分钟前"
 
-#: ../libgitg/gitg-date.vala:325
+#: ../libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
 msgstr "半小时前"
 
-#: ../libgitg/gitg-date.vala:330
+#: ../libgitg/gitg-date.vala:360
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "%d 小时前"
 
-#: ../libgitg/gitg-date.vala:335
+#: ../libgitg/gitg-date.vala:365
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d 天前"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:107
-msgid "Save Patch File"
-msgstr "保存补丁文件"
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 24 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:374
+msgid "%b %e, %H:%M"
+msgstr "%m-%d, %H:%M"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:111
-msgid "_Save"
-msgstr "保存(_S)"
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 12 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:381
+msgid "%b %e, %I:%M %p"
+msgstr "%m-%d, %p%I:%M"
 
-#: ../libgitg/gitg-diff-view.vala:126
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 24
+#. hour clock.
+#: ../libgitg/gitg-date.vala:391
+msgid "%b %e %Y, %H:%M"
+msgstr "%F, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 12
+#. hour clock.
+#: ../libgitg/gitg-date.vala:398
+msgid "%b %e %Y, %I:%M %p"
+msgstr "%F, %p%I:%M"
+
+#: ../libgitg/gitg-diff-view.vala:229
 msgid "stage"
 msgstr "暂存"
 
-#: ../libgitg/gitg-diff-view.vala:127
+#: ../libgitg/gitg-diff-view.vala:230
 msgid "unstage"
 msgstr "撤回"
 
-#: ../libgitg/gitg-diff-view.vala:128
+#: ../libgitg/gitg-diff-view.vala:231
 msgid "Loading diff…"
 msgstr "正在加载 diff..."
 
@@ -399,13 +707,21 @@ msgstr "正在加载 diff..."
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "在运行 commit-msg 钩子(hook)后无法读取 commit 消息：%s"
 
-#: ../plugins/diff/gitg-diff.vala:62
+#: ../plugins/diff/gitg-diff.vala:89
 msgid "Diff"
 msgstr "差异"
+
+#: ../plugins/diff/gitg-diff.vala:94
+msgid "Show the changes introduced by the selected commit"
+msgstr "显示选中的提交所进行的变更"
 
 #: ../plugins/files/gitg-files.vala:63
 msgid "Files"
 msgstr "文件"
+
+#: ../plugins/files/gitg-files.vala:68
+msgid "Show the files in the tree of the selected commit"
+msgstr "显示选中的提交的文件树"
 
 #. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
@@ -433,10 +749,6 @@ msgstr "电子邮件："
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
 msgid "Name: "
 msgstr "姓名："
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
-msgid "Cancel"
-msgstr "取消"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
 msgid "Save"
@@ -480,7 +792,7 @@ msgid "_Amend previous commit"
 msgstr "修正上次提交(_A)"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
-#: ../gitg/resources/ui/gitg-window.ui.h:2
+#: ../gitg/resources/ui/gitg-window.ui.h:6
 msgid "Close"
 msgstr "关闭"
 
@@ -491,6 +803,23 @@ msgstr "跳过提交钩子(_H)"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 msgid "S_tage selection"
 msgstr "暂存选择内容(_T)"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
+msgid "D_iscard selection"
+msgstr "丢弃选择内容(_)"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
+msgid "C_reate"
+msgstr "创建(_R)"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
+msgid "Branch _name:"
+msgstr "分支名称(_N):"
+
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
+msgid "Tag _name:"
+msgstr "标签名称(_N)："
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -604,6 +933,38 @@ msgstr "使用水平布局"
 msgid "Preferences"
 msgstr "首选项"
 
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Show the list of recently used repositories"
+msgstr "显示最近使用的仓库列表"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Find a word or phrase"
+msgstr "查找单词或短语"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+msgid "General settings and options"
+msgstr "通用设置和选项"
+
+#: ../libgitg/resources/diff-view-options.ui.h:1
+msgid "Ignore whitespace changes"
+msgstr "忽略空白变更"
+
+#: ../libgitg/resources/diff-view-options.ui.h:2
+msgid "Show changes inline"
+msgstr "行内显示变更"
+
+#: ../libgitg/resources/diff-view-options.ui.h:3
+msgid "Developer tools"
+msgstr "开发者工具"
+
+#: ../libgitg/resources/diff-view-options.ui.h:4
+msgid "Tab width"
+msgstr "制表符(Tab) 宽度"
+
+#: ../libgitg/resources/diff-view-options.ui.h:5
+msgid "Context"
+msgstr "内容："
+
 #: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
@@ -613,6 +974,9 @@ msgstr "从列表中移除仓库(在磁盘上保留)"
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "列"
+
+#~ msgid "_Save"
+#~ msgstr "保存(_S)"
 
 #~ msgid "Allow External Diff Program"
 #~ msgstr "允许外部 Diff 程序"
@@ -654,14 +1018,8 @@ msgstr "列"
 #~ msgid "Failed to remove remote branch <%s>."
 #~ msgstr "无法删除远程分支 <%s>。"
 
-#~ msgid "Are you sure you want to remove the remote branch <%s>?"
-#~ msgstr "您确定要删除远程分支 <%s> 吗？"
-
 #~ msgid "This permanently removes the remote branch."
 #~ msgstr "这会永久删除远程分支。"
-
-#~ msgid "Remove remote branch"
-#~ msgstr "删除远程分支"
 
 #~ msgid "Remove branch"
 #~ msgstr "删除分支"
@@ -679,21 +1037,11 @@ msgstr "列"
 #~ msgstr "删除储藏"
 
 #, fuzzy
-#~ msgid "Failed to remove stash"
-#~ msgstr "无法删除储藏"
-
-#, fuzzy
 #~ msgid "The stash item could not be successfully removed"
 #~ msgstr "储藏项无法成功删除"
 
-#~ msgid "Are you sure you want to remove the tag <%s>?"
-#~ msgstr "您确定要删除标签 <%s> 吗？"
-
 #~ msgid "Remove tag"
 #~ msgstr "删除标签"
-
-#~ msgid "The tag <%s> could not be successfully removed"
-#~ msgstr "标签 <%s> 无法成功删除"
 
 #~ msgid "Branch <%s> could not be renamed to <%s>"
 #~ msgstr "分支 <%s> 无法重命名为 <%s>"
@@ -719,10 +1067,6 @@ msgstr "列"
 
 #~ msgid "You have uncommited changes in your current working tree"
 #~ msgstr "您在当前工作树下有未提交的变更"
-
-#, fuzzy
-#~ msgid "Stash changes"
-#~ msgstr "储藏变更"
 
 #~ msgid "Failed to checkout local branch <%s>"
 #~ msgstr "无法检出本地分支 <%s>"
@@ -760,9 +1104,6 @@ msgstr "列"
 #~ "There might be unresolved conflicts in the working tree or index which "
 #~ "you need to resolve manually"
 #~ msgstr "在工作树或索引中有未解决的冲突，您需要手动解决"
-
-#~ msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
-#~ msgstr "您确定要将 %s 分支 <%s> 合并到 %s 分支 <%s> 吗？"
 
 #~ msgid "Merge"
 #~ msgstr "合并"
@@ -835,18 +1176,6 @@ msgstr "列"
 #~ msgid "The stash could not be applied to local branch <%s>"
 #~ msgstr "储藏无法被应用到本地分支 <%s>"
 
-#, fuzzy
-#~ msgid "Failed to apply stash"
-#~ msgstr "无法应用储藏"
-
-#, fuzzy
-#~| msgid "The tag object could not be successfully created"
-#~ msgid "The branch could not be successfully created"
-#~ msgstr "无法成功创建储藏"
-
-#~ msgid "Failed to create a branch"
-#~ msgstr "创建分支失败"
-
 #~ msgid ""
 #~ "The tag object could not be successfully created. Please make sure you "
 #~ "have a GPG key and the key is unlocked"
@@ -893,21 +1222,8 @@ msgstr "列"
 #~ msgid "Revert fail"
 #~ msgstr "恢复失败"
 
-#~ msgid "Are you sure you want to revert these changes?"
-#~ msgstr "您确定要恢复这些变更吗？"
-
 #~ msgid "Reverting changes is permanent and cannot be undone"
 #~ msgstr "恢复变更是永久的并且不能撤销"
-
-#, fuzzy
-#~| msgid "Details"
-#~ msgid "Delete Failed"
-#~ msgstr "详情"
-
-#, fuzzy
-#~| msgid "Are you sure you want to revert these changes?"
-#~ msgid "Are you sure you want to delete these files?"
-#~ msgstr "您确定要恢复这些变更吗？"
 
 #, fuzzy
 #~| msgid "Reverting changes is permanent and cannot be undone"
@@ -930,9 +1246,6 @@ msgstr "列"
 
 #~ msgid "(Empty)"
 #~ msgstr "(空的)"
-
-#~ msgid "Select branch"
-#~ msgstr "选择分支"
 
 #, fuzzy
 #~ msgid "Push local branch <%s> to remote branch <%s>"
@@ -1065,9 +1378,6 @@ msgstr "列"
 #~ msgid "Unknown"
 #~ msgstr "未知"
 
-#~ msgid "Staged changes"
-#~ msgstr "暂存的变更"
-
 #~ msgid "It is not possible to detect the encoding automatically"
 #~ msgstr "无法自动检测编码"
 
@@ -1093,12 +1403,6 @@ msgstr "列"
 #~ msgid "Cherry-pick on..."
 #~ msgstr "挑拣在..."
 
-#~ msgid "Create branch"
-#~ msgstr "创建分支"
-
-#~ msgid "Create tag"
-#~ msgstr "创建标签"
-
 #~ msgid "Merge branch with..."
 #~ msgstr "合并分支与..."
 
@@ -1108,9 +1412,6 @@ msgstr "列"
 
 #~ msgid "Rebase branch onto..."
 #~ msgstr "衍合分支到..."
-
-#~ msgid "Rename branch"
-#~ msgstr "重命名分支"
 
 #~ msgid "_Author"
 #~ msgstr "作者(_A)"
@@ -1200,9 +1501,6 @@ msgstr "列"
 
 #~ msgid "Amend"
 #~ msgstr "修订"
-
-#~ msgid "Context:"
-#~ msgstr "内容："
 
 #, fuzzy
 #~| msgid "Commit"
