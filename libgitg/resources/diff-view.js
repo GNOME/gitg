@@ -24,7 +24,8 @@ var settings = {
 	strings: {
 		stage: 'stage',
 		unstage: 'unstage',
-		loading_diff: 'Loading diff...'
+		loading_diff: 'Loading diff...',
+		notes: 'Notes:'
 	},
 };
 
@@ -149,6 +150,13 @@ function write_commit(content, commit)
 
 	// Message
 	elems.message.text(prettify_message(commit.message));
+
+	// Notes
+	if (commit.hasOwnProperty('note'))
+	{
+		elems.notes.text(settings.strings.notes);
+		elems.note_message.text(commit.note);
+	}
 
 	// Sha1
 	elems.sha1.text(commit.id);

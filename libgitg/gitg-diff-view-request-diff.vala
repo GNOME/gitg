@@ -29,7 +29,7 @@ namespace Gitg
 
 		private DiffType d_diff_type;
 		private Ggit.Diff? d_diff;
-		private Ggit.Commit? d_commit;
+		private Commit? d_commit;
 
 		public DiffViewRequestDiff(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
 		{
@@ -214,7 +214,7 @@ namespace Gitg
 			builder.end_object();
 		}
 
-		private void commit_to_json(Json.Builder builder, Ggit.Commit commit)
+		private void commit_to_json(Json.Builder builder, Commit commit)
 		{
 			builder.begin_object();
 
@@ -232,6 +232,13 @@ namespace Gitg
 
 			builder.set_member_name("author");
 			signature_to_json(builder, commit.get_author());
+
+			var note = commit.get_note();
+			if (note != null)
+			{
+				builder.set_member_name("note");
+				builder.add_string_value(note.get_message());
+			}
 
 			builder.end_object();
 		}

@@ -169,6 +169,21 @@ public class Commit : Ggit.Commit
 
 		return diff;
 	}
+
+	public Ggit.Note get_note()
+	{
+		Ggit.Note note = null;
+
+		var repo = get_owner();
+
+		try
+		{
+			note = repo.read_note(null, get_id());
+		}
+		catch (Error e) {}
+
+		return note;
+	}
 }
 
 }
