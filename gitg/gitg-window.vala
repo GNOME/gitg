@@ -539,11 +539,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		var selectable = (current as GitgExt.Selectable);
 		d_select_button.visible = (selectable != null);
 
-		if (d_selectable_mode_binding != null)
-		{
-			d_selectable_mode_binding.unbind();
-			d_selectable_mode_binding = null;
-		}
+		d_selectable_mode_binding = null;
 
 		if (selectable != null)
 		{
