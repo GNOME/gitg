@@ -102,7 +102,11 @@ class CreateTagDialog : Gtk.Dialog
 
 		if (start.compare(end) == 0 && !d_text_view_message.has_focus)
 		{
+#if VALA_0_28
+			buf.insert_with_tags(ref start,
+#else
 			buf.insert_with_tags(start,
+#endif
 			                     _("Provide a message to create an annotated tag"),
 			                     -1,
 			                     d_info_tag);
