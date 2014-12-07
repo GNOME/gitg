@@ -354,25 +354,7 @@ namespace Gitg
 
 			builder.end_object();
 
-			var gen = new Json.Generator();
-			gen.set_root(builder.get_root());
-
-			var stream = new MemoryOutputStream(null, realloc, free);
-			gen.to_stream(stream, cancellable);
-
-			if (cancellable != null && cancellable.is_cancelled())
-			{
-				throw new IOError.CANCELLED("Cancelled");
-			}
-
-			stream.close();
-
-			uint8[] data = stream.steal_data();
-			d_size = stream.get_data_size();
-
-			data = data[0:d_size];
-
-			return new MemoryInputStream.from_data(data, stream.destroy_function);
+			return json_to_stream(builder, cancellable, out d_size);
 		}
 
 		public override InputStream? run_async(Cancellable? cancellable) throws GLib.Error

@@ -661,17 +661,39 @@ function diff_files(files, lines, maxlines, data)
 	return f;
 }
 
+function handle_error(data, message) {
+	if (!message)
+	{
+		message = 'unknown internal error';
+	}
+
+	var msg = 'Internal error while loading diff: ' + message;
+
+	self.postMessage({url: data.url, diff_html: '<div class="error"><p>' + html_escape(msg) + '</p><p>This usually indicates a bug in gitg. Please consider filing a bug report at <a href="https://bugzilla.gnome.org/browse.cgi?product=gitg">https://bugzilla.gnome.org/browse.cgi?product=gitg</a></p></div>'});
+}
+
 self.onmessage = function(event) {
 	var data = event.data;
 
 	// Make request to get the diff formatted in json
 	var r = new XMLHttpRequest();
 
+	r.onerror = function(e) {
+		handle_error(data, e.target.responseText);
+	};
+
 	r.onload = function(e) {
 		var j = JSON.parse(r.responseText);
-		var html = diff_files(j.diff, j.lines, j.maxlines, data);
 
-		self.postMessage({url: data.url, diff_html: html});
+		if (j.error !== undefined)
+		{
+				handle_error(data, j.error);
+		}
+		else
+		{
+			var html = diff_files(j.diff, j.lines, j.maxlines, data);
+			self.postMessage({url: data.url, diff_html: html});
+		}
 	}
 
 	r.open("GET", data.url);

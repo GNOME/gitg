@@ -120,6 +120,29 @@ namespace Gitg
 			return ret;
 		}
 
+		protected InputStream json_to_stream(Json.Builder builder, Cancellable? cancellable, out int64 size) throws GLib.Error
+		{
+			var gen = new Json.Generator();
+			gen.set_root(builder.get_root());
+
+			var stream = new MemoryOutputStream(null, realloc, free);
+			gen.to_stream(stream, cancellable);
+
+			if (cancellable != null && cancellable.is_cancelled())
+			{
+				throw new IOError.CANCELLED("Cancelled");
+			}
+
+			stream.close();
+
+			uint8[] data = stream.steal_data();
+			size = stream.get_data_size();
+
+			data = data[0:size];
+
+			return new MemoryInputStream.from_data(data, stream.destroy_function);
+		}
+
 		public void run(Cancellable? cancellable)
 		{
 			run_impl.begin(cancellable, (obj, res) => {
@@ -131,7 +154,31 @@ namespace Gitg
 				}
 				catch (Error e)
 				{
-					d_request.finish_error(e);
+					if (d_mimetype != null && d_mimetype == "application/json")
+					{
+						var builder = new Json.Builder();
+
+						builder.begin_object();
+						builder.set_member_name("error").add_string_value(e.message);
+						builder.end_object();
+
+						try
+						{
+							int64 size;
+
+							stream = json_to_stream(builder, cancellable, out size);
+							d_request.finish(stream, size, "application/json");
+						}
+						catch (Error jerror)
+						{
+							d_request.finish_error(e);
+						}
+					}
+					else
+					{
+						d_request.finish_error(e);
+					}
+
 					return;
 				}
 

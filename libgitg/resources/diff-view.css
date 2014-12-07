@@ -268,4 +268,20 @@ span.hunk_stats, span.file_path {
   display: none;
 }
 
+#diff_content div.error {
+  padding: 12px;
+  border: 1px solid #aaa;
+  background-color: #ffdddd;
+  margin: 12px;
+  font-family: initial;
+}
+
+#diff_content div.error p:first-child {
+  margin-top: 0;
+}
+
+#diff_content div.error p:last-child {
+  margin-bottom: 0;
+}
+
 /* vi:ts=2:et */
