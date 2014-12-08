@@ -45,9 +45,10 @@ public class Application : Gtk.Application
 
 		public static ApplicationCommandLine command_line;
 
-		private static void commit_activity()
+		private static bool commit_activity()
 		{
 			activity = "commit";
+			return true;
 		}
 
 		public static const OptionEntry[] entries = {
@@ -74,13 +75,14 @@ public class Application : Gtk.Application
 		Options.activity = "";
 	}
 
-	private static void show_version_and_quit()
+	private static bool show_version_and_quit()
 	{
 		stdout.printf("%s %s\n",
 		              Environment.get_application_name(),
 		              Config.VERSION);
 
 		Options.quit = true;
+		return true;
 	}
 
 	private void parse_command_line(ref unowned string[] argv) throws OptionError
