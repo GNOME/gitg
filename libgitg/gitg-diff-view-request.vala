@@ -120,7 +120,7 @@ namespace Gitg
 			return ret;
 		}
 
-		protected InputStream json_to_stream(Json.Builder builder, Cancellable? cancellable, out int64 size) throws GLib.Error
+		internal InputStream json_to_stream(Json.Builder builder, Cancellable? cancellable, out int64 size) throws GLib.Error
 		{
 			var gen = new Json.Generator();
 			gen.set_root(builder.get_root());
