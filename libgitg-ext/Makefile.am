@@ -87,10 +87,10 @@ libgitg-ext-docs: $(libgitg_ext_libgitg_ext_1_0_la_VALASOURCES)
 docs: libgitg-ext-docs
 endif
 
-libgitg_ext_libgitg_ext_1_0_la_girdir = $(INTROSPECTION_GIRDIR)
+libgitg_ext_libgitg_ext_1_0_la_girdir = $(datadir)/gir-1.0
 libgitg_ext_libgitg_ext_1_0_la_gir_DATA = GitgExt-1.0.gir
 
-libgitg_ext_libgitg_ext_1_0_la_typelibdir = $(INTROSPECTION_TYPELIBDIR)
+libgitg_ext_libgitg_ext_1_0_la_typelibdir = $(libdir)/girepository-1.0
 libgitg_ext_libgitg_ext_1_0_la_typelib_DATA = GitgExt-1.0.typelib
 
 if ENABLE_PYTHON

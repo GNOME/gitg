@@ -87,10 +87,10 @@ noinst_HEADERS += libgitg/gitg-js-utils.h
 libgitg_libgitg_1_0_la_vapidir = $(prefix)/share/vala/vapi
 libgitg_libgitg_1_0_la_vapi_DATA = libgitg/libgitg-1.0.vapi
 
-libgitg_libgitg_1_0_la_girdir = $(INTROSPECTION_GIRDIR)
+libgitg_libgitg_1_0_la_girdir = $(datadir)/gir-1.0
 libgitg_libgitg_1_0_la_gir_DATA = Gitg-1.0.gir
 
-libgitg_libgitg_1_0_la_typelibdir = $(INTROSPECTION_TYPELIBDIR)
+libgitg_libgitg_1_0_la_typelibdir = $(libdir)/girepository-1.0
 libgitg_libgitg_1_0_la_typelib_DATA = Gitg-1.0.typelib
 
 libgitg_libgitg_1_0_la_pkgconfigdir = $(libdir)/pkgconfig
