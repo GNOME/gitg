@@ -61,7 +61,7 @@ public class Application : Gtk.Application
 			{"commit", 'c', OptionFlags.NO_ARG, OptionArg.CALLBACK,
 			 (void *)commit_activity, N_("Start gitg with the commit activity (shorthand for --activity commit)"), null},
 
-			 {"no-wd", 0, 0, OptionArg.NONE,
+			{"no-wd", 0, 0, OptionArg.NONE,
 			 ref no_wd, N_("Do not try to load a repository from the current working directory"), null},
 
 			{null}
