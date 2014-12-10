@@ -55,6 +55,8 @@ namespace Gitg
 			private Gtk.CheckButton d_remove_check_button;
 			[GtkChild]
 			private Gtk.Revealer d_remove_revealer;
+			[GtkChild]
+			private Gtk.Box d_submodule_box;
 
 			public signal void request_remove();
 
@@ -188,6 +190,43 @@ namespace Gitg
 			public Row(string name, string branch_name, bool has_remote)
 			{
 				Object(repository_name: name, branch_name: branch_name, has_remote: has_remote);
+			}
+
+			public void add_submodule(Ggit.Submodule module)
+			{
+				var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
+				var tip = @"$(module.get_path())/ ($(module.get_url()))";
+				box.set_tooltip_text(tip);
+				box.show();
+
+				var icon = new Gtk.Image.from_icon_name("folder-remote-symbolic",
+				                                        Gtk.IconSize.MENU);
+				icon.show();
+
+				var name = Path.get_basename(module.get_url());
+
+				if (name.has_suffix(".git"))
+				{
+					name = name[0:-4];
+				}
+
+				var labelName = new Gtk.Label(name);
+				labelName.show();
+
+				var arrow = new Gtk.Arrow(Gtk.ArrowType.RIGHT, Gtk.ShadowType.NONE);
+				arrow.show();
+
+				var path = module.get_path();
+				var labelPath = new Gtk.Label(@"$path/");
+				labelPath.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
+				labelPath.show();
+
+				box.add(icon);
+				box.add(labelName);
+				box.add(arrow);
+				box.add(labelPath);
+
+				d_submodule_box.add(box);
 			}
 		}
 
@@ -353,6 +392,15 @@ namespace Gitg
 				row = new Row(repository.name, head_name, has_remote);
 				row.repository = repository;
 				row.show();
+
+				try
+				{
+					repository.submodule_foreach((module) => {
+						row.add_submodule(module);
+						return 0;
+					});
+				}
+				catch {}
 
 				if (f != null)
 				{
