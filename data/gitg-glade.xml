@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<glade-catalog name="gitg">
+<glade-catalog version="3.0" supports="gtkbuilder" name="gitg" library="gitg-1.0" domain="gitg" depends="gtk+">
   <glade-widget-classes>
     <glade-widget-class name="GitgWindow" title="GitgWindow" generic-name="gitgwindow" parent="GtkWindow"/>
     <glade-widget-class name="GitgExtNavigationTreeView" title="GitgExtNavigationTreeView" generic-name="gitgextnavigationtreeView" parent="GtkTreeView"/>
     <glade-widget-class name="GitgAutohideFrame" title="GitgAutohideFrame" generic-name="gitgautohideframe" parent="GtkFrame"/>
     <glade-widget-class name="GitgPreferencesDialog" title="GitgPreferencesDialog" generic-name="gitgpreferencesdialog" parent="GtkDialog"/>
+    <glade-widget-class name="GitgDiffView" title="GitgDiffView" generic-name="gitgdiffview"/>
+    <glade-widget-class name="GitgSidebar" title="GitgSidebar" generic-name="gitgsidebar" parent="GtkTreeView"/>
+    <glade-widget-class name="GitgCommitSidebar" title="GitgCommitSidebar" generic-name="gitgcommitsidebar" parent="GitgSidebar"/>
   </glade-widget-classes>
 
   <glade-widget-group name="gitg" title="gitg">
