@@ -246,7 +246,7 @@ AM_CONDITIONAL([GLADE_CATALOG], [ test "$glade_catalog" = "yes" ])
 AS_IF([ test "$glade_catalog" = "yes" ],
 	[PKG_CHECK_EXISTS(GLADE, [gladeui-2.0 >= $GLADE_UI_REQUIRED])
 	 AC_MSG_CHECKING([for Glade catalog dir])
-	 GLADE_CATALOG_DIR=`$PKG_CONFIG --variable=catalogdir gladeui-2.0 2>&AS_MESSAGE_LOG_FD`
+	 GLADE_CATALOG_DIR=`$PKG_CONFIG --variable=catalogdir "--define-variable=prefix=${prefix}" gladeui-2.0 2>&AS_MESSAGE_LOG_FD`
 	 AC_MSG_RESULT([$GLADE_CATALOG_DIR])
 	 AC_SUBST(GLADE_CATALOG_DIR)])
 
