@@ -29,6 +29,9 @@ class Paned : Gtk.Paned
 	[GtkChild (name = "diff_view")]
 	private Gitg.DiffView d_diff_view;
 
+	[GtkChild (name = "submodule_diff_view")]
+	private SubmoduleDiffView d_submodule_diff_view;
+
 	[GtkChild (name = "check_button_skip_hooks")]
 	private Gtk.CheckButton d_check_button_skip_hooks;
 
@@ -49,6 +52,11 @@ class Paned : Gtk.Paned
 	public Gitg.DiffView diff_view
 	{
 		get { return d_diff_view; }
+	}
+
+	public SubmoduleDiffView submodule_diff_view
+	{
+		get { return d_submodule_diff_view; }
 	}
 
 	public bool skip_hooks

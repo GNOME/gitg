@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.3 -->
-  <!-- interface-requires gitg 0.0 -->
-  <!-- interface-requires gd 1.0 -->
+  <!-- interface-requires gitg 3.0 -->
   <template class="GitgCommitPaned" parent="GtkPaned">
     <property name="visible">True</property>
     <property name="hexpand">True</property>
@@ -48,6 +47,21 @@
             <property name="can_focus">True</property>
             <property name="vexpand">True</property>
           </object>
+        </child>
+        <child>
+          <object class="GitgCommitSubmoduleDiffView" id="submodule_diff_view">
+            <property name="visible">False</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">12</property>
+            <property name="margin_right">12</property>
+            <property name="margin_top">12</property>
+            <property name="margin_bottom">12</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
         <child>
           <object class="GtkFrame" id="frame_commit">

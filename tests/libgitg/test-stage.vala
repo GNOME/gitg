@@ -52,13 +52,15 @@ class Gitg.Test.Stage : Gitg.Test.Repository
 		var stage = d_repository.stage;
 		var e = stage.file_status(null);
 
-		e.next_files.begin(-1, (obj, res) => {
-			var files = e.next_files.end(res);
+		e.next_items.begin(-1, (obj, res) => {
+			var items = e.next_items.end(res);
 
-			assert(files.length == cfiles.size);
+			assert(items.length == cfiles.size);
 
-			foreach (var f in files)
+			foreach (var item in items)
 			{
+				var f = item as Gitg.StageStatusFile;
+
 				assert(cfiles.has_key(f.path));
 				assert_inteq(cfiles[f.path], f.flags);
 

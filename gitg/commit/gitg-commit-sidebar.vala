@@ -33,33 +33,34 @@ class Sidebar : Gitg.Sidebar
 
 	public signal void selected_items_changed(Gitg.SidebarItem[] items);
 
-	public class File : Object, Gitg.SidebarItem
+	public class Item : Object, Gitg.SidebarItem
 	{
 		public enum Type
 		{
 			NONE,
 			STAGED,
 			UNSTAGED,
-			UNTRACKED
+			UNTRACKED,
+			SUBMODULE
 		}
 
-		Gitg.StageStatusFile d_file;
+		Gitg.StageStatusItem d_item;
 		Type d_type;
 
-		public File(Gitg.StageStatusFile f, Type type)
+		public Item(Gitg.StageStatusItem item, Type type)
 		{
-			d_file = f;
+			d_item = item;
 			d_type = type;
 		}
 
-		public Gitg.StageStatusFile file
+		public Gitg.StageStatusItem item
 		{
-			get { return d_file; }
+			get { return d_item; }
 		}
 
 		public string text
 		{
-			owned get { return d_file.path; }
+			owned get { return d_item.path; }
 		}
 
 		public Type stage_type
@@ -67,33 +68,9 @@ class Sidebar : Gitg.Sidebar
 			get { return d_type; }
 		}
 
-		private string? icon_for_status(Ggit.StatusFlags status)
-		{
-			if ((status & (Ggit.StatusFlags.INDEX_NEW |
-				           Ggit.StatusFlags.WORKING_TREE_NEW)) != 0)
-			{
-				return "list-add-symbolic";
-			}
-			else if ((status & (Ggit.StatusFlags.INDEX_MODIFIED |
-				                Ggit.StatusFlags.INDEX_RENAMED |
-				                Ggit.StatusFlags.INDEX_TYPECHANGE |
-				                Ggit.StatusFlags.WORKING_TREE_MODIFIED |
-				                Ggit.StatusFlags.WORKING_TREE_TYPECHANGE)) != 0)
-			{
-				return "text-editor-symbolic";
-			}
-			else if ((status & (Ggit.StatusFlags.INDEX_DELETED |
-				                Ggit.StatusFlags.WORKING_TREE_DELETED)) != 0)
-			{
-				return "edit-delete-symbolic";
-			}
-
-			return null;
-		}
-
 		public string? icon_name
 		{
-			owned get { return icon_for_status(d_file.flags); }
+			owned get { return d_item.icon_name; }
 		}
 	}
 
@@ -123,38 +100,38 @@ class Sidebar : Gitg.Sidebar
 		sel.mode = Gtk.SelectionMode.MULTIPLE;
 	}
 
-	private File.Type get_item_type(Gitg.SidebarItem item)
+	private Item.Type get_item_type(Gitg.SidebarItem item)
 	{
 		var header = item as Gitg.SidebarStore.SidebarHeader;
 
 		if (header != null)
 		{
-			return (File.Type)header.id;
+			return (Item.Type)header.id;
 		}
 
-		var file = item as File;
+		var sitem = item as Item;
 
-		if (file != null)
+		if (sitem != null)
 		{
-			return file.stage_type;
+			return sitem.stage_type;
 		}
 
-		return File.Type.NONE;
+		return Item.Type.NONE;
 	}
 
-	private File.Type selected_type()
+	private Item.Type selected_type()
 	{
 		foreach (var item in get_selected_items<Gitg.SidebarItem>())
 		{
 			var tp = get_item_type(item);
 
-			if (tp != File.Type.NONE)
+			if (tp != Item.Type.NONE)
 			{
 				return tp;
 			}
 		}
 
-		return File.Type.NONE;
+		return Item.Type.NONE;
 	}
 
 	protected override bool select_function(Gtk.TreeSelection sel,
@@ -182,19 +159,30 @@ class Sidebar : Gitg.Sidebar
 
 		var item = m.item_for_iter(iter);
 
-		// Prevent selection of the untracked header
+		// Prevent selection of the untracked and submodule headers
 		var header = item as Gitg.SidebarStore.SidebarHeader;
 
-		if (header != null && (File.Type)header.id == File.Type.UNTRACKED)
+		if (header != null)
 		{
-			return false;
+			var id = (Item.Type)header.id;
+
+			if (id == Item.Type.UNTRACKED || id == Item.Type.SUBMODULE)
+			{
+				return false;
+			}
 		}
 
 		var seltp = selected_type();
 
-		if (seltp == File.Type.NONE)
+		if (seltp == Item.Type.NONE)
 		{
 			return true;
+		}
+
+		// Do not allow multiple selections for submodules
+		if (seltp == Item.Type.SUBMODULE)
+		{
+			return false;
 		}
 
 		var tp = get_item_type(item);
@@ -220,9 +208,9 @@ class Sidebar : Gitg.Sidebar
 		}
 	}
 
-	public File[] items_of_type(File.Type type)
+	public Item[] items_of_type(Item.Type type)
 	{
-		var ret = new File[0];
+		var ret = new Item[0];
 
 		model.foreach((m, path, iter) => {
 			var item = model.item_for_iter(iter);
@@ -232,11 +220,11 @@ class Sidebar : Gitg.Sidebar
 				return false;
 			}
 
-			var file = item as File;
+			var sitem = item as Item;
 
-			if (file != null && file.stage_type == type)
+			if (sitem != null && sitem.stage_type == type)
 			{
-				ret += file;
+				ret += sitem;
 			}
 
 			return false;

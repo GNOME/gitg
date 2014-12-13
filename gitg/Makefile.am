@@ -78,6 +78,8 @@ gitg_gitg_VALASOURCES =						\
 	gitg/commit/gitg-commit.vala				\
 	gitg/commit/gitg-commit-paned.vala			\
 	gitg/commit/gitg-commit-sidebar.vala			\
+	gitg/commit/gitg-commit-submodule-diff-view.vala	\
+	gitg/commit/gitg-commit-submodule-info.vala		\
 	gitg/commit/gitg-commit-dialog.vala			\
 	libgitg/libgitg-1.0.vapi				\
 	libgitg-ext/libgitg-ext-1.0.vapi

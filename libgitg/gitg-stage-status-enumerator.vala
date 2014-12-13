@@ -20,10 +20,36 @@
 namespace Gitg
 {
 
-public class StageStatusFile : Object
+public interface StageStatusItem : Object
+{
+	public abstract string path { owned get; }
+
+	public abstract bool is_staged { get; }
+	public abstract bool is_unstaged { get; }
+	public abstract bool is_untracked { get; }
+
+	public abstract string? icon_name { owned get; }
+}
+
+public class StageStatusFile : Object, StageStatusItem
 {
 	private string d_path;
 	private Ggit.StatusFlags d_flags;
+
+	private static Ggit.StatusFlags s_index_flags =
+		  Ggit.StatusFlags.INDEX_NEW
+		| Ggit.StatusFlags.INDEX_MODIFIED
+		| Ggit.StatusFlags.INDEX_DELETED
+		| Ggit.StatusFlags.INDEX_RENAMED
+		| Ggit.StatusFlags.INDEX_TYPECHANGE;
+
+	private static Ggit.StatusFlags s_work_flags =
+		  Ggit.StatusFlags.WORKING_TREE_MODIFIED
+		| Ggit.StatusFlags.WORKING_TREE_DELETED
+		| Ggit.StatusFlags.WORKING_TREE_TYPECHANGE;
+
+	private static Ggit.StatusFlags s_untracked_flags =
+		  Ggit.StatusFlags.WORKING_TREE_NEW;
 
 	public StageStatusFile(string path, Ggit.StatusFlags flags)
 	{
@@ -36,9 +62,136 @@ public class StageStatusFile : Object
 		owned get { return d_path; }
 	}
 
+	public bool is_staged
+	{
+		get { return (d_flags & s_index_flags) != 0; }
+	}
+
+	public bool is_unstaged
+	{
+		get { return (d_flags & s_work_flags) != 0; }
+	}
+
+	public bool is_untracked
+	{
+		get { return (d_flags & s_untracked_flags) != 0; }
+	}
+
 	public Ggit.StatusFlags flags
 	{
 		get { return d_flags; }
+	}
+
+	private string? icon_for_status(Ggit.StatusFlags status)
+	{
+		if ((status & (Ggit.StatusFlags.INDEX_NEW |
+			           Ggit.StatusFlags.WORKING_TREE_NEW)) != 0)
+		{
+			return "list-add-symbolic";
+		}
+		else if ((status & (Ggit.StatusFlags.INDEX_MODIFIED |
+			                Ggit.StatusFlags.INDEX_RENAMED |
+			                Ggit.StatusFlags.INDEX_TYPECHANGE |
+			                Ggit.StatusFlags.WORKING_TREE_MODIFIED |
+			                Ggit.StatusFlags.WORKING_TREE_TYPECHANGE)) != 0)
+		{
+			return "text-editor-symbolic";
+		}
+		else if ((status & (Ggit.StatusFlags.INDEX_DELETED |
+			                Ggit.StatusFlags.WORKING_TREE_DELETED)) != 0)
+		{
+			return "edit-delete-symbolic";
+		}
+
+		return null;
+	}
+
+	public string? icon_name
+	{
+		owned get { return icon_for_status(d_flags); }
+	}
+}
+
+public class StageStatusSubmodule : Object, StageStatusItem
+{
+	private Ggit.Submodule d_submodule;
+	private string d_path;
+	private Ggit.SubmoduleStatus d_flags;
+
+	private static Ggit.SubmoduleStatus s_index_flags =
+		  Ggit.SubmoduleStatus.INDEX_ADDED
+		| Ggit.SubmoduleStatus.INDEX_DELETED
+		| Ggit.SubmoduleStatus.INDEX_MODIFIED;
+
+	private static Ggit.SubmoduleStatus s_work_flags =
+		  Ggit.SubmoduleStatus.WD_ADDED
+		| Ggit.SubmoduleStatus.WD_DELETED
+		| Ggit.SubmoduleStatus.WD_MODIFIED;
+
+	private static Ggit.SubmoduleStatus s_untracked_flags =
+		  Ggit.SubmoduleStatus.IN_WD;
+
+	private static Ggit.SubmoduleStatus s_tracked_flags =
+		  Ggit.SubmoduleStatus.IN_HEAD
+		| Ggit.SubmoduleStatus.IN_INDEX;
+
+	private static Ggit.SubmoduleStatus s_dirty_flags =
+		  Ggit.SubmoduleStatus.WD_INDEX_MODIFIED
+		| Ggit.SubmoduleStatus.WD_WD_MODIFIED;
+
+	public StageStatusSubmodule(Ggit.Submodule submodule)
+	{
+		d_submodule = submodule;
+
+		d_path = submodule.get_path();
+
+		try
+		{
+			d_flags = submodule.get_status();
+		} catch {}
+	}
+
+	public Ggit.Submodule submodule
+	{
+		get { return d_submodule; }
+	}
+
+	public string path
+	{
+		owned get { return d_path; }
+	}
+
+	public bool is_staged
+	{
+		get { return (d_flags & s_index_flags) != 0; }
+	}
+
+	public bool is_unstaged
+	{
+		get { return (d_flags & s_work_flags) != 0; }
+	}
+
+	public bool is_untracked
+	{
+		get
+		{
+			return    (d_flags & s_untracked_flags) != 0
+			       && (d_flags & s_tracked_flags) == 0;
+		}
+	}
+
+	public bool is_dirty
+	{
+		get { return (d_flags & s_dirty_flags) != 0; }
+	}
+
+	public Ggit.SubmoduleStatus flags
+	{
+		get { return d_flags; }
+	}
+
+	public string? icon_name {
+		owned get { return "folder-remote-symbolic"; }
 	}
 }
 
@@ -46,7 +199,7 @@ public class StageStatusEnumerator : Object
 {
 	private Repository d_repository;
 	private Thread<void *> d_thread;
-	private StageStatusFile[] d_files;
+	private StageStatusItem[] d_items;
 	private int d_offset;
 	private int d_callback_num;
 	private Cancellable d_cancellable;
@@ -59,8 +212,8 @@ public class StageStatusEnumerator : Object
 		d_repository = repository;
 		d_options = options;
 
-		d_files = new StageStatusFile[100];
-		d_files.length = 0;
+		d_items = new StageStatusItem[100];
+		d_items.length = 0;
 		d_cancellable = new Cancellable();
 
 		try
@@ -71,7 +224,7 @@ public class StageStatusEnumerator : Object
 
 	public void cancel()
 	{
-		lock (d_files)
+		lock (d_items)
 		{
 			if (d_cancellable != null)
 			{
@@ -86,34 +239,45 @@ public class StageStatusEnumerator : Object
 		}
 	}
 
+	private delegate void AddItem(StageStatusItem item);
+
 	private void *run_status()
 	{
+		AddItem add = (item) => {
+			lock (d_items)
+			{
+				d_items += item;
+
+				if (d_callback != null && d_callback_num != -1 && d_items.length >= d_callback_num)
+				{
+					var cb = (owned)d_callback;
+					d_callback = null;
+
+					Idle.add((owned)cb);
+				}
+			}
+		};
+
 		try
 		{
 			d_repository.file_status_foreach(d_options, (path, flags) => {
-				lock (d_files)
-				{
-					d_files += new StageStatusFile(path, flags);
+				add(new StageStatusFile(path, flags));
 
-					if (d_callback != null && d_callback_num != -1 && d_files.length >= d_callback_num)
-					{
-						var cb = (owned)d_callback;
-						d_callback = null;
-
-						Idle.add((owned)cb);
-					}
-				}
-
-				if (d_cancellable.is_cancelled())
-				{
-					return 1;
-				}
-
-				return 0;
+				return d_cancellable.is_cancelled() ? 1 : 0;
 			});
 		} catch {}
 
-		lock (d_files)
+		try
+		{
+			d_repository.submodule_foreach((submodule) => {
+				submodule.set_ignore(Ggit.SubmoduleIgnore.UNTRACKED);
+				add(new StageStatusSubmodule(submodule));
+
+				return d_cancellable.is_cancelled() ? 1 : 0;
+			});
+		} catch {}
+
+		lock (d_items)
 		{
 			d_cancellable = null;
 
@@ -129,27 +293,27 @@ public class StageStatusEnumerator : Object
 		return null;
 	}
 
-	private StageStatusFile[] fill_files(int num)
+	private StageStatusItem[] fill_items(int num)
 	{
 		int n = 0;
 
 		if (num == -1)
 		{
-			num = d_files.length - d_offset;
+			num = d_items.length - d_offset;
 		}
 
-		StageStatusFile[] ret = new StageStatusFile[int.min(num, d_files.length - d_offset)];
+		StageStatusItem[] ret = new StageStatusItem[int.min(num, d_items.length - d_offset)];
 		ret.length = 0;
 
-		// d_files is already locked here, so it's safe to access
-		while (d_offset < d_files.length)
+		// d_items is already locked here, so it's safe to access
+		while (d_offset < d_items.length)
 		{
 			if (n == num)
 			{
 				break;
 			}
 
-			ret += d_files[d_offset];
+			ret += d_items[d_offset];
 			d_offset++;
 
 			++n;
@@ -158,17 +322,17 @@ public class StageStatusEnumerator : Object
 		return ret;
 	}
 
-	public async StageStatusFile[] next_files(int num)
+	public async StageStatusItem[] next_items(int num)
 	{
-		SourceFunc callback = next_files.callback;
-		StageStatusFile[] ret;
+		SourceFunc callback = next_items.callback;
+		StageStatusItem[] ret;
 
-		lock (d_files)
+		lock (d_items)
 		{
 			if (d_cancellable == null)
 			{
 				// Already finished
-				return fill_files(num);
+				return fill_items(num);
 			}
 			else
 			{
@@ -179,9 +343,9 @@ public class StageStatusEnumerator : Object
 
 		yield;
 
-		lock (d_files)
+		lock (d_items)
 		{
-			ret = fill_files(num);
+			ret = fill_items(num);
 		}
 
 		if (ret.length != num)
