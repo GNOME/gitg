@@ -64,6 +64,8 @@ public interface Application : Object
 	public abstract bool busy { get; set; }
 
 	public abstract Gee.Map<string, string> environment { owned get; }
+
+	public abstract Application open_new(Ggit.Repository repository, string? hint = null);
 }
 
 }

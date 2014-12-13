@@ -337,6 +337,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
+	public GitgExt.Application open_new(Ggit.Repository repository, string? hint = null)
+	{
+		var window = Window.create_new(application, (Gitg.Repository)repository, hint);
+		window.present();
+
+		return window;
+	}
+
 	private void repository_changed()
 	{
 		if (d_repository != null)
