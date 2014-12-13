@@ -29,6 +29,9 @@ class Paned : Gtk.Paned
 	[GtkChild (name = "diff_view")]
 	private Gitg.DiffView d_diff_view;
 
+	[GtkChild (name = "submodule_history_view")]
+	private SubmoduleHistoryView d_submodule_history_view;
+
 	[GtkChild (name = "submodule_diff_view")]
 	private SubmoduleDiffView d_submodule_diff_view;
 
@@ -52,6 +55,11 @@ class Paned : Gtk.Paned
 	public Gitg.DiffView diff_view
 	{
 		get { return d_diff_view; }
+	}
+
+	public SubmoduleHistoryView submodule_history_view
+	{
+		get { return d_submodule_history_view; }
 	}
 
 	public SubmoduleDiffView submodule_diff_view

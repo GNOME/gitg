@@ -49,6 +49,12 @@
           </object>
         </child>
         <child>
+          <object class="GitgCommitSubmoduleHistoryView" id="submodule_history_view">
+            <property name="visible">False</property>
+            <property name="can_focus">False</property>
+          </object>
+        </child>
+        <child>
           <object class="GitgCommitSubmoduleDiffView" id="submodule_diff_view">
             <property name="visible">False</property>
             <property name="can_focus">False</property>
@@ -57,11 +63,6 @@
             <property name="margin_top">12</property>
             <property name="margin_bottom">12</property>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
         <child>
           <object class="GtkFrame" id="frame_commit">

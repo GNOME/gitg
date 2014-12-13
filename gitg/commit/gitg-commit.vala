@@ -27,6 +27,19 @@ namespace GitgCommit
 		private bool d_reloading;
 		private bool d_has_staged;
 
+		private enum UiType
+		{
+			DIFF,
+			SUBMODULE_HISTORY,
+			SUBMODULE_DIFF
+		}
+
+		private enum IndexType
+		{
+			STAGED,
+			UNSTAGED
+		}
+
 		public GitgExt.Application? application { owned get; construct set; }
 
 		public Activity(GitgExt.Application application)
@@ -91,11 +104,21 @@ namespace GitgCommit
 
 		private delegate void UpdateDiffCallback();
 		private UpdateDiffCallback? d_update_diff_callback;
+		private bool d_submodule_history_select_first;
+		private Ggit.Submodule? d_current_submodule;
+		private Gitg.Repository? d_current_submodule_repository;
 
 		private void show_unstaged_diff(Gitg.StageStatusItem[] items)
 		{
-			show_submodule_ui(false);
-			show_unstaged_diff_intern(application.repository, d_main.diff_view, items, true);
+			if (items.length == 1 && items[0] is Gitg.StageStatusSubmodule)
+			{
+				show_submodule_history((Gitg.StageStatusSubmodule)items[0], IndexType.UNSTAGED);
+			}
+			else
+			{
+				show_ui(UiType.DIFF);
+				show_unstaged_diff_intern(application.repository, d_main.diff_view, items, true);
+			}
 		}
 
 		private void show_unstaged_diff_intern(Gitg.Repository         repository,
@@ -179,22 +202,39 @@ namespace GitgCommit
 			reload();
 		}
 
-		private void show_submodule_ui(bool show)
+		private void show_ui(UiType type)
 		{
-			d_main.submodule_diff_view.set_visible(show);
-			d_main.diff_view.set_visible(!show);
+			d_main.submodule_history_view.set_visible(type == UiType.SUBMODULE_HISTORY);
+			d_main.submodule_diff_view.set_visible(type == UiType.SUBMODULE_DIFF);
+			d_main.diff_view.set_visible(type == UiType.DIFF);
 
-			if (show)
+			if (type != UiType.DIFF)
 			{
 				d_main.diff_view.diff = null;
 			}
-			else
+
+			if (type != UiType.SUBMODULE_DIFF)
 			{
 				var view = d_main.submodule_diff_view;
 
 				view.info.submodule = null;
 				view.diff_view_staged.diff = null;
 				view.diff_view_unstaged.diff = null;
+			}
+
+			if (type != UiType.SUBMODULE_HISTORY)
+			{
+				var view = d_main.submodule_history_view;
+				var model = ((Gitg.CommitModel)view.commit_list_view.model);
+
+				if (model != null)
+				{
+					model.repository = null;
+				}
+
+				view.diff_view.diff = null;
+				d_current_submodule = null;
+				d_current_submodule_repository = null;
 			}
 		}
 
@@ -207,7 +247,7 @@ namespace GitgCommit
 
 		private void show_submodule_diff(Gitg.StageStatusSubmodule sub)
 		{
-			show_submodule_ui(true);
+			show_ui(UiType.SUBMODULE_DIFF);
 
 			var view = d_main.submodule_diff_view;
 
@@ -229,6 +269,110 @@ namespace GitgCommit
 
 			show_staged_diff_intern(repo, view.diff_view_staged, null, false);
 			show_unstaged_diff_intern(repo, view.diff_view_unstaged, null, false);
+		}
+
+		private void submodule_history_selection_changed(Gitg.Commit? commit)
+		{
+			var view = d_main.submodule_history_view;
+
+			if (commit == null)
+			{
+				view.diff_view.diff = null;
+				return;
+			}
+
+			if (d_current_submodule_repository == null)
+			{
+				return;
+			}
+
+			var repo = d_current_submodule_repository;
+
+			var commit_tree = commit.get_tree();
+
+			var head = d_current_submodule.get_head_id();
+			Ggit.Commit head_commit;
+
+			try
+			{
+				head_commit = repo.lookup<Gitg.Commit>(head);
+			}
+			catch (Error e)
+			{
+				// TODO: show error to user
+				stderr.printf("Failed to get head commit: %s\n", e.message);
+				return;
+			}
+
+			var head_tree = head_commit.get_tree();
+
+			Ggit.Diff diff;
+
+			try
+			{
+				diff = new Ggit.Diff.tree_to_tree(repo, head_tree, commit_tree, view.diff_view.options);
+			}
+			catch (Error e)
+			{
+				// TODO: show error to user
+				stderr.printf("Failed to get diff: %s\n", e.message);
+				return;
+			}
+
+			view.diff_view.diff = diff;
+		}
+
+		private void show_submodule_history(Gitg.StageStatusSubmodule sub,
+		                                    IndexType                 type)
+		{
+			show_ui(UiType.SUBMODULE_HISTORY);
+
+			d_current_submodule = null;
+			d_current_submodule_repository = null;
+
+			Gitg.Repository repo;
+			var submodule = sub.submodule;
+
+			try
+			{
+				repo = submodule.open() as Gitg.Repository;
+			}
+			catch (Error e)
+			{
+				// TODO: show to user
+				stderr.printf("Failed to open submodule repository: %s\n", e.message);
+				return;
+			}
+
+			d_current_submodule = submodule;
+			d_current_submodule_repository = repo;
+
+			var view = d_main.submodule_history_view;
+			var model = (Gitg.CommitModel)view.commit_list_view.model;
+
+			if (model == null)
+			{
+				model = new Gitg.CommitModel(repo);
+				view.commit_list_view.model = model;
+			}
+			else
+			{
+				model.repository = repo;
+			}
+
+			if (type == IndexType.STAGED)
+			{
+				model.set_include(new Ggit.OId[] { submodule.get_index_id() });
+				model.set_exclude(new Ggit.OId[] { submodule.get_head_id() });
+			}
+			else
+			{
+				model.set_include(new Ggit.OId[] { submodule.get_workdir_id() });
+				model.set_exclude(new Ggit.OId[] { submodule.get_index_id() });
+			}
+
+			d_submodule_history_select_first = true;
+			model.reload();
 		}
 
 		private void show_staged_diff_intern(Gitg.Repository         repository,
@@ -266,8 +410,15 @@ namespace GitgCommit
 
 		private void show_staged_diff(Gitg.StageStatusItem[] items)
 		{
-			show_submodule_ui(false);
-			show_staged_diff_intern(application.repository, d_main.diff_view, items, true);
+			if (items.length == 1 && items[0] is Gitg.StageStatusSubmodule)
+			{
+				show_submodule_history((Gitg.StageStatusSubmodule)items[0], IndexType.STAGED);
+			}
+			else
+			{
+				show_ui(UiType.DIFF);
+				show_staged_diff_intern(application.repository, d_main.diff_view, items, true);
+			}
 		}
 
 		private async void unstage_items(owned Gitg.StageStatusItem[] items)
@@ -1183,7 +1334,7 @@ namespace GitgCommit
 
 			if (sitems.length == 0)
 			{
-				show_submodule_ui(false);
+				show_ui(UiType.DIFF);
 				d_main.diff_view.diff = null;
 				return;
 			}
@@ -1291,6 +1442,32 @@ namespace GitgCommit
 			});
 
 			d_main.sidebar.populate_popup.connect(do_populate_menu);
+
+			var view = d_main.submodule_history_view.commit_list_view;
+			var model = new Gitg.CommitModel(null);
+			view.model = model;
+
+			model.row_inserted.connect_after((model, path, iter) => {
+				if (d_submodule_history_select_first)
+				{
+					d_submodule_history_select_first = false;
+					view.get_selection().select_path(path);
+				}
+			});
+
+			view.get_selection().changed.connect((selection) => {
+				Gtk.TreeModel m;
+				Gtk.TreeIter iter;
+
+				if (selection.get_selected(out m, out iter))
+				{
+					submodule_history_selection_changed(model.commit_from_iter(iter));
+				}
+				else
+				{
+					submodule_history_selection_changed(null);
+				}
+			});
 
 			var settings = new Settings("org.gnome.gitg.preferences.commit.diff");
 
