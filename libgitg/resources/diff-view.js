@@ -156,6 +156,11 @@ function write_commit(content, commit)
 	{
 		elems.notes.text(settings.strings.notes);
 		elems.note_message.text(commit.note);
+		elems.notes_container.show();
+	}
+	else
+	{
+		elems.notes_container.hide();
 	}
 
 	// Sha1
