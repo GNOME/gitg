@@ -101,12 +101,15 @@ namespace GitgCommit
 		}
 
 		private delegate void StageUnstageCallback(Sidebar.Item item);
+		private delegate void StageUnstageSubmoduleCommitCallback(Gitg.Commit commit);
 
 		private delegate void UpdateDiffCallback();
 		private UpdateDiffCallback? d_update_diff_callback;
+
 		private bool d_submodule_history_select_first;
-		private Ggit.Submodule? d_current_submodule;
+		private Gitg.StageStatusSubmodule? d_current_submodule;
 		private Gitg.Repository? d_current_submodule_repository;
+		private StageUnstageSubmoduleCommitCallback d_stage_unstage_submodule_commit_callback;
 
 		private void show_unstaged_diff(Gitg.StageStatusItem[] items)
 		{
@@ -154,7 +157,15 @@ namespace GitgCommit
 			};
 		}
 
-		private async bool stage_submodule(Gitg.StageStatusSubmodule sub)
+		private void stage_submodule_at(Gitg.Commit commit)
+		{
+			stage_submodule.begin(d_current_submodule, commit, (obj, res) => {
+				stage_submodule.end(res);
+				reload();
+			});
+		}
+
+		private async bool stage_submodule(Gitg.StageStatusSubmodule sub, Gitg.Commit? commit)
 		{
 			var stage = application.repository.stage;
 
@@ -188,18 +199,19 @@ namespace GitgCommit
 					return false;
 				}
 
-				Ggit.Commit commit;
-
-				try
+				if (commit == null)
 				{
-					commit = repo.lookup<Ggit.Commit>(sub.submodule.get_workdir_id());
-				}
-				catch (Error e)
-				{
-					var msg = _("Failed to lookup the working directory commit of submodule `%s' while trying to stage").printf(sub.path);
-					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+					try
+					{
+						commit = repo.lookup<Gitg.Commit>(sub.submodule.get_workdir_id());
+					}
+					catch (Error e)
+					{
+						var msg = _("Failed to lookup the working directory commit of submodule `%s' while trying to stage").printf(sub.path);
+						application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
 
-					return false;
+						return false;
+					}
 				}
 
 				try
@@ -266,7 +278,7 @@ namespace GitgCommit
 				}
 				else if (item is Gitg.StageStatusSubmodule)
 				{
-					ok = yield stage_submodule((Gitg.StageStatusSubmodule)item);
+					ok = yield stage_submodule((Gitg.StageStatusSubmodule)item, null);
 				}
 				else
 				{
@@ -370,7 +382,7 @@ namespace GitgCommit
 
 			var commit_tree = commit.get_tree();
 
-			var head = d_current_submodule.get_head_id();
+			var head = d_current_submodule.submodule.get_head_id();
 			Ggit.Tree? head_tree = null;
 
 			if (head != null)
@@ -429,7 +441,7 @@ namespace GitgCommit
 				return;
 			}
 
-			d_current_submodule = submodule;
+			d_current_submodule = sub;
 			d_current_submodule_repository = repo;
 
 			var view = d_main.submodule_history_view;
@@ -455,6 +467,10 @@ namespace GitgCommit
 				{
 					model.set_exclude(new Ggit.OId[] { head_id });
 				}
+
+				d_stage_unstage_submodule_commit_callback = (commit) => {
+					unstage_submodule_at(commit);
+				};
 			}
 			else
 			{
@@ -466,6 +482,10 @@ namespace GitgCommit
 				{
 					model.set_exclude(new Ggit.OId[] { index_id });
 				}
+
+				d_stage_unstage_submodule_commit_callback = (commit) => {
+					stage_submodule_at(commit);
+				};
 			}
 
 			d_submodule_history_select_first = true;
@@ -564,6 +584,23 @@ namespace GitgCommit
 			                          (sub.flags & Ggit.SubmoduleStatus.INDEX_ADDED) != 0,
 			                          _("Failed to unstage the removal of submodule `%s'").printf(sub.path),
 			                          _("Failed to unstage the submodule `%s'").printf(sub.path));
+		}
+
+		private void unstage_submodule_at(Gitg.Commit commit)
+		{
+			var parents = commit.get_parents();
+
+			if (parents.size() != 0)
+			{
+				stage_submodule_at(parents[0] as Gitg.Commit);
+			}
+			else
+			{
+				unstage_submodule.begin(d_current_submodule, (obj, res) => {
+					unstage_submodule.end(res);
+					reload();
+				});
+			}
 		}
 
 		private async void unstage_items(owned Gitg.StageStatusItem[] items)
@@ -1607,6 +1644,10 @@ namespace GitgCommit
 				{
 					submodule_history_selection_changed(null);
 				}
+			});
+
+			view.row_activated.connect((view, path, column) => {
+				d_stage_unstage_submodule_commit_callback(model.commit_from_path(path));
 			});
 
 			var settings = new Settings("org.gnome.gitg.preferences.commit.diff");
