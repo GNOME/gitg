@@ -351,6 +351,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			// set title
 			File? workdir = d_repository.get_workdir();
+			string name;
 
 			if (workdir != null)
 			{
@@ -362,11 +363,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 					parent_path = parent_path.replace(Environment.get_home_dir(), "~");
 				}
 
-				title = @"$(d_repository.name) ($parent_path) - gitg";
+				name = @"$(d_repository.name) ($parent_path)";
+
+				title = @"$name - gitg";
 				d_infobar.hide();
 			}
+			else
+			{
+				name = d_repository.name;
+			}
 
-			d_header_bar.set_title(d_repository.name);
+			d_header_bar.set_title(name);
 
 			string? head_name = null;
 
