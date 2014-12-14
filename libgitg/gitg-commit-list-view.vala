@@ -31,6 +31,39 @@ namespace Gitg
 			this(new CommitModel(repository));
 		}
 
+		public Gtk.CellRenderer? find_cell_at_pos(Gtk.TreeViewColumn column,
+		                                          Gtk.TreePath       path,
+		                                          int                x,
+		                                          out int            width)
+		{
+			Gtk.TreeIter iter;
+
+			model.get_iter(out iter, path);
+			column.cell_set_cell_data(model, iter, false, false);
+
+			var cells = column.get_cells();
+
+			foreach (var cell in cells)
+			{
+				int start;
+				int cellw;
+
+				if (!column.cell_get_position(cell, out start, out cellw))
+				{
+					continue;
+				}
+
+				if (x >= start && x <= start + cellw)
+				{
+					width = cellw;
+					return cell;
+				}
+			}
+
+			width = 0;
+			return null;
+		}
+
 		private void lanes_data_func(Gtk.CellLayout   layout,
 		                             Gtk.CellRenderer cell,
 		                             Gtk.TreeModel    model,

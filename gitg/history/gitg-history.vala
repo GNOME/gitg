@@ -372,10 +372,51 @@ namespace GitgHistory
 			              BindingFlags.BIDIRECTIONAL);
 		}
 
+		private Gtk.Menu? popup_on_ref(Gdk.EventButton? event)
+		{
+			int cell_x;
+			int cell_y;
+			int cell_w;
+			Gtk.TreePath path;
+			Gtk.TreeViewColumn column;
+
+			if (!d_main.commit_list_view.get_path_at_pos((int)event.x,
+			                                             (int)event.y,
+			                                             out path,
+			                                             out column,
+			                                             out cell_x,
+			                                             out cell_y))
+			{
+				return null;
+			}
+
+			var cell = d_main.commit_list_view.find_cell_at_pos(column, path, cell_x, out cell_w) as Gitg.CellRendererLanes;
+
+			if (cell == null)
+			{
+				return null;
+			}
+
+			var reference = cell.get_ref_at_pos(d_main.commit_list_view, cell_x, cell_w, null);
+
+			if (reference == null)
+			{
+				return null;
+			}
+
+			return popup_menu_for_ref(reference);
+		}
+
 		private Gtk.Menu? on_commit_list_populate_menu(Gdk.EventButton? event)
 		{
-			selectable_mode = GitgExt.SelectionMode.SELECTION;
-			return null;
+			var ret = popup_on_ref(event);
+
+			if (ret == null)
+			{
+				selectable_mode = GitgExt.SelectionMode.SELECTION;
+			}
+
+			return ret;
 		}
 
 		private void add_ref_action(Gee.LinkedList<GitgExt.RefAction> actions,
@@ -387,23 +428,9 @@ namespace GitgHistory
 			}
 		}
 
-		private Gtk.Menu? on_refs_list_populate_menu(Gdk.EventButton? event)
+		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference)
 		{
-			if (event != null)
-			{
-				var row = d_main.refs_list.get_row_at_y((int)event.y);
-				d_main.refs_list.select_row(row);
-			}
-
 			var actions = new Gee.LinkedList<GitgExt.RefAction>();
-			var references = d_main.refs_list.selection;
-
-			if (references.is_empty || references.first() != references.last())
-			{
-				return null;
-			}
-
-			var reference = references.first();
 
 			var af = new ActionInterface(application, d_main.refs_list);
 
@@ -439,6 +466,24 @@ namespace GitgHistory
 			// To keep actions alive as long as the menu is alive
 			menu.set_data("gitg-ext-actions", actions);
 			return menu;
+		}
+
+		private Gtk.Menu? on_refs_list_populate_menu(Gdk.EventButton? event)
+		{
+			if (event != null)
+			{
+				var row = d_main.refs_list.get_row_at_y((int)event.y);
+				d_main.refs_list.select_row(row);
+			}
+
+			var references = d_main.refs_list.selection;
+
+			if (references.is_empty || references.first() != references.last())
+			{
+				return null;
+			}
+
+			return popup_menu_for_ref(references.first());
 		}
 
 		private void update_walker()

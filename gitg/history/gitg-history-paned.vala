@@ -36,7 +36,7 @@ class Paned : Gitg.AnimatedPaned
 	private RefsList d_refs_list;
 
 	[GtkChild]
-	private Gtk.TreeView d_commit_list_view;
+	private Gitg.CommitListView d_commit_list_view;
 
 	[GtkChild]
 	private Gtk.Stack d_stack_panel;
@@ -198,7 +198,7 @@ class Paned : Gitg.AnimatedPaned
 		get { return d_refs_list; }
 	}
 
-	public Gtk.TreeView commit_list_view
+	public Gitg.CommitListView commit_list_view
 	{
 		get { return d_commit_list_view; }
 	}

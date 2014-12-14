@@ -19,7 +19,7 @@
 
 namespace Gitg
 {
-	class CellRendererLanes : Gtk.CellRendererText
+	public class CellRendererLanes : Gtk.CellRendererText
 	{
 		public Commit? commit { get; set; }
 		public Commit? next_commit { get; set; }
@@ -289,6 +289,26 @@ namespace Gitg
 			}
 
 			base.render(context, widget, narea, ncell_area, flags);
+		}
+
+		public Ref? get_ref_at_pos(Gtk.Widget widget,
+		                           int        x,
+		                           int        cell_w,
+		                           out int    hot_x)
+		{
+			var rtl = (widget.get_style_context().get_state() & Gtk.StateFlags.DIR_RTL) != 0;
+			var offset = (int)(labels.length() * lane_width);
+
+			if (rtl)
+			{
+				x = cell_w - x;
+			}
+
+			return LabelRenderer.get_ref_at_pos(widget,
+			                                    font_desc,
+			                                    labels,
+			                                    x - offset,
+			                                    out hot_x);
 		}
 	}
 }
