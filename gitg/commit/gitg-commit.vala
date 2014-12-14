@@ -154,48 +154,128 @@ namespace GitgCommit
 			};
 		}
 
-		private async void stage_items(owned Gitg.StageStatusItem[] items)
+		private async bool stage_submodule(Gitg.StageStatusSubmodule sub)
 		{
 			var stage = application.repository.stage;
 
+			if ((sub.flags & Ggit.SubmoduleStatus.WD_DELETED) != 0)
+			{
+				try
+				{
+					yield stage.delete_path(sub.path);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to stage the removal of submodule `%s'").printf(sub.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+
+					return false;
+				}
+			}
+			else
+			{
+				Gitg.Repository repo;
+
+				try
+				{
+					repo = sub.submodule.open() as Gitg.Repository;
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to open the repository of submodule `%s' while trying to stage").printf(sub.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+
+					return false;
+				}
+
+				Ggit.Commit commit;
+
+				try
+				{
+					commit = repo.lookup<Ggit.Commit>(sub.submodule.get_workdir_id());
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to lookup the working directory commit of submodule `%s' while trying to stage").printf(sub.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+
+					return false;
+				}
+
+				try
+				{
+					yield stage.stage_commit(sub.path, commit);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to stage the submodule `%s'").printf(sub.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		private async bool stage_file(Gitg.StageStatusFile file)
+		{
+			var stage = application.repository.stage;
+
+			if ((file.flags & Ggit.StatusFlags.WORKING_TREE_DELETED) != 0)
+			{
+				try
+				{
+					yield stage.delete_path(file.path);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to stage the removal of file `%s'").printf(file.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+
+					return false;
+				}
+			}
+			else
+			{
+				try
+				{
+					yield stage.stage_path(file.path);
+				}
+				catch (Error e)
+				{
+					var msg = _("Failed to stage the file `%s'").printf(file.path);
+					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
+
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		private async void stage_items(owned Gitg.StageStatusItem[] items)
+		{
 			foreach (var item in items)
 			{
-				var file = item as Gitg.StageStatusFile;
+				var ok = true;
 
-				if (file != null)
+				if (item is Gitg.StageStatusFile)
 				{
-					if ((file.flags & Ggit.StatusFlags.WORKING_TREE_DELETED) != 0)
-					{
-						try
-						{
-							yield stage.delete_path(file.path);
-						}
-						catch (Error e)
-						{
-							var msg = _("Failed to stage the removal of file `%s'").printf(file.path);
-							application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
-
-							break;
-						}
-					}
-					else
-					{
-						try
-						{
-							yield stage.stage_path(file.path);
-						}
-						catch (Error e)
-						{
-							var msg = _("Failed to stage the file `%s'").printf(file.path);
-							application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
-
-							break;
-						}
-					}
+					ok = yield stage_file((Gitg.StageStatusFile)item);
+				}
+				else if (item is Gitg.StageStatusSubmodule)
+				{
+					ok = yield stage_submodule((Gitg.StageStatusSubmodule)item);
 				}
 				else
 				{
-					// TODO: stage submodule item
+					assert_not_reached();
+				}
+
+				if (!ok)
+				{
+					break;
 				}
 			}
 
@@ -421,48 +501,76 @@ namespace GitgCommit
 			}
 		}
 
-		private async void unstage_items(owned Gitg.StageStatusItem[] items)
+		private async bool unstage_item(Gitg.StageStatusItem item, bool isnew, string removal_msg, string unstage_msg)
 		{
 			var stage = application.repository.stage;
 
+			if (isnew)
+			{
+				try
+				{
+					yield stage.delete_path(item.path);
+				}
+				catch (Error e)
+				{
+					application.show_infobar(removal_msg, e.message, Gtk.MessageType.ERROR);
+					return false;
+				}
+			}
+			else
+			{
+				try
+				{
+					yield stage.unstage_path(item.path);
+				}
+				catch (Error e)
+				{
+					application.show_infobar(unstage_msg, e.message, Gtk.MessageType.ERROR);
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		private async bool unstage_file(Gitg.StageStatusFile file)
+		{
+			return yield unstage_item(file,
+			                          (file.flags & Ggit.StatusFlags.INDEX_NEW) != 0,
+			                          _("Failed to unstage the removal of file `%s'").printf(file.path),
+			                          _("Failed to unstage the file `%s'").printf(file.path));
+		}
+
+		private async bool unstage_submodule(Gitg.StageStatusSubmodule sub)
+		{
+			return yield unstage_item(sub,
+			                          (sub.flags & Ggit.SubmoduleStatus.INDEX_ADDED) != 0,
+			                          _("Failed to unstage the removal of submodule `%s'").printf(sub.path),
+			                          _("Failed to unstage the submodule `%s'").printf(sub.path));
+		}
+
+		private async void unstage_items(owned Gitg.StageStatusItem[] items)
+		{
 			foreach (var item in items)
 			{
-				var file = item as Gitg.StageStatusFile;
+				var ok = true;
 
-				if (file != null)
+				if (item is Gitg.StageStatusFile)
 				{
-					if ((file.flags & Ggit.StatusFlags.INDEX_NEW) != 0)
-					{
-						try
-						{
-							yield stage.delete_path(file.path);
-						}
-						catch (Error e)
-						{
-							var msg = _("Failed to unstage the removal of file `%s'").printf(file.path);
-							application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
-
-							break;
-						}
-					}
-					else
-					{
-						try
-						{
-							yield stage.unstage_path(file.path);
-						}
-						catch (Error e)
-						{
-							var msg = _("Failed to unstage the file `%s'").printf(file.path);
-							application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
-
-							break;
-						}
-					}
+					ok = yield unstage_file((Gitg.StageStatusFile)item);
+				}
+				else if (item is Gitg.StageStatusSubmodule)
+				{
+					ok = yield unstage_submodule((Gitg.StageStatusSubmodule)item);
 				}
 				else
 				{
-					// TODO: submodule?
+					assert_not_reached();
+				}
+
+				if (!ok)
+				{
+					break;
 				}
 			}
 
