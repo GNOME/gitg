@@ -168,7 +168,7 @@ public class StageStatusSubmodule : Object, StageStatusItem
 
 	public bool is_unstaged
 	{
-		get { return (d_flags & s_work_flags) != 0; }
+		get { return !is_untracked && (d_flags & s_work_flags) != 0; }
 	}
 
 	public bool is_untracked
