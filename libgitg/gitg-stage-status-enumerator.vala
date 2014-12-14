@@ -258,10 +258,15 @@ public class StageStatusEnumerator : Object
 			}
 		};
 
+		var submodule_paths = new Gee.HashSet<string>();
+
 		try
 		{
-			d_repository.file_status_foreach(d_options, (path, flags) => {
-				add(new StageStatusFile(path, flags));
+			d_repository.submodule_foreach((submodule) => {
+				submodule.set_ignore(Ggit.SubmoduleIgnore.UNTRACKED);
+				submodule_paths.add(submodule.get_path());
+
+				add(new StageStatusSubmodule(submodule));
 
 				return d_cancellable.is_cancelled() ? 1 : 0;
 			});
@@ -269,9 +274,11 @@ public class StageStatusEnumerator : Object
 
 		try
 		{
-			d_repository.submodule_foreach((submodule) => {
-				submodule.set_ignore(Ggit.SubmoduleIgnore.UNTRACKED);
-				add(new StageStatusSubmodule(submodule));
+			d_repository.file_status_foreach(d_options, (path, flags) => {
+				if (!submodule_paths.contains(path))
+				{
+					add(new StageStatusFile(path, flags));
+				}
 
 				return d_cancellable.is_cancelled() ? 1 : 0;
 			});
