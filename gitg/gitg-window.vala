@@ -345,7 +345,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		return window;
 	}
 
-	private void repository_changed()
+	private void update_title()
 	{
 		if (d_repository != null)
 		{
@@ -366,7 +366,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 				name = @"$(d_repository.name) ($parent_path)";
 
 				title = @"$name - gitg";
-				d_infobar.hide();
 			}
 			else
 			{
@@ -384,9 +383,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			}
 			catch {}
 
-			d_mode = Mode.ACTIVITY;
-
 			d_header_bar.set_subtitle(Markup.escape_text(head_name));
+		}
+		else
+		{
+			title = "gitg";
+
+			d_header_bar.set_title(_("Projects"));
+			d_header_bar.set_subtitle(null);
+		}
+	}
+
+	private void repository_changed()
+	{
+		update_title();
+		d_infobar.hide();
+
+		if (d_repository != null)
+		{
+			d_mode = Mode.ACTIVITY;
 
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
 			d_main_stack.set_visible_child(d_stack_activities);
@@ -397,12 +412,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 		else
 		{
-			title = "gitg";
-
 			d_mode = Mode.DASH;
-
-			d_header_bar.set_title(_("Projects"));
-			d_header_bar.set_subtitle(null);
 
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT;
 			d_main_stack.set_visible_child(d_dash_scrolled_window);
@@ -476,6 +486,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			                                   null);
 
 			notify_property("repository");
+			update_title();
 		}
 		catch {}
 	}
