@@ -435,8 +435,21 @@ public class RefsList : Gtk.ListBox
 
 		if ((head1 == null) != (head2 == null))
 		{
-			// Only one is a header
-			return head1 != null ? -1 : 1;
+			var head = head1 != null ? head1 : head2;
+
+			// One is a header, and the other a normal row
+			if (head.is_sub_header_remote)
+			{
+				// Compare the subheader name
+				var rref = head1 != null ? ref2 : ref1;
+				var cmp = head.ref_name.casefold().collate(rref.reference.parsed_name.remote_name.casefold());
+
+				return head1 != null ? cmp : -cmp;
+			}
+			else
+			{
+				return head1 != null ? -1 : 1;
+			}
 		}
 		else if (head1 != null && head2 != null)
 		{
