@@ -812,13 +812,22 @@ namespace GitgCommit
 				if (hassub)
 				{
 					model.begin_header(_("Submodule"), (uint)Sidebar.Item.Type.SUBMODULE);
-					current_submodules = append_items(model,
-					                                  dirty,
-					                                  Sidebar.Item.Type.SUBMODULE,
-					                                  selected_paths,
-					                                  (item) => {
-					                                  	on_unstaged_activated(new Gitg.StageStatusItem[] {item.item});
-					                                  });
+
+					if (dirty.length == 0)
+					{
+						model.append_dummy(_("No dirty submodules"));
+					}
+					else
+					{
+						current_submodules = append_items(model,
+						                                  dirty,
+						                                  Sidebar.Item.Type.SUBMODULE,
+						                                  selected_paths,
+						                                  (item) => {
+						                                  	on_unstaged_activated(new Gitg.StageStatusItem[] {item.item});
+					  	                                });
+					}
+
 					model.end_header();
 				}
 
