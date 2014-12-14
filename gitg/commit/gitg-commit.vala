@@ -467,6 +467,10 @@ namespace GitgCommit
 				{
 					model.set_exclude(new Ggit.OId[] { head_id });
 				}
+				else
+				{
+					model.set_exclude(new Ggit.OId[0]);
+				}
 
 				d_stage_unstage_submodule_commit_callback = (commit) => {
 					unstage_submodule_at(commit);
@@ -481,6 +485,10 @@ namespace GitgCommit
 				if (index_id != null)
 				{
 					model.set_exclude(new Ggit.OId[] { index_id });
+				}
+				else
+				{
+					model.set_exclude(new Ggit.OId[0]);
 				}
 
 				d_stage_unstage_submodule_commit_callback = (commit) => {
