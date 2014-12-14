@@ -32,6 +32,19 @@ class SubmoduleDiffView : Gtk.Box
   [GtkChild (name = "diff_view_unstaged")]
   private Gitg.DiffView d_diff_view_unstaged;
 
+  [GtkChild (name = "box_diffs")]
+  private Gtk.Box d_box_diffs;
+
+  construct
+  {
+    var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
+
+    interface_settings.bind("orientation",
+                            d_box_diffs,
+                            "orientation",
+                            SettingsBindFlags.GET);
+  }
+
   public SubmoduleInfo info
   {
     get { return d_info; }
