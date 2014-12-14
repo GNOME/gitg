@@ -133,7 +133,7 @@ public class Commit : Ggit.Commit
 			{
 				for (var i = 0; i < parents.size; ++i)
 				{
-					var parent = parents.get(0);
+					var parent = parents[i];
 
 					if (i == 0)
 					{
