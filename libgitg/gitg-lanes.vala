@@ -158,7 +158,7 @@ public class Lanes : Object
 		init_next_layer();
 		var mylane = d_lanes[pos];
 
-		for (uint i = 0; i < parents.size(); ++i)
+		for (uint i = 0; i < parents.size; ++i)
 		{
 			int lnpos;
 			var poid = parents.get_id(i);
@@ -439,7 +439,7 @@ public class Lanes : Object
 
 		var parents = commit.get_parents();
 
-		for (uint i = 0; i < parents.size(); ++i)
+		for (uint i = 0; i < parents.size; ++i)
 		{
 			expand_lane_from_oid(parents.get_id(i));
 		}

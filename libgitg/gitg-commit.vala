@@ -122,7 +122,7 @@ public class Commit : Ggit.Commit
 			var parents = get_parents();
 
 			// Create a new diff from the parents to the commit tree
-			if (parents.size() == 0)
+			if (parents.size == 0)
 			{
 				diff = new Ggit.Diff.tree_to_tree(repo,
 				                                  null,
@@ -131,7 +131,7 @@ public class Commit : Ggit.Commit
 			}
 			else
 			{
-				for (var i = 0; i < parents.size(); ++i)
+				for (var i = 0; i < parents.size; ++i)
 				{
 					var parent = parents.get(0);
 

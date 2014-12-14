@@ -598,7 +598,7 @@ namespace GitgCommit
 		{
 			var parents = commit.get_parents();
 
-			if (parents.size() != 0)
+			if (parents.size != 0)
 			{
 				stage_submodule_at(parents[0] as Gitg.Commit);
 			}
