@@ -609,7 +609,13 @@ namespace GitgCommit
 		{
 			var ret = new Sidebar.Item[0];
 
-			foreach (var item in items)
+			var sorted = new Gee.ArrayList<Gitg.StageStatusItem>.wrap(items);
+
+			sorted.sort((a, b) => {
+				return a.path.casefold().collate(b.path.casefold());
+			});
+
+			foreach (var item in sorted)
 			{
 				var sitem = new Sidebar.Item(item, type);
 
