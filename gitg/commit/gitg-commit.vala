@@ -371,20 +371,25 @@ namespace GitgCommit
 			var commit_tree = commit.get_tree();
 
 			var head = d_current_submodule.get_head_id();
-			Ggit.Commit head_commit;
+			Ggit.Tree? head_tree = null;
 
-			try
+			if (head != null)
 			{
-				head_commit = repo.lookup<Gitg.Commit>(head);
-			}
-			catch (Error e)
-			{
-				// TODO: show error to user
-				stderr.printf("Failed to get head commit: %s\n", e.message);
-				return;
-			}
+				Ggit.Commit head_commit;
 
-			var head_tree = head_commit.get_tree();
+				try
+				{
+					head_commit = repo.lookup<Gitg.Commit>(head);
+				}
+				catch (Error e)
+				{
+					// TODO: show error to user
+					stderr.printf("Failed to get head commit: %s\n", e.message);
+					return;
+				}
+
+				head_tree = head_commit.get_tree();
+			}
 
 			Ggit.Diff diff;
 
@@ -443,12 +448,24 @@ namespace GitgCommit
 			if (type == IndexType.STAGED)
 			{
 				model.set_include(new Ggit.OId[] { submodule.get_index_id() });
-				model.set_exclude(new Ggit.OId[] { submodule.get_head_id() });
+
+				var head_id = submodule.get_head_id();
+
+				if (head_id != null)
+				{
+					model.set_exclude(new Ggit.OId[] { head_id });
+				}
 			}
 			else
 			{
+				var index_id = submodule.get_index_id();
+
 				model.set_include(new Ggit.OId[] { submodule.get_workdir_id() });
-				model.set_exclude(new Ggit.OId[] { submodule.get_index_id() });
+
+				if (index_id != null)
+				{
+					model.set_exclude(new Ggit.OId[] { index_id });
+				}
 			}
 
 			d_submodule_history_select_first = true;
