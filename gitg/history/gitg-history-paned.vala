@@ -234,7 +234,7 @@ class Paned : Gitg.AnimatedPaned
 		d_stack_switcher_panels.get_allocation(out alloc);
 
 		var y = alloc.y - d_box_sidebar.spacing;
-		var hw = handlewin.get_width();
+		var hw = 1;
 		var w = position + hw;
 		var h = alloc.height + d_box_sidebar.spacing + d_stack_switcher_panels.margin_bottom;
 
