@@ -37,6 +37,7 @@ namespace GitgDiff
 			d_sw.show();
 
 			d_diff = new Gitg.DiffView();
+			d_diff.show_parents = true;
 
 			var settings = new Settings("org.gnome.gitg.preferences.diff");
 
@@ -72,6 +73,22 @@ namespace GitgDiff
 
 			history.selection_changed.connect(on_selection_changed);
 			on_selection_changed(history);
+
+			d_diff.request_select_commit.connect((id) => {
+				Gitg.Commit commit;
+
+				try
+				{
+					commit = application.repository.lookup<Gitg.Commit>(new Ggit.OId.from_string(id));
+				}
+				catch (Error e)
+				{
+					stderr.printf("Failed to lookup commit '%s': %s\n", id, e.message);
+					return;
+				}
+
+				history.select(commit);
+			});
 		}
 
 		public string id

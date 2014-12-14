@@ -21,11 +21,13 @@ var settings = {
 	debug: false,
 	staged: false,
 	unstaged: false,
+	show_parents: false,
 	strings: {
 		stage: 'stage',
 		unstage: 'unstage',
 		loading_diff: 'Loading diff...',
-		notes: 'Notes:'
+		notes: 'Notes:',
+		parents: 'Parents:'
 	},
 };
 
@@ -161,6 +163,41 @@ function write_commit(content, commit)
 	else
 	{
 		elems.notes_container.hide();
+	}
+
+	if (commit.parents.length > 1 && settings.show_parents)
+	{
+		var d = $('<div/>');
+
+		d.append($('<div/>', {'class': 'title'}).text(settings.strings.parents));
+
+		var ul = $('<ul/>');
+
+		for (var i = 0; i < commit.parents.length; i++)
+		{
+			var parent = commit.parents[i];
+			var li = $('<li/>');
+
+			var a = $('<a/>', {'href': '#'}).text(parent.id.slice(0, 6) + ': ' + parent.subject);
+			a.on('click', (function(id, e) {
+
+				xhr_get('internal', {'action': 'load-parent', 'value': id});
+				e.preventDefault();
+				e.stopPropagation();
+			}).bind(this, parent.id));
+
+			li.append(a);
+			ul.append(li);
+		}
+
+		d.append(ul);
+
+		elems.parents.html(d);
+		elems.parents.show();
+	}
+	else
+	{
+		elems.parents.hide();
 	}
 
 	// Sha1

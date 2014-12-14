@@ -94,6 +94,24 @@ namespace GitgHistory
 			});
 		}
 
+		public void select(Gitg.Commit commit)
+		{
+			var model = (Gitg.CommitModel)d_main.commit_list_view.model;
+			var path = model.path_from_commit(commit);
+
+			if (path != null)
+			{
+				var sel = d_main.commit_list_view.get_selection();
+				sel.select_path(path);
+
+				d_main.commit_list_view.scroll_to_cell(path, null, true, 0.5f, 0);
+			}
+			else
+			{
+				stderr.printf("Failed to lookup tree path for commit '%s'\n", commit.get_id().to_string());
+			}
+		}
+
 		construct
 		{
 			d_settings = new Settings("org.gnome.gitg.preferences.history");

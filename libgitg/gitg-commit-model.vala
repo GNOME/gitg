@@ -72,6 +72,7 @@ namespace Gitg
 		private uint d_idleid;
 		private Lanes d_lanes;
 		private Ggit.SortMode d_sortmode;
+		private Gee.HashMap<Ggit.OId, int> d_id_hash;
 
 		private Ggit.OId[] d_include;
 		private Ggit.OId[] d_exclude;
@@ -148,6 +149,8 @@ namespace Gitg
 
 			d_ids = new Commit[0];
 			d_advertized_size = 0;
+
+			d_id_hash = new Gee.HashMap<Ggit.OId, int>();
 
 			emit_started();
 			finished();
@@ -301,6 +304,11 @@ namespace Gitg
 
 				Timer timer = new Timer();
 
+				lock(d_id_hash)
+				{
+					d_id_hash = new Gee.HashMap<Ggit.OId, int>((i) => { return i.hash(); }, (a, b) => { return a.equal(b); });
+				}
+
 				while (true)
 				{
 					Ggit.OId? id;
@@ -322,6 +330,11 @@ namespace Gitg
 
 						commit = d_repository.lookup<Commit>(id);
 					} catch { break; }
+
+					lock(d_id_hash)
+					{
+						d_id_hash.set(id, d_ids.length);
+					}
 
 					// Add the id
 					if (d_ids.length == size)
@@ -536,6 +549,21 @@ namespace Gitg
 			uint idx = (uint)(ulong)iter.user_data;
 
 			return this[idx];
+		}
+
+		public Gtk.TreePath? path_from_commit(Commit commit)
+		{
+			lock(d_id_hash)
+			{
+				var id = commit.get_id();
+
+				if (!d_id_hash.has_key(id))
+				{
+					return null;
+				}
+
+				return new Gtk.TreePath.from_indices(d_id_hash.get(commit.get_id()));
+			}
 		}
 
 		public Commit? commit_from_path(Gtk.TreePath path)

@@ -240,6 +240,24 @@ namespace Gitg
 				builder.add_string_value(note.get_message());
 			}
 
+			builder.set_member_name("parents");
+			builder.begin_array();
+
+			foreach (var parent in commit.get_parents())
+			{
+				builder.begin_object();
+
+				builder.set_member_name("id");
+				builder.add_string_value(parent.get_id().to_string());
+
+				builder.set_member_name("subject");
+				builder.add_string_value(parent.get_subject());
+
+				builder.end_object();
+			}
+
+			builder.end_array();
+
 			builder.end_object();
 		}
 

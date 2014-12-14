@@ -39,6 +39,9 @@ namespace Gitg
 						case "loaded":
 							d_view.loaded();
 							break;
+						case "load-parent":
+							d_view.load_parent(parameter("value"));
+							break;
 					}
 
 					return false;
@@ -47,6 +50,8 @@ namespace Gitg
 				return null;
 			}
 		}
+
+		public signal void request_select_commit(string id);
 
 		private Ggit.Diff? d_diff;
 		private Commit? d_commit;
@@ -118,6 +123,7 @@ namespace Gitg
 		public bool wrap { get; set; default = true; }
 		public bool staged { get; set; default = false; }
 		public bool unstaged { get; set; default = false; }
+		public bool show_parents { get; set; default = false; }
 
 		int d_tab_width;
 
@@ -223,6 +229,7 @@ namespace Gitg
 			o.set_boolean_member("unstaged", unstaged);
 			o.set_boolean_member("debug", Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null);
 			o.set_boolean_member("changes_inline", changes_inline);
+			o.set_boolean_member("show_parents", show_parents);
 
 			var strings = new Json.Object();
 
@@ -230,6 +237,7 @@ namespace Gitg
 			strings.set_string_member("unstage", _("unstage"));
 			strings.set_string_member("loading_diff", _("Loading diff…"));
 			strings.set_string_member("notes", _("Notes:"));
+			strings.set_string_member("parents", _("Parents:"));
 
 			o.set_object_member("strings", strings);
 
@@ -525,6 +533,11 @@ namespace Gitg
 				d_has_selection = hs;
 				notify_property("has-selection");
 			}
+		}
+
+		public void load_parent(string id)
+		{
+			request_select_commit(id);
 		}
 
 		private PatchSet parse_patchset(Json.Node node)
