@@ -701,6 +701,26 @@ public class Stage : Object
 		yield stage(d_repository.get_workdir().resolve_relative_path(path));
 	}
 
+	/**
+	 * Stage a commit to the index.
+	 *
+	 * @param path path relative to the working directory.
+	 * @param id the id of the commit object to stage at the given path.
+	 *
+	 * Stage a commit to the index with a relative path. This will record the
+	 * given commit id for file pointed to at path in the index.
+	 */
+	public async void stage_commit(string path, Ggit.Commit commit) throws Error
+	{
+		yield thread_index((index) => {
+			var entry = d_repository.create_index_entry_for_path(path, commit.get_id());
+			entry.set_commit(commit);
+
+			index.add(entry);
+			index.write();
+		});
+	}
+
 	private void copy_stream(OutputStream dest, InputStream src, ref size_t pos, size_t index, size_t length) throws Error
 	{
 		if (length == 0)
