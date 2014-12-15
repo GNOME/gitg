@@ -126,6 +126,7 @@ public class Application : Gtk.Application
 		}
 		catch (Error e)
 		{
+			stderr.printf("Failed to parse options: %s\n", e.message);
 			exit_status = 1;
 			return true;
 		}
