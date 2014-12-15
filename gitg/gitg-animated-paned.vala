@@ -116,8 +116,8 @@ public class AnimatedPaned : Gtk.Paned
 		});
 	}
 
-	public async void slide_async(SlidePanedChild child,
-	                              SlideDirection  direction)
+	private async void slide_async(SlidePanedChild child,
+	                               SlideDirection  direction)
 	{
 		if (d_tick_id == 0)
 		{
