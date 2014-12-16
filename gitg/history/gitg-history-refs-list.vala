@@ -692,6 +692,15 @@ public class RefsList : Gtk.ListBox
 
 		try
 		{
+			if (d_repository.is_head_detached())
+			{
+				head = add_ref_internal(d_repository.lookup_reference("HEAD"));
+			}
+		}
+		catch {}
+
+		try
+		{
 			d_repository.references_foreach_name((nm) => {
 				Gitg.Ref? r;
 

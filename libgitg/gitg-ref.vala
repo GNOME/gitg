@@ -112,6 +112,11 @@ public class ParsedRefName : Object
 		d_shortname = name;
 		d_prefix = null;
 
+		if (d_name == "HEAD")
+		{
+			rtype = RefType.BRANCH;
+		}
+
 		for (var i = 0; i < prefixes.length; ++i)
 		{
 			if (!d_name.has_prefix(prefixes[i]))
