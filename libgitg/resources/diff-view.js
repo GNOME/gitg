@@ -27,7 +27,8 @@ var settings = {
 		unstage: 'unstage',
 		loading_diff: 'Loading diff...',
 		notes: 'Notes:',
-		parents: 'Parents:'
+		parents: 'Parents:',
+		diff_against: 'Diff against:'
 	},
 };
 
@@ -163,6 +164,33 @@ function write_commit(content, commit)
 	else
 	{
 		elems.notes_container.hide();
+	}
+
+	if (commit.parents.length > 1)
+	{
+		var span = $('<span/>').text(settings.strings.diff_against);
+		var chooser = $('<select/>');
+
+		for (var i = 0; i < commit.parents.length; i++)
+		{
+			var parent = commit.parents[i];
+			var elem = $('<option/>', {
+				value: parent.id
+			}).text(parent.id.slice(0, 6));
+
+			if (parent.id === settings.parent)
+			{
+				elem.attr('selected', 'selected');
+			}
+
+			chooser.append(elem);
+		}
+
+		chooser.on('change', function() {
+			xhr_get('internal', {'action': 'select-parent', 'value': chooser.val()});
+		});
+
+		elems.parent_chooser.html([span, chooser]);
 	}
 
 	if (commit.parents.length > 1 && settings.show_parents)

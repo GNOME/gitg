@@ -42,6 +42,9 @@ namespace Gitg
 						case "load-parent":
 							d_view.load_parent(parameter("value"));
 							break;
+						case "select-parent":
+							d_view.select_parent(parameter("value"));
+							break;
 					}
 
 					return false;
@@ -58,6 +61,7 @@ namespace Gitg
 		private Settings? d_fontsettings;
 		private bool d_has_selection;
 		private Ggit.DiffOptions? d_options;
+		private string? d_parent;
 
 		private static Gee.HashMap<string, DiffView> s_diff_map;
 		private static uint64 s_diff_id;
@@ -103,6 +107,7 @@ namespace Gitg
 			{
 				d_diff = value;
 				d_commit = null;
+				d_parent = null;
 
 				update();
 			}
@@ -113,8 +118,12 @@ namespace Gitg
 			get { return d_commit; }
 			set
 			{
-				d_commit = value;
-				d_diff = null;
+				if (d_commit != value)
+				{
+					d_commit = value;
+					d_diff = null;
+					d_parent = null;
+				}
 
 				update();
 			}
@@ -230,6 +239,7 @@ namespace Gitg
 			o.set_boolean_member("debug", Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null);
 			o.set_boolean_member("changes_inline", changes_inline);
 			o.set_boolean_member("show_parents", show_parents);
+			o.set_string_member("parent", d_parent);
 
 			var strings = new Json.Object();
 
@@ -238,6 +248,7 @@ namespace Gitg
 			strings.set_string_member("loading_diff", _("Loading diff…"));
 			strings.set_string_member("notes", _("Notes:"));
 			strings.set_string_member("parents", _("Parents:"));
+			strings.set_string_member("diff_against", _("Diff against:"));
 
 			o.set_object_member("strings", strings);
 
@@ -512,7 +523,24 @@ namespace Gitg
 
 			if (d_commit != null)
 			{
-				d_diff = d_commit.get_diff(options);
+				int parent = 0;
+				var parents = d_commit.get_parents();
+
+				if (d_parent != null)
+				{
+					for (var i = 0; i < parents.size; i++)
+					{
+						var id = parents.get_id(i);
+
+						if (id.to_string() == d_parent)
+						{
+							parent = i;
+							break;
+						}
+					}
+				}
+
+				d_diff = d_commit.get_diff(options, parent);
 			}
 
 			if (d_diff != null)
@@ -538,6 +566,12 @@ namespace Gitg
 		public void load_parent(string id)
 		{
 			request_select_commit(id);
+		}
+
+		public void select_parent(string id)
+		{
+			d_parent = id;
+			update();
 		}
 
 		private PatchSet parse_patchset(Json.Node node)

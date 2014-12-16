@@ -107,7 +107,7 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 		opts.n_context_lines = nc;
 		opts.n_interhunk_lines = nc;
 
-		return commit.get_diff(opts);
+		return commit.get_diff(opts, 0);
 	}
 
 	private void create_patch(File file) throws Error
