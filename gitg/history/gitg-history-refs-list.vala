@@ -682,7 +682,7 @@ public class RefsList : Gtk.ListBox
 			return;
 		}
 
-		add_ref_row(null);
+		var all_commits = add_ref_row(null);
 
 		add_header(Gitg.RefType.BRANCH, _("Branches"));
 		add_header(Gitg.RefType.REMOTE, _("Remotes"));
@@ -719,10 +719,20 @@ public class RefsList : Gtk.ListBox
 
 		d_selected_row = null;
 
-		if (get_selected_row() == null && head != null)
+		var sel = get_selected_row();
+
+		if (sel == null)
 		{
-			// Select default
-			select_row(head);
+			if (head != null)
+			{
+				// Select default
+				select_row(head);
+			}
+			else
+			{
+				// Select all
+				select_row(all_commits);
+			}
 		}
 
 		thaw_notify();
