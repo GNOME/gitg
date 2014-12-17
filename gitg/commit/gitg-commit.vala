@@ -1342,6 +1342,26 @@ namespace GitgCommit
 			}
 		}
 
+		private void do_edit_items(Gitg.StageStatusItem[] items)
+		{
+			var screen = d_main.get_screen();
+			var root = application.repository.get_workdir();
+
+			foreach (var item in items)
+			{
+				var file = root.get_child(item.path);
+
+				try
+				{
+					Gtk.show_uri(screen, file.get_uri(), Gdk.CURRENT_TIME);
+				}
+				catch (Error e)
+				{
+					stderr.printf("Failed to launch application for %s: %s\n", item.path, e.message);
+				}
+			}
+		}
+
 		private bool do_discard_items(GitgExt.UserQuery q, Gitg.StageStatusItem[] items)
 		{
 			application.busy = true;
@@ -1461,6 +1481,29 @@ namespace GitgCommit
 
 				discard.activate.connect(() => {
 					on_discard_menu_activated(sitems);
+				});
+			}
+
+			var canedit = true;
+
+			foreach (var item in sitems)
+			{
+				var file = item as Gitg.StageStatusFile;
+
+				if (file == null || (file.flags & Ggit.StatusFlags.WORKING_TREE_DELETED) != 0)
+				{
+					canedit = false;
+					break;
+				}
+			}
+
+			if (canedit)
+			{
+				var edit = new Gtk.MenuItem.with_mnemonic(_("_Edit file"));
+				menu.append(edit);
+
+				edit.activate.connect(() => {
+					do_edit_items(sitems);
 				});
 			}
 		}
@@ -1593,6 +1636,14 @@ namespace GitgCommit
 				{
 					on_discard_menu_activated(sitems);
 				}
+			});
+
+			d_main.sidebar.edit_selection.connect(() => {
+				var sel = d_main.sidebar.get_selected_items<Gitg.SidebarItem>();
+				Sidebar.Item.Type type;
+
+				var sitems = items_for_items(sel, out type);
+				do_edit_items(sitems);
 			});
 
 			d_main.sidebar.selected_items_changed.connect(sidebar_selection_changed);

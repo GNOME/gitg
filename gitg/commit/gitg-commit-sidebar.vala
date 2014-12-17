@@ -31,6 +31,9 @@ class Sidebar : Gitg.Sidebar
 	[Signal(action = true)]
 	public signal void discard_selection();
 
+	[Signal(action = true)]
+	public signal void edit_selection();
+
 	public signal void selected_items_changed(Gitg.SidebarItem[] items);
 
 	public class Item : Object, Gitg.SidebarItem
@@ -94,6 +97,12 @@ class Sidebar : Gitg.Sidebar
 		                            Gdk.Key.d,
 		                            Gdk.ModifierType.CONTROL_MASK,
 		                            "discard-selection",
+		                            0);
+
+		Gtk.BindingEntry.add_signal(binding_set,
+		                            Gdk.Key.e,
+		                            Gdk.ModifierType.CONTROL_MASK,
+		                            "edit-selection",
 		                            0);
 
 		var sel = get_selection();
