@@ -583,13 +583,30 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void activate_default_activity()
 	{
 		GitgExt.Activity? def = null;
+		GitgExt.Activity? deffb = null;
+
+		string default_activity;
+
+		if (d_action == null || d_action == "")
+		{
+			default_activity = d_interface_settings.get_string("default-activity");
+		}
+		else
+		{
+			default_activity = d_action;
+		}
 
 		d_activities.foreach((element) => {
 				GitgExt.Activity activity = (GitgExt.Activity)element;
 
-				if (activity.is_default_for(d_action != null ? d_action : ""))
+				if (activity.is_default_for(default_activity))
 				{
 					def = activity;
+				}
+
+				if (activity.is_default_for(""))
+				{
+					deffb = activity;
 				}
 
 				return true;
@@ -598,6 +615,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (def != null)
 		{
 			d_activities.current = def;
+		}
+		else if (deffb != null)
+		{
+			d_activities.current = deffb;
 		}
 	}
 

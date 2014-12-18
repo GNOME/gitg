@@ -31,6 +31,9 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "horizontal_layout_enabled")]
 	private Gtk.CheckButton d_horizontal_layout_enabled;
 
+	[GtkChild (name = "default_activity")]
+	private Gtk.ComboBox d_default_activity;
+
 	construct
 	{
 		d_settings = new Settings("org.gnome.gitg.preferences.interface");
@@ -50,6 +53,11 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 		});
 
 		d_settings.changed["orientation"].connect(orientation_changed);
+
+		d_settings.bind("default-activity",
+		                d_default_activity,
+		                "active-id",
+		              	SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 
 	public override void dispose()

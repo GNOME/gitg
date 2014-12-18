@@ -28,6 +28,13 @@
         Setting that sets the orientation of the main interface.
       </_description>
     </key>
+    <key name="default-activity" type="s">
+      <default>"history"</default>
+      <_summary>Default Activity</_summary>
+      <_description>
+        The activity which gitg activates by default when first launched.
+      </_description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.history" path="/org/gnome/gitg/preferences/history/">
     <key name="collapse-inactive-lanes" type="i">
@@ -91,8 +98,8 @@
       <default>true</default>
       <_summary>Show Right Margin in Commit Message View</_summary>
       <_description>
-        Show a right margin indicator in the commit message view. 
-        This can be used to easily see where to break the commit message at 
+        Show a right margin indicator in the commit message view.
+        This can be used to easily see where to break the commit message at
         a particular column.
       </_description>
     </key>
