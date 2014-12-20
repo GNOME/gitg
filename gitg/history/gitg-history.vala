@@ -22,7 +22,7 @@ namespace GitgHistory
 	/* The main history view. This view shows the equivalent of git log, but
 	 * in a nice way with lanes, merges, ref labels etc.
 	 */
-	public class Activity : Object, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectable, GitgExt.History
+	public class Activity : Object, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectable, GitgExt.Searchable, GitgExt.History
 	{
 		// Do this to pull in config.h before glib.h (for gettext...)
 		private const string version = Gitg.Config.VERSION;
@@ -637,6 +637,28 @@ namespace GitgHistory
 				return ab;
 			}
 		}
+
+		public Gtk.Entry? search_entry
+		{
+			set
+			{
+				int column = -1;
+
+				if (value != null)
+				{
+					column = (int)Gitg.CommitModelColumns.MESSAGE;
+				}
+
+				d_main.commit_list_view.set_search_entry(value);
+				d_main.commit_list_view.set_enable_search(value != null);
+
+				d_main.commit_list_view.set_search_column(column);
+			}
+		}
+
+		public string search_text { owned get; set; default = ""; }
+		public bool search_visible { get; set; }
+		public bool search_enabled { get; set; }
 	}
 }
 

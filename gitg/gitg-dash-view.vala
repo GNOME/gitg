@@ -107,6 +107,13 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 				filter_text(d_search_text);
 			}
 		}
+
+		default = "";
+	}
+
+	public Gtk.Entry? search_entry
+	{
+		set {}
 	}
 
 	public bool search_visible { get; set; }
@@ -163,8 +170,6 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 
 	construct
 	{
-		d_search_text = "";
-
 		notify["mode"].connect(() => {
 			if (!d_setting_mode)
 			{
