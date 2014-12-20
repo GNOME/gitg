@@ -192,6 +192,10 @@ function write_commit(content, commit)
 
 		elems.parent_chooser.html([span, chooser]);
 	}
+	else
+	{
+		elems.parent_chooser.html('');
+	}
 
 	if (commit.parents.length > 1 && settings.show_parents)
 	{
