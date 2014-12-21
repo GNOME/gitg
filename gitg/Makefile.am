@@ -63,6 +63,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-ref-action-rename.vala			\
 	gitg/gitg-ref-action-delete.vala			\
 	gitg/gitg-ref-action-copy-name.vala			\
+	gitg/gitg-ref-action-fetch.vala				\
 	gitg/gitg-commit-action-create-branch.vala		\
 	gitg/gitg-create-branch-dialog.vala			\
 	gitg/gitg-commit-action-create-tag.vala			\

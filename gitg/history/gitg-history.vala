@@ -551,6 +551,7 @@ namespace GitgHistory
 			add_ref_action(actions, new Gitg.RefActionRename(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionDelete(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionCopyName(application, af, reference));
+			add_ref_action(actions, new Gitg.RefActionFetch(application, af, reference));
 
 			var exts = new Peas.ExtensionSet(Gitg.PluginsEngine.get_default(),
 			                                 typeof(GitgExt.RefAction),
@@ -576,6 +577,10 @@ namespace GitgHistory
 			{
 				ac.populate_menu(menu);
 			}
+
+			var sep = new Gtk.SeparatorMenuItem();
+			sep.show();
+			menu.append(sep);
 
 			var item = new Gtk.CheckMenuItem.with_label(_("Mainline"));
 			int pos = 0;
