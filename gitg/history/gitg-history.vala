@@ -41,6 +41,8 @@ namespace GitgHistory
 		private Gitg.PopupMenu d_refs_list_popup;
 		private Gitg.PopupMenu d_commit_list_popup;
 
+		private string[] d_mainline;
+
 		private Gitg.UIElements<GitgExt.HistoryPanel> d_panels;
 
 		public Activity(GitgExt.Application application)
@@ -115,8 +117,13 @@ namespace GitgHistory
 		construct
 		{
 			d_settings = new Settings("org.gnome.gitg.preferences.history");
+
 			d_settings.changed["topological-order"].connect((s, k) => {
 				update_sort_mode();
+			});
+
+			d_settings.changed["mainline-head"].connect((s, k) => {
+				update_walker();
 			});
 
 			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash,
@@ -130,6 +137,8 @@ namespace GitgHistory
 
 			application.bind_property("repository", this,
 			                          "repository", BindingFlags.DEFAULT);
+
+			reload_mainline();
 		}
 
 		private void update_sort_mode()
@@ -275,11 +284,92 @@ namespace GitgHistory
 			return -1;
 		}
 
+		private void store_changed_mainline()
+		{
+			var repo = application.repository;
+			Ggit.Config config;
+
+			try
+			{
+				config = repo.get_config();
+			} catch { return; }
+
+			store_mainline(config, string.joinv(",", d_mainline));
+		}
+
+		private void store_mainline(Ggit.Config? config, string mainline)
+		{
+			if (config != null)
+			{
+				try
+				{
+					config.set_string("gitg.mainline", mainline);
+				}
+				catch (Error e)
+				{
+					stderr.printf("Failed to set gitg.mainline: %s\n", e.message);
+				}
+			}
+		}
+
+		private void reload_mainline()
+		{
+			var uniq = new Gee.HashSet<string>();
+
+			d_mainline = new string[0];
+
+			var repository = application.repository;
+
+			if (repository == null)
+			{
+				return;
+			}
+
+			Ggit.Config? config = null;
+			var ref_names = new string[0];
+
+			try
+			{
+				config = repository.get_config();
+				ref_names = config.get_string("gitg.mainline").split(",");
+			}
+			catch
+			{
+				ref_names = new string[] {"refs/heads/master"};
+			}
+
+			foreach (var name in ref_names)
+			{
+				Gitg.Ref r;
+
+				try
+				{
+					r = repository.lookup_reference(name);
+				}
+				catch (Error e)
+				{
+					stderr.printf("Failed to lookup reference (%s): %s\n", name, e.message);
+					continue;
+				}
+
+				var id = id_for_ref(r);
+
+				if (id != null && uniq.add(name))
+				{
+					d_mainline += name;
+				}
+			}
+
+			store_mainline(config, string.joinv(",", d_mainline));
+		}
+
 		private void reload()
 		{
 			var view = d_main.commit_list_view;
 
 			double vadj = d_main.refs_list.get_adjustment().get_value();
+
+			reload_mainline();
 
 			d_selected.clear();
 
@@ -481,6 +571,48 @@ namespace GitgHistory
 				ac.populate_menu(menu);
 			}
 
+			var item = new Gtk.CheckMenuItem.with_label(_("Mainline"));
+			int pos = 0;
+
+			foreach (var ml in d_mainline)
+			{
+				if (ml == reference.get_name())
+				{
+					item.active = true;
+					break;
+				}
+
+				++pos;
+			}
+
+			item.activate.connect(() => {
+				if (item.active)
+				{
+					d_mainline += reference.get_name();
+				}
+				else
+				{
+					var nml = new string[d_mainline.length - 1];
+					nml.length = 0;
+
+					for (var i = 0; i < d_mainline.length; i++)
+					{
+						if (i != pos)
+						{
+							nml += d_mainline[i];
+						}
+					}
+
+					d_mainline = nml;
+				}
+
+				store_changed_mainline();
+				update_walker();
+			});
+
+			item.show();
+			menu.append(item);
+
 			// To keep actions alive as long as the menu is alive
 			menu.set_data("gitg-ext-actions", actions);
 			return menu;
@@ -537,21 +669,38 @@ namespace GitgHistory
 
 			var isall = d_main.refs_list.is_all;
 
+			var perm_uniq = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc)Ggit.OId.hash,
+			                                          (Gee.EqualDataFunc)Ggit.OId.equal);
+
 			var permanent = new Ggit.OId[0];
 
-			var seen = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc)Ggit.OId.hash,
-			                                     (Gee.EqualDataFunc)Ggit.OId.equal);
-
-			try
+			foreach (var ml in d_mainline)
 			{
-				var head = id_for_ref(application.repository.get_head());
+				Ggit.OId id;
 
-				if (head != null)
+				try
 				{
-					permanent += head;
-					seen.add(head);
+					id = id_for_ref(application.repository.lookup_reference(ml));
+				} catch { continue; }
+
+				if (id != null && perm_uniq.add(id))
+				{
+					permanent += id;
 				}
-			} catch {}
+			}
+
+			if (d_settings.get_boolean("mainline-head"))
+			{
+				try
+				{
+					var head = id_for_ref(application.repository.get_head());
+
+					if (head != null && perm_uniq.add(head))
+					{
+						permanent += head;
+					}
+				} catch {}
+			}
 
 			foreach (var r in d_main.refs_list.selection)
 			{
@@ -565,7 +714,7 @@ namespace GitgHistory
 					{
 						d_selected.add(id);
 
-						if (seen.add(id))
+						if (perm_uniq.add(id))
 						{
 							permanent += id;
 						}

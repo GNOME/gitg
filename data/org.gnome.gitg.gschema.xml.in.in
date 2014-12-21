@@ -85,6 +85,14 @@
          unstaged changes in the history.
       </_description>
     </key>
+    <key name="mainline-head" type="b">
+      <default>true</default>
+      <_summary>Mainline Head</_summary>
+      <_description>
+         Setting that indicates whether to always preserve a mainline in the
+         history for the current HEAD.
+      </_description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit" path="/org/gnome/gitg/preferences/commit/">
     <child name="message" schema="org.gnome.gitg.preferences.commit.message" />

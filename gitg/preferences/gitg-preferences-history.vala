@@ -38,14 +38,8 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "topological_order")]
 	private Gtk.CheckButton d_topological_order;
 
-	[GtkChild (name = "show_stash")]
-	private Gtk.CheckButton d_show_stash;
-
-	[GtkChild (name = "show_staged")]
-	private Gtk.CheckButton d_show_staged;
-
-	[GtkChild (name = "show_unstaged")]
-	private Gtk.CheckButton d_show_unstaged;
+	[GtkChild (name = "mainline_head")]
+	private Gtk.CheckButton d_mainline_head;
 
 	private static int round_val(double val)
 	{
@@ -68,18 +62,8 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-		settings.bind("show-stash",
-		              d_show_stash,
-		              "active",
-		              SettingsBindFlags.GET | SettingsBindFlags.SET);
-
-		settings.bind("show-staged",
-		              d_show_staged,
-		              "active",
-		              SettingsBindFlags.GET | SettingsBindFlags.SET);
-
-		settings.bind("show-unstaged",
-		              d_show_unstaged,
+		settings.bind("mainline-head",
+		              d_mainline_head,
 		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
