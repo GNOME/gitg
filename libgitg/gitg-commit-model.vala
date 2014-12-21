@@ -66,6 +66,7 @@ namespace Gitg
 		private Repository d_repository;
 		private Cancellable? d_cancellable;
 		private Commit[] d_ids;
+		private Commit[] d_hidden_ids;
 		private Thread<void*>? d_thread;
 		private Ggit.RevisionWalker? d_walker;
 		private uint d_advertized_size;
@@ -108,6 +109,8 @@ namespace Gitg
 			}
 		}
 
+		public Ggit.OId[] permanent_lanes { get; set; }
+
 		public signal void started();
 		public signal void update(uint added);
 		public signal void finished();
@@ -148,6 +151,7 @@ namespace Gitg
 			}
 
 			d_ids = new Commit[0];
+			d_hidden_ids = new Commit[0];
 			d_advertized_size = 0;
 
 			d_id_hash = new Gee.HashMap<Ggit.OId, int>();
@@ -247,6 +251,29 @@ namespace Gitg
 			});
 		}
 
+		private void resize_ids(ref Gitg.Commit[] ids, ref uint size)
+		{
+			if (ids.length == size)
+			{
+				lock(d_ids)
+				{
+					var oldlen = ids.length;
+
+					if (oldlen < 20000)
+					{
+						size *= 2;
+					}
+					else
+					{
+						size = (uint)((double)size * 1.2);
+					}
+
+					ids.resize((int)size);
+					ids.length = oldlen;
+				}
+			}
+		}
+
 		private async void walk()
 		{
 			Ggit.OId[] included = d_include;
@@ -273,11 +300,15 @@ namespace Gitg
 				d_walker.reset();
 				d_walker.set_sort_mode(d_sortmode);
 
+				var incset = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash,
+				                                       (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
+
 				foreach (Ggit.OId oid in included)
 				{
 					try
 					{
 						d_walker.push(oid);
+						incset.add(oid);
 					} catch {};
 				}
 
@@ -286,19 +317,38 @@ namespace Gitg
 					try
 					{
 						d_walker.hide(oid);
+						incset.remove(oid);
 					} catch {};
 				}
 
+				var permanent = new Ggit.OId[0];
+
+				foreach (Ggit.OId oid in permanent_lanes)
+				{
+					try
+					{
+						d_walker.push(oid);
+						permanent += oid;
+					} catch {}
+				}
+
+				d_lanes.reset(permanent, incset);
+
 				uint size;
+				uint hidden_size;
 
 				// Pre-allocate array to store commits
 				lock(d_ids)
 				{
 					d_ids = new Commit[1000];
+					d_hidden_ids = new Commit[100];
 
 					size = d_ids.length;
+					hidden_size = d_hidden_ids.length;
 
 					d_ids.length = 0;
+					d_hidden_ids.length = 0;
+
 					d_advertized_size = 0;
 				}
 
@@ -331,31 +381,26 @@ namespace Gitg
 						commit = d_repository.lookup<Commit>(id);
 					} catch { break; }
 
-					lock(d_id_hash)
-					{
-						d_id_hash.set(id, d_ids.length);
-					}
-
-					// Add the id
-					if (d_ids.length == size)
-					{
-						lock(d_ids)
-						{
-							var oldlen = d_ids.length;
-
-							size *= 2;
-
-							d_ids.resize((int)size);
-							d_ids.length = oldlen;
-						}
-					}
-
-					d_ids += commit;
-
 					int mylane;
-					var lanes = d_lanes.next(commit, out mylane);
+					SList<Lane> lanes;
 
-					commit.update_lanes((owned)lanes, mylane);
+					if (d_lanes.next(commit, out lanes, out mylane))
+					{
+						commit.update_lanes((owned)lanes, mylane);
+
+						lock(d_id_hash)
+						{
+							d_id_hash.set(id, d_ids.length);
+						}
+
+						resize_ids(ref d_ids, ref size);
+						d_ids += commit;
+					}
+					else
+					{
+						resize_ids(ref d_hidden_ids, ref hidden_size);
+						d_hidden_ids += commit;
+					}
 
 					if (timer.elapsed() >= 200)
 					{
@@ -394,7 +439,6 @@ namespace Gitg
 		private void emit_started()
 		{
 			clear();
-			d_lanes.reset();
 			started();
 		}
 

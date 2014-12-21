@@ -31,14 +31,34 @@ namespace Gitg
 
 		private delegate double DirectionFunc(double i);
 
-		private uint num_lanes
+		private uint num_visible_lanes
 		{
-			get { return commit.get_lanes().length(); }
+			get
+			{
+				int ret = 0;
+				int trailing_hidden = 0;
+
+				foreach (var lane in commit.get_lanes())
+				{
+					++ret;
+
+					if ((lane.tag & LaneTag.HIDDEN) != 0)
+					{
+						trailing_hidden++;
+					}
+					else
+					{
+						trailing_hidden = 0;
+					}
+				}
+
+				return ret - trailing_hidden;
+			}
 		}
 
 		private uint total_width(Gtk.Widget widget)
 		{
-			return num_lanes * lane_width +
+			return num_visible_lanes * lane_width +
 			       LabelRenderer.width(widget, font_desc, labels);
 		}
 
@@ -117,6 +137,12 @@ namespace Gitg
 
 			foreach (var lane in commit.get_lanes())
 			{
+				if ((lane.tag & LaneTag.HIDDEN) != 0)
+				{
+					++to;
+					continue;
+				}
+
 				var color = lane.color;
 				context.set_source_rgb(color.r, color.g, color.b);
 
@@ -203,7 +229,7 @@ namespace Gitg
 		{
 			int offset;
 
-			offset = (int)(num_lanes * lane_width);
+			offset = (int)(num_visible_lanes * lane_width);
 
 			var rtl = (widget.get_style_context().get_state() & Gtk.StateFlags.DIR_RTL) != 0;
 

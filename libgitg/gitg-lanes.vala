@@ -30,11 +30,12 @@ public class Lanes : Object
 	private SList<weak Commit> d_previous;
 	private Gee.LinkedList<LaneContainer> d_lanes;
 	private HashTable<Ggit.OId, CollapsedLane> d_collapsed;
+	private Gee.HashSet<Ggit.OId>? d_roots;
 
 	class LaneContainer
 	{
 		public Lane lane;
-		public uint inactive;
+		public int inactive;
 		public Ggit.OId? from;
 		public Ggit.OId? to;
 
@@ -56,15 +57,38 @@ public class Lanes : Object
 
 		public void next(int index)
 		{
+			var hidden = is_hidden;
 			lane = lane.copy();
 
 			lane.tag = LaneTag.NONE;
 			lane.from = new SList<int>();
-			lane.from.prepend(index);
 
-			if (to != null)
+			if (!hidden)
+			{
+				lane.from.prepend(index);
+			}
+
+			is_hidden = hidden;
+
+			if (to != null && inactive >= 0)
 			{
 				++inactive;
+			}
+		}
+
+		public bool is_hidden
+		{
+			get { return (lane.tag & LaneTag.HIDDEN) != 0; }
+			set
+			{
+				if (value)
+				{
+					lane.tag |= LaneTag.HIDDEN;
+				}
+				else
+				{
+					lane.tag &= ~LaneTag.HIDDEN;
+				}
 			}
 		}
 	}
@@ -105,18 +129,35 @@ public class Lanes : Object
 		reset();
 	}
 
-	public void reset()
+	public void reset(Ggit.OId[]?           reserved = null,
+	                  Gee.HashSet<Ggit.OId>? roots    = null)
 	{
 		d_previous = new SList<weak Commit>();
+
 		d_lanes = new Gee.LinkedList<LaneContainer>();
+		d_roots = roots;
 
 		Color.reset();
 
+		if (reserved != null)
+		{
+			foreach (var r in reserved)
+			{
+				var ct = new LaneContainer(null, r);
+				ct.inactive = -1;
+				ct.is_hidden = true;
+
+				d_lanes.add(ct);
+			}
+		}
+
 		d_collapsed.remove_all();
+		d_previous = new SList<weak Commit>();
 	}
 
-	public SList<Lane> next(Commit  next,
-	                        out int nextpos)
+	public bool next(Commit           next,
+	                 out SList<Lane> lanes,
+	                 out int         nextpos)
 	{
 		var myoid = next.get_id();
 
@@ -128,10 +169,18 @@ public class Lanes : Object
 
 		LaneContainer? mylane = find_lane_by_oid(myoid, out nextpos);
 
+		if (mylane == null && d_roots != null && !d_roots.contains(myoid))
+		{
+			lanes = null;
+			return false;
+		}
+
 		if (mylane == null)
 		{
-			// there is no lane reserver for this comit, add a new lane
-			d_lanes.add(new LaneContainer(myoid, null));
+			// there is no lane reserved for this commit, add a new lane
+			mylane = new LaneContainer(myoid, null);
+
+			d_lanes.add(mylane);
 			nextpos = (int)d_lanes.size - 1;
 		}
 		else
@@ -141,16 +190,28 @@ public class Lanes : Object
 
 			mylane.to = null;
 			mylane.from = next.get_id();
-			mylane.inactive = 0;
+
+			if (mylane.is_hidden && d_roots != null && d_roots.contains(myoid))
+			{
+				mylane.is_hidden = false;
+				mylane.lane.from = new SList<int>();
+			}
+
+			if (mylane.inactive >= 0)
+			{
+				mylane.inactive = 0;
+			}
 		}
 
-		var res = lanes_list();
-		prepare_lanes(next, nextpos);
+		var hidden = mylane.is_hidden;
 
-		return res;
+		lanes = lanes_list();
+		prepare_lanes(next, nextpos, hidden);
+
+		return !hidden;
 	}
 
-	private void prepare_lanes(Commit next, int pos)
+	private void prepare_lanes(Commit next, int pos, bool hidden)
 	{
 		var parents = next.get_parents();
 		var myoid = next.get_id();
@@ -177,18 +238,42 @@ public class Lanes : Object
 					// our lane instead.
 					mylane.to = poid;
 					mylane.from = myoid;
-					mylane.lane.from.append(lnpos);
+
+					if (!container.is_hidden)
+					{
+						mylane.lane.from.append(lnpos);
+						mylane.is_hidden = false;
+					}
+
 					mylane.lane.color = mylane.lane.color.copy();
-					mylane.inactive = 0;
+
+					if (mylane.inactive >= 0)
+					{
+						mylane.inactive = 0;
+					}
 
 					d_lanes.remove(container);
 				}
 				else
 				{
 					container.from = myoid;
-					container.lane.from.append(pos);
+
+					if (!hidden)
+					{
+						container.lane.from.append(pos);
+					}
+
 					container.lane.color = container.lane.color.copy();
-					container.inactive = 0;
+
+					if (!hidden)
+					{
+						container.is_hidden = false;
+					}
+
+					if (container.inactive >= 0)
+					{
+						container.inactive = 0;
+					}
 				}
 
 				continue;
@@ -201,7 +286,7 @@ public class Lanes : Object
 
 				mylane.lane.color = mylane.lane.color.copy();
 			}
-			else
+			else if (!hidden)
 			{
 				// generate a new lane for this parent
 				var newlane = new LaneContainer(myoid, poid);

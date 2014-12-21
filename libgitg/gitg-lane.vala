@@ -28,7 +28,8 @@ public enum LaneTag
 	END = 1 << 1,
 	SIGN_STASH = 1 << 2,
 	SIGN_STAGED = 1 << 3,
-	SIGN_UNSTAGED = 1 << 4
+	SIGN_UNSTAGED = 1 << 4,
+	HIDDEN = 1 << 5
 }
 
 public class Lane : Object

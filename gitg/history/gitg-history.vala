@@ -504,42 +504,77 @@ namespace GitgHistory
 			return popup_menu_for_ref(references.first());
 		}
 
+		private Ggit.OId? id_for_ref(Ggit.Ref r)
+		{
+			Ggit.OId? id = null;
+
+			try
+			{
+				var resolved = r.resolve();
+
+				if (resolved.is_tag())
+				{
+					var t = application.repository.lookup<Ggit.Tag>(resolved.get_target());
+
+					id = t.get_target_id();
+				}
+				else
+				{
+					id = resolved.get_target();
+				}
+			}
+			catch {}
+
+			return id;
+		}
+
 		private void update_walker()
 		{
 			d_selected.clear();
 
-			var include = new Ggit.OId[0];
+			var include = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc)Ggit.OId.hash,
+			                                        (Gee.EqualDataFunc)Ggit.OId.equal);
+
 			var isall = d_main.refs_list.is_all;
+
+			var permanent = new Ggit.OId[0];
+
+			var seen = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc)Ggit.OId.hash,
+			                                     (Gee.EqualDataFunc)Ggit.OId.equal);
+
+			try
+			{
+				var head = id_for_ref(application.repository.get_head());
+
+				if (head != null)
+				{
+					permanent += head;
+					seen.add(head);
+				}
+			} catch {}
 
 			foreach (var r in d_main.refs_list.selection)
 			{
-				try
+				var id = id_for_ref(r);
+
+				if (id != null)
 				{
-					var resolved = r.resolve();
-					Ggit.OId? id;
-
-					if (resolved.is_tag())
-					{
-						var t = application.repository.lookup<Ggit.Tag>(resolved.get_target());
-
-						id = t.get_target_id();
-					}
-					else
-					{
-						id = resolved.get_target();
-					}
-
-					include += id;
+					include.add(id);
 
 					if (!isall)
 					{
 						d_selected.add(id);
+
+						if (seen.add(id))
+						{
+							permanent += id;
+						}
 					}
 				}
-				catch {}
 			}
 
-			d_commit_list_model.set_include(include);
+			d_commit_list_model.permanent_lanes = permanent;
+			d_commit_list_model.set_include(include.to_array());
 			d_commit_list_model.reload();
 		}
 
