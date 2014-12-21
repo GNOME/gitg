@@ -3,7 +3,16 @@ class TestDiffView
 	public static int main(string[] args)
 	{
 		Gtk.init(ref args);
-		Gitg.init();
+
+		try
+		{
+			Gitg.init();
+		}
+		catch (Error e)
+		{
+			stderr.printf("Failed to initialize ggit: %s\n", e.message);
+			return 1;
+		}
 
 		if (Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != "local" && args.length > 1 && args[1] == "--local")
 		{
