@@ -161,10 +161,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 			d_search_entry.text = searchable.search_text;
 			searchable.search_visible = true;
+			searchable.search_entry = d_search_entry;
 		}
 		else
 		{
 			searchable.search_visible = false;
+			searchable.search_entry = null;
 		}
 	}
 
