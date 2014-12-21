@@ -287,6 +287,12 @@ namespace GitgHistory
 		private void store_changed_mainline()
 		{
 			var repo = application.repository;
+
+			if (repo == null)
+			{
+				return;
+			}
+
 			Ggit.Config config;
 
 			try
@@ -674,32 +680,35 @@ namespace GitgHistory
 
 			var permanent = new Ggit.OId[0];
 
-			foreach (var ml in d_mainline)
+			if (application.repository != null)
 			{
-				Ggit.OId id;
-
-				try
+				foreach (var ml in d_mainline)
 				{
-					id = id_for_ref(application.repository.lookup_reference(ml));
-				} catch { continue; }
+					Ggit.OId id;
 
-				if (id != null && perm_uniq.add(id))
-				{
-					permanent += id;
-				}
-			}
-
-			if (d_settings.get_boolean("mainline-head"))
-			{
-				try
-				{
-					var head = id_for_ref(application.repository.get_head());
-
-					if (head != null && perm_uniq.add(head))
+					try
 					{
-						permanent += head;
+						id = id_for_ref(application.repository.lookup_reference(ml));
+					} catch { continue; }
+
+					if (id != null && perm_uniq.add(id))
+					{
+						permanent += id;
 					}
-				} catch {}
+				}
+
+				if (d_settings.get_boolean("mainline-head"))
+				{
+					try
+					{
+						var head = id_for_ref(application.repository.get_head());
+
+						if (head != null && perm_uniq.add(head))
+						{
+							permanent += head;
+						}
+					} catch {}
+				}
 			}
 
 			foreach (var r in d_main.refs_list.selection)
