@@ -156,7 +156,15 @@ namespace Gitg
 			}
 			builder.end_object();
 
-			builder.set_member_name("header").add_string_value(header);
+			var h = hunk.get_header();
+			var pos = h.last_index_of("@@");
+
+			if (pos >= 0)
+			{
+				h = h[pos + 2:-1].chug();
+			}
+
+			builder.set_member_name("header").add_string_value(h);
 			builder.set_member_name("lines");
 
 			builder.begin_array();

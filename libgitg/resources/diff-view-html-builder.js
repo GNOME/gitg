@@ -486,7 +486,7 @@ function diff_file(file, lnstate, data)
 
 		var hunk_header = '<span class="hunk_stats">@@ -' + h.range.old.start + ',' + h.range.old.lines + ' +' + h.range.new.start + ',' + h.range.new.lines + ' @@</span>';
 
-		hunk_header = hunk_header;
+		hunk_header += ' <span class="hunk_context">' + html_escape(h.header) + '</span>';
 
 		file_body += '<tr class="hunk_header"> \
 			<td class="gutter old">' + lnstate.gutterdots + '</td> \
