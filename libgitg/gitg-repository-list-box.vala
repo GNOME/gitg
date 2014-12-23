@@ -494,14 +494,13 @@ namespace Gitg
 				d_row = row;
 			}
 
-			protected override bool transfer_progress(Ggit.TransferProgress stats) throws Error
+			protected override void transfer_progress(Ggit.TransferProgress stats)
 			{
 				var recvobj = stats.get_received_objects();
 				var indxobj = stats.get_indexed_objects();
 				var totaobj = stats.get_total_objects();
 
 				d_row.fraction = (recvobj + indxobj) / (double)(2 * totaobj);
-				return true;
 			}
 		}
 
