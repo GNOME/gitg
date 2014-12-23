@@ -65,6 +65,9 @@ public void init() throws Error
 
 	factory.register(typeof(Ggit.Commit),
 	                 typeof(Gitg.Commit));
+
+	factory.register(typeof(Ggit.Remote),
+	                 typeof(Gitg.Remote));
 }
 
 }

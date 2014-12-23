@@ -66,6 +66,8 @@ public interface Application : Object
 	public abstract Gee.Map<string, string> environment { owned get; }
 
 	public abstract Application open_new(Ggit.Repository repository, string? hint = null);
+
+	public abstract RemoteLookup remote_lookup { owned get; }
 }
 
 }

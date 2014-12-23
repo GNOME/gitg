@@ -57,6 +57,7 @@ libgitg_ext_libgitg_ext_1_0_la_VALASOURCES =		\
 	libgitg-ext/gitg-ext-history-panel.vala		\
 	libgitg-ext/gitg-ext-command-line.vala		\
 	libgitg-ext/gitg-ext-preferences.vala		\
+	libgitg-ext/gitg-ext-remote-lookup.vala		\
 	libgitg-ext/gitg-ext-searchable.vala		\
 	libgitg-ext/gitg-ext-selectable.vala		\
 	libgitg-ext/gitg-ext-ui.vala			\

@@ -69,6 +69,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-commit-action-create-tag.vala			\
 	gitg/gitg-create-tag-dialog.vala			\
 	gitg/gitg-commit-action-create-patch.vala		\
+	gitg/gitg-remote-manager.vala				\
 	gitg/preferences/gitg-preferences-commit.vala		\
 	gitg/preferences/gitg-preferences-dialog.vala		\
 	gitg/preferences/gitg-preferences-interface.vala	\

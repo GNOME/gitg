@@ -38,6 +38,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private UIElements<GitgExt.Activity> d_activities;
 
+	private RemoteManager d_remote_manager;
+
 	// Widgets
 	[GtkChild]
 	private Gtk.HeaderBar d_header_bar;
@@ -333,6 +335,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		set
 		{
 			d_repository = value;
+			d_remote_manager = new RemoteManager(this);
 
 			notify_property("repository");
 			repository_changed();
@@ -486,6 +489,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			d_repository = new Gitg.Repository(this.repository.get_location(),
 			                                   null);
+
+			d_remote_manager = new RemoteManager(this);
 
 			notify_property("repository");
 			update_title();
@@ -698,6 +703,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			ret.application = app;
 			ret.d_repository = repository;
+			ret.d_remote_manager = new RemoteManager(ret);
 			ret.d_action = action;
 		}
 
@@ -934,6 +940,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			selectable_mode = GitgExt.SelectionMode.NORMAL;
 		}
+	}
+
+	public GitgExt.RemoteLookup remote_lookup
+	{
+		owned get { return d_remote_manager; }
 	}
 }
 

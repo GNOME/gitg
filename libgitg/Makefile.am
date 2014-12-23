@@ -72,7 +72,8 @@ libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-hook.vala				\
 	libgitg/gitg-date.vala				\
 	libgitg/gitg-avatar-cache.vala			\
-	libgitg/gitg-diff-stat.vala
+	libgitg/gitg-diff-stat.vala			\
+	libgitg/gitg-remote.vala
 
 libgitg_libgitg_1_0_la_SOURCES = 		\
 	$(libgitg_libgitg_1_0_la_VALASOURCES)	\
