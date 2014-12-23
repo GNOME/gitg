@@ -124,6 +124,16 @@ namespace GitgCommit
 			}
 		}
 
+		private void set_unstaged_diff_update_callback(Gitg.Repository               repository,
+		                                               Gitg.DiffView                 view,
+		                                               owned Gitg.StageStatusItem[]? items,
+		                                               bool                          patchable)
+		{
+			d_update_diff_callback = () => {
+				show_unstaged_diff_intern(repository, view, items, patchable);
+			};
+		}
+
 		private void show_unstaged_diff_intern(Gitg.Repository         repository,
 		                                       Gitg.DiffView           view,
 		                                       Gitg.StageStatusItem[]? items,
@@ -152,9 +162,7 @@ namespace GitgCommit
 				}
 			});
 
-			d_update_diff_callback = () => {
-				show_unstaged_diff_intern(repository, view, items, patchable);
-			};
+			set_unstaged_diff_update_callback(repository, view, items, patchable);
 		}
 
 		private void stage_submodule_at(Gitg.Commit commit)
@@ -500,6 +508,16 @@ namespace GitgCommit
 			model.reload();
 		}
 
+		private void set_staged_diff_update_callback(Gitg.Repository               repository,
+		                                             Gitg.DiffView                 view,
+		                                             owned Gitg.StageStatusItem[]? items,
+		                                             bool                          patchable)
+		{
+			d_update_diff_callback = () => {
+				show_staged_diff_intern(repository, view, items, patchable);
+			};
+		}
+
 		private void show_staged_diff_intern(Gitg.Repository         repository,
 		                                     Gitg.DiffView           view,
 		                                     Gitg.StageStatusItem[]? items,
@@ -528,9 +546,7 @@ namespace GitgCommit
 				}
 			});
 
-			d_update_diff_callback = () => {
-				show_staged_diff_intern(repository, view, items, patchable);
-			};
+			set_staged_diff_update_callback(repository, view, items, patchable);
 		}
 
 		private void show_staged_diff(Gitg.StageStatusItem[] items)
@@ -1332,7 +1348,7 @@ namespace GitgCommit
 			});
 		}
 
-		private async void revert_paths(string[] paths) throws Error
+		private async void revert_paths(owned string[] paths) throws Error
 		{
 			var stage = application.repository.stage;
 
