@@ -995,10 +995,29 @@ public class RefsList : Gtk.ListBox
 		row.begin_editing((owned)done);
 	}
 
+	private int y_in_window(int y, Gdk.Window origin)
+	{
+		while (origin != get_window())
+		{
+			int wx;
+			int wy;
+
+			origin.get_position(out wx, out wy);
+
+			y += wy;
+
+			origin = origin.get_parent();
+		}
+
+		return y;
+	}
+
 	protected override bool button_press_event(Gdk.EventButton button)
 	{
 		var ret = base.button_press_event(button);
-		var row = get_row_at_y((int)button.y);
+
+		var y = y_in_window((int)button.y, button.window);
+		var row = get_row_at_y(y);
 
 		if (row != null && row != get_selected_row())
 		{
