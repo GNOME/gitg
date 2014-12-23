@@ -28,7 +28,7 @@ public interface History : Object, Activity
 	public signal void selection_changed();
 	public abstract void foreach_selected(ForeachCommitSelectionFunc func);
 
-  public abstract void select(Gitg.Commit commit);
+	public abstract void select(Gitg.Commit commit);
 }
 
 }

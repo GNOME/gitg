@@ -45,7 +45,7 @@ public void init() throws Error
 	if ((Ggit.get_features() & Ggit.FeatureFlags.THREADS) == 0)
 	{
 		gitg_initerr = new InitError.THREADS_UNSAFE("no thread support");
-	
+
 		warning("libgit2 must be built with threading support in order to run gitg");
 		throw gitg_initerr;
 	}
