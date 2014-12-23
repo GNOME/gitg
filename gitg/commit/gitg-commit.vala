@@ -1438,8 +1438,8 @@ namespace GitgCommit
 			q.message_type = Gtk.MessageType.QUESTION;
 
 			q.responses = new GitgExt.UserQueryResponse[] {
-				new GitgExt.UserQueryResponse(_("Discard"), Gtk.ResponseType.OK),
-				new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL)
+				new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL),
+				new GitgExt.UserQueryResponse(_("Discard"), Gtk.ResponseType.OK)
 			};
 
 			q.default_response = Gtk.ResponseType.OK;
