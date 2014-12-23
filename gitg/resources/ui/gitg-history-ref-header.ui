@@ -9,12 +9,31 @@
       <class name="sidebar"/>
     </style>
     <child>
-      <object class="GtkLabel" id="d_label">
+      <object class="GitgProgressBin" id="d_progress_bin">
         <property name="visible">True</property>
-        <property name="margin_top">3</property>
-        <property name="margin_bottom">3</property>
-        <property name="margin_start">16</property>
-        <property name="halign">start</property>
+        <child>
+          <object class="GtkBox" id="d_box">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="d_label">
+                <property name="visible">True</property>
+                <property name="margin_top">3</property>
+                <property name="margin_bottom">3</property>
+                <property name="margin_start">16</property>
+                <property name="halign">start</property>
+                <property name="hexpand">true</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkImage" id="d_icon">
+                <property name="visible">False</property>
+                <property name="halign">end</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>

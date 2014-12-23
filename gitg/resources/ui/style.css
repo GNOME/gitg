@@ -89,6 +89,14 @@ GitgHistoryPaned GtkEntry.ref_editing_entry:selected {
 	background-color: shade (@theme_bg_color, 0.9);
 }
 
+.list-row .progress-bin {
+	background-color: shade (@theme_base_color, 0.9);
+}
+
+.list-row:selected .progress-bin {
+	background-color: shade (@theme_selected_bg_color, 1.2);
+}
+
 .branch, .remote, .tag, .stash {
 	border-radius: 6px;
 	border: 1px solid @theme_bg_color;

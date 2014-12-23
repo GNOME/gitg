@@ -447,6 +447,8 @@ namespace GitgHistory
 		{
 			d_main = new Paned();
 
+			d_main.refs_list.remote_lookup = application.remote_lookup;
+
 			d_main.commit_list_view.model = d_commit_list_model;
 
 			d_main.commit_list_view.get_selection().changed.connect((sel) => {

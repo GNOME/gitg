@@ -323,8 +323,38 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 	private bool d_is_sub_header_remote;
 	private string d_name;
 
+	public Gitg.RemoteState remote_state
+	{
+		set
+		{
+			switch (value)
+			{
+				case Gitg.RemoteState.DISCONNECTED:
+					icon_name = null;
+					break;
+				case Gitg.RemoteState.CONNECTING:
+					icon_name = "network-wireless-acquiring-symbolic";
+					break;
+				case Gitg.RemoteState.CONNECTED:
+					icon_name = "network-idle-symbolic";
+					break;
+				case Gitg.RemoteState.TRANSFERRING:
+					icon_name = "network-transmit-receive-symbolic";
+					break;
+			}
+		}
+	}
+
+	private Gitg.Remote? d_remote;
+
+	[GtkChild]
+	private Gitg.ProgressBin d_progress_bin;
+
 	[GtkChild]
 	private Gtk.Label d_label;
+
+	[GtkChild]
+	private Gtk.Image d_icon;
 
 	public Gitg.RefType ref_type
 	{
@@ -346,12 +376,19 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 		d_rtype = rtype;
 	}
 
-	public RefHeader.remote(string name)
+	public RefHeader.remote(string name, Gitg.Remote? remote)
 	{
 		this(Gitg.RefType.REMOTE, name);
 
+		d_remote = remote;
 		d_is_sub_header_remote = true;
 		d_label.margin_start += 12;
+
+		if (d_remote != null)
+		{
+			d_remote.bind_property("state", this, "remote_state");
+			d_remote.bind_property("transfer-progress", d_progress_bin, "fraction");
+		}
 	}
 
 	public bool is_sub_header_remote
@@ -369,6 +406,16 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 
 		return d_name.casefold().collate(other.d_name.casefold());
 	}
+
+	public string? icon_name
+	{
+		owned get { return d_icon.icon_name; }
+		set
+		{
+			d_icon.icon_name = value;
+			d_icon.visible = (value != null);
+		}
+	}
 }
 
 public class RefsList : Gtk.ListBox
@@ -376,6 +423,7 @@ public class RefsList : Gtk.ListBox
 	private Gitg.Repository? d_repository;
 	private Gee.HashMap<Gitg.Ref, RefRow> d_ref_map;
 	private Gtk.ListBoxRow? d_selected_row;
+	private Gitg.Remote[] d_remotes;
 
 	private class RemoteHeader
 	{
@@ -391,6 +439,8 @@ public class RefsList : Gtk.ListBox
 
 	private Gee.HashMap<string, RemoteHeader> d_header_map;
 
+	public GitgExt.RemoteLookup? remote_lookup { get; set; }
+
 	public Gitg.Repository? repository
 	{
 		get { return d_repository; }
@@ -404,11 +454,24 @@ public class RefsList : Gtk.ListBox
 		}
 	}
 
+	protected override void dispose()
+	{
+		foreach (var remote in d_remotes)
+		{
+			remote.tip_updated.disconnect(on_tip_updated);
+		}
+
+		d_remotes = new Gitg.Remote[0];
+
+		base.dispose();
+	}
+
 	construct
 	{
 		d_header_map = new Gee.HashMap<string, RemoteHeader>();
 		d_ref_map = new Gee.HashMap<Gitg.Ref, RefRow>();
 		selection_mode = Gtk.SelectionMode.BROWSE;
+		d_remotes = new Gitg.Remote[0];
 
 		set_sort_func(sort_rows);
 	}
@@ -470,6 +533,13 @@ public class RefsList : Gtk.ListBox
 		{
 			child.destroy();
 		}
+
+		foreach (var remote in d_remotes)
+		{
+			remote.tip_updated.disconnect(on_tip_updated);
+		}
+
+		d_remotes = new Gitg.Remote[0];
 	}
 
 	private void reselect_row(Gtk.ListBoxRow a)
@@ -534,9 +604,30 @@ public class RefsList : Gtk.ListBox
 		add(header);
 	}
 
+	private void on_tip_updated(Ggit.Remote remote,
+	                            string      refname,
+	                            Ggit.OId    a,
+	                            Ggit.OId    b)
+	{
+		stdout.printf("remote tip updated: %s, %s, %s\n", refname, a.to_string()[0:6], b.to_string()[0:6]);
+	}
+
 	private RefHeader add_remote_header(string name)
 	{
-		var header = new RefHeader.remote(name);
+		Gitg.Remote? remote = null;
+
+		if (remote_lookup != null)
+		{
+			remote = remote_lookup.lookup(name);
+		}
+
+		if (remote != null)
+		{
+			d_remotes += remote;
+			remote.tip_updated.connect(on_tip_updated);
+		}
+
+		var header = new RefHeader.remote(name, remote);
 		header.show();
 
 		d_header_map[name] = new RemoteHeader(header);
