@@ -790,6 +790,11 @@ public class RefsList : Gtk.ListBox
 		}
 	}
 
+	public bool is_header
+	{
+		get { return (get_selected_row() as RefHeader) != null; }
+	}
+
 	public bool is_all
 	{
 		get

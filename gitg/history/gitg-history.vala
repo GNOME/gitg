@@ -674,6 +674,7 @@ namespace GitgHistory
 			                                        (Gee.EqualDataFunc)Ggit.OId.equal);
 
 			var isall = d_main.refs_list.is_all;
+			var isheader = d_main.refs_list.is_header;
 
 			var perm_uniq = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc)Ggit.OId.hash,
 			                                          (Gee.EqualDataFunc)Ggit.OId.equal);
@@ -723,7 +724,7 @@ namespace GitgHistory
 					{
 						d_selected.add(id);
 
-						if (perm_uniq.add(id))
+						if (!isheader && perm_uniq.add(id))
 						{
 							permanent += id;
 						}
