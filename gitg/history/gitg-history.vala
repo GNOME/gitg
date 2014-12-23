@@ -474,6 +474,19 @@ namespace GitgHistory
 				update_walker();
 			});
 
+			uint idleupdate = 0;
+
+			d_main.refs_list.changed.connect(() => {
+				if (idleupdate == 0)
+				{
+					idleupdate = Idle.add(() => {
+						idleupdate = 0;
+						update_walker();
+						return false;
+					});
+				}
+			});
+
 			d_commit_list_popup = new Gitg.PopupMenu(d_main.commit_list_view);
 			d_commit_list_popup.populate_menu.connect(on_commit_list_populate_menu);
 

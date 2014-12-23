@@ -425,6 +425,8 @@ public class RefsList : Gtk.ListBox
 	private Gtk.ListBoxRow? d_selected_row;
 	private Gitg.Remote[] d_remotes;
 
+	public signal void changed();
+
 	private class RemoteHeader
 	{
 		public RefHeader header;
@@ -609,7 +611,43 @@ public class RefsList : Gtk.ListBox
 	                            Ggit.OId    a,
 	                            Ggit.OId    b)
 	{
-		stdout.printf("remote tip updated: %s, %s, %s\n", refname, a.to_string()[0:6], b.to_string()[0:6]);
+		if (a.is_zero())
+		{
+			Gitg.Ref reference;
+
+			repository.clear_refs_cache();
+
+			try
+			{
+				reference = repository.lookup_reference(refname);
+			}
+			catch (Error e)
+			{
+				stderr.printf("Failed to lookup new reference '%s': %s\n", refname, e.message);
+				return;
+			}
+
+			add_ref(reference);
+		}
+		else if (b.is_zero())
+		{
+			// Reference was removed, we need to find it by name
+			foreach (var reference in d_ref_map.keys)
+			{
+				if (reference.get_name() == refname)
+				{
+					repository.clear_refs_cache();
+					remove_ref(reference);
+					break;
+				}
+			}
+		}
+		else
+		{
+			// Ref just got updated, we should already have it. Just emit changed.
+			repository.clear_refs_cache();
+			changed();
+		}
 	}
 
 	private RefHeader add_remote_header(string name)
@@ -673,9 +711,15 @@ public class RefsList : Gtk.ListBox
 		return add_ref_row(reference, animation);
 	}
 
-	public void add_ref(Gitg.Ref reference)
+	public bool add_ref(Gitg.Ref reference)
 	{
-		add_ref_internal(reference, RefAnimation.ANIMATE);
+		if (add_ref_internal(reference, RefAnimation.ANIMATE) != null)
+		{
+			changed();
+			return true;
+		}
+
+		return false;
 	}
 
 	public void replace_ref(Gitg.Ref old_ref, Gitg.Ref new_ref)
@@ -687,12 +731,17 @@ public class RefsList : Gtk.ListBox
 			select = (get_selected_row() == d_ref_map[old_ref]);
 		}
 
-		remove_ref_internal(old_ref, RefAnimation.ANIMATE);
-		add_ref_internal(new_ref, RefAnimation.ANIMATE);
+		var removed = remove_ref_internal(old_ref, RefAnimation.ANIMATE);
+		var newrow = add_ref_internal(new_ref, RefAnimation.ANIMATE);
 
 		if (select)
 		{
-			select_row(d_ref_map[new_ref]);
+			select_row(newrow);
+		}
+
+		if (removed || newrow != null)
+		{
+			changed();
 		}
 	}
 
@@ -718,11 +767,11 @@ public class RefsList : Gtk.ListBox
 		return name == "HEAD";
 	}
 
-	private void remove_ref_internal(Gitg.Ref reference, RefAnimation animation = RefAnimation.NONE)
+	private bool remove_ref_internal(Gitg.Ref reference, RefAnimation animation = RefAnimation.NONE)
 	{
 		if (!d_ref_map.has_key(reference))
 		{
-			return;
+			return false;
 		}
 
 		var row = d_ref_map[reference];
@@ -751,11 +800,19 @@ public class RefsList : Gtk.ListBox
 				d_header_map.unset(remote);
 			}
 		}
+
+		return true;
 	}
 
-	public void remove_ref(Gitg.Ref reference)
+	public bool remove_ref(Gitg.Ref reference)
 	{
-		remove_ref_internal(reference);
+		if (remove_ref_internal(reference))
+		{
+			changed();
+			return true;
+		}
+
+		return false;
 	}
 
 	private void refresh()
