@@ -161,7 +161,7 @@ namespace Gitg
 
 			if (pos >= 0)
 			{
-				h = h[pos + 2:-1].chug();
+				h = h.substring(pos + 2).chug();
 			}
 
 			builder.set_member_name("header").add_string_value(h);
