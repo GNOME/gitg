@@ -22,71 +22,99 @@ namespace Gitg
 
 class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Object
 {
-  // Do this to pull in config.h before glib.h (for gettext...)
-  private const string version = Gitg.Config.VERSION;
+	// Do this to pull in config.h before glib.h (for gettext...)
+	private const string version = Gitg.Config.VERSION;
 
-  public GitgExt.Application? application { owned get; construct set; }
-  public GitgExt.RefActionInterface action_interface { get; construct set; }
-  public Gitg.Ref reference { get; construct set; }
-  private Gitg.Ref? d_remote;
+	public GitgExt.Application? application { owned get; construct set; }
+	public GitgExt.RefActionInterface action_interface { get; construct set; }
+	public Gitg.Ref reference { get; construct set; }
 
-  public RefActionFetch(GitgExt.Application        application,
-                        GitgExt.RefActionInterface action_interface,
-                        Gitg.Ref                   reference)
-  {
-    Object(application:      application,
-           action_interface: action_interface,
-           reference:        reference);
+	private Gitg.Ref? d_remote_ref;
+	private Gitg.Remote? d_remote;
 
-    var branch = reference as Ggit.Branch;
+	public RefActionFetch(GitgExt.Application        application,
+	                      GitgExt.RefActionInterface action_interface,
+	                      Gitg.Ref                   reference)
+	{
+		Object(application:      application,
+		       action_interface: action_interface,
+		       reference:        reference);
 
-    if (branch != null)
-    {
-      try
-      {
-        d_remote = branch.get_upstream() as Gitg.Ref;
-      } catch {}
-    }
-    else if (reference.parsed_name.remote_name != null)
-    {
-      d_remote = reference;
-    }
-  }
+		var branch = reference as Ggit.Branch;
 
-  public string id
-  {
-    owned get { return "/org/gnome/gitg/ref-actions/fetch"; }
-  }
+		if (branch != null)
+		{
+			try
+			{
+				d_remote_ref = branch.get_upstream() as Gitg.Ref;
+			} catch {}
+		}
+		else if (reference.parsed_name.remote_name != null)
+		{
+			d_remote_ref = reference;
+		}
 
-  public string display_name
-  {
-    owned get
-    {
-      if (d_remote != null)
-      {
-        return _("Fetch from %s").printf(d_remote.parsed_name.remote_name);
-      }
-      else
-      {
-        return "";
-      }
-    }
-  }
+		if (d_remote_ref != null)
+		{
+			d_remote = application.remote_lookup.lookup(d_remote_ref.parsed_name.remote_name);
+		}
+	}
 
-  public string description
-  {
-    owned get { return _("Fetch remote objects from %s").printf(d_remote.parsed_name.remote_name); }
-  }
+	public string id
+	{
+		owned get { return "/org/gnome/gitg/ref-actions/fetch"; }
+	}
 
-  public bool available
-  {
-    get { return d_remote != null; }
-  }
+	public string display_name
+	{
+		owned get
+		{
+			if (d_remote != null)
+			{
+				return _("Fetch from %s").printf(d_remote_ref.parsed_name.remote_name);
+			}
+			else
+			{
+				return "";
+			}
+		}
+	}
 
-  public void activate()
-  {
-    // TODO
-  }
+	public string description
+	{
+		owned get { return _("Fetch remote objects from %s").printf(d_remote_ref.parsed_name.remote_name); }
+	}
+
+	public bool available
+	{
+		get { return d_remote != null; }
+	}
+
+	public void activate()
+	{
+		Ggit.Signature sig;
+
+		try
+		{
+			sig = application.repository.get_signature_with_environment(application.environment);
+		}
+		catch (Error e)
+		{
+			stderr.printf("Failed to get signature: %s\n", e.message);
+			return;
+		}
+
+		d_remote.fetch.begin(sig, null, (obj, res) =>{
+			try
+			{
+				d_remote.fetch.end(res);
+			}
+			catch (Error e)
+			{
+				stderr.printf("Failed to fetch: %s\n", e.message);
+			}
+		});
+	}
 }
 
 }
