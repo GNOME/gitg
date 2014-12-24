@@ -246,17 +246,19 @@ function expand_collapse()
 	var expander = $(this);
 
 	// If expanded, will be true
-	var toExpand = expander.text() == "+";
+	var toExpand = expander.text() == "\u25B6";
 
 	if (toExpand)
 	{
 		// next step to close it
-		expander.text("-");
+		// BLACK DOWN-POINTING TRIANGLE
+		expander.text("\u25BC");
 	}
 	else
 	{
 		// next step is to open it
-		expander.text("+");
+		// BLACK RIGHT-POINTING TRIANGLE
+		expander.text("\u25B6");
 	}
 
 	expander.closest('tbody').toggleClass("collapsed");
