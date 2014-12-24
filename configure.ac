@@ -115,6 +115,7 @@ PKG_CHECK_MODULES(LIBGITG, [
 	gsettings-desktop-schemas
 	gee-0.8
 	json-glib-1.0
+	libsecret-1
 ])
 
 AC_MSG_CHECKING([for libgit2-glib threading support])
@@ -274,6 +275,7 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg gee-0.8				\
 	--pkg json-glib-1.0			\
 	--pkg libsoup-2.4			\
+	--pkg libsecret-1			\
 	--pkg $WEBKIT_PKGCONFIG			\
 	--pkg config				\
 	--pkg gd-1.0				\

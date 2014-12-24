@@ -22,50 +22,20 @@ namespace Gitg
 
 class RemoteManager : Object, GitgExt.RemoteLookup
 {
-	class CredSshInteractive : Ggit.CredSshInteractive
-	{
-		public CredSshInteractive(string username) throws Error
-		{
-			Object(username: username);
-
-			((Initable)this).init(null);
-		}
-
-		protected override void prompt(Ggit.CredSshInteractivePrompt[] prompts)
-		{
-			// TODO
-		}
-	}
-
 	class Callbacks : Ggit.RemoteCallbacks
 	{
-		private weak Remote d_remote;
-		private Window d_window;
+		private CredentialsManager d_credentials;
 
-		public Callbacks(Remote remote, Window window)
+		public Callbacks(Gitg.Remote remote, Gtk.Window window)
 		{
-			d_remote = remote;
-			d_window = window;
+			d_credentials = new CredentialsManager(remote, window);
 		}
 
 		protected override Ggit.Cred? credentials(string        url,
 		                                          string?       username,
 		                                          Ggit.Credtype allowed_types) throws Error
 		{
-			if ((allowed_types & Ggit.Credtype.SSH_KEY) != 0)
-			{
-				return new Ggit.CredSshKeyFromAgent(username);
-			}
-			else if ((allowed_types & Ggit.Credtype.SSH_INTERACTIVE) != 0)
-			{
-				return new CredSshInteractive(username);
-			}
-			else if ((allowed_types & Ggit.Credtype.USERPASS_PLAINTEXT) != 0)
-			{
-				// TODO: query for user + pass
-			}
-
-			return null;
+			return d_credentials.credentials(url, username, allowed_types);
 		}
 	}
 

@@ -27,6 +27,7 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg $(WEBKIT_PKGCONFIG)	\
 	--pkg gee-0.8			\
 	--pkg json-glib-1.0		\
+	--pkg libsecret-1		\
 	--pkg gio-unix-2.0		\
 	--pkg gitg-js-utils		\
 	--pkg gdesktop-enums-3.0	\
@@ -43,6 +44,7 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-assembly-info.vala			\
 	libgitg/gitg-async.vala				\
+	libgitg/gitg-authentication-dialog.vala		\
 	libgitg/gitg-branch.vala			\
 	libgitg/gitg-branch-base.vala			\
 	libgitg/gitg-repository.vala			\
@@ -57,6 +59,7 @@ libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-label-renderer.vala		\
 	libgitg/gitg-cell-renderer-lanes.vala		\
 	libgitg/gitg-commit-list-view.vala		\
+	libgitg/gitg-credentials-manager.vala		\
 	libgitg/gitg-diff-view.vala			\
 	libgitg/gitg-diff-view-options.vala		\
 	libgitg/gitg-diff-view-request.vala		\
