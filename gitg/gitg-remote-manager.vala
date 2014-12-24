@@ -48,27 +48,24 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 			d_window = window;
 		}
 
-		protected override bool credentials(string        url,
-		                                    string        username,
-		                                    Ggit.Credtype allowed_types,
-		                                    out Ggit.Cred cred) throws Error
+		protected override Ggit.Cred? credentials(string        url,
+		                                          string?       username,
+		                                          Ggit.Credtype allowed_types) throws Error
 		{
-			cred = null;
-
 			if ((allowed_types & Ggit.Credtype.SSH_KEY) != 0)
 			{
-				cred = new Ggit.CredSshKeyFromAgent(username);
+				return new Ggit.CredSshKeyFromAgent(username);
 			}
 			else if ((allowed_types & Ggit.Credtype.SSH_INTERACTIVE) != 0)
 			{
-				cred = new CredSshInteractive(username);
+				return new CredSshInteractive(username);
 			}
 			else if ((allowed_types & Ggit.Credtype.USERPASS_PLAINTEXT) != 0)
 			{
 				// TODO: query for user + pass
 			}
 
-			return cred != null;
+			return null;
 		}
 	}
 
