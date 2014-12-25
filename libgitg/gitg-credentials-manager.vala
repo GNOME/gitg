@@ -249,7 +249,7 @@ public class CredentialsManager
 	                              string?       username,
 	                              Ggit.Credtype allowed_types) throws Error
 	{
-		if (d_remote.authentication_error != null && (allowed_types & Ggit.Credtype.SSH_KEY) != 0)
+		if (d_remote.authentication_error == null && (allowed_types & Ggit.Credtype.SSH_KEY) != 0)
 		{
 			return new Ggit.CredSshKeyFromAgent(username);
 		}

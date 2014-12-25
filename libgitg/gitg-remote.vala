@@ -113,8 +113,10 @@ public class Remote : Ggit.Remote
 			catch (Error e)
 			{
 				// NOTE: need to check the message for now in case of failed
-				// http auth.
-				if (e.message == "Unexpected HTTP status code: 401")
+				// http or ssh auth. This is fragile and will likely break
+				// in future libgit2 releases. Please fix!
+				if (e.message == "Unexpected HTTP status code: 401" ||
+				    e.message == "error authenticating: Username/PublicKey combination invalid")
 				{
 					d_authentication_error = e;
 					continue;
