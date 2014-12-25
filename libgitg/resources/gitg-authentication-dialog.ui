@@ -49,7 +49,7 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="height">4</property>
+                <property name="height">5</property>
               </packing>
             </child>
             <child>
@@ -68,6 +68,26 @@
               </packing>
             </child>
             <child>
+              <object class="GtkLabel" id="label_failed">
+                <property name="visible">False</property>
+                <property name="can_focus">False</property>
+                <property name="halign">fill</property>
+                <property name="wrap">True</property>
+                <property name="label" translatable="yes">The previous attempt to authenticate has failed, please provide your user name and password and try again.</property>
+                <property name="margin_top">12</property>
+                <property name="margin_bottom">12</property>
+                <property name="max_width_chars">0</property>
+                <attributes>
+                  <attribute name="style" value="italic"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkLabel" id="label_username">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -78,7 +98,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
+                <property name="top_attach">2</property>
               </packing>
             </child>
             <child>
@@ -92,7 +112,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
+                <property name="top_attach">3</property>
               </packing>
             </child>
             <child>
@@ -105,7 +125,7 @@
               </object>
               <packing>
                 <property name="left_attach">2</property>
-                <property name="top_attach">1</property>
+                <property name="top_attach">2</property>
               </packing>
             </child>
             <child>
@@ -120,7 +140,7 @@
               </object>
               <packing>
                 <property name="left_attach">2</property>
-                <property name="top_attach">2</property>
+                <property name="top_attach">3</property>
               </packing>
             </child>
             <child>
@@ -184,7 +204,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">3</property>
+                <property name="top_attach">4</property>
                 <property name="width">2</property>
               </packing>
             </child>

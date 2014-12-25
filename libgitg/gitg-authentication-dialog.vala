@@ -33,6 +33,9 @@ public class AuthenticationDialog : Gtk.Dialog
 	[GtkChild ( name = "label_title" )]
 	private Gtk.Label d_label_title;
 
+	[GtkChild ( name = "label_failed" )]
+	private Gtk.Label d_label_failed;
+
 	[GtkChild ( name = "entry_username" )]
 	private Gtk.Entry d_entry_username;
 
@@ -45,7 +48,17 @@ public class AuthenticationDialog : Gtk.Dialog
 	[GtkChild ( name = "radio_button_session" )]
 	private Gtk.RadioButton d_radio_button_session;
 
-	public AuthenticationDialog(string url, string? username)
+	[GtkChild ( name = "radio_button_forever" )]
+	private Gtk.RadioButton d_radio_button_forever;
+
+	private static AuthenticationLifeTime s_last_lifetime;
+
+	static construct
+	{
+		s_last_lifetime = AuthenticationLifeTime.SESSION;
+	}
+
+	public AuthenticationDialog(string url, string? username, bool failed)
 	{
 		Object(use_header_bar: 1);
 
@@ -54,11 +67,25 @@ public class AuthenticationDialog : Gtk.Dialog
 		/* Translators: %s will be replaced with a URL indicating the resource
 		   for which the authentication is required. */
 		d_label_title.label = _("Password required for %s").printf(url);
+		d_label_failed.visible = failed;
 
 		if (username != null)
 		{
 			d_entry_username.text = username;
 			d_entry_password.grab_focus();
+		}
+
+		switch (s_last_lifetime)
+		{
+			case AuthenticationLifeTime.FORGET:
+				d_radio_button_forget.active = true;
+				break;
+			case AuthenticationLifeTime.SESSION:
+				d_radio_button_session.active = true;
+				break;
+			case AuthenticationLifeTime.FOREVER:
+				d_radio_button_forever.active = true;
+				break;
 		}
 	}
 

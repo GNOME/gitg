@@ -27,29 +27,9 @@ public errordomain CredentialsError
 
 public class CredentialsManager
 {
-	class CredSshInteractive : Ggit.CredSshInteractive
-	{
-		private weak Remote d_remote;
-
-		public CredSshInteractive(Remote remote, string username) throws Error
-		{
-			Object(username: username);
-
-			d_remote = remote;
-
-			((Initable)this).init(null);
-		}
-
-		protected override void prompt(Ggit.CredSshInteractivePrompt[] prompts)
-		{
-			// TODO
-		}
-	}
-
 	private weak Remote d_remote;
 	private Gtk.Window d_window;
 	private Gee.HashMap<string, string>? d_usermap;
-
 	private static Secret.Schema s_secret_schema;
 
 	static construct
@@ -106,7 +86,7 @@ public class CredentialsManager
 		AuthenticationLifeTime lifetime = AuthenticationLifeTime.FORGET;
 
 		Idle.add(() => {
-			var d = new AuthenticationDialog(url, username);
+			var d = new AuthenticationDialog(url, username, d_remote.authentication_error != null);
 			d.set_transient_for(d_window);
 
 			response = (Gtk.ResponseType)d.run();
@@ -163,7 +143,6 @@ public class CredentialsManager
 		attributes["scheme"] = scheme;
 		attributes["host"] = host;
 		attributes["user"] = newusername;
-
 
 		// Save secret
 		if (lifetime != AuthenticationLifeTime.FORGET)
@@ -233,7 +212,7 @@ public class CredentialsManager
 			user = username;
 		}
 
-		if (user != null)
+		if (user != null && d_remote.authentication_error == null)
 		{
 			string? secret = null;
 
@@ -270,13 +249,9 @@ public class CredentialsManager
 	                              string?       username,
 	                              Ggit.Credtype allowed_types) throws Error
 	{
-		if ((allowed_types & Ggit.Credtype.SSH_KEY) != 0)
+		if (d_remote.authentication_error != null && (allowed_types & Ggit.Credtype.SSH_KEY) != 0)
 		{
 			return new Ggit.CredSshKeyFromAgent(username);
-		}
-		else if ((allowed_types & Ggit.Credtype.SSH_INTERACTIVE) != 0)
-		{
-			return new CredSshInteractive(d_remote, username);
 		}
 		else if ((allowed_types & Ggit.Credtype.USERPASS_PLAINTEXT) != 0)
 		{

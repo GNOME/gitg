@@ -39,6 +39,12 @@ public errordomain RemoteError
 public class Remote : Ggit.Remote
 {
 	private RemoteState d_state;
+	private Error? d_authentication_error;
+
+	public Error authentication_error
+	{
+		get { return d_authentication_error; }
+	}
 
 	public RemoteState state
 	{
@@ -69,6 +75,7 @@ public class Remote : Ggit.Remote
 			else
 			{
 				state = RemoteState.CONNECTED;
+				d_authentication_error = null;
 			}
 		}
 		else
@@ -95,16 +102,32 @@ public class Remote : Ggit.Remote
 
 		state = RemoteState.CONNECTING;
 
-		try
+		while (true)
 		{
-			yield Async.thread(() => {
-				base.connect(direction);
-			});
-		}
-		catch (Error e)
-		{
-			update_state();
-			throw e;
+			try
+			{
+				yield Async.thread(() => {
+					base.connect(direction);
+				});
+			}
+			catch (Error e)
+			{
+				// NOTE: need to check the message for now in case of failed
+				// http auth.
+				if (e.message == "Unexpected HTTP status code: 401")
+				{
+					d_authentication_error = e;
+					continue;
+				}
+				else
+				{
+					update_state();
+					throw e;
+				}
+			}
+
+			d_authentication_error = null;
+			break;
 		}
 
 		update_state();
