@@ -45,7 +45,7 @@ class RefActionCopyName : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, 
 
   public string display_name
   {
-    owned get { return _("Copy Name"); }
+    owned get { return _("Copy name"); }
   }
 
   public string description
