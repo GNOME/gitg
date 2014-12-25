@@ -100,12 +100,12 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 
 		if (reference != null)
 		{
-			margin_start += 12;
+			get_child().margin_start += 12;
 		}
 
 		if (ref_type == Gitg.RefType.REMOTE)
 		{
-			margin_start += 12;
+			get_child().margin_start += 12;
 		}
 
 		d_revealer.notify["child-revealed"].connect(on_child_revealed);
