@@ -20,7 +20,7 @@
 namespace Gitg
 {
 
-[GtkTemplate ( ui = "/org/gnome/gitg/gtk/diff-view/diff-view-options.ui" )]
+[GtkTemplate ( ui = "/org/gnome/gitg/ui/diff-view/diff-view-options.ui" )]
 public class DiffViewOptions : Gtk.Grid
 {
 	[GtkChild (name = "switch_changes_inline")]

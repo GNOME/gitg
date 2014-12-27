@@ -461,7 +461,7 @@ namespace Gitg
 			d_loaded = false;
 
 			// Load the diff base html
-			var uri = "gitg-diff:///resource/org/gnome/gitg/gtk/diff-view/diff-view.html?viewid=" + s_diff_id.to_string();
+			var uri = "gitg-diff:///resource/org/gnome/gitg/ui/diff-view/diff-view.html?viewid=" + s_diff_id.to_string();
 
 			uri += "&settings=" + Soup.URI.encode(json_settings(), null);
 

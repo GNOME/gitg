@@ -44,7 +44,7 @@ namespace Gitg
 			// For debugging
 			if (Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") == "local")
 			{
-				var pre = "/org/gnome/gitg/gtk/diff-view";
+				var pre = "/org/gnome/gitg/";
 
 				if (path.has_prefix(pre))
 				{

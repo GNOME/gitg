@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/org/gnome/gitg/gtk/diff-view">
-    <file compressed="true">diff-view.html</file>
-    <file compressed="true">diff-view.js</file>
-    <file compressed="true">diff-view-html-builder.js</file>
-    <file compressed="true">diff-view.css</file>
-    <file compressed="true">jquery-2.0.3.min.js</file>
-  </gresource>
-  <gresource prefix="/org/gnome/gitg/gtk">
-    <file compressed="true" preprocess="xml-stripblanks">gitg-repository-list-box-row.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks">gitg-authentication-dialog.ui</file>
-  </gresource>
-  <gresource prefix="/org/gnome/gitg/gtk/sidebar">
-    <file compressed="true">sidebar-view.ui</file>
-  </gresource>
-  <gresource prefix="/org/gnome/gitg/gtk/diff-view">
-    <file compressed="true">diff-view-options.ui</file>
+  <gresource prefix="/org/gnome/gitg">
+    <file compressed="true">ui/diff-view/diff-view.html</file>
+    <file compressed="true">ui/diff-view/diff-view.js</file>
+    <file compressed="true">ui/diff-view/diff-view-html-builder.js</file>
+    <file compressed="true">ui/diff-view/diff-view.css</file>
+    <file compressed="true">ui/diff-view/jquery-2.0.3.min.js</file>
+    <file compressed="true">ui/diff-view/diff-view-options.ui</file>
+
+    <file compressed="true" preprocess="xml-stripblanks">ui/gitg-repository-list-box-row.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/gitg-authentication-dialog.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/gitg-sidebar.ui</file>
   </gresource>
 </gresources>
 

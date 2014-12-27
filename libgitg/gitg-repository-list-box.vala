@@ -32,7 +32,7 @@ namespace Gitg
 		public signal void repository_activated(Repository repository);
 		public signal void show_error(string primary_message, string secondary_message);
 
-		[GtkTemplate (ui = "/org/gnome/gitg/gtk/gitg-repository-list-box-row.ui")]
+		[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-repository-list-box-row.ui")]
 		public class Row : Gtk.ListBoxRow
 		{
 			private Repository? d_repository;

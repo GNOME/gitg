@@ -195,7 +195,7 @@ public class SidebarStore : Gtk.TreeStore
 	}
 }
 
-[GtkTemplate ( ui = "/org/gnome/gitg/gtk/sidebar/sidebar-view.ui" )]
+[GtkTemplate ( ui = "/org/gnome/gitg/ui/gitg-sidebar.ui" )]
 public class Sidebar : Gtk.TreeView
 {
 	[GtkChild (name = "column")]

@@ -27,7 +27,7 @@ public enum AuthenticationLifeTime
 	FOREVER
 }
 
-[GtkTemplate ( ui = "/org/gnome/gitg/gtk/gitg-authentication-dialog.ui" )]
+[GtkTemplate ( ui = "/org/gnome/gitg/ui/gitg-authentication-dialog.ui" )]
 public class AuthenticationDialog : Gtk.Dialog
 {
 	[GtkChild ( name = "label_title" )]
