@@ -45,38 +45,38 @@ libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-assembly-info.vala			\
 	libgitg/gitg-async.vala				\
 	libgitg/gitg-authentication-dialog.vala		\
-	libgitg/gitg-branch.vala			\
+	libgitg/gitg-avatar-cache.vala			\
 	libgitg/gitg-branch-base.vala			\
-	libgitg/gitg-repository.vala			\
-	libgitg/gitg-ref.vala				\
-	libgitg/gitg-ref-base.vala			\
-	libgitg/gitg-lane.vala				\
-	libgitg/gitg-lanes.vala				\
-	libgitg/gitg-color.vala				\
-	libgitg/gitg-init.vala				\
-	libgitg/gitg-commit.vala			\
-	libgitg/gitg-commit-model.vala			\
-	libgitg/gitg-label-renderer.vala		\
+	libgitg/gitg-branch.vala			\
 	libgitg/gitg-cell-renderer-lanes.vala		\
+	libgitg/gitg-color.vala				\
 	libgitg/gitg-commit-list-view.vala		\
+	libgitg/gitg-commit-model.vala			\
+	libgitg/gitg-commit.vala			\
 	libgitg/gitg-credentials-manager.vala		\
-	libgitg/gitg-diff-view.vala			\
+	libgitg/gitg-date.vala				\
+	libgitg/gitg-diff-stat.vala			\
 	libgitg/gitg-diff-view-options.vala		\
-	libgitg/gitg-diff-view-request.vala		\
+	libgitg/gitg-diff-view-request-diff.vala	\
 	libgitg/gitg-diff-view-request-icon.vala	\
 	libgitg/gitg-diff-view-request-resource.vala	\
-	libgitg/gitg-diff-view-request-diff.vala	\
-	libgitg/gitg-repository-list-box.vala		\
-	libgitg/gitg-when-mapped.vala			\
-	libgitg/gitg-progress-bin.vala			\
-	libgitg/gitg-stage.vala				\
-	libgitg/gitg-stage-status-enumerator.vala	\
-	libgitg/gitg-sidebar.vala			\
+	libgitg/gitg-diff-view-request.vala		\
+	libgitg/gitg-diff-view.vala			\
 	libgitg/gitg-hook.vala				\
-	libgitg/gitg-date.vala				\
-	libgitg/gitg-avatar-cache.vala			\
-	libgitg/gitg-diff-stat.vala			\
-	libgitg/gitg-remote.vala
+	libgitg/gitg-init.vala				\
+	libgitg/gitg-label-renderer.vala		\
+	libgitg/gitg-lane.vala				\
+	libgitg/gitg-lanes.vala				\
+	libgitg/gitg-progress-bin.vala			\
+	libgitg/gitg-ref-base.vala			\
+	libgitg/gitg-ref.vala				\
+	libgitg/gitg-remote.vala			\
+	libgitg/gitg-repository-list-box.vala		\
+	libgitg/gitg-repository.vala			\
+	libgitg/gitg-sidebar.vala			\
+	libgitg/gitg-stage-status-enumerator.vala	\
+	libgitg/gitg-stage.vala				\
+	libgitg/gitg-when-mapped.vala
 
 libgitg_libgitg_1_0_la_SOURCES = 		\
 	$(libgitg_libgitg_1_0_la_VALASOURCES)	\

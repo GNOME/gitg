@@ -42,24 +42,24 @@ libgitg_ext_libgitg_ext_1_0_la_LIBADD = 	\
 	libgitg/libgitg-1.0.la
 
 libgitg_ext_libgitg_ext_1_0_la_VALASOURCES =		\
-	libgitg-ext/gitg-ext-assembly-info.vala		\
-	libgitg-ext/gitg-ext-ref-action-interface.vala	\
 	libgitg-ext/gitg-ext-action.vala		\
-	libgitg-ext/gitg-ext-commit-action.vala		\
-	libgitg-ext/gitg-ext-ref-action.vala		\
-	libgitg-ext/gitg-ext-application.vala		\
-	libgitg-ext/gitg-ext-ui-element.vala		\
 	libgitg-ext/gitg-ext-activity.vala		\
+	libgitg-ext/gitg-ext-application.vala		\
+	libgitg-ext/gitg-ext-assembly-info.vala		\
+	libgitg-ext/gitg-ext-command-line.vala		\
+	libgitg-ext/gitg-ext-commit-action.vala		\
+	libgitg-ext/gitg-ext-history-panel.vala		\
+	libgitg-ext/gitg-ext-history.vala		\
+	libgitg-ext/gitg-ext-message-bus.vala		\
 	libgitg-ext/gitg-ext-message-id.vala		\
 	libgitg-ext/gitg-ext-message.vala		\
-	libgitg-ext/gitg-ext-message-bus.vala		\
-	libgitg-ext/gitg-ext-history.vala		\
-	libgitg-ext/gitg-ext-history-panel.vala		\
-	libgitg-ext/gitg-ext-command-line.vala		\
 	libgitg-ext/gitg-ext-preferences.vala		\
+	libgitg-ext/gitg-ext-ref-action-interface.vala	\
+	libgitg-ext/gitg-ext-ref-action.vala		\
 	libgitg-ext/gitg-ext-remote-lookup.vala		\
 	libgitg-ext/gitg-ext-searchable.vala		\
 	libgitg-ext/gitg-ext-selectable.vala		\
+	libgitg-ext/gitg-ext-ui-element.vala		\
 	libgitg-ext/gitg-ext-ui.vala			\
 	libgitg-ext/gitg-ext-user-query.vala		\
 	libgitg/libgitg-1.0.vapi

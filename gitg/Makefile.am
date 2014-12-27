@@ -48,45 +48,45 @@ gitg_gitg_LDFLAGS =						\
 	$(PACKAGE_LIBS)
 
 gitg_gitg_VALASOURCES =						\
-	gitg/gitg.vala						\
-	gitg/gitg-dirs.vala					\
-	gitg/gitg-window.vala					\
-	gitg/gitg-clone-dialog.vala				\
-	gitg/gitg-author-details-dialog.vala			\
-	gitg/gitg-resource.vala					\
-	gitg/gitg-dash-view.vala				\
-	gitg/gitg-application.vala				\
-	gitg/gitg-plugins-engine.vala				\
-	gitg/gitg-popup-menu.vala				\
-	gitg/gitg-animated-paned.vala				\
-	gitg/gitg-ui-elements.vala				\
-	gitg/gitg-ref-action-rename.vala			\
-	gitg/gitg-ref-action-delete.vala			\
-	gitg/gitg-ref-action-copy-name.vala			\
-	gitg/gitg-ref-action-fetch.vala				\
-	gitg/gitg-commit-action-create-branch.vala		\
-	gitg/gitg-create-branch-dialog.vala			\
-	gitg/gitg-commit-action-create-tag.vala			\
-	gitg/gitg-create-tag-dialog.vala			\
-	gitg/gitg-commit-action-create-patch.vala		\
-	gitg/gitg-remote-manager.vala				\
-	gitg/preferences/gitg-preferences-commit.vala		\
-	gitg/preferences/gitg-preferences-dialog.vala		\
-	gitg/preferences/gitg-preferences-interface.vala	\
-	gitg/preferences/gitg-preferences-history.vala		\
-	gitg/history/gitg-history.vala				\
-	gitg/history/gitg-history-action-interface.vala		\
-	gitg/history/gitg-history-refs-list.vala		\
-	gitg/history/gitg-history-paned.vala			\
-	gitg/commit/gitg-commit.vala				\
+	gitg/commit/gitg-commit-dialog.vala			\
 	gitg/commit/gitg-commit-paned.vala			\
 	gitg/commit/gitg-commit-sidebar.vala			\
-	gitg/commit/gitg-commit-submodule-history-view.vala	\
 	gitg/commit/gitg-commit-submodule-diff-view.vala	\
+	gitg/commit/gitg-commit-submodule-history-view.vala	\
 	gitg/commit/gitg-commit-submodule-info.vala		\
-	gitg/commit/gitg-commit-dialog.vala			\
-	libgitg/libgitg-1.0.vapi				\
-	libgitg-ext/libgitg-ext-1.0.vapi
+	gitg/commit/gitg-commit.vala				\
+	gitg/gitg-animated-paned.vala				\
+	gitg/gitg-application.vala				\
+	gitg/gitg-author-details-dialog.vala			\
+	gitg/gitg-clone-dialog.vala				\
+	gitg/gitg-commit-action-create-branch.vala		\
+	gitg/gitg-commit-action-create-patch.vala		\
+	gitg/gitg-commit-action-create-tag.vala			\
+	gitg/gitg-create-branch-dialog.vala			\
+	gitg/gitg-create-tag-dialog.vala			\
+	gitg/gitg-dash-view.vala				\
+	gitg/gitg-dirs.vala					\
+	gitg/gitg-plugins-engine.vala				\
+	gitg/gitg-popup-menu.vala				\
+	gitg/gitg-ref-action-copy-name.vala			\
+	gitg/gitg-ref-action-delete.vala			\
+	gitg/gitg-ref-action-fetch.vala				\
+	gitg/gitg-ref-action-rename.vala			\
+	gitg/gitg-remote-manager.vala				\
+	gitg/gitg-resource.vala					\
+	gitg/gitg-ui-elements.vala				\
+	gitg/gitg-window.vala					\
+	gitg/gitg.vala						\
+	gitg/history/gitg-history-action-interface.vala		\
+	gitg/history/gitg-history-paned.vala			\
+	gitg/history/gitg-history-refs-list.vala		\
+	gitg/history/gitg-history.vala				\
+	gitg/preferences/gitg-preferences-commit.vala		\
+	gitg/preferences/gitg-preferences-dialog.vala		\
+	gitg/preferences/gitg-preferences-history.vala		\
+	gitg/preferences/gitg-preferences-interface.vala	\
+	libgitg-ext/libgitg-ext-1.0.vapi			\
+	libgitg/libgitg-1.0.vapi
 
 gitg_gitg_SOURCES =						\
 	$(gitg_gitg_VALASOURCES)				\
