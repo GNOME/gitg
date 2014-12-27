@@ -39,6 +39,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private UIElements<GitgExt.Activity> d_activities;
 
 	private RemoteManager d_remote_manager;
+	private Notifications d_notifications;
 
 	// Widgets
 	[GtkChild]
@@ -87,6 +88,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.Label d_infobar_primary_label;
 	[GtkChild]
 	private Gtk.Label d_infobar_secondary_label;
+
+	[GtkChild]
+	private Gtk.Overlay d_overlay;
 
 	enum Mode
 	{
@@ -199,6 +203,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	construct
 	{
 		add_action_entries(win_entries, this);
+
+		d_notifications = new Notifications(d_overlay);
 
 		var selact = lookup_action("select");
 
@@ -945,6 +951,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	public GitgExt.RemoteLookup remote_lookup
 	{
 		owned get { return d_remote_manager; }
+	}
+
+	public GitgExt.Notifications notifications
+	{
+		owned get { return d_notifications; }
 	}
 }
 

@@ -66,6 +66,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-create-tag-dialog.vala			\
 	gitg/gitg-dash-view.vala				\
 	gitg/gitg-dirs.vala					\
+	gitg/gitg-notifications.vala				\
 	gitg/gitg-plugins-engine.vala				\
 	gitg/gitg-popup-menu.vala				\
 	gitg/gitg-ref-action-copy-name.vala			\

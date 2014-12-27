@@ -46,6 +46,16 @@ public interface Application : Object
 	public abstract GitgExt.Activity? current_activity { owned get; }
 
 	/**
+	 * The environment with which the application was opened.
+	 */
+	public abstract Gee.Map<string, string> environment { owned get; }
+
+	/**
+	 * Get the notifications manager for the application.
+	 */
+	public abstract Notifications notifications { owned get; }
+
+	/**
 	 * Set the current application main activity.
 	 *
 	 * @param id the id of the activity {@link UIElement.id}.
@@ -62,8 +72,6 @@ public interface Application : Object
 	                                  Gtk.MessageType type);
 
 	public abstract bool busy { get; set; }
-
-	public abstract Gee.Map<string, string> environment { owned get; }
 
 	public abstract Application open_new(Ggit.Repository repository, string? hint = null);
 
