@@ -499,6 +499,8 @@ namespace GitgHistory
 			              d_main,
 			              "selectable-mode",
 			              BindingFlags.BIDIRECTIONAL);
+
+			d_main.commit_list_view.set_search_equal_func(search_filter_func);
 		}
 
 		private Gtk.Menu? popup_on_ref(Gdk.EventButton? event)
@@ -852,21 +854,53 @@ namespace GitgHistory
 			}
 		}
 
+		private string normalize(string s)
+		{
+			return s.normalize(-1, NormalizeMode.ALL).casefold();
+		}
+
+		private bool search_filter_func(Gtk.TreeModel model, int column, string key, Gtk.TreeIter iter)
+		{
+			var c = d_commit_list_model.commit_from_iter(iter);
+
+			if (c.get_id().has_prefix(key))
+			{
+				return false;
+			}
+
+			var nkey = normalize(key);
+			var subject = normalize(c.get_subject());
+
+			if (subject.contains(nkey))
+			{
+				return false;
+			}
+
+			var message = normalize(c.get_message());
+
+			if (message.contains(nkey))
+			{
+				return false;
+			}
+
+			return true;
+		}
+
 		public Gtk.Entry? search_entry
 		{
 			set
 			{
-				int column = -1;
-
-				if (value != null)
-				{
-					column = (int)Gitg.CommitModelColumns.MESSAGE;
-				}
-
 				d_main.commit_list_view.set_search_entry(value);
 				d_main.commit_list_view.set_enable_search(value != null);
 
-				d_main.commit_list_view.set_search_column(column);
+				if (value != null)
+				{
+					d_main.commit_list_view.set_search_column(0);
+				}
+				else
+				{
+					d_main.commit_list_view.set_search_column(-1);
+				}
 			}
 		}
 
