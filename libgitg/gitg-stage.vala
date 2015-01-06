@@ -269,10 +269,9 @@ public class Stage : Object
 
 	private bool has_index_changes()
 	{
-		var opts = Ggit.StatusOption.EXCLUDE_SUBMODULES;
 		var show = Ggit.StatusShow.INDEX_ONLY;
 
-		var options = new Ggit.StatusOptions(opts, show, null);
+		var options = new Ggit.StatusOptions(0, show, null);
 		bool has_changes = false;
 
 		try
