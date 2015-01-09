@@ -1,0 +1,1157 @@
+# Esperanto translation for gitg.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gitg package.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gitg master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gitg&keywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2015-01-09 18:27+0000\n"
+"PO-Revision-Date: 2015-01-09 23:30+0100\n"
+"Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
+"Language-Team: Esperanto <gnome-l10n-eo@lists.launchpad.net>\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
+#: ../gitg/resources/ui/gitg-window.ui.h:1
+msgid "gitg"
+msgstr "gitg"
+
+#: ../data/gitg.desktop.in.in.h:2
+msgid "Git repository browser"
+msgstr "Foliumo por Git-deponejoj"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+msgid "Default Clone Directory"
+msgstr "Defaŭlta klon-dosierujo"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+msgid ""
+"The default directory in which new repositories should be suggested to be "
+"cloned."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+msgid "Setting that sets the orientation of the main interface."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+msgid "Default Activity"
+msgstr "Defaŭlta aktiveco"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+msgid "The activity which gitg activates by default when first launched."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+msgid "When to Collapse Inactive Lanes"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+msgid ""
+"Setting that indicates when an inactive lane should be collapsed. Valid "
+"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+msgid "Show History in Topological Order"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+msgid ""
+"Setting that indicates whether to show the history in topological order."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+msgid "Show Stashed Changes"
+msgstr "Montri disponigitajn ŝanĝojn"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+msgid "Show Staged Changes"
+msgstr "Montri disponigitajn ŝanĝojn"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid "Show Unstaged Changes"
+msgstr "Montri maldisponigitajn ŝanĝojn"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+msgid "Mainline Head"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
+msgid ""
+"Setting that indicates whether to always preserve a mainline in the history "
+"for the current HEAD."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+msgid "Show Right Margin in Commit Message View"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+msgid ""
+"Show a right margin indicator in the commit message view. This can be used "
+"to easily see where to break the commit message at a particular column."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+msgid "Column at Which Right Margin is Shown"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
+msgid ""
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+msgid "Show Subject Margin in Commit Message View"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+msgid "Column at Which Subject Margin is Shown"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+msgid ""
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
+msgid "Enable Spell Checking"
+msgstr "Enŝalti literumkontrolon"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
+msgid ""
+"Setting which determines whether or not spell checking is enabled when "
+"writing a commit message."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+msgid "Spell Checking Language"
+msgstr "Lingvo de la literumkontrolo"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
+msgid ""
+"The language to use when spell checking is enabled for writing a commit "
+"message."
+msgstr ""
+"La uzata lingvo se literumkontrolo estas enŝaltita por skribi enmeto-mesaĝon."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+msgid "Ignore Whitespace Changes"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
+msgid ""
+"Setting that indicates whether to ignore whitespace changes when showing the "
+"diff of a commit."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+msgid "Show Changes Inline"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
+msgid ""
+"Setting that indicates whether changes within lines should be shown inline."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+msgid "Number of Before/After Context Lines"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:37
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff of a commit."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:38
+msgid "Rendered Width of a Tab Character"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:39
+msgid ""
+"Setting that determines how much space a tab character should occupy when "
+"showing the diff of a commit."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff to be staged/unstaged in the commit area."
+msgstr ""
+
+#: ../gitg/commit/gitg-commit-dialog.vala:283
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Ne eblas agordi la lingvon por la literumkontrolo: %s"
+
+#: ../gitg/commit/gitg-commit.vala:72
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:4
+msgid "Commit"
+msgstr "Enmeti"
+
+#: ../gitg/commit/gitg-commit.vala:77
+msgid "Create new commits and manage the staging area"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:152
+msgid "_Stage selection"
+msgstr "_Disponigi elekton"
+
+#: ../gitg/commit/gitg-commit.vala:188
+#, c-format
+msgid "Failed to stage the removal of submodule `%s'"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:204
+#, c-format
+msgid "Failed to open the repository of submodule `%s' while trying to stage"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:218
+#, c-format
+msgid ""
+"Failed to lookup the working directory commit of submodule `%s' while trying "
+"to stage"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:231
+#, c-format
+msgid "Failed to stage the submodule `%s'"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:253
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:267
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:536
+msgid "_Unstage selection"
+msgstr "_Maldisponigi elekton"
+
+#: ../gitg/commit/gitg-commit.vala:601
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Malsukcesis maldisponigi la forigon de la dosiero `%s'"
+
+#: ../gitg/commit/gitg-commit.vala:602
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Malsukcesis maldisponigi la dosieron `%s'"
+
+#: ../gitg/commit/gitg-commit.vala:609
+#, c-format
+msgid "Failed to unstage the removal of submodule `%s'"
+msgstr "Malsukcesis maldisponigi la forigon de la submodulo `%s'"
+
+#: ../gitg/commit/gitg-commit.vala:610
+#, c-format
+msgid "Failed to unstage the submodule `%s'"
+msgstr "Malsukcesis maldisponigi la submodulon `%s'"
+
+#. Populate staged items
+#: ../gitg/commit/gitg-commit.vala:805
+msgid "Staged"
+msgstr "Disponigita"
+
+#: ../gitg/commit/gitg-commit.vala:813
+msgid "No staged files"
+msgstr "Neniuj disponigitaj dosieroj"
+
+#. Populate unstaged items
+#: ../gitg/commit/gitg-commit.vala:829
+msgid "Unstaged"
+msgstr "Maldisponigita"
+
+#: ../gitg/commit/gitg-commit.vala:837
+msgid "No unstaged files"
+msgstr "Neniuj maldisponigitaj dosieroj"
+
+#. Populate untracked items
+#: ../gitg/commit/gitg-commit.vala:853
+msgid "Untracked"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:857
+msgid "No untracked files"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:875
+msgid "Submodule"
+msgstr "Submodulo"
+
+#: ../gitg/commit/gitg-commit.vala:879
+msgid "No dirty submodules"
+msgstr "Neniu aĉa submodulo"
+
+#: ../gitg/commit/gitg-commit.vala:991
+msgid "There are no changes to be committed"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:992
+msgid "Use amend to change the commit message of the previous commit"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:1018
+msgid "Failed to commit"
+msgstr "Malsukcesis enmeti"
+
+#. TODO: better to show user info dialog directly or something
+#: ../gitg/commit/gitg-commit.vala:1034 ../gitg/commit/gitg-commit.vala:1213
+msgid "Failed to pass pre-commit"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:1201
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:1205
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:1209
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:1268 ../gitg/commit/gitg-commit.vala:1415
+msgid "Discard changes"
+msgstr "Ignori ŝanĝojn"
+
+#: ../gitg/commit/gitg-commit.vala:1269
+msgid "Are you sure you want to permanently discard the selected changes?"
+msgstr "Ĉu vi sendube deziras ignori por ĉiam la elektitajn ŝanĝojn?"
+
+#: ../gitg/commit/gitg-commit.vala:1278 ../gitg/commit/gitg-commit.vala:1441
+#: ../gitg/gitg-commit-action-create-patch.vala:143
+#: ../gitg/gitg-window.vala:468 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-window.ui.h:5
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
+msgid "_Cancel"
+msgstr "_Nuligi"
+
+#: ../gitg/commit/gitg-commit.vala:1279 ../gitg/commit/gitg-commit.vala:1442
+msgid "Discard"
+msgstr "Ignori"
+
+#: ../gitg/commit/gitg-commit.vala:1307
+msgid "Failed to discard selection"
+msgstr "Malsukcesis ignori la elekton"
+
+#: ../gitg/commit/gitg-commit.vala:1336
+msgid "Failed to stage selection"
+msgstr "Malsukcesis disponigi la elekton"
+
+#: ../gitg/commit/gitg-commit.vala:1340
+msgid "Failed to unstage selection"
+msgstr "Malsukcesis maldisponigi la elekton"
+
+#: ../gitg/commit/gitg-commit.vala:1399
+msgid "Failed to discard changes"
+msgstr "Malsukcesis ignori ŝanĝojn"
+
+#: ../gitg/commit/gitg-commit.vala:1420
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the file `"
+"%s'?"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:1431
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the files "
+"%s and `%s'?"
+msgstr ""
+
+#: ../gitg/commit/gitg-commit.vala:1475
+msgid "_Stage changes"
+msgstr "_Disponigi ŝanĝojn"
+
+#: ../gitg/commit/gitg-commit.vala:1485
+msgid "_Unstage changes"
+msgstr "_Maldisponigi ŝanĝojn"
+
+#: ../gitg/commit/gitg-commit.vala:1495
+msgid "_Discard changes"
+msgstr "_Ignori ŝanĝojn"
+
+#: ../gitg/commit/gitg-commit.vala:1518
+msgid "_Edit file"
+msgstr "R_edakti dosieron"
+
+#: ../gitg/gitg-application.vala:56
+msgid "Show the application's version"
+msgstr "Montri la version de la programo"
+
+#: ../gitg/gitg-application.vala:59
+msgid "Start gitg with a particular activity"
+msgstr ""
+
+#: ../gitg/gitg-application.vala:62
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr ""
+
+#: ../gitg/gitg-application.vala:65
+msgid "Do not try to load a repository from the current working directory"
+msgstr ""
+
+#: ../gitg/gitg-application.vala:90
+msgid "- Git repository viewer"
+msgstr "- vidigilo por Git-deponejoj"
+
+#: ../gitg/gitg-application.vala:209
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr ""
+
+#: ../gitg/gitg-application.vala:218
+msgid "translator-credits"
+msgstr "Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>"
+
+#: ../gitg/gitg-application.vala:221
+msgid "gitg homepage"
+msgstr "Retejo de Gitg"
+
+#: ../gitg/gitg-author-details-dialog.vala:67
+msgid "Unable to open the .gitconfig file."
+msgstr "Ne eblis malfermi la .gitconfig-dosieron."
+
+#: ../gitg/gitg-author-details-dialog.vala:149
+msgid "Failed to set Git user config."
+msgstr ""
+
+#: ../gitg/gitg-clone-dialog.vala:88
+msgid "The URL introduced is not supported"
+msgstr ""
+
+#: ../gitg/gitg-commit-action-create-branch.vala:48
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
+msgid "Create Branch"
+msgstr "Krei branĉon"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:53
+msgid "Create a new branch at the selected commit"
+msgstr "Krei novan branĉon ĉe la elektita enmetaĵo"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:85
+msgid "Failed to create branch"
+msgstr "Malsukcesis krei branĉon"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:63
+msgid "Create Patch"
+msgstr "Krei flikaĵon"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:68
+msgid "Create a patch from the selected commit"
+msgstr "Krei flikaĵon de la elektita enmetaĵo"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:141
+msgid "Save Patch File"
+msgstr "Konservi flikaĵo-dosieron"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:145
+msgid "_Save Patch"
+msgstr "Kon_servi flikaĵon"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:168
+msgid "Failed to create patch"
+msgstr "Malsukcesis krei flikaĵon"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:48
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
+msgid "Create Tag"
+msgstr "Krei markon"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:53
+msgid "Create a new tag at the selected commit"
+msgstr "Krei novan markon ĉe la elektita enmetaĵo"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:92
+msgid "Failed to create tag"
+msgstr "Malsukcesis krei markon"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:109
+msgid "Failed to lookup tag"
+msgstr "Malsukcesis serĉi markon"
+
+#: ../gitg/gitg-create-tag-dialog.vala:110
+msgid "Provide a message to create an annotated tag"
+msgstr ""
+
+#: ../gitg/gitg-dash-view.vala:148
+msgid "_Delete"
+msgstr "_Forigi"
+
+#: ../gitg/gitg-ref-action-copy-name.vala:48
+msgid "Copy name"
+msgstr "Kopii nomon"
+
+#: ../gitg/gitg-ref-action-copy-name.vala:53
+msgid "Copy the name of the reference to the clipboard"
+msgstr "Kopii la nomon de la referenco tondujen"
+
+#: ../gitg/gitg-ref-action-delete.vala:48
+#: ../gitg/gitg-ref-action-delete.vala:88
+msgid "Delete"
+msgstr "Forigi"
+
+#: ../gitg/gitg-ref-action-delete.vala:53
+msgid "Delete the selected reference"
+msgstr "Forigi elektitan referencon"
+
+#: ../gitg/gitg-ref-action-delete.vala:73
+#, c-format
+msgid "Delete branch %s"
+msgstr "Forigi la branĉon %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:74
+#, c-format
+msgid "Are you sure that you want to permanently delete the branch %s?"
+msgstr "Ĉu vi certe volas definitive forigi la branĉon %s?"
+
+#: ../gitg/gitg-ref-action-delete.vala:78
+#, c-format
+msgid "Delete tag %s"
+msgstr "Forigi la markon %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:79
+#, c-format
+msgid "Are you sure that you want to permanently delete the tag %s?"
+msgstr "Ĉu vi certe volas definitive forigi la markon %s?"
+
+#: ../gitg/gitg-ref-action-delete.vala:83
+#, c-format
+msgid "Delete remote branch %s"
+msgstr "Forigi la foran branĉon %s"
+
+#: ../gitg/gitg-ref-action-delete.vala:84
+#, c-format
+msgid "Are you sure that you want to permanently delete the remote branch %s?"
+msgstr "Ĉu vi certe volas definitive forigi la foran branĉon %s?"
+
+#: ../gitg/gitg-ref-action-delete.vala:89
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+#: ../libgitg/resources/ui/gitg-remote-notification.ui.h:1
+msgid "Cancel"
+msgstr "Nuligi"
+
+#. Translators: %s is the name of the tag
+#: ../gitg/gitg-ref-action-delete.vala:119
+#, c-format
+msgid "Failed to delete tag %s"
+msgstr "Malsukcesis forigi la markon %s"
+
+#. Translators: the first %s is the name of the tag, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:122
+#, c-format
+msgid "The tag %s could not be deleted: %s"
+msgstr "Ne eblis forigi la markon %s: %s"
+
+#. Translators: %s is the name of the branch
+#: ../gitg/gitg-ref-action-delete.vala:127
+#, c-format
+msgid "Failed to delete branch %s"
+msgstr "Malsukcesis forigi la branĉon %s"
+
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:130
+#, c-format
+msgid "The branch %s could not be deleted: %s"
+msgstr "Ne eblis forigi la branĉon %s: %s"
+
+#: ../gitg/gitg-ref-action-fetch.vala:74
+#, c-format
+msgid "Fetch from %s"
+msgstr "Venigi de %s"
+
+#: ../gitg/gitg-ref-action-fetch.vala:85
+#, c-format
+msgid "Fetch remote objects from %s"
+msgstr "Venigi forajn objektojn de %s"
+
+#: ../gitg/gitg-ref-action-fetch.vala:110
+#, c-format
+msgid "Fetching from %s"
+msgstr "Venigante de %s"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: ../gitg/gitg-ref-action-fetch.vala:118
+msgid "new"
+msgstr "nova"
+
+#. Translators: updated refers to a remote reference having been updated,
+#: ../gitg/gitg-ref-action-fetch.vala:123
+msgid "updated"
+msgstr "ĝisdatigite"
+
+#: ../gitg/gitg-ref-action-fetch.vala:134
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "Malsukcesis venigi de %s: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: ../gitg/gitg-ref-action-fetch.vala:146
+#, c-format
+msgid "Fetched from %s: everything is up to date"
+msgstr "Venigite de %s: ĉio estas ĝisdata"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: ../gitg/gitg-ref-action-fetch.vala:152
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Venigite de %s: %s"
+
+#: ../gitg/gitg-ref-action-rename.vala:48
+msgid "Rename"
+msgstr "Alinomi"
+
+#: ../gitg/gitg-ref-action-rename.vala:53
+msgid "Rename the selected reference"
+msgstr "Alinomi elektitan referencon"
+
+#: ../gitg/gitg-ref-action-rename.vala:100
+#, c-format
+msgid "The specified name ‘%s’ contains invalid characters"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-rename.vala:102
+msgid "Invalid name"
+msgstr "Nevalida nomo"
+
+#: ../gitg/gitg-ref-action-rename.vala:141
+msgid "Failed to rename"
+msgstr "Malsukcesis alinomi"
+
+#: ../gitg/gitg.vala:64
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+
+#: ../gitg/gitg-window.vala:403
+msgid "Projects"
+msgstr "Projektoj"
+
+#: ../gitg/gitg-window.vala:466
+msgid "Open Repository"
+msgstr "Malfermi deponejon"
+
+#: ../gitg/gitg-window.vala:469
+msgid "_Open"
+msgstr "_Malfermi"
+
+#: ../gitg/gitg-window.vala:764
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "'%s' ne estas Git-deponejo."
+
+#: ../gitg/history/gitg-history-refs-list.vala:136
+msgid "All commits"
+msgstr "Ĉiuj enmetaĵoj"
+
+#: ../gitg/history/gitg-history-refs-list.vala:835
+msgid "Branches"
+msgstr "Branĉoj"
+
+#: ../gitg/history/gitg-history-refs-list.vala:836
+msgid "Remotes"
+msgstr ""
+
+#: ../gitg/history/gitg-history-refs-list.vala:837
+msgid "Tags"
+msgstr "Markoj"
+
+#: ../gitg/history/gitg-history.vala:246
+#: ../gitg/preferences/gitg-preferences-history.vala:128
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
+msgid "History"
+msgstr "Historio"
+
+#: ../gitg/history/gitg-history.vala:251
+msgid "Examine the history of the repository"
+msgstr ""
+
+#: ../gitg/history/gitg-history.vala:602
+msgid "Mainline"
+msgstr ""
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:96
+msgid "Interface"
+msgstr "Interfaco"
+
+#: ../libgitg/gitg-date.vala:346
+msgid "Now"
+msgstr "Nun"
+
+#: ../libgitg/gitg-date.vala:350
+#, c-format
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Antaŭ unu minuto"
+msgstr[1] "Antaŭ %d minutoj"
+
+#: ../libgitg/gitg-date.vala:355
+msgid "Half an hour ago"
+msgstr "Antaŭ duono horo"
+
+#: ../libgitg/gitg-date.vala:360
+#, c-format
+msgid "An hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "Antaŭ unu horo"
+msgstr[1] "Antaŭ %d horoj"
+
+#: ../libgitg/gitg-date.vala:365
+#, c-format
+msgid "A day ago"
+msgid_plural "%d days ago"
+msgstr[0] "Antaŭ unu tago"
+msgstr[1] "Antaŭ %d tagoj"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 24 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:374
+msgid "%b %e, %H:%M"
+msgstr "%e. %b, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 12 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:381
+msgid "%b %e, %I:%M %p"
+msgstr "%e. %b, %I:%M %p"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 24
+#. hour clock.
+#: ../libgitg/gitg-date.vala:391
+msgid "%b %e %Y, %H:%M"
+msgstr "%e. %b %Y, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 12
+#. hour clock.
+#: ../libgitg/gitg-date.vala:398
+msgid "%b %e %Y, %I:%M %p"
+msgstr "%e. %b %Y, %I:%M %p"
+
+#: ../libgitg/gitg-diff-view.vala:246
+msgid "stage"
+msgstr "disponigi"
+
+#: ../libgitg/gitg-diff-view.vala:247
+msgid "unstage"
+msgstr "maldisponigi"
+
+#: ../libgitg/gitg-diff-view.vala:248
+msgid "Loading diff…"
+msgstr "Ŝarĝi diferencon…"
+
+#: ../libgitg/gitg-diff-view.vala:249
+msgid "Notes:"
+msgstr "Notoj:"
+
+#: ../libgitg/gitg-diff-view.vala:250
+msgid "Parents:"
+msgstr "Gepatroj:"
+
+#: ../libgitg/gitg-diff-view.vala:251
+msgid "Diff against:"
+msgstr ""
+
+#: ../libgitg/gitg-remote-notification.vala:72
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:6
+msgid "Close"
+msgstr "Fermi"
+
+#: ../libgitg/gitg-stage.vala:334
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+
+#: ../plugins/diff/gitg-diff.vala:106
+msgid "Diff"
+msgstr ""
+
+#: ../plugins/diff/gitg-diff.vala:111
+msgid "Show the changes introduced by the selected commit"
+msgstr ""
+
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Dosieroj"
+
+#: ../plugins/files/gitg-files.vala:68
+msgid "Show the files in the tree of the selected commit"
+msgstr ""
+
+#. ex: ts=4 noet
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Aŭtoraj detaloj"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+#, no-c-format
+msgid "Note: The Git config file '%s' does not exist."
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Enter details to set as default for all repositories:"
+msgstr "Enigu detalojn por agordi kiel defaŭlto por ĉiuj deponejoj:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+#, no-c-format
+msgid "Enter details for repository '%s':"
+msgstr "Enigu detalojn por la deponejo '%s':"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
+msgid "E-mail: "
+msgstr "Retpoŝtadreso:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
+msgid "Name: "
+msgstr "Nomo: "
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
+msgid "Save"
+msgstr "Konservi"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+msgid "Clone Repository"
+msgstr "Kloni deponejon"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "Cl_one"
+msgstr "Kl_oni"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "Remote _URL:"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "_Local Folder:"
+msgstr "_Loka dosierujo:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+msgid "Select location…"
+msgstr "Elekto lokon…"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
+msgid "Bare repository"
+msgstr "Pura deponejo"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "_Enmeti"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "Add _signed-off-by signature"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+msgid "_Amend previous commit"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "_Disponigi la elekton"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
+msgid "D_iscard selection"
+msgstr "_Ignori la elekton"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:1
+#, fuzzy
+msgid ""
+"The submodule is in a dirty state and has staged and/or unstaged changes "
+"that are not yet committed as shown below."
+msgstr ""
+"La submodulo estas en aĉa stato kaj havas disponigitajn kaj/aŭ "
+"maldisponigitajn ŝanĝojn kiuj ankoraŭ ne estas enmetitaj kiel sube montrite."
+
+#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
+msgid "Staged:"
+msgstr "Disponigite:"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:3
+msgid "Unstaged:"
+msgstr "Maldisponigite:"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:1
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Temo"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:2
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Aŭtoro"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:3
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Dato"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-info.ui.h:1
+msgid "Open"
+msgstr "Malfermi"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
+msgid "C_reate"
+msgstr "K_rei"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
+msgid "Branch _name:"
+msgstr "Branĉ_nomo"
+
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
+msgid "Tag _name:"
+msgstr "Mark_nomo:"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "_Nova fenestro"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+msgid "_Preferences"
+msgstr "_Agordoj"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Help"
+msgstr "_Helpo"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_About"
+msgstr "_Pri"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_Quit"
+msgstr "Ĉ_esi"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Open Repository…"
+msgstr "_Malfermi deponejon…"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Clone Repository…"
+msgstr "_Kloni deponejon…"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
+msgid "_Author Details"
+msgstr "_Aŭtoraj detaloj"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:9
+msgid "_Reload"
+msgstr "_Reŝargi"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Montri markadon"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "Vidigi marĝenon de la _temo ĉe kolumno:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "Vidigi dekstran _marĝenon ĉe kolumno:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Enŝalti literumkontrolon"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+msgid "Commit Message"
+msgstr "Enmetad-mesaĝo"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Commits"
+msgstr "Enmetaĵoj"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Collapse inactive lanes"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "Early"
+msgstr "Frue"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "Late"
+msgstr "Malfrue"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "Show history in topological order"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Preserve mainline for currently checked out branch"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Startup"
+msgstr "Komenco"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+msgid "Start with activity:"
+msgstr "Komenci kun aktiveco:"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:5
+msgid "Layout"
+msgstr "Aranĝo"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:6
+msgid "Use horizontal layout"
+msgstr "Uzi horizontalan aranĝon"
+
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "Preferences"
+msgstr "Agordoj"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Show the list of recently used repositories"
+msgstr ""
+
+#: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Find a word or phrase"
+msgstr "Serĉi vorton aŭ frazon"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+msgid "General settings and options"
+msgstr "Ĝeneralaj agordoj kaj opcioj"
+
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:1
+msgid "Ignore whitespace changes"
+msgstr "Ignori blankspaco-ŝanĝojn"
+
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:2
+msgid "Show changes inline"
+msgstr "Montri ŝanĝojn en la vico"
+
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:3
+msgid "Developer tools"
+msgstr "Iloj por programistoj"
+
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:4
+msgid "Tab width"
+msgstr "Taba larĝo"
+
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:5
+msgid "Context"
+msgstr "Kunteksto"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:2
+msgid "_Authenticate"
+msgstr "_Aŭtentigi"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:3
+msgid ""
+"The previous attempt to authenticate has failed, please provide your user "
+"name and password and try again."
+msgstr ""
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
+msgid "_Username:"
+msgstr "_Uzantonomo:"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:5
+msgid "_Password:"
+msgstr "_Pasvorto:"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:6
+msgid "Forget password _immediately"
+msgstr "_Forgesi pasvorton tuj"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:7
+msgid "Remember password until you _logout"
+msgstr "Memori pasvorton ĝis via e_lsalutado"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:8
+msgid "Remember _forever"
+msgstr "Memori _porĉiame"
+
+#: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
+msgid ""
+"Remove the repository from the list (does not delete the repository from "
+"disk)"
+msgstr ""
+"Forigi la deponejon de la listo (ne forigas la deponejon de la durdisko)"
+
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "kolumno"
