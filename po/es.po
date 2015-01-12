@@ -5,15 +5,15 @@
 #
 # Chihau Chau <chihau@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011, 2012, 2013, 2014.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-12-22 06:31+0000\n"
-"PO-Revision-Date: 2014-12-22 12:17+0100\n"
+"POT-Creation-Date: 2015-01-12 06:29+0000\n"
+"PO-Revision-Date: 2015-01-12 11:59+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -135,8 +135,6 @@ msgid "Mainline Head"
 msgstr "Línea principal del HEAD"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -289,21 +287,21 @@ msgstr "Commit"
 msgid "Create new commits and manage the staging area"
 msgstr "Crear nuevos commits y gestionar el área de reserva"
 
-#: ../gitg/commit/gitg-commit.vala:142
+#: ../gitg/commit/gitg-commit.vala:152
 msgid "_Stage selection"
 msgstr "_Reservar selección"
 
-#: ../gitg/commit/gitg-commit.vala:180
+#: ../gitg/commit/gitg-commit.vala:188
 #, c-format
 msgid "Failed to stage the removal of submodule `%s'"
 msgstr "Falló al reservar la eliminación del submódulo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:196
+#: ../gitg/commit/gitg-commit.vala:204
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr "Falló al abrir el repositorio del submódulo «%s» al intentar reservar"
 
-#: ../gitg/commit/gitg-commit.vala:210
+#: ../gitg/commit/gitg-commit.vala:218
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
@@ -312,98 +310,98 @@ msgstr ""
 "Falló a buscar la carpeta de trabajo de «commit» del submódulo «%s» al "
 "intentar reservar"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:231
 #, c-format
 msgid "Failed to stage the submodule `%s'"
 msgstr "Falló al reservar el submódulo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:245
+#: ../gitg/commit/gitg-commit.vala:253
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Falló al reservar la eliminación del archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:259
+#: ../gitg/commit/gitg-commit.vala:267
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Falló al reservar el archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:518
+#: ../gitg/commit/gitg-commit.vala:536
 msgid "_Unstage selection"
 msgstr "Q_uitar la reserva de la selección"
 
-#: ../gitg/commit/gitg-commit.vala:585
+#: ../gitg/commit/gitg-commit.vala:601
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Falló al quitar la reserva de eliminación del archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:586
+#: ../gitg/commit/gitg-commit.vala:602
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Falló al quitar la reserva del archivo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:593
+#: ../gitg/commit/gitg-commit.vala:609
 #, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "Falló al quitar la reserva de eliminación del submódulo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:594
+#: ../gitg/commit/gitg-commit.vala:610
 #, c-format
 msgid "Failed to unstage the submodule `%s'"
 msgstr "Falló al quitar la reserva del submódulo «%s»"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:789
+#: ../gitg/commit/gitg-commit.vala:805
 msgid "Staged"
 msgstr "Reservado"
 
-#: ../gitg/commit/gitg-commit.vala:797
+#: ../gitg/commit/gitg-commit.vala:813
 msgid "No staged files"
 msgstr "No hay archivos reservados"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:813
+#: ../gitg/commit/gitg-commit.vala:829
 msgid "Unstaged"
 msgstr "Sin reservar"
 
-#: ../gitg/commit/gitg-commit.vala:821
+#: ../gitg/commit/gitg-commit.vala:837
 msgid "No unstaged files"
 msgstr "No hay archivos sin reservar"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:837
+#: ../gitg/commit/gitg-commit.vala:853
 msgid "Untracked"
 msgstr "No registrados"
 
-#: ../gitg/commit/gitg-commit.vala:841
+#: ../gitg/commit/gitg-commit.vala:857
 msgid "No untracked files"
 msgstr "No hay archivos sin registrar"
 
-#: ../gitg/commit/gitg-commit.vala:859
+#: ../gitg/commit/gitg-commit.vala:875
 msgid "Submodule"
 msgstr "Submódulo"
 
-#: ../gitg/commit/gitg-commit.vala:863
+#: ../gitg/commit/gitg-commit.vala:879
 msgid "No dirty submodules"
 msgstr "No hay submódulos sucios"
 
-#: ../gitg/commit/gitg-commit.vala:975
+#: ../gitg/commit/gitg-commit.vala:991
 msgid "There are no changes to be committed"
 msgstr "No hay cambios que efectuar"
 
-#: ../gitg/commit/gitg-commit.vala:976
+#: ../gitg/commit/gitg-commit.vala:992
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Use «amend» para cambiar el mensaje del «commit» anterior"
 
-#: ../gitg/commit/gitg-commit.vala:1002
+#: ../gitg/commit/gitg-commit.vala:1018
 msgid "Failed to commit"
 msgstr "Falló al hacer el «commit»"
 
 #. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:1018 ../gitg/commit/gitg-commit.vala:1197
+#: ../gitg/commit/gitg-commit.vala:1034 ../gitg/commit/gitg-commit.vala:1213
 msgid "Failed to pass pre-commit"
 msgstr "Falló al pasar el «pre-commit»"
 
-#: ../gitg/commit/gitg-commit.vala:1185
+#: ../gitg/commit/gitg-commit.vala:1201
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -411,7 +409,7 @@ msgstr ""
 "Su nombre de usuario y su correo-e no están configurados todavía. Vaya a la "
 "configuración del usuario y proporcione su nombre y su correo-e."
 
-#: ../gitg/commit/gitg-commit.vala:1189
+#: ../gitg/commit/gitg-commit.vala:1205
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -419,7 +417,7 @@ msgstr ""
 "Su nombre de usuario no está configurado todavía. Vaya a la configuración "
 "del usuario y proporcione su nombre."
 
-#: ../gitg/commit/gitg-commit.vala:1193
+#: ../gitg/commit/gitg-commit.vala:1209
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -427,47 +425,48 @@ msgstr ""
 "Su su correo-e no está configurado todavía. Vaya a la configuración del "
 "usuario y proporcione su correo-e."
 
-#: ../gitg/commit/gitg-commit.vala:1252 ../gitg/commit/gitg-commit.vala:1399
+#: ../gitg/commit/gitg-commit.vala:1268 ../gitg/commit/gitg-commit.vala:1415
 msgid "Discard changes"
 msgstr "Descartar cambios"
 
-#: ../gitg/commit/gitg-commit.vala:1253
+#: ../gitg/commit/gitg-commit.vala:1269
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 "¿Está seguro de que quiere descartar permanentemente los cambios "
 "seleccionados?"
 
-#: ../gitg/commit/gitg-commit.vala:1262 ../gitg/commit/gitg-commit.vala:1426
+#: ../gitg/commit/gitg-commit.vala:1278 ../gitg/commit/gitg-commit.vala:1441
 #: ../gitg/gitg-commit-action-create-patch.vala:143
-#: ../gitg/gitg-window.vala:459 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/gitg-window.vala:468 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-window.ui.h:5
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gitg/commit/gitg-commit.vala:1263 ../gitg/commit/gitg-commit.vala:1425
+#: ../gitg/commit/gitg-commit.vala:1279 ../gitg/commit/gitg-commit.vala:1442
 msgid "Discard"
 msgstr "Descartar"
 
-#: ../gitg/commit/gitg-commit.vala:1291
+#: ../gitg/commit/gitg-commit.vala:1307
 msgid "Failed to discard selection"
 msgstr "Falló al descartar la selección"
 
-#: ../gitg/commit/gitg-commit.vala:1320
+#: ../gitg/commit/gitg-commit.vala:1336
 msgid "Failed to stage selection"
 msgstr "Falló al reservar la selección"
 
-#: ../gitg/commit/gitg-commit.vala:1324
+#: ../gitg/commit/gitg-commit.vala:1340
 msgid "Failed to unstage selection"
 msgstr "Falló al quitar la reserva de la selección"
 
-#: ../gitg/commit/gitg-commit.vala:1383
+#: ../gitg/commit/gitg-commit.vala:1399
 msgid "Failed to discard changes"
 msgstr "Falló al descartar los cambios"
 
-#: ../gitg/commit/gitg-commit.vala:1404
+#: ../gitg/commit/gitg-commit.vala:1420
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
@@ -476,7 +475,7 @@ msgstr ""
 "¿Está seguro de que quiere descartar permanentemente todos los cambios del "
 "archivo «%s»?"
 
-#: ../gitg/commit/gitg-commit.vala:1415
+#: ../gitg/commit/gitg-commit.vala:1431
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -485,19 +484,19 @@ msgstr ""
 "¿Está seguro de que quiere descartar permanentemente todos los cambios "
 "hechos a los archivos %s y «%s»?"
 
-#: ../gitg/commit/gitg-commit.vala:1459
+#: ../gitg/commit/gitg-commit.vala:1475
 msgid "_Stage changes"
 msgstr "_Reservar los cambios"
 
-#: ../gitg/commit/gitg-commit.vala:1469
+#: ../gitg/commit/gitg-commit.vala:1485
 msgid "_Unstage changes"
 msgstr "_Quitar la reserva de los cambios"
 
-#: ../gitg/commit/gitg-commit.vala:1479
+#: ../gitg/commit/gitg-commit.vala:1495
 msgid "_Discard changes"
 msgstr "_Descartar los cambios"
 
-#: ../gitg/commit/gitg-commit.vala:1502
+#: ../gitg/commit/gitg-commit.vala:1518
 msgid "_Edit file"
 msgstr "_Editar archivo"
 
@@ -605,7 +604,8 @@ msgid "_Delete"
 msgstr "_Eliminar"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:48
-msgid "Copy Name"
+#| msgid "Copy Name"
+msgid "Copy name"
 msgstr "Copiar nombre"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:53
@@ -653,6 +653,7 @@ msgstr "¿Está seguro de que quiere eliminar permanentemente la rama remota %s?
 
 #: ../gitg/gitg-ref-action-delete.vala:89
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+#: ../libgitg/resources/ui/gitg-remote-notification.ui.h:1
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -679,6 +680,50 @@ msgstr "Falló al eliminar la rama %s"
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "No se pudo eliminar la rama %s: %s"
+
+#: ../gitg/gitg-ref-action-fetch.vala:74
+#, c-format
+msgid "Fetch from %s"
+msgstr "Obtener de %s"
+
+#: ../gitg/gitg-ref-action-fetch.vala:85
+#, c-format
+msgid "Fetch remote objects from %s"
+msgstr "Obtener objetos remotos de %s"
+
+#: ../gitg/gitg-ref-action-fetch.vala:110
+#, c-format
+msgid "Fetching from %s"
+msgstr "Obteniendo de %s"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: ../gitg/gitg-ref-action-fetch.vala:118
+msgid "new"
+msgstr "nueva"
+
+#. Translators: updated refers to a remote reference having been updated,
+#: ../gitg/gitg-ref-action-fetch.vala:123
+msgid "updated"
+msgstr "actualizado"
+
+#: ../gitg/gitg-ref-action-fetch.vala:134
+#, c-format
+#| msgid "Failed to stage the file `%s'"
+msgid "Failed to fetch from %s: %s"
+msgstr "Falló al obtener de %s: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: ../gitg/gitg-ref-action-fetch.vala:146
+#, c-format
+msgid "Fetched from %s: everything is up to date"
+msgstr "Obtenido de %s: todo está actualizado"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: ../gitg/gitg-ref-action-fetch.vala:152
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Obtenidas de %s: %s"
 
 #: ../gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
@@ -721,19 +766,19 @@ msgstr ""
 "Si no es así, informe de un error en el sistema de informes de error de su "
 "distribución para que proporcione libgit2 sin soporte para hilos."
 
-#: ../gitg/gitg-window.vala:394
+#: ../gitg/gitg-window.vala:403
 msgid "Projects"
 msgstr "Proyectos"
 
-#: ../gitg/gitg-window.vala:457
+#: ../gitg/gitg-window.vala:466
 msgid "Open Repository"
 msgstr "Abrir repositorio"
 
-#: ../gitg/gitg-window.vala:460
+#: ../gitg/gitg-window.vala:469
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../gitg/gitg-window.vala:752
+#: ../gitg/gitg-window.vala:764
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» no es un repositorio Git."
@@ -742,15 +787,15 @@ msgstr "«%s» no es un repositorio Git."
 msgid "All commits"
 msgstr "Todos los «commit»"
 
-#: ../gitg/history/gitg-history-refs-list.vala:687
+#: ../gitg/history/gitg-history-refs-list.vala:835
 msgid "Branches"
 msgstr "Ramas"
 
-#: ../gitg/history/gitg-history-refs-list.vala:688
+#: ../gitg/history/gitg-history-refs-list.vala:836
 msgid "Remotes"
 msgstr "Remotas"
 
-#: ../gitg/history/gitg-history-refs-list.vala:689
+#: ../gitg/history/gitg-history-refs-list.vala:837
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -764,7 +809,7 @@ msgstr "Histórico"
 msgid "Examine the history of the repository"
 msgstr "Examinar el histórico del repositorio"
 
-#: ../gitg/history/gitg-history.vala:580
+#: ../gitg/history/gitg-history.vala:602
 msgid "Mainline"
 msgstr "Línea principal"
 
@@ -853,7 +898,13 @@ msgstr "Padres:"
 msgid "Diff against:"
 msgstr "Diferencia con:"
 
-#: ../libgitg/gitg-stage.vala:335
+#: ../libgitg/gitg-remote-notification.vala:72
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:6
+msgid "Close"
+msgstr "Cerrar"
+
+#: ../libgitg/gitg-stage.vala:334
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
@@ -945,11 +996,6 @@ msgstr "Añadir _firmado por"
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 msgid "_Amend previous commit"
 msgstr "_Añadir al «commit» anterior"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
-#: ../gitg/resources/ui/gitg-window.ui.h:6
-msgid "Close"
-msgstr "Cerrar"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
@@ -1088,7 +1134,6 @@ msgid "Show history in topological order"
 msgstr "Mostrar histórico en orden topológico"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
-#| msgid "Failed to checkout previously checked out branch"
 msgid "Preserve mainline for currently checked out branch"
 msgstr "Mantener la línea principal de la rama actual descargada"
 
@@ -1124,27 +1169,60 @@ msgstr "Busca una palabra o frase"
 msgid "General settings and options"
 msgstr "Configuración general y opciones"
 
-#: ../libgitg/resources/diff-view-options.ui.h:1
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:1
 msgid "Ignore whitespace changes"
 msgstr "Ignorar cambios en espacios en blanco"
 
-#: ../libgitg/resources/diff-view-options.ui.h:2
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:2
 msgid "Show changes inline"
 msgstr "Mostrar cambios en línea"
 
-#: ../libgitg/resources/diff-view-options.ui.h:3
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:3
 msgid "Developer tools"
 msgstr "Herramientas del desarrollador"
 
-#: ../libgitg/resources/diff-view-options.ui.h:4
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:4
 msgid "Tab width"
 msgstr "Anchura de tabulación"
 
-#: ../libgitg/resources/diff-view-options.ui.h:5
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:5
 msgid "Context"
 msgstr "Contexto"
 
-#: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:2
+msgid "_Authenticate"
+msgstr "_Autenticar"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:3
+msgid ""
+"The previous attempt to authenticate has failed, please provide your user "
+"name and password and try again."
+msgstr ""
+"Falló el anterior intento de autenticación; proporcione su nombre de usuario "
+"y su contraseña e inténtelo de nuevo."
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
+#| msgid "Rename"
+msgid "_Username:"
+msgstr "Nombre de _usuario:"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:5
+msgid "_Password:"
+msgstr "C_ontraseña:"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:6
+msgid "Forget password _immediately"
+msgstr "Olvidar contraseña _inmediatamente"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:7
+msgid "Remember password until you _logout"
+msgstr "Recordar la contraseña hasta _salir de la sesión"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:8
+msgid "Remember _forever"
+msgstr "Recordar _siempre"
+
+#: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
@@ -1579,9 +1657,6 @@ msgstr "columna"
 
 #~ msgid "Begin loading repository"
 #~ msgstr "Iniciar la carga del repositorio"
-
-#~ msgid "new"
-#~ msgstr "nueva"
 
 #~ msgid "New local branch <%s>"
 #~ msgstr "Rama local nueva <%s>"
