@@ -115,7 +115,7 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 
 		try
 		{
-			remote = d_window.repository.get_remote(name) as Gitg.Remote;
+			remote = d_window.repository.lookup_remote(name) as Gitg.Remote;
 		} catch { return null; }
 
 		var url = remote.get_url();

@@ -81,7 +81,6 @@ namespace Gitg
 
 			try
 			{
-				d_config.refresh();
 				author_name = d_config.get_string("user.name");
 			}
 			catch {}

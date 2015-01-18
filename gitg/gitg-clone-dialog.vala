@@ -80,9 +80,8 @@ public class CloneDialog : Gtk.Dialog
 		d_entry_url.changed.connect((e) => {
 			string ?tooltip_text = null;
 			string ?icon_name = null;
-			bool url_supported = Ggit.Remote.is_supported_url(d_entry_url.get_text());
 
-			if (!url_supported && (d_entry_url.text != ""))
+			if (d_entry_url.text != "")
 			{
 				icon_name = "dialog-warning-symbolic";
 				tooltip_text = _("The URL introduced is not supported");
@@ -90,8 +89,6 @@ public class CloneDialog : Gtk.Dialog
 
 			d_entry_url.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, icon_name);
 			d_entry_url.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, tooltip_text);
-
-			set_response_sensitive(Gtk.ResponseType.OK, url_supported);
 		});
 	}
 }

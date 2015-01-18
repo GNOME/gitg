@@ -177,7 +177,7 @@ public class Remote : Ggit.Remote
 		try
 		{
 			yield Async.thread(() => {
-				base.download();
+				base.download(null);
 
 				if (signature != null)
 				{
