@@ -2,7 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Yuri Myasoedov <ymyasoedov@yandex.ru>, 2014.
+# Yuri Myasoedov <ymyasoedov@yandex.ru>, 2014, 2015.
 #
 msgid ""
 msgstr ""
@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
 "POT-Creation-Date: 2014-09-18 05:42+0000\n"
-"PO-Revision-Date: 2014-09-19 20:20+0400\n"
+"PO-Revision-Date: 2015-02-15 21:42+0300\n"
 "Last-Translator: Yuri Myasoedov <ymyasoedov@yandex.ru>\n"
 "Language-Team: русский <gnome-cyr@gnome.org>\n"
 "Language: ru_RU\n"
@@ -59,7 +59,7 @@ msgid ""
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr ""
 "Параметр, показывающий, когда должны сворачиваться неиспользуемые пути. "
-"Допустимые значения: 0—4, где 0 означает «раньше», 4 — «позже»."
+"Допустимые значения: от 0 до 4, где 0 означает «раньше», 4 — «позже»."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid ""
@@ -117,15 +117,15 @@ msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid "Show Right Margin in Commit Message View"
-msgstr "Показывать правый отступ в сообщении фиксации"
+msgstr "Показывать правый отступ в сообщении к коммиту"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"Показывать правое поле в сообщении фиксации. Это позволяет легко видеть, где "
-"перенести сообщение фиксации на другую строку."
+"Показывать правое поле в сообщении к коммиту. Это позволяет легко видеть, "
+"где перенести сообщение к коммиту на другую строку."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
 msgid "Column at Which Right Margin is Shown"
@@ -141,14 +141,14 @@ msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Show Subject Margin in Commit Message View"
-msgstr "Показывать поле с темой при просмотре сообщения о фиксации"
+msgstr "Показывать поле с темой при просмотре сообщения к коммиту"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
 msgstr ""
-"Выделять текст темы сообщения о фиксации; поле задаётся в параметром subject-"
+"Выделять текст темы сообщения к коммиту; поле задаётся в параметром subject-"
 "margin-position."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
@@ -173,7 +173,7 @@ msgid ""
 "writing a commit message."
 msgstr ""
 "Параметр, который определяет, будет ли использоваться проверка правописания "
-"при написании сообщений о фиксациях."
+"при написании сообщений о коммитах."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
 msgid "Spell Checking Language"
@@ -185,7 +185,7 @@ msgid ""
 "message."
 msgstr ""
 "Язык, который будет использоваться для проверки правописания при написании "
-"сообщений о фиксациях."
+"сообщений о коммитах."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
 msgid "Ignore Whitespace Changes"
@@ -203,15 +203,16 @@ msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
 msgid "Show Changes Inline"
-msgstr ""
+msgstr "Показывать изменения одной строкой"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
-#, fuzzy
 #| msgid ""
 #| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
-msgstr "Этот параметр управляет отображением скрытых элементов в истории."
+msgstr ""
+"Включение этого параметра показывает, нужно ли отображать изменения внутри "
+"строк одной строкой."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
 msgid "Number of Before/After Context Lines"
@@ -244,7 +245,7 @@ msgid ""
 msgstr ""
 "Параметр, который определяет сколько строк контекста (до и после) будет "
 "выводиться при просмотре различий, для которых будет изменена индексация в "
-"области фиксации."
+"области коммитов."
 
 #: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
@@ -255,11 +256,11 @@ msgstr "Не удалось назначить язык для проверки 
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgid "Commit"
-msgstr "Фиксация"
+msgstr "Коммит"
 
 #: ../gitg/commit/gitg-commit.vala:64
 msgid "Create new commits and manage the staging area"
-msgstr ""
+msgstr "Создание новых коммитов и управление областью данных"
 
 #: ../gitg/commit/gitg-commit.vala:107
 msgid "_Stage selection"
@@ -268,7 +269,7 @@ msgstr "_Проиндексировать"
 #: ../gitg/commit/gitg-commit.vala:138
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
-msgstr "Не удалось индексировать удаление файла «%s»"
+msgstr "Не удалось проиндексировать удаление файла «%s»"
 
 #: ../gitg/commit/gitg-commit.vala:152
 #, c-format
@@ -299,7 +300,7 @@ msgstr "Нет проиндексированных файлов"
 
 #: ../gitg/commit/gitg-commit.vala:394
 msgid "Unstaged"
-msgstr "Неиндексированные"
+msgstr "Непроиндексированные"
 
 #: ../gitg/commit/gitg-commit.vala:402
 msgid "No unstaged files"
@@ -315,17 +316,17 @@ msgstr "Нет неотслеживаемых файлов"
 
 #: ../gitg/commit/gitg-commit.vala:505
 msgid "There are no changes to be committed"
-msgstr "Нет изменений для фиксации"
+msgstr "Нет изменений для коммита"
 
 #: ../gitg/commit/gitg-commit.vala:506
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
-"Используйте дополнение фиксации, чтобы изменить сообщение о предыдущей "
-"фиксации"
+"Используйте дополнение к коммиту, чтобы изменить сообщение о предыдущем "
+"коммите"
 
 #: ../gitg/commit/gitg-commit.vala:532
 msgid "Failed to commit"
-msgstr "Не удалось фиксировать"
+msgstr "Не удалось выполнить коммит"
 
 #. TODO: better to show user info dialog directly or something
 #: ../gitg/commit/gitg-commit.vala:548 ../gitg/commit/gitg-commit.vala:727
@@ -353,7 +354,8 @@ msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
-"E-mail ещё не настроен. Перейдите к настройке пользователя и укажите e-mail."
+"Эл. почта ещё не настроена. Перейдите к настройке пользователя и укажите "
+"адрес вашей эл. почты."
 
 #: ../gitg/commit/gitg-commit.vala:782 ../gitg/commit/gitg-commit.vala:909
 msgid "Discard changes"
@@ -432,11 +434,11 @@ msgstr "Начать работу с gitg с определённого дейс
 
 #: ../gitg/gitg-application.vala:61
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
-msgstr "Начать работу с gitg с фиксации (сокращение для --activity commit)"
+msgstr "Начать работу с gitg с коммита (сокращение для --activity commit)"
 
 #: ../gitg/gitg-application.vala:64
 msgid "Do not try to load a repository from the current working directory"
-msgstr "Не пытаться загрузить репозиторий из текущего рабочего каталога"
+msgstr "Не пытаться загружать репозиторий из текущего рабочего каталога"
 
 #: ../gitg/gitg-application.vala:88
 msgid "- Git repository viewer"
@@ -448,7 +450,7 @@ msgstr "gitg — программа просмотра репозиториев 
 
 #: ../gitg/gitg-application.vala:215
 msgid "translator-credits"
-msgstr "Юрий Мясоедов <ymyasoedov@yandex.ru>, 2014"
+msgstr "Юрий Мясоедов <ymyasoedov@yandex.ru>, 2014-2015"
 
 #: ../gitg/gitg-application.vala:218
 msgid "gitg homepage"
@@ -473,7 +475,7 @@ msgstr "Создать ветвь"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
-msgstr "Создать новую ветвь в выбранной фиксации"
+msgstr "Создать новую ветвь в выбранном коммите"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:85
 msgid "Failed to create branch"
@@ -481,23 +483,23 @@ msgstr "Не удалось создать ветвь"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create Patch"
-msgstr "Создать заплатку"
+msgstr "Создать патч"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
-msgstr "Создать заплатку из выбранной фиксации"
+msgstr "Создать патч из выбранного коммита"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:141
 msgid "Save Patch File"
-msgstr "Сохранить файл-заплатку"
+msgstr "Сохранить файл с патчем"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:145
 msgid "_Save Patch"
-msgstr "_Сохранить заплатку"
+msgstr "_Сохранить патч"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:168
 msgid "Failed to create patch"
-msgstr "Не удалось создать заплатку"
+msgstr "Не удалось создать патч"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:48
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
@@ -506,7 +508,7 @@ msgstr "Создать метку"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
-msgstr "Создать новую метку на выделенную фиксацию"
+msgstr "Создать новую метку в выбранном коммите"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:92
 msgid "Failed to create tag"
@@ -518,7 +520,7 @@ msgstr "Не удалось найти метку"
 
 #: ../gitg/gitg-create-tag-dialog.vala:106
 msgid "Provide a message to create an annotated tag"
-msgstr ""
+msgstr "Введите сообщение для создания метки с комментарием"
 
 #: ../gitg/gitg-dash-view.vala:141
 msgid "_Delete"
@@ -531,7 +533,7 @@ msgstr "Удалить"
 
 #: ../gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
-msgstr "Удалить выделенную ссылку"
+msgstr "Удалить выбранную ссылку"
 
 #: ../gitg/gitg-ref-action-delete.vala:73
 #, c-format
@@ -598,7 +600,7 @@ msgstr "Переименовать"
 
 #: ../gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
-msgstr "Переименовать выделенную ссылку"
+msgstr "Переименовать выбранную ссылку"
 
 #: ../gitg/gitg-ref-action-rename.vala:100
 #, c-format
@@ -652,7 +654,7 @@ msgstr "«%s» не является репозиторием Git."
 
 #: ../gitg/history/gitg-history-refs-list.vala:136
 msgid "All commits"
-msgstr "Все фиксации"
+msgstr "Все коммиты"
 
 #: ../gitg/history/gitg-history-refs-list.vala:674
 msgid "Branches"
@@ -673,7 +675,7 @@ msgstr "История"
 
 #: ../gitg/history/gitg-history.vala:224
 msgid "Examine the history of the repository"
-msgstr ""
+msgstr "Просмотреть историю репозитория"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:73
 msgid "Interface"
@@ -716,28 +718,28 @@ msgstr[2] "%d дней назад"
 #. clock.
 #: ../libgitg/gitg-date.vala:374
 msgid "%b %e, %H:%M"
-msgstr ""
+msgstr "%e %b., %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: ../libgitg/gitg-date.vala:381
 msgid "%b %e, %I:%M %p"
-msgstr ""
+msgstr "%e %b., %I:%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: ../libgitg/gitg-date.vala:391
 msgid "%b %e %Y, %H:%M"
-msgstr ""
+msgstr "%e %b. %Y, %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: ../libgitg/gitg-date.vala:398
 msgid "%b %e %Y, %I:%M %p"
-msgstr ""
+msgstr "%e %b. %Y, %I:%M %p"
 
 #: ../libgitg/gitg-diff-view.vala:229
 msgid "stage"
@@ -755,7 +757,7 @@ msgstr "Загрузка различий…"
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
-"Не удалось прочитать сообщение фиксации после запуска перехватчика commit-"
+"Не удалось прочитать сообщение о коммите после запуска перехватчика commit-"
 "msg: %s"
 
 #: ../plugins/diff/gitg-diff.vala:89
@@ -764,7 +766,7 @@ msgstr "Различия"
 
 #: ../plugins/diff/gitg-diff.vala:94
 msgid "Show the changes introduced by the selected commit"
-msgstr "Показать изменения, внесённые выбранной фиксацией"
+msgstr "Показать изменения, внесённые выбранным коммитом"
 
 #: ../plugins/files/gitg-files.vala:63
 msgid "Files"
@@ -772,7 +774,7 @@ msgstr "Файлы"
 
 #: ../plugins/files/gitg-files.vala:68
 msgid "Show the files in the tree of the selected commit"
-msgstr "Показать файлы в дереве выбранной фиксации"
+msgstr "Показать файлы в дереве выбранного коммита"
 
 #. ex: ts=4 noet
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
@@ -795,11 +797,11 @@ msgstr "Введите сведения для репозитория «%s»:"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
 msgid "E-mail: "
-msgstr "Эл. почта:"
+msgstr "Эл. почта: "
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
 msgid "Name: "
-msgstr "Имя:"
+msgstr "Имя: "
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
 msgid "Save"
@@ -832,7 +834,7 @@ msgstr "Репозиторий без рабочего каталога"
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
 msgid "C_ommit"
-msgstr "Ф_иксировать"
+msgstr "К_оммит"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "Add _signed-off-by signature"
@@ -840,7 +842,7 @@ msgstr "Добавить _подпись"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 msgid "_Amend previous commit"
-msgstr "_Дополнить предыдущую фиксацию"
+msgstr "_Дополнить предыдущий коммит"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
 #: ../gitg/resources/ui/gitg-window.ui.h:6
@@ -848,25 +850,22 @@ msgid "Close"
 msgstr "Закрыть"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
-#, fuzzy
 msgid "Skip commit _hooks"
-msgstr "Пропустить _перехватчики фиксации"
+msgstr "П_ропустить перехватчики фиксации"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
-#, fuzzy
 msgid "S_tage selection"
-msgstr "Про_индексировать"
+msgstr "И_ндексировать выделенное"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
-#, fuzzy
 #| msgid "_Unstage selection"
 msgid "D_iscard selection"
-msgstr "_Отменить индексацию"
+msgstr "_Отменить выделение"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
 msgid "C_reate"
-msgstr ""
+msgstr "_Создать"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
 msgid "Branch _name:"
@@ -874,7 +873,7 @@ msgstr "_Название ветви:"
 
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
 msgid "Tag _name:"
-msgstr ""
+msgstr "Имя _метки:"
 
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
 msgid "Subject"
@@ -942,11 +941,11 @@ msgstr "Включить проверку правописания"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
 msgid "Commit Message"
-msgstr "Сообщение фиксации"
+msgstr "Сообщение о коммите"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
 msgid "Commits"
-msgstr "Фиксации"
+msgstr "Коммиты"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
 msgid "Collapse inactive lanes"
@@ -990,7 +989,7 @@ msgstr "Параметры"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Show the list of recently used repositories"
-msgstr "Показать список недавно использовавшихся репозиториев"
+msgstr "оказать список недавно использованных репозиториев"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
 msgid "Find a word or phrase"
@@ -1005,10 +1004,9 @@ msgid "Ignore whitespace changes"
 msgstr "Игнорировать изменения пробельных символов"
 
 #: ../libgitg/resources/diff-view-options.ui.h:2
-#, fuzzy
 #| msgid "Show staged changes in history"
 msgid "Show changes inline"
-msgstr "Показывать индексированные изменения в истории"
+msgstr "Показывать изменения одной строкой"
 
 #: ../libgitg/resources/diff-view-options.ui.h:3
 msgid "Developer tools"
