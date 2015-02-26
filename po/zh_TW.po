@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-02-21 06:36+0000\n"
-"PO-Revision-Date: 2015-02-22 12:24+0800\n"
-"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
+"POT-Creation-Date: 2015-02-26 06:34+0000\n"
+"PO-Revision-Date: 2015-02-26 22:26+0800\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -36,7 +36,7 @@ msgstr "預設重製目錄"
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
-msgstr "新倉儲建議重製的預設目錄。"
+msgstr "新倉儲重製時應放置的預設目錄。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
 msgid "Orientation of the main interface (vertical or horizontal)"
@@ -80,13 +80,13 @@ msgstr ""
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
 #, fuzzy
 msgid "Show History in Topological Order"
-msgstr "是否在歷史紀錄視窗顯示標題欄。"
+msgstr "以拓樸順序顯示歷史"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 #, fuzzy
 msgid ""
 "Setting that indicates whether to show the history in topological order."
-msgstr "指示是否要以順序顯示歷史。"
+msgstr "指示是否要以拓樸順序顯示歷史的設定值。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid "Show Stashed Changes"
@@ -102,33 +102,30 @@ msgid "Show Staged Changes"
 msgstr "顯示已 stage 的變更"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
-#, fuzzy
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
-msgstr "指示是否要在歷史中為目前 stage 的變動顯示虛擬條目。"
+msgstr "指示是否要在歷史中為目前 stage 的變動顯示虛擬條目的設定值。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid "Show Unstaged Changes"
 msgstr "顯示已 unstage 的變更"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
-#, fuzzy
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
-msgstr "指示是否要在歷史中為目前 unstage 的變動顯示虛擬條目。"
+msgstr "指示是否要在歷史中為目前 unstage 的變動顯示虛擬條目的設定值。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
 msgid "Mainline Head"
 msgstr "主線 Head"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-#, fuzzy
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
-msgstr "指示是否要在歷史中為 stash 顯示條目。"
+msgstr "指示是否要在歷史中為目前的 HEAD 保留主線的設定值。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Show Right Margin in Commit Message View"
@@ -233,12 +230,12 @@ msgid ""
 msgstr "設定顯示提交的 diff 時 tab 字元要占多少空間。"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
-#, fuzzy
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
-"設定提交區域中要顯示 diff 以 stage 或 unstage 時，應該要顯示多少列前後文。"
+"設定提交區域中要顯示 diff 以 stage 或 unstage 時，應該要顯示多少列前後文的設"
+"定值。"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:283
 #, c-format
@@ -268,14 +265,14 @@ msgstr "無法 stage 子模組「%s」的移除"
 #: ../gitg/commit/gitg-commit.vala:204
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
-msgstr ""
+msgstr "試圖 stage 時無法開啟子模組「%s」的倉儲"
 
 #: ../gitg/commit/gitg-commit.vala:218
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
 "to stage"
-msgstr ""
+msgstr "試圖 stage 時無法查詢子模組「%s」的工作目錄提交"
 
 #: ../gitg/commit/gitg-commit.vala:231
 #, c-format
@@ -327,14 +324,12 @@ msgstr "未 stage 的檔案"
 
 #. Populate unstaged items
 #: ../gitg/commit/gitg-commit.vala:829
-#, fuzzy
 msgid "Unstaged"
-msgstr "將未 stage 檔案的變更還原"
+msgstr "未 stage"
 
 #: ../gitg/commit/gitg-commit.vala:837
-#, fuzzy
 msgid "No unstaged files"
-msgstr "將未 stage 檔案的變更還原"
+msgstr "未 stage 檔案"
 
 #. Populate untracked items
 #: ../gitg/commit/gitg-commit.vala:853
@@ -352,7 +347,7 @@ msgstr "子模組"
 #: ../gitg/commit/gitg-commit.vala:879
 #, fuzzy
 msgid "No dirty submodules"
-msgstr "記憶體內容已被修改"
+msgstr "無 dirty 子模組"
 
 #: ../gitg/commit/gitg-commit.vala:991
 msgid "There are no changes to be committed"
@@ -957,10 +952,13 @@ msgid "D_iscard selection"
 msgstr "放棄選取項目(_I)"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:1
+#, fuzzy
 msgid ""
 "The submodule is in a dirty state and has staged and/or unstaged changes "
 "that are not yet committed as shown below."
 msgstr ""
+"子模組處於 dirty 狀態，且有尚未提交的已 stage 與/或未 stage 更動會顯示於下"
+"方。"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
 msgid "Staged:"
@@ -1077,11 +1075,12 @@ msgstr "慢"
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
 #, fuzzy
 msgid "Show history in topological order"
-msgstr "是否在歷史紀錄視窗顯示標題欄。"
+msgstr "以拓樸順序顯示歷史"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+#, fuzzy
 msgid "Preserve mainline for currently checked out branch"
-msgstr ""
+msgstr "保留目前檢出分支的主線"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Startup"
