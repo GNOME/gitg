@@ -205,6 +205,21 @@ public class StageStatusEnumerator : Object
 	private Cancellable d_cancellable;
 	private SourceFunc d_callback;
 	private Ggit.StatusOptions? d_options;
+	private Gee.HashSet<string> d_ignored_submodules;
+
+	private static Regex s_ignore_regex;
+
+	static construct
+	{
+		try
+		{
+			s_ignore_regex = new Regex("submodule\\.(.*)\\.gitgignore");
+		}
+		catch (Error e)
+		{
+			stderr.printf(@"Failed to compile stage status enumerator regex: $(e.message)\n");
+		}
+	}
 
 	internal StageStatusEnumerator(Repository repository,
 	                               Ggit.StatusOptions? options = null)
@@ -215,6 +230,21 @@ public class StageStatusEnumerator : Object
 		d_items = new StageStatusItem[100];
 		d_items.length = 0;
 		d_cancellable = new Cancellable();
+
+		try
+		{
+			d_ignored_submodules = new Gee.HashSet<string>();
+
+			repository.get_config().match_foreach(s_ignore_regex, (match, val) => {
+				if (val != "true")
+				{
+					return 0;
+				}
+
+				d_ignored_submodules.add(match.fetch(1));
+				return 0;
+			});
+		} catch {}
 
 		try
 		{
@@ -263,10 +293,14 @@ public class StageStatusEnumerator : Object
 		try
 		{
 			d_repository.submodule_foreach((submodule) => {
-				submodule.set_ignore(Ggit.SubmoduleIgnore.UNTRACKED);
 				submodule_paths.add(submodule.get_path());
 
-				add(new StageStatusSubmodule(submodule));
+				if (!d_ignored_submodules.contains(submodule.get_name()))
+				{
+					submodule.set_ignore(Ggit.SubmoduleIgnore.UNTRACKED);
+
+					add(new StageStatusSubmodule(submodule));
+				}
 
 				return d_cancellable.is_cancelled() ? 1 : 0;
 			});
