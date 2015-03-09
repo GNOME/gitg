@@ -45,6 +45,9 @@ namespace Gitg
 						case "select-parent":
 							d_view.select_parent(parameter("value"));
 							break;
+						case "open-url":
+							d_view.open_url(parameter("url"));
+							break;
 					}
 
 					return false;
@@ -572,6 +575,14 @@ namespace Gitg
 		{
 			d_parent = id;
 			update();
+		}
+
+		public void open_url(string url)
+		{
+			try
+			{
+				Gtk.show_uri(null, url, 0);
+			} catch {}
 		}
 
 		private PatchSet parse_patchset(Json.Node node)

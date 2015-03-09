@@ -108,6 +108,12 @@ function write_avatar(avatar, commit)
 	loader.attr('src', gravatar);
 }
 
+function open_url(target)
+{
+	xhr_get('internal', {'action': 'open-url', 'url': target.getAttribute("href")});
+	return false;
+}
+
 function prettify_message(message)
 {
 	var lines = message.split(/\n/);
@@ -136,7 +142,11 @@ function prettify_message(message)
 		isempty = (l.length == 0);
 	}
 
-	return ret;
+	var escaped = html_escape(ret);
+
+	escaped = ret.replace(/(https?:[^\s]*[^.])/g, "<a href=\"$1\" onclick=\"javascript:return open_url(this);\">$1</a>");
+
+	return escaped;
 }
 
 function write_commit(content, commit)
@@ -152,7 +162,7 @@ function write_commit(content, commit)
 	elems.date.text(commit.author.time);
 
 	// Message
-	elems.message.text(prettify_message(commit.message));
+	elems.message.html(prettify_message(commit.message));
 
 	// Notes
 	if (commit.hasOwnProperty('note'))
