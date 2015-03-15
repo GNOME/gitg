@@ -40,6 +40,11 @@ div#diff div.file.background table.file {
   height: 100%;
 }
 
+div.author-info {
+  min-height: 50px;
+  padding-top: 6px;
+}
+
 img.avatar {
   float: left;
   margin-right: 10px;
@@ -231,7 +236,12 @@ div.commit .date, div.commit .sha1 {
 
 div.commit .committer {
   font-size: 0.8em;
-  display: none;
+  display: inline-block;
+  margin-top: 3px;
+}
+
+div.commit .committer .date {
+  font-size: 1em;
 }
 
 div.commit .sha1 {

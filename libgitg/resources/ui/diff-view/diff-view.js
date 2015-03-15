@@ -180,12 +180,14 @@ function write_commit(content, commit)
 	// Committer
 	if (commit.author.name !== commit.committer.name ||
 	    commit.author.email !== commit.committer.email) {
-		elems['committed-by'].html(author_to_html(commit.committer, settings.strings.committed_by).append($('<br>')));
-		elems['committed-by'].show();
+		var elem = author_to_html(commit.committer, settings.strings.committed_by);
+		elem.append($('<br>')).append($('<span class="date"/>').text(commit.committer.time));
+
+		elems['committed-by'].html(elem);
 	}
 	else
 	{
-		elems['committed-by'].hide();
+		elems['committed-by'].html('');
 	}
 
 	// Date
