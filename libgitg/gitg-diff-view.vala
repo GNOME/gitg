@@ -252,6 +252,7 @@ namespace Gitg
 			strings.set_string_member("notes", _("Notes:"));
 			strings.set_string_member("parents", _("Parents:"));
 			strings.set_string_member("diff_against", _("Diff against:"));
+			strings.set_string_member("committed_by", _("Committed by:"));
 
 			o.set_object_member("strings", strings);
 

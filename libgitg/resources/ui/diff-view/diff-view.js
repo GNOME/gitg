@@ -28,7 +28,8 @@ var settings = {
 		loading_diff: 'Loading diff...',
 		notes: 'Notes:',
 		parents: 'Parents:',
-		diff_against: 'Diff against:'
+		diff_against: 'Diff against:',
+		committed_by: 'Committed by:'
 	},
 };
 
@@ -149,14 +150,38 @@ function prettify_message(message)
 	return escaped;
 }
 
+function author_to_html(author, prefix)
+{
+	var name = $('<span/>', {'class': 'author name'}).text(author.name);
+	var a = $('<a/>', {href: 'mailto:' + author.email}).text(author.email);
+
+	var ret = $('<span/>');
+
+	if (prefix)
+	{
+		ret.append($('<span/>').text(prefix + ' '));
+	}
+
+	return ret.append(name).append(' <').append(a).append('>');
+}
+
 function write_commit(content, commit)
 {
 	var elems = get_commit_elements(content);
 
 	// Author
-	var name = $('<span/>', {'class': 'author name'}).text(commit.author.name);
-	var a = $('<a/>', {href: 'mailto:' + commit.author.email}).text(commit.author.email);
-	elems.author.html($('<span/>').append(name).append(' <').append(a).append('>'));
+	elems.author.html(author_to_html(commit.author));
+
+	// Committer
+	if (commit.author.name !== commit.committer.name ||
+	    commit.author.email !== commit.committer.email) {
+		elems['committed-by'].html(author_to_html(commit.committer, settings.strings.committed_by).append($('<br>')));
+		elems['committed-by'].show();
+	}
+	else
+	{
+		elems['committed-by'].hide();
+	}
 
 	// Date
 	elems.date.text(commit.author.time);
