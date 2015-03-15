@@ -15,7 +15,7 @@ var params = function(query) {
 	return ret;
 }(document.location.search.substring(1));
 
-var settings = {
+var default_settings = {
 	wrap: true,
 	tab_width: 4,
 	debug: false,
@@ -34,10 +34,15 @@ var settings = {
 };
 
 var avatar_cache = {};
+var settings;
 
 if ('settings' in params)
 {
-	$.extend(settings, JSON.parse(params.settings));
+	settings = $.extend(true, {}, default_settings, JSON.parse(params.settings));
+}
+else
+{
+	settings = default_settings;
 }
 
 var escapeDiv = document.createElement('div');
@@ -516,7 +521,7 @@ function update_diff(id, lsettings)
 
 	if (typeof lsettings != 'undefined')
 	{
-		$.extend(settings, lsettings);
+		settings = $.extend(true, {}, default_settings, lsettings);
 	}
 
 	workeruri = 'diff-view-html-builder.js';
