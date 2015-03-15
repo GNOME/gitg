@@ -62,6 +62,11 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 		d_insteadof = new InsteadOf[10];
 		d_insteadof.length = 0;
 
+		if (d_window.repository == null)
+		{
+			return;
+		}
+
 		Ggit.Config config;
 
 		try
