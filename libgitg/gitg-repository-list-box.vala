@@ -240,6 +240,14 @@ namespace Gitg
 			if (ev->triggers_context_menu() && mode == SelectionMode.NORMAL)
 			{
 				mode = SelectionMode.SELECTION;
+
+				var row = get_row_at_y((int)event.y) as Row;
+
+				if (row != null)
+				{
+					row.selected = true;
+				}
+
 				return true;
 			}
 
