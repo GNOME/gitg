@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-01 17:07+0200\n"
-"PO-Revision-Date: 2015-01-01 17:16+0200\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
+"POT-Creation-Date: 2015-03-17 11:22+0200\n"
+"PO-Revision-Date: 2015-03-17 11:22+0200\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -517,11 +517,11 @@ msgstr "אתר הבית של gitg"
 msgid "Unable to open the .gitconfig file."
 msgstr "לא ניתן לפתוח את הקובץ .gitconfig."
 
-#: ../gitg/gitg-author-details-dialog.vala:149
+#: ../gitg/gitg-author-details-dialog.vala:148
 msgid "Failed to set Git user config."
 msgstr "הגדרת תצורת המשתמש עבור Git נכשלה."
 
-#: ../gitg/gitg-clone-dialog.vala:88
+#: ../gitg/gitg-clone-dialog.vala:87
 msgid "The URL introduced is not supported"
 msgstr "הכתובת שסופקה אינה נתמכת"
 
@@ -787,7 +787,7 @@ msgstr "היסטוריה"
 msgid "Examine the history of the repository"
 msgstr "לבחון את ההיסטוריה של המאגר"
 
-#: ../gitg/history/gitg-history.vala:600
+#: ../gitg/history/gitg-history.vala:602
 msgid "Mainline"
 msgstr "קו ראשי"
 
@@ -855,29 +855,33 @@ msgstr "%e ב%b ‏%Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e ב%b ‏%Y, %I:%M %p"
 
-#: ../libgitg/gitg-diff-view.vala:246
+#: ../libgitg/gitg-diff-view.vala:249
 msgid "stage"
 msgstr "שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:247
+#: ../libgitg/gitg-diff-view.vala:250
 msgid "unstage"
 msgstr "ביטול שילוב"
 
-#: ../libgitg/gitg-diff-view.vala:248
+#: ../libgitg/gitg-diff-view.vala:251
 msgid "Loading diff…"
 msgstr "הבדלים נטענים…"
 
-#: ../libgitg/gitg-diff-view.vala:249
+#: ../libgitg/gitg-diff-view.vala:252
 msgid "Notes:"
 msgstr "הערות:"
 
-#: ../libgitg/gitg-diff-view.vala:250
+#: ../libgitg/gitg-diff-view.vala:253
 msgid "Parents:"
 msgstr "הורים:"
 
-#: ../libgitg/gitg-diff-view.vala:251
+#: ../libgitg/gitg-diff-view.vala:254
 msgid "Diff against:"
 msgstr "שינוי לעומת:"
+
+#: ../libgitg/gitg-diff-view.vala:255
+msgid "Committed by:"
+msgstr "הוגש על ידי:"
 
 #: ../libgitg/gitg-remote-notification.vala:72
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
@@ -885,7 +889,7 @@ msgstr "שינוי לעומת:"
 msgid "Close"
 msgstr "סגירה"
 
-#: ../libgitg/gitg-stage.vala:335
+#: ../libgitg/gitg-stage.vala:334
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "לא ניתן לקרוא הודעת הגשה אחרי הרצת commit-msg hook: ‏%s"
