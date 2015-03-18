@@ -1,7 +1,6 @@
 # French translation of gitg.
-# Copyright (C)2009-2010 Free Software Foundation, Inc.
+# Copyright (C)2009-2015 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gitg package.
-#
 #
 # Guilhem Bonnefille <guilhem.bonnefille@gmail.com>, 2009.
 # Laurent Coudeur <laurentc@iol.ie>, 2009.
@@ -18,16 +17,15 @@ msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-02-21 06:36+0000\n"
-"PO-Revision-Date: 2015-03-01 23:35+0100\n"
+"POT-Creation-Date: 2015-03-18 06:27+0000\n"
+"PO-Revision-Date: 2015-03-18 18:04+0100\n"
 "Last-Translator: Guillaume Bernard <translate@filorin.fr>\n"
-"Language-Team: français <gnomefr@traduc.org>\n"
-"Language: \n"
+"Language-Team: French <gnomefr@traduc.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -407,7 +405,7 @@ msgstr "Utilisez « corriger » afin de changer le message du commit précéde
 
 #: ../gitg/commit/gitg-commit.vala:1018
 msgid "Failed to commit"
-msgstr "Impossible de comitter"
+msgstr "Impossible de commiter"
 
 #. TODO: better to show user info dialog directly or something
 #: ../gitg/commit/gitg-commit.vala:1034 ../gitg/commit/gitg-commit.vala:1213
@@ -899,29 +897,33 @@ msgstr "%e %b %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e %b %Y, %I:%M %p"
 
-#: ../libgitg/gitg-diff-view.vala:246
+#: ../libgitg/gitg-diff-view.vala:249
 msgid "stage"
 msgstr "stage"
 
-#: ../libgitg/gitg-diff-view.vala:247
+#: ../libgitg/gitg-diff-view.vala:250
 msgid "unstage"
 msgstr "unstage"
 
-#: ../libgitg/gitg-diff-view.vala:248
+#: ../libgitg/gitg-diff-view.vala:251
 msgid "Loading diff…"
 msgstr "Chargement du diff…"
 
-#: ../libgitg/gitg-diff-view.vala:249
+#: ../libgitg/gitg-diff-view.vala:252
 msgid "Notes:"
 msgstr "Notes :"
 
-#: ../libgitg/gitg-diff-view.vala:250
+#: ../libgitg/gitg-diff-view.vala:253
 msgid "Parents:"
 msgstr "Parents :"
 
-#: ../libgitg/gitg-diff-view.vala:251
+#: ../libgitg/gitg-diff-view.vala:254
 msgid "Diff against:"
 msgstr "Différences par rapport à :"
+
+#: ../libgitg/gitg-diff-view.vala:255
+msgid "Committed by:"
+msgstr "Commité par :"
 
 #: ../libgitg/gitg-remote-notification.vala:72
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
@@ -1222,8 +1224,8 @@ msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
 msgstr ""
-"La tentative d'authentification précédente a échoué. Veuillez renseigner votre "
-"identifiant et votre mot de passe puis essayez à nouveau."
+"La tentative d'authentification précédente a échoué. Veuillez renseigner "
+"votre identifiant et votre mot de passe puis essayez à nouveau."
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
 msgid "_Username:"
