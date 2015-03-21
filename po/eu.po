@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-02-07 16:01+0100\n"
-"PO-Revision-Date: 2015-02-07 16:06+0100\n"
+"POT-Creation-Date: 2015-03-21 16:13+0100\n"
+"PO-Revision-Date: 2015-03-21 16:26+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
@@ -128,16 +128,15 @@ msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
 msgid "Mainline Head"
-msgstr ""
+msgstr "Lerro nagusiaren goiburua"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-#, fuzzy
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
 msgstr ""
-"Erreserbatutako aldaketak historian erakutsiko diren edo ez adierazten duen "
-"ezarpena."
+"uneko HEAD-en (goiburuaren) historian lerro nagusia gordeko den edo ez "
+"adierazten du."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Show Right Margin in Commit Message View"
@@ -291,12 +290,14 @@ msgstr "_Konfiguratu hautapena"
 #: ../gitg/commit/gitg-commit.vala:188
 #, c-format
 msgid "Failed to stage the removal of submodule `%s'"
-msgstr ""
+msgstr "Huts egin du'%s' azpi-modulua kentzea konfiguratzean"
 
 #: ../gitg/commit/gitg-commit.vala:204
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr ""
+"Huts egin du '%s' azpi-moduluaren biltegia irekitzean (konfiguratzen "
+"saiatzean)"
 
 #: ../gitg/commit/gitg-commit.vala:218
 #, c-format
@@ -304,11 +305,13 @@ msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
 "to stage"
 msgstr ""
+"Huts egin du '%s' azpi-moduluaren egikaritzearen laneko direktorioa bilatzean "
+"(konfiguratzen saiatzean)"
 
 #: ../gitg/commit/gitg-commit.vala:231
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to stage the submodule `%s'"
-msgstr "Huts egin du `%s' fitxategia konfiguratzean"
+msgstr "Huts egin du '%s' azpi-modulua konfiguratzean"
 
 #: ../gitg/commit/gitg-commit.vala:253
 #, c-format
@@ -335,14 +338,14 @@ msgid "Failed to unstage the file `%s'"
 msgstr "Huts egin du `%s' fitxategia konfiguratzean"
 
 #: ../gitg/commit/gitg-commit.vala:609
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
-msgstr "Huts egin du `%s' fitxategia kentzea deskonfiguratzean"
+msgstr "Huts egin du '%s' azpi-modulua kentzea deskonfiguratzean"
 
 #: ../gitg/commit/gitg-commit.vala:610
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to unstage the submodule `%s'"
-msgstr "Huts egin du `%s' fitxategia konfiguratzean"
+msgstr "Huts egin du '%s' azpi-modulua deskonfiguratzean"
 
 #. Populate staged items
 #: ../gitg/commit/gitg-commit.vala:805
@@ -373,11 +376,11 @@ msgstr "Markatu gabeko fitxategiak"
 
 #: ../gitg/commit/gitg-commit.vala:875
 msgid "Submodule"
-msgstr ""
+msgstr "Azpi-modulua"
 
 #: ../gitg/commit/gitg-commit.vala:879
 msgid "No dirty submodules"
-msgstr ""
+msgstr "Ez dago azpi-modulu zikinik"
 
 #: ../gitg/commit/gitg-commit.vala:991
 msgid "There are no changes to be committed"
@@ -806,7 +809,7 @@ msgstr "Aztertu biltegiaren historia"
 
 #: ../gitg/history/gitg-history.vala:602
 msgid "Mainline"
-msgstr ""
+msgstr "Lerro nagusia"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:96
 msgid "Interface"
@@ -869,29 +872,33 @@ msgstr "%b %e %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%b %e %Y, %I:%M %p"
 
-#: ../libgitg/gitg-diff-view.vala:246
+#: ../libgitg/gitg-diff-view.vala:249
 msgid "stage"
 msgstr "konfiguratu"
 
-#: ../libgitg/gitg-diff-view.vala:247
+#: ../libgitg/gitg-diff-view.vala:250
 msgid "unstage"
 msgstr "ez konfiguratu"
 
-#: ../libgitg/gitg-diff-view.vala:248
+#: ../libgitg/gitg-diff-view.vala:251
 msgid "Loading diff…"
 msgstr "Diff kargatzen..."
 
-#: ../libgitg/gitg-diff-view.vala:249
+#: ../libgitg/gitg-diff-view.vala:252
 msgid "Notes:"
 msgstr "Oharrak:"
 
-#: ../libgitg/gitg-diff-view.vala:250
+#: ../libgitg/gitg-diff-view.vala:253
 msgid "Parents:"
 msgstr "Gurasoak:"
 
-#: ../libgitg/gitg-diff-view.vala:251
+#: ../libgitg/gitg-diff-view.vala:254
 msgid "Diff against:"
-msgstr ""
+msgstr "Desberdindu (diff) berriro:"
+
+#: ../libgitg/gitg-diff-view.vala:255
+msgid "Committed by:"
+msgstr "Egikaritzea:"
 
 #: ../libgitg/gitg-remote-notification.vala:72
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
@@ -1007,16 +1014,17 @@ msgid ""
 "The submodule is in a dirty state and has staged and/or unstaged changes "
 "that are not yet committed as shown below."
 msgstr ""
+"Azpi-modulua egoera zikinean aurkitzen da, eta oraindik egikaritu gabeko "
+"konfiguratuta edota deskonfiguratutako aldaketak dituzula, a "
+"zpian erakusten den bezala"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
-#, fuzzy
 msgid "Staged:"
-msgstr "Konfiguratuta"
+msgstr "Konfiguratuta:"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:3
-#, fuzzy
 msgid "Unstaged:"
-msgstr "Deskonfiguratuta"
+msgstr "Deskonfiguratuta:"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:1
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
@@ -1128,11 +1136,11 @@ msgstr "Erakutsi historia ordena topologikoan"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
 msgid "Preserve mainline for currently checked out branch"
-msgstr ""
+msgstr "Mantendu unean darabilen adarraren lerro nagusia "
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Startup"
-msgstr ""
+msgstr "Abioa"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
 msgid "Start with activity:"
@@ -1191,6 +1199,9 @@ msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
 msgstr ""
+"Aurreko autentifikazioaren saiakerak huts egin du. Eman zure "
+"erabiltzaile-izena eta "
+"pasahitza eta saiatu berriro."
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
 msgid "_Username:"
