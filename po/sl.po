@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
 "POT-Creation-Date: 2015-03-15 10:26+0000\n"
-"PO-Revision-Date: 2015-03-15 14:40+0100\n"
+"PO-Revision-Date: 2015-03-29 21:18+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -129,17 +129,16 @@ msgstr ""
 "spremembe počiščene pripravljenosti."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-#, fuzzy
 msgid "Mainline Head"
-msgstr "Glava skladišča"
+msgstr "Glava glavne vrstice"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
-#, fuzzy
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
 msgstr ""
-"Nastavitev določa, ali naj bodo prikazani predmeti za zalogo v zgodovini."
+"Nastavitev določa, ali naj se ohrani glavna vrstica v zgodovini trenutne "
+"glavne veje."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Show Right Margin in Commit Message View"
@@ -289,9 +288,11 @@ msgid "_Stage selection"
 msgstr "_Izbor datotek v pripravljenosti"
 
 #: ../gitg/commit/gitg-commit.vala:188
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to stage the removal of submodule `%s'"
-msgstr "Postavljanje odstranitve datoteke `%s' v pripravljenost je spodletelo."
+msgstr ""
+"Postavljanje v pripravljenost odstranjevanje podrejenega modula `%s' je "
+"spodletelo."
 
 #: ../gitg/commit/gitg-commit.vala:204
 #, c-format
@@ -306,9 +307,9 @@ msgid ""
 msgstr ""
 
 #: ../gitg/commit/gitg-commit.vala:231
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to stage the submodule `%s'"
-msgstr "Napaka med ustvarjanjem cevi v '%s': %s"
+msgstr "Dodajanje podrejenega modula v pripravljenost `%s' je spodletelo."
 
 #: ../gitg/commit/gitg-commit.vala:253
 #, c-format
@@ -336,15 +337,14 @@ msgid "Failed to unstage the file `%s'"
 msgstr "Postavljanje datoteke `%s' iz pripravljenosti je spodletelo"
 
 #: ../gitg/commit/gitg-commit.vala:609
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
-msgstr ""
-"Postavljanje odstranitve datoteke `%s' iz pripravljenosti je spodletelo."
+msgstr "Odstranjevanje pripravljenosti podrejenega modula `%s' je spodletelo."
 
 #: ../gitg/commit/gitg-commit.vala:610
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to unstage the submodule `%s'"
-msgstr "Napaka med ustvarjanjem cevi v '%s': %s"
+msgstr "Odstranjevanje pripravljenosti podrejenega modula `%s' je spodletelo"
 
 #. Populate staged items
 #: ../gitg/commit/gitg-commit.vala:805
@@ -378,9 +378,8 @@ msgid "Submodule"
 msgstr "Podrejeni modul"
 
 #: ../gitg/commit/gitg-commit.vala:879
-#, fuzzy
 msgid "No dirty submodules"
-msgstr "Na voljo ni nobenega namiga."
+msgstr "Ni neveljavnih podrejenih modulov"
 
 #: ../gitg/commit/gitg-commit.vala:991
 msgid "There are no changes to be committed"
@@ -600,9 +599,8 @@ msgid "Copy name"
 msgstr "Kopiraj ime"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:53
-#, fuzzy
 msgid "Copy the name of the reference to the clipboard"
-msgstr "Kopiraj <b>%(origtext)s = %(name)s</b> v odložišče"
+msgstr "Kopiraj ime sklica v odložišče"
 
 #: ../gitg/gitg-ref-action-delete.vala:48
 #: ../gitg/gitg-ref-action-delete.vala:88
@@ -679,14 +677,14 @@ msgid "Fetch from %s"
 msgstr "Pridobi preko %s"
 
 #: ../gitg/gitg-ref-action-fetch.vala:85
-#, fuzzy, c-format
+#, c-format
 msgid "Fetch remote objects from %s"
-msgstr "Pridobivanje sprememb iz oddaljenih skladišč"
+msgstr "Pridobi oddaljeni predmet iz %s"
 
 #: ../gitg/gitg-ref-action-fetch.vala:110
-#, fuzzy, c-format
+#, c-format
 msgid "Fetching from %s"
-msgstr "Veljavno od:"
+msgstr "Pridobivanje iz %s"
 
 #. Translators: new refers to a new remote reference having been fetched,
 #: ../gitg/gitg-ref-action-fetch.vala:118
@@ -699,9 +697,9 @@ msgid "updated"
 msgstr "posodobljeno"
 
 #: ../gitg/gitg-ref-action-fetch.vala:134
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to fetch from %s: %s"
-msgstr "Ni mogoče obnoviti `%s' iz `%s': %s"
+msgstr "Ni mogoče pridobiti iz %s: %s"
 
 #. Translators: the %s will get replaced with the remote url,
 #: ../gitg/gitg-ref-action-fetch.vala:146
@@ -712,9 +710,9 @@ msgstr "Pridobljeno preko %s: vse je posodobljeno"
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
 #: ../gitg/gitg-ref-action-fetch.vala:152
-#, fuzzy, c-format
+#, c-format
 msgid "Fetched from %s: %s"
-msgstr "Veljavno od:"
+msgstr "Pridobljeno iz %s: %s"
 
 #: ../gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
@@ -896,9 +894,8 @@ msgid "Diff against:"
 msgstr "Primerjaj z:"
 
 #: ../libgitg/gitg-diff-view.vala:255
-#, fuzzy
 msgid "Committed by:"
-msgstr "Po _prihodu"
+msgstr "Uveljavil:"
 
 #: ../libgitg/gitg-remote-notification.vala:72
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
@@ -1016,14 +1013,12 @@ msgid ""
 msgstr ""
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
-#, fuzzy
 msgid "Staged:"
-msgstr "_V pripravljenost"
+msgstr "V pripravljenosti:"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:3
-#, fuzzy
 msgid "Unstaged:"
-msgstr "Spremembe, ki niso v pripravljenosti"
+msgstr "Nepripravljeno:"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:1
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
@@ -1135,7 +1130,7 @@ msgstr "Pokaži zgodovino v topološkem zaporedju"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
 msgid "Preserve mainline for currently checked out branch"
-msgstr ""
+msgstr "Ohrani glavno vrstico v trenutno dejavni veji"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Startup"
@@ -1198,6 +1193,8 @@ msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
 msgstr ""
+"Predhodni poskus overitve je spodletel. Vpišite ustrezno uporabniško ime in "
+"geslo ter poskusite znova."
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
 msgid "_Username:"
