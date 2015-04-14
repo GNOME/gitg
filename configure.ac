@@ -123,8 +123,8 @@ AC_MSG_CHECKING([for libgit2-glib threading support])
 cflags_save="${CFLAGS}"
 libs_save="${LIBS}"
 
-CFLAGS="${LIBGITG_CFLAGS}"
-LIBS="${LIBGITG_LIBS}"
+CFLAGS="${CFLAGS} ${LIBGITG_CFLAGS}"
+LIBS="${LIBS} ${LIBGITG_LIBS}"
 
 AC_TRY_RUN([
 	#include <libgit2-glib/ggit.h>
