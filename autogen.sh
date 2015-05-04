@@ -26,6 +26,11 @@ fi
 
 git submodule update --init --recursive
 
+if [ $? != 0 ]; then
+    echo "*** Failed to download submodules. Maybe you have a bad connection or a submodule was not forked?"
+    exit 1
+fi
+
 autopoint --force
 AUTOPOINT='intltoolize --automake --copy' autoreconf --force --install --verbose
 
