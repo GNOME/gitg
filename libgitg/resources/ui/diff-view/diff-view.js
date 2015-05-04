@@ -79,13 +79,21 @@ function get_commit_elements(content)
 	return commit_elements;
 }
 
+var avatarLoader;
+
 function write_avatar(avatar, commit)
 {
 	var h = commit.author.email_md5;
+	var avc;
+
+	if (avatarLoader)
+	{
+		avatarLoader.cancelled = true;
+	}
 
 	if (h in avatar_cache)
 	{
-		var avc = avatar_cache[h];
+		avc = avatar_cache[h];
 
 		if (avc != null && avatar.attr('src') != avc)
 		{
@@ -95,23 +103,40 @@ function write_avatar(avatar, commit)
 		return;
 	}
 
-	var loader = $('<img/>');
-	var gravatar = 'http://www.gravatar.com/avatar/' + h + '?d=404&s=50';
+	avatarLoader = {
+		image: $('<img/>'),
+		cancelled: false
+	};
 
-	loader.on('load', function () {
+	var gravatar = 'http://www.gravatar.com/avatar/' + h + '?d=404&s=60';
+
+	avc = 'gitg-diff:/icon/avatar-default-symbolic?size=60';
+
+	avatar.attr('src', avc);
+
+	avatarLoader.image.on('load', function () {
+		if (this.cancelled)
+		{
+			return;
+		}
+
 		avatar_cache[h] = gravatar;
-
 		avatar.attr('src', gravatar);
-	});
 
-	loader.on('error', function () {
-		var avc = 'gitg-diff:/icon/avatar-default-symbolic?size=50';
+		avatarLoader = null;
+	}.bind(avatarLoader));
+
+	avatarLoader.image.on('error', function () {
+		if (this.cancelled)
+		{
+			return;
+		}
 
 		avatar_cache[h] = avc;
-		avatar.attr('src', avc);
-	});
+		avatarLoader = null;
+	}.bind(avatarLoader));
 
-	loader.attr('src', gravatar);
+	avatarLoader.image.attr('src', gravatar);
 }
 
 function open_url(target)
@@ -187,7 +212,7 @@ function write_commit(content, commit)
 	}
 	else
 	{
-		elems['committed-by'].html('');
+		elems['committed-by'].html('&nbsp;<br>&nbsp;');
 	}
 
 	// Date
