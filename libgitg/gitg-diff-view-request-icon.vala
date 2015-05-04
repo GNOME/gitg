@@ -26,7 +26,6 @@ namespace Gitg
 
 	class DiffViewRequestIcon : DiffViewRequest
 	{
-		private File? d_icon;
 		private Gtk.IconTheme d_theme;
 
 		public DiffViewRequestIcon(DiffView? view, WebKit.URISchemeRequest request, Soup.URI uri)
@@ -46,69 +45,70 @@ namespace Gitg
 			d_hasView = false;
 		}
 
-		private File ensure_icon() throws DiffViewRequestIconError
+		private InputStream ensure_icon(Cancellable? cancellable, out ulong size) throws DiffViewRequestIconError
 		{
-			if (d_icon != null)
-			{
-				return d_icon;
-			}
-
 			var name = Soup.URI.decode(d_uri.get_path());
 			name = name[1:name.length];
 
 			var sizes = parameter("size");
 
-			int size = 60;
+			int s = 60;
 
 			if (sizes != null)
 			{
-				size = int.parse(sizes);
+				s = int.parse(sizes);
 			}
 
-			var info = d_theme.lookup_icon(name, size, 0);
+			Gdk.Pixbuf? icon = null;
 
-			if (info == null)
+			try
+			{
+				icon = d_theme.load_icon(name, s, 0);
+			}
+			catch (Error e) {
+				throw new DiffViewRequestIconError.ICON_NOT_FOUND("icon not found");
+			}
+
+			if (icon == null)
 			{
 				throw new DiffViewRequestIconError.ICON_NOT_FOUND("icon not found");
 			}
 
-			var path = info.get_filename();
+			var stream = new MemoryOutputStream.resizable();
 
-			if (path != null)
+			try
 			{
-				d_icon = File.new_for_path(path);
+				icon.save_to_stream(stream, "png", cancellable);
 			}
-			else
+			catch (Error e)
 			{
 				throw new DiffViewRequestIconError.ICON_NOT_FOUND("icon not found");
 			}
 
-			return d_icon;
+			try
+			{
+				stream.close();
+			}
+			catch (Error e)
+			{
+				throw new DiffViewRequestIconError.ICON_NOT_FOUND("icon not found");
+			}
+
+			var b = stream.steal_as_bytes();
+
+			size = b.length;
+
+			var istream = new MemoryInputStream.from_bytes(b);
+			return istream;
 		}
 
 		public override InputStream? run_async(Cancellable? cancellable) throws GLib.Error
 		{
-			var f = ensure_icon();
+			ulong size;
+			var stream = ensure_icon(cancellable, out size);
 
-			var stream = f.read(cancellable);
-
-			try
-			{
-				var info = f.query_info(FileAttribute.STANDARD_CONTENT_TYPE +
-				                        "," +
-				                        FileAttribute.STANDARD_SIZE,
-				                        0,
-				                        cancellable);
-
-				d_size = info.get_size();
-
-				var ctype = info.get_content_type();
-
-				if (ctype != null)
-				{
-					d_mimetype = ContentType.get_mime_type(ctype);
-				}
-			} catch {}
+			d_size = size;
+			d_mimetype = "image/png";
 
 			return stream;
 		}
