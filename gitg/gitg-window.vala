@@ -921,7 +921,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_search_button.visible = !issel && searchable != null;
 			d_gear_menu.visible = !issel;
 			d_select_button.visible = !issel;
-			d_dash_button.visible = !issel;
+			d_dash_button.visible = !issel && d_repository != null;
 			d_activities_switcher.visible = !issel && d_repository != null;
 			d_select_cancel_button.visible = issel;
 
