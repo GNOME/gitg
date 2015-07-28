@@ -114,6 +114,7 @@ public class StageStatusFile : Object, StageStatusItem
 
 public class StageStatusSubmodule : Object, StageStatusItem
 {
+	private Ggit.Repository d_repository;
 	private Ggit.Submodule d_submodule;
 	private string d_path;
 	private Ggit.SubmoduleStatus d_flags;
@@ -139,15 +140,18 @@ public class StageStatusSubmodule : Object, StageStatusItem
 		  Ggit.SubmoduleStatus.WD_INDEX_MODIFIED
 		| Ggit.SubmoduleStatus.WD_WD_MODIFIED;
 
-	public StageStatusSubmodule(Ggit.Submodule submodule)
+	public StageStatusSubmodule(Repository repository,
+	                            Ggit.Submodule submodule)
 	{
+		d_repository = repository;
 		d_submodule = submodule;
 
 		d_path = submodule.get_path();
 
 		try
 		{
-			d_flags = submodule.get_status();
+			d_flags = repository.get_submodule_status(submodule.get_name(),
+			                                          Ggit.SubmoduleIgnore.UNTRACKED);
 		} catch {}
 	}
 
@@ -297,9 +301,7 @@ public class StageStatusEnumerator : Object
 
 				if (!d_ignored_submodules.contains(submodule.get_name()))
 				{
-					submodule.set_ignore(Ggit.SubmoduleIgnore.UNTRACKED);
-
-					add(new StageStatusSubmodule(submodule));
+					add(new StageStatusSubmodule(d_repository, submodule));
 				}
 
 				return d_cancellable.is_cancelled() ? 1 : 0;
