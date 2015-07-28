@@ -180,7 +180,7 @@ GITG_VALAFLAGS="--target-glib 2.38"
 
 if test "x$enable_debug" = "xyes"; then
 	LIBGITG_CFLAGS="$LIBGITG_CFLAGS -g -O0"
-	GITG_VALAFLAGS="$GITG_VALAFLAGS -g --save-temps"
+	GITG_VALAFLAGS="$GITG_VALAFLAGS -g"
 
 	AC_DEFINE([ENABLE_DEBUG],[1],[Whether debugging support is enabled])
 fi
