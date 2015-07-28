@@ -520,12 +520,14 @@ namespace Gitg
 			ThreadFunc<void*> run = () => {
 				try
 				{
-					var options = new Ggit.CloneOptions();
+					var clone_options = new Ggit.CloneOptions();
+					var fetch_options = new Ggit.FetchOptions();
 
-					options.set_is_bare(is_bare);
-					options.set_remote_callbacks(new CloneProgress(row));
+					clone_options.set_is_bare(is_bare);
+					clone_options.set_fetch_options(fetch_options);
+					fetch_options.set_remote_callbacks(new CloneProgress(row));
 
-					repository = (Repository)Ggit.Repository.clone(url, location, options);
+					repository = (Repository)Ggit.Repository.clone(url, location, clone_options);
 				}
 				catch (Ggit.Error e)
 				{
