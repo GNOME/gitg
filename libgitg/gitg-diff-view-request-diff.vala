@@ -289,6 +289,9 @@ namespace Gitg
 					return 0;
 				},
 
+				// FIXME: do we want to handle binary data?
+				null,
+
 				(delta, hunk) => {
 					if (cancellable != null && cancellable.is_cancelled())
 					{
