@@ -29,7 +29,6 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 	private bool d_search_enabled;
 	private bool d_setting_mode;
 
-	[Notify]
 	public GitgExt.SelectionMode selectable_mode
 	{
 		get

@@ -50,7 +50,6 @@ class Paned : Gitg.AnimatedPaned
 	[GtkChild]
 	private Gtk.ScrolledWindow d_scrolled_window_commit_list;
 
-	[Notify]
 	public Gtk.Orientation inner_orientation
 	{
 		get { return d_paned_panels.orientation; }
@@ -123,7 +122,6 @@ class Paned : Gitg.AnimatedPaned
 
 	private GitgExt.SelectionMode d_selectable_mode;
 
-	[Notify]
 	public GitgExt.SelectionMode selectable_mode
 	{
 		get { return d_selectable_mode; }

@@ -137,13 +137,9 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
-	[Notify]
 	public bool amend { get; set; }
-
-	[Notify]
 	public bool sign_off { get; set; }
 
-	[Notify]
 	public bool show_markup
 	{
 		get { return d_show_markup; }
@@ -157,7 +153,6 @@ class Dialog : Gtk.Dialog
 		default = true;
 	}
 
-	[Notify]
 	public bool show_right_margin
 	{
 		get { return d_show_right_margin; }
@@ -171,7 +166,6 @@ class Dialog : Gtk.Dialog
 		default = true;
 	}
 
-	[Notify]
 	public bool show_subject_margin
 	{
 		get { return d_show_subject_margin; }
@@ -185,7 +179,6 @@ class Dialog : Gtk.Dialog
 		default = true;
 	}
 
-	[Notify]
 	public int right_margin_position
 	{
 		get { return d_right_margin_position; }
@@ -199,7 +192,6 @@ class Dialog : Gtk.Dialog
 		default = 72;
 	}
 
-	[Notify]
 	public int subject_margin_position
 	{
 		get { return d_subject_margin_position; }
@@ -213,7 +205,6 @@ class Dialog : Gtk.Dialog
 		default = 50;
 	}
 
-	[Notify]
 	public Ggit.Signature author
 	{
 		owned get { return d_author; }
@@ -225,7 +216,6 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
-	[Notify]
 	public string? spell_checking_language
 	{
 		get { return d_spell_checking_language; }
@@ -237,7 +227,6 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
-	[Notify]
 	public bool enable_spell_checking
 	{
 		get { return d_enable_spell_checking; }

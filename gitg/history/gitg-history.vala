@@ -57,7 +57,6 @@ namespace GitgHistory
 
 		private Gitg.Repository d_repository;
 
-		[Notify]
 		public Gitg.Repository repository
 		{
 			get
@@ -759,7 +758,6 @@ namespace GitgHistory
 			d_commit_list_model.reload();
 		}
 
-		[Notify]
 		public GitgExt.SelectionMode selectable_mode
 		{
 			get; set;

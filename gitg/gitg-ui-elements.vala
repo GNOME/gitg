@@ -29,7 +29,6 @@ public class UIElements<T> : Object
 	private Gtk.Stack d_stack;
 	private Gee.HashMap<string, int> d_builtin_elements;
 
-	[Notify]
 	public T? current
 	{
 		get

@@ -86,7 +86,6 @@ namespace Gitg
 				}
 			}
 
-			[Notify]
 			public new bool selected
 			{
 				get; set;
@@ -230,7 +229,6 @@ namespace Gitg
 			}
 		}
 
-		[Notify]
 		public SelectionMode mode { get; set; }
 
 		protected override bool button_press_event(Gdk.EventButton event)

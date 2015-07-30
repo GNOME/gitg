@@ -960,7 +960,6 @@ public class RefsList : Gtk.ListBox
 		}
 	}
 
-	[Notify]
 	public Gee.List<Gitg.Ref> selection
 	{
 		owned get

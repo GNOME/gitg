@@ -96,7 +96,6 @@ namespace Gitg
 			}
 		}
 
-		[Notify]
 		public Repository repository
 		{
 			get { return d_repository; }

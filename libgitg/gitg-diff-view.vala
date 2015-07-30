@@ -93,7 +93,6 @@ namespace Gitg
 			}
 		}
 
-		[Notify]
 		public bool has_selection
 		{
 			get { return d_has_selection; }
