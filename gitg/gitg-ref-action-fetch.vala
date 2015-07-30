@@ -92,18 +92,6 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 	public void activate()
 	{
-		Ggit.Signature sig;
-
-		try
-		{
-			sig = application.repository.get_signature_with_environment(application.environment);
-		}
-		catch (Error e)
-		{
-			stderr.printf("Failed to get signature: %s\n", e.message);
-			return;
-		}
-
 		var notification = new RemoteNotification(d_remote);
 		application.notifications.add(notification);
 
@@ -124,7 +112,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 			}
 		});
 
-		d_remote.fetch.begin(sig, null, (obj, res) =>{
+		d_remote.fetch.begin(null, null, (obj, res) =>{
 			try
 			{
 				d_remote.fetch.end(res);

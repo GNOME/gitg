@@ -111,19 +111,10 @@ class RefActionRename : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 
 		try
 		{
-			var app = action_interface.application;
-			var repo = app.repository;
-			var signature = repo.get_signature_with_environment(app.environment);
-
 			if (branch != null)
 			{
-				var msg = "rename: branch %s to %s".printf(branch.get_name(),
-				                                           new_text);
-
 				new_ref = branch.move(new_text,
-				                      Ggit.CreateFlags.NONE,
-				                      signature,
-				                      msg) as Gitg.Ref;
+				                      Ggit.CreateFlags.NONE) as Gitg.Ref;
 			}
 			else
 			{
@@ -132,7 +123,6 @@ class RefActionRename : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 
 				new_ref = reference.rename(new_text,
 				                           false,
-				                           signature,
 				                           msg) as Gitg.Ref;
 			}
 		}

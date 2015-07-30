@@ -61,24 +61,14 @@ class CommitActionCreateBranch : GitgExt.UIElement, GitgExt.Action, GitgExt.Comm
 			if (resp == Gtk.ResponseType.OK)
 			{
 				Ggit.Branch? branch = null;
-				Ggit.Signature? author = null;
 
 				var repo = application.repository;
 
 				try
 				{
-					author = repo.get_signature_with_environment(application.environment);
-				} catch {}
-
-				var id = commit.get_id().to_string();
-
-				try
-				{
 					branch = repo.create_branch(dlg.new_branch_name,
 					                            commit,
-					                            Ggit.CreateFlags.NONE,
-					                            author,
-					                            @"branch: Created from $(id)");
+					                            Ggit.CreateFlags.NONE);
 				}
 				catch (Error e)
 				{
