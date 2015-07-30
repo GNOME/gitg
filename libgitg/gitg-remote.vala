@@ -36,13 +36,93 @@ public errordomain RemoteError
 	STILL_CONNECTING
 }
 
+public interface CredentialsProvider : Object
+{
+	public abstract Ggit.Cred? credentials(string url, string? username_from_url, Ggit.Credtype allowed_types) throws Error;
+}
+
 public class Remote : Ggit.Remote
 {
+	private class Callbacks : Ggit.RemoteCallbacks
+	{
+		private Remote d_remote;
+		private Ggit.RemoteCallbacks? d_proxy;
+
+		public Callbacks(Remote remote, Ggit.RemoteCallbacks? proxy)
+		{
+			d_remote = remote;
+			d_proxy = proxy;
+		}
+
+		protected override void progress(string message)
+		{
+			d_remote.progress(message);
+
+			if (d_proxy != null)
+			{
+				d_proxy.progress(message);
+			}
+		}
+
+		protected override void transfer_progress(Ggit.TransferProgress stats)
+		{
+			d_remote.transfer_progress(stats);
+
+			if (d_proxy != null)
+			{
+				d_proxy.transfer_progress(stats);
+			}
+		}
+
+		protected override void update_tips(string refname, Ggit.OId a, Ggit.OId b)
+		{
+			d_remote.tip_updated(refname, a, b);
+
+			if (d_proxy != null)
+			{
+				d_proxy.update_tips(refname, a, b);
+			}
+		}
+
+		protected override void completion(Ggit.RemoteCompletionType type)
+		{
+			d_remote.completion(type);
+
+			if (d_proxy != null)
+			{
+				d_proxy.completion(type);
+			}
+		}
+
+		protected override Ggit.Cred? credentials(string url, string? username_from_url, Ggit.Credtype allowed_types) throws Error
+		{
+			Ggit.Cred? ret = null;
+
+			var provider = d_remote.credentials_provider;
+
+			if (provider != null)
+			{
+				ret = provider.credentials(url, username_from_url, allowed_types);
+			}
+
+			if (ret == null && d_proxy != null)
+			{
+				ret = d_proxy.credentials(url, username_from_url, allowed_types);
+			}
+
+			return ret;
+		}
+	}
+
 	private RemoteState d_state;
 	private Error? d_authentication_error;
-	private Ggit.RemoteCallbacks? d_callbacks;
 	private string[]? d_fetch_specs;
 	private string[]? d_push_specs;
+
+	public signal void progress(string message);
+	public signal void transfer_progress(Ggit.TransferProgress stats);
+	public signal void tip_updated(string refname, Ggit.OId a, Ggit.OId b);
+	public signal void completion(Ggit.RemoteCompletionType type);
 
 	public Error authentication_error
 	{
@@ -87,7 +167,7 @@ public class Remote : Ggit.Remote
 		}
 	}
 
-	public new async void connect(Ggit.Direction direction) throws Error
+	public new async void connect(Ggit.Direction direction, Ggit.RemoteCallbacks? callbacks = null) throws Error
 	{
 		if (get_connected())
 		{
@@ -110,7 +190,7 @@ public class Remote : Ggit.Remote
 			try
 			{
 				yield Async.thread(() => {
-					base.connect(direction, d_callbacks);
+					base.connect(direction, new Callbacks(this, callbacks));
 				});
 			}
 			catch (Error e)
@@ -165,19 +245,14 @@ public class Remote : Ggit.Remote
 		update_state();
 	}
 
-	public void set_callbacks(Ggit.RemoteCallbacks callbacks)
-	{
-		d_callbacks = callbacks;
-	}
-
-	private async void download_intern(string? message) throws Error
+	private async void download_intern(string? message, Ggit.RemoteCallbacks? callbacks) throws Error
 	{
 		bool dis = false;
 
 		if (!get_connected())
 		{
 			dis = true;
-			yield connect(Ggit.Direction.FETCH);
+			yield connect(Ggit.Direction.FETCH, callbacks);
 		}
 
 		state = RemoteState.TRANSFERRING;
@@ -186,13 +261,15 @@ public class Remote : Ggit.Remote
 		{
 			yield Async.thread(() => {
 				var options = new Ggit.FetchOptions();
-				options.set_remote_callbacks(d_callbacks);
+				var cbs = new Callbacks(this, callbacks);
+
+				options.set_remote_callbacks(cbs);
 
 				base.download(null, options);
 
 				if (message != null)
 				{
-					base.update_tips(d_callbacks, true, options.get_download_tags(), message);
+					base.update_tips(cbs, true, options.get_download_tags(), message);
 				}
 			});
 		}
@@ -205,50 +282,90 @@ public class Remote : Ggit.Remote
 		update_state(dis);
 	}
 
-	public new async void download() throws Error
+	public new async void download(Ggit.RemoteCallbacks? callbacks = null) throws Error
 	{
-		yield download_intern(null);
+		yield download_intern(null, callbacks);
 	}
 
-	public new async void fetch(string? message) throws Error
+	public new async void fetch(string? message, Ggit.RemoteCallbacks? callbacks = null) throws Error
 	{
-		yield download_intern(message);
+		var msg = message;
+
+		if (msg == null)
+		{
+			var name = get_name();
+
+			if (name == null)
+			{
+				name = get_url();
+			}
+
+			if (name != null)
+			{
+				msg = "fetch: " + name;
+			}
+			else
+			{
+				msg = "";
+			}
+		}
+
+		yield download_intern(msg, callbacks);
 	}
 
-	public string[]? fetch_specs {
-		owned get {
-			if (d_fetch_specs != null) {
+	public string[]? fetch_specs
+	{
+		owned get
+		{
+			if (d_fetch_specs != null)
+			{
 				return d_fetch_specs;
 			}
 
-			try {
+			try
+			{
 				return get_fetch_specs();
-			} catch (Error e) {
+			}
+			catch (Error e)
+			{
 				return null;
 			}
 		}
 
-		set {
+		set
+		{
 			d_fetch_specs = value;
 		}
 	}
 
-	public string[]? push_specs {
-		owned get {
-			if (d_push_specs != null) {
+	public string[]? push_specs
+	{
+		owned get
+		{
+			if (d_push_specs != null)
+			{
 				return d_push_specs;
 			}
 
-			try {
+			try
+			{
 				return get_push_specs();
-			} catch (Error e) {
+			}
+			catch (Error e)
+			{
 				return null;
 			}
 		}
 
-		set {
+		set
+		{
 			d_push_specs = value;
 		}
+	}
+
+	public CredentialsProvider? credentials_provider
+	{
+		get; set;
 	}
 }
 

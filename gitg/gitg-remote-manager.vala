@@ -22,20 +22,20 @@ namespace Gitg
 
 class RemoteManager : Object, GitgExt.RemoteLookup
 {
-	class Callbacks : Ggit.RemoteCallbacks
+	class UICredentialsProvider : Object, CredentialsProvider
 	{
 		private CredentialsManager d_credentials;
 
-		public Callbacks(Gitg.Remote remote, Gtk.Window window)
+		public UICredentialsProvider(Gitg.Remote remote, Gtk.Window window)
 		{
 			d_credentials = new CredentialsManager(remote, window);
 		}
 
-		protected override Ggit.Cred? credentials(string        url,
-		                                          string?       username,
-		                                          Ggit.Credtype allowed_types) throws Error
+		public Ggit.Cred? credentials(string        url,
+		                              string?       username_from_url,
+		                              Ggit.Credtype allowed_types) throws Error
 		{
-			return d_credentials.credentials(url, username, allowed_types);
+			return d_credentials.credentials(url, username_from_url, allowed_types);
 		}
 	}
 
@@ -161,7 +161,7 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 			}
 		}
 
-		remote.set_callbacks(new Callbacks(remote, d_window));
+		remote.credentials_provider = new UICredentialsProvider(remote, d_window);
 
 		d_remotes[name] = remote;
 		return remote;
