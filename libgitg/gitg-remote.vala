@@ -40,6 +40,7 @@ public class Remote : Ggit.Remote
 {
 	private RemoteState d_state;
 	private Error? d_authentication_error;
+	private Ggit.RemoteCallbacks? d_callbacks;
 	private string[]? d_fetch_specs;
 	private string[]? d_push_specs;
 
@@ -109,7 +110,7 @@ public class Remote : Ggit.Remote
 			try
 			{
 				yield Async.thread(() => {
-					base.connect(direction);
+					base.connect(direction, d_callbacks);
 				});
 			}
 			catch (Error e)
@@ -164,7 +165,12 @@ public class Remote : Ggit.Remote
 		update_state();
 	}
 
-	private async void download_intern(Ggit.Signature? signature, string? message) throws Error
+	public void set_callbacks(Ggit.RemoteCallbacks callbacks)
+	{
+		d_callbacks = callbacks;
+	}
+
+	private async void download_intern(string? message) throws Error
 	{
 		bool dis = false;
 
@@ -179,11 +185,14 @@ public class Remote : Ggit.Remote
 		try
 		{
 			yield Async.thread(() => {
-				base.download(null);
+				var options = new Ggit.FetchOptions();
+				options.set_remote_callbacks(d_callbacks);
 
-				if (signature != null)
+				base.download(null, options);
+
+				if (message != null)
 				{
-					base.update_tips(signature, message);
+					base.update_tips(d_callbacks, true, options.get_download_tags(), message);
 				}
 			});
 		}
@@ -198,12 +207,13 @@ public class Remote : Ggit.Remote
 
 	public new async void download() throws Error
 	{
-		yield download_intern(null, null);
+		yield download_intern(null);
 	}
 
-	public new async void fetch(Ggit.Signature signature, string? message) throws Error
+	public new async void fetch(string? message) throws Error
 	{
-		yield download_intern(signature, message);
+		yield download_intern(message);
+	}
 
 	public string[]? fetch_specs {
 		owned get {
