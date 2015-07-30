@@ -134,22 +134,14 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 				string[] fetch_specs;
 				string[] push_specs;
 
-				try
-				{
-					fetch_specs = remote.get_fetch_specs();
-				} catch { break; }
+				fetch_specs = remote.fetch_specs;
+				push_specs = remote.push_specs;
 
-				try
-				{
-					push_specs = remote.get_push_specs();
-				} catch { break; }
-
-				var defspec = "+refs/heads/*:refs/remotes/" + name + "/*";
 				Gitg.Remote? tmp = null;
 
 				try
 				{
-					tmp = (new Ggit.Remote.anonymous(d_window.repository, url, defspec)) as Gitg.Remote;
+					tmp = (new Ggit.Remote.anonymous(d_window.repository, url)) as Gitg.Remote;
 				}
 				catch (Error e)
 				{
@@ -161,15 +153,8 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 					break;
 				}
 
-				try
-				{
-					tmp.set_fetch_specs(fetch_specs);
-				} catch { break; }
-
-				try
-				{
-					tmp.set_push_specs(push_specs);
-				} catch { break; }
+				tmp.fetch_specs = fetch_specs;
+				tmp.push_specs = push_specs;
 
 				remote = tmp;
 				break;

@@ -40,6 +40,8 @@ public class Remote : Ggit.Remote
 {
 	private RemoteState d_state;
 	private Error? d_authentication_error;
+	private string[]? d_fetch_specs;
+	private string[]? d_push_specs;
 
 	public Error authentication_error
 	{
@@ -202,6 +204,41 @@ public class Remote : Ggit.Remote
 	public new async void fetch(Ggit.Signature signature, string? message) throws Error
 	{
 		yield download_intern(signature, message);
+
+	public string[]? fetch_specs {
+		owned get {
+			if (d_fetch_specs != null) {
+				return d_fetch_specs;
+			}
+
+			try {
+				return get_fetch_specs();
+			} catch (Error e) {
+				return null;
+			}
+		}
+
+		set {
+			d_fetch_specs = value;
+		}
+	}
+
+	public string[]? push_specs {
+		owned get {
+			if (d_push_specs != null) {
+				return d_push_specs;
+			}
+
+			try {
+				return get_push_specs();
+			} catch (Error e) {
+				return null;
+			}
+		}
+
+		set {
+			d_push_specs = value;
+		}
 	}
 }
 
