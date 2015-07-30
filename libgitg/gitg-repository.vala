@@ -205,7 +205,7 @@ public class Repository : Ggit.Repository
 			date = new DateTime.now_local();
 		}
 
-		var conf = get_config();
+		var conf = get_config().snapshot();
 
 		if (user == null)
 		{

@@ -81,15 +81,21 @@ namespace Gitg
 
 			try
 			{
-				author_name = d_config.get_string("user.name");
-			}
-			catch {}
+				var config = d_config.snapshot();
 
-			try
-			{
-				author_email = d_config.get_string("user.email");
+				try
+				{
+					author_name = config.get_string("user.name");
+				} catch {}
+
+				try
+				{
+					author_email = config.get_string("user.email");
+				} catch {}
 			}
-			catch {}
+			catch
+			{
+			}
 
 			if (author_name != "")
 			{

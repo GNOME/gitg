@@ -384,7 +384,7 @@ public class Stage : Object
 			}
 
 			// Write tree from index
-			var conf = d_repository.get_config();
+			var conf = d_repository.get_config().snapshot();
 
 			string emsg = message;
 

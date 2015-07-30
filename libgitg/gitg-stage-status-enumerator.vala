@@ -237,7 +237,7 @@ public class StageStatusEnumerator : Object
 		{
 			d_ignored_submodules = new Gee.HashSet<string>();
 
-			repository.get_config().match_foreach(s_ignore_regex, (match, val) => {
+			repository.get_config().snapshot().match_foreach(s_ignore_regex, (match, val) => {
 				if (val != "true")
 				{
 					return 0;

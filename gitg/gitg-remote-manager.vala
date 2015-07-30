@@ -71,7 +71,7 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 
 		try
 		{
-			config = d_window.repository.get_config();
+			config = d_window.repository.get_config().snapshot();
 		} catch { return; }
 
 		Regex r;

@@ -336,7 +336,7 @@ namespace GitgHistory
 			try
 			{
 				config = repository.get_config();
-				ref_names = config.get_string("gitg.mainline").split(",");
+				ref_names = config.snapshot().get_string("gitg.mainline").split(",");
 			}
 			catch
 			{

@@ -55,7 +55,7 @@ public class CredentialsManager
 
 			try
 			{
-				var config = d_remote.get_owner().get_config();
+				var config = d_remote.get_owner().get_config().snapshot();
 				var r = new Regex("credential\\.(.*)\\.username");
 
 				config.match_foreach(r, (info, value) => {
