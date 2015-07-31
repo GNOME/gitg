@@ -48,10 +48,14 @@ public class Remote : Ggit.Remote
 		private Remote d_remote;
 		private Ggit.RemoteCallbacks? d_proxy;
 
-		public Callbacks(Remote remote, Ggit.RemoteCallbacks? proxy)
+		public delegate void TransferProgress(Ggit.TransferProgress stats);
+		private TransferProgress? d_transfer_progress;
+
+		public Callbacks(Remote remote, Ggit.RemoteCallbacks? proxy, owned TransferProgress? transfer_progress)
 		{
 			d_remote = remote;
 			d_proxy = proxy;
+			d_transfer_progress = (owned)transfer_progress;
 		}
 
 		protected override void progress(string message)
@@ -66,7 +70,10 @@ public class Remote : Ggit.Remote
 
 		protected override void transfer_progress(Ggit.TransferProgress stats)
 		{
-			d_remote.transfer_progress(stats);
+			if (d_transfer_progress != null)
+			{
+				d_transfer_progress(stats);
+			}
 
 			if (d_proxy != null)
 			{
@@ -118,11 +125,28 @@ public class Remote : Ggit.Remote
 	private Error? d_authentication_error;
 	private string[]? d_fetch_specs;
 	private string[]? d_push_specs;
+	private uint d_reset_transfer_progress_timeout;
+	private double d_transfer_progress;
 
 	public signal void progress(string message);
-	public signal void transfer_progress(Ggit.TransferProgress stats);
 	public signal void tip_updated(string refname, Ggit.OId a, Ggit.OId b);
 	public signal void completion(Ggit.RemoteCompletionType type);
+
+	public override void dispose()
+	{
+		if (d_reset_transfer_progress_timeout != 0)
+		{
+			Source.remove(d_reset_transfer_progress_timeout);
+			d_reset_transfer_progress_timeout = 0;
+		}
+
+		base.dispose();
+	}
+
+	public double transfer_progress
+	{
+		get { return d_transfer_progress; }
+	}
 
 	public Error authentication_error
 	{
@@ -139,6 +163,48 @@ public class Remote : Ggit.Remote
 				d_state = value;
 				notify_property("state");
 			}
+		}
+	}
+
+	private void do_reset_transfer_progress()
+	{
+		d_reset_transfer_progress_timeout = 0;
+		d_transfer_progress = 0.0;
+		notify_property("transfer-progress");
+	}
+
+	private void reset_transfer_progress(bool with_delay)
+	{
+		if (d_transfer_progress == 0)
+		{
+			return;
+		}
+
+		if (with_delay)
+		{
+			d_reset_transfer_progress_timeout = Timeout.add(500, () => {
+				do_reset_transfer_progress();
+				return false;
+			});
+		}
+		else if (d_reset_transfer_progress_timeout == 0)
+		{
+			do_reset_transfer_progress();
+		}
+	}
+
+	private void update_transfer_progress(Ggit.TransferProgress stats)
+	{
+		var total = stats.get_total_objects();
+		var received = stats.get_received_objects();
+		var indexed = stats.get_indexed_objects();
+
+		d_transfer_progress = (double)(received + indexed) / (double)(total + total);
+		notify_property("transfer-progress");
+
+		if (received == total && indexed == total)
+		{
+			reset_transfer_progress(true);
 		}
 	}
 
@@ -182,6 +248,10 @@ public class Remote : Ggit.Remote
 		{
 			throw new RemoteError.ALREADY_CONNECTING("already connecting");
 		}
+		else
+		{
+			reset_transfer_progress(false);
+		}
 
 		state = RemoteState.CONNECTING;
 
@@ -190,7 +260,7 @@ public class Remote : Ggit.Remote
 			try
 			{
 				yield Async.thread(() => {
-					base.connect(direction, new Callbacks(this, callbacks));
+					base.connect(direction, new Callbacks(this, callbacks, null));
 				});
 			}
 			catch (Error e)
@@ -239,10 +309,13 @@ public class Remote : Ggit.Remote
 		catch (Error e)
 		{
 			update_state();
+			reset_transfer_progress(true);
+
 			throw e;
 		}
 
 		update_state();
+		reset_transfer_progress(true);
 	}
 
 	private async void download_intern(string? message, Ggit.RemoteCallbacks? callbacks) throws Error
@@ -256,12 +329,13 @@ public class Remote : Ggit.Remote
 		}
 
 		state = RemoteState.TRANSFERRING;
+		reset_transfer_progress(false);
 
 		try
 		{
 			yield Async.thread(() => {
 				var options = new Ggit.FetchOptions();
-				var cbs = new Callbacks(this, callbacks);
+				var cbs = new Callbacks(this, callbacks, update_transfer_progress);
 
 				options.set_remote_callbacks(cbs);
 
@@ -276,10 +350,12 @@ public class Remote : Ggit.Remote
 		catch (Error e)
 		{
 			update_state(dis);
+			reset_transfer_progress(true);
 			throw e;
 		}
 
 		update_state(dis);
+		reset_transfer_progress(true);
 	}
 
 	public new async void download(Ggit.RemoteCallbacks? callbacks = null) throws Error

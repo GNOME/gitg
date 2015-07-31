@@ -387,9 +387,7 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 		if (d_remote != null)
 		{
 			d_remote.bind_property("state", this, "remote_state");
-
-			// TODO:
-			// d_remote.bind_property("transfer-progress", d_progress_bin, "fraction");
+			d_remote.bind_property("transfer-progress", d_progress_bin, "fraction");
 		}
 	}
 
