@@ -81,7 +81,9 @@ public class CloneDialog : Gtk.Dialog
 			string ?tooltip_text = null;
 			string ?icon_name = null;
 
-			if (d_entry_url.text != "")
+			var is_valid = (d_entry_url.text != "");
+
+			if (!is_valid)
 			{
 				icon_name = "dialog-warning-symbolic";
 				tooltip_text = _("The URL introduced is not supported");
@@ -89,6 +91,8 @@ public class CloneDialog : Gtk.Dialog
 
 			d_entry_url.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, icon_name);
 			d_entry_url.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, tooltip_text);
+
+			set_response_sensitive(Gtk.ResponseType.OK, is_valid);
 		});
 	}
 }
