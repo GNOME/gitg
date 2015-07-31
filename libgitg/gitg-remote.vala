@@ -60,8 +60,6 @@ public class Remote : Ggit.Remote
 
 		protected override void progress(string message)
 		{
-			d_remote.progress(message);
-
 			if (d_proxy != null)
 			{
 				d_proxy.progress(message);
@@ -93,8 +91,6 @@ public class Remote : Ggit.Remote
 
 		protected override void completion(Ggit.RemoteCompletionType type)
 		{
-			d_remote.completion(type);
-
 			if (d_proxy != null)
 			{
 				d_proxy.completion(type);
@@ -128,9 +124,7 @@ public class Remote : Ggit.Remote
 	private uint d_reset_transfer_progress_timeout;
 	private double d_transfer_progress;
 
-	public signal void progress(string message);
 	public signal void tip_updated(string refname, Ggit.OId a, Ggit.OId b);
-	public signal void completion(Ggit.RemoteCompletionType type);
 
 	public override void dispose()
 	{
