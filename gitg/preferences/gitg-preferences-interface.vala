@@ -34,6 +34,9 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "default_activity")]
 	private Gtk.ComboBox d_default_activity;
 
+	[GtkChild (name = "gravatar_enabled")]
+	private Gtk.CheckButton d_gravatar_enabled;
+
 	construct
 	{
 		d_settings = new Settings("org.gnome.gitg.preferences.interface");
@@ -58,6 +61,11 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 		                d_default_activity,
 		                "active-id",
 		              	SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_settings.bind("use-gravatar",
+		                d_gravatar_enabled,
+		                "active",
+		                SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 
 	public override void dispose()

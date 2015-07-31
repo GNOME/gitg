@@ -275,6 +275,21 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
+	private bool d_use_gravatar;
+
+	public bool use_gravatar
+	{
+		get { return d_use_gravatar; }
+		set
+		{
+			if (d_use_gravatar != value)
+			{
+				d_use_gravatar = value;
+				load_author_info();
+			}
+		}
+	}
+
 	private void load_author_info()
 	{
 		if (d_cancel_avatar != null)
@@ -324,26 +339,33 @@ class Dialog : Gtk.Dialog
 			d_label_date.halign = Gtk.Align.START;
 		}
 
-		var ac = Gitg.AvatarCache.default();
-		d_cancel_avatar = new Cancellable();
+		if (use_gravatar)
+		{
+			var ac = Gitg.AvatarCache.default();
+			d_cancel_avatar = new Cancellable();
 
-		ac.load.begin(d_author.get_email(), d_cancel_avatar, (obj, res) => {
-			var pixbuf = ac.load.end(res);
+			ac.load.begin(d_author.get_email(), d_cancel_avatar, (obj, res) => {
+				var pixbuf = ac.load.end(res);
 
-			if (d_cancel_avatar.is_cancelled())
-			{
-				return;
-			}
+				if (d_cancel_avatar.is_cancelled())
+				{
+					return;
+				}
 
-			if (pixbuf != null)
-			{
-				d_image_avatar.set_from_pixbuf(pixbuf);
-			}
-			else
-			{
-				d_image_avatar.set_from_icon_name("avatar-default-symbolic", Gtk.IconSize.DIALOG);
-			}
-		});
+				if (pixbuf != null)
+				{
+					d_image_avatar.set_from_pixbuf(pixbuf);
+				}
+				else
+				{
+					d_image_avatar.set_from_icon_name("avatar-default-symbolic", Gtk.IconSize.DIALOG);
+				}
+			});
+		}
+		else
+		{
+			d_image_avatar.set_from_icon_name("avatar-default-symbolic", Gtk.IconSize.DIALOG);
+		}
 	}
 
 	protected override void destroy()
@@ -430,6 +452,12 @@ class Dialog : Gtk.Dialog
 		                        this,
 		                        "spell-checking-language",
 		                        SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
+		interface_settings.bind("use-gravatar",
+		                        this,
+		                        "use-gravatar",
+		                        SettingsBindFlags.GET);
 
 		d_constructed = true;
 

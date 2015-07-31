@@ -136,6 +136,22 @@ namespace Gitg
 		public bool unstaged { get; set; default = false; }
 		public bool show_parents { get; set; default = false; }
 
+		private bool d_use_gravatar;
+
+		public bool use_gravatar
+		{
+			get { return d_use_gravatar; }
+			construct set
+			{
+				if (d_use_gravatar != value)
+				{
+					d_use_gravatar = value;
+					options_changed();
+				}
+			}
+			default = true;
+		}
+
 		int d_tab_width;
 
 		public int tab_width
@@ -242,6 +258,7 @@ namespace Gitg
 			o.set_boolean_member("changes_inline", changes_inline);
 			o.set_boolean_member("show_parents", show_parents);
 			o.set_string_member("parent", d_parent);
+			o.set_boolean_member("use_gravatar", use_gravatar);
 
 			var strings = new Json.Object();
 

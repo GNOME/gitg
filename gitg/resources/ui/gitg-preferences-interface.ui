@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <!-- interface-requires gtk+ 3.12 -->
+  <requires lib="gtk+" version="3.12"/>
   <template class="GitgPreferencesInterface" parent="GtkGrid">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="has_focus">False</property>
-    <property name="is_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="border_width">12</property>
@@ -15,16 +14,12 @@
       <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="has_focus">False</property>
-        <property name="is_focus">False</property>
         <property name="hexpand">True</property>
         <property name="row_spacing">6</property>
         <child>
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="has_focus">False</property>
-            <property name="is_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Startup</property>
             <attributes>
@@ -34,70 +29,53 @@
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkGrid" id="grid2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="has_focus">False</property>
-            <property name="is_focus">False</property>
+            <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
-            <property name="margin_start">12</property>
             <child>
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="has_focus">False</property>
-                <property name="is_focus">False</property>
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">Start with activity:</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkComboBoxText" id="default_activity">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="has_focus">False</property>
-                <property name="is_focus">False</property>
-                <property name="receives_default">False</property>
                 <property name="halign">start</property>
                 <items>
-                  <item translatable="yes" id="history">History</item>
-                  <item translatable="yes" id="commit">Commit</item>
+                  <item id="history" translatable="yes">History</item>
+                  <item id="commit" translatable="yes">Commit</item>
                 </items>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="has_focus">False</property>
-            <property name="is_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Layout</property>
             <attributes>
@@ -107,27 +85,21 @@
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">2</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkGrid" id="grid3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="has_focus">False</property>
-            <property name="is_focus">False</property>
+            <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
-            <property name="margin_start">12</property>
             <child>
               <object class="GtkCheckButton" id="horizontal_layout_enabled">
                 <property name="label" translatable="yes">Use horizontal layout</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="has_focus">False</property>
-                <property name="is_focus">False</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
                 <property name="draw_indicator">True</property>
@@ -135,24 +107,61 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">3</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Avatars</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid4">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_start">12</property>
+            <property name="hexpand">True</property>
+            <property name="row_spacing">6</property>
+            <child>
+              <object class="GtkCheckButton" id="gravatar_enabled">
+                <property name="label" translatable="yes">Use gravatar service to provide user avatars</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">5</property>
           </packing>
         </child>
       </object>
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">0</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
       </packing>
     </child>
   </template>

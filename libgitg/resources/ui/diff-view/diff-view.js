@@ -22,6 +22,7 @@ var default_settings = {
 	staged: false,
 	unstaged: false,
 	show_parents: false,
+	use_gravatar: true,
 	strings: {
 		stage: 'stage',
 		unstage: 'unstage',
@@ -91,7 +92,7 @@ function write_avatar(avatar, commit)
 		avatarLoader.cancelled = true;
 	}
 
-	if (h in avatar_cache)
+	if (h in avatar_cache && settings.use_gravatar)
 	{
 		avc = avatar_cache[h];
 
@@ -103,40 +104,42 @@ function write_avatar(avatar, commit)
 		return;
 	}
 
-	avatarLoader = {
-		image: $('<img/>'),
-		cancelled: false
-	};
-
-	var gravatar = 'http://www.gravatar.com/avatar/' + h + '?d=404&s=60';
-
-	avc = 'gitg-diff:/icon/avatar-default-symbolic?size=60';
-
+	var avc = 'gitg-diff:/icon/avatar-default-symbolic?size=60';
 	avatar.attr('src', avc);
 
-	avatarLoader.image.on('load', function () {
-		if (this.cancelled)
-		{
-			return;
-		}
+	if (settings.use_gravatar)
+	{
+		avatarLoader = {
+			image: $('<img/>'),
+			cancelled: false
+		};
 
-		avatar_cache[h] = gravatar;
-		avatar.attr('src', gravatar);
+		var gravatar = 'http://www.gravatar.com/avatar/' + h + '?d=404&s=60';
 
-		avatarLoader = null;
-	}.bind(avatarLoader));
+		avatarLoader.image.on('load', function () {
+			if (this.cancelled)
+			{
+				return;
+			}
 
-	avatarLoader.image.on('error', function () {
-		if (this.cancelled)
-		{
-			return;
-		}
+			avatar_cache[h] = gravatar;
+			avatar.attr('src', gravatar);
 
-		avatar_cache[h] = avc;
-		avatarLoader = null;
-	}.bind(avatarLoader));
+			avatarLoader = null;
+		}.bind(avatarLoader));
 
-	avatarLoader.image.attr('src', gravatar);
+		avatarLoader.image.on('error', function () {
+			if (this.cancelled)
+			{
+				return;
+			}
+
+			avatar_cache[h] = avc;
+			avatarLoader = null;
+		}.bind(avatarLoader));
+	
+		avatarLoader.image.attr('src', gravatar);
+	}
 }
 
 function open_url(target)

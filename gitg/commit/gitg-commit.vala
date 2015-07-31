@@ -721,16 +721,19 @@ namespace GitgCommit
 				selected_paths.add(item.path);
 			}
 
-			// Preload author avatar
-			try
+			if (d_main.diff_view.use_gravatar)
 			{
-				var author = get_signature("AUTHOR");
-				var ac = Gitg.AvatarCache.default();
+				// Preload author avatar
+				try
+				{
+					var author = get_signature("AUTHOR");
+					var ac = Gitg.AvatarCache.default();
 
-				ac.load.begin(author.get_email(), null, (obj, res) => {
-					ac.load.end(res);
-				});
-			} catch {}
+					ac.load.begin(author.get_email(), null, (obj, res) => {
+						ac.load.end(res);
+					});
+				} catch {}
+			}
 
 			var stage = repository.stage;
 
@@ -1735,6 +1738,14 @@ namespace GitgCommit
 			settings.bind("tab-width",
 			              d_main.diff_view,
 			              "tab-width",
+			              SettingsBindFlags.GET |
+			              SettingsBindFlags.SET);
+
+			settings = new Settings("org.gnome.gitg.preferences.interface");
+
+			settings.bind("use-gravatar",
+			              d_main.diff_view,
+			              "use-gravatar",
 			              SettingsBindFlags.GET |
 			              SettingsBindFlags.SET);
 
