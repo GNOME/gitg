@@ -506,7 +506,10 @@ namespace Gitg
 				var indxobj = stats.get_indexed_objects();
 				var totaobj = stats.get_total_objects();
 
-				d_row.fraction = (recvobj + indxobj) / (double)(2 * totaobj);
+				Idle.add(() => {
+					d_row.fraction = (recvobj + indxobj) / (double)(2 * totaobj);
+					return false;
+				});
 			}
 		}
 
