@@ -158,7 +158,7 @@ namespace Gitg
 				{
 					d_loading = value;
 
-					if (d_loading)
+					if (!d_loading)
 					{
 						d_spinner.stop();
 						d_spinner.hide();
