@@ -41,6 +41,14 @@
           </packing>
         </child>
         <child>
+          <object class="GtkStackSwitcher" id="d_activities_switcher">
+            <property name="visible">False</property>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkToggleButton" id="d_search_button">
             <property name="visible">True</property>
             <property name="valign">center</property>
@@ -79,14 +87,6 @@
                 <property name="icon_name">object-select-symbolic</property>
               </object>
             </child>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkStackSwitcher" id="d_activities_switcher">
-            <property name="visible">False</property>
           </object>
           <packing>
             <property name="pack_type">end</property>

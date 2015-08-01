@@ -265,9 +265,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_header_bar.remove(d_gear_menu);
 
 		d_header_bar.pack_end(d_gear_menu);
+		d_header_bar.pack_end(d_activities_switcher);
 		d_header_bar.pack_end(d_select_button);
 		d_header_bar.pack_end(d_search_button);
-		d_header_bar.pack_end(d_activities_switcher);
 
 		d_infobar.response.connect((w, r) => {
 			d_infobar.hide();
