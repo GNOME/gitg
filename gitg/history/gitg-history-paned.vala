@@ -236,15 +236,20 @@ class Paned : Gitg.AnimatedPaned
 		var w = position + hw;
 		var h = alloc.height + d_box_sidebar.spacing + d_stack_switcher_panels.margin_bottom;
 
-		int wx;
-		window.get_position(out wx, null);
+		if (window != null)
+		{
+			int wx;
+			window.get_position(out wx, null);
+			c.render_frame(context, wx, y, w, h);
+		}
 
-		c.render_frame(context, wx, y, w, h);
+		if (handlewin != null)
+		{
+			int hx;
+			handlewin.get_position(out hx, null);
 
-		int hx;
-		handlewin.get_position(out hx, null);
-
-		c.render_background(context, hx, y, hw, h);
+			c.render_background(context, hx, y, hw, h);
+		}
 
 		c.restore();
 

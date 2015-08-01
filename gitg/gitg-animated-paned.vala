@@ -51,17 +51,10 @@ public class AnimatedPaned : Gtk.Paned
 		default = 250;
 	}
 
-	private bool on_animate_step(Gtk.Widget widget, Gdk.FrameClock clock)
+	private bool update_position(double factor)
 	{
-		var elapsed = (clock.get_frame_time() - d_slide_start);
-		var factor = (double)elapsed / (double)d_slide_duration;
-
-		if (factor > 1)
-		{
-			factor = 1;
-		}
-
 		var pos = (int)Math.round((d_target_pos - d_start_pos) * factor) + d_start_pos;
+
 		set_position(pos);
 		queue_draw();
 
@@ -86,6 +79,21 @@ public class AnimatedPaned : Gtk.Paned
 				}
 			}
 
+			return false;
+		}
+
+		return true;
+	}
+
+	private bool on_animate_step(Gtk.Widget widget, Gdk.FrameClock clock)
+	{
+		var elapsed = (clock.get_frame_time() - d_slide_start);
+		var factor = (double)elapsed / (double)d_slide_duration;
+
+		if (!update_position(Math.fmin(factor, 1)))
+		{
+			d_tick_id = 0;
+			notify_property("is-animating");
 			return false;
 		}
 
@@ -119,6 +127,8 @@ public class AnimatedPaned : Gtk.Paned
 	private async void slide_async(SlidePanedChild child,
 	                               SlideDirection  direction)
 	{
+		var should_animate = get_settings().gtk_enable_animations;
+
 		if (d_tick_id == 0)
 		{
 			if (direction == SlideDirection.OUT)
@@ -126,7 +136,17 @@ public class AnimatedPaned : Gtk.Paned
 				d_original_pos = get_position();
 			}
 
-			d_tick_id = add_tick_callback(on_animate_step);
+			if (should_animate)
+			{
+				d_tick_id = add_tick_callback(on_animate_step);
+				notify_property("is-animating");
+			}
+		}
+		else if (d_tick_id != 0 && !should_animate)
+		{
+			remove_tick_callback(d_tick_id);
+			d_tick_id = 0;
+			notify_property("is-animating");
 		}
 
 		d_slide_start = get_frame_clock().get_frame_time();
@@ -181,7 +201,18 @@ public class AnimatedPaned : Gtk.Paned
 		}
 
 		d_async_callback = slide_async.callback;
-		d_slide_duration = (int64)(factor * transition_duration) * 1000;
+
+		if (should_animate)
+		{
+			d_slide_duration = (int64)(factor * transition_duration) * 1000;
+		}
+		else
+		{
+			Idle.add(() => {
+				update_position(1);
+				return false;
+			});
+		}
 
 		yield;
 	}
