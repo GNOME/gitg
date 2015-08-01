@@ -299,7 +299,10 @@ public class StageStatusEnumerator : Object
 
 				if (!d_ignored_submodules.contains(submodule.get_name()))
 				{
-					add(new StageStatusSubmodule(submodule));
+					try
+					{
+						add(new StageStatusSubmodule(d_repository.lookup_submodule(submodule.get_name())));
+					} catch {}
 				}
 
 				return d_cancellable.is_cancelled() ? 1 : 0;
