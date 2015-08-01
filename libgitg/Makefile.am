@@ -16,7 +16,9 @@ libgitg_libgitg_1_0_la_CFLAGS =		\
 libgitg_libgitg_1_0_la_LDFLAGS = 	\
 	-export-dynamic			\
 	-no-undefined			\
-	-export-symbols-regex "^[^_].*"	\
+	-export-symbols-regex "^[^_].*"
+
+libgitg_libgitg_1_0_la_LIBADD = 	\
 	$(LIBGITG_LIBS)
 
 libgitg_libgitg_1_0_la_VALAFLAGS =	\

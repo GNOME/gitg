@@ -35,11 +35,11 @@ libgitg_ext_libgitg_ext_1_0_la_VALAFLAGS =		\
 libgitg_ext_libgitg_ext_1_0_la_LDFLAGS = 	\
 	-export-dynamic				\
 	-no-undefined				\
-	-export-symbols-regex "^[^_].*"		\
-	$(LIBGITG_EXT_LIBS)
+	-export-symbols-regex "^[^_].*"
 
 libgitg_ext_libgitg_ext_1_0_la_LIBADD = 	\
-	libgitg/libgitg-1.0.la
+	libgitg/libgitg-1.0.la			\
+	$(LIBGITG_EXT_LIBS)
 
 libgitg_ext_libgitg_ext_1_0_la_VALASOURCES =		\
 	libgitg-ext/gitg-ext-action.vala		\

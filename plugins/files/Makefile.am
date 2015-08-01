@@ -15,11 +15,12 @@ plugins_files_libfiles_la_CFLAGS = 					\
 	$(WARN_CFLAGS)							\
 	-w
 
-plugins_files_libfiles_la_LDFLAGS = $(GITG_PLUGIN_LIBTOOL_FLAGS) $(GITG_PLUGIN_LIBS)
+plugins_files_libfiles_la_LDFLAGS = $(GITG_PLUGIN_LIBTOOL_FLAGS)
 
 plugins_files_libfiles_la_LIBADD = 					\
 	libgitg/libgitg-1.0.la 						\
-	libgitg-ext/libgitg-ext-1.0.la
+	libgitg-ext/libgitg-ext-1.0.la					\
+	$(GITG_PLUGIN_LIBS)
 
 plugins_files_libfiles_la_VALAFLAGS = $(GITG_PLUGIN_VALAFLAGS)
 

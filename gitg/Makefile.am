@@ -38,14 +38,14 @@ gitg_gitg_VALAFLAGS =						\
 gitg_gitg_LDADD =						\
 	libgd/libgd.la						\
 	libgitg/libgitg-1.0.la					\
-	libgitg-ext/libgitg-ext-1.0.la
+	libgitg-ext/libgitg-ext-1.0.la				\
+	$(GITG_LIBS)						\
+	$(PACKAGE_LIBS)
 
 gitg_gitg_LDFLAGS =						\
 	-export-dynamic						\
 	-no-undefined						\
-	-export-symbols-regex "^[[^_]].*"			\
-	$(GITG_LIBS)						\
-	$(PACKAGE_LIBS)
+	-export-symbols-regex "^[[^_]].*"
 
 gitg_gitg_VALASOURCES =						\
 	gitg/commit/gitg-commit-dialog.vala			\
