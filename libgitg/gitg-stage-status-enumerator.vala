@@ -294,14 +294,14 @@ public class StageStatusEnumerator : Object
 
 		try
 		{
-			d_repository.submodule_foreach((submodule) => {
+			d_repository.submodule_foreach((submodule, name) => {
 				submodule_paths.add(submodule.get_path());
 
-				if (!d_ignored_submodules.contains(submodule.get_name()))
+				if (!d_ignored_submodules.contains(name))
 				{
 					try
 					{
-						add(new StageStatusSubmodule(d_repository.lookup_submodule(submodule.get_name())));
+						add(new StageStatusSubmodule(d_repository.lookup_submodule(name)));
 					} catch {}
 				}
 
