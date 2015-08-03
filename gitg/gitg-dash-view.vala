@@ -145,6 +145,7 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 			var ab = new Gtk.ActionBar();
 
 			var del = new Gtk.Button.with_mnemonic(_("_Delete"));
+			del.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
 			del.sensitive = false;
 			del.show();
