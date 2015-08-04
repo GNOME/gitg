@@ -269,7 +269,7 @@ public class CredentialsManager
 	{
 		var uslookup = username != null ? username : "";
 		var tried = d_auth_tried[uslookup];
-		
+
 		var untried_allowed_types = allowed_types & ~tried;
 
 		if ((untried_allowed_types & Ggit.Credtype.SSH_KEY) != 0)
