@@ -821,8 +821,15 @@ namespace GitgCommit
 					                              Sidebar.Item.Type.STAGED,
 					                              selected_paths,
 					                              (item) => {
-					                                 on_staged_activated(new Gitg.StageStatusItem[] {item.item});
-					                              });
+						if (d_main.sidebar.is_selected(item))
+						{
+							on_unstage_selected_items();
+						}
+						else
+						{
+							on_staged_activated(new Gitg.StageStatusItem[] {item.item});
+						}
+					});
 				}
 
 				model.end_header();
@@ -845,8 +852,15 @@ namespace GitgCommit
 					                                Sidebar.Item.Type.UNSTAGED,
 					                                selected_paths,
 					                                (item) => {
-						                                on_unstaged_activated(new Gitg.StageStatusItem[] {item.item});
-					                                });
+						if (d_main.sidebar.is_selected(item))
+						{
+							on_stage_selected_items();
+						}
+						else
+						{
+							on_unstaged_activated(new Gitg.StageStatusItem[] {item.item});
+						}
+					});
 				}
 
 				model.end_header();
@@ -865,8 +879,15 @@ namespace GitgCommit
 					                                 Sidebar.Item.Type.UNTRACKED,
 					                                 selected_paths,
 					                                 (item) => {
-					                                 		on_unstaged_activated(new Gitg.StageStatusItem[] {item.item});
-					                                 	});
+						if (d_main.sidebar.is_selected(item))
+						{
+							on_stage_selected_items();
+						}
+						else
+						{
+							on_unstaged_activated(new Gitg.StageStatusItem[] {item.item});
+						}
+					});
 				}
 
 				model.end_header();
@@ -887,8 +908,15 @@ namespace GitgCommit
 						                                  Sidebar.Item.Type.SUBMODULE,
 						                                  selected_paths,
 						                                  (item) => {
-						                                  	on_unstaged_activated(new Gitg.StageStatusItem[] {item.item});
-					  	                                });
+						    if (d_main.sidebar.is_selected(item))
+						    {
+						    	on_stage_selected_items();
+						    }
+						    else
+						    {
+								on_unstaged_activated(new Gitg.StageStatusItem[] {item.item});
+							}
+						});
 					}
 
 					model.end_header();

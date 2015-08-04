@@ -383,6 +383,23 @@ public class Sidebar : Gtk.TreeView
 		});
 	}
 
+	public bool is_selected(SidebarItem item)
+	{
+		bool retval = false;
+
+		model.foreach((m, path, iter) => {
+			if (model.item_for_iter(iter) == item)
+			{
+				retval = get_selection().iter_is_selected(iter);
+				return true;
+			}
+
+			return false;
+		});
+
+		return retval;
+	}
+
 	protected override void row_activated(Gtk.TreePath path, Gtk.TreeViewColumn column)
 	{
 		if (model.clearing)
@@ -396,6 +413,48 @@ public class Sidebar : Gtk.TreeView
 		{
 			model.activate(iter, 2);
 		}
+	}
+
+	protected override bool key_press_event(Gdk.EventKey event)
+	{
+		if ((event.state & Gtk.accelerator_get_default_mod_mask()) != 0)
+		{
+			return base.key_press_event(event);
+		}
+
+		switch (event.keyval) {
+			case Gdk.Key.Return:
+			case Gdk.Key.ISO_Enter:
+			case Gdk.Key.KP_Enter:
+			case Gdk.Key.space:
+			case Gdk.Key.KP_Space:
+				Gtk.TreePath? path = null;
+				Gtk.TreeIter iter;
+
+				get_cursor(out path, null);
+
+				var sel = get_selection();
+
+				if (path != null)
+				{
+					if (model.get_iter(out iter, path))
+					{
+						if (sel.iter_is_selected(iter))
+						{
+							model.activate(iter, 2);
+						}
+						else
+						{
+							sel.unselect_all();
+							sel.select_iter(iter);
+						}
+					}
+				}
+
+				return true;
+		}
+
+		return base.key_press_event(event);
 	}
 
 	public new SidebarStore model

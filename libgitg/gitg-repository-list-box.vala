@@ -195,6 +195,7 @@ namespace Gitg
 			{
 				var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
 				var tip = @"$(module.get_path())/ ($(module.get_url()))";
+
 				box.set_tooltip_text(tip);
 				box.show();
 
