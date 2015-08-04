@@ -116,7 +116,7 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 
 	public string display_name
 	{
-		owned get { return _("Commit"); }
+		owned get { return C_("Preferences", "Commit"); }
 	}
 }
 

@@ -68,7 +68,7 @@ namespace GitgCommit
 
 		public string display_name
 		{
-			owned get { return _("Commit"); }
+			owned get { return C_("Activity", "Commit"); }
 		}
 
 		public string description
