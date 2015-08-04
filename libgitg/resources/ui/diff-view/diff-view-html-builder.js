@@ -669,7 +669,7 @@ function handle_error(data, message) {
 
 	var msg = 'Internal error while loading diff: ' + message;
 
-	self.postMessage({url: data.url, diff_html: '<div class="error"><p>' + html_escape(msg) + '</p><p>This usually indicates a bug in gitg. Please consider filing a bug report at <a href="https://bugzilla.gnome.org/browse.cgi?product=gitg">https://bugzilla.gnome.org/browse.cgi?product=gitg</a></p></div>'});
+	self.postMessage({url: data.url, diff_html: '<div class="error"><p>' + html_escape(msg) + '</p><p>This usually indicates a bug in gitg. Please consider filing a bug report at <a href="https://bugzilla.gnome.org/browse.cgi?product=gitg" onclick=\"javascript:return open_url(this);\">https://bugzilla.gnome.org/browse.cgi?product=gitg</a></p></div>'});
 }
 
 self.onmessage = function(event) {
