@@ -2,6 +2,7 @@
 <interface>
   <!-- interface-requires gtk+ 3.8 -->
   <template class="GitgRepositoryListBoxRow" parent="GtkListBoxRow">
+    <property name="can_focus">True</property>
     <child>
       <object class="GitgProgressBin" id="d_progress_bin">
         <property name="visible">True</property>

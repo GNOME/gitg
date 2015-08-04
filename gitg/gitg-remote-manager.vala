@@ -28,7 +28,14 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 
 		public UICredentialsProvider(Gitg.Remote remote, Gtk.Window window)
 		{
-			d_credentials = new CredentialsManager(remote, window);
+			Ggit.Config? config = null;
+
+			try
+			{
+				config = remote.get_owner().get_config();
+			} catch {}
+
+			d_credentials = new CredentialsManager(config, window, true);
 		}
 
 		public Ggit.Cred? credentials(string        url,

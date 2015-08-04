@@ -118,7 +118,6 @@ public class Remote : Ggit.Remote
 	}
 
 	private RemoteState d_state;
-	private Error? d_authentication_error;
 	private string[]? d_fetch_specs;
 	private string[]? d_push_specs;
 	private uint d_reset_transfer_progress_timeout;
@@ -140,11 +139,6 @@ public class Remote : Ggit.Remote
 	public double transfer_progress
 	{
 		get { return d_transfer_progress; }
-	}
-
-	public Error authentication_error
-	{
-		get { return d_authentication_error; }
 	}
 
 	public RemoteState state
@@ -218,7 +212,6 @@ public class Remote : Ggit.Remote
 			else
 			{
 				state = RemoteState.CONNECTED;
-				d_authentication_error = null;
 			}
 		}
 		else
@@ -265,7 +258,6 @@ public class Remote : Ggit.Remote
 				if (e.message == "Unexpected HTTP status code: 401" ||
 				    e.message == "error authenticating: Username/PublicKey combination invalid")
 				{
-					d_authentication_error = e;
 					continue;
 				}
 				else
@@ -275,7 +267,6 @@ public class Remote : Ggit.Remote
 				}
 			}
 
-			d_authentication_error = null;
 			break;
 		}
 

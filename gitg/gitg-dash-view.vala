@@ -20,7 +20,8 @@
 namespace Gitg
 {
 
-class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectable, GitgExt.Searchable
+[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-dash-view.ui")]
+class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectable, GitgExt.Searchable
 {
 	private const string version = Config.VERSION;
 
@@ -29,11 +30,17 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 	private bool d_search_enabled;
 	private bool d_setting_mode;
 
+	[GtkChild( name = "repository_list_box" )]
+	private RepositoryListBox d_repository_list_box;
+
+	[GtkChild( name = "action_bar" )]
+	private Gtk.ActionBar d_action_bar;
+
 	public GitgExt.SelectionMode selectable_mode
 	{
 		get
 		{
-			switch (mode)
+			switch (d_repository_list_box.mode)
 			{
 			case Gitg.SelectionMode.NORMAL:
 				return GitgExt.SelectionMode.NORMAL;
@@ -56,10 +63,12 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 			switch (value)
 			{
 			case GitgExt.SelectionMode.NORMAL:
-				mode = Gitg.SelectionMode.NORMAL;
+				d_repository_list_box.mode = Gitg.SelectionMode.NORMAL;
+				d_action_bar.visible = true;
 				break;
 			case GitgExt.SelectionMode.SELECTION:
-				mode = Gitg.SelectionMode.SELECTION;
+				d_repository_list_box.mode = Gitg.SelectionMode.SELECTION;
+				d_action_bar.visible = false;
 				break;
 			}
 
@@ -103,7 +112,7 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 			if (d_search_text != value)
 			{
 				d_search_text = value;
-				filter_text(d_search_text);
+				update_search_text();
 			}
 		}
 
@@ -125,15 +134,22 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 			if (d_search_enabled != value)
 			{
 				d_search_enabled = value;
+				update_search_text();
+			}
+		}
+	}
 
-				if (d_search_enabled)
-				{
-					filter_text(d_search_text);
-				}
-				else
-				{
-					filter_text(null);
-				}
+	private void update_search_text()
+	{
+		if (d_repository_list_box != null)
+		{
+			if (d_search_enabled && d_search_text != "")
+			{
+				d_repository_list_box.filter_text(d_search_text);
+			}
+			else
+			{
+				d_repository_list_box.filter_text(null);
 			}
 		}
 	}
@@ -151,7 +167,7 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 			del.show();
 
 			del.clicked.connect(() => {
-				foreach (var sel in selection)
+				foreach (var sel in d_repository_list_box.selection)
 				{
 					sel.request_remove();
 				}
@@ -159,7 +175,7 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 				selectable_mode = GitgExt.SelectionMode.NORMAL;
 			});
 
-			bind_property("has-selection", del, "sensitive");
+			d_repository_list_box.bind_property("has-selection", del, "sensitive");
 
 			ab.pack_end(del);
 
@@ -170,12 +186,193 @@ class DashView : RepositoryListBox, GitgExt.UIElement, GitgExt.Activity, GitgExt
 
 	construct
 	{
-		notify["mode"].connect(() => {
+		d_repository_list_box.notify["mode"].connect(() => {
 			if (!d_setting_mode)
 			{
+				d_action_bar.visible = (selectable_mode == GitgExt.SelectionMode.NORMAL);
 				notify_property("selectable-mode");
 			}
 		});
+
+		d_repository_list_box.repository_activated.connect((repository) => {
+			application.repository = repository;
+		});
+
+		d_repository_list_box.show_error.connect((primary_message, secondary_message) => {
+			application.show_infobar(primary_message, secondary_message, Gtk.MessageType.ERROR);
+		});
+	}
+
+	public RepositoryListBox.Row? add_repository(Repository repository)
+	{
+		return d_repository_list_box.add_repository(repository);
+	}
+
+	class CloneCallbacks : Ggit.RemoteCallbacks
+	{
+		private RepositoryListBox.Row d_row;
+		private CredentialsManager d_credentials;
+
+		public CloneCallbacks(GitgExt.Application application, Ggit.Config? config, RepositoryListBox.Row row)
+		{
+			d_row = row;
+			d_credentials = new CredentialsManager(config, application as Gtk.Window, false);
+		}
+
+		protected override void transfer_progress(Ggit.TransferProgress stats)
+		{
+			var recvobj = stats.get_received_objects();
+			var indxobj = stats.get_indexed_objects();
+			var totaobj = stats.get_total_objects();
+
+			Idle.add(() => {
+				d_row.fraction = (recvobj + indxobj) / (double)(2 * totaobj);
+				return false;
+			});
+		}
+
+		protected override Ggit.Cred? credentials(string url, string? username_from_url, Ggit.Credtype allowed_types) throws Error
+		{
+			return d_credentials.credentials(url, username_from_url, allowed_types);
+		}
+	}
+
+	private async Repository? clone(RepositoryListBox.Row row, string url, File location, bool is_bare) throws Error
+	{
+		Repository? repository = null;
+
+		yield Async.thread(() => {
+			var clone_options = new Ggit.CloneOptions();
+			var fetch_options = new Ggit.FetchOptions();
+			Ggit.Config? config = null;
+
+			try
+			{
+				config = new Ggit.Config.default();
+			} catch {}
+
+			fetch_options.set_remote_callbacks(new CloneCallbacks(application, config, row));
+
+			clone_options.set_is_bare(is_bare);
+			clone_options.set_fetch_options(fetch_options);
+
+			repository = (Repository)Ggit.Repository.clone(url, location, clone_options);
+		});
+
+		return repository;
+	}
+
+	private void clone_repository(string url, File location, bool is_bare)
+	{
+		// create subfolder
+		var pos = url.last_index_of_char('/');
+
+		if (pos == -1)
+		{
+			pos = url.last_index_of_char(':');
+		}
+
+		var dot_git_suffix = ".git";
+		var subfolder_name = url.substring(pos + 1);
+		var has_dot_git = subfolder_name.has_suffix(dot_git_suffix);
+
+		if (has_dot_git && !is_bare)
+		{
+			subfolder_name = subfolder_name.slice(0, - dot_git_suffix.length);
+		}
+		else if (!has_dot_git && is_bare)
+		{
+			subfolder_name += dot_git_suffix;
+		}
+
+		var subfolder = location.resolve_relative_path(subfolder_name);
+
+		// Clone
+		var row = d_repository_list_box.begin_cloning(subfolder_name);
+
+		clone.begin(row, url, subfolder, is_bare, (obj, res) => {
+			Gitg.Repository? repository = null;
+
+			try
+			{
+				repository = clone.end(res);
+			}
+			catch (Error e)
+			{
+				application.show_infobar(_("Failed to clone repository"), e.message, Gtk.MessageType.ERROR);
+			}
+
+			d_repository_list_box.end_cloning(row, repository);
+		});
+	}
+
+	[GtkCallback]
+	private void clone_repository_clicked()
+	{
+		var dlg = new CloneDialog(application as Gtk.Window);
+
+		dlg.response.connect((d, id) => {
+			if (id == Gtk.ResponseType.OK)
+			{
+				clone_repository(dlg.url, dlg.location, dlg.is_bare);
+			}
+
+			d.destroy();
+		});
+
+		dlg.show();
+	}
+
+	[GtkCallback]
+	private void open_repository_clicked()
+	{
+		var chooser = new Gtk.FileChooserDialog(_("Add Repository"),
+		                                        application as Gtk.Window,
+		                                        Gtk.FileChooserAction.SELECT_FOLDER,
+		                                        _("_Cancel"), Gtk.ResponseType.CANCEL,
+		                                        _("_Add"), Gtk.ResponseType.OK);
+
+		chooser.modal = true;
+		chooser.set_default_response(Gtk.ResponseType.OK);
+
+		chooser.response.connect((c, id) => {
+			if (id == Gtk.ResponseType.OK)
+			{
+				var file = chooser.get_file();
+
+				if (file == null)
+				{
+					file = chooser.get_current_folder_file();
+				}
+
+				Repository? repo = null;
+
+				try
+				{
+					repo = new Repository(file, null);
+				}
+				catch (Error err)
+				{
+					application.show_infobar(_("Failed to add repository"), err.message, Gtk.MessageType.ERROR);
+				}
+
+				if (repo != null)
+				{
+					var row = add_repository(repo);
+
+					if (row != null)
+					{
+						row.grab_focus();
+						d_repository_list_box.grab_focus();
+						row.grab_focus();
+					}
+				}
+			}
+
+			c.destroy();
+		});
+
+		chooser.show();
 	}
 }
 

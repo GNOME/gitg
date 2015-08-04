@@ -76,6 +76,8 @@ public interface Application : Object
 	public abstract Application open_new(Ggit.Repository repository, string? hint = null);
 
 	public abstract RemoteLookup remote_lookup { owned get; }
+
+	public abstract void open_repository(File path);
 }
 
 }

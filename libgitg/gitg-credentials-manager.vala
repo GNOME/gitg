@@ -27,9 +27,12 @@ public errordomain CredentialsError
 
 public class CredentialsManager
 {
-	private weak Remote d_remote;
+	private Ggit.Config? d_config;
 	private Gtk.Window d_window;
 	private Gee.HashMap<string, string>? d_usermap;
+	private bool d_save_user_in_config;
+	private string d_last_user;
+	private Gee.HashMap<string, Ggit.Credtype> d_auth_tried;
 	private static Secret.Schema s_secret_schema;
 
 	static construct
@@ -41,9 +44,11 @@ public class CredentialsManager
 		                                    "user", Secret.SchemaAttributeType.STRING);
 	}
 
-	public CredentialsManager(Remote remote, Gtk.Window window)
+	public CredentialsManager(Ggit.Config? config, Gtk.Window window, bool save_user_in_config)
 	{
-		d_remote = remote;
+		d_config = config;
+		d_save_user_in_config = save_user_in_config;
+		d_auth_tried = new Gee.HashMap<string, Ggit.Credtype>();
 		d_window = window;
 	}
 
@@ -53,19 +58,21 @@ public class CredentialsManager
 		{
 			d_usermap = new Gee.HashMap<string, string?>();
 
-			try
+			if (d_config != null)
 			{
-				var config = d_remote.get_owner().get_config().snapshot();
-				var r = new Regex("credential\\.(.*)\\.username");
+				try
+				{
+					var r = new Regex("credential\\.(.*)\\.username");
 
-				config.match_foreach(r, (info, value) => {
-					d_usermap[info.fetch(1)] = value;
-					return 0;
-				});
-			}
-			catch (Error e)
-			{
-				stderr.printf("Could not get username from git config: %s\n", e.message);
+					d_config.snapshot().match_foreach(r, (info, value) => {
+						d_usermap[info.fetch(1)] = value;
+						return 0;
+					});
+				}
+				catch (Error e)
+				{
+					stderr.printf("Could not get username from git config: %s\n", e.message);
+				}
 			}
 		}
 
@@ -86,7 +93,7 @@ public class CredentialsManager
 		AuthenticationLifeTime lifetime = AuthenticationLifeTime.FORGET;
 
 		Idle.add(() => {
-			var d = new AuthenticationDialog(url, username, d_remote.authentication_error != null);
+			var d = new AuthenticationDialog(url, username, d_auth_tried[username] != 0);
 			d.set_transient_for(d_window);
 
 			response = (Gtk.ResponseType)d.run();
@@ -115,8 +122,10 @@ public class CredentialsManager
 			throw new CredentialsError.CANCELLED("cancelled by user");
 		}
 
+		d_last_user = newusername;
+
 		// Save username in config
-		if (username == null || newusername != username)
+		if (username == null || newusername != username && d_config != null && d_save_user_in_config)
 		{
 			if (d_usermap == null)
 			{
@@ -125,12 +134,9 @@ public class CredentialsManager
 
 			try
 			{
-				var repo = d_remote.get_owner();
-				var config = repo.get_config();
 				var hid = @"$(scheme)://$(host)";
 
-				config.set_string(@"credential.$(hid).username", newusername);
-
+				d_config.set_string(@"credential.$(hid).username", newusername);
 				d_usermap[hid] = newusername;
 			}
 			catch (Error e)
@@ -185,6 +191,7 @@ public class CredentialsManager
 			});
 		}
 
+		d_auth_tried[newusername] |= Ggit.Credtype.USERPASS_PLAINTEXT;
 		return new Ggit.CredPlaintext(newusername, password);
 	}
 
@@ -212,29 +219,40 @@ public class CredentialsManager
 			user = username;
 		}
 
-		if (user != null && d_remote.authentication_error == null)
+		if (user != null)
 		{
-			string? secret = null;
+			var tried = d_auth_tried[user];
 
-			try
+			if ((tried & Ggit.Credtype.USERPASS_PLAINTEXT) == 0)
 			{
-				secret = Secret.password_lookup_sync(s_secret_schema, null,
-				                                     "scheme", scheme,
-				                                     "host", host,
-				                                     "user", user);
-			}
-			catch {}
+				string? secret = null;
 
-			if (secret == null)
-			{
-				return user_pass_dialog(url, scheme, host, user);
-			}
+				try
+				{
+					secret = Secret.password_lookup_sync(s_secret_schema, null,
+					                                     "scheme", scheme,
+					                                     "host", host,
+					                                     "user", user);
+				}
+				catch {}
 
-			try
-			{
-				return new Ggit.CredPlaintext(user, secret);
+				if (secret == null)
+				{
+					return user_pass_dialog(url, scheme, host, user);
+				}
+
+				d_auth_tried[user] |= Ggit.Credtype.USERPASS_PLAINTEXT;
+
+				try
+				{
+					return new Ggit.CredPlaintext(user, secret);
+				}
+				catch (Error e)
+				{
+					return user_pass_dialog(url, scheme, host, user);
+				}
 			}
-			catch (Error e)
+			else
 			{
 				return user_pass_dialog(url, scheme, host, user);
 			}
@@ -249,8 +267,14 @@ public class CredentialsManager
 	                              string?       username,
 	                              Ggit.Credtype allowed_types) throws Error
 	{
-		if (d_remote.authentication_error == null && (allowed_types & Ggit.Credtype.SSH_KEY) != 0)
+		var uslookup = username != null ? username : "";
+		var tried = d_auth_tried[uslookup];
+		
+		var untried_allowed_types = allowed_types & ~tried;
+
+		if ((untried_allowed_types & Ggit.Credtype.SSH_KEY) != 0)
 		{
+			d_auth_tried[uslookup] = tried | Ggit.Credtype.SSH_KEY;
 			return new Ggit.CredSshKeyFromAgent(username);
 		}
 		else if ((allowed_types & Ggit.Credtype.USERPASS_PLAINTEXT) != 0)

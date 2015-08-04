@@ -365,14 +365,46 @@ namespace Gitg
 		{
 			var recent_manager = Gtk.RecentManager.get_default();
 			var item = Gtk.RecentData();
+
 			item.app_name = Environment.get_application_name();
 			item.mime_type = "inode/directory";
 			item.app_exec = string.join(" ", Environment.get_prgname(), "%f");
 			item.groups = { "gitg", null };
+
 			recent_manager.add_full(uri, item);
 		}
 
-		public void add_repository(Repository repository)
+		public void end_cloning(Row row, Repository? repository)
+		{
+			if (repository != null)
+			{
+				File? workdir = repository.get_workdir();
+				File? repo_file = repository.get_location();
+
+				var uri = (workdir != null) ? workdir.get_uri() : repo_file.get_uri();
+				add_repository_to_recent_manager(uri);
+
+				row.repository = repository;
+				row.loading = false;
+			}
+			else
+			{
+				remove(row);
+			}
+		}
+
+		public Row? begin_cloning(string name)
+		{
+			var row = new Row(name, _("Cloning..."), true);
+
+			row.loading = true;
+			row.show();
+
+			add(row);
+			return row;
+		}
+
+		public Row? add_repository(Repository repository)
 		{
 			Row? row = get_row_for_repository(repository);
 
@@ -451,6 +483,8 @@ namespace Gitg
 			{
 				add_repository_to_recent_manager(f.get_uri());
 			}
+
+			return row;
 		}
 
 		public Row[] selection
@@ -489,117 +523,6 @@ namespace Gitg
 
 				return false;
 			}
-		}
-
-		class CloneProgress : Ggit.RemoteCallbacks
-		{
-			private Row d_row;
-
-			public CloneProgress(Row row)
-			{
-				d_row = row;
-			}
-
-			protected override void transfer_progress(Ggit.TransferProgress stats)
-			{
-				var recvobj = stats.get_received_objects();
-				var indxobj = stats.get_indexed_objects();
-				var totaobj = stats.get_total_objects();
-
-				Idle.add(() => {
-					d_row.fraction = (recvobj + indxobj) / (double)(2 * totaobj);
-					return false;
-				});
-			}
-		}
-
-		private async Repository? clone(Row row, string url, File location, bool is_bare)
-		{
-			SourceFunc callback = clone.callback;
-			Repository? repository = null;
-
-			ThreadFunc<void*> run = () => {
-				try
-				{
-					var clone_options = new Ggit.CloneOptions();
-					var fetch_options = new Ggit.FetchOptions();
-
-					fetch_options.set_remote_callbacks(new CloneProgress(row));
-
-					clone_options.set_is_bare(is_bare);
-					clone_options.set_fetch_options(fetch_options);
-
-					repository = (Repository)Ggit.Repository.clone(url, location, clone_options);
-				}
-				catch (Ggit.Error e)
-				{
-					show_error("Gitg could not clone the git repository.", e.message);
-				}
-				catch (GLib.Error e)
-				{
-					show_error("Gitg could not clone the git repository.", e.message);
-				}
-
-				Idle.add((owned) callback);
-				return null;
-			};
-
-			try
-			{
-				new Thread<void*>.try("gitg-clone-thread", (owned)run);
-				yield;
-			}
-			catch {}
-
-			return repository;
-		}
-
-		public void clone_repository(string url, File location, bool is_bare)
-		{
-			// create subfolder
-			var subfolder_name = url.substring(url.last_index_of_char('/') + 1);
-			if (subfolder_name.has_suffix(".git") && !is_bare)
-			{
-				subfolder_name = subfolder_name.slice(0, - ".git".length);
-			}
-			else if (is_bare)
-			{
-				subfolder_name += ".git";
-			}
-
-			var subfolder = location.resolve_relative_path(subfolder_name);
-
-			try
-			{
-				subfolder.make_directory_with_parents(null);
-			}
-			catch (GLib.Error e)
-			{
-				show_error("Gitg could not clone the git repository.", e.message);
-				return;
-			}
-
-			// Clone
-			var row = new Row(subfolder_name, "Cloning...", true);
-			row.loading = true;
-			row.show();
-			add(row);
-
-			clone.begin(row, url, subfolder, is_bare, (obj, res) => {
-				Gitg.Repository? repository = clone.end(res);
-
-				// FIXME: show an error
-				if (repository != null)
-				{
-					File? workdir = repository.get_workdir();
-					File? repo_file = repository.get_location();
-					var uri = (workdir != null) ? workdir.get_uri() : repo_file.get_uri();
-					add_repository_to_recent_manager(uri);
-				}
-
-				row.repository = repository;
-				row.loading = false;
-			});
 		}
 
 		public void filter_text(string? text)

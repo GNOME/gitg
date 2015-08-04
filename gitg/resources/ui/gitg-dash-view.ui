@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <template class="GitgDashView" parent="GtkGrid">
+    <child>
+      <object class="GtkScrolledWindow" id="scrolled_window">
+        <property name="visible">True</property>
+        <property name="vexpand">True</property>
+        <property name="hexpand">True</property>
+        <style>
+          <class name="view"/>
+        </style>
+        <child>
+          <object class="GitgRepositoryListBox" id="repository_list_box">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <style>
+              <class name="view"/>
+            </style>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkActionBar" id="action_bar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkButton" id="open_repository">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Add repository</property>
+            <signal name="clicked" handler="open_repository_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="clone_repository">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Clone repository</property>
+            <signal name="clicked" handler="clone_repository_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+  </template>
+</interface>

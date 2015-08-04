@@ -75,8 +75,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.Stack d_main_stack;
 
 	[GtkChild]
-	private Gtk.ScrolledWindow d_dash_scrolled_window;
-	[GtkChild]
 	private DashView d_dash_view;
 
 	[GtkChild]
@@ -141,8 +139,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private static const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
 		{"gear-menu", on_gear_menu_activated, null, "false", null},
-		{"open-repository", on_open_repository},
-		{"clone-repository", on_clone_repository},
 		{"close", on_close_activated},
 		{"reload", on_reload_activated},
 		{"author-details-global", on_global_author_details_activated},
@@ -188,18 +184,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
-	[GtkCallback]
-	private void dash_view_repository_activated(Repository r)
-	{
-		repository = r;
-	}
-
-	[GtkCallback]
-	private void dash_view_show_error(string title, string message)
-	{
-		show_infobar(title, message, Gtk.MessageType.ERROR);
-	}
-
 	construct
 	{
 		add_action_entries(win_entries, this);
@@ -233,6 +217,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			menuname = "app-win-menu";
 		}
+
+		d_dash_view.application = this;
 
 		d_dash_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
 		d_activities_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
@@ -426,7 +412,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_mode = Mode.DASH;
 
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT;
-			d_main_stack.set_visible_child(d_dash_scrolled_window);
+			d_main_stack.set_visible_child(d_dash_view);
 			d_activities_switcher.hide();
 			d_dash_button.hide();
 			d_gear_menu.menu_model = d_dash_model;
@@ -461,34 +447,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		return base.configure_event(event);
 	}
 
-	private void on_open_repository()
-	{
-		var chooser = new Gtk.FileChooserDialog (_("Open Repository"), this,
-		                                         Gtk.FileChooserAction.SELECT_FOLDER,
-		                                         _("_Cancel"), Gtk.ResponseType.CANCEL,
-		                                         _("_Open"), Gtk.ResponseType.OK);
-
-		chooser.modal = true;
-
-		chooser.response.connect((c, id) => {
-			if (id == Gtk.ResponseType.OK)
-			{
-				var file = chooser.get_file();
-
-				if (file == null)
-				{
-					file = chooser.get_current_folder_file();
-				}
-
-				open_repository(file);
-			}
-
-			c.destroy();
-		});
-
-		chooser.show();
-	}
-
 	private void on_reload_activated()
 	{
 		try
@@ -502,22 +460,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			update_title();
 		}
 		catch {}
-	}
-
-	private void on_clone_repository()
-	{
-		var dlg = new CloneDialog(this);
-
-		dlg.response.connect((d, id) => {
-			if (id == Gtk.ResponseType.OK)
-			{
-				d_dash_view.clone_repository(dlg.url, dlg.location, dlg.is_bare);
-			}
-
-			d.destroy();
-		});
-
-		dlg.show();
 	}
 
 	private void on_global_author_details_activated()
@@ -742,7 +684,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
-	private void open_repository(File path)
+	public void open_repository(File path)
 	{
 		File repo;
 		Gitg.Repository? repository = null;
