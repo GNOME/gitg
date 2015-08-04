@@ -28,7 +28,7 @@ class Gitg.Test.Encoding : Gitg.Test.Repository
 	{
 		base.set_up();
 
-		d_repository.get_config().snapshot().set_string("i18n.commitencoding", "KOI8-R");
+		d_repository.get_config().set_string("i18n.commitencoding", "KOI8-R");
 
 		index_modify("b", "staged changes\n");
 		index_modify("a", "lala\n");
