@@ -373,7 +373,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			}
 			catch {}
 
-			d_header_bar.set_subtitle(Markup.escape_text(head_name));
+			if (head_name != null)
+			{
+				d_header_bar.set_subtitle(Markup.escape_text(head_name));
+			}
+			else
+			{
+				d_header_bar.set_subtitle(null);
+			}
 		}
 		else
 		{
