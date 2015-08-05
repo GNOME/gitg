@@ -823,6 +823,8 @@ public class RefsList : Gtk.ListBox
 		if (d_all_commits != null)
 		{
 			select_row(d_all_commits);
+			scroll_to_row(d_all_commits);
+
 			return true;
 		}
 
@@ -839,7 +841,10 @@ public class RefsList : Gtk.ListBox
 		{
 			if (ourref.get_name() == refname)
 			{
-				select_row(d_ref_map[ourref]);
+				var row = d_ref_map[ourref];
+
+				select_row(row);
+				scroll_to_row(row);
 				return true;
 			}
 		}
@@ -1113,6 +1118,26 @@ public class RefsList : Gtk.ListBox
 		}
 
 		return ret;
+	}
+
+	private void scroll_to_row(RefRow row)
+	{
+		var adj = get_adjustment();
+
+		Gtk.Allocation alloc;
+		row.get_allocation(out alloc);
+
+		var v = adj.get_value();
+		var s = adj.get_page_size();
+
+		if (alloc.y < v)
+		{
+			adj.set_value(alloc.y);
+		}
+		else if (alloc.y + alloc.height > v + s)
+		{
+			adj.set_value(alloc.y + alloc.height - s);
+		}
 	}
 }
 
