@@ -39,6 +39,7 @@ public class UserQuery : Object
 	public Gtk.MessageType message_type { get; set; }
 	public Gtk.ResponseType default_response { get; set; default = Gtk.ResponseType.CLOSE; }
 	public UserQueryResponse[] responses { get; set; }
+	public bool default_is_destructive { get; set; }
 
 	public signal void quit();
 	public signal bool response(Gtk.ResponseType response_type);

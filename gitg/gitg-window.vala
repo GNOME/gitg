@@ -761,12 +761,27 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		dlg.format_secondary_text("%s", query.message);
 
+		dlg.set_default_response(query.default_response);
+
 		foreach (var response in query.responses)
 		{
-			dlg.add_button(response.text, response.response_type);
-		}
+			var button = dlg.add_button(response.text, response.response_type);
 
-		dlg.set_default_response(query.default_response);
+			if (response.response_type == query.default_response)
+			{
+				button.can_default = true;
+				button.has_default = true;
+
+				if (query.default_is_destructive)
+				{
+					button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+				}
+				else
+				{
+					button.get_style_context().add_class(Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+				}
+			}
+		}
 
 		d_dialog = dlg;
 		dlg.add_weak_pointer(&d_dialog);
