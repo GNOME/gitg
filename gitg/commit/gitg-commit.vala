@@ -1486,6 +1486,121 @@ namespace GitgCommit
 			application.user_query(q);
 		}
 
+		private async void delete_files(File[] files) throws Error
+		{
+			SourceFunc cb = delete_files.callback;
+			Error? error = null;
+
+			var n = files.length;
+
+			for (var i = 0; i < files.length; i++)
+			{
+				var file = files[i];
+
+				file.delete_async.begin(Priority.DEFAULT, null, (o, res) => {
+					try
+					{
+						file.delete_async.end(res);
+					}
+					catch (Error e)
+					{
+						error = e;
+					}
+
+					if (--n == 0)
+					{
+						cb();
+					}
+				});
+			}
+
+			yield;
+
+			if (error != null)
+			{
+				throw error;
+			}
+		}
+
+		private bool do_delete_items(GitgExt.UserQuery q, Gitg.StageStatusItem[] items)
+		{
+			application.busy = true;
+
+			var files = new File[items.length];
+
+			for (var i = 0; i < items.length; i++)
+			{
+				files[i] = application.repository.get_workdir().get_child(items[i].path);
+			}
+
+			delete_files.begin(files, (o, ret) => {
+				try
+				{
+					delete_files.end(ret);
+				}
+				catch (Error e)
+				{
+					application.show_infobar(_("Failed to delete files"),
+					                         e.message,
+					                         Gtk.MessageType.ERROR);
+				}
+
+				application.busy = false;
+				q.quit();
+
+				reload();
+			});
+
+			return false;
+		}
+
+		private void on_delete_menu_activated(Gitg.StageStatusItem[] items)
+		{
+			var primary = dngettext(null, "Delete file", "Delete files", items.length);
+			string secondary;
+
+			if (items.length == 1)
+			{
+				secondary = _("Are you sure you want to permanently delete the file `%s'?").printf(items[0].path);
+			}
+			else
+			{
+				var paths = new string[items.length - 1];
+
+				for (var i = 0; i < items.length - 1; i++)
+				{
+					paths[i] = @"`$(items[i].path)'";
+				}
+
+				secondary = _("Are you sure you want to permanently delete the files %s and `%s'?").printf(string.joinv(", ", paths), items[items.length - 1].path);
+			}
+
+			var q = new GitgExt.UserQuery();
+
+			q.title = primary;
+			q.message = secondary;
+			q.message_type = Gtk.MessageType.QUESTION;
+
+			q.responses = new GitgExt.UserQueryResponse[] {
+				new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL),
+				new GitgExt.UserQueryResponse(primary, Gtk.ResponseType.OK)
+			};
+
+			q.default_response = Gtk.ResponseType.OK;
+			q.default_is_destructive = true;
+
+			q.response.connect((w, r) => {
+				if (r == Gtk.ResponseType.OK)
+				{
+					return do_delete_items(q, items);
+				}
+
+				return true;
+			});
+
+			application.user_query(q);
+		}
+
 		private void do_populate_menu(Gtk.Menu menu)
 		{
 			var items = d_main.sidebar.get_selected_items<Gitg.SidebarItem>();
@@ -1527,6 +1642,16 @@ namespace GitgCommit
 
 				discard.activate.connect(() => {
 					on_discard_menu_activated(sitems);
+				});
+			}
+
+			if (type == Sidebar.Item.Type.UNTRACKED)
+			{
+				var del = new Gtk.MenuItem.with_mnemonic(dngettext(null, "D_elete file", "D_elete files", sitems.length));
+				menu.append(del);
+
+				del.activate.connect(() => {
+					on_delete_menu_activated(sitems);
 				});
 			}
 
