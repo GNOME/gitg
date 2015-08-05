@@ -126,6 +126,8 @@ namespace GitgDiff
 
 		private void on_selection_changed(GitgExt.History history)
 		{
+			var hasset = false;
+
 			history.foreach_selected((commit) => {
 				var c = commit as Gitg.Commit;
 
@@ -133,6 +135,7 @@ namespace GitgDiff
 				{
 					d_whenMapped.update(() => {
 						d_diff.commit = c;
+						hasset = true;
 					}, this);
 
 					return false;
@@ -140,6 +143,11 @@ namespace GitgDiff
 
 				return true;
 			});
+
+			if (!hasset)
+			{
+				d_diff.commit = null;
+			}
 		}
 
 		public Gtk.Widget? widget

@@ -101,6 +101,11 @@ namespace Gitg
 			get { return d_repository; }
 			set
 			{
+				if (d_repository == value)
+				{
+					return;
+				}
+
 				cancel();
 
 				d_walker = null;
@@ -122,9 +127,6 @@ namespace Gitg
 		construct
 		{
 			d_lanes = new Lanes();
-			d_cancellable = new Cancellable();
-			d_cancellable.cancel();
-
 			d_sortmode = Ggit.SortMode.TIME | Ggit.SortMode.TOPOLOGICAL;
 		}
 
@@ -135,47 +137,61 @@ namespace Gitg
 
 		private void cancel()
 		{
-			if (!d_cancellable.is_cancelled())
+			if (d_cancellable != null)
 			{
-				d_cancellable.cancel();
+				var cancellable = d_cancellable;
+				d_cancellable = null;
+
+				cancellable.cancel();
 
 				d_thread.join();
 				d_thread = null;
+
+				if (d_idleid != 0)
+				{
+					Source.remove(d_idleid);
+					d_idleid = 0;
+				}
+
+				finished();
 			}
 
-			if (d_idleid != 0)
-			{
-				Source.remove(d_idleid);
-				d_idleid = 0;
-			}
+			clear();
 
 			d_ids = new Commit[0];
 			d_hidden_ids = new Commit[0];
 			d_advertized_size = 0;
 
 			d_id_hash = new Gee.HashMap<Ggit.OId, int>();
-
-			emit_started();
-			finished();
 		}
 
 		public void reload()
 		{
 			cancel();
 
-			if (d_include.length == 0)
+			if (d_repository == null || d_include.length == 0)
 			{
 				return;
 			}
 
-			walk.begin((obj, res) => {
+			var cancellable = new Cancellable();
+			d_cancellable = cancellable;
+
+			started();
+
+			walk.begin(cancellable, (obj, res) => {
 				walk.end(res);
 
-				d_cancellable.cancel();
-				if (d_thread != null)
+				if (cancellable == d_cancellable)
 				{
-					d_thread.join();
-					d_thread = null;
+					finished();
+					d_cancellable = null;
+
+					if (d_thread != null)
+					{
+						d_thread.join();
+						d_thread = null;
+					}
 				}
 			});
 		}
@@ -212,7 +228,7 @@ namespace Gitg
 			d_exclude = ids;
 		}
 
-		private void notify_batch(bool isend)
+		private void notify_batch(owned SourceFunc? finishedcb)
 		{
 			lock(d_idleid)
 			{
@@ -240,9 +256,9 @@ namespace Gitg
 
 					emit_update(added);
 
-					if (isend)
+					if (finishedcb != null)
 					{
-						finished();
+						finishedcb();
 					}
 				}
 
@@ -273,7 +289,7 @@ namespace Gitg
 			}
 		}
 
-		private async void walk()
+		private async void walk(Cancellable cancellable)
 		{
 			Ggit.OId[] included = d_include;
 			Ggit.OId[] excluded = d_exclude;
@@ -291,7 +307,7 @@ namespace Gitg
 					}
 					catch
 					{
-						notify_batch(true);
+						notify_batch((owned)cb);
 						return null;
 					}
 				}
@@ -363,7 +379,7 @@ namespace Gitg
 					Ggit.OId? id;
 					Commit? commit;
 
-					if (d_cancellable.is_cancelled())
+					if (cancellable.is_cancelled())
 					{
 						break;
 					}
@@ -403,7 +419,7 @@ namespace Gitg
 
 					if (timer.elapsed() >= 200)
 					{
-						notify_batch(false);
+						notify_batch(null);
 						timer.start();
 					}
 
@@ -413,32 +429,21 @@ namespace Gitg
 					}
 				}
 
-				notify_batch(true);
-
-				Idle.add((owned)cb);
+				notify_batch((owned)cb);
 				return null;
 			};
 
 			try
 			{
-				d_cancellable.reset();
-				emit_started();
 				d_thread = new Thread<void*>.try("gitg-history-walk", (owned)run);
-				yield;
 			}
 			catch
 			{
-				finished();
-
-				d_cancellable.cancel();
 				d_thread = null;
+				return;
 			}
-		}
 
-		private void emit_started()
-		{
-			clear();
-			started();
+			yield;
 		}
 
 		private void clear()
