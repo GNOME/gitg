@@ -323,6 +323,102 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		dlg.show();
 	}
 
+	private void finish_add_repository(Repository repo)
+	{
+		var row = add_repository(repo);
+
+		if (row != null)
+		{
+			row.grab_focus();
+			d_repository_list_box.grab_focus();
+			row.grab_focus();
+		}
+	}
+
+	private void do_add_repository(File location)
+	{
+		Repository repo;
+
+		try
+		{
+			repo = new Repository(location, null);
+		}
+		catch (Error err)
+		{
+			application.show_infobar(_("Failed to add repository"), err.message, Gtk.MessageType.ERROR);
+			return;
+		}
+
+		finish_add_repository(repo);
+	}
+
+	private void query_create_repository(File location)
+	{
+		var q = new GitgExt.UserQuery();
+		var name = location.get_parse_name();
+
+		var homedir = Environment.get_home_dir();
+
+		if (homedir != null)
+		{
+			try
+			{
+				var hd = Filename.to_utf8(homedir, -1, null, null);
+
+				if (hd == name)
+				{
+					name = "~/";
+				}
+				else
+				{
+					if (name.has_prefix(hd + "/"))
+					{
+						name = "~" + name[hd.length:name.length];
+					}
+				}
+			} catch {}
+		}
+
+		name = Markup.escape_text(name);
+
+		q.title = _("Create new repository");
+
+		// Translators: %s is a file name
+		q.message = _("The location <i>%s</i> does not appear to be a valid git repository. Would you like to initialize a new git repository at this location?").printf(name);
+		q.message_type = Gtk.MessageType.QUESTION;
+		q.message_use_markup = true;
+
+		q.responses = new GitgExt.UserQueryResponse[] {
+			new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL),
+			new GitgExt.UserQueryResponse(_("Create repository"), Gtk.ResponseType.OK)
+		};
+
+		q.default_response = Gtk.ResponseType.OK;
+
+		q.response.connect((w, r) => {
+			if (r == Gtk.ResponseType.OK)
+			{
+				Repository repo;
+
+				try
+				{
+					repo = Repository.init_repository(location, false);
+				}
+				catch (Error err)
+				{
+					application.show_infobar(_("Failed to create repository"), err.message, Gtk.MessageType.ERROR);
+					return true;
+				}
+
+				finish_add_repository(repo);
+			}
+
+			return true;
+		});
+
+		application.user_query(q);
+	}
+
 	[GtkCallback]
 	private void add_repository_clicked()
 	{
@@ -345,27 +441,13 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 					file = chooser.get_current_folder_file();
 				}
 
-				Repository? repo = null;
-
-				try
+				if (!file.get_child(".git").query_exists())
 				{
-					repo = new Repository(file, null);
+					query_create_repository(file);
 				}
-				catch (Error err)
+				else
 				{
-					application.show_infobar(_("Failed to add repository"), err.message, Gtk.MessageType.ERROR);
-				}
-
-				if (repo != null)
-				{
-					var row = add_repository(repo);
-
-					if (row != null)
-					{
-						row.grab_focus();
-						d_repository_list_box.grab_focus();
-						row.grab_focus();
-					}
+					do_add_repository(file);
 				}
 			}
 

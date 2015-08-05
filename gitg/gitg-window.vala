@@ -761,6 +761,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		dlg.format_secondary_text("%s", query.message);
 
+		if (query.message_use_markup)
+		{
+			dlg.secondary_use_markup = true;
+		}
+
 		dlg.set_default_response(query.default_response);
 
 		foreach (var response in query.responses)
