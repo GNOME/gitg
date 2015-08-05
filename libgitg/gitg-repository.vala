@@ -143,6 +143,11 @@ public class Repository : Ggit.Repository
 		return base.lookup_reference(name) as Ref;
 	}
 
+	public new Ref lookup_reference_dwim(string short_name) throws Error
+	{
+		return base.lookup_reference_dwim(short_name) as Ref;
+	}
+
 	public new Ref create_reference(string name, Ggit.OId oid, string message) throws Error
 	{
 		return base.create_reference(name, oid, message) as Ref;

@@ -424,6 +424,7 @@ public class RefsList : Gtk.ListBox
 	private Gee.HashMap<Gitg.Ref, RefRow> d_ref_map;
 	private Gtk.ListBoxRow? d_selected_row;
 	private Gitg.Remote[] d_remotes;
+	private RefRow? d_all_commits;
 
 	public signal void changed();
 
@@ -528,6 +529,8 @@ public class RefsList : Gtk.ListBox
 
 	private void clear()
 	{
+		d_all_commits = null;
+
 		d_header_map = new Gee.HashMap<string, RemoteHeader>();
 		d_ref_map = new Gee.HashMap<Gitg.Ref, RefRow>();
 
@@ -815,6 +818,35 @@ public class RefsList : Gtk.ListBox
 		return false;
 	}
 
+	public bool select_all_commits()
+	{
+		if (d_all_commits != null)
+		{
+			select_row(d_all_commits);
+			return true;
+		}
+
+		return false;
+	}
+
+	public bool select_ref(Gitg.Ref reference)
+	{
+		// Find by name because the supplied reference might be a separate
+		// instance
+		var refname = reference.get_name();
+
+		foreach (var ourref in d_ref_map.keys)
+		{
+			if (ourref.get_name() == refname)
+			{
+				select_row(d_ref_map[ourref]);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private void refresh()
 	{
 		freeze_notify();
@@ -830,7 +862,7 @@ public class RefsList : Gtk.ListBox
 			return;
 		}
 
-		var all_commits = add_ref_row(null);
+		d_all_commits = add_ref_row(null);
 
 		add_header(Gitg.RefType.BRANCH, _("Branches"));
 		add_header(Gitg.RefType.REMOTE, _("Remotes"));
@@ -888,7 +920,7 @@ public class RefsList : Gtk.ListBox
 			else
 			{
 				// Select all
-				select_row(all_commits);
+				select_row(d_all_commits);
 			}
 		}
 

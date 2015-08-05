@@ -79,6 +79,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-window.vala					\
 	gitg/gitg.vala						\
 	gitg/history/gitg-history-action-interface.vala		\
+	gitg/history/gitg-history-command-line.vala		\
 	gitg/history/gitg-history-paned.vala			\
 	gitg/history/gitg-history-refs-list.vala		\
 	gitg/history/gitg-history.vala				\

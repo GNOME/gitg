@@ -368,6 +368,11 @@ namespace GitgHistory
 			store_mainline(config, string.joinv(",", d_mainline));
 		}
 
+		public RefsList refs_list
+		{
+			get { return d_main.refs_list; }
+		}
+
 		private void reload()
 		{
 			var view = d_main.commit_list_view;
