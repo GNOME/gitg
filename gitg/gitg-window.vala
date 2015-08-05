@@ -352,16 +352,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 			if (workdir != null)
 			{
-				string parent_path = workdir.get_parent().get_path();
-				bool contains_home_dir = parent_path.has_prefix(Environment.get_home_dir());
-
-				if (contains_home_dir)
-				{
-					parent_path = parent_path.replace(Environment.get_home_dir(), "~");
-				}
+				var parent_path = Utils.replace_home_dir_with_tilde(workdir.get_parent());
 
 				name = @"$(d_repository.name) ($parent_path)";
-
 				title = @"$name - gitg";
 			}
 			else

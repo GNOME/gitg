@@ -355,29 +355,7 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 	private void query_create_repository(File location)
 	{
 		var q = new GitgExt.UserQuery();
-		var name = location.get_parse_name();
-
-		var homedir = Environment.get_home_dir();
-
-		if (homedir != null)
-		{
-			try
-			{
-				var hd = Filename.to_utf8(homedir, -1, null, null);
-
-				if (hd == name)
-				{
-					name = "~/";
-				}
-				else
-				{
-					if (name.has_prefix(hd + "/"))
-					{
-						name = "~" + name[hd.length:name.length];
-					}
-				}
-			} catch {}
-		}
+		var name = Utils.replace_home_dir_with_tilde(location);
 
 		name = Markup.escape_text(name);
 
