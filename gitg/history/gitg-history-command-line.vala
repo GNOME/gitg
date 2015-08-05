@@ -1,7 +1,7 @@
 /*
  * This file is part of gitg
  *
- * Copyright (C) 2014 - Jesse van den Kieboom
+ * Copyright (C) 2015 - Jesse van den Kieboom
  *
  * gitg is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,22 +26,26 @@ class CommandLine : Object, GitgExt.CommandLine
 	private const string version = Gitg.Config.VERSION;
 
 	private static string? s_select_reference;
+	private static bool s_all_commits;
+	private static bool s_all_branches;
+	private static bool s_all_remotes;
+	private static bool s_all_tags;
+
 	private string? d_select_reference;
-
-	public string select_reference
-	{
-		get { return d_select_reference; }
-	}
-
-	private static bool select_all_commits()
-	{
-		s_select_reference = "*";
-		return true;
-	}
+	private bool d_all_commits;
+	private bool d_all_branches;
+	private bool d_all_remotes;
+	private bool d_all_tags;
 
 	private static const OptionEntry[] s_entries = {
-		{ "all", 'a', OptionFlags.IN_MAIN | OptionFlags.NO_ARG, OptionArg.CALLBACK, (void *)select_all_commits,
-		  N_("Select all commits by default in the history activity (shorthand for --select-reference '*')"), null },
+		{ "all", 'a', OptionFlags.IN_MAIN, OptionArg.NONE, ref s_all_commits,
+		  N_("Select all commits by default in the history activity"), null },
+		{ "branches", 'b', OptionFlags.IN_MAIN, OptionArg.NONE, ref s_all_branches,
+		  N_("Select all branches by default in the history activity"), null },
+		{ "remotes", 'r', OptionFlags.IN_MAIN, OptionArg.NONE, ref s_all_remotes,
+		  N_("Select all remotes by default in the history activity"), null },
+		{ "tags", 't', OptionFlags.IN_MAIN, OptionArg.NONE, ref s_all_tags,
+		  N_("Select all tags by default in the history activity"), null },
 		{ "select-reference", 's', OptionFlags.IN_MAIN, OptionArg.STRING, ref s_select_reference,
 		  N_("Select the specified reference by default in the history activity"), N_("REFERENCE") },
 
@@ -59,6 +63,10 @@ class CommandLine : Object, GitgExt.CommandLine
 	public void parse_finished()
 	{
 		d_select_reference = s_select_reference;
+		d_all_commits = s_all_commits;
+		d_all_branches = s_all_branches;
+		d_all_remotes = s_all_remotes;
+		d_all_tags = s_all_tags;
 	}
 
 	public void apply(GitgExt.Application application)
@@ -70,9 +78,21 @@ class CommandLine : Object, GitgExt.CommandLine
 			return;
 		}
 
-		if (d_select_reference == "*")
+		if (d_all_commits)
 		{
 			history.refs_list.select_all_commits();
+		}
+		else if (d_all_branches)
+		{
+			history.refs_list.select_all_branches();
+		}
+		else if (d_all_remotes)
+		{
+			history.refs_list.select_all_remotes();
+		}
+		else if (d_all_tags)
+		{
+			history.refs_list.select_all_tags();
 		}
 		else if (d_select_reference != null)
 		{

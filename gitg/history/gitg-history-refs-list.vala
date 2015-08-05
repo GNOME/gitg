@@ -425,6 +425,9 @@ public class RefsList : Gtk.ListBox
 	private Gtk.ListBoxRow? d_selected_row;
 	private Gitg.Remote[] d_remotes;
 	private RefRow? d_all_commits;
+	private RefHeader? d_all_branches;
+	private RefHeader? d_all_remotes;
+	private RefHeader? d_all_tags;
 
 	public signal void changed();
 
@@ -530,6 +533,9 @@ public class RefsList : Gtk.ListBox
 	private void clear()
 	{
 		d_all_commits = null;
+		d_all_branches = null;
+		d_all_remotes = null;
+		d_all_tags = null;
 
 		d_header_map = new Gee.HashMap<string, RemoteHeader>();
 		d_ref_map = new Gee.HashMap<Gitg.Ref, RefRow>();
@@ -601,12 +607,13 @@ public class RefsList : Gtk.ListBox
 		reselect_row(row);
 	}
 
-	private void add_header(Gitg.RefType ref_type, string name)
+	private RefHeader add_header(Gitg.RefType ref_type, string name)
 	{
 		var header = new RefHeader(ref_type, name);
 		header.show();
 
 		add(header);
+		return header;
 	}
 
 	private void on_tip_updated(Ggit.Remote remote,
@@ -818,17 +825,37 @@ public class RefsList : Gtk.ListBox
 		return false;
 	}
 
-	public bool select_all_commits()
+	private bool select_nullable_row(Gtk.ListBoxRow? row)
 	{
-		if (d_all_commits != null)
+		if (row == null)
 		{
-			select_row(d_all_commits);
-			scroll_to_row(d_all_commits);
-
-			return true;
+			return false;
 		}
 
-		return false;
+		select_row(row);
+		scroll_to_row(row);
+
+		return true;
+	}
+
+	public bool select_all_commits()
+	{
+		return select_nullable_row(d_all_commits);
+	}
+
+	public bool select_all_branches()
+	{
+		return select_nullable_row(d_all_branches);
+	}
+
+	public bool select_all_remotes()
+	{
+		return select_nullable_row(d_all_remotes);
+	}
+
+	public bool select_all_tags()
+	{
+		return select_nullable_row(d_all_tags);
 	}
 
 	public bool select_ref(Gitg.Ref reference)
@@ -868,10 +895,9 @@ public class RefsList : Gtk.ListBox
 		}
 
 		d_all_commits = add_ref_row(null);
-
-		add_header(Gitg.RefType.BRANCH, _("Branches"));
-		add_header(Gitg.RefType.REMOTE, _("Remotes"));
-		add_header(Gitg.RefType.TAG, _("Tags"));
+		d_all_branches = add_header(Gitg.RefType.BRANCH, _("Branches"));
+		d_all_remotes = add_header(Gitg.RefType.REMOTE, _("Remotes"));
+		d_all_tags = add_header(Gitg.RefType.TAG, _("Tags"));
 
 		RefRow? head = null;
 
@@ -1120,7 +1146,7 @@ public class RefsList : Gtk.ListBox
 		return ret;
 	}
 
-	private void scroll_to_row(RefRow row)
+	private void scroll_to_row(Gtk.ListBoxRow row)
 	{
 		var adj = get_adjustment();
 
