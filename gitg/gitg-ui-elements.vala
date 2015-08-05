@@ -115,7 +115,7 @@ public class UIElements<T> : Object
 	{
 		return (T)d_elements[id];
 	}
-	
+
 	private bool is_available(GitgExt.UIElement element)
 	{
 		return d_available_elements.find(element) != null;
