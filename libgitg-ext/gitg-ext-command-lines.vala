@@ -19,11 +19,43 @@
 
 namespace GitgExt
 {
-	public interface CommandLine : Object
+	public class CommandLines : Object
 	{
-		public abstract OptionGroup get_option_group();
-		public abstract void parse_finished();
-		public abstract void apply(GitgExt.Application application);
+		private CommandLine[] d_command_lines;
+
+		public CommandLines(CommandLine[] command_lines)
+		{
+			d_command_lines = command_lines;
+		}
+
+		public T? get_for<T>()
+		{
+			foreach (var cmd in d_command_lines)
+			{
+				if (cmd.get_type() == typeof(T))
+				{
+					return (T)cmd;
+				}
+			}
+
+			return null;
+		}
+
+		public void parse_finished()
+		{
+			foreach (var cmd in d_command_lines)
+			{
+				cmd.parse_finished();
+			}
+		}
+
+		public void apply(Application application)
+		{
+			foreach (var cmd in d_command_lines)
+			{
+				cmd.apply(application);
+			}
+		}
 	}
 }
 

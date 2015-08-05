@@ -47,6 +47,7 @@ libgitg_ext_libgitg_ext_1_0_la_VALASOURCES =		\
 	libgitg-ext/gitg-ext-application.vala		\
 	libgitg-ext/gitg-ext-assembly-info.vala		\
 	libgitg-ext/gitg-ext-command-line.vala		\
+	libgitg-ext/gitg-ext-command-lines.vala		\
 	libgitg-ext/gitg-ext-commit-action.vala		\
 	libgitg-ext/gitg-ext-history-panel.vala		\
 	libgitg-ext/gitg-ext-history.vala		\

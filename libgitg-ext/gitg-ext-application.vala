@@ -63,7 +63,8 @@ public interface Application : Object
 	 * @return the created new main activity, or ``null`` if no activity with the
 	 *         given id exists.
 	 */
-	public abstract GitgExt.Activity? activity(string id);
+	public abstract GitgExt.Activity? get_activity_by_id(string id);
+	public abstract GitgExt.Activity? set_activity_by_id(string id);
 
 	public abstract void user_query(UserQuery query);
 

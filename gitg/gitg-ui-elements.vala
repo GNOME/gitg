@@ -131,6 +131,11 @@ public class UIElements<T> : Object
 			return;
 		}
 
+		if (d_current == element)
+		{
+			return;
+		}
+
 		d_current = element;
 
 		if (d_stack != null)

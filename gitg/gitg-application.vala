@@ -85,12 +85,19 @@ public class Application : Gtk.Application
 		return true;
 	}
 
-	private void parse_command_line(ref unowned string[] argv) throws OptionError
+	private GitgExt.CommandLines parse_command_line(ref unowned string[] argv) throws OptionError
 	{
 		var ctx = new OptionContext(_("- Git repository viewer"));
 
 		ctx.add_main_entries(Options.entries, Config.GETTEXT_PACKAGE);
 		ctx.add_group(Gtk.get_option_group(true));
+
+		var cmdexts = new GitgExt.CommandLine[0];
+
+		var historycmd = new GitgHistory.CommandLine();
+		cmdexts += historycmd;
+
+		ctx.add_group(historycmd.get_option_group());
 
 		// Add any option groups from plugins
 		var engine = PluginsEngine.get_default();
@@ -103,12 +110,18 @@ public class Application : Gtk.Application
 
 				if (ext != null)
 				{
+					cmdexts += ext;
 					ctx.add_group(ext.get_option_group());
 				}
 			}
 		}
 
 		ctx.parse(ref argv);
+
+		var ret = new GitgExt.CommandLines(cmdexts);
+		ret.parse_finished();
+
+		return ret;
 	}
 
 	protected override bool local_command_line ([CCode (array_length = false, array_null_terminated = true)] ref unowned string[] arguments, out int exit_status)
@@ -144,10 +157,11 @@ public class Application : Gtk.Application
 	{
 		string[] arguments = cmd.get_arguments();
 		unowned string[] argv = arguments;
+		GitgExt.CommandLines command_lines;
 
 		try
 		{
-			parse_command_line(ref argv);
+			command_lines = parse_command_line(ref argv);
 		}
 		catch (Error e)
 		{
@@ -178,15 +192,14 @@ public class Application : Gtk.Application
 				files += File.new_for_commandline_arg(arg);
 			}
 
-			open(files, Options.activity);
+			open_command_line(files, Options.activity, command_lines);
 		}
 		else
 		{
-			activate();
+			activate_command_line(command_lines);
 		}
 
 		Options.command_line = tmpcmd;
-
 		return 1;
 	}
 
@@ -344,22 +357,11 @@ public class Application : Gtk.Application
 		base.shutdown();
 	}
 
-	protected override void activate()
+	private void activate_command_line(GitgExt.CommandLines command_lines)
 	{
-		/* Application gets activated when no command line arguments have
-		 * been provided. However, gitg does something special in the case
-		 * that it has been launched from the terminal. It will try to open
-		 * the cwd as a repository. However, when not launched from the terminal
-		 * this is undesired, and a --no-wd allows gitg to be launched without
-		 * the implicit working directory opening of the repository. In the
-		 * end, the following happens:
-		 *
-		 * 1) --no-wd: present the window
-		 * 2) Get cwd from the commandline: open
-		 */
 		if (Options.no_wd)
 		{
-			present_window();
+			present_window(Options.activity, command_lines);
 		}
 		else
 		{
@@ -367,12 +369,13 @@ public class Application : Gtk.Application
 			string? wd = Options.command_line.get_cwd();
 
 			open(new File[] { File.new_for_path(wd) }, Options.activity);
-
-			// Forcing present here covers the case where no window was opened
-			// because wd is not an actual git repository
-			present_window();
+			present_window(Options.activity, command_lines);
 		}
+	}
 
+	protected override void activate()
+	{
+		present_window();
 		base.activate();
 	}
 
@@ -398,6 +401,12 @@ public class Application : Gtk.Application
 
 	protected override void open(File[] files, string hint)
 	{
+		open_command_line(files, hint);
+	}
+
+
+	private void open_command_line(File[] files, string? hint = null, GitgExt.CommandLines? command_lines = null)
+	{
 		if (files.length == 0)
 		{
 			return;
@@ -422,7 +431,7 @@ public class Application : Gtk.Application
 			{
 				// Present the window with this repository open
 				window.set_environment(Options.command_line.get_environ());
-				window.present();
+				window.present(hint, command_lines);
 				continue;
 			}
 
@@ -436,11 +445,11 @@ public class Application : Gtk.Application
 			catch { continue; }
 
 			// Finally, create a window for the repository
-			new_window(repo, hint);
+			new_window(repo, hint, command_lines);
 		}
 	}
 
-	private void new_window(Repository? repo = null, string? hint = null)
+	private void new_window(Repository? repo = null, string? hint = null, GitgExt.CommandLines? command_lines = null)
 	{
 		var window = Window.create_new(this, repo, hint);
 
@@ -449,10 +458,10 @@ public class Application : Gtk.Application
 			window.set_environment(Options.command_line.get_environ());
 		}
 
-		present_window();
+		present_window(hint, command_lines);
 	}
 
-	private void present_window()
+	private void present_window(string? activity = null, GitgExt.CommandLines? command_lines = null)
 	{
 		/* Present the last window in the windows registered on the
 		 * application. If there are no windows, then create a new empty
@@ -469,7 +478,7 @@ public class Application : Gtk.Application
 		var w = (Gitg.Window)windows.first().data;
 
 		w.set_environment(Options.command_line.get_environ());
-		w.present();
+		w.present(activity, command_lines);
 	}
 }
 

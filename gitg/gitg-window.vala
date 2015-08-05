@@ -337,7 +337,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	public GitgExt.Application open_new(Ggit.Repository repository, string? hint = null)
 	{
 		var window = Window.create_new(application, (Gitg.Repository)repository, hint);
-		window.present();
+		base.present();
 
 		return window;
 	}
@@ -535,45 +535,56 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
-	private void activate_default_activity()
+	private bool activate_activity(string? action)
 	{
-		GitgExt.Activity? def = null;
-		GitgExt.Activity? deffb = null;
-
 		string default_activity;
 
-		if (d_action == null || d_action == "")
+		if (action == null || action == "")
 		{
 			default_activity = d_interface_settings.get_string("default-activity");
 		}
 		else
 		{
-			default_activity = d_action;
+			default_activity = action;
 		}
 
+		GitgExt.Activity? def = null;
+
 		d_activities.foreach((element) => {
-				GitgExt.Activity activity = (GitgExt.Activity)element;
+			GitgExt.Activity activity = (GitgExt.Activity)element;
 
-				if (activity.is_default_for(default_activity))
-				{
-					def = activity;
-				}
+			if (activity.is_default_for(default_activity))
+			{
+				def = activity;
+			}
 
-				if (activity.is_default_for(""))
-				{
-					deffb = activity;
-				}
-
-				return true;
+			return true;
 		});
 
 		if (def != null)
 		{
 			d_activities.current = def;
+			return true;
 		}
-		else if (deffb != null)
+
+		return false;
+	}
+
+	private void activate_default_activity()
+	{
+		if (!activate_activity(d_action))
 		{
-			d_activities.current = deffb;
+			d_activities.foreach((element) => {
+				GitgExt.Activity activity = (GitgExt.Activity)element;
+
+				if (activity.is_default_for(""))
+				{
+					d_activities.current = activity;
+					return false;
+				}
+
+				return true;
+			});
 		}
 	}
 
@@ -665,7 +676,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	}
 
 	/* public API implementation of GitgExt.Application */
-	public GitgExt.Activity? activity(string id)
+	public GitgExt.Activity? set_activity_by_id(string id)
 	{
 		GitgExt.Activity? v = d_activities.lookup(id);
 
@@ -682,6 +693,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			return null;
 		}
+	}
+
+	public GitgExt.Activity? get_activity_by_id(string id)
+	{
+		return d_activities.lookup(id);
 	}
 
 	public void open_repository(File path)
@@ -808,6 +824,21 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 				win.set_cursor(null);
 			}
 		}
+	}
+
+	public new void present(string? hint, GitgExt.CommandLines? command_lines)
+	{
+		if (hint != null)
+		{
+			activate_activity(hint);
+		}
+
+		if (command_lines != null)
+		{
+			command_lines.apply(this);
+		}
+
+		base.present();
 	}
 
 	private void on_select_activated(SimpleAction action)
