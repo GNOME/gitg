@@ -193,8 +193,14 @@ namespace Gitg
 
 			public void add_submodule(Ggit.Submodule module)
 			{
+				var submodule_url = module.get_url();
+				if (submodule_url == null)
+				{
+					return;
+				}
+
 				var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-				var tip = @"$(module.get_path())/ ($(module.get_url()))";
+				var tip = @"$(module.get_path())/ ($(submodule_url))";
 
 				box.set_tooltip_text(tip);
 				box.show();
@@ -203,7 +209,7 @@ namespace Gitg
 				                                        Gtk.IconSize.MENU);
 				icon.show();
 
-				var name = Path.get_basename(module.get_url());
+				var name = Path.get_basename(submodule_url);
 
 				if (name.has_suffix(".git"))
 				{

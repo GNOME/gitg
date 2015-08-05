@@ -77,7 +77,8 @@ class SubmoduleInfo : Gtk.Grid
 			if (value != null)
 			{
 				d_label_path.set_text(value.get_path());
-				d_label_url.set_text(value.get_url());
+				var submodule_url = value.get_url();
+				d_label_url.set_text(submodule_url != null ? submodule_url : "");
 
 				var oid = value.get_workdir_id();
 				d_label_sha1.set_text(oid.to_string());
