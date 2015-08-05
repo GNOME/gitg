@@ -324,7 +324,7 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 	}
 
 	[GtkCallback]
-	private void open_repository_clicked()
+	private void add_repository_clicked()
 	{
 		var chooser = new Gtk.FileChooserDialog(_("Add Repository"),
 		                                        application as Gtk.Window,
