@@ -163,6 +163,11 @@ public class Repository : Ggit.Repository
 		return base.get_head() as Ref;
 	}
 
+	public static new Repository init_repository(File location, bool is_bare) throws Error
+	{
+		return Ggit.Repository.init_repository(location, is_bare) as Repository;
+	}
+
 	public Stage stage
 	{
 		owned get
