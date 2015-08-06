@@ -36,6 +36,9 @@ namespace GitgHistory
 		private float d_scroll_y;
 		private ulong d_insertsig;
 		private Settings d_settings;
+		private uint d_walker_update_idle_id;
+		private ulong d_refs_list_selection_id;
+		private ulong d_refs_list_changed_id;
 
 		private Paned d_main;
 		private Gitg.PopupMenu d_refs_list_popup;
@@ -69,11 +72,7 @@ namespace GitgHistory
 				if (d_repository != value)
 				{
 					d_repository = value;
-
-					if (value != null)
-					{
-						reload();
-					}
+					reload();
 				}
 			}
 		}
@@ -134,10 +133,36 @@ namespace GitgHistory
 
 			update_sort_mode();
 
+			d_repository = application.repository;
+
 			application.bind_property("repository", this,
 			                          "repository", BindingFlags.DEFAULT);
 
 			reload_mainline();
+		}
+
+		public override void dispose()
+		{
+			if (d_refs_list_selection_id != 0)
+			{
+				d_main.refs_list.disconnect(d_refs_list_selection_id);
+				d_refs_list_selection_id = 0;
+			}
+
+			if (d_refs_list_changed_id != 0)
+			{
+				d_main.refs_list.disconnect(d_refs_list_changed_id);
+				d_refs_list_changed_id = 0;
+			}
+
+			if (d_walker_update_idle_id != 0)
+			{
+				Source.remove(d_walker_update_idle_id);
+				d_walker_update_idle_id = 0;
+			}
+
+			d_commit_list_model.repository = null;
+			base.dispose();
 		}
 
 		private void update_sort_mode()
@@ -375,6 +400,12 @@ namespace GitgHistory
 
 		private void reload()
 		{
+			if (d_walker_update_idle_id != 0)
+			{
+				Source.remove(d_walker_update_idle_id);
+				d_walker_update_idle_id = 0;
+			}
+
 			var view = d_main.commit_list_view;
 
 			double vadj = d_main.refs_list.get_adjustment().get_value();
@@ -474,22 +505,8 @@ namespace GitgHistory
 			d_refs_list_popup = new Gitg.PopupMenu(d_main.refs_list);
 			d_refs_list_popup.populate_menu.connect(on_refs_list_populate_menu);
 
-			d_main.refs_list.notify["selection"].connect(() => {
-				update_walker();
-			});
-
-			uint idleupdate = 0;
-
-			d_main.refs_list.changed.connect(() => {
-				if (idleupdate == 0)
-				{
-					idleupdate = Idle.add(() => {
-						idleupdate = 0;
-						update_walker();
-						return false;
-					});
-				}
-			});
+			d_refs_list_selection_id = d_main.refs_list.notify["selection"].connect(update_walker_idle);
+			d_refs_list_changed_id = d_main.refs_list.changed.connect(update_walker_idle);
 
 			d_commit_list_popup = new Gitg.PopupMenu(d_main.commit_list_view);
 			d_commit_list_popup.populate_menu.connect(on_commit_list_populate_menu);
@@ -505,6 +522,23 @@ namespace GitgHistory
 			              BindingFlags.BIDIRECTIONAL);
 
 			d_main.commit_list_view.set_search_equal_func(search_filter_func);
+		}
+
+		private void update_walker_idle()
+		{
+			if (d_repository == null)
+			{
+				return;
+			}
+
+			if (d_walker_update_idle_id == 0)
+			{
+				d_walker_update_idle_id = Idle.add(() => {
+					d_walker_update_idle_id = 0;
+					update_walker();
+					return false;
+				});
+			}
 		}
 
 		private Gtk.Menu? popup_on_ref(Gdk.EventButton? event)
