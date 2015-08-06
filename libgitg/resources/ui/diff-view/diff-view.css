@@ -134,23 +134,43 @@ div#diff div.file table tr.file_header td {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   background: #d3d7cf;
-}
-
-span.expander {
-  background-color: #ececec;
-  border-radius: 5px;
-  box-shadow: 1px 1px #ccc inset;
-  margin: 5px;
-  display: inline-block;
   vertical-align: middle;
-  padding: 3px;
-  padding-left: 6px;
-  padding-right: 6px;
+  transition: background-color 200ms, color 200ms;
   cursor: pointer;
 }
 
+div#diff div.file table tr.file_header td:hover {
+  background: #ddd;
+}
+
+span.expander {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  padding: 3px;
+  padding-right: 6px;
+  margin-left: 6px;
+  font-size: 0.8em;
+}
+
 tbody.collapsed > :not(.file_header) {
-  display:none;
+  display: none;
+}
+
+div#diff div.file table tbody.collapsed tr.file_header td {
+  border: 0;
+  background-color: #f3f3f3;
+}
+
+div#diff_content div.file tbody.collapsed.after-uncollapsed tr.file_header td {
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+}
+
+div#diff_content div.file tbody.collapsed.before-uncollapsed tr.file_header td {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
 }
 
 span.file_stats {
@@ -159,9 +179,14 @@ span.file_stats {
   padding: 3px;
   border-radius: 5px;
   box-shadow: 1px 1px #ccc inset;
-  margin: 5px;
+  margin: 5px 8px 5px 3px;
   display: inline-block;
   vertical-align: middle;
+}
+
+div#diff div.file table tbody.collapsed span.file_stats {
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 
 span.file_stats .number, span.file_stats .bar {
@@ -186,10 +211,6 @@ span.file_stats .added {
 
 span.file_stats .removed {
   background-color: #cc3333;
-}
-
-div#diff div.file table tr.file_header td {
-  vertical-align: middle;
 }
 
 div#diff div.file table tr.file_header + tr.hunk_header td.hunk_header {
@@ -229,7 +250,8 @@ div.commit {
   position: relative;
 }
 
-div.commit .date, div.commit .sha1 {
+div.commit .date,
+div.commit .sha1 {
   color: #888a85;
   font-size: 0.8em;
 }
@@ -247,6 +269,13 @@ div.commit .committer .date {
 div.commit .sha1 {
   font-family: monospace;
   text-align: right;
+}
+
+div.commit .expander-all {
+  float: right;
+  padding: 0px 0px 2px 6px;
+  vertical-align: middle;
+  cursor: pointer;
 }
 
 div.commit .message {

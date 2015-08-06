@@ -137,7 +137,7 @@ function write_avatar(avatar, commit)
 			avatar_cache[h] = avc;
 			avatarLoader = null;
 		}.bind(avatarLoader));
-	
+
 		avatarLoader.image.attr('src', gravatar);
 	}
 }
@@ -332,6 +332,66 @@ function expand_collapse()
 	}
 
 	expander.closest('tbody').toggleClass("collapsed");
+
+	var all = $("#diff_content div.file tbody");
+	var prevCollapsed = false;
+	var allUncollapsed = true;
+
+	all.each(function(i, tbody) {
+		tbody = $(tbody);
+
+		var nextCollapsed = false;
+
+		var beforeCollapsed = true;
+		var afterCollapsed = false;
+
+		if (tbody.hasClass("collapsed"))
+		{
+			if (i < all.length - 1)
+			{
+				nextCollapsed = $(all[i + 1]).hasClass("collapsed");
+			}
+
+			afterCollapsed = prevCollapsed;
+			beforeCollapsed = nextCollapsed;
+
+			prevCollapsed = true;
+			allUncollapsed = false;
+		}
+		else
+		{
+			prevCollapsed = false;
+		}
+
+		if (!beforeCollapsed)
+		{
+			tbody.addClass("before-uncollapsed");
+		}
+		else
+		{
+			tbody.removeClass("before-uncollapsed");
+		}
+
+		if (!afterCollapsed)
+		{
+			tbody.addClass("after-uncollapsed");
+		}
+		else
+		{
+			tbody.removeClass("after-uncollapsed");
+		}
+	});
+
+	var expanderAll = $("#diff .expander-all");
+
+	if (!allUncollapsed)
+	{
+		expanderAll.text("\u25B6");
+	}
+	else
+	{
+		expanderAll.text("\u25BC");
+	}
 }
 
 function next_element(elem)
@@ -531,6 +591,26 @@ function update_tab_width(width)
 	tab_width_rule.style.tabSize = width;
 }
 
+function expand_collapse_all()
+{
+	var collapse = ($(this).text() === "\u25BC");
+
+	var allbodies = document.querySelectorAll("#diff_content div.file:not(.background) table.file tbody");
+
+	for (var i = 0; i < allbodies.length; i++)
+	{
+		var tbody = $(allbodies[i]);
+		var isCollapsed = tbody.hasClass("collapsed");
+
+		if (isCollapsed !== collapse)
+		{
+			expand_collapse.call(tbody.find(".expander"));
+		}
+	}
+
+	$(this).text(collapse ? "\u25B6" : "\u25BC")
+}
+
 function update_diff(id, lsettings)
 {
 	if (html_builder_worker)
@@ -608,7 +688,20 @@ function update_diff(id, lsettings)
 			content.html(event.data.diff_html);
 			update_has_selection();
 
-			$(".expander").click(expand_collapse);
+			var expanders = document.querySelectorAll("#diff_content div.file:not(.background) .expander");
+
+			// Collapse by default if more than one file
+			if (expanders && expanders.length > 1)
+			{
+				for (var i = 0; i < expanders.length; i++)
+				{
+					expand_collapse.call(expanders[i]);
+				}
+			}
+
+			$("#diff_content div.file tr.file_header td").click(function() {
+				expand_collapse.call($(this).find(".expander"));
+			});
 
 			if (settings.staged || settings.unstaged)
 			{
@@ -650,6 +743,9 @@ function update_diff(id, lsettings)
 }
 
 addEventListener('DOMContentLoaded', function () {
+	var expanderAll = $("#diff .expander-all");
+	expanderAll.click(expand_collapse_all);
+
 	xhr_get('internal', {action: 'loaded'});
 }, false);
 
