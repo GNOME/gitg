@@ -279,6 +279,23 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		                            0);
 	}
 
+	protected override bool delete_event(Gdk.EventAny event)
+	{
+		var ret = false;
+
+		if (base.delete_event != null)
+		{
+			ret = base.delete_event(event);
+		}
+
+		if (!ret)
+		{
+			repository = null;
+		}
+
+		return ret;
+	}
+
 	private void on_close_activated()
 	{
 		close();
