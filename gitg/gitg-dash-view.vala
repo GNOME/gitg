@@ -30,6 +30,12 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 	private bool d_search_enabled;
 	private bool d_setting_mode;
 
+	[GtkChild( name = "introduction" )]
+	private Gtk.Grid d_introduction;
+
+	[GtkChild( name = "scrolled_window" )]
+	private Gtk.ScrolledWindow d_scrolled_window;
+
 	[GtkChild( name = "repository_list_box" )]
 	private RepositoryListBox d_repository_list_box;
 
@@ -210,6 +216,27 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 		d_repository_list_box.show_error.connect((primary_message, secondary_message) => {
 			application.show_infobar(primary_message, secondary_message, Gtk.MessageType.ERROR);
+		});
+
+		bind_property("has-repositories",
+		              d_scrolled_window,
+		              "visible",
+		              BindingFlags.SYNC_CREATE);
+
+		bind_property("has-repositories",
+		              d_introduction,
+		              "visible",
+		              BindingFlags.SYNC_CREATE |
+		              BindingFlags.INVERT_BOOLEAN);
+
+		d_repository_list_box.add.connect(() => {
+			notify_property("has-repositories");
+			notify_property("selectable-enabled");
+		});
+
+		d_repository_list_box.remove.connect(() => {
+			notify_property("has-repositories");
+			notify_property("selectable-enabled");
 		});
 	}
 
