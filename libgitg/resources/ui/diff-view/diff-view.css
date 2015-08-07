@@ -65,7 +65,7 @@ div.commit .parents ul {
 }
 
 div.commit {
-  padding: 10px;
+  padding: 10px 10px 3px 10px;
   font-family: sans-serif;
   background: #f3f3f3;
 }
@@ -251,7 +251,8 @@ div.commit {
 }
 
 div.commit .date,
-div.commit .sha1 {
+div.commit .sha1,
+div.commit .expander-all {
   color: #888a85;
   font-size: 0.8em;
 }
@@ -269,12 +270,15 @@ div.commit .committer .date {
 div.commit .sha1 {
   font-family: monospace;
   text-align: right;
+  display: inline-block;
+  float: right;
+}
+
+div.commit .footer {
+  margin-top: 12px;
 }
 
 div.commit .expander-all {
-  float: right;
-  padding: 0px 0px 2px 6px;
-  vertical-align: middle;
   cursor: pointer;
 }
 

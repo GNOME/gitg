@@ -31,7 +31,9 @@ var default_settings = {
 		notes: 'Notes:',
 		parents: 'Parents:',
 		diff_against: 'Diff against:',
-		committed_by: 'Committed by:'
+		committed_by: 'Committed by:',
+		expand_all: 'Expand all',
+		collapse_all: 'Collapse all'
 	},
 };
 
@@ -388,15 +390,7 @@ function collapsed_changed()
 	});
 
 	var expanderAll = $("#diff .expander-all");
-
-	if (!allUncollapsed)
-	{
-		expanderAll.text("\u25B6");
-	}
-	else
-	{
-		expanderAll.text("\u25BC");
-	}
+	expanderAll.text(allUncollapsed ? settings.strings.collapse_all : settings.strings.expand_all)
 }
 
 function next_element(elem)
@@ -598,7 +592,7 @@ function update_tab_width(width)
 
 function expand_collapse_all()
 {
-	var collapse = ($(this).text() === "\u25BC");
+	var collapse = ($(this).text() === settings.strings.collapse_all);
 
 	var allbodies = document.querySelectorAll("#diff_content div.file:not(.background) table.file tbody");
 
@@ -613,7 +607,7 @@ function expand_collapse_all()
 		}
 	}
 
-	$(this).text(collapse ? "\u25B6" : "\u25BC")
+	$(this).text(collapse ? settings.strings.expand_all : settings.strings.collapse_all);
 }
 
 function default_collapse_all()
