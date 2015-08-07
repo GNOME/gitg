@@ -34,6 +34,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.Widget? d_select_actions;
 
 	private Binding? d_selectable_mode_binding;
+	private Binding? d_selectable_enabled_binding;
 	private GitgExt.SelectionMode d_selectable_mode;
 
 	private UIElements<GitgExt.Activity> d_activities;
@@ -538,6 +539,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_select_button.visible = (selectable != null);
 
 		d_selectable_mode_binding = null;
+		d_selectable_enabled_binding = null;
 
 		if (selectable != null)
 		{
@@ -545,6 +547,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			                                                     this,
 			                                                     "selectable-mode",
 			                                                     BindingFlags.DEFAULT);
+
+			d_selectable_enabled_binding = selectable.bind_property("selectable-enabled",
+			                                                        d_select_button,
+			                                                        "sensitive",
+			                                                        BindingFlags.DEFAULT |
+			                                                        BindingFlags.SYNC_CREATE);
 		}
 		else
 		{

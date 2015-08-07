@@ -802,6 +802,11 @@ namespace GitgHistory
 			get; set;
 		}
 
+		public bool selectable_enabled
+		{
+			get { return true; }
+		}
+
 		private void add_commit_action(Gee.LinkedList<GitgExt.CommitAction> actions,
 		                               GitgExt.CommitAction?                action)
 		{

@@ -76,6 +76,16 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		}
 	}
 
+	public bool has_repositories
+	{
+		get { return d_repository_list_box.get_children().length() != 0; }
+	}
+
+	public bool selectable_enabled
+	{
+		get { return has_repositories; }
+	}
+
 	public string display_name
 	{
 		owned get { return "Dash"; }
