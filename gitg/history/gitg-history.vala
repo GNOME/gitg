@@ -802,7 +802,12 @@ namespace GitgHistory
 			get; set;
 		}
 
-		public bool selectable_enabled
+		public bool selectable_available
+		{
+			get { return true; }
+		}
+
+		public bool search_available
 		{
 			get { return true; }
 		}

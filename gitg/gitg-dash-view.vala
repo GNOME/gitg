@@ -87,7 +87,12 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		get { return d_repository_list_box.get_children().length() != 0; }
 	}
 
-	public bool selectable_enabled
+	public bool selectable_available
+	{
+		get { return has_repositories; }
+	}
+
+	public bool search_available
 	{
 		get { return has_repositories; }
 	}
@@ -229,15 +234,15 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		              BindingFlags.SYNC_CREATE |
 		              BindingFlags.INVERT_BOOLEAN);
 
-		d_repository_list_box.add.connect(() => {
-			notify_property("has-repositories");
-			notify_property("selectable-enabled");
-		});
+		d_repository_list_box.add.connect(update_availability);
+		d_repository_list_box.remove.connect(update_availability);
+	}
 
-		d_repository_list_box.remove.connect(() => {
-			notify_property("has-repositories");
-			notify_property("selectable-enabled");
-		});
+	private void update_availability()
+	{
+		notify_property("has-repositories");
+		notify_property("selectable-available");
+		notify_property("search-available");
 	}
 
 	public RepositoryListBox.Row? add_repository(Repository repository)

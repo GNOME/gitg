@@ -34,7 +34,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.Widget? d_select_actions;
 
 	private Binding? d_selectable_mode_binding;
-	private Binding? d_selectable_enabled_binding;
+	private Binding? d_selectable_available_binding;
+	private Binding? d_searchable_available_binding;
 	private GitgExt.SelectionMode d_selectable_mode;
 
 	private UIElements<GitgExt.Activity> d_activities;
@@ -522,16 +523,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		var searchable = current as GitgExt.Searchable;
 
+		d_searchable_available_binding = null;
+
 		if (searchable != null)
 		{
 			d_search_button.visible = true;
 			d_search_entry.text = searchable.search_text;
 			d_search_button.active = searchable.search_visible;
+
+			d_searchable_available_binding = searchable.bind_property("search-available",
+			                                                          d_search_button,
+			                                                          "sensitive",
+			                                                          BindingFlags.DEFAULT |
+			                                                          BindingFlags.SYNC_CREATE);
 		}
 		else
 		{
 			d_search_button.visible = false;
 			d_search_button.active = false;
+			d_search_button.sensitive = false;
 			d_search_entry.text = "";
 		}
 
@@ -539,7 +549,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_select_button.visible = (selectable != null);
 
 		d_selectable_mode_binding = null;
-		d_selectable_enabled_binding = null;
+		d_selectable_available_binding = null;
 
 		if (selectable != null)
 		{
@@ -548,15 +558,16 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			                                                     "selectable-mode",
 			                                                     BindingFlags.DEFAULT);
 
-			d_selectable_enabled_binding = selectable.bind_property("selectable-enabled",
-			                                                        d_select_button,
-			                                                        "sensitive",
-			                                                        BindingFlags.DEFAULT |
-			                                                        BindingFlags.SYNC_CREATE);
+			d_selectable_available_binding = selectable.bind_property("selectable-available",
+			                                                         d_select_button,
+			                                                         "sensitive",
+			                                                         BindingFlags.DEFAULT |
+			                                                         BindingFlags.SYNC_CREATE);
 		}
 		else
 		{
 			d_select_button.active = false;
+			d_select_button.sensitive = false;
 		}
 	}
 
