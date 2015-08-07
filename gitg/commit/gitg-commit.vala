@@ -1790,6 +1790,8 @@ namespace GitgCommit
 				}
 			});
 
+			d_main.diff_view.default_collapse_all = false;
+
 			d_main.sidebar.deselected.connect(() => {
 				d_main.diff_view.diff = null;
 			});
