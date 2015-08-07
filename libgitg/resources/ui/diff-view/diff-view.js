@@ -23,6 +23,7 @@ var default_settings = {
 	unstaged: false,
 	show_parents: false,
 	use_gravatar: true,
+	default_collapse_all: true,
 	strings: {
 		stage: 'stage',
 		unstage: 'unstage',
@@ -332,7 +333,11 @@ function expand_collapse()
 	}
 
 	expander.closest('tbody').toggleClass("collapsed");
+	collapsed_changed();
+}
 
+function collapsed_changed()
+{
 	var all = $("#diff_content div.file tbody");
 	var prevCollapsed = false;
 	var allUncollapsed = true;
@@ -611,6 +616,20 @@ function expand_collapse_all()
 	$(this).text(collapse ? "\u25B6" : "\u25BC")
 }
 
+function default_collapse_all()
+{
+	var expanders = document.querySelectorAll("#diff_content div.file:not(.background) .expander");
+
+	// Collapse by default if more than one file
+	if (expanders && expanders.length > 1)
+	{
+		for (var i = 0; i < expanders.length; i++)
+		{
+			expand_collapse.call(expanders[i]);
+		}
+	}
+}
+
 function update_diff(id, lsettings)
 {
 	if (html_builder_worker)
@@ -688,16 +707,12 @@ function update_diff(id, lsettings)
 			content.html(event.data.diff_html);
 			update_has_selection();
 
-			var expanders = document.querySelectorAll("#diff_content div.file:not(.background) .expander");
-
-			// Collapse by default if more than one file
-			if (expanders && expanders.length > 1)
+			if (settings.default_collapse_all)
 			{
-				for (var i = 0; i < expanders.length; i++)
-				{
-					expand_collapse.call(expanders[i]);
-				}
+				default_collapse_all();
 			}
+
+			collapsed_changed();
 
 			$("#diff_content div.file tr.file_header td").click(function() {
 				expand_collapse.call($(this).find(".expander"));

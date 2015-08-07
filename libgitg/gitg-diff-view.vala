@@ -135,6 +135,7 @@ namespace Gitg
 		public bool staged { get; set; default = false; }
 		public bool unstaged { get; set; default = false; }
 		public bool show_parents { get; set; default = false; }
+		public bool default_collapse_all { get; set; default = true; }
 
 		private bool d_use_gravatar;
 
@@ -257,6 +258,7 @@ namespace Gitg
 			o.set_boolean_member("debug", Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null);
 			o.set_boolean_member("changes_inline", changes_inline);
 			o.set_boolean_member("show_parents", show_parents);
+			o.set_boolean_member("default_collapse_all", default_collapse_all);
 			o.set_string_member("parent", d_parent);
 			o.set_boolean_member("use_gravatar", use_gravatar);
 
