@@ -33,6 +33,9 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 	[GtkChild( name = "introduction" )]
 	private Gtk.Grid d_introduction;
 
+	[GtkChild( name = "label_profile") ]
+	private Gtk.Label d_label_profile;
+
 	[GtkChild( name = "scrolled_window" )]
 	private Gtk.ScrolledWindow d_scrolled_window;
 
@@ -236,6 +239,35 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 		d_repository_list_box.add.connect(update_availability);
 		d_repository_list_box.remove.connect(update_availability);
+
+		// Translators: the two %s will be used to create a link to the author dialog.
+		d_label_profile.label = _("In the mean time, you may want to %sset up your git profile%s.").printf("<a href=\"setup-profile\">", "</a>");
+		update_setup_profile_visibility();
+	}
+
+	private void update_setup_profile_visibility()
+	{
+		try
+		{
+			var config = new Ggit.Config.default().snapshot();
+			var author_name = config.get_string("user.name");
+			var author_email = config.get_string("user.email");
+
+			if (author_name != "" && author_email != "")
+			{
+				d_label_profile.visible = false;
+				return;
+			}
+		} catch {}
+
+		d_label_profile.visible = true;
+	}
+
+	[GtkCallback]
+	private bool setup_profile_activated()
+	{
+		AuthorDetailsDialog.show_global(application as Window);
+		return true;
 	}
 
 	private void update_availability()
