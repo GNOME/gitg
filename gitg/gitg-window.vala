@@ -483,19 +483,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private void on_global_author_details_activated()
 	{
-		Ggit.Config global_config = null;
-
-		try
-		{
-			global_config = new Ggit.Config.default();
-		}
-		catch (Error e)
-		{
-			return;
-		}
-
-		var author_details = new AuthorDetailsDialog(this, global_config, null);
-		author_details.show();
+		AuthorDetailsDialog.show_global(this);
 	}
 
 	private void on_repo_author_details_activated()

@@ -54,6 +54,25 @@ namespace Gitg
 			d_config = config;
 		}
 
+		public static AuthorDetailsDialog? show_global(Window window)
+		{
+			Ggit.Config global_config = null;
+
+			try
+			{
+				global_config = new Ggit.Config.default();
+			}
+			catch (Error e)
+			{
+				return null;
+			}
+
+			var author_details = new AuthorDetailsDialog(window, global_config, null);
+			author_details.show();
+
+			return author_details;
+		}
+
 		public override void show()
 		{
 			base.show();
@@ -112,7 +131,7 @@ namespace Gitg
 			d_input_name.activate.connect((e) => {
 				response(Gtk.ResponseType.OK);
 			});
-			
+
 			d_input_email.activate.connect((e) => {
 				response(Gtk.ResponseType.OK);
 			});
