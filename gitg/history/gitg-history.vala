@@ -19,6 +19,13 @@
 
 namespace GitgHistory
 {
+	public enum DefaultSelection
+	{
+		CURRENT_BRANCH,
+		ALL_BRANCHES,
+		ALL_COMMITS
+	}
+
 	/* The main history view. This view shows the equivalent of git log, but
 	 * in a nice way with lanes, merges, ref labels etc.
 	 */

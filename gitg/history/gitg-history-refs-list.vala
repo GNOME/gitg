@@ -943,14 +943,31 @@ public class RefsList : Gtk.ListBox
 
 		if (sel == null)
 		{
-			if (head != null)
+			var settings = new Settings("org.gnome.gitg.preferences.history");
+			var default_selection = (DefaultSelection)settings.get_enum("default-selection");
+			Gtk.ListBoxRow? srow = null;
+
+			switch (default_selection)
+			{
+				case DefaultSelection.CURRENT_BRANCH:
+					srow = head;
+					break;
+				case DefaultSelection.ALL_BRANCHES:
+					srow = d_all_branches;
+					break;
+				case DefaultSelection.ALL_COMMITS:
+					srow = d_all_commits;
+					break;
+			}
+
+			if (srow != null)
 			{
 				// Select default
-				select_row(head);
+				select_row(srow);
 			}
 			else
 			{
-				// Select all
+				// Fall back to selecting all commits
 				select_row(d_all_commits);
 			}
 		}

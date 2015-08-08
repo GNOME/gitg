@@ -41,6 +41,18 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "mainline_head")]
 	private Gtk.CheckButton d_mainline_head;
 
+	[GtkChild (name = "select_current_branch" )]
+	private Gtk.RadioButton d_select_current_branch;
+
+	[GtkChild (name = "select_all_branches" )]
+	private Gtk.RadioButton d_select_all_branches;
+
+	[GtkChild (name = "select_all_commits" )]
+	private Gtk.RadioButton d_select_all_commits;
+
+	private Gtk.RadioButton[] d_select_buttons;
+	private string[] d_select_names;
+
 	private static int round_val(double val)
 	{
 		int ival = (int)val;
@@ -97,6 +109,57 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 		});
 
 		update_collapse_inactive_lanes(settings);
+
+		d_select_buttons = new Gtk.RadioButton[] {
+			d_select_current_branch,
+			d_select_all_branches,
+			d_select_all_commits
+		};
+
+		d_select_names = new string[] {
+			"current-branch",
+			"all-branches",
+			"all-commits"
+		};
+
+		settings.bind("default-selection",
+		              this,
+		              "default-selection",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		for (var i = 0; i < d_select_buttons.length; i++) {
+			d_select_buttons[i].notify["active"].connect(() => {
+				notify_property("default-selection");
+			});
+		}
+	}
+
+	public string default_selection
+	{
+		get
+		{
+			for (var i = 0; i < d_select_buttons.length; i++)
+			{
+				if (d_select_buttons[i].active)
+				{
+					return d_select_names[i];
+				}
+			}
+
+			return d_select_names[0];
+		}
+
+		set
+		{
+			for (var i = 0; i < d_select_buttons.length; i++)
+			{
+				if (d_select_names[i] == value)
+				{
+					d_select_buttons[i].active = true;
+					return;
+				}
+			}
+		}
 	}
 
 	private void update_collapse_inactive_lanes(Settings settings)

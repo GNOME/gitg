@@ -4,6 +4,12 @@
     <value nick="vertical" value="1"/>
   </enum>
 
+  <enum id="org.gnome.gitg.history.DefaultSelection">
+    <value nick="current-branch" value="0"/>
+    <value nick="all-branches" value="1"/>
+    <value nick="all-commits" value="2"/>
+  </enum>
+
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences" path="/org/gnome/gitg/preferences/">
     <child name="main" schema="org.gnome.gitg.preferences.main" />
     <child name="history" schema="org.gnome.gitg.preferences.history" />
@@ -98,6 +104,13 @@
       <_description>
          Setting that indicates whether to always preserve a mainline in the
          history for the current HEAD.
+      </_description>
+    </key>
+    <key name="default-selection" enum="org.gnome.gitg.history.DefaultSelection">
+      <default>'current-branch'</default>
+      <_summary>Default selection of the history activity</_summary>
+      <_description>
+        Setting that determines the default selection on startup of the history activity.
       </_description>
     </key>
   </schema>
