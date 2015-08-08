@@ -31,11 +31,8 @@ namespace Gitg
 		[GtkChild (name = "input_email")]
 		private Gtk.Entry d_input_email;
 
-		[GtkChild (name = "label_view")]
-		private Gtk.Label d_label_view;
-
-		[GtkChild (name = "label_dash")]
-		private Gtk.Label d_label_dash;
+		[GtkChild (name = "label_info")]
+		private Gtk.Label d_label_info;
 
 		private string? d_repository_name;
 
@@ -80,9 +77,7 @@ namespace Gitg
 			if (d_repository_name == null)
 			{
 				title = _("Author Details");
-
-				d_label_view.hide();
-				d_label_dash.show();
+				d_label_info.label = _("Enter default details used for all repositories:");
 
 				if (Ggit.Config.find_global().get_path() == null)
 				{
@@ -93,10 +88,9 @@ namespace Gitg
 			else
 			{
 				title = "%s - %s".printf(d_repository_name, _("Author Details"));
-				d_label_view.label = d_label_view.label.printf(d_repository_name);
 
-				d_label_view.show();
-				d_label_dash.hide();
+				// Translators: %s is the repository name
+				d_label_info.label = _("Enter details for repository '%s':").printf(d_repository_name);
 			}
 
 			string author_name = "";
@@ -130,22 +124,12 @@ namespace Gitg
 				d_input_email.set_text(author_email.chomp());
 			}
 
-			set_response_sensitive(Gtk.ResponseType.OK, false);
-
 			d_input_name.activate.connect((e) => {
 				response(Gtk.ResponseType.OK);
 			});
 
 			d_input_email.activate.connect((e) => {
 				response(Gtk.ResponseType.OK);
-			});
-
-			d_input_name.changed.connect((e) => {
-				set_response_sensitive(Gtk.ResponseType.OK, true);
-			});
-
-			d_input_email.changed.connect((e) => {
-				set_response_sensitive(Gtk.ResponseType.OK, true);
 			});
 		}
 
