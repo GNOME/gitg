@@ -147,6 +147,8 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 		                                        _("_Save Patch"),
 		                                        Gtk.ResponseType.OK);
 
+		chooser.set_default_response(Gtk.ResponseType.OK);
+
 		chooser.do_overwrite_confirmation = true;
 		chooser.set_current_name(patch_filename(1));
 
