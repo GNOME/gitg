@@ -21,6 +21,8 @@ libgitg_libgitg_1_0_la_LDFLAGS = 	\
 libgitg_libgitg_1_0_la_LIBADD = 	\
 	$(LIBGITG_LIBS)
 
+GITG_GIR_IN = Gitg_in-1.0.gir
+
 libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg ggit-1.0 			\
 	--pkg gtk+-3.0			\
@@ -37,11 +39,17 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--vapidir $(top_srcdir)/vapi	\
 	--includedir libgitg		\
 	--basedir $(top_srcdir)		\
-	--gir Gitg-1.0.gir		\
+	--gir $(GITG_GIR_IN)		\
 	--vapi libgitg/libgitg-1.0.vapi	\
 	--library libgitg/libgitg-1.0	\
 	--header libgitg/libgitg.h	\
 	--gresources "$(top_srcdir)/libgitg/resources/resources.xml"
+
+Gitg-1.0.gir: $(GITG_GIR_IN)
+	$(SED) \
+		-e 's/<include name="WebKit2" version="[34].0"\/>/<include name="WebKit2" version="$(WEBKIT_MAJOR_VERSION).0"\/>/g' \
+		-e 's/Gitg_in/Gitg/g' \
+		$< >$@
 
 libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-assembly-info.vala			\
@@ -107,17 +115,18 @@ libgitg_resources_deps = $(call GRESDEPS,libgitg/resources/resources.xml)
 libgitg/gitg-resources.c: $(libgitg_resources_deps)
 	$(GRESGEN)
 
-GITIGNOREFILES +=						\
-	$(libgitg_libgitg_1_0_la_gir_DATA)			\
+GITIGNOREFILES +=					\
+	$(GITG_GIR_IN)					\
 	libgitg/libgitg.h
 
 CLEANFILES +=						\
 	$(libgitg_libgitg_1_0_la_typelib_DATA)		\
+	$(libgitg_libgitg_1_0_la_gir_DATA)		\
 	libgitg/gitg-resources.c
 
 EXTRA_DIST +=						\
 	$(libgitg_libgitg_1_0_la_pkgconfig_DATA)	\
-	$(libgitg_libgitg_1_0_la_gir_DATA)		\
+	$(GITG_GIR_IN)					\
 	$(libgitg_resources_deps)
 
 # vi:ts=8:noet
