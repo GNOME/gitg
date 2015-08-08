@@ -347,14 +347,19 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 
 	private Gitg.Remote? d_remote;
 
-	[GtkChild]
+	[GtkChild( name = "progress_bin" )]
 	private Gitg.ProgressBin d_progress_bin;
 
-	[GtkChild]
+	[GtkChild( name = "expander" )]
+	private Gtk.Expander d_expander;
+
+	[GtkChild( name = "label" )]
 	private Gtk.Label d_label;
 
-	[GtkChild]
+	[GtkChild( name = "icon" )]
 	private Gtk.Image d_icon;
+
+	public bool expanded { get; set; default = true; }
 
 	public Gitg.RefType ref_type
 	{
@@ -369,11 +374,20 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 	public RefHeader(Gitg.RefType rtype, string name)
 	{
 		var escaped = Markup.escape_text(name);
-
 		d_label.set_markup(@"<b>$escaped</b>");
+
+		bind_property("expanded", d_expander, "expanded", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
+
+		d_expander.button_press_event.connect(on_expander_pressed);
 
 		d_name = name;
 		d_rtype = rtype;
+	}
+
+	private bool on_expander_pressed(Gdk.EventButton event)
+	{
+		d_expander.expanded = !d_expander.expanded;
+		return true;
 	}
 
 	public RefHeader.remote(string name, Gitg.Remote? remote)
@@ -382,7 +396,7 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 
 		d_remote = remote;
 		d_is_sub_header_remote = true;
-		d_label.margin_start += 12;
+		d_expander.margin_start += 12;
 
 		if (d_remote != null)
 		{
@@ -480,6 +494,79 @@ public class RefsList : Gtk.ListBox
 		d_remotes = new Gitg.Remote[0];
 
 		set_sort_func(sort_rows);
+		set_filter_func(filter_func);
+	}
+
+	private RefHeader? find_header(Gtk.ListBoxRow row)
+	{
+		var children = get_children();
+		unowned List<weak Gtk.Widget> found = children.find(row);
+
+		if (found == null)
+		{
+			return null;
+		}
+
+		while (found.prev != null)
+		{
+			found = found.prev;
+
+			var header = found.data as RefHeader;
+
+			if (header != null)
+			{
+				return header;
+			}
+		}
+
+		return null;
+	}
+
+	private bool filter_func(Gtk.ListBoxRow row)
+	{
+		var header = row as RefHeader;
+
+		if (header != null)
+		{
+			if (!header.is_sub_header_remote)
+			{
+				return true;
+			}
+			else
+			{
+				while (header != null && header.is_sub_header_remote)
+				{
+					header = find_header(header);
+				}
+
+				if (header == null)
+				{
+					return true;
+				}
+			}
+		}
+		else
+		{
+			header = find_header(row);
+		}
+
+		if (header == null)
+		{
+			return true;
+		}
+		else if (!header.is_sub_header_remote || !header.expanded)
+		{
+			return header.expanded;
+		}
+		else
+		{
+			while (header != null && header.is_sub_header_remote)
+			{
+				header = find_header(header);
+			}
+
+			return header == null || header.expanded;
+		}
 	}
 
 	private int sort_rows(Gtk.ListBoxRow row1, Gtk.ListBoxRow row2)
@@ -607,10 +694,17 @@ public class RefsList : Gtk.ListBox
 		reselect_row(row);
 	}
 
+	private void expanded_changed()
+	{
+		invalidate_filter();
+	}
+
 	private RefHeader add_header(Gitg.RefType ref_type, string name)
 	{
 		var header = new RefHeader(ref_type, name);
 		header.show();
+
+		header.notify["expanded"].connect(expanded_changed);
 
 		add(header);
 		return header;
@@ -677,6 +771,8 @@ public class RefsList : Gtk.ListBox
 
 		var header = new RefHeader.remote(name, remote);
 		header.show();
+
+		header.notify["expanded"].connect(expanded_changed);
 
 		d_header_map[name] = new RemoteHeader(header);
 		add(header);
