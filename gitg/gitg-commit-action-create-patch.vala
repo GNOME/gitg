@@ -107,6 +107,8 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 		opts.n_context_lines = nc;
 		opts.n_interhunk_lines = nc;
 
+		opts.flags |= Ggit.DiffOption.SHOW_BINARY;
+
 		return commit.get_diff(opts, 0);
 	}
 
