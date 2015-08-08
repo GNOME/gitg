@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="3.3"/>
+  <requires lib="gtk+" version="3.14"/>
   <template class="GitgAuthorDetailsDialog" parent="GtkDialog">
     <property name="can_focus">False</property>
     <property name="type_hint">dialog</property>
@@ -59,16 +59,20 @@
         <property name="spacing">12</property>
         <child>
           <object class="GtkLabel" id="label_info">
-            <property name="visible">True</property>
+            <property name="visible">False</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
-            <property name="label">Enter details for repository '%s':</property>
+            <property name="label" translatable="yes">Default details used for all repositories</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="checkbutton_override_global">
+            <property name="label">Override global details for repository '%s':</property>
+            <property name="visible">False</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="draw_indicator">True</property>
+          </object>
         </child>
         <child>
           <object class="GtkGrid" id="grid_user_details">
@@ -76,14 +80,15 @@
             <property name="height_request">0</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_start">18</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">12</property>
             <child>
-              <object class="GtkEntry" id="input_name">
+              <object class="GtkEntry" id="entry_name">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
-                <property name="invisible_char">●</property>
+                <property name="activates_default">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -91,11 +96,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="input_email">
+              <object class="GtkEntry" id="entry_email">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
-                <property name="invisible_char">●</property>
+                <property name="activates_default">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -125,11 +130,6 @@
               </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>

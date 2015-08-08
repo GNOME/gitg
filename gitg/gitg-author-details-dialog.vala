@@ -25,14 +25,17 @@ namespace Gitg
 		//Do this to pull in config.h before glib.h (for gettext)
 		private const string version = Gitg.Config.VERSION;
 
-		[GtkChild (name = "input_name")]
-		private Gtk.Entry d_input_name;
+		[GtkChild (name = "entry_name")]
+		private Gtk.Entry d_entry_name;
 
-		[GtkChild (name = "input_email")]
-		private Gtk.Entry d_input_email;
+		[GtkChild (name = "entry_email")]
+		private Gtk.Entry d_entry_email;
 
 		[GtkChild (name = "label_info")]
 		private Gtk.Label d_label_info;
+
+		[GtkChild (name = "checkbutton_override_global")]
+		private Gtk.CheckButton d_checkbutton_override_global;
 
 		private string? d_repository_name;
 
@@ -53,13 +56,20 @@ namespace Gitg
 
 		public static AuthorDetailsDialog? show_global(Window window)
 		{
-			Ggit.Config global_config = null;
+			var global_config_file = Ggit.Config.find_global();
+
+			if (global_config_file == null)
+			{
+				return null;
+			}
+
+			Ggit.Config? global_config;
 
 			try
 			{
-				global_config = new Ggit.Config.default();
+				global_config = new Ggit.Config.from_file(global_config_file);
 			}
-			catch (Error e)
+			catch
 			{
 				return null;
 			}
@@ -70,27 +80,57 @@ namespace Gitg
 			return author_details;
 		}
 
+		private void build_global()
+		{
+			title = _("Author Details");
+			d_label_info.label = _("Enter default details used for all repositories:");
+			d_label_info.show();
+		}
+
+		private bool config_is_local(string name)
+		{
+			try
+			{
+				var entry = d_config.get_entry(name);
+				return entry.get_level() == Ggit.ConfigLevel.LOCAL;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		private void build_repository()
+		{
+			title = "%s - %s".printf(d_repository_name, _("Author Details"));
+
+			// Translators: %s is the repository name
+			d_checkbutton_override_global.label = _("Override global details for repository '%s':").printf(d_repository_name);
+			d_checkbutton_override_global.active = (config_is_local("user.name") || config_is_local("user.email"));
+
+			d_checkbutton_override_global.notify["active"].connect(update_sensitivity);
+			d_checkbutton_override_global.show();
+
+			update_sensitivity();
+		}
+
+		private void update_sensitivity()
+		{
+			d_entry_name.sensitive = d_checkbutton_override_global.active;
+			d_entry_email.sensitive = d_checkbutton_override_global.active;
+		}
+
 		public override void show()
 		{
 			base.show();
 
 			if (d_repository_name == null)
 			{
-				title = _("Author Details");
-				d_label_info.label = _("Enter default details used for all repositories:");
-
-				if (Ggit.Config.find_global().get_path() == null)
-				{
-					show_config_error(_("Unable to open the .gitconfig file."), "");
-					return;
-				}
+				build_global();
 			}
 			else
 			{
-				title = "%s - %s".printf(d_repository_name, _("Author Details"));
-
-				// Translators: %s is the repository name
-				d_label_info.label = _("Enter details for repository '%s':").printf(d_repository_name);
+				build_repository();
 			}
 
 			string author_name = "";
@@ -114,23 +154,27 @@ namespace Gitg
 			{
 			}
 
-			if (author_name != "")
+			d_entry_name.set_text(author_name.chomp());
+			d_entry_email.set_text(author_email.chomp());
+		}
+
+		private void delete_local_entries()
+		{
+			try
 			{
-				d_input_name.set_text(author_name.chomp());
-			}
+				if (d_config.get_entry("user.name").get_level() == Ggit.ConfigLevel.LOCAL)
+				{
+					d_config.delete_entry("user.name");
+				}
+			} catch {}
 
-			if (author_email != "")
+			try
 			{
-				d_input_email.set_text(author_email.chomp());
-			}
-
-			d_input_name.activate.connect((e) => {
-				response(Gtk.ResponseType.OK);
-			});
-
-			d_input_email.activate.connect((e) => {
-				response(Gtk.ResponseType.OK);
-			});
+				if (d_config.get_entry("user.email").get_level() == Ggit.ConfigLevel.LOCAL)
+				{
+					d_config.delete_entry("user.email");
+				}
+			} catch {}
 		}
 
 		public override void response(int id) {
@@ -138,22 +182,22 @@ namespace Gitg
 			{
 				try
 				{
-					if (d_input_name.get_text() == "")
+					if (d_repository_name != null)
 					{
-						d_config.delete_entry("user.name");
+						if (d_checkbutton_override_global.active)
+						{
+							d_config.set_string("user.name", d_entry_name.get_text());
+							d_config.set_string("user.email", d_entry_email.get_text());
+						}
+						else
+						{
+							delete_local_entries();
+						}
 					}
 					else
 					{
-						d_config.set_string("user.name", d_input_name.get_text());
-					}
-
-					if (d_input_email.get_text() == "")
-					{
-						d_config.delete_entry("user.email");
-					}
-					else
-					{
-						d_config.set_string("user.email", d_input_email.get_text());
+						d_config.set_string("user.name", d_entry_name.get_text());
+						d_config.set_string("user.email", d_entry_email.get_text());
 					}
 				}
 				catch (Error e)
