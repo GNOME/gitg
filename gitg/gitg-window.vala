@@ -143,7 +143,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{"gear-menu", on_gear_menu_activated, null, "false", null},
 		{"close", on_close_activated},
 		{"reload", on_reload_activated},
-		{"author-details-global", on_global_author_details_activated},
 		{"author-details-repo", on_repo_author_details_activated},
 		{"select", on_select_activated, null, "false", null}
 	};
@@ -425,6 +424,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_dash_button.show();
 			d_dash_view.add_repository(d_repository);
 			d_gear_menu.menu_model = d_activities_model;
+			d_gear_menu.show();
 		}
 		else
 		{
@@ -435,6 +435,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_activities_switcher.hide();
 			d_dash_button.hide();
 			d_gear_menu.menu_model = d_dash_model;
+			d_gear_menu.hide();
 		}
 
 		d_activities.update();
@@ -479,11 +480,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			update_title();
 		}
 		catch {}
-	}
-
-	private void on_global_author_details_activated()
-	{
-		AuthorDetailsDialog.show_global(this);
 	}
 
 	private void on_repo_author_details_activated()

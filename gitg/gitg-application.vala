@@ -268,11 +268,25 @@ public class Application : Gtk.Application
 		d_preferences.present();
 	}
 
+	private void on_app_author_details_global_activated()
+	{
+		unowned List<Gtk.Window> wnds = get_windows();
+		Window? window = null;
+
+		if (wnds != null)
+		{
+			window = wnds.data as Window;
+		}
+
+		AuthorDetailsDialog.show_global(window);
+	}
+
 	private static const ActionEntry[] app_entries = {
 		{"new", on_app_new_window_activated},
 		{"help", on_app_help_activated},
 		{"about", on_app_about_activated},
 		{"quit", on_app_quit_activated},
+		{"author-details-global", on_app_author_details_global_activated},
 		{"preferences", on_preferences_activated}
 	};
 
