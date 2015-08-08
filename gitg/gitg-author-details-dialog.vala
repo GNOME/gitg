@@ -76,8 +76,11 @@ namespace Gitg
 		public override void show()
 		{
 			base.show();
+
 			if (d_repository_name == null)
 			{
+				title = _("Author Details");
+
 				d_label_view.hide();
 				d_label_dash.show();
 
@@ -89,6 +92,7 @@ namespace Gitg
 			}
 			else
 			{
+				title = "%s - %s".printf(d_repository_name, _("Author Details"));
 				d_label_view.label = d_label_view.label.printf(d_repository_name);
 
 				d_label_view.show();
