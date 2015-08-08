@@ -471,6 +471,19 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		application.user_query(q);
 	}
 
+	private bool looks_like_git(File location)
+	{
+		if (location.get_child(".git").query_exists())
+		{
+			return true;
+		}
+
+		// Check for bare repo
+		return location.get_child("objects").query_exists() &&
+		       location.get_child("HEAD").query_exists() &&
+		       location.get_child("refs").query_exists();
+	}
+
 	[GtkCallback]
 	private void add_repository_clicked()
 	{
@@ -493,7 +506,7 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 					file = chooser.get_current_folder_file();
 				}
 
-				if (!file.get_child(".git").query_exists())
+				if (!looks_like_git(file))
 				{
 					query_create_repository(file);
 				}
