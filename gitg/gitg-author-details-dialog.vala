@@ -118,6 +118,25 @@ namespace Gitg
 		{
 			d_entry_name.sensitive = d_checkbutton_override_global.active;
 			d_entry_email.sensitive = d_checkbutton_override_global.active;
+
+			Ggit.Config? config = null;
+
+			try
+			{
+				if (!d_checkbutton_override_global.active)
+				{
+					config = d_config.open_level(Ggit.ConfigLevel.GLOBAL);
+				}
+				else
+				{
+					config = d_config;
+				}
+			} catch {}
+
+			if (config != null)
+			{
+				update_entries(config);
+			}
 		}
 
 		public override void show()
@@ -133,29 +152,25 @@ namespace Gitg
 				build_repository();
 			}
 
-			string author_name = "";
-			string author_email = "";
+			update_entries(d_config);
+		}
+
+		private string read_config_string(Ggit.Config config, string name, string defval = "")
+		{
+			string? ret = null;
 
 			try
 			{
-				var config = d_config.snapshot();
+				ret = config.snapshot().get_string(name);
+			} catch {}
 
-				try
-				{
-					author_name = config.get_string("user.name");
-				} catch {}
+			return ret != null ? ret : defval;
+		}
 
-				try
-				{
-					author_email = config.get_string("user.email");
-				} catch {}
-			}
-			catch
-			{
-			}
-
-			d_entry_name.set_text(author_name.chomp());
-			d_entry_email.set_text(author_email.chomp());
+		private void update_entries(Ggit.Config config)
+		{
+			d_entry_name.set_text(read_config_string(config, "user.name").chomp());
+			d_entry_email.set_text(read_config_string(config, "user.email").chomp());
 		}
 
 		private void delete_local_entries()
