@@ -1,3 +1,25 @@
+= gitg 3.17.1 =
+Version 3.17.1 was released on 2015-08-08
+
+== Changes ==
+- Make use of gravatar service optional (preference)
+- Stage/unstage all selected items when pressing Enter
+- Add command line arguments to modify default history
+  activity selection (--all, --branches, --remotes, --tags)
+- Add deleting of untracked files
+- Improvements to the dash/overview UX
+- Improvements to collapse/uncollapse behavior of diff view
+
+
+== Bugs fixed ==
+- Get icons at correct size in diff view
+- Small UI polish
+- Fixed authentication for cloning
+- Only use animations of gtk_enable_animations is set
+- Fix collation errors for python diffs
+- Fix race conditions in repository loading
+
+
 = gitg 3.16.1 =
 Version 3.16.1 was released on 2015-04-29
 

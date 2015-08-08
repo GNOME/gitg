@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.64])
 
 m4_define(gitg_major_version, 3)
-m4_define(gitg_minor_version, 16)
+m4_define(gitg_minor_version, 17)
 m4_define(gitg_micro_version, 1)
 m4_define(gitg_version, gitg_major_version.gitg_minor_version.gitg_micro_version)
 
