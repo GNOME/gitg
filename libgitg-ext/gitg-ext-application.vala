@@ -35,6 +35,8 @@ public interface Application : Object
 	 */
 	public abstract Gitg.Repository? repository { owned get; set; }
 
+	public signal void repository_changed_externally(ExternalChangeHint hint);
+
 	/**
 	 * An application wide message bus over which plugins can communicate.
 	 */
@@ -79,6 +81,15 @@ public interface Application : Object
 	public abstract RemoteLookup remote_lookup { owned get; }
 
 	public abstract void open_repository(File path);
+}
+
+[Flags]
+public enum ExternalChangeHint
+{
+	NONE = 0,
+
+	REFS  = 1 << 0,
+	INDEX = 1 << 1
 }
 
 }

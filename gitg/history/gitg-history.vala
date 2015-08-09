@@ -46,6 +46,8 @@ namespace GitgHistory
 		private uint d_walker_update_idle_id;
 		private ulong d_refs_list_selection_id;
 		private ulong d_refs_list_changed_id;
+		private ulong d_externally_changed_id;
+		private Gitg.WhenMapped? d_reload_when_mapped;
 
 		private Paned d_main;
 		private Gitg.PopupMenu d_refs_list_popup;
@@ -146,6 +148,20 @@ namespace GitgHistory
 			                          "repository", BindingFlags.DEFAULT);
 
 			reload_mainline();
+
+			d_externally_changed_id = application.repository_changed_externally.connect(repository_changed_externally);
+		}
+
+		private void repository_changed_externally(GitgExt.ExternalChangeHint hint)
+		{
+			if (d_main != null && (hint & GitgExt.ExternalChangeHint.REFS) != 0)
+			{
+				d_reload_when_mapped = new Gitg.WhenMapped(d_main);
+
+				d_reload_when_mapped.update(() => {
+					reload();
+				}, this);
+			}
 		}
 
 		public override void dispose()
@@ -166,6 +182,12 @@ namespace GitgHistory
 			{
 				Source.remove(d_walker_update_idle_id);
 				d_walker_update_idle_id = 0;
+			}
+
+			if (d_externally_changed_id != 0)
+			{
+				application.disconnect(d_externally_changed_id);
+				d_externally_changed_id = 0;
 			}
 
 			d_commit_list_model.repository = null;
@@ -351,6 +373,8 @@ namespace GitgHistory
 
 		private void reload_mainline()
 		{
+			d_reload_when_mapped = null;
+
 			var uniq = new Gee.HashSet<string>();
 
 			d_mainline = new string[0];

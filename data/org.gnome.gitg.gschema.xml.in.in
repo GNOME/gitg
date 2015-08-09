@@ -53,6 +53,13 @@
         Enable the use of gravatar to display user avatars.
       </_description>
     </key>
+    <key name="enable-monitoring" type="b">
+      <default>true</default>
+      <_summary>Enable Monitoring</_summary>
+      <_description>
+        Automatically update when external changes to .git are detected
+      </_description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.history" path="/org/gnome/gitg/preferences/history/">
     <key name="collapse-inactive-lanes" type="i">

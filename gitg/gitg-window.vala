@@ -26,6 +26,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Settings d_state_settings;
 	private Settings d_interface_settings;
 	private Repository? d_repository;
+	private RecursiveMonitor? d_repository_monitor;
 	private GitgExt.MessageBus d_message_bus;
 	private string? d_action;
 	private Gee.HashMap<string, string> d_environment;
@@ -278,6 +279,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		                            0,
 		                            "cancel",
 		                            0);
+
+		d_interface_settings.bind("enable-monitoring",
+		                          this,
+		                          "enable-monitoring",
+		                          SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 
 	protected override bool delete_event(Gdk.EventAny event)
@@ -344,10 +350,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		owned get { return d_repository; }
 		set
 		{
-			d_repository = value;
-			d_remote_manager = new RemoteManager(this);
-
-			notify_property("repository");
+			set_repository_internal(value);
 			repository_changed();
 		}
 	}
@@ -467,16 +470,98 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		return base.configure_event(event);
 	}
 
+	private GitgExt.ExternalChangeHint external_change_hint_from_file(File location)
+	{
+		var l = d_repository.get_location();
+
+		var refs = l.get_child("refs");
+		var index = l.get_child("index");
+		var head = l.get_child("HEAD");
+
+		if (location.equal(refs) || location.has_prefix(refs) || location.equal(head))
+		{
+			return GitgExt.ExternalChangeHint.REFS;
+		}
+		else if (location.equal(index))
+		{
+			return GitgExt.ExternalChangeHint.INDEX;
+		}
+		else
+		{
+			return GitgExt.ExternalChangeHint.NONE;
+		}
+
+	}
+
+	private bool filter_repository_changes(File location)
+	{
+		return external_change_hint_from_file(location) != GitgExt.ExternalChangeHint.NONE;
+	}
+
+	private void set_repository_internal(Repository? repository)
+	{
+		if (d_repository_monitor != null)
+		{
+			d_repository_monitor.cancel();
+			d_repository_monitor = null;
+		}
+
+		d_repository = repository;
+
+		if (d_repository != null)
+		{
+			update_enable_monitoring();
+		}
+
+		d_remote_manager = new RemoteManager(this);
+		notify_property("repository");
+	}
+
+	private bool d_enable_monitoring;
+
+	public bool enable_monitoring
+	{
+		get
+		{
+			return d_enable_monitoring;
+		}
+
+		set
+		{
+			d_enable_monitoring = value;
+			update_enable_monitoring();
+		}
+	}
+
+	private void update_enable_monitoring()
+	{
+		if (d_repository_monitor != null)
+		{
+			d_repository_monitor.cancel();
+			d_repository_monitor = null;
+		}
+
+		if (enable_monitoring && d_repository != null)
+		{
+			d_repository_monitor = new RecursiveMonitor(d_repository.get_location(), filter_repository_changes);
+			d_repository_monitor.changed.connect((files) => {
+				var hint = GitgExt.ExternalChangeHint.NONE;
+
+				foreach (var f in files)
+				{
+					hint |= external_change_hint_from_file(f);
+				}
+
+				repository_changed_externally(hint);
+			});
+		}
+	}
+
 	private void on_reload_activated()
 	{
 		try
 		{
-			d_repository = new Gitg.Repository(this.repository.get_location(),
-			                                   null);
-
-			d_remote_manager = new RemoteManager(this);
-
-			notify_property("repository");
+			set_repository_internal(new Gitg.Repository(this.repository.get_location(), null));
 			update_title();
 		}
 		catch {}
@@ -681,8 +766,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (ret != null)
 		{
 			ret.application = app;
-			ret.d_repository = repository;
-			ret.d_remote_manager = new RemoteManager(ret);
+			ret.set_repository_internal(repository);
 			ret.d_action = action;
 		}
 

@@ -26,6 +26,9 @@ namespace GitgCommit
 		private Paned? d_main;
 		private bool d_reloading;
 		private bool d_has_staged;
+		private ulong d_externally_changed_id;
+		private bool d_ignore_external_changes;
+		private Gitg.WhenMapped? d_reload_when_mapped;
 
 		private enum UiType
 		{
@@ -64,6 +67,36 @@ namespace GitgCommit
 		{
 			application.bind_property("repository", this,
 			                          "repository", BindingFlags.DEFAULT);
+
+			d_externally_changed_id = application.repository_changed_externally.connect(repository_changed_externally);
+		}
+
+		public override void dispose()
+		{
+			if (d_externally_changed_id != 0)
+			{
+				application.disconnect(d_externally_changed_id);
+				d_externally_changed_id = 0;
+			}
+
+			base.dispose();
+		}
+
+		private void repository_changed_externally(GitgExt.ExternalChangeHint hint)
+		{
+			if (!d_ignore_external_changes)
+			{
+				if (d_main != null && (hint & GitgExt.ExternalChangeHint.INDEX) != 0)
+				{
+					d_reload_when_mapped = new Gitg.WhenMapped(d_main);
+
+					d_reload_when_mapped.update(() => {
+						reload();
+					}, this);
+				}
+			}
+
+			d_ignore_external_changes = false;
 		}
 
 		public string display_name
@@ -168,6 +201,8 @@ namespace GitgCommit
 		{
 			stage_submodule.begin(d_current_submodule, commit, (obj, res) => {
 				stage_submodule.end(res);
+
+				d_ignore_external_changes = true;
 				reload();
 			});
 		}
@@ -281,10 +316,12 @@ namespace GitgCommit
 
 				if (item is Gitg.StageStatusFile)
 				{
+					d_ignore_external_changes = true;
 					ok = yield stage_file((Gitg.StageStatusFile)item);
 				}
 				else if (item is Gitg.StageStatusSubmodule)
 				{
+					d_ignore_external_changes = true;
 					ok = yield stage_submodule((Gitg.StageStatusSubmodule)item, null);
 				}
 				else
@@ -615,10 +652,12 @@ namespace GitgCommit
 
 			if (parents.size != 0)
 			{
+				d_ignore_external_changes = true;
 				stage_submodule_at(parents[0] as Gitg.Commit);
 			}
 			else
 			{
+				d_ignore_external_changes = true;
 				unstage_submodule.begin(d_current_submodule, (obj, res) => {
 					unstage_submodule.end(res);
 					reload();
@@ -634,10 +673,12 @@ namespace GitgCommit
 
 				if (item is Gitg.StageStatusFile)
 				{
+					d_ignore_external_changes = true;
 					ok = yield unstage_file((Gitg.StageStatusFile)item);
 				}
 				else if (item is Gitg.StageStatusSubmodule)
 				{
+					d_ignore_external_changes = true;
 					ok = yield unstage_submodule((Gitg.StageStatusSubmodule)item);
 				}
 				else
@@ -696,6 +737,8 @@ namespace GitgCommit
 
 		private void reload()
 		{
+			d_reload_when_mapped = null;
+
 			var repository = application.repository;
 
 			if (repository == null || d_reloading)
@@ -1034,6 +1077,7 @@ namespace GitgCommit
 				opts |= Gitg.StageCommitOptions.SKIP_HOOKS;
 			}
 
+			d_ignore_external_changes = true;
 			stage.commit.begin(dlg.pretty_message,
 			                   author,
 			                   committer,
@@ -1327,6 +1371,7 @@ namespace GitgCommit
 		{
 			application.busy = true;
 
+			d_ignore_external_changes = true;
 			discard_selection.begin((obj, res) => {
 				try
 				{
@@ -1352,6 +1397,7 @@ namespace GitgCommit
 		{
 			var staging = d_main.diff_view.unstaged;
 
+			d_ignore_external_changes = true;
 			stage_unstage_selection.begin(staging, (obj, res) => {
 				try
 				{
@@ -1419,6 +1465,7 @@ namespace GitgCommit
 				paths[i] = items[i].path;
 			}
 
+			d_ignore_external_changes = true;
 			revert_paths.begin(paths, (o, ret) => {
 				try
 				{
@@ -1533,6 +1580,7 @@ namespace GitgCommit
 				files[i] = application.repository.get_workdir().get_child(items[i].path);
 			}
 
+			d_ignore_external_changes = true;
 			delete_files.begin(files, (o, ret) => {
 				try
 				{
