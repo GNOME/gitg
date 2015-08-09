@@ -346,23 +346,7 @@ namespace Gitg
 			{
 				if (item.has_group("gitg"))
 				{
-					File info_file = File.new_for_uri(item.get_uri());
-					File repo_file;
-
-					try
-					{
-						repo_file = Ggit.Repository.discover(info_file);
-					}
-					catch
-					{
-						try
-						{
-							recent_manager.remove_item(item.get_uri());
-						}
-						catch {}
-						return;
-					}
-
+					File repo_file = File.new_for_uri(item.get_uri());
 					Repository repo;
 
 					try
@@ -460,13 +444,14 @@ namespace Gitg
 				{
 					var head = repository.get_head();
 					head_name = head.parsed_name.shortname;
+
 					var remotes = repository.list_remotes();
+
 					if (remotes.length == 0)
 					{
 						has_remote = false;
 					}
-				}
-				catch {}
+				} catch {}
 
 				var dirname = Utils.replace_home_dir_with_tilde((repository.workdir != null ? repository.workdir : repository.location).get_parent());
 				row = new Row(repository.name, dirname, head_name, has_remote);
