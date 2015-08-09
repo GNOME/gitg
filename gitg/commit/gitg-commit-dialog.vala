@@ -59,9 +59,6 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "infobar_secondary_label")]
 	private Gtk.Label d_infobar_secondary_label;
 
-	[GtkChild (name = "infobar_close_button")]
-	private Gtk.Button d_infobar_close_button;
-
 	[GtkChild (name = "list_box_stats")]
 	private Gtk.ListBox d_list_box_stats;
 
@@ -83,6 +80,7 @@ class Dialog : Gtk.Dialog
 	private string? d_spell_checking_language;
 	private GtkSpell.Checker? d_spell_checker;
 	private Ggit.Diff d_diff;
+	private bool d_infobar_shown;
 
 	public Ggit.Diff? diff
 	{
@@ -137,7 +135,35 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
-	public bool amend { get; set; }
+	private bool d_amend;
+
+	public bool amend
+	{
+		get { return d_amend; }
+
+		set
+		{
+			d_amend = value;
+
+			if (value)
+			{
+				d_infobar_revealer.set_reveal_child(false);
+
+			}
+			else if (d_infobar_shown)
+			{
+				d_infobar_revealer.set_reveal_child(true);
+			}
+
+			update_sensitivity();
+		}
+	}
+
+	private void update_sensitivity()
+	{
+		set_response_sensitive(Gtk.ResponseType.OK, !d_infobar_revealer.get_reveal_child() && pretty_message != "");
+	}
+
 	public bool sign_off { get; set; }
 
 	public bool show_markup
@@ -395,7 +421,7 @@ class Dialog : Gtk.Dialog
 		var b = d_source_view_message.buffer;
 
 		d_source_view_message.buffer.changed.connect(() => {
-			d_button_ok.sensitive = pretty_message != "";
+			update_sensitivity();
 		});
 
 		d_check_button_amend.bind_property("active",
@@ -463,12 +489,15 @@ class Dialog : Gtk.Dialog
 
 		init_message_area();
 
-		if (diff != null)
+		if (diff != null && diff.get_num_deltas() != 0)
 		{
 			iterate_diff();
 		}
 		else
 		{
+			show_infobar(_("There are no changes to be committed"),
+			             _("Use amend to change the commit message of the previous commit"),
+			             Gtk.MessageType.WARNING);
 		}
 	}
 
@@ -722,6 +751,7 @@ class Dialog : Gtk.Dialog
 	                         string          secondary_msg,
 	                         Gtk.MessageType type)
 	{
+		d_infobar_shown = true;
 		d_infobar.message_type = type;
 
 		var primary = "<b>%s</b>".printf(Markup.escape_text(primary_msg));
@@ -731,9 +761,7 @@ class Dialog : Gtk.Dialog
 		d_infobar_secondary_label.set_label(secondary);
 		d_infobar_revealer.set_reveal_child(true);
 
-		d_infobar_close_button.clicked.connect(() => {
-			d_infobar_revealer.set_reveal_child(false);
-		});
+		set_response_sensitive(Gtk.ResponseType.OK, false);
 	}
 }
 

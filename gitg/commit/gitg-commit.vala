@@ -1063,7 +1063,7 @@ namespace GitgCommit
 			{
 				dlg.show_infobar(_("There are no changes to be committed"),
 				                 _("Use amend to change the commit message of the previous commit"),
-				                 Gtk.MessageType.INFO);
+				                 Gtk.MessageType.WARNING);
 				return;
 			}
 
