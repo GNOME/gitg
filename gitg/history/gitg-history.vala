@@ -54,6 +54,7 @@ namespace GitgHistory
 		private Gitg.PopupMenu d_commit_list_popup;
 
 		private string[] d_mainline;
+		private bool d_ignore_external;
 
 		private Gitg.UIElements<GitgExt.HistoryPanel> d_panels;
 
@@ -154,7 +155,7 @@ namespace GitgHistory
 
 		private void repository_changed_externally(GitgExt.ExternalChangeHint hint)
 		{
-			if (d_main != null && (hint & GitgExt.ExternalChangeHint.REFS) != 0)
+			if (d_main != null && (hint & GitgExt.ExternalChangeHint.REFS) != 0  && !d_ignore_external)
 			{
 				d_reload_when_mapped = new Gitg.WhenMapped(d_main);
 
@@ -162,6 +163,8 @@ namespace GitgHistory
 					reload();
 				}, this);
 			}
+
+			d_ignore_external = false;
 		}
 
 		public override void dispose()
@@ -651,6 +654,10 @@ namespace GitgHistory
 
 			var af = new ActionInterface(application, d_main.refs_list);
 
+			af.updated.connect(() => {
+				d_ignore_external = true;
+			});
+
 			var actions = new Gee.LinkedList<GitgExt.CommitAction>();
 
 			add_commit_action(actions,
@@ -705,6 +712,11 @@ namespace GitgHistory
 
 			var af = new ActionInterface(application, d_main.refs_list);
 
+			af.updated.connect(() => {
+				d_ignore_external = true;
+			});
+
+			add_ref_action(actions, new Gitg.RefActionCheckout(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionRename(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionDelete(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionCopyName(application, af, reference));

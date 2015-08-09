@@ -520,11 +520,8 @@ public class RefsList : Gtk.ListBox
 		get { return d_repository; }
 		set
 		{
-			if (d_repository != value)
-			{
-				d_repository = value;
-				refresh();
-			}
+			d_repository = value;
+			refresh();
 		}
 	}
 

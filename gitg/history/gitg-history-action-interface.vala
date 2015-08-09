@@ -26,6 +26,8 @@ class ActionInterface : Object, GitgExt.RefActionInterface
 
 	private RefsList d_refs_list;
 
+	public signal void updated();
+
 	public ActionInterface(GitgExt.Application application, RefsList refs_list)
 	{
 		Object(application: application);
@@ -37,18 +39,21 @@ class ActionInterface : Object, GitgExt.RefActionInterface
 	{
 		application.repository.clear_refs_cache();
 		d_refs_list.add_ref(reference);
+		updated();
 	}
 
 	public void remove_ref(Gitg.Ref reference)
 	{
 		application.repository.clear_refs_cache();
 		d_refs_list.remove_ref(reference);
+		updated();
 	}
 
 	public void replace_ref(Gitg.Ref old_ref, Gitg.Ref new_ref)
 	{
 		application.repository.clear_refs_cache();
 		d_refs_list.replace_ref(old_ref, new_ref);
+		updated();
 	}
 
 	public void set_busy(Gitg.Ref reference, bool busy)
@@ -59,6 +64,12 @@ class ActionInterface : Object, GitgExt.RefActionInterface
 	public void edit_ref_name(Gitg.Ref reference, owned GitgExt.RefNameEditingDone done)
 	{
 		d_refs_list.edit(reference, (owned)done);
+	}
+
+	public void refresh()
+	{
+		d_refs_list.repository = application.repository;
+		updated();
 	}
 }
 

@@ -31,6 +31,7 @@ public interface RefActionInterface : Object
 	public abstract void replace_ref(Gitg.Ref old_ref, Gitg.Ref new_ref);
 	public abstract void set_busy(Gitg.Ref reference, bool busy);
 	public abstract void edit_ref_name(Gitg.Ref reference, owned RefNameEditingDone callback);
+	public abstract void refresh();
 }
 
 }
