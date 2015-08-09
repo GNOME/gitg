@@ -29,7 +29,7 @@ namespace GitgHistory
 	/* The main history view. This view shows the equivalent of git log, but
 	 * in a nice way with lanes, merges, ref labels etc.
 	 */
-	public class Activity : Object, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectable, GitgExt.Searchable, GitgExt.History
+	public class Activity : Object, GitgExt.UIElement, GitgExt.Activity, GitgExt.Searchable, GitgExt.History
 	{
 		// Do this to pull in config.h before glib.h (for gettext...)
 		private const string version = Gitg.Config.VERSION;
@@ -547,11 +547,6 @@ namespace GitgHistory
 			                          BindingFlags.DEFAULT |
 			                          BindingFlags.SYNC_CREATE);
 
-			bind_property("selectable-mode",
-			              d_main,
-			              "selectable-mode",
-			              BindingFlags.BIDIRECTIONAL);
-
 			d_main.commit_list_view.set_search_equal_func(search_filter_func);
 		}
 
@@ -613,7 +608,7 @@ namespace GitgHistory
 
 			if (ret == null)
 			{
-				selectable_mode = GitgExt.SelectionMode.SELECTION;
+				ret = popup_menu_for_commit(event);
 			}
 
 			return ret;
@@ -626,6 +621,82 @@ namespace GitgHistory
 			{
 				actions.add(action);
 			}
+		}
+
+		private Gtk.Menu? popup_menu_for_commit(Gdk.EventButton? event)
+		{
+			int cell_x;
+			int cell_y;
+			Gtk.TreePath path;
+			Gtk.TreeViewColumn column;
+
+			if (!d_main.commit_list_view.get_path_at_pos((int)event.x,
+			                                             (int)event.y,
+			                                             out path,
+			                                             out column,
+			                                             out cell_x,
+			                                             out cell_y))
+			{
+				return null;
+			}
+
+			var commit = d_commit_list_model.commit_from_path(path);
+
+			if (commit == null)
+			{
+				return null;
+			}
+
+			d_main.commit_list_view.get_selection().select_path(path);
+
+			var af = new ActionInterface(application, d_main.refs_list);
+
+			var actions = new Gee.LinkedList<GitgExt.CommitAction>();
+
+			add_commit_action(actions,
+			                  new Gitg.CommitActionCreateBranch(application,
+			                                                    af,
+			                                                    commit));
+
+			add_commit_action(actions,
+			                  new Gitg.CommitActionCreateTag(application,
+			                                                 af,
+			                                                 commit));
+
+			add_commit_action(actions,
+			                  new Gitg.CommitActionCreatePatch(application,
+			                                                   af,
+			                                                   commit));
+
+			var exts = new Peas.ExtensionSet(Gitg.PluginsEngine.get_default(),
+			                                 typeof(GitgExt.CommitAction),
+			                                 "application",
+			                                 application,
+			                                 "action_interface",
+			                                 af,
+			                                 "commit",
+			                                 commit);
+
+			exts.foreach((extset, info, extension) => {
+				add_commit_action(actions, extension as GitgExt.CommitAction);
+			});
+
+			if (actions.size == 0)
+			{
+				return null;
+			}
+
+			Gtk.Menu menu = new Gtk.Menu();
+
+			foreach (var ac in actions)
+			{
+				ac.populate_menu(menu);
+			}
+
+			// To keep actions alive as long as the menu is alive
+			menu.set_data("gitg-ext-actions", actions);
+
+			return menu;
 		}
 
 		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference)
@@ -828,16 +899,6 @@ namespace GitgHistory
 			d_commit_list_model.reload();
 		}
 
-		public GitgExt.SelectionMode selectable_mode
-		{
-			get; set;
-		}
-
-		public bool selectable_available
-		{
-			get { return true; }
-		}
-
 		public bool search_available
 		{
 			get { return true; }
@@ -849,86 +910,6 @@ namespace GitgHistory
 			if (action != null && action.available)
 			{
 				actions.add(action);
-				action.finished.connect(() => {
-					selectable_mode = GitgExt.SelectionMode.NORMAL;
-				});
-			}
-		}
-
-		public Gtk.Widget? action_widget
-		{
-			owned get
-			{
-				Gitg.Commit? commit = null;
-
-				foreach_selected((c) => {
-					commit = (Gitg.Commit)c;
-					return false;
-				});
-
-				var af = new ActionInterface(application, d_main.refs_list);
-
-				var actions = new Gee.LinkedList<GitgExt.CommitAction>();
-
-				add_commit_action(actions,
-				                  new Gitg.CommitActionCreateBranch(application,
-				                                                    af,
-				                                                    commit));
-
-				add_commit_action(actions,
-				                  new Gitg.CommitActionCreateTag(application,
-				                                                 af,
-				                                                 commit));
-
-				add_commit_action(actions,
-				                  new Gitg.CommitActionCreatePatch(application,
-				                                                   af,
-				                                                   commit));
-
-				var exts = new Peas.ExtensionSet(Gitg.PluginsEngine.get_default(),
-				                                 typeof(GitgExt.CommitAction),
-				                                 "application",
-				                                 application,
-				                                 "action_interface",
-				                                 af,
-				                                 "commit",
-				                                 commit);
-
-				exts.foreach((extset, info, extension) => {
-					add_commit_action(actions, extension as GitgExt.CommitAction);
-				});
-
-				var ab = new Gtk.ActionBar();
-				ab.show();
-
-				var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-				box.margin = 6;
-				box.homogeneous = true;
-				box.show();
-
-				foreach (var action in actions)
-				{
-					var widget = action.widget;
-
-					if (widget == null)
-					{
-						var button = new Gtk.Button.with_label(action.display_name);
-						button.tooltip_text = action.description;
-
-						button.clicked.connect(() => {
-							action.activate();
-						});
-
-						widget = button;
-					}
-
-					widget.show();
-					box.add(widget);
-				}
-
-				ab.set_center_widget(box);
-
-				return ab;
 			}
 		}
 

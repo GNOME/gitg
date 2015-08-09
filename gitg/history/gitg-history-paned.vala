@@ -120,29 +120,6 @@ class Paned : Gitg.AnimatedPaned
 		d_paned_panels.slide(child, Gitg.SlideDirection.OUT);
 	}
 
-	private GitgExt.SelectionMode d_selectable_mode;
-
-	public GitgExt.SelectionMode selectable_mode
-	{
-		get { return d_selectable_mode; }
-		set
-		{
-			if (d_selectable_mode != value)
-			{
-				d_selectable_mode = value;
-
-				if (d_selectable_mode == GitgExt.SelectionMode.NORMAL)
-				{
-					slide_in();
-				}
-				else
-				{
-					slide_out();
-				}
-			}
-		}
-	}
-
 	private void store_paned_position(Gitg.AnimatedPaned paned, Settings settings, string key)
 	{
 		if (paned.is_animating)
