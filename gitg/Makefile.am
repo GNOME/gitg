@@ -77,7 +77,6 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-remote-manager.vala				\
 	gitg/gitg-resource.vala					\
 	gitg/gitg-ui-elements.vala				\
-	gitg/gitg-utils.vala					\
 	gitg/gitg-window.vala					\
 	gitg/gitg.vala						\
 	gitg/history/gitg-history-action-interface.vala		\

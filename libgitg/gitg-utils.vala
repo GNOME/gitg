@@ -19,7 +19,7 @@
 namespace Gitg
 {
 
-class Utils
+public class Utils
 {
 	public static string replace_home_dir_with_tilde(File file)
 	{
