@@ -24,11 +24,87 @@
         <property name="hexpand">True</property>
         <property name="row_spacing">6</property>
         <child>
-          <object class="GtkLabel" id="label1">
+          <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Commits</property>
+            <property name="label" translatable="yes">Default selection</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_start">12</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkRadioButton" id="select_current_branch">
+                <property name="label" translatable="yes">Current branch</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="select_all_branches">
+                <property name="label" translatable="yes">All branches</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">select_current_branch</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="select_all_commits">
+                <property name="label" translatable="yes">All commits</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">select_current_branch</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">References</property>
+            <property name="margin_top">12</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
@@ -36,6 +112,38 @@
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="sort_references_by_activity">
+            <property name="label" translatable="yes">Sort references in the sidebar by latest activity</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="halign">start</property>
+            <property name="draw_indicator">True</property>
+            <property name="margin_start">12</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Commits</property>
+            <property name="margin_top">12</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">4</property>
           </packing>
         </child>
         <child>
@@ -146,82 +254,7 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Default selection</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkGrid" id="grid1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_start">12</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <child>
-              <object class="GtkRadioButton" id="select_current_branch">
-                <property name="label" translatable="yes">Current branch</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="select_all_branches">
-                <property name="label" translatable="yes">All branches</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
-                <property name="group">select_current_branch</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="select_all_commits">
-                <property name="label" translatable="yes">All commits</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
-                <property name="group">select_current_branch</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
+            <property name="top_attach">5</property>
           </packing>
         </child>
       </object>

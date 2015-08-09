@@ -10,6 +10,11 @@
     <value nick="all-commits" value="2"/>
   </enum>
 
+  <enum id="org.gnome.gitg.history.RefSortOrder">
+    <value nick="last-activity" value="0"/>
+    <value nick="name" value="1"/>
+  </enum>
+
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences" path="/org/gnome/gitg/preferences/">
     <child name="main" schema="org.gnome.gitg.preferences.main" />
     <child name="history" schema="org.gnome.gitg.preferences.history" />
@@ -111,6 +116,13 @@
       <_summary>Default selection of the history activity</_summary>
       <_description>
         Setting that determines the default selection on startup of the history activity.
+      </_description>
+    </key>
+    <key name="reference-sort-order" enum="org.gnome.gitg.history.RefSortOrder">
+      <default>'last-activity'</default>
+      <_summary>Reference Sort Order</_summary>
+      <_description>
+        The order by which references in the history sidebar should be sorted.
       </_description>
     </key>
   </schema>

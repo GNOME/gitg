@@ -53,6 +53,12 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 {
 	private const string version = Gitg.Config.VERSION;
 
+	public enum SortOrder
+	{
+		LAST_ACTIVITY = 0,
+		NAME = 1
+	}
+
 	[GtkChild]
 	private Gtk.Image d_icon;
 
@@ -67,6 +73,8 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 
 	public Gitg.Ref? reference { get; set; }
 
+	private Ggit.Signature? d_updated;
+
 	private Gtk.Entry? d_editing_entry;
 	private uint d_idle_finish;
 
@@ -80,6 +88,27 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 	public RefRow(Gitg.Ref? reference, RefAnimation animation = RefAnimation.NONE)
 	{
 		this.reference = reference;
+
+		if (reference != null)
+		{
+			try
+			{
+				var obj = reference.resolve().lookup();
+
+				if (obj is Ggit.Tag)
+				{
+					d_updated = ((Ggit.Tag)obj).get_tagger();
+				}
+				else if (obj is Ggit.Commit)
+				{
+					d_updated = ((Ggit.Commit)obj).get_committer();
+				}
+			}
+			catch (Error e)
+			{
+				stderr.printf("%s\n", e.message);
+			}
+		}
 
 		if (animation == RefAnimation.ANIMATE)
 		{
@@ -109,6 +138,11 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 		}
 
 		d_revealer.notify["child-revealed"].connect(on_child_revealed);
+	}
+
+	public Ggit.Signature? updated
+	{
+		get { return d_updated; }
 	}
 
 	private void on_child_revealed(Object obj, ParamSpec spec)
@@ -190,7 +224,7 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 		return 0;
 	}
 
-	public int compare_to(RefRow other)
+	public int compare_to(RefRow other, SortOrder order)
 	{
 		if (reference == null)
 		{
@@ -207,6 +241,17 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 		if (ct != 0)
 		{
 			return ct;
+		}
+
+		if (order == SortOrder.LAST_ACTIVITY)
+		{
+			if (d_updated != null && other.updated != null)
+			{
+				var c1 = d_updated;
+				var c2 = other.updated;
+
+				return c2.get_time().compare(c1.get_time());
+			}
 		}
 
 		var t1 = label_text();
@@ -442,6 +487,7 @@ public class RefsList : Gtk.ListBox
 	private RefHeader? d_all_branches;
 	private RefHeader? d_all_remotes;
 	private RefHeader? d_all_tags;
+	private RefRow.SortOrder d_ref_sort_order;
 
 	public signal void changed();
 
@@ -495,6 +541,41 @@ public class RefsList : Gtk.ListBox
 
 		set_sort_func(sort_rows);
 		set_filter_func(filter_func);
+
+		var settings = new Settings("org.gnome.gitg.preferences.history");
+
+		settings.bind("reference-sort-order",
+		              this,
+		              "reference-sort-order",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+	}
+
+	public string reference_sort_order
+	{
+		get
+		{
+			if (d_ref_sort_order == RefRow.SortOrder.LAST_ACTIVITY)
+			{
+				return "last-activity";
+			}
+			else
+			{
+				return "name";
+			}
+		}
+		set
+		{
+			if (value == "last-activity")
+			{
+				d_ref_sort_order = RefRow.SortOrder.LAST_ACTIVITY;
+			}
+			else
+			{
+				d_ref_sort_order = RefRow.SortOrder.NAME;
+			}
+
+			invalidate_sort();
+		}
 	}
 
 	private RefHeader? find_header(Gtk.ListBoxRow row)
@@ -613,7 +694,7 @@ public class RefsList : Gtk.ListBox
 		}
 		else
 		{
-			return ref1.compare_to(ref2);
+			return ref1.compare_to(ref2, d_ref_sort_order);
 		}
 	}
 

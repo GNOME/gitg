@@ -50,6 +50,9 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "select_all_commits" )]
 	private Gtk.RadioButton d_select_all_commits;
 
+	[GtkChild (name = "sort_references_by_activity")]
+	private Gtk.CheckButton d_sort_references_by_activity;
+
 	private Gtk.RadioButton[] d_select_buttons;
 	private string[] d_select_names;
 
@@ -132,6 +135,22 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 				notify_property("default-selection");
 			});
 		}
+
+		settings.bind_with_mapping("reference-sort-order",
+		                           d_sort_references_by_activity,
+		                           "active",
+		                           SettingsBindFlags.GET | SettingsBindFlags.SET,
+			(value, variant) => {
+				value.set_boolean(variant.get_string() == "last-activity");
+				return true;
+			},
+
+		    (value, expected_type) => {
+		    	return new Variant.string(value.get_boolean() ? "last-activity" : "name");
+		    },
+
+		    null, null
+		);
 	}
 
 	public string default_selection
