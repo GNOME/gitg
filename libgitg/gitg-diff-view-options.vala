@@ -35,6 +35,9 @@ public class DiffViewOptions : Gtk.Grid
 	[GtkChild (name = "label_ignore_whitespace")]
 	private Gtk.Label d_label_ignore_whitespace;
 
+	[GtkChild (name = "wrap")]
+	private Gtk.Switch d_switch_wrap;
+
 	[GtkChild (name = "adjustment_context")]
 	private Gtk.Adjustment d_adjustment_context;
 
@@ -52,6 +55,7 @@ public class DiffViewOptions : Gtk.Grid
 
 	public bool changes_inline { get; set; }
 	public bool ignore_whitespace { get; set; }
+	public bool wrap { get; set; }
 	public int context_lines { get; set; }
 	public int tab_width { get; set; }
 
@@ -92,6 +96,12 @@ public class DiffViewOptions : Gtk.Grid
 		                   BindingFlags.BIDIRECTIONAL |
 		                   BindingFlags.SYNC_CREATE);
 
+		view.bind_property("wrap",
+		                   this,
+		                   "wrap",
+		                   BindingFlags.BIDIRECTIONAL |
+		                   BindingFlags.SYNC_CREATE);
+
 		view.bind_property("context-lines",
 		                   this,
 		                   "context-lines",
@@ -112,6 +122,12 @@ public class DiffViewOptions : Gtk.Grid
 
 		bind_property("ignore-whitespace",
 		              d_switch_ignore_whitespace,
+		              "active",
+		              BindingFlags.BIDIRECTIONAL |
+		              BindingFlags.SYNC_CREATE);
+
+		bind_property("wrap",
+		              d_switch_wrap,
 		              "active",
 		              BindingFlags.BIDIRECTIONAL |
 		              BindingFlags.SYNC_CREATE);

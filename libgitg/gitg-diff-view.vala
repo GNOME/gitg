@@ -131,7 +131,22 @@ namespace Gitg
 			}
 		}
 
-		public bool wrap { get; set; default = true; }
+		private bool d_wrap;
+
+		public bool wrap
+		{
+			get { return d_wrap; }
+			construct set
+			{
+				if (d_wrap != value)
+				{
+					d_wrap = value;
+					update_wrap();
+				}
+			}
+			default = true;
+		}
+
 		public bool staged { get; set; default = false; }
 		public bool unstaged { get; set; default = false; }
 		public bool show_parents { get; set; default = false; }
@@ -501,6 +516,23 @@ namespace Gitg
 		{
 			d_loaded = true;
 			update();
+		}
+
+		private void update_wrap()
+		{
+			if (!d_loaded)
+			{
+				return;
+			}
+
+			var v = d_wrap ? "true" : "false";
+
+			run_javascript.begin("update_wrap(" + v + ");", null, (obj, res) => {
+				try
+				{
+					run_javascript.end(res);
+				} catch {}
+			});
 		}
 
 		private void update_tab_width()

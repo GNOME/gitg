@@ -583,11 +583,27 @@ function update_tab_width(width)
 	if (tab_width_rule == null)
 	{
 		var sheet = document.getElementById('dynamic_styles').sheet;
-		sheet.addRule('#diff td.code', 'tab-size: ' + width, 0);
-		tab_width_rule = sheet.rules[0];
+		sheet.addRule('div#diff div.file table td.code', 'tab-size: ' + width, 0);
+		tab_width_rule = sheet.rules[sheet.rules.length - 1];
 	}
 
 	tab_width_rule.style.tabSize = width;
+}
+
+var wrap_rule = null;
+
+function update_wrap(wrap)
+{
+	settings.wrap = wrap;
+
+	if (wrap_rule == null)
+	{
+		var sheet = document.getElementById('dynamic_styles').sheet;
+		sheet.addRule('div#diff div.file table td.code', 'white-space: ' + (wrap ? 'pre-wrap' : 'pre'), 0);
+		wrap_rule = sheet.rules[sheet.rules.length - 1];
+	}
+
+	wrap_rule.style.whiteSpace = wrap ? 'pre-wrap' : 'pre';
 }
 
 function expand_collapse_all()
@@ -656,6 +672,7 @@ function update_diff(id, lsettings)
 	}
 
 	update_tab_width(settings.tab_width);
+	update_wrap(settings.wrap);
 
 	html_builder_worker = new Worker(workeruri);
 	html_builder_tick = 0;

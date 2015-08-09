@@ -65,6 +65,12 @@ namespace GitgDiff
 			              SettingsBindFlags.GET |
 			              SettingsBindFlags.SET);
 
+			settings.bind("wrap",
+			              d_diff,
+			              "wrap",
+			              SettingsBindFlags.GET |
+			              SettingsBindFlags.SET);
+
 			settings = new Settings("org.gnome.gitg.preferences.interface");
 
 			settings.bind("use-gravatar",
