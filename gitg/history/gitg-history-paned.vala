@@ -84,41 +84,41 @@ class Paned : Gitg.AnimatedPaned
 		}
 	}
 
-	private void slide_in()
-	{
-		slide(Gitg.SlidePanedChild.FIRST, Gitg.SlideDirection.IN);
+	// private void slide_in()
+	// {
+	// 	slide(Gitg.SlidePanedChild.FIRST, Gitg.SlideDirection.IN);
 
-		Gitg.SlidePanedChild child;
+	// 	Gitg.SlidePanedChild child;
 
-		if (inner_orientation == Gtk.Orientation.HORIZONTAL)
-		{
-			child = Gitg.SlidePanedChild.FIRST;
-		}
-		else
-		{
-			child = Gitg.SlidePanedChild.SECOND;
-		}
+	// 	if (inner_orientation == Gtk.Orientation.HORIZONTAL)
+	// 	{
+	// 		child = Gitg.SlidePanedChild.FIRST;
+	// 	}
+	// 	else
+	// 	{
+	// 		child = Gitg.SlidePanedChild.SECOND;
+	// 	}
 
-		d_paned_panels.slide(child, Gitg.SlideDirection.IN);
-	}
+	// 	d_paned_panels.slide(child, Gitg.SlideDirection.IN);
+	// }
 
-	private void slide_out()
-	{
-		slide(Gitg.SlidePanedChild.FIRST, Gitg.SlideDirection.OUT);
+	// private void slide_out()
+	// {
+	// 	slide(Gitg.SlidePanedChild.FIRST, Gitg.SlideDirection.OUT);
 
-		Gitg.SlidePanedChild child;
+	// 	Gitg.SlidePanedChild child;
 
-		if (inner_orientation == Gtk.Orientation.HORIZONTAL)
-		{
-			child = Gitg.SlidePanedChild.FIRST;
-		}
-		else
-		{
-			child = Gitg.SlidePanedChild.SECOND;
-		}
+	// 	if (inner_orientation == Gtk.Orientation.HORIZONTAL)
+	// 	{
+	// 		child = Gitg.SlidePanedChild.FIRST;
+	// 	}
+	// 	else
+	// 	{
+	// 		child = Gitg.SlidePanedChild.SECOND;
+	// 	}
 
-		d_paned_panels.slide(child, Gitg.SlideDirection.OUT);
-	}
+	// 	d_paned_panels.slide(child, Gitg.SlideDirection.OUT);
+	// }
 
 	private void store_paned_position(Gitg.AnimatedPaned paned, Settings settings, string key)
 	{
