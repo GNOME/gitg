@@ -85,8 +85,8 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 		}
 
 		query.responses = new GitgExt.UserQueryResponse[] {
-			new GitgExt.UserQueryResponse(_("Delete"), Gtk.ResponseType.OK),
-			new GitgExt.UserQueryResponse(_("Cancel"), Gtk.ResponseType.CANCEL)
+			new GitgExt.UserQueryResponse(_("Cancel"), Gtk.ResponseType.CANCEL),
+			new GitgExt.UserQueryResponse(_("Delete"), Gtk.ResponseType.OK)
 		};
 
 		query.default_response = Gtk.ResponseType.OK;
