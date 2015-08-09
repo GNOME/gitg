@@ -479,6 +479,12 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 
 public class RefsList : Gtk.ListBox
 {
+	private struct HeaderState
+	{
+		public Gitg.RefType type;
+		public string name;
+	}
+
 	private Gitg.Repository? d_repository;
 	private Gee.HashMap<Gitg.Ref, RefRow> d_ref_map;
 	private Gtk.ListBoxRow? d_selected_row;
@@ -488,6 +494,7 @@ public class RefsList : Gtk.ListBox
 	private RefHeader? d_all_remotes;
 	private RefHeader? d_all_tags;
 	private RefRow.SortOrder d_ref_sort_order;
+	private HeaderState[] d_collapsed;
 
 	public signal void changed();
 
@@ -780,12 +787,24 @@ public class RefsList : Gtk.ListBox
 		invalidate_filter();
 	}
 
+	private void init_header(RefHeader header)
+	{
+		header.show();
+		header.notify["expanded"].connect(expanded_changed);
+
+		foreach (var state in d_collapsed)
+		{
+			if (state.name == header.ref_name && state.type == header.ref_type)
+			{
+				header.expanded = false;
+			}
+		}
+	}
+
 	private RefHeader add_header(Gitg.RefType ref_type, string name)
 	{
 		var header = new RefHeader(ref_type, name);
-		header.show();
-
-		header.notify["expanded"].connect(expanded_changed);
+		init_header(header);
 
 		add(header);
 		return header;
@@ -851,9 +870,7 @@ public class RefsList : Gtk.ListBox
 		}
 
 		var header = new RefHeader.remote(name, remote);
-		header.show();
-
-		header.notify["expanded"].connect(expanded_changed);
+		init_header(header);
 
 		d_header_map[name] = new RemoteHeader(header);
 		add(header);
@@ -1056,11 +1073,29 @@ public class RefsList : Gtk.ListBox
 		return false;
 	}
 
+	private void store_collapsed_state()
+	{
+		d_collapsed = new HeaderState[0];
+
+		@foreach((child) => {
+			var header = child as RefHeader;
+
+			if (header != null && !header.expanded)
+			{
+				d_collapsed += HeaderState() {
+					name = header.ref_name,
+					type = header.ref_type
+				};
+			}
+		});
+	}
+
 	private void refresh()
 	{
 		freeze_notify();
 
 		d_selected_row = get_selected_row();
+		store_collapsed_state();
 
 		clear();
 
