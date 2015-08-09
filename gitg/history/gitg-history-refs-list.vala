@@ -483,6 +483,7 @@ public class RefsList : Gtk.ListBox
 	{
 		public Gitg.RefType type;
 		public string name;
+		public bool expanded;
 	}
 
 	private Gitg.Repository? d_repository;
@@ -494,7 +495,7 @@ public class RefsList : Gtk.ListBox
 	private RefHeader? d_all_remotes;
 	private RefHeader? d_all_tags;
 	private RefRow.SortOrder d_ref_sort_order;
-	private HeaderState[] d_collapsed;
+	private HeaderState[] d_expanded;
 
 	public signal void changed();
 
@@ -792,11 +793,20 @@ public class RefsList : Gtk.ListBox
 		header.show();
 		header.notify["expanded"].connect(expanded_changed);
 
-		foreach (var state in d_collapsed)
+		if (header.ref_type == Gitg.RefType.TAG)
+		{
+			header.expanded = false;
+		}
+		else
+		{
+			header.expanded = true;
+		}
+
+		foreach (var state in d_expanded)
 		{
 			if (state.name == header.ref_name && state.type == header.ref_type)
 			{
-				header.expanded = false;
+				header.expanded = state.expanded;
 			}
 		}
 	}
@@ -1073,18 +1083,19 @@ public class RefsList : Gtk.ListBox
 		return false;
 	}
 
-	private void store_collapsed_state()
+	private void store_expanded_state()
 	{
-		d_collapsed = new HeaderState[0];
+		d_expanded = new HeaderState[0];
 
 		@foreach((child) => {
 			var header = child as RefHeader;
 
-			if (header != null && !header.expanded)
+			if (header != null)
 			{
-				d_collapsed += HeaderState() {
+				d_expanded += HeaderState() {
 					name = header.ref_name,
-					type = header.ref_type
+					type = header.ref_type,
+					expanded = header.expanded
 				};
 			}
 		});
@@ -1095,7 +1106,7 @@ public class RefsList : Gtk.ListBox
 		freeze_notify();
 
 		d_selected_row = get_selected_row();
-		store_collapsed_state();
+		store_expanded_state();
 
 		clear();
 
