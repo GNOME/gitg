@@ -62,25 +62,34 @@ class RecursiveMonitor : Object
 
 		d_cancellable = new Cancellable();
 
-		location.enumerate_children_async.begin(FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_TYPE, FileQueryInfoFlags.NONE, Priority.DEFAULT, d_cancellable, (obj, res) => {
-			FileEnumerator enumerator;
-
+		enumerate.begin(location, (obj, res) => {
 			try
 			{
-				enumerator = location.enumerate_children_async.end(res);
+				enumerate.end(res);
+			} catch {}
+		});
+	}
 
-				FileInfo? info;
+	private async void enumerate(File location) throws Error
+	{
+		var e = yield location.enumerate_children_async(FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_TYPE, FileQueryInfoFlags.NONE, Priority.DEFAULT, d_cancellable);
 
-				while ((info = enumerator.next_file()) != null)
+		while (true)
+		{
+			var files = yield e.next_files_async(10, Priority.DEFAULT);
+
+			if (files == null) {
+				break;
+			}
+
+			foreach (var f in files)
+			{
+				if (f.get_file_type() == FileType.DIRECTORY)
 				{
-					if (info.get_file_type() == FileType.DIRECTORY)
-					{
-						add_submonitor(location.get_child(info.get_name()));
-					}
+					add_submonitor(location.get_child(f.get_name()));
 				}
 			}
-			catch {}
-		});
+		}
 	}
 
 	private void add_submonitor(File location)
