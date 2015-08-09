@@ -360,7 +360,7 @@ namespace Gitg
 							recent_manager.remove_item(item.get_uri());
 						}
 						catch {}
-						return;
+						continue;
 					}
 
 					add_repository(repo);
