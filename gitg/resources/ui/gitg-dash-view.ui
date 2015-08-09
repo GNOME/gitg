@@ -25,7 +25,7 @@
             <property name="left_attach">0</property>
             <property name="top_attach">0</property>
             <property name="width">1</property>
-            <property name="height">2</property>
+            <property name="height">3</property>
           </packing>
         </child>
         <child>
@@ -38,12 +38,34 @@
             <property name="hexpand">False</property>
             <property name="vexpand">True</property>
             <property name="wrap">True</property>
-            <property name="xalign">0</property>
             <property name="max-width-chars">40</property>
+            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_scan">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label"></property>
+            <property name="use_markup">True</property>
+            <property name="halign">start</property>
+            <property name="valign">start</property>
+            <property name="hexpand">False</property>
+            <property name="vexpand">True</property>
+            <property name="wrap">True</property>
+            <property name="max-width-chars">40</property>
+            <property name="xalign">0</property>
+            <signal name="activate-link" handler="scan_home_activated" swapped="no"/>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
             <property name="width">1</property>
             <property name="height">1</property>
           </packing>
@@ -57,14 +79,14 @@
             <property name="hexpand">False</property>
             <property name="vexpand">True</property>
             <property name="wrap">True</property>
-            <property name="xalign">0</property>
             <property name="max_width_chars">40</property>
             <property name="use_markup">True</property>
+            <property name="xalign">0</property>
             <signal name="activate-link" handler="setup_profile_activated" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">1</property>
-            <property name="top_attach">1</property>
+            <property name="top_attach">2</property>
             <property name="width">1</property>
             <property name="height">1</property>
           </packing>
@@ -109,7 +131,8 @@
         <child>
           <object class="GtkButton" id="add_repository">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">Add repository</property>
+            <property name="label" translatable="yes">_Add repository</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="add_repository_clicked" swapped="no"/>
           </object>
           <packing>
@@ -119,7 +142,8 @@
         <child>
           <object class="GtkButton" id="clone_repository">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">Clone repository</property>
+            <property name="label" translatable="yes">_Clone repository</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="clone_repository_clicked" swapped="no"/>
           </object>
           <packing>

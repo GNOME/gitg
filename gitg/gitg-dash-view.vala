@@ -21,7 +21,7 @@ namespace Gitg
 {
 
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-dash-view.ui")]
-class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectable, GitgExt.Searchable
+class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectable, GitgExt.Searchable, RecursiveScanner
 {
 	private const string version = Config.VERSION;
 
@@ -32,6 +32,9 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 	[GtkChild( name = "introduction" )]
 	private Gtk.Grid d_introduction;
+
+	[GtkChild( name = "label_scan" )]
+	private Gtk.Label d_label_scan;
 
 	[GtkChild( name = "label_profile") ]
 	private Gtk.Label d_label_profile;
@@ -240,6 +243,9 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		d_repository_list_box.add.connect(update_availability);
 		d_repository_list_box.remove.connect(update_availability);
 
+		// Translators: the two %s will be replaced to create a link to perform the scanning action.
+		d_label_scan.label = _("We can also %sscan your home directory%s for git repositories.").printf("<a href=\"scan-home\">", "</a>");
+
 		// Translators: the two %s will be used to create a link to the author dialog.
 		d_label_profile.label = _("In the mean time, you may want to %sset up your git profile%s.").printf("<a href=\"setup-profile\">", "</a>");
 		update_setup_profile_visibility();
@@ -261,6 +267,19 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		} catch {}
 
 		d_label_profile.visible = true;
+	}
+
+	[GtkCallback]
+	private bool scan_home_activated()
+	{
+		var homedir = Environment.get_home_dir();
+
+		if (homedir != null)
+		{
+			add_repositories_scan(File.new_for_path(homedir));
+		}
+
+		return true;
 	}
 
 	[GtkCallback]
@@ -409,7 +428,7 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		}
 	}
 
-	private void do_add_repository(File location)
+	private void do_add_repository(File location, bool report_errors)
 	{
 		Repository repo;
 
@@ -419,7 +438,11 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		}
 		catch (Error err)
 		{
-			application.show_infobar(_("Failed to add repository"), err.message, Gtk.MessageType.ERROR);
+			if (report_errors)
+			{
+				application.show_infobar(_("Failed to add repository"), err.message, Gtk.MessageType.ERROR);
+			}
+
 			return;
 		}
 
@@ -484,6 +507,88 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		       location.get_child("refs").query_exists();
 	}
 
+	private async bool file_exists_async(File file, Cancellable? cancellable)
+	{
+		try
+		{
+			return (yield file.query_info_async(FileAttribute.STANDARD_TYPE, FileQueryInfoFlags.NONE, Priority.DEFAULT, cancellable)) != null;
+		}
+		catch
+		{
+			return false;
+		}
+	}
+
+	protected async bool scan_visit_directory(File file, Cancellable? cancellable)
+	{
+		if (cancellable != null && cancellable.is_cancelled())
+		{
+			return false;
+		}
+
+		// Check for .git
+		if ((yield file_exists_async(file.get_child(".git"), cancellable)))
+		{
+			do_add_repository(file, false);
+			return false;
+		}
+
+		// Check for bare
+		if ((yield file_exists_async(file.get_child("objects"), cancellable)) &&
+		    (yield file_exists_async(file.get_child("HEAD"), cancellable)) &&
+		    (yield file_exists_async(file.get_child("refs"), cancellable)))
+		{
+			do_add_repository(file, false);
+			return false;
+		}
+
+		return scan_visit_directory_default(file);
+	}
+
+	private void add_repositories_scan(File location)
+	{
+		var dlg = new Gtk.MessageDialog(application as Gtk.Window,
+		                                Gtk.DialogFlags.MODAL,
+		                                Gtk.MessageType.INFO,
+		                                Gtk.ButtonsType.CANCEL,
+		                                _("Scanning for repositories in %s"),
+		                                Utils.replace_home_dir_with_tilde(location));
+
+		dlg.set_default_response(Gtk.ResponseType.CANCEL);
+
+		var cancellable = new Cancellable();
+
+		dlg.response.connect(() => {
+			cancellable.cancel();
+		});
+
+		uint timeout_id = 0;
+
+		timeout_id = Timeout.add_seconds(1, () => {
+			if (timeout_id == 0)
+			{
+				dlg.destroy();
+			}
+
+			timeout_id = 0;
+			return false;
+		});
+
+		scan.begin(location, cancellable, () => {
+			if (timeout_id != 0)
+			{
+				timeout_id = 0;
+			}
+			else
+			{
+				dlg.destroy();
+			}
+		});
+
+		dlg.show();
+		dlg.get_window().set_cursor(new Gdk.Cursor.for_display(get_display(), Gdk.CursorType.WATCH));
+	}
+
 	[GtkCallback]
 	private void add_repository_clicked()
 	{
@@ -492,6 +597,14 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		                                        Gtk.FileChooserAction.SELECT_FOLDER,
 		                                        _("_Cancel"), Gtk.ResponseType.CANCEL,
 		                                        _("_Add"), Gtk.ResponseType.OK);
+
+		var scan_all = new Gtk.CheckButton.with_mnemonic(_("_Scan for all git repositories from this directory"));
+
+		scan_all.halign = Gtk.Align.END;
+		scan_all.hexpand = true;
+		scan_all.show();
+
+		chooser.extra_widget = scan_all;
 
 		chooser.modal = true;
 		chooser.set_default_response(Gtk.ResponseType.OK);
@@ -506,13 +619,17 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 					file = chooser.get_current_folder_file();
 				}
 
-				if (!looks_like_git(file))
+				if (scan_all.active)
+				{
+					add_repositories_scan(file);
+				}
+				else if (!looks_like_git(file))
 				{
 					query_create_repository(file);
 				}
 				else
 				{
-					do_add_repository(file);
+					do_add_repository(file, true);
 				}
 			}
 

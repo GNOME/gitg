@@ -70,6 +70,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-plugins-engine.vala				\
 	gitg/gitg-popup-menu.vala				\
 	gitg/gitg-recursive-monitor.vala			\
+	gitg/gitg-recursive-scanner.vala			\
 	gitg/gitg-ref-action-copy-name.vala			\
 	gitg/gitg-ref-action-delete.vala			\
 	gitg/gitg-ref-action-fetch.vala				\
