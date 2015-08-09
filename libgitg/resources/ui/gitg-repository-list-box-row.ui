@@ -17,6 +17,7 @@
             <property name="margin_top">12</property>
             <property name="margin_bottom">12</property>
             <property name="column_spacing">10</property>
+            <property name="hexpand">True</property>
             <child>
               <object class="GtkRevealer" id="d_remove_revealer">
                 <property name="visible">True</property>
@@ -68,6 +69,9 @@
                 <property name="valign">end</property>
                 <property name="hexpand">True</property>
                 <property name="ellipsize">end</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -85,6 +89,9 @@
                 <property name="halign">start</property>
                 <property name="valign">start</property>
                 <property name="ellipsize">end</property>
+                <attributes>
+                  <attribute name="scale" value="0.833"/>
+                </attributes>
                 <style>
                   <class name="dim-label"/>
                 </style>

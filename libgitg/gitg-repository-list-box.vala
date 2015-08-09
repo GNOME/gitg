@@ -61,6 +61,8 @@ namespace Gitg
 			public signal void request_remove();
 
 			private SelectionMode d_mode;
+			private string? d_dirname;
+			private string? d_branch_name;
 
 			private static Gtk.IconSize s_icon_size;
 
@@ -142,13 +144,45 @@ namespace Gitg
 			public string? repository_name
 			{
 				get { return d_repository_label.get_text(); }
-				set { d_repository_label.set_markup("<b>%s</b>".printf(value)); }
+				set { d_repository_label.label = value; }
+			}
+
+			public string? dirname
+			{
+				get { return d_dirname; }
+				set
+				{
+					d_dirname = value;
+					update_branch_label();
+				}
 			}
 
 			public string? branch_name
 			{
-				get { return d_branch_label.get_text(); }
-				set { d_branch_label.set_markup("<small>%s</small>".printf(value)); }
+				get { return d_branch_name; }
+				set
+				{
+					d_branch_name = value;
+					update_branch_label();
+				}
+			}
+
+			private void update_branch_label()
+			{
+				if (d_branch_name == null || d_branch_name == "")
+				{
+					// Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
+					d_branch_label.label = _("at %s").printf(d_dirname);
+				}
+				else if (d_dirname == null || d_dirname == "")
+				{
+					d_branch_label.label = d_branch_name;
+				}
+				else
+				{
+					// Translators: this is used to construct: "<branch-name> at <directory>"
+					d_branch_label.label = _("%s at %s").printf(d_branch_name, d_dirname);
+				}
 			}
 
 			public bool loading
@@ -186,9 +220,9 @@ namespace Gitg
 				}
 			}
 
-			public Row(string name, string branch_name, bool has_remote)
+			public Row(string name, string dirname, string branch_name, bool has_remote)
 			{
-				Object(repository_name: name, branch_name: branch_name, has_remote: has_remote);
+				Object(repository_name: name, dirname: dirname, branch_name: branch_name, has_remote: has_remote);
 			}
 
 			public void add_submodule(Ggit.Submodule module)
@@ -400,9 +434,9 @@ namespace Gitg
 			}
 		}
 
-		public Row? begin_cloning(string name)
+		public Row? begin_cloning(File location)
 		{
-			var row = new Row(name, _("Cloning..."), true);
+			var row = new Row(location.get_basename(), Utils.replace_home_dir_with_tilde(location.get_parent()), _("Cloning..."), true);
 
 			row.loading = true;
 			row.show();
@@ -434,7 +468,8 @@ namespace Gitg
 				}
 				catch {}
 
-				row = new Row(repository.name, head_name, has_remote);
+				var dirname = Utils.replace_home_dir_with_tilde((repository.workdir != null ? repository.workdir : repository.location).get_parent());
+				row = new Row(repository.name, dirname, head_name, has_remote);
 				row.repository = repository;
 				row.show();
 

@@ -381,7 +381,7 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		var subfolder = location.resolve_relative_path(subfolder_name);
 
 		// Clone
-		var row = d_repository_list_box.begin_cloning(subfolder_name);
+		var row = d_repository_list_box.begin_cloning(subfolder);
 
 		clone.begin(row, url, subfolder, is_bare, (obj, res) => {
 			Gitg.Repository? repository = null;
