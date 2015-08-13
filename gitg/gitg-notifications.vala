@@ -23,14 +23,14 @@ namespace Gitg
 public class Notifications : Object, GitgExt.Notifications
 {
 	private Gtk.Overlay d_overlay;
-	private Gee.HashSet<uint> d_delay_handles;
+	private Gee.HashMap<GitgExt.Notification, uint> d_delay_handles;
 	private Gtk.Box d_box;
 	private Gee.HashMap<GitgExt.Notification, ulong> d_handles;
 
 	public Notifications(Gtk.Overlay overlay)
 	{
 		d_overlay = overlay;
-		d_delay_handles = new Gee.HashSet<uint>();
+		d_delay_handles = new Gee.HashMap<GitgExt.Notification, uint>();
 		d_handles = new Gee.HashMap<GitgExt.Notification, ulong>();
 
 		d_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 3);
@@ -43,7 +43,7 @@ public class Notifications : Object, GitgExt.Notifications
 
 	public override void dispose()
 	{
-		foreach (var id in d_delay_handles)
+		foreach (var id in d_delay_handles.values)
 		{
 			Source.remove(id);
 		}
@@ -96,16 +96,17 @@ public class Notifications : Object, GitgExt.Notifications
 
 	public void remove(GitgExt.Notification notification, uint delay)
 	{
-		uint id = 0;
+		if (d_delay_handles.has_key(notification))
+		{
+			Source.remove(d_delay_handles[notification]);
+		}
 
-		id = Timeout.add(delay, () => {
-			d_delay_handles.remove(id);
+		d_delay_handles[notification] = Timeout.add(delay, () => {
+			d_delay_handles.unset(notification);
 			remove_now(notification);
 
 			return false;
 		});
-
-		d_delay_handles.add(id);
 	}
 }
 
