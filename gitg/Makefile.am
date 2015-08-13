@@ -79,6 +79,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-remote-manager.vala				\
 	gitg/gitg-remote-notification.vala			\
 	gitg/gitg-resource.vala					\
+	gitg/gitg-simple-notification.vala			\
 	gitg/gitg-ui-elements.vala				\
 	gitg/gitg-window.vala					\
 	gitg/gitg.vala						\
