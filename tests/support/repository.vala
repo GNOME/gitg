@@ -73,6 +73,11 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		Assert.assert_file_contents(Path.build_filename(wd.get_path(), filename), expected_contents);
 	}
 
+	public bool file_exists(string filename)
+	{
+		return d_repository.get_workdir().get_child(filename).query_exists();
+	}
+
 	private void write_files(File[] files)
 	{
 		var wd = d_repository.get_workdir();
