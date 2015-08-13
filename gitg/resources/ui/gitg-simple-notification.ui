@@ -5,64 +5,70 @@
   <template class="GitgSimpleNotification" parent="GtkGrid">
     <property name="visible">True</property>
     <property name="hexpand">True</property>
-    <property name="spacing">12</property>
-    <property name="border_width">12</property>
     <child>
-      <object class="GtkSpinner" id="spinner">
-        <property name="visible">True</property>
-        <property name="valign">baseline</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkImage" id="image_icon">
-        <property name="visible">False</property>
-        <property name="size">1</property>
-        <property name="valign">baseline</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label_title">
-        <property name="visible">True</property>
-        <property name="hexpand">False</property>
-        <property name="halign">start</property>
-        <property name="xalign">0</property>
-        <attributes>
-          <attribute name="weight" value="bold"/>
-        </attributes>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label_message">
+      <object class="GtkGrid" id="padded">
         <property name="visible">True</property>
         <property name="hexpand">True</property>
-        <property name="halign">start</property>
-        <property name="xalign">0</property>
-      </object>
-      <packing>
-        <property name="left_attach">3</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkButton" id="button_cancel">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes">Cancel</property>
-        <property name="halign">end</property>
-        <property name="valign">baseline</property>
+        <property name="column_spacing">12</property>
+        <property name="border_width">12</property>
+        <child>
+          <object class="GtkSpinner" id="spinner">
+            <property name="visible">True</property>
+            <property name="valign">baseline</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="image_icon">
+            <property name="visible">False</property>
+            <property name="icon_size">1</property>
+            <property name="valign">baseline</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_title">
+            <property name="visible">True</property>
+            <property name="hexpand">False</property>
+            <property name="halign">start</property>
+            <property name="xalign">0</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_message">
+            <property name="visible">True</property>
+            <property name="hexpand">True</property>
+            <property name="halign">start</property>
+            <property name="xalign">0</property>
+          </object>
+          <packing>
+            <property name="left_attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button_cancel">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Cancel</property>
+            <property name="halign">end</property>
+            <property name="valign">baseline</property>
 
-        <signal name="clicked" handler="on_button_cancel_clicked"/>
+            <signal name="clicked" handler="on_button_cancel_clicked"/>
+          </object>
+          <packing>
+            <property name="left_attach">4</property>
+          </packing>
+        </child>
       </object>
-      <packing>
-        <property name="left_attach">4</property>
-      </packing>
     </child>
   </template>
 </interface>
