@@ -148,6 +148,11 @@ public class Repository : Ggit.Repository
 		return base.lookup_reference_dwim(short_name) as Ref;
 	}
 
+	public new Branch create_branch(string name, Ggit.Object obj, Ggit.CreateFlags flags) throws Error
+	{
+		return base.create_branch(name, obj, flags) as Branch;
+	}
+
 	public new Ref create_reference(string name, Ggit.OId oid, string message) throws Error
 	{
 		return base.create_reference(name, oid, message) as Ref;
