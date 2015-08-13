@@ -81,7 +81,6 @@ libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-ref-base.vala			\
 	libgitg/gitg-ref.vala				\
 	libgitg/gitg-remote.vala			\
-	libgitg/gitg-remote-notification.vala		\
 	libgitg/gitg-repository-list-box.vala		\
 	libgitg/gitg-repository.vala			\
 	libgitg/gitg-sidebar.vala			\

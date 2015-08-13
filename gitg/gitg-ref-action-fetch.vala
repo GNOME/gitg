@@ -90,7 +90,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		get { return d_remote != null; }
 	}
 
-	public void activate()
+	public async bool fetch()
 	{
 		var notification = new RemoteNotification(d_remote);
 		application.notifications.add(notification);
@@ -99,7 +99,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 		var updates = new Gee.ArrayList<string>();
 
-		var tip_updated_id = d_remote.tip_updated.connect((remote, name, a, b) => {
+		var tip_updated_id = d_remote.tip_updated.connect((d_remote, name, a, b) => {
 			if (a.is_zero())
 			{
 				/* Translators: new refers to a new remote reference having been fetched, */
@@ -112,35 +112,41 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 			}
 		});
 
-		d_remote.fetch.begin(null, null, (obj, res) =>{
-			try
-			{
-				d_remote.fetch.end(res);
-			}
-			catch (Error e)
-			{
-				notification.error(_("Failed to fetch from %s: %s").printf(d_remote.get_url(), e.message));
-				stderr.printf("Failed to fetch: %s\n", e.message);
-				return;
-			}
-			finally
-			{
-				(d_remote as Object).disconnect(tip_updated_id);
-			}
+		try
+		{
+			yield d_remote.fetch(null, null);
+		}
+		catch (Error e)
+		{
+			notification.error(_("Failed to fetch from %s: %s").printf(d_remote.get_url(), e.message));
+			stderr.printf("Failed to fetch: %s\n", e.message);
 
-			if (updates.size == 0)
-			{
-				/* Translators: the %s will get replaced with the remote url, */
-				notification.success(_("Fetched from %s: everything is up to date").printf(d_remote.get_url()));
-			}
-			else
-			{
-				/* Translators: the first %s is the remote url to fetch from,
-				 * the second is a list of references that got updated. */
-				notification.success(_("Fetched from %s: %s").printf(d_remote.get_url(), string.joinv(", ", updates.to_array())));
-			}
+			return false;
+		}
+		finally
+		{
+			((Object)d_remote).disconnect(tip_updated_id);
+		}
 
-			application.notifications.remove(notification, 3000);
+		if (updates.size == 0)
+		{
+			/* Translators: the %s will get replaced with the remote url, */
+			notification.success(_("Fetched from %s: everything is up to date").printf(d_remote.get_url()));
+		}
+		else
+		{
+			/* Translators: the first %s is the remote url to fetch from,
+			 * the second is a list of references that got updated. */
+			notification.success(_("Fetched from %s: %s").printf(d_remote.get_url(), string.joinv(", ", updates.to_array())));
+		}
+
+		return true;
+	}
+
+	public void activate()
+	{
+		fetch.begin((obj, res) => {
+			fetch.end(res);
 		});
 	}
 }

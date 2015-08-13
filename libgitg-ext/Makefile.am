@@ -54,6 +54,7 @@ libgitg_ext_libgitg_ext_1_0_la_VALASOURCES =		\
 	libgitg-ext/gitg-ext-message-bus.vala		\
 	libgitg-ext/gitg-ext-message-id.vala		\
 	libgitg-ext/gitg-ext-message.vala		\
+	libgitg-ext/gitg-ext-notification.vala		\
 	libgitg-ext/gitg-ext-notifications.vala		\
 	libgitg-ext/gitg-ext-preferences.vala		\
 	libgitg-ext/gitg-ext-ref-action-interface.vala	\

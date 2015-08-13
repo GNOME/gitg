@@ -77,6 +77,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-ref-action-fetch.vala				\
 	gitg/gitg-ref-action-rename.vala			\
 	gitg/gitg-remote-manager.vala				\
+	gitg/gitg-remote-notification.vala			\
 	gitg/gitg-resource.vala					\
 	gitg/gitg-ui-elements.vala				\
 	gitg/gitg-window.vala					\

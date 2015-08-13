@@ -1,7 +1,7 @@
 /*
  * This file is part of gitg
  *
- * Copyright (C) 2014 - Jesse van den Kieboom
+ * Copyright (C) 2015 - Jesse van den Kieboom
  *
  * gitg is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,10 +20,10 @@
 namespace GitgExt
 {
 
-public interface Notifications : Object
+public interface Notification : Object
 {
-	public abstract void add(Notification notification);
-	public abstract void remove(Notification notification, uint delay);
+	public signal void close(uint delay = 0);
+	public abstract Gtk.Widget? widget { owned get; }
 }
 
 }

@@ -21,8 +21,11 @@ namespace Gitg
 {
 
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-remote-notification.ui")]
-public class RemoteNotification : ProgressBin
+public class RemoteNotification : ProgressBin, GitgExt.Notification
 {
+	// Do this to pull in config.h before glib.h (for gettext...)
+	private const string version = Gitg.Config.VERSION;
+
 	private Remote? d_remote;
 
 	[GtkChild ( name = "image_icon" )]
@@ -37,7 +40,8 @@ public class RemoteNotification : ProgressBin
 	private bool d_finished;
 
 	public signal void cancel();
-	public signal void close();
+
+	private string d_text;
 
 	public RemoteNotification(Remote remote)
 	{
@@ -47,53 +51,85 @@ public class RemoteNotification : ProgressBin
 		d_remote.bind_property("transfer-progress", this, "fraction");
 	}
 
+	public Gtk.Widget? widget
+	{
+		owned get { return this; }
+	}
+
 	public void success(string text)
 	{
-		d_image_icon.icon_name = "emblem-ok-symbolic";
-		this.text = text;
+		Idle.add(() => {
+			d_image_icon.icon_name = "emblem-ok-symbolic";
+			this.text = text;
 
-		get_style_context().add_class("success");
+			get_style_context().add_class("success");
 
-		finish();
+			finish();
+
+			return false;
+		});
 	}
 
 	public void error(string text)
 	{
-		d_image_icon.icon_name = "network-error-symbolic";
-		this.text = text;
+		Idle.add(() => {
+			d_image_icon.icon_name = "network-error-symbolic";
+			this.text = text;
 
-		get_style_context().add_class("error");
-		finish();
+			get_style_context().add_class("error");
+			finish();
+
+			return false;
+		});
 	}
 
 	private void finish()
 	{
-		d_finished = true;
-		d_button_cancel.label = _("Close");
+		Idle.add(() => {
+			d_finished = true;
+			d_button_cancel.label = _("Close");
+
+			close(3000);
+			return false;
+		});
 	}
 
 	public string text
 	{
-		get { return d_label_text.label; }
-		set { d_label_text.label = value; }
+		get
+		{
+			return d_text;
+		}
+
+		set
+		{
+			Idle.add(() => {
+				d_label_text.label = value;
+				return false;
+			});
+		}
 	}
 
 	public RemoteState remote_state
 	{
 		set
 		{
-			switch (value)
-			{
-				case Gitg.RemoteState.CONNECTING:
-					d_image_icon.icon_name = "network-wireless-acquiring-symbolic";
-					break;
-				case Gitg.RemoteState.CONNECTED:
-					d_image_icon.icon_name = "network-idle-symbolic";
-					break;
-				case Gitg.RemoteState.TRANSFERRING:
-					d_image_icon.icon_name = "network-transmit-receive-symbolic";
-					break;
-			}
+			Idle.add(() => {
+				switch (value)
+				{
+					case Gitg.RemoteState.CONNECTING:
+						d_image_icon.icon_name = "network-wireless-acquiring-symbolic";
+						break;
+					case Gitg.RemoteState.CONNECTED:
+						d_image_icon.icon_name = "network-idle-symbolic";
+						break;
+					case Gitg.RemoteState.TRANSFERRING:
+						d_image_icon.icon_name = "network-transmit-receive-symbolic";
+						break;
+				}
+
+				return false;
+			});
 		}
 	}
 

@@ -25,11 +25,13 @@ public class Notifications : Object, GitgExt.Notifications
 	private Gtk.Overlay d_overlay;
 	private Gee.HashSet<uint> d_delay_handles;
 	private Gtk.Box d_box;
+	private Gee.HashMap<GitgExt.Notification, ulong> d_handles;
 
 	public Notifications(Gtk.Overlay overlay)
 	{
 		d_overlay = overlay;
 		d_delay_handles = new Gee.HashSet<uint>();
+		d_handles = new Gee.HashMap<GitgExt.Notification, ulong>();
 
 		d_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 3);
 		d_box.get_style_context().add_class("notifications");
@@ -48,49 +50,57 @@ public class Notifications : Object, GitgExt.Notifications
 
 		d_delay_handles.clear();
 
+		foreach (var notification in d_handles.keys)
+		{
+			notification.disconnect(d_handles[notification]);
+		}
+
+		d_handles.clear();
+
 		base.dispose();
 	}
 
-	public void add(Gtk.Widget widget)
+	public new void add(GitgExt.Notification notification)
 	{
 		var revealer = new Gtk.Revealer();
 
 		revealer.margin_top = 1;
 		revealer.set_transition_duration(500);
 		revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_UP);
-		revealer.add(widget);
+		revealer.add(notification.widget);
 
-		widget.show();
+		notification.widget.show();
 		revealer.show();
 
 		d_box.add(revealer);
 		revealer.reveal_child = true;
+
+		d_handles[notification] = notification.close.connect((delay) => {
+			remove(notification, delay);
+		});
 	}
 
-	private void remove_now(Gtk.Widget widget)
+	private void remove_now(GitgExt.Notification notification)
 	{
-		var revealer = widget.get_parent() as Gtk.Revealer;
+		var revealer = notification.widget.get_parent() as Gtk.Revealer;
+
+		notification.disconnect(d_handles[notification]);
 
 		revealer.notify["child-revealed"].connect(() => {
-			revealer.remove(widget);
+			revealer.remove(notification.widget);
 			revealer.destroy();
 		});
 
 		revealer.reveal_child = false;
 	}
 
-	public void remove(Gtk.Widget widget, uint delay)
+	public void remove(GitgExt.Notification notification, uint delay)
 	{
-		if (delay == 0)
-		{
-			remove_now(widget);
-		}
-
 		uint id = 0;
 
 		id = Timeout.add(delay, () => {
 			d_delay_handles.remove(id);
-			remove_now(widget);
+			remove_now(notification);
 
 			return false;
 		});
