@@ -64,7 +64,7 @@ public class RemoteNotification : ProgressBin, GitgExt.Notification
 
 			get_style_context().add_class("success");
 
-			finish();
+			finish(true);
 
 			return false;
 		});
@@ -77,19 +77,23 @@ public class RemoteNotification : ProgressBin, GitgExt.Notification
 			this.text = text;
 
 			get_style_context().add_class("error");
-			finish();
+			finish(false);
 
 			return false;
 		});
 	}
 
-	private void finish()
+	private void finish(bool auto_close)
 	{
 		Idle.add(() => {
 			d_finished = true;
 			d_button_cancel.label = _("Close");
 
-			close(3000);
+			if (auto_close)
+			{
+				close(3000);
+			}
+
 			return false;
 		});
 	}
