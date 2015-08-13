@@ -555,6 +555,25 @@ public class RefsList : Gtk.ListBox
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 
+	public Gee.List<Gitg.Ref> references
+	{
+		owned get
+		{
+			var ret = new Gee.LinkedList<Gitg.Ref>();
+
+			@foreach((child) => {
+				var row = child as RefRow;
+
+				if (row != null && row.reference != null)
+				{
+					ret.add(row.reference);
+				}
+			});
+
+			return ret;
+		}
+	}
+
 	public string reference_sort_order
 	{
 		get

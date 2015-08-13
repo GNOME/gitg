@@ -35,6 +35,11 @@ class ActionInterface : Object, GitgExt.RefActionInterface
 		d_refs_list = refs_list;
 	}
 
+	public Gee.List<Gitg.Ref> references
+	{
+		owned get { return d_refs_list.references; }
+	}
+
 	public void add_ref(Gitg.Ref reference)
 	{
 		application.repository.clear_refs_cache();

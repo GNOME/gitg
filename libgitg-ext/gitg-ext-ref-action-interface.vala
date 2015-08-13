@@ -25,6 +25,7 @@ public delegate void RefNameEditingDone(string new_name, bool cancelled);
 public interface RefActionInterface : Object
 {
 	public abstract Application application { owned get; construct set; }
+	public abstract Gee.List<Gitg.Ref> references { owned get; }
 
 	public abstract void add_ref(Gitg.Ref reference);
 	public abstract void remove_ref(Gitg.Ref reference);
