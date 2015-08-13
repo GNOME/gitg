@@ -52,6 +52,14 @@ public class Async
 			throw err;
 		}
 	}
+
+	public static async void thread_try(ThreadFunc func)
+	{
+		try
+		{
+			yield thread(func);
+		} catch {}
+	}
 }
 
 }
