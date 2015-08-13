@@ -22,7 +22,6 @@ using Gitg.Test.Assert;
 class Gitg.Test.Repository : Gitg.Test.Test
 {
 	protected Gitg.Repository? d_repository;
-	private Ggit.Commit? d_last_commit;
 
 	struct File
 	{
@@ -181,13 +180,22 @@ class Gitg.Test.Repository : Gitg.Test.Test
 
 		Ggit.OId commitoid;
 
+		Ggit.Ref? head = null;
+		Ggit.Commit? parent = null;
+
+		try
+		{
+			head = d_repository.get_head();
+			parent = head.lookup() as Ggit.Commit;
+		} catch {}
+
 		try
 		{
 			Ggit.Commit[] parents;
 
-			if (d_last_commit != null)
+			if (parent != null)
 			{
-				parents = new Ggit.Commit[] {d_last_commit};
+				parents = new Ggit.Commit[] { parent };
 			}
 			else
 			{
@@ -206,15 +214,6 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		{
 			assert_no_error(e);
 			return;
-		}
-
-		try
-		{
-			d_last_commit = d_repository.lookup<Ggit.Commit>(commitoid);
-		}
-		catch (GLib.Error e)
-		{
-			assert_no_error(e);
 		}
 	}
 
@@ -328,8 +327,6 @@ class Gitg.Test.Repository : Gitg.Test.Test
 	protected override void set_up()
 	{
 		string wd;
-
-		d_last_commit = null;
 
 		try
 		{
