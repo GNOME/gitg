@@ -842,14 +842,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	                         string          message,
 	                         Gtk.MessageType type)
 	{
-		var primary = "<b>%s</b>".printf(Markup.escape_text(title));
-		var secondary = "<small>%s</small>".printf(Markup.escape_text(message));
+		Idle.add(() => {
+			var primary = "<b>%s</b>".printf(Markup.escape_text(title));
+			var secondary = "<small>%s</small>".printf(Markup.escape_text(message));
 
-		d_infobar_primary_label.set_label(primary);
-		d_infobar_secondary_label.set_label(secondary);
-		d_infobar.message_type = type;
+			d_infobar_primary_label.set_label(primary);
+			d_infobar_secondary_label.set_label(secondary);
+			d_infobar.message_type = type;
 
-		d_infobar.show();
+			d_infobar.show();
+			return false;
+		});
 	}
 
 	public async Gtk.ResponseType user_query_async(GitgExt.UserQuery query)
