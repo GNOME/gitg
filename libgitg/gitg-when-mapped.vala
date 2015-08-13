@@ -87,6 +87,7 @@ namespace Gitg
 			if (d_sid != 0)
 			{
 				d_widget.disconnect(d_sid);
+				d_sid = 0;
 			}
 
 			if (d_lifetime != null)
