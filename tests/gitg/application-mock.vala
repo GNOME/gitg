@@ -45,19 +45,6 @@ class Gitg.Test.Application : Gitg.Test.Repository, GitgExt.Application
 	public GitgExt.Activity? current_activity { owned get { return null; } }
 	public Gee.Map<string, string> environment { owned get { return new Gee.HashMap<string, string>(); } }
 
-	public Ggit.Signature? get_verified_committer()
-	{
-		try
-		{
-			return new Ggit.Signature("test", "test@test.test", new DateTime.from_unix_utc(0));
-		}
-		catch (Error e)
-		{
-			assert_no_error(e);
-			return null;
-		}
-	}
-
 	public Gee.ArrayList<SimpleNotification> simple_notifications
 	{
 		owned get

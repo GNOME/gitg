@@ -22,6 +22,7 @@ using Gitg.Test.Assert;
 class Gitg.Test.Repository : Gitg.Test.Test
 {
 	protected Gitg.Repository? d_repository;
+	private uint d_current_time;
 
 	struct File
 	{
@@ -103,6 +104,19 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		});
 	}
 
+	public Ggit.Signature? get_verified_committer()
+	{
+		try
+		{
+			return new Ggit.Signature("gitg tester", "gitg-tester@gnome.org", new DateTime.from_unix_utc(d_current_time++));
+		}
+		catch (Error e)
+		{
+			assert_no_error(e);
+			return null;
+		}
+	}
+
 	protected void commit(string? filename, ...)
 	{
 		if (d_repository == null)
@@ -153,18 +167,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 
 		// create commit
-		Ggit.Signature sig;
-
-		try
-		{
-			sig = new Ggit.Signature.now("gitg tester",
-			                             "gitg-tester@gnome.org");
-		}
-		catch (GLib.Error e)
-		{
-			assert_no_error(e);
-			return;
-		}
+		var sig = get_verified_committer();
 
 		Ggit.Tree tree;
 
@@ -348,6 +351,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 	protected override void set_up()
 	{
 		string wd;
+		d_current_time = 0;
 
 		try
 		{
