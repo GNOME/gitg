@@ -367,21 +367,19 @@ public class Stage : Object
 		}
 	}
 
-	public async Ggit.OId? commit(string             message,
-	                              Ggit.Signature     author,
-	                              Ggit.Signature     committer,
-	                              StageCommitOptions options) throws Error
+	public async Ggit.OId? commit_index(Ggit.Index         index,
+	                                    Ggit.Ref           reference,
+	                                    string             message,
+	                                    Ggit.Signature     author,
+	                                    Ggit.Signature     committer,
+	                                    Ggit.OId[]?        parents,
+	                                    StageCommitOptions options) throws Error
 	{
 		Ggit.OId? ret = null;
 
-		bool skip_hooks = (options & StageCommitOptions.SKIP_HOOKS) != 0;
-		bool amend = (options & StageCommitOptions.AMEND) != 0;
-
-		yield thread_index((index) => {
-			if (!amend && !has_index_changes())
-			{
-				throw new StageError.NOTHING_TO_COMMIT("Nothing to commit");
-			}
+		yield Async.thread(() => {
+			bool skip_hooks = (options & StageCommitOptions.SKIP_HOOKS) != 0;
+			bool amend = (options & StageCommitOptions.AMEND) != 0;
 
 			// Write tree from index
 			var conf = d_repository.get_config().snapshot();
@@ -402,46 +400,50 @@ public class Stage : Object
 				emsg = commit_msg_hook(emsg, author, committer);
 			}
 
-			var treeoid = index.write_tree();
+			var treeoid = index.write_tree_to(d_repository);
 
-			// Note: get the symbolic ref here
-			var head = d_repository.lookup_reference("HEAD");
-
-			Ggit.OId? headoid = null;
+			Ggit.OId? refoid = null;
 
 			try
 			{
 				// Resolve the ref and get the actual target id
-				headoid = head.resolve().get_target();
+				refoid = reference.resolve().get_target();
 			} catch {}
 
 			if (!amend)
 			{
-				Ggit.OId[] parents;
+				Ggit.OId[] pars;
 
-				if (headoid == null)
+				if (parents == null)
 				{
-					parents = new Ggit.OId[] {};
+					if (refoid == null)
+					{
+						pars = new Ggit.OId[] {};
+					}
+					else
+					{
+						pars = new Ggit.OId[] { refoid };
+					}
 				}
 				else
 				{
-					parents = new Ggit.OId[] { headoid };
+					pars = parents;
 				}
 
-				ret = d_repository.create_commit_from_ids("HEAD",
+				ret = d_repository.create_commit_from_ids(reference.get_name(),
 				                                          author,
 				                                          committer,
 				                                          encoding,
 				                                          emsg,
 				                                          treeoid,
-				                                          parents);
+				                                          pars);
 			}
 			else
 			{
-				var headcommit = d_repository.lookup<Ggit.Commit>(headoid);
+				var refcommit = d_repository.lookup<Ggit.Commit>(refoid);
 				var tree = d_repository.lookup<Ggit.Tree>(treeoid);
 
-				ret = headcommit.amend("HEAD",
+				ret = refcommit.amend(reference.get_name(),
 				                       author,
 				                       committer,
 				                       encoding,
@@ -465,23 +467,23 @@ public class Stage : Object
 
 			reflogmsg += ": " + get_subject(message);
 
-			// Update reflog of HEAD
+			// Update reflog of reference
 			try
 			{
-				if (always_update || head.has_log())
+				if (always_update || reference.has_log())
 				{
-					var reflog = head.get_log();
+					var reflog = reference.get_log();
 					reflog.append(ret, committer, reflogmsg);
 					reflog.write();
 				}
 			} catch {}
 
-			if (head.get_reference_type() == Ggit.RefType.SYMBOLIC)
+			if (reference.get_reference_type() == Ggit.RefType.SYMBOLIC)
 			{
 				// Update reflog of whereever HEAD points to
 				try
 				{
-					var resolved = head.resolve();
+					var resolved = reference.resolve();
 
 					if (always_update || resolved.has_log())
 					{
@@ -493,11 +495,47 @@ public class Stage : Object
 				} catch {}
 			}
 
-			d_head_tree = null;
+			if (reference.get_name() == "HEAD")
+			{
+				d_head_tree = null;
+			}
 
 			// run post commit
 			post_commit_hook(author);
 		});
+
+		return ret;
+	}
+
+	public async Ggit.OId? commit(string             message,
+	                              Ggit.Signature     author,
+	                              Ggit.Signature     committer,
+	                              StageCommitOptions options) throws Error
+	{
+		bool amend = (options & StageCommitOptions.AMEND) != 0;
+		Ggit.OId? ret = null;
+
+		lock(d_index_mutex)
+		{
+			Ggit.Index? index = null;
+
+			yield Async.thread(() => {
+				index = d_repository.get_index();
+			});
+
+			if (!amend && !has_index_changes())
+			{
+				throw new StageError.NOTHING_TO_COMMIT("Nothing to commit");
+			}
+
+			ret = yield commit_index(index,
+			                         d_repository.lookup_reference("HEAD"),
+			                         message,
+			                         author,
+			                         committer,
+			                         null,
+			                         options);
+		}
 
 		return ret;
 	}
