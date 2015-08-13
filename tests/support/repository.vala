@@ -209,7 +209,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			                                       sig,
 			                                       sig,
 			                                       null,
-			                                       "Initial commit",
+			                                       "commit " + filename,
 			                                       tree,
 			                                       parents);
 		}
