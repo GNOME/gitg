@@ -23,7 +23,8 @@ class Gitg.Test.Runner
 	{
 		var m = new Gitg.Test.Main(args);
 
-		m.add(new CheckoutRef());
+		m.add(new CheckoutRef(),
+		      new MergeRef());
 
 		m.run();
 	}

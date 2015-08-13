@@ -30,7 +30,7 @@ public class SimpleNotification : Object, GitgExt.Notification
 	}
 
 	public signal void cancel();
-	public Status status;
+	public Status status { get; set; }
 
 	public string title { get; set; }
 	public string message { get; set; }

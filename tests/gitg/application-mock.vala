@@ -21,6 +21,13 @@ using Gitg.Test.Assert;
 
 class Gitg.Test.Application : Gitg.Test.Repository, GitgExt.Application
 {
+	class ExpectedUserQuery : Object
+	{
+		public GitgExt.UserQuery query;
+		public Gtk.ResponseType response;
+	}
+
+	private Gee.ArrayQueue<ExpectedUserQuery> d_expected_queries;
 	private Notifications d_notifications;
 
 	public Application()
@@ -33,6 +40,7 @@ class Gitg.Test.Application : Gitg.Test.Repository, GitgExt.Application
 		base.set_up();
 
 		d_notifications = new Notifications();
+		d_expected_queries = new Gee.ArrayQueue<ExpectedUserQuery>();
 	}
 
 	public Gitg.Repository? repository
@@ -64,13 +72,47 @@ class Gitg.Test.Application : Gitg.Test.Repository, GitgExt.Application
 	public GitgExt.Activity? get_activity_by_id(string id) { return null; }
 	public GitgExt.Activity? set_activity_by_id(string id) { return null; }
 
+	protected Application expect_user_query(GitgExt.UserQuery query, Gtk.ResponseType response)
+	{
+		d_expected_queries.add(new ExpectedUserQuery() {
+			query = query,
+			response = response
+		});
+
+		return this;
+	}
+
+	private Gtk.ResponseType user_query_respond(GitgExt.UserQuery query)
+	{
+		assert_true(d_expected_queries.size > 0);
+
+		var expected = d_expected_queries.poll();
+
+		assert_streq(expected.query.title, query.title);
+		assert_streq(expected.query.message, query.message);
+		assert_inteq(expected.query.message_type, query.message_type);
+		assert_inteq(expected.query.default_response, query.default_response);
+		assert_booleq(expected.query.default_is_destructive, query.default_is_destructive);
+		assert_booleq(expected.query.message_use_markup, query.message_use_markup);
+		assert_inteq(expected.query.responses.length, query.responses.length);
+
+		for (var i = 0; i < expected.query.responses.length; i++)
+		{
+			assert_inteq(expected.query.responses[i].response_type, query.responses[i].response_type);
+			assert_streq(expected.query.responses[i].text, query.responses[i].text);
+		}
+
+		return expected.response;
+	}
+
 	public void user_query(GitgExt.UserQuery query)
 	{
+		query.response(user_query_respond(query));
 	}
 
 	public async Gtk.ResponseType user_query_async(GitgExt.UserQuery query)
 	{
-		return Gtk.ResponseType.CLOSE;
+		return user_query_respond(query);
 	}
 
 	public void show_infobar(string          primary_msg,

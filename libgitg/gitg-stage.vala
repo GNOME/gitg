@@ -375,6 +375,23 @@ public class Stage : Object
 	                                    Ggit.OId[]?        parents,
 	                                    StageCommitOptions options) throws Error
 	{
+		Ggit.OId? treeoid = null;
+
+		yield Async.thread(() => {
+			treeoid = index.write_tree_to(d_repository);
+		});
+
+		return yield commit_tree(treeoid, reference, message, author, committer, parents, options);
+	}
+
+	public async Ggit.OId? commit_tree(Ggit.OId           treeoid,
+	                                   Ggit.Ref           reference,
+	                                   string             message,
+	                                   Ggit.Signature     author,
+	                                   Ggit.Signature     committer,
+	                                   Ggit.OId[]?        parents,
+	                                   StageCommitOptions options) throws Error
+	{
 		Ggit.OId? ret = null;
 
 		yield Async.thread(() => {
@@ -399,8 +416,6 @@ public class Stage : Object
 			{
 				emsg = commit_msg_hook(emsg, author, committer);
 			}
-
-			var treeoid = index.write_tree_to(d_repository);
 
 			Ggit.OId? refoid = null;
 

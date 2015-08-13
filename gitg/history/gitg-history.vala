@@ -708,7 +708,7 @@ namespace GitgHistory
 
 		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference)
 		{
-			var actions = new Gee.LinkedList<GitgExt.RefAction>();
+			var actions = new Gee.LinkedList<GitgExt.RefAction?>();
 
 			var af = new ActionInterface(application, d_main.refs_list);
 
@@ -720,7 +720,23 @@ namespace GitgHistory
 			add_ref_action(actions, new Gitg.RefActionRename(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionDelete(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionCopyName(application, af, reference));
-			add_ref_action(actions, new Gitg.RefActionFetch(application, af, reference));
+
+			var fetch = new Gitg.RefActionFetch(application, af, reference);
+
+			if (fetch.available)
+			{
+				actions.add(null);
+			}
+
+			add_ref_action(actions, fetch);
+
+			var merge = new Gitg.RefActionMerge(application, af, reference);
+
+			if (merge.available)
+			{
+				actions.add(null);
+				add_ref_action(actions, merge);
+			}
 
 			var exts = new Peas.ExtensionSet(Gitg.PluginsEngine.get_default(),
 			                                 typeof(GitgExt.RefAction),
@@ -731,7 +747,15 @@ namespace GitgHistory
 			                                 "reference",
 			                                 reference);
 
+			var addedsep = false;
+
 			exts.foreach((extset, info, extension) => {
+				if (!addedsep)
+				{
+					actions.add(null);
+					addedsep = true;
+				}
+
 				add_ref_action(actions, extension as GitgExt.RefAction);
 			});
 
@@ -744,7 +768,16 @@ namespace GitgHistory
 
 			foreach (var ac in actions)
 			{
-				ac.populate_menu(menu);
+				if (ac != null)
+				{
+					ac.populate_menu(menu);
+				}
+				else
+				{
+					var sep = new Gtk.SeparatorMenuItem();
+					sep.show();
+					menu.append(sep);
+				}
 			}
 
 			var sep = new Gtk.SeparatorMenuItem();

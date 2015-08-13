@@ -397,15 +397,47 @@ class Gitg.Test.Repository : Gitg.Test.Test
 					remove_recursively(c);
 				}
 			}
-			else
-			{
-				f.delete();
-			}
+
+			f.delete();
 		}
 		catch (Error e)
 		{
 			stderr.printf("Failed to remove %s: %s\n", f.get_path(), e.message);
 		}
+	}
+
+	protected Gitg.Branch? lookup_branch(string name)
+	{
+		try
+		{
+			var ret = d_repository.lookup_reference_dwim(name) as Gitg.Branch;
+			assert_nonnull(ret);
+
+			return ret;
+		}
+		catch (Error e)
+		{
+			assert_no_error(e);
+		}
+
+		return null;
+	}
+
+	protected Gitg.Commit? lookup_commit(string name)
+	{
+		try
+		{
+			var ret = lookup_branch(name).lookup() as Gitg.Commit;
+			assert_nonnull(ret);
+
+			return ret;
+		}
+		catch (Error e)
+		{
+			assert_no_error(e);
+		}
+
+		return null;
 	}
 
 	protected override void tear_down()
