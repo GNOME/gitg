@@ -44,6 +44,30 @@ public class UserQuery : Object
 
 	public signal void quit();
 	public signal bool response(Gtk.ResponseType response_type);
+
+	public UserQuery.full(string title, string message, Gtk.MessageType message_type, ...)
+	{
+		Object(title: title, message: message, message_type: message_type);
+
+		var l = va_list();
+		var resps = new UserQueryResponse[0];
+
+    	while (true) {
+        	string? text = l.arg();
+
+        	if (text == null) {
+        		break;
+        	}
+
+        	resps += new UserQueryResponse(text, l.arg());
+        }
+
+        responses = resps;
+
+        if (resps.length > 0) {
+        	default_response = resps[resps.length - 1].response_type;
+        }
+	}
 }
 
 }
