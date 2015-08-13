@@ -76,6 +76,7 @@ public interface Application : Object
 	public abstract GitgExt.Activity? set_activity_by_id(string id);
 
 	public abstract void user_query(UserQuery query);
+	public abstract async Gtk.ResponseType user_query_async(UserQuery query);
 
 	public abstract void show_infobar(string          primary_msg,
 	                                  string          secondary_msg,

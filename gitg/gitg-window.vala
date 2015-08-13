@@ -852,6 +852,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_infobar.show();
 	}
 
+	public async Gtk.ResponseType user_query_async(GitgExt.UserQuery query)
+	{
+		SourceFunc cb = user_query_async.callback;
+		Gtk.ResponseType retval = 0;
+
+		query.response.connect((response) => {
+			retval = response;
+
+			Idle.add((owned)cb);
+			return true;
+		});
+
+		user_query(query);
+
+		yield;
+
+		return retval;
+	}
+
 	public void user_query(GitgExt.UserQuery query)
 	{
 		var dlg = new Gtk.MessageDialog(this,
