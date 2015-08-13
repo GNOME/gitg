@@ -19,7 +19,7 @@
 
 using Gitg.Test.Assert;
 
-class Gitg.Test.Commit : Gitg.Test.Repository
+class LibGitg.Test.Commit : Gitg.Test.Repository
 {
 	/**
 	 * Create basic repository with files in a variety of states.
@@ -48,7 +48,7 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 		stage.commit.begin(msg,
 		                   sig,
 		                   sig,
-		                   StageCommitOptions.NONE, (obj, res) => {
+		                   Gitg.StageCommitOptions.NONE, (obj, res) => {
 
 			var oid = stage.commit.end(res);
 			var commit = d_repository.lookup<Gitg.Commit>(oid);
@@ -93,7 +93,7 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 		stage.commit.begin(msg,
 		                   author,
 		                   sig,
-		                   StageCommitOptions.SIGN_OFF, (obj, res) => {
+		                   Gitg.StageCommitOptions.SIGN_OFF, (obj, res) => {
 
 			var oid = stage.commit.end(res);
 
@@ -133,19 +133,19 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 		                                 "jessevdk@gnome.org");
 
 		stage.pre_commit_hook.begin(sig, (obj, res) => {
-			StageError? e = null;
+			Gitg.StageError? e = null;
 
 			try
 			{
 				stage.pre_commit_hook.end(res);
 			}
-			catch (StageError err)
+			catch (Gitg.StageError err)
 			{
 				e = err;
 			}
 
 			assert(e != null);
-			assert(e is StageError.PRE_COMMIT_HOOK_FAILED);
+			assert(e is Gitg.StageError.PRE_COMMIT_HOOK_FAILED);
 			assert_streq(e.message, "pre-commit failed");
 
 			loop.quit();
@@ -173,7 +173,7 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 		stage.commit.begin(msg,
 		                   sig,
 		                   sig,
-		                   StageCommitOptions.NONE, (obj, res) => {
+		                   Gitg.StageCommitOptions.NONE, (obj, res) => {
 			var oid = stage.commit.end(res);
 
 			var commit = d_repository.lookup<Gitg.Commit>(oid);
@@ -204,7 +204,7 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 		stage.commit.begin(msg,
 		                   sig,
 		                   sig,
-		                   StageCommitOptions.SKIP_HOOKS, (obj, res) => {
+		                   Gitg.StageCommitOptions.SKIP_HOOKS, (obj, res) => {
 			var oid = stage.commit.end(res);
 
 			var commit = d_repository.lookup<Gitg.Commit>(oid);
@@ -235,7 +235,7 @@ class Gitg.Test.Commit : Gitg.Test.Repository
 		stage.commit.begin(msg,
 		                   headc.get_author(),
 		                   sig,
-		                   StageCommitOptions.AMEND, (obj, res) => {
+		                   Gitg.StageCommitOptions.AMEND, (obj, res) => {
 
 			var oid = stage.commit.end(res);
 			var commit = d_repository.lookup<Gitg.Commit>(oid);

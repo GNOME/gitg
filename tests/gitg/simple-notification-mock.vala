@@ -1,7 +1,7 @@
 /*
  * This file is part of gitg
  *
- * Copyright (C) 2013 - Jesse van den Kieboom
+ * Copyright (C) 2012 - Ignacio Casal Quinteiro
  *
  * gitg is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,27 +17,47 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Gitg.Test.Test : Object
+namespace Gitg
 {
-	private GLib.TestSuite d_suite;
 
-	construct
+public class SimpleNotification : Object, GitgExt.Notification
+{
+	public enum Status
 	{
-		d_suite = new GLib.TestSuite(get_type().name());
+		NONE,
+		SUCCESS,
+		ERROR
 	}
 
-	public GLib.TestSuite suite
+	public signal void cancel();
+	public Status status;
+
+	public string title { get; set; }
+	public string message { get; set; }
+
+	public SimpleNotification(string? title = null, string? message = null)
 	{
-		get { return d_suite; }
+		Object(title: title, message: message);
 	}
 
-	public virtual void set_up()
+	public Gtk.Widget? widget
 	{
+		owned get { return null; }
 	}
 
-	public virtual void tear_down()
+	public void success(string message)
 	{
+		this.message = message;
+		this.status = Status.SUCCESS;
+	}
+
+	public void error(string message)
+	{
+		this.message = message;
+		this.status = Status.ERROR;
 	}
 }
 
-// ex:set ts=4 noet
+}
+
+// ex:ts=4 noet

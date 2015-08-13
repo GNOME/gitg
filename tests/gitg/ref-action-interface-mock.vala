@@ -1,7 +1,7 @@
 /*
  * This file is part of gitg
  *
- * Copyright (C) 2013 - Jesse van den Kieboom
+ * Copyright (C) 2015 - Jesse van den Kieboom
  *
  * gitg is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,18 +17,45 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class LibGitg.Test.Main
+using Gitg.Test.Assert;
+
+class Gitg.Test.RefActionInterface : Object, GitgExt.RefActionInterface
 {
-	public static void main(string[] args)
+	public GitgExt.Application application { owned get; construct set; }
+
+	public RefActionInterface(GitgExt.Application application)
 	{
-		var m = new Gitg.Test.Main(args);
+		Object(application: application);
+	}
 
-		m.add(new Stage(),
-		      new Date(),
-		      new Commit(),
-		      new Encoding());
+	public void add_ref(Gitg.Ref reference)
+	{
 
-		m.run();
+	}
+
+	public void remove_ref(Gitg.Ref reference)
+	{
+
+	}
+
+	public void replace_ref(Gitg.Ref old_ref, Gitg.Ref new_ref)
+	{
+
+	}
+
+	public void set_busy(Gitg.Ref reference, bool busy)
+	{
+
+	}
+
+	public void edit_ref_name(Gitg.Ref reference, owned GitgExt.RefNameEditingDone callback)
+	{
+
+	}
+
+	public void refresh()
+	{
+
 	}
 }
 

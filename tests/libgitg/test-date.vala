@@ -19,7 +19,7 @@
 
 using Gitg.Test.Assert;
 
-class Gitg.Test.Date : Gitg.Test.Test
+class LibGitg.Test.Date : Gitg.Test.Test
 {
 	protected virtual signal void test_iso8601()
 	{

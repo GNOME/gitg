@@ -17,16 +17,13 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class LibGitg.Test.Main
+class Gitg.Test.Runner
 {
 	public static void main(string[] args)
 	{
 		var m = new Gitg.Test.Main(args);
 
-		m.add(new Stage(),
-		      new Date(),
-		      new Commit(),
-		      new Encoding());
+		m.add(new CheckoutRef());
 
 		m.run();
 	}

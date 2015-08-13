@@ -19,7 +19,7 @@
 
 using Gitg.Test.Assert;
 
-class Gitg.Test.Stage : Gitg.Test.Repository
+class LibGitg.Test.Stage : Gitg.Test.Repository
 {
 	/**
 	 * Create basic repository with files in a variety of states.

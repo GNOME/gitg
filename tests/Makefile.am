@@ -40,5 +40,10 @@ tests_progress_bin_CPPFLAGS = $(tests_common_cppflags)
 tests_progress_bin_LDADD = libgitg/libgitg-1.0.la $(tests_common_ldadd)
 
 include tests/libgitg/Makefile.am
+include tests/gitg/Makefile.am
+
+EXTRA_DIST +=					\
+	tests/support/gitg-assert.h		\
+	tests/support/gitg-assert.vapi
 
 # vi:ts=8:noet

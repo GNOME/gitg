@@ -19,7 +19,7 @@
 
 using Gitg.Test.Assert;
 
-class Gitg.Test.Encoding : Gitg.Test.Repository
+class LibGitg.Test.Encoding : Gitg.Test.Repository
 {
 	/**
 	 * Create basic repository with files in a variety of states.
@@ -50,7 +50,7 @@ class Gitg.Test.Encoding : Gitg.Test.Repository
 		stage.commit.begin(msg,
 		                   sig,
 		                   sig,
-		                   StageCommitOptions.NONE, (obj, res) => {
+		                   Gitg.StageCommitOptions.NONE, (obj, res) => {
 
 			var oid = stage.commit.end(res);
 			var commit = d_repository.lookup<Gitg.Commit>(oid);

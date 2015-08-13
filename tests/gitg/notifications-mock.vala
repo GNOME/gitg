@@ -1,7 +1,7 @@
 /*
  * This file is part of gitg
  *
- * Copyright (C) 2013 - Jesse van den Kieboom
+ * Copyright (C) 2015 - Jesse van den Kieboom
  *
  * gitg is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,18 +17,30 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class LibGitg.Test.Main
+using Gitg.Test.Assert;
+
+class Gitg.Test.Notifications : Object, GitgExt.Notifications
 {
-	public static void main(string[] args)
+	public signal void added(GitgExt.Notification notification);
+	public signal void removed(GitgExt.Notification notification);
+
+	public Gee.ArrayList<GitgExt.Notification> notifications;
+
+	public Notifications()
 	{
-		var m = new Gitg.Test.Main(args);
+		notifications = new Gee.ArrayList<GitgExt.Notification>();
+	}
 
-		m.add(new Stage(),
-		      new Date(),
-		      new Commit(),
-		      new Encoding());
+	public void add(GitgExt.Notification notification)
+	{
+		added(notification);
+		notifications.add(notification);
+	}
 
-		m.run();
+	public void remove(GitgExt.Notification notification, uint delay = 0)
+	{
+		removed(notification);
+		notifications.remove(notification);
 	}
 }
 

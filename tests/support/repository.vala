@@ -66,6 +66,13 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		return files;
 	}
 
+	public void assert_file_contents(string filename, string expected_contents)
+	{
+		var wd = d_repository.get_workdir();
+
+		Assert.assert_file_contents(Path.build_filename(wd.get_path(), filename), expected_contents);
+	}
+
 	private void write_files(File[] files)
 	{
 		var wd = d_repository.get_workdir();
@@ -85,6 +92,16 @@ class Gitg.Test.Repository : Gitg.Test.Test
 				assert_no_error(e);
 			}
 		}
+	}
+
+	protected void write_file(string filename, string contents)
+	{
+		write_files(new File[] {
+			File() {
+				filename = filename,
+				contents = contents
+			}
+		});
 	}
 
 	protected void commit(string? filename, ...)
@@ -154,7 +171,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 
 		try
 		{
-			tree = d_repository.lookup<Ggit.Tree>(treeoid); 
+			tree = d_repository.lookup<Ggit.Tree>(treeoid);
 		}
 		catch (GLib.Error e)
 		{
@@ -294,6 +311,20 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 	}
 
+	protected Gitg.Branch? create_branch(string name)
+	{
+		try
+		{
+			var commit = d_repository.lookup<Gitg.Commit>(d_repository.get_head().get_target());
+			return d_repository.create_branch(name, commit, Ggit.CreateFlags.NONE);
+		}
+		catch (Error e)
+		{
+			assert_no_error(e);
+			return null;
+		}
+	}
+
 	protected override void set_up()
 	{
 		string wd;
@@ -323,6 +354,33 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 	}
 
+	private void remove_recursively(GLib.File f)
+	{
+		try
+		{
+			var info = f.query_info("standard::*", FileQueryInfoFlags.NONE);
+
+			if (info.get_file_type() == FileType.DIRECTORY)
+			{
+				var e = f.enumerate_children("standard::*", FileQueryInfoFlags.NONE);
+
+				while ((info = e.next_file()) != null)
+				{
+					var c = f.get_child(info.get_name());
+					remove_recursively(c);
+				}
+			}
+			else
+			{
+				f.delete();
+			}
+		}
+		catch (Error e)
+		{
+			stderr.printf("Failed to remove %s: %s\n", f.get_path(), e.message);
+		}
+	}
+
 	protected override void tear_down()
 	{
 		if (d_repository == null)
@@ -330,12 +388,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			return;
 		}
 
-		var wd = d_repository.get_workdir();
-
-		// nasty stuff, but I'm not going to implement recursive remove by hand
-		// and glib doesn't provide anything for it
-		Posix.system("rm -rf '%s'".printf(wd.get_path()));
-
+		remove_recursively(d_repository.get_workdir());
 		d_repository = null;
 	}
 }

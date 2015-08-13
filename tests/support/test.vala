@@ -17,18 +17,46 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class LibGitg.Test.Main
+class Gitg.Test.Test : Object
 {
-	public static void main(string[] args)
+	private GLib.TestSuite d_suite;
+
+	construct
 	{
-		var m = new Gitg.Test.Main(args);
+		d_suite = new GLib.TestSuite(get_type().name());
+	}
 
-		m.add(new Stage(),
-		      new Date(),
-		      new Commit(),
-		      new Encoding());
+	public GLib.TestSuite suite
+	{
+		get { return d_suite; }
+	}
 
-		m.run();
+	public virtual void set_up()
+	{
+	}
+
+	public virtual void tear_down()
+	{
+	}
+}
+
+namespace Gitg.Test.Assert
+{
+	void assert_file_contents(string filename, string expected_contents)
+	{
+		string contents;
+		size_t len;
+
+		try
+		{
+			FileUtils.get_contents(filename, out contents, out len);
+		}
+		catch (Error e)
+		{
+			assert_no_error(e);
+		}
+
+		assert_streq(contents, expected_contents);
 	}
 }
 
