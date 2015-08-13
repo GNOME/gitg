@@ -59,58 +59,77 @@ class RefActionCheckout : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, 
 		{
 			try
 			{
-				var head = application.repository.get_head();
+				return reference.is_branch() && !((Ggit.Branch)reference).is_head();
+			} catch {}
 
-				if (head != null && head.get_name() == reference.get_name())
-				{
-					return false;
-				}
-			}
-			catch {}
-
-			return reference.is_branch();
+			return false;
 		}
+	}
+
+	public async bool checkout()
+	{
+		var repo = application.repository;
+		var notification = new SimpleNotification(_("Checkout %s").printf(reference.parsed_name.shortname));
+		bool retval = false;
+
+		application.notifications.add(notification);
+
+		try
+		{
+			yield Async.thread(() => {
+				Commit commit;
+
+				try
+				{
+					commit = reference.resolve().lookup() as Gitg.Commit;
+				}
+				catch (Error e)
+				{
+					notification.error(_("Failed to lookup commit: %s").printf(e.message));
+					return;
+				}
+
+				try
+				{
+					var opts = new Ggit.CheckoutOptions();
+					opts.set_strategy(Ggit.CheckoutStrategy.SAFE);
+
+					repo.checkout_tree(commit.get_tree(), opts);
+				}
+				catch (Error e)
+				{
+					notification.error(_("Failed to checkout branch: %s").printf(e.message));
+					return;
+				}
+
+				try
+				{
+					repo.set_head(reference.get_name());
+				}
+				catch (Error e)
+				{
+					notification.error(_("Failed to update HEAD: %s").printf(e.message));
+					return;
+				}
+
+				retval = true;
+			});
+		} catch {}
+
+		if (retval)
+		{
+			notification.success(_("Successfully checked out branch to working directory"));
+			action_interface.refresh();
+		}
+
+		return retval;
 	}
 
 	public void activate()
 	{
-		var repo = application.repository;
-		Commit commit;
-
-		try
-		{
-			commit = reference.resolve().lookup() as Gitg.Commit;
-		}
-		catch (Error e)
-		{
-			action_interface.application.show_infobar(_("Failed to lookup reference"),
-			                                          e.message,
-			                                          Gtk.MessageType.ERROR);
-			return;
-		}
-
-		try
-		{
-			var opts = new Ggit.CheckoutOptions();
-			opts.set_strategy(Ggit.CheckoutStrategy.SAFE);
-
-			repo.checkout_tree(commit.get_tree(), opts);
-		}
-		catch (Error e)
-		{
-			action_interface.application.show_infobar(_("Failed to checkout branch"),
-			                                          e.message,
-			                                          Gtk.MessageType.ERROR);
-
-			return;
-		}
-
-		try
-		{
-			application.repository.set_head(reference.get_name());
-		} catch {}
-
-		action_interface.refresh();
+		checkout.begin((obj, res) => {
+			checkout.end(res);
+		});
 	}
 }
 
