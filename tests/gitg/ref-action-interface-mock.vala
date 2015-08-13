@@ -28,6 +28,11 @@ class Gitg.Test.RefActionInterface : Object, GitgExt.RefActionInterface
 		Object(application: application);
 	}
 
+	public Gee.List<Gitg.Ref> references
+	{
+		owned get { return new Gee.LinkedList<Gitg.Ref>(); }
+	}
+
 	public void add_ref(Gitg.Ref reference)
 	{
 
