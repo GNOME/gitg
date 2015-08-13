@@ -53,6 +53,13 @@ public interface Application : Object
 	public abstract Gee.Map<string, string> environment { owned get; }
 
 	/**
+	 * Get the committer signature and verify that both its name and
+	 * e-mail are set. If not, the application will show an approppriate
+	 * error message and return null.
+	 */
+	public abstract Ggit.Signature? get_verified_committer();
+
+	/**
 	 * Get the notifications manager for the application.
 	 */
 	public abstract Notifications notifications { owned get; }

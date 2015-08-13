@@ -920,6 +920,54 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		owned get { return d_environment; }
 	}
 
+	public Ggit.Signature? get_verified_committer()
+	{
+		string? user = null;
+		string? email = null;
+		Ggit.Signature? committer = null;
+
+		try
+		{
+			committer = repository.get_signature_with_environment(environment, "COMMITTER");
+
+			user = committer.get_name();
+			email = committer.get_email();
+
+			if (user == "")
+			{
+				user = null;
+			}
+
+			if (email == "")
+			{
+				email = null;
+			}
+		} catch {}
+
+		if (user == null || email == null)
+		{
+			string secmsg;
+
+			if (user == null && email == null)
+			{
+				secmsg = _("Your user name and email are not configured yet. Please go to the user configuration and provide your name and email.");
+			}
+			else if (user == null)
+			{
+				secmsg = _("Your user name is not configured yet. Please go to the user configuration and provide your name.");
+			}
+			else
+			{
+				secmsg = _("Your email is not configured yet. Please go to the user configuration and provide your email.");
+			}
+
+			show_infobar(_("Missing author details"), secmsg, Gtk.MessageType.ERROR);
+			return null;
+		}
+
+		return committer;
+	}
+
 	public bool busy
 	{
 		get { return d_busy; }

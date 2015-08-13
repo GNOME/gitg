@@ -1241,54 +1241,23 @@ namespace GitgCommit
 
 		private void on_commit_clicked()
 		{
-			string? user = null;
-			string? email = null;
-			Ggit.Signature? committer = null;
-			Ggit.Signature? author = null;
+			Ggit.Signature? committer;
+			Ggit.Signature author;
+
+			committer = application.get_verified_committer();
+
+			if (committer == null)
+			{
+				return;
+			}
 
 			try
 			{
-				committer = get_signature("COMMITTER");
-				author = get_signature("AUTHOR");
-
-				user = committer.get_name();
-				email = committer.get_email();
-
-				if (user == "")
-				{
-					user = null;
-				}
-
-				if (email == "")
-				{
-					email = null;
-				}
+				author = application.repository.get_signature_with_environment(application.environment, "AUTHOR");
 			}
-			catch {}
-
-			if (user == null || email == null)
+			catch
 			{
-				string secmsg;
-
-				if (user == null && email == null)
-				{
-					secmsg = _("Your user name and email are not configured yet. Please go to the user configuration and provide your name and email.");
-				}
-				else if (user == null)
-				{
-					secmsg = _("Your user name is not configured yet. Please go to the user configuration and provide your name.");
-				}
-				else
-				{
-					secmsg = _("Your email is not configured yet. Please go to the user configuration and provide your email.");
-				}
-
-				// TODO: better to show user info dialog directly or something
-				application.show_infobar(_("Failed to pass pre-commit"),
-				                         secmsg,
-				                         Gtk.MessageType.ERROR);
-
-				return;
+				author = committer;
 			}
 
 			if (d_main.skip_hooks)
