@@ -324,6 +324,27 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 	}
 
+	protected void checkout_branch(string name)
+	{
+		try
+		{
+			var branch = d_repository.lookup_reference_dwim(name) as Gitg.Branch;
+			var commit = branch.resolve().lookup() as Ggit.Commit;
+			var tree = commit.get_tree();
+
+			var opts = new Ggit.CheckoutOptions();
+			opts.set_strategy(Ggit.CheckoutStrategy.SAFE);
+
+			d_repository.checkout_tree(tree, opts);
+			d_repository.set_head(branch.get_name());
+		}
+		catch (Error e)
+		{
+			assert_no_error(e);
+			return;
+		}
+	}
+
 	protected override void set_up()
 	{
 		string wd;
