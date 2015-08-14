@@ -55,6 +55,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/commit/gitg-commit-submodule-history-view.vala	\
 	gitg/commit/gitg-commit-submodule-info.vala		\
 	gitg/commit/gitg-commit.vala				\
+	gitg/gitg-action-support.vala				\
 	gitg/gitg-animated-paned.vala				\
 	gitg/gitg-application.vala				\
 	gitg/gitg-author-details-dialog.vala			\

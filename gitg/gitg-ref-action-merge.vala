@@ -40,6 +40,7 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 	private Gitg.Ref[]? d_local_sources;
 	private RemoteSource[]? d_remote_sources;
 	private Gitg.Ref[]? d_tag_sources;
+	private ActionSupport d_support;
 
 	public RefActionMerge(GitgExt.Application        application,
 	                      GitgExt.RefActionInterface action_interface,
@@ -48,6 +49,8 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		Object(application:      application,
 		       action_interface: action_interface,
 		       reference:        reference);
+
+		d_support = new ActionSupport(application, action_interface);
 	}
 
 	public string id
@@ -108,198 +111,20 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		return index;
 	}
 
-	private async bool working_directory_dirty()
+	private void write_merge_state_files(Ggit.Index index, Gitg.Ref source)
 	{
-		var options = new Ggit.StatusOptions(0, Ggit.StatusShow.WORKDIR_ONLY, null);
-		var is_dirty = false;
-
-		yield Async.thread_try(() => {
-			application.repository.file_status_foreach(options, (path, flags) => {
-				is_dirty = true;
-				return -1;
-			});
-		});
-
-		return is_dirty;
-	}
-
-	private async bool save_stash(SimpleNotification notification, Gitg.Ref? head)
-	{
-		var committer = application.get_verified_committer();
-
-		if (committer == null)
-		{
-			return false;
-		}
-
-		try
-		{
-			yield Async.thread(() => {
-				// Try to stash changes
-				string message;
-
-				if (head != null)
-				{
-					var headname = head.parsed_name.shortname;
-
-					try
-					{
-						var head_commit = head.resolve().lookup() as Ggit.Commit;
-						var shortid = head_commit.get_id().to_string()[0:6];
-						var subject = head_commit.get_subject();
-
-						message = @"WIP on $(headname): $(shortid) $(subject)";
-					}
-					catch
-					{
-						message = @"WIP on $(headname)";
-					}
-				}
-				else
-				{
-					message = "WIP on HEAD";
-				}
-
-				application.repository.save_stash(committer, message, Ggit.StashFlags.DEFAULT);
-			});
-		}
-		catch (Error err)
-		{
-			notification.error(_("Failed to stash changes: %s").printf(err.message));
-			return false;
-		}
-
-		return true;
-	}
-
-	private bool reference_is_head(ref Gitg.Ref? head)
-	{
-		var branch = reference as Ggit.Branch;
-		head = null;
-
-		if (branch == null)
-		{
-			return false;
-		}
-
-		try
-		{
-			if (!branch.is_head())
-			{
-				return false;
-			}
-
-			head = application.repository.lookup_reference("HEAD");
-		} catch {}
-
-		return head != null;
-	}
-
-	private async bool stash_if_needed(SimpleNotification notification, Gitg.Ref head)
-	{
-		// Offer to stash if there are any local changes
-		if ((yield working_directory_dirty()))
-		{
-			var q = new GitgExt.UserQuery.full(_("Unstaged changes"),
-			                                   _("You appear to have unstaged changes in your working directory. Would you like to stash the changes before the checkout?"),
-			                                   Gtk.MessageType.QUESTION,
-			                                   _("Cancel"), Gtk.ResponseType.CANCEL,
-			                                   _("Stash changes"), Gtk.ResponseType.OK);
-
-			if ((yield application.user_query_async(q)) != Gtk.ResponseType.OK)
-			{
-				notification.error(_("Merge failed with conflicts"));
-				return false;
-			}
-
-			if (!(yield save_stash(notification, head)))
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	private async bool checkout_conflicts(SimpleNotification notification, Ggit.Index index, Gitg.Ref source)
-	{
-		var ours_name = reference.parsed_name.shortname;
-		var theirs_name = source.parsed_name.shortname;
-
-		notification.message = _("Merge has conflicts");
-
-		Gitg.Ref? head = null;
-		var ishead = reference_is_head(ref head);
-
-		string message;
-
-		if (ishead)
-		{
-			message = _("The merge of %s into %s has caused conflicts, would you like to checkout branch %s with the merge to your working directory to resolve the conflicts?").printf(@"'$theirs_name'", @"'$ours_name'", @"'$ours_name'");
-		}
-		else
-		{
-			message = _("The merge of %s into %s has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?").printf(@"'$theirs_name'", @"'$ours_name'");
-		}
-
-		var q = new GitgExt.UserQuery.full(_("Merge has conflicts"),
-		                                   message,
-		                                   Gtk.MessageType.QUESTION,
-		                                   _("Cancel"), Gtk.ResponseType.CANCEL,
-		                                   _("Checkout"), Gtk.ResponseType.OK);
-
-		if ((yield application.user_query_async(q)) != Gtk.ResponseType.OK)
-		{
-			notification.error(_("Merge failed with conflicts"));
-			return false;
-		}
-
-		if (!(yield stash_if_needed(notification, head)))
-		{
-			return false;
-		}
-
-		if (!ishead)
-		{
-			// Perform checkout of the local branch first
-			var checkout = new RefActionCheckout(application, action_interface, reference);
-
-			if (!(yield checkout.checkout()))
-			{
-				notification.error(_("Merge failed with conflicts"));
-				return false;
-			}
-		}
-
-		// Finally, checkout the conflicted index
-		try
-		{
-			yield Async.thread(() => {
-				var opts = new Ggit.CheckoutOptions();
-				opts.set_strategy(Ggit.CheckoutStrategy.SAFE);
-				application.repository.checkout_index(index, opts);
-			});
-		}
-		catch (Error err)
-		{
-			notification.error(_("Failed to checkout conflicts: %s").printf(err.message));
-			return false;
-		}
-
-		// Write the merge state files
 		var wd = application.repository.get_location().get_path();
+		var theirs_name = source.parsed_name.shortname;
 
 		try
 		{
 			var dest_oid = reference.resolve().get_target();
-
 			FileUtils.set_contents(Path.build_filename(wd, "ORIG_HEAD"), "%s\n".printf(dest_oid.to_string()));
 		} catch {}
 
 		try
 		{
 			var source_oid = source.resolve().get_target();
-
 			FileUtils.set_contents(Path.build_filename(wd, "MERGE_HEAD"), "%s\n".printf(source_oid.to_string()));
 		} catch {}
 
@@ -340,6 +165,47 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 			FileUtils.set_contents(Path.build_filename(wd, "MERGE_MSG"), msg);
 		} catch {}
+	}
+
+	private async bool checkout_conflicts(SimpleNotification notification, Ggit.Index index, Gitg.Ref source)
+	{
+		var ours_name = reference.parsed_name.shortname;
+		var theirs_name = source.parsed_name.shortname;
+
+		notification.message = _("Merge has conflicts");
+
+		Gitg.Ref? head = null;
+		var ishead = d_support.reference_is_head(reference, ref head);
+
+		string message;
+
+		if (ishead)
+		{
+			message = _("The merge of %s into %s has caused conflicts, would you like to checkout branch %s with the merge to your working directory to resolve the conflicts?").printf(@"'$theirs_name'", @"'$ours_name'", @"'$ours_name'");
+		}
+		else
+		{
+			message = _("The merge of %s into %s has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?").printf(@"'$theirs_name'", @"'$ours_name'");
+		}
+
+		var q = new GitgExt.UserQuery.full(_("Merge has conflicts"),
+		                                   message,
+		                                   Gtk.MessageType.QUESTION,
+		                                   _("Cancel"), Gtk.ResponseType.CANCEL,
+		                                   _("Checkout"), Gtk.ResponseType.OK);
+
+		if ((yield application.user_query_async(q)) != Gtk.ResponseType.OK)
+		{
+			notification.error(_("Merge failed with conflicts"));
+			return false;
+		}
+
+		if (!(yield d_support.checkout_conflicts(notification, reference, index, source, head)))
+		{
+			return false;
+		}
+
+		write_merge_state_files(index, source);
 
 		notification.success(_("Finished merge with conflicts in working directory"));
 		return true;
@@ -411,14 +277,14 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		var stage = application.repository.stage;
 
 		Gitg.Ref? head = null;
-		var ishead = reference_is_head(ref head);
+		var ishead = d_support.reference_is_head(reference, ref head);
 
 		Ggit.OId? oid = null;
 		Ggit.Tree? head_tree = null;
 
 		if (ishead)
 		{
-			if (!(yield stash_if_needed(notification, head)))
+			if (!(yield d_support.stash_if_needed(notification, head)))
 			{
 				return null;
 			}
