@@ -60,7 +60,7 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 
 	public string display_name
 	{
-		owned get { return _("Create Patch"); }
+		owned get { return _("Create patch"); }
 	}
 
 	public string description
