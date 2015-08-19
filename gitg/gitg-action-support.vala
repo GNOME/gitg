@@ -35,7 +35,9 @@ public class ActionSupport : Object
 
 	public async bool working_directory_dirty()
 	{
-		var options = new Ggit.StatusOptions(0, Ggit.StatusShow.WORKDIR_ONLY, null);
+		var options = new Ggit.StatusOptions(Ggit.StatusOption.EXCLUDE_SUBMODULES,
+		                                     Ggit.StatusShow.WORKDIR_ONLY,
+		                                     null);
 		var is_dirty = false;
 
 		yield Async.thread_try(() => {
@@ -133,7 +135,7 @@ public class ActionSupport : Object
 
 			if ((yield application.user_query_async(q)) != Gtk.ResponseType.OK)
 			{
-				notification.error(_("Merge failed with conflicts"));
+				notification.error(_("Failed with conflicts"));
 				return false;
 			}
 
@@ -146,7 +148,7 @@ public class ActionSupport : Object
 		return true;
 	}
 
-	public async bool checkout_conflicts(SimpleNotification notification, Gitg.Ref reference, Ggit.Index index, Gitg.Ref source, Gitg.Ref? head)
+	public async bool checkout_conflicts(SimpleNotification notification, Gitg.Ref reference, Ggit.Index index, Gitg.Ref? head)
 	{
 		if (!(yield stash_if_needed(notification, head)))
 		{
@@ -181,6 +183,103 @@ public class ActionSupport : Object
 		}
 
 		return true;
+	}
+
+	public async Ggit.OId? commit_index(SimpleNotification notification,
+	                                    Gitg.Ref           reference,
+	                                    Ggit.Index         index,
+	                                    owned Ggit.OId[]?  parents,
+	                                    Ggit.Signature?    author,
+	                                    string             message)
+	{
+		var committer = application.get_verified_committer();
+
+		if (committer == null)
+		{
+			notification.error(_("Failed to obtain author details"));
+			return null;
+		}
+
+		if (author == null)
+		{
+			author = committer;
+		}
+
+		var stage = application.repository.stage;
+
+		Gitg.Ref? head = null;
+		var ishead = reference_is_head(reference, ref head);
+
+		Ggit.OId? oid = null;
+		Ggit.Tree? head_tree = null;
+		Gitg.Commit? commit = null;
+
+		try
+		{
+			commit = reference.lookup() as Gitg.Commit;
+		}
+		catch (Error e)
+		{
+			notification.error(_("Failed to lookup commit: %s").printf(e.message));
+			return null;
+		}
+
+		if (ishead)
+		{
+			if (!(yield stash_if_needed(notification, head)))
+			{
+				return null;
+			}
+
+			head_tree = commit.get_tree();
+		}
+
+		if (parents == null)
+		{
+			parents = new Ggit.OId[] { commit.get_id() };
+		}
+
+		try
+		{
+			// TODO: not all hooks are being executed yet
+			oid = yield stage.commit_index(index,
+			                               ishead ? head : reference,
+			                               message,
+			                               author,
+			                               committer,
+			                               parents,
+			                               StageCommitOptions.NONE);
+		}
+		catch (Error e)
+		{
+			notification.error(_("Failed to create commit: %s").printf(e.message));
+			return null;
+		}
+
+		if (ishead)
+		{
+			try
+			{
+				yield Async.thread(() => {
+					var opts = new Ggit.CheckoutOptions();
+
+					opts.set_strategy(Ggit.CheckoutStrategy.SAFE);
+					opts.set_baseline(head_tree);
+
+					var newcommit = application.repository.lookup<Ggit.Commit>(oid);
+					var newtree = newcommit.get_tree();
+
+					application.repository.checkout_tree(newtree, opts);
+				});
+			}
+			catch (Error e)
+			{
+				notification.error(_("Failed to checkout index: %s").printf(e.message));
+				return null;
+			}
+		}
+
+		return oid;
 	}
 }
 

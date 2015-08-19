@@ -24,7 +24,8 @@ class Gitg.Test.Runner
 		var m = new Gitg.Test.Main(args);
 
 		m.add(new CheckoutRef(),
-		      new MergeRef());
+		      new MergeRef(),
+		      new CherryPickCommit());
 
 		m.run();
 	}

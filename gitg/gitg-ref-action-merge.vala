@@ -200,7 +200,7 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 			return false;
 		}
 
-		if (!(yield d_support.checkout_conflicts(notification, reference, index, source, head)))
+		if (!(yield d_support.checkout_conflicts(notification, reference, index, head)))
 		{
 			return false;
 		}
@@ -255,14 +255,6 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 			return null;
 		}
 
-		var committer = application.get_verified_committer();
-
-		if (committer == null)
-		{
-			notification.error(_("Failed to obtain author details"));
-			return null;
-		}
-
 		string msg;
 
 		if (source.parsed_name.rtype == RefType.REMOTE)
@@ -274,73 +266,18 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 			msg = @"Merge branch '$theirs_name'";
 		}
 
-		var stage = application.repository.stage;
+		var oid = yield d_support.commit_index(notification,
+		                                       reference,
+		                                       index,
+		                                       new Ggit.OId[] { ours.get_id(), theirs.get_id() },
+		                                       null,
+		                                       msg);
 
-		Gitg.Ref? head = null;
-		var ishead = d_support.reference_is_head(reference, ref head);
-
-		Ggit.OId? oid = null;
-		Ggit.Tree? head_tree = null;
-
-		if (ishead)
+		if (oid != null)
 		{
-			if (!(yield d_support.stash_if_needed(notification, head)))
-			{
-				return null;
-			}
-
-			try
-			{
-				head_tree = (reference.lookup() as Ggit.Commit).get_tree();
-			}
-			catch (Error e)
-			{
-				notification.error(_("Failed to obtain HEAD tree: %s").printf(e.message));
-				return null;
-			}
+			notification.success(_("Successfully merged %s into %s").printf(@"'$theirs_name'", @"'$ours_name'"));
 		}
 
-		try
-		{
-			// TODO: not all hooks are being executed yet
-			oid = yield stage.commit_index(index,
-			                               ishead ? head : reference,
-			                               msg,
-			                               committer,
-			                               committer,
-			                               new Ggit.OId[] { ours.get_id(), theirs.get_id() },
-			                               StageCommitOptions.NONE);
-		}
-		catch (Error e)
-		{
-			notification.error(_("Failed to create commit: %s").printf(e.message));
-			return null;
-		}
-
-		if (ishead)
-		{
-			try
-			{
-				yield Async.thread(() => {
-					var opts = new Ggit.CheckoutOptions();
-
-					opts.set_strategy(Ggit.CheckoutStrategy.SAFE);
-					opts.set_baseline(head_tree);
-
-					var commit = application.repository.lookup<Ggit.Commit>(oid);
-					var tree = commit.get_tree();
-
-					application.repository.checkout_tree(tree, opts);
-				});
-			}
-			catch (Error e)
-			{
-				notification.error(_("Failed to checkout index: %s").printf(e.message));
-				return null;
-			}
-		}
-
-		notification.success(_("Successfully merged %s into %s").printf(@"'$theirs_name'", @"'$ours_name'"));
 		return oid;
 	}
 

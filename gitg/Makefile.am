@@ -63,6 +63,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-commit-action-create-branch.vala		\
 	gitg/gitg-commit-action-create-patch.vala		\
 	gitg/gitg-commit-action-create-tag.vala			\
+	gitg/gitg-commit-action-cherry-pick.vala		\
 	gitg/gitg-create-branch-dialog.vala			\
 	gitg/gitg-create-tag-dialog.vala			\
 	gitg/gitg-dash-view.vala				\

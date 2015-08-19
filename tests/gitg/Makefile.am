@@ -49,12 +49,14 @@ TESTS_GITG_TEST_GITG_COPIED_SOURCES = 			\
 	tests/gitg/support-repository.vala		\
 	tests/gitg/gitg-ref-action-checkout.vala	\
 	tests/gitg/gitg-ref-action-merge.vala		\
+	tests/gitg/gitg-commit-action-cherry-pick.vala	\
 	tests/gitg/gitg-action-support.vala
 
 tests_gitg_test_gitg_SOURCES =				\
 	tests/gitg/main.vala				\
 	tests/gitg/test-checkout-ref.vala		\
 	tests/gitg/test-merge-ref.vala			\
+	tests/gitg/test-cherry-pick-commit.vala		\
 	tests/gitg/simple-notification-mock.vala	\
 	tests/gitg/application-mock.vala		\
 	tests/gitg/notifications-mock.vala		\
