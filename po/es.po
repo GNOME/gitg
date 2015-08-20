@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-08-19 17:42+0000\n"
-"PO-Revision-Date: 2015-08-19 20:43+0200\n"
+"POT-Creation-Date: 2015-08-20 06:08+0000\n"
+"PO-Revision-Date: 2015-08-20 11:22+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -523,13 +523,11 @@ msgstr[1] "Eliminar archivos"
 
 #: ../gitg/commit/gitg-commit.vala:1581
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the tag %s?"
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "¿Está seguro de que quiere eliminar permanentemente el archivo «%s»?"
 
 #: ../gitg/commit/gitg-commit.vala:1592
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the tag %s?"
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr ""
 "¿Está seguro de que quiere eliminar permanentemente los archivos «%s» y «%s»?"
@@ -558,12 +556,10 @@ msgstr "_Editar archivo"
 
 #: ../gitg/gitg-action-support.vala:93
 #, c-format
-#| msgid "Failed to discard changes"
 msgid "Failed to stash changes: %s"
 msgstr "Falló al descartar los cambios: %s"
 
 #: ../gitg/gitg-action-support.vala:128
-#| msgid "_Unstage changes"
 msgid "Unstaged changes"
 msgstr "Cambios sin reservar"
 
@@ -572,6 +568,8 @@ msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
 msgstr ""
+"Al parecer tiene cambios sin guardar en su carpeta de trabajo. ¿Quiere "
+"guardarlos antes de la descarga?"
 
 #: ../gitg/gitg-action-support.vala:131 ../gitg/gitg-ref-action-delete.vala:88
 #: ../gitg/gitg-ref-action-merge.vala:194
@@ -581,7 +579,6 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: ../gitg/gitg-action-support.vala:132
-#| msgid "_Stage changes"
 msgid "Stash changes"
 msgstr "Reservar los cambios"
 
@@ -590,13 +587,11 @@ msgid "Merge failed with conflicts"
 msgstr "La mezcla falló con conflictos"
 
 #: ../gitg/gitg-action-support.vala:163
-#| msgid "Failed to commit"
 msgid "Failed with conflicts"
 msgstr "Falló con conflictos"
 
 #: ../gitg/gitg-action-support.vala:179
 #, c-format
-#| msgid "Failed to checkout branch"
 msgid "Failed to checkout conflicts: %s"
 msgstr "Falló al descargar los conflictos: %s"
 
@@ -641,19 +636,17 @@ msgid "Author Details"
 msgstr "Detalles del autor"
 
 #: ../gitg/gitg-author-details-dialog.vala:86
-#, fuzzy
 #| msgid "Enter details to set as default for all repositories:"
 msgid "Enter default details used for all repositories:"
 msgstr ""
-"Introduzca los detalles que establecer como predeterminados para todos los "
-"repositorios:"
+"Introduzca los detalles predeterminados usados para todos los repositorios:"
 
 #. Translators: %s is the repository name
 #: ../gitg/gitg-author-details-dialog.vala:108
-#, fuzzy, c-format
+#, c-format
 #| msgid "Enter details for repository '%s':"
 msgid "Override global details for repository '%s':"
-msgstr "Introduzca los detalles para el repositorio «%s»:"
+msgstr "Omitir los detalles para el repositorio «%s»:"
 
 #: ../gitg/gitg-author-details-dialog.vala:220
 msgid "Failed to set Git user config."
@@ -664,7 +657,6 @@ msgid "The URL introduced is not supported"
 msgstr "El URL introducido no está soportado"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:48
-#| msgid "Create Branch"
 msgid "Create branch"
 msgstr "Crear rama"
 
@@ -677,7 +669,6 @@ msgid "Failed to create branch"
 msgstr "Falló al crear la rama"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:63
-#| msgid "Create Patch"
 msgid "Create patch"
 msgstr "Crear parche"
 
@@ -698,7 +689,6 @@ msgid "Failed to create patch"
 msgstr "Falló al crear el parche"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:48
-#| msgid "Create Tag"
 msgid "Create tag"
 msgstr "Crear etiqueta"
 
@@ -727,12 +717,13 @@ msgstr "_Eliminar"
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
+"También puede %sanalizar su carpeta personal%s en busca de repositorios git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: ../gitg/gitg-dash-view.vala:250
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
-msgstr ""
+msgstr "Mientras tanto, puede querer %sconfigurar su perfil de git%s."
 
 #: ../gitg/gitg-dash-view.vala:395
 msgid "Failed to clone repository"
@@ -753,6 +744,8 @@ msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
+"La ubicación <i>%s</i> no parece ser un repositorio git válido. ¿Quiere "
+"inicializar un repositorio git nuevo en esta ubicación?"
 
 #: ../gitg/gitg-dash-view.vala:468
 msgid "Create repository"
@@ -765,7 +758,7 @@ msgstr "Falló al crear el repositorio"
 #: ../gitg/gitg-dash-view.vala:554
 #, c-format
 msgid "Scanning for repositories in %s"
-msgstr ""
+msgstr "Buscando repositorios en %s"
 
 #: ../gitg/gitg-dash-view.vala:595
 msgid "Add Repository"
@@ -776,10 +769,9 @@ msgid "_Add"
 msgstr "_Añadir"
 
 #: ../gitg/gitg-dash-view.vala:601
-#, fuzzy
 #| msgid "Do not try to load a repository from the current working directory"
 msgid "_Scan for all git repositories from this directory"
-msgstr "No intentar cargar un repositorio desde la carpeta actual"
+msgstr "_Buscar todos los repositorios git en esta carpeta"
 
 #: ../gitg/gitg-ref-action-checkout.vala:48
 #: ../gitg/gitg-ref-action-merge.vala:195
@@ -792,31 +784,30 @@ msgstr "Descargar la referencia seleccionada"
 
 #: ../gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-#| msgid "Checkout"
 msgid "Checkout %s"
 msgstr "Descargar %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:88
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to lookup tag"
 msgid "Failed to lookup commit: %s"
-msgstr "Falló al buscar la etiqueta"
+msgstr "Falló al buscar el «commit»: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:101
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to checkout branch"
 msgid "Failed to checkout branch: %s"
-msgstr "Falló al descargar la rama"
+msgstr "Falló al descargar la rama: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:111
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to delete tag %s"
 msgid "Failed to update HEAD: %s"
-msgstr "Falló al eliminar la etiqueta %s"
+msgstr "Falló al actualizar HEAD: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
-msgstr ""
+msgstr "Rama descarga correctamente en la carpeta de trabajo"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -935,20 +926,20 @@ msgstr "Obtenidas de %s: %s"
 #: ../gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
-msgstr ""
+msgstr "Mezclar en %s"
 
 #. TODO
 #: ../gitg/gitg-ref-action-merge.vala:69
-#, fuzzy, c-format
+#, c-format
 #| msgid "Merging %s branch <%s> onto %s branch <%s>"
 msgid "Merge another branch into branch %s"
-msgstr "Mezclando la rama %s <%s> en la rama %s <%s>"
+msgstr "Mezclar otra rama en la rama %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:106
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to commit"
 msgid "Failed to merge commits: %s"
-msgstr "Falló al hacer el «commit»"
+msgstr "Falló al mezclar los «commit»: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:175
 #: ../gitg/gitg-ref-action-merge.vala:191
@@ -961,6 +952,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
+"La mezcla de %s en %s ha provocado conflictos. ¿Quiere descargar la rama %s "
+"con la mezcla en su carpeta de trabajo para resolver los conflictos?"
 
 #: ../gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -968,10 +961,12 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
 "merge to your working directory to resolve the conflicts?"
 msgstr ""
+"La mezcla de %s en %s ha provocado conflictos. ¿Quiere descargar la mezcla "
+"en su carpeta de trabajo para resolver los conflictos?"
 
 #: ../gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
-msgstr ""
+msgstr "La mezcla ha terminado con conflictos en la carpeta de trabajo"
 
 #: ../gitg/gitg-ref-action-merge.vala:222
 #, c-format
@@ -979,49 +974,47 @@ msgid "Merge %s into %s"
 msgstr "Mezclar %s en %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:231
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to lookup tag"
 msgid "Failed to lookup our commit: %s"
-msgstr "Falló al buscar la etiqueta"
+msgstr "Falló al buscar el «commit»: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:241
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to lookup tag"
 msgid "Failed to lookup their commit: %s"
-msgstr "Falló al buscar la etiqueta"
+msgstr "Falló al buscar su «commit»: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:262
-#, fuzzy
 #| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain author details"
-msgstr "Falló al reservar el archivo «%s»"
+msgstr "Falló al obtener los detalles del autor"
 
 #: ../gitg/gitg-ref-action-merge.vala:298
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain HEAD tree: %s"
-msgstr "Falló al reservar el archivo «%s»"
+msgstr "Falló al obtener el árbol HEAD: «%s»"
 
 #: ../gitg/gitg-ref-action-merge.vala:316
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to create tag"
 msgid "Failed to create commit: %s"
-msgstr "Falló al crear la etiqueta"
+msgstr "Falló al crear el «commit» :%s"
 
 #: ../gitg/gitg-ref-action-merge.vala:338
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to checkout branch"
 msgid "Failed to checkout index: %s"
-msgstr "Falló al descargar la rama"
+msgstr "Falló al descargar el índice: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:343
 #, c-format
 msgid "Successfully merged %s into %s"
-msgstr ""
+msgstr "Mezcla de %s en %s correcta"
 
 #: ../gitg/gitg-ref-action-merge.vala:383
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Merge %s into branch %s"
 msgstr "Mezclar %s en la rama %s"
 
@@ -1105,7 +1098,6 @@ msgstr ""
 "usuario y proporcione su correo-e."
 
 #: ../gitg/gitg-window.vala:986
-#| msgid "Author Details"
 msgid "Missing author details"
 msgstr "Faltan los detalles del autor"
 
@@ -1292,7 +1284,7 @@ msgstr "%s en %s"
 
 #: ../libgitg/gitg-repository-list-box.vala:423
 msgid "Cloning..."
-msgstr ""
+msgstr "Clonando…"
 
 #: ../libgitg/gitg-stage.vala:334
 #, c-format
@@ -1322,12 +1314,9 @@ msgid "_Save"
 msgstr "_Guardar"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-#, fuzzy
 #| msgid "Enter details to set as default for all repositories:"
 msgid "Default details used for all repositories"
-msgstr ""
-"Introduzca los detalles que establecer como predeterminados para todos los "
-"repositorios:"
+msgstr "Detalles predeterminados usados para todos los repositorios"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
 msgid "E-mail:"
@@ -1452,6 +1441,8 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
+"Todavía no se han añadido repositorios. Para empezar, puede añadir un "
+"repositorio existente o clonar uno nuevo."
 
 #: ../gitg/resources/ui/gitg-dash-view.ui.h:2
 msgid "_Add repository"
@@ -1527,7 +1518,7 @@ msgstr "Referencias"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
 msgid "Sort references in the sidebar by latest activity"
-msgstr ""
+msgstr "Ordenar las referencias en la barra lateral por su última actividad"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Commits"
