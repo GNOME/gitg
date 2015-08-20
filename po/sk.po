@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-08-02 05:42+0000\n"
-"PO-Revision-Date: 2015-08-02 11:45+0200\n"
+"POT-Creation-Date: 2015-08-20 06:08+0000\n"
+"PO-Revision-Date: 2015-08-20 15:26+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54 ../gitg/resources/ui/gitg-window.ui.h:1
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:58 ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
 
@@ -59,14 +59,22 @@ msgid "Enable the use of gravatar to display user avatars."
 msgstr "Povoľte pre použitie služby gravatar na zobrazenie podobizní používateľov."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid "Enable Monitoring"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10 ../gitg/resources/ui/gitg-preferences-interface.ui.h:10
+msgid "Automatically update when external changes to .git are detected"
+msgstr "Automaticky aktualizovať, keď sa zistia externé zmeny v súbore .git"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "When to Collapse Inactive Lanes"
 msgstr "Kedy zbaliť neaktívne cesty"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid "Setting that indicates when an inactive lane should be collapsed. Valid values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr "Nastavenie, ktoré určuje, kedy sa majú zbaliť neaktívne cesty. Platné hodnoty sú 0 - 4, kde 0 znamená „skôr“ a 4 znamená „neskôr“."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show activity. Enabling this can provide a cleaner history view when there is "
 "a lot of parallel development. See collapse-inactive-lanes to control when lanes should be collapsed."
@@ -74,342 +82,435 @@ msgstr ""
 "Nastavenie, ktoré určuje, či sa majú zbaliť cesty histórie, ktoré nemajú známky aktivity. Zapnutím môžete sprehľadniť zobrazenie histórie, ak "
 "obsahuje veľa paralelného vývoja. Viď premennú collapse-inactive-lanes na nastavenie, kedy majú byť zbalené."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid "Show History in Topological Order"
 msgstr "Zobraziť históriu v topologickom usporiadaní"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
 msgid "Setting that indicates whether to show the history in topological order."
 msgstr "Nastavenie, ktoré určuje, či sa má história zobrazovať v topologickom usporiadaní."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid "Show Stashed Changes"
 msgstr "Zobraziť skryté zmeny"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
 msgid "Setting that indicates whether to show items for the stash in the history."
 msgstr "Nastavenie, ktoré určuje, či sa majú v histórii zobrazovať položky na skrytie do skrýše."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
 msgid "Show Staged Changes"
 msgstr "Zobraziť pripravené zmeny"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
 msgid "Setting that indicates whether to show a virtual item for the currently staged changes in the history."
 msgstr "Nastavenie, ktoré určuje, či sa majú v histórii zobrazovať virtuálne položky pre aktuálne pripravené zmeny."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Show Unstaged Changes"
 msgstr "Zobraziť nepripravené zmeny"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
 msgid "Setting that indicates whether to show a virtual item for the currently unstaged changes in the history."
 msgstr "Nastavenie, ktoré určuje, či sa majú v histórii zobrazovať virtuálne položky pre aktuálne nepripravené zmeny."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
 msgid "Mainline Head"
 msgstr "Hlava hlavnej línie"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
 msgid "Setting that indicates whether to always preserve a mainline in the history for the current HEAD."
 msgstr "Nastavenie, ktoré určuje, či sa má vždy zachovať hlavná línia v histórii aktuálnej hlavy (HEAD)."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+msgid "Default selection of the history activity"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+msgid "Setting that determines the default selection on startup of the history activity."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+msgid "Reference Sort Order"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+msgid "The order by which references in the history sidebar should be sorted."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
 msgid "Show Right Margin in Commit Message View"
 msgstr "Zobraziť pravý okraj v zobrazení správy začlenenia"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used to easily see where to break the commit message at a particular column."
 msgstr "Zobrazuje indikátor pravého okraja v zobrazení správy začlenenia. Tak ľahko uvidíte, kde je treba zalomiť správu v konkrétnom stĺpci."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
 msgid "Column at Which Right Margin is Shown"
 msgstr "Stĺpec, pri ktorom je zobrazený pravý okraj"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
 msgid "The column at which the right margin is shown if the show-right-margin preference is set to TRUE."
 msgstr "Stĺpec, pri ktorom je zobrazený pravý okraj, ak je hodnota premennej show-right-margin nastavená na TRUE."
 
 # DK: commit by som zjednotil na "začleniť", tak ako mame prelozene v damned lies
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Zobraziť okraj predmetu v zobrazení správy začlenenia"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
 msgid "Highlight the subject text of the commit message when it passes the margin specified by subject-margin-position."
 msgstr "Zvýrazňuje text predmetu správy začlenenia, keď prekročí okraj určený pomocou premennej subject-margin-position."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Stĺpec, pri ktorom je zobrazený okraj predmetu"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
 msgid "The column at which the subject margin is shown if the show-subject-margin preference is set to TRUE."
 msgstr "Stĺpec, pri ktorom je zobrazený okraj predmetu ak je hodnota premennej show-subject-margin nastavená na TRUE."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
 msgid "Enable Spell Checking"
 msgstr "Povoliť kontrolu pravopisu"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:37
 msgid "Setting which determines whether or not spell checking is enabled when writing a commit message."
 msgstr "Nastavenie, ktoré určuje, či sa pri písaní správy začlenenia bude kontrolovať pravopis."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:38
 msgid "Spell Checking Language"
 msgstr "Jazyk kontroly pravopisu"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:39
 msgid "The language to use when spell checking is enabled for writing a commit message."
 msgstr "Jazyk, ktorý sa použije na kontrolu pravopisu počas písania správy začlenenia."
 
 # DK: v inom module je whitespace menny priestor, ale to sa mi tu nehodi vobec
 # PV: white space znamená súhrnný názov pre neviditeľné znaky ako sú tabulátor, medzerník, koniec riadku a pod. Nemyslím si, že toto chceme upravovať.
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
 msgid "Ignore Whitespace Changes"
 msgstr "Ignorovať zmeny pozostávajúce len z neviditeľných znakov"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:41
 msgid "Setting that indicates whether to ignore whitespace changes when showing the diff of a commit."
 msgstr "Nastavenie, ktoré určuje, či sa majú počas zobrazenia rozdielu ignorovať zmeny pozostávajúce len z neviditeľných znakov."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:42
 msgid "Show Changes Inline"
 msgstr "Zobraziť vnorené zmeny"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:37
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:43
 msgid "Setting that indicates whether changes within lines should be shown inline."
 msgstr "Nastavenie, ktoré určuje, či sa zmeny majú zobrazovať vnorené v texte riadku."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:38
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:44
+msgid "Wrap"
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:45
+msgid "Wrap lines."
+msgstr ""
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:46
 msgid "Number of Before/After Context Lines"
 msgstr "Počet predchádzajúcich/nasledujúcich riadkov v kontexte"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:39
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:47
 msgid "Setting that determines how many lines of context (before and after) should be shown when showing the diff of a commit."
 msgstr "Nastavenie, ktoré určuje, koľko riadkov kontextu pridať pred/za v zobrazení rozdielu."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:48
 msgid "Rendered Width of a Tab Character"
 msgstr "Šírka tabulátora"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:41
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:49
 msgid "Setting that determines how much space a tab character should occupy when showing the diff of a commit."
 msgstr "Nastavenie, ktoré určuje, koľko znakov obsadí tabulátor v zobrazení rozdielu začlenenia."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:42
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:50
 msgid ""
 "Setting that determines how many lines of context (before and after) should be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
 "Nastavenie, ktoré určuje, koľko riadkov kontextu pridať pred/za v zobrazení rozdielu pred vykonaním akcie do pripravených / do nepripravených."
 
-#: ../gitg/commit/gitg-commit-dialog.vala:272
+#: ../gitg/commit/gitg-commit-dialog.vala:298
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Nie je možné nastaviť jazyk kontroly pravopisu: %s"
 
+#: ../gitg/commit/gitg-commit-dialog.vala:498 ../gitg/commit/gitg-commit.vala:1064
+msgid "There are no changes to be committed"
+msgstr "Nie sú žiadne zmeny na začlenenie"
+
+#: ../gitg/commit/gitg-commit-dialog.vala:499 ../gitg/commit/gitg-commit.vala:1065
+msgid "Use amend to change the commit message of the previous commit"
+msgstr "Na zmenu správy predchádzajúceho začlenenia použite Pozmeniť"
+
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=746633
-#: ../gitg/commit/gitg-commit.vala:71 ../gitg/preferences/gitg-preferences-commit.vala:119 ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:4
+#: ../gitg/commit/gitg-commit.vala:104
+msgctxt "Activity"
 msgid "Commit"
 msgstr "Začleniť"
 
 # tooltip
-#: ../gitg/commit/gitg-commit.vala:76
+#: ../gitg/commit/gitg-commit.vala:109
 msgid "Create new commits and manage the staging area"
 msgstr "Vytvorí nové začlenenia a spravuje zoznam pripravených"
 
-#: ../gitg/commit/gitg-commit.vala:151
+#: ../gitg/commit/gitg-commit.vala:184
 msgid "_Stage selection"
 msgstr "Výber do _pripravených"
 
-#: ../gitg/commit/gitg-commit.vala:187
+#: ../gitg/commit/gitg-commit.vala:222
 #, c-format
 msgid "Failed to stage the removal of submodule `%s'"
 msgstr "Zlyhala príprava odstránenia podmodulu „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:203
+#: ../gitg/commit/gitg-commit.vala:238
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr "Zlyhalo otvorenie repozitára podmodulu „%s“ počas pokusu o prípravu"
 
-#: ../gitg/commit/gitg-commit.vala:217
+#: ../gitg/commit/gitg-commit.vala:252
 #, c-format
 msgid "Failed to lookup the working directory commit of submodule `%s' while trying to stage"
 msgstr "Zlyhalo vyhľadanie pracovného adresára začlenenia podmodulu „%s“ počas pokusu o prípravu"
 
 # DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
 # PV: Moja chyba, opravené
-#: ../gitg/commit/gitg-commit.vala:230
+#: ../gitg/commit/gitg-commit.vala:265
 #, c-format
 msgid "Failed to stage the submodule `%s'"
 msgstr "Zlyhala príprava podmodulu „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:252
+#: ../gitg/commit/gitg-commit.vala:287
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Zlyhala príprava odstránenia súboru „%s“"
 
 # DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
 # PV: Moja chyba, opravené
-#: ../gitg/commit/gitg-commit.vala:266
+#: ../gitg/commit/gitg-commit.vala:301
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Zlyhala príprava súboru „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:535
+#: ../gitg/commit/gitg-commit.vala:572
 msgid "_Unstage selection"
 msgstr "Výber do _nepripravených"
 
-#: ../gitg/commit/gitg-commit.vala:600
+#: ../gitg/commit/gitg-commit.vala:637
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Nepodarilo sa zrušiť prípravu na odstránenie súboru „%s“"
 
 # DK:toto sa mi nepozdava.malo by tu ist o to, ze text od-pripravy, cize nieco ako vrati do povodneho stavu alebo co.
 # PV: No neviem. Vrátenie do pôvodného stavu je checkout. Stage znamená zaradiť do zoznamu na začlenenie. Unstage by teda mal byť opak.
-#: ../gitg/commit/gitg-commit.vala:601
+#: ../gitg/commit/gitg-commit.vala:638
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Zlyhalo zrušenie prípravy súboru „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:608
+#: ../gitg/commit/gitg-commit.vala:645
 #, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "Zlyhalo zrušenie prípravy odstránenia podmodulu „%s“"
 
 # DK:toto sa mi nepozdava.malo by tu ist o to, ze text od-pripravy, cize nieco ako vrati do povodneho stavu alebo co.
 # PV: No neviem. Vrátenie do pôvodného stavu je checkout. Stage znamená zaradiť do zoznamu na začlenenie. Unstage by teda mal byť opak.
-#: ../gitg/commit/gitg-commit.vala:609
+#: ../gitg/commit/gitg-commit.vala:646
 #, c-format
 msgid "Failed to unstage the submodule `%s'"
 msgstr "Zlyhalo zrušenie prípravy podmodulu „%s“"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:807
+#: ../gitg/commit/gitg-commit.vala:850
 msgid "Staged"
 msgstr "Pripravené"
 
-#: ../gitg/commit/gitg-commit.vala:815
+#: ../gitg/commit/gitg-commit.vala:858
 msgid "No staged files"
 msgstr "Žiadne pripravené súbory"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:831
+#: ../gitg/commit/gitg-commit.vala:881
 msgid "Unstaged"
 msgstr "Nepripravené"
 
-#: ../gitg/commit/gitg-commit.vala:839
+#: ../gitg/commit/gitg-commit.vala:889
 msgid "No unstaged files"
 msgstr "Žiadne nepripravené súbory"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:855
+#: ../gitg/commit/gitg-commit.vala:912
 msgid "Untracked"
 msgstr "Nesledované"
 
-#: ../gitg/commit/gitg-commit.vala:859
+#: ../gitg/commit/gitg-commit.vala:916
 msgid "No untracked files"
 msgstr "Žiadne nesledované súbory"
 
-#: ../gitg/commit/gitg-commit.vala:877
+#: ../gitg/commit/gitg-commit.vala:941
 msgid "Submodule"
 msgstr "Podmodul"
 
-#: ../gitg/commit/gitg-commit.vala:881
+#: ../gitg/commit/gitg-commit.vala:945
 msgid "No dirty submodules"
 msgstr "Žiadne podmoduly v nečistom stave"
 
-#: ../gitg/commit/gitg-commit.vala:993
-msgid "There are no changes to be committed"
-msgstr "Nie sú žiadne zmeny na začlenenie"
-
-#: ../gitg/commit/gitg-commit.vala:994
-msgid "Use amend to change the commit message of the previous commit"
-msgstr "Na zmenu správy predchádzajúceho začlenenia použite Pozmeniť"
-
-#: ../gitg/commit/gitg-commit.vala:1020
+#: ../gitg/commit/gitg-commit.vala:1092
 msgid "Failed to commit"
 msgstr "Začlenenie zlyhalo"
 
-#. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:1036 ../gitg/commit/gitg-commit.vala:1215
+#: ../gitg/commit/gitg-commit.vala:1108
 msgid "Failed to pass pre-commit"
 msgstr "Nepodarilo sa postúpiť k začleneniu"
 
-#: ../gitg/commit/gitg-commit.vala:1203
-msgid "Your user name and email are not configured yet. Please go to the user configuration and provide your name and email."
-msgstr "Nemáte nastavené používateľské meno a e-mail. Prosím nastavte si vaše meno a e-mail v používateľských nastaveniach."
-
-#: ../gitg/commit/gitg-commit.vala:1207
-msgid "Your user name is not configured yet. Please go to the user configuration and provide your name."
-msgstr "Nemáte nastavené používateľské meno. Prosím nastavte si vaše meno v používateľských nastaveniach."
-
-#: ../gitg/commit/gitg-commit.vala:1211
-msgid "Your email is not configured yet. Please go to the user configuration and provide your email."
-msgstr "Nemáte nastavený e-mail. Prosím nastavte si váš e-mail v používateľských nastaveniach."
-
-#: ../gitg/commit/gitg-commit.vala:1270 ../gitg/commit/gitg-commit.vala:1417
+#: ../gitg/commit/gitg-commit.vala:1311 ../gitg/commit/gitg-commit.vala:1461
 msgid "Discard changes"
 msgstr "Zahodiť zmeny"
 
-#: ../gitg/commit/gitg-commit.vala:1271
+#: ../gitg/commit/gitg-commit.vala:1312
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Ste si istí, že chcete natrvalo zahodiť všetky označené zmeny?"
 
-#: ../gitg/commit/gitg-commit.vala:1280 ../gitg/commit/gitg-commit.vala:1443 ../gitg/gitg-commit-action-create-patch.vala:143
-#: ../gitg/gitg-window.vala:468 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2 ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/commit/gitg-commit.vala:1321 ../gitg/commit/gitg-commit.vala:1487 ../gitg/commit/gitg-commit.vala:1602
+#: ../gitg/gitg-commit-action-create-patch.vala:145 ../gitg/gitg-dash-view.vala:467 ../gitg/gitg-dash-view.vala:598
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2 ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2 ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2 ../gitg/resources/ui/gitg-window.ui.h:5
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
-#: ../gitg/commit/gitg-commit.vala:1281 ../gitg/commit/gitg-commit.vala:1444
+#: ../gitg/commit/gitg-commit.vala:1322 ../gitg/commit/gitg-commit.vala:1488
 msgid "Discard"
 msgstr "Zahodiť"
 
-#: ../gitg/commit/gitg-commit.vala:1309
+#: ../gitg/commit/gitg-commit.vala:1351
 msgid "Failed to discard selection"
 msgstr "Nepodarilo sa zahodiť vybraté súbory"
 
-#: ../gitg/commit/gitg-commit.vala:1338
+#: ../gitg/commit/gitg-commit.vala:1381
 msgid "Failed to stage selection"
 msgstr "Príprava vybratých súborov zlyhala"
 
-#: ../gitg/commit/gitg-commit.vala:1342
+#: ../gitg/commit/gitg-commit.vala:1385
 msgid "Failed to unstage selection"
 msgstr "Zrušenie prípravy vybratých súborov zlyhalo"
 
-#: ../gitg/commit/gitg-commit.vala:1401
+#: ../gitg/commit/gitg-commit.vala:1445
 msgid "Failed to discard changes"
 msgstr "Zahodenie zmien zlyhalo"
 
-#: ../gitg/commit/gitg-commit.vala:1422
+#: ../gitg/commit/gitg-commit.vala:1466
 #, c-format
 msgid "Are you sure you want to permanently discard all changes made to the file `%s'?"
 msgstr "Ste si istí, že chcete natrvalo zahodiť všetky zmeny vykonané v súbore „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1433
+#: ../gitg/commit/gitg-commit.vala:1477
 #, c-format
 msgid "Are you sure you want to permanently discard all changes made to the files %s and `%s'?"
 msgstr "Ste si istí, že chcete natrvalo zahodiť zmeny vykonané v súboroch %s a „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1477
+#: ../gitg/commit/gitg-commit.vala:1560
+#, fuzzy
+#| msgid "Failed to delete tag %s"
+msgid "Failed to delete files"
+msgstr "Odstránenie značky %s zlyhalo"
+
+#: ../gitg/commit/gitg-commit.vala:1576
+#, fuzzy
+#| msgid "Delete"
+msgid "Delete file"
+msgid_plural "Delete files"
+msgstr[0] "Odstrániť"
+msgstr[1] "Odstrániť"
+msgstr[2] "Odstrániť"
+
+#: ../gitg/commit/gitg-commit.vala:1581
+#, fuzzy, c-format
+#| msgid "Are you sure that you want to permanently delete the tag %s?"
+msgid "Are you sure you want to permanently delete the file `%s'?"
+msgstr "Ste si istí, že chcete natrvalo odstrániť štítok %s?"
+
+#: ../gitg/commit/gitg-commit.vala:1592
+#, fuzzy, c-format
+#| msgid "Are you sure that you want to permanently delete the tag %s?"
+msgid "Are you sure you want to permanently delete the files %s and `%s'?"
+msgstr "Ste si istí, že chcete natrvalo odstrániť štítok %s?"
+
+#: ../gitg/commit/gitg-commit.vala:1637
 msgid "_Stage changes"
 msgstr "Zmeny do _pripravených"
 
-#: ../gitg/commit/gitg-commit.vala:1487
+#: ../gitg/commit/gitg-commit.vala:1647
 msgid "_Unstage changes"
 msgstr "Zmeny do _nepripravených"
 
-#: ../gitg/commit/gitg-commit.vala:1497
+#: ../gitg/commit/gitg-commit.vala:1657
 msgid "_Discard changes"
 msgstr "Zaho_diť zmeny"
 
-#: ../gitg/commit/gitg-commit.vala:1520
+#: ../gitg/commit/gitg-commit.vala:1667
+#, fuzzy
+#| msgid "Delete"
+msgid "D_elete file"
+msgid_plural "D_elete files"
+msgstr[0] "Odstrániť"
+msgstr[1] "Odstrániť"
+msgstr[2] "Odstrániť"
+
+#: ../gitg/commit/gitg-commit.vala:1690
 msgid "_Edit file"
 msgstr "_Upraviť súbor"
+
+#: ../gitg/gitg-action-support.vala:93
+#, fuzzy, c-format
+#| msgid "Failed to discard changes"
+msgid "Failed to stash changes: %s"
+msgstr "Zahodenie zmien zlyhalo"
+
+#: ../gitg/gitg-action-support.vala:128
+#, fuzzy
+#| msgid "_Unstage changes"
+msgid "Unstaged changes"
+msgstr "Zmeny do _nepripravených"
+
+#: ../gitg/gitg-action-support.vala:129
+msgid "You appear to have unstaged changes in your working directory. Would you like to stash the changes before the checkout?"
+msgstr ""
+
+#: ../gitg/gitg-action-support.vala:131 ../gitg/gitg-ref-action-delete.vala:88 ../gitg/gitg-ref-action-merge.vala:194
+#: ../gitg/resources/ui/gitg-remote-notification.ui.h:1 ../gitg/resources/ui/gitg-simple-notification.ui.h:1
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: ../gitg/gitg-action-support.vala:132
+#, fuzzy
+#| msgid "_Stage changes"
+msgid "Stash changes"
+msgstr "Zmeny do _pripravených"
+
+#: ../gitg/gitg-action-support.vala:136 ../gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr ""
+
+#: ../gitg/gitg-action-support.vala:163
+#, fuzzy
+#| msgid "Failed to commit"
+msgid "Failed with conflicts"
+msgstr "Začlenenie zlyhalo"
+
+# DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
+# PV: Moja chyba, opravené
+#: ../gitg/gitg-action-support.vala:179
+#, fuzzy, c-format
+#| msgid "Failed to fetch from %s: %s"
+msgid "Failed to checkout conflicts: %s"
+msgstr "Zlyhalo získanie z %s: %s"
 
 # cmd desc
 #: ../gitg/gitg-application.vala:56
@@ -436,26 +537,41 @@ msgstr "Pri spustení nenačíta repozitár z aktuálneho pracovného priečinka
 msgid "- Git repository viewer"
 msgstr "- prehliadač Git repozitárov"
 
-#: ../gitg/gitg-application.vala:209
+#: ../gitg/gitg-application.vala:222
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg je prehliadač Git repozitárov pre gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:218
+#: ../gitg/gitg-application.vala:231
 msgid "translator-credits"
 msgstr ""
 "Michal Vanko <mklakakilli@gmail.com>\n"
 "Peter Vágner <pvdeejay@gmail.com>\n"
 "Dušan Kazik <prescott66@gmail.com>"
 
-#: ../gitg/gitg-application.vala:221
+#: ../gitg/gitg-application.vala:234
 msgid "gitg homepage"
 msgstr "Domovská stránka gitg"
 
-#: ../gitg/gitg-author-details-dialog.vala:67
-msgid "Unable to open the .gitconfig file."
-msgstr "Nie je možné otvoriť súbor .gitconfig."
+# menu item
+#. ex: ts=4 noet
+#: ../gitg/gitg-author-details-dialog.vala:85 ../gitg/gitg-author-details-dialog.vala:105 ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Podrobnosti o tvorcovi"
 
-#: ../gitg/gitg-author-details-dialog.vala:154
+#: ../gitg/gitg-author-details-dialog.vala:86
+#, fuzzy
+#| msgid "Enter details to set as default for all repositories:"
+msgid "Enter default details used for all repositories:"
+msgstr "Zadajte podrobnosti, ktoré sa nastavia ako predvolené pre všetky repozitáre:"
+
+#. Translators: %s is the repository name
+#: ../gitg/gitg-author-details-dialog.vala:108
+#, fuzzy, c-format
+#| msgid "Enter details for repository '%s':"
+msgid "Override global details for repository '%s':"
+msgstr "Zadajte podrobnosti pre repozitár „%s“:"
+
+#: ../gitg/gitg-author-details-dialog.vala:220
 msgid "Failed to set Git user config."
 msgstr "Nie je možné nastaviť preferencie užívatela Git"
 
@@ -463,8 +579,10 @@ msgstr "Nie je možné nastaviť preferencie užívatela Git"
 msgid "The URL introduced is not supported"
 msgstr "Uvedená URL adresa nie je podporovaná"
 
-#: ../gitg/gitg-commit-action-create-branch.vala:48 ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
-msgid "Create Branch"
+#: ../gitg/gitg-commit-action-create-branch.vala:48
+#, fuzzy
+#| msgid "Create Branch"
+msgid "Create branch"
 msgstr "Vytvoriť vetvu"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:53
@@ -477,27 +595,31 @@ msgstr "Vytvorenie novej vetvy zlyhalo"
 
 # DK: neviem ci nebude lepsie pred kazde slovo Patch vlozit slovo "súbor", tak ako niekde je
 #: ../gitg/gitg-commit-action-create-patch.vala:63
-msgid "Create Patch"
+#, fuzzy
+#| msgid "Create Patch"
+msgid "Create patch"
 msgstr "Vytvoriť súbor patch"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
 msgstr "Vytvorí súbor patch z vybraného začlenenia"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:141
+#: ../gitg/gitg-commit-action-create-patch.vala:143
 msgid "Save Patch File"
 msgstr "Uložiť súbor vo formáte .patch"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:145
+#: ../gitg/gitg-commit-action-create-patch.vala:147
 msgid "_Save Patch"
 msgstr "_Uložiť súbor patch"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:168
+#: ../gitg/gitg-commit-action-create-patch.vala:172
 msgid "Failed to create patch"
 msgstr "Vytvorenie súboru patch zlyhalo"
 
-#: ../gitg/gitg-commit-action-create-tag.vala:48 ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
-msgid "Create Tag"
+#: ../gitg/gitg-commit-action-create-tag.vala:48
+#, fuzzy
+#| msgid "Create Tag"
+msgid "Create tag"
 msgstr "Vytvoriť štítok"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:53
@@ -516,9 +638,110 @@ msgstr "Vyhľadanie značky zlyhalo"
 msgid "Provide a message to create an annotated tag"
 msgstr "Zadajte správu pre vytvorenie značky s poznámkou"
 
-#: ../gitg/gitg-dash-view.vala:147
+#: ../gitg/gitg-dash-view.vala:190
 msgid "_Delete"
 msgstr "O_dstrániť"
+
+#. Translators: the two %s will be replaced to create a link to perform the scanning action.
+#: ../gitg/gitg-dash-view.vala:247
+#, c-format
+msgid "We can also %sscan your home directory%s for git repositories."
+msgstr "Tiež môžeme %sprehľadať váš domovský adresár%s a nájsť repozitáre git."
+
+#. Translators: the two %s will be used to create a link to the author dialog.
+#: ../gitg/gitg-dash-view.vala:250
+#, c-format
+msgid "In the mean time, you may want to %sset up your git profile%s."
+msgstr "Medzitým možno budete chcieť %snastaviť váš profil git%s."
+
+#: ../gitg/gitg-dash-view.vala:395
+#, fuzzy
+#| msgid "Failed to commit"
+msgid "Failed to clone repository"
+msgstr "Začlenenie zlyhalo"
+
+#: ../gitg/gitg-dash-view.vala:443
+#, fuzzy
+#| msgid "Failed to pass pre-commit"
+msgid "Failed to add repository"
+msgstr "Nepodarilo sa postúpiť k začleneniu"
+
+#: ../gitg/gitg-dash-view.vala:459
+#, fuzzy
+#| msgid "Bare repository"
+msgid "Create new repository"
+msgstr "Prostý repozitár"
+
+#. Translators: %s is a file name
+#: ../gitg/gitg-dash-view.vala:462
+#, c-format
+msgid "The location <i>%s</i> does not appear to be a valid git repository. Would you like to initialize a new git repository at this location?"
+msgstr ""
+
+#: ../gitg/gitg-dash-view.vala:468
+#, fuzzy
+#| msgid "Bare repository"
+msgid "Create repository"
+msgstr "Prostý repozitár"
+
+#: ../gitg/gitg-dash-view.vala:484
+#, fuzzy
+#| msgid "Failed to create patch"
+msgid "Failed to create repository"
+msgstr "Vytvorenie súboru patch zlyhalo"
+
+#: ../gitg/gitg-dash-view.vala:554
+#, c-format
+msgid "Scanning for repositories in %s"
+msgstr ""
+
+# dialog title
+#: ../gitg/gitg-dash-view.vala:595
+msgid "Add Repository"
+msgstr "Pridanie repozitára"
+
+#: ../gitg/gitg-dash-view.vala:599
+msgid "_Add"
+msgstr "_Pridať"
+
+#: ../gitg/gitg-dash-view.vala:601
+msgid "_Scan for all git repositories from this directory"
+msgstr "_Vyhľadať všetky repozitáre git z tohto adresára"
+
+#: ../gitg/gitg-ref-action-checkout.vala:48 ../gitg/gitg-ref-action-merge.vala:195
+msgid "Checkout"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-checkout.vala:53
+#, fuzzy
+#| msgid "Delete the selected reference"
+msgid "Checkout the selected reference"
+msgstr "Odstrániť vybratý odkaz"
+
+#: ../gitg/gitg-ref-action-checkout.vala:72
+#, c-format
+msgid "Checkout %s"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-checkout.vala:88
+#, c-format
+msgid "Failed to lookup commit: %s"
+msgstr "Zlyhalo vyhľadanie začlenenia: %s"
+
+#: ../gitg/gitg-ref-action-checkout.vala:101
+#, c-format
+msgid "Failed to checkout branch: %s"
+msgstr "Zlyhalo získanie vetvy: %s"
+
+#: ../gitg/gitg-ref-action-checkout.vala:111
+#, fuzzy, c-format
+#| msgid "Failed to delete tag %s"
+msgid "Failed to update HEAD: %s"
+msgstr "Odstránenie značky %s zlyhalo"
+
+#: ../gitg/gitg-ref-action-checkout.vala:121
+msgid "Successfully checked out branch to working directory"
+msgstr ""
 
 #: ../gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -528,7 +751,7 @@ msgstr "Kopírovať názov"
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Skopíruje názov odkazu do schránky"
 
-#: ../gitg/gitg-ref-action-delete.vala:48 ../gitg/gitg-ref-action-delete.vala:88
+#: ../gitg/gitg-ref-action-delete.vala:48 ../gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
 msgstr "Odstrániť"
 
@@ -565,11 +788,6 @@ msgstr "Odstrániť vzdialenú vetvu %s"
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
 msgstr "Ste si istí, že chcete natrvalo odstrániť vzdialenú vetvu %s?"
-
-#: ../gitg/gitg-ref-action-delete.vala:89 ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
-#: ../libgitg/resources/ui/gitg-remote-notification.ui.h:1
-msgid "Cancel"
-msgstr "Zrušiť"
 
 #. Translators: %s is the name of the tag
 #: ../gitg/gitg-ref-action-delete.vala:119
@@ -622,7 +840,7 @@ msgstr "aktualizovaný"
 
 # DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
 # PV: Moja chyba, opravené
-#: ../gitg/gitg-ref-action-fetch.vala:122
+#: ../gitg/gitg-ref-action-fetch.vala:121
 #, c-format
 msgid "Failed to fetch from %s: %s"
 msgstr "Zlyhalo získanie z %s: %s"
@@ -639,6 +857,104 @@ msgstr "Získané z %s: všetko je aktuálne"
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "Získané z %s: %s"
+
+#: ../gitg/gitg-ref-action-merge.vala:63
+#, c-format
+msgid "Merge into %s"
+msgstr ""
+
+#. TODO
+#: ../gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "Zlyhalo zlúčenie začlenení: %s"
+
+#: ../gitg/gitg-ref-action-merge.vala:175 ../gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of %s into %s has caused conflicts, would you like to checkout branch %s with the merge to your working directory to resolve the "
+"conflicts?"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid "The merge of %s into %s has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge %s into %s"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "Zlyhalo vyhľadanie našich začlenení: %s"
+
+#: ../gitg/gitg-ref-action-merge.vala:241
+#, fuzzy, c-format
+#| msgid "Failed to lookup tag"
+msgid "Failed to lookup their commit: %s"
+msgstr "Vyhľadanie značky zlyhalo"
+
+# DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
+# PV: Moja chyba, opravené
+#: ../gitg/gitg-ref-action-merge.vala:262
+#, fuzzy
+#| msgid "Failed to stage the file `%s'"
+msgid "Failed to obtain author details"
+msgstr "Zlyhala príprava súboru „%s“"
+
+# DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
+# PV: Moja chyba, opravené
+#: ../gitg/gitg-ref-action-merge.vala:298
+#, fuzzy, c-format
+#| msgid "Failed to stage the file `%s'"
+msgid "Failed to obtain HEAD tree: %s"
+msgstr "Zlyhala príprava súboru „%s“"
+
+#: ../gitg/gitg-ref-action-merge.vala:316
+#, fuzzy, c-format
+#| msgid "Failed to create tag"
+msgid "Failed to create commit: %s"
+msgstr "Vytvorenie značky zlyhalo"
+
+# DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
+# PV: Moja chyba, opravené
+#: ../gitg/gitg-ref-action-merge.vala:338
+#, fuzzy, c-format
+#| msgid "Failed to fetch from %s: %s"
+msgid "Failed to checkout index: %s"
+msgstr "Zlyhalo získanie z %s: %s"
+
+#: ../gitg/gitg-ref-action-merge.vala:343
+#, c-format
+msgid "Successfully merged %s into %s"
+msgstr ""
+
+#: ../gitg/gitg-ref-action-merge.vala:383
+#, fuzzy, c-format
+#| msgid "Delete branch %s"
+msgid "Merge %s into branch %s"
+msgstr "Odstrániť vetvu %s"
+
+# DK: vacsinou tag prekladame ako značka. zvaz ci nebude lepsie zjednotit na tento tvar.
+#: ../gitg/gitg-ref-action-merge.vala:545 ../gitg/history/gitg-history-refs-list.vala:1139
+msgid "Tags"
+msgstr "Značky"
 
 #: ../gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
@@ -661,7 +977,7 @@ msgstr "Neplatné meno"
 msgid "Failed to rename"
 msgstr "Premenovanie zlyhalo"
 
-#: ../gitg/gitg.vala:64
+#: ../gitg/gitg.vala:68
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg depends) to be compiled with threading support.\n"
 "\n"
@@ -675,55 +991,91 @@ msgstr ""
 "\n"
 "Inak nahláste chybu autorom vašej distribúcie, že poskytujú knižnicu libgit2 bez podpory viac vlákien."
 
-#: ../gitg/gitg-window.vala:403
+#: ../gitg/gitg-window.vala:410
 msgid "Projects"
 msgstr "Projekty"
 
-# dialog title
-#: ../gitg/gitg-window.vala:466
-msgid "Open Repository"
-msgstr "Otvorenie repozitára"
-
-#: ../gitg/gitg-window.vala:469
-msgid "_Open"
-msgstr "_Otvoriť"
-
-#: ../gitg/gitg-window.vala:764
+#: ../gitg/gitg-window.vala:826
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ nie je git repozitár"
 
-#: ../gitg/history/gitg-history-refs-list.vala:136
+#: ../gitg/gitg-window.vala:975
+msgid "Your user name and email are not configured yet. Please go to the user configuration and provide your name and email."
+msgstr "Nemáte nastavené používateľské meno a e-mail. Prosím nastavte si vaše meno a e-mail v používateľských nastaveniach."
+
+#: ../gitg/gitg-window.vala:979
+msgid "Your user name is not configured yet. Please go to the user configuration and provide your name."
+msgstr "Nemáte nastavené používateľské meno. Prosím nastavte si vaše meno v používateľských nastaveniach."
+
+#: ../gitg/gitg-window.vala:983
+msgid "Your email is not configured yet. Please go to the user configuration and provide your email."
+msgstr "Nemáte nastavený e-mail. Prosím nastavte si váš e-mail v používateľských nastaveniach."
+
+#: ../gitg/gitg-window.vala:986
+msgid "Missing author details"
+msgstr "Chýbajú podrobnosti o autorovi"
+
+#: ../gitg/gitg-remote-notification.vala:90 ../gitg/gitg-simple-notification.vala:99 ../gitg/resources/ui/gitg-window.ui.h:6
+msgid "Close"
+msgstr "Zatvoriť"
+
+#: ../gitg/history/gitg-history-command-line.vala:42
+msgid "Select all commits by default in the history activity"
+msgstr ""
+
+#: ../gitg/history/gitg-history-command-line.vala:44
+msgid "Select all branches by default in the history activity"
+msgstr ""
+
+#: ../gitg/history/gitg-history-command-line.vala:46
+msgid "Select all remotes by default in the history activity"
+msgstr ""
+
+#: ../gitg/history/gitg-history-command-line.vala:48
+msgid "Select all tags by default in the history activity"
+msgstr ""
+
+#: ../gitg/history/gitg-history-command-line.vala:50
+msgid "Select the specified reference by default in the history activity"
+msgstr ""
+
+#: ../gitg/history/gitg-history-command-line.vala:50
+msgid "REFERENCE"
+msgstr ""
+
+#: ../gitg/history/gitg-history-refs-list.vala:170 ../gitg/resources/ui/gitg-preferences-history.ui.h:4
 msgid "All commits"
 msgstr "Všetky začlenenia"
 
-#: ../gitg/history/gitg-history-refs-list.vala:835
+#: ../gitg/history/gitg-history-refs-list.vala:1137
 msgid "Branches"
 msgstr "Vetvy"
 
-#: ../gitg/history/gitg-history-refs-list.vala:836
+#: ../gitg/history/gitg-history-refs-list.vala:1138
 msgid "Remotes"
 msgstr "Vzdialené"
 
-# DK: vacsinou tag prekladame ako značka. zvaz ci nebude lepsie zjednotit na tento tvar.
-#: ../gitg/history/gitg-history-refs-list.vala:837
-msgid "Tags"
-msgstr "Značky"
-
-#: ../gitg/history/gitg-history.vala:245 ../gitg/preferences/gitg-preferences-history.vala:128 ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
+#: ../gitg/history/gitg-history.vala:302 ../gitg/preferences/gitg-preferences-history.vala:210 ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "History"
 msgstr "História"
 
 # tooltip
-#: ../gitg/history/gitg-history.vala:250
+#: ../gitg/history/gitg-history.vala:307
 msgid "Examine the history of the repository"
 msgstr "Preskúma históriu repozitára"
 
-#: ../gitg/history/gitg-history.vala:601
+#: ../gitg/history/gitg-history.vala:787
 msgid "Mainline"
 msgstr "Hlavná línia"
 
-#: ../gitg/preferences/gitg-preferences-interface.vala:104
+# DK: https://bugzilla.gnome.org/show_bug.cgi?id=746633
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+msgctxt "Preferences"
+msgid "Commit"
+msgstr "Začlenenie"
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:112
 msgid "Interface"
 msgstr "Rozhranie"
 
@@ -788,48 +1140,70 @@ msgstr "%b %e %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%b %e %Y, %I:%M %p"
 
-#: ../libgitg/gitg-diff-view.vala:265
+#: ../libgitg/gitg-diff-view.vala:282
 msgid "stage"
 msgstr "pripraviť"
 
-#: ../libgitg/gitg-diff-view.vala:266
+#: ../libgitg/gitg-diff-view.vala:283
 msgid "unstage"
 msgstr "zrušiť prípravu"
 
-#: ../libgitg/gitg-diff-view.vala:267
+#: ../libgitg/gitg-diff-view.vala:284
 msgid "Loading diff…"
 msgstr "Prebieha načítavanie rozdielu…"
 
-#: ../libgitg/gitg-diff-view.vala:268
+#: ../libgitg/gitg-diff-view.vala:285
 msgid "Notes:"
 msgstr "Poznámky:"
 
-#: ../libgitg/gitg-diff-view.vala:269
+#: ../libgitg/gitg-diff-view.vala:286
 msgid "Parents:"
 msgstr "Rodičia:"
 
-#: ../libgitg/gitg-diff-view.vala:270
+#: ../libgitg/gitg-diff-view.vala:287
 msgid "Diff against:"
 msgstr "Rozdiel oproti:"
 
-#: ../libgitg/gitg-diff-view.vala:271
+#: ../libgitg/gitg-diff-view.vala:288
 msgid "Committed by:"
 msgstr "Začlenil:"
 
-#: ../libgitg/gitg-remote-notification.vala:72 ../gitg/resources/ui/gitg-commit-dialog.ui.h:6 ../gitg/resources/ui/gitg-window.ui.h:6
-msgid "Close"
-msgstr "Zatvoriť"
+#: ../libgitg/gitg-diff-view.vala:289
+msgid "Expand all"
+msgstr ""
+
+#: ../libgitg/gitg-diff-view.vala:290
+#, fuzzy
+#| msgid "Collapse inactive lanes"
+msgid "Collapse all"
+msgstr "Zbaliť neaktívne cesty"
+
+#. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
+#: ../libgitg/gitg-repository-list-box.vala:175
+#, c-format
+msgid "at %s"
+msgstr ""
+
+#. Translators: this is used to construct: "<branch-name> at <directory>"
+#: ../libgitg/gitg-repository-list-box.vala:184
+#, c-format
+msgid "%s at %s"
+msgstr ""
+
+#: ../libgitg/gitg-repository-list-box.vala:423
+msgid "Cloning..."
+msgstr "Klonuje sa..."
 
 #: ../libgitg/gitg-stage.vala:334
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Nie je možné prečítať správu začlenenia po spustení háčika commit-msg: %s"
 
-#: ../plugins/diff/gitg-diff.vala:114
+#: ../plugins/diff/gitg-diff.vala:120
 msgid "Diff"
 msgstr "Rozdiel"
 
-#: ../plugins/diff/gitg-diff.vala:119
+#: ../plugins/diff/gitg-diff.vala:125
 msgid "Show the changes introduced by the selected commit"
 msgstr "Zobraziť zmeny zavedené vybratým začlenením"
 
@@ -841,37 +1215,21 @@ msgstr "Súbory"
 msgid "Show the files in the tree of the selected commit"
 msgstr "Zobraziť súbory v strome vybratého začlenenia"
 
-# menu item
-#. ex: ts=4 noet
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
-msgid "Author Details"
-msgstr "Podrobnosti o tvorcovi"
-
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
-#, no-c-format
-msgid "Note: The Git config file '%s' does not exist."
-msgstr "Poznámka: Súbor „%s“ s nastaveniami Git neexistuje."
+msgid "_Save"
+msgstr "_Ulož"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-msgid "Enter details to set as default for all repositories:"
-msgstr "Zadajte podrobnosti, ktoré sa nastavia ako predvolené pre všetky repozitáre:"
+msgid "Default details used for all repositories"
+msgstr "Predvolené podrobnosti použité pre všetky repozitáre"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
+msgid "E-mail:"
+msgstr "E-mail:"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-#, no-c-format
-msgid "Enter details for repository '%s':"
-msgstr "Zadajte podrobnosti pre repozitár „%s“:"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
-msgid "E-mail: "
-msgstr "E-mail: "
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
-msgid "Name: "
-msgstr "Meno: "
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
-msgid "Save"
-msgstr "Uložiť"
+msgid "Name:"
+msgstr "Meno:"
 
 # dialog title
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
@@ -897,6 +1255,12 @@ msgstr "Vybrať umiestnenie…"
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
 msgid "Bare repository"
 msgstr "Prostý repozitár"
+
+# DK: https://bugzilla.gnome.org/show_bug.cgi?id=746633
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgctxt "Create Dialog"
+msgid "Commit"
+msgstr "Začlenenie"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3 ../gitg/resources/ui/gitg-commit-paned.ui.h:2
 msgid "C_ommit"
@@ -951,6 +1315,10 @@ msgstr "Dátum"
 msgid "Open"
 msgstr "Otvoriť"
 
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
+msgid "Create Branch"
+msgstr "Vytvoriť vetvu"
+
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3 ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
 msgid "C_reate"
 msgstr "Vytvo_riť"
@@ -959,43 +1327,52 @@ msgstr "Vytvo_riť"
 msgid "Branch _name:"
 msgstr "_Názov vetvy:"
 
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
+msgid "Create Tag"
+msgstr "Vytvoriť štítok"
+
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
 msgid "Tag _name:"
 msgstr "_Názov značky:"
+
+#: ../gitg/resources/ui/gitg-dash-view.ui.h:1
+msgid "No repositories have been added yet. To get started, you can add an existing repository or clone a new one."
+msgstr "Zatiaľ neboli pridané žiadne repozitáre. Na začiatok môžete pridať existujúci repozitár, alebo naklonovať nový."
+
+#: ../gitg/resources/ui/gitg-dash-view.ui.h:2
+msgid "_Add repository"
+msgstr "_Pridať repozitár"
+
+# dialog title
+#: ../gitg/resources/ui/gitg-dash-view.ui.h:3
+msgid "_Clone repository"
+msgstr "_Klonovať repozitár"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "_Nové okno"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:2
-msgid "_Preferences"
-msgstr "_Nastavenia"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:3
-msgid "_Help"
-msgstr "_Pomocník"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:4
-msgid "_About"
-msgstr "_O programe"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Quit"
-msgstr "U_končiť"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Open Repository…"
-msgstr "_Otvoriť repozitár…"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
-msgid "_Clone Repository…"
-msgstr "_Klonovať repozitár…"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Author Details"
 msgstr "Podrobnosti o _autoroch"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:9
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Preferences"
+msgstr "_Nastavenia"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_Help"
+msgstr "_Pomocník"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_About"
+msgstr "_O programe"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Quit"
+msgstr "U_končiť"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
 msgid "_Reload"
 msgstr "_Znovu načítať"
 
@@ -1020,26 +1397,46 @@ msgid "Commit Message"
 msgstr "Správa začlenenia"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Default selection"
+msgstr "Predvolený výber"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Current branch"
+msgstr "Aktuálna vetva"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "All branches"
+msgstr "Všetky vetvy"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "References"
+msgstr "Odkazy"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Sort references in the sidebar by latest activity"
+msgstr "Usporiadať odkazy v bočnom paneli podľa poslednej aktivity"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Commits"
 msgstr "Začlenenia"
 
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
 msgid "Collapse inactive lanes"
 msgstr "Zbaliť neaktívne cesty"
 
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:9
 msgid "Early"
 msgstr "Skôr"
 
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:10
 msgid "Late"
 msgstr "Neskôr"
 
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:11
 msgid "Show history in topological order"
 msgstr "Zobraziť históriu v topologickom usporiadaní"
 
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:12
 msgid "Preserve mainline for currently checked out branch"
 msgstr "Zachovať hlavnú líniu pre vetvu, na ktorej sa momentálne pracuje"
 
@@ -1052,6 +1449,11 @@ msgstr "Pri štarte"
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
 msgid "Start with activity:"
 msgstr "Spustiť s aktivitou:"
+
+# DK: https://bugzilla.gnome.org/show_bug.cgi?id=746633
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:4
+msgid "Commit"
+msgstr "Začleniť"
 
 # label
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:5
@@ -1070,6 +1472,10 @@ msgstr "Podobizne"
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:8
 msgid "Use gravatar service to provide user avatars"
 msgstr "Použiť službu gravatar na poskytnutie podobizní používateľov"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:9
+msgid "Monitoring"
+msgstr "Sledovanie"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "Preferences"
@@ -1097,14 +1503,18 @@ msgid "Show changes inline"
 msgstr "Zobraziť vnorené zmeny"
 
 #: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:3
+msgid "Wrap lines"
+msgstr "Zalomiť riadky"
+
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:4
 msgid "Developer tools"
 msgstr "Nástroje pre vývojárov"
 
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:4
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:5
 msgid "Tab width"
 msgstr "Šírka tabulátora"
 
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:5
+#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:6
 msgid "Context"
 msgstr "Kontext"
 
@@ -1144,6 +1554,24 @@ msgstr "Odstrániť repozitár zo zoznamu (neodstráni súbory z disku)"
 msgid "column"
 msgstr "stĺpec"
 
+#~ msgid "Unable to open the .gitconfig file."
+#~ msgstr "Nie je možné otvoriť súbor .gitconfig."
+
+#~ msgid "_Open"
+#~ msgstr "_Otvoriť"
+
+#~ msgid "Note: The Git config file '%s' does not exist."
+#~ msgstr "Poznámka: Súbor „%s“ s nastaveniami Git neexistuje."
+
+#~ msgid "Save"
+#~ msgstr "Uložiť"
+
+#~ msgid "_Open Repository…"
+#~ msgstr "_Otvoriť repozitár…"
+
+#~ msgid "_Clone Repository…"
+#~ msgstr "_Klonovať repozitár…"
+
 # label
 #~ msgid "Show stash in history"
 #~ msgstr "Zobraziť skrýšu v histórií"
@@ -1153,6 +1581,3 @@ msgstr "stĺpec"
 
 #~ msgid "Show unstaged changes in history"
 #~ msgstr "Zobraziť nepripravené zmeny v histórií"
-
-#~ msgid "_Save"
-#~ msgstr "_Ulož"
