@@ -134,6 +134,10 @@ namespace GitgHistory
 				update_walker();
 			});
 
+			d_settings.changed["show-upstream-with-branch"].connect((s, k) => {
+				update_walker();
+			});
+
 			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash,
 			                                       (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
 
@@ -924,6 +928,8 @@ namespace GitgHistory
 				}
 			}
 
+			var show_upstream_with_branch = d_settings.get_boolean("show-upstream-with-branch");
+
 			foreach (var r in d_main.refs_list.selection)
 			{
 				var id = id_for_ref(r);
@@ -940,6 +946,21 @@ namespace GitgHistory
 						{
 							permanent += id;
 						}
+					}
+
+					if (show_upstream_with_branch && r.is_branch())
+					{
+						var branch = r as Gitg.Branch;
+
+						try
+						{
+							var upid = id_for_ref(branch.get_upstream());
+
+							if (upid != null)
+							{
+								include.add(upid);
+							}
+						} catch {}
 					}
 				}
 			}

@@ -590,11 +590,6 @@ public class RefsList : Gtk.ListBox
 		              this,
 		              "reference-sort-order",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
-
-		settings.bind("show-upstream-with-branch",
-		              this,
-		              "show-upstream-with-branch",
-		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 
 	public Gee.List<Gitg.Ref> references
@@ -613,24 +608,6 @@ public class RefsList : Gtk.ListBox
 			});
 
 			return ret;
-		}
-	}
-
-	private bool d_show_upstream_with_branch;
-
-	public bool show_upstream_with_branch
-	{
-		get
-		{
-			return d_show_upstream_with_branch;
-		}
-		set
-		{
-			if (d_show_upstream_with_branch != value)
-			{
-				d_show_upstream_with_branch = value;
-				changed();
-			}
 		}
 	}
 
@@ -1361,18 +1338,7 @@ public class RefsList : Gtk.ListBox
 				}
 				else
 				{
-					var rref = ref_row.reference;
-					ret.add(rref);
-
-					if (d_show_upstream_with_branch && rref.is_branch())
-					{
-						var branch = rref as Gitg.Branch;
-
-						try
-						{
-							ret.add(branch.get_upstream());
-						} catch {}
-					}
+					ret.add(ref_row.reference);
 				}
 			}
 			else
