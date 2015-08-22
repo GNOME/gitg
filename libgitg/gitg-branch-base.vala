@@ -32,6 +32,11 @@ public class BranchBase : Ggit.Branch, Ref, Branch
 	{
 		return (Gitg.Repository)base.get_owner();
 	}
+
+	public new Gitg.Ref get_upstream() throws Error
+	{
+		return (Gitg.Ref)base.get_upstream();
+	}
 }
 
 }

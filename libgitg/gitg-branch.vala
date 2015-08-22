@@ -21,6 +21,7 @@ namespace Gitg
 
 public interface Branch : Ggit.Branch, Ref
 {
+	public abstract new Gitg.Ref get_upstream() throws Error;
 }
 
 }
