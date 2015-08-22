@@ -53,6 +53,9 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "sort_references_by_activity")]
 	private Gtk.CheckButton d_sort_references_by_activity;
 
+	[GtkChild (name = "show_upstream_with_branch")]
+	private Gtk.CheckButton d_show_upstream_with_branch;
+
 	private Gtk.RadioButton[] d_select_buttons;
 	private string[] d_select_names;
 
@@ -151,6 +154,11 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 
 		    null, null
 		);
+
+		settings.bind("show-upstream-with-branch",
+		              d_show_upstream_with_branch,
+		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 
 	public string default_selection

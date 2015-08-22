@@ -132,6 +132,14 @@
         The order by which references in the history sidebar should be sorted.
       </_description>
     </key>
+    <key name="show-upstream-with-branch" type="b">
+      <default>true</default>
+      <_summary>Show Upstream With Branch</_summary>
+      <_description>
+         Determines whether to also show the upstream (remote) tracking branch when
+         selecting a local branch in the history view.
+      </_description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit" path="/org/gnome/gitg/preferences/commit/">
     <child name="message" schema="org.gnome.gitg.preferences.commit.message" />

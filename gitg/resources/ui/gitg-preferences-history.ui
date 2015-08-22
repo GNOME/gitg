@@ -131,6 +131,22 @@
           </packing>
         </child>
         <child>
+          <object class="GtkCheckButton" id="show_upstream_with_branch">
+            <property name="label" translatable="yes">Show upstream (remote) branch when selecting a local branch</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="halign">start</property>
+            <property name="draw_indicator">True</property>
+            <property name="margin_start">12</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">4</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -143,7 +159,7 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">4</property>
+            <property name="top_attach">5</property>
           </packing>
         </child>
         <child>
@@ -254,7 +270,7 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">5</property>
+            <property name="top_attach">6</property>
           </packing>
         </child>
       </object>
