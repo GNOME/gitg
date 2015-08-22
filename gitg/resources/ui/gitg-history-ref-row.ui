@@ -21,7 +21,7 @@
             <property name="margin_start">18</property>
             <property name="margin_top">3</property>
             <property name="margin_bottom">3</property>
-            <property name="margin_end">3</property>
+            <property name="margin_end">6</property>
             <child>
               <object class="GtkImage" id="d_icon">
                 <property name="icon_size">1</property>
@@ -32,6 +32,20 @@
                 <property name="visible">True</property>
                 <property name="ellipsize">middle</property>
                 <property name="halign">start</property>
+                <property name="hexpand">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="d_ahead_behind">
+                <property name="visible">True</property>
+                <property name="halign">end</property>
+                <property name="ellipsize">middle</property>
+                <attributes>
+                  <attribute name="scale" value="0.8333333333333"/>
+                </attributes>
+                <style>
+                  <class name="dim-label"/>
+                </style>
               </object>
             </child>
           </object>

@@ -66,6 +66,9 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 	private Gtk.Label d_label;
 
 	[GtkChild]
+	private Gtk.Label d_ahead_behind;
+
+	[GtkChild]
 	private Gtk.Box d_box;
 
 	[GtkChild]
@@ -138,6 +141,40 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 		}
 
 		d_revealer.notify["child-revealed"].connect(on_child_revealed);
+
+		if (reference != null && reference.is_branch())
+		{
+			var branch = reference as Gitg.Branch;
+
+			try
+			{
+				var upstream = branch.get_upstream();
+
+				size_t ahead = 0;
+				size_t behind = 0;
+
+				reference.get_owner().get_ahead_behind(reference.resolve().get_target(),
+				                                       upstream.resolve().get_target(),
+				                                       out ahead,
+				                                       out behind);
+
+				if (ahead != 0 || behind != 0)
+				{
+					if (ahead != 0 && behind != 0)
+					{
+						d_ahead_behind.label = _("%d ahead, %d behind").printf(ahead, behind);
+					}
+					else if (ahead != 0)
+					{
+						d_ahead_behind.label = _("%d ahead").printf(ahead);
+					}
+					else
+					{
+						d_ahead_behind.label = _("%d behind").printf(behind);
+					}
+				}
+			} catch {}
+		}
 	}
 
 	public Ggit.Signature? updated
