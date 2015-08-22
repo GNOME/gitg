@@ -22,7 +22,7 @@ namespace Gitg
 	public class LabelRenderer
 	{
 		private static const int margin = 2;
-		private static const int padding = 4;
+		private static const int padding = 6;
 
 		private static string label_text(Ref r)
 		{
