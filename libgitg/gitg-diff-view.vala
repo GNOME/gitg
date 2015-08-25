@@ -264,9 +264,13 @@ public class Gitg.DiffView : Gtk.Grid
 
 	private void update_diff(Ggit.Diff diff, Cancellable? cancellable)
 	{
+		var files = new Gee.LinkedList<Gitg.DiffViewFile>();
+
 		Gitg.DiffViewFile? current_file = null;
 		Ggit.DiffHunk? current_hunk = null;
 		Gee.ArrayList<Ggit.DiffLine>? current_lines = null;
+
+		var maxlines = 0;
 
 		Anon add_hunk = () => {
 			if (current_hunk != null)
@@ -285,6 +289,8 @@ public class Gitg.DiffView : Gtk.Grid
 			{
 				current_file.show();
 				d_grid_files.add(current_file);
+
+				files.add(current_file);
 
 				current_file = null;
 			}
@@ -321,6 +327,9 @@ public class Gitg.DiffView : Gtk.Grid
 						return 1;
 					}
 
+					maxlines = int.max(maxlines, hunk.get_old_start() + hunk.get_old_lines());
+					maxlines = int.max(maxlines, hunk.get_new_start() + hunk.get_new_lines());
+
 					add_hunk();
 
 					current_hunk = hunk;
@@ -347,6 +356,11 @@ public class Gitg.DiffView : Gtk.Grid
 
 		add_hunk();
 		add_file();
+
+		foreach (var file in files)
+		{
+			file.maxlines = maxlines;
+		}
 	}
 
 	public async PatchSet[] get_selection()

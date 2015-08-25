@@ -65,6 +65,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 	}
 
+	public int maxlines
+	{
+		get; set;
+	}
+
 	public Ggit.DiffDelta delta
 	{
 		get;
@@ -111,6 +116,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_diff_stat_file.removed += widget.removed;
 
 		d_grid_hunks.add(widget);
+
+		this.bind_property("maxlines", widget, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 
 		sensitive = true;
 	}

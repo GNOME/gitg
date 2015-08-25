@@ -56,6 +56,11 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		get { return d_removed; }
 	}
 
+	public int maxlines
+	{
+		get; set;
+	}
+
 	private DiffViewLinesRenderer d_old_lines;
 	private DiffViewLinesRenderer d_new_lines;
 	private DiffViewLinesRenderer d_sym_lines;
@@ -67,6 +72,9 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		d_old_lines = new DiffViewLinesRenderer(hunk, lines, DiffViewLinesRenderer.Style.OLD);
 		d_new_lines = new DiffViewLinesRenderer(hunk, lines, DiffViewLinesRenderer.Style.NEW);
 		d_sym_lines = new DiffViewLinesRenderer(hunk, lines, DiffViewLinesRenderer.Style.SYMBOL);
+
+		this.bind_property("maxlines", d_old_lines, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+		this.bind_property("maxlines", d_new_lines, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 
 		d_old_lines.xpad = 8;
 		d_new_lines.xpad = 8;

@@ -49,14 +49,32 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		get; construct set;
 	}
 
+	private int d_maxlines;
+
+	public int maxlines
+	{
+		get { return d_maxlines; }
+		set
+		{
+			if (value > d_maxlines)
+			{
+				d_maxlines = value;
+
+				calculate_num_digits();
+				recalculate_size();
+			}
+		}
+	}
+
 	public DiffViewLinesRenderer(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines, Style style)
 	{
 		Object(hunk: hunk, lines: lines, style: style);
+		set_alignment(1.0f, 0.5f);
 	}
 
 	protected override void constructed()
 	{
-		calulate_num_digits();
+		calculate_num_digits();
 		precalculate_line_strings();
 	}
 
@@ -160,7 +178,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		set_size(size);
 	}
 
-	private void calulate_num_digits()
+	private void calculate_num_digits()
 	{
 		var num_digits = 0;
 
@@ -169,7 +187,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 			var oldn = hunk.get_old_start() + hunk.get_old_lines();
 			var newn = hunk.get_new_start() + hunk.get_new_lines();
 
-			var num = int.max(oldn, newn);
+			var num = int.max(int.max(oldn, newn), d_maxlines);
 
 			while (num > 0)
 			{
