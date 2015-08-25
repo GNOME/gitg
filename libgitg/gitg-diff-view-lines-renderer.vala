@@ -187,6 +187,36 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		d_num_digits_fmts = @"%$(num_digits)d";
 		d_num_digits_fill = string.nfill(num_digits, ' ');
 	}
+
+	public override void begin(Cairo.Context cr,
+	                           Gdk.Rectangle background_area,
+	                           Gdk.Rectangle cell_area,
+	                           Gtk.TextIter  start,
+	                           Gtk.TextIter  end)
+	{
+		base.begin(cr, background_area, cell_area, start, end);
+
+		if (style == Style.OLD || style == Style.SYMBOL)
+		{
+			var ctx = get_view().get_style_context();
+
+			ctx.save();
+			ctx.add_class("diff-lines-border");
+
+			if (style == Style.SYMBOL)
+			{
+				ctx.add_class("symbol");
+			}
+
+			ctx.render_frame(cr,
+			                 background_area.x,
+			                 background_area.y,
+			                 background_area.width,
+			                 background_area.height);
+
+			ctx.restore();
+		}
+	}
 }
 
 // ex:ts=4 noet

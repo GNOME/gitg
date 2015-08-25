@@ -13,26 +13,42 @@
 	background-color: shade(@theme_bg_color, 0.95);
 }
 
-.gitg-hunk-frame {
-	border-left: 0;
-	border-right: 0;
-}
-
 .gitg-diff-view-grid-files {
 	border-top: 1px solid @borders;
+}
+
+.diff-lines-border {
+	border-top: 0;
+	border-left: 0;
+	border-bottom: 0;
+	border-right: 1px solid shade(@theme_bg_color, 0.95);
+}
+
+.diff-lines-border.symbol {
+	border-right: 2px solid shade(@theme_bg_color, 0.95);
+}
+
+GitgDiffViewHunk GtkSourceView {
+	color: @insensitive_fg_color;
+}
+
+GitgDiffViewHunk GtkSourceView.view {
+	color: @theme_text_color;
+}
+
+GitgDiffView GitgDiffViewCommitDetails {
+	border-bottom: 1px outset lighter(@borders);
 }
 
 GitgDiffStat {
 	border: 1px inset shade(@borders, 1.2);
 	border-radius: 5px;
-	background-color: shade(@theme_bg_color, 1.2);
+	background-color: shade(@theme_base_color, 0.975);
 	-GitgDiffStat-bar-height: 5px;
 }
 
 GitgDiffStat.no-frame {
 	border: 0;
-	border-radius: 0;
-	background-color: inherit;
 }
 
 GitgDiffStat added,
@@ -44,7 +60,7 @@ GitgDiffStat.no-frame removed {
 
 GitgDiffStat added,
 GitgDiffStat.no-frame added {
-	background-color: #33cc33;
+	background-color: #ddffdd;
 	border-radius: 3px 0px 0px 3px;
 }
 
@@ -55,7 +71,7 @@ GitgDiffStat.no-frame added:dir(rtl) {
 
 GitgDiffStat removed,
 GitgDiffStat.no-frame removed {
-	background-color: #cc3333;
+	background-color: #ffdddd;
 	border-radius: 0px 3px 3px 0px;
 }
 

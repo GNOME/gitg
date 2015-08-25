@@ -6,54 +6,31 @@
     <property name="visible">True</property>
     <property name="can_focus">True</property>
     <property name="hexpand">True</property>
-    <property name="orientation">vertical</property>
+    <style>
+      <class name="gitg-hunk-frame"/>
+    </style>
     <child>
-      <object class="GtkEventBox" id="event_box_hunk">
+      <object class="GtkSourceView" id="sourceview_hunk">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="show_line_numbers">False</property>
+        <property name="editable">False</property>
+        <property name="cursor_visible">False</property>
+        <property name="monospace">True</property>
+        <property name="hexpand">True</property>
+        <property name="pixels_above_lines">1</property>
+        <property name="pixels_below_lines">1</property>
+        <property name="left_margin">6</property>
+        <property name="right_margin">6</property>
+        <property name="buffer">buffer</property>
         <style>
-          <class name="gitg-hunk-header"/>
+          <class name="gitg-hunk-source"/>
         </style>
-        <child>
-          <object class="GtkLabel" id="label_hunk">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="margin_top">12</property>
-            <property name="margin_bottom">12</property>
-            <property name="margin_start">6</property>
-            <property name="margin_end">6</property>
-            <property name="wrap">True</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkFrame" id="frame_hunk">
-        <property name="visible">True</property>
-        <style>
-          <class name="gitg-hunk-frame"/>
-        </style>
-        <child>
-          <object class="GtkSourceView" id="sourceview_hunk">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="show_line_numbers">False</property>
-            <property name="editable">False</property>
-            <property name="cursor_visible">False</property>
-            <property name="monospace">True</property>
-            <property name="hexpand">True</property>
-            <property name="pixels_above_lines">1</property>
-            <property name="pixels_below_lines">1</property>
-            <style>
-              <class name="gitg-hunk-source"/>
-            </style>
-          </object>
-        </child>
       </object>
     </child>
   </template>
+  <object class="GtkSourceBuffer" id="buffer">
+    <property name="highlight_matching_brackets">False</property>
+    <property name="implicit_trailing_newline">False</property>
+  </object>
 </interface>

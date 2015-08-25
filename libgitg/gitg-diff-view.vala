@@ -18,7 +18,7 @@
  */
 
 [GtkTemplate( ui = "/org/gnome/gitg/ui/gitg-diff-view.ui" )]
-public class Gitg.DiffView : Gtk.ScrolledWindow
+public class Gitg.DiffView : Gtk.Grid
 {
 	[GtkChild( name = "commit_details" )]
 	private Gitg.DiffViewCommitDetails d_commit_details;

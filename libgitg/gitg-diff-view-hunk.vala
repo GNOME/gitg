@@ -20,7 +20,6 @@
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-diff-view-hunk.ui")]
 class Gitg.DiffViewHunk : Gtk.Grid
 {
-	[GtkChild( name = "label_hunk" )]
 	private Gtk.Label d_label_hunk;
 
 	[GtkChild( name = "sourceview_hunk" )]
@@ -57,24 +56,65 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		get { return d_removed; }
 	}
 
+	private DiffViewLinesRenderer d_old_lines;
+	private DiffViewLinesRenderer d_new_lines;
+	private DiffViewLinesRenderer d_sym_lines;
+
 	construct
 	{
 		var gutter = d_sourceview_hunk.get_gutter(Gtk.TextWindowType.LEFT);
 
-		var old_lines = new DiffViewLinesRenderer(hunk, lines, DiffViewLinesRenderer.Style.OLD);
-		var new_lines = new DiffViewLinesRenderer(hunk, lines, DiffViewLinesRenderer.Style.NEW);
-		var sym_lines = new DiffViewLinesRenderer(hunk, lines, DiffViewLinesRenderer.Style.SYMBOL);
+		d_old_lines = new DiffViewLinesRenderer(hunk, lines, DiffViewLinesRenderer.Style.OLD);
+		d_new_lines = new DiffViewLinesRenderer(hunk, lines, DiffViewLinesRenderer.Style.NEW);
+		d_sym_lines = new DiffViewLinesRenderer(hunk, lines, DiffViewLinesRenderer.Style.SYMBOL);
 
-		old_lines.xpad = 8;
-		new_lines.xpad = 8;
-		sym_lines.xpad = 6;
+		d_old_lines.xpad = 8;
+		d_new_lines.xpad = 8;
+		d_sym_lines.xpad = 6;
 
-		gutter.insert(old_lines, 0);
-		gutter.insert(new_lines, 1);
-		gutter.insert(sym_lines, 2);
+		gutter.insert(d_old_lines, 0);
+		gutter.insert(d_new_lines, 1);
+		gutter.insert(d_sym_lines, 2);
+
+		d_old_lines.notify["size"].connect(update_top_window_size);
+		d_new_lines.notify["size"].connect(update_top_window_size);
+		d_sym_lines.notify["size"].connect(update_top_window_size);
 
 		update_hunk_label();
 		update_lines();
+
+		d_sourceview_hunk.set_border_window_size(Gtk.TextWindowType.TOP, 1);
+		d_sourceview_hunk.add_child_in_window(d_label_hunk, Gtk.TextWindowType.TOP, 0, 0);
+
+		d_label_hunk.style_updated.connect(update_top_window_size);
+		update_top_window_size();
+	}
+
+	private void update_top_window_size()
+	{
+		int minheight, natheight;
+		d_label_hunk.get_preferred_height(out minheight, out natheight);
+
+		if (natheight > 0)
+		{
+			d_sourceview_hunk.set_border_window_size(Gtk.TextWindowType.TOP, natheight);
+		}
+
+		var wx = d_new_lines.size +
+		         d_new_lines.xpad * 2 +
+		         d_old_lines.size +
+		         d_old_lines.xpad * 2 +
+		         d_sym_lines.size +
+		         d_sym_lines.xpad * 2;
+
+		d_sourceview_hunk.move_child(d_label_hunk, -wx, 0);
+	}
+
+	protected override bool map_event(Gdk.EventAny event)
+	{
+		var ret = base.map_event(event);
+		update_top_window_size();
+		return ret;
 	}
 
 	private void update_hunk_label()
@@ -88,7 +128,14 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		}
 
 		h = h.chomp();
-		d_label_hunk.label = @"@@ -$(hunk.get_old_start()),$(hunk.get_old_lines()) +$(hunk.get_new_start()),$(hunk.get_new_lines()) @@ $h";
+		d_label_hunk = new Gtk.Label(@"@@ -$(hunk.get_old_start()),$(hunk.get_old_lines()) +$(hunk.get_new_start()),$(hunk.get_new_lines()) @@ $h");
+		d_label_hunk.halign = Gtk.Align.START;
+		d_label_hunk.xalign = 0;
+		d_label_hunk.selectable = false;
+		d_label_hunk.can_focus = false;
+		d_label_hunk.margin_top = 6;
+		d_label_hunk.margin_bottom = 6;
+		d_label_hunk.show();
 	}
 
 	private void update_lines()
@@ -123,7 +170,42 @@ class Gitg.DiffViewHunk : Gtk.Grid
 			content.append(text);
 		}
 
-		d_sourceview_hunk.buffer.set_text((string)content.data);
+		var buffer = d_sourceview_hunk.buffer as Gtk.SourceBuffer;
+
+		buffer.set_text((string)content.data);
+
+		var added_attributes = new Gtk.SourceMarkAttributes();
+		added_attributes.background = Gdk.RGBA() { red = 220.0 / 255.0, green = 1.0, blue = 220.0 / 255.0, alpha = 1.0 };
+
+		var removed_attributes = new Gtk.SourceMarkAttributes();
+		removed_attributes.background = Gdk.RGBA() { red = 1.0, green = 220.0 / 255.0, blue = 220.0 / 255.0, alpha = 1.0 };
+
+		d_sourceview_hunk.set_mark_attributes("added", added_attributes, 0);
+		d_sourceview_hunk.set_mark_attributes("removed", removed_attributes, 0);
+
+		for (var i = 0; i < lines.size; i++)
+		{
+			var line = lines[i];
+			string? category = null;
+
+			switch (line.get_origin())
+			{
+				case Ggit.DiffLineType.ADDITION:
+					category = "added";
+				break;
+				case Ggit.DiffLineType.DELETION:
+					category = "removed";
+				break;
+			}
+
+			if (category != null)
+			{
+				Gtk.TextIter iter;
+
+				buffer.get_iter_at_line(out iter, i);
+				buffer.create_source_mark(null, category, iter);
+			}
+		}
 
 		notify_property("added");
 		notify_property("removed");

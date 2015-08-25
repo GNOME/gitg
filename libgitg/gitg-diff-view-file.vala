@@ -32,8 +32,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "diff_stat_file" )]
 	private DiffStat d_diff_stat_file;
 
-	[GtkChild( name = "grid_file_header" )]
-	private Gtk.Grid d_grid_file_header;
+	[GtkChild( name = "revealer_hunks" )]
+	private Gtk.Revealer d_revealer_hunks;
 
 	private bool d_expanded;
 
@@ -49,6 +49,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 			if (d_expanded != value)
 			{
 				d_expanded = value;
+				d_revealer_hunks.reveal_child = d_expanded;
 
 				var ctx = get_style_context();
 

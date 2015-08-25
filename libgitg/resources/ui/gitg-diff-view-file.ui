@@ -6,6 +6,7 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="hexpand">True</property>
+    <property name="orientation">vertical</property>
     <style>
       <class name="gitg-file-header"/>
     </style>
@@ -14,12 +15,6 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="hexpand">True</property>
-        <child>
-          <object class="GtkGrid" id="grid_hunks">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-        </child>
         <child type="label">
           <object class="GtkGrid" id="grid_file_header">
             <property name="visible">True</property>
@@ -34,8 +29,11 @@
                 <property name="can_focus">False</property>
                 <property name="vexpand">False</property>
                 <property name="valign">baseline</property>
-                <property name="margin_top">12</property>
-                <property name="margin_bottom">12</property>
+                <property name="margin_top">6</property>
+                <property name="margin_bottom">6</property>
+                <style>
+                  <class name="no-frame"/>
+                </style>
               </object>
             </child>
             <child>
@@ -47,6 +45,20 @@
                 <property name="halign">start</property>
               </object>
             </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRevealer" id="revealer_hunks">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="transition_type">slide-down</property>
+        <child>
+          <object class="GtkGrid" id="grid_hunks">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
           </object>
         </child>
       </object>
