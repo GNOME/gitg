@@ -115,7 +115,7 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		         d_sym_lines.size +
 		         d_sym_lines.xpad * 2;
 
-		d_sourceview_hunk.move_child(d_label_hunk, -wx, 0);
+		d_sourceview_hunk.move_child(d_label_hunk, -wx + 6, 0);
 	}
 
 	protected override bool map_event(Gdk.EventAny event)
