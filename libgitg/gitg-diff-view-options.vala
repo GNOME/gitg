@@ -20,7 +20,7 @@
 namespace Gitg
 {
 
-[GtkTemplate ( ui = "/org/gnome/gitg/ui/diff-view/diff-view-options.ui" )]
+[GtkTemplate ( ui = "/org/gnome/gitg/ui/gitg-diff-view-options.ui" )]
 public class DiffViewOptions : Gtk.Grid
 {
 	[GtkChild (name = "switch_changes_inline")]
@@ -43,12 +43,6 @@ public class DiffViewOptions : Gtk.Grid
 
 	[GtkChild (name = "adjustment_tab_width")]
 	private Gtk.Adjustment d_adjustment_tab_width;
-
-	[GtkChild (name = "button_developer_tools")]
-	private Gtk.Button d_button_developer_tools;
-
-	[GtkChild (name = "separator_developer_tools")]
-	private Gtk.Separator d_separator_developer_tools;
 
 	[GtkChild (name = "separator_first_options")]
 	private Gtk.Separator d_separator_first_options;
@@ -148,11 +142,6 @@ public class DiffViewOptions : Gtk.Grid
 		              transform_int_to_double,
 		              transform_double_to_int);
 
-		var dbg = (Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != null);
-
-		d_separator_developer_tools.visible = dbg;
-		d_button_developer_tools.visible = dbg;
-
 		if (view.commit == null)
 		{
 			d_label_changes_inline.visible = false;
@@ -163,13 +152,6 @@ public class DiffViewOptions : Gtk.Grid
 
 			d_separator_first_options.visible = false;
 		}
-	}
-
-	[GtkCallback]
-	private void on_button_developer_tools_clicked()
-	{
-		view.get_inspector().show();
-		hide();
 	}
 }
 

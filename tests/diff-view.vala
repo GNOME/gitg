@@ -107,26 +107,15 @@ class TestDiffView
 
 		var wnd = new Gtk.Window();
 		wnd.set_default_size(800, 600);
+
 		var sw = new Gtk.ScrolledWindow(null, null);
+		sw.show();
 
 		var v = new Gitg.DiffView();
+		v.show();
 		sw.add(v);
 
 		v.commit = commit;
-
-		v.key_press_event.connect((vv, ev) => {
-			var state = ev.state & Gtk.accelerator_get_default_mod_mask();
-
-			if (ev.keyval == Gdk.Key.r && state == Gdk.ModifierType.CONTROL_MASK)
-			{
-				v.reload_bypass_cache();
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		});
 
 		wnd.delete_event.connect((w, ev) => {
 			Gtk.main_quit();
@@ -134,14 +123,7 @@ class TestDiffView
 		});
 
 		wnd.add(sw);
-		wnd.show_all();
-
-		if (Environment.get_variable("GITG_GTK_DIFF_VIEW_DEBUG") != "local")
-		{
-			stdout.printf("Use `diff-view --local' to use local resources.\n");
-		}
-
-		stdout.printf("Press Ctrl+R to refresh...\n");
+		wnd.show();
 
 		Gtk.main();
 		return 0;

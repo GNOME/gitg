@@ -24,7 +24,6 @@ gitg_gitg_VALAFLAGS =						\
 	--pkg gobject-introspection-1.0				\
 	--pkg gee-0.8						\
 	--pkg gd-1.0						\
-	--pkg $(WEBKIT_PKGCONFIG)				\
 	--pkg gtksourceview-3.0					\
 	--pkg GtkSpell-3.0					\
 	--girdir "$(top_builddir)/libgd"			\
@@ -59,6 +58,7 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-animated-paned.vala				\
 	gitg/gitg-application.vala				\
 	gitg/gitg-author-details-dialog.vala			\
+	gitg/gitg-builder.vala					\
 	gitg/gitg-clone-dialog.vala				\
 	gitg/gitg-commit-action-create-branch.vala		\
 	gitg/gitg-commit-action-create-patch.vala		\
@@ -78,10 +78,10 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-ref-action-delete.vala			\
 	gitg/gitg-ref-action-fetch.vala				\
 	gitg/gitg-ref-action-merge.vala				\
+	gitg/gitg-ref-action-pull.vala				\
 	gitg/gitg-ref-action-rename.vala			\
 	gitg/gitg-remote-manager.vala				\
 	gitg/gitg-remote-notification.vala			\
-	gitg/gitg-resource.vala					\
 	gitg/gitg-simple-notification.vala			\
 	gitg/gitg-ui-elements.vala				\
 	gitg/gitg-window.vala					\

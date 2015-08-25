@@ -253,7 +253,7 @@ public class Application : Gtk.Application
 		// Create preferences dialog if needed
 		if (d_preferences == null)
 		{
-			d_preferences = Resource.load_object<PreferencesDialog>("ui/gitg-preferences.ui", "preferences");
+			d_preferences = Builder.load_object<PreferencesDialog>("ui/gitg-preferences.ui", "preferences");
 
 			d_preferences.destroy.connect((w) => {
 				d_preferences = null;
@@ -343,7 +343,7 @@ public class Application : Gtk.Application
 
 		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
 		{
-			MenuModel? menu = Resource.load_object<MenuModel>("ui/gitg-menus.ui", "app-menu");
+			MenuModel? menu = Builder.load_object<MenuModel>("ui/gitg-menus.ui", "app-menu");
 
 			if (menu != null)
 			{

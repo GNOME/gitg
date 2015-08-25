@@ -772,7 +772,7 @@ namespace GitgCommit
 					var author = get_signature("AUTHOR");
 					var ac = Gitg.AvatarCache.default();
 
-					ac.load.begin(author.get_email(), null, (obj, res) => {
+					ac.load.begin(author.get_email(), 50, null, (obj, res) => {
 						ac.load.end(res);
 					});
 				} catch {}

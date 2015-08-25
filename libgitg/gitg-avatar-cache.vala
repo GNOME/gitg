@@ -42,26 +42,29 @@ public class Gitg.AvatarCache : Object
 		return s_instance;
 	}
 
-	public async Gdk.Pixbuf? load(string email, Cancellable? cancellable = null)
+	public async Gdk.Pixbuf? load(string email, int size = 50, Cancellable? cancellable = null)
 	{
 		var id = Checksum.compute_for_string(ChecksumType.MD5, email.down());
 
-		if (d_cache.has_key(id))
+		var ckey = @"$id $size";
+
+		if (d_cache.has_key(ckey))
 		{
-			return d_cache[id];
+			return d_cache[ckey];
 		}
 
-		var gravatar = @"http://www.gravatar.com/avatar/$(id)?d=404&s=50";
+		var gravatar = @"http://www.gravatar.com/avatar/$(id)?d=404&s=$(size)";
 		var gfile = File.new_for_uri(gravatar);
 
-		var pixbuf = yield read_avatar_from_file(id, gfile, cancellable);
+		var pixbuf = yield read_avatar_from_file(id, gfile, size, cancellable);
 
-		d_cache[id] = pixbuf;
+		d_cache[ckey] = pixbuf;
 		return pixbuf;
 	}
 
 	private async Gdk.Pixbuf? read_avatar_from_file(string       id,
 	                                                File         file,
+	                                                int          size,
 	                                                Cancellable? cancellable)
 	{
 		InputStream stream;
@@ -78,7 +81,7 @@ public class Gitg.AvatarCache : Object
 		uint8[] buffer = new uint8[4096];
 		var loader = new Gdk.PixbufLoader();
 
-		loader.set_size(50, 50);
+		loader.set_size(size, size);
 
 		return yield read_avatar(id, stream, buffer, loader, cancellable);
 	}

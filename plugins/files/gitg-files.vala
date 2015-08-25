@@ -29,7 +29,7 @@ namespace GitgFiles
 
 		private TreeStore d_model;
 		private Gtk.Paned d_paned;
-		private GtkSource.View d_source;
+		private Gtk.SourceView d_source;
 		private Settings? d_fontsettings;
 		private Settings? d_stylesettings;
 
@@ -93,12 +93,12 @@ namespace GitgFiles
 		private void update_style()
 		{
 			var scheme = d_stylesettings.get_string("scheme");
-			var manager = GtkSource.StyleSchemeManager.get_default();
+			var manager = Gtk.SourceStyleSchemeManager.get_default();
 			var s = manager.get_scheme(scheme);
 
 			if (s != null)
 			{
-				var buf = d_source.get_buffer() as GtkSource.Buffer;
+				var buf = d_source.get_buffer() as Gtk.SourceBuffer;
 				buf.set_style_scheme(s);
 			}
 		}
@@ -135,7 +135,7 @@ namespace GitgFiles
 			tv.get_selection().changed.connect(selection_changed);
 
 			d_scrolled_files = ret["scrolled_window_files"] as Gtk.ScrolledWindow;
-			d_source = ret["source_view_file"] as GtkSource.View;
+			d_source = ret["source_view_file"] as Gtk.SourceView;
 			d_paned = ret["paned_files"] as Gtk.Paned;
 			d_scrolled = ret["scrolled_window_file"] as Gtk.ScrolledWindow;
 
@@ -206,7 +206,7 @@ namespace GitgFiles
 			Gtk.TreeModel mod;
 			Gtk.TreeIter iter;
 
-			var buf = d_source.get_buffer() as GtkSource.Buffer;
+			var buf = d_source.get_buffer() as Gtk.SourceBuffer;
 			buf.set_text("");
 
 			if (!selection.get_selected(out mod, out iter) || d_model.get_isdir(iter))
@@ -253,7 +253,7 @@ namespace GitgFiles
 			}
 			else if (ContentType.is_a(ct, "text/plain"))
 			{
-				var manager = GtkSource.LanguageManager.get_default();
+				var manager = Gtk.SourceLanguageManager.get_default();
 
 				buf.set_text((string)content);
 				buf.language = manager.guess_language(fname, ct);

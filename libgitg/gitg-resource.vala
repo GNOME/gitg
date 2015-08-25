@@ -17,39 +17,24 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Gitg
+public class Gitg.Resource
 {
-	class Resource
+	public static Gtk.CssProvider? load_css(string id)
 	{
-		public static T? load_object<T>(string id, string object)
+		var provider = new Gtk.CssProvider();
+		var f = File.new_for_uri("resource:///org/gnome/gitg/ui/" + id);
+
+		try
 		{
-			var ret = GitgExt.UI.from_builder(id, object);
-
-			if (ret == null)
-			{
-				return null;
-			}
-
-			return (T?)ret[object];
+			provider.load_from_file(f);
+		}
+		catch (Error e)
+		{
+			warning("Error while loading resource: %s", e.message);
+			return null;
 		}
 
-		public static Gtk.CssProvider? load_css(string id)
-		{
-			var provider = new Gtk.CssProvider();
-			var f = File.new_for_uri("resource:///org/gnome/gitg/ui/" + id);
-
-			try
-			{
-				provider.load_from_file(f);
-			}
-			catch (Error e)
-			{
-				warning("Error while loading resource: %s", e.message);
-				return null;
-			}
-
-			return provider;
-		}
+		return provider;
 	}
 }
 

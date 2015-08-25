@@ -27,7 +27,7 @@ class Dialog : Gtk.Dialog
 	private const string version = Gitg.Config.VERSION;
 
 	[GtkChild (name = "source_view_message")]
-	private GtkSource.View d_source_view_message;
+	private Gtk.SourceView d_source_view_message;
 
 	[GtkChild (name = "ok-button")]
 	private Gtk.Button d_button_ok;
@@ -95,7 +95,7 @@ class Dialog : Gtk.Dialog
 		default = 3;
 	}
 
-	public GtkSource.View source_view_message
+	public Gtk.SourceView source_view_message
 	{
 		get { return d_source_view_message; }
 	}
@@ -370,7 +370,7 @@ class Dialog : Gtk.Dialog
 			var ac = Gitg.AvatarCache.default();
 			d_cancel_avatar = new Cancellable();
 
-			ac.load.begin(d_author.get_email(), d_cancel_avatar, (obj, res) => {
+			ac.load.begin(d_author.get_email(), 50, d_cancel_avatar, (obj, res) => {
 				var pixbuf = ac.load.end(res);
 
 				if (d_cancel_avatar.is_cancelled())

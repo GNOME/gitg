@@ -1,0 +1,76 @@
+.gitg-hunk-header {
+	border-top: 1px solid shade(@borders, 1.2);
+	background-color: @theme_bg_color;
+}
+
+.gitg-file-header {
+	transition: 0.1s ease-out;
+	background-color: @theme_bg_color;
+}
+
+.gitg-file-header.expanded {
+	transition: 0.1s ease-out;
+	background-color: shade(@theme_bg_color, 0.95);
+}
+
+.gitg-hunk-frame {
+	border-left: 0;
+	border-right: 0;
+}
+
+.gitg-diff-view-grid-files {
+	border-top: 1px solid @borders;
+}
+
+GitgDiffStat {
+	border: 1px inset shade(@borders, 1.2);
+	border-radius: 5px;
+	background-color: shade(@theme_bg_color, 1.2);
+	-GitgDiffStat-bar-height: 5px;
+}
+
+GitgDiffStat.no-frame {
+	border: 0;
+	border-radius: 0;
+	background-color: inherit;
+}
+
+GitgDiffStat added,
+GitgDiffStat removed,
+GitgDiffStat.no-frame added,
+GitgDiffStat.no-frame removed {
+	border: 0;
+}
+
+GitgDiffStat added,
+GitgDiffStat.no-frame added {
+	background-color: #33cc33;
+	border-radius: 3px 0px 0px 3px;
+}
+
+GitgDiffStat added:dir(rtl),
+GitgDiffStat.no-frame added:dir(rtl) {
+	border-radius: 0px 3px 3px 0px;
+}
+
+GitgDiffStat removed,
+GitgDiffStat.no-frame removed {
+	background-color: #cc3333;
+	border-radius: 0px 3px 3px 0px;
+}
+
+GitgDiffStat removed:dir(rtl),
+GitgDiffStat.no-frame removed:dir(rtl) {
+	border-radius: 3px 0px 0px 3px;
+}
+
+GitgDiffStat removed:only-child,
+GitgDiffStat added:only-child,
+GitgDiffStat.no-frame removed:only-child,
+GitgDiffStat.no-frame added:only-child {
+	border-radius: 3px;
+}
+
+GitgDiffStat {
+	padding: 1px 5px 1px 3px;
+}

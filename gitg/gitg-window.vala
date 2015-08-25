@@ -222,8 +222,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		d_dash_view.application = this;
 
-		d_dash_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
-		d_activities_model = Resource.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
+		d_dash_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
+		d_activities_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
 
 		// search bar
 		d_search_bar.connect_entry(d_search_entry);
