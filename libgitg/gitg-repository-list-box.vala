@@ -420,7 +420,7 @@ namespace Gitg
 
 		public Row? begin_cloning(File location)
 		{
-			var row = new Row(location.get_basename(), Utils.replace_home_dir_with_tilde(location.get_parent()), _("Cloning..."), true);
+			var row = new Row(location.get_basename(), Utils.replace_home_dir_with_tilde(location.get_parent()), _("Cloning…"), true);
 
 			row.loading = true;
 			row.show();
