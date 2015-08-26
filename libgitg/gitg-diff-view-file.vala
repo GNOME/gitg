@@ -65,6 +65,16 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 	}
 
+	public bool wrap
+	{
+		get; set;
+	}
+
+	public int tab_width
+	{
+		get; set;
+	}
+
 	public int maxlines
 	{
 		get; set;
@@ -118,6 +128,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_grid_hunks.add(widget);
 
 		this.bind_property("maxlines", widget, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+		this.bind_property("wrap", widget, "wrap", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+		this.bind_property("tab-width", widget, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 
 		sensitive = true;
 	}

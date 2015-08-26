@@ -61,6 +61,34 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		get; set;
 	}
 
+	public bool wrap
+	{
+		get { return d_sourceview_hunk.wrap_mode != Gtk.WrapMode.NONE; }
+		set
+		{
+			if (value)
+			{
+				d_sourceview_hunk.wrap_mode = Gtk.WrapMode.WORD_CHAR;
+			}
+			else
+			{
+				d_sourceview_hunk.wrap_mode = Gtk.WrapMode.NONE;
+			}
+		}
+	}
+
+	public int tab_width
+	{
+		get { return (int)d_sourceview_hunk.tab_width; }
+		set
+		{
+			if (value > 0)
+			{
+				d_sourceview_hunk.tab_width = (uint)value;
+			}
+		}
+	}
+
 	private DiffViewLinesRenderer d_old_lines;
 	private DiffViewLinesRenderer d_new_lines;
 	private DiffViewLinesRenderer d_sym_lines;

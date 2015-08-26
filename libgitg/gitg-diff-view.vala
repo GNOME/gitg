@@ -91,19 +91,10 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private bool d_wrap;
-
 	public bool wrap
 	{
-		get { return d_wrap; }
-		construct set
-		{
-			if (d_wrap != value)
-			{
-				d_wrap = value;
-				update_wrap();
-			}
-		}
+		get;
+		construct set;
 		default = true;
 	}
 
@@ -119,19 +110,10 @@ public class Gitg.DiffView : Gtk.Grid
 		default = true;
 	}
 
-	int d_tab_width;
-
 	public int tab_width
 	{
-		get { return d_tab_width; }
-		construct set
-		{
-			if (d_tab_width != value)
-			{
-				d_tab_width = value;
-				update_tab_width();
-			}
-		}
+		get;
+		construct set;
 		default = 4;
 	}
 
@@ -216,14 +198,6 @@ public class Gitg.DiffView : Gtk.Grid
 		{
 			(file as Gitg.DiffViewFile).expanded = expanded;
 		}
-	}
-
-	private void update_wrap()
-	{
-	}
-
-	private void update_tab_width()
-	{
 	}
 
 	private void update()
@@ -389,6 +363,9 @@ public class Gitg.DiffView : Gtk.Grid
 			d_grid_files.add(file);
 
 			file.notify["expanded"].connect(auto_update_expanded);
+
+			this.bind_property("wrap", file, "wrap", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			this.bind_property("tab-width", file, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 		}
 	}
 
