@@ -201,6 +201,23 @@ public class Gitg.DiffView : Gtk.Grid
 		default = 3;
 	}
 
+	private ulong d_expanded_notify;
+
+	protected override void constructed()
+	{
+		d_expanded_notify = d_commit_details.notify["expanded"].connect(update_expanded_files);
+	}
+
+	private void update_expanded_files()
+	{
+		var expanded = d_commit_details.expanded;
+
+		foreach (var file in d_grid_files.get_children())
+		{
+			(file as Gitg.DiffViewFile).expanded = expanded;
+		}
+	}
+
 	private void update_wrap()
 	{
 	}
@@ -262,10 +279,16 @@ public class Gitg.DiffView : Gtk.Grid
 
 	private delegate void Anon();
 
+	private void auto_change_expanded(bool expanded)
+	{
+		SignalHandler.block(d_commit_details, d_expanded_notify);
+		d_commit_details.expanded = expanded;
+		SignalHandler.unblock(d_commit_details, d_expanded_notify);
+	}
+
 	private void update_diff(Ggit.Diff diff, Cancellable? cancellable)
 	{
-		var files = new Gee.LinkedList<Gitg.DiffViewFile>();
-
+		var files = new Gee.ArrayList<Gitg.DiffViewFile>();
 		Gitg.DiffViewFile? current_file = null;
 		Ggit.DiffHunk? current_hunk = null;
 		Gee.ArrayList<Ggit.DiffLine>? current_lines = null;
@@ -288,7 +311,6 @@ public class Gitg.DiffView : Gtk.Grid
 			if (current_file != null)
 			{
 				current_file.show();
-				d_grid_files.add(current_file);
 
 				files.add(current_file);
 
@@ -357,10 +379,31 @@ public class Gitg.DiffView : Gtk.Grid
 		add_hunk();
 		add_file();
 
+		d_commit_details.expanded = (files.size <= 1);
+
 		foreach (var file in files)
 		{
+			file.expanded = d_commit_details.expanded;
 			file.maxlines = maxlines;
+
+			d_grid_files.add(file);
+
+			file.notify["expanded"].connect(auto_update_expanded);
 		}
+	}
+
+	private void auto_update_expanded()
+	{
+		foreach (var file in d_grid_files.get_children())
+		{
+			if (!(file as Gitg.DiffViewFile).expanded)
+			{
+				auto_change_expanded(false);
+				return;
+			}
+		}
+
+		auto_change_expanded(true);
 	}
 
 	public async PatchSet[] get_selection()

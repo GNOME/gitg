@@ -5,6 +5,7 @@
   <template class="GitgDiffViewCommitDetails" parent="GtkGrid">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
     <child>
       <object class="GtkGrid" id="grid_inner">
         <property name="visible">True</property>
@@ -129,24 +130,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label_sha1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">end</property>
-            <property name="valign">start</property>
-            <property name="label">0000000000000000000000000000000000000000</property>
-            <property name="selectable">True</property>
-            <property name="ellipsize">end</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">3</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkGrid" id="grid_parents_container">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -187,26 +170,49 @@
             <property name="width">2</property>
           </packing>
         </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkGrid" id="grid_bottom">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">horizontal</property>
+        <property name="margin_start">3</property>
+        <property name="margin_end">12</property>
+        <property name="margin_top">12</property>
+        <property name="margin_bottom">6</property>
         <child>
           <object class="GtkExpander" id="expander_files">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="valign">baseline</property>
+            <property name="hexpand">True</property>
             <child type="label">
               <object class="GtkLabel" id="label_expand_collapse_files">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Collapse all</property>
+                <property name="label" translatable="yes">Expand all</property>
               </object>
             </child>
             <style>
               <class name="dim-label"/>
             </style>
           </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">3</property>
-          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_sha1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">end</property>
+            <property name="valign">start</property>
+            <property name="hexpand">True</property>
+            <property name="label">0000000000000000000000000000000000000000</property>
+            <property name="selectable">True</property>
+            <property name="ellipsize">end</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
         </child>
       </object>
     </child>

@@ -58,15 +58,6 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			if (d_expander_files.expanded != value)
 			{
 				d_expander_files.expanded = value;
-
-				if (value)
-				{
-					d_expander_files.label = _("Collapse all");
-				}
-				else
-				{
-					d_expander_files.label = _("Expand all");
-				}
 			}
 		}
 	}
@@ -132,6 +123,15 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 	construct
 	{
 		d_expander_files.notify["expanded"].connect(() => {
+			if (d_expander_files.expanded)
+			{
+				d_expander_files.label = _("Collapse all");
+			}
+			else
+			{
+				d_expander_files.label = _("Expand all");
+			}
+
 			notify_property("expanded");
 		});
 	}
