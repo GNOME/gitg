@@ -302,9 +302,41 @@ public class Application : Gtk.Application
 		string[] accels;
 	}
 
+	private void init_error(string msg)
+	{
+		var dlg = new Gtk.MessageDialog(null,
+		                                0,
+		                                Gtk.MessageType.ERROR,
+		                                Gtk.ButtonsType.CLOSE,
+		                                "%s",
+		                                msg);
+
+		dlg.window_position = Gtk.WindowPosition.CENTER;
+
+		dlg.response.connect(() => { Gtk.main_quit(); });
+		dlg.show();
+	}
+
 	protected override void startup()
 	{
 		base.startup();
+
+		try
+		{
+			Gitg.init();
+		}
+		catch (Error e)
+		{
+			if (e is Gitg.InitError.THREADS_UNSAFE)
+			{
+				var errmsg = _("We are terribly sorry, but gitg requires libgit2 (a library on which gitg depends) to be compiled with threading support.\n\nIf you manually compiled libgit2, then please configure libgit2 with -DTHREADSAFE:BOOL=ON.\n\nOtherwise, report a bug in your distributions' bug reporting system for providing libgit2 without threading support.");
+
+				init_error(errmsg);
+				error("%s", errmsg);
+			}
+
+			return;
+		}
 
 		// Handle the state setting in the application
 		d_state_settings = new Settings("org.gnome.gitg.state.window");

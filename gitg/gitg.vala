@@ -24,25 +24,6 @@ private const string version = Config.VERSION;
 
 public class Main
 {
-	private static void init_error(string[] args, string msg)
-	{
-		Gtk.init(ref args);
-
-		var dlg = new Gtk.MessageDialog(null,
-		                                0,
-		                                Gtk.MessageType.ERROR,
-		                                Gtk.ButtonsType.CLOSE,
-		                                "%s",
-		                                msg);
-
-		dlg.window_position = Gtk.WindowPosition.CENTER;
-
-		dlg.response.connect(() => { Gtk.main_quit(); });
-		dlg.show();
-
-		Gtk.main();
-	}
-
 	public static int main(string[] args)
 	{
 		Gtk.disable_setlocale();
@@ -56,23 +37,6 @@ public class Main
 
 		Environment.set_prgname("gitg");
 		Environment.set_application_name(_("gitg"));
-
-		try
-		{
-			Gitg.init();
-		}
-		catch (Error e)
-		{
-			if (e is Gitg.InitError.THREADS_UNSAFE)
-			{
-				var errmsg = _("We are terribly sorry, but gitg requires libgit2 (a library on which gitg depends) to be compiled with threading support.\n\nIf you manually compiled libgit2, then please configure libgit2 with -DTHREADSAFE:BOOL=ON.\n\nOtherwise, report a bug in your distributions' bug reporting system for providing libgit2 without threading support.");
-
-				init_error(args, errmsg);
-				error("%s", errmsg);
-			}
-
-			Process.exit(1);
-		}
 
 		// Make sure to pull in gd symbols since libgd gets linked statically
 		Gd.ensure_types();
