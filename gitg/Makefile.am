@@ -78,7 +78,6 @@ gitg_gitg_VALASOURCES =						\
 	gitg/gitg-ref-action-delete.vala			\
 	gitg/gitg-ref-action-fetch.vala				\
 	gitg/gitg-ref-action-merge.vala				\
-	gitg/gitg-ref-action-pull.vala				\
 	gitg/gitg-ref-action-rename.vala			\
 	gitg/gitg-remote-manager.vala				\
 	gitg/gitg-remote-notification.vala			\
