@@ -360,6 +360,7 @@ public class Gitg.DiffView : Gtk.Grid
 		add_file();
 
 		d_commit_details.expanded = (files.size <= 1);
+		d_commit_details.expander_visible = (files.size > 1);
 
 		foreach (var file in files)
 		{

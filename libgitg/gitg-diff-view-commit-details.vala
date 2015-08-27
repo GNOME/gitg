@@ -62,6 +62,12 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 	}
 
+	public bool expander_visible
+	{
+		get { return d_expander_files.visible; }
+		set { d_expander_files.visible = value; }
+	}
+
 	private Cancellable? d_avatar_cancel;
 
 	private Ggit.Commit? d_commit;
