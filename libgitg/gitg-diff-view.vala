@@ -268,8 +268,8 @@ public class Gitg.DiffView : Gtk.Grid
 		Gee.ArrayList<Ggit.DiffLine>? current_lines = null;
 
 		var maxlines = 0;
-
 		var file_widgets = d_grid_files.get_children();
+
 		foreach (var file in file_widgets)
 		{
 			file.destroy();
