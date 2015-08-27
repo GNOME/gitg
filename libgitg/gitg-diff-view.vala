@@ -269,6 +269,12 @@ public class Gitg.DiffView : Gtk.Grid
 
 		var maxlines = 0;
 
+		var file_widgets = d_grid_files.get_children();
+		foreach (var file in file_widgets)
+		{
+			file.destroy();
+		}
+
 		Anon add_hunk = () => {
 			if (current_hunk != null)
 			{
