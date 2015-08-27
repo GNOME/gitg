@@ -136,6 +136,16 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		});
 	}
 
+	protected override void dispose()
+	{
+		if (d_avatar_cancel != null)
+		{
+			d_avatar_cancel.cancel();
+		}
+
+		base.dispose();
+	}
+
 	private string author_to_markup(Ggit.Signature author)
 	{
 		var name = Markup.escape_text(author.get_name());
