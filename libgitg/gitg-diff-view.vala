@@ -23,6 +23,9 @@ public class Gitg.DiffView : Gtk.Grid
 	[GtkChild( name = "commit_details" )]
 	private Gitg.DiffViewCommitDetails d_commit_details;
 
+	[GtkChild( name = "scrolledwindow" )]
+	private Gtk.ScrolledWindow d_scrolledwindow;
+
 	[GtkChild( name = "grid_files" )]
 	private Gtk.Grid d_grid_files;
 
@@ -206,11 +209,13 @@ public class Gitg.DiffView : Gtk.Grid
 		// the diff content
 		if (d_diff == null && d_commit == null)
 		{
-			hide();
+			d_commit_details.hide();
+			d_scrolledwindow.hide();
 			return;
 		}
 
-		show();
+		d_commit_details.show();
+		d_scrolledwindow.show();
 
 		// Cancel running operations
 		d_cancellable.cancel();

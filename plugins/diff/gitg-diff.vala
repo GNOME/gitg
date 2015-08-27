@@ -27,17 +27,16 @@ namespace GitgDiff
 		public GitgExt.Application? application { owned get; construct set; }
 		public GitgExt.History? history { owned get; construct set; }
 
-		private Gtk.ScrolledWindow d_sw;
 		private Gitg.DiffView d_diff;
 		private Gitg.WhenMapped d_whenMapped;
 
+		private ulong d_selection_changed_id;
+
 		construct
 		{
-			d_sw = new Gtk.ScrolledWindow(null, null);
-			d_sw.show();
-
 			d_diff = new Gitg.DiffView();
 			d_diff.show_parents = true;
+			d_diff.show();
 
 			var settings = new Settings("org.gnome.gitg.preferences.diff");
 
@@ -79,14 +78,25 @@ namespace GitgDiff
 			              SettingsBindFlags.GET |
 			              SettingsBindFlags.SET);
 
-			d_diff.show();
+			d_diff.notify["visible"].connect(() => {
+				stdout.printf(@"visible: $(d_diff.visible)\n");
+			});
 
-			d_sw.add(d_diff);
+			d_whenMapped = new Gitg.WhenMapped(d_diff);
 
-			d_whenMapped = new Gitg.WhenMapped(d_sw);
-
-			history.selection_changed.connect(on_selection_changed);
+			d_selection_changed_id = history.selection_changed.connect(on_selection_changed);
 			on_selection_changed(history);
+		}
+
+		protected override void dispose()
+		{
+			if (history != null && d_selection_changed_id != 0)
+			{
+				history.disconnect(d_selection_changed_id);
+				d_selection_changed_id = 0;
+			}
+
+			base.dispose();
 		}
 
 		public string id
@@ -142,7 +152,7 @@ namespace GitgDiff
 
 		public Gtk.Widget? widget
 		{
-			owned get { return d_sw; }
+			owned get { return d_diff; }
 		}
 
 		public bool enabled
