@@ -400,6 +400,51 @@ public class Gitg.DiffView : Gtk.Grid
 		// TODO
 		return new PatchSet[] {};
 	}
+
+	private void do_popup(Gdk.EventButton? event)
+	{
+		var popover = new Gtk.Popover(this);
+		var opts = new DiffViewOptions(this);
+
+		popover.add(opts);
+
+		if (event != null)
+		{
+			var r = Gdk.Rectangle() {
+				x = (int)event.x,
+				y = (int)event.y,
+				width = 1,
+				height = 1
+			};
+
+			popover.set_pointing_to(r);
+		}
+
+		opts.show();
+		popover.show();
+
+		popover.notify["visible"].connect(() => {
+			popover.destroy();
+		});
+	}
+
+	[GtkCallback]
+	private bool button_press_event_handler(Gdk.EventButton event)
+	{
+		if (event.triggers_context_menu() && event.type == Gdk.EventType.BUTTON_PRESS)
+		{
+			do_popup(event);
+			return true;
+		}
+
+		return false;
+	}
+
+	protected override bool popup_menu()
+	{
+		do_popup(null);
+		return true;
+	}
 }
 
 // ex:ts=4 noet

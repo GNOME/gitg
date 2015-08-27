@@ -8,6 +8,7 @@
     <property name="orientation">vertical</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
+    <signal name="button-press-event" handler="button_press_event_handler" />
     <child>
       <object class="GitgDiffViewCommitDetails" id="commit_details">
         <property name="visible">True</property>

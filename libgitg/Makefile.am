@@ -61,6 +61,7 @@ libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-diff-view-hunk.vala		\
 	libgitg/gitg-diff-view-lines-renderer.vala	\
 	libgitg/gitg-diff-view-commit-details.vala	\
+	libgitg/gitg-diff-view-options.vala		\
 	libgitg/gitg-hook.vala				\
 	libgitg/gitg-init.vala				\
 	libgitg/gitg-label-renderer.vala		\
