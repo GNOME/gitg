@@ -181,7 +181,7 @@ function prettify_message(message)
 
 	var escaped = html_escape(ret);
 
-	escaped = ret.replace(/(https?:[^\s]*[^.])/g, "<a href=\"$1\" onclick=\"javascript:return open_url(this);\">$1</a>");
+	escaped = escaped.replace(/(https?:[^\s]*[^.])/g, "<a href=\"$1\" onclick=\"javascript:return open_url(this);\">$1</a>");
 
 	return escaped;
 }
