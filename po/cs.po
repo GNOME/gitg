@@ -1,16 +1,17 @@
 # Czech translation for gitg.
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
-# Marek Černocký <marek@manet.cz>, 2013, 2014, 2015.
 # Petr Kovar <pknbe@volny.cz>, 2015.
+# Marek Černocký <marek@manet.cz>, 2013, 2014, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
 "POT-Creation-Date: 2015-09-22 05:58+0000\n"
-"PO-Revision-Date: 2015-09-21 19:15+0200\n"
-"Last-Translator: Petr Kovar <pknbe@volny.cz>\n"
+"PO-Revision-Date: 2015-09-24 17:04+0200\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -59,20 +60,20 @@ msgstr "Činnost, kterou gitg aktivuje jako výchozí při prvním spuštění."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
 msgid "Use Gravatar"
-msgstr ""
+msgstr "Používat Gravatar"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
 msgid "Enable the use of gravatar to display user avatars."
-msgstr ""
+msgstr "Povolit používání knihovny gravatar k zobrazení avatarů uživatelů."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
 msgid "Enable Monitoring"
-msgstr ""
+msgstr "Povolit sledování"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:10
 msgid "Automatically update when external changes to .git are detected"
-msgstr ""
+msgstr "Automaticky aktualizovat, když jsou zjištěny vnější změny v .git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "When to Collapse Inactive Lanes"
@@ -280,11 +281,11 @@ msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:46
 msgid "Wrap"
-msgstr ""
+msgstr "Zalamovat"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:47
 msgid "Wrap lines."
-msgstr ""
+msgstr "Zalamovat řádky."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:48
 msgid "Number of Before/After Context Lines"
@@ -819,16 +820,14 @@ msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr ""
 
 #: ../gitg/gitg-dash-view.vala:395
-#, fuzzy
 #| msgid "Failed to commit"
 msgid "Failed to clone repository"
-msgstr "Selhalo zařazení"
+msgstr "Selhalo klonování repozitáře"
 
 #: ../gitg/gitg-dash-view.vala:443
-#, fuzzy
 #| msgid "Failed to pass pre-commit"
 msgid "Failed to add repository"
-msgstr "Selhal průchod před zařazením"
+msgstr "Selhalo přidání repozitáře"
 
 #: ../gitg/gitg-dash-view.vala:459
 #, fuzzy
@@ -851,10 +850,9 @@ msgid "Create repository"
 msgstr "Prázdný repozitář"
 
 #: ../gitg/gitg-dash-view.vala:484
-#, fuzzy
 #| msgid "Failed to create patch"
 msgid "Failed to create repository"
-msgstr "Selhalo vytvoření záplaty"
+msgstr "Selhalo vytvoření repozitáře"
 
 #: ../gitg/gitg-dash-view.vala:554
 #, c-format
@@ -869,7 +867,7 @@ msgstr "Otevření repozitáře"
 
 #: ../gitg/gitg-dash-view.vala:599
 msgid "_Add"
-msgstr ""
+msgstr "Přid_at"
 
 #: ../gitg/gitg-dash-view.vala:601
 #, fuzzy
@@ -1030,10 +1028,10 @@ msgid "Merge another branch into branch %s"
 msgstr ""
 
 #: ../gitg/gitg-ref-action-merge.vala:106
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to commit"
 msgid "Failed to merge commits: %s"
-msgstr "Selhalo zařazení"
+msgstr "Selhalo sloučení zařazení: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:175
 #: ../gitg/gitg-ref-action-merge.vala:191
@@ -1060,7 +1058,7 @@ msgstr ""
 
 #: ../gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
-msgstr ""
+msgstr "Dokončeno sloučení s konflikty v pracovní složce"
 
 #: ../gitg/gitg-ref-action-merge.vala:222
 #, c-format
