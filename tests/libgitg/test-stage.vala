@@ -17,6 +17,7 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Gitg.Test;
 using Gitg.Test.Assert;
 
 class LibGitg.Test.Stage : Gitg.Test.Repository
@@ -103,7 +104,7 @@ class LibGitg.Test.Stage : Gitg.Test.Repository
 			try
 			{
 				stage.stage.end(res);
-			} catch (Error e) { assert_no_error(e); }
+			} catch (Error e) { Assert.assert_no_error(e); }
 
 			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
 
@@ -130,7 +131,7 @@ class LibGitg.Test.Stage : Gitg.Test.Repository
 			try
 			{
 				stage.unstage.end(res);
-			} catch (Error e) { assert_no_error(e); }
+			} catch (Error e) { Assert.assert_no_error(e); }
 
 			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
 
@@ -157,7 +158,7 @@ class LibGitg.Test.Stage : Gitg.Test.Repository
 			try
 			{
 				stage.revert.end(res);
-			} catch (Error e) { assert_no_error(e); }
+			} catch (Error e) { Assert.assert_no_error(e); }
 
 			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
 
@@ -183,7 +184,7 @@ class LibGitg.Test.Stage : Gitg.Test.Repository
 			try
 			{
 				stage.delete.end(res);
-			} catch (Error e) { assert_no_error(e); }
+			} catch (Error e) { Assert.assert_no_error(e); }
 
 			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
 

@@ -94,7 +94,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_no_error(e);
+				Assert.assert_no_error(e);
 			}
 		}
 	}
@@ -117,7 +117,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 			return null;
 		}
 	}
@@ -142,7 +142,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 			return;
 		}
 
@@ -154,7 +154,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_no_error(e);
+				Assert.assert_no_error(e);
 			}
 		}
 
@@ -167,7 +167,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 			return;
 		}
 
@@ -182,7 +182,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 			return;
 		}
 
@@ -220,7 +220,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 			return;
 		}
 	}
@@ -245,7 +245,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_no_error(e);
+				Assert.assert_no_error(e);
 			}
 		}
 	}
@@ -280,7 +280,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 			return;
 		}
 
@@ -293,7 +293,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_no_error(e);
+				Assert.assert_no_error(e);
 				continue;
 			}
 
@@ -304,7 +304,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 			}
 			catch (GLib.Error e)
 			{
-				assert_no_error(e);
+				Assert.assert_no_error(e);
 			}
 		}
 
@@ -314,7 +314,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 		}
 	}
 
@@ -327,7 +327,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 			return null;
 		}
 	}
@@ -348,7 +348,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 			return;
 		}
 	}
@@ -364,7 +364,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (GLib.Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 			return;
 		}
 
@@ -377,7 +377,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		catch (GLib.Error e)
 		{
 			GLib.DirUtils.remove(wd);
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 		}
 	}
 
@@ -417,7 +417,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 		}
 
 		return null;
@@ -434,7 +434,7 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		}
 		catch (Error e)
 		{
-			assert_no_error(e);
+			Assert.assert_no_error(e);
 		}
 
 		return null;
