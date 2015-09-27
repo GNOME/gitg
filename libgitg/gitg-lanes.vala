@@ -129,11 +129,9 @@ public class Lanes : Object
 		reset();
 	}
 
-	public void reset(Ggit.OId[]?           reserved = null,
+	public void reset(Ggit.OId[]?            reserved = null,
 	                  Gee.HashSet<Ggit.OId>? roots    = null)
 	{
-		d_previous = new SList<weak Commit>();
-
 		d_lanes = new Gee.LinkedList<LaneContainer>();
 		d_roots = roots;
 
@@ -331,32 +329,36 @@ public class Lanes : Object
 		{
 			var commit = item.data;
 			unowned SList<Lane> lns = commit.get_lanes();
-			unowned Lane lane = lns.nth_data(index);
 
-			if (item.next != null)
+			if (lns != null)
 			{
-				var newindex = lane.from.data;
+				unowned Lane lane = lns.nth_data(index);
 
-				lns = commit.remove_lane(lane);
-
-				if (item.next.next != null)
+				if (item.next != null)
 				{
-					update_merge_indices(lns, newindex, -1);
+					var newindex = lane.from.data;
+
+					lns = commit.remove_lane(lane);
+
+					if (item.next.next != null)
+					{
+						update_merge_indices(lns, newindex, -1);
+					}
+
+					var mylane = commit.mylane;
+
+					if (mylane > index)
+					{
+						--commit.mylane;
+					}
+
+					index = newindex;
 				}
-
-				var mylane = commit.mylane;
-
-				if (mylane > index)
+				else
 				{
-					--commit.mylane;
+					lane.tag |= LaneTag.END;
+					lane.boundary_id = container.to;
 				}
-
-				index = newindex;
-			}
-			else
-			{
-				lane.tag |= LaneTag.END;
-				lane.boundary_id = container.to;
 			}
 
 			item = item.next;
