@@ -67,6 +67,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.Image dash_image;
 	[GtkChild]
+	private Gtk.Button d_branch_button;
+	[GtkChild]
+	private Gtk.Label d_repository_name_label;
+	[GtkChild]
+	private Gtk.Label d_branch_name_label;
+	[GtkChild]
 	private Gtk.StackSwitcher d_activities_switcher;
 
 	[GtkChild]
@@ -80,6 +86,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private DashView d_dash_view;
 
+	[GtkChild]
+	private Gtk.Label d_title_label;
 	[GtkChild]
 	private Gtk.Stack d_stack_activities;
 
@@ -368,22 +376,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (d_repository != null)
 		{
 			// set title
-			File? workdir = d_repository.get_workdir();
-			string name;
-
-			if (workdir != null)
-			{
-				var parent_path = Utils.replace_home_dir_with_tilde(workdir.get_parent());
-
-				name = @"$(d_repository.name) ($parent_path)";
-				title = @"$name - gitg";
-			}
-			else
-			{
-				name = d_repository.name;
-			}
-
-			d_header_bar.set_title(name);
+			d_repository_name_label.set_text(d_repository.name);
 
 			string? head_name = null;
 
@@ -396,19 +389,16 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 			if (head_name != null)
 			{
-				d_header_bar.set_subtitle(Markup.escape_text(head_name));
+				d_branch_name_label.set_text(Markup.escape_text(head_name));
 			}
 			else
 			{
-				d_header_bar.set_subtitle(null);
+				d_branch_name_label.set_text("");
 			}
 		}
 		else
 		{
-			title = "gitg";
-
-			d_header_bar.set_title(_("Projects"));
-			d_header_bar.set_subtitle(null);
+			d_title_label.set_text(_("Projects"));
 		}
 	}
 
@@ -424,6 +414,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
 			d_main_stack.set_visible_child(d_stack_activities);
 			d_activities_switcher.show();
+			d_branch_button.show();
+			d_title_label.hide();
 			d_dash_button.show();
 			d_dash_view.add_repository(d_repository);
 			d_gear_menu.menu_model = d_activities_model;
@@ -436,6 +428,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_main_stack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT;
 			d_main_stack.set_visible_child(d_dash_view);
 			d_activities_switcher.hide();
+			d_branch_button.hide();
+			d_title_label.show();
 			d_dash_button.hide();
 			d_gear_menu.menu_model = d_dash_model;
 			d_gear_menu.hide();

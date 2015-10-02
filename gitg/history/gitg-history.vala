@@ -313,7 +313,7 @@ namespace GitgHistory
 
 		public string? icon
 		{
-			owned get { return "view-list-symbolic"; }
+			owned get { return null; }
 		}
 
 		public Gtk.Widget? widget

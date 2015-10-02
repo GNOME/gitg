@@ -101,7 +101,7 @@ namespace GitgCommit
 
 		public string display_name
 		{
-			owned get { return C_("Activity", "Commit"); }
+			owned get { return C_("Activity", "Changes"); }
 		}
 
 		public string description
@@ -111,7 +111,7 @@ namespace GitgCommit
 
 		public string? icon
 		{
-			owned get { return "document-save-symbolic"; }
+			owned get { return null; }
 		}
 
 		public Gtk.Widget? widget

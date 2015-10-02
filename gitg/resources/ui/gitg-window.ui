@@ -18,6 +18,21 @@
         <style>
           <class name="titlebar"/>
         </style>
+        <child type="title">
+          <object class="GtkGrid" id="title_grid">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkStackSwitcher" id="d_activities_switcher">
+                <property name="visible">False</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="d_title_label">
+                <property name="visible">False</property>
+              </object>
+            </child>
+          </object>
+        </child>
         <child>
           <object class="GtkButton" id="d_dash_button">
             <property name="visible">False</property>
@@ -41,11 +56,35 @@
           </packing>
         </child>
         <child>
-          <object class="GtkStackSwitcher" id="d_activities_switcher">
+          <object class="GtkButton" id="d_branch_button">
             <property name="visible">False</property>
+            <property name="valign">center</property>
+            <property name="can_focus">False</property>
+            <style>
+              <class name="text-button"/>
+            </style>
+            <child>
+              <object class="GtkGrid" id="branch_button_grid">
+                <property name="visible">True</property>
+                <property name="column-spacing">5</property>
+                <child>
+                  <object class="GtkLabel" id="d_repository_name_label">
+                    <property name="visible">True</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="d_branch_name_label">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
           <packing>
-            <property name="pack_type">end</property>
+            <property name="pack_type">start</property>
           </packing>
         </child>
         <child>
