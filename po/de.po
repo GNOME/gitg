@@ -2,31 +2,35 @@
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 #
-# fetch            - holen
+# checkout     - Arbeitskopie erstellen
+# commit       - Einspielung / einspielen
+# fetch        - holen
 # fast forward - vor spulen
-# cherry-pick   -  "von Hand verlesen"
-# stash       - Sicherung / sichern
+# cherry-pick  - "von Hand verlesen"
+# stash        - Zurückstellung / zurückstellen
+# stage        - Bereitstellung / bereitstellen
 #
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2012.
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010, 2011, 2015
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2009, 2010, 2012.
-# Benjamin Steinwender <b@stbe.at>, 2014.
+# Benjamin Steinwender <b@stbe.at>, 2014-2015.
+# Wolfgang Stöggl <c72578@yahoo.de>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-09-24 05:57+0000\n"
-"PO-Revision-Date: 2015-09-24 19:15+0100\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2015-10-10 05:58+0000\n"
+"PO-Revision-Date: 2015-10-11 14:19+0100\n"
+"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:58
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -35,7 +39,7 @@ msgstr "gitg"
 
 #: ../data/gitg.desktop.in.in.h:2
 msgid "Git repository browser"
-msgstr "Browser für Git-Softwarebestände"
+msgstr "Betrachter für Git-Softwarebestände"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
 msgid "Default Clone Directory"
@@ -46,7 +50,7 @@ msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr ""
-"Der voreingestellte Ordner in dem neue Software-Bestände geklont werden "
+"Der voreingestellte Ordner, in dem neue Softwarebestände geklont werden "
 "sollen."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
@@ -168,21 +172,23 @@ msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
 msgid "Default selection of the history activity"
-msgstr ""
+msgstr "Voreingestellte Auswahl in der Aktivitätenchronik"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr ""
+"Die Einstellung legt die bei Start voreingestellte Auswahl in der "
+"Aktivitätenchronik fest."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
 msgid "Reference Sort Order"
-msgstr ""
+msgstr "Sortierreihenfolge für Referenzen"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
 msgid "The order by which references in the history sidebar should be sorted."
-msgstr ""
+msgstr "Die Sortierreihenfolge für Referenzen in der Chronik-Seitenleiste."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
 msgid "Show Right Margin in Commit Message View"
@@ -369,8 +375,8 @@ msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
 "to stage"
 msgstr ""
-"Abfragen der Einspielung des Arbeitsverzeichnises von Untermodul »%s« "
-"während des Bereitstellens fehlgeschlagen"
+"Abfragen der Einspielung des Arbeitsordners von Untermodul »%s« während des "
+"Bereitstellens fehlgeschlagen"
 
 #: ../gitg/commit/gitg-commit.vala:265
 #, c-format
@@ -558,21 +564,22 @@ msgid "_Edit file"
 msgstr "Datei _bearbeiten"
 
 #: ../gitg/gitg-action-support.vala:93
-#, fuzzy, c-format
-#| msgid "Failed to discard changes"
+#, c-format
 msgid "Failed to stash changes: %s"
-msgstr "Verwerfen der Änderungen ist gescheitert"
+msgstr "Zurückstellen der Änderungen ist gescheitert: %s"
 
 #: ../gitg/gitg-action-support.vala:128
-#, fuzzy
 msgid "Unstaged changes"
-msgstr "Nicht zum Commit vorgemerkte Änderungen nach Zurücksetzung"
+msgstr "Nicht mehr bereitgestellte Änderungen"
 
 #: ../gitg/gitg-action-support.vala:129
 msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
 msgstr ""
+"Es scheint, als ob sich nicht bereitgestellte Änderungen in Ihrem "
+"Arbeitsordner befinden. Wollen Sie die Änderungen vor dem Erstellen einer "
+"Arbeitskopie zurückstellen?"
 
 #: ../gitg/gitg-action-support.vala:131 ../gitg/gitg-ref-action-delete.vala:88
 #: ../gitg/gitg-ref-action-merge.vala:194
@@ -583,7 +590,7 @@ msgstr "Abbrechen"
 
 #: ../gitg/gitg-action-support.vala:132
 msgid "Stash changes"
-msgstr "Änderungen sichern"
+msgstr "Änderungen zurückstellen"
 
 #: ../gitg/gitg-action-support.vala:136 ../gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
@@ -594,10 +601,9 @@ msgid "Failed with conflicts"
 msgstr "Mit Konflikten fehlgeschlagen"
 
 #: ../gitg/gitg-action-support.vala:179
-#, fuzzy, c-format
-#| msgid "Failed to fetch from %s: %s"
+#, c-format
 msgid "Failed to checkout conflicts: %s"
-msgstr "Holen von %s ist gescheitert: %s"
+msgstr "Auslesen der Konflikte ist gescheitert: %s"
 
 #: ../gitg/gitg-application.vala:56
 msgid "Show the application's version"
@@ -631,7 +637,7 @@ msgid "translator-credits"
 msgstr ""
 "Mario Blättermann <mario.blaettermann@gmail.com>, 2008, 2012, 2013\n"
 "Christian Kirbach <christian.kirbach@gmail.com>, 2013, 2014, 2015\n"
-"Benjamin Steinwender <b@stbe.at>, 2014"
+"Benjamin Steinwender <b@stbe.at>, 2014-2015"
 
 #: ../gitg/gitg-application.vala:234
 msgid "gitg homepage"
@@ -645,8 +651,6 @@ msgid "Author Details"
 msgstr "Details des Autors"
 
 #: ../gitg/gitg-author-details-dialog.vala:86
-#, fuzzy
-#| msgid "Enter details to set as default for all repositories:"
 msgid "Enter default details used for all repositories:"
 msgstr ""
 "Geben Sie die Details ein, die als Vorgabe für alle Softwarebestände dienen "
@@ -654,10 +658,9 @@ msgstr ""
 
 #. Translators: %s is the repository name
 #: ../gitg/gitg-author-details-dialog.vala:108
-#, fuzzy, c-format
-#| msgid "Enter details for repository '%s':"
+#, c-format
 msgid "Override global details for repository '%s':"
-msgstr "Geben Sie die Details für Softwarebestand »%s« ein:"
+msgstr "Die globalen Details für Softwarebestand »%s« überschreiben:"
 
 #: ../gitg/gitg-author-details-dialog.vala:220
 msgid "Failed to set Git user config."
@@ -725,17 +728,19 @@ msgstr ""
 msgid "_Delete"
 msgstr "_Löschen"
 
+# Sieht seltsam aus, müsste aber so stimmen
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
 #: ../gitg/gitg-dash-view.vala:247
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
+"Ihr persönlicher Ordner kann nach git-Softwarebeständen %sabgesucht%s werden."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: ../gitg/gitg-dash-view.vala:250
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
-msgstr ""
+msgstr "In der Zwischenzeit bietet es sich an %sIhr git-Profil einzurichten%s."
 
 #: ../gitg/gitg-dash-view.vala:395
 msgid "Failed to clone repository"
@@ -756,6 +761,8 @@ msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
+"Der Ort <i>%s</i> scheint kein gültiger git-Softwarebestand zu sein. Möchten "
+"Sie an diesem Ort einen neuen git-Softwarebestand initialisieren?"
 
 #: ../gitg/gitg-dash-view.vala:468
 msgid "Create repository"
@@ -779,50 +786,42 @@ msgid "_Add"
 msgstr "_Hinzufügen"
 
 #: ../gitg/gitg-dash-view.vala:601
-#, fuzzy
-#| msgid "Do not try to load a repository from the current working directory"
 msgid "_Scan for all git repositories from this directory"
-msgstr ""
-"Nicht versuchen, einen Softwarebestand aus dem aktuellen Arbeitsordner zu "
-"laden"
+msgstr "Von diesem Ordner aus nach allen git-Softwarebeständen _suchen"
 
 #: ../gitg/gitg-ref-action-checkout.vala:48
 #: ../gitg/gitg-ref-action-merge.vala:195
 msgid "Checkout"
-msgstr ""
+msgstr "Arbeitskopie erstellen"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
-#, fuzzy
-#| msgid "Delete the selected reference"
 msgid "Checkout the selected reference"
-msgstr "Die gewählte Referenz löschen"
+msgstr "Arbeitskopie der gewählten Referenz erstellen"
 
 #: ../gitg/gitg-ref-action-checkout.vala:72
 #, c-format
 msgid "Checkout %s"
-msgstr ""
+msgstr "Arbeitskopie von %s erstellen"
 
 #: ../gitg/gitg-ref-action-checkout.vala:88
-#, fuzzy, c-format
-#| msgid "Failed to lookup tag"
+#, c-format
 msgid "Failed to lookup commit: %s"
-msgstr "Nachschlagen des Tags ist fehlgeschlagen"
+msgstr "Nachschlagen der Einspielung ist fehlgeschlagen: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:101
-#, fuzzy, c-format
-#| msgid "Failed to delete branch %s"
+#, c-format
 msgid "Failed to checkout branch: %s"
-msgstr "Löschen des Zweigs %s ist fehlgeschlagen"
+msgstr "Erstellen der Arbeitskopie des Zweigs ist fehlgeschlagen: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:111
-#, fuzzy, c-format
-#| msgid "Failed to delete tag %s"
+#, c-format
 msgid "Failed to update HEAD: %s"
-msgstr "Löschen von Tag %s ist gescheitert"
+msgstr "Aktualisieren von HEAD ist gescheitert: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
 msgstr ""
+"Eine Arbeitskopie des Zweigs wurde erfolgreich im Arbeitsordner erstellt"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -941,7 +940,7 @@ msgstr "Holen von %s: %s"
 #: ../gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
-msgstr ""
+msgstr "Zusammenführen nach %s"
 
 #. TODO
 #: ../gitg/gitg-ref-action-merge.vala:69
@@ -950,10 +949,9 @@ msgid "Merge another branch into branch %s"
 msgstr "Einen anderen Zweig in den Zweig %s zusammenführen"
 
 #: ../gitg/gitg-ref-action-merge.vala:106
-#, fuzzy, c-format
-#| msgid "Failed to commit"
+#, c-format
 msgid "Failed to merge commits: %s"
-msgstr "Einspielen schlug fehl"
+msgstr "Zusammenführen der Einspielungen schlug fehl: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:175
 #: ../gitg/gitg-ref-action-merge.vala:191
@@ -966,6 +964,9 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
+"Das Zusammenführen von %s nach %s führte zu Konflikten. Wollen Sie eine "
+"Arbeitskopie des Zweigs %s mit der Zusammenführung in Ihrem Arbeitsordner "
+"erstellen, um die Konflikte aufzulösen?"
 
 #: ../gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -973,10 +974,12 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
 "merge to your working directory to resolve the conflicts?"
 msgstr ""
+"Das Zusammenführen von %s nach %s führte zu Konflikten. Wollen Sie die "
+"Änderungen in Ihren Arbeitsordner überführen, um die Konflikte aufzulösen?"
 
 #: ../gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
-msgstr ""
+msgstr "Zusammenführen mit Konflikten in den Arbeitsordner ist beendet"
 
 #: ../gitg/gitg-ref-action-merge.vala:222
 #, c-format
@@ -984,26 +987,23 @@ msgid "Merge %s into %s"
 msgstr "Zusammenführen von %s nach %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:231
-#, fuzzy, c-format
-#| msgid "Failed to lookup tag"
+#, c-format
 msgid "Failed to lookup our commit: %s"
-msgstr "Nachschlagen des Tags ist fehlgeschlagen"
+msgstr "Nachschlagen der eigenen Einspielung ist fehlgeschlagen: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:241
-#, fuzzy, c-format
-#| msgid "Failed to lookup tag"
+#, c-format
 msgid "Failed to lookup their commit: %s"
-msgstr "Nachschlagen des Tags ist fehlgeschlagen"
+msgstr "Nachschlagen der fremdem Einspielung ist fehlgeschlagen: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:262
 msgid "Failed to obtain author details"
 msgstr "Erlangen der Autoreninformationen fehlgeschlagen"
 
 #: ../gitg/gitg-ref-action-merge.vala:298
-#, fuzzy, c-format
-#| msgid "Failed to stage the file `%s'"
+#, c-format
 msgid "Failed to obtain HEAD tree: %s"
-msgstr "Bereitstellen der Datei »%s« ist gescheitert"
+msgstr "Holen des HEAD-Baums ist gescheitert: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:316
 #, c-format
@@ -1011,10 +1011,9 @@ msgid "Failed to create commit: %s"
 msgstr "Einspielen ist fehlgeschlagen: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:338
-#, fuzzy, c-format
-#| msgid "Failed to fetch from %s: %s"
+#, c-format
 msgid "Failed to checkout index: %s"
-msgstr "Holen von %s ist gescheitert: %s"
+msgstr "Erstellen der Arbeitskopie des Index ist gescheitert: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:343
 #, c-format
@@ -1118,23 +1117,25 @@ msgstr "Schließen"
 
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
-msgstr ""
+msgstr "Per Voreinstellung alle Einspielungen in der Aktivitätenchronik wählen"
 
 #: ../gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
-msgstr ""
+msgstr "Per Voreinstellung alle Zweige in der Aktivitätenchronik wählen"
 
 #: ../gitg/history/gitg-history-command-line.vala:46
 msgid "Select all remotes by default in the history activity"
 msgstr ""
+"Per Voreinstellung alle entfernten Quellen in der Aktivitätenchronik wählen"
 
 #: ../gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
-msgstr ""
+msgstr "Per Voreinstellung alle Tags in der Aktivitätenchronik wählen"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
 msgstr ""
+"Die angegebene Referenz als Vorgabe in der Aktivitätenchronik auswählen"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
@@ -1251,17 +1252,15 @@ msgstr "Notizen:"
 
 #: ../libgitg/gitg-diff-view.vala:286
 msgid "Parents:"
-msgstr ""
+msgstr "Übergeordnet:"
 
 #: ../libgitg/gitg-diff-view.vala:287
 msgid "Diff against:"
 msgstr "Diff gegen:"
 
 #: ../libgitg/gitg-diff-view.vala:288
-#, fuzzy
-#| msgid "Commit"
 msgid "Committed by:"
-msgstr "Einspielen"
+msgstr "Eingespielt von:"
 
 #: ../libgitg/gitg-diff-view.vala:289
 msgid "Expand all"
@@ -1315,12 +1314,8 @@ msgid "_Save"
 msgstr "_Speichern"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-#, fuzzy
-#| msgid "Enter details to set as default for all repositories:"
 msgid "Default details used for all repositories"
-msgstr ""
-"Geben Sie die Details ein, die als Vorgabe für alle Softwarebestände dienen "
-"sollen:"
+msgstr "Voreingestellte Details für alle Softwarebestände"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
 msgid "E-mail:"
@@ -1390,8 +1385,8 @@ msgid ""
 "that are not yet committed as shown below."
 msgstr ""
 "Das Untermodul ist modifiziert und hat bereitgestellte und/oder nicht "
-"bereitgestellte Änderungen, die noch nicht eingespielt wurden. Sehen sie "
-"unterhalb."
+"bereitgestellte Änderungen, die noch nicht eingespielt wurden. Dies wird "
+"unten angezeigt."
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
 msgid "Staged:"
@@ -1446,6 +1441,8 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
+"Es wurde noch keine Softwarebestände hinzugefügt. Sie können einen "
+"bestehenden Softwarebestand hinzufügen, oder einen neuen klonen."
 
 #: ../gitg/resources/ui/gitg-dash-view.ui.h:2
 msgid "_Add repository"
@@ -1521,7 +1518,7 @@ msgstr "Referenzen"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
 msgid "Sort references in the sidebar by latest activity"
-msgstr ""
+msgstr "Referenzen in der Seitenleiste nach letzter Aktivität sortieren"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Commits"
