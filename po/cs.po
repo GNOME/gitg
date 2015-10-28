@@ -1,6 +1,7 @@
 # Czech translation for gitg.
 # Copyright (C) 2009 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
+#
 # Petr Kovar <pknbe@volny.cz>, 2015.
 # Marek Černocký <marek@manet.cz>, 2013, 2014, 2015.
 #
@@ -9,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-09-22 05:58+0000\n"
-"PO-Revision-Date: 2015-09-24 17:04+0200\n"
+"POT-Creation-Date: 2015-10-28 07:17+0000\n"
+"PO-Revision-Date: 2015-10-28 14:46+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -21,7 +22,7 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:58
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -158,21 +159,22 @@ msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
 msgid "Default selection of the history activity"
-msgstr ""
+msgstr "Výchozí výběr v historii aktivit"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr ""
+"Nastavení, které určuje výchozí výběr po spuštění v historii aktivit."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
 msgid "Reference Sort Order"
-msgstr ""
+msgstr "Řazení odkazů"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
 msgid "The order by which references in the history sidebar should be sorted."
-msgstr ""
+msgstr "Pořadí, v jaké se mají řadit odkazy v postranním panelu s historí."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
 msgid "Show Upstream With Branch"
@@ -336,11 +338,9 @@ msgid "Use amend to change the commit message of the previous commit"
 msgstr "Použít odvolání ke změně zařazené zprávy z předchozího zařazení"
 
 #: ../gitg/commit/gitg-commit.vala:104
-#, fuzzy
-#| msgid "Commit"
 msgctxt "Activity"
 msgid "Commit"
-msgstr "Zařazení"
+msgstr "Zařadit"
 
 #: ../gitg/commit/gitg-commit.vala:109
 msgid "Create new commits and manage the staging area"
@@ -559,10 +559,8 @@ msgid "Failed to stash changes: %s"
 msgstr "Selhalo připravení změn k zápisu: %s"
 
 #: ../gitg/gitg-action-support.vala:130
-#, fuzzy
-#| msgid "_Unstage changes"
 msgid "Unstaged changes"
-msgstr "Zr_ušit připravenost změn k zápisu"
+msgstr "Změny nepřipravené k zápisu"
 
 #: ../gitg/gitg-action-support.vala:131
 msgid ""
@@ -580,10 +578,8 @@ msgid "Cancel"
 msgstr "Zrušit"
 
 #: ../gitg/gitg-action-support.vala:134
-#, fuzzy
-#| msgid "_Stage changes"
 msgid "Stash changes"
-msgstr "_Připravit změny k zápisu"
+msgstr "Skrýt změny"
 
 #: ../gitg/gitg-action-support.vala:138 ../gitg/gitg-action-support.vala:165
 msgid "Failed with conflicts"
@@ -595,23 +591,19 @@ msgid "Failed to checkout conflicts: %s"
 msgstr "Selhala kontrola konfliktů: %s"
 
 #: ../gitg/gitg-action-support.vala:199
-#, fuzzy
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain author details"
-msgstr "Selhala příprava souboru „%s“ k zápisu"
+msgstr "Selhalo získání údajů o autorovi"
 
 #: ../gitg/gitg-action-support.vala:223
 #: ../gitg/gitg-ref-action-checkout.vala:88
-#, fuzzy, c-format
-#| msgid "Failed to lookup tag"
+#, c-format
 msgid "Failed to lookup commit: %s"
-msgstr "Selhalo vyhledání štítku"
+msgstr "Selhalo vyhledání zařazení: %s"
 
 #: ../gitg/gitg-action-support.vala:255
-#, fuzzy, c-format
-#| msgid "Failed to create tag"
+#, c-format
 msgid "Failed to create commit: %s"
-msgstr "Selhalo vytvoření štítku"
+msgstr "Selhalo vytvoření zařazení: %s"
 
 #: ../gitg/gitg-action-support.vala:277
 #, fuzzy, c-format
@@ -651,12 +643,32 @@ msgstr "Marek Černocký <marek@manet.cz>"
 msgid "gitg homepage"
 msgstr "domovská stránka gitg"
 
+#: ../gitg/gitg-application.vala:332
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"Je nám velice líto, ale gitg vyžaduje libgit2 (knihovna, na které gitg "
+"závisí) přeloženou s podporou vláken.\n"
+"\n"
+"Pokud si libgit2 překládáte sami, nastavte jej prosím pomocí -DTHREADSAFE:"
+"BOOL=ON.\n"
+"\n"
+"Jinak nahlaste chybu autorům své distribuce, že poskytují libgit2 bez "
+"podpory vláken."
+
 #. ex: ts=4 noet
 #: ../gitg/gitg-author-details-dialog.vala:85
 #: ../gitg/gitg-author-details-dialog.vala:105
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
 msgid "Author Details"
-msgstr "Podrobnosti o autorovi"
+msgstr "Údaje o autorovi"
 
 #: ../gitg/gitg-author-details-dialog.vala:86
 msgid "Enter default details used for all repositories:"
@@ -664,10 +676,9 @@ msgstr "Zadejte výchozí údaje, které se použijí pro všechny repozitáře:
 
 #. Translators: %s is the repository name
 #: ../gitg/gitg-author-details-dialog.vala:108
-#, fuzzy, c-format
-#| msgid "Enter details for repository '%s':"
+#, c-format
 msgid "Override global details for repository '%s':"
-msgstr "Zadejte údaje pro repozitář „%s“:"
+msgstr "Přepsat globální údaje pro repozitář „%s“:"
 
 #: ../gitg/gitg-author-details-dialog.vala:220
 msgid "Failed to set Git user config."
@@ -686,10 +697,9 @@ msgid "Cherry pick this commit onto a branch"
 msgstr ""
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:117
-#, fuzzy, c-format
-#| msgid "Failed to delete branch %s"
+#, c-format
 msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Selhalo smazání větve %s"
+msgstr "Selhalo vyhledání zařazení pro větev %s: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:132
 #, fuzzy, c-format
@@ -746,8 +756,6 @@ msgid "Cherry pick onto %s"
 msgstr ""
 
 #: ../gitg/gitg-commit-action-create-branch.vala:48
-#, fuzzy
-#| msgid "Create Branch"
 msgid "Create branch"
 msgstr "Vytvořit větev"
 
@@ -760,8 +768,6 @@ msgid "Failed to create branch"
 msgstr "Selhalo vytvoření větve"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:63
-#, fuzzy
-#| msgid "Create Patch"
 msgid "Create patch"
 msgstr "Vytvořit záplatu"
 
@@ -782,8 +788,6 @@ msgid "Failed to create patch"
 msgstr "Selhalo vytvoření záplaty"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:48
-#, fuzzy
-#| msgid "Create Tag"
 msgid "Create tag"
 msgstr "Vytvořit štítek"
 
@@ -811,29 +815,25 @@ msgstr "_Smazat"
 #: ../gitg/gitg-dash-view.vala:247
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
-msgstr ""
+msgstr "Repozitáře se také %svyhledají ve vaší domovské složce%s."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: ../gitg/gitg-dash-view.vala:250
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
-msgstr ""
+msgstr "V mezidobí si můžete nastavit %ssvůj profil pro git%s."
 
 #: ../gitg/gitg-dash-view.vala:395
-#| msgid "Failed to commit"
 msgid "Failed to clone repository"
 msgstr "Selhalo klonování repozitáře"
 
 #: ../gitg/gitg-dash-view.vala:443
-#| msgid "Failed to pass pre-commit"
 msgid "Failed to add repository"
 msgstr "Selhalo přidání repozitáře"
 
 #: ../gitg/gitg-dash-view.vala:459
-#, fuzzy
-#| msgid "Bare repository"
 msgid "Create new repository"
-msgstr "Prázdný repozitář"
+msgstr "Vytvořit nový repozitář"
 
 #. Translators: %s is a file name
 #: ../gitg/gitg-dash-view.vala:462
@@ -842,38 +842,33 @@ msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
+"Vypadá to, že umístění <i>%s</i> není platný repozitář git. Přejete si "
+"inicializovat v tomto umístění nový repozitář git?"
 
 #: ../gitg/gitg-dash-view.vala:468
-#, fuzzy
-#| msgid "Bare repository"
 msgid "Create repository"
-msgstr "Prázdný repozitář"
+msgstr "Vytvořit repozitář"
 
 #: ../gitg/gitg-dash-view.vala:484
-#| msgid "Failed to create patch"
 msgid "Failed to create repository"
 msgstr "Selhalo vytvoření repozitáře"
 
 #: ../gitg/gitg-dash-view.vala:554
 #, c-format
 msgid "Scanning for repositories in %s"
-msgstr ""
+msgstr "Vyhledávají se repozitáře v %s"
 
 #: ../gitg/gitg-dash-view.vala:595
-#, fuzzy
-#| msgid "Open Repository"
 msgid "Add Repository"
-msgstr "Otevření repozitáře"
+msgstr "Přidání repozitáře"
 
 #: ../gitg/gitg-dash-view.vala:599
 msgid "_Add"
 msgstr "Přid_at"
 
 #: ../gitg/gitg-dash-view.vala:601
-#, fuzzy
-#| msgid "Do not try to load a repository from the current working directory"
 msgid "_Scan for all git repositories from this directory"
-msgstr "Nezkoušet načíst repozitář z aktuální pracovní složky"
+msgstr "Vyhledat všechny repozitáře git v této _složce"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
 #, fuzzy
@@ -1019,24 +1014,23 @@ msgstr "Staženo z %s: %s"
 #: ../gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
-msgstr ""
+msgstr "Sloučit do %s"
 
 #. TODO
 #: ../gitg/gitg-ref-action-merge.vala:69
 #, c-format
 msgid "Merge another branch into branch %s"
-msgstr ""
+msgstr "Sloučit jinou větev do větve %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:106
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to merge commits: %s"
 msgstr "Selhalo sloučení zařazení: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:175
 #: ../gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
-msgstr ""
+msgstr "Při sloučení jsou konflikty"
 
 #: ../gitg/gitg-ref-action-merge.vala:184
 #, c-format
@@ -1054,7 +1048,7 @@ msgstr ""
 
 #: ../gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
-msgstr ""
+msgstr "Sloučení selhalo kvůli konfliktům"
 
 #: ../gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
@@ -1063,30 +1057,27 @@ msgstr "Dokončeno sloučení s konflikty v pracovní složce"
 #: ../gitg/gitg-ref-action-merge.vala:222
 #, c-format
 msgid "Merge %s into %s"
-msgstr ""
+msgstr "Sloučit %s do %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:231
-#, fuzzy, c-format
-#| msgid "Failed to lookup tag"
+#, c-format
 msgid "Failed to lookup our commit: %s"
-msgstr "Selhalo vyhledání štítku"
+msgstr "Selhalo vyhledání našeho zařazení: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:241
-#, fuzzy, c-format
-#| msgid "Failed to lookup tag"
+#, c-format
 msgid "Failed to lookup their commit: %s"
-msgstr "Selhalo vyhledání štítku"
+msgstr "Selhalo vyhledání jejich zařazení: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:278
 #, c-format
 msgid "Successfully merged %s into %s"
-msgstr ""
+msgstr "Úspěšně sloučeno %s do %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:320
-#, fuzzy, c-format
-#| msgid "Delete branch %s"
+#, c-format
 msgid "Merge %s into branch %s"
-msgstr "Smazat větev %s"
+msgstr "Sloučit %s do větve %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:482
 #: ../gitg/history/gitg-history-refs-list.vala:1176
@@ -1113,26 +1104,6 @@ msgstr "Neplatný název"
 #: ../gitg/gitg-ref-action-rename.vala:131
 msgid "Failed to rename"
 msgstr "Selhalo přejmenování"
-
-#: ../gitg/gitg.vala:68
-msgid ""
-"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
-"depends) to be compiled with threading support.\n"
-"\n"
-"If you manually compiled libgit2, then please configure libgit2 with -"
-"DTHREADSAFE:BOOL=ON.\n"
-"\n"
-"Otherwise, report a bug in your distributions' bug reporting system for "
-"providing libgit2 without threading support."
-msgstr ""
-"Je nám velice líto, ale gitg vyžaduje libgit2 (knihovna, na které gitg "
-"závisí) přeloženou s podporou vláken.\n"
-"\n"
-"Pokud si libgit2 překládáte sami, nastavte jej prosím pomocí -DTHREADSAFE:"
-"BOOL=ON.\n"
-"\n"
-"Jinak nahlaste chybu autorům své distribuce, že poskytují libgit2 bez "
-"podpory vláken."
 
 #: ../gitg/gitg-window.vala:410
 msgid "Projects"
@@ -1179,27 +1150,27 @@ msgstr "Zavřít"
 
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
-msgstr ""
+msgstr "Vybrat ve výchozím stavu všechna zařazení v historii aktivit"
 
 #: ../gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
-msgstr ""
+msgstr "Vybrat ve výchozím stavu všechny větve v historii aktivit"
 
 #: ../gitg/history/gitg-history-command-line.vala:46
 msgid "Select all remotes by default in the history activity"
-msgstr ""
+msgstr "Vybrat ve výchozím stavu všechny vzdálené v historii aktivit"
 
 #: ../gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
-msgstr ""
+msgstr "Vybrat ve výchozím stavu všechny štítky v historii aktivit"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
-msgstr ""
+msgstr "Vybrat ve výchozím stavu zadané odkazy v historii aktivit"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
-msgstr ""
+msgstr "ODKAZ"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
@@ -1312,41 +1283,14 @@ msgstr "%e. %B %Y, %k∶%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e. %B %Y, %l∶%M %p"
 
-#: ../libgitg/gitg-diff-view.vala:282
-msgid "stage"
-msgstr "připravit"
-
-#: ../libgitg/gitg-diff-view.vala:283
-msgid "unstage"
-msgstr "zrušit připravenost"
-
-#: ../libgitg/gitg-diff-view.vala:284
-msgid "Loading diff…"
-msgstr "Načítá se rozdíl…"
-
-#: ../libgitg/gitg-diff-view.vala:285
-msgid "Notes:"
-msgstr "Poznámky:"
-
-#: ../libgitg/gitg-diff-view.vala:286
-msgid "Parents:"
-msgstr "Rodiče:"
-
-#: ../libgitg/gitg-diff-view.vala:287
-msgid "Diff against:"
-msgstr "Rozdíl oproti:"
-
-#: ../libgitg/gitg-diff-view.vala:288
-msgid "Committed by:"
-msgstr "Zařadil:"
-
-#: ../libgitg/gitg-diff-view.vala:289
-msgid "Expand all"
-msgstr "Rozbalit vše"
-
-#: ../libgitg/gitg-diff-view.vala:290
+#: ../libgitg/gitg-diff-view-commit-details.vala:134
 msgid "Collapse all"
 msgstr "Sbalit vše"
+
+#: ../libgitg/gitg-diff-view-commit-details.vala:138
+#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
+msgid "Expand all"
+msgstr "Rozbalit vše"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:175
@@ -1369,11 +1313,11 @@ msgstr "Klonuje se…"
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Nelze přečíst zprávu o zařazení po spuštění háčku commit-msg: %s"
 
-#: ../plugins/diff/gitg-diff.vala:120
+#: ../plugins/diff/gitg-diff.vala:114
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/diff/gitg-diff.vala:125
+#: ../plugins/diff/gitg-diff.vala:119
 msgid "Show the changes introduced by the selected commit"
 msgstr "Zobrazit změny provedené vybraným zařazením"
 
@@ -1426,8 +1370,6 @@ msgid "Bare repository"
 msgstr "Prázdný repozitář"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#, fuzzy
-#| msgid "Commit"
 msgctxt "Create Dialog"
 msgid "Commit"
 msgstr "Zařazení"
@@ -1588,14 +1530,12 @@ msgid "All branches"
 msgstr "Všechny větve"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
-#, fuzzy
-#| msgid "Preferences"
 msgid "References"
-msgstr "Předvolby"
+msgstr "Odkazy"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
 msgid "Sort references in the sidebar by latest activity"
-msgstr ""
+msgstr "Seřadit odkazy v postranním panelu podle poslední aktivity"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Show upstream (remote) branch when selecting a local branch"
@@ -1647,15 +1587,15 @@ msgstr "Používat vodorovné rozvržení"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:7
 msgid "Avatars"
-msgstr ""
+msgstr "Avataři"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:8
 msgid "Use gravatar service to provide user avatars"
-msgstr ""
+msgstr "Použít službu gravater k poskytnutí užvatelova avatara"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:9
 msgid "Monitoring"
-msgstr ""
+msgstr "Sledování"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "Preferences"
@@ -1672,30 +1612,6 @@ msgstr "Najít slovo nebo frázi"
 #: ../gitg/resources/ui/gitg-window.ui.h:4
 msgid "General settings and options"
 msgstr "Obecná nastavení a volby"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:1
-msgid "Ignore whitespace changes"
-msgstr "Ignorovat změny v bílých znacích"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:2
-msgid "Show changes inline"
-msgstr "Zobrazovat změny uvnitř řádku"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:3
-msgid "Wrap lines"
-msgstr ""
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:4
-msgid "Developer tools"
-msgstr "Vývojářské nástroje"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:5
-msgid "Tab width"
-msgstr "Šířka tabulátoru"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:6
-msgid "Context"
-msgstr "Kontext"
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:2
 msgid "_Authenticate"
@@ -1728,6 +1644,30 @@ msgstr "Heslo pamatovat do odh_lášení"
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:8
 msgid "Remember _forever"
 msgstr "Zapamtovat na_pořád"
+
+#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
+msgid "Parents"
+msgstr "Rodiče"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:1
+msgid "Ignore whitespace changes"
+msgstr "Ignorovat změny v bílých znacích"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:2
+msgid "Show changes inline"
+msgstr "Zobrazovat změny uvnitř řádku"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:3
+msgid "Wrap lines"
+msgstr "Zalamovat řádky"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:4
+msgid "Tab width"
+msgstr "Šířka tabulátoru"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:5
+msgid "Context"
+msgstr "Kontext"
 
 #: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
 msgid ""
