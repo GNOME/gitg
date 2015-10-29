@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
 "POT-Creation-Date: 2015-10-28 07:17+0000\n"
-"PO-Revision-Date: 2015-10-28 14:46+0100\n"
+"PO-Revision-Date: 2015-10-29 10:43+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Gtranslator 2.91.7\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:58
@@ -165,8 +165,7 @@ msgstr "Výchozí výběr v historii aktivit"
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
-msgstr ""
-"Nastavení, které určuje výchozí výběr po spuštění v historii aktivit."
+msgstr "Nastavení, které určuje výchozí výběr po spuštění v historii aktivit."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
 msgid "Reference Sort Order"
@@ -557,6 +556,8 @@ msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
 msgstr ""
+"Zdá se, že máte ve své pracovní složce změny nepřipravené k zařazení. "
+"Přejete si je skrýt předtím, než se provede překontrolování?"
 
 #: ../gitg/gitg-action-support.vala:131 ../gitg/gitg-ref-action-delete.vala:88
 #: ../gitg/gitg-ref-action-merge.vala:194
@@ -580,7 +581,7 @@ msgstr "Selhání s konflikty"
 #: ../gitg/gitg-action-support.vala:179
 #, c-format
 msgid "Failed to checkout conflicts: %s"
-msgstr "Selhala kontrola konfliktů: %s"
+msgstr "Selhalo překontrolování konfliktů: %s"
 
 #: ../gitg/gitg-application.vala:56
 msgid "Show the application's version"
@@ -757,18 +758,17 @@ msgstr "Vyhledat všechny repozitáře git v této _složce"
 #: ../gitg/gitg-ref-action-checkout.vala:48
 #: ../gitg/gitg-ref-action-merge.vala:195
 msgid "Checkout"
-msgstr ""
+msgstr "Překontrolovat"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
-#, fuzzy
 #| msgid "Delete the selected reference"
 msgid "Checkout the selected reference"
-msgstr "Smazat vybraný odkaz"
+msgstr "Překontrolovat vybraný odkaz"
 
 #: ../gitg/gitg-ref-action-checkout.vala:72
 #, c-format
 msgid "Checkout %s"
-msgstr ""
+msgstr "Překontrolování %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:88
 #, c-format
@@ -776,20 +776,20 @@ msgid "Failed to lookup commit: %s"
 msgstr "Selhalo vyhledání zařazení: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:101
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to delete branch %s"
 msgid "Failed to checkout branch: %s"
-msgstr "Selhalo smazání větve %s"
+msgstr "Selhalo překontrolování větve: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:111
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to delete tag %s"
 msgid "Failed to update HEAD: %s"
-msgstr "Selhalo smazání štítku %s"
+msgstr "Selhala aktualizace stromu HEAD: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
-msgstr ""
+msgstr "Úspěšně překontrolována větev vůči pracovní složce"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -932,6 +932,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
+"Sloučení %s do %s způsobilo konflikty, přejete si překontrolovat větev %s se "
+"sloučením vůči pracovní složce, aby se konflikty vyřešily?"
 
 #: ../gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -939,6 +941,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
 "merge to your working directory to resolve the conflicts?"
 msgstr ""
+"Sloučení %s do %s způsobilo konflikty, přejete si překontrolovat sloučení "
+"vůči pracovní složce, aby se konflikty vyřešily?"
 
 #: ../gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
@@ -964,10 +968,10 @@ msgid "Failed to obtain author details"
 msgstr "Selhala získání údajů o autorovi"
 
 #: ../gitg/gitg-ref-action-merge.vala:298
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain HEAD tree: %s"
-msgstr "Selhala příprava souboru „%s“ k zápisu"
+msgstr "Selhalo získání stromu HEAD: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:316
 #, c-format
@@ -975,10 +979,10 @@ msgid "Failed to create commit: %s"
 msgstr "Selhalo vytvoření zařazení: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:338
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to fetch from %s: %s"
 msgid "Failed to checkout index: %s"
-msgstr "Selhalo stažení z %s: %s"
+msgstr "Selhalo překontrolování indexů: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:343
 #, c-format
@@ -1402,8 +1406,7 @@ msgstr "_Název štítku:"
 msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
-msgstr ""
-"Zatím nebyl přidán žádný repozitář."
+msgstr "Zatím nebyl přidán žádný repozitář."
 
 #: ../gitg/resources/ui/gitg-dash-view.ui.h:2
 msgid "_Add repository"
