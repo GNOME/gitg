@@ -14,10 +14,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="vexpand">False</property>
-        <property name="show_close_button">True</property>
-        <style>
-          <class name="titlebar"/>
-        </style>
+        <property name="show_close_button">False</property>
         <child>
           <object class="GtkButton" id="d_dash_button">
             <property name="visible">False</property>
@@ -130,130 +127,142 @@
       </object>
     </child>
     <child>
-      <object class="GtkOverlay" id="d_overlay">
+      <object class="GtkGrid" id="d_grid_top">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkGrid" id="d_grid_main">
+          <object class="GtkOverlay" id="d_overlay">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkBox" id="d_infobar_placeholder">
+              <object class="GtkGrid" id="d_grid_main">
                 <property name="visible">True</property>
-                <property name="orientation">horizontal</property>
+                <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkInfoBar" id="d_infobar">
-                    <property name="visible">False</property>
-                    <child internal-child="content_area">
-                      <object class="GtkBox" id="infobar_content_area">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="border_width">8</property>
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">16</property>
-                        <child>
-                          <object class="GtkLabel" id="d_infobar_primary_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="selectable">True</property>
-                            <property name="use-markup">True</property>
-                            <property name="halign">GTK_ALIGN_START</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="d_infobar_secondary_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="selectable">True</property>
-                            <property name="use-markup">True</property>
-                            <property name="halign">GTK_ALIGN_START</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child internal-child="action_area">
-                          <object class="GtkButtonBox" id="infobar_action_area">
+                  <object class="GtkBox" id="d_infobar_placeholder">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <child>
+                      <object class="GtkInfoBar" id="d_infobar">
+                        <property name="visible">False</property>
+                        <child internal-child="content_area">
+                          <object class="GtkBox" id="infobar_content_area">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="border_width">5</property>
+                            <property name="border_width">8</property>
                             <property name="orientation">vertical</property>
-                            <property name="spacing">6</property>
-                            <property name="layout_style">end</property>
+                            <property name="spacing">16</property>
                             <child>
-                              <object class="GtkButton" id="d_infobar_close_button">
+                              <object class="GtkLabel" id="d_infobar_primary_label">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Close</property>
+                                <property name="can_focus">True</property>
+                                <property name="selectable">True</property>
+                                <property name="use-markup">True</property>
+                                <property name="halign">GTK_ALIGN_START</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="d_infobar_secondary_label">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="selectable">True</property>
+                                <property name="use-markup">True</property>
+                                <property name="halign">GTK_ALIGN_START</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child internal-child="action_area">
+                              <object class="GtkButtonBox" id="infobar_action_area">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="border_width">5</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">6</property>
+                                <property name="layout_style">end</property>
+                                <child>
+                                  <object class="GtkButton" id="d_infobar_close_button">
+                                    <property name="visible">True</property>
+                                    <property name="label" translatable="yes">Close</property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                           </object>
                         </child>
+                        <action-widgets>
+                          <action-widget response="-6">d_infobar_close_button</action-widget>
+                        </action-widgets>
                       </object>
                     </child>
-                    <action-widgets>
-                      <action-widget response="-6">d_infobar_close_button</action-widget>
-                    </action-widgets>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkSearchBar" id="d_search_bar">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="show-close-button">False</property>
-                <child>
-                  <object class="GdTaggedEntry" id="d_search_entry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="invisible_char">●</property>
-                    <property name="invisible_char_set">True</property>
-                    <property name="width-request">500</property>
-                    <signal name="changed" handler="search_entry_changed" swapped="no"/>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkStack" id="d_main_stack">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <child>
-                  <object class="GitgDashView" id="d_dash_view">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkStack" id="d_stack_activities">
+                  <object class="GtkSearchBar" id="d_search_bar">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="show-close-button">False</property>
+                    <child>
+                      <object class="GdTaggedEntry" id="d_search_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">●</property>
+                        <property name="invisible_char_set">True</property>
+                        <property name="width-request">500</property>
+                        <signal name="changed" handler="search_entry_changed" swapped="no"/>
+                      </object>
+                    </child>
                   </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkStack" id="d_main_stack">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <child>
+                      <object class="GitgDashView" id="d_dash_view">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkStack" id="d_stack_activities">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
                 </child>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
           </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>            
+          </packing>
         </child>
       </object>
     </child>

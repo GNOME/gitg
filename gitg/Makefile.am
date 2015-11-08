@@ -26,6 +26,7 @@ gitg_gitg_VALAFLAGS =						\
 	--pkg gd-1.0						\
 	--pkg gtksourceview-3.0					\
 	--pkg GtkSpell-3.0					\
+	--pkg gitg-platform-support     			\
 	--girdir "$(top_builddir)/libgd"			\
 	--girdir "$(top_builddir)"				\
 	--vapidir "$(top_srcdir)/vapi"				\

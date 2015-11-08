@@ -110,6 +110,28 @@ PKG_CHECK_MODULES(LIBGITG, [
 	libsecret-1
 ])
 
+gdk_targets=`$PKG_CONFIG --variable=targets gdk-3.0`
+
+for target in $gdk_targets;
+do
+	case "$target" in
+		quartz)
+			gdk_windowing_quartz=yes
+			;;
+		win32)
+			gdk_windowing_win32=yes
+			;;
+		x11)
+			gdk_windowing_x11=yes
+	esac
+done
+
+AM_CONDITIONAL(GDK_WINDOWING_X11, test "$gdk_windowing_x11" = "yes")
+AM_CONDITIONAL(GDK_WINDOWING_QUARTZ, test "$gdk_windowing_quartz" = "yes")
+AM_CONDITIONAL(GDK_WINDOWING_WIN32, test "$gdk_windowing_win32" = "yes")
+
+AC_PROG_OBJC
+
 AC_MSG_CHECKING([for libgit2-glib threading support])
 
 cflags_save="${CFLAGS}"

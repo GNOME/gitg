@@ -58,6 +58,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.Grid d_grid_main;
 
 	[GtkChild]
+	private Gtk.Grid d_grid_top;
+
+	[GtkChild]
 	private Gtk.ToggleButton d_select_button;
 	[GtkChild]
 	private Gtk.Button d_select_cancel_button;
@@ -188,6 +191,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	construct
 	{
+		if (Gitg.PlatformSupport.use_native_window_controls())
+		{
+			set_titlebar(null);
+			d_grid_top.attach(d_header_bar, 0, 0, 1, 1);
+		}
+
 		add_action_entries(win_entries, this);
 
 		d_notifications = new Notifications(d_overlay);
@@ -365,25 +374,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private void update_title()
 	{
+		string windowtitle = "gitg";
+		string title;
+		string? subtitle = null;
+
 		if (d_repository != null)
 		{
-			// set title
 			File? workdir = d_repository.get_workdir();
-			string name;
 
 			if (workdir != null)
 			{
 				var parent_path = Utils.replace_home_dir_with_tilde(workdir.get_parent());
 
-				name = @"$(d_repository.name) ($parent_path)";
-				title = @"$name - gitg";
+				title = @"$(d_repository.name) ($parent_path)";
+				windowtitle = @"$name - gitg";
 			}
 			else
 			{
-				name = d_repository.name;
+				title = d_repository.name;
 			}
-
-			d_header_bar.set_title(name);
 
 			string? head_name = null;
 
@@ -396,19 +405,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 			if (head_name != null)
 			{
-				d_header_bar.set_subtitle(Markup.escape_text(head_name));
-			}
-			else
-			{
-				d_header_bar.set_subtitle(null);
+				subtitle = Markup.escape_text(head_name);
 			}
 		}
 		else
 		{
-			title = "gitg";
+			title = _("Projects");
+		}
 
-			d_header_bar.set_title(_("Projects"));
-			d_header_bar.set_subtitle(null);
+		if (Gitg.PlatformSupport.use_native_window_controls())
+		{
+			d_header_bar.set_title(subtitle);
+			this.title = title;
+		}
+		else
+		{
+			d_header_bar.set_title(title);
+			d_header_bar.set_subtitle(subtitle);
+
+			this.title = windowtitle;
 		}
 	}
 

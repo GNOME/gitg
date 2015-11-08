@@ -21,6 +21,11 @@ libgitg_libgitg_1_0_la_LDFLAGS = 	\
 libgitg_libgitg_1_0_la_LIBADD = 	\
 	$(LIBGITG_LIBS)
 
+if GDK_WINDOWING_QUARTZ
+libgitg_libgitg_1_0_la_LIBADD += -lobjc
+libgitg_libgitg_1_0_la_CFLAGS += -xobjective-c
+endif
+
 libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg ggit-1.0 			\
 	--pkg gtk+-3.0			\
@@ -31,6 +36,7 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg gdesktop-enums-3.0	\
 	--pkg libsoup-2.4		\
 	--pkg gtksourceview-3.0		\
+	--pkg gitg-platform-support     \
 	$(GITG_VALAFLAGS)		\
 	--vapidir $(top_srcdir)/vapi	\
 	--includedir libgitg		\
@@ -82,10 +88,13 @@ libgitg_libgitg_1_0_la_VALASOURCES =			\
 
 libgitg_libgitg_1_0_la_SOURCES = 		\
 	$(libgitg_libgitg_1_0_la_VALASOURCES)	\
+	libgitg/gitg-platform-support.c		\
 	libgitg/gitg-resources.c
 
 libgitg_libgitg_1_0_la_headerdir = $(prefix)/include/libgitg-1.0/libgitg
 libgitg_libgitg_1_0_la_header_HEADERS = libgitg/libgitg.h
+
+noinst_HEADERS += libgitg/gitg-platform-support.h
 
 libgitg_libgitg_1_0_la_vapidir = $(prefix)/share/vala/vapi
 libgitg_libgitg_1_0_la_vapi_DATA = libgitg/libgitg-1.0.vapi
