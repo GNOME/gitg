@@ -36,7 +36,6 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg gdesktop-enums-3.0	\
 	--pkg libsoup-2.4		\
 	--pkg gtksourceview-3.0		\
-	--pkg gitg-platform-support     \
 	$(GITG_VALAFLAGS)		\
 	--vapidir $(top_srcdir)/vapi	\
 	--includedir libgitg		\
