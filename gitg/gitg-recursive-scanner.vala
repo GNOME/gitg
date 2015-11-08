@@ -94,6 +94,10 @@ interface RecursiveScanner : Object
 				}
 			}
 		}
+
+		try {
+			yield e.close_async(Priority.DEFAULT, cancellable);
+		} catch {}
 	}
 }
 

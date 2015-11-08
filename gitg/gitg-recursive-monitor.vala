@@ -90,6 +90,8 @@ class RecursiveMonitor : Object
 				}
 			}
 		}
+
+		yield e.close_async(Priority.DEFAULT, d_cancellable);
 	}
 
 	private void add_submonitor(File location)
