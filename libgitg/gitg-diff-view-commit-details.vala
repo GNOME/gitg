@@ -203,12 +203,14 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		var parents = commit.get_parents();
 		var first_parent = parents.size == 0 ? null : parents.get(0);
 
-		d_parent_commit = first_parent;
+		parent_commit = first_parent;
 
 		if (parents.size > 1)
 		{
 			d_grid_parents_container.show();
 			var grp = new SList<Gtk.RadioButton>();
+
+			Gtk.RadioButton? first = null;
 
 			foreach (var parent in parents)
 			{
@@ -216,6 +218,14 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 				var psubj = parent.get_subject();
 
 				var button = new Gtk.RadioButton.with_label(grp, @"$pid: $psubj");
+
+				if (first == null)
+				{
+					first = button;
+				}
+
+				button.group = first;
+
 				d_parents_map[parent.get_id()] = button;
 
 				button.show();
@@ -223,8 +233,10 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 				var par = parent;
 
-				button.activate.connect(() => {
-					d_parent_commit = par;
+				button.toggled.connect(() => {
+					if (button.active) {
+						parent_commit = par;
+					}
 				});
 			}
 		}

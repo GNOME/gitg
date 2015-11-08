@@ -33,7 +33,6 @@ public class Gitg.DiffView : Gtk.Grid
 	private Commit? d_commit;
 
 	private Ggit.DiffOptions? d_options;
-	private Ggit.OId? d_parent;
 
 	public Ggit.DiffOptions options
 	{
@@ -64,7 +63,6 @@ public class Gitg.DiffView : Gtk.Grid
 			d_diff = value;
 
 			d_commit = null;
-			d_parent = null;
 
 			update();
 		}
@@ -79,7 +77,6 @@ public class Gitg.DiffView : Gtk.Grid
 			{
 				d_commit = value;
 				d_diff = null;
-				d_parent = null;
 			}
 
 			update();
@@ -187,10 +184,18 @@ public class Gitg.DiffView : Gtk.Grid
 	}
 
 	private ulong d_expanded_notify;
+	private ulong d_parent_commit_notify;
 
 	protected override void constructed()
 	{
 		d_expanded_notify = d_commit_details.notify["expanded"].connect(update_expanded_files);
+
+		d_parent_commit_notify = d_commit_details.notify["parent-commit"].connect(parent_commit_changed);
+	}
+
+	private void parent_commit_changed()
+	{
+		update();
 	}
 
 	private void update_expanded_files()
@@ -223,16 +228,22 @@ public class Gitg.DiffView : Gtk.Grid
 
 		if (d_commit != null)
 		{
+			SignalHandler.block(d_commit_details, d_parent_commit_notify);
+			d_commit_details.commit = d_commit;
+			SignalHandler.unblock(d_commit_details, d_parent_commit_notify);
+
 			int parent = 0;
 			var parents = d_commit.get_parents();
 
-			if (d_parent != null)
+			var parent_commit = d_commit_details.parent_commit;
+
+			if (parent_commit != null)
 			{
 				for (var i = 0; i < parents.size; i++)
 				{
 					var id = parents.get_id(i);
 
-					if (id.equal(d_parent))
+					if (id.equal(parent_commit.get_id()))
 					{
 						parent = i;
 						break;
@@ -241,7 +252,6 @@ public class Gitg.DiffView : Gtk.Grid
 			}
 
 			d_diff = d_commit.get_diff(options, parent);
-			d_commit_details.commit = d_commit;
 			d_commit_details.show();
 		}
 		else
