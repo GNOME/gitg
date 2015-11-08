@@ -188,7 +188,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		    committer.get_email() != author.get_email() ||
 		    committer.get_time().compare(author.get_time()) != 0)
 		{
-			d_label_committer.label = author_to_markup(committer);
+			d_label_committer.label = _("Committed by %s").printf(author_to_markup(committer));
 			d_label_committer_date.label = committer.get_time().to_timezone(committer.get_time_zone()).format("%x %X %z");
 
 			d_label_committer.show();
