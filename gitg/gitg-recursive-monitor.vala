@@ -73,12 +73,14 @@ class RecursiveMonitor : Object
 	private async void enumerate(File location) throws Error
 	{
 		var e = yield location.enumerate_children_async(FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_TYPE, FileQueryInfoFlags.NONE, Priority.DEFAULT, d_cancellable);
+		File[] allfiles = new File[0];
 
 		while (true)
 		{
 			var files = yield e.next_files_async(10, Priority.DEFAULT);
 
-			if (files == null) {
+			if (files == null)
+			{
 				break;
 			}
 
@@ -86,12 +88,17 @@ class RecursiveMonitor : Object
 			{
 				if (f.get_file_type() == FileType.DIRECTORY)
 				{
-					add_submonitor(location.get_child(f.get_name()));
+					allfiles += location.get_child(f.get_name());
 				}
 			}
 		}
 
 		yield e.close_async(Priority.DEFAULT, d_cancellable);
+
+		foreach (var f in allfiles)
+		{
+			add_submonitor(f);
+		}
 	}
 
 	private void add_submonitor(File location)
