@@ -214,7 +214,11 @@ public class Lanes : Object
 		var parents = next.get_parents();
 		var myoid = next.get_id();
 
-		init_next_layer();
+		if (!hidden)
+		{
+			init_next_layer();
+		}
+
 		var mylane = d_lanes[pos];
 
 		for (uint i = 0; i < parents.size; ++i)
