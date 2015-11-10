@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-11-07 07:20+0000\n"
-"PO-Revision-Date: 2015-11-07 16:33+0200\n"
+"POT-Creation-Date: 2015-11-10 07:18+0000\n"
+"PO-Revision-Date: 2015-11-10 14:24+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -471,12 +471,10 @@ msgstr ""
 "ja `%s'?"
 
 #: ../gitg/commit/gitg-commit.vala:1560
-#| msgid "Failed to delete tag %s"
 msgid "Failed to delete files"
 msgstr "Tiedostojen poistaminen epäonnistui"
 
 #: ../gitg/commit/gitg-commit.vala:1576
-#| msgid "Delete"
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Poista tiedosto"
@@ -484,13 +482,11 @@ msgstr[1] "Poista tiedostot"
 
 #: ../gitg/commit/gitg-commit.vala:1581
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the tag %s?"
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "Haluatko varmasti poistaa tiedoston `%s' pysyvästi?"
 
 #: ../gitg/commit/gitg-commit.vala:1592
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the tag %s?"
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Haluatko varmasti poistaa tiedostot %s ja `%s' pysyvästi?"
 
@@ -507,7 +503,6 @@ msgid "_Discard changes"
 msgstr "_Hylkää muutokset"
 
 #: ../gitg/commit/gitg-commit.vala:1667
-#| msgid "Delete"
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_Poista tiedosto"
@@ -551,7 +546,6 @@ msgid "Stash changes"
 msgstr "_Valmistele muutokset"
 
 #: ../gitg/gitg-action-support.vala:138 ../gitg/gitg-action-support.vala:165
-#| msgid "Failed to commit"
 msgid "Failed with conflicts"
 msgstr "Epäonnistui ristiriitojen kera"
 
@@ -646,10 +640,9 @@ msgid "Author Details"
 msgstr "Tekijän tiedot"
 
 #: ../gitg/gitg-author-details-dialog.vala:86
-#, fuzzy
 #| msgid "Enter details to set as default for all repositories:"
 msgid "Enter default details used for all repositories:"
-msgstr "Anna tiedot, jotka asetetaan oletuksena kaikille tietovarastoille:"
+msgstr "Anna oletuksena kaikille tietovarastoille asetettavat tiedot:"
 
 #. Translators: %s is the repository name
 #: ../gitg/gitg-author-details-dialog.vala:108
@@ -735,7 +728,6 @@ msgid "Cherry pick onto %s"
 msgstr ""
 
 #: ../gitg/gitg-commit-action-create-branch.vala:48
-#| msgid "Create Branch"
 msgid "Create branch"
 msgstr "Luo haara"
 
@@ -748,7 +740,6 @@ msgid "Failed to create branch"
 msgstr "Haaran luominen epäonnistui"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:63
-#| msgid "Create Patch"
 msgid "Create patch"
 msgstr "Luo paikka"
 
@@ -769,7 +760,6 @@ msgid "Failed to create patch"
 msgstr "Paikan luominen epäonnistui"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:48
-#| msgid "Create Tag"
 msgid "Create tag"
 msgstr "Luo tagi"
 
@@ -797,26 +787,23 @@ msgstr "_Poista"
 #: ../gitg/gitg-dash-view.vala:247
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
-msgstr ""
+msgstr "Voit %setsiä kotikansiostasi%s git-tietovarastoja."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: ../gitg/gitg-dash-view.vala:250
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
-msgstr ""
+msgstr "Voit sen aikana %smäärittää git-profiilisi tiedot%s."
 
 #: ../gitg/gitg-dash-view.vala:395
-#| msgid "Failed to commit"
 msgid "Failed to clone repository"
 msgstr "Tietovaraston kloonaaminen epäonnistui"
 
 #: ../gitg/gitg-dash-view.vala:443
-#| msgid "Failed to pass pre-commit"
 msgid "Failed to add repository"
 msgstr "Tietovaraston lisääminen epäonnistui"
 
 #: ../gitg/gitg-dash-view.vala:459
-#| msgid "Bare repository"
 msgid "Create new repository"
 msgstr "Luo uusi tietovarasto"
 
@@ -827,14 +814,14 @@ msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
+"Sijainti <i>%s</i> ei vaikuta kelvolliselta git-tietovarastolta. Haluatko "
+"alustaa uuden git-tietovaraston tähän sijaintiin?"
 
 #: ../gitg/gitg-dash-view.vala:468
-#| msgid "Bare repository"
 msgid "Create repository"
 msgstr "Luo tietovarasto"
 
 #: ../gitg/gitg-dash-view.vala:484
-#| msgid "Failed to create patch"
 msgid "Failed to create repository"
 msgstr "Tietovaraston luominen epäonnistui"
 
@@ -844,7 +831,6 @@ msgid "Scanning for repositories in %s"
 msgstr ""
 
 #: ../gitg/gitg-dash-view.vala:595
-#| msgid "Open Repository"
 msgid "Add Repository"
 msgstr "Lisää tietovarasto"
 
@@ -853,7 +839,6 @@ msgid "_Add"
 msgstr "_Lisää"
 
 #: ../gitg/gitg-dash-view.vala:601
-#| msgid "Do not try to load a repository from the current working directory"
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Etsi kaikkia git-tietovarastoja tästä hakemistosta"
 
@@ -1097,16 +1082,16 @@ msgstr "Virheellinen nimi"
 msgid "Failed to rename"
 msgstr "Nimen muuttaminen epäonnistui"
 
-#: ../gitg/gitg-window.vala:410
+#: ../gitg/gitg-window.vala:413
 msgid "Projects"
 msgstr "Projektit"
 
-#: ../gitg/gitg-window.vala:826
+#: ../gitg/gitg-window.vala:841
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "\"%s\" ei ole Git-tietovarasto."
 
-#: ../gitg/gitg-window.vala:975
+#: ../gitg/gitg-window.vala:990
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1114,7 +1099,7 @@ msgstr ""
 "Käyttäjänimeäsi ja sähköpostiosoitettasi ei ole vielä määritelty. Määritä "
 "kyseiset tiedot käyttäjäasetuksissa."
 
-#: ../gitg/gitg-window.vala:979
+#: ../gitg/gitg-window.vala:994
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1122,7 +1107,7 @@ msgstr ""
 "Käyttäjänimeäsi ei ole vielä määritelty. Määritä kyseinen tieto "
 "käyttäjäasetuksissa."
 
-#: ../gitg/gitg-window.vala:983
+#: ../gitg/gitg-window.vala:998
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1130,8 +1115,7 @@ msgstr ""
 "Sähköpostiosoitettasi ei ole vielä määritelty. Määritä kyseinen tieto "
 "käyttäjäasetuksissa."
 
-#: ../gitg/gitg-window.vala:986
-#| msgid "Author Details"
+#: ../gitg/gitg-window.vala:1001
 msgid "Missing author details"
 msgstr "Tekijän tiedot puuttuvat"
 
@@ -1284,6 +1268,12 @@ msgstr ""
 msgid "Expand all"
 msgstr ""
 
+#: ../libgitg/gitg-diff-view-commit-details.vala:191
+#, fuzzy, c-format
+#| msgid "Commits"
+msgid "Committed by %s"
+msgstr "Pysyvät muutokset"
+
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:175
 #, c-format
@@ -1328,18 +1318,15 @@ msgid "_Save"
 msgstr "_Tallenna"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-#, fuzzy
 #| msgid "Enter details to set as default for all repositories:"
 msgid "Default details used for all repositories"
-msgstr "Anna tiedot, jotka asetetaan oletuksena kaikille tietovarastoille:"
+msgstr "Kaikille tietovarastoille oletuksena käytettävät tiedot"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
-#| msgid "E-mail: "
 msgid "E-mail:"
 msgstr "Sähköposti:"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-#| msgid "Name: "
 msgid "Name:"
 msgstr "Nimi:"
 
@@ -1433,7 +1420,6 @@ msgid "Date"
 msgstr "Päiväys"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-info.ui.h:1
-#| msgid "_Open"
 msgid "Open"
 msgstr "Avaa"
 
@@ -1467,12 +1453,10 @@ msgstr ""
 "tietovarasto tai kloonaa uusi tietovarasto."
 
 #: ../gitg/resources/ui/gitg-dash-view.ui.h:2
-#| msgid "Bare repository"
 msgid "_Add repository"
 msgstr "_Lisää tietovarasto"
 
 #: ../gitg/resources/ui/gitg-dash-view.ui.h:3
-#| msgid "Clone Repository"
 msgid "_Clone repository"
 msgstr "_Kloonaa tietovarasto"
 
@@ -1525,17 +1509,14 @@ msgid "Commit Message"
 msgstr "Pysyvän muutoksen viesti"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-#| msgid "D_iscard selection"
 msgid "Default selection"
 msgstr "Oletusvalinta"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
-#| msgid "Create Branch"
 msgid "Current branch"
 msgstr "Nykyinen haara"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
-#| msgid "Branches"
 msgid "All branches"
 msgstr "Kaikki haarat"
 
@@ -1582,10 +1563,9 @@ msgid "Startup"
 msgstr "Käynnistys"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#, fuzzy
 #| msgid "Start gitg with a particular activity"
 msgid "Start with activity:"
-msgstr "Käynnistä gitg tietyllä toiminnolla"
+msgstr "Käynnistä toiminnolla:"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:4
 msgid "Commit"
@@ -1636,9 +1616,10 @@ msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
 msgstr ""
+"Aiempi kirjautumisyritys epäonnistui. Anna käyttäjätunnuksesi ja salasanasi "
+"yrittääksesi uudelleen."
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
-#| msgid "Rename"
 msgid "_Username:"
 msgstr "_Käyttäjätunnus:"
 
