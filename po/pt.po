@@ -7,18 +7,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg gnome-3-12\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-10-25 07:17+0000\n"
-"PO-Revision-Date: 2015-11-05 06:07+0000\n"
-"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&keywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2015-11-14 07:17+0000\n"
+"PO-Revision-Date: 2015-11-14 08:00+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: Português <palbuquerque73@gmail.com>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\\n\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
+"X-Language: pt_PT\n"
+"X-Source-Language: C\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -496,8 +497,8 @@ msgstr "Falha ao descartar alterações"
 #: ../gitg/commit/gitg-commit.vala:1466
 #, c-format
 msgid ""
-"Are you sure you want to permanently discard all changes made to the file `"
-"%s'?"
+"Are you sure you want to permanently discard all changes made to the file "
+"`%s'?"
 msgstr ""
 "Tem a certeza que quer descartar permanentemente as alterações feitas ao "
 "ficheiro \"%s\"?"
@@ -597,8 +598,7 @@ msgstr "Falha no checkout de conflitos: %s"
 msgid "Failed to obtain author details"
 msgstr "Falha ao obter detalhes do autor"
 
-#: ../gitg/gitg-action-support.vala:223
-#: ../gitg/gitg-ref-action-checkout.vala:88
+#: ../gitg/gitg-action-support.vala:223 ../gitg/gitg-ref-action-checkout.vala:88
 #, c-format
 msgid "Failed to lookup commit: %s"
 msgstr "Falha ao procurar o commit: %s"
@@ -652,8 +652,8 @@ msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
 "\n"
-"If you manually compiled libgit2, then please configure libgit2 with -"
-"DTHREADSAFE:BOOL=ON.\n"
+"If you manually compiled libgit2, then please configure libgit2 with "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Otherwise, report a bug in your distributions' bug reporting system for "
 "providing libgit2 without threading support."
@@ -661,8 +661,8 @@ msgstr ""
 "Lamentamos muito, mas o gitg requer que a libgit2 (uma biblioteca da qual o "
 "gitg depende) seja compilada com suporte para linhas.\n"
 "\n"
-"Se compilou manualmente a libgit2, por favor, configure-a com -DTHREADSAFE:"
-"BOOL=ON.\n"
+"Se compilou manualmente a libgit2, por favor, configure-a com "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Senão, reporte um erro no sistema de relatório de erros da sua distribuição, "
 "para obter a libgit2 sem suporte para linhas."
@@ -911,8 +911,7 @@ msgstr "Copiar nome"
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Copiar o nome da referência para a área de transferência"
 
-#: ../gitg/gitg-ref-action-delete.vala:48
-#: ../gitg/gitg-ref-action-delete.vala:89
+#: ../gitg/gitg-ref-action-delete.vala:48 ../gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -1033,8 +1032,7 @@ msgstr "Unir outro ramo com o ramo %s"
 msgid "Failed to merge commits: %s"
 msgstr "Falha ao unir os commits:%s"
 
-#: ../gitg/gitg-ref-action-merge.vala:175
-#: ../gitg/gitg-ref-action-merge.vala:191
+#: ../gitg/gitg-ref-action-merge.vala:175 ../gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
 msgstr "A união tem conflitos"
 
@@ -1115,16 +1113,16 @@ msgstr "Nome inválido"
 msgid "Failed to rename"
 msgstr "Falha ao rwnomear"
 
-#: ../gitg/gitg-window.vala:410
+#: ../gitg/gitg-window.vala:413
 msgid "Projects"
 msgstr "Projetos"
 
-#: ../gitg/gitg-window.vala:826
+#: ../gitg/gitg-window.vala:841
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "\"%s\" não é um repositório Git."
 
-#: ../gitg/gitg-window.vala:975
+#: ../gitg/gitg-window.vala:990
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1132,7 +1130,7 @@ msgstr ""
 "O seu nome de utilizador e correio eletrónico ainda não estão configurados. "
 "Por favor, vá à configuração de utilizador e preencha os seus dados."
 
-#: ../gitg/gitg-window.vala:979
+#: ../gitg/gitg-window.vala:994
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1140,7 +1138,7 @@ msgstr ""
 "O seu nome de utilizador ainda não está configurado. Por favor vá à "
 "configuração do utilizador e preencha os seus dados."
 
-#: ../gitg/gitg-window.vala:983
+#: ../gitg/gitg-window.vala:998
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1148,7 +1146,7 @@ msgstr ""
 "O seu correio eletrónico ainda não está configurado. Por favor vá à "
 "configuração do utilizador e preencha os seus dados."
 
-#: ../gitg/gitg-window.vala:986
+#: ../gitg/gitg-window.vala:1001
 msgid "Missing author details"
 msgstr "Detalhes do autor em falta"
 
@@ -1301,6 +1299,12 @@ msgstr "Colapsar tudo"
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
 msgstr "Expandir tudo"
+
+#: ../libgitg/gitg-diff-view-commit-details.vala:191
+#, c-format
+#| msgid "Commits"
+msgid "Committed by %s"
+msgstr "Submetido por %s"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:175
