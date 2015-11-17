@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-11-02 07:14+0000\n"
-"PO-Revision-Date: 2015-11-11 11:53+0100\n"
+"POT-Creation-Date: 2015-11-16 07:17+0000\n"
+"PO-Revision-Date: 2015-11-16 16:11+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -568,12 +568,10 @@ msgstr "_Editar archivo"
 
 #: ../gitg/gitg-action-support.vala:95
 #, c-format
-#| msgid "Failed to discard changes"
 msgid "Failed to stash changes: %s"
 msgstr "Falló al reservar los cambios: %s"
 
 #: ../gitg/gitg-action-support.vala:130
-#| msgid "_Unstage changes"
 msgid "Unstaged changes"
 msgstr "Cambios sin reservar"
 
@@ -595,42 +593,35 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: ../gitg/gitg-action-support.vala:134
-#| msgid "_Stage changes"
 msgid "Stash changes"
 msgstr "Reservar cambios"
 
 #: ../gitg/gitg-action-support.vala:138 ../gitg/gitg-action-support.vala:165
-#| msgid "Failed to commit"
 msgid "Failed with conflicts"
 msgstr "Falló con conflictos"
 
 #: ../gitg/gitg-action-support.vala:181
 #, c-format
-#| msgid "Failed to checkout branch"
 msgid "Failed to checkout conflicts: %s"
 msgstr "Falló al descargar los conflictos: %s"
 
 #: ../gitg/gitg-action-support.vala:199
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain author details"
 msgstr "Falló al obtener los detalles del autor"
 
 #: ../gitg/gitg-action-support.vala:223
 #: ../gitg/gitg-ref-action-checkout.vala:88
 #, c-format
-#| msgid "Failed to lookup tag"
 msgid "Failed to lookup commit: %s"
 msgstr "Falló al buscar el «commit»: %s"
 
 #: ../gitg/gitg-action-support.vala:255
 #, c-format
-#| msgid "Failed to create tag"
 msgid "Failed to create commit: %s"
 msgstr "Falló al crear el «commit»: %s"
 
 #: ../gitg/gitg-action-support.vala:277
 #, c-format
-#| msgid "Failed to checkout branch"
 msgid "Failed to checkout index: %s"
 msgstr "Falló al descargar el índice: %s"
 
@@ -714,7 +705,6 @@ msgid "The URL introduced is not supported"
 msgstr "El URL introducido no está soportado"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:53
-#| msgid "Cherry-pick on..."
 msgid "Cherry pick onto"
 msgstr "Aplicar los cambios («cherry-pick») en"
 
@@ -724,19 +714,16 @@ msgstr "Aplicar este cambio en una rama («cherry-pick»)"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-#| msgid "Failed to checkout local branch <%s>"
 msgid "Failed to lookup the commit for branch %s: %s"
 msgstr "Falló al buscar el «commit» para la rama local %s: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
-#| msgid "Failed to cherry-pick on <%s>"
 msgid "Failed to cherry-pick the commit: %s"
 msgstr "Falló al aplicar el cambio del «commit»: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:144
 #: ../gitg/gitg-commit-action-cherry-pick.vala:160
-#| msgid "Cherry-pick on..."
 msgid "Cherry pick has conflicts"
 msgstr "Hay conflictos al aplicar los cambios"
 
@@ -775,7 +762,6 @@ msgstr "Ha habido conflictos al aplicar los cambios en la carpeta de trabajo"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-#| msgid "Cherry-picking on <%s>"
 msgid "Cherry pick %s onto %s"
 msgstr "Aplicar cambio («cherry-pick») %s en %s"
 
@@ -785,12 +771,10 @@ msgstr "Cambio aplicado correctamente"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-#| msgid "Cherry-picking on <%s>"
 msgid "Cherry pick onto %s"
 msgstr "Aplicar los cambios («cherry-pick») en %s"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:48
-#| msgid "Create Branch"
 msgid "Create branch"
 msgstr "Crear rama"
 
@@ -803,7 +787,6 @@ msgid "Failed to create branch"
 msgstr "Falló al crear la rama"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:63
-#| msgid "Create Patch"
 msgid "Create patch"
 msgstr "Crear parche"
 
@@ -824,7 +807,6 @@ msgid "Failed to create patch"
 msgstr "Falló al crear el parche"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:48
-#| msgid "Create Tag"
 msgid "Create tag"
 msgstr "Crear etiqueta"
 
@@ -914,19 +896,16 @@ msgstr "Descargar la referencia seleccionada"
 
 #: ../gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-#| msgid "Checkout"
 msgid "Checkout %s"
 msgstr "Descargar %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:101
 #, c-format
-#| msgid "Failed to checkout branch"
 msgid "Failed to checkout branch: %s"
 msgstr "Falló al descargar la rama: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:111
 #, c-format
-#| msgid "Failed to delete tag %s"
 msgid "Failed to update HEAD: %s"
 msgstr "Falló al actualizar HEAD: %s"
 
@@ -1056,13 +1035,11 @@ msgstr "Mezclar en %s"
 #. TODO
 #: ../gitg/gitg-ref-action-merge.vala:69
 #, c-format
-#| msgid "Merging %s branch <%s> onto %s branch <%s>"
 msgid "Merge another branch into branch %s"
 msgstr "Mezclar otra rama en la rama %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:106
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to merge commits: %s"
 msgstr "Falló al mezclar los «commit»: %s"
 
@@ -1104,13 +1081,11 @@ msgstr "Mezclar %s en %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:231
 #, c-format
-#| msgid "Failed to lookup tag"
 msgid "Failed to lookup our commit: %s"
 msgstr "Falló al buscar el «commit» propio: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:241
 #, c-format
-#| msgid "Failed to lookup tag"
 msgid "Failed to lookup their commit: %s"
 msgstr "Falló al buscar el «commit» ajeno: %s"
 
@@ -1121,7 +1096,6 @@ msgstr "Mezclado %s con %s correctamente"
 
 #: ../gitg/gitg-ref-action-merge.vala:320
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Merge %s into branch %s"
 msgstr "Mezclar %s en la rama %s"
 
@@ -1151,16 +1125,16 @@ msgstr "Nombre no válido"
 msgid "Failed to rename"
 msgstr "Falló al renombrar"
 
-#: ../gitg/gitg-window.vala:410
+#: ../gitg/gitg-window.vala:413
 msgid "Projects"
 msgstr "Proyectos"
 
-#: ../gitg/gitg-window.vala:826
+#: ../gitg/gitg-window.vala:841
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» no es un repositorio Git."
 
-#: ../gitg/gitg-window.vala:975
+#: ../gitg/gitg-window.vala:990
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1168,7 +1142,7 @@ msgstr ""
 "Su nombre de usuario y su correo-e no están configurados todavía. Vaya a la "
 "configuración del usuario y proporcione su nombre y su correo-e."
 
-#: ../gitg/gitg-window.vala:979
+#: ../gitg/gitg-window.vala:994
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1176,7 +1150,7 @@ msgstr ""
 "Su nombre de usuario no está configurado todavía. Vaya a la configuración "
 "del usuario y proporcione su nombre."
 
-#: ../gitg/gitg-window.vala:983
+#: ../gitg/gitg-window.vala:998
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1184,8 +1158,7 @@ msgstr ""
 "Su su correo-e no está configurado todavía. Vaya a la configuración del "
 "usuario y proporcione su correo-e."
 
-#: ../gitg/gitg-window.vala:986
-#| msgid "Author Details"
+#: ../gitg/gitg-window.vala:1001
 msgid "Missing author details"
 msgstr "Falta los detalles del autor"
 
@@ -1346,6 +1319,12 @@ msgstr "Contraer todo"
 msgid "Expand all"
 msgstr "Expandir todo"
 
+#: ../libgitg/gitg-diff-view-commit-details.vala:191
+#, c-format
+#| msgid "Committed by:"
+msgid "Committed by %s"
+msgstr "Cambiado por %s"
+
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:175
 #, c-format
@@ -1359,7 +1338,6 @@ msgid "%s at %s"
 msgstr "%s en %s"
 
 #: ../libgitg/gitg-repository-list-box.vala:423
-#| msgid "Cloning..."
 msgid "Cloning…"
 msgstr "Clonando…"
 
@@ -1705,7 +1683,6 @@ msgid "Remember _forever"
 msgstr "Recordar _siempre"
 
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
-#| msgid "Parents:"
 msgid "Parents"
 msgstr "Padres"
 
@@ -1758,9 +1735,6 @@ msgstr "columna"
 
 #~ msgid "Diff against:"
 #~ msgstr "Diferencia con:"
-
-#~ msgid "Committed by:"
-#~ msgstr "Persona que efectúa el cambio:"
 
 #~ msgid "Developer tools"
 #~ msgstr "Herramientas del desarrollador"
