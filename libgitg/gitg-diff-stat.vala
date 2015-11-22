@@ -144,29 +144,31 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 			x -= padding.right + wbar;
 		}
 
-		sctx.save();
-		sctx.add_region("added",
-		                Gtk.RegionFlags.FIRST |
-		                (removed == 0 ? Gtk.RegionFlags.ONLY : 0));
+		if (added == 0 ||
+		    removed == 0)
+		{
+			sctx.save();
+			sctx.add_class(added == 0 ? "removed-only" : "added-only");
+			sctx.render_background(context, x, ybar, wrest, hbar);
+			sctx.restore();
+		}
+		else
+		{
+			sctx.save();
+			sctx.add_class("added");
+			sctx.render_background(context, x, ybar, wbar, hbar);
+			sctx.restore();
 
-		sctx.render_background(context, x, ybar, wbar, hbar);
-
-		sctx.restore();
-		sctx.save();
-
-		x += rtl ? (wbar - wrest) : wbar;
-
-		sctx.add_region("removed",
-		                Gtk.RegionFlags.LAST |
-		                (added == 0 ? Gtk.RegionFlags.ONLY : 0));
-
-		sctx.render_background(context,
-		                       x,
-		                       ybar,
-		                       wrest - wbar,
-		                       hbar);
-
-		sctx.restore();
+			sctx.save();
+			sctx.add_class("removed");
+			x += rtl ? (wbar - wrest) : wbar;
+			sctx.render_background(context,
+			                       x,
+			                       ybar,
+			                       wrest - wbar,
+			                       hbar);
+			sctx.restore();
+		}
 
 		return false;
 	}
