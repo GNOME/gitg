@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-08-30 05:42+0000\n"
-"PO-Revision-Date: 2015-08-30 09:38+0200\n"
+"POT-Creation-Date: 2015-11-30 19:17+0000\n"
+"PO-Revision-Date: 2015-11-30 21:20+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <>\n"
 "Language: sk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:58
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -512,12 +512,10 @@ msgstr ""
 "Ste si istý, že chcete natrvalo zahodiť zmeny vykonané v súboroch %s a „%s“?"
 
 #: ../gitg/commit/gitg-commit.vala:1560
-#| msgid "Failed to delete tag %s"
 msgid "Failed to delete files"
 msgstr "Zlyhalo odstránenie súborov"
 
 #: ../gitg/commit/gitg-commit.vala:1576
-#| msgid "Delete"
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Odstrániť súbory"
@@ -526,13 +524,11 @@ msgstr[2] "Odstrániť súbory"
 
 #: ../gitg/commit/gitg-commit.vala:1581
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the tag %s?"
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "Ste si istý, že chcete natrvalo odstrániť súbor „%s“?"
 
 #: ../gitg/commit/gitg-commit.vala:1592
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the tag %s?"
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Ste si istý, že chcete natrvalo odstrániť súbory „%s“ a „%s“?"
 
@@ -549,7 +545,6 @@ msgid "_Discard changes"
 msgstr "Zaho_diť zmeny"
 
 #: ../gitg/commit/gitg-commit.vala:1667
-#| msgid "Delete"
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "O_dstrániť súbory"
@@ -562,12 +557,10 @@ msgstr "_Upraviť súbor"
 
 #: ../gitg/gitg-action-support.vala:93
 #, c-format
-#| msgid "Failed to discard changes"
 msgid "Failed to stash changes: %s"
 msgstr "Zlyhalo skrytie zmien: %s"
 
 #: ../gitg/gitg-action-support.vala:128
-#| msgid "_Unstage changes"
 msgid "Unstaged changes"
 msgstr "Nepripravené zmeny"
 
@@ -587,7 +580,6 @@ msgid "Cancel"
 msgstr "Zrušiť"
 
 #: ../gitg/gitg-action-support.vala:132
-#| msgid "_Stage changes"
 msgid "Stash changes"
 msgstr "Skryť zmeny"
 
@@ -596,13 +588,11 @@ msgid "Merge failed with conflicts"
 msgstr "Zlúčenie zlyhalo s konfliktami"
 
 #: ../gitg/gitg-action-support.vala:163
-#| msgid "Failed to commit"
 msgid "Failed with conflicts"
 msgstr "Zlyhanie s konfliktami"
 
 #: ../gitg/gitg-action-support.vala:179
 #, c-format
-#| msgid "Failed to fetch from %s: %s"
 msgid "Failed to checkout conflicts: %s"
 msgstr "Zlyhalo získanie konfliktov: %s"
 
@@ -655,7 +645,6 @@ msgid "Author Details"
 msgstr "Podrobnosti o autorovi"
 
 #: ../gitg/gitg-author-details-dialog.vala:86
-#| msgid "Enter details to set as default for all repositories:"
 msgid "Enter default details used for all repositories:"
 msgstr ""
 "Zadajte predvolené podrobnosti, ktoré sa použijú pre všetky repozitáre:"
@@ -663,7 +652,6 @@ msgstr ""
 #. Translators: %s is the repository name
 #: ../gitg/gitg-author-details-dialog.vala:108
 #, c-format
-#| msgid "Enter details for repository '%s':"
 msgid "Override global details for repository '%s':"
 msgstr "Nahradiť globálne podrobnosti pre repozitár „%s“:"
 
@@ -676,7 +664,6 @@ msgid "The URL introduced is not supported"
 msgstr "Uvedená URL adresa nie je podporovaná"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:48
-#| msgid "Create Branch"
 msgid "Create branch"
 msgstr "Vytvoriť vetvu"
 
@@ -690,7 +677,6 @@ msgstr "Vytvorenie novej vetvy zlyhalo"
 
 # DK: neviem ci nebude lepsie pred kazde slovo Patch vlozit slovo "súbor", tak ako niekde je
 #: ../gitg/gitg-commit-action-create-patch.vala:63
-#| msgid "Create Patch"
 msgid "Create patch"
 msgstr "Vytvoriť záplatu (patch)"
 
@@ -711,7 +697,6 @@ msgid "Failed to create patch"
 msgstr "Vytvorenie záplaty (patch) zlyhalo"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:48
-#| msgid "Create Tag"
 msgid "Create tag"
 msgstr "Vytvoriť značku"
 
@@ -748,17 +733,14 @@ msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Medzitým možno budete chcieť %snastaviť váš profil git%s."
 
 #: ../gitg/gitg-dash-view.vala:395
-#| msgid "Failed to commit"
 msgid "Failed to clone repository"
 msgstr "Zlyhalo klonovanie repozitára"
 
 #: ../gitg/gitg-dash-view.vala:443
-#| msgid "Failed to pass pre-commit"
 msgid "Failed to add repository"
 msgstr "Zlyhalo pridanie repozitára"
 
 #: ../gitg/gitg-dash-view.vala:459
-#| msgid "Bare repository"
 msgid "Create new repository"
 msgstr "vytvorenie nového repozitára"
 
@@ -773,12 +755,10 @@ msgstr ""
 "inicializovať nový repozitár git v tomto umiestnení?"
 
 #: ../gitg/gitg-dash-view.vala:468
-#| msgid "Bare repository"
 msgid "Create repository"
 msgstr "Vytvoriť repozitár"
 
 #: ../gitg/gitg-dash-view.vala:484
-#| msgid "Failed to create patch"
 msgid "Failed to create repository"
 msgstr "Zlyhalo vytvorenie repozitára"
 
@@ -806,7 +786,6 @@ msgid "Checkout"
 msgstr "Získať"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
-#| msgid "Delete the selected reference"
 msgid "Checkout the selected reference"
 msgstr "Získa vybratý odkaz"
 
@@ -827,7 +806,6 @@ msgstr "Zlyhalo získanie vetvy: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:111
 #, c-format
-#| msgid "Failed to delete tag %s"
 msgid "Failed to update HEAD: %s"
 msgstr "Zlyhalo aktualizovanie hlavy (HEAD): %s"
 
@@ -850,7 +828,7 @@ msgstr "Odstrániť"
 
 #: ../gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
-msgstr "Odstrániť vybratý odkaz"
+msgstr "Odstráni vybratý odkaz"
 
 #: ../gitg/gitg-ref-action-delete.vala:73
 #, c-format
@@ -1006,14 +984,12 @@ msgstr "Zlyhalo vyhľadanie našich začlenení: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:241
 #, c-format
-#| msgid "Failed to lookup tag"
 msgid "Failed to lookup their commit: %s"
 msgstr "Zlyhalo vyhľadanie ich začlenení: %s"
 
 # DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
 # PV: Moja chyba, opravené
 #: ../gitg/gitg-ref-action-merge.vala:262
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain author details"
 msgstr "Zlyhalo získanie podrobností o autorovi"
 
@@ -1021,13 +997,11 @@ msgstr "Zlyhalo získanie podrobností o autorovi"
 # PV: Moja chyba, opravené
 #: ../gitg/gitg-ref-action-merge.vala:298
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain HEAD tree: %s"
 msgstr "Zlyhalo získanie stromu hlavy (HEAD): %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:316
 #, c-format
-#| msgid "Failed to create tag"
 msgid "Failed to create commit: %s"
 msgstr "Zlyhalo vytvorenie začlenenia: %s"
 
@@ -1035,7 +1009,6 @@ msgstr "Zlyhalo vytvorenie začlenenia: %s"
 # PV: Moja chyba, opravené
 #: ../gitg/gitg-ref-action-merge.vala:338
 #, c-format
-#| msgid "Failed to fetch from %s: %s"
 msgid "Failed to checkout index: %s"
 msgstr "Zlyhalo získanie indexu: %s"
 
@@ -1046,7 +1019,6 @@ msgstr "Úspešne zlúčené %s do %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:383
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Merge %s into branch %s"
 msgstr "Zlúčenie %s do vetvy %s"
 
@@ -1062,7 +1034,7 @@ msgstr "Premenovať"
 
 #: ../gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
-msgstr "Premenovať vybratý odkaz"
+msgstr "Premenuje vybratý odkaz"
 
 #: ../gitg/gitg-ref-action-rename.vala:100
 #, c-format
@@ -1138,7 +1110,7 @@ msgstr "Chýbajú podrobnosti o autorovi"
 #: ../gitg/gitg-simple-notification.vala:99
 #: ../gitg/resources/ui/gitg-window.ui.h:6
 msgid "Close"
-msgstr "Zatvoriť"
+msgstr "Zavrieť"
 
 # cmd line desc
 #: ../gitg/history/gitg-history-command-line.vala:42
@@ -1301,7 +1273,6 @@ msgid "Expand all"
 msgstr "Rozbaliť všetko"
 
 #: ../libgitg/gitg-diff-view.vala:290
-#| msgid "Collapse inactive lanes"
 msgid "Collapse all"
 msgstr "Zbaliť všetko"
 
@@ -1345,7 +1316,7 @@ msgstr "Zobrazí súbory v strome vybratého začlenenia"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 msgid "_Save"
-msgstr "_Ulož"
+msgstr "_Uložiť"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
 msgid "Default details used for all repositories"
