@@ -86,9 +86,15 @@ class Gitg.DiffViewFile : Gtk.Grid
 		construct set;
 	}
 
-	public DiffViewFile(Ggit.DiffDelta delta)
+	public bool handle_selection
 	{
-		Object(delta: delta);
+		get;
+		construct set;
+	}
+
+	public DiffViewFile(Ggit.DiffDelta delta, bool handle_selection)
+	{
+		Object(delta: delta, handle_selection: handle_selection);
 	}
 
 	protected override void constructed()
@@ -119,7 +125,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
-		var widget = new Gitg.DiffViewHunk(hunk, lines);
+		var widget = new Gitg.DiffViewHunk(hunk, lines, handle_selection);
 		widget.show();
 
 		d_diff_stat_file.added += widget.added;

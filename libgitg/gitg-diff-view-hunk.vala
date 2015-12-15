@@ -25,6 +25,8 @@ class Gitg.DiffViewHunk : Gtk.Grid
 	[GtkChild( name = "sourceview_hunk" )]
 	private Gtk.SourceView d_sourceview_hunk;
 
+	private string d_selection_category = "selection";
+
 	public Ggit.DiffHunk hunk
 	{
 		get;
@@ -37,9 +39,15 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		construct set;
 	}
 
-	public DiffViewHunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
+	public bool handle_selection
 	{
-		Object(hunk: hunk, lines: lines);
+		get;
+		construct set;
+	}
+
+	public DiffViewHunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines, bool handle_selection)
+	{
+		Object(hunk: hunk, lines: lines, handle_selection: handle_selection);
 	}
 
 	private uint d_added;
@@ -116,6 +124,16 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		d_new_lines.notify["size"].connect(update_top_window_size);
 		d_sym_lines.notify["size"].connect(update_top_window_size);
 
+		if (handle_selection)
+		{
+			var selection_attributes = new Gtk.SourceMarkAttributes();
+
+			selection_attributes.background = Gdk.RGBA() { red = 168.0 / 255.0, green = 207.0 / 255.0, blue = 214.0 / 255.0, alpha = 1.0 };
+			d_sourceview_hunk.set_mark_attributes(d_selection_category, selection_attributes, 0);
+
+			d_sourceview_hunk.button_release_event.connect(button_release_event_on_view);
+		}
+
 		update_hunk_label();
 		update_lines();
 
@@ -124,6 +142,48 @@ class Gitg.DiffViewHunk : Gtk.Grid
 
 		d_label_hunk.style_updated.connect(update_top_window_size);
 		update_top_window_size();
+	}
+
+	private bool button_release_event_on_view(Gdk.EventButton event)
+	{
+		var text_view = d_sourceview_hunk as Gtk.TextView;
+		var win = text_view.get_window(Gtk.TextWindowType.TEXT);
+		int x, y, width, height;
+
+		width = win.get_width();
+		height = win.get_height();
+
+		var pointer = Gdk.Display.get_default().get_device_manager().get_client_pointer();
+		win.get_device_position(pointer, out x, out y, null);
+
+		if (x < 0 || y < 0 || x > width || y > height)
+		{
+			return false;
+		}
+
+		int win_x, win_y;
+		text_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, x, y, out win_x, out win_y);
+
+		Gtk.TextIter iter;
+		text_view.get_iter_at_location(out iter, win_x, win_y);
+
+		iter.set_line_offset(0);
+		var buffer = text_view.get_buffer() as Gtk.SourceBuffer;
+		var marks = buffer.get_source_marks_at_iter(iter, d_selection_category);
+		if (marks != null)
+		{
+			Gtk.TextIter end;
+
+			end = iter;
+			end.forward_to_line_end();
+			buffer.remove_source_marks(iter, end, d_selection_category);
+		}
+		else
+		{
+			buffer.create_source_mark(null, d_selection_category, iter);
+		}
+
+		return false;
 	}
 
 	private void update_top_window_size()

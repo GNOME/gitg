@@ -183,6 +183,13 @@ public class Gitg.DiffView : Gtk.Grid
 		default = 3;
 	}
 
+	public bool handle_selection
+	{
+		get;
+		construct set;
+		default = false;
+	}
+
 	private ulong d_expanded_notify;
 	private ulong d_parent_commit_notify;
 
@@ -324,7 +331,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 					add_file();
 
-					current_file = new Gitg.DiffViewFile(delta);
+					current_file = new Gitg.DiffViewFile(delta, handle_selection);
 					return 0;
 				},
 
