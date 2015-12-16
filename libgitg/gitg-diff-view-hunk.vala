@@ -131,6 +131,8 @@ class Gitg.DiffViewHunk : Gtk.Grid
 			selection_attributes.background = Gdk.RGBA() { red = 168.0 / 255.0, green = 207.0 / 255.0, blue = 214.0 / 255.0, alpha = 1.0 };
 			d_sourceview_hunk.set_mark_attributes(d_selection_category, selection_attributes, 0);
 
+			d_sourceview_hunk.button_press_event.connect(button_press_event_on_view);
+			d_sourceview_hunk.motion_notify_event.connect(motion_notify_event_on_view);
 			d_sourceview_hunk.button_release_event.connect(button_release_event_on_view);
 		}
 
@@ -144,7 +146,30 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		update_top_window_size();
 	}
 
-	private bool button_release_event_on_view(Gdk.EventButton event)
+	private bool get_line_selected(Gtk.TextIter iter)
+	{
+		var text_view = d_sourceview_hunk as Gtk.TextView;
+		Gtk.TextIter start = iter;
+
+		start.set_line_offset(0);
+		var buffer = text_view.get_buffer() as Gtk.SourceBuffer;
+
+		return buffer.get_source_marks_at_iter(start, d_selection_category) != null;
+	}
+
+	private bool get_line_is_diff(Gtk.TextIter iter)
+	{
+		var text_view = d_sourceview_hunk as Gtk.TextView;
+		Gtk.TextIter start = iter;
+
+		start.set_line_offset(0);
+		var buffer = text_view.get_buffer() as Gtk.SourceBuffer;
+
+		return (buffer.get_source_marks_at_iter(start, "added") != null) ||
+		       (buffer.get_source_marks_at_iter(start, "removed") != null);
+	}
+
+	private bool get_iter_from_pointer_position(out Gtk.TextIter iter)
 	{
 		var text_view = d_sourceview_hunk as Gtk.TextView;
 		var win = text_view.get_window(Gtk.TextWindowType.TEXT);
@@ -164,24 +189,161 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		int win_x, win_y;
 		text_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, x, y, out win_x, out win_y);
 
-		Gtk.TextIter iter;
 		text_view.get_iter_at_location(out iter, win_x, win_y);
 
-		iter.set_line_offset(0);
-		var buffer = text_view.get_buffer() as Gtk.SourceBuffer;
-		var marks = buffer.get_source_marks_at_iter(iter, d_selection_category);
-		if (marks != null)
-		{
-			Gtk.TextIter end;
+		return true;
+	}
 
-			end = iter;
-			end.forward_to_line_end();
-			buffer.remove_source_marks(iter, end, d_selection_category);
+	private void select_range(Gtk.TextIter start, Gtk.TextIter end)
+	{
+		var text_view = d_sourceview_hunk as Gtk.TextView;
+		var buffer = text_view.get_buffer() as Gtk.SourceBuffer;
+
+		start.order(end);
+
+		while (start.get_line() <= end.get_line())
+		{
+			start.set_line_offset(0);
+
+			if (get_line_is_diff(start))
+			{
+				buffer.create_source_mark(null, d_selection_category, start);
+			}
+
+			if (!start.forward_line())
+			{
+				break;
+			}
+		}
+	}
+
+	private void deselect_range(Gtk.TextIter start, Gtk.TextIter end)
+	{
+		var text_view = d_sourceview_hunk as Gtk.TextView;
+		var buffer = text_view.get_buffer() as Gtk.SourceBuffer;
+
+		Gtk.TextIter real_start, real_end;
+
+		real_start = start;
+		real_start.set_line_offset(0);
+
+		real_end = end;
+		real_end.forward_to_line_end();
+
+		buffer.remove_source_marks(real_start, real_end, d_selection_category);
+	}
+
+	private bool d_is_selecting;
+	private bool d_is_deselecting;
+	private Gtk.TextMark d_start_selection_mark;
+	private Gtk.TextMark d_end_selection_mark;
+
+	private bool button_press_event_on_view(Gdk.EventButton event)
+	{
+		if (event.button != 1)
+		{
+			return false;
+		}
+
+		Gtk.TextIter iter;
+		if (!get_iter_from_pointer_position(out iter))
+		{
+			return false;
+		}
+
+		if (get_line_selected(iter))
+		{
+			d_is_deselecting = true;
+			deselect_range(iter, iter);
 		}
 		else
 		{
-			buffer.create_source_mark(null, d_selection_category, iter);
+			d_is_selecting = true;
+			select_range(iter, iter);
 		}
+
+		var text_view = d_sourceview_hunk as Gtk.TextView;
+		var buffer = text_view.get_buffer();
+
+		d_start_selection_mark = buffer.create_mark(null, iter, false);
+		d_end_selection_mark = buffer.create_mark(null, iter, false);
+
+		return false;
+	}
+
+	private bool motion_notify_event_on_view(Gdk.EventMotion event)
+	{
+		if (!d_is_selecting && !d_is_deselecting)
+		{
+			return false;
+		}
+
+		Gtk.TextIter iter;
+		if (!get_iter_from_pointer_position(out iter))
+		{
+			return false;
+		}
+
+		var text_view = d_sourceview_hunk as Gtk.TextView;
+		var buffer = text_view.get_buffer();
+
+		Gtk.TextIter start, end, current;
+
+		current = iter;
+
+		buffer.get_iter_at_mark(out start, d_start_selection_mark);
+		start.order(current);
+
+		if (d_is_selecting)
+		{
+			select_range(start, current);
+		}
+		else
+		{
+			deselect_range(start, current);
+		}
+
+		buffer.get_iter_at_mark(out end, d_end_selection_mark);
+		if (!end.in_range(start, current))
+		{
+			start = end;
+			current = iter;
+
+			start.order(current);
+
+			if (d_is_selecting)
+			{
+				deselect_range(start, current);
+			}
+			else
+			{
+				select_range(start, current);
+			}
+		}
+
+		buffer.move_mark(d_end_selection_mark, iter);
+
+		return false;
+	}
+
+	private bool button_release_event_on_view(Gdk.EventButton event)
+	{
+		if (event.button != 1)
+		{
+			return false;
+		}
+
+		d_is_selecting = false;
+		d_is_deselecting = false;
+
+		var text_view = d_sourceview_hunk as Gtk.TextView;
+		var buffer = text_view.get_buffer();
+
+		buffer.delete_mark(d_start_selection_mark);
+		d_start_selection_mark = null;
+
+		buffer.delete_mark(d_end_selection_mark);
+		d_end_selection_mark = null;
 
 		return false;
 	}
