@@ -36,6 +36,11 @@ GitgDiffViewHunk GtkSourceView.view {
 	color: @theme_text_color;
 }
 
+GitgDiffViewHunk GtkSourceView.view.handle-selection:selected {
+	background-color: transparent;
+	color: @theme_text_color;
+}
+
 GitgDiffView GitgDiffViewCommitDetails {
 	border-bottom: 1px outset lighter(@borders);
 }

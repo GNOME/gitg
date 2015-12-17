@@ -129,6 +129,8 @@ class Gitg.DiffViewHunk : Gtk.Grid
 			d_sourceview_hunk.button_press_event.connect(button_press_event_on_view);
 			d_sourceview_hunk.motion_notify_event.connect(motion_notify_event_on_view);
 			d_sourceview_hunk.button_release_event.connect(button_release_event_on_view);
+
+			d_sourceview_hunk.get_style_context().add_class("handle-selection");
 		}
 
 		update_hunk_label();
