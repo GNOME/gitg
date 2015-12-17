@@ -131,6 +131,9 @@ class Gitg.DiffViewHunk : Gtk.Grid
 			d_sourceview_hunk.button_release_event.connect(button_release_event_on_view);
 
 			d_sourceview_hunk.get_style_context().add_class("handle-selection");
+
+			d_sourceview_hunk.realize.connect(update_cursor);
+			d_sourceview_hunk.notify["state-flags"].connect(update_cursor);
 		}
 
 		update_hunk_label();
@@ -145,6 +148,17 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		var settings = Gtk.Settings.get_default();
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
 		update_theme();
+	}
+
+	private void update_cursor() {
+		var window = d_sourceview_hunk.get_window(Gtk.TextWindowType.TEXT);
+
+		if (window == null) {
+			return;
+		}
+
+ 		var cursor = new Gdk.Cursor.for_display(d_sourceview_hunk.get_display(), Gdk.CursorType.LEFT_PTR);
+		window.set_cursor(cursor);
 	}
 
 	private void update_theme()
