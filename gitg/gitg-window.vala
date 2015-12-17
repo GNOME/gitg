@@ -196,6 +196,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			set_titlebar(null);
 			d_grid_top.attach(d_header_bar, 0, 0, 1, 1);
 		}
+		else
+		{
+			d_header_bar.show_close_button = true;
+		}
 
 		add_action_entries(win_entries, this);
 
