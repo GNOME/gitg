@@ -126,11 +126,6 @@ class Gitg.DiffViewHunk : Gtk.Grid
 
 		if (handle_selection)
 		{
-			var selection_attributes = new Gtk.SourceMarkAttributes();
-
-			selection_attributes.background = Gdk.RGBA() { red = 168.0 / 255.0, green = 207.0 / 255.0, blue = 214.0 / 255.0, alpha = 1.0 };
-			d_sourceview_hunk.set_mark_attributes(d_selection_category, selection_attributes, 0);
-
 			d_sourceview_hunk.button_press_event.connect(button_press_event_on_view);
 			d_sourceview_hunk.motion_notify_event.connect(motion_notify_event_on_view);
 			d_sourceview_hunk.button_release_event.connect(button_release_event_on_view);
@@ -144,6 +139,36 @@ class Gitg.DiffViewHunk : Gtk.Grid
 
 		d_label_hunk.style_updated.connect(update_top_window_size);
 		update_top_window_size();
+
+		var settings = Gtk.Settings.get_default();
+		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
+		update_theme();
+	}
+
+	private void update_theme()
+	{
+		var selection_attributes = new Gtk.SourceMarkAttributes();
+		var added_attributes = new Gtk.SourceMarkAttributes();
+		var removed_attributes = new Gtk.SourceMarkAttributes();
+
+		var settings = Gtk.Settings.get_default();
+
+		if (settings.gtk_application_prefer_dark_theme)
+		{
+			selection_attributes.background = Gdk.RGBA() { red = 52.0 / 255.0, green = 101.0 / 255.0, blue = 164.0 / 255.0, alpha = 1.0 };
+			added_attributes.background = Gdk.RGBA() { red = 164.0 / 255.0, green = 0.0, blue = 0.0, alpha = 1.0 };
+			removed_attributes.background = Gdk.RGBA() { red = 78.0 / 255.0, green = 154.0 / 255.0, blue = 6.0 / 255.0, alpha = 1.0 };
+		}
+		else
+		{
+			selection_attributes.background = Gdk.RGBA() { red = 168.0 / 255.0, green = 207.0 / 255.0, blue = 214.0 / 255.0, alpha = 1.0 };
+			added_attributes.background = Gdk.RGBA() { red = 220.0 / 255.0, green = 1.0, blue = 220.0 / 255.0, alpha = 1.0 };
+			removed_attributes.background = Gdk.RGBA() { red = 1.0, green = 220.0 / 255.0, blue = 220.0 / 255.0, alpha = 1.0 };
+		}
+
+		d_sourceview_hunk.set_mark_attributes(d_selection_category, selection_attributes, 0);
+		d_sourceview_hunk.set_mark_attributes("added", added_attributes, 0);
+		d_sourceview_hunk.set_mark_attributes("removed", removed_attributes, 0);
 	}
 
 	private bool get_line_selected(Gtk.TextIter iter)
@@ -431,15 +456,6 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		var buffer = d_sourceview_hunk.buffer as Gtk.SourceBuffer;
 
 		buffer.set_text((string)content.data);
-
-		var added_attributes = new Gtk.SourceMarkAttributes();
-		added_attributes.background = Gdk.RGBA() { red = 220.0 / 255.0, green = 1.0, blue = 220.0 / 255.0, alpha = 1.0 };
-
-		var removed_attributes = new Gtk.SourceMarkAttributes();
-		removed_attributes.background = Gdk.RGBA() { red = 1.0, green = 220.0 / 255.0, blue = 220.0 / 255.0, alpha = 1.0 };
-
-		d_sourceview_hunk.set_mark_attributes("added", added_attributes, 0);
-		d_sourceview_hunk.set_mark_attributes("removed", removed_attributes, 0);
 
 		for (var i = 0; i < lines.size; i++)
 		{
