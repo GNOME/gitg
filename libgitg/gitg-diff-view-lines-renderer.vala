@@ -32,17 +32,14 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 	private ulong d_view_style_updated_id;
 
-	private string[] d_line_infos;
-
-	public Ggit.DiffHunk hunk
+	private struct HunkInfo
 	{
-		get; construct set;
+		int start;
+		int end;
+		string[] line_infos;
 	}
 
-	public Gee.ArrayList<Ggit.DiffLine> lines
-	{
-		get; construct set;
-	}
+	private Gee.HashMap<Ggit.DiffHunk, HunkInfo?> d_hunks_map;
 
 	public Style style
 	{
@@ -66,64 +63,17 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		}
 	}
 
-	public DiffViewLinesRenderer(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines, Style style)
+	public DiffViewLinesRenderer(Style style)
 	{
-		Object(hunk: hunk, lines: lines, style: style);
+		Object(style: style);
+	}
+
+	construct
+	{
+		d_hunks_map = new Gee.HashMap<Ggit.DiffHunk, HunkInfo?>();
+
 		set_alignment(1.0f, 0.5f);
-	}
-
-	protected override void constructed()
-	{
 		calculate_num_digits();
-		precalculate_line_strings();
-	}
-
-	private void precalculate_line_strings()
-	{
-		var oldn = hunk.get_old_start();
-		var newn = hunk.get_new_start();
-
-		var lns = lines;
-
-		d_line_infos = new string[lns.size];
-
-		for (var i = 0; i < lns.size; i++)
-		{
-			var line = lns[i];
-			var origin = line.get_origin();
-
-			string ltext = "";
-
-			switch (style)
-			{
-			case Style.NEW:
-				if (origin == Ggit.DiffLineType.CONTEXT || origin == Ggit.DiffLineType.ADDITION)
-				{
-					ltext = d_num_digits_fmts.printf(newn);
-					newn++;
-				}
-				break;
-			case Style.OLD:
-				if (origin == Ggit.DiffLineType.CONTEXT || origin == Ggit.DiffLineType.DELETION)
-				{
-					ltext = d_num_digits_fmts.printf(oldn);
-					oldn++;
-				}
-				break;
-			case Style.SYMBOL:
-				if (origin == Ggit.DiffLineType.ADDITION)
-				{
-					ltext = "+";
-				}
-				else if (origin == Ggit.DiffLineType.DELETION)
-				{
-					ltext = "-";
-				}
-				break;
-			}
-
-			d_line_infos[i] = ltext;
-		}
 	}
 
 	protected Gtk.TextBuffer buffer
@@ -134,14 +84,24 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 	protected override void query_data(Gtk.TextIter start, Gtk.TextIter end, Gtk.SourceGutterRendererState state)
 	{
 		var line = start.get_line();
+		HunkInfo? info = null;
 
-		if (line >= d_line_infos.length)
+		foreach (var i in d_hunks_map.values)
+		{
+			if (line >= i.start && line <= i.end)
+			{
+				info = i;
+				break;
+			}
+		}
+
+		if (info == null || line >= info.line_infos.length)
 		{
 			set_text("", -1);
 		}
 		else
 		{
-			set_text(d_line_infos[start.get_line()], -1);
+			set_text(info.line_infos[start.get_line() - info.start], -1);
 		}
 	}
 
@@ -184,18 +144,21 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 		if (style == Style.OLD || style == Style.NEW)
 		{
-			var oldn = hunk.get_old_start() + hunk.get_old_lines();
-			var newn = hunk.get_new_start() + hunk.get_new_lines();
-
-			var num = int.max(int.max(oldn, newn), d_maxlines);
-
-			while (num > 0)
+			foreach (var hunk in d_hunks_map.keys)
 			{
-				++num_digits;
-				num /= 10;
-			}
+				var oldn = hunk.get_old_start() + hunk.get_old_lines();
+				var newn = hunk.get_new_start() + hunk.get_new_lines();
 
-			d_num_digits = int.max(2, num_digits);
+				var num = int.max(int.max(oldn, newn), d_maxlines);
+
+				while (num > 0)
+				{
+					++num_digits;
+					num /= 10;
+				}
+
+				d_num_digits = int.max(2, num_digits);
+			}
 		}
 		else
 		{
@@ -234,6 +197,71 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 			ctx.restore();
 		}
+	}
+
+	private string[] precalculate_line_strings(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
+	{
+		var oldn = hunk.get_old_start();
+		var newn = hunk.get_new_start();
+
+		var lns = lines;
+
+		var line_infos = new string[lns.size];
+
+		for (var i = 0; i < lns.size; i++)
+		{
+			var line = lns[i];
+			var origin = line.get_origin();
+
+			string ltext = "";
+
+			switch (style)
+			{
+			case Style.NEW:
+				if (origin == Ggit.DiffLineType.CONTEXT || origin == Ggit.DiffLineType.ADDITION)
+				{
+					ltext = d_num_digits_fmts.printf(newn);
+					newn++;
+				}
+				break;
+			case Style.OLD:
+				if (origin == Ggit.DiffLineType.CONTEXT || origin == Ggit.DiffLineType.DELETION)
+				{
+					ltext = d_num_digits_fmts.printf(oldn);
+					oldn++;
+				}
+				break;
+			case Style.SYMBOL:
+				if (origin == Ggit.DiffLineType.ADDITION)
+				{
+					ltext = "+";
+				}
+				else if (origin == Ggit.DiffLineType.DELETION)
+				{
+					ltext = "-";
+				}
+				break;
+			}
+
+			line_infos[i] = ltext;
+		}
+
+		return line_infos;
+	}
+
+	public void add_hunk(int buffer_line_start, int buffer_line_end, Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
+	{
+		HunkInfo info = HunkInfo();
+
+		calculate_num_digits();
+
+		info.start = buffer_line_start;
+		info.end = buffer_line_end;
+		info.line_infos = precalculate_line_strings(hunk, lines);
+
+		d_hunks_map[hunk] = info;
+
+		recalculate_size();
 	}
 }
 
