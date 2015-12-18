@@ -150,10 +150,12 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		update_theme();
 	}
 
-	private void update_cursor() {
+	private void update_cursor()
+	{
 		var window = d_sourceview_hunk.get_window(Gtk.TextWindowType.TEXT);
 
-		if (window == null) {
+		if (window == null)
+		{
 			return;
 		}
 
