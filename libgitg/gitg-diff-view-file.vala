@@ -80,6 +80,13 @@ class Gitg.DiffViewFile : Gtk.Grid
 		get; set;
 	}
 
+	private bool d_has_selection;
+
+	public bool has_selection
+	{
+		get { return d_has_selection; }
+	}
+
 	public Ggit.DiffDelta delta
 	{
 		get;
@@ -123,6 +130,26 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_expander.bind_property("expanded", this, "expanded", BindingFlags.BIDIRECTIONAL);
 	}
 
+	private void on_selection_changed()
+	{
+		bool something_selected = false;
+
+		foreach (var child in d_grid_hunks.get_children())
+		{
+			if ((child as Gitg.DiffViewHunk).has_selection)
+			{
+				something_selected = true;
+				break;
+			}
+		}
+
+		if (d_has_selection != something_selected)
+		{
+			d_has_selection = something_selected;
+			notify_property("has-selection");
+		}
+	}
+
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
 		var widget = new Gitg.DiffViewHunk(hunk, lines, handle_selection);
@@ -136,6 +163,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 		this.bind_property("maxlines", widget, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 		this.bind_property("wrap", widget, "wrap", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 		this.bind_property("tab-width", widget, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+
+		widget.notify["has-selection"].connect(on_selection_changed);
 
 		sensitive = true;
 	}
