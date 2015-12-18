@@ -97,6 +97,13 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		}
 	}
 
+	private bool d_has_selection;
+
+	public bool has_selection
+	{
+		get { return d_has_selection; }
+	}
+
 	private DiffViewLinesRenderer d_old_lines;
 	private DiffViewLinesRenderer d_new_lines;
 	private DiffViewLinesRenderer d_sym_lines;
@@ -369,6 +376,32 @@ class Gitg.DiffViewHunk : Gtk.Grid
 		return false;
 	}
 
+	private void update_has_selection()
+	{
+		var text_view = d_sourceview_hunk as Gtk.TextView;
+		var buffer = text_view.get_buffer();
+
+		Gtk.TextIter iter;
+		buffer.get_start_iter(out iter);
+
+		bool something_selected = false;
+
+		if (get_line_selected(iter))
+		{
+			something_selected = true;
+		}
+		else
+		{
+			something_selected = (buffer as Gtk.SourceBuffer).forward_iter_to_source_mark(iter, d_selection_category);
+		}
+
+		if (something_selected != d_has_selection)
+		{
+			d_has_selection = something_selected;
+			notify_property("has-selection");
+		}
+	}
+
 	private bool button_release_event_on_view(Gdk.EventButton event)
 	{
 		if (event.button != 1)
@@ -387,6 +420,8 @@ class Gitg.DiffViewHunk : Gtk.Grid
 
 		buffer.delete_mark(d_end_selection_mark);
 		d_end_selection_mark = null;
+
+		update_has_selection();
 
 		return false;
 	}
