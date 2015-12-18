@@ -47,10 +47,11 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	// TODO
+	private bool d_has_selection;
+
 	public bool has_selection
 	{
-		get { return false; }
+		get { return d_has_selection; }
 	}
 
 	private Cancellable d_cancellable;
@@ -282,6 +283,26 @@ public class Gitg.DiffView : Gtk.Grid
 		SignalHandler.unblock(d_commit_details, d_expanded_notify);
 	}
 
+	private void on_selection_changed()
+	{
+		bool something_selected = false;
+
+		foreach (var file in d_grid_files.get_children())
+		{
+			if ((file as Gitg.DiffViewFile).has_selection)
+			{
+				something_selected = true;
+				break;
+			}
+		}
+
+		if (d_has_selection != something_selected)
+		{
+			d_has_selection = something_selected;
+			notify_property("has-selection");
+		}
+	}
+
 	private void update_diff(Ggit.Diff diff, Cancellable? cancellable)
 	{
 		var files = new Gee.ArrayList<Gitg.DiffViewFile>();
@@ -313,6 +334,7 @@ public class Gitg.DiffView : Gtk.Grid
 			if (current_file != null)
 			{
 				current_file.show();
+				current_file.notify["has-selection"].connect(on_selection_changed);	
 
 				files.add(current_file);
 
