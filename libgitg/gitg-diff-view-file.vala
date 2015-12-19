@@ -37,6 +37,9 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	private string d_selection_category = "selection";
 
+	private uint d_added;
+	private uint d_removed;
+
 	private bool d_expanded;
 
 	public bool expanded
@@ -522,8 +525,10 @@ class Gitg.DiffViewFile : Gtk.Grid
 			switch (line.get_origin())
 			{
 				case Ggit.DiffLineType.ADDITION:
+					d_added++;
 					break;
 				case Ggit.DiffLineType.DELETION:
+					d_removed++;
 					break;
 				case Ggit.DiffLineType.CONTEXT_EOFNL:
 				case Ggit.DiffLineType.ADD_EOFNL:
@@ -567,6 +572,9 @@ class Gitg.DiffViewFile : Gtk.Grid
 				buffer.create_source_mark(null, category, iter);
 			}
 		}
+
+		d_diff_stat_file.added = d_added;
+		d_diff_stat_file.removed = d_removed;
 
 		sensitive = true;
 	}
