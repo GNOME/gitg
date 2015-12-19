@@ -508,7 +508,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 
 		iter.set_line_offset(0);
-		int line_header = iter.get_line();
 		buffer.create_source_mark(null, "header", iter);
 
 		var header = @"@@ -$(hunk.get_old_start()),$(hunk.get_old_lines()) +$(hunk.get_new_start()),$(hunk.get_new_lines()) @@ $h\n";
@@ -570,7 +569,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 			if (category != null)
 			{
-				buffer.get_iter_at_line(out iter, line_header + i);
+				buffer.get_iter_at_line(out iter, line_hunk_start + i);
 				buffer.create_source_mark(null, category, iter);
 			}
 		}
