@@ -26,7 +26,6 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		SYMBOL
 	}
 
-	private int d_num_digits;
 	private string d_num_digits_fmts;
 	private string d_num_digits_fill;
 
@@ -151,13 +150,14 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 				var num = int.max(int.max(oldn, newn), d_maxlines);
 
+				var hunk_digits = 0;
 				while (num > 0)
 				{
-					++num_digits;
+					++hunk_digits;
 					num /= 10;
 				}
 
-				d_num_digits = int.max(2, num_digits);
+				num_digits = int.max(num_digits, hunk_digits);
 			}
 		}
 		else
