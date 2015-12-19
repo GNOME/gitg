@@ -545,11 +545,13 @@ class Gitg.DiffViewFile : Gtk.Grid
 			content.append(text);
 		}
 
+		int line_hunk_start = iter.get_line();
+
 		buffer.insert(ref iter, (string)content.data, -1);
 
-		d_old_lines.add_hunk(line_header, iter.get_line(), hunk, lines);
-		d_new_lines.add_hunk(line_header, iter.get_line(), hunk, lines);
-		d_sym_lines.add_hunk(line_header, iter.get_line(), hunk, lines);
+		d_old_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, lines);
+		d_new_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, lines);
+		d_sym_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, lines);
 
 		for (var i = 0; i < lines.size; i++)
 		{

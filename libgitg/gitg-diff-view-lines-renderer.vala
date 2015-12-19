@@ -94,7 +94,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 			}
 		}
 
-		if (info == null || line >= info.line_infos.length)
+		if (info == null || (line - info.start) >= info.line_infos.length)
 		{
 			set_text("", -1);
 		}
