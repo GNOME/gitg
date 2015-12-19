@@ -323,6 +323,25 @@ fi
 
 AM_CONDITIONAL(ENABLE_PYTHON, test x"$enable_python" = "xyes")
 
+dnl check for native osx
+gdk_targets=`$PKG_CONFIG --variable=targets gdk-3.0`
+PLATFORM_NAME="other"
+
+for target in $gdk_targets;
+do
+        case "$target" in
+                quartz)
+                        PLATFORM_NAME=osx
+                        ;;
+                win32)
+                        PLATFORM_NAME=win32
+                        ;;
+        esac
+done
+
+AC_SUBST(PLATFORM_NAME)
+AM_CONDITIONAL(PLATFORM_OSX, test x"$PLATFORM_NAME" = "xosx")
+
 dnl libgd
 LIBGD_INIT([
 	tagged-entry

@@ -4,5 +4,6 @@ namespace Gitg
 	public class PlatformSupport
 	{
 		public static bool use_native_window_controls(Gdk.Display? display = null);
+		public static async GLib.InputStream http_get(GLib.File url, GLib.Cancellable? cancellable = null) throws GLib.IOError;
 	}
 }

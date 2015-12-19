@@ -24,6 +24,7 @@ libgitg_libgitg_1_0_la_LIBADD = 	\
 if GDK_WINDOWING_QUARTZ
 libgitg_libgitg_1_0_la_LIBADD += -lobjc
 libgitg_libgitg_1_0_la_CFLAGS += -xobjective-c
+libgitg_libgitg_1_0_la_LDFLAGS += -framework Foundation
 endif
 
 libgitg_libgitg_1_0_la_VALAFLAGS =	\
@@ -36,6 +37,7 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg gdesktop-enums-3.0	\
 	--pkg libsoup-2.4		\
 	--pkg gtksourceview-3.0		\
+	--pkg gitg-platform-support	\
 	$(GITG_VALAFLAGS)		\
 	--vapidir $(top_srcdir)/vapi	\
 	--includedir libgitg		\
@@ -84,10 +86,16 @@ libgitg_libgitg_1_0_la_VALASOURCES =			\
 	libgitg/gitg-utils.vala				\
 	libgitg/gitg-when-mapped.vala
 
-libgitg_libgitg_1_0_la_SOURCES = 		\
-	$(libgitg_libgitg_1_0_la_VALASOURCES)	\
-	libgitg/gitg-platform-support.c		\
+libgitg_libgitg_1_0_la_SOURCES = 				\
+	$(libgitg_libgitg_1_0_la_VALASOURCES)			\
 	libgitg/gitg-resources.c
+
+if PLATFORM_OSX
+libgitg_libgitg_1_0_la_SOURCES += libgitg/gitg-platform-support-osx.c
+else
+libgitg_libgitg_1_0_la_SOURCES += libgitg/gitg-platform-support.c
+endif
+
 
 libgitg_libgitg_1_0_la_headerdir = $(prefix)/include/libgitg-1.0/libgitg
 libgitg_libgitg_1_0_la_header_HEADERS = libgitg/libgitg.h

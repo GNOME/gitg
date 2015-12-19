@@ -71,7 +71,7 @@ public class Gitg.AvatarCache : Object
 
 		try
 		{
-			stream = yield file.read_async(Priority.LOW, cancellable);
+			stream = yield Gitg.PlatformSupport.http_get(file, cancellable);
 		}
 		catch
 		{
