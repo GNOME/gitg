@@ -155,8 +155,12 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 			d_sourceview_hunks.get_style_context().add_class("handle-selection");
 
-			d_sourceview_hunks.realize.connect(update_cursor);
-			d_sourceview_hunks.notify["state-flags"].connect(update_cursor);
+			d_sourceview_hunks.realize.connect(() => {
+				update_cursor(Gdk.CursorType.LEFT_PTR);
+			});
+			d_sourceview_hunks.notify["state-flags"].connect(() => {
+				update_cursor(Gdk.CursorType.LEFT_PTR);
+			});
 		}
 
 		d_sourceview_hunks.set_border_window_size(Gtk.TextWindowType.TOP, 1);
@@ -166,7 +170,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 		update_theme();
 	}
 
-	private void update_cursor()
+	private void update_cursor(Gdk.CursorType type)
 	{
 		var window = d_sourceview_hunks.get_window(Gtk.TextWindowType.TEXT);
 
@@ -175,7 +179,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 			return;
 		}
 
-		var cursor = new Gdk.Cursor.for_display(d_sourceview_hunks.get_display(), Gdk.CursorType.LEFT_PTR);
+		var cursor = new Gdk.Cursor.for_display(d_sourceview_hunks.get_display(), type);
 		window.set_cursor(cursor);
 	}
 
@@ -230,6 +234,17 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		return (buffer.get_source_marks_at_iter(start, "added") != null) ||
 		       (buffer.get_source_marks_at_iter(start, "removed") != null);
+	}
+
+	private bool get_line_is_hunk(Gtk.TextIter iter)
+	{
+		var text_view = d_sourceview_hunks as Gtk.TextView;
+		Gtk.TextIter start = iter;
+
+		start.set_line_offset(0);
+		var buffer = text_view.get_buffer() as Gtk.SourceBuffer;
+
+		return buffer.get_source_marks_at_iter(start, "header") != null;
 	}
 
 	private bool get_iter_from_pointer_position(out Gtk.TextIter iter)
@@ -336,13 +351,15 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	private bool motion_notify_event_on_view(Gdk.EventMotion event)
 	{
-		if (!d_is_selecting && !d_is_deselecting)
+		Gtk.TextIter iter;
+		if (!get_iter_from_pointer_position(out iter))
 		{
 			return false;
 		}
 
-		Gtk.TextIter iter;
-		if (!get_iter_from_pointer_position(out iter))
+		update_cursor(get_line_is_hunk(iter) ? Gdk.CursorType.HAND1 : Gdk.CursorType.LEFT_PTR);
+
+		if (!d_is_selecting && !d_is_deselecting)
 		{
 			return false;
 		}
