@@ -266,6 +266,7 @@ public class Gitg.DiffView : Gtk.Grid
 		{
 			d_commit_details.commit = null;
 			d_commit_details.hide();
+			d_commit_details.expanded = true;
 		}
 
 		if (d_diff != null)
@@ -403,8 +404,11 @@ public class Gitg.DiffView : Gtk.Grid
 		add_hunk();
 		add_file();
 
-		d_commit_details.expanded = (files.size <= 1);
-		d_commit_details.expander_visible = (files.size > 1);
+		if (d_commit != null)
+		{
+			d_commit_details.expanded = (files.size <= 1);
+			d_commit_details.expander_visible = (files.size > 1);
+		}
 
 		foreach (var file in files)
 		{
