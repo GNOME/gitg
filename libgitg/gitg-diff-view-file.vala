@@ -194,7 +194,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	private void update_theme()
 	{
-		var selection_attributes = new Gtk.SourceMarkAttributes();
 		var header_attributes = new Gtk.SourceMarkAttributes();
 		var added_attributes = new Gtk.SourceMarkAttributes();
 		var removed_attributes = new Gtk.SourceMarkAttributes();
@@ -214,21 +213,25 @@ class Gitg.DiffViewFile : Gtk.Grid
 			removed_attributes.background = Gdk.RGBA() { red = 1.0, green = 220.0 / 255.0, blue = 220.0 / 255.0, alpha = 1.0 };
 		}
 
-		var context = d_sourceview_hunks.get_style_context();
-
-		Gdk.RGBA theme_selected_bg_color, theme_selected_fg_color;
-
-		if (context.lookup_color("theme_selected_bg_color", out theme_selected_bg_color))
+		if (handle_selection)
 		{
-			selection_attributes.background = theme_selected_bg_color;
-		}
-		
-		if (context.lookup_color("theme_selected_fg_color", out theme_selected_fg_color))
-		{
-			d_selection_tag.foreground_rgba = theme_selected_fg_color;
-		}
+			var selection_attributes = new Gtk.SourceMarkAttributes();
+			var context = d_sourceview_hunks.get_style_context();
 
-		d_sourceview_hunks.set_mark_attributes(d_selection_category, selection_attributes, 0);
+			Gdk.RGBA theme_selected_bg_color, theme_selected_fg_color;
+
+			if (context.lookup_color("theme_selected_bg_color", out theme_selected_bg_color))
+			{
+				selection_attributes.background = theme_selected_bg_color;
+			}
+			
+			if (context.lookup_color("theme_selected_fg_color", out theme_selected_fg_color))
+			{
+				d_selection_tag.foreground_rgba = theme_selected_fg_color;
+			}
+
+			d_sourceview_hunks.set_mark_attributes(d_selection_category, selection_attributes, 0);
+		}
 
 		d_sourceview_hunks.set_mark_attributes("header", header_attributes, 0);
 		d_sourceview_hunks.set_mark_attributes("added", added_attributes, 0);
