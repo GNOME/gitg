@@ -438,10 +438,24 @@ public class Gitg.DiffView : Gtk.Grid
 		auto_change_expanded(true);
 	}
 
-	public async PatchSet[] get_selection()
+	public PatchSet[] selection
 	{
-		// TODO
-		return new PatchSet[] {};
+		owned get
+		{
+			var ret = new PatchSet[0];
+
+			foreach (var file in d_grid_files.get_children())
+			{
+				var sel = (file as Gitg.DiffViewFile).selection;
+
+				if (sel.patches.length != 0)
+				{
+					ret += sel;
+				}
+			}
+
+			return ret;
+		}
 	}
 
 	private void do_popup(Gdk.EventButton? event)

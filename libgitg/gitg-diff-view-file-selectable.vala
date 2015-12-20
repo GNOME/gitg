@@ -46,6 +46,26 @@ class Gitg.DiffViewFileSelectable : Object
 		get; private set;
 	}
 
+	public int[] selected_lines
+	{
+		owned get
+		{
+			var ret = new int[0];
+			Gtk.TextIter iter;
+
+			var buffer = source_view.buffer as Gtk.SourceBuffer;
+
+			buffer.get_start_iter(out iter);
+
+			while (buffer.forward_iter_to_source_mark(ref iter, d_selection_category))
+			{
+				ret += iter.get_line();
+			}
+
+			return ret;
+		}
+	}
+
 	public DiffViewFileSelectable(Gtk.SourceView source_view)
 	{
 		Object(source_view: source_view);

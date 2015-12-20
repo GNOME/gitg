@@ -38,6 +38,9 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private uint d_added;
 	private uint d_removed;
 	private bool d_expanded;
+	private int64 d_doffset;
+
+	private Gee.HashMap<int, PatchSet.Patch?> d_lines;
 
 	private DiffViewFileSelectable d_selectable;
 
@@ -125,6 +128,53 @@ class Gitg.DiffViewFile : Gtk.Grid
 		Object(delta: delta, handle_selection: handle_selection);
 	}
 
+	public PatchSet selection
+	{
+		owned get
+		{
+			var ret = new PatchSet();
+
+			ret.filename = delta.get_new_file().get_path();
+
+			var patches = new PatchSet.Patch[0];
+
+			if (!handle_selection)
+			{
+				return ret;
+			}
+
+			var selected = d_selectable.selected_lines;
+
+			for (var i = 0; i < selected.length; i++)
+			{
+				var line = selected[i];
+				var pset = d_lines[line];
+
+				if (i == 0)
+				{
+					patches += pset;
+					continue;
+				}
+				
+				var last = patches[patches.length - 1];
+
+				if (last.new_offset + last.length == pset.new_offset &&
+				    last.type == pset.type)
+				{
+					last.length += pset.length;
+					patches[patches.length - 1] = last;
+				}
+				else
+				{
+					patches += pset;
+				}
+			}
+
+			ret.patches = patches;
+			return ret;
+		}
+	}
+
 	private DiffViewLinesRenderer d_old_lines;
 	private DiffViewLinesRenderer d_new_lines;
 	private DiffViewLinesRenderer d_sym_lines;
@@ -163,6 +213,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 				this.has_selection = d_selectable.has_selection;
 			});
 		}
+
+		d_lines = new Gee.HashMap<int, PatchSet.Patch?>();
 	}
 
 	private void update_theme()
@@ -234,6 +286,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		Gtk.TextIter iter;
 		buffer.get_end_iter(out iter);
+
 		if (!iter.is_start())
 		{
 			buffer.insert(ref iter, "\n", 1);
@@ -245,6 +298,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 		var header = @"@@ -$(hunk.get_old_start()),$(hunk.get_old_lines()) +$(hunk.get_new_start()),$(hunk.get_new_lines()) @@ $h\n";
 		buffer.insert(ref iter, header, -1);
 
+		int buffer_line = iter.get_line();
+
 		/* Diff Content */
 		var content = new StringBuilder();
 
@@ -252,13 +307,18 @@ class Gitg.DiffViewFile : Gtk.Grid
 		{
 			var line = lines[i];
 			var text = line.get_text();
+			var added = false;
+			var removed = false;
+			var origin = line.get_origin();
 
-			switch (line.get_origin())
+			switch (origin)
 			{
 				case Ggit.DiffLineType.ADDITION:
+					added = true;
 					d_added++;
 					break;
 				case Ggit.DiffLineType.DELETION:
+					removed = true;
 					d_removed++;
 					break;
 				case Ggit.DiffLineType.CONTEXT_EOFNL:
@@ -268,12 +328,38 @@ class Gitg.DiffViewFile : Gtk.Grid
 					break;
 			}
 
+			if (added || removed)
+			{
+				var offset = (size_t)line.get_content_offset();
+				var bytes = line.get_content();
+
+				var pset = PatchSet.Patch() {
+					type = added ? PatchSet.Type.ADD : PatchSet.Type.REMOVE,
+					old_offset = offset,
+					new_offset = offset,
+					length = bytes.length
+				};
+
+				if (added)
+				{
+					pset.old_offset = (size_t)((int64)pset.old_offset - d_doffset);
+				}
+				else
+				{
+					pset.new_offset = (size_t)((int64)pset.new_offset + d_doffset);
+				}
+
+				d_lines[buffer_line] = pset;
+				d_doffset += added ? (int64)bytes.length : -(int64)bytes.length;
+			}
+
 			if (i == lines.size - 1 && text.length > 0 && text[text.length - 1] == '\n')
 			{
 				text = text.slice(0, text.length - 1);
 			}
 
 			content.append(text);
+			buffer_line++;
 		}
 
 		int line_hunk_start = iter.get_line();
