@@ -35,10 +35,11 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 	{
 		int start;
 		int end;
+		Ggit.DiffHunk hunk;
 		string[] line_infos;
 	}
 
-	private Gee.HashMap<Ggit.DiffHunk, HunkInfo?> d_hunks_map;
+	private Gee.ArrayList<HunkInfo?> d_hunks_list;
 
 	public Style style
 	{
@@ -69,7 +70,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 	construct
 	{
-		d_hunks_map = new Gee.HashMap<Ggit.DiffHunk, HunkInfo?>();
+		d_hunks_list = new Gee.ArrayList<HunkInfo?>();
 
 		set_alignment(1.0f, 0.5f);
 		calculate_num_digits();
@@ -85,7 +86,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		var line = start.get_line();
 		HunkInfo? info = null;
 
-		foreach (var i in d_hunks_map.values)
+		foreach (var i in d_hunks_list)
 		{
 			if (line >= i.start && line <= i.end)
 			{
@@ -143,10 +144,10 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 		if (style == Style.OLD || style == Style.NEW)
 		{
-			foreach (var hunk in d_hunks_map.keys)
+			foreach (var info in d_hunks_list)
 			{
-				var oldn = hunk.get_old_start() + hunk.get_old_lines();
-				var newn = hunk.get_new_start() + hunk.get_new_lines();
+				var oldn = info.hunk.get_old_start() + info.hunk.get_old_lines();
+				var newn = info.hunk.get_new_start() + info.hunk.get_new_lines();
 
 				var num = int.max(int.max(oldn, newn), d_maxlines);
 
@@ -257,9 +258,10 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 		info.start = buffer_line_start;
 		info.end = buffer_line_end;
+		info.hunk = hunk;
 		info.line_infos = precalculate_line_strings(hunk, lines);
 
-		d_hunks_map[hunk] = info;
+		d_hunks_list.add(info);
 
 		recalculate_size();
 	}
