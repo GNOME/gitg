@@ -57,8 +57,6 @@ class Gitg.DiffViewFileSelectable : Object
 		source_view.motion_notify_event.connect(motion_notify_event_on_view);
 		source_view.button_release_event.connect(button_release_event_on_view);
 
-		source_view.get_style_context().add_class("handle-selection");
-
 		source_view.realize.connect(() => {
 			update_cursor(cursor_ptr);
 		});
