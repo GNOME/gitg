@@ -36,6 +36,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private Gtk.SourceView d_sourceview_hunks;
 
 	private string d_selection_category = "selection";
+	private Gtk.TextTag d_selection_tag;
 
 	private uint d_added;
 	private uint d_removed;
@@ -161,12 +162,17 @@ class Gitg.DiffViewFile : Gtk.Grid
 			d_sourceview_hunks.realize.connect(() => {
 				update_cursor(Gdk.CursorType.LEFT_PTR);
 			});
+
 			d_sourceview_hunks.notify["state-flags"].connect(() => {
 				update_cursor(Gdk.CursorType.LEFT_PTR);
 			});
+
+			d_selection_tag = d_sourceview_hunks.buffer.create_tag("selection");
 		}
 
 		d_sourceview_hunks.set_border_window_size(Gtk.TextWindowType.TOP, 1);
+
+		d_sourceview_hunks.style_updated.connect(update_theme);
 
 		var settings = Gtk.Settings.get_default();
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
@@ -197,20 +203,33 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		if (settings.gtk_application_prefer_dark_theme)
 		{
-			selection_attributes.background = Gdk.RGBA() { red = 52.0 / 255.0, green = 101.0 / 255.0, blue = 164.0 / 255.0, alpha = 1.0 };
 			header_attributes.background = Gdk.RGBA() { red = 224.0 / 255.0, green = 239.0 / 255.0, blue = 1.0, alpha = 1.0 };
 			added_attributes.background = Gdk.RGBA() { red = 164.0 / 255.0, green = 0.0, blue = 0.0, alpha = 1.0 };
 			removed_attributes.background = Gdk.RGBA() { red = 78.0 / 255.0, green = 154.0 / 255.0, blue = 6.0 / 255.0, alpha = 1.0 };
 		}
 		else
 		{
-			selection_attributes.background = Gdk.RGBA() { red = 168.0 / 255.0, green = 207.0 / 255.0, blue = 214.0 / 255.0, alpha = 1.0 };
 			header_attributes.background = Gdk.RGBA() { red = 224.0 / 255.0, green = 239.0 / 255.0, blue = 1.0, alpha = 1.0 };
 			added_attributes.background = Gdk.RGBA() { red = 220.0 / 255.0, green = 1.0, blue = 220.0 / 255.0, alpha = 1.0 };
 			removed_attributes.background = Gdk.RGBA() { red = 1.0, green = 220.0 / 255.0, blue = 220.0 / 255.0, alpha = 1.0 };
 		}
 
+		var context = d_sourceview_hunks.get_style_context();
+
+		Gdk.RGBA theme_selected_bg_color, theme_selected_fg_color;
+
+		if (context.lookup_color("theme_selected_bg_color", out theme_selected_bg_color))
+		{
+			selection_attributes.background = theme_selected_bg_color;
+		}
+		
+		if (context.lookup_color("theme_selected_fg_color", out theme_selected_fg_color))
+		{
+			d_selection_tag.foreground_rgba = theme_selected_fg_color;
+		}
+
 		d_sourceview_hunks.set_mark_attributes(d_selection_category, selection_attributes, 0);
+
 		d_sourceview_hunks.set_mark_attributes("header", header_attributes, 0);
 		d_sourceview_hunks.set_mark_attributes("added", added_attributes, 0);
 		d_sourceview_hunks.set_mark_attributes("removed", removed_attributes, 0);
@@ -256,6 +275,10 @@ class Gitg.DiffViewFile : Gtk.Grid
 		var win = text_view.get_window(Gtk.TextWindowType.TEXT);
 		int x, y, width, height;
 
+		// To silence unassigned iter warning
+		var dummy_iter = Gtk.TextIter();
+		iter = dummy_iter;
+
 		width = win.get_width();
 		height = win.get_height();
 
@@ -280,18 +303,27 @@ class Gitg.DiffViewFile : Gtk.Grid
 		var text_view = d_sourceview_hunks as Gtk.TextView;
 		var buffer = text_view.get_buffer() as Gtk.SourceBuffer;
 
-		start.order(end);
+		Gtk.TextIter real_start, real_end;
 
-		while (start.get_line() <= end.get_line())
+		real_start = start;
+		real_end = end;
+
+		real_start.order(real_end);
+		real_start.set_line_offset(0);
+
+		while (real_start.get_line() <= real_end.get_line())
 		{
-			start.set_line_offset(0);
-
-			if (get_line_is_diff(start))
+			if (get_line_is_diff(real_start))
 			{
-				buffer.create_source_mark(null, d_selection_category, start);
+				buffer.create_source_mark(null, d_selection_category, real_start);
+
+				var line_end = real_start;
+				line_end.forward_to_line_end();
+
+				buffer.apply_tag(d_selection_tag, real_start, line_end);
 			}
 
-			if (!start.forward_line())
+			if (!real_start.forward_line())
 			{
 				break;
 			}
@@ -312,6 +344,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 		real_end.forward_to_line_end();
 
 		buffer.remove_source_marks(real_start, real_end, d_selection_category);
+		buffer.remove_tag(d_selection_tag, real_start, real_end);
 	}
 
 	private bool d_is_selecting;
