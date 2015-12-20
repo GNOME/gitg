@@ -56,6 +56,11 @@ gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
 	cursor = gdk_cursor_new_for_display (display, cursor_type);
 	surface = gdk_cursor_get_surface (cursor, hot_x, hot_y);
 
+	if (surface == NULL)
+	{
+		return NULL;
+	}
+
 	switch (cairo_surface_get_type (surface))
 	{
 	case CAIRO_SURFACE_TYPE_XLIB:
