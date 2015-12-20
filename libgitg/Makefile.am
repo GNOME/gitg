@@ -24,7 +24,7 @@ libgitg_libgitg_1_0_la_LIBADD = 	\
 if GDK_WINDOWING_QUARTZ
 libgitg_libgitg_1_0_la_LIBADD += -lobjc
 libgitg_libgitg_1_0_la_CFLAGS += -xobjective-c
-libgitg_libgitg_1_0_la_LDFLAGS += -framework Foundation
+libgitg_libgitg_1_0_la_LDFLAGS += -framework Foundation -framework AppKit
 endif
 
 libgitg_libgitg_1_0_la_VALAFLAGS =	\

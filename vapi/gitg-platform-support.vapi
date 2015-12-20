@@ -5,5 +5,12 @@ namespace Gitg
 	{
 		public static bool use_native_window_controls(Gdk.Display? display = null);
 		public static async GLib.InputStream http_get(GLib.File url, GLib.Cancellable? cancellable = null) throws GLib.IOError;
+
+		public static Cairo.Surface create_cursor_surface(Gdk.Display? display,
+		                                                  Gdk.CursorType cursor_type,
+		                                                  out int hot_x = null,
+		                                                  out int hot_y = null,
+		                                                  out int width = null,
+		                                                  out int height = null);
 	}
 }

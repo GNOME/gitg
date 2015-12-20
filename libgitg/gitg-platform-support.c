@@ -41,4 +41,44 @@ gitg_platform_support_http_get_finish (GAsyncResult  *result,
 	return G_INPUT_STREAM (g_file_read_finish (g_async_result_get_source_object (result), result, error));
 }
 
+cairo_surface_t *
+gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
+                                             GdkCursorType  cursor_type,
+                                             gint          *hot_x,
+                                             gint          *hot_y,
+                                             gint          *width,
+                                             gint          *height)
+{
+	GdkCursor *cursor;
+	cairo_surface_t *surface;
+	gint w = 0, h = 0;
+
+	cursor = gdk_cursor_new_for_display (display, cursor_type);
+	surface = gdk_cursor_get_surface (hot_x, hot_y);
+
+	switch (cairo_surface_get_type (surface))
+	{
+	case CAIRO_SURFACE_TYPE_XLIB:
+		w = cairo_xlib_surface_get_width (surface);
+		h = cairo_xlib_surface_get_height (surface);
+		break;
+	case CAIRO_SURFACE_TYPE_IMAGE:
+		w = cairo_image_surface_get_width (surface);
+		h = cairo_image_surface_get_height (surface);
+		break;
+	}
+
+	if (width)
+	{
+		*width = w;
+	}
+
+	if (height)
+	{
+		*height = h;
+	}
+
+	return surface;
+}
+
 // ex:ts=4 noet

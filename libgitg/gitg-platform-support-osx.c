@@ -85,4 +85,78 @@ gitg_platform_support_http_get_finish (GAsyncResult  *result,
 	return g_task_propagate_pointer (G_TASK (result), error);
 }
 
+cairo_surface_t *
+gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
+                                             GdkCursorType  cursor_type,
+                                             gint          *hot_x,
+                                             gint          *hot_y,
+                                             gint          *width,
+                                             gint          *height)
+{
+	NSCursor *cursor;
+	NSImage *image;
+	NSBitmapImageRep *image_rep;
+	const unsigned char *pixel_data;
+	NSSize size;
+	NSPoint hotspot;
+	gint w, h;
+	cairo_surface_t *surface, *target;
+	cairo_t *ctx;
+
+	switch (cursor_type)
+	{
+	case GDK_HAND1:
+		cursor = [NSCursor pointingHandCursor];
+		break;
+	default:
+		cursor = [NSCursor arrowCursor];
+		break;
+	}
+
+	image = [cursor image];
+
+	image_rep = [[NSBitmapImageRep alloc] initWithData:[image TIFFRepresentation]];
+	pixel_data = [image_rep bitmapData];
+
+	w = [image_rep pixelsWide];
+	h = [image_rep pixelsHigh];
+
+	hotspot = [cursor hotSpot];
+	size = [image size];
+
+	if (hot_x)
+	{
+		*hot_x = (gint)(hotspot.x);
+	}
+
+	if (hot_y)
+	{
+		*hot_y = (gint)(hotspot.y);
+	}
+
+	if (width)
+	{
+		*width = size.width;
+	}
+
+	if (height)
+	{
+		*height = size.height;
+	}
+
+	surface = cairo_image_surface_create_for_data (pixel_data, CAIRO_FORMAT_ARGB32, w, h, [image_rep bytesPerRow]);
+	target = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, size.width, size.height);
+
+	ctx = cairo_create (target);
+
+	cairo_scale (ctx, size.width / w, size.height / h);
+	cairo_set_source_surface (ctx, surface, 0, 0);
+	cairo_paint (ctx);
+	cairo_destroy (ctx);
+
+	cairo_surface_destroy (surface);
+
+	return target;
+}
+
 // ex:ts=4 noet
