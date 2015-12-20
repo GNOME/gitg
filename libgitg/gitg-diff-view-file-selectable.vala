@@ -278,7 +278,7 @@ class Gitg.DiffViewFileSelectable : Object
 		int win_x, win_y;
 
 		source_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, x, y, out win_x, out win_y);
-		source_view.get_iter_at_location(out iter, win_x, win_y);
+		source_view.get_line_at_y(out iter, win_y, null);
 
 		return true;
 	}
