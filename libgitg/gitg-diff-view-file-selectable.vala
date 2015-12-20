@@ -295,7 +295,10 @@ class Gitg.DiffViewFileSelectable : Object
 		real_start.order(real_end);
 		real_start.set_line_offset(0);
 
-		real_end.forward_to_line_end();
+		if (!real_end.ends_line())
+		{
+			real_end.forward_to_line_end();
+		}
 
 		var start_line = real_start.get_line();
 		var end_line = real_end.get_line();
@@ -316,7 +319,11 @@ class Gitg.DiffViewFileSelectable : Object
 					buffer.create_source_mark(null, d_selection_category, current);
 
 					var line_end = current;
-					line_end.forward_to_line_end();
+
+					if (!line_end.ends_line())
+					{
+						line_end.forward_to_line_end();
+					}
 
 					buffer.apply_tag(d_selection_tag, current, line_end);
 				}
