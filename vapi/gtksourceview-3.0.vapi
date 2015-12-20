@@ -13,13 +13,13 @@ namespace Gtk {
 	public class SourceBuffer : Gtk.TextBuffer {
 		[CCode (has_construct_function = false)]
 		public SourceBuffer (Gtk.TextTagTable? table);
-		public bool backward_iter_to_source_mark (Gtk.TextIter iter, string? category);
+		public bool backward_iter_to_source_mark (ref Gtk.TextIter iter, string? category);
 		public void begin_not_undoable_action ();
 		public void change_case (Gtk.SourceChangeCaseType case_type, Gtk.TextIter start, Gtk.TextIter end);
 		public unowned Gtk.SourceMark create_source_mark (string? name, string category, Gtk.TextIter where);
 		public void end_not_undoable_action ();
 		public void ensure_highlight (Gtk.TextIter start, Gtk.TextIter end);
-		public bool forward_iter_to_source_mark (Gtk.TextIter iter, string? category);
+		public bool forward_iter_to_source_mark (ref Gtk.TextIter iter, string? category);
 		[CCode (array_length = false, array_null_terminated = true)]
 		public string[] get_context_classes_at_iter (Gtk.TextIter iter);
 		public bool get_highlight_matching_brackets ();

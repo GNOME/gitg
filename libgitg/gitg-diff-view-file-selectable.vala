@@ -361,6 +361,22 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 	}
 
+	private void update_selection_hunk(Gtk.TextIter iter, bool select)
+	{
+		var end = iter;
+
+		end.forward_line();
+
+		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		
+		if (!buffer.forward_iter_to_source_mark(ref end, "header"))
+		{
+			end.forward_to_end();
+		}
+
+		update_selection_range(iter, end, select);
+	}
+
 	private bool button_press_event_on_view(Gdk.EventButton event)
 	{
 		if (event.button != 1)
@@ -375,13 +391,21 @@ class Gitg.DiffViewFileSelectable : Object
 			return false;
 		}
 
-		if ((event.state & Gdk.ModifierType.MOD1_MASK) != 0)
+		var select = (event.state & Gdk.ModifierType.MOD1_MASK) == 0;
+
+		if (get_line_is_hunk(iter))
 		{
-			d_selection_mode = DiffSelectionMode.DESELECTING;
+			update_selection_hunk(iter, select);
+			return true;
+		}
+
+		if (select)
+		{
+			d_selection_mode = DiffSelectionMode.SELECTING;
 		}
 		else
 		{
-			d_selection_mode = DiffSelectionMode.SELECTING;
+			d_selection_mode = DiffSelectionMode.DESELECTING;
 		}
 
 		var buffer = source_view.buffer;
@@ -456,7 +480,7 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 		else
 		{
-			something_selected = (buffer as Gtk.SourceBuffer).forward_iter_to_source_mark(iter, d_selection_category);
+			something_selected = (buffer as Gtk.SourceBuffer).forward_iter_to_source_mark(ref iter, d_selection_category);
 		}
 
 		if (something_selected != has_selection)
