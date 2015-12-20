@@ -56,8 +56,6 @@ class Gitg.DiffViewFileSelectable : Object
 		source_view.button_press_event.connect(button_press_event_on_view);
 		source_view.motion_notify_event.connect(motion_notify_event_on_view);
 		source_view.button_release_event.connect(button_release_event_on_view);
-		source_view.key_press_event.connect(key_press_event_on_view);
-		source_view.key_release_event.connect(key_release_event_on_view);
 
 		source_view.get_style_context().add_class("handle-selection");
 
@@ -494,20 +492,6 @@ class Gitg.DiffViewFileSelectable : Object
 		d_originally_selected.clear();
 
 		return true;
-	}
-
-	private bool key_press_event_on_view(Gdk.EventKey event)
-	{
-		stdout.printf(@"press: $(event.state)\n");
-		update_cursor_for_state(event.state);
-		return false;
-	}
-
-	private bool key_release_event_on_view(Gdk.EventKey event)
-	{
-		stdout.printf(@"release: $(event.state)\n");
-		update_cursor_for_state(event.state);
-		return false;
 	}
 }
 
