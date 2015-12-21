@@ -463,7 +463,7 @@ class Gitg.DiffViewFileSelectable : Object
 		// Clear to original selection
 		if (start.get_line() < end.get_line())
 		{
-			var next = cursor;
+			var next = start.get_line() < cursor.get_line() ? cursor : start;
 			next.forward_line();
 
 			clear_original_selection(next, end, true);
