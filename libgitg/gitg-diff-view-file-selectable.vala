@@ -75,6 +75,8 @@ class Gitg.DiffViewFileSelectable : Object
 	{
 		source_view.button_press_event.connect(button_press_event_on_view);
 		source_view.motion_notify_event.connect(motion_notify_event_on_view);
+		source_view.leave_notify_event.connect(leave_notify_event_on_view);
+		source_view.enter_notify_event.connect(enter_notify_event_on_view);
 		source_view.button_release_event.connect(button_release_event_on_view);
 
 		source_view.realize.connect(() => {
@@ -293,6 +295,11 @@ class Gitg.DiffViewFileSelectable : Object
 			return false;
 		}
 
+		return get_iter_from_event_position(out iter, x, y);
+	}
+
+	private bool get_iter_from_event_position(out Gtk.TextIter iter, int x, int y)
+	{
 		int win_x, win_y;
 
 		source_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, x, y, out win_x, out win_y);
@@ -470,16 +477,16 @@ class Gitg.DiffViewFileSelectable : Object
 		buffer.move_mark(d_end_selection_mark, cursor);
 	}
 
-	private bool motion_notify_event_on_view(Gdk.EventMotion event)
+	private bool update_selection_event(Gdk.ModifierType state, int x, int y)
 	{
 		Gtk.TextIter iter;
 
-		if (!get_iter_from_pointer_position(out iter))
+		if (!get_iter_from_event_position(out iter, x, y))
 		{
 			return false;
 		}
 
-		update_cursor_for_state(event.state);
+		update_cursor_for_state(state);
 
 		if (d_selection_mode == DiffSelectionMode.NONE)
 		{
@@ -488,6 +495,21 @@ class Gitg.DiffViewFileSelectable : Object
 
 		update_selection(iter);
 		return true;
+	}
+
+	private bool motion_notify_event_on_view(Gdk.EventMotion event)
+	{
+		return update_selection_event(event.state, (int)event.x, (int)event.y);
+	}
+
+	private bool leave_notify_event_on_view(Gdk.EventCrossing event)
+	{
+		return update_selection_event(event.state, (int)event.x, (int)event.y);
+	}
+
+	private bool enter_notify_event_on_view(Gdk.EventCrossing event)
+	{
+		return update_selection_event(event.state, (int)event.x, (int)event.y);
 	}
 
 	private void update_has_selection()
