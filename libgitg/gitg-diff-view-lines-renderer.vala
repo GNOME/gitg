@@ -35,6 +35,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 	{
 		int start;
 		int end;
+		int hunk_line;
 		Ggit.DiffHunk hunk;
 		string[] line_infos;
 	}
@@ -84,11 +85,17 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 	protected override void query_data(Gtk.TextIter start, Gtk.TextIter end, Gtk.SourceGutterRendererState state)
 	{
 		var line = start.get_line();
+		bool is_hunk = false;
 		HunkInfo? info = null;
 
 		foreach (var i in d_hunks_list)
 		{
-			if (line >= i.start && line <= i.end)
+			if (line == i.hunk_line)
+			{
+				is_hunk = true;
+				break;
+			}
+			else if (line >= i.start && line <= i.end)
 			{
 				info = i;
 				break;
@@ -97,7 +104,14 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 		if (info == null || (line - info.start) >= info.line_infos.length)
 		{
-			set_text("", -1);
+			if (is_hunk && style != Style.SYMBOL)
+			{
+				set_text("...", -1);
+			}
+			else
+			{
+				set_text("", -1);
+			}
 		}
 		else
 		{
@@ -140,10 +154,12 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 	private void calculate_num_digits()
 	{
-		var num_digits = 0;
+		int num_digits;
 
 		if (style == Style.OLD || style == Style.NEW)
 		{
+			num_digits = 3;
+
 			foreach (var info in d_hunks_list)
 			{
 				var oldn = info.hunk.get_old_start() + info.hunk.get_old_lines();
@@ -258,6 +274,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 		info.start = buffer_line_start;
 		info.end = buffer_line_end;
+		info.hunk_line = buffer_line_start - 1;
 		info.hunk = hunk;
 		info.line_infos = precalculate_line_strings(hunk, lines);
 
