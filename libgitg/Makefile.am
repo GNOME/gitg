@@ -91,12 +91,15 @@ libgitg_libgitg_1_0_la_SOURCES = 				\
 	$(libgitg_libgitg_1_0_la_VALASOURCES)			\
 	libgitg/gitg-resources.c
 
+if PLATFORM_WIN32
+libgitg_libgitg_1_0_la_SOURCES += libgitg/gitg-platform-support-win32.c
+else
 if PLATFORM_OSX
 libgitg_libgitg_1_0_la_SOURCES += libgitg/gitg-platform-support-osx.c
 else
 libgitg_libgitg_1_0_la_SOURCES += libgitg/gitg-platform-support.c
 endif
-
+endif
 
 libgitg_libgitg_1_0_la_headerdir = $(prefix)/include/libgitg-1.0/libgitg
 libgitg_libgitg_1_0_la_header_HEADERS = libgitg/libgitg.h
