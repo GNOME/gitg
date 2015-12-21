@@ -115,7 +115,8 @@ EXTRA_DIST +=					\
 	vapi/libpeas-1.0.vapi			\
 	vapi/libsoup-2.4.deps			\
 	vapi/libsoup-2.4.vapi			\
-	vapi/gitg-platform-support.vapi
+	vapi/gitg-platform-support.vapi		\
+	vapi/gio-windows-2.0.vapi
 
 %.typelib: %.gir
 	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=$(top_srcdir) -o $@ $<
