@@ -251,7 +251,13 @@ public class Sidebar : Gtk.TreeView
 
 			if (hint == SidebarHint.DUMMY)
 			{
-				var col = get_style_context().get_color(Gtk.StateFlags.INSENSITIVE);
+				var context = get_style_context();
+
+				context.save();
+				context.set_state(Gtk.StateFlags.INSENSITIVE);
+				var col = context.get_color(context.get_state());
+				context.restore();
+
 				r.foreground_rgba = col;
 			}
 			else
