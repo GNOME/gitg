@@ -6,6 +6,6 @@ includedir=@includedir@
 Name: libgitg-ext
 Description: gitg extensions library
 Version: @PACKAGE_VERSION@
-Requires: libgit2-glib-1.0 libgitg-1.0 gtk+-3.0 glib-2.0 gobject-2.0 gmodule-2.0 gio-2.0 gio-unix-2.0 gthread-2.0
+Requires: libgit2-glib-1.0 libgitg-1.0 gtk+-3.0 glib-2.0 gobject-2.0 gmodule-2.0 gio-2.0 gthread-2.0 @GIO_SYSTEM_PKG@
 Libs: -L${libdir} -lgitg-ext-1.0
 Cflags: -I${includedir}/libgitg-ext-1.0

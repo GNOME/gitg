@@ -31,9 +31,9 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg ggit-1.0 			\
 	--pkg gtk+-3.0			\
 	--pkg gio-2.0			\
+	--pkg $(GIO_SYSTEM_PKG)		\
 	--pkg gee-0.8			\
 	--pkg libsecret-1		\
-	--pkg gio-unix-2.0		\
 	--pkg gdesktop-enums-3.0	\
 	--pkg libsoup-2.4		\
 	--pkg gtksourceview-3.0		\

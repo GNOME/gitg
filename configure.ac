@@ -37,6 +37,7 @@ AC_PROG_MAKE_SET
 AC_PATH_PROG(GZIP, gzip)
 AC_PROG_MKDIR_P
 AM_PROG_VALAC([0.20.1.23])
+PKG_PROG_PKG_CONFIG
 
 AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
@@ -92,13 +93,32 @@ INTROSPECTION_REQUIRED=0.10.1
 LIBGIT2_GLIB_REQUIRED_VERSION=0.23.5
 LIBGIT2_GLIB_REQUIRED_MAX_VERSION=0.24.0
 
+gdk_targets=`$PKG_CONFIG --variable=targets gdk-3.0`
+
+for target in $gdk_targets;
+do
+	case "$target" in
+		quartz)
+			gdk_windowing_quartz=yes
+			GIO_SYSTEM_PKG=gio-unix-2.0
+			;;
+		win32)
+			gdk_windowing_win32=yes
+			GIO_SYSTEM_PKG=gio-win32-2.0
+			;;
+		x11)
+			gdk_windowing_x11=yes
+			GIO_SYSTEM_PKG=gio-unix-2.0
+	esac
+done
+
 PKG_CHECK_MODULES(LIBGITG, [
 	gthread-2.0 >= $GLIB_REQUIRED_VERSION
 	glib-2.0 >= $GLIB_REQUIRED_VERSION
 	gobject-2.0 >= $GLIB_REQUIRED_VERSION
 	gmodule-2.0 >= $GLIB_REQUIRED_VERSION
 	gio-2.0 >= $GLIB_REQUIRED_VERSION
-	gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
+	$GIO_SYSTEM_PKG >= $GLIB_REQUIRED_VERSION
 	gobject-introspection-1.0 >= $INTROSPECTION_REQUIRED
 	libgit2-glib-1.0 >= $LIBGIT2_GLIB_REQUIRED_VERSION
 	libgit2-glib-1.0 < $LIBGIT2_GLIB_REQUIRED_MAX_VERSION
@@ -110,22 +130,7 @@ PKG_CHECK_MODULES(LIBGITG, [
 	libsecret-1
 ])
 
-gdk_targets=`$PKG_CONFIG --variable=targets gdk-3.0`
-
-for target in $gdk_targets;
-do
-	case "$target" in
-		quartz)
-			gdk_windowing_quartz=yes
-			;;
-		win32)
-			gdk_windowing_win32=yes
-			;;
-		x11)
-			gdk_windowing_x11=yes
-	esac
-done
-
+AC_SUBST(GIO_SYSTEM_PKG)
 AM_CONDITIONAL(GDK_WINDOWING_X11, test "$gdk_windowing_x11" = "yes")
 AM_CONDITIONAL(GDK_WINDOWING_QUARTZ, test "$gdk_windowing_quartz" = "yes")
 AM_CONDITIONAL(GDK_WINDOWING_WIN32, test "$gdk_windowing_win32" = "yes")
