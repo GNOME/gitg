@@ -420,8 +420,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		if (Gitg.PlatformSupport.use_native_window_controls())
 		{
-			this.title = title;
 			d_header_bar.set_title(subtitle);
+			this.title = title;
 		}
 		else
 		{
