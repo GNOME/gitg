@@ -24,17 +24,17 @@ public class Dirs
 {
 	public static string data_dir
 	{
-		get { return Config.GITG_DATADIR; }
+		owned get { return PlatformSupport.get_data_dir(); }
 	}
 
 	public static string locale_dir
 	{
-		get { return Config.GITG_LOCALEDIR; }
+		owned get { return PlatformSupport.get_locale_dir(); }
 	}
 
 	public static string lib_dir
 	{
-		get { return Config.GITG_LIBDIR; }
+		owned get { return PlatformSupport.get_lib_dir(); }
 	}
 
 	public static string plugins_dir

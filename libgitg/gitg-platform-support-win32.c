@@ -61,4 +61,43 @@ gitg_platform_support_new_input_stream_from_fd (gint     fd,
 	return g_win32_input_stream_new ((void *)fd, close_fd);
 }
 
+gchar *
+gitg_platform_support_get_lib_dir (void)
+{
+	gchar *module_dir;
+	gchar *lib_dir;
+
+	module_dir = g_win32_get_package_installation_directory_of_module (NULL);
+	lib_dir = g_build_filename (module_dir, "lib", "gitg", NULL);
+	g_free (module_dir);
+
+	return lib_dir;
+}
+
+gchar *
+gitg_platform_support_get_locale_dir (void)
+{
+	gchar *module_dir;
+	gchar *locale_dir;
+
+	module_dir = g_win32_get_package_installation_directory_of_module (NULL);
+	locale_dir = g_build_filename (module_dir, "share", "locale", NULL);
+	g_free (module_dir);
+
+	return locale_dir;
+}
+
+gchar *
+gitg_platform_support_get_data_dir (void)
+{
+	gchar *module_dir;
+	gchar *data_dir;
+
+	module_dir = g_win32_get_package_installation_directory_of_module (NULL);
+	data_dir = g_build_filename (module_dir, "share", "gitg", NULL);
+	g_free (module_dir);
+
+	return data_dir;
+}
+
 // ex:ts=4 noet

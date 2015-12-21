@@ -17,6 +17,10 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "gitg-platform-support.h"
 
 #include <gio/gunixinputstream.h>
@@ -93,6 +97,24 @@ gitg_platform_support_new_input_stream_from_fd (gint     fd,
                                                 gboolean close_fd)
 {
 	return g_unix_input_stream_new (fd, close_fd);
+}
+
+gchar *
+gitg_platform_support_get_lib_dir (void)
+{
+	return g_strdup (GITG_LIBDIR);
+}
+
+gchar *
+gitg_platform_support_get_locale_dir (void)
+{
+	return g_strdup (GITG_LOCALEDIR);
+}
+
+gchar *
+gitg_platform_support_get_data_dir (void)
+{
+	return g_strdup (GITG_DATADIR);
 }
 
 // ex:ts=4 noet

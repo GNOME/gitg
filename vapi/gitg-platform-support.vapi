@@ -14,5 +14,9 @@ namespace Gitg
 		                                                  out int height = null);
 
 		public static GLib.InputStream new_input_stream_from_fd(int fd, bool close_fd);
+
+		public static string get_lib_dir();
+		public static string get_locale_dir();
+		public static string get_data_dir();
 	}
 }
