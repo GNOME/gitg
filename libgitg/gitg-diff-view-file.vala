@@ -215,6 +215,10 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 
 		d_lines = new Gee.HashMap<int, PatchSet.Patch?>();
+
+		this.bind_property("vexpand", d_sourceview_hunks, "vexpand", BindingFlags.SYNC_CREATE);
+
+		d_sourceview_hunks.draw.connect_after(sourceview_hunks_on_draw);
 	}
 
 	private void update_theme()

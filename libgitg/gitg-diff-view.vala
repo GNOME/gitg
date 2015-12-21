@@ -410,8 +410,10 @@ public class Gitg.DiffView : Gtk.Grid
 			d_commit_details.expander_visible = (files.size > 1);
 		}
 
-		foreach (var file in files)
+		for (var i = 0; i < files.size; i++)
 		{
+			var file = files[i];
+
 			file.expanded = d_commit_details.expanded;
 			file.maxlines = maxlines;
 
@@ -421,6 +423,11 @@ public class Gitg.DiffView : Gtk.Grid
 
 			this.bind_property("wrap", file, "wrap", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 			this.bind_property("tab-width", file, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+
+			if (i == files.size - 1)
+			{
+				file.vexpand = true;
+			}
 		}
 	}
 
