@@ -104,7 +104,7 @@ do
 			;;
 		win32)
 			gdk_windowing_win32=yes
-			GIO_SYSTEM_PKG=gio-win32-2.0
+			GIO_SYSTEM_PKG=gio-windows-2.0
 			;;
 		x11)
 			gdk_windowing_x11=yes
