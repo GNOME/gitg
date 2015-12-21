@@ -221,6 +221,34 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_sourceview_hunks.draw.connect_after(sourceview_hunks_on_draw);
 	}
 
+	private bool sourceview_hunks_on_draw(Cairo.Context cr)
+	{
+		var win = d_sourceview_hunks.get_window(Gtk.TextWindowType.LEFT);
+
+		if (!Gtk.cairo_should_draw_window(cr, win))
+		{
+			return false;
+		}
+
+		var ctx = d_sourceview_hunks.get_style_context();
+
+		var old_lines_width = d_old_lines.size + d_old_lines.xpad * 2;
+		var new_lines_width = d_new_lines.size + d_new_lines.xpad * 2;
+		var sym_lines_width = d_sym_lines.size + d_sym_lines.xpad * 2;
+
+		ctx.save();
+		ctx.add_class("diff-lines-separator");
+		ctx.render_frame(cr, 0, 0, old_lines_width, win.get_height());
+		ctx.restore();
+
+		ctx.save();
+		ctx.add_class("diff-lines-gutter-border");
+		ctx.render_frame(cr, old_lines_width + new_lines_width, 0, sym_lines_width, win.get_height());
+		ctx.restore();
+		
+		return false;
+	}
+
 	private void update_theme()
 	{
 		var header_attributes = new Gtk.SourceMarkAttributes();

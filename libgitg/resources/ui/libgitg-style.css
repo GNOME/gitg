@@ -12,14 +12,11 @@
 	border-top: 1px solid @borders;
 }
 
-.diff-lines-border {
-	border-top: 0;
-	border-left: 0;
-	border-bottom: 0;
+.diff-lines-separator {
 	border-right: 1px solid shade(@theme_bg_color, 0.95);
 }
 
-.diff-lines-border.symbol {
+.diff-lines-gutter-border {
 	border-right: 2px solid shade(@theme_bg_color, 0.95);
 }
 
