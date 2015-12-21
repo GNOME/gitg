@@ -9,6 +9,7 @@ namespace Gitg.Config
 	public const string GITG_LOCALEDIR;
 	public const string GITG_LIBDIR;
 	public const string VERSION;
+	public const string PLATFORM_NAME;
 }
 
 // ex:ts=4 noet

@@ -116,8 +116,11 @@ do
 done
 
 AC_SUBST(PLATFORM_NAME)
+
 AM_CONDITIONAL(PLATFORM_OSX, test x"$PLATFORM_NAME" = "xosx")
 AM_CONDITIONAL(PLATFORM_WIN32, test x"$PLATFORM_NAME" = "xwin32")
+
+AC_DEFINE_UNQUOTED(PLATFORM_NAME,"$PLATFORM_NAME", [platform name])
 
 PKG_CHECK_MODULES(LIBGITG, [
 	gthread-2.0 >= $GLIB_REQUIRED_VERSION
@@ -345,6 +348,7 @@ LIBGD_INIT([
 
 AC_CONFIG_FILES([
 Makefile
+gitg/resources/gitg-resources.xml
 libgd/Makefile
 libgitg/libgitg-1.0.pc
 libgitg-ext/libgitg-ext-1.0.pc

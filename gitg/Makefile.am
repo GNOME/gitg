@@ -107,6 +107,11 @@ gitg/gitg-resources.c: $(gitg_resources_deps)
 	$(GRESGEN)
 
 CLEANFILES += gitg/gitg-resources.c
-EXTRA_DIST += $(gitg_resources_deps)
+EXTRA_DIST +=					\
+	$(gitg_resources_deps)			\
+	gitg/resources/gitg-resources.xml.in	\
+	gitg/resources/ui/style-osx.css		\
+	gitg/resources/ui/style-win32.css	\
+	gitg/resources/ui/style-unix.css
 
 # vi:ts=8:noet

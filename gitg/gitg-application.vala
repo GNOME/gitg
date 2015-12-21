@@ -383,8 +383,16 @@ public class Application : Gtk.Application
 			}
 		}
 
-		// Use our own css provider
-		Gtk.CssProvider? provider = Resource.load_css("style.css");
+		add_css("style.css");
+		add_css(@"style-$(Config.PLATFORM_NAME).css");;
+
+		var theme = Gtk.IconTheme.get_default();
+		theme.prepend_search_path(Path.build_filename(PlatformSupport.get_data_dir(), "icons"));
+	}
+
+	private void add_css(string path)
+	{
+		Gtk.CssProvider? provider = Resource.load_css(path);
 
 		if (provider != null)
 		{
@@ -392,9 +400,6 @@ public class Application : Gtk.Application
 			                                         provider,
 			                                         600);
 		}
-
-		var theme = Gtk.IconTheme.get_default();
-		theme.prepend_search_path(Path.build_filename(PlatformSupport.get_data_dir(), "icons"));
 	}
 
 	protected override void shutdown()
