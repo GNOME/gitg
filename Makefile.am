@@ -109,7 +109,6 @@ GITIGNOREFILES += $(gsettings_SCHEMAS)
 EXTRA_DIST +=					\
 	vapi/config.vapi			\
 	vapi/gdesktop-enums-3.0.vapi		\
-	vapi/gitg-js-utils.vapi			\
 	vapi/gobject-introspection-1.0.vapi 	\
 	vapi/gtksourceview-3.0.deps		\
 	vapi/gtksourceview-3.0.vapi		\
