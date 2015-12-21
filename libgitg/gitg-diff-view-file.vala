@@ -227,13 +227,13 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		if (settings.gtk_application_prefer_dark_theme)
 		{
-			header_attributes.background = Gdk.RGBA() { red = 224.0 / 255.0, green = 239.0 / 255.0, blue = 1.0, alpha = 1.0 };
+			header_attributes.background = Gdk.RGBA() { red = 136.0 / 255.0, green = 138.0 / 255.0, blue = 133.0 / 255.0, alpha = 1.0 };
 			added_attributes.background = Gdk.RGBA() { red = 164.0 / 255.0, green = 0.0, blue = 0.0, alpha = 1.0 };
 			removed_attributes.background = Gdk.RGBA() { red = 78.0 / 255.0, green = 154.0 / 255.0, blue = 6.0 / 255.0, alpha = 1.0 };
 		}
 		else
 		{
-			header_attributes.background = Gdk.RGBA() { red = 224.0 / 255.0, green = 239.0 / 255.0, blue = 1.0, alpha = 1.0 };
+			header_attributes.background = Gdk.RGBA() { red = 244.0 / 255.0, green = 247.0 / 255.0, blue = 251.0 / 255.0, alpha = 1.0 };
 			added_attributes.background = Gdk.RGBA() { red = 220.0 / 255.0, green = 1.0, blue = 220.0 / 255.0, alpha = 1.0 };
 			removed_attributes.background = Gdk.RGBA() { red = 1.0, green = 220.0 / 255.0, blue = 220.0 / 255.0, alpha = 1.0 };
 		}
