@@ -101,16 +101,22 @@ do
 		quartz)
 			gdk_windowing_quartz=yes
 			GIO_SYSTEM_PKG=gio-unix-2.0
+			PLATFORM_NAME=osx
 			;;
 		win32)
 			gdk_windowing_win32=yes
 			GIO_SYSTEM_PKG=gio-windows-2.0
+			PLATFORM_NAME=win32
 			;;
 		x11)
 			gdk_windowing_x11=yes
 			GIO_SYSTEM_PKG=gio-unix-2.0
+			PLATFORM_NAME=unix
 	esac
 done
+
+AC_SUBST(PLATFORM_NAME)
+AM_CONDITIONAL(PLATFORM_OSX, test x"$PLATFORM_NAME" = "xosx")
 
 PKG_CHECK_MODULES(LIBGITG, [
 	gthread-2.0 >= $GLIB_REQUIRED_VERSION
@@ -327,25 +333,6 @@ if test "x$enable_python" = "xyes"; then
 fi
 
 AM_CONDITIONAL(ENABLE_PYTHON, test x"$enable_python" = "xyes")
-
-dnl check for native osx
-gdk_targets=`$PKG_CONFIG --variable=targets gdk-3.0`
-PLATFORM_NAME="other"
-
-for target in $gdk_targets;
-do
-        case "$target" in
-                quartz)
-                        PLATFORM_NAME=osx
-                        ;;
-                win32)
-                        PLATFORM_NAME=win32
-                        ;;
-        esac
-done
-
-AC_SUBST(PLATFORM_NAME)
-AM_CONDITIONAL(PLATFORM_OSX, test x"$PLATFORM_NAME" = "xosx")
 
 dnl libgd
 LIBGD_INIT([
