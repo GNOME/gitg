@@ -101,11 +101,7 @@ public class Hook : Object
 
 	private void read_from_fd(int fd)
 	{
-#if G_OS_WIN32
-		var stream = new Win32InputStream(fd, true);
-#else
-		var stream = new UnixInputStream(fd, true);
-#endif
+		var stream = PlatformSupport.new_input_stream_from_fd(fd, true);
 		var dstream = new DataInputStream(stream);
 
 		stream_read_async(dstream);

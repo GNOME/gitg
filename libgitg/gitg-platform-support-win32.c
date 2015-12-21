@@ -19,6 +19,8 @@
 
 #include "gitg-platform-support.h"
 
+#include <gio/gwin32inputstream.h>
+
 gboolean
 gitg_platform_support_use_native_window_controls (GdkDisplay *display)
 {
@@ -50,6 +52,13 @@ gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
                                              gint          *height)
 {
 	return NULL;
+}
+
+GInputStream *
+gitg_platform_support_new_input_stream_from_fd (gint     fd,
+                                                gboolean close_fd)
+{
+	return g_win32_input_stream_new ((void *)fd, close_fd);
 }
 
 // ex:ts=4 noet

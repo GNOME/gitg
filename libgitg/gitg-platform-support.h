@@ -41,6 +41,9 @@ cairo_surface_t *gitg_platform_support_create_cursor_surface (GdkDisplay    *dis
                                                               gint          *width,
                                                               gint          *height);
 
+GInputStream *gitg_platform_support_new_input_stream_from_fd (gint     fd,
+                                                              gboolean close_fd);
+
 #endif /* __GITG_PLATFORM_SUPPORT_H__ */
 
 // ex:ts=4 noet

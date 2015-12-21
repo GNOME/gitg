@@ -12,5 +12,7 @@ namespace Gitg
 		                                                  out int hot_y = null,
 		                                                  out int width = null,
 		                                                  out int height = null);
+
+		public static GLib.InputStream new_input_stream_from_fd(int fd, bool close_fd);
 	}
 }
