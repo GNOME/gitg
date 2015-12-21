@@ -59,6 +59,11 @@ GitgDiffStat.no-frame.added-only {
 	border-radius: 3px 0px 0px 3px;
 }
 
+GitgDiffStat.added.dark,
+GitgDiffStat.added-only.dark {
+	background-color: rgb(78, 154, 6);
+}
+
 GitgDiffStat.added:dir(rtl),
 GitgDiffStat.no-frame.added:dir(rtl) {
 	border-radius: 0px 3px 3px 0px;
@@ -70,6 +75,11 @@ GitgDiffStat.no-frame.removed,
 GitgDiffStat.no-frame.removed-only {
 	background-color: #ffdddd;
 	border-radius: 0px 3px 3px 0px;
+}
+
+GitgDiffStat.removed.dark,
+GitgDiffStat.removed-only.dark {
+	background-color: rgb(164, 0, 0);
 }
 
 GitgDiffStat.removed:dir(rtl),
