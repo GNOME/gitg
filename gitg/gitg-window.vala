@@ -392,7 +392,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 				var parent_path = Utils.replace_home_dir_with_tilde(workdir.get_parent());
 
 				title = @"$(d_repository.name) ($parent_path)";
-				windowtitle = @"$name - gitg";
+				windowtitle = @"$(d_repository.name) - gitg";
 			}
 			else
 			{
@@ -420,15 +420,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		if (Gitg.PlatformSupport.use_native_window_controls())
 		{
-			d_header_bar.set_title(subtitle);
 			this.title = title;
+			d_header_bar.set_title(subtitle);
 		}
 		else
 		{
+			this.title = windowtitle;
 			d_header_bar.set_title(title);
 			d_header_bar.set_subtitle(subtitle);
-
-			this.title = windowtitle;
 		}
 	}
 
