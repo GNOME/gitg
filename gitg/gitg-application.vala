@@ -394,7 +394,7 @@ public class Application : Gtk.Application
 		}
 
 		var theme = Gtk.IconTheme.get_default();
-		theme.prepend_search_path(Path.build_filename(Config.GITG_DATADIR, "icons"));
+		theme.prepend_search_path(Path.build_filename(PlatformSupport.get_data_dir(), "icons"));
 	}
 
 	protected override void shutdown()
