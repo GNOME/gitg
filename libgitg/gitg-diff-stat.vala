@@ -158,8 +158,13 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 			x -= padding.right + wbar;
 		}
 
-		if (added == 0 ||
-		    removed == 0)
+		if (added == 0 && removed == 0)
+		{
+			sctx.save();
+			sctx.render_background(context, x, ybar, wrest, hbar);
+			sctx.restore();
+		}
+		else if (added == 0 || removed == 0)
 		{
 			sctx.save();
 			sctx.add_class(added == 0 ? "removed-only" : "added-only");
