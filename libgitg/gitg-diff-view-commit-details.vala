@@ -275,10 +275,12 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 					if (pixbuf != null)
 					{
 						d_image_avatar.pixbuf = pixbuf;
+						d_image_avatar.get_style_context().remove_class("dim-label");
 					}
 					else
 					{
 						d_image_avatar.icon_name = "avatar-default-symbolic";
+						d_image_avatar.get_style_context().add_class("dim-label");
 					}
 				}
 
@@ -291,6 +293,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		else
 		{
 			d_image_avatar.icon_name = "avatar-default-symbolic";
+			d_image_avatar.get_style_context().add_class("dim-label");
 		}
 	}
 }
