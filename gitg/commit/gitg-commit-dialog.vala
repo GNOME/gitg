@@ -122,6 +122,11 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
+	public string default_message
+	{
+		get; private set;
+	}
+
 	public string message
 	{
 		owned get
@@ -641,7 +646,9 @@ class Dialog : Gtk.Dialog
 		});
 
 		update_highlight();
-		
+
+		default_message = "";
+
 		try
 		{
 			Ggit.Config config;
@@ -658,7 +665,9 @@ class Dialog : Gtk.Dialog
 				size_t len;
 
 				FileUtils.get_contents(path, out contents, out len);
-				d_source_view_message.buffer.set_text(Gitg.Convert.utf8(contents, (ssize_t)len));
+
+				default_message = Gitg.Convert.utf8(contents, (ssize_t)len).strip();
+				d_source_view_message.buffer.set_text(default_message);
 			}
 		}
 		catch (Error e) {

@@ -1220,7 +1220,7 @@ namespace GitgCommit
 
 						if (commit != null)
 						{
-							if (dlg.message.strip() == "")
+							if (dlg.message.strip() == dlg.default_message)
 							{
 								dlg.message = commit.get_message();
 							}
