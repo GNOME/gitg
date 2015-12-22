@@ -88,6 +88,11 @@ class Dialog : Gtk.Dialog
 		construct set { d_diff = value; }
 	}
 
+	public Gitg.Repository repository
+	{
+		owned get; construct set;
+	}
+
 	public int max_visible_stat_items
 	{
 		get;
@@ -636,6 +641,29 @@ class Dialog : Gtk.Dialog
 		});
 
 		update_highlight();
+		
+		try
+		{
+			Ggit.Config config;
+
+			config = repository.get_config().snapshot();
+
+			var template_path = config.get_string("commit.template");
+
+			if (template_path != null)
+			{
+				var path = Gitg.Utils.expand_home_dir(template_path);
+
+				string contents;
+				size_t len;
+
+				FileUtils.get_contents(path, out contents, out len);
+				d_source_view_message.buffer.set_text(Gitg.Convert.utf8(contents, (ssize_t)len));
+			}
+		}
+		catch (Error e) {
+			stderr.printf(@"ERROR: Failed to read commit.template: $(e.message)\n");
+		}
 	}
 
 	private void update_highlight()
@@ -733,10 +761,11 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
-	public Dialog(Ggit.Signature author,
-	              Ggit.Diff?     diff)
+	public Dialog(Gitg.Repository repository,
+	              Ggit.Signature  author,
+	              Ggit.Diff?      diff)
 	{
-		Object(author: author, diff: diff, use_header_bar: 1);
+		Object(repository: repository, author: author, diff: diff, use_header_bar: 1);
 	}
 
 	private void update_font_settings()

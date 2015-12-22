@@ -1192,7 +1192,7 @@ namespace GitgCommit
 		                                         Ggit.Signature committer,
 		                                         Ggit.Diff?     diff)
 		{
-			var dlg = new Dialog(author, diff);
+			var dlg = new Dialog(application.repository, author, diff);
 
 			dlg.set_transient_for((Gtk.Window)d_main.get_toplevel());
 			dlg.set_default_response(Gtk.ResponseType.OK);
