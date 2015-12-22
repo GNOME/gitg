@@ -661,6 +661,11 @@ class Dialog : Gtk.Dialog
 			{
 				var path = Gitg.Utils.expand_home_dir(template_path);
 
+				if (!GLib.Path.is_absolute(path))
+				{
+					path = repository.get_workdir().get_child(path).get_path();
+				}
+
 				string contents;
 				size_t len;
 
