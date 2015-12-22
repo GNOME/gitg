@@ -20,6 +20,21 @@
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-diff-view-file.ui")]
 class Gitg.DiffViewFile : Gtk.Grid
 {
+	private enum RegionType
+	{
+		ADDED,
+		REMOVED,
+		CONTEXT
+	}
+
+	private struct Region
+	{
+		public RegionType type;
+		public int buffer_line_start;
+		public int source_line_start;
+		public int length;
+	}
+
 	[GtkChild( name = "expander" )]
 	private Gtk.Expander d_expander;
 
@@ -39,10 +54,20 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private uint d_removed;
 	private bool d_expanded;
 	private int64 d_doffset;
-
 	private Gee.HashMap<int, PatchSet.Patch?> d_lines;
-
 	private DiffViewFileSelectable d_selectable;
+	private DiffViewLinesRenderer d_old_lines;
+	private DiffViewLinesRenderer d_new_lines;
+	private DiffViewLinesRenderer d_sym_lines;
+	private bool d_highlight;
+	private Repository? d_repository;
+	private Cancellable? d_higlight_cancellable;
+	private Gtk.SourceBuffer? d_old_highlight_buffer;
+	private Gtk.SourceBuffer? d_new_highlight_buffer;
+	private bool d_old_highlight_ready;
+	private bool d_new_highlight_ready;
+	private Ggit.DiffDelta? d_delta;
+	private Region[] d_regions;
 
 	public bool expanded
 	{
@@ -100,32 +125,47 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 	}
 
-	public int maxlines
+	public int maxlines { get; set; }
+	public bool has_selection { get; private set; }
+	public bool handle_selection { get; construct set; }
+
+	public Ggit.DiffDelta? delta
 	{
-		get; set;
+		get { return d_delta; }
+		construct set
+		{
+			d_delta = value;
+			update_highlight();
+		}
 	}
 
-	public bool has_selection
+	public bool highlight
 	{
-		get;
-		private set;
+		get { return d_highlight; }
+
+		construct set
+		{
+			d_highlight = value;
+			update_highlight();
+		}
+
+		default = true;
+	}
+	
+	public Repository repository
+	{
+		get { return d_repository; }
+		
+		construct set
+		{
+			d_repository = value;
+			update_highlight();
+		}
 	}
 
-	public Ggit.DiffDelta delta
+	public DiffViewFile(Repository repository, Ggit.DiffDelta delta, bool handle_selection)
 	{
-		get;
-		construct set;
-	}
-
-	public bool handle_selection
-	{
-		get;
-		construct set;
-	}
-
-	public DiffViewFile(Ggit.DiffDelta delta, bool handle_selection)
-	{
-		Object(delta: delta, handle_selection: handle_selection);
+		Object(repository: repository, delta: delta, handle_selection: handle_selection);
 	}
 
 	public PatchSet selection
@@ -175,10 +215,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 	}
 
-	private DiffViewLinesRenderer d_old_lines;
-	private DiffViewLinesRenderer d_new_lines;
-	private DiffViewLinesRenderer d_sym_lines;
-
 	construct
 	{
 		var gutter = d_sourceview_hunks.get_gutter(Gtk.TextWindowType.LEFT);
@@ -219,6 +255,204 @@ class Gitg.DiffViewFile : Gtk.Grid
 		this.bind_property("vexpand", d_sourceview_hunks, "vexpand", BindingFlags.SYNC_CREATE);
 
 		d_sourceview_hunks.draw.connect_after(sourceview_hunks_on_draw);
+	}
+
+	protected override void dispose()
+	{
+		base.dispose();
+
+		if (d_higlight_cancellable != null)
+		{
+			d_higlight_cancellable.cancel();
+			d_higlight_cancellable = null;
+		}
+	}
+
+	private void update_highlight()
+	{
+		if (d_higlight_cancellable != null)
+		{
+			d_higlight_cancellable.cancel();
+			d_higlight_cancellable = null;
+		}
+
+		d_old_highlight_buffer = null;
+		d_new_highlight_buffer = null;
+
+		d_old_highlight_ready = false;
+		d_new_highlight_ready = false;
+
+		if (highlight && repository != null && delta != null)
+		{
+			var cancellable = new Cancellable();
+			d_higlight_cancellable = cancellable;
+
+			init_highlighting_buffer.begin(delta.get_old_file(), cancellable, (obj, res) => {
+				var buffer = init_highlighting_buffer.end(res);
+
+				if (!cancellable.is_cancelled())
+				{
+					d_old_highlight_buffer = buffer;
+					d_old_highlight_ready = true;
+
+					update_highlighting_ready();
+				}
+			});
+
+			init_highlighting_buffer.begin(delta.get_new_file(), cancellable, (obj, res) => {
+				var buffer = init_highlighting_buffer.end(res);
+
+				if (!cancellable.is_cancelled())
+				{
+					d_new_highlight_buffer = buffer;
+					d_new_highlight_ready = true;
+
+					update_highlighting_ready();
+				}
+			});
+		}
+		else
+		{
+			update_highlighting_ready();
+		}
+	}
+
+	private async Gtk.SourceBuffer? init_highlighting_buffer(Ggit.DiffFile file, Cancellable cancellable)
+	{
+		var id = file.get_oid();
+
+		if (id.is_zero())
+		{
+			return null;
+		}
+
+		var sfile = new Gtk.SourceFile();
+		sfile.location = repository.get_workdir().get_child(file.get_path());
+
+		var basename = sfile.location.get_basename();
+
+		Ggit.Blob blob;
+
+		try
+		{
+			blob = repository.lookup<Ggit.Blob>(id);
+		}
+		catch
+		{
+			return null;
+		}
+
+		var content = blob.get_raw_content();
+
+		bool uncertain;
+		var content_type = GLib.ContentType.guess(basename, content, out uncertain);
+
+		var bytes = new Bytes(content);
+		var stream = new GLib.MemoryInputStream.from_bytes(bytes);
+
+		var manager = Gtk.SourceLanguageManager.get_default();
+		var language = manager.guess_language(basename, content_type);
+
+		if (language == null)
+		{
+			return null;
+		}
+
+		var buffer = new Gtk.SourceBuffer(d_sourceview_hunks.buffer.tag_table);
+
+		var style_scheme_manager = Gtk.SourceStyleSchemeManager.get_default();
+
+		buffer.language = language;
+		buffer.highlight_syntax = true;
+		buffer.style_scheme = style_scheme_manager.get_scheme("classic");
+
+		var loader = new Gtk.SourceFileLoader.from_stream(buffer, sfile, stream);
+
+		try
+		{
+			yield loader.load_async(GLib.Priority.LOW, cancellable, null);
+		}
+		catch (Error e)
+		{
+			stderr.printf(@"ERROR: failed to load $(file.get_path()) for highlighting: $(e.message)\n");
+			return null;
+		}
+
+		return buffer;
+	}
+
+	private void update_highlighting_ready()
+	{
+		if (!d_old_highlight_ready && !d_new_highlight_ready)
+		{
+			// Remove highlights
+			return;
+		}
+		else if (!d_old_highlight_ready || !d_new_highlight_ready)
+		{
+			// Both need to be loaded
+			return;
+		}
+
+		var buffer = d_sourceview_hunks.buffer;
+
+		// Go over all the source chunks and match up to old/new buffer. Then,
+		// apply the tags that are applied to the highlighted source buffers.
+		foreach (var region in d_regions)
+		{
+			Gtk.SourceBuffer? source;
+
+			if (region.type == RegionType.REMOVED)
+			{
+				source = d_old_highlight_buffer;
+			}
+			else
+			{
+				source = d_new_highlight_buffer;
+			}
+
+			if (source == null)
+			{
+				continue;
+			}
+
+			Gtk.TextIter buffer_iter, source_iter;
+
+			buffer.get_iter_at_line(out buffer_iter, region.buffer_line_start);
+			source.get_iter_at_line(out source_iter, region.source_line_start);
+
+			var source_end_iter = source_iter;
+			source_end_iter.forward_lines(region.length);
+
+			source.ensure_highlight(source_iter, source_end_iter);
+
+			var buffer_end_iter = buffer_iter;
+			buffer_end_iter.forward_lines(region.length);
+
+			var source_next_iter = source_iter;
+			var tags = source_iter.get_tags();
+
+			while (source_next_iter.forward_to_tag_toggle(null) && source_next_iter.compare(source_end_iter) < 0)
+			{
+				var buffer_next_iter = buffer_iter;
+				buffer_next_iter.forward_chars(source_next_iter.get_offset() - source_iter.get_offset());
+
+				foreach (var tag in tags)
+				{
+					buffer.apply_tag(tag, buffer_iter, buffer_next_iter);
+				}
+
+				source_iter = source_next_iter;
+				buffer_iter = buffer_next_iter;
+
+				tags = source_iter.get_tags();
+			}
+
+			foreach (var tag in tags)
+			{
+				buffer.apply_tag(tag, buffer_iter, buffer_end_iter);
+			}
+		}
 	}
 
 	private bool sourceview_hunks_on_draw(Cairo.Context cr)
@@ -338,6 +572,13 @@ class Gitg.DiffViewFile : Gtk.Grid
 		/* Diff Content */
 		var content = new StringBuilder();
 
+		var region = Region() {
+			type = RegionType.CONTEXT,
+			buffer_line_start = 0,
+			source_line_start = 0,
+			length = 0
+		};
+
 		for (var i = 0; i < lines.size; i++)
 		{
 			var line = lines[i];
@@ -346,15 +587,21 @@ class Gitg.DiffViewFile : Gtk.Grid
 			var removed = false;
 			var origin = line.get_origin();
 
+			var rtype = RegionType.CONTEXT;
+
 			switch (origin)
 			{
 				case Ggit.DiffLineType.ADDITION:
 					added = true;
 					d_added++;
+
+					rtype = RegionType.ADDED;
 					break;
 				case Ggit.DiffLineType.DELETION:
 					removed = true;
 					d_removed++;
+
+					rtype = RegionType.REMOVED;
 					break;
 				case Ggit.DiffLineType.CONTEXT_EOFNL:
 				case Ggit.DiffLineType.ADD_EOFNL:
@@ -362,6 +609,34 @@ class Gitg.DiffViewFile : Gtk.Grid
 					text = text.substring(1);
 					break;
 			}
+
+			if (i == 0 || rtype != region.type)
+			{
+				if (i != 0)
+				{
+					d_regions += region;
+				}
+
+				int source_line_start;
+
+				if (rtype == RegionType.REMOVED)
+				{
+					source_line_start = line.get_old_lineno() - 1;
+				}
+				else
+				{
+					source_line_start = line.get_new_lineno() - 1;
+				}
+
+				region = Region() {
+					type = rtype,
+					buffer_line_start = buffer_line,
+					source_line_start = source_line_start,
+					length = 0
+				};
+			}
+
+			region.length++;
 
 			if (added || removed)
 			{
@@ -395,6 +670,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 			content.append(text);
 			buffer_line++;
+		}
+
+		if (lines.size != 0)
+		{
+			d_regions += region;
 		}
 
 		int line_hunk_start = iter.get_line();
