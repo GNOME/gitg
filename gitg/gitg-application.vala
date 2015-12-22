@@ -321,6 +321,8 @@ public class Application : Gtk.Application
 	{
 		base.startup();
 
+		PlatformSupport.application_support_prepare_startup();
+
 		try
 		{
 			Gitg.init();

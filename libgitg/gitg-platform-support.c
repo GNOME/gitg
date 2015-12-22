@@ -145,4 +145,9 @@ gitg_platform_support_get_user_home_dir (const gchar *name)
 	return g_strdup (pwd->pw_dir);
 }
 
+void
+gitg_platform_support_application_support_prepare_startup (void)
+{
+}
+
 // ex:ts=4 noet

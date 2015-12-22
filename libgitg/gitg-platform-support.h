@@ -52,6 +52,8 @@ gchar        *gitg_platform_support_get_data_dir (void);
 
 gchar        *gitg_platform_support_get_user_home_dir (const gchar *name);
 
+void          gitg_platform_support_application_support_prepare_startup (void);
+
 #endif /* __GITG_PLATFORM_SUPPORT_H__ */
 
 // ex:ts=4 noet

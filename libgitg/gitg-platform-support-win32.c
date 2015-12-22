@@ -107,4 +107,31 @@ gitg_platform_support_get_user_home_dir (const gchar *name)
 	return NULL;
 }
 
+void
+gitg_platform_support_application_support_prepare_startup (void)
+{
+	/* If we open gedit from a console get the stdout printing */
+	if (fileno (stdout) != -1 &&
+	    _get_osfhandle (fileno (stdout)) != -1)
+	{
+		/* stdout is fine, presumably redirected to a file or pipe */
+	}
+	else
+	{
+		typedef BOOL (* WINAPI AttachConsole_t) (DWORD);
+
+		AttachConsole_t p_AttachConsole =
+			(AttachConsole_t) GetProcAddress (GetModuleHandle ("kernel32.dll"),
+			                                  "AttachConsole");
+
+		if (p_AttachConsole != NULL && p_AttachConsole (ATTACH_PARENT_PROCESS))
+		{
+			freopen ("CONOUT$", "w", stdout);
+			dup2 (fileno (stdout), 1);
+			freopen ("CONOUT$", "w", stderr);
+			dup2 (fileno (stderr), 2);
+		}
+	}
+}
+
 // ex:ts=4 noet
