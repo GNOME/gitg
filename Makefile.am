@@ -97,6 +97,7 @@ include plugins/Makefile.am
 include gitg/Makefile.am
 include data/Makefile.am
 include tests/Makefile.am
+include win32/Makefile.am
 
 include icons.mk
 
