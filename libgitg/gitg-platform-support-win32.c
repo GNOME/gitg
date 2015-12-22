@@ -100,4 +100,11 @@ gitg_platform_support_get_data_dir (void)
 	return data_dir;
 }
 
+gchar *
+gitg_platform_support_get_user_home_dir (const gchar *name)
+{
+	// TODO
+	return NULL;
+}
+
 // ex:ts=4 noet

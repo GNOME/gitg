@@ -18,5 +18,6 @@ namespace Gitg
 		public static string get_lib_dir();
 		public static string get_locale_dir();
 		public static string get_data_dir();
+		public static string? get_user_home_dir(string? user = null);
 	}
 }

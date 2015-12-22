@@ -50,6 +50,8 @@ gchar        *gitg_platform_support_get_locale_dir (void);
 
 gchar        *gitg_platform_support_get_data_dir (void);
 
+gchar        *gitg_platform_support_get_user_home_dir (const gchar *name);
+
 #endif /* __GITG_PLATFORM_SUPPORT_H__ */
 
 // ex:ts=4 noet
