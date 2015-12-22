@@ -31,8 +31,11 @@ public class Gitg.DiffView : Gtk.Grid
 
 	private Ggit.Diff? d_diff;
 	private Commit? d_commit;
-
 	private Ggit.DiffOptions? d_options;
+	private Cancellable d_cancellable;
+	private ulong d_expanded_notify;
+	private ulong d_parent_commit_notify;
+	private bool d_changes_inline;
 
 	public Ggit.DiffOptions options
 	{
@@ -47,23 +50,21 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private bool d_has_selection;
-
 	public bool has_selection
 	{
-		get { return d_has_selection; }
+		get; private set;
 	}
-
-	private Cancellable d_cancellable;
 
 	public Ggit.Diff? diff
 	{
 		get { return d_diff; }
 		set
 		{
-			d_diff = value;
-
-			d_commit = null;
+			if (d_diff != value)
+			{
+				d_diff = value;
+				d_commit = null;
+			}
 
 			update();
 		}
@@ -92,31 +93,14 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	public bool wrap
-	{
-		get;
-		construct set;
-		default = true;
-	}
-
+	public bool wrap { get; construct set; default = true; }
 	public bool staged { get; set; default = false; }
 	public bool unstaged { get; set; default = false; }
 	public bool show_parents { get; set; default = false; }
-	public bool default_collapse_all { get; set; default = true; }
-
-	public bool use_gravatar
-	{
-		get;
-		construct set;
-		default = true;
-	}
-
-	public int tab_width
-	{
-		get;
-		construct set;
-		default = 4;
-	}
+	public bool default_collapse_all { get; construct set; default = true; }
+	public bool use_gravatar { get; construct set; default = true; }
+	public int tab_width { get; construct set; default = 4; }
+	public bool handle_selection { get; construct set; default = false; }
 
 	private bool flag_get(Ggit.DiffOption f)
 	{
@@ -148,8 +132,6 @@ public class Gitg.DiffView : Gtk.Grid
 		get { return flag_get(Ggit.DiffOption.IGNORE_WHITESPACE); }
 		set { flag_set(Ggit.DiffOption.IGNORE_WHITESPACE, value); }
 	}
-
-	private bool d_changes_inline;
 
 	public bool changes_inline
 	{
@@ -184,21 +166,12 @@ public class Gitg.DiffView : Gtk.Grid
 		default = 3;
 	}
 
-	public bool handle_selection
-	{
-		get;
-		construct set;
-		default = false;
-	}
-
-	private ulong d_expanded_notify;
-	private ulong d_parent_commit_notify;
-
 	protected override void constructed()
 	{
 		d_expanded_notify = d_commit_details.notify["expanded"].connect(update_expanded_files);
-
 		d_parent_commit_notify = d_commit_details.notify["parent-commit"].connect(parent_commit_changed);
+
+		bind_property("use-gravatar", d_commit_details, "use-gravatar", BindingFlags.SYNC_CREATE);
 	}
 
 	private void parent_commit_changed()
@@ -266,7 +239,6 @@ public class Gitg.DiffView : Gtk.Grid
 		{
 			d_commit_details.commit = null;
 			d_commit_details.hide();
-			d_commit_details.expanded = true;
 		}
 
 		if (d_diff != null)
@@ -297,10 +269,9 @@ public class Gitg.DiffView : Gtk.Grid
 			}
 		}
 
-		if (d_has_selection != something_selected)
+		if (has_selection != something_selected)
 		{
-			d_has_selection = something_selected;
-			notify_property("has-selection");
+			has_selection = something_selected;
 		}
 	}
 
@@ -404,11 +375,8 @@ public class Gitg.DiffView : Gtk.Grid
 		add_hunk();
 		add_file();
 
-		if (d_commit != null)
-		{
-			d_commit_details.expanded = (files.size <= 1);
-			d_commit_details.expander_visible = (files.size > 1);
-		}
+		d_commit_details.expanded = (files.size <= 1 || !default_collapse_all);
+		d_commit_details.expander_visible = (files.size > 1);
 
 		for (var i = 0; i < files.size; i++)
 		{
