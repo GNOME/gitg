@@ -48,6 +48,32 @@ public class Utils
 
 		return name;
 	}
+
+	public static string expand_home_dir(string path)
+	{
+		string? homedir = null;
+		int pos = -1;
+
+		if (path.has_prefix("~/"))
+		{
+			homedir = PlatformSupport.get_user_home_dir();
+			pos = 1;
+		}
+		else if (path.has_prefix("~"))
+		{
+			pos = path.index_of_char('/');
+			var user = path[1:pos];
+
+			homedir = PlatformSupport.get_user_home_dir(user);
+		}
+
+		if (homedir != null)
+		{
+			return Path.build_filename(homedir, path.substring(pos + 1));
+		}
+
+		return path;
+	}
 }
 
 }
