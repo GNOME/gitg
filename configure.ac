@@ -122,6 +122,19 @@ AM_CONDITIONAL(PLATFORM_WIN32, test x"$PLATFORM_NAME" = "xwin32")
 
 AC_DEFINE_UNQUOTED(PLATFORM_NAME,"$PLATFORM_NAME", [platform name])
 
+AC_MSG_CHECKING([for native Win32])
+case "$host" in
+	*-*-mingw*)
+		os_win32=yes
+		;;
+	*)
+		os_win32=no
+		;;
+esac
+
+AC_MSG_RESULT([$os_win32])
+AM_CONDITIONAL(OS_WIN32, test "$os_win32" = "yes")
+
 PKG_CHECK_MODULES(LIBGITG, [
 	gthread-2.0 >= $GLIB_REQUIRED_VERSION
 	glib-2.0 >= $GLIB_REQUIRED_VERSION

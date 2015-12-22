@@ -47,6 +47,10 @@ gitg_gitg_LDFLAGS =						\
 	-no-undefined						\
 	-export-symbols-regex "^[[^_]].*"
 
+if OS_WIN32
+gitg_gitg_LDFLAGS += -mwindows
+endif
+
 gitg_gitg_VALASOURCES =						\
 	gitg/commit/gitg-commit-dialog.vala			\
 	gitg/commit/gitg-commit-paned.vala			\
