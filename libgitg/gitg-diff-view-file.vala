@@ -60,14 +60,15 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private DiffViewLinesRenderer d_new_lines;
 	private DiffViewLinesRenderer d_sym_lines;
 	private bool d_highlight;
-	private Repository? d_repository;
 	private Cancellable? d_higlight_cancellable;
 	private Gtk.SourceBuffer? d_old_highlight_buffer;
 	private Gtk.SourceBuffer? d_new_highlight_buffer;
 	private bool d_old_highlight_ready;
 	private bool d_new_highlight_ready;
-	private Ggit.DiffDelta? d_delta;
 	private Region[] d_regions;
+	private bool d_constructed;
+
+	public bool new_is_workdir { get; construct set; }
 
 	public bool expanded
 	{
@@ -128,16 +129,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 	public int maxlines { get; set; }
 	public bool has_selection { get; private set; }
 	public bool handle_selection { get; construct set; }
-
-	public Ggit.DiffDelta? delta
-	{
-		get { return d_delta; }
-		construct set
-		{
-			d_delta = value;
-			update_highlight();
-		}
-	}
+	public Ggit.DiffDelta? delta { get; construct set; }
+	public Repository repository { get; construct set; }
 
 	public bool highlight
 	{
@@ -152,20 +145,10 @@ class Gitg.DiffViewFile : Gtk.Grid
 		default = true;
 	}
 	
-	public Repository repository
-	{
-		get { return d_repository; }
-		
-		construct set
-		{
-			d_repository = value;
-			update_highlight();
-		}
-	}
 
-	public DiffViewFile(Repository repository, Ggit.DiffDelta delta, bool handle_selection)
+	public DiffViewFile(Repository repository, Ggit.DiffDelta delta, bool new_is_workdir, bool handle_selection)
 	{
-		Object(repository: repository, delta: delta, handle_selection: handle_selection);
+		Object(repository: repository, new_is_workdir: new_is_workdir, delta: delta, handle_selection: handle_selection);
 	}
 
 	public PatchSet selection
@@ -270,6 +253,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	private void update_highlight()
 	{
+		if (!d_constructed)
+		{
+			return;
+		}
+
 		if (d_higlight_cancellable != null)
 		{
 			d_higlight_cancellable.cancel();
@@ -287,7 +275,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 			var cancellable = new Cancellable();
 			d_higlight_cancellable = cancellable;
 
-			init_highlighting_buffer.begin(delta.get_old_file(), cancellable, (obj, res) => {
+			init_highlighting_buffer.begin(delta.get_old_file(), false, cancellable, (obj, res) => {
 				var buffer = init_highlighting_buffer.end(res);
 
 				if (!cancellable.is_cancelled())
@@ -299,7 +287,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 				}
 			});
 
-			init_highlighting_buffer.begin(delta.get_new_file(), cancellable, (obj, res) => {
+			init_highlighting_buffer.begin(delta.get_new_file(), new_is_workdir, cancellable, (obj, res) => {
 				var buffer = init_highlighting_buffer.end(res);
 
 				if (!cancellable.is_cancelled())
@@ -317,32 +305,53 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 	}
 
-	private async Gtk.SourceBuffer? init_highlighting_buffer(Ggit.DiffFile file, Cancellable cancellable)
+	private async Gtk.SourceBuffer? init_highlighting_buffer(Ggit.DiffFile file, bool from_workdir, Cancellable cancellable)
 	{
 		var id = file.get_oid();
+		var path = file.get_path();
 
-		if (id.is_zero())
+		if ((id.is_zero() && !from_workdir) || (path == null && from_workdir))
 		{
 			return null;
 		}
 
 		var sfile = new Gtk.SourceFile();
-		sfile.location = repository.get_workdir().get_child(file.get_path());
+		sfile.location = repository.get_workdir().get_child(path);
 
 		var basename = sfile.location.get_basename();
+		uint8[] content;
 
-		Ggit.Blob blob;
-
-		try
+		if (!from_workdir)
 		{
-			blob = repository.lookup<Ggit.Blob>(id);
-		}
-		catch
-		{
-			return null;
-		}
+			Ggit.Blob blob;
 
-		var content = blob.get_raw_content();
+			try
+			{
+				blob = repository.lookup<Ggit.Blob>(id);
+			}
+			catch
+			{
+				return null;
+			}
+
+			content = blob.get_raw_content();
+		}
+		else
+		{
+			// Try to read from disk
+			try
+			{
+				string etag;
+
+				// Read it all into a buffer so we can guess the content type from
+				// it. This isn't really nice, but it's simple.
+				yield sfile.location.load_contents_async(cancellable, out content, out etag);
+			}
+			catch
+			{
+				return null;
+			}
+		}
 
 		bool uncertain;
 		var content_type = GLib.ContentType.guess(basename, content, out uncertain);
@@ -536,6 +545,9 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 
 		d_expander.bind_property("expanded", this, "expanded", BindingFlags.BIDIRECTIONAL);
+
+		d_constructed = true;
+		update_highlight();
 	}
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
