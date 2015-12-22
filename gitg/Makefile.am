@@ -49,6 +49,11 @@ gitg_gitg_LDFLAGS =						\
 
 if OS_WIN32
 gitg_gitg_LDFLAGS += -mwindows
+
+gitg/gitg-res.o: gitg/gitg.rc
+	$(WINDRES) -i $(top_srcdir)/gitg/gitg.rc --input-format=rc -o gitg/gitg-res.o -O coff
+
+gitg_gitg_LDADD += gitg/gitg-res.o
 endif
 
 gitg_gitg_VALASOURCES =						\
@@ -117,6 +122,8 @@ EXTRA_DIST +=					\
 	gitg/resources/gitg-resources.xml.in	\
 	gitg/resources/ui/style-osx.css		\
 	gitg/resources/ui/style-win32.css	\
-	gitg/resources/ui/style-unix.css
+	gitg/resources/ui/style-unix.css	\
+	gitg/resources/pixmaps/gitg.ico		\
+	gitg/gitg.rc
 
 # vi:ts=8:noet
