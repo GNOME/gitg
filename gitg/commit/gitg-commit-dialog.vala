@@ -675,9 +675,7 @@ class Dialog : Gtk.Dialog
 				d_source_view_message.buffer.set_text(default_message);
 			}
 		}
-		catch (Error e) {
-			stderr.printf(@"ERROR: Failed to read commit.template: $(e.message)\n");
-		}
+		catch {}
 	}
 
 	private void update_highlight()
