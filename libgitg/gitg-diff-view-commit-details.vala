@@ -50,6 +50,9 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 	[GtkChild( name = "expander_files" )]
 	private Gtk.Expander d_expander_files;
 
+	[GtkChild( name = "label_expand_collapse_files" )]
+	private Gtk.Label d_label_expand_collapse_files;
+
 	public bool expanded
 	{
 		get { return d_expander_files.expanded; }
@@ -65,7 +68,12 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 	public bool expander_visible
 	{
 		get { return d_expander_files.visible; }
-		set { d_expander_files.visible = value; }
+
+		set
+		{
+			d_expander_files.visible = value;
+			d_label_expand_collapse_files.visible = value;
+		}
 	}
 
 	private Cancellable? d_avatar_cancel;
@@ -131,11 +139,11 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		d_expander_files.notify["expanded"].connect(() => {
 			if (d_expander_files.expanded)
 			{
-				d_expander_files.label = _("Collapse all");
+				d_label_expand_collapse_files.label = _("Collapse all");
 			}
 			else
 			{
-				d_expander_files.label = _("Expand all");
+				d_label_expand_collapse_files.label = _("Expand all");
 			}
 
 			notify_property("expanded");
@@ -190,14 +198,11 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		{
 			d_label_committer.label = _("Committed by %s").printf(author_to_markup(committer));
 			d_label_committer_date.label = committer.get_time().to_timezone(committer.get_time_zone()).format("%x %X %z");
-
-			d_label_committer.show();
-			d_label_committer_date.show();
 		}
 		else
 		{
-			d_label_committer.hide();
-			d_label_committer_date.hide();
+			d_label_committer.label = "";
+			d_label_committer_date.label = "";
 		}
 
 		var parents = commit.get_parents();
@@ -295,6 +300,18 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			d_image_avatar.icon_name = "avatar-default-symbolic";
 			d_image_avatar.get_style_context().add_class("dim-label");
 		}
+	}
+
+	[GtkCallback]
+	private bool button_press_on_event_box_expand_collapse(Gdk.EventButton event)
+	{
+		if (event.button == Gdk.BUTTON_PRIMARY)
+		{
+			d_expander_files.expanded = !d_expander_files.expanded;
+			return true;
+		}
+
+		return false;
 	}
 }
 

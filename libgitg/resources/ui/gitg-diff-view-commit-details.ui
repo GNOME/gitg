@@ -6,20 +6,23 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
+    <property name="row_spacing">12</property>
     <child>
       <object class="GtkGrid" id="grid_inner">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="border_width">12</property>
-        <property name="row_spacing">6</property>
+        <property name="margin_top">12</property>
+        <property name="margin_start">12</property>
+        <property name="margin_end">12</property>
+        <property name="row_spacing">12</property>
         <property name="column_spacing">6</property>
         <child>
           <object class="GtkImage" id="image_avatar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="valign">start</property>
-            <property name="pixel_size">70</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="pixel_size">50</property>
             <property name="icon_name">avatar-default-symbolic</property>
           </object>
           <packing>
@@ -123,8 +126,6 @@
             <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="valign">start</property>
-            <property name="margin_top">6</property>
-            <property name="margin_bottom">6</property>
             <property name="label">Subject</property>
             <property name="wrap">True</property>
             <property name="selectable">True</property>
@@ -140,7 +141,7 @@
           <object class="GtkGrid" id="grid_parents_container">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_bottom">12</property>
+            <property name="margin_top">12</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
@@ -185,26 +186,35 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">horizontal</property>
-        <property name="margin_start">3</property>
+        <property name="margin_start">6</property>
         <property name="margin_end">12</property>
-        <property name="margin_top">12</property>
         <property name="margin_bottom">6</property>
         <child>
           <object class="GtkExpander" id="expander_files">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="valign">baseline</property>
-            <property name="hexpand">True</property>
-            <child type="label">
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="event_box_expand_collapse_files">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <signal name="button-press-event" handler="button_press_on_event_box_expand_collapse" />
+            <child>
               <object class="GtkLabel" id="label_expand_collapse_files">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Expand all</property>
+                <property name="valign">baseline</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
               </object>
             </child>
-            <style>
-              <class name="dim-label"/>
-            </style>
           </object>
         </child>
         <child>
@@ -212,7 +222,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">end</property>
-            <property name="valign">start</property>
+            <property name="valign">baseline</property>
             <property name="hexpand">True</property>
             <property name="label">0000000000000000000000000000000000000000</property>
             <property name="selectable">True</property>
