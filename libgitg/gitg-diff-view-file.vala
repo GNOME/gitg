@@ -383,7 +383,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 		catch (Error e)
 		{
-			stderr.printf(@"ERROR: failed to load $(file.get_path()) for highlighting: $(e.message)\n");
+			if (!cancellable.is_cancelled())
+			{
+				stderr.printf(@"ERROR: failed to load $(file.get_path()) for highlighting: $(e.message)\n");
+			}
+
 			return null;
 		}
 
