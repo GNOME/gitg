@@ -21,6 +21,17 @@
 
 #include <gio/gwin32inputstream.h>
 
+#define SAVE_DATADIR DATADIR
+#undef DATADIR
+#include <io.h>
+#include <conio.h>
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501
+#endif
+#include <windows.h>
+#define DATADIR SAVE_DATADIR
+#undef SAVE_DATADIR
+
 gboolean
 gitg_platform_support_use_native_window_controls (GdkDisplay *display)
 {
