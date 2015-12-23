@@ -317,12 +317,10 @@ GITG_PLUGIN_VALAFLAGS="				\
 	--pkg json-glib-1.0			\
 	--pkg libsecret-1			\
 	--pkg config				\
-	--pkg gd-1.0				\
 	\$(GITG_VALAFLAGS)			\
 	--vapidir \$(top_srcdir)/vapi		\
 	--vapidir \$(top_builddir)/libgitg	\
-	--vapidir \$(top_builddir)/libgitg-ext	\
-	--vapidir \$(top_builddir)/libgd"
+	--vapidir \$(top_builddir)/libgitg-ext"
 
 AC_SUBST(GITG_PLUGIN_VALAFLAGS)
 
@@ -352,18 +350,9 @@ fi
 
 AM_CONDITIONAL(ENABLE_PYTHON, test x"$enable_python" = "xyes")
 
-dnl libgd
-LIBGD_INIT([
-	tagged-entry
-	_view-common
-	static
-	vapi
-])
-
 AC_CONFIG_FILES([
 Makefile
 gitg/resources/gitg-resources.xml
-libgd/Makefile
 libgitg/libgitg-1.0.pc
 libgitg-ext/libgitg-ext-1.0.pc
 data/gitg.desktop.in

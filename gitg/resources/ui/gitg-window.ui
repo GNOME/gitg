@@ -211,11 +211,9 @@
                     <property name="can_focus">False</property>
                     <property name="show-close-button">False</property>
                     <child>
-                      <object class="GdTaggedEntry" id="d_search_entry">
+                      <object class="GtkSearchEntry" id="d_search_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
                         <property name="width-request">500</property>
                         <signal name="changed" handler="search_entry_changed" swapped="no"/>
                       </object>

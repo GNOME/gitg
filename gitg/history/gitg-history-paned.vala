@@ -42,12 +42,6 @@ class Paned : Gitg.AnimatedPaned
 	private Gtk.Stack d_stack_panel;
 
 	[GtkChild]
-	private Gd.StyledTextRenderer d_renderer_commit_list_author;
-
-	[GtkChild]
-	private Gd.StyledTextRenderer d_renderer_commit_list_author_date;
-
-	[GtkChild]
 	private Gtk.ScrolledWindow d_scrolled_window_commit_list;
 
 	public Gtk.Orientation inner_orientation
@@ -156,9 +150,6 @@ class Paned : Gitg.AnimatedPaned
 		                        this,
 		                        "inner_orientation",
 		                        SettingsBindFlags.GET);
-
-		d_renderer_commit_list_author.add_class("dim-label");
-		d_renderer_commit_list_author_date.add_class("dim-label");
 
 		d_stack_switcher_panels.set_stack(d_stack_panel);
 	}

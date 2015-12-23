@@ -38,9 +38,6 @@ public class Main
 		Environment.set_prgname("gitg");
 		Environment.set_application_name(_("gitg"));
 
-		// Make sure to pull in gd symbols since libgd gets linked statically
-		Gd.ensure_types();
-
 		Application app = new Application();
 		return app.run(args);
 	}

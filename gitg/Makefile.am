@@ -3,7 +3,6 @@ bin_PROGRAMS += gitg/gitg
 gitg_gitg_CPPFLAGS =						\
 	-I$(top_srcdir)						\
 	-I$(srcdir)						\
-	-I$(top_srcdir)/libgd					\
 	-DDATADIR=\""$(datadir)"\"				\
 	-DGITG_DATADIR=\""$(datadir)/gitg"\"			\
 	-DGITG_LOCALEDIR=\""$(datadir)/locale"\"
@@ -23,20 +22,16 @@ gitg_gitg_VALAFLAGS =						\
 	--pkg libpeas-1.0					\
 	--pkg gobject-introspection-1.0				\
 	--pkg gee-0.8						\
-	--pkg gd-1.0						\
 	--pkg gtksourceview-3.0					\
 	--pkg GtkSpell-3.0					\
 	--pkg gitg-platform-support     			\
-	--girdir "$(top_builddir)/libgd"			\
 	--girdir "$(top_builddir)"				\
 	--vapidir "$(top_srcdir)/vapi"				\
-	--vapidir "$(top_builddir)/libgd"			\
 	--vapidir "$(top_builddir)/libgitg"			\
 	--vapidir "$(top_builddir)/libgitg-ext"			\
 	--gresources "$(top_srcdir)/gitg/resources/gitg-resources.xml"
 
 gitg_gitg_LDADD =						\
-	libgd/libgd.la						\
 	libgitg/libgitg-1.0.la					\
 	libgitg-ext/libgitg-ext-1.0.la				\
 	$(GITG_LIBS)						\

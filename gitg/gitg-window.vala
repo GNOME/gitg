@@ -23,6 +23,9 @@ namespace Gitg
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-window.ui")]
 public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 {
+	// Do this to pull in config.h before glib.h (for gettext...)
+	private const string version = Gitg.Config.VERSION;
+
 	private Settings d_state_settings;
 	private Settings d_interface_settings;
 	private Repository? d_repository;
@@ -75,7 +78,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.SearchBar d_search_bar;
 	[GtkChild]
-	private Gd.TaggedEntry d_search_entry;
+	private Gtk.SearchEntry d_search_entry;
 
 	[GtkChild]
 	private Gtk.Stack d_main_stack;

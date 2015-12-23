@@ -43,7 +43,7 @@
                 <property name="resizable">True</property>
                 <property name="fixed-width">180</property>
                 <child>
-                  <object class="GdStyledTextRenderer" id="renderer_commit_list_author">
+                  <object class="GtkCellRendererText" id="renderer_commit_list_author">
                     <property name="ellipsize">end</property>
                   </object>
                   <attributes>
@@ -59,7 +59,7 @@
                 <property name="resizable">True</property>
                 <property name="fixed-width">150</property>
                 <child>
-                  <object class="GdStyledTextRenderer" id="renderer_commit_list_author_date">
+                  <object class="GtkCellRendererText" id="renderer_commit_list_author_date">
                     <property name="ellipsize">end</property>
                   </object>
                   <attributes>
