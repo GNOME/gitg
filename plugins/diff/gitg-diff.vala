@@ -81,10 +81,6 @@ namespace GitgDiff
 			              SettingsBindFlags.GET |
 			              SettingsBindFlags.SET);
 
-			d_diff.notify["visible"].connect(() => {
-				stdout.printf(@"visible: $(d_diff.visible)\n");
-			});
-
 			d_whenMapped = new Gitg.WhenMapped(d_diff);
 
 			d_selection_changed_id = history.selection_changed.connect(on_selection_changed);
