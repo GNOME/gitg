@@ -1,0 +1,290 @@
+#!/usr/bin/python
+
+import inspect, os, shutil, subprocess, glob, sys, re, argparse, json
+
+scriptdir = os.path.dirname(os.path.realpath(inspect.getfile(inspect.currentframe())))
+rootdir = os.path.dirname(scriptdir)
+
+import argparse
+
+parser = argparse.ArgumentParser(description='gitg osx bundler')
+
+parser.add_argument('-d', '--debug', type=bool, help='enable debugging')
+parser.add_argument('bundle', type=str, metavar='FILE', help='bundle json config')
+
+args = parser.parse_args()
+
+class Application:
+    def __init__(self, name, variables):
+        self.name = name
+        self.path = os.path.join(rootdir, name + '.app')
+
+        self.install_path = os.path.join('/Applications', self.path)
+
+        self.variables = dict(variables)
+
+        self.variables['name'] = name
+        self.variables['path'] = self.path
+        self.variables['rootdir'] = rootdir
+        self.variables['contents'] = os.path.join(self.path, 'Contents')
+        self.variables['resources'] = os.path.join(self.variables['contents'], 'Resources')
+        self.variables['lib'] = os.path.join(self.variables['resources'], 'lib')
+        self.variables['macos'] = os.path.join(self.variables['contents'], 'MacOS')
+
+        shutil.rmtree(self.path, ignore_errors=True)
+
+        for p in (self.variables['contents'], self.variables['resources'], self.variables['macos']):
+            try:
+                os.makedirs(p)
+            except:
+                pass
+
+        self._resolved_libs = {}
+        self._pkg_cache = {}
+
+    def repl(self, s):
+        def replace(x):
+            m = re.match('^pkg:([^:]+):([^:]+)$', x.group(1))
+
+            if m:
+                cachename = m.group(1) + ':' + m.group(2)
+
+                if cachename in self._pkg_cache:
+                    return self._pkg_cache[cachename]
+
+                out = subprocess.Popen(['pkg-config', '--variable', m.group(2), m.group(1)], stdout=subprocess.PIPE).communicate()[0].strip()
+                self._pkg_cache[cachename] = out
+
+                return out
+            else:
+                return self.variables[x.group(1)]
+
+        return re.sub("\\${([^}]+)}", replace, s)
+
+    def needs_copy(self, p):
+        prefixes = [self.variables['prefix'], '/usr/local'];
+
+        for prefix in prefixes:
+            if p.startswith(prefix):
+                return True
+
+        return False
+
+    def future_path(self, p):
+        if not os.path.isabs(p):
+            return os.path.join(self.install_path, p)
+
+        prefixes = [self.variables['prefix'], '/usr/local'];
+
+        for prefix in prefixes:
+            if p.startswith(prefix):
+                return os.path.join(self.install_path, p[len(prefix) + 1:])
+        
+        return p
+
+    def copy_binary(self, binary, target):
+        binary = self.repl(binary)
+        target = self.repl(target)
+
+        target = self._copy(binary, target)
+
+        future = self.future_path(target)
+        self._resolved_libs[os.path.realpath(binary)] = future
+
+        os.chmod(target, 0755)
+
+        # Set the new id of the library
+        if binary.endswith('.so') or binary.endswith('.dylib'):
+            if not args.debug:
+                subprocess.call(['strip', '-x', target])
+
+            # Set the new id
+            subprocess.call(['install_name_tool', '-id', future, target])
+        else:
+            if not args.debug:
+                subprocess.call(['strip', '-u', '-r', target])
+
+        # Resolve and copy external dependencies
+        self.resolve_deps(target)
+
+    def otool_deps(self, path):
+        out = subprocess.Popen(['otool', '-L', path], stdout=subprocess.PIPE).communicate()[0]
+        return [x.strip().split(' ')[0] for x in out.splitlines()[1:]]
+
+    def resolve_deps(self, libname):
+        # Run otool to get the deps
+        deps = self.otool_deps(libname)
+
+        for dep in deps:
+            rdep = os.path.realpath(dep)
+
+            if not self.needs_copy(rdep) or rdep == libname:
+                continue
+
+            if not rdep in self._resolved_libs and rdep != libname:
+                # Copy the dependency
+                name = os.path.basename(rdep)
+                target = os.path.join(self.variables['lib'], name)
+
+                # Go deep
+                self.copy_binary(rdep, target)
+
+            newname = self._resolved_libs[rdep].replace(self.variables['contents'], '@executable_path/..')
+            subprocess.call(['install_name_tool', '-change', dep, newname, libname])
+
+    def _copy_file_name(self, source, target):
+        if target.endswith('/'):
+            return target + os.path.basename(source)
+        else:
+            return target
+
+    def _copy(self, source, target):
+        target = self._copy_file_name(source, target)
+
+        try:
+            os.makedirs(os.path.dirname(target))
+        except:
+            pass
+
+        if os.path.isdir(source):
+            shutil.copytree(source, target)
+        else:
+            shutil.copyfile(source, target)
+
+        return target
+
+    def copy_data(self, data, target):
+        self._copy(data, target)
+
+    def _interpolate_file(self, filename):
+        data = open(filename).read()
+        newdata = self.repl(data)
+
+        if newdata != data:
+            f = open(filename, 'w')
+            f.write(newdata)
+            f.flush()
+            f.close()
+
+    def copy_data_interpolated(self, data, target):
+        target = self._copy(data, target)
+
+        if os.path.isdir(target):
+            for root, dirnames, filenames in os.walk(target):
+                for filename in filenames:
+                    fullname = os.path.join(root, filename)
+                    self._interpolate_file(fullname)
+        else:
+            self._interpolate_file(target)
+
+    def copy_script(self, script, target):
+        target = self._copy(script, target)
+        os.chmod(target, 0755)
+
+    def copy_glob(self, items, fn):
+        for k in items:
+            g = self.repl(k)
+            files = glob.glob(g)
+
+            if len(files) == 0:
+                print('Warning: The glob `{0}\' did not result in any files'.format(g))
+                continue
+
+            target = items[k]
+
+            if not isinstance(target, list):
+                target = [target]
+
+            for t in target:
+                t = self.repl(t)
+
+                for f in files:
+                    fn(f, t)
+
+    def link_main(self, main):
+        launcher = open(os.path.join(scriptdir, 'launcher'), 'r').read()
+
+        launcher = self.repl(launcher)
+        main = self.repl(main)
+
+        lpath = os.path.join(self.variables['macos'], self.name)
+
+        with open(lpath, 'w') as f:
+            f.write(launcher)
+
+        os.chmod(lpath, 0755)
+
+        relpath = os.path.relpath(main, os.path.join(self.variables['macos']))
+        os.symlink(relpath, os.path.join(self.variables['macos'], self.name + '-bin'))
+
+    def link_binaries(self, binaries):
+        p = os.path.join(self._root, 'bin')
+        shutil.rmtree(p, ignore_errors=True)
+
+        try:
+            os.makedirs(p)
+        except:
+            pass
+
+        for b in binaries:
+            files = glob.glob(self.repl(b))
+
+            for f in files:
+                os.symlink(self.future_path(f), os.path.join(p, os.path.basename(f)))
+
+    def copy_pixbuf_loaders(self):
+        moduledir = self.repl('${pkg:gdk-pixbuf-2.0:gdk_pixbuf_moduledir}')
+        loaders = glob.glob(os.path.join(moduledir, '*.so'))
+
+        target_moduledir = self.repl('gdk-pixbuf-2.0/${pkg:gdk-pixbuf-2.0:gdk_pixbuf_binary_version}')
+
+        for loader in loaders:
+            self.copy_binary(loader, os.path.join(self.variables['lib'], target_moduledir, 'loaders', os.path.basename(loader)))
+
+        args = ['gdk-pixbuf-query-loaders']
+        args.extend(loaders)
+
+        cache = subprocess.Popen(args, stdout=subprocess.PIPE).communicate()[0]
+        cache = cache.replace(moduledir, os.path.join('@executable_path/../Resources/lib', target_moduledir, 'loaders'))
+
+        with open(os.path.join(self.variables['lib'], target_moduledir, 'loaders.cache'), 'w') as f:
+            f.write(cache)
+
+bundle = json.load(open(args.bundle, 'r'))
+
+# Create the framework
+application = Application(bundle['name'], bundle['variables'])
+
+# Copy binaries
+application.copy_glob(bundle['binaries'], application.copy_binary)
+
+# Link main
+application.link_main(bundle['main'])
+
+# Copy pixbuf loaders
+application.copy_pixbuf_loaders()
+
+# Copy data
+application.copy_glob(bundle['data'], application.copy_data)
+
+# Copy data interpolated
+application.copy_glob(bundle['data_interpolated'], application.copy_data_interpolated)
+
+# # Copy scripts
+# framework.copy_glob(config['scripts'], framework.copy_script)
+
+# # Copy headers
+# framework.copy_glob(config['headers'], framework.copy_header)
+
+# # Rewrite header includes
+# framework.rewrite_headers(config['header_rewrites'])
+
+# # Create applications
+# framework.create_applications(config['applications'])
+
+# # Link bin
+# framework.link_binaries(config['linked-binaries'])
+
+print('Application created in {0}.app'.format(bundle['name']))
+
+# vi:ts=4:et

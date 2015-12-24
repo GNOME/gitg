@@ -357,6 +357,7 @@ libgitg/libgitg-1.0.pc
 libgitg-ext/libgitg-ext-1.0.pc
 data/gitg.desktop.in
 data/org.gnome.gitg.gschema.xml.in
+osx/bundle.json
 po/Makefile.in
 ])
 
