@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2015-10-28 07:17+0000\n"
-"PO-Revision-Date: 2015-10-29 10:45+0100\n"
+"POT-Creation-Date: 2015-12-25 07:18+0000\n"
+"PO-Revision-Date: 2015-12-25 13:32+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -321,17 +321,17 @@ msgstr ""
 "zobrazeno při zobrazování rozdílu, který má být připraven/zrušen z "
 "připravených v zařazovací oblasti."
 
-#: ../gitg/commit/gitg-commit-dialog.vala:298
+#: ../gitg/commit/gitg-commit-dialog.vala:308
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Nelze nastavit jazyk pro kontrolu pravopisu: %s"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:498
+#: ../gitg/commit/gitg-commit-dialog.vala:508
 #: ../gitg/commit/gitg-commit.vala:1064
 msgid "There are no changes to be committed"
 msgstr "Nejsou žádné změny k zařazení"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:499
+#: ../gitg/commit/gitg-commit-dialog.vala:509
 #: ../gitg/commit/gitg-commit.vala:1065
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Použít odvolání ke změně zařazené zprávy z předchozího zařazení"
@@ -608,7 +608,6 @@ msgstr "Selhalo vytvoření zařazení: %s"
 
 #: ../gitg/gitg-action-support.vala:277
 #, c-format
-#| msgid "Failed to fetch from %s: %s"
 msgid "Failed to checkout index: %s"
 msgstr "Selhalo překontrolování indexů: %s"
 
@@ -644,7 +643,7 @@ msgstr "Marek Černocký <marek@manet.cz>"
 msgid "gitg homepage"
 msgstr "domovská stránka gitg"
 
-#: ../gitg/gitg-application.vala:332
+#: ../gitg/gitg-application.vala:334
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -704,7 +703,6 @@ msgstr "Selhalo vyhledání zařazení pro větev %s: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
-#| msgid "Failed to fetch from %s: %s"
 msgid "Failed to cherry-pick the commit: %s"
 msgstr ""
 
@@ -872,7 +870,6 @@ msgid "_Scan for all git repositories from this directory"
 msgstr "Vyhledat všechny repozitáře git v této _složce"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
-#| msgid "Delete the selected reference"
 msgid "Checkout the selected reference"
 msgstr "Překontrolovat vybraný odkaz"
 
@@ -883,13 +880,11 @@ msgstr "Překontrolování %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:101
 #, c-format
-#| msgid "Failed to delete branch %s"
 msgid "Failed to checkout branch: %s"
 msgstr "Selhalo překontrolování větve: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:111
 #, c-format
-#| msgid "Failed to delete tag %s"
 msgid "Failed to update HEAD: %s"
 msgstr "Selhala aktualizace stromu HEAD: %s"
 
@@ -1109,16 +1104,16 @@ msgstr "Neplatný název"
 msgid "Failed to rename"
 msgstr "Selhalo přejmenování"
 
-#: ../gitg/gitg-window.vala:410
+#: ../gitg/gitg-window.vala:421
 msgid "Projects"
 msgstr "Projekty"
 
-#: ../gitg/gitg-window.vala:826
+#: ../gitg/gitg-window.vala:848
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ není repozitář Git."
 
-#: ../gitg/gitg-window.vala:975
+#: ../gitg/gitg-window.vala:997
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1126,7 +1121,7 @@ msgstr ""
 "Vaše uživatelské jméno a e-mail doposud nejsou nastaveny. Jděte prosím do "
 "nastavení uživatele a poskytněte své jméno a e-mail."
 
-#: ../gitg/gitg-window.vala:979
+#: ../gitg/gitg-window.vala:1001
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1134,7 +1129,7 @@ msgstr ""
 "Vaše uživatelské jméno doposud není nastaveno. Jděte prosím do nastavení "
 "uživatele a poskytněte své jméno."
 
-#: ../gitg/gitg-window.vala:983
+#: ../gitg/gitg-window.vala:1005
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1142,7 +1137,7 @@ msgstr ""
 "Váš e-mail doposud není nastaven. Jděte prosím do nastavení uživatele a "
 "poskytněte svůj e-mail."
 
-#: ../gitg/gitg-window.vala:986
+#: ../gitg/gitg-window.vala:1008
 msgid "Missing author details"
 msgstr "Schází údaje o autorovi"
 
@@ -1287,14 +1282,20 @@ msgstr "%e. %B %Y, %k∶%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e. %B %Y, %l∶%M %p"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:134
+#: ../libgitg/gitg-diff-view-commit-details.vala:142
 msgid "Collapse all"
 msgstr "Sbalit vše"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:138
+#: ../libgitg/gitg-diff-view-commit-details.vala:146
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
 msgstr "Rozbalit vše"
+
+#: ../libgitg/gitg-diff-view-commit-details.vala:199
+#, c-format
+#| msgid "Commits"
+msgid "Committed by %s"
+msgstr "Zařadil %s"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:175
@@ -1464,6 +1465,8 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
+"Zatím nebyl přidán žádný repozitář. Když chcete začít, můžete přidat nějaký "
+"existující repozitář nebo nějaký nově naklonovat."
 
 #: ../gitg/resources/ui/gitg-dash-view.ui.h:2
 msgid "_Add repository"
