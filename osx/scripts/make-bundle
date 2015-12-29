@@ -56,8 +56,25 @@ class Application:
                 self._pkg_cache[cachename] = out
 
                 return out
-            else:
-                return self.variables[x.group(1)]
+            
+            m = re.match('^pkg-root:([^:]+)$', x.group(1))
+
+            if m:
+                paths = []
+
+                if 'PKG_CONFIG_PATH' in os.environ:
+                    paths.extend(os.environ['PKG_CONFIG_PATH'].split(':'))
+
+                paths.extend(subprocess.Popen(['pkg-config', '--variable', 'pc_path', 'pkg-config'], stdout=subprocess.PIPE).communicate()[0].strip().split(':'))
+
+                for path in paths:
+                    if os.path.isfile(os.path.join(path, m.group(1) + '.pc')):
+                        return os.path.dirname(os.path.dirname(path))
+
+                sys.stderr.write('Warning: failed to find package ' + m.group(1) + '\n')
+                return s
+            
+            return self.variables[x.group(1)]
 
         return re.sub("\\${([^}]+)}", replace, s)
 
@@ -192,6 +209,15 @@ class Application:
 
             target = items[k]
 
+            if isinstance(target, dict) and 'files' in target and 'target' in target:
+                newfiles = []
+
+                for f in files:
+                    newfiles.extend([os.path.join(f, x) for x in target['files']])
+                
+                files = newfiles
+                target = target['target']
+
             if not isinstance(target, list):
                 target = [target]
 
@@ -250,6 +276,25 @@ class Application:
         with open(os.path.join(self.variables['lib'], target_moduledir, 'loaders.cache'), 'w') as f:
             f.write(cache)
 
+    def glib_compile_schemas(self):
+        subprocess.call(['glib-compile-schemas', os.path.join(self.variables['resources'], 'share', 'glib-2.0', 'schemas')])
+
+    def copy_schemas(self, schemas):
+        if not schemas:
+            return
+
+        self.copy_glob(schemas, application.copy_data)
+        self.glib_compile_schemas()
+
+    def copy_icon_themes(self, themes):
+        if not themes:
+            return
+
+        self.copy_glob(themes, application.copy_data)
+
+        for theme_path in themes.values():
+            subprocess.call(['gtk3-update-icon-cache', '-f', '-t', '--quiet', self.repl(theme_path)])
+
 bundle = json.load(open(args.bundle, 'r'))
 
 # Create the framework
@@ -269,6 +314,12 @@ application.copy_glob(bundle['data'], application.copy_data)
 
 # Copy data interpolated
 application.copy_glob(bundle['data_interpolated'], application.copy_data_interpolated)
+
+# Compile glib schemas
+application.copy_schemas(bundle['schemas'])
+
+# Compile icon themes
+application.copy_icon_themes(bundle['icon-themes'])
 
 # # Copy scripts
 # framework.copy_glob(config['scripts'], framework.copy_script)

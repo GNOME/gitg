@@ -9,14 +9,57 @@
   "main": "${resources}/bin/gitg",
 
   "binaries": {
-    "${prefix}/bin/gitg": "${resources}/bin/gitg"
+    "${prefix}/bin/gitg": "${resources}/bin/gitg",
+
+    "${prefix}/lib/gitg/plugins/*.so": "${resources}/lib/gitg/plugins/"
   },
 
   "data": {
-    "${prefix}/lib/girepository-1.0/*.typelib": "${resources}/lib/girepository-1.0/"
+    "${prefix}/lib/girepository-1.0": {
+      "files": ["Ggit-1.0.typelib", "Gitg-1.0.typelib", "GitgExt-1.0.typelib"],
+      "target": "${resources}/lib/girepository-1.0/"
+    },
+
+    "${pkg:gobject-introspection-1.0:typelibdir}": {
+      "files": [ "Gio-2.0.typelib", "GObject-2.0.typelib", "GLib-2.0.typelib", "GModule-2.0.typelib", "GIRepository-2.0.typelib", "cairo-1.0.typelib"],
+      "target": "${resources}/lib/girepository-1.0/"
+    },
+
+    "${pkg:libpeas-1.0:libdir}/girepository-1.0": {
+      "files": ["Peas-1.0.typelib", "PeasGtk-1.0.typelib"],
+      "target": "${resources}/lib/girepository-1.0/"
+    },
+
+    "${pkg:gtk+-3.0:libdir}/girepository-1.0": {
+      "files": ["Gtk-3.0.typelib", "Gdk-3.0.typelib"],
+      "target": "${resources}/lib/girepository-1.0/"
+    },
+
+    "${pkg:pango:libdir}/girepository-1.0/Pango-1.0.typelib": "${resources}/lib/girepository-1.0/Pango-1.0.typelib",
+    "${pkg:gdk-pixbuf-2.0:libdir}/girepository-1.0/GdkPixbuf-2.0.typelib": "${resources}/lib/girepository-1.0/GdkPixbuf-2.0.typelib",
+    "${pkg:atk:libdir}/girepository-1.0/Atk-1.0.typelib": "${resources}/lib/girepository-1.0/Atk-1.0.typelib",
+
+    "${prefix}/lib/gitg/plugins/*.plugin": "${resources}/lib/gitg/plugins/",
+
+    "${pkg:gtk+-3.0:prefix}/share/themes/Mac/gtk-3.0/gtk-keys.css": "${resources}/share/themes/Mac/gtk-3.0/gtk-keys.css",
+
+    "${pkg:gtksourceview-3.0:prefix}/share/gtksourceview-3.0/language-specs": "${resources}/share/gtksourceview-3.0/language-specs",
+    "${pkg:gtksourceview-3.0:prefix}/share/gtksourceview-3.0/styles": "${resources}/share/gtksourceview-3.0/styles",
+
+    "${rootdir}/data/Gitg.icns": "${resources}/Gitg.icns"
   },
 
   "data_interpolated": {
     "${rootdir}/data/Info.plist": "${contents}/Info.plist"
+  },
+
+  "schemas": {
+    "${pkg:glib-2.0:prefix}/share/glib-2.0/schemas/*": "${resources}/share/glib-2.0/schemas/",
+    "${pkg:gsettings-desktop-schemas:prefix}/share/glib-2.0/schemas/*": "${resources}/share/glib-2.0/schemas/"  
+  },
+
+  "icon-themes": {
+    "${pkg-root:adwaita-icon-theme}/share/icons/Adwaita": "${resources}/share/icons/Adwaita",
+    "${prefix}/share/gitg/icons/hicolor": "${resources}/share/gitg/icons/hicolor"
   }
 }
