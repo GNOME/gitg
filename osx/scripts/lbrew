@@ -1,0 +1,9 @@
+#!/bin/bash
+
+. $(dirname "$0")/env
+
+export HOMEBREW_DEVELOPER=1
+export HOMEBREW_RUBY_PATH="$scripts/brew.rb"
+export PATH="$d/install/bin:$PATH"
+
+exec "$b" "$@"

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+scripts=$(dirname "$0")
+
+pushd "$scripts/../../" > /dev/null
+root=$(pwd -P)
+popd > /dev/null
+
+suffix=$(GIT_DIR="$root/.git" git rev-parse --short HEAD)
+
+d="/opt/build/gitg-$suffix"
+b="$d/install/bin/brew"

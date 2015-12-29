@@ -1,0 +1,37 @@
+#!/bin/bash
+
+. $(dirname "$0")/env
+
+# Install brew if necessary
+if [ ! -f "$d/install/bin/brew" ]; then
+	mkdir -p "$d/install"
+	bsha1=4b498186bd0c1d2759d6ebfb19eaa52dab84b743
+
+	(
+		cd "$d/install"
+		curl -L -o $bsha1.zip https://github.com/Homebrew/homebrew/archive/$bsha1.zip
+		unzip $bsha1.zip
+		rm -f $bsha1.zip
+
+		shopt -s dotglob nullglob
+		mv "homebrew-$bsha1"/* .
+		shopt -u dotglob
+
+		rmdir "homebrew-$bsha1"
+	)
+fi
+
+# Link tap if necessary
+tap="$d/install/Library/Taps/gnome/homebrew-gitg"
+
+if [ ! -d "$tap" ]; then
+	mkdir -p "$d/install/Library/Taps/gnome"
+	ln -s "$root/osx/Taps/gitg" "$tap"
+fi
+
+export HOMEBREW_DEVELOPER=1
+export HOMEBREW_RUBY_PATH="$scripts/brew.rb"
+export PATH="$d/install/bin:$PATH"
+export DYLD_FALLBACK_LIBRARY_PATH="/usr/lib"
+
+exec "$scripts/lbrew" install --HEAD --only-dependencies gnome/gitg/gitg
