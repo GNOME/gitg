@@ -31,7 +31,7 @@ public class Main
 		Intl.setlocale(LocaleCategory.ALL, "");
 		Intl.setlocale(LocaleCategory.COLLATE, "C");
 
-		Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.GITG_LOCALEDIR);
+		Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Dirs.locale_dir);
 		Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");
 		Intl.textdomain(Config.GETTEXT_PACKAGE);
 
