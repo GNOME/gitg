@@ -53,7 +53,7 @@ public class Gitg.AvatarCache : Object
 			return d_cache[ckey];
 		}
 
-		var gravatar = @"http://www.gravatar.com/avatar/$(id)?d=404&s=$(size)";
+		var gravatar = @"https://www.gravatar.com/avatar/$(id)?d=404&s=$(size)";
 		var gfile = File.new_for_uri(gravatar);
 
 		var pixbuf = yield read_avatar_from_file(id, gfile, size, cancellable);
