@@ -51,39 +51,42 @@ gitg_platform_support_http_get (GFile               *file,
 	NSURL *url;
 	GTask *task;
 
-	dataUrl = [NSString stringWithUTF8String:g_file_get_uri (file)];
-	url = [NSURL URLWithString:dataUrl];
+	@autoreleasepool
+	{
+		dataUrl = [NSString stringWithUTF8String:g_file_get_uri (file)];
+		url = [NSURL URLWithString:dataUrl];
 
-	task = g_task_new (file, cancellable, callback, user_data);
+		task = g_task_new (file, cancellable, callback, user_data);
 
-	downloadTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-		if (g_task_return_error_if_cancelled (task))
-		{
-		}
-		else if (error)
-		{
-			const gchar *message;
+		downloadTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+			if (g_task_return_error_if_cancelled (task))
+			{
+			}
+			else if (error)
+			{
+				const gchar *message;
 
-			message = [[error localizedDescription] UTF8String];
-			g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_FAILED, "%s", message);
-		}
-		else
-		{
-			GInputStream *stream;
-			GBytes *bytes;
+				message = [[error localizedDescription] UTF8String];
+				g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_FAILED, "%s", message);
+			}
+			else
+			{
+				GInputStream *stream;
+				GBytes *bytes;
 
-			bytes = g_bytes_new ([data bytes], [data length]);
+				bytes = g_bytes_new ([data bytes], [data length]);
 
-			stream = g_memory_input_stream_new_from_bytes (bytes);
-			g_bytes_unref (bytes);
+				stream = g_memory_input_stream_new_from_bytes (bytes);
+				g_bytes_unref (bytes);
 
-			g_task_return_pointer (task, stream, NULL);
-		}
+				g_task_return_pointer (task, stream, NULL);
+			}
 
-		g_object_unref (task);
-	}];
- 
-	[downloadTask resume];
+			g_object_unref (task);
+		}];
+	 
+		[downloadTask resume];
+	}
 }
 
 GInputStream *
@@ -111,60 +114,63 @@ gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
 	cairo_surface_t *surface, *target;
 	cairo_t *ctx;
 
-	switch (cursor_type)
+	@autoreleasepool
 	{
-	case GDK_HAND1:
-		cursor = [NSCursor pointingHandCursor];
-		break;
-	default:
-		cursor = [NSCursor arrowCursor];
-		break;
+		switch (cursor_type)
+		{
+		case GDK_HAND1:
+			cursor = [NSCursor pointingHandCursor];
+			break;
+		default:
+			cursor = [NSCursor arrowCursor];
+			break;
+		}
+
+		image = [cursor image];
+
+		image_rep = [[NSBitmapImageRep alloc] initWithData:[image TIFFRepresentation]];
+		pixel_data = [image_rep bitmapData];
+
+		w = [image_rep pixelsWide];
+		h = [image_rep pixelsHigh];
+
+		hotspot = [cursor hotSpot];
+		size = [image size];
+
+		if (hot_x)
+		{
+			*hot_x = (gint)(hotspot.x);
+		}
+
+		if (hot_y)
+		{
+			*hot_y = (gint)(hotspot.y);
+		}
+
+		if (width)
+		{
+			*width = size.width;
+		}
+
+		if (height)
+		{
+			*height = size.height;
+		}
+
+		surface = cairo_image_surface_create_for_data (pixel_data, CAIRO_FORMAT_ARGB32, w, h, [image_rep bytesPerRow]);
+		target = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, size.width, size.height);
+
+		ctx = cairo_create (target);
+
+		cairo_scale (ctx, size.width / w, size.height / h);
+		cairo_set_source_surface (ctx, surface, 0, 0);
+		cairo_paint (ctx);
+		cairo_destroy (ctx);
+
+		cairo_surface_destroy (surface);
+
+		return target;
 	}
-
-	image = [cursor image];
-
-	image_rep = [[NSBitmapImageRep alloc] initWithData:[image TIFFRepresentation]];
-	pixel_data = [image_rep bitmapData];
-
-	w = [image_rep pixelsWide];
-	h = [image_rep pixelsHigh];
-
-	hotspot = [cursor hotSpot];
-	size = [image size];
-
-	if (hot_x)
-	{
-		*hot_x = (gint)(hotspot.x);
-	}
-
-	if (hot_y)
-	{
-		*hot_y = (gint)(hotspot.y);
-	}
-
-	if (width)
-	{
-		*width = size.width;
-	}
-
-	if (height)
-	{
-		*height = size.height;
-	}
-
-	surface = cairo_image_surface_create_for_data (pixel_data, CAIRO_FORMAT_ARGB32, w, h, [image_rep bytesPerRow]);
-	target = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, size.width, size.height);
-
-	ctx = cairo_create (target);
-
-	cairo_scale (ctx, size.width / w, size.height / h);
-	cairo_set_source_surface (ctx, surface, 0, 0);
-	cairo_paint (ctx);
-	cairo_destroy (ctx);
-
-	cairo_surface_destroy (surface);
-
-	return target;
 }
 
 GInputStream *
@@ -174,23 +180,70 @@ gitg_platform_support_new_input_stream_from_fd (gint     fd,
 	return g_unix_input_stream_new (fd, close_fd);
 }
 
-/* FIXME: probably should use the bundle dirs? */
+static gchar *
+get_resource_path (const gchar *fallback, ...)
+{
+	NSBundle *bundle;
+	va_list vl;
+	gchar *ret;
+	GPtrArray *args;
+	const gchar *arg;
+	NSAutoreleasePool *pool;
+	NSString *resource_path;
+
+	@autoreleasepool
+	{
+		bundle = [NSBundle mainBundle];
+
+		if (bundle == NULL || [bundle bundleIdentifier] == NULL)
+		{
+			return g_strdup (fallback);
+		}
+
+		resource_path = [bundle resourcePath];
+
+		if (resource_path == NULL)
+		{
+			return g_strdup (fallback);
+		}
+
+		va_start (vl, fallback);
+		args = g_ptr_array_new ();
+
+		g_ptr_array_add (args, [resource_path UTF8String]);
+
+		while ((arg = va_arg (vl, const gchar *)) != NULL)
+		{
+			g_ptr_array_add (args, arg);
+		}
+
+		va_end (vl);
+
+		g_ptr_array_add (args, NULL);
+
+		ret = g_build_filenamev (args->pdata);
+		g_ptr_array_free (args, TRUE);
+
+		return ret;
+	}
+}
+
 gchar *
 gitg_platform_support_get_lib_dir (void)
 {
-	return g_strdup (GITG_LIBDIR);
+	return get_resource_path (GITG_LIBDIR, "lib", "gitg", NULL);
 }
 
 gchar *
 gitg_platform_support_get_locale_dir (void)
 {
-	return g_strdup (GITG_LOCALEDIR);
+	return get_resource_path (GITG_LOCALEDIR, "share", "locale", NULL);
 }
 
 gchar *
 gitg_platform_support_get_data_dir (void)
 {
-	return g_strdup (GITG_DATADIR);
+	return get_resource_path (GITG_DATADIR, "share", "gitg", NULL);
 }
 
 gchar *
