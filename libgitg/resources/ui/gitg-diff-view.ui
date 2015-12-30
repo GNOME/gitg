@@ -2,13 +2,12 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
-  <template class="GitgDiffView" parent="GtkGrid">
+  <template class="GitgDiffView">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
-    <signal name="button-press-event" handler="button_press_event_handler" />
     <child>
       <object class="GitgDiffViewCommitDetails" id="commit_details">
         <property name="visible">True</property>
@@ -17,21 +16,55 @@
       </object>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="scrolledwindow">
+      <object class="GtkEventBox" id="event_box">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
+        <signal name="motion-notify-event" handler="motion_notify_event_on_event_box"/>
+        <signal name="leave-notify-event" handler="leave_notify_event_on_event_box"/>
+        <signal name="enter-notify-event" handler="enter_notify_event_on_event_box"/>
         <child>
-          <object class="GtkViewport" id="viewport">
+          <object class="GtkOverlay" id="overlay">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
             <child>
-              <object class="GtkGrid" id="grid_files">
+              <object class="GtkScrolledWindow" id="scrolledwindow">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <child>
+                  <object class="GtkViewport" id="viewport">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkGrid" id="grid_files">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="overlay">
+              <object class="GtkRevealer" id="revealer_options">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="valign">end</property>
+                <child>
+                  <object class="GitgDiffViewOptions" id="diff_view_options">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>

@@ -66,7 +66,7 @@ namespace GitgDiff
 
 			settings.bind("wrap",
 			              d_diff,
-			              "wrap",
+			              "wrap-lines",
 			              SettingsBindFlags.GET |
 			              SettingsBindFlags.SET);
 
@@ -77,10 +77,6 @@ namespace GitgDiff
 			              "use-gravatar",
 			              SettingsBindFlags.GET |
 			              SettingsBindFlags.SET);
-
-			d_diff.notify["visible"].connect(() => {
-				stdout.printf(@"visible: $(d_diff.visible)\n");
-			});
 
 			d_whenMapped = new Gitg.WhenMapped(d_diff);
 

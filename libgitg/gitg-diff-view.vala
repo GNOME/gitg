@@ -29,6 +29,15 @@ public class Gitg.DiffView : Gtk.Grid
 	[GtkChild( name = "grid_files" )]
 	private Gtk.Grid d_grid_files;
 
+	[GtkChild( name = "event_box" )]
+	private Gtk.EventBox d_event_box;
+
+	[GtkChild( name = "revealer_options" )]
+	private Gtk.Revealer d_revealer_options;
+
+	[GtkChild( name = "diff_view_options" )]
+	private DiffViewOptions d_diff_view_options;
+
 	private Ggit.Diff? d_diff;
 	private Commit? d_commit;
 	private Ggit.DiffOptions? d_options;
@@ -36,6 +45,9 @@ public class Gitg.DiffView : Gtk.Grid
 	private ulong d_expanded_notify;
 	private ulong d_parent_commit_notify;
 	private bool d_changes_inline;
+
+	private uint d_reveal_options_timeout;
+	private uint d_unreveal_options_timeout;
 
 	public Ggit.DiffOptions options
 	{
@@ -93,7 +105,7 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	public bool wrap { get; construct set; default = true; }
+	public bool wrap_lines { get; construct set; default = true; }
 	public bool staged { get; set; default = false; }
 	public bool unstaged { get; set; default = false; }
 	public bool show_parents { get; set; default = false; }
@@ -172,6 +184,9 @@ public class Gitg.DiffView : Gtk.Grid
 		d_parent_commit_notify = d_commit_details.notify["parent-commit"].connect(parent_commit_changed);
 
 		bind_property("use-gravatar", d_commit_details, "use-gravatar", BindingFlags.SYNC_CREATE);
+
+		d_event_box.motion_notify_event.connect(motion_notify_event_on_event_box);
+		d_diff_view_options.view = this;
 	}
 
 	private void parent_commit_changed()
@@ -389,7 +404,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 			file.notify["expanded"].connect(auto_update_expanded);
 
-			this.bind_property("wrap", file, "wrap", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			this.bind_property("wrap-lines", file, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 			this.bind_property("tab-width", file, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 
 			if (i == files.size - 1)
@@ -433,49 +448,85 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private void do_popup(Gdk.EventButton? event)
+	private void update_hide_show_options(Gdk.Window window, int ex, int ey)
 	{
-		var popover = new Gtk.Popover(this);
-		var opts = new DiffViewOptions(this);
+		void *data;
+		window.get_user_data(out data);
 
-		popover.add(opts);
+		var w = data as Gtk.Widget;
 
-		if (event != null)
+		if (w == null)
 		{
-			var r = Gdk.Rectangle() {
-				x = (int)event.x,
-				y = (int)event.y,
-				width = 1,
-				height = 1
-			};
-
-			popover.set_pointing_to(r);
+			return;
 		}
 
-		opts.show();
-		popover.show();
+		int x, y;
+		w.translate_coordinates(d_event_box, ex, ey, out x, out y);
 
-		popover.notify["visible"].connect(() => {
-			popover.destroy();
-		});
+		Gtk.Allocation alloc, revealer_alloc;
+
+		d_event_box.get_allocation(out alloc);
+		d_revealer_options.get_allocation(out revealer_alloc);
+
+		if (!d_revealer_options.reveal_child && y >= alloc.height - 18 && d_reveal_options_timeout == 0)
+		{
+			if (d_unreveal_options_timeout != 0)
+			{
+				Source.remove(d_unreveal_options_timeout);
+				d_unreveal_options_timeout = 0;
+			}
+
+			d_reveal_options_timeout = Timeout.add(300, () => {
+				d_reveal_options_timeout = 0;
+				d_revealer_options.reveal_child = true;
+				return false;
+			});
+		}
+		else if (d_revealer_options.reveal_child)
+		{
+			var above = (y <= alloc.height - 6 - revealer_alloc.height);
+
+			if (above && d_unreveal_options_timeout == 0)
+			{
+				if (d_reveal_options_timeout != 0)
+				{
+					Source.remove(d_reveal_options_timeout);
+					d_reveal_options_timeout = 0;
+				}
+
+				d_unreveal_options_timeout = Timeout.add(1000, () => {
+					d_unreveal_options_timeout = 0;
+					d_revealer_options.reveal_child = false;
+					return false;
+				});
+			}
+			else if (!above && d_unreveal_options_timeout != 0)
+			{
+				Source.remove(d_unreveal_options_timeout);
+				d_unreveal_options_timeout = 0;
+			}
+		}
 	}
 
 	[GtkCallback]
-	private bool button_press_event_handler(Gdk.EventButton event)
+	private bool leave_notify_event_on_event_box(Gtk.Widget widget, Gdk.EventCrossing event)
 	{
-		if (event.triggers_context_menu() && event.type == Gdk.EventType.BUTTON_PRESS)
-		{
-			do_popup(event);
-			return true;
-		}
-
+		update_hide_show_options(event.window, (int)event.x, (int)event.y);
 		return false;
 	}
 
-	protected override bool popup_menu()
+	[GtkCallback]
+	private bool enter_notify_event_on_event_box(Gtk.Widget widget, Gdk.EventCrossing event)
 	{
-		do_popup(null);
-		return true;
+		update_hide_show_options(event.window, (int)event.x, (int)event.y);
+		return false;
+	}
+
+	[GtkCallback]
+	private bool motion_notify_event_on_event_box(Gtk.Widget widget, Gdk.EventMotion event)
+	{
+		update_hide_show_options(event.window, (int)event.x, (int)event.y);
+		return false;
 	}
 }
 

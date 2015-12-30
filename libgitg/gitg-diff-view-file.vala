@@ -72,7 +72,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 	}
 
-	public bool wrap
+	public bool wrap_lines
 	{
 		get { return d_sourceview_hunks.wrap_mode != Gtk.WrapMode.NONE; }
 		set
