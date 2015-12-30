@@ -321,21 +321,6 @@ application.copy_schemas(bundle['schemas'])
 # Compile icon themes
 application.copy_icon_themes(bundle['icon-themes'])
 
-# # Copy scripts
-# framework.copy_glob(config['scripts'], framework.copy_script)
-
-# # Copy headers
-# framework.copy_glob(config['headers'], framework.copy_header)
-
-# # Rewrite header includes
-# framework.rewrite_headers(config['header_rewrites'])
-
-# # Create applications
-# framework.create_applications(config['applications'])
-
-# # Link bin
-# framework.link_binaries(config['linked-binaries'])
-
 print('Application created in {0}.app'.format(bundle['name']))
 
 # vi:ts=4:et
