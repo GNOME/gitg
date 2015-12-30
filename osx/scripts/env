@@ -6,7 +6,7 @@ pushd "$scripts/../../" > /dev/null
 root=$(pwd -P)
 popd > /dev/null
 
-suffix=$(GIT_DIR="$root/.git" git rev-parse --short HEAD)
+suffix="3.19"
 
 d="/opt/build/gitg-$suffix"
 b="$d/install/bin/brew"
