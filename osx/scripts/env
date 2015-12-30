@@ -10,3 +10,12 @@ suffix="3.19"
 
 d="/opt/build/gitg-$suffix"
 b="$d/install/bin/brew"
+
+lbrew="$root/osx/scripts/lbrew"
+
+export HOMEBREW_DEVELOPER=1
+export HOMEBREW_RUBY_PATH="$scripts/brew.rb"
+export HOMEBREW_CACHE="$d/caches"
+
+export PATH="$d/install/bin:$PATH"
+export DYLD_FALLBACK_LIBRARY_PATH="/usr/lib"

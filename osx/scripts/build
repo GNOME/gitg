@@ -29,9 +29,4 @@ if [ ! -d "$tap" ]; then
 	ln -s "$root/osx/Taps/gitg" "$tap"
 fi
 
-export HOMEBREW_DEVELOPER=1
-export HOMEBREW_RUBY_PATH="$scripts/brew.rb"
-export PATH="$d/install/bin:$PATH"
-export DYLD_FALLBACK_LIBRARY_PATH="/usr/lib"
-
-exec "$scripts/lbrew" install "$@" --HEAD gnome/gitg/gitg
+exec "$lbrew" install "$@" --HEAD gnome/gitg/gitg
