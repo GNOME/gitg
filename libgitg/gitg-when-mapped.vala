@@ -103,6 +103,7 @@ namespace Gitg
 			else
 			{
 				d_sid = d_widget.map.connect(() => {
+					d_widget.disconnect(d_sid);
 					d_sid = 0;
 
 					if (d_lifetime != null)
