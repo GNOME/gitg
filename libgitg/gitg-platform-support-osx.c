@@ -54,7 +54,7 @@ gitg_platform_support_http_get (GFile               *file,
 
 		GTask *task = g_task_new (file, cancellable, callback, user_data);
 
-		[request sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+		[NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 			if (g_task_return_error_if_cancelled (task))
 			{
 			}
@@ -63,6 +63,7 @@ gitg_platform_support_http_get (GFile               *file,
 				const gchar *message;
 
 				message = [[error localizedDescription] UTF8String];
+
 				g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_FAILED, "%s", message);
 			}
 			else
