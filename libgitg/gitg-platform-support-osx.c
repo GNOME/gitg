@@ -46,19 +46,15 @@ gitg_platform_support_http_get (GFile               *file,
                                 GAsyncReadyCallback  callback,
                                 gpointer             user_data)
 {
-	NSURLSessionDataTask *downloadTask;
-	NSString *dataUrl;
-	NSURL *url;
-	GTask *task;
-
 	@autoreleasepool
 	{
-		dataUrl = [NSString stringWithUTF8String:g_file_get_uri (file)];
-		url = [NSURL URLWithString:dataUrl];
+		NSString *dataUrl = [NSString stringWithUTF8String:g_file_get_uri (file)];
+		NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:dataUrl]];
+		NSOperationQueue *queue = [[NSOperationQueue alloc] init];
 
-		task = g_task_new (file, cancellable, callback, user_data);
+		GTask *task = g_task_new (file, cancellable, callback, user_data);
 
-		downloadTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+		[request sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 			if (g_task_return_error_if_cancelled (task))
 			{
 			}
@@ -84,8 +80,6 @@ gitg_platform_support_http_get (GFile               *file,
 
 			g_object_unref (task);
 		}];
-	 
-		[downloadTask resume];
 	}
 }
 
