@@ -1,0 +1,73 @@
+#!/bin/bash
+
+pushd $(dirname "$0")/.. > /dev/null
+D=$(pwd -P)
+popd > /dev/null
+
+ME="$0"
+BUNDLE_NAME="Gitg"
+BUNDLE="$D/$BUNDLE_NAME.app"
+
+# Copied and modified from gedit
+if [ ! -d "$BUNDLE" ]; then
+	echo "Bundle $BUNDLE_NAME.app could not befound"
+	exit 1
+fi
+
+VOLUME_NAME="$BUNDLE_NAME"
+
+if [ ! -z "$1" ]; then
+	DMG_FILE="$1.dmg"
+else
+	DMG_FILE="$D/$BUNDLE_NAME.dmg"
+fi
+
+DMG_APP="$BUNDLE"
+TMP_MOUNT_POINT="$TMPDIR/$VOLUME_NAME.mounted"
+FINAL_MOUNT_POINT="/Volumes/$VOLUME_NAME"
+
+rm -f $DMG_FILE
+rm -f $DMG_FILE.master
+
+# Compute an approximated image size in MB, and bloat by 1%
+image_size=$(du -ck "$DMG_APP" | tail -n1 | cut -f1)
+image_size=$((($image_size * 11) / 10000))
+
+echo "Creating disk image (${image_size}MB)..."
+
+TMPNAME="$TMPDIR/$(basename ${DMG_FILE%.dmg}_tmp.dmg)"
+rm -f "$TMPNAME"
+
+#hdiutil create -volname "$BUNDLE_NAME" -srcfolder "$DMG_APP" -ov -format UDZO "$TMPNAME" || exit 1
+#hdiutil create -volname "$BUNDLE_NAME" -srcfolder "$DMG_APP" -ov -format UDRW "$TMPNAME" || exit 1
+
+cp "$D/data/Gitg-template.dmg.xz" "$TMPNAME.xz"
+unxz "$TMPNAME.xz"
+
+hdiutil resize -size ${image_size}m "$TMPNAME" || exit 1
+
+echo "Attaching to disk image..."
+hdiutil attach "$TMPNAME" -readwrite -noautoopen -mountpoint "$TMP_MOUNT_POINT" -quiet || exit 1
+
+echo "Populating image..."
+rsync -az "$DMG_APP" "$TMP_MOUNT_POINT/" || exit 1
+
+echo "Ensuring permissions"
+chmod -Rf go-w "$TMP_MOUNT_POINT" 2>/dev/null
+
+echo "Blessing image..."
+bless --folder "$TMP_MOUNT_POINT" --openfolder "$TMP_MOUNT_POINT" || exit 1
+
+echo "Detaching from disk image..."
+hdiutil detach "$TMP_MOUNT_POINT" -quiet || exit 1
+
+echo "Converting to final image..."
+hdiutil convert -quiet -format UDBZ -o "$DMG_FILE" "$TMPNAME" || exit 1
+
+# Make internet-enable
+hdiutil internet-enable -yes "$DMG_FILE" || exit 1
+
+rm -f "$TMPNAME"
+
+n=$(basename "$DMG_FILE")
+echo "Done $n."
