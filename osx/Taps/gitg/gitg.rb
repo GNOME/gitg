@@ -1,7 +1,7 @@
 class Gitg < Formula
   desc "git viewer"
   homepage "https://projects.gnome.org/gitg/"
-  head "https://git.gnome.org/browse/gitg.git"
+  head "ssh://gnome/git/gitg"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -23,8 +23,6 @@ class Gitg < Formula
   depends_on "gnome/gitg/gnome-icon-theme"
 
   def install
-    raise "hell"
-
     system "./autogen.sh", "--disable-dependency-tracking",
                            "--disable-maintainer-mode",
                            "--disable-schemas-compile",
