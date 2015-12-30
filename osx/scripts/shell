@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. $(dirname "$0")/env
+
+export GITG_SHELL=1
+
+exec "$lbrew" sh

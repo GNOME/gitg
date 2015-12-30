@@ -53,6 +53,24 @@ module Superenv
 
     "#{cpu} -mmacosx-version-min=#{OS::Mac::version}"
   end
+
+  alias_method :orig_setup_build_environment, :setup_build_environment
+
+  def setup_build_environment(formula=nil)
+    if self["GITG_SHELL"]
+      orig_setup_build_environment(formula || Formulary.factory("gnome/gitg/gitg"))
+
+      prepend_path "PATH", self["HOME"] + "/.local/bin"
+
+      self["PS1_EXTRA"] = "\\[\\033[0;35m\\](gitg-brew)\\[\\033[0m\\] "
+      self["XDG_DATA_DIRS"] = self["HOMEBREW_PREFIX"] + "/share"
+
+      prepend_path "PKG_CONFIG_PATH", self["HOMEBREW_PREFIX"] + "/lib/pkgconfig"
+      prepend_path "PKG_CONFIG_PATH", self["HOMEBREW_PREFIX"] + "/share/pkgconfig"
+    else
+      orig_setup_build_environment(formula)
+    end
+  end
 end
 
 load(G_ORIG_BREW_RB)
