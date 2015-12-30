@@ -1,7 +1,7 @@
 class Gitg < Formula
   desc "git viewer"
   homepage "https://projects.gnome.org/gitg/"
-  head "ssh://gnome/git/gitg"
+  head "https://git.gnome.org/browse/gitg.git"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
