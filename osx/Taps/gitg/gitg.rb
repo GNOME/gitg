@@ -20,7 +20,7 @@ class Gitg < Formula
   depends_on "gnome/gitg/gtkspell3"
   depends_on "gnome/gitg/libgee"
   depends_on "gnome/gitg/gsettings-desktop-schemas"
-  depends_on "gnome/gitg/libgit2-glib"
+  depends_on "gnome/gitg/libgit2-glib" => "with-vala"
   depends_on "gnome/gitg/gnome-icon-theme"
 
   def install
