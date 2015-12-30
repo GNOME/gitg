@@ -318,7 +318,12 @@ namespace Gitg
 
 			set_selection_mode(Gtk.SelectionMode.NONE);
 
-			add_recent_info();
+			var whenMapped = new Gitg.WhenMapped(this);
+
+			whenMapped.update(() => {
+				add_recent_info();
+				whenMapped = null;
+			});
 		}
 
 		private void update_header(Gtk.ListBoxRow row, Gtk.ListBoxRow? before)
