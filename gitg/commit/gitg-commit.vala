@@ -185,6 +185,7 @@ namespace GitgCommit
 					d_main.button_stage.visible = patchable;
 					d_main.button_discard.visible = true;
 
+					view.new_is_workdir = true;
 					view.diff = d;
 				}
 				catch
@@ -460,6 +461,7 @@ namespace GitgCommit
 				return;
 			}
 
+			view.diff_view.new_is_workdir = false;
 			view.diff_view.diff = diff;
 		}
 
@@ -573,6 +575,7 @@ namespace GitgCommit
 					d_main.button_stage.visible = patchable;
 					d_main.button_discard.visible = false;
 
+					view.new_is_workdir = false;
 					view.diff = d;
 				}
 				catch
@@ -1807,6 +1810,7 @@ namespace GitgCommit
 				}
 			});
 
+			d_main.diff_view.repository = application.repository;
 			d_main.diff_view.default_collapse_all = false;
 
 			d_main.sidebar.deselected.connect(() => {

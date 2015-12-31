@@ -113,6 +113,9 @@ public class Gitg.DiffView : Gtk.Grid
 	public bool use_gravatar { get; construct set; default = true; }
 	public int tab_width { get; construct set; default = 4; }
 	public bool handle_selection { get; construct set; default = false; }
+	public bool highlight { get; construct set; default = true; }
+	public Repository repository { get; set; }
+	public bool new_is_workdir { get; set; }
 
 	private bool flag_get(Ggit.DiffOption f)
 	{
@@ -346,7 +349,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 					add_file();
 
-					current_file = new Gitg.DiffViewFile(delta, handle_selection);
+					current_file = new Gitg.DiffViewFile(repository, delta, new_is_workdir, handle_selection);
 					return 0;
 				},
 

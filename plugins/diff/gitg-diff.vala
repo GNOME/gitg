@@ -35,7 +35,10 @@ namespace GitgDiff
 		construct
 		{
 			d_diff = new Gitg.DiffView();
+
 			d_diff.show_parents = true;
+			d_diff.repository = application.repository;
+
 			d_diff.show();
 
 			var settings = new Settings("org.gnome.gitg.preferences.diff");
