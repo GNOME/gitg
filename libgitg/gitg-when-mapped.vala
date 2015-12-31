@@ -38,6 +38,7 @@ namespace Gitg
 		private void weak_notify(Object o)
 		{
 			d_widget = null;
+			d_sid = 0;
 
 			if (d_lifetime != null)
 			{
@@ -50,7 +51,7 @@ namespace Gitg
 		{
 			if (d_widget != null)
 			{
-				if (d_sid != 0)
+				if (d_sid != 0 && SignalHandler.is_connected(d_widget, d_sid))
 				{
 					d_widget.disconnect(d_sid);
 				}
