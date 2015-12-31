@@ -317,13 +317,6 @@ namespace Gitg
 			show();
 
 			set_selection_mode(Gtk.SelectionMode.NONE);
-
-			var whenMapped = new Gitg.WhenMapped(this);
-
-			whenMapped.update(() => {
-				add_recent_info();
-				whenMapped = null;
-			});
 		}
 
 		private void update_header(Gtk.ListBoxRow row, Gtk.ListBoxRow? before)
@@ -339,6 +332,11 @@ namespace Gitg
 		private int compare_widgets(Gtk.ListBoxRow a, Gtk.ListBoxRow b)
 		{
 			return - ((Row)a).time.compare(((Row)b).time);
+		}
+
+		public void populate_recent()
+		{
+			add_recent_info();
 		}
 
 		private void add_recent_info()

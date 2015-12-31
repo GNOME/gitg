@@ -249,6 +249,13 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		// Translators: the two %s will be used to create a link to the author dialog.
 		d_label_profile.label = _("In the mean time, you may want to %sset up your git profile%s.").printf("<a href=\"setup-profile\">", "</a>");
 		update_setup_profile_visibility();
+
+		var whenMapped = new Gitg.WhenMapped(this);
+
+		whenMapped.update(() => {
+			d_repository_list_box.populate_recent();
+			whenMapped = null;
+		});
 	}
 
 	private void update_setup_profile_visibility()
