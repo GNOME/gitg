@@ -78,7 +78,7 @@ public class Gitg.DiffView : Gtk.Grid
 				d_commit = null;
 			}
 
-			update();
+			update(false);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class Gitg.DiffView : Gtk.Grid
 				d_diff = null;
 			}
 
-			update();
+			update(false);
 		}
 	}
 
@@ -101,7 +101,7 @@ public class Gitg.DiffView : Gtk.Grid
 	{
 		if (d_commit != null)
 		{
-			update();
+			update(true);
 		}
 	}
 
@@ -191,7 +191,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 	private void parent_commit_changed()
 	{
-		update();
+		update(false);
 	}
 
 	private void update_expanded_files()
@@ -204,7 +204,7 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private void update()
+	private void update(bool preserve_expanded)
 	{
 		// If both `d_diff` and `d_commit` are null, clear
 		// the diff content
@@ -258,7 +258,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		if (d_diff != null)
 		{
-			update_diff(d_diff, d_cancellable);
+			update_diff(d_diff, preserve_expanded, d_cancellable);
 		}
 	}
 
@@ -290,7 +290,19 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private void update_diff(Ggit.Diff diff, Cancellable? cancellable)
+	private string? primary_path(Gitg.DiffViewFile f)
+	{
+		var path = f.delta.get_old_file().get_path();
+
+		if (path == null)
+		{
+			path = f.delta.get_new_file().get_path();
+		}
+
+		return path;
+	}
+
+	private void update_diff(Ggit.Diff diff, bool preserve_expanded, Cancellable? cancellable)
 	{
 		var files = new Gee.ArrayList<Gitg.DiffViewFile>();
 		Gitg.DiffViewFile? current_file = null;
@@ -298,12 +310,6 @@ public class Gitg.DiffView : Gtk.Grid
 		Gee.ArrayList<Ggit.DiffLine>? current_lines = null;
 
 		var maxlines = 0;
-		var file_widgets = d_grid_files.get_children();
-
-		foreach (var file in file_widgets)
-		{
-			file.destroy();
-		}
 
 		Anon add_hunk = () => {
 			if (current_hunk != null)
@@ -390,14 +396,35 @@ public class Gitg.DiffView : Gtk.Grid
 		add_hunk();
 		add_file();
 
+		var file_widgets = d_grid_files.get_children();
+		var was_expanded = new Gee.HashSet<string>();
+
+		foreach (var file in file_widgets)
+		{
+			var f = file as Gitg.DiffViewFile;
+
+			if (preserve_expanded && f.expanded)
+			{
+				var path = primary_path(f);
+
+				if (path != null)
+				{
+					was_expanded.add(path);
+				}
+			}
+
+			f.destroy();
+		}
+
 		d_commit_details.expanded = (files.size <= 1 || !default_collapse_all);
 		d_commit_details.expander_visible = (files.size > 1);
 
 		for (var i = 0; i < files.size; i++)
 		{
 			var file = files[i];
+			var path = primary_path(file);
 
-			file.expanded = d_commit_details.expanded;
+			file.expanded = d_commit_details.expanded || (path != null && was_expanded.contains(path));
 			file.maxlines = maxlines;
 
 			d_grid_files.add(file);
