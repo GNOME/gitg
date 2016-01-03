@@ -308,6 +308,7 @@ public class Gitg.DiffView : Gtk.Grid
 	private void update_diff(Ggit.Diff diff, bool preserve_expanded, Cancellable? cancellable)
 	{
 		var files = new Gee.ArrayList<Gitg.DiffViewFile>();
+
 		Gitg.DiffViewFile? current_file = null;
 		Ggit.DiffHunk? current_hunk = null;
 		Gee.ArrayList<Ggit.DiffLine>? current_lines = null;
@@ -350,6 +351,8 @@ public class Gitg.DiffView : Gtk.Grid
 					add_file();
 
 					current_file = new Gitg.DiffViewFile(repository, delta, new_is_workdir, handle_selection);
+					this.bind_property("highlight", current_file, "highlight", BindingFlags.SYNC_CREATE);
+
 					return 0;
 				},
 

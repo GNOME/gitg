@@ -40,6 +40,9 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "monitoring_enabled" )]
 	private Gtk.CheckButton d_monitoring_enabled;
 
+	[GtkChild (name = "diff_highlighting_enabled")]
+	private Gtk.CheckButton d_diff_highlighting_enabled;
+
 	construct
 	{
 		d_settings = new Settings("org.gnome.gitg.preferences.interface");
@@ -72,6 +75,11 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 
 		d_settings.bind("enable-monitoring",
 		                d_monitoring_enabled,
+		                "active",
+		                SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_settings.bind("enable-diff-highlighting",
+		                d_diff_highlighting_enabled,
 		                "active",
 		                SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}

@@ -67,7 +67,6 @@ class PreferencesDialog : Gtk.Dialog, Gtk.Buildable
 		add_page(new PreferencesInterface(), pages);
 		add_page(new PreferencesHistory(), pages);
 		add_page(new PreferencesCommit(), pages);
-		add_page(new PreferencesDiff(), pages);
 
 		ext.foreach((s, info, e) => {
 			add_page(e as GitgExt.Preferences, pages);

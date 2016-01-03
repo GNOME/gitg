@@ -46,40 +46,39 @@ namespace GitgDiff
 			settings.bind("ignore-whitespace",
 			              d_diff,
 			              "ignore-whitespace",
-			              SettingsBindFlags.GET |
-			              SettingsBindFlags.SET);
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			settings.bind("changes-inline",
 			              d_diff,
 			              "changes-inline",
-			              SettingsBindFlags.GET |
-			              SettingsBindFlags.SET);
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			settings.bind("context-lines",
 			              d_diff,
 			              "context-lines",
-			              SettingsBindFlags.GET |
-			              SettingsBindFlags.SET);
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			settings.bind("tab-width",
 			              d_diff,
 			              "tab-width",
-			              SettingsBindFlags.GET |
-			              SettingsBindFlags.SET);
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			settings.bind("wrap",
 			              d_diff,
 			              "wrap-lines",
-			              SettingsBindFlags.GET |
-			              SettingsBindFlags.SET);
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			settings = new Settings("org.gnome.gitg.preferences.interface");
 
 			settings.bind("use-gravatar",
 			              d_diff,
 			              "use-gravatar",
-			              SettingsBindFlags.GET |
-			              SettingsBindFlags.SET);
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+			settings.bind("enable-diff-highlighting",
+			              d_diff,
+			              "highlight",
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			d_whenMapped = new Gitg.WhenMapped(d_diff);
 

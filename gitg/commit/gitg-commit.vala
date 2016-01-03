@@ -1908,22 +1908,24 @@ namespace GitgCommit
 			settings.bind("context-lines",
 			              d_main.diff_view,
 			              "context-lines",
-			              SettingsBindFlags.GET |
-			              SettingsBindFlags.SET);
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			settings.bind("tab-width",
 			              d_main.diff_view,
 			              "tab-width",
-			              SettingsBindFlags.GET |
-			              SettingsBindFlags.SET);
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			settings = new Settings("org.gnome.gitg.preferences.interface");
 
 			settings.bind("use-gravatar",
 			              d_main.diff_view,
 			              "use-gravatar",
-			              SettingsBindFlags.GET |
-			              SettingsBindFlags.SET);
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+			settings.bind("enable-diff-highlighting",
+			              d_main.diff_view,
+			              "highlight",
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 			d_main.diff_view.bind_property("has-selection",
 			                               d_main.button_stage,
