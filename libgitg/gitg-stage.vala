@@ -1030,7 +1030,8 @@ public class Stage : Object
 
 		opts.flags = Ggit.DiffOption.INCLUDE_UNTRACKED |
 		             Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
-		             Ggit.DiffOption.RECURSE_UNTRACKED_DIRS;
+		             Ggit.DiffOption.RECURSE_UNTRACKED_DIRS |
+		             Ggit.DiffOption.SHOW_UNTRACKED_CONTENT;
 
 		if (files != null)
 		{
