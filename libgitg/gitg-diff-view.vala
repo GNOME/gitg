@@ -280,7 +280,9 @@ public class Gitg.DiffView : Gtk.Grid
 
 		foreach (var file in d_grid_files.get_children())
 		{
-			if ((file as Gitg.DiffViewFile).has_selection)
+			var selectable = (file as Gitg.DiffViewFile).renderer as DiffSelectable;
+
+			if (selectable.has_selection)
 			{
 				something_selected = true;
 				break;
@@ -350,8 +352,8 @@ public class Gitg.DiffView : Gtk.Grid
 
 					add_file();
 
-					current_file = new Gitg.DiffViewFile(repository, delta, new_is_workdir, handle_selection);
-					this.bind_property("highlight", current_file, "highlight", BindingFlags.SYNC_CREATE);
+					current_file = new Gitg.DiffViewFile.text(repository, delta, new_is_workdir, handle_selection);
+					this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
 
 					return 0;
 				},
@@ -431,19 +433,25 @@ public class Gitg.DiffView : Gtk.Grid
 			var path = primary_path(file);
 
 			file.expanded = d_commit_details.expanded || (path != null && was_expanded.contains(path));
-			file.maxlines = maxlines;
 
-			d_grid_files.add(file);
+			var renderer_text = file.renderer as DiffViewFileRendererText;
 
-			file.notify["expanded"].connect(auto_update_expanded);
+			if (renderer_text != null)
+			{
+				renderer_text.maxlines = maxlines;
 
-			this.bind_property("wrap-lines", file, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
-			this.bind_property("tab-width", file, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
 
 			if (i == files.size - 1)
 			{
 				file.vexpand = true;
 			}
+
+			d_grid_files.add(file);
+
+			file.notify["expanded"].connect(auto_update_expanded);
 		}
 	}
 
@@ -469,11 +477,11 @@ public class Gitg.DiffView : Gtk.Grid
 
 			foreach (var file in d_grid_files.get_children())
 			{
-				var sel = (file as Gitg.DiffViewFile).selection;
+				var sel = (file as Gitg.DiffViewFile).renderer as DiffSelectable;
 
-				if (sel.patches.length != 0)
+				if (sel != null && sel.has_selection && sel.selection.patches.length != 0)
 				{
-					ret += sel;
+					ret += sel.selection;
 				}
 			}
 
