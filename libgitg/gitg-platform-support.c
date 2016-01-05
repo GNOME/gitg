@@ -28,6 +28,9 @@
 #include <sys/types.h>
 #include <pwd.h>
 
+#include <cairo.h>
+#include <cairo/cairo-xlib.h>
+
 gboolean
 gitg_platform_support_use_native_window_controls (GdkDisplay *display)
 {
