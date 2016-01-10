@@ -743,8 +743,15 @@ class Dialog : Gtk.Dialog
 					break;
 				}
 
-				toolong.backward_line();
-				toolong.forward_to_line_end();
+				if (!toolong.backward_line())
+				{
+					break;
+				}
+				
+				if (!toolong.forward_to_line_end())
+				{
+					break;
+				}
 			}
 		}
 
