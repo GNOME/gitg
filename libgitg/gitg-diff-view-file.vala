@@ -128,6 +128,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 	public DiffViewFile.image(Repository? repository, Ggit.DiffDelta delta)
 	{
 		this(repository, delta);
+
+		this.renderer = new DiffViewFileRendererImage(repository, delta);
+		this.renderer.show();
+
+		d_diff_stat_file.hide();
 	}
 
 	protected override void constructed()

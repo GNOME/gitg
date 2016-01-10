@@ -67,6 +67,12 @@ libgitg_libgitg_1_0_la_VALASOURCES =				\
 	libgitg/gitg-credentials-manager.vala			\
 	libgitg/gitg-date.vala					\
 	libgitg/gitg-diff-stat.vala				\
+	libgitg/gitg-diff-image-composite.vala			\
+	libgitg/gitg-diff-image-difference.vala			\
+	libgitg/gitg-diff-image-overlay.vala			\
+	libgitg/gitg-diff-image-side-by-side.vala		\
+	libgitg/gitg-diff-image-slider.vala			\
+	libgitg/gitg-diff-image-surface-cache.vala		\
 	libgitg/gitg-diff-view.vala				\
 	libgitg/gitg-diff-view-file.vala			\
 	libgitg/gitg-diff-view-file-info.vala			\
@@ -74,6 +80,7 @@ libgitg_libgitg_1_0_la_VALASOURCES =				\
 	libgitg/gitg-diff-view-file-renderer.vala		\
 	libgitg/gitg-diff-view-file-renderer-binary.vala	\
 	libgitg/gitg-diff-view-file-renderer-text.vala		\
+	libgitg/gitg-diff-view-file-renderer-image.vala		\
 	libgitg/gitg-diff-view-lines-renderer.vala		\
 	libgitg/gitg-diff-selectable.vala			\
 	libgitg/gitg-diff-view-commit-details.vala		\

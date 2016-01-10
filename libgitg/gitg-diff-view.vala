@@ -52,6 +52,8 @@ public class Gitg.DiffView : Gtk.Grid
 	private uint d_reveal_options_timeout;
 	private uint d_unreveal_options_timeout;
 
+	private static Gee.HashSet<string> s_image_mime_types;
+
 	public Ggit.DiffOptions options
 	{
 		get
@@ -224,6 +226,16 @@ public class Gitg.DiffView : Gtk.Grid
 
 	static construct
 	{
+		s_image_mime_types = new Gee.HashSet<string>();
+
+		foreach (var format in Gdk.Pixbuf.get_formats())
+		{
+			foreach (var mime_type in format.get_mime_types())
+			{
+				s_image_mime_types.add(mime_type);
+			}
+		}
+
 		try
 		{
 			s_message_regexp = new Regex(".*[\\R\\s]*(?P<message>(?:.|\\R)*?)\\s*$");
@@ -336,13 +348,13 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private string? primary_path(Gitg.DiffViewFile f)
+	private string? primary_path(Ggit.DiffDelta delta)
 	{
-		var path = f.delta.get_old_file().get_path();
+		var path = delta.get_old_file().get_path();
 
 		if (path == null)
 		{
-			path = f.delta.get_new_file().get_path();
+			path = delta.get_new_file().get_path();
 		}
 
 		return path;
@@ -479,7 +491,34 @@ public class Gitg.DiffView : Gtk.Grid
 						current_is_binary = true;
 					}
 
-					if (current_is_binary)
+					string? mime_type_for_image = null;
+
+					if (info == null || info.new_file_content_type == null)
+					{
+						// Guess mime type from old file name in the case of a deleted file
+						var oldpath = delta.get_old_file().get_path();
+
+						if (oldpath != null)
+						{
+							bool uncertain;
+							var ctype = ContentType.guess(Path.get_basename(oldpath), null, out uncertain);
+
+							if (ctype != null)
+							{
+								mime_type_for_image = ContentType.get_mime_type(ctype);
+							}
+						}
+					}
+					else
+					{
+						mime_type_for_image = ContentType.get_mime_type(info.new_file_content_type);
+					}
+
+					if (mime_type_for_image != null && s_image_mime_types.contains(mime_type_for_image))
+					{
+						current_file = new Gitg.DiffViewFile.image(repository, delta);
+					}
+					else if (current_is_binary)
 					{
 						current_file = new Gitg.DiffViewFile.binary(repository, delta);
 					}
@@ -550,7 +589,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 			if (preserve_expanded && f.expanded)
 			{
-				var path = primary_path(f);
+				var path = primary_path(f.delta);
 
 				if (path != null)
 				{
@@ -567,7 +606,7 @@ public class Gitg.DiffView : Gtk.Grid
 		for (var i = 0; i < files.size; i++)
 		{
 			var file = files[i];
-			var path = primary_path(file);
+			var path = primary_path(file.delta);
 
 			file.expanded = d_commit_details.expanded || (path != null && was_expanded.contains(path));
 
