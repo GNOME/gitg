@@ -11,6 +11,7 @@
     <Feature Id="gitg" Title="gitg" Level="1">
       <ComponentGroupRef Id="binaries" />
       <ComponentGroupRef Id="startMenuShortcuts" />
+      <ComponentGroupRef Id="contextMenuShortcuts" />
       <ComponentGroupRef Id="licenseFiles" />
     </Feature>
 
@@ -65,6 +66,15 @@
         <Shortcut Id="gitgExec" Name="gitg" Description="gitg" Target="[INSTALLDIR]\bin\gitg.exe" />
         <Shortcut Id="uninstallProduct" Name="Uninstall gitg" Arguments="/x [ProductCode]" Description="Uninstall gitg" Target="[System64Folder]msiexec.exe" />
         <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="contextMenuShortcuts">
+      <Component Id="contextShortcuts" Guid="A457CA3A-AA5E-42BA-A3B6-6D650561B565" Directory="INSTALLDIR">
+        <RegistryValue Key="Software\Classes\Directory\Background\shell\gitg" Root="HKCU" Type="string" Value="Gitg Here" />
+        <RegistryValue Key="Software\Classes\Directory\Background\shell\gitg\command" Root="HKCU" Type="string" Value="[INSTALLDIR]bin\gitg.exe" />
+        <RegistryValue Key="Software\Classes\Directory\shell\gitg" Root="HKCU" Type="string" Value="Gitg Here" />
+        <RegistryValue Key="Software\Classes\Directory\shell\gitg\command" Root="HKCU" Type="string" Value="[INSTALLDIR]bin\gitg.exe &quot;&#37;1&quot;" />
       </Component>
     </ComponentGroup>
 
