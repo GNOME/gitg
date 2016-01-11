@@ -97,14 +97,14 @@ class Gitg.DiffViewFile : Gtk.Grid
 	}
 
 	public Ggit.DiffDelta? delta { get; construct set; }
-	public Repository repository { get; construct set; }
+	public Repository? repository { get; construct set; }
 
-	public DiffViewFile(Repository repository, Ggit.DiffDelta delta)
+	public DiffViewFile(Repository? repository, Ggit.DiffDelta delta)
 	{
 		Object(repository: repository, delta: delta);
 	}
 
-	public DiffViewFile.text(Repository repository, Ggit.DiffDelta delta, bool new_is_workdir, bool handle_selection)
+	public DiffViewFile.text(Repository? repository, Ggit.DiffDelta delta, bool new_is_workdir, bool handle_selection)
 	{
 		this(repository, delta);
 
@@ -115,12 +115,12 @@ class Gitg.DiffViewFile : Gtk.Grid
 		this.renderer.bind_property("removed", d_diff_stat_file, "removed");
 	}
 
-	public DiffViewFile.binary(Repository repository, Ggit.DiffDelta delta)
+	public DiffViewFile.binary(Repository? repository, Ggit.DiffDelta delta)
 	{
 		this(repository, delta);
 	}
 
-	public DiffViewFile.image(Repository repository, Ggit.DiffDelta delta)
+	public DiffViewFile.image(Repository? repository, Ggit.DiffDelta delta)
 	{
 		this(repository, delta);
 	}

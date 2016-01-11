@@ -84,7 +84,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	public int maxlines { get; set; }
 	public Ggit.DiffDelta? delta { get; construct set; }
-	public Repository repository { get; construct set; }
+	public Repository? repository { get; construct set; }
 
 	public bool highlight
 	{
@@ -155,7 +155,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 	}
 
-	public DiffViewFileRendererText(Repository repository, Ggit.DiffDelta delta, bool new_is_workdir, bool can_select)
+	public DiffViewFileRendererText(Repository? repository, Ggit.DiffDelta delta, bool new_is_workdir, bool can_select)
 	{
 		Object(repository: repository, new_is_workdir: new_is_workdir, delta: delta, can_select: can_select);
 	}
