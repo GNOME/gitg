@@ -27,9 +27,9 @@
     </UI>
 
     <!-- Installer actions -->
-    <CustomAction Id="SetCompileSchemasCommand" Property="CompileSchemas" Value="&quot;[INSTALLDIR]\bin\glib-compile-schemas.exe&quot; &quot;[INSTALLDIR]\share\glib-2.0\schemas&quot;"/>
+    <CustomAction Id="SetCompileSchemasCommand" Property="CompileSchemas" Value="&quot;[INSTALLDIR]bin\glib-compile-schemas.exe&quot; &quot;[INSTALLDIR]share\glib-2.0\schemas&quot;"/>
     <CustomAction Id="CompileSchemas" BinaryKey="WixCA" DllEntry="CAQuietExec" Return="ignore" Execute="deferred" Impersonate="no" />
-    <CustomAction Id="SetUpdateIconCacheCommand" Property="UpdateIconCache" Value="&quot;[INSTALLDIR]\bin\gtk-update-icon-cache-3.0.exe&quot; &quot;[INSTALLDIR]\share\icons\hicolor&quot;"/>
+    <CustomAction Id="SetUpdateIconCacheCommand" Property="UpdateIconCache" Value="&quot;[INSTALLDIR]bin\gtk-update-icon-cache-3.0.exe&quot; &quot;[INSTALLDIR]share\icons\hicolor&quot;"/>
     <CustomAction Id="UpdateIconCache" BinaryKey="WixCA" DllEntry="CAQuietExec" Return="ignore" Execute="deferred" Impersonate="no" />
 
     <InstallExecuteSequence>
