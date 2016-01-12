@@ -31,6 +31,8 @@
     <CustomAction Id="CompileSchemas" BinaryKey="WixCA" DllEntry="CAQuietExec" Return="ignore" Execute="deferred" Impersonate="no" />
     <CustomAction Id="SetUpdateIconCacheCommand" Property="UpdateIconCache" Value="&quot;[INSTALLDIR]bin\gtk-update-icon-cache-3.0.exe&quot; &quot;[INSTALLDIR]share\icons\hicolor&quot;"/>
     <CustomAction Id="UpdateIconCache" BinaryKey="WixCA" DllEntry="CAQuietExec" Return="ignore" Execute="deferred" Impersonate="no" />
+    <CustomAction Id="SetUpdatePixbufLoadersCommand" Property="UpdatePixbufLoaders" Value="&quot;[INSTALLDIR]bin\gdk-pixbuf-query-loaders.exe&quot; --update-cache"/>
+    <CustomAction Id="UpdatePixbufLoaders" BinaryKey="WixCA" DllEntry="CAQuietExec" Return="ignore" Execute="deferred" Impersonate="no" />
 
     <InstallExecuteSequence>
       <RemoveExistingProducts Before="InstallInitialize" />
@@ -38,6 +40,8 @@
       <Custom Action="CompileSchemas" After="SetCompileSchemasCommand" />
       <Custom Action="SetUpdateIconCacheCommand" After="CompileSchemas" />
       <Custom Action="UpdateIconCache" After="SetUpdateIconCacheCommand" />
+      <Custom Action="SetUpdatePixbufLoadersCommand" After="UpdateIconCache" />
+      <Custom Action="UpdatePixbufLoaders" After="SetUpdatePixbufLoadersCommand" />
     </InstallExecuteSequence>
 
   </Product>
