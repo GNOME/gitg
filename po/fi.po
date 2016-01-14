@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-01-12 19:21+0000\n"
-"PO-Revision-Date: 2016-01-12 23:46+0200\n"
+"POT-Creation-Date: 2016-01-14 07:18+0000\n"
+"PO-Revision-Date: 2016-01-14 21:02+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -75,7 +75,7 @@ msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "Enable Diff Highlighting"
-msgstr ""
+msgstr "Käytä diff-korostusta"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
 msgid ""
@@ -320,10 +320,10 @@ msgid "_Stage selection"
 msgstr "_Valmistele valinta"
 
 #: ../gitg/commit/gitg-commit.vala:223
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to stage the removal of file `%s'"
 msgid "Failed to stage the removal of submodule `%s'"
-msgstr "Tiedoston \"%s\" poistamisen valmistelu epäonnistui"
+msgstr "Alimoduulin `%s' poistamisen valmistelu epäonnistui"
 
 #: ../gitg/commit/gitg-commit.vala:239
 #, c-format
@@ -338,10 +338,10 @@ msgid ""
 msgstr ""
 
 #: ../gitg/commit/gitg-commit.vala:266
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to stage the file `%s'"
 msgid "Failed to stage the submodule `%s'"
-msgstr "Tiedoston \"%s\" valmistelu epäonnistui"
+msgstr "Alimoduulin `%s' valmistelu epäonnistui"
 
 #: ../gitg/commit/gitg-commit.vala:288
 #, c-format
@@ -408,11 +408,11 @@ msgstr "Ei seuraamattomia tiedostoja"
 
 #: ../gitg/commit/gitg-commit.vala:944
 msgid "Submodule"
-msgstr ""
+msgstr "Alimoduuli"
 
 #: ../gitg/commit/gitg-commit.vala:948
 msgid "No dirty submodules"
-msgstr ""
+msgstr "Ei likaisia alimoduuleja"
 
 #: ../gitg/commit/gitg-commit.vala:1095
 msgid "Failed to commit"
@@ -529,10 +529,9 @@ msgid "Failed to stash changes: %s"
 msgstr "Muutosten hylkääminen epäonnistui"
 
 #: ../gitg/gitg-action-support.vala:130
-#, fuzzy
 #| msgid "_Unstage changes"
 msgid "Unstaged changes"
-msgstr "_Poista valmistelu muutoksilta"
+msgstr "Valmistelemattomat muutokset"
 
 #: ../gitg/gitg-action-support.vala:131
 msgid ""
@@ -720,7 +719,7 @@ msgstr ""
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:179
 msgid "Cherry pick finished with conflicts in working directory"
-msgstr ""
+msgstr "Cherry pick valmistui ristiriitojen kera työskentelyhakemistossa"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
@@ -837,7 +836,7 @@ msgstr "Tietovaraston luominen epäonnistui"
 #: ../gitg/gitg-dash-view.vala:561
 #, c-format
 msgid "Scanning for repositories in %s"
-msgstr ""
+msgstr "Etsitään tietovarastoja kohteesta %s"
 
 #: ../gitg/gitg-dash-view.vala:602
 msgid "Add Repository"
@@ -884,7 +883,7 @@ msgstr "Kopioi nimi"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
-msgstr ""
+msgstr "Kopioi viitteen nimi leikepöydälle"
 
 #: ../gitg/gitg-ref-action-delete.vala:48
 #: ../gitg/gitg-ref-action-delete.vala:89
@@ -1002,18 +1001,18 @@ msgstr ""
 #: ../gitg/gitg-ref-action-merge.vala:69
 #, c-format
 msgid "Merge another branch into branch %s"
-msgstr ""
+msgstr "Liitä toinen haara haaraan %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:106
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to commit"
 msgid "Failed to merge commits: %s"
-msgstr "Pysyvän muutoksen tekeminen epäonnistui"
+msgstr "Pysyvien muutosten liittäminen epäonnistui: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:175
 #: ../gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
-msgstr ""
+msgstr "Liittämisessä on ristiriitoja"
 
 #: ../gitg/gitg-ref-action-merge.vala:184
 #, c-format
@@ -1031,7 +1030,7 @@ msgstr ""
 
 #: ../gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
-msgstr ""
+msgstr "Liittäminen epäonnistui ristiriitojen kera"
 
 #: ../gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
@@ -1061,7 +1060,6 @@ msgstr ""
 
 #: ../gitg/gitg-ref-action-merge.vala:320
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Merge %s into branch %s"
 msgstr "Liitä %s haaraan %s"
 
@@ -1278,10 +1276,10 @@ msgid "Expand all"
 msgstr "Laajenna kaikki"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:199
-#, fuzzy, c-format
+#, c-format
 #| msgid "Commits"
 msgid "Committed by %s"
-msgstr "Pysyvät muutokset"
+msgstr "Pysyvän muutoksen teki %s"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:175
@@ -1402,16 +1400,14 @@ msgid ""
 msgstr ""
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
-#, fuzzy
 #| msgid "Staged"
 msgid "Staged:"
-msgstr "Valmistellut"
+msgstr "Valmistellut:"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:3
-#, fuzzy
 #| msgid "Unstaged"
 msgid "Unstaged:"
-msgstr "Valmistelemattomat"
+msgstr "Valmistelemattomat:"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:1
 #: ../gitg/resources/ui/gitg-history-paned.ui.h:1
@@ -1530,7 +1526,6 @@ msgid "All branches"
 msgstr "Kaikki haarat"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
-#| msgid "Preferences"
 msgid "References"
 msgstr "Viittaukset"
 
