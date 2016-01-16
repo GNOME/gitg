@@ -69,6 +69,7 @@ public class Application : Gtk.Application
 	}
 
 	private PreferencesDialog d_preferences;
+	private Gtk.ShortcutsWindow d_shortcuts;
 
 	static construct
 	{
@@ -268,6 +269,28 @@ public class Application : Gtk.Application
 		d_preferences.present();
 	}
 
+	private void on_shortcuts_activated()
+	{
+		unowned List<Gtk.Window> wnds = get_windows();
+
+		// Create preferences dialog if needed
+		if (d_shortcuts == null)
+		{
+			d_shortcuts = Builder.load_object<Gtk.ShortcutsWindow>("ui/gitg-shortcuts.ui", "shortcuts-gitg");
+
+			d_shortcuts.destroy.connect((w) => {
+				d_shortcuts = null;
+			});
+		}
+
+		if (wnds != null)
+		{
+			d_shortcuts.set_transient_for(wnds.data);
+		}
+
+		d_shortcuts.present();
+	}
+
 	private void on_app_author_details_global_activated()
 	{
 		unowned List<Gtk.Window> wnds = get_windows();
@@ -287,7 +310,8 @@ public class Application : Gtk.Application
 		{"about", on_app_about_activated},
 		{"quit", on_app_quit_activated},
 		{"author-details-global", on_app_author_details_global_activated},
-		{"preferences", on_preferences_activated}
+		{"preferences", on_preferences_activated},
+		{"shortcuts", on_shortcuts_activated}
 	};
 
 	struct Accel
