@@ -273,7 +273,7 @@ public class Application : Gtk.Application
 	{
 		unowned List<Gtk.Window> wnds = get_windows();
 
-		// Create preferences dialog if needed
+		// Create shortcuts window if needed
 		if (d_shortcuts == null)
 		{
 			d_shortcuts = Builder.load_object<Gtk.ShortcutsWindow>("ui/gitg-shortcuts.ui", "shortcuts-gitg");
