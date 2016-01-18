@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-01-08 07:18+0000\n"
-"PO-Revision-Date: 2016-01-08 14:10+0100\n"
+"POT-Creation-Date: 2016-01-18 07:18+0000\n"
+"PO-Revision-Date: 2016-01-18 12:46+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -654,23 +654,23 @@ msgstr ""
 msgid "Do not try to load a repository from the current working directory"
 msgstr "No intentar cargar un repositorio desde la carpeta actual"
 
-#: ../gitg/gitg-application.vala:90
+#: ../gitg/gitg-application.vala:91
 msgid "- Git repository viewer"
 msgstr "- Visor de repositorios git"
 
-#: ../gitg/gitg-application.vala:222
+#: ../gitg/gitg-application.vala:223
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg es un visor de repositorios Git para GTK+/GNOME"
 
-#: ../gitg/gitg-application.vala:231
+#: ../gitg/gitg-application.vala:232
 msgid "translator-credits"
 msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2013 - 2015"
 
-#: ../gitg/gitg-application.vala:234
+#: ../gitg/gitg-application.vala:235
 msgid "gitg homepage"
 msgstr "Página principal de gitg"
 
-#: ../gitg/gitg-application.vala:334
+#: ../gitg/gitg-application.vala:358
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -1531,18 +1531,22 @@ msgid "_Preferences"
 msgstr "Prefere_ncias"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_Keyboard Shortcuts"
+msgstr "_Atajos del teclado"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
 msgid "_Help"
 msgstr "Ay_uda"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_About"
 msgstr "A_cerca de"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
 msgid "_Quit"
 msgstr "_Salir"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Reload"
 msgstr "_Recargar"
 
@@ -1656,6 +1660,41 @@ msgstr ""
 msgid "Preferences"
 msgstr "Preferencias"
 
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
+#| msgid "_New Window"
+msgid "Windows"
+msgstr "Ventanas"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
+msgid "Open a new window"
+msgstr "Abrir una ventana nueva"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
+msgid "Open the window menu"
+msgstr "Abrir el menú de la ventana"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
+#| msgid "Open Repository"
+msgid "Open a repository"
+msgstr "Abrir un repositorio"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
+msgid "Open the help"
+msgstr "Abrir la ayuda"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
+msgid "Find"
+msgstr "Buscar"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
+msgid "Close the active window"
+msgstr "Cerrar la ventana activa"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
+#| msgid "Show the application's version"
+msgid "Quit the application"
+msgstr "Salir de la aplicación"
+
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Show the list of recently used repositories"
 msgstr "Mostrar la lista de repositorios usados recientemente."
@@ -1762,9 +1801,6 @@ msgstr "columna"
 
 #~ msgid "Unable to open the .gitconfig file."
 #~ msgstr "No se pudo abrir el archivo .gitconfig."
-
-#~ msgid "Open Repository"
-#~ msgstr "Abrir repositorio"
 
 #~ msgid "_Open"
 #~ msgstr "_Abrir"
