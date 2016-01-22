@@ -445,11 +445,13 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		var sym_lines_width = d_sym_lines.size + d_sym_lines.xpad * 2;
 
 		ctx.save();
+		Gtk.cairo_transform_to_window(cr, this, win);
 		ctx.add_class("diff-lines-separator");
 		ctx.render_frame(cr, 0, 0, old_lines_width, win.get_height());
 		ctx.restore();
 
 		ctx.save();
+		Gtk.cairo_transform_to_window(cr, this, win);
 		ctx.add_class("diff-lines-gutter-border");
 		ctx.render_frame(cr, old_lines_width + new_lines_width, 0, sym_lines_width, win.get_height());
 		ctx.restore();
