@@ -83,6 +83,7 @@ GITIGNOREFILES    =
 CLEANFILES        =
 bin_PROGRAMS      =
 noinst_PROGRAMS   =
+noinst_LTLIBRARIES =
 SCALABLE_ICONS    =
 gsettings_SCHEMAS =
 TESTS             =
@@ -91,6 +92,8 @@ GITG_PLUGIN_VAPISOURCES =			\
 	libgitg-ext/libgitg-ext-1.0.vapi	\
 	libgitg/libgitg-1.0.vapi
 
+include contrib/xml/Makefile.am
+include contrib/ide/Makefile.am
 include libgitg/Makefile.am
 include libgitg-ext/Makefile.am
 include plugins/Makefile.am

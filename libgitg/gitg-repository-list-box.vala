@@ -1,7 +1,7 @@
 /*
  * This file is part of gitg
  *
- * Copyright (C) 2012 - Ignacio Casal Quinteiro
+ * Copyright (C) 2012-2016 - Ignacio Casal Quinteiro
  *
  * gitg is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,17 +38,14 @@ namespace Gitg
 			private Repository? d_repository;
 			private DateTime d_time;
 			private bool d_loading;
-			private bool d_has_remote;
 			[GtkChild]
 			private ProgressBin d_progress_bin;
 			[GtkChild]
-			private Gtk.Image d_image;
-			[GtkChild]
 			private Gtk.Label d_repository_label;
 			[GtkChild]
-			private Gtk.Label d_branch_label;
+			private Gtk.Label d_description_label;
 			[GtkChild]
-			private Gtk.Arrow d_arrow;
+			private Gtk.Label d_branch_label;
 			[GtkChild]
 			private Gtk.Spinner d_spinner;
 			[GtkChild]
@@ -56,20 +53,13 @@ namespace Gitg
 			[GtkChild]
 			private Gtk.Revealer d_remove_revealer;
 			[GtkChild]
-			private Gtk.Box d_submodule_box;
+			private Gtk.Box d_languages_box;
 
 			public signal void request_remove();
 
 			private SelectionMode d_mode;
 			private string? d_dirname;
 			private string? d_branch_name;
-
-			private static Gtk.IconSize s_icon_size;
-
-			static construct
-			{
-				s_icon_size = Gtk.icon_size_register("gitg", 64, 64);
-			}
 
 			public SelectionMode mode
 			{
@@ -108,18 +98,7 @@ namespace Gitg
 				set
 				{
 					d_repository = value;
-
-					branch_name = "";
-
-					if (d_repository != null)
-					{
-						try
-						{
-							var head = d_repository.get_head();
-							branch_name = head.parsed_name.shortname;
-						}
-						catch {}
-					}
+					update_repository_data();
 				}
 			}
 
@@ -185,6 +164,66 @@ namespace Gitg
 				}
 			}
 
+			private void update_repository_data()
+			{
+				string head_name = "";
+				string head_description = "";
+
+				if (d_repository != null)
+				{
+					try
+					{
+						var head = d_repository.get_head();
+						head_name = head.parsed_name.shortname;
+
+						var commit = (Ggit.Commit)head.lookup();
+						var tree = commit.get_tree();
+
+						Ggit.OId? entry_id = null;
+						tree.walk(Ggit.TreeWalkMode.PRE, (root, entry) => {
+							if (root == "" && entry.get_name() != null && entry.get_name().has_suffix(".doap"))
+							{
+								entry_id = entry.get_id();
+								return 1;
+							}
+							return 0;
+						});
+
+						if (entry_id != null)
+						{
+							var blob = d_repository.lookup<Ggit.Blob>(entry_id);
+
+							unowned uint8[] content = blob.get_raw_content();
+							var doap = new Ide.Doap();
+							doap.load_from_data((string)content, -1);
+
+							head_description = doap.get_shortdesc();
+
+							foreach (var lang in doap.get_languages())
+							{
+								var frame = new Gtk.Frame(null);
+								frame.shadow_type = Gtk.ShadowType.NONE;
+								frame.get_style_context().add_class("language-frame");
+								frame.show();
+
+								var label = new Gtk.Label(lang);
+								var attr_list = new Pango.AttrList();
+								attr_list.insert(Pango.attr_scale_new(Pango.Scale.SMALL));
+								label.set_attributes(attr_list);
+								label.show();
+
+								frame.add(label);
+								d_languages_box.add(frame);
+							}
+						}
+					} catch {}
+				}
+
+				repository_name = d_repository != null ? d_repository.name : "";
+				d_description_label.label = head_description;
+				branch_name = head_name;
+			}
+
 			public bool loading
 			{
 				get { return d_loading; }
@@ -196,77 +235,19 @@ namespace Gitg
 					{
 						d_spinner.stop();
 						d_spinner.hide();
-						d_arrow.show();
 						d_progress_bin.fraction = 0;
 					}
 					else
 					{
-						d_arrow.hide();
 						d_spinner.show();
 						d_spinner.start();
 					}
 				}
 			}
 
-			public bool has_remote
+			public Row(Repository? repository, string dirname)
 			{
-				get { return d_has_remote; }
-				set
-				{
-					d_has_remote = value;
-
-					var folder_icon_name = d_has_remote ? "folder-remote" : "folder";
-					d_image.set_from_icon_name(folder_icon_name, s_icon_size);
-				}
-			}
-
-			public Row(string name, string dirname, string branch_name, bool has_remote)
-			{
-				Object(repository_name: name, dirname: dirname, branch_name: branch_name, has_remote: has_remote);
-			}
-
-			public void add_submodule(Ggit.Submodule module)
-			{
-				var submodule_url = module.get_url();
-				if (submodule_url == null)
-				{
-					return;
-				}
-
-				var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-				var tip = @"$(module.get_path())/ ($(submodule_url))";
-
-				box.set_tooltip_text(tip);
-				box.show();
-
-				var icon = new Gtk.Image.from_icon_name("folder-remote-symbolic",
-				                                        Gtk.IconSize.MENU);
-				icon.show();
-
-				var name = Path.get_basename(submodule_url);
-
-				if (name.has_suffix(".git"))
-				{
-					name = name[0:-4];
-				}
-
-				var labelName = new Gtk.Label(name);
-				labelName.show();
-
-				var arrow = new Gtk.Arrow(Gtk.ArrowType.RIGHT, Gtk.ShadowType.NONE);
-				arrow.show();
-
-				var path = module.get_path();
-				var labelPath = new Gtk.Label(@"$path/");
-				labelPath.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
-				labelPath.show();
-
-				box.add(icon);
-				box.add(labelName);
-				box.add(arrow);
-				box.add(labelPath);
-
-				d_submodule_box.add(box);
+				Object(repository: repository, dirname: dirname);
 			}
 		}
 
@@ -423,7 +404,9 @@ namespace Gitg
 
 		public Row? begin_cloning(File location)
 		{
-			var row = new Row(location.get_basename(), Utils.replace_home_dir_with_tilde(location.get_parent()), _("Cloning…"), true);
+			var row = new Row(null, Utils.replace_home_dir_with_tilde(location.get_parent()));
+			row.repository_name = location.get_basename();
+			row.branch_name = _("Cloning…");
 
 			row.loading = true;
 			row.show();
@@ -440,41 +423,13 @@ namespace Gitg
 
 			if (row == null)
 			{
-				string head_name = "";
-				bool has_remote = true;
-
-				try
-				{
-					var head = repository.get_head();
-					head_name = head.parsed_name.shortname;
-
-					var remotes = repository.list_remotes();
-
-					if (remotes.length == 0)
-					{
-						has_remote = false;
-					}
-				} catch {}
-
 				var dirname = Utils.replace_home_dir_with_tilde((repository.workdir != null ? repository.workdir : repository.location).get_parent());
-				row = new Row(repository.name, dirname, head_name, has_remote);
-				row.repository = repository;
+				row = new Row(repository, dirname);
 				row.show();
-
-				try
-				{
-					repository.submodule_foreach((module) => {
-						row.add_submodule(module);
-						return 0;
-					});
-				}
-				catch {}
 
 				if (f != null)
 				{
-					bind_property("mode",
-					              row,
-					              "mode");
+					bind_property("mode", row, "mode");
 				}
 
 				if (f != null)

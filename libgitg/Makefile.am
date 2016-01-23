@@ -4,6 +4,7 @@ libgitgexec_LTLIBRARIES = libgitg/libgitg-1.0.la
 libgitg_libgitg_1_0_la_CPPFLAGS =			\
 	-I$(top_srcdir)					\
 	-I$(srcdir)					\
+	-I$(top_srcdir)/contrib/ide			\
 	-DDATADIR=\""$(datadir)"\"			\
 	-DLIBDIR=\""$(libdir)"\"			\
 	-DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\"
@@ -19,7 +20,8 @@ libgitg_libgitg_1_0_la_LDFLAGS = 	\
 	-export-symbols-regex "^[^_].*"
 
 libgitg_libgitg_1_0_la_LIBADD = 	\
-	$(LIBGITG_LIBS)
+	$(LIBGITG_LIBS)			\
+	contrib/ide/libide.la
 
 if GDK_WINDOWING_QUARTZ
 libgitg_libgitg_1_0_la_LIBADD += -lobjc
@@ -38,8 +40,10 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg libsoup-2.4		\
 	--pkg gtksourceview-3.0		\
 	--pkg gitg-platform-support	\
+	--pkg ide			\
 	$(GITG_VALAFLAGS)		\
 	--vapidir $(top_srcdir)/vapi	\
+	--vapidir $(top_srcdir)/contrib/ide \
 	--includedir libgitg		\
 	--basedir $(top_srcdir)		\
 	--gir Gitg-1.0.gir		\

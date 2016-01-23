@@ -11,9 +11,6 @@
         <property name="halign">center</property>
         <property name="hexpand">True</property>
         <property name="can_focus">False</property>
-        <style>
-          <class name="dim-label"/>
-        </style>
         <child>
           <object class="GtkImage" id="gitg_icon">
             <property name="visible">True</property>
@@ -104,16 +101,22 @@
         <property name="visible">False</property>
         <property name="vexpand">True</property>
         <property name="hexpand">True</property>
-        <style>
-          <class name="view"/>
-        </style>
         <child>
-          <object class="GitgRepositoryListBox" id="repository_list_box">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <style>
-              <class name="view"/>
-            </style>
+          <object class="GtkFrame" id="repository_list_frame">
+            <property name="halign">center</property>
+            <property name="visible">true</property>
+            <property name="margin-bottom">32</property>
+            <property name="margin-top">32</property>
+            <property name="width-request">550</property>
+            <child>
+              <object class="GitgRepositoryListBox" id="repository_list_box">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <style>
+                  <class name="view"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
       </object>
