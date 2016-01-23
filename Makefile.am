@@ -98,6 +98,7 @@ include gitg/Makefile.am
 include data/Makefile.am
 include tests/Makefile.am
 include win32/Makefile.am
+include vapi/Makefile.am
 
 include icons.mk
 
@@ -106,18 +107,6 @@ include icons.mk
 @GSETTINGS_RULES@
 
 GITIGNOREFILES += $(gsettings_SCHEMAS)
-
-EXTRA_DIST +=					\
-	vapi/config.vapi			\
-	vapi/gdesktop-enums-3.0.vapi		\
-	vapi/gobject-introspection-1.0.vapi 	\
-	vapi/gtksourceview-3.0.deps		\
-	vapi/gtksourceview-3.0.vapi		\
-	vapi/libpeas-1.0.vapi			\
-	vapi/libsoup-2.4.deps			\
-	vapi/libsoup-2.4.vapi			\
-	vapi/gitg-platform-support.vapi		\
-	vapi/gio-windows-2.0.vapi
 
 %.typelib: %.gir
 	$(INTROSPECTION_COMPILER) $(INTROSPECTION_COMPILER_ARGS) --includedir=$(top_srcdir) -o $@ $<
