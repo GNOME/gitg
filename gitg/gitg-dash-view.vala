@@ -45,9 +45,6 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 	[GtkChild( name = "repository_list_box" )]
 	private RepositoryListBox d_repository_list_box;
 
-	[GtkChild( name = "action_bar" )]
-	private Gtk.ActionBar d_action_bar;
-
 	public GitgExt.SelectionMode selectable_mode
 	{
 		get
@@ -76,11 +73,9 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 			{
 			case GitgExt.SelectionMode.NORMAL:
 				d_repository_list_box.mode = Gitg.SelectionMode.NORMAL;
-				d_action_bar.visible = true;
 				break;
 			case GitgExt.SelectionMode.SELECTION:
 				d_repository_list_box.mode = Gitg.SelectionMode.SELECTION;
-				d_action_bar.visible = false;
 				break;
 			}
 
@@ -216,7 +211,6 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		d_repository_list_box.notify["mode"].connect(() => {
 			if (!d_setting_mode)
 			{
-				d_action_bar.visible = (selectable_mode == GitgExt.SelectionMode.NORMAL);
 				notify_property("selectable-mode");
 			}
 		});
@@ -362,7 +356,7 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		return repository;
 	}
 
-	private void clone_repository(string url, File location, bool is_bare)
+	public void clone_repository(string url, File location, bool is_bare)
 	{
 		// create subfolder
 		var pos = url.last_index_of_char('/');
@@ -404,23 +398,6 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 			d_repository_list_box.end_cloning(row, repository);
 		});
-	}
-
-	[GtkCallback]
-	private void clone_repository_clicked()
-	{
-		var dlg = new CloneDialog(application as Gtk.Window);
-
-		dlg.response.connect((d, id) => {
-			if (id == Gtk.ResponseType.OK)
-			{
-				clone_repository(dlg.url, dlg.location, dlg.is_bare);
-			}
-
-			d.destroy();
-		});
-
-		dlg.show();
 	}
 
 	private void finish_add_repository(Repository repo)
@@ -596,54 +573,20 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		dlg.get_window().set_cursor(new Gdk.Cursor.for_display(get_display(), Gdk.CursorType.WATCH));
 	}
 
-	[GtkCallback]
-	private void add_repository_clicked()
+	public void add_repository_from_location(File location, bool scan_all)
 	{
-		var chooser = new Gtk.FileChooserDialog(_("Add Repository"),
-		                                        application as Gtk.Window,
-		                                        Gtk.FileChooserAction.SELECT_FOLDER,
-		                                        _("_Cancel"), Gtk.ResponseType.CANCEL,
-		                                        _("_Add"), Gtk.ResponseType.OK);
-
-		var scan_all = new Gtk.CheckButton.with_mnemonic(_("_Scan for all git repositories from this directory"));
-
-		scan_all.halign = Gtk.Align.END;
-		scan_all.hexpand = true;
-		scan_all.show();
-
-		chooser.extra_widget = scan_all;
-
-		chooser.modal = true;
-		chooser.set_default_response(Gtk.ResponseType.OK);
-
-		chooser.response.connect((c, id) => {
-			if (id == Gtk.ResponseType.OK)
-			{
-				var file = chooser.get_file();
-
-				if (file == null)
-				{
-					file = chooser.get_current_folder_file();
-				}
-
-				if (scan_all.active)
-				{
-					add_repositories_scan(file);
-				}
-				else if (!looks_like_git(file))
-				{
-					query_create_repository(file);
-				}
-				else
-				{
-					do_add_repository(file, true);
-				}
-			}
-
-			c.destroy();
-		});
-
-		chooser.show();
+		if (scan_all)
+		{
+			add_repositories_scan(location);
+		}
+		else if (!looks_like_git(location))
+		{
+			query_create_repository(location);
+		}
+		else
+		{
+			do_add_repository(location, true);
+		}
 	}
 }
 

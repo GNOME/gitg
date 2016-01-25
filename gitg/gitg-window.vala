@@ -71,6 +71,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.Button d_dash_button;
 	[GtkChild]
+	private Gtk.Button d_clone_button;
+	[GtkChild]
+	private Gtk.Button d_add_button;
+	[GtkChild]
 	private Gtk.Image dash_image;
 	[GtkChild]
 	private Gtk.StackSwitcher d_activities_switcher;
@@ -158,6 +162,62 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void dash_button_clicked(Gtk.Button dash)
 	{
 		repository = null;
+	}
+
+	[GtkCallback]
+	private void clone_repository_clicked()
+	{
+		var dlg = new CloneDialog(this);
+
+		dlg.response.connect((d, id) => {
+			if (id == Gtk.ResponseType.OK)
+			{
+				d_dash_view.clone_repository(dlg.url, dlg.location, dlg.is_bare);
+			}
+
+			d.destroy();
+		});
+
+		dlg.show();
+	}
+
+	[GtkCallback]
+	private void add_repository_clicked()
+	{
+		var chooser = new Gtk.FileChooserDialog(_("Add Repository"),
+		                                        this,
+		                                        Gtk.FileChooserAction.SELECT_FOLDER,
+		                                        _("_Cancel"), Gtk.ResponseType.CANCEL,
+		                                        _("_Add"), Gtk.ResponseType.OK);
+
+		var scan_all = new Gtk.CheckButton.with_mnemonic(_("_Scan for all git repositories from this directory"));
+
+		scan_all.halign = Gtk.Align.END;
+		scan_all.hexpand = true;
+		scan_all.show();
+
+		chooser.extra_widget = scan_all;
+
+		chooser.modal = true;
+		chooser.set_default_response(Gtk.ResponseType.OK);
+
+		chooser.response.connect((c, id) => {
+			if (id == Gtk.ResponseType.OK)
+			{
+				var file = chooser.get_file();
+
+				if (file == null)
+				{
+					file = chooser.get_current_folder_file();
+				}
+
+				d_dash_view.add_repository_from_location(file, scan_all.active);
+			}
+
+			c.destroy();
+		});
+
+		chooser.show();
 	}
 
 	[GtkCallback]
@@ -447,6 +507,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_main_stack.set_visible_child(d_stack_activities);
 			d_activities_switcher.show();
 			d_dash_button.show();
+			d_clone_button.hide();
+			d_add_button.hide();
 			d_dash_view.add_repository(d_repository);
 			d_gear_menu.menu_model = d_activities_model;
 			d_gear_menu.show();
@@ -459,6 +521,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_main_stack.set_visible_child(d_dash_view);
 			d_activities_switcher.hide();
 			d_dash_button.hide();
+			d_clone_button.show();
+			d_add_button.show();
 			d_gear_menu.menu_model = d_dash_model;
 			d_gear_menu.hide();
 		}
@@ -1111,6 +1175,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_gear_menu.visible = !issel && d_repository != null;
 			d_select_button.visible = !issel;
 			d_dash_button.visible = !issel && d_repository != null;
+			d_clone_button.visible = !issel && d_repository == null;
+			d_add_button.visible = !issel && d_repository == null;
 			d_activities_switcher.visible = !issel && d_repository != null;
 			d_select_cancel_button.visible = issel;
 

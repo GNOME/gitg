@@ -127,39 +127,5 @@
         <property name="height">1</property>
       </packing>
     </child>
-    <child>
-      <object class="GtkActionBar" id="action_bar">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <child>
-          <object class="GtkButton" id="add_repository">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">_Add repository</property>
-            <property name="use_underline">True</property>
-            <signal name="clicked" handler="add_repository_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="clone_repository">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">_Clone repository</property>
-            <property name="use_underline">True</property>
-            <signal name="clicked" handler="clone_repository_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
-      </packing>
-    </child>
   </template>
 </interface>

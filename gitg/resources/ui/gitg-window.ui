@@ -38,6 +38,38 @@
           </packing>
         </child>
         <child>
+          <object class="GtkButton" id="d_clone_button">
+            <property name="visible">False</property>
+            <property name="valign">center</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Clone…</property>
+            <property name="tooltip-text" translatable="yes">Clone repository</property>
+            <signal name="clicked" handler="clone_repository_clicked" swapped="no"/>
+            <style>
+              <class name="text-button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="pack_type">start</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="d_add_button">
+            <property name="visible">False</property>
+            <property name="valign">center</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Add…</property>
+            <property name="tooltip-text" translatable="yes">Add repository</property>
+            <signal name="clicked" handler="add_repository_clicked" swapped="no"/>
+            <style>
+              <class name="text-button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="pack_type">start</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkStackSwitcher" id="d_activities_switcher">
             <property name="visible">False</property>
           </object>
