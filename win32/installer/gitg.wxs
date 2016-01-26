@@ -36,12 +36,12 @@
 
     <InstallExecuteSequence>
       <RemoveExistingProducts Before="InstallInitialize" />
-      <Custom Action="SetCompileSchemasCommand" After="InstallFiles" />
-      <Custom Action="CompileSchemas" After="SetCompileSchemasCommand" />
-      <Custom Action="SetUpdateIconCacheCommand" After="CompileSchemas" />
-      <Custom Action="UpdateIconCache" After="SetUpdateIconCacheCommand" />
-      <Custom Action="SetUpdatePixbufLoadersCommand" After="UpdateIconCache" />
-      <Custom Action="UpdatePixbufLoaders" After="SetUpdatePixbufLoadersCommand" />
+      <Custom Action="SetCompileSchemasCommand" After="InstallFiles">Not Installed</Custom>
+      <Custom Action="CompileSchemas" After="SetCompileSchemasCommand">Not Installed</Custom>
+      <Custom Action="SetUpdateIconCacheCommand" After="CompileSchemas">Not Installed</Custom>
+      <Custom Action="UpdateIconCache" After="SetUpdateIconCacheCommand">Not Installed</Custom>
+      <Custom Action="SetUpdatePixbufLoadersCommand" After="UpdateIconCache">Not Installed</Custom>
+      <Custom Action="UpdatePixbufLoaders" After="SetUpdatePixbufLoadersCommand">Not Installed</Custom>
     </InstallExecuteSequence>
 
   </Product>
