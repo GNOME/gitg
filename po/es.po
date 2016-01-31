@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-01-18 07:18+0000\n"
-"PO-Revision-Date: 2016-01-18 12:46+0100\n"
+"POT-Creation-Date: 2016-01-29 07:18+0000\n"
+"PO-Revision-Date: 2016-01-29 10:37+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -24,6 +24,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-DamnedLies-Scope: partial\n"
 "X-Generator: Gtranslator 2.91.6\n"
+
+#: ../contrib/xml/xml-reader.c:327
+#, c-format
+msgid "Could not parse XML from stream"
+msgstr "No se pudo analizar el XML del flujo"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -486,13 +491,13 @@ msgstr ""
 #: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
 #: ../gitg/commit/gitg-commit.vala:1605
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:474 ../gitg/gitg-dash-view.vala:605
+#: ../gitg/gitg-dash-view.vala:451 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-window.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:9
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
 msgid "_Cancel"
 msgstr "_Cancelar"
@@ -664,7 +669,7 @@ msgstr "gitg es un visor de repositorios Git para GTK+/GNOME"
 
 #: ../gitg/gitg-application.vala:232
 msgid "translator-credits"
-msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2013 - 2015"
+msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2013 - 2016"
 
 #: ../gitg/gitg-application.vala:235
 msgid "gitg homepage"
@@ -838,37 +843,38 @@ msgstr "Falló al buscar la etiqueta"
 msgid "Provide a message to create an annotated tag"
 msgstr "Proporcionar un mensaje para crear una etiqueta anotada"
 
-#: ../gitg/gitg-dash-view.vala:190
-msgid "_Delete"
+#: ../gitg/gitg-dash-view.vala:185
+#| msgid "Remotes"
+msgid "_Remove"
 msgstr "_Eliminar"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:247
+#: ../gitg/gitg-dash-view.vala:241
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
 "También puede %sanalizarsu carpeta personal%s en busca repositorios git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:250
+#: ../gitg/gitg-dash-view.vala:244
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Mientras tanto, tal vez quiera %sconfigurar su perfil de git%s."
 
-#: ../gitg/gitg-dash-view.vala:402
+#: ../gitg/gitg-dash-view.vala:396
 msgid "Failed to clone repository"
 msgstr "Falló al clonar el repositorio"
 
-#: ../gitg/gitg-dash-view.vala:450
+#: ../gitg/gitg-dash-view.vala:427
 msgid "Failed to add repository"
 msgstr "Falló al añadir el repositorio"
 
-#: ../gitg/gitg-dash-view.vala:466
+#: ../gitg/gitg-dash-view.vala:443
 msgid "Create new repository"
 msgstr "Crear un repositorio nuevo"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:469
+#: ../gitg/gitg-dash-view.vala:446
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -877,30 +883,18 @@ msgstr ""
 "La ubicación <i>%s</i> no parece ser un repositorio de git válido. ¿Quiere "
 "inicializar un repositorio de git nuevo en esta ubicación?"
 
-#: ../gitg/gitg-dash-view.vala:475
+#: ../gitg/gitg-dash-view.vala:452
 msgid "Create repository"
 msgstr "Crear repositorio"
 
-#: ../gitg/gitg-dash-view.vala:491
+#: ../gitg/gitg-dash-view.vala:468
 msgid "Failed to create repository"
 msgstr "Falló al crear el repositorio"
 
-#: ../gitg/gitg-dash-view.vala:561
+#: ../gitg/gitg-dash-view.vala:538
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Buscando repositorios en %s"
-
-#: ../gitg/gitg-dash-view.vala:602
-msgid "Add Repository"
-msgstr "Añadir repositorio"
-
-#: ../gitg/gitg-dash-view.vala:606
-msgid "_Add"
-msgstr "_Añadir"
-
-#: ../gitg/gitg-dash-view.vala:608
-msgid "_Scan for all git repositories from this directory"
-msgstr "_Buscar todos los repositorios git desde esta actual"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
@@ -1137,16 +1131,28 @@ msgstr "Nombre no válido"
 msgid "Failed to rename"
 msgstr "Falló al renombrar"
 
-#: ../gitg/gitg-window.vala:421
+#: ../gitg/gitg-window.vala:187
+msgid "Add Repository"
+msgstr "Añadir repositorio"
+
+#: ../gitg/gitg-window.vala:191
+msgid "_Add"
+msgstr "_Añadir"
+
+#: ../gitg/gitg-window.vala:193
+msgid "_Scan for all git repositories from this directory"
+msgstr "_Buscar todos los repositorios git desde esta actual"
+
+#: ../gitg/gitg-window.vala:481
 msgid "Projects"
 msgstr "Proyectos"
 
-#: ../gitg/gitg-window.vala:848
+#: ../gitg/gitg-window.vala:912
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» no es un repositorio Git."
 
-#: ../gitg/gitg-window.vala:997
+#: ../gitg/gitg-window.vala:1061
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1154,7 +1160,7 @@ msgstr ""
 "Su nombre de usuario y su correo-e no están configurados todavía. Vaya a la "
 "configuración del usuario y proporcione su nombre y su correo-e."
 
-#: ../gitg/gitg-window.vala:1001
+#: ../gitg/gitg-window.vala:1065
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1162,7 +1168,7 @@ msgstr ""
 "Su nombre de usuario no está configurado todavía. Vaya a la configuración "
 "del usuario y proporcione su nombre."
 
-#: ../gitg/gitg-window.vala:1005
+#: ../gitg/gitg-window.vala:1069
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1170,13 +1176,13 @@ msgstr ""
 "Su su correo-e no está configurado todavía. Vaya a la configuración del "
 "usuario y proporcione su correo-e."
 
-#: ../gitg/gitg-window.vala:1008
+#: ../gitg/gitg-window.vala:1072
 msgid "Missing author details"
 msgstr "Falta los detalles del autor"
 
 #: ../gitg/gitg-remote-notification.vala:90
 #: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:10
 msgid "Close"
 msgstr "Cerrar"
 
@@ -1337,18 +1343,18 @@ msgid "Committed by %s"
 msgstr "Cambiado por %s"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: ../libgitg/gitg-repository-list-box.vala:175
+#: ../libgitg/gitg-repository-list-box.vala:154
 #, c-format
 msgid "at %s"
 msgstr "en %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: ../libgitg/gitg-repository-list-box.vala:184
+#: ../libgitg/gitg-repository-list-box.vala:163
 #, c-format
 msgid "%s at %s"
 msgstr "%s en %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:426
+#: ../libgitg/gitg-repository-list-box.vala:409
 msgid "Cloning…"
 msgstr "Clonando…"
 
@@ -1510,14 +1516,6 @@ msgstr ""
 "Todavía no se han añadido repositorios. Para empezar, puede añadir un "
 "repositorio existente o clonar uno nuevo."
 
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:2
-msgid "_Add repository"
-msgstr "_Añadir repositorio"
-
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:3
-msgid "_Clone repository"
-msgstr "_Clonar repositorio"
-
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "Ventana _nueva"
@@ -1661,7 +1659,6 @@ msgid "Preferences"
 msgstr "Preferencias"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
-#| msgid "_New Window"
 msgid "Windows"
 msgstr "Ventanas"
 
@@ -1674,7 +1671,6 @@ msgid "Open the window menu"
 msgstr "Abrir el menú de la ventana"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-#| msgid "Open Repository"
 msgid "Open a repository"
 msgstr "Abrir un repositorio"
 
@@ -1691,7 +1687,6 @@ msgid "Close the active window"
 msgstr "Cerrar la ventana activa"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
-#| msgid "Show the application's version"
 msgid "Quit the application"
 msgstr "Salir de la aplicación"
 
@@ -1700,10 +1695,29 @@ msgid "Show the list of recently used repositories"
 msgstr "Mostrar la lista de repositorios usados recientemente."
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
+#| msgid "Cloning…"
+msgid "Clone…"
+msgstr "Clonar…"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+#| msgid "_Clone repository"
+msgid "Clone repository"
+msgstr "Clonar repositorio"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:5
+msgid "Add…"
+msgstr "Añadir…"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:6
+#| msgid "_Add repository"
+msgid "Add repository"
+msgstr "Añadir repositorio"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:7
 msgid "Find a word or phrase"
 msgstr "Busca una palabra o frase"
 
-#: ../gitg/resources/ui/gitg-window.ui.h:4
+#: ../gitg/resources/ui/gitg-window.ui.h:8
 msgid "General settings and options"
 msgstr "Configuración general y opciones"
 
@@ -1773,6 +1787,9 @@ msgstr ""
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "columna"
+
+#~ msgid "_Delete"
+#~ msgstr "_Eliminar"
 
 #~ msgid "Show changes inline"
 #~ msgstr "Mostrar cambios en línea"
