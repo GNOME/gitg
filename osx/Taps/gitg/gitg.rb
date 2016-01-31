@@ -22,6 +22,7 @@ class Gitg < Formula
   depends_on "gnome/gitg/gsettings-desktop-schemas"
   depends_on "gnome/gitg/libgit2-glib" => "with-vala"
   depends_on "gnome/gitg/gnome-icon-theme"
+  depends_on "libxml2"
 
   def install
     system "./autogen.sh", "--disable-dependency-tracking",
