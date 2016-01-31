@@ -69,7 +69,10 @@ public class Application : Gtk.Application
 	}
 
 	private PreferencesDialog d_preferences;
+
+#if GTK_SHORTCUTS_WINDOW
 	private Gtk.ShortcutsWindow d_shortcuts;
+#endif
 
 	static construct
 	{
@@ -271,6 +274,8 @@ public class Application : Gtk.Application
 
 	private void on_shortcuts_activated()
 	{
+#if GTK_SHORTCUTS_WINDOW
+
 		unowned List<Gtk.Window> wnds = get_windows();
 
 		// Create shortcuts window if needed
@@ -289,6 +294,7 @@ public class Application : Gtk.Application
 		}
 
 		d_shortcuts.present();
+#endif
 	}
 
 	private void on_app_author_details_global_activated()
@@ -310,9 +316,14 @@ public class Application : Gtk.Application
 		{"about", on_app_about_activated},
 		{"quit", on_app_quit_activated},
 		{"author-details-global", on_app_author_details_global_activated},
-		{"preferences", on_preferences_activated},
+		{"preferences", on_preferences_activated}
+	};
+
+#if GTK_SHORTCUTS_WINDOW
+	private static const ActionEntry[] shortcut_window_entries = {
 		{"shortcuts", on_shortcuts_activated}
 	};
+#endif
 
 	struct Accel
 	{
@@ -370,6 +381,10 @@ public class Application : Gtk.Application
 
 		// Application menu entries
 		add_action_entries(app_entries, this);
+
+#if GTK_SHORTCUTS_WINDOW
+		add_action_entries(shortcut_window_entries, this);
+#endif
 
 		const Accel[] single_accels = {
 			{"app.new", "<Primary>N",},

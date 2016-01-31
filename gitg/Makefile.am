@@ -31,6 +31,10 @@ gitg_gitg_VALAFLAGS =						\
 	--vapidir "$(top_builddir)/libgitg-ext"			\
 	--gresources "$(top_srcdir)/gitg/resources/gitg-resources.xml"
 
+if GTK_SHORTCUTS_WINDOW
+	gitg_gitg_VALAFLAGS += --define GTK_SHORTCUTS_WINDOW
+endif
+
 gitg_gitg_LDADD =						\
 	libgitg/libgitg-1.0.la					\
 	libgitg-ext/libgitg-ext-1.0.la				\
