@@ -32,7 +32,7 @@ gitg_gitg_VALAFLAGS =						\
 	--gresources "$(top_srcdir)/gitg/resources/gitg-resources.xml"
 
 if GTK_SHORTCUTS_WINDOW
-	gitg_gitg_VALAFLAGS += --define GTK_SHORTCUTS_WINDOW
+gitg_gitg_VALAFLAGS += --define GTK_SHORTCUTS_WINDOW
 endif
 
 gitg_gitg_LDADD =						\
