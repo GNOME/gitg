@@ -333,7 +333,7 @@ public class Gitg.DiffView : Gtk.Grid
 			if (current_file != null)
 			{
 				current_file.show();
-				current_file.notify["has-selection"].connect(on_selection_changed);	
+				current_file.renderer.notify["has-selection"].connect(on_selection_changed);	
 
 				files.add(current_file);
 
