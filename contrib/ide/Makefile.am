@@ -22,5 +22,3 @@ contrib_ide_libide_la_LIBADD = \
 
 EXTRA_DIST += \
 	contrib/ide/ide.vapi
-
--include $(top_srcdir)/git.mk

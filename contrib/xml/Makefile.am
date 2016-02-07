@@ -7,5 +7,3 @@ contrib_xml_libxml_la_SOURCES = \
 
 contrib_xml_libxml_la_CFLAGS = $(XML_CFLAGS)
 contrib_xml_libxml_la_LIBADD = $(XML_LIBS)
-
--include $(top_srcdir)/git.mk
