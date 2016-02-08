@@ -27,7 +27,6 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 	public GitgExt.Application? application { owned get; construct set; }
 
-	private bool d_search_enabled;
 	private bool d_setting_mode;
 
 	[GtkChild( name = "introduction" )]
@@ -148,24 +147,11 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 	public bool search_visible { get; set; }
 
-	public bool search_enabled
-	{
-		get { return d_search_enabled; }
-		set
-		{
-			if (d_search_enabled != value)
-			{
-				d_search_enabled = value;
-				update_search_text();
-			}
-		}
-	}
-
 	private void update_search_text()
 	{
 		if (d_repository_list_box != null)
 		{
-			if (d_search_enabled && d_search_text != "")
+			if (d_search_text != "")
 			{
 				d_repository_list_box.filter_text(d_search_text);
 			}

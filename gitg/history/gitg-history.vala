@@ -1036,7 +1036,6 @@ namespace GitgHistory
 
 		public string search_text { owned get; set; default = ""; }
 		public bool search_visible { get; set; }
-		public bool search_enabled { get; set; }
 	}
 }
 
