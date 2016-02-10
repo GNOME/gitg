@@ -4,22 +4,22 @@
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2014, 2015, 2016.
 # Balázs Meskó <meskobalazs at gmail dot com>, 2015.
-# Balázs Úr <urbalazs at gmail dot com>, 2014, 2015.
+# Balázs Úr <urbalazs at gmail dot com>, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-02-06 07:19+0000\n"
-"PO-Revision-Date: 2016-02-06 09:44+0100\n"
-"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&"
+"keywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2016-02-10 07:21+0000\n"
+"PO-Revision-Date: 2016-02-10 13:52+0100\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at gmail dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.5\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: ../contrib/xml/xml-reader.c:327
 #, c-format
@@ -475,7 +475,7 @@ msgstr "Biztosan véglegesen el kívánja dobni a kijelölt változtatásokat?"
 #: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
 #: ../gitg/commit/gitg-commit.vala:1605
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:451 ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -825,36 +825,36 @@ msgstr "Nem sikerült megtalálni a címkét"
 msgid "Provide a message to create an annotated tag"
 msgstr "Adjon meg üzenetet nevesített címke létrehozásához"
 
-#: ../gitg/gitg-dash-view.vala:185
+#: ../gitg/gitg-dash-view.vala:171
 msgid "_Remove"
 msgstr "_Eltávolítás"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:241
+#: ../gitg/gitg-dash-view.vala:227
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr "A gitg képes a %ssaját mappa átkutatására%s is git tárolók után."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:244
+#: ../gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Mindeközben beállíthatja a %ssaját git profilját%s."
 
-#: ../gitg/gitg-dash-view.vala:396
+#: ../gitg/gitg-dash-view.vala:382
 msgid "Failed to clone repository"
 msgstr "Nem sikerült a tároló klónozása"
 
-#: ../gitg/gitg-dash-view.vala:427
+#: ../gitg/gitg-dash-view.vala:413
 msgid "Failed to add repository"
 msgstr "Nem sikerült a tároló hozzáadása"
 
-#: ../gitg/gitg-dash-view.vala:443
+#: ../gitg/gitg-dash-view.vala:429
 msgid "Create new repository"
 msgstr "Új tároló létrehozása"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:446
+#: ../gitg/gitg-dash-view.vala:432
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -863,15 +863,15 @@ msgstr ""
 "A(z) <i>%s</i> hely nem tűnik érvényes git tárolónak. Szeretne egy új git "
 "tárolót létrehozni ezen a helyen?"
 
-#: ../gitg/gitg-dash-view.vala:452
+#: ../gitg/gitg-dash-view.vala:438
 msgid "Create repository"
 msgstr "Tároló létrehozása"
 
-#: ../gitg/gitg-dash-view.vala:468
+#: ../gitg/gitg-dash-view.vala:454
 msgid "Failed to create repository"
 msgstr "Nem sikerült tárolót létrehozni"
 
-#: ../gitg/gitg-dash-view.vala:538
+#: ../gitg/gitg-dash-view.vala:524
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Tárolók keresése itt: %s"
@@ -1676,16 +1676,18 @@ msgid "Show the list of recently used repositories"
 msgstr "A legutóbb használt tárolók listájának megjelenítése"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
-msgid "Clone…"
-msgstr "Klónozás…"
+#| msgid "Clone…"
+msgid "Clone"
+msgstr "Klónozás"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:4
 msgid "Clone repository"
 msgstr "Tároló klónozása"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:5
-msgid "Add…"
-msgstr "Hozzáadás…"
+#| msgid "_Add"
+msgid "Add"
+msgstr "Hozzáadás"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:6
 msgid "Add repository"
@@ -1764,6 +1766,9 @@ msgstr "A tároló eltávolítása a listából (de nem a lemezről)"
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "oszlop"
+
+#~ msgid "Add…"
+#~ msgstr "Hozzáadás…"
 
 #~ msgid "_Delete"
 #~ msgstr "_Törlés"
