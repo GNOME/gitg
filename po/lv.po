@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&"
 "keywords=I18N+L10N&component=gitg\n"
 "POT-Creation-Date: 2016-02-08 16:18+0000\n"
-"PO-Revision-Date: 2016-02-08 23:11+0200\n"
+"PO-Revision-Date: 2016-02-11 22:06+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -1145,33 +1145,30 @@ msgstr "Pārdēvēt izvēlēto norādi"
 #: ../gitg/gitg-ref-action-rename.vala:100
 #, c-format
 msgid "The specified name ‘%s’ contains invalid characters"
-msgstr ""
+msgstr "Norādītais nosaukums “%s” satur nederīgas rakstzīmes"
 
 #: ../gitg/gitg-ref-action-rename.vala:102
 msgid "Invalid name"
 msgstr "Nederīgs nosaukums"
 
 #: ../gitg/gitg-ref-action-rename.vala:131
-#, fuzzy
 #| msgid "Failed to commit"
 msgid "Failed to rename"
-msgstr "Neizdevās iesūtīt"
+msgstr "Neizdevās pārdēvēt"
 
 #: ../gitg/gitg-window.vala:187
-#, fuzzy
 #| msgid "Open Repository"
 msgid "Add Repository"
-msgstr "Atvērt repozitoriju"
+msgstr "Pievienot krātuvei"
 
 #: ../gitg/gitg-window.vala:191
 msgid "_Add"
-msgstr ""
+msgstr "_Pievienot"
 
 #: ../gitg/gitg-window.vala:193
-#, fuzzy
 #| msgid "Do not try to load a repository from the current working directory"
 msgid "_Scan for all git repositories from this directory"
-msgstr "Nemēģināt ielādēt repozitoriju no aktīvās darba direktorijas"
+msgstr "_Skenēt visus git repozitorijus šajā direktorijā"
 
 #: ../gitg/gitg-window.vala:481
 msgid "Projects"
@@ -1207,10 +1204,9 @@ msgstr ""
 "norādiet savu e-pasta adresi."
 
 #: ../gitg/gitg-window.vala:1072
-#, fuzzy
 #| msgid "Author Details"
 msgid "Missing author details"
-msgstr "Informācija par autoru"
+msgstr "Tūkst informācijas par autoru"
 
 #: ../gitg/gitg-remote-notification.vala:90
 #: ../gitg/gitg-simple-notification.vala:99
@@ -1220,42 +1216,42 @@ msgstr "Aizvērt"
 
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
-msgstr ""
+msgstr "Pēc noklusējuma izvēlēties visus iesūtījumus vēstures aktivitātē"
 
 #: ../gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
-msgstr ""
+msgstr "Pēc noklusējuma izvēlēties visus zarus vēstures aktivitātē"
 
 #: ../gitg/history/gitg-history-command-line.vala:46
 msgid "Select all remotes by default in the history activity"
-msgstr ""
+msgstr "Pēc noklusējuma izvēlēties visus attālinātos vēstures aktivitātē"
 
 #: ../gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
-msgstr ""
+msgstr "Pēc noklusējuma izvēlēties visus tagus vēstures aktivitātē"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
-msgstr ""
+msgstr "Pēc noklusējuma izvēlēties norādīto atsauci vēstures aktivitātē"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
-msgstr ""
+msgstr "ATSAUCE"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%d ahead, %d behind"
-msgstr ""
+msgstr "%d priekšā, %d aiz"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%d ahead"
-msgstr ""
+msgstr "%d priekšā"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%d behind"
-msgstr ""
+msgstr "%d aiz"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1278,18 +1274,17 @@ msgstr "Vēsture"
 
 #: ../gitg/history/gitg-history.vala:311
 msgid "Examine the history of the repository"
-msgstr ""
+msgstr "Izpētīt repozitorija vēsturi"
 
 #: ../gitg/history/gitg-history.vala:796
 msgid "Mainline"
 msgstr "Galvenai zars"
 
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
-#, fuzzy
 #| msgid "Commit"
 msgctxt "Preferences"
 msgid "Commit"
-msgstr "Iesūtīt"
+msgstr "Iesūtījums"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:120
 msgid "Interface"
@@ -1332,61 +1327,60 @@ msgstr[2] "Pirms %d dienām"
 #. clock.
 #: ../libgitg/gitg-date.vala:374
 msgid "%b %e, %H:%M"
-msgstr ""
+msgstr "%e. %b, %H.%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: ../libgitg/gitg-date.vala:381
 msgid "%b %e, %I:%M %p"
-msgstr ""
+msgstr "%e. %b, %I.%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: ../libgitg/gitg-date.vala:391
 msgid "%b %e %Y, %H:%M"
-msgstr ""
+msgstr "%e. %b %Y., %H.%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: ../libgitg/gitg-date.vala:398
 msgid "%b %e %Y, %I:%M %p"
-msgstr ""
+msgstr "%e. %b %Y., %I.%M %p"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:142
-#, fuzzy
 #| msgid "Collapse inactive lanes"
 msgid "Collapse all"
-msgstr "Sakļaut neaktīvās joslas"
+msgstr "Sakļaut visu"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:146
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
-msgstr ""
+msgstr "Izvērst visu"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:199
-#, fuzzy, c-format
+#, c-format
 #| msgid "Commits"
 msgid "Committed by %s"
-msgstr "Iesūtījumi"
+msgstr "Iesūtīja %s"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:154
 #, c-format
 msgid "at %s"
-msgstr ""
+msgstr "mapē %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
 #: ../libgitg/gitg-repository-list-box.vala:163
 #, c-format
 msgid "%s at %s"
-msgstr ""
+msgstr "%s mapē %s"
 
 #: ../libgitg/gitg-repository-list-box.vala:409
 msgid "Cloning…"
-msgstr ""
+msgstr "Klonē…"
 
 #: ../libgitg/gitg-stage.vala:334
 #, c-format
@@ -1400,7 +1394,7 @@ msgstr "Starpība"
 
 #: ../plugins/diff/gitg-diff.vala:117
 msgid "Show the changes introduced by the selected commit"
-msgstr ""
+msgstr "Rādīt izmaiņas, ko ieviesa izvēlētais iesūtījums"
 
 #: ../plugins/files/gitg-files.vala:63
 msgid "Files"
@@ -1408,30 +1402,26 @@ msgstr "Datnes"
 
 #: ../plugins/files/gitg-files.vala:68
 msgid "Show the files in the tree of the selected commit"
-msgstr ""
+msgstr "Rādīt datnes izvēlētā iesūtījuma kokā"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 msgid "_Save"
 msgstr "_Saglabāt"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-#, fuzzy
 #| msgid "Enter details to set as default for all repositories:"
 msgid "Default details used for all repositories"
-msgstr ""
-"Ievadiet informāciju, ko iestatīt kā noklusējuma visiem repozitorijiem:"
+msgstr "Noklusējuma informācija visiem repozitorijiem"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
-#, fuzzy
 #| msgid "E-mail: "
 msgid "E-mail:"
 msgstr "E-pasts:"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-#, fuzzy
 #| msgid "Name: "
 msgid "Name:"
-msgstr "Vārds: "
+msgstr "Vārds:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 msgid "Clone Repository"
@@ -1458,7 +1448,6 @@ msgid "Bare repository"
 msgstr "Tukšs repozitorijs"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#, fuzzy
 #| msgid "Commit"
 msgctxt "Create Dialog"
 msgid "Commit"
@@ -1486,10 +1475,9 @@ msgid "S_tage selection"
 msgstr "Pievieno_t izvēli"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
-#, fuzzy
 #| msgid "_Unstage selection"
 msgid "D_iscard selection"
-msgstr "_Noņemt izvēli"
+msgstr "Atmest _izvēli"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:1
 msgid ""
@@ -1525,39 +1513,39 @@ msgid "Date"
 msgstr "Datums"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-info.ui.h:1
-#, fuzzy
 #| msgid "_Open"
 msgid "Open"
-msgstr "_Atvērt"
+msgstr "Atvērt"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
 msgid "Create Branch"
-msgstr ""
+msgstr "Izveidot zaru"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
 msgid "C_reate"
-msgstr ""
+msgstr "Iz_veidot"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
-#, fuzzy
 #| msgid "Branches"
 msgid "Branch _name:"
-msgstr "Zari"
+msgstr "Zara _nosaukums:"
 
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
 msgid "Create Tag"
-msgstr ""
+msgstr "Izveidot tagu"
 
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
 msgid "Tag _name:"
-msgstr ""
+msgstr "Taga _nosaukums:"
 
 #: ../gitg/resources/ui/gitg-dash-view.ui.h:1
 msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
+"Vēl nav pievienotu krātuvju. Lai sāktu, varat pievienot esošu krātuvi vai "
+"klonēt jaunu."
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
@@ -1573,7 +1561,7 @@ msgstr "_Iestatījumi"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:4
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Tastatūras īsinājumtaustiņi"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:5
 msgid "_Help"
@@ -1612,30 +1600,27 @@ msgid "Commit Message"
 msgstr "Iesūtīšanas ziņojums"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-#, fuzzy
 #| msgid "_Stage selection"
 msgid "Default selection"
-msgstr "_Sagatavot izvēlēto"
+msgstr "Noklusējuma izvēle"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
 msgid "Current branch"
-msgstr ""
+msgstr "Pašreizējais zars"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
-#, fuzzy
 #| msgid "Branches"
 msgid "All branches"
-msgstr "Zari"
+msgstr "Visi zari"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
-#, fuzzy
 #| msgid "Preferences"
 msgid "References"
-msgstr "Iestatījumi"
+msgstr "Norādes"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
 msgid "Sort references in the sidebar by latest activity"
-msgstr ""
+msgstr "Rīsa norāde sānu joslā pēc pēdējās aktivitātes"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Show upstream (remote) branch when selecting a local branch"
@@ -1667,13 +1652,12 @@ msgstr "Saglabāt galveno zaru pašlaik paņemtajam zaram"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Startup"
-msgstr ""
+msgstr "Startēšana"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#, fuzzy
 #| msgid "Start gitg with a particular activity"
 msgid "Start with activity:"
-msgstr "Palaist gitg ar noteiktu aktivitāti"
+msgstr "Sākt ar aktivitāti:"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:4
 msgid "Commit"
@@ -1689,15 +1673,15 @@ msgstr "Izmantot horizontālu izkārtojumu"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:7
 msgid "Avatars"
-msgstr ""
+msgstr "Avatari"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:8
 msgid "Use gravatar service to provide user avatars"
-msgstr ""
+msgstr "Izmantot gravatar pakalpojumu, lai nodrošinātu lietotāju avatarus"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:9
 msgid "Monitoring"
-msgstr ""
+msgstr "Pārraudzība"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:12
 msgid "Enable syntax highlighting of source code in diff views"
@@ -1708,24 +1692,22 @@ msgid "Preferences"
 msgstr "Iestatījumi"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
-#, fuzzy
 #| msgid "_New Window"
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr "Jau_ns logs"
+msgstr "Logi"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
 msgctxt "shortcut window"
 msgid "Open a new window"
-msgstr ""
+msgstr "Atvērt jaunu logu"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
 msgctxt "shortcut window"
 msgid "Open the window menu"
-msgstr ""
+msgstr "Atvērt loga izvēlni"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-#, fuzzy
 #| msgid "Open Repository"
 msgctxt "shortcut window"
 msgid "Open a repository"
@@ -1734,116 +1716,115 @@ msgstr "Atvērt repozitoriju"
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
 msgctxt "shortcut window"
 msgid "Open the help"
-msgstr ""
+msgstr "Atvērt palīdzību"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
 msgctxt "shortcut window"
 msgid "Find"
-msgstr ""
+msgstr "Meklēt"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
 msgctxt "shortcut window"
 msgid "Close the active window"
-msgstr ""
+msgstr "Aizvērt aktīvo logu"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
-#, fuzzy
 #| msgid "Show the application's version"
 msgctxt "shortcut window"
 msgid "Quit the application"
-msgstr "Rādīt lietotnes versiju"
+msgstr "Iziet no lietotnes"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Show the list of recently used repositories"
-msgstr ""
+msgstr "Rādīt sarakstu ar nesen izmantotajiem repozitorijiem"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
 msgid "Clone"
-msgstr ""
+msgstr "Klonēt"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:4
-#, fuzzy
 #| msgid "Clone Repository"
 msgid "Clone repository"
 msgstr "Klonēt repozitoriju"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:5
 msgid "Add"
-msgstr ""
+msgstr "Pievienot"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:6
-#, fuzzy
 #| msgid "Bare repository"
 msgid "Add repository"
-msgstr "Tukšs repozitorijs"
+msgstr "Pievienot krātuvei"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:7
 msgid "Find a word or phrase"
-msgstr ""
+msgstr "Meklēt vārdu vai frāzi"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:8
 msgid "General settings and options"
-msgstr ""
+msgstr "Vispārīgie iestatījumi un opcijas"
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:2
 msgid "_Authenticate"
-msgstr ""
+msgstr "_Autentificēt"
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:3
 msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
 msgstr ""
+"Iepriekšējais autentificēšanās mēģinājums neizdevās. Norādiet savu "
+"lietotājvārdu un paroli un mēģiniet vēlreiz."
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
 msgid "_Username:"
-msgstr ""
+msgstr "_Lietotājvārds:"
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:5
 msgid "_Password:"
-msgstr ""
+msgstr "_Parole:"
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:6
 msgid "Forget password _immediately"
-msgstr ""
+msgstr "Tūlīt a_izmirst paroli"
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:7
 msgid "Remember password until you _logout"
-msgstr ""
+msgstr "Atcerēties paroli _līdz sesijas beigām"
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:8
 msgid "Remember _forever"
-msgstr ""
+msgstr "Atcerēties _mūžīgi"
 
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
 msgid "Parents"
-msgstr ""
+msgstr "Vecāki"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
-msgstr ""
+msgstr "Tabulācijas platums:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:2
 msgid "Wrap lines:"
-msgstr ""
+msgstr "Aplauzt rindas:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:3
 msgid "Ignore whitespace:"
-msgstr ""
+msgstr "Ignorēt atstarpes:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:1
 msgid "Context:"
-msgstr ""
+msgstr "Konteksts:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:2
 msgid "Spacing"
-msgstr ""
+msgstr "Atstarpes"
 
 #: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
-msgstr ""
+msgstr "Izņemt krātuvi no saraksta (krātuve netiks izdzēsta no diska)"
 
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
