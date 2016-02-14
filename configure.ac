@@ -36,7 +36,6 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PATH_PROG(GZIP, gzip)
 AC_PROG_MKDIR_P
-AM_PROG_VALAC([0.20.1.23])
 PKG_PROG_PKG_CONFIG
 
 AC_PATH_PROG(GLIB_MKENUMS, glib-mkenums)
@@ -163,8 +162,10 @@ PKG_CHECK_MODULES(XML, [
 GTK_SHORTCUTS_WINDOW_REQUIRED_VERSION=3.19
 
 PKG_CHECK_EXISTS(gtk+-3.0 >= $GTK_SHORTCUTS_WINDOW_REQUIRED_VERSION,
-                 [gtk_shortcuts_window=yes],
-                 [gtk_shortcuts_window=no])
+                 [gtk_shortcuts_window=yes; MIN_VALA_VERSION=0.31.1],
+                 [gtk_shortcuts_window=no; MIN_VALA_VERSION=0.26])
+
+AM_PROG_VALAC($MIN_VALA_VERSION)
 
 AM_CONDITIONAL(GTK_SHORTCUTS_WINDOW, test "$gtk_shortcuts_window" = "yes")
 
