@@ -10,10 +10,10 @@
 # stash        - Zurückstellung / zurückstellen
 # stage        - Bereitstellung / bereitstellen
 #
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2012, 2015, 2016.
-# Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010, 2011, 2015, 2016.
-# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2009, 2010, 2012.
-# Benjamin Steinwender <b@stbe.at>, 2014-2015.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2012, 2015-2016.
+# Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010-2011, 2015-2016.
+# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2009-2010, 2012.
+# Benjamin Steinwender <b@stbe.at>, 2014-2016.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2015.
 #
 msgid ""
@@ -21,9 +21,9 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-01-16 15:22+0000\n"
-"PO-Revision-Date: 2016-01-07 18:40+0100\n"
-"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"POT-Creation-Date: 2016-02-10 19:16+0000\n"
+"PO-Revision-Date: 2016-02-10 21:43+0100\n"
+"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.6\n"
+
+#: ../contrib/xml/xml-reader.c:327
+#, c-format
+msgid "Could not parse XML from stream"
+msgstr "XML aus Stream konnte nicht analysiert werden"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -497,13 +502,13 @@ msgstr "Möchten Sie wirklich die gewählten Änderungen dauerhaft verwerfen?"
 #: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
 #: ../gitg/commit/gitg-commit.vala:1605
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:474 ../gitg/gitg-dash-view.vala:605
+#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-window.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:9
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
 msgid "_Cancel"
 msgstr "A_bbrechen"
@@ -665,26 +670,26 @@ msgstr ""
 "Nicht versuchen, einen Softwarebestand aus dem aktuellen Arbeitsordner zu "
 "laden"
 
-#: ../gitg/gitg-application.vala:91
+#: ../gitg/gitg-application.vala:94
 msgid "- Git repository viewer"
 msgstr "- Betrachter für Git-Softwarebestände"
 
-#: ../gitg/gitg-application.vala:223
+#: ../gitg/gitg-application.vala:226
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg ist ein Betrachter für Git-Softwarebestände für gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:232
+#: ../gitg/gitg-application.vala:235
 msgid "translator-credits"
 msgstr ""
 "Mario Blättermann <mario.blaettermann@gmail.com>, 2008, 2012, 2013, 2015\n"
 "Christian Kirbach <christian.kirbach@gmail.com>, 2013, 2014, 2015\n"
 "Benjamin Steinwender <b@stbe.at>, 2014-2015"
 
-#: ../gitg/gitg-application.vala:235
+#: ../gitg/gitg-application.vala:238
 msgid "gitg homepage"
 msgstr "gitg-Homepage"
 
-#: ../gitg/gitg-application.vala:358
+#: ../gitg/gitg-application.vala:369
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -859,39 +864,39 @@ msgstr ""
 "Geben Sie eine Nachricht an, um einen mit Anmerkungen versehenen Tag zu "
 "erstellen"
 
-#: ../gitg/gitg-dash-view.vala:190
-msgid "_Delete"
-msgstr "_Löschen"
+#: ../gitg/gitg-dash-view.vala:171
+msgid "_Remove"
+msgstr "_Entfernen"
 
 # Sieht seltsam aus, müsste aber so stimmen
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:247
+#: ../gitg/gitg-dash-view.vala:227
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
 "Ihr persönlicher Ordner kann nach git-Softwarebeständen %sabgesucht%s werden."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:250
+#: ../gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr ""
 "In der Zwischenzeit bietet es sich an, %sIhr git-Profil einzurichten%s."
 
-#: ../gitg/gitg-dash-view.vala:402
+#: ../gitg/gitg-dash-view.vala:382
 msgid "Failed to clone repository"
 msgstr "Klonen des Softwarebestands ist fehlgeschlagen"
 
-#: ../gitg/gitg-dash-view.vala:450
+#: ../gitg/gitg-dash-view.vala:413
 msgid "Failed to add repository"
 msgstr "Softwarebestand hinzufügen ist fehlgeschlagen"
 
-#: ../gitg/gitg-dash-view.vala:466
+#: ../gitg/gitg-dash-view.vala:429
 msgid "Create new repository"
 msgstr "Einen neuen Softwarebestand erstellen"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:469
+#: ../gitg/gitg-dash-view.vala:432
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -900,30 +905,18 @@ msgstr ""
 "Der Ort <i>%s</i> scheint kein gültiger git-Softwarebestand zu sein. Möchten "
 "Sie an diesem Ort einen neuen git-Softwarebestand initialisieren?"
 
-#: ../gitg/gitg-dash-view.vala:475
+#: ../gitg/gitg-dash-view.vala:438
 msgid "Create repository"
 msgstr "Softwarebestand erstellen"
 
-#: ../gitg/gitg-dash-view.vala:491
+#: ../gitg/gitg-dash-view.vala:454
 msgid "Failed to create repository"
 msgstr "Erstellen des Softwarebestandes ist fehlgeschlagen"
 
-#: ../gitg/gitg-dash-view.vala:561
+#: ../gitg/gitg-dash-view.vala:524
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Nach Softwarebeständen in %s wird gesucht"
-
-#: ../gitg/gitg-dash-view.vala:602
-msgid "Add Repository"
-msgstr "Softwarebestand hinzufügen"
-
-#: ../gitg/gitg-dash-view.vala:606
-msgid "_Add"
-msgstr "_Hinzufügen"
-
-#: ../gitg/gitg-dash-view.vala:608
-msgid "_Scan for all git repositories from this directory"
-msgstr "Von diesem Ordner aus nach allen git-Softwarebeständen _suchen"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
@@ -1136,7 +1129,7 @@ msgstr "%s nach %s erfolgreich zusammengeführt"
 msgid "Merge %s into branch %s"
 msgstr "%s in den Zweig %s zusammenführen"
 
-# In den übrigen Strings ist »tag« nicht übersetzt. 
+# In den übrigen Strings ist »tag« nicht übersetzt.
 #: ../gitg/gitg-ref-action-merge.vala:482
 #: ../gitg/history/gitg-history-refs-list.vala:1176
 msgid "Tags"
@@ -1163,16 +1156,28 @@ msgstr "Ungültiger Name"
 msgid "Failed to rename"
 msgstr "Umbenennen ist gescheitert"
 
-#: ../gitg/gitg-window.vala:421
+#: ../gitg/gitg-window.vala:187
+msgid "Add Repository"
+msgstr "Softwarebestand hinzufügen"
+
+#: ../gitg/gitg-window.vala:191
+msgid "_Add"
+msgstr "_Hinzufügen"
+
+#: ../gitg/gitg-window.vala:193
+msgid "_Scan for all git repositories from this directory"
+msgstr "Von diesem Ordner aus nach allen git-Softwarebeständen _suchen"
+
+#: ../gitg/gitg-window.vala:481
 msgid "Projects"
 msgstr "Projekte"
 
-#: ../gitg/gitg-window.vala:848
+#: ../gitg/gitg-window.vala:912
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "»%s« ist kein gültiger Git-Softwarebestand."
 
-#: ../gitg/gitg-window.vala:997
+#: ../gitg/gitg-window.vala:1061
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1181,7 +1186,7 @@ msgstr ""
 "in die Benutzerkonfiguration und geben Sie Ihren Namen und Ihre E-Mail-"
 "Adresse ein."
 
-#: ../gitg/gitg-window.vala:1001
+#: ../gitg/gitg-window.vala:1065
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1189,7 +1194,7 @@ msgstr ""
 "Ihr Benutzername ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihren Namen ein."
 
-#: ../gitg/gitg-window.vala:1005
+#: ../gitg/gitg-window.vala:1069
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1197,13 +1202,13 @@ msgstr ""
 "Ihre E-Mail ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihre E-Mail-Adresse ein."
 
-#: ../gitg/gitg-window.vala:1008
+#: ../gitg/gitg-window.vala:1072
 msgid "Missing author details"
 msgstr "Details des Autors fehlen"
 
 #: ../gitg/gitg-remote-notification.vala:90
 #: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:10
 msgid "Close"
 msgstr "Schließen"
 
@@ -1356,18 +1361,18 @@ msgid "Committed by %s"
 msgstr "Eingespielt von %s"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: ../libgitg/gitg-repository-list-box.vala:175
+#: ../libgitg/gitg-repository-list-box.vala:154
 #, c-format
 msgid "at %s"
 msgstr "bei %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: ../libgitg/gitg-repository-list-box.vala:184
+#: ../libgitg/gitg-repository-list-box.vala:163
 #, c-format
 msgid "%s at %s"
 msgstr "%s bei %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:426
+#: ../libgitg/gitg-repository-list-box.vala:409
 msgid "Cloning…"
 msgstr "Klonen …"
 
@@ -1530,14 +1535,6 @@ msgstr ""
 "Es wurden noch keine Softwarebestände hinzugefügt. Sie können einen "
 "bestehenden Softwarebestand hinzufügen, oder einen neuen klonen."
 
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:2
-msgid "_Add repository"
-msgstr "Softwarebestand _hinzufügen"
-
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:3
-msgid "_Clone repository"
-msgstr "Softwarebestand _klonen"
-
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "_Neues Fenster"
@@ -1552,7 +1549,7 @@ msgstr "_Einstellungen"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:4
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Tastenkürzel"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:5
 msgid "_Help"
@@ -1680,52 +1677,70 @@ msgid "Preferences"
 msgstr "Einstellungen"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
-#, fuzzy
-#| msgid "_New Window"
+msgctxt "shortcut window"
 msgid "Windows"
-msgstr "_Neues Fenster"
+msgstr "_Fenster"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
+msgctxt "shortcut window"
 msgid "Open a new window"
-msgstr ""
+msgstr "Ein neues Fenster öffnen"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
+msgctxt "shortcut window"
 msgid "Open the window menu"
-msgstr ""
+msgstr "Das Fenstermenü öffnen"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-#, fuzzy
-#| msgid "_Open Repository…"
+msgctxt "shortcut window"
 msgid "Open a repository"
-msgstr "Softwarebestand ö_ffnen …"
+msgstr "Softwarebestand öffnen"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
+msgctxt "shortcut window"
 msgid "Open the help"
-msgstr ""
+msgstr "Die Hilfe öffnen"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
+msgctxt "shortcut window"
 msgid "Find"
-msgstr ""
+msgstr "Suchen"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
+msgctxt "shortcut window"
 msgid "Close the active window"
-msgstr ""
+msgstr "Das aktive Fenster schließen"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
-#, fuzzy
-#| msgid "Show the application's version"
+msgctxt "shortcut window"
 msgid "Quit the application"
-msgstr "Version der Anwendung anzeigen"
+msgstr "Die Anwendung beenden"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Show the list of recently used repositories"
 msgstr "Die Liste der zuletzt verwendeten Softwarebestände anzeigen"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Clone"
+msgstr "Klonen"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+msgid "Clone repository"
+msgstr "Softwarebestand klonen"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:5
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:6
+msgid "Add repository"
+msgstr "Softwarebestand hinzufügen"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:7
 msgid "Find a word or phrase"
 msgstr "Ein Wort oder eine Wortkette suchen"
 
-#: ../gitg/resources/ui/gitg-window.ui.h:4
+#: ../gitg/resources/ui/gitg-window.ui.h:8
 msgid "General settings and options"
 msgstr "Generelle Einstellungen und Optionen"
 
@@ -1796,6 +1811,9 @@ msgstr ""
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "Spalte"
+
+#~ msgid "_Delete"
+#~ msgstr "_Löschen"
 
 #, fuzzy
 #~| msgid "Diff"
