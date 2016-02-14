@@ -1,8 +1,8 @@
 class Gtkx3 < Formula
   desc "Toolkit for creating graphical user interfaces"
   homepage "http://gtk.org/"
-  url "https://download.gnome.org/sources/gtk+/3.18/gtk+-3.18.2.tar.xz"
-  sha256 "5dbec561c4a00070073bf9cf4cfdd61fab4a14c8ff5b15d700bd378f8185e152"
+  url "https://download.gnome.org/sources/gtk+/3.19/gtk+-3.19.8.tar.xz"
+  sha256 "ad42d0f34ea7b07a72659e5cdadd79c7d7bf8a2acc802096abf10740f2c073bc"
 
   option :universal
   option "with-quartz-relocation", "Build with quartz relocation support"
@@ -133,7 +133,7 @@ diff --git a/gdk/quartz/gdkwindow-quartz.c b/gdk/quartz/gdkwindow-quartz.c
 index 1d39e8f..04539d3 100644
 --- a/gdk/quartz/gdkwindow-quartz.c
 +++ b/gdk/quartz/gdkwindow-quartz.c
-@@ -320,10 +320,15 @@ gdk_quartz_ref_cairo_surface (GdkWindow *window)
+@@ -317,10 +317,15 @@ gdk_quartz_ref_cairo_surface (GdkWindow *window)
  
    if (!impl->cairo_surface)
      {
@@ -153,69 +153,3 @@ index 1d39e8f..04539d3 100644
      cairo_surface_reference (impl->cairo_surface);
 -- 
 1.9.3 (Apple Git-50)
-From 571704824f78de9d8b262793397a4e4ea6cedf7d Mon Sep 17 00:00:00 2001
-From: John Ralls <jralls@ceridwen.us>
-Date: Fri, 18 Sep 2015 15:12:24 -0700
-Subject: [PATCH] Bug 753992 - im-quartz discard_preedit segmentation fault
-
-Replace checking if the NSView is really a GdkWindow, which will crash
-in the likely event it's not a GObject, with ensuring that the parent
-GdkWindow is really a GdkWindowQuartz.
----
- modules/input/imquartz.c | 19 +++++++------------
- 1 file changed, 7 insertions(+), 12 deletions(-)
-
-diff --git a/modules/input/imquartz.c b/modules/input/imquartz.c
-index 5db6481..508ecf8 100644
---- a/modules/input/imquartz.c
-+++ b/modules/input/imquartz.c
-@@ -186,15 +186,11 @@ quartz_filter_keypress (GtkIMContext *context,
- 
-   GTK_NOTE (MISC, g_print ("quartz_filter_keypress\n"));
- 
--  if (!qc->client_window)
-+  if (!GDK_IS_QUARTZ_WINDOW (qc->client_window))
-     return FALSE;
- 
-   nsview = gdk_quartz_window_get_nsview (qc->client_window);
--  if (GDK_IS_WINDOW (nsview))
--       /* it gets GDK_WINDOW in some cases */
--    return gtk_im_context_filter_keypress (qc->slave, event);
--  else
--    win = (GdkWindow *)[ (GdkQuartzView *)nsview gdkWindow];
-+  win = (GdkWindow *)[ (GdkQuartzView *)nsview gdkWindow];
-   GTK_NOTE (MISC, g_print ("client_window: %p, win: %p, nsview: %p\n",
- 			   qc->client_window, win, nsview));
- 
-@@ -242,11 +238,11 @@ discard_preedit (GtkIMContext *context)
-   if (!qc->client_window)
-     return;
- 
--  NSView *nsview = gdk_quartz_window_get_nsview (qc->client_window);
--  if (!nsview)
-+  if (!GDK_IS_QUARTZ_WINDOW (qc->client_window))
-     return;
- 
--  if (GDK_IS_WINDOW (nsview))
-+  NSView *nsview = gdk_quartz_window_get_nsview (qc->client_window);
-+  if (!nsview)
-     return;
- 
-   /* reset any partial input for this NSView */
-@@ -328,11 +324,10 @@ quartz_set_cursor_location (GtkIMContext *context, GdkRectangle *area)
-   qc->cursor_rect->x = area->x + x;
-   qc->cursor_rect->y = area->y + y;
- 
--  nsview = gdk_quartz_window_get_nsview (qc->client_window);
--  if (GDK_IS_WINDOW (nsview))
--    /* it returns GDK_WINDOW in some cases */
-+  if (!GDK_IS_QUARTZ_WINDOW (qc->client_window))
-     return;
- 
-+  nsview = gdk_quartz_window_get_nsview (qc->client_window);
-   win = (GdkWindow *)[ (GdkQuartzView*)nsview gdkWindow];
-   g_object_set_data (G_OBJECT (win), GIC_CURSOR_RECT, qc->cursor_rect);
- }
--- 
-2.4.9 (Apple Git-60)
-
