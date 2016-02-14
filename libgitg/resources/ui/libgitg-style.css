@@ -32,65 +32,65 @@ GitgDiffView GitgDiffViewCommitDetails {
 	border-bottom: 1px outset lighter(@borders);
 }
 
-GitgDiffStat {
+gitg-diffstat {
 	border: 1px inset shade(@borders, 1.2);
 	border-radius: 5px;
 	background-color: shade(@theme_base_color, 0.975);
 	padding: 1px 5px 1px 3px;
-	-GitgDiffStat-bar-height: 5px;
+	-gitg-diffstat-bar-height: 5px;
 }
 
-GitgDiffStat.no-frame {
+gitg-diffstat.no-frame {
 	border: 0;
 }
 
-GitgDiffStat.added,
-GitgDiffStat.removed,
-GitgDiffStat.no-frame.added,
-GitgDiffStat.no-frame.removed {
+gitg-diffstat.added,
+gitg-diffstat.removed,
+gitg-diffstat.no-frame.added,
+gitg-diffstat.no-frame.removed {
 	border: 0;
 }
 
-GitgDiffStat.added,
-GitgDiffStat.added-only,
-GitgDiffStat.no-frame.added,
-GitgDiffStat.no-frame.added-only {
+gitg-diffstat.added,
+gitg-diffstat.added-only,
+gitg-diffstat.no-frame.added,
+gitg-diffstat.no-frame.added-only {
 	background-color: #ddffdd;
 	border-radius: 3px 0px 0px 3px;
 }
 
-GitgDiffStat.added.dark,
-GitgDiffStat.added-only.dark {
+gitg-diffstat.added.dark,
+gitg-diffstat.added-only.dark {
 	background-color: rgb(78, 154, 6);
 }
 
-GitgDiffStat.added:dir(rtl),
-GitgDiffStat.no-frame.added:dir(rtl) {
+gitg-diffstat.added:dir(rtl),
+gitg-diffstat.no-frame.added:dir(rtl) {
 	border-radius: 0px 3px 3px 0px;
 }
 
-GitgDiffStat.removed,
-GitgDiffStat.removed-only,
-GitgDiffStat.no-frame.removed,
-GitgDiffStat.no-frame.removed-only {
+gitg-diffstat.removed,
+gitg-diffstat.removed-only,
+gitg-diffstat.no-frame.removed,
+gitg-diffstat.no-frame.removed-only {
 	background-color: #ffdddd;
 	border-radius: 0px 3px 3px 0px;
 }
 
-GitgDiffStat.removed.dark,
-GitgDiffStat.removed-only.dark {
+gitg-diffstat.removed.dark,
+gitg-diffstat.removed-only.dark {
 	background-color: rgb(164, 0, 0);
 }
 
-GitgDiffStat.removed:dir(rtl),
-GitgDiffStat.no-frame.removed:dir(rtl) {
+gitg-diffstat.removed:dir(rtl),
+gitg-diffstat.no-frame.removed:dir(rtl) {
 	border-radius: 3px 0px 0px 3px;
 }
 
-GitgDiffStat.removed-only,
-GitgDiffStat.added-only,
-GitgDiffStat.no-frame.removed-only,
-GitgDiffStat.no-frame.added-only {
+gitg-diffstat.removed-only,
+gitg-diffstat.added-only,
+gitg-diffstat.no-frame.removed-only,
+gitg-diffstat.no-frame.added-only {
 	border-radius: 3px;
 }
 

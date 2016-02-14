@@ -54,6 +54,8 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 		                                        5,
 		                                        ParamFlags.READWRITE |
 		                                        ParamFlags.STATIC_STRINGS));
+
+		set_css_name("gitg-diffstat");
 	}
 
 	construct
