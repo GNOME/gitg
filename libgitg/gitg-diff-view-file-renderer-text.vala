@@ -339,6 +339,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		try
 		{
 			yield loader.load_async(GLib.Priority.LOW, cancellable, null);
+			this.strip_carriage_returns(buffer);
 		}
 		catch (Error e)
 		{
@@ -351,6 +352,21 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 
 		return buffer;
+	}
+
+	private void strip_carriage_returns(Gtk.SourceBuffer buffer)
+	{
+		var search_settings = new Gtk.SourceSearchSettings();
+
+		search_settings.regex_enabled = true;
+		search_settings.search_text = "\\r";
+
+		var search_context = new Gtk.SourceSearchContext(buffer, search_settings);
+
+		try
+		{
+			search_context.replace_all("", 0);
+		} catch (Error e) {}
 	}
 
 	private void update_highlighting_ready()
@@ -542,7 +558,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		for (var i = 0; i < lines.size; i++)
 		{
 			var line = lines[i];
-			var text = line.get_text();
+			var text = line.get_text().replace("\r", "");
 			var added = false;
 			var removed = false;
 			var origin = line.get_origin();
