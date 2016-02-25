@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-18 00:00+0100\n"
-"PO-Revision-Date: 2016-02-23 16:12+0200\n"
+"POT-Creation-Date: 2016-02-24 10:06+0100\n"
+"PO-Revision-Date: 2016-02-25 12:57+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -740,8 +740,8 @@ msgid ""
 "checkout branch %s with the cherry pick to your working directory to resolve "
 "the conflicts?"
 msgstr ""
-"O «cherry pick» de %s en %s causou conflitos. Desexa obter a rama %s co «"
-"cherry pick» no seu directorio de traballo para resolver os conflitos?"
+"O «cherry pick» de %s en %s causou conflitos. Desexa obter a rama %s co "
+"«cherry pick» no seu directorio de traballo para resolver os conflitos?"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
@@ -905,7 +905,7 @@ msgstr "Produciuse un fallo actualizar HEAD: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
-msgstr ""
+msgstr "Rama descargada con éxito no directorio de traballo"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -1024,23 +1024,23 @@ msgstr "Obtido desde %s: %s"
 #: ../gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
-msgstr ""
+msgstr "Unir en %s"
 
 #. TODO
 #: ../gitg/gitg-ref-action-merge.vala:69
-#, fuzzy, c-format
+#, c-format
 msgid "Merge another branch into branch %s"
-msgstr "Misturando a rama %s <%s> na rama %s <%s>"
+msgstr "Unir outra rama na rama %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:106
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to merge commits: %s"
-msgstr "Produciuse un fallo ao remitir"
+msgstr "Produciuse un fallo ao unir as remisións: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:175
 #: ../gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
-msgstr ""
+msgstr "A unión ten conflitos"
 
 #: ../gitg/gitg-ref-action-merge.vala:184
 #, c-format
@@ -1048,6 +1048,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
+"O unión de %s en %s causou conflitos. Desexa obter a rama %s coa unión no "
+"seu directorio de traballo para resolver os conflitos?"
 
 #: ../gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -1055,39 +1057,41 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
 "merge to your working directory to resolve the conflicts?"
 msgstr ""
+"O unión de %s en %s causou conflitos. Desexa obter a unión no seu directorio "
+"de traballo para resolver os conflitos?"
 
 #: ../gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
-msgstr ""
+msgstr "Produciuse un fallo con conflitos"
 
 #: ../gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
-msgstr ""
+msgstr "Unión rematada con conflitos no seu cartafol de traballo"
 
 #: ../gitg/gitg-ref-action-merge.vala:222
 #, c-format
 msgid "Merge %s into %s"
-msgstr ""
+msgstr "Unir %s en %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:231
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to lookup our commit: %s"
-msgstr "Produciuse un fallo ao buscar a etiqueta"
+msgstr "Produciuse un fallo ao buscar a nosa remisión: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:241
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to lookup their commit: %s"
-msgstr "Produciuse un fallo ao buscar a etiqueta"
+msgstr "Produciuse un fallo ao buscar a súa remisión: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:278
 #, c-format
 msgid "Successfully merged %s into %s"
-msgstr ""
+msgstr "Realizouse a unión de %s en %s con éxito"
 
 #: ../gitg/gitg-ref-action-merge.vala:320
-#, fuzzy, c-format
+#, c-format
 msgid "Merge %s into branch %s"
-msgstr "Eliminar rama %s"
+msgstr "Unir %s na rama %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:482
 #: ../gitg/history/gitg-history-refs-list.vala:1176
@@ -1116,18 +1120,16 @@ msgid "Failed to rename"
 msgstr "Produciuse un fallo ao renomear"
 
 #: ../gitg/gitg-window.vala:187
-#, fuzzy
 msgid "Add Repository"
-msgstr "Abrir repositorio"
+msgstr "Engadir repositorio"
 
 #: ../gitg/gitg-window.vala:191
 msgid "_Add"
-msgstr ""
+msgstr "Eng_adir"
 
 #: ../gitg/gitg-window.vala:193
-#, fuzzy
 msgid "_Scan for all git repositories from this directory"
-msgstr "Non tentar cargar un repositorio desde o cartafol actual"
+msgstr "_Analizar para todos os repositorios git desde este cartafol"
 
 #: ../gitg/gitg-window.vala:481
 msgid "Projects"
@@ -1163,9 +1165,8 @@ msgstr ""
 "do usuario e forneza un correo."
 
 #: ../gitg/gitg-window.vala:1072
-#, fuzzy
 msgid "Missing author details"
-msgstr "Detalles do autor"
+msgstr "Falta a información do autor"
 
 #: ../gitg/gitg-remote-notification.vala:90
 #: ../gitg/gitg-simple-notification.vala:99
@@ -1175,42 +1176,44 @@ msgstr "Pechar"
 
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
-msgstr ""
+msgstr "Seleccione todas as remisións por omisión no historial de remisións"
 
 #: ../gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
-msgstr ""
+msgstr "Seleccione todas as ramas por omisión no historial de remisións"
 
 #: ../gitg/history/gitg-history-command-line.vala:46
 msgid "Select all remotes by default in the history activity"
 msgstr ""
+"Seleccione todos os servidores remotos por omisión no historial de remisións"
 
 #: ../gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
-msgstr ""
+msgstr "Seleccione todas as etiquetas por omisión no historial de remisións"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
 msgstr ""
+"Seleccione a referencia especificada por omisión no historial de remisións"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
-msgstr ""
+msgstr "REFERENCIA"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%d ahead, %d behind"
-msgstr ""
+msgstr "%d por diante, %d por detrás"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%d ahead"
-msgstr ""
+msgstr "%d por diante"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%d behind"
-msgstr ""
+msgstr "%d por detrás"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1240,7 +1243,6 @@ msgid "Mainline"
 msgstr "Liña principal"
 
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
-#, fuzzy
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Remitir"
@@ -1307,35 +1309,34 @@ msgid "%b %e %Y, %I:%M %p"
 msgstr "%e de %b de %Y, %I:%M %p"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:142
-#, fuzzy
 msgid "Collapse all"
-msgstr "Contraer as liñas inactivas"
+msgstr "Contraer todo"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:146
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
-msgstr ""
+msgstr "Expandir todo"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:199
-#, fuzzy, c-format
+#, c-format
 msgid "Committed by %s"
-msgstr "Remitido por:"
+msgstr "Remitido por %s"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:154
 #, c-format
 msgid "at %s"
-msgstr ""
+msgstr "en %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
 #: ../libgitg/gitg-repository-list-box.vala:163
 #, c-format
 msgid "%s at %s"
-msgstr ""
+msgstr "%s en %s"
 
 #: ../libgitg/gitg-repository-list-box.vala:409
 msgid "Cloning…"
-msgstr ""
+msgstr "Clonando…"
 
 #: ../libgitg/gitg-stage.vala:334
 #, c-format
@@ -1366,19 +1367,14 @@ msgid "_Save"
 msgstr "_Gardar"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-#, fuzzy
 msgid "Default details used for all repositories"
-msgstr ""
-"Escriba a información para configurar como predeterminados para todos os "
-"seus repositorios:"
+msgstr "Información predeterminnada para configurar todos os repositorios"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
-#, fuzzy
 msgid "E-mail:"
 msgstr "Correo electrónico:"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-#, fuzzy
 msgid "Name:"
 msgstr "Nome:"
 
@@ -1407,7 +1403,6 @@ msgid "Bare repository"
 msgstr "Repositorio baleiro"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#, fuzzy
 msgctxt "Create Dialog"
 msgid "Commit"
 msgstr "Remitir"
@@ -1498,6 +1493,8 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
+"Aínda non se engadiron repositorios. Para comezar, pode engadir un "
+"repositorio existente ou clonar un novo."
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
@@ -1513,7 +1510,7 @@ msgstr "_Preferencias"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:4
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "Atallos de _teclado"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:5
 msgid "_Help"
@@ -1552,31 +1549,28 @@ msgid "Commit Message"
 msgstr "Mensaxe de remisión"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-#, fuzzy
 msgid "Default selection"
-msgstr "Rexe_itar seleccion"
+msgstr "Selección por omisión"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
-#, fuzzy
 msgid "Current branch"
-msgstr "Crear rama"
+msgstr "Rama actual"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
 msgid "All branches"
 msgstr "Todas as ramas"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
-#, fuzzy
 msgid "References"
-msgstr "Preferencias"
+msgstr "Referencias"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
 msgid "Sort references in the sidebar by latest activity"
-msgstr ""
+msgstr "Ordenar as referencias na barra lateral pola última actividade"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr ""
+msgstr "Mostrar a rama mestra (remota) ao seleccionar unha rama local"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
 msgid "Commits"
@@ -1624,66 +1618,63 @@ msgstr "Usar distribución horizontal"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:7
 msgid "Avatars"
-msgstr ""
+msgstr "Avatares"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:8
 msgid "Use gravatar service to provide user avatars"
-msgstr ""
+msgstr "Usar o servizo de gravatar para fornecer os avatares dos usuarios"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:9
 msgid "Monitoring"
-msgstr ""
+msgstr "Monitorización"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:12
 msgid "Enable syntax highlighting of source code in diff views"
-msgstr ""
+msgstr "Activar o realzado de sintaxe do código fonte nas vistas de diferencias"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "Preferences"
 msgstr "Preferencias"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr "Xanela _nova"
+msgstr "Xanelas"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
 msgctxt "shortcut window"
 msgid "Open a new window"
-msgstr ""
+msgstr "Abrir en nova xanela"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
 msgctxt "shortcut window"
 msgid "Open the window menu"
-msgstr ""
+msgstr "Abrir o menú da xanela"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open a repository"
-msgstr "Abrir repositorio"
+msgstr "Abrir un repositorio"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
 msgctxt "shortcut window"
 msgid "Open the help"
-msgstr ""
+msgstr "Abrir a axuda"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
 msgctxt "shortcut window"
 msgid "Find"
-msgstr ""
+msgstr "Buscar"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
 msgctxt "shortcut window"
 msgid "Close the active window"
-msgstr ""
+msgstr "Pechar a xanela activa"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit the application"
-msgstr "Mostrar a versión do aplicativo"
+msgstr "Saír do aplicativo"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Show the list of recently used repositories"
@@ -1691,21 +1682,19 @@ msgstr "Mostra unha lista dos repositorios usados recentemente"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
 msgid "Clone"
-msgstr ""
+msgstr "Clonar"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:4
-#, fuzzy
 msgid "Clone repository"
 msgstr "Clonar repositorio"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:5
 msgid "Add"
-msgstr ""
+msgstr "Engadir"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:6
-#, fuzzy
 msgid "Add repository"
-msgstr "Repositorio baleiro"
+msgstr "Engadir repositorio"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:7
 msgid "Find a word or phrase"
@@ -1748,32 +1737,28 @@ msgid "Remember _forever"
 msgstr "_Lemprar para sempre"
 
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
-#, fuzzy
 msgid "Parents"
-msgstr "Pais:"
+msgstr "Pais"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
-#, fuzzy
 msgid "Tab width:"
-msgstr "Ancho da tabulación"
+msgstr "Ancho da tabulación:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:2
 msgid "Wrap lines:"
-msgstr ""
+msgstr "Axustar liñas:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:3
-#, fuzzy
 msgid "Ignore whitespace:"
-msgstr "Ignorar os cambios nos espazos en branco"
+msgstr "Ignorar espazos en branco:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:1
-#, fuzzy
 msgid "Context:"
-msgstr "Contexto"
+msgstr "Contexto:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:2
 msgid "Spacing"
-msgstr ""
+msgstr "Espaciado"
 
 #: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
 msgid ""
