@@ -29,6 +29,9 @@ public class CloneDialog : Gtk.Dialog
 	[GtkChild (name = "entry_url")]
 	private Gtk.Entry d_entry_url;
 
+	[GtkChild (name = "custom_name")]
+	private Gtk.Entry d_custom_name;
+
 	[GtkChild (name = "button_location")]
 	private Gtk.FileChooserButton d_button_location;
 
@@ -48,6 +51,11 @@ public class CloneDialog : Gtk.Dialog
 	public string url
 	{
 		get { return d_entry_url.get_text(); }
+	}
+
+	public string custom_name
+	{
+		get { return d_custom_name.get_text(); }
 	}
 
 	public CloneDialog(Gtk.Window? parent)

@@ -342,28 +342,51 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		return repository;
 	}
 
-	public void clone_repository(string url, File location, bool is_bare)
+	public void clone_repository(string url, string custom_name, File location, bool is_bare)
 	{
 		// create subfolder
-		var pos = url.last_index_of_char('/');
-
-		if (pos == -1)
-		{
-			pos = url.last_index_of_char(':');
-		}
-
+		
 		var dot_git_suffix = ".git";
-		var subfolder_name = url.substring(pos + 1);
-		var has_dot_git = subfolder_name.has_suffix(dot_git_suffix);
+		var subfolder_name = "";
+		
 
-		if (has_dot_git && !is_bare)
+		if (custom_name != "")
 		{
-			subfolder_name = subfolder_name.slice(0, - dot_git_suffix.length);
+			subfolder_name = custom_name;
+			var has_dot_git = subfolder_name.has_suffix(dot_git_suffix);
+
+			if (has_dot_git && !is_bare)
+			{
+				subfolder_name = subfolder_name.slice(0, - dot_git_suffix.length);
+			}
+			else if (!has_dot_git && is_bare)
+			{
+				subfolder_name += dot_git_suffix;
+			}
 		}
-		else if (!has_dot_git && is_bare)
+		
+		else
 		{
-			subfolder_name += dot_git_suffix;
+			var pos = url.last_index_of_char('/');
+
+			if (pos == -1)
+			{
+				pos = url.last_index_of_char(':');
+			}
+
+			subfolder_name = url.substring(pos + 1);
+			var has_dot_git = subfolder_name.has_suffix(dot_git_suffix);
+
+			if (has_dot_git && !is_bare)
+			{
+				subfolder_name = subfolder_name.slice(0, - dot_git_suffix.length);
+			}
+			else if (!has_dot_git && is_bare)
+			{
+				subfolder_name += dot_git_suffix;
+			}
 		}
+		
 
 		var subfolder = location.resolve_relative_path(subfolder_name);
 
