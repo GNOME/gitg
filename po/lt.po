@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-01-16 15:22+0000\n"
-"PO-Revision-Date: 2016-01-21 21:48+0200\n"
+"POT-Creation-Date: 2016-02-12 19:19+0000\n"
+"PO-Revision-Date: 2016-02-13 01:47+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -19,7 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 1.8.6\n"
+
+#: ../contrib/xml/xml-reader.c:327
+#, c-format
+msgid "Could not parse XML from stream"
+msgstr "Nepavyko perskaityti XML iš srauto"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -78,9 +83,6 @@ msgid "Enable Diff Highlighting"
 msgstr "Įjungti skirtumų paryškinimą"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-#| msgid ""
-#| "Setting which determines whether or not spell checking is enabled when "
-#| "writing a commit message."
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
@@ -468,13 +470,13 @@ msgstr "Ar tikrai norite visam laikui atsisakyti pasirinktų?"
 #: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
 #: ../gitg/commit/gitg-commit.vala:1605
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:474 ../gitg/gitg-dash-view.vala:605
+#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-window.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:9
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
 msgid "_Cancel"
 msgstr "At_sisakyti"
@@ -633,25 +635,25 @@ msgstr "Paleisti gitg su patvirtinimo veikla (--activity commit sutrumpinimas)"
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Nebandyti įkelti saugyklos iš esamo katalogo"
 
-#: ../gitg/gitg-application.vala:91
+#: ../gitg/gitg-application.vala:94
 msgid "- Git repository viewer"
 msgstr "- Git saugyklos žiūryklė"
 
-#: ../gitg/gitg-application.vala:223
+#: ../gitg/gitg-application.vala:226
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg yra Git saugyklos žiūryklė gtk+/GNOME aplinkai"
 
-#: ../gitg/gitg-application.vala:232
+#: ../gitg/gitg-application.vala:235
 msgid "translator-credits"
 msgstr ""
 "išvertė:\n"
 "Aurimas Černius <aurisc4@gmail.com>"
 
-#: ../gitg/gitg-application.vala:235
+#: ../gitg/gitg-application.vala:238
 msgid "gitg homepage"
 msgstr "gitg namų tinklalapis"
 
-#: ../gitg/gitg-application.vala:358
+#: ../gitg/gitg-application.vala:369
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -818,37 +820,37 @@ msgstr "Nepavyko surasti žymos"
 msgid "Provide a message to create an annotated tag"
 msgstr "Pateikite pranešimą anotuotos žymos sukūrimui"
 
-#: ../gitg/gitg-dash-view.vala:190
-msgid "_Delete"
-msgstr "Iš_trinti"
+#: ../gitg/gitg-dash-view.vala:171
+msgid "_Remove"
+msgstr "Ša_linti"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:247
+#: ../gitg/gitg-dash-view.vala:227
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
 "Taip pat galime atlikti %sscan jūsų namų aplanke%s ir surasti git saugyklas."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:250
+#: ../gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Tuo tarpu jūs gal norite %snustatyti savo git profilius%s."
 
-#: ../gitg/gitg-dash-view.vala:402
+#: ../gitg/gitg-dash-view.vala:382
 msgid "Failed to clone repository"
 msgstr "Nepavyko klonuoti saugyklos"
 
-#: ../gitg/gitg-dash-view.vala:450
+#: ../gitg/gitg-dash-view.vala:413
 msgid "Failed to add repository"
 msgstr "Nepavyko pridėti saugyklos"
 
-#: ../gitg/gitg-dash-view.vala:466
+#: ../gitg/gitg-dash-view.vala:429
 msgid "Create new repository"
 msgstr "Sukurti naują saugyklą"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:469
+#: ../gitg/gitg-dash-view.vala:432
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -857,30 +859,18 @@ msgstr ""
 "Neatrodo, kad vieta <i>%s</i> yra tinkama git saugykla. Ar norite sukurti "
 "naują git saugyklą šioje vietoje?"
 
-#: ../gitg/gitg-dash-view.vala:475
+#: ../gitg/gitg-dash-view.vala:438
 msgid "Create repository"
 msgstr "Sukurti saugyklą"
 
-#: ../gitg/gitg-dash-view.vala:491
+#: ../gitg/gitg-dash-view.vala:454
 msgid "Failed to create repository"
 msgstr "Nepavyko sukurti saugyklos"
 
-#: ../gitg/gitg-dash-view.vala:561
+#: ../gitg/gitg-dash-view.vala:524
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Ieškomą saugyklų aplanke %s"
-
-#: ../gitg/gitg-dash-view.vala:602
-msgid "Add Repository"
-msgstr "Pridėti saugyklą"
-
-#: ../gitg/gitg-dash-view.vala:606
-msgid "_Add"
-msgstr "_Pridėti"
-
-#: ../gitg/gitg-dash-view.vala:608
-msgid "_Scan for all git repositories from this directory"
-msgstr "_Ieškoti visų git saugyklų nuo šio katalogo"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
@@ -1117,16 +1107,28 @@ msgstr "Netinkamas pavadinimas"
 msgid "Failed to rename"
 msgstr "Nepavyko pervadinti"
 
-#: ../gitg/gitg-window.vala:421
+#: ../gitg/gitg-window.vala:187
+msgid "Add Repository"
+msgstr "Pridėti saugyklą"
+
+#: ../gitg/gitg-window.vala:191
+msgid "_Add"
+msgstr "_Pridėti"
+
+#: ../gitg/gitg-window.vala:193
+msgid "_Scan for all git repositories from this directory"
+msgstr "_Ieškoti visų git saugyklų nuo šio katalogo"
+
+#: ../gitg/gitg-window.vala:481
 msgid "Projects"
 msgstr "Projektai"
 
-#: ../gitg/gitg-window.vala:848
+#: ../gitg/gitg-window.vala:912
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ nėra Git saugykla."
 
-#: ../gitg/gitg-window.vala:997
+#: ../gitg/gitg-window.vala:1061
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1134,7 +1136,7 @@ msgstr ""
 "Jūsų naudotojo vardas ir el. paštas dar nenustatyti. Eikite į naudotojo "
 "konfigūraciją ir nurodykite savo vardą ir el. paštą."
 
-#: ../gitg/gitg-window.vala:1001
+#: ../gitg/gitg-window.vala:1065
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1142,7 +1144,7 @@ msgstr ""
 "Jūsų naudotojo vardas dar nenustatyta. Eikite į naudojo konfigūraciją ir "
 "nurodykite savo vardą."
 
-#: ../gitg/gitg-window.vala:1005
+#: ../gitg/gitg-window.vala:1069
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1150,13 +1152,13 @@ msgstr ""
 "Jūsų el. paštas dar nenustatytas. Eikite į naudotojo konfigūraciją ir "
 "nurodykite savo el. paštą."
 
-#: ../gitg/gitg-window.vala:1008
+#: ../gitg/gitg-window.vala:1072
 msgid "Missing author details"
 msgstr "Trūksta autoriaus informacijos"
 
 #: ../gitg/gitg-remote-notification.vala:90
 #: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:10
 msgid "Close"
 msgstr "Užverti"
 
@@ -1310,18 +1312,18 @@ msgid "Committed by %s"
 msgstr "Patvirtino %s"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: ../libgitg/gitg-repository-list-box.vala:175
+#: ../libgitg/gitg-repository-list-box.vala:154
 #, c-format
 msgid "at %s"
 msgstr "ties %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: ../libgitg/gitg-repository-list-box.vala:184
+#: ../libgitg/gitg-repository-list-box.vala:163
 #, c-format
 msgid "%s at %s"
 msgstr "%s ties %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:426
+#: ../libgitg/gitg-repository-list-box.vala:409
 msgid "Cloning…"
 msgstr "Klonuojama…"
 
@@ -1482,14 +1484,6 @@ msgstr ""
 "Nėra pridėtų saugyklų. Pradžiai pridėkite esamą saugyklą arba klonuokite "
 "esamą."
 
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:2
-msgid "_Add repository"
-msgstr "_Pridėti saugyklą"
-
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:3
-msgid "_Clone repository"
-msgstr "_Klonuoti saugyklą"
-
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "_Naujas langas"
@@ -1631,37 +1625,42 @@ msgid "Preferences"
 msgstr "Nuostatos"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
-#| msgid "_New Window"
+msgctxt "shortcut window"
 msgid "Windows"
 msgstr "Langai"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
+msgctxt "shortcut window"
 msgid "Open a new window"
-msgstr "Atverti naujame lange"
+msgstr "Atverti naują langą"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
+msgctxt "shortcut window"
 msgid "Open the window menu"
 msgstr "Atverti lango meniu"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-#| msgid "_Open Repository…"
+msgctxt "shortcut window"
 msgid "Open a repository"
 msgstr "Atverti saugyklą"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
+msgctxt "shortcut window"
 msgid "Open the help"
 msgstr "Atverti žinyną"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
+msgctxt "shortcut window"
 msgid "Find"
 msgstr "Rasti"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
+msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Užverti aktyvų langą"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
-#| msgid "Show the application's version"
+msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Išeiti iš programos"
 
@@ -1670,10 +1669,26 @@ msgid "Show the list of recently used repositories"
 msgstr "Rodyti neseniai naudotų saugyklų sąrašą"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Clone"
+msgstr "Klonuoti"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+msgid "Clone repository"
+msgstr "Klonuoti saugyklą"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:5
+msgid "Add"
+msgstr "Pridėti"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:6
+msgid "Add repository"
+msgstr "Pridėti saugyklą"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:7
 msgid "Find a word or phrase"
 msgstr "Surasti žodį ar frazę"
 
-#: ../gitg/resources/ui/gitg-window.ui.h:4
+#: ../gitg/resources/ui/gitg-window.ui.h:8
 msgid "General settings and options"
 msgstr "Bendri nustatymai ir parametrai"
 
@@ -1742,6 +1757,9 @@ msgstr "Pašalinti saugyklą iš sąrašo (neištrina saugyklos iš disko)"
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "stulpelis"
+
+#~ msgid "_Delete"
+#~ msgstr "Iš_trinti"
 
 #~ msgctxt "Preferences"
 #~ msgid "Diff"
