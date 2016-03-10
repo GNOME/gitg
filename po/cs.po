@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
 "POT-Creation-Date: 2016-03-10 07:19+0000\n"
-"PO-Revision-Date: 2016-03-10 10:55+0100\n"
+"PO-Revision-Date: 2016-03-10 11:44+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -193,13 +193,15 @@ msgstr "Pořadí, v jaké se mají řadit odkazy v postranním panelu s historí
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
 msgid "Show Upstream With Branch"
-msgstr ""
+msgstr "Zobrazovat ve větvi a hlavní větev"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
+"Určuje, jestli se má při výběru místní větve v zobrazení historie zobrazit "
+"také hlavní (vzdálená) sledovaná větev."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
 msgid "Show Right Margin in Commit Message View"
@@ -583,7 +585,7 @@ msgid ""
 "like to stash the changes before the checkout?"
 msgstr ""
 "Zdá se, že máte ve své pracovní složce změny nepřipravené k zařazení. "
-"Přejete si je skrýt předtím, než se provede překontrolování?"
+"Přejete si je skrýt předtím, než se provede připravení k práci?"
 
 #: ../gitg/gitg-action-support.vala:133
 #: ../gitg/gitg-commit-action-cherry-pick.vala:163
@@ -605,7 +607,7 @@ msgstr "Selhání s konflikty"
 #: ../gitg/gitg-action-support.vala:181
 #, c-format
 msgid "Failed to checkout conflicts: %s"
-msgstr "Selhalo překontrolování konfliktů: %s"
+msgstr "Selhalo příprava k práci s konflikty: %s"
 
 #: ../gitg/gitg-action-support.vala:199
 msgid "Failed to obtain author details"
@@ -625,7 +627,7 @@ msgstr "Selhalo vytvoření zařazení: %s"
 #: ../gitg/gitg-action-support.vala:277
 #, c-format
 msgid "Failed to checkout index: %s"
-msgstr "Selhalo překontrolování indexů: %s"
+msgstr "Selhala příprava indexů k práci: %s"
 
 #: ../gitg/gitg-application.vala:56
 msgid "Show the application's version"
@@ -706,11 +708,11 @@ msgstr "Uvedená adresa URL není podporována"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
-msgstr ""
+msgstr "Částečně převzít do"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
-msgstr ""
+msgstr "Částečně převzít toto zařazení do větve"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
@@ -720,12 +722,12 @@ msgstr "Selhalo vyhledání zařazení pro větev %s: %s"
 #: ../gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
 msgid "Failed to cherry-pick the commit: %s"
-msgstr ""
+msgstr "Selhalo částečné převzetí zařazení: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:144
 #: ../gitg/gitg-commit-action-cherry-pick.vala:160
 msgid "Cherry pick has conflicts"
-msgstr ""
+msgstr "Částečné převzetí má konflikty"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
@@ -734,6 +736,9 @@ msgid ""
 "checkout branch %s with the cherry pick to your working directory to resolve "
 "the conflicts?"
 msgstr ""
+"Částečně převzetí zařazení %s do větve %s způsobilo konflikty. Přejete si "
+"větev %s s částečným převzetím připravit k práci do pracovní složky, aby se "
+"konflikty vyřešily?"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
@@ -741,34 +746,37 @@ msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
+"Částečně převzetí zařazení %s do větve %s způsobilo konflikty. Přejete si "
+"částečné převzetí připravit k práci do pracovní složky, aby se konflikty "
+"vyřešily?"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:164
 #: ../gitg/gitg-ref-action-checkout.vala:48
 #: ../gitg/gitg-ref-action-merge.vala:195
 msgid "Checkout"
-msgstr "Překontrolovat"
+msgstr "Připravit k práci"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:168
 msgid "Cherry pick failed with conflicts"
-msgstr ""
+msgstr "Částečně převzetí selhalo kvůli konfliktům"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:179
 msgid "Cherry pick finished with conflicts in working directory"
-msgstr ""
+msgstr "Částečně převzetí bylo dokončeno s konflikty v pracovní složce"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
 msgid "Cherry pick %s onto %s"
-msgstr ""
+msgstr "Částečné převzetí zařazení %s do větve %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
-msgstr ""
+msgstr "Částečné převzetí dopadlo úspěšně"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
 msgid "Cherry pick onto %s"
-msgstr ""
+msgstr "Částečně převzít do větve %s"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -875,17 +883,17 @@ msgstr "Vyhledávají se repozitáře v %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
-msgstr "Překontrolovat vybraný odkaz"
+msgstr "Přepravit k práci vybraný odkaz"
 
 #: ../gitg/gitg-ref-action-checkout.vala:72
 #, c-format
 msgid "Checkout %s"
-msgstr "Překontrolování %s"
+msgstr "Příprava %s k práci"
 
 #: ../gitg/gitg-ref-action-checkout.vala:101
 #, c-format
 msgid "Failed to checkout branch: %s"
-msgstr "Selhalo překontrolování větve: %s"
+msgstr "Selhala příprava větve k práci: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:111
 #, c-format
@@ -1037,8 +1045,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
-"Sloučení %s do %s způsobilo konflikty, přejete si překontrolovat větev %s se "
-"sloučením vůči pracovní složce, aby se konflikty vyřešily?"
+"Sloučení %s do %s způsobilo konflikty, přejete si větev %s se sloučením "
+"připravit k práci do pracovní složky, aby se konflikty vyřešily?"
 
 #: ../gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -1046,8 +1054,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
 "merge to your working directory to resolve the conflicts?"
 msgstr ""
-"Sloučení %s do %s způsobilo konflikty, přejete si překontrolovat sloučení "
-"vůči pracovní složce, aby se konflikty vyřešily?"
+"Sloučení %s do %s způsobilo konflikty, přejete si sloučení připravit k práci "
+"od pracovní složky, aby se konflikty vyřešily?"
 
 #: ../gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
@@ -1190,17 +1198,17 @@ msgstr "ODKAZ"
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%d ahead, %d behind"
-msgstr ""
+msgstr "%d vpředu, %d vzadu"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%d ahead"
-msgstr ""
+msgstr "%d vpředu"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%d behind"
-msgstr ""
+msgstr "%d vzadu"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1558,7 +1566,7 @@ msgstr "Seřadit odkazy v postranním panelu podle poslední aktivity"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr ""
+msgstr "Zobrazovat hlavní (vzdálenou) větev při výběru místní větve"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
 msgid "Commits"
@@ -1618,7 +1626,7 @@ msgstr "Sledování"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:12
 msgid "Enable syntax highlighting of source code in diff views"
-msgstr ""
+msgstr "Zapnout zvýrazňování syntaxe zdrojového kódu v zobrazení rozdílů"
 
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "Preferences"
@@ -1746,7 +1754,7 @@ msgstr "Kontext:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:2
 msgid "Spacing"
-msgstr ""
+msgstr "Mezery"
 
 #: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
 msgid ""
