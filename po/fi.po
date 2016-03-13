@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-01-14 07:18+0000\n"
-"PO-Revision-Date: 2016-01-14 21:02+0200\n"
+"POT-Creation-Date: 2016-03-13 07:20+0000\n"
+"PO-Revision-Date: 2016-03-13 15:25+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -19,6 +19,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.7\n"
+
+#: ../contrib/xml/xml-reader.c:327
+#, c-format
+msgid "Could not parse XML from stream"
+msgstr ""
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -321,7 +326,6 @@ msgstr "_Valmistele valinta"
 
 #: ../gitg/commit/gitg-commit.vala:223
 #, c-format
-#| msgid "Failed to stage the removal of file `%s'"
 msgid "Failed to stage the removal of submodule `%s'"
 msgstr "Alimoduulin `%s' poistamisen valmistelu epäonnistui"
 
@@ -339,7 +343,6 @@ msgstr ""
 
 #: ../gitg/commit/gitg-commit.vala:266
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to stage the submodule `%s'"
 msgstr "Alimoduulin `%s' valmistelu epäonnistui"
 
@@ -433,13 +436,13 @@ msgstr "Haluatko varmasti hylätä valitut muutokset pysyvästi?"
 #: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
 #: ../gitg/commit/gitg-commit.vala:1605
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:474 ../gitg/gitg-dash-view.vala:605
+#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-window.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:9
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
 msgid "_Cancel"
 msgstr "_Peru"
@@ -529,7 +532,6 @@ msgid "Failed to stash changes: %s"
 msgstr "Muutosten hylkääminen epäonnistui"
 
 #: ../gitg/gitg-action-support.vala:130
-#| msgid "_Unstage changes"
 msgid "Unstaged changes"
 msgstr "Valmistelemattomat muutokset"
 
@@ -565,10 +567,9 @@ msgid "Failed to checkout conflicts: %s"
 msgstr "Haaran %s poistaminen epäonnistui"
 
 #: ../gitg/gitg-action-support.vala:199
-#, fuzzy
 #| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain author details"
-msgstr "Tiedoston \"%s\" valmistelu epäonnistui"
+msgstr "Tekijäntietojen noutaminen epäonnistui"
 
 #: ../gitg/gitg-action-support.vala:223
 #: ../gitg/gitg-ref-action-checkout.vala:88
@@ -578,10 +579,10 @@ msgid "Failed to lookup commit: %s"
 msgstr "Tagin hakeminen epäonnistui"
 
 #: ../gitg/gitg-action-support.vala:255
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to create tag"
 msgid "Failed to create commit: %s"
-msgstr "Tagin luominen epäonnistui"
+msgstr "Pysyvän muutoksen tekeminen epäonnistui: %s"
 
 #: ../gitg/gitg-action-support.vala:277
 #, fuzzy, c-format
@@ -605,23 +606,23 @@ msgstr ""
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Älä yritä ladata tietovarastoa nykyisestä työskentelyhakemistosta"
 
-#: ../gitg/gitg-application.vala:90
+#: ../gitg/gitg-application.vala:94
 msgid "- Git repository viewer"
 msgstr "- Git-tietovarastojen selain"
 
-#: ../gitg/gitg-application.vala:222
+#: ../gitg/gitg-application.vala:226
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg on Git-tietovarastojen selain gtk+:lle/Gnomelle"
 
-#: ../gitg/gitg-application.vala:231
+#: ../gitg/gitg-application.vala:235
 msgid "translator-credits"
 msgstr "Jiri Grönroos"
 
-#: ../gitg/gitg-application.vala:234
+#: ../gitg/gitg-application.vala:238
 msgid "gitg homepage"
 msgstr "gitg-verkkosivusto"
 
-#: ../gitg/gitg-application.vala:334
+#: ../gitg/gitg-application.vala:369
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -787,36 +788,37 @@ msgstr "Tagin hakeminen epäonnistui"
 msgid "Provide a message to create an annotated tag"
 msgstr "Anna viesti selityksellä varustetulle tagille"
 
-#: ../gitg/gitg-dash-view.vala:190
-msgid "_Delete"
+#: ../gitg/gitg-dash-view.vala:171
+#| msgid "Remotes"
+msgid "_Remove"
 msgstr "_Poista"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:247
+#: ../gitg/gitg-dash-view.vala:227
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr "Voit %setsiä kotikansiostasi%s git-tietovarastoja."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:250
+#: ../gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Voit sen aikana %smäärittää git-profiilisi tiedot%s."
 
-#: ../gitg/gitg-dash-view.vala:402
+#: ../gitg/gitg-dash-view.vala:382
 msgid "Failed to clone repository"
 msgstr "Tietovaraston kloonaaminen epäonnistui"
 
-#: ../gitg/gitg-dash-view.vala:450
+#: ../gitg/gitg-dash-view.vala:413
 msgid "Failed to add repository"
 msgstr "Tietovaraston lisääminen epäonnistui"
 
-#: ../gitg/gitg-dash-view.vala:466
+#: ../gitg/gitg-dash-view.vala:429
 msgid "Create new repository"
 msgstr "Luo uusi tietovarasto"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:469
+#: ../gitg/gitg-dash-view.vala:432
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -825,30 +827,18 @@ msgstr ""
 "Sijainti <i>%s</i> ei vaikuta kelvolliselta git-tietovarastolta. Haluatko "
 "alustaa uuden git-tietovaraston tähän sijaintiin?"
 
-#: ../gitg/gitg-dash-view.vala:475
+#: ../gitg/gitg-dash-view.vala:438
 msgid "Create repository"
 msgstr "Luo tietovarasto"
 
-#: ../gitg/gitg-dash-view.vala:491
+#: ../gitg/gitg-dash-view.vala:454
 msgid "Failed to create repository"
 msgstr "Tietovaraston luominen epäonnistui"
 
-#: ../gitg/gitg-dash-view.vala:561
+#: ../gitg/gitg-dash-view.vala:524
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Etsitään tietovarastoja kohteesta %s"
-
-#: ../gitg/gitg-dash-view.vala:602
-msgid "Add Repository"
-msgstr "Lisää tietovarasto"
-
-#: ../gitg/gitg-dash-view.vala:606
-msgid "_Add"
-msgstr "_Lisää"
-
-#: ../gitg/gitg-dash-view.vala:608
-msgid "_Scan for all git repositories from this directory"
-msgstr "_Etsi kaikkia git-tietovarastoja tästä hakemistosta"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
 #, fuzzy
@@ -859,7 +849,7 @@ msgstr "Poista valittu viite"
 #: ../gitg/gitg-ref-action-checkout.vala:72
 #, c-format
 msgid "Checkout %s"
-msgstr ""
+msgstr "Siirry haaraan %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:101
 #, fuzzy, c-format
@@ -1005,7 +995,6 @@ msgstr "Liitä toinen haara haaraan %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:106
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to merge commits: %s"
 msgstr "Pysyvien muutosten liittäminen epäonnistui: %s"
 
@@ -1089,16 +1078,28 @@ msgstr "Virheellinen nimi"
 msgid "Failed to rename"
 msgstr "Nimen muuttaminen epäonnistui"
 
-#: ../gitg/gitg-window.vala:421
+#: ../gitg/gitg-window.vala:187
+msgid "Add Repository"
+msgstr "Lisää tietovarasto"
+
+#: ../gitg/gitg-window.vala:191
+msgid "_Add"
+msgstr "_Lisää"
+
+#: ../gitg/gitg-window.vala:193
+msgid "_Scan for all git repositories from this directory"
+msgstr "_Etsi kaikkia git-tietovarastoja tästä hakemistosta"
+
+#: ../gitg/gitg-window.vala:481
 msgid "Projects"
 msgstr "Projektit"
 
-#: ../gitg/gitg-window.vala:848
+#: ../gitg/gitg-window.vala:912
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "\"%s\" ei ole Git-tietovarasto."
 
-#: ../gitg/gitg-window.vala:997
+#: ../gitg/gitg-window.vala:1061
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1106,7 +1107,7 @@ msgstr ""
 "Käyttäjänimeäsi ja sähköpostiosoitettasi ei ole vielä määritelty. Määritä "
 "kyseiset tiedot käyttäjäasetuksissa."
 
-#: ../gitg/gitg-window.vala:1001
+#: ../gitg/gitg-window.vala:1065
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1114,7 +1115,7 @@ msgstr ""
 "Käyttäjänimeäsi ei ole vielä määritelty. Määritä kyseinen tieto "
 "käyttäjäasetuksissa."
 
-#: ../gitg/gitg-window.vala:1005
+#: ../gitg/gitg-window.vala:1069
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1122,13 +1123,13 @@ msgstr ""
 "Sähköpostiosoitettasi ei ole vielä määritelty. Määritä kyseinen tieto "
 "käyttäjäasetuksissa."
 
-#: ../gitg/gitg-window.vala:1008
+#: ../gitg/gitg-window.vala:1072
 msgid "Missing author details"
 msgstr "Tekijän tiedot puuttuvat"
 
 #: ../gitg/gitg-remote-notification.vala:90
 #: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:10
 msgid "Close"
 msgstr "Sulje"
 
@@ -1159,17 +1160,17 @@ msgstr ""
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%d ahead, %d behind"
-msgstr ""
+msgstr "%d edellä, %d jäljessä"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%d ahead"
-msgstr ""
+msgstr "%d edellä"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%d behind"
-msgstr ""
+msgstr "%d jäljessä"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1277,23 +1278,22 @@ msgstr "Laajenna kaikki"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:199
 #, c-format
-#| msgid "Commits"
 msgid "Committed by %s"
 msgstr "Pysyvän muutoksen teki %s"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: ../libgitg/gitg-repository-list-box.vala:175
+#: ../libgitg/gitg-repository-list-box.vala:154
 #, c-format
 msgid "at %s"
 msgstr "sijainnissa %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: ../libgitg/gitg-repository-list-box.vala:184
+#: ../libgitg/gitg-repository-list-box.vala:163
 #, c-format
 msgid "%s at %s"
 msgstr "%s sijainnissa %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:426
+#: ../libgitg/gitg-repository-list-box.vala:409
 msgid "Cloning…"
 msgstr "Kloonataan…"
 
@@ -1400,12 +1400,10 @@ msgid ""
 msgstr ""
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
-#| msgid "Staged"
 msgid "Staged:"
 msgstr "Valmistellut:"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:3
-#| msgid "Unstaged"
 msgid "Unstaged:"
 msgstr "Valmistelemattomat:"
 
@@ -1457,14 +1455,6 @@ msgstr ""
 "Tietovarastoja ei ole vielä lisätty. Aloita lisäämällä olemassa oleva "
 "tietovarasto tai kloonaa uusi tietovarasto."
 
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:2
-msgid "_Add repository"
-msgstr "_Lisää tietovarasto"
-
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:3
-msgid "_Clone repository"
-msgstr "_Kloonaa tietovarasto"
-
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "_Uusi ikkuna"
@@ -1478,24 +1468,28 @@ msgid "_Preferences"
 msgstr "_Asetukset"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_Keyboard Shortcuts"
+msgstr "_Pikanäppäimet"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
 msgid "_Help"
 msgstr "_Ohje"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_About"
 msgstr "_Tietoja"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
 msgid "_Quit"
 msgstr "_Lopeta"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Reload"
 msgstr "L_ataa uudelleen"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
 msgid "Show markup"
-msgstr ""
+msgstr "Näytä merkkaus"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
 msgid "Display _subject margin at column:"
@@ -1601,15 +1595,77 @@ msgstr "Käytä lähdekoodin syntax-korostusta diff-näkymissä"
 msgid "Preferences"
 msgstr "Asetukset"
 
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
+#| msgid "_New Window"
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Ikkunat"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
+msgctxt "shortcut window"
+msgid "Open a new window"
+msgstr "Avaa uusi ikkuna"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
+msgctxt "shortcut window"
+msgid "Open the window menu"
+msgstr "Avaa ikkunavalikko"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
+#| msgid "_Open Repository…"
+msgctxt "shortcut window"
+msgid "Open a repository"
+msgstr "Avaa tietovarasto"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
+msgctxt "shortcut window"
+msgid "Open the help"
+msgstr "Avaa ohje"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "Etsi"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
+msgctxt "shortcut window"
+msgid "Close the active window"
+msgstr "Sulje aktiivinen ikkuna"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
+#| msgid "Show the application's version"
+msgctxt "shortcut window"
+msgid "Quit the application"
+msgstr "Lopeta sovellus"
+
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Show the list of recently used repositories"
 msgstr "Näytä luettelo viimeksi käytetyistä tietovarastoista"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Clone"
+msgstr "Kloonaa"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+#| msgid "_Clone repository"
+msgid "Clone repository"
+msgstr "Kloonaa tietovarasto"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:5
+#| msgid "_Add"
+msgid "Add"
+msgstr "Lisää"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:6
+#| msgid "_Add repository"
+msgid "Add repository"
+msgstr "Lisää tietovarasto"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:7
 msgid "Find a word or phrase"
 msgstr "Etsi sana tai lauseke"
 
-#: ../gitg/resources/ui/gitg-window.ui.h:4
+#: ../gitg/resources/ui/gitg-window.ui.h:8
 msgid "General settings and options"
 msgstr "Yleiset asetukset"
 
@@ -1650,26 +1706,23 @@ msgid "Parents"
 msgstr ""
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
-#, fuzzy
 #| msgid "Tab width"
 msgid "Tab width:"
-msgstr "Sarkaimen leveys"
+msgstr "Sarkaimen leveys:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:2
 msgid "Wrap lines:"
-msgstr ""
+msgstr "Käytä rivitystä:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:3
-#, fuzzy
 #| msgid "Ignore whitespace changes"
 msgid "Ignore whitespace:"
-msgstr "Älä huomioi tyhjän tilan muutoksia"
+msgstr "Älä huomioi tyhjän tilan muutoksia:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:1
-#, fuzzy
 #| msgid "Context"
 msgid "Context:"
-msgstr "Konteksti"
+msgstr "Konteksti:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:2
 msgid "Spacing"
@@ -1684,6 +1737,9 @@ msgstr "Poista tietovarasto luettelosta (ei poista tietovarastoa levyltä)"
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "sarake"
+
+#~ msgid "_Delete"
+#~ msgstr "_Poista"
 
 #~ msgid "Show changes inline"
 #~ msgstr "Näytä muutokset sisennettynä"
@@ -1705,9 +1761,6 @@ msgstr "sarake"
 
 #~ msgid "Save"
 #~ msgstr "Tallenna"
-
-#~ msgid "_Open Repository…"
-#~ msgstr "_Avaa tietovarasto…"
 
 #~ msgid "_Clone Repository…"
 #~ msgstr "_Kloonaa tietovarasto…"
