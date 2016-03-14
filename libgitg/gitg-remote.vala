@@ -247,7 +247,7 @@ public class Remote : Ggit.Remote
 			try
 			{
 				yield Async.thread(() => {
-					base.connect(direction, new Callbacks(this, callbacks, null));
+					base.connect(direction, new Callbacks(this, callbacks, null), null);
 				});
 			}
 			catch (Error e)
