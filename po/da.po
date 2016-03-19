@@ -1,5 +1,5 @@
-# Danish translation of gitg.
-# Copyright (C) 2012, 2014-2015 gitg & nedenstående oversættere.
+# Danish translation for gitg.
+# Copyright (C) 2012, 2014-2016 gitg & nedenstående oversættere.
 # This file is distributed under the same license as the gitg package.
 #
 # Joe Hansen <joedalton2@yahoo.dk>, 2009, 2010, 2011, 2012.
@@ -7,6 +7,7 @@
 # Kenneth Nielsen <k.nielsen81@gmail.com>, 2014, 2015.
 # Korrekturlæst Lars Christian Jensen 6. juni 2009.
 # Korrekturlæst Ask 26. januar 2010.
+# scootergrisen, 2016.
 #
 # Visse begreber beholder vi på dansk hvor det er mest ligetil:
 #
@@ -28,13 +29,16 @@
 # Engelske udtryk er indsat i parentes udvalgte steder, da de ofte er kendt
 # af teknikfolk.
 #
+# scootergrisen: det ser ud til git skrives som både "git" og "Git"...
+# scootergrisen: eventuelt forslå at få det rettet i kildesprog så de er korrekte og ens
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-21 13:21+0200\n"
-"PO-Revision-Date: 2015-09-18 19:47+0200\n"
-"Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
+"POT-Creation-Date: 2016-03-19 19:50+0100\n"
+"PO-Revision-Date: 2016-03-19 19:49+0100\n"
+"Last-Translator: scootergrisen\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +46,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:58
+#: ../contrib/xml/xml-reader.c:327
+#, c-format
+msgid "Could not parse XML from stream"
+msgstr "Kunne ikke fortolke XML fra strøm"
+
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
 msgstr "gitg"
@@ -95,18 +104,29 @@ msgid "Automatically update when external changes to .git are detected"
 msgstr "Opdatér automatisk når der detekteres eksterne ændringer af .git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+msgid "Enable Diff Highlighting"
+msgstr "Aktivér Diff-fremhævning"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+msgid ""
+"Setting that determines whether to enable syntax highlighting in diff views."
+msgstr ""
+"Indstilling som angiver, om syntaksfremhævning i diff-visninger skal "
+"aktiveres."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "When to Collapse Inactive Lanes"
 msgstr "Hvornår inaktive baner skal foldes sammen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr ""
-"Indstilling som indikerer hvornår en inaktiv bane bør foldes sammen. Gyldige "
-"værdier er 0-4, hvor 0 indikerer \"tidlig\" og 4 indikerer \"sent\"."
+"Indstilling som angiver hvornår en inaktiv bane bør foldes sammen. Gyldige "
+"værdier er 0-4, hvor 0 er \"tidlig\" og 4 er \"sent\"."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -118,31 +138,32 @@ msgstr ""
 "historikoversigt, når der foregår en masse samtidig udvikling. Se collapse-"
 "inactive-lanes for at styre hvornår historikbaner sammenfoldes."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid "Show History in Topological Order"
 msgstr "Vis historik i topologisk rækkefølge"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Indstilling som angiver, om historikken skal vises i topologisk rækkefølge."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
 msgid "Show Stashed Changes"
 msgstr "Vis stashede ændringer"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
 "Indstilling som angiver, om elementerne for stash skal vises i historikken."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+# stage = markere til inklusion i næste commit
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 msgid "Show Staged Changes"
 msgstr "Vis stagede ændringer"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -150,23 +171,23 @@ msgstr ""
 "Indstilling som angiver, om der skal vises et virtuelt element for de "
 "nuværende stagede ændringer i historikken."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
 msgid "Show Unstaged Changes"
-msgstr "Vis unstagede ændringer"
+msgstr "Vis ikke-stagede ændringer"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
 msgstr ""
 "Indstilling som angiver, om der skal vises et virtuelt element for de "
-"nuværende unstagede ændringer i historikken."
+"nuværende ikke-stagede ændringer i historikken."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
 msgid "Mainline Head"
 msgstr "Hovedlinje for aktive gren (HEAD)"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -174,42 +195,44 @@ msgstr ""
 "Indstilling som angiver, hvorvidt der altid skal bevares en hovedlinje i "
 "historikken for den nuværende aktive gren (HEAD)."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
 msgid "Default selection of the history activity"
 msgstr "Standardvalg af historikaktivitet"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr ""
 "Indstilling som angiver standardvalget ved opstart af historikaktiviteten."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
 msgid "Reference Sort Order"
 msgstr "Rækkefølge for referencesortering"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "Rækkefølgen hvorefter referencer i historiksidebjælken skal sorteres."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
 msgid "Show Upstream With Branch"
-msgstr ""
+msgstr "Vis upstream med gren"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
+"Beslutter om den (fjerne) sporede gren upstream også skal vises når en lokal "
+"gren vælges i visningen historik."
 
 # (man skriver sædvanligvis en besked når man integrerer, såsom "Fixede
 # fejl nr. #87")
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
 msgid "Show Right Margin in Commit Message View"
 msgstr "Vis højre margen ved visning af commitbesked"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -217,13 +240,13 @@ msgstr ""
 "Vis en højre margenmarkør ved visning af commitbesked. Dette kan bruges til "
 "nemt at se hvor en commitbesked skal ombrydes ved en specifik kolonne."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
 msgid "Column at Which Right Margin is Shown"
 msgstr "Kolonne hvor højre margen er vist"
 
 # Eftersom det er en scemas-fil og derfor er til gconf, skal
 # valgmuligheden TRUE ikke oversættes
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -231,11 +254,11 @@ msgstr ""
 "Kolonne hvor den højre margen er vist, hvis indstillingen show-right-margin "
 "er angivet som TRUE."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
 msgid "Show Subject Margin in Commit Message View"
-msgstr "Vis emnemargen ved visning af commitbesked"
+msgstr "Vis emnemargen for commitbesked"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:37
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -243,13 +266,13 @@ msgstr ""
 "Fremhæv emneteksten for commitbeskeden når den går over margenen angivet ved "
 "subject-margin-position."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:38
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Kolonne hvor højre margen vises"
 
 # Eftersom det er en scemas-fil og derfor er til gconf, skal
 # valgmuligheden TRUE ikke oversættes
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:37
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:39
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -257,11 +280,11 @@ msgstr ""
 "Kolonnen hvor emnemargen vises, hvis indstillingen show-subject-margin er "
 "angivet som TRUE."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:38
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
 msgid "Enable Spell Checking"
 msgstr "Slå stavekontrol til"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:39
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:41
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -269,11 +292,11 @@ msgstr ""
 "Indstilling som angiver, om stavekontrol er slået til ved skrivning af en "
 "commitbesked."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:42
 msgid "Spell Checking Language"
 msgstr "Sprog for stavekontrol"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:41
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:43
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -281,11 +304,11 @@ msgstr ""
 "Det sprog som skal bruges hvis stavekontrol er slået til ved skrivning af en "
 "commitbesked."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:42
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:44
 msgid "Ignore Whitespace Changes"
 msgstr "Ignorér ændringer i blanktegn"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:43
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:45
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -293,30 +316,30 @@ msgstr ""
 "Indstilling som angiver, om ændringer i blanktegn skal ignoreres ved visning "
 "af diffen for et commit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:44
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:46
 msgid "Show Changes Inline"
 msgstr "Vis ændringer i linjen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:45
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:47
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Indstilling som angiver, om ændringer indenfor linjer skal vises i linjerne "
 "(inline)."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:46
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:48
 msgid "Wrap"
 msgstr "Ombryd"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:47
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:49
 msgid "Wrap lines."
 msgstr "Ombryd linjer."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:48
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:50
 msgid "Number of Before/After Context Lines"
 msgstr "Antal kontekstlinjer før og efter"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:49
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:51
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -324,11 +347,11 @@ msgstr ""
 "Indstillinger som angiver, hvor mange linjer af kontekst (før og efter) der "
 "skal vises ved visning af en diff for et commit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:50
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:52
 msgid "Rendered Width of a Tab Character"
 msgstr "Gengivet bredde af et tabulatortegn"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:51
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:53
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -336,28 +359,28 @@ msgstr ""
 "Indstilling som angiver, hvor meget plads et tabulatortegn skal bruge ved "
 "visning af en diff for et commit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:52
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:54
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
 "Indstilling som angiver, hvor mange linjer af kontekst (før og efter) der "
-"skal vises ved visning af den diff som kan stages/unstages i commit-området."
+"skal vises i diffen for stage/unstage i commit-området."
 
-#: ../gitg/commit/gitg-commit-dialog.vala:298
+#: ../gitg/commit/gitg-commit-dialog.vala:308
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Kan ikke indstille sprog for stavekontrol: %s"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:498
-#: ../gitg/commit/gitg-commit.vala:1064
+#: ../gitg/commit/gitg-commit-dialog.vala:508
+#: ../gitg/commit/gitg-commit.vala:1067
 msgid "There are no changes to be committed"
 msgstr "Der er ingen ændringer at committe"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:499
-#: ../gitg/commit/gitg-commit.vala:1065
+#: ../gitg/commit/gitg-commit-dialog.vala:509
+#: ../gitg/commit/gitg-commit.vala:1068
 msgid "Use amend to change the commit message of the previous commit"
-msgstr "Brug amend til at ændre commitbeskeden for det tidligere commit"
+msgstr "Tilret (amend) for at ændre commitbeskeden for den forrige commit"
 
 #: ../gitg/commit/gitg-commit.vala:104
 msgctxt "Activity"
@@ -372,18 +395,18 @@ msgstr "Opret nye commits og håndtér staging-området"
 msgid "_Stage selection"
 msgstr "_Stage valgte"
 
-#: ../gitg/commit/gitg-commit.vala:222
+#: ../gitg/commit/gitg-commit.vala:223
 #, c-format
 msgid "Failed to stage the removal of submodule `%s'"
-msgstr "Kunne ikke stage fjernelsen af undermodul \"%s\""
+msgstr "Kunne ikke stage fjernelsen af undermodulet \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:238
+#: ../gitg/commit/gitg-commit.vala:239
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr ""
 "Kunne ikke åbne arkivet for undermodulet \"%s\" under forsøget på at stage"
 
-#: ../gitg/commit/gitg-commit.vala:252
+#: ../gitg/commit/gitg-commit.vala:253
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
@@ -392,188 +415,186 @@ msgstr ""
 "Kunne ikke finde arbejdskatalog-commit for undermodulet \"%s\" under forsøg "
 "på at stage"
 
-#: ../gitg/commit/gitg-commit.vala:265
+#: ../gitg/commit/gitg-commit.vala:266
 #, c-format
 msgid "Failed to stage the submodule `%s'"
 msgstr "Kunne ikke stage undermodulet \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:287
+#: ../gitg/commit/gitg-commit.vala:288
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Kunne ikke stage fjernelsen af filen \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:301
+#: ../gitg/commit/gitg-commit.vala:302
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Kunne ikke stage filen \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:572
+#: ../gitg/commit/gitg-commit.vala:574
 msgid "_Unstage selection"
 msgstr "_Unstage valgte"
 
-#: ../gitg/commit/gitg-commit.vala:637
+#: ../gitg/commit/gitg-commit.vala:640
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Kunne ikke unstage fjernelsen af filen \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:638
+#: ../gitg/commit/gitg-commit.vala:641
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Kunne ikke unstage filen \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:645
+#: ../gitg/commit/gitg-commit.vala:648
 #, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "Kunne ikke unstage fjernelsen af undermodulet \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:646
+#: ../gitg/commit/gitg-commit.vala:649
 #, c-format
 msgid "Failed to unstage the submodule `%s'"
 msgstr "Kunne ikke unstage undermodulet \"%s\""
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:850
+#: ../gitg/commit/gitg-commit.vala:853
 msgid "Staged"
 msgstr "Staged"
 
-#: ../gitg/commit/gitg-commit.vala:858
+#: ../gitg/commit/gitg-commit.vala:861
 msgid "No staged files"
-msgstr "Ingen filer staged"
+msgstr "Ingen stagede filer"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:881
+#: ../gitg/commit/gitg-commit.vala:884
 msgid "Unstaged"
 msgstr "Unstaged"
 
-#: ../gitg/commit/gitg-commit.vala:889
+#: ../gitg/commit/gitg-commit.vala:892
 msgid "No unstaged files"
 msgstr "Ingen unstagede filer"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:912
+#: ../gitg/commit/gitg-commit.vala:915
 msgid "Untracked"
 msgstr "Usporet"
 
-#: ../gitg/commit/gitg-commit.vala:916
+#: ../gitg/commit/gitg-commit.vala:919
 msgid "No untracked files"
 msgstr "Ingen usporede filer"
 
-#: ../gitg/commit/gitg-commit.vala:941
+#: ../gitg/commit/gitg-commit.vala:944
 msgid "Submodule"
 msgstr "Undermodul"
 
-#: ../gitg/commit/gitg-commit.vala:945
+#: ../gitg/commit/gitg-commit.vala:948
 msgid "No dirty submodules"
 msgstr "Ingen urene undermoduler"
 
-#: ../gitg/commit/gitg-commit.vala:1092
+#: ../gitg/commit/gitg-commit.vala:1095
 msgid "Failed to commit"
 msgstr "Kunne ikke committe"
 
-#: ../gitg/commit/gitg-commit.vala:1108
+#: ../gitg/commit/gitg-commit.vala:1111
 msgid "Failed to pass pre-commit"
 msgstr "Bestod ikke præ-commit"
 
-#: ../gitg/commit/gitg-commit.vala:1311 ../gitg/commit/gitg-commit.vala:1461
+#: ../gitg/commit/gitg-commit.vala:1314 ../gitg/commit/gitg-commit.vala:1464
 msgid "Discard changes"
 msgstr "Kassér ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1312
+#: ../gitg/commit/gitg-commit.vala:1315
 msgid "Are you sure you want to permanently discard the selected changes?"
-msgstr ""
-"Er du sikker på, at du ønsker permanent at kassere de valgte ændringer?"
+msgstr "Er du sikker på, at du vil kassere de valgte ændringer permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1321 ../gitg/commit/gitg-commit.vala:1487
-#: ../gitg/commit/gitg-commit.vala:1602
+#: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
+#: ../gitg/commit/gitg-commit.vala:1605
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:467 ../gitg/gitg-dash-view.vala:598
+#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-window.ui.h:5
+#: ../gitg/resources/ui/gitg-window.ui.h:9
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
 msgid "_Cancel"
 msgstr "_Annullér"
 
-#: ../gitg/commit/gitg-commit.vala:1322 ../gitg/commit/gitg-commit.vala:1488
+#: ../gitg/commit/gitg-commit.vala:1325 ../gitg/commit/gitg-commit.vala:1491
 msgid "Discard"
 msgstr "Kassér"
 
-#: ../gitg/commit/gitg-commit.vala:1351
+#: ../gitg/commit/gitg-commit.vala:1354
 msgid "Failed to discard selection"
 msgstr "Kunne ikke kassere valgte"
 
-#: ../gitg/commit/gitg-commit.vala:1381
+#: ../gitg/commit/gitg-commit.vala:1384
 msgid "Failed to stage selection"
 msgstr "Kunne ikke stage valgte"
 
-#: ../gitg/commit/gitg-commit.vala:1385
+#: ../gitg/commit/gitg-commit.vala:1388
 msgid "Failed to unstage selection"
 msgstr "Kunne ikke unstage valgte"
 
-#: ../gitg/commit/gitg-commit.vala:1445
+#: ../gitg/commit/gitg-commit.vala:1448
 msgid "Failed to discard changes"
 msgstr "Kunne ikke kassere ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1466
+#: ../gitg/commit/gitg-commit.vala:1469
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
 "%s'?"
 msgstr ""
-"Er du sikker på, at du ønsker permanent at kassere alle ændringer i filen "
-"\"%s\"?"
+"Er du sikker på, at du vil kassere alle ændringer i filen \"%s\" permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1477
+#: ../gitg/commit/gitg-commit.vala:1480
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and `%s'?"
 msgstr ""
-"Er du sikker på, at du ønsker permanent at kassere alle ændringer i filerne "
-"%s og \"%s\"?"
+"Er du sikker på, at du vil kassere alle ændringer i filerne %s og \"%s\" "
+"permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1560
+#: ../gitg/commit/gitg-commit.vala:1563
 msgid "Failed to delete files"
 msgstr "Kunne ikke slette filer"
 
-#: ../gitg/commit/gitg-commit.vala:1576
+#: ../gitg/commit/gitg-commit.vala:1579
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Slet fil"
 msgstr[1] "Slet filer"
 
-#: ../gitg/commit/gitg-commit.vala:1581
+#: ../gitg/commit/gitg-commit.vala:1584
 #, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "Er du sikker på, at du vil slette filen \"%s\" permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1592
+#: ../gitg/commit/gitg-commit.vala:1595
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Er du sikker på, at du vil slette filerne %s og \"%s\" permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1637
+#: ../gitg/commit/gitg-commit.vala:1640
 msgid "_Stage changes"
 msgstr "_Stage ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1647
+#: ../gitg/commit/gitg-commit.vala:1650
 msgid "_Unstage changes"
 msgstr "_Unstage ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1657
+#: ../gitg/commit/gitg-commit.vala:1660
 msgid "_Discard changes"
 msgstr "_Kassér ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1667
+#: ../gitg/commit/gitg-commit.vala:1670
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_Slet fil"
 msgstr[1] "_Slet filer"
 
-#: ../gitg/commit/gitg-commit.vala:1690
+#: ../gitg/commit/gitg-commit.vala:1693
 msgid "_Edit file"
 msgstr "_Redigér fil"
 
@@ -591,7 +612,7 @@ msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
 msgstr ""
-"Der synes at være unstagede ændringer i din arbejdsmappe. Vil du stashe "
+"Der synes at være ikke-stagede ændringer i din arbejdsmappe. Vil du stashe "
 "ændringerne før tjekud?"
 
 #: ../gitg/gitg-action-support.vala:133
@@ -651,29 +672,50 @@ msgstr "Start gitg med commitaktiviteten (forkortelse for --activity commit)"
 
 #: ../gitg/gitg-application.vala:65
 msgid "Do not try to load a repository from the current working directory"
-msgstr "Prøv ikke at indlæse et arkiv fra det nuværende arbejdskatalog"
+msgstr "Prøv ikke at indlæse et arkiv fra den nuværende arbejdsmappe"
 
-#: ../gitg/gitg-application.vala:90
+#: ../gitg/gitg-application.vala:94
 msgid "- Git repository viewer"
-msgstr "- Arkivfremviser til git"
+msgstr "- Git-arkivfremviser"
 
-#: ../gitg/gitg-application.vala:222
+#: ../gitg/gitg-application.vala:226
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
-msgstr "gitg er Git-arkivfremviser til gtk+/GNOME"
+msgstr "gitg er en Git-arkivfremviser til gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:231
+#: ../gitg/gitg-application.vala:235
 msgid "translator-credits"
 msgstr ""
 "Joe Hansen\n"
 "Ask Hjorth Larsen\n"
 "Kenneth Nielsen\n"
+"scootergrisen\n"
 "\n"
 "Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
 "Mere info: http://www.dansk-gruppen.dk"
 
-#: ../gitg/gitg-application.vala:234
+#: ../gitg/gitg-application.vala:238
 msgid "gitg homepage"
 msgstr "Hjemmeside for gitg"
+
+#: ../gitg/gitg-application.vala:369
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"Det er brandærgerligt, men gitg kræver altså at libgit2 (et bibliotek som "
+"gitg afhænger af) er kompileret med trådunderstøttelse.\n"
+"\n"
+"Hvis du har kompileret libgit2 manuelt, så konfigurér venligst libgit2 med -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Ellers så meld en fejl i din distributions fejlmeldingssystem om at libgit2 "
+"mangler trådunderstøttelse."
 
 #. ex: ts=4 noet
 #: ../gitg/gitg-author-details-dialog.vala:85
@@ -704,46 +746,45 @@ msgstr "Den angivne URL understøttes ikke"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
-msgstr ""
+msgstr "Cherry-pick ind i"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
-msgstr ""
+msgstr "Cherry-pick dette commit ind i en gren"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:117
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Kunne ikke slå deres commit op: %s"
+msgstr "Kunne ikke slå committet op for grenen %s: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:132
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to cherry-pick the commit: %s"
-msgstr "Kunne ikke oprette commit: %s"
+msgstr "Kunne ikke udplukke committet: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:144
 #: ../gitg/gitg-commit-action-cherry-pick.vala:160
-#, fuzzy
 msgid "Cherry pick has conflicts"
-msgstr "Fletning har konflikter"
+msgstr "Konflikter ved cherry-pick"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:153
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The cherry pick of %s onto %s has caused conflicts, would you like to "
 "checkout branch %s with the cherry pick to your working directory to resolve "
 "the conflicts?"
 msgstr ""
-"Fletningen af %s ind i %s har forårsaget konflikter. Vil du tjekke grenen %s "
-"ud med fletningen til din arbejdsmappe for at løse konflikterne?"
+"Cherry-pick af %s ind i %s har forårsaget konflikter. Vil du tjekke grenen "
+"%s med cherry-pick af din arbejdsmappe ud for at løse konflikterne?"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:157
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"Fletningen af %s ind i %s har forårsaget konflikter. Vil du tjekke "
-"fletningen ud til din arbejdsmappe for at løse konflikterne?"
+"Cherry-pick af %s ind i %s har forårsaget konflikter. Vil du tjekke cherry-"
+"pick-tilstanden ud til din arbejdsmappe for at løse konflikterne?"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:164
 #: ../gitg/gitg-ref-action-checkout.vala:48
@@ -752,29 +793,26 @@ msgid "Checkout"
 msgstr "Tjek ud"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:168
-#, fuzzy
 msgid "Cherry pick failed with conflicts"
-msgstr "Fletning mislykkedes med konflikter"
+msgstr "Cherry-pick mislykkedes med konflikter"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:179
-#, fuzzy
 msgid "Cherry pick finished with conflicts in working directory"
-msgstr "Fuldførte fletning med konflikter i arbejdsmappe"
+msgstr "Cherry-pick afsluttede med konflikter i arbejdsmappe"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:199
-#, fuzzy, c-format
+#, c-format
 msgid "Cherry pick %s onto %s"
-msgstr "Flet %s ind i %s"
+msgstr "Cherry-pick %s ind i %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:224
-#, fuzzy
 msgid "Successfully cherry picked"
-msgstr "Flettede %s ind i %s"
+msgstr "Cherry-pick fuldført"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:261
-#, fuzzy, c-format
+#, c-format
 msgid "Cherry pick onto %s"
-msgstr "Flet ind i %s"
+msgstr "Cherry-pick ind i %s"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -826,70 +864,58 @@ msgstr "Kunne ikke finde mærke"
 
 #: ../gitg/gitg-create-tag-dialog.vala:110
 msgid "Provide a message to create an annotated tag"
-msgstr "Angiv en besked for at oprette et annoteret mærke"
+msgstr "Angiv en meddelelse for at oprette et annoteret mærke"
 
-#: ../gitg/gitg-dash-view.vala:190
-msgid "_Delete"
-msgstr "_Slet"
+#: ../gitg/gitg-dash-view.vala:171
+msgid "_Remove"
+msgstr "_Fjern"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:247
+#: ../gitg/gitg-dash-view.vala:227
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
-msgstr "Vi kan også %sskanne din hjemmemappe%s efter gitarkiver."
+msgstr "Vi kan også %sskanne din hjemmemappe%s efter git-arkiver."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:250
+#: ../gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
-msgstr "I mellemtiden kan du %ssætte din gitprofil op%s."
+msgstr "I mellemtiden kan du %ssætte din git-profil op%s."
 
-#: ../gitg/gitg-dash-view.vala:395
+#: ../gitg/gitg-dash-view.vala:382
 msgid "Failed to clone repository"
 msgstr "Kunne ikke klone arkiv"
 
-#: ../gitg/gitg-dash-view.vala:443
+#: ../gitg/gitg-dash-view.vala:413
 msgid "Failed to add repository"
 msgstr "Kunne ikke tilføje arkiv"
 
-#: ../gitg/gitg-dash-view.vala:459
+#: ../gitg/gitg-dash-view.vala:429
 msgid "Create new repository"
 msgstr "Opret nyt arkiv"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:462
+#: ../gitg/gitg-dash-view.vala:432
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
-"Placeringen <i>%s</i> synes ikke at være et gyldigt gitarkiv. Vil du "
-"initialisere et nyt gitarkiv på dette sted?"
+"Placeringen <i>%s</i> synes ikke at være et gyldigt git-arkiv. Vil du "
+"initialisere et nyt git-arkiv på denne placering?"
 
-#: ../gitg/gitg-dash-view.vala:468
+#: ../gitg/gitg-dash-view.vala:438
 msgid "Create repository"
 msgstr "Opret arkiv"
 
-#: ../gitg/gitg-dash-view.vala:484
+#: ../gitg/gitg-dash-view.vala:454
 msgid "Failed to create repository"
 msgstr "Kunne ikke oprette arkiv"
 
-#: ../gitg/gitg-dash-view.vala:554
+#: ../gitg/gitg-dash-view.vala:524
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Søger efter arkiver i %s"
-
-#: ../gitg/gitg-dash-view.vala:595
-msgid "Add Repository"
-msgstr "Tilføj arkiv"
-
-#: ../gitg/gitg-dash-view.vala:599
-msgid "_Add"
-msgstr "_Tilføj"
-
-#: ../gitg/gitg-dash-view.vala:601
-msgid "_Scan for all git repositories from this directory"
-msgstr "_Skan efter alle gitarkiver fra denne mappe"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
@@ -939,7 +965,7 @@ msgstr "Slet gren %s"
 #: ../gitg/gitg-ref-action-delete.vala:74
 #, c-format
 msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr "Er du sikker på, at du ønsker permanent at slette grenen %s?"
+msgstr "Er du sikker på, at du vil slette grenen %s permanent?"
 
 #: ../gitg/gitg-ref-action-delete.vala:78
 #, c-format
@@ -949,7 +975,7 @@ msgstr "Slet mærke %s"
 #: ../gitg/gitg-ref-action-delete.vala:79
 #, c-format
 msgid "Are you sure that you want to permanently delete the tag %s?"
-msgstr "Er du sikker på, at du ønsker permanent at slette mærket %s?"
+msgstr "Er du sikker på, at du vil slette mærket %s permanent?"
 
 #: ../gitg/gitg-ref-action-delete.vala:83
 #, c-format
@@ -959,8 +985,7 @@ msgstr "Slet ekstern gren %s"
 #: ../gitg/gitg-ref-action-delete.vala:84
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr ""
-"Er du sikker på, at du ønsker permanent at slette den eksterne gren %s?"
+msgstr "Er du sikker på, at du vil slette den eksterne gren %s permanent?"
 
 #. Translators: %s is the name of the tag
 #: ../gitg/gitg-ref-action-delete.vala:119
@@ -1127,36 +1152,28 @@ msgstr "Ugyldigt navn"
 msgid "Failed to rename"
 msgstr "Kunne ikke omdøbe"
 
-#: ../gitg/gitg.vala:68
-msgid ""
-"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
-"depends) to be compiled with threading support.\n"
-"\n"
-"If you manually compiled libgit2, then please configure libgit2 with -"
-"DTHREADSAFE:BOOL=ON.\n"
-"\n"
-"Otherwise, report a bug in your distributions' bug reporting system for "
-"providing libgit2 without threading support."
-msgstr ""
-"Det er brandærgerligt, men gitg kræver altså at libgit2 (et bibliotek som "
-"gitg afhænger af) er kompileret med trådunderstøttelse.\n"
-"\n"
-"Hvis du har kompileret libgit2 manuelt, så konfigurér venligst libgit2 med -"
-"DTHREADSAFE:BOOL=ON.\n"
-"\n"
-"Ellers så meld en fejl i din distributions fejlmeldingssystem om at libgit2 "
-"mangler trådunderstøttelse."
+#: ../gitg/gitg-window.vala:187
+msgid "Add Repository"
+msgstr "Tilføj arkiv"
 
-#: ../gitg/gitg-window.vala:410
+#: ../gitg/gitg-window.vala:191
+msgid "_Add"
+msgstr "_Tilføj"
+
+#: ../gitg/gitg-window.vala:193
+msgid "_Scan for all git repositories from this directory"
+msgstr "_Skan efter alle git-arkiver fra denne mappe"
+
+#: ../gitg/gitg-window.vala:481
 msgid "Projects"
 msgstr "Projekter"
 
-#: ../gitg/gitg-window.vala:826
+#: ../gitg/gitg-window.vala:912
 #, c-format
 msgid "'%s' is not a Git repository."
-msgstr "\"%s\" er ikke et Gitarkiv."
+msgstr "\"%s\" er ikke et Git-arkiv."
 
-#: ../gitg/gitg-window.vala:975
+#: ../gitg/gitg-window.vala:1061
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1164,7 +1181,7 @@ msgstr ""
 "Dit brugernavn og e-mailadresse er endnu ikke angivet. Angiv venligst dit "
 "navn og e-mailadresse i brugerkonfigurationen."
 
-#: ../gitg/gitg-window.vala:979
+#: ../gitg/gitg-window.vala:1065
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1172,7 +1189,7 @@ msgstr ""
 "Dit brugernavn er endnu ikke angivet. Angiv venligst dit navn i "
 "brugerkonfigurationen."
 
-#: ../gitg/gitg-window.vala:983
+#: ../gitg/gitg-window.vala:1069
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1180,13 +1197,13 @@ msgstr ""
 "Din e-mailadresse er endnu ikke angivet. Angiv venligst din e-mailadresse i "
 "brugerkonfigurationen."
 
-#: ../gitg/gitg-window.vala:986
+#: ../gitg/gitg-window.vala:1072
 msgid "Missing author details"
 msgstr "Mangler forfatteroplysninger"
 
 #: ../gitg/gitg-remote-notification.vala:90
 #: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:6
+#: ../gitg/resources/ui/gitg-window.ui.h:10
 msgid "Close"
 msgstr "Luk"
 
@@ -1217,17 +1234,17 @@ msgstr "REFERENCE"
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%d ahead, %d behind"
-msgstr ""
+msgstr "%d foran, %d bagud"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%d ahead"
-msgstr ""
+msgstr "%d foran"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%d behind"
-msgstr ""
+msgstr "%d bagud"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1261,7 +1278,7 @@ msgctxt "Preferences"
 msgid "Commit"
 msgstr "Commit"
 
-#: ../gitg/preferences/gitg-preferences-interface.vala:112
+#: ../gitg/preferences/gitg-preferences-interface.vala:120
 msgid "Interface"
 msgstr "Grænseflade"
 
@@ -1322,69 +1339,47 @@ msgstr "%e. %b %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e. %b %Y, %I:%M %p"
 
-#: ../libgitg/gitg-diff-view.vala:282
-msgid "stage"
-msgstr "stage"
-
-#: ../libgitg/gitg-diff-view.vala:283
-msgid "unstage"
-msgstr "unstage"
-
-#: ../libgitg/gitg-diff-view.vala:284
-msgid "Loading diff…"
-msgstr "Indlæser diff…"
-
-#: ../libgitg/gitg-diff-view.vala:285
-msgid "Notes:"
-msgstr "Noter:"
-
-#: ../libgitg/gitg-diff-view.vala:286
-msgid "Parents:"
-msgstr "Forældre:"
-
-#: ../libgitg/gitg-diff-view.vala:287
-msgid "Diff against:"
-msgstr "Diff i forhold til:"
-
-#: ../libgitg/gitg-diff-view.vala:288
-msgid "Committed by:"
-msgstr "Committet af:"
-
-#: ../libgitg/gitg-diff-view.vala:289
-msgid "Expand all"
-msgstr "Udfold alle"
-
-#: ../libgitg/gitg-diff-view.vala:290
+#: ../libgitg/gitg-diff-view-commit-details.vala:142
 msgid "Collapse all"
 msgstr "Sammenfold alle"
 
+#: ../libgitg/gitg-diff-view-commit-details.vala:146
+#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
+msgid "Expand all"
+msgstr "Udfold alle"
+
+#: ../libgitg/gitg-diff-view-commit-details.vala:199
+#, c-format
+msgid "Committed by %s"
+msgstr "Committet af %s"
+
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: ../libgitg/gitg-repository-list-box.vala:175
+#: ../libgitg/gitg-repository-list-box.vala:154
 #, c-format
 msgid "at %s"
 msgstr "i %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: ../libgitg/gitg-repository-list-box.vala:184
+#: ../libgitg/gitg-repository-list-box.vala:163
 #, c-format
 msgid "%s at %s"
 msgstr "%s i %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:423
-#, fuzzy
+#: ../libgitg/gitg-repository-list-box.vala:409
 msgid "Cloning…"
-msgstr "Kloner..."
+msgstr "Kloner…"
 
 #: ../libgitg/gitg-stage.vala:334
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Kunne ikke læse commitbesked efter kørsel af commit-msg-\"hook\": %s"
 
-#: ../plugins/diff/gitg-diff.vala:120
+#: ../plugins/diff/gitg-diff.vala:112
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:11
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/diff/gitg-diff.vala:125
+#: ../plugins/diff/gitg-diff.vala:117
 msgid "Show the changes introduced by the selected commit"
 msgstr "Vis de ændringer der blev introduceret ved det valgte commit"
 
@@ -1444,19 +1439,20 @@ msgstr "Commit"
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
 msgid "C_ommit"
-msgstr "_Commit"
+msgstr "C_ommit"
 
+# scootergrisen: måske signatur
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "Add _signed-off-by signature"
-msgstr "Tilføj \"_godkendt af\"-underskrift"
+msgstr "Tilføj \"_signed-off-by\"-signatur"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 msgid "_Amend previous commit"
-msgstr "_Amend tidligere commit"
+msgstr "_Tilret forrige commit"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
-msgstr "Spring commit-_hooks over"
+msgstr "Spring commit_hooks over"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 msgid "S_tage selection"
@@ -1471,7 +1467,7 @@ msgid ""
 "The submodule is in a dirty state and has staged and/or unstaged changes "
 "that are not yet committed as shown below."
 msgstr ""
-"Undermodulet er i en uren tilstand og har stagede og/eller ustagede "
+"Undermodulet er i en uren tilstand og har stagede og/eller ikke-stagede "
 "ændringer, som ikke er committet endnu, som vist nedenfor."
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
@@ -1514,6 +1510,7 @@ msgstr "_Opret"
 msgid "Branch _name:"
 msgstr "Gren_navn:"
 
+# scootergrisen: forslå uden " (tag)"
 #: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
 msgid "Create Tag"
 msgstr "Opret mærke (tag)"
@@ -1530,14 +1527,6 @@ msgstr ""
 "Ingen arkiver er blevet tilføjet endnu. For at komme i gang, kan du tilføje "
 "et eksisterende arkiv eller klone et nyt."
 
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:2
-msgid "_Add repository"
-msgstr "_Tilføj arkiv"
-
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:3
-msgid "_Clone repository"
-msgstr "_Klon arkiv"
-
 #: ../gitg/resources/ui/gitg-menus.ui.h:1
 msgid "_New Window"
 msgstr "_Nyt vindue"
@@ -1551,18 +1540,22 @@ msgid "_Preferences"
 msgstr "_Indstillinger"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_Keyboard Shortcuts"
+msgstr "_Tastaturgenveje"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
 msgid "_Help"
 msgstr "_Hjælp"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_About"
 msgstr "_Om"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
 msgid "_Quit"
 msgstr "_Afslut"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#: ../gitg/resources/ui/gitg-menus.ui.h:8
 msgid "_Reload"
 msgstr "_Genindlæs"
 
@@ -1606,9 +1599,10 @@ msgstr "Referencer"
 msgid "Sort references in the sidebar by latest activity"
 msgstr "Sortér referencer i sidebjælken efter seneste aktivitet"
 
+# scootergrisen: måske opstrøm
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr ""
+msgstr "Vis upstream (fjern) gren når en lokal gren vælges"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
 msgid "Commits"
@@ -1666,46 +1660,83 @@ msgstr "Brug gravatar-tjenesten til profilbilleder"
 msgid "Monitoring"
 msgstr "Overvågning"
 
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:12
+msgid "Enable syntax highlighting of source code in diff views"
+msgstr "Aktivér syntaksfremhævning af kildekode i diff-visninger"
+
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 msgid "Preferences"
 msgstr "Indstillinger"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Vinduer"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
+msgctxt "shortcut window"
+msgid "Open a new window"
+msgstr "Åbn et nyt vindue"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
+msgctxt "shortcut window"
+msgid "Open the window menu"
+msgstr "Åbn menuen Vindue"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
+msgctxt "shortcut window"
+msgid "Open a repository"
+msgstr "Åbn et arkiv"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
+msgctxt "shortcut window"
+msgid "Open the help"
+msgstr "Åbn hjælpen"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "Find"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
+msgctxt "shortcut window"
+msgid "Close the active window"
+msgstr "Luk det aktive vindue"
+
+# Måske: Vis programmets versionsnummer
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
+msgctxt "shortcut window"
+msgid "Quit the application"
+msgstr "Afslut programmet"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:2
 msgid "Show the list of recently used repositories"
 msgstr "Vis listen over nyligt brugte arkiver"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Clone"
+msgstr "Klon"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+msgid "Clone repository"
+msgstr "Klon arkiv"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:5
+msgid "Add"
+msgstr "Tilføj"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:6
+msgid "Add repository"
+msgstr "Tilføj arkiv"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:7
 msgid "Find a word or phrase"
 msgstr "Find et ord eller frase"
 
 # Gad vide hvad forskellen er?
-#: ../gitg/resources/ui/gitg-window.ui.h:4
+#: ../gitg/resources/ui/gitg-window.ui.h:8
 msgid "General settings and options"
 msgstr "Generelle indstillinger og valgmuligheder"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:1
-msgid "Ignore whitespace changes"
-msgstr "Ignorér ændringer i blanktegn"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:2
-msgid "Show changes inline"
-msgstr "Vis ændringer inden i linjer (inline)"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:3
-msgid "Wrap lines"
-msgstr "Ombryd linjer"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:4
-msgid "Developer tools"
-msgstr "Udviklerværktøjer"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:5
-msgid "Tab width"
-msgstr "Tabulatorbredde"
-
-#: ../libgitg/resources/ui/diff-view/diff-view-options.ui.h:6
-msgid "Context"
-msgstr "Kontekst"
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:2
 msgid "_Authenticate"
@@ -1739,6 +1770,32 @@ msgstr "Husk adgangskode indtil du _logger ud"
 msgid "Remember _forever"
 msgstr "Husk _altid"
 
+#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
+msgid "Parents"
+msgstr "Forældre"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
+msgid "Tab width:"
+msgstr "Tabulatorbredde:"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:2
+msgid "Wrap lines:"
+msgstr "Ombryd linjer:"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:3
+msgid "Ignore whitespace:"
+msgstr "Ignorér blanktegn:"
+
+# scootergrisen: måske "Sammenhæng"
+#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:1
+msgid "Context:"
+msgstr "Kontekst:"
+
+# scootergrisen: måske "Afstand"
+#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:2
+msgid "Spacing"
+msgstr "Mellemrum"
+
 #: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
@@ -1748,33 +1805,3 @@ msgstr "Fjern arkivet fra listen (vil ikke slette arkivet fra disken)"
 #: ../plugins/files/resources/view-files.ui.h:1
 msgid "column"
 msgstr "kolonne"
-
-#~ msgid "Failed to obtain HEAD tree: %s"
-#~ msgstr "Kunne ikke hente HEAD-træ: %s"
-
-#~ msgid "Unable to open the .gitconfig file."
-#~ msgstr "Filen .gitconfig kan ikke åbnes."
-
-#~ msgid "_Open"
-#~ msgstr "_Åbn"
-
-#~ msgid "Note: The Git config file '%s' does not exist."
-#~ msgstr "Bemærk: Gitkonfigurationsfilen \"%s\" findes ikke."
-
-#~ msgid "Save"
-#~ msgstr "Gem"
-
-#~ msgid "_Open Repository…"
-#~ msgstr "_Åbn arkiv…"
-
-#~ msgid "_Clone Repository…"
-#~ msgstr "_Klon arkiv…"
-
-#~ msgid "Show stash in history"
-#~ msgstr "Vis stash i historikken"
-
-#~ msgid "Show staged changes in history"
-#~ msgstr "Vis stagede ændringer i historikken"
-
-#~ msgid "Show unstaged changes in history"
-#~ msgstr "Vis unstagede ændringer i historikken"
