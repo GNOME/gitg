@@ -212,10 +212,6 @@ public class Application : Gtk.Application
 		new_window();
 	}
 
-	private void on_app_help_activated()
-	{
-	}
-
 	private void on_app_about_activated()
 	{
 		string[] artists = {"Jakub Steiner <jimmac@gmail.com>"};
@@ -312,7 +308,6 @@ public class Application : Gtk.Application
 
 	private static const ActionEntry[] app_entries = {
 		{"new", on_app_new_window_activated},
-		{"help", on_app_help_activated},
 		{"about", on_app_about_activated},
 		{"quit", on_app_quit_activated},
 		{"author-details-global", on_app_author_details_global_activated},
