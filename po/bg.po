@@ -1,0 +1,1766 @@
+# Bulgarian translation of gitg po-file.
+# Copyright (C) 2016 Free Software Foundation, Inc.
+# Alexander Shopov <ash@kambanaria.org>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gitg master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-26 07:42+0300\n"
+"PO-Revision-Date: 2016-04-26 07:41+0300\n"
+"Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
+"Language-Team: Bulgarian <dict@fsa-bg.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../contrib/xml/xml-reader.c:327
+#, c-format
+msgid "Could not parse XML from stream"
+msgstr "Потокът с XML не може да бъде анализиран"
+
+#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
+#: ../gitg/resources/ui/gitg-window.ui.h:1
+msgid "gitg"
+msgstr "gitg"
+
+#: ../data/gitg.desktop.in.in.h:2
+msgid "Git repository browser"
+msgstr "Работа с хранилища на git"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+msgid "Default Clone Directory"
+msgstr "Стандартно местоположение на клониранията"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+msgid ""
+"The default directory in which new repositories should be suggested to be "
+"cloned."
+msgstr "Папката, в която стандартно да се предлага да е клонирането."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+msgid "Orientation of the main interface (vertical or horizontal)"
+msgstr "Ориентация на основния интерфейс (вертикална или хоризонтална)"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+msgid "Setting that sets the orientation of the main interface."
+msgstr "Тази настройка указва ориентацията на основния интерфейс."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+msgid "Default Activity"
+msgstr "Стандартна дейност"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+msgid "The activity which gitg activates by default when first launched."
+msgstr "Дейността, към която git превключва при стартиране."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+msgid "Use Gravatar"
+msgstr "Използване на Gravatar"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+msgid "Enable the use of gravatar to display user avatars."
+msgstr ""
+"Използване на услугата gravatar, за да се показват аватари на потребителите."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+msgid "Enable Monitoring"
+msgstr "Включване на наблюдението"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:10
+msgid "Automatically update when external changes to .git are detected"
+msgstr ""
+"Автоматично обновяване при промени в папката „.git“ от външни програми."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+msgid "Enable Diff Highlighting"
+msgstr "Включване на оцветяването на разликите"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+msgid ""
+"Setting that determines whether to enable syntax highlighting in diff views."
+msgstr ""
+"Настройката определя дали да се включи оцветяването на синтаксиса в изгледа "
+"за разликите."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+msgid "When to Collapse Inactive Lanes"
+msgstr "Кога да се свиват неактивните редове"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+msgid ""
+"Setting that indicates when an inactive lane should be collapsed. Valid "
+"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+msgstr ""
+"Настройката задава кога да се свиват неактивните редове. Възможните "
+"стойности са целите числа от 0 до 4. 0 означава „най-рано“, а 4 — „най-"
+"късно“."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
+msgstr ""
+"Настройката указва дали да се свиват редовете в историята, които не показват "
+"някаква дейност. Ако я включите, историята ще изглежда по-чиста, особено при "
+"множество паралелни нишки на разработка. Настройката „collapse-inactive-"
+"lanes“ определя кога редовете ще бъдат свити."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+msgid "Show History in Topological Order"
+msgstr "Топологическа подредба на историята"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+msgid ""
+"Setting that indicates whether to show the history in topological order."
+msgstr ""
+"Настройката определя дали историята да се показва подредена топологически."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+msgid "Show Stashed Changes"
+msgstr "Показване на скатаните промени"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr ""
+"Настройката определя дали да се показват обектите за скатаване в историята."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+msgid "Show Staged Changes"
+msgstr "Показване на промените, които са добавени в индекса"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"Настройката указва дали да се показва виртуален обект в историята за текущо "
+"добавените промени в индекса."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+msgid "Show Unstaged Changes"
+msgstr "Показване на промените, които не са добавени в индекса"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"Настройката указва дали да се показва виртуален обект в историята за "
+"недобавените промени в индекса."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+msgid "Mainline Head"
+msgstr "Базов указател „HEAD“"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+msgid ""
+"Setting that indicates whether to always preserve a mainline in the history "
+"for the current HEAD."
+msgstr ""
+"Тази настройка указва винаги да се запазва базова история за текущия "
+"указател „HEAD“."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+msgid "Default selection of the history activity"
+msgstr "Стандартен избор в историята на дейностите"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+msgid ""
+"Setting that determines the default selection on startup of the history "
+"activity."
+msgstr ""
+"Тази настройка указва стандартния избор в историята на дейностите при "
+"стартиране."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
+msgid "Reference Sort Order"
+msgstr "Подредба на указателите"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
+msgid "The order by which references in the history sidebar should be sorted."
+msgstr "Подредбата за указателите в страничната лента за историята."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+msgid "Show Upstream With Branch"
+msgstr "Показване на следения клон"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
+msgid ""
+"Determines whether to also show the upstream (remote) tracking branch when "
+"selecting a local branch in the history view."
+msgstr ""
+"Настройката указва дали при избиране на клон в историята да се извежда и "
+"следеният клон."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+msgid "Show Right Margin in Commit Message View"
+msgstr "Индикация за дясно поле в изгледа за съобщение при подаване"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
+msgid ""
+"Show a right margin indicator in the commit message view. This can be used "
+"to easily see where to break the commit message at a particular column."
+msgstr ""
+"Показване на дясно поле в изгледа за съобщение при подаване. Това помага да "
+"решите къде да пренесете редовете в съобщението за подаване."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+msgid "Column at Which Right Margin is Shown"
+msgstr "Колона за дясно поле"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
+msgid ""
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
+msgstr ""
+"Колоната, при която де се извежда дясното поле, когато настройката „show-"
+"right-margin“ е истина."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+msgid "Show Subject Margin in Commit Message View"
+msgstr "Поле за тема в изгледа за съобщение при подаване"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:37
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
+msgstr ""
+"Осветяване на текста на темата, който надхвърля полето указано от „subject-"
+"margin-position“."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:38
+msgid "Column at Which Subject Margin is Shown"
+msgstr "Колона за дясно поле за тема"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:39
+msgid ""
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
+msgstr ""
+"Колоната, при която де се извежда дясното поле, когато настройката „show-"
+"subject-margin“ е истина."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
+msgid "Enable Spell Checking"
+msgstr "Проверка на правописа"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:41
+msgid ""
+"Setting which determines whether or not spell checking is enabled when "
+"writing a commit message."
+msgstr ""
+"Настройката определя дали да се проверява правописът в съобщенията при "
+"подаване."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:42
+msgid "Spell Checking Language"
+msgstr "Език за правописа"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:43
+msgid ""
+"The language to use when spell checking is enabled for writing a commit "
+"message."
+msgstr ""
+"Езикът, който да се ползва при проверка на правописа на съобщение при "
+"подаване."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:44
+msgid "Ignore Whitespace Changes"
+msgstr "Игнориране на промените в знаците за интервали"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:45
+msgid ""
+"Setting that indicates whether to ignore whitespace changes when showing the "
+"diff of a commit."
+msgstr ""
+"Настройката указва дали да се пренебрегват промените в знаците за интервали "
+"при показване на разликите."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:46
+msgid "Show Changes Inline"
+msgstr "Промените да са вътре"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:47
+msgid ""
+"Setting that indicates whether changes within lines should be shown inline."
+msgstr ""
+"Настройката определя дали променените редове да се показват вътре в текста."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:48
+msgid "Wrap"
+msgstr "Пренасяне"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:49
+msgid "Wrap lines."
+msgstr "Пренасяне на редове."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:50
+msgid "Number of Before/After Context Lines"
+msgstr "Брой редове преди и след за контекст"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:51
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff of a commit."
+msgstr ""
+"Настройката определя колко реда контекст (преди и след) промяната трябва да "
+"се извеждат при визуализирането на разлики."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:52
+msgid "Rendered Width of a Tab Character"
+msgstr "Широчина на табулацията"
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:53
+msgid ""
+"Setting that determines how much space a tab character should occupy when "
+"showing the diff of a commit."
+msgstr ""
+"Настройката определя широчината на табулацията в интервали при "
+"визуализирането на разликите."
+
+#: ../data/org.gnome.gitg.gschema.xml.in.in.h:54
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff to be staged/unstaged in the commit area."
+msgstr ""
+"Настройката определя колко реда контекст (преди и след) промяната трябва да "
+"се извеждат при визуализирането на разлики спрямо индекса."
+
+#: ../gitg/commit/gitg-commit-dialog.vala:308
+#, c-format
+msgid "Cannot set spell checking language: %s"
+msgstr "Езикът за правописа не може да бъде зададен: %s"
+
+#: ../gitg/commit/gitg-commit-dialog.vala:508
+#: ../gitg/commit/gitg-commit.vala:1067
+msgid "There are no changes to be committed"
+msgstr "Няма промени за подаване"
+
+#: ../gitg/commit/gitg-commit-dialog.vala:509
+#: ../gitg/commit/gitg-commit.vala:1068
+msgid "Use amend to change the commit message of the previous commit"
+msgstr "Сменете съобщението като поправите подаването"
+
+#: ../gitg/commit/gitg-commit.vala:104
+msgctxt "Activity"
+msgid "Commit"
+msgstr "Подаване"
+
+#: ../gitg/commit/gitg-commit.vala:109
+msgid "Create new commits and manage the staging area"
+msgstr "Създаване на нови подавания и управление на индекса"
+
+#: ../gitg/commit/gitg-commit.vala:184
+msgid "_Stage selection"
+msgstr "_Добавяне на избраното към индекса"
+
+#: ../gitg/commit/gitg-commit.vala:223
+#, c-format
+msgid "Failed to stage the removal of submodule `%s'"
+msgstr "Неуспешно добавяне към индекса на премахването на подмодула „%s“"
+
+#: ../gitg/commit/gitg-commit.vala:239
+#, c-format
+msgid "Failed to open the repository of submodule `%s' while trying to stage"
+msgstr ""
+"Неуспешно отваряне на хранилището на подмодула „%s“ при опита за добавяне "
+"към индекса"
+
+#: ../gitg/commit/gitg-commit.vala:253
+#, c-format
+msgid ""
+"Failed to lookup the working directory commit of submodule `%s' while trying "
+"to stage"
+msgstr ""
+"Неуспешно откриване на папката на подмодула „%s“ при опита за добавяне към "
+"индекса"
+
+#: ../gitg/commit/gitg-commit.vala:266
+#, c-format
+msgid "Failed to stage the submodule `%s'"
+msgstr "Неуспешно добавяне на подмодула „%s“ към индекса"
+
+#: ../gitg/commit/gitg-commit.vala:288
+#, c-format
+msgid "Failed to stage the removal of file `%s'"
+msgstr "Неуспешно добавяне на изтриването на файла „%s“ към индекса"
+
+#: ../gitg/commit/gitg-commit.vala:302
+#, c-format
+msgid "Failed to stage the file `%s'"
+msgstr "Неуспешно добавяне на файла „%s“ към индекса"
+
+#: ../gitg/commit/gitg-commit.vala:574
+msgid "_Unstage selection"
+msgstr "_Изваждане на избраното от индекса"
+
+#: ../gitg/commit/gitg-commit.vala:640
+#, c-format
+msgid "Failed to unstage the removal of file `%s'"
+msgstr "Неуспешно изваждане на изтриването на файла „%s“ от индекса"
+
+#: ../gitg/commit/gitg-commit.vala:641
+#, c-format
+msgid "Failed to unstage the file `%s'"
+msgstr "Неуспешно изваждане на файла „%s“ от индекса"
+
+#: ../gitg/commit/gitg-commit.vala:648
+#, c-format
+msgid "Failed to unstage the removal of submodule `%s'"
+msgstr "Неуспешно изваждане на изтриването на подмодула „%s“ от индекса"
+
+#: ../gitg/commit/gitg-commit.vala:649
+#, c-format
+msgid "Failed to unstage the submodule `%s'"
+msgstr "Неуспешно изваждане на подмодула „%s“ от индекса"
+
+#. Populate staged items
+#: ../gitg/commit/gitg-commit.vala:853
+msgid "Staged"
+msgstr "Добавено към индекса"
+
+#: ../gitg/commit/gitg-commit.vala:861
+msgid "No staged files"
+msgstr "Нищо не е добавено към индекса"
+
+#. Populate unstaged items
+#: ../gitg/commit/gitg-commit.vala:884
+msgid "Unstaged"
+msgstr "Извън индекса"
+
+#: ../gitg/commit/gitg-commit.vala:892
+msgid "No unstaged files"
+msgstr "Няма нищо извън индекса"
+
+#. Populate untracked items
+#: ../gitg/commit/gitg-commit.vala:915
+msgid "Untracked"
+msgstr "Неследен"
+
+#: ../gitg/commit/gitg-commit.vala:919
+msgid "No untracked files"
+msgstr "Няма неследени файлове"
+
+#: ../gitg/commit/gitg-commit.vala:944
+msgid "Submodule"
+msgstr "Подмодул"
+
+#: ../gitg/commit/gitg-commit.vala:948
+msgid "No dirty submodules"
+msgstr "Няма промени в подмодулите"
+
+#: ../gitg/commit/gitg-commit.vala:1095
+msgid "Failed to commit"
+msgstr "Неуспешно подаване"
+
+#: ../gitg/commit/gitg-commit.vala:1111
+msgid "Failed to pass pre-commit"
+msgstr "Подаването е отхвърлено от куката преди подаване"
+
+#: ../gitg/commit/gitg-commit.vala:1314 ../gitg/commit/gitg-commit.vala:1464
+msgid "Discard changes"
+msgstr "Отмяна на промените"
+
+#: ../gitg/commit/gitg-commit.vala:1315
+msgid "Are you sure you want to permanently discard the selected changes?"
+msgstr "Сигурни ли сте, че искате окончателно да отмените избраните промени?"
+
+#: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
+#: ../gitg/commit/gitg-commit.vala:1605
+#: ../gitg/gitg-commit-action-create-patch.vala:145
+#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
+#: ../gitg/resources/ui/gitg-window.ui.h:9
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
+msgid "_Cancel"
+msgstr "_Отказ"
+
+#: ../gitg/commit/gitg-commit.vala:1325 ../gitg/commit/gitg-commit.vala:1491
+msgid "Discard"
+msgstr "Отмяна"
+
+#: ../gitg/commit/gitg-commit.vala:1354
+msgid "Failed to discard selection"
+msgstr "Неуспешна отмяна на избраното"
+
+#: ../gitg/commit/gitg-commit.vala:1384
+msgid "Failed to stage selection"
+msgstr "Неуспешно добавяне на избраното в индекса"
+
+#: ../gitg/commit/gitg-commit.vala:1388
+msgid "Failed to unstage selection"
+msgstr "Неуспешно изваждане на избраното от индекса"
+
+#: ../gitg/commit/gitg-commit.vala:1448
+msgid "Failed to discard changes"
+msgstr "Неуспешна отмяна на промените"
+
+#: ../gitg/commit/gitg-commit.vala:1469
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the file `"
+"%s'?"
+msgstr ""
+"Сигурни ли сте, че искате окончателно да отмените всички промени във файла "
+"„%s“?"
+
+#: ../gitg/commit/gitg-commit.vala:1480
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the files "
+"%s and `%s'?"
+msgstr ""
+"Сигурни ли сте, че искате окончателно да отмените всички промени във "
+"файловете „%s“ и „%s“?"
+
+#: ../gitg/commit/gitg-commit.vala:1563
+msgid "Failed to delete files"
+msgstr "Неуспешно изтриване на файловете"
+
+#: ../gitg/commit/gitg-commit.vala:1579
+msgid "Delete file"
+msgid_plural "Delete files"
+msgstr[0] "Изтриване на файл"
+msgstr[1] "Изтриване на файлове"
+
+#: ../gitg/commit/gitg-commit.vala:1584
+#, c-format
+msgid "Are you sure you want to permanently delete the file `%s'?"
+msgstr "Сигурни ли сте, че искате окончателно да изтриете файла „%s“?"
+
+#: ../gitg/commit/gitg-commit.vala:1595
+#, c-format
+msgid "Are you sure you want to permanently delete the files %s and `%s'?"
+msgstr ""
+"Сигурни ли сте, че искате окончателно да изтриете файловете „%s“ и „%s“?"
+
+#: ../gitg/commit/gitg-commit.vala:1640
+msgid "_Stage changes"
+msgstr "_Вкарване на промените в индекса"
+
+#: ../gitg/commit/gitg-commit.vala:1650
+msgid "_Unstage changes"
+msgstr "_Изваждане на промените от индекса"
+
+#: ../gitg/commit/gitg-commit.vala:1660
+msgid "_Discard changes"
+msgstr "_Отмяна на промените"
+
+#: ../gitg/commit/gitg-commit.vala:1670
+msgid "D_elete file"
+msgid_plural "D_elete files"
+msgstr[0] "_Изтриване на файл"
+msgstr[1] "_Изтриване на файлове"
+
+#: ../gitg/commit/gitg-commit.vala:1693
+msgid "_Edit file"
+msgstr "_Редактиране на файл"
+
+#: ../gitg/gitg-action-support.vala:95
+#, c-format
+msgid "Failed to stash changes: %s"
+msgstr "Неуспешно скатаване на промените: %s"
+
+#: ../gitg/gitg-action-support.vala:130
+msgid "Unstaged changes"
+msgstr "Промени извън индекса"
+
+#: ../gitg/gitg-action-support.vala:131
+msgid ""
+"You appear to have unstaged changes in your working directory. Would you "
+"like to stash the changes before the checkout?"
+msgstr ""
+"В хранилището ви има промени извън индекса. Ще ги скатаете ли преди "
+"изтеглянето?"
+
+#: ../gitg/gitg-action-support.vala:133
+#: ../gitg/gitg-commit-action-cherry-pick.vala:163
+#: ../gitg/gitg-ref-action-delete.vala:88
+#: ../gitg/gitg-ref-action-merge.vala:194
+#: ../gitg/resources/ui/gitg-remote-notification.ui.h:1
+#: ../gitg/resources/ui/gitg-simple-notification.ui.h:1
+msgid "Cancel"
+msgstr "Отказ"
+
+#: ../gitg/gitg-action-support.vala:134
+msgid "Stash changes"
+msgstr "Скатаване на промените"
+
+#: ../gitg/gitg-action-support.vala:138 ../gitg/gitg-action-support.vala:165
+msgid "Failed with conflicts"
+msgstr "Неуспешно действие — има конфликти"
+
+#: ../gitg/gitg-action-support.vala:181
+#, c-format
+msgid "Failed to checkout conflicts: %s"
+msgstr "Конфликтите не могат да бъдат изтеглени: %s"
+
+#: ../gitg/gitg-action-support.vala:199
+msgid "Failed to obtain author details"
+msgstr "Данните за автора не могат да се получат"
+
+#: ../gitg/gitg-action-support.vala:223
+#: ../gitg/gitg-ref-action-checkout.vala:88
+#, c-format
+msgid "Failed to lookup commit: %s"
+msgstr "Подаването не е открито: %s"
+
+#: ../gitg/gitg-action-support.vala:255
+#, c-format
+msgid "Failed to create commit: %s"
+msgstr "Неуспешно подаване: %s"
+
+#: ../gitg/gitg-action-support.vala:277
+#, c-format
+msgid "Failed to checkout index: %s"
+msgstr "Индексът не може да бъде изтеглен: %s"
+
+#: ../gitg/gitg-application.vala:56
+msgid "Show the application's version"
+msgstr "Извеждане на версията на програмата"
+
+#: ../gitg/gitg-application.vala:59
+msgid "Start gitg with a particular activity"
+msgstr "Стартиране на gitg в определена дейност"
+
+#: ../gitg/gitg-application.vala:62
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr ""
+"Стартиране на gitg с дейността за подаване (съкращение за „--activity "
+"commit“)"
+
+#: ../gitg/gitg-application.vala:65
+msgid "Do not try to load a repository from the current working directory"
+msgstr "Без търсене на хранилище в текущата директория"
+
+#: ../gitg/gitg-application.vala:94
+msgid "- Git repository viewer"
+msgstr "— работа с хранилища на Git"
+
+#: ../gitg/gitg-application.vala:222
+msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgstr "gitg е програма за работа и разглеждане на хранилища на Git"
+
+#: ../gitg/gitg-application.vala:231
+msgid "translator-credits"
+msgstr ""
+"Александър Шопов <ash@kambanaria.org>\n"
+"\n"
+"Проектът за превод на GNOME има нужда от подкрепа.\n"
+"Научете повече за нас на <a href=\"http://gnome.cult.bg\">http://gnome.cult."
+"bg</a>\n"
+"Докладвайте за грешки на <a href=\"http://gnome.cult.bg/bugs\">http://gnome."
+"cult.bg/bugs</a>"
+
+#: ../gitg/gitg-application.vala:234
+msgid "gitg homepage"
+msgstr "Страница на gitg"
+
+#: ../gitg/gitg-application.vala:364
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions' bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"gitg използва библиотеката „libgit2“ и изисква тя да разполага с поддръжка "
+"на многонишкова работа.\n"
+"\n"
+"Ако сами сте компилирали „libgit2“, използвайте флага „-DTHREADSAFE:BOOL=ON“ "
+"при конфигурирането ѝ.\n"
+"\n"
+"В противен случай изпратете доклад за грешка към дистрибуцията си, че "
+"библиотеката „libgit2“ е компилирана без поддръжка на нишки."
+
+#. ex: ts=4 noet
+#: ../gitg/gitg-author-details-dialog.vala:85
+#: ../gitg/gitg-author-details-dialog.vala:105
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+msgid "Author Details"
+msgstr "Данни за автора"
+
+#: ../gitg/gitg-author-details-dialog.vala:86
+msgid "Enter default details used for all repositories:"
+msgstr "Въведете стандартните настройки за всички хранилища:"
+
+#. Translators: %s is the repository name
+#: ../gitg/gitg-author-details-dialog.vala:108
+#, c-format
+msgid "Override global details for repository '%s':"
+msgstr ""
+"Специфициране на различни от стандартните настройки за хранилището „%s“:"
+
+#: ../gitg/gitg-author-details-dialog.vala:220
+msgid "Failed to set Git user config."
+msgstr "Неуспешно задаване на потребителските настройки на Git."
+
+#: ../gitg/gitg-clone-dialog.vala:89
+msgid "The URL introduced is not supported"
+msgstr "Този вид адреси не се поддържат"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:53
+msgid "Cherry pick onto"
+msgstr "Отбиране на подаване върху"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:58
+msgid "Cherry pick this commit onto a branch"
+msgstr "Отбиране и прилагане на това подаване върху клон"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:117
+#, c-format
+msgid "Failed to lookup the commit for branch %s: %s"
+msgstr "Подаването за клона „%s“ не е открито: %s"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:132
+#, c-format
+msgid "Failed to cherry-pick the commit: %s"
+msgstr "Неуспешно отбиране на подаването: %s"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:144
+#: ../gitg/gitg-commit-action-cherry-pick.vala:160
+msgid "Cherry pick has conflicts"
+msgstr "Конфликт при отбиране на подаване"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:153
+#, c-format
+msgid ""
+"The cherry pick of %s onto %s has caused conflicts, would you like to "
+"checkout branch %s with the cherry pick to your working directory to resolve "
+"the conflicts?"
+msgstr ""
+"Отбирането на подаването „%s“ върху „%s“ доведе до конфликти. Искате ли да "
+"изтеглите клона „%s“ заедно с отбраното, за да разрешите конфликтите?"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:157
+#, c-format
+msgid ""
+"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"checkout the cherry pick to your working directory to resolve the conflicts?"
+msgstr ""
+"Отбирането на подаването „%s“ върху „%s“ доведе до конфликти. Искате ли да "
+"изтеглите отбраното, за да разрешите конфликтите?"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:164
+#: ../gitg/gitg-ref-action-checkout.vala:48
+#: ../gitg/gitg-ref-action-merge.vala:195
+msgid "Checkout"
+msgstr "Изтегляне"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:168
+msgid "Cherry pick failed with conflicts"
+msgstr "Конфликти при отбирането на подавания"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:179
+msgid "Cherry pick finished with conflicts in working directory"
+msgstr "Отбираното завърши с конфликти"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:199
+#, c-format
+msgid "Cherry pick %s onto %s"
+msgstr "Отбиране на „%s“ върху „%s“"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:224
+msgid "Successfully cherry picked"
+msgstr "Успешно отбиране"
+
+#: ../gitg/gitg-commit-action-cherry-pick.vala:261
+#, c-format
+msgid "Cherry pick onto %s"
+msgstr "Отбиране върху „%s“"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:48
+msgid "Create branch"
+msgstr "Създаване на клон"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:53
+msgid "Create a new branch at the selected commit"
+msgstr "Създаване на нов клон при избраното подаване"
+
+#: ../gitg/gitg-commit-action-create-branch.vala:75
+msgid "Failed to create branch"
+msgstr "Неуспешно създаване на клон"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:63
+msgid "Create patch"
+msgstr "Създаване на кръпка"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:68
+msgid "Create a patch from the selected commit"
+msgstr "Създаване на кръпка от избраното подаване"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:143
+msgid "Save Patch File"
+msgstr "Запазване на файла с кръпката"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:147
+msgid "_Save Patch"
+msgstr "_Запазване на кръпка"
+
+#: ../gitg/gitg-commit-action-create-patch.vala:172
+msgid "Failed to create patch"
+msgstr "Неуспешно създаване на кръпка"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:48
+msgid "Create tag"
+msgstr "Създаване на етикет"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:53
+msgid "Create a new tag at the selected commit"
+msgstr "Създаване на нов етикет към избраното подаване"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:92
+msgid "Failed to create tag"
+msgstr "Неуспешно създаване на етикети"
+
+#: ../gitg/gitg-commit-action-create-tag.vala:109
+msgid "Failed to lookup tag"
+msgstr "Липсва такъв етикет"
+
+#: ../gitg/gitg-create-tag-dialog.vala:110
+msgid "Provide a message to create an annotated tag"
+msgstr "Задайте съобщение за анотиран етикет"
+
+#: ../gitg/gitg-dash-view.vala:171
+msgid "_Remove"
+msgstr "_Изтриване"
+
+#. Translators: the two %s will be replaced to create a link to perform the scanning action.
+#: ../gitg/gitg-dash-view.vala:227
+#, c-format
+msgid "We can also %sscan your home directory%s for git repositories."
+msgstr "%sДомашната ви папка може да се претърси%s за хранилища на git."
+
+#. Translators: the two %s will be used to create a link to the author dialog.
+#: ../gitg/gitg-dash-view.vala:230
+#, c-format
+msgid "In the mean time, you may want to %sset up your git profile%s."
+msgstr "Междувременно може да %sнастроите профила си за git%s."
+
+#: ../gitg/gitg-dash-view.vala:382
+msgid "Failed to clone repository"
+msgstr "Неуспешно клониране на хранилище"
+
+#: ../gitg/gitg-dash-view.vala:413
+msgid "Failed to add repository"
+msgstr "Неуспешно добавяне на хранилище"
+
+#: ../gitg/gitg-dash-view.vala:429
+msgid "Create new repository"
+msgstr "Създаване на ново хранилище"
+
+#. Translators: %s is a file name
+#: ../gitg/gitg-dash-view.vala:432
+#, c-format
+msgid ""
+"The location <i>%s</i> does not appear to be a valid git repository. Would "
+"you like to initialize a new git repository at this location?"
+msgstr ""
+"Местоположението <i>%s</i> не е хранилище на git. Искате ли да създадете "
+"ново хранилище там?"
+
+#: ../gitg/gitg-dash-view.vala:438
+msgid "Create repository"
+msgstr "Създаване на хранилище"
+
+#: ../gitg/gitg-dash-view.vala:454
+msgid "Failed to create repository"
+msgstr "Неуспешно създаване на хранилище"
+
+#: ../gitg/gitg-dash-view.vala:524
+#, c-format
+msgid "Scanning for repositories in %s"
+msgstr "Търсене за хранилища в „%s“"
+
+#: ../gitg/gitg-ref-action-checkout.vala:53
+msgid "Checkout the selected reference"
+msgstr "Изтегляне на избрания указател"
+
+#: ../gitg/gitg-ref-action-checkout.vala:72
+#, c-format
+msgid "Checkout %s"
+msgstr "Изтегляне на „%s“"
+
+#: ../gitg/gitg-ref-action-checkout.vala:101
+#, c-format
+msgid "Failed to checkout branch: %s"
+msgstr "Неуспешно изтегляне на клон: „%s“"
+
+#: ../gitg/gitg-ref-action-checkout.vala:111
+#, c-format
+msgid "Failed to update HEAD: %s"
+msgstr "Неуспешно обновяване на указателя „HEAD“: %s"
+
+#: ../gitg/gitg-ref-action-checkout.vala:121
+msgid "Successfully checked out branch to working directory"
+msgstr "Успешно изтегляне на клон"
+
+#: ../gitg/gitg-ref-action-copy-name.vala:48
+msgid "Copy name"
+msgstr "Копиране на името"
+
+#: ../gitg/gitg-ref-action-copy-name.vala:53
+msgid "Copy the name of the reference to the clipboard"
+msgstr "Копиране на името на указателя към системния буфер"
+
+#: ../gitg/gitg-ref-action-delete.vala:48
+#: ../gitg/gitg-ref-action-delete.vala:89
+msgid "Delete"
+msgstr "Изтриване"
+
+#: ../gitg/gitg-ref-action-delete.vala:53
+msgid "Delete the selected reference"
+msgstr "Изтриване на избрания указател"
+
+#: ../gitg/gitg-ref-action-delete.vala:73
+#, c-format
+msgid "Delete branch %s"
+msgstr "Изтриване на клона „%s“"
+
+#: ../gitg/gitg-ref-action-delete.vala:74
+#, c-format
+msgid "Are you sure that you want to permanently delete the branch %s?"
+msgstr "Сигурни ли сте, че искате окончателно да изтриете клона „%s“?"
+
+#: ../gitg/gitg-ref-action-delete.vala:78
+#, c-format
+msgid "Delete tag %s"
+msgstr "Изтриване на етикета „%s“"
+
+#: ../gitg/gitg-ref-action-delete.vala:79
+#, c-format
+msgid "Are you sure that you want to permanently delete the tag %s?"
+msgstr "Сигурни ли сте, че искате окончателно да изтриете етикета „%s“?"
+
+#: ../gitg/gitg-ref-action-delete.vala:83
+#, c-format
+msgid "Delete remote branch %s"
+msgstr "Изтриване на отдалечения клон „%s“"
+
+#: ../gitg/gitg-ref-action-delete.vala:84
+#, c-format
+msgid "Are you sure that you want to permanently delete the remote branch %s?"
+msgstr ""
+"Сигурни ли сте, че искате окончателно да изтриете отдалечения клон „%s“?"
+
+#. Translators: %s is the name of the tag
+#: ../gitg/gitg-ref-action-delete.vala:119
+#, c-format
+msgid "Failed to delete tag %s"
+msgstr "Неуспешно изтриване на етикета „%s“"
+
+#. Translators: the first %s is the name of the tag, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:122
+#, c-format
+msgid "The tag %s could not be deleted: %s"
+msgstr "Етикетът „%s“ не може да бъде изтрит: %s"
+
+#. Translators: %s is the name of the branch
+#: ../gitg/gitg-ref-action-delete.vala:127
+#, c-format
+msgid "Failed to delete branch %s"
+msgstr "Неуспешно изтриване на клона „%s“"
+
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: ../gitg/gitg-ref-action-delete.vala:130
+#, c-format
+msgid "The branch %s could not be deleted: %s"
+msgstr "Клонът „%s“ не може да бъде изтрит: %s"
+
+#: ../gitg/gitg-ref-action-fetch.vala:74
+#, c-format
+msgid "Fetch from %s"
+msgstr "Доставяне от „%s“"
+
+#: ../gitg/gitg-ref-action-fetch.vala:85
+#, c-format
+msgid "Fetch remote objects from %s"
+msgstr "Доставяне на отдалечените обекти от „%s“"
+
+#: ../gitg/gitg-ref-action-fetch.vala:98
+#, c-format
+msgid "Fetching from %s"
+msgstr "Доставяне от „%s“"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: ../gitg/gitg-ref-action-fetch.vala:106
+msgid "new"
+msgstr "нов"
+
+#. Translators: updated refers to a remote reference having been updated,
+#: ../gitg/gitg-ref-action-fetch.vala:111
+msgid "updated"
+msgstr "обновен"
+
+#: ../gitg/gitg-ref-action-fetch.vala:121
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "Неуспешно доставяне от „%s“: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: ../gitg/gitg-ref-action-fetch.vala:134
+#, c-format
+msgid "Fetched from %s: everything is up to date"
+msgstr "Доставяне от „%s“: всичко е обновено"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: ../gitg/gitg-ref-action-fetch.vala:140
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Доставяне от „%s“: %s"
+
+#: ../gitg/gitg-ref-action-merge.vala:63
+#, c-format
+msgid "Merge into %s"
+msgstr "Сливане в „%s“"
+
+#. TODO
+#: ../gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr "Сливане на клон в „%s“"
+
+#: ../gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "Неуспешно сливане на подавания: %s"
+
+#: ../gitg/gitg-ref-action-merge.vala:175
+#: ../gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr "Сливането предизвика конфликти"
+
+#: ../gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of %s into %s has caused conflicts, would you like to checkout "
+"branch %s with the merge to your working directory to resolve the conflicts?"
+msgstr ""
+"При сливането на „%s“ в „%s“ се получиха конфликти. Искате ли да изтеглите "
+"клона „%s“ заедно със сливането, за да разрешите конфликтите?"
+
+#: ../gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid ""
+"The merge of %s into %s has caused conflicts, would you like to checkout the "
+"merge to your working directory to resolve the conflicts?"
+msgstr ""
+"При сливането на „%s“ в „%s“ се получиха конфликти. Искате ли да изтеглите "
+"сливането, за да разрешите конфликтите?"
+
+#: ../gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr "Неуспешно сливане поради конфликти"
+
+#: ../gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr "Сливането привърши с конфликти"
+
+#: ../gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge %s into %s"
+msgstr "Сливане на „%s“ в „%s“"
+
+#: ../gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "Вашето подаване не бе открито: %s"
+
+#: ../gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr "Отдалеченото подаване не бе открито: %s"
+
+#: ../gitg/gitg-ref-action-merge.vala:278
+#, c-format
+msgid "Successfully merged %s into %s"
+msgstr "Успешно сливане на „%s“ в „%s“"
+
+#: ../gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge %s into branch %s"
+msgstr "Сливане на „%s“ в клона „%s“"
+
+#: ../gitg/gitg-ref-action-merge.vala:482
+#: ../gitg/history/gitg-history-refs-list.vala:1176
+msgid "Tags"
+msgstr "Етикети"
+
+#: ../gitg/gitg-ref-action-rename.vala:48
+msgid "Rename"
+msgstr "Преименуване"
+
+#: ../gitg/gitg-ref-action-rename.vala:53
+msgid "Rename the selected reference"
+msgstr "Преименуване на избрания указател"
+
+#: ../gitg/gitg-ref-action-rename.vala:100
+#, c-format
+msgid "The specified name ‘%s’ contains invalid characters"
+msgstr "Избраното име „%s“ съдържа непозволени знаци."
+
+#: ../gitg/gitg-ref-action-rename.vala:102
+msgid "Invalid name"
+msgstr "Неправилно име"
+
+#: ../gitg/gitg-ref-action-rename.vala:131
+msgid "Failed to rename"
+msgstr "Неуспешно преименуване"
+
+#: ../gitg/gitg-window.vala:187
+msgid "Add Repository"
+msgstr "Добавяне на хранилище"
+
+#: ../gitg/gitg-window.vala:191
+msgid "_Add"
+msgstr "_Добавяне"
+
+#: ../gitg/gitg-window.vala:193
+msgid "_Scan for all git repositories from this directory"
+msgstr "_Претърсване за хранилища на git в тази папка"
+
+#: ../gitg/gitg-window.vala:481
+msgid "Projects"
+msgstr "Проекти"
+
+#: ../gitg/gitg-window.vala:912
+#, c-format
+msgid "'%s' is not a Git repository."
+msgstr "„%s“ не е хранилище на Git."
+
+#: ../gitg/gitg-window.vala:1061
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"Не сте настроили името си и адреса си за е-поща. Въведете ги в "
+"потребителските настройки."
+
+#: ../gitg/gitg-window.vala:1065
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr "Не сте настроили името си. Въведете го в потребителските настройки."
+
+#: ../gitg/gitg-window.vala:1069
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"Не сте настроили адреса си за е-поща. Въведете го в потребителските "
+"настройки."
+
+#: ../gitg/gitg-window.vala:1072
+msgid "Missing author details"
+msgstr "Липсват данни за автора"
+
+#: ../gitg/gitg-remote-notification.vala:90
+#: ../gitg/gitg-simple-notification.vala:99
+#: ../gitg/resources/ui/gitg-window.ui.h:10
+msgid "Close"
+msgstr "Затваряне"
+
+#: ../gitg/history/gitg-history-command-line.vala:42
+msgid "Select all commits by default in the history activity"
+msgstr "Стандартно да се избират всички подавания в историята на дейностите"
+
+#: ../gitg/history/gitg-history-command-line.vala:44
+msgid "Select all branches by default in the history activity"
+msgstr "Стандартно да се избират всички клони в историята на дейностите"
+
+#: ../gitg/history/gitg-history-command-line.vala:46
+msgid "Select all remotes by default in the history activity"
+msgstr ""
+"Стандартно да се избират всички отдалечени хранилища в историята на "
+"дейностите"
+
+#: ../gitg/history/gitg-history-command-line.vala:48
+msgid "Select all tags by default in the history activity"
+msgstr "Стандартно да се избират всички етикети в историята на дейностите"
+
+#: ../gitg/history/gitg-history-command-line.vala:50
+msgid "Select the specified reference by default in the history activity"
+msgstr "Стандартно да се избира посоченият указател в историята на дейностите"
+
+#: ../gitg/history/gitg-history-command-line.vala:50
+msgid "REFERENCE"
+msgstr "УКАЗАТЕЛ"
+
+#: ../gitg/history/gitg-history-refs-list.vala:165
+#, c-format
+msgid "%d ahead, %d behind"
+msgstr "напред с %d, назад с %d"
+
+#: ../gitg/history/gitg-history-refs-list.vala:169
+#, c-format
+msgid "%d ahead"
+msgstr "напред с %d"
+
+#: ../gitg/history/gitg-history-refs-list.vala:173
+#, c-format
+msgid "%d behind"
+msgstr "назад с %d"
+
+#: ../gitg/history/gitg-history-refs-list.vala:207
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+msgid "All commits"
+msgstr "Всички подавания"
+
+#: ../gitg/history/gitg-history-refs-list.vala:1174
+msgid "Branches"
+msgstr "Клони"
+
+#: ../gitg/history/gitg-history-refs-list.vala:1175
+msgid "Remotes"
+msgstr "Отдалечени хранилища"
+
+#: ../gitg/history/gitg-history.vala:306
+#: ../gitg/preferences/gitg-preferences-history.vala:218
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
+msgid "History"
+msgstr "История"
+
+#: ../gitg/history/gitg-history.vala:311
+msgid "Examine the history of the repository"
+msgstr "Разглеждане на историята на хранилището"
+
+#: ../gitg/history/gitg-history.vala:796
+msgid "Mainline"
+msgstr "Основен клон"
+
+#: ../gitg/preferences/gitg-preferences-commit.vala:119
+msgctxt "Preferences"
+msgid "Commit"
+msgstr "Подаване"
+
+#: ../gitg/preferences/gitg-preferences-interface.vala:120
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: ../libgitg/gitg-date.vala:346
+msgid "Now"
+msgstr "Сега"
+
+#: ../libgitg/gitg-date.vala:350
+#, c-format
+msgid "A minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "Преди минута"
+msgstr[1] "Преди %d минути"
+
+#: ../libgitg/gitg-date.vala:355
+msgid "Half an hour ago"
+msgstr "Преди половин час"
+
+#: ../libgitg/gitg-date.vala:360
+#, c-format
+msgid "An hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "Преди час"
+msgstr[1] "Преди %d часа"
+
+#: ../libgitg/gitg-date.vala:365
+#, c-format
+msgid "A day ago"
+msgid_plural "%d days ago"
+msgstr[0] "Преди ден"
+msgstr[1] "Преди %d дена"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 24 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:374
+msgid "%b %e, %H:%M"
+msgstr "%e %b, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 12 hour
+#. clock.
+#: ../libgitg/gitg-date.vala:381
+msgid "%b %e, %I:%M %p"
+msgstr "%e %b, %I:%M %p"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 24
+#. hour clock.
+#: ../libgitg/gitg-date.vala:391
+msgid "%b %e %Y, %H:%M"
+msgstr "%e %b %Y, %H:%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 12
+#. hour clock.
+#: ../libgitg/gitg-date.vala:398
+msgid "%b %e %Y, %I:%M %p"
+msgstr "%e %b %Y, %I:%M %p"
+
+#: ../libgitg/gitg-diff-view-commit-details.vala:142
+msgid "Collapse all"
+msgstr "Свиване на всички"
+
+#: ../libgitg/gitg-diff-view-commit-details.vala:146
+#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
+msgid "Expand all"
+msgstr "Разширяване на всички"
+
+#: ../libgitg/gitg-diff-view-commit-details.vala:199
+#, c-format
+msgid "Committed by %s"
+msgstr "Подадено от %s"
+
+#. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
+#: ../libgitg/gitg-repository-list-box.vala:154
+#, c-format
+msgid "at %s"
+msgstr "в %s"
+
+#. Translators: this is used to construct: "<branch-name> at <directory>"
+#: ../libgitg/gitg-repository-list-box.vala:163
+#, c-format
+msgid "%s at %s"
+msgstr "%s в %s"
+
+#: ../libgitg/gitg-repository-list-box.vala:409
+msgid "Cloning…"
+msgstr "Клониране…"
+
+#: ../libgitg/gitg-stage.vala:334
+#, c-format
+msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+"След изпълнение на куката за съобщението при подаване то не може да се "
+"прочете: %s"
+
+#: ../plugins/diff/gitg-diff.vala:112
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:11
+msgid "Diff"
+msgstr "Разлики"
+
+#: ../plugins/diff/gitg-diff.vala:117
+msgid "Show the changes introduced by the selected commit"
+msgstr "Показване на промените от избраното подаване"
+
+#: ../plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Файлове"
+
+#: ../plugins/files/gitg-files.vala:68
+msgid "Show the files in the tree of the selected commit"
+msgstr "Показване на файловете в дървото на избраното подаване"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
+msgid "_Save"
+msgstr "_Запазване"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
+msgid "Default details used for all repositories"
+msgstr "Стандартни настройки за всички хранилища"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
+msgid "E-mail:"
+msgstr "Е-поща:"
+
+#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
+msgid "Name:"
+msgstr "Име:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
+msgid "Clone Repository"
+msgstr "Клониране на хранилище"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
+msgid "Cl_one"
+msgstr "_Клониране"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
+msgid "Remote _URL:"
+msgstr "_Отдалечен адрес:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
+msgid "_Local Folder:"
+msgstr "_Локална папка:"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
+msgid "Select location…"
+msgstr "Избор на местоположение…"
+
+#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
+msgid "Bare repository"
+msgstr "Голо хранилище"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
+msgctxt "Create Dialog"
+msgid "Commit"
+msgstr "Подаване"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
+msgid "C_ommit"
+msgstr "_Подаване"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
+msgid "Add _signed-off-by signature"
+msgstr "По_дписване със „signed-off-by“"
+
+#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
+msgid "_Amend previous commit"
+msgstr "Поп_равяне на последното подаване"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
+msgid "Skip commit _hooks"
+msgstr "_Без изпълнение на куката преди подаване"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
+msgid "S_tage selection"
+msgstr "_Добавяне към индекса"
+
+#: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
+msgid "D_iscard selection"
+msgstr "_Изваждане от индекса"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:1
+msgid ""
+"The submodule is in a dirty state and has staged and/or unstaged changes "
+"that are not yet committed as shown below."
+msgstr "В подмодула има неподадени промени както е показано по-долу."
+
+#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
+msgid "Staged:"
+msgstr "В индекса:"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:3
+msgid "Unstaged:"
+msgstr "Извън индекса:"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:1
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
+msgid "Subject"
+msgstr "Тема"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:2
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
+msgid "Author"
+msgstr "Автор"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:3
+#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
+msgid "Date"
+msgstr "Дата"
+
+#: ../gitg/resources/ui/gitg-commit-submodule-info.ui.h:1
+msgid "Open"
+msgstr "Отваряне"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
+msgid "Create Branch"
+msgstr "Създаване на клон"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
+msgid "C_reate"
+msgstr "_Създаване"
+
+#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
+msgid "Branch _name:"
+msgstr "Име на _клон:"
+
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
+msgid "Create Tag"
+msgstr "Създаване на етикет"
+
+#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
+msgid "Tag _name:"
+msgstr "Име на _етикета:"
+
+#: ../gitg/resources/ui/gitg-dash-view.ui.h:1
+msgid ""
+"No repositories have been added yet. To get started, you can add an existing "
+"repository or clone a new one."
+msgstr ""
+"Все още не са добавени хранилища. За да работите, трябва да добавите или "
+"клонирате хранилища."
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:1
+msgid "_New Window"
+msgstr "_Нов прозорец"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:2
+msgid "_Author Details"
+msgstr "Детайли за _автора"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:3
+msgid "_Preferences"
+msgstr "_Настройки"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:4
+msgid "_Keyboard Shortcuts"
+msgstr "_Клавишни комбинации"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:5
+msgid "_About"
+msgstr "_Относно"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
+msgid "_Quit"
+msgstr "_Спиране на програмата"
+
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
+msgid "_Reload"
+msgstr "Пре_зареждане"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
+msgid "Show markup"
+msgstr "Показване на маркиран текст"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
+msgid "Display _subject margin at column:"
+msgstr "Полето за тема да е при _колона:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
+msgid "Display right _margin at column:"
+msgstr "_Дясна граница при колона:"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
+msgid "Enable spell checking"
+msgstr "Включване на проверката на правописа"
+
+#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
+msgid "Commit Message"
+msgstr "Съобщение при подаване"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
+msgid "Default selection"
+msgstr "Стандартен избор"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
+msgid "Current branch"
+msgstr "Текущ клон"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
+msgid "All branches"
+msgstr "Всички клони"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
+msgid "References"
+msgstr "Указатели"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
+msgid "Sort references in the sidebar by latest activity"
+msgstr "Подреждане на указателите в страничната лента по последните действия"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
+msgid "Show upstream (remote) branch when selecting a local branch"
+msgstr "Показване на следения клон при показване на локалния"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
+msgid "Commits"
+msgstr "Подавания"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:9
+msgid "Collapse inactive lanes"
+msgstr "Свиване на неактивните редове"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:10
+msgid "Early"
+msgstr "Рано"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:11
+msgid "Late"
+msgstr "Късно"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:12
+msgid "Show history in topological order"
+msgstr "История в топологически ред"
+
+#: ../gitg/resources/ui/gitg-preferences-history.ui.h:13
+msgid "Preserve mainline for currently checked out branch"
+msgstr "Запазване на базата за текущия клон"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
+msgid "Startup"
+msgstr "Стартиране"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
+msgid "Start with activity:"
+msgstr "Дейност при стартиране:"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:4
+msgid "Commit"
+msgstr "Подаване"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:5
+msgid "Layout"
+msgstr "Подредба"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:6
+msgid "Use horizontal layout"
+msgstr "Хоризонтална подредба"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:7
+msgid "Avatars"
+msgstr "Аватари"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:8
+msgid "Use gravatar service to provide user avatars"
+msgstr "Използване на услугата за аватари „Gravatar“"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:9
+msgid "Monitoring"
+msgstr "Наблюдение"
+
+#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:12
+msgid "Enable syntax highlighting of source code in diff views"
+msgstr "Оцветяване на синтаксиса в изгледа за разлики"
+
+#: ../gitg/resources/ui/gitg-preferences.ui.h:1
+msgid "Preferences"
+msgstr "Настройки"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Прозорци"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
+msgctxt "shortcut window"
+msgid "Open a new window"
+msgstr "Отваряне на нов прозорец"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
+msgctxt "shortcut window"
+msgid "Open the window menu"
+msgstr "Отваряне на менюто на прозореца"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
+msgctxt "shortcut window"
+msgid "Open a repository"
+msgstr "Отваряне на хранилище"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
+msgctxt "shortcut window"
+msgid "Open the help"
+msgstr "Отваряне на помощта"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "Търсене"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
+msgctxt "shortcut window"
+msgid "Close the active window"
+msgstr "Затваряне на текущия прозорец"
+
+#: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
+msgctxt "shortcut window"
+msgid "Quit the application"
+msgstr "Спиране на програмата"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:2
+msgid "Show the list of recently used repositories"
+msgstr "Списък с последно ползваните хранилища"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:3
+msgid "Clone"
+msgstr "Клониране"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:4
+msgid "Clone repository"
+msgstr "Клониране на хранилище"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:5
+msgid "Add"
+msgstr "Добавяне"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:6
+msgid "Add repository"
+msgstr "Добавяне на хранилище"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:7
+msgid "Find a word or phrase"
+msgstr "Търсене на дума или израз"
+
+#: ../gitg/resources/ui/gitg-window.ui.h:8
+msgid "General settings and options"
+msgstr "Общи настройки"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:2
+msgid "_Authenticate"
+msgstr "_Идентификация"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:3
+msgid ""
+"The previous attempt to authenticate has failed, please provide your user "
+"name and password and try again."
+msgstr ""
+"Предишният опит за идентификация бе неуспешен. Въведете името и паролата си "
+"отново."
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
+msgid "_Username:"
+msgstr "_Име:"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:5
+msgid "_Password:"
+msgstr "_Парола:"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:6
+msgid "Forget password _immediately"
+msgstr "_Незабавно забравяне"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:7
+msgid "Remember password until you _logout"
+msgstr "Запомняне до _излизане от системата"
+
+#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:8
+msgid "Remember _forever"
+msgstr "_Запомняне завинаги"
+
+#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
+msgid "Parents"
+msgstr "Родители"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
+msgid "Tab width:"
+msgstr "Размер на табулациите:"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:2
+msgid "Wrap lines:"
+msgstr "Пренасяне на редовете:"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:3
+msgid "Ignore whitespace:"
+msgstr "Пренебрегване на интервалите:"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:1
+msgid "Context:"
+msgstr "Контекст:"
+
+#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:2
+msgid "Spacing"
+msgstr "Интервали"
+
+#: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
+msgid ""
+"Remove the repository from the list (does not delete the repository from "
+"disk)"
+msgstr "Отстраняване на хранилището от списъка, без да бъде изтрито от диска"
+
+#: ../plugins/files/resources/view-files.ui.h:1
+msgid "column"
+msgstr "колона"
