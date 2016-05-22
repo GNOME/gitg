@@ -6,15 +6,13 @@ pushd "$scripts/../../" > /dev/null
 root=$(pwd -P)
 popd > /dev/null
 
-suffix="3.19"
+suffix="3.20"
 
 d="/opt/build/gitg-$suffix"
 b="$d/install/bin/brew"
 
 lbrew="$root/osx/scripts/lbrew"
 
-export HOMEBREW_DEVELOPER=1
-export HOMEBREW_RUBY_PATH="$scripts/brew.rb"
 export HOMEBREW_CACHE="$d/caches"
 
 export PATH="$d/install/bin:$PATH"
