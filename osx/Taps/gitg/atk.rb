@@ -1,8 +1,8 @@
 class Atk < Formula
   desc "GNOME accessibility toolkit"
   homepage "https://library.gnome.org/devel/atk/"
-  url "https://download.gnome.org/sources/atk/2.16/atk-2.16.0.tar.xz"
-  sha256 "095f986060a6a0b22eb15eef84ae9f14a1cf8082488faa6886d94c37438ae562"
+  url "https://download.gnome.org/sources/atk/2.20/atk-2.20.0.tar.xz"
+  sha256 "493a50f6c4a025f588d380a551ec277e070b28a82e63ef8e3c06b3ee7c1238f0"
 
   depends_on "pkg-config" => :build
   depends_on "glib"

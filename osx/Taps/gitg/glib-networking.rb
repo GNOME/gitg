@@ -1,15 +1,15 @@
 class GlibNetworking < Formula
   desc "Network related modules for glib"
   homepage "https://launchpad.net/glib-networking"
-  url "https://download.gnome.org/sources/glib-networking/2.44/glib-networking-2.44.0.tar.xz"
-  mirror "https://mirrors.kernel.org/debian/pool/main/g/glib-networking/glib-networking_2.44.0.orig.tar.xz"
-  sha256 "8f8a340d3ba99bfdef38b653da929652ea6640e27969d29f7ac51fbbe11a4346"
+  url "https://download.gnome.org/sources/glib-networking/2.48/glib-networking-2.48.2.tar.xz"
+  mirror "https://mirrors.kernel.org/debian/pool/main/g/glib-networking/glib-networking_2.48.2.orig.tar.xz"
+  sha256 "925c0c49d6b2b8b5695f2e33cd952d1dbb7d18d3f2f796413577719315bb3a84"
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build
   depends_on "gettext"
   depends_on "glib"
-  depends_on "gnutls"
+  depends_on "gnome/gitg/gnutls"
   depends_on "gnome/gitg/gsettings-desktop-schemas"
 
   link_overwrite "lib/gio/modules"

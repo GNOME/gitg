@@ -1,8 +1,8 @@
 class Gtkspell3 < Formula
   desc "Gtk widget for highlighting and replacing misspelled words"
   homepage "http://gtkspell.sourceforge.net/"
-  url "http://gtkspell.sourceforge.net/download/gtkspell3-3.0.7.tar.gz"
-  sha256 "13f2e6d3e2554cc24253ef592074b28c117db33b7a4465c98c69a3e0a4fa3cc2"
+  url "http://gtkspell.sourceforge.net/download/gtkspell3-3.0.8.tar.gz"
+  sha256 "011a0ce3f7c2f4b3a5b8f54c55927cdd73e1abf591a284a6d66cfb4cfe2d3fff"
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

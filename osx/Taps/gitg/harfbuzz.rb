@@ -1,8 +1,8 @@
 class Harfbuzz < Formula
   desc "OpenType text shaping engine"
   homepage "https://wiki.freedesktop.org/www/Software/HarfBuzz/"
-  url "http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.0.3.tar.bz2"
-  sha256 "ebdc875ea06d010722dec13d92bc40002ab6a77071d62e71aad564ff76a63df7"
+  url "https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.2.7.tar.bz2"
+  sha256 "bba0600ae08b84384e6d2d7175bea10b5fc246c4583dc841498d01894d479026"
 
   head do
     url "https://github.com/behdad/harfbuzz.git"
@@ -20,7 +20,7 @@ class Harfbuzz < Formula
   depends_on "freetype"
   depends_on "gnome/gitg/gobject-introspection"
   depends_on "icu4c" => :recommended
-  depends_on "cairo" => :optional
+  depends_on "gnome/gitg/cairo" => :optional
   depends_on "graphite2" => :optional
 
   resource "ttf" do

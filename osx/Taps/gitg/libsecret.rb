@@ -1,8 +1,8 @@
 class Libsecret < Formula
   desc "Library for storing/retrieving passwords and other secrets"
   homepage "https://wiki.gnome.org/Projects/Libsecret"
-  url "https://download.gnome.org/sources/libsecret/0.18/libsecret-0.18.3.tar.xz"
-  sha256 "f2bf1d0c5ab4640664f3e3c7ef6b086c180e50ff415720b5e22f96750dbf84c9"
+  url "https://download.gnome.org/sources/libsecret/0.18/libsecret-0.18.5.tar.xz"
+  sha256 "9ce7bd8dd5831f2786c935d82638ac428fa085057cc6780aba0e39375887ccb3"
 
   depends_on "pkg-config" => :build
   depends_on "gnu-sed" => :build

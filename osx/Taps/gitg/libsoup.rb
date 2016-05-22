@@ -1,13 +1,13 @@
 class Libsoup < Formula
   desc "HTTP client/server library for GNOME"
   homepage "https://live.gnome.org/LibSoup"
-  url "https://download.gnome.org/sources/libsoup/2.50/libsoup-2.50.0.tar.xz"
-  sha256 "1e01365ac4af3817187ea847f9d3588c27eee01fc519a5a7cb212bb78b0f667b"
+  url "https://download.gnome.org/sources/libsoup/2.54/libsoup-2.54.1.tar.xz"
+  sha256 "47b42c232034734d66e5f093025843a5d8cc4b2357c011085a2fd04ef02dd633"
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build
   depends_on "gnome/gitg/glib-networking"
-  depends_on "gnutls"
+  depends_on "gnome/gitg/gnutls"
   depends_on "sqlite"
   depends_on "gnome/gitg/gobject-introspection" => :recommended
 

@@ -1,8 +1,8 @@
 class Libpeas < Formula
   desc "GObject plugin library"
   homepage "https://developer.gnome.org/libpeas/stable/"
-  url "https://download.gnome.org/sources/libpeas/1.16/libpeas-1.16.0.tar.xz"
-  sha256 "b093008ecd65f7d55c80517589509698ff15ad41f664b11a3eb88ff461b1454e"
+  url "https://download.gnome.org/sources/libpeas/1.18/libpeas-1.18.0.tar.xz"
+  sha256 "bf49842c64c36925bbc41d954de490b6ff7faa29b45f6fd9e91ddcc779165e26"
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

@@ -1,8 +1,8 @@
 class Gtkx3 < Formula
   desc "Toolkit for creating graphical user interfaces"
   homepage "http://gtk.org/"
-  url "https://download.gnome.org/sources/gtk+/3.19/gtk+-3.19.8.tar.xz"
-  sha256 "ad42d0f34ea7b07a72659e5cdadd79c7d7bf8a2acc802096abf10740f2c073bc"
+  url "https://download.gnome.org/sources/gtk+/3.20/gtk+-3.20.5.tar.xz"
+  sha256 "9790b0267384904ad8a08e7f16e5f9ff1c4037de57788d48d1eaf528355b1564"
 
   option :universal
   option "with-quartz-relocation", "Build with quartz relocation support"

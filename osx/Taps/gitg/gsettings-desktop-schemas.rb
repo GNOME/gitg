@@ -1,8 +1,8 @@
 class GsettingsDesktopSchemas < Formula
   desc "GSettings schemas for desktop components"
   homepage "https://download.gnome.org/sources/gsettings-desktop-schemas/"
-  url "https://download.gnome.org/sources/gsettings-desktop-schemas/3.16/gsettings-desktop-schemas-3.16.1.tar.xz"
-  sha256 "74fe9fdad510c8a6666febeceb7ebafc581ef990b3afcc8c1e8b5d90b24b3461"
+  url "https://download.gnome.org/sources/gsettings-desktop-schemas/3.20/gsettings-desktop-schemas-3.20.0.tar.xz"
+  sha256 "55a41b533c0ab955e0a36a84d73829451c88b027d8d719955d8f695c35c6d9c1"
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

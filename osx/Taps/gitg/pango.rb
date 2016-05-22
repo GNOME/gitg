@@ -4,8 +4,8 @@ class Pango < Formula
   revision 2
 
   stable do
-    url "https://download.gnome.org/sources/pango/1.38/pango-1.38.0.tar.xz"
-    sha256 "1d4e75974bad853ee9ac5fc5caee5e7ab235abbd945d51d01f3806e04e7c226c"
+    url "https://download.gnome.org/sources/pango/1.40/pango-1.40.1.tar.xz"
+    sha256 "e27af54172c72b3ac6be53c9a4c67053e16c905e02addcf3a603ceb2005c1a40"
   end
 
   head do
