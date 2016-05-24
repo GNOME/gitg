@@ -10,8 +10,8 @@ class Gitg < Formula
   depends_on "libtool" => :build
   depends_on "gnome/gitg/vala" => :build
   depends_on "gettext"
-  depends_on "glib"
-  depends_on "shared-mime-info"
+  depends_on "gnome/gitg/glib"
+  depends_on "gnome/gitg/shared-mime-info"
   depends_on "gnome/gitg/gtk+3" => "with-quartz-relocation"
   depends_on "gnome/gitg/gtksourceview3"
   depends_on "gnome/gitg/libsoup"

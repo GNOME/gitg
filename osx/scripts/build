@@ -5,19 +5,19 @@
 # Install brew if necessary
 if [ ! -f "$d/install/bin/brew" ]; then
 	mkdir -p "$d/install"
-	bsha1=4b498186bd0c1d2759d6ebfb19eaa52dab84b743
+	bsha1=375efe09455218d9929e41f16317074ccdf50f2a
 
 	(
 		cd "$d/install"
-		curl -L -o $bsha1.zip https://github.com/Homebrew/homebrew/archive/$bsha1.zip
+		curl -L -o $bsha1.zip https://github.com/Homebrew/brew/archive/$bsha1.zip
 		unzip $bsha1.zip
 		rm -f $bsha1.zip
 
 		shopt -s dotglob nullglob
-		mv "homebrew-$bsha1"/* .
+		mv "brew-$bsha1"/* .
 		shopt -u dotglob
 
-		rmdir "homebrew-$bsha1"
+		rmdir "brew-$bsha1"
 	)
 fi
 
@@ -29,4 +29,4 @@ if [ ! -d "$tap" ]; then
 	ln -s "$root/osx/Taps/gitg" "$tap"
 fi
 
-exec "$lbrew" install "$@" --HEAD gnome/gitg/gitg
+exec "$lbrew" install --dependencies-only --HEAD gnome/gitg/gitg

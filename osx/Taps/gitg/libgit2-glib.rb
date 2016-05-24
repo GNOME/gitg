@@ -11,15 +11,15 @@ class Libgit2Glib < Formula
     depends_on "automake" => :build
     depends_on "autoconf" => :build
     depends_on "gnome-common" => :build
-    depends_on "gtk-doc" => :build
+    depends_on "gnome/gitg/gtk-doc" => :build
   end
 
   depends_on "pkg-config" => :build
   depends_on "gettext"
-  depends_on "libgit2" => "with-libssh2"
+  depends_on "gnome/gitg/libgit2" => "with-libssh2"
   depends_on "gnome/gitg/gobject-introspection"
-  depends_on "glib"
-  depends_on "vala" => :optional
+  depends_on "gnome/gitg/glib"
+  depends_on "gnome/gitg/vala" => :optional
   depends_on :python => :optional
 
   def install

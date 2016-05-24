@@ -8,9 +8,9 @@ class Libsecret < Formula
   depends_on "gnu-sed" => :build
   depends_on "intltool" => :build
   depends_on "gettext" => :build
-  depends_on "vala" => :build
+  depends_on "gnome/gitg/vala" => :build
   depends_on "gnome/gitg/gobject-introspection"
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
   depends_on "libgcrypt"
 
   def install

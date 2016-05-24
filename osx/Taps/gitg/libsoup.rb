@@ -6,10 +6,12 @@ class Libsoup < Formula
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build
+  depends_on "gnome/gitg/gtk-doc" => :build
   depends_on "gnome/gitg/glib-networking"
   depends_on "gnome/gitg/gnutls"
   depends_on "sqlite"
   depends_on "gnome/gitg/gobject-introspection" => :recommended
+  depends_on "gnome/gitg/vala"
 
   def install
     args = [

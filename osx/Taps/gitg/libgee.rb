@@ -5,7 +5,7 @@ class Libgee < Formula
   sha256 "4ad99ef937d071b4883c061df40bfe233f7649d50c354cf81235f180b4244399"
 
   depends_on "pkg-config" => :build
-  depends_on "vala" => :build
+  depends_on "gnome/gitg/vala" => :build
   depends_on "gnome/gitg/gobject-introspection"
 
   def install

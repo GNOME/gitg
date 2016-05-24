@@ -16,7 +16,7 @@ class Harfbuzz < Formula
   option "with-cairo", "Build command-line utilities that depend on Cairo"
 
   depends_on "pkg-config" => :build
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
   depends_on "freetype"
   depends_on "gnome/gitg/gobject-introspection"
   depends_on "icu4c" => :recommended

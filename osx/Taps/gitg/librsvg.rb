@@ -7,10 +7,10 @@ class Librsvg < Formula
   depends_on "pkg-config" => :build
   depends_on "gnome/gitg/cairo"
   depends_on "gnome/gitg/gdk-pixbuf"
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
   depends_on "gnome/gitg/gtk+3" => :optional
-  depends_on "libcroco"
-  depends_on "libgsf" => :optional
+  depends_on "gnome/gitg/libcroco"
+  depends_on "gnome/gitg/libgsf" => :optional
   depends_on "gnome/gitg/pango"
 
   def install

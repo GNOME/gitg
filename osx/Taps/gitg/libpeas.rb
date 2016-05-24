@@ -11,13 +11,9 @@ class Libpeas < Formula
   depends_on "automake" => :build
   depends_on "libtool" => :build
   depends_on "gnome-common" => :build
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
   depends_on "gnome/gitg/gobject-introspection"
   depends_on "gnome/gitg/gtk+3"
-
-  # fixes a linking issue in the tests
-  # submitted upsteam as a PR: https://github.com/gregier/libpeas/pull/3
-  patch :DATA
 
   def install
     system "autoreconf", "-i"
@@ -67,19 +63,3 @@ class Libpeas < Formula
     system "./test"
   end
 end
-
-__END__
-diff --git a/tests/libpeas/plugins/extension-c/Makefile.am b/tests/libpeas/plugins/extension-c/Makefile.am
-index 9f18008..ed51b06 100644
---- a/tests/libpeas/plugins/extension-c/Makefile.am
-+++ b/tests/libpeas/plugins/extension-c/Makefile.am
-@@ -18,7 +18,8 @@ libextension_c_la_SOURCES = \
- libextension_c_la_LDFLAGS = $(TEST_PLUGIN_LIBTOOL_FLAGS)
- libextension_c_la_LIBADD = \
-	$(PEAS_LIBS)						\
--	$(builddir)/../../introspection/libintrospection-1.0.la
-+	$(builddir)/../../introspection/libintrospection-1.0.la \
-+	$(top_builddir)/libpeas/libpeas-1.0.la
-
- libextension_c_missing_symbol_la_SOURCES = \
-	extension-c-missing-symbol-plugin.c

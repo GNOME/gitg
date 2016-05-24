@@ -7,7 +7,7 @@ class GdkPixbuf < Formula
   option :universal
 
   depends_on "pkg-config" => :build
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
   depends_on "jpeg"
   depends_on "libtiff"
   depends_on "libpng"

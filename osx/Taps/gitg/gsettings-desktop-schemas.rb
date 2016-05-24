@@ -6,7 +6,7 @@ class GsettingsDesktopSchemas < Formula
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
   depends_on "gnome/gitg/gobject-introspection" => :build
   depends_on "gettext"
   depends_on "libffi"

@@ -5,7 +5,7 @@ class Atk < Formula
   sha256 "493a50f6c4a025f588d380a551ec277e070b28a82e63ef8e3c06b3ee7c1238f0"
 
   depends_on "pkg-config" => :build
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
   depends_on "gnome/gitg/gobject-introspection"
 
   option :universal

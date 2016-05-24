@@ -14,13 +14,13 @@ class Pango < Formula
     depends_on "automake" => :build
     depends_on "autoconf" => :build
     depends_on "libtool" => :build
-    depends_on "gtk-doc" => :build
+    depends_on "gnome/gitg/gtk-doc" => :build
   end
 
   option :universal
 
   depends_on "pkg-config" => :build
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
   depends_on "gnome/gitg/cairo"
   depends_on "gnome/gitg/harfbuzz"
   depends_on "fontconfig"

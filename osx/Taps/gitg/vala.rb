@@ -1,23 +1,12 @@
 class Vala < Formula
   desc "Compiler for the GObject type system"
   homepage "https://live.gnome.org/Vala"
-  url "https://download.gnome.org/sources/vala/0.31/vala-0.31.1.tar.xz"
-  sha256 "c3cbff1cc29f3fca3939c3994b8591ec3d9aca4d85d042353ee46c00ddf4055f"
-
-  bottle do
-    sha256 "b68681f676381035cdd85e944aa234f0566137bda514ec105477fbeed246a365" => :el_capitan
-    sha256 "752fe91460002b335c35084f073d6e3f3666017f6b7dea9f728a828a0dde911e" => :yosemite
-    sha256 "bf422cf5802d09413482943afac7cd0b7d19e2defa1955330acb11d644d61299" => :mavericks
-  end
-
-  devel do
-    url "https://download.gnome.org/sources/vala/0.31/vala-0.31.1.tar.xz"
-    sha256 "c3cbff1cc29f3fca3939c3994b8591ec3d9aca4d85d042353ee46c00ddf4055f"
-  end
+  url "https://download.gnome.org/sources/vala/0.32/vala-0.32.0.tar.xz"
+  sha256 "07a2aa4ede040789b4b5af817a42249d703bfe8affccb7732ca2b53d00c1fb6e"
 
   depends_on "pkg-config" => :run
   depends_on "gettext"
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
 
   def install
     system "./configure", "--disable-dependency-tracking",

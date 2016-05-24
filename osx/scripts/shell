@@ -4,4 +4,30 @@
 
 export GITG_SHELL=1
 
-exec "$lbrew" sh
+dependencies="$($b deps gnome/gitg/gitg)"
+
+CFLAGS="-Wno-format-nonliteral -Wno-format-security"
+LDFLAGS=""
+
+prefix=$($b --prefix)
+
+PATH="$prefix/bin:$PATH"
+XDG_DATA_DIRS="$prefix/share:$XDG_DATA_DIRS"
+
+prefixes=$($b --prefix $dependencies)
+
+for prefix in $prefixes;
+do
+	PKG_CONFIG_PATH="$prefix/lib/pkgconfig:$PKG_CONFIG_PATH"
+	XDG_DATA_DIRS="$prefix/share:$XDG_DATA_DIRS"
+
+	CFLAGS="-I$prefix/include $CFLAGS"
+	LDFLAGS="-L$prefix/lib $LDFLAGS"
+	PATH="$prefix/bin:$PATH"
+done
+
+export PKG_CONFIG_PATH XDG_DATA_DIRS CFLAGS LDFLAGS PATH
+export PS1_EXTRA="\[\033[0;35m\](gitg)\[\033[0m\] "
+export MAKEFLAGS="-j$(sysctl -n machdep.cpu.core_count)"
+
+exec bash

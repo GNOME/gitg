@@ -7,7 +7,7 @@ class Gtkspell3 < Formula
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build
   depends_on "gnome/gitg/gtk+3"
-  depends_on "enchant"
+  depends_on "gnome/gitg/enchant"
 
   def install
     system "./configure", "--disable-debug", "--prefix=#{prefix}"

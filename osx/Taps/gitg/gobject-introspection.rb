@@ -7,7 +7,7 @@ class GobjectIntrospection < Formula
   option :universal
 
   depends_on "pkg-config" => :run
-  depends_on "glib"
+  depends_on "gnome/gitg/glib"
   depends_on "libffi"
 
   resource "tutorial" do
