@@ -526,6 +526,14 @@ namespace GitgHistory
 
 			d_main.commit_list_view.get_selection().changed.connect((sel) => {
 				selection_changed();
+
+				// Set primary selection to sha1 of first selected commit
+				var clip = ((Gtk.Widget)application).get_clipboard(Gdk.SELECTION_PRIMARY);
+
+				foreach_selected((commit) => {
+					clip.set_text(commit.get_id().to_string(), -1);
+					return false;
+				});
 			});
 
 			var engine = Gitg.PluginsEngine.get_default();
