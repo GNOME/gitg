@@ -540,6 +540,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
+	protected override void realize() {
+		if (Environment.get_variable("GITG_GTK_DEBUG_INTERACTIVE") != null) {
+			Timeout.add_seconds(1, () => {
+				Gtk.Window.set_interactive_debugging(true);
+				return false;
+			});
+		}
+
+		base.realize();
+	}
+
 	protected override bool window_state_event(Gdk.EventWindowState event)
 	{
 		d_state_settings.set_int("state", event.new_window_state);
