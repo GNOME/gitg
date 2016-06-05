@@ -220,7 +220,10 @@ namespace Gitg
 				}
 
 				repository_name = d_repository != null ? d_repository.name : "";
+
 				d_description_label.label = head_description;
+				d_description_label.visible = head_description != "";
+
 				branch_name = head_name;
 			}
 
