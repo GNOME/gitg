@@ -54,7 +54,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.ToggleButton d_search_button;
 	[GtkChild]
 	private Gtk.MenuButton d_gear_menu;
-	private MenuModel d_dash_model;
 	private MenuModel d_activities_model;
 
 	[GtkChild]
@@ -299,7 +298,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		d_dash_view.application = this;
 
-		d_dash_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
 		d_activities_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
 
 		// search bar
@@ -529,8 +527,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_clone_button.hide();
 			d_add_button.hide();
 			d_dash_view.add_repository(d_repository);
+
 			d_gear_menu.menu_model = d_activities_model;
 			d_gear_menu.show();
+			d_gear_menu.sensitive = true;
 		}
 		else
 		{
@@ -542,8 +542,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_dash_button.hide();
 			d_clone_button.show();
 			d_add_button.show();
-			d_gear_menu.menu_model = d_dash_model;
+
+			d_gear_menu.menu_model = null;
 			d_gear_menu.hide();
+			d_gear_menu.sensitive = false;
 		}
 
 		d_activities.update();
