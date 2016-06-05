@@ -509,7 +509,7 @@ public class Gitg.DiffView : Gtk.Grid
 		d_event_box.get_allocation(out alloc);
 		d_revealer_options.get_allocation(out revealer_alloc);
 
-		if (!d_revealer_options.reveal_child && y >= alloc.height - 18 && d_reveal_options_timeout == 0)
+		if (!d_revealer_options.reveal_child && y >= alloc.height - 18 && x >= alloc.width - 150 && d_reveal_options_timeout == 0)
 		{
 			if (d_unreveal_options_timeout != 0)
 			{
