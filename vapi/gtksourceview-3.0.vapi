@@ -76,7 +76,7 @@ namespace Gtk {
 		public unowned Gtk.SourceCompletionInfo get_info_window ();
 		public unowned GLib.List<Gtk.SourceCompletionProvider> get_providers ();
 		public unowned Gtk.SourceView? get_view ();
-		[Deprecated (since = "3.8")]
+		[Version (deprecated = true, deprecated_since = "3.8")]
 		public void move_window (Gtk.TextIter iter);
 		[NoWrapper]
 		public virtual bool proposal_activated (Gtk.SourceCompletionProvider provider, Gtk.SourceCompletionProposal proposal);
@@ -130,12 +130,12 @@ namespace Gtk {
 	public class SourceCompletionInfo : Gtk.Window, Atk.Implementor, Gtk.Buildable {
 		[CCode (has_construct_function = false)]
 		public SourceCompletionInfo ();
-		[Deprecated (since = "3.8")]
+		[Version ( deprecated = true, deprecated_since = "3.8" )]
 		public unowned Gtk.Widget get_widget ();
 		public void move_to_iter (Gtk.TextView view, Gtk.TextIter? iter);
-		[Deprecated (since = "3.8")]
+		[Version ( deprecated = true, deprecated_since = "3.8" )]
 		public void set_widget (Gtk.Widget? widget);
-		[Deprecated (since = "3.10")]
+		[Version ( deprecated = true, deprecated_since = "3.10" )]
 		public virtual signal void before_show ();
 	}
 	[CCode (cheader_filename = "gtksourceview/gtksource.h", type_id = "gtk_source_completion_item_get_type ()")]
@@ -144,7 +144,7 @@ namespace Gtk {
 		[CCode (has_construct_function = false)]
 		public SourceCompletionItem (string label, string text, Gdk.Pixbuf? icon, string? info);
 		[CCode (has_construct_function = false)]
-		[Deprecated (since = "3.10")]
+		[Version ( deprecated = true, deprecated_since = "3.10" )]
 		public SourceCompletionItem.from_stock (string? label, string text, string stock, string? info);
 		[CCode (has_construct_function = false)]
 		public SourceCompletionItem.with_markup (string markup, string text, Gdk.Pixbuf? icon, string? info);
@@ -282,25 +282,25 @@ namespace Gtk {
 	public class SourceGutter : GLib.Object {
 		[CCode (has_construct_function = false)]
 		protected SourceGutter ();
-		[Deprecated (since = "3.12")]
+		[Version ( deprecated = true, deprecated_since = "3.12" )]
 		public void get_padding (int xpad, int ypad);
 		public unowned Gtk.SourceGutterRenderer? get_renderer_at_pos (int x, int y);
-		[Deprecated (since = "3.12")]
+		[Version ( deprecated = true, deprecated_since = "3.12" )]
 		public unowned Gdk.Window get_window ();
 		public bool insert (Gtk.SourceGutterRenderer renderer, int position);
 		public void queue_draw ();
 		public void remove (Gtk.SourceGutterRenderer renderer);
 		public void reorder (Gtk.SourceGutterRenderer renderer, int position);
-		[Deprecated (since = "3.12")]
+		[Version ( deprecated = true, deprecated_since = "3.12" )]
 		public void set_padding (int xpad, int ypad);
 		[NoAccessorMethod]
 		public Gtk.SourceView view { owned get; construct; }
 		[NoAccessorMethod]
 		public Gtk.TextWindowType window_type { get; construct; }
-		[Deprecated (since = "3.12")]
+		[Version ( deprecated = true, deprecated_since = "3.12" )]
 		[NoAccessorMethod]
 		public int xpad { get; set construct; }
-		[Deprecated (since = "3.12")]
+		[Version ( deprecated = true, deprecated_since = "3.12" )]
 		[NoAccessorMethod]
 		public int ypad { get; set construct; }
 	}
@@ -366,17 +366,17 @@ namespace Gtk {
 		public unowned GLib.Icon get_gicon ();
 		public unowned string get_icon_name ();
 		public unowned Gdk.Pixbuf get_pixbuf ();
-		[Deprecated (since = "3.10")]
+		[Version ( deprecated = true, deprecated_since = "3.10" )]
 		public unowned string get_stock_id ();
 		public void set_gicon (GLib.Icon? icon);
 		public void set_icon_name (string? icon_name);
 		public void set_pixbuf (Gdk.Pixbuf? pixbuf);
-		[Deprecated (since = "3.10")]
+		[Version ( deprecated = true, deprecated_since = "3.10" )]
 		public void set_stock_id (string? stock_id);
 		public GLib.Icon gicon { get; set; }
 		public string icon_name { get; set; }
 		public Gdk.Pixbuf pixbuf { get; set; }
-		[Deprecated (since = "3.10")]
+		[Version ( deprecated = true, deprecated_since = "3.10" )]
 		public string stock_id { get; set; }
 	}
 	[CCode (cheader_filename = "gtksourceview/gtksource.h", type_id = "gtk_source_gutter_renderer_text_get_type ()")]
@@ -464,7 +464,7 @@ namespace Gtk {
 		public unowned GLib.Icon get_gicon ();
 		public unowned string get_icon_name ();
 		public unowned Gdk.Pixbuf get_pixbuf ();
-		[Deprecated (since = "3.10")]
+		[Version ( deprecated = true, deprecated_since = "3.10" )]
 		public unowned string get_stock_id ();
 		public string get_tooltip_markup (Gtk.SourceMark mark);
 		public string get_tooltip_text (Gtk.SourceMark mark);
@@ -473,14 +473,14 @@ namespace Gtk {
 		public void set_gicon (GLib.Icon gicon);
 		public void set_icon_name (string icon_name);
 		public void set_pixbuf (Gdk.Pixbuf pixbuf);
-		[Deprecated (since = "3.10")]
+		[Version ( deprecated = true, deprecated_since = "3.10" )]
 		public void set_stock_id (string stock_id);
 		[NoAccessorMethod]
 		public Gdk.RGBA background { get; set; }
 		public GLib.Icon gicon { get; set; }
 		public string icon_name { get; set; }
 		public Gdk.Pixbuf pixbuf { get; set; }
-		[Deprecated (since = "3.10")]
+		[Version ( deprecated = true, deprecated_since = "3.10" )]
 		public string stock_id { get; set; }
 		public signal string query_tooltip_markup (Gtk.SourceMark mark);
 		public signal string query_tooltip_text (Gtk.SourceMark mark);
@@ -625,7 +625,7 @@ namespace Gtk {
 		public bool strikethrough { get; construct; }
 		[NoAccessorMethod]
 		public bool strikethrough_set { get; construct; }
-		[Deprecated (since = "3.18")]
+		[Version ( deprecated = true, deprecated_since = "3.18" )]
 		[NoAccessorMethod]
 		public bool underline { get; construct; }
 		[NoAccessorMethod]
