@@ -82,6 +82,11 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		}
 	}
 
+	public string selectable_mode_tooltip
+	{
+		owned get { return _("Select and manage projects"); }
+	}
+
 	public bool has_repositories
 	{
 		get { return d_repository_list_box.get_children().length() != 0; }

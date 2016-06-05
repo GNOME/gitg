@@ -701,13 +701,23 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 
 		var selectable = (current as GitgExt.Selectable);
-		d_select_button.visible = (selectable != null);
 
 		d_selectable_mode_binding = null;
 		d_selectable_available_binding = null;
 
 		if (selectable != null)
 		{
+			d_select_button.visible = true;
+
+			var tooltip = selectable.selectable_mode_tooltip;
+
+			if (tooltip == null)
+			{
+				tooltip = _("Select items");
+			}
+
+			d_select_button.tooltip_text = tooltip;
+
 			d_selectable_mode_binding = selectable.bind_property("selectable-mode",
 			                                                     this,
 			                                                     "selectable-mode",
@@ -721,6 +731,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 		else
 		{
+			d_select_button.visible = false;
 			d_select_button.active = false;
 			d_select_button.sensitive = false;
 		}

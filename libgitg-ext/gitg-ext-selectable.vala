@@ -36,6 +36,7 @@ public interface Selectable : Object, Activity
 {
 	public abstract SelectionMode selectable_mode { get; set; }
 	public abstract bool selectable_available { get; }
+	public abstract string selectable_mode_tooltip { owned get; }
 
 	public abstract Gtk.Widget? action_widget { owned get; }
 
