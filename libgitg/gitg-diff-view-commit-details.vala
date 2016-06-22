@@ -35,8 +35,8 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 	[GtkChild( name = "label_committer_date" )]
 	private Gtk.Label d_label_committer_date;
 
-	[GtkChild( name = "label_subject" )]
-	private Gtk.Label d_label_subject;
+	[GtkChild( name = "label_message" )]
+	private Gtk.Label d_label_message;
 
 	[GtkChild( name = "label_sha1" )]
 	private Gtk.Label d_label_sha1;
@@ -182,7 +182,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			return;
 		}
 
-		d_label_subject.label = commit.get_subject();
+		d_label_message.label = commit.get_message();
 		d_label_sha1.label = commit.get_id().to_string();
 
 		var author = commit.get_author();
