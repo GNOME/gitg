@@ -232,6 +232,7 @@ namespace Gitg
 			                                         Gtk.DialogFlags.DESTROY_WITH_PARENT,
 			                                         Gtk.MessageType.ERROR,
 			                                         Gtk.ButtonsType.OK,
+			                                         "%s",
 			                                         primary_message);
 
 			error_dialog.secondary_text = secondary_message;

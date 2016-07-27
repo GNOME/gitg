@@ -1312,7 +1312,7 @@ namespace GitgCommit
 		private void on_discard_clicked()
 		{
 			var primary = _("Discard changes");
-			var secondary = _("Are you sure you want to permanently discard the selected changes?").printf();
+			var secondary = _("Are you sure you want to permanently discard the selected changes?");
 
 			var q = new GitgExt.UserQuery();
 
