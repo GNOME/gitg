@@ -146,14 +146,15 @@ namespace Gitg
 
 				d_thread.join();
 				d_thread = null;
+			}
 
+			lock(d_idleid)
+			{
 				if (d_idleid != 0)
 				{
 					Source.remove(d_idleid);
 					d_idleid = 0;
 				}
-
-				finished();
 			}
 
 			clear();
@@ -182,17 +183,11 @@ namespace Gitg
 			walk.begin(cancellable, (obj, res) => {
 				walk.end(res);
 
-				if (cancellable == d_cancellable)
-				{
-					finished();
-					d_cancellable = null;
+				d_thread.join();
+				d_thread = null;
 
-					if (d_thread != null)
-					{
-						d_thread.join();
-						d_thread = null;
-					}
-				}
+				finished();
+				d_cancellable = null;
 			});
 		}
 
@@ -237,56 +232,52 @@ namespace Gitg
 					Source.remove(d_idleid);
 					d_idleid = 0;
 				}
+
+				uint newsize = d_ids.length;
+
+				d_idleid = Idle.add(() => {
+					lock(d_idleid)
+					{
+						if (d_idleid == 0)
+						{
+							return false;
+						}
+
+						d_idleid = 0;
+
+						uint added = newsize - d_advertized_size;
+						d_advertized_size = newsize;
+
+						emit_update(added);
+
+						if (finishedcb != null)
+						{
+							finishedcb();
+						}
+					}
+
+					return false;
+				});
 			}
-
-			uint newsize = d_ids.length;
-
-			d_idleid = Idle.add(() => {
-				lock(d_idleid)
-				{
-					if (d_idleid == 0)
-					{
-						return false;
-					}
-
-					d_idleid = 0;
-
-					uint added = newsize - d_advertized_size;
-					d_advertized_size = newsize;
-
-					emit_update(added);
-
-					if (finishedcb != null)
-					{
-						finishedcb();
-					}
-				}
-
-				return false;
-			});
 		}
 
-		private void resize_ids(ref Gitg.Commit[] ids, ref uint size)
+		private bool needs_resize(Gitg.Commit[] ids, ref uint size)
 		{
-			if (ids.length == size)
+			if (ids.length < size)
 			{
-				lock(d_ids)
-				{
-					var oldlen = ids.length;
-
-					if (oldlen < 20000)
-					{
-						size *= 2;
-					}
-					else
-					{
-						size = (uint)((double)size * 1.2);
-					}
-
-					ids.resize((int)size);
-					ids.length = oldlen;
-				}
+				return false;
 			}
+
+			if (ids.length < 20000)
+			{
+				size *= 2;
+			}
+			else
+			{
+				size = (uint)((double)size * 1.2);
+			}
+
+			return true;
 		}
 
 		private async void walk(Cancellable cancellable)
@@ -297,6 +288,18 @@ namespace Gitg
 			uint limit = this.limit;
 
 			SourceFunc cb = walk.callback;
+
+			// First time, wait a bit longer to make loading small repositories
+			// subjectively quicker
+			var wait_elapsed_initial = 1.0;
+
+			// After initial wait elapsed, continue with incremental updates at
+			// a quicker pace
+			var wait_elapsed_incremental = 0.2;
+
+			var wait_elapsed = wait_elapsed_initial;
+
+			var permlanes = permanent_lanes;
 
 			ThreadFunc<void*> run = () => {
 				if (d_walker == null)
@@ -338,7 +341,7 @@ namespace Gitg
 
 				var permanent = new Ggit.OId[0];
 
-				foreach (Ggit.OId oid in permanent_lanes)
+				foreach (Ggit.OId oid in permlanes)
 				{
 					try
 					{
@@ -381,7 +384,7 @@ namespace Gitg
 
 					if (cancellable.is_cancelled())
 					{
-						break;
+						return null;
 					}
 
 					try
@@ -408,19 +411,38 @@ namespace Gitg
 							d_id_hash.set(id, d_ids.length);
 						}
 
-						resize_ids(ref d_ids, ref size);
-						d_ids += commit;
+						if (needs_resize(d_ids, ref size))
+						{
+							var l = d_ids.length;
+
+							lock(d_ids)
+							{
+								d_ids.resize((int)size);
+								d_ids.length = l;
+							}
+						}
+
+						d_ids[d_ids.length++] = commit;
 					}
 					else
 					{
-						resize_ids(ref d_hidden_ids, ref hidden_size);
-						d_hidden_ids += commit;
+						if (needs_resize(d_hidden_ids, ref hidden_size))
+						{
+							var l = d_hidden_ids.length;
+
+							d_hidden_ids.resize((int)hidden_size);
+							d_hidden_ids.length = l;
+						}
+
+						d_hidden_ids[d_hidden_ids.length++] = commit;
 					}
 
-					if (timer.elapsed() >= 200)
+					if (timer.elapsed() >= wait_elapsed)
 					{
 						notify_batch(null);
 						timer.start();
+
+						wait_elapsed = wait_elapsed_incremental;
 					}
 
 					if (limit > 0 && d_ids.length == limit)
