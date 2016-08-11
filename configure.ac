@@ -162,10 +162,10 @@ PKG_CHECK_MODULES(XML, [
 GTK_SHORTCUTS_WINDOW_REQUIRED_VERSION=3.19
 
 PKG_CHECK_EXISTS(gtk+-3.0 >= $GTK_SHORTCUTS_WINDOW_REQUIRED_VERSION,
-                 [gtk_shortcuts_window=yes; MIN_VALA_VERSION=0.31.1],
-                 [gtk_shortcuts_window=no; MIN_VALA_VERSION=0.26])
+                 [gtk_shortcuts_window=yes],
+                 [gtk_shortcuts_window=no])
 
-AM_PROG_VALAC($MIN_VALA_VERSION)
+AM_PROG_VALAC(0.32)
 
 AM_CONDITIONAL(GTK_SHORTCUTS_WINDOW, test "$gtk_shortcuts_window" = "yes")
 
