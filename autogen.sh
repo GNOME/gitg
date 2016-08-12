@@ -24,6 +24,12 @@ if test -z `which autopoint`; then
         exit 1
 fi
 
+LIBTOOL=`which libtoolize`
+if test -z $LIBTOOL; then
+        echo "*** No libtool found, please install it ***"
+        exit 1
+fi
+
 git submodule update --init --recursive
 
 if [ $? != 0 ]; then
