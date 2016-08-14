@@ -104,11 +104,14 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			{
 				d_parent_commit = value;
 
-				var button = d_parents_map[value.get_id()];
-
-				if (button != null)
+				if (value != null)
 				{
-					button.active = true;
+					var button = d_parents_map[value.get_id()];
+
+					if (button != null)
+					{
+						button.active = true;
+					}
 				}
 			}
 		}
