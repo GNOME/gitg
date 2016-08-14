@@ -119,6 +119,9 @@ namespace Gitg
 		public signal void update(uint added);
 		public signal void finished();
 
+		public signal void begin_clear();
+		public signal void end_clear();
+
 		public CommitModel(Repository? repository)
 		{
 			Object(repository: repository);
@@ -470,6 +473,8 @@ namespace Gitg
 
 		private void clear()
 		{
+			begin_clear();
+
 			// Remove all
 			var path = new Gtk.TreePath.from_indices(d_size);
 
@@ -482,6 +487,8 @@ namespace Gitg
 			}
 
 			++d_stamp;
+
+			end_clear();
 		}
 
 		private void emit_update(uint added)

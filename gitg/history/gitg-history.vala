@@ -296,6 +296,16 @@ namespace GitgHistory
 			scroll_into_view();
 		}
 
+		private void on_commit_model_begin_clear(Gitg.CommitModel model)
+		{
+			d_main.commit_list_view.model = null;
+		}
+
+		private void on_commit_model_end_clear(Gitg.CommitModel model)
+		{
+			d_main.commit_list_view.model = d_commit_list_model;
+		}
+
 		public bool available
 		{
 			get { return true; }
@@ -563,6 +573,9 @@ namespace GitgHistory
 			                          BindingFlags.SYNC_CREATE);
 
 			d_main.commit_list_view.set_search_equal_func(search_filter_func);
+
+			d_commit_list_model.begin_clear.connect(on_commit_model_begin_clear);
+			d_commit_list_model.end_clear.connect(on_commit_model_end_clear);
 		}
 
 		private void update_walker_idle()
