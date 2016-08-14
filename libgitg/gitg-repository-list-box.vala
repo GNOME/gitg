@@ -180,14 +180,18 @@ namespace Gitg
 						var tree = commit.get_tree();
 
 						Ggit.OId? entry_id = null;
-						tree.walk(Ggit.TreeWalkMode.PRE, (root, entry) => {
-							if (root == "" && entry.get_name() != null && entry.get_name().has_suffix(".doap"))
+
+						for (var i = 0; i < tree.size(); i++)
+						{
+							var entry = tree.get(i);
+							var name = entry.get_name();
+
+							if (name != null && name.has_suffix(".doap"))
 							{
 								entry_id = entry.get_id();
-								return 1;
+								break;
 							}
-							return 0;
-						});
+						}
 
 						if (entry_id != null)
 						{
