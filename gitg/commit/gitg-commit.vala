@@ -1633,11 +1633,14 @@ namespace GitgCommit
 			Sidebar.Item.Type type;
 
 			var sitems = items_for_items(items, out type);
+			var hasitems = sitems.length > 0;
 
 			if (type == Sidebar.Item.Type.UNSTAGED ||
 			    type == Sidebar.Item.Type.UNTRACKED)
 			{
 				var stage = new Gtk.MenuItem.with_mnemonic(_("_Stage changes"));
+				stage.sensitive = hasitems;
+
 				menu.append(stage);
 
 				stage.activate.connect(() => {
@@ -1648,6 +1651,8 @@ namespace GitgCommit
 			if (type == Sidebar.Item.Type.STAGED)
 			{
 				var stage = new Gtk.MenuItem.with_mnemonic(_("_Unstage changes"));
+				stage.sensitive = hasitems;
+
 				menu.append(stage);
 
 				stage.activate.connect(() => {
@@ -1658,6 +1663,8 @@ namespace GitgCommit
 			if (type == Sidebar.Item.Type.UNSTAGED)
 			{
 				var discard = new Gtk.MenuItem.with_mnemonic(_("_Discard changes"));
+				discard.sensitive = hasitems;
+
 				menu.append(discard);
 
 				discard.activate.connect(() => {
@@ -1668,6 +1675,8 @@ namespace GitgCommit
 			if (type == Sidebar.Item.Type.UNTRACKED)
 			{
 				var del = new Gtk.MenuItem.with_mnemonic(dngettext(null, "D_elete file", "D_elete files", sitems.length));
+				del.sensitive = hasitems;
+
 				menu.append(del);
 
 				del.activate.connect(() => {
@@ -1675,16 +1684,21 @@ namespace GitgCommit
 				});
 			}
 
-			var canedit = true;
+			bool canedit = false;
 
-			foreach (var item in sitems)
+			if (hasitems)
 			{
-				var file = item as Gitg.StageStatusFile;
+				canedit = true;
 
-				if (file == null || (file.flags & Ggit.StatusFlags.WORKING_TREE_DELETED) != 0)
+				foreach (var item in sitems)
 				{
-					canedit = false;
-					break;
+					var file = item as Gitg.StageStatusFile;
+
+					if (file == null || (file.flags & Ggit.StatusFlags.WORKING_TREE_DELETED) != 0)
+					{
+						canedit = false;
+						break;
+					}
 				}
 			}
 
