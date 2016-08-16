@@ -104,11 +104,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 		Object(repository: repository, delta: delta);
 	}
 
-	public DiffViewFile.text(Repository? repository, Ggit.DiffDelta delta, bool new_is_workdir, bool handle_selection)
+	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
 	{
-		this(repository, delta);
+		this(info.repository, info.delta);
 
-		this.renderer = new DiffViewFileRendererText(repository, delta, new_is_workdir, handle_selection);
+		this.renderer = new DiffViewFileRendererText(info, handle_selection);
 		this.renderer.show();
 
 		this.renderer.bind_property("added", d_diff_stat_file, "added");
@@ -118,6 +118,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 	public DiffViewFile.binary(Repository? repository, Ggit.DiffDelta delta)
 	{
 		this(repository, delta);
+
+		this.renderer = new DiffViewFileRendererBinary();
+		this.renderer.show();
+
+		d_diff_stat_file.hide();
 	}
 
 	public DiffViewFile.image(Repository? repository, Ggit.DiffDelta delta)

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.19.0 -->
+<interface>
+  <requires lib="gtk+" version="3.16"/>
+  <template class="GitgDiffViewFileRendererBinary" parent="GtkGrid">
+    <property name="visible">True</property>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Unable to display changes for binary file</property>
+        <property name="margin-top">3</property>
+        <property name="margin-start">12</property>
+        <property name="margin-end">12</property>
+        <property name="margin-bottom">9</property>
+        <property name="sensitive">False</property>
+        <attributes>
+          <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+        </attributes>
+      </object>
+    </child>
+  </template>
+</interface>

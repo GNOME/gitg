@@ -265,8 +265,6 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private delegate void Anon();
-
 	private void auto_change_expanded(bool expanded)
 	{
 		SignalHandler.block(d_commit_details, d_expanded_notify);
@@ -307,13 +305,74 @@ public class Gitg.DiffView : Gtk.Grid
 		return path;
 	}
 
+	private delegate void Anon();
+
+	private string key_for_delta(Ggit.DiffDelta delta)
+	{
+		var new_file = delta.get_new_file();
+		var new_path = new_file.get_path();
+
+		if (new_path != null)
+		{
+			return @"path:$(new_path)";
+		}
+
+		var old_file = delta.get_old_file();
+		var old_path = old_file.get_path();
+
+		if (old_path != null)
+		{
+			return @"path:$(old_path)";
+		}
+
+		return "";
+	}
+
 	private void update_diff(Ggit.Diff diff, bool preserve_expanded, Cancellable? cancellable)
+	{
+		var nqueries = 0;
+		var finished = false;
+		var infomap = new Gee.HashMap<string, DiffViewFileInfo>();
+
+		Anon check_finish = () => {
+			if (nqueries == 0 && finished && (cancellable == null || !cancellable.is_cancelled()))
+			{
+				finished = false;
+				update_diff_hunks(diff, preserve_expanded, infomap, cancellable);
+			}
+		};
+
+		// Collect file info asynchronously first
+		for (var i = 0; i < diff.get_num_deltas(); i++)
+		{
+			var delta = diff.get_delta(i);
+			var info = new DiffViewFileInfo(repository, delta, new_is_workdir);
+
+			nqueries++;
+
+			info.query.begin(cancellable, (obj, res) => {
+				info.query.end(res);
+
+				infomap[key_for_delta(delta)] = info;
+
+				nqueries--;
+
+				check_finish();
+			});
+		}
+
+		finished = true;
+		check_finish();
+	}
+
+	private void update_diff_hunks(Ggit.Diff diff, bool preserve_expanded, Gee.HashMap<string, DiffViewFileInfo> infomap, Cancellable? cancellable)
 	{
 		var files = new Gee.ArrayList<Gitg.DiffViewFile>();
 
 		Gitg.DiffViewFile? current_file = null;
 		Ggit.DiffHunk? current_hunk = null;
 		Gee.ArrayList<Ggit.DiffLine>? current_lines = null;
+		var current_is_binary = false;
 
 		var maxlines = 0;
 
@@ -352,8 +411,40 @@ public class Gitg.DiffView : Gtk.Grid
 
 					add_file();
 
-					current_file = new Gitg.DiffViewFile.text(repository, delta, new_is_workdir, handle_selection);
-					this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
+					DiffViewFileInfo? info = null;
+					var deltakey = key_for_delta(delta);
+
+					if (infomap.has_key(deltakey))
+					{
+						info = infomap[deltakey];
+					}
+					else
+					{
+						info = new DiffViewFileInfo(repository, delta, new_is_workdir);
+					}
+
+					current_is_binary = ((delta.get_flags() & Ggit.DiffFlag.BINARY) != 0);
+
+					// List of known binary file types that may be wrongly classified by
+					// libgit2 because it does not contain any null bytes in the first N
+					// bytes. E.g. PDF
+					var known_binary_files_types = new string[] {"application/pdf"};
+
+					// Ignore binary based on content type
+					if (info != null && info.new_file_content_type in known_binary_files_types)
+					{
+						current_is_binary = true;
+					}
+
+					if (current_is_binary)
+					{
+						current_file = new Gitg.DiffViewFile.binary(repository, delta);
+					}
+					else
+					{
+						current_file = new Gitg.DiffViewFile.text(info, handle_selection);
+						this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
+					}
 
 					return 0;
 				},
@@ -374,13 +465,16 @@ public class Gitg.DiffView : Gtk.Grid
 						return 1;
 					}
 
-					maxlines = int.max(maxlines, hunk.get_old_start() + hunk.get_old_lines());
-					maxlines = int.max(maxlines, hunk.get_new_start() + hunk.get_new_lines());
+					if (!current_is_binary)
+					{
+						maxlines = int.max(maxlines, hunk.get_old_start() + hunk.get_old_lines());
+						maxlines = int.max(maxlines, hunk.get_new_start() + hunk.get_new_lines());
 
-					add_hunk();
+						add_hunk();
 
-					current_hunk = hunk;
-					current_lines = new Gee.ArrayList<Ggit.DiffLine>();
+						current_hunk = hunk;
+						current_lines = new Gee.ArrayList<Ggit.DiffLine>();
+					}
 
 					return 0;
 				},
@@ -391,7 +485,7 @@ public class Gitg.DiffView : Gtk.Grid
 						return 1;
 					}
 
-					if ((delta.get_flags() & Ggit.DiffFlag.BINARY) == 0)
+					if (!current_is_binary)
 					{
 						current_lines.add(line);
 					}

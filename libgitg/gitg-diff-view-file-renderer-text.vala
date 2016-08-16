@@ -83,8 +83,18 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	}
 
 	public int maxlines { get; set; }
-	public Ggit.DiffDelta? delta { get; construct set; }
-	public Repository? repository { get; construct set; }
+
+	public DiffViewFileInfo info { get; construct set; }
+
+	public Ggit.DiffDelta? delta
+	{
+		get { return info.delta; }
+	}
+
+	public Repository? repository
+	{
+		get { return info.repository; }
+	}
 
 	public bool highlight
 	{
@@ -92,8 +102,11 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		construct set
 		{
-			d_highlight = value;
-			update_highlight();
+			if (d_highlight != value)
+			{
+				d_highlight = value;
+				update_highlight();
+			}
 		}
 
 		default = true;
@@ -155,9 +168,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 	}
 
-	public DiffViewFileRendererText(Repository? repository, Ggit.DiffDelta delta, bool new_is_workdir, bool can_select)
+	public DiffViewFileRendererText(DiffViewFileInfo info, bool can_select)
 	{
-		Object(repository: repository, new_is_workdir: new_is_workdir, delta: delta, can_select: can_select);
+		Object(info: info, can_select: can_select);
 	}
 
 	construct
@@ -234,28 +247,12 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			var cancellable = new Cancellable();
 			d_higlight_cancellable = cancellable;
 
-			init_highlighting_buffer.begin(delta.get_old_file(), false, cancellable, (obj, res) => {
-				var buffer = init_highlighting_buffer.end(res);
-
-				if (!cancellable.is_cancelled())
-				{
-					d_old_highlight_buffer = buffer;
-					d_old_highlight_ready = true;
-
-					update_highlighting_ready();
-				}
+			init_highlighting_buffer_old.begin(cancellable, (obj, res) => {
+				init_highlighting_buffer_old.end(res);
 			});
 
-			init_highlighting_buffer.begin(delta.get_new_file(), new_is_workdir, cancellable, (obj, res) => {
-				var buffer = init_highlighting_buffer.end(res);
-
-				if (!cancellable.is_cancelled())
-				{
-					d_new_highlight_buffer = buffer;
-					d_new_highlight_ready = true;
-
-					update_highlighting_ready();
-				}
+			init_highlighting_buffer_new.begin(cancellable, (obj, res) => {
+				init_highlighting_buffer_new.end(res);
 			});
 		}
 		else
@@ -264,20 +261,73 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 	}
 
-	private async Gtk.SourceBuffer? init_highlighting_buffer(Ggit.DiffFile file, bool from_workdir, Cancellable cancellable)
+	private async void init_highlighting_buffer_old(Cancellable cancellable)
 	{
-		var id = file.get_oid();
+		var buffer = yield init_highlighting_buffer(delta.get_old_file(), false, cancellable);
+
+		if (!cancellable.is_cancelled())
+		{
+			d_old_highlight_buffer = buffer;
+			d_old_highlight_ready = true;
+
+			update_highlighting_ready();
+		}
+	}
+
+	private File? get_file_location(Ggit.DiffFile file)
+	{
 		var path = file.get_path();
 
-		if ((id.is_zero() && !from_workdir) || (path == null && from_workdir))
+		if (path == null)
 		{
 			return null;
 		}
 
-		var sfile = new Gtk.SourceFile();
-		sfile.location = repository.get_workdir().get_child(path);
+		return repository.get_workdir().get_child(path);
+	}
 
-		var basename = sfile.location.get_basename();
+	private async void init_highlighting_buffer_new(Cancellable cancellable)
+	{
+		Gtk.SourceBuffer? buffer;
+
+		var file = delta.get_new_file();
+
+		if (info.new_file_input_stream != null)
+		{
+			// Use once
+			var stream = info.new_file_input_stream;
+			info.new_file_input_stream = null;
+
+			buffer = yield init_highlighting_buffer_from_stream(delta.get_new_file(),
+			                                                    get_file_location(file),
+			                                                    stream,
+			                                                    info.new_file_content_type,
+			                                                    cancellable);
+		}
+		else
+		{
+			buffer = yield init_highlighting_buffer(delta.get_new_file(), info.from_workdir, cancellable);
+		}
+
+		if (!cancellable.is_cancelled())
+		{
+			d_new_highlight_buffer = buffer;
+			d_new_highlight_ready = true;
+
+			update_highlighting_ready();
+		}
+	}
+
+	private async Gtk.SourceBuffer? init_highlighting_buffer(Ggit.DiffFile file, bool from_workdir, Cancellable cancellable)
+	{
+		var id = file.get_oid();
+		var location = get_file_location(file);
+
+		if ((id.is_zero() && !from_workdir) || (location == null && from_workdir))
+		{
+			return null;
+		}
+
 		uint8[] content;
 
 		if (!from_workdir)
@@ -304,7 +354,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 				// Read it all into a buffer so we can guess the content type from
 				// it. This isn't really nice, but it's simple.
-				yield sfile.location.load_contents_async(cancellable, out content, out etag);
+				yield location.load_contents_async(cancellable, out content, out etag);
 			}
 			catch
 			{
@@ -313,13 +363,17 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 
 		bool uncertain;
-		var content_type = GLib.ContentType.guess(basename, content, out uncertain);
+		var content_type = GLib.ContentType.guess(location.get_basename(), content, out uncertain);
 
-		var bytes = new Bytes(content);
-		var stream = new GLib.MemoryInputStream.from_bytes(bytes);
+		var stream = new GLib.MemoryInputStream.from_bytes(new Bytes(content));
 
+		return yield init_highlighting_buffer_from_stream(file, location, stream, content_type, cancellable);
+	}
+
+	private async Gtk.SourceBuffer? init_highlighting_buffer_from_stream(Ggit.DiffFile file, File location, InputStream stream, string content_type, Cancellable cancellable)
+	{
 		var manager = Gtk.SourceLanguageManager.get_default();
-		var language = manager.guess_language(basename, content_type);
+		var language = manager.guess_language(location.get_basename(), content_type);
 
 		if (language == null)
 		{
@@ -333,6 +387,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		buffer.language = language;
 		buffer.highlight_syntax = true;
 		buffer.style_scheme = style_scheme_manager.get_scheme("classic");
+
+		var sfile = new Gtk.SourceFile();
+		sfile.location = location;
 
 		var loader = new Gtk.SourceFileLoader.from_stream(buffer, sfile, stream);
 
