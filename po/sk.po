@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-08-08 13:30+0000\n"
-"PO-Revision-Date: 2016-08-12 15:26+0200\n"
+"POT-Creation-Date: 2016-08-16 16:02+0000\n"
+"PO-Revision-Date: 2016-08-16 21:21+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <>\n"
 "Language: sk\n"
@@ -560,26 +560,26 @@ msgstr "Ste si istý, že chcete natrvalo odstrániť súbor „%s“?"
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Ste si istý, že chcete natrvalo odstrániť súbory „%s“ a „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1640
+#: ../gitg/commit/gitg-commit.vala:1641
 msgid "_Stage changes"
 msgstr "Zmeny do _pripravených"
 
-#: ../gitg/commit/gitg-commit.vala:1650
+#: ../gitg/commit/gitg-commit.vala:1653
 msgid "_Unstage changes"
 msgstr "Zmeny do _nepripravených"
 
-#: ../gitg/commit/gitg-commit.vala:1660
+#: ../gitg/commit/gitg-commit.vala:1665
 msgid "_Discard changes"
 msgstr "Zaho_diť zmeny"
 
-#: ../gitg/commit/gitg-commit.vala:1670
+#: ../gitg/commit/gitg-commit.vala:1677
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "O_dstrániť súbory"
 msgstr[1] "O_dstrániť súbor"
 msgstr[2] "O_dstrániť súbory"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: ../gitg/commit/gitg-commit.vala:1707
 msgid "_Edit file"
 msgstr "_Upraviť súbor"
 
@@ -1272,18 +1272,18 @@ msgstr "Vetvy"
 msgid "Remotes"
 msgstr "Vzdialené vetvy"
 
-#: ../gitg/history/gitg-history.vala:306
+#: ../gitg/history/gitg-history.vala:316
 #: ../gitg/preferences/gitg-preferences-history.vala:218
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "History"
 msgstr "História"
 
 # tooltip
-#: ../gitg/history/gitg-history.vala:311
+#: ../gitg/history/gitg-history.vala:321
 msgid "Examine the history of the repository"
 msgstr "Preskúma históriu repozitára"
 
-#: ../gitg/history/gitg-history.vala:804
+#: ../gitg/history/gitg-history.vala:817
 msgid "Mainline"
 msgstr "Hlavná línia"
 
@@ -1365,16 +1365,16 @@ msgstr "%b %e %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%b %e %Y, %I:%M %p"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:142
+#: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Zbaliť všetko"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:146
+#: ../libgitg/gitg-diff-view-commit-details.vala:149
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
 msgstr "Rozbaliť všetko"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:199
+#: ../libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
 msgstr "Začlenil/-a %s"
@@ -1391,7 +1391,7 @@ msgstr "do %s"
 msgid "%s at %s"
 msgstr "%s do %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:412
+#: ../libgitg/gitg-repository-list-box.vala:416
 msgid "Cloning…"
 msgstr "Klonuje sa…"
 
@@ -1802,6 +1802,10 @@ msgstr "Zapamätať _navždy"
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
 msgid "Parents"
 msgstr "Rodičia"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
+msgid "Unable to display changes for binary file"
+msgstr "Nie je možné zobraziť zmeny binárneho súboru"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
