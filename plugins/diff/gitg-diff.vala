@@ -32,12 +32,15 @@ namespace GitgDiff
 
 		private ulong d_selection_changed_id;
 
-		construct
+		protected override void constructed()
 		{
+			base.constructed();
+
 			d_diff = new Gitg.DiffView();
 
 			d_diff.show_parents = true;
-			d_diff.repository = application.repository;
+
+			application.bind_property("repository", d_diff, "repository", BindingFlags.SYNC_CREATE);
 
 			d_diff.show();
 

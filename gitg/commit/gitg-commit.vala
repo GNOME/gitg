@@ -1955,6 +1955,11 @@ namespace GitgCommit
 			                               d_main.button_discard,
 			                               "sensitive",
 			                               BindingFlags.DEFAULT);
+
+			application.bind_property("repository",
+			                          d_main.diff_view,
+			                          "repository",
+			                          BindingFlags.SYNC_CREATE);
 		}
 	}
 }
