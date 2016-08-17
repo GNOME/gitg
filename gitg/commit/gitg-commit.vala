@@ -1149,13 +1149,18 @@ namespace GitgCommit
 			opts.n_context_lines = 3;
 			opts.n_interhunk_lines = 3;
 
-			var stage = application.repository.stage;
+			var repository = application.repository;
 
-			Ggit.Tree tree;
+			var stage = repository.stage;
+
+			Ggit.Tree? tree = null;
 
 			try
 			{
-				tree = yield stage.get_head_tree();
+				if (!repository.is_empty())
+				{
+					tree = yield stage.get_head_tree();
+				}
 			}
 			catch { return null; }
 
@@ -1163,10 +1168,10 @@ namespace GitgCommit
 
 			try
 			{
-				var index = application.repository.get_index();
+				var index = repository.get_index();
 
 				yield Gitg.Async.thread(() => {
-					diff = new Ggit.Diff.tree_to_index(application.repository,
+					diff = new Ggit.Diff.tree_to_index(repository,
 					                                   tree,
 					                                   index,
 					                                   opts);

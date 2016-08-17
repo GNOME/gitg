@@ -1009,7 +1009,12 @@ public class Stage : Object
 			opts.new_prefix = defopts.new_prefix;
 		}
 
-		var tree = yield get_head_tree();
+		Ggit.Tree? tree = null;
+
+		if (!d_repository.is_empty())
+		{
+			tree = yield get_head_tree();
+		}
 
 		return new Ggit.Diff.tree_to_index(d_repository,
 		                                   tree,
