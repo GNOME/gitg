@@ -56,6 +56,18 @@ namespace Gitg
 
 		public static AuthorDetailsDialog? show_global(Window window)
 		{
+			var xdg_config_path = Path.build_filename(Environment.get_user_config_dir(), "git", "config");
+			var config_path = Path.build_filename(Environment.get_home_dir(), ".gitconfig");
+
+			// If neither exists yet, create default empty one
+			if (!FileUtils.test(xdg_config_path, FileTest.EXISTS) && !FileUtils.test(config_path, FileTest.EXISTS))
+			{
+				try
+				{
+					FileUtils.set_contents(config_path, "");
+				} catch {}
+			}
+
 			var global_config_file = Ggit.Config.find_global();
 
 			if (global_config_file == null)
