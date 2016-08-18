@@ -1098,6 +1098,8 @@ namespace GitgCommit
 				{
 					stage.commit.end(res);
 					reload();
+
+					application.repository_commits_changed();
 				}
 				catch (Error e)
 				{

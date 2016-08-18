@@ -47,6 +47,8 @@ namespace GitgHistory
 		private ulong d_refs_list_selection_id;
 		private ulong d_refs_list_changed_id;
 		private ulong d_externally_changed_id;
+		private ulong d_commits_changed_id;
+
 		private Gitg.WhenMapped? d_reload_when_mapped;
 
 		private Paned d_main;
@@ -155,11 +157,31 @@ namespace GitgHistory
 			reload_mainline();
 
 			d_externally_changed_id = application.repository_changed_externally.connect(repository_changed_externally);
+			d_commits_changed_id = application.repository_commits_changed.connect(repository_commits_changed);
 		}
 
 		private void repository_changed_externally(GitgExt.ExternalChangeHint hint)
 		{
 			if (d_main != null && (hint & GitgExt.ExternalChangeHint.REFS) != 0  && !d_ignore_external)
+			{
+				reload_when_mapped();
+			}
+
+			d_ignore_external = false;
+		}
+
+		private void repository_commits_changed()
+		{
+			if (d_main != null)
+			{
+				d_ignore_external = true;
+				reload_when_mapped();
+			}
+		}
+
+		private void reload_when_mapped()
+		{
+			if (d_main != null)
 			{
 				d_reload_when_mapped = new Gitg.WhenMapped(d_main);
 
@@ -167,8 +189,6 @@ namespace GitgHistory
 					reload();
 				}, this);
 			}
-
-			d_ignore_external = false;
 		}
 
 		public override void dispose()
@@ -195,6 +215,12 @@ namespace GitgHistory
 			{
 				application.disconnect(d_externally_changed_id);
 				d_externally_changed_id = 0;
+			}
+
+			if (d_commits_changed_id != 0)
+			{
+				application.disconnect(d_commits_changed_id);
+				d_commits_changed_id = 0;
 			}
 
 			d_commit_list_model.repository = null;
