@@ -292,22 +292,27 @@ public class StageStatusEnumerator : Object
 
 		var submodule_paths = new Gee.HashSet<string>();
 
-		try
+		// Due to a bug in libgit2, submodule iteration crashes when performed
+		// on a bare repository
+		if (!d_repository.is_bare)
 		{
-			d_repository.submodule_foreach((submodule, name) => {
-				submodule_paths.add(submodule.get_path());
+			try
+			{
+				d_repository.submodule_foreach((submodule, name) => {
+					submodule_paths.add(submodule.get_path());
 
-				if (!d_ignored_submodules.contains(name))
-				{
-					try
+					if (!d_ignored_submodules.contains(name))
 					{
-						add(new StageStatusSubmodule(d_repository.lookup_submodule(name)));
-					} catch {}
-				}
+						try
+						{
+							add(new StageStatusSubmodule(d_repository.lookup_submodule(name)));
+						} catch {}
+					}
 
-				return d_cancellable.is_cancelled() ? 1 : 0;
-			});
-		} catch {}
+					return d_cancellable.is_cancelled() ? 1 : 0;
+				});
+			} catch {}
+		}
 
 		try
 		{
