@@ -2,12 +2,12 @@ class Gitg.DiffViewFileInfo : Object
 {
 	public Ggit.DiffDelta delta { get; construct set; }
 	public bool from_workdir { get; construct set; }
-	public Repository repository { get; construct set; }
+	public Repository? repository { get; construct set; }
 
 	public InputStream? new_file_input_stream { get; set; }
 	public string? new_file_content_type { get; private set; }
 
-	public DiffViewFileInfo(Repository repository, Ggit.DiffDelta delta, bool from_workdir)
+	public DiffViewFileInfo(Repository? repository, Ggit.DiffDelta delta, bool from_workdir)
 	{
 		Object(repository: repository, delta: delta, from_workdir: from_workdir);
 	}
@@ -23,7 +23,7 @@ class Gitg.DiffViewFileInfo : Object
 		var id = file.get_oid();
 		var path = file.get_path();
 
-		if ((id.is_zero() && !from_workdir) || (path == null && from_workdir))
+		if (repository == null || (id.is_zero() && !from_workdir) || (path == null && from_workdir))
 		{
 			return;
 		}
