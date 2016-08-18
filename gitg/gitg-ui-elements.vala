@@ -209,6 +209,12 @@ public class UIElements<T> : Object
 		update();
 	}
 
+	private void enabled_changed(Object o, ParamSpec spec)
+	{
+		var e = o as GitgExt.UIElement;
+		e.widget.sensitive = e.enabled;
+	}
+
 	private void on_element_activate(GitgExt.UIElement e)
 	{
 		set_current_impl(e);
@@ -224,6 +230,8 @@ public class UIElements<T> : Object
 		}
 
 		e.notify["available"].connect(available_changed);
+		e.notify["enabled"].connect(enabled_changed);
+		
 		e.activate.connect(on_element_activate);
 	}
 
