@@ -36,6 +36,7 @@ public interface Application : Object
 	public abstract Gitg.Repository? repository { owned get; set; }
 
 	public signal void repository_changed_externally(ExternalChangeHint hint);
+	public signal void repository_commits_changed();
 
 	/**
 	 * An application wide message bus over which plugins can communicate.
