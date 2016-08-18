@@ -10,10 +10,10 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-03-10 07:19+0000\n"
-"PO-Revision-Date: 2016-03-10 11:44+0100\n"
+"POT-Creation-Date: 2016-08-16 16:02+0000\n"
+"PO-Revision-Date: 2016-08-18 21:42+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
-"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -479,7 +479,7 @@ msgstr "Opravdu chcete trvale zahodit vybrané změny?"
 #: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
 #: ../gitg/commit/gitg-commit.vala:1605
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-dash-view.vala:442 ../gitg/gitg-window.vala:189
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -547,26 +547,26 @@ msgstr "Opravdu chcete trvale smazat soubor „%s“?"
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Opravdu chcete trvale smazat soubory „%s“ a „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1640
+#: ../gitg/commit/gitg-commit.vala:1641
 msgid "_Stage changes"
 msgstr "_Připravit změny k zápisu"
 
-#: ../gitg/commit/gitg-commit.vala:1650
+#: ../gitg/commit/gitg-commit.vala:1653
 msgid "_Unstage changes"
 msgstr "Zr_ušit připravenost změn k zápisu"
 
-#: ../gitg/commit/gitg-commit.vala:1660
+#: ../gitg/commit/gitg-commit.vala:1665
 msgid "_Discard changes"
 msgstr "Zaho_dit změny"
 
-#: ../gitg/commit/gitg-commit.vala:1670
+#: ../gitg/commit/gitg-commit.vala:1677
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Smazat soubor"
 msgstr[1] "Smazat soubory"
 msgstr[2] "Smazat soubory"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: ../gitg/commit/gitg-commit.vala:1707
 msgid "_Edit file"
 msgstr "_Upravit soubor"
 
@@ -649,19 +649,19 @@ msgstr "Nezkoušet načíst repozitář z aktuální pracovní složky"
 msgid "- Git repository viewer"
 msgstr "– prohlížeč repozitářů Git"
 
-#: ../gitg/gitg-application.vala:226
+#: ../gitg/gitg-application.vala:222
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg je prohlížeč repozitářů Git pro gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:235
+#: ../gitg/gitg-application.vala:231
 msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
 
-#: ../gitg/gitg-application.vala:238
+#: ../gitg/gitg-application.vala:234
 msgid "gitg homepage"
 msgstr "domovská stránka gitg"
 
-#: ../gitg/gitg-application.vala:369
+#: ../gitg/gitg-application.vala:364
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -830,36 +830,40 @@ msgstr "Selhalo vyhledání štítku"
 msgid "Provide a message to create an annotated tag"
 msgstr "Poskytnout zprávu pro vytvoření štítku s poznámkou"
 
-#: ../gitg/gitg-dash-view.vala:171
+#: ../gitg/gitg-dash-view.vala:87
+msgid "Select and manage projects"
+msgstr "Vybrat a spravovat projekty"
+
+#: ../gitg/gitg-dash-view.vala:176
 msgid "_Remove"
 msgstr "Odst_ranit"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:227
+#: ../gitg/gitg-dash-view.vala:232
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr "Repozitáře se také %svyhledají ve vaší domovské složce%s."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:230
+#: ../gitg/gitg-dash-view.vala:235
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "V mezidobí si můžete nastavit %ssvůj profil pro git%s."
 
-#: ../gitg/gitg-dash-view.vala:382
+#: ../gitg/gitg-dash-view.vala:387
 msgid "Failed to clone repository"
 msgstr "Selhalo klonování repozitáře"
 
-#: ../gitg/gitg-dash-view.vala:413
+#: ../gitg/gitg-dash-view.vala:418
 msgid "Failed to add repository"
 msgstr "Selhalo přidání repozitáře"
 
-#: ../gitg/gitg-dash-view.vala:429
+#: ../gitg/gitg-dash-view.vala:434
 msgid "Create new repository"
 msgstr "Vytvořit nový repozitář"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:432
+#: ../gitg/gitg-dash-view.vala:437
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -868,15 +872,15 @@ msgstr ""
 "Vypadá to, že umístění <i>%s</i> není platný repozitář git. Přejete si "
 "inicializovat v tomto umístění nový repozitář git?"
 
-#: ../gitg/gitg-dash-view.vala:438
+#: ../gitg/gitg-dash-view.vala:443
 msgid "Create repository"
 msgstr "Vytvořit repozitář"
 
-#: ../gitg/gitg-dash-view.vala:454
+#: ../gitg/gitg-dash-view.vala:459
 msgid "Failed to create repository"
 msgstr "Selhalo vytvoření repozitáře"
 
-#: ../gitg/gitg-dash-view.vala:524
+#: ../gitg/gitg-dash-view.vala:529
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Vyhledávají se repozitáře v %s"
@@ -1116,28 +1120,32 @@ msgstr "Neplatný název"
 msgid "Failed to rename"
 msgstr "Selhalo přejmenování"
 
-#: ../gitg/gitg-window.vala:187
+#: ../gitg/gitg-window.vala:186
 msgid "Add Repository"
 msgstr "Přidání repozitáře"
 
-#: ../gitg/gitg-window.vala:191
+#: ../gitg/gitg-window.vala:190
 msgid "_Add"
 msgstr "Přid_at"
 
-#: ../gitg/gitg-window.vala:193
+#: ../gitg/gitg-window.vala:192
 msgid "_Scan for all git repositories from this directory"
 msgstr "Vyhledat všechny repozitáře git v této _složce"
 
-#: ../gitg/gitg-window.vala:481
+#: ../gitg/gitg-window.vala:498
 msgid "Projects"
 msgstr "Projekty"
 
-#: ../gitg/gitg-window.vala:912
+#: ../gitg/gitg-window.vala:748
+msgid "Select items"
+msgstr "Vybrat položky"
+
+#: ../gitg/gitg-window.vala:955
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ není repozitář Git."
 
-#: ../gitg/gitg-window.vala:1061
+#: ../gitg/gitg-window.vala:1104
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1145,7 +1153,7 @@ msgstr ""
 "Vaše uživatelské jméno a e-mail doposud nejsou nastaveny. Jděte prosím do "
 "nastavení uživatele a poskytněte své jméno a e-mail."
 
-#: ../gitg/gitg-window.vala:1065
+#: ../gitg/gitg-window.vala:1108
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1153,7 +1161,7 @@ msgstr ""
 "Vaše uživatelské jméno doposud není nastaveno. Jděte prosím do nastavení "
 "uživatele a poskytněte své jméno."
 
-#: ../gitg/gitg-window.vala:1069
+#: ../gitg/gitg-window.vala:1112
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1161,7 +1169,7 @@ msgstr ""
 "Váš e-mail doposud není nastaven. Jděte prosím do nastavení uživatele a "
 "poskytněte svůj e-mail."
 
-#: ../gitg/gitg-window.vala:1072
+#: ../gitg/gitg-window.vala:1115
 msgid "Missing author details"
 msgstr "Schází údaje o autorovi"
 
@@ -1223,17 +1231,17 @@ msgstr "Větve"
 msgid "Remotes"
 msgstr "Vzdálené"
 
-#: ../gitg/history/gitg-history.vala:306
+#: ../gitg/history/gitg-history.vala:316
 #: ../gitg/preferences/gitg-preferences-history.vala:218
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "History"
 msgstr "Historie"
 
-#: ../gitg/history/gitg-history.vala:311
+#: ../gitg/history/gitg-history.vala:321
 msgid "Examine the history of the repository"
 msgstr "Prozkoumat historii repozitáře"
 
-#: ../gitg/history/gitg-history.vala:796
+#: ../gitg/history/gitg-history.vala:817
 msgid "Mainline"
 msgstr "Hlavní linie"
 
@@ -1245,6 +1253,13 @@ msgstr "Zařazení"
 #: ../gitg/preferences/gitg-preferences-interface.vala:120
 msgid "Interface"
 msgstr "Rozhraní"
+
+#. Translators: %s will be replaced with a URL indicating the resource
+#. for which the authentication is required.
+#: ../libgitg/gitg-authentication-dialog.vala:69
+#, c-format
+msgid "Password required for %s"
+msgstr "Pro %s je požadováno heslo"
 
 #: ../libgitg/gitg-date.vala:346
 msgid "Now"
@@ -1306,16 +1321,16 @@ msgstr "%e. %B %Y, %k∶%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e. %B %Y, %l∶%M %p"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:142
+#: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Sbalit vše"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:146
+#: ../libgitg/gitg-diff-view-commit-details.vala:149
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
 msgstr "Rozbalit vše"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:199
+#: ../libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
 msgstr "Zařadil %s"
@@ -1332,7 +1347,7 @@ msgstr "v %s"
 msgid "%s at %s"
 msgstr "%s v %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:409
+#: ../libgitg/gitg-repository-list-box.vala:416
 msgid "Cloning…"
 msgstr "Klonuje se…"
 
@@ -1509,18 +1524,14 @@ msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové zkratky"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Help"
-msgstr "_Nápověda"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_Quit"
 msgstr "U_končit"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:8
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
 msgid "_Reload"
 msgstr "Znovu načí_st"
 
@@ -1736,6 +1747,10 @@ msgstr "Zapamtovat na_pořád"
 msgid "Parents"
 msgstr "Rodiče"
 
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
+msgid "Unable to display changes for binary file"
+msgstr "Pro binární soubor nelze zobrazit změny"
+
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
 msgstr "Šířka tabulátoru:"
@@ -1762,6 +1777,8 @@ msgid ""
 "disk)"
 msgstr "Odstranit repozitář ze seznamu (nesmaže repozitář z disku)"
 
-#: ../plugins/files/resources/view-files.ui.h:1
-msgid "column"
-msgstr "sloupec"
+#~ msgid "_Help"
+#~ msgstr "_Nápověda"
+
+#~ msgid "column"
+#~ msgstr "sloupec"
