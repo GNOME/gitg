@@ -60,6 +60,7 @@ namespace GitgCommit
 			set
 			{
 				reload();
+				notify_property("enabled");
 			}
 		}
 
@@ -69,6 +70,14 @@ namespace GitgCommit
 			                          "repository", BindingFlags.DEFAULT);
 
 			d_externally_changed_id = application.repository_changed_externally.connect(repository_changed_externally);
+		}
+
+		public bool enabled
+		{
+			get
+			{
+				return application.repository != null && !application.repository.is_bare;
+			}
 		}
 
 		public override void dispose()
