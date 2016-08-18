@@ -192,6 +192,16 @@ public class Gitg.DiffView : Gtk.Grid
 		d_diff_view_options.view = this;
 	}
 
+	public override void dispose()
+	{
+		if (d_cancellable != null)
+		{
+			d_cancellable.cancel();
+		}
+
+		base.dispose();
+	}
+
 	private void parent_commit_changed()
 	{
 		update(false);
