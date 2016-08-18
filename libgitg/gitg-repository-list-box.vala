@@ -402,6 +402,8 @@ namespace Gitg
 
 				row.repository = repository;
 				row.loading = false;
+
+				connect_repository_row(row);
 			}
 			else
 			{
@@ -422,6 +424,38 @@ namespace Gitg
 			return row;
 		}
 
+		private void connect_repository_row(Row row)
+		{
+			var repository = row.repository;
+			var workdir = repository.workdir != null ? repository.workdir : repository.location;
+
+			if (workdir != null)
+			{
+				bind_property("mode", row, "mode");
+
+				row.notify["selected"].connect(() => {
+					notify_property("has-selection");
+				});
+
+				row.request_remove.connect(() => {
+					try
+					{
+						var recent_manager = Gtk.RecentManager.get_default();
+						recent_manager.remove_item(workdir.get_uri());
+					} catch {}
+
+					remove(row);
+				});
+
+				row.can_remove = true;
+			}
+			else
+			{
+				row.can_remove = false;
+			}
+
+		}
+
 		public Row? add_repository(Repository repository)
 		{
 			Row? row = get_row_for_repository(repository);
@@ -434,33 +468,7 @@ namespace Gitg
 				row = new Row(repository, dirname);
 				row.show();
 
-				if (f != null)
-				{
-					bind_property("mode", row, "mode");
-				}
-
-				if (f != null)
-				{
-					row.notify["selected"].connect(() => {
-						notify_property("has-selection");
-					});
-
-					row.request_remove.connect(() => {
-						try
-						{
-							var recent_manager = Gtk.RecentManager.get_default();
-							recent_manager.remove_item(f.get_uri());
-						} catch {}
-
-						remove(row);
-					});
-
-					row.can_remove = true;
-				}
-				else
-				{
-					row.can_remove = false;
-				}
+				connect_repository_row(row);
 
 				add(row);
 			}
