@@ -287,7 +287,7 @@ class Gitg.DiffViewFileSelectable : Object
 		width = win.get_width();
 		height = win.get_height();
 
-		var pointer = Gdk.Display.get_default().get_device_manager().get_client_pointer();
+		var pointer = Gdk.Display.get_default().get_default_seat().get_pointer();
 		win.get_device_position(pointer, out x, out y, null);
 
 		if (x < 0 || y < 0 || x > width || y > height)
