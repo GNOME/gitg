@@ -33,7 +33,9 @@ public class CredentialsManager
 	private bool d_save_user_in_config;
 	private string d_last_user;
 	private Gee.HashMap<string, Ggit.Credtype> d_auth_tried;
+
 	private static Secret.Schema s_secret_schema;
+	private static Regex s_ssh_short_form;
 
 	static construct
 	{
@@ -42,6 +44,11 @@ public class CredentialsManager
 		                                    "scheme", Secret.SchemaAttributeType.STRING,
 		                                    "host", Secret.SchemaAttributeType.STRING,
 		                                    "user", Secret.SchemaAttributeType.STRING);
+
+		try
+		{
+			s_ssh_short_form = new Regex("^(?:[^: /@]+)@(?P<host>[^:]+)");
+		} catch (Error e) { stderr.printf("regex err: %s\n", e.message); }
 	}
 
 	public CredentialsManager(Ggit.Config? config, Gtk.Window window, bool save_user_in_config)
@@ -93,7 +100,11 @@ public class CredentialsManager
 		AuthenticationLifeTime lifetime = AuthenticationLifeTime.FORGET;
 
 		Idle.add(() => {
-			var d = new AuthenticationDialog(url, username, d_auth_tried[username] != 0);
+			// Skip SSH_KEY in terms of tried since that might just fail if
+			// there is no key and that's not informative to the user
+			var tried = d_auth_tried[username] & ~Ggit.Credtype.SSH_KEY;
+
+			var d = new AuthenticationDialog(url, username, tried != 0);
 			d.set_transient_for(d_window);
 
 			response = (Gtk.ResponseType)d.run();
@@ -199,15 +210,35 @@ public class CredentialsManager
 	{
 		string? user;
 
-		var uri = new Soup.URI(url);
-		var host = uri.get_host();
+		string host = "local";
+		string scheme = "file";
 
-		if (!uri.uses_default_port())
+		if (!("://" in url))
 		{
-			host = @"$(host):$(uri.get_port())";
-		}
+			MatchInfo minfo;
 
-		var scheme = uri.get_scheme();
+			if (s_ssh_short_form.match(url, 0, out minfo))
+			{
+				scheme = "ssh";
+				host = minfo.fetch_named("host");
+			}
+		}
+		else
+		{
+			var uri = new Soup.URI(url);
+
+			if (uri != null)
+			{
+				host = uri.get_host();
+
+				if (!uri.uses_default_port())
+				{
+					host = @"$(host):$(uri.get_port())";
+				}
+		
+				scheme = uri.get_scheme();
+			}
+		}
 
 		if (username == null)
 		{
