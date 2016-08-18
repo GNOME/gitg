@@ -31,10 +31,9 @@ class Gitg.DiffViewFileSelectable : Object
 	private Gtk.TextMark d_start_selection_mark;
 	private Gtk.TextMark d_end_selection_mark;
 	private Gee.HashMap<int, bool> d_originally_selected;
-	private Gdk.Cursor d_subtract_cursor_ptr;
-	private Gdk.Cursor d_subtract_cursor_hand;
 	private Gdk.Cursor d_cursor_ptr;
 	private Gdk.Cursor d_cursor_hand;
+	private bool d_is_rubber_band;
 
 	public Gtk.SourceView source_view
 	{
@@ -93,42 +92,12 @@ class Gitg.DiffViewFileSelectable : Object
 		update_theme();
 
 		d_originally_selected = new Gee.HashMap<int, bool>();
-	}
 
-	private Gdk.Cursor composite_subtract_cursor(Gdk.CursorType cursor)
-	{
-		int width, height, hot_x, hot_y;
+		Gtk.TextIter start;
+		source_view.buffer.get_start_iter(out start);
 
-		var surface = PlatformSupport.create_cursor_surface(source_view.get_display(),
-		                                                    cursor,
-		                                                    out hot_x,
-		                                                    out hot_y,
-		                                                    out width,
-		                                                    out height);
-
-		if (surface == null)
-		{
-			return new Gdk.Cursor.for_display(source_view.get_display(), cursor);
-		}
-
-		var ctx = new Cairo.Context(surface);
-
-		ctx.set_line_width(1);
-
-		const int margin = 2;
-		const int length = 5;
-
-		ctx.set_source_rgb(0, 0, 0);
-		ctx.move_to(width - margin - length + 0.5, margin - (length - 1) / 2 + 0.5);
-		ctx.rel_line_to(length, 0);
-		ctx.stroke();
-
-		ctx.set_source_rgb(1, 1, 1);
-		ctx.move_to(width - margin - length + 0.5, margin - (length - 1) / 2 + 1.5);
-		ctx.rel_line_to(length, 0);
-		ctx.stroke();
-
-		return new Gdk.Cursor.from_surface(source_view.get_display(), surface, hot_x, hot_y);
+		d_start_selection_mark = source_view.buffer.create_mark(null, start, false);
+		d_end_selection_mark = source_view.buffer.create_mark(null, start, false);
 	}
 
 	private Gdk.Cursor cursor_ptr
@@ -157,34 +126,6 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 	}
 
-	private Gdk.Cursor subtract_cursor_ptr
-	{
-		owned get
-		{
-			if (d_subtract_cursor_ptr == null)
-			{
-				d_subtract_cursor_ptr = composite_subtract_cursor(Gdk.CursorType.LEFT_PTR);
-			}
-
-			
-			return d_subtract_cursor_ptr;
-		}
-	}
-
-	private Gdk.Cursor subtract_cursor_hand
-	{
-		owned get
-		{
-			if (d_subtract_cursor_hand == null)
-			{
-				d_subtract_cursor_hand = composite_subtract_cursor(Gdk.CursorType.HAND1);
-			}
-
-			
-			return d_subtract_cursor_hand;
-		}
-	}
-
 	private void update_cursor(Gdk.Cursor cursor)
 	{
 		var window = source_view.get_window(Gtk.TextWindowType.TEXT);
@@ -195,29 +136,6 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 
 		window.set_cursor(cursor);
-	}
-
-	private void update_cursor_for_state(Gdk.ModifierType state)
-	{
-		Gtk.TextIter iter;
-		
-		var is_hunk = get_iter_from_pointer_position(out iter) && get_line_is_hunk(iter);
-
-		if ((state & Gdk.ModifierType.MOD1_MASK) != 0 || d_selection_mode == DiffSelectionMode.DESELECTING)
-		{
-			if (is_hunk)
-			{
-				update_cursor(subtract_cursor_hand);
-			}
-			else
-			{
-				update_cursor(subtract_cursor_ptr);
-			}
-		}
-		else
-		{
-			update_cursor(is_hunk ? cursor_hand : cursor_ptr);
-		}
 	}
 
 	private void update_theme()
@@ -317,7 +235,14 @@ class Gitg.DiffViewFileSelectable : Object
 		real_start = start;
 		real_end = end;
 
-		real_start.order(real_end);
+		if (real_start.compare(real_end) > 0)
+		{
+			var tmp = real_end;
+
+			real_end = real_start;
+			real_start = tmp;
+		}
+
 		real_start.set_line_offset(0);
 
 		if (!real_end.ends_line())
@@ -393,18 +318,46 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 	}
 
+	private void forward_to_hunk_end(ref Gtk.TextIter iter)
+	{
+		iter.forward_line();
+
+		var buffer = source_view.buffer as Gtk.SourceBuffer;
+
+		if (!buffer.forward_iter_to_source_mark(ref iter, "header"))
+		{
+			iter.forward_to_end();
+		}
+	}
+
+	private bool hunk_is_all_selected(Gtk.TextIter iter)
+	{
+		var start = iter;
+		start.forward_line();
+
+		var end = iter;
+		forward_to_hunk_end(ref end);
+
+		while (start.compare(end) <= 0)
+		{
+			if (get_line_is_diff(start) && !get_line_selected(start))
+			{
+				return false;
+			}
+
+			if (!start.forward_line())
+			{
+				break;
+			}
+		}
+
+		return true;
+	}
+
 	private void update_selection_hunk(Gtk.TextIter iter, bool select)
 	{
 		var end = iter;
-
-		end.forward_line();
-
-		var buffer = source_view.buffer as Gtk.SourceBuffer;
-		
-		if (!buffer.forward_iter_to_source_mark(ref end, "header"))
-		{
-			end.forward_to_end();
-		}
+		forward_to_hunk_end(ref end);
 
 		update_selection_range(iter, end, select);
 	}
@@ -423,13 +376,23 @@ class Gitg.DiffViewFileSelectable : Object
 			return false;
 		}
 
-		var select = (event.state & Gdk.ModifierType.MOD1_MASK) == 0;
+		var buffer = source_view.buffer;
+
+		if ((event.state & Gdk.ModifierType.SHIFT_MASK) != 0)
+		{
+			update_selection(iter);
+			return true;
+		}
 
 		if (get_line_is_hunk(iter))
 		{
-			update_selection_hunk(iter, select);
+			update_selection_hunk(iter, !hunk_is_all_selected(iter));
 			return true;
 		}
+
+		d_is_rubber_band = true;
+
+		var select = !get_line_selected(iter);
 
 		if (select)
 		{
@@ -440,13 +403,12 @@ class Gitg.DiffViewFileSelectable : Object
 			d_selection_mode = DiffSelectionMode.DESELECTING;
 		}
 
-		var buffer = source_view.buffer;
+		d_originally_selected.clear();
 
-		d_start_selection_mark = buffer.create_mark(null, iter, false);
-		d_end_selection_mark = buffer.create_mark(null, iter, false);
+		buffer.move_mark(d_start_selection_mark, iter);
+		buffer.move_mark(d_end_selection_mark, iter);
 
 		update_selection(iter);
-		update_cursor_for_state(event.state);
 
 		return true;
 	}
@@ -486,9 +448,16 @@ class Gitg.DiffViewFileSelectable : Object
 			return false;
 		}
 
-		update_cursor_for_state(state);
+		if (d_is_rubber_band || (get_line_is_diff(iter) || get_line_is_hunk(iter)))
+		{
+			update_cursor(cursor_hand);
+		}
+		else
+		{
+			update_cursor(cursor_ptr);
+		}
 
-		if (d_selection_mode == DiffSelectionMode.NONE)
+		if (!d_is_rubber_band)
 		{
 			return false;
 		}
@@ -538,29 +507,14 @@ class Gitg.DiffViewFileSelectable : Object
 
 	private bool button_release_event_on_view(Gdk.EventButton event)
 	{
+		d_is_rubber_band = false;
+
 		if (event.button != 1)
 		{
 			return false;
 		}
 
-		d_selection_mode = DiffSelectionMode.NONE;
-
-		var buffer = source_view.buffer;
-
-		if (d_start_selection_mark != null)
-		{
-			buffer.delete_mark(d_start_selection_mark);
-			d_start_selection_mark = null;
-		}
-
-		if (d_end_selection_mark != null)
-		{
-			buffer.delete_mark(d_end_selection_mark);
-			d_end_selection_mark = null;
-		}
-
 		update_has_selection();
-		d_originally_selected.clear();
 
 		return true;
 	}
