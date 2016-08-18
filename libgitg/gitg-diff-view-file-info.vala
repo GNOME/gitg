@@ -28,7 +28,8 @@ class Gitg.DiffViewFileInfo : Object
 			return;
 		}
 
-		var location = repository.get_workdir().get_child(path);
+		var workdir = repository.get_workdir();
+		File location = workdir != null ? workdir.get_child(path) : null;
 
 		if (!from_workdir)
 		{
@@ -46,7 +47,7 @@ class Gitg.DiffViewFileInfo : Object
 			var bytes = new Bytes(blob.get_raw_content());
 			new_file_input_stream = new GLib.MemoryInputStream.from_bytes(bytes);
 		}
-		else
+		else if (location != null)
 		{
 			// Try to read from disk
 			try
@@ -64,7 +65,7 @@ class Gitg.DiffViewFileInfo : Object
 		if (seekable != null && seekable.can_seek())
 		{
 			// Read a little bit of content to guess the type
-			yield guess_content_type(new_file_input_stream, location.get_basename(), cancellable);
+			yield guess_content_type(new_file_input_stream, location != null ? location.get_basename() : null, cancellable);
 
 			try
 			{

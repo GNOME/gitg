@@ -283,7 +283,14 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			return null;
 		}
 
-		return repository.get_workdir().get_child(path);
+		var workdir = repository.get_workdir();
+
+		if (workdir == null)
+		{
+			return null;
+		}
+
+		return workdir.get_child(path);
 	}
 
 	private async void init_highlighting_buffer_new(Cancellable cancellable)
@@ -373,7 +380,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private async Gtk.SourceBuffer? init_highlighting_buffer_from_stream(Ggit.DiffFile file, File location, InputStream stream, string content_type, Cancellable cancellable)
 	{
 		var manager = Gtk.SourceLanguageManager.get_default();
-		var language = manager.guess_language(location.get_basename(), content_type);
+		var language = manager.guess_language(location != null ? location.get_basename() : null, content_type);
 
 		if (language == null)
 		{
