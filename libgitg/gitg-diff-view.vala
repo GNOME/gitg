@@ -38,6 +38,9 @@ public class Gitg.DiffView : Gtk.Grid
 	[GtkChild( name = "diff_view_options" )]
 	private DiffViewOptions d_diff_view_options;
 
+	[GtkChild( name = "text_view_message" )]
+	private Gtk.TextView d_text_view_message;
+
 	private Ggit.Diff? d_diff;
 	private Commit? d_commit;
 	private Ggit.DiffOptions? d_options;
@@ -217,6 +220,29 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
+	private static Regex s_message_regexp;
+
+	static construct
+	{
+		try
+		{
+			s_message_regexp = new Regex(".*[\\R\\s]*(?P<message>(?:.|\\R)*?)\\s*$");
+		} catch (Error e) { stderr.printf(@"Failed to compile regex: $(e.message)\n"); }
+	}
+
+	private string message_without_subject(Commit commit)
+	{
+		var message = commit.get_message();
+		MatchInfo minfo;
+
+		if (s_message_regexp.match(message, 0, out minfo))
+		{
+			return minfo.fetch_named("message");
+		}
+
+		return "";
+	}
+
 	private void update(bool preserve_expanded)
 	{
 		// If both `d_diff` and `d_commit` are null, clear
@@ -262,11 +288,18 @@ public class Gitg.DiffView : Gtk.Grid
 
 			d_diff = d_commit.get_diff(options, parent);
 			d_commit_details.show();
+
+			var message = message_without_subject(d_commit);
+
+			d_text_view_message.buffer.set_text(message);
+			d_text_view_message.visible = (message != "");
 		}
 		else
 		{
 			d_commit_details.commit = null;
 			d_commit_details.hide();
+
+			d_text_view_message.hide();
 		}
 
 		if (d_diff != null)

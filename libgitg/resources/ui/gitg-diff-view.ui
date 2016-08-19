@@ -41,11 +41,36 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkGrid" id="grid_files">
+                      <object class="GtkGrid" id="grid_content">
                         <property name="visible">True</property>
                         <property name="orientation">vertical</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
+                        <child>
+                          <object class="GtkTextView" id="text_view_message">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="editable">False</property>
+                            <property name="cursor_visible">False</property>
+                            <property name="hexpand">True</property>
+                            <property name="pixels_above_lines">1</property>
+                            <property name="pixels_below_lines">1</property>
+                            <property name="margin_bottom">6</property>
+                            <property name="margin_start">18</property>
+                            <property name="margin_end">18</property>
+                            <style>
+                              <class name="commit-message"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkGrid" id="grid_files">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="can_focus">False</property>
+                            <property name="hexpand">True</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
