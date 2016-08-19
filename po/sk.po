@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-08-16 16:02+0000\n"
-"PO-Revision-Date: 2016-08-16 21:21+0200\n"
+"POT-Creation-Date: 2016-08-19 08:55+0000\n"
+"PO-Revision-Date: 2016-08-19 11:25+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <>\n"
 "Language: sk\n"
@@ -348,41 +348,41 @@ msgid "Cannot set spell checking language: %s"
 msgstr "Nie je možné nastaviť jazyk kontroly pravopisu: %s"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:508
-#: ../gitg/commit/gitg-commit.vala:1067
+#: ../gitg/commit/gitg-commit.vala:1076
 msgid "There are no changes to be committed"
 msgstr "Nie sú žiadne zmeny na začlenenie"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:509
-#: ../gitg/commit/gitg-commit.vala:1068
+#: ../gitg/commit/gitg-commit.vala:1077
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Na zmenu správy predchádzajúceho začlenenia použite Pozmeniť"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=746633
-#: ../gitg/commit/gitg-commit.vala:104
+#: ../gitg/commit/gitg-commit.vala:113
 msgctxt "Activity"
 msgid "Commit"
 msgstr "Začleniť"
 
 # tooltip
-#: ../gitg/commit/gitg-commit.vala:109
+#: ../gitg/commit/gitg-commit.vala:118
 msgid "Create new commits and manage the staging area"
 msgstr "Vytvorí nové začlenenia a spravuje zoznam pripravených"
 
-#: ../gitg/commit/gitg-commit.vala:184
+#: ../gitg/commit/gitg-commit.vala:193
 msgid "_Stage selection"
 msgstr "Výber do _pripravených"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:232
 #, c-format
 msgid "Failed to stage the removal of submodule `%s'"
 msgstr "Zlyhala príprava odstránenia podmodulu „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:239
+#: ../gitg/commit/gitg-commit.vala:248
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr "Zlyhalo otvorenie repozitára podmodulu „%s“ počas pokusu o prípravu"
 
-#: ../gitg/commit/gitg-commit.vala:253
+#: ../gitg/commit/gitg-commit.vala:262
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
@@ -393,104 +393,104 @@ msgstr ""
 
 # DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
 # PV: Moja chyba, opravené
-#: ../gitg/commit/gitg-commit.vala:266
+#: ../gitg/commit/gitg-commit.vala:275
 #, c-format
 msgid "Failed to stage the submodule `%s'"
 msgstr "Zlyhala príprava podmodulu „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:288
+#: ../gitg/commit/gitg-commit.vala:297
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Zlyhala príprava odstránenia súboru „%s“"
 
 # DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
 # PV: Moja chyba, opravené
-#: ../gitg/commit/gitg-commit.vala:302
+#: ../gitg/commit/gitg-commit.vala:311
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Zlyhala príprava súboru „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:574
+#: ../gitg/commit/gitg-commit.vala:583
 msgid "_Unstage selection"
 msgstr "Výber do _nepripravených"
 
-#: ../gitg/commit/gitg-commit.vala:640
+#: ../gitg/commit/gitg-commit.vala:649
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Nepodarilo sa zrušiť prípravu na odstránenie súboru „%s“"
 
 # DK:toto sa mi nepozdava.malo by tu ist o to, ze text od-pripravy, cize nieco ako vrati do povodneho stavu alebo co.
 # PV: No neviem. Vrátenie do pôvodného stavu je checkout. Stage znamená zaradiť do zoznamu na začlenenie. Unstage by teda mal byť opak.
-#: ../gitg/commit/gitg-commit.vala:641
+#: ../gitg/commit/gitg-commit.vala:650
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Zlyhalo zrušenie prípravy súboru „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:648
+#: ../gitg/commit/gitg-commit.vala:657
 #, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "Zlyhalo zrušenie prípravy odstránenia podmodulu „%s“"
 
 # DK:toto sa mi nepozdava.malo by tu ist o to, ze text od-pripravy, cize nieco ako vrati do povodneho stavu alebo co.
 # PV: No neviem. Vrátenie do pôvodného stavu je checkout. Stage znamená zaradiť do zoznamu na začlenenie. Unstage by teda mal byť opak.
-#: ../gitg/commit/gitg-commit.vala:649
+#: ../gitg/commit/gitg-commit.vala:658
 #, c-format
 msgid "Failed to unstage the submodule `%s'"
 msgstr "Zlyhalo zrušenie prípravy podmodulu „%s“"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:853
+#: ../gitg/commit/gitg-commit.vala:862
 msgid "Staged"
 msgstr "Pripravené"
 
-#: ../gitg/commit/gitg-commit.vala:861
+#: ../gitg/commit/gitg-commit.vala:870
 msgid "No staged files"
 msgstr "Žiadne pripravené súbory"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:884
+#: ../gitg/commit/gitg-commit.vala:893
 msgid "Unstaged"
 msgstr "Nepripravené"
 
-#: ../gitg/commit/gitg-commit.vala:892
+#: ../gitg/commit/gitg-commit.vala:901
 msgid "No unstaged files"
 msgstr "Žiadne nepripravené súbory"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:915
+#: ../gitg/commit/gitg-commit.vala:924
 msgid "Untracked"
 msgstr "Nesledované"
 
-#: ../gitg/commit/gitg-commit.vala:919
+#: ../gitg/commit/gitg-commit.vala:928
 msgid "No untracked files"
 msgstr "Žiadne nesledované súbory"
 
-#: ../gitg/commit/gitg-commit.vala:944
+#: ../gitg/commit/gitg-commit.vala:953
 msgid "Submodule"
 msgstr "Podmodul"
 
-#: ../gitg/commit/gitg-commit.vala:948
+#: ../gitg/commit/gitg-commit.vala:957
 msgid "No dirty submodules"
 msgstr "Žiadne podmoduly v nečistom stave"
 
-#: ../gitg/commit/gitg-commit.vala:1095
+#: ../gitg/commit/gitg-commit.vala:1106
 msgid "Failed to commit"
 msgstr "Začlenenie zlyhalo"
 
-#: ../gitg/commit/gitg-commit.vala:1111
+#: ../gitg/commit/gitg-commit.vala:1122
 msgid "Failed to pass pre-commit"
 msgstr "Nepodarilo sa postúpiť k začleneniu"
 
-#: ../gitg/commit/gitg-commit.vala:1314 ../gitg/commit/gitg-commit.vala:1464
+#: ../gitg/commit/gitg-commit.vala:1330 ../gitg/commit/gitg-commit.vala:1480
 msgid "Discard changes"
 msgstr "Zahodiť zmeny"
 
-#: ../gitg/commit/gitg-commit.vala:1315
+#: ../gitg/commit/gitg-commit.vala:1331
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Ste si istý, že chcete natrvalo zahodiť všetky označené zmeny?"
 
-#: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
-#: ../gitg/commit/gitg-commit.vala:1605
+#: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
+#: ../gitg/commit/gitg-commit.vala:1621
 #: ../gitg/gitg-commit-action-create-patch.vala:145
 #: ../gitg/gitg-dash-view.vala:442 ../gitg/gitg-window.vala:189
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
@@ -503,27 +503,27 @@ msgstr "Ste si istý, že chcete natrvalo zahodiť všetky označené zmeny?"
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
-#: ../gitg/commit/gitg-commit.vala:1325 ../gitg/commit/gitg-commit.vala:1491
+#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
 msgid "Discard"
 msgstr "Zahodiť"
 
-#: ../gitg/commit/gitg-commit.vala:1354
+#: ../gitg/commit/gitg-commit.vala:1370
 msgid "Failed to discard selection"
 msgstr "Nepodarilo sa zahodiť vybraté súbory"
 
-#: ../gitg/commit/gitg-commit.vala:1384
+#: ../gitg/commit/gitg-commit.vala:1400
 msgid "Failed to stage selection"
 msgstr "Príprava vybratých súborov zlyhala"
 
-#: ../gitg/commit/gitg-commit.vala:1388
+#: ../gitg/commit/gitg-commit.vala:1404
 msgid "Failed to unstage selection"
 msgstr "Zrušenie prípravy vybratých súborov zlyhalo"
 
-#: ../gitg/commit/gitg-commit.vala:1448
+#: ../gitg/commit/gitg-commit.vala:1464
 msgid "Failed to discard changes"
 msgstr "Zahodenie zmien zlyhalo"
 
-#: ../gitg/commit/gitg-commit.vala:1469
+#: ../gitg/commit/gitg-commit.vala:1485
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
@@ -531,7 +531,7 @@ msgid ""
 msgstr ""
 "Ste si istý, že chcete natrvalo zahodiť všetky zmeny vykonané v súbore „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1480
+#: ../gitg/commit/gitg-commit.vala:1496
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -539,47 +539,47 @@ msgid ""
 msgstr ""
 "Ste si istý, že chcete natrvalo zahodiť zmeny vykonané v súboroch %s a „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1563
+#: ../gitg/commit/gitg-commit.vala:1579
 msgid "Failed to delete files"
 msgstr "Zlyhalo odstránenie súborov"
 
-#: ../gitg/commit/gitg-commit.vala:1579
+#: ../gitg/commit/gitg-commit.vala:1595
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Odstrániť súbory"
 msgstr[1] "Odstrániť súbor"
 msgstr[2] "Odstrániť súbory"
 
-#: ../gitg/commit/gitg-commit.vala:1584
+#: ../gitg/commit/gitg-commit.vala:1600
 #, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "Ste si istý, že chcete natrvalo odstrániť súbor „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1595
+#: ../gitg/commit/gitg-commit.vala:1611
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Ste si istý, že chcete natrvalo odstrániť súbory „%s“ a „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1641
+#: ../gitg/commit/gitg-commit.vala:1657
 msgid "_Stage changes"
 msgstr "Zmeny do _pripravených"
 
-#: ../gitg/commit/gitg-commit.vala:1653
+#: ../gitg/commit/gitg-commit.vala:1669
 msgid "_Unstage changes"
 msgstr "Zmeny do _nepripravených"
 
-#: ../gitg/commit/gitg-commit.vala:1665
+#: ../gitg/commit/gitg-commit.vala:1681
 msgid "_Discard changes"
 msgstr "Zaho_diť zmeny"
 
-#: ../gitg/commit/gitg-commit.vala:1677
+#: ../gitg/commit/gitg-commit.vala:1693
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "O_dstrániť súbory"
 msgstr[1] "O_dstrániť súbor"
 msgstr[2] "O_dstrániť súbory"
 
-#: ../gitg/commit/gitg-commit.vala:1707
+#: ../gitg/commit/gitg-commit.vala:1723
 msgid "_Edit file"
 msgstr "_Upraviť súbor"
 
@@ -708,24 +708,24 @@ msgstr ""
 
 # menu item
 #. ex: ts=4 noet
-#: ../gitg/gitg-author-details-dialog.vala:85
-#: ../gitg/gitg-author-details-dialog.vala:105
+#: ../gitg/gitg-author-details-dialog.vala:97
+#: ../gitg/gitg-author-details-dialog.vala:117
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
 msgid "Author Details"
 msgstr "Podrobnosti o autorovi"
 
-#: ../gitg/gitg-author-details-dialog.vala:86
+#: ../gitg/gitg-author-details-dialog.vala:98
 msgid "Enter default details used for all repositories:"
 msgstr ""
 "Zadajte predvolené podrobnosti, ktoré sa použijú pre všetky repozitáre:"
 
 #. Translators: %s is the repository name
-#: ../gitg/gitg-author-details-dialog.vala:108
+#: ../gitg/gitg-author-details-dialog.vala:120
 #, c-format
 msgid "Override global details for repository '%s':"
 msgstr "Nahradiť globálne podrobnosti pre repozitár „%s“:"
 
-#: ../gitg/gitg-author-details-dialog.vala:220
+#: ../gitg/gitg-author-details-dialog.vala:232
 msgid "Failed to set Git user config."
 msgstr "Nie je možné nastaviť preferencie užívatela Git"
 
@@ -1272,18 +1272,18 @@ msgstr "Vetvy"
 msgid "Remotes"
 msgstr "Vzdialené vetvy"
 
-#: ../gitg/history/gitg-history.vala:316
+#: ../gitg/history/gitg-history.vala:342
 #: ../gitg/preferences/gitg-preferences-history.vala:218
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "History"
 msgstr "História"
 
 # tooltip
-#: ../gitg/history/gitg-history.vala:321
+#: ../gitg/history/gitg-history.vala:347
 msgid "Examine the history of the repository"
 msgstr "Preskúma históriu repozitára"
 
-#: ../gitg/history/gitg-history.vala:817
+#: ../gitg/history/gitg-history.vala:843
 msgid "Mainline"
 msgstr "Hlavná línia"
 
@@ -1379,6 +1379,18 @@ msgstr "Rozbaliť všetko"
 msgid "Committed by %s"
 msgstr "Začlenil/-a %s"
 
+#: ../libgitg/gitg-diff-view-file.vala:172
+msgid "_Open file"
+msgstr "_Otvoriť súbor"
+
+#: ../libgitg/gitg-diff-view-file.vala:204
+msgid "Open containing _folder"
+msgstr "Otvo_riť priečinok s obsahom"
+
+#: ../libgitg/gitg-diff-view-file.vala:224
+msgid "_Copy file path"
+msgstr "_Kopírovať cestu k súboru"
+
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:154
 #, c-format
@@ -1391,7 +1403,7 @@ msgstr "do %s"
 msgid "%s at %s"
 msgstr "%s do %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:416
+#: ../libgitg/gitg-repository-list-box.vala:418
 msgid "Cloning…"
 msgstr "Klonuje sa…"
 
@@ -1401,12 +1413,12 @@ msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
 "Nie je možné prečítať správu začlenenia po spustení háčika commit-msg: %s"
 
-#: ../plugins/diff/gitg-diff.vala:112
+#: ../plugins/diff/gitg-diff.vala:115
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:11
 msgid "Diff"
 msgstr "Rozdiel"
 
-#: ../plugins/diff/gitg-diff.vala:117
+#: ../plugins/diff/gitg-diff.vala:120
 msgid "Show the changes introduced by the selected commit"
 msgstr "Zobrazí zmeny zavedené vybratým začlenením"
 
@@ -1868,9 +1880,6 @@ msgstr "Odstrániť repozitár zo zoznamu (neodstráni súbory z disku)"
 
 #~ msgid "Unable to open the .gitconfig file."
 #~ msgstr "Nie je možné otvoriť súbor .gitconfig."
-
-#~ msgid "_Open"
-#~ msgstr "_Otvoriť"
 
 #~ msgid "Note: The Git config file '%s' does not exist."
 #~ msgstr "Poznámka: Súbor „%s“ s nastaveniami Git neexistuje."
