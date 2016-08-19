@@ -154,6 +154,111 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 
 		d_expander.bind_property("expanded", this, "expanded", BindingFlags.BIDIRECTIONAL);
+
+		if (repository != null && !repository.is_bare)
+		{
+			d_expander.popup_menu.connect(expander_popup_menu);
+			d_expander.button_press_event.connect(expander_button_press_event);
+		}
+	}
+
+	private void show_popup(Gdk.EventButton? event)
+	{
+		var menu = new Gtk.Menu();
+
+		var oldpath = delta.get_old_file().get_path();
+		var newpath = delta.get_new_file().get_path();
+
+		var open_file = new Gtk.MenuItem.with_mnemonic(_("_Open file"));
+		open_file.show();
+
+		File? location = null;
+
+		if (newpath != null && newpath != "")
+		{
+			location = repository.get_workdir().get_child(newpath);
+		}
+		else if (oldpath != null && oldpath != "")
+		{
+			location = repository.get_workdir().get_child(oldpath);
+		}
+
+		if (location == null)
+		{
+			return;
+		}
+
+		open_file.activate.connect(() => {
+			try
+			{
+				Gtk.show_uri(d_expander.get_screen(), location.get_uri(), Gdk.CURRENT_TIME);
+			}
+			catch (Error e)
+			{
+				stderr.printf(@"Failed to open file: $(e.message)\n");
+			}
+		});
+
+		menu.add(open_file);
+
+		var open_folder = new Gtk.MenuItem.with_mnemonic(_("Open containing _folder"));
+		open_folder.show();
+
+		open_folder.activate.connect(() => {
+			try
+			{
+				Gtk.show_uri(d_expander.get_screen(), location.get_parent().get_uri(), Gdk.CURRENT_TIME);
+			}
+			catch (Error e)
+			{
+				stderr.printf(@"Failed to open folder: $(e.message)\n");
+			}
+		});
+
+		menu.add(open_folder);
+
+		var separator = new Gtk.SeparatorMenuItem();
+		separator.show();
+		menu.add(separator);
+
+		var copy_file_path = new Gtk.MenuItem.with_mnemonic(_("_Copy file path"));
+		copy_file_path.show();
+
+		copy_file_path.activate.connect(() => {
+			var clip = d_expander.get_clipboard(Gdk.SELECTION_CLIPBOARD);
+			clip.set_text(location.get_path(), -1);
+		});
+
+		menu.add(copy_file_path);
+
+		uint button = 0;
+		uint evtime = Gdk.CURRENT_TIME;
+
+		if (event != null)
+		{
+			button = event.button;
+			evtime = event.time;
+		}
+
+		menu.attach_to_widget(d_expander, null);
+		menu.popup(null, null, null, button, evtime);
+	}
+
+	private bool expander_button_press_event(Gtk.Widget widget, Gdk.EventButton? event)
+	{
+		if (event.triggers_context_menu())
+		{
+			show_popup(event);
+			return true;
+		}
+
+		return false;
+	}
+
+	private bool expander_popup_menu(Gtk.Widget widget)
+	{
+		show_popup(null);
+		return true;
 	}
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
