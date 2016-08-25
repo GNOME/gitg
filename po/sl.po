@@ -10,18 +10,17 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-03-05 21:22+0100\n"
-"PO-Revision-Date: 2016-03-05 21:30+0100\n"
+"POT-Creation-Date: 2016-08-18 19:42+0200\n"
+"PO-Revision-Date: 2016-08-25 22:02+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
-"Language: sl\n"
+"Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:58
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -64,7 +63,7 @@ msgstr "Uporabi Gravatar"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
 msgid "Enable the use of gravatar to display user avatars."
-msgstr ""
+msgstr "Omogoči uporabo ikon gravatar za prikaz podob uporabnikov."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
 msgid "Enable Monitoring"
@@ -73,7 +72,7 @@ msgstr "Omogoči nadzor"
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:10
 msgid "Automatically update when external changes to .git are detected"
-msgstr ""
+msgstr "Samodejno posodobi vejo, ko so zaznane zunanje spremembe v .git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
 msgid "When to Collapse Inactive Lanes"
@@ -165,7 +164,7 @@ msgstr "Privzet izbor opravila iz zgodovine"
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
-msgstr ""
+msgstr "Nastavitev določa privzet izbor ob zagonu zgodovine dejanj."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
 msgid "Reference Sort Order"
@@ -173,7 +172,7 @@ msgstr "Sklicni način razvrščanja"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
 msgid "The order by which references in the history sidebar should be sorted."
-msgstr ""
+msgstr "Način razvrščanja sklicev v bočnem oknu zgodovine."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
 msgid "Show Right Margin in Commit Message View"
@@ -336,7 +335,7 @@ msgstr "Ustvari nove uveljavitve in upravljaj s spremembami v pripravljenosti"
 
 #: ../gitg/commit/gitg-commit.vala:184
 msgid "_Stage selection"
-msgstr "_Izbor datotek v pripravljenosti"
+msgstr "_Izberi datoteke v pripravljenosti"
 
 #: ../gitg/commit/gitg-commit.vala:222
 #, c-format
@@ -378,7 +377,7 @@ msgstr "Postavljanje datoteke `%s' v pripravljenost je spodletelo."
 
 #: ../gitg/commit/gitg-commit.vala:572
 msgid "_Unstage selection"
-msgstr "_Odstranitev datotek iz pripravljenosti"
+msgstr "_Odstrani datotek iz pripravljenosti"
 
 #: ../gitg/commit/gitg-commit.vala:637
 #, c-format
@@ -514,14 +513,14 @@ msgstr[2] "Izbriši datoteki"
 msgstr[3] "Izbriši datoteke"
 
 #: ../gitg/commit/gitg-commit.vala:1581
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
-msgstr "Ali zares želite trajno izbrisati %s?"
+msgstr "Ali zares želite trajno izbrisati datoteko `%s'?"
 
 #: ../gitg/commit/gitg-commit.vala:1592
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
-msgstr "Ali zares želite trajno izbrisati %s?"
+msgstr "Ali zares želite trajno izbrisati datoteko `%s' in `%s'?"
 
 #: ../gitg/commit/gitg-commit.vala:1637
 msgid "_Stage changes"
@@ -548,20 +547,21 @@ msgid "_Edit file"
 msgstr "_Uredi datoteko"
 
 #: ../gitg/gitg-action-support.vala:93
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to stash changes: %s"
-msgstr "Založi neuveljavljene spremembe"
+msgstr "Zalaganje sprememb je spodletelo: %s"
 
 #: ../gitg/gitg-action-support.vala:128
-#, fuzzy
 msgid "Unstaged changes"
-msgstr "Pokaži spremembe počiščene pripravljenosti"
+msgstr "Spremembe počiščene pripravljenosti"
 
 #: ../gitg/gitg-action-support.vala:129
 msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
 msgstr ""
+"Videti je da so v delovni mapi spremembe počiščene pripravljenosti. Ali "
+"želite spremembe založiti pred prevzemanjem?"
 
 #: ../gitg/gitg-action-support.vala:131 ../gitg/gitg-ref-action-delete.vala:88
 #: ../gitg/gitg-ref-action-merge.vala:194
@@ -571,7 +571,6 @@ msgid "Cancel"
 msgstr "Prekliči"
 
 #: ../gitg/gitg-action-support.vala:132
-#, fuzzy
 msgid "Stash changes"
 msgstr "Založi določene spremembe"
 
@@ -584,11 +583,9 @@ msgid "Failed with conflicts"
 msgstr "Opravilo je spodletelo zaradi sporov"
 
 #: ../gitg/gitg-action-support.vala:179
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to checkout conflicts: %s"
-msgstr ""
-"\n"
-"Spori med prevzemom kode:\n"
+msgstr "Prevzemanje sporov je spodletelo: %s"
 
 #: ../gitg/gitg-application.vala:56
 msgid "Show the application's version"
@@ -636,9 +633,9 @@ msgstr "Vnesite privzete podrobnosti za vsa skladišča:"
 
 #. Translators: %s is the repository name
 #: ../gitg/gitg-author-details-dialog.vala:108
-#, fuzzy, c-format
+#, c-format
 msgid "Override global details for repository '%s':"
-msgstr "Vnesite podrobnosti za skladišče  '%s':"
+msgstr "Prepiši splošne podrobnosti za skladišče  '%s':"
 
 #: ../gitg/gitg-author-details-dialog.vala:220
 msgid "Failed to set Git user config."
@@ -708,13 +705,13 @@ msgstr "_Delete"
 #: ../gitg/gitg-dash-view.vala:247
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
-msgstr ""
+msgstr "Izveden bo tudi %spregled domače mape%s za skladišča git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: ../gitg/gitg-dash-view.vala:250
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
-msgstr ""
+msgstr "Medtem lahko nastavite %sprofil git%s."
 
 #: ../gitg/gitg-dash-view.vala:395
 msgid "Failed to clone repository"
@@ -735,6 +732,8 @@ msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
+"Mesto <i>%s</i> ni videti kot veljavno skladišče git. Ali želite skladišče "
+"na tem mestu vzpostaviti?"
 
 #: ../gitg/gitg-dash-view.vala:468
 msgid "Create repository"
@@ -759,42 +758,40 @@ msgstr "_Dodaj"
 
 #: ../gitg/gitg-dash-view.vala:601
 msgid "_Scan for all git repositories from this directory"
-msgstr ""
+msgstr "_Preišči mapo za skladišča git"
 
 #: ../gitg/gitg-ref-action-checkout.vala:48
 #: ../gitg/gitg-ref-action-merge.vala:195
-#, fuzzy
 msgid "Checkout"
-msgstr "poskusi vsiliti prevzem in autogen ob napaki"
+msgstr "Prevzemi"
 
 #: ../gitg/gitg-ref-action-checkout.vala:53
-#, fuzzy
 msgid "Checkout the selected reference"
-msgstr "Izbriši izbrane sklice"
+msgstr "Prevzemi izbrane sklice"
 
 #: ../gitg/gitg-ref-action-checkout.vala:72
-#, fuzzy, c-format
+#, c-format
 msgid "Checkout %s"
-msgstr "korena prevzema (%s) ni mogoče ustvariti"
+msgstr "Prevzemi %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:88
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to lookup commit: %s"
-msgstr "Iskanje za gostitelja '%s' ni uspelo: %s"
+msgstr "Iskanje objave je spodletelo: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:101
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to checkout branch: %s"
-msgstr "Brisanje veje %s je spodletelo"
+msgstr "Prevzemanje veje je spodletelo: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:111
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to update HEAD: %s"
-msgstr "Posodabljanje metapodatkov je spodletelo: %s"
+msgstr "Posodabljanje veje HEAD je spodletelo: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
-msgstr ""
+msgstr "Uspešno prevzeta veja v delovno mapo"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -917,14 +914,14 @@ msgstr "Združi v %s"
 
 #. TODO
 #: ../gitg/gitg-ref-action-merge.vala:69
-#, fuzzy, c-format
+#, c-format
 msgid "Merge another branch into branch %s"
-msgstr "Združi posamezno uveljavitev iz druge veje"
+msgstr "Združi drugo vejo v vejo %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:106
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to merge commits: %s"
-msgstr "Uveljavitev vključuje tudi neuspešno združevanje (uporabite -i)"
+msgstr "Združevanje objav je spodletelo: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:175
 #: ../gitg/gitg-ref-action-merge.vala:191
@@ -937,6 +934,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
+"Združevanje %s v %s je povzročilo spore. Ali želite prevzeti vejo %s in jo "
+"sočasno združiti v vašo delovno mapo za razreševanje napak?"
 
 #: ../gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -944,10 +943,12 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
 "merge to your working directory to resolve the conflicts?"
 msgstr ""
+"Združevanje %s v %s je povzročilo spore. Ali želite prevzeti vsebino v vašo "
+"delovno mapo za razreševanje napak?"
 
 #: ../gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
-msgstr ""
+msgstr "Združevanje sporov v delovni mapi je končano"
 
 #: ../gitg/gitg-ref-action-merge.vala:222
 #, c-format
@@ -955,14 +956,14 @@ msgid "Merge %s into %s"
 msgstr "Združi %s v %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:231
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to lookup our commit: %s"
-msgstr "Iskanje za gostitelja '%s' ni uspelo: %s"
+msgstr "Iskanje objave je spodletelo: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:241
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to lookup their commit: %s"
-msgstr "Iskanje za gostitelja '%s' ni uspelo: %s"
+msgstr "Iskanje objave je spodletelo: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:262
 msgid "Failed to obtain author details"
@@ -971,7 +972,7 @@ msgstr "Pridobivanje podatkov avtorja je spodletelo"
 #: ../gitg/gitg-ref-action-merge.vala:298
 #, c-format
 msgid "Failed to obtain HEAD tree: %s"
-msgstr ""
+msgstr "Pridobivanje drevesa HEAD je spodletelo: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:316
 #, c-format
@@ -979,9 +980,9 @@ msgid "Failed to create commit: %s"
 msgstr "Neuspešno ustvarjanje uveljavitve: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:338
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to checkout index: %s"
-msgstr "neveljavni način prevzema (modul: %s)"
+msgstr "Prevzemanje kazala je spodletelo: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:343
 #, c-format
@@ -1083,23 +1084,23 @@ msgstr "Zapri"
 
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
-msgstr ""
+msgstr "Privzeto izberi vse objave v zgodovini dejavnosti"
 
 #: ../gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
-msgstr ""
+msgstr "Privzeto izberi vse veje v zgodovini dejavnosti"
 
 #: ../gitg/history/gitg-history-command-line.vala:46
 msgid "Select all remotes by default in the history activity"
-msgstr ""
+msgstr "Privzeto izberi vsa oddaljena mesta v zgodovini dejavnosti"
 
 #: ../gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
-msgstr ""
+msgstr "Privzeto izberi vse oznake v zgodovini dejavnosti"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
-msgstr ""
+msgstr "Privzeto izberi določen sklic v zgodovini dejavnosti"
 
 #: ../gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
@@ -1410,6 +1411,8 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
+"Ni še dodanih skladišč. Za začetek lahko dodate obstoječe skladišče ali pa "
+"enega klonirate."
 
 #: ../gitg/resources/ui/gitg-dash-view.ui.h:2
 msgid "_Add repository"
@@ -1485,7 +1488,7 @@ msgstr "Sklici"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
 msgid "Sort references in the sidebar by latest activity"
-msgstr ""
+msgstr "Razvrsti sklice v bočnem oknu po zadnji dejavnosti"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Commits"
@@ -1537,7 +1540,7 @@ msgstr "Avatarji"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:8
 msgid "Use gravatar service to provide user avatars"
-msgstr ""
+msgstr "Uporabi storitev gravatar za prikaz podob uporabnikov"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:9
 msgid "Monitoring"
