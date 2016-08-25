@@ -260,6 +260,76 @@ namespace Gitg
 
 		public SelectionMode mode { get; set; }
 
+		public bool bookmarks_from_recent_files { get; set; default = true; }
+
+		private File? d_location;
+		private uint d_save_repository_bookmarks_id;
+		private BookmarkFile d_bookmark_file;
+
+		public File? location
+		{
+			get
+			{
+				return d_location;
+			}
+
+			set
+			{
+				if (d_save_repository_bookmarks_id != 0)
+				{
+					Source.remove(d_save_repository_bookmarks_id);
+					save_repository_bookmarks();
+				}
+
+				d_location = value;
+				d_bookmark_file = new BookmarkFile();
+
+				try
+				{
+					d_bookmark_file.load_from_file(value.get_path());
+				}
+				catch (FileError e)
+				{
+					if (bookmarks_from_recent_files)
+					{
+						// First time create, copy over from recent file manager
+						copy_bookmarks_from_recent_files();
+					}
+				}
+				catch (Error e)
+				{
+					stderr.printf(@"Failed to read repository bookmarks: $(e.message)\n");
+				}
+			}
+		}
+
+		private void copy_bookmarks_from_recent_files()
+		{
+			var manager = Gtk.RecentManager.get_default();
+			var items = manager.get_items();
+
+			foreach (var item in items)
+			{
+				if (!item.has_group("gitg"))
+				{
+					continue;
+				}
+
+				var uri = item.get_uri();
+
+				d_bookmark_file.set_mime_type(uri, item.get_mime_type());
+				d_bookmark_file.set_groups(uri, item.get_groups());
+				d_bookmark_file.set_visited(uri, (time_t)item.get_modified());
+
+				var app_name = Environment.get_application_name();
+				var app_exec = string.join(" ", Environment.get_prgname(), "%f");
+
+				try { d_bookmark_file.set_app_info(uri, app_name, app_exec, 1, -1); } catch {}
+			}
+
+			save_repository_bookmarks_timeout();
+		}
+
 		protected override bool button_press_event(Gdk.EventButton event)
 		{
 			Gdk.Event *ev = (Gdk.Event *)event;
@@ -305,6 +375,17 @@ namespace Gitg
 			show();
 
 			set_selection_mode(Gtk.SelectionMode.NONE);
+
+			d_bookmark_file = new BookmarkFile();
+		}
+
+		~RepositoryListBox()
+		{
+			if (d_save_repository_bookmarks_id != 0)
+			{
+				Source.remove(d_save_repository_bookmarks_id);
+				save_repository_bookmarks();
+			}
 		}
 
 		private void update_header(Gtk.ListBoxRow row, Gtk.ListBoxRow? before)
@@ -319,43 +400,47 @@ namespace Gitg
 
 		private int compare_widgets(Gtk.ListBoxRow a, Gtk.ListBoxRow b)
 		{
-			return - ((Row)a).time.compare(((Row)b).time);
+			return ((Row)b).time.compare(((Row)a).time);
 		}
 
-		public void populate_recent()
+		public void populate_bookmarks()
 		{
-			add_recent_info();
-		}
+			var uris = d_bookmark_file.get_uris();
 
-		private void add_recent_info()
-		{
-			var recent_manager = Gtk.RecentManager.get_default();
-			var reversed_items = recent_manager.get_items();
-			reversed_items.reverse();
-
-			foreach (var item in reversed_items)
+			foreach (var uri in uris)
 			{
-				if (item.has_group("gitg"))
-				{
-					File repo_file = File.new_for_uri(item.get_uri());
-					Repository repo;
-
-					try
+				try {
+					if (!d_bookmark_file.has_group(uri, "gitg"))
 					{
-						repo = new Repository(repo_file, null);
-					}
-					catch
-					{
-						try
-						{
-							recent_manager.remove_item(item.get_uri());
-						}
-						catch {}
 						continue;
 					}
+				} catch { continue; }
 
-					add_repository(repo);
+				File repo_file = File.new_for_uri(uri);
+				Repository repo;
+
+				try
+				{
+					repo = new Repository(repo_file, null);
 				}
+				catch
+				{
+					try
+					{
+						d_bookmark_file.remove_item(uri);
+					} catch {}
+
+					continue;
+				}
+
+				DateTime? visited = null;
+
+				try
+				{
+					visited = new DateTime.from_unix_utc(d_bookmark_file.get_visited(uri));
+				} catch {};
+
+				add_repository(repo, visited);
 			}
 		}
 
@@ -377,17 +462,55 @@ namespace Gitg
 			return row;
 		}
 
-		private void add_repository_to_recent_manager(string uri)
+		private bool save_repository_bookmarks()
 		{
-			var recent_manager = Gtk.RecentManager.get_default();
-			var item = Gtk.RecentData();
+			d_save_repository_bookmarks_id = 0;
 
-			item.app_name = Environment.get_application_name();
-			item.mime_type = "inode/directory";
-			item.app_exec = string.join(" ", Environment.get_prgname(), "%f");
-			item.groups = { "gitg", null };
+			if (location == null)
+			{
+				return false;
+			}
 
-			recent_manager.add_full(uri, item);
+			try
+			{
+				var dir = location.get_parent();
+				dir.make_directory_with_parents(null);
+			} catch {}
+
+			try
+			{
+				d_bookmark_file.to_file(location.get_path());
+			}
+			catch (Error e)
+			{
+				stderr.printf(@"Failed to save repository bookmarks: $(e.message)\n");
+			}
+
+			return false;
+		}
+
+		private void add_repository_to_bookmarks(string uri, DateTime? visited = null)
+		{
+			d_bookmark_file.set_mime_type(uri, "inode/directory");
+			d_bookmark_file.set_groups(uri, new string[] { "gitg" });
+			d_bookmark_file.set_visited(uri, visited == null ? -1 : (time_t)visited.to_unix());
+
+			var app_name = Environment.get_application_name();
+			var app_exec = string.join(" ", Environment.get_prgname(), "%f");
+
+			try { d_bookmark_file.set_app_info(uri, app_name, app_exec, 1, -1); } catch {}
+
+			save_repository_bookmarks_timeout();
+		}
+
+		private void save_repository_bookmarks_timeout()
+		{
+			if (d_save_repository_bookmarks_id != 0)
+			{
+				return;
+			}
+
+			d_save_repository_bookmarks_id = Timeout.add(300, save_repository_bookmarks);
 		}
 
 		public void end_cloning(Row row, Repository? repository)
@@ -398,7 +521,7 @@ namespace Gitg
 				File? repo_file = repository.get_location();
 
 				var uri = (workdir != null) ? workdir.get_uri() : repo_file.get_uri();
-				add_repository_to_recent_manager(uri);
+				add_repository_to_bookmarks(uri);
 
 				row.repository = repository;
 				row.loading = false;
@@ -440,8 +563,7 @@ namespace Gitg
 				row.request_remove.connect(() => {
 					try
 					{
-						var recent_manager = Gtk.RecentManager.get_default();
-						recent_manager.remove_item(workdir.get_uri());
+						d_bookmark_file.remove_item(workdir.get_uri());
 					} catch {}
 
 					remove(row);
@@ -456,7 +578,7 @@ namespace Gitg
 
 		}
 
-		public Row? add_repository(Repository repository)
+		public Row? add_repository(Repository repository, DateTime? visited = null)
 		{
 			Row? row = get_row_for_repository(repository);
 
@@ -472,16 +594,13 @@ namespace Gitg
 
 				add(row);
 			}
-			else
-			{
-				// to get the item sorted to the beginning of the list
-				row.time = new DateTime.now_local();
-				invalidate_sort();
-			}
+
+			row.time = visited != null ? visited : new DateTime.now_local();
+			invalidate_sort();
 
 			if (f != null)
 			{
-				add_repository_to_recent_manager(f.get_uri());
+				add_repository_to_bookmarks(f.get_uri(), visited);
 			}
 
 			return row;
