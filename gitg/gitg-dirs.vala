@@ -49,12 +49,17 @@ public class Dirs
 
 	public static string user_plugins_dir
 	{
-		owned get { return Path.build_filename(Environment.get_user_data_dir(), "gitg", "plugins"); }
+		owned get { return Path.build_filename(user_data_dir, "plugins"); }
 	}
 
 	public static string user_plugins_data_dir
 	{
 		owned get { return user_plugins_dir; }
+	}
+
+	public static string user_data_dir
+	{
+		owned get { return Path.build_filename(Environment.get_user_data_dir(), "gitg"); }
 	}
 
 	public static string build_data_file(string part, ...)

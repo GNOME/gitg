@@ -238,7 +238,9 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		var whenMapped = new Gitg.WhenMapped(this);
 
 		whenMapped.update(() => {
-			d_repository_list_box.populate_recent();
+			d_repository_list_box.location = File.new_for_path(Path.build_filename(Dirs.user_data_dir, "repositories.gbookmarks"));
+			d_repository_list_box.populate_bookmarks();
+
 			whenMapped = null;
 		});
 	}
