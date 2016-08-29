@@ -123,6 +123,8 @@ public class Remote : Ggit.Remote
 	private uint d_reset_transfer_progress_timeout;
 	private double d_transfer_progress;
 
+	private Callbacks? d_callbacks;
+
 	public signal void tip_updated(string refname, Ggit.OId a, Ggit.OId b);
 
 	public override void dispose()
@@ -246,12 +248,16 @@ public class Remote : Ggit.Remote
 		{
 			try
 			{
+				d_callbacks = new Callbacks(this, callbacks, update_transfer_progress);
+
 				yield Async.thread(() => {
-					base.connect(direction, new Callbacks(this, callbacks, null), null);
+					base.connect(direction, d_callbacks, null);
 				});
 			}
 			catch (Error e)
 			{
+				d_callbacks = null;
+
 				// NOTE: need to check the message for now in case of failed
 				// http or ssh auth. This is fragile and will likely break
 				// in future libgit2 releases. Please fix!
@@ -320,15 +326,13 @@ public class Remote : Ggit.Remote
 		{
 			yield Async.thread(() => {
 				var options = new Ggit.FetchOptions();
-				var cbs = new Callbacks(this, callbacks, update_transfer_progress);
-
-				options.set_remote_callbacks(cbs);
+				options.set_remote_callbacks(d_callbacks);
 
 				base.download(null, options);
 
 				if (message != null)
 				{
-					base.update_tips(cbs, true, options.get_download_tags(), message);
+					base.update_tips(d_callbacks, true, options.get_download_tags(), message);
 				}
 			});
 		}
