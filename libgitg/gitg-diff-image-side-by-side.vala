@@ -237,10 +237,16 @@ class Gitg.DiffImageSideBySide : Gtk.DrawingArea
 		ctx.render_background(cr, alloc.x, alloc.y, alloc.width, alloc.height);
 
 		double max_height = double.max(sizing.old_size.image_height, sizing.new_size.image_height);
+		double spread_factor = 0.5;
+
+		if (old_surface != null && new_surface != null)
+		{
+			spread_factor = 2.0 / 3.0;
+		}
 
 		if (old_surface != null)
 		{
-			var x = (sizing.old_size.width - sizing.old_size.image_width) * 2 / 3;
+			var x = (sizing.old_size.width - sizing.old_size.image_width) * spread_factor;
 			var y = (max_height - sizing.old_size.image_height) / 2;
 
 			cr.set_source_surface(old_surface, x, y);
@@ -258,7 +264,7 @@ class Gitg.DiffImageSideBySide : Gtk.DrawingArea
 
 		if (new_surface != null)
 		{
-			var x = (sizing.new_size.width - sizing.new_size.image_width) * 1 / 3;
+			var x = (sizing.new_size.width - sizing.new_size.image_width) * (1.0 - spread_factor);
 			var y = (max_height - sizing.new_size.image_height) / 2;
 
 			if (cache.old_pixbuf != null)
