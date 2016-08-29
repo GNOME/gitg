@@ -55,6 +55,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private Gtk.MenuButton d_gear_menu;
 	private MenuModel d_activities_model;
+	private MenuModel? d_dash_model;
 
 	[GtkChild]
 	private Gtk.Grid d_grid_main;
@@ -290,10 +291,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
 		{
 			menuname = "win-menu";
+			d_dash_model = null;
 		}
 		else
 		{
 			menuname = "app-win-menu";
+			d_dash_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
 		}
 
 		d_dash_view.application = this;
@@ -543,9 +546,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_clone_button.show();
 			d_add_button.show();
 
-			d_gear_menu.menu_model = null;
-			d_gear_menu.hide();
-			d_gear_menu.sensitive = false;
+			d_gear_menu.menu_model = d_dash_model;
+			d_gear_menu.visible = d_dash_model != null;
+			d_gear_menu.sensitive = d_dash_model != null;
 		}
 
 		d_activities.update();
