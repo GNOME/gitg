@@ -24,6 +24,15 @@ class Gitg.DiffImageComposite : Gtk.DrawingArea
 	private void get_natural_size(out int image_width, out int image_height)
 	{
 		var pixbuf = cache.old_pixbuf;
+
+		if (pixbuf == null)
+		{
+			image_width = 0;
+			image_height = 0;
+
+			return;
+		}
+
 		var window = get_window();
 
 		double xscale = 1, yscale = 1;
@@ -54,7 +63,7 @@ class Gitg.DiffImageComposite : Gtk.DrawingArea
 		int natural_height;
 
 		get_natural_size(out natural_width, out natural_height);
-		minimum_width = 1;
+		minimum_width = 0;
 	}
 
 	protected override void get_preferred_height_for_width(int width, out int minimum_height, out int natural_height)
