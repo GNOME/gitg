@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-22 23:19+0200\n"
-"PO-Revision-Date: 2016-08-22 23:20+0200\n"
+"POT-Creation-Date: 2016-08-31 15:27+0000\n"
+"PO-Revision-Date: 2016-09-08 22:43+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -147,7 +147,7 @@ msgstr ""
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
 msgid "Show Unstaged Changes"
-msgstr "Wyświetlanie zmian nie będących w poczekalni"
+msgstr "Wyświetlanie zmian niebędących w poczekalni"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
 msgid ""
@@ -155,7 +155,7 @@ msgid ""
 "unstaged changes in the history."
 msgstr ""
 "Ustawienie wskazujące, czy wyświetlać w historii wirtualny element dla zmian "
-"nie będących w przechowalni."
+"niebędących w przechowalni."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
 msgid "Mainline Head"
@@ -197,7 +197,7 @@ msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
-"Określa, czy wyświetlać także gałąź śledzącą „upstream” (zdalną)podczas "
+"Określa, czy wyświetlać także gałąź śledzącą „upstream” (zdalną) podczas "
 "wybierania lokalnej gałęzi w widoku historii."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
@@ -441,7 +441,7 @@ msgstr "Nie w przechowalni"
 
 #: ../gitg/commit/gitg-commit.vala:901
 msgid "No unstaged files"
-msgstr "Brak plików nie będących w przechowalni"
+msgstr "Brak plików niebędących w przechowalni"
 
 #. Populate untracked items
 #: ../gitg/commit/gitg-commit.vala:924
@@ -479,7 +479,7 @@ msgstr "Na pewno trwale odrzucić zaznaczone zmiany?"
 #: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
 #: ../gitg/commit/gitg-commit.vala:1621
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:442 ../gitg/gitg-window.vala:189
+#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -851,20 +851,20 @@ msgstr "Można także %swyszukać%s repozytoria git w katalogu domowym."
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "W międzyczasie można ustawić %sprofil git%s."
 
-#: ../gitg/gitg-dash-view.vala:387
+#: ../gitg/gitg-dash-view.vala:389
 msgid "Failed to clone repository"
 msgstr "Sklonowanie repozytorium się nie powiodło"
 
-#: ../gitg/gitg-dash-view.vala:418
+#: ../gitg/gitg-dash-view.vala:420
 msgid "Failed to add repository"
 msgstr "Dodanie repozytorium się nie powiodło"
 
-#: ../gitg/gitg-dash-view.vala:434
+#: ../gitg/gitg-dash-view.vala:436
 msgid "Create new repository"
 msgstr "Utworzenie nowego repozytorium"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:437
+#: ../gitg/gitg-dash-view.vala:439
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -873,15 +873,15 @@ msgstr ""
 "Położenie <i>%s</i> nie jest prawidłowym repozytorium git. Zainicjować nowe "
 "repozytorium git w tym położeniu?"
 
-#: ../gitg/gitg-dash-view.vala:443
+#: ../gitg/gitg-dash-view.vala:445
 msgid "Create repository"
 msgstr "Utworzenie repozytorium"
 
-#: ../gitg/gitg-dash-view.vala:459
+#: ../gitg/gitg-dash-view.vala:461
 msgid "Failed to create repository"
 msgstr "Utworzenie repozytorium się nie powiodło"
 
-#: ../gitg/gitg-dash-view.vala:529
+#: ../gitg/gitg-dash-view.vala:531
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Wyszukiwanie repozytoriów w „%s”"
@@ -1121,32 +1121,32 @@ msgstr "Nieprawidłowa nazwa"
 msgid "Failed to rename"
 msgstr "Zmiana nazwy się nie powiodła"
 
-#: ../gitg/gitg-window.vala:186
+#: ../gitg/gitg-window.vala:187
 msgid "Add Repository"
 msgstr "Dodanie repozytorium"
 
-#: ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-window.vala:191
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: ../gitg/gitg-window.vala:192
+#: ../gitg/gitg-window.vala:193
 msgid "_Scan for all git repositories from this directory"
 msgstr "Wy_szukiwanie wszystkich repozytoriów git w tym katalogu"
 
-#: ../gitg/gitg-window.vala:498
+#: ../gitg/gitg-window.vala:501
 msgid "Projects"
 msgstr "Projekty"
 
-#: ../gitg/gitg-window.vala:748
+#: ../gitg/gitg-window.vala:751
 msgid "Select items"
 msgstr "Wybiera elementy"
 
-#: ../gitg/gitg-window.vala:955
+#: ../gitg/gitg-window.vala:958
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s” nie jest repozytorium git."
 
-#: ../gitg/gitg-window.vala:1104
+#: ../gitg/gitg-window.vala:1107
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1154,7 +1154,7 @@ msgstr ""
 "Nazwa użytkownika i adres e-mail nie zostały jeszcze skonfigurowane. Proszę "
 "przejść do konfiguracji użytkownika i je podać."
 
-#: ../gitg/gitg-window.vala:1108
+#: ../gitg/gitg-window.vala:1111
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1162,7 +1162,7 @@ msgstr ""
 "Nazwa użytkownika nie została jeszcze skonfigurowana. Proszę przejść do "
 "konfiguracji użytkownika i ją podać."
 
-#: ../gitg/gitg-window.vala:1112
+#: ../gitg/gitg-window.vala:1115
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1170,7 +1170,7 @@ msgstr ""
 "Adres e-mail nie został jeszcze skonfigurowany. Proszę przejść do "
 "konfiguracji użytkownika i go podać."
 
-#: ../gitg/gitg-window.vala:1115
+#: ../gitg/gitg-window.vala:1118
 msgid "Missing author details"
 msgstr "Brak informacji o autorze"
 
@@ -1360,7 +1360,7 @@ msgstr "w %s"
 msgid "%s at %s"
 msgstr "%s w %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:418
+#: ../libgitg/gitg-repository-list-box.vala:541
 msgid "Cloning…"
 msgstr "Klonowanie…"
 
