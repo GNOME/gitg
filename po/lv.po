@@ -5,18 +5,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&"
-"keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-02-08 16:18+0000\n"
-"PO-Revision-Date: 2016-02-11 22:06+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg"
+"&keywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2016-08-27 11:08+0000\n"
+"PO-Revision-Date: 2016-09-11 12:32+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
+" 2);\n"
 "X-Generator: Lokalize 2.0\n"
 
 #: ../contrib/xml/xml-reader.c:327
@@ -119,7 +119,6 @@ msgid ""
 msgstr "Iestatījums, kas norāda, vai vēsturi rādīt topoloģiskā secībā."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-#| msgid "Show staged changes in history"
 msgid "Show Stashed Changes"
 msgstr "Rādīt atlicinātās izmaiņas"
 
@@ -129,7 +128,6 @@ msgid ""
 msgstr "Iestatījums, kas norāda, vai atlicinātos vienumus rādīt vēsturē."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
-#| msgid "Show staged changes in history"
 msgid "Show Staged Changes"
 msgstr "Rādīt pievienotās izmaiņas"
 
@@ -142,7 +140,6 @@ msgstr ""
 "izmaiņās vēsturē."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
-#| msgid "Show unstaged changes in history"
 msgid "Show Unstaged Changes"
 msgstr "Rādīt noņemtās izmaiņas"
 
@@ -159,8 +156,6 @@ msgid "Mainline Head"
 msgstr "Galvenā zara galva"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -248,7 +243,6 @@ msgstr ""
 "margin ir PATIESS."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
-#| msgid "Enable spell checking"
 msgid "Enable Spell Checking"
 msgstr "Ieslēgt pareizrakstības pārbaudi"
 
@@ -257,11 +251,10 @@ msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
 msgstr ""
-"Iestatījums, kas nosaka, vai ir ieslēgta pareizrakstības pārbaude, kad raksta "
-"iesūtījuma ziņojumu."
+"Iestatījums, kas nosaka, vai ir ieslēgta pareizrakstības pārbaude, kad "
+"raksta iesūtījuma ziņojumu."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:42
-#| msgid "Cannot set spell checking language: %s"
 msgid "Spell Checking Language"
 msgstr "Pareizrakstības pārbaudes valoda"
 
@@ -278,8 +271,6 @@ msgid "Ignore Whitespace Changes"
 msgstr "Ignorēt atstarpju izmaiņas"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:45
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -292,8 +283,6 @@ msgid "Show Changes Inline"
 msgstr "Rādīt izmaiņas iekļauti"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:47
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr "Iestatījums, kas norāda, vai izmaiņas rindas iekšienē rādīt iekļauti."
@@ -344,41 +333,39 @@ msgid "Cannot set spell checking language: %s"
 msgstr "Nevar iestatīt pareizrakstību valodai: %s"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:508
-#: ../gitg/commit/gitg-commit.vala:1067
+#: ../gitg/commit/gitg-commit.vala:1076
 msgid "There are no changes to be committed"
 msgstr "Nav izmaiņu, ko iesūtīt"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:509
-#: ../gitg/commit/gitg-commit.vala:1068
+#: ../gitg/commit/gitg-commit.vala:1077
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Lietojiet grozīšanu, lai mainītu iepriekšējā iesūtījuma ziņojumu"
 
-#: ../gitg/commit/gitg-commit.vala:104
-#| msgid "Commit"
+#: ../gitg/commit/gitg-commit.vala:113
 msgctxt "Activity"
 msgid "Commit"
 msgstr "Iesūtīt"
 
-#: ../gitg/commit/gitg-commit.vala:109
+#: ../gitg/commit/gitg-commit.vala:118
 msgid "Create new commits and manage the staging area"
 msgstr "Izveidot jaunu iesūtījumu un pārvaldīt pievienojuma laukumu"
 
-#: ../gitg/commit/gitg-commit.vala:184
+#: ../gitg/commit/gitg-commit.vala:193
 msgid "_Stage selection"
 msgstr "_Sagatavot izvēlēto"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:232
 #, c-format
-#| msgid "Failed to stage the removal of file `%s'"
 msgid "Failed to stage the removal of submodule `%s'"
 msgstr "Neizdevās pievienot apakšmoduļa “%s” izņemšanu"
 
-#: ../gitg/commit/gitg-commit.vala:239
+#: ../gitg/commit/gitg-commit.vala:248
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr "Neizdevās atvērt apakšmoduļa “%s” repozitoriju, mēģinot pievienot"
 
-#: ../gitg/commit/gitg-commit.vala:253
+#: ../gitg/commit/gitg-commit.vala:262
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
@@ -387,103 +374,100 @@ msgstr ""
 "Neizdevās uzmeklēt darba direktorijas apakšmoduļa “%s” iesūtījumu, mēģinot "
 "pievienot"
 
-#: ../gitg/commit/gitg-commit.vala:266
+#: ../gitg/commit/gitg-commit.vala:275
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to stage the submodule `%s'"
 msgstr "Neizdevās pievienot apakšmoduli “%s”"
 
-#: ../gitg/commit/gitg-commit.vala:288
+#: ../gitg/commit/gitg-commit.vala:297
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Neizdevās pievienot datnes “%s” izņemšanu"
 
-#: ../gitg/commit/gitg-commit.vala:302
+#: ../gitg/commit/gitg-commit.vala:311
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Neizdevās pievienot datni “%s”"
 
-#: ../gitg/commit/gitg-commit.vala:574
+#: ../gitg/commit/gitg-commit.vala:583
 msgid "_Unstage selection"
 msgstr "_Noņemt izvēli"
 
-#: ../gitg/commit/gitg-commit.vala:640
+#: ../gitg/commit/gitg-commit.vala:649
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Neizdevās noņemt datnes “%s” izņemšanu"
 
-#: ../gitg/commit/gitg-commit.vala:641
+#: ../gitg/commit/gitg-commit.vala:650
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Neizdevās noņemt datni “%s”"
 
-#: ../gitg/commit/gitg-commit.vala:648
+#: ../gitg/commit/gitg-commit.vala:657
 #, c-format
-#| msgid "Failed to unstage the removal of file `%s'"
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "Neizdevās noņemt apakšmoduļa “%s” izņemšanu"
 
-#: ../gitg/commit/gitg-commit.vala:649
+#: ../gitg/commit/gitg-commit.vala:658
 #, c-format
-#| msgid "Failed to unstage the file `%s'"
 msgid "Failed to unstage the submodule `%s'"
 msgstr "Neizdevās noņemt apakšmoduli “%s”"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:853
+#: ../gitg/commit/gitg-commit.vala:862
 msgid "Staged"
 msgstr "Pievienots"
 
-#: ../gitg/commit/gitg-commit.vala:861
+#: ../gitg/commit/gitg-commit.vala:870
 msgid "No staged files"
 msgstr "Nav noņemtu datņu"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:884
+#: ../gitg/commit/gitg-commit.vala:893
 msgid "Unstaged"
 msgstr "Noņemts"
 
-#: ../gitg/commit/gitg-commit.vala:892
+#: ../gitg/commit/gitg-commit.vala:901
 msgid "No unstaged files"
 msgstr "Nav noņemtu datņu"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:915
+#: ../gitg/commit/gitg-commit.vala:924
 msgid "Untracked"
 msgstr "Atmarķēts"
 
-#: ../gitg/commit/gitg-commit.vala:919
+#: ../gitg/commit/gitg-commit.vala:928
 msgid "No untracked files"
 msgstr "Bez atmarķētām datnēm"
 
-#: ../gitg/commit/gitg-commit.vala:944
+#: ../gitg/commit/gitg-commit.vala:953
 msgid "Submodule"
 msgstr "Apakšmodulis"
 
-#: ../gitg/commit/gitg-commit.vala:948
+#: ../gitg/commit/gitg-commit.vala:957
 msgid "No dirty submodules"
 msgstr "Nav netīru apakšmoduļu"
 
-#: ../gitg/commit/gitg-commit.vala:1095
+#: ../gitg/commit/gitg-commit.vala:1106
 msgid "Failed to commit"
 msgstr "Neizdevās iesūtīt"
 
-#: ../gitg/commit/gitg-commit.vala:1111
+#: ../gitg/commit/gitg-commit.vala:1122
 msgid "Failed to pass pre-commit"
 msgstr "Neizdevās padot piekš-iesūtījumu"
 
-#: ../gitg/commit/gitg-commit.vala:1314 ../gitg/commit/gitg-commit.vala:1464
+#: ../gitg/commit/gitg-commit.vala:1330 ../gitg/commit/gitg-commit.vala:1480
 msgid "Discard changes"
 msgstr "Atmest izmaiņas"
 
-#: ../gitg/commit/gitg-commit.vala:1315
+#: ../gitg/commit/gitg-commit.vala:1331
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Vai tiešām vēlaties uz pilnībā atmest izvēlētās izmaiņas?"
 
-#: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
-#: ../gitg/commit/gitg-commit.vala:1605
+#: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
+#: ../gitg/commit/gitg-commit.vala:1621
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:189
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -494,29 +478,27 @@ msgstr "Vai tiešām vēlaties uz pilnībā atmest izvēlētās izmaiņas?"
 msgid "_Cancel"
 msgstr "At_celt"
 
-#: ../gitg/commit/gitg-commit.vala:1325 ../gitg/commit/gitg-commit.vala:1491
+#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
 msgid "Discard"
 msgstr "Atmest"
 
-#: ../gitg/commit/gitg-commit.vala:1354
-#| msgid "Failed to stage selection"
+#: ../gitg/commit/gitg-commit.vala:1370
 msgid "Failed to discard selection"
 msgstr "Neizdevās atmest izvēli"
 
-#: ../gitg/commit/gitg-commit.vala:1384
+#: ../gitg/commit/gitg-commit.vala:1400
 msgid "Failed to stage selection"
 msgstr "Neizdevās pievienot izvēli"
 
-#: ../gitg/commit/gitg-commit.vala:1388
+#: ../gitg/commit/gitg-commit.vala:1404
 msgid "Failed to unstage selection"
 msgstr "Neizdevās pievienot izvēli"
 
-#: ../gitg/commit/gitg-commit.vala:1448
-#| msgid "Failed to set Git user config."
+#: ../gitg/commit/gitg-commit.vala:1464
 msgid "Failed to discard changes"
 msgstr "Neizdevās atmest izmaiņas"
 
-#: ../gitg/commit/gitg-commit.vala:1469
+#: ../gitg/commit/gitg-commit.vala:1485
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
@@ -525,7 +507,7 @@ msgstr ""
 "Vai tiešām vēlaties uz pilnībā atmest izvēlētās izmaiņas, kas ir veiktas "
 "datnē “%s”?"
 
-#: ../gitg/commit/gitg-commit.vala:1480
+#: ../gitg/commit/gitg-commit.vala:1496
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -534,61 +516,56 @@ msgstr ""
 "Vai tiešām vēlaties uz pilnībā atmest izvēlētās izmaiņas, kas ir veiktas "
 "datnēs “%s” un “%s”?"
 
-#: ../gitg/commit/gitg-commit.vala:1563
-#| msgid "Failed to stage the file `%s'"
+#: ../gitg/commit/gitg-commit.vala:1579
 msgid "Failed to delete files"
 msgstr "Neizdevās izdzēst datnes"
 
-#: ../gitg/commit/gitg-commit.vala:1579
+#: ../gitg/commit/gitg-commit.vala:1595
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Dzēst datni"
 msgstr[1] "Dzēst datnes"
 msgstr[2] "Dzēst datnes"
 
-#: ../gitg/commit/gitg-commit.vala:1584
+#: ../gitg/commit/gitg-commit.vala:1600
 #, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "Vai tiešām vēlaties neatgriezeniski dzēst datni “%s”?"
 
-#: ../gitg/commit/gitg-commit.vala:1595
+#: ../gitg/commit/gitg-commit.vala:1611
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Vai tiešām vēlaties neatgriezeniski dzēst datni “%s” un “%s”?"
 
-#: ../gitg/commit/gitg-commit.vala:1640
-#| msgid "_Stage selection"
+#: ../gitg/commit/gitg-commit.vala:1657
 msgid "_Stage changes"
 msgstr "_Pievienot izmaiņas"
 
-#: ../gitg/commit/gitg-commit.vala:1650
-#| msgid "_Unstage selection"
+#: ../gitg/commit/gitg-commit.vala:1669
 msgid "_Unstage changes"
 msgstr "_Noņemt izmaiņas"
 
-#: ../gitg/commit/gitg-commit.vala:1660
+#: ../gitg/commit/gitg-commit.vala:1681
 msgid "_Discard changes"
 msgstr "_Atmest izmaiņas"
 
-#: ../gitg/commit/gitg-commit.vala:1670
+#: ../gitg/commit/gitg-commit.vala:1693
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "D_zēst datni"
 msgstr[1] "D_zēst datnes"
 msgstr[2] "D_zēst datnes"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: ../gitg/commit/gitg-commit.vala:1723
 msgid "_Edit file"
 msgstr "R_ediģēt datni"
 
 #: ../gitg/gitg-action-support.vala:95
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to stash changes: %s"
 msgstr "Neizdevās atlicināt izmaiņas: %s"
 
 #: ../gitg/gitg-action-support.vala:130
-#| msgid "Unstaged"
 msgid "Unstaged changes"
 msgstr "Noņemtās izmaiņas"
 
@@ -614,7 +591,6 @@ msgid "Stash changes"
 msgstr "Atlicināt izmaiņas"
 
 #: ../gitg/gitg-action-support.vala:138 ../gitg/gitg-action-support.vala:165
-#| msgid "Failed to commit"
 msgid "Failed with conflicts"
 msgstr "Neizdevās ar konfliktiem"
 
@@ -624,26 +600,22 @@ msgid "Failed to checkout conflicts: %s"
 msgstr "Neizdevās paņemt konfliktus: %s"
 
 #: ../gitg/gitg-action-support.vala:199
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain author details"
 msgstr "Neizdevās saņemt informāciju par autoru"
 
 #: ../gitg/gitg-action-support.vala:223
 #: ../gitg/gitg-ref-action-checkout.vala:88
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to lookup commit: %s"
 msgstr "Neizdevās uzmeklēt iesūtījumu: %s"
 
 #: ../gitg/gitg-action-support.vala:255
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to create commit: %s"
 msgstr "Neizdevās izveidot iesūtījumu: %s"
 
 #: ../gitg/gitg-action-support.vala:277
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to checkout index: %s"
 msgstr "Neizdevās paņemt indeksu: %s"
 
@@ -669,19 +641,19 @@ msgstr "Nemēģināt ielādēt repozitoriju no aktīvās darba direktorijas"
 msgid "- Git repository viewer"
 msgstr "- Git repozitoriju skatītājs"
 
-#: ../gitg/gitg-application.vala:226
+#: ../gitg/gitg-application.vala:222
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg ir Git repozitoriju skatītājs gtk+/GNOME videi"
 
-#: ../gitg/gitg-application.vala:235
+#: ../gitg/gitg-application.vala:231
 msgid "translator-credits"
 msgstr "Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>"
 
-#: ../gitg/gitg-application.vala:238
+#: ../gitg/gitg-application.vala:234
 msgid "gitg homepage"
 msgstr "gitg mājas lapa"
 
-#: ../gitg/gitg-application.vala:369
+#: ../gitg/gitg-application.vala:364
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -702,25 +674,23 @@ msgstr ""
 "viņi iekļautu libgit2 pavedienu atbalstu."
 
 #. ex: ts=4 noet
-#: ../gitg/gitg-author-details-dialog.vala:85
-#: ../gitg/gitg-author-details-dialog.vala:105
+#: ../gitg/gitg-author-details-dialog.vala:97
+#: ../gitg/gitg-author-details-dialog.vala:117
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
 msgid "Author Details"
 msgstr "Informācija par autoru"
 
-#: ../gitg/gitg-author-details-dialog.vala:86
-#| msgid "Enter details to set as default for all repositories:"
+#: ../gitg/gitg-author-details-dialog.vala:98
 msgid "Enter default details used for all repositories:"
 msgstr "Ievadiet noklusējuma informāciju visiem repozitorijiem:"
 
 #. Translators: %s is the repository name
-#: ../gitg/gitg-author-details-dialog.vala:108
+#: ../gitg/gitg-author-details-dialog.vala:120
 #, c-format
-#| msgid "Enter details for repository '%s':"
 msgid "Override global details for repository '%s':"
 msgstr "Pārrakstīt globālo informāciju repozitorijam “%s”:"
 
-#: ../gitg/gitg-author-details-dialog.vala:220
+#: ../gitg/gitg-author-details-dialog.vala:232
 msgid "Failed to set Git user config."
 msgstr "Neizdevās iestatīt Git lietotāja konfigurāciju."
 
@@ -743,7 +713,6 @@ msgstr "Neizdevās uzmeklēt iesūtījumu zaram %s: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
-#| msgid "Failed to pass pre-commit"
 msgid "Failed to cherry-pick the commit: %s"
 msgstr "Neizdevās veikt izlasi iesūtījumam: %s"
 
@@ -808,7 +777,6 @@ msgid "Create a new branch at the selected commit"
 msgstr "Izveidot jaunu zaru no izvēlētā iesūtījuma"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:75
-#| msgid "Failed to commit"
 msgid "Failed to create branch"
 msgstr "Neizdevās izveidot zaru"
 
@@ -825,12 +793,10 @@ msgid "Save Patch File"
 msgstr "Saglabāt ielāpa datni"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:147
-#| msgid "Save Patch File"
 msgid "_Save Patch"
 msgstr "_Saglabāt ielāpu"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:172
-#| msgid "Failed to commit"
 msgid "Failed to create patch"
 msgstr "Neizdevās izveidot ielāpu"
 
@@ -843,12 +809,10 @@ msgid "Create a new tag at the selected commit"
 msgstr "Izveidot jaunu tagu no izvēlētā iesūtījuma"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:92
-#| msgid "Failed to commit"
 msgid "Failed to create tag"
 msgstr "Neizdevās izveidot tagu"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:109
-#| msgid "Failed to commit"
 msgid "Failed to lookup tag"
 msgstr "Neizdevās uzmeklēt tagu"
 
@@ -856,59 +820,57 @@ msgstr "Neizdevās uzmeklēt tagu"
 msgid "Provide a message to create an annotated tag"
 msgstr "Piedāvāt ziņojumu, lai izveidot anotētu tagu"
 
-#: ../gitg/gitg-dash-view.vala:171
-#| msgid "Remotes"
+#: ../gitg/gitg-dash-view.vala:87
+msgid "Select and manage projects"
+msgstr "Izvēlieties un pārvaldiet projektus"
+
+#: ../gitg/gitg-dash-view.vala:176
 msgid "_Remove"
 msgstr "_Izņemt"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:227
+#: ../gitg/gitg-dash-view.vala:232
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr "Mēs varam arī %sskenēt mājas direktoriju%s, lai atrastu repozitorijus."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:230
+#: ../gitg/gitg-dash-view.vala:235
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Pa to laiku jūs varat %siestatīt savu git profilu%s."
 
-#: ../gitg/gitg-dash-view.vala:382
-#| msgid "Failed to commit"
+#: ../gitg/gitg-dash-view.vala:389
 msgid "Failed to clone repository"
 msgstr "Neizdevās klonēt repozitoriju"
 
-#: ../gitg/gitg-dash-view.vala:413
-#| msgid "Failed to pass pre-commit"
+#: ../gitg/gitg-dash-view.vala:420
 msgid "Failed to add repository"
 msgstr "Neizdevās pievienot repozitoriju"
 
-#: ../gitg/gitg-dash-view.vala:429
-#| msgid "Bare repository"
+#: ../gitg/gitg-dash-view.vala:436
 msgid "Create new repository"
 msgstr "Izveidot jaunu repozitoriju"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:432
+#: ../gitg/gitg-dash-view.vala:439
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
-"Vieta <i>%s</i> neizskatās pēc derīga repozitorija. Would "
-"you like to initialize a new git repository at this location?"
+"Vieta <i>%s</i> neizskatās pēc derīga repozitorija. Would you like to "
+"initialize a new git repository at this location?"
 
-#: ../gitg/gitg-dash-view.vala:438
-#| msgid "Bare repository"
+#: ../gitg/gitg-dash-view.vala:445
 msgid "Create repository"
 msgstr "Izveidot repozitoriju"
 
-#: ../gitg/gitg-dash-view.vala:454
-#| msgid "Bare repository"
+#: ../gitg/gitg-dash-view.vala:461
 msgid "Failed to create repository"
 msgstr "Neizdevās izveidot repozitoriju"
 
-#: ../gitg/gitg-dash-view.vala:524
+#: ../gitg/gitg-dash-view.vala:531
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Skenē %s repozitorijus"
@@ -929,7 +891,6 @@ msgstr "Neizdevās paņemt zaru: %s"
 
 #: ../gitg/gitg-ref-action-checkout.vala:111
 #, c-format
-#| msgid "Failed to unstage the file `%s'"
 msgid "Failed to update HEAD: %s"
 msgstr "Neizdevās atjaunināt galvu: %s"
 
@@ -987,7 +948,6 @@ msgstr "Vai tiešām vēlaties neatgriezeniski dzēst attālināto zaru %s?"
 #. Translators: %s is the name of the tag
 #: ../gitg/gitg-ref-action-delete.vala:119
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to delete tag %s"
 msgstr "Neizdevās dzēst tagu %s"
 
@@ -1000,7 +960,6 @@ msgstr "Nevarēja izdzēst tagu %s: %s"
 #. Translators: %s is the name of the branch
 #: ../gitg/gitg-ref-action-delete.vala:127
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to delete branch %s"
 msgstr "Neizdevās izdzēst zaru %s"
 
@@ -1037,7 +996,6 @@ msgstr "atjaunināts"
 
 #: ../gitg/gitg-ref-action-fetch.vala:121
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to fetch from %s: %s"
 msgstr "Neizdevās saņemt no %s: %s"
 
@@ -1067,7 +1025,6 @@ msgstr "Apvienot citu zaru zarā %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:106
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to merge commits: %s"
 msgstr "Neizdevās apvienot iesūtījumus: %s"
 
@@ -1109,13 +1066,11 @@ msgstr "Apvienot %s ar %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:231
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to lookup our commit: %s"
 msgstr "Neizdevās uzmeklēt mūsu iesūtījumu: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:241
 #, c-format
-#| msgid "Failed to pass pre-commit"
 msgid "Failed to lookup their commit: %s"
 msgstr "Neizdevās uzmeklēt viņu iesūtījumu: %s"
 
@@ -1152,34 +1107,35 @@ msgid "Invalid name"
 msgstr "Nederīgs nosaukums"
 
 #: ../gitg/gitg-ref-action-rename.vala:131
-#| msgid "Failed to commit"
 msgid "Failed to rename"
 msgstr "Neizdevās pārdēvēt"
 
-#: ../gitg/gitg-window.vala:187
-#| msgid "Open Repository"
+#: ../gitg/gitg-window.vala:186
 msgid "Add Repository"
 msgstr "Pievienot krātuvei"
 
-#: ../gitg/gitg-window.vala:191
+#: ../gitg/gitg-window.vala:190
 msgid "_Add"
 msgstr "_Pievienot"
 
-#: ../gitg/gitg-window.vala:193
-#| msgid "Do not try to load a repository from the current working directory"
+#: ../gitg/gitg-window.vala:192
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Skenēt visus git repozitorijus šajā direktorijā"
 
-#: ../gitg/gitg-window.vala:481
+#: ../gitg/gitg-window.vala:498
 msgid "Projects"
 msgstr "Projekti"
 
-#: ../gitg/gitg-window.vala:912
+#: ../gitg/gitg-window.vala:748
+msgid "Select items"
+msgstr "Izvēlēties vienumus"
+
+#: ../gitg/gitg-window.vala:955
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "“%s” nav Git repozitorijs."
 
-#: ../gitg/gitg-window.vala:1061
+#: ../gitg/gitg-window.vala:1104
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1187,7 +1143,7 @@ msgstr ""
 "Vēl nav konfigurēts jūsu lietotājvārds un e-pasts. Lūdzu, ejiet uz lietotāja "
 "konfigurāciju un norādiet savu vārdu un e-pasta adresi."
 
-#: ../gitg/gitg-window.vala:1065
+#: ../gitg/gitg-window.vala:1108
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1195,7 +1151,7 @@ msgstr ""
 "Vēl nav konfigurēts jūsu lietotājvārds. Lūdzu, ejiet uz lietotāja "
 "konfigurāciju un norādiet savu vārdu."
 
-#: ../gitg/gitg-window.vala:1069
+#: ../gitg/gitg-window.vala:1112
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1203,8 +1159,7 @@ msgstr ""
 "Vēl nav konfigurēts jūsu e-pasts. Lūdzu, ejiet uz lietotāja konfigurāciju un "
 "norādiet savu e-pasta adresi."
 
-#: ../gitg/gitg-window.vala:1072
-#| msgid "Author Details"
+#: ../gitg/gitg-window.vala:1115
 msgid "Missing author details"
 msgstr "Tūkst informācijas par autoru"
 
@@ -1266,22 +1221,21 @@ msgstr "Zari"
 msgid "Remotes"
 msgstr "Attālinātie"
 
-#: ../gitg/history/gitg-history.vala:306
+#: ../gitg/history/gitg-history.vala:342
 #: ../gitg/preferences/gitg-preferences-history.vala:218
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "History"
 msgstr "Vēsture"
 
-#: ../gitg/history/gitg-history.vala:311
+#: ../gitg/history/gitg-history.vala:347
 msgid "Examine the history of the repository"
 msgstr "Izpētīt repozitorija vēsturi"
 
-#: ../gitg/history/gitg-history.vala:796
+#: ../gitg/history/gitg-history.vala:843
 msgid "Mainline"
 msgstr "Galvenai zars"
 
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
-#| msgid "Commit"
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Iesūtījums"
@@ -1289,6 +1243,13 @@ msgstr "Iesūtījums"
 #: ../gitg/preferences/gitg-preferences-interface.vala:120
 msgid "Interface"
 msgstr "Saskarne"
+
+#. Translators: %s will be replaced with a URL indicating the resource
+#. for which the authentication is required.
+#: ../libgitg/gitg-authentication-dialog.vala:69
+#, c-format
+msgid "Password required for %s"
+msgstr "Nepieciešama parole serverim %s"
 
 #: ../libgitg/gitg-date.vala:346
 msgid "Now"
@@ -1350,21 +1311,33 @@ msgstr "%e. %b %Y., %H.%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e. %b %Y., %I.%M %p"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:142
-#| msgid "Collapse inactive lanes"
+#: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Sakļaut visu"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:146
+#: ../libgitg/gitg-diff-view-commit-details.vala:149
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
 msgstr "Izvērst visu"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:199
+#: ../libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
-#| msgid "Commits"
 msgid "Committed by %s"
 msgstr "Iesūtīja %s"
+
+#: ../libgitg/gitg-diff-view-file.vala:172
+#| msgid "D_elete file"
+#| msgid_plural "D_elete files"
+msgid "_Open file"
+msgstr "_Atvērt datni"
+
+#: ../libgitg/gitg-diff-view-file.vala:204
+msgid "Open containing _folder"
+msgstr "Atvērt satur_ošo mapi"
+
+#: ../libgitg/gitg-diff-view-file.vala:224
+msgid "_Copy file path"
+msgstr "Kopēt datnes _ceļu"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:154
@@ -1378,7 +1351,7 @@ msgstr "mapē %s"
 msgid "%s at %s"
 msgstr "%s mapē %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:409
+#: ../libgitg/gitg-repository-list-box.vala:541
 msgid "Cloning…"
 msgstr "Klonē…"
 
@@ -1387,12 +1360,12 @@ msgstr "Klonē…"
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Nevarēja nolasīt iesūtījuma ziņojumu pēc commit-msg āķa izpildes: %s"
 
-#: ../plugins/diff/gitg-diff.vala:112
+#: ../plugins/diff/gitg-diff.vala:115
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:11
 msgid "Diff"
 msgstr "Starpība"
 
-#: ../plugins/diff/gitg-diff.vala:117
+#: ../plugins/diff/gitg-diff.vala:120
 msgid "Show the changes introduced by the selected commit"
 msgstr "Rādīt izmaiņas, ko ieviesa izvēlētais iesūtījums"
 
@@ -1409,17 +1382,14 @@ msgid "_Save"
 msgstr "_Saglabāt"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-#| msgid "Enter details to set as default for all repositories:"
 msgid "Default details used for all repositories"
 msgstr "Noklusējuma informācija visiem repozitorijiem"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
-#| msgid "E-mail: "
 msgid "E-mail:"
 msgstr "E-pasts:"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-#| msgid "Name: "
 msgid "Name:"
 msgstr "Vārds:"
 
@@ -1448,7 +1418,6 @@ msgid "Bare repository"
 msgstr "Tukšs repozitorijs"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#| msgid "Commit"
 msgctxt "Create Dialog"
 msgid "Commit"
 msgstr "Iesūtīt"
@@ -1475,7 +1444,6 @@ msgid "S_tage selection"
 msgstr "Pievieno_t izvēli"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
-#| msgid "_Unstage selection"
 msgid "D_iscard selection"
 msgstr "Atmest _izvēli"
 
@@ -1488,12 +1456,10 @@ msgstr ""
 "izmaiņas, kas vēl nav iesūtītas, kā redzams zemāk."
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
-#| msgid "Staged"
 msgid "Staged:"
 msgstr "Pievienots:"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:3
-#| msgid "Unstaged"
 msgid "Unstaged:"
 msgstr "Noņemts:"
 
@@ -1513,7 +1479,6 @@ msgid "Date"
 msgstr "Datums"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-info.ui.h:1
-#| msgid "_Open"
 msgid "Open"
 msgstr "Atvērt"
 
@@ -1527,7 +1492,6 @@ msgid "C_reate"
 msgstr "Iz_veidot"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
-#| msgid "Branches"
 msgid "Branch _name:"
 msgstr "Zara _nosaukums:"
 
@@ -1564,18 +1528,14 @@ msgid "_Keyboard Shortcuts"
 msgstr "_Tastatūras īsinājumtaustiņi"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Help"
-msgstr "_Palīdzība"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_About"
 msgstr "P_ar"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_Quit"
 msgstr "_Iziet"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:8
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
 msgid "_Reload"
 msgstr "Pā_rlādēt"
 
@@ -1600,7 +1560,6 @@ msgid "Commit Message"
 msgstr "Iesūtīšanas ziņojums"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-#| msgid "_Stage selection"
 msgid "Default selection"
 msgstr "Noklusējuma izvēle"
 
@@ -1609,12 +1568,10 @@ msgid "Current branch"
 msgstr "Pašreizējais zars"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
-#| msgid "Branches"
 msgid "All branches"
 msgstr "Visi zari"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
-#| msgid "Preferences"
 msgid "References"
 msgstr "Norādes"
 
@@ -1655,7 +1612,6 @@ msgid "Startup"
 msgstr "Startēšana"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-#| msgid "Start gitg with a particular activity"
 msgid "Start with activity:"
 msgstr "Sākt ar aktivitāti:"
 
@@ -1692,7 +1648,6 @@ msgid "Preferences"
 msgstr "Iestatījumi"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
-#| msgid "_New Window"
 msgctxt "shortcut window"
 msgid "Windows"
 msgstr "Logi"
@@ -1708,7 +1663,6 @@ msgid "Open the window menu"
 msgstr "Atvērt loga izvēlni"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-#| msgid "Open Repository"
 msgctxt "shortcut window"
 msgid "Open a repository"
 msgstr "Atvērt repozitoriju"
@@ -1729,7 +1683,6 @@ msgid "Close the active window"
 msgstr "Aizvērt aktīvo logu"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
-#| msgid "Show the application's version"
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Iziet no lietotnes"
@@ -1743,7 +1696,6 @@ msgid "Clone"
 msgstr "Klonēt"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:4
-#| msgid "Clone Repository"
 msgid "Clone repository"
 msgstr "Klonēt repozitoriju"
 
@@ -1752,7 +1704,6 @@ msgid "Add"
 msgstr "Pievienot"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:6
-#| msgid "Bare repository"
 msgid "Add repository"
 msgstr "Pievienot krātuvei"
 
@@ -1800,6 +1751,10 @@ msgstr "Atcerēties _mūžīgi"
 msgid "Parents"
 msgstr "Vecāki"
 
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
+msgid "Unable to display changes for binary file"
+msgstr "Nevarēja attēlot binārās datnes izmaiņas"
+
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
 msgstr "Tabulācijas platums:"
@@ -1826,6 +1781,8 @@ msgid ""
 "disk)"
 msgstr "Izņemt krātuvi no saraksta (krātuve netiks izdzēsta no diska)"
 
-#: ../plugins/files/resources/view-files.ui.h:1
-msgid "column"
-msgstr "kolonna"
+#~ msgid "_Help"
+#~ msgstr "_Palīdzība"
+
+#~ msgid "column"
+#~ msgstr "kolonna"
