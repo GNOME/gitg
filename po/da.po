@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the gitg package.
 #
 # Joe Hansen <joedalton2@yahoo.dk>, 2009, 2010, 2011, 2012.
-# Ask Hjorth Larsen <asklarsen@gmail.com>, 2014, 2015.
+# Ask Hjorth Larsen <asklarsen@gmail.com>, 2014-2016.
 # Kenneth Nielsen <k.nielsen81@gmail.com>, 2014, 2015.
 # Korrekturlæst Lars Christian Jensen 6. juni 2009.
 # Korrekturlæst Ask 26. januar 2010.
@@ -36,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 19:50+0100\n"
-"PO-Revision-Date: 2016-03-19 19:49+0100\n"
-"Last-Translator: scootergrisen\n"
+"POT-Creation-Date: 2016-09-17 16:08+0200\n"
+"PO-Revision-Date: 2016-09-16 02:13+0200\n"
+"Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -373,40 +373,40 @@ msgid "Cannot set spell checking language: %s"
 msgstr "Kan ikke indstille sprog for stavekontrol: %s"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:508
-#: ../gitg/commit/gitg-commit.vala:1067
+#: ../gitg/commit/gitg-commit.vala:1076
 msgid "There are no changes to be committed"
 msgstr "Der er ingen ændringer at committe"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:509
-#: ../gitg/commit/gitg-commit.vala:1068
+#: ../gitg/commit/gitg-commit.vala:1077
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Tilret (amend) for at ændre commitbeskeden for den forrige commit"
 
-#: ../gitg/commit/gitg-commit.vala:104
+#: ../gitg/commit/gitg-commit.vala:113
 msgctxt "Activity"
 msgid "Commit"
 msgstr "Commit"
 
-#: ../gitg/commit/gitg-commit.vala:109
+#: ../gitg/commit/gitg-commit.vala:118
 msgid "Create new commits and manage the staging area"
 msgstr "Opret nye commits og håndtér staging-området"
 
-#: ../gitg/commit/gitg-commit.vala:184
+#: ../gitg/commit/gitg-commit.vala:193
 msgid "_Stage selection"
 msgstr "_Stage valgte"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:232
 #, c-format
 msgid "Failed to stage the removal of submodule `%s'"
 msgstr "Kunne ikke stage fjernelsen af undermodulet \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:239
+#: ../gitg/commit/gitg-commit.vala:248
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr ""
 "Kunne ikke åbne arkivet for undermodulet \"%s\" under forsøget på at stage"
 
-#: ../gitg/commit/gitg-commit.vala:253
+#: ../gitg/commit/gitg-commit.vala:262
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
@@ -415,100 +415,100 @@ msgstr ""
 "Kunne ikke finde arbejdskatalog-commit for undermodulet \"%s\" under forsøg "
 "på at stage"
 
-#: ../gitg/commit/gitg-commit.vala:266
+#: ../gitg/commit/gitg-commit.vala:275
 #, c-format
 msgid "Failed to stage the submodule `%s'"
 msgstr "Kunne ikke stage undermodulet \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:288
+#: ../gitg/commit/gitg-commit.vala:297
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Kunne ikke stage fjernelsen af filen \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:302
+#: ../gitg/commit/gitg-commit.vala:311
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Kunne ikke stage filen \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:574
+#: ../gitg/commit/gitg-commit.vala:583
 msgid "_Unstage selection"
 msgstr "_Unstage valgte"
 
-#: ../gitg/commit/gitg-commit.vala:640
+#: ../gitg/commit/gitg-commit.vala:649
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Kunne ikke unstage fjernelsen af filen \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:641
+#: ../gitg/commit/gitg-commit.vala:650
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Kunne ikke unstage filen \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:648
+#: ../gitg/commit/gitg-commit.vala:657
 #, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "Kunne ikke unstage fjernelsen af undermodulet \"%s\""
 
-#: ../gitg/commit/gitg-commit.vala:649
+#: ../gitg/commit/gitg-commit.vala:658
 #, c-format
 msgid "Failed to unstage the submodule `%s'"
 msgstr "Kunne ikke unstage undermodulet \"%s\""
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:853
+#: ../gitg/commit/gitg-commit.vala:862
 msgid "Staged"
 msgstr "Staged"
 
-#: ../gitg/commit/gitg-commit.vala:861
+#: ../gitg/commit/gitg-commit.vala:870
 msgid "No staged files"
 msgstr "Ingen stagede filer"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:884
+#: ../gitg/commit/gitg-commit.vala:893
 msgid "Unstaged"
 msgstr "Unstaged"
 
-#: ../gitg/commit/gitg-commit.vala:892
+#: ../gitg/commit/gitg-commit.vala:901
 msgid "No unstaged files"
 msgstr "Ingen unstagede filer"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:915
+#: ../gitg/commit/gitg-commit.vala:924
 msgid "Untracked"
 msgstr "Usporet"
 
-#: ../gitg/commit/gitg-commit.vala:919
+#: ../gitg/commit/gitg-commit.vala:928
 msgid "No untracked files"
 msgstr "Ingen usporede filer"
 
-#: ../gitg/commit/gitg-commit.vala:944
+#: ../gitg/commit/gitg-commit.vala:953
 msgid "Submodule"
 msgstr "Undermodul"
 
-#: ../gitg/commit/gitg-commit.vala:948
+#: ../gitg/commit/gitg-commit.vala:957
 msgid "No dirty submodules"
 msgstr "Ingen urene undermoduler"
 
-#: ../gitg/commit/gitg-commit.vala:1095
+#: ../gitg/commit/gitg-commit.vala:1106
 msgid "Failed to commit"
 msgstr "Kunne ikke committe"
 
-#: ../gitg/commit/gitg-commit.vala:1111
+#: ../gitg/commit/gitg-commit.vala:1122
 msgid "Failed to pass pre-commit"
 msgstr "Bestod ikke præ-commit"
 
-#: ../gitg/commit/gitg-commit.vala:1314 ../gitg/commit/gitg-commit.vala:1464
+#: ../gitg/commit/gitg-commit.vala:1330 ../gitg/commit/gitg-commit.vala:1480
 msgid "Discard changes"
 msgstr "Kassér ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1315
+#: ../gitg/commit/gitg-commit.vala:1331
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Er du sikker på, at du vil kassere de valgte ændringer permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
-#: ../gitg/commit/gitg-commit.vala:1605
+#: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
+#: ../gitg/commit/gitg-commit.vala:1621
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -519,27 +519,27 @@ msgstr "Er du sikker på, at du vil kassere de valgte ændringer permanent?"
 msgid "_Cancel"
 msgstr "_Annullér"
 
-#: ../gitg/commit/gitg-commit.vala:1325 ../gitg/commit/gitg-commit.vala:1491
+#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
 msgid "Discard"
 msgstr "Kassér"
 
-#: ../gitg/commit/gitg-commit.vala:1354
+#: ../gitg/commit/gitg-commit.vala:1370
 msgid "Failed to discard selection"
 msgstr "Kunne ikke kassere valgte"
 
-#: ../gitg/commit/gitg-commit.vala:1384
+#: ../gitg/commit/gitg-commit.vala:1400
 msgid "Failed to stage selection"
 msgstr "Kunne ikke stage valgte"
 
-#: ../gitg/commit/gitg-commit.vala:1388
+#: ../gitg/commit/gitg-commit.vala:1404
 msgid "Failed to unstage selection"
 msgstr "Kunne ikke unstage valgte"
 
-#: ../gitg/commit/gitg-commit.vala:1448
+#: ../gitg/commit/gitg-commit.vala:1464
 msgid "Failed to discard changes"
 msgstr "Kunne ikke kassere ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1469
+#: ../gitg/commit/gitg-commit.vala:1485
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
@@ -547,7 +547,7 @@ msgid ""
 msgstr ""
 "Er du sikker på, at du vil kassere alle ændringer i filen \"%s\" permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1480
+#: ../gitg/commit/gitg-commit.vala:1496
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -556,45 +556,45 @@ msgstr ""
 "Er du sikker på, at du vil kassere alle ændringer i filerne %s og \"%s\" "
 "permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1563
+#: ../gitg/commit/gitg-commit.vala:1579
 msgid "Failed to delete files"
 msgstr "Kunne ikke slette filer"
 
-#: ../gitg/commit/gitg-commit.vala:1579
+#: ../gitg/commit/gitg-commit.vala:1595
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Slet fil"
 msgstr[1] "Slet filer"
 
-#: ../gitg/commit/gitg-commit.vala:1584
+#: ../gitg/commit/gitg-commit.vala:1600
 #, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "Er du sikker på, at du vil slette filen \"%s\" permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1595
+#: ../gitg/commit/gitg-commit.vala:1611
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Er du sikker på, at du vil slette filerne %s og \"%s\" permanent?"
 
-#: ../gitg/commit/gitg-commit.vala:1640
+#: ../gitg/commit/gitg-commit.vala:1657
 msgid "_Stage changes"
 msgstr "_Stage ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1650
+#: ../gitg/commit/gitg-commit.vala:1669
 msgid "_Unstage changes"
 msgstr "_Unstage ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1660
+#: ../gitg/commit/gitg-commit.vala:1681
 msgid "_Discard changes"
 msgstr "_Kassér ændringer"
 
-#: ../gitg/commit/gitg-commit.vala:1670
+#: ../gitg/commit/gitg-commit.vala:1693
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_Slet fil"
 msgstr[1] "_Slet filer"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: ../gitg/commit/gitg-commit.vala:1723
 msgid "_Edit file"
 msgstr "_Redigér fil"
 
@@ -678,11 +678,11 @@ msgstr "Prøv ikke at indlæse et arkiv fra den nuværende arbejdsmappe"
 msgid "- Git repository viewer"
 msgstr "- Git-arkivfremviser"
 
-#: ../gitg/gitg-application.vala:226
+#: ../gitg/gitg-application.vala:222
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg er en Git-arkivfremviser til gtk+/GNOME"
 
-#: ../gitg/gitg-application.vala:235
+#: ../gitg/gitg-application.vala:231
 msgid "translator-credits"
 msgstr ""
 "Joe Hansen\n"
@@ -693,11 +693,11 @@ msgstr ""
 "Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
 "Mere info: http://www.dansk-gruppen.dk"
 
-#: ../gitg/gitg-application.vala:238
+#: ../gitg/gitg-application.vala:234
 msgid "gitg homepage"
 msgstr "Hjemmeside for gitg"
 
-#: ../gitg/gitg-application.vala:369
+#: ../gitg/gitg-application.vala:364
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -718,24 +718,24 @@ msgstr ""
 "mangler trådunderstøttelse."
 
 #. ex: ts=4 noet
-#: ../gitg/gitg-author-details-dialog.vala:85
-#: ../gitg/gitg-author-details-dialog.vala:105
+#: ../gitg/gitg-author-details-dialog.vala:97
+#: ../gitg/gitg-author-details-dialog.vala:117
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
 msgid "Author Details"
 msgstr "Forfatterdetaljer"
 
-#: ../gitg/gitg-author-details-dialog.vala:86
+#: ../gitg/gitg-author-details-dialog.vala:98
 msgid "Enter default details used for all repositories:"
 msgstr "Indtast forvalg for detaljer, som gælder alle arkiver:"
 
 #. Translators: %s is the repository name
-#: ../gitg/gitg-author-details-dialog.vala:108
+#: ../gitg/gitg-author-details-dialog.vala:120
 #, c-format
 msgid "Override global details for repository '%s':"
 msgstr "Tilsidesæt globale detaljer for arkivet \"%s\":"
 
 # Jeg er lidt i tvivl her, men jeg tænker med "set" at det er bedre med "indstille" end "ændre". Jeg tænker at dette muligvis er en besked der kommer hvis de brugerinfo man angiver ikke kan gemmes til den globale git-konfigurationsfil
-#: ../gitg/gitg-author-details-dialog.vala:220
+#: ../gitg/gitg-author-details-dialog.vala:232
 msgid "Failed to set Git user config."
 msgstr "Kunne ikke indstille Git-brugerkonfiguration."
 
@@ -866,36 +866,40 @@ msgstr "Kunne ikke finde mærke"
 msgid "Provide a message to create an annotated tag"
 msgstr "Angiv en meddelelse for at oprette et annoteret mærke"
 
-#: ../gitg/gitg-dash-view.vala:171
+#: ../gitg/gitg-dash-view.vala:87
+msgid "Select and manage projects"
+msgstr "Vælg og håndtér projekter"
+
+#: ../gitg/gitg-dash-view.vala:176
 msgid "_Remove"
 msgstr "_Fjern"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:227
+#: ../gitg/gitg-dash-view.vala:232
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr "Vi kan også %sskanne din hjemmemappe%s efter git-arkiver."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:230
+#: ../gitg/gitg-dash-view.vala:235
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "I mellemtiden kan du %ssætte din git-profil op%s."
 
-#: ../gitg/gitg-dash-view.vala:382
+#: ../gitg/gitg-dash-view.vala:389
 msgid "Failed to clone repository"
 msgstr "Kunne ikke klone arkiv"
 
-#: ../gitg/gitg-dash-view.vala:413
+#: ../gitg/gitg-dash-view.vala:420
 msgid "Failed to add repository"
 msgstr "Kunne ikke tilføje arkiv"
 
-#: ../gitg/gitg-dash-view.vala:429
+#: ../gitg/gitg-dash-view.vala:436
 msgid "Create new repository"
 msgstr "Opret nyt arkiv"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:432
+#: ../gitg/gitg-dash-view.vala:439
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -904,15 +908,15 @@ msgstr ""
 "Placeringen <i>%s</i> synes ikke at være et gyldigt git-arkiv. Vil du "
 "initialisere et nyt git-arkiv på denne placering?"
 
-#: ../gitg/gitg-dash-view.vala:438
+#: ../gitg/gitg-dash-view.vala:445
 msgid "Create repository"
 msgstr "Opret arkiv"
 
-#: ../gitg/gitg-dash-view.vala:454
+#: ../gitg/gitg-dash-view.vala:461
 msgid "Failed to create repository"
 msgstr "Kunne ikke oprette arkiv"
 
-#: ../gitg/gitg-dash-view.vala:524
+#: ../gitg/gitg-dash-view.vala:531
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Søger efter arkiver i %s"
@@ -1164,16 +1168,20 @@ msgstr "_Tilføj"
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Skan efter alle git-arkiver fra denne mappe"
 
-#: ../gitg/gitg-window.vala:481
+#: ../gitg/gitg-window.vala:501
 msgid "Projects"
 msgstr "Projekter"
 
-#: ../gitg/gitg-window.vala:912
+#: ../gitg/gitg-window.vala:751
+msgid "Select items"
+msgstr "Vælg elementer"
+
+#: ../gitg/gitg-window.vala:958
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "\"%s\" er ikke et Git-arkiv."
 
-#: ../gitg/gitg-window.vala:1061
+#: ../gitg/gitg-window.vala:1107
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1181,7 +1189,7 @@ msgstr ""
 "Dit brugernavn og e-mailadresse er endnu ikke angivet. Angiv venligst dit "
 "navn og e-mailadresse i brugerkonfigurationen."
 
-#: ../gitg/gitg-window.vala:1065
+#: ../gitg/gitg-window.vala:1111
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1189,7 +1197,7 @@ msgstr ""
 "Dit brugernavn er endnu ikke angivet. Angiv venligst dit navn i "
 "brugerkonfigurationen."
 
-#: ../gitg/gitg-window.vala:1069
+#: ../gitg/gitg-window.vala:1115
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1197,7 +1205,7 @@ msgstr ""
 "Din e-mailadresse er endnu ikke angivet. Angiv venligst din e-mailadresse i "
 "brugerkonfigurationen."
 
-#: ../gitg/gitg-window.vala:1072
+#: ../gitg/gitg-window.vala:1118
 msgid "Missing author details"
 msgstr "Mangler forfatteroplysninger"
 
@@ -1259,17 +1267,17 @@ msgstr "Grene"
 msgid "Remotes"
 msgstr "Eksterne"
 
-#: ../gitg/history/gitg-history.vala:306
+#: ../gitg/history/gitg-history.vala:342
 #: ../gitg/preferences/gitg-preferences-history.vala:218
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "History"
 msgstr "Historik"
 
-#: ../gitg/history/gitg-history.vala:311
+#: ../gitg/history/gitg-history.vala:347
 msgid "Examine the history of the repository"
 msgstr "Tag et kig på historikken for arkivet"
 
-#: ../gitg/history/gitg-history.vala:796
+#: ../gitg/history/gitg-history.vala:843
 msgid "Mainline"
 msgstr "Hovedlinje"
 
@@ -1281,6 +1289,13 @@ msgstr "Commit"
 #: ../gitg/preferences/gitg-preferences-interface.vala:120
 msgid "Interface"
 msgstr "Grænseflade"
+
+#. Translators: %s will be replaced with a URL indicating the resource
+#. for which the authentication is required.
+#: ../libgitg/gitg-authentication-dialog.vala:69
+#, c-format
+msgid "Password required for %s"
+msgstr "Der kræves en adgangskode for %s"
 
 #: ../libgitg/gitg-date.vala:346
 msgid "Now"
@@ -1339,19 +1354,31 @@ msgstr "%e. %b %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e. %b %Y, %I:%M %p"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:142
+#: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Sammenfold alle"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:146
+#: ../libgitg/gitg-diff-view-commit-details.vala:149
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
 msgstr "Udfold alle"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:199
+#: ../libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
 msgstr "Committet af %s"
+
+#: ../libgitg/gitg-diff-view-file.vala:172
+msgid "_Open file"
+msgstr "_Åbn fil"
+
+#: ../libgitg/gitg-diff-view-file.vala:204
+msgid "Open containing _folder"
+msgstr "Åbn indeholdende _mappe"
+
+#: ../libgitg/gitg-diff-view-file.vala:224
+msgid "_Copy file path"
+msgstr "_Kopiér filsti"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:154
@@ -1365,7 +1392,7 @@ msgstr "i %s"
 msgid "%s at %s"
 msgstr "%s i %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:409
+#: ../libgitg/gitg-repository-list-box.vala:541
 msgid "Cloning…"
 msgstr "Kloner…"
 
@@ -1374,12 +1401,12 @@ msgstr "Kloner…"
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Kunne ikke læse commitbesked efter kørsel af commit-msg-\"hook\": %s"
 
-#: ../plugins/diff/gitg-diff.vala:112
+#: ../plugins/diff/gitg-diff.vala:115
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:11
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/diff/gitg-diff.vala:117
+#: ../plugins/diff/gitg-diff.vala:120
 msgid "Show the changes introduced by the selected commit"
 msgstr "Vis de ændringer der blev introduceret ved det valgte commit"
 
@@ -1544,18 +1571,14 @@ msgid "_Keyboard Shortcuts"
 msgstr "_Tastaturgenveje"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Help"
-msgstr "_Hjælp"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_About"
 msgstr "_Om"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_Quit"
 msgstr "_Afslut"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:8
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
 msgid "_Reload"
 msgstr "_Genindlæs"
 
@@ -1774,6 +1797,10 @@ msgstr "Husk _altid"
 msgid "Parents"
 msgstr "Forældre"
 
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
+msgid "Unable to display changes for binary file"
+msgstr "Kan ikke vise ændringer for binær fil"
+
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
 msgstr "Tabulatorbredde:"
@@ -1802,6 +1829,8 @@ msgid ""
 "disk)"
 msgstr "Fjern arkivet fra listen (vil ikke slette arkivet fra disken)"
 
-#: ../plugins/files/resources/view-files.ui.h:1
-msgid "column"
-msgstr "kolonne"
+#~ msgid "_Help"
+#~ msgstr "_Hjælp"
+
+#~ msgid "column"
+#~ msgstr "kolonne"
