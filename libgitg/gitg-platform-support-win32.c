@@ -138,9 +138,7 @@ gitg_platform_support_application_support_prepare_startup (void)
 		if (p_AttachConsole != NULL && p_AttachConsole (ATTACH_PARENT_PROCESS))
 		{
 			freopen ("CONOUT$", "w", stdout);
-			dup2 (fileno (stdout), 1);
 			freopen ("CONOUT$", "w", stderr);
-			dup2 (fileno (stderr), 2);
 		}
 	}
 }
