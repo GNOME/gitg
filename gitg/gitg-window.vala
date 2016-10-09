@@ -603,7 +603,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	{
 		if (this.get_realized() && !(Gdk.WindowState.MAXIMIZED in get_window().get_state()))
 		{
-			d_state_settings.set("size", "(ii)", event.width, event.height);
+			int width, height;
+			get_size(out width, out height);
+			d_state_settings.set("size", "(ii)", width, height);
 		}
 
 		return base.configure_event(event);
