@@ -162,15 +162,15 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 				{
 					if (ahead != 0 && behind != 0)
 					{
-						d_ahead_behind.label = _("%d ahead, %d behind").printf(ahead, behind);
+						d_ahead_behind.label = _("%zu ahead, %zu behind").printf(ahead, behind);
 					}
 					else if (ahead != 0)
 					{
-						d_ahead_behind.label = _("%d ahead").printf(ahead);
+						d_ahead_behind.label = _("%zu ahead").printf(ahead);
 					}
 					else
 					{
-						d_ahead_behind.label = _("%d behind").printf(behind);
+						d_ahead_behind.label = _("%zu behind").printf(behind);
 					}
 				}
 			} catch {}
