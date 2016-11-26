@@ -30,7 +30,9 @@ if test -z $LIBTOOL; then
         exit 1
 fi
 
-git submodule update --init --recursive
+if ! test -z `which git` && test -d .git; then
+        git submodule update --init --recursive
+fi
 
 if [ $? != 0 ]; then
     echo "*** Failed to download submodules. Maybe you have a bad connection or a submodule was not forked?"
