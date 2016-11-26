@@ -32,11 +32,11 @@ fi
 
 if ! test -z `which git` && test -d .git; then
         git submodule update --init --recursive
-fi
 
-if [ $? != 0 ]; then
-    echo "*** Failed to download submodules. Maybe you have a bad connection or a submodule was not forked?"
-    exit 1
+        if [ $? != 0 ]; then
+            echo "*** Failed to download submodules. Maybe you have a bad connection or a submodule was not forked?"
+            exit 1
+        fi
 fi
 
 autopoint --force
