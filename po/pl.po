@@ -1,15 +1,15 @@
 # Polish translation for gitg.
-# Copyright © 2012-2016 the gitg authors.
+# Copyright © 2012-2017 the gitg authors.
 # This file is distributed under the same license as the gitg package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2012-2016.
-# Aviary.pl <community-poland@mozilla.org>, 2012-2016.
+# Piotr Drąg <piotrdrag@gmail.com>, 2012-2017.
+# Aviary.pl <community-poland@mozilla.org>, 2012-2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-31 15:27+0000\n"
-"PO-Revision-Date: 2016-09-08 22:43+0200\n"
+"POT-Creation-Date: 2017-01-21 19:37+0100\n"
+"PO-Revision-Date: 2017-01-21 19:38+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -657,8 +657,8 @@ msgstr "gitg to przeglądarka repozytoriów git dla GTK+/GNOME"
 #: ../gitg/gitg-application.vala:231
 msgid "translator-credits"
 msgstr ""
-"Piotr Drąg <piotrdrag@gmail.com>, 2012-2016\n"
-"Aviary.pl <community-poland@mozilla.org>, 2012-2016"
+"Piotr Drąg <piotrdrag@gmail.com>, 2012-2017\n"
+"Aviary.pl <community-poland@mozilla.org>, 2012-2017"
 
 #: ../gitg/gitg-application.vala:234
 msgid "gitg homepage"
@@ -1121,6 +1121,12 @@ msgstr "Nieprawidłowa nazwa"
 msgid "Failed to rename"
 msgstr "Zmiana nazwy się nie powiodła"
 
+#: ../gitg/gitg-remote-notification.vala:90
+#: ../gitg/gitg-simple-notification.vala:99
+#: ../gitg/resources/ui/gitg-window.ui.h:10
+msgid "Close"
+msgstr "Zamknij"
+
 #: ../gitg/gitg-window.vala:187
 msgid "Add Repository"
 msgstr "Dodanie repozytorium"
@@ -1174,12 +1180,6 @@ msgstr ""
 msgid "Missing author details"
 msgstr "Brak informacji o autorze"
 
-#: ../gitg/gitg-remote-notification.vala:90
-#: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:10
-msgid "Close"
-msgstr "Zamknij"
-
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
 msgstr "Domyślne zaznaczanie wszystkich zatwierdzeń w historii"
@@ -1206,18 +1206,18 @@ msgstr "ODNIESIENIE"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
-msgid "%d ahead, %d behind"
-msgstr "Z przodu: %d, z tyłu: %d"
+msgid "%zu ahead, %zu behind"
+msgstr "Z przodu: %zu, z tyłu: %zu"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
-msgid "%d ahead"
-msgstr "Z przodu: %d"
+msgid "%zu ahead"
+msgstr "Z przodu: %zu"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
-msgid "%d behind"
-msgstr "Z tyłu: %d"
+msgid "%zu behind"
+msgstr "Z tyłu: %zu"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1322,6 +1322,34 @@ msgstr "%e %b %Y, %H∶%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e %b %Y, %I∶%M %p"
 
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:39
+#, c-format
+msgid "before (%s)"
+msgstr "przed (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:45
+#, c-format
+msgid "removed (%s)"
+msgstr "usunięto (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:67
+#, c-format
+msgid "after (%s)"
+msgstr "po (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:73
+#, c-format
+msgid "added (%s)"
+msgstr "dodano (%s)"
+
 #: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Zwiń wszystko"
@@ -1336,15 +1364,15 @@ msgstr "Rozwiń wszystko"
 msgid "Committed by %s"
 msgstr "Zatwierdzone przez: %s"
 
-#: ../libgitg/gitg-diff-view-file.vala:172
+#: ../libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
 msgstr "_Otwórz plik"
 
-#: ../libgitg/gitg-diff-view-file.vala:204
+#: ../libgitg/gitg-diff-view-file.vala:209
 msgid "Open containing _folder"
 msgstr "Otwó_rz katalog zawierający"
 
-#: ../libgitg/gitg-diff-view-file.vala:224
+#: ../libgitg/gitg-diff-view-file.vala:229
 msgid "_Copy file path"
 msgstr "S_kopiuj ścieżkę do pliku"
 
@@ -1766,6 +1794,22 @@ msgstr "Nadrzędne"
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
 msgid "Unable to display changes for binary file"
 msgstr "Nie można wyświetlić zmian dla pliku binarnego"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
+msgid "Side by side"
+msgstr "Obok siebie"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
+msgid "Slider"
+msgstr "Suwak"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:3
+msgid "Overlay"
+msgstr "Nakładka"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
+msgid "Difference"
+msgstr "Różnica"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
