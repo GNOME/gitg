@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-08-19 08:55+0000\n"
-"PO-Revision-Date: 2016-08-19 11:25+0200\n"
+"POT-Creation-Date: 2016-11-01 18:57+0000\n"
+"PO-Revision-Date: 2017-01-22 14:57+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <>\n"
 "Language: sk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../contrib/xml/xml-reader.c:327
 #, c-format
@@ -492,7 +492,7 @@ msgstr "Ste si istý, že chcete natrvalo zahodiť všetky označené zmeny?"
 #: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
 #: ../gitg/commit/gitg-commit.vala:1621
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:442 ../gitg/gitg-window.vala:189
+#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -881,20 +881,20 @@ msgstr ""
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Medzitým možno budete chcieť %snastaviť váš profil git%s."
 
-#: ../gitg/gitg-dash-view.vala:387
+#: ../gitg/gitg-dash-view.vala:389
 msgid "Failed to clone repository"
 msgstr "Zlyhalo klonovanie repozitára"
 
-#: ../gitg/gitg-dash-view.vala:418
+#: ../gitg/gitg-dash-view.vala:420
 msgid "Failed to add repository"
 msgstr "Zlyhalo pridanie repozitára"
 
-#: ../gitg/gitg-dash-view.vala:434
+#: ../gitg/gitg-dash-view.vala:436
 msgid "Create new repository"
 msgstr "vytvorenie nového repozitára"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:437
+#: ../gitg/gitg-dash-view.vala:439
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -903,15 +903,15 @@ msgstr ""
 "Umiestnenie <i>%s</i> sa nezdá byť platným repozitárom git. Chcete "
 "inicializovať nový repozitár git v tomto umiestnení?"
 
-#: ../gitg/gitg-dash-view.vala:443
+#: ../gitg/gitg-dash-view.vala:445
 msgid "Create repository"
 msgstr "Vytvoriť repozitár"
 
-#: ../gitg/gitg-dash-view.vala:459
+#: ../gitg/gitg-dash-view.vala:461
 msgid "Failed to create repository"
 msgstr "Zlyhalo vytvorenie repozitára"
 
-#: ../gitg/gitg-dash-view.vala:529
+#: ../gitg/gitg-dash-view.vala:531
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Preskúmavajú sa repozitáre v %s"
@@ -1154,34 +1154,40 @@ msgstr "Neplatné meno"
 msgid "Failed to rename"
 msgstr "Premenovanie zlyhalo"
 
+#: ../gitg/gitg-remote-notification.vala:90
+#: ../gitg/gitg-simple-notification.vala:99
+#: ../gitg/resources/ui/gitg-window.ui.h:10
+msgid "Close"
+msgstr "Zavrieť"
+
 # dialog title
-#: ../gitg/gitg-window.vala:186
+#: ../gitg/gitg-window.vala:187
 msgid "Add Repository"
 msgstr "Pridanie repozitára"
 
-#: ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-window.vala:191
 msgid "_Add"
 msgstr "_Pridať"
 
-#: ../gitg/gitg-window.vala:192
+#: ../gitg/gitg-window.vala:193
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Vyhľadať všetky repozitáre git z tohto adresára"
 
-#: ../gitg/gitg-window.vala:498
+#: ../gitg/gitg-window.vala:501
 msgid "Projects"
 msgstr "Projekty"
 
 # tooltip
-#: ../gitg/gitg-window.vala:748
+#: ../gitg/gitg-window.vala:751
 msgid "Select items"
 msgstr "Vyberie položky"
 
-#: ../gitg/gitg-window.vala:955
+#: ../gitg/gitg-window.vala:958
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ nie je git repozitár"
 
-#: ../gitg/gitg-window.vala:1104
+#: ../gitg/gitg-window.vala:1107
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1189,7 +1195,7 @@ msgstr ""
 "Nemáte nastavené používateľské meno a e-mail. Prosím nastavte si vaše meno a "
 "e-mail v používateľských nastaveniach."
 
-#: ../gitg/gitg-window.vala:1108
+#: ../gitg/gitg-window.vala:1111
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1197,7 +1203,7 @@ msgstr ""
 "Nemáte nastavené používateľské meno. Prosím nastavte si vaše meno v "
 "používateľských nastaveniach."
 
-#: ../gitg/gitg-window.vala:1112
+#: ../gitg/gitg-window.vala:1115
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1205,15 +1211,9 @@ msgstr ""
 "Nemáte nastavený e-mail. Prosím nastavte si váš e-mail v používateľských "
 "nastaveniach."
 
-#: ../gitg/gitg-window.vala:1115
+#: ../gitg/gitg-window.vala:1118
 msgid "Missing author details"
 msgstr "Chýbajú podrobnosti o autorovi"
-
-#: ../gitg/gitg-remote-notification.vala:90
-#: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:10
-msgid "Close"
-msgstr "Zavrieť"
 
 # cmd line desc
 #: ../gitg/history/gitg-history-command-line.vala:42
@@ -1246,18 +1246,18 @@ msgstr "ODKAZ"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
-msgid "%d ahead, %d behind"
-msgstr "%d vpredu, %d vzadu"
+msgid "%zu ahead, %zu behind"
+msgstr "%zu vpredu, %zu vzadu"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
-msgid "%d ahead"
-msgstr "%d vpredu"
+msgid "%zu ahead"
+msgstr "%zu vpredu"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
-msgid "%d behind"
-msgstr "%d vzadu"
+msgid "%zu behind"
+msgstr "%zu vzadu"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1365,6 +1365,34 @@ msgstr "%b %e %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%b %e %Y, %I:%M %p"
 
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:39
+#, c-format
+msgid "before (%s)"
+msgstr "predtým (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:45
+#, c-format
+msgid "removed (%s)"
+msgstr "odstránené (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:67
+#, c-format
+msgid "after (%s)"
+msgstr "potom (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:73
+#, c-format
+msgid "added (%s)"
+msgstr "pridané (%s)"
+
 #: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Zbaliť všetko"
@@ -1379,15 +1407,15 @@ msgstr "Rozbaliť všetko"
 msgid "Committed by %s"
 msgstr "Začlenil/-a %s"
 
-#: ../libgitg/gitg-diff-view-file.vala:172
+#: ../libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
 msgstr "_Otvoriť súbor"
 
-#: ../libgitg/gitg-diff-view-file.vala:204
+#: ../libgitg/gitg-diff-view-file.vala:209
 msgid "Open containing _folder"
 msgstr "Otvo_riť priečinok s obsahom"
 
-#: ../libgitg/gitg-diff-view-file.vala:224
+#: ../libgitg/gitg-diff-view-file.vala:229
 msgid "_Copy file path"
 msgstr "_Kopírovať cestu k súboru"
 
@@ -1403,7 +1431,7 @@ msgstr "do %s"
 msgid "%s at %s"
 msgstr "%s do %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:418
+#: ../libgitg/gitg-repository-list-box.vala:541
 msgid "Cloning…"
 msgstr "Klonuje sa…"
 
@@ -1818,6 +1846,22 @@ msgstr "Rodičia"
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
 msgid "Unable to display changes for binary file"
 msgstr "Nie je možné zobraziť zmeny binárneho súboru"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
+msgid "Side by side"
+msgstr "Vedľa seba"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
+msgid "Slider"
+msgstr "Posuvník"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:3
+msgid "Overlay"
+msgstr "Prekrytie"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
+msgid "Difference"
+msgstr "Rozdiel"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
