@@ -251,7 +251,7 @@ public class Remote : Ggit.Remote
 				d_callbacks = new Callbacks(this, callbacks, update_transfer_progress);
 
 				yield Async.thread(() => {
-					base.connect(direction, d_callbacks, null);
+					base.connect(direction, d_callbacks, null, null);
 				});
 			}
 			catch (Error e)
