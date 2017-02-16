@@ -35,8 +35,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-17 16:08+0200\n"
+"Report-Msgid-Bugs-To: "
+"http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&keywords=I18N+L10N&component=gitg\n"
+"POT-Creation-Date: 2016-11-01 18:57+0000\n"
 "PO-Revision-Date: 2016-09-16 02:13+0200\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -135,8 +136,8 @@ msgid ""
 msgstr ""
 "Indstilling, der angiver om historikbaner, som ikke viser nogen aktivitet, "
 "skal sammenfoldes. Hvis dette slås til, kan det give en renere "
-"historikoversigt, når der foregår en masse samtidig udvikling. Se collapse-"
-"inactive-lanes for at styre hvornår historikbaner sammenfoldes."
+"historikoversigt, når der foregår en masse samtidig udvikling. Se "
+"collapse-inactive-lanes for at styre hvornår historikbaner sammenfoldes."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
 msgid "Show History in Topological Order"
@@ -542,8 +543,8 @@ msgstr "Kunne ikke kassere ændringer"
 #: ../gitg/commit/gitg-commit.vala:1485
 #, c-format
 msgid ""
-"Are you sure you want to permanently discard all changes made to the file `"
-"%s'?"
+"Are you sure you want to permanently discard all changes made to the file "
+"`%s'?"
 msgstr ""
 "Er du sikker på, at du vil kassere alle ændringer i filen \"%s\" permanent?"
 
@@ -702,8 +703,8 @@ msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
 "\n"
-"If you manually compiled libgit2, then please configure libgit2 with -"
-"DTHREADSAFE:BOOL=ON.\n"
+"If you manually compiled libgit2, then please configure libgit2 with "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Otherwise, report a bug in your distributions' bug reporting system for "
 "providing libgit2 without threading support."
@@ -711,8 +712,8 @@ msgstr ""
 "Det er brandærgerligt, men gitg kræver altså at libgit2 (et bibliotek som "
 "gitg afhænger af) er kompileret med trådunderstøttelse.\n"
 "\n"
-"Hvis du har kompileret libgit2 manuelt, så konfigurér venligst libgit2 med -"
-"DTHREADSAFE:BOOL=ON.\n"
+"Hvis du har kompileret libgit2 manuelt, så konfigurér venligst libgit2 med "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Ellers så meld en fejl i din distributions fejlmeldingssystem om at libgit2 "
 "mangler trådunderstøttelse."
@@ -783,8 +784,8 @@ msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"Cherry-pick af %s ind i %s har forårsaget konflikter. Vil du tjekke cherry-"
-"pick-tilstanden ud til din arbejdsmappe for at løse konflikterne?"
+"Cherry-pick af %s ind i %s har forårsaget konflikter. Vil du tjekke "
+"cherry-pick-tilstanden ud til din arbejdsmappe for at løse konflikterne?"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:164
 #: ../gitg/gitg-ref-action-checkout.vala:48
@@ -1240,18 +1241,21 @@ msgid "REFERENCE"
 msgstr "REFERENCE"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
-#, c-format
-msgid "%d ahead, %d behind"
+#, c-format, fuzzy
+#| msgid "%d ahead, %d behind"
+msgid "%zu ahead, %zu behind"
 msgstr "%d foran, %d bagud"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
-#, c-format
-msgid "%d ahead"
+#, c-format, fuzzy
+#| msgid "%d ahead"
+msgid "%zu ahead"
 msgstr "%d foran"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
-#, c-format
-msgid "%d behind"
+#, c-format, fuzzy
+#| msgid "%d behind"
+msgid "%zu behind"
 msgstr "%d bagud"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
@@ -1422,7 +1426,7 @@ msgstr "%s i %s"
 
 #: ../libgitg/gitg-repository-list-box.vala:541
 msgid "Cloning…"
-msgstr "Kloner…"
+msgstr "Kloner …"
 
 #: ../libgitg/gitg-stage.vala:334
 #, c-format
@@ -1480,7 +1484,7 @@ msgstr "_Lokal mappe:"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Select location…"
-msgstr "Vælg placering…"
+msgstr "Vælg placering …"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
 msgid "Bare repository"
@@ -1879,3 +1883,4 @@ msgstr "Fjern arkivet fra listen (vil ikke slette arkivet fra disken)"
 
 #~ msgid "column"
 #~ msgstr "kolonne"
+
