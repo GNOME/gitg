@@ -1,5 +1,5 @@
 # ITALIAN GITG TRANSLATION.
-# Copyright (C) 2009, 2010, 2013, 2014, 2015, 2016 Free Software Foundation, Inc.
+# Copyright (C) 2009, 2010, 2013, 2014, 2015, 2016, 2017 Free Software Foundation, Inc.
 # This file is distributed under the same license as the GITG package.
 #
 # Glossario:
@@ -10,15 +10,15 @@
 # tracked → monitorato
 #
 # Mario Calabrese <mario.calabrese@gmail.com>, 2009, 2010.
-# Milo Casagrande <milo@milo.name>, 2013, 2014, 2015, 2016.
+# Milo Casagrande <milo@milo.name>, 2013, 2014, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-08-27 11:08+0000\n"
-"PO-Revision-Date: 2016-10-07 08:38+0200\n"
+"POT-Creation-Date: 2016-11-01 18:57+0000\n"
+"PO-Revision-Date: 2017-02-14 19:32+0100\n"
 "Last-Translator: Milo Casagrande <milo@milo.name>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.0beta2\n"
 
 #: ../contrib/xml/xml-reader.c:327
 #, c-format
@@ -484,7 +484,7 @@ msgstr "Scartare definitivamente le modifiche selezionate?"
 #: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
 #: ../gitg/commit/gitg-commit.vala:1621
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:189
+#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -1124,32 +1124,38 @@ msgstr "Nome non valido"
 msgid "Failed to rename"
 msgstr "Rinomina non riuscita"
 
-#: ../gitg/gitg-window.vala:186
+#: ../gitg/gitg-remote-notification.vala:90
+#: ../gitg/gitg-simple-notification.vala:99
+#: ../gitg/resources/ui/gitg-window.ui.h:10
+msgid "Close"
+msgstr "Chiudi"
+
+#: ../gitg/gitg-window.vala:187
 msgid "Add Repository"
 msgstr "Aggiungi repository"
 
-#: ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-window.vala:191
 msgid "_Add"
 msgstr "A_ggiungi"
 
-#: ../gitg/gitg-window.vala:192
+#: ../gitg/gitg-window.vala:193
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Cerca repository a partire da questa directory"
 
-#: ../gitg/gitg-window.vala:498
+#: ../gitg/gitg-window.vala:501
 msgid "Projects"
 msgstr "Progetti"
 
-#: ../gitg/gitg-window.vala:748
+#: ../gitg/gitg-window.vala:751
 msgid "Select items"
 msgstr "Seleziona elementi"
 
-#: ../gitg/gitg-window.vala:955
+#: ../gitg/gitg-window.vala:958
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "«%s» non è un repository git."
 
-#: ../gitg/gitg-window.vala:1104
+#: ../gitg/gitg-window.vala:1107
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1157,7 +1163,7 @@ msgstr ""
 "L'indirizzo email e il nome utente non sono ancora stati configurati. Aprire "
 "la configurazione utente e fornirli entrambi."
 
-#: ../gitg/gitg-window.vala:1108
+#: ../gitg/gitg-window.vala:1111
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1165,7 +1171,7 @@ msgstr ""
 "Il nome utente non è ancora stato configurato. Aprire la configurazione "
 "utente e fornirne uno."
 
-#: ../gitg/gitg-window.vala:1112
+#: ../gitg/gitg-window.vala:1115
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1173,15 +1179,9 @@ msgstr ""
 "L'indirizzo email non è ancora stato configurato. Aprire la configurazione "
 "utente e fornirne uno."
 
-#: ../gitg/gitg-window.vala:1115
+#: ../gitg/gitg-window.vala:1118
 msgid "Missing author details"
 msgstr "Dettagli autore mancanti"
-
-#: ../gitg/gitg-remote-notification.vala:90
-#: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:10
-msgid "Close"
-msgstr "Chiudi"
 
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
@@ -1209,18 +1209,18 @@ msgstr "RIFERIMENTO"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
-msgid "%d ahead, %d behind"
-msgstr "%d in più, %d mancanti"
+msgid "%zu ahead, %zu behind"
+msgstr "%zu in più, %zu mancanti"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
-msgid "%d ahead"
-msgstr "%d in più"
+msgid "%zu ahead"
+msgstr "%zu in più"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
-msgid "%d behind"
-msgstr "%d mancanti"
+msgid "%zu behind"
+msgstr "%zu mancanti"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1322,6 +1322,34 @@ msgstr "%e %b %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e %b %Y, %I:%M %p"
 
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:39
+#, c-format
+msgid "before (%s)"
+msgstr "prima (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:45
+#, c-format
+msgid "removed (%s)"
+msgstr "rimosso (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:67
+#, c-format
+msgid "after (%s)"
+msgstr "dopo (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:73
+#, c-format
+msgid "added (%s)"
+msgstr "aggiunto (%s)"
+
 #: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Chiudi tutto"
@@ -1336,15 +1364,15 @@ msgstr "Espandi tutto"
 msgid "Committed by %s"
 msgstr "Commit eseguito da %s"
 
-#: ../libgitg/gitg-diff-view-file.vala:172
+#: ../libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
 msgstr "_Apri file"
 
-#: ../libgitg/gitg-diff-view-file.vala:204
+#: ../libgitg/gitg-diff-view-file.vala:209
 msgid "Open containing _folder"
 msgstr "Apri _cartella contenente"
 
-#: ../libgitg/gitg-diff-view-file.vala:224
+#: ../libgitg/gitg-diff-view-file.vala:229
 msgid "_Copy file path"
 msgstr "_Copia percorso file"
 
@@ -1765,6 +1793,22 @@ msgstr "Genitori"
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
 msgid "Unable to display changes for binary file"
 msgstr "Impossibile visualizzare le modifiche per un file binario"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
+msgid "Side by side"
+msgstr "Fianco a fianco"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
+msgid "Slider"
+msgstr "Scorrevole"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:3
+msgid "Overlay"
+msgstr "Sovrapposto"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
+msgid "Difference"
+msgstr "Differenza"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
