@@ -1,16 +1,16 @@
 # Serbian translation for gitg.
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2013—2016.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2013—2017.
 # This file is distributed under the same license as the gitg package.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2013—2016.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2013—2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&ke"
 "ywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-02-20 07:19+0000\n"
-"PO-Revision-Date: 2016-02-20 11:17+0200\n"
+"POT-Creation-Date: 2017-02-15 06:47+0000\n"
+"PO-Revision-Date: 2017-02-25 19:29+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +65,7 @@ msgstr "Koristi Gravatar"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
 msgid "Enable the use of gravatar to display user avatars."
-msgstr "Omogući upotrebu gravatara za prikaz korisničkih avatara"
+msgstr "Omogući upotrebu gravatara za prikaz korisničkih avatara."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
 msgid "Enable Monitoring"
@@ -81,9 +81,6 @@ msgid "Enable Diff Highlighting"
 msgstr "Uključuje isticanje razlika"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-#| msgid ""
-#| "Setting which determines whether or not spell checking is enabled when "
-#| "writing a commit message."
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
@@ -189,7 +186,7 @@ msgstr "Redosled ređanja referenci"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
 msgid "The order by which references in the history sidebar should be sorted."
-msgstr "Redosled po kojem će se ređati reference u straničniku sa istorijom"
+msgstr "Redosled po kojem će se ređati reference u straničniku sa istorijom."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
 msgid "Show Upstream With Branch"
@@ -346,40 +343,40 @@ msgid "Cannot set spell checking language: %s"
 msgstr "Ne mogu da postavim jezik provere pisanja: %s"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:508
-#: ../gitg/commit/gitg-commit.vala:1067
+#: ../gitg/commit/gitg-commit.vala:1076
 msgid "There are no changes to be committed"
 msgstr "Nema izmena za predaju"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:509
-#: ../gitg/commit/gitg-commit.vala:1068
+#: ../gitg/commit/gitg-commit.vala:1077
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Koristite dopunu da izmenite poruku predaje prethodne predaje"
 
-#: ../gitg/commit/gitg-commit.vala:104
+#: ../gitg/commit/gitg-commit.vala:113
 msgctxt "Activity"
 msgid "Commit"
 msgstr "Predaj"
 
-#: ../gitg/commit/gitg-commit.vala:109
+#: ../gitg/commit/gitg-commit.vala:118
 msgid "Create new commits and manage the staging area"
 msgstr "Napravite nove predaje i upravljajte pblašću uštekavanja"
 
-#: ../gitg/commit/gitg-commit.vala:184
+#: ../gitg/commit/gitg-commit.vala:193
 msgid "_Stage selection"
 msgstr "_Uštekaj izbor"
 
-#: ../gitg/commit/gitg-commit.vala:223
+#: ../gitg/commit/gitg-commit.vala:232
 #, c-format
 msgid "Failed to stage the removal of submodule `%s'"
 msgstr "Nisam uspeo da uštekam uklanjanje podmodula „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:239
+#: ../gitg/commit/gitg-commit.vala:248
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr ""
 "Nisam uspeo da otvorim riznicu podmodula „%s“ kada sam pokušao da uštekam"
 
-#: ../gitg/commit/gitg-commit.vala:253
+#: ../gitg/commit/gitg-commit.vala:262
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
@@ -388,100 +385,100 @@ msgstr ""
 "Nisam uspeo da pretražim slanja radnog direktorijuma podmodula „%s“ kada sam "
 "pokušao da uštekam"
 
-#: ../gitg/commit/gitg-commit.vala:266
+#: ../gitg/commit/gitg-commit.vala:275
 #, c-format
 msgid "Failed to stage the submodule `%s'"
 msgstr "Nisam uspeo da uštekam podmodul „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:288
+#: ../gitg/commit/gitg-commit.vala:297
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Nisam uspeo da uštekam uklanjanje datoteke „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:302
+#: ../gitg/commit/gitg-commit.vala:311
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Nisam uspeo da uštekam datoteku „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:574
+#: ../gitg/commit/gitg-commit.vala:583
 msgid "_Unstage selection"
 msgstr "_Odštekaj izbor"
 
-#: ../gitg/commit/gitg-commit.vala:640
+#: ../gitg/commit/gitg-commit.vala:649
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Nisam uspeo da odštekam uklanjanje datoteke „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:641
+#: ../gitg/commit/gitg-commit.vala:650
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Nisam uspeo da odštekam datoteku „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:648
+#: ../gitg/commit/gitg-commit.vala:657
 #, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "Nisam uspeo da odštekam uklanjanje podmodula „%s“"
 
-#: ../gitg/commit/gitg-commit.vala:649
+#: ../gitg/commit/gitg-commit.vala:658
 #, c-format
 msgid "Failed to unstage the submodule `%s'"
 msgstr "Nisam uspeo da odštekam podmodul „%s“"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:853
+#: ../gitg/commit/gitg-commit.vala:862
 msgid "Staged"
 msgstr "Uštekano"
 
-#: ../gitg/commit/gitg-commit.vala:861
+#: ../gitg/commit/gitg-commit.vala:870
 msgid "No staged files"
 msgstr "Nema uštekanih datoteka"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:884
+#: ../gitg/commit/gitg-commit.vala:893
 msgid "Unstaged"
 msgstr "Odštekano"
 
-#: ../gitg/commit/gitg-commit.vala:892
+#: ../gitg/commit/gitg-commit.vala:901
 msgid "No unstaged files"
 msgstr "Nema odštekanih datoteka"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:915
+#: ../gitg/commit/gitg-commit.vala:924
 msgid "Untracked"
 msgstr "Nepraćene"
 
-#: ../gitg/commit/gitg-commit.vala:919
+#: ../gitg/commit/gitg-commit.vala:928
 msgid "No untracked files"
 msgstr "Nema nepraćenih datoteka"
 
-#: ../gitg/commit/gitg-commit.vala:944
+#: ../gitg/commit/gitg-commit.vala:953
 msgid "Submodule"
 msgstr "Podmodul"
 
-#: ../gitg/commit/gitg-commit.vala:948
+#: ../gitg/commit/gitg-commit.vala:957
 msgid "No dirty submodules"
 msgstr "Nema zaprljanih podmodula"
 
-#: ../gitg/commit/gitg-commit.vala:1095
+#: ../gitg/commit/gitg-commit.vala:1106
 msgid "Failed to commit"
 msgstr "Nisam uspeo da predam"
 
-#: ../gitg/commit/gitg-commit.vala:1111
+#: ../gitg/commit/gitg-commit.vala:1122
 msgid "Failed to pass pre-commit"
 msgstr "Nisam uspeo da prođem pred-predaju"
 
-#: ../gitg/commit/gitg-commit.vala:1314 ../gitg/commit/gitg-commit.vala:1464
+#: ../gitg/commit/gitg-commit.vala:1330 ../gitg/commit/gitg-commit.vala:1480
 msgid "Discard changes"
 msgstr "Odbaci izmene"
 
-#: ../gitg/commit/gitg-commit.vala:1315
+#: ../gitg/commit/gitg-commit.vala:1331
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Da li ste sigurni da želite trajno da odbacite izabrane izmene?"
 
-#: ../gitg/commit/gitg-commit.vala:1324 ../gitg/commit/gitg-commit.vala:1490
-#: ../gitg/commit/gitg-commit.vala:1605
+#: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
+#: ../gitg/commit/gitg-commit.vala:1621
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:437 ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -492,27 +489,27 @@ msgstr "Da li ste sigurni da želite trajno da odbacite izabrane izmene?"
 msgid "_Cancel"
 msgstr "_Otkaži"
 
-#: ../gitg/commit/gitg-commit.vala:1325 ../gitg/commit/gitg-commit.vala:1491
+#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
 msgid "Discard"
 msgstr "Odbaci"
 
-#: ../gitg/commit/gitg-commit.vala:1354
+#: ../gitg/commit/gitg-commit.vala:1370
 msgid "Failed to discard selection"
 msgstr "Nisam uspeo da odbacim izbor"
 
-#: ../gitg/commit/gitg-commit.vala:1384
+#: ../gitg/commit/gitg-commit.vala:1400
 msgid "Failed to stage selection"
 msgstr "Nisam uspeo da uštekam izbor"
 
-#: ../gitg/commit/gitg-commit.vala:1388
+#: ../gitg/commit/gitg-commit.vala:1404
 msgid "Failed to unstage selection"
 msgstr "Nisam uspeo da odštekam izbor"
 
-#: ../gitg/commit/gitg-commit.vala:1448
+#: ../gitg/commit/gitg-commit.vala:1464
 msgid "Failed to discard changes"
 msgstr "Nisam uspeo da odbacim izmene"
 
-#: ../gitg/commit/gitg-commit.vala:1469
+#: ../gitg/commit/gitg-commit.vala:1485
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
@@ -521,7 +518,7 @@ msgstr ""
 "Da li ste sigurni da želite trajno da odbacite sve izmene načinjene nad "
 "datotekom „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1480
+#: ../gitg/commit/gitg-commit.vala:1496
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -530,11 +527,11 @@ msgstr ""
 "Da li ste sigurni da želite trajno da odbacite sve izmene načinjene nad "
 "datotekama „%s“ i „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1563
+#: ../gitg/commit/gitg-commit.vala:1579
 msgid "Failed to delete files"
 msgstr "Nisam uspeo da obrišem datoteke"
 
-#: ../gitg/commit/gitg-commit.vala:1579
+#: ../gitg/commit/gitg-commit.vala:1595
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Obriši datoteku"
@@ -542,37 +539,37 @@ msgstr[1] "Obriši datoteke"
 msgstr[2] "Obriši datoteke"
 msgstr[3] "Obriši jednu datoteku"
 
-#: ../gitg/commit/gitg-commit.vala:1584
+#: ../gitg/commit/gitg-commit.vala:1600
 #, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "Da li sigurno želite da trajno obrišete datoteku „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1595
+#: ../gitg/commit/gitg-commit.vala:1611
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Da li sigurno želite da trajno obrišete datoteke „%s“ i „%s“?"
 
-#: ../gitg/commit/gitg-commit.vala:1640
+#: ../gitg/commit/gitg-commit.vala:1657
 msgid "_Stage changes"
 msgstr "_Uštekaj izmene"
 
-#: ../gitg/commit/gitg-commit.vala:1650
+#: ../gitg/commit/gitg-commit.vala:1669
 msgid "_Unstage changes"
 msgstr "_Odštekaj izmene"
 
-#: ../gitg/commit/gitg-commit.vala:1660
+#: ../gitg/commit/gitg-commit.vala:1681
 msgid "_Discard changes"
 msgstr "_Odbaci izmene"
 
-#: ../gitg/commit/gitg-commit.vala:1670
+#: ../gitg/commit/gitg-commit.vala:1693
 msgid "D_elete file"
 msgid_plural "D_elete files"
-msgstr[0] "Obriši"
+msgstr[0] "Obriši _datoteku"
 msgstr[1] "Obriši _datoteke"
 msgstr[2] "Obriši _datoteke"
 msgstr[3] "Obriši jednu _datoteku"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: ../gitg/commit/gitg-commit.vala:1723
 msgid "_Edit file"
 msgstr "_Uredi datoteku"
 
@@ -655,11 +652,11 @@ msgstr "Neće pokušati da učita riznicu iz tekućeg radnog direktorijuma"
 msgid "- Git repository viewer"
 msgstr "— Pregledač gitove riznice"
 
-#: ../gitg/gitg-application.vala:226
+#: ../gitg/gitg-application.vala:222
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgstr "gitg je pregledač gitove riznice za gtk+/Gnom"
 
-#: ../gitg/gitg-application.vala:235
+#: ../gitg/gitg-application.vala:231
 msgid "translator-credits"
 msgstr ""
 "Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
@@ -667,11 +664,11 @@ msgstr ""
 "\n"
 "http://prevod.org — prevod na srpski jezik"
 
-#: ../gitg/gitg-application.vala:238
+#: ../gitg/gitg-application.vala:234
 msgid "gitg homepage"
 msgstr "Matična stranica gitg-a"
 
-#: ../gitg/gitg-application.vala:369
+#: ../gitg/gitg-application.vala:364
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -692,25 +689,25 @@ msgstr ""
 "distribucije o dostavljanju „libgit2“ bez podrške za niti."
 
 #. ex: ts=4 noet
-#: ../gitg/gitg-author-details-dialog.vala:85
-#: ../gitg/gitg-author-details-dialog.vala:105
+#: ../gitg/gitg-author-details-dialog.vala:97
+#: ../gitg/gitg-author-details-dialog.vala:117
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
 msgid "Author Details"
 msgstr "Podaci o autoru"
 
-#: ../gitg/gitg-author-details-dialog.vala:86
+#: ../gitg/gitg-author-details-dialog.vala:98
 msgid "Enter default details used for all repositories:"
 msgstr "Unesite podrazumevane pojedinosti za sve riznice:"
 
 #. Translators: %s is the repository name
-#: ../gitg/gitg-author-details-dialog.vala:108
+#: ../gitg/gitg-author-details-dialog.vala:120
 #, c-format
 msgid "Override global details for repository '%s':"
 msgstr "Unesite pojedinosti za riznicu „%s“:"
 
-#: ../gitg/gitg-author-details-dialog.vala:220
+#: ../gitg/gitg-author-details-dialog.vala:232
 msgid "Failed to set Git user config."
-msgstr "Nisam uspeo da podesim podešavanja korisnika Gita"
+msgstr "Nisam uspeo da podesim podešavanja korisnika Gita."
 
 #: ../gitg/gitg-clone-dialog.vala:89
 msgid "The URL introduced is not supported"
@@ -726,28 +723,21 @@ msgstr "Proberi ovu predaju na granu"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-#| msgid "Failed to lookup their commit: %s"
 msgid "Failed to lookup the commit for branch %s: %s"
 msgstr "Nisam uspeo da nađem predaju za granu %s: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
-#| msgid "Failed to create commit: %s"
 msgid "Failed to cherry-pick the commit: %s"
 msgstr "Nisam uspeo da proberem predaju: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:144
 #: ../gitg/gitg-commit-action-cherry-pick.vala:160
-#| msgid "Merge has conflicts"
 msgid "Cherry pick has conflicts"
 msgstr "Probiranje ima sukobe"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "branch %s with the merge to your working directory to resolve the "
-#| "conflicts?"
 msgid ""
 "The cherry pick of %s onto %s has caused conflicts, would you like to "
 "checkout branch %s with the cherry pick to your working directory to resolve "
@@ -758,9 +748,6 @@ msgstr ""
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "the merge to your working directory to resolve the conflicts?"
 msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
@@ -775,29 +762,24 @@ msgid "Checkout"
 msgstr "Overi"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:168
-#| msgid "Merge failed with conflicts"
 msgid "Cherry pick failed with conflicts"
 msgstr "Probiranje nije uspelo zbog sukoba"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:179
-#| msgid "Finished merge with conflicts in working directory"
 msgid "Cherry pick finished with conflicts in working directory"
 msgstr "Probiranje je završeno sa sukobima unutar radne fascikle"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-#| msgid "Merge %s into %s"
 msgid "Cherry pick %s onto %s"
 msgstr "Proberi %s na %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:224
-#| msgid "Successfully merged %s into %s"
 msgid "Successfully cherry picked"
 msgstr "Uspešno sam probrao"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-#| msgid "Merge into %s"
 msgid "Cherry pick onto %s"
 msgstr "Proberi na %s"
 
@@ -853,38 +835,41 @@ msgstr "Nisam uspeo da nađem oznaku"
 msgid "Provide a message to create an annotated tag"
 msgstr "Obezbedi poruku za stvaranje pribeležene oznake"
 
-#: ../gitg/gitg-dash-view.vala:171
-#| msgid "Remotes"
+#: ../gitg/gitg-dash-view.vala:87
+msgid "Select and manage projects"
+msgstr "Izaberi i upravljaj projektima"
+
+#: ../gitg/gitg-dash-view.vala:176
 msgid "_Remove"
 msgstr "_Ukloni"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:227
+#: ../gitg/gitg-dash-view.vala:232
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
 "Možemo i da %sskeniramo vašu ličnu fasciklu%s za pronalaženje git riznica."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:230
+#: ../gitg/gitg-dash-view.vala:235
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "U međuvremenu, možda bi mogli da %spodesite vaš git profil%s."
 
-#: ../gitg/gitg-dash-view.vala:382
+#: ../gitg/gitg-dash-view.vala:389
 msgid "Failed to clone repository"
 msgstr "Nisam uspeo da iskloniram riznicu"
 
-#: ../gitg/gitg-dash-view.vala:413
+#: ../gitg/gitg-dash-view.vala:420
 msgid "Failed to add repository"
 msgstr "Nisam uspeo da dodam riznicu"
 
-#: ../gitg/gitg-dash-view.vala:429
+#: ../gitg/gitg-dash-view.vala:436
 msgid "Create new repository"
 msgstr "Napravi novu riznicu"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:432
+#: ../gitg/gitg-dash-view.vala:439
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -893,15 +878,15 @@ msgstr ""
 "Putanja <i>%s</i> ne liči na ispravnu git riznicu. Želite li da postavim "
 "početnu git riznicu u ovoj fascikli?"
 
-#: ../gitg/gitg-dash-view.vala:438
+#: ../gitg/gitg-dash-view.vala:445
 msgid "Create repository"
 msgstr "Napravi riznicu"
 
-#: ../gitg/gitg-dash-view.vala:454
+#: ../gitg/gitg-dash-view.vala:461
 msgid "Failed to create repository"
 msgstr "Nisam uspeo da napravim riznicu"
 
-#: ../gitg/gitg-dash-view.vala:524
+#: ../gitg/gitg-dash-view.vala:531
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Pretražujem riznice u %s"
@@ -1141,6 +1126,12 @@ msgstr "Neispravan naziv"
 msgid "Failed to rename"
 msgstr "Nisam uspeo da preimenujem"
 
+#: ../gitg/gitg-remote-notification.vala:90
+#: ../gitg/gitg-simple-notification.vala:99
+#: ../gitg/resources/ui/gitg-window.ui.h:10
+msgid "Close"
+msgstr "Zatvori"
+
 #: ../gitg/gitg-window.vala:187
 msgid "Add Repository"
 msgstr "Dodaj riznicu"
@@ -1153,16 +1144,20 @@ msgstr "_Dodaj"
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Skeniraj sve u ovoj fascikli i nađi sve git riznice"
 
-#: ../gitg/gitg-window.vala:481
+#: ../gitg/gitg-window.vala:501
 msgid "Projects"
 msgstr "Projekti"
 
-#: ../gitg/gitg-window.vala:912
+#: ../gitg/gitg-window.vala:751
+msgid "Select items"
+msgstr "Izaberi stavke"
+
+#: ../gitg/gitg-window.vala:958
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "„%s“ nije Gitova riznica."
 
-#: ../gitg/gitg-window.vala:1061
+#: ../gitg/gitg-window.vala:1107
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1170,7 +1165,7 @@ msgstr ""
 "Vaše korisničko ime i el. pošta još nisu podešeni. Idite na podešavanja "
 "korisnika i dostavite vaše ime i el. poštu."
 
-#: ../gitg/gitg-window.vala:1065
+#: ../gitg/gitg-window.vala:1111
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1178,7 +1173,7 @@ msgstr ""
 "Vaše korisničko ime još nije podešeno. Idite na podešavanja korisnika i "
 "dostavite vaše ime."
 
-#: ../gitg/gitg-window.vala:1069
+#: ../gitg/gitg-window.vala:1115
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1186,15 +1181,9 @@ msgstr ""
 "Vaša el. pošta još nije podešena. Idite na podešavanja korisnika i dostavite "
 "vašu el. poštu."
 
-#: ../gitg/gitg-window.vala:1072
+#: ../gitg/gitg-window.vala:1118
 msgid "Missing author details"
 msgstr "Nedostaju podaci o autoru"
-
-#: ../gitg/gitg-remote-notification.vala:90
-#: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:10
-msgid "Close"
-msgstr "Zatvori"
 
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
@@ -1222,18 +1211,21 @@ msgstr "REFERENCA"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
-msgid "%d ahead, %d behind"
-msgstr "%d je ispred, %d je iza"
+#| msgid "%d ahead, %d behind"
+msgid "%zu ahead, %zu behind"
+msgstr "%zu je ispred, %zu je iza"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
-msgid "%d ahead"
-msgstr "%d je ispred"
+#| msgid "%d ahead"
+msgid "%zu ahead"
+msgstr "%zu je ispred"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
-msgid "%d behind"
-msgstr "%d je iza"
+#| msgid "%d behind"
+msgid "%zu behind"
+msgstr "%zu je iza"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1248,17 +1240,17 @@ msgstr "Grane"
 msgid "Remotes"
 msgstr "Udaljeni"
 
-#: ../gitg/history/gitg-history.vala:306
+#: ../gitg/history/gitg-history.vala:342
 #: ../gitg/preferences/gitg-preferences-history.vala:218
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
 msgid "History"
 msgstr "Istorija"
 
-#: ../gitg/history/gitg-history.vala:311
+#: ../gitg/history/gitg-history.vala:347
 msgid "Examine the history of the repository"
 msgstr "Proučite istorijat riznice"
 
-#: ../gitg/history/gitg-history.vala:796
+#: ../gitg/history/gitg-history.vala:843
 msgid "Mainline"
 msgstr "Glavna linija"
 
@@ -1270,6 +1262,13 @@ msgstr "Predaje"
 #: ../gitg/preferences/gitg-preferences-interface.vala:120
 msgid "Interface"
 msgstr "Sučelje"
+
+#. Translators: %s will be replaced with a URL indicating the resource
+#. for which the authentication is required.
+#: ../libgitg/gitg-authentication-dialog.vala:69
+#, c-format
+msgid "Password required for %s"
+msgstr "Potrebna je lozinka za „%s“"
 
 #: ../libgitg/gitg-date.vala:346
 msgid "Now"
@@ -1334,20 +1333,60 @@ msgstr "%e. %B %Y., u %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e. %b. %Y., u %I:%M %p"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:142
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:39
+#, c-format
+msgid "before (%s)"
+msgstr "pre (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:45
+#, c-format
+msgid "removed (%s)"
+msgstr "uklonjeno (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:67
+#, c-format
+msgid "after (%s)"
+msgstr "posle (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:73
+#, c-format
+msgid "added (%s)"
+msgstr "dodato (%s)"
+
+#: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Zatvori stablo"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:146
+#: ../libgitg/gitg-diff-view-commit-details.vala:149
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
 msgstr "Raširi sve"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:199
+#: ../libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
-#| msgid "Committed by:"
 msgid "Committed by %s"
 msgstr "Predao je %s"
+
+#: ../libgitg/gitg-diff-view-file.vala:177
+#| msgid "_Open"
+msgid "_Open file"
+msgstr "_Otvori datoteku"
+
+#: ../libgitg/gitg-diff-view-file.vala:209
+msgid "Open containing _folder"
+msgstr "Otvori sadržajnu _fasciklu"
+
+#: ../libgitg/gitg-diff-view-file.vala:229
+msgid "_Copy file path"
+msgstr "_Umnoži putanju datoteke"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: ../libgitg/gitg-repository-list-box.vala:154
@@ -1361,8 +1400,7 @@ msgstr "u %s"
 msgid "%s at %s"
 msgstr "%s u fascikli %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:409
-#| msgid "Cloning..."
+#: ../libgitg/gitg-repository-list-box.vala:541
 msgid "Cloning…"
 msgstr "Kloniram…"
 
@@ -1372,12 +1410,12 @@ msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
 "Ne mogu da pročitam poruku predaje nakon pokretanja zakačke poruke predaje: %s"
 
-#: ../plugins/diff/gitg-diff.vala:112
+#: ../plugins/diff/gitg-diff.vala:115
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:11
 msgid "Diff"
 msgstr "Razlike"
 
-#: ../plugins/diff/gitg-diff.vala:117
+#: ../plugins/diff/gitg-diff.vala:120
 msgid "Show the changes introduced by the selected commit"
 msgstr "Prikažite razlike uvedene izabranom predajom"
 
@@ -1395,7 +1433,7 @@ msgstr "_Sačuvaj"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
 msgid "Default details used for all repositories"
-msgstr "Podrazumevane pojedinosti za sve riznice:"
+msgstr "Podrazumevane pojedinosti za sve riznice"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
 msgid "E-mail:"
@@ -1540,18 +1578,14 @@ msgid "_Keyboard Shortcuts"
 msgstr "_Prečice tastature"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Help"
-msgstr "Po_moć"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_About"
 msgstr "_O programu"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
+#: ../gitg/resources/ui/gitg-menus.ui.h:6
 msgid "_Quit"
 msgstr "_Izađi"
 
-#: ../gitg/resources/ui/gitg-menus.ui.h:8
+#: ../gitg/resources/ui/gitg-menus.ui.h:7
 msgid "_Reload"
 msgstr "Ponovo _učitaj"
 
@@ -1664,7 +1698,6 @@ msgid "Preferences"
 msgstr "Postavke"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
-#| msgid "_New Window"
 msgctxt "shortcut window"
 msgid "Windows"
 msgstr "Prozor"
@@ -1680,7 +1713,6 @@ msgid "Open the window menu"
 msgstr "Otvara izbornik prozora"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-#| msgid "_Open Repository…"
 msgctxt "shortcut window"
 msgid "Open a repository"
 msgstr "Otvara riznicu"
@@ -1701,7 +1733,6 @@ msgid "Close the active window"
 msgstr "Zatvara radni prozor"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
-#| msgid "Show the application's version"
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Izlazi iz programa"
@@ -1715,17 +1746,14 @@ msgid "Clone"
 msgstr "Preslikaj"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:4
-#| msgid "_Clone repository"
 msgid "Clone repository"
 msgstr "Preslikajte riznicu"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:5
-#| msgid "_Add"
 msgid "Add"
 msgstr "Dodaj"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:6
-#| msgid "_Add repository"
 msgid "Add repository"
 msgstr "Dodajte riznicu"
 
@@ -1770,27 +1798,43 @@ msgid "Remember _forever"
 msgstr "Zapamti za _stalno"
 
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
-#| msgid "Parents:"
 msgid "Parents"
 msgstr "Roditelji"
 
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
+msgid "Unable to display changes for binary file"
+msgstr "Ne mogu da prikažem izmene za binarnu datoteku"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
+msgid "Side by side"
+msgstr "Jedno pored drugog"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
+msgid "Slider"
+msgstr "Klizač"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:3
+msgid "Overlay"
+msgstr "Preklopi"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
+#| msgid "References"
+msgid "Difference"
+msgstr "Razlike"
+
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
-#| msgid "Tab width"
 msgid "Tab width:"
 msgstr "Širina tabulatora:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:2
-#| msgid "Wrap lines"
 msgid "Wrap lines:"
 msgstr "Prelomi redove:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:3
-#| msgid "Ignore whitespace changes"
 msgid "Ignore whitespace:"
 msgstr "Zanemari praznine:"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:1
-#| msgid "Context"
 msgid "Context:"
 msgstr "Sadržaj:"
 
@@ -1804,9 +1848,11 @@ msgid ""
 "disk)"
 msgstr "Ukloni riznicu sa spiska (ne briše je sa diska)"
 
-#: ../plugins/files/resources/view-files.ui.h:1
-msgid "column"
-msgstr "kolona"
+#~ msgid "_Help"
+#~ msgstr "Po_moć"
+
+#~ msgid "column"
+#~ msgstr "kolona"
 
 #~ msgid "_Delete"
 #~ msgstr "_Obriši"
@@ -1837,9 +1883,6 @@ msgstr "kolona"
 
 #~ msgid "Unable to open the .gitconfig file."
 #~ msgstr "Ne mogu da otvorim datoteku podešavanja „.gitconfig“."
-
-#~ msgid "_Open"
-#~ msgstr "_Otvori"
 
 #~ msgid "Note: The Git config file '%s' does not exist."
 #~ msgstr "Napomena: Gitova datoteka podešavanja „%s“ ne postoji."
