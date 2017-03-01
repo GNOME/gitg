@@ -149,7 +149,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		return true;
 	}
 
-	private static const ActionEntry[] win_entries = {
+	private const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
 		{"gear-menu", on_gear_menu_activated, null, "false", null},
 		{"close", on_close_activated},

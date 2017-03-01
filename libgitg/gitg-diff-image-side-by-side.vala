@@ -22,7 +22,7 @@ class Gitg.DiffImageSideBySide : Gtk.DrawingArea
 	private Pango.Layout d_old_size_layout;
 	private Pango.Layout d_new_size_layout;
 
-	private static const int TEXT_SPACING = 6;
+	private const int TEXT_SPACING = 6;
 
 	private Pango.Layout? old_size_layout
 	{

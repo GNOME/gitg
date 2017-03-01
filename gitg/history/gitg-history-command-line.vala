@@ -37,7 +37,7 @@ class CommandLine : Object, GitgExt.CommandLine
 	private bool d_all_remotes;
 	private bool d_all_tags;
 
-	private static const OptionEntry[] s_entries = {
+	private const OptionEntry[] s_entries = {
 		{ "all", 'a', OptionFlags.IN_MAIN, OptionArg.NONE, ref s_all_commits,
 		  N_("Select all commits by default in the history activity"), null },
 		{ "branches", 'b', OptionFlags.IN_MAIN, OptionArg.NONE, ref s_all_branches,

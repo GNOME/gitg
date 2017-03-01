@@ -51,7 +51,7 @@ public class Application : Gtk.Application
 			return true;
 		}
 
-		public static const OptionEntry[] entries = {
+		public const OptionEntry[] entries = {
 			{"version", 'v', OptionFlags.NO_ARG, OptionArg.CALLBACK,
 			 (void *)show_version_and_quit, N_("Show the application's version"), null},
 
@@ -306,7 +306,7 @@ public class Application : Gtk.Application
 		AuthorDetailsDialog.show_global(window);
 	}
 
-	private static const ActionEntry[] app_entries = {
+	private const ActionEntry[] app_entries = {
 		{"new", on_app_new_window_activated},
 		{"about", on_app_about_activated},
 		{"quit", on_app_quit_activated},
@@ -315,7 +315,7 @@ public class Application : Gtk.Application
 	};
 
 #if GTK_SHORTCUTS_WINDOW
-	private static const ActionEntry[] shortcut_window_entries = {
+	private const ActionEntry[] shortcut_window_entries = {
 		{"shortcuts", on_shortcuts_activated}
 	};
 #endif
