@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-08-27 11:08+0000\n"
-"PO-Revision-Date: 2016-09-12 10:37+0300\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
+"POT-Creation-Date: 2016-11-01 18:57+0000\n"
+"PO-Revision-Date: 2017-02-20 18:26+0200\n"
+"Last-Translator: Yannis Koutsoukos <giankoyt@gmail.com>\n"
 "Language-Team: team@lists.gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Project-Style: gnome\n"
 
 #: ../contrib/xml/xml-reader.c:327
@@ -487,7 +487,7 @@ msgstr ""
 #: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
 #: ../gitg/commit/gitg-commit.vala:1621
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:189
+#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -1149,32 +1149,38 @@ msgstr "Άκυρο όνομα"
 msgid "Failed to rename"
 msgstr "Αποτυχία μετονομασίας"
 
-#: ../gitg/gitg-window.vala:186
+#: ../gitg/gitg-remote-notification.vala:90
+#: ../gitg/gitg-simple-notification.vala:99
+#: ../gitg/resources/ui/gitg-window.ui.h:10
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: ../gitg/gitg-window.vala:187
 msgid "Add Repository"
 msgstr "Προσθήκη αποθετηρίου"
 
-#: ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-window.vala:191
 msgid "_Add"
 msgstr "Προ_σθήκη"
 
-#: ../gitg/gitg-window.vala:192
+#: ../gitg/gitg-window.vala:193
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Σάρωση για αποθετήρια git από τον κατάλογο αυτό."
 
-#: ../gitg/gitg-window.vala:498
+#: ../gitg/gitg-window.vala:501
 msgid "Projects"
 msgstr "Έργα"
 
-#: ../gitg/gitg-window.vala:748
+#: ../gitg/gitg-window.vala:751
 msgid "Select items"
 msgstr "Επιλέξτε αντικείμενα"
 
-#: ../gitg/gitg-window.vala:955
+#: ../gitg/gitg-window.vala:958
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "Το '%s' δεν είναι αποθετήριο Git."
 
-#: ../gitg/gitg-window.vala:1104
+#: ../gitg/gitg-window.vala:1107
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1183,7 +1189,7 @@ msgstr ""
 "Παρακαλούμε, πηγαίνετε στις ρυθμίσεις χρήστη και εισάγετε το όνομά σας και "
 "την ηλεκτρονική σας διεύθυνσή."
 
-#: ../gitg/gitg-window.vala:1108
+#: ../gitg/gitg-window.vala:1111
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1191,7 +1197,7 @@ msgstr ""
 "Το όνομα χρήστη δε ρυθμίστηκε ακόμα. Παρακαλούμε, πηγαίνετε στις ρυθμίσεις "
 "χρήστη και εισάγετε το όνομά σας."
 
-#: ../gitg/gitg-window.vala:1112
+#: ../gitg/gitg-window.vala:1115
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1199,15 +1205,9 @@ msgstr ""
 "Η ηλεκτρονική διεύθυνσή σας δε ρυθμίστηκε ακόμα. Παρακαλούμε, πηγαίνετε στις "
 "ρυθμίσεις χρήστη και εισάγετε την ηλεκτρονική σας διεύθυνση."
 
-#: ../gitg/gitg-window.vala:1115
+#: ../gitg/gitg-window.vala:1118
 msgid "Missing author details"
 msgstr "Λείπουν οι λεπτομέρειες του δημιουργού"
-
-#: ../gitg/gitg-remote-notification.vala:90
-#: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:10
-msgid "Close"
-msgstr "Κλείσιμο"
 
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
@@ -1238,18 +1238,18 @@ msgstr "ΑΝΑΦΟΡΑ"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
-msgid "%d ahead, %d behind"
-msgstr "%d μπροστά, %d πίσω"
+msgid "%zu ahead, %zu behind"
+msgstr "%zu μπροστά, %zu πίσω"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
-msgid "%d ahead"
-msgstr "%d μπροστά"
+msgid "%zu ahead"
+msgstr "%zu μπροστά"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
-msgid "%d behind"
-msgstr "%d πίσω"
+msgid "%zu behind"
+msgstr "%zu πίσω"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1351,6 +1351,34 @@ msgstr "%e %b %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e %b %Y, %I:%M %p"
 
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:39
+#, c-format
+msgid "before (%s)"
+msgstr "πριν (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:45
+#, c-format
+msgid "removed (%s)"
+msgstr "αφαιρείται (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:67
+#, c-format
+msgid "after (%s)"
+msgstr "μετά (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:73
+#, c-format
+msgid "added (%s)"
+msgstr "προστίθεται (%s)"
+
 #: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Σύμπτυξη όλων"
@@ -1365,15 +1393,15 @@ msgstr "Ανάπτυξη όλων"
 msgid "Committed by %s"
 msgstr "Υποβλήθηκε από %s"
 
-#: ../libgitg/gitg-diff-view-file.vala:172
+#: ../libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
 msgstr "Άν_οιγμα αρχείου"
 
-#: ../libgitg/gitg-diff-view-file.vala:204
+#: ../libgitg/gitg-diff-view-file.vala:209
 msgid "Open containing _folder"
 msgstr "Άνοιγμα _φακέλου που το περιέχει"
 
-#: ../libgitg/gitg-diff-view-file.vala:224
+#: ../libgitg/gitg-diff-view-file.vala:229
 msgid "_Copy file path"
 msgstr "_Αντιγραφή διαδρομής αρχείου"
 
@@ -1797,6 +1825,22 @@ msgstr "Γονείς"
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
 msgid "Unable to display changes for binary file"
 msgstr "Αδυναμία προβολής αλλαγών για το εκτελέσιμο αρχείο"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
+msgid "Side by side"
+msgstr "Δίπλα δίπλα"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
+msgid "Slider"
+msgstr "Ολισθητής"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:3
+msgid "Overlay"
+msgstr "Eπικάλυψη"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
+msgid "Difference"
+msgstr "Διαφορά"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
