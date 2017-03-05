@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-08-19 08:55+0000\n"
-"PO-Revision-Date: 2016-08-22 16:44+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2016-11-01 18:57+0000\n"
+"PO-Revision-Date: 2017-02-25 19:29+0700\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../contrib/xml/xml-reader.c:327
 #, c-format
@@ -481,7 +481,7 @@ msgstr "Anda yakin ingin membuang permanen perubahan yang dipilih?"
 #: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
 #: ../gitg/commit/gitg-commit.vala:1621
 #: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:442 ../gitg/gitg-window.vala:189
+#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
@@ -659,7 +659,8 @@ msgstr "gitg adalah penilik repositori Git untuk gtk+/GNOME"
 msgid "translator-credits"
 msgstr ""
 "Ahmad Haris <ahmadharis@gnome.org>, 2015.\n"
-"Andika Triwidada <andika@gmail.com>, 2012-2014, 2016."
+"Andika Triwidada <andika@gmail.com>, 2012-2014, 2016.\n"
+"Kukuh Syafaat <syafaatkukuh@gmail.com>, 2017."
 
 #: ../gitg/gitg-application.vala:234
 msgid "gitg homepage"
@@ -853,20 +854,20 @@ msgstr ""
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Sementara itu, Anda mungkin ingin %smenyiapkan profil git Anda%s."
 
-#: ../gitg/gitg-dash-view.vala:387
+#: ../gitg/gitg-dash-view.vala:389
 msgid "Failed to clone repository"
 msgstr "Gagal meng-klone repositori"
 
-#: ../gitg/gitg-dash-view.vala:418
+#: ../gitg/gitg-dash-view.vala:420
 msgid "Failed to add repository"
 msgstr "Gagal menambahkan repositori"
 
-#: ../gitg/gitg-dash-view.vala:434
+#: ../gitg/gitg-dash-view.vala:436
 msgid "Create new repository"
 msgstr "Buat repositori baru"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:437
+#: ../gitg/gitg-dash-view.vala:439
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -875,15 +876,15 @@ msgstr ""
 "Lokasi <i>%s</i> tidak dikenali sebagai repositori git yang benar. Apakah "
 "kamu mau menginisialisasi repositori git yang baru di lokasi ini?"
 
-#: ../gitg/gitg-dash-view.vala:443
+#: ../gitg/gitg-dash-view.vala:445
 msgid "Create repository"
 msgstr "Buat repositori"
 
-#: ../gitg/gitg-dash-view.vala:459
+#: ../gitg/gitg-dash-view.vala:461
 msgid "Failed to create repository"
 msgstr "Gagal membuat repositori"
 
-#: ../gitg/gitg-dash-view.vala:529
+#: ../gitg/gitg-dash-view.vala:531
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Memindai repositori di %s"
@@ -1123,32 +1124,38 @@ msgstr "Nama tak valid"
 msgid "Failed to rename"
 msgstr "Gagal mengubah nama"
 
-#: ../gitg/gitg-window.vala:186
+#: ../gitg/gitg-remote-notification.vala:90
+#: ../gitg/gitg-simple-notification.vala:99
+#: ../gitg/resources/ui/gitg-window.ui.h:10
+msgid "Close"
+msgstr "Tutup"
+
+#: ../gitg/gitg-window.vala:187
 msgid "Add Repository"
 msgstr "Tambahkan Repositori"
 
-#: ../gitg/gitg-window.vala:190
+#: ../gitg/gitg-window.vala:191
 msgid "_Add"
 msgstr "T_ambah"
 
-#: ../gitg/gitg-window.vala:192
+#: ../gitg/gitg-window.vala:193
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Pindai semua repositori git dalam direktori ini"
 
-#: ../gitg/gitg-window.vala:498
+#: ../gitg/gitg-window.vala:501
 msgid "Projects"
 msgstr "Proyek"
 
-#: ../gitg/gitg-window.vala:748
+#: ../gitg/gitg-window.vala:751
 msgid "Select items"
 msgstr "Pilih butir"
 
-#: ../gitg/gitg-window.vala:955
+#: ../gitg/gitg-window.vala:958
 #, c-format
 msgid "'%s' is not a Git repository."
 msgstr "'%s' bukan suatu repositori Git."
 
-#: ../gitg/gitg-window.vala:1104
+#: ../gitg/gitg-window.vala:1107
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1156,7 +1163,7 @@ msgstr ""
 "Nama pengguna dan surel Anda belum ditata. Harap pergi ke konfigurasi "
 "pengguna dan isikan nama serta surel Anda."
 
-#: ../gitg/gitg-window.vala:1108
+#: ../gitg/gitg-window.vala:1111
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1164,7 +1171,7 @@ msgstr ""
 "Nama pengguna Anda belum ditata. Harap pergi ke konfigurasi pengguna dan "
 "isikan nama Anda."
 
-#: ../gitg/gitg-window.vala:1112
+#: ../gitg/gitg-window.vala:1115
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1172,15 +1179,9 @@ msgstr ""
 "Surel Anda belum ditata. Harap pergi ke konfigurasi pengguna dan isikan "
 "surel Anda."
 
-#: ../gitg/gitg-window.vala:1115
+#: ../gitg/gitg-window.vala:1118
 msgid "Missing author details"
 msgstr "Kehilangan rincian penulis"
-
-#: ../gitg/gitg-remote-notification.vala:90
-#: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:10
-msgid "Close"
-msgstr "Tutup"
 
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
@@ -1208,18 +1209,18 @@ msgstr "REFERENSI"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
-msgid "%d ahead, %d behind"
-msgstr "%d di depan, %d di belakang"
+msgid "%zu ahead, %zu behind"
+msgstr "%zu di depan, %zu di belakang"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
-msgid "%d ahead"
-msgstr "%d di depan"
+msgid "%zu ahead"
+msgstr "%zu di depan"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
-msgid "%d behind"
-msgstr "%d di belakang"
+msgid "%zu behind"
+msgstr "%zu di belakang"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1318,6 +1319,34 @@ msgstr "%e %b %Y, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%e %b %Y, %I:%M %p"
 
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:39
+#, c-format
+msgid "before (%s)"
+msgstr "sebelum (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:45
+#, c-format
+msgid "removed (%s)"
+msgstr "dihapus (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:67
+#, c-format
+msgid "after (%s)"
+msgstr "setelah (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:73
+#, c-format
+msgid "added (%s)"
+msgstr "ditambahkan (%s)"
+
 #: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Lipat semua"
@@ -1332,15 +1361,15 @@ msgstr "Buka semua"
 msgid "Committed by %s"
 msgstr "Dikomit oleh %s"
 
-#: ../libgitg/gitg-diff-view-file.vala:172
+#: ../libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
 msgstr "_Buka berkas"
 
-#: ../libgitg/gitg-diff-view-file.vala:204
+#: ../libgitg/gitg-diff-view-file.vala:209
 msgid "Open containing _folder"
 msgstr "Buka _folder yang memuat"
 
-#: ../libgitg/gitg-diff-view-file.vala:224
+#: ../libgitg/gitg-diff-view-file.vala:229
 msgid "_Copy file path"
 msgstr "_Salin path berkas"
 
@@ -1356,7 +1385,7 @@ msgstr "pada %s"
 msgid "%s at %s"
 msgstr "%s pada %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:418
+#: ../libgitg/gitg-repository-list-box.vala:541
 msgid "Cloning…"
 msgstr "Membuat Klon…"
 
@@ -1761,6 +1790,22 @@ msgstr "Induk"
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
 msgid "Unable to display changes for binary file"
 msgstr "Tidak bisa menampilkan perubahan bagi berkas biner"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
+msgid "Side by side"
+msgstr "Bersebelahan"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
+msgid "Slider"
+msgstr "Penggeser"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:3
+msgid "Overlay"
+msgstr "Melapis"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
+msgid "Difference"
+msgstr "Perbedaan"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
