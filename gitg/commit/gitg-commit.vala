@@ -251,11 +251,12 @@ namespace GitgCommit
 					return false;
 				}
 
-				if (commit == null)
+				Ggit.Commit sub_commit = commit;
+				if (sub_commit == null)
 				{
 					try
 					{
-						commit = repo.lookup<Gitg.Commit>(sub.submodule.get_workdir_id());
+						sub_commit = repo.lookup<Gitg.Commit>(sub.submodule.get_workdir_id());
 					}
 					catch (Error e)
 					{
@@ -268,7 +269,7 @@ namespace GitgCommit
 
 				try
 				{
-					yield stage.stage_commit(sub.path, commit);
+					yield stage.stage_commit(sub.path, sub_commit);
 				}
 				catch (Error e)
 				{
