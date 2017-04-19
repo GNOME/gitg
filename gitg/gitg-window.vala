@@ -172,7 +172,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		dlg.response.connect((d, id) => {
 			if (id == Gtk.ResponseType.OK)
 			{
-				d_dash_view.clone_repository(dlg.url, dlg.location, dlg.is_bare);
+				d_dash_view.clone_repository(dlg.url, dlg.custom_name, dlg.location, dlg.is_bare);
 			}
 
 			d.destroy();
