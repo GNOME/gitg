@@ -23,6 +23,7 @@ namespace Gitg
 class PopupMenu : Object
 {
 	public signal Gtk.Menu? populate_menu(Gdk.EventButton? event);
+	public signal Gdk.Rectangle? request_menu_position();
 
 	private Gtk.Widget? d_widget;
 
@@ -54,11 +55,27 @@ class PopupMenu : Object
 			return false;
 		}
 
-		var time = (event == null ? Gtk.get_current_event_time() : event.time);
-		var button = (event == null ? 0 : event.button);
-
 		menu.attach_to_widget(widget, null);
-		menu.popup(null, null, null, button, time);
+
+		if (event == null)
+		{
+			var position = request_menu_position();
+
+			if (position == null)
+			{
+				menu.popup_at_widget(widget, Gdk.Gravity.CENTER, Gdk.Gravity.CENTER);
+			}
+			else
+			{
+				menu.popup_at_rect(widget.get_window(),
+				                   position,
+				                   Gdk.Gravity.CENTER, Gdk.Gravity.WEST);
+			}
+		}
+		else
+		{
+			menu.popup_at_pointer(event);
+		}
 
 		return true;
 	}

@@ -592,6 +592,7 @@ namespace GitgHistory
 
 			d_commit_list_popup = new Gitg.PopupMenu(d_main.commit_list_view);
 			d_commit_list_popup.populate_menu.connect(on_commit_list_populate_menu);
+			d_commit_list_popup.request_menu_position.connect(on_commit_list_request_menu_position);
 
 			application.bind_property("repository", d_main.refs_list,
 			                          "repository",
@@ -629,6 +630,11 @@ namespace GitgHistory
 			Gtk.TreePath path;
 			Gtk.TreeViewColumn column;
 
+			if (event == null)
+			{
+				return null;
+			}
+
 			if (!d_main.commit_list_view.get_path_at_pos((int)event.x,
 			                                             (int)event.y,
 			                                             out path,
@@ -665,7 +671,36 @@ namespace GitgHistory
 				ret = popup_menu_for_commit(event);
 			}
 
+			// event is most likely null.
+			if (ret == null)
+			{
+				ret = popup_menu_for_selection();
+			}
+
 			return ret;
+		}
+
+		private Gdk.Rectangle? on_commit_list_request_menu_position()
+		{
+			var selection = d_main.commit_list_view.get_selection();
+
+			Gtk.TreeModel model;
+			Gtk.TreeIter iter;
+
+			if (!selection.get_selected(out model, out iter))
+			{
+				return null;
+			}
+
+			var path = model.get_path(iter);
+
+			Gdk.Rectangle rect = { 0 };
+
+			d_main.commit_list_view.get_cell_area(path, null, out rect);
+			d_main.commit_list_view.convert_bin_window_to_widget_coords(rect.x, rect.y,
+			                                                            out rect.x, out rect.y);
+
+			return rect;
 		}
 
 		private void add_ref_action(Gee.LinkedList<GitgExt.RefAction> actions,
@@ -677,32 +712,8 @@ namespace GitgHistory
 			}
 		}
 
-		private Gtk.Menu? popup_menu_for_commit(Gdk.EventButton? event)
+		private Gtk.Menu? populate_menu_for_commit(Gitg.Commit commit)
 		{
-			int cell_x;
-			int cell_y;
-			Gtk.TreePath path;
-			Gtk.TreeViewColumn column;
-
-			if (!d_main.commit_list_view.get_path_at_pos((int)event.x,
-			                                             (int)event.y,
-			                                             out path,
-			                                             out column,
-			                                             out cell_x,
-			                                             out cell_y))
-			{
-				return null;
-			}
-
-			var commit = d_commit_list_model.commit_from_path(path);
-
-			if (commit == null)
-			{
-				return null;
-			}
-
-			d_main.commit_list_view.get_selection().select_path(path);
-
 			var af = new ActionInterface(application, d_main.refs_list);
 
 			af.updated.connect(() => {
@@ -760,6 +771,61 @@ namespace GitgHistory
 			menu.set_data("gitg-ext-actions", actions);
 
 			return menu;
+		}
+
+		private Gtk.Menu? popup_menu_for_selection()
+		{
+			var selection = d_main.commit_list_view.get_selection();
+
+			Gtk.TreeIter iter;
+
+			if (!selection.get_selected(null, out iter))
+			{
+				return null;
+			}
+
+			var commit = d_commit_list_model.commit_from_iter(iter);
+
+			if (commit == null)
+			{
+				return null;
+			}
+
+			return populate_menu_for_commit(commit);
+		}
+
+		private Gtk.Menu? popup_menu_for_commit(Gdk.EventButton? event)
+		{
+			int cell_x;
+			int cell_y;
+			Gtk.TreePath path;
+			Gtk.TreeViewColumn column;
+
+			if (event == null)
+			{
+				return null;
+			}
+
+			if (!d_main.commit_list_view.get_path_at_pos((int)event.x,
+			                                             (int)event.y,
+			                                             out path,
+			                                             out column,
+			                                             out cell_x,
+			                                             out cell_y))
+			{
+				return null;
+			}
+
+			var commit = d_commit_list_model.commit_from_path(path);
+
+			if (commit == null)
+			{
+				return null;
+			}
+
+			d_main.commit_list_view.get_selection().select_path(path);
+
+			return populate_menu_for_commit(commit);
 		}
 
 		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference)
