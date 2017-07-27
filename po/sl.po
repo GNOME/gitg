@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2017-05-09 17:13+0200\n"
-"PO-Revision-Date: 2017-05-09 17:17+0200\n"
+"POT-Creation-Date: 2017-07-27 16:14+0200\n"
+"PO-Revision-Date: 2017-07-27 16:15+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -24,9 +24,9 @@ msgstr ""
 "X-Generator: Poedit 2.0.1\n"
 
 #: ../contrib/xml/xml-reader.c:327
-#, fuzzy, c-format
+#, c-format
 msgid "Could not parse XML from stream"
-msgstr "Iz pretoka ni mogoče brati: %s"
+msgstr "Ni mogoče razčleniti zapisa XML iz pretoka"
 
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
 #: ../gitg/resources/ui/gitg-window.ui.h:1
@@ -81,20 +81,15 @@ msgid "Automatically update when external changes to .git are detected"
 msgstr "Samodejno posodobi vejo, ko so zaznane zunanje spremembe v .git"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
-#, fuzzy
 msgid "Enable Diff Highlighting"
-msgstr "Omogoči poudarjanje skladnje"
+msgstr "Omogoči poudarjanje razlik z Diff"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-#, fuzzy
-#| msgid ""
-#| "Setting which determines whether or not spell checking is enabled when "
-#| "writing a commit message."
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
-"Nastavitve, ki določajo ali je črkovanje sporočila uveljavitve omogočeno ali "
-"ne."
+"Nastavitev, ki določa, ali je poudarjanje skladnje omogočeno za pogled "
+"primerjave z diff."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
 msgid "When to Collapse Inactive Lanes"
@@ -106,8 +101,8 @@ msgid ""
 "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgstr ""
 "Nastavitev, ki določa kdaj naj bo nedejavna vrstica zložena. Veljavne "
-"vrednosti so med 0 - 4, kjer vrednost 0 določa zgodaj' in vrednosti 4 "
-"'pozno'."
+"vrednosti so med 0 - 4, kjer vrednost 0 določa »zgodaj« in vrednosti 4 "
+"»pozno«."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
 msgid ""
@@ -197,15 +192,16 @@ msgid "The order by which references in the history sidebar should be sorted."
 msgstr "Način razvrščanja sklicev v bočnem oknu zgodovine."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
-#, fuzzy
 msgid "Show Upstream With Branch"
-msgstr "Hitrost povratnega pretoka"
+msgstr "Pokaži izvorni projekt s krajevno vejo"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
+"Določa ali naj bo pokažana tudi veja izvornega projekta (oddaljen strežnik) "
+"ob izbiri krajevne veje v pogledu zgodovine."
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
 msgid "Show Right Margin in Commit Message View"
@@ -348,12 +344,12 @@ msgid "Cannot set spell checking language: %s"
 msgstr "Ni mogoče nastaviti jezika za črkovanje: %s"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:508
-#: ../gitg/commit/gitg-commit.vala:1076
+#: ../gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Ni sprememb za uveljavitev"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:509
-#: ../gitg/commit/gitg-commit.vala:1077
+#: ../gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Uporabi dopolnitev za spremembo sporočila predhodne uveljavitve"
 
@@ -374,118 +370,118 @@ msgstr "_Izberi datoteke v pripravljenosti"
 #, c-format
 msgid "Failed to stage the removal of submodule `%s'"
 msgstr ""
-"Postavljanje v pripravljenost odstranjevanje podrejenega modula `%s' je "
+"Postavljanje v pripravljenost odstranjevanje podrejenega modula »%s« je "
 "spodletelo."
 
 #: ../gitg/commit/gitg-commit.vala:248
 #, c-format
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr ""
-"Odpiranje skladišča podrejenega modula `%s' je med postavljanjem v "
+"Odpiranje skladišča podrejenega modula »%s« je med postavljanjem v "
 "pripravljenost spodletelo."
 
-#: ../gitg/commit/gitg-commit.vala:262
+#: ../gitg/commit/gitg-commit.vala:263
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
 "to stage"
 msgstr ""
-"Pregled delovne mape uveljavitve podrejenega modula `%s' je med "
+"Pregled delovne mape uveljavitve podrejenega modula »%s« je med "
 "postavljanjem v pripravljenost spodletel."
 
-#: ../gitg/commit/gitg-commit.vala:275
+#: ../gitg/commit/gitg-commit.vala:276
 #, c-format
 msgid "Failed to stage the submodule `%s'"
-msgstr "Dodajanje podrejenega modula v pripravljenost `%s' je spodletelo."
+msgstr "Dodajanje podrejenega modula v pripravljenost »%s« je spodletelo."
 
-#: ../gitg/commit/gitg-commit.vala:297
+#: ../gitg/commit/gitg-commit.vala:298
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
-msgstr "Postavljanje odstranitve datoteke `%s' v pripravljenost je spodletelo."
+msgstr "Postavljanje odstranitve datoteke »%s« v pripravljenost je spodletelo."
 
-#: ../gitg/commit/gitg-commit.vala:311
+#: ../gitg/commit/gitg-commit.vala:312
 #, c-format
 msgid "Failed to stage the file `%s'"
-msgstr "Postavljanje datoteke `%s' v pripravljenost je spodletelo."
+msgstr "Postavljanje datoteke »%s« v pripravljenost je spodletelo."
 
-#: ../gitg/commit/gitg-commit.vala:583
+#: ../gitg/commit/gitg-commit.vala:584
 msgid "_Unstage selection"
 msgstr "_Odstrani datotek iz pripravljenosti"
 
-#: ../gitg/commit/gitg-commit.vala:649
+#: ../gitg/commit/gitg-commit.vala:650
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr ""
-"Postavljanje odstranitve datoteke `%s' iz pripravljenosti je spodletelo."
+"Postavljanje odstranitve datoteke »%s« iz pripravljenosti je spodletelo."
 
-#: ../gitg/commit/gitg-commit.vala:650
+#: ../gitg/commit/gitg-commit.vala:651
 #, c-format
 msgid "Failed to unstage the file `%s'"
-msgstr "Postavljanje datoteke `%s' iz pripravljenosti je spodletelo"
-
-#: ../gitg/commit/gitg-commit.vala:657
-#, c-format
-msgid "Failed to unstage the removal of submodule `%s'"
-msgstr "Odstranjevanje pripravljenosti podrejenega modula `%s' je spodletelo."
+msgstr "Postavljanje datoteke »%s« iz pripravljenosti je spodletelo"
 
 #: ../gitg/commit/gitg-commit.vala:658
 #, c-format
+msgid "Failed to unstage the removal of submodule `%s'"
+msgstr "Odstranjevanje pripravljenosti podrejenega modula »%s« je spodletelo."
+
+#: ../gitg/commit/gitg-commit.vala:659
+#, c-format
 msgid "Failed to unstage the submodule `%s'"
-msgstr "Odstranjevanje pripravljenosti podrejenega modula `%s' je spodletelo"
+msgstr "Odstranjevanje pripravljenosti podrejenega modula »%s« je spodletelo"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:862
+#: ../gitg/commit/gitg-commit.vala:863
 msgid "Staged"
 msgstr "V pripravljenosti"
 
-#: ../gitg/commit/gitg-commit.vala:870
+#: ../gitg/commit/gitg-commit.vala:871
 msgid "No staged files"
 msgstr "Ni datotek v pripravljenosti."
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:893
+#: ../gitg/commit/gitg-commit.vala:894
 msgid "Unstaged"
 msgstr "Nepripravljeno"
 
-#: ../gitg/commit/gitg-commit.vala:901
+#: ../gitg/commit/gitg-commit.vala:902
 msgid "No unstaged files"
 msgstr "Ni nepripravljenih datotek."
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:924
+#: ../gitg/commit/gitg-commit.vala:925
 msgid "Untracked"
 msgstr "Brez sledenja"
 
-#: ../gitg/commit/gitg-commit.vala:928
+#: ../gitg/commit/gitg-commit.vala:929
 msgid "No untracked files"
 msgstr "Ni datotek brez sledenja."
 
-#: ../gitg/commit/gitg-commit.vala:953
+#: ../gitg/commit/gitg-commit.vala:954
 msgid "Submodule"
 msgstr "Podrejeni modul"
 
-#: ../gitg/commit/gitg-commit.vala:957
+#: ../gitg/commit/gitg-commit.vala:958
 msgid "No dirty submodules"
 msgstr "Ni neveljavnih podrejenih modulov"
 
-#: ../gitg/commit/gitg-commit.vala:1106
+#: ../gitg/commit/gitg-commit.vala:1107
 msgid "Failed to commit"
 msgstr "Uveljavitev je spodletela"
 
-#: ../gitg/commit/gitg-commit.vala:1122
+#: ../gitg/commit/gitg-commit.vala:1123
 msgid "Failed to pass pre-commit"
 msgstr "Pred-uveljavitev je spodletela"
 
-#: ../gitg/commit/gitg-commit.vala:1330 ../gitg/commit/gitg-commit.vala:1480
+#: ../gitg/commit/gitg-commit.vala:1331 ../gitg/commit/gitg-commit.vala:1481
 msgid "Discard changes"
 msgstr "Prezri spremembe"
 
-#: ../gitg/commit/gitg-commit.vala:1331
+#: ../gitg/commit/gitg-commit.vala:1332
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Ali ste prepričani, da želite trajno izbrisati izbrane spremembe?"
 
-#: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
-#: ../gitg/commit/gitg-commit.vala:1621
+#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
+#: ../gitg/commit/gitg-commit.vala:1622
 #: ../gitg/gitg-commit-action-create-patch.vala:145
 #: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
@@ -498,46 +494,46 @@ msgstr "Ali ste prepričani, da želite trajno izbrisati izbrane spremembe?"
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
+#: ../gitg/commit/gitg-commit.vala:1342 ../gitg/commit/gitg-commit.vala:1508
 msgid "Discard"
 msgstr "Zavrzi"
 
-#: ../gitg/commit/gitg-commit.vala:1370
+#: ../gitg/commit/gitg-commit.vala:1371
 msgid "Failed to discard selection"
 msgstr "Prezrtje izbire je spodletelo"
 
-#: ../gitg/commit/gitg-commit.vala:1400
+#: ../gitg/commit/gitg-commit.vala:1401
 msgid "Failed to stage selection"
 msgstr "Postavljanje datotek v pripravljenost je spodletelo"
 
-#: ../gitg/commit/gitg-commit.vala:1404
+#: ../gitg/commit/gitg-commit.vala:1405
 msgid "Failed to unstage selection"
 msgstr "Odstranitev postavljanja datotek iz pripravljenosti je spodletelo"
 
-#: ../gitg/commit/gitg-commit.vala:1464
+#: ../gitg/commit/gitg-commit.vala:1465
 msgid "Failed to discard changes"
 msgstr "Prezrtje sprememb je spodletelo"
 
-#: ../gitg/commit/gitg-commit.vala:1485
+#: ../gitg/commit/gitg-commit.vala:1486
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
 "%s'?"
 msgstr "Ali ste prepričani, da želite zavreči vse spremembe v datoteki %s?"
 
-#: ../gitg/commit/gitg-commit.vala:1496
+#: ../gitg/commit/gitg-commit.vala:1497
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and `%s'?"
 msgstr ""
-"Ali ste prepričani, da želite zavreči vse spremembe v datotekah %s in `%s'?"
+"Ali ste prepričani, da želite zavreči vse spremembe v datotekah %s in »%s«?"
 
-#: ../gitg/commit/gitg-commit.vala:1579
+#: ../gitg/commit/gitg-commit.vala:1580
 msgid "Failed to delete files"
 msgstr "Brisanje datotek je spodletelo"
 
-#: ../gitg/commit/gitg-commit.vala:1595
+#: ../gitg/commit/gitg-commit.vala:1596
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Izbriši datoteke"
@@ -545,29 +541,29 @@ msgstr[1] "Izbriši datoteko"
 msgstr[2] "Izbriši datoteki"
 msgstr[3] "Izbriši datoteke"
 
-#: ../gitg/commit/gitg-commit.vala:1600
+#: ../gitg/commit/gitg-commit.vala:1601
 #, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
-msgstr "Ali zares želite trajno izbrisati datoteko `%s'?"
+msgstr "Ali zares želite trajno izbrisati datoteko »%s«?"
 
-#: ../gitg/commit/gitg-commit.vala:1611
+#: ../gitg/commit/gitg-commit.vala:1612
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
-msgstr "Ali zares želite trajno izbrisati datoteko `%s' in `%s'?"
+msgstr "Ali zares želite trajno izbrisati datoteko »%s« in »%s«?"
 
-#: ../gitg/commit/gitg-commit.vala:1657
+#: ../gitg/commit/gitg-commit.vala:1658
 msgid "_Stage changes"
 msgstr "_Pripravi spremembe"
 
-#: ../gitg/commit/gitg-commit.vala:1669
+#: ../gitg/commit/gitg-commit.vala:1670
 msgid "_Unstage changes"
 msgstr "_Počisti pripravljene spremembe"
 
-#: ../gitg/commit/gitg-commit.vala:1681
+#: ../gitg/commit/gitg-commit.vala:1682
 msgid "_Discard changes"
 msgstr "_Zavrzi spremembe"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: ../gitg/commit/gitg-commit.vala:1694
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_Izbriši datoteke"
@@ -575,7 +571,7 @@ msgstr[1] "_Izbriši datoteko"
 msgstr[2] "_Izbriši datoteki"
 msgstr[3] "_Izbriši datoteke"
 
-#: ../gitg/commit/gitg-commit.vala:1723
+#: ../gitg/commit/gitg-commit.vala:1724
 msgid "_Edit file"
 msgstr "_Uredi datoteko"
 
@@ -706,7 +702,7 @@ msgstr "Vnesite privzete podrobnosti za vsa skladišča:"
 #: ../gitg/gitg-author-details-dialog.vala:120
 #, c-format
 msgid "Override global details for repository '%s':"
-msgstr "Prepiši splošne podrobnosti za skladišče  '%s':"
+msgstr "Prepiši splošne podrobnosti za skladišče  »%s«:"
 
 #: ../gitg/gitg-author-details-dialog.vala:232
 msgid "Failed to set Git user config."
@@ -717,58 +713,45 @@ msgid "The URL introduced is not supported"
 msgstr "Podan naslov URL ni podprt"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:53
-#, fuzzy
 msgid "Cherry pick onto"
-msgstr "Odbiranje"
+msgstr "Odberi na"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:58
-#, fuzzy
 msgid "Cherry pick this commit onto a branch"
-msgstr "Poskusite odbrati uveljavitev za vejo master"
+msgstr "Odberi uveljavitev na vejo"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:117
-#, fuzzy, c-format
-#| msgid "Failed to lookup their commit: %s"
+#, c-format
 msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Iskanje objave je spodletelo: %s"
+msgstr "Iskanje uveljavitve za vejo %s je spodletelo: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:132
-#, fuzzy, c-format
-#| msgid "Failed to create commit: %s"
+#, c-format
 msgid "Failed to cherry-pick the commit: %s"
-msgstr "Uveljavi z odbiro:"
+msgstr "Odbira uveljavitve je spodletela: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:144
 #: ../gitg/gitg-commit-action-cherry-pick.vala:160
-#, fuzzy
-#| msgid "Merge has conflicts"
 msgid "Cherry pick has conflicts"
-msgstr "Uveljavi z odbiro:"
+msgstr "Odbira je izvedena s spori"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:153
-#, fuzzy, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "branch %s with the merge to your working directory to resolve the "
-#| "conflicts?"
+#, c-format
 msgid ""
 "The cherry pick of %s onto %s has caused conflicts, would you like to "
 "checkout branch %s with the cherry pick to your working directory to resolve "
 "the conflicts?"
 msgstr ""
-"Združevanje %s v %s je povzročilo spore. Ali želite prevzeti vejo %s in jo "
-"sočasno združiti v vašo delovno mapo za razreševanje napak?"
+"Odbira %s na %s je povzročila spore. Ali želite prevzeti vejo %s z odbiro in "
+"jo sočasno združiti v vašo delovno mapo za razreševanje napak?"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:157
-#, fuzzy, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "the merge to your working directory to resolve the conflicts?"
+#, c-format
 msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"Združevanje %s v %s je povzročilo spore. Ali želite prevzeti vsebino v vašo "
+"Odbira %s na %s je povzročila spore. Ali želite prevzeti odbiro v vašo "
 "delovno mapo za razreševanje napak?"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:164
@@ -778,34 +761,26 @@ msgid "Checkout"
 msgstr "Prevzemi"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:168
-#, fuzzy
-#| msgid "Merge failed with conflicts"
 msgid "Cherry pick failed with conflicts"
-msgstr "Uveljavi z odbiro:"
+msgstr "Odbira je spodletela s spori"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:179
-#, fuzzy
-#| msgid "Finished merge with conflicts in working directory"
 msgid "Cherry pick finished with conflicts in working directory"
-msgstr "Združevanje sporov v delovni mapi je končano"
+msgstr "Odbira je zaključena s spori v delovni mapi"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:199
-#, fuzzy, c-format
-#| msgid "Merge %s into %s"
+#, c-format
 msgid "Cherry pick %s onto %s"
-msgstr "Premaknite %s na %s."
+msgstr "Odberi %s na %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:224
-#, fuzzy
-#| msgid "Successfully merged %s into %s"
 msgid "Successfully cherry picked"
-msgstr "Cherry B.UNLIMITED"
+msgstr "Uspešno uveljavljena odbira"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:261
-#, fuzzy, c-format
-#| msgid "Merge into %s"
+#, c-format
 msgid "Cherry pick onto %s"
-msgstr "Uveljavi z odbiro:"
+msgstr "Uveljavi z odbiro na %s"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -860,9 +835,8 @@ msgid "Provide a message to create an annotated tag"
 msgstr "Navedi sporočilo za ustvarjanje oznake"
 
 #: ../gitg/gitg-dash-view.vala:87
-#, fuzzy
 msgid "Select and manage projects"
-msgstr "&Upravljaj"
+msgstr "Izbor in upravljanje s projekti"
 
 #: ../gitg/gitg-dash-view.vala:176
 msgid "_Remove"
@@ -1179,7 +1153,7 @@ msgstr "Izbor predmetov"
 #: ../gitg/gitg-window.vala:958
 #, c-format
 msgid "'%s' is not a Git repository."
-msgstr "'%s' ni skladišče Git."
+msgstr "Mesto »%s« ni skladišče Git."
 
 #: ../gitg/gitg-window.vala:1107
 msgid ""
@@ -1235,17 +1209,17 @@ msgstr "SKLICI"
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%zu ahead, %zu behind"
-msgstr ""
+msgstr "%zu naprej, %zu nazaj"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
-#, fuzzy, c-format
+#, c-format
 msgid "%zu ahead"
-msgstr "%zu"
+msgstr "%zu naprej"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
-#, fuzzy, c-format
+#, c-format
 msgid "%zu behind"
-msgstr "%zu"
+msgstr "%zu zadaj"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1286,9 +1260,9 @@ msgstr "Vmesnik"
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
 #: ../libgitg/gitg-authentication-dialog.vala:69
-#, fuzzy, c-format
+#, c-format
 msgid "Password required for %s"
-msgstr "Zahtevano geslo za %s"
+msgstr "Za %s je zahtevano geslo"
 
 #: ../libgitg/gitg-date.vala:346
 msgid "Now"
@@ -1356,30 +1330,30 @@ msgstr "%b %e %Y, %I:%M %p"
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
 #: ../libgitg/gitg-diff-image-side-by-side.vala:39
-#, fuzzy, c-format
+#, c-format
 msgid "before (%s)"
-msgstr "%s %s pred koncem"
+msgstr "pred (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
 #: ../libgitg/gitg-diff-image-side-by-side.vala:45
-#, fuzzy, c-format
+#, c-format
 msgid "removed (%s)"
-msgstr "Odstranjen %s.\n"
+msgstr "odstranjeno (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
 #: ../libgitg/gitg-diff-image-side-by-side.vala:67
-#, fuzzy, c-format
+#, c-format
 msgid "after (%s)"
-msgstr "_Izbriši po %s dneh"
+msgstr "za (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
 #: ../libgitg/gitg-diff-image-side-by-side.vala:73
-#, fuzzy, c-format
+#, c-format
 msgid "added (%s)"
-msgstr "Dodano: %s"
+msgstr "dodano (%s)"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
@@ -1391,19 +1365,15 @@ msgid "Expand all"
 msgstr "Razširi vse"
 
 #: ../libgitg/gitg-diff-view-commit-details.vala:202
-#, fuzzy, c-format
-#| msgid "Committed by:"
+#, c-format
 msgid "Committed by %s"
-msgstr "Uveljavil:"
+msgstr "Uveljavil uporabnik %s"
 
 #: ../libgitg/gitg-diff-view-file.vala:177
-#, fuzzy
-#| msgid "_Open"
 msgid "_Open file"
 msgstr "_Odpri datoteko"
 
 #: ../libgitg/gitg-diff-view-file.vala:209
-#, fuzzy
 msgid "Open containing _folder"
 msgstr "Odpri _mapo z datoteko"
 
@@ -1503,7 +1473,7 @@ msgstr "_Uveljavi"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "Add _signed-off-by signature"
-msgstr "Dodaj podpis 'podpisnika'"
+msgstr "Dodaj podpis _podpisnika"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 msgid "_Amend previous commit"
@@ -1655,7 +1625,7 @@ msgstr "Razvrsti sklice v bočnem oknu po zadnji dejavnosti"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
 msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr ""
+msgstr "Pokaži (oddaljeno) vejo izvornega projekta ob izbiri krajevne veje"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
 msgid "Commits"
@@ -1826,14 +1796,12 @@ msgid "Parents"
 msgstr "Nadrejeni predmeti"
 
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
-#, fuzzy
 msgid "Unable to display changes for binary file"
-msgstr "Ni mogoče prikazati datoteke pomoči: %s"
+msgstr "Ni mogoče prikazati sprememb za dvojiške datoteke"
 
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
-#, fuzzy
 msgid "Side by side"
-msgstr "vzporedno"
+msgstr "Stran ob strani"
 
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
 msgid "Slider"
@@ -1848,8 +1816,6 @@ msgid "Difference"
 msgstr "Razlika"
 
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
-#, fuzzy
-#| msgid "Tab width"
 msgid "Tab width:"
 msgstr "Širina _tabulatorja:"
 
@@ -1874,6 +1840,9 @@ msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
 msgstr "Odstrani skladišče iz seznama (ne izbriši seznama z diska)"
+
+#~ msgid "column"
+#~ msgstr "stolpec"
 
 #~ msgid "_Delete"
 #~ msgstr "_Delete"
@@ -1904,9 +1873,6 @@ msgstr "Odstrani skladišče iz seznama (ne izbriši seznama z diska)"
 
 #~ msgid "Developer tools"
 #~ msgstr "Razvojna orodja"
-
-#~ msgid "column"
-#~ msgstr "stolpec"
 
 #~ msgid "Unable to open the .gitconfig file."
 #~ msgstr "Datoteke .gitconfig ni mogoče odpreti."
