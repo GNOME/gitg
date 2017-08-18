@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
 "POT-Creation-Date: 2017-08-09 20:11+0000\n"
-"PO-Revision-Date: 2017-08-16 19:05+0545\n"
+"PO-Revision-Date: 2017-08-18 18:14+0545\n"
 "Language-Team: Nepali Translation Team <chautari@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,12 +27,12 @@ msgstr "स्ट्रिमबाट डेटा प्राप्त गर
 #: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
 #: ../gitg/resources/ui/gitg-window.ui.h:1
 msgid "gitg"
-msgstr ""
+msgstr "gitg"
 
 #: ../data/gitg.desktop.in.in.h:2
 #, fuzzy
 msgid "Git repository browser"
-msgstr "ब्राउजर"
+msgstr "भण्डारण खोल्नुहोस्"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
 #, fuzzy
@@ -127,7 +127,7 @@ msgstr "परिवर्तनहरु"
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
-msgstr ""
+msgstr "यो सेटिङले इंगित गर्दछ कि इतिहासमा स्ट्याशका लागि वस्तुहरू देखाउने हो कि होइन।"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
 #, fuzzy
@@ -139,6 +139,8 @@ msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
 msgstr ""
+"यो सेटिङले हालको इतिहासमा हालैको चरणबद्ध परिवर्तनहरूका लागि भर्चुअल वस्तु देखाउन चाहे "
+"संकेत गर्दछ।"
 
 #: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
 #, fuzzy
@@ -320,7 +322,7 @@ msgstr ""
 #: ../gitg/commit/gitg-commit.vala:1077
 #, fuzzy
 msgid "There are no changes to be committed"
-msgstr "बचत नगरिएको परिवर्तनहरू"
+msgstr "परिवर्तनहरू राख्नुहोस्"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:509
 #: ../gitg/commit/gitg-commit.vala:1078
@@ -453,7 +455,7 @@ msgstr ""
 #: ../gitg/commit/gitg-commit.vala:1331 ../gitg/commit/gitg-commit.vala:1481
 #, fuzzy
 msgid "Discard changes"
-msgstr "परिवर्तनहरू छोड्नुहोस्"
+msgstr "परिवर्तनहरू छाड्नुहोस्"
 
 #: ../gitg/commit/gitg-commit.vala:1332
 #, fuzzy
@@ -472,7 +474,7 @@ msgstr "तपाईँ चयन गरिएका फाइलहरू स�
 #: ../gitg/resources/ui/gitg-window.ui.h:9
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
 msgid "_Cancel"
-msgstr "_रद्द गर्नुहोस्"
+msgstr "रद्द गर्नुहोस्"
 
 #: ../gitg/commit/gitg-commit.vala:1342 ../gitg/commit/gitg-commit.vala:1508
 msgid "Discard"
@@ -496,7 +498,7 @@ msgstr "असफल"
 #: ../gitg/commit/gitg-commit.vala:1465
 #, fuzzy
 msgid "Failed to discard changes"
-msgstr "परिवर्तनहरू छोड्नुहोस्"
+msgstr "परिवर्तनहरू छाड्नुहोस्"
 
 #: ../gitg/commit/gitg-commit.vala:1486
 #, c-format
@@ -515,13 +517,13 @@ msgstr ""
 #: ../gitg/commit/gitg-commit.vala:1580
 #, fuzzy
 msgid "Failed to delete files"
-msgstr "प्रयोगकर्ता मेट्न असफल"
+msgstr "फाईल मेट्नुहोस्"
 
 #: ../gitg/commit/gitg-commit.vala:1596
 msgid "Delete file"
 msgid_plural "Delete files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "फाइल मेट्नु"
+msgstr[1] "फाइलहरू मेट्नु"
 
 #: ../gitg/commit/gitg-commit.vala:1601
 #, fuzzy, c-format
@@ -531,7 +533,7 @@ msgstr "तपाईँ \"%s\" मेट्न निश्चित हुन�
 #: ../gitg/commit/gitg-commit.vala:1612
 #, fuzzy, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
-msgstr "तपाईँ \"%s\" मेट्न चाहनुमा निश्चित हुनुहुन्छ?"
+msgstr "तपाईँ \"%s\" मेट्न निश्चित हुनुहुन्छ?"
 
 #: ../gitg/commit/gitg-commit.vala:1658
 #, fuzzy
@@ -550,8 +552,8 @@ msgstr "परिवर्तनहरू छाड्नुहोस्"
 #: ../gitg/commit/gitg-commit.vala:1694
 msgid "D_elete file"
 msgid_plural "D_elete files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "फाइल मेट्नु"
+msgstr[1] "फाइलहरू मेट्नु"
 
 #: ../gitg/commit/gitg-commit.vala:1724
 #, fuzzy
@@ -639,7 +641,7 @@ msgstr ""
 #: ../gitg/gitg-application.vala:94
 #, fuzzy
 msgid "- Git repository viewer"
-msgstr "भण्डार अफलाइनमा छ"
+msgstr "भण्डारण खोल्नुहोस्"
 
 #: ../gitg/gitg-application.vala:222
 msgid "gitg is a Git repository viewer for gtk+/GNOME"
@@ -774,7 +776,7 @@ msgstr "चयन गरिएको अनिर्धारित खाली
 #: ../gitg/gitg-commit-action-create-branch.vala:75
 #, fuzzy
 msgid "Failed to create branch"
-msgstr "%s डाइरेक्टरी सिर्जना गर्न असफल भयो।"
+msgstr "शाखा"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:63
 #, fuzzy
@@ -848,7 +850,7 @@ msgstr ""
 #: ../gitg/gitg-dash-view.vala:389
 #, fuzzy
 msgid "Failed to clone repository"
-msgstr "भण्डार अफलाइनमा छ"
+msgstr "भण्डार क्लोन गर्नुहोस्"
 
 #: ../gitg/gitg-dash-view.vala:420
 #, fuzzy
@@ -858,7 +860,7 @@ msgstr "भण्डारणमा थप्नुहोस्"
 #: ../gitg/gitg-dash-view.vala:436
 #, fuzzy
 msgid "Create new repository"
-msgstr "भण्डार अफलाइनमा छ"
+msgstr "नयाँ सुरुआतकर्ता सिर्जना गर्नुहोस्"
 
 #. Translators: %s is a file name
 #: ../gitg/gitg-dash-view.vala:439
@@ -871,12 +873,12 @@ msgstr ""
 #: ../gitg/gitg-dash-view.vala:445
 #, fuzzy
 msgid "Create repository"
-msgstr "भण्डारणमा थप्नुहोस्"
+msgstr "भण्डारण खोल्नुहोस्"
 
 #: ../gitg/gitg-dash-view.vala:461
 #, fuzzy
 msgid "Failed to create repository"
-msgstr "भण्डार अफलाइनमा छ"
+msgstr "थ्रेड सिर्जना गर्न असफल"
 
 #: ../gitg/gitg-dash-view.vala:531
 #, fuzzy, c-format
@@ -910,14 +912,13 @@ msgid "Successfully checked out branch to working directory"
 msgstr ""
 
 #: ../gitg/gitg-ref-action-copy-name.vala:48
-#, fuzzy
 msgid "Copy name"
-msgstr "प्रतिलिपि"
+msgstr "प्रतिलिपि नाम"
 
 #: ../gitg/gitg-ref-action-copy-name.vala:53
 #, fuzzy
 msgid "Copy the name of the reference to the clipboard"
-msgstr "चयन गरिएको पाठ क्लिपबोर्डमा प्रतिलिपि बनाउनुहोस्"
+msgstr "चयन गरिएको पाठलाई क्लिपबोर्डमा प्रतिलिपि बनाउनुहोस्"
 
 #: ../gitg/gitg-ref-action-delete.vala:48
 #: ../gitg/gitg-ref-action-delete.vala:89
@@ -937,7 +938,7 @@ msgstr "शाखा"
 #: ../gitg/gitg-ref-action-delete.vala:74
 #, fuzzy, c-format
 msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr "तपाईँ %s यसलाई स्थायी रूपमा मेट्न चाहनुहुन्छ ?"
+msgstr "तपाईँ \"%s\" मेट्न निश्चित हुनुहुन्छ?"
 
 #: ../gitg/gitg-ref-action-delete.vala:78
 #, fuzzy, c-format
@@ -963,7 +964,7 @@ msgstr "तपाईँ \"%s\" रद्दीटोकरीबाट मेट
 #: ../gitg/gitg-ref-action-delete.vala:119
 #, fuzzy, c-format
 msgid "Failed to delete tag %s"
-msgstr "सम्पर्क मेट्न असफल भयो"
+msgstr "अवैध खोल्ने ट्याग: %s"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
 #: ../gitg/gitg-ref-action-delete.vala:122
@@ -1000,7 +1001,6 @@ msgstr ""
 
 #. Translators: new refers to a new remote reference having been fetched,
 #: ../gitg/gitg-ref-action-fetch.vala:106
-#, fuzzy
 msgid "new"
 msgstr "नयाँ"
 
@@ -1104,9 +1104,8 @@ msgid "Tags"
 msgstr "ट्याग"
 
 #: ../gitg/gitg-ref-action-rename.vala:48
-#, fuzzy
 msgid "Rename"
-msgstr "_पुन: नामकरण गर्नुहोस्…"
+msgstr "पुन: नामकरण गर्नुहोस्"
 
 #: ../gitg/gitg-ref-action-rename.vala:53
 #, fuzzy
@@ -1137,12 +1136,11 @@ msgstr "बन्दगर्नुहोस्"
 #: ../gitg/gitg-window.vala:187
 #, fuzzy
 msgid "Add Repository"
-msgstr "भण्डारणमा थप्नुहोस्"
+msgstr "भण्डारण थप्नुहोस्"
 
 #: ../gitg/gitg-window.vala:191
-#, fuzzy
 msgid "_Add"
-msgstr "थप्नुहोस्…"
+msgstr "थप्नुहोस्"
 
 #: ../gitg/gitg-window.vala:193
 msgid "_Scan for all git repositories from this directory"
@@ -1270,9 +1268,9 @@ msgstr "इन्टरफेस"
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
 #: ../libgitg/gitg-authentication-dialog.vala:69
-#, fuzzy, c-format
+#, c-format
 msgid "Password required for %s"
-msgstr "“%s” जडान गर्न पासवर्ड चाहिने छ"
+msgstr "%s को पासवर्ड चाहिने छ"
 
 #: ../libgitg/gitg-date.vala:346
 msgid "Now"
@@ -1318,7 +1316,7 @@ msgstr "%b %e %H:%M"
 #: ../libgitg/gitg-date.vala:381
 #, fuzzy
 msgid "%b %e, %I:%M %p"
-msgstr "%a %b %e, %l:%M %p"
+msgstr "%b %d %I∶%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
@@ -1334,7 +1332,7 @@ msgstr "%b %e %Y %H:%M"
 #: ../libgitg/gitg-date.vala:398
 #, fuzzy
 msgid "%b %e %Y, %I:%M %p"
-msgstr "%b %e %Y %l:%M %p"
+msgstr "%-e %b %Y %l:%M %p"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
@@ -1388,7 +1386,7 @@ msgstr "फाइल खोल्नुहोस्"
 #: ../libgitg/gitg-diff-view-file.vala:209
 #, fuzzy
 msgid "Open containing _folder"
-msgstr "स्क्रिप्ट फोल्डर खोल्नुहोस्"
+msgstr "स्पुल फोल्डर खोल्न असक्षम"
 
 #: ../libgitg/gitg-diff-view-file.vala:229
 #, fuzzy
@@ -1435,9 +1433,8 @@ msgid "Show the files in the tree of the selected commit"
 msgstr ""
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
-#, fuzzy
 msgid "_Save"
-msgstr "यस रूपमा सङ्ग्रह गर्नुहोस्"
+msgstr " बचत गर्नुहोस्..."
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
 msgid "Default details used for all repositories"
@@ -1458,7 +1455,7 @@ msgstr ""
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
 #, fuzzy
 msgid "Clone Repository"
-msgstr "भण्डार अफलाइनमा छ"
+msgstr "भण्डार क्लोन गर्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
 #, fuzzy
@@ -1483,7 +1480,7 @@ msgstr "_स्थान छान्नुहोस्"
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
 #, fuzzy
 msgid "Bare repository"
-msgstr "भण्डारणमा थप्नुहोस्"
+msgstr "भण्डार क्लोन गर्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
 msgctxt "Create Dialog"
@@ -1509,7 +1506,7 @@ msgstr "कमिट गर्नुहोस्"
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 #, fuzzy
 msgid "Skip commit _hooks"
-msgstr "कमिट गर्नुहोस्"
+msgstr "फड्काउनुहोस्:"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 #, fuzzy
@@ -1554,9 +1551,8 @@ msgid "Date"
 msgstr "मिती"
 
 #: ../gitg/resources/ui/gitg-commit-submodule-info.ui.h:1
-#, fuzzy
 msgid "Open"
-msgstr "खोल्नुहोस्"
+msgstr " खोल्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
 #, fuzzy
@@ -1615,9 +1611,8 @@ msgid "_Quit"
 msgstr "अन्त्य गर्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-menus.ui.h:7
-#, fuzzy
 msgid "_Reload"
-msgstr "पुन:लोड गर्नुहोस्"
+msgstr "पुन: लोड गर्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
 #, fuzzy
@@ -1732,7 +1727,7 @@ msgstr ""
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:9
 #, fuzzy
 msgid "Monitoring"
-msgstr "स्थानीय मौसम अवस्था अनुगमन गर्नका लागि एउटा प्यानल अनुप्रयोग ।"
+msgstr "कुनै पनि फाइल अनुगमन पूर्ण रूपमा अक्षम गर्न अस्टय सेट गर्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:12
 msgid "Enable syntax highlighting of source code in diff views"
@@ -1741,7 +1736,7 @@ msgstr ""
 #: ../gitg/resources/ui/gitg-preferences.ui.h:1
 #, fuzzy
 msgid "Preferences"
-msgstr "प्राथमिकता"
+msgstr "_प्राथमिकताहरू"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
 msgctxt "shortcut window"
@@ -1749,22 +1744,19 @@ msgid "Windows"
 msgstr "सञ्झ्यालहरू"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open a new window"
-msgstr "नयाँ सञ्झ्यालमा खोल्नुहोस्"
+msgstr "नयाँ सञ्झ्याल खोल्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open the window menu"
-msgstr "कार्य मेनु खोल्नुहोस्"
+msgstr "सञ्झ्याल मेनु खोल्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open a repository"
-msgstr "भण्डारणमा थप्नुहोस्"
+msgstr "भण्डारण खोल्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
 #, fuzzy
@@ -1773,16 +1765,14 @@ msgid "Open the help"
 msgstr "जब सक्षम पारिन्छ, F1 थिच्दा मद्दत ब्राउजर खुल्दछ।"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Find"
-msgstr "_Find"
+msgstr "खोज्नुस्"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Close the active window"
-msgstr "यो सञ्झ्याल बन्द गर्नुहोस्"
+msgstr "सक्रिय सञ्झ्याल बन्द गर्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
 msgctxt "shortcut window"
@@ -1795,23 +1785,20 @@ msgid "Show the list of recently used repositories"
 msgstr "हालै प्रयोग गरिएको प्रकार्यको सूची"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:3
-#, fuzzy
 msgid "Clone"
 msgstr "क्लोन"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:4
-#, fuzzy
 msgid "Clone repository"
-msgstr "भण्डार अफलाइनमा छ"
+msgstr "भण्डार क्लोन गर्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:5
 msgid "Add"
 msgstr "थप्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:6
-#, fuzzy
 msgid "Add repository"
-msgstr "भण्डारणमा थप्नुहोस्"
+msgstr "भण्डारण थप्नुहोस्"
 
 #: ../gitg/resources/ui/gitg-window.ui.h:7
 #, fuzzy
@@ -1834,7 +1821,6 @@ msgid ""
 msgstr ""
 
 #: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
-#, fuzzy
 msgid "_Username:"
 msgstr "प्रयोगकर्ता नाम :"
 
@@ -1856,9 +1842,8 @@ msgid "Remember _forever"
 msgstr "सधैँ याद गर्नुहोस्"
 
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
-#, fuzzy
 msgid "Parents"
-msgstr "जवाफहरू र प्रमूलहरू"
+msgstr "प्रमूलहरू"
 
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
 msgid "Unable to display changes for binary file"
@@ -1870,7 +1855,6 @@ msgid "Side by side"
 msgstr "साइड A"
 
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
-#, fuzzy
 msgid "Slider"
 msgstr "स्लाइडर"
 
