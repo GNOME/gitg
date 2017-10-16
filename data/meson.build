@@ -11,11 +11,12 @@ desktop_in = configure_file(
   configuration: desktop_conf,
 )
 
-custom_target(
+i18n.merge_file(
   desktop,
+  type: 'desktop',
   input: desktop_in,
   output: desktop,
-  command: intltool_desktop_cmd,
+  po_dir: po_dir,
   install: true,
   install_dir: join_paths(gitg_datadir, 'applications'),
 )
@@ -25,17 +26,10 @@ schema_conf.set('GETTEXT_PACKAGE', gitg_gettext)
 
 schema = 'org.gnome.gitg.gschema.xml'
 
-schema_in = configure_file(
-  input: schema + '.in.in',
-  output: schema + '.in',
-  configuration: schema_conf,
-)
-
-custom_target(
-  schema,
-  input: schema_in,
+configure_file(
+  input: schema + '.in',
   output: schema,
-  command: [intltool_merge, '-x', '-u', '--no-translations', '@INPUT@', '@OUTPUT@'],
+  configuration: schema_conf,
   install: true,
   install_dir: join_paths(gitg_datadir, 'glib-2.0', 'schemas'),
 )

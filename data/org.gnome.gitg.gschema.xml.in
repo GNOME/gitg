@@ -24,129 +24,129 @@
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.main" path="/org/gnome/gitg/preferences/main/">
     <key name="clone-directory" type="s">
       <default>""</default>
-      <_summary>Default Clone Directory</_summary>
-      <_description>
+      <summary>Default Clone Directory</summary>
+      <description>
         The default directory in which new repositories should be suggested
         to be cloned.
-      </_description>
+      </description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.interface" path="/org/gnome/gitg/preferences/interface/">
     <key name="orientation" enum="org.gnome.gitg.Layout">
       <default>'vertical'</default>
-      <_summary>Orientation of the main interface (vertical or horizontal)</_summary>
-      <_description>
+      <summary>Orientation of the main interface (vertical or horizontal)</summary>
+      <description>
         Setting that sets the orientation of the main interface.
-      </_description>
+      </description>
     </key>
     <key name="default-activity" type="s">
       <default>"history"</default>
-      <_summary>Default Activity</_summary>
-      <_description>
+      <summary>Default Activity</summary>
+      <description>
         The activity which gitg activates by default when first launched.
-      </_description>
+      </description>
     </key>
     <key name="use-gravatar" type="b">
       <default>false</default>
-      <_summary>Use Gravatar</_summary>
-      <_description>
+      <summary>Use Gravatar</summary>
+      <description>
         Enable the use of gravatar to display user avatars.
-      </_description>
+      </description>
     </key>
     <key name="enable-monitoring" type="b">
       <default>true</default>
-      <_summary>Enable Monitoring</_summary>
-      <_description>
+      <summary>Enable Monitoring</summary>
+      <description>
         Automatically update when external changes to .git are detected
-      </_description>
+      </description>
     </key>
     <key name="enable-diff-highlighting" type="b">
       <default>true</default>
-      <_summary>Enable Diff Highlighting</_summary>
-      <_description>
+      <summary>Enable Diff Highlighting</summary>
+      <description>
          Setting that determines whether to enable syntax highlighting in diff
          views.
-      </_description>
+      </description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.history" path="/org/gnome/gitg/preferences/history/">
     <key name="collapse-inactive-lanes" type="i">
       <default>2</default>
-      <_summary>When to Collapse Inactive Lanes</_summary>
-      <_description>
+      <summary>When to Collapse Inactive Lanes</summary>
+      <description>
         Setting that indicates when an inactive lane should be collapsed.
         Valid values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'.
-      </_description>
+      </description>
     </key>
     <key name="collapse-inactive-lanes-enabled" type="b">
       <default>true</default>
-      <_description>
+      <description>
         Setting that indicates whether to collapse history lanes which do not
         show activity. Enabling this can provide a cleaner history view when
         there is a lot of parallel development. See collapse-inactive-lanes
         to control when lanes should be collapsed.
-      </_description>
+      </description>
     </key>
     <key name="topological-order" type="b">
       <default>false</default>
-      <_summary>Show History in Topological Order</_summary>
-      <_description>
+      <summary>Show History in Topological Order</summary>
+      <description>
         Setting that indicates whether to show the history in topological order.
-      </_description>
+      </description>
     </key>
     <key name="show-stash" type="b">
       <default>true</default>
-      <_summary>Show Stashed Changes</_summary>
-      <_description>
+      <summary>Show Stashed Changes</summary>
+      <description>
         Setting that indicates whether to show items for the stash in the
         history.
-      </_description>
+      </description>
     </key>
     <key name="show-staged" type="b">
       <default>true</default>
-      <_summary>Show Staged Changes</_summary>
-      <_description>
+      <summary>Show Staged Changes</summary>
+      <description>
          Setting that indicates whether to show a virtual item for the currently
          staged changes in the history.
-      </_description>
+      </description>
     </key>
     <key name="show-unstaged" type="b">
       <default>true</default>
-      <_summary>Show Unstaged Changes</_summary>
-      <_description>
+      <summary>Show Unstaged Changes</summary>
+      <description>
          Setting that indicates whether to show a virtual item for the currently
          unstaged changes in the history.
-      </_description>
+      </description>
     </key>
     <key name="mainline-head" type="b">
       <default>true</default>
-      <_summary>Mainline Head</_summary>
-      <_description>
+      <summary>Mainline Head</summary>
+      <description>
          Setting that indicates whether to always preserve a mainline in the
          history for the current HEAD.
-      </_description>
+      </description>
     </key>
     <key name="default-selection" enum="org.gnome.gitg.history.DefaultSelection">
       <default>'current-branch'</default>
-      <_summary>Default selection of the history activity</_summary>
-      <_description>
+      <summary>Default selection of the history activity</summary>
+      <description>
         Setting that determines the default selection on startup of the history activity.
-      </_description>
+      </description>
     </key>
     <key name="reference-sort-order" enum="org.gnome.gitg.history.RefSortOrder">
       <default>'last-activity'</default>
-      <_summary>Reference Sort Order</_summary>
-      <_description>
+      <summary>Reference Sort Order</summary>
+      <description>
         The order by which references in the history sidebar should be sorted.
-      </_description>
+      </description>
     </key>
     <key name="show-upstream-with-branch" type="b">
       <default>true</default>
-      <_summary>Show Upstream With Branch</_summary>
-      <_description>
+      <summary>Show Upstream With Branch</summary>
+      <description>
          Determines whether to also show the upstream (remote) tracking branch when
          selecting a local branch in the history view.
-      </_description>
+      </description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit" path="/org/gnome/gitg/preferences/commit/">
@@ -159,52 +159,52 @@
     </key>
     <key name="show-right-margin" type="b">
       <default>true</default>
-      <_summary>Show Right Margin in Commit Message View</_summary>
-      <_description>
+      <summary>Show Right Margin in Commit Message View</summary>
+      <description>
         Show a right margin indicator in the commit message view.
         This can be used to easily see where to break the commit message at
         a particular column.
-      </_description>
+      </description>
     </key>
     <key name="right-margin-position" type="i">
       <default>72</default>
-      <_summary>Column at Which Right Margin is Shown</_summary>
-      <_description>
+      <summary>Column at Which Right Margin is Shown</summary>
+      <description>
         The column at which the right margin is shown if the show-right-margin
         preference is set to TRUE.
-      </_description>
+      </description>
     </key>
     <key name="show-subject-margin" type="b">
       <default>true</default>
-      <_summary>Show Subject Margin in Commit Message View</_summary>
-      <_description>
+      <summary>Show Subject Margin in Commit Message View</summary>
+      <description>
         Highlight the subject text of the commit message when it passes the
         margin specified by subject-margin-position.
-      </_description>
+      </description>
     </key>
     <key name="subject-margin-position" type="i">
       <default>50</default>
-      <_summary>Column at Which Subject Margin is Shown</_summary>
-      <_description>
+      <summary>Column at Which Subject Margin is Shown</summary>
+      <description>
         The column at which the subject margin is shown if the show-subject-margin
         preference is set to TRUE.
-      </_description>
+      </description>
     </key>
     <key name="enable-spell-checking" type="b">
       <default>true</default>
-      <_summary>Enable Spell Checking</_summary>
-      <_description>
+      <summary>Enable Spell Checking</summary>
+      <description>
         Setting which determines whether or not spell checking is enabled
         when writing a commit message.
-      </_description>
+      </description>
     </key>
     <key name="spell-checking-language" type="s">
       <default>''</default>
-      <_summary>Spell Checking Language</_summary>
-      <_description>
+      <summary>Spell Checking Language</summary>
+      <description>
         The language to use when spell checking is enabled for writing a
         commit message.
-      </_description>
+      </description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.diff" path="/org/gnome/gitg/preferences/diff/">
@@ -217,61 +217,61 @@
     </key>
     <key name="ignore-whitespace" type="b">
       <default>false</default>
-      <_summary>Ignore Whitespace Changes</_summary>
-      <_description>
+      <summary>Ignore Whitespace Changes</summary>
+      <description>
          Setting that indicates whether to ignore whitespace changes when showing
          the diff of a commit.
-      </_description>
+      </description>
     </key>
     <key name="changes-inline" type="b">
       <default>false</default>
-      <_summary>Show Changes Inline</_summary>
-      <_description>
+      <summary>Show Changes Inline</summary>
+      <description>
          Setting that indicates whether changes within lines should be shown
          inline.
-      </_description>
+      </description>
     </key>
     <key name="wrap" type="b">
       <default>false</default>
-      <_summary>Wrap</_summary>
-      <_description>
+      <summary>Wrap</summary>
+      <description>
          Wrap lines.
-      </_description>
+      </description>
     </key>
     <key name="context-lines" type="i">
       <default>3</default>
-      <_summary>Number of Before/After Context Lines</_summary>
-      <_description>
+      <summary>Number of Before/After Context Lines</summary>
+      <description>
          Setting that determines how many lines of context (before and after)
          should be shown when showing the diff of a commit.
-      </_description>
+      </description>
     </key>
     <key name="tab-width" type="i">
       <default>4</default>
-      <_summary>Rendered Width of a Tab Character</_summary>
-      <_description>
+      <summary>Rendered Width of a Tab Character</summary>
+      <description>
          Setting that determines how much space a tab character should occupy
          when showing the diff of a commit.
-      </_description>
+      </description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.diff" path="/org/gnome/gitg/preferences/commit/diff/">
     <key name="context-lines" type="i">
       <default>3</default>
-      <_summary>Number of Before/After Context Lines</_summary>
-      <_description>
+      <summary>Number of Before/After Context Lines</summary>
+      <description>
          Setting that determines how many lines of context (before and after)
          should be shown when showing the diff to be staged/unstaged in the
          commit area.
-      </_description>
+      </description>
     </key>
     <key name="tab-width" type="i">
       <default>4</default>
-      <_summary>Rendered Width of a Tab Character</_summary>
-      <_description>
+      <summary>Rendered Width of a Tab Character</summary>
+      <description>
          Setting that determines how much space a tab character should occupy
          when showing the diff of a commit.
-      </_description>
+      </description>
     </key>
   </schema>
   <schema id="org.gnome.gitg.state" path="/org/gnome/gitg/state/">
