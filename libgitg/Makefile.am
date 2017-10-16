@@ -36,7 +36,7 @@ libgitg_libgitg_1_0_la_VALAFLAGS =	\
 	--pkg $(GIO_SYSTEM_PKG)		\
 	--pkg gee-0.8			\
 	--pkg libsecret-1		\
-	--pkg gdesktop-enums-3.0	\
+	--pkg gsettings-desktop-schemas	\
 	--pkg libsoup-2.4		\
 	--pkg gtksourceview-3.0		\
 	--pkg gitg-platform-support	\

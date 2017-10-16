@@ -1,7 +1,7 @@
 EXTRA_DIST +=					\
 	vapi/config.vapi			\
-	vapi/gdesktop-enums-3.0.vapi		\
 	vapi/gobject-introspection-1.0.vapi 	\
+	vapi/gsettings-desktop-schemas.vapi	\
 	vapi/gtksourceview-3.0.deps		\
 	vapi/gtksourceview-3.0.vapi		\
 	vapi/libpeas-1.0.vapi			\
