@@ -47,11 +47,7 @@ config_h = configuration_data()
 # defines
 set_defines = [
   # package
-  ['PACKAGE', gitg_name],
-  ['PACKAGE_BUGREPORT', 'http://bugzilla.gnome.org/enter_bug.cgi?product=' + gitg_name],
   ['PACKAGE_NAME', gitg_name],
-  ['PACKAGE_STRING', '@0@ @1@'.format(gitg_name, gitg_version)],
-  ['PACKAGE_TARNAME', gitg_name],
   ['PACKAGE_URL', 'https://wiki.gnome.org/Apps/Gitg'],
   ['PACKAGE_VERSION', gitg_version],
   ['VERSION', gitg_version],
@@ -65,52 +61,6 @@ set_defines = [
 
 foreach define: set_defines
   config_h.set_quoted(define[0], define[1])
-endforeach
-
-# version values
-config_h.set('GITG_MAJOR_VERSION', gitg_major_version)
-config_h.set('GITG_MINOR_VERSION', gitg_minor_version)
-config_h.set('GITG_MICRO_VERSION', gitg_micro_version)
-
-# debug options
-config_h.set('ENABLE_DEBUG', gitg_debug,
-             description: 'Define if debugging is enabled')
-
-# headers
-check_headers = [
-  ['HAVE_DLFCN_H', 'dlfcn.h'],
-  ['HAVE_INTTYPES_H', 'inttypes.h'],
-  ['HAVE_MEMORY_H', 'memory.h'],
-  ['HAVE_STDINT_H', 'stdint.h'],
-  ['HAVE_STDLIB_H', 'stdlib.h'],
-  ['HAVE_STRINGS_H', 'strings.h'],
-  ['HAVE_STRING_H', 'string.h'],
-  ['HAVE_SYS_STAT_H', 'sys/stat.h'],
-  ['HAVE_SYS_TYPES_H', 'sys/types.h'],
-  ['HAVE_UNISTD_H', 'unistd.h']
-]
-
-foreach header: check_headers
-  config_h.set(header[0], cc.has_header(header[1]))
-endforeach
-
-# functions
-check_functions = [
-  # i18n
-  ['HAVE_DCGETTEXT', 'dcgettext'],
-  ['HAVE_GETTEXT', 'gettext'],
-  ['HAVE_ICONV', 'iconv']
-]
-
-if host_machine.system().contains('darwin')
-  check_functions += [
-    ['HAVE_CFLOCALECOPYCURRENT', 'CFLocaleCopyCurrent'],
-    ['HAVE_CFPREFERENCESCOPYAPPVALUE', 'CFPreferencesCopyAppValue']
-  ]
-endif
-
-foreach func: check_functions
-  config_h.set(func[0], cc.has_function(func[1]))
 endforeach
 
 # c compiler flags
@@ -195,8 +145,6 @@ assert(
 gtk_shortcuts_window = gtk_dep.version().version_compare('3.19')
 
 m_dep = cc.find_library('m', required: false)
-have_libm = m_dep.found() and cc.has_function('sinf', dependencies: m_dep)
-config_h.set('HAVE_LIBM', have_libm)
 
 gdk_dep = dependency('gdk-3.0')
 gdk_targets = gdk_dep.get_pkgconfig_variable('targets')
