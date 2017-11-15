@@ -68,7 +68,7 @@ libgitg_ext = shared_library(
   link_depends: symbol_map,
   install: true,
   install_dir: [
-    gitg_libdir,
+    get_option('libdir'),
     join_paths(gitg_includedir, lib_api_name, lib_name),
     true,
     true
