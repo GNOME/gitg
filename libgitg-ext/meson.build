@@ -140,7 +140,7 @@ custom_target(
   install_dir: gitg_girepositorydir
 )
 
-enable_python = get_option('enable-python')
+enable_python = get_option('python')
 if enable_python
   python = import('python3')
 

@@ -50,7 +50,7 @@ install_data(
   install_dir: join_paths(gitg_mandir, 'man1')
 )
 
-enable_glade_catalog = get_option('enable-glade-catalog')
+enable_glade_catalog = get_option('glade_catalog')
 if enable_glade_catalog
   install_data(
     'gitg-glade.xml',

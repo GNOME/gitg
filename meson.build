@@ -121,7 +121,7 @@ endforeach
 common_flags = ['-DHAVE_CONFIG_H']
 warn_flags = []
 
-if get_option('enable-deprecations')
+if get_option('deprecations')
   warn_flags += [
     '-DG_DISABLE_DEPRECATED',
     '-DGDK_DISABLE_DEPRECATED',
@@ -134,8 +134,6 @@ endif
 
 if gitg_debug
   test_cflags = [
-    '-w',
-    '-Werror',
     '-Werror=format=2',
     '-Werror=implicit-function-declaration',
     '-Werror=init-self',
@@ -220,7 +218,7 @@ config_h.set_quoted('PLATFORM_NAME', platform_name)
 
 g_ir_compiler = find_program('g-ir-compiler')
 
-enable_docs = get_option('enable-docs')
+enable_docs = get_option('docs')
 if enable_docs
   docs_dir = join_paths(meson.source_root(), 'docs')
   valadoc = find_program('valadoc')
@@ -257,7 +255,7 @@ configure_file(
 meson.add_install_script(
   'meson_post_install.py',
   gitg_datadir,
-  (enable_python ? 'enable-python' : ''),
+  (enable_python ? 'python' : ''),
   gitg_libdir
 )
 

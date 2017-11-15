@@ -25,7 +25,7 @@ if not os.environ.get('DESTDIR'):
   print('Compiling gsettings schemas...')
   subprocess.call(['glib-compile-schemas', schemadir])
 
-  if sys.argv[2] == 'enable-python':
+  if sys.argv[2] == 'python':
     print('Byte-compiling python modules...')
     subprocess.call(['python', '-m', 'compileall', '-f', '-q', sys.argv[3]])
 
