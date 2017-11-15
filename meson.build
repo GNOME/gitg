@@ -1,12 +1,8 @@
 project(
   'gitg', ['c', 'vala'],
   version: '3.26.0',
-  license: 'GPL2',
-  default_options: [
-    'b_lundef=true',
-    'buildtype=debugoptimized',
-    'warning_level=1'
-  ],
+  license: 'GPL2+',
+  default_options: 'buildtype=debugoptimized',
   meson_version: '>= 0.43.0'
 )
 
