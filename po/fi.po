@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-08-31 15:28+0000\n"
-"PO-Revision-Date: 2016-09-04 20:18+0300\n"
+"POT-Creation-Date: 2017-07-27 14:16+0000\n"
+"PO-Revision-Date: 2018-01-12 19:32+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../contrib/xml/xml-reader.c:327
 #, c-format
@@ -300,12 +300,12 @@ msgid "Cannot set spell checking language: %s"
 msgstr "Oikolukukielen asettaminen ei onnistunut: %s"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:508
-#: ../gitg/commit/gitg-commit.vala:1076
+#: ../gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Ei muutoksia vietäväksi pysyvään muutokseen"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:509
-#: ../gitg/commit/gitg-commit.vala:1077
+#: ../gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Käytä amend-oikaisua muuttaaksesi edellisen pysyvän muutoksen viestiä"
 
@@ -334,107 +334,107 @@ msgstr "Alimoduulin `%s' poistamisen valmistelu epäonnistui"
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr ""
 
-#: ../gitg/commit/gitg-commit.vala:262
+#: ../gitg/commit/gitg-commit.vala:263
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
 "to stage"
 msgstr ""
 
-#: ../gitg/commit/gitg-commit.vala:275
+#: ../gitg/commit/gitg-commit.vala:276
 #, c-format
 msgid "Failed to stage the submodule `%s'"
 msgstr "Alimoduulin `%s' valmistelu epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:297
+#: ../gitg/commit/gitg-commit.vala:298
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "Tiedoston \"%s\" poistamisen valmistelu epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:311
+#: ../gitg/commit/gitg-commit.vala:312
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "Tiedoston \"%s\" valmistelu epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:583
+#: ../gitg/commit/gitg-commit.vala:584
 msgid "_Unstage selection"
 msgstr "_Poista valmistelu valinnalta"
 
-#: ../gitg/commit/gitg-commit.vala:649
+#: ../gitg/commit/gitg-commit.vala:650
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "Tiedoston \"%s\" poistamisen valmistelun kumoaminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:650
+#: ../gitg/commit/gitg-commit.vala:651
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "Valmistelun poistaminen tiedostolta \"%s\" epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:657
+#: ../gitg/commit/gitg-commit.vala:658
 #, fuzzy, c-format
 #| msgid "Failed to unstage the removal of file `%s'"
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "Tiedoston \"%s\" poistamisen valmistelun kumoaminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:658
+#: ../gitg/commit/gitg-commit.vala:659
 #, fuzzy, c-format
 #| msgid "Failed to unstage the file `%s'"
 msgid "Failed to unstage the submodule `%s'"
 msgstr "Valmistelun poistaminen tiedostolta \"%s\" epäonnistui"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:862
+#: ../gitg/commit/gitg-commit.vala:863
 msgid "Staged"
 msgstr "Valmistellut"
 
-#: ../gitg/commit/gitg-commit.vala:870
+#: ../gitg/commit/gitg-commit.vala:871
 msgid "No staged files"
 msgstr "Ei valmisteltuja tiedostoja"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:893
+#: ../gitg/commit/gitg-commit.vala:894
 msgid "Unstaged"
 msgstr "Valmistelemattomat"
 
-#: ../gitg/commit/gitg-commit.vala:901
+#: ../gitg/commit/gitg-commit.vala:902
 msgid "No unstaged files"
 msgstr "Ei valmistelemattomia tiedostoja"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:924
+#: ../gitg/commit/gitg-commit.vala:925
 msgid "Untracked"
 msgstr "Seuraamattomat"
 
-#: ../gitg/commit/gitg-commit.vala:928
+#: ../gitg/commit/gitg-commit.vala:929
 msgid "No untracked files"
 msgstr "Ei seuraamattomia tiedostoja"
 
-#: ../gitg/commit/gitg-commit.vala:953
+#: ../gitg/commit/gitg-commit.vala:954
 msgid "Submodule"
 msgstr "Alimoduuli"
 
-#: ../gitg/commit/gitg-commit.vala:957
+#: ../gitg/commit/gitg-commit.vala:958
 msgid "No dirty submodules"
 msgstr "Ei likaisia alimoduuleja"
 
-#: ../gitg/commit/gitg-commit.vala:1106
+#: ../gitg/commit/gitg-commit.vala:1107
 msgid "Failed to commit"
 msgstr "Pysyvän muutoksen tekeminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:1122
+#: ../gitg/commit/gitg-commit.vala:1123
 msgid "Failed to pass pre-commit"
 msgstr "Pre-commitin välittäminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:1330 ../gitg/commit/gitg-commit.vala:1480
+#: ../gitg/commit/gitg-commit.vala:1331 ../gitg/commit/gitg-commit.vala:1481
 msgid "Discard changes"
 msgstr "Hylkää muutokset"
 
-#: ../gitg/commit/gitg-commit.vala:1331
+#: ../gitg/commit/gitg-commit.vala:1332
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Haluatko varmasti hylätä valitut muutokset pysyvästi?"
 
-#: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
-#: ../gitg/commit/gitg-commit.vala:1621
+#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
+#: ../gitg/commit/gitg-commit.vala:1622
 #: ../gitg/gitg-commit-action-create-patch.vala:145
 #: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
@@ -447,34 +447,34 @@ msgstr "Haluatko varmasti hylätä valitut muutokset pysyvästi?"
 msgid "_Cancel"
 msgstr "_Peru"
 
-#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
+#: ../gitg/commit/gitg-commit.vala:1342 ../gitg/commit/gitg-commit.vala:1508
 msgid "Discard"
 msgstr "Hylkää"
 
-#: ../gitg/commit/gitg-commit.vala:1370
+#: ../gitg/commit/gitg-commit.vala:1371
 msgid "Failed to discard selection"
 msgstr "Valinnan hylkääminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:1400
+#: ../gitg/commit/gitg-commit.vala:1401
 msgid "Failed to stage selection"
 msgstr "Valinnan valmistelu epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:1404
+#: ../gitg/commit/gitg-commit.vala:1405
 msgid "Failed to unstage selection"
 msgstr "Valmistelun poistaminen valinnalta epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:1464
+#: ../gitg/commit/gitg-commit.vala:1465
 msgid "Failed to discard changes"
 msgstr "Muutosten hylkääminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:1485
+#: ../gitg/commit/gitg-commit.vala:1486
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
 "%s'?"
 msgstr "Haluatko varmasti hylätä pysyvästi kaikki muutokset tiedostoon `%s'?"
 
-#: ../gitg/commit/gitg-commit.vala:1496
+#: ../gitg/commit/gitg-commit.vala:1497
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -483,45 +483,45 @@ msgstr ""
 "Haluatko varmasti hylätä pysyvästi kaikki tehdyt muutokset tiedostoihin %s "
 "ja `%s'?"
 
-#: ../gitg/commit/gitg-commit.vala:1579
+#: ../gitg/commit/gitg-commit.vala:1580
 msgid "Failed to delete files"
 msgstr "Tiedostojen poistaminen epäonnistui"
 
-#: ../gitg/commit/gitg-commit.vala:1595
+#: ../gitg/commit/gitg-commit.vala:1596
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Poista tiedosto"
 msgstr[1] "Poista tiedostot"
 
-#: ../gitg/commit/gitg-commit.vala:1600
+#: ../gitg/commit/gitg-commit.vala:1601
 #, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "Haluatko varmasti poistaa tiedoston `%s' pysyvästi?"
 
-#: ../gitg/commit/gitg-commit.vala:1611
+#: ../gitg/commit/gitg-commit.vala:1612
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "Haluatko varmasti poistaa tiedostot %s ja `%s' pysyvästi?"
 
-#: ../gitg/commit/gitg-commit.vala:1657
+#: ../gitg/commit/gitg-commit.vala:1658
 msgid "_Stage changes"
 msgstr "_Valmistele muutokset"
 
-#: ../gitg/commit/gitg-commit.vala:1669
+#: ../gitg/commit/gitg-commit.vala:1670
 msgid "_Unstage changes"
 msgstr "_Poista valmistelu muutoksilta"
 
-#: ../gitg/commit/gitg-commit.vala:1681
+#: ../gitg/commit/gitg-commit.vala:1682
 msgid "_Discard changes"
 msgstr "_Hylkää muutokset"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: ../gitg/commit/gitg-commit.vala:1694
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_Poista tiedosto"
 msgstr[1] "_Poista tiedostot"
 
-#: ../gitg/commit/gitg-commit.vala:1723
+#: ../gitg/commit/gitg-commit.vala:1724
 msgid "_Edit file"
 msgstr "_Muokkaa tiedostoa"
 
@@ -1163,18 +1163,21 @@ msgstr ""
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
-msgid "%d ahead, %d behind"
-msgstr "%d edellä, %d jäljessä"
+#| msgid "%d ahead, %d behind"
+msgid "%zu ahead, %zu behind"
+msgstr "%zu edellä, %zu jäljessä"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
-msgid "%d ahead"
-msgstr "%d edellä"
+#| msgid "%d ahead"
+msgid "%zu ahead"
+msgstr "%zu edellä"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
-msgid "%d behind"
-msgstr "%d jäljessä"
+#| msgid "%d behind"
+msgid "%zu behind"
+msgstr "%zu jäljessä"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1199,7 +1202,7 @@ msgstr "Historia"
 msgid "Examine the history of the repository"
 msgstr "Tutki tietovaraston historiaa"
 
-#: ../gitg/history/gitg-history.vala:843
+#: ../gitg/history/gitg-history.vala:909
 msgid "Mainline"
 msgstr ""
 
@@ -1752,7 +1755,7 @@ msgstr "Muutoksia ei voi näyttää binääritiedostolle"
 
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
 msgid "Side by side"
-msgstr ""
+msgstr "Vierekkäin"
 
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
 msgid "Slider"
@@ -1763,7 +1766,6 @@ msgid "Overlay"
 msgstr ""
 
 #: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
-#| msgid "References"
 msgid "Difference"
 msgstr "Ero"
 
