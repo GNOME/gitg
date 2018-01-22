@@ -756,7 +756,7 @@ public class Gitg.DiffView : Gtk.Grid
 			if (current_file != null)
 			{
 				current_file.show();
-				current_file.renderer.notify["has-selection"].connect(on_selection_changed);	
+				current_file.renderer.notify["has-selection"].connect(on_selection_changed);
 
 				files.add(current_file);
 
@@ -835,6 +835,8 @@ public class Gitg.DiffView : Gtk.Grid
 					{
 						current_file = new Gitg.DiffViewFile.text(info, handle_selection);
 						this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file.renderer_left, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file.renderer_left, "highlight", BindingFlags.SYNC_CREATE);
 					}
 
 					return 0;
@@ -927,6 +929,24 @@ public class Gitg.DiffView : Gtk.Grid
 
 				this.bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 				this.bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_left = file.renderer_left as DiffViewFileRendererText;
+			if (renderer_left != null)
+			{
+				renderer_left.maxlines = maxlines;
+
+				this.bind_property("wrap-lines", renderer_left, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_left, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_right = file.renderer_right as DiffViewFileRendererText;
+			if (renderer_right != null)
+			{
+				renderer_right.maxlines = maxlines;
+
+				this.bind_property("wrap-lines", renderer_right, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_right, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 			}
 
 			if (i == files.size - 1)
