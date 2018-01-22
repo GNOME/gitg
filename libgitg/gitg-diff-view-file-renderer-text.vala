@@ -27,6 +27,13 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		CONTEXT
 	}
 
+	public enum Style
+	{
+		ONE,
+		OLD,
+		NEW
+	}
+
 	private struct Region
 	{
 		public RegionType type;
@@ -62,6 +69,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private Settings? d_stylesettings;
 
 	private Settings? d_fontsettings;
+	public Style d_style { get; construct set; }
 
 	public bool new_is_workdir { get; construct set; }
 
@@ -171,29 +179,58 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 	}
 
-	public DiffViewFileRendererText(DiffViewFileInfo info, bool can_select)
+	public DiffViewFileRendererText(DiffViewFileInfo info, bool can_select, Style d_style)
 	{
-		Object(info: info, can_select: can_select);
+		Object(info: info, can_select: can_select, d_style: d_style);
 	}
 
 	construct
 	{
 		var gutter = this.get_gutter(Gtk.TextWindowType.LEFT);
 
-		d_old_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.OLD);
-		d_new_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.NEW);
-		d_sym_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.SYMBOL);
+		if (this.d_style == Style.ONE)
+		{
+			d_old_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.OLD);
+			d_new_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.NEW);
+			d_sym_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.SYMBOL);
 
-		this.bind_property("maxlines", d_old_lines, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
-		this.bind_property("maxlines", d_new_lines, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			this.bind_property("maxlines", d_old_lines, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			this.bind_property("maxlines", d_new_lines, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 
-		d_old_lines.xpad = 8;
-		d_new_lines.xpad = 8;
-		d_sym_lines.xpad = 6;
+			d_old_lines.xpad = 8;
+			d_new_lines.xpad = 8;
+			d_sym_lines.xpad = 6;
 
-		gutter.insert(d_old_lines, 0);
-		gutter.insert(d_new_lines, 1);
-		gutter.insert(d_sym_lines, 2);
+			gutter.insert(d_old_lines, 0);
+			gutter.insert(d_new_lines, 1);
+			gutter.insert(d_sym_lines, 2);
+		}
+		else if (this.d_style == Style.OLD)
+		{
+			d_old_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.OLD);
+			d_sym_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.SYMBOL_OLD);
+
+			this.bind_property("maxlines", d_old_lines, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+
+			d_old_lines.xpad = 8;
+			d_sym_lines.xpad = 6;
+
+			gutter.insert(d_old_lines, 0);
+			gutter.insert(d_sym_lines, 1);
+		}
+		else if (this.d_style == Style.NEW)
+		{
+			d_new_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.NEW);
+			d_sym_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.SYMBOL_NEW);
+
+			this.bind_property("maxlines", d_new_lines, "maxlines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+
+			d_new_lines.xpad = 8;
+			d_sym_lines.xpad = 6;
+
+			gutter.insert(d_new_lines, 0);
+			gutter.insert(d_sym_lines, 1);
+		}
 
 		this.set_border_window_size(Gtk.TextWindowType.TOP, 1);
 
@@ -591,15 +628,35 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		var ctx = this.get_style_context();
 
-		var old_lines_width = d_old_lines.size + d_old_lines.xpad * 2;
-		var new_lines_width = d_new_lines.size + d_new_lines.xpad * 2;
+		var old_lines_width = 0;
+		var new_lines_width = 0;
+
+		switch (this.d_style)
+		{
+		case Style.ONE:
+			old_lines_width = d_old_lines.size + d_old_lines.xpad * 2;
+			new_lines_width = d_new_lines.size + d_new_lines.xpad * 2;
+			break;
+
+		case Style.OLD:
+			old_lines_width = d_old_lines.size + d_old_lines.xpad * 2;
+			break;
+
+		case Style.NEW:
+			new_lines_width = d_new_lines.size + d_new_lines.xpad * 2;
+			break;
+		}
+
 		var sym_lines_width = d_sym_lines.size + d_sym_lines.xpad * 2;
 
-		ctx.save();
-		Gtk.cairo_transform_to_window(cr, this, win);
-		ctx.add_class("diff-lines-separator");
-		ctx.render_frame(cr, 0, 0, old_lines_width, win.get_height());
-		ctx.restore();
+		if (this.d_style == Style.ONE)
+		{
+			ctx.save();
+			Gtk.cairo_transform_to_window(cr, this, win);
+			ctx.add_class("diff-lines-separator");
+			ctx.render_frame(cr, 0, 0, old_lines_width, win.get_height());
+			ctx.restore();
+		}
 
 		ctx.save();
 		Gtk.cairo_transform_to_window(cr, this, win);
@@ -646,6 +703,22 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
+		switch (this.d_style)
+		{
+		case Style.ONE:
+			add_hunk_one(hunk, lines);
+			break;
+		case Style.OLD:
+			add_hunk_left(hunk, lines);
+			break;
+		case Style.NEW:
+			add_hunk_right(hunk, lines);
+			break;
+		}
+	}
+
+	private void add_hunk_one(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
+	{
 		var buffer = this.buffer as Gtk.SourceBuffer;
 
 		/* Diff hunk */
@@ -675,8 +748,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		int buffer_line = iter.get_line();
 
-		/* Diff Content */
-		var content = new StringBuilder();
+		int line_hunk_start = iter.get_line();
 
 		var region = Region() {
 			type = RegionType.CONTEXT,
@@ -776,8 +848,31 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 				text = text.slice(0, text.length - 1);
 			}
 
-			content.append(text);
-			buffer_line++;
+			if (rtype == RegionType.CONTEXT)
+			{
+				buffer.insert(ref iter, text, -1);
+				buffer_line++;
+			}
+
+			if (rtype == RegionType.REMOVED)
+			{
+				Gtk.TextIter t_iter;
+				buffer.get_end_iter(out t_iter);
+				buffer.create_source_mark(null, "removed", t_iter);
+
+				buffer.insert(ref iter, text, -1);
+				buffer_line++;
+			}
+
+			if (rtype == RegionType.ADDED)
+			{
+				Gtk.TextIter t_iter;
+				buffer.get_end_iter(out t_iter);
+				buffer.create_source_mark(null, "added", t_iter);
+
+				buffer.insert(ref iter, text, -1);
+				buffer_line++;
+			}
 		}
 
 		if (lines.size != 0)
@@ -785,35 +880,399 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			d_regions += region;
 		}
 
+		d_old_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, buffer);
+		d_new_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, buffer);
+		d_sym_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, buffer);
+
+		this.thaw_notify();
+
+		sensitive = true;
+	}
+
+	private void add_hunk_left(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
+	{
+		var buffer = this.buffer as Gtk.SourceBuffer;
+
+		/* Diff hunk */
+		var h = hunk.get_header();
+		var pos = h.last_index_of("@@");
+
+		if (pos >= 0)
+		{
+			h = h.substring(pos + 2).chug();
+		}
+
+		h = h.chomp();
+
+		Gtk.TextIter iter;
+		buffer.get_end_iter(out iter);
+
+		if (!iter.is_start())
+		{
+			buffer.insert(ref iter, "\n", 1);
+		}
+
+		iter.set_line_offset(0);
+		buffer.create_source_mark(null, "header", iter);
+
+		var header = @"@@ -$(hunk.get_old_start()),$(hunk.get_old_lines()) +$(hunk.get_new_start()),$(hunk.get_new_lines()) @@ $h\n";
+		buffer.insert(ref iter, header, -1);
+
+		int buffer_line = iter.get_line();
+
 		int line_hunk_start = iter.get_line();
 
-		buffer.insert(ref iter, (string)content.data, -1);
+		var region = Region() {
+			type = RegionType.CONTEXT,
+			buffer_line_start = 0,
+			source_line_start = 0,
+			length = 0
+		};
 
-		d_old_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, lines);
-		d_new_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, lines);
-		d_sym_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, lines);
+		this.freeze_notify();
 
+		var add_line_num = 0;
+		var remove_line_num = 0;
+		var in_change_line = false;
 		for (var i = 0; i < lines.size; i++)
 		{
 			var line = lines[i];
-			string? category = null;
+			var text = line.get_text().replace("\r", "");
+			var added = false;
+			var removed = false;
+			var origin = line.get_origin();
 
-			switch (line.get_origin())
+			var rtype = RegionType.CONTEXT;
+
+			switch (origin)
 			{
 				case Ggit.DiffLineType.ADDITION:
-					category = "added";
+					added = true;
+					this.added++;
+
+					rtype = RegionType.ADDED;
 					break;
 				case Ggit.DiffLineType.DELETION:
-					category = "removed";
+					removed = true;
+					this.removed++;
+
+					rtype = RegionType.REMOVED;
+					break;
+				case Ggit.DiffLineType.CONTEXT_EOFNL:
+				case Ggit.DiffLineType.ADD_EOFNL:
+				case Ggit.DiffLineType.DEL_EOFNL:
+					text = text.substring(1);
 					break;
 			}
 
-			if (category != null)
+			if (i == 0 || rtype != region.type)
 			{
-				buffer.get_iter_at_line(out iter, line_hunk_start + i);
-				buffer.create_source_mark(null, category, iter);
+				if (i != 0)
+				{
+					d_regions += region;
+				}
+
+				int source_line_start;
+
+				if (rtype == RegionType.REMOVED)
+				{
+					source_line_start = line.get_old_lineno() - 1;
+				}
+				else
+				{
+					source_line_start = line.get_new_lineno() - 1;
+				}
+
+				region = Region() {
+					type = rtype,
+					buffer_line_start = buffer_line,
+					source_line_start = source_line_start,
+					length = 0
+				};
+			}
+
+			if (added || removed)
+			{
+				var offset = (size_t)line.get_content_offset();
+				var bytes = line.get_content();
+
+				var pset = PatchSet.Patch() {
+					type = added ? PatchSet.Type.ADD : PatchSet.Type.REMOVE,
+					old_offset = offset,
+					new_offset = offset,
+					length = bytes.length
+				};
+
+				if (added)
+				{
+					pset.old_offset = (size_t)((int64)pset.old_offset - d_doffset);
+				}
+				else
+				{
+					pset.new_offset = (size_t)((int64)pset.new_offset + d_doffset);
+				}
+
+				d_lines[buffer_line] = pset;
+				d_doffset += added ? (int64)bytes.length : -(int64)bytes.length;
+			}
+
+			if (i == lines.size - 1 && text.length > 0 && text[text.length - 1] == '\n')
+			{
+				text = text.slice(0, text.length - 1);
+			}
+
+			if (rtype == RegionType.CONTEXT)
+			{
+				if (in_change_line == true)
+				{
+					if (add_line_num > remove_line_num)
+					{
+						for (var l = 0; l < (add_line_num - remove_line_num); l++)
+						{
+							Gtk.TextIter t_iter;
+							buffer.get_end_iter(out t_iter);
+							buffer.create_source_mark(null, "empty", t_iter);
+
+							buffer.insert(ref iter, "\n", -1);
+							buffer_line++;
+							region.buffer_line_start = buffer_line;
+						}
+					}
+
+					add_line_num = 0;
+					remove_line_num = 0;
+				}
+
+				in_change_line = false;
+
+				buffer.insert(ref iter, text, -1);
+				buffer_line++;
+				region.length++;
+			}
+
+			if (rtype == RegionType.REMOVED)
+			{
+				Gtk.TextIter t_iter;
+				buffer.get_end_iter(out t_iter);
+				buffer.create_source_mark(null, "removed", t_iter);
+
+				buffer.insert(ref iter, text, -1);
+				buffer_line++;
+				region.length++;
+
+				remove_line_num++;
+				in_change_line = true;
+			}
+
+			if (rtype == RegionType.ADDED)
+			{
+				add_line_num++;
+				in_change_line = true;
 			}
 		}
+
+		if (lines.size != 0)
+		{
+			d_regions += region;
+		}
+
+		d_old_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, buffer);
+		d_sym_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, buffer);
+
+		this.thaw_notify();
+
+		sensitive = true;
+	}
+
+	private void add_hunk_right(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
+	{
+		var buffer = this.buffer as Gtk.SourceBuffer;
+
+		/* Diff hunk */
+		var h = hunk.get_header();
+		var pos = h.last_index_of("@@");
+
+		if (pos >= 0)
+		{
+			h = h.substring(pos + 2).chug();
+		}
+
+		h = h.chomp();
+
+		Gtk.TextIter iter;
+		buffer.get_end_iter(out iter);
+
+		if (!iter.is_start())
+		{
+			buffer.insert(ref iter, "\n", 1);
+		}
+
+		iter.set_line_offset(0);
+		buffer.create_source_mark(null, "header", iter);
+
+		var header = @"@@ -$(hunk.get_old_start()),$(hunk.get_old_lines()) +$(hunk.get_new_start()),$(hunk.get_new_lines()) @@ $h\n";
+		buffer.insert(ref iter, header, -1);
+
+		int buffer_line = iter.get_line();
+
+		int line_hunk_start = iter.get_line();
+
+		var region = Region() {
+			type = RegionType.CONTEXT,
+			buffer_line_start = 0,
+			source_line_start = 0,
+			length = 0
+		};
+
+		this.freeze_notify();
+
+		var add_line_num = 0;
+		var remove_line_num = 0;
+		var in_change_line = false;
+		for (var i = 0; i < lines.size; i++)
+		{
+			var line = lines[i];
+			var text = line.get_text().replace("\r", "");
+			var added = false;
+			var removed = false;
+			var origin = line.get_origin();
+
+			var rtype = RegionType.CONTEXT;
+
+			switch (origin)
+			{
+				case Ggit.DiffLineType.ADDITION:
+					added = true;
+					this.added++;
+
+					rtype = RegionType.ADDED;
+					break;
+				case Ggit.DiffLineType.DELETION:
+					removed = true;
+					this.removed++;
+
+					rtype = RegionType.REMOVED;
+					break;
+				case Ggit.DiffLineType.CONTEXT_EOFNL:
+				case Ggit.DiffLineType.ADD_EOFNL:
+				case Ggit.DiffLineType.DEL_EOFNL:
+					text = text.substring(1);
+					break;
+			}
+
+			if (i == 0 || rtype != region.type)
+			{
+				if (i != 0)
+				{
+					d_regions += region;
+				}
+
+				int source_line_start;
+
+				if (rtype == RegionType.REMOVED)
+				{
+					source_line_start = line.get_old_lineno() - 1;
+				}
+				else
+				{
+					source_line_start = line.get_new_lineno() - 1;
+				}
+
+				region = Region() {
+					type = rtype,
+					buffer_line_start = buffer_line,
+					source_line_start = source_line_start,
+					length = 0
+				};
+			}
+
+			if (added || removed)
+			{
+				var offset = (size_t)line.get_content_offset();
+				var bytes = line.get_content();
+
+				var pset = PatchSet.Patch() {
+					type = added ? PatchSet.Type.ADD : PatchSet.Type.REMOVE,
+					old_offset = offset,
+					new_offset = offset,
+					length = bytes.length
+				};
+
+				if (added)
+				{
+					pset.old_offset = (size_t)((int64)pset.old_offset - d_doffset);
+				}
+				else
+				{
+					pset.new_offset = (size_t)((int64)pset.new_offset + d_doffset);
+				}
+
+				d_lines[buffer_line] = pset;
+				d_doffset += added ? (int64)bytes.length : -(int64)bytes.length;
+			}
+
+			if (i == lines.size - 1 && text.length > 0 && text[text.length - 1] == '\n')
+			{
+				text = text.slice(0, text.length - 1);
+			}
+
+			if (rtype == RegionType.CONTEXT)
+			{
+				if (in_change_line == true)
+				{
+					if (remove_line_num > add_line_num)
+					{
+						for (var l = 0; l < (remove_line_num - add_line_num); l++)
+						{
+							Gtk.TextIter t_iter;
+							buffer.get_end_iter(out t_iter);
+							buffer.create_source_mark(null, "empty", t_iter);
+
+							buffer.insert(ref iter, "\n", -1);
+							buffer_line++;
+							region.buffer_line_start = buffer_line;
+						}
+					}
+
+					add_line_num = 0;
+					remove_line_num = 0;
+				}
+
+				in_change_line = false;
+
+				buffer.insert(ref iter, text, -1);
+				buffer_line++;
+				region.length++;
+			}
+
+			if (rtype == RegionType.ADDED)
+			{
+				Gtk.TextIter t_iter;
+				buffer.get_end_iter(out t_iter);
+				buffer.create_source_mark(null, "added", t_iter);
+
+				buffer.insert(ref iter, text, -1);
+				buffer_line++;
+				region.length++;
+
+				add_line_num++;
+				in_change_line = true;
+			}
+
+			if (rtype == RegionType.REMOVED)
+			{
+				remove_line_num++;
+				in_change_line = true;
+			}
+		}
+
+		if (lines.size != 0)
+		{
+			d_regions += region;
+		}
+
+		d_new_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, buffer);
+		d_sym_lines.add_hunk(line_hunk_start, iter.get_line(), hunk, buffer);
 
 		this.thaw_notify();
 
