@@ -4,22 +4,23 @@
 # lainme <lainme993@gmail.com>, 2010.
 # Wylmer Wang <wantinghard@gmail.com>, 2014.
 # Boyuan Yang <073plan@gmail.com>, 2016.
+# Mingcong Bai <jeffbai@aosc.xyz>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2016-10-07 06:39+0000\n"
-"PO-Revision-Date: 2017-02-15 14:46+0800\n"
-"Last-Translator: Mandy Wang <wangmychn@gmail.com>\n"
+"POT-Creation-Date: 2017-06-22 15:48+0000\n"
+"PO-Revision-Date: 2017-03-25 15:44-0400\n"
+"Last-Translator: Jeff Bai <jeffbai@aosc.xyz>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.12\n"
 
 #: ../contrib/xml/xml-reader.c:327
 #, c-format
@@ -306,12 +307,12 @@ msgid "Cannot set spell checking language: %s"
 msgstr "无法设置拼写检查语言：%s"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:508
-#: ../gitg/commit/gitg-commit.vala:1076
+#: ../gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "没有要提交的变更"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:509
-#: ../gitg/commit/gitg-commit.vala:1077
+#: ../gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "请使用 amend （修补）更改上次提交的提交说明"
 
@@ -338,106 +339,106 @@ msgstr "暂存子模组“%s”的移除操作失败"
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr "试图暂存时无法打开子模组“%s”的仓库"
 
-#: ../gitg/commit/gitg-commit.vala:262
+#: ../gitg/commit/gitg-commit.vala:263
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
 "to stage"
 msgstr "试图暂存时无法查找子模组“%s”的工作目录提交"
 
-#: ../gitg/commit/gitg-commit.vala:275
+#: ../gitg/commit/gitg-commit.vala:276
 #, c-format
 msgid "Failed to stage the submodule `%s'"
 msgstr "暂存子模组“%s”失败"
 
 # 还是词性活用一下比较顺。
-#: ../gitg/commit/gitg-commit.vala:297
+#: ../gitg/commit/gitg-commit.vala:298
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "暂存文件“%s”的移除操作失败"
 
-#: ../gitg/commit/gitg-commit.vala:311
+#: ../gitg/commit/gitg-commit.vala:312
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "暂存文件“%s”失败"
 
-#: ../gitg/commit/gitg-commit.vala:583
+#: ../gitg/commit/gitg-commit.vala:584
 msgid "_Unstage selection"
 msgstr "取消暂存选择内容(_U)"
 
-#: ../gitg/commit/gitg-commit.vala:649
+#: ../gitg/commit/gitg-commit.vala:650
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "取消暂存文件“%s”的移除操作失败"
 
-#: ../gitg/commit/gitg-commit.vala:650
+#: ../gitg/commit/gitg-commit.vala:651
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "取消暂存文件“%s”失败"
 
-#: ../gitg/commit/gitg-commit.vala:657
+#: ../gitg/commit/gitg-commit.vala:658
 #, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "取消暂存子模组“%s”的移除操作失败"
 
-#: ../gitg/commit/gitg-commit.vala:658
+#: ../gitg/commit/gitg-commit.vala:659
 #, c-format
 msgid "Failed to unstage the submodule `%s'"
 msgstr "取消暂存子模组“%s”失败"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:862
+#: ../gitg/commit/gitg-commit.vala:863
 msgid "Staged"
 msgstr "已暂存"
 
-#: ../gitg/commit/gitg-commit.vala:870
+#: ../gitg/commit/gitg-commit.vala:871
 msgid "No staged files"
 msgstr "无已暂存的文件"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:893
+#: ../gitg/commit/gitg-commit.vala:894
 msgid "Unstaged"
 msgstr "未暂存"
 
-#: ../gitg/commit/gitg-commit.vala:901
+#: ../gitg/commit/gitg-commit.vala:902
 msgid "No unstaged files"
 msgstr "无未暂存的文件"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:924
+#: ../gitg/commit/gitg-commit.vala:925
 msgid "Untracked"
 msgstr "未跟踪"
 
-#: ../gitg/commit/gitg-commit.vala:928
+#: ../gitg/commit/gitg-commit.vala:929
 msgid "No untracked files"
 msgstr "无未跟踪的文件"
 
-#: ../gitg/commit/gitg-commit.vala:953
+#: ../gitg/commit/gitg-commit.vala:954
 msgid "Submodule"
 msgstr "子模组"
 
-#: ../gitg/commit/gitg-commit.vala:957
+#: ../gitg/commit/gitg-commit.vala:958
 msgid "No dirty submodules"
 msgstr "不允许脏工作区的子模块"
 
-#: ../gitg/commit/gitg-commit.vala:1106
+#: ../gitg/commit/gitg-commit.vala:1107
 msgid "Failed to commit"
 msgstr "提交失败"
 
-#: ../gitg/commit/gitg-commit.vala:1122
+#: ../gitg/commit/gitg-commit.vala:1123
 msgid "Failed to pass pre-commit"
 msgstr "通过预提交失败"
 
-#: ../gitg/commit/gitg-commit.vala:1330 ../gitg/commit/gitg-commit.vala:1480
+#: ../gitg/commit/gitg-commit.vala:1331 ../gitg/commit/gitg-commit.vala:1481
 msgid "Discard changes"
 msgstr "丢弃变更"
 
-#: ../gitg/commit/gitg-commit.vala:1331
+#: ../gitg/commit/gitg-commit.vala:1332
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "确定要永久丢弃选中的变更吗？"
 
-#: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
-#: ../gitg/commit/gitg-commit.vala:1621
+#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
+#: ../gitg/commit/gitg-commit.vala:1622
 #: ../gitg/gitg-commit-action-create-patch.vala:145
 #: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
@@ -450,77 +451,77 @@ msgstr "确定要永久丢弃选中的变更吗？"
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
+#: ../gitg/commit/gitg-commit.vala:1342 ../gitg/commit/gitg-commit.vala:1508
 msgid "Discard"
 msgstr "丢弃"
 
-#: ../gitg/commit/gitg-commit.vala:1370
+#: ../gitg/commit/gitg-commit.vala:1371
 msgid "Failed to discard selection"
 msgstr "丢弃选中项失败"
 
-#: ../gitg/commit/gitg-commit.vala:1400
+#: ../gitg/commit/gitg-commit.vala:1401
 msgid "Failed to stage selection"
 msgstr "暂存选中项失败"
 
-#: ../gitg/commit/gitg-commit.vala:1404
+#: ../gitg/commit/gitg-commit.vala:1405
 msgid "Failed to unstage selection"
 msgstr "取消暂存选中项失败"
 
-#: ../gitg/commit/gitg-commit.vala:1464
+#: ../gitg/commit/gitg-commit.vala:1465
 msgid "Failed to discard changes"
 msgstr "丢弃变更失败"
 
-#: ../gitg/commit/gitg-commit.vala:1485
+#: ../gitg/commit/gitg-commit.vala:1486
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
 "%s'?"
 msgstr "确定要永久丢弃对文件 `%s' 的所有变更吗？"
 
-#: ../gitg/commit/gitg-commit.vala:1496
+#: ../gitg/commit/gitg-commit.vala:1497
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and `%s'?"
 msgstr "确定要永久丢弃对文件 %s 和 `%s' 的所有变更吗？"
 
-#: ../gitg/commit/gitg-commit.vala:1579
+#: ../gitg/commit/gitg-commit.vala:1580
 msgid "Failed to delete files"
 msgstr "删除文件失败"
 
-#: ../gitg/commit/gitg-commit.vala:1595
+#: ../gitg/commit/gitg-commit.vala:1596
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "删除文件"
 
-#: ../gitg/commit/gitg-commit.vala:1600
+#: ../gitg/commit/gitg-commit.vala:1601
 #, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "您确定要永久删除文件 %s 吗？"
 
-#: ../gitg/commit/gitg-commit.vala:1611
+#: ../gitg/commit/gitg-commit.vala:1612
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "您确定要永久删除文件 %s 和 %s 吗？"
 
-#: ../gitg/commit/gitg-commit.vala:1657
+#: ../gitg/commit/gitg-commit.vala:1658
 msgid "_Stage changes"
 msgstr "暂存变更(_S)"
 
-#: ../gitg/commit/gitg-commit.vala:1669
+#: ../gitg/commit/gitg-commit.vala:1670
 msgid "_Unstage changes"
 msgstr "取消暂存变更(_U)"
 
-#: ../gitg/commit/gitg-commit.vala:1681
+#: ../gitg/commit/gitg-commit.vala:1682
 msgid "_Discard changes"
 msgstr "丢弃变更(_D)"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: ../gitg/commit/gitg-commit.vala:1694
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "删除文件(_E)"
 
-#: ../gitg/commit/gitg-commit.vala:1723
+#: ../gitg/commit/gitg-commit.vala:1724
 msgid "_Edit file"
 msgstr "编辑文件(_E)"
 
@@ -661,7 +662,7 @@ msgstr "不支持引入的 URI"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
-msgstr "拣选到..."
+msgstr "拣选到…"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
@@ -1071,6 +1072,12 @@ msgstr "无效名称"
 msgid "Failed to rename"
 msgstr "重命名失败"
 
+#: ../gitg/gitg-remote-notification.vala:90
+#: ../gitg/gitg-simple-notification.vala:99
+#: ../gitg/resources/ui/gitg-window.ui.h:10
+msgid "Close"
+msgstr "关闭"
+
 #: ../gitg/gitg-window.vala:187
 msgid "Add Repository"
 msgstr "添加仓库"
@@ -1118,12 +1125,6 @@ msgstr "您的邮箱尚未配置。请转到用户配置，填写您的邮箱。
 msgid "Missing author details"
 msgstr "作者详情缺失"
 
-#: ../gitg/gitg-remote-notification.vala:90
-#: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:10
-msgid "Close"
-msgstr "关闭"
-
 #: ../gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
 msgstr "在历史活动中默认选择所有提交"
@@ -1150,18 +1151,18 @@ msgstr "引用"
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
-msgid "%d ahead, %d behind"
-msgstr "%d 在前，%d 在后"
+msgid "%zu ahead, %zu behind"
+msgstr "%zu 在前，%zu 在后"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
-msgid "%d ahead"
-msgstr "%d 在前"
+msgid "%zu ahead"
+msgstr "%zu 在前"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
-msgid "%d behind"
-msgstr "%d 在后"
+msgid "%zu behind"
+msgstr "%zu 在后"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
@@ -1186,7 +1187,7 @@ msgstr "历史"
 msgid "Examine the history of the repository"
 msgstr "查看仓库的历史"
 
-#: ../gitg/history/gitg-history.vala:843
+#: ../gitg/history/gitg-history.vala:909
 msgid "Mainline"
 msgstr "主线"
 
@@ -1260,6 +1261,34 @@ msgstr "%F, %H:%M"
 msgid "%b %e %Y, %I:%M %p"
 msgstr "%F, %p%I:%M"
 
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:39
+#, c-format
+msgid "before (%s)"
+msgstr "之前 (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:45
+#, c-format
+msgid "removed (%s)"
+msgstr "移除 (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:67
+#, c-format
+msgid "after (%s)"
+msgstr "之后 (%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: ../libgitg/gitg-diff-image-side-by-side.vala:73
+#, c-format
+msgid "added (%s)"
+msgstr "添加 (%s)"
+
 #: ../libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "折叠全部"
@@ -1274,15 +1303,15 @@ msgstr "展开全部"
 msgid "Committed by %s"
 msgstr "由 %s 提交"
 
-#: ../libgitg/gitg-diff-view-file.vala:172
+#: ../libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
 msgstr "打开文件(_O)"
 
-#: ../libgitg/gitg-diff-view-file.vala:204
+#: ../libgitg/gitg-diff-view-file.vala:209
 msgid "Open containing _folder"
 msgstr "打开所在文件夹(_F)"
 
-#: ../libgitg/gitg-diff-view-file.vala:224
+#: ../libgitg/gitg-diff-view-file.vala:229
 msgid "_Copy file path"
 msgstr "复制文件路径(_C)"
 
@@ -1358,7 +1387,7 @@ msgstr "本地文件夹(_L)："
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
 msgid "Select location…"
-msgstr "选择位置..."
+msgstr "选择位置…"
 
 #: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
 msgid "Bare repository"
@@ -1696,6 +1725,22 @@ msgstr "父树"
 msgid "Unable to display changes for binary file"
 msgstr "无法显示二进制文件的内容差异"
 
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
+msgid "Side by side"
+msgstr "并排"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
+msgid "Slider"
+msgstr "滑块"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:3
+msgid "Overlay"
+msgstr "叠加"
+
+#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
+msgid "Difference"
+msgstr "差别"
+
 #: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
 msgid "Tab width:"
 msgstr "制表符（Tab）宽度："
@@ -1721,10 +1766,6 @@ msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
 msgstr "从列表中移除仓库（仍在磁盘上保留）"
-
-#, fuzzy
-#~ msgid "Difference"
-#~ msgstr "引用"
 
 #~ msgid "_Delete"
 #~ msgstr "删除(_D)"
