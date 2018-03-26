@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2017-02-26 01:03+0000\n"
-"PO-Revision-Date: 2017-02-27 10:56+0800\n"
-"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
+"POT-Creation-Date: 2017-07-27 14:16+0000\n"
+"PO-Revision-Date: 2018-03-26 18:07+0800\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: ../contrib/xml/xml-reader.c:327
 #, c-format
@@ -308,12 +308,12 @@ msgid "Cannot set spell checking language: %s"
 msgstr "不能設定拼字檢查語言：%s"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:508
-#: ../gitg/commit/gitg-commit.vala:1076
+#: ../gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "沒有要提交的改變"
 
 #: ../gitg/commit/gitg-commit-dialog.vala:509
-#: ../gitg/commit/gitg-commit.vala:1077
+#: ../gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "使用修訂以變更前次提交的提交訊息"
 
@@ -340,105 +340,105 @@ msgstr "無法 stage 子模組「%s」的移除"
 msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgstr "試圖 stage 時無法開啟子模組「%s」的倉儲"
 
-#: ../gitg/commit/gitg-commit.vala:262
+#: ../gitg/commit/gitg-commit.vala:263
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
 "to stage"
 msgstr "試圖 stage 時無法查詢子模組「%s」的工作目錄提交"
 
-#: ../gitg/commit/gitg-commit.vala:275
+#: ../gitg/commit/gitg-commit.vala:276
 #, c-format
 msgid "Failed to stage the submodule `%s'"
 msgstr "無法 stage 子模組「%s」"
 
-#: ../gitg/commit/gitg-commit.vala:297
+#: ../gitg/commit/gitg-commit.vala:298
 #, c-format
 msgid "Failed to stage the removal of file `%s'"
 msgstr "無法 stage 檔案「%s」的移除"
 
-#: ../gitg/commit/gitg-commit.vala:311
+#: ../gitg/commit/gitg-commit.vala:312
 #, c-format
 msgid "Failed to stage the file `%s'"
 msgstr "無法 stage 檔案「%s」"
 
-#: ../gitg/commit/gitg-commit.vala:583
+#: ../gitg/commit/gitg-commit.vala:584
 msgid "_Unstage selection"
 msgstr "_Unstage 選擇"
 
-#: ../gitg/commit/gitg-commit.vala:649
+#: ../gitg/commit/gitg-commit.vala:650
 #, c-format
 msgid "Failed to unstage the removal of file `%s'"
 msgstr "無法 unstage 檔案「%s」的移除"
 
-#: ../gitg/commit/gitg-commit.vala:650
+#: ../gitg/commit/gitg-commit.vala:651
 #, c-format
 msgid "Failed to unstage the file `%s'"
 msgstr "無法 unstage 檔案「%s」"
 
-#: ../gitg/commit/gitg-commit.vala:657
+#: ../gitg/commit/gitg-commit.vala:658
 #, c-format
 msgid "Failed to unstage the removal of submodule `%s'"
 msgstr "無法 unstage 子模組「%s」的移除"
 
-#: ../gitg/commit/gitg-commit.vala:658
+#: ../gitg/commit/gitg-commit.vala:659
 #, c-format
 msgid "Failed to unstage the submodule `%s'"
 msgstr "無法 unstage 子模組「%s」"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:862
+#: ../gitg/commit/gitg-commit.vala:863
 msgid "Staged"
 msgstr "已 stage"
 
-#: ../gitg/commit/gitg-commit.vala:870
+#: ../gitg/commit/gitg-commit.vala:871
 msgid "No staged files"
 msgstr "未 stage 的檔案"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:893
+#: ../gitg/commit/gitg-commit.vala:894
 msgid "Unstaged"
 msgstr "未 stage"
 
-#: ../gitg/commit/gitg-commit.vala:901
+#: ../gitg/commit/gitg-commit.vala:902
 msgid "No unstaged files"
 msgstr "未 stage 檔案"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:924
+#: ../gitg/commit/gitg-commit.vala:925
 msgid "Untracked"
 msgstr "未追蹤"
 
-#: ../gitg/commit/gitg-commit.vala:928
+#: ../gitg/commit/gitg-commit.vala:929
 msgid "No untracked files"
 msgstr "無未追蹤的檔案"
 
-#: ../gitg/commit/gitg-commit.vala:953
+#: ../gitg/commit/gitg-commit.vala:954
 msgid "Submodule"
 msgstr "子模組"
 
-#: ../gitg/commit/gitg-commit.vala:957
+#: ../gitg/commit/gitg-commit.vala:958
 msgid "No dirty submodules"
 msgstr "不允許粗糙子模組"
 
-#: ../gitg/commit/gitg-commit.vala:1106
+#: ../gitg/commit/gitg-commit.vala:1107
 msgid "Failed to commit"
 msgstr "提交失敗"
 
-#: ../gitg/commit/gitg-commit.vala:1122
+#: ../gitg/commit/gitg-commit.vala:1123
 msgid "Failed to pass pre-commit"
 msgstr "送出預先提交失敗"
 
-#: ../gitg/commit/gitg-commit.vala:1330 ../gitg/commit/gitg-commit.vala:1480
+#: ../gitg/commit/gitg-commit.vala:1331 ../gitg/commit/gitg-commit.vala:1481
 msgid "Discard changes"
 msgstr "放棄變更"
 
-#: ../gitg/commit/gitg-commit.vala:1331
+#: ../gitg/commit/gitg-commit.vala:1332
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "確定要永久放棄選取的變更嗎？"
 
-#: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
-#: ../gitg/commit/gitg-commit.vala:1621
+#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
+#: ../gitg/commit/gitg-commit.vala:1622
 #: ../gitg/gitg-commit-action-create-patch.vala:145
 #: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
@@ -451,77 +451,77 @@ msgstr "確定要永久放棄選取的變更嗎？"
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
+#: ../gitg/commit/gitg-commit.vala:1342 ../gitg/commit/gitg-commit.vala:1508
 msgid "Discard"
 msgstr "放棄"
 
-#: ../gitg/commit/gitg-commit.vala:1370
+#: ../gitg/commit/gitg-commit.vala:1371
 msgid "Failed to discard selection"
 msgstr "無法放棄選取項目"
 
-#: ../gitg/commit/gitg-commit.vala:1400
+#: ../gitg/commit/gitg-commit.vala:1401
 msgid "Failed to stage selection"
 msgstr "無法暫存選擇"
 
-#: ../gitg/commit/gitg-commit.vala:1404
+#: ../gitg/commit/gitg-commit.vala:1405
 msgid "Failed to unstage selection"
 msgstr "無法取消暫存選擇"
 
-#: ../gitg/commit/gitg-commit.vala:1464
+#: ../gitg/commit/gitg-commit.vala:1465
 msgid "Failed to discard changes"
 msgstr "無法放棄變更"
 
-#: ../gitg/commit/gitg-commit.vala:1485
+#: ../gitg/commit/gitg-commit.vala:1486
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file `"
 "%s'?"
 msgstr "您確定要永久放棄對檔案「%s」所進行的所有變更？"
 
-#: ../gitg/commit/gitg-commit.vala:1496
+#: ../gitg/commit/gitg-commit.vala:1497
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and `%s'?"
 msgstr "您確定要永久放棄對檔案 %s 與「%s」所進行的所有變更？"
 
-#: ../gitg/commit/gitg-commit.vala:1579
+#: ../gitg/commit/gitg-commit.vala:1580
 msgid "Failed to delete files"
 msgstr "無法刪除檔案"
 
-#: ../gitg/commit/gitg-commit.vala:1595
+#: ../gitg/commit/gitg-commit.vala:1596
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "刪除檔案"
 
-#: ../gitg/commit/gitg-commit.vala:1600
+#: ../gitg/commit/gitg-commit.vala:1601
 #, c-format
 msgid "Are you sure you want to permanently delete the file `%s'?"
 msgstr "確定要永遠刪除檔案「%s」嗎？"
 
-#: ../gitg/commit/gitg-commit.vala:1611
+#: ../gitg/commit/gitg-commit.vala:1612
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgstr "確定要永遠刪除檔案「%s」與「%s」嗎？"
 
-#: ../gitg/commit/gitg-commit.vala:1657
+#: ../gitg/commit/gitg-commit.vala:1658
 msgid "_Stage changes"
 msgstr "暫存變更(_S)"
 
-#: ../gitg/commit/gitg-commit.vala:1669
+#: ../gitg/commit/gitg-commit.vala:1670
 msgid "_Unstage changes"
 msgstr "取消暫存變更(_U)"
 
-#: ../gitg/commit/gitg-commit.vala:1681
+#: ../gitg/commit/gitg-commit.vala:1682
 msgid "_Discard changes"
 msgstr "放棄變更(_D)"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: ../gitg/commit/gitg-commit.vala:1694
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "刪除檔案(_E)"
 
-#: ../gitg/commit/gitg-commit.vala:1723
+#: ../gitg/commit/gitg-commit.vala:1724
 msgid "_Edit file"
 msgstr "編輯檔案(_E)"
 
@@ -630,7 +630,7 @@ msgstr ""
 "\n"
 "如果您是手動編譯 libgit2，請將 libgit2 設定加上 -DTHREADSAFE:BOOL=ON。\n"
 "\n"
-"否則，請在您的發行版本的錯誤回報系統中回報，指出 libgit2 未提供執行緒支援。"
+"否則，請在您的散布版錯誤回報系統中回報，指出 libgit2 未提供執行緒支援。"
 
 #. ex: ts=4 noet
 #: ../gitg/gitg-author-details-dialog.vala:97
@@ -1185,7 +1185,7 @@ msgstr "歷史"
 msgid "Examine the history of the repository"
 msgstr "檢驗倉儲的歷史"
 
-#: ../gitg/history/gitg-history.vala:843
+#: ../gitg/history/gitg-history.vala:909
 msgid "Mainline"
 msgstr "主線"
 
