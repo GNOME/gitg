@@ -1,0 +1,164 @@
+{
+    "app-id" : "org.gnome.gitg",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "master",
+    "branch" : "master",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "gitg",
+    "rename-desktop-file" : "gitg.desktop",
+    "rename-appdata-file" : "gitg.appdata.xml",
+    "rename-icon" : "gitg",
+    "copy-icon" : true,
+    "tags" : [
+    ],
+    "finish-args" : [
+        "--share=ipc",
+        "--share=network",
+        "--socket=x11",
+        "--socket=wayland",
+        "--filesystem=host",
+        "--filesystem=xdg-run/dconf",
+        "--filesystem=~/.config/dconf:ro",
+        "--talk-name=ca.desrt.dconf",
+        "--talk-name=org.gtk.vfs.*",
+        "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+        "--talk-name=org.freedesktop.secrets",
+        "--filesystem=xdg-run/keyring"
+    ],
+    "build-options" : {
+        "cflags" : "-O2 -g",
+        "cxxflags" : "-O2 -g",
+        "env" : {
+            "V" : "1"
+        }
+    },
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/share/pkgconfig",
+        "/share/aclocal",
+        "/man",
+        "/share/man",
+        "/share/gtk-doc",
+        "/share/vala",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+        {
+            "name" : "libssh2",
+            "buildsystem" : "cmake",
+            "config-opts" : [
+                "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
+                "-DBUILD_SHARED_LIBS:BOOL=ON"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://www.libssh2.org/download/libssh2-1.8.0.tar.gz",
+                    "sha256" : "39f34e2f6835f4b992cafe8625073a88e5a28ba78f83e8099610a7b3af4676d4"
+                }
+            ]
+        },
+        {
+            "name" : "libgit2",
+            "buildsystem" : "cmake",
+            "config-opts" : [
+                "-DBUILD_SHARED_LIBS:BOOL=ON",
+                "-DTHREADSAFE:BOOL=ON"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://github.com/libgit2/libgit2/archive/v0.26.0.tar.gz",
+                    "sha256" : "6a62393e0ceb37d02fe0d5707713f504e7acac9006ef33da1e88960bd78b6eac"
+                }
+            ]
+        },
+        {
+            "name" : "libgit2-glib",
+            "config-opts" : [
+                "--libdir=/app/lib",
+                "--buildtype=debugoptimized"
+            ],
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libgit2-glib"
+                },
+                {
+                        "type" : "patch",
+                        "path" : "fix-libgit2-glib-pc.patch"
+                }
+            ]
+        },
+        {
+            "name" : "libpeas",
+            "cleanup" : [
+                "/bin/*",
+                "/lib/peas-demo"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/libpeas/1.22/libpeas-1.22.0.tar.xz",
+                    "sha256" : "5b2fc0f53962b25bca131a5ec0139e6fef8e254481b6e777975f7a1d2702a962"
+                }
+            ]
+        },
+        {
+            "name" : "libgee",
+            "build-options" : {
+                "make-install-args" : [
+                    "girdir=/app/share/gir-1.0",
+                    "typelibdir=/app/lib/girepository-1.0"
+                ]
+            },
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libgee.git"
+                }
+            ]
+        },
+        {
+            "name" : "gtkspell3",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://sourceforge.net/projects/gtkspell/files/3.0.9/gtkspell3-3.0.9.tar.xz",
+                    "sha256" : "a4f4a4a2789f7499563e26d96b22d8085222ebe278da47d026b2de782b8b4d26"
+                }
+            ]
+        },
+        {
+            "name" : "gtksourceview",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/gtksourceview/3.24/gtksourceview-3.24.5.tar.xz",
+                    "sha256" : "0246185fcc20c4734d01419a83f58f251a82e2a902fe60bb0335187fcf658181"
+                }
+            ]
+        },
+        {
+            "name" : "gitg",
+            "buildsystem" : "meson",
+            "builddir": true,
+            "config-opts" : [
+                "--prefix=/app",
+                "--libdir=lib",
+                "--buildtype=debugoptimized"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/gitg",
+                    "branch" : "master"
+                }
+            ]
+        }
+    ]
+}
