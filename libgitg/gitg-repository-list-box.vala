@@ -36,7 +36,7 @@ namespace Gitg
 		public class Row : Gtk.ListBoxRow
 		{
 			private Repository? d_repository;
-			private DateTime d_time;
+			private DateTime d_time = new DateTime.now_local();
 			private bool d_loading;
 			[GtkChild]
 			private ProgressBin d_progress_bin;
@@ -112,7 +112,6 @@ namespace Gitg
 			{
 				get { return d_time; }
 				set { d_time = value; }
-				default = new DateTime.now_local();
 			}
 
 			public double fraction

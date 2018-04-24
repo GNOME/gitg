@@ -108,8 +108,6 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 				update_highlight();
 			}
 		}
-
-		default = true;
 	}
 	
 	private bool d_has_selection;
@@ -210,6 +208,8 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 
 		d_lines = new Gee.HashMap<int, PatchSet.Patch?>();
+
+		highlight = true;
 	}
 
 	protected override void dispose()

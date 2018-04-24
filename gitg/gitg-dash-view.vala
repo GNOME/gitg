@@ -141,8 +141,6 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 				update_search_text();
 			}
 		}
-
-		default = "";
 	}
 
 	public Gtk.Entry? search_entry
@@ -243,6 +241,8 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 			whenMapped = null;
 		});
+
+		search_text = "";
 	}
 
 	private void update_setup_profile_visibility()

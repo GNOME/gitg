@@ -182,8 +182,6 @@ public class Gitg.DiffView : Gtk.Grid
 				options_changed();
 			}
 		}
-
-		default = 3;
 	}
 
 	protected override void constructed()
@@ -240,6 +238,11 @@ public class Gitg.DiffView : Gtk.Grid
 		{
 			s_message_regexp = new Regex(".*[\\R\\s]*(?P<message>(?:.|\\R)*?)\\s*$");
 		} catch (Error e) { stderr.printf(@"Failed to compile regex: $(e.message)\n"); }
+	}
+
+	construct
+	{
+		context_lines = 3;
 	}
 
 	private string message_without_subject(Commit commit)

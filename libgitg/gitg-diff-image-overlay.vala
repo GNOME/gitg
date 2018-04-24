@@ -35,8 +35,11 @@ class Gitg.DiffImageOverlay : DiffImageComposite
 				queue_draw();
 			}
 		}
+	}
 
-		default = 0.5;
+	construct
+	{
+		alpha = 0.5;
 	}
 
 	protected override bool draw(Cairo.Context cr)

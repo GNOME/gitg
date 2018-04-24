@@ -185,8 +185,6 @@ class Dialog : Gtk.Dialog
 			d_show_markup = value;
 			update_highlight();
 		}
-
-		default = true;
 	}
 
 	public bool show_right_margin
@@ -198,8 +196,6 @@ class Dialog : Gtk.Dialog
 			d_show_right_margin = value;
 			update_highlight();
 		}
-
-		default = true;
 	}
 
 	public bool show_subject_margin
@@ -211,8 +207,6 @@ class Dialog : Gtk.Dialog
 			d_show_subject_margin = value;
 			update_highlight();
 		}
-
-		default = true;
 	}
 
 	public int right_margin_position
@@ -224,8 +218,6 @@ class Dialog : Gtk.Dialog
 			d_right_margin_position = value;
 			update_highlight();
 		}
-
-		default = 72;
 	}
 
 	public int subject_margin_position
@@ -237,8 +229,6 @@ class Dialog : Gtk.Dialog
 			d_subject_margin_position = value;
 			update_highlight();
 		}
-
-		default = 50;
 	}
 
 	public Ggit.Signature author
@@ -494,6 +484,12 @@ class Dialog : Gtk.Dialog
 		                        this,
 		                        "use-gravatar",
 		                        SettingsBindFlags.GET);
+
+		show_markup = true;
+		show_right_margin = true;
+		show_subject_margin = true;
+		right_margin_position = 72;
+		subject_margin_position = 50;
 
 		d_constructed = true;
 

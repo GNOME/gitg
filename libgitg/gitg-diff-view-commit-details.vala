@@ -132,7 +132,6 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			d_use_gravatar = value;
 			update_avatar();
 		}
-		default = true;
 	}
 
 	private Gee.HashMap<Ggit.OId, Gtk.RadioButton> d_parents_map;
@@ -151,6 +150,8 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 			notify_property("expanded");
 		});
+
+		use_gravatar = true;
 	}
 
 	protected override void dispose()

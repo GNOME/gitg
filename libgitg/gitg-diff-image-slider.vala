@@ -35,8 +35,11 @@ class Gitg.DiffImageSlider : DiffImageComposite
 				queue_draw();
 			}
 		}
+	}
 
-		default = 0.5;
+	construct
+	{
+		position = 0.5;
 	}
 
 	protected override bool draw(Cairo.Context cr)
