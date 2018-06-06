@@ -45,9 +45,8 @@ install_data(
   install_dir: join_paths(gitg_datadir, 'metainfo')
 )
 
-install_data(
+install_man(
   'gitg.1',
-  install_dir: join_paths(gitg_mandir, 'man1')
 )
 
 enable_glade_catalog = get_option('glade_catalog')

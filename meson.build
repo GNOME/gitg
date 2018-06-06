@@ -25,7 +25,6 @@ gitg_datadir = join_paths(gitg_prefix, get_option('datadir'))
 gitg_includedir = join_paths(gitg_prefix, get_option('includedir'))
 gitg_libdir = join_paths(gitg_prefix, get_option('libdir'))
 gitg_localedir = join_paths(gitg_prefix, get_option('localedir'))
-gitg_mandir = join_paths(gitg_prefix, get_option('mandir'))
 
 gitg_pkgdatadir = join_paths(gitg_datadir, gitg_name)
 gitg_pkglibdir = join_paths(gitg_libdir, gitg_name)
