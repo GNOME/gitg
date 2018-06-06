@@ -3,7 +3,7 @@ project(
   version: '3.26.0',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.43.0'
+  meson_version: '>= 0.46.0'
 )
 
 gitg_name = meson.project_name()
