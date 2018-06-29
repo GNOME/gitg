@@ -550,11 +550,22 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		var dark = settings.gtk_application_prefer_dark_theme || (theme != null && theme.has_suffix(":dark"));
 
+        if (!dark) {
+			var stylecontext = get_style_context();
+			Gdk.RGBA rgba;
+			var background_set = stylecontext.lookup_color("theme_bg_color", out rgba);
+
+			if (background_set && rgba.red + rgba.green + rgba.blue < 1.0)
+			{
+				dark = true;
+			}
+		}
+
 		if (dark)
 		{
-			header_attributes.background = Gdk.RGBA() { red = 136.0 / 255.0, green = 138.0 / 255.0, blue = 133.0 / 255.0, alpha = 1.0 };
-			added_attributes.background = Gdk.RGBA() { red = 78.0 / 255.0, green = 154.0 / 255.0, blue = 6.0 / 255.0, alpha = 1.0 };
-			removed_attributes.background = Gdk.RGBA() { red = 164.0 / 255.0, green = 0.0, blue = 0.0, alpha = 1.0 };
+			header_attributes.background = Gdk.RGBA() { red = 88.0 / 255.0, green = 88.0 / 255.0, blue = 88.0 / 255.0, alpha = 1.0 };
+			added_attributes.background = Gdk.RGBA() { red = 32.0 / 255.0, green = 68.0 / 255.0, blue = 21.0 / 255.0, alpha = 1.0 };
+			removed_attributes.background = Gdk.RGBA() { red = 130.0 / 255.0, green = 55.0 / 255.0, blue = 53.0 / 255.0, alpha = 1.0 };
 		}
 		else
 		{
