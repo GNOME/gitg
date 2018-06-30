@@ -35,8 +35,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "box_file_renderer" )]
 	private Gtk.Box d_box_file_renderer;
 
-	[GtkChild( name = "d_split_button" )]
-	private Gtk.ToggleButton d_split_button;
+	[GtkChild( name = "split_button" )]
+	private Gtk.RadioButton split_button;
 
 	private Gtk.ScrolledWindow d_scrolledwindow;
 	private Gtk.ScrolledWindow d_scrolledwindow_left;
@@ -259,8 +259,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		this.renderer_right.bind_property("added", d_diff_stat_file, "added");
 		this.renderer_right.bind_property("removed", d_diff_stat_file, "removed");
-
-		d_split_button.visible = true;
 	}
 
 	public DiffViewFile.binary(Repository? repository, Ggit.DiffDelta delta)
