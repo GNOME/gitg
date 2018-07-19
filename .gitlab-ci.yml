@@ -15,7 +15,7 @@ flatpak:
         RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
         FLATPAK_MODULE: "gitg"
         MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized"
-        DBUS_ID: "org.gnome.Gitg"
+        DBUS_ID: "org.gnome.gitg"
 
     script:
         - flatpak-builder --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}
