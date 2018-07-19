@@ -1,0 +1,61 @@
+stages:
+- test
+- review
+
+variables:
+    BUNDLE: "gitg-git.flatpak"
+
+flatpak:
+    image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:3.28
+    stage: test
+
+    variables:
+        # Replace with your manifest path
+        MANIFEST_PATH: "org.gnome.Gitg.json"
+        RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
+        FLATPAK_MODULE: "gitg"
+        MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized"
+        DBUS_ID: "org.gnome.Gitg"
+
+    script:
+        - flatpak-builder --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}
+        - flatpak build app meson --prefix=/app ${MESON_ARGS} _build
+        - flatpak build app ninja -C _build install
+        - flatpak-builder --finish-only --repo=repo app ${MANIFEST_PATH}
+        - xvfb-run -a -s "-screen 0 1024x768x24" flatpak build app ninja -C _build test
+        - flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${DBUS_ID}
+
+    artifacts:
+        paths:
+            - ${BUNDLE}
+            - _build/meson-logs/meson-log.txt
+            - _build/meson-logs/testlog.txt
+        expire_in: 30 days
+
+    cache:
+        paths:
+             - .flatpak-builder/cache
+
+review:
+    stage: review
+    dependencies:
+        - flatpak
+    script:
+        - echo "Generating flatpak deployment"
+    artifacts:
+        paths:
+            - ${BUNDLE}
+        expire_in: 30 days
+    environment:
+        name: review/$CI_COMMIT_REF_NAME
+        url: https://gitlab.gnome.org/$CI_PROJECT_PATH/-/jobs/$CI_JOB_ID/artifacts/raw/${BUNDLE}
+        on_stop: stop_review
+
+stop_review:
+    stage: review
+    script:
+        - echo "Stopping flatpak deployment"
+    when: manual
+    environment:
+        name: review/$CI_COMMIT_REF_NAME
+        action: stop
