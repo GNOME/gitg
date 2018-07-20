@@ -62,29 +62,43 @@
           </packing>
         </child>
         <child>
-          <object class="GtkToggleButton" id="d_split_button">
-            <property name="visible">False</property>
-            <property name="valign">center</property>
-            <property name="can_focus">False</property>
-            <property name="tooltip-text" translatable="yes">Split view</property>
-            <property name="margin_end">6</property>
-            <signal name="toggled" handler="split_button_toggled" swapped="no"/>
+          <object class="GtkBox">
+            <property name="visible">1</property>
             <style>
-              <class name="text-button"/>
+              <class name="linked"/>
             </style>
             <child>
-              <object class="GtkLabel" id="label_split_view">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="halign">center</property>
-                <property name="valign">baseline</property>
-                <property name="label" translatable="yes">Split View</property>
-                <property name="selectable">True</property>
-                <property name="ellipsize">end</property>
-                <property name="max-width-chars">12</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
+              <object class="GtkRadioButton" id="unif_button">
+                <property name="active">1</property>
+                <property name="visible">1</property>
+                <property name="active">1</property>
+                <property name="draw-indicator">0</property>
+                <property name="tooltip-text" translatable="yes">Unified view</property>
+                <property name="label" translatable="yes">Unif</property>
+                <signal name="toggled" handler="split_button_toggled" swapped="no"/>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">1</property>
+                    <property name="icon-size">1</property>
+                    <property name="icon-name">view-list-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="split_button">
+                <property name="visible">1</property>
+                <property name="draw-indicator">0</property>
+                <property name="tooltip-text" translatable="yes">Split view</property>
+                <property name="label" translatable="yes">Split</property>
+                <property name="group">unif_button</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">1</property>
+                    <property name="icon-size">1</property>
+                    <property name="icon-name">view-grid-symbolic</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
