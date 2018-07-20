@@ -373,6 +373,17 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		var dark = settings.gtk_application_prefer_dark_theme || (theme != null && theme.has_suffix(":dark"));
 
+		if (!dark) {
+			var stylecontext = get_style_context();
+			Gdk.RGBA rgba;
+			var background_set = stylecontext.lookup_color("theme_bg_color", out rgba);
+
+			if (background_set && rgba.red + rgba.green + rgba.blue < 1.0)
+			{
+				dark = true;
+			}
+		}
+
 		if (dark)
 		{
 			get_style_context().add_class("dark");
