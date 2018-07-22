@@ -545,21 +545,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		var added_attributes = new Gtk.SourceMarkAttributes();
 		var removed_attributes = new Gtk.SourceMarkAttributes();
 
-		var settings = Gtk.Settings.get_default();
-		var theme = Environment.get_variable("GTK_THEME");
-
-		var dark = settings.gtk_application_prefer_dark_theme || (theme != null && theme.has_suffix(":dark"));
-
-        if (!dark) {
-			var stylecontext = get_style_context();
-			Gdk.RGBA rgba;
-			var background_set = stylecontext.lookup_color("theme_bg_color", out rgba);
-
-			if (background_set && rgba.red + rgba.green + rgba.blue < 1.0)
-			{
-				dark = true;
-			}
-		}
+		var dark = new Theme().use_dark_theme();
 
 		if (dark)
 		{

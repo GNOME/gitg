@@ -100,6 +100,7 @@ libgitg_libgitg_1_0_la_VALASOURCES =				\
 	libgitg/gitg-sidebar.vala				\
 	libgitg/gitg-stage-status-enumerator.vala		\
 	libgitg/gitg-stage.vala					\
+	libgitg/gitg-theme.vala					\
 	libgitg/gitg-utils.vala					\
 	libgitg/gitg-when-mapped.vala
 
