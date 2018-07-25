@@ -46,18 +46,18 @@ GitgRevision *gitg_revision_new (gchar const *hash,
                                  gchar const *subject,
                                  gchar const *parents);
 
-inline gchar const *gitg_revision_get_author (GitgRevision *revision);
-inline gchar const *gitg_revision_get_author_email (GitgRevision *revision);
-inline gint64 gitg_revision_get_author_date (GitgRevision *revision);
+gchar const *gitg_revision_get_author (GitgRevision *revision);
+gchar const *gitg_revision_get_author_email (GitgRevision *revision);
+gint64 gitg_revision_get_author_date (GitgRevision *revision);
 
-inline gchar const *gitg_revision_get_committer (GitgRevision *revision);
-inline gchar const *gitg_revision_get_committer_email (GitgRevision *revision);
-inline gint64 gitg_revision_get_committer_date (GitgRevision *revision);
+gchar const *gitg_revision_get_committer (GitgRevision *revision);
+gchar const *gitg_revision_get_committer_email (GitgRevision *revision);
+gint64 gitg_revision_get_committer_date (GitgRevision *revision);
 
-inline gchar const *gitg_revision_get_subject (GitgRevision *revision);
+gchar const *gitg_revision_get_subject (GitgRevision *revision);
 
-inline gchar const *gitg_revision_get_hash (GitgRevision *revision);
-inline GitgHash *gitg_revision_get_parents_hash (GitgRevision *revision, guint *num_parents);
+gchar const *gitg_revision_get_hash (GitgRevision *revision);
+GitgHash *gitg_revision_get_parents_hash (GitgRevision *revision, guint *num_parents);
 
 gchar *gitg_revision_get_sha1 (GitgRevision *revision);
 gchar **gitg_revision_get_parents (GitgRevision *revision);

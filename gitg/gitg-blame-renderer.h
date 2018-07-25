@@ -24,6 +24,7 @@
 #define __GITG_BLAME_RENDERER_H__
 
 #include <gtksourceview/gtksourceview.h>
+#include <gtksourceview/gtksourcegutterrenderer.h>
 
 G_BEGIN_DECLS
 

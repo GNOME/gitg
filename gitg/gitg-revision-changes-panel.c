@@ -365,11 +365,8 @@ initialize_ui (GitgRevisionChangesPanel *changes_panel)
 	scheme_manager = gtk_source_style_scheme_manager_get_default ();
 	scheme = gtk_source_style_scheme_manager_get_scheme (scheme_manager,
 	                                                     "gitg");
-	gtk_source_buffer_set_style_scheme (buffer, scheme);
 
 	gitg_utils_set_monospace_font (GTK_WIDGET (priv->diff));
-	gtk_text_view_set_buffer (GTK_TEXT_VIEW (priv->diff),
-	                          GTK_TEXT_BUFFER (buffer));
 
 	g_signal_connect (priv->diff,
 	                  "header-added",

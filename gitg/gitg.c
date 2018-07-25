@@ -25,8 +25,7 @@
 #include <glib/gi18n.h>
 #include <stdlib.h>
 #include <string.h>
-#include <gtksourceview/gtksourcelanguagemanager.h>
-#include <gtksourceview/gtksourcestyleschememanager.h>
+#include <gtksourceview/gtksource.h>
 #include <libgitg/gitg-debug.h>
 
 #include "gitg-window.h"
@@ -86,7 +85,7 @@ on_window_delete_event (GtkWidget *widget, gpointer userdata)
 }
 
 static GitgWindow *
-build_ui ()
+build_ui (void)
 {
 	GtkBuilder *builder = gitg_utils_new_builder ("gitg-window.ui");
 
@@ -100,7 +99,7 @@ build_ui ()
 }
 
 static void
-set_language_search_path ()
+set_language_search_path (void)
 {
 	GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default ();
 	gchar const * const *orig = gtk_source_language_manager_get_search_path (manager);
@@ -122,7 +121,7 @@ set_language_search_path ()
 }
 
 static void
-set_style_scheme_search_path ()
+set_style_scheme_search_path (void)
 {
 	GtkSourceStyleSchemeManager *manager = gtk_source_style_scheme_manager_get_default ();
 
@@ -132,7 +131,7 @@ set_style_scheme_search_path ()
 }
 
 static void
-set_icons ()
+set_icons (void)
 {
 	static gchar const *icon_infos[] = {
 		"gitg16x16.png",

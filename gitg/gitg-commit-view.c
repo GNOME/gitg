@@ -1611,35 +1611,6 @@ gitg_commit_view_parser_finished (GtkBuildable *buildable,
 	initialize_dnd_unstaged (self);
 
 	GtkIconTheme *theme = gtk_icon_theme_get_default ();
-	GdkPixbuf *pixbuf = gtk_icon_theme_load_icon (theme, GTK_STOCK_ADD, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
-
-	if (pixbuf)
-	{
-		attrs = gtk_source_mark_attributes_new ();
-		gtk_source_mark_attributes_set_pixbuf (attrs, pixbuf);
-
-		gtk_source_view_set_mark_attributes (self->priv->changes_view,
-		                                     CATEGORY_STAGE_HUNK,
-		                                     attrs, 1);
-
-		g_object_unref (pixbuf);
-		g_object_unref (attrs);
-	}
-
-	pixbuf = gtk_icon_theme_load_icon (theme, GTK_STOCK_REMOVE, 12, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
-
-	if (pixbuf)
-	{
-		attrs = gtk_source_mark_attributes_new ();
-		gtk_source_mark_attributes_set_pixbuf (attrs, pixbuf);
-
-		gtk_source_view_set_mark_attributes (self->priv->changes_view,
-		                                     CATEGORY_UNSTAGE_HUNK,
-		                                     attrs, 2);
-
-		g_object_unref (pixbuf);
-		g_object_unref (attrs);
-	}
 
 	gitg_utils_set_monospace_font (GTK_WIDGET (self->priv->changes_view));
 
@@ -1665,50 +1636,7 @@ gitg_commit_view_parser_finished (GtkBuildable *buildable,
 	gchar *foreground = NULL;
 	gboolean foreground_set = FALSE;
 
-	if (style)
-	{
-		g_object_get (style,
-		              "line-background",
-		              &background,
-		              "line-background-set",
-		              &background_set,
-		              "foreground",
-		              &foreground,
-		              "foreground-set",
-		              &foreground_set,
-		              NULL);
 
-		if (!background_set)
-		{
-			g_object_get (style,
-			              "background",
-			              &background,
-			              "background-set",
-			              &background_set,
-			              NULL);
-		}
-	}
-
-	if (background_set)
-	{
-		self->priv->highlight_tag = gtk_text_buffer_create_tag (buffer,
-		                                                        NULL,
-		                                                        "paragraph-background",
-		                                                        background,
-		                                                        "foreground",
-		                                                        foreground,
-		                                                        "foreground-set",
-		                                                        foreground_set,
-		                                                        NULL);
-
-		gtk_text_tag_set_priority (self->priv->highlight_tag,
-		                           gtk_text_tag_table_get_size (gtk_text_buffer_get_tag_table (buffer)) - 1);
-
-		g_signal_connect (gtk_text_buffer_get_tag_table (buffer),
-		                  "tag-added",
-		                  G_CALLBACK (on_tag_added),
-		                  self);
-	}
 
 	GtkTreeSelection *selection;
 

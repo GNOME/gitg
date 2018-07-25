@@ -1161,16 +1161,6 @@ gitg_window_set_focus (GtkWindow *wnd,
 		cancopy = cancopy && selection;
 	}
 
-	gtk_action_set_sensitive (gtk_action_group_get_action (window->priv->edit_group,
-	                                                       "EditPasteAction"),
-	                          editable);
-
-	gtk_action_set_sensitive (gtk_action_group_get_action (window->priv->edit_group,
-	                                                       "EditCutAction"),
-	                          editable && selection);
-	gtk_action_set_sensitive (gtk_action_group_get_action (window->priv->edit_group,
-	                                                       "EditCopyAction"),
-	                          cancopy);
 }
 
 static void

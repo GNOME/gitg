@@ -396,7 +396,7 @@ date_for_display (gint64 date)
 	struct tm *tms = localtime (&t);
 	gchar buf[255];
 
-	strftime (buf, 254, "%c", tms);
+	strftime (buf, 254, "%a", tms);
 	return gitg_convert_utf8 (buf, -1);
 }
 

@@ -25,6 +25,7 @@
 
 #include <gtk/gtk.h>
 #include <libgitg/gitg-repository.h>
+#include <gtksourceview/gtksourcebuffer.h>
 
 G_BEGIN_DECLS
 
