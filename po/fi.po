@@ -7,10 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2017-07-27 14:16+0000\n"
-"PO-Revision-Date: 2018-01-12 19:32+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
+"POT-Creation-Date: 2018-06-05 13:40+0000\n"
+"PO-Revision-Date: 2018-09-01 01:42+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -18,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: ../contrib/xml/xml-reader.c:327
 #, c-format
@@ -294,31 +293,29 @@ msgid ""
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
 
-#: ../gitg/commit/gitg-commit-dialog.vala:308
+#: ../gitg/commit/gitg-commit-dialog.vala:298
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Oikolukukielen asettaminen ei onnistunut: %s"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:508
+#: ../gitg/commit/gitg-commit-dialog.vala:504
 #: ../gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
-msgstr "Ei muutoksia vietäväksi pysyvään muutokseen"
+msgstr "Ei muutoksia kommitoitavaksi"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:509
+#: ../gitg/commit/gitg-commit-dialog.vala:505
 #: ../gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
-msgstr "Käytä amend-oikaisua muuttaaksesi edellisen pysyvän muutoksen viestiä"
+msgstr "Käytä amend-oikaisua muuttaaksesi aiemman kommitin kommittiviestiä"
 
 #: ../gitg/commit/gitg-commit.vala:113
-#, fuzzy
-#| msgid "Commit"
 msgctxt "Activity"
 msgid "Commit"
-msgstr "Pysyvä muutos"
+msgstr "Kommitti"
 
 #: ../gitg/commit/gitg-commit.vala:118
 msgid "Create new commits and manage the staging area"
-msgstr "Luo uusia pysyviä muutoksia ja hallitse valmistelualuetta"
+msgstr "Luo kommiteja ja hallitse valmistelualuetta"
 
 #: ../gitg/commit/gitg-commit.vala:193
 msgid "_Stage selection"
@@ -419,11 +416,11 @@ msgstr "Ei likaisia alimoduuleja"
 
 #: ../gitg/commit/gitg-commit.vala:1107
 msgid "Failed to commit"
-msgstr "Pysyvän muutoksen tekeminen epäonnistui"
+msgstr "Kommitointi epäonnistui"
 
 #: ../gitg/commit/gitg-commit.vala:1123
 msgid "Failed to pass pre-commit"
-msgstr "Pre-commitin välittäminen epäonnistui"
+msgstr "Pre-kommitin välittäminen epäonnistui"
 
 #: ../gitg/commit/gitg-commit.vala:1331 ../gitg/commit/gitg-commit.vala:1481
 msgid "Discard changes"
@@ -526,10 +523,9 @@ msgid "_Edit file"
 msgstr "_Muokkaa tiedostoa"
 
 #: ../gitg/gitg-action-support.vala:95
-#, fuzzy, c-format
-#| msgid "Failed to discard changes"
+#, c-format
 msgid "Failed to stash changes: %s"
-msgstr "Muutosten hylkääminen epäonnistui"
+msgstr "Muutosten jemmaaminen epäonnistui: %s"
 
 #: ../gitg/gitg-action-support.vala:130
 msgid "Unstaged changes"
@@ -551,10 +547,8 @@ msgid "Cancel"
 msgstr "Peru"
 
 #: ../gitg/gitg-action-support.vala:134
-#, fuzzy
-#| msgid "_Stage changes"
 msgid "Stash changes"
-msgstr "_Valmistele muutokset"
+msgstr "Jemmaa muutokset"
 
 #: ../gitg/gitg-action-support.vala:138 ../gitg/gitg-action-support.vala:165
 msgid "Failed with conflicts"
@@ -580,7 +574,7 @@ msgstr "Tagin hakeminen epäonnistui"
 #: ../gitg/gitg-action-support.vala:255
 #, c-format
 msgid "Failed to create commit: %s"
-msgstr "Pysyvän muutoksen tekeminen epäonnistui: %s"
+msgstr "Kommitin luominen epäonnistui: %s"
 
 #: ../gitg/gitg-action-support.vala:277
 #, fuzzy, c-format
@@ -668,11 +662,11 @@ msgstr "Osoite ei ole tuettu"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
-msgstr ""
+msgstr "Tee cherry pick haaraan"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
-msgstr ""
+msgstr "Tee tälle kommitille cherry pick haaraan"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:117
 #, fuzzy, c-format
@@ -681,10 +675,10 @@ msgid "Failed to lookup the commit for branch %s: %s"
 msgstr "Haaran %s poistaminen epäonnistui"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:132
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to pass pre-commit"
 msgid "Failed to cherry-pick the commit: %s"
-msgstr "Pre-commitin välittäminen epäonnistui"
+msgstr "Cherry-pickin teko kommitille epäonnistui: %s"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:144
 #: ../gitg/gitg-commit-action-cherry-pick.vala:160
@@ -714,7 +708,7 @@ msgstr "Uloskuittaa"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:168
 msgid "Cherry pick failed with conflicts"
-msgstr ""
+msgstr "Cherry pick epäonnistui ristiriitojen kera"
 
 #: ../gitg/gitg-commit-action-cherry-pick.vala:179
 msgid "Cherry pick finished with conflicts in working directory"
@@ -732,7 +726,7 @@ msgstr "Cherry pick onnistui"
 #: ../gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
 msgid "Cherry pick onto %s"
-msgstr ""
+msgstr "Tee cherry pick haaraan %s"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -740,7 +734,7 @@ msgstr "Luo haara"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
-msgstr "Luo uusi haara valitusta pysyvästä muutoksesta"
+msgstr "Luo uusi haara valitussa kommitissa"
 
 #: ../gitg/gitg-commit-action-create-branch.vala:75
 msgid "Failed to create branch"
@@ -752,7 +746,7 @@ msgstr "Luo paikka"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
-msgstr "Luo paikka valitusta pysyvästä muutoksesta"
+msgstr "Luo paikka valitusta kommitista"
 
 #: ../gitg/gitg-commit-action-create-patch.vala:143
 msgid "Save Patch File"
@@ -772,7 +766,7 @@ msgstr "Luo tagi"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
-msgstr "Luo tagi valitusta pysyvästä muutoksesta"
+msgstr "Luo uusi tagi valitusta kommitista"
 
 #: ../gitg/gitg-commit-action-create-tag.vala:92
 msgid "Failed to create tag"
@@ -790,18 +784,18 @@ msgstr "Anna viesti selityksellä varustetulle tagille"
 msgid "Select and manage projects"
 msgstr "Valitse ja hallitse projekteja"
 
-#: ../gitg/gitg-dash-view.vala:176
+#: ../gitg/gitg-dash-view.vala:174
 msgid "_Remove"
 msgstr "_Poista"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:232
+#: ../gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr "Voit %setsiä kotikansiostasi%s git-tietovarastoja."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:235
+#: ../gitg/gitg-dash-view.vala:233
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Voit sen aikana %smäärittää git-profiilisi tiedot%s."
@@ -941,17 +935,17 @@ msgstr "Haaraa %s ei voitu poistaa: %s"
 #: ../gitg/gitg-ref-action-fetch.vala:74
 #, c-format
 msgid "Fetch from %s"
-msgstr ""
+msgstr "Nouda kohteesta %s"
 
 #: ../gitg/gitg-ref-action-fetch.vala:85
 #, c-format
 msgid "Fetch remote objects from %s"
-msgstr ""
+msgstr "Nouda etäobjektit kohteesta %s"
 
 #: ../gitg/gitg-ref-action-fetch.vala:98
 #, c-format
 msgid "Fetching from %s"
-msgstr ""
+msgstr "Nouda kohteesta %s"
 
 #. Translators: new refers to a new remote reference having been fetched,
 #: ../gitg/gitg-ref-action-fetch.vala:106
@@ -964,23 +958,23 @@ msgid "updated"
 msgstr "päivitetty"
 
 #: ../gitg/gitg-ref-action-fetch.vala:121
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to stage the file `%s'"
 msgid "Failed to fetch from %s: %s"
-msgstr "Tiedoston \"%s\" valmistelu epäonnistui"
+msgstr "Noutaminen kohteesta %s epäonnistui: %s"
 
 #. Translators: the %s will get replaced with the remote url,
 #: ../gitg/gitg-ref-action-fetch.vala:134
 #, c-format
 msgid "Fetched from %s: everything is up to date"
-msgstr ""
+msgstr "Noudettu kohteesta %s: kaikki on ajan tasalla"
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
 #: ../gitg/gitg-ref-action-fetch.vala:140
 #, c-format
 msgid "Fetched from %s: %s"
-msgstr ""
+msgstr "Noudettu kohteesta %s: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:63
 #, c-format
@@ -996,7 +990,7 @@ msgstr "Liitä toinen haara haaraan %s"
 #: ../gitg/gitg-ref-action-merge.vala:106
 #, c-format
 msgid "Failed to merge commits: %s"
-msgstr "Pysyvien muutosten liittäminen epäonnistui: %s"
+msgstr "Kommittien liittäminen epäonnistui: %s"
 
 #: ../gitg/gitg-ref-action-merge.vala:175
 #: ../gitg/gitg-ref-action-merge.vala:191
@@ -1023,7 +1017,7 @@ msgstr "Liittäminen epäonnistui ristiriitojen kera"
 
 #: ../gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
-msgstr ""
+msgstr "Yhdistäminen työskentelyhakemistossa valmistui ristiriitojen kera"
 
 #: ../gitg/gitg-ref-action-merge.vala:222
 #, c-format
@@ -1163,26 +1157,23 @@ msgstr ""
 
 #: ../gitg/history/gitg-history-refs-list.vala:165
 #, c-format
-#| msgid "%d ahead, %d behind"
 msgid "%zu ahead, %zu behind"
 msgstr "%zu edellä, %zu jäljessä"
 
 #: ../gitg/history/gitg-history-refs-list.vala:169
 #, c-format
-#| msgid "%d ahead"
 msgid "%zu ahead"
 msgstr "%zu edellä"
 
 #: ../gitg/history/gitg-history-refs-list.vala:173
 #, c-format
-#| msgid "%d behind"
 msgid "%zu behind"
 msgstr "%zu jäljessä"
 
 #: ../gitg/history/gitg-history-refs-list.vala:207
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
 msgid "All commits"
-msgstr "Kaikki pysyvät muutokset"
+msgstr "Kaikki kommitit"
 
 #: ../gitg/history/gitg-history-refs-list.vala:1174
 msgid "Branches"
@@ -1207,11 +1198,9 @@ msgid "Mainline"
 msgstr ""
 
 #: ../gitg/preferences/gitg-preferences-commit.vala:119
-#, fuzzy
-#| msgid "Commit"
 msgctxt "Preferences"
 msgid "Commit"
-msgstr "Pysyvä muutos"
+msgstr "Kommitti"
 
 #: ../gitg/preferences/gitg-preferences-interface.vala:120
 msgid "Interface"
@@ -1309,19 +1298,19 @@ msgstr "jälkeen (%s)"
 msgid "added (%s)"
 msgstr "lisätty (%s)"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:145
+#: ../libgitg/gitg-diff-view-commit-details.vala:144
 msgid "Collapse all"
 msgstr "Supista kaikki"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:149
+#: ../libgitg/gitg-diff-view-commit-details.vala:148
 #: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
 msgid "Expand all"
 msgstr "Laajenna kaikki"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:202
+#: ../libgitg/gitg-diff-view-commit-details.vala:203
 #, c-format
 msgid "Committed by %s"
-msgstr "Pysyvän muutoksen teki %s"
+msgstr "Kommitoinut %s"
 
 #: ../libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
@@ -1336,18 +1325,18 @@ msgid "_Copy file path"
 msgstr "_Kopioi tiedoston polku"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: ../libgitg/gitg-repository-list-box.vala:154
+#: ../libgitg/gitg-repository-list-box.vala:153
 #, c-format
 msgid "at %s"
 msgstr "sijainnissa %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: ../libgitg/gitg-repository-list-box.vala:163
+#: ../libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "%s at %s"
 msgstr "%s sijainnissa %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:541
+#: ../libgitg/gitg-repository-list-box.vala:540
 msgid "Cloning…"
 msgstr "Kloonataan…"
 
@@ -1355,8 +1344,8 @@ msgstr "Kloonataan…"
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
-"Pysyvän muutoksen viestin lukeminen ei onnistunut commit-msg-koukun "
-"suorittamisen jälkeen: %s"
+"Kommittiviestin lukeminen ei onnistunut commit-msg-koukun suorittamisen "
+"jälkeen: %s"
 
 #: ../plugins/diff/gitg-diff.vala:115
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:11
@@ -1365,7 +1354,7 @@ msgstr "Diff"
 
 #: ../plugins/diff/gitg-diff.vala:120
 msgid "Show the changes introduced by the selected commit"
-msgstr "Näytä valitun pysyvän muutoksen tuomat muutokset"
+msgstr "Näytä valitun kommitin tuomat muutokset"
 
 #: ../plugins/files/gitg-files.vala:63
 msgid "Files"
@@ -1373,7 +1362,7 @@ msgstr "Tiedostot"
 
 #: ../plugins/files/gitg-files.vala:68
 msgid "Show the files in the tree of the selected commit"
-msgstr "Näytä tiedostot valitun pysyvän muutoksen puussa"
+msgstr "Näytä tiedostot valitun kommitin puussa"
 
 #: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
 msgid "_Save"
@@ -1416,16 +1405,14 @@ msgid "Bare repository"
 msgstr "Tyhjä tietovarasto"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-#, fuzzy
-#| msgid "Commit"
 msgctxt "Create Dialog"
 msgid "Commit"
-msgstr "Pysyvä muutos"
+msgstr "Kommitti"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
 msgid "C_ommit"
-msgstr "Tee _pysyvä muutos"
+msgstr "K_ommitoi"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
 msgid "Add _signed-off-by signature"
@@ -1433,11 +1420,11 @@ msgstr "Lisää _signed-off-by-allekirjoitus"
 
 #: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
 msgid "_Amend previous commit"
-msgstr "_Oikaise edellinen pysyvä muutos"
+msgstr "_Oikaise edellinen kommitti"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
 msgid "Skip commit _hooks"
-msgstr "Ohita pysyvän muutoksen _liipasimet"
+msgstr "Ohita kommitin _liipasimet"
 
 #: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
 msgid "S_tage selection"
@@ -1543,11 +1530,11 @@ msgstr "Näytä merkkaus"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
 msgid "Display _subject margin at column:"
-msgstr ""
+msgstr "Näytä aiheen _reunus sarakkeessa:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
 msgid "Display right _margin at column:"
-msgstr ""
+msgstr "N_äytä oikea reunus sarakkeessa:"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
 msgid "Enable spell checking"
@@ -1555,7 +1542,7 @@ msgstr "Käytä oikolukua"
 
 #: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
 msgid "Commit Message"
-msgstr "Pysyvän muutoksen viesti"
+msgstr "Kommitin viesti"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
 msgid "Default selection"
@@ -1583,7 +1570,7 @@ msgstr "Näytä upstream-haara (etä) paikallista haaraa valittaessa"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
 msgid "Commits"
-msgstr "Pysyvät muutokset"
+msgstr "Kommitit"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:9
 msgid "Collapse inactive lanes"
@@ -1603,7 +1590,7 @@ msgstr "Näytä historia topologisessa järjestyksessä"
 
 #: ../gitg/resources/ui/gitg-preferences-history.ui.h:13
 msgid "Preserve mainline for currently checked out branch"
-msgstr ""
+msgstr "Säilytä mainline parhaillaan uloskuitatulle haaralle"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
 msgid "Startup"
@@ -1615,7 +1602,7 @@ msgstr "Käynnistä toiminnolla:"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:4
 msgid "Commit"
-msgstr "Pysyvä muutos"
+msgstr "Kommitti"
 
 #: ../gitg/resources/ui/gitg-preferences-interface.ui.h:5
 msgid "Layout"
