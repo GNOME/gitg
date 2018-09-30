@@ -99,7 +99,6 @@ pkg.generate(
     gio_system_pkg
   ],
   variables: 'exec_prefix=' + gitg_prefix,
-  install_dir: join_paths(gitg_libdir, 'pkgconfig')
 )
 
 # FIXME: does not work due to missing proper valadoc support

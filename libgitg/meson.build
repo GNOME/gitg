@@ -184,8 +184,7 @@ pkg.generate(
     'libgit2-glib-1.0',
     gio_system_pkg
   ],
-  variables: 'exec_prefix=' + gitg_prefix,
-  install_dir: join_paths(gitg_libdir, 'pkgconfig')
+  variables: 'exec_prefix=' + gitg_prefix
 )
 
 libgitg_dir = meson.current_build_dir()
