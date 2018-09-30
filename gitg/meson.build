@@ -134,8 +134,7 @@ executable(
   dependencies: deps,
   c_args: cflags,
   vala_args: vala_flags,
-  install: true,
-  install_dir: gitg_bindir
+  install: true
 )
 
 ldflags = []
