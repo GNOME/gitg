@@ -75,6 +75,8 @@ cflags = warn_flags + [
   '-DGITG_LOCALEDIR="@0@"'.format(gitg_localedir),
 ]
 
+ldflags = common_ldflags
+
 resources_conf = configuration_data()
 resources_conf.set('PLATFORM_NAME', platform_name)
 
@@ -137,12 +139,6 @@ executable(
   install: true,
 )
 
-ldflags = []
-
-if have_version_script
-  ldflags += '-Wl,--version-script,' + symbol_map
-endif
-
 # FIXME: to be tested on win32
 if platform_name == 'win32'
   win = import('windows')
@@ -152,7 +148,7 @@ if platform_name == 'win32'
     args: ['-O', 'coff'],
   )
 
-  ldflags += '-mwindows'
+  ldflags += cc.get_supported_link_arguments('-mwindows')
 endif
 
 gitg = shared_library(
