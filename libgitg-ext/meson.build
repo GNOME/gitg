@@ -47,12 +47,6 @@ cflags = warn_flags + [
   '-DLIBDIR="@0@"'.format(gitg_libdir),
 ]
 
-ldflags = []
-
-if have_version_script
-  ldflags += '-Wl,--version-script,' + symbol_map
-endif
-
 libgitg_ext = shared_library(
   api_name,
   sources: sources,
@@ -64,7 +58,7 @@ libgitg_ext = shared_library(
   vala_header: lib_name + '.h',
   vala_vapi: lib_api_name + '.vapi',
   vala_gir: gir_name,
-  link_args: ldflags,
+  link_args: common_ldflags,
   link_depends: symbol_map,
   install: true,
   install_dir: [

@@ -103,13 +103,8 @@ cflags = warn_flags + [
   '-DGETTEXT_PACKAGE="@0@"'.format(gitg_gettext),
 ]
 
-ldflags = []
+ldflags = common_ldflags
 
-if have_version_script
-  ldflags += '-Wl,--version-script,' + symbol_map
-endif
-
-test_ldflags = []
 if gdk_targets.contains('quartz')
   sources += files('gitg-platform-support-osx.c')
   gio_system_pkg = 'gio-unix-2.0'
@@ -119,10 +114,10 @@ if gdk_targets.contains('quartz')
   ]
   cflags += '-xobjective-c'
 
-  test_ldflags += [
+  ldflags += cc.get_supported_link_arguments([
     '-framework Foundation',
     '-framework AppKit',
-  ]
+  ])
 elif gdk_targets.contains('win32')
   sources += files('gitg-platform-support-win32.c')
   gio_system_pkg = 'gio-windows-2.0'
@@ -132,12 +127,6 @@ else
   gio_system_pkg = 'gio-unix-2.0'
   deps += dependency(gio_system_pkg)
 endif
-
-foreach test_ldflag: test_ldflags
-  if cc.has_argument(test_ldflag)
-    ldflags += test_ldflag
-  endif
-endforeach
 
 libgitg = shared_library(
   api_name,

@@ -100,10 +100,8 @@ vapi_dir = join_paths(meson.source_root(), 'vapi')
 
 add_project_arguments('--vapidir=' + vapi_dir, language: 'vala')
 
-ldflag = '-Wl,--version-script'
-have_version_script = host_machine.system().contains('linux') and cc.has_argument(ldflag)
-
-symbol_map = join_paths(meson.source_root(), 'libgitg.map')
+symbol_map = join_paths(meson.current_source_dir(), 'libgitg.map')
+common_ldflags = cc.get_supported_link_arguments('-Wl,--version-script,@0@'.format(symbol_map))
 
 glib_req_version = '>= 2.38'
 
