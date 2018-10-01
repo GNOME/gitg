@@ -8,7 +8,7 @@ desktop = 'gitg.desktop'
 desktop_in = configure_file(
   input: desktop + '.in.in',
   output: desktop + '.in',
-  configuration: desktop_conf
+  configuration: desktop_conf,
 )
 
 custom_target(
@@ -17,7 +17,7 @@ custom_target(
   output: desktop,
   command: intltool_desktop_cmd,
   install: true,
-  install_dir: join_paths(gitg_datadir, 'applications')
+  install_dir: join_paths(gitg_datadir, 'applications'),
 )
 
 schema_conf = configuration_data()
@@ -28,7 +28,7 @@ schema = 'org.gnome.gitg.gschema.xml'
 schema_in = configure_file(
   input: schema + '.in.in',
   output: schema + '.in',
-  configuration: schema_conf
+  configuration: schema_conf,
 )
 
 custom_target(
@@ -37,12 +37,12 @@ custom_target(
   output: schema,
   command: [intltool_merge, '-x', '-u', '--no-translations', '@INPUT@', '@OUTPUT@'],
   install: true,
-  install_dir: join_paths(gitg_datadir, 'glib-2.0', 'schemas')
+  install_dir: join_paths(gitg_datadir, 'glib-2.0', 'schemas'),
 )
 
 install_data(
   'gitg.appdata.xml',
-  install_dir: join_paths(gitg_datadir, 'metainfo')
+  install_dir: join_paths(gitg_datadir, 'metainfo'),
 )
 
 install_man(
@@ -53,6 +53,6 @@ enable_glade_catalog = get_option('glade_catalog')
 if enable_glade_catalog
   install_data(
     'gitg-glade.xml',
-    install_dir: join_paths(gitg_datadir, 'glade', 'catalogs')
+    install_dir: join_paths(gitg_datadir, 'glade', 'catalogs'),
   )
 endif

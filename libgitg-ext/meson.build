@@ -32,19 +32,19 @@ sources = files(
   'gitg-ext-selectable.vala',
   'gitg-ext-ui-element.vala',
   'gitg-ext-ui.vala',
-  'gitg-ext-user-query.vala'
+  'gitg-ext-user-query.vala',
 )
 
 deps = [
   gee_dep,
   gtk_dep,
   libgit2_glib_dep,
-  libgitg_dep
+  libgitg_dep,
 ]
 
 cflags = warn_flags + [
   '-DDATADIR="@0@"'.format(gitg_datadir),
-  '-DLIBDIR="@0@"'.format(gitg_libdir)
+  '-DLIBDIR="@0@"'.format(gitg_libdir),
 ]
 
 ldflags = []
@@ -71,13 +71,13 @@ libgitg_ext = shared_library(
     get_option('libdir'),
     join_paths(gitg_includedir, lib_api_name, lib_name),
     true,
-    true
-  ]
+    true,
+  ],
 )
 
 libgitg_ext_dep = declare_dependency(
   link_with: libgitg_ext,
-  include_directories: include_directories('.')
+  include_directories: include_directories('.'),
 )
 
 pkg.generate(
@@ -96,7 +96,7 @@ pkg.generate(
     'gthread-2.0',
     'libgit2-glib-1.0',
     'libgitg-1.0',
-    gio_system_pkg
+    gio_system_pkg,
   ],
   variables: 'exec_prefix=' + gitg_prefix,
 )
@@ -108,7 +108,7 @@ if enable_docs
     '--pkg', 'gio-2.0',
     '--pkg', 'gtk+-3.0',
     '--pkg', 'libsoup-2.4',
-    '--pkg', 'gee-0.8'
+    '--pkg', 'gee-0.8',
   ]
 
   valaproc_cmd = [
@@ -118,12 +118,12 @@ if enable_docs
     vala_pkgs,
     '--basedir', meson.source_root(),
     '--vapidir', join_paths(meson.build_root(), 'gitg'),
-    sources
+    sources,
   ]
 
   run_target(
     'libgitg-ext-docs',
-    command: valaproc_cmd
+    command: valaproc_cmd,
   )
 endif
 
@@ -133,10 +133,10 @@ custom_target(
   command: [g_ir_compiler, '--shared-library', libgitg_ext.full_path(), '--includedir', libgitg_dir, '--output', '@OUTPUT@', join_paths(meson.current_build_dir(), gir_name)],
   depends: [
     libgitg,
-    libgitg_ext
+    libgitg_ext,
   ],
   install: true,
-  install_dir: gitg_girepositorydir
+  install_dir: gitg_girepositorydir,
 )
 
 enable_python = get_option('python')
@@ -145,6 +145,6 @@ if enable_python
 
   install_data(
     'GitgExt.py',
-    install_dir: join_paths(python.sysconfig_path('purelib'), 'gi', 'overrides')
+    install_dir: join_paths(python.sysconfig_path('purelib'), 'gi', 'overrides'),
   )
 endif

@@ -58,7 +58,7 @@ sources = files(
   'gitg-stage-status-enumerator.vala',
   'gitg-stage.vala',
   'gitg-utils.vala',
-  'gitg-when-mapped.vala'
+  'gitg-when-mapped.vala',
 )
 
 resource_data = files(
@@ -73,14 +73,14 @@ resource_data = files(
   'resources/ui/gitg-diff-view.ui',
   'resources/ui/gitg-repository-list-box-row.ui',
   'resources/ui/gitg-sidebar.ui',
-  'resources/ui/libgitg-style.css'
+  'resources/ui/libgitg-style.css',
 )
 
 sources += gnome.compile_resources(
   'libgitg-resources',
   'resources/resources.xml',
   source_dir: 'resources',
-  dependencies: resource_data
+  dependencies: resource_data,
 )
 
 deps = [
@@ -94,13 +94,13 @@ deps = [
   libsoup_dep,
   m_dep,
   dependency('gsettings-desktop-schemas'),
-  dependency('libsecret-1')
+  dependency('libsecret-1'),
 ]
 
 cflags = warn_flags + [
   '-DDATADIR="@0@"'.format(gitg_datadir),
   '-DLIBDIR="@0@"'.format(gitg_libdir),
-  '-DGETTEXT_PACKAGE="@0@"'.format(gitg_gettext)
+  '-DGETTEXT_PACKAGE="@0@"'.format(gitg_gettext),
 ]
 
 ldflags = []
@@ -115,13 +115,13 @@ if gdk_targets.contains('quartz')
   gio_system_pkg = 'gio-unix-2.0'
   deps += [
     dependency(gio_system_pkg),
-    find_library('objc')
+    find_library('objc'),
   ]
   cflags += '-xobjective-c'
 
   test_ldflags += [
     '-framework Foundation',
-    '-framework AppKit'
+    '-framework AppKit',
   ]
 elif gdk_targets.contains('win32')
   sources += files('gitg-platform-support-win32.c')
@@ -157,13 +157,13 @@ libgitg = shared_library(
     get_option('libdir'),
     join_paths(gitg_includedir, lib_api_name, lib_name),
     true,
-    true
-  ]
+    true,
+  ],
 )
 
 libgitg_dep = declare_dependency(
   link_with: libgitg,
-  include_directories: include_directories('.')
+  include_directories: include_directories('.'),
 )
 
 pkg.generate(
@@ -181,9 +181,9 @@ pkg.generate(
     'gthread-2.0',
     'gtk+-3.0',
     'libgit2-glib-1.0',
-    gio_system_pkg
+    gio_system_pkg,
   ],
-  variables: 'exec_prefix=' + gitg_prefix
+  variables: 'exec_prefix=' + gitg_prefix,
 )
 
 libgitg_dir = meson.current_build_dir()
@@ -194,5 +194,5 @@ custom_target(
   command: [g_ir_compiler, '--shared-library', libgitg.full_path(), '--output', '@OUTPUT@', join_paths(libgitg_dir, gir_name)],
   depends: libgitg,
   install: true,
-  install_dir: gitg_girepositorydir
+  install_dir: gitg_girepositorydir,
 )

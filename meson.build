@@ -3,7 +3,7 @@ project(
   version: '3.26.0',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.46.0'
+  meson_version: '>= 0.46.0',
 )
 
 gitg_name = meson.project_name()
@@ -55,7 +55,7 @@ set_defines = [
   # gitg
   ['GITG_DATADIR', gitg_pkgdatadir],
   ['GITG_LIBDIR', gitg_pkglibdir],
-  ['GITG_LOCALEDIR', gitg_localedir]
+  ['GITG_LOCALEDIR', gitg_localedir],
 ]
 
 foreach define: set_defines
@@ -73,7 +73,7 @@ if get_option('deprecations')
     '-DGTK_DISABLE_DEPRECATED',
     '-DGDK_PIXBUF_DISABLE_DEPRECATED',
     '-DGNOME_DISABLE_DEPRECATED',
-    '-DGSEAL_ENABLE'
+    '-DGSEAL_ENABLE',
   ]
 endif
 
@@ -89,7 +89,7 @@ if gitg_debug
     '-Wmissing-declarations',
     '-Wnested-externs',
     '-Wstrict-prototypes',
-    '-Wuninitialized'
+    '-Wuninitialized',
   ]
 
   warn_flags += cc.get_supported_arguments(test_cflags)
@@ -137,7 +137,7 @@ ggit_threads = '''
 res = cc.run(ggit_threads, dependencies: libgit2_glib_dep)
 assert(
   res.compiled() and (res.returncode() == 0),
-  'please recompile a threadsafe version of libgit2 (-DTHREADSAFE:BOOL=ON)'
+  'please recompile a threadsafe version of libgit2 (-DTHREADSAFE:BOOL=ON)',
 )
 
 # gtk required version is set to 3.20, so this will be always true
@@ -192,14 +192,14 @@ subdir('tests')
 
 configure_file(
   output: 'config.h',
-  configuration: config_h
+  configuration: config_h,
 )
 
 meson.add_install_script(
   'meson_post_install.py',
   gitg_datadir,
   (enable_python ? 'python' : ''),
-  gitg_libdir
+  gitg_libdir,
 )
 
 output = '\nConfiguration:\n\n'
