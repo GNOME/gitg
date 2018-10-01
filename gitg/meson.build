@@ -2,7 +2,7 @@ gitg_sources = files(
   'gitg-action-support.vala',
   'gitg-commit-action-cherry-pick.vala',
   'gitg-ref-action-checkout.vala',
-  'gitg-ref-action-merge.vala'
+  'gitg-ref-action-merge.vala',
 )
 
 sources = gitg_sources + files(
@@ -49,7 +49,7 @@ sources = gitg_sources + files(
   'gitg-simple-notification.vala',
   'gitg-ui-elements.vala',
   'gitg-window.vala',
-  'gitg.vala'
+  'gitg.vala',
 )
 
 deps = [
@@ -66,13 +66,13 @@ deps = [
   libpeas_dep,
   m_dep,
   dependency('gobject-introspection-1.0', version: '>= 0.10.1'),
-  dependency('gtkspell3-3.0')
+  dependency('gtkspell3-3.0'),
 ]
 
 cflags = warn_flags + [
   '-DDATADIR="@0@"'.format(gitg_datadir),
   '-DGITG_DATADIR="@0@"'.format(gitg_pkgdatadir),
-  '-DGITG_LOCALEDIR="@0@"'.format(gitg_localedir)
+  '-DGITG_LOCALEDIR="@0@"'.format(gitg_localedir),
 ]
 
 resources_conf = configuration_data()
@@ -83,7 +83,7 @@ resources = 'gitg-resources.xml'
 resources_in = configure_file(
   input: join_paths('resources', resources + '.in'),
   output: resources,
-  configuration: resources_conf
+  configuration: resources_conf,
 )
 
 resource_data = files(
@@ -110,7 +110,7 @@ resource_data = files(
   'resources/ui//gitg-simple-notification.ui',
   'resources/ui//gitg-window.ui',
   'resources/ui//style.css',
-  'resources/ui//style-@0@.css'.format(platform_name)
+  'resources/ui//style-@0@.css'.format(platform_name),
 )
 
 sources += gnome.compile_resources(
@@ -118,7 +118,7 @@ sources += gnome.compile_resources(
   resources_in,
   source_dir: 'resources',
   dependencies: resource_data,
-  export: true
+  export: true,
 )
 
 vala_flags = '--gresourcesdir=' + join_paths(meson.current_source_dir(), 'resources')
@@ -134,7 +134,7 @@ executable(
   dependencies: deps,
   c_args: cflags,
   vala_args: vala_flags,
-  install: true
+  install: true,
 )
 
 ldflags = []
@@ -149,7 +149,7 @@ if platform_name == 'win32'
 
   sources += win.compile_resources(
     'gitg.rc',
-    args: ['-O', 'coff']
+    args: ['-O', 'coff'],
   )
 
   ldflags += '-mwindows'
@@ -164,5 +164,5 @@ gitg = shared_library(
   c_args: cflags,
   vala_args: vala_flags,
   link_args: ldflags,
-  link_depends: symbol_map
+  link_depends: symbol_map,
 )

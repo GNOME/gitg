@@ -1,13 +1,13 @@
 copygen = generator(
   find_program('cp'),
   arguments: ['@INPUT@', '@OUTPUT@'],
-  output: 'support-@PLAINNAME@'
+  output: 'support-@PLAINNAME@',
 )
 
 sources = [
   'main.vala',
   'repository.vala',
-  'test.vala'
+  'test.vala',
 ]
 
 support_sources = []
@@ -18,5 +18,5 @@ endforeach
 
 gitg_assert_dep = declare_dependency(
   include_directories: include_directories('.'),
-  dependencies: valac.find_library('gitg-assert', dirs: meson.current_source_dir())
+  dependencies: valac.find_library('gitg-assert', dirs: meson.current_source_dir()),
 )

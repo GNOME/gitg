@@ -1,11 +1,11 @@
 install_data(
   'icons/diff-symbolic.svg',
-  install_dir: join_paths(gitg_pkgdatadir, 'icons', 'hicolor', 'scalable', 'actions')
+  install_dir: join_paths(gitg_pkgdatadir, 'icons', 'hicolor', 'scalable', 'actions'),
 )
 
 install_data(
   'diff.plugin',
-  install_dir: plugin_dir
+  install_dir: plugin_dir,
 )
 
 sources = files('gitg-diff.vala')
@@ -17,5 +17,5 @@ libdiff = shared_module(
   dependencies: plugin_deps,
   c_args: plugin_cflags,
   install: true,
-  install_dir: plugin_dir
+  install_dir: plugin_dir,
 )
