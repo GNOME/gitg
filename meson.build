@@ -78,7 +78,7 @@ if get_option('deprecations')
 endif
 
 if gitg_debug
-  test_cflags = [
+  warn_flags += cc.get_supported_arguments([
     '-Werror=format=2',
     '-Werror=implicit-function-declaration',
     '-Werror=init-self',
@@ -90,9 +90,7 @@ if gitg_debug
     '-Wnested-externs',
     '-Wstrict-prototypes',
     '-Wuninitialized',
-  ]
-
-  warn_flags += cc.get_supported_arguments(test_cflags)
+  ])
 endif
 
 add_project_arguments(common_flags, language: 'c')
@@ -100,9 +98,7 @@ add_project_arguments(common_flags, language: 'c')
 # vala compiler flags
 vapi_dir = join_paths(meson.source_root(), 'vapi')
 
-common_flags = '--vapidir=' + vapi_dir
-
-add_project_arguments(common_flags, language: 'vala')
+add_project_arguments('--vapidir=' + vapi_dir, language: 'vala')
 
 ldflag = '-Wl,--version-script'
 have_version_script = host_machine.system().contains('linux') and cc.has_argument(ldflag)
