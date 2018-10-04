@@ -41,6 +41,23 @@ gitg_debug = get_option('buildtype').contains('debug')
 cc = meson.get_compiler('c')
 valac = meson.get_compiler('vala')
 
+gnome = import('gnome')
+i18n = import('i18n')
+pkg = import('pkgconfig')
+
+source_root = meson.current_source_dir()
+build_root = meson.current_build_dir()
+
+po_dir = join_paths(source_root, 'po')
+vapi_dir = join_paths(source_root, 'vapi')
+
+intltool_merge = find_program('intltool-merge')
+intltool_cache = join_paths(po_dir, '.intltool-merge-cache')
+intltool_desktop_cmd = [intltool_merge, '-d', '-u', '-c', intltool_cache, po_dir, '@INPUT@', '@OUTPUT@']
+intltool_xml_cmd = [intltool_merge, '-x', '-u', '-c', intltool_cache, po_dir, '@INPUT@', '@OUTPUT@']
+
+top_inc = include_directories('.')
+
 config_h = configuration_data()
 
 # defines
@@ -96,11 +113,9 @@ endif
 add_project_arguments(common_flags, language: 'c')
 
 # vala compiler flags
-vapi_dir = join_paths(meson.source_root(), 'vapi')
-
 add_project_arguments('--vapidir=' + vapi_dir, language: 'vala')
 
-symbol_map = join_paths(meson.current_source_dir(), 'libgitg.map')
+symbol_map = join_paths(source_root, 'libgitg.map')
 common_ldflags = cc.get_supported_link_arguments('-Wl,--version-script,@0@'.format(symbol_map))
 
 glib_req_version = '>= 2.38'
@@ -157,22 +172,9 @@ g_ir_compiler = find_program('g-ir-compiler')
 
 enable_docs = get_option('docs')
 if enable_docs
-  docs_dir = join_paths(meson.source_root(), 'docs')
+  docs_dir = join_paths(source_root, 'docs')
   valadoc = find_program('valadoc')
 endif
-
-gnome = import('gnome')
-i18n = import('i18n')
-pkg = import('pkgconfig')
-
-po_dir = join_paths(meson.source_root(), 'po')
-
-intltool_merge = find_program('intltool-merge')
-intltool_cache = join_paths(po_dir, '.intltool-merge-cache')
-intltool_desktop_cmd = [intltool_merge, '-d', '-u', '-c', intltool_cache, po_dir, '@INPUT@', '@OUTPUT@']
-intltool_xml_cmd = [intltool_merge, '-x', '-u', '-c', intltool_cache, po_dir, '@INPUT@', '@OUTPUT@']
-
-top_inc = include_directories('.')
 
 subdir('po')
 subdir('contrib/xml')
@@ -197,7 +199,7 @@ meson.add_install_script(
 )
 
 output = '\nConfiguration:\n\n'
-output += '        Source code location:   ' + meson.source_root() + '\n'
+output += '        Source code location:   ' + source_root + '\n'
 output += '        Compiler:               ' + cc.get_id() + '\n'
 output += '        Glade catalog:          ' + enable_glade_catalog.to_string() + '\n'
 output += '        Debug enabled:          ' + gitg_debug.to_string() + '\n'

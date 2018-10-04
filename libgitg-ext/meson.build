@@ -107,11 +107,11 @@ if enable_docs
 
   valaproc_cmd = [
     valadoc,
-    '--directory', join_paths(meson.source_root(), 'docs'),
+    '--directory', join_paths(source_root, 'docs'),
     '--package-name', 'gitgext',
     vala_pkgs,
-    '--basedir', meson.source_root(),
-    '--vapidir', join_paths(meson.build_root(), 'gitg'),
+    '--basedir', source_root,
+    '--vapidir', join_paths(build_root, 'gitg'),
     sources,
   ]
 
