@@ -65,7 +65,6 @@ set_defines = [
   # package
   ['PACKAGE_NAME', gitg_name],
   ['PACKAGE_URL', 'https://wiki.gnome.org/Apps/Gitg'],
-  ['PACKAGE_VERSION', gitg_version],
   ['VERSION', gitg_version],
   # i18n
   ['GETTEXT_PACKAGE', gitg_gettext],
