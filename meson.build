@@ -15,7 +15,6 @@ gitg_minor_version = version_array[1].to_int()
 gitg_micro_version = version_array[2].to_int()
 
 gitg_api_version = '1.0'
-gitg_gir_version = '1.0'
 
 gitg_gettext = gitg_name
 
@@ -29,7 +28,7 @@ gitg_localedir = join_paths(gitg_prefix, get_option('localedir'))
 gitg_pkgdatadir = join_paths(gitg_datadir, gitg_name)
 gitg_pkglibdir = join_paths(gitg_libdir, gitg_name)
 
-gitg_girepositorydir = join_paths(gitg_libdir, 'girepository-' + gitg_gir_version)
+gitg_girepositorydir = join_paths(gitg_libdir, 'girepository-1.0')
 
 soversion = 0
 current = 0
