@@ -11,11 +11,7 @@ sources = gitg_sources + support_sources + files(
 
 deps = [
   config_dep,
-  gee_dep,
   gitg_assert_dep,
-  gtk_dep,
-  libgit2_glib_dep,
-  libgitg_dep,
   libgitg_ext_dep,
 ]
 

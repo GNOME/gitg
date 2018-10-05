@@ -2,18 +2,18 @@ sources = files('xml-reader.c')
 
 deps = [
   gio_dep,
-  dependency('libxml-2.0', version: '>= 2.9.0'),
+  libxml_dep,
 ]
 
-libxml = static_library(
+libxml_reader = static_library(
   'xml',
   sources: sources,
   include_directories: top_inc,
   dependencies: deps,
 )
 
-libxml_dep = declare_dependency(
-  link_with: libxml,
+libxml_reader_dep = declare_dependency(
   include_directories: include_directories('.'),
   dependencies: deps,
+  link_with: libxml_reader,
 )

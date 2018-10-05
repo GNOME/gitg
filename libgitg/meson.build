@@ -9,6 +9,14 @@ gir_api_name = '@0@-@1@'.format(gir_ns, gitg_gir_version)
 gir_name = gir_api_name + '.gir'
 gir_typelib = gir_api_name + '.typelib'
 
+common_deps = [
+  gee_dep,
+  gio_dep,
+  glib_dep,
+  gtk_dep,
+  libgit2_glib_dep,
+]
+
 sources = files(
   'gitg-assembly-info.vala',
   'gitg-async.vala',
@@ -83,18 +91,14 @@ sources += gnome.compile_resources(
   dependencies: resource_data,
 )
 
-deps = [
-  gee_dep,
+deps = common_deps + [
   gitg_platform_support_dep,
-  glib_dep,
-  gtk_dep,
+  gsettings_desktop_schemas_dep,
   gtksourceview_dep,
-  libgit2_glib_dep,
   libide_dep,
+  libsecret_dep,
   libsoup_dep,
   m_dep,
-  dependency('gsettings-desktop-schemas'),
-  dependency('libsecret-1'),
 ]
 
 cflags = warn_flags + [
@@ -107,9 +111,8 @@ ldflags = common_ldflags
 
 if gdk_targets.contains('quartz')
   sources += files('gitg-platform-support-osx.c')
-  gio_system_pkg = 'gio-unix-2.0'
   deps += [
-    dependency(gio_system_pkg),
+    dependency('gio-unix-2.0'),
     find_library('objc'),
   ]
   cflags += '-xobjective-c'
@@ -120,12 +123,10 @@ if gdk_targets.contains('quartz')
   ])
 elif gdk_targets.contains('win32')
   sources += files('gitg-platform-support-win32.c')
-  gio_system_pkg = 'gio-windows-2.0'
-  deps += dependency(gio_system_pkg)
+  deps += dependency('gio-windows-2.0')
 else
   sources += files('gitg-platform-support.c')
-  gio_system_pkg = 'gio-unix-2.0'
-  deps += dependency(gio_system_pkg)
+  deps += dependency('gio-unix-2.0')
 endif
 
 libgitg = shared_library(
@@ -151,10 +152,13 @@ libgitg = shared_library(
 )
 
 libgitg_dep = declare_dependency(
-  link_with: libgitg,
   include_directories: include_directories('.'),
+  dependencies: common_deps + [m_dep],
+  link_with: libgitg,
 )
 
+# FIXME: libgitg_dep requires m_dep because math.h and float.h includes are exposed
+#        However, meson is not able to append it
 pkg.generate(
   libraries: libgitg,
   version: gitg_version,
@@ -162,16 +166,7 @@ pkg.generate(
   description: gitg_name + ' library',
   filebase: lib_api_name,
   subdirs: lib_api_name,
-  requires: [
-    'gio-2.0',
-    'glib-2.0',
-    'gmodule-2.0',
-    'gobject-2.0',
-    'gthread-2.0',
-    'gtk+-3.0',
-    'libgit2-glib-1.0',
-    gio_system_pkg,
-  ],
+  requires: common_deps,
   variables: 'exec_prefix=' + gitg_prefix,
 )
 
