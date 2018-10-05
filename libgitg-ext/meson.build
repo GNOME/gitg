@@ -1,13 +1,9 @@
-name = gitg_name + '-ext'
-api_name = '@0@-@1@'.format(name, gitg_api_version)
+libgitg_ext_api_name = 'libgitg-ext-' + gitg_api_version
+libgitg_ext_gir_api_name = 'GitgExt-' + gitg_api_version
 
-lib_name = 'lib' + name
-lib_api_name = 'lib' + api_name
-
-gir_ns = 'GitgExt'
-gir_api_name = '@0@-@1@'.format(gir_ns, gitg_gir_version)
-gir_name = gir_api_name + '.gir'
-gir_typelib = gir_api_name + '.typelib'
+libgitg_ext_vapi_name = libgitg_ext_api_name + '.vapi'
+libgitg_ext_gir_name = libgitg_ext_gir_api_name + '.gir'
+libgitg_ext_typelib_name = libgitg_ext_gir_api_name + '.typelib'
 
 sources = files(
   'gitg-ext-action.vala',
@@ -41,22 +37,22 @@ cflags = warn_flags + [
 ]
 
 libgitg_ext = shared_library(
-  api_name,
+  'gitg-ext-' + gitg_api_version,
   sources: sources,
   version: libversion,
   soversion: soversion,
   include_directories: top_inc,
   dependencies: libgitg_dep,
   c_args: cflags,
-  vala_header: lib_name + '.h',
-  vala_vapi: lib_api_name + '.vapi',
-  vala_gir: gir_name,
+  vala_header: 'libgitg-ext.h',
+  vala_vapi: libgitg_ext_vapi_name,
+  vala_gir: libgitg_ext_gir_name,
   link_args: common_ldflags,
   link_depends: symbol_map,
   install: true,
   install_dir: [
     get_option('libdir'),
-    join_paths(gitg_includedir, lib_api_name, lib_name),
+    join_paths(gitg_includedir, libgitg_ext_api_name, 'libgitg-ext'),
     true,
     true,
   ],
@@ -79,11 +75,11 @@ libgitg_ext_dep = declare_dependency(
 pkg.generate(
   libraries: libgitg_ext,
   version: gitg_version,
-  name: lib_name,
-  description: gitg_name + ' extensions library',
-  filebase: lib_api_name,
-  subdirs: lib_api_name,
-  requires: deps +  ['libgitg-1.0'],
+  name: 'libgitg-ext',
+  description: 'gitg extensions library',
+  filebase: libgitg_ext_api_name,
+  subdirs: libgitg_ext_api_name,
+  requires: deps +  [libgitg_api_name],
   variables: 'exec_prefix=' + gitg_prefix,
 )
 
@@ -114,9 +110,9 @@ if enable_docs
 endif
 
 custom_target(
-  gir_typelib,
-  output: gir_typelib,
-  command: [g_ir_compiler, '--shared-library', libgitg_ext.full_path(), '--includedir', libgitg_dir, '--output', '@OUTPUT@', join_paths(meson.current_build_dir(), gir_name)],
+  libgitg_ext_typelib_name,
+  output: libgitg_ext_typelib_name,
+  command: [g_ir_compiler, '--shared-library', libgitg_ext.full_path(), '--includedir', libgitg_build_dir, '--output', '@OUTPUT@', join_paths(meson.current_build_dir(), libgitg_ext_gir_name)],
   depends: [
     libgitg,
     libgitg_ext,
