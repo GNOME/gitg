@@ -116,10 +116,10 @@ sources += gnome.compile_resources(
   export: true,
 )
 
-vala_flags = '--gresourcesdir=' + join_paths(meson.current_source_dir(), 'resources')
+vala_flags = ['--gresourcesdir=' + join_paths(meson.current_source_dir(), 'resources')]
 
 if gtk_shortcuts_window
-  vala_args += '--define GTK_SHORTCUTS_WINDOW'
+  vala_flags += '--define=GTK_SHORTCUTS_WINDOW'
 endif
 
 executable(

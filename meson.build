@@ -154,7 +154,7 @@ assert(
 )
 
 # gtk required version is set to 3.20, so this will be always true
-gtk_shortcuts_window = gtk_dep.version().version_compare('3.19')
+gtk_shortcuts_window = gtk_dep.version().version_compare('>= 3.19')
 
 m_dep = cc.find_library('m', required: false)
 
