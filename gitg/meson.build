@@ -131,27 +131,3 @@ executable(
   vala_args: vala_flags,
   install: true,
 )
-
-# FIXME: to be tested on win32
-if platform_name == 'win32'
-  win = import('windows')
-
-  sources += win.compile_resources(
-    'gitg.rc',
-    args: ['-O', 'coff'],
-  )
-
-  ldflags += cc.get_supported_link_arguments('-mwindows')
-endif
-
-gitg = shared_library(
-  gitg_name,
-  name_prefix: '',
-  sources: sources,
-  include_directories: top_inc,
-  dependencies: deps,
-  c_args: cflags,
-  vala_args: vala_flags,
-  link_args: ldflags,
-  link_depends: symbol_map,
-)
