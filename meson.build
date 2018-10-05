@@ -47,6 +47,7 @@ pkg = import('pkgconfig')
 source_root = meson.current_source_dir()
 build_root = meson.current_build_dir()
 
+libgitg_dir = join_paths(source_root, 'libgitg')
 po_dir = join_paths(source_root, 'po')
 vapi_dir = join_paths(source_root, 'vapi')
 
@@ -172,12 +173,6 @@ endif
 config_h.set_quoted('PLATFORM_NAME', platform_name)
 
 g_ir_compiler = find_program('g-ir-compiler')
-
-enable_docs = get_option('docs')
-if enable_docs
-  docs_dir = join_paths(source_root, 'docs')
-  valadoc = find_program('valadoc')
-endif
 
 subdir('po')
 subdir('contrib/xml')

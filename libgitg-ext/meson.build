@@ -84,7 +84,7 @@ pkg.generate(
 )
 
 # FIXME: does not work due to missing proper valadoc support
-if enable_docs
+if get_option('docs')
   vala_pkgs = [
     '--pkg', 'ggit-1.0',
     '--pkg', 'gio-2.0',
@@ -94,18 +94,20 @@ if enable_docs
   ]
 
   valaproc_cmd = [
-    valadoc,
+    find_program('valadoc'),
     '--directory', join_paths(source_root, 'docs'),
     '--package-name', 'gitgext',
     vala_pkgs,
     '--basedir', source_root,
-    '--vapidir', join_paths(build_root, 'gitg'),
-    sources,
+    '--vapidir', vapi_dir,
+    '--vapidir', libgitg_dir,
+    sources + [join_paths(libgitg_build_dir, libgitg_vapi_name)],
   ]
 
   run_target(
     'libgitg-ext-docs',
     command: valaproc_cmd,
+    depends: libgitg,
   )
 endif
 
