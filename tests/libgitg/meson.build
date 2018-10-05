@@ -7,10 +7,7 @@ sources = support_sources + files(
 )
 
 deps = [
-  gee_dep,
   gitg_assert_dep,
-  gtk_dep,
-  libgit2_glib_dep,
   libgitg_dep,
 ]
 

@@ -35,13 +35,6 @@ sources = files(
   'gitg-ext-user-query.vala',
 )
 
-deps = [
-  gee_dep,
-  gtk_dep,
-  libgit2_glib_dep,
-  libgitg_dep,
-]
-
 cflags = warn_flags + [
   '-DDATADIR="@0@"'.format(gitg_datadir),
   '-DLIBDIR="@0@"'.format(gitg_libdir),
@@ -53,7 +46,7 @@ libgitg_ext = shared_library(
   version: libversion,
   soversion: soversion,
   include_directories: top_inc,
-  dependencies: deps,
+  dependencies: libgitg_dep,
   c_args: cflags,
   vala_header: lib_name + '.h',
   vala_vapi: lib_api_name + '.vapi',
@@ -69,9 +62,18 @@ libgitg_ext = shared_library(
   ],
 )
 
+deps = [
+  gee_dep,
+  gio_dep,
+  glib_dep,
+  gtk_dep,
+  libgit2_glib_dep,
+]
+
 libgitg_ext_dep = declare_dependency(
-  link_with: libgitg_ext,
   include_directories: include_directories('.'),
+  dependencies: deps + [libgitg_dep],
+  link_with: libgitg_ext,
 )
 
 pkg.generate(
@@ -81,17 +83,7 @@ pkg.generate(
   description: gitg_name + ' extensions library',
   filebase: lib_api_name,
   subdirs: lib_api_name,
-  requires: [
-    'gio-2.0',
-    'glib-2.0',
-    'gmodule-2.0',
-    'gobject-2.0',
-    'gtk+-3.0',
-    'gthread-2.0',
-    'libgit2-glib-1.0',
-    'libgitg-1.0',
-    gio_system_pkg,
-  ],
+  requires: deps +  ['libgitg-1.0'],
   variables: 'exec_prefix=' + gitg_prefix,
 )
 

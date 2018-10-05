@@ -54,19 +54,12 @@ sources = gitg_sources + files(
 
 deps = [
   config_dep,
-  gee_dep,
-  gio_dep,
   gitg_platform_support_dep,
-  glib_dep,
-  gtk_dep,
+  gobject_introspection_dep,
   gtksourceview_dep,
-  libgit2_glib_dep,
-  libgitg_dep,
+  gtkspell_dep,
   libgitg_ext_dep,
   libpeas_dep,
-  m_dep,
-  dependency('gobject-introspection-1.0', version: '>= 0.10.1'),
-  dependency('gtkspell3-3.0'),
 ]
 
 cflags = warn_flags + [
