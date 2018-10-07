@@ -9,7 +9,7 @@ m4_define(gitg_version, gitg_major_version.gitg_minor_version.gitg_micro_version
 
 AC_INIT([gitg],
         [gitg_version],
-        [https://bugzilla.gnome.org/enter_bug.cgi?product=gitg],
+        [https://gitlab.gnome.org/GNOME/gitg/issues],
         [gitg],
         [http://wiki.gnome.org/Apps/Gitg])
 
