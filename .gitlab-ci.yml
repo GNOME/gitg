@@ -60,3 +60,16 @@ stop_review:
     environment:
         name: review/$CI_COMMIT_REF_NAME
         action: stop
+
+pages:
+    stage: review
+    dependencies:
+        - flatpak
+    script:
+        - mkdir -p public
+        - mv docs public/valadocs
+    artifacts:
+        paths:
+            - public
+
+
