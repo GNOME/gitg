@@ -14,13 +14,14 @@ flatpak:
         MANIFEST_PATH: "org.gnome.Gitg.json"
         RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
         FLATPAK_MODULE: "gitg"
-        MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized"
+        MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized -Ddocs=true"
         DBUS_ID: "org.gnome.gitg"
 
     script:
         - flatpak-builder --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}
         - flatpak build app meson --prefix=/app ${MESON_ARGS} _build
         - flatpak build app ninja -C _build install
+        - flatpak build app ninja -C _build libgitg-ext-docs
         - flatpak-builder --finish-only --repo=repo app ${MANIFEST_PATH}
         - xvfb-run -a -s "-screen 0 1024x768x24" flatpak build app ninja -C _build test
         - flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${DBUS_ID}
