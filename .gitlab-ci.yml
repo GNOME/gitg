@@ -14,7 +14,7 @@ flatpak:
         MANIFEST_PATH: "org.gnome.Gitg.json"
         RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
         FLATPAK_MODULE: "gitg"
-        MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized"
+        MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized -Ddocs=true"
         DBUS_ID: "org.gnome.gitg"
 
     script:
@@ -59,3 +59,34 @@ stop_review:
     environment:
         name: review/$CI_COMMIT_REF_NAME
         action: stop
+
+pages:
+    image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
+    stage: review
+
+    variables:
+        # Replace with your manifest path
+        MANIFEST_PATH: "org.gnome.Gitg.json"
+        RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
+        FLATPAK_MODULE: "gitg"
+        MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized -Ddocs=true"
+        DBUS_ID: "org.gnome.gitg"
+
+    script:
+        - flatpak-builder --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}
+        - flatpak build app meson --prefix=/app ${MESON_ARGS} _build
+        - flatpak build app ninja -C _build libgitg-ext-docs
+        - mkdir -p public
+        - mv docs public/valadocs
+
+    artifacts:
+        paths:
+            - public
+
+    cache:
+        paths:
+             - .flatpak-builder/cache
+
+    only:
+        - master
+
