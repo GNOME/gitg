@@ -48,6 +48,23 @@
     ],
     "modules" : [
         {
+            "name" : "vala",
+            "config-opts" : [
+                "--disable-graphviz"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/vala.git",
+                    "tag" : "0.42.1"
+                },
+                {
+                    "type" : "patch",
+                    "path" : "libvaladoc-Allow-disabling-the-graphviz-dependency.patch"
+                }
+            ]
+        },
+        {
             "name" : "libssh2",
             "buildsystem" : "cmake",
             "config-opts" : [
