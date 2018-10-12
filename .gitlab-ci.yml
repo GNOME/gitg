@@ -22,6 +22,8 @@ flatpak:
         - flatpak build app meson --prefix=/app ${MESON_ARGS} _build
         - flatpak build app ninja -C _build install
         - flatpak build app ninja -C _build libgitg-ext-docs
+        - mkdir -p public
+        - mv docs public/valadocs
         - flatpak-builder --finish-only --repo=repo app ${MANIFEST_PATH}
         - xvfb-run -a -s "-screen 0 1024x768x24" flatpak build app ninja -C _build test
         - flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${DBUS_ID}
