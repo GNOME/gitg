@@ -208,6 +208,13 @@
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.diff" path="/org/gnome/gitg/preferences/diff/">
+    <key name="patience" type="b">
+      <default>false</default>
+      <_summary>Use patience algorithm to show diffs</_summary>
+      <_description>
+         Setting to use patience algorithm to show diffs of a commit.
+      </_description>
+    </key>
     <key name="ignore-whitespace" type="b">
       <default>false</default>
       <_summary>Ignore Whitespace Changes</_summary>

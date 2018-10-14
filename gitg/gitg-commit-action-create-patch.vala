@@ -102,6 +102,11 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 			opts.flags |= Ggit.DiffOption.IGNORE_WHITESPACE;
 		}
 
+		if (settings.get_boolean("patience"))
+		{
+			opts.flags |= Ggit.DiffOption.PATIENCE;
+		}
+
 		var nc = settings.get_int("context-lines");
 
 		opts.n_context_lines = nc;
