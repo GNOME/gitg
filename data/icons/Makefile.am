@@ -2,12 +2,7 @@ data_icons_public_icons_themes = \
 	hicolor
 
 data_icons_public_icons = \
-	hicolor_apps_16x16_gitg.png \
-	hicolor_apps_22x22_gitg.png \
-	hicolor_apps_24x24_gitg.png \
-	hicolor_apps_32x32_gitg.png \
-	hicolor_apps_48x48_gitg.png \
-	hicolor_apps_256x256_gitg.png \
+	hicolor_apps_scalable_gitg.svg \
 	hicolor_apps_scalable_gitg-symbolic.svg
 
 data_icons_gtk_update_icon_cache = $(GTK_UPDATE_ICON_CACHE) -f -t
