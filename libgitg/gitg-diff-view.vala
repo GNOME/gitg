@@ -236,7 +236,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		try
 		{
-			s_message_regexp = new Regex(".*[\\R\\s]*(?P<message>(?:.|\\R)*?)\\s*$");
+			s_message_regexp = new Regex(".*(\\R|\\s)*(?P<message>(?:.|\\R)*?)\\s*$");
 		} catch (Error e) { stderr.printf(@"Failed to compile regex: $(e.message)\n"); }
 	}
 
