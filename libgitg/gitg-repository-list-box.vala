@@ -392,9 +392,14 @@ namespace Gitg
 			row.set_header(before != null ? new Gtk.Separator(Gtk.Orientation.HORIZONTAL) : null);
 		}
 
+		private string normalize(string s)
+		{
+			return s.normalize(-1, NormalizeMode.ALL).casefold();
+		}
+
 		private bool filter(Gtk.ListBoxRow row)
 		{
-			return d_filter_text != null ? ((Row)row).repository_name.contains(d_filter_text) : true;
+			return d_filter_text != null ? normalize(((Row)row).repository_name).contains(normalize(d_filter_text)) : true;
 		}
 
 		private int compare_widgets(Gtk.ListBoxRow a, Gtk.ListBoxRow b)
