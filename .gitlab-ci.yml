@@ -21,6 +21,12 @@ flatpak:
         - flatpak-builder --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}
         - flatpak build app meson --prefix=/app ${MESON_ARGS} _build
         - flatpak build app ninja -C _build install
+
+        # Build the docs
+        - flatpak build app ninja -C _build libgitg-ext-docs
+        - mkdir -p public
+        - mv docs/gitgext public/
+
         - flatpak-builder --finish-only --repo=repo app ${MANIFEST_PATH}
         - xvfb-run -a -s "-screen 0 1024x768x24" flatpak build app ninja -C _build test
         - flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${DBUS_ID}
@@ -28,9 +34,10 @@ flatpak:
     artifacts:
         paths:
             - ${BUNDLE}
+            - public/
             - _build/meson-logs/meson-log.txt
             - _build/meson-logs/testlog.txt
-        expire_in: 30 days
+        expire_in: 6 hours
 
     cache:
         paths:
@@ -62,31 +69,14 @@ stop_review:
 
 pages:
     image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
-    stage: review
-
-    variables:
-        # Replace with your manifest path
-        MANIFEST_PATH: "org.gnome.Gitg.json"
-        RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
-        FLATPAK_MODULE: "gitg"
-        MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized -Ddocs=true"
-        DBUS_ID: "org.gnome.gitg"
-
+    stage: deploy
+    dependancies:
+      - flatpak
     script:
-        - flatpak-builder --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}
-        - flatpak build app meson --prefix=/app ${MESON_ARGS} _build
-        - flatpak build app ninja -C _build libgitg-ext-docs
-        - mkdir -p public
-        - mv docs public/valadocs
-
+      - echo "Deploying docs"
     artifacts:
         paths:
             - public
-
-    cache:
-        paths:
-             - .flatpak-builder/cache
-
     only:
         - master
 
