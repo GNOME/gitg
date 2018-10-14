@@ -42,6 +42,7 @@ public class Application : Gtk.Application
 		public static bool quit = false;
 		public static string activity;
 		public static bool no_wd = false;
+		public static bool standalone = false;
 
 		public static ApplicationCommandLine command_line;
 
@@ -63,6 +64,9 @@ public class Application : Gtk.Application
 
 			{"no-wd", 0, 0, OptionArg.NONE,
 			 ref no_wd, N_("Do not try to load a repository from the current working directory"), null},
+
+			{"standalone", 0, 0, OptionArg.NONE,
+			 ref standalone, N_("Run gitg in standalone mode"), null},
 
 			{null}
 		};
@@ -146,6 +150,11 @@ public class Application : Gtk.Application
 			stderr.printf("Failed to parse options: %s\n", e.message);
 			exit_status = 1;
 			return true;
+		}
+
+		if (Options.standalone)
+		{
+			set_flags(get_flags() | ApplicationFlags.NON_UNIQUE);
 		}
 
 		if (Options.quit)
