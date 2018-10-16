@@ -65,62 +65,51 @@
           </object>
         </child>
         <child>
-          <object class="GtkFrame" id="frame_commit">
+          <object class="GtkActionBar" id="box_commit">
             <property name="visible">True</property>
-            <style>
-              <class name="commit-frame"/>
-            </style>
             <child>
-              <object class="GtkBox" id="box_commit">
-                <property name="orientation">horizontal</property>
+              <object class="GtkCheckButton" id="check_button_skip_hooks">
                 <property name="visible">True</property>
-                <property name="margin">6</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkCheckButton" id="check_button_skip_hooks">
-                    <property name="visible">True</property>
-                    <property name="halign">start</property>
-                    <property name="hexpand">True</property>
-                    <property name="use_underline">True</property>
-                    <property name="label" translatable="yes">Skip commit _hooks</property>
-                  </object>
-                  <packing>
-                    <property name="pack-type">start</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_commit">
-                    <property name="visible">True</property>
-                    <property name="use_underline">True</property>
-                    <property name="label" translatable="yes">C_ommit</property>
-                  </object>
-                  <packing>
-                    <property name="pack-type">end</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_stage">
-                    <property name="visible">True</property>
-                    <property name="use_underline">True</property>
-                    <property name="label" translatable="yes">S_tage selection</property>
-                    <property name="sensitive">False</property>
-                  </object>
-                  <packing>
-                    <property name="pack-type">end</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_discard">
-                    <property name="visible">True</property>
-                    <property name="use_underline">True</property>
-                    <property name="label" translatable="yes">D_iscard selection</property>
-                    <property name="sensitive">False</property>
-                  </object>
-                  <packing>
-                    <property name="pack-type">end</property>
-                  </packing>
-                </child>
+                <property name="halign">start</property>
+                <property name="hexpand">True</property>
+                <property name="use_underline">True</property>
+                <property name="label" translatable="yes">Skip commit _hooks</property>
               </object>
+              <packing>
+                <property name="pack-type">start</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button_commit">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <property name="label" translatable="yes">C_ommit</property>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button_stage">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <property name="label" translatable="yes">S_tage selection</property>
+                <property name="sensitive">False</property>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button_discard">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <property name="label" translatable="yes">D_iscard selection</property>
+                <property name="sensitive">False</property>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
             </child>
           </object>
           <packing>
