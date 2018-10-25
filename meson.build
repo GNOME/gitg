@@ -174,6 +174,13 @@ config_h.set_quoted('PLATFORM_NAME', platform_name)
 
 g_ir_compiler = find_program('g-ir-compiler')
 
+module_suffix = []
+# Keep the autotools convention for shared module suffix because GModule
+# depends on it: https://gitlab.gnome.org/GNOME/glib/issues/520
+if ['darwin', 'ios'].contains(host_machine.system())
+  module_suffix = 'so'
+endif
+
 subdir('po')
 subdir('contrib/xml')
 subdir('contrib/ide')

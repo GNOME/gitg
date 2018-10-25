@@ -18,4 +18,5 @@ libdiff = shared_module(
   c_args: plugin_cflags,
   install: true,
   install_dir: plugin_dir,
+  name_suffix: module_suffix,
 )
