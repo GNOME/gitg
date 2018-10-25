@@ -122,6 +122,10 @@ if gtk_shortcuts_window
   vala_flags += '--define=GTK_SHORTCUTS_WINDOW'
 endif
 
+if host_system == 'windows'
+  sources += windows.compile_resources('gitg.rc')
+endif
+
 executable(
   gitg_name,
   sources: sources,

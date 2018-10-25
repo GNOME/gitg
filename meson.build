@@ -16,6 +16,9 @@ gitg_micro_version = version_array[2].to_int()
 
 gitg_api_version = '1.0'
 
+windows = import('windows')
+host_system = host_machine.system()
+
 gitg_gettext = gitg_name
 
 gitg_prefix = get_option('prefix')
