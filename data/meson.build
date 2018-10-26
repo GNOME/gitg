@@ -34,8 +34,15 @@ configure_file(
   install_dir: join_paths(gitg_datadir, 'glib-2.0', 'schemas'),
 )
 
-install_data(
-  'gitg.appdata.xml',
+appdata = 'gitg.appdata.xml'
+
+i18n.merge_file(
+  appdata,
+  type: 'xml',
+  input: appdata + '.in',
+  output: appdata,
+  po_dir: po_dir,
+  install: true,
   install_dir: join_paths(gitg_datadir, 'metainfo'),
 )
 
