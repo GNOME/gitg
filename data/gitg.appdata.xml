@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application>
-  <id type="desktop">gitg.desktop</id>
-  <metadata_license>CC0</metadata_license>
+<component type="desktop">
+  <id>gitg.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <project_group>GNOME</project_group>
   <description>
@@ -25,41 +25,29 @@
     <kudo>ModernToolkit</kudo>
   </kudos>
   <screenshots>
-    <screenshot type="default" width="1200" height="675">https://wiki.gnome.org/Apps/Gitg?action=AttachFile&amp;do=get&amp;target=history.png</screenshot>
-    <screenshot width="1200" height="675">https://wiki.gnome.org/Apps/Gitg?action=AttachFile&amp;do=get&amp;target=stage.png</screenshot>
-    <screenshot width="1200" height="675">https://wiki.gnome.org/Apps/Gitg?action=AttachFile&amp;do=get&amp;target=commit.png</screenshot>
-    <screenshot width="1200" height="675">https://wiki.gnome.org/Apps/Gitg?action=AttachFile&amp;do=get&amp;target=projects.png</screenshot>
+    <screenshot type="default" height="675" width="1200">
+      <image>https://wiki.gnome.org/Apps/Gitg?action=AttachFile&amp;do=get&amp;target=history.png</image>
+      <caption>Browse repository history</caption>
+    </screenshot>
+    <screenshot height="675" width="1200">
+      <image>https://wiki.gnome.org/Apps/Gitg?action=AttachFile&amp;do=get&amp;target=stage.png</image>
+      <caption>Staging area to compose your commit</caption>
+    </screenshot>
+    <screenshot height="675" width="1200">
+      <image>https://wiki.gnome.org/Apps/Gitg?action=AttachFile&amp;do=get&amp;target=commit.png</image>
+      <caption>Commit staged changes</caption>
+    </screenshot>
+    <screenshot height="675" width="1200">
+      <image>https://wiki.gnome.org/Apps/Gitg?action=AttachFile&amp;do=get&amp;target=projects.png</image>
+      <caption>Overview of recently used repositories</caption>
+    </screenshot>
   </screenshots>
   <url type="homepage">https://wiki.gnome.org/Apps/Gitg</url>
-  <updatecontact>icq@gnome.org</updatecontact>
+  <update_contact>albfan@gnome.org</update_contact>
   <translation type="gettext">gitg</translation>
-  <content_rating type="oars-1.1">
-    <content_attribute id="violence-cartoon">none</content_attribute>
-    <content_attribute id="violence-fantasy">none</content_attribute>
-    <content_attribute id="violence-realistic">none</content_attribute>
-    <content_attribute id="violence-bloodshed">none</content_attribute>
-    <content_attribute id="violence-sexual">none</content_attribute>
-    <content_attribute id="violence-desecration">none</content_attribute>
-    <content_attribute id="violence-slavery">none</content_attribute>
-    <content_attribute id="violence-worship">none</content_attribute>
-    <content_attribute id="drugs-alcohol">none</content_attribute>
-    <content_attribute id="drugs-narcotics">none</content_attribute>
-    <content_attribute id="drugs-tobacco">none</content_attribute>
-    <content_attribute id="sex-nudity">none</content_attribute>
-    <content_attribute id="sex-themes">none</content_attribute>
-    <content_attribute id="sex-homosexuality">none</content_attribute>
-    <content_attribute id="sex-prostitution">none</content_attribute>
-    <content_attribute id="sex-adultery">none</content_attribute>
-    <content_attribute id="sex-appearance">none</content_attribute>
-    <content_attribute id="language-profanity">none</content_attribute>
-    <content_attribute id="language-humor">none</content_attribute>
-    <content_attribute id="language-discrimination">none</content_attribute>
-    <content_attribute id="social-chat">none</content_attribute>
-    <content_attribute id="social-info">none</content_attribute>
-    <content_attribute id="social-audio">none</content_attribute>
-    <content_attribute id="social-location">none</content_attribute>
-    <content_attribute id="social-contacts">none</content_attribute>
-    <content_attribute id="money-purchasing">none</content_attribute>
-    <content_attribute id="money-gambling">none</content_attribute>
-  </content_rating>
-</application>
+  <content_rating type="oars-1.1" />
+  <developer_name>The GNOME Project</developer_name>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/gitg/issues</url>
+  <url type="donation">https://www.gnome.org/friends/</url>
+  <url type="translate">https://wiki.gnome.org/TranslationProject</url>
+</component>
