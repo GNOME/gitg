@@ -1,20 +1,11 @@
 subdir('icons')
 
-desktop_conf = configuration_data()
-desktop_conf.set('VERSION', gitg_version)
-
 desktop = 'gitg.desktop'
-
-desktop_in = configure_file(
-  input: desktop + '.in.in',
-  output: desktop + '.in',
-  configuration: desktop_conf,
-)
 
 i18n.merge_file(
   desktop,
   type: 'desktop',
-  input: desktop_in,
+  input: desktop + '.in',
   output: desktop,
   po_dir: po_dir,
   install: true,
