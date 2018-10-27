@@ -167,7 +167,7 @@ pkg.generate(
 custom_target(
   libgitg_typelib_name,
   output: libgitg_typelib_name,
-  command: [g_ir_compiler, '--shared-library', libgitg.full_path(), '--output', '@OUTPUT@', join_paths(libgitg_build_dir, libgitg_gir_name)],
+  command: [g_ir_compiler, '--shared-library', libgitg_api_name, '--output', '@OUTPUT@', join_paths(libgitg_build_dir, libgitg_gir_name)],
   depends: libgitg,
   install: true,
   install_dir: gitg_girepositorydir,

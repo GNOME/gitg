@@ -114,7 +114,7 @@ endif
 custom_target(
   libgitg_ext_typelib_name,
   output: libgitg_ext_typelib_name,
-  command: [g_ir_compiler, '--shared-library', libgitg_ext.full_path(), '--includedir', libgitg_build_dir, '--output', '@OUTPUT@', join_paths(meson.current_build_dir(), libgitg_ext_gir_name)],
+  command: [g_ir_compiler, '--shared-library', libgitg_ext_api_name, '--includedir', libgitg_build_dir, '--output', '@OUTPUT@', join_paths(meson.current_build_dir(), libgitg_ext_gir_name)],
   depends: [
     libgitg,
     libgitg_ext,
