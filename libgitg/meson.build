@@ -136,7 +136,13 @@ libgitg = shared_library(
   vala_gir: libgitg_gir_name,
   link_args: ldflags,
   link_depends: symbol_map,
-  install: true
+  install: true,
+  install_dir: [
+    true,
+    true,
+    true,
+    true
+  ]
 )
 
 libgitg_dep = declare_dependency(

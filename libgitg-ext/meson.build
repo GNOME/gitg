@@ -49,7 +49,13 @@ libgitg_ext = shared_library(
   vala_gir: libgitg_ext_gir_name,
   link_args: common_ldflags,
   link_depends: symbol_map,
-  install: true
+  install: true,
+  install_dir: [
+    true,
+    true,
+    true,
+    true
+  ]
 )
 
 deps = [
