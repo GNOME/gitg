@@ -1,0 +1,25 @@
+From f5449db889d978ad55437f284f8ef0f5bfe9cc60 Mon Sep 17 00:00:00 2001
+From: Alberto Fanjul <albertofanjul@gmail.com>
+Date: Sun, 28 Oct 2018 09:12:15 +0100
+Subject: [PATCH] Disable cached hunks
+
+---
+ libgit2-glib/ggit-diff.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libgit2-glib/ggit-diff.c b/libgit2-glib/ggit-diff.c
+index 640d946..39da706 100644
+--- a/libgit2-glib/ggit-diff.c
++++ b/libgit2-glib/ggit-diff.c
+@@ -104,7 +104,7 @@ wrap_diff_hunk_cached (CallbackWrapperData *data,
+ 		return NULL;
+ 	}
+ 
+-	ghunk = g_hash_table_lookup (data->cached_hunks, hunk);
++	//ghunk = g_hash_table_lookup (data->cached_hunks, hunk);
+ 
+ 	if (!ghunk)
+ 	{
+-- 
+2.19.1
+
