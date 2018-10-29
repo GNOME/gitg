@@ -114,10 +114,10 @@ namespace Gitg
 
 		private void build_repository()
 		{
-			title = "%s - %s".printf(d_repository_name, _("Author Details"));
+			title = "%s — %s".printf(d_repository_name, _("Author Details"));
 
 			// Translators: %s is the repository name
-			d_checkbutton_override_global.label = _("Override global details for repository '%s':").printf(d_repository_name);
+			d_checkbutton_override_global.label = _("Override global details for repository “%s”:").printf(d_repository_name);
 			d_checkbutton_override_global.active = (config_is_local("user.name") || config_is_local("user.email"));
 
 			d_checkbutton_override_global.notify["active"].connect(update_sensitivity);

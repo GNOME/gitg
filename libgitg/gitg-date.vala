@@ -371,14 +371,14 @@ public class Date : Object, Initable
 				/* Translators: this is a strftime type date format which is
 				   used when the date is in the current year and uses a 24 hour
 				   clock.*/
-				return dt.format(_("%b %e, %H:%M"));
+				return dt.format(_("%b %e, %H∶%M"));
 			}
 			else
 			{
 				/* Translators: this is a strftime type date format which is
 				   used when the date is in the current year and uses a 12 hour
 				   clock.*/
-				return dt.format(_("%b %e, %I:%M %p"));
+				return dt.format(_("%b %e, %I∶%M %p"));
 			}
 		}
 		else
@@ -388,14 +388,14 @@ public class Date : Object, Initable
 				/* Translators: this is a strftime type date format which is
 				   used when the date is not in the current year and uses a 24
 				   hour clock.*/
-				return dt.format(_("%b %e %Y, %H:%M"));
+				return dt.format(_("%b %e %Y, %H∶%M"));
 			}
 			else
 			{
 				/* Translators: this is a strftime type date format which is
 				   used when the date is not in the current year and uses a 12
 				   hour clock.*/
-				return dt.format(_("%b %e %Y, %I:%M %p"));
+				return dt.format(_("%b %e %Y, %I∶%M %p"));
 			}
 		}
 	}

@@ -229,7 +229,7 @@ namespace GitgCommit
 				}
 				catch (Error e)
 				{
-					var msg = _("Failed to stage the removal of submodule `%s'").printf(sub.path);
+					var msg = _("Failed to stage the removal of submodule “%s”").printf(sub.path);
 					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
 
 					return false;
@@ -245,7 +245,7 @@ namespace GitgCommit
 				}
 				catch (Error e)
 				{
-					var msg = _("Failed to open the repository of submodule `%s' while trying to stage").printf(sub.path);
+					var msg = _("Failed to open the repository of submodule “%s” while trying to stage").printf(sub.path);
 					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
 
 					return false;
@@ -260,7 +260,7 @@ namespace GitgCommit
 					}
 					catch (Error e)
 					{
-						var msg = _("Failed to lookup the working directory commit of submodule `%s' while trying to stage").printf(sub.path);
+						var msg = _("Failed to lookup the working directory commit of submodule “%s” while trying to stage").printf(sub.path);
 						application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
 
 						return false;
@@ -273,7 +273,7 @@ namespace GitgCommit
 				}
 				catch (Error e)
 				{
-					var msg = _("Failed to stage the submodule `%s'").printf(sub.path);
+					var msg = _("Failed to stage the submodule “%s”").printf(sub.path);
 					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
 
 					return false;
@@ -295,7 +295,7 @@ namespace GitgCommit
 				}
 				catch (Error e)
 				{
-					var msg = _("Failed to stage the removal of file `%s'").printf(file.path);
+					var msg = _("Failed to stage the removal of file “%s”").printf(file.path);
 					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
 
 					return false;
@@ -309,7 +309,7 @@ namespace GitgCommit
 				}
 				catch (Error e)
 				{
-					var msg = _("Failed to stage the file `%s'").printf(file.path);
+					var msg = _("Failed to stage the file “%s”").printf(file.path);
 					application.show_infobar(msg, e.message, Gtk.MessageType.ERROR);
 
 					return false;
@@ -647,16 +647,16 @@ namespace GitgCommit
 		{
 			return yield unstage_item(file,
 			                          (file.flags & Ggit.StatusFlags.INDEX_NEW) != 0,
-			                          _("Failed to unstage the removal of file `%s'").printf(file.path),
-			                          _("Failed to unstage the file `%s'").printf(file.path));
+			                          _("Failed to unstage the removal of file “%s”").printf(file.path),
+			                          _("Failed to unstage the file “%s”").printf(file.path));
 		}
 
 		private async bool unstage_submodule(Gitg.StageStatusSubmodule sub)
 		{
 			return yield unstage_item(sub,
 			                          (sub.flags & Ggit.SubmoduleStatus.INDEX_ADDED) != 0,
-			                          _("Failed to unstage the removal of submodule `%s'").printf(sub.path),
-			                          _("Failed to unstage the submodule `%s'").printf(sub.path));
+			                          _("Failed to unstage the removal of submodule “%s”").printf(sub.path),
+			                          _("Failed to unstage the submodule “%s”").printf(sub.path));
 		}
 
 		private void unstage_submodule_at(Gitg.Commit commit)
@@ -1483,7 +1483,7 @@ namespace GitgCommit
 
 			if (items.length == 1)
 			{
-				secondary = _("Are you sure you want to permanently discard all changes made to the file `%s'?").printf(items[0].path);
+				secondary = _("Are you sure you want to permanently discard all changes made to the file “%s”?").printf(items[0].path);
 			}
 			else
 			{
@@ -1494,7 +1494,7 @@ namespace GitgCommit
 					paths[i] = @"`$(items[i].path)'";
 				}
 
-				secondary = _("Are you sure you want to permanently discard all changes made to the files %s and `%s'?").printf(string.joinv(", ", paths), items[items.length - 1].path);
+				secondary = _("Are you sure you want to permanently discard all changes made to the files %s and “%s”?").printf(string.joinv(", ", paths), items[items.length - 1].path);
 			}
 
 			var q = new GitgExt.UserQuery();
@@ -1598,7 +1598,7 @@ namespace GitgCommit
 
 			if (items.length == 1)
 			{
-				secondary = _("Are you sure you want to permanently delete the file `%s'?").printf(items[0].path);
+				secondary = _("Are you sure you want to permanently delete the file “%s”?").printf(items[0].path);
 			}
 			else
 			{
@@ -1609,7 +1609,7 @@ namespace GitgCommit
 					paths[i] = @"`$(items[i].path)'";
 				}
 
-				secondary = _("Are you sure you want to permanently delete the files %s and `%s'?").printf(string.joinv(", ", paths), items[items.length - 1].path);
+				secondary = _("Are you sure you want to permanently delete the files %s and “%s”?").printf(string.joinv(", ", paths), items[items.length - 1].path);
 			}
 
 			var q = new GitgExt.UserQuery();
