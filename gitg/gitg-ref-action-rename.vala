@@ -97,7 +97,7 @@ class RefActionRename : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 
 		if (!Ggit.Ref.is_valid_name(@"$prefix$new_text"))
 		{
-			var msg = _("The specified name ‘%s’ contains invalid characters").printf(new_text);
+			var msg = _("The specified name “%s” contains invalid characters").printf(new_text);
 
 			action_interface.application.show_infobar(_("Invalid name"),
 			                                          msg,
