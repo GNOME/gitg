@@ -1,4 +1,6 @@
-= General Information =
+# ****General Information****<br/>
+<a href="https://flathub.org/apps/details/org.gnome.gitg"><img height="51" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.svg"/></a>
+<br/>
 gitg is a graphical user interface for git. It aims at being a small,
 fast and convenient tool to visualize the history of git repositories.
 Besides visualization, gitg also provides several utilities to manage your
@@ -11,7 +13,7 @@ Bugs:         https://bugzilla.gnome.org/browse.cgi?product=gitg
 Download:     http://download.gnome.org/sources/gitg/
 Mailing list: http://mail.gnome.org/mailman/listinfo/gitg-list
 
-= Installing gitg =
+## Installing gitg 
 To install the latest version of gitg, make sure to download gitg-3.30.1.tar.xz
 from the download site. After downloading the following procedure installs
 gitg:
@@ -24,7 +26,7 @@ gitg:
 
 For more information on installing gitg, please see INSTALL.
 
-= Building gitg from git =
+## Building gitg from git 
 The gitg repository is hosted on git.gnome.org. To build from git:
 
 	$ git clone http://gitlab.gnome.org/GNOME/gitg.git
@@ -35,7 +37,7 @@ The gitg repository is hosted on git.gnome.org. To build from git:
 
 Alternatively you can build using Flatpak with the org.gnome.Gitg.json manifest.
 
-= Using gitg =
+## Using gitg 
 When gitg is installed, you can run gitg from the GNOME menu, or from a
 terminal by issueing: 'gitg'. Type 'gitg --help' to show the options you can
 specify on the command line.
