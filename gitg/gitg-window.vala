@@ -54,6 +54,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.ToggleButton d_search_button;
 	[GtkChild]
 	private Gtk.MenuButton d_gear_menu;
+	[GtkChild]
+	private Gtk.Image gear_image;
 	private MenuModel d_activities_model;
 	private MenuModel? d_dash_model;
 
@@ -286,22 +288,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		d_interface_settings = new Settings("org.gnome.gitg.preferences.interface");
 
-		string menuname;
-
-		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
-		{
-			menuname = "win-menu";
-			d_dash_model = null;
-		}
-		else
-		{
-			menuname = "app-win-menu";
-			d_dash_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-dash");
-		}
+		d_dash_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu-dash");
 
 		d_dash_view.application = this;
 
-		d_activities_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", menuname + "-views");
+		d_activities_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu-views");
 
 		// search bar
 		d_search_bar.connect_entry(d_search_entry);
@@ -529,6 +520,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_dash_view.add_repository(d_repository);
 
 			d_gear_menu.menu_model = d_activities_model;
+			gear_image.set_from_icon_name ("view-more-symbolic", BUTTON);
 			d_gear_menu.show();
 			d_gear_menu.sensitive = true;
 		}
@@ -544,6 +536,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_add_button.show();
 
 			d_gear_menu.menu_model = d_dash_model;
+			gear_image.set_from_icon_name ("open-menu-symbolic", BUTTON);
 			d_gear_menu.visible = d_dash_model != null;
 			d_gear_menu.sensitive = d_dash_model != null;
 		}
