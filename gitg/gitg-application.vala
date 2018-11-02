@@ -412,16 +412,6 @@ public class Application : Gtk.Application
 			set_accels_for_action(accel.name, accel.accels);
 		}
 
-		if (Gtk.Settings.get_default().gtk_shell_shows_app_menu)
-		{
-			MenuModel? menu = Builder.load_object<MenuModel>("ui/gitg-menus.ui", "app-menu");
-
-			if (menu != null)
-			{
-				set_app_menu(menu);
-			}
-		}
-
 		add_css("style.css");
 		add_css(@"style-$(Config.PLATFORM_NAME).css");;
 
