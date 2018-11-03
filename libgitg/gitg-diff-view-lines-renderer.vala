@@ -26,7 +26,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		SYMBOL
 	}
 
-	private string d_num_digits_fmts;
+	private int d_num_digits;
 	private string d_num_digits_fill;
 
 	private ulong d_view_style_updated_id;
@@ -182,7 +182,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 			num_digits = 1;
 		}
 
-		d_num_digits_fmts = @"%$(num_digits)d";
+		d_num_digits = num_digits;
 		d_num_digits_fill = string.nfill(num_digits, ' ');
 	}
 
@@ -207,14 +207,14 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 			case Style.NEW:
 				if (origin == Ggit.DiffLineType.CONTEXT || origin == Ggit.DiffLineType.ADDITION)
 				{
-					ltext = d_num_digits_fmts.printf(newn);
+					ltext = "%*d".printf(d_num_digits, newn);
 					newn++;
 				}
 				break;
 			case Style.OLD:
 				if (origin == Ggit.DiffLineType.CONTEXT || origin == Ggit.DiffLineType.DELETION)
 				{
-					ltext = d_num_digits_fmts.printf(oldn);
+					ltext = "%*d".printf(d_num_digits, oldn);
 					oldn++;
 				}
 				break;

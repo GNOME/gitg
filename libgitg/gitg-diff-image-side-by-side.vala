@@ -30,22 +30,20 @@ class Gitg.DiffImageSideBySide : Gtk.DrawingArea
 		{
 			if (d_old_size_layout == null && cache.old_pixbuf != null)
 			{
-				string message;
+				string message = @"$(cache.old_pixbuf.get_width()) × $(cache.old_pixbuf.get_height())";
 
 				if (cache.new_pixbuf != null)
 				{
 					// Translators: this label is displayed below the image diff, %s
 					// is substituted with the size of the image
-					message = _("before (%s)");
+					d_old_size_layout = create_pango_layout(_("before (%s)").printf(message));
 				}
 				else
 				{
 					// Translators: this label is displayed below the image diff, %s
 					// is substituted with the size of the image
-					message = _("removed (%s)");
+					d_old_size_layout = create_pango_layout(_("removed (%s)").printf(message));
 				}
-
-				d_old_size_layout = create_pango_layout(message.printf(@"$(cache.old_pixbuf.get_width()) × $(cache.old_pixbuf.get_height())"));
 			}
 
 			return d_old_size_layout;
@@ -58,22 +56,20 @@ class Gitg.DiffImageSideBySide : Gtk.DrawingArea
 		{
 			if (d_new_size_layout == null && cache.new_pixbuf != null)
 			{
-				string message;
+				string message = @"$(cache.new_pixbuf.get_width()) × $(cache.new_pixbuf.get_height())";
 
 				if (cache.old_pixbuf != null)
 				{
 					// Translators: this label is displayed below the image diff, %s
 					// is substituted with the size of the image
-					message = _("after (%s)");
+					d_new_size_layout = create_pango_layout(_("after (%s)").printf(message));
 				}
 				else
 				{
 					// Translators: this label is displayed below the image diff, %s
 					// is substituted with the size of the image
-					message = _("added (%s)");
+					d_new_size_layout = create_pango_layout(_("added (%s)").printf(message));
 				}
-
-				d_new_size_layout = create_pango_layout(message.printf(@"$(cache.new_pixbuf.get_width()) × $(cache.new_pixbuf.get_height())"));
 			}
 
 			return d_new_size_layout;

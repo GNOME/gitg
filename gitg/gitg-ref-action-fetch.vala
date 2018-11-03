@@ -103,12 +103,12 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 			if (a.is_zero())
 			{
 				/* Translators: new refers to a new remote reference having been fetched, */
-				updates.add(@"$name (%s)".printf(_("new")));
+				updates.add(@"%s (%s)".printf(name, _("new")));
 			}
 			else
 			{
 				/* Translators: updated refers to a remote reference having been updated, */
-				updates.add(@"$name (%s)".printf(_("updated")));
+				updates.add(@"%s (%s)".printf(name, _("updated")));
 			}
 		});
 
