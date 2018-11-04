@@ -1,7 +1,8 @@
-# ****General Information****<br/>
-<a href="https://flathub.org/apps/details/org.gnome.gitg"><img height="51" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.svg"/></a>
-<br/>
-<br/>
+# General Information
+<a 
+href="https://flathub.org/apps/details/org.gnome.gitg"><img height="51" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.svg"/>
+</a><br/>
+
 gitg is a graphical user interface for git. It aims at being a small,
 fast and convenient tool to visualize the history of git repositories.
 Besides visualization, gitg also provides several utilities to manage your
@@ -10,9 +11,13 @@ repository and commit your work.
 The latest version of gitg is 3.30.1.
 
 Website:      https://wiki.gnome.org/Apps/Gitg
+<br/>
 Bugs:         https://bugzilla.gnome.org/browse.cgi?product=gitg
+<br/>
 Download:     http://download.gnome.org/sources/gitg/
+<br/>
 Mailing list: http://mail.gnome.org/mailman/listinfo/gitg-list
+<br/>
 
 ## Installing gitg 
 To install the latest version of gitg, make sure to download gitg-3.30.1.tar.xz
