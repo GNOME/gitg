@@ -139,7 +139,7 @@ libgitg = shared_library(
   install: true,
   install_dir: [
     true,
-    true,
+    join_paths(gitg_includedir, libgitg_api_name, 'libgitg'),
     true,
     true
   ]
