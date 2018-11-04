@@ -469,7 +469,7 @@ public class Lanes : Object
 		index = next;
 		uint cnt = 0;
 
-		unowned SList<Commit> ptr = d_previous;
+		unowned SList<weak Commit> ptr = d_previous;
 
 		while (ptr != null)
 		{
