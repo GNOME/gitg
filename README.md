@@ -27,7 +27,7 @@ gitg:
 
 For more information on installing gitg, please see INSTALL.
 
-## Building gitg from git =
+## Building gitg from git 
 The gitg repository is hosted on git.gnome.org. To build from git:
 
 	$ git clone http://gitlab.gnome.org/GNOME/gitg.git
