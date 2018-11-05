@@ -952,7 +952,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			string repo_name = path.get_basename();
 
-			var title = _("“%s” is not a Git repository.").printf(repo_name);
+			var title = _("'%s' is not a Git repository.").printf(repo_name);
 			show_infobar(title, e.message, Gtk.MessageType.WARNING);
 
 			return;

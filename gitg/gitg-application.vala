@@ -54,7 +54,7 @@ public class Application : Gtk.Application
 
 		public const OptionEntry[] entries = {
 			{"version", 'v', OptionFlags.NO_ARG, OptionArg.CALLBACK,
-			 (void *)show_version_and_quit, N_("Show the application’s version"), null},
+			 (void *)show_version_and_quit, N_("Show the application's version"), null},
 
 			{"activity", '\0', 0, OptionArg.STRING,
 			 ref activity, N_("Start gitg with a particular activity"), null},
@@ -95,7 +95,7 @@ public class Application : Gtk.Application
 
 	private GitgExt.CommandLines parse_command_line(ref unowned string[] argv) throws OptionError
 	{
-		var ctx = new OptionContext(_("— Git repository viewer"));
+		var ctx = new OptionContext(_("- Git repository viewer"));
 
 		ctx.add_main_entries(Options.entries, Config.GETTEXT_PACKAGE);
 		ctx.add_group(Gtk.get_option_group(true));
@@ -228,7 +228,7 @@ public class Application : Gtk.Application
 		                    "Ignacio Casal Quinteiro <icq@gnome.org>"};
 
 		string copyright = "Copyright \xc2\xa9 2012 Jesse van den Kieboom";
-		string comments = _("gitg is a Git repository viewer for GTK+/GNOME");
+		string comments = _("gitg is a Git repository viewer for gtk+/GNOME");
 
 		unowned List<Gtk.Window> wnds = get_windows();
 
@@ -370,7 +370,7 @@ public class Application : Gtk.Application
 		{
 			if (e is Gitg.InitError.THREADS_UNSAFE)
 			{
-				var errmsg = _("We are terribly sorry, but gitg requires libgit2 (a library on which gitg depends) to be compiled with threading support.\n\nIf you manually compiled libgit2, then please configure libgit2 with -DTHREADSAFE:BOOL=ON.\n\nOtherwise, report a bug in your distributions’ bug reporting system for providing libgit2 without threading support.");
+				var errmsg = _("We are terribly sorry, but gitg requires libgit2 (a library on which gitg depends) to be compiled with threading support.\n\nIf you manually compiled libgit2, then please configure libgit2 with -DTHREADSAFE:BOOL=ON.\n\nOtherwise, report a bug in your distributions' bug reporting system for providing libgit2 without threading support.");
 
 				init_error(errmsg);
 				error("%s", errmsg);
