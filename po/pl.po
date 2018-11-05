@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2018-10-27 15:48+0000\n"
-"PO-Revision-Date: 2018-10-27 17:57+0200\n"
+"POT-Creation-Date: 2018-11-05 09:43+0000\n"
+"PO-Revision-Date: 2018-11-05 18:22+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -23,6 +23,58 @@ msgstr ""
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Nie można przetworzyć kodu XML ze strumienia"
+
+#: data/gitg.appdata.xml.in:8
+msgid ""
+"gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"gitg to graficzny interfejs użytkownika dla systemu git. To w zamierzeniu "
+"małe, szybkie i wygodne narzędzie do wizualizowania historii repozytoriów "
+"git. Oprócz tego gitg zapewnia także kilka narzędzi do zarządzania "
+"repozytoriami i zatwierdzania swojej pracy."
+
+#: data/gitg.appdata.xml.in:14
+msgid "Goals"
+msgstr "Funkcje programu"
+
+#: data/gitg.appdata.xml.in:16
+msgid "Browse local git repositories"
+msgstr "Przeglądanie lokalnych repozytoriów git"
+
+#: data/gitg.appdata.xml.in:17
+msgid "Clone local and remote git repositories"
+msgstr "Klonowanie lokalnych i zdalnych repozytoriów git"
+
+#: data/gitg.appdata.xml.in:18
+msgid "Commit files"
+msgstr "Zatwierdzanie plików"
+
+#: data/gitg.appdata.xml.in:19
+msgid "Retrieve patch from a commit"
+msgstr "Tworzenie łaty z zatwierdzenia"
+
+#: data/gitg.appdata.xml.in:30
+msgid "Browse repository history"
+msgstr "Przeglądanie historii repozytorium"
+
+#: data/gitg.appdata.xml.in:34
+msgid "Staging area to compose your commit"
+msgstr "Obszar roboczy do układania zatwierdzenia"
+
+#: data/gitg.appdata.xml.in:38
+msgid "Commit staged changes"
+msgstr "Zatwierdzanie zmian będących w przechowalni"
+
+#: data/gitg.appdata.xml.in:42
+msgid "Overview of recently used repositories"
+msgstr "Przegląd ostatnio używanych repozytoriów"
+
+#: data/gitg.appdata.xml.in:49
+msgid "The GNOME Project"
+msgstr "Projekt GNOME"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/gitg.desktop.in:3 data/gitg.desktop.in:10 gitg/gitg.vala:39
@@ -136,7 +188,7 @@ msgstr "Ustawienie wskazujące, czy wyświetlać elementy dla schowka w histori
 
 #: data/org.gnome.gitg.gschema.xml.in:107
 msgid "Show Staged Changes"
-msgstr "Wyświetlanie zmian będących w poczekalni"
+msgstr "Wyświetlanie zmian będących w przechowalni"
 
 #: data/org.gnome.gitg.gschema.xml.in:108
 msgid ""
@@ -148,7 +200,7 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:115
 msgid "Show Unstaged Changes"
-msgstr "Wyświetlanie zmian niebędących w poczekalni"
+msgstr "Wyświetlanie zmian niebędących w przechowalni"
 
 #: data/org.gnome.gitg.gschema.xml.in:116
 msgid ""
@@ -1694,14 +1746,14 @@ msgstr "usunięto (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:67
+#: libgitg/gitg-diff-image-side-by-side.vala:65
 #, c-format
 msgid "after (%s)"
 msgstr "po (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:73
+#: libgitg/gitg-diff-image-side-by-side.vala:71
 #, c-format
 msgid "added (%s)"
 msgstr "dodano (%s)"
