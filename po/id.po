@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2018-10-27 15:48+0000\n"
-"PO-Revision-Date: 2018-10-30 21:31+0700\n"
+"POT-Creation-Date: 2018-11-05 09:43+0000\n"
+"PO-Revision-Date: 2018-11-06 23:13+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -24,6 +24,58 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Tak bisa mengurai XML dari stream"
 
+#: data/gitg.appdata.xml.in:8
+msgid ""
+"gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"gitg merupakan antarmuka pengguna grafis untuk git. Ini bertujuan untuk "
+"menjadi alat yang ringan, cepat dan nyaman untuk memvisualisasikan riwayat "
+"repositori git. Selain visualisasi, gitg juga menyediakan beberapa utilitas "
+"untuk mengelola repositori Anda dan melakukan pekerjaan Anda."
+
+#: data/gitg.appdata.xml.in:14
+msgid "Goals"
+msgstr "Tujuan"
+
+#: data/gitg.appdata.xml.in:16
+msgid "Browse local git repositories"
+msgstr "Jelajahi repositori git lokal"
+
+#: data/gitg.appdata.xml.in:17
+msgid "Clone local and remote git repositories"
+msgstr "Klon repositori git lokal dan remote"
+
+#: data/gitg.appdata.xml.in:18
+msgid "Commit files"
+msgstr "Berkas komit"
+
+#: data/gitg.appdata.xml.in:19
+msgid "Retrieve patch from a commit"
+msgstr "Ambil tambalan dari komit"
+
+#: data/gitg.appdata.xml.in:30
+msgid "Browse repository history"
+msgstr "Jelajahi riwayat repositori"
+
+#: data/gitg.appdata.xml.in:34
+msgid "Staging area to compose your commit"
+msgstr "Area staging untuk menyusun komit Anda"
+
+#: data/gitg.appdata.xml.in:38
+msgid "Commit staged changes"
+msgstr "Komit perubahan yang di-stage-kan"
+
+#: data/gitg.appdata.xml.in:42
+msgid "Overview of recently used repositories"
+msgstr "Tinjauan tentang repositori yang digunakan baru-baru ini"
+
+#: data/gitg.appdata.xml.in:49
+msgid "The GNOME Project"
+msgstr "Proyek GNOME"
+
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/gitg.desktop.in:3 data/gitg.desktop.in:10 gitg/gitg.vala:39
 #: gitg/resources/ui/gitg-window.ui:8
@@ -36,13 +88,13 @@ msgstr "Peramban repositori git"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
-msgstr "Direktori Klon Baku"
+msgstr "Direktori Klon Bawaan"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
-msgstr "Direktori baku dimana repositori baru mesti disarankan untuk diklon."
+msgstr "Direktori bawaan dimana repositori baru mesti disarankan untuk diklon."
 
 #: data/org.gnome.gitg.gschema.xml.in:37
 msgid "Orientation of the main interface (vertical or horizontal)"
@@ -55,11 +107,11 @@ msgstr "Pengaturan yang menentukan orientasi dari antar muka utama."
 # atau Kegiatan Baku
 #: data/org.gnome.gitg.gschema.xml.in:44
 msgid "Default Activity"
-msgstr "Aktifitas Baku"
+msgstr "Aktifitas Bawaan"
 
 #: data/org.gnome.gitg.gschema.xml.in:45
 msgid "The activity which gitg activates by default when first launched."
-msgstr "Aktivitas yang gitg aktifkan secara default saat pertama dijalankan"
+msgstr "Aktivitas yang gitg aktifkan secara bawaan saat pertama dijalankan."
 
 #: data/org.gnome.gitg.gschema.xml.in:51
 msgid "Use Gravatar"
@@ -67,7 +119,7 @@ msgstr "Gunakan Gravatar"
 
 #: data/org.gnome.gitg.gschema.xml.in:52
 msgid "Enable the use of gravatar to display user avatars."
-msgstr "Perbolehkan penggunaan gravatar untuk tampilan avatar pengguna"
+msgstr "Perbolehkan penggunaan gravatar untuk tampilan avatar pengguna."
 
 #: data/org.gnome.gitg.gschema.xml.in:58
 msgid "Enable Monitoring"
@@ -175,14 +227,14 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:131
 msgid "Default selection of the history activity"
-msgstr "Pilihan baku pada riwayat aktifitas"
+msgstr "Pilihan bawaan pada riwayat aktifitas"
 
 #: data/org.gnome.gitg.gschema.xml.in:132
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr ""
-"Pengaturan yang menentukan pilihan baku pada permulaan riwayat aktifitas."
+"Pengaturan yang menentukan pilihan bawaan pada permulaan riwayat aktifitas."
 
 #: data/org.gnome.gitg.gschema.xml.in:138
 msgid "Reference Sort Order"
@@ -190,19 +242,19 @@ msgstr "Referensi Urutan Sortir"
 
 #: data/org.gnome.gitg.gschema.xml.in:139
 msgid "The order by which references in the history sidebar should be sorted."
-msgstr "Urutan di mana referensi dalam sidebar riwayat harus disortir. "
+msgstr "Urutan di mana referensi dalam bilah samping riwayat harus disortir."
 
 #: data/org.gnome.gitg.gschema.xml.in:145
 msgid "Show Upstream With Branch"
-msgstr "Tampilkan Upstream Dengan Branch"
+msgstr "Tampilkan Upstream Dengan Cabang"
 
 #: data/org.gnome.gitg.gschema.xml.in:146
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
-"Menentukan apakah juga menampilkan branch upstream (remote) yang di-track "
-"ketika memilih suatu branch lokal dalam tilikan riwayat."
+"Menentukan apakah juga menampilkan cabang upstream (remote) yang di-track "
+"ketika memilih suatu cabang lokal dalam tilikan riwayat."
 
 #: data/org.gnome.gitg.gschema.xml.in:162
 msgid "Show Right Margin in Commit Message View"
@@ -238,7 +290,7 @@ msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
 msgstr ""
-"Sorot teks subjek dari pesan commit ketika itu melewati marjin yang "
+"Sorot teks subjek dari pesan komit ketika itu melewati marjin yang "
 "dinyatakan oleh subject-margin-position."
 
 #: data/org.gnome.gitg.gschema.xml.in:187
@@ -626,7 +678,7 @@ msgstr "Gagal mendapatkan rincian penulis"
 #: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
 #, c-format
 msgid "Failed to lookup commit: %s"
-msgstr "Gagal melihat commit: %s"
+msgstr "Gagal melihat komit: %s"
 
 #: gitg/gitg-action-support.vala:255
 #, c-format
@@ -706,7 +758,7 @@ msgstr "Rincian Penulis"
 
 #: gitg/gitg-author-details-dialog.vala:98
 msgid "Enter default details used for all repositories:"
-msgstr "Masukkan rincian baku untuk semua repositori:"
+msgstr "Masukkan rincian bawaan untuk semua repositori:"
 
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:120
@@ -728,12 +780,12 @@ msgstr "Cherry pick ke"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
-msgstr "Cherry pick komit ini ke suatu branch"
+msgstr "Cherry pick komit ini ke suatu cabang"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
 msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Gagal menemukan commit untuk branch %s: %s"
+msgstr "Gagal menemukan komit untuk cabang %s: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
@@ -753,7 +805,7 @@ msgid ""
 "the conflicts?"
 msgstr ""
 "Cherry pick %s ke %s menyebabkan konflik, apakah Anda hendak men-checkout "
-"branch %s dengan cherry pick ke direktori kerjamu untuk mengatasi konflik?"
+"cabang %s dengan cherry pick ke direktori kerjamu untuk mengatasi konflik?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
@@ -793,15 +845,15 @@ msgstr "Cherry pick ke %s"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
-msgstr "Buat branch"
+msgstr "Buat cabang"
 
 #: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
-msgstr "Buat sebuah branch baru pada komit yang dipilih"
+msgstr "Buat sebuah cabang baru pada komit yang dipilih"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
 msgid "Failed to create branch"
-msgstr "Gagal membuat branch"
+msgstr "Gagal membuat cabang"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create patch"
@@ -911,7 +963,7 @@ msgstr "Checkout %s"
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
 msgid "Failed to checkout branch: %s"
-msgstr "Gagal men-checkout branch %s"
+msgstr "Gagal men-checkout cabang %s"
 
 #: gitg/gitg-ref-action-checkout.vala:111
 #, c-format
@@ -920,7 +972,7 @@ msgstr "Gagal memperbarui HEAD %s"
 
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
-msgstr "Sukses men-checkout branch ke direktori kerja"
+msgstr "Sukses men-checkout cabang ke direktori kerja"
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -941,12 +993,12 @@ msgstr "Hapus acuan yang dipilih"
 #: gitg/gitg-ref-action-delete.vala:73
 #, c-format
 msgid "Delete branch %s"
-msgstr "Hapus branch %s"
+msgstr "Hapus cabang %s"
 
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
 msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr "Anda yakin ingin menghapus permanen branch %s?"
+msgstr "Anda yakin ingin menghapus permanen cabang %s?"
 
 #: gitg/gitg-ref-action-delete.vala:78
 #, c-format
@@ -961,12 +1013,12 @@ msgstr "Anda yakin ingin menghapus permanen tag %s?"
 #: gitg/gitg-ref-action-delete.vala:83
 #, c-format
 msgid "Delete remote branch %s"
-msgstr "Hapus branch remote %s"
+msgstr "Hapus cabang remote %s"
 
 #: gitg/gitg-ref-action-delete.vala:84
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr "Anda yakin ingin menghapus branch remote %s?"
+msgstr "Anda yakin ingin menghapus cabang remote %s?"
 
 #. Translators: %s is the name of the tag
 #: gitg/gitg-ref-action-delete.vala:119
@@ -984,13 +1036,13 @@ msgstr "Tag %s tak dapat dihapus: %s"
 #: gitg/gitg-ref-action-delete.vala:127
 #, c-format
 msgid "Failed to delete branch %s"
-msgstr "Gagal menghapus branch %s"
+msgstr "Gagal menghapus cabang %s"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:130
 #, c-format
 msgid "The branch %s could not be deleted: %s"
-msgstr "Branch %s tak bisa dihapus: %s"
+msgstr "Cabang %s tak bisa dihapus: %s"
 
 #: gitg/gitg-ref-action-fetch.vala:74
 #, c-format
@@ -1044,12 +1096,12 @@ msgstr "Merge ke %s"
 #: gitg/gitg-ref-action-merge.vala:69
 #, c-format
 msgid "Merge another branch into branch %s"
-msgstr "Merge branch lain ke branch %s"
+msgstr "Merge cabang lain ke cabang %s"
 
 #: gitg/gitg-ref-action-merge.vala:106
 #, c-format
 msgid "Failed to merge commits: %s"
-msgstr "Gagal me-merge commit: %s"
+msgstr "Gagal me-merge komit: %s"
 
 #: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
@@ -1061,7 +1113,7 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
-"Merge dari %s ke %s menyebabkan konflik, apakah kamu mau men-checkout branch "
+"Merge dari %s ke %s menyebabkan konflik, apakah kamu mau men-checkout cabang "
 "%s dengan merge ke direktori kerjamu untuk mengatasi konflik?"
 
 #: gitg/gitg-ref-action-merge.vala:188
@@ -1089,12 +1141,12 @@ msgstr "Merge %s ke %s"
 #: gitg/gitg-ref-action-merge.vala:231
 #, c-format
 msgid "Failed to lookup our commit: %s"
-msgstr "Gagal menemukan commit kita: %s"
+msgstr "Gagal menemukan komit kita: %s"
 
 #: gitg/gitg-ref-action-merge.vala:241
 #, c-format
 msgid "Failed to lookup their commit: %s"
-msgstr "Gagal menemukan commit mereka: %s"
+msgstr "Gagal menemukan komit mereka: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
@@ -1104,7 +1156,7 @@ msgstr "Sukses me-merge %s ke %s"
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
 msgid "Merge %s into branch %s"
-msgstr "Merge %s ke branch %s"
+msgstr "Merge %s ke cabang %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
 #: gitg/history/gitg-history-refs-list.vala:1176
@@ -1192,23 +1244,23 @@ msgstr "Kehilangan rincian penulis"
 
 #: gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
-msgstr "Pilih semua commit secara baku di riwayat aktifitas"
+msgstr "Pilih semua komit secara bawaan di riwayat aktifitas"
 
 #: gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
-msgstr "Pilih semua branch secara baku di riwayat aktifitas"
+msgstr "Pilih semua cabang secara bawaan di riwayat aktifitas"
 
 #: gitg/history/gitg-history-command-line.vala:46
 msgid "Select all remotes by default in the history activity"
-msgstr "Pilih semua remote secara baku di riwayat aktifitas"
+msgstr "Pilih semua remote secara bawaan di riwayat aktifitas"
 
 #: gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
-msgstr "Pilih semua tag secara baku di riwayat aktifitas"
+msgstr "Pilih semua tag secara bawaan di riwayat aktifitas"
 
 #: gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
-msgstr "Pilih referensi tertentu secara baku di riwayat aktifitas"
+msgstr "Pilih referensi tertentu secara bawaan di riwayat aktifitas"
 
 #: gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
@@ -1236,7 +1288,7 @@ msgstr "Semua komit"
 
 #: gitg/history/gitg-history-refs-list.vala:1174
 msgid "Branches"
-msgstr "Branch"
+msgstr "Cabang"
 
 #: gitg/history/gitg-history-refs-list.vala:1175
 msgid "Remotes"
@@ -1259,7 +1311,7 @@ msgstr "Mainline"
 #: gitg/preferences/gitg-preferences-commit.vala:119
 msgctxt "Preferences"
 msgid "Commit"
-msgstr "Commit"
+msgstr "Komit"
 
 #: gitg/preferences/gitg-preferences-interface.vala:120
 msgid "Interface"
@@ -1271,7 +1323,7 @@ msgstr "_Simpan"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:65
 msgid "Default details used for all repositories"
-msgstr "Rincian baku untuk semua repositori"
+msgstr "Rincian bawaan untuk semua repositori"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:114
 msgid "E-mail:"
@@ -1341,7 +1393,7 @@ msgid ""
 "that are not yet committed as shown below."
 msgstr ""
 "Submodul dalam keadaan kotor dan perubahan ter-stage dan/atau tidak ter-"
-"stage belum di-commit seperti yang ditampilkan di bawah ini."
+"stage belum dikomit seperti yang ditampilkan di bawah ini."
 
 #: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:50
 msgid "Staged:"
@@ -1372,7 +1424,7 @@ msgstr "Buka"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:7
 msgid "Create Branch"
-msgstr "Buat Branch"
+msgstr "Buat Cabang"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:34
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:36
@@ -1381,7 +1433,7 @@ msgstr "Bua_t"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:69
 msgid "Branch _name:"
-msgstr "_Nama branch:"
+msgstr "_Nama cabang:"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:7
 msgid "Create Tag"
@@ -1455,11 +1507,11 @@ msgstr "Pesan Komit"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
-msgstr "Pilihan baku"
+msgstr "Pilihan bawaan"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:50
 msgid "Current branch"
-msgstr "Branch kini"
+msgstr "Cabang kini"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:65
 msgid "All branches"
@@ -1471,15 +1523,15 @@ msgstr "Referensi"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:119
 msgid "Sort references in the sidebar by latest activity"
-msgstr "Sortir referensi di sidebar berdasarkan aktifitas terakhir"
+msgstr "Sortir referensi pada bilah samping berdasarkan aktifitas terakhir"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:135
 msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr "Tampilkan branch upstream (remote) ketika memilih suatu branch lokal"
+msgstr "Tampilkan cabang upstream (remote) ketika memilih suatu cabang lokal"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:154
 msgid "Commits"
-msgstr "Commit"
+msgstr "Komit"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:174
 msgid "Collapse inactive lanes"
@@ -1503,7 +1555,7 @@ msgstr "Pelihara mainline untuk cabang yang ter-checkout saat ini"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:24
 msgid "Startup"
-msgstr "Startup"
+msgstr "Awal mula"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:47
 msgid "Start with activity:"
@@ -1511,7 +1563,7 @@ msgstr "Mulai dengan aktifitas:"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:61
 msgid "Commit"
-msgstr "Commit"
+msgstr "Komit"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:80
 msgid "Layout"
@@ -1691,14 +1743,14 @@ msgstr "dihapus (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:67
+#: libgitg/gitg-diff-image-side-by-side.vala:65
 #, c-format
 msgid "after (%s)"
 msgstr "setelah (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:73
+#: libgitg/gitg-diff-image-side-by-side.vala:71
 #, c-format
 msgid "added (%s)"
 msgstr "ditambahkan (%s)"
@@ -1748,36 +1800,36 @@ msgstr "Membuat Klon…"
 #: libgitg/gitg-stage.vala:334
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
-msgstr "Tak bisa membaca pesan commit setelah menjalankan hook commit-msg: %s"
+msgstr "Tak bisa membaca pesan komit setelah menjalankan hook commit-msg: %s"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:18
 msgid "_Authenticate"
-msgstr "Otentik_asi"
+msgstr "_Autentikasi"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:76
 msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
 msgstr ""
-"Otentikasi sebelumnya telah gagal, silahkan masukkan nama pengguna dan sandi "
-"dan coba lagi."
+"Autentikasi sebelumnya telah gagal, silahkan masukkan nama pengguna dan kata "
+"sandi dan coba lagi."
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:95
 msgid "_Username:"
-msgstr "Ak_un Pengguna:"
+msgstr "Nama Pengg_una:"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:109
 msgid "_Password:"
-msgstr "_Sandi"
+msgstr "Kata _Sandi:"
 
 # ragu penempatan tanda _
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:154
 msgid "Forget password _immediately"
-msgstr "Lupakan sandi _segera"
+msgstr "Lupakan kata sandi _segera"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:171
 msgid "Remember password until you _logout"
-msgstr "Ingat sandi sampai kamu ke_luar"
+msgstr "Ingat kata sandi sampai kamu ke_luar"
 
 # bingung penempatan tanda _
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:189
