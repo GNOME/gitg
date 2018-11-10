@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2018-10-27 15:48+0000\n"
-"PO-Revision-Date: 2018-11-04 21:12+0200\n"
+"POT-Creation-Date: 2018-11-05 09:43+0000\n"
+"PO-Revision-Date: 2018-11-10 17:56+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -24,6 +24,64 @@ msgstr ""
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Nepavyko perskaityti XML iš srauto"
+
+#: data/gitg.appdata.xml.in:8
+msgid ""
+"gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"gitg yra git grafinė naudotojo sąsaja. Ji siekia būti paprastu, greitu bei "
+"patogiu įrankiu vizualizuoti git saugyklos istoriją. Be vizualizacijos gitg "
+"taip pat pateikia įrankių jūsų saugyklai tvarkyti bei darbui patvirtinti."
+
+#: data/gitg.appdata.xml.in:14
+msgid "Goals"
+msgstr "Tikslai"
+
+#: data/gitg.appdata.xml.in:16
+#| msgid "Show the list of recently used repositories"
+msgid "Browse local git repositories"
+msgstr "Naršyti vietines git saugyklas"
+
+#: data/gitg.appdata.xml.in:17
+msgid "Clone local and remote git repositories"
+msgstr "Klonuoti vietines bei nuotolines git saugyklas"
+
+#: data/gitg.appdata.xml.in:18
+#| msgid "Commits"
+msgid "Commit files"
+msgstr "Patvirtinti failus"
+
+#: data/gitg.appdata.xml.in:19
+#| msgid "Create a patch from the selected commit"
+msgid "Retrieve patch from a commit"
+msgstr "Gauti pataisą pagal patvirtinimą"
+
+#: data/gitg.appdata.xml.in:30
+#| msgid "Bare repository"
+msgid "Browse repository history"
+msgstr "Naršyti saugyklos istoriją"
+
+#: data/gitg.appdata.xml.in:34
+#| msgid "Failed to lookup our commit: %s"
+msgid "Staging area to compose your commit"
+msgstr "Paruošimo vieta patvirtinimui sukurti"
+
+#: data/gitg.appdata.xml.in:38
+#| msgid "Unstaged changes"
+msgid "Commit staged changes"
+msgstr "Patvirtinti paruoštus pakeitimus"
+
+#: data/gitg.appdata.xml.in:42
+#| msgid "Show the list of recently used repositories"
+msgid "Overview of recently used repositories"
+msgstr "Neseniai naudotų saugyklų apžvalga"
+
+#: data/gitg.appdata.xml.in:49
+msgid "The GNOME Project"
+msgstr "GNOME projektas"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/gitg.desktop.in:3 data/gitg.desktop.in:10 gitg/gitg.vala:39
@@ -1682,14 +1740,14 @@ msgstr "pašalinta (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:67
+#: libgitg/gitg-diff-image-side-by-side.vala:65
 #, c-format
 msgid "after (%s)"
 msgstr "po (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:73
+#: libgitg/gitg-diff-image-side-by-side.vala:71
 #, c-format
 msgid "added (%s)"
 msgstr "pridėta (%s)"
