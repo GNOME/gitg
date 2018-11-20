@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2018-11-05 09:43+0000\n"
-"PO-Revision-Date: 2018-11-14 10:40+0200\n"
-"Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
+"POT-Creation-Date: 2018-11-18 12:20+0000\n"
+"PO-Revision-Date: 2018-11-20 12:39+0100\n"
+"Last-Translator: Carmen Bianca Bakker <carmen@carmenbianca.eu>\n"
 "Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-DamnedLies-Scope: partial\n"
+"X-Generator: Poedit 2.2\n"
 "X-Project-Style: gnome\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -45,7 +46,7 @@ msgstr "Foliumi lokajn git-deponejojn"
 
 #: data/gitg.appdata.xml.in:17
 msgid "Clone local and remote git repositories"
-msgstr "Klonigi lokajn kaj deforajn git-deponejojn"
+msgstr "Kloni lokajn kaj deforajn git-deponejojn"
 
 #: data/gitg.appdata.xml.in:18
 msgid "Commit files"
@@ -107,18 +108,6 @@ msgstr "Agordo pri la orientiĝo de la ĉefa interfaco."
 msgid "Default Activity"
 msgstr "Defaŭlta aktiveco"
 
-#: data/org.gnome.gitg.gschema.xml.in:45
-msgid "The activity which gitg activates by default when first launched."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:51
-msgid "Use Gravatar"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:52
-msgid "Enable the use of gravatar to display user avatars."
-msgstr ""
-
 #: data/org.gnome.gitg.gschema.xml.in:58
 msgid "Enable Monitoring"
 msgstr "Ŝalti observadon"
@@ -132,154 +121,21 @@ msgstr "Aŭtomate ĝisdatigi kiam eksteraj ŝanĝoj al .git detektiĝas"
 msgid "Enable Diff Highlighting"
 msgstr "Ŝalti diferenc-emfazadon"
 
-#: data/org.gnome.gitg.gschema.xml.in:66
-msgid ""
-"Setting that determines whether to enable syntax highlighting in diff views."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:75
-msgid "When to Collapse Inactive Lanes"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:76
-msgid ""
-"Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:83
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-
 #: data/org.gnome.gitg.gschema.xml.in:92
 msgid "Show History in Topological Order"
 msgstr "Montri hostorian en topologia ordo"
-
-#: data/org.gnome.gitg.gschema.xml.in:93
-msgid ""
-"Setting that indicates whether to show the history in topological order."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:99
-msgid "Show Stashed Changes"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:100
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:107
 msgid "Show Staged Changes"
 msgstr "Montri antaŭenmetitajn ŝanĝojn"
 
-#: data/org.gnome.gitg.gschema.xml.in:108
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-
 #: data/org.gnome.gitg.gschema.xml.in:115
 msgid "Show Unstaged Changes"
 msgstr "Montri malantaŭenmetitajn ŝanĝojn"
 
-#: data/org.gnome.gitg.gschema.xml.in:116
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:123
-msgid "Mainline Head"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:124
-msgid ""
-"Setting that indicates whether to always preserve a mainline in the history "
-"for the current HEAD."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:131
-msgid "Default selection of the history activity"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:132
-msgid ""
-"Setting that determines the default selection on startup of the history "
-"activity."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:138
-msgid "Reference Sort Order"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:139
-msgid "The order by which references in the history sidebar should be sorted."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:145
-msgid "Show Upstream With Branch"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:146
-msgid ""
-"Determines whether to also show the upstream (remote) tracking branch when "
-"selecting a local branch in the history view."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:162
-msgid "Show Right Margin in Commit Message View"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:163
-msgid ""
-"Show a right margin indicator in the commit message view. This can be used "
-"to easily see where to break the commit message at a particular column."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:171
-msgid "Column at Which Right Margin is Shown"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:172
-msgid ""
-"The column at which the right margin is shown if the show-right-margin "
-"preference is set to TRUE."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:179
-msgid "Show Subject Margin in Commit Message View"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:180
-msgid ""
-"Highlight the subject text of the commit message when it passes the margin "
-"specified by subject-margin-position."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:187
-msgid "Column at Which Subject Margin is Shown"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:188
-msgid ""
-"The column at which the subject margin is shown if the show-subject-margin "
-"preference is set to TRUE."
-msgstr ""
-
 #: data/org.gnome.gitg.gschema.xml.in:195
 msgid "Enable Spell Checking"
 msgstr "Ŝalti literumkontrolon"
-
-#: data/org.gnome.gitg.gschema.xml.in:196
-msgid ""
-"Setting which determines whether or not spell checking is enabled when "
-"writing a commit message."
-msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:203
 msgid "Spell Checking Language"
@@ -292,32 +148,9 @@ msgid ""
 msgstr ""
 "La uzata lingvo se literumkontrolo estas enŝaltita por skribi enmeto-mesaĝon."
 
-#: data/org.gnome.gitg.gschema.xml.in:213
-msgid "Use patience algorithm to show diffs"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:214
-msgid "Setting to use patience algorithm to show diffs of a commit."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:220
-msgid "Ignore Whitespace Changes"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:221
-msgid ""
-"Setting that indicates whether to ignore whitespace changes when showing the "
-"diff of a commit."
-msgstr ""
-
 #: data/org.gnome.gitg.gschema.xml.in:228
 msgid "Show Changes Inline"
 msgstr "Montri ŝanĝojn en la vico"
-
-#: data/org.gnome.gitg.gschema.xml.in:229
-msgid ""
-"Setting that indicates whether changes within lines should be shown inline."
-msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:236
 msgid "Wrap"
@@ -326,35 +159,6 @@ msgstr "Ĉirkaŭflui"
 #: data/org.gnome.gitg.gschema.xml.in:237
 msgid "Wrap lines."
 msgstr "Ĉirkaŭflui liniojn."
-
-#: data/org.gnome.gitg.gschema.xml.in:243
-#: data/org.gnome.gitg.gschema.xml.in:261
-msgid "Number of Before/After Context Lines"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:244
-msgid ""
-"Setting that determines how many lines of context (before and after) should "
-"be shown when showing the diff of a commit."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:251
-#: data/org.gnome.gitg.gschema.xml.in:270
-msgid "Rendered Width of a Tab Character"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:252
-#: data/org.gnome.gitg.gschema.xml.in:271
-msgid ""
-"Setting that determines how much space a tab character should occupy when "
-"showing the diff of a commit."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:262
-msgid ""
-"Setting that determines how many lines of context (before and after) should "
-"be shown when showing the diff to be staged/unstaged in the commit area."
-msgstr ""
 
 #: gitg/commit/gitg-commit-dialog.vala:298
 #, c-format
@@ -395,13 +199,13 @@ msgstr ""
 "antaŭenmeto"
 
 #: gitg/commit/gitg-commit.vala:263
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule `%s' while trying "
 "to stage"
 msgstr ""
-"Malsukcesis serĉi la aktulan deponejon de submodulo `%s' dum klopodado de "
-"antaŭenmeto"
+"Malsukcesis serĉi la laboran dosierujan enmeton de submodulo `%s' dum "
+"klopodado de antaŭenmeto"
 
 #: gitg/commit/gitg-commit.vala:276
 #, c-format
