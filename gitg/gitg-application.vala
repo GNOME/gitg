@@ -27,13 +27,13 @@ public class Application : Gtk.Application
 
 	private Settings d_state_settings;
 
-	public static bool app_quit = false;
-	public static string activity;
-	public static bool no_wd = false;
-	public static bool standalone = false;
-	public static ApplicationCommandLine app_command_line;
+	private static bool app_quit = false;
+	private static string activity;
+	private static bool no_wd = false;
+	private static bool standalone = false;
+	private static ApplicationCommandLine app_command_line;
 
-	public const OptionEntry[] entries = {
+	private const OptionEntry[] entries = {
 		{"version", 'v', OptionFlags.NO_ARG, OptionArg.CALLBACK,
 		 (void *)show_version_and_quit, N_("Show the application’s version"), null},
 		{"activity", '\0', 0, OptionArg.STRING,
