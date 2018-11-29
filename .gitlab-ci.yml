@@ -15,17 +15,13 @@ flatpak:
         MANIFEST_PATH: "org.gnome.gitg.json"
         RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
         FLATPAK_MODULE: "gitg"
-        MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized -Ddocs=true"
+        MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized"
         DBUS_ID: "org.gnome.gitg"
 
     script:
         - flatpak-builder --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}
         - flatpak build app meson --prefix=/app ${MESON_ARGS} _build
         - flatpak build app ninja -C _build install
-
-        # Build the docs
-        - flatpak build app ninja -C _build libgitg-ext-docs
-        - mv docs/ public/
 
         - flatpak-builder --finish-only --repo=repo app ${MANIFEST_PATH}
         - xvfb-run -a -s "-screen 0 1024x768x24" flatpak build app ninja -C _build test
@@ -66,17 +62,4 @@ stop_review:
     environment:
         name: review/$CI_COMMIT_REF_NAME
         action: stop
-
-pages:
-    image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
-    stage: deploy
-    dependencies:
-      - flatpak
-    script:
-      - echo "Deploying docs"
-    artifacts:
-        paths:
-            - public
-    only:
-        - master
 
