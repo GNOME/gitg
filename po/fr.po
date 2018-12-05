@@ -10,28 +10,80 @@
 # Alexandre Franke <alexandre.franke@gmail.com>, 2013-2014.
 # Nicolas Silva <nical.silva@gmail.com>, 2014.
 # Alain Lojewski <allomervan@gmail.com>, 2012-2016.
-# Guillaume Bernard <translate@filorin.fr>, 2015.
+# Guillaume Bernard <associations@guillaume-bernard.fr>, 2015-2018
 # Charles Monzat <superboa@hotmail.fr>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2018-10-27 15:48+0000\n"
-"PO-Revision-Date: 2018-10-29 09:31+0100\n"
-"Last-Translator: Charles Monzat <superboa@hotmail.fr>\n"
+"POT-Creation-Date: 2018-11-05 09:43+0000\n"
+"PO-Revision-Date: 2018-11-10 11:03+0100\n"
+"Last-Translator: Guillaume Bernard <associations@guillaume-bernard.fr>\n"
 "Language-Team: français <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 2.2\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Impossible d’analyser l’XML du flux"
+
+#: data/gitg.appdata.xml.in:8
+msgid ""
+"gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"gitg est une interface graphique pour git. Il vise à être un outil simple, "
+"rapide et pratique pour visualiser l’historique des dépôts git. Outre la "
+"visualisation, gitg fournit également plusieurs utilitaires permettant de "
+"gérer votre dépôt et de valider votre travail."
+
+#: data/gitg.appdata.xml.in:14
+msgid "Goals"
+msgstr "Objectifs"
+
+#: data/gitg.appdata.xml.in:16
+msgid "Browse local git repositories"
+msgstr "Naviguer dans les dépôts locaux"
+
+#: data/gitg.appdata.xml.in:17
+msgid "Clone local and remote git repositories"
+msgstr "Cloner des dépôts git locaux et distants"
+
+#: data/gitg.appdata.xml.in:18
+msgid "Commit files"
+msgstr "Commiter les fichiers"
+
+#: data/gitg.appdata.xml.in:19
+msgid "Retrieve patch from a commit"
+msgstr "Créer un correctif à partir d’un commit"
+
+#: data/gitg.appdata.xml.in:30
+msgid "Browse repository history"
+msgstr "Naviguer dans l’historique du dépôt"
+
+#: data/gitg.appdata.xml.in:34
+msgid "Staging area to compose your commit"
+msgstr "Zone de présélection pour composer votre commit"
+
+#: data/gitg.appdata.xml.in:38
+msgid "Commit staged changes"
+msgstr "Commiter les modifications présélectionnéees"
+
+#: data/gitg.appdata.xml.in:42
+msgid "Overview of recently used repositories"
+msgstr "Vue d’ensemble des dépôts récemment utilisés"
+
+#: data/gitg.appdata.xml.in:49
+msgid "The GNOME Project"
+msgstr "Le projet GNOME"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/gitg.desktop.in:3 data/gitg.desktop.in:10 gitg/gitg.vala:39
@@ -296,7 +348,9 @@ msgstr "Utiliser l’algorithme patience pour afficher les diffs"
 
 #: data/org.gnome.gitg.gschema.xml.in:214
 msgid "Setting to use patience algorithm to show diffs of a commit."
-msgstr "Paramètre pour utiliser l’algorithme patience pour afficher le diff d’un commit."
+msgstr ""
+"Paramètre pour utiliser l’algorithme patience pour afficher le diff d’un "
+"commit."
 
 #: data/org.gnome.gitg.gschema.xml.in:220
 msgid "Ignore Whitespace Changes"
@@ -703,7 +757,7 @@ msgstr ""
 "Alain Lojewski <allomervan@gmail.com>, 2012-2016\n"
 "Alexandre Franke <alexandre.franke@gmail.com>, 2013-2018\n"
 "Nicolas Silva <nical.silva@gmail.com>, 2014\n"
-"Guillaume Bernard <translate@filorin.fr>, 2015"
+"Guillaume Bernard <associations@guillaume-bernard.fr>, 2015-2018"
 
 #: gitg/gitg-application.vala:243
 msgid "gitg homepage"
@@ -1638,7 +1692,7 @@ msgstr "Quitter l’application"
 
 #: gitg/resources/ui/gitg-window.ui:23
 msgid "Show the list of recently used repositories"
-msgstr "Afficher la liste des dépôts récemments utilisés"
+msgstr "Afficher la liste des dépôts récemment utilisés"
 
 #: gitg/resources/ui/gitg-window.ui:45
 msgid "Clone"
@@ -1744,14 +1798,14 @@ msgstr "supprimé (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:67
+#: libgitg/gitg-diff-image-side-by-side.vala:65
 #, c-format
 msgid "after (%s)"
 msgstr "après (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:73
+#: libgitg/gitg-diff-image-side-by-side.vala:71
 #, c-format
 msgid "added (%s)"
 msgstr "ajouté (%s)"
@@ -1802,8 +1856,8 @@ msgstr "Clonage…"
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
-"Échec lors de la lecture du message de commit après l’action « commit-msg » : "
-"%s"
+"Échec lors de la lecture du message de commit après l’action « commit-"
+"msg » : %s"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:18
 msgid "_Authenticate"
