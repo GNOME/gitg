@@ -1,6 +1,6 @@
 subdir('icons')
 
-desktop = 'gitg.desktop'
+desktop = 'org.gnome.gitg.desktop'
 
 i18n.merge_file(
   desktop,
@@ -25,7 +25,7 @@ configure_file(
   install_dir: join_paths(gitg_datadir, 'glib-2.0', 'schemas'),
 )
 
-appdata = 'gitg.appdata.xml'
+appdata = 'org.gnome.gitg.appdata.xml'
 
 i18n.merge_file(
   appdata,
