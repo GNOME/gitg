@@ -235,7 +235,7 @@ public class Application : Gtk.Application
 		                      "version", Config.VERSION,
 		                      "website", Config.PACKAGE_URL,
 		                      "website-label", _("gitg homepage"),
-		                      "logo-icon-name", Config.PACKAGE_NAME,
+		                      "logo-icon-name", "org.gnome.gitg",
 		                      "license-type", Gtk.License.GPL_2_0);
 	}
 

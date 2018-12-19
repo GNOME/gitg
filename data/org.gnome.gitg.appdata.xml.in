@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-  <id>gitg.desktop</id>
+  <id>org.gnome.gitg</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <project_group>GNOME</project_group>
@@ -42,11 +42,15 @@
       <caption>Overview of recently used repositories</caption>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://wiki.gnome.org/Apps/Gitg</url>
+  <provides>
+    <binary>gitg</binary>
+  </provides>
+  <launchable type="desktop-id">org.gnome.gitg.desktop</launchable>
   <update_contact>albfan@gnome.org</update_contact>
   <translation type="gettext">gitg</translation>
   <content_rating type="oars-1.1" />
   <developer_name>The GNOME Project</developer_name>
+  <url type="homepage">https://wiki.gnome.org/Apps/Gitg</url>
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/gitg/issues</url>
   <url type="donation">https://www.gnome.org/friends/</url>
   <url type="translate">https://wiki.gnome.org/TranslationProject</url>
