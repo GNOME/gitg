@@ -46,6 +46,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private RemoteManager d_remote_manager;
 	private Notifications d_notifications;
+	private PreferencesDialog d_preferences;
+
+#if GTK_SHORTCUTS_WINDOW
+	private Gtk.ShortcutsWindow d_shortcuts;
+#endif
 
 	// Widgets
 	[GtkChild]
@@ -157,8 +162,15 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{"close", on_close_activated},
 		{"reload", on_reload_activated},
 		{"author-details-repo", on_repo_author_details_activated},
+		{"preferences", on_preferences_activated},
 		{"select", on_select_activated, null, "false", null}
 	};
+
+#if GTK_SHORTCUTS_WINDOW
+	private const ActionEntry[] shortcut_window_entries = {
+		{"shortcuts", on_shortcuts_activated}
+	};
+#endif
 
 	[GtkCallback]
 	private void dash_button_clicked(Gtk.Button dash)
@@ -268,6 +280,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 
 		add_action_entries(win_entries, this);
+
+#if GTK_SHORTCUTS_WINDOW
+		add_action_entries(shortcut_window_entries, this);
+#endif
 
 		d_notifications = new Notifications(d_overlay);
 
@@ -693,6 +709,53 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		var author_details = new AuthorDetailsDialog(this, repo_config, d_repository.name);
 		author_details.show();
+	}
+
+	private void on_preferences_activated()
+	{
+		unowned List<Gtk.Window> wnds = application.get_windows();
+
+		// Create preferences dialog if needed
+		if (d_preferences == null)
+		{
+			d_preferences = Builder.load_object<PreferencesDialog>("ui/gitg-preferences.ui", "preferences");
+
+			d_preferences.destroy.connect((w) => {
+				d_preferences = null;
+			});
+		}
+
+		if (wnds != null)
+		{
+			d_preferences.set_transient_for(wnds.data);
+		}
+
+		d_preferences.present();
+	}
+
+	private void on_shortcuts_activated()
+	{
+#if GTK_SHORTCUTS_WINDOW
+
+		unowned List<Gtk.Window> wnds = application.get_windows();
+
+		// Create shortcuts window if needed
+		if (d_shortcuts == null)
+		{
+			d_shortcuts = Builder.load_object<Gtk.ShortcutsWindow>("ui/gitg-shortcuts.ui", "shortcuts-gitg");
+
+			d_shortcuts.destroy.connect((w) => {
+				d_shortcuts = null;
+			});
+		}
+
+		if (wnds != null)
+		{
+			d_shortcuts.set_transient_for(wnds.data);
+		}
+
+		d_shortcuts.present();
+#endif
 	}
 
 	private void on_current_activity_changed()

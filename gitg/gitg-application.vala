@@ -387,6 +387,7 @@ public class Application : Gtk.Application
 		const Accel[] single_accels = {
 			{"app.new", "<Primary>N",},
 			{"app.quit", "<Primary>Q"},
+			{"app.shortcuts", "<Shift><Primary>question"},
 			{"app.help", "F1"},
 
 			{"win.search", "<Primary>F"},
