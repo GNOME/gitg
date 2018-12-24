@@ -134,4 +134,5 @@ executable(
   c_args: cflags,
   vala_args: vala_flags,
   install: true,
+  install_rpath: gitg_libdir,
 )
