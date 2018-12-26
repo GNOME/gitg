@@ -446,11 +446,18 @@ public class Application : Gtk.Application
 		}
 		else
 		{
-			// Otherwise open repository from current dir
-			string? wd = app_command_line.get_cwd();
+			unowned string git_dir_env = cmd.getenv("GIT_DIR");
+			if (git_dir_env != null)
+			{
+				File[] files = new File[] {File.new_for_path(git_dir_env)};
+				open_command_line(files, activity, command_lines);
+			} else {
+				// Otherwise open repository from current dir
+				string? wd = app_command_line.get_cwd();
 
-			open(new File[] { File.new_for_path(wd) }, activity);
-			present_window(activity, command_lines);
+				open(new File[] { File.new_for_path(wd) }, activity);
+				present_window(activity, command_lines);
+			}
 		}
 	}
 
