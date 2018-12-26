@@ -189,7 +189,17 @@ public class Application : Gtk.Application
 		var tmpcmd = app_command_line;
 		app_command_line = cmd;
 
-		if (argv.length > 1)
+		unowned string git_dir_env = cmd.getenv("GIT_DIR");
+		if (git_dir_env != null)
+		{
+			var git_dir_path = File.new_for_path(git_dir_env);
+			if (git_dir_path.query_exists ())
+			{
+				File[] files = new File[] { git_dir_path };
+				open_command_line(files, activity, command_lines);
+			}
+		}
+		else if (argv.length > 1)
 		{
 			File[] files = new File[argv.length - 1];
 			files.length = 0;
