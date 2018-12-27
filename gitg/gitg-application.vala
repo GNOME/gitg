@@ -219,7 +219,8 @@ public class Application : Gtk.Application
 	{
 		string[] artists = {"Jakub Steiner <jimmac@gmail.com>"};
 		string[] authors = {"Jesse van den Kieboom <jessevdk@gnome.org>",
-		                    "Ignacio Casal Quinteiro <icq@gnome.org>"};
+		                    "Ignacio Casal Quinteiro <icq@gnome.org>",
+		                    "Alberto Fanjul <albfan@gnome.org>"};
 
 		string copyright = "Copyright \xc2\xa9 2012 Jesse van den Kieboom";
 		string comments = _("gitg is a Git repository viewer for GTK+/GNOME");
