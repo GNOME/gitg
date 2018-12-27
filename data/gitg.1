@@ -1,10 +1,9 @@
-.TH GITG 1 "22 Jun 2008"
+.TH GITG "1" "December 2018" "gitg" "User Commands"
 .SH NAME
-gitg\fP \- Git repository viewer
-
+gitg \- Git repository viewer
 .SH SYNOPSIS
 .B gitg
-.RI [options]\ [repository]\ [<refspec>]
+[\fI\,OPTION\/\fR]... [\fI\,REPOSITORY\/\fR]...
 .SH DESCRIPTION
 .B gitg
 is a graphical user interface for git. It aims at being a small,
@@ -12,40 +11,71 @@ fast and convenient tool to visualize the history of git repositories.
 Besides visualization, gitg also provides several utilities to manage your
 repository and commit your work.
 .SH OPTIONS
-.B \-c,--commit
-Open 
-.B gitg 
-in commit view
-
-.B \-?,--help
-Show the help message
-
-.B [repository]
-Load the repository at
-.B repository
-in 
-.B gitg. 
-If unspecified, 
-.B gitg 
-will try to open the repository at the current working directory
-
-.B [<refspec>]
-Populate the history view of
+Help Options:
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show help options
+.TP
+\fB\-\-help\-all\fR
+Show all help options
+.TP
+\fB\-\-help\-gtk\fR
+Show GTK+ Options
+.PP
+Application Options:
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+Show the application?s version
+.TP
+\fB\-\-activity\fR
+Start gitg with a particular activity
+.TP
+\fB\-c\fR, \fB\-\-commit\fR
+Start gitg with the commit activity (shorthand for \fB\-\-activity\fR commit)
+.TP
+\fB\-\-no\-wd\fR
+Do not try to load a repository from the current working directory
+.TP
+\fB\-\-standalone\fR
+Run gitg in standalone mode
+.TP
+\fB\-\-display\fR=\fI\,DISPLAY\/\fR
+X display to use
+.TP
+\fB\-a\fR, \fB\-\-all\fR
+Select all commits by default in the history activity
+.TP
+\fB\-b\fR, \fB\-\-branches\fR
+Select all branches by default in the history activity
+.TP
+\fB\-r\fR, \fB\-\-remotes\fR
+Select all remotes by default in the history activity
+.TP
+\fB\-t\fR, \fB\-\-tags\fR
+Select all tags by default in the history activity
+.TP
+\fB\-s\fR, \fB\-\-select\-reference\fR=\fI\,REFERENCE\/\fR
+Select the specified reference by default in the history activity
+.PP
 .B gitg
-using the specified
-.B <refspec>
-which has the same format as used with 
-.B git log
-(Example: 
+will try to load any REPOSITORY passed as command line argument (multiple paths can be passed).
+.PP
+If no repository is specified,
 .B gitg
-\-\-left\-right HEAD..FETCH_HEAD)
-
+will try to open the repository specified by the \fBGIT_DIR\fR environment variable;
+if \fBGIT_DIR\fR is not set
+.B gitg
+will try to open the repository at the current working directory.
 .SH ENVIRONMENT VARIABLES
-
-.B GIT_DIR
-If the GIT_DIR environment variable is set it specifies a path to use instead of the default .git
-
+\fBGIT_DIR\fR
+.RS 4
+If the
+\fBGIT_DIR\fR
+environment variable is set, and no repositories have been passed as command line arguments, then it specifies a path to use instead of the default
+\fB\&.git\fR
+for the base of the repository\&.
+.RE
 .SH AUTHORS
 Jesse van den Kieboom  <jesse@icecrew.nl>
+.br
 Alberto Fanjul  <albfan@gnome.org>
-
