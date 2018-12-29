@@ -394,7 +394,8 @@ public class Application : Gtk.Application
 			{"win.search", "<Primary>F"},
 			{"win.gear-menu", "F10"},
 			{"win.open-repository", "<Primary>O"},
-			{"win.close", "<Primary>W"}
+			{"win.close", "<Primary>W"},
+			{"win.preferences", "<Primary>comma"},
 		};
 
 		var multi_accels = new MultiAccel[] {
