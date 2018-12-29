@@ -133,6 +133,7 @@ executable(
   dependencies: deps,
   c_args: cflags,
   vala_args: vala_flags,
+  gui_app: true,
   install: true,
   install_rpath: gitg_libdir,
 )
