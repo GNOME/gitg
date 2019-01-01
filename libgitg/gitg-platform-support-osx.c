@@ -94,10 +94,10 @@ gitg_platform_support_http_get_finish (GAsyncResult  *result,
 cairo_surface_t *
 gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
                                              GdkCursorType  cursor_type,
-                                             gint          *hot_x,
-                                             gint          *hot_y,
-                                             gint          *width,
-                                             gint          *height)
+                                             gdouble       *hot_x,
+                                             gdouble       *hot_y,
+                                             gdouble       *width,
+                                             gdouble       *height)
 {
 	NSCursor *cursor;
 	NSImage *image;
@@ -134,12 +134,12 @@ gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
 
 		if (hot_x)
 		{
-			*hot_x = (gint)(hotspot.x);
+			*hot_x = hotspot.x;
 		}
 
 		if (hot_y)
 		{
-			*hot_y = (gint)(hotspot.y);
+			*hot_y = hotspot.y;
 		}
 
 		if (width)

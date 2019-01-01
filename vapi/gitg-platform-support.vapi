@@ -8,10 +8,10 @@ namespace Gitg
 
 		public static Cairo.Surface create_cursor_surface(Gdk.Display? display,
 		                                                  Gdk.CursorType cursor_type,
-		                                                  out int hot_x = null,
-		                                                  out int hot_y = null,
-		                                                  out int width = null,
-		                                                  out int height = null);
+		                                                  out double hot_x = null,
+		                                                  out double hot_y = null,
+		                                                  out double width = null,
+		                                                  out double height = null);
 
 		public static GLib.InputStream new_input_stream_from_fd(int fd, bool close_fd);
 
