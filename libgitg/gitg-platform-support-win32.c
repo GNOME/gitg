@@ -57,10 +57,10 @@ gitg_platform_support_http_get_finish (GAsyncResult  *result,
 cairo_surface_t *
 gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
                                              GdkCursorType  cursor_type,
-                                             gint          *hot_x,
-                                             gint          *hot_y,
-                                             gint          *width,
-                                             gint          *height)
+                                             gdouble       *hot_x,
+                                             gdouble       *hot_y,
+                                             gdouble       *width,
+                                             gdouble       *height)
 {
 	return NULL;
 }
