@@ -127,7 +127,11 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 
 		var opts = new Ggit.DiffFormatEmailOptions();
 
-		opts.summary = commit.get_message();
+		var message = commit.get_message();
+		opts.summary = message;
+		var pos = message.index_of_char('\n');
+		if (pos != -1 && pos + 1 != message.length)
+			opts.body = message.substring(pos + 2, message.length - (pos + 2));
 		opts.patch_number = 1;
 		opts.total_patches = 1;
 		opts.id = commit.get_id();
