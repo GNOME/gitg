@@ -334,7 +334,7 @@ public class Lanes : Object
 			var commit = item.data;
 			unowned SList<Lane> lns = commit.get_lanes();
 
-			if (lns != null)
+			if (lns != null && index <= lns.length())
 			{
 				unowned Lane lane = lns.nth_data(index);
 
