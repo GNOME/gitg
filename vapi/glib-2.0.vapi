@@ -4315,6 +4315,7 @@ namespace GLib {
 		public bool has_group (string uri, string group) throws BookmarkFileError;
 		public bool has_application (string uri, string name) throws BookmarkFileError;
 		public int get_size ();
+		[CCode (array_length_type = "gsize")]
 		public string[] get_uris ();
 		public string get_title (string uri) throws BookmarkFileError;
 		public string get_description (string uri) throws BookmarkFileError;
@@ -4324,7 +4325,9 @@ namespace GLib {
 		public time_t get_added (string uri) throws BookmarkFileError;
 		public time_t get_modified (string uri) throws BookmarkFileError;
 		public time_t get_visited (string uri) throws BookmarkFileError;
+		[CCode (array_length_type = "gsize")]
 		public string[] get_groups (string uri) throws BookmarkFileError;
+		[CCode (array_length_type = "gsize")]
 		public string[] get_applications (string uri) throws BookmarkFileError;
 		public bool get_app_info (string uri, string name, out string exec, out uint count, out time_t stamp) throws BookmarkFileError;
 		public void set_title (string uri, string title);
@@ -4333,7 +4336,7 @@ namespace GLib {
 		public void set_is_private (string uri, bool is_private);
 		public void set_icon (string uri, string href, string mime_type);
 		public void set_added (string uri, time_t added);
-		public void set_groups (string uri, string[] groups);
+		public void set_groups (string uri, [CCode (array_length_type = "gsize")] string[] groups);
 		public void set_modified (string uri, time_t modified);
 		public void set_visited (string uri, time_t visited);
 		public bool set_app_info (string uri, string name, string exec, int count, time_t stamp) throws BookmarkFileError;
