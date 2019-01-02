@@ -92,7 +92,7 @@ namespace GitgFiles
 
 		private void update_style()
 		{
-			var scheme = d_stylesettings.get_string("scheme");
+			var scheme = d_stylesettings.get_string("style-scheme");
 			var manager = Gtk.SourceStyleSchemeManager.get_default();
 			var s = manager.get_scheme(scheme);
 
@@ -155,15 +155,18 @@ namespace GitgFiles
 				update_font();
 			}
 
-			d_stylesettings = try_settings("org.gnome.gedit.preferences.editor");
-
+			d_stylesettings = try_settings("org.gnome.gitg.preferences.interface");
 			if (d_stylesettings != null)
 			{
-				d_stylesettings.changed["scheme"].connect((s, k) => {
+				d_stylesettings.changed["style-scheme"].connect((s, k) => {
 					update_style();
 				});
 
 				update_style();
+			} else {
+				var buf = d_source.get_buffer() as Gtk.SourceBuffer;
+				var style_scheme_manager = Gtk.SourceStyleSchemeManager.get_default();
+				buf.style_scheme = style_scheme_manager.get_scheme("classic");
 			}
 
 			d_whenMapped = new Gitg.WhenMapped(d_paned);

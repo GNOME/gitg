@@ -43,6 +43,12 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "diff_highlighting_enabled")]
 	private Gtk.CheckButton d_diff_highlighting_enabled;
 
+	[GtkChild (name = "default_style_scheme")]
+	private Gtk.ComboBox d_default_style_scheme;
+
+	[GtkChild (name = "syntax_scheme_store")]
+	private Gtk.ListStore d_syntax_scheme_store;
+
 	construct
 	{
 		d_settings = new Settings("org.gnome.gitg.preferences.interface");
@@ -61,12 +67,21 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 			}
 		});
 
+		var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
+		Gtk.TreeIter iter;
+
+		foreach (var id in style_manager.get_scheme_ids()) {
+			var scheme = style_manager.get_scheme(id);
+			d_syntax_scheme_store.append (out iter);
+			d_syntax_scheme_store.set (iter, 0, scheme.name, 1, scheme.id);
+		}
+
 		d_settings.changed["orientation"].connect(orientation_changed);
 
 		d_settings.bind("default-activity",
 		                d_default_activity,
 		                "active-id",
-		              	SettingsBindFlags.GET | SettingsBindFlags.SET);
+		                SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 		d_settings.bind("use-gravatar",
 		                d_gravatar_enabled,
@@ -81,6 +96,11 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 		d_settings.bind("enable-diff-highlighting",
 		                d_diff_highlighting_enabled,
 		                "active",
+		                SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_settings.bind("style-scheme",
+		                d_default_style_scheme,
+		                "active-id",
 		                SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 

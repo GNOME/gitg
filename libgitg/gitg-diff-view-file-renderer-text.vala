@@ -58,6 +58,8 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private Region[] d_regions;
 	private bool d_constructed;
 
+	private Settings? d_stylesettings;
+
 	public bool new_is_workdir { get; construct set; }
 
 	public bool wrap_lines
@@ -387,13 +389,24 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			return null;
 		}
 
-		var buffer = new Gtk.SourceBuffer(this.buffer.tag_table);
+		var buffer = this.buffer as Gtk.SourceBuffer;
 
 		var style_scheme_manager = Gtk.SourceStyleSchemeManager.get_default();
 
 		buffer.language = language;
 		buffer.highlight_syntax = true;
-		buffer.style_scheme = style_scheme_manager.get_scheme("classic");
+
+		d_stylesettings = try_settings("org.gnome.gitg.preferences.interface");
+		if (d_stylesettings != null)
+		{
+			d_stylesettings.changed["style-scheme"].connect((s, k) => {
+				update_style();
+			});
+
+			update_style();
+		} else {
+			buffer.style_scheme = style_scheme_manager.get_scheme("classic");
+		}
 
 		var sfile = new Gtk.SourceFile();
 		sfile.location = location;
@@ -416,6 +429,35 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 
 		return buffer;
+	}
+
+	private void update_style()
+	{
+		var scheme = d_stylesettings.get_string("style-scheme");
+		var manager = Gtk.SourceStyleSchemeManager.get_default();
+		var s = manager.get_scheme(scheme);
+
+		if (s != null)
+		{
+			(buffer as Gtk.SourceBuffer).style_scheme = s;
+		}
+	}
+
+	private Settings? try_settings(string schema_id)
+	{
+		var source = SettingsSchemaSource.get_default();
+
+		if (source == null)
+		{
+			return null;
+		}
+
+		if (source.lookup(schema_id, true) != null)
+		{
+			return new Settings(schema_id);
+		}
+
+		return null;
 	}
 
 	private void strip_carriage_returns(Gtk.SourceBuffer buffer)
