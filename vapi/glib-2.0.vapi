@@ -28,6 +28,8 @@
  *	Mathias Hasselmann <mathias.hasselmann@gmx.de>
  */
 
+//FIXME: This file is added to include fixes in glib-2.0.vapi that should be released on vala 0.43.3. Remove then.
+
 [SimpleType]
 [GIR (name = "gboolean")]
 [CCode (cname = "gboolean", cheader_filename = "glib.h", type_id = "G_TYPE_BOOLEAN", marshaller_type_name = "BOOLEAN", get_value_function = "g_value_get_boolean", set_value_function = "g_value_set_boolean", default_value = "FALSE", type_signature = "b")]
