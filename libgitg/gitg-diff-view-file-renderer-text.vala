@@ -389,7 +389,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			return null;
 		}
 
-		var buffer = this.buffer as Gtk.SourceBuffer;
+		var buffer = new Gtk.SourceBuffer(this.buffer.tag_table);
 
 		var style_scheme_manager = Gtk.SourceStyleSchemeManager.get_default();
 
