@@ -344,6 +344,15 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 			clone_options.set_fetch_options(fetch_options);
 
 			repository = (Repository)Ggit.Repository.clone(url, location, clone_options);
+
+			repository.submodule_foreach((submodule, name) => {
+				try {
+					submodule.update(true, null);
+				} catch (Error e) {
+					stderr.printf(@"ERROR: failed to update submodule $(name): $(e.message)\n");
+				}
+				return 0;
+			});
 		});
 
 		return repository;
