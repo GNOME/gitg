@@ -37,7 +37,7 @@ class SubmoduleDiffView : Gtk.Box
 
   construct
   {
-    var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
+    var interface_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 
     interface_settings.bind("orientation",
                             d_box_diffs,

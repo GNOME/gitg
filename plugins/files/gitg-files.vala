@@ -155,7 +155,7 @@ namespace GitgFiles
 				update_font();
 			}
 
-			d_stylesettings = try_settings("org.gnome.gitg.preferences.interface");
+			d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 			if (d_stylesettings != null)
 			{
 				d_stylesettings.changed["style-scheme"].connect((s, k) => {

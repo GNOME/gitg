@@ -93,7 +93,7 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 
 	private Ggit.Diff create_diff_from_commit() throws Error
 	{
-		var settings = new Settings("org.gnome.gitg.preferences.diff");
+		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.diff");
 
 		var opts = new Ggit.DiffOptions();
 

@@ -302,7 +302,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			}
 		});
 
-		d_interface_settings = new Settings("org.gnome.gitg.preferences.interface");
+		d_interface_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 
 		d_dash_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu-dash");
 
@@ -919,6 +919,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		d_state_settings.get("size", "(ii)", out width, out height);
 		resize(width, height);
+		if(Gitg.Config.PROFILE == 'development')
+		{
+			this.get_style_context().add_class('devel');
+		}
 
 		return true;
 	}

@@ -12,11 +12,11 @@ flatpak:
 
     variables:
         # Replace with your manifest path
-        MANIFEST_PATH: "org.gnome.gitg.json"
+        MANIFEST_PATH: "org.gnome.gitgDevel.json"
         RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
         FLATPAK_MODULE: "gitg"
         MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized"
-        DBUS_ID: "org.gnome.gitg"
+        DBUS_ID: "org.gnome.gitgDevel"
 
     script:
         - flatpak-builder --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}

@@ -39,7 +39,7 @@ public class CredentialsManager
 
 	static construct
 	{
-		s_secret_schema = new Secret.Schema("org.gnome.Gitg.Credentials",
+		s_secret_schema = new Secret.Schema(Gitg.Config.APPLICATION_ID + ".Credentials",
 		                                    Secret.SchemaFlags.NONE,
 		                                    "scheme", Secret.SchemaAttributeType.STRING,
 		                                    "host", Secret.SchemaAttributeType.STRING,

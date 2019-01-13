@@ -2,3 +2,4 @@ option('glade_catalog', type: 'boolean', value: true, description: 'Install a gl
 option('python', type: 'boolean', value: true, description: 'Build with python support')
 option('deprecations', type: 'boolean', value: false, description: 'warn about deprecated usages')
 option('docs', type: 'boolean', value: false, description: 'enable generating documentation')
+option('profile', type: 'combo', choices: ['default', 'development'], value: 'default')
