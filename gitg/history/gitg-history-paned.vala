@@ -131,7 +131,7 @@ class Paned : Gitg.AnimatedPaned
 
 	construct
 	{
-		var state_settings = new Settings("Gitg.Config.APPLICATION_ID + .state.history");
+		var state_settings = new Settings(Gitg.Config.APPLICATION_ID + ".state.history");
 
 		position = state_settings.get_int("paned-sidebar-position");
 		d_paned_panels.position = state_settings.get_int("paned-panels-position");

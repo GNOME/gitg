@@ -4,6 +4,7 @@ desktop = 'org.gnome.gitg.desktop'
 
 desktop_config = configuration_data()
 desktop_config.set('icon', application_id)
+desktop_config.set('binary', gitg_name)
 i18n.merge_file(
   desktop,
   type: 'desktop',
