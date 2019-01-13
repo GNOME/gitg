@@ -44,7 +44,7 @@ namespace GitgDiff
 
 			d_diff.show();
 
-			var settings = new Settings("org.gnome.gitg.preferences.diff");
+			var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.diff");
 
 			settings.bind("ignore-whitespace",
 			              d_diff,
@@ -71,7 +71,7 @@ namespace GitgDiff
 			              "wrap-lines",
 			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-			settings = new Settings("org.gnome.gitg.preferences.interface");
+			settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 
 			settings.bind("use-gravatar",
 			              d_diff,

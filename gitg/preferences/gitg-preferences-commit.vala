@@ -53,7 +53,7 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 
 	construct
 	{
-		var settings = new Settings("org.gnome.gitg.preferences.commit.message");
+		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
 
 		settings.bind("show-markup",
 		              d_check_button_show_markup,

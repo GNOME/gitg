@@ -1,10 +1,10 @@
 {
-    "app-id" : "org.gnome.gitg",
+    "app-id" : "org.gnome.gitgDevel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "master",
     "branch" : "master",
     "sdk" : "org.gnome.Sdk",
-    "command" : "gitg",
+    "command" : "gitgDevel",
     "tags" : [
         "nightly"
     ],
@@ -149,13 +149,13 @@
             "builddir" : true,
             "config-opts" : [
                 "--buildtype=debugoptimized",
-                "-Ddeprecations=true"
+                "-Ddeprecations=true",
+                "-Dprofile=development"
             ],
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/gitg.git",
-                    "branch" : "master"
+                    "url" : "https://gitlab.gnome.org/GNOME/gitg.git"
                 }
             ]
         }

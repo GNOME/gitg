@@ -1,27 +1,27 @@
 <schemalist>
-  <enum id="org.gnome.gitg.Layout">
+  <enum id="@APPLICATION_ID@.Layout">
     <value nick="horizontal" value="0"/>
     <value nick="vertical" value="1"/>
   </enum>
 
-  <enum id="org.gnome.gitg.history.DefaultSelection">
+  <enum id="@APPLICATION_ID@.history.DefaultSelection">
     <value nick="current-branch" value="0"/>
     <value nick="all-branches" value="1"/>
     <value nick="all-commits" value="2"/>
   </enum>
 
-  <enum id="org.gnome.gitg.history.RefSortOrder">
+  <enum id="@APPLICATION_ID@.history.RefSortOrder">
     <value nick="last-activity" value="0"/>
     <value nick="name" value="1"/>
   </enum>
 
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences" path="/org/gnome/gitg/preferences/">
-    <child name="main" schema="org.gnome.gitg.preferences.main" />
-    <child name="history" schema="org.gnome.gitg.preferences.history" />
-    <child name="commit" schema="org.gnome.gitg.preferences.commit" />
-    <child name="diff" schema="org.gnome.gitg.preferences.diff" />
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences" path="@SCHEMA_PATH@/preferences/">
+    <child name="main" schema="@APPLICATION_ID@.preferences.main" />
+    <child name="history" schema="@APPLICATION_ID@.preferences.history" />
+    <child name="commit" schema="@APPLICATION_ID@.preferences.commit" />
+    <child name="diff" schema="@APPLICATION_ID@.preferences.diff" />
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.main" path="/org/gnome/gitg/preferences/main/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.main" path="@SCHEMA_PATH@/preferences/main/">
     <key name="clone-directory" type="s">
       <default>""</default>
       <summary>Default Clone Directory</summary>
@@ -31,8 +31,8 @@
       </description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.interface" path="/org/gnome/gitg/preferences/interface/">
-    <key name="orientation" enum="org.gnome.gitg.Layout">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.interface" path="@SCHEMA_PATH@/preferences/interface/">
+    <key name="orientation" enum="@APPLICATION_ID@.Layout">
       <default>'vertical'</default>
       <summary>Orientation of the main interface (vertical or horizontal)</summary>
       <description>
@@ -74,7 +74,7 @@
       <description>Used by GtkSourceView to determine colors for syntax highlighting</description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.history" path="/org/gnome/gitg/preferences/history/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.history" path="@SCHEMA_PATH@/preferences/history/">
     <key name="collapse-inactive-lanes" type="i">
       <default>2</default>
       <summary>When to Collapse Inactive Lanes</summary>
@@ -131,14 +131,14 @@
          history for the current HEAD.
       </description>
     </key>
-    <key name="default-selection" enum="org.gnome.gitg.history.DefaultSelection">
+    <key name="default-selection" enum="@APPLICATION_ID@.history.DefaultSelection">
       <default>'current-branch'</default>
       <summary>Default selection of the history activity</summary>
       <description>
         Setting that determines the default selection on startup of the history activity.
       </description>
     </key>
-    <key name="reference-sort-order" enum="org.gnome.gitg.history.RefSortOrder">
+    <key name="reference-sort-order" enum="@APPLICATION_ID@.history.RefSortOrder">
       <default>'last-activity'</default>
       <summary>Reference Sort Order</summary>
       <description>
@@ -154,11 +154,11 @@
       </description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit" path="/org/gnome/gitg/preferences/commit/">
-    <child name="message" schema="org.gnome.gitg.preferences.commit.message" />
-    <child name="diff" schema="org.gnome.gitg.preferences.commit.diff" />
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.commit" path="@SCHEMA_PATH@/preferences/commit/">
+    <child name="message" schema="@APPLICATION_ID@.preferences.commit.message" />
+    <child name="diff" schema="@APPLICATION_ID@.preferences.commit.diff" />
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.message" path="/org/gnome/gitg/preferences/commit/message/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.commit.message" path="@SCHEMA_PATH@/preferences/commit/message/">
     <key name="show-markup" type="b">
       <default>true</default>
     </key>
@@ -212,7 +212,7 @@
       </description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.diff" path="/org/gnome/gitg/preferences/diff/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.diff" path="@SCHEMA_PATH@/preferences/diff/">
     <key name="patience" type="b">
       <default>false</default>
       <summary>Use patience algorithm to show diffs</summary>
@@ -260,7 +260,7 @@
       </description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.preferences.commit.diff" path="/org/gnome/gitg/preferences/commit/diff/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.commit.diff" path="@SCHEMA_PATH@/preferences/commit/diff/">
     <key name="context-lines" type="i">
       <default>3</default>
       <summary>Number of Before/After Context Lines</summary>
@@ -279,12 +279,12 @@
       </description>
     </key>
   </schema>
-  <schema id="org.gnome.gitg.state" path="/org/gnome/gitg/state/">
-    <child name="window" schema="org.gnome.gitg.state.window"/>
-    <child name="history" schema="org.gnome.gitg.state.history"/>
-    <child name="commit" schema="org.gnome.gitg.state.commit"/>
+  <schema id="@APPLICATION_ID@.state" path="@SCHEMA_PATH@/state/">
+    <child name="window" schema="@APPLICATION_ID@.state.window"/>
+    <child name="history" schema="@APPLICATION_ID@.state.history"/>
+    <child name="commit" schema="@APPLICATION_ID@.state.commit"/>
   </schema>
-  <schema id="org.gnome.gitg.state.window" path="/org/gnome/gitg/state/window/">
+  <schema id="@APPLICATION_ID@.state.window" path="@SCHEMA_PATH@/state/window/">
     <key name="state" type="i">
       <default>0</default>
     </key>
@@ -304,7 +304,7 @@
       <default>200</default>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.state.history" path="/org/gnome/gitg/state/history/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.state.history" path="@SCHEMA_PATH@/state/history/">
     <key name="paned-sidebar-position" type="i">
       <default>200</default>
     </key>
@@ -312,7 +312,7 @@
       <default>450</default>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gitg.state.commit" path="/org/gnome/gitg/state/commit/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.state.commit" path="@SCHEMA_PATH@/state/commit/">
     <key name="paned-sidebar-position" type="i">
       <default>200</default>
     </key>

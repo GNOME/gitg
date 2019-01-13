@@ -51,7 +51,7 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 
 	construct
 	{
-		d_settings = new Settings("org.gnome.gitg.preferences.interface");
+		d_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 
 		d_horizontal_layout_enabled.active = d_settings.get_enum("orientation") == 0;
 

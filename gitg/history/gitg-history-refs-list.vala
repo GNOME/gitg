@@ -584,7 +584,7 @@ public class RefsList : Gtk.ListBox
 		set_sort_func(sort_rows);
 		set_filter_func(filter_func);
 
-		var settings = new Settings("org.gnome.gitg.preferences.history");
+		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.history");
 
 		settings.bind("reference-sort-order",
 		              this,
@@ -1219,7 +1219,7 @@ public class RefsList : Gtk.ListBox
 
 		if (sel == null)
 		{
-			var settings = new Settings("org.gnome.gitg.preferences.history");
+			var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.history");
 			var default_selection = (DefaultSelection)settings.get_enum("default-selection");
 			Gtk.ListBoxRow? srow = null;
 

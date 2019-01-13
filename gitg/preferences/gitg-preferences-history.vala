@@ -68,7 +68,7 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 
 	construct
 	{
-		var settings = new Settings("org.gnome.gitg.preferences.history");
+		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.history");
 
 		settings.bind("collapse-inactive-lanes-enabled",
 		              d_collapse_inactive_lanes_enabled,

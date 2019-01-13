@@ -131,7 +131,7 @@ class Paned : Gitg.AnimatedPaned
 
 	construct
 	{
-		var state_settings = new Settings("org.gnome.gitg.state.history");
+		var state_settings = new Settings(Gitg.Config.APPLICATION_ID + ".state.history");
 
 		position = state_settings.get_int("paned-sidebar-position");
 		d_paned_panels.position = state_settings.get_int("paned-panels-position");
@@ -144,7 +144,7 @@ class Paned : Gitg.AnimatedPaned
 			store_paned_position(d_paned_panels, state_settings, "paned-panels-position");
 		});
 
-		var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
+		var interface_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 
 		interface_settings.bind("orientation",
 		                        this,

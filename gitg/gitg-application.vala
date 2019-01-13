@@ -60,7 +60,7 @@ public class Application : Gtk.Application
 
 	public Application()
 	{
-		Object(application_id: "org.gnome.gitg",
+		Object(application_id:  Gitg.Config.APPLICATION_ID,
 		       flags: ApplicationFlags.HANDLES_OPEN |
 		              ApplicationFlags.HANDLES_COMMAND_LINE |
 		              ApplicationFlags.SEND_ENVIRONMENT);
@@ -236,7 +236,7 @@ public class Application : Gtk.Application
 		                      "version", Config.VERSION,
 		                      "website", Config.PACKAGE_URL,
 		                      "website-label", _("gitg homepage"),
-		                      "logo-icon-name", "org.gnome.gitg",
+		                      "logo-icon-name", Gitg.Config.APPLICATION_ID,
 		                      "license-type", Gtk.License.GPL_2_0);
 	}
 
@@ -375,7 +375,7 @@ public class Application : Gtk.Application
 		}
 
 		// Handle the state setting in the application
-		d_state_settings = new Settings("org.gnome.gitg.state.window");
+		d_state_settings = new Settings(Gitg.Config.APPLICATION_ID + ".state.window");
 		d_state_settings.delay();
 
 		// Application menu entries

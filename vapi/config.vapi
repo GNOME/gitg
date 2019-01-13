@@ -1,6 +1,8 @@
 [CCode(cprefix = "", lower_case_cprefix = "", cheader_filename = "config.h")]
 namespace Gitg.Config
-{
+{	
+	public const string APPLICATION_ID;
+	public const string PROFILE;
 	public const string GETTEXT_PACKAGE;
 	public const string PACKAGE_NAME;
 	public const string PACKAGE_VERSION;
