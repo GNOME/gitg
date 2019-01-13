@@ -89,7 +89,7 @@ class Paned : Gtk.Paned
 
 	construct
 	{
-		var state_settings = new Settings("org.gnome.gitg.state.commit");
+		var state_settings = new Settings(Gitg.Config.APPLICATION_ID + ".state.commit");
 
 		state_settings.bind("paned-sidebar-position",
 		                    this,

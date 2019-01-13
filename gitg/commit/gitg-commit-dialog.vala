@@ -434,7 +434,7 @@ class Dialog : Gtk.Dialog
 		                                      BindingFlags.BIDIRECTIONAL |
 		                                      BindingFlags.SYNC_CREATE);
 
-		d_commit_settings = new Settings("org.gnome.gitg.state.commit");
+		d_commit_settings = new Settings(Gitg.Config.APPLICATION_ID + ".state.commit");
 
 		d_commit_settings.bind("sign-off",
 		                     this,
@@ -442,7 +442,7 @@ class Dialog : Gtk.Dialog
 		                     SettingsBindFlags.GET |
 		                     SettingsBindFlags.SET);
 
-		d_message_settings = new Settings("org.gnome.gitg.preferences.commit.message");
+		d_message_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
 
 		d_message_settings.bind("show-markup",
 		                        this,
@@ -479,7 +479,7 @@ class Dialog : Gtk.Dialog
 		                        "spell-checking-language",
 		                        SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-		var interface_settings = new Settings("org.gnome.gitg.preferences.interface");
+		var interface_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		interface_settings.bind("use-gravatar",
 		                        this,
 		                        "use-gravatar",

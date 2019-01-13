@@ -1934,7 +1934,7 @@ namespace GitgCommit
 				d_stage_unstage_submodule_commit_callback(model.commit_from_path(path));
 			});
 
-			var settings = new Settings("org.gnome.gitg.preferences.commit.diff");
+			var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.diff");
 
 			settings.bind("context-lines",
 			              d_main.diff_view,
@@ -1946,7 +1946,7 @@ namespace GitgCommit
 			              "tab-width",
 			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-			settings = new Settings("org.gnome.gitg.preferences.interface");
+			settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 
 			settings.bind("use-gravatar",
 			              d_main.diff_view,

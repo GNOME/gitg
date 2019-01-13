@@ -5,8 +5,13 @@ project(
   default_options: 'buildtype=debugoptimized',
   meson_version: '>= 0.48.0',
 )
-
+application_id = 'org.gnome.gitg'
 gitg_name = meson.project_name()
+
+if get_option('profile') == 'development'
+  application_id = 'org.gnome.gitgDevel'
+  gitg_name = meson.project_name() + 'Devel'
+endif
 
 gitg_version = meson.project_version()
 version_array = gitg_version.split('.')
@@ -64,6 +69,8 @@ set_defines = [
   ['PACKAGE_NAME', gitg_name],
   ['PACKAGE_URL', 'https://wiki.gnome.org/Apps/Gitg'],
   ['VERSION', gitg_version],
+  ['APPLICATION_ID', application_id],
+  ['PROFILE', get_option('profile')],
   # i18n
   ['GETTEXT_PACKAGE', gitg_gettext],
   # gitg
@@ -207,4 +214,5 @@ output += '        Compiler:               ' + cc.get_id() + '\n'
 output += '        Glade catalog:          ' + enable_glade_catalog.to_string() + '\n'
 output += '        Debug enabled:          ' + gitg_debug.to_string() + '\n'
 output += '        Python support:         ' + enable_python.to_string() + '\n'
+output += '        Profile:                ' + get_option('profile') + '\n'
 message(output)

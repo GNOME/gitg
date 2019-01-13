@@ -62,7 +62,7 @@ public class CloneDialog : Gtk.Dialog
 
 	construct
 	{
-		var main_settings = new Settings("org.gnome.gitg.preferences.main");
+		var main_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.main");
 
 		set_default_response(Gtk.ResponseType.OK);
 

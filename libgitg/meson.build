@@ -91,6 +91,7 @@ sources += gnome.compile_resources(
 )
 
 deps = common_deps + [
+  config_dep,
   gitg_platform_support_dep,
   gsettings_desktop_schemas_dep,
   gtksourceview_dep,

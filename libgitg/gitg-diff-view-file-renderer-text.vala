@@ -396,7 +396,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		buffer.language = language;
 		buffer.highlight_syntax = true;
 
-		d_stylesettings = try_settings("org.gnome.gitg.preferences.interface");
+		d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		if (d_stylesettings != null)
 		{
 			d_stylesettings.changed["style-scheme"].connect((s, k) => {
