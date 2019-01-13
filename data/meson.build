@@ -25,6 +25,7 @@ schema_path = '/org/gnome/gitg'
 if get_option('profile')  == 'development'
   schema_path = '/org/gnome/gitgDevel'
 endif
+schema_conf.set('SCHEMA_PATH', schema_path)
 schema = 'org.gnome.gitg.gschema.xml'
 
 configure_file(
