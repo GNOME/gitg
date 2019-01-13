@@ -919,9 +919,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		d_state_settings.get("size", "(ii)", out width, out height);
 		resize(width, height);
-		if(Gitg.Config.PROFILE == 'development')
+		if(Gitg.Config.PROFILE == "development")
 		{
-			this.get_style_context().add_class('devel');
+			this.get_style_context().add_class("devel");
 		}
 
 		return true;
