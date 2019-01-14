@@ -1238,6 +1238,17 @@ namespace GitgHistory
 		}
 
 		public string search_text { owned get; set; default = ""; }
+		private string d_search_path;
+		public string search_path
+		{
+			owned get { return d_search_path; }
+			set
+			{
+				d_search_path = value;
+				d_commit_list_model.search_path = d_search_path;
+				d_commit_list_model.reload();
+			}
+		}
 		public bool search_visible { get; set; }
 	}
 }

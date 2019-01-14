@@ -123,6 +123,8 @@ namespace Gitg
 			_permanent_lanes = value;
 		}
 
+		public string search_path { get; set; default=""; }
+
 		public signal void started();
 		public signal void update(uint added);
 		public signal void finished();
@@ -418,7 +420,63 @@ namespace Gitg
 					int mylane;
 					SList<Lane> lanes;
 
-					bool finded = d_lanes.next(commit, out lanes, out mylane, true);
+					var interesting = true;
+					if (search_path != null && search_path != "")
+					{
+						interesting = false;
+						var tree = commit.get_tree();
+						Commit c = commit;
+						var opts = new Ggit.DiffOptions();
+						opts.flags |= Ggit.DiffOption.IGNORE_WHITESPACE;
+						opts.flags |= Ggit.DiffOption.PATIENCE;
+						opts.n_context_lines = 3;
+						opts.n_interhunk_lines = 3;
+						opts.flags |= Ggit.DiffOption.SHOW_BINARY;
+						var diff = c.get_diff(opts, 0);
+
+						var search_path_copy = search_path;
+						try {
+							diff.foreach(
+								(delta, progress) => {
+									var old_file_path = delta.get_old_file().get_path();
+									var new_file_path = delta.get_new_file().get_path();
+									if (new_file_path.contains(search_path_copy) || old_file_path.contains(search_path_copy)) {
+										return -7;
+									}
+									return 0;
+								},
+
+								(delta, binary) => {
+									return interesting ? -7: 0;
+								},
+
+								(delta, hunk) => {
+									return interesting ? -7: 0;
+								},
+
+								(delta, hunk, line) => {
+									return interesting ? -7: 0;
+								}
+							);
+
+							/*
+							tree.walk(Ggit.TreeWalkMode.PRE, (root, entry) => {
+								var file = root.concat(entry.get_name());
+								var found = file.contains(search_path);
+								return found ? -7 : 0;
+							});
+							*/
+						} catch (Error e) {
+							interesting = e.code == -7;
+						}
+						/*
+						if (!interesting) {
+							continue;
+						}
+						*/
+					}
+
+					bool finded = d_lanes.next(commit, interesting, out lanes, out mylane, true);
 					if (finded)
 					{
 						debug ("finded parent for %s %s\n", commit.get_subject(), commit.get_id().to_string());
@@ -450,7 +508,7 @@ namespace Gitg
 						{
 							var miss_commit = iter.get();
 							debug ("trying again %s %s", miss_commit.get_subject(), miss_commit.get_id().to_string());
-							bool tmp_finded = d_lanes.next(miss_commit, out lanes, out mylane);
+							bool tmp_finded = d_lanes.next(miss_commit, interesting, out lanes, out mylane);
 							if (tmp_finded)
 							{
 								finded = true;
@@ -575,7 +633,7 @@ namespace Gitg
 		public Gtk.TreeModelFlags get_flags()
 		{
 			return Gtk.TreeModelFlags.LIST_ONLY |
-			       Gtk.TreeModelFlags.ITERS_PERSIST;
+				   Gtk.TreeModelFlags.ITERS_PERSIST;
 		}
 
 		public bool get_iter(out Gtk.TreeIter iter, Gtk.TreePath path)

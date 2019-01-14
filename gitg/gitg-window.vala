@@ -89,8 +89,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	[GtkChild]
 	private unowned Gtk.SearchBar d_search_bar;
 	[GtkChild]
-	private unowned Gtk.SearchEntry d_search_entry;
-
+	private Gtk.SearchEntry d_search_entry_text;
+	[GtkChild]
+	private unowned Gtk.SearchEntry d_search_entry_path;
 	[GtkChild]
 	private unowned Gtk.Stack d_main_stack;
 
@@ -242,11 +243,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		if (button.get_active())
 		{
-			d_search_entry.grab_focus_without_selecting();
+			d_search_entry_text.grab_focus_without_selecting();
 
-			d_search_entry.text = searchable.search_text;
+			d_search_entry_text.text = searchable.search_text;
 			searchable.search_visible = true;
-			searchable.search_entry = d_search_entry;
+			searchable.search_entry = d_search_entry_text;
 		}
 		else
 		{
@@ -256,7 +257,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	}
 
 	[GtkCallback]
-	private void search_entry_changed(Gtk.Editable entry)
+	private void search_entry_text_changed(Gtk.Editable entry)
 	{
 		var searchable = current_activity as GitgExt.Searchable;
 		var ntext = ((Gtk.Entry) entry).text;
@@ -264,6 +265,18 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (ntext != searchable.search_text)
 		{
 			searchable.search_text = ntext;
+		}
+	}
+
+	[GtkCallback]
+	private void search_entry_path_changed(Gtk.Editable entry)
+	{
+		var searchable = current_activity as GitgExt.Searchable;
+		var ntext = (entry as Gtk.Entry).text;
+
+		if (ntext != searchable.search_path)
+		{
+			searchable.search_path = ntext;
 		}
 	}
 
@@ -323,7 +336,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		d_activities_model = Builder.load_object<MenuModel>("ui/gitg-menus.ui", "win-menu-views");
 
 		// search bar
-		d_search_bar.connect_entry(d_search_entry);
+		d_search_bar.connect_entry(d_search_entry_text);
 		d_search_button.bind_property("active",
 		                              d_search_bar,
 		                              "search-mode-enabled",
@@ -813,7 +826,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (searchable != null)
 		{
 			d_search_button.visible = true;
-			d_search_entry.text = searchable.search_text;
+			d_search_entry_text.text = searchable.search_text;
 			d_search_button.active = searchable.search_visible;
 
 			d_searchable_available_binding = searchable.bind_property("search-available",
@@ -827,7 +840,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_search_button.visible = false;
 			d_search_button.active = false;
 			d_search_button.sensitive = false;
-			d_search_entry.text = "";
+			d_search_entry_text.text = "";
 		}
 
 		var selectable = (current as GitgExt.Selectable);

@@ -57,6 +57,7 @@ public class Gitg.DiffView : Gtk.Grid
 	private uint d_reveal_options_timeout;
 	private uint d_unreveal_options_timeout;
 
+	public string search_path { owned get; set; }
 	private static Gee.HashSet<string> s_image_mime_types;
 
 	public Ggit.DiffOptions options
@@ -773,6 +774,11 @@ public class Gitg.DiffView : Gtk.Grid
 						return 1;
 					}
 
+					var new_file_path = delta.get_new_file().get_path();
+					var old_file_path = delta.get_old_file().get_path();
+					if (search_path != null && search_path != "" && (!new_file_path.contains(search_path) || !old_file_path.contains(search_path))){
+						return 0;
+					}
 					add_file();
 
 					DiffViewFileInfo? info = null;

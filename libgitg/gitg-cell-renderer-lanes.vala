@@ -104,6 +104,10 @@ namespace Gitg
 
 			foreach (var lane in commit.get_lanes())
 			{
+				if (!lane.interesting)
+				{
+					continue;
+				}
 				var color = lane.color;
 				context.set_source_rgb(color.r, color.g, color.b);
 
@@ -137,6 +141,11 @@ namespace Gitg
 
 			foreach (var lane in commit.get_lanes())
 			{
+				if (!lane.interesting)
+				{
+					continue;
+				}
+
 				if ((lane.tag & LaneTag.HIDDEN) != 0)
 				{
 					++to;
@@ -214,7 +223,7 @@ namespace Gitg
 			context.set_source_rgb(0, 0, 0);
 			context.stroke_preserve();
 
-			if (commit.lane != null)
+			if (commit.lane != null && commit.lane.interesting)
 			{
 				var color = commit.lane.color;
 				context.set_source_rgb(color.r, color.g, color.b);

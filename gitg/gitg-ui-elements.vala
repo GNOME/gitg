@@ -291,7 +291,8 @@ public class UIElements<T> : Object
 
 	public UIElements.with_builtin(T[] builtin,
 	                               Peas.ExtensionSet extensions,
-	                               Gtk.Stack? stack = null)
+	                               Gtk.Stack? stack = null,
+	                               string? search_path = null)
 	{
 		d_extensions = extensions;
 		d_stack = stack;
@@ -304,7 +305,10 @@ public class UIElements<T> : Object
 		foreach (var b in builtin)
 		{
 			GitgExt.UIElement elem = (GitgExt.UIElement)b;
-
+			if (elem is Gitg.DiffView) {
+				var diff_view =  elem as Gitg.DiffView;
+				diff_view.search_path = search_path;
+			}
 			d_builtin_elements[elem.id] = i++;
 			add_ui_element(elem);
 		}
@@ -323,9 +327,9 @@ public class UIElements<T> : Object
 	}
 
 	public UIElements(Peas.ExtensionSet extensions,
-	                  Gtk.Stack? stack = null)
+	                  Gtk.Stack? stack = null, string? search_path = null)
 	{
-		this.with_builtin(new T[] {}, extensions, stack);
+		this.with_builtin(new T[] {}, extensions, stack, search_path);
 	}
 }
 
