@@ -36,6 +36,7 @@ public class Lanes : Object
 	{
 		public Lane lane;
 		public int inactive;
+		public bool interesting {get; set;}
 		public Ggit.OId? from;
 		public Ggit.OId? to;
 
@@ -62,6 +63,7 @@ public class Lanes : Object
 
 			lane.tag = LaneTag.NONE;
 			lane.from = new SList<int>();
+			lane.interesting = interesting;
 
 			if (!hidden)
 			{
@@ -154,6 +156,7 @@ public class Lanes : Object
 	}
 
 	public bool next(Commit           next,
+                    bool            interesting,
 	                 out SList<Lane> lanes,
 	                 out int         nextpos)
 	{
@@ -177,6 +180,7 @@ public class Lanes : Object
 		{
 			// there is no lane reserved for this commit, add a new lane
 			mylane = new LaneContainer(myoid, null);
+			mylane.interesting = interesting;
 
 			d_lanes.add(mylane);
 			nextpos = (int)d_lanes.size - 1;
@@ -185,6 +189,8 @@ public class Lanes : Object
 		{
 			// copy the color here because the commit is a new stop
 			mylane.lane.color = mylane.lane.color.copy();
+			mylane.lane.interesting = interesting;
+			mylane.interesting = interesting;
 
 			mylane.to = null;
 			mylane.from = next.get_id();
