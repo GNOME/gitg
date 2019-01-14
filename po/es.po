@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-01-03 01:03+0000\n"
-"PO-Revision-Date: 2019-01-04 13:04+0100\n"
+"POT-Creation-Date: 2019-01-04 12:10+0000\n"
+"PO-Revision-Date: 2019-01-14 15:40+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -36,58 +36,54 @@ msgid ""
 "visualization, gitg also provides several utilities to manage your "
 "repository and commit your work."
 msgstr ""
+"gitg es una interfaz gráfica de usuario para git. Pretende ser una "
+"herramienta pequeña, rápida y adecuada para ver el histórico de repositorios "
+"git. Más allá de la visualización gitg proporciona varias utilidades para "
+"gestionar su repositorio y aplicar su trabajo."
 
 #: data/org.gnome.gitg.appdata.xml.in:14
 msgid "Goals"
 msgstr "Objetivos"
 
 #: data/org.gnome.gitg.appdata.xml.in:16
-#, fuzzy
 #| msgid "Not a valid git repository"
 msgid "Browse local git repositories"
-msgstr "No es un repositorio git válido"
+msgstr "Examinar repositorios git locales"
 
 #: data/org.gnome.gitg.appdata.xml.in:17
-#, fuzzy
 #| msgid "Not a valid git repository"
 msgid "Clone local and remote git repositories"
-msgstr "No es un repositorio git válido"
+msgstr "Clonar repositorios git locales y remotos"
 
 #: data/org.gnome.gitg.appdata.xml.in:18
-#, fuzzy
 #| msgid "Commits"
 msgid "Commit files"
-msgstr "Commits"
+msgstr "Aplicar cambios en archivos"
 
 #: data/org.gnome.gitg.appdata.xml.in:19
-#, fuzzy
 #| msgid "Create a patch from the selected commit"
 msgid "Retrieve patch from a commit"
-msgstr "Crear un parche para el «commit» seleccionado"
+msgstr "Obtener el parche de un «commit»"
 
 #: data/org.gnome.gitg.appdata.xml.in:30
-#, fuzzy
 #| msgid "Bare repository"
 msgid "Browse repository history"
-msgstr "Repositorio vacío"
+msgstr "Examinar el histórico del repositorio"
 
 #: data/org.gnome.gitg.appdata.xml.in:34
-#, fuzzy
 #| msgid "Failed to lookup our commit: %s"
 msgid "Staging area to compose your commit"
-msgstr "Falló al buscar el «commit» propio: %s"
+msgstr "Área de reserva para componer sus «commit»"
 
 #: data/org.gnome.gitg.appdata.xml.in:38
-#, fuzzy
 #| msgid "Unstaged changes"
 msgid "Commit staged changes"
-msgstr "Cambios sin reservar"
+msgstr "Aplicar cambios reservados"
 
 #: data/org.gnome.gitg.appdata.xml.in:42
-#, fuzzy
 #| msgid "Show the list of recently used repositories"
 msgid "Overview of recently used repositories"
-msgstr "Mostrar la lista de repositorios usados recientemente."
+msgstr "Vista general de los repositorios usados recientemente"
 
 #: data/org.gnome.gitg.appdata.xml.in:52
 msgid "The GNOME Project"
@@ -168,18 +164,19 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:73
 msgid "Color scheme to use for syntax highlighting"
-msgstr ""
+msgstr "Esquema de color que usar para el resaltado de sintaxis"
 
 #: data/org.gnome.gitg.gschema.xml.in:74
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr ""
+"Usado por GtkSourceView para determinar los colores para le resaltado de "
+"sintaxis"
 
 #: data/org.gnome.gitg.gschema.xml.in:80
 msgid "When to Collapse Inactive Lanes"
 msgstr "Cuándo contraer las líneas inactivas"
 
 #: data/org.gnome.gitg.gschema.xml.in:81
-#, fuzzy
 #| msgid ""
 #| "Setting that indicates when an inactive lane should be collapsed. Valid "
 #| "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
@@ -188,7 +185,7 @@ msgid ""
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
 "Ajuste que indica cuándo una línea inactiva debe contraerse. Los valores "
-"válidos son 0 - 4, donde 0 indica «pronto» y 4 indica «tarde»."
+"válidos son 0 — 4, donde 0 indica «pronto» y 4 indica «tarde»."
 
 #: data/org.gnome.gitg.gschema.xml.in:88
 msgid ""
@@ -367,11 +364,13 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:218
 msgid "Use patience algorithm to show diffs"
-msgstr ""
+msgstr "Usar algoritmo paciente para mostrar diferencias"
 
 #: data/org.gnome.gitg.gschema.xml.in:219
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
+"Ajuste para usar un algoritmo paciente para mostrar las diferencias de un "
+"«commit»"
 
 #: data/org.gnome.gitg.gschema.xml.in:225
 msgid "Ignore Whitespace Changes"
@@ -468,22 +467,16 @@ msgstr "_Reservar selección"
 
 #: gitg/commit/gitg-commit.vala:232
 #, c-format
-#| msgid "Failed to stage the removal of submodule `%s'"
 msgid "Failed to stage the removal of submodule “%s”"
 msgstr "Falló al reservar la eliminación del submódulo «%s»"
 
 #: gitg/commit/gitg-commit.vala:248
 #, c-format
-#| msgid ""
-#| "Failed to open the repository of submodule `%s' while trying to stage"
 msgid "Failed to open the repository of submodule “%s” while trying to stage"
 msgstr "Falló al abrir el repositorio del submódulo «%s» al intentar reservar"
 
 #: gitg/commit/gitg-commit.vala:263
 #, c-format
-#| msgid ""
-#| "Failed to lookup the working directory commit of submodule `%s' while "
-#| "trying to stage"
 msgid ""
 "Failed to lookup the working directory commit of submodule “%s” while trying "
 "to stage"
@@ -493,19 +486,16 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:276
 #, c-format
-#| msgid "Failed to stage the submodule `%s'"
 msgid "Failed to stage the submodule “%s”"
 msgstr "Falló al reservar el submódulo «%s»"
 
 #: gitg/commit/gitg-commit.vala:298
 #, c-format
-#| msgid "Failed to stage the removal of file `%s'"
 msgid "Failed to stage the removal of file “%s”"
 msgstr "Falló al reservar la eliminación del archivo «%s»"
 
 #: gitg/commit/gitg-commit.vala:312
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to stage the file “%s”"
 msgstr "Falló al reservar el archivo «%s»"
 
@@ -515,25 +505,21 @@ msgstr "Q_uitar la reserva de la selección"
 
 #: gitg/commit/gitg-commit.vala:650
 #, c-format
-#| msgid "Failed to unstage the removal of file `%s'"
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "Falló al quitar la reserva de eliminación del archivo «%s»"
 
 #: gitg/commit/gitg-commit.vala:651
 #, c-format
-#| msgid "Failed to unstage the file `%s'"
 msgid "Failed to unstage the file “%s”"
 msgstr "Falló al quitar la reserva del archivo «%s»"
 
 #: gitg/commit/gitg-commit.vala:658
 #, c-format
-#| msgid "Failed to unstage the removal of submodule `%s'"
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Falló al quitar la reserva de eliminación del submódulo «%s»"
 
 #: gitg/commit/gitg-commit.vala:659
 #, c-format
-#| msgid "Failed to unstage the submodule `%s'"
 msgid "Failed to unstage the submodule “%s”"
 msgstr "Falló al quitar la reserva del submódulo «%s»"
 
@@ -625,9 +611,6 @@ msgstr "Falló al descartar los cambios"
 
 #: gitg/commit/gitg-commit.vala:1486
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the file "
-#| "`%s'?"
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
@@ -637,9 +620,6 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:1497
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the "
-#| "files %s and `%s'?"
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
@@ -659,13 +639,11 @@ msgstr[1] "Eliminar archivos"
 
 #: gitg/commit/gitg-commit.vala:1601
 #, c-format
-#| msgid "Are you sure you want to permanently delete the file `%s'?"
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "¿Está seguro de que quiere eliminar permanentemente el archivo «%s»?"
 
 #: gitg/commit/gitg-commit.vala:1612
 #, c-format
-#| msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr ""
 "¿Está seguro de que quiere eliminar permanentemente los archivos %s y «%s»?"
@@ -750,7 +728,6 @@ msgid "Failed to checkout index: %s"
 msgstr "Falló al descargar el índice: %s"
 
 #: gitg/gitg-application.vala:38
-#| msgid "Show the application's version"
 msgid "Show the application’s version"
 msgstr "Mostrar la versión de la aplicación"
 
@@ -769,15 +746,13 @@ msgstr "No intentar cargar un repositorio desde la carpeta actual"
 
 #: gitg/gitg-application.vala:46
 msgid "Run gitg in standalone mode"
-msgstr ""
+msgstr "Ejecutar gitg en modo individual"
 
 #: gitg/gitg-application.vala:92
-#| msgid "- Git repository viewer"
 msgid "— Git repository viewer"
 msgstr "— Visor de repositorios git"
 
 #: gitg/gitg-application.vala:226
-#, fuzzy
 #| msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg es un visor de repositorios Git para GTK+/GNOME"
@@ -791,15 +766,6 @@ msgid "gitg homepage"
 msgstr "Página principal de gitg"
 
 #: gitg/gitg-application.vala:368
-#| msgid ""
-#| "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
-#| "depends) to be compiled with threading support.\n"
-#| "\n"
-#| "If you manually compiled libgit2, then please configure libgit2 with -"
-#| "DTHREADSAFE:BOOL=ON.\n"
-#| "\n"
-#| "Otherwise, report a bug in your distributions' bug reporting system for "
-#| "providing libgit2 without threading support."
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -832,7 +798,7 @@ msgstr ""
 
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:120
-#, fuzzy, c-format
+#, c-format
 #| msgid "Override global details for repository '%s':"
 msgid "Override global details for repository “%s”:"
 msgstr "Omitir los detalles globales para el repositorio «%s»:"
@@ -1244,7 +1210,6 @@ msgstr "Renombrar la referencia seleccionada"
 
 #: gitg/gitg-ref-action-rename.vala:100
 #, c-format
-#| msgid "The specified name ‘%s’ contains invalid characters"
 msgid "The specified name “%s” contains invalid characters"
 msgstr "El nombre «%s» especificado contiene caracteres no válidos"
 
@@ -1283,7 +1248,6 @@ msgstr "Seleccionar elementos"
 
 #: gitg/gitg-window.vala:1011
 #, c-format
-#| msgid "'%s' is not a Git repository."
 msgid "“%s” is not a Git repository."
 msgstr "«%s» no es un repositorio Git."
 
@@ -1671,7 +1635,7 @@ msgstr ""
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:258
 msgid "Syntax highlighting color scheme:"
-msgstr ""
+msgstr "Esquema de color para el resaltado de sintaxis:"
 
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
@@ -1683,12 +1647,11 @@ msgid "Windows"
 msgstr "Ventanas"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:19
-#, fuzzy
 #| msgctxt "shortcut window"
 #| msgid "Open the window menu"
 msgctxt "shortcut window"
 msgid "Open shortcut window"
-msgstr "Abrir el menú de la ventana"
+msgstr "Abrir ventana de atajos"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:26
 msgctxt "shortcut window"
@@ -1793,7 +1756,6 @@ msgstr[1] "Hace %d días"
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
 #: libgitg/gitg-date.vala:374
-#| msgid "%b %e, %H:%M"
 msgid "%b %e, %H∶%M"
 msgstr "%e %b, %H:%M"
 
@@ -1801,7 +1763,6 @@ msgstr "%e %b, %H:%M"
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: libgitg/gitg-date.vala:381
-#| msgid "%b %e, %I:%M %p"
 msgid "%b %e, %I∶%M %p"
 msgstr "%e %b, %I:%M %p"
 
@@ -1809,7 +1770,6 @@ msgstr "%e %b, %I:%M %p"
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: libgitg/gitg-date.vala:391
-#| msgid "%b %e %Y, %H:%M"
 msgid "%b %e %Y, %H∶%M"
 msgstr "%e %b %Y, %H:%M"
 
@@ -1817,7 +1777,6 @@ msgstr "%e %b %Y, %H:%M"
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: libgitg/gitg-date.vala:398
-#| msgid "%b %e %Y, %I:%M %p"
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%e %b %Y, %I:%M %p"
 
