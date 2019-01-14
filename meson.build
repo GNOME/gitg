@@ -2,7 +2,7 @@ project(
   'gitg', ['c', 'vala'],
   version: '3.30.1',
   license: 'GPL2+',
-  default_options: 'buildtype=debugoptimized',
+  default_options: 'buildtype=debug',
   meson_version: '>= 0.48.0',
 )
 application_id = 'org.gnome.gitg'
