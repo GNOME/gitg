@@ -127,6 +127,22 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		owned get { return null; }
 	}
 
+	private string d_search_path;
+
+	public string search_path
+	{
+		owned get { return d_search_path; }
+
+		set
+		{
+			if (d_search_path != value)
+			{
+				d_search_path = value;
+				update_search_path();
+			}
+		}
+	}
+
 	private string d_search_text;
 
 	public string search_text
@@ -149,6 +165,10 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 	}
 
 	public bool search_visible { get; set; }
+
+	private void update_search_path()
+	{
+	}
 
 	private void update_search_text()
 	{

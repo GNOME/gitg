@@ -113,6 +113,7 @@ namespace Gitg
 			}
 		}
 
+		public string search_path { get; set; default=""; }
 		public Ggit.OId[] permanent_lanes { get; set; }
 
 		public signal void started();
@@ -405,7 +406,63 @@ namespace Gitg
 					int mylane;
 					SList<Lane> lanes;
 
-					if (d_lanes.next(commit, out lanes, out mylane))
+					var interesting = true;
+					if (search_path != null && search_path != "")
+					{
+						interesting = false;
+						var tree = commit.get_tree();
+						Commit c = commit;
+						var opts = new Ggit.DiffOptions();
+						opts.flags |= Ggit.DiffOption.IGNORE_WHITESPACE;
+						opts.flags |= Ggit.DiffOption.PATIENCE;
+						opts.n_context_lines = 3;
+						opts.n_interhunk_lines = 3;
+						opts.flags |= Ggit.DiffOption.SHOW_BINARY;
+						var diff = c.get_diff(opts, 0);
+
+						var search_path_copy = search_path;
+						try {
+							diff.foreach(
+								(delta, progress) => {
+									var old_file_path = delta.get_old_file().get_path();
+									var new_file_path = delta.get_new_file().get_path();
+									if (new_file_path.contains(search_path_copy) || old_file_path.contains(search_path_copy)) {
+										return -7;
+									}
+									return 0;
+								},
+
+								(delta, binary) => {
+									return interesting ? -7: 0;
+								},
+
+								(delta, hunk) => {
+									return interesting ? -7: 0;
+								},
+
+								(delta, hunk, line) => {
+									return interesting ? -7: 0;
+								}
+							);
+
+							/*
+							tree.walk(Ggit.TreeWalkMode.PRE, (root, entry) => {
+								var file = root.concat(entry.get_name());
+								var found = file.contains(search_path);
+								return found ? -7 : 0;
+							});
+							*/
+						} catch (Error e) {
+							interesting = e.code == -7;
+						}
+						/*
+						f (!interesting) {
+							continue;
+						}
+						*/
+					}
+
+					if (d_lanes.next(commit, interesting, out lanes, out mylane))
 					{
 						commit.update_lanes((owned)lanes, mylane);
 
@@ -519,7 +576,7 @@ namespace Gitg
 		public Gtk.TreeModelFlags get_flags()
 		{
 			return Gtk.TreeModelFlags.LIST_ONLY |
-			       Gtk.TreeModelFlags.ITERS_PERSIST;
+				   Gtk.TreeModelFlags.ITERS_PERSIST;
 		}
 
 		public bool get_iter(out Gtk.TreeIter iter, Gtk.TreePath path)
