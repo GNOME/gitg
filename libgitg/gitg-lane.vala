@@ -38,6 +38,7 @@ public class Lane : Object
 	public SList<int> from;
 	public LaneTag tag;
 	public Ggit.OId? boundary_id;
+	public bool interesting {get; set;}
 
 	public Lane()
 	{
@@ -61,6 +62,7 @@ public class Lane : Object
 		Lane ret = new Lane.with_color(color);
 		ret.from = from.copy();
 		ret.tag = tag;
+		ret.interesting = interesting;
 		ret.boundary_id = boundary_id;
 
 		return ret;
@@ -71,6 +73,7 @@ public class Lane : Object
 		Lane ret = new Lane.with_color(color.copy());
 		ret.from = from.copy();
 		ret.tag = tag;
+		ret.interesting = interesting;
 		ret.boundary_id = boundary_id;
 
 		return ret;

@@ -243,11 +243,44 @@
                     <property name="can_focus">False</property>
                     <property name="show-close-button">False</property>
                     <child>
-                      <object class="GtkSearchEntry" id="d_search_entry">
+                      <object class="GtkBox" id="search_box">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="width-request">500</property>
-                        <signal name="changed" handler="search_entry_changed" swapped="no"/>
+                        <property name="orientation">horizontal</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel" id="label_text">
+                            <property name="label" translatable="yes">Text:</property>
+                            <property name="visible">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSearchEntry" id="d_search_entry_text">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="width-request">500</property>
+                            <signal name="changed" handler="search_entry_text_changed" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_path">
+                            <property name="label" translatable="yes">Path:</property>
+                            <property name="visible">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSearchEntry" id="d_search_entry_path">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="width-request">300</property>
+                            <signal name="changed" handler="search_entry_path_changed" swapped="no"/>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
