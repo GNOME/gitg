@@ -420,13 +420,12 @@ namespace Gitg
 						opts.flags |= Ggit.DiffOption.SHOW_BINARY;
 						var diff = c.get_diff(opts, 0);
 
-						var search_path_copy = search_path;
 						try {
 							diff.foreach(
 								(delta, progress) => {
 									var old_file_path = delta.get_old_file().get_path();
 									var new_file_path = delta.get_new_file().get_path();
-									if (new_file_path.contains(search_path_copy) || old_file_path.contains(search_path_copy)) {
+									if (new_file_path.contains(search_path) || old_file_path.contains(search_path)) {
 										return -7;
 									}
 									return 0;
