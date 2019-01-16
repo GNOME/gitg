@@ -1,6 +1,9 @@
 subdir('icons')
 
-desktop = 'org.gnome.gitg.desktop'
+desktop = 'org.gnome.gitg,desktop'
+if get_option('profile') == 'development'
+  desktop = 'org.gnome.gitgDevel.desktop'
+endif
 
 desktop_config = configuration_data()
 desktop_config.set('icon', application_id)
@@ -23,7 +26,7 @@ schema_conf = configuration_data()
 schema_conf.set('GETTEXT_PACKAGE', gitg_gettext)
 schema_conf.set('APPLICATION_ID', application_id)
 schema_path = '/org/gnome/gitg'
-if get_option('profile')  == 'development'
+if get_option('profile') == 'development'
   schema_path = '/org/gnome/gitgDevel'
 endif
 schema_conf.set('SCHEMA_PATH', schema_path)
