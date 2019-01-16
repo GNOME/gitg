@@ -49,6 +49,12 @@ public class Gitg.DiffView : Gtk.Grid
 	private ulong d_parent_commit_notify;
 	private bool d_changes_inline;
 
+	Gdk.RGBA d_color_link;
+	bool is_custom_d_color_link = false;
+	Gdk.RGBA color_hovered_link;
+	bool hovering_over_link = false;
+	Gtk.TextTag hover_tag = null;
+
 	private uint d_reveal_options_timeout;
 	private uint d_unreveal_options_timeout;
 
@@ -190,6 +196,14 @@ public class Gitg.DiffView : Gtk.Grid
 		d_parent_commit_notify = d_commit_details.notify["parent-commit"].connect(parent_commit_changed);
 
 		bind_property("use-gravatar", d_commit_details, "use-gravatar", BindingFlags.SYNC_CREATE);
+		d_text_view_message.event_after.connect (on_event_after);
+		d_text_view_message.key_press_event.connect (on_key_press);
+		d_text_view_message.motion_notify_event.connect (on_motion_notify_event);
+		d_text_view_message.has_tooltip = true;
+		d_text_view_message.query_tooltip.connect (on_query_tooltip_event);
+		d_text_view_message.style_updated.connect (load_colors_from_theme);
+
+		load_colors_from_theme(d_text_view_message);
 
 		d_event_box.motion_notify_event.connect(motion_notify_event_on_event_box);
 		d_diff_view_options.view = this;
@@ -258,6 +272,232 @@ public class Gitg.DiffView : Gtk.Grid
 		return "";
 	}
 
+	private bool on_query_tooltip_event(int x, int y, bool keyboard_tooltip, Gtk.Tooltip tooltip) {
+		Gtk.TextIter iter;
+
+		if (d_text_view_message.get_iter_at_location (out iter, x, y))
+		{
+			var tags = iter.get_tags ();
+			foreach (Gtk.TextTag tag in tags)
+			{
+				if (tag.get_data<string>("type") == "url")
+				{
+					string url = tag.get_data<string>("url");
+					tooltip.set_text (url);
+				}
+			}
+		}
+		return true;
+	}
+
+	public void apply_link_tags(Gtk.TextBuffer buffer, Regex regex, string? replacement, Gdk.RGBA custom_color_link, bool is_custom_color)
+	{
+		try
+		{
+			GLib.MatchInfo matchInfo;
+
+			var buffer_text = buffer.text;
+			regex.match (buffer_text, 0, out matchInfo);
+
+			while (matchInfo.matches ())
+			{
+				Gtk.TextIter start, end;
+				int start_pos, end_pos;
+				string text = matchInfo.fetch(0);
+				matchInfo.fetch_pos (0, out start_pos, out end_pos);
+				buffer.get_iter_at_offset(out start, start_pos);
+				buffer.get_iter_at_offset(out end, end_pos);
+
+				var tag = buffer.create_tag(null, "underline", Pango.Underline.SINGLE);
+				tag.foreground_rgba = custom_color_link;
+				tag.set_data("type", "url");
+				tag.set_data<Gdk.RGBA?>("color_link", custom_color_link);
+				if (replacement != null)
+				{
+					text = regex.replace(text, text.length, 0, replacement);
+				}
+				tag.set_data("url", text);
+				tag.set_data("is_custom_color_link", is_custom_color);
+				buffer.apply_tag(tag, start, end);
+
+				matchInfo.next();
+			}
+		}
+		catch(Error e)
+		{
+		}
+	}
+
+	private void load_colors_from_theme(Gtk.Widget widget)
+	{
+		Gtk.TextView textview = (Gtk.TextView)widget;
+		Gtk.StyleContext context = textview.get_style_context ();
+
+		context.save ();
+		context.set_state (Gtk.StateFlags.LINK);
+		d_color_link = context.get_color (context.get_state ());
+
+		context.set_state (Gtk.StateFlags.LINK | Gtk.StateFlags.PRELIGHT);
+		color_hovered_link = context.get_color (context.get_state ());
+		context.restore ();
+
+		textview.buffer.tag_table.foreach ((tag) =>
+		{
+			if (!tag.get_data<bool>("is_custom_color_link"))
+			{
+				tag.set_data<Gdk.RGBA?>("color_link", d_color_link);
+				tag.foreground_rgba = d_color_link;
+			}
+		});
+	}
+
+	private bool on_key_press (Gtk.Widget widget, Gdk.EventKey evt)
+	{
+		if (evt.keyval == Gdk.Key.Return || evt.keyval == Gdk.Key.KP_Enter)
+		{
+
+			Gtk.TextIter iter;
+			Gtk.TextView textview = (Gtk.TextView) widget;
+			textview.buffer.get_iter_at_mark(out iter, textview.buffer.get_insert());
+
+			follow_if_link (widget, iter);
+		}
+		return false;
+	}
+
+	public void follow_if_link(Gtk.Widget texview, Gtk.TextIter iter)
+	{
+		var tags = iter.get_tags ();
+		foreach (Gtk.TextTag tag in tags)
+		{
+			if (tag.get_data<string>("type") == "url")
+			{
+				string url = tag.get_data<string>("url");
+				try
+				{
+					GLib.AppInfo.launch_default_for_uri(url, null);
+				}
+				catch(Error e)
+				{
+					message("Cannot open "+url+" "+e.message);
+				}
+			}
+		}
+
+	}
+
+	private void on_event_after (Gtk.Widget widget, Gdk.Event evt)
+	{
+
+		Gtk.TextIter start, end, iter;
+		Gtk.TextBuffer buffer;
+		double ex, ey;
+		int x, y;
+
+		if (evt.type == Gdk.BUTTON_RELEASE)
+		{
+			Gdk.EventButton event;
+
+			event = (Gdk.EventButton)evt;
+			if (event.button != Gdk.BUTTON_PRIMARY)
+			return;
+
+			ex = event.x;
+			ey = event.y;
+		}
+		else if (evt.type == Gdk.TOUCH_END)
+		{
+			Gdk.EventTouch event;
+
+			event = (Gdk.EventTouch)evt;
+
+			ex = event.x;
+			ey = event.y;
+		}
+		else
+			return;
+
+		Gtk.TextView textview = (Gtk.TextView)widget;
+		buffer = textview.buffer;
+
+		/* we shouldn't follow a link if the user has selected something */
+		buffer.get_selection_bounds (out start, out end);
+		if (start.get_offset () != end.get_offset ())
+			return;
+
+		textview.window_to_buffer_coords (Gtk.TextWindowType.WIDGET,(int)ex, (int)ey, out x, out y);
+
+		if (textview.get_iter_at_location (out iter, x, y))
+			follow_if_link (textview, iter);
+	}
+
+	private bool on_motion_notify_event (Gtk.Widget widget, Gdk.EventMotion evt)
+	{
+		int x, y;
+
+		Gtk.TextView textview = ((Gtk.TextView)widget);
+
+		textview.window_to_buffer_coords (Gtk.TextWindowType.WIDGET,(int)evt.x, (int)evt.y, out x, out y);
+
+		Gtk.TextIter iter;
+		bool hovering = false;
+
+		if (textview.get_iter_at_location (out iter, x, y))
+		{
+			var tags = iter.get_tags ();
+			foreach (Gtk.TextTag tag in tags)
+			{
+				if (tag.get_data<string>("type") == "url")
+				{
+					hovering = true;
+					if (hover_tag != null && hover_tag != tag)
+					{
+						restore_tag_color_link (hover_tag);
+						hovering_over_link = false;
+					}
+					hover_tag = tag;
+					break;
+				}
+			}
+		}
+
+		if (hovering != hovering_over_link)
+		{
+			hovering_over_link = hovering;
+
+			Gdk.Display display = textview.get_display();
+			Gdk.Cursor hand_cursor = new Gdk.Cursor.from_name (display, "pointer");
+			Gdk.Cursor regular_cursor = new Gdk.Cursor.from_name (display, "text");
+
+			Gdk.Window window = textview.get_window (Gtk.TextWindowType.TEXT);
+			if (hovering_over_link)
+			{
+				window.set_cursor (hand_cursor);
+				if (hover_tag != null)
+				{
+					hover_tag.foreground_rgba = color_hovered_link;
+				}
+			}
+			else
+			{
+				window.set_cursor (regular_cursor);
+				if (hover_tag != null)
+				{
+					restore_tag_color_link (hover_tag);
+					hover_tag = null;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	private void restore_tag_color_link (Gtk.TextTag tag)
+	{
+		Gdk.RGBA? color = tag.get_data<Gdk.RGBA?>("color_link");
+		tag.foreground_rgba = color;
+	}
+
 	private void update(bool preserve_expanded)
 	{
 		// If both `d_diff` and `d_commit` are null, clear
@@ -307,6 +547,12 @@ public class Gitg.DiffView : Gtk.Grid
 			var message = message_without_subject(d_commit);
 
 			d_text_view_message.buffer.set_text(message);
+			var buffer = d_text_view_message.get_buffer();
+			stdout.printf("%s",buffer.text);
+
+			load_colors_from_theme(d_text_view_message);
+
+			apply_link_tags(buffer, /https?:\/\/[a-zA-Z\/_&#.0-9=?]+/, null, d_color_link, is_custom_d_color_link);
 			d_text_view_message.visible = (message != "");
 		}
 		else
