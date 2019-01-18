@@ -6,14 +6,14 @@
 # Chihau Chau <chihau@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010, 2011.
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010-2016, 2019.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-01-04 12:10+0000\n"
-"PO-Revision-Date: 2019-01-14 15:40+0100\n"
+"POT-Creation-Date: 2019-01-16 18:54+0000\n"
+"PO-Revision-Date: 2019-01-18 08:45+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -22,14 +22,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-DamnedLies-Scope: partial\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Gtranslator 3.30.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "No se pudo analizar el XML del flujo"
 
-#: data/org.gnome.gitg.appdata.xml.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:8
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -41,67 +41,59 @@ msgstr ""
 "git. Más allá de la visualización gitg proporciona varias utilidades para "
 "gestionar su repositorio y aplicar su trabajo."
 
-#: data/org.gnome.gitg.appdata.xml.in:14
+#: data/org.gnome.gitg.appdata.xml.in.in:14
 msgid "Goals"
 msgstr "Objetivos"
 
-#: data/org.gnome.gitg.appdata.xml.in:16
-#| msgid "Not a valid git repository"
+#: data/org.gnome.gitg.appdata.xml.in.in:16
 msgid "Browse local git repositories"
 msgstr "Examinar repositorios git locales"
 
-#: data/org.gnome.gitg.appdata.xml.in:17
-#| msgid "Not a valid git repository"
+#: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Clone local and remote git repositories"
 msgstr "Clonar repositorios git locales y remotos"
 
-#: data/org.gnome.gitg.appdata.xml.in:18
-#| msgid "Commits"
+#: data/org.gnome.gitg.appdata.xml.in.in:18
 msgid "Commit files"
 msgstr "Aplicar cambios en archivos"
 
-#: data/org.gnome.gitg.appdata.xml.in:19
-#| msgid "Create a patch from the selected commit"
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Retrieve patch from a commit"
 msgstr "Obtener el parche de un «commit»"
 
-#: data/org.gnome.gitg.appdata.xml.in:30
-#| msgid "Bare repository"
+#: data/org.gnome.gitg.appdata.xml.in.in:30
 msgid "Browse repository history"
 msgstr "Examinar el histórico del repositorio"
 
-#: data/org.gnome.gitg.appdata.xml.in:34
-#| msgid "Failed to lookup our commit: %s"
+#: data/org.gnome.gitg.appdata.xml.in.in:34
 msgid "Staging area to compose your commit"
 msgstr "Área de reserva para componer sus «commit»"
 
-#: data/org.gnome.gitg.appdata.xml.in:38
-#| msgid "Unstaged changes"
+#: data/org.gnome.gitg.appdata.xml.in.in:38
 msgid "Commit staged changes"
 msgstr "Aplicar cambios reservados"
 
-#: data/org.gnome.gitg.appdata.xml.in:42
-#| msgid "Show the list of recently used repositories"
+#: data/org.gnome.gitg.appdata.xml.in.in:42
 msgid "Overview of recently used repositories"
 msgstr "Vista general de los repositorios usados recientemente"
 
-#: data/org.gnome.gitg.appdata.xml.in:52
+#: data/org.gnome.gitg.appdata.xml.in.in:52
 msgid "The GNOME Project"
 msgstr "El Proyecto GNOME"
 
-#: data/org.gnome.gitg.desktop.in:3 gitg/gitg.vala:39
+#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
 #: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: data/org.gnome.gitg.desktop.in:4
+#: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Examinador de repositorios Git"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.gitg.desktop.in:10
-msgid "org.gnome.gitg"
-msgstr "org.gnome.gitg"
+#: data/org.gnome.gitg.desktop.in.in:10
+msgid "@icon@"
+msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -177,9 +169,6 @@ msgid "When to Collapse Inactive Lanes"
 msgstr "Cuándo contraer las líneas inactivas"
 
 #: data/org.gnome.gitg.gschema.xml.in:81
-#| msgid ""
-#| "Setting that indicates when an inactive lane should be collapsed. Valid "
-#| "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -578,7 +567,7 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:1341 gitg/commit/gitg-commit.vala:1507
 #: gitg/commit/gitg-commit.vala:1622
-#: gitg/gitg-commit-action-create-patch.vala:150 gitg/gitg-dash-view.vala:444
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
@@ -753,7 +742,6 @@ msgid "— Git repository viewer"
 msgstr "— Visor de repositorios git"
 
 #: gitg/gitg-application.vala:226
-#| msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg es un visor de repositorios Git para GTK+/GNOME"
 
@@ -799,7 +787,6 @@ msgstr ""
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:120
 #, c-format
-#| msgid "Override global details for repository '%s':"
 msgid "Override global details for repository “%s”:"
 msgstr "Omitir los detalles globales para el repositorio «%s»:"
 
@@ -900,15 +887,15 @@ msgstr "Crear parche"
 msgid "Create a patch from the selected commit"
 msgstr "Crear un parche para el «commit» seleccionado"
 
-#: gitg/gitg-commit-action-create-patch.vala:148
+#: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
 msgstr "Guardar archivo de parche"
 
-#: gitg/gitg-commit-action-create-patch.vala:152
+#: gitg/gitg-commit-action-create-patch.vala:156
 msgid "_Save Patch"
 msgstr "_Guardar parche"
 
-#: gitg/gitg-commit-action-create-patch.vala:177
+#: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
 msgstr "Falló al crear el parche"
 
@@ -953,20 +940,20 @@ msgstr ""
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Mientras tanto, tal vez quiera %sconfigurar su perfil de git%s."
 
-#: gitg/gitg-dash-view.vala:389
+#: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
 msgstr "Falló al clonar el repositorio"
 
-#: gitg/gitg-dash-view.vala:420
+#: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
 msgstr "Falló al añadir el repositorio"
 
-#: gitg/gitg-dash-view.vala:436
+#: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
 msgstr "Crear un repositorio nuevo"
 
 #. Translators: %s is a file name
-#: gitg/gitg-dash-view.vala:439
+#: gitg/gitg-dash-view.vala:448
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -975,15 +962,15 @@ msgstr ""
 "La ubicación <i>%s</i> no parece ser un repositorio de git válido. ¿Quiere "
 "inicializar un repositorio de git nuevo en esta ubicación?"
 
-#: gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:454
 msgid "Create repository"
 msgstr "Crear repositorio"
 
-#: gitg/gitg-dash-view.vala:461
+#: gitg/gitg-dash-view.vala:470
 msgid "Failed to create repository"
 msgstr "Falló al crear el repositorio"
 
-#: gitg/gitg-dash-view.vala:531
+#: gitg/gitg-dash-view.vala:540
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Buscando repositorios en %s"
@@ -1246,12 +1233,12 @@ msgstr "Proyectos"
 msgid "Select items"
 msgstr "Seleccionar elementos"
 
-#: gitg/gitg-window.vala:1011
+#: gitg/gitg-window.vala:1015
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "«%s» no es un repositorio Git."
 
-#: gitg/gitg-window.vala:1160
+#: gitg/gitg-window.vala:1164
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1259,7 +1246,7 @@ msgstr ""
 "Su nombre de usuario y su correo-e no están configurados todavía. Vaya a la "
 "configuración del usuario y proporcione su nombre y su correo-e."
 
-#: gitg/gitg-window.vala:1164
+#: gitg/gitg-window.vala:1168
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1267,7 +1254,7 @@ msgstr ""
 "Su nombre de usuario no está configurado todavía. Vaya a la configuración "
 "del usuario y proporcione su nombre."
 
-#: gitg/gitg-window.vala:1168
+#: gitg/gitg-window.vala:1172
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1275,7 +1262,7 @@ msgstr ""
 "Su su correo-e no está configurado todavía. Vaya a la configuración del "
 "usuario y proporcione su correo-e."
 
-#: gitg/gitg-window.vala:1171
+#: gitg/gitg-window.vala:1175
 msgid "Missing author details"
 msgstr "Falta los detalles del autor"
 
@@ -1647,8 +1634,6 @@ msgid "Windows"
 msgstr "Ventanas"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:19
-#| msgctxt "shortcut window"
-#| msgid "Open the window menu"
 msgctxt "shortcut window"
 msgid "Open shortcut window"
 msgstr "Abrir ventana de atajos"
@@ -1951,6 +1936,9 @@ msgstr "Archivos"
 #: plugins/files/gitg-files.vala:68
 msgid "Show the files in the tree of the selected commit"
 msgstr "Mostrar los archivos en el árbol del commit seleccionado"
+
+#~ msgid "org.gnome.gitg"
+#~ msgstr "org.gnome.gitg"
 
 #~ msgid "_Quit"
 #~ msgstr "_Salir"
