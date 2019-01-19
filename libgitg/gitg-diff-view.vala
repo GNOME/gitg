@@ -551,8 +551,6 @@ public class Gitg.DiffView : Gtk.Grid
 			d_text_view_message.buffer.set_text(message);
 			var buffer = d_text_view_message.get_buffer();
 
-			load_colors_from_theme(d_text_view_message);
-
 			apply_link_tags(buffer, /\w+:(\/?\/?)[^\s]+/, null, d_color_link, false, false);
 
 			var ini_file = "%s/.git/config".printf(repository.get_workdir().get_path());
