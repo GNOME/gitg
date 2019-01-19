@@ -272,9 +272,74 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 				result = result.replace(text, "<a href=\"%s\">%s</a>".printf(text, text));
 				matchInfo.next();
 			}
+
+			result = parse_ini_file(result, ".git/config");
 		}
 		catch(Error e)
 		{
+		}
+		return result;
+	}
+
+	//TODO: pass repository
+	private string parse_ini_file(string subject_text, string config_file)
+	{
+		string result = subject_text.dup();
+		GLib.KeyFile file = new GLib.KeyFile();
+
+		try
+		{
+			if (file.load_from_file(config_file , GLib.KeyFileFlags.NONE))
+			{
+				foreach (string group in file.get_groups())
+				{
+					if (group.has_prefix("gitg.custom-link"))
+					{
+						string custom_link_regexp = file.get_string (group, "regexp");
+						string custom_link_replacement = file.get_string (group, "replacement");
+						message("found group: %s", custom_link_regexp);
+						bool custom_color = file.has_key (group, "color");
+						string color = null;
+						if (custom_color)
+						{
+							string custom_link_color = file.get_string (group, "color");
+							color = custom_link_color;
+						}
+						//TODO: Extract to replace function
+						var regex = new Regex (custom_link_regexp);
+						try
+						{
+							GLib.MatchInfo matchInfo;
+
+							regex.match (subject_text, 0, out matchInfo);
+
+							while (matchInfo.matches ())
+							{
+								string text = matchInfo.fetch(0);
+								string link = text.dup();
+								message("found: %s", link);
+								if (custom_link_replacement != null)
+								{
+									link = regex.replace(link, text.length, 0, custom_link_replacement);
+								}
+								//if (color != null) {
+								//	result = result.replace(text, "<a href=\"%s\" style=\"color:%s\">%s</a>".printf(link, color, text));
+								//} else {
+									result = result.replace(text, "<a href=\"%s\">%s</a>".printf(link, text));
+								//}
+
+								matchInfo.next();
+							}
+						}
+						catch(Error e)
+						{
+						}
+					}
+				}
+			}
+		} catch (Error e)
+		{
+			message("Cannot read %s %s", config_file, e.message);
 		}
 		return result;
 	}

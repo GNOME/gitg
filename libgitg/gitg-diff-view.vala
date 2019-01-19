@@ -601,7 +601,7 @@ public class Gitg.DiffView : Gtk.Grid
 			}
 		} catch (Error e)
 		{
-			message("Cannot read custom.ini %s", e.message);
+			message("Cannot read %s: %s", config_file, e.message);
 		}
 	}
 
