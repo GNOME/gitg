@@ -549,7 +549,6 @@ public class Gitg.DiffView : Gtk.Grid
 
 			d_text_view_message.buffer.set_text(message);
 			var buffer = d_text_view_message.get_buffer();
-			stdout.printf("%s",buffer.text);
 
 			load_colors_from_theme(d_text_view_message);
 
