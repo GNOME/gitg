@@ -284,10 +284,11 @@ public class Gitg.DiffView : Gtk.Grid
 				{
 					string url = tag.get_data<string>("url");
 					tooltip.set_text (url);
+					return true;
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 
 	public void apply_link_tags(Gtk.TextBuffer buffer, Regex regex, string? replacement, Gdk.RGBA custom_color_link, bool is_custom_color)
