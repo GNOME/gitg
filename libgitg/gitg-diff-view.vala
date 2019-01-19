@@ -554,8 +554,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 			apply_link_tags(buffer, /\w+:(\/?\/?)[^\s]+/, null, d_color_link, false, false);
 
-			//TODO: locate from repo it can be GIT_DIR env, a worktree...
-			var ini_file = ".git/config";
+			var ini_file = "%s/.git/config".printf(repository.get_workdir().get_path());
 			read_ini_file(buffer, ini_file);
 
 			d_text_view_message.visible = (message != "");
