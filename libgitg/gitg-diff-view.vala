@@ -552,7 +552,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 			load_colors_from_theme(d_text_view_message);
 
-			apply_link_tags(buffer, /https?:\/\/[a-zA-Z\/_&#.0-9=?]+/, null, d_color_link, is_custom_d_color_link);
+			apply_link_tags(buffer, /\w+:(\/?\/?)[^\s]+/, null, d_color_link, is_custom_d_color_link);
 			d_text_view_message.visible = (message != "");
 		}
 		else
