@@ -186,7 +186,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			return;
 		}
 
-		d_label_subject.label = commit.get_subject();
+		d_label_subject.label = parse_links_on_subject(commit.get_subject());
 		d_label_sha1.label = commit.get_id().to_string();
 
 		var author = commit.get_author();
@@ -255,6 +255,28 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 
 		update_avatar();
+	}
+
+	private string parse_links_on_subject(string subject_text)
+	{
+		string result = subject_text.dup();
+		try
+		{
+			GLib.MatchInfo matchInfo;
+			GLib.Regex regex = /\w+:(\/?\/?)[^\s]+/;
+			regex.match (subject_text, 0, out matchInfo);
+
+			while (matchInfo.matches ())
+			{
+				string text = matchInfo.fetch(0);
+				result = result.replace(text, "<a href=\"%s\">%s</a>".printf(text, text));
+				matchInfo.next();
+			}
+		}
+		catch(Error e)
+		{
+		}
+		return result;
 	}
 
 	private void update_avatar()
