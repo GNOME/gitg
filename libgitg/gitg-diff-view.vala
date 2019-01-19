@@ -553,6 +553,11 @@ public class Gitg.DiffView : Gtk.Grid
 			load_colors_from_theme(d_text_view_message);
 
 			apply_link_tags(buffer, /\w+:(\/?\/?)[^\s]+/, null, d_color_link, is_custom_d_color_link);
+
+			//TODO: locate from repo it can be GIT_DIR env, a worktree...
+			var ini_file = ".git/config";
+			read_ini_file(buffer, ini_file);
+
 			d_text_view_message.visible = (message != "");
 		}
 		else
@@ -566,6 +571,38 @@ public class Gitg.DiffView : Gtk.Grid
 		if (d_diff != null)
 		{
 			update_diff(d_diff, preserve_expanded, d_cancellable);
+		}
+	}
+
+	private void read_ini_file(Gtk.TextBuffer buffer, string config_file)
+	{
+		GLib.KeyFile file = new GLib.KeyFile();
+
+		try
+		{
+			if (file.load_from_file(config_file , GLib.KeyFileFlags.NONE))
+			{
+				foreach (string group in file.get_groups())
+				{
+					if (group.has_prefix("gitg.custom-link"))
+					{
+						string custom_link_regexp = file.get_string (group, "regexp");
+						string custom_link_replacement = file.get_string (group, "replacement");
+						bool custom_color = file.has_key (group, "color");
+						Gdk.RGBA color = d_color_link;
+						if (custom_color)
+						{
+							string custom_link_color = file.get_string (group, "color");
+							color = Gdk.RGBA();
+							color.parse(custom_link_color);
+						}
+						apply_link_tags(buffer, new Regex (custom_link_regexp), custom_link_replacement, color, custom_color);
+					}
+				}
+			}
+		} catch (Error e)
+		{
+			message("Cannot read custom.ini %s", e.message);
 		}
 	}
 
