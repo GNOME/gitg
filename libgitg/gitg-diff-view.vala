@@ -50,7 +50,6 @@ public class Gitg.DiffView : Gtk.Grid
 	private bool d_changes_inline;
 
 	Gdk.RGBA d_color_link;
-	bool is_custom_d_color_link = false;
 	Gdk.RGBA color_hovered_link;
 	bool hovering_over_link = false;
 	Gtk.TextTag hover_tag = null;
@@ -280,7 +279,7 @@ public class Gitg.DiffView : Gtk.Grid
 			var tags = iter.get_tags ();
 			foreach (Gtk.TextTag tag in tags)
 			{
-				if (tag.get_data<string>("type") == "url")
+				if (tag.get_data<string>("type") == "url" && tag.get_data<bool>("is_custom_link"))
 				{
 					string url = tag.get_data<string>("url");
 					tooltip.set_text (url);
@@ -291,7 +290,7 @@ public class Gitg.DiffView : Gtk.Grid
 		return false;
 	}
 
-	public void apply_link_tags(Gtk.TextBuffer buffer, Regex regex, string? replacement, Gdk.RGBA custom_color_link, bool is_custom_color)
+	public void apply_link_tags(Gtk.TextBuffer buffer, Regex regex, string? replacement, Gdk.RGBA custom_color_link, bool is_custom_color, bool is_custom_link)
 	{
 		try
 		{
@@ -319,6 +318,7 @@ public class Gitg.DiffView : Gtk.Grid
 				}
 				tag.set_data("url", text);
 				tag.set_data("is_custom_color_link", is_custom_color);
+				tag.set_data("is_custom_link", is_custom_link);
 				buffer.apply_tag(tag, start, end);
 
 				matchInfo.next();
@@ -552,7 +552,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 			load_colors_from_theme(d_text_view_message);
 
-			apply_link_tags(buffer, /\w+:(\/?\/?)[^\s]+/, null, d_color_link, is_custom_d_color_link);
+			apply_link_tags(buffer, /\w+:(\/?\/?)[^\s]+/, null, d_color_link, false, false);
 
 			//TODO: locate from repo it can be GIT_DIR env, a worktree...
 			var ini_file = ".git/config";
@@ -596,7 +596,7 @@ public class Gitg.DiffView : Gtk.Grid
 							color = Gdk.RGBA();
 							color.parse(custom_link_color);
 						}
-						apply_link_tags(buffer, new Regex (custom_link_regexp), custom_link_replacement, color, custom_color);
+						apply_link_tags(buffer, new Regex (custom_link_regexp), custom_link_replacement, color, custom_color, true);
 					}
 				}
 			}
