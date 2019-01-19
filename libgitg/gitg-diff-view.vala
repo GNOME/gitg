@@ -271,7 +271,8 @@ public class Gitg.DiffView : Gtk.Grid
 		return "";
 	}
 
-	private bool on_query_tooltip_event(int x, int y, bool keyboard_tooltip, Gtk.Tooltip tooltip) {
+	private bool on_query_tooltip_event(int x, int y, bool keyboard_tooltip, Gtk.Tooltip tooltip)
+	{
 		Gtk.TextIter iter;
 
 		if (d_text_view_message.get_iter_at_location (out iter, x, y))
