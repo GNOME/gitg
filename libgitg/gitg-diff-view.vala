@@ -195,6 +195,7 @@ public class Gitg.DiffView : Gtk.Grid
 		d_parent_commit_notify = d_commit_details.notify["parent-commit"].connect(parent_commit_changed);
 
 		bind_property("use-gravatar", d_commit_details, "use-gravatar", BindingFlags.SYNC_CREATE);
+		bind_property("repository", d_commit_details, "repository", BindingFlags.SYNC_CREATE);
 		d_text_view_message.event_after.connect (on_event_after);
 		d_text_view_message.key_press_event.connect (on_key_press);
 		d_text_view_message.motion_notify_event.connect (on_motion_notify_event);
