@@ -49,10 +49,10 @@ public class Gitg.DiffView : Gtk.Grid
 	private ulong d_parent_commit_notify;
 	private bool d_changes_inline;
 
-	Gdk.RGBA d_color_link;
-	Gdk.RGBA color_hovered_link;
-	bool hovering_over_link = false;
-	Gtk.TextTag hover_tag = null;
+	private Gdk.RGBA d_color_link;
+	private Gdk.RGBA color_hovered_link;
+	private bool hovering_over_link = false;
+	private Gtk.TextTag hover_tag = null;
 
 	private uint d_reveal_options_timeout;
 	private uint d_unreveal_options_timeout;

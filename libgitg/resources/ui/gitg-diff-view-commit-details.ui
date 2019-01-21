@@ -121,24 +121,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label_subject">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="halign">start</property>
-            <property name="valign">start</property>
-            <property name="label">Message</property>
-            <property name="wrap">True</property>
-            <property name="selectable">True</property>
-            <property name="ellipsize">end</property>
-            <property name="use_markup">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-            <property name="width">2</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkGrid" id="grid_parents_container">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -180,7 +162,28 @@
             <property name="width">2</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkTextView" id="textview_subject">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="editable">False</property>
+            <property name="cursor_visible">False</property>
+            <style>
+              <class name="commit-subject"/>
+            </style>
       </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+      </packing>
     </child>
     <child>
       <object class="GtkGrid" id="grid_bottom">
@@ -199,6 +202,10 @@
               <class name="dim-label"/>
             </style>
           </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkEventBox" id="event_box_expand_collapse_files">
