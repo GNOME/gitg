@@ -522,15 +522,15 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 					{
 						string custom_link_regexp = file.get_string (group, "regexp");
 						string custom_link_replacement = file.get_string (group, "replacement");
-						bool custom_color = file.has_key (group, "color");
+						bool is_custom_color = file.has_key (group, "color");
 						Gdk.RGBA color = d_color_link;
-						if (custom_color)
+						if (is_custom_color)
 						{
 							string custom_link_color = file.get_string (group, "color");
 							color = Gdk.RGBA();
 							color.parse(custom_link_color);
 						}
-						apply_link_tags(buffer, new Regex (custom_link_regexp), custom_link_replacement, color, custom_color, true);
+						apply_link_tags(buffer, new Regex (custom_link_regexp), custom_link_replacement, color, is_custom_color, true);
 					}
 				}
 			}
