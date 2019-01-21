@@ -1,9 +1,9 @@
 # Swedish translation for gitg.
-# Copyright © 2009-2018 Free Software Foundation, Inc.
+# Copyright © 2009-2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gitg package.
 # Daniel Nylander <po@danielnylander.se>, 2009.
 # Sebastian Rasmussen <sebras@gmail.com>, 2014, 2015, 2016.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2017, 2018.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2017, 2018, 2019.
 #
 # Vokabulär
 # (synkroniserat med https://github.com/git/git/blob/master/po/sv.po)
@@ -37,8 +37,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2018-12-30 00:19+0000\n"
-"PO-Revision-Date: 2018-12-30 01:32+0100\n"
+"POT-Creation-Date: 2019-01-19 11:32+0000\n"
+"PO-Revision-Date: 2019-01-21 01:56+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Kunde inte tolka XML från ström"
 
-#: data/org.gnome.gitg.appdata.xml.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:8
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -65,59 +65,59 @@ msgstr ""
 "arkiv. Förutom visualisering tillhandahåller gitg också flera verktyg för "
 "att hantera ditt arkiv och checka in ditt arbete."
 
-#: data/org.gnome.gitg.appdata.xml.in:14
+#: data/org.gnome.gitg.appdata.xml.in.in:14
 msgid "Goals"
 msgstr "Mål"
 
-#: data/org.gnome.gitg.appdata.xml.in:16
+#: data/org.gnome.gitg.appdata.xml.in.in:16
 msgid "Browse local git repositories"
 msgstr "Bläddra i lokala git-arkiv"
 
-#: data/org.gnome.gitg.appdata.xml.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Clone local and remote git repositories"
 msgstr "Klona lokala git-arkiv och fjärrarkiv"
 
-#: data/org.gnome.gitg.appdata.xml.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:18
 msgid "Commit files"
 msgstr "Checka in filer"
 
-#: data/org.gnome.gitg.appdata.xml.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Retrieve patch from a commit"
 msgstr "Erhåll en patch från en incheckning"
 
-#: data/org.gnome.gitg.appdata.xml.in:30
+#: data/org.gnome.gitg.appdata.xml.in.in:30
 msgid "Browse repository history"
 msgstr "Bläddra i arkivhistorik"
 
-#: data/org.gnome.gitg.appdata.xml.in:34
+#: data/org.gnome.gitg.appdata.xml.in.in:34
 msgid "Staging area to compose your commit"
 msgstr "Köområde för att skapa din incheckning"
 
-#: data/org.gnome.gitg.appdata.xml.in:38
+#: data/org.gnome.gitg.appdata.xml.in.in:38
 msgid "Commit staged changes"
 msgstr "Checka in köade ändringar"
 
-#: data/org.gnome.gitg.appdata.xml.in:42
+#: data/org.gnome.gitg.appdata.xml.in.in:42
 msgid "Overview of recently used repositories"
 msgstr "Översikt över senast använda arkiv"
 
-#: data/org.gnome.gitg.appdata.xml.in:52
+#: data/org.gnome.gitg.appdata.xml.in.in:52
 msgid "The GNOME Project"
 msgstr "GNOME-projektet"
 
-#: data/org.gnome.gitg.desktop.in:3 gitg/gitg.vala:39
+#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
 #: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: data/org.gnome.gitg.desktop.in:4
+#: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git-arkivsbläddrare"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.gitg.desktop.in:10
-msgid "org.gnome.gitg"
-msgstr "org.gnome.gitg"
+#: data/org.gnome.gitg.desktop.in.in:10
+msgid "@icon@"
+msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -174,11 +174,20 @@ msgstr ""
 "Inställning som bestämmer huruvida syntaxfärgmarkering ska aktiveras i "
 "diffvyer."
 
-#: data/org.gnome.gitg.gschema.xml.in:75
+#: data/org.gnome.gitg.gschema.xml.in:73
+msgid "Color scheme to use for syntax highlighting"
+msgstr "Färgschema att använda för syntaxmarkering"
+
+#: data/org.gnome.gitg.gschema.xml.in:74
+msgid "Used by GtkSourceView to determine colors for syntax highlighting"
+msgstr ""
+"Används av GtkSourceView för att bestämma färger för färgmarkering av syntax"
+
+#: data/org.gnome.gitg.gschema.xml.in:80
 msgid "When to Collapse Inactive Lanes"
 msgstr "När inaktiva banor ska fällas ihop"
 
-#: data/org.gnome.gitg.gschema.xml.in:76
+#: data/org.gnome.gitg.gschema.xml.in:81
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -186,7 +195,7 @@ msgstr ""
 "Inställning som indikerar när en inaktiv bana ska fällas ihop. Giltiga "
 "värden är 0 — 4, där 0 indikerar ”tidigt” och 4 indikerar ”sent”."
 
-#: data/org.gnome.gitg.gschema.xml.in:83
+#: data/org.gnome.gitg.gschema.xml.in:88
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -198,31 +207,31 @@ msgstr ""
 "när det finns mycket parallell utveckling. Se collapse-inactive-lanes för "
 "att kontrollera när banor ska kollapsa."
 
-#: data/org.gnome.gitg.gschema.xml.in:92
+#: data/org.gnome.gitg.gschema.xml.in:97
 msgid "Show History in Topological Order"
 msgstr "Visa historik i topologisk ordning"
 
-#: data/org.gnome.gitg.gschema.xml.in:93
+#: data/org.gnome.gitg.gschema.xml.in:98
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Inställning som indikerar huruvida historiken ska visas i topologisk ordning."
 
-#: data/org.gnome.gitg.gschema.xml.in:99
+#: data/org.gnome.gitg.gschema.xml.in:104
 msgid "Show Stashed Changes"
 msgstr "Visa stashade ändringar"
 
-#: data/org.gnome.gitg.gschema.xml.in:100
+#: data/org.gnome.gitg.gschema.xml.in:105
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
 "Inställning som indikerar huruvida objekt ska visas för stashen i historiken."
 
-#: data/org.gnome.gitg.gschema.xml.in:107
+#: data/org.gnome.gitg.gschema.xml.in:112
 msgid "Show Staged Changes"
 msgstr "Visa köade ändringar"
 
-#: data/org.gnome.gitg.gschema.xml.in:108
+#: data/org.gnome.gitg.gschema.xml.in:113
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -230,11 +239,11 @@ msgstr ""
 "Inställning som indikerar huruvida ett virtuellt objekt ska visas för de för "
 "närvarande köade ändringarna i historiken."
 
-#: data/org.gnome.gitg.gschema.xml.in:115
+#: data/org.gnome.gitg.gschema.xml.in:120
 msgid "Show Unstaged Changes"
 msgstr "Visa oköade ändringar"
 
-#: data/org.gnome.gitg.gschema.xml.in:116
+#: data/org.gnome.gitg.gschema.xml.in:121
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -242,11 +251,11 @@ msgstr ""
 "Inställning som indikerar huruvida ett virtuellt objekt ska visas för de för "
 "närvarande oköade ändringarna i historiken."
 
-#: data/org.gnome.gitg.gschema.xml.in:123
+#: data/org.gnome.gitg.gschema.xml.in:128
 msgid "Mainline Head"
 msgstr "Huvudlinjeshuvud"
 
-#: data/org.gnome.gitg.gschema.xml.in:124
+#: data/org.gnome.gitg.gschema.xml.in:129
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -254,30 +263,30 @@ msgstr ""
 "Inställning som indikerar huruvida huvudlinjen alltid ska bevaras historiken "
 "för nuvarande HEAD."
 
-#: data/org.gnome.gitg.gschema.xml.in:131
+#: data/org.gnome.gitg.gschema.xml.in:136
 msgid "Default selection of the history activity"
 msgstr "Standardval för historikaktiviteten"
 
-#: data/org.gnome.gitg.gschema.xml.in:132
+#: data/org.gnome.gitg.gschema.xml.in:137
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr ""
 "Inställning som bestämmer standardvalet vid start av historikaktiviteten."
 
-#: data/org.gnome.gitg.gschema.xml.in:138
+#: data/org.gnome.gitg.gschema.xml.in:143
 msgid "Reference Sort Order"
 msgstr "Sorteringsordning för referenser"
 
-#: data/org.gnome.gitg.gschema.xml.in:139
+#: data/org.gnome.gitg.gschema.xml.in:144
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "Ordningen enligt vilken referenser i historiksidopanelen ska sorteras."
 
-#: data/org.gnome.gitg.gschema.xml.in:145
+#: data/org.gnome.gitg.gschema.xml.in:150
 msgid "Show Upstream With Branch"
 msgstr "Visa uppström med gren"
 
-#: data/org.gnome.gitg.gschema.xml.in:146
+#: data/org.gnome.gitg.gschema.xml.in:151
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -285,11 +294,11 @@ msgstr ""
 "Avgör huruvida uppströmsgren (fjärr) också visas då en lokal gren väljs i "
 "historikvyn."
 
-#: data/org.gnome.gitg.gschema.xml.in:162
+#: data/org.gnome.gitg.gschema.xml.in:167
 msgid "Show Right Margin in Commit Message View"
 msgstr "Visa högermarginal i vyn för incheckningsmeddelande"
 
-#: data/org.gnome.gitg.gschema.xml.in:163
+#: data/org.gnome.gitg.gschema.xml.in:168
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -298,11 +307,11 @@ msgstr ""
 "användas för att lätt se vid vilken kolumn du bör bryta rader i "
 "incheckningsmeddelandet."
 
-#: data/org.gnome.gitg.gschema.xml.in:171
+#: data/org.gnome.gitg.gschema.xml.in:176
 msgid "Column at Which Right Margin is Shown"
 msgstr "Kolumn vid vilken högermarginalen visas"
 
-#: data/org.gnome.gitg.gschema.xml.in:172
+#: data/org.gnome.gitg.gschema.xml.in:177
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -310,11 +319,11 @@ msgstr ""
 "Kolumnen vid vilken högermarginalen visas om inställningen show-right-margin "
 "är satt till TRUE."
 
-#: data/org.gnome.gitg.gschema.xml.in:179
+#: data/org.gnome.gitg.gschema.xml.in:184
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Visa ämnesmarginal i vyn för incheckningsmeddelande"
 
-#: data/org.gnome.gitg.gschema.xml.in:180
+#: data/org.gnome.gitg.gschema.xml.in:185
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -322,11 +331,11 @@ msgstr ""
 "Markera ämnestexten i incheckningsmeddelandet när den passerar marginalen "
 "angiven av subject-margin-position."
 
-#: data/org.gnome.gitg.gschema.xml.in:187
+#: data/org.gnome.gitg.gschema.xml.in:192
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Kolumn vid vilken ämnesmarginalen visas"
 
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:193
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -334,11 +343,11 @@ msgstr ""
 "Kolumnen vid vilken ämnesmarginalen visas om inställningen show-subject-"
 "margin är satt till TRUE."
 
-#: data/org.gnome.gitg.gschema.xml.in:195
+#: data/org.gnome.gitg.gschema.xml.in:200
 msgid "Enable Spell Checking"
 msgstr "Aktivera rättstavning"
 
-#: data/org.gnome.gitg.gschema.xml.in:196
+#: data/org.gnome.gitg.gschema.xml.in:201
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -346,11 +355,11 @@ msgstr ""
 "Inställning som bestämmer huruvida rättstavning är aktiverat vid inmatning "
 "av incheckningsmeddelande."
 
-#: data/org.gnome.gitg.gschema.xml.in:203
+#: data/org.gnome.gitg.gschema.xml.in:208
 msgid "Spell Checking Language"
 msgstr "Rättstavningsspråk"
 
-#: data/org.gnome.gitg.gschema.xml.in:204
+#: data/org.gnome.gitg.gschema.xml.in:209
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -359,21 +368,21 @@ msgstr ""
 "incheckningsmeddelande."
 
 # git diff --patience
-#: data/org.gnome.gitg.gschema.xml.in:213
+#: data/org.gnome.gitg.gschema.xml.in:218
 msgid "Use patience algorithm to show diffs"
 msgstr "Använd patience-algoritmen för att visa diffar"
 
-#: data/org.gnome.gitg.gschema.xml.in:214
+#: data/org.gnome.gitg.gschema.xml.in:219
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Inställning för att använda patience-algoritmen för att visa diffar för en "
 "incheckning."
 
-#: data/org.gnome.gitg.gschema.xml.in:220
+#: data/org.gnome.gitg.gschema.xml.in:225
 msgid "Ignore Whitespace Changes"
 msgstr "Ignorera tomrumsändringar"
 
-#: data/org.gnome.gitg.gschema.xml.in:221
+#: data/org.gnome.gitg.gschema.xml.in:226
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -381,30 +390,30 @@ msgstr ""
 "Inställning som indikerar huruvida tomrumsändringar ska ignoreras när diffen "
 "för en incheckning visas."
 
-#: data/org.gnome.gitg.gschema.xml.in:228
+#: data/org.gnome.gitg.gschema.xml.in:233
 msgid "Show Changes Inline"
 msgstr "Visa ändringar inbäddade"
 
-#: data/org.gnome.gitg.gschema.xml.in:229
+#: data/org.gnome.gitg.gschema.xml.in:234
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Inställning som indikerar huruvida ändringar inom rader ska visas inbäddade."
 
-#: data/org.gnome.gitg.gschema.xml.in:236
+#: data/org.gnome.gitg.gschema.xml.in:241
 msgid "Wrap"
 msgstr "Radbrytning"
 
-#: data/org.gnome.gitg.gschema.xml.in:237
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Wrap lines."
 msgstr "Radbryt rader."
 
-#: data/org.gnome.gitg.gschema.xml.in:243
-#: data/org.gnome.gitg.gschema.xml.in:261
+#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid "Number of Before/After Context Lines"
 msgstr "Antal kontextrader före/efter"
 
-#: data/org.gnome.gitg.gschema.xml.in:244
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -412,13 +421,13 @@ msgstr ""
 "Inställningen som bestämmer hur många rader kontext (före och efter) som ska "
 "visas när diffen för en incheckning visas."
 
-#: data/org.gnome.gitg.gschema.xml.in:251
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:275
 msgid "Rendered Width of a Tab Character"
 msgstr "Visad bredd för ett tabbtecken"
 
-#: data/org.gnome.gitg.gschema.xml.in:252
-#: data/org.gnome.gitg.gschema.xml.in:271
+#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:276
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -426,7 +435,7 @@ msgstr ""
 "Inställning som bestämmer hur många blanksteg ett tabbtecken ska uppta när "
 "diffen för en incheckning visas."
 
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:267
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -576,7 +585,7 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:1341 gitg/commit/gitg-commit.vala:1507
 #: gitg/commit/gitg-commit.vala:1622
-#: gitg/gitg-commit-action-create-patch.vala:150 gitg/gitg-dash-view.vala:444
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
@@ -899,15 +908,15 @@ msgstr "Skapa patch"
 msgid "Create a patch from the selected commit"
 msgstr "Skapa en patch från den markerade incheckningen"
 
-#: gitg/gitg-commit-action-create-patch.vala:148
+#: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
 msgstr "Spara patchfil"
 
-#: gitg/gitg-commit-action-create-patch.vala:152
+#: gitg/gitg-commit-action-create-patch.vala:156
 msgid "_Save Patch"
 msgstr "_Spara patch"
 
-#: gitg/gitg-commit-action-create-patch.vala:177
+#: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
 msgstr "Misslyckades att skapa patch"
 
@@ -951,20 +960,20 @@ msgstr "Vi kan också %ssöka igenom din hemkatalog%s efter git-arkiv."
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Under tiden kan du vilja %skonfigurera din git-profil%s."
 
-#: gitg/gitg-dash-view.vala:389
+#: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
 msgstr "Misslyckades att klona arkiv"
 
-#: gitg/gitg-dash-view.vala:420
+#: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
 msgstr "Misslyckades att lägga till arkiv"
 
-#: gitg/gitg-dash-view.vala:436
+#: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
 msgstr "Skapa nytt arkiv"
 
 #. Translators: %s is a file name
-#: gitg/gitg-dash-view.vala:439
+#: gitg/gitg-dash-view.vala:448
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -973,15 +982,15 @@ msgstr ""
 "Platsen <i>%s</i> verkar inte vara ett giltigt git-arkiv. Vill du initiera "
 "ett nytt git-arkiv på denna plats?"
 
-#: gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:454
 msgid "Create repository"
 msgstr "Skapa arkiv"
 
-#: gitg/gitg-dash-view.vala:461
+#: gitg/gitg-dash-view.vala:470
 msgid "Failed to create repository"
 msgstr "Misslyckades att skapa arkiv"
 
-#: gitg/gitg-dash-view.vala:531
+#: gitg/gitg-dash-view.vala:540
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Söker efter arkiv i %s"
@@ -1245,12 +1254,12 @@ msgstr "Projekt"
 msgid "Select items"
 msgstr "Välj objekt"
 
-#: gitg/gitg-window.vala:1011
+#: gitg/gitg-window.vala:1015
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "”%s” är inte ett Git-arkiv."
 
-#: gitg/gitg-window.vala:1160
+#: gitg/gitg-window.vala:1164
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1258,7 +1267,7 @@ msgstr ""
 "Ditt användarnamn och e-post är inte konfigurerade än. Gå till "
 "användarkonfigurationen och ange ditt namn och e-post."
 
-#: gitg/gitg-window.vala:1164
+#: gitg/gitg-window.vala:1168
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1266,7 +1275,7 @@ msgstr ""
 "Ditt användarnamn är inte konfigurerat än. Gå till användarkonfigurationen "
 "och ange ditt namn."
 
-#: gitg/gitg-window.vala:1168
+#: gitg/gitg-window.vala:1172
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1274,7 +1283,7 @@ msgstr ""
 "Din e-post är inte konfigurerad än. Gå till användarkonfigurationen och ange "
 "din e-post."
 
-#: gitg/gitg-window.vala:1171
+#: gitg/gitg-window.vala:1175
 msgid "Missing author details"
 msgstr "Saknar författardetaljer"
 
@@ -1349,7 +1358,7 @@ msgctxt "Preferences"
 msgid "Commit"
 msgstr "Incheckning"
 
-#: gitg/preferences/gitg-preferences-interface.vala:120
+#: gitg/preferences/gitg-preferences-interface.vala:140
 msgid "Interface"
 msgstr "Gränssnitt"
 
@@ -1620,6 +1629,10 @@ msgstr "Diff"
 #: gitg/resources/ui/gitg-preferences-interface.ui:232
 msgid "Enable syntax highlighting of source code in diff views"
 msgstr "Aktivera syntaxfärgmarkering av källkod i diffvyer"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:258
+msgid "Syntax highlighting color scheme:"
+msgstr "Färgschema för syntaxmarkering:"
 
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
@@ -1932,6 +1945,9 @@ msgstr "Filer"
 #: plugins/files/gitg-files.vala:68
 msgid "Show the files in the tree of the selected commit"
 msgstr "Visa filerna i trädet för den markerade incheckningen"
+
+#~ msgid "org.gnome.gitg"
+#~ msgstr "org.gnome.gitg"
 
 #~ msgid "_Quit"
 #~ msgstr "_Avsluta"
