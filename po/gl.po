@@ -3,104 +3,180 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Ignacio Casal Quinteiro <icq@gnome.org>, 2009.
 # Fran Diéguez <frandieguez@gnome.org>, 2010, 2011.
-# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013, 2014, 2015, 2016, 2017.
-#
+# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013, 2014, 2015, 2016, 2017, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-26 01:44+0100\n"
-"PO-Revision-Date: 2017-02-26 01:47+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
+"POT-Creation-Date: 2019-01-16 18:54+0000\n"
+"PO-Revision-Date: 2019-01-27 22:59+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
-"Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
+"Language-Team: Galician\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Virtaal 0.7.1\n"
 
-#: ../contrib/xml/xml-reader.c:327
+#: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Non foi posíbel analizar o XML desde o fluxo"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
-#: ../gitg/resources/ui/gitg-window.ui.h:1
+#: data/org.gnome.gitg.appdata.xml.in.in:8
+msgid ""
+"gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"gitg é unha inteface gráfica para git. Intenta ser unha ferramenta pequena, "
+"rápida e conveniente para visualizar o historial de repositorios git. "
+"Ademáis da visualización, gitg tamén lle fornece varias utilidades para "
+"xestoinar o seu repositorio e remitir o seu traballo."
+
+#: data/org.gnome.gitg.appdata.xml.in.in:14
+msgid "Goals"
+msgstr "Obxectivos"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:16
+#| msgid "Not a valid git repository"
+msgid "Browse local git repositories"
+msgstr "Explorar repositorios git locais"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+#| msgid "Not a valid git repository"
+msgid "Clone local and remote git repositories"
+msgstr "Clonar repositorios git locais e remotos"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:18
+#| msgid "Commits"
+msgid "Commit files"
+msgstr "Remitir ficheiros"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:19
+#| msgid "Create a patch from the selected commit"
+msgid "Retrieve patch from a commit"
+msgstr "Obter un parche desde un commit"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:30
+#| msgid "Bare repository"
+msgid "Browse repository history"
+msgstr "Explorar o historial do repositorio"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:34
+#| msgid "Failed to lookup our commit: %s"
+msgid "Staging area to compose your commit"
+msgstr "Área de reserva para compoñer a súa remisión"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:38
+#| msgid "Unstaged changes"
+msgid "Commit staged changes"
+msgstr "Remitir os cambios reservados"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:42
+#| msgid "Show the list of recently used repositories"
+msgid "Overview of recently used repositories"
+msgstr "Vista previa dos repositorios usados recentemente"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:52
+msgid "The GNOME Project"
+msgstr "O proxecto de GNOME"
+
+#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: ../data/gitg.desktop.in.in.h:2
+#: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Explorador de repositorios Git"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/org.gnome.gitg.desktop.in.in:10
+msgid "@icon@"
+msgstr "@icon@"
+
+#: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
 msgstr "Cartafol de clonado por omisión"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+#: data/org.gnome.gitg.gschema.xml.in:28
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr "O cartafol por omisión onde os novos repositorios deben ser clonados."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+#: data/org.gnome.gitg.gschema.xml.in:37
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Orientación da interface principal (vertical ou horizontal)"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+#: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Opción que estabelece a orientación da interface principal."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+#: data/org.gnome.gitg.gschema.xml.in:44
 msgid "Default Activity"
 msgstr "Actividade predeterminada"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+#: data/org.gnome.gitg.gschema.xml.in:45
 msgid "The activity which gitg activates by default when first launched."
 msgstr "A actividade que activa gitg por omisión ao arrincar por primeira vez."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+#: data/org.gnome.gitg.gschema.xml.in:51
 msgid "Use Gravatar"
 msgstr "Usar Gravatar"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+#: data/org.gnome.gitg.gschema.xml.in:52
 msgid "Enable the use of gravatar to display user avatars."
 msgstr "Actiar o uso de gravatar para mostrar os avatares de usuario."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+#: data/org.gnome.gitg.gschema.xml.in:58
 msgid "Enable Monitoring"
 msgstr "Activar monitorización"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:10
+#: data/org.gnome.gitg.gschema.xml.in:59
+#: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "Actualizar automaticamente cando se atopen cambios externos en .git"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: data/org.gnome.gitg.gschema.xml.in:65
 msgid "Enable Diff Highlighting"
 msgstr "Activar o realzado das diferencias"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: data/org.gnome.gitg.gschema.xml.in:66
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
 "Configuración que determina se o realzado de sintaxe está activado nas "
 "vistas de diferencias"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: data/org.gnome.gitg.gschema.xml.in:73
+msgid "Color scheme to use for syntax highlighting"
+msgstr "O esquema de cor usado para o realce de sintaxe"
+
+#: data/org.gnome.gitg.gschema.xml.in:74
+msgid "Used by GtkSourceView to determine colors for syntax highlighting"
+msgstr ""
+"Usado por GtkSourceView para determinar as cores para o realce de sintaxe"
+
+#: data/org.gnome.gitg.gschema.xml.in:80
 msgid "When to Collapse Inactive Lanes"
 msgstr "Cando contraer as liñas inactivas"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: data/org.gnome.gitg.gschema.xml.in:81
+#| msgid ""
+#| "Setting that indicates when an inactive lane should be collapsed. Valid "
+#| "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+"values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
 "Opción que indica cando unha parte inactiva debe contraerse. Os valores "
 "correctos son 0 - 4, onde 0 indica «pronto» e 4 indica «máis tarde»."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: data/org.gnome.gitg.gschema.xml.in:88
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -112,31 +188,31 @@ msgstr ""
 "limpa cando hai moito desenvolvemento en paralelo. Vexa «collapse-inactive-"
 "lanes» para controlar cando se deben contraer as liñas."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: data/org.gnome.gitg.gschema.xml.in:97
 msgid "Show History in Topological Order"
 msgstr "Mostrar o historial por orde topolóxico"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#: data/org.gnome.gitg.gschema.xml.in:98
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "Opción que indica se se debe mostrar o historial en orde topolóxico."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+#: data/org.gnome.gitg.gschema.xml.in:104
 msgid "Show Stashed Changes"
 msgstr "Mostrar os cambios na reserva"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
+#: data/org.gnome.gitg.gschema.xml.in:105
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
 "Configuración que indica se se deben mostrar os elementos de reserva no "
 "historial."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+#: data/org.gnome.gitg.gschema.xml.in:112
 msgid "Show Staged Changes"
 msgstr "Mostrar os cambios reservados"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+#: data/org.gnome.gitg.gschema.xml.in:113
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -144,11 +220,11 @@ msgstr ""
 "Configuración que indica se se debe mostrar no historial un elemento visual "
 "para os cambios reservados actualmente."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+#: data/org.gnome.gitg.gschema.xml.in:120
 msgid "Show Unstaged Changes"
 msgstr "Mostrar os cambios non reservados"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
+#: data/org.gnome.gitg.gschema.xml.in:121
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -156,11 +232,11 @@ msgstr ""
 "Configuración que indica se se debe mostrar no historial un elemento virtual "
 "para os elementos non reservados actualmente."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+#: data/org.gnome.gitg.gschema.xml.in:128
 msgid "Mainline Head"
 msgstr "HEAD principal"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+#: data/org.gnome.gitg.gschema.xml.in:129
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -168,11 +244,11 @@ msgstr ""
 "Configuración que indica se se deben preservar unha liña principal no "
 "historial para o HEAD actual."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+#: data/org.gnome.gitg.gschema.xml.in:136
 msgid "Default selection of the history activity"
 msgstr "Selección por omisión da actividade do historial"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+#: data/org.gnome.gitg.gschema.xml.in:137
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
@@ -180,20 +256,20 @@ msgstr ""
 "Configuración que determina a selección por omisión ao inicio da actividade "
 "do historial."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
+#: data/org.gnome.gitg.gschema.xml.in:143
 msgid "Reference Sort Order"
 msgstr "Modo da ordenación de referencias"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
+#: data/org.gnome.gitg.gschema.xml.in:144
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr ""
 "O modo no que se deben ordenar as referencias na barra lateral do historial"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+#: data/org.gnome.gitg.gschema.xml.in:150
 msgid "Show Upstream With Branch"
 msgstr "Mostrar maestra con rama"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
+#: data/org.gnome.gitg.gschema.xml.in:151
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -201,11 +277,11 @@ msgstr ""
 "Determina se se debe mostrar a rama maestra (remota) ao seleccionar a rama "
 "local na vista de histórico."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+#: data/org.gnome.gitg.gschema.xml.in:167
 msgid "Show Right Margin in Commit Message View"
 msgstr "Mostrar a marxe dereito na vista de mensaxe de «commit». "
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
+#: data/org.gnome.gitg.gschema.xml.in:168
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -214,11 +290,11 @@ msgstr ""
 "pode ser útil para ver de forma doada onde romper a mensaxe de «commit» "
 "nunha columna específica."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+#: data/org.gnome.gitg.gschema.xml.in:176
 msgid "Column at Which Right Margin is Shown"
 msgstr "Columna na cal se mostra o marxe dereito"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
+#: data/org.gnome.gitg.gschema.xml.in:177
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -226,11 +302,11 @@ msgstr ""
 "A columna na que se mostra a marxe dereita se a opción show-right-margin "
 "está estabelecida como verdadeira."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+#: data/org.gnome.gitg.gschema.xml.in:184
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Mostrar a marxe do asunto na vista de mensaxe de remisión. "
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:37
+#: data/org.gnome.gitg.gschema.xml.in:185
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -238,11 +314,11 @@ msgstr ""
 "Realzar o texto do asunto na mensaxe de remisión ao pasarse do marxe "
 "especificado por subject-margin-position."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:38
+#: data/org.gnome.gitg.gschema.xml.in:192
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Columna na cal se mostra a marxe do asunto"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:39
+#: data/org.gnome.gitg.gschema.xml.in:193
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -250,11 +326,11 @@ msgstr ""
 "A columna na que se mostra a marxe do asunto se a opción show-subject-margin "
 "está estabelecida como verdadeira."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
+#: data/org.gnome.gitg.gschema.xml.in:200
 msgid "Enable Spell Checking"
 msgstr "Activar a corrección ortográfica"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:41
+#: data/org.gnome.gitg.gschema.xml.in:201
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -262,11 +338,11 @@ msgstr ""
 "Configuración que determina se a corrección ortográfica está activada ao "
 "escribir mensaxes de remisión."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:42
+#: data/org.gnome.gitg.gschema.xml.in:208
 msgid "Spell Checking Language"
 msgstr "Idioma da corrección ortográfica"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:43
+#: data/org.gnome.gitg.gschema.xml.in:209
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -274,11 +350,21 @@ msgstr ""
 "O idioma a usar cando a corrección ortográfica está activada ao escribir un "
 "mensaxe de remisión."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:44
+#: data/org.gnome.gitg.gschema.xml.in:218
+msgid "Use patience algorithm to show diffs"
+msgstr "Usar o algoritmo de paciencia para mostrar as diferencias"
+
+#: data/org.gnome.gitg.gschema.xml.in:219
+msgid "Setting to use patience algorithm to show diffs of a commit."
+msgstr ""
+"Configurado para usar o algoritmo de paciencia para mostrar diferencias "
+"dunha remisión."
+
+#: data/org.gnome.gitg.gschema.xml.in:225
 msgid "Ignore Whitespace Changes"
 msgstr "Ignorar os cambios nos espazos en branco"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:45
+#: data/org.gnome.gitg.gschema.xml.in:226
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -286,30 +372,31 @@ msgstr ""
 "Configuración que indica se ignorar os cambios nos espazos en branco ao "
 "mostrar as diferencias dunha remisión"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:46
+#: data/org.gnome.gitg.gschema.xml.in:233
 msgid "Show Changes Inline"
 msgstr "Mostrar os cambios en liña"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:47
+#: data/org.gnome.gitg.gschema.xml.in:234
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Configuración que indica se se deben mostrar as diferencias entre liñas en "
 "liña."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:48
+#: data/org.gnome.gitg.gschema.xml.in:241
 msgid "Wrap"
 msgstr "Axustar"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:49
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Wrap lines."
 msgstr "Axustar liñas."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:50
+#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid "Number of Before/After Context Lines"
 msgstr "Número de liñas por diante e detrás do contexto"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:51
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -317,11 +404,13 @@ msgstr ""
 "Configuración que determina cantas liñas de contexto (antes e despois) se "
 "deberían mostrar ao mostrar as diferencias dunha remisión."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:52
+#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:275
 msgid "Rendered Width of a Tab Character"
 msgstr "Ancho mostrado do caracter tabulación"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:53
+#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:276
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -329,7 +418,7 @@ msgstr ""
 "Configuración que determina canto espazo debe ocupar un caracter de "
 "tabulación ao mostrar as diferencias dunha remisión."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:54
+#: data/org.gnome.gitg.gschema.xml.in:267
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -338,251 +427,269 @@ msgstr ""
 "deberían mostrar ao mostrar as diferencias da reserva ou dos cambios "
 "reservados no área de remisión."
 
-#: ../gitg/commit/gitg-commit-dialog.vala:308
+#: gitg/commit/gitg-commit-dialog.vala:298
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Non é posíbel comprobar a ortografía do idioma: %s"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:508
-#: ../gitg/commit/gitg-commit.vala:1076
+#: gitg/commit/gitg-commit-dialog.vala:504 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Non hai cambios para remitir"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:509
-#: ../gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:505 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Use engadir para cambiar a mensaxe de remisión da anterior remisión"
 
-#: ../gitg/commit/gitg-commit.vala:113
+#: gitg/commit/gitg-commit.vala:113
 msgctxt "Activity"
 msgid "Commit"
 msgstr "Commit"
 
-#: ../gitg/commit/gitg-commit.vala:118
+#: gitg/commit/gitg-commit.vala:118
 msgid "Create new commits and manage the staging area"
 msgstr "Crear novas remisións e xestionar a reserva"
 
-#: ../gitg/commit/gitg-commit.vala:193
+#: gitg/commit/gitg-commit.vala:193
 msgid "_Stage selection"
 msgstr "Selección de _reserva"
 
-#: ../gitg/commit/gitg-commit.vala:232
+#: gitg/commit/gitg-commit.vala:232
 #, c-format
-msgid "Failed to stage the removal of submodule `%s'"
+#| msgid "Failed to stage the removal of submodule `%s'"
+msgid "Failed to stage the removal of submodule “%s”"
 msgstr "Produciuse un fallo ao reservar a eliminación do submódulo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:248
+#: gitg/commit/gitg-commit.vala:248
 #, c-format
-msgid "Failed to open the repository of submodule `%s' while trying to stage"
+#| msgid ""
+#| "Failed to open the repository of submodule `%s' while trying to stage"
+msgid "Failed to open the repository of submodule “%s” while trying to stage"
 msgstr ""
 "Produciuse un fallo ao abrir o repositorio do submódulo «%s» ao tentar "
 "reservar"
 
-#: ../gitg/commit/gitg-commit.vala:262
+#: gitg/commit/gitg-commit.vala:263
 #, c-format
+#| msgid ""
+#| "Failed to lookup the working directory commit of submodule `%s' while "
+#| "trying to stage"
 msgid ""
-"Failed to lookup the working directory commit of submodule `%s' while trying "
+"Failed to lookup the working directory commit of submodule “%s” while trying "
 "to stage"
 msgstr ""
 "Produciuse un fallo ao buscar o directorio de traballo de «commit» do "
 "submódulo «%s» ao tentar reservar"
 
-#: ../gitg/commit/gitg-commit.vala:275
+#: gitg/commit/gitg-commit.vala:276
 #, c-format
-msgid "Failed to stage the submodule `%s'"
+#| msgid "Failed to stage the submodule `%s'"
+msgid "Failed to stage the submodule “%s”"
 msgstr "Produciuse un fallo ao reservar o submódulo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:297
+#: gitg/commit/gitg-commit.vala:298
 #, c-format
-msgid "Failed to stage the removal of file `%s'"
+#| msgid "Failed to stage the removal of file `%s'"
+msgid "Failed to stage the removal of file “%s”"
 msgstr "Produciuse un fallo ao reservar a eliminación do ficheiro «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:311
+#: gitg/commit/gitg-commit.vala:312
 #, c-format
-msgid "Failed to stage the file `%s'"
+#| msgid "Failed to stage the file `%s'"
+msgid "Failed to stage the file “%s”"
 msgstr "Produciuse un fallo ao reservar o ficheiro «%s» "
 
-#: ../gitg/commit/gitg-commit.vala:583
+#: gitg/commit/gitg-commit.vala:584
 msgid "_Unstage selection"
 msgstr "Selección de _desreserva"
 
-#: ../gitg/commit/gitg-commit.vala:649
+#: gitg/commit/gitg-commit.vala:650
 #, c-format
-msgid "Failed to unstage the removal of file `%s'"
+#| msgid "Failed to unstage the removal of file `%s'"
+msgid "Failed to unstage the removal of file “%s”"
 msgstr "Produciuse un fallo ao desreservar a eliminación do ficheiro «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:650
+#: gitg/commit/gitg-commit.vala:651
 #, c-format
-msgid "Failed to unstage the file `%s'"
+#| msgid "Failed to unstage the file `%s'"
+msgid "Failed to unstage the file “%s”"
 msgstr "Produciuse un fallo desreservar o ficheiro «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:657
+#: gitg/commit/gitg-commit.vala:658
 #, c-format
-msgid "Failed to unstage the removal of submodule `%s'"
+#| msgid "Failed to unstage the removal of submodule `%s'"
+msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Produciuse un fallo ao desreservar a eliminación do submódulo «%s»"
 
-#: ../gitg/commit/gitg-commit.vala:658
+#: gitg/commit/gitg-commit.vala:659
 #, c-format
-msgid "Failed to unstage the submodule `%s'"
+#| msgid "Failed to unstage the submodule `%s'"
+msgid "Failed to unstage the submodule “%s”"
 msgstr "Produciuse un fallo desreservar o submódulo «%s»"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:862
+#: gitg/commit/gitg-commit.vala:863
 msgid "Staged"
 msgstr "Reservado"
 
-#: ../gitg/commit/gitg-commit.vala:870
+#: gitg/commit/gitg-commit.vala:871
 msgid "No staged files"
 msgstr "Non hai ningún ficheiro reservado"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:893
+#: gitg/commit/gitg-commit.vala:894
 msgid "Unstaged"
 msgstr "Sen reservar"
 
-#: ../gitg/commit/gitg-commit.vala:901
+#: gitg/commit/gitg-commit.vala:902
 msgid "No unstaged files"
 msgstr "Non hai ficheiro sen reservar"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:924
+#: gitg/commit/gitg-commit.vala:925
 msgid "Untracked"
 msgstr "Sen seguimento"
 
-#: ../gitg/commit/gitg-commit.vala:928
+#: gitg/commit/gitg-commit.vala:929
 msgid "No untracked files"
 msgstr "Non hai ficheiro sen seguimento"
 
-#: ../gitg/commit/gitg-commit.vala:953
+#: gitg/commit/gitg-commit.vala:954
 msgid "Submodule"
 msgstr "Submódulo"
 
-#: ../gitg/commit/gitg-commit.vala:957
+#: gitg/commit/gitg-commit.vala:958
 msgid "No dirty submodules"
 msgstr "Non hai submódulos sucios"
 
-#: ../gitg/commit/gitg-commit.vala:1106
+#: gitg/commit/gitg-commit.vala:1107
 msgid "Failed to commit"
 msgstr "Produciuse un fallo ao remitir"
 
-#: ../gitg/commit/gitg-commit.vala:1122
+#: gitg/commit/gitg-commit.vala:1123
 msgid "Failed to pass pre-commit"
 msgstr "Produciuse un fallo ao pasar a pre-remisión"
 
-#: ../gitg/commit/gitg-commit.vala:1330 ../gitg/commit/gitg-commit.vala:1480
+#: gitg/commit/gitg-commit.vala:1331 gitg/commit/gitg-commit.vala:1481
 msgid "Discard changes"
 msgstr "Rexeitar os cambios"
 
-#: ../gitg/commit/gitg-commit.vala:1331
+#: gitg/commit/gitg-commit.vala:1332
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 "Ten certeza que quere rexeitar de forma permanente os cambios seleccionados?"
 
-#: ../gitg/commit/gitg-commit.vala:1340 ../gitg/commit/gitg-commit.vala:1506
-#: ../gitg/commit/gitg-commit.vala:1621
-#: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-window.ui.h:9
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
+#: gitg/commit/gitg-commit.vala:1341 gitg/commit/gitg-commit.vala:1507
+#: gitg/commit/gitg-commit.vala:1622
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
+#: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/resources/ui/gitg-clone-dialog.ui:18
+#: gitg/resources/ui/gitg-commit-dialog.ui:20
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:18
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:151
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
+#: gitg/commit/gitg-commit.vala:1342 gitg/commit/gitg-commit.vala:1508
 msgid "Discard"
 msgstr "Rexeitar"
 
-#: ../gitg/commit/gitg-commit.vala:1370
+#: gitg/commit/gitg-commit.vala:1371
 msgid "Failed to discard selection"
 msgstr "Produciuse un fallo ao rexeitar a selección"
 
-#: ../gitg/commit/gitg-commit.vala:1400
+#: gitg/commit/gitg-commit.vala:1401
 msgid "Failed to stage selection"
 msgstr "Produciuse un fallo na selección da reserva"
 
-#: ../gitg/commit/gitg-commit.vala:1404
+#: gitg/commit/gitg-commit.vala:1405
 msgid "Failed to unstage selection"
 msgstr "Produciuse un fallo na selección de desreserva"
 
-#: ../gitg/commit/gitg-commit.vala:1464
+#: gitg/commit/gitg-commit.vala:1465
 msgid "Failed to discard changes"
 msgstr "Produciuse un fallo ao rexeitar os cambios"
 
-#: ../gitg/commit/gitg-commit.vala:1485
+#: gitg/commit/gitg-commit.vala:1486
 #, c-format
+#| msgid ""
+#| "Are you sure you want to permanently discard all changes made to the file "
+#| "`%s'?"
 msgid ""
-"Are you sure you want to permanently discard all changes made to the file `"
-"%s'?"
+"Are you sure you want to permanently discard all changes made to the file "
+"“%s”?"
 msgstr ""
 "Ten certeza que quere rexeitar de forma permanente todos os cambios feitos "
 "no ficheiro «%s»?"
 
-#: ../gitg/commit/gitg-commit.vala:1496
+#: gitg/commit/gitg-commit.vala:1497
 #, c-format
+#| msgid ""
+#| "Are you sure you want to permanently discard all changes made to the "
+#| "files %s and `%s'?"
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
-"%s and `%s'?"
+"%s and “%s”?"
 msgstr ""
 "Ten certeza que quere rexeitar de forma permanente todos os cambios feitos "
 "nos ficheiros %s e «%s»?"
 
-#: ../gitg/commit/gitg-commit.vala:1579
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Failed to delete files"
 msgstr "Produciuse un fallo ao eliminar os ficheiros"
 
-#: ../gitg/commit/gitg-commit.vala:1595
+#: gitg/commit/gitg-commit.vala:1596
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Eliminar ficheiro"
 msgstr[1] "Eliminar ficheiros"
 
-#: ../gitg/commit/gitg-commit.vala:1600
+#: gitg/commit/gitg-commit.vala:1601
 #, c-format
-msgid "Are you sure you want to permanently delete the file `%s'?"
+#| msgid "Are you sure you want to permanently delete the file `%s'?"
+msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Ten certeza que quere eliminar de forma permanente o ficheiro «%s»?"
 
-#: ../gitg/commit/gitg-commit.vala:1611
+#: gitg/commit/gitg-commit.vala:1612
 #, c-format
-msgid "Are you sure you want to permanently delete the files %s and `%s'?"
+#| msgid "Are you sure you want to permanently delete the files %s and `%s'?"
+msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr ""
 "Ten certeza que quere eliminar de forma permanente os ficheiros %s e «%s»?"
 
-#: ../gitg/commit/gitg-commit.vala:1657
+#: gitg/commit/gitg-commit.vala:1658
 msgid "_Stage changes"
 msgstr "Cambios _reservados"
 
-#: ../gitg/commit/gitg-commit.vala:1669
+#: gitg/commit/gitg-commit.vala:1670
 msgid "_Unstage changes"
 msgstr "Cambios _non reservados"
 
-#: ../gitg/commit/gitg-commit.vala:1681
+#: gitg/commit/gitg-commit.vala:1682
 msgid "_Discard changes"
 msgstr "_Rexeitar cambios"
 
-#: ../gitg/commit/gitg-commit.vala:1693
+#: gitg/commit/gitg-commit.vala:1694
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_Eliminar ficheiro"
 msgstr[1] "_Eliminar ficheiros"
 
-#: ../gitg/commit/gitg-commit.vala:1723
+#: gitg/commit/gitg-commit.vala:1724
 msgid "_Edit file"
 msgstr "_Editar ficheiro"
 
-#: ../gitg/gitg-action-support.vala:95
+#: gitg/gitg-action-support.vala:95
 #, c-format
 msgid "Failed to stash changes: %s"
 msgstr "Produciuse un fallo ao reservar os cambios: %s"
 
-#: ../gitg/gitg-action-support.vala:130
+#: gitg/gitg-action-support.vala:130
 msgid "Unstaged changes"
 msgstr "Cambios non reservados"
 
-#: ../gitg/gitg-action-support.vala:131
+#: gitg/gitg-action-support.vala:131
 msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
@@ -590,82 +697,96 @@ msgstr ""
 "Semella que ten cambios non reservados no seu directorio de traballo. Desexa "
 "reservlos cambios antes de obter?"
 
-#: ../gitg/gitg-action-support.vala:133
-#: ../gitg/gitg-commit-action-cherry-pick.vala:163
-#: ../gitg/gitg-ref-action-delete.vala:88
-#: ../gitg/gitg-ref-action-merge.vala:194
-#: ../gitg/resources/ui/gitg-remote-notification.ui.h:1
-#: ../gitg/resources/ui/gitg-simple-notification.ui.h:1
+#: gitg/gitg-action-support.vala:133
+#: gitg/gitg-commit-action-cherry-pick.vala:163
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../gitg/gitg-action-support.vala:134
+#: gitg/gitg-action-support.vala:134
 msgid "Stash changes"
 msgstr "Cambios reservados"
 
-#: ../gitg/gitg-action-support.vala:138 ../gitg/gitg-action-support.vala:165
+#: gitg/gitg-action-support.vala:138 gitg/gitg-action-support.vala:165
 msgid "Failed with conflicts"
 msgstr "Produciuse un fallo con conflitos"
 
-#: ../gitg/gitg-action-support.vala:181
+#: gitg/gitg-action-support.vala:181
 #, c-format
 msgid "Failed to checkout conflicts: %s"
 msgstr "Produciuse un fallo ao obter («checkout») os conflitos: %s"
 
-#: ../gitg/gitg-action-support.vala:199
+#: gitg/gitg-action-support.vala:199
 msgid "Failed to obtain author details"
 msgstr "Produciuse un fallo ao obter os detalles do autor"
 
-#: ../gitg/gitg-action-support.vala:223
-#: ../gitg/gitg-ref-action-checkout.vala:88
+#: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
 #, c-format
 msgid "Failed to lookup commit: %s"
 msgstr "Produciuse un fallo ao buscar as remisións: %s"
 
-#: ../gitg/gitg-action-support.vala:255
+#: gitg/gitg-action-support.vala:255
 #, c-format
 msgid "Failed to create commit: %s"
 msgstr "Produciuse un fallo ao crear a remisión: %s"
 
-#: ../gitg/gitg-action-support.vala:277
+#: gitg/gitg-action-support.vala:277
 #, c-format
 msgid "Failed to checkout index: %s"
 msgstr "Produciuse un fallo ao obter («checkout») o índice: %s"
 
-#: ../gitg/gitg-application.vala:56
-msgid "Show the application's version"
+#: gitg/gitg-application.vala:38
+#| msgid "Show the application's version"
+msgid "Show the application’s version"
 msgstr "Mostrar a versión do aplicativo"
 
-#: ../gitg/gitg-application.vala:59
+#: gitg/gitg-application.vala:40
 msgid "Start gitg with a particular activity"
 msgstr "Iniciar gitg con unha actividade en particular"
 
-#: ../gitg/gitg-application.vala:62
+#: gitg/gitg-application.vala:42
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Iniciar gitg coa actividade de remisión (atallo para --activity commit)"
 
-#: ../gitg/gitg-application.vala:65
+#: gitg/gitg-application.vala:44
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Non tentar cargar un repositorio desde o cartafol actual"
 
-#: ../gitg/gitg-application.vala:94
-msgid "- Git repository viewer"
-msgstr "- Explorador de repositorios Git"
+#: gitg/gitg-application.vala:46
+msgid "Run gitg in standalone mode"
+msgstr "Executar gitg en modo independente"
 
-#: ../gitg/gitg-application.vala:222
-msgid "gitg is a Git repository viewer for gtk+/GNOME"
-msgstr "gitg é un explorador de repositorios Git para gtk+/GNOME"
+#: gitg/gitg-application.vala:92
+#| msgid "- Git repository viewer"
+msgid "— Git repository viewer"
+msgstr "— Explorador de repositorios Git"
 
-#: ../gitg/gitg-application.vala:231
+#: gitg/gitg-application.vala:226
+#| msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgid "gitg is a Git repository viewer for GTK+/GNOME"
+msgstr "gitg é un explorador de repositorios Git para GTK+/GNOME"
+
+#: gitg/gitg-application.vala:235
 msgid "translator-credits"
 msgstr "Fran Dieguez <frandieguez@gnome.org>, 2014."
 
-#: ../gitg/gitg-application.vala:234
+#: gitg/gitg-application.vala:238
 msgid "gitg homepage"
 msgstr "Páxina web de gitg"
 
-#: ../gitg/gitg-application.vala:364
+#: gitg/gitg-application.vala:368
+#| msgid ""
+#| "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+#| "depends) to be compiled with threading support.\n"
+#| "\n"
+#| "If you manually compiled libgit2, then please configure libgit2 with -"
+#| "DTHREADSAFE:BOOL=ON.\n"
+#| "\n"
+#| "Otherwise, report a bug in your distributions' bug reporting system for "
+#| "providing libgit2 without threading support."
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -673,68 +794,68 @@ msgid ""
 "If you manually compiled libgit2, then please configure libgit2 with -"
 "DTHREADSAFE:BOOL=ON.\n"
 "\n"
-"Otherwise, report a bug in your distributions' bug reporting system for "
+"Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
 "Sentímolo moito, pero gitg require libgit2 (unha biblioteca da que depende "
 "gitg) para ser compilado con compatibilidade de fíos.\n"
 "\n"
-"Se quere compilar manualmente libgit2, entón configure libgit2 con -"
-"DTHREADSAFE:BOOL=ON.\n"
+"Se quere compilar manualmente libgit2, entón configure libgit2 con "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Doutro xeito, informe dun erro no sistema de informe de erros da súa "
 "distribución para que fornezan libgit2 sen compatibilidade de fíos."
 
-#. ex: ts=4 noet
-#: ../gitg/gitg-author-details-dialog.vala:97
-#: ../gitg/gitg-author-details-dialog.vala:117
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+#: gitg/gitg-author-details-dialog.vala:97
+#: gitg/gitg-author-details-dialog.vala:117
+#: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Detalles do autor"
 
-#: ../gitg/gitg-author-details-dialog.vala:98
+#: gitg/gitg-author-details-dialog.vala:98
 msgid "Enter default details used for all repositories:"
 msgstr "Escriba a información predeterminada usada para os repositorios:"
 
 #. Translators: %s is the repository name
-#: ../gitg/gitg-author-details-dialog.vala:120
+#: gitg/gitg-author-details-dialog.vala:120
 #, c-format
-msgid "Override global details for repository '%s':"
+#| msgid "Override global details for repository '%s':"
+msgid "Override global details for repository “%s”:"
 msgstr "Sobrescribir a información global para o repositorio «%s»:"
 
-#: ../gitg/gitg-author-details-dialog.vala:232
+#: gitg/gitg-author-details-dialog.vala:232
 msgid "Failed to set Git user config."
 msgstr "Produciuse un fallo ao estabelecer a configuración de Git do usuario."
 
-#: ../gitg/gitg-clone-dialog.vala:89
+#: gitg/gitg-clone-dialog.vala:89
 msgid "The URL introduced is not supported"
 msgstr "O URL introducido non é compatíbel"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:53
+#: gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
 msgstr "Aplicar os cambios («cherry-pick») en"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:58
+#: gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
 msgstr "Aplicar este cambio nunha rama («cherry-pick»)"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:117
+#: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
 msgid "Failed to lookup the commit for branch %s: %s"
 msgstr "Produciuse un fallo ao buscar a remisión para a rama %s: %s"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:132
+#: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
 msgid "Failed to cherry-pick the commit: %s"
 msgstr ""
 "Produciuse un fallo ao aplicar os cambios da revisión («cherry-pick»): %s"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:144
-#: ../gitg/gitg-commit-action-cherry-pick.vala:160
+#: gitg/gitg-commit-action-cherry-pick.vala:144
+#: gitg/gitg-commit-action-cherry-pick.vala:160
 msgid "Cherry pick has conflicts"
 msgstr "«Cherry-pick» ten conflitos"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:153
+#: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
 "The cherry pick of %s onto %s has caused conflicts, would you like to "
@@ -744,7 +865,7 @@ msgstr ""
 "O «cherry pick» de %s en %s causou conflitos. Desexa obter a rama %s co "
 "«cherry pick» no seu directorio de traballo para resolver os conflitos?"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:157
+#: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
@@ -753,121 +874,120 @@ msgstr ""
 "O «cherry pick» de %s en %s causou conflitos. Desexa obter o «cherry pick» "
 "no seu directorio de traballo para resolver os conflitos?"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:164
-#: ../gitg/gitg-ref-action-checkout.vala:48
-#: ../gitg/gitg-ref-action-merge.vala:195
+#: gitg/gitg-commit-action-cherry-pick.vala:164
+#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
 msgid "Checkout"
 msgstr "Obter"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:168
+#: gitg/gitg-commit-action-cherry-pick.vala:168
 msgid "Cherry pick failed with conflicts"
 msgstr "O «cherry pick» fallou con confitos"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:179
+#: gitg/gitg-commit-action-cherry-pick.vala:179
 msgid "Cherry pick finished with conflicts in working directory"
 msgstr "O «cherry pick» rematou con conflitos no directorio de traballo"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:199
+#: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
 msgid "Cherry pick %s onto %s"
 msgstr "Aplicando os cambios («cherry-picking») %s en %s"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:224
+#: gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
 msgstr "Cambios aplicados «cherry pick» con éxito"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:261
+#: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
 msgid "Cherry pick onto %s"
 msgstr "Aplicar cambios («cherry-picking») en %s"
 
-#: ../gitg/gitg-commit-action-create-branch.vala:48
+#: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
 msgstr "Crear rama"
 
-#: ../gitg/gitg-commit-action-create-branch.vala:53
+#: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
 msgstr "Crea unha nova rama na remisión seleccionada"
 
-#: ../gitg/gitg-commit-action-create-branch.vala:75
+#: gitg/gitg-commit-action-create-branch.vala:75
 msgid "Failed to create branch"
 msgstr "Produciuse un erro ao crear a rama"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:63
+#: gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create patch"
 msgstr "Crear parche"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:68
+#: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
 msgstr "Crea un parche desde a remisión seleccionada"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:143
+#: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
 msgstr "Gardar ficheiro de parche"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:147
+#: gitg/gitg-commit-action-create-patch.vala:156
 msgid "_Save Patch"
 msgstr "_Gardar parche"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:172
+#: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
 msgstr "Produciuse un fallo ao crear o parche"
 
-#: ../gitg/gitg-commit-action-create-tag.vala:48
+#: gitg/gitg-commit-action-create-tag.vala:48
 msgid "Create tag"
 msgstr "Crear etiqueta"
 
-#: ../gitg/gitg-commit-action-create-tag.vala:53
+#: gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
 msgstr "Crea unha nova etiqueta na remisión seleccionada"
 
-#: ../gitg/gitg-commit-action-create-tag.vala:92
+#: gitg/gitg-commit-action-create-tag.vala:92
 msgid "Failed to create tag"
 msgstr "Produciuse un fallo ao crear a etiqueta"
 
-#: ../gitg/gitg-commit-action-create-tag.vala:109
+#: gitg/gitg-commit-action-create-tag.vala:109
 msgid "Failed to lookup tag"
 msgstr "Produciuse un fallo ao buscar a etiqueta"
 
-#: ../gitg/gitg-create-tag-dialog.vala:110
+#: gitg/gitg-create-tag-dialog.vala:110
 msgid "Provide a message to create an annotated tag"
 msgstr "Fornceza unha mensaxe para crear unha etiqueta anotada"
 
-#: ../gitg/gitg-dash-view.vala:87
+#: gitg/gitg-dash-view.vala:87
 msgid "Select and manage projects"
 msgstr "Seleccionar e xestionar proxectos"
 
-#: ../gitg/gitg-dash-view.vala:176
+#: gitg/gitg-dash-view.vala:174
 msgid "_Remove"
 msgstr "_Eliminar"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:232
+#: gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
 "Tamén pode %sanalizar o seu cartafol persoal%s para buscar repositorios git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:235
+#: gitg/gitg-dash-view.vala:233
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Namentres, pode querer %sconfigurar o seu perfíl de git%s."
 
-#: ../gitg/gitg-dash-view.vala:389
+#: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
 msgstr "Produciuse un fallo ao clonar o repositorio"
 
-#: ../gitg/gitg-dash-view.vala:420
+#: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
 msgstr "Produciuse un fallo ao engadir o repositorio"
 
-#: ../gitg/gitg-dash-view.vala:436
+#: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
 msgstr "Crear novo repositorio"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:439
+#: gitg/gitg-dash-view.vala:448
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -876,178 +996,176 @@ msgstr ""
 "A localización <i>%s</i> non semella ser un repositorio git válido. Desexa "
 "inicializar un novo repositorio nesa localización?"
 
-#: ../gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:454
 msgid "Create repository"
 msgstr "Crear repositorio"
 
-#: ../gitg/gitg-dash-view.vala:461
+#: gitg/gitg-dash-view.vala:470
 msgid "Failed to create repository"
 msgstr "Produciuse un fallo ao crear o repositorio"
 
-#: ../gitg/gitg-dash-view.vala:531
+#: gitg/gitg-dash-view.vala:540
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Buscando repositorio en %s"
 
-#: ../gitg/gitg-ref-action-checkout.vala:53
+#: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
 msgstr "Obter a referencia seleccionada"
 
-#: ../gitg/gitg-ref-action-checkout.vala:72
+#: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
 msgid "Checkout %s"
 msgstr "Obter %s"
 
-#: ../gitg/gitg-ref-action-checkout.vala:101
+#: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
 msgid "Failed to checkout branch: %s"
 msgstr "Produciuse un fallo ao obter a rama: %s"
 
-#: ../gitg/gitg-ref-action-checkout.vala:111
+#: gitg/gitg-ref-action-checkout.vala:111
 #, c-format
 msgid "Failed to update HEAD: %s"
 msgstr "Produciuse un fallo actualizar HEAD: %s"
 
-#: ../gitg/gitg-ref-action-checkout.vala:121
+#: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
 msgstr "Rama descargada con éxito no directorio de traballo"
 
-#: ../gitg/gitg-ref-action-copy-name.vala:48
+#: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
 msgstr "Copiar nome"
 
-#: ../gitg/gitg-ref-action-copy-name.vala:53
+#: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Copia o nome da referencia ao portapapeis"
 
-#: ../gitg/gitg-ref-action-delete.vala:48
-#: ../gitg/gitg-ref-action-delete.vala:89
+#: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
 msgstr "Eliminar"
 
-#: ../gitg/gitg-ref-action-delete.vala:53
+#: gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
 msgstr "Elimina a referencia seleccionada"
 
-#: ../gitg/gitg-ref-action-delete.vala:73
+#: gitg/gitg-ref-action-delete.vala:73
 #, c-format
 msgid "Delete branch %s"
 msgstr "Eliminar rama %s"
 
-#: ../gitg/gitg-ref-action-delete.vala:74
+#: gitg/gitg-ref-action-delete.vala:74
 #, c-format
 msgid "Are you sure that you want to permanently delete the branch %s?"
 msgstr "Ten certeza que quere eliminar de forma permanente a rama %s?"
 
-#: ../gitg/gitg-ref-action-delete.vala:78
+#: gitg/gitg-ref-action-delete.vala:78
 #, c-format
 msgid "Delete tag %s"
 msgstr "Eliminar etiqueta %s"
 
-#: ../gitg/gitg-ref-action-delete.vala:79
+#: gitg/gitg-ref-action-delete.vala:79
 #, c-format
 msgid "Are you sure that you want to permanently delete the tag %s?"
 msgstr "Ten certeza que quere eliminar de forma permanente a etiqueta %s?"
 
-#: ../gitg/gitg-ref-action-delete.vala:83
+#: gitg/gitg-ref-action-delete.vala:83
 #, c-format
 msgid "Delete remote branch %s"
 msgstr "Eliminar a rama remota %s"
 
-#: ../gitg/gitg-ref-action-delete.vala:84
+#: gitg/gitg-ref-action-delete.vala:84
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
 msgstr "Ten certeza que quere eliminar de forma permanente a rama remota %s?"
 
 #. Translators: %s is the name of the tag
-#: ../gitg/gitg-ref-action-delete.vala:119
+#: gitg/gitg-ref-action-delete.vala:119
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr "Produciuse un fallo ao eliminar a etiqueta %s"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: ../gitg/gitg-ref-action-delete.vala:122
+#: gitg/gitg-ref-action-delete.vala:122
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr "Non foi posíbel eliminar a etiqueta %s: %s"
 
 #. Translators: %s is the name of the branch
-#: ../gitg/gitg-ref-action-delete.vala:127
+#: gitg/gitg-ref-action-delete.vala:127
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr "Produciuse un fallo ao eliminar a rama %s"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: ../gitg/gitg-ref-action-delete.vala:130
+#: gitg/gitg-ref-action-delete.vala:130
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "Non foi posíbel eliminar a rama %s: %s"
 
-#: ../gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:74
 #, c-format
 msgid "Fetch from %s"
 msgstr "Obter desde %s"
 
-#: ../gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:85
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "Obter obxectos remotos desde %s"
 
-#: ../gitg/gitg-ref-action-fetch.vala:98
+#: gitg/gitg-ref-action-fetch.vala:98
 #, c-format
 msgid "Fetching from %s"
 msgstr "Obtendo desde %s"
 
 #. Translators: new refers to a new remote reference having been fetched,
-#: ../gitg/gitg-ref-action-fetch.vala:106
+#: gitg/gitg-ref-action-fetch.vala:106
 msgid "new"
 msgstr "nova"
 
 #. Translators: updated refers to a remote reference having been updated,
-#: ../gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:111
 msgid "updated"
 msgstr "actualizado"
 
-#: ../gitg/gitg-ref-action-fetch.vala:121
+#: gitg/gitg-ref-action-fetch.vala:121
 #, c-format
 msgid "Failed to fetch from %s: %s"
 msgstr "Produciuse un fallo ao obter desde %s: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: ../gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:134
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "Obtido desde %s: todo actualizado"
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: ../gitg/gitg-ref-action-fetch.vala:140
+#: gitg/gitg-ref-action-fetch.vala:140
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "Obtido desde %s: %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:63
+#: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
 msgstr "Unir en %s"
 
 #. TODO
-#: ../gitg/gitg-ref-action-merge.vala:69
+#: gitg/gitg-ref-action-merge.vala:69
 #, c-format
 msgid "Merge another branch into branch %s"
 msgstr "Unir outra rama na rama %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:106
+#: gitg/gitg-ref-action-merge.vala:106
 #, c-format
 msgid "Failed to merge commits: %s"
 msgstr "Produciuse un fallo ao unir as remisións: %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:175
-#: ../gitg/gitg-ref-action-merge.vala:191
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
 msgstr "A unión ten conflitos"
 
-#: ../gitg/gitg-ref-action-merge.vala:184
+#: gitg/gitg-ref-action-merge.vala:184
 #, c-format
 msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
@@ -1056,7 +1174,7 @@ msgstr ""
 "O unión de %s en %s causou conflitos. Desexa obter a rama %s coa unión no "
 "seu directorio de traballo para resolver os conflitos?"
 
-#: ../gitg/gitg-ref-action-merge.vala:188
+#: gitg/gitg-ref-action-merge.vala:188
 #, c-format
 msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
@@ -1065,97 +1183,98 @@ msgstr ""
 "O unión de %s en %s causou conflitos. Desexa obter a unión no seu directorio "
 "de traballo para resolver os conflitos?"
 
-#: ../gitg/gitg-ref-action-merge.vala:199
+#: gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
 msgstr "Produciuse un fallo con conflitos"
 
-#: ../gitg/gitg-ref-action-merge.vala:210
+#: gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
 msgstr "Unión rematada con conflitos no seu cartafol de traballo"
 
-#: ../gitg/gitg-ref-action-merge.vala:222
+#: gitg/gitg-ref-action-merge.vala:222
 #, c-format
 msgid "Merge %s into %s"
 msgstr "Unir %s en %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:231
+#: gitg/gitg-ref-action-merge.vala:231
 #, c-format
 msgid "Failed to lookup our commit: %s"
 msgstr "Produciuse un fallo ao buscar a nosa remisión: %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:241
+#: gitg/gitg-ref-action-merge.vala:241
 #, c-format
 msgid "Failed to lookup their commit: %s"
 msgstr "Produciuse un fallo ao buscar a súa remisión: %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:278
+#: gitg/gitg-ref-action-merge.vala:278
 #, c-format
 msgid "Successfully merged %s into %s"
 msgstr "Realizouse a unión de %s en %s con éxito"
 
-#: ../gitg/gitg-ref-action-merge.vala:320
+#: gitg/gitg-ref-action-merge.vala:320
 #, c-format
 msgid "Merge %s into branch %s"
 msgstr "Unir %s na rama %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:482
-#: ../gitg/history/gitg-history-refs-list.vala:1176
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1176
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: ../gitg/gitg-ref-action-rename.vala:48
+#: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr "Renomear"
 
-#: ../gitg/gitg-ref-action-rename.vala:53
+#: gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
 msgstr "Renomear a referencia seleccionada"
 
-#: ../gitg/gitg-ref-action-rename.vala:100
+#: gitg/gitg-ref-action-rename.vala:100
 #, c-format
-msgid "The specified name ‘%s’ contains invalid characters"
+#| msgid "The specified name ‘%s’ contains invalid characters"
+msgid "The specified name “%s” contains invalid characters"
 msgstr "O nome especificado «%s» contén caracteres non válidos"
 
-#: ../gitg/gitg-ref-action-rename.vala:102
+#: gitg/gitg-ref-action-rename.vala:102
 msgid "Invalid name"
 msgstr "Nome non válido"
 
-#: ../gitg/gitg-ref-action-rename.vala:131
+#: gitg/gitg-ref-action-rename.vala:131
 msgid "Failed to rename"
 msgstr "Produciuse un fallo ao renomear"
 
-#: ../gitg/gitg-remote-notification.vala:90
-#: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:10
+#: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
+#: gitg/resources/ui/gitg-window.ui:226
 msgid "Close"
 msgstr "Pechar"
 
-#: ../gitg/gitg-window.vala:187
+#: gitg/gitg-window.vala:201
 msgid "Add Repository"
 msgstr "Engadir repositorio"
 
-#: ../gitg/gitg-window.vala:191
+#: gitg/gitg-window.vala:205
 msgid "_Add"
 msgstr "Eng_adir"
 
-#: ../gitg/gitg-window.vala:193
+#: gitg/gitg-window.vala:207
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Analizar para todos os repositorios git desde este cartafol"
 
-#: ../gitg/gitg-window.vala:501
+#: gitg/gitg-window.vala:505
 msgid "Projects"
 msgstr "Proxectos"
 
-#: ../gitg/gitg-window.vala:751
+#: gitg/gitg-window.vala:804
 msgid "Select items"
 msgstr "Seleccionar elementos"
 
-#: ../gitg/gitg-window.vala:958
+#: gitg/gitg-window.vala:1015
 #, c-format
-msgid "'%s' is not a Git repository."
+#| msgid "'%s' is not a Git repository."
+msgid "“%s” is not a Git repository."
 msgstr "«%s» non é un repositorio Git."
 
-#: ../gitg/gitg-window.vala:1107
+#: gitg/gitg-window.vala:1164
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1163,7 +1282,7 @@ msgstr ""
 "O seu nome de usuario e correo electrónico non están configurados aínda. "
 "Vaia á configuración do usuario e forneza un nome e correo."
 
-#: ../gitg/gitg-window.vala:1111
+#: gitg/gitg-window.vala:1168
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1171,7 +1290,7 @@ msgstr ""
 "O seu nome de usuario non están configurado aínda. Vaia á configuración do "
 "usuario e forneza un nome."
 
-#: ../gitg/gitg-window.vala:1115
+#: gitg/gitg-window.vala:1172
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1179,117 +1298,468 @@ msgstr ""
 "O seu correo electrónico non están configurado aínda. Vaia á configuración "
 "do usuario e forneza un correo."
 
-#: ../gitg/gitg-window.vala:1118
+#: gitg/gitg-window.vala:1175
 msgid "Missing author details"
 msgstr "Falta a información do autor"
 
-#: ../gitg/history/gitg-history-command-line.vala:42
+#: gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
 msgstr "Seleccione todas as remisións por omisión no historial de remisións"
 
-#: ../gitg/history/gitg-history-command-line.vala:44
+#: gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
 msgstr "Seleccione todas as ramas por omisión no historial de remisións"
 
-#: ../gitg/history/gitg-history-command-line.vala:46
+#: gitg/history/gitg-history-command-line.vala:46
 msgid "Select all remotes by default in the history activity"
 msgstr ""
 "Seleccione todos os servidores remotos por omisión no historial de remisións"
 
-#: ../gitg/history/gitg-history-command-line.vala:48
+#: gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
 msgstr "Seleccione todas as etiquetas por omisión no historial de remisións"
 
-#: ../gitg/history/gitg-history-command-line.vala:50
+#: gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
 msgstr ""
 "Seleccione a referencia especificada por omisión no historial de remisións"
 
-#: ../gitg/history/gitg-history-command-line.vala:50
+#: gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
 msgstr "REFERENCIA"
 
-#: ../gitg/history/gitg-history-refs-list.vala:165
+#: gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%zu ahead, %zu behind"
 msgstr "%zu por diante, %zu por detrás"
 
-#: ../gitg/history/gitg-history-refs-list.vala:169
+#: gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%zu ahead"
 msgstr "%zu por diante"
 
-#: ../gitg/history/gitg-history-refs-list.vala:173
+#: gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%zu behind"
 msgstr "%zu por detrás"
 
-#: ../gitg/history/gitg-history-refs-list.vala:207
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+#: gitg/history/gitg-history-refs-list.vala:207
+#: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
 msgstr "Todas as remisións"
 
-#: ../gitg/history/gitg-history-refs-list.vala:1174
+#: gitg/history/gitg-history-refs-list.vala:1174
 msgid "Branches"
 msgstr "Ramas"
 
-#: ../gitg/history/gitg-history-refs-list.vala:1175
+#: gitg/history/gitg-history-refs-list.vala:1175
 msgid "Remotes"
 msgstr "Remotos"
 
-#: ../gitg/history/gitg-history.vala:342
-#: ../gitg/preferences/gitg-preferences-history.vala:218
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
+#: gitg/history/gitg-history.vala:342
+#: gitg/preferences/gitg-preferences-history.vala:218
+#: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Historial"
 
-#: ../gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:347
 msgid "Examine the history of the repository"
 msgstr "Examinar o historial do repositorio"
 
-#: ../gitg/history/gitg-history.vala:843
+#: gitg/history/gitg-history.vala:909
 msgid "Mainline"
 msgstr "Liña principal"
 
-#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:119
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Remitir"
 
-#: ../gitg/preferences/gitg-preferences-interface.vala:120
+#: gitg/preferences/gitg-preferences-interface.vala:140
 msgid "Interface"
 msgstr "Interface"
 
+#: gitg/resources/ui/gitg-author-details-dialog.ui:35
+msgid "_Save"
+msgstr "_Gardar"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:65
+msgid "Default details used for all repositories"
+msgstr "Información predeterminnada para configurar todos os repositorios"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:114
+msgid "E-mail:"
+msgstr "Correo electrónico:"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:125
+msgid "Name:"
+msgstr "Nome:"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:7
+msgid "Clone Repository"
+msgstr "Clonar repositorio"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:33
+msgid "Cl_one"
+msgstr "Cl_onar"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+msgid "Remote _URL:"
+msgstr "_URL remoto:"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:99
+msgid "_Local Folder:"
+msgstr "Cartafol _local:"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:116
+msgid "Select location…"
+msgstr "Seleccionar localización…"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:127
+msgid "Bare repository"
+msgstr "Repositorio baleiro"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:8
+msgctxt "Create Dialog"
+msgid "Commit"
+msgstr "Remitir"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:36
+#: gitg/resources/ui/gitg-commit-paned.ui:86
+msgid "C_ommit"
+msgstr "R_emitir"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:109
+msgid "Add _signed-off-by signature"
+msgstr "Engadir a sinatura _signed-off-by"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:126
+msgid "_Amend previous commit"
+msgstr "_Corrixir a remisión anterior"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:76
+msgid "Skip commit _hooks"
+msgstr "Omitir _hooks de remisión"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:96
+msgid "S_tage selection"
+msgstr "Selección de _reserva"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:107
+msgid "D_iscard selection"
+msgstr "Rexe_itar seleccion"
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:24
+msgid ""
+"The submodule is in a dirty state and has staged and/or unstaged changes "
+"that are not yet committed as shown below."
+msgstr ""
+"O submódulo está nun estado sucio e ten cambios reservados e/ou "
+"desreservados que non foron remitidos aínda, como se mostra embaixo."
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:50
+msgid "Staged:"
+msgstr "Reservado:"
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:86
+msgid "Unstaged:"
+msgstr "Sen reservar:"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:24
+#: gitg/resources/ui/gitg-history-paned.ui:93
+msgid "Subject"
+msgstr "Asunto"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:41
+#: gitg/resources/ui/gitg-history-paned.ui:110
+msgid "Author"
+msgstr "Autor"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:57
+#: gitg/resources/ui/gitg-history-paned.ui:126
+msgid "Date"
+msgstr "Data"
+
+#: gitg/resources/ui/gitg-commit-submodule-info.ui:70
+msgid "Open"
+msgstr "Abrir"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:7
+msgid "Create Branch"
+msgstr "Crear rama"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:34
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:36
+msgid "C_reate"
+msgstr "C_rear"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:69
+msgid "Branch _name:"
+msgstr "_Nome da rama:"
+
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:7
+msgid "Create Tag"
+msgstr "Crear etiqueta"
+
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:71
+msgid "Tag _name:"
+msgstr "_Nome da etiqueta:"
+
+#: gitg/resources/ui/gitg-dash-view.ui:32
+msgid ""
+"No repositories have been added yet. To get started, you can add an existing "
+"repository or clone a new one."
+msgstr ""
+"Aínda non se engadiron repositorios. Para comezar, pode engadir un "
+"repositorio existente ou clonar un novo."
+
+#: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Reload"
+msgstr "_Recargar"
+
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:45
+msgid "_Preferences"
+msgstr "_Preferencias"
+
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:39
+msgid "_Author Details"
+msgstr "Detalles do _autor"
+
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:51
+msgid "_Keyboard Shortcuts"
+msgstr "Atallos de _teclado"
+
+#: gitg/resources/ui/gitg-menus.ui:33
+msgid "_New Window"
+msgstr "Xanela _nova"
+
+#: gitg/resources/ui/gitg-menus.ui:55
+msgid "_About"
+msgstr "So_bre"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:44
+msgid "Show markup"
+msgstr "Mostra marcado"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:71
+msgid "Display _subject margin at column:"
+msgstr "Mostra a marxe do a_sunto na columna:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:126
+msgid "Display right _margin at column:"
+msgstr "Mostrar a _marxe dereita na columna:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:189
+msgid "Enable spell checking"
+msgstr "Activar verificación ortográfica"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:220
+msgid "Commit Message"
+msgstr "Mensaxe de remisión"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:31
+msgid "Default selection"
+msgstr "Selección por omisión"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:50
+msgid "Current branch"
+msgstr "Rama actual"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:65
+msgid "All branches"
+msgstr "Todas as ramas"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:106
+msgid "References"
+msgstr "Referencias"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:119
+msgid "Sort references in the sidebar by latest activity"
+msgstr "Ordenar as referencias na barra lateral pola última actividade"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:135
+msgid "Show upstream (remote) branch when selecting a local branch"
+msgstr "Mostrar a rama mestra (remota) ao seleccionar unha rama local"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:154
+msgid "Commits"
+msgstr "Remisións"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:174
+msgid "Collapse inactive lanes"
+msgstr "Contraer as liñas inactivas"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:215
+msgid "Early"
+msgstr "Pronto"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:227
+msgid "Late"
+msgstr "Tarde"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:242
+msgid "Show history in topological order"
+msgstr "Mostrar historial en orde topolóxico"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:257
+msgid "Preserve mainline for currently checked out branch"
+msgstr "Manter a liña principal da rama actual descargada"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:24
+msgid "Startup"
+msgstr "Inicio"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:47
+msgid "Start with activity:"
+msgstr "Iniciar con unha actividade:"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:61
+msgid "Commit"
+msgstr "Remitir"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:80
+msgid "Layout"
+msgstr "Distribución"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:100
+msgid "Use horizontal layout"
+msgstr "Usar distribución horizontal"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:124
+msgid "Avatars"
+msgstr "Avatares"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:144
+msgid "Use gravatar service to provide user avatars"
+msgstr "Usar o servizo de gravatar para fornecer os avatares dos usuarios"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:168
+msgid "Monitoring"
+msgstr "Monitorización"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:212
+#: plugins/diff/gitg-diff.vala:115
+msgid "Diff"
+msgstr "Diff"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:232
+msgid "Enable syntax highlighting of source code in diff views"
+msgstr ""
+"Activar o realzado de sintaxe do código fonte nas vistas de diferencias"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:258
+msgid "Syntax highlighting color scheme:"
+msgstr "Esquema de cor do realzado de sintaxe:"
+
+#: gitg/resources/ui/gitg-preferences.ui:11
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Xanelas"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:19
+#| msgctxt "shortcut window"
+#| msgid "Open the window menu"
+msgctxt "shortcut window"
+msgid "Open shortcut window"
+msgstr "Abrir a xanela de atallos de teclado"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Open a new window"
+msgstr "Abrir en nova xanela"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:33
+msgctxt "shortcut window"
+msgid "Open the window menu"
+msgstr "Abrir o menú da xanela"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Open a repository"
+msgstr "Abrir un repositorio"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Open the help"
+msgstr "Abrir a axuda"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:54
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "Buscar"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:61
+msgctxt "shortcut window"
+msgid "Close the active window"
+msgstr "Pechar a xanela activa"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:68
+msgctxt "shortcut window"
+msgid "Quit the application"
+msgstr "Saír do aplicativo"
+
+#: gitg/resources/ui/gitg-window.ui:23
+msgid "Show the list of recently used repositories"
+msgstr "Mostra unha lista dos repositorios usados recentemente"
+
+#: gitg/resources/ui/gitg-window.ui:45
+msgid "Clone"
+msgstr "Clonar"
+
+#: gitg/resources/ui/gitg-window.ui:46
+msgid "Clone repository"
+msgstr "Clonar repositorio"
+
+#: gitg/resources/ui/gitg-window.ui:61
+msgid "Add"
+msgstr "Engadir"
+
+#: gitg/resources/ui/gitg-window.ui:62
+msgid "Add repository"
+msgstr "Engadir repositorio"
+
+#: gitg/resources/ui/gitg-window.ui:86
+msgid "Find a word or phrase"
+msgstr "Buscar unha palabra ou frase"
+
+#: gitg/resources/ui/gitg-window.ui:131
+msgid "General settings and options"
+msgstr "Opcións e preferencias xerais"
+
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
-#: ../libgitg/gitg-authentication-dialog.vala:69
+#: libgitg/gitg-authentication-dialog.vala:69
 #, c-format
 msgid "Password required for %s"
 msgstr "Requírese un contrasinal para %s"
 
-#: ../libgitg/gitg-date.vala:346
+#: libgitg/gitg-date.vala:346
 msgid "Now"
 msgstr "Agora"
 
-#: ../libgitg/gitg-date.vala:350
+#: libgitg/gitg-date.vala:350
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "Hai un minuto"
 msgstr[1] "Hai %d minutos"
 
-#: ../libgitg/gitg-date.vala:355
+#: libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
 msgstr "Hai media hora"
 
-#: ../libgitg/gitg-date.vala:360
+#: libgitg/gitg-date.vala:360
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "Hai unha hora"
 msgstr[1] "Hai %d horas"
 
-#: ../libgitg/gitg-date.vala:365
+#: libgitg/gitg-date.vala:365
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
@@ -1299,469 +1769,117 @@ msgstr[1] "Hai %d días"
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
-#: ../libgitg/gitg-date.vala:374
-msgid "%b %e, %H:%M"
+#: libgitg/gitg-date.vala:374
+#| msgid "%b %e, %H:%M"
+msgid "%b %e, %H∶%M"
 msgstr "%e de %b, %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
-#: ../libgitg/gitg-date.vala:381
-msgid "%b %e, %I:%M %p"
+#: libgitg/gitg-date.vala:381
+#| msgid "%b %e, %I:%M %p"
+msgid "%b %e, %I∶%M %p"
 msgstr "%e de %b, %I:%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
-#: ../libgitg/gitg-date.vala:391
-msgid "%b %e %Y, %H:%M"
+#: libgitg/gitg-date.vala:391
+#| msgid "%b %e %Y, %H:%M"
+msgid "%b %e %Y, %H∶%M"
 msgstr "%e de %b de %Y, %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
-#: ../libgitg/gitg-date.vala:398
-msgid "%b %e %Y, %I:%M %p"
+#: libgitg/gitg-date.vala:398
+#| msgid "%b %e %Y, %I:%M %p"
+msgid "%b %e %Y, %I∶%M %p"
 msgstr "%e de %b de %Y, %I:%M %p"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: ../libgitg/gitg-diff-image-side-by-side.vala:39
+#: libgitg/gitg-diff-image-side-by-side.vala:39
 #, c-format
 msgid "before (%s)"
 msgstr "antes (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: ../libgitg/gitg-diff-image-side-by-side.vala:45
+#: libgitg/gitg-diff-image-side-by-side.vala:45
 #, c-format
 msgid "removed (%s)"
 msgstr "eliminado (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: ../libgitg/gitg-diff-image-side-by-side.vala:67
+#: libgitg/gitg-diff-image-side-by-side.vala:65
 #, c-format
 msgid "after (%s)"
 msgstr "despois (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: ../libgitg/gitg-diff-image-side-by-side.vala:73
+#: libgitg/gitg-diff-image-side-by-side.vala:71
 #, c-format
 msgid "added (%s)"
 msgstr "engadidos (%s)"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:145
+#: libgitg/gitg-diff-view-commit-details.vala:144
 msgid "Collapse all"
 msgstr "Contraer todo"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:149
-#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
+#: libgitg/gitg-diff-view-commit-details.vala:148
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Expandir todo"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:202
+#: libgitg/gitg-diff-view-commit-details.vala:203
 #, c-format
 msgid "Committed by %s"
 msgstr "Remitido por %s"
 
-#: ../libgitg/gitg-diff-view-file.vala:177
+#: libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
 msgstr "_Abrir ficheiro"
 
-#: ../libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:209
 msgid "Open containing _folder"
 msgstr "Abrir o _cartafol que o contén"
 
-#: ../libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:229
 msgid "_Copy file path"
 msgstr "_Copiar a ruta do ficheiro"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: ../libgitg/gitg-repository-list-box.vala:154
+#: libgitg/gitg-repository-list-box.vala:153
 #, c-format
 msgid "at %s"
 msgstr "en %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: ../libgitg/gitg-repository-list-box.vala:163
+#: libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "%s at %s"
 msgstr "%s en %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:541
+#: libgitg/gitg-repository-list-box.vala:545
 msgid "Cloning…"
 msgstr "Clonando…"
 
-#: ../libgitg/gitg-stage.vala:334
+#: libgitg/gitg-stage.vala:334
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
 "Non foi posíbel ler a mensaxe de remisión despois de executar o hook commit-"
 "msg: %s"
 
-#: ../plugins/diff/gitg-diff.vala:115
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:11
-msgid "Diff"
-msgstr "Diff"
-
-#: ../plugins/diff/gitg-diff.vala:120
-msgid "Show the changes introduced by the selected commit"
-msgstr "Mostrar os cambios introducidos pola remisión seleccionados"
-
-#: ../plugins/files/gitg-files.vala:63
-msgid "Files"
-msgstr "Ficheiros"
-
-#: ../plugins/files/gitg-files.vala:68
-msgid "Show the files in the tree of the selected commit"
-msgstr "Mostrar os ficheiros no árbore das remisións seleccionadas"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
-msgid "_Save"
-msgstr "_Gardar"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-msgid "Default details used for all repositories"
-msgstr "Información predeterminnada para configurar todos os repositorios"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
-msgid "E-mail:"
-msgstr "Correo electrónico:"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-msgid "Name:"
-msgstr "Nome:"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-msgid "Clone Repository"
-msgstr "Clonar repositorio"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-msgid "Cl_one"
-msgstr "Cl_onar"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
-msgid "Remote _URL:"
-msgstr "_URL remoto:"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "_Local Folder:"
-msgstr "Cartafol _local:"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
-msgid "Select location…"
-msgstr "Seleccionar localización…"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
-msgid "Bare repository"
-msgstr "Repositorio baleiro"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-msgctxt "Create Dialog"
-msgid "Commit"
-msgstr "Remitir"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
-msgid "C_ommit"
-msgstr "R_emitir"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
-msgid "Add _signed-off-by signature"
-msgstr "Engadir a sinatura _signed-off-by"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
-msgid "_Amend previous commit"
-msgstr "_Corrixir a remisión anterior"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
-msgid "Skip commit _hooks"
-msgstr "Omitir _hooks de remisión"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
-msgid "S_tage selection"
-msgstr "Selección de _reserva"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
-msgid "D_iscard selection"
-msgstr "Rexe_itar seleccion"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:1
-msgid ""
-"The submodule is in a dirty state and has staged and/or unstaged changes "
-"that are not yet committed as shown below."
-msgstr ""
-"O submódulo está nun estado sucio e ten cambios reservados e/ou "
-"desreservados que non foron remitidos aínda, como se mostra embaixo."
-
-#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
-msgid "Staged:"
-msgstr "Reservado:"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:3
-msgid "Unstaged:"
-msgstr "Sen reservar:"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:1
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
-msgid "Subject"
-msgstr "Asunto"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:2
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
-msgid "Author"
-msgstr "Autor"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:3
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
-msgid "Date"
-msgstr "Data"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-info.ui.h:1
-msgid "Open"
-msgstr "Abrir"
-
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
-msgid "Create Branch"
-msgstr "Crear rama"
-
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
-msgid "C_reate"
-msgstr "C_rear"
-
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
-msgid "Branch _name:"
-msgstr "_Nome da rama:"
-
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
-msgid "Create Tag"
-msgstr "Crear etiqueta"
-
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
-msgid "Tag _name:"
-msgstr "_Nome da etiqueta:"
-
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:1
-msgid ""
-"No repositories have been added yet. To get started, you can add an existing "
-"repository or clone a new one."
-msgstr ""
-"Aínda non se engadiron repositorios. Para comezar, pode engadir un "
-"repositorio existente ou clonar un novo."
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:1
-msgid "_New Window"
-msgstr "Xanela _nova"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:2
-msgid "_Author Details"
-msgstr "Detalles do _autor"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:3
-msgid "_Preferences"
-msgstr "_Preferencias"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:4
-msgid "_Keyboard Shortcuts"
-msgstr "Atallos de _teclado"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_About"
-msgstr "So_bre"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Quit"
-msgstr "_Saír"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
-msgid "_Reload"
-msgstr "_Recargar"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
-msgid "Show markup"
-msgstr "Mostra marcado"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-msgid "Display _subject margin at column:"
-msgstr "Mostra a marxe do a_sunto na columna:"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-msgid "Display right _margin at column:"
-msgstr "Mostrar a _marxe dereita na columna:"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
-msgid "Enable spell checking"
-msgstr "Activar verificación ortográfica"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-msgid "Commit Message"
-msgstr "Mensaxe de remisión"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-msgid "Default selection"
-msgstr "Selección por omisión"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
-msgid "Current branch"
-msgstr "Rama actual"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
-msgid "All branches"
-msgstr "Todas as ramas"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
-msgid "References"
-msgstr "Referencias"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
-msgid "Sort references in the sidebar by latest activity"
-msgstr "Ordenar as referencias na barra lateral pola última actividade"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
-msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr "Mostrar a rama mestra (remota) ao seleccionar unha rama local"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
-msgid "Commits"
-msgstr "Remisións"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:9
-msgid "Collapse inactive lanes"
-msgstr "Contraer as liñas inactivas"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:10
-msgid "Early"
-msgstr "Pronto"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:11
-msgid "Late"
-msgstr "Tarde"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:12
-msgid "Show history in topological order"
-msgstr "Mostrar historial en orde topolóxico"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:13
-msgid "Preserve mainline for currently checked out branch"
-msgstr "Manter a liña principal da rama actual descargada"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-msgid "Startup"
-msgstr "Inicio"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-msgid "Start with activity:"
-msgstr "Iniciar con unha actividade:"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:4
-msgid "Commit"
-msgstr "Remitir"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:5
-msgid "Layout"
-msgstr "Distribución"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:6
-msgid "Use horizontal layout"
-msgstr "Usar distribución horizontal"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:7
-msgid "Avatars"
-msgstr "Avatares"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:8
-msgid "Use gravatar service to provide user avatars"
-msgstr "Usar o servizo de gravatar para fornecer os avatares dos usuarios"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:9
-msgid "Monitoring"
-msgstr "Monitorización"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:12
-msgid "Enable syntax highlighting of source code in diff views"
-msgstr ""
-"Activar o realzado de sintaxe do código fonte nas vistas de diferencias"
-
-#: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "Preferences"
-msgstr "Preferencias"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
-msgctxt "shortcut window"
-msgid "Windows"
-msgstr "Xanelas"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
-msgctxt "shortcut window"
-msgid "Open a new window"
-msgstr "Abrir en nova xanela"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
-msgctxt "shortcut window"
-msgid "Open the window menu"
-msgstr "Abrir o menú da xanela"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-msgctxt "shortcut window"
-msgid "Open a repository"
-msgstr "Abrir un repositorio"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
-msgctxt "shortcut window"
-msgid "Open the help"
-msgstr "Abrir a axuda"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
-msgctxt "shortcut window"
-msgid "Find"
-msgstr "Buscar"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
-msgctxt "shortcut window"
-msgid "Close the active window"
-msgstr "Pechar a xanela activa"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
-msgctxt "shortcut window"
-msgid "Quit the application"
-msgstr "Saír do aplicativo"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:2
-msgid "Show the list of recently used repositories"
-msgstr "Mostra unha lista dos repositorios usados recentemente"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:3
-msgid "Clone"
-msgstr "Clonar"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:4
-msgid "Clone repository"
-msgstr "Clonar repositorio"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:5
-msgid "Add"
-msgstr "Engadir"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:6
-msgid "Add repository"
-msgstr "Engadir repositorio"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:7
-msgid "Find a word or phrase"
-msgstr "Buscar unha palabra ou frase"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:8
-msgid "General settings and options"
-msgstr "Opcións e preferencias xerais"
-
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:2
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:18
 msgid "_Authenticate"
 msgstr "_Autenticar"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:3
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:76
 msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
@@ -1769,75 +1887,90 @@ msgstr ""
 "O anterior intento de autenticación fallou, por favor forneza o seu nome de "
 "usuario e contrasinal e probe de novo."
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:95
 msgid "_Username:"
 msgstr "_Nome do usuario:"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:5
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:109
 msgid "_Password:"
 msgstr "_Contrasinal:"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:6
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:154
 msgid "Forget password _immediately"
 msgstr "Esquecer o contrasinal _inmediatamente"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:7
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:171
 msgid "Remember password until you _logout"
 msgstr "Lembrar o contrasinal até _saír da sesión"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:8
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:189
 msgid "Remember _forever"
 msgstr "_Lemprar para sempre"
 
-#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
 msgid "Parents"
 msgstr "Pais"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui:10
 msgid "Unable to display changes for binary file"
 msgstr "Non foi posíbel mostrar os cambios para o ficheiro binario"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:35
 msgid "Side by side"
 msgstr "Ao carón"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
 msgid "Slider"
 msgstr "Desprazador"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:3
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
 msgid "Overlay"
 msgstr "Superposición"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
 msgid "Difference"
 msgstr "Diferencia"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:20
 msgid "Tab width:"
 msgstr "Ancho da tabulación:"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:2
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:44
 msgid "Wrap lines:"
 msgstr "Axustar liñas:"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:3
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:67
 msgid "Ignore whitespace:"
 msgstr "Ignorar espazos en branco:"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-options.ui:31
 msgid "Context:"
 msgstr "Contexto:"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:2
+#: libgitg/resources/ui/gitg-diff-view-options.ui:63
 msgid "Spacing"
 msgstr "Espaciado"
 
-#: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
+#: libgitg/resources/ui/gitg-repository-list-box-row.ui:37
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
 msgstr "Quitar o repositorio da lista (non elimina o repositorio do disco)"
+
+#: plugins/diff/gitg-diff.vala:120
+msgid "Show the changes introduced by the selected commit"
+msgstr "Mostrar os cambios introducidos pola remisión seleccionados"
+
+#: plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Ficheiros"
+
+#: plugins/files/gitg-files.vala:68
+msgid "Show the files in the tree of the selected commit"
+msgstr "Mostrar os ficheiros no árbore das remisións seleccionadas"
+
+#~ msgid "_Quit"
+#~ msgstr "_Saír"
 
 #~ msgid "_Help"
 #~ msgstr "A_xuda"
@@ -2381,9 +2514,6 @@ msgstr "Quitar o repositorio da lista (non elimina o repositorio do disco)"
 
 #~ msgid "Unknown"
 #~ msgstr "Descoñecido"
-
-#~ msgid "Not a valid git repository"
-#~ msgstr "Non é un repositorio git válido"
 
 #~ msgid "It is not possible to detect the encoding automatically"
 #~ msgstr "Non é posíbel detectar automaticamente a codificación"
