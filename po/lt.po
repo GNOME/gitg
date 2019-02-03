@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 # Gintautas Miliauskas <gintas@akl.lt>, 2009.
-# Aurimas Černius <aurisc4@gmail.com>, 2013, 2014, 2015, 2016, 2018.
+# Aurimas Černius <aurisc4@gmail.com>, 2013-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2018-11-05 09:43+0000\n"
-"PO-Revision-Date: 2018-11-10 17:56+0200\n"
+"POT-Creation-Date: 2019-01-16 18:54+0000\n"
+"PO-Revision-Date: 2019-02-03 17:57+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Gtranslator 3.30.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Nepavyko perskaityti XML iš srauto"
 
-#: data/gitg.appdata.xml.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:8
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -36,62 +36,59 @@ msgstr ""
 "patogiu įrankiu vizualizuoti git saugyklos istoriją. Be vizualizacijos gitg "
 "taip pat pateikia įrankių jūsų saugyklai tvarkyti bei darbui patvirtinti."
 
-#: data/gitg.appdata.xml.in:14
+#: data/org.gnome.gitg.appdata.xml.in.in:14
 msgid "Goals"
 msgstr "Tikslai"
 
-#: data/gitg.appdata.xml.in:16
-#| msgid "Show the list of recently used repositories"
+#: data/org.gnome.gitg.appdata.xml.in.in:16
 msgid "Browse local git repositories"
 msgstr "Naršyti vietines git saugyklas"
 
-#: data/gitg.appdata.xml.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Clone local and remote git repositories"
 msgstr "Klonuoti vietines bei nuotolines git saugyklas"
 
-#: data/gitg.appdata.xml.in:18
-#| msgid "Commits"
+#: data/org.gnome.gitg.appdata.xml.in.in:18
 msgid "Commit files"
 msgstr "Patvirtinti failus"
 
-#: data/gitg.appdata.xml.in:19
-#| msgid "Create a patch from the selected commit"
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Retrieve patch from a commit"
 msgstr "Gauti pataisą pagal patvirtinimą"
 
-#: data/gitg.appdata.xml.in:30
-#| msgid "Bare repository"
+#: data/org.gnome.gitg.appdata.xml.in.in:30
 msgid "Browse repository history"
 msgstr "Naršyti saugyklos istoriją"
 
-#: data/gitg.appdata.xml.in:34
-#| msgid "Failed to lookup our commit: %s"
+#: data/org.gnome.gitg.appdata.xml.in.in:34
 msgid "Staging area to compose your commit"
 msgstr "Paruošimo vieta patvirtinimui sukurti"
 
-#: data/gitg.appdata.xml.in:38
-#| msgid "Unstaged changes"
+#: data/org.gnome.gitg.appdata.xml.in.in:38
 msgid "Commit staged changes"
 msgstr "Patvirtinti paruoštus pakeitimus"
 
-#: data/gitg.appdata.xml.in:42
-#| msgid "Show the list of recently used repositories"
+#: data/org.gnome.gitg.appdata.xml.in.in:42
 msgid "Overview of recently used repositories"
 msgstr "Neseniai naudotų saugyklų apžvalga"
 
-#: data/gitg.appdata.xml.in:49
+#: data/org.gnome.gitg.appdata.xml.in.in:52
 msgid "The GNOME Project"
 msgstr "GNOME projektas"
 
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gitg.desktop.in:3 data/gitg.desktop.in:10 gitg/gitg.vala:39
+#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
 #: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: data/gitg.desktop.in:4
+#: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git saugyklų naršyklė"
+
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/org.gnome.gitg.desktop.in.in:10
+msgid "@icon@"
+msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -147,19 +144,30 @@ msgstr ""
 "Nustatymas, kuris nurodo, ar rašybos tikrinimas yra įjungtas skirtumų "
 "rodiniuose."
 
-#: data/org.gnome.gitg.gschema.xml.in:75
+#: data/org.gnome.gitg.gschema.xml.in:73
+msgid "Color scheme to use for syntax highlighting"
+msgstr "Spalvų schema, naudojama sintaksės paryškinimui"
+
+#: data/org.gnome.gitg.gschema.xml.in:74
+msgid "Used by GtkSourceView to determine colors for syntax highlighting"
+msgstr "Naudojama GtkSourceView sintaksės paryškinimo spalvoms nustatyti"
+
+#: data/org.gnome.gitg.gschema.xml.in:80
 msgid "When to Collapse Inactive Lanes"
 msgstr "Kada sutraukti neaktyvias eilutes"
 
-#: data/org.gnome.gitg.gschema.xml.in:76
+#: data/org.gnome.gitg.gschema.xml.in:81
+#| msgid ""
+#| "Setting that indicates when an inactive lane should be collapsed. Valid "
+#| "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+"values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
-"To nustatymas nurodo, kada neaktyvi eilutės turi būti sutraukta. Galimos "
+"To nustatymas nurodo, kada neaktyvios eilutės turi būti sutraukta. Galimos "
 "vertės yra 0 - 4, kur 0 nurodo „anksti“ ir 4 reiškia „vėlai“."
 
-#: data/org.gnome.gitg.gschema.xml.in:83
+#: data/org.gnome.gitg.gschema.xml.in:88
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -171,29 +179,29 @@ msgstr ""
 "Žiūrėkite collapse-inactive-lanes valdymui, kada eilutės turi būti "
 "sutrauktos."
 
-#: data/org.gnome.gitg.gschema.xml.in:92
+#: data/org.gnome.gitg.gschema.xml.in:97
 msgid "Show History in Topological Order"
 msgstr "Rodyti istorija topologijos tvarka"
 
-#: data/org.gnome.gitg.gschema.xml.in:93
+#: data/org.gnome.gitg.gschema.xml.in:98
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "To nustatymas nurodo, ar istorija bus rodoma topologijos tvarka."
 
-#: data/org.gnome.gitg.gschema.xml.in:99
+#: data/org.gnome.gitg.gschema.xml.in:104
 msgid "Show Stashed Changes"
 msgstr "Rodyti atidėtus pakeitimus"
 
-#: data/org.gnome.gitg.gschema.xml.in:100
+#: data/org.gnome.gitg.gschema.xml.in:105
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr "To nustatymas nurodo, kada rodyti elementus istorijoje."
 
-#: data/org.gnome.gitg.gschema.xml.in:107
+#: data/org.gnome.gitg.gschema.xml.in:112
 msgid "Show Staged Changes"
 msgstr "Rodyti paruoštus pakeitimus"
 
-#: data/org.gnome.gitg.gschema.xml.in:108
+#: data/org.gnome.gitg.gschema.xml.in:113
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -201,11 +209,11 @@ msgstr ""
 "To nustatymas nurodo, ar rodyti istorijoje virtualų elementą šiuo metu "
 "paruoštiems pakeitimams."
 
-#: data/org.gnome.gitg.gschema.xml.in:115
+#: data/org.gnome.gitg.gschema.xml.in:120
 msgid "Show Unstaged Changes"
 msgstr "Rodyti neparuoštus pakeitimus"
 
-#: data/org.gnome.gitg.gschema.xml.in:116
+#: data/org.gnome.gitg.gschema.xml.in:121
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -213,11 +221,11 @@ msgstr ""
 "To nustatymas nurodo, ar rodyti virtualų elementą istorijoje šiuo metu "
 "neparuoštiems pakeitimams."
 
-#: data/org.gnome.gitg.gschema.xml.in:123
+#: data/org.gnome.gitg.gschema.xml.in:128
 msgid "Mainline Head"
 msgstr "Pagrindinė galva"
 
-#: data/org.gnome.gitg.gschema.xml.in:124
+#: data/org.gnome.gitg.gschema.xml.in:129
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -225,11 +233,11 @@ msgstr ""
 "Nustatymas, nurodantis visada išlaikyti pagrindinę istorijos liniją "
 "dabartinei HEAD."
 
-#: data/org.gnome.gitg.gschema.xml.in:131
+#: data/org.gnome.gitg.gschema.xml.in:136
 msgid "Default selection of the history activity"
 msgstr "Numatytasis istorinės veiklos pasirinkimas"
 
-#: data/org.gnome.gitg.gschema.xml.in:132
+#: data/org.gnome.gitg.gschema.xml.in:137
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
@@ -237,19 +245,19 @@ msgstr ""
 "Nustatymas, kuris nurodo numatytąjį istorinės veiklos pasirinkimą "
 "paleidžiant."
 
-#: data/org.gnome.gitg.gschema.xml.in:138
+#: data/org.gnome.gitg.gschema.xml.in:143
 msgid "Reference Sort Order"
 msgstr "Nuorodų rikiavimo tvarka"
 
-#: data/org.gnome.gitg.gschema.xml.in:139
+#: data/org.gnome.gitg.gschema.xml.in:144
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "Kokia tvarka istorijos šoniniame polangyje rikiuojamos nuorodos."
 
-#: data/org.gnome.gitg.gschema.xml.in:145
+#: data/org.gnome.gitg.gschema.xml.in:150
 msgid "Show Upstream With Branch"
 msgstr "Rodyti šaltinį su šaka"
 
-#: data/org.gnome.gitg.gschema.xml.in:146
+#: data/org.gnome.gitg.gschema.xml.in:151
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -257,11 +265,11 @@ msgstr ""
 "Nusako, ar taip pat rodyti šaltinio (nutolusio) sekamą šaką, kai pažymima "
 "vietinė šaka istorijos vaizde."
 
-#: data/org.gnome.gitg.gschema.xml.in:162
+#: data/org.gnome.gitg.gschema.xml.in:167
 msgid "Show Right Margin in Commit Message View"
 msgstr "Rodyti dešinę paraštę patvirtinimo pranešimo rodinyje"
 
-#: data/org.gnome.gitg.gschema.xml.in:163
+#: data/org.gnome.gitg.gschema.xml.in:168
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -270,11 +278,11 @@ msgstr ""
 "gali būti naudojama lengvam pastebėjimui, kur laužyti patvirtinimo "
 "pranešimus."
 
-#: data/org.gnome.gitg.gschema.xml.in:171
+#: data/org.gnome.gitg.gschema.xml.in:176
 msgid "Column at Which Right Margin is Shown"
 msgstr "Stulpelis, kuriame rodoma dešinė paraštė"
 
-#: data/org.gnome.gitg.gschema.xml.in:172
+#: data/org.gnome.gitg.gschema.xml.in:177
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -282,11 +290,11 @@ msgstr ""
 "Stulpelis, kuriame rodoma dešinė paraštė, jei right-margin nustatymas yra "
 "nustatytas TEIGIAMAI."
 
-#: data/org.gnome.gitg.gschema.xml.in:179
+#: data/org.gnome.gitg.gschema.xml.in:184
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Rodyti dešinę paraštę patvirtinimo pranešimo rodinyje"
 
-#: data/org.gnome.gitg.gschema.xml.in:180
+#: data/org.gnome.gitg.gschema.xml.in:185
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -294,11 +302,11 @@ msgstr ""
 "Paryškinti antraštės tekstą patvirtinimo pranešime, kai jis peržengia "
 "subject-margin-position nurodytą paraštę."
 
-#: data/org.gnome.gitg.gschema.xml.in:187
+#: data/org.gnome.gitg.gschema.xml.in:192
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Stulpelis, kuriame rodoma antraštės paraštė"
 
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:193
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -306,11 +314,11 @@ msgstr ""
 "Stulpelis, kuriame rodoma antraštės paraštė, jei show-subject-margin "
 "nustatymas yra nustatytas TEIGIAMAI."
 
-#: data/org.gnome.gitg.gschema.xml.in:195
+#: data/org.gnome.gitg.gschema.xml.in:200
 msgid "Enable Spell Checking"
 msgstr "Įjungti rašybos tikrinimą"
 
-#: data/org.gnome.gitg.gschema.xml.in:196
+#: data/org.gnome.gitg.gschema.xml.in:201
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -318,58 +326,58 @@ msgstr ""
 "Nustatymas, kuris nurodo, ar rašybos tikrinimas yra įjungtas rašant "
 "patvirtinimo pranešimą."
 
-#: data/org.gnome.gitg.gschema.xml.in:203
+#: data/org.gnome.gitg.gschema.xml.in:208
 msgid "Spell Checking Language"
 msgstr "Rašybos tikrinimo kalba"
 
-#: data/org.gnome.gitg.gschema.xml.in:204
+#: data/org.gnome.gitg.gschema.xml.in:209
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr "Kalba, naudojama tikrinant rašybą patvirtinimo pranešimui."
 
-#: data/org.gnome.gitg.gschema.xml.in:213
+#: data/org.gnome.gitg.gschema.xml.in:218
 msgid "Use patience algorithm to show diffs"
 msgstr "Naudoti patience algoritmą pokyčiams parodyti"
 
-#: data/org.gnome.gitg.gschema.xml.in:214
+#: data/org.gnome.gitg.gschema.xml.in:219
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr "Nustatoma naudoti patience alforitmą pakeitimams rodyti."
 
-#: data/org.gnome.gitg.gschema.xml.in:220
+#: data/org.gnome.gitg.gschema.xml.in:225
 msgid "Ignore Whitespace Changes"
 msgstr "Nepaisyti nespausdinamų simbolių pakeitimų"
 
-#: data/org.gnome.gitg.gschema.xml.in:221
+#: data/org.gnome.gitg.gschema.xml.in:226
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr ""
 "To nustatymas nurodo, ar nepaisyti nespausdinamų simbolių rodant pakeitimus."
 
-#: data/org.gnome.gitg.gschema.xml.in:228
+#: data/org.gnome.gitg.gschema.xml.in:233
 msgid "Show Changes Inline"
 msgstr "Tiesiogiai rodyti pakeitimus"
 
-#: data/org.gnome.gitg.gschema.xml.in:229
+#: data/org.gnome.gitg.gschema.xml.in:234
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr "To nustatymas nurodo, ar eilučių pakeitimus rodyti tiesiogiai."
 
-#: data/org.gnome.gitg.gschema.xml.in:236
+#: data/org.gnome.gitg.gschema.xml.in:241
 msgid "Wrap"
 msgstr "Laužyti"
 
-#: data/org.gnome.gitg.gschema.xml.in:237
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Wrap lines."
 msgstr "Laužyti eilutes."
 
-#: data/org.gnome.gitg.gschema.xml.in:243
-#: data/org.gnome.gitg.gschema.xml.in:261
+#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid "Number of Before/After Context Lines"
 msgstr "Prieš/po konteksto eilučių skaičius"
 
-#: data/org.gnome.gitg.gschema.xml.in:244
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -377,13 +385,13 @@ msgstr ""
 "Nustatymas, nurodantis, kiek konteksto eilučių (prieš ir po) rodyti rodant "
 "pakeitimą."
 
-#: data/org.gnome.gitg.gschema.xml.in:251
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:275
 msgid "Rendered Width of a Tab Character"
 msgstr "Tab simbolio plotis"
 
-#: data/org.gnome.gitg.gschema.xml.in:252
-#: data/org.gnome.gitg.gschema.xml.in:271
+#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:276
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -391,7 +399,7 @@ msgstr ""
 "Nustatymas, nurodantis, kiek vietos turi užimti tab simbolis rodant "
 "pakeitimą."
 
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:267
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -427,18 +435,24 @@ msgstr "_Paruošti pažymėjimą"
 
 #: gitg/commit/gitg-commit.vala:232
 #, c-format
-msgid "Failed to stage the removal of submodule `%s'"
+#| msgid "Failed to stage the removal of submodule `%s'"
+msgid "Failed to stage the removal of submodule “%s”"
 msgstr "Nepavyko paruošti submodulio „%s“ pašalinimo"
 
 #: gitg/commit/gitg-commit.vala:248
 #, c-format
-msgid "Failed to open the repository of submodule `%s' while trying to stage"
+#| msgid ""
+#| "Failed to open the repository of submodule `%s' while trying to stage"
+msgid "Failed to open the repository of submodule “%s” while trying to stage"
 msgstr "Nepavyko atverti saugyklos submoduliui „%s“ bandant paruošti"
 
 #: gitg/commit/gitg-commit.vala:263
 #, c-format
+#| msgid ""
+#| "Failed to lookup the working directory commit of submodule `%s' while "
+#| "trying to stage"
 msgid ""
-"Failed to lookup the working directory commit of submodule `%s' while trying "
+"Failed to lookup the working directory commit of submodule “%s” while trying "
 "to stage"
 msgstr ""
 "Nepavyko patikrinti darbinio katalogo patvirtinimo submoduliui „%s“ bandant "
@@ -446,17 +460,20 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:276
 #, c-format
-msgid "Failed to stage the submodule `%s'"
+#| msgid "Failed to stage the submodule `%s'"
+msgid "Failed to stage the submodule “%s”"
 msgstr "Nepavyko paruošti submodulio „%s“"
 
 #: gitg/commit/gitg-commit.vala:298
 #, c-format
-msgid "Failed to stage the removal of file `%s'"
+#| msgid "Failed to stage the removal of file `%s'"
+msgid "Failed to stage the removal of file “%s”"
 msgstr "Nepavyko paruošti failo „%s“ pašalinimo"
 
 #: gitg/commit/gitg-commit.vala:312
 #, c-format
-msgid "Failed to stage the file `%s'"
+#| msgid "Failed to stage the file `%s'"
+msgid "Failed to stage the file “%s”"
 msgstr "Nepavyko paruošti failo „%s“"
 
 #: gitg/commit/gitg-commit.vala:584
@@ -465,22 +482,26 @@ msgstr "Pašalinti žymėjimą ir pa_ruošimo"
 
 #: gitg/commit/gitg-commit.vala:650
 #, c-format
-msgid "Failed to unstage the removal of file `%s'"
-msgstr "Nepavyko pašalinti failo „%s“ ištrynimo paruošimo"
+#| msgid "Failed to unstage the removal of file `%s'"
+msgid "Failed to unstage the removal of file “%s”"
+msgstr "Nepavyko atšaukti failo „%s“ ištrynimo paruošimo"
 
 #: gitg/commit/gitg-commit.vala:651
 #, c-format
-msgid "Failed to unstage the file `%s'"
+#| msgid "Failed to unstage the file `%s'"
+msgid "Failed to unstage the file “%s”"
 msgstr "Nepavyko pašalinti failo „%s“ paruošimo"
 
 #: gitg/commit/gitg-commit.vala:658
 #, c-format
-msgid "Failed to unstage the removal of submodule `%s'"
-msgstr "Nepavyko pašalinti submodulio „%s“ ištrynimo paruošimo"
+#| msgid "Failed to unstage the removal of submodule `%s'"
+msgid "Failed to unstage the removal of submodule “%s”"
+msgstr "Nepavyko atšaukti submodulio „%s“ ištrynimo paruošimo"
 
 #: gitg/commit/gitg-commit.vala:659
 #, c-format
-msgid "Failed to unstage the submodule `%s'"
+#| msgid "Failed to unstage the submodule `%s'"
+msgid "Failed to unstage the submodule “%s”"
 msgstr "Nepavyko pašalinti submodulio „%s“ paruošimo"
 
 #. Populate staged items
@@ -536,8 +557,8 @@ msgstr "Ar tikrai norite visam laikui atsisakyti pasirinktų?"
 
 #: gitg/commit/gitg-commit.vala:1341 gitg/commit/gitg-commit.vala:1507
 #: gitg/commit/gitg-commit.vala:1622
-#: gitg/gitg-commit-action-create-patch.vala:150 gitg/gitg-dash-view.vala:444
-#: gitg/gitg-window.vala:190 gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
+#: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
@@ -569,16 +590,22 @@ msgstr "Nepavyko atmesti pakeitimų"
 
 #: gitg/commit/gitg-commit.vala:1486
 #, c-format
+#| msgid ""
+#| "Are you sure you want to permanently discard all changes made to the file "
+#| "`%s'?"
 msgid ""
-"Are you sure you want to permanently discard all changes made to the file `"
-"%s'?"
+"Are you sure you want to permanently discard all changes made to the file "
+"“%s”?"
 msgstr "Ar tikrai norite visam laikui atmesti visus failo „%s“ pakeitimus?"
 
 #: gitg/commit/gitg-commit.vala:1497
 #, c-format
+#| msgid ""
+#| "Are you sure you want to permanently discard all changes made to the "
+#| "files %s and `%s'?"
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
-"%s and `%s'?"
+"%s and “%s”?"
 msgstr ""
 "Ar tikrai norite visam laikui atmesti visus failų „%s“ ir „%s“ pakeitimus?"
 
@@ -595,12 +622,14 @@ msgstr[2] "Ištrinti failus"
 
 #: gitg/commit/gitg-commit.vala:1601
 #, c-format
-msgid "Are you sure you want to permanently delete the file `%s'?"
-msgstr "Ar tikrai norite visam laikui ištrinti žymą  failą „%s“?"
+#| msgid "Are you sure you want to permanently delete the file `%s'?"
+msgid "Are you sure you want to permanently delete the file “%s”?"
+msgstr "Ar tikrai norite visam laikui ištrinti failą „%s“?"
 
 #: gitg/commit/gitg-commit.vala:1612
 #, c-format
-msgid "Are you sure you want to permanently delete the files %s and `%s'?"
+#| msgid "Are you sure you want to permanently delete the files %s and `%s'?"
+msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Ar tikrai norite visam laikui ištrinti failus %s ir „%s“?"
 
 #: gitg/commit/gitg-commit.vala:1658
@@ -683,45 +712,57 @@ msgstr "Nepavyko sukurti patvirtinimo: %s"
 msgid "Failed to checkout index: %s"
 msgstr "Nepavyko išskleisti indekso: %s"
 
-#: gitg/gitg-application.vala:57
-msgid "Show the application's version"
+#: gitg/gitg-application.vala:38
+#| msgid "Show the application's version"
+msgid "Show the application’s version"
 msgstr "Rodyti programos versiją"
 
-#: gitg/gitg-application.vala:60
+#: gitg/gitg-application.vala:40
 msgid "Start gitg with a particular activity"
 msgstr "Paleisti gitg su tam tikra veiklą"
 
-#: gitg/gitg-application.vala:63
+#: gitg/gitg-application.vala:42
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr "Paleisti gitg su patvirtinimo veikla (--activity commit sutrumpinimas)"
 
-#: gitg/gitg-application.vala:66
+#: gitg/gitg-application.vala:44
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Nebandyti įkelti saugyklos iš esamo katalogo"
 
-#: gitg/gitg-application.vala:69
+#: gitg/gitg-application.vala:46
 msgid "Run gitg in standalone mode"
 msgstr "Paleisti gitg nepriklausoma veiksena"
 
-#: gitg/gitg-application.vala:98
-msgid "- Git repository viewer"
-msgstr "- Git saugyklos žiūryklė"
+#: gitg/gitg-application.vala:92
+#| msgid "- Git repository viewer"
+msgid "— Git repository viewer"
+msgstr "– Git saugyklos žiūryklė"
 
-#: gitg/gitg-application.vala:231
-msgid "gitg is a Git repository viewer for gtk+/GNOME"
-msgstr "gitg yra Git saugyklos žiūryklė gtk+/GNOME aplinkai"
+#: gitg/gitg-application.vala:226
+#| msgid "gitg is a Git repository viewer for gtk+/GNOME"
+msgid "gitg is a Git repository viewer for GTK+/GNOME"
+msgstr "gitg yra Git saugyklos žiūryklė GTK+/GNOME aplinkai"
 
-#: gitg/gitg-application.vala:240
+#: gitg/gitg-application.vala:235
 msgid "translator-credits"
 msgstr ""
 "išvertė:\n"
 "Aurimas Černius <aurisc4@gmail.com>"
 
-#: gitg/gitg-application.vala:243
+#: gitg/gitg-application.vala:238
 msgid "gitg homepage"
 msgstr "gitg namų tinklalapis"
 
-#: gitg/gitg-application.vala:373
+#: gitg/gitg-application.vala:368
+#| msgid ""
+#| "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+#| "depends) to be compiled with threading support.\n"
+#| "\n"
+#| "If you manually compiled libgit2, then please configure libgit2 with -"
+#| "DTHREADSAFE:BOOL=ON.\n"
+#| "\n"
+#| "Otherwise, report a bug in your distributions' bug reporting system for "
+#| "providing libgit2 without threading support."
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -729,7 +770,7 @@ msgid ""
 "If you manually compiled libgit2, then please configure libgit2 with -"
 "DTHREADSAFE:BOOL=ON.\n"
 "\n"
-"Otherwise, report a bug in your distributions' bug reporting system for "
+"Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
 "Atsiprašome, bet gitg reikalauja, kad libgit2 (naudojama biblioteka) būtų "
@@ -754,7 +795,8 @@ msgstr "Įveskite numatytąją informaciją visoms saugykloms:"
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:120
 #, c-format
-msgid "Override global details for repository '%s':"
+#| msgid "Override global details for repository '%s':"
+msgid "Override global details for repository “%s”:"
 msgstr "Pakeisti visuotinę informaciją saugyklai „%s“:"
 
 #: gitg/gitg-author-details-dialog.vala:232
@@ -854,15 +896,15 @@ msgstr "Sukurti pataisą"
 msgid "Create a patch from the selected commit"
 msgstr "Sukurti pataisą pagal pažymėtą patvirtinimą"
 
-#: gitg/gitg-commit-action-create-patch.vala:148
+#: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
 msgstr "Įrašyti pataisos failą"
 
-#: gitg/gitg-commit-action-create-patch.vala:152
+#: gitg/gitg-commit-action-create-patch.vala:156
 msgid "_Save Patch"
 msgstr "Į_rašyti pataisą"
 
-#: gitg/gitg-commit-action-create-patch.vala:177
+#: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
 msgstr "Nepavyko sukurti pataisos"
 
@@ -907,20 +949,20 @@ msgstr ""
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Tuo tarpu jūs gal norite %snustatyti savo git profilius%s."
 
-#: gitg/gitg-dash-view.vala:389
+#: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
 msgstr "Nepavyko klonuoti saugyklos"
 
-#: gitg/gitg-dash-view.vala:420
+#: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
 msgstr "Nepavyko pridėti saugyklos"
 
-#: gitg/gitg-dash-view.vala:436
+#: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
 msgstr "Sukurti naują saugyklą"
 
 #. Translators: %s is a file name
-#: gitg/gitg-dash-view.vala:439
+#: gitg/gitg-dash-view.vala:448
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -929,15 +971,15 @@ msgstr ""
 "Neatrodo, kad vieta <i>%s</i> yra tinkama git saugykla. Ar norite sukurti "
 "naują git saugyklą šioje vietoje?"
 
-#: gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:454
 msgid "Create repository"
 msgstr "Sukurti saugyklą"
 
-#: gitg/gitg-dash-view.vala:461
+#: gitg/gitg-dash-view.vala:470
 msgid "Failed to create repository"
 msgstr "Nepavyko sukurti saugyklos"
 
-#: gitg/gitg-dash-view.vala:531
+#: gitg/gitg-dash-view.vala:540
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Ieškomą saugyklų aplanke %s"
@@ -1164,7 +1206,8 @@ msgstr "Pervadinti pažymėtą nuorodą"
 
 #: gitg/gitg-ref-action-rename.vala:100
 #, c-format
-msgid "The specified name ‘%s’ contains invalid characters"
+#| msgid "The specified name ‘%s’ contains invalid characters"
+msgid "The specified name “%s” contains invalid characters"
 msgstr "Nurodytas pavadinimas „%s“ turi neleistinų simbolių"
 
 #: gitg/gitg-ref-action-rename.vala:102
@@ -1180,32 +1223,33 @@ msgstr "Nepavyko pervadinti"
 msgid "Close"
 msgstr "Užverti"
 
-#: gitg/gitg-window.vala:187
+#: gitg/gitg-window.vala:201
 msgid "Add Repository"
 msgstr "Pridėti saugyklą"
 
-#: gitg/gitg-window.vala:191
+#: gitg/gitg-window.vala:205
 msgid "_Add"
 msgstr "_Pridėti"
 
-#: gitg/gitg-window.vala:193
+#: gitg/gitg-window.vala:207
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Ieškoti visų git saugyklų nuo šio katalogo"
 
-#: gitg/gitg-window.vala:498
+#: gitg/gitg-window.vala:505
 msgid "Projects"
 msgstr "Projektai"
 
-#: gitg/gitg-window.vala:748
+#: gitg/gitg-window.vala:804
 msgid "Select items"
 msgstr "Pasirinkite elementus"
 
-#: gitg/gitg-window.vala:955
+#: gitg/gitg-window.vala:1015
 #, c-format
-msgid "'%s' is not a Git repository."
+#| msgid "'%s' is not a Git repository."
+msgid "“%s” is not a Git repository."
 msgstr "„%s“ nėra Git saugykla."
 
-#: gitg/gitg-window.vala:1104
+#: gitg/gitg-window.vala:1164
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1213,7 +1257,7 @@ msgstr ""
 "Jūsų naudotojo vardas ir el. paštas dar nenustatyti. Eikite į naudotojo "
 "konfigūraciją ir nurodykite savo vardą ir el. paštą."
 
-#: gitg/gitg-window.vala:1108
+#: gitg/gitg-window.vala:1168
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1221,7 +1265,7 @@ msgstr ""
 "Jūsų naudotojo vardas dar nenustatyta. Eikite į naudojo konfigūraciją ir "
 "nurodykite savo vardą."
 
-#: gitg/gitg-window.vala:1112
+#: gitg/gitg-window.vala:1172
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1229,7 +1273,7 @@ msgstr ""
 "Jūsų el. paštas dar nenustatytas. Eikite į naudotojo konfigūraciją ir "
 "nurodykite savo el. paštą."
 
-#: gitg/gitg-window.vala:1115
+#: gitg/gitg-window.vala:1175
 msgid "Missing author details"
 msgstr "Trūksta autoriaus informacijos"
 
@@ -1304,7 +1348,7 @@ msgctxt "Preferences"
 msgid "Commit"
 msgstr "Patvirtinimas"
 
-#: gitg/preferences/gitg-preferences-interface.vala:120
+#: gitg/preferences/gitg-preferences-interface.vala:140
 msgid "Interface"
 msgstr "Sąsaja"
 
@@ -1442,39 +1486,29 @@ msgstr ""
 "Nėra pridėtų saugyklų. Pradžiai pridėkite esamą saugyklą arba klonuokite "
 "esamą."
 
-#: gitg/resources/ui/gitg-menus.ui:7 gitg/resources/ui/gitg-menus.ui:55
-#: gitg/resources/ui/gitg-menus.ui:91
-msgid "_New Window"
-msgstr "_Naujas langas"
+#: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Reload"
+msgstr "Įkelti iš _naujo"
 
-#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:47
-#: gitg/resources/ui/gitg-menus.ui:61 gitg/resources/ui/gitg-menus.ui:103
-msgid "_Author Details"
-msgstr "_Autoriaus informacija"
-
-#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:67
-#: gitg/resources/ui/gitg-menus.ui:109
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:45
 msgid "_Preferences"
 msgstr "_Nuostatos"
 
-#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:73
-#: gitg/resources/ui/gitg-menus.ui:115
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:39
+msgid "_Author Details"
+msgstr "_Autoriaus informacija"
+
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:51
 msgid "_Keyboard Shortcuts"
 msgstr "_Klaviatūros trumpiniai"
 
-#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:77
-#: gitg/resources/ui/gitg-menus.ui:119
+#: gitg/resources/ui/gitg-menus.ui:33
+msgid "_New Window"
+msgstr "_Naujas langas"
+
+#: gitg/resources/ui/gitg-menus.ui:55
 msgid "_About"
 msgstr "_Apie"
-
-#: gitg/resources/ui/gitg-menus.ui:33 gitg/resources/ui/gitg-menus.ui:83
-#: gitg/resources/ui/gitg-menus.ui:125
-msgid "_Quit"
-msgstr "_Išeiti"
-
-#: gitg/resources/ui/gitg-menus.ui:41 gitg/resources/ui/gitg-menus.ui:97
-msgid "_Reload"
-msgstr "Įkelti iš _naujo"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:44
 msgid "Show markup"
@@ -1585,6 +1619,10 @@ msgstr "Diff"
 msgid "Enable syntax highlighting of source code in diff views"
 msgstr "Įjungti sintaksės paryškinimą kodui skirtumų rodiniuose"
 
+#: gitg/resources/ui/gitg-preferences-interface.ui:258
+msgid "Syntax highlighting color scheme:"
+msgstr "Sintaksės paryškinimo spalvų schema:"
+
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
 msgstr "Nuostatos"
@@ -1595,36 +1633,43 @@ msgid "Windows"
 msgstr "Langai"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:19
+#| msgctxt "shortcut window"
+#| msgid "Open the window menu"
+msgctxt "shortcut window"
+msgid "Open shortcut window"
+msgstr "Atverti trumpinių langą"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Open a new window"
 msgstr "Atverti naują langą"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:26
+#: gitg/resources/ui/gitg-shortcuts.ui:33
 msgctxt "shortcut window"
 msgid "Open the window menu"
 msgstr "Atverti lango meniu"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:33
+#: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Open a repository"
 msgstr "Atverti saugyklą"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:40
+#: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
 msgid "Open the help"
 msgstr "Atverti žinyną"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:47
+#: gitg/resources/ui/gitg-shortcuts.ui:54
 msgctxt "shortcut window"
 msgid "Find"
 msgstr "Rasti"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:54
+#: gitg/resources/ui/gitg-shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Užverti aktyvų langą"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:61
+#: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Išeiti iš programos"
@@ -1700,29 +1745,33 @@ msgstr[2] "Prieš %d dienų"
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
 #: libgitg/gitg-date.vala:374
-msgid "%b %e, %H:%M"
+#| msgid "%b %e, %H:%M"
+msgid "%b %e, %H∶%M"
 msgstr "%b %e, %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: libgitg/gitg-date.vala:381
-msgid "%b %e, %I:%M %p"
+#| msgid "%b %e, %I:%M %p"
+msgid "%b %e, %I∶%M %p"
 msgstr "%b %e, %I:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: libgitg/gitg-date.vala:391
-msgid "%b %e %Y, %H:%M"
+#| msgid "%b %e %Y, %H:%M"
+msgid "%b %e %Y, %H∶%M"
 msgstr "%Y %b %e, %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: libgitg/gitg-date.vala:398
-msgid "%b %e %Y, %I:%M %p"
-msgstr "%Yn%b %e, %I:%M"
+#| msgid "%b %e %Y, %I:%M %p"
+msgid "%b %e %Y, %I∶%M %p"
+msgstr "%Y %b %e, %I:%M"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
@@ -1893,6 +1942,9 @@ msgstr "Failai"
 #: plugins/files/gitg-files.vala:68
 msgid "Show the files in the tree of the selected commit"
 msgstr "Rodyti pasirinkto patvirtinimo failus medyje"
+
+#~ msgid "_Quit"
+#~ msgstr "_Išeiti"
 
 #~ msgid "_Help"
 #~ msgstr "_Žinynas"
