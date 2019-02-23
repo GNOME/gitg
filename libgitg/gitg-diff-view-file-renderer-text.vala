@@ -60,6 +60,8 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	private Settings? d_stylesettings;
 
+	private Settings? d_fontsettings;
+
 	public bool new_is_workdir { get; construct set; }
 
 	public bool wrap_lines
@@ -395,7 +397,15 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		buffer.language = language;
 		buffer.highlight_syntax = true;
+		d_fontsettings = try_settings("org.gnome.desktop.interface");
+		if (d_fontsettings != null)
+		{
+			d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
+				update_font();
+			});
 
+			update_font();
+		}
 		d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		if (d_stylesettings != null)
 		{
@@ -441,6 +451,12 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		{
 			(buffer as Gtk.SourceBuffer).style_scheme = s;
 		}
+	}
+
+	private void update_font()
+	{
+		var fname = d_fontsettings.get_string("monospace-font-name");
+		this.override_font(Pango.FontDescription.from_string(fname));
 	}
 
 	private Settings? try_settings(string schema_id)
