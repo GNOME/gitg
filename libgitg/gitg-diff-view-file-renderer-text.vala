@@ -59,7 +59,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private bool d_constructed;
 
 	private Settings? d_stylesettings;
-
+	private Settings? d_fontsettings;
 	public bool new_is_workdir { get; construct set; }
 
 	public bool wrap_lines
@@ -79,7 +79,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	}
 
 	public new int tab_width
-	{ 
+	{
 		get { return (int)get_tab_width(); }
 		set { set_tab_width((uint)value); }
 	}
@@ -111,14 +111,14 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			}
 		}
 	}
-	
+
 	private bool d_has_selection;
 
 	public bool has_selection
 	{
 		get { return d_has_selection; }
 	}
-	
+
 	public bool can_select { get; construct set; }
 
 	public PatchSet selection
@@ -148,7 +148,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 					patches += pset;
 					continue;
 				}
-				
+
 				var last = patches[patches.length - 1];
 
 				if (last.new_offset + last.length == pset.new_offset &&
@@ -395,7 +395,15 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		buffer.language = language;
 		buffer.highlight_syntax = true;
+		d_fontsettings = try_settings("org.gnome.desktop.interface");
+		if (d_fontsettings != null)
+		{
+			d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
+				update_font();
+			});
 
+			update_font();
+		}
 		d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		if (d_stylesettings != null)
 		{
@@ -441,6 +449,12 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		{
 			(buffer as Gtk.SourceBuffer).style_scheme = s;
 		}
+	}
+
+	private void update_font()
+	{
+		var fname = d_fontsettings.get_string("monospace-font-name");
+		this.override_font(Pango.FontDescription.from_string(fname));
 	}
 
 	private Settings? try_settings(string schema_id)
@@ -577,7 +591,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		ctx.add_class("diff-lines-gutter-border");
 		ctx.render_frame(cr, old_lines_width + new_lines_width, 0, sym_lines_width, win.get_height());
 		ctx.restore();
-		
+
 		return false;
 	}
 
