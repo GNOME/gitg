@@ -459,7 +459,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	{
 		//var fname = d_fontsettings.get_string("monospace-font-name");
 		//this.override_font(Pango.FontDescription.from_string(fname));
-		this.add_css_font();
+		//this.add_css_font();
 	}
 	private void add_css_font()
 	{
