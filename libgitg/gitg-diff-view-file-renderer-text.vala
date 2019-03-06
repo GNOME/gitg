@@ -54,6 +54,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private Gtk.SourceBuffer? d_new_highlight_buffer;
 	private bool d_old_highlight_ready;
 	private bool d_new_highlight_ready;
+	public 	Gtk.CssProvider css_provider;
 
 	private Region[] d_regions;
 	private bool d_constructed;
@@ -198,6 +199,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		var settings = Gtk.Settings.get_default();
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
+		css_provider = new Gtk.CssProvider();
 
 		update_theme();
 
@@ -455,9 +457,31 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	private void update_font()
 	{
-		var fname = d_fontsettings.get_string("monospace-font-name");
-		this.override_font(Pango.FontDescription.from_string(fname));
+		//var fname = d_fontsettings.get_string("monospace-font-name");
+		//this.override_font(Pango.FontDescription.from_string(fname));
+		this.add_css_font();
 	}
+	private void add_css_font()
+	{
+		Gtk.StyleContext ctx=this.get_style_context();
+		if(this.css_provider == null)
+		{
+			Gtk.CssProvider? provider = new Gtk.CssProvider();
+			this.css_provider=provider;
+			//ctx.add_class("DiffViewFileRendererText");
+		}
+		try
+		{
+			this.css_provider.load_from_data ("textview{font:Arial 20}");
+			ctx.add_provider(this.css_provider,Gtk.STYLE_PROVIDER_PRIORITY_USER);
+		}
+		catch(Error e){}
+
+
+
+		//ctx.remove_class("fontclass");
+	}
+
 
 	private Settings? try_settings(string schema_id)
 	{
