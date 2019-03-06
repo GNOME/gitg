@@ -200,7 +200,16 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		var settings = Gtk.Settings.get_default();
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
 		css_provider = new Gtk.CssProvider();
-
+		var ctx=this.get_style_context();
+		try
+		{
+			css_provider.load_from_data ("textview{font:Arial 20}");
+			ctx.add_provider(this.css_provider,Gtk.STYLE_PROVIDER_PRIORITY_USER);
+			ctx.save();
+		}
+		catch(Error e){
+			message(e.message);
+		}
 		update_theme();
 
 		if (can_select)
@@ -400,14 +409,14 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		buffer.language = language;
 		buffer.highlight_syntax = true;
 		d_fontsettings = try_settings("org.gnome.desktop.interface");
-		if (d_fontsettings != null)
+		/* if (d_fontsettings != null)
 		{
 			d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
 				update_font();
 			});
 
 			update_font();
-		}
+		}*/
 		d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		if (d_stylesettings != null)
 		{
@@ -455,32 +464,27 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 	}
 
-	private void update_font()
+	/*private void update_font()
 	{
 		//var fname = d_fontsettings.get_string("monospace-font-name");
 		//this.override_font(Pango.FontDescription.from_string(fname));
 		//this.add_css_font();
-	}
-	private void add_css_font()
+	}*/
+	/* private void add_css_font()
 	{
 		Gtk.StyleContext ctx=this.get_style_context();
-		if(this.css_provider == null)
-		{
-			Gtk.CssProvider? provider = new Gtk.CssProvider();
-			this.css_provider=provider;
-			//ctx.add_class("DiffViewFileRendererText");
-		}
 		try
 		{
 			this.css_provider.load_from_data ("textview{font:Arial 20}");
 			ctx.add_provider(this.css_provider,Gtk.STYLE_PROVIDER_PRIORITY_USER);
+			ctx.save();
 		}
 		catch(Error e){}
 
 
 
 		//ctx.remove_class("fontclass");
-	}
+	}*/
 
 
 	private Settings? try_settings(string schema_id)
