@@ -54,7 +54,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private Gtk.SourceBuffer? d_new_highlight_buffer;
 	private bool d_old_highlight_ready;
 	private bool d_new_highlight_ready;
-    private  Gtk.CssProvider css_provider;
+	private Gtk.CssProvider css_provider;
 
 	private Region[] d_regions;
 	private bool d_constructed;
@@ -200,26 +200,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		var settings = Gtk.Settings.get_default();
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
 
-		d_fontsettings = try_settings("org.gnome.desktop.interface");
-		if (d_fontsettings != null)
-		{
-			d_fontsettings.changed["monospace-font-name"].connect((s, k) => {});
-		}
 		css_provider = new Gtk.CssProvider();
-		var ctx = this.get_style_context();
-		var fname = d_fontsettings.get_string("monospace-font-name");
-		var font_desc = Pango.FontDescription.from_string(fname);
-   		ctx = this.get_style_context();
-		var css = "textview{font-family: %s; font-size: %dpx;}".printf (font_desc.get_family(),font_desc.get_size()/1024);
-		try
-		{
-			this.css_provider.load_from_data(css);
-			ctx.add_provider(this.css_provider,Gtk.STYLE_PROVIDER_PRIORITY_USER);
-		}
-		catch(Error e)
-		{
-			critical(e.message);
-		}
 
 		update_theme();
 
@@ -419,6 +400,15 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		buffer.language = language;
 		buffer.highlight_syntax = true;
+		d_fontsettings = try_settings("org.gnome.desktop.interface");
+		if (d_fontsettings != null)
+		{
+			d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
+				update_font();
+			});
+
+			update_font();
+		}
 		d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		if (d_stylesettings != null)
 		{
@@ -452,6 +442,29 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 
 		return buffer;
+	}
+
+	private void update_font()
+	{
+		this.add_css_font();
+	}
+
+	private void add_css_font()
+	{
+		Gtk.StyleContext ctx = this.get_style_context();
+		var fname = d_fontsettings.get_string("monospace-font-name");
+		var font_desc = Pango.FontDescription.from_string(fname);
+   		ctx = this.get_style_context();
+		var css = "textview{font-family: %s; font-size: %dpx;}".printf (font_desc.get_family(),font_desc.get_size()/1024);
+		try
+		{
+			css_provider.load_from_data(css);
+			ctx.add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_USER);
+		}
+		catch(Error e)
+		{
+			critical(e.message);
+		}
 	}
 
 	private void update_style()
