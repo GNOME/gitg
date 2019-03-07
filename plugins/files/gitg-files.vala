@@ -44,8 +44,6 @@ namespace GitgFiles
 		construct
 		{
 			d_model = new TreeStore();
-			css_provider = new Gtk.CssProvider();
-			d_source.get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
 			history.selection_changed.connect(on_selection_changed);
 		}
 
@@ -148,7 +146,8 @@ namespace GitgFiles
 			d_source = ret["source_view_file"] as Gtk.SourceView;
 			d_paned = ret["paned_files"] as Gtk.Paned;
 			d_scrolled = ret["scrolled_window_file"] as Gtk.ScrolledWindow;
-
+			css_provider = new Gtk.CssProvider();
+			d_source.get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
 			d_imagevp = new Gtk.Viewport(null, null);
 			d_image = new Gtk.Image();
 			d_imagevp.add(d_image);
