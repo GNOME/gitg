@@ -81,6 +81,7 @@ class Dialog : Gtk.Dialog
 	private GtkSpell.Checker? d_spell_checker;
 	private Ggit.Diff d_diff;
 	private bool d_infobar_shown;
+	private Gtk.CssProvider css_provider;
 
 	public Ggit.Diff? diff
 	{
@@ -411,7 +412,6 @@ class Dialog : Gtk.Dialog
 	construct
 	{
 		d_font_settings = new Settings("org.gnome.desktop.interface");
-
 		update_font_settings();
 
 		d_font_settings.changed["monospace-font-name"].connect((s, k) => {
@@ -419,6 +419,8 @@ class Dialog : Gtk.Dialog
 		});
 
 		var b = d_source_view_message.buffer;
+		css_provider = new Gtk.CssProvider();
+		d_source_view_message.get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
 
 		d_source_view_message.buffer.changed.connect(() => {
 			update_sensitivity();
@@ -785,10 +787,18 @@ class Dialog : Gtk.Dialog
 
 	private void update_font_settings()
 	{
-		var mfont = d_font_settings.get_string("monospace-font-name");
-		var desc = Pango.FontDescription.from_string(mfont);
-
-		d_source_view_message.override_font(desc);
+		var fname = d_font_settings.get_string("monospace-font-name");
+		var font_desc = Pango.FontDescription.from_string(fname);
+		var css = "textview{font-family: %s; font-size: %dpx;}".printf (font_desc.get_family(),font_desc.get_size()/1024);
+		try
+		{
+			css_provider.load_from_data(css);
+		}
+		catch(Error e)
+		{
+			warning(e.message);
+		}
+		//d_source_view_message.override_font(desc);
 	}
 
 	public void show_infobar(string          primary_msg,
