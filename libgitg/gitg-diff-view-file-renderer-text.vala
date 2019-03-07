@@ -201,7 +201,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
 
 		css_provider = new Gtk.CssProvider();
-		get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_USER);
+		get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
 
 		update_theme();
 
@@ -445,6 +445,18 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		return buffer;
 	}
 
+	private void update_style()
+	{
+		var scheme = d_stylesettings.get_string("style-scheme");
+		var manager = Gtk.SourceStyleSchemeManager.get_default();
+		var s = manager.get_scheme(scheme);
+
+		if (s != null)
+		{
+			(buffer as Gtk.SourceBuffer).style_scheme = s;
+		}
+	}
+
 	private void update_font()
 	{
 		var fname = d_fontsettings.get_string("monospace-font-name");
@@ -457,18 +469,6 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		catch(Error e)
 		{
 			critical(e.message);
-		}
-	}
-
-	private void update_style()
-	{
-		var scheme = d_stylesettings.get_string("style-scheme");
-		var manager = Gtk.SourceStyleSchemeManager.get_default();
-		var s = manager.get_scheme(scheme);
-
-		if (s != null)
-		{
-			(buffer as Gtk.SourceBuffer).style_scheme = s;
 		}
 	}
 
