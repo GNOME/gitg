@@ -201,6 +201,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
 
 		css_provider = new Gtk.CssProvider();
+		get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_USER);
 
 		update_theme();
 
@@ -446,20 +447,13 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	private void update_font()
 	{
-		this.add_css_font();
-	}
-
-	private void add_css_font()
-	{
 		Gtk.StyleContext ctx = this.get_style_context();
 		var fname = d_fontsettings.get_string("monospace-font-name");
 		var font_desc = Pango.FontDescription.from_string(fname);
-   		ctx = this.get_style_context();
 		var css = "textview{font-family: %s; font-size: %dpx;}".printf (font_desc.get_family(),font_desc.get_size()/1024);
 		try
 		{
 			css_provider.load_from_data(css);
-			ctx.add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_USER);
 		}
 		catch(Error e)
 		{
