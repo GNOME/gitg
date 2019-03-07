@@ -8,9 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2018-06-05 13:40+0000\n"
-"PO-Revision-Date: 2018-07-01 15:49+0200\n"
-"Last-Translator: Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>\n"
+"POT-Creation-Date: 2019-01-16 18:54+0000\n"
+"PO-Revision-Date: 2019-03-06 23:55+0200\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28 [at] gmail [dot] "
+"com>\n"
 "Language-Team: Romanian Gnome Team <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -18,93 +19,161 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Poedit 2.2.1\n"
 
-#: ../contrib/xml/xml-reader.c:327
+#: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Nu s-a putut parsa XML din flux"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:39
-#: ../gitg/resources/ui/gitg-window.ui.h:1
+#: data/org.gnome.gitg.appdata.xml.in.in:8
+msgid ""
+"gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"gitg este o interfață grafică pentru utilizator pentru git. Își propune să "
+"fie o unealtă de mici dimensiuni, rapidă și convenabilă pentru a vizualiza "
+"istoricul depozitelor git. În afară de vizualizare, gitg furnizează de "
+"asemenea mai multe utilitare pentru a vă administra depozitul și pentru a vă "
+"comite munca."
+
+#: data/org.gnome.gitg.appdata.xml.in.in:14
+msgid "Goals"
+msgstr "Obiective"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:16
+msgid "Browse local git repositories"
+msgstr "Navighează depozitele git locale"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+msgid "Clone local and remote git repositories"
+msgstr "Clonează depozitele git locale și la distanță"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:18
+msgid "Commit files"
+msgstr "Fișierele comitului"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:19
+msgid "Retrieve patch from a commit"
+msgstr "Recuperează un patch de la un comit"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:30
+msgid "Browse repository history"
+msgstr "Navighează istoricul depozitului"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:34
+msgid "Staging area to compose your commit"
+msgstr "Zona de introducere pentru compunerea comitului"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:38
+msgid "Commit staged changes"
+msgstr "Comite modificările introduse"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:42
+msgid "Overview of recently used repositories"
+msgstr "Prezentarea generală a depozitelor utilizate recent"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:52
+msgid "The GNOME Project"
+msgstr "Proiectul GNOME"
+
+#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: ../data/gitg.desktop.in.in.h:2
+#: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Navigatorul de depozite Git"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/org.gnome.gitg.desktop.in.in:10
+msgid "@icon@"
+msgstr "@icon@"
+
+#: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
 msgstr "Dosar de clonare implicit"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+#: data/org.gnome.gitg.gschema.xml.in:28
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr ""
 "Dosarul implicit în care ar trebui propuse depozite noi pentru a fi clonate."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+#: data/org.gnome.gitg.gschema.xml.in:37
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Orientarea interfeței principale (verticală sau orizontală)"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+#: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Configurare care stabilește orientarea interfeței principale."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+#: data/org.gnome.gitg.gschema.xml.in:44
 msgid "Default Activity"
 msgstr "Activitate implicită"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+#: data/org.gnome.gitg.gschema.xml.in:45
 msgid "The activity which gitg activates by default when first launched."
 msgstr ""
 "Activitatea pe care gitg o activează implicit când este lansat pentru prima "
 "dată."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+#: data/org.gnome.gitg.gschema.xml.in:51
 msgid "Use Gravatar"
 msgstr "Utilizează Gravatar"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+#: data/org.gnome.gitg.gschema.xml.in:52
 msgid "Enable the use of gravatar to display user avatars."
 msgstr ""
 "Activează utilizarea de gravatar pentru a afișa avatarele utilizatorilor."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+#: data/org.gnome.gitg.gschema.xml.in:58
 msgid "Enable Monitoring"
 msgstr "Activează monitorizarea"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:10
+#: data/org.gnome.gitg.gschema.xml.in:59
+#: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "Actualizează automat când s-au detectat modificări externe la .git"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: data/org.gnome.gitg.gschema.xml.in:65
 msgid "Enable Diff Highlighting"
 msgstr "Activează evidențiere diff"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
+#: data/org.gnome.gitg.gschema.xml.in:66
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
 "Configurare care determină dacă se activează evidențierea sintaxei în "
 "vizualizările diff."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: data/org.gnome.gitg.gschema.xml.in:73
+msgid "Color scheme to use for syntax highlighting"
+msgstr "Schemă de culori de utilizat pentru evidențierea sintaxei"
+
+#: data/org.gnome.gitg.gschema.xml.in:74
+msgid "Used by GtkSourceView to determine colors for syntax highlighting"
+msgstr ""
+"Utilizat de GtkSourceView pentru a determina culorile pentru evidențierea "
+"sintaxei"
+
+#: data/org.gnome.gitg.gschema.xml.in:80
 msgid "When to Collapse Inactive Lanes"
 msgstr "Când să fie restrânse culoarele inactive"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
+#: data/org.gnome.gitg.gschema.xml.in:81
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+"values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
-"Configurare care indică când un culoar ar trebui restrâns. Valorile valide "
-"sunt 0 - 4, unde 0 indică „devreme” și 4 indică „târziu”."
+"Configurare care indică atunci când un culoar inactiv ar trebui restrâns. "
+"Valorile valide sunt 0 — 4, unde 0 indică „devreme” și 4 indică „târziu”."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: data/org.gnome.gitg.gschema.xml.in:88
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -116,32 +185,32 @@ msgstr ""
 "mai clară atunci când este multă dezvoltare paralelă. Consultați restrânge-"
 "benzile-inactive pentru a controla când ar trebui să fie restrânse culoarele."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: data/org.gnome.gitg.gschema.xml.in:97
 msgid "Show History in Topological Order"
 msgstr "Arată istoricul în ordine topologică"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#: data/org.gnome.gitg.gschema.xml.in:98
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Configurare care indică dacă istoricul să fie arătat în ordine topologică."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+#: data/org.gnome.gitg.gschema.xml.in:104
 msgid "Show Stashed Changes"
 msgstr "Arată modificările rezervate"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
+#: data/org.gnome.gitg.gschema.xml.in:105
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
 "Configurare care indică dacă trebuie să se arate elementele pentru rezervă "
 "în istoric."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+#: data/org.gnome.gitg.gschema.xml.in:112
 msgid "Show Staged Changes"
 msgstr "Afișează modificările introduse"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+#: data/org.gnome.gitg.gschema.xml.in:113
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -149,11 +218,11 @@ msgstr ""
 "Configurare care indică dacă trebuie să se arate un element virtual pentru "
 "modificările introduse curent în istoric."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+#: data/org.gnome.gitg.gschema.xml.in:120
 msgid "Show Unstaged Changes"
 msgstr "Arată modificările înlăturate"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
+#: data/org.gnome.gitg.gschema.xml.in:121
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -161,11 +230,11 @@ msgstr ""
 "Configurare care indică dacă trebuie să se arate un element virtual pentru "
 "modificările înlăturate curent în istoric."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
+#: data/org.gnome.gitg.gschema.xml.in:128
 msgid "Mainline Head"
 msgstr "Capăt linie principală"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+#: data/org.gnome.gitg.gschema.xml.in:129
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -173,11 +242,11 @@ msgstr ""
 "Configurare care indică dacă se păstrează totdeauna o linie principală în "
 "istoric pentru HEAD-ul curent."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
+#: data/org.gnome.gitg.gschema.xml.in:136
 msgid "Default selection of the history activity"
 msgstr "Selecția implicită a activității de istoric"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+#: data/org.gnome.gitg.gschema.xml.in:137
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
@@ -185,21 +254,21 @@ msgstr ""
 "Configurare care determină selecția implicită la lansarea activității de "
 "istoric."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
+#: data/org.gnome.gitg.gschema.xml.in:143
 msgid "Reference Sort Order"
 msgstr "Ordinea de sortare a referinței"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
+#: data/org.gnome.gitg.gschema.xml.in:144
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr ""
 "Ordinea prin care ar trebui sortate referințele din bara laterală a "
 "istoricului."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+#: data/org.gnome.gitg.gschema.xml.in:150
 msgid "Show Upstream With Branch"
 msgstr "Arată upstream cu ramură"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
+#: data/org.gnome.gitg.gschema.xml.in:151
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -207,11 +276,11 @@ msgstr ""
 "Determină dacă se arată și ramura de urmărire upstream (la distanță) atunci "
 "când se selectează o ramură locală în vizualizarea istoric."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+#: data/org.gnome.gitg.gschema.xml.in:167
 msgid "Show Right Margin in Commit Message View"
 msgstr "Arată marginea dreaptă în vizualizarea mesajelor de comitere"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
+#: data/org.gnome.gitg.gschema.xml.in:168
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -220,11 +289,11 @@ msgstr ""
 "Acesta poate fi folosit pentru a vedea ușor unde să se facă despărțirea "
 "mesajului de comitere la o anumită coloană."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+#: data/org.gnome.gitg.gschema.xml.in:176
 msgid "Column at Which Right Margin is Shown"
 msgstr "Coloana la care este arătată marginea dreaptă"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
+#: data/org.gnome.gitg.gschema.xml.in:177
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -232,11 +301,11 @@ msgstr ""
 "Coloana la care este arătată marginea dreaptă dacă preferința arată-marginea-"
 "dreaptă este stabilită la TRUE."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+#: data/org.gnome.gitg.gschema.xml.in:184
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Arată marginea subiectului în vizualizarea mesajului de comit"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:37
+#: data/org.gnome.gitg.gschema.xml.in:185
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -244,11 +313,11 @@ msgstr ""
 "Evidențiază textul subiectului al mesajului de comit când trece peste "
 "marginea specificată de poziție-margine-subiect."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:38
+#: data/org.gnome.gitg.gschema.xml.in:192
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Coloana la care este arătată marginea subiectului"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:39
+#: data/org.gnome.gitg.gschema.xml.in:193
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -256,11 +325,11 @@ msgstr ""
 "Coloana la care este arătată marginea subiectului dacă preferința arată-"
 "marginea-subiectului este stabilită la TRUE."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:40
+#: data/org.gnome.gitg.gschema.xml.in:200
 msgid "Enable Spell Checking"
 msgstr "Activează corectarea ortografică"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:41
+#: data/org.gnome.gitg.gschema.xml.in:201
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -268,11 +337,11 @@ msgstr ""
 "Configurare care determină dacă este activat sau nu corectorul ortografic "
 "când se scrie un mesaj de comit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:42
+#: data/org.gnome.gitg.gschema.xml.in:208
 msgid "Spell Checking Language"
 msgstr "Limbă corector ortografic"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:43
+#: data/org.gnome.gitg.gschema.xml.in:209
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -280,11 +349,21 @@ msgstr ""
 "Limba de utilizat când corectarea ortografică este activată pentru a scrie "
 "unui mesaj de comit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:44
+#: data/org.gnome.gitg.gschema.xml.in:218
+msgid "Use patience algorithm to show diffs"
+msgstr "Utilizează algoritmul patience pentru a arăta diff-urile"
+
+#: data/org.gnome.gitg.gschema.xml.in:219
+msgid "Setting to use patience algorithm to show diffs of a commit."
+msgstr ""
+"Configurare pentru a utiliza algoritmul patience pentru a arăta diff-urile "
+"unui comit."
+
+#: data/org.gnome.gitg.gschema.xml.in:225
 msgid "Ignore Whitespace Changes"
 msgstr "Ignoră modificările de spații"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:45
+#: data/org.gnome.gitg.gschema.xml.in:226
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -292,30 +371,31 @@ msgstr ""
 "Configurare care indică dacă se ignoră modificările de spații când se arată "
 "diff-ul unui comit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:46
+#: data/org.gnome.gitg.gschema.xml.in:233
 msgid "Show Changes Inline"
 msgstr "Arată modificările intercalat"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:47
+#: data/org.gnome.gitg.gschema.xml.in:234
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Configurare care indică dacă modificările între linii ar trebui să fie "
 "arătate intercalat."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:48
+#: data/org.gnome.gitg.gschema.xml.in:241
 msgid "Wrap"
 msgstr "Încadrează"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:49
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Wrap lines."
 msgstr "Încadrează liniile."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:50
+#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid "Number of Before/After Context Lines"
 msgstr "Numărul de linii de context înainte/după"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:51
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -323,11 +403,13 @@ msgstr ""
 "Configurare care determină câte linii de context (înainte și după) ar trebui "
 "să fie afișate când se arată diff-ul unui comit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:52
+#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:275
 msgid "Rendered Width of a Tab Character"
 msgstr "Lățimea randată a unui caracter tab"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:53
+#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:276
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -335,7 +417,7 @@ msgstr ""
 "Configurare care determină cât spațiu ar trebui să ocupe un caracter tab "
 "când se arată diff-ul unui comit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:54
+#: data/org.gnome.gitg.gschema.xml.in:267
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -343,252 +425,249 @@ msgstr ""
 "Configurare care determină câte linii de context (înainte și după) ar trebui "
 "să fie afișate când se arată diff-ul de introdus/înlăturat în zona de comit."
 
-#: ../gitg/commit/gitg-commit-dialog.vala:298
+#: gitg/commit/gitg-commit-dialog.vala:298
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Nu se poate stabili limba de corectare ortografică: %s"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:504
-#: ../gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:504 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Nu există modificări de comis"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:505
-#: ../gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:505 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Utilizați amend pentru a modifica mesajul de comit al comitului anterior"
 
-#: ../gitg/commit/gitg-commit.vala:113
+#: gitg/commit/gitg-commit.vala:113
 msgctxt "Activity"
 msgid "Commit"
 msgstr "Comite"
 
-#: ../gitg/commit/gitg-commit.vala:118
+#: gitg/commit/gitg-commit.vala:118
 msgid "Create new commits and manage the staging area"
 msgstr "Creează comiteri noi și administrează zona de introducere"
 
-#: ../gitg/commit/gitg-commit.vala:193
+#: gitg/commit/gitg-commit.vala:193
 msgid "_Stage selection"
 msgstr "Introdu _selecția"
 
-#: ../gitg/commit/gitg-commit.vala:232
+#: gitg/commit/gitg-commit.vala:232
 #, c-format
-msgid "Failed to stage the removal of submodule `%s'"
+msgid "Failed to stage the removal of submodule “%s”"
 msgstr "Nu s-a putut introduce eliminarea submodulului „%s”"
 
-#: ../gitg/commit/gitg-commit.vala:248
+#: gitg/commit/gitg-commit.vala:248
 #, c-format
-msgid "Failed to open the repository of submodule `%s' while trying to stage"
+msgid "Failed to open the repository of submodule “%s” while trying to stage"
 msgstr ""
 "Nu s-a putut deschide depozitul submodulului „%s” în timpul încercării de "
 "introducere"
 
-#: ../gitg/commit/gitg-commit.vala:263
+#: gitg/commit/gitg-commit.vala:263
 #, c-format
 msgid ""
-"Failed to lookup the working directory commit of submodule `%s' while trying "
+"Failed to lookup the working directory commit of submodule “%s” while trying "
 "to stage"
 msgstr ""
 "Nu s-a putut căuta comitul de dosar de lucru al submodulului „%s” în timpul "
 "încercării de introducere"
 
-#: ../gitg/commit/gitg-commit.vala:276
+#: gitg/commit/gitg-commit.vala:276
 #, c-format
-msgid "Failed to stage the submodule `%s'"
+msgid "Failed to stage the submodule “%s”"
 msgstr "Nu s-a putut introduce submodulul „%s”"
 
-#: ../gitg/commit/gitg-commit.vala:298
+#: gitg/commit/gitg-commit.vala:298
 #, c-format
-msgid "Failed to stage the removal of file `%s'"
+msgid "Failed to stage the removal of file “%s”"
 msgstr "Nu s-a putut introduce eliminarea fișierului „%s”"
 
-#: ../gitg/commit/gitg-commit.vala:312
+#: gitg/commit/gitg-commit.vala:312
 #, c-format
-msgid "Failed to stage the file `%s'"
+msgid "Failed to stage the file “%s”"
 msgstr "Nu s-a putut introduce fișierul „%s”"
 
-#: ../gitg/commit/gitg-commit.vala:584
+#: gitg/commit/gitg-commit.vala:584
 msgid "_Unstage selection"
 msgstr "Înlătură _selecția"
 
-#: ../gitg/commit/gitg-commit.vala:650
+#: gitg/commit/gitg-commit.vala:650
 #, c-format
-msgid "Failed to unstage the removal of file `%s'"
+msgid "Failed to unstage the removal of file “%s”"
 msgstr "Nu s-a putut înlătura eliminarea fișierului „%s”"
 
-#: ../gitg/commit/gitg-commit.vala:651
+#: gitg/commit/gitg-commit.vala:651
 #, c-format
-msgid "Failed to unstage the file `%s'"
+msgid "Failed to unstage the file “%s”"
 msgstr "Nu s-a putut înlătura fișierul „%s”"
 
-#: ../gitg/commit/gitg-commit.vala:658
+#: gitg/commit/gitg-commit.vala:658
 #, c-format
-msgid "Failed to unstage the removal of submodule `%s'"
+msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Nu s-a putut înlătura eliminarea submodulului „%s”"
 
-#: ../gitg/commit/gitg-commit.vala:659
+#: gitg/commit/gitg-commit.vala:659
 #, c-format
-msgid "Failed to unstage the submodule `%s'"
+msgid "Failed to unstage the submodule “%s”"
 msgstr "Nu s-a putut înlătura submodulul „%s”"
 
 #. Populate staged items
-#: ../gitg/commit/gitg-commit.vala:863
+#: gitg/commit/gitg-commit.vala:863
 msgid "Staged"
 msgstr "Introdus în index"
 
-#: ../gitg/commit/gitg-commit.vala:871
+#: gitg/commit/gitg-commit.vala:871
 msgid "No staged files"
 msgstr "Nu sunt fișiere introduse în index"
 
 #. Populate unstaged items
-#: ../gitg/commit/gitg-commit.vala:894
+#: gitg/commit/gitg-commit.vala:894
 msgid "Unstaged"
 msgstr "Neintrodus în index"
 
-#: ../gitg/commit/gitg-commit.vala:902
+#: gitg/commit/gitg-commit.vala:902
 msgid "No unstaged files"
 msgstr "Nu sunt fișiere înlăturate"
 
 #. Populate untracked items
-#: ../gitg/commit/gitg-commit.vala:925
+#: gitg/commit/gitg-commit.vala:925
 msgid "Untracked"
 msgstr "Neurmărit"
 
-#: ../gitg/commit/gitg-commit.vala:929
+#: gitg/commit/gitg-commit.vala:929
 msgid "No untracked files"
 msgstr "Nu sunt fișiere neurmărite"
 
-#: ../gitg/commit/gitg-commit.vala:954
+#: gitg/commit/gitg-commit.vala:954
 msgid "Submodule"
 msgstr "Submodul"
 
-#: ../gitg/commit/gitg-commit.vala:958
+#: gitg/commit/gitg-commit.vala:958
 msgid "No dirty submodules"
 msgstr "Nu sunt submodule nepotrivite"
 
-#: ../gitg/commit/gitg-commit.vala:1107
+#: gitg/commit/gitg-commit.vala:1107
 msgid "Failed to commit"
 msgstr "Nu s-a putut comite"
 
-#: ../gitg/commit/gitg-commit.vala:1123
+#: gitg/commit/gitg-commit.vala:1123
 msgid "Failed to pass pre-commit"
 msgstr "Nu s-a putut satisface secvența de pre-comit"
 
-#: ../gitg/commit/gitg-commit.vala:1331 ../gitg/commit/gitg-commit.vala:1481
+#: gitg/commit/gitg-commit.vala:1331 gitg/commit/gitg-commit.vala:1481
 msgid "Discard changes"
 msgstr "Renunță la modificări"
 
-#: ../gitg/commit/gitg-commit.vala:1332
+#: gitg/commit/gitg-commit.vala:1332
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Sigur doriți să renunțați permanent la modificările selectate?"
 
-#: ../gitg/commit/gitg-commit.vala:1341 ../gitg/commit/gitg-commit.vala:1507
-#: ../gitg/commit/gitg-commit.vala:1622
-#: ../gitg/gitg-commit-action-create-patch.vala:145
-#: ../gitg/gitg-dash-view.vala:444 ../gitg/gitg-window.vala:190
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-window.ui.h:9
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:1
+#: gitg/commit/gitg-commit.vala:1341 gitg/commit/gitg-commit.vala:1507
+#: gitg/commit/gitg-commit.vala:1622
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
+#: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/resources/ui/gitg-clone-dialog.ui:18
+#: gitg/resources/ui/gitg-commit-dialog.ui:20
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:18
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:151
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "_Anulează"
 
-#: ../gitg/commit/gitg-commit.vala:1342 ../gitg/commit/gitg-commit.vala:1508
+#: gitg/commit/gitg-commit.vala:1342 gitg/commit/gitg-commit.vala:1508
 msgid "Discard"
 msgstr "Renunță"
 
-#: ../gitg/commit/gitg-commit.vala:1371
+#: gitg/commit/gitg-commit.vala:1371
 msgid "Failed to discard selection"
 msgstr "Nu s-a putut renunța la selecție"
 
-#: ../gitg/commit/gitg-commit.vala:1401
+#: gitg/commit/gitg-commit.vala:1401
 msgid "Failed to stage selection"
 msgstr "Nu s-a putut introduce selecția"
 
-#: ../gitg/commit/gitg-commit.vala:1405
+#: gitg/commit/gitg-commit.vala:1405
 msgid "Failed to unstage selection"
 msgstr "Nu s-a putut înlătura selecția"
 
-#: ../gitg/commit/gitg-commit.vala:1465
+#: gitg/commit/gitg-commit.vala:1465
 msgid "Failed to discard changes"
 msgstr "Nu s-a putut renunța la modificări"
 
-#: ../gitg/commit/gitg-commit.vala:1486
+#: gitg/commit/gitg-commit.vala:1486
 #, c-format
 msgid ""
-"Are you sure you want to permanently discard all changes made to the file `"
-"%s'?"
+"Are you sure you want to permanently discard all changes made to the file "
+"“%s”?"
 msgstr ""
 "Sigur doriți să renunțați permanent la toate modificările aduse la fișierul "
 "„%s”?"
 
-#: ../gitg/commit/gitg-commit.vala:1497
+#: gitg/commit/gitg-commit.vala:1497
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
-"%s and `%s'?"
+"%s and “%s”?"
 msgstr ""
 "Sigur doriți să renunțați permanent la toate modificările aduse la fișierele "
 "%s și „%s”?"
 
-#: ../gitg/commit/gitg-commit.vala:1580
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Failed to delete files"
 msgstr "Nu s-au putut șterge fișierele"
 
-#: ../gitg/commit/gitg-commit.vala:1596
+#: gitg/commit/gitg-commit.vala:1596
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Șterge fișierul"
 msgstr[1] "Șterge fișierele"
 msgstr[2] "Șterge fișierele"
 
-#: ../gitg/commit/gitg-commit.vala:1601
+#: gitg/commit/gitg-commit.vala:1601
 #, c-format
-msgid "Are you sure you want to permanently delete the file `%s'?"
+msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Sigur doriți să ștergeți permanent fișierul „%s”?"
 
-#: ../gitg/commit/gitg-commit.vala:1612
+#: gitg/commit/gitg-commit.vala:1612
 #, c-format
-msgid "Are you sure you want to permanently delete the files %s and `%s'?"
+msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Sigur doriți să ștergeți permanent fișierele %s și „%s”?"
 
-#: ../gitg/commit/gitg-commit.vala:1658
+#: gitg/commit/gitg-commit.vala:1658
 msgid "_Stage changes"
 msgstr "In_trodu modificările"
 
-#: ../gitg/commit/gitg-commit.vala:1670
+#: gitg/commit/gitg-commit.vala:1670
 msgid "_Unstage changes"
 msgstr "Înlăt_ură modificările"
 
-#: ../gitg/commit/gitg-commit.vala:1682
+#: gitg/commit/gitg-commit.vala:1682
 msgid "_Discard changes"
 msgstr "Renunță la mo_dificări"
 
-#: ../gitg/commit/gitg-commit.vala:1694
+#: gitg/commit/gitg-commit.vala:1694
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Șt_erge fișierul"
 msgstr[1] "Șt_erge fișierele"
 msgstr[2] "Șt_erge fișierele"
 
-#: ../gitg/commit/gitg-commit.vala:1724
+#: gitg/commit/gitg-commit.vala:1724
 msgid "_Edit file"
 msgstr "_Editează fișierul"
 
-#: ../gitg/gitg-action-support.vala:95
+#: gitg/gitg-action-support.vala:95
 #, c-format
 msgid "Failed to stash changes: %s"
 msgstr "Nu s-a putut plasa în rezervă comitul: %s"
 
-#: ../gitg/gitg-action-support.vala:130
+#: gitg/gitg-action-support.vala:130
 msgid "Unstaged changes"
 msgstr "Modificări neintroduse în index"
 
-#: ../gitg/gitg-action-support.vala:131
+#: gitg/gitg-action-support.vala:131
 msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
@@ -596,82 +675,85 @@ msgstr ""
 "Se pare că aveți modificări înlăturate în dosarul de lucru. Doriți să "
 "plasați în rezervă modificările înainte de a aduce?"
 
-#: ../gitg/gitg-action-support.vala:133
-#: ../gitg/gitg-commit-action-cherry-pick.vala:163
-#: ../gitg/gitg-ref-action-delete.vala:88
-#: ../gitg/gitg-ref-action-merge.vala:194
-#: ../gitg/resources/ui/gitg-remote-notification.ui.h:1
-#: ../gitg/resources/ui/gitg-simple-notification.ui.h:1
+#: gitg/gitg-action-support.vala:133
+#: gitg/gitg-commit-action-cherry-pick.vala:163
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
 msgstr "Anulează"
 
-#: ../gitg/gitg-action-support.vala:134
+#: gitg/gitg-action-support.vala:134
 msgid "Stash changes"
 msgstr "Rezervă modificările"
 
-#: ../gitg/gitg-action-support.vala:138 ../gitg/gitg-action-support.vala:165
+#: gitg/gitg-action-support.vala:138 gitg/gitg-action-support.vala:165
 msgid "Failed with conflicts"
 msgstr "A eșuat cu conflicte"
 
-#: ../gitg/gitg-action-support.vala:181
+#: gitg/gitg-action-support.vala:181
 #, c-format
 msgid "Failed to checkout conflicts: %s"
 msgstr "Nu s-au putut aduce conflictele: %s"
 
-#: ../gitg/gitg-action-support.vala:199
+#: gitg/gitg-action-support.vala:199
 msgid "Failed to obtain author details"
 msgstr "Nu s-au putut obține detaliile de autor"
 
-#: ../gitg/gitg-action-support.vala:223
-#: ../gitg/gitg-ref-action-checkout.vala:88
+#: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
 #, c-format
 msgid "Failed to lookup commit: %s"
 msgstr "Nu s-a putut căuta comitul: %s"
 
-#: ../gitg/gitg-action-support.vala:255
+#: gitg/gitg-action-support.vala:255
 #, c-format
 msgid "Failed to create commit: %s"
 msgstr "Nu s-a putut crea comitul: %s"
 
-#: ../gitg/gitg-action-support.vala:277
+#: gitg/gitg-action-support.vala:277
 #, c-format
 msgid "Failed to checkout index: %s"
 msgstr "Nu s-a putut aduce indexul: %s"
 
-#: ../gitg/gitg-application.vala:56
-msgid "Show the application's version"
+#: gitg/gitg-application.vala:38
+msgid "Show the application’s version"
 msgstr "Arată versiunea aplicației"
 
-#: ../gitg/gitg-application.vala:59
+#: gitg/gitg-application.vala:40
 msgid "Start gitg with a particular activity"
 msgstr "Începe gitg cu o activitate particulară"
 
-#: ../gitg/gitg-application.vala:62
+#: gitg/gitg-application.vala:42
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Începe gitg cu activitatea de comitere (scurtătură pentru --activity commit)"
 
-#: ../gitg/gitg-application.vala:65
+#: gitg/gitg-application.vala:44
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Nu încerca să încarci un depozit din dosarul curent de lucru"
 
-#: ../gitg/gitg-application.vala:94
-msgid "- Git repository viewer"
-msgstr "- Vizualizator de depozite Git"
+#: gitg/gitg-application.vala:46
+msgid "Run gitg in standalone mode"
+msgstr "Rulează gitg în modul autonom"
 
-#: ../gitg/gitg-application.vala:222
-msgid "gitg is a Git repository viewer for gtk+/GNOME"
-msgstr "gitg este un vizualizator de depozite Git pentru gtk+/GNOME"
+#: gitg/gitg-application.vala:92
+msgid "— Git repository viewer"
+msgstr "— Vizualizator de depozite Git"
 
-#: ../gitg/gitg-application.vala:231
+#: gitg/gitg-application.vala:226
+msgid "gitg is a Git repository viewer for GTK+/GNOME"
+msgstr "gitg este un vizualizator de depozite Git pentru GTK+/GNOME"
+
+#: gitg/gitg-application.vala:235
 msgid "translator-credits"
-msgstr "Florentina Mușat <florentina.musat.28 [at] gmail [dot] com>, 2018"
+msgstr ""
+"Florentina Mușat <florentina.musat.28 [at] gmail [dot] com>, 2018, 2019"
 
-#: ../gitg/gitg-application.vala:234
+#: gitg/gitg-application.vala:238
 msgid "gitg homepage"
 msgstr "pagina principală gitg"
 
-#: ../gitg/gitg-application.vala:364
+#: gitg/gitg-application.vala:368
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -679,7 +761,7 @@ msgid ""
 "If you manually compiled libgit2, then please configure libgit2 with -"
 "DTHREADSAFE:BOOL=ON.\n"
 "\n"
-"Otherwise, report a bug in your distributions' bug reporting system for "
+"Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
 "Gitg necesită libgit2 (o bibliotecă de care gitg depinde) pentru a fi "
@@ -692,55 +774,54 @@ msgstr ""
 "defecțiunilor al distribuției cum că libgit2 a fost furnizat fără suport de "
 "threading."
 
-#. ex: ts=4 noet
-#: ../gitg/gitg-author-details-dialog.vala:97
-#: ../gitg/gitg-author-details-dialog.vala:117
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
+#: gitg/gitg-author-details-dialog.vala:97
+#: gitg/gitg-author-details-dialog.vala:117
+#: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Detalii autor"
 
-#: ../gitg/gitg-author-details-dialog.vala:98
+#: gitg/gitg-author-details-dialog.vala:98
 msgid "Enter default details used for all repositories:"
 msgstr "Introduceți detaliile implicite utilizate de toate depozitele:"
 
 #. Translators: %s is the repository name
-#: ../gitg/gitg-author-details-dialog.vala:120
+#: gitg/gitg-author-details-dialog.vala:120
 #, c-format
-msgid "Override global details for repository '%s':"
+msgid "Override global details for repository “%s”:"
 msgstr "Suprascrie detaliile globale pentru depozitul „%s”:"
 
-#: ../gitg/gitg-author-details-dialog.vala:232
+#: gitg/gitg-author-details-dialog.vala:232
 msgid "Failed to set Git user config."
 msgstr "Nu s-a putut stabili configurarea de utilizator Git."
 
-#: ../gitg/gitg-clone-dialog.vala:89
+#: gitg/gitg-clone-dialog.vala:89
 msgid "The URL introduced is not supported"
 msgstr "URL-ul introdus nu este suportat"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:53
+#: gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
 msgstr "Alege selectiv peste"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:58
+#: gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
 msgstr "Alege selectiv acest comit pe o ramură"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:117
+#: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
 msgid "Failed to lookup the commit for branch %s: %s"
 msgstr "Nu s-a putut căuta comitul pentru ramura %s: %s"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:132
+#: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
 msgid "Failed to cherry-pick the commit: %s"
 msgstr "Nu s-a putut alege selectiv comitul: %s"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:144
-#: ../gitg/gitg-commit-action-cherry-pick.vala:160
+#: gitg/gitg-commit-action-cherry-pick.vala:144
+#: gitg/gitg-commit-action-cherry-pick.vala:160
 msgid "Cherry pick has conflicts"
 msgstr "Alegerea selectivă are conflicte"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:153
+#: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
 "The cherry pick of %s onto %s has caused conflicts, would you like to "
@@ -751,7 +832,7 @@ msgstr ""
 "ramura %s cu alegerea selectivă în dosarul de lucru pentru a rezolva "
 "conflictele?"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:157
+#: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
@@ -760,120 +841,119 @@ msgstr ""
 "Alegerea selectivă a %s peste %s a cauzat conflicte, doriți să aduceți "
 "alegerea selectivă în dosarul de lucru pentru a rezolva conflictele?"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:164
-#: ../gitg/gitg-ref-action-checkout.vala:48
-#: ../gitg/gitg-ref-action-merge.vala:195
+#: gitg/gitg-commit-action-cherry-pick.vala:164
+#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
 msgid "Checkout"
 msgstr "Adu"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:168
+#: gitg/gitg-commit-action-cherry-pick.vala:168
 msgid "Cherry pick failed with conflicts"
 msgstr "Alegerea selectivă a eșuat cu conflicte"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:179
+#: gitg/gitg-commit-action-cherry-pick.vala:179
 msgid "Cherry pick finished with conflicts in working directory"
 msgstr "Alegerea selectivă s-a terminat cu conflicte în dosarul de lucru"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:199
+#: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
 msgid "Cherry pick %s onto %s"
 msgstr "Alege selectiv %s pe %s"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:224
+#: gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
 msgstr "S-a ales selectiv cu succes"
 
-#: ../gitg/gitg-commit-action-cherry-pick.vala:261
+#: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
 msgid "Cherry pick onto %s"
 msgstr "Alege selectiv pe %s"
 
-#: ../gitg/gitg-commit-action-create-branch.vala:48
+#: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
 msgstr "Creează ramură"
 
-#: ../gitg/gitg-commit-action-create-branch.vala:53
+#: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
 msgstr "Creează o ramură de la comitul selectat"
 
-#: ../gitg/gitg-commit-action-create-branch.vala:75
+#: gitg/gitg-commit-action-create-branch.vala:75
 msgid "Failed to create branch"
 msgstr "Nu s-a putut crea ramura"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:63
+#: gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create patch"
 msgstr "Creează un patch"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:68
+#: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
 msgstr "Creează un patch de la comitul selectat"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:143
+#: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
 msgstr "Salvează fișierul patch"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:147
+#: gitg/gitg-commit-action-create-patch.vala:156
 msgid "_Save Patch"
 msgstr "_Salvează patchul"
 
-#: ../gitg/gitg-commit-action-create-patch.vala:172
+#: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
 msgstr "Nu s-a putut crea patchul"
 
-#: ../gitg/gitg-commit-action-create-tag.vala:48
+#: gitg/gitg-commit-action-create-tag.vala:48
 msgid "Create tag"
 msgstr "Creează etichetă"
 
-#: ../gitg/gitg-commit-action-create-tag.vala:53
+#: gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
 msgstr "Creează o etichetă la comitul selectat"
 
-#: ../gitg/gitg-commit-action-create-tag.vala:92
+#: gitg/gitg-commit-action-create-tag.vala:92
 msgid "Failed to create tag"
 msgstr "Crearea etichetei a eșuat"
 
-#: ../gitg/gitg-commit-action-create-tag.vala:109
+#: gitg/gitg-commit-action-create-tag.vala:109
 msgid "Failed to lookup tag"
 msgstr "Nu s-a putut căuta eticheta"
 
-#: ../gitg/gitg-create-tag-dialog.vala:110
+#: gitg/gitg-create-tag-dialog.vala:110
 msgid "Provide a message to create an annotated tag"
 msgstr "Furnizați un mesaj pentru a crea o etichetă adnotată"
 
-#: ../gitg/gitg-dash-view.vala:87
+#: gitg/gitg-dash-view.vala:87
 msgid "Select and manage projects"
 msgstr "Selectează și administrează proiecte"
 
-#: ../gitg/gitg-dash-view.vala:174
+#: gitg/gitg-dash-view.vala:174
 msgid "_Remove"
 msgstr "_Elimină"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: ../gitg/gitg-dash-view.vala:230
+#: gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr "Se poate și %sscana dosarul personal%s pentru depozite git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: ../gitg/gitg-dash-view.vala:233
+#: gitg/gitg-dash-view.vala:233
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Între timp, poate doriți să %spregătiți profilul de git%s."
 
-#: ../gitg/gitg-dash-view.vala:389
+#: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
 msgstr "Nu s-a putut clona depozitul"
 
-#: ../gitg/gitg-dash-view.vala:420
+#: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
 msgstr "Nu s-a putut adăuga depozitul"
 
-#: ../gitg/gitg-dash-view.vala:436
+#: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
 msgstr "Creează un depozit nou"
 
 #. Translators: %s is a file name
-#: ../gitg/gitg-dash-view.vala:439
+#: gitg/gitg-dash-view.vala:448
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -882,178 +962,176 @@ msgstr ""
 "Locația <i>%s</i> nu pare a fi un depozit git valid. Doriți să inițializați "
 "un depozit git nou la această locație?"
 
-#: ../gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:454
 msgid "Create repository"
 msgstr "Creează depozitul"
 
-#: ../gitg/gitg-dash-view.vala:461
+#: gitg/gitg-dash-view.vala:470
 msgid "Failed to create repository"
 msgstr "Nu s-a putut crea depozitul"
 
-#: ../gitg/gitg-dash-view.vala:531
+#: gitg/gitg-dash-view.vala:540
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Se scanează după depozite în %s"
 
-#: ../gitg/gitg-ref-action-checkout.vala:53
+#: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
 msgstr "Adu referința selectată"
 
-#: ../gitg/gitg-ref-action-checkout.vala:72
+#: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
 msgid "Checkout %s"
 msgstr "Adu %s"
 
-#: ../gitg/gitg-ref-action-checkout.vala:101
+#: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
 msgid "Failed to checkout branch: %s"
 msgstr "Nu s-a putut aduce ramura: %s"
 
-#: ../gitg/gitg-ref-action-checkout.vala:111
+#: gitg/gitg-ref-action-checkout.vala:111
 #, c-format
 msgid "Failed to update HEAD: %s"
 msgstr "Nu s-a putut actualiza HEAD: %s"
 
-#: ../gitg/gitg-ref-action-checkout.vala:121
+#: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
 msgstr "S-a adus cu succes ramura în dosarul de lucru"
 
-#: ../gitg/gitg-ref-action-copy-name.vala:48
+#: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
 msgstr "Copiază numele"
 
-#: ../gitg/gitg-ref-action-copy-name.vala:53
+#: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Copiază numele referinței în clipboard"
 
-#: ../gitg/gitg-ref-action-delete.vala:48
-#: ../gitg/gitg-ref-action-delete.vala:89
+#: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
 msgstr "Șterge"
 
-#: ../gitg/gitg-ref-action-delete.vala:53
+#: gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
 msgstr "Șterge referința selectată"
 
-#: ../gitg/gitg-ref-action-delete.vala:73
+#: gitg/gitg-ref-action-delete.vala:73
 #, c-format
 msgid "Delete branch %s"
 msgstr "Șterge ramura %s"
 
-#: ../gitg/gitg-ref-action-delete.vala:74
+#: gitg/gitg-ref-action-delete.vala:74
 #, c-format
 msgid "Are you sure that you want to permanently delete the branch %s?"
 msgstr "Sigur doriți să ștergeți permanent ramura %s?"
 
-#: ../gitg/gitg-ref-action-delete.vala:78
+#: gitg/gitg-ref-action-delete.vala:78
 #, c-format
 msgid "Delete tag %s"
 msgstr "Șterge eticheta %s"
 
-#: ../gitg/gitg-ref-action-delete.vala:79
+#: gitg/gitg-ref-action-delete.vala:79
 #, c-format
 msgid "Are you sure that you want to permanently delete the tag %s?"
 msgstr "Sigur doriți să ștergeți permanent eticheta %s?"
 
-#: ../gitg/gitg-ref-action-delete.vala:83
+#: gitg/gitg-ref-action-delete.vala:83
 #, c-format
 msgid "Delete remote branch %s"
 msgstr "Șterge ramura la distanță %s"
 
-#: ../gitg/gitg-ref-action-delete.vala:84
+#: gitg/gitg-ref-action-delete.vala:84
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
 msgstr "Sigur doriți să ștergeți permanent ramura la distanță %s?"
 
 #. Translators: %s is the name of the tag
-#: ../gitg/gitg-ref-action-delete.vala:119
+#: gitg/gitg-ref-action-delete.vala:119
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr "Nu s-a putut șterge eticheta %s"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: ../gitg/gitg-ref-action-delete.vala:122
+#: gitg/gitg-ref-action-delete.vala:122
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr "Eticheta %s nu a putut fi ștearsă: %s"
 
 #. Translators: %s is the name of the branch
-#: ../gitg/gitg-ref-action-delete.vala:127
+#: gitg/gitg-ref-action-delete.vala:127
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr "Nu s-a putut crea ramura %s"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: ../gitg/gitg-ref-action-delete.vala:130
+#: gitg/gitg-ref-action-delete.vala:130
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "Ramura %s nu a putut fi ștearsă: %s"
 
-#: ../gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:74
 #, c-format
 msgid "Fetch from %s"
 msgstr "Adu de la %s"
 
-#: ../gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:85
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "Adu obiectele la distanță de la %s"
 
-#: ../gitg/gitg-ref-action-fetch.vala:98
+#: gitg/gitg-ref-action-fetch.vala:98
 #, c-format
 msgid "Fetching from %s"
 msgstr "Se aduce de la %s"
 
 #. Translators: new refers to a new remote reference having been fetched,
-#: ../gitg/gitg-ref-action-fetch.vala:106
+#: gitg/gitg-ref-action-fetch.vala:106
 msgid "new"
 msgstr "nou"
 
 #. Translators: updated refers to a remote reference having been updated,
-#: ../gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:111
 msgid "updated"
 msgstr "actualizat"
 
-#: ../gitg/gitg-ref-action-fetch.vala:121
+#: gitg/gitg-ref-action-fetch.vala:121
 #, c-format
 msgid "Failed to fetch from %s: %s"
 msgstr "Nu s-a putut aduce de la %s: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: ../gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:134
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "S-a adus de la %s: totul este actualizat"
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: ../gitg/gitg-ref-action-fetch.vala:140
+#: gitg/gitg-ref-action-fetch.vala:140
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "S-a adus de la %s: %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:63
+#: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
 msgstr "Integrează în %s"
 
 #. TODO
-#: ../gitg/gitg-ref-action-merge.vala:69
+#: gitg/gitg-ref-action-merge.vala:69
 #, c-format
 msgid "Merge another branch into branch %s"
 msgstr "Integrează altă ramură în ramura %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:106
+#: gitg/gitg-ref-action-merge.vala:106
 #, c-format
 msgid "Failed to merge commits: %s"
 msgstr "Nu s-au putut integra comiterile: %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:175
-#: ../gitg/gitg-ref-action-merge.vala:191
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
 msgstr "Integrarea are conflicte"
 
-#: ../gitg/gitg-ref-action-merge.vala:184
+#: gitg/gitg-ref-action-merge.vala:184
 #, c-format
 msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
@@ -1062,7 +1140,7 @@ msgstr ""
 "Integrarea a %s în %s a cauzat conflicte, doriți să aduceți ramura %s cu "
 "integrarea la directorul de lucru pentru a rezolva conflictele?"
 
-#: ../gitg/gitg-ref-action-merge.vala:188
+#: gitg/gitg-ref-action-merge.vala:188
 #, c-format
 msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
@@ -1071,97 +1149,96 @@ msgstr ""
 "Integrarea a %s în %s a cauzat conflicte, doriți să aduceți integrarea la "
 "dosarul de lucru pentru a rezolva conflictele?"
 
-#: ../gitg/gitg-ref-action-merge.vala:199
+#: gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
 msgstr "Integrarea a eșuat cu conflicte"
 
-#: ../gitg/gitg-ref-action-merge.vala:210
+#: gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
 msgstr "S-a terminat integrarea cu conflicte în dosarul de lucru"
 
-#: ../gitg/gitg-ref-action-merge.vala:222
+#: gitg/gitg-ref-action-merge.vala:222
 #, c-format
 msgid "Merge %s into %s"
 msgstr "Integrează %s în %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:231
+#: gitg/gitg-ref-action-merge.vala:231
 #, c-format
 msgid "Failed to lookup our commit: %s"
 msgstr "Nu s-a putut căuta comitul: %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:241
+#: gitg/gitg-ref-action-merge.vala:241
 #, c-format
 msgid "Failed to lookup their commit: %s"
 msgstr "Nu s-a putut căuta comitul lor: %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:278
+#: gitg/gitg-ref-action-merge.vala:278
 #, c-format
 msgid "Successfully merged %s into %s"
 msgstr "Integrat cu succes %s în %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:320
+#: gitg/gitg-ref-action-merge.vala:320
 #, c-format
 msgid "Merge %s into branch %s"
 msgstr "Integrează %s în ramura %s"
 
-#: ../gitg/gitg-ref-action-merge.vala:482
-#: ../gitg/history/gitg-history-refs-list.vala:1176
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1176
 msgid "Tags"
 msgstr "Etichete"
 
-#: ../gitg/gitg-ref-action-rename.vala:48
+#: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr "Redenumește"
 
-#: ../gitg/gitg-ref-action-rename.vala:53
+#: gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
 msgstr "Redenumește referința selectată"
 
-#: ../gitg/gitg-ref-action-rename.vala:100
+#: gitg/gitg-ref-action-rename.vala:100
 #, c-format
-msgid "The specified name ‘%s’ contains invalid characters"
+msgid "The specified name “%s” contains invalid characters"
 msgstr "Numele specificat „%s” conține caractere nevalide"
 
-#: ../gitg/gitg-ref-action-rename.vala:102
+#: gitg/gitg-ref-action-rename.vala:102
 msgid "Invalid name"
 msgstr "Nume nevalid"
 
-#: ../gitg/gitg-ref-action-rename.vala:131
+#: gitg/gitg-ref-action-rename.vala:131
 msgid "Failed to rename"
 msgstr "Nu s-a putut redenumi"
 
-#: ../gitg/gitg-remote-notification.vala:90
-#: ../gitg/gitg-simple-notification.vala:99
-#: ../gitg/resources/ui/gitg-window.ui.h:10
+#: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
+#: gitg/resources/ui/gitg-window.ui:226
 msgid "Close"
 msgstr "Închide"
 
-#: ../gitg/gitg-window.vala:187
+#: gitg/gitg-window.vala:201
 msgid "Add Repository"
 msgstr "Adaugă un depozit"
 
-#: ../gitg/gitg-window.vala:191
+#: gitg/gitg-window.vala:205
 msgid "_Add"
 msgstr "_Adaugă"
 
-#: ../gitg/gitg-window.vala:193
+#: gitg/gitg-window.vala:207
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Scanează pentru toate depozitele git din acest dosar"
 
-#: ../gitg/gitg-window.vala:501
+#: gitg/gitg-window.vala:505
 msgid "Projects"
 msgstr "Proiecte"
 
-#: ../gitg/gitg-window.vala:751
+#: gitg/gitg-window.vala:804
 msgid "Select items"
 msgstr "Selectează elementele"
 
-#: ../gitg/gitg-window.vala:958
+#: gitg/gitg-window.vala:1015
 #, c-format
-msgid "'%s' is not a Git repository."
-msgstr "„%s” nu este un depozit Git valid."
+msgid "“%s” is not a Git repository."
+msgstr "„%s” nu este un depozit Git."
 
-#: ../gitg/gitg-window.vala:1107
+#: gitg/gitg-window.vala:1164
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1169,7 +1246,7 @@ msgstr ""
 "Numele de utilizator și parola nu sunt configurate încă. Navigați la "
 "configurația de utilizator și furnizați numele și adresa de email."
 
-#: ../gitg/gitg-window.vala:1111
+#: gitg/gitg-window.vala:1168
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1177,7 +1254,7 @@ msgstr ""
 "Numele de utilizator nu este configurat încă. Navigați la configurația de "
 "utilizator și furnizați numele."
 
-#: ../gitg/gitg-window.vala:1115
+#: gitg/gitg-window.vala:1172
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1185,98 +1262,448 @@ msgstr ""
 "Adresa de email nu este configurată încă. Navigați la configurația de "
 "utilizator și furnizați adresa de email."
 
-#: ../gitg/gitg-window.vala:1118
+#: gitg/gitg-window.vala:1175
 msgid "Missing author details"
 msgstr "Lipsesc detaliile de autor"
 
-#: ../gitg/history/gitg-history-command-line.vala:42
+#: gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
 msgstr "Selectează toate comiterile implicit în activitatea de istoric"
 
-#: ../gitg/history/gitg-history-command-line.vala:44
+#: gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
 msgstr "Selectează toate ramurile implicit în activitatea de istoric"
 
-#: ../gitg/history/gitg-history-command-line.vala:46
+#: gitg/history/gitg-history-command-line.vala:46
 msgid "Select all remotes by default in the history activity"
 msgstr ""
 "Selectează implicit toate depozitele la distanță în activitatea de istoric"
 
-#: ../gitg/history/gitg-history-command-line.vala:48
+#: gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
 msgstr "Selectează toate etichetele implicit în activitatea de istoric"
 
-#: ../gitg/history/gitg-history-command-line.vala:50
+#: gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
 msgstr "Selectează referința specificată implicit în activitatea de istoric"
 
-#: ../gitg/history/gitg-history-command-line.vala:50
+#: gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
 msgstr "REFERINȚĂ"
 
-#: ../gitg/history/gitg-history-refs-list.vala:165
+#: gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%zu ahead, %zu behind"
 msgstr "%zu înainte, %zu în urmă"
 
-#: ../gitg/history/gitg-history-refs-list.vala:169
+#: gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%zu ahead"
 msgstr "%zu înainte"
 
-#: ../gitg/history/gitg-history-refs-list.vala:173
+#: gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%zu behind"
 msgstr "%zu în urmă"
 
-#: ../gitg/history/gitg-history-refs-list.vala:207
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
+#: gitg/history/gitg-history-refs-list.vala:207
+#: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
 msgstr "Toate comiterile"
 
-#: ../gitg/history/gitg-history-refs-list.vala:1174
+#: gitg/history/gitg-history-refs-list.vala:1174
 msgid "Branches"
 msgstr "Ramuri"
 
-#: ../gitg/history/gitg-history-refs-list.vala:1175
+#: gitg/history/gitg-history-refs-list.vala:1175
 msgid "Remotes"
 msgstr "Severe de la distanță"
 
-#: ../gitg/history/gitg-history.vala:342
-#: ../gitg/preferences/gitg-preferences-history.vala:218
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:3
+#: gitg/history/gitg-history.vala:342
+#: gitg/preferences/gitg-preferences-history.vala:218
+#: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Istoric"
 
-#: ../gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:347
 msgid "Examine the history of the repository"
 msgstr "Examinează istoricul depozitului"
 
-#: ../gitg/history/gitg-history.vala:909
+#: gitg/history/gitg-history.vala:909
 msgid "Mainline"
 msgstr "Linie principală"
 
-#: ../gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:119
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Comit"
 
-#: ../gitg/preferences/gitg-preferences-interface.vala:120
+#: gitg/preferences/gitg-preferences-interface.vala:140
 msgid "Interface"
 msgstr "Interfață"
 
+#: gitg/resources/ui/gitg-author-details-dialog.ui:35
+msgid "_Save"
+msgstr "_Salvează"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:65
+msgid "Default details used for all repositories"
+msgstr "Detaliile implicite utilizate pentru toate depozitele"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:114
+msgid "E-mail:"
+msgstr "Email:"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:125
+msgid "Name:"
+msgstr "Nume:"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:7
+msgid "Clone Repository"
+msgstr "Clonează depozitul"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:33
+msgid "Cl_one"
+msgstr "Cl_onează"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+msgid "Remote _URL:"
+msgstr "_URL server la distanță:"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:99
+msgid "_Local Folder:"
+msgstr "Dosar _local:"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:116
+msgid "Select location…"
+msgstr "Selectează locația…"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:127
+msgid "Bare repository"
+msgstr "Depozit gol"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:8
+msgctxt "Create Dialog"
+msgid "Commit"
+msgstr "Comit"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:36
+#: gitg/resources/ui/gitg-commit-paned.ui:86
+msgid "C_ommit"
+msgstr "C_omite"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:109
+msgid "Add _signed-off-by signature"
+msgstr "Adaugă semnătură _semnat-de"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:126
+msgid "_Amend previous commit"
+msgstr "_Amendă comitul anterior"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:76
+msgid "Skip commit _hooks"
+msgstr "Omite _hook-urile de comit"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:96
+msgid "S_tage selection"
+msgstr "In_trodu selecția"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:107
+msgid "D_iscard selection"
+msgstr "Renunță la selecț_ie"
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:24
+msgid ""
+"The submodule is in a dirty state and has staged and/or unstaged changes "
+"that are not yet committed as shown below."
+msgstr ""
+"Submodulul se află într-o stare nepotrivită și are modificări introduse și/"
+"sau înlăturate care nu sunt comise încă așa cum se arată mai jos."
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:50
+msgid "Staged:"
+msgstr "Introdus în index:"
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:86
+msgid "Unstaged:"
+msgstr "Neintrodus în index:"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:24
+#: gitg/resources/ui/gitg-history-paned.ui:93
+msgid "Subject"
+msgstr "Subiect"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:41
+#: gitg/resources/ui/gitg-history-paned.ui:110
+msgid "Author"
+msgstr "Autor"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:57
+#: gitg/resources/ui/gitg-history-paned.ui:126
+msgid "Date"
+msgstr "Dată"
+
+#: gitg/resources/ui/gitg-commit-submodule-info.ui:70
+msgid "Open"
+msgstr "Deschide"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:7
+msgid "Create Branch"
+msgstr "Creează o ramură"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:34
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:36
+msgid "C_reate"
+msgstr "C_reează"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:69
+msgid "Branch _name:"
+msgstr "_Nume ramură:"
+
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:7
+msgid "Create Tag"
+msgstr "Creează o etichetă"
+
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:71
+msgid "Tag _name:"
+msgstr "_Nume etichetă:"
+
+#: gitg/resources/ui/gitg-dash-view.ui:32
+msgid ""
+"No repositories have been added yet. To get started, you can add an existing "
+"repository or clone a new one."
+msgstr ""
+"Nu s-au adăugat depozite încă. Pentru a începe, puteți adăuga un depozit "
+"existent sau puteți clona unul nou."
+
+#: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Reload"
+msgstr "_Reîncarcă"
+
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:45
+msgid "_Preferences"
+msgstr "_Preferințe"
+
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:39
+msgid "_Author Details"
+msgstr "Detalii _autor"
+
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:51
+msgid "_Keyboard Shortcuts"
+msgstr "S_curtături tastatură"
+
+#: gitg/resources/ui/gitg-menus.ui:33
+msgid "_New Window"
+msgstr "Fereastră _nouă"
+
+#: gitg/resources/ui/gitg-menus.ui:55
+msgid "_About"
+msgstr "_Despre"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:44
+msgid "Show markup"
+msgstr "Arată markup"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:71
+msgid "Display _subject margin at column:"
+msgstr "Afișează marginea _subiectului la coloana:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:126
+msgid "Display right _margin at column:"
+msgstr "Afișează _marginea dreaptă la coloana:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:189
+msgid "Enable spell checking"
+msgstr "Activează corectarea ortografică"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:220
+msgid "Commit Message"
+msgstr "Mesaj de comitere"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:31
+msgid "Default selection"
+msgstr "Selecție implicită"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:50
+msgid "Current branch"
+msgstr "Ramură curentă"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:65
+msgid "All branches"
+msgstr "Toate ramurile"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:106
+msgid "References"
+msgstr "Referințe"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:119
+msgid "Sort references in the sidebar by latest activity"
+msgstr ""
+"Sortează referințele de pe bara laterală după activitatea cea mai recentă"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:135
+msgid "Show upstream (remote) branch when selecting a local branch"
+msgstr "Arată ramura upstream (la distanță) când se selectează o ramură locală"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:154
+msgid "Commits"
+msgstr "Comiteri"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:174
+msgid "Collapse inactive lanes"
+msgstr "Restrânge culoarele inactive"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:215
+msgid "Early"
+msgstr "Devreme"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:227
+msgid "Late"
+msgstr "Târziu"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:242
+msgid "Show history in topological order"
+msgstr "Arată istoricul în ordine topologică"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:257
+msgid "Preserve mainline for currently checked out branch"
+msgstr "Păstrează linia principală pentru ramura adusă curent"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:24
+msgid "Startup"
+msgstr "Lansare"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:47
+msgid "Start with activity:"
+msgstr "Începe cu activitatea:"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:61
+msgid "Commit"
+msgstr "Comit"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:80
+msgid "Layout"
+msgstr "Aspect"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:100
+msgid "Use horizontal layout"
+msgstr "Utilizează aranjamentul orizontal"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:124
+msgid "Avatars"
+msgstr "Avatare"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:144
+msgid "Use gravatar service to provide user avatars"
+msgstr "Utilizează serviciul gravatar pentru a furniza avatare de utilizator"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:168
+msgid "Monitoring"
+msgstr "Monitorizare"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:212
+#: plugins/diff/gitg-diff.vala:115
+msgid "Diff"
+msgstr "Diff"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:232
+msgid "Enable syntax highlighting of source code in diff views"
+msgstr ""
+"Activează evidențierea de sintaxă a codului sursă în vizualizările diff"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:258
+msgid "Syntax highlighting color scheme:"
+msgstr "Schema de culori pentru evidențierea sintaxei:"
+
+#: gitg/resources/ui/gitg-preferences.ui:11
+msgid "Preferences"
+msgstr "Preferințe"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Ferestre"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:19
+msgctxt "shortcut window"
+msgid "Open shortcut window"
+msgstr "Deschide fereastra de scurtături"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Open a new window"
+msgstr "Deschide o fereastră nouă"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:33
+msgctxt "shortcut window"
+msgid "Open the window menu"
+msgstr "Deschide meniul de fereastră"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Open a repository"
+msgstr "Deschide un depozit"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Open the help"
+msgstr "Deschide ajutorul"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:54
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "Caută"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:61
+msgctxt "shortcut window"
+msgid "Close the active window"
+msgstr "Închide fereastra activă"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:68
+msgctxt "shortcut window"
+msgid "Quit the application"
+msgstr "Ieșire din aplicație"
+
+#: gitg/resources/ui/gitg-window.ui:23
+msgid "Show the list of recently used repositories"
+msgstr "Arată lista de depozite utilizate recent"
+
+#: gitg/resources/ui/gitg-window.ui:45
+msgid "Clone"
+msgstr "Clonează"
+
+#: gitg/resources/ui/gitg-window.ui:46
+msgid "Clone repository"
+msgstr "Clonează depozitul"
+
+#: gitg/resources/ui/gitg-window.ui:61
+msgid "Add"
+msgstr "Adaugă"
+
+#: gitg/resources/ui/gitg-window.ui:62
+msgid "Add repository"
+msgstr "Adaugă depozitul"
+
+#: gitg/resources/ui/gitg-window.ui:86
+msgid "Find a word or phrase"
+msgstr "Caută un cuvânt sau o frază"
+
+#: gitg/resources/ui/gitg-window.ui:131
+msgid "General settings and options"
+msgstr "Configurări și opțiuni generale"
+
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
-#: ../libgitg/gitg-authentication-dialog.vala:69
+#: libgitg/gitg-authentication-dialog.vala:69
 #, c-format
 msgid "Password required for %s"
 msgstr "Este necesară parola pentru %s"
 
-#: ../libgitg/gitg-date.vala:346
+#: libgitg/gitg-date.vala:346
 msgid "Now"
 msgstr "Acum"
 
-#: ../libgitg/gitg-date.vala:350
+#: libgitg/gitg-date.vala:350
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
@@ -1284,11 +1711,11 @@ msgstr[0] "Acum un minut"
 msgstr[1] "Acum %d minute"
 msgstr[2] "Acum %d de minute"
 
-#: ../libgitg/gitg-date.vala:355
+#: libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
 msgstr "Acum jumătate de oră"
 
-#: ../libgitg/gitg-date.vala:360
+#: libgitg/gitg-date.vala:360
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
@@ -1296,7 +1723,7 @@ msgstr[0] "Acum o oră"
 msgstr[1] "Acum %d ore"
 msgstr[2] "Acum %d de ore"
 
-#: ../libgitg/gitg-date.vala:365
+#: libgitg/gitg-date.vala:365
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
@@ -1307,468 +1734,111 @@ msgstr[2] "Acum %d de zile"
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
-#: ../libgitg/gitg-date.vala:374
-msgid "%b %e, %H:%M"
-msgstr "%b %e, %H:%M"
+#: libgitg/gitg-date.vala:374
+msgid "%b %e, %H∶%M"
+msgstr "%b %e, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
-#: ../libgitg/gitg-date.vala:381
-msgid "%b %e, %I:%M %p"
-msgstr "%b %e, %I:%M %p"
+#: libgitg/gitg-date.vala:381
+msgid "%b %e, %I∶%M %p"
+msgstr "%b %e, %I∶%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
-#: ../libgitg/gitg-date.vala:391
-msgid "%b %e %Y, %H:%M"
-msgstr "%b %e %Y, %H:%M"
+#: libgitg/gitg-date.vala:391
+msgid "%b %e %Y, %H∶%M"
+msgstr "%b %e %Y, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
-#: ../libgitg/gitg-date.vala:398
-msgid "%b %e %Y, %I:%M %p"
-msgstr "%b %e %Y, %I:%M %p"
+#: libgitg/gitg-date.vala:398
+msgid "%b %e %Y, %I∶%M %p"
+msgstr "%b %e %Y, %I∶%M %p"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: ../libgitg/gitg-diff-image-side-by-side.vala:39
+#: libgitg/gitg-diff-image-side-by-side.vala:39
 #, c-format
 msgid "before (%s)"
 msgstr "înainte (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: ../libgitg/gitg-diff-image-side-by-side.vala:45
+#: libgitg/gitg-diff-image-side-by-side.vala:45
 #, c-format
 msgid "removed (%s)"
 msgstr "eliminat (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: ../libgitg/gitg-diff-image-side-by-side.vala:67
+#: libgitg/gitg-diff-image-side-by-side.vala:65
 #, c-format
 msgid "after (%s)"
 msgstr "după (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: ../libgitg/gitg-diff-image-side-by-side.vala:73
+#: libgitg/gitg-diff-image-side-by-side.vala:71
 #, c-format
 msgid "added (%s)"
 msgstr "adăugat (%s)"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:144
+#: libgitg/gitg-diff-view-commit-details.vala:144
 msgid "Collapse all"
 msgstr "Restrânge toate"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:148
-#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:2
+#: libgitg/gitg-diff-view-commit-details.vala:148
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Extinde toate"
 
-#: ../libgitg/gitg-diff-view-commit-details.vala:203
+#: libgitg/gitg-diff-view-commit-details.vala:203
 #, c-format
 msgid "Committed by %s"
 msgstr "Comis de %s"
 
-#: ../libgitg/gitg-diff-view-file.vala:177
+#: libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
 msgstr "_Deschide un fișier"
 
-#: ../libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:209
 msgid "Open containing _folder"
 msgstr "Deschide _dosarul conținător"
 
-#: ../libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:229
 msgid "_Copy file path"
 msgstr "_Copiază calea de fișier"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: ../libgitg/gitg-repository-list-box.vala:153
+#: libgitg/gitg-repository-list-box.vala:153
 #, c-format
 msgid "at %s"
 msgstr "la %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: ../libgitg/gitg-repository-list-box.vala:162
+#: libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "%s at %s"
 msgstr "%s la %s"
 
-#: ../libgitg/gitg-repository-list-box.vala:540
+#: libgitg/gitg-repository-list-box.vala:545
 msgid "Cloning…"
 msgstr "Se clonează…"
 
-#: ../libgitg/gitg-stage.vala:334
+#: libgitg/gitg-stage.vala:334
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Nu s-a putut citi mesajul de comit după rularea commit-msg hook: %s"
 
-#: ../plugins/diff/gitg-diff.vala:115
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:11
-msgid "Diff"
-msgstr "Diff"
-
-#: ../plugins/diff/gitg-diff.vala:120
-msgid "Show the changes introduced by the selected commit"
-msgstr "Arată modificările introduse de comitul selectat"
-
-#: ../plugins/files/gitg-files.vala:63
-msgid "Files"
-msgstr "Fișiere"
-
-#: ../plugins/files/gitg-files.vala:68
-msgid "Show the files in the tree of the selected commit"
-msgstr "Arată fișierele din arborele comitului selectat"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
-msgid "_Save"
-msgstr "_Salvează"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-msgid "Default details used for all repositories"
-msgstr "Detaliile implicite utilizate pentru toate depozitele"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:5
-msgid "E-mail:"
-msgstr "Email:"
-
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-msgid "Name:"
-msgstr "Nume:"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-msgid "Clone Repository"
-msgstr "Clonează depozitul"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-msgid "Cl_one"
-msgstr "Cl_onează"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
-msgid "Remote _URL:"
-msgstr "_URL server la distanță:"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "_Local Folder:"
-msgstr "Dosar _local:"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
-msgid "Select location…"
-msgstr "Selectează locația…"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
-msgid "Bare repository"
-msgstr "Depozit gol"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-msgctxt "Create Dialog"
-msgid "Commit"
-msgstr "Comit"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
-msgid "C_ommit"
-msgstr "C_omite"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
-msgid "Add _signed-off-by signature"
-msgstr "Adaugă semnătură _semnat-de"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
-msgid "_Amend previous commit"
-msgstr "_Amendă comitul anterior"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
-msgid "Skip commit _hooks"
-msgstr "Omite _hook-urile de comit"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
-msgid "S_tage selection"
-msgstr "In_trodu selecția"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
-msgid "D_iscard selection"
-msgstr "Renunță la selecț_ie"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:1
-msgid ""
-"The submodule is in a dirty state and has staged and/or unstaged changes "
-"that are not yet committed as shown below."
-msgstr ""
-"Submodulul se află într-o stare nepotrivită și are modificări introduse și/"
-"sau înlăturate care nu sunt comise încă așa cum se arată mai jos."
-
-#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:2
-msgid "Staged:"
-msgstr "Introdus în index:"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-diff-view.ui.h:3
-msgid "Unstaged:"
-msgstr "Neintrodus în index:"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:1
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
-msgid "Subject"
-msgstr "Subiect"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:2
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
-msgid "Author"
-msgstr "Autor"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-history-view.ui.h:3
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
-msgid "Date"
-msgstr "Dată"
-
-#: ../gitg/resources/ui/gitg-commit-submodule-info.ui.h:1
-msgid "Open"
-msgstr "Deschide"
-
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
-msgid "Create Branch"
-msgstr "Creează o ramură"
-
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
-msgid "C_reate"
-msgstr "C_reează"
-
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
-msgid "Branch _name:"
-msgstr "_Nume ramură:"
-
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
-msgid "Create Tag"
-msgstr "Creează o etichetă"
-
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
-msgid "Tag _name:"
-msgstr "_Nume etichetă:"
-
-#: ../gitg/resources/ui/gitg-dash-view.ui.h:1
-msgid ""
-"No repositories have been added yet. To get started, you can add an existing "
-"repository or clone a new one."
-msgstr ""
-"Nu s-au adăugat depozite încă. Pentru a începe, puteți adăuga un depozit "
-"existent sau puteți clona unul nou."
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:1
-msgid "_New Window"
-msgstr "Fereastră _nouă"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:2
-msgid "_Author Details"
-msgstr "Detalii _autor"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:3
-msgid "_Preferences"
-msgstr "_Preferințe"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:4
-msgid "_Keyboard Shortcuts"
-msgstr "S_curtături tastatură"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_About"
-msgstr "_Despre"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Quit"
-msgstr "_Ieșire"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
-msgid "_Reload"
-msgstr "_Reîncarcă"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
-msgid "Show markup"
-msgstr "Arată markup"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-msgid "Display _subject margin at column:"
-msgstr "Afișează marginea _subiectului la coloana:"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-msgid "Display right _margin at column:"
-msgstr "Afișează _marginea dreaptă la coloana:"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
-msgid "Enable spell checking"
-msgstr "Activează corectarea ortografică"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-msgid "Commit Message"
-msgstr "Mesaj de comitere"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-msgid "Default selection"
-msgstr "Selecție implicită"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
-msgid "Current branch"
-msgstr "Ramură curentă"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
-msgid "All branches"
-msgstr "Toate ramurile"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
-msgid "References"
-msgstr "Referințe"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
-msgid "Sort references in the sidebar by latest activity"
-msgstr ""
-"Sortează referințele de pe bara laterală după activitatea cea mai recentă"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
-msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr "Arată ramura upstream (la distanță) când se selectează o ramură locală"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
-msgid "Commits"
-msgstr "Comiteri"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:9
-msgid "Collapse inactive lanes"
-msgstr "Restrânge culoarele inactive"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:10
-msgid "Early"
-msgstr "Devreme"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:11
-msgid "Late"
-msgstr "Târziu"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:12
-msgid "Show history in topological order"
-msgstr "Arată istoricul în ordine topologică"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:13
-msgid "Preserve mainline for currently checked out branch"
-msgstr "Păstrează linia principală pentru ramura adusă curent"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-msgid "Startup"
-msgstr "Lansare"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-msgid "Start with activity:"
-msgstr "Începe cu activitatea:"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:4
-msgid "Commit"
-msgstr "Comit"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:5
-msgid "Layout"
-msgstr "Aspect"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:6
-msgid "Use horizontal layout"
-msgstr "Utilizează aranjamentul orizontal"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:7
-msgid "Avatars"
-msgstr "Avatare"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:8
-msgid "Use gravatar service to provide user avatars"
-msgstr "Utilizează serviciul gravatar pentru a furniza avatare de utilizator"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:9
-msgid "Monitoring"
-msgstr "Monitorizare"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:12
-msgid "Enable syntax highlighting of source code in diff views"
-msgstr ""
-"Activează evidențierea de sintaxă a codului sursă în vizualizările diff"
-
-#: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "Preferences"
-msgstr "Preferințe"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:1
-msgctxt "shortcut window"
-msgid "Windows"
-msgstr "Ferestre"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:2
-msgctxt "shortcut window"
-msgid "Open a new window"
-msgstr "Deschide o fereastră nouă"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:3
-msgctxt "shortcut window"
-msgid "Open the window menu"
-msgstr "Deschide meniul de fereastră"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:4
-msgctxt "shortcut window"
-msgid "Open a repository"
-msgstr "Deschide un depozit"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:5
-msgctxt "shortcut window"
-msgid "Open the help"
-msgstr "Deschide ajutorul"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:6
-msgctxt "shortcut window"
-msgid "Find"
-msgstr "Caută"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:7
-msgctxt "shortcut window"
-msgid "Close the active window"
-msgstr "Închide fereastra activă"
-
-#: ../gitg/resources/ui/gitg-shortcuts.ui.h:8
-msgctxt "shortcut window"
-msgid "Quit the application"
-msgstr "Ieșire din aplicație"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:2
-msgid "Show the list of recently used repositories"
-msgstr "Arată lista de depozite utilizate recent"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:3
-msgid "Clone"
-msgstr "Clonează"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:4
-msgid "Clone repository"
-msgstr "Clonează depozitul"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:5
-msgid "Add"
-msgstr "Adaugă"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:6
-msgid "Add repository"
-msgstr "Adaugă depozitul"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:7
-msgid "Find a word or phrase"
-msgstr "Caută un cuvânt sau o frază"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:8
-msgid "General settings and options"
-msgstr "Configurări și opțiuni generale"
-
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:2
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:18
 msgid "_Authenticate"
 msgstr "_Autentifică"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:3
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:76
 msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
@@ -1776,75 +1846,90 @@ msgstr ""
 "Încercarea anterioară de autentificare a eșuat, furnizați numele de "
 "utilizator și parola și încercați din nou."
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:4
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:95
 msgid "_Username:"
 msgstr "N_ume de utilizator:"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:5
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:109
 msgid "_Password:"
 msgstr "_Parolă:"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:6
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:154
 msgid "Forget password _immediately"
 msgstr "Uită parola _imediat"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:7
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:171
 msgid "Remember password until you _logout"
 msgstr "Memorează paro_la până la deconectare"
 
-#: ../libgitg/resources/ui/gitg-authentication-dialog.ui.h:8
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:189
 msgid "Remember _forever"
 msgstr "_Memorează pentru totdeauna"
 
-#: ../libgitg/resources/ui/gitg-diff-view-commit-details.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
 msgid "Parents"
 msgstr "Superioare"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui:10
 msgid "Unable to display changes for binary file"
 msgstr "Nu se pot afișa modificările pentru fișierul binar"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:35
 msgid "Side by side"
 msgstr "Alăturate"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:2
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
 msgid "Slider"
 msgstr "Glisor"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:3
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
 msgid "Overlay"
 msgstr "Suprapunere"
 
-#: ../libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui.h:4
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
 msgid "Difference"
 msgstr "Diferență"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:20
 msgid "Tab width:"
 msgstr "Lățime tab:"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:2
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:44
 msgid "Wrap lines:"
 msgstr "Încadrează liniile:"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options-spacing.ui.h:3
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:67
 msgid "Ignore whitespace:"
 msgstr "Ignoră spațiile:"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-options.ui:31
 msgid "Context:"
 msgstr "Context:"
 
-#: ../libgitg/resources/ui/gitg-diff-view-options.ui.h:2
+#: libgitg/resources/ui/gitg-diff-view-options.ui:63
 msgid "Spacing"
 msgstr "Spațiere"
 
-#: ../libgitg/resources/ui/gitg-repository-list-box-row.ui.h:1
+#: libgitg/resources/ui/gitg-repository-list-box-row.ui:37
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
 msgstr "Elimină depozitul din listă (nu șterge depozitul de pe disc)"
+
+#: plugins/diff/gitg-diff.vala:120
+msgid "Show the changes introduced by the selected commit"
+msgstr "Arată modificările introduse de comitul selectat"
+
+#: plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Fișiere"
+
+#: plugins/files/gitg-files.vala:68
+msgid "Show the files in the tree of the selected commit"
+msgstr "Arată fișierele din arborele comitului selectat"
+
+#~ msgid "_Quit"
+#~ msgstr "_Ieșire"
 
 #~ msgid "Allow External Diff Program"
 #~ msgstr "Permite un program de diff extern"
