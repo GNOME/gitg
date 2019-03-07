@@ -38,13 +38,14 @@ namespace GitgFiles
 
 		private Gtk.Viewport d_imagevp;
 		private Gtk.Image d_image;
-
+		private Gtk.CssProvider css_provider;
 		private Gitg.WhenMapped d_whenMapped;
 
 		construct
 		{
 			d_model = new TreeStore();
-
+			css_provider = new Gtk.CssProvider();
+			d_source.get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
 			history.selection_changed.connect(on_selection_changed);
 		}
 
@@ -87,7 +88,16 @@ namespace GitgFiles
 		private void update_font()
 		{
 			var fname = d_fontsettings.get_string("monospace-font-name");
-			d_source.override_font(Pango.FontDescription.from_string(fname));
+			var font_desc = Pango.FontDescription.from_string(fname);
+			var css = "textview{font-family: %s; font-size: %dpx;}".printf (font_desc.get_family(),font_desc.get_size()/1024);
+			try
+			{
+				css_provider.load_from_data(css);
+			}
+			catch(Error e)
+			{
+				warning(e.message);
+			}
 		}
 
 		private void update_style()

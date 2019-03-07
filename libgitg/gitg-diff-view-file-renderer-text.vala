@@ -468,7 +468,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 		catch(Error e)
 		{
-			critical(e.message);
+			warning(e.message);
 		}
 	}
 
