@@ -12,6 +12,7 @@ plugin_deps = [
   libgitg_dep,
   libgitg_ext_dep,
   libpeas_dep,
+  libdazzle_dep,
 ]
 
 plugin_dir = join_paths(gitg_pkglibdir, 'plugins')

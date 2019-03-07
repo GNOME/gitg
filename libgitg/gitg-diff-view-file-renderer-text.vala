@@ -54,6 +54,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private Gtk.SourceBuffer? d_new_highlight_buffer;
 	private bool d_old_highlight_ready;
 	private bool d_new_highlight_ready;
+	private Gtk.CssProvider css_provider;
 
 	private Region[] d_regions;
 	private bool d_constructed;
@@ -198,6 +199,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		var settings = Gtk.Settings.get_default();
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
+
+		css_provider = new Gtk.CssProvider();
+		get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
 
 		update_theme();
 
@@ -456,7 +460,16 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private void update_font()
 	{
 		var fname = d_fontsettings.get_string("monospace-font-name");
-		this.override_font(Pango.FontDescription.from_string(fname));
+		var font_desc = Pango.FontDescription.from_string(fname);
+		var css = "textview{%s}".printf(Dazzle.pango_font_description_to_css(font_desc));
+		try
+		{
+			css_provider.load_from_data(css);
+		}
+		catch(Error e)
+		{
+			warning("Error applying font: %s", e.message);
+		}
 	}
 
 	private Settings? try_settings(string schema_id)

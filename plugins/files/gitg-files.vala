@@ -39,6 +39,7 @@ namespace GitgFiles
 		private Gtk.Viewport d_imagevp;
 		private Gtk.Image d_image;
 
+		private Gtk.CssProvider css_provider;
 		private Gitg.WhenMapped d_whenMapped;
 
 		construct
@@ -87,7 +88,16 @@ namespace GitgFiles
 		private void update_font()
 		{
 			var fname = d_fontsettings.get_string("monospace-font-name");
-			d_source.override_font(Pango.FontDescription.from_string(fname));
+			var font_desc = Pango.FontDescription.from_string(fname);
+			var css = "textview { %s }".printf(Dazzle.pango_font_description_to_css(font_desc));
+			try
+			{
+				css_provider.load_from_data(css);
+			}
+			catch(Error e)
+			{
+				warning("Error applying font. %s", e.message);
+			}
 		}
 
 		private void update_style()
@@ -139,6 +149,8 @@ namespace GitgFiles
 			d_paned = ret["paned_files"] as Gtk.Paned;
 			d_scrolled = ret["scrolled_window_file"] as Gtk.ScrolledWindow;
 
+			css_provider = new Gtk.CssProvider();
+			d_source.get_style_context().add_provider(css_provider, Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
 			d_imagevp = new Gtk.Viewport(null, null);
 			d_image = new Gtk.Image();
 			d_imagevp.add(d_image);

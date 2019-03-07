@@ -60,6 +60,7 @@ deps = [
   gtkspell_dep,
   libgitg_ext_dep,
   libpeas_dep,
+  libdazzle_dep,
 ]
 
 cflags = warn_flags + [
