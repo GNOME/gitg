@@ -52,6 +52,24 @@
             ]
         },
         {
+            "name" : "libdazzle",
+            "config-opt" : [
+            	"--prefix=/opt/gnome",
+            	"--libdir=/opt/gnome/lib"
+            ],
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "cleanup" : [
+            	"/bin"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libdazzle.git"
+                }
+            ]
+        },
+        {
             "name" : "libgit2",
             "buildsystem" : "cmake",
             "config-opts" : [

@@ -461,14 +461,14 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	{
 		var fname = d_fontsettings.get_string("monospace-font-name");
 		var font_desc = Pango.FontDescription.from_string(fname);
-		var css = "textview{font-family: %s; font-size: %dpx;}".printf (font_desc.get_family(),font_desc.get_size()/1024);
+		var css = "textview{%s}".printf (Dazzle.pango_font_description_to_css(font_desc));
 		try
 		{
 			css_provider.load_from_data(css);
 		}
 		catch(Error e)
 		{
-			warning(e.message);
+			critical(e.message);
 		}
 	}
 
