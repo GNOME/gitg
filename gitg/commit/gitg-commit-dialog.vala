@@ -412,6 +412,9 @@ class Dialog : Gtk.Dialog
 	construct
 	{
 		d_font_settings = new Settings("org.gnome.desktop.interface");
+		css_provider = new Gtk.CssProvider();
+		d_source_view_message.get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
+
 		update_font_settings();
 
 		d_font_settings.changed["monospace-font-name"].connect((s, k) => {
@@ -419,8 +422,6 @@ class Dialog : Gtk.Dialog
 		});
 
 		var b = d_source_view_message.buffer;
-		css_provider = new Gtk.CssProvider();
-		d_source_view_message.get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
 
 		d_source_view_message.buffer.changed.connect(() => {
 			update_sensitivity();
@@ -798,7 +799,6 @@ class Dialog : Gtk.Dialog
 		{
 			warning(e.message);
 		}
-		//d_source_view_message.override_font(desc);
 	}
 
 	public void show_infobar(string          primary_msg,
