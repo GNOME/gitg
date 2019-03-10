@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gitg package.
 #
 # Petr Kovar <pknbe@volny.cz>, 2015.
-# Marek Černocký <marek@manet.cz>, 2013, 2014, 2015, 2016, 2018.
+# Marek Černocký <marek@manet.cz>, 2013, 2014, 2015, 2016, 2018, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2018-10-26 22:13+0000\n"
-"PO-Revision-Date: 2018-10-27 07:29+0200\n"
+"POT-Creation-Date: 2019-03-02 18:56+0000\n"
+"PO-Revision-Date: 2019-03-10 18:07+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -26,15 +26,71 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Nelze zpracovat XML z datového toku"
 
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gitg.desktop.in:3 data/gitg.desktop.in:10 gitg/gitg.vala:39
+#: data/org.gnome.gitg.appdata.xml.in.in:8
+msgid ""
+"gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"gitg je grafické uživatelské rozhraní pro git. Záměrem je malý, rychlý a "
+"praktický nástroj pro grafickou prezentaci historie repozitářů git. Mimo "
+"toho také poskytuje několik pomůcek pro správu repozitářů a zařazování vaší "
+"práce do nich."
+
+#: data/org.gnome.gitg.appdata.xml.in.in:14
+msgid "Goals"
+msgstr "Cílí na:"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:16
+msgid "Browse local git repositories"
+msgstr "Procházení místních repozitářů git"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+msgid "Clone local and remote git repositories"
+msgstr "Klonování místních a vzdálených repozitářů git"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:18
+msgid "Commit files"
+msgstr "Zařazování souborů"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:19
+msgid "Retrieve patch from a commit"
+msgstr "Vytváření záplat"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:30
+msgid "Browse repository history"
+msgstr "Procházení historie repozitářů"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:34
+msgid "Staging area to compose your commit"
+msgstr "Oblast s připravenými změnami pro zařazení"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:38
+msgid "Commit staged changes"
+msgstr "Zařazování připravených změn"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:42
+msgid "Overview of recently used repositories"
+msgstr "Přehled naposledy použitých repozitářů"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:52
+msgid "The GNOME Project"
+msgstr "Projekt GNOME"
+
+#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
 #: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: data/gitg.desktop.in:4
+#: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Prohlížeč repozitářů Git"
+
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/org.gnome.gitg.desktop.in.in:10
+msgid "@icon@"
+msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -92,19 +148,27 @@ msgstr ""
 "Nastavení, které určuje, jestli má být zapnuté zvýrazňování syntaxe v "
 "zobrazení rozdílů."
 
-#: data/org.gnome.gitg.gschema.xml.in:75
+#: data/org.gnome.gitg.gschema.xml.in:73
+msgid "Color scheme to use for syntax highlighting"
+msgstr "Barevné schéma pro zvýrazňování syntexe"
+
+#: data/org.gnome.gitg.gschema.xml.in:74
+msgid "Used by GtkSourceView to determine colors for syntax highlighting"
+msgstr "Používá GtkSourceView k určení barev pro zvýrazňování syntexe"
+
+#: data/org.gnome.gitg.gschema.xml.in:80
 msgid "When to Collapse Inactive Lanes"
 msgstr "Kdy sbalit neaktivní cesty"
 
-#: data/org.gnome.gitg.gschema.xml.in:76
+#: data/org.gnome.gitg.gschema.xml.in:81
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+"values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
 "Nastavení, které uvádí, kdy se má neaktivní cesta sbalit. Platné hodnoty "
 "jsou 0 - 4, kde 0 představuje „brzy“ a 4 představuje „pozdě“."
 
-#: data/org.gnome.gitg.gschema.xml.in:83
+#: data/org.gnome.gitg.gschema.xml.in:88
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -116,32 +180,32 @@ msgstr ""
 "historie, pokud obsahuje hodně paralelního vývoje. Viz collapse-inactive-"
 "lanes pro ovládání, kdy se mají cesty sbalit."
 
-#: data/org.gnome.gitg.gschema.xml.in:92
+#: data/org.gnome.gitg.gschema.xml.in:97
 msgid "Show History in Topological Order"
 msgstr "Zobrazovat historii v topologickém uspořádání"
 
-#: data/org.gnome.gitg.gschema.xml.in:93
+#: data/org.gnome.gitg.gschema.xml.in:98
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Nastavení, které určuje, zda se má historie zobrazovat v topologickém "
 "uspořádání."
 
-#: data/org.gnome.gitg.gschema.xml.in:99
+#: data/org.gnome.gitg.gschema.xml.in:104
 msgid "Show Stashed Changes"
 msgstr "Zobrazovat skryté změny"
 
-#: data/org.gnome.gitg.gschema.xml.in:100
+#: data/org.gnome.gitg.gschema.xml.in:105
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
 "Nastavení, které určuje, zda se mají v historii zobrazovat položky pro skrýš."
 
-#: data/org.gnome.gitg.gschema.xml.in:107
+#: data/org.gnome.gitg.gschema.xml.in:112
 msgid "Show Staged Changes"
 msgstr "Zobrazovat připravené změny"
 
-#: data/org.gnome.gitg.gschema.xml.in:108
+#: data/org.gnome.gitg.gschema.xml.in:113
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -149,11 +213,11 @@ msgstr ""
 "Nastavení, které určuje, zda se mají v historii zobrazovat virtuální položky "
 "pro aktuálně připravené změny."
 
-#: data/org.gnome.gitg.gschema.xml.in:115
+#: data/org.gnome.gitg.gschema.xml.in:120
 msgid "Show Unstaged Changes"
 msgstr "Zobrazovat nepřipravené změny"
 
-#: data/org.gnome.gitg.gschema.xml.in:116
+#: data/org.gnome.gitg.gschema.xml.in:121
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -161,11 +225,11 @@ msgstr ""
 "Nastavení, které určuje, zda se mají v historii zobrazovat virtuální položky "
 "pro aktuálně nepřipravené změny."
 
-#: data/org.gnome.gitg.gschema.xml.in:123
+#: data/org.gnome.gitg.gschema.xml.in:128
 msgid "Mainline Head"
 msgstr "Hlava hlavní linie"
 
-#: data/org.gnome.gitg.gschema.xml.in:124
+#: data/org.gnome.gitg.gschema.xml.in:129
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -173,29 +237,29 @@ msgstr ""
 "Nastavení, které určuje, zda se má vždy zachovat hlavní linie v historii "
 "aktuální hlavy (HEAD)."
 
-#: data/org.gnome.gitg.gschema.xml.in:131
+#: data/org.gnome.gitg.gschema.xml.in:136
 msgid "Default selection of the history activity"
 msgstr "Výchozí výběr v historii aktivit"
 
-#: data/org.gnome.gitg.gschema.xml.in:132
+#: data/org.gnome.gitg.gschema.xml.in:137
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr "Nastavení, které určuje výchozí výběr po spuštění v historii aktivit."
 
-#: data/org.gnome.gitg.gschema.xml.in:138
+#: data/org.gnome.gitg.gschema.xml.in:143
 msgid "Reference Sort Order"
 msgstr "Řazení odkazů"
 
-#: data/org.gnome.gitg.gschema.xml.in:139
+#: data/org.gnome.gitg.gschema.xml.in:144
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "Pořadí, v jaké se mají řadit odkazy v postranním panelu s historí."
 
-#: data/org.gnome.gitg.gschema.xml.in:145
+#: data/org.gnome.gitg.gschema.xml.in:150
 msgid "Show Upstream With Branch"
 msgstr "Zobrazovat ve větvi a hlavní větev"
 
-#: data/org.gnome.gitg.gschema.xml.in:146
+#: data/org.gnome.gitg.gschema.xml.in:151
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -203,11 +267,11 @@ msgstr ""
 "Určuje, jestli se má při výběru místní větve v zobrazení historie zobrazit "
 "také hlavní (vzdálená) sledovaná větev."
 
-#: data/org.gnome.gitg.gschema.xml.in:162
+#: data/org.gnome.gitg.gschema.xml.in:167
 msgid "Show Right Margin in Commit Message View"
 msgstr "Zobrazit pravý okraj v zobrazení Zpráva k zařazení"
 
-#: data/org.gnome.gitg.gschema.xml.in:163
+#: data/org.gnome.gitg.gschema.xml.in:168
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -215,11 +279,11 @@ msgstr ""
 "Zobrazit ukazatel pravého okraje v zobrazení Zpráva k zařazení. Tak snadno "
 "poznáte, kde je komentáře zapotřebí zalomit na příslušný sloupec."
 
-#: data/org.gnome.gitg.gschema.xml.in:171
+#: data/org.gnome.gitg.gschema.xml.in:176
 msgid "Column at Which Right Margin is Shown"
 msgstr "Sloupec, ve kterém je zobrazen pravý okraj"
 
-#: data/org.gnome.gitg.gschema.xml.in:172
+#: data/org.gnome.gitg.gschema.xml.in:177
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -227,11 +291,11 @@ msgstr ""
 "Sloupec, ve kterém je zobrazen pravý okraj v případě, že předvolba show-"
 "right-margin je nastavená na ZAPNUTO."
 
-#: data/org.gnome.gitg.gschema.xml.in:179
+#: data/org.gnome.gitg.gschema.xml.in:184
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Zobrazit okraj předmětu v zobrazení Zpráva k zařazení"
 
-#: data/org.gnome.gitg.gschema.xml.in:180
+#: data/org.gnome.gitg.gschema.xml.in:185
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -239,11 +303,11 @@ msgstr ""
 "Zvýraznit text předmětu zařazované zprávy v případě, že překročí okraj "
 "určený pomocí subject-margin-position."
 
-#: data/org.gnome.gitg.gschema.xml.in:187
+#: data/org.gnome.gitg.gschema.xml.in:192
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Sloupec, ve kterém je zobrazen okraj předmětu"
 
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:193
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -251,11 +315,11 @@ msgstr ""
 "Sloupec, ve kterém je zobrazen okraj předmětu v případě, že předvolba show-"
 "subject-margin je nastavená na ZAPNUTO."
 
-#: data/org.gnome.gitg.gschema.xml.in:195
+#: data/org.gnome.gitg.gschema.xml.in:200
 msgid "Enable Spell Checking"
 msgstr "Povolit kontrolu pravopisu"
 
-#: data/org.gnome.gitg.gschema.xml.in:196
+#: data/org.gnome.gitg.gschema.xml.in:201
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -263,11 +327,11 @@ msgstr ""
 "Nastavení, které určuje, jestli při psaní zprávy popisující zařazení "
 "kontrolovat pravopis či nikoliv."
 
-#: data/org.gnome.gitg.gschema.xml.in:203
+#: data/org.gnome.gitg.gschema.xml.in:208
 msgid "Spell Checking Language"
 msgstr "Jazyk kontroly pravopisu"
 
-#: data/org.gnome.gitg.gschema.xml.in:204
+#: data/org.gnome.gitg.gschema.xml.in:209
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -275,19 +339,19 @@ msgstr ""
 "Jazyk, který se má používat, když je zapnutá kontrola pravopisu při psaní "
 "zprávy popisující zařazení."
 
-#: data/org.gnome.gitg.gschema.xml.in:213
+#: data/org.gnome.gitg.gschema.xml.in:218
 msgid "Use patience algorithm to show diffs"
 msgstr "K zobrazení rozdílů používat trpělivý algoritmus"
 
-#: data/org.gnome.gitg.gschema.xml.in:214
+#: data/org.gnome.gitg.gschema.xml.in:219
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr "Nastavení pro používání trpělivého algoritmu k zobrazení rozdílů."
 
-#: data/org.gnome.gitg.gschema.xml.in:220
+#: data/org.gnome.gitg.gschema.xml.in:225
 msgid "Ignore Whitespace Changes"
 msgstr "Ignorovat změny v bílých znacích"
 
-#: data/org.gnome.gitg.gschema.xml.in:221
+#: data/org.gnome.gitg.gschema.xml.in:226
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -295,31 +359,31 @@ msgstr ""
 "Nastavení, které určuje, zda se mají při zobrazování rozdílů pro zařazení "
 "ignorovat změny v bílých znacích."
 
-#: data/org.gnome.gitg.gschema.xml.in:228
+#: data/org.gnome.gitg.gschema.xml.in:233
 msgid "Show Changes Inline"
 msgstr "Zobrazovat změny uvnitř řádku"
 
-#: data/org.gnome.gitg.gschema.xml.in:229
+#: data/org.gnome.gitg.gschema.xml.in:234
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Nastavení, které určuje, zda se mají změny v rámci řádku zobrazovat uvnitř "
 "řádku."
 
-#: data/org.gnome.gitg.gschema.xml.in:236
+#: data/org.gnome.gitg.gschema.xml.in:241
 msgid "Wrap"
 msgstr "Zalamovat"
 
-#: data/org.gnome.gitg.gschema.xml.in:237
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Wrap lines."
 msgstr "Zalamovat řádky."
 
-#: data/org.gnome.gitg.gschema.xml.in:243
-#: data/org.gnome.gitg.gschema.xml.in:261
+#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid "Number of Before/After Context Lines"
 msgstr "Počet kontextových řádků před/za"
 
-#: data/org.gnome.gitg.gschema.xml.in:244
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -327,13 +391,13 @@ msgstr ""
 "Nastavení, které určuje, kolik řádků kontextu (před a za) by mělo být "
 "zobrazeno při zobrazování rozdílů v zařazení."
 
-#: data/org.gnome.gitg.gschema.xml.in:251
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:275
 msgid "Rendered Width of a Tab Character"
 msgstr "Vykreslovaná šířka znaku tabulátor"
 
-#: data/org.gnome.gitg.gschema.xml.in:252
-#: data/org.gnome.gitg.gschema.xml.in:271
+#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:276
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -341,7 +405,7 @@ msgstr ""
 "Nastavení určuje, kolik místa by měl zabírat znak tabelutoru, když je "
 "zobrazován v rozdílu zařazení."
 
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:267
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -378,36 +442,36 @@ msgstr "Výběr do _připravených"
 
 #: gitg/commit/gitg-commit.vala:232
 #, c-format
-msgid "Failed to stage the removal of submodule `%s'"
+msgid "Failed to stage the removal of submodule “%s”"
 msgstr "Selhala příprava submodulu „%s“ k odstranění"
 
 #: gitg/commit/gitg-commit.vala:248
 #, c-format
-msgid "Failed to open the repository of submodule `%s' while trying to stage"
-msgstr "Selhalo otevření repozitáře submodulu „%s“ při pokusu o připravení"
+msgid "Failed to open the repository of submodule “%s” while trying to stage"
+msgstr "Selhalo otevření repozitáře submodulu „%s“ při pokusu o přípravu"
 
 #: gitg/commit/gitg-commit.vala:263
 #, c-format
 msgid ""
-"Failed to lookup the working directory commit of submodule `%s' while trying "
+"Failed to lookup the working directory commit of submodule “%s” while trying "
 "to stage"
 msgstr ""
 "Selhalo vyhledání pracovní složky zařazení u submodulu „%s“ při pokusu o "
-"připravení"
+"přípravu"
 
 #: gitg/commit/gitg-commit.vala:276
 #, c-format
-msgid "Failed to stage the submodule `%s'"
+msgid "Failed to stage the submodule “%s”"
 msgstr "Selhala příprava submodulu „%s“"
 
 #: gitg/commit/gitg-commit.vala:298
 #, c-format
-msgid "Failed to stage the removal of file `%s'"
+msgid "Failed to stage the removal of file “%s”"
 msgstr "Selhala příprava souboru „%s“ k odstranění"
 
 #: gitg/commit/gitg-commit.vala:312
 #, c-format
-msgid "Failed to stage the file `%s'"
+msgid "Failed to stage the file “%s”"
 msgstr "Selhala příprava souboru „%s“ k zápisu"
 
 #: gitg/commit/gitg-commit.vala:584
@@ -416,22 +480,22 @@ msgstr "Výběr do _nepřipravených"
 
 #: gitg/commit/gitg-commit.vala:650
 #, c-format
-msgid "Failed to unstage the removal of file `%s'"
+msgid "Failed to unstage the removal of file “%s”"
 msgstr "Selhalo zrušení připravenosti souboru „%s“ k odstranění"
 
 #: gitg/commit/gitg-commit.vala:651
 #, c-format
-msgid "Failed to unstage the file `%s'"
-msgstr "Selhalo zrušení připravenosti souboru „%s“"
+msgid "Failed to unstage the file “%s”"
+msgstr "Selhalo zrušení připravenosti souboru „%s“ k zápisu"
 
 #: gitg/commit/gitg-commit.vala:658
 #, c-format
-msgid "Failed to unstage the removal of submodule `%s'"
+msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Selhalo zrušení připravenosti submodulu „%s“ k odstranění"
 
 #: gitg/commit/gitg-commit.vala:659
 #, c-format
-msgid "Failed to unstage the submodule `%s'"
+msgid "Failed to unstage the submodule “%s”"
 msgstr "Selhalo zrušení připravenosti submodulu „%s“"
 
 #. Populate staged items
@@ -487,8 +551,8 @@ msgstr "Opravdu chcete trvale zahodit vybrané změny?"
 
 #: gitg/commit/gitg-commit.vala:1341 gitg/commit/gitg-commit.vala:1507
 #: gitg/commit/gitg-commit.vala:1622
-#: gitg/gitg-commit-action-create-patch.vala:150 gitg/gitg-dash-view.vala:444
-#: gitg/gitg-window.vala:190 gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
+#: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
@@ -521,15 +585,15 @@ msgstr "Selhalo zahození změn"
 #: gitg/commit/gitg-commit.vala:1486
 #, c-format
 msgid ""
-"Are you sure you want to permanently discard all changes made to the file `"
-"%s'?"
+"Are you sure you want to permanently discard all changes made to the file "
+"“%s”?"
 msgstr "Opravdu chcete trvale zahodit všechny změny provedené v souboru „%s“?"
 
 #: gitg/commit/gitg-commit.vala:1497
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
-"%s and `%s'?"
+"%s and “%s”?"
 msgstr ""
 "Opravdu chcete trvale zahodit všechny změny provedené v souborech „%s“ a "
 "„%s“?"
@@ -547,12 +611,12 @@ msgstr[2] "Smazání souborů"
 
 #: gitg/commit/gitg-commit.vala:1601
 #, c-format
-msgid "Are you sure you want to permanently delete the file `%s'?"
+msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Opravdu chcete trvale smazat soubor „%s“?"
 
 #: gitg/commit/gitg-commit.vala:1612
 #, c-format
-msgid "Are you sure you want to permanently delete the files %s and `%s'?"
+msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Opravdu chcete trvale smazat soubory „%s“ a „%s“?"
 
 #: gitg/commit/gitg-commit.vala:1658
@@ -635,43 +699,43 @@ msgstr "Selhalo vytvoření zařazení: %s"
 msgid "Failed to checkout index: %s"
 msgstr "Selhala příprava indexů k práci: %s"
 
-#: gitg/gitg-application.vala:57
-msgid "Show the application's version"
+#: gitg/gitg-application.vala:38
+msgid "Show the application’s version"
 msgstr "Zobrazit verzi aplikace"
 
-#: gitg/gitg-application.vala:60
+#: gitg/gitg-application.vala:40
 msgid "Start gitg with a particular activity"
 msgstr "Spustit gitg s konkrétní činností"
 
-#: gitg/gitg-application.vala:63
+#: gitg/gitg-application.vala:42
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr "Spustit gitg s činností zařazování (zkratka pro --activity commit)"
 
-#: gitg/gitg-application.vala:66
+#: gitg/gitg-application.vala:44
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Nezkoušet načíst repozitář z aktuální pracovní složky"
 
-#: gitg/gitg-application.vala:69
+#: gitg/gitg-application.vala:46
 msgid "Run gitg in standalone mode"
 msgstr "Spustit gitg v samostatném režimu"
 
-#: gitg/gitg-application.vala:98
-msgid "- Git repository viewer"
+#: gitg/gitg-application.vala:92
+msgid "— Git repository viewer"
 msgstr "– prohlížeč repozitářů Git"
 
-#: gitg/gitg-application.vala:231
-msgid "gitg is a Git repository viewer for gtk+/GNOME"
-msgstr "gitg je prohlížeč repozitářů Git pro gtk+/GNOME"
+#: gitg/gitg-application.vala:226
+msgid "gitg is a Git repository viewer for GTK+/GNOME"
+msgstr "gitg je prohlížeč repozitářů Git pro GTK+/GNOME"
 
-#: gitg/gitg-application.vala:240
+#: gitg/gitg-application.vala:235
 msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
 
-#: gitg/gitg-application.vala:243
+#: gitg/gitg-application.vala:238
 msgid "gitg homepage"
 msgstr "domovská stránka gitg"
 
-#: gitg/gitg-application.vala:373
+#: gitg/gitg-application.vala:368
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -679,7 +743,7 @@ msgid ""
 "If you manually compiled libgit2, then please configure libgit2 with -"
 "DTHREADSAFE:BOOL=ON.\n"
 "\n"
-"Otherwise, report a bug in your distributions' bug reporting system for "
+"Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
 "Je nám velice líto, ale gitg vyžaduje libgit2 (knihovna, na které gitg "
@@ -704,7 +768,7 @@ msgstr "Zadejte výchozí údaje, které se použijí pro všechny repozitáře:
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:120
 #, c-format
-msgid "Override global details for repository '%s':"
+msgid "Override global details for repository “%s”:"
 msgstr "Přepsat globální údaje pro repozitář „%s“:"
 
 #: gitg/gitg-author-details-dialog.vala:232
@@ -806,15 +870,15 @@ msgstr "Vytvořit záplatu"
 msgid "Create a patch from the selected commit"
 msgstr "Vytvořit záplatu z vybraného zařazení"
 
-#: gitg/gitg-commit-action-create-patch.vala:148
+#: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
 msgstr "Uložení záplaty do souboru"
 
-#: gitg/gitg-commit-action-create-patch.vala:152
+#: gitg/gitg-commit-action-create-patch.vala:156
 msgid "_Save Patch"
 msgstr "_Uložit záplatu"
 
-#: gitg/gitg-commit-action-create-patch.vala:177
+#: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
 msgstr "Selhalo vytvoření záplaty"
 
@@ -858,20 +922,20 @@ msgstr "Repozitáře se také %svyhledají ve vaší domovské složce%s."
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "V mezidobí si můžete nastavit %ssvůj profil pro git%s."
 
-#: gitg/gitg-dash-view.vala:389
+#: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
 msgstr "Selhalo klonování repozitáře"
 
-#: gitg/gitg-dash-view.vala:420
+#: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
 msgstr "Selhalo přidání repozitáře"
 
-#: gitg/gitg-dash-view.vala:436
+#: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
 msgstr "Vytvořit nový repozitář"
 
 #. Translators: %s is a file name
-#: gitg/gitg-dash-view.vala:439
+#: gitg/gitg-dash-view.vala:448
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -880,15 +944,15 @@ msgstr ""
 "Vypadá to, že umístění <i>%s</i> není platný repozitář git. Přejete si "
 "inicializovat v tomto umístění nový repozitář git?"
 
-#: gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:454
 msgid "Create repository"
 msgstr "Vytvořit repozitář"
 
-#: gitg/gitg-dash-view.vala:461
+#: gitg/gitg-dash-view.vala:470
 msgid "Failed to create repository"
 msgstr "Selhalo vytvoření repozitáře"
 
-#: gitg/gitg-dash-view.vala:531
+#: gitg/gitg-dash-view.vala:540
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Vyhledávají se repozitáře v %s"
@@ -1115,7 +1179,7 @@ msgstr "Přejmenovat vybraný odkaz"
 
 #: gitg/gitg-ref-action-rename.vala:100
 #, c-format
-msgid "The specified name ‘%s’ contains invalid characters"
+msgid "The specified name “%s” contains invalid characters"
 msgstr "Zadaný název „%s“ obsahuje neplatné znaky"
 
 #: gitg/gitg-ref-action-rename.vala:102
@@ -1131,32 +1195,32 @@ msgstr "Selhalo přejmenování"
 msgid "Close"
 msgstr "Zavřít"
 
-#: gitg/gitg-window.vala:187
+#: gitg/gitg-window.vala:201
 msgid "Add Repository"
 msgstr "Přidání repozitáře"
 
-#: gitg/gitg-window.vala:191
+#: gitg/gitg-window.vala:205
 msgid "_Add"
 msgstr "Přid_at"
 
-#: gitg/gitg-window.vala:193
+#: gitg/gitg-window.vala:207
 msgid "_Scan for all git repositories from this directory"
 msgstr "Vyhledat všechny repozitáře git v této _složce"
 
-#: gitg/gitg-window.vala:498
+#: gitg/gitg-window.vala:505
 msgid "Projects"
 msgstr "Projekty"
 
-#: gitg/gitg-window.vala:748
+#: gitg/gitg-window.vala:804
 msgid "Select items"
 msgstr "Vybrat položky"
 
-#: gitg/gitg-window.vala:955
+#: gitg/gitg-window.vala:1015
 #, c-format
-msgid "'%s' is not a Git repository."
+msgid "“%s” is not a Git repository."
 msgstr "„%s“ není repozitář Git."
 
-#: gitg/gitg-window.vala:1104
+#: gitg/gitg-window.vala:1164
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1164,7 +1228,7 @@ msgstr ""
 "Vaše uživatelské jméno a e-mail doposud nejsou nastaveny. Jděte prosím do "
 "nastavení uživatele a poskytněte své jméno a e-mail."
 
-#: gitg/gitg-window.vala:1108
+#: gitg/gitg-window.vala:1168
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1172,7 +1236,7 @@ msgstr ""
 "Vaše uživatelské jméno doposud není nastaveno. Jděte prosím do nastavení "
 "uživatele a poskytněte své jméno."
 
-#: gitg/gitg-window.vala:1112
+#: gitg/gitg-window.vala:1172
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1180,7 +1244,7 @@ msgstr ""
 "Váš e-mail doposud není nastaven. Jděte prosím do nastavení uživatele a "
 "poskytněte svůj e-mail."
 
-#: gitg/gitg-window.vala:1115
+#: gitg/gitg-window.vala:1175
 msgid "Missing author details"
 msgstr "Schází údaje o autorovi"
 
@@ -1255,7 +1319,7 @@ msgctxt "Preferences"
 msgid "Commit"
 msgstr "Zařazení"
 
-#: gitg/preferences/gitg-preferences-interface.vala:120
+#: gitg/preferences/gitg-preferences-interface.vala:140
 msgid "Interface"
 msgstr "Rozhraní"
 
@@ -1393,39 +1457,29 @@ msgstr ""
 "Zatím nebyl přidán žádný repozitář. Když chcete začít, můžete přidat nějaký "
 "existující repozitář nebo nějaký nově naklonovat."
 
-#: gitg/resources/ui/gitg-menus.ui:7 gitg/resources/ui/gitg-menus.ui:55
-#: gitg/resources/ui/gitg-menus.ui:91
-msgid "_New Window"
-msgstr "_Nové okno"
+#: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Reload"
+msgstr "Znovu načí_st"
 
-#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:47
-#: gitg/resources/ui/gitg-menus.ui:61 gitg/resources/ui/gitg-menus.ui:103
-msgid "_Author Details"
-msgstr "Podrobnosti o _autorovi"
-
-#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:67
-#: gitg/resources/ui/gitg-menus.ui:109
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:45
 msgid "_Preferences"
 msgstr "_Předvolby"
 
-#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:73
-#: gitg/resources/ui/gitg-menus.ui:115
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:39
+msgid "_Author Details"
+msgstr "Podrobnosti o _autorovi"
+
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:51
 msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové zkratky"
 
-#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:77
-#: gitg/resources/ui/gitg-menus.ui:119
+#: gitg/resources/ui/gitg-menus.ui:33
+msgid "_New Window"
+msgstr "_Nové okno"
+
+#: gitg/resources/ui/gitg-menus.ui:55
 msgid "_About"
 msgstr "O _aplikaci"
-
-#: gitg/resources/ui/gitg-menus.ui:33 gitg/resources/ui/gitg-menus.ui:83
-#: gitg/resources/ui/gitg-menus.ui:125
-msgid "_Quit"
-msgstr "U_končit"
-
-#: gitg/resources/ui/gitg-menus.ui:41 gitg/resources/ui/gitg-menus.ui:97
-msgid "_Reload"
-msgstr "Znovu načí_st"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:44
 msgid "Show markup"
@@ -1536,6 +1590,10 @@ msgstr "Diff"
 msgid "Enable syntax highlighting of source code in diff views"
 msgstr "Zapnout zvýrazňování syntaxe zdrojového kódu v zobrazení rozdílů"
 
+#: gitg/resources/ui/gitg-preferences-interface.ui:258
+msgid "Syntax highlighting color scheme:"
+msgstr "Barevné schéma pro zvýrazňování syntaxe:"
+
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
 msgstr "Předvolby"
@@ -1547,35 +1605,40 @@ msgstr "Okna"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:19
 msgctxt "shortcut window"
+msgid "Open shortcut window"
+msgstr "Otevřít okno s klávesovými zkratkami"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:26
+msgctxt "shortcut window"
 msgid "Open a new window"
 msgstr "Otevřít nové okno"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:26
+#: gitg/resources/ui/gitg-shortcuts.ui:33
 msgctxt "shortcut window"
 msgid "Open the window menu"
 msgstr "Otevřít nabídku okna"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:33
+#: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Open a repository"
 msgstr "Otevřít repozitář"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:40
+#: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
 msgid "Open the help"
 msgstr "Otevřít nápovědu"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:47
+#: gitg/resources/ui/gitg-shortcuts.ui:54
 msgctxt "shortcut window"
 msgid "Find"
 msgstr "Hledat"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:54
+#: gitg/resources/ui/gitg-shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Zavřít aktivní okno"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:61
+#: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Ukončit aplikaci"
@@ -1651,28 +1714,28 @@ msgstr[2] "před %d dny"
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
 #: libgitg/gitg-date.vala:374
-msgid "%b %e, %H:%M"
+msgid "%b %e, %H∶%M"
 msgstr "%e. %B, %k∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: libgitg/gitg-date.vala:381
-msgid "%b %e, %I:%M %p"
+msgid "%b %e, %I∶%M %p"
 msgstr "%e. %B, %l∶%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: libgitg/gitg-date.vala:391
-msgid "%b %e %Y, %H:%M"
+msgid "%b %e %Y, %H∶%M"
 msgstr "%e. %B %Y, %k∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: libgitg/gitg-date.vala:398
-msgid "%b %e %Y, %I:%M %p"
+msgid "%b %e %Y, %I∶%M %p"
 msgstr "%e. %B %Y, %l∶%M %p"
 
 #. Translators: this label is displayed below the image diff, %s
@@ -1691,14 +1754,14 @@ msgstr "odstraněno (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:67
+#: libgitg/gitg-diff-image-side-by-side.vala:65
 #, c-format
 msgid "after (%s)"
 msgstr "po (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
-#: libgitg/gitg-diff-image-side-by-side.vala:73
+#: libgitg/gitg-diff-image-side-by-side.vala:71
 #, c-format
 msgid "added (%s)"
 msgstr "přidáno (%s)"
