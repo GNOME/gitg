@@ -1,70 +1,185 @@
 # Dutch translation of gitg
 # Copyright (C) 2014
 # This file is distributed under the same license as the gitg package.
-# Jesse van den Kieboom <jessevdk@gnome.org>, 2009.
-# Erwin Poeze <donnut@outlook.com>, 2014.
+#
 # Er is gekozen om versiebeheerjargon onvertaald te laten. Gebruikers
 # zullen dit jargon (moeten) kennen en vertalen hiervan geeft onnodige
 # verwarring over de begrippen.
+#
+# Jesse van den Kieboom <jessevdk@gnome.org>, 2009.
+# Erwin Poeze <donnut@outlook.com>, 2014.
 # Reinout van Schouwen <reinouts@gnome.org>, 2014.
+# Nathan Follens <nthn@unseen.is>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&k"
-"eywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-07-21 08:12+0000\n"
-"PO-Revision-Date: 2014-08-13 00:00+0200\n"
-"Last-Translator: Reinout van Schouwen <reinouts@gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
+"POT-Creation-Date: 2019-01-16 18:54+0000\n"
+"PO-Revision-Date: 2019-02-25 19:30+0100\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
-#: ../gitg/resources/ui/gitg-window.ui.h:1
+#: contrib/xml/xml-reader.c:327
+#, c-format
+msgid "Could not parse XML from stream"
+msgstr "Kon XML vanuit stroom niet parseren"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:8
+msgid ""
+"gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"gitg is een grafische gebruikersinterface voor git. Het heeft als doel een "
+"snel, klein en handig hulpmiddel te zijn om de geschiedenis van git-"
+"repository’s te visualiseren. Naast visualisering biedt gitg ook "
+"verschillende hulpmiddelen om uw repository te beheren en uw werk te "
+"committen."
+
+#: data/org.gnome.gitg.appdata.xml.in.in:14
+msgid "Goals"
+msgstr "Doelstellingen"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:16
+msgid "Browse local git repositories"
+msgstr "Lokale git-repository’s doorbladeren"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+msgid "Clone local and remote git repositories"
+msgstr "Kloon lokale en externe git-repository’s"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:18
+msgid "Commit files"
+msgstr "Bestanden committen"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:19
+msgid "Retrieve patch from a commit"
+msgstr "Patch ophalen uit commit"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:30
+msgid "Browse repository history"
+msgstr "Repository-geschiedenis doorbladeren"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:34
+msgid "Staging area to compose your commit"
+msgstr "Staging-gebied om uw commit op te stellen"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:38
+msgid "Commit staged changes"
+msgstr "Gestagede wijzigingen committen"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:42
+msgid "Overview of recently used repositories"
+msgstr "Overzicht van recent gebruikte repository’s"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:52
+msgid "The GNOME Project"
+msgstr "Het Gnome-project"
+
+#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: ../data/gitg.desktop.in.in.h:2
+#: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git-repository-viewer"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
-msgid "Default Clone Directory"
-msgstr ""
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/org.gnome.gitg.desktop.in.in:10
+msgid "@icon@"
+msgstr "@icon@"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+#: data/org.gnome.gitg.gschema.xml.in:27
+msgid "Default Clone Directory"
+msgstr "Standaardkloonmap"
+
+#: data/org.gnome.gitg.gschema.xml.in:28
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr ""
+"De standaardmap waarnaar voorgesteld moet worden nieuwe repository’s te "
+"klonen."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+#: data/org.gnome.gitg.gschema.xml.in:37
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Oriëntatie van de interface (verticaal of horizontaal)"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
+#: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Instelling die de oriëntatie van de interface bepaalt."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
+#: data/org.gnome.gitg.gschema.xml.in:44
+msgid "Default Activity"
+msgstr "Standaardactiviteit"
+
+#: data/org.gnome.gitg.gschema.xml.in:45
+msgid "The activity which gitg activates by default when first launched."
+msgstr "De activiteit die gitg standaard inschakelt bij opstarten."
+
+#: data/org.gnome.gitg.gschema.xml.in:51
+msgid "Use Gravatar"
+msgstr "Gravatar gebruiken"
+
+#: data/org.gnome.gitg.gschema.xml.in:52
+msgid "Enable the use of gravatar to display user avatars."
+msgstr ""
+"Schakelt het gebruik van gravatar in om gebruikersavatars weer te geven."
+
+#: data/org.gnome.gitg.gschema.xml.in:58
+msgid "Enable Monitoring"
+msgstr "Observatie inschakelen"
+
+#: data/org.gnome.gitg.gschema.xml.in:59
+#: gitg/resources/ui/gitg-preferences-interface.ui:188
+msgid "Automatically update when external changes to .git are detected"
+msgstr ""
+"Automatisch bijwerken wanneer externe wijzigingen aan .git worden "
+"gedetecteerd"
+
+#: data/org.gnome.gitg.gschema.xml.in:65
+msgid "Enable Diff Highlighting"
+msgstr "Diff-markering inschakelen"
+
+#: data/org.gnome.gitg.gschema.xml.in:66
+msgid ""
+"Setting that determines whether to enable syntax highlighting in diff views."
+msgstr ""
+"Deze instelling bepaalt of syntaxmarkering in diff-weergaven is ingeschakeld."
+
+#: data/org.gnome.gitg.gschema.xml.in:73
+msgid "Color scheme to use for syntax highlighting"
+msgstr "Het kleurenschema gebruikt voor syntax-markering"
+
+#: data/org.gnome.gitg.gschema.xml.in:74
+msgid "Used by GtkSourceView to determine colors for syntax highlighting"
+msgstr ""
+"Wordt gebruikt door GtkSourceView om de kleuren voor syntaxmarkering te "
+"bepalen"
+
+#: data/org.gnome.gitg.gschema.xml.in:80
 msgid "When to Collapse Inactive Lanes"
 msgstr "Wannneer inactieve paden moeten worden opgevouwen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+#: data/org.gnome.gitg.gschema.xml.in:81
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+"values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
-"Instelling die aangeeft wanneer een inactief pad opgevouwen moet worden. "
-"Geldige waarden zijn 0 - 4, waarbij 0 'vroeg' en 4 'laat' betekent."
+"Deze instelling bepaalt wanneer een inactief pad opgevouwen moet worden. "
+"Geldige waarden zijn 0 — 4, waarbij 0 'vroeg' en 4 'laat' betekent."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
+#: data/org.gnome.gitg.gschema.xml.in:88
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -76,35 +191,33 @@ msgstr ""
 "veel parallele ontwikkelingen overzichtelijker is. collape-inactive-lanes "
 "geeft meer informatie over het opvouwen van paden."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
+#: data/org.gnome.gitg.gschema.xml.in:97
 msgid "Show History in Topological Order"
 msgstr "Geschiedenis in topologische volgorde tonen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
+#: data/org.gnome.gitg.gschema.xml.in:98
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Instelling die aangeeft of de geschiedenis in topologische volgorde moet "
 "worden getoond."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-#| msgid "Stash changes"
+#: data/org.gnome.gitg.gschema.xml.in:104
 msgid "Show Stashed Changes"
 msgstr "Gestashte wijzigingen tonen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: data/org.gnome.gitg.gschema.xml.in:105
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
 "Instelling die aangeeft of items voor de stash (wachtruimte) in de "
 "geschiedenis moet worden getoond."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-#| msgid "Staged changes"
+#: data/org.gnome.gitg.gschema.xml.in:112
 msgid "Show Staged Changes"
 msgstr "Gestagede wijzigingen tonen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: data/org.gnome.gitg.gschema.xml.in:113
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -112,24 +225,70 @@ msgstr ""
 "Instelling die aangeeft of er een virtueel item voor de huidig staged "
 "veranderingen in de geschiedenis moet worden getoond."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-#| msgid "Staged changes"
+#: data/org.gnome.gitg.gschema.xml.in:120
 msgid "Show Unstaged Changes"
 msgstr "Ongestagede wijzigingen tonen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: data/org.gnome.gitg.gschema.xml.in:121
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
 msgstr ""
-"Instelling die aangeeft of er een virtueel item voor de huidig unstaged "
+"Instelling die aangeeft of er een virtueel item voor de huidige ongestagede "
 "veranderingen in de geschiedenis moet worden getoond."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
+#: data/org.gnome.gitg.gschema.xml.in:128
+msgid "Mainline Head"
+msgstr "Mainline-head"
+
+#: data/org.gnome.gitg.gschema.xml.in:129
+msgid ""
+"Setting that indicates whether to always preserve a mainline in the history "
+"for the current HEAD."
+msgstr ""
+"Deze instelling bepaalt of er altijd een mainline in de geschiedenis van de "
+"huidige HEAD bijgehouden moet worden."
+
+#: data/org.gnome.gitg.gschema.xml.in:136
+msgid "Default selection of the history activity"
+msgstr "Standaardselectie van de geschiedenisactiviteit"
+
+#: data/org.gnome.gitg.gschema.xml.in:137
+msgid ""
+"Setting that determines the default selection on startup of the history "
+"activity."
+msgstr ""
+"Deze instelling bepaalt de standaardselectie bij het opstarten van de "
+"geschiedenisactiviteit."
+
+#: data/org.gnome.gitg.gschema.xml.in:143
+msgid "Reference Sort Order"
+msgstr "Referentiesorteervolgorde"
+
+#: data/org.gnome.gitg.gschema.xml.in:144
+msgid "The order by which references in the history sidebar should be sorted."
+msgstr ""
+"De volgorde waarin referenties in de geschiedeniszijbalk gesorteerd moeten "
+"worden."
+
+#: data/org.gnome.gitg.gschema.xml.in:150
+msgid "Show Upstream With Branch"
+msgstr "Upstream weergeven met branch"
+
+#: data/org.gnome.gitg.gschema.xml.in:151
+msgid ""
+"Determines whether to also show the upstream (remote) tracking branch when "
+"selecting a local branch in the history view."
+msgstr ""
+"Deze instelling bepaalt of de upstream (externe) tracking-branch ook "
+"weergegeven moet worden bij het selecteren van een lokale branch in het "
+"geschiedenisoverzicht."
+
+#: data/org.gnome.gitg.gschema.xml.in:167
 msgid "Show Right Margin in Commit Message View"
 msgstr "Rechterkantlijn in commit-berichtvenster tonen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#: data/org.gnome.gitg.gschema.xml.in:168
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -138,11 +297,11 @@ msgstr ""
 "is het eenvoudig te zien op welke kolom een commit-bericht afgebroken moet "
 "worden."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
+#: data/org.gnome.gitg.gschema.xml.in:176
 msgid "Column at Which Right Margin is Shown"
 msgstr "Kolom waar de rechterkantlijn wordt getoond"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:19
+#: data/org.gnome.gitg.gschema.xml.in:177
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -150,11 +309,11 @@ msgstr ""
 "De kolom waarin de rechterkantlijn wordt getoond wanneer de voorkeurswaarde "
 "show-right-margin op TRUE is ingesteld."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:20
+#: data/org.gnome.gitg.gschema.xml.in:184
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Onderwerpkantlijn in commit-berichtvenster tonen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:21
+#: data/org.gnome.gitg.gschema.xml.in:185
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -162,11 +321,11 @@ msgstr ""
 "De onderwerptekst van het commit-bericht accentueren als het voorbij de "
 "kantlijn komt, opgegeven in subject-margin-position."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:22
+#: data/org.gnome.gitg.gschema.xml.in:192
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Kolom waarin de onderwerpkantlijn wordt getoond"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:23
+#: data/org.gnome.gitg.gschema.xml.in:193
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -174,497 +333,439 @@ msgstr ""
 "De kolom waarin de onderwerpkantlijn wordt getoond wanneer de "
 "voorkeurswaarde show-subject-margin ingesteld is op TRUE."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:24
-#| msgid "Enable spell checking"
+#: data/org.gnome.gitg.gschema.xml.in:200
 msgid "Enable Spell Checking"
 msgstr "Spellingcontrole inschakelen"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:25
+#: data/org.gnome.gitg.gschema.xml.in:201
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
 msgstr ""
+"Deze instelling bepaalt of spellingscontrole al dan niet is ingeschakeld bij "
+"het opstellen van een commitbericht."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:26
-#, fuzzy
-#| msgid "Cannot set spell checking language: %s"
+#: data/org.gnome.gitg.gschema.xml.in:208
 msgid "Spell Checking Language"
-msgstr "Instellen taal ‘%s’ voor spellingcontrole is mislukt"
+msgstr "Taal voor spellingscontrole"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:27
+#: data/org.gnome.gitg.gschema.xml.in:209
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr ""
+"De te gebruiken taal voor spellingscontrole wordt ingeschakeld bij het "
+"schrijven van een commitbericht."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:28
-msgid "Ignore Whitespace Changes"
+#: data/org.gnome.gitg.gschema.xml.in:218
+msgid "Use patience algorithm to show diffs"
+msgstr "Patience-algoritme gebruiken voor diff-weergave"
+
+#: data/org.gnome.gitg.gschema.xml.in:219
+msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
+"Met deze instelling kunt u het patience-algoritme gebruiken om diffs van een "
+"commit weer te geven."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:29
-#, fuzzy
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
+#: data/org.gnome.gitg.gschema.xml.in:225
+msgid "Ignore Whitespace Changes"
+msgstr "Wijzigingen aan witruimte negeren"
+
+#: data/org.gnome.gitg.gschema.xml.in:226
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr ""
-"Instelling die aangeeft of items voor de stash (wachtruimte) in de "
-"geschiedenis moet worden getoond."
+"Deze instelling bepaalt of wijzigingen aan witruimte genegeerd moeten worden "
+"bij de weergave van de diff van een commit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:30
+#: data/org.gnome.gitg.gschema.xml.in:233
 msgid "Show Changes Inline"
-msgstr ""
+msgstr "Inline wijzigingen weergeven"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:31
-#, fuzzy
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
+#: data/org.gnome.gitg.gschema.xml.in:234
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
-"Instelling die aangeeft of items voor de stash (wachtruimte) in de "
-"geschiedenis moet worden getoond."
+"Deze instelling bepaalt of wijzigingen in regels inline weergegeven moeten "
+"worden."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:32
+#: data/org.gnome.gitg.gschema.xml.in:241
+msgid "Wrap"
+msgstr "Doorlopen"
+
+#: data/org.gnome.gitg.gschema.xml.in:242
+msgid "Wrap lines."
+msgstr "Tekstomloop."
+
+#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid "Number of Before/After Context Lines"
-msgstr ""
+msgstr "Aantal contextregels voor/na"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:33
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr ""
+"Deze instelling bepaalt hoeveel regels context (voor en na) weergegeven "
+"moeten worden bij de weergave van de diff van een commit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:34
+#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:275
 msgid "Rendered Width of a Tab Character"
-msgstr ""
+msgstr "Gerenderde breedte van een tabteken"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:35
+#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:276
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr ""
+"Deze instelling bepaald hoeveel ruimte een tabteken moet innemen bij "
+"weergave van de diff van een commit."
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:36
+#: data/org.gnome.gitg.gschema.xml.in:267
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
+"Deze instelling bepaalt hoeveel regels context (voor en na) weergegeven "
+"moeten worden bij weergave van de te stagen/unstagen diff in het commit-"
+"gebied."
 
-#: ../gitg/commit/gitg-commit-dialog.vala:283
+#: gitg/commit/gitg-commit-dialog.vala:298
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Instellen taal ‘%s’ voor spellingcontrole is mislukt"
 
-#: ../gitg/commit/gitg-commit.vala:59
-#: ../gitg/preferences/gitg-preferences-commit.vala:119
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-msgid "Commit"
-msgstr "Commit"
-
-#: ../gitg/commit/gitg-commit.vala:64
-msgid "Create new commits and manage the staging area"
-msgstr ""
-
-#: ../gitg/commit/gitg-commit.vala:107
-msgid "_Stage selection"
-msgstr "Selectie _stagen"
-
-#: ../gitg/commit/gitg-commit.vala:138
-#, c-format
-msgid "Failed to stage the removal of file `%s'"
-msgstr "Verwijdering van bestand ‘%s’ stagen is mislukt"
-
-#: ../gitg/commit/gitg-commit.vala:152
-#, c-format
-msgid "Failed to stage the file `%s'"
-msgstr "Bestand ‘%s’ stagen is mislukt"
-
-#: ../gitg/commit/gitg-commit.vala:182
-msgid "_Unstage selection"
-msgstr "Selectie _unstagen"
-
-#: ../gitg/commit/gitg-commit.vala:213
-#, c-format
-msgid "Failed to unstage the removal of file `%s'"
-msgstr "Verwijdering van bestand ‘%s’ unstagen is mislukt"
-
-#: ../gitg/commit/gitg-commit.vala:227
-#, c-format
-msgid "Failed to unstage the file `%s'"
-msgstr "Bestand ‘%s’ unstagen is mislukt"
-
-#: ../gitg/commit/gitg-commit.vala:368
-msgid "Staged"
-msgstr "Staged"
-
-#: ../gitg/commit/gitg-commit.vala:379
-msgid "No staged files"
-msgstr "Geen bestanden gestaged"
-
-#: ../gitg/commit/gitg-commit.vala:394
-msgid "Unstaged"
-msgstr "Unstaged"
-
-#: ../gitg/commit/gitg-commit.vala:402
-msgid "No unstaged files"
-msgstr "Geen bestanden unstaged"
-
-#: ../gitg/commit/gitg-commit.vala:417
-msgid "Untracked"
-msgstr "Niet-gevolgd"
-
-#: ../gitg/commit/gitg-commit.vala:421
-msgid "No untracked files"
-msgstr "Geen niet-gevolgde bestanden"
-
-#: ../gitg/commit/gitg-commit.vala:505
+#: gitg/commit/gitg-commit-dialog.vala:504 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Geen zijn geen wijzigingen om te committen"
 
-#: ../gitg/commit/gitg-commit.vala:506
+#: gitg/commit/gitg-commit-dialog.vala:505 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Gebruik amenderen om een commit-bericht van de vorige commit te wijzigen"
 
-#: ../gitg/commit/gitg-commit.vala:532
+#: gitg/commit/gitg-commit.vala:113
+msgctxt "Activity"
+msgid "Commit"
+msgstr "Committen"
+
+#: gitg/commit/gitg-commit.vala:118
+msgid "Create new commits and manage the staging area"
+msgstr "Maak nieuwe commits aan en beheer het staging-gebied"
+
+#: gitg/commit/gitg-commit.vala:193
+msgid "_Stage selection"
+msgstr "Selectie _stagen"
+
+#: gitg/commit/gitg-commit.vala:232
+#, c-format
+msgid "Failed to stage the removal of submodule “%s”"
+msgstr "Stagen van verwijdering van submodule ‘%s’ mislukt"
+
+#: gitg/commit/gitg-commit.vala:248
+#, c-format
+msgid "Failed to open the repository of submodule “%s” while trying to stage"
+msgstr ""
+"Openen van repository van submodule ‘%s’ tijdens poging tot stagen mislukt"
+
+#: gitg/commit/gitg-commit.vala:263
+#, c-format
+msgid ""
+"Failed to lookup the working directory commit of submodule “%s” while trying "
+"to stage"
+msgstr ""
+"Opzoeken van werkmapcommit van submodule ‘%s’ tijdens poging tot stagen "
+"mislukt"
+
+#: gitg/commit/gitg-commit.vala:276
+#, c-format
+msgid "Failed to stage the submodule “%s”"
+msgstr "Stagen van submodule ‘%s’ mislukt"
+
+#: gitg/commit/gitg-commit.vala:298
+#, c-format
+msgid "Failed to stage the removal of file “%s”"
+msgstr "Stagen van verwijdering van bestand ‘%s’ mislukt"
+
+#: gitg/commit/gitg-commit.vala:312
+#, c-format
+msgid "Failed to stage the file “%s”"
+msgstr "Stagen van bestand ‘%s’ mislukt"
+
+#: gitg/commit/gitg-commit.vala:584
+msgid "_Unstage selection"
+msgstr "Selectie _unstagen"
+
+#: gitg/commit/gitg-commit.vala:650
+#, c-format
+msgid "Failed to unstage the removal of file “%s”"
+msgstr "Unstagen van verwijdering van bestand ‘%s’ mislukt"
+
+#: gitg/commit/gitg-commit.vala:651
+#, c-format
+msgid "Failed to unstage the file “%s”"
+msgstr "Unstagen van bestand ‘%s’ mislukt"
+
+#: gitg/commit/gitg-commit.vala:658
+#, c-format
+msgid "Failed to unstage the removal of submodule “%s”"
+msgstr "Unstagen van verwijdering van submodule ‘%s’ mislukt"
+
+#: gitg/commit/gitg-commit.vala:659
+#, c-format
+msgid "Failed to unstage the submodule “%s”"
+msgstr "Unstagen van submodule ‘%s’ mislukt"
+
+#. Populate staged items
+#: gitg/commit/gitg-commit.vala:863
+msgid "Staged"
+msgstr "Staged"
+
+#: gitg/commit/gitg-commit.vala:871
+msgid "No staged files"
+msgstr "Geen bestanden gestaged"
+
+#. Populate unstaged items
+#: gitg/commit/gitg-commit.vala:894
+msgid "Unstaged"
+msgstr "Unstaged"
+
+#: gitg/commit/gitg-commit.vala:902
+msgid "No unstaged files"
+msgstr "Geen bestanden unstaged"
+
+#. Populate untracked items
+#: gitg/commit/gitg-commit.vala:925
+msgid "Untracked"
+msgstr "Niet-gevolgd"
+
+#: gitg/commit/gitg-commit.vala:929
+msgid "No untracked files"
+msgstr "Geen niet-gevolgde bestanden"
+
+#: gitg/commit/gitg-commit.vala:954
+msgid "Submodule"
+msgstr "Submodule"
+
+#: gitg/commit/gitg-commit.vala:958
+msgid "No dirty submodules"
+msgstr "Geen vuile submodules"
+
+#: gitg/commit/gitg-commit.vala:1107
 msgid "Failed to commit"
 msgstr "Committen is mislukt"
 
-#. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:548 ../gitg/commit/gitg-commit.vala:727
+#: gitg/commit/gitg-commit.vala:1123
 msgid "Failed to pass pre-commit"
 msgstr "Voorbereiding committen is mislukt"
 
-#: ../gitg/commit/gitg-commit.vala:715
-msgid ""
-"Your user name and email are not configured yet. Please go to the user "
-"configuration and provide your name and email."
-msgstr ""
-"Uw gebruikersnaam en e-mail zijn nog niet geconfigureerd. Ga naar de "
-"gebruikersconfiguratie en voer uw naam en e-mailadres in."
-
-#: ../gitg/commit/gitg-commit.vala:719
-msgid ""
-"Your user name is not configured yet. Please go to the user configuration "
-"and provide your name."
-msgstr ""
-"Uw gebruikersnaam is nog niet geconfigureerd. Ga naar de "
-"gebruikersconfiguratie en voer uw naam in."
-
-#: ../gitg/commit/gitg-commit.vala:723
-msgid ""
-"Your email is not configured yet. Please go to the user configuration and "
-"provide your email."
-msgstr ""
-"Uw e-mail is nog niet geconfigureerd. Ga naar de gebruikersconfiguratie en "
-"voer uw e-mailadres in."
-
-#: ../gitg/commit/gitg-commit.vala:782 ../gitg/commit/gitg-commit.vala:909
-#, fuzzy
-#| msgid "Staged changes"
+#: gitg/commit/gitg-commit.vala:1331 gitg/commit/gitg-commit.vala:1481
 msgid "Discard changes"
-msgstr "Geplaatste wijzigingen"
+msgstr "Wijzigingen verwerpen"
 
-#: ../gitg/commit/gitg-commit.vala:783
-#, fuzzy
-#| msgid "Are you sure you want to revert these changes?"
+#: gitg/commit/gitg-commit.vala:1332
 msgid "Are you sure you want to permanently discard the selected changes?"
-msgstr "Weet je zeker dat je deze wijzigingen wilt terugdraaien?"
+msgstr ""
+"Weet u zeker dat u de geselecteerde wijzigingen voorgoed wilt verwerpen?"
 
-#: ../gitg/commit/gitg-commit.vala:792 ../gitg/commit/gitg-commit.vala:936
-#: ../gitg/gitg-commit-action-create-patch.vala:143
-#: ../gitg/gitg-window.vala:432 ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-window.ui.h:5
+#: gitg/commit/gitg-commit.vala:1341 gitg/commit/gitg-commit.vala:1507
+#: gitg/commit/gitg-commit.vala:1622
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
+#: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/resources/ui/gitg-clone-dialog.ui:18
+#: gitg/resources/ui/gitg-commit-dialog.ui:20
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:18
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:151
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: ../gitg/commit/gitg-commit.vala:793 ../gitg/commit/gitg-commit.vala:935
+#: gitg/commit/gitg-commit.vala:1342 gitg/commit/gitg-commit.vala:1508
 msgid "Discard"
-msgstr ""
+msgstr "Verwerpen"
 
-#: ../gitg/commit/gitg-commit.vala:821
-#, fuzzy
-#| msgid "Failed to stage selection"
+#: gitg/commit/gitg-commit.vala:1371
 msgid "Failed to discard selection"
-msgstr "Selectie stagen is mislukt"
+msgstr "Verwerpen van selectie mislukt"
 
-#: ../gitg/commit/gitg-commit.vala:850
+#: gitg/commit/gitg-commit.vala:1401
 msgid "Failed to stage selection"
 msgstr "Selectie stagen is mislukt"
 
-#: ../gitg/commit/gitg-commit.vala:854
+#: gitg/commit/gitg-commit.vala:1405
 msgid "Failed to unstage selection"
 msgstr "Selectie unstagen is mislukt"
 
-#: ../gitg/commit/gitg-commit.vala:893
-#, fuzzy
-#| msgid "Failed to set Git user config."
+#: gitg/commit/gitg-commit.vala:1465
 msgid "Failed to discard changes"
-msgstr "Gebruikersconfiguratie van git instellen is mislukt"
+msgstr "Verwerpen van wijzigingen mislukt"
 
-#: ../gitg/commit/gitg-commit.vala:914
-#, fuzzy, c-format
-#| msgid "Are you sure you want to revert these changes?"
+#: gitg/commit/gitg-commit.vala:1486
+#, c-format
 msgid ""
-"Are you sure you want to permanently discard all changes made to the file `"
-"%s'?"
-msgstr "Weet je zeker dat je deze wijzigingen wilt terugdraaien?"
+"Are you sure you want to permanently discard all changes made to the file "
+"“%s”?"
+msgstr ""
+"Weet u zeker dat u alle wijzigingen aan het bestand ‘%s’ voorgoed wilt "
+"verwerpen?"
 
-#: ../gitg/commit/gitg-commit.vala:925
-#, fuzzy, c-format
-#| msgid "Are you sure you want to merge %s branch <%s> onto %s branch <%s>?"
+#: gitg/commit/gitg-commit.vala:1497
+#, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
-"%s and `%s'?"
-msgstr "Weet je zeker dat je %s tak <%s> wilt samenvoegen met %s tak <%s>?"
+"%s and “%s”?"
+msgstr ""
+"Weet u zeker dat u alle wijzigingen aan de bestanden %s en ‘%s’ voorgoed "
+"wilt verwerpen?"
 
-#: ../gitg/commit/gitg-commit.vala:969
-#, fuzzy
-#| msgid "Staged changes"
+#: gitg/commit/gitg-commit.vala:1580
+msgid "Failed to delete files"
+msgstr "Verwijderen van bestanden mislukt"
+
+#: gitg/commit/gitg-commit.vala:1596
+msgid "Delete file"
+msgid_plural "Delete files"
+msgstr[0] "Bestand verwijderen"
+msgstr[1] "Bestanden verwijderen"
+
+#: gitg/commit/gitg-commit.vala:1601
+#, c-format
+msgid "Are you sure you want to permanently delete the file “%s”?"
+msgstr "Weet u zeker dat u het bestand ‘%s’ voorgoed wilt verwijderen?"
+
+#: gitg/commit/gitg-commit.vala:1612
+#, c-format
+msgid "Are you sure you want to permanently delete the files %s and “%s”?"
+msgstr "Weet u zeker dat u de bestanden %s en ‘%s’ voorgoed wilt verwijderen?"
+
+#: gitg/commit/gitg-commit.vala:1658
 msgid "_Stage changes"
-msgstr "Geplaatste wijzigingen"
+msgstr "Wijzigingen _stagen"
 
-#: ../gitg/commit/gitg-commit.vala:979
-#, fuzzy
-#| msgid "Staged changes"
+#: gitg/commit/gitg-commit.vala:1670
 msgid "_Unstage changes"
-msgstr "Geplaatste wijzigingen"
+msgstr "Wijzigingen _unstagen"
 
-#: ../gitg/commit/gitg-commit.vala:989
-#, fuzzy
-#| msgid "Staged changes"
+#: gitg/commit/gitg-commit.vala:1682
 msgid "_Discard changes"
-msgstr "Geplaatste wijzigingen"
+msgstr "_Wijzigingen verwerpen"
 
-#: ../gitg/gitg-application.vala:55
-msgid "Show the application's version"
-msgstr "Toepassingsversie tonen"
+#: gitg/commit/gitg-commit.vala:1694
+msgid "D_elete file"
+msgid_plural "D_elete files"
+msgstr[0] "B_estand verwijderen"
+msgstr[1] "B_estanden verwijderen"
 
-#: ../gitg/gitg-application.vala:58
-msgid "Start gitg with a particular activity"
-msgstr "gitg starten met een bepaalde opdracht"
+#: gitg/commit/gitg-commit.vala:1724
+msgid "_Edit file"
+msgstr "B_estand bewerken"
 
-#: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+#: gitg/gitg-action-support.vala:95
+#, c-format
+msgid "Failed to stash changes: %s"
+msgstr "Stashen van wijzigingen mislukt: %s"
+
+#: gitg/gitg-action-support.vala:130
+msgid "Unstaged changes"
+msgstr "Unstagede wijzigingen"
+
+#: gitg/gitg-action-support.vala:131
+msgid ""
+"You appear to have unstaged changes in your working directory. Would you "
+"like to stash the changes before the checkout?"
 msgstr ""
-"gitg starten met de commit-opdracht (verkorte schrijfwijze voor --activity "
-"commit)"
+"Het lijkt erop dat u ongestagede wijzigingen in uw werkmap heeft. Wilt u de "
+"wijzigingen stashen vóór het uitchecken?"
 
-#: ../gitg/gitg-application.vala:64
-msgid "Do not try to load a repository from the current working directory"
-msgstr "Probeer geen repository uit de huidige werkmap te laden"
-
-#: ../gitg/gitg-application.vala:88
-msgid "- Git repository viewer"
-msgstr "- Git-repository-viewer"
-
-#: ../gitg/gitg-application.vala:206
-msgid "gitg is a Git repository viewer for gtk+/GNOME"
-msgstr "gitg is een Git-repository-viewer voor gtk+/GNOME"
-
-#: ../gitg/gitg-application.vala:215
-msgid "translator-credits"
-msgstr "Erwin Poeze <donnut@outlook.com>"
-
-#: ../gitg/gitg-application.vala:218
-msgid "gitg homepage"
-msgstr "Beginpagina gitg"
-
-#: ../gitg/gitg-author-details-dialog.vala:67
-msgid "Unable to open the .gitconfig file."
-msgstr ".gitconfig-bestand openen is mislukt."
-
-#: ../gitg/gitg-author-details-dialog.vala:149
-msgid "Failed to set Git user config."
-msgstr "Gebruikersconfiguratie van git instellen is mislukt"
-
-#: ../gitg/gitg-clone-dialog.vala:88
-msgid "The URL introduced is not supported"
-msgstr "De opgegeven URL wordt niet ondersteund"
-
-#: ../gitg/gitg-commit-action-create-branch.vala:48
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:1
-#, fuzzy
-#| msgid "Create tag"
-msgid "Create Branch"
-msgstr "Maak tag"
-
-#: ../gitg/gitg-commit-action-create-branch.vala:53
-msgid "Create a new branch at the selected commit"
-msgstr ""
-
-#: ../gitg/gitg-commit-action-create-branch.vala:85
-#, fuzzy
-#| msgid "Failed to remove remote branch <%s>."
-msgid "Failed to create branch"
-msgstr "Afgelegen tak <%s> kon niet worden verwijderd."
-
-#: ../gitg/gitg-commit-action-create-patch.vala:63
-#, fuzzy
-#| msgid "Create tag"
-msgid "Create Patch"
-msgstr "Maak tag"
-
-#: ../gitg/gitg-commit-action-create-patch.vala:68
-msgid "Create a patch from the selected commit"
-msgstr ""
-
-#: ../gitg/gitg-commit-action-create-patch.vala:141
-msgid "Save Patch File"
-msgstr "Patch-bestand opslaan"
-
-#: ../gitg/gitg-commit-action-create-patch.vala:145
-#, fuzzy
-#| msgid "Save Patch File"
-msgid "_Save Patch"
-msgstr "Patch-bestand opslaan"
-
-#: ../gitg/gitg-commit-action-create-patch.vala:168
-#, fuzzy
-#| msgid "Failed to remove stash"
-msgid "Failed to create patch"
-msgstr "Kon tijdelijke opslag niet verwijderen"
-
-#: ../gitg/gitg-commit-action-create-tag.vala:48
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:1
-#, fuzzy
-#| msgid "Create tag"
-msgid "Create Tag"
-msgstr "Maak tag"
-
-#: ../gitg/gitg-commit-action-create-tag.vala:53
-msgid "Create a new tag at the selected commit"
-msgstr ""
-
-#: ../gitg/gitg-commit-action-create-tag.vala:92
-#, fuzzy
-#| msgid "Failed to remove stash"
-msgid "Failed to create tag"
-msgstr "Kon tijdelijke opslag niet verwijderen"
-
-#: ../gitg/gitg-commit-action-create-tag.vala:109
-#, fuzzy
-#| msgid "Failed to apply stash"
-msgid "Failed to lookup tag"
-msgstr "Toepassen tijdelijke opgeslag gefaald"
-
-#: ../gitg/gitg-create-tag-dialog.vala:106
-msgid "Provide a message to create an annotated tag"
-msgstr ""
-
-#: ../gitg/gitg-dash-view.vala:141
-msgid "_Delete"
-msgstr ""
-
-#: ../gitg/gitg-ref-action-delete.vala:48
-#: ../gitg/gitg-ref-action-delete.vala:88
-msgid "Delete"
-msgstr ""
-
-#: ../gitg/gitg-ref-action-delete.vala:53
-msgid "Delete the selected reference"
-msgstr ""
-
-#: ../gitg/gitg-ref-action-delete.vala:73
-#, fuzzy, c-format
-#| msgid "Select branch"
-msgid "Delete branch %s"
-msgstr "Selecteer tak"
-
-#: ../gitg/gitg-ref-action-delete.vala:74
-#, fuzzy, c-format
-#| msgid "Are you sure you want to remove the remote branch <%s>?"
-msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr "Weet je zeker dat je de afgelegen tak <%s> wilt verwijderen?"
-
-#: ../gitg/gitg-ref-action-delete.vala:78
-#, fuzzy, c-format
-#| msgid "Create tag"
-msgid "Delete tag %s"
-msgstr "Maak tag"
-
-#: ../gitg/gitg-ref-action-delete.vala:79
-#, fuzzy, c-format
-#| msgid "Are you sure you want to remove the tag <%s>?"
-msgid "Are you sure that you want to permanently delete the tag %s?"
-msgstr "Weet je zeker dat je de tag <%s> wilt verwijderen?"
-
-#: ../gitg/gitg-ref-action-delete.vala:83
-#, fuzzy, c-format
-#| msgid "Remove remote branch"
-msgid "Delete remote branch %s"
-msgstr "Verwijder afgelegen tak"
-
-#: ../gitg/gitg-ref-action-delete.vala:84
-#, fuzzy, c-format
-#| msgid "Are you sure you want to remove the remote branch <%s>?"
-msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr "Weet je zeker dat je de afgelegen tak <%s> wilt verwijderen?"
-
-#: ../gitg/gitg-ref-action-delete.vala:89
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
+#: gitg/gitg-action-support.vala:133
+#: gitg/gitg-commit-action-cherry-pick.vala:163
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
 msgstr "Annuleren"
 
-#. Translators: %s is the name of the tag
-#: ../gitg/gitg-ref-action-delete.vala:119
-#, fuzzy, c-format
-#| msgid "Failed to remove stash"
-msgid "Failed to delete tag %s"
-msgstr "Kon tijdelijke opslag niet verwijderen"
+#: gitg/gitg-action-support.vala:134
+msgid "Stash changes"
+msgstr "Wijzigingen stashen"
 
-#. Translators: the first %s is the name of the tag, the second is an error message
-#: ../gitg/gitg-ref-action-delete.vala:122
-#, fuzzy, c-format
-#| msgid "The tag <%s> could not be successfully removed"
-msgid "The tag %s could not be deleted: %s"
-msgstr "De tag <%s> kon niet succesvol worden verwijderd"
+#: gitg/gitg-action-support.vala:138 gitg/gitg-action-support.vala:165
+msgid "Failed with conflicts"
+msgstr "Mislukt met conflicten"
 
-#. Translators: %s is the name of the branch
-#: ../gitg/gitg-ref-action-delete.vala:127
-#, fuzzy, c-format
-#| msgid "Failed to remove remote branch <%s>."
-msgid "Failed to delete branch %s"
-msgstr "Afgelegen tak <%s> kon niet worden verwijderd."
-
-#. Translators: the first %s is the name of the branch, the second is an error message
-#: ../gitg/gitg-ref-action-delete.vala:130
-#, fuzzy, c-format
-#| msgid "Branch <%s> could not be renamed to <%s>"
-msgid "The branch %s could not be deleted: %s"
-msgstr "Tak <%s> kon niet worden hernoemd naar <%s>"
-
-#: ../gitg/gitg-ref-action-rename.vala:48
-#, fuzzy
-#| msgid "Filename"
-msgid "Rename"
-msgstr "Bestandsnaam"
-
-#: ../gitg/gitg-ref-action-rename.vala:53
-msgid "Rename the selected reference"
-msgstr ""
-
-#: ../gitg/gitg-ref-action-rename.vala:100
+#: gitg/gitg-action-support.vala:181
 #, c-format
-msgid "The specified name ‘%s’ contains invalid characters"
+msgid "Failed to checkout conflicts: %s"
+msgstr "Uitchecken van conflicten mislukt: %s"
+
+#: gitg/gitg-action-support.vala:199
+msgid "Failed to obtain author details"
+msgstr "Verkrijgen van auteursgegevens mislukt"
+
+#: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
+#, c-format
+msgid "Failed to lookup commit: %s"
+msgstr "Opzoeken van commit mislukt: %s"
+
+#: gitg/gitg-action-support.vala:255
+#, c-format
+msgid "Failed to create commit: %s"
+msgstr "Aanmaken van commit mislukt: %s"
+
+#: gitg/gitg-action-support.vala:277
+#, c-format
+msgid "Failed to checkout index: %s"
+msgstr "Uitchecken van index mislukt: %s"
+
+#: gitg/gitg-application.vala:38
+msgid "Show the application’s version"
+msgstr "Programmaversie tonen"
+
+#: gitg/gitg-application.vala:40
+msgid "Start gitg with a particular activity"
+msgstr "Start gitg met een bepaalde opdracht"
+
+#: gitg/gitg-application.vala:42
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
+"Start gitg met de commit-opdracht (verkorte schrijfwijze voor --activity "
+"commit)"
 
-#: ../gitg/gitg-ref-action-rename.vala:102
-msgid "Invalid name"
+#: gitg/gitg-application.vala:44
+msgid "Do not try to load a repository from the current working directory"
+msgstr "Probeer geen repository uit de huidige werkmap te laden"
+
+#: gitg/gitg-application.vala:46
+msgid "Run gitg in standalone mode"
+msgstr "Voer gitg in standalone-modus uit"
+
+#: gitg/gitg-application.vala:92
+#| msgid "- Git repository viewer"
+msgid "— Git repository viewer"
+msgstr "— Git-repository-viewer"
+
+#: gitg/gitg-application.vala:226
+msgid "gitg is a Git repository viewer for GTK+/GNOME"
+msgstr "gitg is een Git-repository-viewer voor GTK+/Gnome"
+
+#: gitg/gitg-application.vala:235
+msgid "translator-credits"
 msgstr ""
+"Erwin Poeze <donnut@outlook.com>\n"
+"Nathan Follens <nthn@unseen.is>\n"
+"\n"
+"Meer info over Gnome-NL http://nl.gnome.org"
 
-#: ../gitg/gitg-ref-action-rename.vala:141
-#, fuzzy
-#| msgid "Failed to remove stash"
-msgid "Failed to rename"
-msgstr "Kon tijdelijke opslag niet verwijderen"
+#: gitg/gitg-application.vala:238
+msgid "gitg homepage"
+msgstr "gitg-website"
 
-#: ../gitg/gitg.vala:64
+#: gitg/gitg-application.vala:368
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -672,10 +773,10 @@ msgid ""
 "If you manually compiled libgit2, then please configure libgit2 with -"
 "DTHREADSAFE:BOOL=ON.\n"
 "\n"
-"Otherwise, report a bug in your distributions' bug reporting system for "
+"Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
-"Het spijt ons, maar gitg vereist dat libgit2 (een bibliotheek waar gitg van "
+"Het spijt ons, maar gitg vereist dat libgit2 (een bibliotheek waarvan gitg "
 "afhankelijk is) gecompileerd is met threading-ondersteuning.\n"
 "\n"
 "Als u libgit2 handmatig gecompileerd heeft, configureer libgit2 dan met -"
@@ -684,75 +785,957 @@ msgstr ""
 "Anders kunt u de fout rapporteren via het foutrapportagesysteem van uw "
 "distributie dat libgit2 zonder threading-ondersteuning is geleverd."
 
-#: ../gitg/gitg-window.vala:389
-msgid "Projects"
-msgstr "Projecten"
+#: gitg/gitg-author-details-dialog.vala:97
+#: gitg/gitg-author-details-dialog.vala:117
+#: gitg/resources/ui/gitg-author-details-dialog.ui:9
+msgid "Author Details"
+msgstr "Auteursgegevens"
 
-#: ../gitg/gitg-window.vala:430
-msgid "Open Repository"
-msgstr "Repository openen"
+#: gitg/gitg-author-details-dialog.vala:98
+msgid "Enter default details used for all repositories:"
+msgstr "Voer standaardgegevens in voor alle repository’s:"
 
-#: ../gitg/gitg-window.vala:433
-msgid "_Open"
-msgstr "_Openen"
-
-#: ../gitg/gitg-window.vala:707
+#. Translators: %s is the repository name
+#: gitg/gitg-author-details-dialog.vala:120
 #, c-format
-msgid "'%s' is not a Git repository."
-msgstr "‘%s’ is geen Git-repository."
+msgid "Override global details for repository “%s”:"
+msgstr "Globale gegevens voor repository ‘%s’ overschrijven:"
 
-#: ../gitg/history/gitg-history-refs-list.vala:136
-msgid "All commits"
-msgstr "Alle commits"
+#: gitg/gitg-author-details-dialog.vala:232
+msgid "Failed to set Git user config."
+msgstr "Gebruikersconfiguratie van git instellen is mislukt."
 
-#: ../gitg/history/gitg-history-refs-list.vala:674
-msgid "Branches"
-msgstr "Branches"
+#: gitg/gitg-clone-dialog.vala:89
+msgid "The URL introduced is not supported"
+msgstr "De opgegeven URL wordt niet ondersteund"
 
-#: ../gitg/history/gitg-history-refs-list.vala:675
-msgid "Remotes"
-msgstr "Remotes"
+#: gitg/gitg-commit-action-cherry-pick.vala:53
+msgid "Cherry pick onto"
+msgstr "Cherry-pick op"
 
-#: ../gitg/history/gitg-history-refs-list.vala:676
+#: gitg/gitg-commit-action-cherry-pick.vala:58
+msgid "Cherry pick this commit onto a branch"
+msgstr "Deze commit eruit pikken op een branch"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:117
+#, c-format
+msgid "Failed to lookup the commit for branch %s: %s"
+msgstr "Opzoeken van commit voor branch %s mislukt: %s"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:132
+#, c-format
+msgid "Failed to cherry-pick the commit: %s"
+msgstr "Cherry-pick van commit mislukt: %s"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:144
+#: gitg/gitg-commit-action-cherry-pick.vala:160
+msgid "Cherry pick has conflicts"
+msgstr "Cherry-pick heeft conflicten"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:153
+#, c-format
+msgid ""
+"The cherry pick of %s onto %s has caused conflicts, would you like to "
+"checkout branch %s with the cherry pick to your working directory to resolve "
+"the conflicts?"
+msgstr ""
+"De cherry-pick van %s op %s heeft conflicten veroorzaakt, wilt u de branch "
+"%s met de cherry-pick uitchecken naar uw werkmap om de conflicten op te "
+"lossen?"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:157
+#, c-format
+msgid ""
+"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"checkout the cherry pick to your working directory to resolve the conflicts?"
+msgstr ""
+"De cherry-pick van %s op %s heeft conflicten veroorzaakt, wilt u de cherry-"
+"pick uitchecken naar uw werkmap om de conflicten op te lossen?"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:164
+#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
+msgid "Checkout"
+msgstr "Uitchecken"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:168
+msgid "Cherry pick failed with conflicts"
+msgstr "Cherry-pick mislukt met conflicten"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:179
+msgid "Cherry pick finished with conflicts in working directory"
+msgstr "Cherry-pick voltooid met conflicten in werkmap"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:199
+#, c-format
+msgid "Cherry pick %s onto %s"
+msgstr "%s cherry-picken op %s"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:224
+msgid "Successfully cherry picked"
+msgstr "Ge-cherry-pickt"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:261
+#, c-format
+msgid "Cherry pick onto %s"
+msgstr "Cherry-picken op %s"
+
+#: gitg/gitg-commit-action-create-branch.vala:48
+msgid "Create branch"
+msgstr "Branch aanmaken"
+
+#: gitg/gitg-commit-action-create-branch.vala:53
+msgid "Create a new branch at the selected commit"
+msgstr "Een nieuwe branch aanmaken op de geselecteerde commit"
+
+#: gitg/gitg-commit-action-create-branch.vala:75
+msgid "Failed to create branch"
+msgstr "Aanmaken van branch mislukt"
+
+#: gitg/gitg-commit-action-create-patch.vala:63
+msgid "Create patch"
+msgstr "Patch aanmaken"
+
+#: gitg/gitg-commit-action-create-patch.vala:68
+msgid "Create a patch from the selected commit"
+msgstr "Een patch maken van de geselecteerde commit"
+
+#: gitg/gitg-commit-action-create-patch.vala:152
+msgid "Save Patch File"
+msgstr "Patch-bestand opslaan"
+
+#: gitg/gitg-commit-action-create-patch.vala:156
+msgid "_Save Patch"
+msgstr "Patch op_slaan"
+
+#: gitg/gitg-commit-action-create-patch.vala:181
+msgid "Failed to create patch"
+msgstr "Aanmaken van patch mislukt"
+
+#: gitg/gitg-commit-action-create-tag.vala:48
+msgid "Create tag"
+msgstr "Tag aanmaken"
+
+#: gitg/gitg-commit-action-create-tag.vala:53
+msgid "Create a new tag at the selected commit"
+msgstr "Een nieuwe tag aanmaken op de geselecteerde commit"
+
+#: gitg/gitg-commit-action-create-tag.vala:92
+msgid "Failed to create tag"
+msgstr "Aanmaken van tag mislukt"
+
+#: gitg/gitg-commit-action-create-tag.vala:109
+msgid "Failed to lookup tag"
+msgstr "Opzoeken van tag mislukt"
+
+#: gitg/gitg-create-tag-dialog.vala:110
+msgid "Provide a message to create an annotated tag"
+msgstr "Voer een bericht in om een geannoteerde tag aan te maken"
+
+#: gitg/gitg-dash-view.vala:87
+msgid "Select and manage projects"
+msgstr "Selecteer en beheer projecten"
+
+#: gitg/gitg-dash-view.vala:174
+msgid "_Remove"
+msgstr "Ve_rwijderen"
+
+#. Translators: the two %s will be replaced to create a link to perform the scanning action.
+#: gitg/gitg-dash-view.vala:230
+#, c-format
+msgid "We can also %sscan your home directory%s for git repositories."
+msgstr "We kunnen ook %suw persoonlijke map doorzoeken%s op git-repository’s."
+
+#. Translators: the two %s will be used to create a link to the author dialog.
+#: gitg/gitg-dash-view.vala:233
+#, c-format
+msgid "In the mean time, you may want to %sset up your git profile%s."
+msgstr "Ondertussen kunt u %suw git-profiel%s instellen."
+
+#: gitg/gitg-dash-view.vala:398
+msgid "Failed to clone repository"
+msgstr "Klonen van repository mislukt"
+
+#: gitg/gitg-dash-view.vala:429
+msgid "Failed to add repository"
+msgstr "Toevoegen van repository mislukt"
+
+#: gitg/gitg-dash-view.vala:445
+msgid "Create new repository"
+msgstr "Nieuwe repository aanmaken"
+
+#. Translators: %s is a file name
+#: gitg/gitg-dash-view.vala:448
+#, c-format
+msgid ""
+"The location <i>%s</i> does not appear to be a valid git repository. Would "
+"you like to initialize a new git repository at this location?"
+msgstr ""
+"De locatie <i>%s</i> lijkt geen geldige git-repository te zijn. Wilt u een "
+"nieuwe git-repository op deze locatie aanmaken?"
+
+#: gitg/gitg-dash-view.vala:454
+msgid "Create repository"
+msgstr "Repository aanmaken"
+
+#: gitg/gitg-dash-view.vala:470
+msgid "Failed to create repository"
+msgstr "Aanmaken van repository mislukt"
+
+#: gitg/gitg-dash-view.vala:540
+#, c-format
+msgid "Scanning for repositories in %s"
+msgstr "%s wordt doorzocht op repository’s"
+
+#: gitg/gitg-ref-action-checkout.vala:53
+msgid "Checkout the selected reference"
+msgstr "De geselecteerde referentie uitchecken"
+
+#: gitg/gitg-ref-action-checkout.vala:72
+#, c-format
+msgid "Checkout %s"
+msgstr "%s uitchecken"
+
+#: gitg/gitg-ref-action-checkout.vala:101
+#, c-format
+msgid "Failed to checkout branch: %s"
+msgstr "Uitchecken van branch mislukt: %s"
+
+#: gitg/gitg-ref-action-checkout.vala:111
+#, c-format
+msgid "Failed to update HEAD: %s"
+msgstr "Bijwerken van HEAD mislukt: %s"
+
+#: gitg/gitg-ref-action-checkout.vala:121
+msgid "Successfully checked out branch to working directory"
+msgstr "Branch uitgecheckt naar werkmap"
+
+#: gitg/gitg-ref-action-copy-name.vala:48
+msgid "Copy name"
+msgstr "Naam kopiëren"
+
+#: gitg/gitg-ref-action-copy-name.vala:53
+msgid "Copy the name of the reference to the clipboard"
+msgstr "Kopieer de naam van de referentie naar het klembord"
+
+#: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: gitg/gitg-ref-action-delete.vala:53
+msgid "Delete the selected reference"
+msgstr "Verwijder de geselecteerde referentie"
+
+#: gitg/gitg-ref-action-delete.vala:73
+#, c-format
+msgid "Delete branch %s"
+msgstr "Branch %s verwijderen"
+
+#: gitg/gitg-ref-action-delete.vala:74
+#, c-format
+msgid "Are you sure that you want to permanently delete the branch %s?"
+msgstr "Weet u zeker dat u de tak %s voorgoed wilt verwijderen?"
+
+#: gitg/gitg-ref-action-delete.vala:78
+#, c-format
+msgid "Delete tag %s"
+msgstr "Tag %s verwijderen"
+
+#: gitg/gitg-ref-action-delete.vala:79
+#, c-format
+msgid "Are you sure that you want to permanently delete the tag %s?"
+msgstr "Weet u zeker dat u de tag %s voorgoed wilt verwijderen?"
+
+#: gitg/gitg-ref-action-delete.vala:83
+#, c-format
+msgid "Delete remote branch %s"
+msgstr "Externe branch %s verwijderen"
+
+#: gitg/gitg-ref-action-delete.vala:84
+#, c-format
+msgid "Are you sure that you want to permanently delete the remote branch %s?"
+msgstr "Weet u zeker dat u de externe branch %s voorgoed wilt verwijderen?"
+
+#. Translators: %s is the name of the tag
+#: gitg/gitg-ref-action-delete.vala:119
+#, c-format
+msgid "Failed to delete tag %s"
+msgstr "Verwijderen van tag %s mislukt"
+
+#. Translators: the first %s is the name of the tag, the second is an error message
+#: gitg/gitg-ref-action-delete.vala:122
+#, c-format
+msgid "The tag %s could not be deleted: %s"
+msgstr "De tag %s kon niet worden verwijderd: %s"
+
+#. Translators: %s is the name of the branch
+#: gitg/gitg-ref-action-delete.vala:127
+#, c-format
+msgid "Failed to delete branch %s"
+msgstr "Verwijderen van branch %s mislukt"
+
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: gitg/gitg-ref-action-delete.vala:130
+#, c-format
+msgid "The branch %s could not be deleted: %s"
+msgstr "De branch %s kon niet worden verwijderd: %s"
+
+#: gitg/gitg-ref-action-fetch.vala:74
+#, c-format
+msgid "Fetch from %s"
+msgstr "Ophalen van %s"
+
+#: gitg/gitg-ref-action-fetch.vala:85
+#, c-format
+msgid "Fetch remote objects from %s"
+msgstr "Externe objecten ophalen van %s"
+
+#: gitg/gitg-ref-action-fetch.vala:98
+#, c-format
+msgid "Fetching from %s"
+msgstr "Bezig met ophalen van %s"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-ref-action-fetch.vala:106
+msgid "new"
+msgstr "nieuw"
+
+#. Translators: updated refers to a remote reference having been updated,
+#: gitg/gitg-ref-action-fetch.vala:111
+msgid "updated"
+msgstr "bijgewerkt"
+
+#: gitg/gitg-ref-action-fetch.vala:121
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "Ophalen uit %s mislukt: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-fetch.vala:134
+#, c-format
+msgid "Fetched from %s: everything is up to date"
+msgstr "Opgehaald van %s: alles is up-to-date"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-ref-action-fetch.vala:140
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Opgehaald van %s: %s"
+
+#: gitg/gitg-ref-action-merge.vala:63
+#, c-format
+msgid "Merge into %s"
+msgstr "Samenvoegen in %s"
+
+#. TODO
+#: gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr "Een andere branch invoegen in branch %s"
+
+#: gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "Samenvoegen van commits mislukt: %s"
+
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr "Samenvoeging heeft conflicten"
+
+#: gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of %s into %s has caused conflicts, would you like to checkout "
+"branch %s with the merge to your working directory to resolve the conflicts?"
+msgstr ""
+"Het samenvoegen van %s in %s heeft conflicten veroorzaakt, wilt u de branch "
+"%s met de samenvoeging uitchecken naar uw werkmap om de conflicten op te "
+"lossen?"
+
+#: gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid ""
+"The merge of %s into %s has caused conflicts, would you like to checkout the "
+"merge to your working directory to resolve the conflicts?"
+msgstr ""
+"Het samenvoegen van %s in %s heeft conflicten veroorzaakt, wilt u de "
+"samenvoeging uitchecken naar uw werkmap om de conflicten op te lossen?"
+
+#: gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr "Samenvoegen mislukt met conflicten"
+
+#: gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr "Samengevoegd met conflicten in werkmap"
+
+#: gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge %s into %s"
+msgstr "%s samenvoegen in %s"
+
+#: gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "Opzoeken van onze commit mislukt: %s"
+
+#: gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr "Opzoeken van hun commit mislukt: %s"
+
+#: gitg/gitg-ref-action-merge.vala:278
+#, c-format
+msgid "Successfully merged %s into %s"
+msgstr "%s samengevoegd in %s"
+
+#: gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge %s into branch %s"
+msgstr "%s invoegen in branch %s"
+
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1176
 msgid "Tags"
 msgstr "Tags"
 
-#: ../gitg/history/gitg-history.vala:219
-#: ../gitg/preferences/gitg-preferences-history.vala:144
+#: gitg/gitg-ref-action-rename.vala:48
+msgid "Rename"
+msgstr "Hernoemen"
+
+#: gitg/gitg-ref-action-rename.vala:53
+msgid "Rename the selected reference"
+msgstr "De geselecteerde referentie hernoemen"
+
+#: gitg/gitg-ref-action-rename.vala:100
+#, c-format
+msgid "The specified name “%s” contains invalid characters"
+msgstr "De ingevoerde naam ‘%s’ bevat ongeldige tekens"
+
+#: gitg/gitg-ref-action-rename.vala:102
+msgid "Invalid name"
+msgstr "Ongeldige naam"
+
+#: gitg/gitg-ref-action-rename.vala:131
+msgid "Failed to rename"
+msgstr "Hernoemen mislukt"
+
+#: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
+#: gitg/resources/ui/gitg-window.ui:226
+msgid "Close"
+msgstr "Sluiten"
+
+#: gitg/gitg-window.vala:201
+msgid "Add Repository"
+msgstr "Repository toevoegen"
+
+#: gitg/gitg-window.vala:205
+msgid "_Add"
+msgstr "_Toevoegen"
+
+#: gitg/gitg-window.vala:207
+msgid "_Scan for all git repositories from this directory"
+msgstr "Zoeken naar alle git-repo_sitory’s in deze map"
+
+#: gitg/gitg-window.vala:505
+msgid "Projects"
+msgstr "Projecten"
+
+#: gitg/gitg-window.vala:804
+msgid "Select items"
+msgstr "Items selecteren"
+
+#: gitg/gitg-window.vala:1015
+#, c-format
+#| msgid "'%s' is not a Git repository."
+msgid "“%s” is not a Git repository."
+msgstr "‘%s’ is geen Git-repository."
+
+#: gitg/gitg-window.vala:1164
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"Uw gebruikersnaam en e-mail zijn nog niet geconfigureerd. Ga naar de "
+"gebruikersconfiguratie en voer uw naam en e-mailadres in."
+
+#: gitg/gitg-window.vala:1168
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+"Uw gebruikersnaam is nog niet geconfigureerd. Ga naar de "
+"gebruikersconfiguratie en voer uw naam in."
+
+#: gitg/gitg-window.vala:1172
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"Uw e-mail is nog niet geconfigureerd. Ga naar de gebruikersconfiguratie en "
+"voer uw e-mailadres in."
+
+#: gitg/gitg-window.vala:1175
+msgid "Missing author details"
+msgstr "Auteursgegevens ontbreken"
+
+#: gitg/history/gitg-history-command-line.vala:42
+msgid "Select all commits by default in the history activity"
+msgstr "Selecteer standaard alle commits in de geschiedenisactiviteit"
+
+#: gitg/history/gitg-history-command-line.vala:44
+msgid "Select all branches by default in the history activity"
+msgstr "Selecteer standaard alle branches in de geschiedenisactiviteit"
+
+#: gitg/history/gitg-history-command-line.vala:46
+msgid "Select all remotes by default in the history activity"
+msgstr "Selecteer standaard alle remotes in de geschiedenisactiviteit"
+
+#: gitg/history/gitg-history-command-line.vala:48
+msgid "Select all tags by default in the history activity"
+msgstr "Selecteer standaard alle tags in de geschiedenisactiviteit"
+
+#: gitg/history/gitg-history-command-line.vala:50
+msgid "Select the specified reference by default in the history activity"
+msgstr ""
+"Selecteer standaard de opgegeven referentie in de geschiedenisactiviteit"
+
+#: gitg/history/gitg-history-command-line.vala:50
+msgid "REFERENCE"
+msgstr "REFERENTIE"
+
+#: gitg/history/gitg-history-refs-list.vala:165
+#, c-format
+msgid "%zu ahead, %zu behind"
+msgstr "%zu voor, %zu achter"
+
+#: gitg/history/gitg-history-refs-list.vala:169
+#, c-format
+msgid "%zu ahead"
+msgstr "%zu voor"
+
+#: gitg/history/gitg-history-refs-list.vala:173
+#, c-format
+msgid "%zu behind"
+msgstr "%zu achter"
+
+#: gitg/history/gitg-history-refs-list.vala:207
+#: gitg/resources/ui/gitg-preferences-history.ui:81
+msgid "All commits"
+msgstr "Alle commits"
+
+#: gitg/history/gitg-history-refs-list.vala:1174
+msgid "Branches"
+msgstr "Branches"
+
+#: gitg/history/gitg-history-refs-list.vala:1175
+msgid "Remotes"
+msgstr "Remotes"
+
+#: gitg/history/gitg-history.vala:342
+#: gitg/preferences/gitg-preferences-history.vala:218
+#: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Geschiedenis"
 
-#: ../gitg/history/gitg-history.vala:224
+#: gitg/history/gitg-history.vala:347
 msgid "Examine the history of the repository"
-msgstr ""
+msgstr "Bekijk de geschiedenis van de repository"
 
-#: ../gitg/preferences/gitg-preferences-interface.vala:73
+#: gitg/history/gitg-history.vala:909
+msgid "Mainline"
+msgstr "Mainline"
+
+#: gitg/preferences/gitg-preferences-commit.vala:119
+msgctxt "Preferences"
+msgid "Commit"
+msgstr "Commit"
+
+#: gitg/preferences/gitg-preferences-interface.vala:140
 msgid "Interface"
 msgstr "Interface"
 
-#: ../libgitg/gitg-date.vala:346
+#: gitg/resources/ui/gitg-author-details-dialog.ui:35
+msgid "_Save"
+msgstr "_Opslaan"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:65
+msgid "Default details used for all repositories"
+msgstr "Standaardgegevens voor alle repository’s"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:114
+#| msgid "E-mail: "
+msgid "E-mail:"
+msgstr "E-mail:"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:125
+#| msgid "Name: "
+msgid "Name:"
+msgstr "Naam:"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:7
+msgid "Clone Repository"
+msgstr "Repository klonen"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:33
+msgid "Cl_one"
+msgstr "Kl_onen"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+msgid "Remote _URL:"
+msgstr "_URL van remote:"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:99
+msgid "_Local Folder:"
+msgstr "_Lokale map:"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:116
+msgid "Select location…"
+msgstr "Locatie selecteren…"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:127
+msgid "Bare repository"
+msgstr "Lege repository"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:8
+msgctxt "Create Dialog"
+msgid "Commit"
+msgstr "Commit"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:36
+#: gitg/resources/ui/gitg-commit-paned.ui:86
+msgid "C_ommit"
+msgstr "C_ommit"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:109
+msgid "Add _signed-off-by signature"
+msgstr "Voeg ondertekening _signed-off-by toe"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:126
+msgid "_Amend previous commit"
+msgstr "Vorige commit _amenderen"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:76
+msgid "Skip commit _hooks"
+msgstr "Commit-_hooks overslaan"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:96
+msgid "S_tage selection"
+msgstr "Selectie s_tagen"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:107
+msgid "D_iscard selection"
+msgstr "Selectie verw_ijderen"
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:24
+msgid ""
+"The submodule is in a dirty state and has staged and/or unstaged changes "
+"that are not yet committed as shown below."
+msgstr ""
+"De submodule bevindt zich in een vuile staat en heeft gestagede en/of "
+"ongestagede, nog niet gecommitte wijzigingen, zoals hieronder weergegeven."
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:50
+msgid "Staged:"
+msgstr "Staged:"
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:86
+msgid "Unstaged:"
+msgstr "Unstaged:"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:24
+#: gitg/resources/ui/gitg-history-paned.ui:93
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:41
+#: gitg/resources/ui/gitg-history-paned.ui:110
+msgid "Author"
+msgstr "Auteur"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:57
+#: gitg/resources/ui/gitg-history-paned.ui:126
+msgid "Date"
+msgstr "Datum"
+
+#: gitg/resources/ui/gitg-commit-submodule-info.ui:70
+msgid "Open"
+msgstr "Openen"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:7
+msgid "Create Branch"
+msgstr "Branch aanmaken"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:34
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:36
+msgid "C_reate"
+msgstr "_Aanmaken"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:69
+msgid "Branch _name:"
+msgstr "Branch_naam:"
+
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:7
+msgid "Create Tag"
+msgstr "Tag aanmaken"
+
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:71
+msgid "Tag _name:"
+msgstr "Tag_naam:"
+
+#: gitg/resources/ui/gitg-dash-view.ui:32
+msgid ""
+"No repositories have been added yet. To get started, you can add an existing "
+"repository or clone a new one."
+msgstr ""
+"Er zijn nog geen repository’s toegevoegd. Om te beginnen, kunt u een "
+"bestaande repository toevoegen of een nieuwe klonen."
+
+#: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Reload"
+msgstr "_Herladen"
+
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:45
+msgid "_Preferences"
+msgstr "_Voorkeuren"
+
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:39
+msgid "_Author Details"
+msgstr "_Auteursgegevens"
+
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:51
+msgid "_Keyboard Shortcuts"
+msgstr "S_neltoetsen"
+
+#: gitg/resources/ui/gitg-menus.ui:33
+msgid "_New Window"
+msgstr "_Nieuw venster"
+
+#: gitg/resources/ui/gitg-menus.ui:55
+msgid "_About"
+msgstr "_Info"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:44
+msgid "Show markup"
+msgstr "Opmaaktekens tonen"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:71
+msgid "Display _subject margin at column:"
+msgstr "_Onderwerpkantlijn tonen in kolom:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:126
+msgid "Display right _margin at column:"
+msgstr "_Rechterkantlijn tonen in kolom:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:189
+msgid "Enable spell checking"
+msgstr "Spellingcontrole inschakelen"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:220
+msgid "Commit Message"
+msgstr "Commit-bericht"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:31
+msgid "Default selection"
+msgstr "Standaardselectie"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:50
+msgid "Current branch"
+msgstr "Huidige branch"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:65
+msgid "All branches"
+msgstr "Alle branches"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:106
+msgid "References"
+msgstr "Referenties"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:119
+msgid "Sort references in the sidebar by latest activity"
+msgstr "Referenties in zijbalk sorteren op laatste activiteit"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:135
+msgid "Show upstream (remote) branch when selecting a local branch"
+msgstr ""
+"Geef upstream (externe) branch weer bij selecteren van een lokale branch"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:154
+msgid "Commits"
+msgstr "Commits"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:174
+msgid "Collapse inactive lanes"
+msgstr "Inactive banen invouwen"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:215
+msgid "Early"
+msgstr "Vroeg"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:227
+msgid "Late"
+msgstr "Laat"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:242
+msgid "Show history in topological order"
+msgstr "Geschiedenis in topologische volgorde tonen"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:257
+msgid "Preserve mainline for currently checked out branch"
+msgstr "Kon vorige uitgecheckte branch niet opnieuw uitchecken"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:24
+msgid "Startup"
+msgstr "Opstarten"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:47
+msgid "Start with activity:"
+msgstr "Starten met activiteit:"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:61
+msgid "Commit"
+msgstr "Commit"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:80
+msgid "Layout"
+msgstr "Layout"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:100
+msgid "Use horizontal layout"
+msgstr "Gebruik horizontale layout"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:124
+msgid "Avatars"
+msgstr "Avatars"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:144
+msgid "Use gravatar service to provide user avatars"
+msgstr "Gebruikt de gravatar-dienst om gebruikersavatars weer te geven"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:168
+msgid "Monitoring"
+msgstr "Observatie"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:212
+#: plugins/diff/gitg-diff.vala:115
+msgid "Diff"
+msgstr "Verschillen"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:232
+msgid "Enable syntax highlighting of source code in diff views"
+msgstr "Schakelt syntaxmarkering van broncode in diff-weergaven in"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:258
+msgid "Syntax highlighting color scheme:"
+msgstr "Kleurenschema voor syntaxmarkering:"
+
+#: gitg/resources/ui/gitg-preferences.ui:11
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Vensters"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:19
+msgctxt "shortcut window"
+msgid "Open shortcut window"
+msgstr "Sneltoetsvenster openen"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Open a new window"
+msgstr "Nieuw venster openen"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:33
+msgctxt "shortcut window"
+msgid "Open the window menu"
+msgstr "Venstermenu openen"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Open a repository"
+msgstr "Repository openen"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Open the help"
+msgstr "Hulp openen"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:54
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "Zoeken"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:61
+msgctxt "shortcut window"
+msgid "Close the active window"
+msgstr "Het actieve venster sluiten"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:68
+msgctxt "shortcut window"
+msgid "Quit the application"
+msgstr "Toepassing afsluiten"
+
+#: gitg/resources/ui/gitg-window.ui:23
+msgid "Show the list of recently used repositories"
+msgstr "Lijst met recent gebruikte repository’s weergeven"
+
+#: gitg/resources/ui/gitg-window.ui:45
+msgid "Clone"
+msgstr "Klonen"
+
+#: gitg/resources/ui/gitg-window.ui:46
+msgid "Clone repository"
+msgstr "Repository klonen"
+
+#: gitg/resources/ui/gitg-window.ui:61
+msgid "Add"
+msgstr "Toevoegen"
+
+#: gitg/resources/ui/gitg-window.ui:62
+msgid "Add repository"
+msgstr "Repository toevoegen"
+
+#: gitg/resources/ui/gitg-window.ui:86
+msgid "Find a word or phrase"
+msgstr "Zoek een woord of zin"
+
+#: gitg/resources/ui/gitg-window.ui:131
+msgid "General settings and options"
+msgstr "Algemene instellingen en opties"
+
+#. Translators: %s will be replaced with a URL indicating the resource
+#. for which the authentication is required.
+#: libgitg/gitg-authentication-dialog.vala:69
+#, c-format
+msgid "Password required for %s"
+msgstr "Wachtwoord vereist voor %s"
+
+#: libgitg/gitg-date.vala:346
 msgid "Now"
 msgstr "Nu"
 
-#: ../libgitg/gitg-date.vala:350
+#: libgitg/gitg-date.vala:350
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "Een minuut geleden"
 msgstr[1] "%d minuten geleden"
 
-#: ../libgitg/gitg-date.vala:355
+#: libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
 msgstr "Een half uur geleden"
 
-#: ../libgitg/gitg-date.vala:360
+#: libgitg/gitg-date.vala:360
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "Een uur geleden"
-msgstr[1] "%d uren geleden"
+msgstr[1] "%d uur geleden"
 
-#: ../libgitg/gitg-date.vala:365
+#: libgitg/gitg-date.vala:365
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
@@ -762,328 +1745,249 @@ msgstr[1] "%d dagen geleden"
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
-#: ../libgitg/gitg-date.vala:374
-msgid "%b %e, %H:%M"
-msgstr ""
+#: libgitg/gitg-date.vala:374
+msgid "%b %e, %H∶%M"
+msgstr "%-e %b, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
-#: ../libgitg/gitg-date.vala:381
-msgid "%b %e, %I:%M %p"
-msgstr ""
+#: libgitg/gitg-date.vala:381
+msgid "%b %e, %I∶%M %p"
+msgstr "%-e %b, %I∶%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
-#: ../libgitg/gitg-date.vala:391
-msgid "%b %e %Y, %H:%M"
-msgstr ""
+#: libgitg/gitg-date.vala:391
+msgid "%b %e %Y, %H∶%M"
+msgstr "%-e %b %Y, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
-#: ../libgitg/gitg-date.vala:398
-msgid "%b %e %Y, %I:%M %p"
-msgstr ""
+#: libgitg/gitg-date.vala:398
+msgid "%b %e %Y, %I∶%M %p"
+msgstr "%-e %b %Y, %I∶%M %p"
 
-#: ../libgitg/gitg-diff-view.vala:229
-msgid "stage"
-msgstr "stage"
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: libgitg/gitg-diff-image-side-by-side.vala:39
+#, c-format
+msgid "before (%s)"
+msgstr "vóór (%s)"
 
-#: ../libgitg/gitg-diff-view.vala:230
-msgid "unstage"
-msgstr "unstage"
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: libgitg/gitg-diff-image-side-by-side.vala:45
+#, c-format
+msgid "removed (%s)"
+msgstr "verwijderd (%s)"
 
-#: ../libgitg/gitg-diff-view.vala:231
-msgid "Loading diff…"
-msgstr "Verschillen laden…"
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: libgitg/gitg-diff-image-side-by-side.vala:65
+#, c-format
+msgid "after (%s)"
+msgstr "na (%s)"
 
-#: ../libgitg/gitg-stage.vala:335
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: libgitg/gitg-diff-image-side-by-side.vala:71
+#, c-format
+msgid "added (%s)"
+msgstr "toegevoegd (%s)"
+
+#: libgitg/gitg-diff-view-commit-details.vala:144
+msgid "Collapse all"
+msgstr "Alles dichtklappen"
+
+#: libgitg/gitg-diff-view-commit-details.vala:148
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+msgid "Expand all"
+msgstr "Alles uitvouwen"
+
+#: libgitg/gitg-diff-view-commit-details.vala:203
+#, c-format
+msgid "Committed by %s"
+msgstr "Gecommit door %s"
+
+#: libgitg/gitg-diff-view-file.vala:177
+msgid "_Open file"
+msgstr "Bestand _openen"
+
+#: libgitg/gitg-diff-view-file.vala:209
+msgid "Open containing _folder"
+msgstr "Bovenliggende _map openen"
+
+#: libgitg/gitg-diff-view-file.vala:229
+msgid "_Copy file path"
+msgstr "Bestandspad _kopiëren"
+
+#. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
+#: libgitg/gitg-repository-list-box.vala:153
+#, c-format
+msgid "at %s"
+msgstr "op %s"
+
+#. Translators: this is used to construct: "<branch-name> at <directory>"
+#: libgitg/gitg-repository-list-box.vala:162
+#, c-format
+msgid "%s at %s"
+msgstr "%s op %s"
+
+#: libgitg/gitg-repository-list-box.vala:545
+msgid "Cloning…"
+msgstr "Bezig met klonen…"
+
+#: libgitg/gitg-stage.vala:334
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Lezen commit-bericht na uitvoeren commit-msg hook ‘%s’ is mislukt"
 
-#: ../plugins/diff/gitg-diff.vala:89
-msgid "Diff"
-msgstr "Verschillen"
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:18
+msgid "_Authenticate"
+msgstr "_Aanmelden"
 
-#: ../plugins/diff/gitg-diff.vala:94
-msgid "Show the changes introduced by the selected commit"
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:76
+msgid ""
+"The previous attempt to authenticate has failed, please provide your user "
+"name and password and try again."
 msgstr ""
+"De vorige poging tot aanmelden is mislukt, voer uw gebruikersnaam en "
+"wachtwoord in en probeer het opnieuw."
 
-#: ../plugins/files/gitg-files.vala:63
-msgid "Files"
-msgstr "Bestanden"
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:95
+msgid "_Username:"
+msgstr "Gebr_uikersnaam:"
 
-#: ../plugins/files/gitg-files.vala:68
-msgid "Show the files in the tree of the selected commit"
-msgstr ""
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:109
+msgid "_Password:"
+msgstr "_Wachtwoord:"
 
-#. ex: ts=4 noet
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
-msgid "Author Details"
-msgstr "Auteurgegevens"
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:154
+msgid "Forget password _immediately"
+msgstr "Wachtwoord direct _vergeten"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
-#, no-c-format
-msgid "Note: The Git config file '%s' does not exist."
-msgstr "Opmerking: het git-configuratiebestand ‘%s’ bestaat niet."
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:171
+msgid "Remember password until you _logout"
+msgstr "Wachtwoord _onthouden totdat u zich afmeldt"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-msgid "Enter details to set as default for all repositories:"
-msgstr "Voer gegevens in als standaard voor alle repositories:"
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:189
+msgid "Remember _forever"
+msgstr "Voor _altijd onthouden"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-#, no-c-format
-msgid "Enter details for repository '%s':"
-msgstr "Voer gegevens in voor repository ‘%s’:"
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+msgid "Parents"
+msgstr "Ouders"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
-msgid "E-mail: "
-msgstr "E-mail:"
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui:10
+msgid "Unable to display changes for binary file"
+msgstr "Kan wijzigingen voor binair bestand niet weergeven"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
-msgid "Name: "
-msgstr "Naam:"
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:35
+msgid "Side by side"
+msgstr "Naast elkaar"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
-msgid "Save"
-msgstr "Opslaan"
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
+msgid "Slider"
+msgstr "Schuifregelaar"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-msgid "Clone Repository"
-msgstr "Repository klonen"
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
+msgid "Overlay"
+msgstr "Overlay"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-msgid "Cl_one"
-msgstr "Kl_oon"
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
+msgid "Difference"
+msgstr "Verschil"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
-msgid "Remote _URL:"
-msgstr "_URL van remote:"
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:20
+msgid "Tab width:"
+msgstr "_Tabbreedte:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "_Local Folder:"
-msgstr "_Lokale map:"
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:44
+msgid "Wrap lines:"
+msgstr "Tekstomloop:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
-msgid "Select location…"
-msgstr "Locatie selecteren…"
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:67
+msgid "Ignore whitespace:"
+msgstr "Witruimte negeren:"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
-msgid "Bare repository"
-msgstr "Lege repository"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
-msgid "C_ommit"
-msgstr "C_ommit"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
-msgid "Add _signed-off-by signature"
-msgstr "Voeg ondertekening _signed-off-by toe"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
-msgid "_Amend previous commit"
-msgstr "Vorige commit _amenderen"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
-#: ../gitg/resources/ui/gitg-window.ui.h:6
-msgid "Close"
-msgstr "Sluiten"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
-msgid "Skip commit _hooks"
-msgstr "Commit-_hooks overslaan"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
-msgid "S_tage selection"
-msgstr "Selectie s_tagen"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:4
-#, fuzzy
-#| msgid "_Unstage selection"
-msgid "D_iscard selection"
-msgstr "Selectie _unstagen"
-
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:3
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:3
-#, fuzzy
-#| msgid "Create tag"
-msgid "C_reate"
-msgstr "Maak tag"
-
-#: ../gitg/resources/ui/gitg-create-branch-dialog.ui.h:4
-#, fuzzy
-#| msgid "Branches"
-msgid "Branch _name:"
-msgstr "Branches"
-
-#: ../gitg/resources/ui/gitg-create-tag-dialog.ui.h:4
-msgid "Tag _name:"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
-msgid "Subject"
-msgstr "Onderwerp"
-
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
-msgid "Author"
-msgstr "Auteur"
-
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
-msgid "Date"
-msgstr "Datum"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:1
-msgid "_New Window"
-msgstr "_Nieuw venster"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:2
-msgid "_Preferences"
-msgstr "_Voorkeuren"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:3
-msgid "_Help"
-msgstr "_Hulp"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:4
-msgid "_About"
-msgstr "_Info"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Quit"
-msgstr "Afslui_ten"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Open Repository…"
-msgstr "Repository _openen…"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
-msgid "_Clone Repository…"
-msgstr "Repository _klonen"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:8
-msgid "_Author Details"
-msgstr "_Auteurgegevens"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:9
-msgid "_Reload"
-msgstr "_Herladen"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
-msgid "Show markup"
-msgstr "Opmaaktekens tonen"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-msgid "Display _subject margin at column:"
-msgstr "_Onderwerpkantlijn tonen in kolom:"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-msgid "Display right _margin at column:"
-msgstr "_Rechterkantlijn tonen in kolom:"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
-msgid "Enable spell checking"
-msgstr "Spellingcontrole inschakelen"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-msgid "Commit Message"
-msgstr "Commit-bericht"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-msgid "Commits"
-msgstr "Commits"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
-msgid "Collapse inactive lanes"
-msgstr "Inactive banen invouwen"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
-msgid "Show stash in history"
-msgstr "Stash in geschiedenis tonen"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
-msgid "Show staged changes in history"
-msgstr "Staged wijzigingen in geschiedenis tonen"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
-msgid "Show unstaged changes in history"
-msgstr "Unstaged wijzigingen in geschiedenis tonen"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
-msgid "Show history in topological order"
-msgstr "Geschiedenis in topologische volgorde tonen"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
-msgid "Early"
-msgstr "Vroeg"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
-msgid "Late"
-msgstr "Laat"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-msgid "Layout"
-msgstr "Layout"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-msgid "Use horizontal layout"
-msgstr "Gebruik horizontale layout"
-
-#: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "Preferences"
-msgstr "Voorkeuren"
-
-#: ../gitg/resources/ui/gitg-window.ui.h:2
-msgid "Show the list of recently used repositories"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-window.ui.h:3
-msgid "Find a word or phrase"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-window.ui.h:4
-msgid "General settings and options"
-msgstr ""
-
-#: ../libgitg/resources/diff-view-options.ui.h:1
-msgid "Ignore whitespace changes"
-msgstr ""
-
-#: ../libgitg/resources/diff-view-options.ui.h:2
-#, fuzzy
-#| msgid "Show staged changes in history"
-msgid "Show changes inline"
-msgstr "Staged wijzigingen in geschiedenis tonen"
-
-#: ../libgitg/resources/diff-view-options.ui.h:3
-msgid "Developer tools"
-msgstr ""
-
-#: ../libgitg/resources/diff-view-options.ui.h:4
-msgid "Tab width"
-msgstr ""
-
-#: ../libgitg/resources/diff-view-options.ui.h:5
-#, fuzzy
+#: libgitg/resources/ui/gitg-diff-view-options.ui:31
 #| msgid "Context:"
-msgid "Context"
+msgid "Context:"
 msgstr "Context:"
 
-#: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
+#: libgitg/resources/ui/gitg-diff-view-options.ui:63
+msgid "Spacing"
+msgstr "Spatiëring"
+
+#: libgitg/resources/ui/gitg-repository-list-box-row.ui:37
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
 msgstr ""
+"Verwijder de repository uit de lijst (verwijdert de repository niet van de "
+"schijf)"
 
-#: ../plugins/files/resources/view-files.ui.h:1
-msgid "column"
-msgstr "kolom"
+#: plugins/diff/gitg-diff.vala:120
+msgid "Show the changes introduced by the selected commit"
+msgstr "Geef de door de geselecteerde commit geïntroduceerde wijzigingen weer"
 
-#~ msgid "_Save"
-#~ msgstr "_Opslaan"
+#: plugins/files/gitg-files.vala:63
+msgid "Files"
+msgstr "Bestanden"
+
+#: plugins/files/gitg-files.vala:68
+msgid "Show the files in the tree of the selected commit"
+msgstr "Geef de bestanden in de tree van de geselecteerde commit weer"
+
+#~ msgid "Unable to open the .gitconfig file."
+#~ msgstr ".gitconfig-bestand openen is mislukt."
+
+#~ msgid "stage"
+#~ msgstr "stage"
+
+#~ msgid "unstage"
+#~ msgstr "unstage"
+
+#~ msgid "Loading diff…"
+#~ msgstr "Verschillen laden…"
+
+#~ msgid "Note: The Git config file '%s' does not exist."
+#~ msgstr "Opmerking: het git-configuratiebestand ‘%s’ bestaat niet."
+
+#~ msgid "Save"
+#~ msgstr "Opslaan"
+
+#~ msgid "_Help"
+#~ msgstr "_Hulp"
+
+#~ msgid "_Quit"
+#~ msgstr "Afslui_ten"
+
+#~ msgid "_Open Repository…"
+#~ msgstr "Repository _openen…"
+
+#~ msgid "_Clone Repository…"
+#~ msgstr "Repository _klonen"
+
+#~ msgid "Show stash in history"
+#~ msgstr "Stash in geschiedenis tonen"
+
+#~ msgid "Show staged changes in history"
+#~ msgstr "Staged wijzigingen in geschiedenis tonen"
+
+#~ msgid "Show unstaged changes in history"
+#~ msgstr "Unstaged wijzigingen in geschiedenis tonen"
+
+#, fuzzy
+#~| msgid "Show staged changes in history"
+#~ msgid "Show changes inline"
+#~ msgstr "Staged wijzigingen in geschiedenis tonen"
+
+#~ msgid "column"
+#~ msgstr "kolom"
 
 #~ msgid "Filter Revisions When Searching"
 #~ msgstr "Filter revisies bij zoeken"
@@ -1119,9 +2023,6 @@ msgstr "kolom"
 #~ msgid "Start gitg in commit mode"
 #~ msgstr "Open gitg in commit mode"
 
-#~ msgid "Select commit after loading the repository"
-#~ msgstr "Commit selecteren na laden van repository"
-
 #~ msgid "Cannot display file content as text"
 #~ msgstr "Kan bestandsinhoud niet weergeven als tekst"
 
@@ -1144,9 +2045,6 @@ msgstr "kolom"
 #~ msgid "Reverting changes is permanent and cannot be undone"
 #~ msgstr ""
 #~ "Wijzigingen terugdraaien is permanent en kan niet ongedaan gemaakt worden"
-
-#~ msgid "Not a valid git repository"
-#~ msgstr "Geen geldige git repository"
 
 #~ msgid "(Empty)"
 #~ msgstr "(Leeg)"
@@ -1174,9 +2072,6 @@ msgstr "kolom"
 
 #~ msgid "Local branches"
 #~ msgstr "Locale takken"
-
-#~ msgid "All branches"
-#~ msgstr "Alle takken"
 
 #~ msgid "Begin loading repository"
 #~ msgstr "Begin laden van repository"
@@ -1215,9 +2110,6 @@ msgstr "kolom"
 #~ "hebben samen met dit Programma; indien dit niet zo is, schrijf naar\n"
 #~ "de Free Software Foundation, Inc.,\n"
 #~ "59 Temple Place, Suite 330, Boston, MA 02111-1307 USA"
-
-#~ msgid "new"
-#~ msgstr "nieuw"
 
 #~ msgid "New local branch <%s>"
 #~ msgstr "Nieuwe lokale tak <%s>"
@@ -1297,9 +2189,6 @@ msgstr "kolom"
 #~ msgid "You have uncommited changes in your current working tree"
 #~ msgstr "Je hebt wijzigingen in de werkkopie die nog niet gecommit zijn"
 
-#~ msgid "Failed to checkout local branch <%s>"
-#~ msgstr "Lokale tak <%s> kon niet worden uitgechecked"
-
 #~ msgid "Failed to checkout remote branch <%s> to local branch <%s>"
 #~ msgstr ""
 #~ "Afgelegen tak <%s> kon niet worden uitgechecked naar lokale tak <%s>"
@@ -1324,9 +2213,6 @@ msgstr "kolom"
 #~ "De wijzigingen zijn tijdelijk opgeslagen en kunnen handmatig worden "
 #~ "toegepast"
 
-#~ msgid "Failed to checkout previously checked out branch"
-#~ msgstr "Kon vorige uitgecheckte tak niet opnieuw uitchecken"
-
 #~ msgid "Failed to reapply stash correctly"
 #~ msgstr "Kon tijdelijke opgeslagen wijzigingen niet toepassen"
 
@@ -1342,9 +2228,6 @@ msgstr "kolom"
 
 #~ msgid "The branch on which to merge could not be checked out"
 #~ msgstr "De tak waarop gemerged moet worden kon niet worden uitgechecked"
-
-#~ msgid "Merging %s branch <%s> onto %s branch <%s>"
-#~ msgstr "Samenvoegen van %s tak <%s> op %s tak <%s>"
 
 #~ msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
 #~ msgstr ""
@@ -1414,9 +2297,6 @@ msgstr "kolom"
 #~ msgid "The tag object could not be successfully created"
 #~ msgstr "Het tag object kon niet succesvol worden aangemaakt"
 
-#~ msgid "Failed to cherry-pick on <%s>"
-#~ msgstr "Cherry-pick op <%s> mislukt"
-
 #~ msgid "Are you sure you want to cherry-pick that revision on <%s>?"
 #~ msgstr "Weet je zeker dat je die revisie wilt cherry-picken op <%s>?"
 
@@ -1427,9 +2307,6 @@ msgstr "kolom"
 #~ msgstr ""
 #~ "De tak waarop de cherry-pick moest worden uitgevoerd kon niet worden "
 #~ "uitgechecked"
-
-#~ msgid "Cherry-picking on <%s>"
-#~ msgstr "Cherry-picken op <%s>"
 
 #~ msgid "Fetch"
 #~ msgstr "Ophalen"
@@ -1445,9 +2322,6 @@ msgstr "kolom"
 
 #~ msgid "Date:"
 #~ msgstr "Datum:"
-
-#~ msgid "Parent:"
-#~ msgstr "Ouder:"
 
 #~ msgid "SHA:"
 #~ msgstr "SHA:"
@@ -1524,12 +2398,6 @@ msgstr "kolom"
 #~ msgid "Apply stash to..."
 #~ msgstr "Pas tijdelijke opslag toe op..."
 
-#~ msgid "Checkout branch"
-#~ msgstr "Tak uitchecken"
-
-#~ msgid "Cherry-pick on..."
-#~ msgstr "Cherry-pick op..."
-
 #~ msgid "Merge branch with..."
 #~ msgstr "Tak samenvoegen met..."
 
@@ -1556,9 +2424,6 @@ msgstr "kolom"
 
 #~ msgid "R_ecently Opened"
 #~ msgstr "R_ecentelijk geopend"
-
-#~ msgid "_Edit"
-#~ msgstr "Be_werken"
 
 #~ msgid "_View"
 #~ msgstr "Beel_d"
