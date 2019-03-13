@@ -145,9 +145,9 @@
         },
         {
             "name" : "libdazzle",
-            "config-opt" : [
-                "--prefix=/opt/gnome",
-                "--libdir=/opt/gnome/lib"
+            "config-opts" : [
+                "--libdir=/app/lib",
+                "--buildtype=debugoptimized"
             ],
             "buildsystem" : "meson",
             "builddir" : true,
