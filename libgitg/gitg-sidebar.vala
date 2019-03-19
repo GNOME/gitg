@@ -483,16 +483,7 @@ public class Sidebar : Gtk.TreeView
 		menu.show_all();
 		menu.attach_to_widget(this, null);
 
-		uint button = 0;
-		uint32 t = Gdk.CURRENT_TIME;
-
-		if (event != null)
-		{
-			button = event.button;
-			t = event.time;
-		}
-
-		menu.popup(null, null, null, button, t);
+		menu.popup_at_pointer(event);
 		return true;
 	}
 
