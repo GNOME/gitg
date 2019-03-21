@@ -236,17 +236,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		menu.add(copy_file_path);
 
-		uint button = 0;
-		uint evtime = Gdk.CURRENT_TIME;
-
-		if (event != null)
-		{
-			button = event.button;
-			evtime = event.time;
-		}
-
 		menu.attach_to_widget(d_expander, null);
-		menu.popup(null, null, null, button, evtime);
+		menu.popup_at_pointer(event);
 	}
 
 	private bool expander_button_press_event(Gtk.Widget widget, Gdk.EventButton? event)
