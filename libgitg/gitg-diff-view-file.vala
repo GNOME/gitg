@@ -236,6 +236,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		menu.add(copy_file_path);
 
+		menu.attach_to_widget(d_expander, null);
 		menu.popup_at_pointer(event);
 	}
 
