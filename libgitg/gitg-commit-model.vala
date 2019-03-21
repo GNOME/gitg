@@ -405,8 +405,10 @@ namespace Gitg
 					int mylane;
 					SList<Lane> lanes;
 
-					if (d_lanes.next(commit, out lanes, out mylane))
+					bool finded = d_lanes.next(commit, out lanes, out mylane, true);
+					if (finded)
 					{
+						message("finded parent for %s", commit.get_id().to_string());
 						commit.update_lanes((owned)lanes, mylane);
 
 						lock(d_id_hash)
@@ -427,7 +429,48 @@ namespace Gitg
 
 						d_ids[d_ids.length++] = commit;
 					}
-					else
+					while (d_lanes.miss_commits.size > 0)
+					{
+						finded = false;
+						var iter = d_lanes.miss_commits.iterator();
+						while (iter.next())
+						{
+							var miss_commit = iter.get();
+							message("trying again %s", miss_commit.get_id().to_string());
+							bool tmp_finded = d_lanes.next(miss_commit, out lanes, out mylane);
+							if (tmp_finded)
+							{
+								finded = true;
+								message("finded parent for %s", miss_commit.get_id().to_string());
+								iter.remove();
+								commit = miss_commit;
+
+								commit.update_lanes((owned)lanes, mylane);
+
+								lock(d_id_hash)
+								{
+									d_id_hash.set(id, d_ids.length);
+								}
+
+								if (needs_resize(d_ids, ref size))
+								{
+									var l = d_ids.length;
+
+									lock(d_ids)
+									{
+										d_ids.resize((int)size);
+										d_ids.length = l;
+									}
+								}
+
+								d_ids[d_ids.length++] = commit;
+							}
+						}
+						if (!finded)
+							break;
+					}
+
+					if (!finded)
 					{
 						if (needs_resize(d_hidden_ids, ref hidden_size))
 						{
