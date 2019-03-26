@@ -62,8 +62,6 @@ namespace Gitg
 			var window = new Gdk.Window(get_parent_window(),
 			                            attributes, attributes_mask);
 
-			var context = get_style_context();
-			context.set_background(window);
 
 			set_window(window);
 			window.set_user_data(this);
