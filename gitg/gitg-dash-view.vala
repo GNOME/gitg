@@ -176,6 +176,12 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 			remove_button.sensitive = false;
 			remove_button.show();
+			var remove_source_button = new Gtk.Button.with_mnemonic(_("_Remove Sources"));
+			remove_source_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+
+
+			remove_source_button.sensitive = false;
+			remove_source_button.show();
 
 			remove_button.clicked.connect(() => {
 				foreach (var sel in d_repository_list_box.selection)
@@ -186,9 +192,20 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 				selectable_mode = GitgExt.SelectionMode.NORMAL;
 			});
 
+			remove_source_button.clicked.connect(() => {
+				foreach (var sel in d_repository_list_box.selection)
+				{
+					sel.request_remove_source();
+				}
+
+				selectable_mode = GitgExt.SelectionMode.NORMAL;
+			});
+
 			d_repository_list_box.bind_property("has-selection", remove_button, "sensitive");
+			d_repository_list_box.bind_property("has-selection", remove_source_button, "sensitive");
 
 			ab.pack_end(remove_button);
+			ab.pack_start(remove_source_button);
 
 			return ab;
 

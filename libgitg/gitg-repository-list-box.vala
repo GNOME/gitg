@@ -56,6 +56,7 @@ namespace Gitg
 			private Gtk.Box d_languages_box;
 
 			public signal void request_remove();
+			public signal void request_remove_source();
 
 			private SelectionMode d_mode;
 			private string? d_dirname;
@@ -551,6 +552,76 @@ namespace Gitg
 			return row;
 		}
 
+		private void remove_source_clicked(Row row)
+		{
+			var repository = row.repository;
+			var workdir = repository.workdir != null ? repository.workdir : repository.location;
+
+			var alertmessage = "Removing repository source files will delete them from your computer and cannot be undone ";
+			var alert_dialog = new Gtk.MessageDialog ((Gtk.Window)row.get_toplevel(),
+				Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.NONE,
+				_("%s").printf(alertmessage),null);
+			alert_dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
+			alert_dialog.add_button (_("Remove Source Files"), Gtk.ResponseType.OK);
+			var ok_button =  alert_dialog.get_widget_for_response(Gtk.ResponseType.OK);
+			ok_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+
+			alert_dialog.response.connect ((id) => {
+				if(id == Gtk.ResponseType.OK)
+				{
+					if(workdir != null)
+					{
+						try
+						{
+							d_bookmark_file.remove_item(workdir.get_uri());
+						} catch {}
+
+						remove(row);
+						delete_it.begin(workdir);
+					}
+				}
+				alert_dialog.destroy ();
+			});
+
+			alert_dialog.run ();
+
+		}
+
+		private async void delete_it(File file)
+		{
+			var ftype = file.query_file_type (FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
+			string parse_name = file.get_uri ();
+			print ("%s\n", parse_name);
+			if (ftype == FileType.DIRECTORY) {
+				try
+				{
+					var children = yield file.enumerate_children_async (FileAttribute.STANDARD_NAME, 0,Priority.DEFAULT);
+					GLib.List<FileInfo> fileinfos;
+					while ((fileinfos = yield children.next_files_async (20, Priority.DEFAULT)) != null) 
+					{
+						foreach (var child_finfo in fileinfos)
+						{
+							var child = file.get_child (child_finfo.get_name());
+							yield delete_it (child);
+						}
+					}
+				}
+				catch(Error e)
+				{
+					print ("Error: %s\n", e.message);
+				}
+			}
+			try
+			{
+				yield file.delete_async();
+			}
+			catch (Error e) {
+				warning("Can not delete files %s", e.message);
+				return;
+			}
+
+		}
+
 		private void connect_repository_row(Row row)
 		{
 			var repository = row.repository;
@@ -572,6 +643,11 @@ namespace Gitg
 
 					remove(row);
 				});
+
+				row.request_remove_source.connect(() => {
+					remove_source_clicked(row);
+				});
+
 
 				row.can_remove = true;
 			}
