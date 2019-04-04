@@ -125,11 +125,10 @@ custom_target(
 
 enable_python = get_option('python')
 if enable_python
-  pymod = import('python')
-  py_installation = pymod.find_installation('python3')
+  python = import('python3')
 
   install_data(
     'GitgExt.py',
-    install_dir: join_paths(py_installation.get_path('purelib'), 'gi', 'overrides'),
+    install_dir: join_paths(python.sysconfig_path('purelib'), 'gi', 'overrides'),
   )
 endif
