@@ -1299,7 +1299,7 @@ namespace GitgCommit
 
 		private async void stage_unstage_selection(bool staging) throws Error
 		{
-			var selection = d_main.diff_view.selection;
+			var selection = d_main.diff_view.get_selection();
 			var stage = application.repository.stage;
 
 			foreach (var pset in selection)
@@ -1317,7 +1317,7 @@ namespace GitgCommit
 
 		private async void discard_selection() throws Error
 		{
-			var selection = d_main.diff_view.selection;
+			var selection = d_main.diff_view.get_selection();
 			var stage = application.repository.stage;
 
 			foreach (var pset in selection)

@@ -178,7 +178,7 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 			remove_button.show();
 
 			remove_button.clicked.connect(() => {
-				foreach (var sel in d_repository_list_box.selection)
+				foreach (var sel in d_repository_list_box.get_selection())
 				{
 					sel.request_remove();
 				}

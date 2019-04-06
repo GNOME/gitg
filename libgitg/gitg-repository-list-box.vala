@@ -610,24 +610,21 @@ namespace Gitg
 			return row;
 		}
 
-		public Row[] selection
+		public Row[] get_selection()
 		{
-			owned get
+			var ret = new Row[0];
+
+			foreach (var row in get_children())
 			{
-				var ret = new Row[0];
+				var r = (Row)row;
 
-				foreach (var row in get_children())
+				if (r.selected)
 				{
-					var r = (Row)row;
-
-					if (r.selected)
-					{
-						ret += r;
-					}
+					ret += r;
 				}
-
-				return ret;
 			}
+
+			return ret;
 		}
 
 		public bool has_selection

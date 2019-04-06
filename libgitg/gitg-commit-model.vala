@@ -113,7 +113,15 @@ namespace Gitg
 			}
 		}
 
-		public Ggit.OId[] permanent_lanes { get; set; }
+		private Ggit.OId[] _permanent_lanes;
+		
+		public Ggit.OId[] get_permanent_lanes() {
+			return _permanent_lanes;
+		}
+		
+		public void set_permanent_lanes(Ggit.OId[] value) {
+			_permanent_lanes = value;
+		}
 
 		public signal void started();
 		public signal void update(uint added);
@@ -173,7 +181,7 @@ namespace Gitg
 		{
 			cancel();
 
-			if (d_repository == null || d_include.length == 0)
+			if (d_repository == null || get_include().length == 0)
 			{
 				return;
 			}
@@ -218,12 +226,17 @@ namespace Gitg
 
 		public void set_include(Ggit.OId[] ids)
 		{
-			d_include = ids;
+			this.d_include = ids;
+		}
+
+		public Ggit.OId[] get_include()
+		{
+			return this.d_include;
 		}
 
 		public void set_exclude(Ggit.OId[] ids)
 		{
-			d_exclude = ids;
+			this.d_exclude = ids;
 		}
 
 		private void notify_batch(owned SourceFunc? finishedcb)
@@ -302,7 +315,7 @@ namespace Gitg
 
 			var wait_elapsed = wait_elapsed_initial;
 
-			var permlanes = permanent_lanes;
+			var permlanes = get_permanent_lanes();
 
 			ThreadFunc<void*> run = () => {
 				if (d_walker == null)
