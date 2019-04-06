@@ -178,7 +178,7 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 			remove_button.show();
 
 			remove_button.clicked.connect(() => {
-				foreach (var sel in d_repository_list_box.selection)
+				foreach (var sel in d_repository_list_box.get_selection())
 				{
 					sel.request_remove();
 				}
@@ -449,10 +449,10 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		q.message_type = Gtk.MessageType.QUESTION;
 		q.message_use_markup = true;
 
-		q.responses = new GitgExt.UserQueryResponse[] {
+		q.set_responses(new GitgExt.UserQueryResponse[] {
 			new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL),
 			new GitgExt.UserQueryResponse(_("Create repository"), Gtk.ResponseType.OK)
-		};
+		});
 
 		q.default_response = Gtk.ResponseType.OK;
 

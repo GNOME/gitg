@@ -139,7 +139,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 				return ret;
 			}
 
-			var selected = d_selectable.selected_lines;
+			var selected = d_selectable.get_selected_lines();
 
 			for (var i = 0; i < selected.length; i++)
 			{

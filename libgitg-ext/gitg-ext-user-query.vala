@@ -38,7 +38,16 @@ public class UserQuery : Object
 	public string message { get; set; }
 	public Gtk.MessageType message_type { get; set; }
 	public Gtk.ResponseType default_response { get; set; default = Gtk.ResponseType.CLOSE; }
-	public UserQueryResponse[] responses { get; set; }
+	public UserQueryResponse[] _responses;
+
+	public UserQueryResponse[] get_responses() {
+		return _responses;
+	}
+
+	public void set_responses(UserQueryResponse[] value) {
+		_responses = value;
+	}
+
 	public bool default_is_destructive { get; set; }
 	public bool message_use_markup { get; set; }
 
@@ -52,21 +61,21 @@ public class UserQuery : Object
 		var l = va_list();
 		var resps = new UserQueryResponse[0];
 
-    	while (true) {
-        	string? text = l.arg();
+		while (true) {
+			string? text = l.arg();
 
-        	if (text == null) {
-        		break;
-        	}
+			if (text == null) {
+				break;
+			}
 
-        	resps += new UserQueryResponse(text, l.arg());
-        }
+			resps += new UserQueryResponse(text, l.arg());
+		}
 
-        responses = resps;
+		set_responses(resps);
 
-        if (resps.length > 0) {
-        	default_response = resps[resps.length - 1].response_type;
-        }
+		if (resps.length > 0) {
+			default_response = resps[resps.length - 1].response_type;
+		}
 	}
 }
 

@@ -144,7 +144,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			return false;
 		}
 
-		var elems = d_activities.available_elements;
+		var elems = d_activities.get_available_elements();
 		i--;
 
 		if (i >= elems.length)
@@ -1092,7 +1092,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		dlg.set_default_response(query.default_response);
 
-		foreach (var response in query.responses)
+		foreach (var response in query.get_responses())
 		{
 			var button = dlg.add_button(response.text, response.response_type);
 

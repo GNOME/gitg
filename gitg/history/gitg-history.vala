@@ -1087,7 +1087,7 @@ namespace GitgHistory
 				}
 			}
 
-			d_commit_list_model.permanent_lanes = permanent;
+			d_commit_list_model.set_permanent_lanes(permanent);
 			d_commit_list_model.set_include(include.to_array());
 			d_commit_list_model.reload();
 		}

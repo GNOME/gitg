@@ -94,12 +94,13 @@ class Gitg.Test.Application : Gitg.Test.Repository, GitgExt.Application
 		assert_inteq(expected.query.default_response, query.default_response);
 		assert_booleq(expected.query.default_is_destructive, query.default_is_destructive);
 		assert_booleq(expected.query.message_use_markup, query.message_use_markup);
-		assert_inteq(expected.query.responses.length, query.responses.length);
+		var responses = expected.query.get_responses();
+		assert_inteq(responses.length, responses.length);
 
-		for (var i = 0; i < expected.query.responses.length; i++)
+		for (var i = 0; i < responses.length; i++)
 		{
-			assert_inteq(expected.query.responses[i].response_type, query.responses[i].response_type);
-			assert_streq(expected.query.responses[i].text, query.responses[i].text);
+			assert_inteq(responses[i].response_type, query.get_responses()[i].response_type);
+			assert_streq(responses[i].text, query.get_responses()[i].text);
 		}
 
 		return expected.response;

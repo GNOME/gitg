@@ -84,10 +84,10 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 			query.message = (_("Are you sure that you want to permanently delete the remote branch %s?")).printf(name);
 		}
 
-		query.responses = new GitgExt.UserQueryResponse[] {
+		query.set_responses(new GitgExt.UserQueryResponse[] {
 			new GitgExt.UserQueryResponse(_("Cancel"), Gtk.ResponseType.CANCEL),
 			new GitgExt.UserQueryResponse(_("Delete"), Gtk.ResponseType.OK)
-		};
+		});
 
 		query.default_response = Gtk.ResponseType.OK;
 		query.response.connect(on_response);

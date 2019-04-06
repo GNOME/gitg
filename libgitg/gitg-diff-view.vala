@@ -648,24 +648,21 @@ public class Gitg.DiffView : Gtk.Grid
 		auto_change_expanded(true);
 	}
 
-	public PatchSet[] selection
+	public PatchSet[] get_selection()
 	{
-		owned get
+		var ret = new PatchSet[0];
+
+		foreach (var file in d_grid_files.get_children())
 		{
-			var ret = new PatchSet[0];
+			var sel = (file as Gitg.DiffViewFile).renderer as DiffSelectable;
 
-			foreach (var file in d_grid_files.get_children())
+			if (sel != null && sel.has_selection && sel.selection.patches.length != 0)
 			{
-				var sel = (file as Gitg.DiffViewFile).renderer as DiffSelectable;
-
-				if (sel != null && sel.has_selection && sel.selection.patches.length != 0)
-				{
-					ret += sel.selection;
-				}
+				ret += sel.selection;
 			}
-
-			return ret;
 		}
+
+		return ret;
 	}
 
 	private void update_hide_show_options(Gdk.Window window, int ex, int ey)

@@ -133,10 +133,10 @@ class RefActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obje
 		query.title = (_("Push branch %s")).printf(branch_name);
 		query.message = (_("Are you sure that you want to push the branch %s?")).printf(branch_name);
 
-		query.responses = new GitgExt.UserQueryResponse[] {
+		query.set_responses(new GitgExt.UserQueryResponse[] {
 			new GitgExt.UserQueryResponse(_("Cancel"), Gtk.ResponseType.CANCEL),
 			new GitgExt.UserQueryResponse(_("Push"), Gtk.ResponseType.OK)
-		};
+		});
 
 		query.default_response = Gtk.ResponseType.OK;
 		query.response.connect(on_response);

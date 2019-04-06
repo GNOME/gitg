@@ -1299,7 +1299,7 @@ namespace GitgCommit
 
 		private async void stage_unstage_selection(bool staging) throws Error
 		{
-			var selection = d_main.diff_view.selection;
+			var selection = d_main.diff_view.get_selection();
 			var stage = application.repository.stage;
 
 			foreach (var pset in selection)
@@ -1317,7 +1317,7 @@ namespace GitgCommit
 
 		private async void discard_selection() throws Error
 		{
-			var selection = d_main.diff_view.selection;
+			var selection = d_main.diff_view.get_selection();
 			var stage = application.repository.stage;
 
 			foreach (var pset in selection)
@@ -1337,10 +1337,10 @@ namespace GitgCommit
 			q.message = secondary;
 			q.message_type = Gtk.MessageType.QUESTION;
 
-			q.responses = new GitgExt.UserQueryResponse[] {
+			q.set_responses(new GitgExt.UserQueryResponse[] {
 				new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL),
 				new GitgExt.UserQueryResponse(_("Discard"), Gtk.ResponseType.OK),
-			};
+			});
 
 			q.default_response = Gtk.ResponseType.OK;
 
@@ -1503,10 +1503,10 @@ namespace GitgCommit
 			q.message = secondary;
 			q.message_type = Gtk.MessageType.QUESTION;
 
-			q.responses = new GitgExt.UserQueryResponse[] {
+			q.set_responses(new GitgExt.UserQueryResponse[] {
 				new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL),
 				new GitgExt.UserQueryResponse(_("Discard"), Gtk.ResponseType.OK)
-			};
+			});
 
 			q.default_response = Gtk.ResponseType.OK;
 
@@ -1618,10 +1618,10 @@ namespace GitgCommit
 			q.message = secondary;
 			q.message_type = Gtk.MessageType.QUESTION;
 
-			q.responses = new GitgExt.UserQueryResponse[] {
+			q.set_responses(new GitgExt.UserQueryResponse[] {
 				new GitgExt.UserQueryResponse(_("_Cancel"), Gtk.ResponseType.CANCEL),
 				new GitgExt.UserQueryResponse(primary, Gtk.ResponseType.OK)
-			};
+			});
 
 			q.default_response = Gtk.ResponseType.OK;
 			q.default_is_destructive = true;
