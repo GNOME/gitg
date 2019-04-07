@@ -1,16 +1,16 @@
 # Danish translation for gitg.
 # Copyright (C) 2012, 2014-2017 gitg & nedenstående oversættere.
 # This file is distributed under the same license as the gitg package.
-#
+# 
 # Joe Hansen <joedalton2@yahoo.dk>, 2009, 2010, 2011, 2012.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2014-2017.
 # Kenneth Nielsen <k.nielsen81@gmail.com>, 2014, 2015.
 # Korrekturlæst Lars Christian Jensen 6. juni 2009.
 # Korrekturlæst Ask 26. januar 2010.
 # scootergrisen, 2016, 2019.
-#
+# 
 # Visse begreber beholder vi på dansk hvor det er mest ligetil:
-#
+# 
 # branch -> gren
 # check out -> tjekke ud
 # clone -> klone
@@ -18,22 +18,22 @@
 # merge -> flet
 # repository -> arkiv
 # tag -> mærke
-#
+# 
 # Andre har ikke så direkte oversættelser, eller oversættelserne bruges på måder så oversættelser bliver grammatisk besværlige.  I disse tilfælde beholdes de engelske, og ofte bøjer vi engelske låneverber på den mest skamløse vis:
-#
+# 
 # commit
 # stage, unstage
 # stash
 # patch
-#
+# 
 # Engelske udtryk er indsat i parentes udvalgte steder, da de ofte er kendt
 # af teknikfolk.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-03-02 18:56+0000\n"
+"POT-Creation-Date: 2019-03-22 20:45+0000\n"
 "PO-Revision-Date: 2019-03-03 00:00+0200\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish\n"
@@ -56,8 +56,8 @@ msgid ""
 "repository and commit your work."
 msgstr ""
 "gitg er en grafisk brugerflade til git. Den bestræber sig på at være et "
-"lille, hurtigt og bekvemt værktøj til at visualisere historikken af git-"
-"arkiver. Udover visualisering har gitg også adskillige redskaber til at "
+"lille, hurtigt og bekvemt værktøj til at visualisere historikken af "
+"git-arkiver. Udover visualisering har gitg også adskillige redskaber til at "
 "håndtere dit arkiv og committe dit arbejde."
 
 #: data/org.gnome.gitg.appdata.xml.in.in:14
@@ -108,11 +108,6 @@ msgstr "gitg"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Arkivbrowser til git"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.gitg.desktop.in.in:10
-msgid "@icon@"
-msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -198,8 +193,8 @@ msgid ""
 msgstr ""
 "Indstilling som angiver, om historikbaner, som ikke viser nogen aktivitet, "
 "skal sammenfoldes. Hvis dette slås til, kan det give en renere "
-"historikoversigt, når der foregår en masse samtidig udvikling. Se collapse-"
-"inactive-lanes for at styre hvornår historikbaner sammenfoldes."
+"historikoversigt, når der foregår en masse samtidig udvikling. Se "
+"collapse-inactive-lanes for at styre hvornår historikbaner sammenfoldes."
 
 #: data/org.gnome.gitg.gschema.xml.in:97
 msgid "Show History in Topological Order"
@@ -443,16 +438,16 @@ msgstr ""
 "Indstilling som angiver, hvor mange linjer af kontekst (før og efter) der "
 "skal bruges i diffen for stage/unstage i commit-området."
 
-#: gitg/commit/gitg-commit-dialog.vala:298
+#: gitg/commit/gitg-commit-dialog.vala:299
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Kan ikke indstille sprog for stavekontrol: %s"
 
-#: gitg/commit/gitg-commit-dialog.vala:504 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Der er ingen ændringer at committe"
 
-#: gitg/commit/gitg-commit-dialog.vala:505 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Tilret (amend) for at ændre commitbeskeden for den forrige commit"
 
@@ -764,8 +759,9 @@ msgstr ""
 "Kenneth Nielsen\n"
 "scootergrisen\n"
 "\n"
-"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
-"Mere info: http://www.dansk-gruppen.dk"
+"Dansk-gruppen\n"
+"Websted <http://dansk-gruppen.dk>\n"
+"E-mail <dansk@dansk-gruppen.dk>"
 
 #: gitg/gitg-application.vala:238
 msgid "gitg homepage"
@@ -776,8 +772,8 @@ msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
 "\n"
-"If you manually compiled libgit2, then please configure libgit2 with -"
-"DTHREADSAFE:BOOL=ON.\n"
+"If you manually compiled libgit2, then please configure libgit2 with "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
@@ -785,8 +781,8 @@ msgstr ""
 "Det er brandærgerligt, men gitg kræver altså at libgit2 (et bibliotek som "
 "gitg afhænger af) er kompileret med trådunderstøttelse.\n"
 "\n"
-"Hvis du har kompileret libgit2 manuelt, så konfigurér venligst libgit2 med -"
-"DTHREADSAFE:BOOL=ON.\n"
+"Hvis du har kompileret libgit2 manuelt, så konfigurér venligst libgit2 med "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Ellers så meld en fejl i din distributions fejlrapporteringssystem om at "
 "libgit2 mangler trådunderstøttelse."
@@ -856,8 +852,8 @@ msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"Cherry-pick af %s ind i %s har forårsaget konflikter. Vil du tjekke cherry-"
-"pick-tilstanden ud til din arbejdsmappe for at løse konflikterne?"
+"Cherry-pick af %s ind i %s har forårsaget konflikter. Vil du tjekke "
+"cherry-pick-tilstanden ud til din arbejdsmappe for at løse konflikterne?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -934,7 +930,7 @@ msgstr "Kunne ikke oprette mærke"
 msgid "Failed to lookup tag"
 msgstr "Kunne ikke finde mærke"
 
-#: gitg/gitg-create-tag-dialog.vala:110
+#: gitg/gitg-create-tag-dialog.vala:120
 msgid "Provide a message to create an annotated tag"
 msgstr "Angiv en meddelelse for at oprette et annoteret mærke"
 
@@ -1932,10 +1928,14 @@ msgstr "Fjern arkivet fra listen (vil ikke slette arkivet fra disken)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "Vis de ændringer der blev introduceret ved det valgte commit"
 
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:64
 msgid "Files"
 msgstr "Filer"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Vis filerne i træet for det valgte commit"
+
+#~ msgid "@icon@"
+#~ msgstr "@icon@"
+
