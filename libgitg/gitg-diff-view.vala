@@ -396,7 +396,7 @@ public class Gitg.DiffView : Gtk.Grid
 		double ex, ey;
 		int x, y;
 
-		if (evt.type == Gdk.BUTTON_RELEASE)
+		if (evt.type == Gdk.EventType.BUTTON_RELEASE)
 		{
 			Gdk.EventButton event;
 
@@ -407,7 +407,7 @@ public class Gitg.DiffView : Gtk.Grid
 			ex = event.x;
 			ey = event.y;
 		}
-		else if (evt.type == Gdk.TOUCH_END)
+		else if (evt.type == Gdk.EventType.TOUCH_END)
 		{
 			Gdk.EventTouch event;
 
