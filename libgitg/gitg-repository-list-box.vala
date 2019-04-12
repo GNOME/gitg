@@ -605,7 +605,8 @@ namespace Gitg
 			}
 			var dtype = repo.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
 
-			if (dtype == FileType.DIRECTORY) {
+			if (dtype == FileType.DIRECTORY)
+			{
 				try
 				{
 					var dir_in_repository = yield repo.enumerate_children_async (FileAttribute.STANDARD_NAME, 0,Priority.DEFAULT);
