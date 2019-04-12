@@ -170,10 +170,8 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		owned get
 		{
 			var ab = new Gtk.ActionBar();
-
 			var remove_button = new Gtk.Button.with_mnemonic(_("_Remove"));
 			remove_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-
 			remove_button.sensitive = false;
 			remove_button.show();
 			var remove_source_button = new Gtk.Button.with_mnemonic(_("_Remove Sources"));
@@ -201,12 +199,9 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 			d_repository_list_box.bind_property("has-selection", remove_button, "sensitive");
 			d_repository_list_box.bind_property("has-selection", remove_source_button, "sensitive");
-
 			ab.pack_end(remove_button);
 			ab.pack_start(remove_source_button);
-
 			return ab;
-
 		}
 	}
 

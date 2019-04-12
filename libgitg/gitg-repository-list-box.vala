@@ -634,7 +634,6 @@ namespace Gitg
 				cancellable.cancel();
 				throw e;
 			}
-
 		}
 
 		private void connect_repository_row(Row row)
@@ -663,22 +662,18 @@ namespace Gitg
 					remove_source_clicked(row);
 				});
 
-
 				row.can_remove = true;
 			}
 			else
 			{
 				row.can_remove = false;
 			}
-
 		}
 
 		public Row? add_repository(Repository repository, DateTime? visited = null)
 		{
 			Row? row = get_row_for_repository(repository);
-
 			var f = repository.workdir != null ? repository.workdir : repository.location;
-
 			if (row == null)
 			{
 				var dirname = Utils.replace_home_dir_with_tilde((repository.workdir != null ? repository.workdir : repository.location).get_parent());
@@ -692,12 +687,10 @@ namespace Gitg
 
 			row.time = visited != null ? visited : new DateTime.now_local();
 			invalidate_sort();
-
 			if (f != null)
 			{
 				add_repository_to_bookmarks(f.get_uri(), visited);
 			}
-
 			return row;
 		}
 
