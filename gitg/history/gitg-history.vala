@@ -1134,7 +1134,6 @@ namespace GitgHistory
 			set
 			{
 				d_main.commit_list_view.set_search_entry(value);
-				d_main.commit_list_view.set_enable_search(value != null);
 
 				if (value != null)
 				{
