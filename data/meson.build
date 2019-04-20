@@ -5,7 +5,7 @@ desktop = 'org.gnome.gitg.desktop'
 desktop_config = configuration_data()
 desktop_config.set('icon', application_id)
 desktop_config.set('binary', gitg_name)
-i18n.merge_file(
+desktop_file = i18n.merge_file(
   desktop,
   type: 'desktop',
   input: configure_file(
@@ -18,6 +18,17 @@ i18n.merge_file(
   install: true,
   install_dir: join_paths(gitg_datadir, 'applications'),
 )
+
+desktop_file_validate = find_program('desktop-file-validate', required: false)
+if desktop_file_validate.found()
+  test(
+    'validate-desktop',
+    desktop_file_validate,
+    args: [
+      desktop_file.full_path()
+    ]
+  )
+endif
 
 schema_conf = configuration_data()
 schema_conf.set('GETTEXT_PACKAGE', gitg_gettext)
@@ -41,7 +52,7 @@ appdata = 'org.gnome.gitg.appdata.xml'
 appdata_config = configuration_data()
 appdata_config.set('app-id', application_id)
 appdata_config.set('gettext', gitg_name)
-i18n.merge_file(
+appdata_file = i18n.merge_file(
   appdata,
   type: 'xml',
   input: configure_file(
@@ -54,6 +65,15 @@ i18n.merge_file(
   install: true,
   install_dir: join_paths(gitg_datadir, 'metainfo'),
 )
+appstream_util = find_program('appstream-util', required: false)
+if appstream_util.found()
+  test(
+    'validate-appdata', appstream_util,
+    args: [
+      'validate-strict', '--nonet', appdata_file.full_path()
+    ]
+  )
+endif
 
 install_man(
   'gitg.1',
