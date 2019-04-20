@@ -241,7 +241,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		if (button.get_active())
 		{
-			d_search_entry.grab_focus();
+			d_search_entry.grab_focus_without_selecting();
 
 			d_search_entry.text = searchable.search_text;
 			searchable.search_visible = true;
