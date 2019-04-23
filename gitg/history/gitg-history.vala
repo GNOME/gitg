@@ -852,6 +852,15 @@ namespace GitgHistory
 
 			add_ref_action(actions, fetch);
 
+			var push = new Gitg.RefActionPush(application, af, reference);
+
+			if (push.available)
+			{
+				actions.add(null);
+			}
+
+			add_ref_action(actions, push);
+
 			var merge = new Gitg.RefActionMerge(application, af, reference);
 
 			if (merge.available)
