@@ -115,6 +115,7 @@ if gitg_debug
 endif
 
 add_project_arguments(common_flags, language: 'c')
+add_project_arguments(['-DG_LOG_DOMAIN="gitg"'], language: 'c')
 
 # vala compiler flags
 add_project_arguments('--vapidir=' + vapi_dir, language: 'vala')
