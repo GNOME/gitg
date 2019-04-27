@@ -601,11 +601,9 @@ class Dialog : Gtk.Dialog
 		ctx.add_class("warning");
 
 		var fg = ctx.get_color(Gtk.StateFlags.NORMAL);
-		var bg = ctx.get_background_color(Gtk.StateFlags.NORMAL);
 
 		ctx.restore();
 
-		d_too_long_tag.background_rgba = bg;
 		d_too_long_tag.foreground_rgba = fg;
 	}
 
@@ -746,7 +744,7 @@ class Dialog : Gtk.Dialog
 				{
 					break;
 				}
-				
+
 				if (!toolong.forward_to_line_end())
 				{
 					break;
