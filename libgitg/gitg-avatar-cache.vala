@@ -73,8 +73,9 @@ public class Gitg.AvatarCache : Object
 		{
 			stream = yield Gitg.PlatformSupport.http_get(file, cancellable);
 		}
-		catch
+		catch(Error e)
 		{
+			warning("Can not retrieve avatar from %s: %s", file.get_path(), e.message);
 			return null;
 		}
 
