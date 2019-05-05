@@ -231,11 +231,11 @@ namespace GitgHistory
 		{
 			if (d_settings.get_boolean("topological-order"))
 			{
-				d_commit_list_model.sort_mode |= Ggit.SortMode.TOPOLOGICAL;
+				d_commit_list_model.sort_mode = Ggit.SortMode.TOPOLOGICAL;
 			}
 			else
 			{
-				d_commit_list_model.sort_mode &= ~Ggit.SortMode.TOPOLOGICAL;
+				d_commit_list_model.sort_mode = Ggit.SortMode.TIME | Ggit.SortMode.TOPOLOGICAL;
 			}
 		}
 

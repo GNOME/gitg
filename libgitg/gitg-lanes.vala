@@ -26,6 +26,7 @@ public class Lanes : Object
 	public int inactive_collapse { get; set; default = 10; }
 	public int inactive_gap { get; set; default = 10; }
 	public bool inactive_enabled { get; set; default = true; }
+	public Gee.LinkedList<Commit> miss_commits {get; set; }
 
 	private SList<weak Commit> d_previous;
 	private Gee.LinkedList<LaneContainer> d_lanes;
@@ -133,6 +134,7 @@ public class Lanes : Object
 	                  Gee.HashSet<Ggit.OId>? roots    = null)
 	{
 		d_lanes = new Gee.LinkedList<LaneContainer>();
+		miss_commits = new Gee.LinkedList<Commit>();
 		d_roots = roots;
 
 		Color.reset();
@@ -155,7 +157,8 @@ public class Lanes : Object
 
 	public bool next(Commit           next,
 	                 out SList<Lane> lanes,
-	                 out int         nextpos)
+	                 out int         nextpos,
+	                 bool save_miss = false)
 	{
 		var myoid = next.get_id();
 
@@ -165,11 +168,16 @@ public class Lanes : Object
 			expand_lanes(next);
 		}
 
+		debug("commit: %s %s", next.get_subject(), next.get_id().to_string());
 		LaneContainer? mylane = find_lane_by_oid(myoid, out nextpos);
-
 		if (mylane == null && d_roots != null && !d_roots.contains(myoid))
 		{
 			lanes = null;
+			if (save_miss) {
+				debug ("saving miss %s %s", next.get_id().to_string(), next.get_id().to_string());
+				miss_commits.add(next);
+			}
+
 			return false;
 		}
 
