@@ -109,6 +109,7 @@ class RefActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obje
 		try
 		{
 			yield d_remote.push(branch, null);
+			((Gtk.ApplicationWindow)application).activate_action("reload", null);
 		}
 		catch (Error e)
 		{
