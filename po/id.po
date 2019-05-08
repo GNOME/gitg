@@ -4,12 +4,13 @@
 #
 # Andika Triwidada <andika@gmail.com>, 2012, 2013, 2014.
 # Dirgita <dirgitadevina@yahoo.co.id>, 2014.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-01-27 22:00+0000\n"
-"PO-Revision-Date: 2019-02-04 15:00+0700\n"
+"POT-Creation-Date: 2019-04-24 02:56+0000\n"
+"PO-Revision-Date: 2019-05-08 16:51+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -56,23 +57,23 @@ msgstr "Berkas komit"
 msgid "Retrieve patch from a commit"
 msgstr "Ambil tambalan dari komit"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:30
+#: data/org.gnome.gitg.appdata.xml.in.in:29
 msgid "Browse repository history"
 msgstr "Jelajahi riwayat repositori"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:34
+#: data/org.gnome.gitg.appdata.xml.in.in:33
 msgid "Staging area to compose your commit"
 msgstr "Area staging untuk menyusun komit Anda"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:38
+#: data/org.gnome.gitg.appdata.xml.in.in:37
 msgid "Commit staged changes"
 msgstr "Komit perubahan yang di-stage-kan"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:42
+#: data/org.gnome.gitg.appdata.xml.in.in:41
 msgid "Overview of recently used repositories"
 msgstr "Tinjauan tentang repositori yang digunakan baru-baru ini"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:52
+#: data/org.gnome.gitg.appdata.xml.in.in:66
 msgid "The GNOME Project"
 msgstr "Proyek GNOME"
 
@@ -84,11 +85,6 @@ msgstr "gitg"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Peramban repositori git"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.gitg.desktop.in.in:10
-msgid "@icon@"
-msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -419,16 +415,16 @@ msgstr ""
 "mesti ditunjukkan ketika menampilkan diff yang akan di-stage-kan/tak di-"
 "stage-kan dalam area komit."
 
-#: gitg/commit/gitg-commit-dialog.vala:298
+#: gitg/commit/gitg-commit-dialog.vala:299
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Tak bisa menata bahasa pemeriksaan ejaan: %s"
 
-#: gitg/commit/gitg-commit-dialog.vala:504 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Tak ada perubahan untuk dikomit"
 
-#: gitg/commit/gitg-commit-dialog.vala:505 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Pakai amend untuk mengubah pesan komit dari komit sebelumnya"
 
@@ -562,7 +558,7 @@ msgstr "Anda yakin ingin membuang permanen perubahan yang dipilih?"
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:151
+#: gitg/resources/ui/gitg-window.ui:152
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "_Batal"
@@ -613,7 +609,7 @@ msgstr "Gagal menghapus berkas"
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Hapus berkas"
-msgstr[1] ""
+msgstr[1] "Hapus berkas"
 
 #: gitg/commit/gitg-commit.vala:1601
 #, c-format
@@ -641,7 +637,7 @@ msgstr "_Buang perubahan"
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Hapus b_erkas"
-msgstr[1] ""
+msgstr[1] "Hapus b_erkas"
 
 #: gitg/commit/gitg-commit.vala:1724
 msgid "_Edit file"
@@ -667,7 +663,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:137
+#: gitg/gitg-ref-action-merge.vala:194
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
@@ -906,7 +903,7 @@ msgstr "Gagal membuat tag"
 msgid "Failed to lookup tag"
 msgstr "Gagal mencari tag"
 
-#: gitg/gitg-create-tag-dialog.vala:110
+#: gitg/gitg-create-tag-dialog.vala:120
 msgid "Provide a message to create an annotated tag"
 msgstr "Berikan suatu pesan untuk membuat sebuah tag yang teranotasi"
 
@@ -1102,6 +1099,46 @@ msgstr "Mengambil dari %s: semua telah terbaharui"
 msgid "Fetched from %s: %s"
 msgstr "Mengambil dari %s: %s"
 
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr "Dorong ke %s"
+
+#: gitg/gitg-ref-action-push.vala:91
+#, c-format
+msgid "Push branch to %s"
+msgstr "Dorong cabang ke %s"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, c-format
+msgid "Pushing to %s"
+msgstr "Mendorong ke %s"
+
+#: gitg/gitg-ref-action-push.vala:115
+#, c-format
+msgid "Failed to push to %s: %s"
+msgstr "Gagal mendorong ke %s: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:122
+#, c-format
+msgid "Pushed to %s"
+msgstr "Didorong ke %s"
+
+#: gitg/gitg-ref-action-push.vala:133
+#, c-format
+msgid "Push branch %s"
+msgstr "Dorong cabang %s"
+
+#: gitg/gitg-ref-action-push.vala:134
+#, c-format
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "Anda yakin ingin mendorong cabang %s?"
+
+#: gitg/gitg-ref-action-push.vala:138
+msgid "Push"
+msgstr "Dorong"
+
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
@@ -1200,7 +1237,7 @@ msgid "Failed to rename"
 msgstr "Gagal mengubah nama"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
-#: gitg/resources/ui/gitg-window.ui:226
+#: gitg/resources/ui/gitg-window.ui:227
 msgid "Close"
 msgstr "Tutup"
 
@@ -1216,20 +1253,20 @@ msgstr "T_ambah"
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Pindai semua repositori git dalam direktori ini"
 
-#: gitg/gitg-window.vala:505
+#: gitg/gitg-window.vala:514
 msgid "Projects"
 msgstr "Proyek"
 
-#: gitg/gitg-window.vala:804
+#: gitg/gitg-window.vala:813
 msgid "Select items"
 msgstr "Pilih butir"
 
-#: gitg/gitg-window.vala:1015
+#: gitg/gitg-window.vala:1024
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” bukan suatu repositori Git."
 
-#: gitg/gitg-window.vala:1164
+#: gitg/gitg-window.vala:1173
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1237,7 +1274,7 @@ msgstr ""
 "Nama pengguna dan surel Anda belum ditata. Harap pergi ke konfigurasi "
 "pengguna dan isikan nama serta surel Anda."
 
-#: gitg/gitg-window.vala:1168
+#: gitg/gitg-window.vala:1177
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1245,7 +1282,7 @@ msgstr ""
 "Nama pengguna Anda belum ditata. Harap pergi ke konfigurasi pengguna dan "
 "isikan nama Anda."
 
-#: gitg/gitg-window.vala:1172
+#: gitg/gitg-window.vala:1181
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1253,7 +1290,7 @@ msgstr ""
 "Surel Anda belum ditata. Harap pergi ke konfigurasi pengguna dan isikan "
 "surel Anda."
 
-#: gitg/gitg-window.vala:1175
+#: gitg/gitg-window.vala:1184
 msgid "Missing author details"
 msgstr "Kehilangan rincian penulis"
 
@@ -1319,7 +1356,7 @@ msgstr "Riwayat"
 msgid "Examine the history of the repository"
 msgstr "Periksa riwayat repositori"
 
-#: gitg/history/gitg-history.vala:909
+#: gitg/history/gitg-history.vala:918
 msgid "Mainline"
 msgstr "Mainline"
 
@@ -1418,18 +1455,18 @@ msgstr "Di-stage:"
 msgid "Unstaged:"
 msgstr "Di-unstage:"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:24
-#: gitg/resources/ui/gitg-history-paned.ui:93
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:25
+#: gitg/resources/ui/gitg-history-paned.ui:94
 msgid "Subject"
 msgstr "Subjek"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:41
-#: gitg/resources/ui/gitg-history-paned.ui:110
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42
+#: gitg/resources/ui/gitg-history-paned.ui:111
 msgid "Author"
 msgstr "Penulis"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:57
-#: gitg/resources/ui/gitg-history-paned.ui:126
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
+#: gitg/resources/ui/gitg-history-paned.ui:127
 msgid "Date"
 msgstr "Tanggal"
 
@@ -1652,31 +1689,31 @@ msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Keluar aplikasi"
 
-#: gitg/resources/ui/gitg-window.ui:23
+#: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Tampilkan daftar dari repositori yang baru-baru ini dipakai"
 
-#: gitg/resources/ui/gitg-window.ui:45
+#: gitg/resources/ui/gitg-window.ui:46
 msgid "Clone"
 msgstr "Klon"
 
-#: gitg/resources/ui/gitg-window.ui:46
+#: gitg/resources/ui/gitg-window.ui:47
 msgid "Clone repository"
 msgstr "Klon Repositori"
 
-#: gitg/resources/ui/gitg-window.ui:61
+#: gitg/resources/ui/gitg-window.ui:62
 msgid "Add"
 msgstr "Tambah"
 
-#: gitg/resources/ui/gitg-window.ui:62
+#: gitg/resources/ui/gitg-window.ui:63
 msgid "Add repository"
 msgstr "Tambah repositori"
 
-#: gitg/resources/ui/gitg-window.ui:86
+#: gitg/resources/ui/gitg-window.ui:87
 msgid "Find a word or phrase"
 msgstr "Cari sebuah kata atau frasa"
 
-#: gitg/resources/ui/gitg-window.ui:131
+#: gitg/resources/ui/gitg-window.ui:132
 msgid "General settings and options"
 msgstr "Opsi dan pengaturan dan umum"
 
@@ -1907,13 +1944,16 @@ msgstr "Buang repositori dari daftar (tak menghapus repositori dari disk)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "Tampilkan perubahan yang diperkenalkan oleh komit yang dipilih"
 
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:64
 msgid "Files"
 msgstr "Berkas"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Tunjukkan berkas-berkas dalam pohon dari komit yang dipilih"
+
+#~ msgid "@icon@"
+#~ msgstr "@icon@"
 
 #~ msgid "_Quit"
 #~ msgstr "_Keluar"
