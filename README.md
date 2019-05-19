@@ -20,10 +20,8 @@ $ tar Jxf gitg-3.30.1.tar.xz
 $ cd gitg-3.30.1
 $ meson --prefix=/usr build
 $ ninja -C build
-$ sudo ninja -C install
+$ sudo ninja -C build install
 ```
-
-For more information on installing gitg, please see INSTALL.
 
 ## Building gitg from git
 
