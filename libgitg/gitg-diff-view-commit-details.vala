@@ -117,10 +117,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 	}
 
-	public DiffViewCommitDetails(Ggit.Commit? commit)
-	{
-		Object(commit: commit);
-	}
+	public string config_file { get; construct set; }
 
 	private bool d_use_gravatar;
 
@@ -135,6 +132,8 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 	}
 
 	private Gee.HashMap<Ggit.OId, Gtk.RadioButton> d_parents_map;
+
+	private GLib.Regex regex_url = /\w+:(\/?\/?)[^\s]+/;
 
 	construct
 	{
@@ -186,7 +185,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			return;
 		}
 
-		d_label_subject.label = commit.get_subject();
+		d_label_subject.label = parse_links_on_subject(commit.get_subject());
 		d_label_sha1.label = commit.get_id().to_string();
 
 		var author = commit.get_author();
@@ -255,6 +254,92 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 
 		update_avatar();
+	}
+
+	private string parse_links_on_subject(string subject_text)
+	{
+		string result = subject_text.dup();
+		try
+		{
+			GLib.MatchInfo matchInfo;
+			regex_url.match (subject_text, 0, out matchInfo);
+
+			while (matchInfo.matches ())
+			{
+				string text = matchInfo.fetch(0);
+				result = result.replace(text, "<a href=\"%s\">%s</a>".printf(text, text));
+				matchInfo.next();
+			}
+
+			result = parse_ini_file(result);
+		}
+		catch(Error e)
+		{
+		}
+		return result;
+	}
+
+	private string parse_ini_file(string subject_text)
+	{
+		string result = subject_text.dup();
+		GLib.KeyFile file = new GLib.KeyFile();
+
+		try
+		{
+			debug ("parsing %s", config_file);
+			if (file.load_from_file(config_file , GLib.KeyFileFlags.NONE))
+			{
+				foreach (string group in file.get_groups())
+				{
+					if (group.has_prefix("gitg.custom-link"))
+					{
+						string custom_link_regexp = file.get_string (group, "regexp");
+						string custom_link_replacement = file.get_string (group, "replacement");
+						debug ("found group: %s", custom_link_regexp);
+						bool custom_color = file.has_key (group, "color");
+						string color = null;
+						if (custom_color)
+						{
+							string custom_link_color = file.get_string (group, "color");
+							color = custom_link_color;
+						}
+
+						var custom_regex = new Regex (custom_link_regexp);
+						try
+						{
+							GLib.MatchInfo matchInfo;
+
+							custom_regex.match (subject_text, 0, out matchInfo);
+
+							while (matchInfo.matches ())
+							{
+								string text = matchInfo.fetch(0);
+								string link = text.dup();
+								debug ("found: %s", link);
+								if (custom_link_replacement != null)
+								{
+									link = custom_regex.replace(link, text.length, 0, custom_link_replacement);
+								}
+								if (color != null) {
+									result = result.replace(text, "<a href=\"%s\" title=\"%s\" style=\"color:%s\">%s</a>".printf(link, link, color, text));
+								} else {
+									result = result.replace(text, "<a href=\"%s\" title=\"%s\">%s</a>".printf(link, link, text));
+								}
+
+								matchInfo.next();
+							}
+						}
+						catch(Error e)
+						{
+						}
+					}
+				}
+			}
+		} catch (Error e)
+		{
+			warning ("Cannot read %s %s", config_file, e.message);
+		}
+		return result;
 	}
 
 	private void update_avatar()
