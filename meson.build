@@ -132,7 +132,7 @@ gobject_introspection_dep = dependency('gobject-introspection-1.0', version: '>=
 gsettings_desktop_schemas_dep = dependency('gsettings-desktop-schemas')
 gtk_dep = dependency('gtk+-3.0', version: '>= 3.20.0')
 gtkspell_dep = dependency('gtkspell3-3.0')
-gtksourceview_dep = dependency('gtksourceview-3.0', version: '>= 3.10')
+gtksourceview_dep = dependency('gtksourceview-4', version: '>= 4.0.3')
 libgit2_glib_dep = dependency('libgit2-glib-1.0', version: ['>= 0.27.8'])
 libpeas_dep = dependency('libpeas-1.0')
 libsecret_dep = dependency('libsecret-1')
