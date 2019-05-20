@@ -7,7 +7,7 @@ gitg is a graphical user interface for git. It aims at being a small, fast and c
 The latest version of gitg is 3.30.1.
 
 - Website:      https://wiki.gnome.org/Apps/Gitg
-- Bugs:         https://bugzilla.gnome.org/browse.cgi?product=gitg
+- Issues:       https://gitlab.gnome.org/GNOME/gitg/issues
 - Download:     http://download.gnome.org/sources/gitg/
 - Mailing list: http://mail.gnome.org/mailman/listinfo/gitg-list
 
