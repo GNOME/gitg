@@ -222,7 +222,7 @@ class Gitg.Test.CherryPickCommit : Application
 
 		assert_file_contents("a", "a file\n");
 		assert_file_contents("b", "b file\n");
-		assert_file_contents("c", "<<<<<<< ours\nc file other content\n=======\nc file\n>>>>>>> theirs\n");
+		assert_file_contents("c", "<<<<<<< ours\nc file other content\n|||||||\n=======\nc file\n>>>>>>> theirs\n");
 
 		assert_file_contents(".git/CHERRY_PICK_HEAD", "72af7ccf47852d832b06c7244de8ae9ded639024\n");
 	}
@@ -333,7 +333,7 @@ class Gitg.Test.CherryPickCommit : Application
 
 		assert_file_contents("a", "a file\n");
 		assert_file_contents("b", "b file\n");
-		assert_file_contents("c", "<<<<<<< ours\nc file other content\n=======\nc file\n>>>>>>> theirs\n");
+		assert_file_contents("c", "<<<<<<< ours\nc file other content\n|||||||\n=======\nc file\n>>>>>>> theirs\n");
 
 		assert_file_contents(".git/CHERRY_PICK_HEAD", "72af7ccf47852d832b06c7244de8ae9ded639024\n");
 	}
@@ -391,7 +391,7 @@ class Gitg.Test.CherryPickCommit : Application
 
 		assert_file_contents("a", "a file\n");
 		assert_file_contents("b", "b file\n");
-		assert_file_contents("c", "<<<<<<< ours\nc file other content\n=======\nc file\n>>>>>>> theirs\n");
+		assert_file_contents("c", "<<<<<<< ours\nc file other content\n|||||||\n=======\nc file\n>>>>>>> theirs\n");
 
 		assert_file_contents(".git/CHERRY_PICK_HEAD", "72af7ccf47852d832b06c7244de8ae9ded639024\n");
 

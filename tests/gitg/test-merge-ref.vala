@@ -217,7 +217,7 @@ class Gitg.Test.MergeRef : Application
 
 		assert_file_contents("a", "a file\n");
 		assert_file_contents("b", "b file\n");
-		assert_file_contents("c", "<<<<<<< ours\nc file other content\n=======\nc file\n>>>>>>> theirs\n");
+		assert_file_contents("c", "<<<<<<< ours\nc file other content\n|||||||\n=======\nc file\n>>>>>>> theirs\n");
 
 		assert_file_contents(".git/ORIG_HEAD", "e1219dd5fbcf8fb5b17bbd3db7a9fa88e98d6651\n");
 		assert_file_contents(".git/MERGE_HEAD", "72af7ccf47852d832b06c7244de8ae9ded639024\n");
@@ -331,7 +331,7 @@ class Gitg.Test.MergeRef : Application
 
 		assert_file_contents("a", "a file\n");
 		assert_file_contents("b", "b file\n");
-		assert_file_contents("c", "<<<<<<< ours\nc file other content\n=======\nc file\n>>>>>>> theirs\n");
+		assert_file_contents("c", "<<<<<<< ours\nc file other content\n|||||||\n=======\nc file\n>>>>>>> theirs\n");
 
 		assert_file_contents(".git/ORIG_HEAD", "e1219dd5fbcf8fb5b17bbd3db7a9fa88e98d6651\n");
 		assert_file_contents(".git/MERGE_HEAD", "72af7ccf47852d832b06c7244de8ae9ded639024\n");
@@ -394,7 +394,7 @@ class Gitg.Test.MergeRef : Application
 
 		assert_file_contents("a", "a file\n");
 		assert_file_contents("b", "b file\n");
-		assert_file_contents("c", "<<<<<<< ours\nc file other content\n=======\nc file\n>>>>>>> theirs\n");
+		assert_file_contents("c", "<<<<<<< ours\nc file other content\n|||||||\n=======\nc file\n>>>>>>> theirs\n");
 
 		assert_file_contents(".git/ORIG_HEAD", "e1219dd5fbcf8fb5b17bbd3db7a9fa88e98d6651\n");
 		assert_file_contents(".git/MERGE_HEAD", "72af7ccf47852d832b06c7244de8ae9ded639024\n");
