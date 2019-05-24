@@ -131,7 +131,10 @@ public class Gitg.DiffView : Gtk.Grid
 		get { return d_repository; }
 		set {
 			d_repository = value;
-			config_file = "%s/.git/config".printf(d_repository.get_workdir().get_path());
+			if(d_repository!=null)
+			{
+				config_file = "%s/.git/config".printf(d_repository.get_workdir().get_path());
+			}
 			d_commit_details.config_file = config_file;
 		}
 	}
