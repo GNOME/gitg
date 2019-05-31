@@ -38,6 +38,9 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "split_button" )]
 	private Gtk.RadioButton split_button;
 
+	[GtkChild( name = "unif_button" )]
+	private Gtk.RadioButton unif_button;
+
 	private Gtk.ScrolledWindow d_scrolledwindow;
 	private Gtk.ScrolledWindow d_scrolledwindow_left;
 	private Gtk.ScrolledWindow d_scrolledwindow_right;
@@ -267,7 +270,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		this.renderer = new DiffViewFileRendererBinary();
 		this.renderer.show();
-
+		unif_button.hide();
+		split_button.hide();
 		d_diff_stat_file.hide();
 	}
 
@@ -277,7 +281,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		this.renderer = new DiffViewFileRendererImage(repository, delta);
 		this.renderer.show();
-
+		unif_button.hide();
+		split_button.hide();
 		d_diff_stat_file.hide();
 	}
 
