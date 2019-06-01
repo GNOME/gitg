@@ -3,22 +3,22 @@
 # This file is distributed under the same license as the gitg package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2014, 2015, 2016.
-# Balázs Meskó <meskobalazs at gmail dot com>, 2015, 2018.
-# Balázs Úr <urbalazs at gmail dot com>, 2014, 2015, 2016, 2019.
+# Balázs Meskó <mesko.balazs at fsf dot hu>, 2015, 2018, 2019.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2015, 2016, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-02-01 18:26+0000\n"
-"PO-Revision-Date: 2019-02-03 16:33+0100\n"
-"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"POT-Creation-Date: 2019-05-30 10:00+0000\n"
+"PO-Revision-Date: 2019-06-01 12:49+0200\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 18.12.3\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -57,23 +57,23 @@ msgstr "Fájlok véglegesítése"
 msgid "Retrieve patch from a commit"
 msgstr "Folt lekérése egy véglegesítésből"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:30
+#: data/org.gnome.gitg.appdata.xml.in.in:29
 msgid "Browse repository history"
 msgstr "Tároló előzményeinek tallózása"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:34
+#: data/org.gnome.gitg.appdata.xml.in.in:33
 msgid "Staging area to compose your commit"
 msgstr "Sorba állítási terület a véglegesítés összeállításához"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:38
+#: data/org.gnome.gitg.appdata.xml.in.in:37
 msgid "Commit staged changes"
 msgstr "Sorba állított változtatások véglegesítése"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:42
+#: data/org.gnome.gitg.appdata.xml.in.in:41
 msgid "Overview of recently used repositories"
 msgstr "A legutóbb használt tárolók áttekintése"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:52
+#: data/org.gnome.gitg.appdata.xml.in.in:66
 msgid "The GNOME Project"
 msgstr "A GNOME projekt"
 
@@ -85,11 +85,6 @@ msgstr "gitg"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git tárolóböngésző"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.gitg.desktop.in.in:10
-msgid "@icon@"
-msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -412,16 +407,16 @@ msgstr ""
 "Hány sornyi környezet jelenjen meg (előtte és utána) egy sorba állítandó / "
 "sorból kiveendő különbség megjelenítésekor a véglegesítés területen."
 
-#: gitg/commit/gitg-commit-dialog.vala:298
+#: gitg/commit/gitg-commit-dialog.vala:299
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Nem állítható be a helyesírás-ellenőrzés nyelve: %s"
 
-#: gitg/commit/gitg-commit-dialog.vala:504 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Nincsenek véglegesítendő változtatások"
 
-#: gitg/commit/gitg-commit-dialog.vala:505 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Javítás használata az előző véglegesítés véglegesítés üzenetének "
@@ -558,7 +553,7 @@ msgstr "Biztosan véglegesen el kívánja dobni a kijelölt változtatásokat?"
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:151
+#: gitg/resources/ui/gitg-window.ui:152
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "Mé_gse"
@@ -659,7 +654,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
+#: gitg/gitg-ref-action-merge.vala:194
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
@@ -898,7 +894,7 @@ msgstr "Nem sikerült címkét létrehozni"
 msgid "Failed to lookup tag"
 msgstr "Nem sikerült megtalálni a címkét"
 
-#: gitg/gitg-create-tag-dialog.vala:110
+#: gitg/gitg-create-tag-dialog.vala:120
 msgid "Provide a message to create an annotated tag"
 msgstr "Adjon meg üzenetet nevesített címke létrehozásához"
 
@@ -1093,6 +1089,46 @@ msgstr "Letöltve innen: %s: minden naprakész"
 msgid "Fetched from %s: %s"
 msgstr "Letöltve innen: %s: %s"
 
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr "Beküldés ide: %s"
+
+#: gitg/gitg-ref-action-push.vala:91
+#, c-format
+msgid "Push branch to %s"
+msgstr "Ág beküldése ide: %s"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, c-format
+msgid "Pushing to %s"
+msgstr "Beküldés ide: %s"
+
+#: gitg/gitg-ref-action-push.vala:116
+#, c-format
+msgid "Failed to push to %s: %s"
+msgstr "Sikertelen beküldés ide: %s: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:123
+#, c-format
+msgid "Pushed to %s"
+msgstr "Beküldve ide: %s"
+
+#: gitg/gitg-ref-action-push.vala:134
+#, c-format
+msgid "Push branch %s"
+msgstr "%s ág beküldése"
+
+#: gitg/gitg-ref-action-push.vala:135
+#, c-format
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "Biztosan be szeretné küldeni a kiválasztott %s ágat?"
+
+#: gitg/gitg-ref-action-push.vala:139
+msgid "Push"
+msgstr "Beküldés"
+
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
@@ -1191,7 +1227,7 @@ msgid "Failed to rename"
 msgstr "Nem sikerült átnevezni"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
-#: gitg/resources/ui/gitg-window.ui:226
+#: gitg/resources/ui/gitg-window.ui:227
 msgid "Close"
 msgstr "Bezárás"
 
@@ -1207,20 +1243,20 @@ msgstr "_Hozzáadás"
 msgid "_Scan for all git repositories from this directory"
 msgstr "Minden git tároló _megkeresése ebben a könyvtárban"
 
-#: gitg/gitg-window.vala:505
+#: gitg/gitg-window.vala:514
 msgid "Projects"
 msgstr "Projektek"
 
-#: gitg/gitg-window.vala:804
+#: gitg/gitg-window.vala:813
 msgid "Select items"
 msgstr "Elemek kiválasztása"
 
-#: gitg/gitg-window.vala:1015
+#: gitg/gitg-window.vala:1024
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "„%s” nem Git tároló."
 
-#: gitg/gitg-window.vala:1164
+#: gitg/gitg-window.vala:1173
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1228,7 +1264,7 @@ msgstr ""
 "A felhasználóneve és e-mail címe még nincs beállítva. Nyissa meg a "
 "felhasználói beállításokat, és adja meg nevét és e-mail címét."
 
-#: gitg/gitg-window.vala:1168
+#: gitg/gitg-window.vala:1177
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1236,7 +1272,7 @@ msgstr ""
 "A felhasználóneve még nincs beállítva. Nyissa meg a felhasználói "
 "beállításokat, és adja meg nevét."
 
-#: gitg/gitg-window.vala:1172
+#: gitg/gitg-window.vala:1181
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1244,7 +1280,7 @@ msgstr ""
 "Az e-mail címe még nincs beállítva. Nyissa meg a felhasználói beállításokat, "
 "és adja meg e-mail címét."
 
-#: gitg/gitg-window.vala:1175
+#: gitg/gitg-window.vala:1184
 msgid "Missing author details"
 msgstr "Hiányzó szerzői adatok"
 
@@ -1316,7 +1352,7 @@ msgstr "Előzmények"
 msgid "Examine the history of the repository"
 msgstr "A tároló előzményeinek vizsgálata"
 
-#: gitg/history/gitg-history.vala:909
+#: gitg/history/gitg-history.vala:918
 msgid "Mainline"
 msgstr "Fővonal"
 
@@ -1416,18 +1452,18 @@ msgstr "Sorba állítva:"
 msgid "Unstaged:"
 msgstr "Sorba nem állított:"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:24
-#: gitg/resources/ui/gitg-history-paned.ui:93
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:25
+#: gitg/resources/ui/gitg-history-paned.ui:94
 msgid "Subject"
 msgstr "Tárgy"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:41
-#: gitg/resources/ui/gitg-history-paned.ui:110
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42
+#: gitg/resources/ui/gitg-history-paned.ui:111
 msgid "Author"
 msgstr "Szerző"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:57
-#: gitg/resources/ui/gitg-history-paned.ui:126
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
+#: gitg/resources/ui/gitg-history-paned.ui:127
 msgid "Date"
 msgstr "Dátum"
 
@@ -1650,31 +1686,31 @@ msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Kilépés az alkalmazásból"
 
-#: gitg/resources/ui/gitg-window.ui:23
+#: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "A legutóbb használt tárolók listájának megjelenítése"
 
-#: gitg/resources/ui/gitg-window.ui:45
+#: gitg/resources/ui/gitg-window.ui:46
 msgid "Clone"
 msgstr "Klónozás"
 
-#: gitg/resources/ui/gitg-window.ui:46
+#: gitg/resources/ui/gitg-window.ui:47
 msgid "Clone repository"
 msgstr "Tároló klónozása"
 
-#: gitg/resources/ui/gitg-window.ui:61
+#: gitg/resources/ui/gitg-window.ui:62
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: gitg/resources/ui/gitg-window.ui:62
+#: gitg/resources/ui/gitg-window.ui:63
 msgid "Add repository"
 msgstr "Tároló hozzáadása"
 
-#: gitg/resources/ui/gitg-window.ui:86
+#: gitg/resources/ui/gitg-window.ui:87
 msgid "Find a word or phrase"
 msgstr "Szó vagy kifejezés keresése"
 
-#: gitg/resources/ui/gitg-window.ui:131
+#: gitg/resources/ui/gitg-window.ui:132
 msgid "General settings and options"
 msgstr "Általános beállítások"
 
@@ -1770,16 +1806,16 @@ msgstr "utána (%s)"
 msgid "added (%s)"
 msgstr "hozzáadva (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:144
+#: libgitg/gitg-diff-view-commit-details.vala:143
 msgid "Collapse all"
 msgstr "Összes összecsukása"
 
-#: libgitg/gitg-diff-view-commit-details.vala:148
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:212
 msgid "Expand all"
 msgstr "Összes kinyitása"
 
-#: libgitg/gitg-diff-view-commit-details.vala:203
+#: libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
 msgstr "Véglegesítette: %s"
@@ -1850,7 +1886,7 @@ msgstr "Jelszó megjegyzése _kijelentkezésig"
 msgid "Remember _forever"
 msgstr "_Megjegyzés örökre"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:152
 msgid "Parents"
 msgstr "Szülők"
 
@@ -1904,11 +1940,10 @@ msgstr "A tároló eltávolítása a listából (de nem a lemezről)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "A kijelölt véglegesítés által bevezetett változások megjelenítése"
 
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:64
 msgid "Files"
 msgstr "Fájlok"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Fájlok megjelenítése a kijelölt véglegesítés fájában"
-
