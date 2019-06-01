@@ -627,7 +627,7 @@ namespace Gitg
 			}
 			try
 			{
-				yield repo.delete_async();
+				yield repo.trash_async();
 			}
 			catch (Error e) {
 				warning("Can not delete files %s", e.message);
