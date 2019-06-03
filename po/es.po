@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-04-24 02:56+0000\n"
-"PO-Revision-Date: 2019-04-24 09:15+0200\n"
+"POT-Creation-Date: 2019-05-31 03:31+0000\n"
+"PO-Revision-Date: 2019-06-03 12:12+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -29,7 +29,16 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "No se pudo analizar el XML del flujo"
 
+#: data/org.gnome.gitg.appdata.xml.in.in:4 data/org.gnome.gitg.desktop.in.in:3
+#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
 #: data/org.gnome.gitg.appdata.xml.in.in:8
+msgid "Graphical user interface for git"
+msgstr "Interfaz gráfica de usuario para git"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:10
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -41,50 +50,45 @@ msgstr ""
 "git. Más allá de la visualización gitg proporciona varias utilidades para "
 "gestionar su repositorio y aplicar su trabajo."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:14
+#: data/org.gnome.gitg.appdata.xml.in.in:16
 msgid "Goals"
 msgstr "Objetivos"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
+#: data/org.gnome.gitg.appdata.xml.in.in:18
 msgid "Browse local git repositories"
 msgstr "Examinar repositorios git locales"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Clone local and remote git repositories"
 msgstr "Clonar repositorios git locales y remotos"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Commit files"
 msgstr "Aplicar cambios en archivos"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Retrieve patch from a commit"
 msgstr "Obtener el parche de un «commit»"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:29
+#: data/org.gnome.gitg.appdata.xml.in.in:31
 msgid "Browse repository history"
 msgstr "Examinar el histórico del repositorio"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:33
+#: data/org.gnome.gitg.appdata.xml.in.in:35
 msgid "Staging area to compose your commit"
 msgstr "Área de reserva para componer sus «commit»"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:37
+#: data/org.gnome.gitg.appdata.xml.in.in:39
 msgid "Commit staged changes"
 msgstr "Aplicar cambios reservados"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:41
+#: data/org.gnome.gitg.appdata.xml.in.in:43
 msgid "Overview of recently used repositories"
 msgstr "Vista general de los repositorios usados recientemente"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:66
+#: data/org.gnome.gitg.appdata.xml.in.in:68
 msgid "The GNOME Project"
 msgstr "El Proyecto GNOME"
-
-#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -673,7 +677,7 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:137
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
 #: gitg/gitg-ref-action-merge.vala:194
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
@@ -1114,41 +1118,36 @@ msgstr "Subir a %s"
 
 #: gitg/gitg-ref-action-push.vala:91
 #, c-format
-#| msgid "Push branch to..."
 msgid "Push branch to %s"
 msgstr "Subir rama a %s"
 
 #: gitg/gitg-ref-action-push.vala:107
 #, c-format
-#| msgid "Fetching from %s"
 msgid "Pushing to %s"
 msgstr "Subiendo a %s"
 
-#: gitg/gitg-ref-action-push.vala:115
+#: gitg/gitg-ref-action-push.vala:116
 #, c-format
-#| msgid "Failed to fetch from %s: %s"
 msgid "Failed to push to %s: %s"
 msgstr "Falló al subir a %s: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:122
+#: gitg/gitg-ref-action-push.vala:123
 #, c-format
 msgid "Pushed to %s"
 msgstr "Subido a %s"
 
-#: gitg/gitg-ref-action-push.vala:133
+#: gitg/gitg-ref-action-push.vala:134
 #, c-format
-#| msgid "Push branch to..."
 msgid "Push branch %s"
 msgstr "Subir rama %s"
 
-#: gitg/gitg-ref-action-push.vala:134
+#: gitg/gitg-ref-action-push.vala:135
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the branch %s?"
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "¿Está seguro de que quiere subir la rama %s?"
 
-#: gitg/gitg-ref-action-push.vala:138
+#: gitg/gitg-ref-action-push.vala:139
 msgid "Push"
 msgstr "Subir"
 
@@ -1834,16 +1833,16 @@ msgstr "después (%s)"
 msgid "added (%s)"
 msgstr "añadido (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:144
+#: libgitg/gitg-diff-view-commit-details.vala:143
 msgid "Collapse all"
 msgstr "Contraer todo"
 
-#: libgitg/gitg-diff-view-commit-details.vala:148
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:212
 msgid "Expand all"
 msgstr "Expandir todo"
 
-#: libgitg/gitg-diff-view-commit-details.vala:203
+#: libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
 msgstr "Cambiado por %s"
@@ -1915,7 +1914,7 @@ msgstr "Recordar la contraseña hasta _salir de la sesión"
 msgid "Remember _forever"
 msgstr "Recordar _siempre"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:152
 msgid "Parents"
 msgstr "Padres"
 
