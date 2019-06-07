@@ -44,6 +44,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private Gtk.ScrolledWindow d_scrolledwindow;
 	private Gtk.ScrolledWindow d_scrolledwindow_left;
 	private Gtk.ScrolledWindow d_scrolledwindow_right;
+	private Gtk.ScrolledWindow d_scrolledwindow_diff;
+	private Gtk.DrawingArea linkmap;
 
 	private bool d_expanded;
 
@@ -162,11 +164,14 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 				d_renderer_right = value;
 				d_scrolledwindow_right.add(value);
+				d_scrolledwindow_diff.add(linkmap);
+				d_scrolledwindow_diff.show();
 				d_scrolledwindow_right.show();
 
 				if (d_split)
 				{
 					d_box_file_renderer.pack_start(d_scrolledwindow_right, true, true, 0);
+					d_box_file_renderer.pack_start(d_scrolledwindow_diff, true, true, 0);
 				}
 
 				d_vexpand_binding_r = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
@@ -183,11 +188,13 @@ class Gitg.DiffViewFile : Gtk.Grid
 			d_box_file_renderer.remove(d_scrolledwindow);
 			d_box_file_renderer.pack_start(d_scrolledwindow_left, true, true, 0);
 			d_box_file_renderer.pack_end(d_scrolledwindow_right, true, true, 0);
+			d_box_file_renderer.pack_end(d_scrolledwindow_diff, true, true, 0);
 		}
 		else
 		{
 			d_box_file_renderer.remove(d_scrolledwindow_left);
 			d_box_file_renderer.remove(d_scrolledwindow_right);
+			d_box_file_renderer.remove(d_scrolledwindow_diff);
 			d_box_file_renderer.pack_start(d_scrolledwindow, true, true, 0);
 		}
 	}
@@ -228,6 +235,134 @@ class Gitg.DiffViewFile : Gtk.Grid
 	public DiffViewFile(Repository? repository, Ggit.DiffDelta delta)
 	{
 		Object(repository: repository, delta: delta);
+		linkmap.draw.connect ((context) => {
+			int[, ] diff_model = { { 1, 1, 1, 35, 0 },
+									{ 69, 86, 171, 137, 1 },
+									{ 239, 205, 205, 205, 2 },
+								}; // TODO: Model lines increments in ~18. first to numbers represent left range and last two right_range
+
+			bool has_diffs = diff_model.length[0] > 0;
+			if (!has_diffs)
+				return false;
+			Gtk.Allocation ? left_rectangle = null;
+			Gtk.Allocation ? right_rectangle = null;
+
+			int[] pix_start = { left_rectangle.y, right_rectangle.y };
+			int dxl = 0, dyl = 0;
+			d_renderer_left.translate_coordinates (this.get_toplevel (), 0, 0, out dxl, out dyl);
+			int dxr = 0, dyr = 0;
+			d_renderer_right.translate_coordinates (this.get_toplevel (), 0, 0, out dxr, out dyr);
+			int[] y_offset = { dyl + 1, dyr + 1 };
+
+			var clip_y = array_get_min (y_offset) - 1;
+
+			d_renderer_left.get_allocation (out left_rectangle);
+			d_renderer_right.get_allocation (out right_rectangle);
+
+
+
+			int[] heights = { left_rectangle.height, right_rectangle.height };
+			var clip_height = array_get_max (heights) + 2;
+
+
+			Gtk.Allocation ? allocation = null;
+			linkmap.get_allocation (out allocation);
+
+			weak Gtk.StyleContext style_context = linkmap.get_style_context ();
+			style_context.render_background (context, 0, clip_y, allocation.width, clip_height);
+			context.set_line_width (1.0);
+
+			int height = linkmap.get_allocated_height ();
+
+			int wtotal = linkmap.get_allocated_width ();
+
+			// For bezier control points
+			double[] x_steps = { -0.5, wtotal / 2, wtotal / 2, wtotal + 0.5 };
+
+			double q_rad = GLib.Math.PI / 2;
+
+
+			// left, right = self.view_indices
+
+
+			var RADIUS = 3;
+
+			// for c in self.filediff.linediffer.pair_changes(left, right, visible):
+			for (int i = 0; i < diff_model.length[0]; i++) {
+				// f and t are short for "from" and "to"
+				// f0, f1 = [view_offset_line(0, l) for l in c[1:3]]
+				// t0, t1 = [view_offset_line(1, l) for l in c[3:5]]
+				int f0 = diff_model[i, 0];
+				int t0 = diff_model[i, 1];
+				int f1 = diff_model[i, 2];
+				int t1 = diff_model[i, 3];
+
+				// We want the last pixel of the previous line
+				f1 = f1 == f0 ? f1 : f1 - 1;
+				t1 = t1 == t0 ? t1 : t1 - 1;
+
+				// If either endpoint is completely off-screen, we cull for clarity
+				if ((t0 < 0 && t1 < 0) || (t0 > height && t1 > height)) {
+				if (f0 == f1)
+					continue;
+				context.arc (x_steps[0], f0 - 0.5 + RADIUS, RADIUS, -q_rad, 0);
+				context.arc (x_steps[0], f1 - 0.5 - RADIUS, RADIUS, 0, q_rad);
+				context.close_path ();
+				} else if ((f0 < 0 && f1 < 0) || (f0 > height && f1 > height)) {
+				if (t0 == t1)
+					continue;
+				context.arc_negative (x_steps[3], t0 - 0.5 + RADIUS, RADIUS,
+										-q_rad, q_rad * 2);
+				context.arc_negative (x_steps[3], t1 - 0.5 - RADIUS, RADIUS,
+										q_rad * 2, q_rad);
+				context.close_path ();
+				} else {
+				context.move_to (x_steps[0], f0 - 0.5);
+				context.curve_to (x_steps[1], f0 - 0.5,
+										x_steps[2], t0 - 0.5,
+										x_steps[3], t0 - 0.5);
+				context.line_to (x_steps[3], t1 - 0.5);
+				context.curve_to (x_steps[2], t1 - 0.5,
+										x_steps[1], f1 - 0.5,
+										x_steps[0], f1 - 0.5);
+				context.close_path ();
+				}
+
+				// context.set_source_rgba(self.fill_colors[c[0]]);
+				var color = Gdk.RGBA();
+				if (diff_model[i,4] == 0) {
+					color.parse("#008800");
+				} else if (diff_model[i,4] == 1) {
+					color.parse("#1d59d6");
+				} else if (diff_model[i,4] == 2) {
+					color.parse("#ff0000");
+				}
+				context.set_source_rgba (color.red, color.green, color.blue, color.alpha);
+				context.fill_preserve ();
+
+				// var chunk_idx = self.filediff.linediffer.locate_chunk(left, c[1])[0]
+				// if chunk_idx == self.filediff.cursor.chunk:
+				if (false) {
+				// var highlight = self.fill_colors['current-chunk-highlight']
+				context.set_source_rgba ( /*highlight*/ 0, 0, 0, 0);
+				context.fill_preserve ();
+				}
+
+				// context.set_source_rgba(self.line_colors[c[0]]);
+				if (diff_model[i,4] == 0) {
+					color.parse("#a5ff4c");
+				} else if (diff_model[i,4] == 1) {
+					color.parse("#0053a6");
+				} else if (diff_model[i,4] == 2) {
+					color.parse("#ac3b39");
+				}
+				context.set_source_rgba (color.red, color.green, color.blue, color.alpha);
+				context.stroke ();
+			}
+
+			return true;
+		});
+
 	}
 
 	construct
@@ -235,10 +370,12 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_scrolledwindow = new Gtk.ScrolledWindow(null, null);
 		d_scrolledwindow_left = new Gtk.ScrolledWindow(null, null);
 		d_scrolledwindow_right = new Gtk.ScrolledWindow(null, null);
-
+		d_scrolledwindow_diff = new Gtk.ScrolledWindow(null, null);
+		linkmap = new Gtk.DrawingArea();
 		d_scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		d_scrolledwindow_diff.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 	}
 
 	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
@@ -417,6 +554,53 @@ class Gitg.DiffViewFile : Gtk.Grid
 			this.renderer_right.add_hunk(hunk, lines);
 		}
 	}
+
+	int array_get_min (int[] array) {
+		int min = array[0];
+
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] < min) {
+				min = array[i];
+			}
+		}
+		return min;
+	}
+
+	int array_get_max (int[] array) {
+		int max = array[0];
+
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] > max) {
+				max = array[i];
+			}
+		}
+		return max;
+	}
+
+	int get_line_num_for_y (Gtk.SourceView source_view, int y) {
+		int line_start;
+		source_view.get_line_at_y (null, y, out line_start);
+		return line_start;
+	}
+
+	int get_y_for_line_num (Gtk.SourceView source_view, int line) {
+		var buf = source_view.get_buffer ();
+		Gtk.TextIter it;
+		buf.get_iter_at_line (out it, line);
+		int y, h;
+		source_view.get_line_yrange (it, out y, out h);
+		if (line >= buf.get_line_count ())
+			return y + h;
+		return y;
+	}
+
+	int view_offset_line (Gtk.SourceView source_view, int line_num, int pix_start, int y_offset) {
+		int line_start = get_y_for_line_num (source_view, line_num);
+		return line_start - pix_start + y_offset;
+	}
+
+
+
 }
 
 // ex:ts=4 noet
