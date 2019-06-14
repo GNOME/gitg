@@ -1217,6 +1217,20 @@ namespace GitgCommit
 			dlg.set_transient_for((Gtk.Window)d_main.get_toplevel());
 			dlg.set_default_response(Gtk.ResponseType.OK);
 
+			get_head_commit.begin((obj, res) => {
+				var commit = get_head_commit.end(res);
+
+				if (commit != null && commit.get_parents().get_size() > 1)
+				{
+					if (dlg.message.strip() == dlg.default_message)
+					{
+						dlg.message = prepare_commit_msg_hook(commit, "merge");
+					}
+
+					dlg.author = commit.get_author();
+				}
+			});
+
 			dlg.response.connect((d, id) => {
 				if (id == Gtk.ResponseType.OK)
 				{
@@ -1242,7 +1256,7 @@ namespace GitgCommit
 						{
 							if (dlg.message.strip() == dlg.default_message)
 							{
-								dlg.message = commit.get_message();
+								dlg.message = prepare_commit_msg_hook(commit, "amend");
 							}
 
 							dlg.author = commit.get_author();
@@ -1252,6 +1266,79 @@ namespace GitgCommit
 			});
 
 			dlg.show();
+		}
+
+		private string prepare_commit_msg_hook (Gitg.Commit? commit, string commit_src = "commit") {
+			var commit_msg = commit.get_message();
+			var root = application.repository.get_workdir();
+			var hook_name = "%s/.git/hooks/prepare-commit-msg".printf(root.get_path());
+			var hook_file = File.new_for_path(hook_name);
+
+			if (hook_file != null) {
+				var commit_sha1 = commit.get_id().to_string();
+				GLib.FileIOStream stream;
+				File file = null;
+
+				try {
+					var hook_file_info = hook_file.query_info(FileAttribute.ACCESS_CAN_EXECUTE, FileQueryInfoFlags.NONE);
+					if (hook_file_info.get_attribute_boolean (FileAttribute.ACCESS_CAN_EXECUTE)) {
+						try {
+							file = GLib.File.new_tmp( "commit_XXXXXX", out stream );
+							var command = @"echo \"$commit_msg\" > %s".printf(file.get_path());
+							Posix.system(command);
+							if (commit_src == "amend")
+								command = @"$hook_name %s $commit_src $commit_sha1".printf(file.get_path());
+							else
+								command = @"$hook_name %s $commit_src".printf(file.get_path());
+							print ("%s\n", command);
+							Posix.system(command);
+						} catch (Error e) {
+							critical ("Error: %s", e.message);
+							if (file != null) {
+								file.delete_async.begin (Priority.DEFAULT, null, (obj, res) => {
+									try {
+										file.delete_async.end (res);
+									} catch (Error e) {
+										critical (e.message);
+									}
+								});
+							}
+						}
+
+						FileInputStream @is = stream.input_stream as FileInputStream;
+						DataInputStream dis = new DataInputStream (@is);
+						string str;
+						string? output = null;
+
+						try {
+							while ((str = dis.read_line ()) !=null) {
+								if (output != null)
+									output = "%s\n%s".printf(output,str);
+								else
+									output = "%s".printf(str);
+							}
+						} catch (Error e) {
+							critical ("%s", e.message);
+							if (file != null) {
+								file.delete_async.begin (Priority.DEFAULT, null, (obj, res) => {
+									try {
+										file.delete_async.end (res);
+									} catch (Error e) {
+										critical (e.message);
+									}
+								});
+							}
+						}
+
+						if (output != null)
+							return output;
+					}
+				} catch (Error e) {
+					warning ("Error: %s", e.message);
+				}
+			}
+
+			return commit_msg;
 		}
 
 		private Ggit.Signature get_signature(string envname) throws Error
