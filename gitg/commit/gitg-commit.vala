@@ -1242,7 +1242,7 @@ namespace GitgCommit
 						{
 							if (dlg.message.strip() == dlg.default_message)
 							{
-								dlg.message = commit.get_message();
+								dlg.message = prepare_commit_msg_hook(commit);
 							}
 
 							dlg.author = commit.get_author();
@@ -1252,6 +1252,65 @@ namespace GitgCommit
 			});
 
 			dlg.show();
+		}
+
+		private string prepare_commit_msg_hook (Gitg.Commit? commit) {
+			var commit_msg = commit.get_message();
+			GLib.FileIOStream stream;
+			File file = null;
+			var root = application.repository.get_workdir();
+			var hook_name = "%s/.git/hooks/prepare-commit-msg".printf(root.get_path());
+			var hook_file = File.new_for_path(hook_name);
+
+			if (hook_file != null ) {
+				try {
+					var hook_file_info = hook_file.query_info(FileAttribute.ACCESS_CAN_EXECUTE, FileQueryInfoFlags.NONE);
+					if (hook_file_info.get_attribute_boolean (FileAttribute.ACCESS_CAN_EXECUTE)) {
+						try {
+							file = GLib.File.new_tmp( "commit_XXXXXX", out stream );
+							var command = @"echo \"$commit_msg\" > %s".printf(file.get_path());
+							Posix.system(command);
+							command = @"$hook_name %s".printf(file.get_path());
+							Posix.system(command);
+						} catch (Error e) {
+							critical ("Error: %s", e.message);
+							if (file != null) {
+								file.delete_async();
+							}
+						}
+
+						FileInputStream @is = stream.input_stream as FileInputStream;
+						DataInputStream dis = new DataInputStream (@is);
+						string str;
+						string? output = null;
+
+						try {
+							while ((str = dis.read_line ()) !=null) {
+								if (output != null)
+									output = "%s\n%s".printf(output,str);
+								else
+									output = "%s".printf(str);
+							}
+						} catch (Error e) {
+							critical ("%s", e.message);
+							if (file != null) {
+								file.delete_async();
+							}
+						}
+
+						if (output != null)
+							return output;
+					}
+				} catch (Error e) {
+					warning ("Error: %s", e.message);
+				}
+			}
+
+			if (file != null) {
+				file.delete_async();
+			}
+
+			return commit_msg;
 		}
 
 		private Ggit.Signature get_signature(string envname) throws Error
