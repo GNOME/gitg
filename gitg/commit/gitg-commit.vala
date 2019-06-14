@@ -1242,7 +1242,9 @@ namespace GitgCommit
 						{
 							if (dlg.message.strip() == dlg.default_message)
 							{
-								dlg.message = commit.get_message();
+								var pre_msg = prepare_commit_msg_hook();
+								var commit_msg = "%s %s".printf(pre_msg, commit.get_message());
+								dlg.message = commit_msg;
 							}
 
 							dlg.author = commit.get_author();
@@ -1252,6 +1254,47 @@ namespace GitgCommit
 			});
 
 			dlg.show();
+		}
+
+		private string prepare_commit_msg_hook () {
+			GLib.FileIOStream stream;
+			File file = null;
+			var root = application.repository.get_workdir();
+			string hook_name = "%s/.git/hooks/prepare-commit-msg".printf(root.get_path());
+			try {
+				file = GLib.File.new_tmp( "commit_XXXXXX", out stream );
+				var command = "%s %s".printf(hook_name, file.get_path());
+				Posix.system(command);
+			} catch (Error e) {
+				Posix.exit(1);
+				if (file != null) {
+					file.delete_async();
+				}
+			}
+
+			FileInputStream @is = stream.input_stream as FileInputStream;
+			DataInputStream dis = new DataInputStream (@is);
+			string str;
+			string? output = null;
+
+			try {
+				while ((str = dis.read_line ()) !=null) {
+					if (output != null)
+						output = "%s\n%s".printf(output,str);
+					else
+						output = "%s".printf(str);
+			} catch (Error e) {
+				warning ("error: %s\n", e.message);
+				Posix.exit(1);
+				if (file != null) {
+					file.delete_async();
+				}
+			}
+			if (file != null) {
+				file.delete_async();
+			}
+
+			return output;
 		}
 
 		private Ggit.Signature get_signature(string envname) throws Error
