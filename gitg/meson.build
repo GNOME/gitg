@@ -62,6 +62,8 @@ deps = [
   libgitg_ext_dep,
   libpeas_dep,
   libdazzle_dep,
+
+  valac.find_library ('posix'),
 ]
 
 cflags = warn_flags + [
