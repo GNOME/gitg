@@ -38,7 +38,7 @@ class CommitActionCreateBranch : GitgExt.UIElement, GitgExt.Action, GitgExt.Comm
 		       commit:           commit);
 	}
 
-	public string id
+	public virtual string id
 	{
 		owned get { return "/org/gnome/gitg/commit-actions/create-branch"; }
 	}
@@ -48,12 +48,12 @@ class CommitActionCreateBranch : GitgExt.UIElement, GitgExt.Action, GitgExt.Comm
 		owned get { return _("Create branch"); }
 	}
 
-	public string description
+	public virtual string description
 	{
 		owned get { return _("Create a new branch at the selected commit"); }
 	}
 
-	public void activate()
+	public virtual void activate()
 	{
 		var dlg = new CreateBranchDialog((Gtk.Window)application);
 

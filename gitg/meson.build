@@ -44,6 +44,7 @@ sources = gitg_sources + files(
   'gitg-recursive-monitor.vala',
   'gitg-recursive-scanner.vala',
   'gitg-ref-action-copy-name.vala',
+  'gitg-ref-action-create-branch.vala',
   'gitg-ref-action-delete.vala',
   'gitg-ref-action-fetch.vala',
   'gitg-ref-action-push.vala',
