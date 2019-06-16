@@ -53,7 +53,7 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 		       commit:           commit);
 	}
 
-	public string id
+	public virtual string id
 	{
 		owned get { return "/org/gnome/gitg/commit-actions/create-patch"; }
 	}
@@ -63,7 +63,7 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 		owned get { return _("Create patch"); }
 	}
 
-	public string description
+	public virtual string description
 	{
 		owned get { return _("Create a patch from the selected commit"); }
 	}
@@ -147,7 +147,7 @@ class CommitActionCreatePatch : GitgExt.UIElement, GitgExt.Action, GitgExt.Commi
 		                      null);
 	}
 
-	public void activate()
+	public virtual void activate()
 	{
 		var chooser = new Gtk.FileChooserDialog(_("Save Patch File"), null,
 		                                        Gtk.FileChooserAction.SAVE,
