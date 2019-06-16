@@ -839,6 +839,7 @@ namespace GitgHistory
 			});
 
 			add_ref_action(actions, new Gitg.RefActionCreateBranch(application, af, reference));
+			add_ref_action(actions, new Gitg.RefActionCreateTag(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionCheckout(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionRename(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionDelete(application, af, reference));
