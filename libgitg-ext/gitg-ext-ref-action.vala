@@ -24,6 +24,7 @@ public interface RefAction : Action
 {
 	public abstract RefActionInterface action_interface { get; construct set; }
 	public abstract Gitg.Ref reference { get; construct set; }
+	public signal void finished();
 }
 
 }
