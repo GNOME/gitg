@@ -38,7 +38,7 @@ class CommitActionCreateTag : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitA
 		       commit:           commit);
 	}
 
-	public string id
+	public virtual string id
 	{
 		owned get { return "/org/gnome/gitg/commit-actions/create-tag"; }
 	}
@@ -48,12 +48,12 @@ class CommitActionCreateTag : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitA
 		owned get { return _("Create tag"); }
 	}
 
-	public string description
+	public virtual string description
 	{
 		owned get { return _("Create a new tag at the selected commit"); }
 	}
 
-	public void activate()
+	public virtual void activate()
 	{
 		var dlg = new CreateTagDialog((Gtk.Window)application);
 
