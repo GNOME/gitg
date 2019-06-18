@@ -190,13 +190,16 @@
       </packing>
     </child>
     <child>
-      <object class="GtkGrid">
+      <object class="GtkGrid" id="grid_datetime">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="hexpand">True</property>
+        <property name="row_spacing">6</property>
         <child>
           <object class="GtkLabel" id="datetime_preference_top_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Datetime Preference</property>
             <attributes>
               <attribute name="weight" value="bold"/>
