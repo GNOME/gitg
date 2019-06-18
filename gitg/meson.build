@@ -22,6 +22,7 @@ sources = gitg_sources + files(
   'preferences/gitg-preferences-dialog.vala',
   'preferences/gitg-preferences-history.vala',
   'preferences/gitg-preferences-interface.vala',
+  'gitg-add-remote-dialog.vala',
   'gitg-animated-paned.vala',
   'gitg-application.vala',
   'gitg-author-details-dialog.vala',
@@ -40,6 +41,7 @@ sources = gitg_sources + files(
   'gitg-popup-menu.vala',
   'gitg-recursive-monitor.vala',
   'gitg-recursive-scanner.vala',
+  'gitg-ref-action-add-remote.vala',
   'gitg-ref-action-copy-name.vala',
   'gitg-ref-action-delete.vala',
   'gitg-ref-action-fetch.vala',
@@ -84,6 +86,7 @@ resources_in = configure_file(
 )
 
 resource_data = files(
+  'resources/ui/gitg-add-remote-dialog.ui',
   'resources/ui/gitg-author-details-dialog.ui',
   'resources/ui/gitg-clone-dialog.ui',
   'resources/ui/gitg-commit-dialog.ui',
