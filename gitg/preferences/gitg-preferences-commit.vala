@@ -51,6 +51,9 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "enable_spell_checking")]
 	private Gtk.CheckButton d_enable_spell_checking;
 
+    [GtkChild (name = "combobox_datetime_prefered_datetime")]
+	private Gtk.ComboBox d_prefered_datetime;
+
 	construct
 	{
 		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
@@ -99,6 +102,11 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		              d_enable_spell_checking,
 		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("prefered-datetime",
+		             d_prefered_datetime,
+		             "active-id",
+		             SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 
 	public Gtk.Widget widget
