@@ -627,6 +627,10 @@ namespace GitgHistory
 
 			d_commit_list_model.begin_clear.connect(on_commit_model_begin_clear);
 			d_commit_list_model.end_clear.connect(on_commit_model_end_clear);
+
+			var actions = new Gee.LinkedList<GitgExt.Action>();
+			actions.add(new Gitg.AddRemoteAction(application));
+			d_main.refs_list.remotes_actions = actions;
 		}
 
 		private void update_walker_idle()
@@ -988,9 +992,12 @@ namespace GitgHistory
 
 		private Gtk.Menu? on_refs_list_populate_menu(Gdk.EventButton? event)
 		{
+			Gtk.ListBoxRow selection = null;
 			if (event != null)
 			{
-				var row = d_main.refs_list.get_row_at_y((int)event.y);
+		        var y = d_main.refs_list.y_in_window((int)event.y, event.window);
+				var row = d_main.refs_list.get_row_at_y(y);
+				selection = row;
 				d_main.refs_list.select_row(row);
 			}
 
@@ -998,7 +1005,30 @@ namespace GitgHistory
 
 			if (references.is_empty || references.first() != references.last())
 			{
-				return null;
+				Gee.LinkedList<GitgExt.Action> actions = null;
+				if (selection != null && selection.get_type () == typeof(RefHeader)
+					&& (actions = ((RefHeader)selection).actions) != null && actions.size > 0) {
+					var menu = new Gtk.Menu();
+
+					foreach (var ac in actions)
+					{
+						if (ac != null)
+						{
+							ac.populate_menu(menu);
+						}
+						else
+						{
+							var sep = new Gtk.SeparatorMenuItem();
+							sep.show();
+							menu.append(sep);
+						}
+					}
+
+					menu.set_data("gitg-ext-actions", actions);
+					return menu;
+				} else {
+					return null;
+				}
 			}
 
 			return popup_menu_for_ref(references.first());
