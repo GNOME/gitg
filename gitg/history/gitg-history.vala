@@ -843,6 +843,15 @@ namespace GitgHistory
 			add_ref_action(actions, new Gitg.RefActionDelete(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionCopyName(application, af, reference));
 
+			var remove_remote = new Gitg.RefActionRemoveRemote(application, af, reference);
+
+			if (remove_remote.available)
+			{
+				actions.add(null);
+			}
+
+			add_ref_action(actions, remove_remote);
+
 			var fetch = new Gitg.RefActionFetch(application, af, reference);
 
 			if (fetch.available)
