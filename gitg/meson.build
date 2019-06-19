@@ -45,6 +45,7 @@ sources = gitg_sources + files(
   'gitg-ref-action-delete.vala',
   'gitg-ref-action-fetch.vala',
   'gitg-ref-action-push.vala',
+  'gitg-ref-action-remove-remote.vala',
   'gitg-ref-action-rename.vala',
   'gitg-add-remote-action-dialog.vala',
   'gitg-add-remote-action.vala',
