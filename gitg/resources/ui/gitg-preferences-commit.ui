@@ -232,9 +232,14 @@
                 <property name="active">0</property>
                 <property name="active_id">0</property>
                 <items>
-                  <item id="%d/%m/%y" translatable="yes">27/09/19</item>
-                  <item id="%m/%d/%y" translatable="yes">09/27/19</item>
-                  <item id="%a %b %e %H:%M:%S %Z %Y" translatable="yes">mar feb 26 21:17:53 CET 2019</item>
+                  <item id="%Y" translatable="no">2019</item>
+                  <item id="%Y-%m" translatable="no">2019-04</item>
+                  <item id="%Y-%d-%m" translatable="no">2019-27-04</item>
+                  <item id="%Y-%m-%d" translatable="no">2019-04-27</item>
+                  <item id="%Y-%m-%dT%R%z" translatable="no">2019-04-27T19:20+01:00</item>
+                  <item id="%Y-%d-%mT%R%z" translatable="no">2019-27-04T19:20+01:00</item>
+                  <item id="%Y-%m-%dT%T%z" translatable="no">2019-04-27T19:20:59+01:00</item>
+                  <item id="%Y-%d-%mT%T%z" translatable="no">2019-27-04T19:20:59+01:00</item>
                 </items>
               </object>
               <packing>
