@@ -852,6 +852,15 @@ namespace GitgHistory
 
 			add_ref_action(actions, remove_remote);
 
+			var edit_remote = new Gitg.RefActionEditRemote(application, af, reference);
+
+			if (edit_remote.available)
+			{
+				actions.add(null);
+			}
+
+			add_ref_action(actions, edit_remote);
+
 			var fetch = new Gitg.RefActionFetch(application, af, reference);
 
 			if (fetch.available)
