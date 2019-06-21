@@ -555,6 +555,7 @@ class Dialog : Gtk.Dialog
 			grid.attach(ds, 0, 0, 1, 1);
 
 			var lbl = new Gtk.Label(path);
+			lbl.selectable = true;
 
 			grid.attach(lbl, 1, 0, 1, 1);
 			row.show_all();
