@@ -220,9 +220,17 @@
       </description>
     </key>
 
-    <key name="prefered-datetime" type="s">
+    <key name="default-prefered-datetime" type="s">
       <default>'%Y-%m-%dT%R%z'</default>
       <summary>Prefered Datatime format of the user.</summary>
+      <description>
+      The datetime format to be used in commit-diff.
+      </description>
+    </key>
+
+    <key name="custom-prefered-datetime-entry" type="s">
+      <default>''</default>
+      <summary>Custom datetime format that was inserted by the user.</summary>
       <description>
       The datetime format to be used in commit-diff.
       </description>

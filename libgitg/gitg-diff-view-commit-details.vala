@@ -413,7 +413,11 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		// Retrieve prefered_datetime from Settings
 		var commit_preference = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
 
-		d_prefered_datetime = commit_preference.get_string("prefered-datetime");
+
+		if (commit_preference.get_string("prefered-datetime-selection") == "custom")
+			d_prefered_datetime = commit_preference.get_string("custom-prefered-datetime-entry");
+		else
+			d_prefered_datetime = commit_preference.get_string("default-prefered-datetime");
 
 	}
 
