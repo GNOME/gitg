@@ -14,6 +14,7 @@ common_deps = [
   gtk_dep,
   libgit2_glib_dep,
   libdazzle_dep,
+  gtksourceview_dep,
 ]
 
 sources = files(
@@ -67,6 +68,8 @@ sources = files(
   'gitg-theme.vala',
   'gitg-utils.vala',
   'gitg-when-mapped.vala',
+  'gitg-linkmap.vala',
+  'gitg-diff-model.vala'
 )
 
 resource_data = files(
