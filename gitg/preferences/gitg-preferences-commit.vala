@@ -51,6 +51,13 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "enable_spell_checking")]
 	private Gtk.CheckButton d_enable_spell_checking;
 
+
+    [GtkChild (name = "radiobutton_default_datetime" )]
+	private Gtk.RadioButton d_default_datetimes;
+
+	[GtkChild (name = "radiobutton_custom_datetime" )]
+	private Gtk.RadioButton d_custom_datetime;
+
     [GtkChild (name = "combobox_datetime_prefered_datetime")]
 	private Gtk.ComboBox d_prefered_datetime;
 

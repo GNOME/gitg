@@ -237,13 +237,14 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton">
-                <property name="label" translatable="yes">radiobutton</property>
+              <object class="GtkRadioButton" id="radiobutton_default_datetime">
+                <property name="label" translatable="yes">Default</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
+                <property name="group">radiobutton_custom_datetime</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -261,21 +262,17 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkRadioButton">
-                <property name="label" translatable="yes">radiobutton</property>
+              <object class="GtkRadioButton" id="radiobutton_custom_datetime">
+                <property name="label" translatable="yes">Custom:</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
               </packing>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
           <packing>
