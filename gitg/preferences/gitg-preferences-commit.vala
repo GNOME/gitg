@@ -52,14 +52,17 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	private Gtk.CheckButton d_enable_spell_checking;
 
 
-    [GtkChild (name = "radiobutton_default_datetime" )]
-	private Gtk.RadioButton d_default_datetimes;
+  [GtkChild (name = "radiobutton_default_datetime" )]
+	private Gtk.RadioButton d_default_datetime_groupbox;
 
 	[GtkChild (name = "radiobutton_custom_datetime" )]
 	private Gtk.RadioButton d_custom_datetime;
 
-    [GtkChild (name = "combobox_datetime_prefered_datetime")]
-	private Gtk.ComboBox d_prefered_datetime;
+  [GtkChild (name = "combobox_default_prefered_datetime")]
+	private Gtk.ComboBox d_default_datetime;
+
+	[GtkChild (name = "gtkentry_custom_datetime")]
+	private Gtk.Entry d_custom_datetime_entry;
 
 	construct
 	{
@@ -110,9 +113,14 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
-		settings.bind("prefered-datetime",
-		             d_prefered_datetime,
+		settings.bind("default-prefered-datetime",
+		             d_default_datetime,
 		             "active-id",
+		             SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("custom-prefered-datetime-entry",
+		             d_custom_datetime_entry,
+		             "text",
 		             SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 		settings.bind("prefered-datetime-selection",
@@ -153,17 +161,21 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 
 		set
 		{
-		    if (value == "custom")
+		    if (value == "custom"){
 		        d_custom_datetime.active = true;
-		    else
-		        d_default_datetimes.active = true;
+		        d_custom_datetime_entry.editable = true;
+		    }
+		    else{
+		        d_default_datetime_groupbox.active = true;
+		        d_custom_datetime_entry.editable = false;
+		    }
 		}
 	}
 
 	private void create_prefered_datetime_signals_radiobutton()
 	{
 
-	    d_default_datetimes.notify["active"].connect( () => {
+	    d_default_datetime_groupbox.notify["active"].connect( () => {
 	        notify_property("prefered-datetime-selection");
 	    });
 

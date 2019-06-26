@@ -1,15 +1,15 @@
 {
-    "app-id" : "org.gnome.gitgDevel",
-    "runtime" : "org.gnome.Platform",
-    "runtime-version" : "master",
-    "branch" : "master",
-    "sdk" : "org.gnome.Sdk",
-    "command" : "gitgDevel",
-    "tags" : [
+    "app-id": "org.gnome.gitgDevel",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "master",
+    "branch": "master",
+    "sdk": "org.gnome.Sdk",
+    "command": "gitgDevel",
+    "tags": [
         "nightly"
     ],
-    "desktop-file-name-prefix" : "(Nightly) ",
-    "finish-args" : [
+    "desktop-file-name-prefix": "(Nightly) ",
+    "finish-args": [
         "--share=ipc",
         "--share=network",
         "--socket=x11",
@@ -24,7 +24,7 @@
         "--talk-name=org.freedesktop.secrets",
         "--filesystem=xdg-run/keyring"
     ],
-    "cleanup" : [
+    "cleanup": [
         "/include",
         "/lib/pkgconfig",
         "/share/pkgconfig",
@@ -36,145 +36,147 @@
         "*.la",
         "*.a"
     ],
-    "modules" : [
+    "modules": [
         {
-            "name" : "libssh2",
-            "buildsystem" : "cmake",
-            "config-opts" : [
+            "name": "libssh2",
+            "buildsystem": "cmake",
+            "config-opts": [
                 "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
                 "-DBUILD_SHARED_LIBS:BOOL=ON"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://github.com/libssh2/libssh2.git",
-                    "branch" : "libssh2-1.8.0"
+                    "type": "git",
+                    "url": "https://github.com/libssh2/libssh2.git",
+                    "branch": "libssh2-1.8.0"
                 }
             ]
         },
         {
-            "name" : "libgit2",
-            "buildsystem" : "cmake",
-            "config-opts" : [
+            "name": "libgit2",
+            "buildsystem": "cmake",
+            "config-opts": [
                 "-DBUILD_SHARED_LIBS:BOOL=ON",
                 "-DTHREADSAFE=ON"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://github.com/libgit2/libgit2.git",
-                    "branch" : "maint/v0.27"
+                    "type": "git",
+                    "url": "https://github.com/libgit2/libgit2.git",
+                    "branch": "maint/v0.27"
                 }
             ]
         },
         {
-            "name" : "libgit2-glib",
-            "config-opts" : [
+            "name": "libgit2-glib",
+            "config-opts": [
                 "--buildtype=debugoptimized"
             ],
-            "buildsystem" : "meson",
-            "builddir" : true,
-            "sources" : [
+            "buildsystem": "meson",
+            "builddir": true,
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libgit2-glib.git"
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libgit2-glib.git"
                 }
             ]
         },
         {
-            "name" : "libpeas",
-            "cleanup" : [
+            "name": "libpeas",
+            "cleanup": [
                 "/bin/*",
                 "/lib/peas-demo",
                 "/lib/libpeas-gtk*"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libpeas.git"
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libpeas.git"
                 }
             ]
         },
         {
-            "name" : "libgee",
-            "build-options" : {
-                "make-install-args" : [
+            "name": "libgee",
+            "build-options": {
+                "make-install-args": [
                     "girdir=/app/share/gir-1.0",
                     "typelibdir=/app/lib/girepository-1.0"
                 ]
             },
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libgee.git"
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libgee.git"
                 }
             ]
         },
         {
-            "name" : "enchant",
-            "cleanup" : [
+            "name": "enchant",
+            "cleanup": [
                 "/bin"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "archive",
-                    "url" : "https://github.com/AbiWord/enchant/releases/download/enchant-1-6-1/enchant-1.6.1.tar.gz",
-                    "sha256" : "bef0d9c0fef2e4e8746956b68e4d6c6641f6b85bd2908d91731efb68eba9e3f5"
+                    "type": "archive",
+                    "url": "https://github.com/AbiWord/enchant/releases/download/enchant-1-6-1/enchant-1.6.1.tar.gz",
+                    "sha256": "bef0d9c0fef2e4e8746956b68e4d6c6641f6b85bd2908d91731efb68eba9e3f5"
                 }
             ]
         },
         {
-            "name" : "gtkspell3",
-            "sources" : [
+            "name": "gtkspell3",
+            "sources": [
                 {
-                    "type" : "archive",
-                    "url" : "https://sourceforge.net/projects/gtkspell/files/3.0.9/gtkspell3-3.0.9.tar.xz",
-                    "sha256" : "a4f4a4a2789f7499563e26d96b22d8085222ebe278da47d026b2de782b8b4d26"
+                    "type": "archive",
+                    "url": "https://sourceforge.net/projects/gtkspell/files/3.0.9/gtkspell3-3.0.9.tar.xz",
+                    "sha256": "a4f4a4a2789f7499563e26d96b22d8085222ebe278da47d026b2de782b8b4d26"
                 }
             ]
         },
         {
-            "name" : "gtksourceview",
-            "config-opts" : [ "--disable-Werror" ],
-            "sources" : [
+            "name": "gtksourceview",
+            "config-opts": [
+                "--disable-Werror"
+            ],
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/gtksourceview.git",
-                    "tag" : "gnome-3-24"
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/gtksourceview.git",
+                    "tag": "gnome-3-24"
                 }
             ]
         },
         {
-            "name" : "libdazzle",
-            "config-opts" : [
+            "name": "libdazzle",
+            "config-opts": [
                 "--libdir=/app/lib",
                 "--buildtype=debugoptimized"
             ],
-            "buildsystem" : "meson",
-            "builddir" : true,
-            "cleanup" : [
+            "buildsystem": "meson",
+            "builddir": true,
+            "cleanup": [
                 "/bin"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libdazzle.git"
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libdazzle.git"
                 }
             ]
         },
         {
-            "name" : "gitg",
-            "buildsystem" : "meson",
-            "builddir" : true,
-            "config-opts" : [
+            "name": "gitg",
+            "buildsystem": "meson",
+            "builddir": true,
+            "config-opts": [
                 "--buildtype=debugoptimized",
                 "-Ddeprecations=true",
                 "-Dprofile=development"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/gitg.git"
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/gitg.git"
                 }
             ]
         }
