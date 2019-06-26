@@ -212,6 +212,14 @@
       </description>
     </key>
 
+    <key name="prefered-datetime-selection" type="s">
+      <default>'default'</default>
+      <summary>Default selection of the commit prefered datetime.</summary>
+      <description>
+        Setting that determines the default selection on startup of the prefered datetime radiobuttons in commit's preference.
+      </description>
+    </key>
+
     <key name="prefered-datetime" type="s">
       <default>'%Y-%m-%dT%R%z'</default>
       <summary>Prefered Datatime format of the user.</summary>
@@ -219,6 +227,7 @@
       The datetime format to be used in commit-diff.
       </description>
     </key>
+
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.diff" path="@SCHEMA_PATH@/preferences/diff/">
     <key name="patience" type="b">
