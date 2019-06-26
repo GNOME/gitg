@@ -114,6 +114,13 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		             d_prefered_datetime,
 		             "active-id",
 		             SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("prefered-datetime-selection",
+		              this,
+		              "prefered_datetime_selection",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		create_prefered_datetime_signals_radiobutton();
 	}
 
 	public Gtk.Widget widget
@@ -133,6 +140,38 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	{
 		owned get { return C_("Preferences", "Commit"); }
 	}
+
+    public string prefered_datetime_selection
+	{
+		get
+		{
+		    if (d_custom_datetime.active)
+		        return "custom";
+
+		    return "custom";
+		}
+
+		set
+		{
+		    if (value == "custom")
+		        d_custom_datetime.active = true;
+		    else
+		        d_default_datetimes.active = true;
+		}
+	}
+
+	private void create_prefered_datetime_signals_radiobutton()
+	{
+
+	    d_default_datetimes.notify["active"].connect( () => {
+	        notify_property("prefered-datetime-selection");
+	    });
+
+	    d_custom_datetime.notify["active"].connect( () => {
+	        notify_property("prefered-datetime-selection");
+	    });
+	}
+
 }
 
 }
