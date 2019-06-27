@@ -48,6 +48,7 @@ public class Gitg.DiffView : Gtk.Grid
 	private ulong d_expanded_notify;
 	private ulong d_parent_commit_notify;
 	private bool d_changes_inline;
+	DiffModel? diffmodel;
 
 	Gdk.RGBA d_color_link;
 	Gdk.RGBA color_hovered_link;
@@ -743,7 +744,7 @@ public class Gitg.DiffView : Gtk.Grid
 		Anon add_hunk = () => {
 			if (current_hunk != null)
 			{
-				current_file.add_hunk(current_hunk, current_lines);
+				current_file.add_hunk(current_hunk, current_lines, new LinkMap());
 
 				current_lines = null;
 				current_hunk = null;
@@ -766,6 +767,16 @@ public class Gitg.DiffView : Gtk.Grid
 
 		try
 		{
+			int new_linepos = 0;
+			int old_linepos = 0;
+
+			var old_sourceview = current_file.renderer_left as DiffViewFileRendererText;
+			var new_sourceview = current_file.renderer_right as DiffViewFileRendererText;
+
+
+			int old_linecount = old_sourceview.buffer.get_line_count ();
+			int new_linecount = new_sourceview.buffer.get_line_count ();
+
 			diff.foreach(
 				(delta, progress) => {
 					if (cancellable != null && cancellable.is_cancelled())
@@ -881,6 +892,95 @@ public class Gitg.DiffView : Gtk.Grid
 					if (!current_is_binary)
 					{
 						current_lines.add(line);
+					}
+
+					int old_lineno = line.get_old_lineno ();
+					int new_lineno = line.get_new_lineno ();
+					old_linepos += old_lineno;
+					new_linepos += new_lineno;
+					var origin = line.get_origin ();
+
+					print ("line:\n");
+					print ("- type %s\n", origin.to_string ());
+					print ("- old line: %d\n", old_lineno);
+					print ("- new line: %d\n", new_lineno);
+					print ("- text: %s\n", line.get_text ());
+
+					print ("old_linepos: %d, new_linepos: %d\n", old_linepos, new_linepos);
+						if (origin == Ggit.DiffLineType.ADDITION || origin == Ggit.DiffLineType.DELETION) {
+						diffmodel = add_diffmodel (current_file.linkmap);
+
+						if (origin == Ggit.DiffLineType.ADDITION) {
+							diffmodel.diff_type = DiffModel.DiffType.ADD;
+
+							old_lineno = old_linepos + 1;
+							bool add_height = false;
+							if (old_lineno > old_linecount) {
+								add_height = true;
+								old_lineno = old_linecount + 1;
+							}
+							print ("old_linecount %d, new_linecount %d, new_lineno %d, old_lineno %d, new_linepos %d, old_linepos %d\n",
+									old_linecount, new_linecount, new_lineno, old_lineno, new_linepos, old_linepos);
+
+							Gtk.TextIter iter_f0;
+							int f0y;
+							int f0_height;
+							old_sourceview.buffer.get_iter_at_line (out iter_f0, old_lineno - 1);
+							old_sourceview.get_line_yrange (iter_f0, out f0y, out f0_height);
+							print ("y: %d, h: %d\n", f0y, f0_height);
+							int f0 = f0y;
+							if (add_height)  {
+								f0 += f0_height;
+							}
+							diffmodel.f0 = f0;
+							diffmodel.f1 = f0;
+
+							Gtk.TextIter iter_t0;
+							int t0y;
+							int t0_height;
+							new_sourceview.buffer.get_iter_at_line (out iter_t0, new_lineno - 1);
+							new_sourceview.get_line_yrange (iter_t0, out t0y, out t0_height);
+							print ("y: %d, h: %d\n", t0y, t0_height);
+							diffmodel.t0 = t0y;
+							diffmodel.t1 = t0y + t0_height;
+
+						} else if (origin == Ggit.DiffLineType.DELETION) {
+							diffmodel.diff_type = DiffModel.DiffType.REMOVED;
+
+							Gtk.TextIter iter_f0;
+							int f0y;
+							int f0_height;
+							old_sourceview.buffer.get_iter_at_line (out iter_f0, old_lineno - 1);
+							old_sourceview.get_line_yrange (iter_f0, out f0y, out f0_height);
+							print ("y: %d, h: %d\n", f0y, f0_height);
+							diffmodel.f0 = f0y;
+							diffmodel.f1 = f0y + f0_height;
+
+							new_lineno = new_linepos + 1;
+							bool add_height = false;
+							if (new_lineno > new_linecount) {
+								add_height = true;
+								new_lineno = new_linecount + 1;
+							}
+							print ("old_linecount %d, new_linecount %d, new_lineno %d, old_lineno %d, new_linepos %d, old_linepos %d\n",
+									old_linecount, new_linecount, new_lineno, old_lineno, new_linepos, old_linepos);
+
+							Gtk.TextIter iter_t0;
+							int t0y;
+							int t0_height;
+							new_sourceview.buffer.get_iter_at_line (out iter_t0, new_lineno - 1);
+							new_sourceview.get_line_yrange (iter_t0, out t0y, out t0_height);
+							print ("y: %d, h: %d\n", t0y, t0_height);
+							int t0 = t0y;
+							if (add_height)  {
+								t0 += t0_height;
+							}
+							diffmodel.t0 = t0;
+							diffmodel.t1 = t0;
+						}
+//						diffmodel.direction = direction;
+						print ("add model f(%d,%d) -> t(%d,%d) = %s\n",
+								diffmodel.f0, diffmodel.f1, diffmodel.t0, diffmodel.t1, diffmodel.diff_type.to_string());
 					}
 
 					return 0;
@@ -1070,6 +1170,12 @@ public class Gitg.DiffView : Gtk.Grid
 	{
 		update_hide_show_options(event.window, (int)event.x, (int)event.y);
 		return false;
+	}
+
+	public DiffModel add_diffmodel (LinkMap linkmap) {
+    	linkmap.add (diffmodel);
+		linkmap.queue_draw ();
+		return diffmodel;
 	}
 }
 
