@@ -57,7 +57,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private Gtk.ScrolledWindow d_scrolledwindow_diff;
 
 	[GtkChild( name = "linkmap" )]
-	private Gtk.DrawingArea linkmap;
+	public LinkMap linkmap;
 
 	private bool d_expanded;
 
@@ -226,7 +226,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	construct
 	{
-		linkmap = new Gtk.DrawingArea();
+		linkmap = new LinkMap();
 		d_scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
@@ -398,61 +398,15 @@ class Gitg.DiffViewFile : Gtk.Grid
 		return true;
 	}
 
-	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
+	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines, LinkMap linkmap)
 	{
-		this.renderer.add_hunk(hunk, lines);
+		this.renderer.add_hunk(hunk, lines, linkmap);
 		if (this.renderer_left != null && this.renderer_right !=null)
 		{
-			this.renderer_left.add_hunk(hunk, lines);
-			this.renderer_right.add_hunk(hunk, lines);
+			this.renderer_left.add_hunk(hunk, lines, linkmap);
+			this.renderer_right.add_hunk(hunk, lines, linkmap);
 		}
 	}
-
-	int array_get_min (int[] array) {
-		int min = array[0];
-
-		for (int i = 0; i < array.length; i++) {
-			if (array[i] < min) {
-				min = array[i];
-			}
-		}
-		return min;
-	}
-
-	int array_get_max (int[] array) {
-		int max = array[0];
-
-		for (int i = 0; i < array.length; i++) {
-			if (array[i] > max) {
-				max = array[i];
-			}
-		}
-		return max;
-	}
-
-	int get_line_num_for_y (Gtk.SourceView source_view, int y) {
-		int line_start;
-		source_view.get_line_at_y (null, y, out line_start);
-		return line_start;
-	}
-
-	int get_y_for_line_num (Gtk.SourceView source_view, int line) {
-		var buf = source_view.get_buffer ();
-		Gtk.TextIter it;
-		buf.get_iter_at_line (out it, line);
-		int y, h;
-		source_view.get_line_yrange (it, out y, out h);
-		if (line >= buf.get_line_count ())
-			return y + h;
-		return y;
-	}
-
-	int view_offset_line (Gtk.SourceView source_view, int line_num, int pix_start, int y_offset) {
-		int line_start = get_y_for_line_num (source_view, line_num);
-		return line_start - pix_start + y_offset;
-	}
-
-
 
 }
 
