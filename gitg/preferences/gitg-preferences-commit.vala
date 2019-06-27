@@ -156,7 +156,7 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		    if (d_custom_datetime.active)
 		        return "custom";
 
-		    return "custom";
+		    return "default";
 		}
 
 		set
