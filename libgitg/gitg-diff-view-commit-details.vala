@@ -138,7 +138,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		get { return d_prefered_datetime; }
 		set { d_prefered_datetime = value; }
 	}
-
+	private Settings commit_preference;
 
 	private Gee.HashMap<Ggit.OId, Gtk.RadioButton> d_parents_map;
 
@@ -161,7 +161,8 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 		use_gravatar = true;
 
-		// Force initialization of d_prefered_datetime
+		commit_preference = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
+
 		update_prefered_datetime();
 	}
 
@@ -185,6 +186,11 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 	private void update()
 	{
+		// Updating prefered datetime must be done before the usage of its variable,
+		// so in case of change, the gitg-diff-view-commit-details will d_prefered_datetime
+		// contain the up-to-date value
+		update_prefered_datetime();
+
 		d_parents_map = new Gee.HashMap<Ggit.OId, Gtk.RadioButton>((oid) => oid.hash(), (o1, o2) => o1.equal(o2));
 
 		foreach (var child in d_grid_parents.get_children())
@@ -266,7 +272,6 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 
 		update_avatar();
-		update_prefered_datetime();
 	}
 
 	private string parse_links_on_subject(string subject_text)
@@ -410,9 +415,6 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 	private void update_prefered_datetime()
 	{
-		// Retrieve prefered_datetime from Settings
-		var commit_preference = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
-
 
 		if (commit_preference.get_string("prefered-datetime-selection") == "custom")
 			d_prefered_datetime = commit_preference.get_string("custom-prefered-datetime-entry");
