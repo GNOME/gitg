@@ -163,11 +163,12 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		{
 		    if (value == "custom"){
 		        d_custom_datetime.active = true;
-		        d_custom_datetime_entry.editable = true;
+		        d_custom_datetime_entry.opacity = 100;
 		    }
-		    else{
+		    else
+		    {
 		        d_default_datetime_groupbox.active = true;
-		        d_custom_datetime_entry.editable = false;
+		        d_custom_datetime_entry.opacity = 30;
 		    }
 		}
 	}
