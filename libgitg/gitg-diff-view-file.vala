@@ -32,9 +32,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "revealer_content" )]
 	private Gtk.Revealer d_revealer_content;
 
-	[GtkChild( name = "split_button" )]
-	private Gtk.RadioButton split_button;
-
 	[GtkChild( name = "source_stack" )]
 	private Gtk.Stack d_source_stack;
 
