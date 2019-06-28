@@ -27,7 +27,7 @@ if not os.environ.get('DESTDIR'):
 
   if sys.argv[2] == 'python':
     print('Byte-compiling python modules...')
-    subprocess.call(['python', '-m', 'compileall', '-f', '-q', sys.argv[3]])
+    subprocess.call(['python3', '-m', 'compileall', '-f', '-q', sys.argv[3]])
 
     print('Byte-compiling python modules (optimized versions) ...')
-    subprocess.call(['python', '-O', '-m', 'compileall', '-f', '-q', sys.argv[3]])
+    subprocess.call(['python3', '-O', '-m', 'compileall', '-f', '-q', sys.argv[3]])
