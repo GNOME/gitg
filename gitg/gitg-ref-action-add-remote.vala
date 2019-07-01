@@ -71,10 +71,11 @@ class RefActionAddRemote : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction,
 				d_remote = null;
 
 				var repo = application.repository;
+				var new_remote_name = dlg.new_remote_name;
 
 				try
 				{
-					remote = repo.create_remote(dlg.new_remote_name,
+					remote = repo.create_remote(new_remote_name,
 												dlg.new_remote_url);
 				}
 				catch (Error e)
@@ -84,7 +85,7 @@ class RefActionAddRemote : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction,
 					                         Gtk.MessageType.ERROR);
 				}
 
-				d_remote = application.remote_lookup.lookup(dlg.new_remote_name);
+				d_remote = application.remote_lookup.lookup(new_remote_name);
 
 				d_remote.fetch.begin (null, null, (obj, res) => {
 					try
@@ -94,6 +95,10 @@ class RefActionAddRemote : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction,
 					}
 					catch (Error e)
 					{
+						try {
+							repo.remove_remote(new_remote_name);
+						}
+						catch {}
 						application.show_infobar(_("Failed to fetch added remote"),
 												e.message,
 												Gtk.MessageType.ERROR);
