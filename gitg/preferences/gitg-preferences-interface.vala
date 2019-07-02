@@ -27,6 +27,7 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	private const string version = Gitg.Config.VERSION;
 	private bool d_block;
 	private Settings? d_settings;
+	private Settings? d_global_settings;
 
 	[GtkChild (name = "horizontal_layout_enabled")]
 	private Gtk.CheckButton d_horizontal_layout_enabled;
@@ -49,9 +50,19 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "syntax_scheme_store")]
 	private Gtk.ListStore d_syntax_scheme_store;
 
+	[GtkChild (name = "font_button")]
+	private Gtk.FontButton d_font_button;
+
+	[GtkChild (name = "font_button_grid")]
+	private Gtk.Grid d_font_button_grid;
+
+	[GtkChild (name = "default_font_checkbutton")]
+	private Gtk.CheckButton d_default_font_checkbutton;
+
 	construct
 	{
 		d_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
+		d_global_settings = new Settings("org.gnome.desktop.interface");
 
 		d_horizontal_layout_enabled.active = d_settings.get_enum("orientation") == 0;
 
@@ -102,6 +113,34 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 		                d_default_style_scheme,
 		                "active-id",
 		                SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_settings.bind("use-default-font",
+		              d_default_font_checkbutton,
+		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_settings.bind("use-default-font",
+		              d_font_button_grid,
+		              "sensitive",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET | SettingsBindFlags.INVERT_BOOLEAN);
+
+		d_settings.bind("monospace-font-name",
+		                d_font_button,
+		                "font",
+		                SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_global_settings.changed["monospace-font-name"].connect((s, k) => {
+			update_system_font_label();
+		});
+
+		update_system_font_label();
+	}
+
+	private void update_system_font_label()
+	{
+		var system_fontname = d_global_settings.get_string ("monospace-font-name");
+		string label = _("_Use the system fixed width font (%s)").printf(system_fontname);
+		d_default_font_checkbutton.label = label;
 	}
 
 	public override void dispose()

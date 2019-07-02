@@ -30,7 +30,6 @@ namespace GitgFiles
 		private TreeStore d_model;
 		private Gtk.Paned d_paned;
 		private Gtk.SourceView d_source;
-		private Settings? d_fontsettings;
 		private Settings? d_stylesettings;
 
 		private Gtk.ScrolledWindow d_scrolled_files;
@@ -39,8 +38,8 @@ namespace GitgFiles
 		private Gtk.Viewport d_imagevp;
 		private Gtk.Image d_image;
 
-		private Gtk.CssProvider css_provider;
 		private Gitg.WhenMapped d_whenMapped;
+		private Gitg.FontManager d_font_manager;
 
 		construct
 		{
@@ -83,21 +82,6 @@ namespace GitgFiles
 
 				return false;
 			});
-		}
-
-		private void update_font()
-		{
-			var fname = d_fontsettings.get_string("monospace-font-name");
-			var font_desc = Pango.FontDescription.from_string(fname);
-			var css = "textview { %s }".printf(Dazzle.pango_font_description_to_css(font_desc));
-			try
-			{
-				css_provider.load_from_data(css);
-			}
-			catch(Error e)
-			{
-				warning("Error applying font. %s", e.message);
-			}
 		}
 
 		private void update_style()
@@ -149,23 +133,12 @@ namespace GitgFiles
 			d_paned = ret["paned_files"] as Gtk.Paned;
 			d_scrolled = ret["scrolled_window_file"] as Gtk.ScrolledWindow;
 
-			css_provider = new Gtk.CssProvider();
-			d_source.get_style_context().add_provider(css_provider, Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
+			d_font_manager = new Gitg.FontManager(d_source, true);
+
 			d_imagevp = new Gtk.Viewport(null, null);
 			d_image = new Gtk.Image();
 			d_imagevp.add(d_image);
 			d_imagevp.show_all();
-
-			d_fontsettings = try_settings("org.gnome.desktop.interface");
-
-			if (d_fontsettings != null)
-			{
-				d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
-					update_font();
-				});
-
-				update_font();
-			}
 
 			d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 			if (d_stylesettings != null)
