@@ -411,7 +411,7 @@ class Dialog : Gtk.Dialog
 
 	construct
 	{
-		d_font_settings = new Settings("org.gnome.desktop.interface");
+		d_font_settings = new Settings("org.gnome.gitgDevel.preferences.interface");
 		css_provider = new Gtk.CssProvider();
 		d_source_view_message.get_style_context().add_provider(css_provider, Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
 
