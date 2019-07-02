@@ -49,6 +49,9 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "syntax_scheme_store")]
 	private Gtk.ListStore d_syntax_scheme_store;
 
+	[GtkChild (name = "font_button")]
+	private Gtk.FontButton d_font_button;
+
 	construct
 	{
 		d_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
@@ -101,6 +104,11 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 		d_settings.bind("style-scheme",
 		                d_default_style_scheme,
 		                "active-id",
+		                SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_settings.bind("monospace-font-name",
+		                d_font_button,
+		                "font",
 		                SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
 
