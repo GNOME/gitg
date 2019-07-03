@@ -1410,7 +1410,7 @@ public class RefsList : Gtk.ListBox
 		row.begin_editing((owned)done);
 	}
 
-	private int y_in_window(int y, Gdk.Window origin)
+	public int y_in_window(int y, Gdk.Window origin)
 	{
 		while (origin != get_window())
 		{
