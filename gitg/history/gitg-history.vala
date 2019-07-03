@@ -612,9 +612,6 @@ namespace GitgHistory
 			d_refs_list_popup = new Gitg.PopupMenu(d_main.refs_list);
 			d_refs_list_popup.populate_menu.connect(on_refs_list_populate_menu);
 
-			d_remote_header_popup = new Gitg.PopupMenu(d_main.refs_list);
-			d_remote_header_popup.populate_menu.connect(on_remote_header_populate_menu);
-
 			d_refs_list_selection_id = d_main.refs_list.notify["selection"].connect(update_walker_idle);
 			d_refs_list_changed_id = d_main.refs_list.changed.connect(update_walker_idle);
 
@@ -1002,9 +999,12 @@ namespace GitgHistory
 
 		private Gtk.Menu? on_refs_list_populate_menu(Gdk.EventButton? event)
 		{
+			Gtk.ListBoxRow selection = null;
 			if (event != null)
 			{
-				var row = d_main.refs_list.get_row_at_y((int)event.y);
+		        var y = d_main.refs_list.y_in_window((int)event.y, event.window);
+				var row = d_main.refs_list.get_row_at_y(y);
+				selection = row;
 				d_main.refs_list.select_row(row);
 			}
 
@@ -1012,21 +1012,15 @@ namespace GitgHistory
 
 			if (references.is_empty || references.first() != references.last())
 			{
-				return null;
+				//TODO: Would be better to make the RefHeader to provide the actions it can execute
+				if (selection != null && selection.get_type () == typeof(RefHeader) && ((RefHeader)selection).ref_name == _("Remotes")) {
+					return popup_menu_for_remote();
+				} else {
+					return null;
+				}
 			}
 
 			return popup_menu_for_ref(references.first());
-		}
-
-		private Gtk.Menu? on_remote_header_populate_menu(Gdk.EventButton? event)
-		{
-			if (event != null)
-			{
-				var row = d_main.refs_list.get_row_at_y((int)event.y);
-				d_main.refs_list.select_row(row);
-			}
-
-			return popup_menu_for_remote();
 		}
 
 		private Ggit.OId? id_for_ref(Ggit.Ref r)
