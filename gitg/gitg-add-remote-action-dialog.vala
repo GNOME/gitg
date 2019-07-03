@@ -39,7 +39,7 @@ class AddRemoteActionDialog : Gtk.Dialog
 		}
 	}
 
-	public string new_remote_name
+	public string remote_name
 	{
 		owned get
 		{
@@ -47,7 +47,7 @@ class AddRemoteActionDialog : Gtk.Dialog
 		}
 	}
 
-	public string new_remote_url
+	public string remote_url
 	{
 		owned get
 		{
