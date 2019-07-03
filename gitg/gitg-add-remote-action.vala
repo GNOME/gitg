@@ -9,9 +9,9 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 	public GitgExt.Application? application { owned get; construct set; }
 	Gitg.Remote? d_remote;
 
-	public AddRemoteAction(GitgExt.Application        application)
+	public AddRemoteAction(GitgExt.Application application)
 	{
-		Object(application:      application);
+		Object(application: application);
 	}
 
 	public string id
@@ -29,7 +29,9 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 		owned get { return _("Adds remote to the remotes list"); }
 	}
 
-	public async void fetch_remote( Gitg.Repository repo, string new_remote_name)
+	//TODO: This code is copy&paste fromGitg.RefActionFetch, would be better to
+	//abstract the code to call it from both places 
+	public async void fetch_remote(Gitg.Repository repo, string remote_name)
 	{
 		var notification = new RemoteNotification(d_remote);
 		application.notifications.add(notification);
@@ -52,15 +54,15 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 		catch (Error e)
 		{
 			try {
-				repo.remove_remote(new_remote_name);
+				repo.remove_remote(remote_name);
 				notification.error(_("Failed to fetch from %s: %s").printf(d_remote.get_url(), e.message));
 
 				fetched = false;
 			}
 			catch {}
 			application.show_infobar(_("Failed to fetch added remote"),
-									e.message,
-									Gtk.MessageType.ERROR);
+			                         e.message,
+			                         Gtk.MessageType.ERROR);
 		}
 		finally
 		{
@@ -90,12 +92,12 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 				d_remote = null;
 
 				var repo = application.repository;
-				var new_remote_name = dlg.new_remote_name;
+				var remote_name = dlg.remote_name;
 
 				try
 				{
-					remote = repo.create_remote(new_remote_name,
-												dlg.new_remote_url);
+					remote = repo.create_remote(remote_name,
+					                            dlg.remote_url);
 				}
 				catch (Error e)
 				{
@@ -103,14 +105,14 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 					add_remote();
 					application.show_infobar(_("Failed to add remote"),
 					                         e.message,
-											 Gtk.MessageType.ERROR);
+					                         Gtk.MessageType.ERROR);
 				}
 
-				d_remote = application.remote_lookup.lookup(new_remote_name);
+				d_remote = application.remote_lookup.lookup(remote_name);
 
 				if (remote != null)
 				{
-					fetch_remote.begin(repo, new_remote_name, (obj,res) => {
+					fetch_remote.begin(repo, remote_name, (obj,res) => {
 						fetch_remote.end(res);
 					});
 				}
