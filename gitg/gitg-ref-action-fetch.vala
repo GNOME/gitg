@@ -90,7 +90,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		get { return d_remote != null; }
 	}
 
-	public async bool fetch()
+	public async bool fetch(owned Gitg.Remote d_remote)
 	{
 		var notification = new RemoteNotification(d_remote);
 		application.notifications.add(notification);
@@ -145,7 +145,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 	public void activate()
 	{
-		fetch.begin((obj, res) => {
+		fetch.begin(d_remote, (obj, res) => {
 			fetch.end(res);
 		});
 	}

@@ -32,10 +32,14 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 		owned get { return _("Adds remote to the remotes list"); }
 	}
 
-	//TODO: This code is copy&paste fromGitg.RefActionFetch, would be better to
+	//TODO: This code is copy&paste from Gitg.RefActionFetch, would be better to
 	//abstract the code to call it from both places
-	public async bool fetch()
+	public async bool fetch(owned Gitg.Remote d_remote)
 	{
+		remote_name = d_remote.get_name();
+		remote_url = d_remote.get_url();
+		print ("%s : %s\n", remote_name, remote_url);
+
 		var notification = new RemoteNotification(d_remote);
 		application.notifications.add(notification);
 
@@ -119,7 +123,7 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 
 				if (remote != null)
 				{
-					fetch.begin((obj,res) => {
+					fetch.begin(d_remote, (obj,res) => {
 						fetch.end(res);
 					});
 				}
