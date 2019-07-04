@@ -456,6 +456,20 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 		get { return d_name; }
 	}
 
+	public Gee.LinkedList<GitgExt.Action> get_actions (GitgExt.Application application)
+	{
+		var actions = new Gee.LinkedList<GitgExt.Action>();
+		if (d_rtype == Gitg.RefType.REMOTE)
+		{
+			actions.add(new Gitg.AddRemoteAction(application));
+		}
+		else {
+			actions = null;
+		}
+
+		return actions;
+	}
+
 	public RefHeader(Gitg.RefType rtype, string name)
 	{
 		var escaped = Markup.escape_text(name);

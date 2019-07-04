@@ -8,6 +8,8 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 
 	public GitgExt.Application? application { owned get; construct set; }
 	Gitg.Remote? d_remote;
+	Gitg.Repository? repo;
+	string? remote_name;
 
 	public AddRemoteAction(GitgExt.Application application)
 	{
@@ -30,8 +32,8 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 	}
 
 	//TODO: This code is copy&paste fromGitg.RefActionFetch, would be better to
-	//abstract the code to call it from both places 
-	public async void fetch_remote(Gitg.Repository repo, string remote_name)
+	//abstract the code to call it from both places
+	public async bool fetch()
 	{
 		var notification = new RemoteNotification(d_remote);
 		application.notifications.add(notification);
@@ -45,8 +47,6 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 			updates.add(@"%s (%s)".printf(name, _("new")));
 		});
 
-		var fetched = true;
-
 		try
 		{
 			yield d_remote.fetch(null, null);
@@ -56,8 +56,6 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 			try {
 				repo.remove_remote(remote_name);
 				notification.error(_("Failed to fetch from %s: %s").printf(d_remote.get_url(), e.message));
-
-				fetched = false;
 			}
 			catch {}
 			application.show_infobar(_("Failed to fetch added remote"),
@@ -69,15 +67,19 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 			((Object)d_remote).disconnect(tip_updated_id);
 		}
 
-		if (fetched)
+		if (updates.size != 0)
 		{
 			notification.success(_("Fetched from %s: %s").printf(d_remote.get_url(), string.joinv(", ", updates.to_array())));
-			((Gtk.ApplicationWindow)application).activate_action("reload", null);
 		}
 		else
 		{
 			add_remote();
+
+			return false;
 		}
+
+		((Gtk.ApplicationWindow)application).activate_action("reload", null);
+		return true;
 	}
 
 	public void add_remote()
@@ -91,8 +93,8 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 				Ggit.Remote? remote = null;
 				d_remote = null;
 
-				var repo = application.repository;
-				var remote_name = dlg.remote_name;
+				repo = application.repository;
+				remote_name = dlg.remote_name;
 
 				try
 				{
@@ -112,8 +114,8 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 
 				if (remote != null)
 				{
-					fetch_remote.begin(repo, remote_name, (obj,res) => {
-						fetch_remote.end(res);
+					fetch.begin((obj,res) => {
+						fetch.end(res);
 					});
 				}
 			}
