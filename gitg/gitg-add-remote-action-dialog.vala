@@ -45,6 +45,11 @@ class AddRemoteActionDialog : Gtk.Dialog
 		{
 			return d_entry_remote_name.text.strip();
 		}
+
+		set
+		{
+		   d_entry_remote_name.text = value.strip();
+		}
 	}
 
 	public string remote_url
@@ -52,6 +57,11 @@ class AddRemoteActionDialog : Gtk.Dialog
 		owned get
 		{
 			return d_entry_remote_url.text.strip();
+		}
+
+		set
+		{
+		   d_entry_remote_url.text = value.strip();
 		}
 	}
 }
