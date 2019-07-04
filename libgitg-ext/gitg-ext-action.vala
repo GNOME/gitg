@@ -46,6 +46,10 @@ public interface Action : UIElement
 		item.show();
 		menu.append(item);
 	}
+
+	public virtual async bool fetch(){
+		return true;
+	}
 }
 
 }

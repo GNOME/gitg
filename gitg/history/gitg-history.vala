@@ -53,7 +53,6 @@ namespace GitgHistory
 
 		private Paned d_main;
 		private Gitg.PopupMenu d_refs_list_popup;
-		private Gitg.PopupMenu d_remote_header_popup;
 		private Gitg.PopupMenu d_commit_list_popup;
 
 		private string[] d_mainline;
@@ -985,12 +984,37 @@ namespace GitgHistory
 			}
 
 			var references = d_main.refs_list.selection;
+			var actions = new Gee.LinkedList<GitgExt.Action>();
 
 			if (references.is_empty || references.first() != references.last())
 			{
-				//TODO: Would be better to make the RefHeader to provide the actions it can execute
-				if (selection != null && selection.get_type () == typeof(RefHeader) && ((RefHeader)selection).ref_name == _("Remotes")) {
-					return popup_menu_for_remote();
+				if (selection != null && selection.get_type () == typeof(RefHeader)) {
+					actions = ((RefHeader)selection).get_actions (application);
+
+					if (actions != null)
+					{
+						var menu = new Gtk.Menu();
+
+						foreach (var ac in actions)
+						{
+							if (ac != null)
+							{
+								ac.populate_menu(menu);
+							}
+							else
+							{
+								var sep = new Gtk.SeparatorMenuItem();
+								sep.show();
+								menu.append(sep);
+							}
+						}
+
+						menu.set_data("gitg-ext-actions", actions);
+						return menu;
+					}
+					else{
+						return null;
+					}
 				} else {
 					return null;
 				}
