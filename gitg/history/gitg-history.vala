@@ -603,6 +603,10 @@ namespace GitgHistory
 
 			d_commit_list_model.begin_clear.connect(on_commit_model_begin_clear);
 			d_commit_list_model.end_clear.connect(on_commit_model_end_clear);
+
+			var actions = new Gee.LinkedList<GitgExt.Action>();
+			actions.add(new Gitg.AddRemoteAction(application));
+			d_main.refs_list.remotes_actions = actions;
 		}
 
 		private void update_walker_idle()
@@ -828,16 +832,6 @@ namespace GitgHistory
 			return populate_menu_for_commit(commit);
 		}
 
-		private Gtk.Menu? popup_menu_for_remote() {
-			var action = new Gitg.AddRemoteAction(application);
-			var menu = new Gtk.Menu();
-
-			action.populate_menu(menu);
-			menu.set_data("gitg-ext-actions", action);
-
-			return menu;
-		}
-
 		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference)
 		{
 			var actions = new Gee.LinkedList<GitgExt.RefAction?>();
@@ -984,37 +978,30 @@ namespace GitgHistory
 			}
 
 			var references = d_main.refs_list.selection;
-			var actions = new Gee.LinkedList<GitgExt.Action>();
 
 			if (references.is_empty || references.first() != references.last())
 			{
-				if (selection != null && selection.get_type () == typeof(RefHeader)) {
-					actions = ((RefHeader)selection).get_actions (application);
+				Gee.LinkedList<GitgExt.Action> actions = null;
+				if (selection != null && selection.get_type () == typeof(RefHeader)
+					&& (actions = ((RefHeader)selection).actions) != null && actions.size > 0) {
+					var menu = new Gtk.Menu();
 
-					if (actions != null)
+					foreach (var ac in actions)
 					{
-						var menu = new Gtk.Menu();
-
-						foreach (var ac in actions)
+						if (ac != null)
 						{
-							if (ac != null)
-							{
-								ac.populate_menu(menu);
-							}
-							else
-							{
-								var sep = new Gtk.SeparatorMenuItem();
-								sep.show();
-								menu.append(sep);
-							}
+							ac.populate_menu(menu);
 						}
+						else
+						{
+							var sep = new Gtk.SeparatorMenuItem();
+							sep.show();
+							menu.append(sep);
+						}
+					}
 
-						menu.set_data("gitg-ext-actions", actions);
-						return menu;
-					}
-					else{
-						return null;
-					}
+					menu.set_data("gitg-ext-actions", actions);
+					return menu;
 				} else {
 					return null;
 				}
