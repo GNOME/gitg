@@ -90,7 +90,6 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 	public void add_remote(owned string? remote_name = null, owned string? remote_url = null)
 	{
 		var dlg = new AddRemoteActionDialog((Gtk.Window)application);
-		var remote_added = true;
 
 		dlg.remote_name = remote_name;
 		dlg.remote_url = remote_url;
@@ -112,7 +111,6 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 				}
 				catch (Error e)
 				{
-					remote_added = false;
 					add_remote(remote_name, remote_url);
 					application.show_infobar(_("Failed to add remote"),
 					                         e.message,
