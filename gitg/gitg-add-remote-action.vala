@@ -7,9 +7,10 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 	private const string version = Gitg.Config.VERSION;
 
 	public GitgExt.Application? application { owned get; construct set; }
-	Gitg.Remote? d_remote;
-	Gitg.Repository? repo;
-	string? remote_name;
+	private Gitg.Remote? d_remote;
+	private Gitg.Repository? repo;
+	private string? remote_name;
+	private string? remote_url;
 
 	public AddRemoteAction(GitgExt.Application application)
 	{
@@ -70,22 +71,25 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 		if (updates.size != 0)
 		{
 			notification.success(_("Fetched from %s: %s").printf(d_remote.get_url(), string.joinv(", ", updates.to_array())));
+			((Gtk.ApplicationWindow)application).activate_action("reload", null);
 		}
 		else
 		{
-			add_remote();
+			add_remote(remote_name, remote_url);
 
 			return false;
 		}
 
-		((Gtk.ApplicationWindow)application).activate_action("reload", null);
 		return true;
 	}
 
-	public void add_remote()
+	public void add_remote(owned string? remote_name = null, owned string? remote_url = null)
 	{
 		var dlg = new AddRemoteActionDialog((Gtk.Window)application);
 		var remote_added = true;
+
+		dlg.remote_name = remote_name;
+		dlg.remote_url = remote_url;
 
 		dlg.response.connect((d, resp) => {
 			if (resp == Gtk.ResponseType.OK)
@@ -95,16 +99,17 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 
 				repo = application.repository;
 				remote_name = dlg.remote_name;
+				remote_url = dlg.remote_url;
 
 				try
 				{
 					remote = repo.create_remote(remote_name,
-					                            dlg.remote_url);
+					                            remote_url);
 				}
 				catch (Error e)
 				{
 					remote_added = false;
-					add_remote();
+					add_remote(remote_name, remote_url);
 					application.show_infobar(_("Failed to add remote"),
 					                         e.message,
 					                         Gtk.MessageType.ERROR);
