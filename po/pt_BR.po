@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-05-23 11:56+0000\n"
-"PO-Revision-Date: 2019-05-23 10:31-0300\n"
+"POT-Creation-Date: 2019-05-31 03:31+0000\n"
+"PO-Revision-Date: 2019-07-22 01:25-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -31,7 +31,16 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Não foi possível analisar XML a partir do fluxo"
 
+#: data/org.gnome.gitg.appdata.xml.in.in:4 data/org.gnome.gitg.desktop.in.in:3
+#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
 #: data/org.gnome.gitg.appdata.xml.in.in:8
+msgid "Graphical user interface for git"
+msgstr "Interface gráfica do usuário para o git"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:10
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -43,50 +52,45 @@ msgstr ""
 "repositórios git. Além da visualização, o gitg também fornece diversos "
 "utilitários para gerenciar seu repositório e fazer commit do seu trabalho."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:14
+#: data/org.gnome.gitg.appdata.xml.in.in:16
 msgid "Goals"
 msgstr "Finalidades"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
+#: data/org.gnome.gitg.appdata.xml.in.in:18
 msgid "Browse local git repositories"
 msgstr "Navegar repositórios git locais"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Clone local and remote git repositories"
 msgstr "Clonar repositórios gits locais e remotos"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Commit files"
 msgstr "Fazer commits de arquivos"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Retrieve patch from a commit"
 msgstr "Obter um patch de um commit"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:29
+#: data/org.gnome.gitg.appdata.xml.in.in:31
 msgid "Browse repository history"
 msgstr "Navegar o histórico do repositório"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:33
+#: data/org.gnome.gitg.appdata.xml.in.in:35
 msgid "Staging area to compose your commit"
 msgstr "Área de preparação para compor seu commit"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:37
+#: data/org.gnome.gitg.appdata.xml.in.in:39
 msgid "Commit staged changes"
 msgstr "Fazer commit alterações preparadas (stage)"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:41
+#: data/org.gnome.gitg.appdata.xml.in.in:43
 msgid "Overview of recently used repositories"
 msgstr "Visão geral de repositórios recentemente usados"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:66
+#: data/org.gnome.gitg.appdata.xml.in.in:68
 msgid "The GNOME Project"
 msgstr "O Projeto GNOME"
-
-#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -1124,19 +1128,16 @@ msgstr "Push para %s"
 
 #: gitg/gitg-ref-action-push.vala:91
 #, c-format
-#| msgid "Push branch to..."
 msgid "Push branch to %s"
 msgstr "Push branch para %s"
 
 #: gitg/gitg-ref-action-push.vala:107
 #, c-format
-#| msgid "Fetching from %s"
 msgid "Pushing to %s"
 msgstr "Realizando push para %s"
 
 #: gitg/gitg-ref-action-push.vala:116
 #, c-format
-#| msgid "Failed to fetch from %s: %s"
 msgid "Failed to push to %s: %s"
 msgstr "Falha ao push para %s: %s"
 
@@ -1148,13 +1149,11 @@ msgstr "Realizado push para %s"
 
 #: gitg/gitg-ref-action-push.vala:134
 #, c-format
-#| msgid "Push branch to..."
 msgid "Push branch %s"
 msgstr "Push do ramo %s"
 
 #: gitg/gitg-ref-action-push.vala:135
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the branch %s?"
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "Você tem certeza de que deseja realizar push do ramo %s?"
 
