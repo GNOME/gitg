@@ -51,6 +51,19 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "enable_spell_checking")]
 	private Gtk.CheckButton d_enable_spell_checking;
 
+
+  [GtkChild (name = "radiobutton_default_datetime" )]
+	private Gtk.RadioButton d_default_datetime_groupbox;
+
+	[GtkChild (name = "radiobutton_custom_datetime" )]
+	private Gtk.RadioButton d_custom_datetime;
+
+  [GtkChild (name = "combobox_default_prefered_datetime")]
+	private Gtk.ComboBox d_default_datetime;
+
+	[GtkChild (name = "gtkentry_custom_datetime")]
+	private Gtk.Entry d_custom_datetime_entry;
+
 	construct
 	{
 		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
@@ -99,6 +112,23 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		              d_enable_spell_checking,
 		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("default-prefered-datetime",
+		             d_default_datetime,
+		             "active-id",
+		             SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("custom-prefered-datetime-entry",
+		             d_custom_datetime_entry,
+		             "text",
+		             SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("prefered-datetime-selection",
+		              this,
+		              "prefered_datetime_selection",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		create_prefered_datetime_signals_radiobutton();
 	}
 
 	public Gtk.Widget widget
@@ -118,6 +148,43 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	{
 		owned get { return C_("Preferences", "Commit"); }
 	}
+
+    public string prefered_datetime_selection
+	{
+		get
+		{
+		    if (d_custom_datetime.active)
+		        return "custom";
+
+		    return "default";
+		}
+
+		set
+		{
+		    if (value == "custom"){
+		        d_custom_datetime.active = true;
+		        d_custom_datetime_entry.opacity = 100;
+		    }
+		    else
+		    {
+		        d_default_datetime_groupbox.active = true;
+		        d_custom_datetime_entry.opacity = 30;
+		    }
+		}
+	}
+
+	private void create_prefered_datetime_signals_radiobutton()
+	{
+
+	    d_default_datetime_groupbox.notify["active"].connect( () => {
+	        notify_property("prefered-datetime-selection");
+	    });
+
+	    d_custom_datetime.notify["active"].connect( () => {
+	        notify_property("prefered-datetime-selection");
+	    });
+	}
+
 }
 
 }

@@ -131,6 +131,15 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 	}
 
+	// Prefered datetime is set in commit's preference
+	private string d_prefered_datetime;
+	public string prefered_datetime
+	{
+		get { return d_prefered_datetime; }
+		set { d_prefered_datetime = value; }
+	}
+	private Settings commit_preference;
+
 	private Gee.HashMap<Ggit.OId, Gtk.RadioButton> d_parents_map;
 
 	private GLib.Regex regex_url = /\w+:(\/?\/?)[^\s]+/;
@@ -151,6 +160,10 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		});
 
 		use_gravatar = true;
+
+		commit_preference = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
+
+		update_prefered_datetime();
 	}
 
 	protected override void dispose()
@@ -173,6 +186,11 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 	private void update()
 	{
+		// Updating prefered datetime must be done before the usage of its variable,
+		// so in case of change, the gitg-diff-view-commit-details will d_prefered_datetime
+		// contain the up-to-date value
+		update_prefered_datetime();
+
 		d_parents_map = new Gee.HashMap<Ggit.OId, Gtk.RadioButton>((oid) => oid.hash(), (o1, o2) => o1.equal(o2));
 
 		foreach (var child in d_grid_parents.get_children())
@@ -191,7 +209,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		var author = commit.get_author();
 
 		d_label_author.label = author_to_markup(author);
-		d_label_author_date.label = author.get_time().to_timezone(author.get_time_zone()).format("%x %X %z");
+		d_label_author_date.label = author.get_time().to_timezone(author.get_time_zone()).format(d_prefered_datetime);
 
 		var committer = commit.get_committer();
 
@@ -200,7 +218,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		    committer.get_time().compare(author.get_time()) != 0)
 		{
 			d_label_committer.label = _("Committed by %s").printf(author_to_markup(committer));
-			d_label_committer_date.label = committer.get_time().to_timezone(committer.get_time_zone()).format("%x %X %z");
+			d_label_committer_date.label = committer.get_time().to_timezone(committer.get_time_zone()).format(d_prefered_datetime);
 		}
 		else
 		{
@@ -393,6 +411,16 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			d_image_avatar.icon_name = "avatar-default-symbolic";
 			d_image_avatar.get_style_context().add_class("dim-label");
 		}
+	}
+
+	private void update_prefered_datetime()
+	{
+
+		if (commit_preference.get_string("prefered-datetime-selection") == "custom")
+			d_prefered_datetime = commit_preference.get_string("custom-prefered-datetime-entry");
+		else
+			d_prefered_datetime = commit_preference.get_string("default-prefered-datetime");
+
 	}
 
 	[GtkCallback]

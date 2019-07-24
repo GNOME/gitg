@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.12 -->
+  <requires lib="gtk+" version="3.12"/>
   <object class="GtkAdjustment" id="spin_button_right_margin_adjustment">
     <property name="lower">1</property>
     <property name="upper">160</property>
@@ -16,8 +17,6 @@
   <template class="GitgPreferencesCommit" parent="GtkGrid">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="has_focus">False</property>
-    <property name="is_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="border_width">12</property>
@@ -27,25 +26,19 @@
       <object class="GtkGrid" id="grid">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="has_focus">False</property>
-        <property name="is_focus">False</property>
         <property name="hexpand">True</property>
         <property name="row_spacing">6</property>
         <child>
           <object class="GtkGrid" id="grid1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="has_focus">False</property>
-            <property name="is_focus">False</property>
-            <property name="row_spacing">6</property>
             <property name="margin_start">12</property>
+            <property name="row_spacing">6</property>
             <child>
               <object class="GtkCheckButton" id="check_button_show_markup">
                 <property name="label" translatable="yes">Show markup</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="has_focus">False</property>
-                <property name="is_focus">False</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
                 <property name="draw_indicator">True</property>
@@ -53,72 +46,56 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkGrid" id="grid_show_markup">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="has_focus">False</property>
-                <property name="is_focus">False</property>
+                <property name="margin_start">12</property>
                 <property name="row_spacing">6</property>
                 <property name="column_spacing">6</property>
-                <property name="margin_start">12</property>
                 <child>
                   <object class="GtkCheckButton" id="check_button_show_subject_margin">
                     <property name="label" translatable="yes">Display _subject margin at column:</property>
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="has_focus">False</property>
-                    <property name="is_focus">False</property>
                     <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
                     <property name="halign">start</property>
+                    <property name="use_underline">True</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkGrid" id="spin_button_subject_margin_grid">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="has_focus">False</property>
-                    <property name="is_focus">False</property>
                     <child>
                       <object class="GtkSpinButton" id="spin_button_subject_margin">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="has_focus">False</property>
-                        <property name="is_focus">False</property>
+                        <property name="width_chars">3</property>
+                        <property name="max_width_chars">3</property>
                         <property name="adjustment">spin_button_subject_margin_adjustment</property>
                         <property name="climb_rate">1</property>
                         <property name="snap_to_ticks">True</property>
                         <property name="numeric">True</property>
-                        <property name="width_chars">3</property>
-                        <property name="max_width_chars">3</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -127,61 +104,47 @@
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="has_focus">False</property>
-                    <property name="is_focus">False</property>
                     <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
                     <property name="halign">start</property>
+                    <property name="use_underline">True</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkGrid" id="spin_button_right_margin_grid">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="has_focus">False</property>
-                    <property name="is_focus">False</property>
                     <child>
                       <object class="GtkSpinButton" id="spin_button_right_margin">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="has_focus">False</property>
-                        <property name="is_focus">False</property>
+                        <property name="width_chars">3</property>
+                        <property name="max_width_chars">3</property>
                         <property name="adjustment">spin_button_right_margin_adjustment</property>
                         <property name="climb_rate">1</property>
                         <property name="snap_to_ticks">True</property>
                         <property name="numeric">True</property>
-                        <property name="width_chars">3</property>
-                        <property name="max_width_chars">3</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -189,8 +152,6 @@
                 <property name="label" translatable="yes">Enable spell checking</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="has_focus">False</property>
-                <property name="is_focus">False</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
                 <property name="draw_indicator">True</property>
@@ -198,15 +159,12 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">2</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">1</property>
-            <property name="width">1</property>
             <property name="height">2</property>
           </packing>
         </child>
@@ -214,8 +172,6 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="has_focus">False</property>
-            <property name="is_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Commit Message</property>
             <attributes>
@@ -225,16 +181,123 @@
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
       </object>
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">0</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="grid_datetime">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">True</property>
+        <property name="row_spacing">6</property>
+        <child>
+          <object class="GtkLabel" id="datetime_preference_top_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Datetime Preference</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid_prefered_datetime_default">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkComboBoxText" id="combobox_default_prefered_datetime">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="active">0</property>
+                <property name="active_id">0</property>
+                <items>
+                  <item id="%Y">2019</item>
+                  <item id="%Y-%m">2019-04</item>
+                  <item id="%Y-%d-%m">2019-27-04</item>
+                  <item id="%Y-%m-%d">2019-04-27</item>
+                  <item id="%Y-%m-%dT%R%z">2019-04-27T19:20+01:00</item>
+                  <item id="%Y-%d-%mT%R%z">2019-27-04T19:20+01:00</item>
+                  <item id="%Y-%m-%dT%T%z">2019-04-27T19:20:59+01:00</item>
+                  <item id="%Y-%d-%mT%T%z">2019-27-04T19:20:59+01:00</item>
+                </items>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="radiobutton_default_datetime">
+                <property name="label" translatable="yes">Default</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">radiobutton_custom_datetime</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkRadioButton" id="radiobutton_custom_datetime">
+                <property name="label" translatable="yes">Custom:</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">radiobutton_default_datetime</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="gtkentry_custom_datetime">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="secondary_icon_stock">gtk-help</property>
+                <property name="secondary_icon_sensitive">False</property>
+                <property name="secondary_icon_tooltip_markup" translatable="yes">For more information about how to write your own datetime, you should check in vala documentation for datetime format.</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">2</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
       </packing>
     </child>
   </template>
