@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-02-01 18:26+0000\n"
-"PO-Revision-Date: 2019-02-02 21:28+0100\n"
+"POT-Creation-Date: 2019-07-26 10:49+0000\n"
+"PO-Revision-Date: 2019-07-28 13:24+0200\n"
 "Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -29,14 +29,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "XML aus Stream konnte nicht analysiert werden"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
+#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:9
+msgid "Graphical user interface for git"
+msgstr "Eine grafische Oberfläche für git"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -48,59 +57,49 @@ msgstr ""
 "darzustellen. Neben der Darstellung bietet Gitg verschiedene Werkzeuge, um "
 "Ihr Depot zu verwalten und Ihre Änderungen einzuspielen."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:14
-msgid "Goals"
-msgstr "Ziele"
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+msgid "Goals:"
+msgstr "Ziele:"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
 msgstr "Lokale Git Software-Quellen durchstöbern"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
 msgstr "Lokale und entfernte Git-Software-Quellen klonen"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
 msgstr "Dateien einspielen"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
 msgstr "Einen Patch eines Einspielpunkts erstellen"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:30
+#: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
 msgstr "Verlauf der Software-Quellen durchblättern"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:34
+#: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
 msgstr "Bereitstellungsbereich zum Zusammenstellen Ihrer Änderungen"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:38
+#: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
 msgstr "Bereitgestellte Änderungen einspielen"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:42
+#: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
 msgstr "Übersicht der zuletzt verwendeten Softwaredepots anzeigen"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:52
+#: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "Das GNOME-Projekt"
-
-#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Betrachter für Git-Softwaredepots"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.gitg.desktop.in.in:10
-msgid "@icon@"
-msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -433,16 +432,16 @@ msgstr ""
 "Darstellen der Änderungen für die Bereitstellung einer Einspielung angezeigt "
 "werden sollen."
 
-#: gitg/commit/gitg-commit-dialog.vala:298
+#: gitg/commit/gitg-commit-dialog.vala:299
 #, c-format
 msgid "Cannot set spell checking language: %s"
 msgstr "Die Sprache der Rechtschreibkorrektur kann nicht festgelegt werden: %s"
 
-#: gitg/commit/gitg-commit-dialog.vala:504 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Es gibt keine Änderungen zum Einspielen"
 
-#: gitg/commit/gitg-commit-dialog.vala:505 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Verwenden Sie Abändern zum Ändern der Einspielmeldung der vorhergehenden "
@@ -583,7 +582,7 @@ msgstr "Möchten Sie wirklich die gewählten Änderungen dauerhaft verwerfen?"
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:151
+#: gitg/resources/ui/gitg-window.ui:152
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "A_bbrechen"
@@ -686,7 +685,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
+#: gitg/gitg-ref-action-merge.vala:194
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
@@ -933,7 +933,7 @@ msgstr "Erstellen des Tags ist fehlgeschlagen"
 msgid "Failed to lookup tag"
 msgstr "Nachschlagen des Tags ist fehlgeschlagen"
 
-#: gitg/gitg-create-tag-dialog.vala:110
+#: gitg/gitg-create-tag-dialog.vala:120
 msgid "Provide a message to create an annotated tag"
 msgstr ""
 "Geben Sie eine Nachricht an, um einen mit Anmerkungen versehenen Tag zu "
@@ -1134,6 +1134,46 @@ msgstr "Holen von %s: Alles ist auf dem neuesten Stand"
 msgid "Fetched from %s: %s"
 msgstr "Holen von %s: %s"
 
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr "Hochladen nach %s"
+
+#: gitg/gitg-ref-action-push.vala:91
+#, c-format
+msgid "Push branch to %s"
+msgstr "Zweig nach %s hochladen"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, c-format
+msgid "Pushing to %s"
+msgstr "Hochladen nach %s"
+
+#: gitg/gitg-ref-action-push.vala:116
+#, c-format
+msgid "Failed to push to %s: %s"
+msgstr "Hochladen nach %s ist gescheitert: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:123
+#, c-format
+msgid "Pushed to %s"
+msgstr "Nach %s hochgeladen"
+
+#: gitg/gitg-ref-action-push.vala:134
+#, c-format
+msgid "Push branch %s"
+msgstr "Zweig %s hochladen"
+
+#: gitg/gitg-ref-action-push.vala:135
+#, c-format
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "Wollen Sie wirklich den Zweig %s hochladen?"
+
+#: gitg/gitg-ref-action-push.vala:139
+msgid "Push"
+msgstr "Hochladen"
+
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
@@ -1234,7 +1274,7 @@ msgid "Failed to rename"
 msgstr "Umbenennen ist gescheitert"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
-#: gitg/resources/ui/gitg-window.ui:226
+#: gitg/resources/ui/gitg-window.ui:227
 msgid "Close"
 msgstr "Schließen"
 
@@ -1250,20 +1290,20 @@ msgstr "_Hinzufügen"
 msgid "_Scan for all git repositories from this directory"
 msgstr "Von diesem Ordner aus nach allen git-Softwaredepots _suchen"
 
-#: gitg/gitg-window.vala:505
+#: gitg/gitg-window.vala:514
 msgid "Projects"
 msgstr "Projekte"
 
-#: gitg/gitg-window.vala:804
+#: gitg/gitg-window.vala:813
 msgid "Select items"
 msgstr "Objekte auswählen"
 
-#: gitg/gitg-window.vala:1015
+#: gitg/gitg-window.vala:1024
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "»%s« ist kein gültiges Git-Softwaredepot."
 
-#: gitg/gitg-window.vala:1164
+#: gitg/gitg-window.vala:1173
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1272,7 +1312,7 @@ msgstr ""
 "in die Benutzerkonfiguration und geben Sie Ihren Namen und Ihre E-Mail-"
 "Adresse ein."
 
-#: gitg/gitg-window.vala:1168
+#: gitg/gitg-window.vala:1177
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1280,7 +1320,7 @@ msgstr ""
 "Ihr Benutzername ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihren Namen ein."
 
-#: gitg/gitg-window.vala:1172
+#: gitg/gitg-window.vala:1181
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1288,7 +1328,7 @@ msgstr ""
 "Ihre E-Mail ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihre E-Mail-Adresse ein."
 
-#: gitg/gitg-window.vala:1175
+#: gitg/gitg-window.vala:1184
 msgid "Missing author details"
 msgstr "Details des Autors fehlen"
 
@@ -1356,7 +1396,7 @@ msgstr "Chronik"
 msgid "Examine the history of the repository"
 msgstr "Die Geschichte des Softwaredepots untersuchen"
 
-#: gitg/history/gitg-history.vala:909
+#: gitg/history/gitg-history.vala:918
 msgid "Mainline"
 msgstr "Hauptlinie"
 
@@ -1456,18 +1496,18 @@ msgstr "Bereit gestellt:"
 msgid "Unstaged:"
 msgstr "Bereitstellung zurückgenommen:"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:24
-#: gitg/resources/ui/gitg-history-paned.ui:93
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:25
+#: gitg/resources/ui/gitg-history-paned.ui:94
 msgid "Subject"
 msgstr "Betreff"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:41
-#: gitg/resources/ui/gitg-history-paned.ui:110
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42
+#: gitg/resources/ui/gitg-history-paned.ui:111
 msgid "Author"
 msgstr "Autor"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:57
-#: gitg/resources/ui/gitg-history-paned.ui:126
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
+#: gitg/resources/ui/gitg-history-paned.ui:127
 msgid "Date"
 msgstr "Datum"
 
@@ -1691,31 +1731,31 @@ msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Die Anwendung beenden"
 
-#: gitg/resources/ui/gitg-window.ui:23
+#: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Die Liste der zuletzt verwendeten Softwaredepots anzeigen"
 
-#: gitg/resources/ui/gitg-window.ui:45
+#: gitg/resources/ui/gitg-window.ui:46
 msgid "Clone"
 msgstr "Klonen"
 
-#: gitg/resources/ui/gitg-window.ui:46
+#: gitg/resources/ui/gitg-window.ui:47
 msgid "Clone repository"
 msgstr "Softwaredepot klonen"
 
-#: gitg/resources/ui/gitg-window.ui:61
+#: gitg/resources/ui/gitg-window.ui:62
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: gitg/resources/ui/gitg-window.ui:62
+#: gitg/resources/ui/gitg-window.ui:63
 msgid "Add repository"
 msgstr "Softwaredepot hinzufügen"
 
-#: gitg/resources/ui/gitg-window.ui:86
+#: gitg/resources/ui/gitg-window.ui:87
 msgid "Find a word or phrase"
 msgstr "Ein Wort oder eine Wortkette suchen"
 
-#: gitg/resources/ui/gitg-window.ui:131
+#: gitg/resources/ui/gitg-window.ui:132
 msgid "General settings and options"
 msgstr "Generelle Einstellungen und Optionen"
 
@@ -1759,7 +1799,6 @@ msgstr[1] "Vor %d Tagen"
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
 #: libgitg/gitg-date.vala:374
-#| msgid "%b %e, %H:%M"
 msgid "%b %e, %H∶%M"
 msgstr "%e. %b, %H:%M"
 
@@ -1767,7 +1806,6 @@ msgstr "%e. %b, %H:%M"
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: libgitg/gitg-date.vala:381
-#| msgid "%b %e, %I:%M %p"
 msgid "%b %e, %I∶%M %p"
 msgstr "%e. %b, %I:%M %p"
 
@@ -1775,7 +1813,6 @@ msgstr "%e. %b, %I:%M %p"
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: libgitg/gitg-date.vala:391
-#| msgid "%b %e %Y, %H:%M"
 msgid "%b %e %Y, %H∶%M"
 msgstr "%e. %b %Y, %H:%M"
 
@@ -1783,7 +1820,6 @@ msgstr "%e. %b %Y, %H:%M"
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: libgitg/gitg-date.vala:398
-#| msgid "%b %e %Y, %I:%M %p"
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%e. %b %Y, %I:%M %p"
 
@@ -1815,16 +1851,16 @@ msgstr "danach (%s)"
 msgid "added (%s)"
 msgstr "hinzugefügt (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:144
+#: libgitg/gitg-diff-view-commit-details.vala:143
 msgid "Collapse all"
 msgstr "Alle einklappen"
 
-#: libgitg/gitg-diff-view-commit-details.vala:148
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:212
 msgid "Expand all"
 msgstr "Alles ausklappen"
 
-#: libgitg/gitg-diff-view-commit-details.vala:203
+#: libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
 msgstr "Eingespielt von %s"
@@ -1896,7 +1932,7 @@ msgstr "Passwort merken bis zum _Abmelden"
 msgid "Remember _forever"
 msgstr "Dauerhaft m_erken"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:152
 msgid "Parents"
 msgstr "Übergeordnet"
 
@@ -1952,13 +1988,16 @@ msgstr ""
 msgid "Show the changes introduced by the selected commit"
 msgstr "Die Änderungen des gewählten Einspielspeicherpunktes anzeigen"
 
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:64
 msgid "Files"
 msgstr "Dateien"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Dateien des gewählten Einspielspeicherpunktes anzeigen"
+
+#~ msgid "@icon@"
+#~ msgstr "@icon@"
 
 #~ msgid "_Quit"
 #~ msgstr "_Beenden"
