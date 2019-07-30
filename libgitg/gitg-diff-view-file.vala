@@ -62,6 +62,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "linkmap" )]
 	public LinkMap linkmap;
 
+	private Settings d_settings;
+
 	private bool d_expanded;
 
 	private Binding? d_vexpand_binding;
@@ -234,6 +236,23 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_diff.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		d_settings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
+		if (d_settings != null ) {
+				d_settings.changed["use-diffbar"].connect ((s, k) => {
+				var remove = d_settings.get_boolean ("use-diffbar");
+				if (remove)
+				{
+					this.remove (linkmap);
+				}
+				else {
+					this.add (linkmap);
+				}
+			});
+		}
+		else {
+			print ("Can't access setting");
+		}
+
 	}
 
 	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
@@ -401,6 +420,23 @@ class Gitg.DiffViewFile : Gtk.Grid
 	{
 		show_popup(null);
 		return true;
+	}
+
+	private Settings? try_settings(string schema_id)
+	{
+		var source = SettingsSchemaSource.get_default();
+
+		if (source == null)
+		{
+			return null;
+		}
+
+		if (source.lookup(schema_id, true) != null)
+		{
+			return new Settings(schema_id);
+		}
+
+		return null;
 	}
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines, LinkMap linkmap)
