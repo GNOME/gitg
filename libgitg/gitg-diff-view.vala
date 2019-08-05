@@ -125,6 +125,7 @@ public class Gitg.DiffView : Gtk.Grid
 	public int tab_width { get; construct set; default = 4; }
 	public bool handle_selection { get; construct set; default = false; }
 	public bool highlight { get; construct set; default = true; }
+	public bool is_threeway;
 
 	private Repository? d_repository;
 
@@ -552,6 +553,14 @@ public class Gitg.DiffView : Gtk.Grid
 			var parents = d_commit.get_parents();
 
 			var parent_commit = d_commit_details.parent_commit;
+			if (parents.size == 2)
+			{
+				is_threeway = true;
+			}
+			else
+			{
+				is_threeway = false;
+			}
 
 			if (parent_commit != null)
 			{
@@ -698,6 +707,10 @@ public class Gitg.DiffView : Gtk.Grid
 		var nqueries = 0;
 		var finished = false;
 		var infomap = new Gee.HashMap<string, DiffViewFileInfo>();
+		if (is_threeway)
+		{
+			print ("Three way detected ................");
+		}
 
 		Anon check_finish = () => {
 			if (nqueries == 0 && finished && (cancellable == null || !cancellable.is_cancelled()))
