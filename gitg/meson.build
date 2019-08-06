@@ -58,7 +58,7 @@ deps = [
   gitg_platform_support_dep,
   gobject_introspection_dep,
   gtksourceview_dep,
-  gtkspell_dep,
+  gspell_dep,
   libgitg_ext_dep,
   libpeas_dep,
   libdazzle_dep,
