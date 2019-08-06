@@ -48,6 +48,8 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "spin_button_right_margin")]
 	private Gtk.SpinButton d_spin_button_right_margin;
 
+	[GtkChild (name = "spell_language_button")]
+	private Gspell.LanguageChooserButton d_spell_language_button;
 	[GtkChild (name = "enable_spell_checking")]
 	private Gtk.CheckButton d_enable_spell_checking;
 
@@ -99,6 +101,11 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		              d_enable_spell_checking,
 		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("spell-checking-language", d_spell_language_button,
+		              "language-code",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 	}
 
 	public Gtk.Widget widget
