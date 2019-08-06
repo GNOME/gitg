@@ -79,6 +79,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 	private Cancellable? d_avatar_cancel;
 
 	private Ggit.Commit? d_commit;
+	public bool is_three_way { get; set; default = false; }
 
 	public Ggit.Commit? commit
 	{
@@ -213,7 +214,10 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 		parent_commit = first_parent;
 
-		if (parents.size > 1)
+		if (parents.size == 2)
+			is_three_way = true;
+
+		if (parents.size > 2)
 		{
 			d_grid_parents_container.show();
 			var grp = new SList<Gtk.RadioButton>();
