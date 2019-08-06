@@ -78,7 +78,7 @@ class Dialog : Gtk.Dialog
 	private Settings? d_commit_settings;
 	private bool d_enable_spell_checking;
 	private string? d_spell_checking_language;
-	private GtkSpell.Checker? d_spell_checker;
+	private Gspell.Checker? d_spell_checker;
 	private Ggit.Diff d_diff;
 	private bool d_infobar_shown;
 	private Gtk.CssProvider css_provider;
@@ -250,7 +250,6 @@ class Dialog : Gtk.Dialog
 		set
 		{
 			d_spell_checking_language = value;
-			set_spell_language();
 		}
 	}
 
@@ -265,41 +264,33 @@ class Dialog : Gtk.Dialog
 			{
 				if (d_spell_checker == null)
 				{
-					d_spell_checker = new GtkSpell.Checker();
-					d_spell_checker.attach(d_source_view_message);
+					d_spell_checker = new Gspell.Checker (get_spell_language ());
+					unowned Gspell.TextBuffer gspell_buffer = Gspell.TextBuffer.get_from_gtk_text_buffer (d_source_view_message.buffer);
+					gspell_buffer.set_spell_checker (d_spell_checker);
 
-					set_spell_language();
-
-					d_spell_checker.language_changed.connect(() => {
-						spell_checking_language = d_spell_checker.get_language();
-					});
+					Gspell.TextView gspell_view = Gspell.TextView.get_from_gtk_text_view (d_source_view_message as Gtk.TextView);
+					gspell_view.inline_spell_checking = true;
+					gspell_view.enable_language_menu = true;
 				}
 			}
 			else
 			{
 				if (d_spell_checker != null)
 				{
-					d_spell_checker.detach();
 					d_spell_checker = null;
 				}
 			}
 		}
 	}
 
-	private void set_spell_language()
+	private unowned Gspell.Language? get_spell_language ()
 	{
-		if (d_spell_checker != null && d_spell_checking_language != "")
-		{
-			try
-			{
-				d_spell_checker.set_language(d_spell_checking_language);
-			}
-			catch
-			{
-				warning(_("Cannot set spell checking language: %s"), d_spell_checking_language);
-				d_spell_checking_language = "";
-			}
-		}
+		string? lang_code = d_spell_checking_language;
+
+		if (lang_code[0] == '\0')
+			return null;
+
+		return Gspell.Language.lookup (lang_code);
 	}
 
 	private bool d_use_gravatar;
@@ -472,14 +463,14 @@ class Dialog : Gtk.Dialog
 		                        "subject-margin-position",
 		                        SettingsBindFlags.GET);
 
-		d_message_settings.bind("enable-spell-checking",
-		                        this,
-		                        "enable-spell-checking",
-		                        SettingsBindFlags.GET | SettingsBindFlags.SET);
-
 		d_message_settings.bind("spell-checking-language",
 		                        this,
 		                        "spell-checking-language",
+		                        SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_message_settings.bind("enable-spell-checking",
+		                        this,
+		                        "enable-spell-checking",
 		                        SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 		var interface_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");

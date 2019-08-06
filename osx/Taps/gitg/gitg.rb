@@ -17,7 +17,7 @@ class Gitg < Formula
   depends_on "gnome/gitg/libsoup"
   depends_on "gnome/gitg/libsecret"
   depends_on "gnome/gitg/libpeas"
-  depends_on "gnome/gitg/gtkspell3"
+  depends_on "gnome/gitg/gspell"
   depends_on "gnome/gitg/libgee"
   depends_on "gnome/gitg/gsettings-desktop-schemas"
   depends_on "gnome/gitg/libgit2-glib" => "with-vala"
