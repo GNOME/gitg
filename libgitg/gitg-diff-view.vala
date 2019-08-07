@@ -42,6 +42,7 @@ public class Gitg.DiffView : Gtk.Grid
 	private Gtk.TextView d_text_view_message;
 
 	private Ggit.Diff? d_diff;
+	private Ggit.Diff? d_three_way_diff;
 	private Commit? d_commit;
 	private Ggit.DiffOptions? d_options;
 	private Cancellable d_cancellable;
@@ -92,6 +93,21 @@ public class Gitg.DiffView : Gtk.Grid
 			update(false);
 		}
 	}
+	public Ggit.Diff? three_way_diff
+	{
+		get { return d_three_way_diff; }
+		set
+		{
+			if (d_three_way_diff != value)
+			{
+				d_three_way_diff = value;
+				d_commit = null;
+			}
+
+			update(false);
+		}
+	}
+
 
 	public Commit? commit
 	{
@@ -556,6 +572,9 @@ public class Gitg.DiffView : Gtk.Grid
 			if (parents.size == 2)
 			{
 				is_threeway = true;
+				d_three_way_diff = d_commit.get_diff(options, 1);
+				if (d_three_way_diff != null )
+					update_diff(d_three_way_diff, preserve_expanded, d_cancellable);
 			}
 			else
 			{
