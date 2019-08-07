@@ -213,7 +213,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 		parent_commit = first_parent;
 
-		if (parents.size > 1)
+		if (parents.size > 2)
 		{
 			d_grid_parents_container.show();
 			var grp = new SList<Gtk.RadioButton>();
