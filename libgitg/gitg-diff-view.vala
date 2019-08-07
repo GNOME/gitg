@@ -42,6 +42,7 @@ public class Gitg.DiffView : Gtk.Grid
 	private Gtk.TextView d_text_view_message;
 
 	private Ggit.Diff? d_diff;
+	private Ggit.Diff? d_three_way_diff;
 	private Commit? d_commit;
 	private Ggit.DiffOptions? d_options;
 	private Cancellable d_cancellable;
@@ -92,6 +93,21 @@ public class Gitg.DiffView : Gtk.Grid
 			update(false);
 		}
 	}
+	public Ggit.Diff? three_way_diff
+	{
+		get { return d_three_way_diff; }
+		set
+		{
+			if (d_three_way_diff != value)
+			{
+				d_three_way_diff = value;
+				d_commit = null;
+			}
+
+			update(false);
+		}
+	}
+
 
 	public Commit? commit
 	{
@@ -556,29 +572,33 @@ public class Gitg.DiffView : Gtk.Grid
 			if (parents.size == 2)
 			{
 				is_threeway = true;
+				d_three_way_diff = d_commit.get_diff(options, 1);
+				d_diff = d_commit.get_diff (options, 0);
+				if (d_three_way_diff != null )
+					update_diff(d_three_way_diff, preserve_expanded, d_cancellable);
+				if (d_diff != null )
+					update_diff(d_diff, preserve_expanded, d_cancellable);
 			}
 			else
 			{
 				is_threeway = false;
-			}
-
-			if (parent_commit != null)
-			{
-				for (var i = 0; i < parents.size; i++)
+				if (parent_commit != null)
 				{
-					var id = parents.get_id(i);
-
-					if (id.equal(parent_commit.get_id()))
+					for (var i = 0; i < parents.size; i++)
 					{
-						parent = i;
-						break;
+						var id = parents.get_id(i);
+
+						if (id.equal(parent_commit.get_id()))
+						{
+							parent = i;
+							break;
+						}
 					}
 				}
+
+				d_diff = d_commit.get_diff(options, parent);
+				d_commit_details.show();
 			}
-
-			d_diff = d_commit.get_diff(options, parent);
-			d_commit_details.show();
-
 			var message = message_without_subject(d_commit);
 
 			d_text_view_message.buffer.set_text(message);
@@ -598,9 +618,10 @@ public class Gitg.DiffView : Gtk.Grid
 			d_text_view_message.hide();
 		}
 
-		if (d_diff != null)
+		if (d_diff != null || d_three_way_diff!= null)
 		{
 			update_diff(d_diff, preserve_expanded, d_cancellable);
+			update_diff(d_three_way_diff, preserve_expanded, d_cancellable);
 		}
 	}
 
@@ -867,7 +888,6 @@ public class Gitg.DiffView : Gtk.Grid
 					{
 						current_file = new Gitg.DiffViewFile.text(info, handle_selection);
 						this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
-						this.bind_property("highlight", current_file.renderer_left, "highlight", BindingFlags.SYNC_CREATE);
 						this.bind_property("highlight", current_file.renderer_left, "highlight", BindingFlags.SYNC_CREATE);
 					}
 
