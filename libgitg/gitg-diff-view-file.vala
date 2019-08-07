@@ -47,6 +47,24 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "splitview" )]
 	private Gtk.Box splitview;
 
+	[GtkChild( name = "three_way_view")]
+	private Gtk.Box three_way_view;
+
+	[GtkChild( name = "scrolledview_left" )]
+	private Gtk.ScrolledWindow d_scrolledview_left;
+
+	[GtkChild( name = "scrolledview_middle" )]
+	private Gtk.ScrolledWindow d_scrolledview_middle;
+
+	[GtkChild( name = "scrolledview_right" )]
+	private Gtk.ScrolledWindow d_scrolledview_right;
+
+	[GtkChild( name = "scrolledview_diff_left" )]
+	private Gtk.ScrolledWindow d_scrolledview_diff_left;
+
+	[GtkChild( name = "scrolledview_diff_right" )]
+	private Gtk.ScrolledWindow d_scrolledview_diff_right;
+
 	[GtkChild( name = "scrolledwindow" )]
 	private Gtk.ScrolledWindow d_scrolledwindow;
 
@@ -62,6 +80,12 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "linkmap" )]
 	public LinkMap linkmap;
 
+	[GtkChild( name = "linkmap_left" )]
+	public LinkMap linkmap_left;
+
+	[GtkChild( name = "linkmap_right" )]
+	public LinkMap linkmap_right;
+
 	private Settings d_settings;
 
 	private bool d_expanded;
@@ -69,12 +93,19 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private Binding? d_vexpand_binding;
 	private Binding? d_vexpand_binding_l;
 	private Binding? d_vexpand_binding_r;
+	private Binding? d_vexpand_threeway_binding_l;
+	private Binding? d_vexpand_threeway_binding_m;
+	private Binding? d_vexpand_threeway_binding_r;
 
 	private bool d_split { get; set; default = false; }
+	private bool is_threeway;
 
 	private DiffViewFileRenderer? d_renderer;
 	private DiffViewFileRenderer? d_renderer_left;
 	private DiffViewFileRenderer? d_renderer_right;
+	private DiffViewFileRenderer? d_renderer_threeway_left;
+	private DiffViewFileRenderer? d_renderer_threeway_middle;
+	private DiffViewFileRenderer? d_renderer_threeway_right;
 
 	public DiffViewFileRenderer? renderer
 	{
@@ -177,13 +208,123 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 	}
 
+	public DiffViewFileRenderer? renderer_threeway_left
+	{
+		owned get
+		{
+			return d_renderer_threeway_left;
+		}
+
+		construct set
+		{
+			var current = this.renderer_threeway_left;
+
+			if (current != value)
+			{
+				if (d_vexpand_threeway_binding_l != null)
+				{
+					d_vexpand_threeway_binding_l.unbind();
+					d_vexpand_threeway_binding_l = null;
+				}
+
+				if (current != null)
+				{
+					d_scrolledview_left.remove(current);
+				}
+
+				d_renderer_threeway_left = value;
+				d_scrolledview_left.add(value);
+				d_scrolledview_left.show();
+
+				d_vexpand_threeway_binding_l = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
+			}
+		}
+	}
+
+	public DiffViewFileRenderer? renderer_threeway_middle
+	{
+		owned get
+		{
+			return d_renderer_threeway_middle;
+		}
+
+		construct set
+		{
+			var current = this.renderer_threeway_middle;
+
+			if (current != value)
+			{
+				if (d_vexpand_threeway_binding_m != null)
+				{
+					d_vexpand_threeway_binding_m.unbind();
+					d_vexpand_threeway_binding_m = null;
+				}
+
+				if (current != null)
+				{
+					d_scrolledview_middle.remove(current);
+				}
+
+				d_renderer_threeway_middle = value;
+				d_scrolledview_middle.add(value);
+				d_scrolledview_middle.show();
+
+				d_vexpand_threeway_binding_m = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
+			}
+		}
+	}
+
+	public DiffViewFileRenderer? renderer_threeway_right
+	{
+		owned get
+		{
+			return d_renderer_threeway_right;
+		}
+
+		construct set
+		{
+			var current = this.renderer_threeway_right;
+
+			if (current != value)
+			{
+				if (d_vexpand_threeway_binding_r != null)
+				{
+					d_vexpand_threeway_binding_r.unbind();
+					d_vexpand_threeway_binding_r = null;
+				}
+
+				if (current != null)
+				{
+					d_scrolledview_right.remove(current);
+				}
+
+				d_renderer_threeway_right = value;
+				d_scrolledview_right.add(value);
+				d_scrolledview_diff_left.add(linkmap_left);
+				d_scrolledview_diff_right.add(linkmap_right);
+				d_scrolledview_diff_left.show();
+				d_scrolledview_diff_right.show();
+				d_scrolledview_right.show();
+
+				d_vexpand_threeway_binding_r = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
+			}
+		}
+	}
+
 	[GtkCallback]
 	private void split_button_toggled(Gtk.ToggleButton button)
 	{
 		d_split = !d_split;
 		if (d_split)
 		{
-			d_source_stack.set_visible_child(splitview);
+			if (is_threeway)
+			{
+				d_source_stack.set_visible_child(three_way_view);
+			}
+			else
+			{
+				d_source_stack.set_visible_child(splitview);
+			}
 		}
 		else
 		{
@@ -232,10 +373,17 @@ class Gitg.DiffViewFile : Gtk.Grid
 	construct
 	{
 		linkmap = new LinkMap();
+		linkmap_left = new LinkMap();
+		linkmap_right = new LinkMap();
 		d_scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_diff.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		d_scrolledview_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		d_scrolledview_middle.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		d_scrolledview_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		d_scrolledview_diff_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		d_scrolledview_diff_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_settings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		if (d_settings != null ) {
 				d_settings.changed["use-diffbar"].connect ((s, k) => {
@@ -243,9 +391,13 @@ class Gitg.DiffViewFile : Gtk.Grid
 				if (remove)
 				{
 					this.remove (linkmap);
+					this.remove (linkmap_left);
+					this.remove (linkmap_right);
 				}
 				else {
 					this.add (linkmap);
+					this.add (linkmap_left);
+					this.add (linkmap_right);
 				}
 			});
 		}
@@ -253,6 +405,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 			print ("Can't access setting");
 		}
 
+		is_threeway = true;
 	}
 
 	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
@@ -276,6 +429,24 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		this.renderer_right.bind_property("added", d_diff_stat_file, "added");
 		this.renderer_right.bind_property("removed", d_diff_stat_file, "removed");
+
+		this.renderer_threeway_left = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.OLD);
+		this.renderer_threeway_left.show();
+
+		this.renderer_threeway_left.bind_property("added", d_diff_stat_file, "added");
+		this.renderer_threeway_left.bind_property("removed", d_diff_stat_file, "removed");
+
+		this.renderer_threeway_middle = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
+		this.renderer_threeway_middle.show();
+
+		this.renderer_threeway_middle.bind_property("added", d_diff_stat_file, "added");
+		this.renderer_threeway_middle.bind_property("removed", d_diff_stat_file, "removed");
+
+		this.renderer_threeway_right = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.NEW);
+		this.renderer_threeway_right.show();
+
+		this.renderer_threeway_right.bind_property("added", d_diff_stat_file, "added");
+		this.renderer_threeway_right.bind_property("removed", d_diff_stat_file, "removed");
 	}
 
 	public DiffViewFile.binary(Repository? repository, Ggit.DiffDelta delta)
@@ -442,10 +613,16 @@ class Gitg.DiffViewFile : Gtk.Grid
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines, LinkMap linkmap)
 	{
 		this.renderer.add_hunk(hunk, lines, linkmap);
-		if (this.renderer_left != null && this.renderer_right !=null)
+		if (this.renderer_left != null && this.renderer_right !=null && !is_threeway)
 		{
 			this.renderer_left.add_hunk(hunk, lines, linkmap);
 			this.renderer_right.add_hunk(hunk, lines, linkmap);
+		}
+		else if (this.renderer_threeway_left != null && this.renderer_threeway_middle != null && this.renderer_threeway_right != null)
+		{
+			this.renderer_threeway_left.add_hunk(hunk, lines, linkmap_left);
+			this.renderer_threeway_middle.add_hunk(hunk, lines, linkmap);
+			this.renderer_threeway_right.add_hunk(hunk, lines, linkmap_right);
 		}
 	}
 
