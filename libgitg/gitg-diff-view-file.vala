@@ -32,18 +32,37 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "revealer_content" )]
 	private Gtk.Revealer d_revealer_content;
 
-	[GtkChild( name = "box_file_renderer" )]
-	private Gtk.Box d_box_file_renderer;
-
 	[GtkChild( name = "split_button" )]
 	private Gtk.RadioButton split_button;
 
 	[GtkChild( name = "unif_button" )]
 	private Gtk.RadioButton unif_button;
 
+	[GtkChild( name = "source_stack" )]
+	private Gtk.Stack d_source_stack;
+
+	[GtkChild( name = "unifiedview" )]
+	private Gtk.Box unifiedview;
+
+	[GtkChild( name = "splitview" )]
+	private Gtk.Box splitview;
+
+	[GtkChild( name = "scrolledwindow" )]
 	private Gtk.ScrolledWindow d_scrolledwindow;
+
+	[GtkChild( name = "scrolledwindow_left" )]
 	private Gtk.ScrolledWindow d_scrolledwindow_left;
+
+	[GtkChild( name = "scrolledwindow_right" )]
 	private Gtk.ScrolledWindow d_scrolledwindow_right;
+
+	[GtkChild( name = "scrolledwindow_diff" )]
+	private Gtk.ScrolledWindow d_scrolledwindow_diff;
+
+	[GtkChild( name = "linkmap" )]
+	public LinkMap linkmap;
+
+	private Settings d_settings;
 
 	private bool d_expanded;
 
@@ -79,17 +98,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 				if (current != null)
 				{
 					d_scrolledwindow.remove(current);
-					d_box_file_renderer.remove(d_scrolledwindow);
 				}
 
 				d_renderer = value;
 				d_scrolledwindow.add(value);
 				d_scrolledwindow.show();
-
-				if (!d_split)
-				{
-					d_box_file_renderer.pack_start(d_scrolledwindow, true, true, 0);
-				}
 
 				d_vexpand_binding = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
 			}
@@ -118,17 +131,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 				if (current != null)
 				{
 					d_scrolledwindow_left.remove(current);
-					d_box_file_renderer.remove(d_scrolledwindow_left);
 				}
 
 				d_renderer_left = value;
 				d_scrolledwindow_left.add(value);
 				d_scrolledwindow_left.show();
-
-				if (d_split)
-				{
-					d_box_file_renderer.pack_start(d_scrolledwindow_left, true, true, 0);
-				}
 
 				d_vexpand_binding_l = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
 			}
@@ -157,17 +164,13 @@ class Gitg.DiffViewFile : Gtk.Grid
 				if (current != null)
 				{
 					d_scrolledwindow_right.remove(current);
-					d_box_file_renderer.remove(d_scrolledwindow_right);
 				}
 
 				d_renderer_right = value;
 				d_scrolledwindow_right.add(value);
+				d_scrolledwindow_diff.add(linkmap);
+				d_scrolledwindow_diff.show();
 				d_scrolledwindow_right.show();
-
-				if (d_split)
-				{
-					d_box_file_renderer.pack_start(d_scrolledwindow_right, true, true, 0);
-				}
 
 				d_vexpand_binding_r = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
 			}
@@ -180,15 +183,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_split = !d_split;
 		if (d_split)
 		{
-			d_box_file_renderer.remove(d_scrolledwindow);
-			d_box_file_renderer.pack_start(d_scrolledwindow_left, true, true, 0);
-			d_box_file_renderer.pack_end(d_scrolledwindow_right, true, true, 0);
+			d_source_stack.set_visible_child(splitview);
 		}
 		else
 		{
-			d_box_file_renderer.remove(d_scrolledwindow_left);
-			d_box_file_renderer.remove(d_scrolledwindow_right);
-			d_box_file_renderer.pack_start(d_scrolledwindow, true, true, 0);
+			d_source_stack.set_visible_child(unifiedview);
 		}
 	}
 
@@ -232,13 +231,28 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	construct
 	{
-		d_scrolledwindow = new Gtk.ScrolledWindow(null, null);
-		d_scrolledwindow_left = new Gtk.ScrolledWindow(null, null);
-		d_scrolledwindow_right = new Gtk.ScrolledWindow(null, null);
-
+		linkmap = new LinkMap();
 		d_scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		d_scrolledwindow_diff.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		d_settings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
+		if (d_settings != null ) {
+				d_settings.changed["use-diffbar"].connect ((s, k) => {
+				var remove = d_settings.get_boolean ("use-diffbar");
+				if (remove)
+				{
+					this.remove (linkmap);
+				}
+				else {
+					this.add (linkmap);
+				}
+			});
+		}
+		else {
+			print ("Can't access setting");
+		}
+
 	}
 
 	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
@@ -408,15 +422,33 @@ class Gitg.DiffViewFile : Gtk.Grid
 		return true;
 	}
 
-	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
+	private Settings? try_settings(string schema_id)
 	{
-		this.renderer.add_hunk(hunk, lines);
+		var source = SettingsSchemaSource.get_default();
+
+		if (source == null)
+		{
+			return null;
+		}
+
+		if (source.lookup(schema_id, true) != null)
+		{
+			return new Settings(schema_id);
+		}
+
+		return null;
+	}
+
+	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines, LinkMap linkmap)
+	{
+		this.renderer.add_hunk(hunk, lines, linkmap);
 		if (this.renderer_left != null && this.renderer_right !=null)
 		{
-			this.renderer_left.add_hunk(hunk, lines);
-			this.renderer_right.add_hunk(hunk, lines);
+			this.renderer_left.add_hunk(hunk, lines, linkmap);
+			this.renderer_right.add_hunk(hunk, lines, linkmap);
 		}
 	}
+
 }
 
 // ex:ts=4 noet

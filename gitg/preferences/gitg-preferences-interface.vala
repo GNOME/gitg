@@ -49,6 +49,9 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "syntax_scheme_store")]
 	private Gtk.ListStore d_syntax_scheme_store;
 
+	[GtkChild (name = "diffbar_check")]
+	private Gtk.CheckButton d_diffbar_check;
+
 	construct
 	{
 		d_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
@@ -87,6 +90,12 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 		                d_gravatar_enabled,
 		                "active",
 		                SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_settings.bind("use-diffbar",
+		                d_diffbar_check,
+		                "active",
+		                SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 
 		d_settings.bind("enable-monitoring",
 		                d_monitoring_enabled,

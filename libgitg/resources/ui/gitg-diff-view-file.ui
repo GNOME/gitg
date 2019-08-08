@@ -63,42 +63,28 @@
         </child>
         <child>
           <object class="GtkBox">
-            <property name="visible">1</property>
+            <property name="visible">True</property>
             <style>
               <class name="linked"/>
             </style>
             <child>
               <object class="GtkRadioButton" id="unif_button">
-                <property name="active">1</property>
-                <property name="visible">1</property>
-                <property name="active">1</property>
-                <property name="draw-indicator">0</property>
+                <property name="active">True</property>
+                <property name="visible">True</property>
+                <property name="active">True</property>
+                <property name="draw-indicator">False</property>
                 <property name="tooltip-text" translatable="yes">Unified view</property>
                 <property name="label" translatable="yes">Unif</property>
                 <signal name="toggled" handler="split_button_toggled" swapped="no"/>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">1</property>
-                    <property name="icon-size">1</property>
-                    <property name="icon-name">view-list-symbolic</property>
-                  </object>
-                </child>
               </object>
             </child>
             <child>
               <object class="GtkRadioButton" id="split_button">
-                <property name="visible">1</property>
-                <property name="draw-indicator">0</property>
+                <property name="visible">True</property>
+                <property name="draw-indicator">False</property>
                 <property name="tooltip-text" translatable="yes">Split view</property>
                 <property name="label" translatable="yes">Split</property>
                 <property name="group">unif_button</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">1</property>
-                    <property name="icon-size">1</property>
-                    <property name="icon-name">view-grid-symbolic</property>
-                  </object>
-                </child>
               </object>
             </child>
           </object>
@@ -117,10 +103,60 @@
           <object class="GtkBox" id="box_file_renderer">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="homogeneous">True</property>
             <property name="orientation">horizontal</property>
-	    <property name="margin_bottom">6</property>
+            <child>
+              <object class="GtkStack" id="source_stack">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkBox" id="unifiedview">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">horizontal</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolledwindow">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="shadow_type">in</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="splitview">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">horizontal</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolledwindow_left">
+                        <property name="visible">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="shadow_type">in</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolledwindow_diff">
+                        <property name="visible">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <object class="GitgLinkMap" id="linkmap">
+                            <property name="width_request">50</property>
+                            <property name="visible">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolledwindow_right">
+                        <property name="visible">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="shadow_type">in</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
       </object>
