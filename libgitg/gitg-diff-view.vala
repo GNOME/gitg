@@ -886,9 +886,22 @@ public class Gitg.DiffView : Gtk.Grid
 					}
 					else
 					{
-						current_file = new Gitg.DiffViewFile.text(info, handle_selection);
-						this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
-						this.bind_property("highlight", current_file.renderer_left, "highlight", BindingFlags.SYNC_CREATE);
+						if (!is_threeway)
+						{
+							current_file = new Gitg.DiffViewFile.text(info, handle_selection);
+							this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
+							this.bind_property("highlight", current_file.renderer_left, "highlight", BindingFlags.SYNC_CREATE);
+							this.bind_property("highlight", current_file.renderer_right, "highlight", BindingFlags.SYNC_CREATE);
+						}
+						else
+						{
+							current_file = new Gitg.DiffViewFile.threeway_text(info, handle_selection);
+							current_file.is_threeway = is_threeway;
+							this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
+							this.bind_property("highlight", current_file.renderer_threeway_left, "highlight", BindingFlags.SYNC_CREATE);
+							this.bind_property("highlight", current_file.renderer_threeway_middle, "highlight", BindingFlags.SYNC_CREATE);
+							this.bind_property("highlight", current_file.renderer_threeway_right, "highlight", BindingFlags.SYNC_CREATE);
+						}
 					}
 
 					return 0;
