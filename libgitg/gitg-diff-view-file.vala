@@ -89,6 +89,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private Settings d_settings;
 
 	private bool d_expanded;
+	private bool d_is_threeway;
 
 	private Binding? d_vexpand_binding;
 	private Binding? d_vexpand_binding_l;
@@ -98,7 +99,18 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private Binding? d_vexpand_threeway_binding_r;
 
 	private bool d_split { get; set; default = false; }
-	private bool is_threeway;
+	public bool is_threeway
+	{
+		get
+		{
+			return d_is_threeway;
+		}
+
+		set
+		{
+			d_is_threeway = value;
+		}
+	}
 
 	private DiffViewFileRenderer? d_renderer;
 	private DiffViewFileRenderer? d_renderer_left;
@@ -404,8 +416,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 		else {
 			print ("Can't access setting");
 		}
-
-		is_threeway = true;
 	}
 
 	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
