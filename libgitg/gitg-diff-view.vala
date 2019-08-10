@@ -50,6 +50,8 @@ public class Gitg.DiffView : Gtk.Grid
 	private ulong d_parent_commit_notify;
 	private bool d_changes_inline;
 	DiffModel? diffmodel;
+	DiffModel? diffmodel_left;
+	DiffModel? diffmodel_right;
 
 	Gdk.RGBA d_color_link;
 	Gdk.RGBA color_hovered_link;
@@ -575,9 +577,7 @@ public class Gitg.DiffView : Gtk.Grid
 				d_three_way_diff = d_commit.get_diff(options, 1);
 				d_diff = d_commit.get_diff (options, 0);
 				if (d_three_way_diff != null )
-					update_diff(d_three_way_diff, preserve_expanded, d_cancellable);
-				if (d_diff != null )
-					update_diff(d_diff, preserve_expanded, d_cancellable);
+					update_threeway_diff(d_diff, d_three_way_diff, preserve_expanded, d_cancellable);
 			}
 			else
 			{
@@ -618,10 +618,9 @@ public class Gitg.DiffView : Gtk.Grid
 			d_text_view_message.hide();
 		}
 
-		if (d_diff != null || d_three_way_diff!= null)
+		if (d_diff != null)
 		{
 			update_diff(d_diff, preserve_expanded, d_cancellable);
-			update_diff(d_three_way_diff, preserve_expanded, d_cancellable);
 		}
 	}
 
@@ -762,6 +761,75 @@ public class Gitg.DiffView : Gtk.Grid
 
 		finished = true;
 		check_finish();
+	}
+
+	private void update_threeway_diff(Ggit.Diff diff_left, Ggit.Diff diff_right, bool preserve_expanded, Cancellable? cancellable)
+	{
+		var nqueries_left = 0;
+		var nqueries_right = 0;
+		var finished_left = false;
+		var finished_right = false;
+		var infomap_left = new Gee.HashMap<string, DiffViewFileInfo>();
+		var infomap_right = new Gee.HashMap<string, DiffViewFileInfo>();
+
+		Anon check_finish_left = () => {
+			if (nqueries_left == 0 && finished_left && (cancellable == null || !cancellable.is_cancelled()))
+			{
+				finished_left = false;
+				update_threeway_diff_hunks(diff_left, diff_right, preserve_expanded, infomap_left, infomap_left, cancellable);
+			}
+		};
+
+		Anon check_finish_right = () => {
+			if (nqueries_right == 0 && finished_right && (cancellable == null || !cancellable.is_cancelled()))
+			{
+				finished_right = false;
+				update_threeway_diff_hunks(diff_left, diff_right, preserve_expanded, infomap_left, infomap_left, cancellable);
+			}
+		};
+
+		// Collect file info asynchronously first
+		for (var i = 0; i < diff_left.get_num_deltas(); i++)
+		{
+			var delta_left = diff_left.get_delta(i);
+			var info_left = new DiffViewFileInfo(repository, delta_left, new_is_workdir);
+
+			nqueries_left++;
+
+			info_left.query.begin(cancellable, (obj, res) => {
+				info_left.query.end(res);
+
+				infomap_left[key_for_delta(delta_left)] = info_left;
+
+				nqueries_left--;
+
+				check_finish_left();
+			});
+		}
+
+		finished_left = true;
+		check_finish_left();
+
+		for (var i = 0; i < diff_right.get_num_deltas(); i++)
+		{
+			var delta_right = diff_right.get_delta(i);
+			var info_right = new DiffViewFileInfo(repository, delta_right, new_is_workdir);
+
+			nqueries_right++;
+
+			info_right.query.begin(cancellable, (obj, res) => {
+				info_right.query.end(res);
+
+				infomap_right[key_for_delta(delta_right)] = info_right;
+
+				nqueries_right--;
+
+				check_finish_right();
+			});
+		}
+
+		finished_right = true;
+		check_finish_right();
 	}
 
 	private void update_diff_hunks(Ggit.Diff diff, bool preserve_expanded, Gee.HashMap<string, DiffViewFileInfo> infomap, Cancellable? cancellable)
@@ -1106,6 +1174,664 @@ public class Gitg.DiffView : Gtk.Grid
 			}
 
 			if (i == files.size - 1)
+			{
+				file.vexpand = true;
+			}
+
+			d_grid_files.add(file);
+
+			file.notify["expanded"].connect(auto_update_expanded);
+		}
+	}
+
+	private void update_threeway_diff_hunks(Ggit.Diff diff_left, Ggit.Diff diff_right,
+											bool preserve_expanded, Gee.HashMap<string, DiffViewFileInfo> infomap_left,
+											Gee.HashMap<string, DiffViewFileInfo> infomap_right, Cancellable? cancellable)
+	{
+		var files_left = new Gee.ArrayList<Gitg.DiffViewFile>();
+		var files_right = new Gee.ArrayList<Gitg.DiffViewFile>();
+
+		Gitg.DiffViewFile? current_file_left = null;
+		Gitg.DiffViewFile? current_file_right = null;
+		Ggit.DiffHunk? current_hunk_left = null;
+		Ggit.DiffHunk? current_hunk_right = null;
+		Gee.ArrayList<Ggit.DiffLine>? current_lines_left = null;
+		Gee.ArrayList<Ggit.DiffLine>? current_lines_right = null;
+		var current_is_binary_left = false;
+		var current_is_binary_right = false;
+
+		var maxlines_left = 0;
+		var maxlines_right = 0;
+
+		Anon add_hunk_left = () => {
+			if (current_hunk_left != null)
+			{
+				current_file_left.add_hunk(current_hunk_left, current_lines_left, new LinkMap());
+
+				current_lines_left = null;
+				current_hunk_left = null;
+			}
+		};
+
+		Anon add_hunk_right = () => {
+			if (current_hunk_right != null)
+			{
+				current_file_right.add_hunk(current_hunk_right, current_lines_right, new LinkMap());
+
+				current_lines_right = null;
+				current_hunk_right = null;
+			}
+		};
+
+		Anon add_file_left = () => {
+			add_hunk_left();
+
+			if (current_file_left != null)
+			{
+				current_file_left.show();
+				current_file_left.renderer.notify["has-selection"].connect(on_selection_changed);
+
+				files_left.add(current_file_left);
+
+				current_file_left = null;
+			}
+		};
+
+		Anon add_file_right = () => {
+			add_hunk_right();
+
+			if (current_file_right != null)
+			{
+				current_file_right.show();
+				current_file_right.renderer.notify["has-selection"].connect(on_selection_changed);
+
+				files_right.add(current_file_right);
+
+				current_file_right = null;
+			}
+		};
+
+		try
+		{
+			int new_linepos_left = 0;
+			int old_linepos_left = 0;
+
+			DiffViewFileRendererText? old_sourceview_left = null;
+			DiffViewFileRendererText? sourceview_middle = null;
+
+			current_file_left.renderer_threeway_left.bind_property("buffer",
+													    old_sourceview_left,
+													    "buffer",
+													    BindingFlags.DEFAULT);
+
+			current_file_left.renderer_threeway_middle.bind_property("buffer",
+													    sourceview_middle,
+													    "buffer",
+													    BindingFlags.DEFAULT);
+
+			int old_linecount_left = old_sourceview_left.buffer.get_line_count ();
+			int new_linecount_left = sourceview_middle.buffer.get_line_count ();
+			diff_left.foreach(
+				(delta, progress) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					add_file_left();
+
+					DiffViewFileInfo? info_left = null;
+					var deltakey = key_for_delta(delta);
+
+					if (infomap_left.has_key(deltakey))
+					{
+						info_left = infomap_left[deltakey];
+					}
+					else
+					{
+						info_left = new DiffViewFileInfo(repository, delta, new_is_workdir);
+					}
+
+					current_is_binary_left = ((delta.get_flags() & Ggit.DiffFlag.BINARY) != 0);
+
+					// List of known binary file types that may be wrongly classified by
+					// libgit2 because it does not contain any null bytes in the first N
+					// bytes. E.g. PDF
+					var known_binary_files_types = new string[] {"application/pdf"};
+
+					// Ignore binary based on content type
+					if (info_left != null && info_left.new_file_content_type in known_binary_files_types)
+					{
+						current_is_binary_left = true;
+					}
+
+					string? mime_type_for_image = null;
+
+					if (info_left == null || info_left.new_file_content_type == null)
+					{
+						// Guess mime type from old file name in the case of a deleted file
+						var oldpath = delta.get_old_file().get_path();
+
+						if (oldpath != null)
+						{
+							bool uncertain;
+							var ctype = ContentType.guess(Path.get_basename(oldpath), null, out uncertain);
+
+							if (ctype != null)
+							{
+								mime_type_for_image = ContentType.get_mime_type(ctype);
+							}
+						}
+					}
+					else
+					{
+						mime_type_for_image = ContentType.get_mime_type(info_left.new_file_content_type);
+					}
+
+					if (mime_type_for_image != null && s_image_mime_types.contains(mime_type_for_image))
+					{
+						current_file_left = new Gitg.DiffViewFile.image(repository, delta);
+					}
+					else if (current_is_binary_left)
+					{
+						current_file_left = new Gitg.DiffViewFile.binary(repository, delta);
+					}
+					else
+					{
+						current_file_left = new Gitg.DiffViewFile.threeway_text(info_left, handle_selection);
+						current_file_left.is_threeway = is_threeway;
+						this.bind_property("highlight", current_file_left.renderer, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file_left.renderer_threeway_left, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file_left.renderer_threeway_middle, "highlight", BindingFlags.SYNC_CREATE);
+					}
+
+					return 0;
+				},
+
+				(delta, binary) => {
+					// FIXME: do we want to handle binary data?
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					return 0;
+				},
+
+				(delta, hunk) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					if (!current_is_binary_left)
+					{
+						maxlines_left = int.max(maxlines_left, hunk.get_old_start() + hunk.get_old_lines());
+						maxlines_left = int.max(maxlines_left, hunk.get_new_start() + hunk.get_new_lines());
+
+						add_hunk_left();
+
+						current_hunk_left = hunk;
+						current_lines_left = new Gee.ArrayList<Ggit.DiffLine>();
+					}
+
+					return 0;
+				},
+
+				(delta, hunk, line) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					if (!current_is_binary_left)
+					{
+						current_lines_left.add(line);
+					}
+
+					int old_lineno = line.get_old_lineno ();
+					int new_lineno = line.get_new_lineno ();
+					old_linepos_left += old_lineno;
+					new_linepos_left += new_lineno;
+					var origin = line.get_origin ();
+
+//					print ("%s\n", old_sourceview_left.buffer.text);
+
+//					print ("line:\n");
+//					print ("- type %s\n", origin.to_string ());
+//					print ("- old line: %d\n", old_lineno);
+//					print ("- new line: %d\n", new_lineno);
+//					print ("- text: %s\n", line.get_text ());
+
+//					print ("old_linepos_left: %d, new_linepos_left: %d\n", old_linepos_left, new_linepos_left);
+						if (origin == Ggit.DiffLineType.ADDITION || origin == Ggit.DiffLineType.DELETION) {
+						diffmodel_left = add_diffmodel (current_file_left.linkmap);
+
+						if (origin == Ggit.DiffLineType.ADDITION) {
+							diffmodel_left.diff_type = DiffModel.DiffType.ADD;
+
+							old_lineno = old_linepos_left + 1;
+							bool add_height = false;
+							if (old_lineno > old_linecount_left) {
+								add_height = true;
+								old_lineno = old_linecount_left + 1;
+							}
+//							print ("old_linecount_left %d, new_linecount_left %d, new_lineno %d, old_lineno %d, new_linepos_left %d, old_linepos_left %d\n",
+//									old_linecount_left, new_linecount_left, new_lineno, old_lineno, new_linepos_left, old_linepos_left);
+
+							Gtk.TextIter iter_f0;
+							int f0y;
+							int f0_height;
+							old_sourceview_left.buffer.get_iter_at_line (out iter_f0, old_lineno - 1);
+							old_sourceview_left.get_line_yrange (iter_f0, out f0y, out f0_height);
+//							print ("y: %d, h: %d\n", f0y, f0_height);
+							int f0 = f0y;
+							if (add_height)  {
+								f0 += f0_height;
+							}
+							diffmodel_left.f0 = f0;
+							diffmodel_left.f1 = f0;
+
+							Gtk.TextIter iter_t0;
+							int t0y;
+							int t0_height;
+							sourceview_middle.buffer.get_iter_at_line (out iter_t0, new_lineno - 1);
+							sourceview_middle.get_line_yrange (iter_t0, out t0y, out t0_height);
+//							print ("y: %d, h: %d\n", t0y, t0_height);
+							diffmodel_left.t0 = t0y;
+							diffmodel_left.t1 = t0y + t0_height;
+
+						} else if (origin == Ggit.DiffLineType.DELETION) {
+							diffmodel_left.diff_type = DiffModel.DiffType.REMOVED;
+
+							Gtk.TextIter iter_f0;
+							int f0y;
+							int f0_height;
+							old_sourceview_left.buffer.get_iter_at_line (out iter_f0, old_lineno - 1);
+							old_sourceview_left.get_line_yrange (iter_f0, out f0y, out f0_height);
+							print ("y: %d, h: %d\n", f0y, f0_height);
+							diffmodel_left.f0 = f0y;
+							diffmodel_left.f1 = f0y + f0_height;
+
+							new_lineno = new_linepos_left + 1;
+							bool add_height = false;
+							if (new_lineno > new_linecount_left) {
+								add_height = true;
+								new_lineno = new_linecount_left + 1;
+							}
+//							print ("old_linecount_left %d, new_linecount_left %d, new_lineno %d, old_lineno %d, new_linepos_left %d, old_linepos_left %d\n",
+//									old_linecount_left, new_linecount_left, new_lineno, old_lineno, new_linepos_left, old_linepos_left);
+
+							Gtk.TextIter iter_t0;
+							int t0y;
+							int t0_height;
+							sourceview_middle.buffer.get_iter_at_line (out iter_t0, new_lineno - 1);
+							sourceview_middle.get_line_yrange (iter_t0, out t0y, out t0_height);
+//							print ("y: %d, h: %d\n", t0y, t0_height);
+							int t0 = t0y;
+							if (add_height)  {
+								t0 += t0_height;
+							}
+							diffmodel_left.t0 = t0;
+							diffmodel_left.t1 = t0;
+						}
+//						diffmodel.direction = direction;
+//						print ("add model f(%d,%d) -> t(%d,%d) = %s\n",
+//								diffmodel.f0, diffmodel.f1, diffmodel.t0, diffmodel.t1, diffmodel.diff_type.to_string());
+					}
+
+					return 0;
+				}
+			);
+		} catch {}
+
+		add_hunk_left();
+		add_file_left();
+
+		try
+		{
+			int new_linepos_right = 0;
+			int old_linepos_right = 0;
+
+			DiffViewFileRendererText? sourceview_middle = null;
+			DiffViewFileRendererText? new_sourceview_right = null;
+
+			current_file_right.renderer_threeway_middle.bind_property("buffer",
+													    sourceview_middle,
+													    "buffer",
+													    BindingFlags.DEFAULT);
+
+			current_file_right.renderer_threeway_right.bind_property("buffer",
+													    new_sourceview_right,
+													    "buffer",
+													    BindingFlags.DEFAULT);
+
+			int old_linecount_right = sourceview_middle.buffer.get_line_count ();
+			int new_linecount_right = new_sourceview_right.buffer.get_line_count ();
+			diff_right.foreach(
+				(delta, progress) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					add_file_right();
+
+					DiffViewFileInfo? info_right = null;
+					var deltakey = key_for_delta(delta);
+
+					if (infomap_right.has_key(deltakey))
+					{
+						info_right = infomap_right[deltakey];
+					}
+					else
+					{
+						info_right = new DiffViewFileInfo(repository, delta, new_is_workdir);
+					}
+
+					current_is_binary_right = ((delta.get_flags() & Ggit.DiffFlag.BINARY) != 0);
+
+					// List of known binary file types that may be wrongly classified by
+					// libgit2 because it does not contain any null bytes in the first N
+					// bytes. E.g. PDF
+					var known_binary_files_types = new string[] {"application/pdf"};
+
+					// Ignore binary based on content type
+					if (info_right != null && info_right.new_file_content_type in known_binary_files_types)
+					{
+						current_is_binary_right = true;
+					}
+
+					string? mime_type_for_image = null;
+
+					if (info_right == null || info_right.new_file_content_type == null)
+					{
+						// Guess mime type from old file name in the case of a deleted file
+						var oldpath = delta.get_old_file().get_path();
+
+						if (oldpath != null)
+						{
+							bool uncertain;
+							var ctype = ContentType.guess(Path.get_basename(oldpath), null, out uncertain);
+
+							if (ctype != null)
+							{
+								mime_type_for_image = ContentType.get_mime_type(ctype);
+							}
+						}
+					}
+					else
+					{
+						mime_type_for_image = ContentType.get_mime_type(info_right.new_file_content_type);
+					}
+
+					if (mime_type_for_image != null && s_image_mime_types.contains(mime_type_for_image))
+					{
+						current_file_right = new Gitg.DiffViewFile.image(repository, delta);
+					}
+					else if (current_is_binary_right)
+					{
+						current_file_right = new Gitg.DiffViewFile.binary(repository, delta);
+					}
+					else
+					{
+						current_file_right = new Gitg.DiffViewFile.threeway_text(info_right, handle_selection);
+						current_file_right.is_threeway = is_threeway;
+						this.bind_property("highlight", current_file_right.renderer, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file_right.renderer_threeway_middle, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file_right.renderer_threeway_right, "highlight", BindingFlags.SYNC_CREATE);
+					}
+
+					return 0;
+				},
+
+				(delta, binary) => {
+					// FIXME: do we want to handle binary data?
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					return 0;
+				},
+
+				(delta, hunk) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					if (!current_is_binary_right)
+					{
+						maxlines_right = int.max(maxlines_right, hunk.get_old_start() + hunk.get_old_lines());
+						maxlines_right = int.max(maxlines_right, hunk.get_new_start() + hunk.get_new_lines());
+
+						add_hunk_right();
+
+						current_hunk_right = hunk;
+						current_lines_right = new Gee.ArrayList<Ggit.DiffLine>();
+					}
+
+					return 0;
+				},
+
+				(delta, hunk, line) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					if (!current_is_binary_right)
+					{
+						current_lines_right.add(line);
+					}
+
+					int old_lineno = line.get_old_lineno ();
+					int new_lineno = line.get_new_lineno ();
+					old_linepos_right += old_lineno;
+					new_linepos_right += new_lineno;
+					var origin = line.get_origin ();
+
+//					print ("%s\n", sourceview_middle.buffer.text);
+
+//					print ("line:\n");
+//					print ("- type %s\n", origin.to_string ());
+//					print ("- old line: %d\n", old_lineno);
+//					print ("- new line: %d\n", new_lineno);
+//					print ("- text: %s\n", line.get_text ());
+
+//					print ("old_linepos_right: %d, new_linepos_right: %d\n", old_linepos_right, new_linepos_right);
+						if (origin == Ggit.DiffLineType.ADDITION || origin == Ggit.DiffLineType.DELETION) {
+						diffmodel_right = add_diffmodel (current_file_right.linkmap);
+
+						if (origin == Ggit.DiffLineType.ADDITION) {
+							diffmodel_right.diff_type = DiffModel.DiffType.ADD;
+
+							old_lineno = old_linepos_right + 1;
+							bool add_height = false;
+							if (old_lineno > old_linecount_right) {
+								add_height = true;
+								old_lineno = old_linecount_right + 1;
+							}
+//							print ("old_linecount_right %d, new_linecount_right %d, new_lineno %d, old_lineno %d, new_linepos_right %d, old_linepos_right %d\n",
+//									old_linecount_right, new_linecount_right, new_lineno, old_lineno, new_linepos_right, old_linepos_right);
+
+							Gtk.TextIter iter_f0;
+							int f0y;
+							int f0_height;
+							sourceview_middle.buffer.get_iter_at_line (out iter_f0, old_lineno - 1);
+							sourceview_middle.get_line_yrange (iter_f0, out f0y, out f0_height);
+//							print ("y: %d, h: %d\n", f0y, f0_height);
+							int f0 = f0y;
+							if (add_height)  {
+								f0 += f0_height;
+							}
+							diffmodel_right.f0 = f0;
+							diffmodel_right.f1 = f0;
+
+							Gtk.TextIter iter_t0;
+							int t0y;
+							int t0_height;
+							new_sourceview_right.buffer.get_iter_at_line (out iter_t0, new_lineno - 1);
+							new_sourceview_right.get_line_yrange (iter_t0, out t0y, out t0_height);
+//							print ("y: %d, h: %d\n", t0y, t0_height);
+							diffmodel_right.t0 = t0y;
+							diffmodel_right.t1 = t0y + t0_height;
+
+						} else if (origin == Ggit.DiffLineType.DELETION) {
+							diffmodel_right.diff_type = DiffModel.DiffType.REMOVED;
+
+							Gtk.TextIter iter_f0;
+							int f0y;
+							int f0_height;
+							sourceview_middle.buffer.get_iter_at_line (out iter_f0, old_lineno - 1);
+							sourceview_middle.get_line_yrange (iter_f0, out f0y, out f0_height);
+							print ("y: %d, h: %d\n", f0y, f0_height);
+							diffmodel_right.f0 = f0y;
+							diffmodel_right.f1 = f0y + f0_height;
+
+							new_lineno = new_linepos_right + 1;
+							bool add_height = false;
+							if (new_lineno > new_linecount_right) {
+								add_height = true;
+								new_lineno = new_linecount_right + 1;
+							}
+//							print ("old_linecount_right %d, new_linecount_right %d, new_lineno %d, old_lineno %d, new_linepos_right %d, old_linepos_right %d\n",
+//									old_linecount_right, new_linecount_right, new_lineno, old_lineno, new_linepos_right, old_linepos_right);
+
+							Gtk.TextIter iter_t0;
+							int t0y;
+							int t0_height;
+							new_sourceview_right.buffer.get_iter_at_line (out iter_t0, new_lineno - 1);
+							new_sourceview_right.get_line_yrange (iter_t0, out t0y, out t0_height);
+//							print ("y: %d, h: %d\n", t0y, t0_height);
+							int t0 = t0y;
+							if (add_height)  {
+								t0 += t0_height;
+							}
+							diffmodel_right.t0 = t0;
+							diffmodel_right.t1 = t0;
+						}
+//						diffmodel.direction = direction;
+//						print ("add model f(%d,%d) -> t(%d,%d) = %s\n",
+//								diffmodel.f0, diffmodel.f1, diffmodel.t0, diffmodel.t1, diffmodel.diff_type.to_string());
+					}
+
+					return 0;
+				}
+			);
+		} catch {}
+
+		add_hunk_right();
+		add_file_right();
+
+		var file_widgets = d_grid_files.get_children();
+		var was_expanded = new Gee.HashSet<string>();
+
+		foreach (var file in file_widgets)
+		{
+			var f = file as Gitg.DiffViewFile;
+
+			if (preserve_expanded && f.expanded)
+			{
+				var path = primary_path(f.delta);
+
+				if (path != null)
+				{
+					was_expanded.add(path);
+				}
+			}
+
+			f.destroy();
+		}
+
+		d_commit_details.expanded = (files_left.size <= 1 || !default_collapse_all);
+		d_commit_details.expander_visible = (files_left.size > 1);
+
+		for (var i = 0; i < files_left.size; i++)
+		{
+			var file = files_left[i];
+			var path = primary_path(file.delta);
+
+			file.expanded = d_commit_details.expanded || (path != null && was_expanded.contains(path));
+
+			var renderer_text = file.renderer as DiffViewFileRendererText;
+
+			if (renderer_text != null)
+			{
+				renderer_text.maxlines = maxlines_left;
+
+				this.bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_left = file.renderer_threeway_left as DiffViewFileRendererText;
+			if (renderer_left != null)
+			{
+				renderer_left.maxlines = maxlines_left;
+
+				this.bind_property("wrap-lines", renderer_left, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_left, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_right = file.renderer_threeway_middle as DiffViewFileRendererText;
+			if (renderer_right != null)
+			{
+				renderer_right.maxlines = maxlines_left;
+
+				this.bind_property("wrap-lines", renderer_right, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_right, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			if (i == files_left.size - 1)
+			{
+				file.vexpand = true;
+			}
+
+			d_grid_files.add(file);
+
+			file.notify["expanded"].connect(auto_update_expanded);
+		}
+
+		d_commit_details.expanded = (files_right.size <= 1 || !default_collapse_all);
+		d_commit_details.expander_visible = (files_right.size > 1);
+
+		for (var i = 0; i < files_right.size; i++)
+		{
+			var file = files_right[i];
+			var path = primary_path(file.delta);
+
+			file.expanded = d_commit_details.expanded || (path != null && was_expanded.contains(path));
+
+			var renderer_text = file.renderer as DiffViewFileRendererText;
+
+			if (renderer_text != null)
+			{
+				renderer_text.maxlines = maxlines_right;
+
+				this.bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_left = file.renderer_threeway_middle as DiffViewFileRendererText;
+			if (renderer_left != null)
+			{
+				renderer_left.maxlines = maxlines_right;
+
+				this.bind_property("wrap-lines", renderer_left, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_left, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_right = file.renderer_threeway_right as DiffViewFileRendererText;
+			if (renderer_right != null)
+			{
+				renderer_right.maxlines = maxlines_right;
+
+				this.bind_property("wrap-lines", renderer_right, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_right, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			if (i == files_right.size - 1)
 			{
 				file.vexpand = true;
 			}
