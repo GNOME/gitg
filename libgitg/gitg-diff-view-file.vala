@@ -77,16 +77,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "scrolledwindow_diff" )]
 	private Gtk.ScrolledWindow d_scrolledwindow_diff;
 
-	[GtkChild( name = "linkmap" )]
-	public LinkMap linkmap;
-
-	[GtkChild( name = "linkmap_left" )]
-	public LinkMap linkmap_left;
-
-	[GtkChild( name = "linkmap_right" )]
-	public LinkMap linkmap_right;
-
-	private Settings d_settings;
 
 	private bool d_expanded;
 	private bool d_is_threeway;
@@ -211,7 +201,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 				d_renderer_right = value;
 				d_scrolledwindow_right.add(value);
-				d_scrolledwindow_diff.add(linkmap);
 				d_scrolledwindow_diff.show();
 				d_scrolledwindow_right.show();
 
@@ -312,8 +301,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 				d_renderer_threeway_right = value;
 				d_scrolledview_right.add(value);
-				d_scrolledview_diff_left.add(linkmap_left);
-				d_scrolledview_diff_right.add(linkmap_right);
 				d_scrolledview_diff_left.show();
 				d_scrolledview_diff_right.show();
 				d_scrolledview_right.show();
@@ -384,9 +371,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	construct
 	{
-		linkmap = new LinkMap();
-		linkmap_left = new LinkMap();
-		linkmap_right = new LinkMap();
 		d_scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
@@ -396,26 +380,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_scrolledview_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledview_diff_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledview_diff_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_settings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
-		if (d_settings != null ) {
-				d_settings.changed["use-diffbar"].connect ((s, k) => {
-				var remove = d_settings.get_boolean ("use-diffbar");
-				if (remove)
-				{
-					this.remove (linkmap);
-					this.remove (linkmap_left);
-					this.remove (linkmap_right);
-				}
-				else {
-					this.add (linkmap);
-					this.remove (linkmap_left);
-					this.remove (linkmap_right);
-				}
-			});
-		}
-		else {
-			print ("Can't access setting");
-		}
 	}
 
 	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
@@ -614,36 +578,19 @@ class Gitg.DiffViewFile : Gtk.Grid
 		return true;
 	}
 
-	private Settings? try_settings(string schema_id)
+	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
-		var source = SettingsSchemaSource.get_default();
-
-		if (source == null)
-		{
-			return null;
-		}
-
-		if (source.lookup(schema_id, true) != null)
-		{
-			return new Settings(schema_id);
-		}
-
-		return null;
-	}
-
-	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines, LinkMap linkmap)
-	{
-		this.renderer.add_hunk(hunk, lines, linkmap);
+		this.renderer.add_hunk(hunk, lines);
 		if (this.renderer_left != null && this.renderer_right !=null && !is_threeway)
 		{
-			this.renderer_left.add_hunk(hunk, lines, linkmap);
-			this.renderer_right.add_hunk(hunk, lines, linkmap);
+			this.renderer_left.add_hunk(hunk, lines);
+			this.renderer_right.add_hunk(hunk, lines);
 		}
 		else if (this.renderer_threeway_left != null && this.renderer_threeway_middle != null && this.renderer_threeway_right != null)
 		{
-			this.renderer_threeway_left.add_hunk(hunk, lines, linkmap_left);
-			this.renderer_threeway_middle.add_hunk(hunk, lines, linkmap);
-			this.renderer_threeway_right.add_hunk(hunk, lines, linkmap_right);
+			this.renderer_threeway_left.add_hunk(hunk, lines);
+			this.renderer_threeway_middle.add_hunk(hunk, lines);
+			this.renderer_threeway_right.add_hunk(hunk, lines);
 		}
 	}
 

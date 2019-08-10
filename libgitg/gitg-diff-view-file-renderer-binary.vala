@@ -20,7 +20,7 @@
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-diff-view-file-renderer-binary.ui")]
 class Gitg.DiffViewFileRendererBinary : Gtk.Grid, DiffViewFileRenderer
 {
-	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines, LinkMap linkmap)
+	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
 	}
 }

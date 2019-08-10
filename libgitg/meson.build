@@ -68,8 +68,6 @@ sources = files(
   'gitg-theme.vala',
   'gitg-utils.vala',
   'gitg-when-mapped.vala',
-  'gitg-linkmap.vala',
-  'gitg-diff-model.vala'
 )
 
 resource_data = files(
