@@ -451,7 +451,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 		this.renderer.bind_property("added", d_diff_stat_file, "added");
 		this.renderer.bind_property("removed", d_diff_stat_file, "removed");
 
-		this.renderer_threeway_left = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.OLD);
+		this.renderer_threeway_left = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
 		this.renderer_threeway_left.show();
 
 		this.renderer_threeway_left.bind_property("added", d_diff_stat_file, "added");
@@ -463,7 +463,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 		this.renderer_threeway_middle.bind_property("added", d_diff_stat_file, "added");
 		this.renderer_threeway_middle.bind_property("removed", d_diff_stat_file, "removed");
 
-		this.renderer_threeway_right = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.NEW);
+		this.renderer_threeway_right = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
 		this.renderer_threeway_right.show();
 
 		this.renderer_threeway_right.bind_property("added", d_diff_stat_file, "added");
