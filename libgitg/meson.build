@@ -14,6 +14,7 @@ common_deps = [
   gtk_dep,
   libgit2_glib_dep,
   libdazzle_dep,
+  gtksourceview_dep,
 ]
 
 sources = files(

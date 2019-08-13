@@ -32,30 +32,96 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "revealer_content" )]
 	private Gtk.Revealer d_revealer_content;
 
-	[GtkChild( name = "box_file_renderer" )]
-	private Gtk.Box d_box_file_renderer;
-
 	[GtkChild( name = "split_button" )]
 	private Gtk.RadioButton split_button;
 
 	[GtkChild( name = "unif_button" )]
 	private Gtk.RadioButton unif_button;
 
+	[GtkChild( name = "source_stack" )]
+	private Gtk.Stack d_source_stack;
+
+	[GtkChild( name = "unifiedview" )]
+	private Gtk.Box unifiedview;
+
+	[GtkChild( name = "splitview" )]
+	private Gtk.Box splitview;
+
+	[GtkChild( name = "three_way_view")]
+	private Gtk.Box three_way_view;
+
+	[GtkChild( name = "scrolledview_left" )]
+	private Gtk.ScrolledWindow d_scrolledview_left;
+
+	[GtkChild( name = "scrolledview_middle" )]
+	private Gtk.ScrolledWindow d_scrolledview_middle;
+
+	[GtkChild( name = "scrolledview_right" )]
+	private Gtk.ScrolledWindow d_scrolledview_right;
+
+	[GtkChild( name = "scrolledview_diff_left" )]
+	private Gtk.ScrolledWindow d_scrolledview_diff_left;
+
+	[GtkChild( name = "scrolledview_diff_right" )]
+	private Gtk.ScrolledWindow d_scrolledview_diff_right;
+
+	[GtkChild( name = "scrolledwindow" )]
 	private Gtk.ScrolledWindow d_scrolledwindow;
+
+	[GtkChild( name = "scrolledwindow_left" )]
 	private Gtk.ScrolledWindow d_scrolledwindow_left;
+
+	[GtkChild( name = "scrolledwindow_right" )]
 	private Gtk.ScrolledWindow d_scrolledwindow_right;
 
+	[GtkChild( name = "scrolledwindow_diff" )]
+	private Gtk.ScrolledWindow d_scrolledwindow_diff;
+
+
 	private bool d_expanded;
+	private bool d_is_threeway;
 
 	private Binding? d_vexpand_binding;
 	private Binding? d_vexpand_binding_l;
 	private Binding? d_vexpand_binding_r;
+	private Binding? d_vexpand_threeway_binding_l;
+	private Binding? d_vexpand_threeway_binding_m;
+	private Binding? d_vexpand_threeway_binding_r;
 
-	private bool d_split { get; set; default = false; }
+	private bool d_split;
+
+	public bool split
+	{
+		get
+		{
+			return d_split;
+		}
+
+		set
+		{
+			d_split = value;
+		}
+	}
+
+	public bool is_threeway
+	{
+		get
+		{
+			return d_is_threeway;
+		}
+
+		set
+		{
+			d_is_threeway = value;
+		}
+	}
 
 	private DiffViewFileRenderer? d_renderer;
 	private DiffViewFileRenderer? d_renderer_left;
 	private DiffViewFileRenderer? d_renderer_right;
+	private DiffViewFileRenderer? d_renderer_threeway_left;
+	private DiffViewFileRenderer? d_renderer_threeway_middle;
+	private DiffViewFileRenderer? d_renderer_threeway_right;
 
 	public DiffViewFileRenderer? renderer
 	{
@@ -79,17 +145,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 				if (current != null)
 				{
 					d_scrolledwindow.remove(current);
-					d_box_file_renderer.remove(d_scrolledwindow);
 				}
 
 				d_renderer = value;
 				d_scrolledwindow.add(value);
 				d_scrolledwindow.show();
-
-				if (!d_split)
-				{
-					d_box_file_renderer.pack_start(d_scrolledwindow, true, true, 0);
-				}
 
 				d_vexpand_binding = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
 			}
@@ -118,17 +178,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 				if (current != null)
 				{
 					d_scrolledwindow_left.remove(current);
-					d_box_file_renderer.remove(d_scrolledwindow_left);
 				}
 
 				d_renderer_left = value;
 				d_scrolledwindow_left.add(value);
 				d_scrolledwindow_left.show();
-
-				if (d_split)
-				{
-					d_box_file_renderer.pack_start(d_scrolledwindow_left, true, true, 0);
-				}
 
 				d_vexpand_binding_l = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
 			}
@@ -157,19 +211,115 @@ class Gitg.DiffViewFile : Gtk.Grid
 				if (current != null)
 				{
 					d_scrolledwindow_right.remove(current);
-					d_box_file_renderer.remove(d_scrolledwindow_right);
 				}
 
 				d_renderer_right = value;
 				d_scrolledwindow_right.add(value);
+				d_scrolledwindow_diff.show();
 				d_scrolledwindow_right.show();
 
-				if (d_split)
+				d_vexpand_binding_r = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
+			}
+		}
+	}
+
+	public DiffViewFileRenderer? renderer_threeway_left
+	{
+		owned get
+		{
+			return d_renderer_threeway_left;
+		}
+
+		construct set
+		{
+			var current = this.renderer_threeway_left;
+
+			if (current != value)
+			{
+				if (d_vexpand_threeway_binding_l != null)
 				{
-					d_box_file_renderer.pack_start(d_scrolledwindow_right, true, true, 0);
+					d_vexpand_threeway_binding_l.unbind();
+					d_vexpand_threeway_binding_l = null;
 				}
 
-				d_vexpand_binding_r = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
+				if (current != null)
+				{
+					d_scrolledview_left.remove(current);
+				}
+
+				d_renderer_threeway_left = value;
+				d_scrolledview_left.add(value);
+				d_scrolledview_left.show();
+
+				d_vexpand_threeway_binding_l = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
+			}
+		}
+	}
+
+	public DiffViewFileRenderer? renderer_threeway_middle
+	{
+		owned get
+		{
+			return d_renderer_threeway_middle;
+		}
+
+		construct set
+		{
+			var current = this.renderer_threeway_middle;
+
+			if (current != value)
+			{
+				if (d_vexpand_threeway_binding_m != null)
+				{
+					d_vexpand_threeway_binding_m.unbind();
+					d_vexpand_threeway_binding_m = null;
+				}
+
+				if (current != null)
+				{
+					d_scrolledview_middle.remove(current);
+				}
+
+				d_renderer_threeway_middle = value;
+				d_scrolledview_middle.add(value);
+				d_scrolledview_middle.show();
+
+				d_vexpand_threeway_binding_m = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
+			}
+		}
+	}
+
+	public DiffViewFileRenderer? renderer_threeway_right
+	{
+		owned get
+		{
+			return d_renderer_threeway_right;
+		}
+
+		construct set
+		{
+			var current = this.renderer_threeway_right;
+
+			if (current != value)
+			{
+				if (d_vexpand_threeway_binding_r != null)
+				{
+					d_vexpand_threeway_binding_r.unbind();
+					d_vexpand_threeway_binding_r = null;
+				}
+
+				if (current != null)
+				{
+					d_scrolledview_right.remove(current);
+				}
+
+				d_renderer_threeway_right = value;
+				d_scrolledview_right.add(value);
+				d_scrolledview_diff_left.show();
+				d_scrolledview_diff_right.show();
+				d_scrolledview_right.show();
+
+				d_vexpand_threeway_binding_r = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
 			}
 		}
 	}
@@ -177,18 +327,21 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkCallback]
 	private void split_button_toggled(Gtk.ToggleButton button)
 	{
-		d_split = !d_split;
-		if (d_split)
+		split_button.bind_property("active", this, "split", BindingFlags.SYNC_CREATE);
+		if (split)
 		{
-			d_box_file_renderer.remove(d_scrolledwindow);
-			d_box_file_renderer.pack_start(d_scrolledwindow_left, true, true, 0);
-			d_box_file_renderer.pack_end(d_scrolledwindow_right, true, true, 0);
+			if (is_threeway)
+			{
+				d_source_stack.set_visible_child(three_way_view);
+			}
+			else
+			{
+				d_source_stack.set_visible_child(splitview);
+			}
 		}
 		else
 		{
-			d_box_file_renderer.remove(d_scrolledwindow_left);
-			d_box_file_renderer.remove(d_scrolledwindow_right);
-			d_box_file_renderer.pack_start(d_scrolledwindow, true, true, 0);
+			d_source_stack.set_visible_child(unifiedview);
 		}
 	}
 
@@ -232,13 +385,22 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	construct
 	{
-		d_scrolledwindow = new Gtk.ScrolledWindow(null, null);
-		d_scrolledwindow_left = new Gtk.ScrolledWindow(null, null);
-		d_scrolledwindow_right = new Gtk.ScrolledWindow(null, null);
-
 		d_scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+
+		if (!is_threeway)
+		{
+			d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledwindow_diff.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		}
+		else
+		{
+			d_scrolledview_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledview_middle.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledview_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledview_diff_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledview_diff_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		}
 	}
 
 	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
@@ -262,6 +424,35 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		this.renderer_right.bind_property("added", d_diff_stat_file, "added");
 		this.renderer_right.bind_property("removed", d_diff_stat_file, "removed");
+	}
+
+	public DiffViewFile.threeway_text(DiffViewFileInfo info, bool handle_selection)
+	{
+		this(info.repository, info.delta);
+
+		this.renderer = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
+		this.renderer.show();
+
+		this.renderer.bind_property("added", d_diff_stat_file, "added");
+		this.renderer.bind_property("removed", d_diff_stat_file, "removed");
+
+		this.renderer_threeway_left = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
+		this.renderer_threeway_left.show();
+
+		this.renderer_threeway_left.bind_property("added", d_diff_stat_file, "added");
+		this.renderer_threeway_left.bind_property("removed", d_diff_stat_file, "removed");
+
+		this.renderer_threeway_middle = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
+		this.renderer_threeway_middle.show();
+
+		this.renderer_threeway_middle.bind_property("added", d_diff_stat_file, "added");
+		this.renderer_threeway_middle.bind_property("removed", d_diff_stat_file, "removed");
+
+		this.renderer_threeway_right = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
+		this.renderer_threeway_right.show();
+
+		this.renderer_threeway_right.bind_property("added", d_diff_stat_file, "added");
+		this.renderer_threeway_right.bind_property("removed", d_diff_stat_file, "removed");
 	}
 
 	public DiffViewFile.binary(Repository? repository, Ggit.DiffDelta delta)
@@ -411,12 +602,19 @@ class Gitg.DiffViewFile : Gtk.Grid
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
 		this.renderer.add_hunk(hunk, lines);
-		if (this.renderer_left != null && this.renderer_right !=null)
+		if (this.renderer_left != null && this.renderer_right !=null && !is_threeway)
 		{
 			this.renderer_left.add_hunk(hunk, lines);
 			this.renderer_right.add_hunk(hunk, lines);
 		}
+		else if (this.renderer_threeway_left != null && this.renderer_threeway_middle != null && this.renderer_threeway_right != null)
+		{
+			this.renderer_threeway_left.add_hunk(hunk, lines);
+			this.renderer_threeway_middle.add_hunk(hunk, lines);
+			this.renderer_threeway_right.add_hunk(hunk, lines);
+		}
 	}
+
 }
 
 // ex:ts=4 noet

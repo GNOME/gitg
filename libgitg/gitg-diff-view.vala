@@ -42,6 +42,7 @@ public class Gitg.DiffView : Gtk.Grid
 	private Gtk.TextView d_text_view_message;
 
 	private Ggit.Diff? d_diff;
+	private Ggit.Diff? d_three_way_diff;
 	private Commit? d_commit;
 	private Ggit.DiffOptions? d_options;
 	private Cancellable d_cancellable;
@@ -91,6 +92,21 @@ public class Gitg.DiffView : Gtk.Grid
 			update(false);
 		}
 	}
+	public Ggit.Diff? three_way_diff
+	{
+		get { return d_three_way_diff; }
+		set
+		{
+			if (d_three_way_diff != value)
+			{
+				d_three_way_diff = value;
+				d_commit = null;
+			}
+
+			update(false);
+		}
+	}
+
 
 	public Commit? commit
 	{
@@ -124,6 +140,7 @@ public class Gitg.DiffView : Gtk.Grid
 	public int tab_width { get; construct set; default = 4; }
 	public bool handle_selection { get; construct set; default = false; }
 	public bool highlight { get; construct set; default = true; }
+	public bool is_threeway;
 
 	private Repository? d_repository;
 
@@ -551,24 +568,34 @@ public class Gitg.DiffView : Gtk.Grid
 			var parents = d_commit.get_parents();
 
 			var parent_commit = d_commit_details.parent_commit;
-
-			if (parent_commit != null)
+			if (parents.size == 2)
 			{
-				for (var i = 0; i < parents.size; i++)
+				is_threeway = true;
+				d_three_way_diff = d_commit.get_diff(options, 1);
+				d_diff = d_commit.get_diff (options, 0);
+				if (d_three_way_diff != null )
+					update_threeway_diff(d_diff, d_three_way_diff, preserve_expanded, d_cancellable);
+			}
+			else
+			{
+				is_threeway = false;
+				if (parent_commit != null)
 				{
-					var id = parents.get_id(i);
-
-					if (id.equal(parent_commit.get_id()))
+					for (var i = 0; i < parents.size; i++)
 					{
-						parent = i;
-						break;
+						var id = parents.get_id(i);
+
+						if (id.equal(parent_commit.get_id()))
+						{
+							parent = i;
+							break;
+						}
 					}
 				}
+
+				d_diff = d_commit.get_diff(options, parent);
+				d_commit_details.show();
 			}
-
-			d_diff = d_commit.get_diff(options, parent);
-			d_commit_details.show();
-
 			var message = message_without_subject(d_commit);
 
 			d_text_view_message.buffer.set_text(message);
@@ -697,6 +724,10 @@ public class Gitg.DiffView : Gtk.Grid
 		var nqueries = 0;
 		var finished = false;
 		var infomap = new Gee.HashMap<string, DiffViewFileInfo>();
+		if (is_threeway)
+		{
+			print ("Three way detected ................");
+		}
 
 		Anon check_finish = () => {
 			if (nqueries == 0 && finished && (cancellable == null || !cancellable.is_cancelled()))
@@ -727,6 +758,75 @@ public class Gitg.DiffView : Gtk.Grid
 
 		finished = true;
 		check_finish();
+	}
+
+	private void update_threeway_diff(Ggit.Diff diff_left, Ggit.Diff diff_right, bool preserve_expanded, Cancellable? cancellable)
+	{
+		var nqueries_left = 0;
+		var nqueries_right = 0;
+		var finished_left = false;
+		var finished_right = false;
+		var infomap_left = new Gee.HashMap<string, DiffViewFileInfo>();
+		var infomap_right = new Gee.HashMap<string, DiffViewFileInfo>();
+
+		Anon check_finish_left = () => {
+			if (nqueries_left == 0 && finished_left && (cancellable == null || !cancellable.is_cancelled()))
+			{
+				finished_left = false;
+				update_threeway_diff_hunks(diff_left, diff_right, preserve_expanded, infomap_left, infomap_left, cancellable);
+			}
+		};
+
+		Anon check_finish_right = () => {
+			if (nqueries_right == 0 && finished_right && (cancellable == null || !cancellable.is_cancelled()))
+			{
+				finished_right = false;
+				update_threeway_diff_hunks(diff_left, diff_right, preserve_expanded, infomap_left, infomap_left, cancellable);
+			}
+		};
+
+		// Collect file info asynchronously first
+		for (var i = 0; i < diff_left.get_num_deltas(); i++)
+		{
+			var delta_left = diff_left.get_delta(i);
+			var info_left = new DiffViewFileInfo(repository, delta_left, new_is_workdir);
+
+			nqueries_left++;
+
+			info_left.query.begin(cancellable, (obj, res) => {
+				info_left.query.end(res);
+
+				infomap_left[key_for_delta(delta_left)] = info_left;
+
+				nqueries_left--;
+
+				check_finish_left();
+			});
+		}
+
+		finished_left = true;
+		check_finish_left();
+
+		for (var i = 0; i < diff_right.get_num_deltas(); i++)
+		{
+			var delta_right = diff_right.get_delta(i);
+			var info_right = new DiffViewFileInfo(repository, delta_right, new_is_workdir);
+
+			nqueries_right++;
+
+			info_right.query.begin(cancellable, (obj, res) => {
+				info_right.query.end(res);
+
+				infomap_right[key_for_delta(delta_right)] = info_right;
+
+				nqueries_right--;
+
+				check_finish_right();
+			});
+		}
+
+		finished_right = true;
+		check_finish_right();
 	}
 
 	private void update_diff_hunks(Ggit.Diff diff, bool preserve_expanded, Gee.HashMap<string, DiffViewFileInfo> infomap, Cancellable? cancellable)
@@ -836,7 +936,7 @@ public class Gitg.DiffView : Gtk.Grid
 						current_file = new Gitg.DiffViewFile.text(info, handle_selection);
 						this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
 						this.bind_property("highlight", current_file.renderer_left, "highlight", BindingFlags.SYNC_CREATE);
-						this.bind_property("highlight", current_file.renderer_left, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file.renderer_right, "highlight", BindingFlags.SYNC_CREATE);
 					}
 
 					return 0;
@@ -882,7 +982,6 @@ public class Gitg.DiffView : Gtk.Grid
 					{
 						current_lines.add(line);
 					}
-
 					return 0;
 				}
 			);
@@ -950,6 +1049,444 @@ public class Gitg.DiffView : Gtk.Grid
 			}
 
 			if (i == files.size - 1)
+			{
+				file.vexpand = true;
+			}
+
+			d_grid_files.add(file);
+
+			file.notify["expanded"].connect(auto_update_expanded);
+		}
+	}
+
+	private void update_threeway_diff_hunks(Ggit.Diff diff_left, Ggit.Diff diff_right,
+											bool preserve_expanded, Gee.HashMap<string, DiffViewFileInfo> infomap_left,
+											Gee.HashMap<string, DiffViewFileInfo> infomap_right, Cancellable? cancellable)
+	{
+		var files_left = new Gee.ArrayList<Gitg.DiffViewFile>();
+		var files_right = new Gee.ArrayList<Gitg.DiffViewFile>();
+
+		Gitg.DiffViewFile? current_file_left = null;
+		Gitg.DiffViewFile? current_file_right = null;
+		Ggit.DiffHunk? current_hunk_left = null;
+		Ggit.DiffHunk? current_hunk_right = null;
+		Gee.ArrayList<Ggit.DiffLine>? current_lines_left = null;
+		Gee.ArrayList<Ggit.DiffLine>? current_lines_right = null;
+		var current_is_binary_left = false;
+		var current_is_binary_right = false;
+
+		var maxlines_left = 0;
+		var maxlines_right = 0;
+
+		Anon add_hunk_left = () => {
+			if (current_hunk_left != null)
+			{
+				current_file_left.add_hunk(current_hunk_left, current_lines_left);
+
+				current_lines_left = null;
+				current_hunk_left = null;
+			}
+		};
+
+		Anon add_hunk_right = () => {
+			if (current_hunk_right != null)
+			{
+				current_file_right.add_hunk(current_hunk_right, current_lines_right);
+
+				current_lines_right = null;
+				current_hunk_right = null;
+			}
+		};
+
+		Anon add_file_left = () => {
+			add_hunk_left();
+
+			if (current_file_left != null)
+			{
+				current_file_left.show();
+				current_file_left.renderer.notify["has-selection"].connect(on_selection_changed);
+
+				files_left.add(current_file_left);
+
+				current_file_left = null;
+			}
+		};
+
+		Anon add_file_right = () => {
+			add_hunk_right();
+
+			if (current_file_right != null)
+			{
+				current_file_right.show();
+				current_file_right.renderer.notify["has-selection"].connect(on_selection_changed);
+
+				files_right.add(current_file_right);
+
+				current_file_right = null;
+			}
+		};
+
+		try
+		{
+			diff_left.foreach(
+				(delta, progress) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					add_file_left();
+
+					DiffViewFileInfo? info_left = null;
+					var deltakey = key_for_delta(delta);
+
+					if (infomap_left.has_key(deltakey))
+					{
+						info_left = infomap_left[deltakey];
+					}
+					else
+					{
+						info_left = new DiffViewFileInfo(repository, delta, new_is_workdir);
+					}
+
+					current_is_binary_left = ((delta.get_flags() & Ggit.DiffFlag.BINARY) != 0);
+
+					// List of known binary file types that may be wrongly classified by
+					// libgit2 because it does not contain any null bytes in the first N
+					// bytes. E.g. PDF
+					var known_binary_files_types = new string[] {"application/pdf"};
+
+					// Ignore binary based on content type
+					if (info_left != null && info_left.new_file_content_type in known_binary_files_types)
+					{
+						current_is_binary_left = true;
+					}
+
+					string? mime_type_for_image = null;
+
+					if (info_left == null || info_left.new_file_content_type == null)
+					{
+						// Guess mime type from old file name in the case of a deleted file
+						var oldpath = delta.get_old_file().get_path();
+
+						if (oldpath != null)
+						{
+							bool uncertain;
+							var ctype = ContentType.guess(Path.get_basename(oldpath), null, out uncertain);
+
+							if (ctype != null)
+							{
+								mime_type_for_image = ContentType.get_mime_type(ctype);
+							}
+						}
+					}
+					else
+					{
+						mime_type_for_image = ContentType.get_mime_type(info_left.new_file_content_type);
+					}
+
+					if (mime_type_for_image != null && s_image_mime_types.contains(mime_type_for_image))
+					{
+						current_file_left = new Gitg.DiffViewFile.image(repository, delta);
+					}
+					else if (current_is_binary_left)
+					{
+						current_file_left = new Gitg.DiffViewFile.binary(repository, delta);
+					}
+					else
+					{
+						current_file_left = new Gitg.DiffViewFile.threeway_text(info_left, handle_selection);
+						current_file_left.is_threeway = is_threeway;
+						this.bind_property("highlight", current_file_left.renderer, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file_left.renderer_threeway_left, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file_left.renderer_threeway_middle, "highlight", BindingFlags.SYNC_CREATE);
+					}
+
+					return 0;
+				},
+
+				(delta, binary) => {
+					// FIXME: do we want to handle binary data?
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					return 0;
+				},
+
+				(delta, hunk) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					if (!current_is_binary_left)
+					{
+						maxlines_left = int.max(maxlines_left, hunk.get_old_start() + hunk.get_old_lines());
+						maxlines_left = int.max(maxlines_left, hunk.get_new_start() + hunk.get_new_lines());
+
+						add_hunk_left();
+
+						current_hunk_left = hunk;
+						current_lines_left = new Gee.ArrayList<Ggit.DiffLine>();
+					}
+
+					return 0;
+				},
+
+				(delta, hunk, line) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					if (!current_is_binary_left)
+					{
+						current_lines_left.add(line);
+					}
+					return 0;
+				}
+			);
+		} catch {}
+
+		add_hunk_left();
+		add_file_left();
+
+		try
+		{
+			diff_right.foreach(
+				(delta, progress) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					add_file_right();
+
+					DiffViewFileInfo? info_right = null;
+					var deltakey = key_for_delta(delta);
+
+					if (infomap_right.has_key(deltakey))
+					{
+						info_right = infomap_right[deltakey];
+					}
+					else
+					{
+						info_right = new DiffViewFileInfo(repository, delta, new_is_workdir);
+					}
+
+					current_is_binary_right = ((delta.get_flags() & Ggit.DiffFlag.BINARY) != 0);
+
+					// List of known binary file types that may be wrongly classified by
+					// libgit2 because it does not contain any null bytes in the first N
+					// bytes. E.g. PDF
+					var known_binary_files_types = new string[] {"application/pdf"};
+
+					// Ignore binary based on content type
+					if (info_right != null && info_right.new_file_content_type in known_binary_files_types)
+					{
+						current_is_binary_right = true;
+					}
+
+					string? mime_type_for_image = null;
+
+					if (info_right == null || info_right.new_file_content_type == null)
+					{
+						// Guess mime type from old file name in the case of a deleted file
+						var oldpath = delta.get_old_file().get_path();
+
+						if (oldpath != null)
+						{
+							bool uncertain;
+							var ctype = ContentType.guess(Path.get_basename(oldpath), null, out uncertain);
+
+							if (ctype != null)
+							{
+								mime_type_for_image = ContentType.get_mime_type(ctype);
+							}
+						}
+					}
+					else
+					{
+						mime_type_for_image = ContentType.get_mime_type(info_right.new_file_content_type);
+					}
+
+					if (mime_type_for_image != null && s_image_mime_types.contains(mime_type_for_image))
+					{
+						current_file_right = new Gitg.DiffViewFile.image(repository, delta);
+					}
+					else if (current_is_binary_right)
+					{
+						current_file_right = new Gitg.DiffViewFile.binary(repository, delta);
+					}
+					else
+					{
+						current_file_right = new Gitg.DiffViewFile.threeway_text(info_right, handle_selection);
+						current_file_right.is_threeway = is_threeway;
+						this.bind_property("highlight", current_file_right.renderer, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file_right.renderer_threeway_middle, "highlight", BindingFlags.SYNC_CREATE);
+						this.bind_property("highlight", current_file_right.renderer_threeway_right, "highlight", BindingFlags.SYNC_CREATE);
+					}
+
+					return 0;
+				},
+
+				(delta, binary) => {
+					// FIXME: do we want to handle binary data?
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					return 0;
+				},
+
+				(delta, hunk) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					if (!current_is_binary_right)
+					{
+						maxlines_right = int.max(maxlines_right, hunk.get_old_start() + hunk.get_old_lines());
+						maxlines_right = int.max(maxlines_right, hunk.get_new_start() + hunk.get_new_lines());
+
+						add_hunk_right();
+
+						current_hunk_right = hunk;
+						current_lines_right = new Gee.ArrayList<Ggit.DiffLine>();
+					}
+
+					return 0;
+				},
+
+				(delta, hunk, line) => {
+					if (cancellable != null && cancellable.is_cancelled())
+					{
+						return 1;
+					}
+
+					if (!current_is_binary_right)
+					{
+						current_lines_right.add(line);
+					}
+					return 0;
+				}
+			);
+		} catch {}
+
+		add_hunk_right();
+		add_file_right();
+
+		var file_widgets = d_grid_files.get_children();
+		var was_expanded = new Gee.HashSet<string>();
+
+		foreach (var file in file_widgets)
+		{
+			var f = file as Gitg.DiffViewFile;
+
+			if (preserve_expanded && f.expanded)
+			{
+				var path = primary_path(f.delta);
+
+				if (path != null)
+				{
+					was_expanded.add(path);
+				}
+			}
+
+			f.destroy();
+		}
+
+		d_commit_details.expanded = (files_left.size <= 1 || !default_collapse_all);
+		d_commit_details.expander_visible = (files_left.size > 1);
+
+		for (var i = 0; i < files_left.size; i++)
+		{
+			var file = files_left[i];
+			var path = primary_path(file.delta);
+
+			file.expanded = d_commit_details.expanded || (path != null && was_expanded.contains(path));
+
+			var renderer_text = file.renderer as DiffViewFileRendererText;
+
+			if (renderer_text != null)
+			{
+				renderer_text.maxlines = maxlines_left;
+
+				this.bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_left = file.renderer_threeway_left as DiffViewFileRendererText;
+			if (renderer_left != null)
+			{
+				renderer_left.maxlines = maxlines_left;
+
+				this.bind_property("wrap-lines", renderer_left, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_left, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_right = file.renderer_threeway_middle as DiffViewFileRendererText;
+			if (renderer_right != null)
+			{
+				renderer_right.maxlines = maxlines_left;
+
+				this.bind_property("wrap-lines", renderer_right, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_right, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			if (i == files_left.size - 1)
+			{
+				file.vexpand = true;
+			}
+
+			d_grid_files.add(file);
+
+			file.notify["expanded"].connect(auto_update_expanded);
+		}
+
+		d_commit_details.expanded = (files_right.size <= 1 || !default_collapse_all);
+		d_commit_details.expander_visible = (files_right.size > 1);
+
+		for (var i = 0; i < files_right.size; i++)
+		{
+			var file = files_right[i];
+			var path = primary_path(file.delta);
+
+			file.expanded = d_commit_details.expanded || (path != null && was_expanded.contains(path));
+
+			var renderer_text = file.renderer as DiffViewFileRendererText;
+
+			if (renderer_text != null)
+			{
+				renderer_text.maxlines = maxlines_right;
+
+				this.bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_left = file.renderer_threeway_middle as DiffViewFileRendererText;
+			if (renderer_left != null)
+			{
+				renderer_left.maxlines = maxlines_right;
+
+				this.bind_property("wrap-lines", renderer_left, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_left, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			var renderer_right = file.renderer_threeway_right as DiffViewFileRendererText;
+			if (renderer_right != null)
+			{
+				renderer_right.maxlines = maxlines_right;
+
+				this.bind_property("wrap-lines", renderer_right, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+				this.bind_property("tab-width", renderer_right, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+			}
+
+			if (i == files_right.size - 1)
 			{
 				file.vexpand = true;
 			}
