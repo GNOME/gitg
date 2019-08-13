@@ -88,7 +88,21 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private Binding? d_vexpand_threeway_binding_m;
 	private Binding? d_vexpand_threeway_binding_r;
 
-	private bool d_split { get; set; default = false; }
+	private bool d_split;
+
+	public bool split
+	{
+		get
+		{
+			return d_split;
+		}
+
+		set
+		{
+			d_split = value;
+		}
+	}
+
 	public bool is_threeway
 	{
 		get
@@ -313,8 +327,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkCallback]
 	private void split_button_toggled(Gtk.ToggleButton button)
 	{
-		d_split = !d_split;
-		if (d_split)
+		split_button.bind_property("active", this, "split", BindingFlags.SYNC_CREATE);
+		if (split)
 		{
 			if (is_threeway)
 			{
@@ -372,14 +386,21 @@ class Gitg.DiffViewFile : Gtk.Grid
 	construct
 	{
 		d_scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledwindow_diff.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledview_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledview_middle.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledview_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledview_diff_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		d_scrolledview_diff_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+
+		if (!is_threeway)
+		{
+			d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledwindow_diff.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		}
+		else
+		{
+			d_scrolledview_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledview_middle.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledview_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledview_diff_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+			d_scrolledview_diff_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		}
 	}
 
 	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
