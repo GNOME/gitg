@@ -57,6 +57,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 	private DiffViewFileRenderer? d_renderer_left;
 	private DiffViewFileRenderer? d_renderer_right;
 
+	public enum Mode {
+		TEXT,
+		BINARY,
+		IMAGE
+	}
 	public DiffViewFileRenderer? renderer
 	{
 		owned get
@@ -224,11 +229,9 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	public Ggit.DiffDelta? delta { get; construct set; }
 	public Repository? repository { get; construct set; }
-
-	public DiffViewFile(Repository? repository, Ggit.DiffDelta delta)
-	{
-		Object(repository: repository, delta: delta);
-	}
+	public Mode mode { get; construct set; }
+	public bool handle_selection { get; construct set; }
+	public DiffViewFileInfo info { get; construct set;}
 
 	construct
 	{
@@ -239,51 +242,59 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_left.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		d_scrolledwindow_right.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		switch (mode) {
+			case Mode.TEXT:
+				this.renderer = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
+				this.renderer.show();
+
+				this.renderer.bind_property("added", d_diff_stat_file, "added");
+				this.renderer.bind_property("removed", d_diff_stat_file, "removed");
+
+				this.renderer_left = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.OLD);
+				this.renderer_left.show();
+
+				this.renderer_left.bind_property("added", d_diff_stat_file, "added");
+				this.renderer_left.bind_property("removed", d_diff_stat_file, "removed");
+
+				this.renderer_right = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.NEW);
+				this.renderer_right.show();
+				this.renderer_right.bind_property("added", d_diff_stat_file, "added");
+				this.renderer_right.bind_property("removed", d_diff_stat_file, "removed");
+				break;
+			case Mode.BINARY :
+				this.renderer = new DiffViewFileRendererBinary();
+				this.renderer.show();
+				unif_button.hide();
+				split_button.hide();
+				d_diff_stat_file.hide();
+				break;
+			case Mode.IMAGE :
+				this.renderer = new DiffViewFileRendererImage(repository, delta);
+				this.renderer.show();
+				unif_button.hide();
+				split_button.hide();
+				d_diff_stat_file.hide();
+				break;
+			default :
+				assert_not_reached();
+				break;
+
+		}
 	}
 
 	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
 	{
-		this(info.repository, info.delta);
-
-		this.renderer = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
-		this.renderer.show();
-
-		this.renderer.bind_property("added", d_diff_stat_file, "added");
-		this.renderer.bind_property("removed", d_diff_stat_file, "removed");
-
-		this.renderer_left = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.OLD);
-		this.renderer_left.show();
-
-		this.renderer_left.bind_property("added", d_diff_stat_file, "added");
-		this.renderer_left.bind_property("removed", d_diff_stat_file, "removed");
-
-		this.renderer_right = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.NEW);
-		this.renderer_right.show();
-
-		this.renderer_right.bind_property("added", d_diff_stat_file, "added");
-		this.renderer_right.bind_property("removed", d_diff_stat_file, "removed");
+		Object(repository: info.repository, info: info, delta: info.delta, handle_selection: handle_selection, mode: Mode.TEXT);
 	}
 
 	public DiffViewFile.binary(Repository? repository, Ggit.DiffDelta delta)
 	{
-		this(repository, delta);
-
-		this.renderer = new DiffViewFileRendererBinary();
-		this.renderer.show();
-		unif_button.hide();
-		split_button.hide();
-		d_diff_stat_file.hide();
+		Object(repository: repository, delta: delta, mode: Mode.BINARY);
 	}
 
 	public DiffViewFile.image(Repository? repository, Ggit.DiffDelta delta)
 	{
-		this(repository, delta);
-
-		this.renderer = new DiffViewFileRendererImage(repository, delta);
-		this.renderer.show();
-		unif_button.hide();
-		split_button.hide();
-		d_diff_stat_file.hide();
+		Object(repository: repository, delta: delta, mode: Mode.IMAGE);
 	}
 
 	protected override void constructed()
