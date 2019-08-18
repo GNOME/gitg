@@ -38,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-07-25 13:25+0000\n"
-"PO-Revision-Date: 2019-08-18 21:15+0200\n"
+"POT-Creation-Date: 2019-08-18 19:17+0000\n"
+"PO-Revision-Date: 2019-08-18 22:38+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -444,16 +444,11 @@ msgstr ""
 "visas när diffen som ska köas upp/tas bort ur kön visas i "
 "incheckningsområdet."
 
-#: gitg/commit/gitg-commit-dialog.vala:299
-#, c-format
-msgid "Cannot set spell checking language: %s"
-msgstr "Kan inte ställa in rättstavningsspråket: %s"
-
-#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Det finns inga ändringar att checka in"
 
-#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Använd utöka för att ändra incheckningsmeddelandet för den föregående "
@@ -1394,7 +1389,7 @@ msgstr "Undersök arkivets historik"
 msgid "Mainline"
 msgstr "Huvudlinje"
 
-#: gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:126
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Incheckning"
@@ -1573,11 +1568,15 @@ msgstr "Visa _ämnesmarginal vid kolumn:"
 msgid "Display right _margin at column:"
 msgstr "Visa höger _marginal vid kolumn:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:189
+#: gitg/resources/ui/gitg-preferences-commit.ui:197
+msgid "Language:"
+msgstr "Språk:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:223
 msgid "Enable spell checking"
 msgstr "Aktivera stavningskontroll"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:220
+#: gitg/resources/ui/gitg-preferences-commit.ui:254
 msgid "Commit Message"
 msgstr "Incheckningsmeddelande"
 
@@ -1986,6 +1985,9 @@ msgstr "Filer"
 #: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Visa filerna i trädet för den markerade incheckningen"
+
+#~ msgid "Cannot set spell checking language: %s"
+#~ msgstr "Kan inte ställa in rättstavningsspråket: %s"
 
 #~ msgid "@icon@"
 #~ msgstr "@icon@"
