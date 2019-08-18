@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-07-28 11:26+0000\n"
-"PO-Revision-Date: 2019-08-04 14:18+0300\n"
+"POT-Creation-Date: 2019-08-13 09:17+0000\n"
+"PO-Revision-Date: 2019-08-18 14:25+0300\n"
 "Last-Translator: Florentina Mușat <florentina.musat.28 [at] gmail [dot] "
 "com>\n"
 "Language-Team: Romanian Gnome Team <gnomero-list@lists.sourceforge.net>\n"
@@ -424,16 +424,11 @@ msgstr ""
 "Configurare care determină câte linii de context (înainte și după) ar trebui "
 "să fie afișate când se arată diff-ul de introdus/înlăturat în zona de comit."
 
-#: gitg/commit/gitg-commit-dialog.vala:299
-#, c-format
-msgid "Cannot set spell checking language: %s"
-msgstr "Nu se poate stabili limba de corectare ortografică: %s"
-
-#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Nu există modificări de comis"
 
-#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Utilizați amend pentru a modifica mesajul de comit al comitului anterior"
@@ -1373,7 +1368,7 @@ msgstr "Examinează istoricul depozitului"
 msgid "Mainline"
 msgstr "Linie principală"
 
-#: gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:126
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Comit"
@@ -1552,11 +1547,15 @@ msgstr "Afișează marginea _subiectului la coloana:"
 msgid "Display right _margin at column:"
 msgstr "Afișează _marginea dreaptă la coloana:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:189
+#: gitg/resources/ui/gitg-preferences-commit.ui:197
+msgid "Language:"
+msgstr "Limbaj:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:223
 msgid "Enable spell checking"
 msgstr "Activează corectarea ortografică"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:220
+#: gitg/resources/ui/gitg-preferences-commit.ui:254
 msgid "Commit Message"
 msgstr "Mesaj de comitere"
 
@@ -1967,6 +1966,9 @@ msgstr "Fișiere"
 #: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Arată fișierele din arborele comitului selectat"
+
+#~ msgid "Cannot set spell checking language: %s"
+#~ msgstr "Nu se poate stabili limba de corectare ortografică: %s"
 
 #~ msgid "@icon@"
 #~ msgstr "@icon@"
