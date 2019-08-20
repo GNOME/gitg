@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-07-25 13:26+0000\n"
-"PO-Revision-Date: 2019-07-26 08:42+0200\n"
+"POT-Creation-Date: 2019-08-18 20:39+0000\n"
+"PO-Revision-Date: 2019-08-20 09:50+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -51,7 +51,6 @@ msgstr ""
 "gestionar su repositorio y aplicar su trabajo."
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
-#| msgid "Goals"
 msgid "Goals:"
 msgstr "Objetivos:"
 
@@ -428,16 +427,11 @@ msgstr ""
 "mostrar al presentar las diferencias que reservar/quitar la reserva en el "
 "área de «commit»."
 
-#: gitg/commit/gitg-commit-dialog.vala:299
-#, c-format
-msgid "Cannot set spell checking language: %s"
-msgstr "No se puede establecer el idioma de la comprobación ortográfica: %s"
-
-#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "No hay cambios que efectuar"
 
-#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Use «amend» para cambiar el mensaje del «commit» anterior"
 
@@ -1383,7 +1377,7 @@ msgstr "Examinar el histórico del repositorio"
 msgid "Mainline"
 msgstr "Línea principal"
 
-#: gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:126
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Commit"
@@ -1562,11 +1556,15 @@ msgstr "Mostrar el _margen del asunto en la columna:"
 msgid "Display right _margin at column:"
 msgstr "Mostrar el _margen derecho en la columna:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:189
+#: gitg/resources/ui/gitg-preferences-commit.ui:197
+msgid "Language:"
+msgstr "Idioma:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:223
 msgid "Enable spell checking"
 msgstr "Activar comprobación de la ortografía"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:220
+#: gitg/resources/ui/gitg-preferences-commit.ui:254
 msgid "Commit Message"
 msgstr "Mensaje de «commit»"
 
@@ -1977,6 +1975,9 @@ msgstr "Archivos"
 #: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Mostrar los archivos en el árbol del commit seleccionado"
+
+#~ msgid "Cannot set spell checking language: %s"
+#~ msgstr "No se puede establecer el idioma de la comprobación ortográfica: %s"
 
 #~ msgid "@icon@"
 #~ msgstr "@icon@"
