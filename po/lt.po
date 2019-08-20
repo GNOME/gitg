@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-06-01 10:51+0000\n"
-"PO-Revision-Date: 2019-07-07 22:53+0300\n"
+"POT-Creation-Date: 2019-08-18 19:17+0000\n"
+"PO-Revision-Date: 2019-08-20 13:15+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -25,7 +25,16 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Nepavyko perskaityti XML iš srauto"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
+#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:9
+msgid "Graphical user interface for git"
+msgstr "Grafinė naudotojo sąsaja git įrankiui"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -36,50 +45,46 @@ msgstr ""
 "patogiu įrankiu vizualizuoti git saugyklos istoriją. Be vizualizacijos gitg "
 "taip pat pateikia įrankių jūsų saugyklai tvarkyti bei darbui patvirtinti."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:14
-msgid "Goals"
-msgstr "Tikslai"
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+#| msgid "Goals"
+msgid "Goals:"
+msgstr "Tikslai:"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
 msgstr "Naršyti vietines git saugyklas"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
 msgstr "Klonuoti vietines bei nuotolines git saugyklas"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
 msgstr "Patvirtinti failus"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
 msgstr "Gauti pataisą pagal patvirtinimą"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:29
+#: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
 msgstr "Naršyti saugyklos istoriją"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:33
+#: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
 msgstr "Paruošimo vieta patvirtinimui sukurti"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:37
+#: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
 msgstr "Patvirtinti paruoštus pakeitimus"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:41
+#: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
 msgstr "Neseniai naudotų saugyklų apžvalga"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:66
+#: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "GNOME projektas"
-
-#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -1086,19 +1091,16 @@ msgstr "Nusiųsti į %s"
 
 #: gitg/gitg-ref-action-push.vala:91
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Push branch to %s"
 msgstr "Nusiųsti šaką į %s"
 
 #: gitg/gitg-ref-action-push.vala:107
 #, c-format
-#| msgid "Fetching from %s"
 msgid "Pushing to %s"
 msgstr "Siunčiama į %s"
 
 #: gitg/gitg-ref-action-push.vala:116
 #, c-format
-#| msgid "Failed to fetch from %s: %s"
 msgid "Failed to push to %s: %s"
 msgstr "Nepavyko nusiųsti į %s: %s"
 
@@ -1110,13 +1112,11 @@ msgstr "Nusiųsta į %s"
 
 #: gitg/gitg-ref-action-push.vala:134
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Push branch %s"
 msgstr "Nusiųsti šaką %s"
 
 #: gitg/gitg-ref-action-push.vala:135
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the branch %s?"
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "Ar tikrai norite nusiųsti šaką %s?"
 
