@@ -286,8 +286,11 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 			{
 				var c1 = d_updated;
 				var c2 = other.updated;
+				var dt1 = c1.get_time();
+				var dt2 = c2.get_time();
 
-				return c2.get_time().compare(c1.get_time());
+				if (dt1 != null && dt2 != null)
+					return dt2.compare(dt1);
 			}
 		}
 
