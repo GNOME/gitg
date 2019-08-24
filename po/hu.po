@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-06-01 10:51+0000\n"
-"PO-Revision-Date: 2019-06-01 12:52+0200\n"
+"POT-Creation-Date: 2019-08-24 18:01+0000\n"
+"PO-Revision-Date: 2019-08-24 23:18+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -25,16 +25,16 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Nem sikerült az XML feldolgozása a folyamból"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:4 data/org.gnome.gitg.desktop.in.in:3
+#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
 #: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:9
 msgid "Graphical user interface for git"
 msgstr "Grafikus felhasználói felület a Githez"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:10
+#: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -46,43 +46,44 @@ msgstr ""
 "megjelenítéséhez. A vizuális megjelenítés mellett a gitg számos "
 "segédprogramot is biztosít a tároló kezeléséhez és a munka véglegesítéséhez."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
-msgid "Goals"
-msgstr "Célok"
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+#| msgid "Goals"
+msgid "Goals:"
+msgstr "Célok:"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
 msgstr "Helyi git tárolók tallózása"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
 msgstr "Helyi és távoli git tárolók klónozása"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:20
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
 msgstr "Fájlok véglegesítése"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:21
+#: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
 msgstr "Folt lekérése egy véglegesítésből"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:31
+#: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
 msgstr "Tároló előzményeinek tallózása"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:35
+#: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
 msgstr "Sorba állítási terület a véglegesítés összeállításához"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:39
+#: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
 msgstr "Sorba állított változtatások véglegesítése"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:43
+#: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
 msgstr "A legutóbb használt tárolók áttekintése"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:68
+#: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "A GNOME projekt"
 
@@ -411,16 +412,11 @@ msgstr ""
 "Hány sornyi környezet jelenjen meg (előtte és utána) egy sorba állítandó / "
 "sorból kiveendő különbség megjelenítésekor a véglegesítés területen."
 
-#: gitg/commit/gitg-commit-dialog.vala:299
-#, c-format
-msgid "Cannot set spell checking language: %s"
-msgstr "Nem állítható be a helyesírás-ellenőrzés nyelve: %s"
-
-#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Nincsenek véglegesítendő változtatások"
 
-#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Javítás használata az előző véglegesítés véglegesítés üzenetének "
@@ -1205,7 +1201,7 @@ msgid "Merge %s into branch %s"
 msgstr "A(z) %s egyesítése a(z) %s ágba"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1176
+#: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Tags"
 msgstr "Címkék"
 
@@ -1338,11 +1334,11 @@ msgstr "mögötte: %zu"
 msgid "All commits"
 msgstr "Minden véglegesítés"
 
-#: gitg/history/gitg-history-refs-list.vala:1174
+#: gitg/history/gitg-history-refs-list.vala:1177
 msgid "Branches"
 msgstr "Ágak"
 
-#: gitg/history/gitg-history-refs-list.vala:1175
+#: gitg/history/gitg-history-refs-list.vala:1178
 msgid "Remotes"
 msgstr "Távoli ágak"
 
@@ -1360,7 +1356,7 @@ msgstr "A tároló előzményeinek vizsgálata"
 msgid "Mainline"
 msgstr "Fővonal"
 
-#: gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:126
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Véglegesítés"
@@ -1540,11 +1536,15 @@ msgstr "_Tárgy margó ebben az oszlopban:"
 msgid "Display right _margin at column:"
 msgstr "_Jobb margó ebben az oszlopban:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:189
+#: gitg/resources/ui/gitg-preferences-commit.ui:197
+msgid "Language:"
+msgstr "Nyelv:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:223
 msgid "Enable spell checking"
 msgstr "Helyesírás-ellenőrzés bekapcsolása"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:220
+#: gitg/resources/ui/gitg-preferences-commit.ui:254
 msgid "Commit Message"
 msgstr "Véglegesítés üzenet"
 
