@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-05-30 10:00+0000\n"
-"PO-Revision-Date: 2019-06-01 12:49+0200\n"
+"POT-Creation-Date: 2019-08-24 18:01+0000\n"
+"PO-Revision-Date: 2019-08-24 23:19+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -25,7 +25,16 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Nem sikerült az XML feldolgozása a folyamból"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
+#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:9
+msgid "Graphical user interface for git"
+msgstr "Grafikus felhasználói felület a Githez"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -37,50 +46,46 @@ msgstr ""
 "megjelenítéséhez. A vizuális megjelenítés mellett a gitg számos "
 "segédprogramot is biztosít a tároló kezeléséhez és a munka véglegesítéséhez."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:14
-msgid "Goals"
-msgstr "Célok"
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+#| msgid "Goals"
+msgid "Goals:"
+msgstr "Célok:"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
 msgstr "Helyi git tárolók tallózása"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
 msgstr "Helyi és távoli git tárolók klónozása"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
 msgstr "Fájlok véglegesítése"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
 msgstr "Folt lekérése egy véglegesítésből"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:29
+#: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
 msgstr "Tároló előzményeinek tallózása"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:33
+#: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
 msgstr "Sorba állítási terület a véglegesítés összeállításához"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:37
+#: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
 msgstr "Sorba állított változtatások véglegesítése"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:41
+#: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
 msgstr "A legutóbb használt tárolók áttekintése"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:66
+#: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "A GNOME projekt"
-
-#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
