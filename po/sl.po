@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gitg package.
 #
 # Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2009–2010.
-# Matej Urbančič <mateju@svn.gnome.org>, 2012–2019*.
+# Matej Urbančič <mateju@svn.gnome.org>, 2012–2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-08-20 10:16+0000\n"
-"PO-Revision-Date: 2019-08-24 18:29+0200\n"
+"POT-Creation-Date: 2019-08-24 21:21+0000\n"
+"PO-Revision-Date: 2019-08-25 22:09+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -411,16 +411,11 @@ msgstr ""
 "Nastavitev, ki določa, koliko črt vsebine (pred in za nizom) naj bo "
 "prikazanih v izpisu pripravljenih predmetov za uveljavitev."
 
-#: gitg/commit/gitg-commit-dialog.vala:299
-#, c-format
-msgid "Cannot set spell checking language: %s"
-msgstr "Ni mogoče nastaviti jezika za črkovanje: %s"
-
-#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Ni sprememb za uveljavitev"
 
-#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Uporabi dopolnitev za spremembo sporočila predhodne uveljavitve"
 
@@ -1210,7 +1205,7 @@ msgid "Merge %s into branch %s"
 msgstr "Združi %s v vejo %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1176
+#: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Tags"
 msgstr "Oznake"
 
@@ -1336,11 +1331,11 @@ msgstr "%zu zadaj"
 msgid "All commits"
 msgstr "Vse uveljavitve"
 
-#: gitg/history/gitg-history-refs-list.vala:1174
+#: gitg/history/gitg-history-refs-list.vala:1177
 msgid "Branches"
 msgstr "Veje"
 
-#: gitg/history/gitg-history-refs-list.vala:1175
+#: gitg/history/gitg-history-refs-list.vala:1178
 msgid "Remotes"
 msgstr "Oddaljeno"
 
@@ -1358,7 +1353,7 @@ msgstr "Preglej zgodovino skladišča"
 msgid "Mainline"
 msgstr "Glavna veja"
 
-#: gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:126
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Uveljavi"
@@ -1537,11 +1532,15 @@ msgstr "Prikaži _rob zadeve v stolpcu:"
 msgid "Display right _margin at column:"
 msgstr "Prikaži desni _rob pri stolpcu:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:189
+#: gitg/resources/ui/gitg-preferences-commit.ui:197
+msgid "Language:"
+msgstr "Jezik:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:223
 msgid "Enable spell checking"
 msgstr "Omogoči črkovanje"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:220
+#: gitg/resources/ui/gitg-preferences-commit.ui:254
 msgid "Commit Message"
 msgstr "Sporočilo uveljavljanja"
 
@@ -1955,6 +1954,9 @@ msgstr "Datoteke"
 #: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Pokaži datoteke v drevesni strukturi za izbrano uveljavitev"
+
+#~ msgid "Cannot set spell checking language: %s"
+#~ msgstr "Ni mogoče nastaviti jezika za črkovanje: %s"
 
 #~ msgid "@icon@"
 #~ msgstr "@icon@"
