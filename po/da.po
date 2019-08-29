@@ -1,16 +1,16 @@
 # Danish translation for gitg.
 # Copyright (C) 2012, 2014-2017 gitg & nedenstående oversættere.
 # This file is distributed under the same license as the gitg package.
-# 
+#
 # Joe Hansen <joedalton2@yahoo.dk>, 2009, 2010, 2011, 2012.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2014-2017.
 # Kenneth Nielsen <k.nielsen81@gmail.com>, 2014, 2015.
 # Korrekturlæst Lars Christian Jensen 6. juni 2009.
 # Korrekturlæst Ask 26. januar 2010.
 # scootergrisen, 2016, 2019.
-# 
+#
 # Visse begreber beholder vi på dansk hvor det er mest ligetil:
-# 
+#
 # branch -> gren
 # check out -> tjekke ud
 # clone -> klone
@@ -18,25 +18,25 @@
 # merge -> flet
 # repository -> arkiv
 # tag -> mærke
-# 
+#
 # Andre har ikke så direkte oversættelser, eller oversættelserne bruges på måder så oversættelser bliver grammatisk besværlige.  I disse tilfælde beholdes de engelske, og ofte bøjer vi engelske låneverber på den mest skamløse vis:
-# 
+#
 # commit
 # stage, unstage
 # stash
 # patch
-# 
+#
 # Engelske udtryk er indsat i parentes udvalgte steder, da de ofte er kendt
 # af teknikfolk.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-03-22 20:45+0000\n"
-"PO-Revision-Date: 2019-03-03 00:00+0200\n"
+"POT-Creation-Date: 2019-07-25 13:26+0000\n"
+"PO-Revision-Date: 2019-08-06 20:52+0200\n"
 "Last-Translator: scootergrisen\n"
-"Language-Team: Danish\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,16 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Kunne ikke fortolke XML fra strøm"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
+#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:9
+msgid "Graphical user interface for git"
+msgstr "Grafisk brugerflade til git"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -56,54 +65,50 @@ msgid ""
 "repository and commit your work."
 msgstr ""
 "gitg er en grafisk brugerflade til git. Den bestræber sig på at være et "
-"lille, hurtigt og bekvemt værktøj til at visualisere historikken af "
-"git-arkiver. Udover visualisering har gitg også adskillige redskaber til at "
+"lille, hurtigt og bekvemt værktøj til at visualisere historikken af git-"
+"arkiver. Udover visualisering har gitg også adskillige redskaber til at "
 "håndtere dit arkiv og committe dit arbejde."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:14
-msgid "Goals"
-msgstr "Mål"
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+#| msgid "Goals"
+msgid "Goals:"
+msgstr "Mål:"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
 msgstr "Gennemse lokale git-arkiver"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
 msgstr "Klon lokale og remote git-arkiver"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
 msgstr "Commit filer"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
 msgstr "Hent patch fra et commit"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:30
+#: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
 msgstr "Gennemse arkivets historik"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:34
+#: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
 msgstr "Staging-området til at skabe dit commit"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:38
+#: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
 msgstr "Commit stagede ændringer"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:42
+#: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
 msgstr "Oversigt over senest brugte arkiver"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:52
+#: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "GNOME-projektet"
-
-#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -193,8 +198,8 @@ msgid ""
 msgstr ""
 "Indstilling som angiver, om historikbaner, som ikke viser nogen aktivitet, "
 "skal sammenfoldes. Hvis dette slås til, kan det give en renere "
-"historikoversigt, når der foregår en masse samtidig udvikling. Se "
-"collapse-inactive-lanes for at styre hvornår historikbaner sammenfoldes."
+"historikoversigt, når der foregår en masse samtidig udvikling. Se collapse-"
+"inactive-lanes for at styre hvornår historikbaner sammenfoldes."
 
 #: data/org.gnome.gitg.gschema.xml.in:97
 msgid "Show History in Topological Order"
@@ -582,7 +587,7 @@ msgstr "Er du sikker på, at du vil kassere de valgte ændringer permanent?"
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:151
+#: gitg/resources/ui/gitg-window.ui:152
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "_Annullér"
@@ -685,7 +690,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
+#: gitg/gitg-ref-action-merge.vala:194
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
@@ -772,8 +778,8 @@ msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
 "\n"
-"If you manually compiled libgit2, then please configure libgit2 with "
-"-DTHREADSAFE:BOOL=ON.\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
@@ -781,8 +787,8 @@ msgstr ""
 "Det er brandærgerligt, men gitg kræver altså at libgit2 (et bibliotek som "
 "gitg afhænger af) er kompileret med trådunderstøttelse.\n"
 "\n"
-"Hvis du har kompileret libgit2 manuelt, så konfigurér venligst libgit2 med "
-"-DTHREADSAFE:BOOL=ON.\n"
+"Hvis du har kompileret libgit2 manuelt, så konfigurér venligst libgit2 med -"
+"DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Ellers så meld en fejl i din distributions fejlrapporteringssystem om at "
 "libgit2 mangler trådunderstøttelse."
@@ -852,8 +858,8 @@ msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"Cherry-pick af %s ind i %s har forårsaget konflikter. Vil du tjekke "
-"cherry-pick-tilstanden ud til din arbejdsmappe for at løse konflikterne?"
+"Cherry-pick af %s ind i %s har forårsaget konflikter. Vil du tjekke cherry-"
+"pick-tilstanden ud til din arbejdsmappe for at løse konflikterne?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -1125,6 +1131,51 @@ msgstr "Hentede fra %s: Alt er opdateret"
 msgid "Fetched from %s: %s"
 msgstr "Hentede fra %s: %s"
 
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr "Skub til %s"
+
+#: gitg/gitg-ref-action-push.vala:91
+#, c-format
+#| msgid "Delete branch %s"
+msgid "Push branch to %s"
+msgstr "Skub gren til %s"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, c-format
+#| msgid "Fetching from %s"
+msgid "Pushing to %s"
+msgstr "Skubber til %s"
+
+#: gitg/gitg-ref-action-push.vala:116
+#, c-format
+#| msgid "Failed to fetch from %s: %s"
+msgid "Failed to push to %s: %s"
+msgstr "Kunne ikke skubbe til %s: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:123
+#, c-format
+msgid "Pushed to %s"
+msgstr "Skubbede til %s"
+
+#: gitg/gitg-ref-action-push.vala:134
+#, c-format
+#| msgid "Delete branch %s"
+msgid "Push branch %s"
+msgstr "Skub grenen %s"
+
+#: gitg/gitg-ref-action-push.vala:135
+#, c-format
+#| msgid "Are you sure that you want to permanently delete the branch %s?"
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "Er du sikker på, at du vil skubbe grenen %s?"
+
+#: gitg/gitg-ref-action-push.vala:139
+msgid "Push"
+msgstr "Skub"
+
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
@@ -1223,7 +1274,7 @@ msgid "Failed to rename"
 msgstr "Kunne ikke omdøbe"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
-#: gitg/resources/ui/gitg-window.ui:226
+#: gitg/resources/ui/gitg-window.ui:227
 msgid "Close"
 msgstr "Luk"
 
@@ -1239,20 +1290,20 @@ msgstr "_Tilføj"
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Skan efter alle git-arkiver fra denne mappe"
 
-#: gitg/gitg-window.vala:505
+#: gitg/gitg-window.vala:514
 msgid "Projects"
 msgstr "Projekter"
 
-#: gitg/gitg-window.vala:804
+#: gitg/gitg-window.vala:813
 msgid "Select items"
 msgstr "Vælg elementer"
 
-#: gitg/gitg-window.vala:1015
+#: gitg/gitg-window.vala:1024
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” er ikke et Git-arkiv."
 
-#: gitg/gitg-window.vala:1164
+#: gitg/gitg-window.vala:1173
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1260,7 +1311,7 @@ msgstr ""
 "Dit brugernavn og e-mailadresse er endnu ikke angivet. Angiv venligst dit "
 "navn og e-mailadresse i brugerkonfigurationen."
 
-#: gitg/gitg-window.vala:1168
+#: gitg/gitg-window.vala:1177
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1268,7 +1319,7 @@ msgstr ""
 "Dit brugernavn er endnu ikke angivet. Angiv venligst dit navn i "
 "brugerkonfigurationen."
 
-#: gitg/gitg-window.vala:1172
+#: gitg/gitg-window.vala:1181
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1276,7 +1327,7 @@ msgstr ""
 "Din e-mailadresse er endnu ikke angivet. Angiv venligst din e-mailadresse i "
 "brugerkonfigurationen."
 
-#: gitg/gitg-window.vala:1175
+#: gitg/gitg-window.vala:1184
 msgid "Missing author details"
 msgstr "Mangler forfatteroplysninger"
 
@@ -1342,7 +1393,7 @@ msgstr "Historik"
 msgid "Examine the history of the repository"
 msgstr "Undersøg historikken for arkivet"
 
-#: gitg/history/gitg-history.vala:909
+#: gitg/history/gitg-history.vala:918
 msgid "Mainline"
 msgstr "Hovedlinje"
 
@@ -1441,18 +1492,18 @@ msgstr "Staged:"
 msgid "Unstaged:"
 msgstr "Unstaged:"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:24
-#: gitg/resources/ui/gitg-history-paned.ui:93
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:25
+#: gitg/resources/ui/gitg-history-paned.ui:94
 msgid "Subject"
 msgstr "Emne"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:41
-#: gitg/resources/ui/gitg-history-paned.ui:110
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42
+#: gitg/resources/ui/gitg-history-paned.ui:111
 msgid "Author"
 msgstr "Forfatter"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:57
-#: gitg/resources/ui/gitg-history-paned.ui:126
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
+#: gitg/resources/ui/gitg-history-paned.ui:127
 msgid "Date"
 msgstr "Dato"
 
@@ -1675,31 +1726,31 @@ msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Afslut programmet"
 
-#: gitg/resources/ui/gitg-window.ui:23
+#: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Vis listen over nyligt brugte arkiver"
 
-#: gitg/resources/ui/gitg-window.ui:45
+#: gitg/resources/ui/gitg-window.ui:46
 msgid "Clone"
 msgstr "Klon"
 
-#: gitg/resources/ui/gitg-window.ui:46
+#: gitg/resources/ui/gitg-window.ui:47
 msgid "Clone repository"
 msgstr "Klon arkiv"
 
-#: gitg/resources/ui/gitg-window.ui:61
+#: gitg/resources/ui/gitg-window.ui:62
 msgid "Add"
 msgstr "Tilføj"
 
-#: gitg/resources/ui/gitg-window.ui:62
+#: gitg/resources/ui/gitg-window.ui:63
 msgid "Add repository"
 msgstr "Tilføj arkiv"
 
-#: gitg/resources/ui/gitg-window.ui:86
+#: gitg/resources/ui/gitg-window.ui:87
 msgid "Find a word or phrase"
 msgstr "Find et ord eller frase"
 
-#: gitg/resources/ui/gitg-window.ui:131
+#: gitg/resources/ui/gitg-window.ui:132
 msgid "General settings and options"
 msgstr "Generelle indstillinger og valgmuligheder"
 
@@ -1795,16 +1846,16 @@ msgstr "efter (%s)"
 msgid "added (%s)"
 msgstr "tilføjet (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:144
+#: libgitg/gitg-diff-view-commit-details.vala:143
 msgid "Collapse all"
 msgstr "Sammenfold alle"
 
-#: libgitg/gitg-diff-view-commit-details.vala:148
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:212
 msgid "Expand all"
 msgstr "Udfold alle"
 
-#: libgitg/gitg-diff-view-commit-details.vala:203
+#: libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
 msgstr "Committet af %s"
@@ -1874,7 +1925,7 @@ msgstr "Husk adgangskode indtil du _logger ud"
 msgid "Remember _forever"
 msgstr "Husk _altid"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:152
 msgid "Parents"
 msgstr "Forældre"
 
@@ -1935,7 +1986,3 @@ msgstr "Filer"
 #: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Vis filerne i træet for det valgte commit"
-
-#~ msgid "@icon@"
-#~ msgstr "@icon@"
-
