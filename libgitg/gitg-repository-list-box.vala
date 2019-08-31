@@ -558,7 +558,8 @@ namespace Gitg
 					Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.NONE,
 					_("Removing repository source files will delete them from your computer and cannot be undone"),null);
 			alert_dialog.add_button(_("Cancel"), Gtk.ResponseType.CANCEL);
-			alert_dialog.add_button(_("Remove Source Files"), Gtk.ResponseType.OK);
+			alert_dialog.add_button(_("Move to trash"), Gtk.ResponseType.ACCEPT);
+			alert_dialog.add_button(_("Delete permanently"), Gtk.ResponseType.OK);
 
 
 			var ok_button = alert_dialog.get_widget_for_response(Gtk.ResponseType.OK);
@@ -570,7 +571,6 @@ namespace Gitg
 			});
 
 			alert_dialog.run();
-
 		}
 
 		private void handle_remove_source_response(int id, Row row)
@@ -579,10 +579,12 @@ namespace Gitg
 			var workdir = repository.workdir != null ? repository.workdir : repository.location;
 			var uri = workdir.get_uri();
 
-			if(id == Gtk.ResponseType.OK)
+			if (id == Gtk.ResponseType.OK || id == Gtk.ResponseType.ACCEPT)
 			{
 				Cancellable cancellable = new Cancellable();
-				delete_source.begin(workdir, cancellable, (obj, res) => {
+				bool trash = id == Gtk.ResponseType.ACCEPT ? true : false;
+
+				delete_source.begin(workdir, trash, cancellable, (obj, res) => {
 					try
 					{
 						delete_source.end (res);
@@ -597,9 +599,9 @@ namespace Gitg
 			}
 		}
 
-		private async void delete_source(File repo, Cancellable cancellable)throws Error
+		private async void delete_source(File repo, bool trash, Cancellable cancellable)throws Error
 		{
-			if(cancellable.is_cancelled())
+			if (cancellable.is_cancelled ())
 			{
 				return;
 			}
@@ -615,7 +617,7 @@ namespace Gitg
 						foreach (var file_cinfo in content_infos)
 						{
 							var files = repo.get_child (file_cinfo.get_name());
-							yield delete_source (files,cancellable);
+							yield delete_source (files, trash, cancellable);
 						}
 					}
 				}
@@ -625,9 +627,17 @@ namespace Gitg
 					warning("Warning: %s\n", e.message);
 				}
 			}
+
 			try
 			{
-				yield repo.trash_async();
+				if (trash)
+				{
+					yield repo.trash_async ();
+				}
+				else
+				{
+					yield repo.delete_async ();
+				}
 			}
 			catch (Error e) {
 				warning("Can not delete files: %s", e.message);
