@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-05-31 03:31+0000\n"
-"PO-Revision-Date: 2019-07-22 01:25-0300\n"
+"POT-Creation-Date: 2019-08-24 21:21+0000\n"
+"PO-Revision-Date: 2019-09-05 02:35-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -31,16 +31,16 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Não foi possível analisar XML a partir do fluxo"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:4 data/org.gnome.gitg.desktop.in.in:3
+#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
 #: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:9
 msgid "Graphical user interface for git"
 msgstr "Interface gráfica do usuário para o git"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:10
+#: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -52,43 +52,44 @@ msgstr ""
 "repositórios git. Além da visualização, o gitg também fornece diversos "
 "utilitários para gerenciar seu repositório e fazer commit do seu trabalho."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
-msgid "Goals"
-msgstr "Finalidades"
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+#| msgid "Goals"
+msgid "Goals:"
+msgstr "Finalidades:"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
 msgstr "Navegar repositórios git locais"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
 msgstr "Clonar repositórios gits locais e remotos"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:20
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
 msgstr "Fazer commits de arquivos"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:21
+#: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
 msgstr "Obter um patch de um commit"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:31
+#: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
 msgstr "Navegar o histórico do repositório"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:35
+#: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
 msgstr "Área de preparação para compor seu commit"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:39
+#: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
 msgstr "Fazer commit alterações preparadas (stage)"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:43
+#: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
 msgstr "Visão geral de repositórios recentemente usados"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:68
+#: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "O Projeto GNOME"
 
@@ -426,16 +427,11 @@ msgstr ""
 "ser incluídas ao mostrar o diff das alterações preparadas/não-preparadas no "
 "commit."
 
-#: gitg/commit/gitg-commit-dialog.vala:299
-#, c-format
-msgid "Cannot set spell checking language: %s"
-msgstr "Não é possível configurar a verificação ortográfica do idioma: %s"
-
-#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Não existem mudanças a serem submetidas"
 
-#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Use 'amend' para alterar a mensagem de commit da submissão anterior"
 
@@ -1235,7 +1231,7 @@ msgid "Merge %s into branch %s"
 msgstr "Mesclar %s com o ramo %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1176
+#: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Tags"
 msgstr "Marcadores (tags)"
 
@@ -1363,11 +1359,11 @@ msgstr "%zu atrás"
 msgid "All commits"
 msgstr "Todos os commits"
 
-#: gitg/history/gitg-history-refs-list.vala:1174
+#: gitg/history/gitg-history-refs-list.vala:1177
 msgid "Branches"
 msgstr "Ramos"
 
-#: gitg/history/gitg-history-refs-list.vala:1175
+#: gitg/history/gitg-history-refs-list.vala:1178
 msgid "Remotes"
 msgstr "Remotos"
 
@@ -1385,7 +1381,7 @@ msgstr "Examinar o histórico do repositório"
 msgid "Mainline"
 msgstr "Ramo original"
 
-#: gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:126
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Commit"
@@ -1564,11 +1560,15 @@ msgstr "Exibir margem a_ssunto na coluna:"
 msgid "Display right _margin at column:"
 msgstr "Exibir _margem direita na coluna:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:189
+#: gitg/resources/ui/gitg-preferences-commit.ui:197
+msgid "Language:"
+msgstr "Idioma:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:223
 msgid "Enable spell checking"
 msgstr "Habilitar verificação ortográfica"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:220
+#: gitg/resources/ui/gitg-preferences-commit.ui:254
 msgid "Commit Message"
 msgstr "Mensagem do commit"
 
@@ -1977,6 +1977,9 @@ msgstr "Arquivos"
 #: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Mostrar os arquivos na árvore do commit selecionado"
+
+#~ msgid "Cannot set spell checking language: %s"
+#~ msgstr "Não é possível configurar a verificação ortográfica do idioma: %s"
 
 #~ msgid "@icon@"
 #~ msgstr "@icon@"
