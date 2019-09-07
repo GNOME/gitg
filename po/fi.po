@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-01-16 18:54+0000\n"
-"PO-Revision-Date: 2019-02-07 21:51+0200\n"
+"POT-Creation-Date: 2019-08-07 00:59+0000\n"
+"PO-Revision-Date: 2019-09-07 17:11+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -22,9 +22,18 @@ msgstr ""
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
-msgstr ""
+msgstr "Ei voitu jäsentää XML:ää virrasta"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
+#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:9
+msgid "Graphical user interface for git"
+msgstr "Graafinen käyttöliittymä git-versionhallintaan"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -36,59 +45,49 @@ msgstr ""
 "Visualisoinnin lisäksi gitg tarjoaa useita työkaluja tietovarastojen "
 "hallintaan ja tekemäsi työn kommitointiin."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:14
-msgid "Goals"
-msgstr "Tavoitteet"
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+msgid "Goals:"
+msgstr "Tavoitteet:"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
 msgstr "Selaa paikallisia git-tietovarastoja"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
 msgstr "Kloonaa paikallisia ja etä-git-tietovarastoja"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
 msgstr "Kommitoi tiedostoja"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
 msgstr "Luo paikka kommitista"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:30
+#: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
 msgstr "Selaa tietovaraston historiaa"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:34
+#: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
 msgstr "Valmistelualue kommitin lähettämistä varten"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:38
+#: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
 msgstr "Kommitoi valmistellut muutokset"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:42
+#: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
 msgstr "Katsaus viimeksi käytettyihin tietovarastoihin"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:52
+#: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "Gnome-projekti"
-
-#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git-tietovarastojen selain"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.gitg.desktop.in.in:10
-msgid "@icon@"
-msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -126,7 +125,7 @@ msgstr "Ota käyttöön gravatar-palvelua nähdäksesi käyttäjien kuvat."
 
 #: data/org.gnome.gitg.gschema.xml.in:58
 msgid "Enable Monitoring"
-msgstr ""
+msgstr "Käytä seurantaa"
 
 #: data/org.gnome.gitg.gschema.xml.in:59
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
@@ -369,16 +368,11 @@ msgid ""
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
 
-#: gitg/commit/gitg-commit-dialog.vala:298
-#, c-format
-msgid "Cannot set spell checking language: %s"
-msgstr "Oikolukukielen asettaminen ei onnistunut: %s"
-
-#: gitg/commit/gitg-commit-dialog.vala:504 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Ei muutoksia kommitoitavaksi"
 
-#: gitg/commit/gitg-commit-dialog.vala:505 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Käytä amend-oikaisua muuttaaksesi aiemman kommitin kommittiviestiä"
 
@@ -518,7 +512,7 @@ msgstr "Haluatko varmasti hylätä valitut muutokset pysyvästi?"
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:151
+#: gitg/resources/ui/gitg-window.ui:152
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "_Peru"
@@ -619,7 +613,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
+#: gitg/gitg-ref-action-merge.vala:194
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
@@ -855,7 +850,7 @@ msgstr "Tagin luominen epäonnistui"
 msgid "Failed to lookup tag"
 msgstr "Tagin hakeminen epäonnistui"
 
-#: gitg/gitg-create-tag-dialog.vala:110
+#: gitg/gitg-create-tag-dialog.vala:120
 msgid "Provide a message to create an annotated tag"
 msgstr "Anna viesti selityksellä varustetulle tagille"
 
@@ -931,10 +926,10 @@ msgid "Failed to checkout branch: %s"
 msgstr "Haaran uloskuittaus epäonnistui: %s"
 
 #: gitg/gitg-ref-action-checkout.vala:111
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to delete tag %s"
 msgid "Failed to update HEAD: %s"
-msgstr "Tagin %s poistaminen epäonnistui"
+msgstr "HEADin päivittäminen epäonnistui: %s"
 
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
@@ -1053,6 +1048,51 @@ msgstr "Noudettu kohteesta %s: kaikki on ajan tasalla"
 msgid "Fetched from %s: %s"
 msgstr "Noudettu kohteesta %s: %s"
 
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr ""
+
+#: gitg/gitg-ref-action-push.vala:91
+#, fuzzy, c-format
+#| msgid "Delete branch %s"
+msgid "Push branch to %s"
+msgstr "Poista haara %s"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, fuzzy, c-format
+#| msgid "Fetching from %s"
+msgid "Pushing to %s"
+msgstr "Nouda kohteesta %s"
+
+#: gitg/gitg-ref-action-push.vala:116
+#, fuzzy, c-format
+#| msgid "Failed to fetch from %s: %s"
+msgid "Failed to push to %s: %s"
+msgstr "Noutaminen kohteesta %s epäonnistui: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:123
+#, c-format
+msgid "Pushed to %s"
+msgstr ""
+
+#: gitg/gitg-ref-action-push.vala:134
+#, fuzzy, c-format
+#| msgid "Delete branch %s"
+msgid "Push branch %s"
+msgstr "Poista haara %s"
+
+#: gitg/gitg-ref-action-push.vala:135
+#, fuzzy, c-format
+#| msgid "Are you sure that you want to permanently delete the branch %s?"
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "Haluatko varmasti poistaa pysyvästi haaran %s?"
+
+#: gitg/gitg-ref-action-push.vala:139
+msgid "Push"
+msgstr ""
+
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
@@ -1149,7 +1189,7 @@ msgid "Failed to rename"
 msgstr "Nimen muuttaminen epäonnistui"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
-#: gitg/resources/ui/gitg-window.ui:226
+#: gitg/resources/ui/gitg-window.ui:227
 msgid "Close"
 msgstr "Sulje"
 
@@ -1165,20 +1205,20 @@ msgstr "_Lisää"
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Etsi kaikkia git-tietovarastoja tästä hakemistosta"
 
-#: gitg/gitg-window.vala:505
+#: gitg/gitg-window.vala:514
 msgid "Projects"
 msgstr "Projektit"
 
-#: gitg/gitg-window.vala:804
+#: gitg/gitg-window.vala:813
 msgid "Select items"
 msgstr "Valitse kohteet"
 
-#: gitg/gitg-window.vala:1015
+#: gitg/gitg-window.vala:1024
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” ei ole Git-tietovarasto."
 
-#: gitg/gitg-window.vala:1164
+#: gitg/gitg-window.vala:1173
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1186,7 +1226,7 @@ msgstr ""
 "Käyttäjänimeäsi ja sähköpostiosoitettasi ei ole vielä määritelty. Määritä "
 "kyseiset tiedot käyttäjäasetuksissa."
 
-#: gitg/gitg-window.vala:1168
+#: gitg/gitg-window.vala:1177
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1194,7 +1234,7 @@ msgstr ""
 "Käyttäjänimeäsi ei ole vielä määritelty. Määritä kyseinen tieto "
 "käyttäjäasetuksissa."
 
-#: gitg/gitg-window.vala:1172
+#: gitg/gitg-window.vala:1181
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1202,7 +1242,7 @@ msgstr ""
 "Sähköpostiosoitettasi ei ole vielä määritelty. Määritä kyseinen tieto "
 "käyttäjäasetuksissa."
 
-#: gitg/gitg-window.vala:1175
+#: gitg/gitg-window.vala:1184
 msgid "Missing author details"
 msgstr "Tekijän tiedot puuttuvat"
 
@@ -1268,11 +1308,11 @@ msgstr "Historia"
 msgid "Examine the history of the repository"
 msgstr "Tutki tietovaraston historiaa"
 
-#: gitg/history/gitg-history.vala:909
+#: gitg/history/gitg-history.vala:918
 msgid "Mainline"
 msgstr ""
 
-#: gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:126
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Kommitti"
@@ -1365,18 +1405,18 @@ msgstr "Valmistellut:"
 msgid "Unstaged:"
 msgstr "Valmistelemattomat:"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:24
-#: gitg/resources/ui/gitg-history-paned.ui:93
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:25
+#: gitg/resources/ui/gitg-history-paned.ui:94
 msgid "Subject"
 msgstr "Aihe"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:41
-#: gitg/resources/ui/gitg-history-paned.ui:110
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42
+#: gitg/resources/ui/gitg-history-paned.ui:111
 msgid "Author"
 msgstr "Tekijä"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:57
-#: gitg/resources/ui/gitg-history-paned.ui:126
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
+#: gitg/resources/ui/gitg-history-paned.ui:127
 msgid "Date"
 msgstr "Päiväys"
 
@@ -1449,11 +1489,15 @@ msgstr "Näytä aiheen _reunus sarakkeessa:"
 msgid "Display right _margin at column:"
 msgstr "N_äytä oikea reunus sarakkeessa:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:189
+#: gitg/resources/ui/gitg-preferences-commit.ui:197
+msgid "Language:"
+msgstr "Kieli:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:223
 msgid "Enable spell checking"
 msgstr "Käytä oikolukua"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:220
+#: gitg/resources/ui/gitg-preferences-commit.ui:254
 msgid "Commit Message"
 msgstr "Kommitin viesti"
 
@@ -1599,31 +1643,31 @@ msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Lopeta sovellus"
 
-#: gitg/resources/ui/gitg-window.ui:23
+#: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Näytä luettelo viimeksi käytetyistä tietovarastoista"
 
-#: gitg/resources/ui/gitg-window.ui:45
+#: gitg/resources/ui/gitg-window.ui:46
 msgid "Clone"
 msgstr "Kloonaa"
 
-#: gitg/resources/ui/gitg-window.ui:46
+#: gitg/resources/ui/gitg-window.ui:47
 msgid "Clone repository"
 msgstr "Kloonaa tietovarasto"
 
-#: gitg/resources/ui/gitg-window.ui:61
+#: gitg/resources/ui/gitg-window.ui:62
 msgid "Add"
 msgstr "Lisää"
 
-#: gitg/resources/ui/gitg-window.ui:62
+#: gitg/resources/ui/gitg-window.ui:63
 msgid "Add repository"
 msgstr "Lisää tietovarasto"
 
-#: gitg/resources/ui/gitg-window.ui:86
+#: gitg/resources/ui/gitg-window.ui:87
 msgid "Find a word or phrase"
 msgstr "Etsi sana tai lauseke"
 
-#: gitg/resources/ui/gitg-window.ui:131
+#: gitg/resources/ui/gitg-window.ui:132
 msgid "General settings and options"
 msgstr "Yleiset asetukset"
 
@@ -1727,16 +1771,16 @@ msgstr "jälkeen (%s)"
 msgid "added (%s)"
 msgstr "lisätty (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:144
+#: libgitg/gitg-diff-view-commit-details.vala:143
 msgid "Collapse all"
 msgstr "Supista kaikki"
 
-#: libgitg/gitg-diff-view-commit-details.vala:148
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:212
 msgid "Expand all"
 msgstr "Laajenna kaikki"
 
-#: libgitg/gitg-diff-view-commit-details.vala:203
+#: libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
 msgstr "Kommitoinut %s"
@@ -1808,7 +1852,7 @@ msgstr "Muista salasana u_loskirjautumiseen saakka"
 msgid "Remember _forever"
 msgstr "_Muista aina"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:152
 msgid "Parents"
 msgstr ""
 
@@ -1862,13 +1906,19 @@ msgstr "Poista tietovarasto luettelosta (ei poista tietovarastoa levyltä)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "Näytä valitun kommitin tuomat muutokset"
 
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:64
 msgid "Files"
 msgstr "Tiedostot"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Näytä tiedostot valitun kommitin puussa"
+
+#~ msgid "@icon@"
+#~ msgstr "@icon@"
+
+#~ msgid "Cannot set spell checking language: %s"
+#~ msgstr "Oikolukukielen asettaminen ei onnistunut: %s"
 
 #~ msgid "_Quit"
 #~ msgstr "_Lopeta"
