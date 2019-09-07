@@ -2,18 +2,18 @@
 # Copyright (C) 2014 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 #
-# Sabri Ünal <yakushabb@gmail.com>, 2014.
 # Taner Orak <tnrork@gmail.com>, 2015.
 # Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2014, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2014, 2015, 2017.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2018-2019.
+# Sabri Ünal <libreajans@gmail.com>, 2014, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-01-16 18:54+0000\n"
-"PO-Revision-Date: 2019-02-09 12:44+0300\n"
+"POT-Creation-Date: 2019-08-20 12:23+0000\n"
+"PO-Revision-Date: 2019-09-07 16:41+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -21,14 +21,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 3.30.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Akıştan XML ayrıştırılamadı"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
+#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:9
+msgid "Graphical user interface for git"
+msgstr "git için grafiksel kullanıcı arayüzü"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
 "gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -40,59 +49,49 @@ msgstr ""
 "görselleştirmenin yanında deponuzu yönetmeniz ve çalışmanızı işlemeniz için "
 "birtakım yardımcı araçlar sunar."
 
-#: data/org.gnome.gitg.appdata.xml.in.in:14
-msgid "Goals"
-msgstr "Amaçlar"
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+msgid "Goals:"
+msgstr "Hedefler:"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:16
+#: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
 msgstr "Yerel git depolarına göz at"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:17
+#: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
 msgstr "Yerel ve uzak git depolarını klonla"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:18
+#: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
 msgstr "Dosyaları işle"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:19
+#: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
 msgstr "Bir işlemeden yama al"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:30
+#: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
 msgstr "Depo geçmişine göz at"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:34
+#: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
 msgstr "İşlemenizi oluşturmak için hazırlama alanı"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:38
+#: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
 msgstr "İşlenmeye hazır değişiklikleri işle"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:42
+#: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
 msgstr "Son kullanılan depolara genel bakış"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:52
+#: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "GNOME Projesi"
-
-#: data/org.gnome.gitg.desktop.in.in:3 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git deposu görüntüleyici"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.gitg.desktop.in.in:10
-msgid "@icon@"
-msgstr "@icon@"
 
 #: data/org.gnome.gitg.gschema.xml.in:27
 msgid "Default Clone Directory"
@@ -416,16 +415,11 @@ msgstr ""
 "İşleme alanında hazırlama/hazırlama dışı bırakma farkını gösterirken "
 "bağlamda (önce ve sonra) kaç satır gösterileceğini belirleyen ayar."
 
-#: gitg/commit/gitg-commit-dialog.vala:298
-#, c-format
-msgid "Cannot set spell checking language: %s"
-msgstr "Yazım denetimi dili ayarlanamıyor: %s"
-
-#: gitg/commit/gitg-commit-dialog.vala:504 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "İşlenecek değişiklik yok"
 
-#: gitg/commit/gitg-commit-dialog.vala:505 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Önceki işlemenin işleme iletisini değiştirmek için düzeltme kullanın"
 
@@ -562,7 +556,7 @@ msgstr ""
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:151
+#: gitg/resources/ui/gitg-window.ui:152
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "_İptal"
@@ -666,7 +660,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
+#: gitg/gitg-ref-action-merge.vala:194
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
@@ -736,7 +731,7 @@ msgstr "gitg, GTK+/GNOME için bir Git deposu görüntüleyicidir"
 #: gitg/gitg-application.vala:235
 msgid "translator-credits"
 msgstr ""
-"Sabri Ünal <yakushabb@gmail.com>\n"
+"Sabri Ünal <libreajans@gmail.com>\n"
 "Muhammet Kara <muhammetk@gmail.com>\n"
 "Gökhan Gurbetoğlu <ggurbet@gmail.com>"
 
@@ -907,7 +902,7 @@ msgstr "Etiket oluşturma başarısız oldu"
 msgid "Failed to lookup tag"
 msgstr "Etiket arama başarısız oldu"
 
-#: gitg/gitg-create-tag-dialog.vala:110
+#: gitg/gitg-create-tag-dialog.vala:120
 msgid "Provide a message to create an annotated tag"
 msgstr "Not eklenmiş bir etiket oluşturmak için bir ileti sağlayın"
 
@@ -1102,6 +1097,46 @@ msgstr "%sʼden getirildi: her şey güncel"
 msgid "Fetched from %s: %s"
 msgstr "%sʼden getirildi: %s"
 
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr "%sʼe it"
+
+#: gitg/gitg-ref-action-push.vala:91
+#, c-format
+msgid "Push branch to %s"
+msgstr "Dalı %sʼe it"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, c-format
+msgid "Pushing to %s"
+msgstr "%sʼe itiliyor"
+
+#: gitg/gitg-ref-action-push.vala:116
+#, c-format
+msgid "Failed to push to %s: %s"
+msgstr "%sʼe itme başarısız oldu: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:123
+#, c-format
+msgid "Pushed to %s"
+msgstr "%sʼe itildi"
+
+#: gitg/gitg-ref-action-push.vala:134
+#, c-format
+msgid "Push branch %s"
+msgstr "%s dalını it"
+
+#: gitg/gitg-ref-action-push.vala:135
+#, c-format
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "%s dalını itmek istediğinizden emin misiniz?"
+
+#: gitg/gitg-ref-action-push.vala:139
+msgid "Push"
+msgstr "İt"
+
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
@@ -1175,7 +1210,7 @@ msgid "Merge %s into branch %s"
 msgstr "%sʼi %s dalıyla birleştir"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1176
+#: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Tags"
 msgstr "Etiketler"
 
@@ -1201,7 +1236,7 @@ msgid "Failed to rename"
 msgstr "Yeniden adlandırma başarısız oldu"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
-#: gitg/resources/ui/gitg-window.ui:226
+#: gitg/resources/ui/gitg-window.ui:227
 msgid "Close"
 msgstr "Kapat"
 
@@ -1217,20 +1252,20 @@ msgstr "_Ekle"
 msgid "_Scan for all git repositories from this directory"
 msgstr "Bu dizindeki tüm git depolarını _tara"
 
-#: gitg/gitg-window.vala:505
+#: gitg/gitg-window.vala:514
 msgid "Projects"
 msgstr "Projeler"
 
-#: gitg/gitg-window.vala:804
+#: gitg/gitg-window.vala:813
 msgid "Select items"
 msgstr "Ögeleri seçin"
 
-#: gitg/gitg-window.vala:1015
+#: gitg/gitg-window.vala:1024
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” bir Git deposu değil."
 
-#: gitg/gitg-window.vala:1164
+#: gitg/gitg-window.vala:1173
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1238,7 +1273,7 @@ msgstr ""
 "Kullanıcı adınız ve e-posta adresiniz henüz yapılandırılmamış. Lütfen "
 "kullanıcı yapılandırmasına giderek adınızı ve e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1168
+#: gitg/gitg-window.vala:1177
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1246,7 +1281,7 @@ msgstr ""
 "Kullanıcı adınız henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek adınızı girin."
 
-#: gitg/gitg-window.vala:1172
+#: gitg/gitg-window.vala:1181
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1254,7 +1289,7 @@ msgstr ""
 "E-posta adresiniz henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1175
+#: gitg/gitg-window.vala:1184
 msgid "Missing author details"
 msgstr "Yazar ayrıntıları eksik"
 
@@ -1303,11 +1338,11 @@ msgstr "%zu geride"
 msgid "All commits"
 msgstr "Tüm işlemeler"
 
-#: gitg/history/gitg-history-refs-list.vala:1174
+#: gitg/history/gitg-history-refs-list.vala:1177
 msgid "Branches"
 msgstr "Dallar"
 
-#: gitg/history/gitg-history-refs-list.vala:1175
+#: gitg/history/gitg-history-refs-list.vala:1178
 msgid "Remotes"
 msgstr "Uzaktakiler"
 
@@ -1321,11 +1356,11 @@ msgstr "Geçmiş"
 msgid "Examine the history of the repository"
 msgstr "Deponun geçmişini incele"
 
-#: gitg/history/gitg-history.vala:909
+#: gitg/history/gitg-history.vala:918
 msgid "Mainline"
 msgstr "Anahat"
 
-#: gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:126
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "İşle"
@@ -1421,18 +1456,18 @@ msgstr "İşlemeye Hazırlandı:"
 msgid "Unstaged:"
 msgstr "Hazırlık Dışı Bırakıldı:"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:24
-#: gitg/resources/ui/gitg-history-paned.ui:93
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:25
+#: gitg/resources/ui/gitg-history-paned.ui:94
 msgid "Subject"
 msgstr "Konu"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:41
-#: gitg/resources/ui/gitg-history-paned.ui:110
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42
+#: gitg/resources/ui/gitg-history-paned.ui:111
 msgid "Author"
 msgstr "Yazar"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:57
-#: gitg/resources/ui/gitg-history-paned.ui:126
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
+#: gitg/resources/ui/gitg-history-paned.ui:127
 msgid "Date"
 msgstr "Tarih"
 
@@ -1505,11 +1540,15 @@ msgstr "_Konu kenar boşluğunu sütunda göster:"
 msgid "Display right _margin at column:"
 msgstr "Sağ kenar boşluğunu sütunda _göster:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:189
+#: gitg/resources/ui/gitg-preferences-commit.ui:197
+msgid "Language:"
+msgstr "Dil:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:223
 msgid "Enable spell checking"
 msgstr "Yazım denetimini etkinleştir"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:220
+#: gitg/resources/ui/gitg-preferences-commit.ui:254
 msgid "Commit Message"
 msgstr "İşleme İletisi"
 
@@ -1656,31 +1695,31 @@ msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Uygulamadan çık"
 
-#: gitg/resources/ui/gitg-window.ui:23
+#: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Son kullanılan depoların listesini göster"
 
-#: gitg/resources/ui/gitg-window.ui:45
+#: gitg/resources/ui/gitg-window.ui:46
 msgid "Clone"
 msgstr "Klonla"
 
-#: gitg/resources/ui/gitg-window.ui:46
+#: gitg/resources/ui/gitg-window.ui:47
 msgid "Clone repository"
 msgstr "Kod deposunu klonla"
 
-#: gitg/resources/ui/gitg-window.ui:61
+#: gitg/resources/ui/gitg-window.ui:62
 msgid "Add"
 msgstr "Ekle"
 
-#: gitg/resources/ui/gitg-window.ui:62
+#: gitg/resources/ui/gitg-window.ui:63
 msgid "Add repository"
 msgstr "Kod deposu ekle"
 
-#: gitg/resources/ui/gitg-window.ui:86
+#: gitg/resources/ui/gitg-window.ui:87
 msgid "Find a word or phrase"
 msgstr "Sözcük veya ifade bul"
 
-#: gitg/resources/ui/gitg-window.ui:131
+#: gitg/resources/ui/gitg-window.ui:132
 msgid "General settings and options"
 msgstr "Genel ayarlar ve seçenekler"
 
@@ -1773,16 +1812,16 @@ msgstr "sonra (%s)"
 msgid "added (%s)"
 msgstr "eklendi (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:144
+#: libgitg/gitg-diff-view-commit-details.vala:143
 msgid "Collapse all"
 msgstr "Tümünü daralt"
 
-#: libgitg/gitg-diff-view-commit-details.vala:148
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:212
 msgid "Expand all"
 msgstr "Tümünü genişlet"
 
-#: libgitg/gitg-diff-view-commit-details.vala:203
+#: libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
 msgstr "İşleyen: %s"
@@ -1852,7 +1891,7 @@ msgstr "Çıkış yapana kadar parolayı hatır_la"
 msgid "Remember _forever"
 msgstr "_Her zaman hatırla"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:152
 msgid "Parents"
 msgstr "Ebeveynler"
 
@@ -1906,13 +1945,19 @@ msgstr "Depoyu listeden kaldır (depoyu diskten silmez)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "Seçili işleme ile ortaya çıkan değişiklikleri göster"
 
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:64
 msgid "Files"
 msgstr "Dosyalar"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Seçili işlemenin ağacındaki dosyaları göster"
+
+#~ msgid "Cannot set spell checking language: %s"
+#~ msgstr "Yazım denetimi dili ayarlanamıyor: %s"
+
+#~ msgid "@icon@"
+#~ msgstr "@icon@"
 
 #~ msgid "org.gnome.gitg"
 #~ msgstr "org.gnome.gitg"
