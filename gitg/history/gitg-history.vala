@@ -1135,6 +1135,16 @@ namespace GitgHistory
 				return false;
 			}
 
+			var author = c.get_author();
+			if (author.get_name().down().contains(nkey) || author.get_email().down().contains(nkey)) {
+				return false;
+			}
+
+			var committer = c.get_committer();
+			if (committer.get_name().down().contains(nkey) || committer.get_email().down().contains(nkey)) {
+				return false;
+			}
+
 			return true;
 		}
 
