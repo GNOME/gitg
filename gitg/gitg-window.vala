@@ -1284,7 +1284,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 			d_header_bar.show_close_button = !Gitg.PlatformSupport.use_native_window_controls() && !issel;
 			d_search_button.visible = !issel && searchable != null;
-			d_gear_menu.visible = !issel && d_repository != null;
+			d_gear_menu.visible = !issel;
 			d_select_button.visible = !issel;
 			d_dash_button.visible = !issel && d_repository != null;
 			d_clone_button.visible = !issel && d_repository == null;
