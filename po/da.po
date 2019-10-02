@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-07-25 13:26+0000\n"
-"PO-Revision-Date: 2019-08-06 20:52+0200\n"
+"POT-Creation-Date: 2019-09-07 11:54+0000\n"
+"PO-Revision-Date: 2019-09-09 00:29+0200\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -70,7 +70,6 @@ msgstr ""
 "håndtere dit arkiv og committe dit arbejde."
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
-#| msgid "Goals"
 msgid "Goals:"
 msgstr "Mål:"
 
@@ -443,16 +442,11 @@ msgstr ""
 "Indstilling som angiver, hvor mange linjer af kontekst (før og efter) der "
 "skal bruges i diffen for stage/unstage i commit-området."
 
-#: gitg/commit/gitg-commit-dialog.vala:299
-#, c-format
-msgid "Cannot set spell checking language: %s"
-msgstr "Kan ikke indstille sprog for stavekontrol: %s"
-
-#: gitg/commit/gitg-commit-dialog.vala:507 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
 msgid "There are no changes to be committed"
 msgstr "Der er ingen ændringer at committe"
 
-#: gitg/commit/gitg-commit-dialog.vala:508 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Tilret (amend) for at ændre commitbeskeden for den forrige commit"
 
@@ -1138,19 +1132,16 @@ msgstr "Skub til %s"
 
 #: gitg/gitg-ref-action-push.vala:91
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Push branch to %s"
 msgstr "Skub gren til %s"
 
 #: gitg/gitg-ref-action-push.vala:107
 #, c-format
-#| msgid "Fetching from %s"
 msgid "Pushing to %s"
 msgstr "Skubber til %s"
 
 #: gitg/gitg-ref-action-push.vala:116
 #, c-format
-#| msgid "Failed to fetch from %s: %s"
 msgid "Failed to push to %s: %s"
 msgstr "Kunne ikke skubbe til %s: %s"
 
@@ -1162,13 +1153,11 @@ msgstr "Skubbede til %s"
 
 #: gitg/gitg-ref-action-push.vala:134
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Push branch %s"
 msgstr "Skub grenen %s"
 
 #: gitg/gitg-ref-action-push.vala:135
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the branch %s?"
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "Er du sikker på, at du vil skubbe grenen %s?"
 
@@ -1248,7 +1237,7 @@ msgid "Merge %s into branch %s"
 msgstr "Flet %s ind i grenen %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1176
+#: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Tags"
 msgstr "Mærker"
 
@@ -1375,11 +1364,11 @@ msgstr "%zu bagud"
 msgid "All commits"
 msgstr "Alle commits"
 
-#: gitg/history/gitg-history-refs-list.vala:1174
+#: gitg/history/gitg-history-refs-list.vala:1177
 msgid "Branches"
 msgstr "Grene"
 
-#: gitg/history/gitg-history-refs-list.vala:1175
+#: gitg/history/gitg-history-refs-list.vala:1178
 msgid "Remotes"
 msgstr "Remotes"
 
@@ -1397,7 +1386,7 @@ msgstr "Undersøg historikken for arkivet"
 msgid "Mainline"
 msgstr "Hovedlinje"
 
-#: gitg/preferences/gitg-preferences-commit.vala:119
+#: gitg/preferences/gitg-preferences-commit.vala:126
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Commit"
@@ -1576,11 +1565,15 @@ msgstr "Vis _emnemargen ved kolonne:"
 msgid "Display right _margin at column:"
 msgstr "Vis højre _margen ved kolonne:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:189
+#: gitg/resources/ui/gitg-preferences-commit.ui:197
+msgid "Language:"
+msgstr "Sprog:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:223
 msgid "Enable spell checking"
 msgstr "Slå stavekontrol til"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:220
+#: gitg/resources/ui/gitg-preferences-commit.ui:254
 msgid "Commit Message"
 msgstr "Commitbesked"
 
@@ -1986,3 +1979,6 @@ msgstr "Filer"
 #: plugins/files/gitg-files.vala:69
 msgid "Show the files in the tree of the selected commit"
 msgstr "Vis filerne i træet for det valgte commit"
+
+#~ msgid "Cannot set spell checking language: %s"
+#~ msgstr "Kan ikke indstille sprog for stavekontrol: %s"
