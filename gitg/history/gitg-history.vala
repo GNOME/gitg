@@ -1157,6 +1157,34 @@ namespace GitgHistory
 
 		public string search_text { owned get; set; default = ""; }
 		public bool search_visible { get; set; }
+
+		public void search_move(string key, bool up)
+		{
+			// Execute search move by sending key press, as GtkTreeView has an
+			// internal search state. This ensure, user can use keyboard or
+			// up and down buttons to continue the search.
+			var search_entry = d_main.commit_list_view.get_search_entry();
+			var keyval = up ? Gdk.Key.Up : Gdk.Key.Down;
+
+			Gdk.KeymapKey[] keys;
+			if(!Gdk.Keymap.get_for_display(search_entry.get_display()).get_entries_for_keyval(keyval, out keys))
+			{
+				return;
+			}
+
+			search_entry.grab_focus();
+
+			// We have to raise event key with pointers to avoid crash of entry
+			// due to the gdk "losing last reference to undestroyed window" message
+            Gdk.EventKey* event = new Gdk.Event(Gdk.EventType.KEY_PRESS);
+            event->window = search_entry.get_window();
+			event->keyval = keyval;
+			event->hardware_keycode = (uint16) keys[0].keycode;
+			event->group = (uint8) keys[0].group;
+			((Gdk.Event*) event)->put();
+
+			return;
+		}
 	}
 }
 
