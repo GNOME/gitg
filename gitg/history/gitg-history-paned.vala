@@ -194,8 +194,6 @@ class Paned : Gitg.AnimatedPaned
 		var c = get_style_context();
 		c.save();
 
-		c.add_region("panel-switcher", 0);
-
 		Gtk.Allocation alloc;
 		d_stack_switcher_panels.get_allocation(out alloc);
 

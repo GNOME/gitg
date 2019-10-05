@@ -592,13 +592,7 @@ class Dialog : Gtk.Dialog
 		ctx.save();
 		ctx.add_class("warning");
 
-		var fg = ctx.get_color(Gtk.StateFlags.NORMAL);
-		var bg = ctx.get_background_color(Gtk.StateFlags.NORMAL);
-
 		ctx.restore();
-
-		d_too_long_tag.background_rgba = bg;
-		d_too_long_tag.foreground_rgba = fg;
 	}
 
 	private bool on_commit_message_key_press_event(Gtk.Widget widget, Gdk.EventKey event)
