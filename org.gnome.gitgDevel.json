@@ -53,35 +53,6 @@
             ]
         },
         {
-            "name" : "libgit2",
-            "buildsystem" : "cmake",
-            "config-opts" : [
-                "-DBUILD_SHARED_LIBS:BOOL=ON",
-                "-DTHREADSAFE=ON"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://github.com/libgit2/libgit2.git",
-                    "branch" : "maint/v0.28"
-                }
-            ]
-        },
-        {
-            "name" : "libgit2-glib",
-            "config-opts" : [
-                "--buildtype=debugoptimized"
-            ],
-            "buildsystem" : "meson",
-            "builddir" : true,
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libgit2-glib.git"
-                }
-            ]
-        },
-        {
             "name" : "libpeas",
             "buildsystem": "meson",
             "builddir": true,
@@ -171,6 +142,39 @@
                 {
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/libdazzle.git"
+                }
+            ]
+        },
+        {
+            "name" : "libgit2",
+            "buildsystem" : "cmake",
+            "config-opts" : [
+                "-DBUILD_SHARED_LIBS:BOOL=ON",
+                "-DTHREADSAFE=ON"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/libgit2/libgit2.git",
+                    "branch" : "maint/v0.28"
+                },
+                {
+                    "type" : "patch",
+                    "path" : "Allow-revwalk-to-traverse-shallow-clones.patch"
+                }
+            ]
+        },
+        {
+            "name" : "libgit2-glib",
+            "config-opts" : [
+                "--buildtype=debugoptimized"
+            ],
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libgit2-glib.git"
                 }
             ]
         },
