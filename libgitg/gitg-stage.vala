@@ -166,9 +166,12 @@ public class Stage : Object
 	private string message_with_sign_off(string         message,
 	                                     Ggit.Signature committer)
 	{
-		return "%s\nSigned-off-by: %s <%s>\n".printf(message,
-		                                             committer.get_name(),
-		                                             committer.get_email());
+		var signed_off = "Signed-off-by: %s <%s>".printf(committer.get_name(),
+		                                                committer.get_email());
+		if (!message.down().contains(signed_off.down())) {
+			return "%s\n%s\n".printf(message, signed_off);
+		}
+		return message;
 	}
 
 	private string convert_message_to_encoding(Ggit.Config conf,
