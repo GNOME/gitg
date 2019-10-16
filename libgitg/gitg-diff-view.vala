@@ -823,7 +823,14 @@ public class Gitg.DiffView : Gtk.Grid
 						mime_type_for_image = ContentType.get_mime_type(info.new_file_content_type);
 					}
 
-					if (mime_type_for_image != null && s_image_mime_types.contains(mime_type_for_image))
+					//TODO: this bool come from the user selection. A button that only appears if
+					//image can be seen as text too.
+					bool image_diff_selected = false;
+					bool can_diff_as_text = ContentType.is_mime_type(mime_type_for_image, "text/plain");
+
+					if (mime_type_for_image != null
+						&& s_image_mime_types.contains(mime_type_for_image)
+						&& (!can_diff_as_text || image_diff_selected))
 					{
 						current_file = new Gitg.DiffViewFile.image(repository, delta);
 					}
