@@ -32,41 +32,21 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "revealer_content" )]
 	private unowned Gtk.Revealer d_revealer_content;
 
-	[GtkChild( name = "scrolled_window" )]
-	private unowned Gtk.ScrolledWindow? scrolled_window;
+	[GtkChild( name = "stack_switcher" )]
+	private unowned Gtk.StackSwitcher? d_stack_switcher;
+
+	[GtkChild( name = "stack_file_renderer" )]
+	private unowned Gtk.Stack? d_stack_file_renderer;
 
 	private bool d_expanded;
 
-	private Binding? d_vexpand_binding;
+	public DiffViewFileRendererText? renderer_text {get; private set;}
 
-	private DiffViewFileRenderer? _renderer;
-
-	public DiffViewFileRenderer? renderer
+	public void add_renderer(Gtk.Widget widget, string name, string title)
 	{
-		owned get
-		{
-			return _renderer;
-		}
-
-		construct set
-		{
-			if (_renderer != value)
-			{
-				if (_renderer != null)
-					scrolled_window.remove(_renderer);
-
-				_renderer = value;
-				if (d_vexpand_binding != null)
-				{
-					d_vexpand_binding.unbind();
-					d_vexpand_binding = null;
-				}
-
-				scrolled_window.add (_renderer);
-
-				d_vexpand_binding = this.bind_property("vexpand", _renderer, "vexpand", BindingFlags.SYNC_CREATE);
-			}
-		}
+		d_stack_file_renderer.add_titled(widget, name, title);
+		bool visible = d_stack_file_renderer.get_children().length() > 1;
+		d_stack_switcher.set_visible(visible);
 	}
 
 	public bool new_is_workdir { get; construct set; }
@@ -99,49 +79,53 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 	}
 
-	public Ggit.DiffDelta? delta { get; construct set; }
-	public Repository? repository { get; construct set; }
+	public DiffViewFileInfo? info {get; construct set;}
 
-	public DiffViewFile(Repository? repository, Ggit.DiffDelta delta)
+	public DiffViewFile(DiffViewFileInfo? info)
 	{
-		Object(repository: repository, delta: delta);
+		Object(info: info);
+		bind_property("vexpand", d_stack_file_renderer, "vexpand", BindingFlags.SYNC_CREATE);
 	}
 
-	public DiffViewFile.text(DiffViewFileInfo info, bool handle_selection)
+	public void add_text_renderer(bool handle_selection)
 	{
-		this(info.repository, info.delta);
+		renderer_text = new DiffViewFileRendererText(info, handle_selection);
+		renderer_text.show();
+		var scrolled_window = new Gtk.ScrolledWindow (null, null);
+		scrolled_window.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+		scrolled_window.add(renderer_text);
+		scrolled_window.show();
 
-		this.renderer = new DiffViewFileRendererText(info, handle_selection);
-		this.renderer.show();
-
-		this.renderer.bind_property("added", d_diff_stat_file, "added");
-		this.renderer.bind_property("removed", d_diff_stat_file, "removed");
+		renderer_text.bind_property("added", d_diff_stat_file, "added");
+		renderer_text.bind_property("removed", d_diff_stat_file, "removed");
+		add_renderer(scrolled_window, "text", _("Text"));
 	}
 
-	public DiffViewFile.binary(Repository? repository, Ggit.DiffDelta delta)
+	public void add_binary_renderer()
 	{
-		this(repository, delta);
+		var renderer = new DiffViewFileRendererBinary();
+		renderer.show();
+		add_renderer(renderer, "binary", _("Binary"));
 
-		this.renderer = new DiffViewFileRendererBinary();
-		this.renderer.show();
-
-		d_diff_stat_file.hide();
+		//TODO: Only for text page
+		//d_diff_stat_file.hide();
 	}
 
-	public DiffViewFile.image(Repository? repository, Ggit.DiffDelta delta)
+	public void add_image_renderer()
 	{
-		this(repository, delta);
+		var renderer = new DiffViewFileRendererImage(info.repository, info.delta);
+		renderer.show();
+		add_renderer(renderer, "image", _("Image"));
 
-		this.renderer = new DiffViewFileRendererImage(repository, delta);
-		this.renderer.show();
-
-		d_diff_stat_file.hide();
+		//TODO: Only for text page
+		//d_diff_stat_file.hide();
 	}
 
 	protected override void constructed()
 	{
 		base.constructed();
 
+		var delta = info.delta;
 		var oldfile = delta.get_old_file();
 		var newfile = delta.get_new_file();
 
@@ -163,6 +147,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		d_expander.bind_property("expanded", this, "expanded", BindingFlags.BIDIRECTIONAL);
 
+		var repository = info.repository;
 		if (repository != null && !repository.is_bare)
 		{
 			d_expander.popup_menu.connect(expander_popup_menu);
@@ -174,6 +159,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 	{
 		var menu = new Gtk.Menu();
 
+		var delta  = info.delta;
 		var oldpath = delta.get_old_file().get_path();
 		var newpath = delta.get_new_file().get_path();
 
@@ -182,6 +168,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		File? location = null;
 
+		var repository = info.repository;
 		if (newpath != null && newpath != "")
 		{
 			location = repository.get_workdir().get_child(newpath);
@@ -262,7 +249,17 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
-		this.renderer.add_hunk(hunk, lines);
+		if (renderer_text != null) {
+			renderer_text.add_hunk(hunk, lines);
+		}
+		foreach (Gtk.Widget page in d_stack_file_renderer.get_children())
+		{
+			if (page is DiffViewFileRenderer)
+			{
+				var renderer = (DiffViewFileRenderer)page;
+				renderer.add_hunk(hunk, lines);
+			}
+		}
 	}
 }
 

@@ -642,7 +642,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		foreach (var file in d_grid_files.get_children())
 		{
-			var selectable = ((Gitg.DiffViewFile) file).renderer as DiffSelectable;
+			var selectable = ((Gitg.DiffViewFile) file).renderer_text as DiffSelectable;
 
 			if (selectable != null && selectable.has_selection)
 			{
@@ -756,7 +756,6 @@ public class Gitg.DiffView : Gtk.Grid
 			if (current_file != null)
 			{
 				current_file.show();
-				current_file.renderer.notify["has-selection"].connect(on_selection_changed);	
 
 				files.add(current_file);
 
@@ -823,18 +822,28 @@ public class Gitg.DiffView : Gtk.Grid
 						mime_type_for_image = ContentType.get_mime_type(info.new_file_content_type);
 					}
 
-					if (mime_type_for_image != null && s_image_mime_types.contains(mime_type_for_image))
+					bool can_diff_as_text = ContentType.is_mime_type(mime_type_for_image, "text/plain");
+
+					current_file = new Gitg.DiffViewFile(info);
+
+					if (can_diff_as_text)
 					{
-						current_file = new Gitg.DiffViewFile.image(repository, delta);
+						current_file.add_text_renderer(handle_selection);
+						var renderer_text = current_file.renderer_text;
+						bind_property("highlight", renderer_text, "highlight", BindingFlags.SYNC_CREATE);
+						bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+						bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+						renderer_text.maxlines = maxlines;
+						renderer_text.notify["has-selection"].connect(on_selection_changed);
 					}
-					else if (current_is_binary)
+					if (mime_type_for_image != null
+						&& s_image_mime_types.contains(mime_type_for_image))
 					{
-						current_file = new Gitg.DiffViewFile.binary(repository, delta);
+						current_file.add_image_renderer();
 					}
-					else
+					if (current_is_binary)
 					{
-						current_file = new Gitg.DiffViewFile.text(info, handle_selection);
-						this.bind_property("highlight", current_file.renderer, "highlight", BindingFlags.SYNC_CREATE);
+						current_file.add_binary_renderer();
 					}
 
 					return 0;
@@ -898,7 +907,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 			if (preserve_expanded && f.expanded)
 			{
-				var path = primary_path(f.delta);
+				var path = primary_path(f.info.delta);
 
 				if (path != null)
 				{
@@ -915,19 +924,9 @@ public class Gitg.DiffView : Gtk.Grid
 		for (var i = 0; i < files.size; i++)
 		{
 			var file = files[i];
-			var path = primary_path(file.delta);
+			var path = primary_path(file.info.delta);
 
 			file.expanded = d_commit_details.expanded || (path != null && was_expanded.contains(path));
-
-			var renderer_text = file.renderer as DiffViewFileRendererText;
-
-			if (renderer_text != null)
-			{
-				renderer_text.maxlines = maxlines;
-
-				this.bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
-				this.bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
-			}
 
 			if (i == files.size - 1)
 			{
@@ -960,7 +959,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		foreach (var file in d_grid_files.get_children())
 		{
-			var sel = ((Gitg.DiffViewFile) file).renderer as DiffSelectable;
+			var sel = ((Gitg.DiffViewFile) file).renderer_text as DiffSelectable;
 
 			if (sel != null && sel.has_selection && sel.selection.patches.length != 0)
 			{

@@ -11,44 +11,64 @@
       <class name="gitg-file-header"/>
     </style>
     <child>
-      <object class="GtkExpander" id="expander">
+      <object class="GtkBox" id="header_grid">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="hexpand">True</property>
-        <property name="margin_start">3</property>
-        <child type="label">
-          <object class="GtkGrid" id="grid_file_header">
+        <property name="can_focus">False</property>
+        <property name="homogeneous">False</property>
+        <property name="orientation">horizontal</property>
+        <child>
+          <object class="GtkExpander" id="expander">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
             <property name="hexpand">True</property>
-            <property name="row_spacing">6</property>
-            <property name="column_spacing">12</property>
-            <property name="orientation">horizontal</property>
-            <child>
-              <object class="GitgDiffStat" id="diff_stat_file">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="vexpand">False</property>
-                <property name="valign">baseline</property>
-                <property name="margin_top">6</property>
-                <property name="margin_bottom">6</property>
-                <style>
-                  <class name="no-frame"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_file_header">
+            <property name="margin_start">3</property>
+            <child type="label">
+              <object class="GtkGrid" id="grid_file_header">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="label">the/file/header</property>
-                <property name="halign">start</property>
-                <property name="margin_top">6</property>
-                <property name="margin_bottom">6</property>
+                <property name="row_spacing">6</property>
+                <property name="column_spacing">12</property>
+                <property name="orientation">horizontal</property>
+                <child>
+                  <object class="GitgDiffStat" id="diff_stat_file">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="vexpand">False</property>
+                    <property name="valign">baseline</property>
+                    <property name="margin_top">6</property>
+                    <property name="margin_bottom">6</property>
+                    <style>
+                      <class name="no-frame"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_file_header">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="label">the/file/header</property>
+                    <property name="halign">start</property>
+                    <property name="margin_top">6</property>
+                    <property name="margin_bottom">6</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
+          <packing>
+            <property name="pack-type">start</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStackSwitcher" id="stack_switcher">
+            <property name="visible">True</property>
+            <property name="stack">stack_file_renderer</property>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
         </child>
       </object>
     </child>
@@ -58,11 +78,10 @@
         <property name="can_focus">False</property>
         <property name="transition_type">slide-down</property>
         <child>
-          <object class="GtkScrolledWindow" id="scrolled_window">
+          <object class="GtkStack" id="stack_file_renderer">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
             <property name="vexpand">True</property>
+            <property name="hexpand">True</property>
           </object>
         </child>
       </object>
