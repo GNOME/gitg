@@ -139,6 +139,7 @@ libsecret_dep = dependency('libsecret-1')
 libsoup_dep = dependency('libsoup-2.4')
 libxml_dep = dependency('libxml-2.0', version: '>= 2.9.0')
 libdazzle_dep = dependency('libdazzle-1.0')
+json_glib_dependency = dependency('json-glib-1.0')
 
 config_dep = valac.find_library('config', dirs: vapi_dir)
 gitg_platform_support_dep = valac.find_library('gitg-platform-support', dirs: vapi_dir)
