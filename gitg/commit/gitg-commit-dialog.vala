@@ -65,6 +65,12 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "scrolled_window_stats")]
 	private Gtk.ScrolledWindow d_scrolled_window_stats;
 
+	[GtkChild (name = "prev_commit_message_button")]
+	private Gtk.Button d_prev_commit_message_button;
+
+	[GtkChild (name = "next_commit_message_button")]
+	private Gtk.Button d_next_commit_message_button;
+
 	private bool d_show_markup;
 	private bool d_show_right_margin;
 	private bool d_show_subject_margin;
@@ -778,6 +784,121 @@ class Dialog : Gtk.Dialog
 		d_infobar_revealer.set_reveal_child(true);
 
 		set_response_sensitive(Gtk.ResponseType.OK, false);
+	}
+
+	//TODO: Save new messages on exit (checking existing ones)
+	//TODO: Load messages on dialog load
+	//TODO: 0 means empty (or saved typed text
+	int reverse_pos_messages = 0;
+	string saved_commit_message;
+
+	[GtkCallback]
+	private void on_next_commit_message_button_clicked ()
+	{
+		print("path next\n");
+		if (reverse_pos_messages > 0) {
+		  d_prev_commit_message_button.sensitive = true;
+		  reverse_pos_messages--;
+		  if (reverse_pos_messages == 0) {
+			  d_source_view_message.buffer.text = saved_commit_message;
+		      d_next_commit_message_button.sensitive = false;
+			  return;
+		  }
+		} else {
+			d_next_commit_message_button.sensitive = false;
+			d_prev_commit_message_button.sensitive = true;
+			return;
+		}
+
+        var file = File.new_for_path(Environment.get_user_data_dir() + "/" +
+									 Gitg.Config.APPLICATION_ID + "/" + "commit-messages.json");
+
+        uint8[] file_contents;
+
+        try {
+            file.load_contents (null, out file_contents, null);
+        }
+        catch (GLib.Error err) {
+            warning ("%s\n", err.message);
+			return;
+        }
+        Json.Parser parser = new Json.Parser ();
+		try {
+          parser.load_from_data ((string) file_contents);
+		} catch {
+			return;
+		}
+
+        Json.Node node = parser.get_root ();
+        var root_object_node = node.get_object ();
+        Json.Array array = root_object_node.get_member ("messages").get_array ();
+		int counter = 0;
+        foreach (unowned Json.Node node_item in array.get_elements ()) {
+			counter++;
+			if (counter < reverse_pos_messages) {
+				continue;
+			}
+            var object_node = node_item.get_object ();
+			var message = object_node.get_string_member("text");
+			d_source_view_message.buffer.text = message;
+			break;
+        }
+	}
+
+	[GtkCallback]
+	private void on_prev_commit_message_button_clicked ()
+	{
+		//TODO: Count max stored messages
+		print("path previous\n");
+		if (reverse_pos_messages < 2) {
+		  if (reverse_pos_messages == 0) {
+			  saved_commit_message = d_source_view_message.buffer.text;
+		  }
+		  d_next_commit_message_button.sensitive = true;
+		  reverse_pos_messages++;
+		} else {
+			d_prev_commit_message_button.sensitive = false;
+			d_next_commit_message_button.sensitive = true;
+			return;
+		}
+
+        var file = File.new_for_path(Environment.get_user_data_dir() + "/" +
+									 Gitg.Config.APPLICATION_ID + "/" + "commit-messages.json");
+		print("path: %s\n", file.get_path());
+
+        uint8[] file_contents;
+
+        try {
+            file.load_contents (null, out file_contents, null);
+        }
+        catch (GLib.Error err) {
+            warning ("%s\n", err.message);
+			return;
+        }
+        Json.Parser parser = new Json.Parser ();
+		try {
+          parser.load_from_data ((string) file_contents);
+		} catch {
+			return;
+		}
+
+        Json.Node node = parser.get_root ();
+        var root_object_node = node.get_object ();
+        Json.Array array = root_object_node.get_member ("messages").get_array ();
+		if (array.get_length() == reverse_pos_messages) {
+			d_prev_commit_message_button.sensitive = false;
+		}
+		int counter = 0;
+        foreach (unowned Json.Node node_item in array.get_elements ()) {
+			counter++;
+			if (counter < reverse_pos_messages) {
+				continue;
+			}
+            var object_node = node_item.get_object ();
+			var message = object_node.get_string_member("text");
+			d_source_view_message.buffer.text = message;
+			break;
+        }
 	}
 }
 
