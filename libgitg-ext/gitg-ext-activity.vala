@@ -41,6 +41,13 @@ public interface Activity : Object, UIElement
 	{
 		return false;
 	}
+
+	/**
+	 * Key press event
+	 */
+	public virtual bool on_key_pressed (Gdk.EventKey event) {
+		return false;
+	}
 }
 
 }
