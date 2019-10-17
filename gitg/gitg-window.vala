@@ -268,9 +268,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	[GtkCallback]
 	public bool on_key_pressed (Gtk.Widget widget, Gdk.EventKey event) {
+
+		print ("window key press '%s'\n", Gtk.accelerator_get_label(event.keyval,
+																			   (event.state & Gtk.accelerator_get_default_mod_mask())));
 		bool ret = d_search_bar.handle_event(event);
 		if (ret) {
 			d_search_bar.search_mode_enabled = true;
+		} else {
+			ret = d_activities.current.on_key_pressed(event);
 		}
 		return ret;
 	}
