@@ -65,6 +65,12 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "scrolled_window_stats")]
 	private Gtk.ScrolledWindow d_scrolled_window_stats;
 
+	[GtkChild (name = "prev_commit_message_button")]
+	private Gtk.Button d_prev_commit_message_button;
+
+	[GtkChild (name = "next_commit_message_button")]
+	private Gtk.Button d_next_commit_message_button;
+
 	private bool d_show_markup;
 	private bool d_show_right_margin;
 	private bool d_show_subject_margin;
@@ -81,6 +87,13 @@ class Dialog : Gtk.Dialog
 	private Gspell.Checker? d_spell_checker;
 	private Ggit.Diff d_diff;
 	private bool d_infobar_shown;
+	private Json.Array d_message_array;
+	private int reverse_pos_messages = 0;
+	private string saved_commit_message;
+	private Gtk.TextTag d_subject_tag;
+	private Gtk.TextTag d_too_long_tag;
+
+
 
 	public Ggit.Diff? diff
 	{
@@ -401,6 +414,16 @@ class Dialog : Gtk.Dialog
 
 	construct
 	{
+		response.connect(() => {
+			save_commit_message ();
+		});
+
+		d_message_array = load_commit_messages ();
+		if (d_message_array.get_length () == 0) {
+	        reverse_pos_messages = 0;
+		    d_prev_commit_message_button.sensitive = false;
+		}
+
 		d_font_manager = new Gitg.FontManager(d_source_view_message, false);
 
 		var b = d_source_view_message.buffer;
@@ -492,9 +515,63 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
-	private Gtk.TextTag d_subject_tag;
-	private Gtk.TextTag d_too_long_tag;
+	private void save_commit_message ()
+	{
+		var message = pretty_message;
+		if (message == "") {
+			return;
+		}
 
+        Json.Builder builder = new Json.Builder ();
+
+        builder.begin_object ();
+        builder.set_member_name ("version");
+        builder.add_string_value ("1.0");
+
+        builder.set_member_name ("description");
+        builder.add_string_value ("recent commit messages");
+
+        builder.set_member_name ("messages");
+        builder.begin_array ();
+        foreach (unowned Json.Node node in d_message_array.get_elements ()) {
+		   var node_message = node.get_object ().get_string_member ("text");
+		   if (message == node_message) {
+			   //TODO: Mover el mensaje al primero de la lista
+			   return;
+		   }
+           builder.add_value (node);
+        }
+        builder.begin_object ();
+        builder.set_member_name ("datetime");
+        builder.add_string_value (new DateTime.now_utc ().to_string ());
+        builder.set_member_name ("text");
+        builder.add_string_value (message);
+        builder.end_object ();
+        builder.end_array ();
+
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+        generator.pretty = true;
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+		print("eco");
+        string current_contents = generator.to_data (null);
+        try {
+			    var dirname = Environment.get_user_data_dir() + "/" + Gitg.Config.APPLICATION_ID;
+                var dir = File.new_for_path(dirname);
+				if (!dir.query_exists ()) {
+				    dir.make_directory_with_parents ();
+				}
+                var file = File.new_for_path(dirname + "/" + "commit-messages.json");
+                file.replace_contents (current_contents.data, null, false,
+                                       GLib.FileCreateFlags.NONE, null, null);
+        }
+        catch (GLib.Error err) {
+            error ("%s\n", err.message);
+        }
+	}
 	private void iterate_diff()
 	{
 		var n = diff.get_num_deltas();
@@ -648,7 +725,7 @@ class Dialog : Gtk.Dialog
 				FileUtils.get_contents(path, out contents, out len);
 
 				default_message = Gitg.Convert.utf8(contents, (ssize_t)len).strip();
-				d_source_view_message.buffer.set_text(default_message);
+				message = default_message;
 			}
 		}
 		catch {}
@@ -778,6 +855,90 @@ class Dialog : Gtk.Dialog
 		d_infobar_revealer.set_reveal_child(true);
 
 		set_response_sensitive(Gtk.ResponseType.OK, false);
+	}
+
+	private Json.Array load_commit_messages ()
+	{
+        var file = File.new_for_path(Environment.get_user_data_dir() + "/" +
+									 Gitg.Config.APPLICATION_ID + "/" + "commit-messages.json");
+
+        uint8[] file_contents;
+
+        Json.Array message_array;
+        try {
+            file.load_contents (null, out file_contents, null);
+            Json.Parser parser = new Json.Parser ();
+            parser.load_from_data ((string) file_contents);
+            Json.Node node = parser.get_root ();
+            var root_object_node = node.get_object ();
+            message_array = root_object_node.get_member ("messages").get_array ();
+        }
+        catch (GLib.Error err) {
+            warning ("%s\n", err.message);
+			message_array = new Json.Array ();
+        }
+		return message_array;
+
+	}
+
+	[GtkCallback]
+	private void on_next_commit_message_button_clicked ()
+	{
+		if (reverse_pos_messages > 0) {
+		  d_prev_commit_message_button.sensitive = true;
+		  reverse_pos_messages--;
+		  if (reverse_pos_messages == 0) {
+			  message = saved_commit_message;
+		      d_next_commit_message_button.sensitive = false;
+			  return;
+		  }
+		} else {
+			d_next_commit_message_button.sensitive = false;
+			d_prev_commit_message_button.sensitive = true;
+			return;
+		}
+
+		load_selected_commit_message ();
+	}
+
+	[GtkCallback]
+	private void on_prev_commit_message_button_clicked ()
+	{
+		if (reverse_pos_messages < d_message_array.get_length ()) {
+		  if (reverse_pos_messages == 0) {
+			  saved_commit_message = message;
+		  }
+		  d_next_commit_message_button.sensitive = true;
+		  reverse_pos_messages++;
+		} else {
+			d_prev_commit_message_button.sensitive = false;
+			if (reverse_pos_messages <= 0) {
+				reverse_pos_messages = 0;
+			    d_next_commit_message_button.sensitive = true;
+			}
+			return;
+		}
+
+		if (d_message_array.get_length() == reverse_pos_messages) {
+			d_prev_commit_message_button.sensitive = false;
+		}
+
+		load_selected_commit_message ();
+	}
+
+	private void load_selected_commit_message ()
+	{
+		int counter = 0;
+        foreach (unowned Json.Node node_item in d_message_array.get_elements ()) {
+			counter++;
+			if (counter < reverse_pos_messages) {
+				continue;
+			}
+            var object_node = node_item.get_object ();
+			var commit_message = object_node.get_string_member("text");
+			message = commit_message;
+			break;
+        }
 	}
 }
 
