@@ -74,14 +74,13 @@ class Dialog : Gtk.Dialog
 	private Cancellable? d_cancel_avatar;
 	private bool d_constructed;
 	private Settings? d_message_settings;
-	private Settings? d_font_settings;
+	private Gitg.FontManager d_font_manager;
 	private Settings? d_commit_settings;
 	private bool d_enable_spell_checking;
 	private string? d_spell_checking_language;
 	private Gspell.Checker? d_spell_checker;
 	private Ggit.Diff d_diff;
 	private bool d_infobar_shown;
-	private Gtk.CssProvider css_provider;
 
 	public Ggit.Diff? diff
 	{
@@ -394,7 +393,7 @@ class Dialog : Gtk.Dialog
 		}
 
 		d_message_settings = null;
-		d_font_settings = null;
+		d_font_manager = null;
 		d_commit_settings = null;
 
 		base.destroy();
@@ -402,15 +401,7 @@ class Dialog : Gtk.Dialog
 
 	construct
 	{
-		d_font_settings = new Settings("org.gnome.desktop.interface");
-		css_provider = new Gtk.CssProvider();
-		d_source_view_message.get_style_context().add_provider(css_provider, Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
-
-		update_font_settings();
-
-		d_font_settings.changed["monospace-font-name"].connect((s, k) => {
-			update_font_settings();
-		});
+		d_font_manager = new Gitg.FontManager(d_source_view_message, false);
 
 		var b = d_source_view_message.buffer;
 
@@ -732,7 +723,7 @@ class Dialog : Gtk.Dialog
 				{
 					break;
 				}
-				
+
 				if (!toolong.forward_to_line_end())
 				{
 					break;
@@ -770,21 +761,6 @@ class Dialog : Gtk.Dialog
 	              Ggit.Diff?      diff)
 	{
 		Object(repository: repository, author: author, diff: diff, use_header_bar: 1);
-	}
-
-	private void update_font_settings()
-	{
-		var fname = d_font_settings.get_string("monospace-font-name");
-		var font_desc = Pango.FontDescription.from_string(fname);
-		var css = "textview { %s }".printf(Dazzle.pango_font_description_to_css(font_desc));
-		try
-		{
-			css_provider.load_from_data(css);
-		}
-		catch(Error e)
-		{
-			warning("Error applying font: %s", e.message);
-		}
 	}
 
 	public void show_infobar(string          primary_msg,

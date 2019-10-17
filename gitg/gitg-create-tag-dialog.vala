@@ -37,20 +37,11 @@ class CreateTagDialog : Gtk.Dialog
 
 	private Gtk.TextTag d_info_tag;
 	private bool d_is_showing_user_info;
-	private Settings d_font_settings;
-	private Gtk.CssProvider css_provider;
+	private FontManager d_font_manager;
 
 	construct
 	{
-		d_font_settings = new Settings("org.gnome.desktop.interface");
-		css_provider = new Gtk.CssProvider();
-		d_text_view_message.get_style_context().add_provider(css_provider, Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
-
-		update_font_settings();
-
-		d_font_settings.changed["monospace-font-name"].connect((s, k) => {
-			update_font_settings();
-		});
+		d_font_manager = new FontManager(d_text_view_message, false);
 
 		d_entry_tag_name.changed.connect(() => {
 			d_button_create.sensitive = (new_tag_name.length != 0);
@@ -86,21 +77,6 @@ class CreateTagDialog : Gtk.Dialog
 		show_user_info();
 
 		set_default_response(Gtk.ResponseType.OK);
-	}
-
-	private void update_font_settings()
-	{
-		var fname = d_font_settings.get_string("monospace-font-name");
-		var font_desc = Pango.FontDescription.from_string(fname);
-		var css = "textview { %s }".printf(Dazzle.pango_font_description_to_css(font_desc));
-		try
-		{
-			css_provider.load_from_data(css);
-		}
-		catch(Error e)
-		{
-			warning("Error applying font: %s", e.message);
-		}
 	}
 
 	private void show_user_info()

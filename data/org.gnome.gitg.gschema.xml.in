@@ -46,6 +46,17 @@
         The activity which gitg activates by default when first launched.
       </description>
     </key>
+    <key name="use-default-font" type="b">
+      <default>true</default>
+      <summary>Use Default Font</summary>
+      <description>Whether to use the system’s default fixed width font for widget's text instead of a font specific. If this option is turned off, then the font named in the “Editor Font” option will be used instead of the system font.</description>
+    </key>
+    <key name="monospace-font-name" type="s">
+      <!-- Translators: This is a GSettings default value. Do NOT change or localize the quotation marks! -->
+      <default l10n="messages">'Monospace 12'</default>
+      <summary>Editor Font</summary>
+      <description>A custom font that will be used for the text widgets. This will only take effect if the “Use Default Font” option is turned off.</description>
+    </key>
     <key name="use-gravatar" type="b">
       <default>true</default>
       <summary>Use Gravatar</summary>
