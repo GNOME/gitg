@@ -54,14 +54,13 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private Gtk.SourceBuffer? d_new_highlight_buffer;
 	private bool d_old_highlight_ready;
 	private bool d_new_highlight_ready;
-	private Gtk.CssProvider css_provider;
 
 	private Region[] d_regions;
 	private bool d_constructed;
 
 	private Settings? d_stylesettings;
 
-	private Settings? d_fontsettings;
+	private FontManager d_font_manager;
 
 	public bool new_is_workdir { get; construct set; }
 
@@ -82,7 +81,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	}
 
 	public new int tab_width
-	{ 
+	{
 		get { return (int)get_tab_width(); }
 		set { set_tab_width((uint)value); }
 	}
@@ -114,14 +113,14 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			}
 		}
 	}
-	
+
 	private bool d_has_selection;
 
 	public bool has_selection
 	{
 		get { return d_has_selection; }
 	}
-	
+
 	public bool can_select { get; construct set; }
 
 	public PatchSet selection
@@ -151,7 +150,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 					patches += pset;
 					continue;
 				}
-				
+
 				var last = patches[patches.length - 1];
 
 				if (last.new_offset + last.length == pset.new_offset &&
@@ -200,8 +199,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		var settings = Gtk.Settings.get_default();
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
 
-		css_provider = new Gtk.CssProvider();
-		get_style_context().add_provider(css_provider,Gtk.STYLE_PROVIDER_PRIORITY_SETTINGS);
+		d_font_manager = new FontManager(this, true);
 
 		update_theme();
 
@@ -390,26 +388,17 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		var manager = Gtk.SourceLanguageManager.get_default();
 		var language = manager.guess_language(location != null ? location.get_basename() : null, content_type);
 
-		if (language == null)
-		{
-			return null;
-		}
-
 		var buffer = new Gtk.SourceBuffer(this.buffer.tag_table);
+
+		if (language != null)
+		{
+			buffer.language = language;
+		}
 
 		var style_scheme_manager = Gtk.SourceStyleSchemeManager.get_default();
 
-		buffer.language = language;
 		buffer.highlight_syntax = true;
-		d_fontsettings = try_settings("org.gnome.desktop.interface");
-		if (d_fontsettings != null)
-		{
-			d_fontsettings.changed["monospace-font-name"].connect((s, k) => {
-				update_font();
-			});
 
-			update_font();
-		}
 		d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		if (d_stylesettings != null)
 		{
@@ -454,21 +443,6 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		if (s != null)
 		{
 			(buffer as Gtk.SourceBuffer).style_scheme = s;
-		}
-	}
-
-	private void update_font()
-	{
-		var fname = d_fontsettings.get_string("monospace-font-name");
-		var font_desc = Pango.FontDescription.from_string(fname);
-		var css = "textview{%s}".printf(Dazzle.pango_font_description_to_css(font_desc));
-		try
-		{
-			css_provider.load_from_data(css);
-		}
-		catch(Error e)
-		{
-			warning("Error applying font: %s", e.message);
 		}
 	}
 
@@ -606,7 +580,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		ctx.add_class("diff-lines-gutter-border");
 		ctx.render_frame(cr, old_lines_width + new_lines_width, 0, sym_lines_width, win.get_height());
 		ctx.restore();
-		
+
 		return false;
 	}
 
