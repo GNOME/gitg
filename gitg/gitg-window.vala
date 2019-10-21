@@ -90,6 +90,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.SearchBar d_search_bar;
 	[GtkChild]
 	private Gtk.SearchEntry d_search_entry;
+	[GtkChild]
+	private Gtk.Button d_search_up_button;
+	[GtkChild]
+	private Gtk.Button d_search_down_button;
 
 	[GtkChild]
 	private Gtk.Stack d_main_stack;
@@ -246,12 +250,19 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_search_entry.text = searchable.search_text;
 			searchable.search_visible = true;
 			searchable.search_entry = d_search_entry;
+			d_search_up_button.set_sensitive(d_search_entry.text.length > 0);
+			d_search_down_button.set_sensitive(d_search_entry.text.length > 0);
 		}
 		else
 		{
 			searchable.search_visible = false;
 			searchable.search_entry = null;
+			d_search_up_button.set_sensitive(false);
+			d_search_down_button.set_sensitive(false);
 		}
+
+		d_search_up_button.set_visible(d_mode != DASH);
+		d_search_down_button.set_visible(d_mode != DASH);
 	}
 
 	[GtkCallback]
@@ -263,6 +274,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (ntext != searchable.search_text)
 		{
 			searchable.search_text = ntext;
+			d_search_up_button.set_sensitive(ntext.length > 0);
+			d_search_down_button.set_sensitive(ntext.length > 0);
 		}
 	}
 
@@ -273,6 +286,18 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_search_bar.search_mode_enabled = true;
 		}
 		return ret;
+	}
+
+	[GtkCallback]
+	private void search_up_clicked(Gtk.Button button)
+	{
+		search_move(true);
+	}
+
+	[GtkCallback]
+	private void search_down_clicked(Gtk.Button button)
+	{
+		search_move(false);
 	}
 
 	construct
@@ -1323,6 +1348,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	public GitgExt.Notifications notifications
 	{
 		owned get { return d_notifications; }
+	}
+
+	private void search_move(bool up)
+	{
+		var searchable = current_activity as GitgExt.Searchable;
+		var key = d_search_entry.text;
+		searchable.search_move(key, up);
 	}
 }
 

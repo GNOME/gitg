@@ -590,6 +590,11 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 			do_add_repository(location, true);
 		}
 	}
+
+	public void search_move(string key, bool up)
+	{
+		return;
+	}
 }
 
 }
