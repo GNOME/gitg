@@ -43,7 +43,7 @@ private enum RefAnimation
 	ANIMATE
 }
 
-private interface RefTyped : Object
+public interface RefTyped : Object
 {
 	public abstract Gitg.RefType ref_type { get; }
 }
@@ -402,11 +402,12 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 }
 
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-history-ref-header.ui")]
-private class RefHeader : RefTyped, Gtk.ListBoxRow
+public class RefHeader : RefTyped, Gtk.ListBoxRow
 {
 	private Gitg.RefType d_rtype;
 	private bool d_is_sub_header_remote;
 	private string d_name;
+	public Gee.LinkedList<GitgExt.Action> actions { get; set; }
 
 	public Gitg.RemoteState remote_state
 	{
@@ -536,6 +537,12 @@ public class RefsList : Gtk.ListBox
 	private RefHeader? d_all_tags;
 	private RefRow.SortOrder d_ref_sort_order;
 	private HeaderState[] d_expanded;
+	public RefHeader? branches_header { get { return d_all_branches; } }
+	public RefHeader? remotes_header { get { return d_all_remotes; } }
+	public RefHeader? tags_header { get { return d_all_tags; } }
+	public Gee.LinkedList<GitgExt.Action> branches_actions { get; set; default = null; }
+	public Gee.LinkedList<GitgExt.Action> remotes_actions { get; set; default = null; }
+	public Gee.LinkedList<GitgExt.Action> tags_actions { get; set; default = null; }
 
 	public signal void changed();
 
@@ -867,10 +874,11 @@ public class RefsList : Gtk.ListBox
 		}
 	}
 
-	private RefHeader add_header(Gitg.RefType ref_type, string name)
+	private RefHeader add_header(Gitg.RefType ref_type, string name, Gee.LinkedList<GitgExt.Action>? actions)
 	{
 		var header = new RefHeader(ref_type, name);
 		init_header(header);
+		header.actions = actions;
 
 		add(header);
 		return header;
@@ -1174,9 +1182,9 @@ public class RefsList : Gtk.ListBox
 		}
 
 		d_all_commits = add_ref_row(null);
-		d_all_branches = add_header(Gitg.RefType.BRANCH, _("Branches"));
-		d_all_remotes = add_header(Gitg.RefType.REMOTE, _("Remotes"));
-		d_all_tags = add_header(Gitg.RefType.TAG, _("Tags"));
+		d_all_branches = add_header(Gitg.RefType.BRANCH, _("Branches"), branches_actions);
+		d_all_remotes = add_header(Gitg.RefType.REMOTE, _("Remotes"), remotes_actions);
+		d_all_tags = add_header(Gitg.RefType.TAG, _("Tags"), tags_actions);
 
 		RefRow? head = null;
 
@@ -1410,7 +1418,7 @@ public class RefsList : Gtk.ListBox
 		row.begin_editing((owned)done);
 	}
 
-	private int y_in_window(int y, Gdk.Window origin)
+	public int y_in_window(int y, Gdk.Window origin)
 	{
 		while (origin != get_window())
 		{

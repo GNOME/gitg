@@ -46,6 +46,21 @@ public interface Action : UIElement
 		item.show();
 		menu.append(item);
 	}
+
+	public virtual async bool fetch(owned Gitg.Remote remote){
+		try
+		{
+			yield remote.fetch(null, null);
+		}
+		catch (Error e)
+		{
+			critical("Fetch failed: %s", e.message);
+
+			return false;
+		}
+
+		return true;
+	}
 }
 
 }
