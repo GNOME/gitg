@@ -1,0 +1,41 @@
+From 064f59e2ff3a53d3b95082f395d88b1cc62f1fbe Mon Sep 17 00:00:00 2001
+From: Alberto Fanjul <albertofanjul@gmail.com>
+Date: Tue, 15 Oct 2019 21:37:25 +0200
+Subject: [PATCH] Allow revwalk to traverse shallow clones
+
+---
+ src/revwalk.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/src/revwalk.c b/src/revwalk.c
+index 6f49bf2dc..daa94ab23 100644
+--- a/src/revwalk.c
++++ b/src/revwalk.c
+@@ -441,6 +441,11 @@ static int still_interesting(git_commit_list *list, int64_t time, int slop)
+ 	return slop - 1;
+ }
+ 
++static int expected_fail(git_commit *commit) {
++	//TODO: Check commit is in $GIT_DIR/.git/shallow
++	return 1;
++}
++
+ static int limit_list(git_commit_list **out, git_revwalk *walk, git_commit_list *commits)
+ {
+ 	int error, slop = SLOP;
+@@ -452,8 +457,10 @@ static int limit_list(git_commit_list **out, git_revwalk *walk, git_commit_list
+ 	while (list) {
+ 		git_commit_list_node *commit = git_commit_list_pop(&list);
+ 
+-		if ((error = add_parents_to_list(walk, commit, &list)) < 0)
+-			return error;
++		if ((error = add_parents_to_list(walk, commit, &list)) < 0) {
++			if (!expected_fail(commit))
++				return error;
++		}
+ 
+ 		if (commit->uninteresting) {
+ 			mark_parents_uninteresting(commit);
+-- 
+2.23.0
+
