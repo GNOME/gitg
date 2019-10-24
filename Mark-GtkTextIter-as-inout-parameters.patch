@@ -1,0 +1,52 @@
+From 3e48a8daab915d3493e213fc833d389c52897e31 Mon Sep 17 00:00:00 2001
+From: Alberto Fanjul <albertofanjul@gmail.com>
+Date: Thu, 24 Oct 2019 02:28:11 +0200
+Subject: [PATCH] Mark GtkTextIter as inout parameters
+
+---
+ gtksourceview/gtksourcebuffer.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/gtksourceview/gtksourcebuffer.c b/gtksourceview/gtksourcebuffer.c
+index 7be1f99a..04d2bd7b 100644
+--- a/gtksourceview/gtksourcebuffer.c
++++ b/gtksourceview/gtksourcebuffer.c
+@@ -2191,7 +2191,7 @@ _gtk_source_buffer_source_mark_prev (GtkSourceBuffer *buffer,
+ /**
+  * gtk_source_buffer_forward_iter_to_source_mark:
+  * @buffer: a #GtkSourceBuffer.
+- * @iter: an iterator.
++ * @iter: (inout): an iterator.
+  * @category: (nullable): category to search for, or %NULL
+  *
+  * Moves @iter to the position of the next #GtkSourceMark of the given
+@@ -2225,7 +2225,7 @@ gtk_source_buffer_forward_iter_to_source_mark (GtkSourceBuffer *buffer,
+ /**
+  * gtk_source_buffer_backward_iter_to_source_mark:
+  * @buffer: a #GtkSourceBuffer.
+- * @iter: an iterator.
++ * @iter: (inout): an iterator.
+  * @category: (nullable): category to search for, or %NULL
+  *
+  * Moves @iter to the position of the previous #GtkSourceMark of the given
+@@ -2500,7 +2500,7 @@ gtk_source_buffer_get_context_classes_at_iter (GtkSourceBuffer   *buffer,
+ /**
+  * gtk_source_buffer_iter_forward_to_context_class_toggle:
+  * @buffer: a #GtkSourceBuffer.
+- * @iter: a #GtkTextIter.
++ * @iter: (inout): a #GtkTextIter.
+  * @context_class: the context class.
+  *
+  * Moves forward to the next toggle (on or off) of the context class. If no
+@@ -2539,7 +2539,7 @@ gtk_source_buffer_iter_forward_to_context_class_toggle (GtkSourceBuffer *buffer,
+ /**
+  * gtk_source_buffer_iter_backward_to_context_class_toggle:
+  * @buffer: a #GtkSourceBuffer.
+- * @iter: a #GtkTextIter.
++ * @iter: (inout): a #GtkTextIter.
+  * @context_class: the context class.
+  *
+  * Moves backward to the next toggle (on or off) of the context class. If no
+--
+2.23.0
+
