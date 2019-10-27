@@ -56,6 +56,7 @@ namespace Gitg
 			private Gtk.Box d_languages_box;
 
 			public signal void request_remove();
+			public signal void request_remove_source();
 
 			private SelectionMode d_mode;
 			private string? d_dirname;
@@ -551,6 +552,101 @@ namespace Gitg
 			return row;
 		}
 
+		private void remove_source_clicked(Row row)
+		{
+			var alert_dialog = new Gtk.MessageDialog((Gtk.Window) row.get_toplevel(),
+					Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.NONE,
+					_("Removing repository source files will delete them from your computer and cannot be undone"),null);
+			alert_dialog.add_button(_("Cancel"), Gtk.ResponseType.CANCEL);
+			alert_dialog.add_button(_("Move to trash"), Gtk.ResponseType.ACCEPT);
+			alert_dialog.add_button(_("Delete permanently"), Gtk.ResponseType.OK);
+
+
+			var ok_button = alert_dialog.get_widget_for_response(Gtk.ResponseType.OK);
+			ok_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+
+			alert_dialog.response.connect ((id) => {
+				handle_remove_source_response(id,row);
+				alert_dialog.destroy();
+			});
+
+			alert_dialog.run();
+		}
+
+		private void handle_remove_source_response(int id, Row row)
+		{
+			var repository = row.repository;
+			var workdir = repository.workdir != null ? repository.workdir : repository.location;
+			var uri = workdir.get_uri();
+
+			if (id == Gtk.ResponseType.OK || id == Gtk.ResponseType.ACCEPT)
+			{
+				Cancellable cancellable = new Cancellable();
+				bool trash = id == Gtk.ResponseType.ACCEPT ? true : false;
+
+				delete_source.begin(workdir, trash, cancellable, (obj, res) => {
+					try
+					{
+						delete_source.end (res);
+						d_bookmark_file.remove_item(uri);
+						remove(row);
+					}
+					catch (Error e)
+					{
+						warning("Can not delete files %s", e.message);
+					}
+				});
+			}
+		}
+
+		private async void delete_source(File repo, bool trash, Cancellable cancellable)throws Error
+		{
+			if (cancellable.is_cancelled ())
+			{
+				return;
+			}
+			var dtype = repo.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
+
+			if (dtype == FileType.DIRECTORY) {
+				try
+				{
+					var dir_in_repository = yield repo.enumerate_children_async (FileAttribute.STANDARD_NAME, 0,Priority.DEFAULT);
+					GLib.List<FileInfo> content_infos;
+					while ((content_infos = yield dir_in_repository.next_files_async (20, Priority.DEFAULT)) != null)
+					{
+						foreach (var file_cinfo in content_infos)
+						{
+							var files = repo.get_child (file_cinfo.get_name());
+							yield delete_source (files, trash, cancellable);
+						}
+					}
+				}
+				catch(Error e)
+				{
+					//catch error thrown by file.enumerate_childern_async and delete_it
+					warning("Warning: %s\n", e.message);
+				}
+			}
+
+			try
+			{
+				if (trash)
+				{
+					yield repo.trash_async ();
+				}
+				else
+				{
+					yield repo.delete_async ();
+				}
+			}
+			catch (Error e) {
+				warning("Can not delete files: %s", e.message);
+				cancellable.cancel();
+				throw e;
+			}
+
+		}
+
 		private void connect_repository_row(Row row)
 		{
 			var repository = row.repository;
@@ -572,6 +668,11 @@ namespace Gitg
 
 					remove(row);
 				});
+
+				row.request_remove_source.connect(() => {
+					remove_source_clicked(row);
+				});
+
 
 				row.can_remove = true;
 			}
