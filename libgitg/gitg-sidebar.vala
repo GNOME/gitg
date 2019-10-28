@@ -423,7 +423,16 @@ public class Sidebar : Gtk.TreeView
 
 	protected override bool key_press_event(Gdk.EventKey event)
 	{
-		if ((event.state & Gtk.accelerator_get_default_mod_mask()) != 0)
+		var mmask = Gtk.accelerator_get_default_mod_mask();
+		var modifiers = event.state;
+
+		if (Gdk.ModifierType.CONTROL_MASK in modifiers && Gdk.ModifierType.SHIFT_MASK in modifiers
+			&& (event.keyval == Gdk.Key.Up || event.keyval == Gdk.Key.Down))
+		{
+			return false;
+		}
+
+		if ((event.state & mmask) != 0)
 		{
 			return base.key_press_event(event);
 		}

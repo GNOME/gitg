@@ -38,5 +38,8 @@ $ sudo ninja -C install
 Alternatively you can build using Flatpak with the org.gnome.gitgDevel.json manifest.
 
 ## Using gitg
+Hello
 
 When gitg is installed, you can run gitg from the GNOME menu, or from a terminal by issueing: 'gitg'. Type 'gitg --help' to show the options you can specify on the command line.
+Bye
+
