@@ -54,7 +54,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 		buffer.get_start_iter(out iter);
 
-		while (buffer.forward_iter_to_source_mark(iter, d_selection_category))
+		while (buffer.forward_iter_to_source_mark(ref iter, d_selection_category))
 		{
 			ret += iter.get_line();
 		}
@@ -321,7 +321,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 		var buffer = source_view.buffer as Gtk.SourceBuffer;
 
-		if (!buffer.forward_iter_to_source_mark(iter, "header"))
+		if (!buffer.forward_iter_to_source_mark(ref iter, "header"))
 		{
 			iter.forward_to_end();
 		}
@@ -493,7 +493,7 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 		else
 		{
-			something_selected = (buffer as Gtk.SourceBuffer).forward_iter_to_source_mark(iter, d_selection_category);
+			something_selected = (buffer as Gtk.SourceBuffer).forward_iter_to_source_mark(ref iter, d_selection_category);
 		}
 
 		if (something_selected != has_selection)
