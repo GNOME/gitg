@@ -41,6 +41,18 @@ public interface Activity : Object, UIElement
 	{
 		return false;
 	}
+
+	/**
+	 * Activity receives a key event to process it.
+	 *
+	 * @param event the key event
+	 *
+	 * @return true if the key event is consumed by this activity.
+	 */
+	public virtual bool on_key_pressed (Gdk.EventKey event)
+	{
+		return false;
+	}
 }
 
 }

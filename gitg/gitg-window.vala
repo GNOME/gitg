@@ -271,6 +271,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		bool ret = d_search_bar.handle_event(event);
 		if (ret) {
 			d_search_bar.search_mode_enabled = true;
+		} else {
+			ret = d_activities.current.on_key_pressed(event);
 		}
 		return ret;
 	}

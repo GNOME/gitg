@@ -141,6 +141,20 @@ namespace GitgCommit
 			return action == "commit";
 		}
 
+		public bool on_key_pressed (Gdk.EventKey event) {
+			var mmask = Gtk.accelerator_get_default_mod_mask();
+
+			if ((mmask & event.state) == Gdk.ModifierType.CONTROL_MASK)
+			{
+				if ((event.keyval == Gdk.Key.Return || event.keyval == Gdk.Key.KP_Enter))
+				{
+					on_commit_clicked ();
+					return true;
+				}
+			}
+			return false;
+		}
+
 		private delegate void StageUnstageCallback(Sidebar.Item item);
 		private delegate void StageUnstageSubmoduleCommitCallback(Gitg.Commit commit);
 
