@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-10-17 05:49+0000\n"
-"PO-Revision-Date: 2019-10-21 10:37+0200\n"
+"POT-Creation-Date: 2019-10-29 07:07+0000\n"
+"PO-Revision-Date: 2019-10-29 15:25+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -125,7 +125,6 @@ msgstr ""
 "primera vez."
 
 #: data/org.gnome.gitg.gschema.xml.in:51
-#| msgid "Default selection"
 msgid "Use Default Font"
 msgstr "Usar tipografía predeterminada"
 
@@ -384,21 +383,45 @@ msgstr ""
 "El idioma que usar cuando la revisión ortográfica está activada para "
 "escribir un mensaje de «commit»."
 
-#: data/org.gnome.gitg.gschema.xml.in:229
+#: data/org.gnome.gitg.gschema.xml.in:227
+msgid "Maximum number of previous commit messages"
+msgstr "Número máximo de mensajes de «commit» anteriores"
+
+#: data/org.gnome.gitg.gschema.xml.in:228
+msgid ""
+"Maximum number of previous commit messages to store for commit message "
+"history."
+msgstr ""
+"Número máximo de mensajes de «commit» anteriores que guardar en el histórico "
+"de mensajes de «commit»"
+
+#: data/org.gnome.gitg.gschema.xml.in:232
+msgid "Maximum number of days to store previous commit messages"
+msgstr "Número máximo de días que guardar los mensajes de «commit» anteriores"
+
+#: data/org.gnome.gitg.gschema.xml.in:233
+msgid ""
+"Maximum number of days to store previous commit messages for commit message "
+"history."
+msgstr ""
+"Número máximo de días que guardar los mensajes de «commit» anteriores en el "
+"histórico de mensajes de «commit»."
+
+#: data/org.gnome.gitg.gschema.xml.in:239
 msgid "Use patience algorithm to show diffs"
 msgstr "Usar algoritmo paciente para mostrar diferencias"
 
-#: data/org.gnome.gitg.gschema.xml.in:230
+#: data/org.gnome.gitg.gschema.xml.in:240
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Ajuste para usar un algoritmo paciente para mostrar las diferencias de un "
 "«commit»"
 
-#: data/org.gnome.gitg.gschema.xml.in:236
+#: data/org.gnome.gitg.gschema.xml.in:246
 msgid "Ignore Whitespace Changes"
 msgstr "Ignorar cambios en espacios en blanco"
 
-#: data/org.gnome.gitg.gschema.xml.in:237
+#: data/org.gnome.gitg.gschema.xml.in:247
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -406,31 +429,31 @@ msgstr ""
 "Ajuste que indica si se deben ignorar los espacios en blanco al mostrar las "
 "diferencias de un «commit»."
 
-#: data/org.gnome.gitg.gschema.xml.in:244
+#: data/org.gnome.gitg.gschema.xml.in:254
 msgid "Show Changes Inline"
 msgstr "Mostrar cambios en línea"
 
-#: data/org.gnome.gitg.gschema.xml.in:245
+#: data/org.gnome.gitg.gschema.xml.in:255
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Ajuste que indica si se deben mostrar en línea los cambios dentro de las "
 "líneas."
 
-#: data/org.gnome.gitg.gschema.xml.in:252
+#: data/org.gnome.gitg.gschema.xml.in:262
 msgid "Wrap"
 msgstr "Ajustar"
 
-#: data/org.gnome.gitg.gschema.xml.in:253
+#: data/org.gnome.gitg.gschema.xml.in:263
 msgid "Wrap lines."
 msgstr "Ajustar líneas."
 
-#: data/org.gnome.gitg.gschema.xml.in:259
-#: data/org.gnome.gitg.gschema.xml.in:277
+#: data/org.gnome.gitg.gschema.xml.in:269
+#: data/org.gnome.gitg.gschema.xml.in:287
 msgid "Number of Before/After Context Lines"
 msgstr "Número de líneas de contexto antes/despúes"
 
-#: data/org.gnome.gitg.gschema.xml.in:260
+#: data/org.gnome.gitg.gschema.xml.in:270
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -438,13 +461,13 @@ msgstr ""
 "Ajuste que determina cuántas líneas de contexto (antes y después) se deben "
 "mostrar al presentar las diferencias de un «commit»."
 
-#: data/org.gnome.gitg.gschema.xml.in:267
-#: data/org.gnome.gitg.gschema.xml.in:286
+#: data/org.gnome.gitg.gschema.xml.in:277
+#: data/org.gnome.gitg.gschema.xml.in:296
 msgid "Rendered Width of a Tab Character"
 msgstr "Renderizar anchura de un carácter de tabulación"
 
-#: data/org.gnome.gitg.gschema.xml.in:268
-#: data/org.gnome.gitg.gschema.xml.in:287
+#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:297
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -452,7 +475,7 @@ msgstr ""
 "Ajuste que determina cuánto espacio debe ocupar un carácter de tabulación al "
 "mostrar las diferencias de un «commit»."
 
-#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:288
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -461,11 +484,11 @@ msgstr ""
 "mostrar al presentar las diferencias que reservar/quitar la reserva en el "
 "área de «commit»."
 
-#: gitg/commit/gitg-commit-dialog.vala:489 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:531 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
 msgstr "No hay cambios que efectuar"
 
-#: gitg/commit/gitg-commit-dialog.vala:490 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:532 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Use «amend» para cambiar el mensaje del «commit» anterior"
 
@@ -478,21 +501,21 @@ msgstr "Commit"
 msgid "Create new commits and manage the staging area"
 msgstr "Crear nuevos commits y gestionar el área de reserva"
 
-#: gitg/commit/gitg-commit.vala:193
+#: gitg/commit/gitg-commit.vala:207
 msgid "_Stage selection"
 msgstr "_Reservar selección"
 
-#: gitg/commit/gitg-commit.vala:232
+#: gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to stage the removal of submodule “%s”"
 msgstr "Falló al reservar la eliminación del submódulo «%s»"
 
-#: gitg/commit/gitg-commit.vala:248
+#: gitg/commit/gitg-commit.vala:262
 #, c-format
 msgid "Failed to open the repository of submodule “%s” while trying to stage"
 msgstr "Falló al abrir el repositorio del submódulo «%s» al intentar reservar"
 
-#: gitg/commit/gitg-commit.vala:263
+#: gitg/commit/gitg-commit.vala:277
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule “%s” while trying "
@@ -501,100 +524,100 @@ msgstr ""
 "Falló a buscar la carpeta de trabajo de «commit» del submódulo «%s» al "
 "intentar reservar"
 
-#: gitg/commit/gitg-commit.vala:276
+#: gitg/commit/gitg-commit.vala:290
 #, c-format
 msgid "Failed to stage the submodule “%s”"
 msgstr "Falló al reservar el submódulo «%s»"
 
-#: gitg/commit/gitg-commit.vala:298
+#: gitg/commit/gitg-commit.vala:312
 #, c-format
 msgid "Failed to stage the removal of file “%s”"
 msgstr "Falló al reservar la eliminación del archivo «%s»"
 
-#: gitg/commit/gitg-commit.vala:312
+#: gitg/commit/gitg-commit.vala:326
 #, c-format
 msgid "Failed to stage the file “%s”"
 msgstr "Falló al reservar el archivo «%s»"
 
-#: gitg/commit/gitg-commit.vala:584
+#: gitg/commit/gitg-commit.vala:598
 msgid "_Unstage selection"
 msgstr "Q_uitar la reserva de la selección"
 
-#: gitg/commit/gitg-commit.vala:650
+#: gitg/commit/gitg-commit.vala:664
 #, c-format
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "Falló al quitar la reserva de eliminación del archivo «%s»"
 
-#: gitg/commit/gitg-commit.vala:651
+#: gitg/commit/gitg-commit.vala:665
 #, c-format
 msgid "Failed to unstage the file “%s”"
 msgstr "Falló al quitar la reserva del archivo «%s»"
 
-#: gitg/commit/gitg-commit.vala:658
+#: gitg/commit/gitg-commit.vala:672
 #, c-format
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Falló al quitar la reserva de eliminación del submódulo «%s»"
 
-#: gitg/commit/gitg-commit.vala:659
+#: gitg/commit/gitg-commit.vala:673
 #, c-format
 msgid "Failed to unstage the submodule “%s”"
 msgstr "Falló al quitar la reserva del submódulo «%s»"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:863
+#: gitg/commit/gitg-commit.vala:877
 msgid "Staged"
 msgstr "Reservado"
 
-#: gitg/commit/gitg-commit.vala:871
+#: gitg/commit/gitg-commit.vala:885
 msgid "No staged files"
 msgstr "No hay archivos reservados"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:894
+#: gitg/commit/gitg-commit.vala:908
 msgid "Unstaged"
 msgstr "Sin reservar"
 
-#: gitg/commit/gitg-commit.vala:902
+#: gitg/commit/gitg-commit.vala:916
 msgid "No unstaged files"
 msgstr "No hay archivos sin reservar"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:925
+#: gitg/commit/gitg-commit.vala:939
 msgid "Untracked"
 msgstr "No registrados"
 
-#: gitg/commit/gitg-commit.vala:929
+#: gitg/commit/gitg-commit.vala:943
 msgid "No untracked files"
 msgstr "No hay archivos sin registrar"
 
-#: gitg/commit/gitg-commit.vala:954
+#: gitg/commit/gitg-commit.vala:968
 msgid "Submodule"
 msgstr "Submódulo"
 
-#: gitg/commit/gitg-commit.vala:958
+#: gitg/commit/gitg-commit.vala:972
 msgid "No dirty submodules"
 msgstr "No hay submódulos sucios"
 
-#: gitg/commit/gitg-commit.vala:1107
+#: gitg/commit/gitg-commit.vala:1121
 msgid "Failed to commit"
 msgstr "Falló al hacer el «commit»"
 
-#: gitg/commit/gitg-commit.vala:1123
+#: gitg/commit/gitg-commit.vala:1137
 msgid "Failed to pass pre-commit"
 msgstr "Falló al pasar el «pre-commit»"
 
-#: gitg/commit/gitg-commit.vala:1331 gitg/commit/gitg-commit.vala:1481
+#: gitg/commit/gitg-commit.vala:1345 gitg/commit/gitg-commit.vala:1495
 msgid "Discard changes"
 msgstr "Descartar cambios"
 
-#: gitg/commit/gitg-commit.vala:1332
+#: gitg/commit/gitg-commit.vala:1346
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 "¿Está seguro de que quiere descartar permanentemente los cambios "
 "seleccionados?"
 
-#: gitg/commit/gitg-commit.vala:1341 gitg/commit/gitg-commit.vala:1507
-#: gitg/commit/gitg-commit.vala:1622
+#: gitg/commit/gitg-commit.vala:1355 gitg/commit/gitg-commit.vala:1521
+#: gitg/commit/gitg-commit.vala:1636
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
@@ -606,27 +629,27 @@ msgstr ""
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: gitg/commit/gitg-commit.vala:1342 gitg/commit/gitg-commit.vala:1508
+#: gitg/commit/gitg-commit.vala:1356 gitg/commit/gitg-commit.vala:1522
 msgid "Discard"
 msgstr "Descartar"
 
-#: gitg/commit/gitg-commit.vala:1371
+#: gitg/commit/gitg-commit.vala:1385
 msgid "Failed to discard selection"
 msgstr "Falló al descartar la selección"
 
-#: gitg/commit/gitg-commit.vala:1401
+#: gitg/commit/gitg-commit.vala:1415
 msgid "Failed to stage selection"
 msgstr "Falló al reservar la selección"
 
-#: gitg/commit/gitg-commit.vala:1405
+#: gitg/commit/gitg-commit.vala:1419
 msgid "Failed to unstage selection"
 msgstr "Falló al quitar la reserva de la selección"
 
-#: gitg/commit/gitg-commit.vala:1465
+#: gitg/commit/gitg-commit.vala:1479
 msgid "Failed to discard changes"
 msgstr "Falló al descartar los cambios"
 
-#: gitg/commit/gitg-commit.vala:1486
+#: gitg/commit/gitg-commit.vala:1500
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -635,7 +658,7 @@ msgstr ""
 "¿Está seguro de que quiere descartar permanentemente todos los cambios del "
 "archivo «%s»?"
 
-#: gitg/commit/gitg-commit.vala:1497
+#: gitg/commit/gitg-commit.vala:1511
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -644,46 +667,46 @@ msgstr ""
 "¿Está seguro de que quiere descartar permanentemente todos los cambios "
 "hechos a los archivos %s y «%s»?"
 
-#: gitg/commit/gitg-commit.vala:1580
+#: gitg/commit/gitg-commit.vala:1594
 msgid "Failed to delete files"
 msgstr "Falló al eliminar los archivos"
 
-#: gitg/commit/gitg-commit.vala:1596
+#: gitg/commit/gitg-commit.vala:1610
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Eliminar archivo"
 msgstr[1] "Eliminar archivos"
 
-#: gitg/commit/gitg-commit.vala:1601
+#: gitg/commit/gitg-commit.vala:1615
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "¿Está seguro de que quiere eliminar permanentemente el archivo «%s»?"
 
-#: gitg/commit/gitg-commit.vala:1612
+#: gitg/commit/gitg-commit.vala:1626
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr ""
 "¿Está seguro de que quiere eliminar permanentemente los archivos %s y «%s»?"
 
-#: gitg/commit/gitg-commit.vala:1658
+#: gitg/commit/gitg-commit.vala:1672
 msgid "_Stage changes"
 msgstr "_Reservar los cambios"
 
-#: gitg/commit/gitg-commit.vala:1670
+#: gitg/commit/gitg-commit.vala:1684
 msgid "_Unstage changes"
 msgstr "_Quitar la reserva de los cambios"
 
-#: gitg/commit/gitg-commit.vala:1682
+#: gitg/commit/gitg-commit.vala:1696
 msgid "_Discard changes"
 msgstr "_Descartar los cambios"
 
-#: gitg/commit/gitg-commit.vala:1694
+#: gitg/commit/gitg-commit.vala:1708
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_Eliminar archivo"
 msgstr[1] "_Eliminar archivos"
 
-#: gitg/commit/gitg-commit.vala:1724
+#: gitg/commit/gitg-commit.vala:1738
 msgid "_Edit file"
 msgstr "_Editar archivo"
 
@@ -1294,20 +1317,20 @@ msgstr "_Añadir"
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Buscar todos los repositorios git desde esta actual"
 
-#: gitg/gitg-window.vala:514
+#: gitg/gitg-window.vala:516
 msgid "Projects"
 msgstr "Proyectos"
 
-#: gitg/gitg-window.vala:813
+#: gitg/gitg-window.vala:815
 msgid "Select items"
 msgstr "Seleccionar elementos"
 
-#: gitg/gitg-window.vala:1024
+#: gitg/gitg-window.vala:1026
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "«%s» no es un repositorio Git."
 
-#: gitg/gitg-window.vala:1173
+#: gitg/gitg-window.vala:1175
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1315,7 +1338,7 @@ msgstr ""
 "Su nombre de usuario y su correo-e no están configurados todavía. Vaya a la "
 "configuración del usuario y proporcione su nombre y su correo-e."
 
-#: gitg/gitg-window.vala:1177
+#: gitg/gitg-window.vala:1179
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1323,7 +1346,7 @@ msgstr ""
 "Su nombre de usuario no está configurado todavía. Vaya a la configuración "
 "del usuario y proporcione su nombre."
 
-#: gitg/gitg-window.vala:1181
+#: gitg/gitg-window.vala:1183
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1331,7 +1354,7 @@ msgstr ""
 "Su su correo-e no está configurado todavía. Vaya a la configuración del "
 "usuario y proporcione su correo-e."
 
-#: gitg/gitg-window.vala:1184
+#: gitg/gitg-window.vala:1186
 msgid "Missing author details"
 msgstr "Falta los detalles del autor"
 
@@ -1411,7 +1434,7 @@ msgstr "Examinar el histórico del repositorio"
 msgid "Mainline"
 msgstr "Línea principal"
 
-#: gitg/preferences/gitg-preferences-commit.vala:126
+#: gitg/preferences/gitg-preferences-commit.vala:142
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Commit"
@@ -1475,13 +1498,13 @@ msgstr "Commit"
 msgid "C_ommit"
 msgstr "C_ommit"
 
-#: gitg/resources/ui/gitg-commit-dialog.ui:109
-msgid "Add _signed-off-by signature"
-msgstr "Añadir _firmado por"
-
-#: gitg/resources/ui/gitg-commit-dialog.ui:126
+#: gitg/resources/ui/gitg-commit-dialog.ui:217
 msgid "_Amend previous commit"
 msgstr "_Añadir al «commit» anterior"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:234
+msgid "Add _signed-off-by signature"
+msgstr "Añadir _firmado por"
 
 #: gitg/resources/ui/gitg-commit-paned.ui:76
 msgid "Skip commit _hooks"
@@ -1563,47 +1586,64 @@ msgstr ""
 msgid "_Reload"
 msgstr "_Recargar"
 
-#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:45
+#: gitg/resources/ui/gitg-menus.ui:14 gitg/resources/ui/gitg-menus.ui:48
 msgid "_Preferences"
 msgstr "Prefere_ncias"
 
-#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:39
+#: gitg/resources/ui/gitg-menus.ui:21 gitg/resources/ui/gitg-menus.ui:42
 msgid "_Author Details"
 msgstr "Detalles del _autor"
 
-#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:51
+#: gitg/resources/ui/gitg-menus.ui:27 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Keyboard Shortcuts"
 msgstr "_Atajos del teclado"
 
-#: gitg/resources/ui/gitg-menus.ui:33
+#: gitg/resources/ui/gitg-menus.ui:36
 msgid "_New Window"
 msgstr "Ventana _nueva"
 
-#: gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:60
 msgid "_About"
 msgstr "A_cerca de"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:44
+#: gitg/resources/ui/gitg-preferences-commit.ui:58
 msgid "Show markup"
 msgstr "Mostrar marcado"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:71
+#: gitg/resources/ui/gitg-preferences-commit.ui:85
 msgid "Display _subject margin at column:"
 msgstr "Mostrar el _margen del asunto en la columna:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:126
+#: gitg/resources/ui/gitg-preferences-commit.ui:140
 msgid "Display right _margin at column:"
 msgstr "Mostrar el _margen derecho en la columna:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:197
+#: gitg/resources/ui/gitg-preferences-commit.ui:196
+msgid "Maximum number of messages:"
+msgstr "Número máximo de mensajes:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:220
+msgid "Maximum number of messages to keep for commit message history"
+msgstr ""
+"Número máximo de mensajes que guardar en el histórico de mensajes de «commit»"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:232
+msgid "Maximum number of days:"
+msgstr "Número máximo de días:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:257
+msgid "Maximum number of days to keep for commit message history"
+msgstr "Número máximo de días que guardar el histórico de mensajes de «commit»"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:284
 msgid "Language:"
 msgstr "Idioma:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:223
+#: gitg/resources/ui/gitg-preferences-commit.ui:310
 msgid "Enable spell checking"
 msgstr "Activar comprobación de la ortografía"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:254
+#: gitg/resources/ui/gitg-preferences-commit.ui:341
 msgid "Commit Message"
 msgstr "Mensaje de «commit»"
 
@@ -1762,6 +1802,98 @@ msgstr "Cerrar la ventana activa"
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Salir de la aplicación"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+#| msgid "Changes"
+msgctxt "shortcut window"
+msgid "Change to Dash"
+msgstr "Cambiar al tablero"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:82
+msgctxt "shortcut window"
+msgid "Change to History View"
+msgstr "Cambiar a la vista de histórico"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:89
+msgctxt "shortcut window"
+msgid "Change to Commit View"
+msgstr "Cambiar a la vista de «commit»"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:96
+#| msgid "Start with activity:"
+msgctxt "shortcut window"
+msgid "Change to activity"
+msgstr "Cambiar a actividad"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:104
+#| msgid "Default Activity"
+msgctxt "shortcut window"
+msgid "Commit Activity"
+msgstr "Actividad de «commit»"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:109
+msgctxt "shortcut window"
+msgid "Select/Unselect"
+msgstr "Seleccionar/quitar la selección"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:116
+msgctxt "shortcut window"
+msgid "Open commit dialog"
+msgstr "Abrir diálogo de «commit»"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:123
+#| msgid "_Stage selection"
+msgctxt "shortcut window"
+msgid "Stage selection"
+msgstr "Reservar selección"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:130
+#| msgid "_Unstage selection"
+msgctxt "shortcut window"
+msgid "Unstage selection"
+msgstr "Quitar la reserva de la selección"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:137
+#| msgid "D_iscard selection"
+msgctxt "shortcut window"
+msgid "Discard selection"
+msgstr "Descartar selección"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:144
+#| msgid "_Stage selection"
+msgctxt "shortcut window"
+msgid "Edit selection"
+msgstr "Editar selección"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:152
+#| msgid "Commit files"
+msgctxt "shortcut window"
+msgid "Commit Dialog"
+msgstr "Diálogo de «commit»"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:157
+#| msgid "Commit"
+msgctxt "shortcut window"
+msgid "Commit"
+msgstr "Commit"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:164
+#| msgid "Cancel"
+msgctxt "shortcut window"
+msgid "Cancel Commit"
+msgstr "Cancelar «commit»"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:171
+#| msgid "Commit Message"
+msgctxt "shortcut window"
+msgid "Previous commit message"
+msgstr "Mensaje de «commit» anterior"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:178
+#| msgid "Commit Message"
+msgctxt "shortcut window"
+msgid "Next commit message"
+msgstr "Siguiente mensaje de «commit»"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
@@ -2455,9 +2587,6 @@ msgstr "Mostrar los archivos en el árbol del commit seleccionado"
 
 #~ msgid "Properties"
 #~ msgstr "Propiedades"
-
-#~ msgid "Changes"
-#~ msgstr "Cambios"
 
 #~ msgid "Committer"
 #~ msgstr "Persona que efectúa el cambio:"
