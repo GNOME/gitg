@@ -756,7 +756,7 @@ public class Gitg.DiffView : Gtk.Grid
 			if (current_file != null)
 			{
 				current_file.show();
-				current_file.renderer.notify["has-selection"].connect(on_selection_changed);	
+				current_file.renderer.notify["has-selection"].connect(on_selection_changed);
 
 				files.add(current_file);
 
@@ -969,6 +969,31 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 
 		return ret;
+	}
+
+	public void move_highlight_mark_down ()
+	{
+		//TODO: select only the current one
+		//TODO: There's a selection for any of them
+		//TODO: Remove all this pile of function call
+		//Make sure highlight file is shown (scroll)
+		foreach (var file in d_grid_files.get_children())
+		{
+			var renderer = (file as Gitg.DiffViewFile).renderer as DiffViewFileRendererText;
+			renderer.move_highlight_mark_down ();
+			break;
+		}
+	}
+
+	public void move_highlight_mark_up ()
+	{
+		//TODO: select only the current one
+		foreach (var file in d_grid_files.get_children())
+		{
+			var renderer = (file as Gitg.DiffViewFile).renderer as DiffViewFileRendererText;
+			renderer.move_highlight_mark_up ();
+			break;
+		}
 	}
 
 	private void update_hide_show_options(Gdk.Window window, int ex, int ey)
