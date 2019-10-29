@@ -53,6 +53,12 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "enable_spell_checking")]
 	private Gtk.CheckButton d_enable_spell_checking;
 
+	[GtkChild (name = "spin_button_max_num_commit_messages")]
+	private Gtk.SpinButton d_spin_button_max_num_commit_messages;
+
+	[GtkChild (name = "spin_button_max_num_days_commit_messages")]
+	private Gtk.SpinButton d_spin_button_max_num_days_commit_messages;
+
 	construct
 	{
 		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
@@ -104,6 +110,16 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 
 		settings.bind("spell-checking-language", d_spell_language_button,
 		              "language-code",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("max-number-commit-messages",
+		              d_spin_button_max_num_commit_messages,
+		              "value",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("max-number-days-commit-messages",
+		              d_spin_button_max_num_days_commit_messages,
+		              "value",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 	}

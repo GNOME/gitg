@@ -222,6 +222,16 @@
         commit message.
       </description>
     </key>
+    <key name="max-number-commit-messages" type="i">
+      <default>10</default>
+      <summary>Maximum number of previous commit messages</summary>
+      <description>Maximum number of previous commit messages to store for commit message history.</description>
+    </key>
+    <key name="max-number-days-commit-messages" type="i">
+      <default>30</default>
+      <summary>Maximum number of days to store previous commit messages</summary>
+      <description>Maximum number of days to store previous commit messages for commit message history.</description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.diff" path="@SCHEMA_PATH@/preferences/diff/">
     <key name="patience" type="b">

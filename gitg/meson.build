@@ -62,6 +62,7 @@ deps = [
   libgitg_ext_dep,
   libpeas_dep,
   libdazzle_dep,
+  json_glib_dependency,
 ]
 
 cflags = warn_flags + [

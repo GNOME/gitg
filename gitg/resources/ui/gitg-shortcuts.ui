@@ -2,70 +2,180 @@
 <interface>
   <!-- interface-requires gtk+ 3.17 -->
   <object class="GtkShortcutsWindow" id="shortcuts-gitg">
-    <property name="modal">1</property>
+    <property name="modal">true</property>
     <child>
       <object class="GtkShortcutsSection">
-        <property name="visible">1</property>
+        <property name="visible">true</property>
         <property name="section-name">shortcuts</property>
         <property name="max-height">12</property>
         <child>
           <object class="GtkShortcutsGroup">
-            <property name="visible">1</property>
+            <property name="visible">true</property>
             <property name="title" translatable="yes" context="shortcut window">Windows</property>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
-                <property name="accelerator">&lt;primary&gt;&lt;shift&gt;question</property>
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;primary&gt;question</property>
                 <property name="title" translatable="yes" context="shortcut window">Open shortcut window</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
+                <property name="visible">true</property>
                 <property name="accelerator">&lt;primary&gt;N</property>
                 <property name="title" translatable="yes" context="shortcut window">Open a new window</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
+                <property name="visible">true</property>
                 <property name="accelerator">F10</property>
                 <property name="title" translatable="yes" context="shortcut window">Open the window menu</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
+                <property name="visible">true</property>
                 <property name="accelerator">&lt;primary&gt;O</property>
                 <property name="title" translatable="yes" context="shortcut window">Open a repository</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
+                <property name="visible">true</property>
                 <property name="accelerator">F1</property>
                 <property name="title" translatable="yes" context="shortcut window">Open the help</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
+                <property name="visible">true</property>
                 <property name="accelerator">&lt;primary&gt;F</property>
                 <property name="title" translatable="yes" context="shortcut window">Find</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
+                <property name="visible">true</property>
                 <property name="accelerator">&lt;primary&gt;W</property>
                 <property name="title" translatable="yes" context="shortcut window">Close the active window</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
+                <property name="visible">true</property>
                 <property name="accelerator">&lt;primary&gt;Q</property>
                 <property name="title" translatable="yes" context="shortcut window">Quit the application</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;mod1&gt;0</property>
+                <property name="title" translatable="yes" context="shortcut window">Change to Dash</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;mod1&gt;1</property>
+                <property name="title" translatable="yes" context="shortcut window">Change to History View</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;mod1&gt;2</property>
+                <property name="title" translatable="yes" context="shortcut window">Change to Commit View</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;mod1&gt;3...&lt;mod1&gt;9</property>
+                <property name="title" translatable="yes" context="shortcut window">Change to activity</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">true</property>
+            <property name="title" translatable="yes" context="shortcut window">Commit Activity</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">space Return</property>
+                <property name="title" translatable="yes" context="shortcut window">Select/Unselect</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;primary&gt;Return</property>
+                <property name="title" translatable="yes" context="shortcut window">Open commit dialog</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;primary&gt;s</property>
+                <property name="title" translatable="yes" context="shortcut window">Stage selection</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;primary&gt;u</property>
+                <property name="title" translatable="yes" context="shortcut window">Unstage selection</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;primary&gt;d</property>
+                <property name="title" translatable="yes" context="shortcut window">Discard selection</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;primary&gt;d</property>
+                <property name="title" translatable="yes" context="shortcut window">Edit selection</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">true</property>
+            <property name="title" translatable="yes" context="shortcut window">Commit Dialog</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">Return</property>
+                <property name="title" translatable="yes" context="shortcut window">Commit</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">Escape</property>
+                <property name="title" translatable="yes" context="shortcut window">Cancel Commit</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;primary&gt;Left</property>
+                <property name="title" translatable="yes" context="shortcut window">Previous commit message</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;primary&gt;Right</property>
+                <property name="title" translatable="yes" context="shortcut window">Next commit message</property>
               </object>
             </child>
           </object>
