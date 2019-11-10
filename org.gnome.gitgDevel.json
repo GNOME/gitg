@@ -175,6 +175,38 @@
             ]
         },
         {
+            "name" : "gtk",
+            "config-opts" : [
+                "--prefix=/app",
+                "--libdir=/app/lib",
+                "--buildtype=debugoptimized"
+            ],
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/gtk.git",
+                    "branch" : "wip/albfan/treeview-search-move"
+                }
+            ]
+        },
+        {
+            "name" : "vala",
+            "buildsystem" : "simple",
+            "build-commands" : [
+                "./autogen.sh --disable-valadoc --prefix=/app --libdir=/app/lib",
+                "make -C vapi VAPIGEN=/usr/bin/vapigen GIRDIR=/app/share/gir-1.0 gtk+-3.0 install"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "disable-shallow-clone" : true,
+                    "url" : "https://gitlab.gnome.org/GNOME/vala.git"
+                }
+            ]
+        },
+        {
             "name" : "gitg",
             "buildsystem" : "meson",
             "builddir" : true,
