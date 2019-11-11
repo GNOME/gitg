@@ -32,6 +32,8 @@ public interface Searchable : Object, Activity
 	public abstract bool search_visible { get; set; }
 	public abstract bool search_available { get; }
 	public abstract Gtk.Entry? search_entry { set; }
+	public virtual bool search_move(string key, bool up) { return false; }
+	public virtual bool show_buttons() { return false; }
 }
 
 }

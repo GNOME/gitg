@@ -244,11 +244,50 @@
                     <property name="can_focus">False</property>
                     <property name="show-close-button">False</property>
                     <child>
-                      <object class="GtkSearchEntry" id="d_search_entry">
+                      <object class="GtkBox" id="d_search_box">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="width-request">500</property>
-                        <signal name="changed" handler="search_entry_changed" swapped="no"/>
+                        <property name="orientation">horizontal</property>
+                        <style>
+                          <class name="linked"/>
+                        </style>
+                        <child>
+                          <object class="GtkSearchEntry" id="d_search_entry">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="width-request">500</property>
+                            <signal name="changed" handler="search_entry_changed" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="d_search_up_button">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <signal name="clicked" handler="search_up_clicked" swapped="no"/>
+                            <child>
+                              <object class="GtkImage" id="up_image">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_size">1</property>
+                                <property name="icon_name">go-up-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="d_search_down_button">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <signal name="clicked" handler="search_down_clicked" swapped="no"/>
+                            <child>
+                              <object class="GtkImage" id="down_image">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_size">1</property>
+                                <property name="icon_name">go-down-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>

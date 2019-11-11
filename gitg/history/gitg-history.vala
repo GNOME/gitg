@@ -1167,6 +1167,16 @@ namespace GitgHistory
 
 		public string search_text { owned get; set; default = ""; }
 		public bool search_visible { get; set; }
+
+		public override bool search_move(string key, bool up)
+		{
+			return d_main.commit_list_view.search_move(up);
+		}
+
+		public override bool show_buttons()
+		{
+			return true;
+		}
 	}
 }
 
