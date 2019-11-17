@@ -185,7 +185,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			return;
 		}
 
-		d_label_subject.label = parse_links_on_subject(commit.get_subject());
+		d_label_subject.label = subject_to_markup(commit.get_subject());
 		d_label_sha1.label = commit.get_id().to_string();
 
 		var author = commit.get_author();
@@ -254,6 +254,11 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 
 		update_avatar();
+	}
+
+	private string subject_to_markup(string subject_text)
+	{
+		return Markup.escape_text(parse_links_on_subject(subject_text));
 	}
 
 	private string parse_links_on_subject(string subject_text)
