@@ -1144,26 +1144,6 @@ namespace GitgCommit
 			return true;
 		}
 
-		private async Gitg.Commit? get_head_commit()
-		{
-			Gitg.Commit? retval = null;
-
-			try
-			{
-				yield Gitg.Async.thread(() => {
-					var repo = application.repository;
-
-					try
-					{
-						var head = repo.get_head();
-						retval = repo.lookup<Gitg.Commit>(head.get_target());
-					} catch {}
-				});
-			} catch {}
-
-			return retval;
-		}
-
 		private async Ggit.Diff? index_diff()
 		{
 			var opts = new Ggit.DiffOptions();
@@ -1239,29 +1219,6 @@ namespace GitgCommit
 				else
 				{
 					d.destroy();
-				}
-			});
-
-			dlg.notify["amend"].connect((obj, pspec) => {
-				if (!dlg.amend)
-				{
-					dlg.author = author;
-				}
-				else
-				{
-					get_head_commit.begin((obj, res) => {
-						var commit = get_head_commit.end(res);
-
-						if (commit != null)
-						{
-							if (dlg.message.strip() == dlg.default_message)
-							{
-								dlg.message = commit.get_message();
-							}
-
-							dlg.author = commit.get_author();
-						}
-					});
 				}
 			});
 

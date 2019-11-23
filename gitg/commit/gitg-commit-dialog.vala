@@ -26,12 +26,24 @@ class Dialog : Gtk.Dialog
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
-	private string VERSION_PROP = "version";
-	private string DESCRIPTION_PROP = "version";
-	private string MESSAGES_PROP = "messages";
-	private string DATETIME_PROP = "datetime";
-	private string TEXT_PROP = "text";
-	private string COMMIT_MESSAGE_FILENAME = "commit-messages.json";
+	private const string VERSION_PROP = "version";
+	private const string DESCRIPTION_PROP = "version";
+	private const string MESSAGES_PROP = "messages";
+	private const string DATETIME_PROP = "datetime";
+	private const string TEXT_PROP = "text";
+	private const string COMMIT_MESSAGE_FILENAME = "commit-messages.json";
+
+	private const string PREPARE_COMMIT_MSG_FILENAME = "prepare-commit-msg";
+	private const string PREPARE_COMMIT_MSG_SOURCE_COMMIT = "commit";
+	private const string PREPARE_COMMIT_MSG_SOURCE_MERGE = "merge";
+	private const string PREPARE_COMMIT_MSG_SOURCE_TEMPLATE = "template";
+	private const string PREPARE_COMMIT_MSG_SOURCE_SQUASH = "squash";
+
+	private const string COMMIT_MSG_FILENAME = "COMMIT_EDITMSG";
+	private const string SQUASH_MSG_FILENAME = "SQUASH_MSG";
+	private const string MERGE_MSG_FILENAME = "MERGE_MSG";
+
+	private const string CONFIG_COMMIT_TEMPLATE = "commit.template";
 
 	[GtkChild (name = "source_view_message")]
 	private Gtk.SourceView d_source_view_message;
@@ -140,6 +152,8 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
+	private Ggit.Signature default_author;
+
 	public string default_message
 	{
 		get; private set;
@@ -161,6 +175,16 @@ class Dialog : Gtk.Dialog
 		{
 			d_source_view_message.buffer.set_text(value);
 		}
+	}
+
+	public void reset_message()
+	{
+	   message = default_message;
+	}
+
+	public void update_default_message()
+	{
+	   default_message = message;
 	}
 
 	private bool d_amend;
@@ -532,6 +556,31 @@ class Dialog : Gtk.Dialog
 			             _("Use amend to change the commit message of the previous commit"),
 			             Gtk.MessageType.WARNING);
 		}
+
+		notify["amend"].connect((obj, pspec) => {
+			if (!amend)
+			{
+				author = default_author;
+				reset_message();
+			}
+			else
+			{
+				get_head_commit.begin((obj, res) => {
+					var commit = get_head_commit.end(res);
+
+					if (commit != null)
+					{
+						update_default_message();
+						message = prepare_commit_msg_hook(commit.get_message(),
+						                                  GitgCommit.Dialog.PREPARE_COMMIT_MSG_SOURCE_COMMIT,
+						                                  commit.get_id().to_string());
+
+						author = commit.get_author();
+					}
+				});
+			}
+		});
+
 	}
 
 	private void save_commit_message ()
@@ -751,6 +800,7 @@ class Dialog : Gtk.Dialog
 		update_highlight();
 
 		default_message = "";
+		string source = "";
 
 		try
 		{
@@ -758,7 +808,7 @@ class Dialog : Gtk.Dialog
 
 			config = repository.get_config().snapshot();
 
-			var template_path = config.get_string("commit.template");
+			var template_path = config.get_string(CONFIG_COMMIT_TEMPLATE);
 
 			if (template_path != null)
 			{
@@ -775,10 +825,124 @@ class Dialog : Gtk.Dialog
 				FileUtils.get_contents(path, out contents, out len);
 
 				default_message = Gitg.Convert.utf8(contents, (ssize_t)len).strip();
-				message = default_message;
+				source = PREPARE_COMMIT_MSG_SOURCE_TEMPLATE;
 			}
 		}
-		catch {}
+		catch (Error e) {
+		   warning("%s\n", e.message);
+		}
+
+		bool exists_squash_msg = repository.get_location().get_child(SQUASH_MSG_FILENAME).query_exists();
+		if (exists_squash_msg)
+		{
+			source = PREPARE_COMMIT_MSG_SOURCE_SQUASH;
+		}
+
+		get_head_commit.begin((obj, res) => {
+			var commit = get_head_commit.end(res);
+
+			bool exists_merge_msg = repository.get_location().get_child(MERGE_MSG_FILENAME).query_exists();
+			if (exists_merge_msg || commit != null && commit.get_parents().get_size() > 1)
+			{
+				source = PREPARE_COMMIT_MSG_SOURCE_MERGE;
+			}
+		});
+
+		message = prepare_commit_msg_hook(default_message, source);
+	}
+
+	private async Gitg.Commit? get_head_commit()
+	{
+		Gitg.Commit? retval = null;
+
+		try
+		{
+			yield Gitg.Async.thread(() => {
+				try
+				{
+					var head = repository.get_head();
+					retval = repository.lookup<Gitg.Commit>(head.get_target());
+				} catch {}
+			});
+		} catch {}
+
+		return retval;
+	}
+
+	private string prepare_commit_msg_hook (string commit_msg, string commit_src = "", string commit_sha = "") {
+		string? output = null;
+		var hook_name = "%s/hooks/%s".printf(repository.get_location().get_path(),
+		                                     PREPARE_COMMIT_MSG_FILENAME);
+		var hook_file = File.new_for_path(hook_name);
+
+		if (!hook_file.query_exists()) {
+			return commit_msg;
+		}
+
+		File file = null;
+		string filename = COMMIT_MSG_FILENAME;
+		bool delete_filename = false;
+
+		if (commit_src == PREPARE_COMMIT_MSG_SOURCE_MERGE) {
+			filename = MERGE_MSG_FILENAME;
+			delete_filename = true;
+		} else if (commit_src == PREPARE_COMMIT_MSG_SOURCE_SQUASH) {
+			filename = SQUASH_MSG_FILENAME;
+			delete_filename = true;
+		}
+
+		try {
+			var hook_file_info = hook_file.query_info(FileAttribute.ACCESS_CAN_EXECUTE, FileQueryInfoFlags.NONE);
+
+			if (hook_file_info.get_attribute_boolean (FileAttribute.ACCESS_CAN_EXECUTE)) {
+				try {
+					file = repository.get_location().get_child(filename);
+					FileIOStream stream;
+					if (delete_filename) {
+						stream = file.create_readwrite (FileCreateFlags.PRIVATE);
+					} else {
+						stream = file.open_readwrite ();
+					}
+
+					var command = @"echo $commit_msg > %s".printf(file.get_path());
+					Posix.system(command);
+
+					command = @"$hook_name %s $commit_src $commit_sha".printf(file.get_path());
+					Posix.system(command);
+
+					FileInputStream @is = stream.input_stream as FileInputStream;
+					DataInputStream dis = new DataInputStream (@is);
+					string str;
+
+					try {
+						while ((str = dis.read_line ()) !=null) {
+							if (output != null)
+								output += "\n%s".printf(str);
+							else
+								output = "%s".printf(str);
+						}
+					} catch (Error e) {
+						warning ("Error reading %s hook result: %s", PREPARE_COMMIT_MSG_FILENAME, e.message);
+					}
+				} catch (Error e) {
+					warning ("Error executing pre-commit-msg: %s", e.message);
+				} finally {
+					if (delete_filename && file != null) {
+						file.delete_async.begin (Priority.DEFAULT, null, (obj, res) => {
+							try {
+								file.delete_async.end (res);
+							} catch (Error e) {
+								warning ("Error deleting %S file: %s", PREPARE_COMMIT_MSG_FILENAME, e.message);
+							}
+						});
+					}
+				}
+			}
+		} catch (Error e) {
+			warning ("Error checking %s hook : %s", PREPARE_COMMIT_MSG_FILENAME, e.message);
+		}
+
+		return output;
 	}
 
 	private void update_highlight()
@@ -888,6 +1052,7 @@ class Dialog : Gtk.Dialog
 	              Ggit.Diff?      diff)
 	{
 		Object(repository: repository, author: author, diff: diff, use_header_bar: 1);
+		default_author = author;
 	}
 
 	public void show_infobar(string          primary_msg,
