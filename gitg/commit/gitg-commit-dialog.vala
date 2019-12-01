@@ -904,10 +904,15 @@ class Dialog : Gtk.Dialog
 						stream = file.open_readwrite ();
 					}
 
-					var command = @"echo $commit_msg > %s".printf(file.get_path());
+					var command = "echo %s > %s".printf(Shell.quote(commit_msg), Shell.quote(file.get_path()));
 					Posix.system(command);
 
-					command = @"$hook_name %s $commit_src $commit_sha".printf(file.get_path());
+					string commit_sha_hook_param = "";
+					if (commit_sha == "") {
+						commit_sha_hook_param = Shell.quote(commit_sha);
+					}
+					command = "%s %s %s %s".printf(Shell.quote(hook_name), Shell.quote(file.get_path()),
+					                               Shell.quote(commit_src), commit_sha_hook_param);
 					Posix.system(command);
 
 					FileInputStream @is = stream.input_stream as FileInputStream;
