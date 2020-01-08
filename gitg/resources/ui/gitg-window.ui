@@ -43,7 +43,8 @@
             <property name="visible">False</property>
             <property name="valign">center</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Clone</property>
+            <property name="use_underline">True</property>
+            <property name="label" translatable="yes">Cl_one</property>
             <property name="tooltip-text" translatable="yes">Clone repository</property>
             <signal name="clicked" handler="clone_repository_clicked" swapped="no"/>
             <style>
@@ -59,7 +60,8 @@
             <property name="visible">False</property>
             <property name="valign">center</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Add</property>
+            <property name="use_underline">True</property>
+            <property name="label" translatable="yes">_Add</property>
             <property name="tooltip-text" translatable="yes">Add repository</property>
             <signal name="clicked" handler="add_repository_clicked" swapped="no"/>
             <style>
@@ -224,7 +226,7 @@
                                 <child>
                                   <object class="GtkButton" id="d_infobar_close_button">
                                     <property name="visible">True</property>
-                                    <property name="label" translatable="yes">Close</property>
+                                    <property name="label" translatable="yes">_Close</property>
                                   </object>
                                 </child>
                               </object>
