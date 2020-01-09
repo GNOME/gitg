@@ -159,6 +159,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
 		{"gear-menu", on_gear_menu_activated, null, "false", null},
+		{"open-repository", on_open_repository},
 		{"close", on_close_activated},
 		{"reload", on_reload_activated},
 		{"author-details-repo", on_repo_author_details_activated},
@@ -693,6 +694,34 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 				repository_changed_externally(hint);
 			});
 		}
+	}
+
+	private void on_open_repository()
+	{
+		var chooser = new Gtk.FileChooserDialog (_("Open Repository"), this,
+		                                         Gtk.FileChooserAction.SELECT_FOLDER,
+		                                         _("_Cancel"), Gtk.ResponseType.CANCEL,
+		                                         _("_Open"), Gtk.ResponseType.OK);
+
+		chooser.modal = true;
+
+		chooser.response.connect((c, id) => {
+			if (id == Gtk.ResponseType.OK)
+			{
+				var file = chooser.get_file();
+
+				if (file == null)
+				{
+					file = chooser.get_current_folder_file();
+				}
+
+				open_repository(file);
+			}
+
+			c.destroy();
+		});
+
+		chooser.show();
 	}
 
 	private void on_reload_activated()
