@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=@binary@
 Comment=Git repository browser
-Exec=@binary@ --no-wd %U
+Exec=@binary@ --no-wd --standalone %U
 TryExec=@binary@
 Terminal=false
 Type=Application
@@ -10,3 +10,8 @@ Icon=@icon@
 Categories=GNOME;GTK;Development;RevisionControl;
 MimeType=x-scheme-handler/gitg;
 #X-GNOME-DocPath=gitg/gitg.xml
+Actions=new-window;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=@binary@ --no-wd --standalone %U
