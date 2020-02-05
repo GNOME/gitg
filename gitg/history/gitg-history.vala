@@ -58,7 +58,12 @@ namespace GitgHistory
 		private string[] d_mainline;
 		private bool d_ignore_external;
 
-		private Gitg.UIElements<GitgExt.HistoryPanel> d_panels;
+		private Gitg.UIElements<GitgExt.HistoryPanel> _d_panels;
+
+		public Gitg.UIElements<GitgExt.HistoryPanel> d_panels
+		{
+			get { return _d_panels; }
+		}
 
 		public Activity(GitgExt.Application application)
 		{
@@ -552,6 +557,23 @@ namespace GitgHistory
 			});
 		}
 
+		public bool on_key_pressed (Gdk.EventKey event) {
+			var mmask = Gtk.accelerator_get_default_mod_mask();
+
+			if ((mmask & event.state) == Gdk.ModifierType.MOD1_MASK)
+			{
+				foreach(var element in d_panels.get_available_elements()) {
+					 GitgExt.HistoryPanel panel = (GitgExt.HistoryPanel)element;
+					uint? key = panel.shortcut;
+					if (key != null && key == Gdk.keyval_to_lower(event.keyval)) {
+						panel.activate();
+						return true;
+					}
+				};
+			}
+			return false;
+		}
+
 		private void build_ui()
 		{
 			d_main = new Paned();
@@ -583,7 +605,7 @@ namespace GitgHistory
 			                                   "application",
 			                                   application);
 
-			d_panels = new Gitg.UIElements<GitgExt.HistoryPanel>(extset,
+			_d_panels = new Gitg.UIElements<GitgExt.HistoryPanel>(extset,
 			                                                     d_main.stack_panel);
 
 			d_refs_list_popup = new Gitg.PopupMenu(d_main.refs_list);

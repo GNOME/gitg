@@ -944,6 +944,13 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		                                                             extset,
 		                                                             d_stack_activities);
 
+		var history_panels = ((GitgHistory.Activity) builtins[0]).d_panels;
+
+		foreach(var element in history_panels.get_available_elements())
+		{
+			app.register_shortcut(element.display_name, element.shortcut);
+		};
+
 		d_activities.notify["current"].connect(on_current_activity_changed);
 
 		// Setup window geometry saving

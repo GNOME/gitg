@@ -281,7 +281,24 @@ public class Application : Gtk.Application
 		// Create shortcuts window if needed
 		if (d_shortcuts == null)
 		{
-			d_shortcuts = Builder.load_object<Gtk.ShortcutsWindow>("ui/gitg-shortcuts.ui", "shortcuts-gitg");
+			var shortcuts_ui_objects = GitgExt.UI.from_builder("ui/gitg-shortcuts.ui", "shortcuts-gitg", "history-shortcuts-group");
+			d_shortcuts = (Gtk.ShortcutsWindow) shortcuts_ui_objects["shortcuts-gitg"];
+
+			if(plugins_accel != null)
+			{
+				var history_shortcuts_group = (Gtk.ShortcutsGroup) shortcuts_ui_objects["history-shortcuts-group"];
+				history_shortcuts_group.set_visible(true);
+
+				foreach(var element in plugins_accel)
+				{
+					var shortcut = (Gtk.ShortcutsShortcut) Object.new(typeof(Gtk.ShortcutsShortcut),
+					                "title", element.name,
+					                "accelerator", "<Alt>" + element.shortcut,
+					                null);
+					shortcut.set_visible(true);
+					history_shortcuts_group.add(shortcut);
+				}
+			}
 
 			d_shortcuts.destroy.connect((w) => {
 				d_shortcuts = null;
@@ -335,6 +352,14 @@ public class Application : Gtk.Application
 		string name;
 		string[] accels;
 	}
+
+	struct PluginAccel
+	{
+		string name;
+		string shortcut;
+	}
+
+	private List<PluginAccel?> plugins_accel;
 
 	private void init_error(string msg)
 	{
@@ -569,6 +594,17 @@ public class Application : Gtk.Application
 
 		w.set_environment(app_command_line.get_environ());
 		w.present(activity, command_lines);
+	}
+
+	public void register_shortcut(string name, uint shortcut)
+	{
+		if(plugins_accel == null)
+		{
+			plugins_accel = new List<PluginAccel?>();
+		}
+
+		PluginAccel plugin_accel = { name, Gdk.keyval_name(shortcut) };
+		plugins_accel.append(plugin_accel);
 	}
 }
 

@@ -48,6 +48,11 @@ namespace GitgFiles
 			history.selection_changed.connect(on_selection_changed);
 		}
 
+		public virtual uint? shortcut
+		{
+			owned get { return Gdk.Key.f; }
+		}
+
 		public string id
 		{
 			owned get { return "/org/gnome/gitg/Panels/Files"; }

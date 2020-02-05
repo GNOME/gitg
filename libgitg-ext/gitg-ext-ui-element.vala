@@ -81,6 +81,17 @@ public interface UIElement : Object
 	}
 
 	/**
+	 * The ui element shortcut.
+	 *
+	 * If provided, the key to mix with Gdk.ModifierType.MOD1_MASK to enable
+	 * this element
+	 */
+	public virtual uint? shortcut
+	{
+		owned get { return null; }
+	}
+
+	/**
 	 * Check whether the ui element is available in the current application state.
 	 *
 	 * This method is used by gitg to verify whether or not a particular ui
