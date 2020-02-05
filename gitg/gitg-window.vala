@@ -357,11 +357,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_infobar.hide();
 		});
 
-		unowned Gtk.BindingSet bset = Gtk.BindingSet.by_class(get_class());
+		unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(get_class());
 
 		for (int i = 0; i < 10; i++)
 		{
-			Gtk.BindingEntry.add_signal(bset,
+			Gtk.BindingEntry.add_signal(binding_set,
 			                            (Gdk.Key.@0 + i),
 			                            Gdk.ModifierType.MOD1_MASK,
 			                            "change-to-activity",
@@ -370,7 +370,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			                            i);
 		}
 
-		Gtk.BindingEntry.add_signal(bset,
+		Gtk.BindingEntry.add_signal(binding_set,
 		                            Gdk.Key.Escape,
 		                            0,
 		                            "cancel",

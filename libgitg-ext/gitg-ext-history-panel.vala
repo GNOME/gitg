@@ -42,6 +42,17 @@ public interface HistoryPanel : Object, UIElement
 	 * is created.
 	 */
 	public abstract GitgExt.History? history { owned get; construct set; }
+
+	/**
+	 * The ui element shortcut.
+	 *
+	 * If provided, the key to mix with Gdk.ModifierType.MOD1_MASK to enable
+	 * this element
+	 */
+	public virtual uint? shortcut
+	{
+		owned get { return null; }
+	}
 }
 
 }

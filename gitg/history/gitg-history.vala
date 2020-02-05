@@ -584,6 +584,22 @@ namespace GitgHistory
 			d_panels = new Gitg.UIElements<GitgExt.HistoryPanel>(extset,
 			                                                     d_main.stack_panel);
 
+			unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(get_class());
+
+			foreach(var element in d_panels.get_available_elements()) {
+				GitgExt.HistoryPanel panel = (GitgExt.HistoryPanel)element;
+				uint? key = panel.shortcut;
+				if (key != null) {
+					Gtk.BindingEntry.add_signal(binding_set,
+					                            key,
+					                            Gdk.ModifierType.MOD1_MASK,
+					                            "change-to-panel",
+					                            1,
+					                            typeof(string),
+					                            element.id);
+				}
+			};
+
 			d_refs_list_popup = new Gitg.PopupMenu(d_main.refs_list);
 			d_refs_list_popup.populate_menu.connect(on_refs_list_populate_menu);
 
@@ -604,6 +620,17 @@ namespace GitgHistory
 			d_commit_list_model.begin_clear.connect(on_commit_model_begin_clear);
 			d_commit_list_model.end_clear.connect(on_commit_model_end_clear);
 		}
+
+		[Signal(action = true)]
+		public virtual signal bool change_to_panel(string id)
+		{
+			var panel = d_panels.lookup(id);
+			if (panel != null) {
+				panel.activate();
+			}
+			return true;
+		}
+
 
 		private void update_walker_idle()
 		{

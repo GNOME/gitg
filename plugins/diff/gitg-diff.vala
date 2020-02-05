@@ -32,6 +32,11 @@ namespace GitgDiff
 
 		private ulong d_selection_changed_id;
 
+		public virtual uint? shortcut
+		{
+			owned get { return Gdk.Key.d; }
+		}
+
 		protected override void constructed()
 		{
 			base.constructed();
