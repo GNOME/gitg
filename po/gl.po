@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-12-04 17:23+0000\n"
-"PO-Revision-Date: 2019-12-27 13:34+0100\n"
-"Last-Translator: Fran Diéguez <frandieguez@gnome.org>\n"
+"POT-Creation-Date: 2020-01-11 23:24+0000\n"
+"PO-Revision-Date: 2020-02-10 00:11+0100\n"
+"Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
@@ -116,10 +116,8 @@ msgid "The activity which gitg activates by default when first launched."
 msgstr "A actividade que activa gitg por omisión ao arrincar por primeira vez."
 
 #: data/org.gnome.gitg.gschema.xml.in:51
-#, fuzzy
-#| msgid "Default selection"
 msgid "Use Default Font"
-msgstr "Selección por omisión"
+msgstr "Usar o tipo de letra predeterminado"
 
 #: data/org.gnome.gitg.gschema.xml.in:52
 msgid ""
@@ -127,21 +125,28 @@ msgid ""
 "instead of a font specific. If this option is turned off, then the font "
 "named in the “Editor Font” option will be used instead of the system font."
 msgstr ""
+"Indica se usar o tipo de letra de ancho fixo predeterminado do sistema para "
+"o trebello de texto no lugar dun tipo de letra específico. Se esta opción "
+"está desactivada entón o tipo de letra nomeado na opción «Tipo de letra do "
+"editor» usarase no lugar do tipo de letra do sistema."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
 #: data/org.gnome.gitg.gschema.xml.in:56
 msgid "'Monospace 12'"
-msgstr ""
+msgstr "'Monospace 12'"
 
 #: data/org.gnome.gitg.gschema.xml.in:57
 msgid "Editor Font"
-msgstr ""
+msgstr "Tipo de letra do editor"
 
 #: data/org.gnome.gitg.gschema.xml.in:58
 msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
 msgstr ""
+"Un tipo de letra personalizado que se usará para os trebellos de texto. Isto "
+"só terá efecto se a opción «Usar tipo de letra predeterminado» está "
+"desactivado."
 
 #: data/org.gnome.gitg.gschema.xml.in:62
 msgid "Use Gravatar"
@@ -368,23 +373,27 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:227
 msgid "Maximum number of previous commit messages"
-msgstr ""
+msgstr "Número máximo das mensaxes de remisión anteriores"
 
 #: data/org.gnome.gitg.gschema.xml.in:228
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
 msgstr ""
+"Número máximo de mensaxes de remisión anteriores a gardar no historial de "
+"mensaxes de remisión."
 
 #: data/org.gnome.gitg.gschema.xml.in:232
 msgid "Maximum number of days to store previous commit messages"
-msgstr ""
+msgstr "Número máximo de días a almacenar as mensaxes de remisión anteriores."
 
 #: data/org.gnome.gitg.gschema.xml.in:233
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
 msgstr ""
+"Número máximo de días a almacenar as mensaxes de remisión anteriores para o "
+"historial de mensaxes de remisión."
 
 #: data/org.gnome.gitg.gschema.xml.in:239
 msgid "Use patience algorithm to show diffs"
@@ -805,23 +814,23 @@ msgstr ""
 "Doutro xeito, informe dun erro no sistema de informe de erros da súa "
 "distribución para que fornezan libgit2 sen compatibilidade de fíos."
 
-#: gitg/gitg-author-details-dialog.vala:97
-#: gitg/gitg-author-details-dialog.vala:117
+#: gitg/gitg-author-details-dialog.vala:79
+#: gitg/gitg-author-details-dialog.vala:99
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Detalles do autor"
 
-#: gitg/gitg-author-details-dialog.vala:98
+#: gitg/gitg-author-details-dialog.vala:80
 msgid "Enter default details used for all repositories:"
 msgstr "Escriba a información predeterminada usada para os repositorios:"
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:120
+#: gitg/gitg-author-details-dialog.vala:102
 #, c-format
 msgid "Override global details for repository “%s”:"
 msgstr "Sobrescribir a información global para o repositorio «%s»:"
 
-#: gitg/gitg-author-details-dialog.vala:232
+#: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
 msgstr "Produciuse un fallo ao estabelecer a configuración de Git do usuario."
 
@@ -1414,7 +1423,7 @@ msgstr "Remitir"
 #: gitg/preferences/gitg-preferences-interface.vala:142
 #, c-format
 msgid "_Use the system fixed width font (%s)"
-msgstr ""
+msgstr "_Usar o tipo de letra de anchura fixa do sistema (%s)"
 
 #: gitg/preferences/gitg-preferences-interface.vala:179
 msgid "Interface"
@@ -1592,19 +1601,21 @@ msgstr "Mostrar a _marxe dereita na columna:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:196
 msgid "Maximum number of messages:"
-msgstr ""
+msgstr "Número máximo de mensaxes:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:220
 msgid "Maximum number of messages to keep for commit message history"
 msgstr ""
+"Número máximo das mensaxes a manter para o historial de mensaxes de remisión"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:232
 msgid "Maximum number of days:"
-msgstr ""
+msgstr "Número máximo de días:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:257
 msgid "Maximum number of days to keep for commit message history"
 msgstr ""
+"Número máximo de días a manter para o historial de mensaxes de remisión"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:284
 msgid "Language:"
@@ -1700,15 +1711,15 @@ msgstr "Monitorización"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:212
 msgid "Font"
-msgstr ""
+msgstr "Tipo de letra"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:253
 msgid "Editor _font: "
-msgstr ""
+msgstr "Tipo de letra do _editor: "
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:270
 msgid "Pick the editor font"
-msgstr ""
+msgstr "Escolla o tipo de letra do editor"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
 #: plugins/diff/gitg-diff.vala:115
@@ -1774,21 +1785,19 @@ msgid "Quit the application"
 msgstr "Saír da aplicación"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:75
-#, fuzzy
-#| msgid "Changes"
 msgctxt "shortcut window"
 msgid "Change to Dash"
-msgstr "Cambios"
+msgstr "Cambiar ao taboleiro"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Change to History View"
-msgstr ""
+msgstr "Cambiar á vista do historial"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Change to Commit View"
-msgstr ""
+msgstr "Cambiar á vista de remisión"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
@@ -1796,84 +1805,64 @@ msgid "Change to activity"
 msgstr "Iniciar con unha actividade"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:104
-#, fuzzy
-#| msgid "Default Activity"
 msgctxt "shortcut window"
 msgid "Commit Activity"
-msgstr "Actividade predeterminada"
+msgstr "Actividade de remisión"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:109
 msgctxt "shortcut window"
 msgid "Select/Unselect"
-msgstr ""
+msgstr "Seleccionar/deseleccionar"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:116
 msgctxt "shortcut window"
 msgid "Open commit dialog"
-msgstr ""
+msgstr "Abrir o diálogo de remisión"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:123
-#, fuzzy
-#| msgid "_Stage selection"
 msgctxt "shortcut window"
 msgid "Stage selection"
-msgstr "Selección de _reserva"
+msgstr "Reservar selección"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:130
-#, fuzzy
-#| msgid "_Unstage selection"
 msgctxt "shortcut window"
 msgid "Unstage selection"
-msgstr "Selección de _desreserva"
+msgstr "Desreservar a selección"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:137
-#, fuzzy
-#| msgid "D_iscard selection"
 msgctxt "shortcut window"
 msgid "Discard selection"
-msgstr "Rexe_itar seleccion"
+msgstr "Rexeitar selección"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:144
-#, fuzzy
-#| msgid "_Stage selection"
 msgctxt "shortcut window"
 msgid "Edit selection"
-msgstr "Selección de _reserva"
+msgstr "Editar selección"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:152
-#, fuzzy
-#| msgid "Commit files"
 msgctxt "shortcut window"
 msgid "Commit Dialog"
-msgstr "Remitir ficheiros"
+msgstr "Diálogo de remisión"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:157
-#, fuzzy
-#| msgid "Commit"
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Remitir"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:164
-#, fuzzy
-#| msgid "Cancel"
 msgctxt "shortcut window"
 msgid "Cancel Commit"
-msgstr "Cancelar"
+msgstr "Cancelar remisión"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:171
-#, fuzzy
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Previous commit message"
-msgstr "Mensaxe de remisión"
+msgstr "Mensaxe de remisión anterior"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:178
-#, fuzzy
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Next commit message"
-msgstr "Mensaxe de remisión"
+msgstr "Mensaxe de remisión seguinte"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
