@@ -448,6 +448,7 @@ class Dialog : Gtk.Dialog
 	construct
 	{
 		reverse_pos_messages = 0;
+		default_author = author;
 
 		response.connect(() => {
 			save_commit_message ();
@@ -1057,7 +1058,6 @@ class Dialog : Gtk.Dialog
 	              Ggit.Diff?      diff)
 	{
 		Object(repository: repository, author: author, diff: diff, use_header_bar: 1);
-		default_author = author;
 	}
 
 	public void show_infobar(string          primary_msg,
