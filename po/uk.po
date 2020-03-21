@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-10-29 07:07+0000\n"
-"PO-Revision-Date: 2020-03-17 20:17+0200\n"
+"POT-Creation-Date: 2020-03-17 18:19+0000\n"
+"PO-Revision-Date: 2020-03-20 14:39+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,10 +45,10 @@ msgid ""
 "visualization, gitg also provides several utilities to manage your "
 "repository and commit your work."
 msgstr ""
-"gitg — графічний інтерфейс користувача для git. Програма є компактним,"
-" швидким і зручним засобом візуалізації журналу сховищ git. Окрім"
-" візуалізації, у gitg передбачено декілька інструментів для керування вашим"
-" сховищем та надсилання результатів вашої роботи."
+"gitg — графічний інтерфейс користувача для git. Програма є компактним, "
+"швидким і зручним засобом візуалізації журналу сховищ git. Окрім "
+"візуалізації, у gitg передбачено декілька інструментів для керування вашим "
+"сховищем та надсилання результатів вашої роботи."
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Goals:"
@@ -56,19 +56,16 @@ msgstr "Призначення:"
 
 # Не дійсні Git репозиторій
 #: data/org.gnome.gitg.appdata.xml.in.in:19
-#| msgid "Not a valid git repository"
 msgid "Browse local git repositories"
 msgstr "Навігація локальними сховищами git"
 
 # Не дійсні Git репозиторій
 #: data/org.gnome.gitg.appdata.xml.in.in:20
-#| msgid "Not a valid git repository"
 msgid "Clone local and remote git repositories"
 msgstr "Клонування локальних та віддалених сховищ git"
 
 # Здійснювати
 #: data/org.gnome.gitg.appdata.xml.in.in:21
-#| msgid "Commits"
 msgid "Commit files"
 msgstr "Внесення файлів до сховищ"
 
@@ -78,7 +75,6 @@ msgstr "Створення латок на основі внесків"
 
 # Відкрити Git репозиторій
 #: data/org.gnome.gitg.appdata.xml.in.in:32
-#| msgid "Bare repository"
 msgid "Browse repository history"
 msgstr "Навігація журналом сховища"
 
@@ -88,7 +84,6 @@ msgstr "Панель формування записів для створенн
 
 # Постановка змін
 #: data/org.gnome.gitg.appdata.xml.in.in:40
-#| msgid "Staged changes"
 msgid "Commit staged changes"
 msgstr "Внесення сформованих змін"
 
@@ -130,7 +125,7 @@ msgstr "Типова діяльність"
 
 #: data/org.gnome.gitg.gschema.xml.in:45
 msgid "The activity which gitg activates by default when first launched."
-msgstr ""
+msgstr "Дія, яку типово виконуватиме gitg після першого запуску."
 
 #: data/org.gnome.gitg.gschema.xml.in:51
 msgid "Use Default Font"
@@ -142,8 +137,8 @@ msgid ""
 "instead of a font specific. If this option is turned off, then the font "
 "named in the “Editor Font” option will be used instead of the system font."
 msgstr ""
-"Чи використовувати системний шрифт для тексту віджетів. Якщо цей "
-"параметр вимкнено, то для області редагування буде використовуватися шрифт, "
+"Чи використовувати системний шрифт для тексту віджетів. Якщо цей параметр "
+"вимкнено, то для області редагування буде використовуватися шрифт, "
 "визначений у параметрі «Шрифт редактора»."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
@@ -178,7 +173,7 @@ msgstr "Увімкнути спостереження"
 #: data/org.gnome.gitg.gschema.xml.in:70
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
-msgstr ""
+msgstr "Автоматично оновлювати, якщо виявлено зовнішні зміни до .git"
 
 #: data/org.gnome.gitg.gschema.xml.in:76
 msgid "Enable Diff Highlighting"
@@ -188,6 +183,8 @@ msgstr "Увімкнути підсвічування різниці"
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
+"Параметр, який визначає, чи слід вмикати підсвічування синтаксичних"
+" конструкцій на панелях перегляду різниці."
 
 #: data/org.gnome.gitg.gschema.xml.in:84
 msgid "Color scheme to use for syntax highlighting"
@@ -196,6 +193,8 @@ msgstr "Схема кольорів для підсвічування синта
 #: data/org.gnome.gitg.gschema.xml.in:85
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr ""
+"Використовується GtkSourceView для визначення кольорів для підсвічування"
+" синтаксичних конструкцій"
 
 # Коли Згорнути Неактивні Лейнс
 #: data/org.gnome.gitg.gschema.xml.in:91
@@ -204,9 +203,6 @@ msgstr "Коли згортати неактивні смуги"
 
 # Параметр, який вказує, коли неактивні смуги повинні бути згорнуті. Допустимі значення: 0 - 4, де 0 означає &quot;ранні&quot; та 4 вказує на &quot;пізно&quot;.
 #: data/org.gnome.gitg.gschema.xml.in:92
-#| msgid ""
-#| "Setting that indicates when an inactive lane should be collapsed. Valid "
-#| "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -253,7 +249,6 @@ msgstr ""
 
 # Постановка змін
 #: data/org.gnome.gitg.gschema.xml.in:123
-#| msgid "Staged changes"
 msgid "Show Staged Changes"
 msgstr "Показати сформовані зміни"
 
@@ -268,7 +263,6 @@ msgstr ""
 
 # Постановка змін
 #: data/org.gnome.gitg.gschema.xml.in:131
-#| msgid "Staged changes"
 msgid "Show Unstaged Changes"
 msgstr "Показати несформовані зміни"
 
@@ -283,16 +277,16 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:139
 msgid "Mainline Head"
-msgstr ""
+msgstr "HEAD основи"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
 #: data/org.gnome.gitg.gschema.xml.in:140
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
 msgstr ""
+"Параметр, який визначає, чи слід завжди зберігати основу у журналі для"
+" поточного HEAD."
 
 #: data/org.gnome.gitg.gschema.xml.in:147
 msgid "Default selection of the history activity"
@@ -303,6 +297,8 @@ msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr ""
+"Параметр, який визначає типовий позначений запис після відкриття панелі"
+" журналу."
 
 #: data/org.gnome.gitg.gschema.xml.in:154
 msgid "Reference Sort Order"
@@ -310,7 +306,7 @@ msgstr "Порядок сортування посилань"
 
 #: data/org.gnome.gitg.gschema.xml.in:155
 msgid "The order by which references in the history sidebar should be sorted."
-msgstr ""
+msgstr "Порядок, за яким слід сортувати посилання на бічній панелі журналу."
 
 #: data/org.gnome.gitg.gschema.xml.in:161
 msgid "Show Upstream With Branch"
@@ -321,6 +317,8 @@ msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
+"Визначає, чи слід показувати основну (віддалену) гілку при виборі локальної"
+" гілки на панелі журналу."
 
 # Показати правому краю у фіксації повідомлення Переглянути
 #: data/org.gnome.gitg.gschema.xml.in:178
@@ -379,7 +377,6 @@ msgstr ""
 "margin» вказано як TRUE."
 
 #: data/org.gnome.gitg.gschema.xml.in:211
-#| msgid "Enable spell checking"
 msgid "Enable Spell Checking"
 msgstr "Увімкнути перевіряння орфографії"
 
@@ -388,9 +385,10 @@ msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
 msgstr ""
+"Параметр, який визначає, чи буде увімкнено перевірку правопису при написанні"
+" повідомлення про внесок."
 
 #: data/org.gnome.gitg.gschema.xml.in:219
-#| msgid "Cannot set spell checking language: %s"
 msgid "Spell Checking Language"
 msgstr "Мова для перевірки правопису"
 
@@ -399,8 +397,8 @@ msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr ""
-"Мова, яку слід використовувати, якщо увімкнено перевірку правопису, для"
-" перевірки правопису у повідомлення внеску."
+"Мова, яку слід використовувати, якщо увімкнено перевірку правопису, для "
+"перевірки правопису у повідомлення внеску."
 
 #: data/org.gnome.gitg.gschema.xml.in:227
 msgid "Maximum number of previous commit messages"
@@ -411,6 +409,9 @@ msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
 msgstr ""
+"Максимальна кількість попередніх повідомлень про внесок для зберігання у"
+" журналі повідомлень щодо "
+"внесків."
 
 #: data/org.gnome.gitg.gschema.xml.in:232
 msgid "Maximum number of days to store previous commit messages"
@@ -422,8 +423,8 @@ msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
 msgstr ""
-"Максимальна тривалість зберігання попередніх повідомлень щодо внесків у днях"
-" для журналу повідомлень щодо внесків."
+"Максимальна тривалість зберігання попередніх повідомлень щодо внесків у днях "
+"для журналу повідомлень щодо внесків."
 
 #: data/org.gnome.gitg.gschema.xml.in:239
 msgid "Use patience algorithm to show diffs"
@@ -440,12 +441,12 @@ msgstr "Ігнорувати зміни у пробілах"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
 #: data/org.gnome.gitg.gschema.xml.in:247
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr ""
+"Параметр, який визначає, чи слід ігнорувати зміни у пробілах при показі"
+" різниці для внеску."
 
 #: data/org.gnome.gitg.gschema.xml.in:254
 msgid "Show Changes Inline"
@@ -453,8 +454,6 @@ msgstr "Показувати вбудовані зміни"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
 #: data/org.gnome.gitg.gschema.xml.in:255
-#| msgid ""
-#| "Setting that indicates whether to show items for the stash in the history."
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
@@ -478,6 +477,8 @@ msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr ""
+"Параметр, який визначає скільки рядків контексту (рядків до і після зміненого"
+" рядка) має бути показано у різниці внеску."
 
 #: data/org.gnome.gitg.gschema.xml.in:277
 #: data/org.gnome.gitg.gschema.xml.in:296
@@ -490,25 +491,29 @@ msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr ""
+"Параметр, який визначає, скількома пробілами буде замінено символ табуляції"
+" при показі різниці внеску."
 
 #: data/org.gnome.gitg.gschema.xml.in:288
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
+"Параметр, який визначає скільки рядків контексту (рядків до і після зміненого"
+" рядка) має бути показано у різниці між сформованим і несформованим текстом"
+" на панелі внесків."
 
-#: gitg/commit/gitg-commit-dialog.vala:531 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
 msgstr "Немає змін, що їх внести"
 
 # Будь ласка, введіть повідомлення зробити перед тим,
-#: gitg/commit/gitg-commit-dialog.vala:532 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Внести зміни до повідомлення щодо внеску попереднього внеску"
 
 # Здійснювати
 #: gitg/commit/gitg-commit.vala:113
-#| msgid "Commit"
 msgctxt "Activity"
 msgid "Commit"
 msgstr "Внести"
@@ -523,14 +528,13 @@ msgstr "_Позначити вибране"
 
 #: gitg/commit/gitg-commit.vala:246
 #, c-format
-#| msgid "Failed to stage the removal of file `%s'"
 msgid "Failed to stage the removal of submodule “%s”"
 msgstr "Не вдалося сформувати вилучення підмодуля «%s»"
 
 #: gitg/commit/gitg-commit.vala:262
 #, c-format
 msgid "Failed to open the repository of submodule “%s” while trying to stage"
-msgstr ""
+msgstr "Не вдалося відкрити сховище підмодуля «%s» під час спроби формування"
 
 #: gitg/commit/gitg-commit.vala:277
 #, c-format
@@ -538,24 +542,23 @@ msgid ""
 "Failed to lookup the working directory commit of submodule “%s” while trying "
 "to stage"
 msgstr ""
+"Не вдалося знайти внесок підмодуля «%s» у робочому каталозі під час спроби"
+" формування"
 
 # Не вдалося зберегти поточний стан індекс
 #: gitg/commit/gitg-commit.vala:290
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to stage the submodule “%s”"
 msgstr "Не вдалося сформувати підмодуль «%s»"
 
 #: gitg/commit/gitg-commit.vala:312
 #, c-format
-#| msgid "Failed to stage the removal of file `%s'"
 msgid "Failed to stage the removal of file “%s”"
 msgstr "Не вдалося сформувати вилучення файла «%s»"
 
 # Не вдалося зберегти поточний стан індекс
 #: gitg/commit/gitg-commit.vala:326
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to stage the file “%s”"
 msgstr "Не вдалося сформувати файл «%s»"
 
@@ -565,29 +568,25 @@ msgstr "_Непозначений вибір"
 
 #: gitg/commit/gitg-commit.vala:664
 #, c-format
-#| msgid "Failed to unstage the removal of file `%s'"
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "Не вдалося скасувати формування вилучення файла «%s»"
 
 # Не вдалося зберегти поточний стан індекс
 #: gitg/commit/gitg-commit.vala:665
 #, c-format
-#| msgid "Failed to unstage the file `%s'"
 msgid "Failed to unstage the file “%s”"
-msgstr ""
+msgstr "Не вдалося скасувати формування файла «%s»"
 
 #: gitg/commit/gitg-commit.vala:672
 #, c-format
-#| msgid "Failed to unstage the removal of file `%s'"
 msgid "Failed to unstage the removal of submodule “%s”"
-msgstr ""
+msgstr "Не вдалося скасувати формування вилучення підмодуля «%s»"
 
 # Не вдалося зберегти поточний стан індекс
 #: gitg/commit/gitg-commit.vala:673
 #, c-format
-#| msgid "Failed to unstage the file `%s'"
 msgid "Failed to unstage the submodule “%s”"
-msgstr ""
+msgstr "Не вдалося скасувати формування підмодуля «%s»"
 
 # Поетапний
 #. Populate staged items
@@ -638,19 +637,18 @@ msgid "Failed to pass pre-commit"
 msgstr "Не вдалося пропустити попередній внесок"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1345 gitg/commit/gitg-commit.vala:1495
-#| msgid "Staged changes"
+#: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
 msgid "Discard changes"
 msgstr "Відкинути зміни"
 
 # Ви впевнені, що хочете повернути ці зміни?
-#: gitg/commit/gitg-commit.vala:1346
+#: gitg/commit/gitg-commit.vala:1303
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Ви справді хочете назавжди відкинути вибрані зміни?"
 
 # Скасувати
-#: gitg/commit/gitg-commit.vala:1355 gitg/commit/gitg-commit.vala:1521
-#: gitg/commit/gitg-commit.vala:1636
+#: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
+#: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
@@ -662,33 +660,31 @@ msgstr "Ви справді хочете назавжди відкинути в�
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: gitg/commit/gitg-commit.vala:1356 gitg/commit/gitg-commit.vala:1522
+#: gitg/commit/gitg-commit.vala:1313 gitg/commit/gitg-commit.vala:1479
 msgid "Discard"
 msgstr "Відкинути"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1385
-#| msgid "Failed to stage selection"
+#: gitg/commit/gitg-commit.vala:1342
 msgid "Failed to discard selection"
 msgstr "Не вдалося відкинути вибране"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1415
+#: gitg/commit/gitg-commit.vala:1372
 msgid "Failed to stage selection"
 msgstr "Не вдалося позначити вибране"
 
-#: gitg/commit/gitg-commit.vala:1419
+#: gitg/commit/gitg-commit.vala:1376
 msgid "Failed to unstage selection"
 msgstr "Не вдалося зняти позначення з вибраного"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1479
-#| msgid "Failed to set Git user config."
+#: gitg/commit/gitg-commit.vala:1436
 msgid "Failed to discard changes"
 msgstr "Не вдалося відкинути зміни"
 
 # Ви впевнені, що хочете повернути ці зміни?
-#: gitg/commit/gitg-commit.vala:1500
+#: gitg/commit/gitg-commit.vala:1457
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -697,22 +693,21 @@ msgstr ""
 "Ви справді хочете остаточно відкинути усі зміни, які внесено до файла «%s»?"
 
 # Ви впевнені, що хочете об’єднати %s філії<%s>на %s філії<%s>?
-#: gitg/commit/gitg-commit.vala:1511
+#: gitg/commit/gitg-commit.vala:1468
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
 msgstr ""
-"Ви справді хочете остаточно відкинути усі зміни, які внесено до файлів %s та"
-" «%s»?"
+"Ви справді хочете остаточно відкинути усі зміни, які внесено до файлів %s та "
+"«%s»?"
 
 # Не вдалося зберегти поточний стан індекс
-#: gitg/commit/gitg-commit.vala:1594
-#| msgid "Failed to stage the file `%s'"
+#: gitg/commit/gitg-commit.vala:1551
 msgid "Failed to delete files"
 msgstr "Не вдалося вилучити файли"
 
-#: gitg/commit/gitg-commit.vala:1610
+#: gitg/commit/gitg-commit.vala:1567
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Вилучити файли"
@@ -721,36 +716,33 @@ msgstr[2] "Вилучити файли"
 msgstr[3] "Вилучити файл"
 
 # Ви впевнені, що хочете вилучити тег<%s>?
-#: gitg/commit/gitg-commit.vala:1615
+#: gitg/commit/gitg-commit.vala:1572
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Остаточно вилучити файл «%s»?"
 
 # Ви впевнені, що хочете повернути ці зміни?
-#: gitg/commit/gitg-commit.vala:1626
+#: gitg/commit/gitg-commit.vala:1583
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Ви справді хочете остаточно вилучити файли %s і «%s»?"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1672
-#| msgid "Staged changes"
+#: gitg/commit/gitg-commit.vala:1629
 msgid "_Stage changes"
 msgstr "С_формувати зміни"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1684
-#| msgid "Staged changes"
+#: gitg/commit/gitg-commit.vala:1641
 msgid "_Unstage changes"
 msgstr "_Скасувати формування змін"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1696
-#| msgid "Staged changes"
+#: gitg/commit/gitg-commit.vala:1653
 msgid "_Discard changes"
 msgstr "_Відкинути зміни"
 
-#: gitg/commit/gitg-commit.vala:1708
+#: gitg/commit/gitg-commit.vala:1665
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Ви_лучити файли"
@@ -759,21 +751,18 @@ msgstr[2] "Ви_лучити файли"
 msgstr[3] "Ви_лучити файл"
 
 # Змінити
-#: gitg/commit/gitg-commit.vala:1738
-#| msgid "_Edit"
+#: gitg/commit/gitg-commit.vala:1695
 msgid "_Edit file"
 msgstr "_Редагувати файл"
 
 # Не вдалося зберегти поточний стан індекс
 #: gitg/gitg-action-support.vala:95
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to stash changes: %s"
-msgstr ""
+msgstr "Не вдалося накопичити змінні: %s"
 
 # Постановка змін
 #: gitg/gitg-action-support.vala:130
-#| msgid "Staged changes"
 msgid "Unstaged changes"
 msgstr "Несформовані зміни"
 
@@ -782,6 +771,8 @@ msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
 msgstr ""
+"Здається, у вашому робочому каталозі містяться несформовані зміни. Хочете"
+" накопичити зміни до синхронізації даних?"
 
 # Скасувати
 #: gitg/gitg-action-support.vala:133
@@ -796,11 +787,10 @@ msgstr "Скасувати"
 # Stash зміни
 #: gitg/gitg-action-support.vala:134
 msgid "Stash changes"
-msgstr ""
+msgstr "Накопичити змінні"
 
 # Не вдалося створити тег
 #: gitg/gitg-action-support.vala:138 gitg/gitg-action-support.vala:165
-#| msgid "Failed to commit"
 msgid "Failed with conflicts"
 msgstr "Помилка — конфлікт"
 
@@ -812,21 +802,18 @@ msgstr "Не вдалося отримати конфлікти: %s"
 
 # Не вдалося зберегти поточний стан індекс
 #: gitg/gitg-action-support.vala:199
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to obtain author details"
 msgstr "Не вдалося отримати дані автора"
 
 # Не вдалося створити тег
 #: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to lookup commit: %s"
 msgstr "Не вдалося знайти внесок: %s"
 
 # Не вдалося створити тег
 #: gitg/gitg-action-support.vala:255
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to create commit: %s"
 msgstr "Не вдалося створити внесок: %s"
 
@@ -838,7 +825,6 @@ msgstr "Не вдалося отримати покажчик: %s"
 
 # Показати версію програми
 #: gitg/gitg-application.vala:38
-#| msgid "Show the application's version"
 msgid "Show the application’s version"
 msgstr "Показати версію програми"
 
@@ -861,13 +847,11 @@ msgstr "Запустити gitg у самодостатньому режимі"
 
 # - Git репозиторій перегляду
 #: gitg/gitg-application.vala:92
-#| msgid "- Git repository viewer"
 msgid "— Git repository viewer"
 msgstr "— переглядач сховища Git"
 
 # gitg є Git репозиторій перегляду для GTK +/GNOME
 #: gitg/gitg-application.vala:226
-#| msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg — це переглядач сховища Git для GTK+/GNOME"
 
@@ -880,15 +864,6 @@ msgid "gitg homepage"
 msgstr "Домашня сторінка gitg"
 
 #: gitg/gitg-application.vala:368
-#| msgid ""
-#| "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
-#| "depends) to be compiled with threading support.\n"
-#| "\n"
-#| "If you manually compiled libgit2, then please configure libgit2 with -"
-#| "DTHREADSAFE:BOOL=ON.\n"
-#| "\n"
-#| "Otherwise, report a bug in your distributions' bug reporting system for "
-#| "providing libgit2 without threading support."
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -908,26 +883,24 @@ msgstr ""
 "libgit2 без потокового підтримування."
 
 # Детальна інформація
-#: gitg/gitg-author-details-dialog.vala:97
-#: gitg/gitg-author-details-dialog.vala:117
+#: gitg/gitg-author-details-dialog.vala:79
+#: gitg/gitg-author-details-dialog.vala:99
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Подробиці про автора"
 
-#: gitg/gitg-author-details-dialog.vala:98
-#| msgid "Enter details to set as default for all repositories:"
+#: gitg/gitg-author-details-dialog.vala:80
 msgid "Enter default details used for all repositories:"
 msgstr "Введіть типові подробиці для всіх сховищ:"
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:120
+#: gitg/gitg-author-details-dialog.vala:102
 #, c-format
-#| msgid "Enter details for repository '%s':"
 msgid "Override global details for repository “%s”:"
 msgstr "Перевизначення загальних параметрів сховища «%s»:"
 
 # Не вдалося створити тег
-#: gitg/gitg-author-details-dialog.vala:232
+#: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
 msgstr "Не вдалося вказати користувацькі налаштування Git."
 
@@ -967,6 +940,9 @@ msgid ""
 "checkout branch %s with the cherry pick to your working directory to resolve "
 "the conflicts?"
 msgstr ""
+"Підхоплення змін %s до %s призвело до конфліктів. Хочете синхронізувати гілку"
+" %s із підхопленими змінами до вашого робочого каталогу для розв'язання"
+" конфліктів?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
@@ -974,6 +950,8 @@ msgid ""
 "The cherry-pick of %s onto %s has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
+"Підхоплення змін %s до %s призвело до конфліктів. Хочете синхронізувати"
+" підхоплені зміни до вашого робочого каталогу для розв'язання конфліктів?"
 
 # Оформити замовлення філії
 #: gitg/gitg-commit-action-cherry-pick.vala:164
@@ -1015,13 +993,11 @@ msgstr "Створити гілку на вибраному внеску"
 
 # Не вдалося створити філію
 #: gitg/gitg-commit-action-create-branch.vala:75
-#| msgid "Failed to create a branch"
 msgid "Failed to create branch"
 msgstr "Не вдалося створити гілку"
 
 # Створення філії
 #: gitg/gitg-commit-action-create-patch.vala:63
-#| msgid "Create branch"
 msgid "Create patch"
 msgstr "Створити латку"
 
@@ -1034,13 +1010,11 @@ msgid "Save Patch File"
 msgstr "Зберегти файл латки"
 
 #: gitg/gitg-commit-action-create-patch.vala:156
-#| msgid "Save Patch File"
 msgid "_Save Patch"
 msgstr "З_берегти латку"
 
 # Не вдалося створити філію
 #: gitg/gitg-commit-action-create-patch.vala:181
-#| msgid "Failed to create a branch"
 msgid "Failed to create patch"
 msgstr "Не вдалося створити латку"
 
@@ -1055,7 +1029,6 @@ msgstr "Створити мітку на вибраному внеску"
 
 # Не вдалося створити філію
 #: gitg/gitg-commit-action-create-tag.vala:92
-#| msgid "Failed to create a branch"
 msgid "Failed to create tag"
 msgstr "Не вдалося створити мітку"
 
@@ -1074,7 +1047,6 @@ msgstr "Вибір і керування проєктами"
 
 # Дистанційне керування
 #: gitg/gitg-dash-view.vala:174
-#| msgid "Remotes"
 msgid "_Remove"
 msgstr "В_илучити"
 
@@ -1093,19 +1065,16 @@ msgstr "Тим часом, ви можете %sналаштувати ваш п�
 
 # Не вдалося створити тег
 #: gitg/gitg-dash-view.vala:398
-#| msgid "Failed to commit"
 msgid "Failed to clone repository"
 msgstr "Не вдалося клонувати сховище"
 
 # Не вдалося вилучити теги
 #: gitg/gitg-dash-view.vala:429
-#| msgid "Failed to pass pre-commit"
 msgid "Failed to add repository"
 msgstr "Не вдалося додати сховище"
 
 # Відкрити Git репозиторій
 #: gitg/gitg-dash-view.vala:445
-#| msgid "Bare repository"
 msgid "Create new repository"
 msgstr "Створити сховище"
 
@@ -1116,16 +1085,16 @@ msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
+"Каталог <i>%s</i>, здається, не є коректним сховищем git. Хочете"
+" ініціалізувати нове сховище git у цьому каталозі?"
 
 # Відкрити Git репозиторій
 #: gitg/gitg-dash-view.vala:454
-#| msgid "Bare repository"
 msgid "Create repository"
 msgstr "Створити сховище"
 
 # Не вдалося створити філію
 #: gitg/gitg-dash-view.vala:470
-#| msgid "Failed to create a branch"
 msgid "Failed to create repository"
 msgstr "Не вдалося створити сховище"
 
@@ -1153,7 +1122,6 @@ msgstr "Не вдалося перейти до гілки: %s"
 # Не вдалося зберегти поточний стан індекс
 #: gitg/gitg-ref-action-checkout.vala:111
 #, c-format
-#| msgid "Failed to unstage the file `%s'"
 msgid "Failed to update HEAD: %s"
 msgstr "Не вдалося оновити HEAD: %s"
 
@@ -1180,21 +1148,18 @@ msgstr "Вилучити вибране посилання"
 # Виберіть філія
 #: gitg/gitg-ref-action-delete.vala:73
 #, c-format
-#| msgid "Select branch"
 msgid "Delete branch %s"
 msgstr "Вилучити гілку %s"
 
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
-#| msgid "Are you sure you want to remove the remote branch <%s>?"
 msgid "Are you sure that you want to permanently delete the branch %s?"
 msgstr "Ви справді хочете остаточно вилучити гілку %s?"
 
 # Створіть тег
 #: gitg/gitg-ref-action-delete.vala:78
 #, c-format
-#| msgid "Create tag"
 msgid "Delete tag %s"
 msgstr "Вилучити мітку %s"
 
@@ -1207,14 +1172,12 @@ msgstr "Ви справді хочете остаточно вилучити м�
 # Вилучити віддаленого філії
 #: gitg/gitg-ref-action-delete.vala:83
 #, c-format
-#| msgid "Remove remote branch"
 msgid "Delete remote branch %s"
 msgstr "Вилучити віддалену гілку %s"
 
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
 #: gitg/gitg-ref-action-delete.vala:84
 #, c-format
-#| msgid "Are you sure you want to remove the remote branch <%s>?"
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
 msgstr "Ви справді хочете остаточно вилучити віддалену гілку %s?"
 
@@ -1236,7 +1199,6 @@ msgstr "Не вдалося вилучити мітку %s: %s"
 #. Translators: %s is the name of the branch
 #: gitg/gitg-ref-action-delete.vala:127
 #, c-format
-#| msgid "Failed to create a branch"
 msgid "Failed to delete branch %s"
 msgstr "Не вдалося вилучити гілку %s"
 
@@ -1276,7 +1238,6 @@ msgstr "оновлено"
 # Не вдалося зберегти поточний стан індекс
 #: gitg/gitg-ref-action-fetch.vala:121
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to fetch from %s: %s"
 msgstr "Не вдалося отримати дані з %s: %s"
 
@@ -1301,7 +1262,6 @@ msgstr "Надіслати до %s"
 # Натисніть гілки…
 #: gitg/gitg-ref-action-push.vala:91
 #, c-format
-#| msgid "Push branch to..."
 msgid "Push branch to %s"
 msgstr "Надіслати гілку до %s"
 
@@ -1313,7 +1273,6 @@ msgstr "Надсилаємо до %s"
 # Не вдалося зберегти поточний стан індекс
 #: gitg/gitg-ref-action-push.vala:116
 #, c-format
-#| msgid "Failed to unstage the file `%s'"
 msgid "Failed to push to %s: %s"
 msgstr "Не вдалося надіслати до %s: %s"
 
@@ -1326,14 +1285,12 @@ msgstr "Надіслано до %s"
 # Натисніть гілки…
 #: gitg/gitg-ref-action-push.vala:134
 #, c-format
-#| msgid "Push branch to..."
 msgid "Push branch %s"
 msgstr "Надіслати гілку %s"
 
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
 #: gitg/gitg-ref-action-push.vala:135
 #, c-format
-#| msgid "Are you sure you want to remove the remote branch <%s>?"
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "Ви справді хочете надіслати гілку %s до сховища?"
 
@@ -1357,7 +1314,6 @@ msgstr "Злити іншу гілку до гілки %s"
 # Не вдалося створити тег
 #: gitg/gitg-ref-action-merge.vala:106
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to merge commits: %s"
 msgstr "Не вдалося злити внески: %s"
 
@@ -1371,6 +1327,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
+"Злиття %s до %s призвело до конфліктів. Хочете синхронізувати гілку %s із"
+" злиттям до вашого робочого каталогу для розв'язання конфліктів?"
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -1378,6 +1336,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
 "merge to your working directory to resolve the conflicts?"
 msgstr ""
+"Злиття %s до %s призвело до конфліктів. Хочете синхронізувати злиття до вашого"
+" робочого каталогу для розв'язання конфліктів?"
 
 #: gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
@@ -1395,14 +1355,12 @@ msgstr "Злиття %s до %s"
 # Не вдалося створити тег
 #: gitg/gitg-ref-action-merge.vala:231
 #, c-format
-#| msgid "Failed to commit"
 msgid "Failed to lookup our commit: %s"
 msgstr "Не вдалося знайти наш внесок: %s"
 
 # Не вдалося вилучити теги
 #: gitg/gitg-ref-action-merge.vala:241
 #, c-format
-#| msgid "Failed to pass pre-commit"
 msgid "Failed to lookup their commit: %s"
 msgstr "Не вдалося знайти їхній внесок: %s"
 
@@ -1424,7 +1382,6 @@ msgstr "Мітки"
 
 # Перейменувати філія
 #: gitg/gitg-ref-action-rename.vala:48
-#| msgid "Rename branch"
 msgid "Rename"
 msgstr "Перейменувати"
 
@@ -1453,7 +1410,6 @@ msgstr "Закрити"
 
 # Відкрити Git репозиторій
 #: gitg/gitg-window.vala:201
-#| msgid "Open Repository"
 msgid "Add Repository"
 msgstr "Додати сховище"
 
@@ -1462,7 +1418,6 @@ msgid "_Add"
 msgstr "_Додати"
 
 #: gitg/gitg-window.vala:207
-#| msgid "Do not try to load a repository from the current working directory"
 msgid "_Scan for all git repositories from this directory"
 msgstr "С_канувати усі сховища git з цього каталогу"
 
@@ -1477,7 +1432,6 @@ msgstr "Вибрати елементи"
 # Не вдалося знайти Git репозиторій
 #: gitg/gitg-window.vala:1026
 #, c-format
-#| msgid "'%s' is not a Git repository."
 msgid "“%s” is not a Git repository."
 msgstr "«%s» — не сховище Git."
 
@@ -1506,7 +1460,6 @@ msgstr ""
 
 # Детальна інформація
 #: gitg/gitg-window.vala:1186
-#| msgid "Author Details"
 msgid "Missing author details"
 msgstr "Немає подробиць щодо автора"
 
@@ -1582,7 +1535,6 @@ msgstr "Основа"
 
 # Здійснювати
 #: gitg/preferences/gitg-preferences-commit.vala:142
-#| msgid "Commit"
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Внесок"
@@ -1601,19 +1553,16 @@ msgid "_Save"
 msgstr "З_берегти"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:65
-#| msgid "Enter details to set as default for all repositories:"
 msgid "Default details used for all repositories"
 msgstr "Типові подробиці для всіх сховищ"
 
 # Електронна пошта:
 #: gitg/resources/ui/gitg-author-details-dialog.ui:114
-#| msgid "E-mail: "
 msgid "E-mail:"
 msgstr "Ел. пошта:"
 
 # Ім’я (є в закладці Користувач)
 #: gitg/resources/ui/gitg-author-details-dialog.ui:125
-#| msgid "Name: "
 msgid "Name:"
 msgstr "Ім'я:"
 
@@ -1646,7 +1595,6 @@ msgstr "Голе сховище"
 
 # Здійснювати
 #: gitg/resources/ui/gitg-commit-dialog.ui:8
-#| msgid "Commit"
 msgctxt "Create Dialog"
 msgid "Commit"
 msgstr "Внести"
@@ -1675,7 +1623,6 @@ msgid "S_tage selection"
 msgstr "П_означити вибране"
 
 #: gitg/resources/ui/gitg-commit-paned.ui:107
-#| msgid "_Unstage selection"
 msgid "D_iscard selection"
 msgstr "Від_кинути позначене"
 
@@ -1684,16 +1631,16 @@ msgid ""
 "The submodule is in a dirty state and has staged and/or unstaged changes "
 "that are not yet committed as shown below."
 msgstr ""
+"Підмодуль перебуває у несинхронізованому стані і містить сформовані або"
+" несформовані зміни, які ще не внесено до сховища, як це показано нижче."
 
 # Поетапний
 #: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:50
-#| msgid "Staged"
 msgid "Staged:"
 msgstr "Сформовано:"
 
 # Unstaged
 #: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:86
-#| msgid "Unstaged"
 msgid "Unstaged:"
 msgstr "Скасовано формування:"
 
@@ -1717,32 +1664,27 @@ msgstr "Дата"
 
 # Відкрити…
 #: gitg/resources/ui/gitg-commit-submodule-info.ui:70
-#| msgid "_Open"
 msgid "Open"
 msgstr "Відкрити"
 
 # Створення філії
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:7
-#| msgid "Create branch"
 msgid "Create Branch"
 msgstr "Створити гілку"
 
 # Створіть тег
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:34
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:36
-#| msgid "Create tag"
 msgid "C_reate"
 msgstr "С_творити"
 
 # Відділення:
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:69
-#| msgid "Branches"
 msgid "Branch _name:"
 msgstr "_Назва гілки:"
 
 # Створіть тег
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:7
-#| msgid "Create tag"
 msgid "Create Tag"
 msgstr "Створити мітку"
 
@@ -1755,6 +1697,8 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
+"Ще не додано жодного сховища. Для початку, ви можете додати наявне сховище"
+" або клонувати нове сховище."
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
@@ -1803,8 +1747,8 @@ msgstr "Максимальна кількість повідомлень:"
 #: gitg/resources/ui/gitg-preferences-commit.ui:220
 msgid "Maximum number of messages to keep for commit message history"
 msgstr ""
-"Максимальна кількість повідомлень для зберігання у журналі повідомлень щодо"
-" внесків"
+"Максимальна кількість повідомлень для зберігання у журналі повідомлень щодо "
+"внесків"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:232
 msgid "Maximum number of days:"
@@ -1813,8 +1757,8 @@ msgstr "Максимальна кількість днів:"
 #: gitg/resources/ui/gitg-preferences-commit.ui:257
 msgid "Maximum number of days to keep for commit message history"
 msgstr ""
-"Максимальна тривалість зберігання повідомлень у журналі повідомлень щодо"
-" внесків у днях"
+"Максимальна тривалість зберігання повідомлень у журналі повідомлень щодо "
+"внесків у днях"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:284
 msgid "Language:"
@@ -1830,13 +1774,11 @@ msgid "Commit Message"
 msgstr "Повідомлення щодо внеску"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
-#| msgid "_Stage selection"
 msgid "Default selection"
 msgstr "Типовий вибір"
 
 # Створення філії
 #: gitg/resources/ui/gitg-preferences-history.ui:50
-#| msgid "Create branch"
 msgid "Current branch"
 msgstr "Поточна гілка"
 
@@ -1847,7 +1789,6 @@ msgstr "Усі гілки"
 
 # Установки
 #: gitg/resources/ui/gitg-preferences-history.ui:106
-#| msgid "Preferences"
 msgid "References"
 msgstr "Посилання"
 
@@ -1857,7 +1798,7 @@ msgstr "Упорядкувати посилання на бічній панел
 
 #: gitg/resources/ui/gitg-preferences-history.ui:135
 msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr ""
+msgstr "Показувати основну (віддалену) гілку при виборі локальної гілки"
 
 # Здійснювати
 #: gitg/resources/ui/gitg-preferences-history.ui:154
@@ -1894,7 +1835,6 @@ msgid "Startup"
 msgstr "Запуск"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:47
-#| msgid "Start gitg with a particular activity"
 msgid "Start with activity:"
 msgstr "Запустити з діяльністю:"
 
@@ -1957,7 +1897,6 @@ msgid "Preferences"
 msgstr "Параметри"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:14
-#| msgid "_New Window"
 msgctxt "shortcut window"
 msgid "Windows"
 msgstr "Вікна"
@@ -1979,7 +1918,6 @@ msgstr "Відкрити меню вікна"
 
 # Відкрити Git репозиторій
 #: gitg/resources/ui/gitg-shortcuts.ui:40
-#| msgid "Open Repository"
 msgctxt "shortcut window"
 msgid "Open a repository"
 msgstr "Відкрити сховище"
@@ -2001,17 +1939,15 @@ msgstr "Закрити активне вікно"
 
 # Показати версію програми
 #: gitg/resources/ui/gitg-shortcuts.ui:68
-#| msgid "Show the application's version"
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Вийти з програми"
 
 # Зміни
 #: gitg/resources/ui/gitg-shortcuts.ui:75
-#| msgid "Changes"
 msgctxt "shortcut window"
 msgid "Change to Dash"
-msgstr ""
+msgstr "Перейти до панелі приладів"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:82
 msgctxt "shortcut window"
@@ -2044,60 +1980,51 @@ msgid "Open commit dialog"
 msgstr "Відкрити вікно внеску"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:123
-#| msgid "_Stage selection"
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Сформувати позначене"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:130
-#| msgid "_Unstage selection"
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Скасувати формування позначеного"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:137
-#| msgid "_Unstage selection"
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Відкинути позначене"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:144
-#| msgid "_Stage selection"
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Змінити позначене"
 
 # Фіксація повідомлення
 #: gitg/resources/ui/gitg-shortcuts.ui:152
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Вікно внеску"
 
 # Здійснювати
 #: gitg/resources/ui/gitg-shortcuts.ui:157
-#| msgid "Commit"
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Внести"
 
 # Здійснювати
 #: gitg/resources/ui/gitg-shortcuts.ui:164
-#| msgid "Commit"
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Скасувати внесення"
 
 # Фіксація повідомлення
 #: gitg/resources/ui/gitg-shortcuts.ui:171
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Попереднє повідомлення щодо внеску"
 
 # Фіксація повідомлення
 #: gitg/resources/ui/gitg-shortcuts.ui:178
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Наступне повідомлення щодо внеску"
@@ -2112,7 +2039,6 @@ msgstr "Клонувати"
 
 # Сховище
 #: gitg/resources/ui/gitg-window.ui:47
-#| msgid "Clone Repository"
 msgid "Clone repository"
 msgstr "Клонувати сховище"
 
@@ -2122,7 +2048,6 @@ msgstr "Додати"
 
 # Відкрити Git репозиторій
 #: gitg/resources/ui/gitg-window.ui:63
-#| msgid "Bare repository"
 msgid "Add repository"
 msgstr "Додати сховище"
 
@@ -2234,7 +2159,6 @@ msgstr "додано (%s)"
 
 # Згорнути неактивних смуги
 #: libgitg/gitg-diff-view-commit-details.vala:143
-#| msgid "Collapse inactive lanes"
 msgid "Collapse all"
 msgstr "Згорнути все"
 
@@ -2246,13 +2170,11 @@ msgstr "Розгорнути все"
 # Комміттера:
 #: libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
-#| msgid "Committer:"
 msgid "Committed by %s"
 msgstr "Внесено %s"
 
 # Відкрити…
 #: libgitg/gitg-diff-view-file.vala:177
-#| msgid "_Open"
 msgid "_Open file"
 msgstr "_Відкрити файл"
 
@@ -2296,8 +2218,8 @@ msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
 msgstr ""
-"Попередня спроба пройти розпізнавання зазнала невдачі. Будь ласка, вкажіть"
-" ваше ім'я користувача і пароль і повторіть спробу."
+"Попередня спроба пройти розпізнавання зазнала невдачі. Будь ласка, вкажіть "
+"ваше ім'я користувача і пароль і повторіть спробу."
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:95
 msgid "_Username:"
@@ -2321,7 +2243,6 @@ msgstr "Запам'ятати назав_жди"
 
 # Батько:
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
-#| msgid "Parent:"
 msgid "Parents"
 msgstr "Батьки"
 
@@ -2343,7 +2264,6 @@ msgstr "Накладання"
 
 # Установки
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
-#| msgid "Preferences"
 msgid "Difference"
 msgstr "Різниця"
 
