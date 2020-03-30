@@ -23,6 +23,7 @@
 
 #include "gitg-platform-support.h"
 
+#import <AppKit/AppKit.h>
 #include <gdk/gdkquartz.h>
 #include <gio/gunixinputstream.h>
 
