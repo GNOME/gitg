@@ -25,10 +25,10 @@ $ sudo ninja -C build install
 
 ## Building gitg from git
 
-The gitg repository is hosted on git.gnome.org. To build from git:
+The gitg repository is hosted on gitlab.gnome.org. To build from git:
 
 ```
-$ git clone http://gitlab.gnome.org/GNOME/gitg.git
+$ git clone https://gitlab.gnome.org/GNOME/gitg.git
 $ cd gitg
 $ meson --prefix=/usr build
 $ ninja -C build
