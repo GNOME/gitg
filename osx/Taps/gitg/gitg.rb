@@ -1,6 +1,6 @@
 class Gitg < Formula
   desc "git viewer"
-  homepage "https://projects.gnome.org/gitg/"
+  homepage "https://wiki.gnome.org/Apps/Gitg/"
   head "https://git.gnome.org/browse/gitg.git"
 
   depends_on "autoconf" => :build
