@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-08-13 09:17+0000\n"
-"PO-Revision-Date: 2019-08-18 14:25+0300\n"
+"POT-Creation-Date: 2020-03-26 14:43+0000\n"
+"PO-Revision-Date: 2020-04-13 15:32+0300\n"
 "Last-Translator: Florentina Mușat <florentina.musat.28 [at] gmail [dot] "
 "com>\n"
 "Language-Team: Romanian Gnome Team <gnomero-list@lists.sourceforge.net>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.3\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -122,49 +122,81 @@ msgstr ""
 "dată."
 
 #: data/org.gnome.gitg.gschema.xml.in:51
+msgid "Use Default Font"
+msgstr "Utilizează fontul implicit"
+
+#: data/org.gnome.gitg.gschema.xml.in:52
+msgid ""
+"Whether to use the system’s default fixed width font for widget's text "
+"instead of a font specific. If this option is turned off, then the font "
+"named in the “Editor Font” option will be used instead of the system font."
+msgstr ""
+"Dacă să se utilizeze fontul cu lățime fixată implicit al sistemului pentru "
+"textul widget-ului în locul unui font specific. Dacă opțiunea asta este "
+"dezactivată, atunci fonul numit în opțiunea „Editorul de font” va fi "
+"utilizat în schimb în locul fontului de sistem."
+
+#. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
+#: data/org.gnome.gitg.gschema.xml.in:56
+msgid "'Monospace 12'"
+msgstr "'Monospace 12'"
+
+#: data/org.gnome.gitg.gschema.xml.in:57
+msgid "Editor Font"
+msgstr "Editor Font"
+
+#: data/org.gnome.gitg.gschema.xml.in:58
+msgid ""
+"A custom font that will be used for the text widgets. This will only take "
+"effect if the “Use Default Font” option is turned off."
+msgstr ""
+"Un font personalizat care va fi utilizat pentru widget-uri text. Aceasta va "
+"avea efect dacă opțiunea „Utilizează fonturi implicite” este dezactivată."
+
+#: data/org.gnome.gitg.gschema.xml.in:62
 msgid "Use Gravatar"
 msgstr "Utilizează Gravatar"
 
-#: data/org.gnome.gitg.gschema.xml.in:52
+#: data/org.gnome.gitg.gschema.xml.in:63
 msgid "Enable the use of gravatar to display user avatars."
 msgstr ""
 "Activează utilizarea de gravatar pentru a afișa avatarele utilizatorilor."
 
-#: data/org.gnome.gitg.gschema.xml.in:58
+#: data/org.gnome.gitg.gschema.xml.in:69
 msgid "Enable Monitoring"
 msgstr "Activează monitorizarea"
 
-#: data/org.gnome.gitg.gschema.xml.in:59
+#: data/org.gnome.gitg.gschema.xml.in:70
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "Actualizează automat când s-au detectat modificări externe la .git"
 
-#: data/org.gnome.gitg.gschema.xml.in:65
+#: data/org.gnome.gitg.gschema.xml.in:76
 msgid "Enable Diff Highlighting"
 msgstr "Activează evidențiere diff"
 
-#: data/org.gnome.gitg.gschema.xml.in:66
+#: data/org.gnome.gitg.gschema.xml.in:77
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
 "Configurare care determină dacă se activează evidențierea sintaxei în "
 "vizualizările diff."
 
-#: data/org.gnome.gitg.gschema.xml.in:73
+#: data/org.gnome.gitg.gschema.xml.in:84
 msgid "Color scheme to use for syntax highlighting"
 msgstr "Schemă de culori de utilizat pentru evidențierea sintaxei"
 
-#: data/org.gnome.gitg.gschema.xml.in:74
+#: data/org.gnome.gitg.gschema.xml.in:85
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr ""
 "Utilizat de GtkSourceView pentru a determina culorile pentru evidențierea "
 "sintaxei"
 
-#: data/org.gnome.gitg.gschema.xml.in:80
+#: data/org.gnome.gitg.gschema.xml.in:91
 msgid "When to Collapse Inactive Lanes"
 msgstr "Când să fie restrânse culoarele inactive"
 
-#: data/org.gnome.gitg.gschema.xml.in:81
+#: data/org.gnome.gitg.gschema.xml.in:92
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -172,7 +204,7 @@ msgstr ""
 "Configurare care indică atunci când un culoar inactiv ar trebui restrâns. "
 "Valorile valide sunt 0 — 4, unde 0 indică „devreme” și 4 indică „târziu”."
 
-#: data/org.gnome.gitg.gschema.xml.in:88
+#: data/org.gnome.gitg.gschema.xml.in:99
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -184,32 +216,32 @@ msgstr ""
 "mai clară atunci când este multă dezvoltare paralelă. Consultați restrânge-"
 "benzile-inactive pentru a controla când ar trebui să fie restrânse culoarele."
 
-#: data/org.gnome.gitg.gschema.xml.in:97
+#: data/org.gnome.gitg.gschema.xml.in:108
 msgid "Show History in Topological Order"
 msgstr "Arată istoricul în ordine topologică"
 
-#: data/org.gnome.gitg.gschema.xml.in:98
+#: data/org.gnome.gitg.gschema.xml.in:109
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Configurare care indică dacă istoricul să fie arătat în ordine topologică."
 
-#: data/org.gnome.gitg.gschema.xml.in:104
+#: data/org.gnome.gitg.gschema.xml.in:115
 msgid "Show Stashed Changes"
 msgstr "Arată modificările rezervate"
 
-#: data/org.gnome.gitg.gschema.xml.in:105
+#: data/org.gnome.gitg.gschema.xml.in:116
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
 "Configurare care indică dacă trebuie să se arate elementele pentru rezervă "
 "în istoric."
 
-#: data/org.gnome.gitg.gschema.xml.in:112
+#: data/org.gnome.gitg.gschema.xml.in:123
 msgid "Show Staged Changes"
 msgstr "Afișează modificările introduse"
 
-#: data/org.gnome.gitg.gschema.xml.in:113
+#: data/org.gnome.gitg.gschema.xml.in:124
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -217,11 +249,11 @@ msgstr ""
 "Configurare care indică dacă trebuie să se arate un element virtual pentru "
 "modificările introduse curent în istoric."
 
-#: data/org.gnome.gitg.gschema.xml.in:120
+#: data/org.gnome.gitg.gschema.xml.in:131
 msgid "Show Unstaged Changes"
 msgstr "Arată modificările înlăturate"
 
-#: data/org.gnome.gitg.gschema.xml.in:121
+#: data/org.gnome.gitg.gschema.xml.in:132
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -229,11 +261,11 @@ msgstr ""
 "Configurare care indică dacă trebuie să se arate un element virtual pentru "
 "modificările înlăturate curent în istoric."
 
-#: data/org.gnome.gitg.gschema.xml.in:128
+#: data/org.gnome.gitg.gschema.xml.in:139
 msgid "Mainline Head"
 msgstr "Capăt linie principală"
 
-#: data/org.gnome.gitg.gschema.xml.in:129
+#: data/org.gnome.gitg.gschema.xml.in:140
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -241,11 +273,11 @@ msgstr ""
 "Configurare care indică dacă se păstrează totdeauna o linie principală în "
 "istoric pentru HEAD-ul curent."
 
-#: data/org.gnome.gitg.gschema.xml.in:136
+#: data/org.gnome.gitg.gschema.xml.in:147
 msgid "Default selection of the history activity"
 msgstr "Selecția implicită a activității de istoric"
 
-#: data/org.gnome.gitg.gschema.xml.in:137
+#: data/org.gnome.gitg.gschema.xml.in:148
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
@@ -253,21 +285,21 @@ msgstr ""
 "Configurare care determină selecția implicită la lansarea activității de "
 "istoric."
 
-#: data/org.gnome.gitg.gschema.xml.in:143
+#: data/org.gnome.gitg.gschema.xml.in:154
 msgid "Reference Sort Order"
 msgstr "Ordinea de sortare a referinței"
 
-#: data/org.gnome.gitg.gschema.xml.in:144
+#: data/org.gnome.gitg.gschema.xml.in:155
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr ""
 "Ordinea prin care ar trebui sortate referințele din bara laterală a "
 "istoricului."
 
-#: data/org.gnome.gitg.gschema.xml.in:150
+#: data/org.gnome.gitg.gschema.xml.in:161
 msgid "Show Upstream With Branch"
 msgstr "Arată upstream cu ramură"
 
-#: data/org.gnome.gitg.gschema.xml.in:151
+#: data/org.gnome.gitg.gschema.xml.in:162
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -275,11 +307,11 @@ msgstr ""
 "Determină dacă se arată și ramura de urmărire upstream (la distanță) atunci "
 "când se selectează o ramură locală în vizualizarea istoric."
 
-#: data/org.gnome.gitg.gschema.xml.in:167
+#: data/org.gnome.gitg.gschema.xml.in:178
 msgid "Show Right Margin in Commit Message View"
 msgstr "Arată marginea dreaptă în vizualizarea mesajelor de comitere"
 
-#: data/org.gnome.gitg.gschema.xml.in:168
+#: data/org.gnome.gitg.gschema.xml.in:179
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -288,11 +320,11 @@ msgstr ""
 "Acesta poate fi folosit pentru a vedea ușor unde să se facă despărțirea "
 "mesajului de comitere la o anumită coloană."
 
-#: data/org.gnome.gitg.gschema.xml.in:176
+#: data/org.gnome.gitg.gschema.xml.in:187
 msgid "Column at Which Right Margin is Shown"
 msgstr "Coloana la care este arătată marginea dreaptă"
 
-#: data/org.gnome.gitg.gschema.xml.in:177
+#: data/org.gnome.gitg.gschema.xml.in:188
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -300,11 +332,11 @@ msgstr ""
 "Coloana la care este arătată marginea dreaptă dacă preferința arată-marginea-"
 "dreaptă este stabilită la TRUE."
 
-#: data/org.gnome.gitg.gschema.xml.in:184
+#: data/org.gnome.gitg.gschema.xml.in:195
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Arată marginea subiectului în vizualizarea mesajului de comit"
 
-#: data/org.gnome.gitg.gschema.xml.in:185
+#: data/org.gnome.gitg.gschema.xml.in:196
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -312,11 +344,11 @@ msgstr ""
 "Evidențiază textul subiectului al mesajului de comit când trece peste "
 "marginea specificată de poziție-margine-subiect."
 
-#: data/org.gnome.gitg.gschema.xml.in:192
+#: data/org.gnome.gitg.gschema.xml.in:203
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Coloana la care este arătată marginea subiectului"
 
-#: data/org.gnome.gitg.gschema.xml.in:193
+#: data/org.gnome.gitg.gschema.xml.in:204
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -324,11 +356,11 @@ msgstr ""
 "Coloana la care este arătată marginea subiectului dacă preferința arată-"
 "marginea-subiectului este stabilită la TRUE."
 
-#: data/org.gnome.gitg.gschema.xml.in:200
+#: data/org.gnome.gitg.gschema.xml.in:211
 msgid "Enable Spell Checking"
 msgstr "Activează corectarea ortografică"
 
-#: data/org.gnome.gitg.gschema.xml.in:201
+#: data/org.gnome.gitg.gschema.xml.in:212
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -336,11 +368,11 @@ msgstr ""
 "Configurare care determină dacă este activat sau nu corectorul ortografic "
 "când se scrie un mesaj de comit."
 
-#: data/org.gnome.gitg.gschema.xml.in:208
+#: data/org.gnome.gitg.gschema.xml.in:219
 msgid "Spell Checking Language"
 msgstr "Limbă corector ortografic"
 
-#: data/org.gnome.gitg.gschema.xml.in:209
+#: data/org.gnome.gitg.gschema.xml.in:220
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -348,21 +380,45 @@ msgstr ""
 "Limba de utilizat când corectarea ortografică este activată pentru a scrie "
 "unui mesaj de comit."
 
-#: data/org.gnome.gitg.gschema.xml.in:218
+#: data/org.gnome.gitg.gschema.xml.in:227
+msgid "Maximum number of previous commit messages"
+msgstr "Numărul maxim de mesaje de comitere anterioare"
+
+#: data/org.gnome.gitg.gschema.xml.in:228
+msgid ""
+"Maximum number of previous commit messages to store for commit message "
+"history."
+msgstr ""
+"Numărul maxim de mesaje de comitere anterioare pentru a stoca pentru "
+"istoricul de mesaje de comitere."
+
+#: data/org.gnome.gitg.gschema.xml.in:232
+msgid "Maximum number of days to store previous commit messages"
+msgstr "Numărul maxim de zile pentru a stoca mesajele de comitere anterioare"
+
+#: data/org.gnome.gitg.gschema.xml.in:233
+msgid ""
+"Maximum number of days to store previous commit messages for commit message "
+"history."
+msgstr ""
+"Numărul maxim de zile pentru a stoca mesajele de comit anterioare pentru "
+"istoricul de mesaj de comitere."
+
+#: data/org.gnome.gitg.gschema.xml.in:239
 msgid "Use patience algorithm to show diffs"
 msgstr "Utilizează algoritmul patience pentru a arăta diff-urile"
 
-#: data/org.gnome.gitg.gschema.xml.in:219
+#: data/org.gnome.gitg.gschema.xml.in:240
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Configurare pentru a utiliza algoritmul patience pentru a arăta diff-urile "
 "unui comit."
 
-#: data/org.gnome.gitg.gschema.xml.in:225
+#: data/org.gnome.gitg.gschema.xml.in:246
 msgid "Ignore Whitespace Changes"
 msgstr "Ignoră modificările de spații"
 
-#: data/org.gnome.gitg.gschema.xml.in:226
+#: data/org.gnome.gitg.gschema.xml.in:247
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -370,31 +426,31 @@ msgstr ""
 "Configurare care indică dacă se ignoră modificările de spații când se arată "
 "diff-ul unui comit."
 
-#: data/org.gnome.gitg.gschema.xml.in:233
+#: data/org.gnome.gitg.gschema.xml.in:254
 msgid "Show Changes Inline"
 msgstr "Arată modificările intercalat"
 
-#: data/org.gnome.gitg.gschema.xml.in:234
+#: data/org.gnome.gitg.gschema.xml.in:255
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Configurare care indică dacă modificările între linii ar trebui să fie "
 "arătate intercalat."
 
-#: data/org.gnome.gitg.gschema.xml.in:241
+#: data/org.gnome.gitg.gschema.xml.in:262
 msgid "Wrap"
 msgstr "Încadrează"
 
-#: data/org.gnome.gitg.gschema.xml.in:242
+#: data/org.gnome.gitg.gschema.xml.in:263
 msgid "Wrap lines."
 msgstr "Încadrează liniile."
 
-#: data/org.gnome.gitg.gschema.xml.in:248
-#: data/org.gnome.gitg.gschema.xml.in:266
+#: data/org.gnome.gitg.gschema.xml.in:269
+#: data/org.gnome.gitg.gschema.xml.in:287
 msgid "Number of Before/After Context Lines"
 msgstr "Numărul de linii de context înainte/după"
 
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:270
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -402,13 +458,13 @@ msgstr ""
 "Configurare care determină câte linii de context (înainte și după) ar trebui "
 "să fie afișate când se arată diff-ul unui comit."
 
-#: data/org.gnome.gitg.gschema.xml.in:256
-#: data/org.gnome.gitg.gschema.xml.in:275
+#: data/org.gnome.gitg.gschema.xml.in:277
+#: data/org.gnome.gitg.gschema.xml.in:296
 msgid "Rendered Width of a Tab Character"
 msgstr "Lățimea randată a unui caracter tab"
 
-#: data/org.gnome.gitg.gschema.xml.in:257
-#: data/org.gnome.gitg.gschema.xml.in:276
+#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:297
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -416,7 +472,7 @@ msgstr ""
 "Configurare care determină cât spațiu ar trebui să ocupe un caracter tab "
 "când se arată diff-ul unui comit."
 
-#: data/org.gnome.gitg.gschema.xml.in:267
+#: data/org.gnome.gitg.gschema.xml.in:288
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -424,11 +480,11 @@ msgstr ""
 "Configurare care determină câte linii de context (înainte și după) ar trebui "
 "să fie afișate când se arată diff-ul de introdus/înlăturat în zona de comit."
 
-#: gitg/commit/gitg-commit-dialog.vala:498 gitg/commit/gitg-commit.vala:1077
+#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
 msgstr "Nu există modificări de comis"
 
-#: gitg/commit/gitg-commit-dialog.vala:499 gitg/commit/gitg-commit.vala:1078
+#: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Utilizați amend pentru a modifica mesajul de comit al comitului anterior"
@@ -442,23 +498,23 @@ msgstr "Comite"
 msgid "Create new commits and manage the staging area"
 msgstr "Creează comiteri noi și administrează zona de introducere"
 
-#: gitg/commit/gitg-commit.vala:193
+#: gitg/commit/gitg-commit.vala:207
 msgid "_Stage selection"
 msgstr "Introdu _selecția"
 
-#: gitg/commit/gitg-commit.vala:232
+#: gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to stage the removal of submodule “%s”"
 msgstr "Nu s-a putut introduce eliminarea submodulului „%s”"
 
-#: gitg/commit/gitg-commit.vala:248
+#: gitg/commit/gitg-commit.vala:262
 #, c-format
 msgid "Failed to open the repository of submodule “%s” while trying to stage"
 msgstr ""
 "Nu s-a putut deschide depozitul submodulului „%s” în timpul încercării de "
 "introducere"
 
-#: gitg/commit/gitg-commit.vala:263
+#: gitg/commit/gitg-commit.vala:277
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule “%s” while trying "
@@ -467,98 +523,98 @@ msgstr ""
 "Nu s-a putut căuta comitul de dosar de lucru al submodulului „%s” în timpul "
 "încercării de introducere"
 
-#: gitg/commit/gitg-commit.vala:276
+#: gitg/commit/gitg-commit.vala:290
 #, c-format
 msgid "Failed to stage the submodule “%s”"
 msgstr "Nu s-a putut introduce submodulul „%s”"
 
-#: gitg/commit/gitg-commit.vala:298
+#: gitg/commit/gitg-commit.vala:312
 #, c-format
 msgid "Failed to stage the removal of file “%s”"
 msgstr "Nu s-a putut introduce eliminarea fișierului „%s”"
 
-#: gitg/commit/gitg-commit.vala:312
+#: gitg/commit/gitg-commit.vala:326
 #, c-format
 msgid "Failed to stage the file “%s”"
 msgstr "Nu s-a putut introduce fișierul „%s”"
 
-#: gitg/commit/gitg-commit.vala:584
+#: gitg/commit/gitg-commit.vala:598
 msgid "_Unstage selection"
 msgstr "Înlătură _selecția"
 
-#: gitg/commit/gitg-commit.vala:650
+#: gitg/commit/gitg-commit.vala:664
 #, c-format
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "Nu s-a putut înlătura eliminarea fișierului „%s”"
 
-#: gitg/commit/gitg-commit.vala:651
+#: gitg/commit/gitg-commit.vala:665
 #, c-format
 msgid "Failed to unstage the file “%s”"
 msgstr "Nu s-a putut înlătura fișierul „%s”"
 
-#: gitg/commit/gitg-commit.vala:658
+#: gitg/commit/gitg-commit.vala:672
 #, c-format
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Nu s-a putut înlătura eliminarea submodulului „%s”"
 
-#: gitg/commit/gitg-commit.vala:659
+#: gitg/commit/gitg-commit.vala:673
 #, c-format
 msgid "Failed to unstage the submodule “%s”"
 msgstr "Nu s-a putut înlătura submodulul „%s”"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:863
+#: gitg/commit/gitg-commit.vala:877
 msgid "Staged"
 msgstr "Introdus în index"
 
-#: gitg/commit/gitg-commit.vala:871
+#: gitg/commit/gitg-commit.vala:885
 msgid "No staged files"
 msgstr "Nu sunt fișiere introduse în index"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:894
+#: gitg/commit/gitg-commit.vala:908
 msgid "Unstaged"
 msgstr "Neintrodus în index"
 
-#: gitg/commit/gitg-commit.vala:902
+#: gitg/commit/gitg-commit.vala:916
 msgid "No unstaged files"
 msgstr "Nu sunt fișiere înlăturate"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:925
+#: gitg/commit/gitg-commit.vala:939
 msgid "Untracked"
 msgstr "Neurmărit"
 
-#: gitg/commit/gitg-commit.vala:929
+#: gitg/commit/gitg-commit.vala:943
 msgid "No untracked files"
 msgstr "Nu sunt fișiere neurmărite"
 
-#: gitg/commit/gitg-commit.vala:954
+#: gitg/commit/gitg-commit.vala:968
 msgid "Submodule"
 msgstr "Submodul"
 
-#: gitg/commit/gitg-commit.vala:958
+#: gitg/commit/gitg-commit.vala:972
 msgid "No dirty submodules"
 msgstr "Nu sunt submodule nepotrivite"
 
-#: gitg/commit/gitg-commit.vala:1107
+#: gitg/commit/gitg-commit.vala:1121
 msgid "Failed to commit"
 msgstr "Nu s-a putut comite"
 
-#: gitg/commit/gitg-commit.vala:1123
+#: gitg/commit/gitg-commit.vala:1137
 msgid "Failed to pass pre-commit"
 msgstr "Nu s-a putut satisface secvența de pre-comit"
 
-#: gitg/commit/gitg-commit.vala:1331 gitg/commit/gitg-commit.vala:1481
+#: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
 msgid "Discard changes"
 msgstr "Renunță la modificări"
 
-#: gitg/commit/gitg-commit.vala:1332
+#: gitg/commit/gitg-commit.vala:1303
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Sigur doriți să renunțați permanent la modificările selectate?"
 
-#: gitg/commit/gitg-commit.vala:1341 gitg/commit/gitg-commit.vala:1507
-#: gitg/commit/gitg-commit.vala:1622
+#: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
+#: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
@@ -570,27 +626,27 @@ msgstr "Sigur doriți să renunțați permanent la modificările selectate?"
 msgid "_Cancel"
 msgstr "_Anulează"
 
-#: gitg/commit/gitg-commit.vala:1342 gitg/commit/gitg-commit.vala:1508
+#: gitg/commit/gitg-commit.vala:1313 gitg/commit/gitg-commit.vala:1479
 msgid "Discard"
 msgstr "Renunță"
 
-#: gitg/commit/gitg-commit.vala:1371
+#: gitg/commit/gitg-commit.vala:1342
 msgid "Failed to discard selection"
 msgstr "Nu s-a putut renunța la selecție"
 
-#: gitg/commit/gitg-commit.vala:1401
+#: gitg/commit/gitg-commit.vala:1372
 msgid "Failed to stage selection"
 msgstr "Nu s-a putut introduce selecția"
 
-#: gitg/commit/gitg-commit.vala:1405
+#: gitg/commit/gitg-commit.vala:1376
 msgid "Failed to unstage selection"
 msgstr "Nu s-a putut înlătura selecția"
 
-#: gitg/commit/gitg-commit.vala:1465
+#: gitg/commit/gitg-commit.vala:1436
 msgid "Failed to discard changes"
 msgstr "Nu s-a putut renunța la modificări"
 
-#: gitg/commit/gitg-commit.vala:1486
+#: gitg/commit/gitg-commit.vala:1457
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -599,7 +655,7 @@ msgstr ""
 "Sigur doriți să renunțați permanent la toate modificările aduse la fișierul "
 "„%s”?"
 
-#: gitg/commit/gitg-commit.vala:1497
+#: gitg/commit/gitg-commit.vala:1468
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -608,47 +664,47 @@ msgstr ""
 "Sigur doriți să renunțați permanent la toate modificările aduse la fișierele "
 "%s și „%s”?"
 
-#: gitg/commit/gitg-commit.vala:1580
+#: gitg/commit/gitg-commit.vala:1551
 msgid "Failed to delete files"
 msgstr "Nu s-au putut șterge fișierele"
 
-#: gitg/commit/gitg-commit.vala:1596
+#: gitg/commit/gitg-commit.vala:1567
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Șterge fișierul"
 msgstr[1] "Șterge fișierele"
 msgstr[2] "Șterge fișierele"
 
-#: gitg/commit/gitg-commit.vala:1601
+#: gitg/commit/gitg-commit.vala:1572
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Sigur doriți să ștergeți permanent fișierul „%s”?"
 
-#: gitg/commit/gitg-commit.vala:1612
+#: gitg/commit/gitg-commit.vala:1583
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Sigur doriți să ștergeți permanent fișierele %s și „%s”?"
 
-#: gitg/commit/gitg-commit.vala:1658
+#: gitg/commit/gitg-commit.vala:1629
 msgid "_Stage changes"
 msgstr "In_trodu modificările"
 
-#: gitg/commit/gitg-commit.vala:1670
+#: gitg/commit/gitg-commit.vala:1641
 msgid "_Unstage changes"
 msgstr "Înlăt_ură modificările"
 
-#: gitg/commit/gitg-commit.vala:1682
+#: gitg/commit/gitg-commit.vala:1653
 msgid "_Discard changes"
 msgstr "Renunță la mo_dificări"
 
-#: gitg/commit/gitg-commit.vala:1694
+#: gitg/commit/gitg-commit.vala:1665
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Șt_erge fișierul"
 msgstr[1] "Șt_erge fișierele"
 msgstr[2] "Șt_erge fișierele"
 
-#: gitg/commit/gitg-commit.vala:1724
+#: gitg/commit/gitg-commit.vala:1695
 msgid "_Edit file"
 msgstr "_Editează fișierul"
 
@@ -741,8 +797,7 @@ msgstr "gitg este un vizualizator de depozite Git pentru GTK+/GNOME"
 
 #: gitg/gitg-application.vala:235
 msgid "translator-credits"
-msgstr ""
-"Florentina Mușat <florentina.musat.28 [at] gmail [dot] com>, 2018, 2019"
+msgstr "Florentina Mușat <emryslokasdottir [at] gmail [dot] com>, 2018-2020"
 
 #: gitg/gitg-application.vala:238
 msgid "gitg homepage"
@@ -769,23 +824,23 @@ msgstr ""
 "defecțiunilor al distribuției cum că libgit2 a fost furnizat fără suport de "
 "threading."
 
-#: gitg/gitg-author-details-dialog.vala:97
-#: gitg/gitg-author-details-dialog.vala:117
+#: gitg/gitg-author-details-dialog.vala:79
+#: gitg/gitg-author-details-dialog.vala:99
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Detalii autor"
 
-#: gitg/gitg-author-details-dialog.vala:98
+#: gitg/gitg-author-details-dialog.vala:80
 msgid "Enter default details used for all repositories:"
 msgstr "Introduceți detaliile implicite utilizate de toate depozitele:"
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:120
+#: gitg/gitg-author-details-dialog.vala:102
 #, c-format
 msgid "Override global details for repository “%s”:"
 msgstr "Suprascrie detaliile globale pentru depozitul „%s”:"
 
-#: gitg/gitg-author-details-dialog.vala:232
+#: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
 msgstr "Nu s-a putut stabili configurarea de utilizator Git."
 
@@ -911,7 +966,7 @@ msgstr "Crearea etichetei a eșuat"
 msgid "Failed to lookup tag"
 msgstr "Nu s-a putut căuta eticheta"
 
-#: gitg/gitg-create-tag-dialog.vala:120
+#: gitg/gitg-create-tag-dialog.vala:96
 msgid "Provide a message to create an annotated tag"
 msgstr "Furnizați un mesaj pentru a crea o etichetă adnotată"
 
@@ -1218,7 +1273,7 @@ msgid "Merge %s into branch %s"
 msgstr "Integrează %s în ramura %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1176
+#: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Tags"
 msgstr "Etichete"
 
@@ -1260,20 +1315,20 @@ msgstr "_Adaugă"
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Scanează pentru toate depozitele git din acest dosar"
 
-#: gitg/gitg-window.vala:514
+#: gitg/gitg-window.vala:516
 msgid "Projects"
 msgstr "Proiecte"
 
-#: gitg/gitg-window.vala:813
+#: gitg/gitg-window.vala:815
 msgid "Select items"
 msgstr "Selectează elementele"
 
-#: gitg/gitg-window.vala:1024
+#: gitg/gitg-window.vala:1026
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "„%s” nu este un depozit Git."
 
-#: gitg/gitg-window.vala:1173
+#: gitg/gitg-window.vala:1175
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1281,7 +1336,7 @@ msgstr ""
 "Numele de utilizator și parola nu sunt configurate încă. Navigați la "
 "configurația de utilizator și furnizați numele și adresa de email."
 
-#: gitg/gitg-window.vala:1177
+#: gitg/gitg-window.vala:1179
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1289,7 +1344,7 @@ msgstr ""
 "Numele de utilizator nu este configurat încă. Navigați la configurația de "
 "utilizator și furnizați numele."
 
-#: gitg/gitg-window.vala:1181
+#: gitg/gitg-window.vala:1183
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1297,7 +1352,7 @@ msgstr ""
 "Adresa de email nu este configurată încă. Navigați la configurația de "
 "utilizator și furnizați adresa de email."
 
-#: gitg/gitg-window.vala:1184
+#: gitg/gitg-window.vala:1186
 msgid "Missing author details"
 msgstr "Lipsesc detaliile de autor"
 
@@ -1346,11 +1401,11 @@ msgstr "%zu în urmă"
 msgid "All commits"
 msgstr "Toate comiterile"
 
-#: gitg/history/gitg-history-refs-list.vala:1174
+#: gitg/history/gitg-history-refs-list.vala:1177
 msgid "Branches"
 msgstr "Ramuri"
 
-#: gitg/history/gitg-history-refs-list.vala:1175
+#: gitg/history/gitg-history-refs-list.vala:1178
 msgid "Remotes"
 msgstr "Severe de la distanță"
 
@@ -1368,12 +1423,17 @@ msgstr "Examinează istoricul depozitului"
 msgid "Mainline"
 msgstr "Linie principală"
 
-#: gitg/preferences/gitg-preferences-commit.vala:126
+#: gitg/preferences/gitg-preferences-commit.vala:142
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Comit"
 
-#: gitg/preferences/gitg-preferences-interface.vala:140
+#: gitg/preferences/gitg-preferences-interface.vala:142
+#, c-format
+msgid "_Use the system fixed width font (%s)"
+msgstr "_Utilizează fontul de sistem cu lățime fixată (%s)"
+
+#: gitg/preferences/gitg-preferences-interface.vala:179
 msgid "Interface"
 msgstr "Interfață"
 
@@ -1427,13 +1487,13 @@ msgstr "Comit"
 msgid "C_ommit"
 msgstr "C_omite"
 
-#: gitg/resources/ui/gitg-commit-dialog.ui:109
-msgid "Add _signed-off-by signature"
-msgstr "Adaugă semnătură _semnat-de"
-
-#: gitg/resources/ui/gitg-commit-dialog.ui:126
+#: gitg/resources/ui/gitg-commit-dialog.ui:217
 msgid "_Amend previous commit"
 msgstr "_Amendă comitul anterior"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:234
+msgid "Add _signed-off-by signature"
+msgstr "Adaugă semnătură _semnat-de"
 
 #: gitg/resources/ui/gitg-commit-paned.ui:76
 msgid "Skip commit _hooks"
@@ -1515,47 +1575,65 @@ msgstr ""
 msgid "_Reload"
 msgstr "_Reîncarcă"
 
-#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:45
+#: gitg/resources/ui/gitg-menus.ui:14 gitg/resources/ui/gitg-menus.ui:48
 msgid "_Preferences"
 msgstr "_Preferințe"
 
-#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:39
+#: gitg/resources/ui/gitg-menus.ui:21 gitg/resources/ui/gitg-menus.ui:42
 msgid "_Author Details"
 msgstr "Detalii _autor"
 
-#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:51
+#: gitg/resources/ui/gitg-menus.ui:27 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Keyboard Shortcuts"
 msgstr "S_curtături tastatură"
 
-#: gitg/resources/ui/gitg-menus.ui:33
+#: gitg/resources/ui/gitg-menus.ui:36
 msgid "_New Window"
 msgstr "Fereastră _nouă"
 
-#: gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:60
 msgid "_About"
 msgstr "_Despre"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:44
+#: gitg/resources/ui/gitg-preferences-commit.ui:58
 msgid "Show markup"
 msgstr "Arată markup"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:71
+#: gitg/resources/ui/gitg-preferences-commit.ui:85
 msgid "Display _subject margin at column:"
 msgstr "Afișează marginea _subiectului la coloana:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:126
+#: gitg/resources/ui/gitg-preferences-commit.ui:140
 msgid "Display right _margin at column:"
 msgstr "Afișează _marginea dreaptă la coloana:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:197
+#: gitg/resources/ui/gitg-preferences-commit.ui:196
+msgid "Maximum number of messages:"
+msgstr "Numărul maxim de mesaje:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:220
+msgid "Maximum number of messages to keep for commit message history"
+msgstr ""
+"Numărul maxim de mesaje de păstrat pentru istoricul de mesaj de comitere"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:232
+msgid "Maximum number of days:"
+msgstr "Numărul maxim de zile:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:257
+msgid "Maximum number of days to keep for commit message history"
+msgstr ""
+"Numărul maxim de zile de păstrat pentru istoricul mesajului de comitere"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:284
 msgid "Language:"
 msgstr "Limbaj:"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:223
+#: gitg/resources/ui/gitg-preferences-commit.ui:310
 msgid "Enable spell checking"
 msgstr "Activează corectarea ortografică"
 
-#: gitg/resources/ui/gitg-preferences-commit.ui:254
+#: gitg/resources/ui/gitg-preferences-commit.ui:341
 msgid "Commit Message"
 msgstr "Mesaj de comitere"
 
@@ -1641,16 +1719,28 @@ msgid "Monitoring"
 msgstr "Monitorizare"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:212
+msgid "Font"
+msgstr "Font"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:253
+msgid "Editor _font: "
+msgstr "Editor _font: "
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:270
+msgid "Pick the editor font"
+msgstr "Alege fontul de editor"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:292
 #: plugins/diff/gitg-diff.vala:115
 msgid "Diff"
 msgstr "Diff"
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:232
+#: gitg/resources/ui/gitg-preferences-interface.ui:312
 msgid "Enable syntax highlighting of source code in diff views"
 msgstr ""
 "Activează evidențierea de sintaxă a codului sursă în vizualizările diff"
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:258
+#: gitg/resources/ui/gitg-preferences-interface.ui:338
 msgid "Syntax highlighting color scheme:"
 msgstr "Schema de culori pentru evidențierea sintaxei:"
 
@@ -1702,6 +1792,86 @@ msgstr "Închide fereastra activă"
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Ieșire din aplicație"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Change to Dash"
+msgstr "Modifică la Dash"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:82
+msgctxt "shortcut window"
+msgid "Change to History View"
+msgstr "Modifică la vizualizarea istoricului"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:89
+msgctxt "shortcut window"
+msgid "Change to Commit View"
+msgstr "Modifică la vizualizarea comiterei"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:96
+msgctxt "shortcut window"
+msgid "Change to activity"
+msgstr "Modifică la activitate"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:104
+msgctxt "shortcut window"
+msgid "Commit Activity"
+msgstr "Activitate de comitere"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:109
+msgctxt "shortcut window"
+msgid "Select/Unselect"
+msgstr "Selectează/Deselectează"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:116
+msgctxt "shortcut window"
+msgid "Open commit dialog"
+msgstr "Deschide dialogul de comitere"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:123
+msgctxt "shortcut window"
+msgid "Stage selection"
+msgstr "Stagiu de selecție"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:130
+msgctxt "shortcut window"
+msgid "Unstage selection"
+msgstr "Defazează selecția"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:137
+msgctxt "shortcut window"
+msgid "Discard selection"
+msgstr "Renunță la selecție"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:144
+msgctxt "shortcut window"
+msgid "Edit selection"
+msgstr "Editează selecția"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:152
+msgctxt "shortcut window"
+msgid "Commit Dialog"
+msgstr "Dialogul de comitere"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:157
+msgctxt "shortcut window"
+msgid "Commit"
+msgstr "Comite"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:164
+msgctxt "shortcut window"
+msgid "Cancel Commit"
+msgstr "Anulează comiterea"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:171
+msgctxt "shortcut window"
+msgid "Previous commit message"
+msgstr "Anteriorul mesaj de comitere"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:178
+msgctxt "shortcut window"
+msgid "Next commit message"
+msgstr "Următorul mesaj de comitere"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
@@ -1831,7 +2001,7 @@ msgid "Collapse all"
 msgstr "Restrânge toate"
 
 #: libgitg/gitg-diff-view-commit-details.vala:147
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:212
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Extinde toate"
 
@@ -1868,7 +2038,7 @@ msgstr "%s la %s"
 msgid "Cloning…"
 msgstr "Se clonează…"
 
-#: libgitg/gitg-stage.vala:334
+#: libgitg/gitg-stage.vala:337
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Nu s-a putut citi mesajul de comit după rularea commit-msg hook: %s"
@@ -1905,7 +2075,7 @@ msgstr "Memorează paro_la până la deconectare"
 msgid "Remember _forever"
 msgstr "_Memorează pentru totdeauna"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:152
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
 msgid "Parents"
 msgstr "Superioare"
 
@@ -1959,11 +2129,11 @@ msgstr "Elimină depozitul din listă (nu șterge depozitul de pe disc)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "Arată modificările introduse de comitul selectat"
 
-#: plugins/files/gitg-files.vala:64
+#: plugins/files/gitg-files.vala:63
 msgid "Files"
 msgstr "Fișiere"
 
-#: plugins/files/gitg-files.vala:69
+#: plugins/files/gitg-files.vala:68
 msgid "Show the files in the tree of the selected commit"
 msgstr "Arată fișierele din arborele comitului selectat"
 
@@ -2248,9 +2418,6 @@ msgstr "Arată fișierele din arborele comitului selectat"
 
 #~ msgid "Properties"
 #~ msgstr "Proprietăți"
-
-#~ msgid "Changes"
-#~ msgstr "Modificări"
 
 #~ msgid "(Empty)"
 #~ msgstr "(Gol)"
