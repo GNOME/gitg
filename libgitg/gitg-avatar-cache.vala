@@ -75,7 +75,7 @@ public class Gitg.AvatarCache : Object
 		}
 		catch(Error e)
 		{
-			warning("Can not retrieve avatar from %s: %s", file.get_path(), e.message);
+			debug("Can not retrieve avatar from %s: %s", file.get_path(), e.message);
 			return null;
 		}
 
