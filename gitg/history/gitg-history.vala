@@ -572,6 +572,8 @@ namespace GitgHistory
 				});
 			});
 
+			d_main.refs_list.row_activated.connect(on_ref_list_row_activated);
+
 			var engine = Gitg.PluginsEngine.get_default();
 
 			var extset = new Peas.ExtensionSet(engine,
@@ -1090,6 +1092,20 @@ namespace GitgHistory
 			d_commit_list_model.set_permanent_lanes(permanent);
 			d_commit_list_model.set_include(include.to_array());
 			d_commit_list_model.reload();
+		}
+
+		private void on_ref_list_row_activated(Gtk.ListBoxRow row)
+		{
+			var ref_row = row as RefRow;
+			if (ref_row == null) {
+				return;
+			}
+
+			if (ref_row.reference.is_branch()) {
+				var af = new ActionInterface(application, d_main.refs_list);
+				var checkout = new Gitg.RefActionCheckout(application, af, ref_row.reference);
+				checkout.activate();
+			}
 		}
 
 		public bool search_available

@@ -584,6 +584,8 @@ public class RefsList : Gtk.ListBox
 		selection_mode = Gtk.SelectionMode.BROWSE;
 		d_remotes = new Gitg.Remote[0];
 
+		set_activate_on_single_click(false);
+
 		set_sort_func(sort_rows);
 		set_filter_func(filter_func);
 
