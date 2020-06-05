@@ -52,7 +52,7 @@ interface RecursiveScanner : Object
 		try
 		{
 			e = yield location.enumerate_children_async(FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_TYPE,
-		                                                FileQueryInfoFlags.NONE,
+		                                                FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
 		                                                Priority.DEFAULT,
 		                                                cancellable);
 		} catch { return; }
