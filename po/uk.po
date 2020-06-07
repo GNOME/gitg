@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-06-06 02:44+0000\n"
-"PO-Revision-Date: 2020-06-06 15:55+0300\n"
+"POT-Creation-Date: 2020-06-06 21:04+0000\n"
+"PO-Revision-Date: 2020-06-07 08:45+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -19,10 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 20.07.70\n"
-"X-Poedit-Language: Ukrainian\n"
-"X-Poedit-Country: UKRAINE\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Project-Style: gnome\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -863,7 +859,7 @@ msgstr "Daniel Korostil <ted.korostiled@gmail.com>"
 msgid "gitg homepage"
 msgstr "Домашня сторінка gitg"
 
-#: gitg/gitg-application.vala:368
+#: gitg/gitg-application.vala:393
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -1426,14 +1422,11 @@ msgstr "Проєкти"
 
 # Відкрити Git репозиторій
 #: gitg/gitg-window.vala:701
-#| msgctxt "shortcut window"
-#| msgid "Open a repository"
 msgid "Open Repository"
 msgstr "Відкрити сховище"
 
 # Відкрити…
 #: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
-#| msgid "Open"
 msgid "_Open"
 msgstr "_Відкрити"
 
@@ -1442,12 +1435,12 @@ msgid "Select items"
 msgstr "Вибрати елементи"
 
 # Не вдалося знайти Git репозиторій
-#: gitg/gitg-window.vala:1055
+#: gitg/gitg-window.vala:1062
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "«%s» — не сховище Git."
 
-#: gitg/gitg-window.vala:1204
+#: gitg/gitg-window.vala:1211
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1455,7 +1448,7 @@ msgstr ""
 "Ще не налаштовано користувача та пошту. Перейдіть у користувацькі параметри "
 "і вкажіть їх."
 
-#: gitg/gitg-window.vala:1208
+#: gitg/gitg-window.vala:1215
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1463,7 +1456,7 @@ msgstr ""
 "Ще не налаштовано користувача. Перейдіть у користувацькі параметри і вкажіть "
 "його."
 
-#: gitg/gitg-window.vala:1212
+#: gitg/gitg-window.vala:1219
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1471,7 +1464,7 @@ msgstr ""
 "Ще не налаштовано пошту. Перейдіть у користувацькі параметри і вкажіть її."
 
 # Детальна інформація
-#: gitg/gitg-window.vala:1215
+#: gitg/gitg-window.vala:1222
 msgid "Missing author details"
 msgstr "Немає подробиць щодо автора"
 
@@ -1531,17 +1524,17 @@ msgid "Remotes"
 msgstr "Віддалені"
 
 # Історія
-#: gitg/history/gitg-history.vala:342
+#: gitg/history/gitg-history.vala:347
 #: gitg/preferences/gitg-preferences-history.vala:218
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Журнал"
 
-#: gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:352
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:920
+#: gitg/history/gitg-history.vala:942
 msgid "Mainline"
 msgstr "Основа"
 
@@ -1886,7 +1879,7 @@ msgstr "Виберіть колір редактора"
 
 # Diff
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
-#: plugins/diff/gitg-diff.vala:115
+#: plugins/diff/gitg-diff.vala:120
 msgid "Diff"
 msgstr "Порівняти"
 
@@ -1937,7 +1930,6 @@ msgstr "Відкрити довідку"
 
 # Установки
 #: gitg/resources/ui/gitg-shortcuts.ui:54
-#| msgid "Preferences"
 msgctxt "shortcut window"
 msgid "Open preferences"
 msgstr "Відкрити налаштування"
@@ -2044,6 +2036,13 @@ msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Наступне повідомлення щодо внеску"
 
+#: gitg/resources/ui/gitg-shortcuts.ui:193
+#| msgctxt "shortcut window"
+#| msgid "Commit Activity"
+msgctxt "shortcut window"
+msgid "History Activity"
+msgstr "Дії з журналом"
+
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Показати список нещодавно використаних сховищ"
@@ -2067,7 +2066,6 @@ msgid "General settings and options"
 msgstr "Загальні параметри"
 
 #: gitg/resources/ui/gitg-window.ui:229
-#| msgid "Close"
 msgid "_Close"
 msgstr "З_акрити"
 
@@ -2306,21 +2304,15 @@ msgid ""
 "disk)"
 msgstr "Вилучити сховище зі списку (дані сховища не буде вилучено з диска)"
 
-#: plugins/diff/gitg-diff.vala:120
+#: plugins/diff/gitg-diff.vala:125
 msgid "Show the changes introduced by the selected commit"
 msgstr "Показати зміни у результаті вибраного внеску"
 
 # Файли
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:68
 msgid "Files"
 msgstr "Файли"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Показати файли у ієрархії вибраного внеску"
-
-#~ msgid "Clone"
-#~ msgstr "Клонувати"
-
-#~ msgid "Add"
-#~ msgstr "Додати"
