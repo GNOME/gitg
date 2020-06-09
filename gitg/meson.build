@@ -33,6 +33,7 @@ sources = gitg_sources + files(
   'gitg-convert.vala',
   'gitg-create-branch-dialog.vala',
   'gitg-create-tag-dialog.vala',
+  'gitg-checkout-remote-branch-dialog.vala',
   'gitg-dash-view.vala',
   'gitg-dirs.vala',
   'gitg-notifications.vala',
@@ -109,6 +110,7 @@ resource_data = files(
   'resources/ui/gitg-shortcuts.ui',
   'resources/ui/gitg-simple-notification.ui',
   'resources/ui/gitg-window.ui',
+  'resources/ui/gitg-checkout-remote-branch-dialog.ui',
   'resources/ui/style.css',
   'resources/ui/style-@0@.css'.format(platform_name),
 )

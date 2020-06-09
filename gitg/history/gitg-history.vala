@@ -1123,7 +1123,7 @@ namespace GitgHistory
 				return;
 			}
 
-			if (ref_row.reference.is_branch()) {
+			if (ref_row.reference.is_branch() || ref_row.reference.is_remote()) {
 				var af = new ActionInterface(application, d_main.refs_list);
 				var checkout = new Gitg.RefActionCheckout(application, af, ref_row.reference);
 				checkout.activate();

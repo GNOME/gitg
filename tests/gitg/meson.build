@@ -4,6 +4,7 @@ sources = gitg_sources + support_sources + files(
   'notifications-mock.vala',
   'ref-action-interface-mock.vala',
   'simple-notification-mock.vala',
+  'checkout-remote-branch-dialog-mock.vala',
   'test-checkout-ref.vala',
   'test-cherry-pick-commit.vala',
   'test-merge-ref.vala',

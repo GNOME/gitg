@@ -59,7 +59,7 @@ class RefActionCheckout : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, 
 		{
 			try
 			{
-				return reference.is_branch() && !((Ggit.Branch)reference).is_head();
+				return (reference.is_branch() && !((Ggit.Branch)reference).is_head()) || reference.is_remote();
 			} catch {}
 
 			return false;
@@ -127,9 +127,80 @@ class RefActionCheckout : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, 
 
 	public void activate()
 	{
-		checkout.begin((obj, res) => {
-			checkout.end(res);
-		});
+		if (reference.is_branch())
+		{
+			checkout.begin();
+		}
+		else if (reference.is_remote())
+		{
+			var dlg = new CheckoutRemoteBranchDialog((Gtk.Window)application, application.repository, reference);
+			dlg.response.connect((d, resp) => {
+				on_checkout_remote_branch_dialog_response(dlg, resp);
+			});
+
+			dlg.show();
+		}
+	}
+
+	private void on_checkout_remote_branch_dialog_response(Gitg.CheckoutRemoteBranchDialog dialog, int response_id) {
+		if (response_id == Gtk.ResponseType.OK)
+		{
+			string? remote_branch_name = dialog.track_remote ? dialog.remote_branch_name : null;
+
+			create_branch.begin(reference, dialog.new_branch_name, remote_branch_name, (obj, res) => {
+				var branch_ref = create_branch.end(res) as Gitg.Ref;
+
+				if (branch_ref != null)
+				{
+					action_interface.add_ref(branch_ref);
+					reference = branch_ref;
+					checkout.begin();
+				}
+			});
+		}
+
+		dialog.destroy();
+	}
+
+	private async Ggit.Branch? create_branch(Ggit.Ref reference, string new_branch_name, string? remote_branch_name)
+	{
+		Ggit.Branch? branch = null;
+
+		var repo = application.repository;
+
+		try
+		{
+			Gitg.Commit commit = reference.lookup() as Gitg.Commit;
+			branch = repo.create_branch(new_branch_name,
+			                            commit,
+			                            Ggit.CreateFlags.NONE);
+		}
+		catch (Error e)
+		{
+			application.show_infobar(_("Failed to create branch"),
+			                         e.message,
+			                         Gtk.MessageType.ERROR);
+		}
+
+		if (branch != null)
+		{
+			if (remote_branch_name != null) {
+				try
+				{
+					branch.set_upstream(remote_branch_name);
+				}
+				catch (Error e)
+				{
+					application.show_infobar(
+					   _("Failed to set the upstream branch %s for %s").printf(remote_branch_name,
+					   new_branch_name),
+					   e.message,
+					   Gtk.MessageType.ERROR);
+				}
+			}
+		}
+
+		return branch;
 	}
 }
 
