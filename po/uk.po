@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-06-06 21:04+0000\n"
-"PO-Revision-Date: 2020-06-07 08:45+0300\n"
+"POT-Creation-Date: 2020-06-12 10:25+0000\n"
+"PO-Revision-Date: 2020-06-12 15:14+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -647,6 +647,7 @@ msgstr "Ви справді хочете назавжди відкинути в�
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
@@ -989,6 +990,7 @@ msgstr "Створити гілку на вибраному внеску"
 
 # Не вдалося створити філію
 #: gitg/gitg-commit-action-create-branch.vala:75
+#: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
 msgstr "Не вдалося створити гілку"
 
@@ -1124,6 +1126,13 @@ msgstr "Не вдалося оновити HEAD: %s"
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
 msgstr "Здійснено успішний перехід до гілки у робочому каталозі"
+
+# Не вдалося створити філію
+#: gitg/gitg-ref-action-checkout.vala:195
+#, c-format
+#| msgid "Failed to delete branch %s"
+msgid "Failed to set the upstream branch %s for %s"
+msgstr "Не вдалося встановити основну гілку %s для %s"
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -1570,6 +1579,36 @@ msgstr "Ел. пошта:"
 #: gitg/resources/ui/gitg-author-details-dialog.ui:125
 msgid "Name:"
 msgstr "Ім'я:"
+
+# Створення філії
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
+#| msgid "Create Branch"
+msgid "Checkout Remote Branch"
+msgstr "Отримати віддалену гілку"
+
+# Оформити замовлення філії
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
+#| msgid "Checkout"
+msgid "C_heckout"
+msgstr "О_тримати"
+
+# Відділення:
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+#| msgid "Branch _name:"
+msgid "Local branch _name:"
+msgstr "_Назва локальної гілки:"
+
+# Створення філії
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+#| msgid "Create branch"
+msgid "_Remote branch:"
+msgstr "_Віддалена гілка:"
+
+# Створення філії
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
+#| msgid "Create branch"
+msgid "_Track remote branch"
+msgstr "Ст_ежити за віддаленою гілкою"
 
 # Сховище
 #: gitg/resources/ui/gitg-clone-dialog.ui:7
@@ -2037,8 +2076,6 @@ msgid "Next commit message"
 msgstr "Наступне повідомлення щодо внеску"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:193
-#| msgctxt "shortcut window"
-#| msgid "Commit Activity"
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Дії з журналом"
