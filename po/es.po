@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-06-08 14:09+0000\n"
-"PO-Revision-Date: 2020-06-09 17:06+0200\n"
+"POT-Creation-Date: 2020-06-12 10:00+0000\n"
+"PO-Revision-Date: 2020-06-12 12:26+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -929,6 +929,7 @@ msgid "Create a new branch at the selected commit"
 msgstr "Crear una rama nueva en el «commit» seleccionado"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
+#: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
 msgstr "Falló al crear la rama"
 
@@ -1050,6 +1051,12 @@ msgstr "Falló al actualizar HEAD: %s"
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
 msgstr "Rama descargada correctamente en la carpeta de trabajo"
+
+#: gitg/gitg-ref-action-checkout.vala:195
+#, c-format
+#| msgid "Failed to delete branch %s"
+msgid "Failed to set the upstream branch %s for %s"
+msgstr "Falló al establecer la rama principal %s para %s"
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -1794,7 +1801,6 @@ msgid "Open the help"
 msgstr "Abrir la ayuda"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
-#| msgid "Preferences"
 msgctxt "shortcut window"
 msgid "Open preferences"
 msgstr "Abrir preferencias"
@@ -1895,8 +1901,6 @@ msgid "Next commit message"
 msgstr "Siguiente mensaje de «commit»"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:193
-#| msgctxt "shortcut window"
-#| msgid "Commit Activity"
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "histórico de actividad"
@@ -1922,7 +1926,6 @@ msgid "General settings and options"
 msgstr "Configuración general y opciones"
 
 #: gitg/resources/ui/gitg-window.ui:229
-#| msgid "Close"
 msgid "_Close"
 msgstr "_Cerrar"
 
