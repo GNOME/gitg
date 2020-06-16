@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-06-12 10:00+0000\n"
-"PO-Revision-Date: 2020-06-12 12:26+0200\n"
+"POT-Creation-Date: 2020-06-12 10:32+0000\n"
+"PO-Revision-Date: 2020-06-16 09:28+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -621,6 +621,7 @@ msgstr ""
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
@@ -1054,7 +1055,6 @@ msgstr "Rama descargada correctamente en la carpeta de trabajo"
 
 #: gitg/gitg-ref-action-checkout.vala:195
 #, c-format
-#| msgid "Failed to delete branch %s"
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "Falló al establecer la rama principal %s para %s"
 
@@ -1478,6 +1478,31 @@ msgstr "Correo-e:"
 #: gitg/resources/ui/gitg-author-details-dialog.ui:125
 msgid "Name:"
 msgstr "Nombre:"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
+#| msgid "Create Branch"
+msgid "Checkout Remote Branch"
+msgstr "Descargar rama remota"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
+#| msgid "Checkout"
+msgid "C_heckout"
+msgstr "D_escargar"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+#| msgid "Local branches"
+msgid "Local branch _name:"
+msgstr "_Nombre de la rama locale:"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+#| msgid "Create branch"
+msgid "_Remote branch:"
+msgstr "Rama _remota:"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
+#| msgid "Create branch"
+msgid "_Track remote branch"
+msgstr "Cambiar a rama remo_ta"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:7
 msgid "Clone Repository"
@@ -2620,9 +2645,6 @@ msgstr "Mostrar los archivos en el árbol del commit seleccionado"
 
 #~ msgid "Loaded %d revisions in %.2fs"
 #~ msgstr "%d revisiones cargadas en %.2fs"
-
-#~ msgid "Local branches"
-#~ msgstr "Ramas locales"
 
 #~ msgid "Begin loading repository"
 #~ msgstr "Iniciar la carga del repositorio"
