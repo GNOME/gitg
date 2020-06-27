@@ -29,8 +29,20 @@ class CreateBranchDialog : Gtk.Dialog
 	[GtkChild]
 	private Gtk.Entry d_entry_branch_name;
 
+	[GtkChild]
+	private Gtk.CheckButton d_checkout_created;
+
+	private Settings d_settings;
+
 	construct
 	{
+		d_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.branch");
+
+		d_settings.bind("checkout-created-branch",
+		                d_checkout_created,
+		                "active",
+		                SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 		d_entry_branch_name.changed.connect(() => {
 			d_button_create.sensitive = (new_branch_name.length != 0);
 		});
@@ -54,6 +66,14 @@ class CreateBranchDialog : Gtk.Dialog
 		owned get
 		{
 			return d_entry_branch_name.text.strip();
+		}
+	}
+
+	public bool checkout_created
+	{
+		get
+		{
+			return d_checkout_created.active;
 		}
 	}
 }

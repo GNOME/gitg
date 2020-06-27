@@ -81,6 +81,12 @@ class CommitActionCreateBranch : GitgExt.UIElement, GitgExt.Action, GitgExt.Comm
 				{
 					action_interface.add_ref((Gitg.Ref)branch);
 				}
+
+				if (dlg.checkout_created)
+				{
+					var checkout = new RefActionCheckout(application, action_interface, (Gitg.Ref)branch);
+					checkout.checkout.begin();
+				}
 			}
 
 			dlg.destroy();
