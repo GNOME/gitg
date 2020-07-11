@@ -203,7 +203,7 @@ namespace Gitg
 			offset = commit.mylane * lane_width + (lane_width - dot_width) / 2.0;
 			radius = dot_width / 2.0;
 
-			context.set_line_width(2.0);
+			context.set_line_width(0.0);
 
 			context.arc(area.x + f(offset + radius),
 			            area.y + area.height / 2.0,
