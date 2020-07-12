@@ -206,9 +206,8 @@ configure_file(
 
 meson.add_install_script(
   'meson_post_install.py',
-  gitg_datadir,
-  (enable_python ? 'python' : ''),
-  gitg_libdir,
+  gitg_name,
+  gitg_datadir
 )
 
 output = '\nConfiguration:\n\n'

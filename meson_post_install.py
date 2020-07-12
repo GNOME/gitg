@@ -7,7 +7,9 @@ import subprocess
 import sys
 
 if not os.environ.get('DESTDIR'):
-  icondir = os.path.join(sys.argv[1], 'icons', 'hicolor')
+  gitg_name = sys.argv[1]
+  datadir = sys.argv[2]
+  icondir = os.path.join(datadir, 'icons', 'hicolor')
 
   name_pattern = re.compile('hicolor_(?:apps)_(?:\d+x\d+|scalable)_(.*)')
   search_pattern = '/**/hicolor_*'
@@ -18,10 +20,10 @@ if not os.environ.get('DESTDIR'):
   print('Update icon cache...')
   subprocess.call(['gtk-update-icon-cache', '-f', '-t', '-q', icondir])
 
-  icondir = os.path.join(sys.argv[1], 'gitg', 'icons', 'hicolor')
+  icondir = os.path.join(datadir, gitg_name, 'icons', 'hicolor')
   subprocess.call(['gtk-update-icon-cache', '-f', '-t', '-q', icondir])
 
-  schemadir = os.path.join(sys.argv[1], 'glib-2.0', 'schemas')
+  schemadir = os.path.join(datadir, 'glib-2.0', 'schemas')
   print('Compiling gsettings schemas...')
   subprocess.call(['glib-compile-schemas', schemadir])
 
