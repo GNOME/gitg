@@ -1,9 +1,5 @@
 include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
 
-stages:
-  - test
-  - deploy
-
 variables:
     BUNDLE: "gitg-git.flatpak"
 
@@ -16,13 +12,7 @@ flatpak:
     MESON_ARGS: "-Ddeprecations=true --buildtype=debugoptimized -Dprofile=development"
     APP_ID: "org.gnome.gitgDevel"
 
-review:
-  dependencies:
-    - 'flatpak'
-  extends: '.review'
-
-stop_review:
-  extends: '.stop_review'
-
 nightly:
   extends: '.publish_nightly'
+  dependencies: ['flatpak']
+  needs: ['flatpak']
