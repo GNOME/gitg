@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-01-27 12:31+0000\n"
-"PO-Revision-Date: 2020-02-07 13:35+0700\n"
+"POT-Creation-Date: 2020-07-12 17:28+0000\n"
+"PO-Revision-Date: 2020-08-14 18:26+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= n!=1;\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-DamnedLies-Scope: partial\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -28,8 +28,8 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Tak bisa mengurai XML dari stream"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
-#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
@@ -89,42 +89,46 @@ msgstr "Tinjauan tentang repositori yang digunakan baru-baru ini"
 msgid "The GNOME Project"
 msgstr "Proyek GNOME"
 
+#: data/org.gnome.gitg.desktop.in.in:3
+msgid "@binary@"
+msgstr "@binary@"
+
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Peramban repositori git"
 
-#: data/org.gnome.gitg.gschema.xml.in:27
+#: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
 msgstr "Direktori Klon Bawaan"
 
-#: data/org.gnome.gitg.gschema.xml.in:28
+#: data/org.gnome.gitg.gschema.xml.in:29
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr "Direktori bawaan dimana repositori baru mesti disarankan untuk diklon."
 
-#: data/org.gnome.gitg.gschema.xml.in:37
+#: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Orientasi antar muka utama (vertikal atau horisontal)"
 
-#: data/org.gnome.gitg.gschema.xml.in:38
+#: data/org.gnome.gitg.gschema.xml.in:39
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Pengaturan yang menentukan orientasi dari antar muka utama."
 
 # atau Kegiatan Baku
-#: data/org.gnome.gitg.gschema.xml.in:44
+#: data/org.gnome.gitg.gschema.xml.in:45
 msgid "Default Activity"
 msgstr "Aktifitas Bawaan"
 
-#: data/org.gnome.gitg.gschema.xml.in:45
+#: data/org.gnome.gitg.gschema.xml.in:46
 msgid "The activity which gitg activates by default when first launched."
 msgstr "Aktivitas yang gitg aktifkan secara bawaan saat pertama dijalankan."
 
-#: data/org.gnome.gitg.gschema.xml.in:51
+#: data/org.gnome.gitg.gschema.xml.in:52
 msgid "Use Default Font"
 msgstr "Gunakan Fonta Bawaan"
 
-#: data/org.gnome.gitg.gschema.xml.in:52
+#: data/org.gnome.gitg.gschema.xml.in:53
 msgid ""
 "Whether to use the system’s default fixed width font for widget's text "
 "instead of a font specific. If this option is turned off, then the font "
@@ -135,15 +139,15 @@ msgstr ""
 "dalam opsi \"Penyunting Fonta\" akan digunakan sebagai ganti fonta sistem."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
-#: data/org.gnome.gitg.gschema.xml.in:56
+#: data/org.gnome.gitg.gschema.xml.in:57
 msgid "'Monospace 12'"
 msgstr "'Monospace 12'"
 
-#: data/org.gnome.gitg.gschema.xml.in:57
+#: data/org.gnome.gitg.gschema.xml.in:58
 msgid "Editor Font"
 msgstr "Fonta Penyunting"
 
-#: data/org.gnome.gitg.gschema.xml.in:58
+#: data/org.gnome.gitg.gschema.xml.in:59
 msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
@@ -151,48 +155,48 @@ msgstr ""
 "Fonta khusus yang akan digunakan untuk widget teks. Ini hanya akan berlaku "
 "jika opsi \"Gunakan Fonta Bawaan\" dimatikan."
 
-#: data/org.gnome.gitg.gschema.xml.in:62
+#: data/org.gnome.gitg.gschema.xml.in:63
 msgid "Use Gravatar"
 msgstr "Gunakan Gravatar"
 
-#: data/org.gnome.gitg.gschema.xml.in:63
+#: data/org.gnome.gitg.gschema.xml.in:64
 msgid "Enable the use of gravatar to display user avatars."
 msgstr "Perbolehkan penggunaan gravatar untuk tampilan avatar pengguna."
 
-#: data/org.gnome.gitg.gschema.xml.in:69
+#: data/org.gnome.gitg.gschema.xml.in:70
 msgid "Enable Monitoring"
 msgstr "Fungsikan Pemantauan"
 
-#: data/org.gnome.gitg.gschema.xml.in:70
+#: data/org.gnome.gitg.gschema.xml.in:71
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "Otomatis memperbarui jika ada perubahan dari luar ke .git terdeteksi"
 
-#: data/org.gnome.gitg.gschema.xml.in:76
+#: data/org.gnome.gitg.gschema.xml.in:77
 msgid "Enable Diff Highlighting"
 msgstr "Fungsikan Penyorotan Diff"
 
-#: data/org.gnome.gitg.gschema.xml.in:77
+#: data/org.gnome.gitg.gschema.xml.in:78
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
 "Pengaturan yang menentukan apakah memfungsikan penyorotan sintaks dalam "
 "tilikan diff."
 
-#: data/org.gnome.gitg.gschema.xml.in:84
+#: data/org.gnome.gitg.gschema.xml.in:85
 msgid "Color scheme to use for syntax highlighting"
 msgstr "Skema warna yang digunakan untuk penyorotan sintaks"
 
-#: data/org.gnome.gitg.gschema.xml.in:85
+#: data/org.gnome.gitg.gschema.xml.in:86
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr ""
 "Digunakan oleh GtkSourceView untuk menentukan warna bagi penyorotan sintaks"
 
-#: data/org.gnome.gitg.gschema.xml.in:91
+#: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
 msgstr "Kapan Melipat Lajur Tak Aktif"
 
-#: data/org.gnome.gitg.gschema.xml.in:92
+#: data/org.gnome.gitg.gschema.xml.in:93
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -201,7 +205,7 @@ msgstr ""
 "dilipat. Nilai valid adalah 0 — 4, dimana 0 mengindikasikan \"masa awal\" "
 "dan 4 mengindikasikan \"masa akhir\"."
 
-#: data/org.gnome.gitg.gschema.xml.in:99
+#: data/org.gnome.gitg.gschema.xml.in:100
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -213,33 +217,33 @@ msgstr ""
 "yang lebih bersih ketika ada banyak pengembangan paralel. Lihat collapse-"
 "inactive-lanes untuk mengendalikan kapan jalur mesti dilipat."
 
-#: data/org.gnome.gitg.gschema.xml.in:108
+#: data/org.gnome.gitg.gschema.xml.in:109
 msgid "Show History in Topological Order"
 msgstr "Tampilkan Riwayat dalam Urutan Topologis"
 
-#: data/org.gnome.gitg.gschema.xml.in:109
+#: data/org.gnome.gitg.gschema.xml.in:110
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
 "Pengaturan yang mengindikasikan apakah menampilkan riwayat dalam urutan "
 "topologis."
 
-#: data/org.gnome.gitg.gschema.xml.in:115
+#: data/org.gnome.gitg.gschema.xml.in:116
 msgid "Show Stashed Changes"
 msgstr "Tunjukkan Perubahan Yang Di-stash-kan"
 
-#: data/org.gnome.gitg.gschema.xml.in:116
+#: data/org.gnome.gitg.gschema.xml.in:117
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
 "Pengaturan yang mengindikasikan apakah menampilkan butir bagi stash dalam "
 "riwayat."
 
-#: data/org.gnome.gitg.gschema.xml.in:123
+#: data/org.gnome.gitg.gschema.xml.in:124
 msgid "Show Staged Changes"
 msgstr "Tunjukkan Perubahan Yang Di-stage-kan"
 
-#: data/org.gnome.gitg.gschema.xml.in:124
+#: data/org.gnome.gitg.gschema.xml.in:125
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -247,11 +251,11 @@ msgstr ""
 "Pengaturan yang mengindikasikan apakah menampilkan butir virtual bagi "
 "perubahan yang kini disetor dalam riwayat."
 
-#: data/org.gnome.gitg.gschema.xml.in:131
+#: data/org.gnome.gitg.gschema.xml.in:132
 msgid "Show Unstaged Changes"
 msgstr "Tunjukkan Perubahan Yang Belum Di-stage-kan"
 
-#: data/org.gnome.gitg.gschema.xml.in:132
+#: data/org.gnome.gitg.gschema.xml.in:133
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -259,12 +263,12 @@ msgstr ""
 "Pengaturan yang mengindikasikan apakah menampilkan butir virtual bagi "
 "perubahan yang kini belum disetor dalam riwayat."
 
-#: data/org.gnome.gitg.gschema.xml.in:139
+#: data/org.gnome.gitg.gschema.xml.in:140
 msgid "Mainline Head"
 msgstr "Mainline Head"
 
 # dalam git, mainline ini bisa diartikan cabang utama
-#: data/org.gnome.gitg.gschema.xml.in:140
+#: data/org.gnome.gitg.gschema.xml.in:141
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -272,30 +276,30 @@ msgstr ""
 "Pengaturan yang mengindikasikan apakah selalu memelihara cabang utama dalam "
 "sebuah riwayat pada HEAD saat ini."
 
-#: data/org.gnome.gitg.gschema.xml.in:147
+#: data/org.gnome.gitg.gschema.xml.in:148
 msgid "Default selection of the history activity"
 msgstr "Pilihan bawaan pada riwayat aktivitas"
 
-#: data/org.gnome.gitg.gschema.xml.in:148
+#: data/org.gnome.gitg.gschema.xml.in:149
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr ""
 "Pengaturan yang menentukan pilihan bawaan pada permulaan riwayat aktivitas."
 
-#: data/org.gnome.gitg.gschema.xml.in:154
+#: data/org.gnome.gitg.gschema.xml.in:155
 msgid "Reference Sort Order"
 msgstr "Referensi Urutan Sortir"
 
-#: data/org.gnome.gitg.gschema.xml.in:155
+#: data/org.gnome.gitg.gschema.xml.in:156
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "Urutan di mana referensi dalam bilah sisi riwayat harus disortir."
 
-#: data/org.gnome.gitg.gschema.xml.in:161
+#: data/org.gnome.gitg.gschema.xml.in:162
 msgid "Show Upstream With Branch"
 msgstr "Tampilkan Upstream Dengan Cabang"
 
-#: data/org.gnome.gitg.gschema.xml.in:162
+#: data/org.gnome.gitg.gschema.xml.in:163
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -303,11 +307,11 @@ msgstr ""
 "Menentukan apakah juga menampilkan cabang upstream (remote) yang di-track "
 "ketika memilih suatu cabang lokal dalam tilikan riwayat."
 
-#: data/org.gnome.gitg.gschema.xml.in:178
+#: data/org.gnome.gitg.gschema.xml.in:188
 msgid "Show Right Margin in Commit Message View"
 msgstr "Tampilkan Marjin Kanan dalam Tilikan Pesan Komit"
 
-#: data/org.gnome.gitg.gschema.xml.in:179
+#: data/org.gnome.gitg.gschema.xml.in:189
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -316,11 +320,11 @@ msgstr ""
 "dipakai untuk melihat dengan mudah dimana memutus pesan komit pada kolom "
 "tertentu."
 
-#: data/org.gnome.gitg.gschema.xml.in:187
+#: data/org.gnome.gitg.gschema.xml.in:197
 msgid "Column at Which Right Margin is Shown"
 msgstr "Kolom Dimana Marjin Kanan Ditampilkan"
 
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:198
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -328,11 +332,11 @@ msgstr ""
 "Kolom dimana marjin kanan ditampilkan bila preferensi show-right-margin "
 "ditata ke TRUE."
 
-#: data/org.gnome.gitg.gschema.xml.in:195
+#: data/org.gnome.gitg.gschema.xml.in:205
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Tampilkan Marjin Subjek dalam Tilikan Pesan Komit"
 
-#: data/org.gnome.gitg.gschema.xml.in:196
+#: data/org.gnome.gitg.gschema.xml.in:206
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -340,11 +344,11 @@ msgstr ""
 "Sorot teks subjek dari pesan komit ketika itu melewati marjin yang "
 "dinyatakan oleh subject-margin-position."
 
-#: data/org.gnome.gitg.gschema.xml.in:203
+#: data/org.gnome.gitg.gschema.xml.in:213
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Kolom Tempat Marjin Subjek Ditampilkan"
 
-#: data/org.gnome.gitg.gschema.xml.in:204
+#: data/org.gnome.gitg.gschema.xml.in:214
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -352,11 +356,11 @@ msgstr ""
 "Kolom dimana marjin subjek ditampilkan bila preferensi show-subject-margin "
 "ditata ke TRUE."
 
-#: data/org.gnome.gitg.gschema.xml.in:211
+#: data/org.gnome.gitg.gschema.xml.in:221
 msgid "Enable Spell Checking"
 msgstr "Fungsikan Pemeriksaan Ejaan"
 
-#: data/org.gnome.gitg.gschema.xml.in:212
+#: data/org.gnome.gitg.gschema.xml.in:222
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -364,11 +368,11 @@ msgstr ""
 "Pengaturan yang menentukan apakah pemeriksaan ejaan difungsikan atau tidak "
 "ketika menulis sebuah pesan komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:219
+#: data/org.gnome.gitg.gschema.xml.in:229
 msgid "Spell Checking Language"
 msgstr "Bahasa Pemeriksaan Ejaan"
 
-#: data/org.gnome.gitg.gschema.xml.in:220
+#: data/org.gnome.gitg.gschema.xml.in:230
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -376,11 +380,11 @@ msgstr ""
 "Bahasa yang dipakai ketika pemeriksaan ejaan difungsikan untuk menulis "
 "sebuah pesan komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:227
+#: data/org.gnome.gitg.gschema.xml.in:237
 msgid "Maximum number of previous commit messages"
 msgstr "Maksimum berapa pesan komit sebelumnya"
 
-#: data/org.gnome.gitg.gschema.xml.in:228
+#: data/org.gnome.gitg.gschema.xml.in:238
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
@@ -388,11 +392,11 @@ msgstr ""
 "Maksimum berapa pesan komit sebelumnya yang disimpan untuk riwayat pesan "
 "komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:232
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Maximum number of days to store previous commit messages"
 msgstr "Maksimum berapa hari untuk menyimpan pesan komit sebelumnya"
 
-#: data/org.gnome.gitg.gschema.xml.in:233
+#: data/org.gnome.gitg.gschema.xml.in:243
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
@@ -400,21 +404,21 @@ msgstr ""
 "Maksimum berapa hari untuk menyimpan pesan komit sebelumnya pada riwayat "
 "pesan komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:239
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Use patience algorithm to show diffs"
 msgstr "Gunakan algoritma kesabaran untuk menampilkan diff"
 
-#: data/org.gnome.gitg.gschema.xml.in:240
+#: data/org.gnome.gitg.gschema.xml.in:250
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Pengaturan untuk menggunakan algoritma kesabaran untuk menunjukkan diff dari "
 "komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:246
+#: data/org.gnome.gitg.gschema.xml.in:256
 msgid "Ignore Whitespace Changes"
 msgstr "Abaikan Perubahan Whitespace"
 
-#: data/org.gnome.gitg.gschema.xml.in:247
+#: data/org.gnome.gitg.gschema.xml.in:257
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -422,31 +426,31 @@ msgstr ""
 "Pengaturan yang mengindikasikan apakah mengabaikan perubahan whitespace "
 "ketika menampilkan diff dari suatu komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:264
 msgid "Show Changes Inline"
 msgstr "Tampilkan Perubahan Inline"
 
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:265
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Pengaturan yang mengindikasikan apakah perubahan dalam baris-baris mesti "
 "ditampilkan di baris yang sama."
 
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:272
 msgid "Wrap"
 msgstr "Lipat"
 
-#: data/org.gnome.gitg.gschema.xml.in:263
+#: data/org.gnome.gitg.gschema.xml.in:273
 msgid "Wrap lines."
 msgstr "Lipat baris."
 
-#: data/org.gnome.gitg.gschema.xml.in:269
-#: data/org.gnome.gitg.gschema.xml.in:287
+#: data/org.gnome.gitg.gschema.xml.in:279
+#: data/org.gnome.gitg.gschema.xml.in:297
 msgid "Number of Before/After Context Lines"
 msgstr "Banyaknya Baris Konteks Sebelum/Setelah"
 
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:280
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -454,13 +458,13 @@ msgstr ""
 "Pengaturan yang menentukan berapa banyak baris konteks (sebelum dan setelah) "
 "mesti ditunjukkan ketika menampilkan diff dari suatu komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:277
-#: data/org.gnome.gitg.gschema.xml.in:296
+#: data/org.gnome.gitg.gschema.xml.in:287
+#: data/org.gnome.gitg.gschema.xml.in:306
 msgid "Rendered Width of a Tab Character"
 msgstr "Lebar Terrender dari suatu Karakter Tab"
 
-#: data/org.gnome.gitg.gschema.xml.in:278
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:288
+#: data/org.gnome.gitg.gschema.xml.in:307
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -468,7 +472,7 @@ msgstr ""
 "Pengaturan yang menentukan berapa banyak spasi yang mesti diduduki oleh "
 "sebuah karakter tab ketika menampilkan diff dari suatu komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:288
+#: data/org.gnome.gitg.gschema.xml.in:298
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -477,11 +481,11 @@ msgstr ""
 "mesti ditunjukkan ketika menampilkan diff yang akan di-stage-kan/tak di-"
 "stage-kan dalam area komit."
 
-#: gitg/commit/gitg-commit-dialog.vala:555 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
 msgstr "Tak ada perubahan untuk dikomit"
 
-#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Pakai amend untuk mengubah pesan komit dari komit sebelumnya"
 
@@ -610,12 +614,16 @@ msgstr "Anda yakin ingin membuang permanen perubahan yang dipilih?"
 #: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
-#: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:152
+#: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-simple-notification.ui:61
+#: gitg/resources/ui/gitg-window.ui:154
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "_Batal"
@@ -722,8 +730,6 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
 #: gitg/gitg-ref-action-merge.vala:194
-#: gitg/resources/ui/gitg-remote-notification.ui:30
-#: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
 msgstr "Batal"
 
@@ -799,7 +805,7 @@ msgstr ""
 msgid "gitg homepage"
 msgstr "Situs web gitg"
 
-#: gitg/gitg-application.vala:368
+#: gitg/gitg-application.vala:393
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -921,6 +927,7 @@ msgid "Create a new branch at the selected commit"
 msgstr "Buat sebuah cabang baru pada komit yang dipilih"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
+#: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
 msgstr "Gagal membuat cabang"
 
@@ -1042,6 +1049,11 @@ msgstr "Gagal memperbarui HEAD %s"
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
 msgstr "Sukses men-checkout cabang ke direktori kerja"
+
+#: gitg/gitg-ref-action-checkout.vala:195
+#, c-format
+msgid "Failed to set the upstream branch %s for %s"
+msgstr "Gagal menyetel cabang hulu %s untuk %s"
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -1268,7 +1280,7 @@ msgid "Merge %s into branch %s"
 msgstr "Merge %s ke cabang %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1181
 msgid "Tags"
 msgstr "Tag"
 
@@ -1294,36 +1306,43 @@ msgid "Failed to rename"
 msgstr "Gagal mengubah nama"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
-#: gitg/resources/ui/gitg-window.ui:227
 msgid "Close"
 msgstr "Tutup"
 
-#: gitg/gitg-window.vala:201
+#: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "Tambahkan Repositori"
 
-#: gitg/gitg-window.vala:205
+#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "T_ambah"
 
-#: gitg/gitg-window.vala:207
+#: gitg/gitg-window.vala:208
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Pindai semua repositori git dalam direktori ini"
 
-#: gitg/gitg-window.vala:516
+#: gitg/gitg-window.vala:517
 msgid "Projects"
 msgstr "Proyek"
 
-#: gitg/gitg-window.vala:815
+#: gitg/gitg-window.vala:701
+msgid "Open Repository"
+msgstr "Buat Repositori"
+
+#: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+msgid "_Open"
+msgstr "_Buka"
+
+#: gitg/gitg-window.vala:844
 msgid "Select items"
 msgstr "Pilih butir"
 
-#: gitg/gitg-window.vala:1026
+#: gitg/gitg-window.vala:1062
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” bukan suatu repositori Git."
 
-#: gitg/gitg-window.vala:1175
+#: gitg/gitg-window.vala:1211
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1331,7 +1350,7 @@ msgstr ""
 "Nama pengguna dan surel Anda belum ditata. Harap pergi ke konfigurasi "
 "pengguna dan isikan nama serta surel Anda."
 
-#: gitg/gitg-window.vala:1179
+#: gitg/gitg-window.vala:1215
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1339,7 +1358,7 @@ msgstr ""
 "Nama pengguna Anda belum ditata. Harap pergi ke konfigurasi pengguna dan "
 "isikan nama Anda."
 
-#: gitg/gitg-window.vala:1183
+#: gitg/gitg-window.vala:1219
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1347,7 +1366,7 @@ msgstr ""
 "Surel Anda belum ditata. Harap pergi ke konfigurasi pengguna dan isikan "
 "surel Anda."
 
-#: gitg/gitg-window.vala:1186
+#: gitg/gitg-window.vala:1222
 msgid "Missing author details"
 msgstr "Kehilangan rincian penulis"
 
@@ -1395,25 +1414,25 @@ msgstr "%zu di belakang"
 msgid "All commits"
 msgstr "Semua komit"
 
-#: gitg/history/gitg-history-refs-list.vala:1177
+#: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Branches"
 msgstr "Cabang"
 
-#: gitg/history/gitg-history-refs-list.vala:1178
+#: gitg/history/gitg-history-refs-list.vala:1180
 msgid "Remotes"
 msgstr "Remote"
 
-#: gitg/history/gitg-history.vala:342
+#: gitg/history/gitg-history.vala:347
 #: gitg/preferences/gitg-preferences-history.vala:218
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Riwayat"
 
-#: gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:352
 msgid "Examine the history of the repository"
 msgstr "Periksa riwayat repositori"
 
-#: gitg/history/gitg-history.vala:918
+#: gitg/history/gitg-history.vala:942
 msgid "Mainline"
 msgstr "Mainline"
 
@@ -1447,11 +1466,32 @@ msgstr "Surel:"
 msgid "Name:"
 msgstr "Nama:"
 
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
+msgid "Checkout Remote Branch"
+msgstr "Checkout Cabang Remote"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
+msgid "C_heckout"
+msgstr "C_heckout"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+msgid "Local branch _name:"
+msgstr "_Nama cabang lokal:"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+msgid "_Remote branch:"
+msgstr "Cabang _remote:"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
+msgid "_Track remote branch"
+msgstr "Lacak cabang remo_te"
+
 #: gitg/resources/ui/gitg-clone-dialog.ui:7
 msgid "Clone Repository"
 msgstr "Klon Repositori"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:33
+#: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "Kl_on"
 
@@ -1532,10 +1572,6 @@ msgstr "Penulis"
 msgid "Date"
 msgstr "Tanggal"
 
-#: gitg/resources/ui/gitg-commit-submodule-info.ui:70
-msgid "Open"
-msgstr "Buka"
-
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:7
 msgid "Create Branch"
 msgstr "Buat Cabang"
@@ -1548,6 +1584,10 @@ msgstr "Bua_t"
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:69
 msgid "Branch _name:"
 msgstr "_Nama cabang:"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:96
+msgid "_Checkout the created branch"
+msgstr "_Checkout cabang yang dibuat"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:7
 msgid "Create Tag"
@@ -1722,7 +1762,7 @@ msgid "Pick the editor font"
 msgstr "Pilih fonta penyunting"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
-#: plugins/diff/gitg-diff.vala:115
+#: plugins/diff/gitg-diff.vala:120
 msgid "Diff"
 msgstr "Diff"
 
@@ -1770,127 +1810,134 @@ msgstr "Buka bantuan"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
 msgctxt "shortcut window"
+msgid "Open preferences"
+msgstr "Buka preferensi"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:61
+msgctxt "shortcut window"
 msgid "Find"
 msgstr "Cari"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:61
+#: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Tutup jendela aktif"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:68
+#: gitg/resources/ui/gitg-shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Keluar aplikasi"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "Ubah ke Dash"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "Ubah ke Tampilan Riwayat"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "Ubah ke Tampilan Komit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Ubah ke aktivitas"
 
 # atau Kegiatan Baku
-#: gitg/resources/ui/gitg-shortcuts.ui:104
+#: gitg/resources/ui/gitg-shortcuts.ui:111
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "Komitkan Aktivitas"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:109
+#: gitg/resources/ui/gitg-shortcuts.ui:116
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "Pilih/Tidak Pilih"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:116
+#: gitg/resources/ui/gitg-shortcuts.ui:123
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "Buka dialog komit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:123
+#: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Stage-kan pilihan"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Unstage-kan pilihan"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Buang pilihan"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Sunting pilihan"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:152
+#: gitg/resources/ui/gitg-shortcuts.ui:159
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Dialog Komit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:157
+#: gitg/resources/ui/gitg-shortcuts.ui:164
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Komit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:164
+#: gitg/resources/ui/gitg-shortcuts.ui:171
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Batalkan Komit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:171
+#: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Pesan komit sebelumnya"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Pesan komit berikutnya"
+
+# atau Kegiatan Baku
+#: gitg/resources/ui/gitg-shortcuts.ui:193
+msgctxt "shortcut window"
+msgid "History Activity"
+msgstr "Aktivitas Riwayat"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Tampilkan daftar dari repositori yang baru-baru ini dipakai"
 
-#: gitg/resources/ui/gitg-window.ui:46
-msgid "Clone"
-msgstr "Klon"
-
-#: gitg/resources/ui/gitg-window.ui:47
+#: gitg/resources/ui/gitg-window.ui:48
 msgid "Clone repository"
 msgstr "Klon Repositori"
 
-#: gitg/resources/ui/gitg-window.ui:62
-msgid "Add"
-msgstr "Tambah"
-
-#: gitg/resources/ui/gitg-window.ui:63
+#: gitg/resources/ui/gitg-window.ui:65
 msgid "Add repository"
 msgstr "Tambah repositori"
 
-#: gitg/resources/ui/gitg-window.ui:87
+#: gitg/resources/ui/gitg-window.ui:89
 msgid "Find a word or phrase"
 msgstr "Cari sebuah kata atau frasa"
 
-#: gitg/resources/ui/gitg-window.ui:132
+#: gitg/resources/ui/gitg-window.ui:134
 msgid "General settings and options"
 msgstr "Opsi dan pengaturan dan umum"
+
+#: gitg/resources/ui/gitg-window.ui:229
+msgid "_Close"
+msgstr "_Tutup"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
@@ -2115,14 +2162,20 @@ msgid ""
 "disk)"
 msgstr "Buang repositori dari daftar (tak menghapus repositori dari disk)"
 
-#: plugins/diff/gitg-diff.vala:120
+#: plugins/diff/gitg-diff.vala:125
 msgid "Show the changes introduced by the selected commit"
 msgstr "Tampilkan perubahan yang diperkenalkan oleh komit yang dipilih"
 
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:68
 msgid "Files"
 msgstr "Berkas"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Tunjukkan berkas-berkas dalam pohon dari komit yang dipilih"
+
+#~ msgid "Clone"
+#~ msgstr "Klon"
+
+#~ msgid "Add"
+#~ msgstr "Tambah"
