@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-06-27 08:29+0000\n"
-"PO-Revision-Date: 2020-06-30 18:33-0400\n"
+"POT-Creation-Date: 2020-08-15 03:56+0000\n"
+"PO-Revision-Date: 2020-08-22 16:34-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -20,15 +20,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "无法从流中解析 XML"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
-#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
@@ -86,6 +86,10 @@ msgstr "当前所用仓库的概览"
 #: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "GNOME 项目"
+
+#: data/org.gnome.gitg.desktop.in.in:3
+msgid "@binary@"
+msgstr "@binary@"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -743,7 +747,8 @@ msgstr ""
 "Wylmer Wang <wantinghard@gmail.com>\n"
 "Mingye Wang <arthur2e5@aosc.xyz>\n"
 "Mandy Wang <wangmychn@gmail.com>\n"
-"Dingzhong Chen <wsxy162@gmail.com>"
+"Dingzhong Chen <wsxy162@gmail.com>\n"
+"Weiyi Xu <xuweiyi0923@gmail.com>"
 
 #: gitg/gitg-application.vala:238
 msgid "gitg homepage"
@@ -992,7 +997,7 @@ msgstr "成功检出分支到工作目录"
 #: gitg/gitg-ref-action-checkout.vala:195
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
-msgstr ""
+msgstr "无法为 %2$s 设置上游分支 %1$s"
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -1573,19 +1578,19 @@ msgstr "显示右边距的列(_M)："
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:196
 msgid "Maximum number of messages:"
-msgstr ""
+msgstr "最大消息数量："
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:220
 msgid "Maximum number of messages to keep for commit message history"
-msgstr ""
+msgstr "为提交消息历史记录保留的最大消息数量"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:232
 msgid "Maximum number of days:"
-msgstr ""
+msgstr "最大天数："
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:257
 msgid "Maximum number of days to keep for commit message history"
-msgstr ""
+msgstr "为提交消息历史记录保留的最大天数"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:284
 msgid "Language:"
@@ -1759,40 +1764,34 @@ msgid "Quit the application"
 msgstr "退出应用程序"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:82
-#, fuzzy
-#| msgid "Changes"
 msgctxt "shortcut window"
 msgid "Change to Dash"
-msgstr "变更"
+msgstr "更改为 Dash"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Change to History View"
-msgstr ""
+msgstr "更改为历史视图"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Commit View"
-msgstr ""
+msgstr "更改为提交视图"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:103
-#, fuzzy
-#| msgid "Start with activity:"
 msgctxt "shortcut window"
 msgid "Change to activity"
-msgstr "以特定活动启动："
+msgstr "更改为活动"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:111
-#, fuzzy
-#| msgid "Default Activity"
 msgctxt "shortcut window"
 msgid "Commit Activity"
-msgstr "默认活动"
+msgstr "提交活动"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:116
 msgctxt "shortcut window"
 msgid "Select/Unselect"
-msgstr ""
+msgstr "选择/取消选择"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:123
 msgctxt "shortcut window"
@@ -1800,32 +1799,24 @@ msgid "Open commit dialog"
 msgstr "打开提交对话框"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:130
-#, fuzzy
-#| msgid "_Stage selection"
 msgctxt "shortcut window"
 msgid "Stage selection"
-msgstr "暂存选中项(_S)"
+msgstr "暂存选中项"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:137
-#, fuzzy
-#| msgid "_Unstage selection"
 msgctxt "shortcut window"
 msgid "Unstage selection"
-msgstr "取消暂存选中项(_U)"
+msgstr "取消暂存选中项"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:144
-#, fuzzy
-#| msgid "D_iscard selection"
 msgctxt "shortcut window"
 msgid "Discard selection"
-msgstr "丢弃选中项(_I)"
+msgstr "丢弃选中项"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:151
-#, fuzzy
-#| msgid "_Stage selection"
 msgctxt "shortcut window"
 msgid "Edit selection"
-msgstr "暂存选中项(_S)"
+msgstr "编辑选项"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:159
 msgctxt "shortcut window"
@@ -1843,11 +1834,9 @@ msgid "Cancel Commit"
 msgstr "取消提交"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:178
-#, fuzzy
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Previous commit message"
-msgstr "提交说明"
+msgstr "上一个提交消息"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
