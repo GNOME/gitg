@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-06-27 08:29+0000\n"
-"PO-Revision-Date: 2020-06-27 17:10+0300\n"
+"POT-Creation-Date: 2020-07-12 12:36+0000\n"
+"PO-Revision-Date: 2020-08-26 22:40+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -25,8 +25,8 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr "Nepavyko perskaityti XML iš srauto"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
-#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
@@ -84,6 +84,10 @@ msgstr "Neseniai naudotų saugyklų apžvalga"
 #: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "GNOME projektas"
+
+#: data/org.gnome.gitg.desktop.in.in:3
+msgid "@binary@"
+msgstr "@binary@"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -1037,7 +1041,6 @@ msgstr "Sėkmingai išskleista šaka darbiniame kataloge"
 
 #: gitg/gitg-ref-action-checkout.vala:195
 #, c-format
-#| msgid "Failed to delete branch %s"
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "Nepavyko nustatyti paskirties šakos %s šakai %s"
 
@@ -1312,13 +1315,10 @@ msgid "Projects"
 msgstr "Projektai"
 
 #: gitg/gitg-window.vala:701
-#| msgctxt "shortcut window"
-#| msgid "Open a repository"
 msgid "Open Repository"
 msgstr "Atverti saugyklą"
 
 #: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
-#| msgid "Open"
 msgid "_Open"
 msgstr "_Atverti"
 
@@ -1456,27 +1456,22 @@ msgid "Name:"
 msgstr "Vardas:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
-#| msgid "Create Branch"
 msgid "Checkout Remote Branch"
 msgstr "Išskleisti nuotolinę šaką"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
-#| msgid "Checkout"
 msgid "C_heckout"
 msgstr "Iš_skleisti"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
-#| msgid "Branch _name:"
 msgid "Local branch _name:"
 msgstr "Vietinės šakos _pavadinimas:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
-#| msgid "Create branch"
 msgid "_Remote branch:"
 msgstr "_Nuotolinė šaka:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
-#| msgid "Create branch"
 msgid "_Track remote branch"
 msgstr "Sekti nuotolinę šaką"
 
@@ -1580,7 +1575,6 @@ msgid "Branch _name:"
 msgstr "Šakos _pavadinimas:"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:96
-#| msgid "Checkout the selected reference"
 msgid "_Checkout the created branch"
 msgstr "Iš_skleisti pažymėtą šaką"
 
@@ -1805,7 +1799,6 @@ msgid "Open the help"
 msgstr "Atverti žinyną"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
-#| msgid "Preferences"
 msgctxt "shortcut window"
 msgid "Open preferences"
 msgstr "Atverti nuostatas"
@@ -1906,8 +1899,6 @@ msgid "Next commit message"
 msgstr "Kitas patvirtinimo pranešimas"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:193
-#| msgctxt "shortcut window"
-#| msgid "Commit Activity"
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Istorinė veikla"
@@ -1933,7 +1924,6 @@ msgid "General settings and options"
 msgstr "Bendri nustatymai ir parametrai"
 
 #: gitg/resources/ui/gitg-window.ui:229
-#| msgid "Close"
 msgid "_Close"
 msgstr "_Užverti"
 
