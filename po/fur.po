@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-12 12:36+0000\n"
-"PO-Revision-Date: 2020-07-20 13:47+0200\n"
+"POT-Creation-Date: 2020-07-20 11:49+0000\n"
+"PO-Revision-Date: 2020-09-03 09:02+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -142,6 +142,10 @@ msgid ""
 "instead of a font specific. If this option is turned off, then the font "
 "named in the “Editor Font” option will be used instead of the system font."
 msgstr ""
+"Indiche se doprâ il caratar a largjece fisse predefinît dal sisteme pal test "
+"dal widget al puest di un specific caratar. Se cheste opzion e ven "
+"disativade, alore il caratar nomenât te opzion “Editôr di caratar” al "
+"vignarà doprât al puest dal caratars di sisteme."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
 #: data/org.gnome.gitg.gschema.xml.in:57
@@ -157,6 +161,8 @@ msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
 msgstr ""
+"Un caratar personalizât al vignarà doprât pai widget di test. Chest al varà "
+"efiets dome se la opzion “Dopre caratar predefinît” e je disativade."
 
 #: data/org.gnome.gitg.gschema.xml.in:63
 msgid "Use Gravatar"
@@ -188,11 +194,12 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:85
 msgid "Color scheme to use for syntax highlighting"
-msgstr ""
+msgstr "Scheme di colôrs di doprâ pe evidenziazion de sintassi"
 
 #: data/org.gnome.gitg.gschema.xml.in:86
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr ""
+"Doprât di GtkSourceView par determinâ i colôrs pe evidenziazion de sintassi"
 
 #: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
@@ -214,12 +221,13 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:109
 msgid "Show History in Topological Order"
-msgstr ""
+msgstr "Mostre la cronologjie intal ordin topologjic"
 
 #: data/org.gnome.gitg.gschema.xml.in:110
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
+"Impostazion che e indiche se mostrâ la cronologjie in ordin topologjic."
 
 #: data/org.gnome.gitg.gschema.xml.in:116
 msgid "Show Stashed Changes"
@@ -262,21 +270,23 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:148
 msgid "Default selection of the history activity"
-msgstr ""
+msgstr "Selezion predefinide de ativitât cronologjiche"
 
 #: data/org.gnome.gitg.gschema.xml.in:149
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr ""
+"Impostazion che e determine la selezion predefinide al inviament de ativitât "
+"cronologjiche."
 
 #: data/org.gnome.gitg.gschema.xml.in:155
 msgid "Reference Sort Order"
-msgstr ""
+msgstr "Ordenament dai riferiments"
 
 #: data/org.gnome.gitg.gschema.xml.in:156
 msgid "The order by which references in the history sidebar should be sorted."
-msgstr ""
+msgstr "L'ordin pai riferiments te sbare laterâl de cronologjie."
 
 #: data/org.gnome.gitg.gschema.xml.in:162
 msgid "Show Upstream With Branch"
@@ -357,26 +367,32 @@ msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr ""
+"La lenghe di doprâ cuant che il control ortografic al è abilitât pe scriture "
+"dal messaç di consegne."
 
 #: data/org.gnome.gitg.gschema.xml.in:237
 msgid "Maximum number of previous commit messages"
-msgstr ""
+msgstr "Numar massim di messaçs di consegne precedents"
 
 #: data/org.gnome.gitg.gschema.xml.in:238
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
 msgstr ""
+"Numar massim di messaçs di consegne precedents di archiviâ pe cronologjie "
+"dai messaçs di consegne."
 
 #: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Maximum number of days to store previous commit messages"
-msgstr ""
+msgstr "Numar massim di dîs di archiviâ pai messaçs di consegne precedents"
 
 #: data/org.gnome.gitg.gschema.xml.in:243
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
 msgstr ""
+"Numar massim di dîs di archiviâ pai messaçs di consegne precedents pe "
+"cronologjie dai messaçs di consegne."
 
 #: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Use patience algorithm to show diffs"
@@ -388,13 +404,15 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:256
 msgid "Ignore Whitespace Changes"
-msgstr ""
+msgstr "Ignore modifichis di spazis blancs"
 
 #: data/org.gnome.gitg.gschema.xml.in:257
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr ""
+"Impostazion che e indiche se ignorâ lis modifichis di spazis blancs cuant "
+"che si mostre il diff (diferencis) di une consegne."
 
 #: data/org.gnome.gitg.gschema.xml.in:264
 msgid "Show Changes Inline"
@@ -416,13 +434,15 @@ msgstr ""
 #: data/org.gnome.gitg.gschema.xml.in:279
 #: data/org.gnome.gitg.gschema.xml.in:297
 msgid "Number of Before/After Context Lines"
-msgstr ""
+msgstr "Numar di riis di contest prime e dopo"
 
 #: data/org.gnome.gitg.gschema.xml.in:280
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr ""
+"Impostazion che e determine tropis riis di contest (prime e dopo) e àn di "
+"jessi mostradis cuant che si mostre il diff (diferencis) di une consegne."
 
 #: data/org.gnome.gitg.gschema.xml.in:287
 #: data/org.gnome.gitg.gschema.xml.in:306
@@ -742,7 +762,7 @@ msgstr ""
 
 #: gitg/gitg-application.vala:44
 msgid "Do not try to load a repository from the current working directory"
-msgstr ""
+msgstr "No sta cirî di cjariâ un repository de cartele di lavôr atuâl"
 
 #: gitg/gitg-application.vala:46
 msgid "Run gitg in standalone mode"
@@ -775,6 +795,14 @@ msgid ""
 "Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
+"Nus displâs une vore, ma gitg al à bisugne che libgit2 (une librarie che di "
+"chê gitg al dipent) al sedi compilât cul supuart pal threading.\n"
+"\n"
+"Se si à compilât a man libgit2, alore configure libgit2 cun -DTHREADSAFE:"
+"BOOL=ON.\n"
+"\n"
+"In câs contrari, segnale un erôr tal sisteme di segnalazion erôrs de "
+"distribuzion doprade, indicant che libgit2 al è cence supuart pal threading."
 
 #: gitg/gitg-author-details-dialog.vala:79
 #: gitg/gitg-author-details-dialog.vala:99
@@ -795,7 +823,7 @@ msgstr "Passe sore ai detais globâi pal repository '%s':"
 
 #: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
-msgstr ""
+msgstr "No si è rivâts a stabilî la configurazion dal utent Git."
 
 #: gitg/gitg-clone-dialog.vala:89
 msgid "The URL introduced is not supported"
