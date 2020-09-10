@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-01-11 23:24+0000\n"
-"PO-Revision-Date: 2020-02-07 14:14+0100\n"
+"POT-Creation-Date: 2020-07-12 12:36+0000\n"
+"PO-Revision-Date: 2020-09-08 10:40+0200\n"
 "Last-Translator: Milo Casagrande <milo@milo.name>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -26,15 +26,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Impossibile leggere XML dallo stream"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
-#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
@@ -94,41 +94,45 @@ msgstr "Panoramica dei repository utilizzati di recente"
 msgid "The GNOME Project"
 msgstr "Il progetto GNOME"
 
+#: data/org.gnome.gitg.desktop.in.in:3
+msgid "@binary@"
+msgstr "@binary@"
+
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Browser di repository Git"
 
-#: data/org.gnome.gitg.gschema.xml.in:27
+#: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
 msgstr "Directory di clone predefinita"
 
-#: data/org.gnome.gitg.gschema.xml.in:28
+#: data/org.gnome.gitg.gschema.xml.in:29
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr "La directory predefinita dove i nuovi repository verranno copiati."
 
-#: data/org.gnome.gitg.gschema.xml.in:37
+#: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Orientamento dell'interfaccia principale (verticale od orizzontale)"
 
-#: data/org.gnome.gitg.gschema.xml.in:38
+#: data/org.gnome.gitg.gschema.xml.in:39
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Indica l'orientamento dell'interfaccia principale."
 
-#: data/org.gnome.gitg.gschema.xml.in:44
+#: data/org.gnome.gitg.gschema.xml.in:45
 msgid "Default Activity"
 msgstr "Attività predefinita"
 
-#: data/org.gnome.gitg.gschema.xml.in:45
+#: data/org.gnome.gitg.gschema.xml.in:46
 msgid "The activity which gitg activates by default when first launched."
 msgstr "L'attività avviata in modo predefinito al lancio del programma."
 
-#: data/org.gnome.gitg.gschema.xml.in:51
+#: data/org.gnome.gitg.gschema.xml.in:52
 msgid "Use Default Font"
 msgstr "Usare il carattere predefinito"
 
-#: data/org.gnome.gitg.gschema.xml.in:52
+#: data/org.gnome.gitg.gschema.xml.in:53
 msgid ""
 "Whether to use the system’s default fixed width font for widget's text "
 "instead of a font specific. If this option is turned off, then the font "
@@ -140,15 +144,15 @@ msgstr ""
 "\"Carattere dell'editor\" verrà utilizzato al posto di quello di sistema."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
-#: data/org.gnome.gitg.gschema.xml.in:56
+#: data/org.gnome.gitg.gschema.xml.in:57
 msgid "'Monospace 12'"
 msgstr "'Monospace 12'"
 
-#: data/org.gnome.gitg.gschema.xml.in:57
+#: data/org.gnome.gitg.gschema.xml.in:58
 msgid "Editor Font"
 msgstr "Carattere dell'editor"
 
-#: data/org.gnome.gitg.gschema.xml.in:58
+#: data/org.gnome.gitg.gschema.xml.in:59
 msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
@@ -157,50 +161,50 @@ msgstr ""
 "utilizzato soltanto se l'opzione \"Usare il carattere predefinito\" è "
 "disabilitata."
 
-#: data/org.gnome.gitg.gschema.xml.in:62
+#: data/org.gnome.gitg.gschema.xml.in:63
 msgid "Use Gravatar"
 msgstr "Usa gravatar"
 
-#: data/org.gnome.gitg.gschema.xml.in:63
+#: data/org.gnome.gitg.gschema.xml.in:64
 msgid "Enable the use of gravatar to display user avatars."
 msgstr "Abilita l'uso di gravatar per le immagini degli utenti."
 
-#: data/org.gnome.gitg.gschema.xml.in:69
+#: data/org.gnome.gitg.gschema.xml.in:70
 msgid "Enable Monitoring"
 msgstr "Abilita monitoraggio"
 
-#: data/org.gnome.gitg.gschema.xml.in:70
+#: data/org.gnome.gitg.gschema.xml.in:71
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr ""
 "Aggiorna automaticamente quando vengono rilevate modifiche esterne a .git"
 
-#: data/org.gnome.gitg.gschema.xml.in:76
+#: data/org.gnome.gitg.gschema.xml.in:77
 msgid "Enable Diff Highlighting"
 msgstr "Abilita evidenziazione nelle differenze"
 
-#: data/org.gnome.gitg.gschema.xml.in:77
+#: data/org.gnome.gitg.gschema.xml.in:78
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
 "Indica se abilitare l'evidenziazione della sintassi nella vista delle "
 "differenze."
 
-#: data/org.gnome.gitg.gschema.xml.in:84
+#: data/org.gnome.gitg.gschema.xml.in:85
 msgid "Color scheme to use for syntax highlighting"
 msgstr "Schema di colori da utilizzare per l'evidenziazione della sintassi"
 
-#: data/org.gnome.gitg.gschema.xml.in:85
+#: data/org.gnome.gitg.gschema.xml.in:86
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr ""
 "Utilizzato da GtkSourceView per determinare i colori per l'evidenziazione "
 "della sintassi"
 
-#: data/org.gnome.gitg.gschema.xml.in:91
+#: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
 msgstr "Quando ridurre le linee inattive"
 
-#: data/org.gnome.gitg.gschema.xml.in:92
+#: data/org.gnome.gitg.gschema.xml.in:93
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -208,7 +212,7 @@ msgstr ""
 "Indica quando una linea inattiva debba essere ridotta. I valori validi sono "
 "0 — 4, dove 0 indica \"presto\" e 4 indica \"tardi\"."
 
-#: data/org.gnome.gitg.gschema.xml.in:99
+#: data/org.gnome.gitg.gschema.xml.in:100
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -221,29 +225,29 @@ msgstr ""
 "sviluppo. Consultare collapse-inactive-lanes per controllare quando ridurre "
 "le altre linee."
 
-#: data/org.gnome.gitg.gschema.xml.in:108
+#: data/org.gnome.gitg.gschema.xml.in:109
 msgid "Show History in Topological Order"
 msgstr "Mostra la cronologia in ordine topologico"
 
-#: data/org.gnome.gitg.gschema.xml.in:109
+#: data/org.gnome.gitg.gschema.xml.in:110
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "Indica se bisogna mostrare la cronologia in ordine topologico."
 
-#: data/org.gnome.gitg.gschema.xml.in:115
+#: data/org.gnome.gitg.gschema.xml.in:116
 msgid "Show Stashed Changes"
 msgstr "Mostrare le modifiche nello stash"
 
-#: data/org.gnome.gitg.gschema.xml.in:116
+#: data/org.gnome.gitg.gschema.xml.in:117
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr "Indica se mostrare gli elementi dello stash nella cronologia."
 
-#: data/org.gnome.gitg.gschema.xml.in:123
+#: data/org.gnome.gitg.gschema.xml.in:124
 msgid "Show Staged Changes"
 msgstr "Mostrare le modifiche indicizzate"
 
-#: data/org.gnome.gitg.gschema.xml.in:124
+#: data/org.gnome.gitg.gschema.xml.in:125
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -251,11 +255,11 @@ msgstr ""
 "Indica se mostrare nella cronologia un elemento virtuale per le modifiche "
 "già indicizzate."
 
-#: data/org.gnome.gitg.gschema.xml.in:131
+#: data/org.gnome.gitg.gschema.xml.in:132
 msgid "Show Unstaged Changes"
 msgstr "Mostrare le modifiche non indicizzate"
 
-#: data/org.gnome.gitg.gschema.xml.in:132
+#: data/org.gnome.gitg.gschema.xml.in:133
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -263,42 +267,42 @@ msgstr ""
 "Indica se mostrare nella cronologia un elemento virtuale per le modifiche "
 "non indicizzate."
 
-#: data/org.gnome.gitg.gschema.xml.in:139
+#: data/org.gnome.gitg.gschema.xml.in:140
 msgid "Mainline Head"
 msgstr "HEAD mainline"
 
-#: data/org.gnome.gitg.gschema.xml.in:140
+#: data/org.gnome.gitg.gschema.xml.in:141
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
 msgstr ""
 "Indica se mantenere sempre una mainline nella cronologia per lo HEAD attuale."
 
-#: data/org.gnome.gitg.gschema.xml.in:147
+#: data/org.gnome.gitg.gschema.xml.in:148
 msgid "Default selection of the history activity"
 msgstr "Selezione predefinita per la cronologia dell'attività"
 
-#: data/org.gnome.gitg.gschema.xml.in:148
+#: data/org.gnome.gitg.gschema.xml.in:149
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr ""
 "Determina la selezione predefinita all'avvio per la cronologia dell'attività."
 
-#: data/org.gnome.gitg.gschema.xml.in:154
+#: data/org.gnome.gitg.gschema.xml.in:155
 msgid "Reference Sort Order"
 msgstr "Ordine riferimenti"
 
-#: data/org.gnome.gitg.gschema.xml.in:155
+#: data/org.gnome.gitg.gschema.xml.in:156
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr ""
 "L'ordine in cui i riferimenti nella cronologia dovrebbero essere ordinati."
 
-#: data/org.gnome.gitg.gschema.xml.in:161
+#: data/org.gnome.gitg.gschema.xml.in:162
 msgid "Show Upstream With Branch"
 msgstr "Mostra upstream col ramo"
 
-#: data/org.gnome.gitg.gschema.xml.in:162
+#: data/org.gnome.gitg.gschema.xml.in:163
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -306,11 +310,23 @@ msgstr ""
 "Indica se mostrare anche il ramo upstream (remoto) quando viene selezionato "
 "un ramo locale nella vista della cronologia."
 
-#: data/org.gnome.gitg.gschema.xml.in:178
+#: data/org.gnome.gitg.gschema.xml.in:172
+msgid "Switch to the new branch on creation"
+msgstr "Passa al nuovo ramo quando creato"
+
+#: data/org.gnome.gitg.gschema.xml.in:173
+msgid ""
+"Setting that controls whether the newly created branch is checked out "
+"automatically."
+msgstr ""
+"Impostazione che controlla se eseguire il checkout automatico del ramo "
+"creato."
+
+#: data/org.gnome.gitg.gschema.xml.in:188
 msgid "Show Right Margin in Commit Message View"
 msgstr "Mostra il margine destro nella vista del messaggio di commit"
 
-#: data/org.gnome.gitg.gschema.xml.in:179
+#: data/org.gnome.gitg.gschema.xml.in:189
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -319,11 +335,11 @@ msgstr ""
 "Questo può essere usato per vedere facilmente dove spezzare il messaggio di "
 "commit a una determinata colonna."
 
-#: data/org.gnome.gitg.gschema.xml.in:187
+#: data/org.gnome.gitg.gschema.xml.in:197
 msgid "Column at Which Right Margin is Shown"
 msgstr "Colonna sulla quale è mostrato il margine destro"
 
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:198
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -331,11 +347,11 @@ msgstr ""
 "La colonna sulla quale il margine destro viene mostrato se la preferenza "
 "show-right-margin è impostata a VERO."
 
-#: data/org.gnome.gitg.gschema.xml.in:195
+#: data/org.gnome.gitg.gschema.xml.in:205
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Mostra il margine dell'oggetto nella vista del messaggio di commit"
 
-#: data/org.gnome.gitg.gschema.xml.in:196
+#: data/org.gnome.gitg.gschema.xml.in:206
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -343,11 +359,11 @@ msgstr ""
 "Evidenzia il testo dell'oggetto del messaggio di commit quando supera il "
 "margine specificato da subject-margin-position."
 
-#: data/org.gnome.gitg.gschema.xml.in:203
+#: data/org.gnome.gitg.gschema.xml.in:213
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Colonna sulla quale è mostrato il margine dell'oggetto"
 
-#: data/org.gnome.gitg.gschema.xml.in:204
+#: data/org.gnome.gitg.gschema.xml.in:214
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -355,11 +371,11 @@ msgstr ""
 "La colonna sulla quale il margine dell'oggetto è mostrato se la preferenza "
 "show-subject-margin è impostata a VERO."
 
-#: data/org.gnome.gitg.gschema.xml.in:211
+#: data/org.gnome.gitg.gschema.xml.in:221
 msgid "Enable Spell Checking"
 msgstr "Abilitare la correzione ortografica"
 
-#: data/org.gnome.gitg.gschema.xml.in:212
+#: data/org.gnome.gitg.gschema.xml.in:222
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -367,11 +383,11 @@ msgstr ""
 "Indica se il controllo ortografico è abilitato o meno nello scrivere un "
 "messaggio di commit."
 
-#: data/org.gnome.gitg.gschema.xml.in:219
+#: data/org.gnome.gitg.gschema.xml.in:229
 msgid "Spell Checking Language"
 msgstr "Lingua del correttore ortografico"
 
-#: data/org.gnome.gitg.gschema.xml.in:220
+#: data/org.gnome.gitg.gschema.xml.in:230
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -379,11 +395,11 @@ msgstr ""
 "La lingua da usare per il controllo ortografico quando si scrive un "
 "messaggio di commit."
 
-#: data/org.gnome.gitg.gschema.xml.in:227
+#: data/org.gnome.gitg.gschema.xml.in:237
 msgid "Maximum number of previous commit messages"
 msgstr "Numero massimo di messaggi di commit precedenti"
 
-#: data/org.gnome.gitg.gschema.xml.in:228
+#: data/org.gnome.gitg.gschema.xml.in:238
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
@@ -391,11 +407,11 @@ msgstr ""
 "Numero massimo di messaggi di commit precedenti da archiviare per la "
 "cronologia dei messaggi."
 
-#: data/org.gnome.gitg.gschema.xml.in:232
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Maximum number of days to store previous commit messages"
 msgstr "Numero massimo di giorni di cui archiviare i messaggi di commit"
 
-#: data/org.gnome.gitg.gschema.xml.in:233
+#: data/org.gnome.gitg.gschema.xml.in:243
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
@@ -403,20 +419,20 @@ msgstr ""
 "Numero massimo di giorni di cui archiviare i messaggi di commit per la "
 "cronologia dei messaggi."
 
-#: data/org.gnome.gitg.gschema.xml.in:239
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Use patience algorithm to show diffs"
 msgstr "Utilizza l'algoritmo pazienza per mostrare le differenze"
 
-#: data/org.gnome.gitg.gschema.xml.in:240
+#: data/org.gnome.gitg.gschema.xml.in:250
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Indica se usare l'algoritmo pazienza per mostrare le differenze di un commit."
 
-#: data/org.gnome.gitg.gschema.xml.in:246
+#: data/org.gnome.gitg.gschema.xml.in:256
 msgid "Ignore Whitespace Changes"
 msgstr "Ignorare le modifiche agli spazi bianchi"
 
-#: data/org.gnome.gitg.gschema.xml.in:247
+#: data/org.gnome.gitg.gschema.xml.in:257
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -424,29 +440,29 @@ msgstr ""
 "Indica se ignorare le modifiche agli spazi bianchi quando vengono mostrare "
 "le differenze in un commit."
 
-#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:264
 msgid "Show Changes Inline"
 msgstr "Mostrare le modifiche in riga"
 
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:265
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr "Indica se mostrare le modifiche in riga."
 
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:272
 msgid "Wrap"
 msgstr "A capo"
 
-#: data/org.gnome.gitg.gschema.xml.in:263
+#: data/org.gnome.gitg.gschema.xml.in:273
 msgid "Wrap lines."
 msgstr "Manda a capo le righe."
 
-#: data/org.gnome.gitg.gschema.xml.in:269
-#: data/org.gnome.gitg.gschema.xml.in:287
+#: data/org.gnome.gitg.gschema.xml.in:279
+#: data/org.gnome.gitg.gschema.xml.in:297
 msgid "Number of Before/After Context Lines"
 msgstr "Numero di righe di contesto prima e dopo"
 
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:280
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -454,13 +470,13 @@ msgstr ""
 "Indica quante righe di contesto (prima e dopo) devono essere mostrate "
 "durante la visualizzazione delle differenze di un commit."
 
-#: data/org.gnome.gitg.gschema.xml.in:277
-#: data/org.gnome.gitg.gschema.xml.in:296
+#: data/org.gnome.gitg.gschema.xml.in:287
+#: data/org.gnome.gitg.gschema.xml.in:306
 msgid "Rendered Width of a Tab Character"
 msgstr "Larghezza visiva del carattere di tabulazione"
 
-#: data/org.gnome.gitg.gschema.xml.in:278
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:288
+#: data/org.gnome.gitg.gschema.xml.in:307
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -468,7 +484,7 @@ msgstr ""
 "Indica quanto spazio deve occupare un carattere di tabulazione nel mostrare "
 "le differenze di un commit."
 
-#: data/org.gnome.gitg.gschema.xml.in:288
+#: data/org.gnome.gitg.gschema.xml.in:298
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -477,11 +493,11 @@ msgstr ""
 "durante la visualizzazione delle differenze da indicizzare/de-indicizzare "
 "nel commit."
 
-#: gitg/commit/gitg-commit-dialog.vala:555 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
 msgstr "Non ci sono modifiche di cui eseguire il commit"
 
-#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Usare «amend» per modificare il messaggio del commit precedente"
 
@@ -612,12 +628,16 @@ msgstr "Scartare definitivamente le modifiche selezionate?"
 #: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
-#: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:152
+#: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-simple-notification.ui:61
+#: gitg/resources/ui/gitg-window.ui:154
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "A_nnulla"
@@ -719,8 +739,6 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
 #: gitg/gitg-ref-action-merge.vala:194
-#: gitg/resources/ui/gitg-remote-notification.ui:30
-#: gitg/resources/ui/gitg-simple-notification.ui:61
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -793,7 +811,7 @@ msgstr "Milo Casagrande <milo@ubuntu.com>"
 msgid "gitg homepage"
 msgstr "Sito web di gitg"
 
-#: gitg/gitg-application.vala:368
+#: gitg/gitg-application.vala:393
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -917,6 +935,7 @@ msgid "Create a new branch at the selected commit"
 msgstr "Crea un nuovo ramo al commit selezionato"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
+#: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
 msgstr "Creazione del branch non riuscita"
 
@@ -1039,6 +1058,11 @@ msgstr "Aggiornamento di HEAD non riuscito: %s"
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
 msgstr "Checkout del ramo sulla directory di lavoro eseguito con successo"
+
+#: gitg/gitg-ref-action-checkout.vala:195
+#, c-format
+msgid "Failed to set the upstream branch %s for %s"
+msgstr "Impostazione del ramo upstream %s per %s non riuscita"
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -1265,7 +1289,7 @@ msgid "Merge %s into branch %s"
 msgstr "Unisci %s nel ramo %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1181
 msgid "Tags"
 msgstr "Tag"
 
@@ -1291,36 +1315,43 @@ msgid "Failed to rename"
 msgstr "Rinomina non riuscita"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
-#: gitg/resources/ui/gitg-window.ui:227
 msgid "Close"
 msgstr "Chiudi"
 
-#: gitg/gitg-window.vala:201
+#: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "Aggiungi repository"
 
-#: gitg/gitg-window.vala:205
+#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "A_ggiungi"
 
-#: gitg/gitg-window.vala:207
+#: gitg/gitg-window.vala:208
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Cerca repository a partire da questa directory"
 
-#: gitg/gitg-window.vala:516
+#: gitg/gitg-window.vala:517
 msgid "Projects"
 msgstr "Progetti"
 
-#: gitg/gitg-window.vala:815
+#: gitg/gitg-window.vala:701
+msgid "Open Repository"
+msgstr "Apri repository"
+
+#: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+msgid "_Open"
+msgstr "_Apri"
+
+#: gitg/gitg-window.vala:844
 msgid "Select items"
 msgstr "Seleziona elementi"
 
-#: gitg/gitg-window.vala:1026
+#: gitg/gitg-window.vala:1062
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "«%s» non è un repository git."
 
-#: gitg/gitg-window.vala:1175
+#: gitg/gitg-window.vala:1211
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1328,7 +1359,7 @@ msgstr ""
 "L'indirizzo email e il nome utente non sono ancora stati configurati. Aprire "
 "la configurazione utente e fornirli entrambi."
 
-#: gitg/gitg-window.vala:1179
+#: gitg/gitg-window.vala:1215
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1336,7 +1367,7 @@ msgstr ""
 "Il nome utente non è ancora stato configurato. Aprire la configurazione "
 "utente e fornirne uno."
 
-#: gitg/gitg-window.vala:1183
+#: gitg/gitg-window.vala:1219
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1344,7 +1375,7 @@ msgstr ""
 "L'indirizzo email non è ancora stato configurato. Aprire la configurazione "
 "utente e fornirne uno."
 
-#: gitg/gitg-window.vala:1186
+#: gitg/gitg-window.vala:1222
 msgid "Missing author details"
 msgstr "Dettagli autore mancanti"
 
@@ -1392,25 +1423,25 @@ msgstr "%zu mancanti"
 msgid "All commits"
 msgstr "Tutti i commit"
 
-#: gitg/history/gitg-history-refs-list.vala:1177
+#: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Branches"
 msgstr "Rami"
 
-#: gitg/history/gitg-history-refs-list.vala:1178
+#: gitg/history/gitg-history-refs-list.vala:1180
 msgid "Remotes"
 msgstr "Remoti"
 
-#: gitg/history/gitg-history.vala:342
+#: gitg/history/gitg-history.vala:347
 #: gitg/preferences/gitg-preferences-history.vala:218
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Cronologia"
 
-#: gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:352
 msgid "Examine the history of the repository"
 msgstr "Esamina la cronologia del repository"
 
-#: gitg/history/gitg-history.vala:918
+#: gitg/history/gitg-history.vala:942
 msgid "Mainline"
 msgstr "Mainline"
 
@@ -1444,11 +1475,32 @@ msgstr "Email:"
 msgid "Name:"
 msgstr "Nome:"
 
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
+msgid "Checkout Remote Branch"
+msgstr "Checkout ramo remoto"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
+msgid "C_heckout"
+msgstr "Chec_kout"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+msgid "Local branch _name:"
+msgstr "_Nome ramo locale:"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+msgid "_Remote branch:"
+msgstr "_Ramo remoto:"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
+msgid "_Track remote branch"
+msgstr "_Segui ramo remoto"
+
 #: gitg/resources/ui/gitg-clone-dialog.ui:7
 msgid "Clone Repository"
 msgstr "Clona repository"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:33
+#: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "C_lona"
 
@@ -1529,10 +1581,6 @@ msgstr "Autore"
 msgid "Date"
 msgstr "Data"
 
-#: gitg/resources/ui/gitg-commit-submodule-info.ui:70
-msgid "Open"
-msgstr "Apri"
-
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:7
 msgid "Create Branch"
 msgstr "Crea ramo"
@@ -1545,6 +1593,10 @@ msgstr "C_rea"
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:69
 msgid "Branch _name:"
 msgstr "_Nome ramo:"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:96
+msgid "_Checkout the created branch"
+msgstr "C_heckout del ramo creato"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:7
 msgid "Create Tag"
@@ -1719,7 +1771,7 @@ msgid "Pick the editor font"
 msgstr "Scelta carattere dell'editor"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
-#: plugins/diff/gitg-diff.vala:115
+#: plugins/diff/gitg-diff.vala:120
 msgid "Diff"
 msgstr "Diff"
 
@@ -1767,126 +1819,132 @@ msgstr "Apre l'aiuto"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
 msgctxt "shortcut window"
+msgid "Open preferences"
+msgstr "Apre le preferenze"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:61
+msgctxt "shortcut window"
 msgid "Find"
 msgstr "Trova"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:61
+#: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Chiude la finestra attiva"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:68
+#: gitg/resources/ui/gitg-shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Esce dall'applicazione"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "Passa alla panoramica"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "Passa alla vista cronologia"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "Passa alla vista commit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Passa all'attività"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:104
+#: gitg/resources/ui/gitg-shortcuts.ui:111
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "Commit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:109
+#: gitg/resources/ui/gitg-shortcuts.ui:116
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "Seleziona/Deseleziona"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:116
+#: gitg/resources/ui/gitg-shortcuts.ui:123
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "Apre finestra di commit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:123
+#: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Indicizza selezione"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "De-indicizza selezione"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Scarta selezione"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Modifica selezione"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:152
+#: gitg/resources/ui/gitg-shortcuts.ui:159
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Finestra commit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:157
+#: gitg/resources/ui/gitg-shortcuts.ui:164
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Commit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:164
+#: gitg/resources/ui/gitg-shortcuts.ui:171
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Annulla commit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:171
+#: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Messaggio di commit precedente"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Messaggio di commit successivo"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:193
+msgctxt "shortcut window"
+msgid "History Activity"
+msgstr "Cronologia attività"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Mostra l'elenco dei repository usati recentemente"
 
-#: gitg/resources/ui/gitg-window.ui:46
-msgid "Clone"
-msgstr "Clona"
-
-#: gitg/resources/ui/gitg-window.ui:47
+#: gitg/resources/ui/gitg-window.ui:48
 msgid "Clone repository"
 msgstr "Clona un repository"
 
-#: gitg/resources/ui/gitg-window.ui:62
-msgid "Add"
-msgstr "Aggiungi"
-
-#: gitg/resources/ui/gitg-window.ui:63
+#: gitg/resources/ui/gitg-window.ui:65
 msgid "Add repository"
 msgstr "Aggiunge un repository"
 
-#: gitg/resources/ui/gitg-window.ui:87
+#: gitg/resources/ui/gitg-window.ui:89
 msgid "Find a word or phrase"
 msgstr "Trova una parola o frase"
 
-#: gitg/resources/ui/gitg-window.ui:132
+#: gitg/resources/ui/gitg-window.ui:134
 msgid "General settings and options"
 msgstr "Impostazioni generali e opzioni"
+
+#: gitg/resources/ui/gitg-window.ui:229
+msgid "_Close"
+msgstr "_Chiudi"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
@@ -2111,14 +2169,14 @@ msgid ""
 "disk)"
 msgstr "Rimuovere il repository dall'elenco (non lo elimina dal disco)"
 
-#: plugins/diff/gitg-diff.vala:120
+#: plugins/diff/gitg-diff.vala:125
 msgid "Show the changes introduced by the selected commit"
 msgstr "Mostra le modifiche introdotte dal commit selezionato"
 
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:68
 msgid "Files"
 msgstr "File"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Mostra i file nell'albero del commit selezionato"
