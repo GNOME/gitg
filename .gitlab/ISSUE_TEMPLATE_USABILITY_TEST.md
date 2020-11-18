@@ -1,3 +1,5 @@
+<!-- Make sure to check on the [Contribution Guide](../CONTRIBUTING.md) to design and run tests and to report results. -->
+
 # Objective
 The test goals. e.g.: Evaluate the features to add a remote repository and fix merge conflicts.
 
