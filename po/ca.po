@@ -44,8 +44,8 @@ msgid ""
 "repository and commit your work."
 msgstr ""
 "El gitg és una interfície gràfica d'usuari pel git. El seu objectiu és ser "
-"una eina ràpida i còmode per visualitzar l'historial de dipòsits git. A "
-"banda de la visualització, el gitg també incorpora diverses utilitats per "
+"una eina ràpida i còmode per a visualitzar l'historial de dipòsits git. A "
+"banda de la visualització, el gitg també incorpora diverses utilitats per a "
 "gestionar els dipòsits i publicar els vostres canvis."
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
@@ -59,7 +59,7 @@ msgstr "Navega pels dipòsits git locals"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
-msgstr "Clona dipòsits git tan locals com remots"
+msgstr "Clona dipòsits git tant locals com remots"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:21
 #| msgid "Commits"
@@ -146,7 +146,8 @@ msgstr ""
 "s'utilitzarà el tipus de lletra especificat a l'opció «Tipus de lletra de "
 "l'editor» en comptes del tipus de lletra del sistema."
 
-#. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
+#. Translators: This is a GSettings default value. Do NOT change or localize
+#. the quotation marks!
 #: data/org.gnome.gitg.gschema.xml.in:57
 msgid "'Monospace 12'"
 msgstr "'Monospace 12'"
@@ -170,7 +171,7 @@ msgstr "Utilitza Gravatar"
 
 #: data/org.gnome.gitg.gschema.xml.in:64
 msgid "Enable the use of gravatar to display user avatars."
-msgstr "Habilita l'ús de gravatar per mostrar els avatars dels usuaris."
+msgstr "Habilita l'ús de gravatar per a mostrar els avatars dels usuaris."
 
 #: data/org.gnome.gitg.gschema.xml.in:70
 #| msgid "Monitoring"
@@ -201,7 +202,7 @@ msgstr "L'esquema de color que s'ha d'utilitzar per al ressaltat de sintaxi"
 #: data/org.gnome.gitg.gschema.xml.in:86
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr ""
-"L'utilitza el GtkSourceView per decidir els colors del ressaltat de sintaxi"
+"L'utilitza el GtkSourceView per a decidir els colors del ressaltat de sintaxi"
 
 #: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
@@ -228,7 +229,7 @@ msgstr ""
 "Paràmetre que indica si s'han de contraure carrils de l'historial que no "
 "mostren cap activitat. Si habiliteu aquesta opció la visualització de "
 "l'historial serà més neta quan hi ha molts desenvolupaments en paral·lel. "
-"Vegeu l'opció «collapse-inactive-lanes» per controlar quan s'han de "
+"Vegeu l'opció «collapse-inactive-lanes» per a controlar quan s'han de "
 "contraure els carrils."
 
 #: data/org.gnome.gitg.gschema.xml.in:109
@@ -321,7 +322,7 @@ msgid ""
 "selecting a local branch in the history view."
 msgstr ""
 "Decideix si també s'ha de mostrar la branca de la font (remota) que se "
-"segueix quan es seleccioni una branca local a la vista de la història."
+"segueix quan se seleccioni una branca local a la vista de la història."
 
 #: data/org.gnome.gitg.gschema.xml.in:172
 msgid "Switch to the new branch on creation"
@@ -434,13 +435,13 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Use patience algorithm to show diffs"
-msgstr "Utilitza l'algorisme pacient per mostrar les diferències"
+msgstr "Utilitza l'algorisme pacient per a mostrar les diferències"
 
 #: data/org.gnome.gitg.gschema.xml.in:250
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
-"Paràmetre per utilitzar l'algorisme pacient per mostrar les diferències de "
-"les comissions."
+"Paràmetre per a utilitzar l'algorisme pacient per a mostrar les diferències "
+"de les comissions."
 
 #: data/org.gnome.gitg.gschema.xml.in:256
 msgid "Ignore Whitespace Changes"
@@ -511,12 +512,12 @@ msgstr ""
 
 #: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
-msgstr "No hi ha cap canvi per publicar"
+msgstr "No hi ha cap canvi per a publicar"
 
 #: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
-"Utilitzeu «corregeix» per canviar el missatge de publicació de l'última "
+"Utilitzeu «corregeix» per a canviar el missatge de publicació de l'última "
 "publicació"
 
 #: gitg/commit/gitg-commit.vala:113
@@ -800,22 +801,22 @@ msgstr "No s'han pogut extraure els conflictes: %s"
 
 #: gitg/gitg-action-support.vala:199
 msgid "Failed to obtain author details"
-msgstr "No s'ha pogut obtindre els detalls de l'autor"
+msgstr "No s'ha pogut obtenir els detalls de l'autor"
 
 #: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
 #, c-format
 msgid "Failed to lookup commit: %s"
-msgstr "No s'ha pogut cercar la publicació: %s "
+msgstr "No s'ha pogut cercar la publicació: %s"
 
 #: gitg/gitg-action-support.vala:255
 #, c-format
 msgid "Failed to create commit: %s"
-msgstr "No s'ha pogut crear la publicació: %s "
+msgstr "No s'ha pogut crear la publicació: %s"
 
 #: gitg/gitg-action-support.vala:277
 #, c-format
 msgid "Failed to checkout index: %s"
-msgstr "No s'ha pogut obtindre l'índex: %s"
+msgstr "No s'ha pogut obtenir l'índex: %s"
 
 #: gitg/gitg-application.vala:38
 #| msgid "Show the application's version"
@@ -946,8 +947,8 @@ msgid ""
 "the conflicts?"
 msgstr ""
 "Fer Cherry pick de %s dins de %s ha provocat conflictes, voleu extraure la "
-"branca %s amb el Cherry pick al vostre directori de treball per resoldre els "
-"conflictes?"
+"branca %s amb el Cherry pick al vostre directori de treball per a resoldre "
+"els conflictes?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
@@ -956,7 +957,7 @@ msgid ""
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
 "Fer Cherry pick de %s dins de %s ha provocat conflictes, voleu extraure el "
-"Cherry pick  al vostre directori de treball per resoldre els conflictes?"
+"Cherry pick  al vostre directori de treball per a resoldre els conflictes?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -1046,13 +1047,14 @@ msgstr "Selecciona i gestiona projectes"
 msgid "_Remove"
 msgstr "Sup_rimeix"
 
-#. Translators: the two %s will be replaced to create a link to perform the scanning action.
+#. Translators: the two %s will be replaced to create a link to perform the
+#. scanning action.
 #: gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
-"També podem %s escanejar el vostre directori personal %s per cercar dipòsits "
-"git. "
+"També podem %s escanejar el vostre directori personal %s per a cercar "
+"dipòsits git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: gitg/gitg-dash-view.vala:233
@@ -1176,7 +1178,8 @@ msgstr "Esteu segur que voleu suprimir permanentment la branca remota %s?"
 msgid "Failed to delete tag %s"
 msgstr "No s'ha pogut suprimir l'etiqueta %s"
 
-#. Translators: the first %s is the name of the tag, the second is an error message
+#. Translators: the first %s is the name of the tag, the second is an error
+#. message
 #: gitg/gitg-ref-action-delete.vala:122
 #, c-format
 msgid "The tag %s could not be deleted: %s"
@@ -1188,7 +1191,8 @@ msgstr "L'etiqueta %s no s'ha pogut esborrar: %s"
 msgid "Failed to delete branch %s"
 msgstr "No s'ha pogut suprimir la branca %s"
 
-#. Translators: the first %s is the name of the branch, the second is an error message
+#. Translators: the first %s is the name of the branch, the second is an error
+#. message
 #: gitg/gitg-ref-action-delete.vala:130
 #, c-format
 msgid "The branch %s could not be deleted: %s"
@@ -1309,7 +1313,7 @@ msgid ""
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
 "La fusió de %s dins de %s ha provocat conflictes, voleu extraure la branca "
-"%s amb la fusió al vostre directori de  treball per resoldre conflictes?"
+"%s amb la fusió al vostre directori de  treball per a resoldre conflictes?"
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -1318,7 +1322,7 @@ msgid ""
 "merge to your working directory to resolve the conflicts?"
 msgstr ""
 "La fusió de %s dins de %s ha provocat conflictes, voleu extraure la fusió al "
-"vostre directori de treball per resoldre conflictes?"
+"vostre directori de treball per a resoldre conflictes?"
 
 #: gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
@@ -1690,7 +1694,7 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
-"No s'han afegit dipòsits encara. Per començar, podeu afegir un dipòsit que "
+"No s'han afegit dipòsits encara. Per a començar, podeu afegir un dipòsit que "
 "ja existeixi o un clon."
 
 #: gitg/resources/ui/gitg-menus.ui:7
@@ -1784,7 +1788,7 @@ msgstr ""
 
 #: gitg/resources/ui/gitg-preferences-history.ui:135
 msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr "Mostra la branca font (remota) quan es seleccioni una branca local"
+msgstr "Mostra la branca font (remota) quan se seleccioni una branca local"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:154
 msgid "Commits"
@@ -1841,7 +1845,7 @@ msgstr "Utilitza el servei gravatar per a proporcionar avatars d'usuaris"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:168
 msgid "Monitoring"
-msgstr "S'està monitorant "
+msgstr "S'està monitorant"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:212
 msgid "Font"
@@ -2171,7 +2175,8 @@ msgstr "Obre la carpeta _pare"
 msgid "_Copy file path"
 msgstr "_Copia el camí del fitxer"
 
-#. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
+#. Translators: this is used to construct: "at <directory>", to indicate where
+#. the repository is at.
 #: libgitg/gitg-repository-list-box.vala:153
 #, c-format
 msgid "at %s"
@@ -2203,7 +2208,7 @@ msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
 msgstr ""
-"L'intent anterior per autenticar-vos ha fallat, torneu a proporcionar el "
+"L'intent anterior per a autenticar-vos ha fallat, torneu a proporcionar el "
 "vostre nom i contrasenya i proveu de nou."
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:95
@@ -2289,64 +2294,3 @@ msgstr "Fitxers"
 msgid "Show the files in the tree of the selected commit"
 msgstr "Mostra els fitxers a l'arbre per la publicació seleccionada"
 
-#~ msgid "Cannot set spell checking language: %s"
-#~ msgstr "No es pot establir la llengua per a la verificació ortogràfica: %s"
-
-#~ msgid "_Quit"
-#~ msgstr "_Surt"
-
-#~ msgid "Clone"
-#~ msgstr "Clona"
-
-#~| msgid "_Add"
-#~ msgid "Add"
-#~ msgstr "Afegeix"
-
-#~ msgid "_Delete"
-#~ msgstr "_Suprimeix"
-
-#, fuzzy
-#~ msgid "Failed to obtain HEAD tree: %s"
-#~ msgstr "No s'ha pogut desar temporalment el fitxer «%s»"
-
-#~ msgid "stage"
-#~ msgstr "desa temporalment"
-
-#~ msgid "unstage"
-#~ msgstr "treu del desat temporal"
-
-#~ msgid "Loading diff…"
-#~ msgstr "S'està carregant les diferències…"
-
-#~ msgid "Notes:"
-#~ msgstr "Notes:"
-
-#~ msgid "Diff against:"
-#~ msgstr "Calcula les diferències front a:"
-
-#~ msgid "_Help"
-#~ msgstr "A_juda"
-
-#~ msgid "Show changes inline"
-#~ msgstr "Mostra els canvis en línia"
-
-#~ msgid "Developer tools"
-#~ msgstr "Eines de desenvolupament"
-
-#~ msgid "column"
-#~ msgstr "columna"
-
-#~ msgid "Unable to open the .gitconfig file."
-#~ msgstr "No s'ha pogut obrir el fitxer .gitconfig."
-
-#~ msgid "Note: The Git config file '%s' does not exist."
-#~ msgstr "Nota: no existeix el fitxer de configuració Git «%s»."
-
-#~ msgid "Save"
-#~ msgstr "Desa"
-
-#~ msgid "_Clone Repository…"
-#~ msgstr "_Clona el dipòsit…"
-
-#~ msgid "Show stash in history"
-#~ msgstr "Mostra el desat temporal a l'historial"
