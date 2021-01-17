@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-20 11:49+0000\n"
-"PO-Revision-Date: 2020-09-03 09:02+0200\n"
+"POT-Creation-Date: 2021-01-03 21:37+0000\n"
+"PO-Revision-Date: 2021-01-17 16:18+0100\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -40,23 +40,21 @@ msgid ""
 "repository and commit your work."
 msgstr ""
 "gitg al è une interface utent grafiche par git. Al ponte a jessi un piçul, "
-"svelt e util imprest par visualizâ la cronologjie dai repository di git. "
-"Sore a dâ une visualizazion, gitg al furnìs ancje diviersis utilitâts par "
-"gjestî il to repository e consegnâ il to lavôr."
+"svelt e util imprest par visualizâ la cronologjie dai dipuesits di git. Sore "
+"a dâ une visualizazion, gitg al furnìs ancje diviersis utilitâts par gjestî "
+"il to dipuesit e consegnâ il to lavôr."
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Goals:"
 msgstr "Obietîfs:"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:19
-#, fuzzy
-#| msgid "Show the list of recently used repositories"
 msgid "Browse local git repositories"
-msgstr "Mostre la liste dai repository doprâts di resint"
+msgstr "Eplore i dipuesits git locâi"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
-msgstr "Clone i repository git locâi e rimots"
+msgstr "Clone i dipuesits git locâi e lontans"
 
 # commit verp o no?
 #: data/org.gnome.gitg.appdata.xml.in.in:21
@@ -65,14 +63,12 @@ msgid "Commit files"
 msgstr "Consegne i file"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:22
-#, fuzzy
-#| msgid "Create a patch from the selected commit"
 msgid "Retrieve patch from a commit"
-msgstr "Cree un blec partint de consegne selezionade"
+msgstr "Cree un blec partint di une consegne"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
-msgstr "Esplore cronologjie repository"
+msgstr "Esplore cronologjie dipuesits"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
@@ -85,10 +81,8 @@ msgid "Commit staged changes"
 msgstr "Scarte modifichis"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:44
-#, fuzzy
-#| msgid "Show the list of recently used repositories"
 msgid "Overview of recently used repositories"
-msgstr "Mostre la liste dai repository doprâts di resint"
+msgstr "Panoramiche dai dipuesits doprâts di resint"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
@@ -100,7 +94,7 @@ msgstr ""
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
-msgstr "Navigadôr di repository Git"
+msgstr "Navigadôr di dipuesits Git"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -111,8 +105,8 @@ msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr ""
-"La cartele predefinide dulà che i gnûfs repository e àn di jessi sugjerîts "
-"di jessi clonâts."
+"La cartele predefinide dulà che e ven sugjeride la clonazion dai gnûfs "
+"dipuesits."
 
 #: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Orientation of the main interface (vertical or horizontal)"
@@ -630,25 +624,19 @@ msgid "Failed to discard changes"
 msgstr "No si è rivâts a scartâ lis modifichis"
 
 #: gitg/commit/gitg-commit.vala:1457
-#, fuzzy, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the file "
-#| "`%s'?"
+#, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
-msgstr "Sigûrs di scartâ par simpri dutis lis modifichis fatis al file `%s'?"
+msgstr "Scartâ pardabon par simpri dutis lis modifichis fatis al file “%s”?"
 
 #: gitg/commit/gitg-commit.vala:1468
-#, fuzzy, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the "
-#| "files %s and `%s'?"
+#, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
 msgstr ""
-"Sigûrs di scartâ par simpri dutis lis modifichis fatis ai file %s e `%s'?"
+"Scartâ pardabon par simpri dutis lis modifichis fatis ai file %s e “%s”?"
 
 #: gitg/commit/gitg-commit.vala:1551
 msgid "Failed to delete files"
@@ -762,7 +750,7 @@ msgstr ""
 
 #: gitg/gitg-application.vala:44
 msgid "Do not try to load a repository from the current working directory"
-msgstr "No sta cirî di cjariâ un repository de cartele di lavôr atuâl"
+msgstr "No sta cirî di cjariâ un dipuesit de cartele di lavôr atuâl"
 
 #: gitg/gitg-application.vala:46
 msgid "Run gitg in standalone mode"
@@ -770,11 +758,11 @@ msgstr ""
 
 #: gitg/gitg-application.vala:92
 msgid "— Git repository viewer"
-msgstr "— visualizadôr di repository Git"
+msgstr "— visualizadôr di dipuesits Git"
 
 #: gitg/gitg-application.vala:226
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
-msgstr "gitg al è un visualizadôr di repository Git par GTK+/GNOME"
+msgstr "gitg al è un visualizadôr di dipuesits Git par GTK+/GNOME"
 
 #: gitg/gitg-application.vala:235
 msgid "translator-credits"
@@ -812,14 +800,13 @@ msgstr "Detais autôr"
 
 #: gitg/gitg-author-details-dialog.vala:80
 msgid "Enter default details used for all repositories:"
-msgstr "Inserìs i detais predefinîts doprâts par ducj i repository:"
+msgstr "Inserìs i detais predefinîts doprâts par ducj i dipuesits:"
 
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:102
-#, fuzzy, c-format
-#| msgid "Override global details for repository '%s':"
+#, c-format
 msgid "Override global details for repository “%s”:"
-msgstr "Passe sore ai detais globâi pal repository '%s':"
+msgstr "Passe sore ai detais globâi pal dipuesit “%s”:"
 
 #: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
@@ -959,8 +946,7 @@ msgstr "_Gjave"
 #: gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
-msgstr ""
-"O podin ancje %sanalizâ la tô cartele cjase%s par cjatâ repository git."
+msgstr "O podin ancje %sanalizâ la tô cartele cjase%s par cjatâ dipuesits git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: gitg/gitg-dash-view.vala:233
@@ -970,15 +956,15 @@ msgstr "Intant tu podaressis %sconfigurâ il to profîl git%s."
 
 #: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
-msgstr "No si è rivâts a clonâ il repository"
+msgstr "No si è rivâts a clonâ il dipuesit"
 
 #: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
-msgstr "No si è rivâts a zontâ il repository"
+msgstr "No si è rivâts a zontâ il dipuesit"
 
 #: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
-msgstr "Cree gnûf repository"
+msgstr "Cree gnûf dipuesit"
 
 #. Translators: %s is a file name
 #: gitg/gitg-dash-view.vala:448
@@ -990,11 +976,11 @@ msgstr ""
 
 #: gitg/gitg-dash-view.vala:454
 msgid "Create repository"
-msgstr "Cree repository"
+msgstr "Cree dipuesit"
 
 #: gitg/gitg-dash-view.vala:470
 msgid "Failed to create repository"
-msgstr "No si è rivâts a creâ il repository"
+msgstr "No si è rivâts a creâ il dipuesit"
 
 #: gitg/gitg-dash-view.vala:540
 #, c-format
@@ -1069,12 +1055,12 @@ msgstr "Sigûrs di eliminâ par simpri la etichete %s?"
 #: gitg/gitg-ref-action-delete.vala:83
 #, c-format
 msgid "Delete remote branch %s"
-msgstr "Elimine il ram rimot %s"
+msgstr "Elimine il ram lontan %s"
 
 #: gitg/gitg-ref-action-delete.vala:84
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr "Sigûrs di eliminâ par simpri il ram rimot %s?"
+msgstr "Sigûrs di eliminâ par simpri il ram lontan %s?"
 
 #. Translators: %s is the name of the tag
 #: gitg/gitg-ref-action-delete.vala:119
@@ -1108,7 +1094,7 @@ msgstr "Recupere di %s"
 #: gitg/gitg-ref-action-fetch.vala:85
 #, c-format
 msgid "Fetch remote objects from %s"
-msgstr "Recupere ogjets rimots di %s"
+msgstr "Recupere ogjets lontans di %s"
 
 #: gitg/gitg-ref-action-fetch.vala:98
 #, c-format
@@ -1287,7 +1273,7 @@ msgstr "Siere"
 
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
-msgstr "Zonte repository"
+msgstr "Zonte dipuesit"
 
 #: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
@@ -1303,7 +1289,7 @@ msgstr "Progjets"
 
 #: gitg/gitg-window.vala:701
 msgid "Open Repository"
-msgstr "Vierç repository"
+msgstr "Vierç dipuesit"
 
 #: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
@@ -1316,7 +1302,7 @@ msgstr "Selezione elements"
 #: gitg/gitg-window.vala:1062
 #, c-format
 msgid "“%s” is not a Git repository."
-msgstr "“%s” nol è un repository Git."
+msgstr "“%s” nol è un dipuesit Git."
 
 #: gitg/gitg-window.vala:1211
 msgid ""
@@ -1406,7 +1392,7 @@ msgstr "Cronologjie"
 
 #: gitg/history/gitg-history.vala:352
 msgid "Examine the history of the repository"
-msgstr "Esamine la cronologjie dal repository"
+msgstr "Esamine la cronologjie dal dipuesit"
 
 #: gitg/history/gitg-history.vala:942
 msgid "Mainline"
@@ -1432,7 +1418,7 @@ msgstr "_Salve"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:65
 msgid "Default details used for all repositories"
-msgstr "Detais predefinîts doprâts par ducj i repository"
+msgstr "Detais predefinîts doprâts par ducj i dipuesits"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:114
 msgid "E-mail:"
@@ -1443,24 +1429,20 @@ msgid "Name:"
 msgstr "Non:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
-#, fuzzy
-#| msgid "Delete remote branch %s"
 msgid "Checkout Remote Branch"
-msgstr "Elimine il ram rimot %s"
+msgstr "Elimine il ram lontan %s"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
 msgid "C_heckout"
 msgstr ""
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
-#, fuzzy
-#| msgid "Branch _name:"
 msgid "Local branch _name:"
-msgstr "_Non ram:"
+msgstr "_Non ram locâl:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
 msgid "_Remote branch:"
-msgstr "Ram _rimot:"
+msgstr "Ram _lontan:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
 #, fuzzy
@@ -1470,7 +1452,7 @@ msgstr "Cree ram"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:7
 msgid "Clone Repository"
-msgstr "Clone il repository"
+msgstr "Clone il dipuesit"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:33
 #: gitg/resources/ui/gitg-window.ui:47
@@ -1479,7 +1461,7 @@ msgstr "Cl_one"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:68
 msgid "Remote _URL:"
-msgstr "_URL rimot:"
+msgstr "_URL esterni:"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1782,7 +1764,7 @@ msgstr "Vierç il menù dal barcon"
 #: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Open a repository"
-msgstr "Vierç un repository"
+msgstr "Vierç un dipuesit"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
@@ -1906,15 +1888,15 @@ msgstr "Ativitât de cornologjie"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
-msgstr "Mostre la liste dai repository doprâts di resint"
+msgstr "Mostre la liste dai dipuesits doprâts di resint"
 
 #: gitg/resources/ui/gitg-window.ui:48
 msgid "Clone repository"
-msgstr "Clone repository"
+msgstr "Clone dipuesit"
 
 #: gitg/resources/ui/gitg-window.ui:65
 msgid "Add repository"
-msgstr "Zonte repository"
+msgstr "Zonte dipuesit"
 
 #: gitg/resources/ui/gitg-window.ui:89
 msgid "Find a word or phrase"
