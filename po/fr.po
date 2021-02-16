@@ -18,15 +18,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-12 12:36+0000\n"
-"PO-Revision-Date: 2020-08-23 18:10+0200\n"
+"POT-Creation-Date: 2020-08-24 10:07+0000\n"
+"PO-Revision-Date: 2020-09-18 12:12+0200\n"
 "Last-Translator: Thibault Martin <thibaultamartin@gnome.org>\n"
-"Language-Team: French <gnomefr@traduc.org>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Gtranslator 3.36.0\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -889,7 +889,7 @@ msgstr "Impossible de définir la configuration utilisateur."
 
 #: gitg/gitg-clone-dialog.vala:89
 msgid "The URL introduced is not supported"
-msgstr "L’URL donné n’est pas pris en charge"
+msgstr "L’URL donnée n’est pas prise en charge"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
@@ -1099,7 +1099,6 @@ msgstr "Extraction réussie de la branche vers le répertoire de travail"
 
 #: gitg/gitg-ref-action-checkout.vala:195
 #, c-format
-#| msgid "Failed to delete branch %s"
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "Impossible de définir la branche amont %s pour %s"
 
@@ -1375,13 +1374,10 @@ msgid "Projects"
 msgstr "Projets"
 
 #: gitg/gitg-window.vala:701
-#| msgctxt "shortcut window"
-#| msgid "Open a repository"
 msgid "Open Repository"
 msgstr "Ouvrir un dépôt"
 
 #: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
-#| msgid "Open"
 msgid "_Open"
 msgstr "_Ouvrir"
 
@@ -1526,27 +1522,22 @@ msgid "Name:"
 msgstr "Nom :"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
-#| msgid "Create Branch"
 msgid "Checkout Remote Branch"
 msgstr "Extraire la branche distante"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
-#| msgid "Checkout"
 msgid "C_heckout"
 msgstr "E_xtraire"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
-#| msgid "Branch _name:"
 msgid "Local branch _name:"
 msgstr "_Nom de la branche locale :"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
-#| msgid "Create branch"
 msgid "_Remote branch:"
 msgstr "Branche _distante :"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
-#| msgid "Create branch"
 msgid "_Track remote branch"
 msgstr "_Suivre la branche distante"
 
@@ -1561,7 +1552,7 @@ msgstr "Cl_oner"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:68
 msgid "Remote _URL:"
-msgstr "_URL distant :"
+msgstr "_URL distante :"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1651,7 +1642,6 @@ msgid "Branch _name:"
 msgstr "_Nom de la branche :"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:96
-#| msgid "Checkout the selected reference"
 msgid "_Checkout the created branch"
 msgstr "E_xtraire la branche créée"
 
@@ -1881,7 +1871,6 @@ msgid "Open the help"
 msgstr "Ouvrir l’aide"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
-#| msgid "Preferences"
 msgctxt "shortcut window"
 msgid "Open preferences"
 msgstr "Ouvrir les préférences"
@@ -1982,8 +1971,6 @@ msgid "Next commit message"
 msgstr "Message de commit suivant"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:193
-#| msgctxt "shortcut window"
-#| msgid "Commit Activity"
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Historique d’activité"
@@ -2009,7 +1996,6 @@ msgid "General settings and options"
 msgstr "Paramètres généraux et options"
 
 #: gitg/resources/ui/gitg-window.ui:229
-#| msgid "Close"
 msgid "_Close"
 msgstr "_Fermer"
 
