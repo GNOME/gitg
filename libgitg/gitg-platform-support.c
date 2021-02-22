@@ -50,7 +50,7 @@ GInputStream *
 gitg_platform_support_http_get_finish (GAsyncResult  *result,
                                        GError       **error)
 {
-	return G_INPUT_STREAM (g_file_read_finish (g_async_result_get_source_object (result), result, error));
+	return G_INPUT_STREAM (g_file_read_finish (G_FILE (g_async_result_get_source_object (result)), result, error));
 }
 
 cairo_surface_t *
