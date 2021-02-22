@@ -442,7 +442,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		if (s != null)
 		{
-			(buffer as Gtk.SourceBuffer).style_scheme = s;
+			((Gtk.SourceBuffer) buffer).style_scheme = s;
 		}
 	}
 

@@ -245,7 +245,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		foreach (var file in d_grid_files.get_children())
 		{
-			(file as Gitg.DiffViewFile).expanded = expanded;
+			((Gitg.DiffViewFile) file).expanded = expanded;
 		}
 	}
 
@@ -642,9 +642,9 @@ public class Gitg.DiffView : Gtk.Grid
 
 		foreach (var file in d_grid_files.get_children())
 		{
-			var selectable = (file as Gitg.DiffViewFile).renderer as DiffSelectable;
+			var selectable = ((Gitg.DiffViewFile) file).renderer as DiffSelectable;
 
-			if (selectable.has_selection)
+			if (selectable != null && selectable.has_selection)
 			{
 				something_selected = true;
 				break;
@@ -894,7 +894,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		foreach (var file in file_widgets)
 		{
-			var f = file as Gitg.DiffViewFile;
+			unowned DiffViewFile f = (DiffViewFile) file;
 
 			if (preserve_expanded && f.expanded)
 			{
@@ -944,7 +944,7 @@ public class Gitg.DiffView : Gtk.Grid
 	{
 		foreach (var file in d_grid_files.get_children())
 		{
-			if (!(file as Gitg.DiffViewFile).expanded)
+			if (!((Gitg.DiffViewFile) file).expanded)
 			{
 				auto_change_expanded(false);
 				return;
@@ -960,7 +960,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		foreach (var file in d_grid_files.get_children())
 		{
-			var sel = (file as Gitg.DiffViewFile).renderer as DiffSelectable;
+			var sel = ((Gitg.DiffViewFile) file).renderer as DiffSelectable;
 
 			if (sel != null && sel.has_selection && sel.selection.patches.length != 0)
 			{

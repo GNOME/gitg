@@ -259,7 +259,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void search_entry_changed(Gtk.Editable entry)
 	{
 		var searchable = current_activity as GitgExt.Searchable;
-		var ntext = (entry as Gtk.Entry).text;
+		var ntext = ((Gtk.Entry) entry).text;
 
 		if (ntext != searchable.search_text)
 		{

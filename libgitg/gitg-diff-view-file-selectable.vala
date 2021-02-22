@@ -50,7 +50,7 @@ class Gitg.DiffViewFileSelectable : Object
 		var ret = new int[0];
 		Gtk.TextIter iter;
 
-		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
 
 		buffer.get_start_iter(out iter);
 
@@ -161,7 +161,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 		start.set_line_offset(0);
 
-		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
 
 		return buffer.get_source_marks_at_iter(start, d_selection_category) != null;
 	}
@@ -172,7 +172,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 		start.set_line_offset(0);
 
-		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
 
 		return (buffer.get_source_marks_at_iter(start, "added") != null) ||
 		       (buffer.get_source_marks_at_iter(start, "removed") != null);
@@ -184,7 +184,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 		start.set_line_offset(0);
 
-		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
 
 		return buffer.get_source_marks_at_iter(start, "header") != null;
 	}
@@ -225,7 +225,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 	private void update_selection_range(Gtk.TextIter start, Gtk.TextIter end, bool select)
 	{
-		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
 
 		Gtk.TextIter real_start, real_end;
 
@@ -319,7 +319,7 @@ class Gitg.DiffViewFileSelectable : Object
 	{
 		iter.forward_line();
 
-		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
 
 		if (!buffer.forward_iter_to_source_mark(ref iter, "header"))
 		{
@@ -480,7 +480,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 	private void update_has_selection()
 	{
-		var buffer = source_view.buffer;
+		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
 
 		Gtk.TextIter iter;
 		buffer.get_start_iter(out iter);
@@ -493,7 +493,7 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 		else
 		{
-			something_selected = (buffer as Gtk.SourceBuffer).forward_iter_to_source_mark(ref iter, d_selection_category);
+			something_selected = buffer.forward_iter_to_source_mark(ref iter, d_selection_category);
 		}
 
 		if (something_selected != has_selection)
