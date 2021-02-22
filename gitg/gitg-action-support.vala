@@ -122,7 +122,7 @@ public class ActionSupport : Object
 		return head != null;
 	}
 
-	public async bool stash_if_needed(SimpleNotification notification, Gitg.Ref head)
+	public async bool stash_if_needed(SimpleNotification notification, Gitg.Ref? head)
 	{
 		// Offer to stash if there are any local changes
 		if ((yield working_directory_dirty()))
