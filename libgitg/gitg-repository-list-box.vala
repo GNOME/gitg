@@ -39,21 +39,21 @@ namespace Gitg
 			private DateTime d_time = new DateTime.now_local();
 			private bool d_loading;
 			[GtkChild]
-			private ProgressBin d_progress_bin;
+			private unowned ProgressBin d_progress_bin;
 			[GtkChild]
-			private Gtk.Label d_repository_label;
+			private unowned Gtk.Label d_repository_label;
 			[GtkChild]
-			private Gtk.Label d_description_label;
+			private unowned Gtk.Label d_description_label;
 			[GtkChild]
-			private Gtk.Label d_branch_label;
+			private unowned Gtk.Label d_branch_label;
 			[GtkChild]
-			private Gtk.Spinner d_spinner;
+			private unowned Gtk.Spinner d_spinner;
 			[GtkChild]
-			private Gtk.CheckButton d_remove_check_button;
+			private unowned Gtk.CheckButton d_remove_check_button;
 			[GtkChild]
-			private Gtk.Revealer d_remove_revealer;
+			private unowned Gtk.Revealer d_remove_revealer;
 			[GtkChild]
-			private Gtk.Box d_languages_box;
+			private unowned Gtk.Box d_languages_box;
 
 			public signal void request_remove();
 

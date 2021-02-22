@@ -24,10 +24,10 @@ namespace GitgCommit
 class SubmoduleHistoryView : Gtk.Paned
 {
   [GtkChild (name = "commit_list_view")]
-  private Gitg.CommitListView d_commit_list_view;
+  private unowned Gitg.CommitListView d_commit_list_view;
 
   [GtkChild (name = "diff_view")]
-  private Gitg.DiffView d_diff_view;
+  private unowned Gitg.DiffView d_diff_view;
 
   public Gitg.CommitListView commit_list_view
   {

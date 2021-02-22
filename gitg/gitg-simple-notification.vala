@@ -27,19 +27,19 @@ public class SimpleNotification : Gtk.Grid, GitgExt.Notification
 	private const string version = Gitg.Config.VERSION;
 
 	[GtkChild( name = "spinner" )]
-	private Gtk.Spinner d_spinner;
+	private unowned Gtk.Spinner d_spinner;
 
 	[GtkChild( name = "image_icon" )]
-	private Gtk.Image d_image_icon;
+	private unowned Gtk.Image d_image_icon;
 
 	[GtkChild( name = "label_title" )]
-	private Gtk.Label d_label_title;
+	private unowned Gtk.Label d_label_title;
 
 	[GtkChild( name = "label_message" )]
-	private Gtk.Label d_label_message;
+	private unowned Gtk.Label d_label_message;
 
 	[GtkChild( name = "button_cancel" )]
-	private Gtk.Button d_button_cancel;
+	private unowned Gtk.Button d_button_cancel;
 
 	private bool d_finished;
 

@@ -24,28 +24,28 @@ namespace GitgCommit
 class Paned : Gtk.Paned
 {
 	[GtkChild (name = "tree_view_files")]
-	private Sidebar d_tree_view_files;
+	private unowned Sidebar d_tree_view_files;
 
 	[GtkChild (name = "diff_view")]
-	private Gitg.DiffView d_diff_view;
+	private unowned Gitg.DiffView d_diff_view;
 
 	[GtkChild (name = "submodule_history_view")]
-	private SubmoduleHistoryView d_submodule_history_view;
+	private unowned SubmoduleHistoryView d_submodule_history_view;
 
 	[GtkChild (name = "submodule_diff_view")]
-	private SubmoduleDiffView d_submodule_diff_view;
+	private unowned SubmoduleDiffView d_submodule_diff_view;
 
 	[GtkChild (name = "check_button_skip_hooks")]
-	private Gtk.CheckButton d_check_button_skip_hooks;
+	private unowned Gtk.CheckButton d_check_button_skip_hooks;
 
 	[GtkChild (name = "button_commit")]
-	private Gtk.Button d_button_commit;
+	private unowned Gtk.Button d_button_commit;
 
 	[GtkChild (name = "button_stage")]
-	private Gtk.Button d_button_stage;
+	private unowned Gtk.Button d_button_stage;
 
 	[GtkChild (name = "button_discard")]
-	private Gtk.Button d_button_discard;
+	private unowned Gtk.Button d_button_discard;
 
 	public Sidebar sidebar
 	{

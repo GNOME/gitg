@@ -54,61 +54,61 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	// Widgets
 	[GtkChild]
-	private Gtk.HeaderBar d_header_bar;
+	private unowned Gtk.HeaderBar d_header_bar;
 	[GtkChild]
-	private Gtk.ToggleButton d_search_button;
+	private unowned Gtk.ToggleButton d_search_button;
 	[GtkChild]
-	private Gtk.MenuButton d_gear_menu;
+	private unowned Gtk.MenuButton d_gear_menu;
 	[GtkChild]
-	private Gtk.Image gear_image;
+	private unowned Gtk.Image gear_image;
 	private MenuModel d_activities_model;
 	private MenuModel? d_dash_model;
 
 	[GtkChild]
-	private Gtk.Grid d_grid_main;
+	private unowned Gtk.Grid d_grid_main;
 
 	[GtkChild]
-	private Gtk.Grid d_grid_top;
+	private unowned Gtk.Grid d_grid_top;
 
 	[GtkChild]
-	private Gtk.ToggleButton d_select_button;
+	private unowned Gtk.ToggleButton d_select_button;
 	[GtkChild]
-	private Gtk.Button d_select_cancel_button;
+	private unowned Gtk.Button d_select_cancel_button;
 
 	[GtkChild]
-	private Gtk.Button d_dash_button;
+	private unowned Gtk.Button d_dash_button;
 	[GtkChild]
-	private Gtk.Button d_clone_button;
+	private unowned Gtk.Button d_clone_button;
 	[GtkChild]
-	private Gtk.Button d_add_button;
+	private unowned Gtk.Button d_add_button;
 	[GtkChild]
-	private Gtk.Image dash_image;
+	private unowned Gtk.Image dash_image;
 	[GtkChild]
-	private Gtk.StackSwitcher d_activities_switcher;
+	private unowned Gtk.StackSwitcher d_activities_switcher;
 
 	[GtkChild]
-	private Gtk.SearchBar d_search_bar;
+	private unowned Gtk.SearchBar d_search_bar;
 	[GtkChild]
-	private Gtk.SearchEntry d_search_entry;
+	private unowned Gtk.SearchEntry d_search_entry;
 
 	[GtkChild]
-	private Gtk.Stack d_main_stack;
+	private unowned Gtk.Stack d_main_stack;
 
 	[GtkChild]
-	private DashView d_dash_view;
+	private unowned DashView d_dash_view;
 
 	[GtkChild]
-	private Gtk.Stack d_stack_activities;
+	private unowned Gtk.Stack d_stack_activities;
 
 	[GtkChild]
-	private Gtk.InfoBar d_infobar;
+	private unowned Gtk.InfoBar d_infobar;
 	[GtkChild]
-	private Gtk.Label d_infobar_primary_label;
+	private unowned Gtk.Label d_infobar_primary_label;
 	[GtkChild]
-	private Gtk.Label d_infobar_secondary_label;
+	private unowned Gtk.Label d_infobar_secondary_label;
 
 	[GtkChild]
-	private Gtk.Overlay d_overlay;
+	private unowned Gtk.Overlay d_overlay;
 
 	enum Mode
 	{

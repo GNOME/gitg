@@ -27,13 +27,13 @@ class CreateTagDialog : Gtk.Dialog
 	private const string version = Gitg.Config.VERSION;
 
 	[GtkChild]
-	private Gtk.Button d_button_create;
+	private unowned Gtk.Button d_button_create;
 
 	[GtkChild]
-	private Gtk.Entry d_entry_tag_name;
+	private unowned Gtk.Entry d_entry_tag_name;
 
 	[GtkChild]
-	private Gtk.TextView d_text_view_message;
+	private unowned Gtk.TextView d_text_view_message;
 
 	private Gtk.TextTag d_info_tag;
 	private bool d_is_showing_user_info;

@@ -30,19 +30,19 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 	private bool d_setting_mode;
 
 	[GtkChild( name = "introduction" )]
-	private Gtk.Grid d_introduction;
+	private unowned Gtk.Grid d_introduction;
 
 	[GtkChild( name = "label_scan" )]
-	private Gtk.Label d_label_scan;
+	private unowned Gtk.Label d_label_scan;
 
 	[GtkChild( name = "label_profile") ]
-	private Gtk.Label d_label_profile;
+	private unowned Gtk.Label d_label_profile;
 
 	[GtkChild( name = "scrolled_window" )]
-	private Gtk.ScrolledWindow d_scrolled_window;
+	private unowned Gtk.ScrolledWindow d_scrolled_window;
 
 	[GtkChild( name = "repository_list_box" )]
-	private RepositoryListBox d_repository_list_box;
+	private unowned RepositoryListBox d_repository_list_box;
 
 	public GitgExt.SelectionMode selectable_mode
 	{

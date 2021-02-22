@@ -27,13 +27,13 @@ public class CloneDialog : Gtk.Dialog
 	private const string version = Gitg.Config.VERSION;
 
 	[GtkChild (name = "entry_url")]
-	private Gtk.Entry d_entry_url;
+	private unowned Gtk.Entry d_entry_url;
 
 	[GtkChild (name = "button_location")]
-	private Gtk.FileChooserButton d_button_location;
+	private unowned Gtk.FileChooserButton d_button_location;
 
 	[GtkChild (name = "bare_repository")]
-	private Gtk.CheckButton d_bare_repository;
+	private unowned Gtk.CheckButton d_bare_repository;
 
 	public bool is_bare
 	{

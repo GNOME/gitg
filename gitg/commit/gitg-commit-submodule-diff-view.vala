@@ -24,16 +24,16 @@ namespace GitgCommit
 class SubmoduleDiffView : Gtk.Box
 {
   [GtkChild (name = "info")]
-  private SubmoduleInfo d_info;
+  private unowned SubmoduleInfo d_info;
 
   [GtkChild (name = "diff_view_staged")]
-  private Gitg.DiffView d_diff_view_staged;
+  private unowned Gitg.DiffView d_diff_view_staged;
 
   [GtkChild (name = "diff_view_unstaged")]
-  private Gitg.DiffView d_diff_view_unstaged;
+  private unowned Gitg.DiffView d_diff_view_unstaged;
 
   [GtkChild (name = "box_diffs")]
-  private Gtk.Box d_box_diffs;
+  private unowned Gtk.Box d_box_diffs;
 
   construct
   {

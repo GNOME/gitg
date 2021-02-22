@@ -199,16 +199,16 @@ public class SidebarStore : Gtk.TreeStore
 public class Sidebar : Gtk.TreeView
 {
 	[GtkChild (name = "column")]
-	private Gtk.TreeViewColumn d_column;
+	private unowned Gtk.TreeViewColumn d_column;
 
 	[GtkChild (name = "renderer_icon")]
-	private Gtk.CellRendererPixbuf d_renderer_icon;
+	private unowned Gtk.CellRendererPixbuf d_renderer_icon;
 
 	[GtkChild (name = "renderer_header")]
-	private Gtk.CellRendererText d_renderer_header;
+	private unowned Gtk.CellRendererText d_renderer_header;
 
 	[GtkChild (name = "renderer_text")]
-	private Gtk.CellRendererText d_renderer_text;
+	private unowned Gtk.CellRendererText d_renderer_text;
 
 	public signal void deselected();
 

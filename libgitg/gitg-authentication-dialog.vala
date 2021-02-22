@@ -31,25 +31,25 @@ public enum AuthenticationLifeTime
 public class AuthenticationDialog : Gtk.Dialog
 {
 	[GtkChild ( name = "label_title" )]
-	private Gtk.Label d_label_title;
+	private unowned Gtk.Label d_label_title;
 
 	[GtkChild ( name = "label_failed" )]
-	private Gtk.Label d_label_failed;
+	private unowned Gtk.Label d_label_failed;
 
 	[GtkChild ( name = "entry_username" )]
-	private Gtk.Entry d_entry_username;
+	private unowned Gtk.Entry d_entry_username;
 
 	[GtkChild ( name = "entry_password" )]
-	private Gtk.Entry d_entry_password;
+	private unowned Gtk.Entry d_entry_password;
 
 	[GtkChild ( name = "radio_button_forget" )]
-	private Gtk.RadioButton d_radio_button_forget;
+	private unowned Gtk.RadioButton d_radio_button_forget;
 
 	[GtkChild ( name = "radio_button_session" )]
-	private Gtk.RadioButton d_radio_button_session;
+	private unowned Gtk.RadioButton d_radio_button_session;
 
 	[GtkChild ( name = "radio_button_forever" )]
-	private Gtk.RadioButton d_radio_button_forever;
+	private unowned Gtk.RadioButton d_radio_button_forever;
 
 	private static AuthenticationLifeTime s_last_lifetime;
 

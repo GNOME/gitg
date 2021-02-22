@@ -29,13 +29,13 @@ public class RemoteNotification : ProgressBin, GitgExt.Notification
 	private Remote? d_remote;
 
 	[GtkChild ( name = "image_icon" )]
-	private Gtk.Image d_image_icon;
+	private unowned Gtk.Image d_image_icon;
 
 	[GtkChild ( name = "label_text" )]
-	private Gtk.Label d_label_text;
+	private unowned Gtk.Label d_label_text;
 
 	[GtkChild ( name = "button_cancel" )]
-	private Gtk.Button d_button_cancel;
+	private unowned Gtk.Button d_button_cancel;
 
 	private bool d_finished;
 

@@ -21,16 +21,16 @@
 class Gitg.DiffViewFile : Gtk.Grid
 {
 	[GtkChild( name = "expander" )]
-	private Gtk.Expander d_expander;
+	private unowned Gtk.Expander d_expander;
 
 	[GtkChild( name = "label_file_header" )]
-	private Gtk.Label d_label_file_header;
+	private unowned Gtk.Label d_label_file_header;
 
 	[GtkChild( name = "diff_stat_file" )]
-	private DiffStat d_diff_stat_file;
+	private unowned DiffStat d_diff_stat_file;
 
 	[GtkChild( name = "revealer_content" )]
-	private Gtk.Revealer d_revealer_content;
+	private unowned Gtk.Revealer d_revealer_content;
 
 	private bool d_expanded;
 

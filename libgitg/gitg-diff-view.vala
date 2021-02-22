@@ -21,25 +21,25 @@
 public class Gitg.DiffView : Gtk.Grid
 {
 	[GtkChild( name = "commit_details" )]
-	private Gitg.DiffViewCommitDetails d_commit_details;
+	private unowned Gitg.DiffViewCommitDetails d_commit_details;
 
 	[GtkChild( name = "scrolledwindow" )]
-	private Gtk.ScrolledWindow d_scrolledwindow;
+	private unowned Gtk.ScrolledWindow d_scrolledwindow;
 
 	[GtkChild( name = "grid_files" )]
-	private Gtk.Grid d_grid_files;
+	private unowned Gtk.Grid d_grid_files;
 
 	[GtkChild( name = "event_box" )]
-	private Gtk.EventBox d_event_box;
+	private unowned Gtk.EventBox d_event_box;
 
 	[GtkChild( name = "revealer_options" )]
-	private Gtk.Revealer d_revealer_options;
+	private unowned Gtk.Revealer d_revealer_options;
 
 	[GtkChild( name = "diff_view_options" )]
-	private DiffViewOptions d_diff_view_options;
+	private unowned DiffViewOptions d_diff_view_options;
 
 	[GtkChild( name = "text_view_message" )]
-	private Gtk.TextView d_text_view_message;
+	private unowned Gtk.TextView d_text_view_message;
 
 	private Ggit.Diff? d_diff;
 	private Commit? d_commit;

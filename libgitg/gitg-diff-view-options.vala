@@ -21,10 +21,10 @@
 public class Gitg.DiffViewOptions : Gtk.Toolbar
 {
 	[GtkChild (name = "adjustment_context")]
-	private Gtk.Adjustment d_adjustment_context;
+	private unowned Gtk.Adjustment d_adjustment_context;
 
 	[GtkChild (name = "tool_button_spacing")]
-	private Gtk.ToolButton d_tool_button_spacing;
+	private unowned Gtk.ToolButton d_tool_button_spacing;
 
 	public int context_lines { get; set; }
 
@@ -153,16 +153,16 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 private class Gitg.DiffViewOptionsSpacing : Gtk.Popover
 {
 	[GtkChild (name = "switch_ignore_whitespace")]
-	private Gtk.Switch d_switch_ignore_whitespace;
+	private unowned Gtk.Switch d_switch_ignore_whitespace;
 
 	[GtkChild (name = "label_ignore_whitespace")]
-	private Gtk.Label d_label_ignore_whitespace;
+	private unowned Gtk.Label d_label_ignore_whitespace;
 
 	[GtkChild (name = "switch_wrap_lines")]
-	private Gtk.Switch d_switch_wrap_lines;
+	private unowned Gtk.Switch d_switch_wrap_lines;
 
 	[GtkChild (name = "adjustment_tab_width")]
-	private Gtk.Adjustment d_adjustment_tab_width;
+	private unowned Gtk.Adjustment d_adjustment_tab_width;
 
 	public bool ignore_whitespace { get; set; }
 	public bool wrap_lines { get; set; }

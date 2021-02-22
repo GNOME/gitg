@@ -27,37 +27,37 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	private const string version = Gitg.Config.VERSION;
 
 	[GtkChild (name = "check_button_show_markup")]
-	private Gtk.CheckButton d_check_button_show_markup;
+	private unowned Gtk.CheckButton d_check_button_show_markup;
 
 	[GtkChild (name = "grid_show_markup")]
-	private Gtk.Grid d_grid_show_markup;
+	private unowned Gtk.Grid d_grid_show_markup;
 
 	[GtkChild (name = "check_button_show_subject_margin")]
-	private Gtk.CheckButton d_check_button_show_subject_margin;
+	private unowned Gtk.CheckButton d_check_button_show_subject_margin;
 
 	[GtkChild (name = "spin_button_subject_margin_grid")]
-	private Gtk.Grid d_spin_button_subject_margin_grid;
+	private unowned Gtk.Grid d_spin_button_subject_margin_grid;
 	[GtkChild (name = "spin_button_subject_margin")]
-	private Gtk.SpinButton d_spin_button_subject_margin;
+	private unowned Gtk.SpinButton d_spin_button_subject_margin;
 
 	[GtkChild (name = "check_button_show_right_margin")]
-	private Gtk.CheckButton d_check_button_show_right_margin;
+	private unowned Gtk.CheckButton d_check_button_show_right_margin;
 
 	[GtkChild (name = "spin_button_right_margin_grid")]
-	private Gtk.Grid d_spin_button_right_margin_grid;
+	private unowned Gtk.Grid d_spin_button_right_margin_grid;
 	[GtkChild (name = "spin_button_right_margin")]
-	private Gtk.SpinButton d_spin_button_right_margin;
+	private unowned Gtk.SpinButton d_spin_button_right_margin;
 
 	[GtkChild (name = "spell_language_button")]
-	private Gspell.LanguageChooserButton d_spell_language_button;
+	private unowned Gspell.LanguageChooserButton d_spell_language_button;
 	[GtkChild (name = "enable_spell_checking")]
-	private Gtk.CheckButton d_enable_spell_checking;
+	private unowned Gtk.CheckButton d_enable_spell_checking;
 
 	[GtkChild (name = "spin_button_max_num_commit_messages")]
-	private Gtk.SpinButton d_spin_button_max_num_commit_messages;
+	private unowned Gtk.SpinButton d_spin_button_max_num_commit_messages;
 
 	[GtkChild (name = "spin_button_max_num_days_commit_messages")]
-	private Gtk.SpinButton d_spin_button_max_num_days_commit_messages;
+	private unowned Gtk.SpinButton d_spin_button_max_num_days_commit_messages;
 
 	construct
 	{

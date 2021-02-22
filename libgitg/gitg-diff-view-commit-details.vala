@@ -21,37 +21,37 @@
 class Gitg.DiffViewCommitDetails : Gtk.Grid
 {
 	[GtkChild( name = "image_avatar" )]
-	private Gtk.Image d_image_avatar;
+	private unowned Gtk.Image d_image_avatar;
 
 	[GtkChild( name = "label_author" )]
-	private Gtk.Label d_label_author;
+	private unowned Gtk.Label d_label_author;
 
 	[GtkChild( name = "label_author_date" )]
-	private Gtk.Label d_label_author_date;
+	private unowned Gtk.Label d_label_author_date;
 
 	[GtkChild( name = "label_committer" )]
-	private Gtk.Label d_label_committer;
+	private unowned Gtk.Label d_label_committer;
 
 	[GtkChild( name = "label_committer_date" )]
-	private Gtk.Label d_label_committer_date;
+	private unowned Gtk.Label d_label_committer_date;
 
 	[GtkChild( name = "label_subject" )]
-	private Gtk.Label d_label_subject;
+	private unowned Gtk.Label d_label_subject;
 
 	[GtkChild( name = "label_sha1" )]
-	private Gtk.Label d_label_sha1;
+	private unowned Gtk.Label d_label_sha1;
 
 	[GtkChild( name = "grid_parents_container" )]
-	private Gtk.Grid d_grid_parents_container;
+	private unowned Gtk.Grid d_grid_parents_container;
 
 	[GtkChild( name = "grid_parents" )]
-	private Gtk.Grid d_grid_parents;
+	private unowned Gtk.Grid d_grid_parents;
 
 	[GtkChild( name = "expander_files" )]
-	private Gtk.Expander d_expander_files;
+	private unowned Gtk.Expander d_expander_files;
 
 	[GtkChild( name = "label_expand_collapse_files" )]
-	private Gtk.Label d_label_expand_collapse_files;
+	private unowned Gtk.Label d_label_expand_collapse_files;
 
 	public bool expanded
 	{

@@ -24,25 +24,25 @@ class Gitg.DiffViewFileRendererImage : Gtk.Grid, DiffViewFileRenderer
 	public Repository repository { get; construct set; }
 
 	[GtkChild( name = "diff_image_side_by_side" )]
-	private Gitg.DiffImageSideBySide d_diff_image_side_by_side;
+	private unowned Gitg.DiffImageSideBySide d_diff_image_side_by_side;
 
 	[GtkChild( name = "diff_image_slider" )]
-	private Gitg.DiffImageSlider d_diff_image_slider;
+	private unowned Gitg.DiffImageSlider d_diff_image_slider;
 
 	[GtkChild( name = "scale_slider_adjustment" )]
-	private Gtk.Adjustment d_scale_slider_adjustment;
+	private unowned Gtk.Adjustment d_scale_slider_adjustment;
 
 	[GtkChild( name = "diff_image_overlay" )]
-	private Gitg.DiffImageOverlay d_diff_image_overlay;
+	private unowned Gitg.DiffImageOverlay d_diff_image_overlay;
 
 	[GtkChild( name = "scale_overlay_adjustment" )]
-	private Gtk.Adjustment d_scale_overlay_adjustment;
+	private unowned Gtk.Adjustment d_scale_overlay_adjustment;
 
 	[GtkChild( name = "diff_image_difference" )]
-	private Gitg.DiffImageDifference d_diff_image_difference;
+	private unowned Gitg.DiffImageDifference d_diff_image_difference;
 
 	[GtkChild( name = "stack_switcher" )]
-	private Gtk.StackSwitcher d_stack_switcher;
+	private unowned Gtk.StackSwitcher d_stack_switcher;
 
 	private SurfaceCache d_cache;
 

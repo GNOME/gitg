@@ -26,16 +26,16 @@ namespace Gitg
 		private const string version = Gitg.Config.VERSION;
 
 		[GtkChild (name = "entry_name")]
-		private Gtk.Entry d_entry_name;
+		private unowned Gtk.Entry d_entry_name;
 
 		[GtkChild (name = "entry_email")]
-		private Gtk.Entry d_entry_email;
+		private unowned Gtk.Entry d_entry_email;
 
 		[GtkChild (name = "label_info")]
-		private Gtk.Label d_label_info;
+		private unowned Gtk.Label d_label_info;
 
 		[GtkChild (name = "checkbutton_override_global")]
-		private Gtk.CheckButton d_checkbutton_override_global;
+		private unowned Gtk.CheckButton d_checkbutton_override_global;
 
 		private string? d_repository_name;
 

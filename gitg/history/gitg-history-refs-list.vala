@@ -60,19 +60,19 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 	}
 
 	[GtkChild]
-	private Gtk.Image d_icon;
+	private unowned Gtk.Image d_icon;
 
 	[GtkChild]
-	private Gtk.Label d_label;
+	private unowned Gtk.Label d_label;
 
 	[GtkChild]
-	private Gtk.Label d_ahead_behind;
+	private unowned Gtk.Label d_ahead_behind;
 
 	[GtkChild]
-	private Gtk.Box d_box;
+	private unowned Gtk.Box d_box;
 
 	[GtkChild]
-	private Gtk.Revealer d_revealer;
+	private unowned Gtk.Revealer d_revealer;
 
 	public Gitg.Ref? reference { get; set; }
 
@@ -433,16 +433,16 @@ private class RefHeader : RefTyped, Gtk.ListBoxRow
 	private Gitg.Remote? d_remote;
 
 	[GtkChild( name = "progress_bin" )]
-	private Gitg.ProgressBin d_progress_bin;
+	private unowned Gitg.ProgressBin d_progress_bin;
 
 	[GtkChild( name = "expander" )]
-	private Gtk.Expander d_expander;
+	private unowned Gtk.Expander d_expander;
 
 	[GtkChild( name = "label" )]
-	private Gtk.Label d_label;
+	private unowned Gtk.Label d_label;
 
 	[GtkChild( name = "icon" )]
-	private Gtk.Image d_icon;
+	private unowned Gtk.Image d_icon;
 
 	public bool expanded { get; set; default = true; }
 

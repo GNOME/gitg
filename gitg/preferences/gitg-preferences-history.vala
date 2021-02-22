@@ -28,33 +28,33 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 	private bool d_block;
 
 	[GtkChild (name = "collapse_inactive_lanes_enabled")]
-	private Gtk.CheckButton d_collapse_inactive_lanes_enabled;
+	private unowned Gtk.CheckButton d_collapse_inactive_lanes_enabled;
 
 	[GtkChild (name = "adjustment_collapse")]
-	private Gtk.Adjustment d_adjustment_collapse;
+	private unowned Gtk.Adjustment d_adjustment_collapse;
 	[GtkChild (name = "collapse_inactive_lanes")]
-	private Gtk.Scale d_collapse_inactive_lanes;
+	private unowned Gtk.Scale d_collapse_inactive_lanes;
 
 	[GtkChild (name = "topological_order")]
-	private Gtk.CheckButton d_topological_order;
+	private unowned Gtk.CheckButton d_topological_order;
 
 	[GtkChild (name = "mainline_head")]
-	private Gtk.CheckButton d_mainline_head;
+	private unowned Gtk.CheckButton d_mainline_head;
 
 	[GtkChild (name = "select_current_branch" )]
-	private Gtk.RadioButton d_select_current_branch;
+	private unowned Gtk.RadioButton d_select_current_branch;
 
 	[GtkChild (name = "select_all_branches" )]
-	private Gtk.RadioButton d_select_all_branches;
+	private unowned Gtk.RadioButton d_select_all_branches;
 
 	[GtkChild (name = "select_all_commits" )]
-	private Gtk.RadioButton d_select_all_commits;
+	private unowned Gtk.RadioButton d_select_all_commits;
 
 	[GtkChild (name = "sort_references_by_activity")]
-	private Gtk.CheckButton d_sort_references_by_activity;
+	private unowned Gtk.CheckButton d_sort_references_by_activity;
 
 	[GtkChild (name = "show_upstream_with_branch")]
-	private Gtk.CheckButton d_show_upstream_with_branch;
+	private unowned Gtk.CheckButton d_show_upstream_with_branch;
 
 	private Gtk.RadioButton[] d_select_buttons;
 	private string[] d_select_names;

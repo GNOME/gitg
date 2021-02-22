@@ -24,16 +24,16 @@ namespace Gitg
 class CheckoutRemoteBranchDialog : Gtk.Dialog
 {
 	[GtkChild]
-	private Gtk.Button d_button_create;
+	private unowned Gtk.Button d_button_create;
 
 	[GtkChild]
-	private Gtk.Entry d_branch_name;
+	private unowned Gtk.Entry d_branch_name;
 
 	[GtkChild]
-	private Gtk.ComboBoxText d_remote_branch_name;
+	private unowned Gtk.ComboBoxText d_remote_branch_name;
 
 	[GtkChild]
-	private Gtk.CheckButton d_track_remote;
+	private unowned Gtk.CheckButton d_track_remote;
 
 	private Gitg.Repository d_repository;
 	private Gitg.Ref d_remote_reference;

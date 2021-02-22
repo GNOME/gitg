@@ -24,16 +24,16 @@ namespace GitgCommit
 class SubmoduleInfo : Gtk.Grid
 {
 	[GtkChild (name = "label_path")]
-	private Gtk.Label d_label_path;
+	private unowned Gtk.Label d_label_path;
 
 	[GtkChild (name = "label_url")]
-	private Gtk.Label d_label_url;
+	private unowned Gtk.Label d_label_url;
 
 	[GtkChild (name = "label_sha1")]
-	private Gtk.Label d_label_sha1;
+	private unowned Gtk.Label d_label_sha1;
 
 	[GtkChild (name = "label_subject")]
-	private Gtk.Label d_label_subject;
+	private unowned Gtk.Label d_label_subject;
 
 	private Ggit.Submodule d_submodule;
 

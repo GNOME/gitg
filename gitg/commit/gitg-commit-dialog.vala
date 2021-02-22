@@ -46,49 +46,49 @@ class Dialog : Gtk.Dialog
 	private const string CONFIG_COMMIT_TEMPLATE = "commit.template";
 
 	[GtkChild (name = "source_view_message")]
-	private Gtk.SourceView d_source_view_message;
+	private unowned Gtk.SourceView d_source_view_message;
 
 	[GtkChild (name = "ok-button")]
-	private Gtk.Button d_button_ok;
+	private unowned Gtk.Button d_button_ok;
 
 	[GtkChild (name = "check_button_amend")]
-	private Gtk.CheckButton d_check_button_amend;
+	private unowned Gtk.CheckButton d_check_button_amend;
 
 	[GtkChild (name = "check_button_sign_off")]
-	private Gtk.CheckButton d_check_button_sign_off;
+	private unowned Gtk.CheckButton d_check_button_sign_off;
 
 	[GtkChild (name = "image_avatar")]
-	private Gtk.Image d_image_avatar;
+	private unowned Gtk.Image d_image_avatar;
 
 	[GtkChild (name = "label_user")]
-	private Gtk.Label d_label_user;
+	private unowned Gtk.Label d_label_user;
 
 	[GtkChild (name = "label_date")]
-	private Gtk.Label d_label_date;
+	private unowned Gtk.Label d_label_date;
 
 	[GtkChild (name = "infobar")]
-	private Gtk.InfoBar d_infobar;
+	private unowned Gtk.InfoBar d_infobar;
 
 	[GtkChild (name = "infobar_revealer")]
-	private Gtk.Revealer d_infobar_revealer;
+	private unowned Gtk.Revealer d_infobar_revealer;
 
 	[GtkChild (name = "infobar_primary_label")]
-	private Gtk.Label d_infobar_primary_label;
+	private unowned Gtk.Label d_infobar_primary_label;
 
 	[GtkChild (name = "infobar_secondary_label")]
-	private Gtk.Label d_infobar_secondary_label;
+	private unowned Gtk.Label d_infobar_secondary_label;
 
 	[GtkChild (name = "list_box_stats")]
-	private Gtk.ListBox d_list_box_stats;
+	private unowned Gtk.ListBox d_list_box_stats;
 
 	[GtkChild (name = "scrolled_window_stats")]
-	private Gtk.ScrolledWindow d_scrolled_window_stats;
+	private unowned Gtk.ScrolledWindow d_scrolled_window_stats;
 
 	[GtkChild (name = "prev_commit_message_button")]
-	private Gtk.Button d_prev_commit_message_button;
+	private unowned Gtk.Button d_prev_commit_message_button;
 
 	[GtkChild (name = "next_commit_message_button")]
-	private Gtk.Button d_next_commit_message_button;
+	private unowned Gtk.Button d_next_commit_message_button;
 
 	private bool d_show_markup;
 	private bool d_show_right_margin;

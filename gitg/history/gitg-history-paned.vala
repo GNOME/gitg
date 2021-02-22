@@ -24,25 +24,25 @@ namespace GitgHistory
 class Paned : Gitg.AnimatedPaned
 {
 	[GtkChild]
-	private Gtk.Box d_box_sidebar;
+	private unowned Gtk.Box d_box_sidebar;
 
 	[GtkChild]
-	private Gitg.AnimatedPaned d_paned_panels;
+	private unowned Gitg.AnimatedPaned d_paned_panels;
 
 	[GtkChild]
-	private Gtk.StackSwitcher d_stack_switcher_panels;
+	private unowned Gtk.StackSwitcher d_stack_switcher_panels;
 
 	[GtkChild]
-	private RefsList d_refs_list;
+	private unowned RefsList d_refs_list;
 
 	[GtkChild]
-	private Gitg.CommitListView d_commit_list_view;
+	private unowned Gitg.CommitListView d_commit_list_view;
 
 	[GtkChild]
-	private Gtk.Stack d_stack_panel;
+	private unowned Gtk.Stack d_stack_panel;
 
 	[GtkChild]
-	private Gtk.ScrolledWindow d_scrolled_window_commit_list;
+	private unowned Gtk.ScrolledWindow d_scrolled_window_commit_list;
 
 	public Gtk.Orientation inner_orientation
 	{

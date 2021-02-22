@@ -30,34 +30,34 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	private Settings? d_global_settings;
 
 	[GtkChild (name = "horizontal_layout_enabled")]
-	private Gtk.CheckButton d_horizontal_layout_enabled;
+	private unowned Gtk.CheckButton d_horizontal_layout_enabled;
 
 	[GtkChild (name = "default_activity")]
-	private Gtk.ComboBox d_default_activity;
+	private unowned Gtk.ComboBox d_default_activity;
 
 	[GtkChild (name = "gravatar_enabled")]
-	private Gtk.CheckButton d_gravatar_enabled;
+	private unowned Gtk.CheckButton d_gravatar_enabled;
 
 	[GtkChild (name = "monitoring_enabled" )]
-	private Gtk.CheckButton d_monitoring_enabled;
+	private unowned Gtk.CheckButton d_monitoring_enabled;
 
 	[GtkChild (name = "diff_highlighting_enabled")]
-	private Gtk.CheckButton d_diff_highlighting_enabled;
+	private unowned Gtk.CheckButton d_diff_highlighting_enabled;
 
 	[GtkChild (name = "default_style_scheme")]
-	private Gtk.ComboBox d_default_style_scheme;
+	private unowned Gtk.ComboBox d_default_style_scheme;
 
 	[GtkChild (name = "syntax_scheme_store")]
-	private Gtk.ListStore d_syntax_scheme_store;
+	private unowned Gtk.ListStore d_syntax_scheme_store;
 
 	[GtkChild (name = "font_button")]
-	private Gtk.FontButton d_font_button;
+	private unowned Gtk.FontButton d_font_button;
 
 	[GtkChild (name = "font_button_grid")]
-	private Gtk.Grid d_font_button_grid;
+	private unowned Gtk.Grid d_font_button_grid;
 
 	[GtkChild (name = "default_font_checkbutton")]
-	private Gtk.CheckButton d_default_font_checkbutton;
+	private unowned Gtk.CheckButton d_default_font_checkbutton;
 
 	construct
 	{

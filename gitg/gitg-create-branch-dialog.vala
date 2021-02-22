@@ -24,13 +24,13 @@ namespace Gitg
 class CreateBranchDialog : Gtk.Dialog
 {
 	[GtkChild]
-	private Gtk.Button d_button_create;
+	private unowned Gtk.Button d_button_create;
 
 	[GtkChild]
-	private Gtk.Entry d_entry_branch_name;
+	private unowned Gtk.Entry d_entry_branch_name;
 
 	[GtkChild]
-	private Gtk.CheckButton d_checkout_created;
+	private unowned Gtk.CheckButton d_checkout_created;
 
 	private Settings d_settings;
 
