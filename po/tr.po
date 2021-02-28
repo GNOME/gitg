@@ -6,14 +6,14 @@
 # Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2014, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2014, 2015, 2017.
 # Sabri Ünal <libreajans@gmail.com>, 2014, 2019, 2020.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2018-2020.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2018-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-08-11 14:02+0000\n"
-"PO-Revision-Date: 2020-08-22 14:06+0300\n"
+"POT-Creation-Date: 2021-02-23 23:52+0000\n"
+"PO-Revision-Date: 2021-02-28 12:38+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -45,13 +45,13 @@ msgid ""
 "repository and commit your work."
 msgstr ""
 "gitg, git için grafiksel kullanıcı arayüzüdür; depoların geçmişini "
-"görselleştirmeyi amaçlayan küçük, hızlı ve kullanışlı araçtır. "
-"Bunların yanı sıra deponuzu yönetmeniz ve çalışmanızı işlemeniz için "
-"birtakım yardımcı araçlar sunar."
+"görselleştirmeyi amaçlayan küçük, hızlı ve kullanışlı araçtır. Bunların yanı "
+"sıra deponuzu yönetmeniz ve çalışmanızı işlemeniz için birtakım yardımcı "
+"araçlar sunar."
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Goals:"
-msgstr "Hedefler:"
+msgstr "Amaçlar:"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
@@ -205,8 +205,8 @@ msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
-"Aktif olmayan yolun ne zaman daraltılacağını gösteren ayar. Geçerli "
-"değerler 0 — 4 arasındadır; burada 0 “erken” ve 4 “geç” anlamına gelir."
+"Aktif olmayan yolun ne zaman daraltılacağını gösteren ayar. Geçerli değerler "
+"0 — 4 arasındadır; burada 0 “erken” ve 4 “geç” anlamına gelir."
 
 #: data/org.gnome.gitg.gschema.xml.in:100
 msgid ""
@@ -302,8 +302,8 @@ msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
-"Geçmiş görünümünde yerel dalı seçerken ana kaynaktaki (uzak) "
-"takip edilen dalın da gösterilip gösterilmeyeceğini belirler."
+"Geçmiş görünümünde yerel dalı seçerken ana kaynaktaki (uzak) takip edilen "
+"dalın da gösterilip gösterilmeyeceğini belirler."
 
 #: data/org.gnome.gitg.gschema.xml.in:172
 msgid "Switch to the new branch on creation"
@@ -778,12 +778,11 @@ msgstr "Uygulama sürümünü göster"
 
 #: gitg/gitg-application.vala:40
 msgid "Start gitg with a particular activity"
-msgstr "gitgʼyi belirli bir etkinlik ile başlatın"
+msgstr "gitgʼyi belirli bir etkinlik ile başlat"
 
 #: gitg/gitg-application.vala:42
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
-msgstr ""
-"gitgʼyi işleme etkinliğiyle başlatın (--activity işlemesi için kısayol)"
+msgstr "gitgʼyi işleme etkinliğiyle başlat (--activity işlemesi için kısayol)"
 
 #: gitg/gitg-application.vala:44
 msgid "Do not try to load a repository from the current working directory"
@@ -806,7 +805,8 @@ msgid "translator-credits"
 msgstr ""
 "Sabri Ünal <libreajans@gmail.com>\n"
 "Muhammet Kara <muhammetk@gmail.com>\n"
-"Gökhan Gurbetoğlu <ggurbet@gmail.com>"
+"Gökhan Gurbetoğlu <ggurbet@gmail.com>\n"
+"Emin Tufan Çetin <etcetin@gmail.com>"
 
 #: gitg/gitg-application.vala:238
 msgid "gitg homepage"
@@ -1060,7 +1060,6 @@ msgstr "Dal, çalışma dizinine başarıyla teslim alındı"
 
 #: gitg/gitg-ref-action-checkout.vala:195
 #, c-format
-#| msgid "Failed to delete branch %s"
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "%2$s için %1$s ana kaynak dalı belirleme başarısız"
 
@@ -1844,17 +1843,17 @@ msgstr "Uygulamadan çık"
 #: gitg/resources/ui/gitg-shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Change to Dash"
-msgstr "Konsola Değiştir"
+msgstr "Konsola değiştir"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Change to History View"
-msgstr "Geçmiş Görünümüne Değiştir"
+msgstr "Geçmiş Görünümüne değiştir"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Commit View"
-msgstr "İşleme Görünümüne Değiştir"
+msgstr "İşleme Görünümüne değiştir"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
@@ -1909,7 +1908,7 @@ msgstr "İşle"
 #: gitg/resources/ui/gitg-shortcuts.ui:171
 msgctxt "shortcut window"
 msgid "Cancel Commit"
-msgstr "İşlemeyi İptal Et"
+msgstr "İşlemeyi iptal et"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
