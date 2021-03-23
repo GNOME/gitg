@@ -225,13 +225,13 @@ public class CredentialsManager
 		}
 		else
 		{
-			var uri = new Soup.URI(url);
+			var uri = GLib.Uri.parse(url, GLib.UriFlags.NONE);
 
 			if (uri != null)
 			{
 				host = uri.get_host();
 
-				if (!uri.uses_default_port())
+				if (uri.get_port() != -1)
 				{
 					host = @"$(host):$(uri.get_port())";
 				}

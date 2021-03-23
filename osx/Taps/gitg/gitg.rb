@@ -14,7 +14,6 @@ class Gitg < Formula
   depends_on "gnome/gitg/shared-mime-info"
   depends_on "gnome/gitg/gtk+3" => "with-quartz-relocation"
   depends_on "gnome/gitg/gtksourceview3"
-  depends_on "gnome/gitg/libsoup"
   depends_on "gnome/gitg/libsecret"
   depends_on "gnome/gitg/libpeas"
   depends_on "gnome/gitg/gspell"

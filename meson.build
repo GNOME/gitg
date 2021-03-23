@@ -123,7 +123,7 @@ add_project_arguments('--vapidir=' + vapi_dir, language: 'vala')
 symbol_map = join_paths(source_root, 'libgitg.map')
 common_ldflags = cc.get_supported_link_arguments('-Wl,--version-script,@0@'.format(symbol_map))
 
-glib_req_version = '>= 2.38'
+glib_req_version = '>= 2.68'
 
 gee_dep = dependency('gee-0.8')
 gio_dep = dependency('gio-2.0', version: glib_req_version)
@@ -136,7 +136,6 @@ gtksourceview_dep = dependency('gtksourceview-4', version: '>= 4.0.3')
 libgit2_glib_dep = dependency('libgit2-glib-1.0', version: ['>= 0.27.8'])
 libpeas_dep = dependency('libpeas-1.0')
 libsecret_dep = dependency('libsecret-1')
-libsoup_dep = dependency('libsoup-2.4')
 libxml_dep = dependency('libxml-2.0', version: '>= 2.9.0')
 libdazzle_dep = dependency('libdazzle-1.0')
 json_glib_dependency = dependency('json-glib-1.0')
