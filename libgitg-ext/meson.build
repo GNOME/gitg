@@ -89,7 +89,6 @@ if get_option('docs')
     '--pkg', 'ggit-1.0',
     '--pkg', 'gio-2.0',
     '--pkg', 'gtk+-3.0',
-    '--pkg', 'libsoup-2.4',
     '--pkg', 'gee-0.8',
   ]
 

@@ -99,7 +99,6 @@ deps = common_deps + [
   gtksourceview_dep,
   libide_dep,
   libsecret_dep,
-  libsoup_dep,
   m_dep,
 ]
 
