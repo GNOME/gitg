@@ -855,6 +855,7 @@ public class Stage : Object
 	}
 
 	private void apply_patch(Ggit.Index  index,
+	                         uint filemode,
 	                         InputStream old_stream,
 	                         InputStream new_stream,
 	                         PatchSet    patch) throws Error
@@ -868,6 +869,7 @@ public class Stage : Object
 
 		var new_entry = d_repository.create_index_entry_for_path(patch.filename,
 		                                                         new_id);
+		new_entry.set_mode(filemode);
 
 		index.add(new_entry);
 		index.write();
@@ -944,7 +946,7 @@ public class Stage : Object
 
 			var old_stream = new MemoryInputStream.from_bytes(new Bytes(old_content));
 
-			apply_patch(index, old_stream, new_stream, patch);
+			apply_patch(index, entry.get_mode(), old_stream, new_stream, patch);
 
 			new_stream.close();
 			old_stream.close();
@@ -1022,7 +1024,6 @@ public class Stage : Object
 				entry = entries.get_by_path(file, 0);
 			}
 
-
 			uchar[] head_content = new uchar[0];
 			try {
 				var head_entry = tree.get_by_path(patch.filename);
@@ -1040,7 +1041,7 @@ public class Stage : Object
 			var reversed = patch.reversed();
 
 			try {
-				apply_patch(index, index_stream, head_stream, reversed);
+				apply_patch(index, entry.get_mode(), index_stream, head_stream, reversed);
 			} catch(Error e) {
 				var stage = d_repository.stage;
 				stage.delete_path.begin(file.get_path(), (obj, res) => {
