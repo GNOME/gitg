@@ -32,7 +32,7 @@ $ git clone https://gitlab.gnome.org/GNOME/gitg.git
 $ cd gitg
 $ meson --prefix=/usr build
 $ ninja -C build
-$ sudo ninja -C install
+$ sudo ninja -C build install
 ```
 
 Alternatively you can build using Flatpak with the org.gnome.gitgDevel.json manifest.
