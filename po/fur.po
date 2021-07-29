@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2021-01-03 21:37+0000\n"
-"PO-Revision-Date: 2021-01-17 16:18+0100\n"
+"POT-Creation-Date: 2021-04-25 15:53+0000\n"
+"PO-Revision-Date: 2021-07-29 11:02+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -60,7 +60,7 @@ msgstr "Clone i dipuesits git locâi e lontans"
 #: data/org.gnome.gitg.appdata.xml.in.in:21
 #, fuzzy
 msgid "Commit files"
-msgstr "Consegne i file"
+msgstr "Consegne i files"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
@@ -197,13 +197,16 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
-msgstr ""
+msgstr "Cuant strenzi lis corsiis inativis"
 
 #: data/org.gnome.gitg.gschema.xml.in:93
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
+"Stabilint chel al ven indicât cuant che une corsie inative e ven strenzude. "
+"I valôrs valits a son 0 — 4, dulà che 0 al indiche “subite” e 4 al indiche "
+"“tart”."
 
 #: data/org.gnome.gitg.gschema.xml.in:100
 msgid ""
@@ -212,6 +215,11 @@ msgid ""
 "lot of parallel development. See collapse-inactive-lanes to control when "
 "lanes should be collapsed."
 msgstr ""
+"Stabilint chel al ven indicât se strenzi lis corsiis de cronologjie che no "
+"mostrin ativitâts. Abilitant chest al è pussibil furnî une viodude de "
+"cronologjie plui clare cuant che si à une vore di disvilups paralêls. Viôt "
+"collapse-inactive-lanes par controlâ cuant che lis corsiis a varessin di sei "
+"strenzudis."
 
 #: data/org.gnome.gitg.gschema.xml.in:109
 msgid "Show History in Topological Order"
@@ -294,7 +302,7 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:172
 msgid "Switch to the new branch on creation"
-msgstr ""
+msgstr "Passe al gnûf ram ae creazion"
 
 #: data/org.gnome.gitg.gschema.xml.in:173
 msgid ""
@@ -458,11 +466,11 @@ msgstr ""
 
 #: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
-msgstr ""
+msgstr "No'nd è nissune modifiche di consegnâ"
 
 #: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
-msgstr ""
+msgstr "Dopre amend par cambiâ il messaç di consegne de consegne precedente"
 
 #: gitg/commit/gitg-commit.vala:113
 msgctxt "Activity"
@@ -564,11 +572,11 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:968
 msgid "Submodule"
-msgstr ""
+msgstr "Sot-modul"
 
 #: gitg/commit/gitg-commit.vala:972
 msgid "No dirty submodules"
-msgstr ""
+msgstr "Nissun sot-modul sporc"
 
 #: gitg/commit/gitg-commit.vala:1121
 msgid "Failed to commit"
@@ -584,7 +592,7 @@ msgstr "Scarte modifichis"
 
 #: gitg/commit/gitg-commit.vala:1303
 msgid "Are you sure you want to permanently discard the selected changes?"
-msgstr "Sigûrs di scartâ par simpri lis modifichis selezionadis?"
+msgstr "Scartâ pardabon par simpri lis modifichis selezionadis?"
 
 #: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
 #: gitg/commit/gitg-commit.vala:1593
@@ -649,16 +657,14 @@ msgstr[0] "Elimine file"
 msgstr[1] "Elimine i file"
 
 #: gitg/commit/gitg-commit.vala:1572
-#, fuzzy, c-format
-#| msgid "Are you sure you want to permanently delete the file `%s'?"
+#, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
-msgstr "Sigûrs di eliminâ par simpri il file `%s'?"
+msgstr "Eliminâ pardabon par simpri il file “%s”?"
 
 #: gitg/commit/gitg-commit.vala:1583
-#, fuzzy, c-format
-#| msgid "Are you sure you want to permanently delete the files %s and `%s'?"
+#, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
-msgstr "Sigûrs di eliminâ par simpri i file %s e `%s'?"
+msgstr "Eliminâ pardabon par simpri i file %s e “%s”?"
 
 #: gitg/commit/gitg-commit.vala:1629
 msgid "_Stage changes"
@@ -1040,7 +1046,7 @@ msgstr "Elimine ram %s"
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
 msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr "Sigûrs di eliminâ par simpri il ram %s?"
+msgstr "Eliminâ pardabon par simpri il ram %s?"
 
 #: gitg/gitg-ref-action-delete.vala:78
 #, c-format
@@ -1050,7 +1056,7 @@ msgstr "Elimine etichete %s"
 #: gitg/gitg-ref-action-delete.vala:79
 #, c-format
 msgid "Are you sure that you want to permanently delete the tag %s?"
-msgstr "Sigûrs di eliminâ par simpri la etichete %s?"
+msgstr "Eliminâ pardabon par simpri la etichete %s?"
 
 #: gitg/gitg-ref-action-delete.vala:83
 #, c-format
@@ -1060,7 +1066,7 @@ msgstr "Elimine il ram lontan %s"
 #: gitg/gitg-ref-action-delete.vala:84
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr "Sigûrs di eliminâ par simpri il ram lontan %s?"
+msgstr "Eliminâ pardabon par simpri il ram lontan %s?"
 
 #. Translators: %s is the name of the tag
 #: gitg/gitg-ref-action-delete.vala:119
@@ -1164,10 +1170,9 @@ msgid "Push branch %s"
 msgstr "Elimine ram %s"
 
 #: gitg/gitg-ref-action-push.vala:135
-#, fuzzy, c-format
-#| msgid "Are you sure that you want to permanently delete the branch %s?"
+#, c-format
 msgid "Are you sure that you want to push the branch %s?"
-msgstr "Sigûrs di eliminâ par simpri il ram %s?"
+msgstr "Eliminâ pardabon par simpri il ram %s?"
 
 #: gitg/gitg-ref-action-push.vala:139
 msgid "Push"
@@ -1187,7 +1192,7 @@ msgstr "Unìs un altri ram intal ram %s"
 #: gitg/gitg-ref-action-merge.vala:106
 #, c-format
 msgid "Failed to merge commits: %s"
-msgstr ""
+msgstr "Impussibil incorporâ lis consegnis: %s"
 
 #: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
@@ -1199,6 +1204,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout "
 "branch %s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
+"La union di %s in %s e à causât conflits, controlaressistu il ram %s cu la "
+"union ae cartele di lavôr par risolvi i conflits?"
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -1206,6 +1213,8 @@ msgid ""
 "The merge of %s into %s has caused conflicts, would you like to checkout the "
 "merge to your working directory to resolve the conflicts?"
 msgstr ""
+"La union di %s in %s e à causât conflits, controlaressistu la union ae "
+"cartele di lavôr par risolvi i conflits?"
 
 #: gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
@@ -1213,7 +1222,7 @@ msgstr "Union falide cun conflits"
 
 #: gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
-msgstr ""
+msgstr "Union finide cun conflits te cartele di lavôr"
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
@@ -1233,7 +1242,7 @@ msgstr ""
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
 msgid "Successfully merged %s into %s"
-msgstr ""
+msgstr "%s unît cun sucès in %s"
 
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
@@ -1243,7 +1252,7 @@ msgstr "Unìs %s intal ram %s"
 #: gitg/gitg-ref-action-merge.vala:482
 #: gitg/history/gitg-history-refs-list.vala:1181
 msgid "Tags"
-msgstr ""
+msgstr "Etichetis"
 
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
@@ -1254,8 +1263,7 @@ msgid "Rename the selected reference"
 msgstr "Cambie non al riferiment selezionât"
 
 #: gitg/gitg-ref-action-rename.vala:100
-#, fuzzy, c-format
-#| msgid "The specified name ‘%s’ contains invalid characters"
+#, c-format
 msgid "The specified name “%s” contains invalid characters"
 msgstr "Il non specificât “%s” al conten caratars no valits"
 
@@ -1536,7 +1544,7 @@ msgstr "Date"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:7
 msgid "Create Branch"
-msgstr ""
+msgstr "Cree ram"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:34
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:36
@@ -1555,17 +1563,19 @@ msgstr "No si è rivâts a creâ il ram"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:7
 msgid "Create Tag"
-msgstr ""
+msgstr "Cree etichete"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:71
 msgid "Tag _name:"
-msgstr ""
+msgstr "_Non etichete:"
 
 #: gitg/resources/ui/gitg-dash-view.ui:32
 msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
+"Nol è stât ancjemò zontât nissun dipuesit. Par scomençâ tu puedis zontâ un "
+"dipuesit esistent o clonâ un gnûf."
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
@@ -1593,15 +1603,15 @@ msgstr "_Informazions"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:58
 msgid "Show markup"
-msgstr ""
+msgstr "Mostre il markup"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:85
 msgid "Display _subject margin at column:"
-msgstr ""
+msgstr "Mostre il _margjin dal ogjet ae colone:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:140
 msgid "Display right _margin at column:"
-msgstr ""
+msgstr "Mostre il _margjin di diestre ae colone:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:196
 msgid "Maximum number of messages:"
@@ -1610,6 +1620,7 @@ msgstr "Numar massim di messaçs:"
 #: gitg/resources/ui/gitg-preferences-commit.ui:220
 msgid "Maximum number of messages to keep for commit message history"
 msgstr ""
+"Numar massim di messaçs di conservâ pe cronologjie dai messaç di consegne"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:232
 msgid "Maximum number of days:"
@@ -1617,7 +1628,7 @@ msgstr "Numar massim di dîs:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:257
 msgid "Maximum number of days to keep for commit message history"
-msgstr ""
+msgstr "Numar massim di dîs di tignî pe cronologjie dai messaçs di consegne"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:284
 msgid "Language:"
@@ -1661,19 +1672,19 @@ msgstr "Consegnis"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:174
 msgid "Collapse inactive lanes"
-msgstr ""
+msgstr "Strenç lis corsiis inativis"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:215
 msgid "Early"
-msgstr ""
+msgstr "Subite"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:227
 msgid "Late"
-msgstr ""
+msgstr "Tart"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:242
 msgid "Show history in topological order"
-msgstr ""
+msgstr "Mostre cronologjie in ordin topologjic"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:257
 msgid "Preserve mainline for currently checked out branch"
@@ -1799,24 +1810,24 @@ msgstr ""
 #: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Change to History View"
-msgstr ""
+msgstr "Passe ae viodude cronologjie"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Commit View"
-msgstr ""
+msgstr "Passe ae viodude consegne"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to activity"
-msgstr ""
+msgstr "Passe a ativitât"
 
 # Commit isal un verp o no?
 #: gitg/resources/ui/gitg-shortcuts.ui:111
 #, fuzzy
 msgctxt "shortcut window"
 msgid "Commit Activity"
-msgstr "Consegne ativitât"
+msgstr "Ativitât di consegne"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:116
 msgctxt "shortcut window"
@@ -1826,7 +1837,7 @@ msgstr "Selezione/Deselezione"
 #: gitg/resources/ui/gitg-shortcuts.ui:123
 msgctxt "shortcut window"
 msgid "Open commit dialog"
-msgstr ""
+msgstr "Vierç il dialic di consegne"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:130
 #, fuzzy
@@ -1853,12 +1864,9 @@ msgid "Edit selection"
 msgstr "Modifiche selezion"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:159
-#, fuzzy
-#| msgctxt "Activity"
-#| msgid "Commit"
 msgctxt "shortcut window"
 msgid "Commit Dialog"
-msgstr "Consegne"
+msgstr "Dialic di consegne"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:164
 msgctxt "shortcut window"
@@ -1881,10 +1889,9 @@ msgid "Next commit message"
 msgstr "Messaç di consegne sucessîf"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:193
-#, fuzzy
 msgctxt "shortcut window"
 msgid "History Activity"
-msgstr "Ativitât de cornologjie"
+msgstr "Ativitât de cronologjie"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
@@ -2083,7 +2090,7 @@ msgstr "Visâsi par _simpri"
 
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
 msgid "Parents"
-msgstr ""
+msgstr "Gjenitôrs"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui:10
 msgid "Unable to display changes for binary file"
@@ -2091,15 +2098,15 @@ msgstr "Impussibil visualizâ lis modifichis pal file binari"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:35
 msgid "Side by side"
-msgstr ""
+msgstr "A pâr"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
 msgid "Slider"
-msgstr ""
+msgstr "Cursôr di scoriment"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
 msgid "Overlay"
-msgstr ""
+msgstr "Soreposizion"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
 msgid "Difference"
@@ -2107,7 +2114,7 @@ msgstr "Diference"
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:20
 msgid "Tab width:"
-msgstr ""
+msgstr "Largjece schede:"
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:44
 msgid "Wrap lines:"
@@ -2115,7 +2122,7 @@ msgstr ""
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:67
 msgid "Ignore whitespace:"
-msgstr ""
+msgstr "Ignore spazis blancs:"
 
 #: libgitg/resources/ui/gitg-diff-view-options.ui:31
 msgid "Context:"
@@ -2123,17 +2130,17 @@ msgstr "Contest:"
 
 #: libgitg/resources/ui/gitg-diff-view-options.ui:63
 msgid "Spacing"
-msgstr ""
+msgstr "Spaziadure"
 
 #: libgitg/resources/ui/gitg-repository-list-box-row.ui:37
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
-msgstr ""
+msgstr "Gjave il dipuesit de liste (nol elimine il dipuesit dal disc)"
 
 #: plugins/diff/gitg-diff.vala:125
 msgid "Show the changes introduced by the selected commit"
-msgstr ""
+msgstr "Mostre lis modifichis introdotis cu la consegne selezionade"
 
 #: plugins/files/gitg-files.vala:68
 msgid "Files"
@@ -2141,7 +2148,7 @@ msgstr "File"
 
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
-msgstr ""
+msgstr "Mostre i files tal arbul de consegne selezionade"
 
 #~ msgid "_Quit"
 #~ msgstr "_Jes"
