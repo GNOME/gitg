@@ -427,8 +427,6 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			{
 				stderr.printf(@"ERROR: failed to load $(file.get_path()) for highlighting: $(e.message)\n");
 			}
-
-			return null;
 		}
 
 		return buffer;
