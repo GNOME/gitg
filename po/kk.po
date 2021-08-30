@@ -1,14 +1,14 @@
 # Kazakh translation for gitg.
 # Copyright (C) 2016 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2016-2020.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2016-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-06-27 08:29+0000\n"
-"PO-Revision-Date: 2020-07-05 18:00+0500\n"
+"POT-Creation-Date: 2021-04-25 15:53+0000\n"
+"PO-Revision-Date: 2021-08-30 15:03+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 3.0\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Ағын ішінен XML талдау мүмкін емес"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
-#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:9
 msgid "Graphical user interface for git"
-msgstr ""
+msgstr "Git үшін графикалық пайдаланушы интерфейсі"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
@@ -83,6 +83,10 @@ msgstr ""
 #: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "GNOME жобасы"
+
+#: data/org.gnome.gitg.desktop.in.in:3
+msgid "@binary@"
+msgstr ""
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -635,11 +639,11 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1665
 msgid "D_elete file"
 msgid_plural "D_elete files"
-msgstr[0] ""
+msgstr[0] "Файл(дар)ды ө_шіру"
 
 #: gitg/commit/gitg-commit.vala:1695
 msgid "_Edit file"
-msgstr ""
+msgstr "Файлды түз_ету"
 
 #: gitg/gitg-action-support.vala:95
 #, c-format
@@ -834,36 +838,36 @@ msgstr ""
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
-msgstr ""
+msgstr "Бұтақты жасау"
 
 #: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
-msgstr ""
+msgstr "Таңдалған коммиттен жаңа бұтақты жасау"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
 #: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
-msgstr ""
+msgstr "Бұтақты жасау сәтсіз аяқталды"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create patch"
-msgstr ""
+msgstr "Патчты жасау"
 
 #: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
-msgstr ""
+msgstr "Таңдалған коммиттен патчты жасау"
 
 #: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
-msgstr ""
+msgstr "Патч файлын сақтау"
 
 #: gitg/gitg-commit-action-create-patch.vala:156
 msgid "_Save Patch"
-msgstr ""
+msgstr "Патчты _сақтау"
 
 #: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
-msgstr ""
+msgstr "Патчты жасау сәтсіз аяқталды"
 
 #: gitg/gitg-commit-action-create-tag.vala:48
 msgid "Create tag"
@@ -968,7 +972,7 @@ msgstr ""
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
-msgstr ""
+msgstr "Атауын көшіру"
 
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
@@ -1059,7 +1063,7 @@ msgstr "жаңа"
 #. Translators: updated refers to a remote reference having been updated,
 #: gitg/gitg-ref-action-fetch.vala:111
 msgid "updated"
-msgstr ""
+msgstr "жаңартылған"
 
 #: gitg/gitg-ref-action-fetch.vala:121
 #, c-format
@@ -1197,20 +1201,20 @@ msgstr "Атын өзгерту"
 
 #: gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
-msgstr ""
+msgstr "Таңдалған сілтеменің атын өзгерту"
 
 #: gitg/gitg-ref-action-rename.vala:100
 #, c-format
 msgid "The specified name “%s” contains invalid characters"
-msgstr ""
+msgstr "Көрсетілген \"%s\" атауында жарамсыз таңбалар бар"
 
 #: gitg/gitg-ref-action-rename.vala:102
 msgid "Invalid name"
-msgstr ""
+msgstr "Атауы қате"
 
 #: gitg/gitg-ref-action-rename.vala:131
 msgid "Failed to rename"
-msgstr ""
+msgstr "Атын өзгерту сәтсіз аяқталды"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
 msgid "Close"
@@ -1218,7 +1222,7 @@ msgstr "Жабу"
 
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
-msgstr ""
+msgstr "Репозиторийді қосу"
 
 #: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
@@ -1226,7 +1230,7 @@ msgstr "Қо_су"
 
 #: gitg/gitg-window.vala:208
 msgid "_Scan for all git repositories from this directory"
-msgstr ""
+msgstr "Бұл бумадан барлық git репозиторийлеріне _сканерлеу"
 
 #: gitg/gitg-window.vala:517
 msgid "Projects"
@@ -1234,7 +1238,7 @@ msgstr "Жобалар"
 
 #: gitg/gitg-window.vala:701
 msgid "Open Repository"
-msgstr ""
+msgstr "Репозиторийді ашу"
 
 #: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
@@ -1242,34 +1246,40 @@ msgstr "Ашу"
 
 #: gitg/gitg-window.vala:844
 msgid "Select items"
-msgstr ""
+msgstr "Нәрселерді таңдау"
 
 #: gitg/gitg-window.vala:1062
 #, c-format
 msgid "“%s” is not a Git repository."
-msgstr ""
+msgstr "\"%s\" Git репозиторийі емес."
 
 #: gitg/gitg-window.vala:1211
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr ""
+"Пайдаланушы аты мен эл. поштаңыз әлі бапталмаған. Пайдаланушы "
+"конфигурациясына өтіп, атыңыз бен эл. поштаңызды көрсетіңіз."
 
 #: gitg/gitg-window.vala:1215
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr ""
+"Пайдаланушы аты әлі бапталмаған. Пайдаланушы конфигурациясына өтіп, атыңызды "
+"көрсетіңіз."
 
 #: gitg/gitg-window.vala:1219
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
+"Эл. поштаңыз әлі бапталмаған. Пайдаланушы конфигурациясына өтіп, эл. "
+"поштаңызды беріңіз."
 
 #: gitg/gitg-window.vala:1222
 msgid "Missing author details"
-msgstr ""
+msgstr "Автор ақпараты жоқ"
 
 #: gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
@@ -1293,35 +1303,35 @@ msgstr ""
 
 #: gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
-msgstr ""
+msgstr "СІЛТЕМЕ"
 
 #: gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%zu ahead, %zu behind"
-msgstr ""
+msgstr "%zu алда, %zu артта"
 
 #: gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%zu ahead"
-msgstr ""
+msgstr "%zu алда"
 
 #: gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%zu behind"
-msgstr ""
+msgstr "%zu артта"
 
 #: gitg/history/gitg-history-refs-list.vala:207
 #: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
-msgstr ""
+msgstr "Барлық коммиттер"
 
 #: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Branches"
-msgstr ""
+msgstr "Бұтақтар"
 
 #: gitg/history/gitg-history-refs-list.vala:1180
 msgid "Remotes"
-msgstr ""
+msgstr "Қайнар көздер"
 
 #: gitg/history/gitg-history.vala:347
 #: gitg/preferences/gitg-preferences-history.vala:218
@@ -1331,7 +1341,7 @@ msgstr "Тарихы"
 
 #: gitg/history/gitg-history.vala:352
 msgid "Examine the history of the repository"
-msgstr ""
+msgstr "Репозиторий тарихын зерттеу"
 
 #: gitg/history/gitg-history.vala:942
 msgid "Mainline"
@@ -1340,7 +1350,7 @@ msgstr ""
 #: gitg/preferences/gitg-preferences-commit.vala:142
 msgctxt "Preferences"
 msgid "Commit"
-msgstr ""
+msgstr "Коммит"
 
 #: gitg/preferences/gitg-preferences-interface.vala:142
 #, c-format
@@ -1361,7 +1371,7 @@ msgstr ""
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:114
 msgid "E-mail:"
-msgstr ""
+msgstr "Эл. пошта:"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:125
 msgid "Name:"
@@ -1394,33 +1404,33 @@ msgstr "Репозиторийді клондау"
 #: gitg/resources/ui/gitg-clone-dialog.ui:33
 #: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
-msgstr ""
+msgstr "Кл_ондау"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:68
 msgid "Remote _URL:"
-msgstr ""
+msgstr "Қаш_ықтағы URL:"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
-msgstr ""
+msgstr "Жергі_лікті бума:"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:116
 msgid "Select location…"
-msgstr ""
+msgstr "Орналасуды таңдау…"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:127
 msgid "Bare repository"
-msgstr ""
+msgstr "Жалаң репозиторий"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:8
 msgctxt "Create Dialog"
 msgid "Commit"
-msgstr ""
+msgstr "Коммит"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
 #: gitg/resources/ui/gitg-commit-paned.ui:86
 msgid "C_ommit"
-msgstr ""
+msgstr "К_оммит"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:217
 msgid "_Amend previous commit"
@@ -1473,7 +1483,7 @@ msgstr "Күні"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:7
 msgid "Create Branch"
-msgstr ""
+msgstr "Бұтақты жасау"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:34
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:36
@@ -1512,7 +1522,7 @@ msgstr "_Баптаулар"
 
 #: gitg/resources/ui/gitg-menus.ui:21 gitg/resources/ui/gitg-menus.ui:42
 msgid "_Author Details"
-msgstr ""
+msgstr "_Автор ақпараты"
 
 #: gitg/resources/ui/gitg-menus.ui:27 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Keyboard Shortcuts"
@@ -1528,7 +1538,7 @@ msgstr "О_сы туралы"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:58
 msgid "Show markup"
-msgstr ""
+msgstr "Белгілеуді көрсету"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:85
 msgid "Display _subject margin at column:"
@@ -1564,7 +1574,7 @@ msgstr "Емлені тексеруді іске қосу"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:341
 msgid "Commit Message"
-msgstr ""
+msgstr "Коммит хабарламасы"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -1572,15 +1582,15 @@ msgstr ""
 
 #: gitg/resources/ui/gitg-preferences-history.ui:50
 msgid "Current branch"
-msgstr ""
+msgstr "Ағымдағы бұтақ"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:65
 msgid "All branches"
-msgstr ""
+msgstr "Барлық бұтақтар"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:106
 msgid "References"
-msgstr ""
+msgstr "Сілтемелер"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:119
 msgid "Sort references in the sidebar by latest activity"
@@ -1592,7 +1602,7 @@ msgstr ""
 
 #: gitg/resources/ui/gitg-preferences-history.ui:154
 msgid "Commits"
-msgstr ""
+msgstr "Коммиттер"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:174
 msgid "Collapse inactive lanes"
@@ -1620,11 +1630,11 @@ msgstr "Іске қосылу"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:47
 msgid "Start with activity:"
-msgstr ""
+msgstr "Белсенділіктен бастау:"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:61
 msgid "Commit"
-msgstr ""
+msgstr "Коммит"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:80
 msgid "Layout"
@@ -1632,7 +1642,7 @@ msgstr "Жайма"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:100
 msgid "Use horizontal layout"
-msgstr ""
+msgstr "Горизонталды жайманы қолдану"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:124
 msgid "Avatars"
@@ -1640,11 +1650,11 @@ msgstr "Аватарлар"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:144
 msgid "Use gravatar service to provide user avatars"
-msgstr ""
+msgstr "Пайдаланушы аватарларын ұсыну үшін gravatar қызметін пайдалану"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:168
 msgid "Monitoring"
-msgstr ""
+msgstr "Мониторинг"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:212
 msgid "Font"
@@ -1661,7 +1671,7 @@ msgstr "Түзеткіш қарібін таңдаңыз"
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
 #: plugins/diff/gitg-diff.vala:120
 msgid "Diff"
-msgstr ""
+msgstr "Айырмашылық"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:312
 msgid "Enable syntax highlighting of source code in diff views"
@@ -1748,7 +1758,7 @@ msgstr ""
 #: gitg/resources/ui/gitg-shortcuts.ui:111
 msgctxt "shortcut window"
 msgid "Commit Activity"
-msgstr ""
+msgstr "Коммиттер белсенділігі"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:116
 msgctxt "shortcut window"
@@ -1758,7 +1768,7 @@ msgstr "Таңдау/таңдаудан бас тарту"
 #: gitg/resources/ui/gitg-shortcuts.ui:123
 msgctxt "shortcut window"
 msgid "Open commit dialog"
-msgstr ""
+msgstr "Коммит сұхбатын ашу"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
@@ -1773,22 +1783,22 @@ msgstr ""
 #: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Discard selection"
-msgstr ""
+msgstr "Таңдалғанды тайдыру"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Edit selection"
-msgstr ""
+msgstr "Таңдалғанды түзету"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:159
 msgctxt "shortcut window"
 msgid "Commit Dialog"
-msgstr ""
+msgstr "Коммит сұхбаты"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:164
 msgctxt "shortcut window"
 msgid "Commit"
-msgstr ""
+msgstr "Коммит"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:171
 msgctxt "shortcut window"
@@ -1798,12 +1808,12 @@ msgstr "Бас тарту"
 #: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
 msgid "Previous commit message"
-msgstr ""
+msgstr "Алдыңғы коммит хабарламасы"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Next commit message"
-msgstr ""
+msgstr "Келесі коммит хабарламасы"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:193
 msgctxt "shortcut window"
@@ -1812,23 +1822,23 @@ msgstr "Тарихы"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
-msgstr ""
+msgstr "Жуырда қолданылған репозиторийлер тізімін көрсету"
 
 #: gitg/resources/ui/gitg-window.ui:48
 msgid "Clone repository"
-msgstr ""
+msgstr "Репозиторийді клондау"
 
 #: gitg/resources/ui/gitg-window.ui:65
 msgid "Add repository"
-msgstr ""
+msgstr "Репозиторийді қосу"
 
 #: gitg/resources/ui/gitg-window.ui:89
 msgid "Find a word or phrase"
-msgstr ""
+msgstr "Сөзді немесе сөз тіркесін табу"
 
 #: gitg/resources/ui/gitg-window.ui:134
 msgid "General settings and options"
-msgstr ""
+msgstr "Жалпы баптаулар мен опциялар"
 
 #: gitg/resources/ui/gitg-window.ui:229
 msgid "_Close"
@@ -1935,31 +1945,31 @@ msgstr "Барлығын жазық қылу"
 #: libgitg/gitg-diff-view-commit-details.vala:202
 #, c-format
 msgid "Committed by %s"
-msgstr ""
+msgstr "Коммит жасаған %s"
 
 #: libgitg/gitg-diff-view-file.vala:177
 msgid "_Open file"
-msgstr ""
+msgstr "Файлды а_шу"
 
 #: libgitg/gitg-diff-view-file.vala:209
 msgid "Open containing _folder"
-msgstr ""
+msgstr "_Орналасқан бумасын ашу"
 
 #: libgitg/gitg-diff-view-file.vala:229
 msgid "_Copy file path"
-msgstr ""
+msgstr "Файлды жолын _көшіріп алу"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: libgitg/gitg-repository-list-box.vala:153
 #, c-format
 msgid "at %s"
-msgstr ""
+msgstr "жері %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
 #: libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "%s at %s"
-msgstr ""
+msgstr "%s, жері %s"
 
 #: libgitg/gitg-repository-list-box.vala:545
 msgid "Cloning…"
@@ -2006,11 +2016,11 @@ msgstr ""
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui:10
 msgid "Unable to display changes for binary file"
-msgstr ""
+msgstr "Бинарлы файл үшін өзгерістерді көрсету мүмкін емес"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:35
 msgid "Side by side"
-msgstr ""
+msgstr "Қатарынан"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
 msgid "Slider"
@@ -2030,11 +2040,11 @@ msgstr "Табуляция ені:"
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:44
 msgid "Wrap lines:"
-msgstr ""
+msgstr "Жолдарды тасымалдау:"
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:67
 msgid "Ignore whitespace:"
-msgstr ""
+msgstr "Бос аралықты елемеу:"
 
 #: libgitg/resources/ui/gitg-diff-view-options.ui:31
 msgid "Context:"
@@ -2048,11 +2058,11 @@ msgstr "Аралық"
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
-msgstr ""
+msgstr "Тізімнен репозиторийді алып тастау (репозиторийді дискіден өшірмейді)"
 
 #: plugins/diff/gitg-diff.vala:125
 msgid "Show the changes introduced by the selected commit"
-msgstr ""
+msgstr "Таңдалған коммит енгізген өзгерістерді көрсету"
 
 #: plugins/files/gitg-files.vala:68
 msgid "Files"
@@ -2060,7 +2070,7 @@ msgstr "Файлдар"
 
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
-msgstr ""
+msgstr "Таңдалған коммит ағашындағы файлдарды көрсету"
 
 #~ msgid "Clone"
 #~ msgstr "Клондау"
