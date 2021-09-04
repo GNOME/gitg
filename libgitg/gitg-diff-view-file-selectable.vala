@@ -35,7 +35,7 @@ class Gitg.DiffViewFileSelectable : Object
 	private Gdk.Cursor d_cursor_hand;
 	private bool d_is_rubber_band;
 
-	public Gtk.SourceView source_view
+	public Gtk.TextView source_view
 	{
 		get; construct set;
 	}
@@ -50,19 +50,19 @@ class Gitg.DiffViewFileSelectable : Object
 		var ret = new int[0];
 		Gtk.TextIter iter;
 
-		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
+		unowned Gtk.TextBuffer buffer = (Gtk.TextBuffer) source_view.buffer;
 
 		buffer.get_start_iter(out iter);
 
-		while (buffer.forward_iter_to_source_mark(ref iter, d_selection_category))
+		/*while (buffer.forward_iter_to_source_mark(ref iter, d_selection_category))
 		{
 			ret += iter.get_line();
-		}
+		}*/
 
 		return ret;
 	}
 
-	public DiffViewFileSelectable(Gtk.SourceView source_view)
+	public DiffViewFileSelectable(Gtk.TextView source_view)
 	{
 		Object(source_view: source_view);
 	}
@@ -152,7 +152,7 @@ class Gitg.DiffViewFileSelectable : Object
 			d_selection_tag.foreground_rgba = theme_selected_fg_color;
 		}
 
-		source_view.set_mark_attributes(d_selection_category, selection_attributes, 0);
+		//source_view.set_mark_attributes(d_selection_category, selection_attributes, 0);
 	}
 
 	private bool get_line_selected(Gtk.TextIter iter)
@@ -161,9 +161,9 @@ class Gitg.DiffViewFileSelectable : Object
 
 		start.set_line_offset(0);
 
-		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
+		unowned Gtk.TextBuffer buffer = (Gtk.TextBuffer) source_view.buffer;
 
-		return buffer.get_source_marks_at_iter(start, d_selection_category) != null;
+		return true;//buffer.get_source_marks_at_iter(start, d_selection_category) != null;
 	}
 
 	private bool get_line_is_diff(Gtk.TextIter iter)
@@ -172,10 +172,10 @@ class Gitg.DiffViewFileSelectable : Object
 
 		start.set_line_offset(0);
 
-		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
+		unowned Gtk.TextBuffer buffer = (Gtk.TextBuffer) source_view.buffer;
 
-		return (buffer.get_source_marks_at_iter(start, "added") != null) ||
-		       (buffer.get_source_marks_at_iter(start, "removed") != null);
+		return true;//(buffer.get_source_marks_at_iter(start, "added") != null) ||
+		       //(buffer.get_source_marks_at_iter(start, "removed") != null);
 	}
 
 	private bool get_line_is_hunk(Gtk.TextIter iter)
@@ -184,9 +184,9 @@ class Gitg.DiffViewFileSelectable : Object
 
 		start.set_line_offset(0);
 
-		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
+		unowned Gtk.TextBuffer buffer = (Gtk.TextBuffer) source_view.buffer;
 
-		return buffer.get_source_marks_at_iter(start, "header") != null;
+		return false;//buffer.get_source_marks_at_iter(start, "header") != null;
 	}
 
 	private bool get_iter_from_pointer_position(out Gtk.TextIter iter)
@@ -225,7 +225,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 	private void update_selection_range(Gtk.TextIter start, Gtk.TextIter end, bool select)
 	{
-		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
+		unowned Gtk.TextBuffer buffer = (Gtk.TextBuffer) source_view.buffer;
 
 		Gtk.TextIter real_start, real_end;
 
@@ -263,7 +263,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 				if (select)
 				{
-					buffer.create_source_mark(null, d_selection_category, current);
+					//buffer.create_source_mark(null, d_selection_category, current);
 
 					var line_end = current;
 
@@ -286,7 +286,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 		if (!select)
 		{
-			buffer.remove_source_marks(real_start, real_end, d_selection_category);
+			//buffer.remove_source_marks(real_start, real_end, d_selection_category);
 			buffer.remove_tag(d_selection_tag, real_start, real_end);
 		}
 	}
@@ -319,12 +319,13 @@ class Gitg.DiffViewFileSelectable : Object
 	{
 		iter.forward_line();
 
-		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
+		unowned Gtk.TextBuffer buffer = (Gtk.TextBuffer) source_view.buffer;
 
-		if (!buffer.forward_iter_to_source_mark(ref iter, "header"))
+		/*if (!buffer.forward_iter_to_source_mark(ref iter, "header"))
 		{
 			iter.forward_to_end();
 		}
+		*/
 	}
 
 	private bool hunk_is_all_selected(Gtk.TextIter iter)
@@ -480,7 +481,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 	private void update_has_selection()
 	{
-		unowned Gtk.SourceBuffer buffer = (Gtk.SourceBuffer) source_view.buffer;
+		unowned Gtk.TextBuffer buffer = (Gtk.TextBuffer) source_view.buffer;
 
 		Gtk.TextIter iter;
 		buffer.get_start_iter(out iter);
@@ -493,7 +494,7 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 		else
 		{
-			something_selected = buffer.forward_iter_to_source_mark(ref iter, d_selection_category);
+			//something_selected = buffer.forward_iter_to_source_mark(ref iter, d_selection_category);
 		}
 
 		if (something_selected != has_selection)

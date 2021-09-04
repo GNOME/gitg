@@ -18,7 +18,7 @@
  */
 
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-diff-view-file-renderer-text.ui")]
-class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFileRenderer
+class Gitg.DiffViewFileRendererText : Gtk.TextView, DiffSelectable, DiffViewFileRenderer
 {
 	private enum RegionType
 	{
@@ -50,8 +50,8 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private bool d_highlight;
 
 	private Cancellable? d_higlight_cancellable;
-	private Gtk.SourceBuffer? d_old_highlight_buffer;
-	private Gtk.SourceBuffer? d_new_highlight_buffer;
+	private Gtk.TextBuffer? d_old_highlight_buffer;
+	private Gtk.TextBuffer? d_new_highlight_buffer;
 	private bool d_old_highlight_ready;
 	private bool d_new_highlight_ready;
 
@@ -82,8 +82,10 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	public new int tab_width
 	{
-		get { return (int)get_tab_width(); }
-		set { set_tab_width((uint)value); }
+		//get { return (int)get_tab_width(); }
+		//set { set_tab_width((uint)value); }
+		get { return 3; }
+		set { ; }
 	}
 
 	public int maxlines { get; set; }
@@ -177,7 +179,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	construct
 	{
-		var gutter = this.get_gutter(Gtk.TextWindowType.LEFT);
+		//var gutter = this.get_gutter(Gtk.TextWindowType.LEFT);
 
 		d_old_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.OLD);
 		d_new_lines = new DiffViewLinesRenderer(DiffViewLinesRenderer.Style.NEW);
@@ -190,9 +192,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		d_new_lines.xpad = 8;
 		d_sym_lines.xpad = 6;
 
-		gutter.insert(d_old_lines, 0);
-		gutter.insert(d_new_lines, 1);
-		gutter.insert(d_sym_lines, 2);
+		//gutter.insert(d_old_lines, 0);
+		//gutter.insert(d_new_lines, 1);
+		//gutter.insert(d_sym_lines, 2);
 
 		this.set_border_window_size(Gtk.TextWindowType.TOP, 1);
 
@@ -301,7 +303,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	private async void init_highlighting_buffer_new(Cancellable cancellable)
 	{
-		Gtk.SourceBuffer? buffer;
+		Gtk.TextBuffer? buffer;
 
 		var file = delta.get_new_file();
 
@@ -331,7 +333,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 	}
 
-	private async Gtk.SourceBuffer? init_highlighting_buffer(Ggit.DiffFile file, bool from_workdir, Cancellable cancellable)
+	private async Gtk.TextBuffer? init_highlighting_buffer(Ggit.DiffFile file, bool from_workdir, Cancellable cancellable)
 	{
 		var id = file.get_oid();
 		var location = get_file_location(file);
@@ -383,21 +385,21 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		return yield init_highlighting_buffer_from_stream(file, location, stream, content_type, cancellable);
 	}
 
-	private async Gtk.SourceBuffer? init_highlighting_buffer_from_stream(Ggit.DiffFile file, File location, InputStream stream, string content_type, Cancellable cancellable)
+	private async Gtk.TextBuffer? init_highlighting_buffer_from_stream(Ggit.DiffFile file, File location, InputStream stream, string content_type, Cancellable cancellable)
 	{
 		var manager = Gtk.SourceLanguageManager.get_default();
 		var language = manager.guess_language(location != null ? location.get_basename() : null, content_type);
 
-		var buffer = new Gtk.SourceBuffer(this.buffer.tag_table);
+		var buffer = new Gtk.TextBuffer(this.buffer.tag_table);
 
 		if (language != null)
 		{
-			buffer.language = language;
+			//buffer.language = language;
 		}
 
 		var style_scheme_manager = Gtk.SourceStyleSchemeManager.get_default();
 
-		buffer.highlight_syntax = true;
+		//buffer.highlight_syntax = true;
 
 		d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		if (d_stylesettings != null)
@@ -408,17 +410,22 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 			update_style();
 		} else {
-			buffer.style_scheme = style_scheme_manager.get_scheme("classic");
+			//buffer.style_scheme = style_scheme_manager.get_scheme("classic");
 		}
 
 		var sfile = new Gtk.SourceFile();
 		sfile.location = location;
 
-		var loader = new Gtk.SourceFileLoader.from_stream(buffer, sfile, stream);
+		//var loader = new Gtk.SourceFileLoader.from_stream(buffer, sfile, stream);
 
 		try
 		{
-			yield loader.load_async(GLib.Priority.LOW, cancellable, null);
+        	var dis = new DataInputStream (stream);
+			string line;
+			while ((line = dis.read_line (null)) != null) {
+        	    buffer.text += line;
+        	}
+			//yield loader.load_async(GLib.Priority.LOW, cancellable, null);
 			this.strip_carriage_returns(buffer);
 		}
 		catch (Error e)
@@ -440,7 +447,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		if (s != null)
 		{
-			((Gtk.SourceBuffer) buffer).style_scheme = s;
+			//((Gtk.TextBuffer) buffer).style_scheme = s;
 		}
 	}
 
@@ -461,19 +468,20 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		return null;
 	}
 
-	private void strip_carriage_returns(Gtk.SourceBuffer buffer)
+	private void strip_carriage_returns(Gtk.TextBuffer buffer)
 	{
 		var search_settings = new Gtk.SourceSearchSettings();
 
 		search_settings.regex_enabled = true;
 		search_settings.search_text = "\\r";
 
-		var search_context = new Gtk.SourceSearchContext(buffer, search_settings);
+		/*var search_context = new Gtk.SourceSearchContext(buffer, search_settings);
 
 		try
 		{
 			search_context.replace_all("", 0);
 		} catch (Error e) {}
+		*/
 	}
 
 	private void update_highlighting_ready()
@@ -495,7 +503,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		// apply the tags that are applied to the highlighted source buffers.
 		foreach (var region in d_regions)
 		{
-			Gtk.SourceBuffer? source;
+			Gtk.TextBuffer? source;
 
 			if (region.type == RegionType.REMOVED)
 			{
@@ -519,7 +527,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			var source_end_iter = source_iter;
 			source_end_iter.forward_lines(region.length);
 
-			source.ensure_highlight(source_iter, source_end_iter);
+			//source.ensure_highlight(source_iter, source_end_iter);
 
 			var buffer_end_iter = buffer_iter;
 			buffer_end_iter.forward_lines(region.length);
@@ -603,9 +611,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			removed_attributes.background = Gdk.RGBA() { red = 1.0, green = 220.0 / 255.0, blue = 220.0 / 255.0, alpha = 1.0 };
 		}
 
-		this.set_mark_attributes("header", header_attributes, 0);
-		this.set_mark_attributes("added", added_attributes, 0);
-		this.set_mark_attributes("removed", removed_attributes, 0);
+		//this.set_mark_attributes("header", header_attributes, 0);
+		//this.set_mark_attributes("added", added_attributes, 0);
+		//this.set_mark_attributes("removed", removed_attributes, 0);
 	}
 
 	protected override void constructed()
@@ -618,7 +626,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
-		var buffer = this.buffer as Gtk.SourceBuffer;
+		var buffer = this.buffer as Gtk.TextBuffer;
 
 		/* Diff hunk */
 		var h = hunk.get_header();
@@ -640,7 +648,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 
 		iter.set_line_offset(0);
-		buffer.create_source_mark(null, "header", iter);
+		//buffer.create_source_mark(null, "header", iter);
 
 		var header = @"@@ -$(hunk.get_old_start()),$(hunk.get_old_lines()) +$(hunk.get_new_start()),$(hunk.get_new_lines()) @@ $h\n";
 		buffer.insert(ref iter, header, -1);
@@ -783,7 +791,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			if (category != null)
 			{
 				buffer.get_iter_at_line(out iter, line_hunk_start + i);
-				buffer.create_source_mark(null, category, iter);
+				//buffer.create_source_mark(null, category, iter);
 			}
 		}
 

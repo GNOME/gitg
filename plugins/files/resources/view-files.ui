@@ -2,7 +2,7 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires gtksourceview 3.0 -->
-  <object class="GtkSourceBuffer" id="source_buffer_file"/>
+  <object class="GtkTextBuffer" id="source_buffer_file"/>
   <object class="GtkPaned" id="paned_files">
     <property name="visible">True</property>
     <property name="can_focus">True</property>

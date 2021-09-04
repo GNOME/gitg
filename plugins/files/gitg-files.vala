@@ -97,8 +97,8 @@ namespace GitgFiles
 
 			if (s != null)
 			{
-				var buf = d_source.get_buffer() as Gtk.SourceBuffer;
-				buf.set_style_scheme(s);
+				var buf = d_source.get_buffer() as Gtk.TextBuffer;
+				//buf.set_style_scheme(s);
 			}
 		}
 
@@ -154,9 +154,9 @@ namespace GitgFiles
 
 				update_style();
 			} else {
-				var buf = d_source.get_buffer() as Gtk.SourceBuffer;
+				var buf = d_source.get_buffer() as Gtk.TextBuffer;
 				var style_scheme_manager = Gtk.SourceStyleSchemeManager.get_default();
-				buf.style_scheme = style_scheme_manager.get_scheme("classic");
+				//buf.style_scheme = style_scheme_manager.get_scheme("classic");
 			}
 
 			d_whenMapped = new Gitg.WhenMapped(d_paned);
@@ -199,7 +199,7 @@ namespace GitgFiles
 			Gtk.TreeModel mod;
 			Gtk.TreeIter iter;
 
-			var buf = d_source.get_buffer() as Gtk.SourceBuffer;
+			var buf = d_source.get_buffer() as Gtk.TextBuffer;
 			buf.set_text("");
 
 			if (!selection.get_selected(out mod, out iter) || d_model.get_isdir(iter))
@@ -249,7 +249,7 @@ namespace GitgFiles
 				var manager = Gtk.SourceLanguageManager.get_default();
 
 				buf.set_text((string)content);
-				buf.language = manager.guess_language(fname, ct);
+				//buf.language = manager.guess_language(fname, ct);
 
 				wid = d_source;
 			}
