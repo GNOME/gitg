@@ -8,21 +8,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg 0.2.5\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-12 12:36+0000\n"
-"PO-Revision-Date: 2020-09-30 15:17+0300\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"POT-Creation-Date: 2021-04-25 15:53+0000\n"
+"PO-Revision-Date: 2021-09-27 11:04+0300\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n>2||n==0) ? 1 : 2\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 : "
+"3);\n"
+"X-Generator: Poedit 3.0\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
-msgstr ""
+msgstr "לא ניתן לפענח את ה־XML מהתזרים"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
 #: gitg/resources/ui/gitg-window.ui:8
@@ -31,47 +32,39 @@ msgstr "gitg"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:9
 msgid "Graphical user interface for git"
-msgstr ""
+msgstr "מנשק משתמש גרפי ל־git"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
-"gitg is a graphical user interface for git. It aims at being a small, fast "
-"and convenient tool to visualize the history of git repositories. Besides "
-"visualization, gitg also provides several utilities to manage your "
-"repository and commit your work."
+"gitg is a graphical user interface for git. It aims at being a small, fast and "
+"convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your repository "
+"and commit your work."
 msgstr ""
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Goals:"
-msgstr ""
+msgstr "יעדים:"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:19
-#, fuzzy
-#| msgid "Show the list of recently used repositories"
 msgid "Browse local git repositories"
-msgstr "הצגת רשימת המאגרים האחרונים בשימוש"
+msgstr "עיון במאגרי git מקומיים"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
 msgstr ""
 
 #: data/org.gnome.gitg.appdata.xml.in.in:21
-#, fuzzy
-#| msgid "Commits"
 msgid "Commit files"
-msgstr "הגשות"
+msgstr "הגשת קבצים"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:22
-#, fuzzy
-#| msgid "Create a patch from the selected commit"
 msgid "Retrieve patch from a commit"
-msgstr "יצירת טלאי מההגשה הנבחרת"
+msgstr "אחזור טלאי ממאגר"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:32
-#, fuzzy
-#| msgid "Bare repository"
 msgid "Browse repository history"
-msgstr "חשיפת מאגר"
+msgstr "עיון בהיסטוריית המאגר"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
@@ -91,7 +84,7 @@ msgstr "הצגת רשימת המאגרים האחרונים בשימוש"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
-msgstr ""
+msgstr "מיזם GNOME"
 
 #: data/org.gnome.gitg.desktop.in.in:3
 msgid "@binary@"
@@ -107,11 +100,9 @@ msgstr "Default Clone Directory"
 
 #: data/org.gnome.gitg.gschema.xml.in:29
 msgid ""
-"The default directory in which new repositories should be suggested to be "
-"cloned."
+"The default directory in which new repositories should be suggested to be cloned."
 msgstr ""
-"The default directory in which new repositories should be suggested to be "
-"cloned."
+"The default directory in which new repositories should be suggested to be cloned."
 
 #: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Orientation of the main interface (vertical or horizontal)"
@@ -135,13 +126,13 @@ msgstr "Use Default Font"
 
 #: data/org.gnome.gitg.gschema.xml.in:53
 msgid ""
-"Whether to use the system’s default fixed width font for widget's text "
-"instead of a font specific. If this option is turned off, then the font "
-"named in the “Editor Font” option will be used instead of the system font."
+"Whether to use the system’s default fixed width font for widget's text instead "
+"of a font specific. If this option is turned off, then the font named in the "
+"“Editor Font” option will be used instead of the system font."
 msgstr ""
-"Whether to use the system’s default fixed width font for widget's text "
-"instead of a font specific. If this option is turned off, then the font "
-"named in the “Editor Font” option will be used instead of the system font."
+"Whether to use the system’s default fixed width font for widget's text instead "
+"of a font specific. If this option is turned off, then the font named in the "
+"“Editor Font” option will be used instead of the system font."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
 #: data/org.gnome.gitg.gschema.xml.in:57
@@ -154,11 +145,11 @@ msgstr "Editor Font"
 
 #: data/org.gnome.gitg.gschema.xml.in:59
 msgid ""
-"A custom font that will be used for the text widgets. This will only take "
-"effect if the “Use Default Font” option is turned off."
+"A custom font that will be used for the text widgets. This will only take effect "
+"if the “Use Default Font” option is turned off."
 msgstr ""
-"A custom font that will be used for the text widgets. This will only take "
-"effect if the “Use Default Font” option is turned off."
+"A custom font that will be used for the text widgets. This will only take effect "
+"if the “Use Default Font” option is turned off."
 
 #: data/org.gnome.gitg.gschema.xml.in:63
 msgid "Use Gravatar"
@@ -182,9 +173,6 @@ msgid "Enable Diff Highlighting"
 msgstr "Enable Diff Highlighting"
 
 #: data/org.gnome.gitg.gschema.xml.in:78
-#| msgid ""
-#| "Setting which determines whether or not spell checking is enabled when "
-#| "writing a commit message."
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
@@ -203,47 +191,40 @@ msgid "When to Collapse Inactive Lanes"
 msgstr "When to Collapse Inactive Lanes"
 
 #: data/org.gnome.gitg.gschema.xml.in:93
-#| msgid ""
-#| "Setting that indicates when an inactive lane should be collapsed. Valid "
-#| "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgid ""
-"Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
+"Setting that indicates when an inactive lane should be collapsed. Valid values "
+"are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
-"Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
+"Setting that indicates when an inactive lane should be collapsed. Valid values "
+"are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 
 #: data/org.gnome.gitg.gschema.xml.in:100
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
+"activity. Enabling this can provide a cleaner history view when there is a lot "
+"of parallel development. See collapse-inactive-lanes to control when lanes "
+"should be collapsed."
 msgstr ""
 "Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
+"activity. Enabling this can provide a cleaner history view when there is a lot "
+"of parallel development. See collapse-inactive-lanes to control when lanes "
+"should be collapsed."
 
 #: data/org.gnome.gitg.gschema.xml.in:109
 msgid "Show History in Topological Order"
 msgstr "Show History in Topological Order"
 
 #: data/org.gnome.gitg.gschema.xml.in:110
-msgid ""
-"Setting that indicates whether to show the history in topological order."
-msgstr ""
-"Setting that indicates whether to show the history in topological order."
+msgid "Setting that indicates whether to show the history in topological order."
+msgstr "Setting that indicates whether to show the history in topological order."
 
 #: data/org.gnome.gitg.gschema.xml.in:116
 msgid "Show Stashed Changes"
 msgstr "Show Stashed Changes"
 
 #: data/org.gnome.gitg.gschema.xml.in:117
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr ""
-"Setting that indicates whether to show items for the stash in the history."
+msgid "Setting that indicates whether to show items for the stash in the history."
+msgstr "Setting that indicates whether to show items for the stash in the history."
 
 #: data/org.gnome.gitg.gschema.xml.in:124
 msgid "Show Staged Changes"
@@ -251,11 +232,11 @@ msgstr "Show Staged Changes"
 
 #: data/org.gnome.gitg.gschema.xml.in:125
 msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
+"Setting that indicates whether to show a virtual item for the currently staged "
+"changes in the history."
 msgstr ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
+"Setting that indicates whether to show a virtual item for the currently staged "
+"changes in the history."
 
 #: data/org.gnome.gitg.gschema.xml.in:132
 msgid "Show Unstaged Changes"
@@ -263,11 +244,11 @@ msgstr "Show Unstaged Changes"
 
 #: data/org.gnome.gitg.gschema.xml.in:133
 msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
+"Setting that indicates whether to show a virtual item for the currently unstaged "
+"changes in the history."
 msgstr ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
+"Setting that indicates whether to show a virtual item for the currently unstaged "
+"changes in the history."
 
 #: data/org.gnome.gitg.gschema.xml.in:140
 msgid "Mainline Head"
@@ -275,11 +256,11 @@ msgstr "Mainline Head"
 
 #: data/org.gnome.gitg.gschema.xml.in:141
 msgid ""
-"Setting that indicates whether to always preserve a mainline in the history "
-"for the current HEAD."
+"Setting that indicates whether to always preserve a mainline in the history for "
+"the current HEAD."
 msgstr ""
-"Setting that indicates whether to always preserve a mainline in the history "
-"for the current HEAD."
+"Setting that indicates whether to always preserve a mainline in the history for "
+"the current HEAD."
 
 #: data/org.gnome.gitg.gschema.xml.in:148
 msgid "Default selection of the history activity"
@@ -287,11 +268,9 @@ msgstr "Default selection of the history activity"
 
 #: data/org.gnome.gitg.gschema.xml.in:149
 msgid ""
-"Setting that determines the default selection on startup of the history "
-"activity."
+"Setting that determines the default selection on startup of the history activity."
 msgstr ""
-"Setting that determines the default selection on startup of the history "
-"activity."
+"Setting that determines the default selection on startup of the history activity."
 
 #: data/org.gnome.gitg.gschema.xml.in:155
 msgid "Reference Sort Order"
@@ -331,11 +310,11 @@ msgstr "Show Right Margin in Commit Message View"
 
 #: data/org.gnome.gitg.gschema.xml.in:189
 msgid ""
-"Show a right margin indicator in the commit message view. This can be used "
-"to easily see where to break the commit message at a particular column."
+"Show a right margin indicator in the commit message view. This can be used to "
+"easily see where to break the commit message at a particular column."
 msgstr ""
-"Show a right margin indicator in the commit message view. This can be used "
-"to easily see where to break the commit message at a particular column."
+"Show a right margin indicator in the commit message view. This can be used to "
+"easily see where to break the commit message at a particular column."
 
 #: data/org.gnome.gitg.gschema.xml.in:197
 msgid "Column at Which Right Margin is Shown"
@@ -379,11 +358,11 @@ msgstr "Enable Spell Checking"
 
 #: data/org.gnome.gitg.gschema.xml.in:222
 msgid ""
-"Setting which determines whether or not spell checking is enabled when "
-"writing a commit message."
+"Setting which determines whether or not spell checking is enabled when writing a "
+"commit message."
 msgstr ""
-"Setting which determines whether or not spell checking is enabled when "
-"writing a commit message."
+"Setting which determines whether or not spell checking is enabled when writing a "
+"commit message."
 
 #: data/org.gnome.gitg.gschema.xml.in:229
 msgid "Spell Checking Language"
@@ -391,11 +370,9 @@ msgstr "Spell Checking Language"
 
 #: data/org.gnome.gitg.gschema.xml.in:230
 msgid ""
-"The language to use when spell checking is enabled for writing a commit "
-"message."
+"The language to use when spell checking is enabled for writing a commit message."
 msgstr ""
-"The language to use when spell checking is enabled for writing a commit "
-"message."
+"The language to use when spell checking is enabled for writing a commit message."
 
 #: data/org.gnome.gitg.gschema.xml.in:237
 msgid "Maximum number of previous commit messages"
@@ -403,11 +380,9 @@ msgstr "Maximum number of previous commit messages"
 
 #: data/org.gnome.gitg.gschema.xml.in:238
 msgid ""
-"Maximum number of previous commit messages to store for commit message "
-"history."
+"Maximum number of previous commit messages to store for commit message history."
 msgstr ""
-"Maximum number of previous commit messages to store for commit message "
-"history."
+"Maximum number of previous commit messages to store for commit message history."
 
 #: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Maximum number of days to store previous commit messages"
@@ -446,8 +421,7 @@ msgid "Show Changes Inline"
 msgstr "Show Changes Inline"
 
 #: data/org.gnome.gitg.gschema.xml.in:265
-msgid ""
-"Setting that indicates whether changes within lines should be shown inline."
+msgid "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Setting that indicates whether changes within lines should be shown inline."
 
@@ -459,26 +433,23 @@ msgstr "Wrap"
 msgid "Wrap lines."
 msgstr "Wrap lines."
 
-#: data/org.gnome.gitg.gschema.xml.in:279
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:279 data/org.gnome.gitg.gschema.xml.in:297
 msgid "Number of Before/After Context Lines"
 msgstr "Number of Before/After Context Lines"
 
 #: data/org.gnome.gitg.gschema.xml.in:280
 msgid ""
-"Setting that determines how many lines of context (before and after) should "
-"be shown when showing the diff of a commit."
+"Setting that determines how many lines of context (before and after) should be "
+"shown when showing the diff of a commit."
 msgstr ""
-"Setting that determines how many lines of context (before and after) should "
-"be shown when showing the diff of a commit."
+"Setting that determines how many lines of context (before and after) should be "
+"shown when showing the diff of a commit."
 
-#: data/org.gnome.gitg.gschema.xml.in:287
-#: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:287 data/org.gnome.gitg.gschema.xml.in:306
 msgid "Rendered Width of a Tab Character"
 msgstr "Rendered Width of a Tab Character"
 
-#: data/org.gnome.gitg.gschema.xml.in:288
-#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:288 data/org.gnome.gitg.gschema.xml.in:307
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -488,11 +459,11 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:298
 msgid ""
-"Setting that determines how many lines of context (before and after) should "
-"be shown when showing the diff to be staged/unstaged in the commit area."
+"Setting that determines how many lines of context (before and after) should be "
+"shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
-"Setting that determines how many lines of context (before and after) should "
-"be shown when showing the diff to be staged/unstaged in the commit area."
+"Setting that determines how many lines of context (before and after) should be "
+"shown when showing the diff to be staged/unstaged in the commit area."
 
 #: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
@@ -503,8 +474,6 @@ msgid "Use amend to change the commit message of the previous commit"
 msgstr "ניתן להשתמש בתיקון לשינוי הודעת ההגשה הקודמת"
 
 #: gitg/commit/gitg-commit.vala:113
-#, fuzzy
-#| msgid "Commit"
 msgctxt "Activity"
 msgid "Commit"
 msgstr "הגשה"
@@ -521,30 +490,29 @@ msgstr "_שילוב הבחירה"
 #, fuzzy, c-format
 #| msgid "Failed to stage the removal of submodule `%s'"
 msgid "Failed to stage the removal of submodule “%s”"
-msgstr "ארע כשל בשילוב מחיקת תת הפִּרְקָן `%s`"
+msgstr "ארע כשל בשילוב מחיקת תת הפִּרְקָן `%s`"
 
 #: gitg/commit/gitg-commit.vala:262
 #, fuzzy, c-format
-#| msgid ""
-#| "Failed to open the repository of submodule `%s' while trying to stage"
+#| msgid "Failed to open the repository of submodule `%s' while trying to stage"
 msgid "Failed to open the repository of submodule “%s” while trying to stage"
-msgstr "ארע כשל בפתיחת המאגר של תת הפִּרְקָן '%s' בעת ניסיון לשילוב"
+msgstr "ארע כשל בפתיחת המאגר של תת הפִּרְקָן '%s' בעת ניסיון לשילוב"
 
 #: gitg/commit/gitg-commit.vala:277
 #, fuzzy, c-format
 #| msgid ""
-#| "Failed to lookup the working directory commit of submodule `%s' while "
-#| "trying to stage"
+#| "Failed to lookup the working directory commit of submodule `%s' while trying "
+#| "to stage"
 msgid ""
-"Failed to lookup the working directory commit of submodule “%s” while trying "
-"to stage"
-msgstr "ארע כשל במציאת תיקית הגשת העבודה של תת הפִּרְקָן '%s' בעת ניסיון לשילוב"
+"Failed to lookup the working directory commit of submodule “%s” while trying to "
+"stage"
+msgstr "ארע כשל במציאת תיקית הגשת העבודה של תת הפִּרְקָן '%s' בעת ניסיון לשילוב"
 
 #: gitg/commit/gitg-commit.vala:290
 #, fuzzy, c-format
 #| msgid "Failed to stage the submodule `%s'"
 msgid "Failed to stage the submodule “%s”"
-msgstr "ארע כשל בשילוב תת הפִּרְקָן '%s'"
+msgstr "ארע כשל בשילוב תת הפִּרְקָן '%s'"
 
 #: gitg/commit/gitg-commit.vala:312
 #, fuzzy, c-format
@@ -578,13 +546,13 @@ msgstr "ארע כשל בביטול שילוב הקובץ `%s`"
 #, fuzzy, c-format
 #| msgid "Failed to unstage the removal of submodule `%s'"
 msgid "Failed to unstage the removal of submodule “%s”"
-msgstr "ארע כשל בביטול שילוב מחיקת תת הפִּרְקָן `%s`"
+msgstr "ארע כשל בביטול שילוב מחיקת תת הפִּרְקָן `%s`"
 
 #: gitg/commit/gitg-commit.vala:673
 #, fuzzy, c-format
 #| msgid "Failed to unstage the submodule `%s'"
 msgid "Failed to unstage the submodule “%s”"
-msgstr "ארע כשל בביטול שילוב תת הפִּרְקָן '%s'"
+msgstr "ארע כשל בביטול שילוב תת הפִּרְקָן '%s'"
 
 #. Populate staged items
 #: gitg/commit/gitg-commit.vala:877
@@ -615,19 +583,19 @@ msgstr "אין קבצים שאינם במעקב"
 
 #: gitg/commit/gitg-commit.vala:968
 msgid "Submodule"
-msgstr "תת פִּרְקָן"
+msgstr "תת מודול"
 
 #: gitg/commit/gitg-commit.vala:972
 msgid "No dirty submodules"
-msgstr "אין תת פִּרְקָן גס"
+msgstr "אין תת מודול גס"
 
 #: gitg/commit/gitg-commit.vala:1121
 msgid "Failed to commit"
-msgstr "נכשלה ההגשה"
+msgstr "ההגשה נכשלה"
 
 #: gitg/commit/gitg-commit.vala:1137
 msgid "Failed to pass pre-commit"
-msgstr "נכשלה העברת קדם הגשה"
+msgstr "העברת קדם הגשה נכשלה"
 
 #: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
 msgid "Discard changes"
@@ -635,12 +603,11 @@ msgstr "השלכת שינויים"
 
 #: gitg/commit/gitg-commit.vala:1303
 msgid "Are you sure you want to permanently discard the selected changes?"
-msgstr "האם ברצונך להשליך לצמיתות את השינויים הנבחרים?"
+msgstr "להשליך לצמיתות את השינויים הנבחרים?"
 
 #: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
-#: gitg/commit/gitg-commit.vala:1593
-#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/commit/gitg-commit.vala:1593 gitg/gitg-commit-action-create-patch.vala:154
+#: gitg/gitg-dash-view.vala:453 gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
@@ -660,66 +627,60 @@ msgstr "השלכה"
 
 #: gitg/commit/gitg-commit.vala:1342
 msgid "Failed to discard selection"
-msgstr "ארע כשל בהשלכת הבחירה"
+msgstr "השלכת הבחירה נכשלה"
 
 #: gitg/commit/gitg-commit.vala:1372
 msgid "Failed to stage selection"
-msgstr "ארע כשל בשילוב הבחירה"
+msgstr "שילוב הבחירה נכשל"
 
 #: gitg/commit/gitg-commit.vala:1376
 msgid "Failed to unstage selection"
-msgstr "ארע כשל בביטול שילוב הבחירה"
+msgstr "ביטול שילוב הבחירה נכשל"
 
 #: gitg/commit/gitg-commit.vala:1436
 msgid "Failed to discard changes"
-msgstr "ארע כשל בהשלכת השינויים"
+msgstr "השלכת השינויים נכשלה"
 
 #: gitg/commit/gitg-commit.vala:1457
 #, fuzzy, c-format
 #| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the file "
-#| "`%s'?"
+#| "Are you sure you want to permanently discard all changes made to the file `"
+#| "%s'?"
 msgid ""
-"Are you sure you want to permanently discard all changes made to the file "
-"“%s”?"
+"Are you sure you want to permanently discard all changes made to the file “%s”?"
 msgstr "האם ברצונך להשליך לצמיתות את כל השינויים שבוצעו בקובץ '%s'?"
 
 #: gitg/commit/gitg-commit.vala:1468
 #, fuzzy, c-format
 #| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the "
-#| "files %s and `%s'?"
+#| "Are you sure you want to permanently discard all changes made to the files %s "
+#| "and `%s'?"
 msgid ""
-"Are you sure you want to permanently discard all changes made to the files "
-"%s and “%s”?"
+"Are you sure you want to permanently discard all changes made to the files %s "
+"and “%s”?"
 msgstr "האם ברצונך להשליך לצמיתות את כל השינויים שבוצעו בקבצים '%s' ו־'%s'?"
 
 #: gitg/commit/gitg-commit.vala:1551
-#, fuzzy
-#| msgid "Failed to delete tag %s"
 msgid "Failed to delete files"
-msgstr "ארע כשל במחיקת תג %s"
+msgstr "מחיקת הקבצים נכשלה"
 
 #: gitg/commit/gitg-commit.vala:1567
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete file"
 msgid_plural "Delete files"
-msgstr[0] "מחיקה"
-msgstr[1] "מחיקה"
-msgstr[2] "מחיקה"
+msgstr[0] "מחיקת קובץ"
+msgstr[1] "מחיקת קבצים"
+msgstr[2] "מחיקת קבצים"
+msgstr[3] "מחיקת קבצים"
 
 #: gitg/commit/gitg-commit.vala:1572
-#, fuzzy, c-format
-#| msgid "Are you sure that you want to permanently delete the tag %s?"
+#, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
-msgstr "האם ברצונך למחוק לצמיתות את התג %s?"
+msgstr "למחוק את הקובץ „%s” לצמיתות?"
 
 #: gitg/commit/gitg-commit.vala:1583
-#, fuzzy, c-format
-#| msgid "Are you sure that you want to permanently delete the tag %s?"
+#, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
-msgstr "האם ברצונך למחוק לצמיתות את התג %s?"
+msgstr "למחוק את הקבצים %s ואת „%s” לצמיתות?"
 
 #: gitg/commit/gitg-commit.vala:1629
 msgid "_Stage changes"
@@ -734,12 +695,12 @@ msgid "_Discard changes"
 msgstr "ה_שלכת שינויים"
 
 #: gitg/commit/gitg-commit.vala:1665
-#| msgid "Delete"
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_מחיקת קובץ"
 msgstr[1] "_מחיקת קבצים"
 msgstr[2] "מחיקה"
+msgstr[3] ""
 
 #: gitg/commit/gitg-commit.vala:1695
 msgid "_Edit file"
@@ -759,12 +720,11 @@ msgstr "_ביטול שילוב שינויים"
 
 #: gitg/gitg-action-support.vala:131
 msgid ""
-"You appear to have unstaged changes in your working directory. Would you "
-"like to stash the changes before the checkout?"
+"You appear to have unstaged changes in your working directory. Would you like to "
+"stash the changes before the checkout?"
 msgstr ""
 
-#: gitg/gitg-action-support.vala:133
-#: gitg/gitg-commit-action-cherry-pick.vala:163
+#: gitg/gitg-action-support.vala:133 gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
 #: gitg/gitg-ref-action-merge.vala:194
 msgid "Cancel"
@@ -777,10 +737,8 @@ msgid "Stash changes"
 msgstr "_שילוב שינויים"
 
 #: gitg/gitg-action-support.vala:138 gitg/gitg-action-support.vala:165
-#, fuzzy
-#| msgid "Failed to commit"
 msgid "Failed with conflicts"
-msgstr "נכשלה ההגשה"
+msgstr "נכשל עם סתירות"
 
 #: gitg/gitg-action-support.vala:181
 #, fuzzy, c-format
@@ -795,16 +753,14 @@ msgid "Failed to obtain author details"
 msgstr "ארכ כשל בשילוב הקובץ '%s'"
 
 #: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
-#, fuzzy, c-format
-#| msgid "Failed to lookup tag"
+#, c-format
 msgid "Failed to lookup commit: %s"
-msgstr "ארע כשל במציאת התגית"
+msgstr "חיפוש הגשה נכשל: %s"
 
 #: gitg/gitg-action-support.vala:255
-#, fuzzy, c-format
-#| msgid "Failed to create tag"
+#, c-format
 msgid "Failed to create commit: %s"
-msgstr "ארע כשל ביצירת התגית"
+msgstr "יצירת ההגשה נכשלה: %s"
 
 #: gitg/gitg-action-support.vala:277
 #, fuzzy, c-format
@@ -813,10 +769,8 @@ msgid "Failed to checkout index: %s"
 msgstr "ארע כשל בהבאה מ־%s: ‏%s"
 
 #: gitg/gitg-application.vala:38
-#, fuzzy
-#| msgid "Show the application's version"
 msgid "Show the application’s version"
-msgstr "Show the application's version"
+msgstr "הצגת גרסת היישום"
 
 #: gitg/gitg-application.vala:40
 msgid "Start gitg with a particular activity"
@@ -832,19 +786,15 @@ msgstr "Do not try to load a repository from the current working directory"
 
 #: gitg/gitg-application.vala:46
 msgid "Run gitg in standalone mode"
-msgstr ""
+msgstr "הפעלת gitg במצב יחידני"
 
 #: gitg/gitg-application.vala:92
-#, fuzzy
-#| msgid "- Git repository viewer"
 msgid "— Git repository viewer"
-msgstr "- מציג מאגרי Git"
+msgstr "— מציג מאגרי Git"
 
 #: gitg/gitg-application.vala:226
-#, fuzzy
-#| msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
-msgstr "‏gitg הוא מציג מאגרי Git עבור gtk+/GNOME"
+msgstr "‏gitg הוא מציג מאגרי Git עבור GTK+/GNOME"
 
 #: gitg/gitg-application.vala:235
 msgid "translator-credits"
@@ -877,17 +827,16 @@ msgid ""
 "Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
-"לצורך הפעלת gitg נדרשת הספרייה libgit2 (ספרייה עליה gitg מבוססת) לצורך הידור "
-"עם תמיכה במספר תהליכים.\n"
+"לצורך הפעלת gitg נדרשת הספרייה libgit2 (ספרייה עליה gitg מבוססת) לצורך הידור עם "
+"תמיכה במספר תהליכים.\n"
 "\n"
 "אם הידרת את libgit2 בעצמך, אז נא להגדיר בתהליך ההידור את המשתנים הבאים: ‎-"
 "DTHREADSAFE:BOOL=ON.\n"
 "\n"
-"בכל מקרה אחר, עליך לדווח על תקלה מול ההפצה שלך על כך לך libgit2 ללא תמיכה "
-"בריבוי תהליכים."
+"בכל מקרה אחר, עליך לדווח על תקלה מול ההפצה שלך על כך לך libgit2 ללא תמיכה בריבוי "
+"תהליכים."
 
-#: gitg/gitg-author-details-dialog.vala:79
-#: gitg/gitg-author-details-dialog.vala:99
+#: gitg/gitg-author-details-dialog.vala:79 gitg/gitg-author-details-dialog.vala:99
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "פרטי יוצר"
@@ -941,16 +890,16 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
-"The cherry pick of %s onto %s has caused conflicts, would you like to "
-"checkout branch %s with the cherry pick to your working directory to resolve "
-"the conflicts?"
+"The cherry pick of %s onto %s has caused conflicts, would you like to checkout "
+"branch %s with the cherry pick to your working directory to resolve the "
+"conflicts?"
 msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
-"The cherry-pick of %s onto %s has caused conflicts, would you like to "
-"checkout the cherry pick to your working directory to resolve the conflicts?"
+"The cherry-pick of %s onto %s has caused conflicts, would you like to checkout "
+"the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
@@ -981,8 +930,6 @@ msgid "Cherry pick onto %s"
 msgstr ""
 
 #: gitg/gitg-commit-action-create-branch.vala:48
-#, fuzzy
-#| msgid "Create Branch"
 msgid "Create branch"
 msgstr "יצירת ענף"
 
@@ -996,8 +943,6 @@ msgid "Failed to create branch"
 msgstr "ארע כשל ביצירת ענף"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
-#, fuzzy
-#| msgid "Create Patch"
 msgid "Create patch"
 msgstr "יצירת טלאי"
 
@@ -1015,11 +960,9 @@ msgstr "_שמירת טלאי"
 
 #: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
-msgstr "ארע כשל ביצירת הטלאי"
+msgstr "יצירת הטלאי נכשלה"
 
 #: gitg/gitg-commit-action-create-tag.vala:48
-#, fuzzy
-#| msgid "Create Tag"
 msgid "Create tag"
 msgstr "יצירת תגית"
 
@@ -1029,11 +972,11 @@ msgstr "יצירת תגית חדשה מההגשה הנבחרת"
 
 #: gitg/gitg-commit-action-create-tag.vala:92
 msgid "Failed to create tag"
-msgstr "ארע כשל ביצירת התגית"
+msgstr "יצירת התגית נכשלה"
 
 #: gitg/gitg-commit-action-create-tag.vala:109
 msgid "Failed to lookup tag"
-msgstr "ארע כשל במציאת התגית"
+msgstr "איתור התגית נכשל"
 
 #: gitg/gitg-create-tag-dialog.vala:96
 msgid "Provide a message to create an annotated tag"
@@ -1044,16 +987,14 @@ msgid "Select and manage projects"
 msgstr ""
 
 #: gitg/gitg-dash-view.vala:174
-#, fuzzy
-#| msgid "Remotes"
 msgid "_Remove"
-msgstr "מרוחקים"
+msgstr "ה_סרה"
 
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
 #: gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
-msgstr ""
+msgstr "אנחנו יכולים גם %sלחפש מאגרי git בתיקיית הבית שלך%s."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: gitg/gitg-dash-view.vala:233
@@ -1062,47 +1003,37 @@ msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr ""
 
 #: gitg/gitg-dash-view.vala:398
-#, fuzzy
-#| msgid "Failed to commit"
 msgid "Failed to clone repository"
-msgstr "נכשלה ההגשה"
+msgstr "שיבוט המאגר נכשל"
 
 #: gitg/gitg-dash-view.vala:429
-#, fuzzy
-#| msgid "Failed to pass pre-commit"
 msgid "Failed to add repository"
-msgstr "נכשלה העברת קדם הגשה"
+msgstr "הוספת מאגר נכשלה"
 
 #: gitg/gitg-dash-view.vala:445
-#, fuzzy
-#| msgid "Bare repository"
 msgid "Create new repository"
-msgstr "חשיפת מאגר"
+msgstr "יצירת מאגר חדש"
 
 #. Translators: %s is a file name
 #: gitg/gitg-dash-view.vala:448
 #, c-format
 msgid ""
-"The location <i>%s</i> does not appear to be a valid git repository. Would "
-"you like to initialize a new git repository at this location?"
+"The location <i>%s</i> does not appear to be a valid git repository. Would you "
+"like to initialize a new git repository at this location?"
 msgstr ""
 
 #: gitg/gitg-dash-view.vala:454
-#, fuzzy
-#| msgid "Bare repository"
 msgid "Create repository"
-msgstr "חשיפת מאגר"
+msgstr "יצירת מאגר"
 
 #: gitg/gitg-dash-view.vala:470
-#, fuzzy
-#| msgid "Failed to create patch"
 msgid "Failed to create repository"
-msgstr "ארע כשל ביצירת הטלאי"
+msgstr "יצירת מאגר נכשלה"
 
 #: gitg/gitg-dash-view.vala:540
 #, c-format
 msgid "Scanning for repositories in %s"
-msgstr ""
+msgstr "מתבצעת סריקה לאיתור מאגרים בתוך %s"
 
 #: gitg/gitg-ref-action-checkout.vala:53
 #, fuzzy
@@ -1122,10 +1053,9 @@ msgid "Failed to checkout branch: %s"
 msgstr "ארע כשל במחיקת ענף %s"
 
 #: gitg/gitg-ref-action-checkout.vala:111
-#, fuzzy, c-format
-#| msgid "Failed to delete tag %s"
+#, c-format
 msgid "Failed to update HEAD: %s"
-msgstr "ארע כשל במחיקת תג %s"
+msgstr "עדכון HEAD נכשל: %s"
 
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
@@ -1161,45 +1091,45 @@ msgstr "מחיקת ענף %s"
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
 msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr "האם ברצונך למחוק לצמיתות את הענף %s?"
+msgstr "למחוק את הענף %s לצמיתות?"
 
 #: gitg/gitg-ref-action-delete.vala:78
 #, c-format
 msgid "Delete tag %s"
-msgstr "מחיקת תג %s"
+msgstr "מחיקת תגית %s"
 
 #: gitg/gitg-ref-action-delete.vala:79
 #, c-format
 msgid "Are you sure that you want to permanently delete the tag %s?"
-msgstr "האם ברצונך למחוק לצמיתות את התג %s?"
+msgstr "למחוק את התגית %s לצמיתות?"
 
 #: gitg/gitg-ref-action-delete.vala:83
 #, c-format
 msgid "Delete remote branch %s"
-msgstr "מחיקת ענך מרוחק %s"
+msgstr "מחיקת ענף מרוחק %s"
 
 #: gitg/gitg-ref-action-delete.vala:84
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr "האם ברצונך למחוק לצמיתות את הענף המרוחק %s?"
+msgstr "למחוק את הענף המרוחק %s לצמיתות?"
 
 #. Translators: %s is the name of the tag
 #: gitg/gitg-ref-action-delete.vala:119
 #, c-format
 msgid "Failed to delete tag %s"
-msgstr "ארע כשל במחיקת תג %s"
+msgstr "מחיקת התגית %s נכשלה"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:122
 #, c-format
 msgid "The tag %s could not be deleted: %s"
-msgstr "לא ניתן למחוק את התג %s: ‏%s"
+msgstr "לא ניתן למחוק את התגית %s: ‏%s"
 
 #. Translators: %s is the name of the branch
 #: gitg/gitg-ref-action-delete.vala:127
 #, c-format
 msgid "Failed to delete branch %s"
-msgstr "ארע כשל במחיקת ענף %s"
+msgstr "מחיקת הענף %s נכשלה"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:130
@@ -1210,12 +1140,12 @@ msgstr "לא ניתן למחוק את הענף %s: ‏%s"
 #: gitg/gitg-ref-action-fetch.vala:74
 #, c-format
 msgid "Fetch from %s"
-msgstr "להביא מ־%s"
+msgstr "למשוך מ־%s"
 
 #: gitg/gitg-ref-action-fetch.vala:85
 #, c-format
 msgid "Fetch remote objects from %s"
-msgstr "להביא עצמים מרוחקים מ־%s"
+msgstr "למשוך עצמים מרוחקים מ־%s"
 
 #: gitg/gitg-ref-action-fetch.vala:98
 #, c-format
@@ -1230,42 +1160,40 @@ msgstr "חדש"
 #. Translators: updated refers to a remote reference having been updated,
 #: gitg/gitg-ref-action-fetch.vala:111
 msgid "updated"
-msgstr "עדכון"
+msgstr "מעודכן"
 
 #: gitg/gitg-ref-action-fetch.vala:121
 #, c-format
 msgid "Failed to fetch from %s: %s"
-msgstr "ארע כשל בהבאה מ־%s: ‏%s"
+msgstr "משיכה מ־%s נכשלה: ‏%s"
 
 #. Translators: the %s will get replaced with the remote url,
 #: gitg/gitg-ref-action-fetch.vala:134
 #, c-format
 msgid "Fetched from %s: everything is up to date"
-msgstr "הובא מ־%s: הכל מעודכן"
+msgstr "נמשך מ־%s: הכל מעודכן"
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
 #: gitg/gitg-ref-action-fetch.vala:140
 #, c-format
 msgid "Fetched from %s: %s"
-msgstr "הובא מ־%s: ‏%s"
+msgstr "נמשך מ־%s: ‏%s"
 
 #: gitg/gitg-ref-action-push.vala:80
 #, c-format
 msgid "Push to %s"
-msgstr ""
+msgstr "דחיפה אל %s"
 
 #: gitg/gitg-ref-action-push.vala:91
-#, fuzzy, c-format
-#| msgid "Delete branch %s"
+#, c-format
 msgid "Push branch to %s"
-msgstr "מחיקת ענף %s"
+msgstr "דחיפת ענף לתוך %s"
 
 #: gitg/gitg-ref-action-push.vala:107
-#, fuzzy, c-format
-#| msgid "Fetching from %s"
+#, c-format
 msgid "Pushing to %s"
-msgstr "מביא מ־%s"
+msgstr "נדחף אל %s"
 
 #: gitg/gitg-ref-action-push.vala:116
 #, fuzzy, c-format
@@ -1277,50 +1205,47 @@ msgstr "ארע כשל בהבאה מ־%s: ‏%s"
 #: gitg/gitg-ref-action-push.vala:123
 #, c-format
 msgid "Pushed to %s"
-msgstr ""
+msgstr "נדחף אל %s"
 
 #: gitg/gitg-ref-action-push.vala:134
-#, fuzzy, c-format
-#| msgid "Delete branch %s"
+#, c-format
 msgid "Push branch %s"
-msgstr "מחיקת ענף %s"
+msgstr "דחיפת הענף %s"
 
 #: gitg/gitg-ref-action-push.vala:135
-#, fuzzy, c-format
-#| msgid "Are you sure that you want to permanently delete the branch %s?"
+#, c-format
 msgid "Are you sure that you want to push the branch %s?"
-msgstr "האם ברצונך למחוק לצמיתות את הענף %s?"
+msgstr "לדחוף את הענף %s?"
 
 #: gitg/gitg-ref-action-push.vala:139
 msgid "Push"
-msgstr ""
+msgstr "דחיפה"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
-msgstr ""
+msgstr "מיזוג לתוך %s"
 
 #. TODO
 #: gitg/gitg-ref-action-merge.vala:69
 #, c-format
 msgid "Merge another branch into branch %s"
-msgstr ""
+msgstr "מיזוג ענף אחר לתוך הענף %s"
 
 #: gitg/gitg-ref-action-merge.vala:106
-#, fuzzy, c-format
-#| msgid "Failed to commit"
+#, c-format
 msgid "Failed to merge commits: %s"
-msgstr "נכשלה ההגשה"
+msgstr "מיזוג ההגשות נכשל: %s"
 
 #: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
-msgstr ""
+msgstr "במיזוג יש סתירות"
 
 #: gitg/gitg-ref-action-merge.vala:184
 #, c-format
 msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout "
-"branch %s with the merge to your working directory to resolve the conflicts?"
+"The merge of %s into %s has caused conflicts, would you like to checkout branch "
+"%s with the merge to your working directory to resolve the conflicts?"
 msgstr ""
 
 #: gitg/gitg-ref-action-merge.vala:188
@@ -1332,39 +1257,36 @@ msgstr ""
 
 #: gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
-msgstr ""
+msgstr "המיזוג נכשל עם סתירות"
 
 #: gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
-msgstr ""
+msgstr "המיזוג הזתיים עם סתירות בתיקיית העבודה"
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
 msgid "Merge %s into %s"
-msgstr ""
+msgstr "מיזוג %s לתוך %s"
 
 #: gitg/gitg-ref-action-merge.vala:231
-#, fuzzy, c-format
-#| msgid "Failed to lookup tag"
+#, c-format
 msgid "Failed to lookup our commit: %s"
-msgstr "ארע כשל במציאת התגית"
+msgstr "איתור ההגשה שלנו נכשל: %s"
 
 #: gitg/gitg-ref-action-merge.vala:241
-#, fuzzy, c-format
-#| msgid "Failed to lookup tag"
+#, c-format
 msgid "Failed to lookup their commit: %s"
-msgstr "ארע כשל במציאת התגית"
+msgstr "איתור ההגשה שלהם נכשל: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
 msgid "Successfully merged %s into %s"
-msgstr ""
+msgstr "‫%s מוזג בהצלחה לתוך %s"
 
 #: gitg/gitg-ref-action-merge.vala:320
-#, fuzzy, c-format
-#| msgid "Delete branch %s"
+#, c-format
 msgid "Merge %s into branch %s"
-msgstr "מחיקת ענף %s"
+msgstr "מיזוג %s לענף %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
 #: gitg/history/gitg-history-refs-list.vala:1181
@@ -1380,10 +1302,9 @@ msgid "Rename the selected reference"
 msgstr "שינוי שם ההפניה הנבחרת"
 
 #: gitg/gitg-ref-action-rename.vala:100
-#, fuzzy, c-format
-#| msgid "The specified name ‘%s’ contains invalid characters"
+#, c-format
 msgid "The specified name “%s” contains invalid characters"
-msgstr "השם המסוים '%s' מכיל תווים לא תקניים"
+msgstr "השם שצוין „%s” מכיל תווים שגויים"
 
 #: gitg/gitg-ref-action-rename.vala:102
 msgid "Invalid name"
@@ -1391,21 +1312,19 @@ msgstr "שם לא תקין"
 
 #: gitg/gitg-ref-action-rename.vala:131
 msgid "Failed to rename"
-msgstr "ארע כשל בשינוי השם"
+msgstr "שינוי השם נכשל"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
 msgid "Close"
 msgstr "סגירה"
 
 #: gitg/gitg-window.vala:202
-#, fuzzy
-#| msgid "Open Repository"
 msgid "Add Repository"
-msgstr "פתיחת מאגר"
+msgstr "הוספת מאגר"
 
 #: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
-msgstr ""
+msgstr "הו_ספה"
 
 #: gitg/gitg-window.vala:208
 #, fuzzy
@@ -1427,26 +1346,25 @@ msgstr "_פתיחה"
 
 #: gitg/gitg-window.vala:844
 msgid "Select items"
-msgstr ""
+msgstr "בחירת פריטים"
 
 #: gitg/gitg-window.vala:1062
-#, fuzzy, c-format
-#| msgid "'%s' is not a Git repository."
+#, c-format
 msgid "“%s” is not a Git repository."
-msgstr "‏`%s` אינו מאגר Git"
+msgstr "‫„%s” אינו מאגר Git."
 
 #: gitg/gitg-window.vala:1211
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr ""
-"שם המשתמש וכתובת הדוא״ל שלך טרם הוגדרו. יש לגשת לתצורת משתמש ולספק פרטים אלה."
+"שם המשתמש וכתובת הדוא״ל שלך טרם הוגדרו. יש לגשת לתצורת המשתמש ולספק פרטים אלה."
 
 #: gitg/gitg-window.vala:1215
 msgid ""
-"Your user name is not configured yet. Please go to the user configuration "
-"and provide your name."
-msgstr "שם המשתמש שלך טרם הוגדר. יש לגשת לתצורת משתמש ולספק את השם שלך."
+"Your user name is not configured yet. Please go to the user configuration and "
+"provide your name."
+msgstr "שם המשתמש שלך טרם הוגדר. יש לגשת לתצורת המשתמש ולספק את השם שלך."
 
 #: gitg/gitg-window.vala:1219
 msgid ""
@@ -1456,10 +1374,8 @@ msgstr ""
 "כתובת הדוא״ל שלך טרם הוגדרה. יש לגשת לתצורת המשתמש ולספק את כתובת הדוא״ל שלך."
 
 #: gitg/gitg-window.vala:1222
-#, fuzzy
-#| msgid "Author Details"
 msgid "Missing author details"
-msgstr "פרטי יוצר"
+msgstr "פרטי יוצר חסרים"
 
 #: gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
@@ -1488,17 +1404,17 @@ msgstr ""
 #: gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%zu ahead, %zu behind"
-msgstr ""
+msgstr "‫%zu קדימה, %zu אחורה"
 
 #: gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%zu ahead"
-msgstr ""
+msgstr "‫%zu קדימה"
 
 #: gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%zu behind"
-msgstr ""
+msgstr "‫%zu אחורה"
 
 #: gitg/history/gitg-history-refs-list.vala:207
 #: gitg/resources/ui/gitg-preferences-history.ui:81
@@ -1528,8 +1444,6 @@ msgid "Mainline"
 msgstr "קו ראשי"
 
 #: gitg/preferences/gitg-preferences-commit.vala:142
-#, fuzzy
-#| msgid "Commit"
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "הגשה"
@@ -1548,20 +1462,14 @@ msgid "_Save"
 msgstr "_שמירה"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:65
-#, fuzzy
-#| msgid "Enter details to set as default for all repositories:"
 msgid "Default details used for all repositories"
-msgstr "יש להזין פרטים להגדרה כבררת מחדל עבור כל המאגרים:"
+msgstr "פרטי בררת מחדל שמשמשים לכל המאגרים"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:114
-#, fuzzy
-#| msgid "E-mail: "
 msgid "E-mail:"
 msgstr "דוא״ל:"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:125
-#, fuzzy
-#| msgid "Name: "
 msgid "Name:"
 msgstr "שם:"
 
@@ -1576,29 +1484,22 @@ msgid "C_heckout"
 msgstr ""
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
-#, fuzzy
-#| msgid "Branch _name:"
 msgid "Local branch _name:"
-msgstr "_שם ענף:"
+msgstr "_שם ענף מקומי:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
-#, fuzzy
-#| msgid "Delete branch %s"
 msgid "_Remote branch:"
-msgstr "מחיקת ענף %s"
+msgstr "ענף מ_רוחק:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
-#, fuzzy
-#| msgid "Delete remote branch %s"
 msgid "_Track remote branch"
-msgstr "מחיקת ענך מרוחק %s"
+msgstr "מ_עקב אחר ענף מרוחק"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:7
 msgid "Clone Repository"
 msgstr "שיבוט מאגר"
 
-#: gitg/resources/ui/gitg-clone-dialog.ui:33
-#: gitg/resources/ui/gitg-window.ui:47
+#: gitg/resources/ui/gitg-clone-dialog.ui:33 gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "_שיבוט"
 
@@ -1619,8 +1520,6 @@ msgid "Bare repository"
 msgstr "חשיפת מאגר"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:8
-#, fuzzy
-#| msgid "Commit"
 msgctxt "Create Dialog"
 msgid "Commit"
 msgstr "הגשה"
@@ -1652,10 +1551,10 @@ msgstr "ה_שלכת הבחירה"
 
 #: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:24
 msgid ""
-"The submodule is in a dirty state and has staged and/or unstaged changes "
-"that are not yet committed as shown below."
+"The submodule is in a dirty state and has staged and/or unstaged changes that "
+"are not yet committed as shown below."
 msgstr ""
-"תת פִּרְקָן זה במצב גס ונושא שינויים ששולבו או שלא שולבו אשר טרם הוגשו כפי שמוצג "
+"תת מודול זה במצב גס ונושא שינויים ששולבו או שלא שולבו אשר טרם הוגשו כפי שמוצג "
 "להלן."
 
 #: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:50
@@ -1752,23 +1651,23 @@ msgstr "הצגת שוליים י_מניים בעמודה:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:196
 msgid "Maximum number of messages:"
-msgstr ""
+msgstr "מספר ההודעות המרבי:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:220
 msgid "Maximum number of messages to keep for commit message history"
-msgstr ""
+msgstr "מספר ההודעות המרבי לשמירה להיסטוריית הודעות ההגשה"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:232
 msgid "Maximum number of days:"
-msgstr ""
+msgstr "מספר הימים המרבי:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:257
 msgid "Maximum number of days to keep for commit message history"
-msgstr ""
+msgstr "מספר הימים המרבי לשמירת היסטוריית הודעות ההגשה"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:284
 msgid "Language:"
-msgstr ""
+msgstr "שפה:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:310
 msgid "Enable spell checking"
@@ -1779,28 +1678,20 @@ msgid "Commit Message"
 msgstr "הודעת הגשה"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
-#, fuzzy
-#| msgid "D_iscard selection"
 msgid "Default selection"
-msgstr "ה_שלכת הבחירה"
+msgstr "בחירה כבררת מחדל"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:50
-#, fuzzy
-#| msgid "Create Branch"
 msgid "Current branch"
-msgstr "יצירת ענף"
+msgstr "ענף נוכחי"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:65
-#, fuzzy
-#| msgid "Branches"
 msgid "All branches"
-msgstr "ענפים"
+msgstr "כל הענפים"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:106
-#, fuzzy
-#| msgid "Preferences"
 msgid "References"
-msgstr "העדפות"
+msgstr "הפניות"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:119
 msgid "Sort references in the sidebar by latest activity"
@@ -1856,27 +1747,27 @@ msgstr "שימוש בפריסה אופקית"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:124
 msgid "Avatars"
-msgstr ""
+msgstr "תמונות יצוגיות"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:144
 msgid "Use gravatar service to provide user avatars"
-msgstr ""
+msgstr "להשתמש בשירות gravatar לאספקת תמונות יצוגיות"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:168
 msgid "Monitoring"
-msgstr ""
+msgstr "מעקב"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:212
 msgid "Font"
-msgstr ""
+msgstr "גופן"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:253
 msgid "Editor _font: "
-msgstr ""
+msgstr "_גופן העורך: "
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:270
 msgid "Pick the editor font"
-msgstr ""
+msgstr "בחירת גופן העורך"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
 #: plugins/diff/gitg-diff.vala:120
@@ -1885,27 +1776,25 @@ msgstr "הבדלים"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:312
 msgid "Enable syntax highlighting of source code in diff views"
-msgstr ""
+msgstr "לאפשר הדגשת תחביר של קוד המקור בתצוגות הבדלים"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:338
 msgid "Syntax highlighting color scheme:"
-msgstr ""
+msgstr "סכמת צבעי הדגשת התחביר:"
 
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
 msgstr "העדפות"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:14
-#, fuzzy
-#| msgid "_New Window"
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr "_חלון חדש"
+msgstr "חלונות"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:19
 msgctxt "shortcut window"
 msgid "Open shortcut window"
-msgstr ""
+msgstr "פתיחת חלון קיצורים"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:26
 msgctxt "shortcut window"
@@ -1918,7 +1807,6 @@ msgid "Open the window menu"
 msgstr "פתיחת תפריט החלון"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:40
-#| msgid "Open Repository"
 msgctxt "shortcut window"
 msgid "Open a repository"
 msgstr "פתיחת מאגר"
@@ -1929,7 +1817,6 @@ msgid "Open the help"
 msgstr "פתיחת העזרה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
-#| msgid "Preferences"
 msgctxt "shortcut window"
 msgid "Open preferences"
 msgstr "פתיחת העדפות"
@@ -1945,7 +1832,6 @@ msgid "Close the active window"
 msgstr "סגירת החלון הפעיל"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:75
-#| msgid "Show the application's version"
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "יציאה מהיישום"
@@ -1966,17 +1852,14 @@ msgid "Change to Commit View"
 msgstr "מעבר לתצוגה ההגשה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:103
-#| msgid "Start with activity:"
 msgctxt "shortcut window"
 msgid "Change to activity"
-msgstr ""
+msgstr "החלפה לפעילות"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:111
-#, fuzzy
-#| msgid "Default Activity"
 msgctxt "shortcut window"
 msgid "Commit Activity"
-msgstr "Default Activity"
+msgstr "פעילות הגשה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:116
 msgctxt "shortcut window"
@@ -1986,7 +1869,7 @@ msgstr ""
 #: gitg/resources/ui/gitg-shortcuts.ui:123
 msgctxt "shortcut window"
 msgid "Open commit dialog"
-msgstr ""
+msgstr "פתיחת חלונית הגשה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:130
 #, fuzzy
@@ -2003,52 +1886,41 @@ msgid "Unstage selection"
 msgstr "_ביטול שילוב הבחירה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:144
-#, fuzzy
-#| msgid "D_iscard selection"
 msgctxt "shortcut window"
 msgid "Discard selection"
-msgstr "ה_שלכת הבחירה"
+msgstr "התעלמות מהבחירה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:151
-#, fuzzy
-#| msgid "_Stage selection"
 msgctxt "shortcut window"
 msgid "Edit selection"
-msgstr "_שילוב הבחירה"
+msgstr "עריכת הבחירה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:159
-#, fuzzy
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Commit Dialog"
-msgstr "הודעת הגשה"
+msgstr "חלונית הגשה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:164
-#| msgid "Commit"
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "הגשה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:171
-#| msgid "Commit"
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "ביטול הגשה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:178
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "הודעת הגשה קודמת"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:185
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "הודעת הגשה הבאה"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:193
-#| msgid "Default Activity"
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "היסטוריית פעילויות"
@@ -2058,12 +1930,10 @@ msgid "Show the list of recently used repositories"
 msgstr "הצגת רשימת המאגרים האחרונים בשימוש"
 
 #: gitg/resources/ui/gitg-window.ui:48
-#| msgid "Clone Repository"
 msgid "Clone repository"
 msgstr "שיבוט מאגר"
 
 #: gitg/resources/ui/gitg-window.ui:65
-#| msgid "Bare repository"
 msgid "Add repository"
 msgstr "הוספת מאגר"
 
@@ -2076,7 +1946,6 @@ msgid "General settings and options"
 msgstr "הגדרות כלליות ואפשרויות"
 
 #: gitg/resources/ui/gitg-window.ui:229
-#| msgid "Close"
 msgid "_Close"
 msgstr "_סגירה"
 
@@ -2096,8 +1965,9 @@ msgstr "עכשיו"
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "לפני דקה"
-msgstr[1] "לפני %d דקות"
-msgstr[2] "לפני שתי דקות"
+msgstr[1] "לפני שתי דקות"
+msgstr[2] "לפני %d דקות"
+msgstr[3] "לפני %d דקות"
 
 #: libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
@@ -2108,22 +1978,23 @@ msgstr "לפני חצי שעה"
 msgid "An hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "לפני שעה"
-msgstr[1] "לפני %d שעות"
-msgstr[2] "לפני שעתיים"
+msgstr[1] "לפני שעתיים"
+msgstr[2] "לפני %d שעות"
+msgstr[3] "לפני %d שעות"
 
 #: libgitg/gitg-date.vala:365
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
 msgstr[0] "אתמול"
-msgstr[1] "לפני %d ימים"
-msgstr[2] "שלשום"
+msgstr[1] "שלשום"
+msgstr[2] "לפני %d ימים"
+msgstr[3] "לפני %d ימים"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
 #: libgitg/gitg-date.vala:374
-#| msgid "%b %e, %H:%M"
 msgid "%b %e, %H∶%M"
 msgstr "%e ב%b, %H:%M"
 
@@ -2131,7 +2002,6 @@ msgstr "%e ב%b, %H:%M"
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: libgitg/gitg-date.vala:381
-#| msgid "%b %e, %I:%M %p"
 msgid "%b %e, %I∶%M %p"
 msgstr "%e ב%b, %I:%M %p"
 
@@ -2139,7 +2009,6 @@ msgstr "%e ב%b, %I:%M %p"
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: libgitg/gitg-date.vala:391
-#| msgid "%b %e %Y, %H:%M"
 msgid "%b %e %Y, %H∶%M"
 msgstr "%e ב%b ‏%Y, %H:%M"
 
@@ -2147,7 +2016,6 @@ msgstr "%e ב%b ‏%Y, %H:%M"
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: libgitg/gitg-date.vala:398
-#| msgid "%b %e %Y, %I:%M %p"
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%e ב%b ‏%Y, %I:%M %p"
 
@@ -2180,24 +2048,20 @@ msgid "added (%s)"
 msgstr "נוסף (%s)"
 
 #: libgitg/gitg-diff-view-commit-details.vala:143
-#, fuzzy
-#| msgid "Collapse inactive lanes"
 msgid "Collapse all"
-msgstr "צמצום נתיבים בלתי פעילים"
+msgstr "לצמצם הכול"
 
 #: libgitg/gitg-diff-view-commit-details.vala:147
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
-msgstr ""
+msgstr "להרחיב הכול"
 
 #: libgitg/gitg-diff-view-commit-details.vala:202
-#, fuzzy, c-format
-#| msgid "Committed by:"
+#, c-format
 msgid "Committed by %s"
-msgstr "הוגש על ידי:"
+msgstr "הוגש על ידי %s"
 
 #: libgitg/gitg-diff-view-file.vala:177
-#| msgid "_Open"
 msgid "_Open file"
 msgstr "פתיחת _קובץ"
 
@@ -2213,17 +2077,17 @@ msgstr "_העתקת הנתיב הקובץ"
 #: libgitg/gitg-repository-list-box.vala:153
 #, c-format
 msgid "at %s"
-msgstr ""
+msgstr "ב־%s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
 #: libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "%s at %s"
-msgstr ""
+msgstr "‫%s ב־%s"
 
 #: libgitg/gitg-repository-list-box.vala:545
 msgid "Cloning…"
-msgstr ""
+msgstr "מתבצע שיבוט…"
 
 #: libgitg/gitg-stage.vala:337
 #, c-format
@@ -2236,8 +2100,8 @@ msgstr "_אימות"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:76
 msgid ""
-"The previous attempt to authenticate has failed, please provide your user "
-"name and password and try again."
+"The previous attempt to authenticate has failed, please provide your user name "
+"and password and try again."
 msgstr "ניסיון האימות הקודם נכשל, יש לספק את שם המשתמש והססמה שלך ולנסות שוב."
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:95
@@ -2261,61 +2125,52 @@ msgid "Remember _forever"
 msgstr "לזכור ל_תמיד"
 
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
-#, fuzzy
-#| msgid "Parents:"
 msgid "Parents"
-msgstr "הורים:"
+msgstr "הורים"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui:10
 msgid "Unable to display changes for binary file"
-msgstr ""
+msgstr "לא ניתן להציג את השינויים בקובץ בינרי"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:35
 msgid "Side by side"
-msgstr ""
+msgstr "זה לצד לזה"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
 msgid "Slider"
-msgstr ""
+msgstr "מחוון"
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
 msgid "Overlay"
 msgstr ""
 
 #: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
-#| msgid "Preferences"
 msgid "Difference"
 msgstr "שינוי"
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:20
-#| msgid "Tab width"
 msgid "Tab width:"
 msgstr "רוחב טאב:"
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:44
 msgid "Wrap lines:"
-msgstr ""
+msgstr "גלישת שורות:"
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:67
-#, fuzzy
-#| msgid "Ignore whitespace changes"
 msgid "Ignore whitespace:"
-msgstr "התעלמות משינויי רווחים לבנים"
+msgstr "התעלמות מרווחים לבנים:"
 
 #: libgitg/resources/ui/gitg-diff-view-options.ui:31
-#, fuzzy
-#| msgid "Context"
 msgid "Context:"
-msgstr "הקשר"
+msgstr "הקשר:"
 
 #: libgitg/resources/ui/gitg-diff-view-options.ui:63
 msgid "Spacing"
-msgstr ""
+msgstr "ריווח"
 
 #: libgitg/resources/ui/gitg-repository-list-box-row.ui:37
 msgid ""
-"Remove the repository from the list (does not delete the repository from "
-"disk)"
+"Remove the repository from the list (does not delete the repository from disk)"
 msgstr "מחיקת המאגר מהרשימה (לא מוחק את המאגר מהכונן)"
 
 #: plugins/diff/gitg-diff.vala:125
