@@ -140,7 +140,7 @@ public class Date : Object, Initable
 	{
 		string? val = info.fetch_named(name);
 
-		if (val == null)
+		if (val == null || val == "")
 		{
 			return false;
 		}
@@ -169,7 +169,7 @@ public class Date : Object, Initable
 
 		string? tzs = info.fetch_named("tz");
 
-		if (tzs != null)
+		if (tzs != null && tzs != "")
 		{
 			var ret = new DateTime.from_unix_utc(unixt);
 			return ret.to_timezone(new TimeZone(tzs));
@@ -200,7 +200,7 @@ public class Date : Object, Initable
 
 		string? tzs = info.fetch_named("tz");
 
-		if (tzs != null)
+		if (tzs != null && tzs != "")
 		{
 			tz = new TimeZone(tzs);
 		}
@@ -247,7 +247,7 @@ public class Date : Object, Initable
 
 		string? tzs = info.fetch_named("tz");
 
-		if (tzs != null)
+		if (tzs != null && tzs != "")
 		{
 			tz = new TimeZone(tzs);
 		}
