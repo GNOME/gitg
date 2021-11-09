@@ -32,36 +32,39 @@ class Gitg.DiffViewFile : Gtk.Grid
 	[GtkChild( name = "revealer_content" )]
 	private unowned Gtk.Revealer d_revealer_content;
 
+	[GtkChild( name = "scrolled_window" )]
+	private unowned Gtk.ScrolledWindow? scrolled_window;
+
 	private bool d_expanded;
 
 	private Binding? d_vexpand_binding;
+
+	private DiffViewFileRenderer? _renderer;
 
 	public DiffViewFileRenderer? renderer
 	{
 		owned get
 		{
-			return d_revealer_content.get_child() as DiffViewFileRenderer;
+			return _renderer;
 		}
 
 		construct set
 		{
-			var current = this.renderer;
-
-			if (current != value)
+			if (_renderer != value)
 			{
+				if (_renderer != null)
+					scrolled_window.remove(_renderer);
+
+				_renderer = value;
 				if (d_vexpand_binding != null)
 				{
 					d_vexpand_binding.unbind();
 					d_vexpand_binding = null;
 				}
 
-				if (current != null)
-				{
-					d_revealer_content.remove(current);
-				}
+				scrolled_window.add (_renderer);
 
-				d_revealer_content.add(value);
-				d_vexpand_binding = this.bind_property("vexpand", value, "vexpand", BindingFlags.SYNC_CREATE);
+				d_vexpand_binding = this.bind_property("vexpand", _renderer, "vexpand", BindingFlags.SYNC_CREATE);
 			}
 		}
 	}
