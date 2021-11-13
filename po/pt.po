@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg gnome-3-12\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2021-01-03 21:37+0000\n"
-"PO-Revision-Date: 2021-03-25 23:22+0000\n"
+"POT-Creation-Date: 2021-11-09 08:03+0000\n"
+"PO-Revision-Date: 2021-11-13 15:41+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Hugo Carvalho\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 "X-Language: pt_PT\n"
 "X-Source-Language: C\n"
 "X-Project-Style: gnome\n"
@@ -96,6 +96,10 @@ msgstr "@binary@"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Navegador de repositórios Git"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "Nova janela"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -1992,7 +1996,6 @@ msgstr[1] "Há %d dias atrás"
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
 #: libgitg/gitg-date.vala:374
-#| msgid "%b %e, %H:%M"
 msgid "%b %e, %H∶%M"
 msgstr "%b %e, %H∶%M"
 
@@ -2000,7 +2003,6 @@ msgstr "%b %e, %H∶%M"
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: libgitg/gitg-date.vala:381
-#| msgid "%b %e, %I:%M %p"
 msgid "%b %e, %I∶%M %p"
 msgstr "%b %e, %I∶%M %p"
 
@@ -2008,7 +2010,6 @@ msgstr "%b %e, %I∶%M %p"
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: libgitg/gitg-date.vala:391
-#| msgid "%b %e %Y, %H:%M"
 msgid "%b %e %Y, %H∶%M"
 msgstr "%b %e %Y, %H∶%M"
 
@@ -2016,7 +2017,6 @@ msgstr "%b %e %Y, %H∶%M"
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: libgitg/gitg-date.vala:398
-#| msgid "%b %e %Y, %I:%M %p"
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%b %e %Y, %I∶%M %p"
 
@@ -2062,15 +2062,15 @@ msgstr "Expandir tudo"
 msgid "Committed by %s"
 msgstr "Submetido por %s"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#: libgitg/gitg-diff-view-file.vala:180
 msgid "_Open file"
 msgstr "_Abrir ficheiro"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:212
 msgid "Open containing _folder"
 msgstr "Abrir pasta contendo"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:232
 msgid "_Copy file path"
 msgstr "_Copiar caminho do ficheiro"
 
