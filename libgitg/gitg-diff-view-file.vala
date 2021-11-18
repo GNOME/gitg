@@ -42,13 +42,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	public DiffViewFileRendererText? renderer_text {get; private set;}
 
-	public void add_renderer(Gtk.Widget widget, string name, string title)
-	{
-		d_stack_file_renderer.add_titled(widget, name, title);
-		bool visible = d_stack_file_renderer.get_children().length() > 1;
-		d_stack_switcher.set_visible(visible);
-	}
-
 	public bool new_is_workdir { get; construct set; }
 
 	public bool expanded
@@ -80,11 +73,28 @@ class Gitg.DiffViewFile : Gtk.Grid
 	}
 
 	public DiffViewFileInfo? info {get; construct set;}
+	private Gee.HashMap<Gtk.Widget, bool> d_diff_stat_visible_map = new Gee.HashMap<Gtk.Widget, bool>();
 
 	public DiffViewFile(DiffViewFileInfo? info)
 	{
 		Object(info: info);
 		bind_property("vexpand", d_stack_file_renderer, "vexpand", BindingFlags.SYNC_CREATE);
+		d_stack_file_renderer.notify["visible-child"].connect(page_changed);
+	}
+
+	private void page_changed()
+	{
+		var visible_child = d_stack_file_renderer.get_visible_child();
+		var visible = d_diff_stat_visible_map.get(visible_child);
+		d_diff_stat_file.set_visible(visible);
+	}
+
+	public void add_renderer(Gtk.Widget widget, string name, string title, bool show_stats)
+	{
+		d_diff_stat_visible_map.set(widget, show_stats);
+		d_stack_file_renderer.add_titled(widget, name, title);
+		bool visible = d_stack_file_renderer.get_children().length() > 1;
+		d_stack_switcher.set_visible(visible);
 	}
 
 	public void add_text_renderer(bool handle_selection)
@@ -98,27 +108,21 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		renderer_text.bind_property("added", d_diff_stat_file, "added");
 		renderer_text.bind_property("removed", d_diff_stat_file, "removed");
-		add_renderer(scrolled_window, "text", _("Text"));
+		add_renderer(scrolled_window, "text", _("Text"), true);
 	}
 
 	public void add_binary_renderer()
 	{
 		var renderer = new DiffViewFileRendererBinary();
 		renderer.show();
-		add_renderer(renderer, "binary", _("Binary"));
-
-		//TODO: Only for text page
-		//d_diff_stat_file.hide();
+		add_renderer(renderer, "binary", _("Binary"), false);
 	}
 
 	public void add_image_renderer()
 	{
 		var renderer = new DiffViewFileRendererImage(info.repository, info.delta);
 		renderer.show();
-		add_renderer(renderer, "image", _("Image"));
-
-		//TODO: Only for text page
-		//d_diff_stat_file.hide();
+		add_renderer(renderer, "image", _("Image"), false);
 	}
 
 	protected override void constructed()
