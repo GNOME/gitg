@@ -826,6 +826,11 @@ public class Gitg.DiffView : Gtk.Grid
 
 					current_file = new Gitg.DiffViewFile(info);
 
+					if (mime_type_for_image != null
+						&& s_image_mime_types.contains(mime_type_for_image))
+					{
+						current_file.add_image_renderer();
+					}
 					if (can_diff_as_text)
 					{
 						current_file.add_text_renderer(handle_selection);
@@ -835,11 +840,6 @@ public class Gitg.DiffView : Gtk.Grid
 						bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 						renderer_text.maxlines = maxlines;
 						renderer_text.notify["has-selection"].connect(on_selection_changed);
-					}
-					if (mime_type_for_image != null
-						&& s_image_mime_types.contains(mime_type_for_image))
-					{
-						current_file.add_image_renderer();
 					}
 					if (current_is_binary)
 					{
