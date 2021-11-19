@@ -645,9 +645,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		foreach (var file in d_grid_files.get_children())
 		{
-			var selectable = ((Gitg.DiffViewFile) file).renderer_text as DiffSelectable;
-
-			if (selectable != null && selectable.has_selection)
+			if (((Gitg.DiffViewFile) file).has_selection())
 			{
 				something_selected = true;
 				break;
@@ -837,12 +835,19 @@ public class Gitg.DiffView : Gtk.Grid
 					if (can_diff_as_text)
 					{
 						current_file.add_text_renderer(handle_selection);
-						var renderer_text = current_file.renderer_text;
-						bind_property("highlight", renderer_text, "highlight", BindingFlags.SYNC_CREATE);
-						bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
-						bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
-						renderer_text.maxlines = maxlines;
-						renderer_text.notify["has-selection"].connect(on_selection_changed);
+						var renderer_list = current_file.renderer_list;
+						foreach (DiffViewFileRenderer renderer in renderer_list)
+						{
+							var renderer_text = renderer as DiffViewFileRendererTextable;
+							if (renderer_text != null)
+							{
+								bind_property("highlight", renderer_text, "highlight", BindingFlags.SYNC_CREATE);
+								bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+								bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+								renderer_text.maxlines = maxlines;
+								renderer_text.notify["has-selection"].connect(on_selection_changed);
+							}
+						}
 					}
 					if (current_is_binary)
 					{
@@ -962,12 +967,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		foreach (var file in d_grid_files.get_children())
 		{
-			var sel = ((Gitg.DiffViewFile) file).renderer_text as DiffSelectable;
-
-			if (sel != null && sel.has_selection && sel.selection.patches.length != 0)
-			{
-				ret += sel.selection;
-			}
+			ret += ((Gitg.DiffViewFile)file).get_selection();
 		}
 
 		return ret;

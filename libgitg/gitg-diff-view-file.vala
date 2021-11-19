@@ -40,7 +40,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	private bool d_expanded;
 
-	public DiffViewFileRendererText? renderer_text {get; private set;}
+	public Gee.ArrayList<DiffViewFileRenderer> renderer_list {get; private set;}
 
 	public bool new_is_workdir { get; construct set; }
 
@@ -75,11 +75,44 @@ class Gitg.DiffViewFile : Gtk.Grid
 	public DiffViewFileInfo? info {get; construct set;}
 	private Gee.HashMap<Gtk.Widget, bool> d_diff_stat_visible_map = new Gee.HashMap<Gtk.Widget, bool>();
 
+	public bool has_selection()
+	{
+		bool has_selection = false;
+		foreach (DiffViewFileRenderer renderer in renderer_list)
+		{
+			var selectable = renderer as DiffSelectable;
+			if (selectable != null)
+				has_selection = selectable.has_selection;
+			if (has_selection)
+				break;
+		}
+		return has_selection;
+	}
+
+	public PatchSet get_selection()
+	{
+		var ret = new PatchSet();
+
+		foreach (var renderer in renderer_list)
+		{
+			var sel = renderer as DiffSelectable;
+
+			if (sel != null && sel.has_selection && sel.selection.patches.length != 0)
+			{
+				ret = sel.selection;
+				break;
+			}
+		}
+
+		return ret;
+	}
+
 	public DiffViewFile(DiffViewFileInfo? info)
 	{
 		Object(info: info);
 		bind_property("vexpand", d_stack_file_renderer, "vexpand", BindingFlags.SYNC_CREATE);
 		d_stack_file_renderer.notify["visible-child"].connect(page_changed);
+		renderer_list = new Gee.ArrayList<DiffViewFileRenderer>();
 	}
 
 	private void page_changed()
@@ -89,9 +122,10 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_diff_stat_file.set_visible(visible);
 	}
 
-	public void add_renderer(Gtk.Widget widget, string name, string title, bool show_stats)
+	public void add_renderer(DiffViewFileRenderer renderer, Gtk.Widget widget, string name, string title, bool show_stats)
 	{
 		d_diff_stat_visible_map.set(widget, show_stats);
+		renderer_list.add(renderer);
 		d_stack_file_renderer.add_titled(widget, name, title);
 		bool visible = d_stack_file_renderer.get_children().length() > 1;
 		d_stack_switcher.set_visible(visible);
@@ -99,30 +133,34 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	public void add_text_renderer(bool handle_selection)
 	{
-		renderer_text = new DiffViewFileRendererText(info, handle_selection);
-		renderer_text.show();
+		var renderer = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
+		renderer.show();
 		var scrolled_window = new Gtk.ScrolledWindow (null, null);
-		scrolled_window.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-		scrolled_window.add(renderer_text);
+		scrolled_window.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+		scrolled_window.add(renderer);
 		scrolled_window.show();
 
-		renderer_text.bind_property("added", d_diff_stat_file, "added");
-		renderer_text.bind_property("removed", d_diff_stat_file, "removed");
-		add_renderer(scrolled_window, "text", _("Text"), true);
+		renderer.bind_property("added", d_diff_stat_file, "added");
+		renderer.bind_property("removed", d_diff_stat_file, "removed");
+		add_renderer(renderer, scrolled_window, "text", _("Unif"), true);
+
+		var renderer_split = new DiffViewFileRendererTextSplit(info, handle_selection);
+		renderer_split.show();
+		add_renderer(renderer_split, renderer_split, "splittext", _("Split"), true);
 	}
 
 	public void add_binary_renderer()
 	{
 		var renderer = new DiffViewFileRendererBinary();
 		renderer.show();
-		add_renderer(renderer, "binary", _("Binary"), false);
+		add_renderer(renderer, renderer, "binary", _("Binary"), false);
 	}
 
 	public void add_image_renderer()
 	{
 		var renderer = new DiffViewFileRendererImage(info.repository, info.delta);
 		renderer.show();
-		add_renderer(renderer, "image", _("Image"), false);
+		add_renderer(renderer, renderer, "image", _("Image"), false);
 	}
 
 	protected override void constructed()
@@ -253,16 +291,9 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
-		if (renderer_text != null) {
-			renderer_text.add_hunk(hunk, lines);
-		}
-		foreach (Gtk.Widget page in d_stack_file_renderer.get_children())
+		foreach (DiffViewFileRenderer renderer in renderer_list)
 		{
-			if (page is DiffViewFileRenderer)
-			{
-				var renderer = (DiffViewFileRenderer)page;
-				renderer.add_hunk(hunk, lines);
-			}
+			renderer.add_hunk(hunk, lines);
 		}
 	}
 }
