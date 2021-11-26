@@ -6,14 +6,14 @@
 # Chihau Chau <chihau@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010, 2011.
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010-2020.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-12 12:36+0000\n"
-"PO-Revision-Date: 2020-07-29 08:19+0200\n"
+"POT-Creation-Date: 2021-11-18 07:09+0000\n"
+"PO-Revision-Date: 2021-11-26 17:50+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-DamnedLies-Scope: partial\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"X-Generator: Gtranslator 41.0\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -97,6 +97,11 @@ msgstr "@binary@"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Examinador de repositorios Git"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+#| msgid "_New Window"
+msgid "New Window"
+msgstr "Ventana nueva"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -2074,15 +2079,28 @@ msgstr "Expandir todo"
 msgid "Committed by %s"
 msgstr "Cambiado por %s"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#: libgitg/gitg-diff-view-file.vala:101
+msgid "Text"
+msgstr "Texto"
+
+#: libgitg/gitg-diff-view-file.vala:108
+#| msgid "@binary@"
+msgid "Binary"
+msgstr "Binario"
+
+#: libgitg/gitg-diff-view-file.vala:118
+msgid "Image"
+msgstr "Imagen"
+
+#: libgitg/gitg-diff-view-file.vala:166
 msgid "_Open file"
 msgstr "_Abrir archivo"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:199
 msgid "Open containing _folder"
 msgstr "Abrir _carpeta contenedora"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:219
 msgid "_Copy file path"
 msgstr "_Copiar ruta del archivo"
 
