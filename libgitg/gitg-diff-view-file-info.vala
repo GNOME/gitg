@@ -44,7 +44,10 @@ class Gitg.DiffViewFileInfo : Object
 				return;
 			}
 
-			var bytes = new Bytes(blob.get_raw_content());
+			uint8[]? raw_content = blob.get_raw_content();
+			if (TextConv.has_textconv_command(repository, file))
+				raw_content = TextConv.get_textconv_content_from_raw(repository, file, raw_content);
+			var bytes = new Bytes(raw_content);
 			new_file_input_stream = new GLib.MemoryInputStream.from_bytes(bytes);
 		}
 		else if (location != null)
@@ -52,7 +55,18 @@ class Gitg.DiffViewFileInfo : Object
 			// Try to read from disk
 			try
 			{
-				new_file_input_stream = yield location.read_async(Priority.DEFAULT, cancellable);
+				if (TextConv.has_textconv_command(repository, file))
+				{
+					uint8[]? content = null;
+					yield location.load_contents_async(cancellable, out content, null);
+					content = TextConv.get_textconv_content_from_raw(repository, file, content);
+					var bytes = new Bytes(content);
+					new_file_input_stream = new GLib.MemoryInputStream.from_bytes(bytes);
+				}
+				else
+				{
+					new_file_input_stream = yield location.read_async(Priority.DEFAULT, cancellable);
+				}
 			}
 			catch
 			{

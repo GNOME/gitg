@@ -851,9 +851,92 @@ public class Gitg.DiffView : Gtk.Grid
 					}
 					if (current_is_binary)
 					{
-						current_file.add_binary_renderer();
-					}
+						try {
+							var new_file = delta.get_new_file();
+							var old_file = delta.get_old_file();
 
+							if (TextConv.has_textconv_command(repository, old_file) || TextConv.has_textconv_command(repository, new_file))
+							{
+								uint8[] n_textconv = TextConv.get_textconv_content(repository, new_file);
+								uint8[] o_textconv = TextConv.get_textconv_content(repository, old_file);
+
+								current_is_binary = false;
+								var opts = new Ggit.DiffOptions();
+								opts.flags = Ggit.DiffOption.INCLUDE_UNTRACKED |
+											Ggit.DiffOption.IGNORE_WHITESPACE |
+											Ggit.DiffOption.DISABLE_PATHSPEC_MATCH |
+											Ggit.DiffOption.RECURSE_UNTRACKED_DIRS;
+								opts.n_context_lines = 3;
+								opts.n_interhunk_lines = 3;
+
+
+								var bdiff = new Ggit.Diff.buffers(o_textconv, old_file.get_path(), n_textconv, new_file.get_path(), opts);
+								bdiff.foreach(
+									(delta, progress) => {
+											if (cancellable != null && cancellable.is_cancelled())
+											{
+												return 1;
+											}
+											deltakey = key_for_delta(delta);
+
+											if (infomap.has_key(deltakey))
+											{
+												info = infomap[deltakey];
+											}
+											else
+											{
+												info = new DiffViewFileInfo(repository, delta, new_is_workdir);
+											}
+												current_file = new Gitg.DiffViewFile(info);
+												current_file.add_text_renderer(handle_selection);
+												return 0;
+											},
+									(delta, binary) => {
+											if (cancellable != null && cancellable.is_cancelled())
+											{
+												return 1;
+											}
+											return 0;
+									},
+									(delta, hunk) => {
+											if (cancellable != null && cancellable.is_cancelled())
+											{
+												return 1;
+											}
+											if (!current_is_binary)
+											{
+												maxlines = int.max(maxlines, hunk.get_old_start() + hunk.get_old_lines());
+												maxlines = int.max(maxlines, hunk.get_new_start() + hunk.get_new_lines());
+
+												add_hunk();
+
+												current_hunk = hunk;
+												current_lines = new Gee.ArrayList<Ggit.DiffLine>();
+											}
+
+											return 0;
+									},
+									(delta, hunk, line) => {
+											if (cancellable != null && cancellable.is_cancelled())
+											{
+												return 1;
+											}
+											if (!current_is_binary)
+											{
+												current_lines.add(line);
+											}
+											return 0;
+									}
+								);
+								add_hunk();
+								add_file();
+							}
+						} catch (Error error) {
+							stderr.printf (@"Error: $(error.message)\n");
+						}
+						if (current_is_binary)
+							current_file.add_binary_renderer();
+					}
 					return 0;
 				},
 

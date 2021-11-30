@@ -393,18 +393,21 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 				return null;
 			}
 
-			content = blob.get_raw_content();
+			if (TextConv.has_textconv_command(repository, file))
+				content = TextConv.get_textconv_content(repository, file);
+			else
+				content = blob.get_raw_content();
 		}
 		else
 		{
 			// Try to read from disk
 			try
 			{
-				string etag;
-
 				// Read it all into a buffer so we can guess the content type from
 				// it. This isn't really nice, but it's simple.
-				yield location.load_contents_async(cancellable, out content, out etag);
+				yield location.load_contents_async(cancellable, out content, null);
+				if (TextConv.has_textconv_command(repository, file))
+					content = TextConv.get_textconv_content_from_raw(repository, file, content);
 			}
 			catch
 			{

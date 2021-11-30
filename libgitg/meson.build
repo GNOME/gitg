@@ -67,6 +67,7 @@ sources = files(
   'gitg-sidebar.vala',
   'gitg-stage-status-enumerator.vala',
   'gitg-stage.vala',
+  'gitg-textconv.vala',
   'gitg-theme.vala',
   'gitg-utils.vala',
   'gitg-when-mapped.vala',

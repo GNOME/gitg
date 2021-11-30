@@ -86,7 +86,7 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 
 	public bool highlight
 	{
-		get { return d_renderer_left.highlight; }
+		get { return d_renderer_left != null && d_renderer_left.highlight; }
 
 		construct set
 		{
