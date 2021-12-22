@@ -4,23 +4,23 @@
 #
 # Andika Triwidada <andika@gmail.com>, 2012, 2013, 2014.
 # Dirgita <dirgitadevina@yahoo.co.id>, 2014.
-# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020, 2021.
 # Sucipto <sucipto@pm.me>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-08-15 03:56+0000\n"
-"PO-Revision-Date: 2020-08-19 21:21+0700\n"
+"POT-Creation-Date: 2021-11-18 07:09+0000\n"
+"PO-Revision-Date: 2021-12-22 16:02+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= n!=1;\n"
-"X-Generator: Poedit 2.4.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0\n"
 "X-DamnedLies-Scope: partial\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -96,6 +96,10 @@ msgstr "@binary@"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Peramban repositori git"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "Jendela Baru"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -686,7 +690,6 @@ msgstr "Gagal menghapus berkas"
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Hapus berkas"
-msgstr[1] "Hapus berkas"
 
 #: gitg/commit/gitg-commit.vala:1572
 #, c-format
@@ -714,7 +717,6 @@ msgstr "_Buang perubahan"
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Hapus b_erkas"
-msgstr[1] "Hapus b_erkas"
 
 #: gitg/commit/gitg-commit.vala:1695
 msgid "_Edit file"
@@ -811,7 +813,7 @@ msgid "translator-credits"
 msgstr ""
 "Ahmad Haris <ahmadharis@gnome.org>, 2015.\n"
 "Andika Triwidada <andika@gmail.com>, 2012-2014, 2016.\n"
-"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020."
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020, 2021."
 
 #: gitg/gitg-application.vala:238
 msgid "gitg homepage"
@@ -1966,8 +1968,7 @@ msgstr "Sekarang"
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] "Satu menit yang lalu"
-msgstr[1] "%d menit yang lalu"
+msgstr[0] "%d menit yang lalu"
 
 #: libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
@@ -1977,15 +1978,13 @@ msgstr "Setengah jam yang lalu"
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] "Satu jam yang lalu"
-msgstr[1] "%d jam yang lalu"
+msgstr[0] "%d jam yang lalu"
 
 #: libgitg/gitg-date.vala:365
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
-msgstr[0] "Kemarin"
-msgstr[1] "%d hari yang lalu"
+msgstr[0] "%d hari yang lalu"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
@@ -2057,15 +2056,27 @@ msgstr "Buka semua"
 msgid "Committed by %s"
 msgstr "Dikomit oleh %s"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#: libgitg/gitg-diff-view-file.vala:101
+msgid "Text"
+msgstr "Teks"
+
+#: libgitg/gitg-diff-view-file.vala:108
+msgid "Binary"
+msgstr "Biner"
+
+#: libgitg/gitg-diff-view-file.vala:118
+msgid "Image"
+msgstr "Gambar"
+
+#: libgitg/gitg-diff-view-file.vala:166
 msgid "_Open file"
 msgstr "_Buka berkas"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:199
 msgid "Open containing _folder"
 msgstr "Buka _folder yang memuat"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:219
 msgid "_Copy file path"
 msgstr "_Salin path berkas"
 
