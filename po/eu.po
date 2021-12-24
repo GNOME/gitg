@@ -10,8 +10,8 @@
 msgid ""
 msgstr "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-12 12:36+0000\n"
-"PO-Revision-Date: 2020-08-11 08:00+0100\n"
+"POT-Creation-Date: 2021-11-18 07:09+0000\n"
+"PO-Revision-Date: 2021-12-24 08:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -89,6 +89,10 @@ msgstr "@bitarra@"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git biltegi-arakatzailea"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "Leiho berria"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -1948,15 +1952,27 @@ msgstr "Zabaldu dena"
 msgid "Committed by %s"
 msgstr "Egikarituta: %s"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#: libgitg/gitg-diff-view-file.vala:101
+msgid "Text"
+msgstr "Testua"
+
+#: libgitg/gitg-diff-view-file.vala:108
+msgid "Binary"
+msgstr "Bitarra"
+
+#: libgitg/gitg-diff-view-file.vala:118
+msgid "Image"
+msgstr "Irudia"
+
+#: libgitg/gitg-diff-view-file.vala:166
 msgid "_Open file"
 msgstr "_Ireki fitxategia"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:199
 msgid "Open containing _folder"
 msgstr "Ireki karpeta _edukitzailea"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:219
 msgid "_Copy file path"
 msgstr "_Kopiatu fitxategiaren bide-izena"
 
