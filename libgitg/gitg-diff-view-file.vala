@@ -131,7 +131,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_stack_switcher.set_visible(visible);
 	}
 
-	public void add_text_renderer(bool handle_selection)
+	public void add_text_renderer(bool handle_selection, uint num_parents)
 	{
 		var renderer = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
 		renderer.show();
@@ -147,6 +147,14 @@ class Gitg.DiffViewFile : Gtk.Grid
 		var renderer_split = new DiffViewFileRendererTextSplit(info, handle_selection);
 		renderer_split.show();
 		add_renderer(renderer_split, renderer_split, "splittext", _("Split"), true);
+
+		if (num_parents > 1)
+		{
+			var renderer_three = new DiffViewFileRendererTextThree(info, handle_selection);
+			renderer_three.show();
+			add_renderer(renderer_three, renderer_three, "threetext", _("Merge"), true);
+		}
+
 	}
 
 	public void add_binary_renderer()

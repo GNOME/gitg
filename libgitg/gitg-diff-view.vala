@@ -590,7 +590,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 		if (d_diff != null)
 		{
-			update_diff(d_diff, preserve_expanded, d_cancellable);
+			update_diff(d_diff, preserve_expanded, d_cancellable, d_commit.get_parents().size);
 		}
 	}
 
@@ -693,7 +693,7 @@ public class Gitg.DiffView : Gtk.Grid
 		return "";
 	}
 
-	private void update_diff(Ggit.Diff diff, bool preserve_expanded, Cancellable? cancellable)
+	private void update_diff(Ggit.Diff diff, bool preserve_expanded, Cancellable? cancellable, uint num_parents)
 	{
 		var nqueries = 0;
 		var finished = false;
@@ -703,7 +703,7 @@ public class Gitg.DiffView : Gtk.Grid
 			if (nqueries == 0 && finished && (cancellable == null || !cancellable.is_cancelled()))
 			{
 				finished = false;
-				update_diff_hunks(diff, preserve_expanded, infomap, cancellable);
+				update_diff_hunks(diff, preserve_expanded, infomap, cancellable, num_parents);
 			}
 		};
 
@@ -730,7 +730,7 @@ public class Gitg.DiffView : Gtk.Grid
 		check_finish();
 	}
 
-	private void update_diff_hunks(Ggit.Diff diff, bool preserve_expanded, Gee.HashMap<string, DiffViewFileInfo> infomap, Cancellable? cancellable)
+	private void update_diff_hunks(Ggit.Diff diff, bool preserve_expanded, Gee.HashMap<string, DiffViewFileInfo> infomap, Cancellable? cancellable, uint num_parents)
 	{
 		var files = new Gee.ArrayList<Gitg.DiffViewFile>();
 
@@ -834,7 +834,7 @@ public class Gitg.DiffView : Gtk.Grid
 					}
 					if (can_diff_as_text)
 					{
-						current_file.add_text_renderer(handle_selection);
+						current_file.add_text_renderer(handle_selection, num_parents);
 						var renderer_list = current_file.renderer_list;
 						foreach (DiffViewFileRenderer renderer in renderer_list)
 						{
