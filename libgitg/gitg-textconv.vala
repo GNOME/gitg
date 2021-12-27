@@ -36,7 +36,13 @@ public class TextConv
 		if (diffattr != null)
 		{
 			var textconv_key = "diff.%s.textconv".printf(diffattr);
-			command = repository.get_config().get_entry(textconv_key).get_value();
+			try
+			{
+				command = repository.get_config().get_string(textconv_key);
+			}
+			catch (GLib.Error e)
+			{
+			}
 		}
 		return command;
 	}
