@@ -1,6 +1,6 @@
 project(
   'gitg', ['c', 'vala'],
-  version: '3.33.2',
+  version: '41',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
   meson_version: '>= 0.48.0',
@@ -15,9 +15,6 @@ endif
 
 gitg_version = meson.project_version()
 version_array = gitg_version.split('.')
-gitg_major_version = version_array[0].to_int()
-gitg_minor_version = version_array[1].to_int()
-gitg_micro_version = version_array[2].to_int()
 
 gitg_api_version = '1.0'
 
