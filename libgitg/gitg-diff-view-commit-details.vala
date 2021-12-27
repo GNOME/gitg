@@ -117,8 +117,6 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 	}
 
-	public string config_file { get; construct set; }
-
 	private bool d_use_gravatar;
 
 	public bool use_gravatar
@@ -131,9 +129,13 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 	}
 
+	public Gitg.Repository? repository {get; set; }
+
 	private Gee.HashMap<Ggit.OId, Gtk.RadioButton> d_parents_map;
 
 	private GLib.Regex regex_url = /\w+:(\/?\/?)[^\s]+/;
+	private Ggit.Config config {get; set;}
+	private GLib.Regex regex_custom_links = /gitg\.custom-link\.(.+)\.regex/;
 
 	construct
 	{
@@ -185,7 +187,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			return;
 		}
 
-		d_label_subject.label = subject_to_markup(commit.get_subject());
+		d_label_subject.set_markup(subject_to_markup(commit.get_subject()));
 		d_label_sha1.label = commit.get_id().to_string();
 
 		var author = commit.get_author();
@@ -258,7 +260,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 	private string subject_to_markup(string subject_text)
 	{
-		return Markup.escape_text(parse_links_on_subject(subject_text));
+		return parse_links_on_subject(subject_text);
 	}
 
 	private string parse_links_on_subject(string subject_text)
@@ -276,7 +278,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 				matchInfo.next();
 			}
 
-			result = parse_ini_file(result);
+			result = parse_smart_text(result);
 		}
 		catch(Error e)
 		{
@@ -284,71 +286,62 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		return result;
 	}
 
-	private string parse_ini_file(string subject_text)
+	private string parse_smart_text(string subject_text)
 	{
 		string result = subject_text;
-		if (config_file!=null)
+		if (repository != null)
 		{
+			result = subject_text.dup();
 			try
 			{
-				debug ("parsing %s", config_file);
-				GLib.KeyFile file = new GLib.KeyFile();
-				if (file.load_from_file(config_file , GLib.KeyFileFlags.NONE))
-				{
-					result = subject_text.dup();
-					foreach (string group in file.get_groups())
+				var conf = repository.get_config().snapshot();
+				conf.match_foreach(regex_custom_links, (match_info, value) => {
+					string group = match_info.fetch(1);
+					debug ("found custom-link group: %s", group);
+					debug (value == null ? "es nulo": "es vacio");
+					string custom_link_regexp = value;
+					string replacement_key = "gitg.custom-link.%s.replacement".printf(group);
+					try
 					{
-						if (group.has_prefix("gitg.custom-link"))
+						string custom_link_replacement = conf.get_string(replacement_key);
+
+						var custom_regex = new Regex (custom_link_regexp);
+						try
 						{
-							string custom_link_regexp = file.get_string (group, "regexp");
-							string custom_link_replacement = file.get_string (group, "replacement");
-							debug ("found group: %s", custom_link_regexp);
-							bool custom_color = file.has_key (group, "color");
-							string color = null;
-							if (custom_color)
+							GLib.MatchInfo matchInfo;
+
+							custom_regex.match (subject_text, 0, out matchInfo);
+
+							while (matchInfo.matches ())
 							{
-								string custom_link_color = file.get_string (group, "color");
-								color = custom_link_color;
-							}
-
-							var custom_regex = new Regex (custom_link_regexp);
-							try
-							{
-								GLib.MatchInfo matchInfo;
-
-								custom_regex.match (subject_text, 0, out matchInfo);
-
-								while (matchInfo.matches ())
+								string text = matchInfo.fetch(0);
+								string link = text.dup();
+								debug ("found: %s", link);
+								if (custom_link_replacement != null)
 								{
-									string text = matchInfo.fetch(0);
-									string link = text.dup();
-									debug ("found: %s", link);
-									if (custom_link_replacement != null)
-									{
-										link = custom_regex.replace(link, text.length, 0, custom_link_replacement);
-									}
-									if (color != null) {
-										result = result.replace(text, "<a href=\"%s\" title=\"%s\" style=\"color:%s\">%s</a>".printf(link, link, color, text));
-									} else {
-										result = result.replace(text, "<a href=\"%s\" title=\"%s\">%s</a>".printf(link, link, text));
-									}
-
-									matchInfo.next();
+									link = custom_regex.replace(link, text.length, 0, custom_link_replacement);
 								}
-							}
-							catch(Error e)
-							{
+								result = result.replace(text, "<a href=\"%s\" title=\"%s\">%s</a>".printf(link, link, text));
+
+								matchInfo.next();
 							}
 						}
+						catch(Error e)
+						{
+						}
+					} catch (Error e)
+					{
+						warning ("Cannot read git config: %s", e.message);
 					}
-				}
-			} catch (Error e)
+					return 0;
+				});
+			}
+			catch(Error e)
 			{
-				warning ("Cannot read %s %s", config_file, e.message);
+				warning ("Cannot read git config: %s", e.message);
 			}
 		}
 		return result;
-
 	}
 
 	private void update_avatar()

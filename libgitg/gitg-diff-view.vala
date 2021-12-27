@@ -127,19 +127,19 @@ public class Gitg.DiffView : Gtk.Grid
 
 	private Repository? d_repository;
 
+	private GLib.Regex regex_custom_links = /gitg\.custom-link\.(.+)\.regex/;
+
 	public Repository? repository {
 		get { return d_repository; }
 		set {
 			d_repository = value;
 			if (d_repository!=null)
 			{
-				config_file = "%s/.git/config".printf(d_repository.get_workdir().get_path());
-				d_commit_details.config_file = config_file;
+				d_commit_details.repository = d_repository;
 			}
 		}
 	}
 	public bool new_is_workdir { get; set; }
-	private string config_file;
 
 	private GLib.Regex regex_url = /\w+:(\/?\/?)[^\s]+/;
 
@@ -576,7 +576,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 			apply_link_tags(buffer, regex_url, null, d_color_link, false, false);
 
-			read_ini_file(buffer);
+			parse_smart_text(buffer);
 
 			d_text_view_message.visible = (message != "");
 		}
@@ -594,39 +594,42 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private void read_ini_file(Gtk.TextBuffer buffer)
+	private void parse_smart_text(Gtk.TextBuffer buffer)
 	{
-		if (config_file != null)
+		if (repository != null)
 		{
+			var conf = repository.get_config().snapshot();
 			try
 			{
-				GLib.KeyFile file = new GLib.KeyFile();
-				if (file.load_from_file(config_file , GLib.KeyFileFlags.NONE))
-				{
-					foreach (string group in file.get_groups())
+				conf.match_foreach(regex_custom_links, (match_info, value) => {
+					string group = match_info.fetch(1);
+					debug ("found custom-link group: %s", group);
+					string custom_link_regexp = value;
+					string replacement_key = "gitg.custom-link.%s.replacement".printf(group);
+					try
 					{
-						if (group.has_prefix("gitg.custom-link"))
+						string custom_link_replacement = conf.get_string(replacement_key);
+						string color_key = "gitg.custom-link.%s.color".printf(group);
+						string custom_color = conf.get_string(color_key);
+						Gdk.RGBA color = d_color_link;
+						bool is_custom_color = custom_color != null;
+						if (is_custom_color)
 						{
-							string custom_link_regexp = file.get_string (group, "regexp");
-							string custom_link_replacement = file.get_string (group, "replacement");
-							bool custom_color = file.has_key (group, "color");
-							Gdk.RGBA color = d_color_link;
-							if (custom_color)
-							{
-								string custom_link_color = file.get_string (group, "color");
-								color = Gdk.RGBA();
-								color.parse(custom_link_color);
-							}
-							apply_link_tags(buffer, new Regex (custom_link_regexp), custom_link_replacement, color, custom_color, true);
+							color = Gdk.RGBA();
+							color.parse(custom_color);
 						}
+						apply_link_tags(buffer, new Regex (custom_link_regexp), custom_link_replacement, color, is_custom_color, true);
+					} catch (Error e)
+					{
+						warning ("Cannot read git config: %s", e.message);
 					}
-				}
+					return 0;
+				});
 			} catch (Error e)
 			{
-				warning ("Cannot read %s: %s", config_file, e.message);
+				warning ("Cannot read git config: %s", e.message);
 			}
 		}
-
 	}
 
 	private void auto_change_expanded(bool expanded)
