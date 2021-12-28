@@ -16,12 +16,8 @@
         "--socket=wayland",
         "--socket=ssh-auth",
         "--filesystem=host",
-        "--filesystem=xdg-run/dconf",
-        "--filesystem=~/.config/dconf:ro",
         "--filesystem=xdg-config/git:ro",
-        "--talk-name=ca.desrt.dconf",
         "--talk-name=org.gtk.vfs.*",
-        "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
         "--talk-name=org.freedesktop.secrets",
         "--filesystem=xdg-run/keyring"
     ],
