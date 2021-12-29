@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-_wixdir="/c/Program Files (x86)/WiX Toolset v3.8"
+_wixdir="/c/Program Files (x86)/WiX Toolset v3.11"
 _thisdir="$(dirname $0)"
 test "${_thisdir}" = "." && _thisdir=${PWD}
 _installer_root="${_thisdir}"/installer
@@ -95,7 +95,7 @@ remove_useless_stuff() {
   rm -rf installer/SourceDir/share/doc
   # remove on the lib folder
   rm -rf installer/SourceDir/lib/terminfo
-  rm -rf installer/SourceDir/lib/python2*
+  rm -rf installer/SourceDir/lib/python*
   rm -rf installer/SourceDir/lib/pkgconfig
   rm -rf installer/SourceDir/lib/peas-demo
 
@@ -109,6 +109,7 @@ remove_useless_stuff() {
 }
 
 setup_source_dir() {
+  [ -d "installer/SourceDir" ] && rm -rf "installer/SourceDir"
   cp -R "${_newgitg}/mingw${_bitness}" "installer/SourceDir"
   remove_useless_stuff
 }
@@ -155,10 +156,6 @@ install_gitg_packages() {
   if [ "$_result" -ne "0" ]; then
     exit_cleanly "1" "failed to create ${_newgitg} via command 'pacman -S gitg --noconfirm --root ${_newgitg}'"
   fi
-
-  # some packages are pulled by the deps but we do not need them like python2
-  pacman -Rdd mingw-w64-${_arch}-python2 --noconfirm --root "${_newgitg}"
-  pacman -Rdd mingw-w64-${_arch}-gtk2 --noconfirm --root "${_newgitg}"
 }
 
 if [ "${_stage}" = "stage1" ]; then
