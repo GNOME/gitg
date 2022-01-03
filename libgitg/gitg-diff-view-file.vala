@@ -57,6 +57,13 @@ class Gitg.DiffViewFile : Gtk.Grid
 			{
 				d_expanded = value;
 				d_revealer_content.reveal_child = d_expanded;
+				bool visible = false;
+				if (d_expanded)
+				{
+					visible = d_stack_file_renderer.get_children().length() > 1;
+				}
+				d_stack_switcher.set_visible(visible);
+
 
 				var ctx = get_style_context();
 
@@ -127,8 +134,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 		d_diff_stat_visible_map.set(widget, show_stats);
 		renderer_list.add(renderer);
 		d_stack_file_renderer.add_titled(widget, name, title);
-		bool visible = d_stack_file_renderer.get_children().length() > 1;
-		d_stack_switcher.set_visible(visible);
 	}
 
 	public void add_text_renderer(bool handle_selection)
