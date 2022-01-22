@@ -187,7 +187,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			return;
 		}
 
-		d_label_subject.set_markup(subject_to_markup(commit.get_subject()));
+		d_label_subject.set_markup(subject_to_markup(Markup.escape_text(commit.get_subject())));
 		d_label_sha1.label = commit.get_id().to_string();
 
 		var author = commit.get_author();
