@@ -322,8 +322,8 @@ public class Gitg.DiffView : Gtk.Grid
 				int start_pos, end_pos;
 				string text = matchInfo.fetch(0);
 				matchInfo.fetch_pos (0, out start_pos, out end_pos);
-				buffer.get_iter_at_offset(out start, start_pos);
-				buffer.get_iter_at_offset(out end, end_pos);
+				buffer.get_iter_at_offset(out start, start_pos -1);
+				buffer.get_iter_at_offset(out end, end_pos -1);
 
 				var tag = buffer.create_tag(null, "underline", Pango.Underline.SINGLE);
 				tag.foreground_rgba = custom_color_link;
