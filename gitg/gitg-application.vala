@@ -32,6 +32,7 @@ public class Application : Gtk.Application
 	private static bool no_wd = false;
 	private static bool standalone = false;
 	private static ApplicationCommandLine app_command_line;
+	private static bool init = false;
 
 	private const OptionEntry[] entries = {
 		{"version", 'v', OptionFlags.NO_ARG, OptionArg.CALLBACK,
@@ -44,6 +45,8 @@ public class Application : Gtk.Application
 		 ref no_wd, N_("Do not try to load a repository from the current working directory"), null},
 		{"standalone", 0, 0, OptionArg.NONE,
 		 ref standalone, N_("Run gitg in standalone mode"), null},
+		{"init", 0, 0, OptionArg.NONE,
+		 ref init, N_("Put paths under git if needed"), null},
 		{null}
 	};
 
@@ -531,13 +534,40 @@ public class Application : Gtk.Application
 		foreach (File f in files)
 		{
 			File? resolved;
-
 			// Try to open a repository at this location
 			try
 			{
 				resolved = Ggit.Repository.discover(f);
 			}
-			catch { continue; }
+			catch {
+				if(init)
+				{
+					try
+					{
+						if (f.query_exists ()){
+
+							FileType type = f.query_file_type (FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
+							if (FileType.DIRECTORY == type)
+							{
+								Repository.init_repository(f, false);
+							}
+
+						} else
+						{
+							if (f.make_directory_with_parents ())
+							{
+								Repository.init_repository(f, false);
+							}
+						}
+					}
+					catch (Error err)
+					{
+						continue;
+					}
+				}
+				continue;
+			}
+
 
 			// See if the repository is already open somewhere
 			Window? window = find_window_for_file(resolved);
