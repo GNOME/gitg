@@ -823,14 +823,19 @@ public class Gitg.DiffView : Gtk.Grid
 						mime_type_for_image = ContentType.get_mime_type(info.new_file_content_type);
 					}
 
+					bool can_diff_as_image = mime_type_for_image != null && s_image_mime_types.contains(mime_type_for_image);
 					bool can_diff_as_text = ContentType.is_mime_type(mime_type_for_image, "text/plain");
 
 					current_file = new Gitg.DiffViewFile(info);
 
-					if (mime_type_for_image != null
-						&& s_image_mime_types.contains(mime_type_for_image))
+					if (can_diff_as_image)
 					{
 						current_file.add_image_renderer();
+					}
+					if (!can_diff_as_image && !current_is_binary && !can_diff_as_text)
+					{
+							//force diff as text if no other diff is possible
+							can_diff_as_text = true;
 					}
 					if (can_diff_as_text)
 					{
