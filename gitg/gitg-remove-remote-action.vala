@@ -20,43 +20,24 @@
 namespace Gitg
 {
 
-class RefActionRemoveRemote : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Object
+class RemoveRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
 	public GitgExt.Application? application { owned get; construct set; }
 	public GitgExt.RefActionInterface action_interface { get; construct set; }
-	public Gitg.Ref reference { get; construct set; }
-	Gitg.Ref? d_remote_ref;
+	string remote_name;
 	Gitg.Remote? d_remote;
 
-	public RefActionRemoveRemote(GitgExt.Application        application,
-								 GitgExt.RefActionInterface action_interface,
-								 Gitg.Ref                   reference)
+	public RemoveRemoteAction(GitgExt.Application        application,
+				  GitgExt.RefActionInterface action_interface,
+				  string                     remote_name)
 	{
 		Object(application:      application,
-		       action_interface: action_interface,
-			   reference:        reference);
-
-		var branch = reference as Ggit.Branch;
-
-		if (branch != null)
-		{
-			try
-			{
-				d_remote_ref = branch.get_upstream() as Gitg.Ref;
-			} catch {}
-		}
-		else if (reference.parsed_name.remote_name != null)
-		{
-			d_remote_ref = reference;
-		}
-
-		if (d_remote_ref != null)
-		{
-			d_remote = application.remote_lookup.lookup(d_remote_ref.parsed_name.remote_name);
-		}
+		       action_interface: action_interface);
+                this.remote_name = remote_name;
+		d_remote = application.remote_lookup.lookup(remote_name);
 	}
 
 	public string id
@@ -74,16 +55,9 @@ class RefActionRemoveRemote : GitgExt.UIElement, GitgExt.Action, GitgExt.RefActi
 		owned get { return _("Removes remote from the remotes list"); }
 	}
 
-	public bool available
-	{
-		get { return d_remote != null; }
-	}
-
 	public void activate()
 	{
         var query = new GitgExt.UserQuery();
-
-		var remote_name = d_remote_ref.parsed_name.remote_name;
 
 		query.title = (_("Delete remote %s")).printf(remote_name);
 		query.message = (_("Are you sure that you want to remove the remote %s?")).printf(remote_name);
@@ -110,7 +84,7 @@ class RefActionRemoveRemote : GitgExt.UIElement, GitgExt.Action, GitgExt.RefActi
 
 		try
 		{
-			repo.remove_remote(d_remote.get_name());
+			repo.remove_remote(remote_name);
 		}
 		catch (Error e)
 		{
@@ -122,7 +96,7 @@ class RefActionRemoveRemote : GitgExt.UIElement, GitgExt.Action, GitgExt.RefActi
 		((Gtk.ApplicationWindow)application).activate_action("reload", null);
 		return true;
 	}
-}
+    }
 
 }
 

@@ -31,33 +31,42 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 	private Gitg.Ref? d_remote_ref;
 	private Gitg.Remote? d_remote;
+	string remote_name;
 
 	public RefActionFetch(GitgExt.Application        application,
 	                      GitgExt.RefActionInterface action_interface,
-	                      Gitg.Ref                   reference)
+	                      Gitg.Ref?                   reference, string? remote_name = null)
 	{
 		Object(application:      application,
 		       action_interface: action_interface,
 		       reference:        reference);
 
-		var branch = reference as Ggit.Branch;
-
-		if (branch != null)
+		if (reference != null)
 		{
-			try
+			var branch = reference as Ggit.Branch;
+
+			if (branch != null)
 			{
-				d_remote_ref = branch.get_upstream() as Gitg.Ref;
-			} catch {}
-		}
-		else if (reference.parsed_name.remote_name != null)
-		{
-			d_remote_ref = reference;
-		}
+				try
+				{
+					d_remote_ref = branch.get_upstream() as Gitg.Ref;
+				} catch {}
+			}
+			else if (reference.parsed_name.remote_name != null)
+			{
+				d_remote_ref = reference;
+			}
 
-		if (d_remote_ref != null)
-		{
-			d_remote = application.remote_lookup.lookup(d_remote_ref.parsed_name.remote_name);
+			if (d_remote_ref != null)
+			{
+				this.remote_name = d_remote_ref.parsed_name.remote_name;
+			}
 		}
+		else
+		{
+			this.remote_name = remote_name;
+		}
+		d_remote = application.remote_lookup.lookup(this.remote_name);
 	}
 
 	public string id
@@ -71,7 +80,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		{
 			if (d_remote != null)
 			{
-				return _("Fetch from %s").printf(d_remote_ref.parsed_name.remote_name);
+				return _("Fetch from %s").printf(remote_name);
 			}
 			else
 			{
@@ -82,7 +91,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 	public string description
 	{
-		owned get { return _("Fetch remote objects from %s").printf(d_remote_ref.parsed_name.remote_name); }
+		owned get { return _("Fetch remote objects from %s").printf(remote_name); }
 	}
 
 	public bool available

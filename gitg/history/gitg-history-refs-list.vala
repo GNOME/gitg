@@ -563,7 +563,7 @@ public class RefsList : Gtk.ListBox
 
 	private Gee.HashMap<string, RemoteHeader> d_header_map;
 
-	public GitgExt.RemoteLookup? remote_lookup { get; set; }
+	public GitgExt.Application? application { get; set; }
 
 	public Gitg.Repository? repository
 	{
@@ -937,9 +937,9 @@ public class RefsList : Gtk.ListBox
 	{
 		Gitg.Remote? remote = null;
 
-		if (remote_lookup != null)
+		if (application.remote_lookup != null)
 		{
-			remote = remote_lookup.lookup(name);
+			remote = application.remote_lookup.lookup(name);
 		}
 
 		if (remote != null)
@@ -950,6 +950,13 @@ public class RefsList : Gtk.ListBox
 
 		var header = new RefHeader.remote(name, remote);
 		init_header(header);
+		var actions = new Gee.LinkedList<GitgExt.Action>();
+		var af = new ActionInterface(application, this);
+		actions.add(new Gitg.RefActionFetch(application, af, null, name));
+		actions.add(new Gitg.EditRemoteAction(application, af, name));
+		actions.add(new Gitg.RemoveRemoteAction(application, af, name));
+		header.actions = actions;
+
 
 		d_header_map[name] = new RemoteHeader(header);
 		add(header);
@@ -1225,6 +1232,16 @@ public class RefsList : Gtk.ListBox
 				{
 					head = row;
 				}
+				return 0;
+			});
+
+			var r = new Regex("remote\\.(.*)\\.url");
+
+			//remotes not valid but existing in git config
+			d_repository.get_config().snapshot().match_foreach(r, (info, value) => {
+				var name = info.fetch(1);
+				if (!d_header_map.has_key(name))
+				  add_remote_header(name);
 				return 0;
 			});
 		} catch {}

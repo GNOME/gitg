@@ -20,43 +20,25 @@
 namespace Gitg
 {
 
-class RefActionEditRemote : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Object
+class EditRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
 	public GitgExt.Application? application { owned get; construct set; }
 	public GitgExt.RefActionInterface action_interface { get; construct set; }
-	public Gitg.Ref reference { get; construct set; }
-	Gitg.Ref? d_remote_ref;
+	string remote_name;
 	Gitg.Remote? d_remote;
 
-	public RefActionEditRemote(GitgExt.Application        application,
-							   GitgExt.RefActionInterface action_interface,
-							   Gitg.Ref                   reference)
+	public EditRemoteAction(GitgExt.Application        application,
+				GitgExt.RefActionInterface action_interface,
+				string                     remote_name)
 	{
 		Object(application:      application,
-		       action_interface: action_interface,
-			   reference:        reference);
+		       action_interface: action_interface);
+		this.remote_name = remote_name;
 
-		var branch = reference as Ggit.Branch;
-
-		if (branch != null)
-		{
-			try
-			{
-				d_remote_ref = branch.get_upstream() as Gitg.Ref;
-			} catch {}
-		}
-		else if (reference.parsed_name.remote_name != null)
-		{
-			d_remote_ref = reference;
-		}
-
-		if (d_remote_ref != null)
-		{
-			d_remote = application.remote_lookup.lookup(d_remote_ref.parsed_name.remote_name);
-		}
+		d_remote = application.remote_lookup.lookup(remote_name);
 	}
 
 	public string id
@@ -74,17 +56,12 @@ class RefActionEditRemote : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction
 		owned get { return _("Edits the remote from the remotes list"); }
 	}
 
-	public bool available
-	{
-		get { return d_remote != null; }
-	}
-
 	public void activate()
 	{
 		var dlg = new EditRemoteDialog((Gtk.Window)application);
 
-		dlg.new_remote_name = d_remote_ref.parsed_name.remote_name;
-		var old_name = d_remote_ref.parsed_name.remote_name;
+		dlg.new_remote_name = remote_name;
+		var old_name = remote_name;
 		dlg.new_remote_url = d_remote.get_url();
 
 		dlg.response.connect((d, resp) => {
