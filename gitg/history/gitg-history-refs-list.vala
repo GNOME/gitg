@@ -540,9 +540,12 @@ public class RefsList : Gtk.ListBox
 	public RefHeader? branches_header { get { return d_all_branches; } }
 	public RefHeader? remotes_header { get { return d_all_remotes; } }
 	public RefHeader? tags_header { get { return d_all_tags; } }
-	public Gee.LinkedList<GitgExt.Action> branches_actions { get; set; default = null; }
-	public Gee.LinkedList<GitgExt.Action> remotes_actions { get; set; default = null; }
-	public Gee.LinkedList<GitgExt.Action> tags_actions { get; set; default = null; }
+	private Gee.LinkedList<GitgExt.Action> d_branches_actions = null;
+	private Gee.LinkedList<GitgExt.Action> d_remotes_actions = null;
+	private Gee.LinkedList<GitgExt.Action> d_tags_actions = null;
+	public Gee.LinkedList<GitgExt.Action> branches_actions { get {return d_branches_actions;} set { d_branches_actions = value; refresh();} }
+	public Gee.LinkedList<GitgExt.Action> remotes_actions { get {return d_remotes_actions;} set { d_remotes_actions = value; refresh();} }
+	public Gee.LinkedList<GitgExt.Action> tags_actions { get {return d_tags_actions;} set { d_tags_actions = value; refresh();} }
 
 	public signal void changed();
 
