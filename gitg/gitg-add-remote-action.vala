@@ -88,6 +88,8 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 		var dlg = new AddRemoteActionDialog((Gtk.Window)application);
 		var remote_added = true;
 
+		this.remote_name = remote_name;
+		this.remote_url = remote_url;
 		dlg.remote_name = remote_name;
 		dlg.remote_url = remote_url;
 
