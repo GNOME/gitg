@@ -3,13 +3,13 @@
 # This file is distributed under the same licence as the gitg package.
 # Serhij Dubyk <dubyk@ukr.net>, 2011.
 # Daniel Korostil <ted.korostiled@gmail.com>, 2014.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2021-12-27 10:17+0000\n"
-"PO-Revision-Date: 2021-12-27 16:09+0200\n"
+"POT-Creation-Date: 2022-01-29 13:15+0000\n"
+"PO-Revision-Date: 2022-01-29 19:30+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -665,12 +665,14 @@ msgstr "Ви справді хочете назавжди відкинути в�
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
@@ -795,8 +797,8 @@ msgstr ""
 # Скасувати
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
-#: gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -838,6 +840,53 @@ msgstr "Не вдалося створити внесок: %s"
 #, c-format
 msgid "Failed to checkout index: %s"
 msgstr "Не вдалося отримати покажчик: %s"
+
+# Дистанційне керування
+#: gitg/gitg-add-remote-action.vala:46
+#| msgid "Remotes"
+msgid "Add Remote"
+msgstr "Додати віддалений об'єкт"
+
+#: gitg/gitg-add-remote-action.vala:51
+msgid "Adds remote to the remotes list"
+msgstr ""
+"Додає віддалене сховище до списку віддалених сховищ"
+
+#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from %s"
+msgstr "Отримуємо дані з %s"
+
+# нових
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+msgid "new"
+msgstr "нове"
+
+# Не вдалося зберегти поточний стан індекс
+#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "Не вдалося отримати дані з %s: %s"
+
+# Не вдалося вилучити теги
+#: gitg/gitg-add-remote-action.vala:78
+#| msgid "Failed to add repository"
+msgid "Failed to fetch added remote"
+msgstr "Не вдалося отримати дані з доданого віддаленого сховища"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Отримано з %s: %s"
+
+# Не вдалося вилучити теги
+#: gitg/gitg-add-remote-action.vala:129
+#| msgid "Failed to add repository"
+msgid "Failed to add remote"
+msgstr "Не вдалося додати віддалене сховище"
 
 # Показати версію програми
 #: gitg/gitg-application.vala:38
@@ -1120,6 +1169,22 @@ msgstr "Не вдалося створити сховище"
 msgid "Scanning for repositories in %s"
 msgstr "Сканування сховищ у %s"
 
+#: gitg/gitg-edit-remote-action.vala:51
+#| msgid "Editor Font"
+msgid "Edit remote"
+msgstr "Редагувати віддалене сховище"
+
+#: gitg/gitg-edit-remote-action.vala:56
+msgid "Edits the remote from the remotes list"
+msgstr ""
+"Редагування запису віддаленого сховища зі списку віддалених сховищ"
+
+# Не вдалося вилучити притон
+#: gitg/gitg-edit-remote-action.vala:82
+#| msgid "Failed to rename"
+msgid "Failed to edit remote"
+msgstr "Не вдалося змінити віддалене сховище"
+
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
 msgstr "Перейти до вибраного посилання"
@@ -1159,6 +1224,29 @@ msgstr "Копіювати назву"
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Копіювати назву посилання до буфера обміну даними"
+
+#: gitg/gitg-ref-action-create-branch.vala:46
+#| msgid "Create a new branch at the selected commit"
+msgid "Create a new branch at the selected reference"
+msgstr "Створити гілку на вибраній контрольній точціі"
+
+# Не вдалося застосувати притон
+#: gitg/gitg-ref-action-create-branch.vala:58
+#: gitg/gitg-ref-action-create-patch.vala:58
+#: gitg/gitg-ref-action-create-tag.vala:58
+#| msgid "Failed to lookup tag"
+msgid "Failed to lookup reference"
+msgstr "Не вдалося виконати пошук контрольної точки"
+
+#: gitg/gitg-ref-action-create-patch.vala:46
+#| msgid "Create a patch from the selected commit"
+msgid "Create a patch from the selected reference"
+msgstr "Створити латку з вибраної контрольної точки"
+
+#: gitg/gitg-ref-action-create-tag.vala:46
+#| msgid "Create a new tag at the selected commit"
+msgid "Create a new tag at the selected reference"
+msgstr "Створити мітку на вибраній контрольній точці"
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
@@ -1232,95 +1320,26 @@ msgstr "Не вдалося вилучити гілку %s"
 msgid "The branch %s could not be deleted: %s"
 msgstr "не вдалося вилучити гілку %s: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
 msgstr "Отримати з %s"
 
-#: gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "Отримати віддалені об'єкти з %s"
 
-#: gitg/gitg-ref-action-fetch.vala:98
-#, c-format
-msgid "Fetching from %s"
-msgstr "Отримуємо дані з %s"
-
-# нових
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-ref-action-fetch.vala:106
-msgid "new"
-msgstr "нове"
-
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "оновлено"
 
-# Не вдалося зберегти поточний стан індекс
-#: gitg/gitg-ref-action-fetch.vala:121
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr "Не вдалося отримати дані з %s: %s"
-
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "Отримано з %s: нічого не потребує оновлення"
-
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-ref-action-fetch.vala:140
-#, c-format
-msgid "Fetched from %s: %s"
-msgstr "Отримано з %s: %s"
-
-#: gitg/gitg-ref-action-push.vala:80
-#, c-format
-msgid "Push to %s"
-msgstr "Надіслати до %s"
-
-# Натисніть гілки…
-#: gitg/gitg-ref-action-push.vala:91
-#, c-format
-msgid "Push branch to %s"
-msgstr "Надіслати гілку до %s"
-
-#: gitg/gitg-ref-action-push.vala:107
-#, c-format
-msgid "Pushing to %s"
-msgstr "Надсилаємо до %s"
-
-# Не вдалося зберегти поточний стан індекс
-#: gitg/gitg-ref-action-push.vala:116
-#, c-format
-msgid "Failed to push to %s: %s"
-msgstr "Не вдалося надіслати до %s: %s"
-
-#. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:123
-#, c-format
-msgid "Pushed to %s"
-msgstr "Надіслано до %s"
-
-# Натисніть гілки…
-#: gitg/gitg-ref-action-push.vala:134
-#, c-format
-msgid "Push branch %s"
-msgstr "Надіслати гілку %s"
-
-# Ви впевнені, що хочете вилучити віддаленого філії<%s>?
-#: gitg/gitg-ref-action-push.vala:135
-#, c-format
-msgid "Are you sure that you want to push the branch %s?"
-msgstr "Ви справді хочете надіслати гілку %s до сховища?"
-
-# Поштовх
-#: gitg/gitg-ref-action-push.vala:139
-msgid "Push"
-msgstr "Надіслати"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
@@ -1399,9 +1418,54 @@ msgid "Merge %s into branch %s"
 msgstr "Злити %s до гілки %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1181
+#: gitg/history/gitg-history-refs-list.vala:1199
 msgid "Tags"
 msgstr "Мітки"
+
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr "Надіслати до %s"
+
+# Натисніть гілки…
+#: gitg/gitg-ref-action-push.vala:91
+#, c-format
+msgid "Push branch to %s"
+msgstr "Надіслати гілку до %s"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, c-format
+msgid "Pushing to %s"
+msgstr "Надсилаємо до %s"
+
+# Не вдалося зберегти поточний стан індекс
+#: gitg/gitg-ref-action-push.vala:116
+#, c-format
+msgid "Failed to push to %s: %s"
+msgstr "Не вдалося надіслати до %s: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:123
+#, c-format
+msgid "Pushed to %s"
+msgstr "Надіслано до %s"
+
+# Натисніть гілки…
+#: gitg/gitg-ref-action-push.vala:134
+#, c-format
+msgid "Push branch %s"
+msgstr "Надіслати гілку %s"
+
+# Ви впевнені, що хочете вилучити віддаленого філії<%s>?
+#: gitg/gitg-ref-action-push.vala:135
+#, c-format
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "Ви справді хочете надіслати гілку %s до сховища?"
+
+# Поштовх
+#: gitg/gitg-ref-action-push.vala:139
+msgid "Push"
+msgstr "Надіслати"
 
 # Перейменувати філія
 #: gitg/gitg-ref-action-rename.vala:48
@@ -1430,12 +1494,51 @@ msgstr "Не вдалося перейменувати"
 msgid "Close"
 msgstr "Закрити"
 
+# Дистанційне керування
+#: gitg/gitg-remove-remote-action.vala:50
+#| msgid "_Remove"
+msgid "Remove remote"
+msgstr "Вилучити віддалене сховище"
+
+#: gitg/gitg-remove-remote-action.vala:55
+msgid "Removes remote from the remotes list"
+msgstr ""
+"Вилучення запису віддаленого сховища зі списку віддалених сховищ"
+
+# Вилучити віддаленого філії
+#: gitg/gitg-remove-remote-action.vala:62
+#, c-format
+#| msgid "Delete remote branch %s"
+msgid "Delete remote %s"
+msgstr "Вилучити віддалене сховище %s"
+
+# Ви впевнені, що хочете вилучити віддаленого філії<%s>?
+#: gitg/gitg-remove-remote-action.vala:63
+#, c-format
+#| msgid "Are you sure that you want to push the branch %s?"
+msgid "Are you sure that you want to remove the remote %s?"
+msgstr "Ви справді хочете вилучити запис віддаленого сховища %s?"
+
+# Дистанційне керування
+#: gitg/gitg-remove-remote-action.vala:67
+#| msgid "_Remove"
+msgid "Remove"
+msgstr "Вилучити"
+
+# Не вдалося створити філію
+#: gitg/gitg-remove-remote-action.vala:91
+#| msgid "Failed to create repository"
+msgid "Failed to remove remote"
+msgstr "Не вдалося вилучити запис віддаленого сховища"
+
 # Відкрити Git репозиторій
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "Додати сховище"
 
-#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
+#: gitg/gitg-window.vala:206
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
+#: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Додати"
 
@@ -1541,12 +1644,12 @@ msgid "All commits"
 msgstr "Всі внески"
 
 # Відділення:
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1197
 msgid "Branches"
 msgstr "Гілки"
 
 # Дистанційне керування
-#: gitg/history/gitg-history-refs-list.vala:1180
+#: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
 msgstr "Віддалені"
 
@@ -1561,7 +1664,7 @@ msgstr "Журнал"
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:942
+#: gitg/history/gitg-history.vala:949
 msgid "Mainline"
 msgstr "Основа"
 
@@ -1580,7 +1683,28 @@ msgstr "_Використовувати системний моноширинн�
 msgid "Interface"
 msgstr "Інтерфейс"
 
+# Створіть тег
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
+#| msgid "Create tag"
+msgid "Create Remote"
+msgstr "Створити віддалене сховище"
+
+# Дистанційне керування
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
+#| msgid "Remote _URL:"
+msgid "Remote _name:"
+msgstr "_Назва віддаленого сховища:"
+
+# Дистанційне керування
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
+msgid "Remote _URL:"
+msgstr "Віддалена _адреса:"
+
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "З_берегти"
 
@@ -1632,11 +1756,6 @@ msgstr "Клонувати сховище"
 #: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "_Клонувати"
-
-# Дистанційне керування
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-msgid "Remote _URL:"
-msgstr "Віддалена _адреса:"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1757,6 +1876,12 @@ msgid ""
 msgstr ""
 "Ще не додано жодного сховища. Для початку, ви можете додати наявне сховище "
 "або клонувати нове сховище."
+
+# Дистанційне керування
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
+#| msgid "Remotes"
+msgid "Edit Remote"
+msgstr "Редагувати віддалене сховище"
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
@@ -2238,34 +2363,32 @@ msgstr "Розгорнути все"
 msgid "Committed by %s"
 msgstr "Внесено %s"
 
-#: libgitg/gitg-diff-view-file.vala:145
+#: libgitg/gitg-diff-view-file.vala:150
 msgid "Unif"
-msgstr ""
-"Уніф"
+msgstr "Уніф"
 
-#: libgitg/gitg-diff-view-file.vala:149
+#: libgitg/gitg-diff-view-file.vala:154
 msgid "Split"
-msgstr ""
-"Розділити"
+msgstr "Розділити"
 
-#: libgitg/gitg-diff-view-file.vala:156
+#: libgitg/gitg-diff-view-file.vala:161
 msgid "Binary"
 msgstr "Двійковий"
 
-#: libgitg/gitg-diff-view-file.vala:163
+#: libgitg/gitg-diff-view-file.vala:168
 msgid "Image"
 msgstr "Зображення"
 
 # Відкрити…
-#: libgitg/gitg-diff-view-file.vala:208
+#: libgitg/gitg-diff-view-file.vala:213
 msgid "_Open file"
 msgstr "_Відкрити файл"
 
-#: libgitg/gitg-diff-view-file.vala:241
+#: libgitg/gitg-diff-view-file.vala:246
 msgid "Open containing _folder"
 msgstr "Відкрити _теку із даними"
 
-#: libgitg/gitg-diff-view-file.vala:261
+#: libgitg/gitg-diff-view-file.vala:266
 msgid "_Copy file path"
 msgstr "_Копіювати шлях до файла"
 
