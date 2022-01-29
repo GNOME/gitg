@@ -24,13 +24,13 @@ namespace Gitg
 class AddRemoteActionDialog : Gtk.Dialog
 {
 	[GtkChild]
-	private Gtk.Button d_button_create;
+	private unowned Gtk.Button d_button_create;
 
 	[GtkChild]
-	private Gtk.Entry d_entry_remote_name;
+	private unowned Gtk.Entry d_entry_remote_name;
 
 	[GtkChild]
-	private Gtk.Entry d_entry_remote_url;
+	private unowned Gtk.Entry d_entry_remote_url;
 
 	construct
 	{
