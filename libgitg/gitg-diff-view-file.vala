@@ -147,10 +147,12 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		renderer.bind_property("added", d_diff_stat_file, "added");
 		renderer.bind_property("removed", d_diff_stat_file, "removed");
+		// Translators: Unif stands for unified diff format
 		add_renderer(renderer, scrolled_window, "text", _("Unif"), true);
 
 		var renderer_split = new DiffViewFileRendererTextSplit(info, handle_selection);
 		renderer_split.show();
+		// Translators: Split stands for the noun
 		add_renderer(renderer_split, renderer_split, "splittext", _("Split"), true);
 	}
 
