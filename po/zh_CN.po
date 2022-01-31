@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2021-12-27 10:17+0000\n"
-"PO-Revision-Date: 2022-01-01 12:17+0800\n"
+"POT-Creation-Date: 2022-01-29 13:15+0000\n"
+"PO-Revision-Date: 2022-01-31 09:54+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -97,7 +97,6 @@ msgid "Git repository browser"
 msgstr "Git 仓库浏览器"
 
 #: data/org.gnome.gitg.desktop.in.in:17
-#| msgid "_New Window"
 msgid "New Window"
 msgstr "新建窗口"
 
@@ -577,12 +576,14 @@ msgstr "确定要永久丢弃选中的变更吗？"
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
@@ -681,8 +682,8 @@ msgstr "你的工作目录中似乎有未暂存的更改。你希望先保存进
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
-#: gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
 msgid "Cancel"
 msgstr "取消"
 
@@ -717,6 +718,47 @@ msgstr "创建提交失败：%s"
 #, c-format
 msgid "Failed to checkout index: %s"
 msgstr "检出索引失败：%s"
+
+#: gitg/gitg-add-remote-action.vala:46
+#| msgid "Remotes"
+msgid "Add Remote"
+msgstr "添加远程仓库"
+
+#: gitg/gitg-add-remote-action.vala:51
+msgid "Adds remote to the remotes list"
+msgstr "添加远程仓库至远程仓库列表"
+
+#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from %s"
+msgstr "正在从 %s 取回"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+msgid "new"
+msgstr "新的"
+
+#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "从 %s 获取失败：%s"
+
+#: gitg/gitg-add-remote-action.vala:78
+#| msgid "Failed to add repository"
+msgid "Failed to fetch added remote"
+msgstr "从添加的远程仓库获取失败"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "已从 %s 获取：%s"
+
+#: gitg/gitg-add-remote-action.vala:129
+#| msgid "Failed to add repository"
+msgid "Failed to add remote"
+msgstr "添加远程仓库失败"
 
 #: gitg/gitg-application.vala:38
 msgid "Show the application’s version"
@@ -977,6 +1019,20 @@ msgstr "创建仓库失败"
 msgid "Scanning for repositories in %s"
 msgstr "正在 %s 中寻找版本库"
 
+#: gitg/gitg-edit-remote-action.vala:51
+#| msgid "remote"
+msgid "Edit remote"
+msgstr "编辑远程仓库"
+
+#: gitg/gitg-edit-remote-action.vala:56
+msgid "Edits the remote from the remotes list"
+msgstr "从远程仓库列表编辑远程仓库"
+
+#: gitg/gitg-edit-remote-action.vala:82
+#| msgid "Failed to rename"
+msgid "Failed to edit remote"
+msgstr "编辑远程仓库失败"
+
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
 msgstr "检出选中的引用"
@@ -1012,6 +1068,28 @@ msgstr "复制名称"
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "将引用的名称复制到剪贴板"
+
+#: gitg/gitg-ref-action-create-branch.vala:46
+#| msgid "Create a new branch at the selected commit"
+msgid "Create a new branch at the selected reference"
+msgstr "在选中的引用上创建新的分支"
+
+#: gitg/gitg-ref-action-create-branch.vala:58
+#: gitg/gitg-ref-action-create-patch.vala:58
+#: gitg/gitg-ref-action-create-tag.vala:58
+#| msgid "Failed to lookup tag"
+msgid "Failed to lookup reference"
+msgstr "查找引用失败"
+
+#: gitg/gitg-ref-action-create-patch.vala:46
+#| msgid "Create a patch from the selected commit"
+msgid "Create a patch from the selected reference"
+msgstr "从选中的引用创建补丁"
+
+#: gitg/gitg-ref-action-create-tag.vala:46
+#| msgid "Create a new tag at the selected commit"
+msgid "Create a new tag at the selected reference"
+msgstr "在选中的引用上创建新的标签"
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
@@ -1075,89 +1153,27 @@ msgstr "删除分支 %s 失败"
 msgid "The branch %s could not be deleted: %s"
 msgstr "无法删除分支 %s ：%s"
 
-#: gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
 msgstr "从 %s 获取"
 
-#: gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "从 %s 获取远程对象"
 
-#: gitg/gitg-ref-action-fetch.vala:98
-#, c-format
-msgid "Fetching from %s"
-msgstr "正在从 %s 取回"
-
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-ref-action-fetch.vala:106
-msgid "new"
-msgstr "新的"
-
 # Translating as up-to-date
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "已最新"
 
-#: gitg/gitg-ref-action-fetch.vala:121
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr "从 %s 获取失败：%s"
-
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "已从 %s 取回：一切都已最新"
-
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-ref-action-fetch.vala:140
-#, c-format
-msgid "Fetched from %s: %s"
-msgstr "已从 %s 获取：%s"
-
-#: gitg/gitg-ref-action-push.vala:80
-#, c-format
-msgid "Push to %s"
-msgstr "推送至 %s"
-
-#: gitg/gitg-ref-action-push.vala:91
-#, c-format
-msgid "Push branch to %s"
-msgstr "推送分支至 %s"
-
-#: gitg/gitg-ref-action-push.vala:107
-#, c-format
-msgid "Pushing to %s"
-msgstr "正在推送至 %s"
-
-#: gitg/gitg-ref-action-push.vala:116
-#, c-format
-msgid "Failed to push to %s: %s"
-msgstr "推送至 %s 失败：%s"
-
-#. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:123
-#, c-format
-msgid "Pushed to %s"
-msgstr "已推送至 %s"
-
-#: gitg/gitg-ref-action-push.vala:134
-#, c-format
-msgid "Push branch %s"
-msgstr "推送分支 %s"
-
-#: gitg/gitg-ref-action-push.vala:135
-#, c-format
-msgid "Are you sure that you want to push the branch %s?"
-msgstr "您确定要推送分支 %s 吗？"
-
-#: gitg/gitg-ref-action-push.vala:139
-msgid "Push"
-msgstr "推送"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
@@ -1231,9 +1247,49 @@ msgid "Merge %s into branch %s"
 msgstr "将 %s 合并进分支 %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1181
+#: gitg/history/gitg-history-refs-list.vala:1199
 msgid "Tags"
 msgstr "标签"
+
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr "推送至 %s"
+
+#: gitg/gitg-ref-action-push.vala:91
+#, c-format
+msgid "Push branch to %s"
+msgstr "推送分支至 %s"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, c-format
+msgid "Pushing to %s"
+msgstr "正在推送至 %s"
+
+#: gitg/gitg-ref-action-push.vala:116
+#, c-format
+msgid "Failed to push to %s: %s"
+msgstr "推送至 %s 失败：%s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:123
+#, c-format
+msgid "Pushed to %s"
+msgstr "已推送至 %s"
+
+#: gitg/gitg-ref-action-push.vala:134
+#, c-format
+msgid "Push branch %s"
+msgstr "推送分支 %s"
+
+#: gitg/gitg-ref-action-push.vala:135
+#, c-format
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "您确定要推送分支 %s 吗？"
+
+#: gitg/gitg-ref-action-push.vala:139
+msgid "Push"
+msgstr "推送"
 
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
@@ -1260,11 +1316,44 @@ msgstr "重命名失败"
 msgid "Close"
 msgstr "关闭"
 
+#: gitg/gitg-remove-remote-action.vala:50
+#| msgid "Remove tag"
+msgid "Remove remote"
+msgstr "移除远程仓库"
+
+#: gitg/gitg-remove-remote-action.vala:55
+msgid "Removes remote from the remotes list"
+msgstr "从远程仓库列表移除远程仓库"
+
+#: gitg/gitg-remove-remote-action.vala:62
+#, c-format
+#| msgid "Delete remote branch %s"
+msgid "Delete remote %s"
+msgstr "删除远程仓库 %s"
+
+#: gitg/gitg-remove-remote-action.vala:63
+#, c-format
+#| msgid "Are you sure that you want to push the branch %s?"
+msgid "Are you sure that you want to remove the remote %s?"
+msgstr "您确定要移除远程仓库 %s 吗？"
+
+#: gitg/gitg-remove-remote-action.vala:67
+#| msgid "_Remove"
+msgid "Remove"
+msgstr "移除"
+
+#: gitg/gitg-remove-remote-action.vala:91
+#| msgid "Failed to remove remote branch <%s>."
+msgid "Failed to remove remote"
+msgstr "移除远程仓库失败"
+
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "添加仓库"
 
-#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
+#: gitg/gitg-window.vala:206
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
+#: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "添加(_A)"
 
@@ -1359,11 +1448,11 @@ msgstr "%zu 在后"
 msgid "All commits"
 msgstr "所有提交"
 
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1197
 msgid "Branches"
 msgstr "分支"
 
-#: gitg/history/gitg-history-refs-list.vala:1180
+#: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
 msgstr "远程"
 
@@ -1377,7 +1466,7 @@ msgstr "历史"
 msgid "Examine the history of the repository"
 msgstr "查看仓库的历史"
 
-#: gitg/history/gitg-history.vala:942
+#: gitg/history/gitg-history.vala:949
 msgid "Mainline"
 msgstr "主线"
 
@@ -1395,7 +1484,25 @@ msgstr "使用系统固定宽度字体(_U) (%s)"
 msgid "Interface"
 msgstr "界面"
 
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
+#| msgid "Create tag"
+msgid "Create Remote"
+msgstr "创建远程仓库"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
+#| msgid "Remote _URL:"
+msgid "Remote _name:"
+msgstr "远程仓库名称(_N)："
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
+msgid "Remote _URL:"
+msgstr "远程 _URL："
+
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "保存(_S)"
 
@@ -1439,10 +1546,6 @@ msgstr "克隆仓库"
 #: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "克隆(_O)"
-
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-msgid "Remote _URL:"
-msgstr "远程 _URL："
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1545,6 +1648,11 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr "尚未添加任何仓库。若要开始，您可以添加现有的仓库或者克隆一个新的。"
+
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
+#| msgid "Remotes"
+msgid "Edit Remote"
+msgstr "编辑远程仓库"
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
@@ -1981,32 +2089,31 @@ msgstr "展开全部"
 msgid "Committed by %s"
 msgstr "由 %s 提交"
 
-#: libgitg/gitg-diff-view-file.vala:145
+#: libgitg/gitg-diff-view-file.vala:150
 msgid "Unif"
 msgstr "统一"
 
-#: libgitg/gitg-diff-view-file.vala:149
+#: libgitg/gitg-diff-view-file.vala:154
 msgid "Split"
 msgstr "拆分"
 
-#: libgitg/gitg-diff-view-file.vala:156
-#| msgid "@binary@"
+#: libgitg/gitg-diff-view-file.vala:161
 msgid "Binary"
 msgstr "二进制文件"
 
-#: libgitg/gitg-diff-view-file.vala:163
+#: libgitg/gitg-diff-view-file.vala:168
 msgid "Image"
 msgstr "图像"
 
-#: libgitg/gitg-diff-view-file.vala:208
+#: libgitg/gitg-diff-view-file.vala:213
 msgid "_Open file"
 msgstr "打开文件(_O)"
 
-#: libgitg/gitg-diff-view-file.vala:241
+#: libgitg/gitg-diff-view-file.vala:246
 msgid "Open containing _folder"
 msgstr "打开所在文件夹(_F)"
 
-#: libgitg/gitg-diff-view-file.vala:261
+#: libgitg/gitg-diff-view-file.vala:266
 msgid "_Copy file path"
 msgstr "复制文件路径(_C)"
 
@@ -2225,9 +2332,6 @@ msgstr "显示选中提交的树中的文件"
 #~ msgid "Branch <%s> could not be forcefully removed"
 #~ msgstr "分支 <%s> 无法强制删除"
 
-#~ msgid "Failed to remove remote branch <%s>."
-#~ msgstr "无法删除远程分支 <%s>。"
-
 #~ msgid "This permanently removes the remote branch."
 #~ msgstr "这会永久删除远程分支。"
 
@@ -2246,9 +2350,6 @@ msgstr "显示选中提交的树中的文件"
 #, fuzzy
 #~ msgid "The stash item could not be successfully removed"
 #~ msgstr "储藏项无法成功删除"
-
-#~ msgid "Remove tag"
-#~ msgstr "删除标签"
 
 #~ msgid "Branch <%s> could not be renamed to <%s>"
 #~ msgstr "分支 <%s> 无法重命名为 <%s>"
@@ -2289,9 +2390,6 @@ msgstr "显示选中提交的树中的文件"
 
 #~ msgid "local"
 #~ msgstr "本地"
-
-#~ msgid "remote"
-#~ msgstr "远程"
 
 #, fuzzy
 #~ msgid "The stashed changes have been stored to be reapplied manually"
