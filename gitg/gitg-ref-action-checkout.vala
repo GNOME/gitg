@@ -69,7 +69,7 @@ class RefActionCheckout : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, 
 	public async bool checkout()
 	{
 		var repo = application.repository;
-		var notification = new SimpleNotification(_("Checkout “%s“").printf(reference.parsed_name.shortname));
+		var notification = new SimpleNotification(_("Checkout “%s”").printf(reference.parsed_name.shortname));
 		bool retval = false;
 
 		application.notifications.add(notification);

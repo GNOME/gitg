@@ -139,11 +139,11 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 			if (source.parsed_name.rtype == RefType.REMOTE)
 			{
-				msg = @"Merge remote branch “$theirs_name“";
+				msg = @"Merge remote branch “$theirs_name”";
 			}
 			else
 			{
-				msg = @"Merge branch “$theirs_name“";
+				msg = @"Merge branch “$theirs_name”";
 			}
 
 			msg += "\n\nConflicts:\n";
@@ -181,11 +181,11 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 		if (ishead)
 		{
-			message = _("The merge of “%s“ into “%s“ has caused conflicts, would you like to checkout branch “%s“ with the merge to your working directory to resolve the conflicts?").printf(theirs_name, ours_name, ours_name);
+			message = _("The merge of “%s” into “%s” has caused conflicts, would you like to checkout branch “%s” with the merge to your working directory to resolve the conflicts?").printf(theirs_name, ours_name, ours_name);
 		}
 		else
 		{
-			message = _("The merge of “%s“ into “%s“ has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?").printf(theirs_name, ours_name);
+			message = _("The merge of “%s” into “%s” has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?").printf(theirs_name, ours_name);
 		}
 
 		var q = new GitgExt.UserQuery.full(_("Merge has conflicts"),
@@ -219,7 +219,7 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		var ours_name = reference.parsed_name.shortname;
 		var theirs_name = source.parsed_name.shortname;
 
-		var notification = new SimpleNotification(_("Merge “%s“ into “%s“").printf(theirs_name, ours_name));
+		var notification = new SimpleNotification(_("Merge “%s” into “%s”").printf(theirs_name, ours_name));
 		application.notifications.add(notification);
 
 		try
@@ -259,11 +259,11 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 		if (source.parsed_name.rtype == RefType.REMOTE)
 		{
-			msg = @"Merge remote branch “$theirs_name“";
+			msg = @"Merge remote branch “$theirs_name”";
 		}
 		else
 		{
-			msg = @"Merge branch “$theirs_name“";
+			msg = @"Merge branch “$theirs_name”";
 		}
 
 		var oid = yield d_support.commit_index(notification,
@@ -275,7 +275,7 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 		if (oid != null)
 		{
-			notification.success(_("Successfully merged “%s“ into “%s“").printf(theirs_name, ours_name));
+			notification.success(_("Successfully merged “%s” into “%s”").printf(theirs_name, ours_name));
 		}
 
 		return oid;
@@ -317,7 +317,7 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		var item = new Gtk.MenuItem.with_label(name);
 
 		item.show();
-		item.tooltip_text = _("Merge “%s“ into branch “%s“").printf(name, reference.parsed_name.shortname);
+		item.tooltip_text = _("Merge “%s” into branch “%s”").printf(name, reference.parsed_name.shortname);
 
 		item.activate.connect(() => {
 			activate_source(source);

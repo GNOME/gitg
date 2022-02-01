@@ -114,7 +114,7 @@ class CommitActionCherryPick : GitgExt.UIElement, GitgExt.Action, GitgExt.Commit
 		}
 		catch (Error e)
 		{
-			notification.error(_("Failed to lookup the commit for branch “%s“: %s").printf(theirs_name, e.message));
+			notification.error(_("Failed to lookup the commit for branch “%s”: %s").printf(theirs_name, e.message));
 			return null;
 		}
 
@@ -150,11 +150,11 @@ class CommitActionCherryPick : GitgExt.UIElement, GitgExt.Action, GitgExt.Commit
 
 		if (ishead)
 		{
-			message = _("The cherry pick of “%s“ onto “%s“ has caused conflicts, would you like to checkout branch “%s“ with the cherry pick to your working directory to resolve the conflicts?").printf(ours_name, theirs_name, theirs_name);
+			message = _("The cherry pick of “%s” onto “%s” has caused conflicts, would you like to checkout branch “%s” with the cherry pick to your working directory to resolve the conflicts?").printf(ours_name, theirs_name, theirs_name);
 		}
 		else
 		{
-			message = _("The cherry-pick of “%s“ onto “%s“ has caused conflicts, would you like to checkout the cherry pick to your working directory to resolve the conflicts?").printf(ours_name, theirs_name);
+			message = _("The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to checkout the cherry pick to your working directory to resolve the conflicts?").printf(ours_name, theirs_name);
 		}
 
 		var q = new GitgExt.UserQuery.full(_("Cherry pick has conflicts"),
@@ -196,7 +196,7 @@ class CommitActionCherryPick : GitgExt.UIElement, GitgExt.Action, GitgExt.Commit
 		var shortid = id.to_string()[0:6];
 		var name = destination.parsed_name.shortname;
 
-		var notification = new SimpleNotification(_("Cherry pick “%s“ onto “%s“").printf(shortid, name));
+		var notification = new SimpleNotification(_("Cherry pick “%s” onto “%s”").printf(shortid, name));
 
 		application.notifications.add(notification);
 
@@ -258,7 +258,7 @@ class CommitActionCherryPick : GitgExt.UIElement, GitgExt.Action, GitgExt.Commit
 			var name = dest.parsed_name.shortname;
 			var subitem = new Gtk.MenuItem.with_label(name);
 
-			subitem.tooltip_text = _("Cherry pick onto “%s“").printf(name);
+			subitem.tooltip_text = _("Cherry pick onto “%s”").printf(name);
 			subitem.show();
 
 			subitem.activate.connect(() => {
