@@ -78,8 +78,8 @@ class Gitg.Test.MergeRef : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Merge 'theirs' into 'master'");
-		assert_streq(simple_notifications[0].message, "Successfully merged 'theirs' into 'master'");
+		assert_streq(simple_notifications[0].title, "Merge “theirs“ into “master“");
+		assert_streq(simple_notifications[0].message, "Successfully merged “theirs“ into “master“");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
 		assert_file_contents("a", "a file\n");
@@ -105,8 +105,8 @@ class Gitg.Test.MergeRef : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Merge 'theirs' into 'not_master'");
-		assert_streq(simple_notifications[0].message, "Successfully merged 'theirs' into 'not_master'");
+		assert_streq(simple_notifications[0].title, "Merge “theirs“ into “not_master“");
+		assert_streq(simple_notifications[0].message, "Successfully merged “theirs“ into “not_master“");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
 		assert_file_contents("a", "a file\n");
@@ -135,8 +135,8 @@ class Gitg.Test.MergeRef : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Merge 'theirs' into 'not_master'");
-		assert_streq(simple_notifications[0].message, "Successfully merged 'theirs' into 'not_master'");
+		assert_streq(simple_notifications[0].title, "Merge “theirs“ into “not_master“");
+		assert_streq(simple_notifications[0].message, "Successfully merged “theirs“ into “not_master“");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
 		assert_file_contents("a", "a file\n");
@@ -158,7 +158,7 @@ class Gitg.Test.MergeRef : Application
 		var action = new Gitg.RefActionMerge(this, action_interface, master);
 
 		expect_user_query(new GitgExt.UserQuery.full("Merge has conflicts",
-		                                            "The merge of 'theirs' into 'master' has caused conflicts, would you like to checkout branch 'master' with the merge to your working directory to resolve the conflicts?",
+		                                            "The merge of “theirs“ into “master“ has caused conflicts, would you like to checkout branch “master“ with the merge to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -174,7 +174,7 @@ class Gitg.Test.MergeRef : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Merge 'theirs' into 'master'");
+		assert_streq(simple_notifications[0].title, "Merge “theirs“ into “master“");
 		assert_streq(simple_notifications[0].message, "Merge failed with conflicts");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.ERROR);
 
@@ -195,7 +195,7 @@ class Gitg.Test.MergeRef : Application
 		var action = new Gitg.RefActionMerge(this, action_interface, master);
 
 		expect_user_query(new GitgExt.UserQuery.full("Merge has conflicts",
-		                                             "The merge of 'theirs' into 'master' has caused conflicts, would you like to checkout branch 'master' with the merge to your working directory to resolve the conflicts?",
+		                                             "The merge of “theirs“ into “master“ has caused conflicts, would you like to checkout branch “master“ with the merge to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -211,7 +211,7 @@ class Gitg.Test.MergeRef : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Merge 'theirs' into 'master'");
+		assert_streq(simple_notifications[0].title, "Merge “theirs“ into “master“");
 		assert_streq(simple_notifications[0].message, "Finished merge with conflicts in working directory");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
@@ -222,7 +222,7 @@ class Gitg.Test.MergeRef : Application
 		assert_file_contents(".git/ORIG_HEAD", "e1219dd5fbcf8fb5b17bbd3db7a9fa88e98d6651\n");
 		assert_file_contents(".git/MERGE_HEAD", "72af7ccf47852d832b06c7244de8ae9ded639024\n");
 		assert_file_contents(".git/MERGE_MODE", "no-ff\n");
-		assert_file_contents(".git/MERGE_MSG", "Merge branch 'theirs'\n\nConflicts:\n\tc\n");
+		assert_file_contents(".git/MERGE_MSG", "Merge branch “theirs“\n\nConflicts:\n\tc\n");
 	}
 
 	protected virtual signal void test_merge_theirs_dirty_stash()
@@ -253,8 +253,8 @@ class Gitg.Test.MergeRef : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Merge 'theirs' into 'master'");
-		assert_streq(simple_notifications[0].message, "Successfully merged 'theirs' into 'master'");
+		assert_streq(simple_notifications[0].title, "Merge “theirs“ into “master“");
+		assert_streq(simple_notifications[0].message, "Successfully merged “theirs“ into “master“");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
 		assert_file_contents("a", "a file\n");
@@ -293,7 +293,7 @@ class Gitg.Test.MergeRef : Application
 		var action = new Gitg.RefActionMerge(this, action_interface, not_master);
 
 		expect_user_query(new GitgExt.UserQuery.full("Merge has conflicts",
-		                                             "The merge of 'theirs' into 'not_master' has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?",
+		                                             "The merge of “theirs“ into “not_master“ has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -319,11 +319,11 @@ class Gitg.Test.MergeRef : Application
 
 		assert_inteq(simple_notifications.size, 2);
 
-		assert_streq(simple_notifications[0].title, "Merge 'theirs' into 'not_master'");
+		assert_streq(simple_notifications[0].title, "Merge “theirs“ into “not_master“");
 		assert_streq(simple_notifications[0].message, "Finished merge with conflicts in working directory");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
-		assert_streq(simple_notifications[1].title, "Checkout 'not_master'");
+		assert_streq(simple_notifications[1].title, "Checkout “not_master“");
 		assert_streq(simple_notifications[1].message, "Successfully checked out branch to working directory");
 		assert_inteq(simple_notifications[1].status, SimpleNotification.Status.SUCCESS);
 
@@ -336,7 +336,7 @@ class Gitg.Test.MergeRef : Application
 		assert_file_contents(".git/ORIG_HEAD", "e1219dd5fbcf8fb5b17bbd3db7a9fa88e98d6651\n");
 		assert_file_contents(".git/MERGE_HEAD", "72af7ccf47852d832b06c7244de8ae9ded639024\n");
 		assert_file_contents(".git/MERGE_MODE", "no-ff\n");
-		assert_file_contents(".git/MERGE_MSG", "Merge branch 'theirs'\n\nConflicts:\n\tc\n");
+		assert_file_contents(".git/MERGE_MSG", "Merge branch “theirs“\n\nConflicts:\n\tc\n");
 	}
 
 	protected virtual signal void test_merge_theirs_not_master_conflicts_checkout_dirty()
@@ -356,7 +356,7 @@ class Gitg.Test.MergeRef : Application
 		var action = new Gitg.RefActionMerge(this, action_interface, not_master);
 
 		expect_user_query(new GitgExt.UserQuery.full("Merge has conflicts",
-		                                             "The merge of 'theirs' into 'not_master' has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?",
+		                                             "The merge of “theirs“ into “not_master“ has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -382,11 +382,11 @@ class Gitg.Test.MergeRef : Application
 
 		assert_inteq(simple_notifications.size, 2);
 
-		assert_streq(simple_notifications[0].title, "Merge 'theirs' into 'not_master'");
+		assert_streq(simple_notifications[0].title, "Merge “theirs“ into “not_master“");
 		assert_streq(simple_notifications[0].message, "Finished merge with conflicts in working directory");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
-		assert_streq(simple_notifications[1].title, "Checkout 'not_master'");
+		assert_streq(simple_notifications[1].title, "Checkout “not_master“");
 		assert_streq(simple_notifications[1].message, "Successfully checked out branch to working directory");
 		assert_inteq(simple_notifications[1].status, SimpleNotification.Status.SUCCESS);
 
@@ -399,7 +399,7 @@ class Gitg.Test.MergeRef : Application
 		assert_file_contents(".git/ORIG_HEAD", "e1219dd5fbcf8fb5b17bbd3db7a9fa88e98d6651\n");
 		assert_file_contents(".git/MERGE_HEAD", "72af7ccf47852d832b06c7244de8ae9ded639024\n");
 		assert_file_contents(".git/MERGE_MODE", "no-ff\n");
-		assert_file_contents(".git/MERGE_MSG", "Merge branch 'theirs'\n\nConflicts:\n\tc\n");
+		assert_file_contents(".git/MERGE_MSG", "Merge branch “theirs“\n\nConflicts:\n\tc\n");
 
 		var messages = new string[0];
 		var oids = new Ggit.OId[0];
@@ -433,7 +433,7 @@ class Gitg.Test.MergeRef : Application
 		var action = new Gitg.RefActionMerge(this, action_interface, not_master);
 
 		expect_user_query(new GitgExt.UserQuery.full("Merge has conflicts",
-		                                             "The merge of 'theirs' into 'not_master' has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?",
+		                                             "The merge of “theirs“ into “not_master“ has caused conflicts, would you like to checkout the merge to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -459,7 +459,7 @@ class Gitg.Test.MergeRef : Application
 
 		assert_inteq(simple_notifications.size, 1);
 
-		assert_streq(simple_notifications[0].title, "Merge 'theirs' into 'not_master'");
+		assert_streq(simple_notifications[0].title, "Merge “theirs“ into “not_master“");
 		assert_streq(simple_notifications[0].message, "Failed with conflicts");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.ERROR);
 

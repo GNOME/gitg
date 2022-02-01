@@ -70,7 +70,7 @@ class Gitg.Test.CherryPickCommit : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Cherry pick '72af7c' onto 'master'");
+		assert_streq(simple_notifications[0].title, "Cherry pick “72af7c“ onto “master“");
 		assert_streq(simple_notifications[0].message, "Successfully cherry picked");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
@@ -100,7 +100,7 @@ class Gitg.Test.CherryPickCommit : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Cherry pick '72af7c' onto 'not_master'");
+		assert_streq(simple_notifications[0].title, "Cherry pick “72af7c“ onto “not_master“");
 		assert_streq(simple_notifications[0].message, "Successfully cherry picked");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
@@ -132,7 +132,7 @@ class Gitg.Test.CherryPickCommit : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Cherry pick '72af7c' onto 'not_master'");
+		assert_streq(simple_notifications[0].title, "Cherry pick “72af7c“ onto “not_master“");
 		assert_streq(simple_notifications[0].message, "Successfully cherry picked");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
@@ -158,7 +158,7 @@ class Gitg.Test.CherryPickCommit : Application
 		var action = new Gitg.CommitActionCherryPick(this, action_interface, theirs_commit);
 
 		expect_user_query(new GitgExt.UserQuery.full("Cherry pick has conflicts",
-		                                            "The cherry pick of '72af7c' onto 'master' has caused conflicts, would you like to checkout branch 'master' with the cherry pick to your working directory to resolve the conflicts?",
+		                                            "The cherry pick of “72af7c“ onto “master“ has caused conflicts, would you like to checkout branch “master“ with the cherry pick to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -174,7 +174,7 @@ class Gitg.Test.CherryPickCommit : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Cherry pick '72af7c' onto 'master'");
+		assert_streq(simple_notifications[0].title, "Cherry pick “72af7c“ onto “master“");
 		assert_streq(simple_notifications[0].message, "Cherry pick failed with conflicts");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.ERROR);
 
@@ -200,7 +200,7 @@ class Gitg.Test.CherryPickCommit : Application
 		var action = new Gitg.CommitActionCherryPick(this, action_interface, theirs_commit);
 
 		expect_user_query(new GitgExt.UserQuery.full("Cherry pick has conflicts",
-		                                             "The cherry pick of '72af7c' onto 'master' has caused conflicts, would you like to checkout branch 'master' with the cherry pick to your working directory to resolve the conflicts?",
+		                                             "The cherry pick of “72af7c“ onto “master“ has caused conflicts, would you like to checkout branch “master“ with the cherry pick to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -216,7 +216,7 @@ class Gitg.Test.CherryPickCommit : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Cherry pick '72af7c' onto 'master'");
+		assert_streq(simple_notifications[0].title, "Cherry pick “72af7c“ onto “master“");
 		assert_streq(simple_notifications[0].message, "Cherry pick finished with conflicts in working directory");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
@@ -252,7 +252,7 @@ class Gitg.Test.CherryPickCommit : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Cherry pick '72af7c' onto 'master'");
+		assert_streq(simple_notifications[0].title, "Cherry pick “72af7c“ onto “master“");
 		assert_streq(simple_notifications[0].message, "Successfully cherry picked");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
@@ -295,7 +295,7 @@ class Gitg.Test.CherryPickCommit : Application
 		var action = new Gitg.CommitActionCherryPick(this, action_interface, theirs_commit);
 
 		expect_user_query(new GitgExt.UserQuery.full("Cherry pick has conflicts",
-		                                             "The cherry-pick of '72af7c' onto 'not_master' has caused conflicts, would you like to checkout the cherry pick to your working directory to resolve the conflicts?",
+		                                             "The cherry-pick of “72af7c“ onto “not_master“ has caused conflicts, would you like to checkout the cherry pick to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -321,11 +321,11 @@ class Gitg.Test.CherryPickCommit : Application
 
 		assert_inteq(simple_notifications.size, 2);
 
-		assert_streq(simple_notifications[0].title, "Cherry pick '72af7c' onto 'not_master'");
+		assert_streq(simple_notifications[0].title, "Cherry pick “72af7c“ onto “not_master“");
 		assert_streq(simple_notifications[0].message, "Cherry pick finished with conflicts in working directory");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
-		assert_streq(simple_notifications[1].title, "Checkout 'not_master'");
+		assert_streq(simple_notifications[1].title, "Checkout “not_master“");
 		assert_streq(simple_notifications[1].message, "Successfully checked out branch to working directory");
 		assert_inteq(simple_notifications[1].status, SimpleNotification.Status.SUCCESS);
 
@@ -353,7 +353,7 @@ class Gitg.Test.CherryPickCommit : Application
 		var action = new Gitg.CommitActionCherryPick(this, action_interface, theirs_commit);
 
 		expect_user_query(new GitgExt.UserQuery.full("Cherry pick has conflicts",
-		                                             "The cherry-pick of '72af7c' onto 'not_master' has caused conflicts, would you like to checkout the cherry pick to your working directory to resolve the conflicts?",
+		                                             "The cherry-pick of “72af7c“ onto “not_master“ has caused conflicts, would you like to checkout the cherry pick to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -379,11 +379,11 @@ class Gitg.Test.CherryPickCommit : Application
 
 		assert_inteq(simple_notifications.size, 2);
 
-		assert_streq(simple_notifications[0].title, "Cherry pick '72af7c' onto 'not_master'");
+		assert_streq(simple_notifications[0].title, "Cherry pick “72af7c“ onto “not_master“");
 		assert_streq(simple_notifications[0].message, "Cherry pick finished with conflicts in working directory");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 
-		assert_streq(simple_notifications[1].title, "Checkout 'not_master'");
+		assert_streq(simple_notifications[1].title, "Checkout “not_master“");
 		assert_streq(simple_notifications[1].message, "Successfully checked out branch to working directory");
 		assert_inteq(simple_notifications[1].status, SimpleNotification.Status.SUCCESS);
 
@@ -425,7 +425,7 @@ class Gitg.Test.CherryPickCommit : Application
 		var action = new Gitg.CommitActionCherryPick(this, action_interface, theirs_commit);
 
 		expect_user_query(new GitgExt.UserQuery.full("Cherry pick has conflicts",
-		                                             "The cherry-pick of '72af7c' onto 'not_master' has caused conflicts, would you like to checkout the cherry pick to your working directory to resolve the conflicts?",
+		                                             "The cherry-pick of “72af7c“ onto “not_master“ has caused conflicts, would you like to checkout the cherry pick to your working directory to resolve the conflicts?",
 		                                             Gtk.MessageType.QUESTION,
 		                                             "Cancel",
 		                                             Gtk.ResponseType.CANCEL,
@@ -451,7 +451,7 @@ class Gitg.Test.CherryPickCommit : Application
 
 		assert_inteq(simple_notifications.size, 1);
 
-		assert_streq(simple_notifications[0].title, "Cherry pick '72af7c' onto 'not_master'");
+		assert_streq(simple_notifications[0].title, "Cherry pick “72af7c“ onto “not_master“");
 		assert_streq(simple_notifications[0].message, "Failed with conflicts");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.ERROR);
 
