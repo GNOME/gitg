@@ -9,21 +9,22 @@
 # Antonio Fernandes C. Neto <fernandesn@gnome.org>, 2014.
 # Felipe Braga <fbobraga@gmail.com>, 2015.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2013-2022.
+# Matheus Barbosa <mdpb.matheus@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2021-12-27 14:37+0000\n"
-"PO-Revision-Date: 2022-01-03 14:51-0300\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"POT-Creation-Date: 2022-02-01 11:11+0000\n"
+"PO-Revision-Date: 2022-01-29 20:09-0300\n"
+"Last-Translator: Matheus Barbosa <mdpb.matheus@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 40.0\n"
 "X-Project-Style: gnome\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -620,11 +621,11 @@ msgstr "Sem submódulos sujos"
 
 #: gitg/commit/gitg-commit.vala:1121
 msgid "Failed to commit"
-msgstr "Ocorreu falha ao efetuar submissão"
+msgstr "Falha ao efetuar commit"
 
 #: gitg/commit/gitg-commit.vala:1137
 msgid "Failed to pass pre-commit"
-msgstr "Ocorreu falha na fase de pré-submissão"
+msgstr "Falha na fase de pré-commit"
 
 #: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
 msgid "Discard changes"
@@ -640,12 +641,14 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
@@ -671,7 +674,7 @@ msgstr "Falha ao desfazer preparação (unstage) selecionadas"
 
 #: gitg/commit/gitg-commit.vala:1436
 msgid "Failed to discard changes"
-msgstr "Ocorreu falha ao descartar alterações"
+msgstr "Falha ao descartar as alterações"
 
 #: gitg/commit/gitg-commit.vala:1457
 #, c-format
@@ -753,8 +756,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
-#: gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -778,7 +781,7 @@ msgstr "Falha ao obter detalhes do autor"
 #: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
 #, c-format
 msgid "Failed to lookup commit: %s"
-msgstr "Falha ao procurar o commit: %s"
+msgstr "Falha ao buscar o commit: %s"
 
 #: gitg/gitg-action-support.vala:255
 #, c-format
@@ -789,6 +792,44 @@ msgstr "Falha ao criar o commit: %s"
 #, c-format
 msgid "Failed to checkout index: %s"
 msgstr "Falha ao executar checkout no índice: %s"
+
+#: gitg/gitg-add-remote-action.vala:46
+msgid "Add Remote"
+msgstr "Adicionar remoto"
+
+#: gitg/gitg-add-remote-action.vala:51
+msgid "Adds remote to the remotes list"
+msgstr "Adiciona um remoto à lista de remotos"
+
+#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from %s"
+msgstr "Obtendo de %s"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+msgid "new"
+msgstr "novo"
+
+#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "Falha ao obter de %s: %s"
+
+#: gitg/gitg-add-remote-action.vala:78
+msgid "Failed to fetch added remote"
+msgstr "Falha ao obter o remoto adicionado"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Obtido de %s: %s"
+
+#: gitg/gitg-add-remote-action.vala:129
+msgid "Failed to add remote"
+msgstr "Falha ao adicionar remoto"
 
 #: gitg/gitg-application.vala:38
 msgid "Show the application’s version"
@@ -829,7 +870,8 @@ msgstr ""
 "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>\n"
 "Júnior Pires <juniorpiresupe@gmail.com>\n"
 "Antonio Fernandes C. Neto <fernandesn@gnome.org>\n"
-"Felipe Braga <fbobraga@gmail.com>"
+"Felipe Braga <fbobraga@gmail.com>\n"
+"Matheus Barbosa <mdpb.matheus@gmail.com>"
 
 #: gitg/gitg-application.vala:238
 msgid "gitg homepage"
@@ -873,7 +915,7 @@ msgstr "Sobrescrever detalhes globais para o repositório “%s”:"
 
 #: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
-msgstr "Ocorreu falha ao definir configurações de Git de usuário."
+msgstr "Falha ao definir configurações de usuário Git."
 
 #: gitg/gitg-clone-dialog.vala:89
 msgid "The URL introduced is not supported"
@@ -890,7 +932,7 @@ msgstr "Fazer cherry pick deste commit em um ramo"
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
 msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Falha ao procurar o commit para o ramo %s: %s"
+msgstr "Falha ao buscar o commit para o ramo %s: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
@@ -961,15 +1003,15 @@ msgstr "Criar um novo ramo no commit selecionado"
 #: gitg/gitg-commit-action-create-branch.vala:75
 #: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
-msgstr "Ocorreu falha ao criar o ramo"
+msgstr "Falha ao criar o ramo"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create patch"
-msgstr "Criar correção"
+msgstr "Criar patch"
 
 #: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
-msgstr "Criar uma correção a partir do commit selecionado"
+msgstr "Criar uma patch a partir do commit selecionado"
 
 #: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
@@ -977,31 +1019,31 @@ msgstr "Salva arquivo patch"
 
 #: gitg/gitg-commit-action-create-patch.vala:156
 msgid "_Save Patch"
-msgstr "_Salvar correção"
+msgstr "_Salvar patch"
 
 #: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
-msgstr "Ocorreu falha ao criar a correção"
+msgstr "Falha ao criar o patch"
 
 #: gitg/gitg-commit-action-create-tag.vala:48
 msgid "Create tag"
-msgstr "Criar etiqueta"
+msgstr "Criar tag"
 
 #: gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
-msgstr "Criar uma nova etiqueta no commit selecionado"
+msgstr "Criar uma nova tag no commit selecionado"
 
 #: gitg/gitg-commit-action-create-tag.vala:92
 msgid "Failed to create tag"
-msgstr "Ocorreu falha ao criar a etiqueta"
+msgstr "Falha ao criar a tag"
 
 #: gitg/gitg-commit-action-create-tag.vala:109
 msgid "Failed to lookup tag"
-msgstr "Ocorreu falha ao buscar a etiqueta"
+msgstr "Falha ao buscar a tag"
 
 #: gitg/gitg-create-tag-dialog.vala:96
 msgid "Provide a message to create an annotated tag"
-msgstr "Fornece uma mensagem para criar uma etiqueta anotada"
+msgstr "Fornece uma mensagem para criar uma tag anotada"
 
 #: gitg/gitg-dash-view.vala:87
 msgid "Select and manage projects"
@@ -1025,11 +1067,11 @@ msgstr "Enquanto isso, você pode querer %sconfigurar seu perfil git%s."
 
 #: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
-msgstr "Falha ao clonar repositório"
+msgstr "Falha ao clonar o repositório"
 
 #: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
-msgstr "Falha ao adicionar repositório"
+msgstr "Falha ao adicionar o repositório"
 
 #: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
@@ -1058,9 +1100,21 @@ msgstr "Falha ao criar o repositório"
 msgid "Scanning for repositories in %s"
 msgstr "Varrendo por repositórios em %s"
 
+#: gitg/gitg-edit-remote-action.vala:51
+msgid "Edit remote"
+msgstr "Editar remoto"
+
+#: gitg/gitg-edit-remote-action.vala:56
+msgid "Edits the remote from the remotes list"
+msgstr "Edita o remoto da lista de remotos"
+
+#: gitg/gitg-edit-remote-action.vala:82
+msgid "Failed to edit remote"
+msgstr "Falha ao editar o remoto"
+
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
-msgstr "Executar checkout na referência selecionada"
+msgstr "Executa checkout na referência selecionada"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
@@ -1070,7 +1124,7 @@ msgstr "Checkout %s"
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
 msgid "Failed to checkout branch: %s"
-msgstr "Falha ao dar checkout no ramo: %s"
+msgstr "Falha ao fazer checkout no ramo: %s"
 
 #: gitg/gitg-ref-action-checkout.vala:111
 #, c-format
@@ -1094,6 +1148,24 @@ msgstr "Copiar nome"
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Copia o nome da referência para a área de transferência"
 
+#: gitg/gitg-ref-action-create-branch.vala:46
+msgid "Create a new branch at the selected reference"
+msgstr "Cria um novo ramo na referência selecionada"
+
+#: gitg/gitg-ref-action-create-branch.vala:58
+#: gitg/gitg-ref-action-create-patch.vala:58
+#: gitg/gitg-ref-action-create-tag.vala:58
+msgid "Failed to lookup reference"
+msgstr "Falha ao buscar a referência"
+
+#: gitg/gitg-ref-action-create-patch.vala:46
+msgid "Create a patch from the selected reference"
+msgstr "Cria um patch a partir da referência selecionado"
+
+#: gitg/gitg-ref-action-create-tag.vala:46
+msgid "Create a new tag at the selected reference"
+msgstr "Cria uma nova tag na referência selecionado"
+
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
 msgstr "Excluir"
@@ -1115,12 +1187,12 @@ msgstr "Você tem certeza de que deseja remover permanentemente o ramo %s?"
 #: gitg/gitg-ref-action-delete.vala:78
 #, c-format
 msgid "Delete tag %s"
-msgstr "Excluir etiqueta %s"
+msgstr "Excluir tag %s"
 
 #: gitg/gitg-ref-action-delete.vala:79
 #, c-format
 msgid "Are you sure that you want to permanently delete the tag %s?"
-msgstr "Você tem certeza de que deseja remover permanentemente a etiqueta %s?"
+msgstr "Você tem certeza de que deseja remover permanentemente a tag %s?"
 
 #: gitg/gitg-ref-action-delete.vala:83
 #, c-format
@@ -1137,19 +1209,19 @@ msgstr ""
 #: gitg/gitg-ref-action-delete.vala:119
 #, c-format
 msgid "Failed to delete tag %s"
-msgstr "Ocorreu falha ao remover a etiqueta %s"
+msgstr "Falha ao excluir a tag %s"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:122
 #, c-format
 msgid "The tag %s could not be deleted: %s"
-msgstr "Não foi possível excluir a etiqueta %s: %s"
+msgstr "Não foi possível excluir a tag %s: %s"
 
 #. Translators: %s is the name of the branch
 #: gitg/gitg-ref-action-delete.vala:127
 #, c-format
 msgid "Failed to delete branch %s"
-msgstr "Ocorreu falha ao remover o ramo %s"
+msgstr "Falha ao excluir o ramo %s"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:130
@@ -1157,88 +1229,26 @@ msgstr "Ocorreu falha ao remover o ramo %s"
 msgid "The branch %s could not be deleted: %s"
 msgstr "Não foi possível excluir o ramo %s: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
 msgstr "Obter de %s"
 
-#: gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
-msgstr "Obter objetos remotos de %s"
-
-#: gitg/gitg-ref-action-fetch.vala:98
-#, c-format
-msgid "Fetching from %s"
-msgstr "Obtendo de %s"
-
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-ref-action-fetch.vala:106
-msgid "new"
-msgstr "novo"
+msgstr "Obtém objetos remotos de %s"
 
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "atualizado"
 
-#: gitg/gitg-ref-action-fetch.vala:121
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr "Falha ao obter de %s: %s"
-
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "Obtido de %s: tudo está atualizado"
-
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-ref-action-fetch.vala:140
-#, c-format
-msgid "Fetched from %s: %s"
-msgstr "Obtido de %s: %s"
-
-#: gitg/gitg-ref-action-push.vala:80
-#, c-format
-msgid "Push to %s"
-msgstr "Push para %s"
-
-#: gitg/gitg-ref-action-push.vala:91
-#, c-format
-msgid "Push branch to %s"
-msgstr "Push branch para %s"
-
-#: gitg/gitg-ref-action-push.vala:107
-#, c-format
-msgid "Pushing to %s"
-msgstr "Realizando push para %s"
-
-#: gitg/gitg-ref-action-push.vala:116
-#, c-format
-msgid "Failed to push to %s: %s"
-msgstr "Falha ao push para %s: %s"
-
-#. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:123
-#, c-format
-msgid "Pushed to %s"
-msgstr "Realizado push para %s"
-
-#: gitg/gitg-ref-action-push.vala:134
-#, c-format
-msgid "Push branch %s"
-msgstr "Push do ramo %s"
-
-#: gitg/gitg-ref-action-push.vala:135
-#, c-format
-msgid "Are you sure that you want to push the branch %s?"
-msgstr "Você tem certeza de que deseja realizar push do ramo %s?"
-
-#: gitg/gitg-ref-action-push.vala:139
-msgid "Push"
-msgstr "Push"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
@@ -1254,7 +1264,7 @@ msgstr "Mesclar um outro ramo no ramo %s"
 #: gitg/gitg-ref-action-merge.vala:106
 #, c-format
 msgid "Failed to merge commits: %s"
-msgstr "Falha ao mesclar commits: %s"
+msgstr "Falha ao mesclar os commits: %s"
 
 #: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
@@ -1296,12 +1306,12 @@ msgstr "Mesclar %s com %s"
 #: gitg/gitg-ref-action-merge.vala:231
 #, c-format
 msgid "Failed to lookup our commit: %s"
-msgstr "Falha ao buscar nosso commit: %s"
+msgstr "Falha ao buscar o nosso commit: %s"
 
 #: gitg/gitg-ref-action-merge.vala:241
 #, c-format
 msgid "Failed to lookup their commit: %s"
-msgstr "Falha ao buscar commit deles: %s"
+msgstr "Falha ao buscar o commit deles: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
@@ -1311,12 +1321,52 @@ msgstr "Sucesso ao mesclar %s com %s"
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
 msgid "Merge %s into branch %s"
-msgstr "Mesclar %s com o ramo %s"
+msgstr "Mescla %s com o ramo %s"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1181
+#: gitg/history/gitg-history-refs-list.vala:1199
 msgid "Tags"
-msgstr "Marcadores (tags)"
+msgstr "Tags"
+
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr "Push para %s"
+
+#: gitg/gitg-ref-action-push.vala:91
+#, c-format
+msgid "Push branch to %s"
+msgstr "Faz push do ramo para %s"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, c-format
+msgid "Pushing to %s"
+msgstr "Fazendo push para %s"
+
+#: gitg/gitg-ref-action-push.vala:116
+#, c-format
+msgid "Failed to push to %s: %s"
+msgstr "Falha ao fazer push para %s: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:123
+#, c-format
+msgid "Pushed to %s"
+msgstr "Realizado push para %s"
+
+#: gitg/gitg-ref-action-push.vala:134
+#, c-format
+msgid "Push branch %s"
+msgstr "Push do ramo %s"
+
+#: gitg/gitg-ref-action-push.vala:135
+#, c-format
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "Você tem certeza de que deseja realizar push do ramo %s?"
+
+#: gitg/gitg-ref-action-push.vala:139
+msgid "Push"
+msgstr "Push"
 
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
@@ -1337,17 +1387,45 @@ msgstr "Nome inválido"
 
 #: gitg/gitg-ref-action-rename.vala:131
 msgid "Failed to rename"
-msgstr "Ocorreu falha ao renomear"
+msgstr "Falha ao renomear"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
 msgid "Close"
 msgstr "Fechar"
 
+#: gitg/gitg-remove-remote-action.vala:50
+msgid "Remove remote"
+msgstr "Remover remoto"
+
+#: gitg/gitg-remove-remote-action.vala:55
+msgid "Removes remote from the remotes list"
+msgstr "Remove remoto da lista de remotos"
+
+#: gitg/gitg-remove-remote-action.vala:62
+#, c-format
+msgid "Delete remote %s"
+msgstr "Excluir remoto %s"
+
+#: gitg/gitg-remove-remote-action.vala:63
+#, c-format
+msgid "Are you sure that you want to remove the remote %s?"
+msgstr "Você tem certeza de que deseja remover o remoto %s?"
+
+#: gitg/gitg-remove-remote-action.vala:67
+msgid "Remove"
+msgstr "Remover"
+
+#: gitg/gitg-remove-remote-action.vala:91
+msgid "Failed to remove remote"
+msgstr "Falha ao remover o remoto"
+
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "Adicionar repositório"
 
-#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
+#: gitg/gitg-window.vala:206
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
+#: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Adicionar"
 
@@ -1418,7 +1496,7 @@ msgstr "Seleciona todos os remotos por padrão na atividade de histórico"
 
 #: gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
-msgstr "Seleciona todas as etiquetas por padrão na atividade de histórico"
+msgstr "Seleciona todas as tags por padrão na atividade de histórico"
 
 #: gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
@@ -1449,11 +1527,11 @@ msgstr "%zu atrás"
 msgid "All commits"
 msgstr "Todos os commits"
 
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1197
 msgid "Branches"
 msgstr "Ramos"
 
-#: gitg/history/gitg-history-refs-list.vala:1180
+#: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
 msgstr "Remotos"
 
@@ -1467,7 +1545,7 @@ msgstr "Histórico"
 msgid "Examine the history of the repository"
 msgstr "Examinar o histórico do repositório"
 
-#: gitg/history/gitg-history.vala:942
+#: gitg/history/gitg-history.vala:949
 msgid "Mainline"
 msgstr "Ramo original"
 
@@ -1485,7 +1563,23 @@ msgstr "_Usar a fonte de largura fixa do sistema (%s)"
 msgid "Interface"
 msgstr "Interface"
 
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
+msgid "Create Remote"
+msgstr "Criar remoto"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
+msgid "Remote _name:"
+msgstr "_Nome do remoto:"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
+msgid "Remote _URL:"
+msgstr "_URL remoto:"
+
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "_Salvar"
 
@@ -1529,10 +1623,6 @@ msgstr "Clonar repositório"
 #: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "Cl_onar"
-
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-msgid "Remote _URL:"
-msgstr "_URL remoto:"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1626,11 +1716,11 @@ msgstr "_Executar checkout no ramo criado"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:7
 msgid "Create Tag"
-msgstr "Criar etiqueta"
+msgstr "Criar tag"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:71
 msgid "Tag _name:"
-msgstr "_Nome da etiqueta:"
+msgstr "_Nome da tag:"
 
 #: gitg/resources/ui/gitg-dash-view.ui:32
 msgid ""
@@ -1639,6 +1729,10 @@ msgid ""
 msgstr ""
 "Nenhum repositório foi adicionado ainda. Para iniciar, você pode adicionar "
 "um repositório existente ou clonar um novo."
+
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
+msgid "Edit Remote"
+msgstr "Editar remoto"
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
@@ -2080,31 +2174,33 @@ msgstr "Expandir tudo"
 msgid "Committed by %s"
 msgstr "Commit feito por %s"
 
-#: libgitg/gitg-diff-view-file.vala:145
+#. Translators: Unif stands for unified diff format
+#: libgitg/gitg-diff-view-file.vala:151
 msgid "Unif"
 msgstr "Unif"
 
-#: libgitg/gitg-diff-view-file.vala:149
+#. Translators: Split stands for the noun
+#: libgitg/gitg-diff-view-file.vala:156
 msgid "Split"
 msgstr "Dividir"
 
-#: libgitg/gitg-diff-view-file.vala:156
+#: libgitg/gitg-diff-view-file.vala:163
 msgid "Binary"
 msgstr "Binário"
 
-#: libgitg/gitg-diff-view-file.vala:163
+#: libgitg/gitg-diff-view-file.vala:170
 msgid "Image"
 msgstr "Imagem"
 
-#: libgitg/gitg-diff-view-file.vala:208
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "_Open file"
 msgstr "_Abrir arquivo"
 
-#: libgitg/gitg-diff-view-file.vala:241
+#: libgitg/gitg-diff-view-file.vala:248
 msgid "Open containing _folder"
 msgstr "Abrir pasta co_ntinente"
 
-#: libgitg/gitg-diff-view-file.vala:261
+#: libgitg/gitg-diff-view-file.vala:268
 msgid "_Copy file path"
 msgstr "_Copiar caminho do arquivo"
 
@@ -2211,11 +2307,11 @@ msgstr "Espaçamento"
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
-msgstr "Remover o repositório da lista (não exclui o repositório do disco)"
+msgstr "Remove o repositório da lista (não exclui o repositório do disco)"
 
 #: plugins/diff/gitg-diff.vala:125
 msgid "Show the changes introduced by the selected commit"
-msgstr "Mostrar as alterações apresentadas pelo commit selecionado"
+msgstr "Mostra as alterações apresentadas pelo commit selecionado"
 
 #: plugins/files/gitg-files.vala:68
 msgid "Files"
@@ -2223,7 +2319,7 @@ msgstr "Arquivos"
 
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
-msgstr "Mostrar os arquivos na árvore do commit selecionado"
+msgstr "Mostra os arquivos na árvore do commit selecionado"
 
 #~ msgid "Clone"
 #~ msgstr "Clonar"
@@ -2412,9 +2508,6 @@ msgstr "Mostrar os arquivos na árvore do commit selecionado"
 #~ msgid "Branch <%s> could not be forcefully removed"
 #~ msgstr "Branch <%s> não pode ter a remoção forçada"
 
-#~ msgid "Failed to remove remote branch <%s>."
-#~ msgstr "Falha na remoção do branch <%s>."
-
 #~ msgid "This permanently removes the remote branch."
 #~ msgstr "Isto removerá permanentemente o branch remoto."
 
@@ -2429,9 +2522,6 @@ msgstr "Mostrar os arquivos na árvore do commit selecionado"
 
 #~ msgid "The stash item could not be successfully removed"
 #~ msgstr "O item armazenado não pôde ser removido com sucesso"
-
-#~ msgid "Remove tag"
-#~ msgstr "Remover tag"
 
 #~ msgid "Branch <%s> could not be renamed to <%s>"
 #~ msgstr "Branch <%s> não pode ser renomeado para <%s>"
@@ -2460,10 +2550,10 @@ msgstr "Mostrar os arquivos na árvore do commit selecionado"
 
 #~ msgid "Failed to checkout remote branch <%s> to local branch <%s>"
 #~ msgstr ""
-#~ "Falha ao dar checkout no branch remoto <%s> para o branch local <%s>"
+#~ "Falha ao fazer checkout no branch remoto <%s> para o branch local <%s>"
 
 #~ msgid "Failed to checkout tag <%s> to local branch <%s>"
-#~ msgstr "Falha ao dar checkout na tag <%s> para o branch local <%s>"
+#~ msgstr "Falha ao fazer checkout na tag <%s> para o branch local <%s>"
 
 #~ msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
 #~ msgstr "Falha no rebase do %s branch <%s> no %s branch <%s>"
@@ -2473,9 +2563,6 @@ msgstr "Mostrar os arquivos na árvore do commit selecionado"
 
 #~ msgid "local"
 #~ msgstr "local"
-
-#~ msgid "remote"
-#~ msgstr "remoto"
 
 #~ msgid "The stashed changes have been stored to be reapplied manually"
 #~ msgstr ""
