@@ -55,7 +55,7 @@ class Gitg.Test.CheckoutRef : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Checkout “thebranch“");
+		assert_streq(simple_notifications[0].title, "Checkout “thebranch”");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 		assert_streq(simple_notifications[0].message, "Successfully checked out branch to working directory");
 		assert_file_contents("a", "lala\n");
@@ -75,7 +75,7 @@ class Gitg.Test.CheckoutRef : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Checkout “thebranch“");
+		assert_streq(simple_notifications[0].title, "Checkout “thebranch”");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.SUCCESS);
 		assert_streq(simple_notifications[0].message, "Successfully checked out branch to working directory");
 		assert_file_contents("b", "something changed\n");
@@ -95,7 +95,7 @@ class Gitg.Test.CheckoutRef : Application
 		loop.run();
 
 		assert_inteq(simple_notifications.size, 1);
-		assert_streq(simple_notifications[0].title, "Checkout “thebranch“");
+		assert_streq(simple_notifications[0].title, "Checkout “thebranch”");
 		assert_inteq(simple_notifications[0].status, SimpleNotification.Status.ERROR);
 		assert_streq(simple_notifications[0].message, "Failed to checkout branch: 1 conflict prevents checkout");
 		assert_file_contents("a", "something changed\n");
