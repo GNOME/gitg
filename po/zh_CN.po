@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-01-29 13:15+0000\n"
-"PO-Revision-Date: 2022-01-31 09:54+0800\n"
+"POT-Creation-Date: 2022-02-01 22:51+0000\n"
+"PO-Revision-Date: 2022-02-02 10:49+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -720,7 +720,6 @@ msgid "Failed to checkout index: %s"
 msgstr "检出索引失败：%s"
 
 #: gitg/gitg-add-remote-action.vala:46
-#| msgid "Remotes"
 msgid "Add Remote"
 msgstr "添加远程仓库"
 
@@ -744,7 +743,6 @@ msgid "Failed to fetch from %s: %s"
 msgstr "从 %s 获取失败：%s"
 
 #: gitg/gitg-add-remote-action.vala:78
-#| msgid "Failed to add repository"
 msgid "Failed to fetch added remote"
 msgstr "从添加的远程仓库获取失败"
 
@@ -756,7 +754,6 @@ msgid "Fetched from %s: %s"
 msgstr "已从 %s 获取：%s"
 
 #: gitg/gitg-add-remote-action.vala:129
-#| msgid "Failed to add repository"
 msgid "Failed to add remote"
 msgstr "添加远程仓库失败"
 
@@ -853,8 +850,9 @@ msgstr "将此提交拣选到分支上"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "为分支 %s 查找提交失败：%s"
+#| msgid "Failed to lookup the commit for branch %s: %s"
+msgid "Failed to lookup the commit for branch “%s”: %s"
+msgstr "为分支“%s”查找提交失败：%s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
@@ -868,21 +866,29 @@ msgstr "拣选发生冲突"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
+#| msgid ""
+#| "The cherry pick of %s onto %s has caused conflicts, would you like to "
+#| "checkout branch %s with the cherry pick to your working directory to "
+#| "resolve the conflicts?"
 msgid ""
-"The cherry pick of %s onto %s has caused conflicts, would you like to "
-"checkout branch %s with the cherry pick to your working directory to resolve "
-"the conflicts?"
+"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
+"checkout branch “%s” with the cherry pick to your working directory to "
+"resolve the conflicts?"
 msgstr ""
-"将 %s 拣选到 %s 上的操作造成了冲突，你想要检出带有挑拣的分支 %s 到你的工作目"
+"将“%s”拣选到“%s”上的操作造成了冲突，你想要检出带有挑拣的分支“%s”到你的工作目"
 "录以便解决冲突吗？"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
+#| msgid ""
+#| "The cherry-pick of %s onto %s has caused conflicts, would you like to "
+#| "checkout the cherry pick to your working directory to resolve the "
+#| "conflicts?"
 msgid ""
-"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"将 %s 拣选到 %s 上的操作造成了冲突，你想要检出挑拣情况到你的工作目录以便解决"
+"将“%s”拣选到“%s”上的操作造成了冲突，你想要检出挑拣情况到你的工作目录以便解决"
 "冲突吗？"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
@@ -900,8 +906,9 @@ msgstr "拣选结束，工作目录仍有冲突"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-msgid "Cherry pick %s onto %s"
-msgstr "拣选 <%s> 到 <%s> 上"
+#| msgid "Cherry pick %s onto %s"
+msgid "Cherry pick “%s” onto “%s”"
+msgstr "拣选“%s”到“%s”上"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
@@ -909,8 +916,9 @@ msgstr "拣选成功"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-msgid "Cherry pick onto %s"
-msgstr "拣选到 <%s> 上"
+#| msgid "Cherry pick onto %s"
+msgid "Cherry pick onto “%s”"
+msgstr "拣选到“%s”上"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -1020,7 +1028,6 @@ msgid "Scanning for repositories in %s"
 msgstr "正在 %s 中寻找版本库"
 
 #: gitg/gitg-edit-remote-action.vala:51
-#| msgid "remote"
 msgid "Edit remote"
 msgstr "编辑远程仓库"
 
@@ -1029,7 +1036,6 @@ msgid "Edits the remote from the remotes list"
 msgstr "从远程仓库列表编辑远程仓库"
 
 #: gitg/gitg-edit-remote-action.vala:82
-#| msgid "Failed to rename"
 msgid "Failed to edit remote"
 msgstr "编辑远程仓库失败"
 
@@ -1039,8 +1045,9 @@ msgstr "检出选中的引用"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-msgid "Checkout %s"
-msgstr "检出 %s"
+#| msgid "Checkout %s"
+msgid "Checkout “%s”"
+msgstr "检出“%s”"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
@@ -1070,24 +1077,20 @@ msgid "Copy the name of the reference to the clipboard"
 msgstr "将引用的名称复制到剪贴板"
 
 #: gitg/gitg-ref-action-create-branch.vala:46
-#| msgid "Create a new branch at the selected commit"
 msgid "Create a new branch at the selected reference"
 msgstr "在选中的引用上创建新的分支"
 
 #: gitg/gitg-ref-action-create-branch.vala:58
 #: gitg/gitg-ref-action-create-patch.vala:58
 #: gitg/gitg-ref-action-create-tag.vala:58
-#| msgid "Failed to lookup tag"
 msgid "Failed to lookup reference"
 msgstr "查找引用失败"
 
 #: gitg/gitg-ref-action-create-patch.vala:46
-#| msgid "Create a patch from the selected commit"
 msgid "Create a patch from the selected reference"
 msgstr "从选中的引用创建补丁"
 
 #: gitg/gitg-ref-action-create-tag.vala:46
-#| msgid "Create a new tag at the selected commit"
 msgid "Create a new tag at the selected reference"
 msgstr "在选中的引用上创建新的标签"
 
@@ -1197,20 +1200,28 @@ msgstr "合并发生冲突"
 
 #: gitg/gitg-ref-action-merge.vala:184
 #, c-format
+#| msgid ""
+#| "The merge of %s into %s has caused conflicts, would you like to checkout "
+#| "branch %s with the merge to your working directory to resolve the "
+#| "conflicts?"
 msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout "
-"branch %s with the merge to your working directory to resolve the conflicts?"
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"branch “%s” with the merge to your working directory to resolve the "
+"conflicts?"
 msgstr ""
-"将 %s 合并进 %s 的操作造成了冲突，你想要检出带有合并的分支 %s 到你的工作目录"
+"将“%s”合并进“%s”的操作造成了冲突，你想要检出带有合并的分支“%s”到你的工作目录"
 "以便解决冲突吗？"
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
+#| msgid ""
+#| "The merge of %s into %s has caused conflicts, would you like to checkout "
+#| "the merge to your working directory to resolve the conflicts?"
 msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout the "
-"merge to your working directory to resolve the conflicts?"
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"the merge to your working directory to resolve the conflicts?"
 msgstr ""
-"将 %s 合并进 %s 的操作造成了冲突，你想要检出合并情况到你的工作目录以便解决冲"
+"将“%s”合并进“%s”的操作造成了冲突，你想要检出合并情况到你的工作目录以便解决冲"
 "突吗？"
 
 #: gitg/gitg-ref-action-merge.vala:199
@@ -1223,8 +1234,9 @@ msgstr "合并结束，工作目录仍有冲突"
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
-msgid "Merge %s into %s"
-msgstr "将 %s 合并进 %s"
+#| msgid "Merge %s into %s"
+msgid "Merge “%s” into “%s”"
+msgstr "将“%s”合并进“%s”"
 
 #: gitg/gitg-ref-action-merge.vala:231
 #, c-format
@@ -1238,13 +1250,15 @@ msgstr "查找他们的提交失败: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
-msgid "Successfully merged %s into %s"
-msgstr "将 %s 并入 %s 成功"
+#| msgid "Successfully merged %s into %s"
+msgid "Successfully merged “%s” into “%s”"
+msgstr "将“%s”并入“%s”成功"
 
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
-msgid "Merge %s into branch %s"
-msgstr "将 %s 合并进分支 %s"
+#| msgid "Merge %s into branch %s"
+msgid "Merge “%s” into branch “%s”"
+msgstr "将“%s”合并进分支“%s”"
 
 #: gitg/gitg-ref-action-merge.vala:482
 #: gitg/history/gitg-history-refs-list.vala:1199
@@ -1317,7 +1331,6 @@ msgid "Close"
 msgstr "关闭"
 
 #: gitg/gitg-remove-remote-action.vala:50
-#| msgid "Remove tag"
 msgid "Remove remote"
 msgstr "移除远程仓库"
 
@@ -1327,23 +1340,19 @@ msgstr "从远程仓库列表移除远程仓库"
 
 #: gitg/gitg-remove-remote-action.vala:62
 #, c-format
-#| msgid "Delete remote branch %s"
 msgid "Delete remote %s"
 msgstr "删除远程仓库 %s"
 
 #: gitg/gitg-remove-remote-action.vala:63
 #, c-format
-#| msgid "Are you sure that you want to push the branch %s?"
 msgid "Are you sure that you want to remove the remote %s?"
 msgstr "您确定要移除远程仓库 %s 吗？"
 
 #: gitg/gitg-remove-remote-action.vala:67
-#| msgid "_Remove"
 msgid "Remove"
 msgstr "移除"
 
 #: gitg/gitg-remove-remote-action.vala:91
-#| msgid "Failed to remove remote branch <%s>."
 msgid "Failed to remove remote"
 msgstr "移除远程仓库失败"
 
@@ -1485,13 +1494,11 @@ msgid "Interface"
 msgstr "界面"
 
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
-#| msgid "Create tag"
 msgid "Create Remote"
 msgstr "创建远程仓库"
 
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
-#| msgid "Remote _URL:"
 msgid "Remote _name:"
 msgstr "远程仓库名称(_N)："
 
@@ -1650,7 +1657,6 @@ msgid ""
 msgstr "尚未添加任何仓库。若要开始，您可以添加现有的仓库或者克隆一个新的。"
 
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
-#| msgid "Remotes"
 msgid "Edit Remote"
 msgstr "编辑远程仓库"
 
@@ -2089,31 +2095,33 @@ msgstr "展开全部"
 msgid "Committed by %s"
 msgstr "由 %s 提交"
 
-#: libgitg/gitg-diff-view-file.vala:150
+#. Translators: Unif stands for unified diff format
+#: libgitg/gitg-diff-view-file.vala:151
 msgid "Unif"
 msgstr "统一"
 
-#: libgitg/gitg-diff-view-file.vala:154
+#. Translators: Split stands for the noun
+#: libgitg/gitg-diff-view-file.vala:156
 msgid "Split"
 msgstr "拆分"
 
-#: libgitg/gitg-diff-view-file.vala:161
+#: libgitg/gitg-diff-view-file.vala:163
 msgid "Binary"
 msgstr "二进制文件"
 
-#: libgitg/gitg-diff-view-file.vala:168
+#: libgitg/gitg-diff-view-file.vala:170
 msgid "Image"
 msgstr "图像"
 
-#: libgitg/gitg-diff-view-file.vala:213
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "_Open file"
 msgstr "打开文件(_O)"
 
-#: libgitg/gitg-diff-view-file.vala:246
+#: libgitg/gitg-diff-view-file.vala:248
 msgid "Open containing _folder"
 msgstr "打开所在文件夹(_F)"
 
-#: libgitg/gitg-diff-view-file.vala:266
+#: libgitg/gitg-diff-view-file.vala:268
 msgid "_Copy file path"
 msgstr "复制文件路径(_C)"
 
