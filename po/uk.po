@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-01 19:45+0000\n"
-"PO-Revision-Date: 2022-02-01 22:15+0200\n"
+"POT-Creation-Date: 2022-02-01 22:51+0000\n"
+"PO-Revision-Date: 2022-02-02 09:09+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -980,8 +980,8 @@ msgstr "Підхопити цей внесок до іншої гілки"
 # Помилка перевірки місцевого відділення<%s>
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-#| msgid "Failed to lookup the commit for branch %s: %s"
-msgid "Failed to lookup the commit for branch “%s“: %s"
+#| msgid "Failed to lookup the commit for branch “%s“: %s"
+msgid "Failed to lookup the commit for branch “%s”: %s"
 msgstr "Не вдалося виконати пошук внеску для гілки «%s»: %s"
 
 # Не вдалося робити вибір на<%s>
@@ -998,26 +998,26 @@ msgstr "Підхоплення з конфліктами"
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 #| msgid ""
-#| "The cherry pick of %s onto %s has caused conflicts, would you like to "
-#| "checkout branch %s with the cherry pick to your working directory to "
+#| "The cherry pick of “%s“ onto “%s“ has caused conflicts, would you like to "
+#| "checkout branch “%s“ with the cherry pick to your working directory to "
 #| "resolve the conflicts?"
 msgid ""
-"The cherry pick of “%s“ onto “%s“ has caused conflicts, would you like to "
-"checkout branch “%s“ with the cherry pick to your working directory to "
+"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
+"checkout branch “%s” with the cherry pick to your working directory to "
 "resolve the conflicts?"
 msgstr ""
 "Підхоплення змін «%s» до «%s» призвело до конфліктів. Хочете синхронізувати "
-"гілку «%s» із підхопленими змінами до вашого робочого каталогу для розв'язання "
-"конфліктів?"
+"гілку «%s» із підхопленими змінами до вашого робочого каталогу для "
+"розв'язання конфліктів?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 #| msgid ""
-#| "The cherry-pick of %s onto %s has caused conflicts, would you like to "
+#| "The cherry-pick of “%s“ onto “%s“ has caused conflicts, would you like to "
 #| "checkout the cherry pick to your working directory to resolve the "
 #| "conflicts?"
 msgid ""
-"The cherry-pick of “%s“ onto “%s“ has caused conflicts, would you like to "
+"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
 "Підхоплення змін «%s» до «%s» призвело до конфліктів. Хочете синхронізувати "
@@ -1039,8 +1039,8 @@ msgstr "Підхоплення завершено із конфліктами у
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-#| msgid "Cherry pick %s onto %s"
-msgid "Cherry pick “%s“ onto “%s“"
+#| msgid "Cherry pick “%s“ onto “%s“"
+msgid "Cherry pick “%s” onto “%s”"
 msgstr "Підхопити «%s» до «%s»"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
@@ -1050,8 +1050,8 @@ msgstr "Успішно підхоплено"
 # Не вдалося робити вибір на<%s>
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-#| msgid "Cherry pick onto %s"
-msgid "Cherry pick onto “%s“"
+#| msgid "Cherry pick onto “%s“"
+msgid "Cherry pick onto “%s”"
 msgstr "Підхопити до «%s»"
 
 # Створення філії
@@ -1196,8 +1196,8 @@ msgstr "Перейти до вибраного посилання"
 # Оформити замовлення філії
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-#| msgid "Checkout %s"
-msgid "Checkout “%s“"
+#| msgid "Checkout “%s“"
+msgid "Checkout “%s”"
 msgstr "Перехід до «%s»"
 
 # Помилка перевірки місцевого відділення<%s>
@@ -1367,24 +1367,24 @@ msgstr "Злиття з конфліктами"
 #: gitg/gitg-ref-action-merge.vala:184
 #, c-format
 #| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "branch %s with the merge to your working directory to resolve the "
-#| "conflicts?"
+#| "The merge of “%s“ into “%s“ has caused conflicts, would you like to "
+#| "checkout branch “%s“ with the merge to your working directory to resolve "
+#| "the conflicts?"
 msgid ""
-"The merge of “%s“ into “%s“ has caused conflicts, would you like to checkout "
-"branch “%s“ with the merge to your working directory to resolve the "
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"branch “%s” with the merge to your working directory to resolve the "
 "conflicts?"
 msgstr ""
-"Злиття «%s» до «%s» призвело до конфліктів. Хочете синхронізувати гілку «%s» із "
-"злиттям до вашого робочого каталогу для розв'язання конфліктів?"
+"Злиття «%s» до «%s» призвело до конфліктів. Хочете синхронізувати гілку «%s» "
+"із злиттям до вашого робочого каталогу для розв'язання конфліктів?"
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
 #| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "the merge to your working directory to resolve the conflicts?"
+#| "The merge of “%s“ into “%s“ has caused conflicts, would you like to "
+#| "checkout the merge to your working directory to resolve the conflicts?"
 msgid ""
-"The merge of “%s“ into “%s“ has caused conflicts, would you like to checkout "
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "the merge to your working directory to resolve the conflicts?"
 msgstr ""
 "Злиття «%s» до «%s» призвело до конфліктів. Хочете синхронізувати злиття до "
@@ -1400,8 +1400,8 @@ msgstr "Злиття завершено із конфліктами у робо�
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
-#| msgid "Merge %s into %s"
-msgid "Merge “%s“ into “%s“"
+#| msgid "Merge “%s“ into “%s“"
+msgid "Merge “%s” into “%s”"
 msgstr "Злиття «%s» до «%s»"
 
 # Не вдалося створити тег
@@ -1418,15 +1418,15 @@ msgstr "Не вдалося знайти їхній внесок: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
-#| msgid "Successfully merged %s into %s"
-msgid "Successfully merged “%s“ into “%s“"
+#| msgid "Successfully merged “%s“ into “%s“"
+msgid "Successfully merged “%s” into “%s”"
 msgstr "Успішно злито «%s» до «%s»"
 
 # Злиття %s філії<%s>на %s філії<%s>
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
-#| msgid "Merge %s into branch %s"
-msgid "Merge “%s“ into branch “%s“"
+#| msgid "Merge “%s“ into branch “%s“"
+msgid "Merge “%s” into branch “%s”"
 msgstr "Злити «%s» до гілки «%s»"
 
 #: gitg/gitg-ref-action-merge.vala:482
