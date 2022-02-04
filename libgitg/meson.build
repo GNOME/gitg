@@ -118,7 +118,7 @@ if gdk_targets.contains('quartz')
   sources += files('gitg-platform-support-osx.c')
   deps += [
     dependency('gio-unix-2.0'),
-    dependency('appleframeworks', modules : ['foundation', 'appkit'])
+    dependency('appleframeworks', modules : ['Foundation', 'AppKit'])
   ]
   cflags += '-xobjective-c'
 elif gdk_targets.contains('win32')
