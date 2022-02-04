@@ -3,7 +3,7 @@ project(
   version: '41',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.48.0',
+  meson_version: '>= 0.50.0',
 )
 application_id = 'org.gnome.gitg'
 gitg_name = meson.project_name()
