@@ -10,14 +10,15 @@
 # Felipe Braga <fbobraga@gmail.com>, 2015.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2013-2022.
 # Matheus Barbosa <mdpb.matheus@gmail.com>, 2022.
+# Leônidas Araújo <leorusvellt@hotmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-01 11:11+0000\n"
-"PO-Revision-Date: 2022-01-29 20:09-0300\n"
-"Last-Translator: Matheus Barbosa <mdpb.matheus@gmail.com>\n"
+"POT-Creation-Date: 2022-02-04 14:57+0000\n"
+"PO-Revision-Date: 2022-02-04 19:04-0300\n"
+"Last-Translator: Leônidas Araújo <leorusvellt@hotmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "X-Generator: Gtranslator 40.0\n"
 "X-Project-Style: gnome\n"
+"X-DL-Team: pt_BR\n"
+"X-DL-Module: gitg\n"
+"X-DL-Branch: master\n"
+"X-DL-Domain: po\n"
+"X-DL-State: Translating\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -131,7 +137,7 @@ msgstr "Atividade padrão"
 
 #: data/org.gnome.gitg.gschema.xml.in:46
 msgid "The activity which gitg activates by default when first launched."
-msgstr "A atividade que o gitg executa ao iniciar."
+msgstr "A atividade que o gitg ativa por padrão ao iniciar."
 
 #: data/org.gnome.gitg.gschema.xml.in:52
 msgid "Use Default Font"
@@ -752,7 +758,7 @@ msgid ""
 "like to stash the changes before the checkout?"
 msgstr ""
 "Você parece ter alterações preparadas em seu diretório de trabalho. Você "
-"gostaria de stash as alterações antes de executar o checkout?"
+"gostaria de fazer stash das alterações antes de fazer checkout?"
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
@@ -772,7 +778,7 @@ msgstr "Falha com conflitos"
 #: gitg/gitg-action-support.vala:181
 #, c-format
 msgid "Failed to checkout conflicts: %s"
-msgstr "Falha ao executar checkout nos conflitos: %s"
+msgstr "Falha ao fazer checkout nos conflitos: %s"
 
 #: gitg/gitg-action-support.vala:199
 msgid "Failed to obtain author details"
@@ -791,7 +797,7 @@ msgstr "Falha ao criar o commit: %s"
 #: gitg/gitg-action-support.vala:277
 #, c-format
 msgid "Failed to checkout index: %s"
-msgstr "Falha ao executar checkout no índice: %s"
+msgstr "Falha ao fazer checkout no índice: %s"
 
 #: gitg/gitg-add-remote-action.vala:46
 msgid "Add Remote"
@@ -923,21 +929,21 @@ msgstr "Não há suporte à URL introduzida"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
-msgstr "Cherry pick em"
+msgstr "Cherry pick para"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
-msgstr "Fazer cherry pick deste commit em um ramo"
+msgstr "Fazer cherry pick deste commit para um ramo"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Falha ao buscar o commit para o ramo %s: %s"
+msgid "Failed to lookup the commit for branch “%s”: %s"
+msgstr "Falha ao buscar o commit para o ramo “%s”: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
 msgid "Failed to cherry-pick the commit: %s"
-msgstr "Falha ao executar cherry-pick no commit: %s"
+msgstr "Falha ao fazer cherry-pick no commit: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:144
 #: gitg/gitg-commit-action-cherry-pick.vala:160
@@ -947,22 +953,22 @@ msgstr "Cherry pick tem conflitos"
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
-"The cherry pick of %s onto %s has caused conflicts, would you like to "
-"checkout branch %s with the cherry pick to your working directory to resolve "
-"the conflicts?"
+"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
+"checkout branch “%s” with the cherry pick to your working directory to "
+"resolve the conflicts?"
 msgstr ""
-"O cherry pick de %s em %s causou conflitos; você gostaria de executar "
-"checkout no ramo %s com o cherry pick para seu diretório de trabalho para "
-"resolver os conflitos?"
+"O cherry pick de “%s” para “%s” causou conflitos. Você gostaria de fazer "
+"checkout no ramo “%s” com o cherry pick para o seu diretório de trabalho "
+"para resolver os conflitos?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
-"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"O cherry pick de %s em %s causou conflitos; você gostaria de executar "
-"checkout no cherry pick para seu diretório de trabalho para resolver os "
+"O cherry pick de “%s” para “%s” causou conflitos. Você gostaria fazer "
+"checkout no cherry pick para o seu diretório de trabalho para resolver os "
 "conflitos?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
@@ -980,8 +986,8 @@ msgstr "Cherry pick concluiu com conflitos no diretório de trabalho"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-msgid "Cherry pick %s onto %s"
-msgstr "Cherry pick %s em %s"
+msgid "Cherry pick “%s” onto “%s”"
+msgstr "Cherry pick de %s para %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
@@ -989,8 +995,8 @@ msgstr "Cherry pick concluiu com sucesso"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-msgid "Cherry pick onto %s"
-msgstr "Cherry pick em %s"
+msgid "Cherry pick onto “%s”"
+msgstr "Cherry pick para %s"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -1114,12 +1120,12 @@ msgstr "Falha ao editar o remoto"
 
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
-msgstr "Executa checkout na referência selecionada"
+msgstr "Faz checkout na referência selecionada"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-msgid "Checkout %s"
-msgstr "Checkout %s"
+msgid "Checkout “%s”"
+msgstr "Checkout “%s”"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
@@ -1273,21 +1279,22 @@ msgstr "Mesclagem tem conflitos"
 #: gitg/gitg-ref-action-merge.vala:184
 #, c-format
 msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout "
-"branch %s with the merge to your working directory to resolve the conflicts?"
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"branch “%s” with the merge to your working directory to resolve the "
+"conflicts?"
 msgstr ""
-"A mesclagem de %s com %s causou conflitos; você gostaria de executar "
-"checkout no ramo %s com o mesclagem para seu diretório de trabalho para "
+"A mesclagem de “%s” em “%s” causou conflitos. Você gostaria de fazer "
+"checkout do ramo “%s” com a mesclagem para seu diretório de trabalho para "
 "resolver os conflitos?"
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
 msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout the "
-"merge to your working directory to resolve the conflicts?"
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"the merge to your working directory to resolve the conflicts?"
 msgstr ""
-"A mesclagem de %s com %s causou conflitos; você gostaria de executar "
-"checkout na mesclagem para seu diretório de trabalho para resolver os "
+"A mesclagem de “%s” em “%s” causou conflitos. Você gostaria de fazer o "
+"checkout da mesclagem para seu diretório de trabalho para resolver os "
 "conflitos?"
 
 #: gitg/gitg-ref-action-merge.vala:199
@@ -1300,8 +1307,8 @@ msgstr "Mesclagem concluída com conflitos no diretório de trabalho"
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
-msgid "Merge %s into %s"
-msgstr "Mesclar %s com %s"
+msgid "Merge “%s” into “%s”"
+msgstr "Mesclar %s em %s"
 
 #: gitg/gitg-ref-action-merge.vala:231
 #, c-format
@@ -1315,13 +1322,13 @@ msgstr "Falha ao buscar o commit deles: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
-msgid "Successfully merged %s into %s"
-msgstr "Sucesso ao mesclar %s com %s"
+msgid "Successfully merged “%s” into “%s”"
+msgstr "Sucesso ao mesclar “%s” em “%s”"
 
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
-msgid "Merge %s into branch %s"
-msgstr "Mescla %s com o ramo %s"
+msgid "Merge “%s” into branch “%s”"
+msgstr "Mescla “%s” no ramo “%s”"
 
 #: gitg/gitg-ref-action-merge.vala:482
 #: gitg/history/gitg-history-refs-list.vala:1199
@@ -1712,7 +1719,7 @@ msgstr "Nome do _ramo:"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:96
 msgid "_Checkout the created branch"
-msgstr "_Executar checkout no ramo criado"
+msgstr "_Fazer checkout no ramo criado"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:7
 msgid "Create Tag"
@@ -2556,7 +2563,7 @@ msgstr "Mostra os arquivos na árvore do commit selecionado"
 #~ msgstr "Falha ao fazer checkout na tag <%s> para o branch local <%s>"
 
 #~ msgid "Failed to rebase %s branch <%s> onto %s branch <%s>"
-#~ msgstr "Falha no rebase do %s branch <%s> no %s branch <%s>"
+#~ msgstr "Falha no rebase do %s branch <%s> para %s branch <%s>"
 
 #~ msgid "Failed to merge %s branch <%s> with %s branch <%s>"
 #~ msgstr "Falha no merge %s do branch <%s> com o %s branch <%s>"
@@ -2587,14 +2594,14 @@ msgstr "Mostra os arquivos na árvore do commit selecionado"
 
 #~ msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
 #~ msgstr ""
-#~ "Você tem certeza que deseja executar um rebase no %s branch <%s> no %s "
+#~ "Você tem certeza que deseja fazer rebase no %s branch <%s> para %s "
 #~ "branch <%s>?"
 
 #~ msgid "Rebase"
 #~ msgstr "Rebase"
 
 #~ msgid "Unable to rebase"
-#~ msgstr "Não foi possível executar rebase"
+#~ msgstr "Não foi possível fazer rebase"
 
 #~ msgid ""
 #~ "There are still uncommitted changes in your working tree and you are "
@@ -2602,7 +2609,7 @@ msgstr "Mostra os arquivos na árvore do commit selecionado"
 #~ "remove, stash or commit your changes first and try again"
 #~ msgstr ""
 #~ "Ainda existem modificações não comitadas na sua árvore de trabalho e você "
-#~ "está tentando executar rebase de um branch para o branch atual. Remova, "
+#~ "está tentando fazer rebase de um branch para o branch atual. Remova, "
 #~ "armazene ou faça commit sua moduficações primeiro e tente novamente"
 
 #~ msgid "Rebasing %s branch <%s> onto %s branch <%s>"
@@ -2619,17 +2626,17 @@ msgstr "Mostra os arquivos na árvore do commit selecionado"
 #~ "forwarded. Tente obter as últimas alterações."
 
 #~ msgid "Are you sure you want to push <%s> to <%s>?"
-#~ msgstr "Você tem certeza que deseja executar um push <%s> em <%s>?"
+#~ msgstr "Você tem certeza que deseja fazer push <%s> em <%s>?"
 
 #~ msgid "Pushing local branch <%s> to remote branch <%s>"
-#~ msgstr "Executando push no branch local <%s> para o branch remoto <%s>"
+#~ msgstr "Fazendo push no branch local <%s> para o branch remoto <%s>"
 
 #~ msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
 #~ msgstr ""
-#~ "Você tem certeza que deseja executar um push <%s> para o remoto <%s/%s>?"
+#~ "Você tem certeza que deseja fazer push <%s> para o remoto <%s/%s>?"
 
 #~ msgid "Pushing local branch <%s> to remote branch <%s/%s>"
-#~ msgstr "Executando push no branch local <%s> para o branch remoto <%s/%s>"
+#~ msgstr "Fazendo push no branch local <%s> para o branch remoto <%s/%s>"
 
 #~ msgid "Are you sure you want to apply the stash item to local branch <%s>?"
 #~ msgstr ""
@@ -2653,7 +2660,7 @@ msgstr "Mostra os arquivos na árvore do commit selecionado"
 
 #~ msgid "Are you sure you want to cherry-pick that revision on <%s>?"
 #~ msgstr ""
-#~ "Você tem certeza que deseja executar cherry-pick na revisão em <%s>?"
+#~ "Você tem certeza que deseja fazer cherry-pick na revisão em <%s>?"
 
 #~ msgid "Cherry-pick"
 #~ msgstr "Cherry-pick"
