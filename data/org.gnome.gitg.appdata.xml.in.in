@@ -45,6 +45,58 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="41" type="stable" date="2021-12-27">
+      <description>
+        <p>Bug fixes:</p>
+        <ul>
+          <li>Manage if there's no textconv config</li>
+          <li>Convert to text using gitattributes config</li>
+          <li>Side by side diff text renderers</li>
+          <li>Read setup for smart commits from git config</li>
+          <li>Show diff stats only on text renderer</li>
+          <li>Put image renderer first on stack</li>
+          <li>Allow to diff images as text if its mime type supports it</li>
+          <li>Add new-window action to desktop file</li>
+          <li>Fix the ninja call in one of the building guides</li>
+          <li>TextView needs to be wrapped in a scroll view</li>
+          <li>fix libgitg-date test package failure</li>
+          <li>Use GUri instead of SoupURI</li>
+          <li>Avoid return null if old or new file fails to load</li>
+          <li>Properly mark "head" parameter of ActionSupport.stash_if_needed() as nullable</li>
+          <li>Silence -Wincompatible-pointer-types warning</li>
+          <li>Option to switch to the newly created branch</li>
+          <li>Remote branches can be checked out using double-click.</li>
+          <li>Add shortcuts for history panels</li>
+          <li>Give some button alt key</li>
+          <li>Fix Ctrl+O shortcut does not work</li>
+          <li>Add missing Preferences shortcut</li>
+          <li>Do not follow symlinks on recursive scan</li>
+          <li>Local branch checkout using double-click.</li>
+          <li>fix CSS warning on MacOS</li>
+          <li>Fix libgitg compile on macOS</li>
+          <li>fixup! Honor prepare-commit-msg hook</li>
+          <li>Rely on libgit for global config files</li>
+          <li>Avoid shell injection on hooks</li>
+          <li>Honor prepare-commit-msg hook</li>
+          <li>Escape subject commit text</li>
+          <li>Add message history to commit dialog</li>
+          <li>Activities can process key events</li>
+          <li>Update shortcut dialog</li>
+          <li>config for fonts</li>
+          <li>icon: update app icon</li>
+          <li>Don't ellipsize commit subject</li>
+          <li>Avoid duplicating Signed-off-by signature</li>
+          <li>Consider author and committer when filtering</li>
+          <li>Remove style deprecations</li>
+          <li>on close, selection should display back the gear menu</li>
+          <li>add "RevisionControl" to desktop file Categories</li>
+          <li>GitgHistory.RefRow: Don't assume that every GgitSignature has a time</li>
+          <li>Change gtkspell3 to gspell</li>
+          <li>vala: Remove obsolete vapi files</li>
+          <li>Remove submodules config</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.32.1" type="stable" date="2019-07-25">
       <description>
         <p>Bug fixes:</p>
