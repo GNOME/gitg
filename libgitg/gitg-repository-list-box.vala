@@ -323,7 +323,7 @@ namespace Gitg
 				var app_name = Environment.get_application_name();
 				var app_exec = string.join(" ", Environment.get_prgname(), "%f");
 
-				try { d_bookmark_file.set_app_info(uri, app_name, app_exec, 1, -1); } catch {}
+				try { d_bookmark_file.set_application_info(uri, app_name, app_exec, 1, new GLib.DateTime.now()); } catch {}
 			}
 
 			save_repository_bookmarks_timeout();
@@ -502,7 +502,7 @@ namespace Gitg
 			var app_name = Environment.get_application_name();
 			var app_exec = string.join(" ", Environment.get_prgname(), "%f");
 
-			try { d_bookmark_file.set_app_info(uri, app_name, app_exec, 1, -1); } catch {}
+			try { d_bookmark_file.set_application_info(uri, app_name, app_exec, 1, new GLib.DateTime.now()); } catch {}
 
 			save_repository_bookmarks_timeout();
 		}
