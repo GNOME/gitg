@@ -318,7 +318,7 @@ namespace Gitg
 
 				d_bookmark_file.set_mime_type(uri, item.get_mime_type());
 				d_bookmark_file.set_groups(uri, item.get_groups());
-				d_bookmark_file.set_visited(uri, (time_t)item.get_modified());
+				d_bookmark_file.set_visited_date_time(uri, new GLib.DateTime.from_unix_utc(item.get_modified()));
 
 				var app_name = Environment.get_application_name();
 				var app_exec = string.join(" ", Environment.get_prgname(), "%f");
@@ -441,7 +441,7 @@ namespace Gitg
 
 				try
 				{
-					visited = new DateTime.from_unix_utc(d_bookmark_file.get_visited(uri));
+					visited = d_bookmark_file.get_visited_date_time(uri);
 				} catch {};
 
 				add_repository(repo, visited);
@@ -497,7 +497,7 @@ namespace Gitg
 		{
 			d_bookmark_file.set_mime_type(uri, "inode/directory");
 			d_bookmark_file.set_groups(uri, new string[] { "gitg" });
-			d_bookmark_file.set_visited(uri, visited == null ? -1 : (time_t)visited.to_unix());
+			d_bookmark_file.set_visited_date_time(uri, visited == null ? new GLib.DateTime.now() : visited);
 
 			var app_name = Environment.get_application_name();
 			var app_exec = string.join(" ", Environment.get_prgname(), "%f");
