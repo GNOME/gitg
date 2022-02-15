@@ -32,7 +32,11 @@ public class TextConv
 	{
 		string? command = null;
 		var path = file.get_path();
-		var diffattr = repository.get_attribute(path, "diff", Ggit.AttributeCheckFlags.FILE_THEN_INDEX);
+		string? diffattr = null;
+		try
+		{
+			diffattr = repository.get_attribute(path, "diff", Ggit.AttributeCheckFlags.FILE_THEN_INDEX);
+		} catch {}
 		if (diffattr != null)
 		{
 			var textconv_key = "diff.%s.textconv".printf(diffattr);
@@ -55,11 +59,13 @@ public class TextConv
 			var oid = file.get_oid();
 			uint8[]? raw_content = null;
 			if (!oid.is_zero()) {
-				var blob = repository.lookup<Ggit.Blob>(oid);
-				raw_content = blob.get_raw_content();
+				try
+				{
+					var blob = repository.lookup<Ggit.Blob>(oid);
+					raw_content = blob.get_raw_content();
+					content = get_textconv_content_from_raw(repository, file, raw_content);
+				} catch {}
 			}
-
-			content = get_textconv_content_from_raw(repository, file, raw_content);
 		}
 		return content;
 	}
@@ -80,23 +86,26 @@ public class TextConv
 
 	private static uint8[] textconv(string command, uint8[]? data)
 	{
-		var subproc = new Subprocess(STDIN_PIPE | STDOUT_PIPE, command, "/dev/stdin");
-
-		var input = new MemoryInputStream.from_data(data, GLib.free);
-
-		subproc.get_stdin_pipe ().splice (input, CLOSE_TARGET);
-		var end_pipe = subproc.get_stdout_pipe ();
-		var output = new DataInputStream (end_pipe);
-
 		string lines = "";
-		string? line = null;
-		do {
-			line = output.read_line();
-			if (line != null) {
-				line = line.replace("\f", "");
-				lines += line+"\n";
-			}
-		} while (line != null);
+		try
+		{
+			var subproc = new Subprocess(STDIN_PIPE | STDOUT_PIPE, command, "/dev/stdin");
+
+			var input = new MemoryInputStream.from_data(data, GLib.free);
+
+			subproc.get_stdin_pipe ().splice (input, CLOSE_TARGET);
+			var end_pipe = subproc.get_stdout_pipe ();
+			var output = new DataInputStream (end_pipe);
+
+			string? line = null;
+			do {
+				line = output.read_line();
+				if (line != null) {
+					line = line.replace("\f", "");
+					lines += line+"\n";
+				}
+			} while (line != null);
+		} catch {}
 		return lines.data;
 	}
 }

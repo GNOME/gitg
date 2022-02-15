@@ -598,9 +598,9 @@ public class Gitg.DiffView : Gtk.Grid
 	{
 		if (repository != null)
 		{
-			var conf = repository.get_config().snapshot();
 			try
 			{
+				var conf = repository.get_config().snapshot();
 				conf.match_foreach(regex_custom_links, (match_info, value) => {
 					string group = match_info.fetch(1);
 					debug ("found custom-link group: %s", group);
