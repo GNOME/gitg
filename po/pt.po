@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg gnome-3-12\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-01 22:51+0000\n"
-"PO-Revision-Date: 2022-02-02 15:36+0000\n"
+"POT-Creation-Date: 2022-02-15 00:41+0000\n"
+"PO-Revision-Date: 2022-02-15 13:22+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
-"Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
+"Language-Team: Portuguese <gnome-pt-translation@googlegroups.com>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -86,7 +86,7 @@ msgstr "Submeter alterações preparadas"
 msgid "Overview of recently used repositories"
 msgstr "Visão geral de repositórios recentemente usados"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "O Projeto GNOME"
 
@@ -818,48 +818,52 @@ msgstr "Obtido de %s: %s"
 msgid "Failed to add remote"
 msgstr "Falha ao adicionar o remoto"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "Mostra a versão da aplicação"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "Iniciar o Gitg com uma determinada atividade"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Iniciar o Gitg com a atividade de submissão (comando curto para --activity "
 "commit)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Não tentar carregar um repositório da atual pasta de trabalho"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "Executa o gitg no modo autónomo"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "Colocar localizações em git, se necessário"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— Visualizador de repositórios Git"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "O gitg é um visualizador de repositórios git para GTK+/GNOME"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr ""
 "Pedro Albuquerque <palbuquerque73@gmail.com>\n"
 "Tiago Santos <tiagofsantos81@sapo.pt>\n"
 "Hugo Carvalho <hugokarvalho@hotmail.com>"
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "Página web do gitg"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
