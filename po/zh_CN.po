@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-01 22:51+0000\n"
-"PO-Revision-Date: 2022-02-02 10:49+0800\n"
+"POT-Creation-Date: 2022-02-15 00:41+0000\n"
+"PO-Revision-Date: 2022-02-15 19:10+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -84,7 +84,7 @@ msgstr "提交暂存的变更"
 msgid "Overview of recently used repositories"
 msgstr "当前所用仓库的概览"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "GNOME 项目"
 
@@ -757,35 +757,39 @@ msgstr "已从 %s 获取：%s"
 msgid "Failed to add remote"
 msgstr "添加远程仓库失败"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "显示应用程序的版本"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "以特定活动启动 gitg"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr "以提交活动启动 gitg（即 --activity commit 的简写）"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "不尝试从当前工作目录加载仓库"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "以独立模式运行 gitg"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "如果需要则将路径放在 git 下面"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— Git 仓库查看器"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg 是用于 GTK+/GNOME 的一个 Git 仓库查看器"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr ""
 "lainme <lainme993@gmail.com>\n"
@@ -795,11 +799,11 @@ msgstr ""
 "Dingzhong Chen <wsxy162@gmail.com>\n"
 "Weiyi Xu <xuweiyi0923@gmail.com>"
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "gitg 主页"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -850,7 +854,6 @@ msgstr "将此提交拣选到分支上"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-#| msgid "Failed to lookup the commit for branch %s: %s"
 msgid "Failed to lookup the commit for branch “%s”: %s"
 msgstr "为分支“%s”查找提交失败：%s"
 
@@ -866,10 +869,6 @@ msgstr "拣选发生冲突"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
-#| msgid ""
-#| "The cherry pick of %s onto %s has caused conflicts, would you like to "
-#| "checkout branch %s with the cherry pick to your working directory to "
-#| "resolve the conflicts?"
 msgid ""
 "The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout branch “%s” with the cherry pick to your working directory to "
@@ -880,10 +879,6 @@ msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
-#| msgid ""
-#| "The cherry-pick of %s onto %s has caused conflicts, would you like to "
-#| "checkout the cherry pick to your working directory to resolve the "
-#| "conflicts?"
 msgid ""
 "The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
@@ -906,7 +901,6 @@ msgstr "拣选结束，工作目录仍有冲突"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-#| msgid "Cherry pick %s onto %s"
 msgid "Cherry pick “%s” onto “%s”"
 msgstr "拣选“%s”到“%s”上"
 
@@ -916,7 +910,6 @@ msgstr "拣选成功"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-#| msgid "Cherry pick onto %s"
 msgid "Cherry pick onto “%s”"
 msgstr "拣选到“%s”上"
 
@@ -1045,7 +1038,6 @@ msgstr "检出选中的引用"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-#| msgid "Checkout %s"
 msgid "Checkout “%s”"
 msgstr "检出“%s”"
 
@@ -1200,10 +1192,6 @@ msgstr "合并发生冲突"
 
 #: gitg/gitg-ref-action-merge.vala:184
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "branch %s with the merge to your working directory to resolve the "
-#| "conflicts?"
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "branch “%s” with the merge to your working directory to resolve the "
@@ -1214,9 +1202,6 @@ msgstr ""
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "the merge to your working directory to resolve the conflicts?"
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "the merge to your working directory to resolve the conflicts?"
@@ -1234,7 +1219,6 @@ msgstr "合并结束，工作目录仍有冲突"
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
-#| msgid "Merge %s into %s"
 msgid "Merge “%s” into “%s”"
 msgstr "将“%s”合并进“%s”"
 
@@ -1250,13 +1234,11 @@ msgstr "查找他们的提交失败: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
-#| msgid "Successfully merged %s into %s"
 msgid "Successfully merged “%s” into “%s”"
 msgstr "将“%s”并入“%s”成功"
 
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
-#| msgid "Merge %s into branch %s"
 msgid "Merge “%s” into branch “%s”"
 msgstr "将“%s”合并进分支“%s”"
 
