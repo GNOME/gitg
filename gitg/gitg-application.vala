@@ -540,32 +540,33 @@ public class Application : Gtk.Application
 				resolved = Ggit.Repository.discover(f);
 			}
 			catch {
-				if(init)
+				if(!init)
 				{
-					try
+					continue;
+				}
+				try
+				{
+					bool valid = f.query_exists ();
+					if (valid)
 					{
-						if (f.query_exists ()){
 
-							FileType type = f.query_file_type (FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
-							if (FileType.DIRECTORY == type)
-							{
-								Repository.init_repository(f, false);
-							}
-
-						} else
-						{
-							if (f.make_directory_with_parents ())
-							{
-								Repository.init_repository(f, false);
-							}
-						}
+						FileType type = f.query_file_type (FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
+						valid = FileType.DIRECTORY == type;
 					}
-					catch (Error err)
+					else
+						valid = f.make_directory_with_parents ();
+
+					if (!valid)
 					{
 						continue;
 					}
+					Repository.init_repository(f, false);
+					resolved = Ggit.Repository.discover(f);
 				}
-				continue;
+				catch (Error err)
+				{
+					continue;
+				}
 			}
 
 
