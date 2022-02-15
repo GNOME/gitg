@@ -172,7 +172,7 @@ public class Date : Object, Initable
 		if (tzs != null && tzs != "")
 		{
 			var ret = new DateTime.from_unix_utc(unixt);
-			return ret.to_timezone(new TimeZone(tzs));
+			return ret.to_timezone(new TimeZone.identifier(tzs));
 		}
 		else
 		{
@@ -202,7 +202,7 @@ public class Date : Object, Initable
 
 		if (tzs != null && tzs != "")
 		{
-			tz = new TimeZone(tzs);
+			tz = new TimeZone.identifier(tzs);
 		}
 		else
 		{
@@ -249,7 +249,7 @@ public class Date : Object, Initable
 
 		if (tzs != null && tzs != "")
 		{
-			tz = new TimeZone(tzs);
+			tz = new TimeZone.identifier(tzs);
 		}
 		else
 		{
