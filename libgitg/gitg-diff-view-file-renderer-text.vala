@@ -750,6 +750,11 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 				case Ggit.DiffLineType.DEL_EOFNL:
 					text = text.substring(1);
 					break;
+				case Ggit.DiffLineType.HUNK_HDR:
+				case Ggit.DiffLineType.BINARY:
+				case Ggit.DiffLineType.CONTEXT:
+				case Ggit.DiffLineType.FILE_HDR:
+					break;
 			}
 
 			if (i == 0 || rtype != region.type)
