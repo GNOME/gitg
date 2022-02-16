@@ -2,23 +2,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Ignacio Casal Quinteiro <icq@gnome.org>, 2009.
-# Fran Dieguez <fran.dieguez@gnome.org>, 2012-2022.
 # Fran Diéguez <frandieguez@gnome.org>, 2010-2022.
+# Fran Dieguez <frandieguez@gnome.org>, 2012-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-01 22:51+0000\n"
-"PO-Revision-Date: 2022-02-04 15:53+0100\n"
-"Last-Translator: Fran Diéguez <frandieguez@gnome.org>\n"
+"POT-Creation-Date: 2022-02-15 00:41+0000\n"
+"PO-Revision-Date: 2022-02-16 11:30+0100\n"
+"Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 41.0\n"
+"X-Generator: Gtranslator 42.alpha0\n"
 "X-DL-Team: gl\n"
 "X-DL-Module: gitg\n"
 "X-DL-Branch: master\n"
@@ -87,7 +87,7 @@ msgstr "Remitir os cambios reservados"
 msgid "Overview of recently used repositories"
 msgstr "Vista previa dos repositorios usados recentemente"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "O proxecto de GNOME"
 
@@ -824,44 +824,48 @@ msgstr "Obtido desde %s: %s"
 msgid "Failed to add remote"
 msgstr "Produciuse un fallo ao engadir o remoto"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "Mostrar a versión da aplicación"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "Iniciar gitg con unha actividade en particular"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Iniciar gitg coa actividade de remisión (atallo para --activity commit)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Non tentar cargar un repositorio desde o cartafol actual"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "Executar gitg en modo independente"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "Poñer rutas baixo git se é preciso"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— Explorador de repositorios Git"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg é un explorador de repositorios Git para GTK+/GNOME"
 
-#: gitg/gitg-application.vala:235
-msgid "translator-credits"
-msgstr "Fran Diéguez <frandieguez@gnome.org>, 2019-2020"
-
 #: gitg/gitg-application.vala:238
+msgid "translator-credits"
+msgstr "Fran Diéguez <frandieguez@gnome.org>, 2019-2022"
+
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "Páxina web de gitg"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -915,7 +919,6 @@ msgstr "Aplicar este cambio nunha rama («cherry-pick»)"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-#| msgid "Failed to lookup the commit for branch %s: %s"
 msgid "Failed to lookup the commit for branch “%s”: %s"
 msgstr "Produciuse un fallo ao buscar a remisión para a rama «%s»: %s"
 
@@ -932,10 +935,6 @@ msgstr "«Cherry-pick» ten conflitos"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
-#| msgid ""
-#| "The cherry pick of %s onto %s has caused conflicts, would you like to "
-#| "checkout branch %s with the cherry pick to your working directory to "
-#| "resolve the conflicts?"
 msgid ""
 "The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout branch “%s” with the cherry pick to your working directory to "
@@ -946,10 +945,6 @@ msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
-#| msgid ""
-#| "The cherry-pick of %s onto %s has caused conflicts, would you like to "
-#| "checkout the cherry pick to your working directory to resolve the "
-#| "conflicts?"
 msgid ""
 "The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
@@ -972,7 +967,6 @@ msgstr "O «cherry pick» rematou con conflitos no directorio de traballo"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-#| msgid "Cherry pick %s onto %s"
 msgid "Cherry pick “%s” onto “%s”"
 msgstr "Aplicando os cambios («cherry-picking») «%s» en «%s»"
 
@@ -982,7 +976,6 @@ msgstr "Cambios aplicados «cherry pick» con éxito"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-#| msgid "Cherry pick onto %s"
 msgid "Cherry pick onto “%s”"
 msgstr "Aplicar cambios («cherry-picking») en «%s»"
 
@@ -1113,7 +1106,6 @@ msgstr "Obter a referencia seleccionada"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-#| msgid "Checkout %s"
 msgid "Checkout “%s”"
 msgstr "Obter «%s»"
 
@@ -1267,10 +1259,6 @@ msgstr "A unión ten conflitos"
 
 #: gitg/gitg-ref-action-merge.vala:184
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "branch %s with the merge to your working directory to resolve the "
-#| "conflicts?"
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "branch “%s” with the merge to your working directory to resolve the "
@@ -1281,9 +1269,6 @@ msgstr ""
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "the merge to your working directory to resolve the conflicts?"
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "the merge to your working directory to resolve the conflicts?"
@@ -1301,7 +1286,6 @@ msgstr "Unión rematada con conflitos no seu cartafol de traballo"
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
-#| msgid "Merge %s into %s"
 msgid "Merge “%s” into “%s”"
 msgstr "Unir «%s» en «%s»"
 
@@ -1317,13 +1301,11 @@ msgstr "Produciuse un fallo ao buscar a súa remisión: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
-#| msgid "Successfully merged %s into %s"
 msgid "Successfully merged “%s” into “%s”"
 msgstr "Realizouse a unión de «%s» en «%s» con éxito"
 
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
-#| msgid "Merge %s into branch %s"
 msgid "Merge “%s” into branch “%s”"
 msgstr "Unir «%s» na rama «%s»"
 
