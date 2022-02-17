@@ -9,16 +9,16 @@
 # Antonio Fernandes C. Neto <fernandesn@gnome.org>, 2014.
 # Felipe Braga <fbobraga@gmail.com>, 2015.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2013-2022.
-# Matheus Barbosa <mdpb.matheus@gmail.com>, 2022.
 # Leônidas Araújo <leorusvellt@hotmail.com>, 2022.
+# Matheus Barbosa <mdpb.matheus@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-04 14:57+0000\n"
-"PO-Revision-Date: 2022-02-04 19:04-0300\n"
-"Last-Translator: Leônidas Araújo <leorusvellt@hotmail.com>\n"
+"POT-Creation-Date: 2022-02-15 00:41+0000\n"
+"PO-Revision-Date: 2022-02-16 19:42-0300\n"
+"Last-Translator: Matheus Barbosa <mdpb.matheus@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -95,7 +95,7 @@ msgstr "Fazer commit alterações preparadas (stage)"
 msgid "Overview of recently used repositories"
 msgstr "Visão geral de repositórios recentemente usados"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "O Projeto GNOME"
 
@@ -837,36 +837,40 @@ msgstr "Obtido de %s: %s"
 msgid "Failed to add remote"
 msgstr "Falha ao adicionar remoto"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "Mostra a versão do aplicativo"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "Inicia gitg com uma atividade particular"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Inicia gitg com a atividade commit (abreviatura para --activity commit)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Não tenta carregar um repositório do diretório de trabalho atual"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "Executa gitg no modo autônomo"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "Coloca os caminhos no git se necessário"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— Visualizador de repositórios Git"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "O gitg é um visualizador de repositórios git para GTK+/GNOME"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr ""
 "vinnyparker <vinny.parker@gmail.com>\n"
@@ -879,11 +883,11 @@ msgstr ""
 "Felipe Braga <fbobraga@gmail.com>\n"
 "Matheus Barbosa <mdpb.matheus@gmail.com>"
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "Página web do gitg"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -2594,8 +2598,8 @@ msgstr "Mostra os arquivos na árvore do commit selecionado"
 
 #~ msgid "Are you sure you want to rebase %s branch <%s> onto %s branch <%s>?"
 #~ msgstr ""
-#~ "Você tem certeza que deseja fazer rebase no %s branch <%s> para %s "
-#~ "branch <%s>?"
+#~ "Você tem certeza que deseja fazer rebase no %s branch <%s> para %s branch "
+#~ "<%s>?"
 
 #~ msgid "Rebase"
 #~ msgstr "Rebase"
@@ -2632,8 +2636,7 @@ msgstr "Mostra os arquivos na árvore do commit selecionado"
 #~ msgstr "Fazendo push no branch local <%s> para o branch remoto <%s>"
 
 #~ msgid "Are you sure you want to push <%s> to remote <%s/%s>?"
-#~ msgstr ""
-#~ "Você tem certeza que deseja fazer push <%s> para o remoto <%s/%s>?"
+#~ msgstr "Você tem certeza que deseja fazer push <%s> para o remoto <%s/%s>?"
 
 #~ msgid "Pushing local branch <%s> to remote branch <%s/%s>"
 #~ msgstr "Fazendo push no branch local <%s> para o branch remoto <%s/%s>"
@@ -2659,8 +2662,7 @@ msgstr "Mostra os arquivos na árvore do commit selecionado"
 #~ msgstr "O objeto tag não pôde ser criado com sucesso"
 
 #~ msgid "Are you sure you want to cherry-pick that revision on <%s>?"
-#~ msgstr ""
-#~ "Você tem certeza que deseja fazer cherry-pick na revisão em <%s>?"
+#~ msgstr "Você tem certeza que deseja fazer cherry-pick na revisão em <%s>?"
 
 #~ msgid "Cherry-pick"
 #~ msgstr "Cherry-pick"
