@@ -7,20 +7,21 @@
 # Jorge González <jorgegonz@svn.gnome.org>, 2009, 2010, 2011.
 # 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2010-2022.
+# Daniel Mustieles García <daniel.mustieles@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg.master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-01 22:51+0000\n"
-"PO-Revision-Date: 2022-02-02 12:04+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2022-02-22 11:55+0000\n"
+"PO-Revision-Date: 2022-02-24 12:30+0100\n"
+"Last-Translator: Daniel Mustieles García <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-DamnedLies-Scope: partial\n"
 "X-Generator: Gtranslator 41.0\n"
 
@@ -86,7 +87,7 @@ msgstr "Aplicar cambios reservados"
 msgid "Overview of recently used repositories"
 msgstr "Vista general de los repositorios usados recientemente"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "El Proyecto GNOME"
 
@@ -792,7 +793,6 @@ msgid "Failed to checkout index: %s"
 msgstr "Falló al descargar el índice: %s"
 
 #: gitg/gitg-add-remote-action.vala:46
-#| msgid "Remotes"
 msgid "Add Remote"
 msgstr "Añadir remoto"
 
@@ -816,7 +816,6 @@ msgid "Failed to fetch from %s: %s"
 msgstr "Falló al obtener de %s: %s"
 
 #: gitg/gitg-add-remote-action.vala:78
-#| msgid "Failed to add repository"
 msgid "Failed to fetch added remote"
 msgstr "Falló al obtener el remoto añadido"
 
@@ -828,48 +827,51 @@ msgid "Fetched from %s: %s"
 msgstr "Obtenidas de %s: %s"
 
 #: gitg/gitg-add-remote-action.vala:129
-#| msgid "Failed to add repository"
 msgid "Failed to add remote"
 msgstr "Falló al añadir el remoto"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "Mostrar la versión de la aplicación"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "Iniciar gitg con una actividad en particular"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Iniciar gitg con la actividad de los «commit» (atajo para --activity commit)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "No intentar cargar un repositorio desde la carpeta actual"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "Ejecutar gitg en modo individual"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "Poner las rutas en git si es necesario"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— Visor de repositorios git"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg es un visor de repositorios Git para GTK+/GNOME"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2013 - 2016"
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "Página principal de gitg"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -924,7 +926,6 @@ msgstr "Aplicar este cambio en una rama («cherry-pick»)"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-#| msgid "Failed to lookup the commit for branch %s: %s"
 msgid "Failed to lookup the commit for branch “%s”: %s"
 msgstr "Falló al buscar el «commit» para la rama local «%s»: %s"
 
@@ -940,10 +941,6 @@ msgstr "Hay conflictos al aplicar los cambios"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
-#| msgid ""
-#| "The cherry pick of %s onto %s has caused conflicts, would you like to "
-#| "checkout branch %s with the cherry pick to your working directory to "
-#| "resolve the conflicts?"
 msgid ""
 "The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout branch “%s” with the cherry pick to your working directory to "
@@ -955,10 +952,6 @@ msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
-#| msgid ""
-#| "The cherry-pick of %s onto %s has caused conflicts, would you like to "
-#| "checkout the cherry pick to your working directory to resolve the "
-#| "conflicts?"
 msgid ""
 "The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
@@ -981,7 +974,6 @@ msgstr "Ha habido conflictos al aplicar los cambios en la carpeta de trabajo"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-#| msgid "Cherry pick %s onto %s"
 msgid "Cherry pick “%s” onto “%s”"
 msgstr "Aplicar cambio («cherry-pick») «%s» en «%s»"
 
@@ -991,7 +983,6 @@ msgstr "Cambio aplicado correctamente"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-#| msgid "Cherry pick onto %s"
 msgid "Cherry pick onto “%s”"
 msgstr "Aplicar los cambios («cherry-pick») en «%s»"
 
@@ -1105,7 +1096,6 @@ msgid "Scanning for repositories in %s"
 msgstr "Buscando repositorios en %s"
 
 #: gitg/gitg-edit-remote-action.vala:51
-#| msgid "remote"
 msgid "Edit remote"
 msgstr "Editar remoto"
 
@@ -1114,7 +1104,6 @@ msgid "Edits the remote from the remotes list"
 msgstr "Edita el remoto de la lista"
 
 #: gitg/gitg-edit-remote-action.vala:82
-#| msgid "Failed to rename"
 msgid "Failed to edit remote"
 msgstr "Falló al editar el remoto"
 
@@ -1124,7 +1113,6 @@ msgstr "Descargar la referencia seleccionada"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-#| msgid "Checkout %s"
 msgid "Checkout “%s”"
 msgstr "Descargar «%s»"
 
@@ -1156,7 +1144,6 @@ msgid "Copy the name of the reference to the clipboard"
 msgstr "Copiar el nombre de la referencia al portapapeles"
 
 #: gitg/gitg-ref-action-create-branch.vala:46
-#| msgid "Create a new branch at the selected commit"
 msgid "Create a new branch at the selected reference"
 msgstr "Crear una rama nueva en la referencia seleccionada"
 
@@ -1167,12 +1154,10 @@ msgid "Failed to lookup reference"
 msgstr "Falló al buscar la referencia"
 
 #: gitg/gitg-ref-action-create-patch.vala:46
-#| msgid "Create a patch from the selected commit"
 msgid "Create a patch from the selected reference"
 msgstr "Crear un parche para la referencia seleccionada"
 
 #: gitg/gitg-ref-action-create-tag.vala:46
-#| msgid "Create a new tag at the selected commit"
 msgid "Create a new tag at the selected reference"
 msgstr "Crear una etiqueta nueva en la referencia seleccionada"
 
@@ -1281,10 +1266,6 @@ msgstr "La mezcla tiene conflictos"
 
 #: gitg/gitg-ref-action-merge.vala:184
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "branch %s with the merge to your working directory to resolve the "
-#| "conflicts?"
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "branch “%s” with the merge to your working directory to resolve the "
@@ -1295,9 +1276,6 @@ msgstr ""
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "the merge to your working directory to resolve the conflicts?"
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "the merge to your working directory to resolve the conflicts?"
@@ -1315,7 +1293,6 @@ msgstr "Mezcla terminada con conflictos en la carpeta de trabajo"
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
-#| msgid "Merge %s into %s"
 msgid "Merge “%s” into “%s”"
 msgstr "Mezclar «%s» en «%s»"
 
@@ -1331,13 +1308,11 @@ msgstr "Falló al buscar el «commit» ajeno: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
-#| msgid "Successfully merged %s into %s"
 msgid "Successfully merged “%s” into “%s”"
 msgstr "Mezclado «%s» con «%s» correctamente"
 
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
-#| msgid "Merge %s into branch %s"
 msgid "Merge “%s” into branch “%s”"
 msgstr "Mezclar «%s» en la rama «%s»"
 
@@ -1412,7 +1387,6 @@ msgid "Close"
 msgstr "Cerrar"
 
 #: gitg/gitg-remove-remote-action.vala:50
-#| msgid "Remove tag"
 msgid "Remove remote"
 msgstr "Quitar remoto"
 
@@ -1422,23 +1396,19 @@ msgstr "Quita el remoto de la lista"
 
 #: gitg/gitg-remove-remote-action.vala:62
 #, c-format
-#| msgid "Delete remote branch %s"
 msgid "Delete remote %s"
 msgstr "Eliminar la remota %s"
 
 #: gitg/gitg-remove-remote-action.vala:63
 #, c-format
-#| msgid "Are you sure that you want to push the branch %s?"
 msgid "Are you sure that you want to remove the remote %s?"
 msgstr "¿Está seguro de que quiere quitar el remoto %s?"
 
 #: gitg/gitg-remove-remote-action.vala:67
-#| msgid "_Remove"
 msgid "Remove"
 msgstr "Quitar"
 
 #: gitg/gitg-remove-remote-action.vala:91
-#| msgid "Failed to remove remote branch <%s>."
 msgid "Failed to remove remote"
 msgstr "Falló al quitar la rama remota"
 
@@ -1596,13 +1566,11 @@ msgid "Interface"
 msgstr "Interfaz"
 
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
-#| msgid "Create tag"
 msgid "Create Remote"
 msgstr "Crear remoto"
 
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
-#| msgid "Remote _URL:"
 msgid "Remote _name:"
 msgstr "_Nombre remoto:"
 
@@ -1765,7 +1733,6 @@ msgstr ""
 "repositorio existente o clonar uno nuevo."
 
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
-#| msgid "Remotes"
 msgid "Edit Remote"
 msgstr "Editar remoto"
 
