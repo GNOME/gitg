@@ -10,8 +10,8 @@
 msgid ""
 msgstr "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-01 22:51+0000\n"
-"PO-Revision-Date: 2022-02-05 08:00+0100\n"
+"POT-Creation-Date: 2022-02-22 11:55+0000\n"
+"PO-Revision-Date: 2022-02-27 08:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -78,7 +78,7 @@ msgstr "Egikaritu konfiguratutako aldaketak"
 msgid "Overview of recently used repositories"
 msgstr "Azken aldian erabilitzko biltegien ikuspegi orokorra"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "GNOME proiektua"
 
@@ -743,43 +743,47 @@ msgstr "'%s'(e)ndik eskuratuta: %s"
 msgid "Failed to add remote"
 msgstr "Huts egin du urrunekoa gehitzeak"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "Erakutsi aplikazioaren bertsioa"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "Abiarazi gitg jarduera jakin batekin"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr "Abiarazi gitg egikaritze-jarduerarekin (honen gakoa:  --activity commit)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Ez saiatu biltegi bat kargatzen uneko laneko direktoriotik"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "Exekutatu gitg modu bakunean"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "Jarri bide-izenak git-en, beharrezkoa bada"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— Git biltegi-ikustailea"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg GTK+/GNOMErentzako Git biltegi-ikustaile bat da"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr "Asier Sarasua Garmendia <asier.sarasua@gmail.com>"
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "gitg-ren orri nagusia"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
