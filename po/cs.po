@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gitg package.
 #
 # Petr Kovar <pknbe@volny.cz>, 2015.
-# Marek Černocký <marek@manet.cz>, 2013, 2014, 2015, 2016, 2018, 2019, 2020.
+# Marek Černocký <marek@manet.cz>, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gitg\n"
+"Project-Id-Version: gitg gnome-41\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-12 12:36+0000\n"
-"PO-Revision-Date: 2020-09-09 10:10+0200\n"
+"POT-Creation-Date: 2021-12-27 14:37+0000\n"
+"PO-Revision-Date: 2022-03-01 13:31+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -94,6 +94,10 @@ msgstr "@binary@"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Prohlížeč repozitářů Git"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "Nové okno"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -2031,29 +2035,45 @@ msgstr "po (%s)"
 msgid "added (%s)"
 msgstr "přidáno (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:143
+#: libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Sbalit vše"
 
-#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/gitg-diff-view-commit-details.vala:149
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Rozbalit vše"
 
-#: libgitg/gitg-diff-view-commit-details.vala:202
+#: libgitg/gitg-diff-view-commit-details.vala:204
 #, c-format
 msgid "Committed by %s"
 msgstr "Zařadil %s"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#: libgitg/gitg-diff-view-file.vala:145
+msgid "Unif"
+msgstr "Dohromady"
+
+#: libgitg/gitg-diff-view-file.vala:149
+msgid "Split"
+msgstr "Odděleně"
+
+#: libgitg/gitg-diff-view-file.vala:156
+msgid "Binary"
+msgstr "Binárně"
+
+#: libgitg/gitg-diff-view-file.vala:163
+msgid "Image"
+msgstr "Obrázek"
+
+#: libgitg/gitg-diff-view-file.vala:208
 msgid "_Open file"
 msgstr "_Otevřít soubor"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:241
 msgid "Open containing _folder"
 msgstr "Otevřít rodičovskou _složku"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:261
 msgid "_Copy file path"
 msgstr "_Kopírovat cestu k souboru"
 
