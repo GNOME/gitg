@@ -1,14 +1,14 @@
 # Korean translation for gitg.
 # Copyright (C) 2012 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
-# Seong-ho Cho <shcho@gnome.org>, 2012-2020.
+# Seong-ho Cho <shcho@gnome.org>, 2012-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-12 12:36+0000\n"
-"PO-Revision-Date: 2020-08-30 04:33+0900\n"
+"POT-Creation-Date: 2022-02-15 00:41+0000\n"
+"PO-Revision-Date: 2022-03-01 16:29+0900\n"
 "Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
 "Language-Team: 한국어 <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -79,7 +79,7 @@ msgstr "스테이지에 올린 바뀐 내용"
 msgid "Overview of recently used repositories"
 msgstr "최근 사용한 저장소 목록 개요"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "그놈 프로젝트"
 
@@ -90,6 +90,10 @@ msgstr "@binary@"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "git 저장소 탐색기"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "새 창"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -587,12 +591,14 @@ msgstr "선택한 바뀐 점을 완전히 폐기하시겠습니까?"
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
@@ -693,8 +699,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
-#: gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
 msgid "Cancel"
 msgstr "취소"
 
@@ -730,43 +736,85 @@ msgstr "커밋 만들기에 실패했습니다: %s"
 msgid "Failed to checkout index: %s"
 msgstr "인덱스 체크아웃에 실패했습니다: %s"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-add-remote-action.vala:46
+msgid "Add Remote"
+msgstr "원격 저장소 정보 추가"
+
+#: gitg/gitg-add-remote-action.vala:51
+msgid "Adds remote to the remotes list"
+msgstr "원격 저장소 목록에 원격 저장소를 추가합니다"
+
+#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from %s"
+msgstr "%s에서 가져오는 중"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+msgid "new"
+msgstr "새 브랜치"
+
+#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "%s에서 가져오기에 실패: %s"
+
+#: gitg/gitg-add-remote-action.vala:78
+msgid "Failed to fetch added remote"
+msgstr "추가한 원격 저장소 가져오기에 실패했습니다"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "%s에서 가져옴: %s"
+
+#: gitg/gitg-add-remote-action.vala:129
+msgid "Failed to add remote"
+msgstr "원격 저장소 정보 추가에 실패했습니다"
+
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "프로그램 버전 표시"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "gitg를 지정 동작으로 시작"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr "gitg를 커밋 동작으로 시작(--activity commit 요약)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "현재 작업 디렉터리에서 저장소를 불러오려 하지 마십시오"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "독립 실행 모드로 gitg 실행"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "필요한 경우 git 경로를 설정합니다"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— git 저장소 보기 프로그램"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg는 GTK+/GNOME용 git 저장소 보기 프로그램입니다"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr "조성호 <shcho@gnome.org>"
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "gitg 홈페이지"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -820,8 +868,8 @@ msgstr "이 커밋을 다음 브랜치로 체리피킹"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "%s 브랜치의 커밋 찾기 실패: %s"
+msgid "Failed to lookup the commit for branch “%s”: %s"
+msgstr "“%s” 브랜치의 커밋 찾기 실패: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
@@ -836,21 +884,21 @@ msgstr "체리피킹에 겹치는 내용이 있습니다"
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
-"The cherry pick of %s onto %s has caused conflicts, would you like to "
-"checkout branch %s with the cherry pick to your working directory to resolve "
-"the conflicts?"
+"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
+"checkout branch “%s” with the cherry pick to your working directory to "
+"resolve the conflicts?"
 msgstr ""
-"%s을(를) %s에 체리피킹 하는 과정에 겹치는 내용이 있습니다. %s 브랜치를 가져와"
-"서 작업 디렉터리에 체리피킹한 후 문제를 해결하시겠습니까?"
+"“%s”을(를) “%s”에 체리피킹 하는 과정에 중복 내용이 있습니다. “%s” 브랜치를 가"
+"져와서 작업 디렉터리에 체리피킹한 후 문제를 해결하시겠습니까?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
-"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"%s을(를) %s에 체리피킹 하는 과정에 겹치는 내용이 있습니다. 작업 디렉터리로 체"
-"리피킹하여 문제를 해결하시겠습니까?"
+"“%s”을(를) “%s”에 체리피킹 하는 과정에 중복 내용이 있습니다. 작업 디렉터리로 "
+"체리피킹하여 문제를 해결하시겠습니까?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -867,8 +915,8 @@ msgstr "작업 디렉터리에서 체리피킹 내용이 겹쳐 실패했습니�
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-msgid "Cherry pick %s onto %s"
-msgstr "%s을(를) %s에 체리피킹"
+msgid "Cherry pick “%s” onto “%s”"
+msgstr "“%s”을(를) “%s”에 체리피킹"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
@@ -876,8 +924,8 @@ msgstr "체리피킹을 성공했습니다"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-msgid "Cherry pick onto %s"
-msgstr "%s에 체리피킹"
+msgid "Cherry pick onto “%s”"
+msgstr "“%s”에 체리피킹"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -944,7 +992,7 @@ msgstr "제거(_R)"
 #: gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
-msgstr " %s내 폴더에서 git 저장소를 검색%s 할 수 있습니다."
+msgstr "%s내 폴더에서 git 저장소를 검색%s 할 수 있습니다."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: gitg/gitg-dash-view.vala:233
@@ -987,14 +1035,26 @@ msgstr "저장소 만들기에 실패했습니다"
 msgid "Scanning for repositories in %s"
 msgstr "%s에서 저장소 검색"
 
+#: gitg/gitg-edit-remote-action.vala:51
+msgid "Edit remote"
+msgstr "원격 저장소 정보 편집"
+
+#: gitg/gitg-edit-remote-action.vala:56
+msgid "Edits the remote from the remotes list"
+msgstr "원격 저장소 목록의 원격 저장소 경로를 편집합니다"
+
+#: gitg/gitg-edit-remote-action.vala:82
+msgid "Failed to edit remote"
+msgstr "원격 저장소 정보 편집에 실패했습니다"
+
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
 msgstr "선택한 참조 체크아웃"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-msgid "Checkout %s"
-msgstr "%s 체크아웃"
+msgid "Checkout “%s”"
+msgstr "“%s” 체크아웃"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
@@ -1022,6 +1082,24 @@ msgstr "이름 복사"
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "클립보드에 참조 이름을 복사합니다"
+
+#: gitg/gitg-ref-action-create-branch.vala:46
+msgid "Create a new branch at the selected reference"
+msgstr "선택한 참조에 새 브랜치 만들기"
+
+#: gitg/gitg-ref-action-create-branch.vala:58
+#: gitg/gitg-ref-action-create-patch.vala:58
+#: gitg/gitg-ref-action-create-tag.vala:58
+msgid "Failed to lookup reference"
+msgstr "참조 찾기에 실패했습니다"
+
+#: gitg/gitg-ref-action-create-patch.vala:46
+msgid "Create a patch from the selected reference"
+msgstr "선택한 참조에 새 패치 만들기"
+
+#: gitg/gitg-ref-action-create-tag.vala:46
+msgid "Create a new tag at the selected reference"
+msgstr "선택한 참조에 새 태그 만들기"
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
@@ -1085,48 +1163,103 @@ msgstr "%s 브랜치 삭제에 실패했습니다"
 msgid "The branch %s could not be deleted: %s"
 msgstr "%s 브랜치를 삭제할 수 없습니다: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
 msgstr "%s에서 가져오기"
 
-#: gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "%s에서 원격 객체를 가져옵니다"
 
-#: gitg/gitg-ref-action-fetch.vala:98
-#, c-format
-msgid "Fetching from %s"
-msgstr "%s에서 가져오는 중"
-
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-ref-action-fetch.vala:106
-msgid "new"
-msgstr "새 브랜치"
-
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "업데이트함"
 
-#: gitg/gitg-ref-action-fetch.vala:121
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr "%s에서 가져오기에 실패: %s"
-
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "%s에서 가져옴: 모든 항목이 최신입니다"
 
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-ref-action-fetch.vala:140
+#: gitg/gitg-ref-action-merge.vala:63
 #, c-format
-msgid "Fetched from %s: %s"
-msgstr "%s에서 가져옴: %s"
+msgid "Merge into %s"
+msgstr "%s에 병합"
+
+#. TODO
+#: gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr "다른 브랜치를 %s 브랜치에 병합"
+
+#: gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "커밋 병합에 실패했습니다: %s"
+
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr "병합에 겹치는 내용이 있습니다"
+
+#: gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"branch “%s” with the merge to your working directory to resolve the "
+"conflicts?"
+msgstr ""
+"“%s”을(를) “%s”에 병합하는 과정에 중복 내용이 있습니다. “%s” 브랜치를 가져와"
+"서 작업 디렉터리에 병합한 후 문제를 해결하시겠습니까?"
+
+#: gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"the merge to your working directory to resolve the conflicts?"
+msgstr ""
+"“%s”을(를) “%s”에 병합하는 과정에 중복 내용이 있습니다. 작업 디렉터리로 병합"
+"하여 문제를 해결하시겠습니까?"
+
+#: gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr "겹치는 내용이 있어 병합에 실패했습니다"
+
+#: gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr "작업 디렉터리에 겹치는 내용을 병합했습니다"
+
+#: gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge “%s” into “%s”"
+msgstr "“%s”을(를) “%s”에 병합"
+
+#: gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "커밋 검색에 실패했습니다: %s"
+
+#: gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr "상대측 커밋 검색에 실패했습니다: %s"
+
+#: gitg/gitg-ref-action-merge.vala:278
+#, c-format
+msgid "Successfully merged “%s” into “%s”"
+msgstr "“%s”을(를) “%s”에 성공적으로 병합했습니다"
+
+#: gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge “%s” into branch “%s”"
+msgstr "“%s”을(를) “%s” 브랜치에 병합"
+
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1199
+msgid "Tags"
+msgstr "태그"
 
 #: gitg/gitg-ref-action-push.vala:80
 #, c-format
@@ -1168,82 +1301,6 @@ msgstr "정말로 %s 브랜치를 푸시하시겠습니까?"
 msgid "Push"
 msgstr "푸시"
 
-#: gitg/gitg-ref-action-merge.vala:63
-#, c-format
-msgid "Merge into %s"
-msgstr "%s에 병합"
-
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
-#, c-format
-msgid "Merge another branch into branch %s"
-msgstr "다른 브랜치를 %s 브랜치에 병합"
-
-#: gitg/gitg-ref-action-merge.vala:106
-#, c-format
-msgid "Failed to merge commits: %s"
-msgstr "커밋 병합에 실패했습니다: %s"
-
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
-msgid "Merge has conflicts"
-msgstr "병합에 겹치는 내용이 있습니다"
-
-#: gitg/gitg-ref-action-merge.vala:184
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout "
-"branch %s with the merge to your working directory to resolve the conflicts?"
-msgstr ""
-"%s을(를) %s에 병합하는 과정에 겹치는 내용이 있습니다. %s 브랜치를 가져와서 작"
-"업 디렉터리에 병합한 후 문제를 해결하시겠습니까?"
-
-#: gitg/gitg-ref-action-merge.vala:188
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout the "
-"merge to your working directory to resolve the conflicts?"
-msgstr ""
-"%s을(를) %s에 병합하는 과정에 겹치는 내용이 있습니다. 작업 디렉터리로 병합하"
-"여 문제를 해결하시겠습니까?"
-
-#: gitg/gitg-ref-action-merge.vala:199
-msgid "Merge failed with conflicts"
-msgstr "겹치는 내용이 있어 병합에 실패했습니다"
-
-#: gitg/gitg-ref-action-merge.vala:210
-msgid "Finished merge with conflicts in working directory"
-msgstr "작업 디렉터리에 겹치는 내용을 병합했습니다"
-
-#: gitg/gitg-ref-action-merge.vala:222
-#, c-format
-msgid "Merge %s into %s"
-msgstr "%s을(를) %s에 병합"
-
-#: gitg/gitg-ref-action-merge.vala:231
-#, c-format
-msgid "Failed to lookup our commit: %s"
-msgstr "커밋 검색에 실패했습니다: %s"
-
-#: gitg/gitg-ref-action-merge.vala:241
-#, c-format
-msgid "Failed to lookup their commit: %s"
-msgstr "상대측 커밋 검색에 실패했습니다: %s"
-
-#: gitg/gitg-ref-action-merge.vala:278
-#, c-format
-msgid "Successfully merged %s into %s"
-msgstr "%s을(를) %s에 성공적으로 병합했습니다"
-
-#: gitg/gitg-ref-action-merge.vala:320
-#, c-format
-msgid "Merge %s into branch %s"
-msgstr "%s을(를) %s 브랜치에 병합"
-
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1181
-msgid "Tags"
-msgstr "태그"
-
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr "이름 바꾸기"
@@ -1269,11 +1326,39 @@ msgstr "이름 바꾸기에 실패했습니다"
 msgid "Close"
 msgstr "닫기"
 
+#: gitg/gitg-remove-remote-action.vala:50
+msgid "Remove remote"
+msgstr "원격 저장소 정보 제거"
+
+#: gitg/gitg-remove-remote-action.vala:55
+msgid "Removes remote from the remotes list"
+msgstr "원격 저장소 목록의 원격 저장소 경로를 제거합니다"
+
+#: gitg/gitg-remove-remote-action.vala:62
+#, c-format
+msgid "Delete remote %s"
+msgstr "%s 원격 저장소 정보 삭제"
+
+#: gitg/gitg-remove-remote-action.vala:63
+#, c-format
+msgid "Are you sure that you want to remove the remote %s?"
+msgstr "정말로 %s 원격 저장소 정보를 제거하시겠습니까?"
+
+#: gitg/gitg-remove-remote-action.vala:67
+msgid "Remove"
+msgstr "제거"
+
+#: gitg/gitg-remove-remote-action.vala:91
+msgid "Failed to remove remote"
+msgstr "원격 저장소 정보 제거에 실패했습니다"
+
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "저장소 추가"
 
-#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
+#: gitg/gitg-window.vala:206
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
+#: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "추가(_A)"
 
@@ -1374,11 +1459,11 @@ msgstr "%zu개 뒤"
 msgid "All commits"
 msgstr "모든 커밋"
 
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1197
 msgid "Branches"
 msgstr "브랜치"
 
-#: gitg/history/gitg-history-refs-list.vala:1180
+#: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
 msgstr "원격"
 
@@ -1392,7 +1477,7 @@ msgstr "기록"
 msgid "Examine the history of the repository"
 msgstr "저장소의 기록을 살펴봅니다"
 
-#: gitg/history/gitg-history.vala:942
+#: gitg/history/gitg-history.vala:949
 msgid "Mainline"
 msgstr "메인 라인"
 
@@ -1410,7 +1495,23 @@ msgstr "시스템 고정폭 글꼴(%s) 사용(_U)"
 msgid "Interface"
 msgstr "인터페이스"
 
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
+msgid "Create Remote"
+msgstr "원격 저장소 만들기"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
+msgid "Remote _name:"
+msgstr "원격 저장소 이름(_N):"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
+msgid "Remote _URL:"
+msgstr "원격 URL(_U):"
+
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "저장(_S)"
 
@@ -1454,10 +1555,6 @@ msgstr "저장소 클론"
 #: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "클론(_O)"
-
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-msgid "Remote _URL:"
-msgstr "원격 URL(_U):"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1564,6 +1661,10 @@ msgid ""
 msgstr ""
 "아직 추가한 저장소가 없습니다. 시작하려면 기존 저장소를 추가하거나 새 저장소"
 "를 복제할 수 있습니다."
+
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
+msgid "Edit Remote"
+msgstr "원격 저장소 정보 편집"
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
@@ -1717,7 +1818,7 @@ msgstr "글꼴"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:253
 msgid "Editor _font: "
-msgstr "편집기 글꼴(_F):"
+msgstr "편집기 글꼴(_F): "
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:270
 msgid "Pick the editor font"
@@ -1989,29 +2090,47 @@ msgstr "다음(%s)"
 msgid "added (%s)"
 msgstr "추가함(%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:143
+#: libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "모두 숨기기"
 
-#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/gitg-diff-view-commit-details.vala:149
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "모두 확장"
 
-#: libgitg/gitg-diff-view-commit-details.vala:202
+#: libgitg/gitg-diff-view-commit-details.vala:204
 #, c-format
 msgid "Committed by %s"
 msgstr "%s이(가) 제출함"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#. Translators: Unif stands for unified diff format
+#: libgitg/gitg-diff-view-file.vala:151
+msgid "Unif"
+msgstr "통합비교"
+
+#. Translators: Split stands for the noun
+#: libgitg/gitg-diff-view-file.vala:156
+msgid "Split"
+msgstr "분할"
+
+#: libgitg/gitg-diff-view-file.vala:163
+msgid "Binary"
+msgstr "바이너리"
+
+#: libgitg/gitg-diff-view-file.vala:170
+msgid "Image"
+msgstr "이미지"
+
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "_Open file"
 msgstr "파일 열기(_O)"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:248
 msgid "Open containing _folder"
 msgstr "포함 폴더 열기(_F)"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:268
 msgid "_Copy file path"
 msgstr "파일 경로 복사(_C)"
 
