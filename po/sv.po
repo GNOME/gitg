@@ -1,10 +1,10 @@
 # Swedish translation for gitg.
-# Copyright © 2009-2021 Free Software Foundation, Inc.
+# Copyright © 2009-2022 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gitg package.
 # Daniel Nylander <po@danielnylander.se>, 2009.
 # Sebastian Rasmussen <sebras@gmail.com>, 2014, 2015, 2016.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2017, 2018, 2019, 2020, 2021.
-# Luna Jernberg <droidbittin@gmail.com>, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2017, 2018, 2019, 2020, 2021, 2022.
+# Luna Jernberg <droidbittin@gmail.com>, 2021, 2022.
 #
 # Vokabulär
 # (synkroniserat med https://github.com/git/git/blob/master/po/sv.po)
@@ -39,8 +39,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2021-12-27 14:37+0000\n"
-"PO-Revision-Date: 2021-12-27 16:56+0100\n"
+"POT-Creation-Date: 2022-02-15 00:41+0000\n"
+"PO-Revision-Date: 2022-03-06 22:36+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -112,7 +112,7 @@ msgstr "Checka in köade ändringar"
 msgid "Overview of recently used repositories"
 msgstr "Översikt över senast använda arkiv"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "GNOME-projektet"
 
@@ -661,12 +661,14 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
@@ -688,11 +690,11 @@ msgstr "Misslyckades att köa upp markeringen"
 
 #: gitg/commit/gitg-commit.vala:1376
 msgid "Failed to unstage selection"
-msgstr "Misslyckades med att ta bort markeringen ur kön"
+msgstr "Misslyckades att ta bort markeringen ur kön"
 
 #: gitg/commit/gitg-commit.vala:1436
 msgid "Failed to discard changes"
-msgstr "Misslyckades med att förkasta ändringar"
+msgstr "Misslyckades att förkasta ändringar"
 
 #: gitg/commit/gitg-commit.vala:1457
 #, c-format
@@ -773,8 +775,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
-#: gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -810,36 +812,78 @@ msgstr "Misslyckades att skapa incheckning: %s"
 msgid "Failed to checkout index: %s"
 msgstr "Misslyckades att checka ut index: %s"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-add-remote-action.vala:46
+msgid "Add Remote"
+msgstr "Lägg till fjärr"
+
+#: gitg/gitg-add-remote-action.vala:51
+msgid "Adds remote to the remotes list"
+msgstr "Lägger till fjärr till fjärrlistan"
+
+#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from %s"
+msgstr "Hämtar från %s"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+msgid "new"
+msgstr "ny"
+
+#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "Misslyckades att hämta från %s: %s"
+
+#: gitg/gitg-add-remote-action.vala:78
+msgid "Failed to fetch added remote"
+msgstr "Misslyckades att hämta tillagd fjärr"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Hämtade från %s: %s"
+
+#: gitg/gitg-add-remote-action.vala:129
+msgid "Failed to add remote"
+msgstr "Misslyckades att lägga till fjärr"
+
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "Visa programmets version"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "Starta gitg med en specifik aktivitet"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Starta gitg med incheckningsaktiviteten (kortform för --activity commit)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Försök inte att läsa ett arkiv från den aktuella arbetskatalogen"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "Kör gitg i fristående läge"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "Sätt sökvägar under git om så behövs"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— Git-arkivsvisare"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
-msgstr "gitg är en Git-arkivsvisare för GTK+/GNOME"
+msgstr "gitg är en Git-arkivvisare för GTK+/GNOME"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr ""
 "Sebastian Rasmussen <sebras@gmail.com>\n"
@@ -848,11 +892,11 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "<tp-sv@listor.tp-sv.se>."
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
-msgstr "gitgs hemsida"
+msgstr "gitgs webbsida"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -890,7 +934,7 @@ msgstr "Åsidosätt globala detaljer för arkivet ”%s”:"
 
 #: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
-msgstr "Misslyckades att ställa in Git användarkonfiguration."
+msgstr "Misslyckades att ställa in Gits användarkonfiguration."
 
 #: gitg/gitg-clone-dialog.vala:89
 msgid "The URL introduced is not supported"
@@ -906,8 +950,8 @@ msgstr "Gör cherry pick av denna incheckning till en gren"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Misslyckades att slå upp incheckningen för grenen %s: %s"
+msgid "Failed to lookup the commit for branch “%s”: %s"
+msgstr "Misslyckades att slå upp incheckningen för grenen ”%s”: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
@@ -922,21 +966,21 @@ msgstr "Cherry pick har konflikter"
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
-"The cherry pick of %s onto %s has caused conflicts, would you like to "
-"checkout branch %s with the cherry pick to your working directory to resolve "
-"the conflicts?"
+"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
+"checkout branch “%s” with the cherry pick to your working directory to "
+"resolve the conflicts?"
 msgstr ""
-"Cherry pick av %s till %s orsakade konflikter, vill du checka ut grenen %s "
-"med cherry pick till din arbetskatalog för att lösa konflikterna?"
+"Cherry pick av ”%s” till ”%s” orsakade konflikter, vill du checka ut grenen "
+"”%s” med denna cherry pick till din arbetskatalog för att lösa konflikterna?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
-"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"Cherry pick av %s till %s orsakade konflikter, vill du checka ut cherry pick "
-"till din arbetskatalog för att lösa konflikterna?"
+"Cherry pick av ”%s” till ”%s” orsakade konflikter, vill du checka ut denna "
+"cherry pick till din arbetskatalog för att lösa konflikterna?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -953,8 +997,8 @@ msgstr "Cherry pick slutfördes med konflikter i arbetskatalog"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-msgid "Cherry pick %s onto %s"
-msgstr "Cherry pick av %s till %s"
+msgid "Cherry pick “%s” onto “%s”"
+msgstr "Cherry pick av ”%s” till ”%s”"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
@@ -962,8 +1006,8 @@ msgstr "Cherry pick lyckades"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-msgid "Cherry pick onto %s"
-msgstr "Cherry pick till %s"
+msgid "Cherry pick onto “%s”"
+msgstr "Cherry pick till ”%s”"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -976,7 +1020,7 @@ msgstr "Skapa en ny gren vid den markerade incheckningen"
 #: gitg/gitg-commit-action-create-branch.vala:75
 #: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
-msgstr "Misslyckades med att ta bort gren"
+msgstr "Misslyckades att ta bort gren"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create patch"
@@ -1073,14 +1117,26 @@ msgstr "Misslyckades att skapa arkiv"
 msgid "Scanning for repositories in %s"
 msgstr "Söker efter arkiv i %s"
 
+#: gitg/gitg-edit-remote-action.vala:51
+msgid "Edit remote"
+msgstr "Redigera fjärr"
+
+#: gitg/gitg-edit-remote-action.vala:56
+msgid "Edits the remote from the remotes list"
+msgstr "Redigerar fjärren från fjärrlistan"
+
+#: gitg/gitg-edit-remote-action.vala:82
+msgid "Failed to edit remote"
+msgstr "Misslyckades att redigera fjärr"
+
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
 msgstr "Checka ut den markerade referensen"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-msgid "Checkout %s"
-msgstr "Checka ut %s"
+msgid "Checkout “%s”"
+msgstr "Checka ut ”%s”"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
@@ -1108,6 +1164,24 @@ msgstr "Kopiera namn"
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Kopiera namnet på referensen till urklipp"
+
+#: gitg/gitg-ref-action-create-branch.vala:46
+msgid "Create a new branch at the selected reference"
+msgstr "Skapa en ny gren vid den markerade referensen"
+
+#: gitg/gitg-ref-action-create-branch.vala:58
+#: gitg/gitg-ref-action-create-patch.vala:58
+#: gitg/gitg-ref-action-create-tag.vala:58
+msgid "Failed to lookup reference"
+msgstr "Misslyckades att slå upp referens"
+
+#: gitg/gitg-ref-action-create-patch.vala:46
+msgid "Create a patch from the selected reference"
+msgstr "Skapa en patch från den markerade referensen"
+
+#: gitg/gitg-ref-action-create-tag.vala:46
+msgid "Create a new tag at the selected reference"
+msgstr "Skapa en tagg vid den markerade referensen"
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
@@ -1171,48 +1245,104 @@ msgstr "Misslyckades att ta bort grenen %s"
 msgid "The branch %s could not be deleted: %s"
 msgstr "Grenen %s kunde inte tas bort: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
 msgstr "Hämta från %s"
 
-#: gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "Hämta fjärrobjekt från %s"
 
-#: gitg/gitg-ref-action-fetch.vala:98
-#, c-format
-msgid "Fetching from %s"
-msgstr "Hämtar från %s"
-
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-ref-action-fetch.vala:106
-msgid "new"
-msgstr "ny"
-
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "uppdaterad"
 
-#: gitg/gitg-ref-action-fetch.vala:121
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr "Misslyckades att hämta från %s: %s"
-
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "Hämtade från %s: allting är uppdaterat"
 
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-ref-action-fetch.vala:140
+#: gitg/gitg-ref-action-merge.vala:63
 #, c-format
-msgid "Fetched from %s: %s"
-msgstr "Hämtade från %s: %s"
+msgid "Merge into %s"
+msgstr "Slå ihop till %s"
+
+#. TODO
+#: gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr "Slå ihop en annan gren till grenen %s"
+
+#: gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "Misslyckades att slå ihop incheckningar: %s"
+
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr "Sammanslagning har konflikter"
+
+#: gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"branch “%s” with the merge to your working directory to resolve the "
+"conflicts?"
+msgstr ""
+"Sammanslagningen av ”%s” till ”%s” har orsakat konflikter, vill du checka ut "
+"grenen ”%s” med sammanslagningen till din arbetskatalog för att lösa "
+"konflikterna?"
+
+#: gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"the merge to your working directory to resolve the conflicts?"
+msgstr ""
+"Sammanslagningen av ”%s” till ”%s” har orsakat konflikter, vill du checka ut "
+"sammanslagningen till din arbetskatalog för att lösa konflikterna?"
+
+#: gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr "Sammanslagning misslyckades med konflikter"
+
+#: gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr "Slutförde sammanslagning med konflikter i arbetskatalog"
+
+#: gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge “%s” into “%s”"
+msgstr "Slå ihop ”%s” till ”%s”"
+
+#: gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "Misslyckades att slå upp vår incheckning: %s"
+
+#: gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr "Misslyckades att slå upp deras incheckning: %s"
+
+#: gitg/gitg-ref-action-merge.vala:278
+#, c-format
+msgid "Successfully merged “%s” into “%s”"
+msgstr "Slog ihop ”%s” till ”%s”"
+
+#: gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge “%s” into branch “%s”"
+msgstr "Slå ihop ”%s” till grenen ”%s”"
+
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1199
+msgid "Tags"
+msgstr "Taggar"
 
 #: gitg/gitg-ref-action-push.vala:80
 #, c-format
@@ -1254,83 +1384,6 @@ msgstr "Är du säker på att du vill sända in grenen %s?"
 msgid "Push"
 msgstr "Sänd"
 
-#: gitg/gitg-ref-action-merge.vala:63
-#, c-format
-msgid "Merge into %s"
-msgstr "Slå ihop till %s"
-
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
-#, c-format
-msgid "Merge another branch into branch %s"
-msgstr "Slå ihop en annan gren till grenen %s"
-
-#: gitg/gitg-ref-action-merge.vala:106
-#, c-format
-msgid "Failed to merge commits: %s"
-msgstr "Misslyckades att slå ihop incheckningar: %s"
-
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
-msgid "Merge has conflicts"
-msgstr "Sammanslagning har konflikter"
-
-#: gitg/gitg-ref-action-merge.vala:184
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout "
-"branch %s with the merge to your working directory to resolve the conflicts?"
-msgstr ""
-"Sammanslagningen av %s till %s har orsakat konflikter, vill du checka ut "
-"grenen %s med sammanslagningen till din arbetskatalog för att lösa "
-"konflikterna?"
-
-#: gitg/gitg-ref-action-merge.vala:188
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout the "
-"merge to your working directory to resolve the conflicts?"
-msgstr ""
-"Sammanslagningen av %s till %s har orsakat konflikter, vill du checka ut "
-"sammanslagningen till din arbetskatalog för att lösa konflikterna?"
-
-#: gitg/gitg-ref-action-merge.vala:199
-msgid "Merge failed with conflicts"
-msgstr "Sammanslagning misslyckades med konflikter"
-
-#: gitg/gitg-ref-action-merge.vala:210
-msgid "Finished merge with conflicts in working directory"
-msgstr "Slutförde sammanslagning med konflikter i arbetskatalog"
-
-#: gitg/gitg-ref-action-merge.vala:222
-#, c-format
-msgid "Merge %s into %s"
-msgstr "Slå ihop %s till %s"
-
-#: gitg/gitg-ref-action-merge.vala:231
-#, c-format
-msgid "Failed to lookup our commit: %s"
-msgstr "Misslyckades att slå upp vår incheckning: %s"
-
-#: gitg/gitg-ref-action-merge.vala:241
-#, c-format
-msgid "Failed to lookup their commit: %s"
-msgstr "Misslyckades att slå upp deras incheckning: %s"
-
-#: gitg/gitg-ref-action-merge.vala:278
-#, c-format
-msgid "Successfully merged %s into %s"
-msgstr "Slog ihop %s till %s"
-
-#: gitg/gitg-ref-action-merge.vala:320
-#, c-format
-msgid "Merge %s into branch %s"
-msgstr "Slå ihop %s till grenen %s"
-
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1181
-msgid "Tags"
-msgstr "Taggar"
-
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr "Byt namn"
@@ -1356,11 +1409,39 @@ msgstr "Misslyckades med att byta namn"
 msgid "Close"
 msgstr "Stäng"
 
+#: gitg/gitg-remove-remote-action.vala:50
+msgid "Remove remote"
+msgstr "Ta bort fjärr"
+
+#: gitg/gitg-remove-remote-action.vala:55
+msgid "Removes remote from the remotes list"
+msgstr "Tar bort fjärr från fjärrlistan"
+
+#: gitg/gitg-remove-remote-action.vala:62
+#, c-format
+msgid "Delete remote %s"
+msgstr "Ta bort fjärr %s"
+
+#: gitg/gitg-remove-remote-action.vala:63
+#, c-format
+msgid "Are you sure that you want to remove the remote %s?"
+msgstr "Är du säker på att du vill ta bort fjärren %s?"
+
+#: gitg/gitg-remove-remote-action.vala:67
+msgid "Remove"
+msgstr "Ta bort"
+
+#: gitg/gitg-remove-remote-action.vala:91
+msgid "Failed to remove remote"
+msgstr "Misslyckades att bort fjärr"
+
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "Lägg till arkiv"
 
-#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
+#: gitg/gitg-window.vala:206
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
+#: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Lägg till"
 
@@ -1461,11 +1542,11 @@ msgstr "%zu efter"
 msgid "All commits"
 msgstr "Alla incheckningar"
 
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1197
 msgid "Branches"
 msgstr "Grenar"
 
-#: gitg/history/gitg-history-refs-list.vala:1180
+#: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
 msgstr "Fjärrar"
 
@@ -1479,7 +1560,7 @@ msgstr "Historik"
 msgid "Examine the history of the repository"
 msgstr "Undersök arkivets historik"
 
-#: gitg/history/gitg-history.vala:942
+#: gitg/history/gitg-history.vala:949
 msgid "Mainline"
 msgstr "Huvudlinje"
 
@@ -1497,7 +1578,23 @@ msgstr "_Använd systemets typsnitt med fast breddsteg (%s)"
 msgid "Interface"
 msgstr "Gränssnitt"
 
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
+msgid "Create Remote"
+msgstr "Skapa fjärr"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
+msgid "Remote _name:"
+msgstr "Fjärr-_namn:"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
+msgid "Remote _URL:"
+msgstr "Fjärr-_URL:"
+
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "_Spara"
 
@@ -1541,10 +1638,6 @@ msgstr "Klona arkiv"
 #: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "_Klona"
-
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-msgid "Remote _URL:"
-msgstr "Fjärr-_URL:"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1651,6 +1744,10 @@ msgid ""
 msgstr ""
 "Inga arkiv har lagts till ännu. För att komma igång kan du lägga till ett "
 "befintligt arkiv eller klona ett nytt."
+
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
+msgid "Edit Remote"
+msgstr "Redigera fjärr"
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
@@ -2094,31 +2191,33 @@ msgstr "Expandera alla"
 msgid "Committed by %s"
 msgstr "Incheckad av %s"
 
-#: libgitg/gitg-diff-view-file.vala:145
+#. Translators: Unif stands for unified diff format
+#: libgitg/gitg-diff-view-file.vala:151
 msgid "Unif"
 msgstr "Enad"
 
-#: libgitg/gitg-diff-view-file.vala:149
+#. Translators: Split stands for the noun
+#: libgitg/gitg-diff-view-file.vala:156
 msgid "Split"
 msgstr "Delad"
 
-#: libgitg/gitg-diff-view-file.vala:156
+#: libgitg/gitg-diff-view-file.vala:163
 msgid "Binary"
 msgstr "Binär"
 
-#: libgitg/gitg-diff-view-file.vala:163
+#: libgitg/gitg-diff-view-file.vala:170
 msgid "Image"
 msgstr "Bild"
 
-#: libgitg/gitg-diff-view-file.vala:208
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "_Open file"
 msgstr "_Öppna fil"
 
-#: libgitg/gitg-diff-view-file.vala:241
+#: libgitg/gitg-diff-view-file.vala:248
 msgid "Open containing _folder"
 msgstr "Öppna _innehållande mapp"
 
-#: libgitg/gitg-diff-view-file.vala:261
+#: libgitg/gitg-diff-view-file.vala:268
 msgid "_Copy file path"
 msgstr "_Kopiera filsökväg"
 
@@ -2238,3 +2337,69 @@ msgstr "Filer"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Visa filerna i trädet för den markerade incheckningen"
+
+#~ msgid "Text"
+#~ msgstr "Text"
+
+#~ msgid "Clone"
+#~ msgstr "Klona"
+
+#~ msgid "Add"
+#~ msgstr "Lägg till"
+
+#~ msgid "Cannot set spell checking language: %s"
+#~ msgstr "Kan inte ställa in rättstavningsspråket: %s"
+
+#~ msgid "@icon@"
+#~ msgstr "@icon@"
+
+#~ msgid "org.gnome.gitg"
+#~ msgstr "org.gnome.gitg"
+
+#~ msgid "_Quit"
+#~ msgstr "_Avsluta"
+
+#~ msgid "_Help"
+#~ msgstr "_Hjälp"
+
+#~ msgid "column"
+#~ msgstr "kolumn"
+
+#~ msgid "Add…"
+#~ msgstr "Lägg till…"
+
+#~ msgid "_Delete"
+#~ msgstr "_Ta bort"
+
+#~ msgid "Show changes inline"
+#~ msgstr "Visa ändringar inbäddade"
+
+#~ msgid "Failed to obtain HEAD tree: %s"
+#~ msgstr "Misslyckades att erhålla HEAD-träd: %s"
+
+#~ msgid "stage"
+#~ msgstr "köa"
+
+#~ msgid "unstage"
+#~ msgstr "ta bort ur kön"
+
+#~ msgid "Loading diff…"
+#~ msgstr "Läs in diff…"
+
+#~ msgid "Notes:"
+#~ msgstr "Noteringar:"
+
+#~ msgid "Diff against:"
+#~ msgstr "Diff mot:"
+
+#~ msgid "Developer tools"
+#~ msgstr "Utvecklarverktyg"
+
+#~ msgid "Unable to open the .gitconfig file."
+#~ msgstr "Kunde inte öppna filen .gitconfig."
+
+#~ msgid "Note: The Git config file '%s' does not exist."
+#~ msgstr "Notera: Gits konfigurationsfil ”%s” existerar inte."
+
+#~ msgid "_Clone Repository…"
+#~ msgstr "_Klona arkiv…"
