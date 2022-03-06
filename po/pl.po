@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2021-12-27 14:37+0000\n"
-"PO-Revision-Date: 2022-01-02 17:19+0100\n"
+"POT-Creation-Date: 2022-02-15 00:41+0000\n"
+"PO-Revision-Date: 2022-03-06 16:08+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -81,7 +81,7 @@ msgstr "Zatwierdzanie zmian będących w przechowalni"
 msgid "Overview of recently used repositories"
 msgstr "Przegląd ostatnio używanych repozytoriów"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "Projekt GNOME"
 
@@ -625,12 +625,14 @@ msgstr "Na pewno trwale odrzucić zaznaczone zmiany?"
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
@@ -736,8 +738,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
-#: gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -773,47 +775,89 @@ msgstr "Utworzenie zatwierdzenia się nie powiodło: %s"
 msgid "Failed to checkout index: %s"
 msgstr "Wymeldowanie indeksu się nie powiodło: %s"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-add-remote-action.vala:46
+msgid "Add Remote"
+msgstr "Dodaj repozytorium"
+
+#: gitg/gitg-add-remote-action.vala:51
+msgid "Adds remote to the remotes list"
+msgstr "Dodaje repozytorium do listy"
+
+#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from %s"
+msgstr "Pobieranie z %s"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+msgid "new"
+msgstr "nowe"
+
+#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "Pobranie z %s się nie powiodło: %s"
+
+#: gitg/gitg-add-remote-action.vala:78
+msgid "Failed to fetch added remote"
+msgstr "Pobranie dodanego repozytorium się nie powiodło"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Pobrano z %s: %s"
+
+#: gitg/gitg-add-remote-action.vala:129
+msgid "Failed to add remote"
+msgstr "Dodanie repozytorium się nie powiodło"
+
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "Wyświetla wersję programu"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "Uruchamia program gitg w podanej aktywności"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Uruchamia program gitg w aktywności zatwierdzania (skrót dla „--activity "
 "commit”)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Bez próby wczytania repozytorium z bieżącego katalogu roboczego"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "Uruchamia program gitg w trybie samodzielnym"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "Umieszcza ścieżki pod systemem git, jeśli są potrzebne"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— przeglądarka repozytoriów git"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg to przeglądarka repozytoriów git dla GTK/GNOME"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr ""
 "Piotr Drąg <piotrdrag@gmail.com>, 2012-2022\n"
 "Aviary.pl <community-poland@mozilla.org>, 2012-2022"
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "Witryna programu gitg"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -867,8 +911,8 @@ msgstr "Dobiera to zatwierdzenie do gałęzi"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Wyszukanie zatwierdzenia dla gałęzi %s się nie powiodło: %s"
+msgid "Failed to lookup the commit for branch “%s”: %s"
+msgstr "Wyszukanie zatwierdzenia dla gałęzi „%s” się nie powiodło: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
@@ -883,21 +927,21 @@ msgstr "Dobieranie spowodowało konflikty"
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
-"The cherry pick of %s onto %s has caused conflicts, would you like to "
-"checkout branch %s with the cherry pick to your working directory to resolve "
-"the conflicts?"
+"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
+"checkout branch “%s” with the cherry pick to your working directory to "
+"resolve the conflicts?"
 msgstr ""
-"Dobranie %s do %s spowodowało konflikty. Wymeldować gałąź %s z dobieraniem "
-"do katalogu roboczego, aby rozwiązać konflikty?"
+"Dobranie „%s” do „%s” spowodowało konflikty. Wymeldować gałąź „%s” "
+"z dobieraniem do katalogu roboczego, aby rozwiązać konflikty?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
-"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"Dobranie %s do %s spowodowało konflikty. Wymeldować dobieranie do katalogu "
-"roboczego, aby rozwiązać konflikty?"
+"Dobranie „%s” do „%s” spowodowało konflikty. Wymeldować dobieranie do "
+"katalogu roboczego, aby rozwiązać konflikty?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -914,8 +958,8 @@ msgstr "Ukończono dobieranie z konfliktami w katalogu roboczym"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-msgid "Cherry pick %s onto %s"
-msgstr "Dobieranie %s do %s"
+msgid "Cherry pick “%s” onto “%s”"
+msgstr "Dobieranie „%s” do „%s”"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
@@ -923,8 +967,8 @@ msgstr "Pomyślnie dobrano"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-msgid "Cherry pick onto %s"
-msgstr "Dobranie do %s"
+msgid "Cherry pick onto “%s”"
+msgstr "Dobranie do „%s”"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -1034,14 +1078,26 @@ msgstr "Utworzenie repozytorium się nie powiodło"
 msgid "Scanning for repositories in %s"
 msgstr "Wyszukiwanie repozytoriów w „%s”"
 
+#: gitg/gitg-edit-remote-action.vala:51
+msgid "Edit remote"
+msgstr "Modyfikuj repozytorium"
+
+#: gitg/gitg-edit-remote-action.vala:56
+msgid "Edits the remote from the remotes list"
+msgstr "Modyfikuje repozytorium na liście"
+
+#: gitg/gitg-edit-remote-action.vala:82
+msgid "Failed to edit remote"
+msgstr "Modyfikacja repozytorium się nie powiodła"
+
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
 msgstr "Wymeldowanie zaznaczonego odniesienia"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-msgid "Checkout %s"
-msgstr "Wymeldowanie %s"
+msgid "Checkout “%s”"
+msgstr "Wymeldowanie „%s”"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
@@ -1069,6 +1125,24 @@ msgstr "Skopiowanie nazwy"
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Skopiowanie nazwy odniesienia do schowka"
+
+#: gitg/gitg-ref-action-create-branch.vala:46
+msgid "Create a new branch at the selected reference"
+msgstr "Utworzenie nowej gałęzi w zaznaczonym odniesieniu"
+
+#: gitg/gitg-ref-action-create-branch.vala:58
+#: gitg/gitg-ref-action-create-patch.vala:58
+#: gitg/gitg-ref-action-create-tag.vala:58
+msgid "Failed to lookup reference"
+msgstr "Wyszukanie odniesienia się nie powiodło"
+
+#: gitg/gitg-ref-action-create-patch.vala:46
+msgid "Create a patch from the selected reference"
+msgstr "Utworzenie łaty z zaznaczonego odniesienia"
+
+#: gitg/gitg-ref-action-create-tag.vala:46
+msgid "Create a new tag at the selected reference"
+msgstr "Utworzenie nowej etykiety w zaznaczonym odniesieniu"
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
@@ -1132,48 +1206,103 @@ msgstr "Usunięcie gałęzi %s się nie powiodło"
 msgid "The branch %s could not be deleted: %s"
 msgstr "Nie można usunąć gałęzi %s: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
 msgstr "Pobranie z %s"
 
-#: gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "Pobranie zdalnych obiektów z %s"
 
-#: gitg/gitg-ref-action-fetch.vala:98
-#, c-format
-msgid "Fetching from %s"
-msgstr "Pobieranie z %s"
-
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-ref-action-fetch.vala:106
-msgid "new"
-msgstr "nowe"
-
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "zaktualizowane"
 
-#: gitg/gitg-ref-action-fetch.vala:121
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr "Pobranie z %s się nie powiodło: %s"
-
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "Pobrano z %s: wszystko jest aktualne"
 
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-ref-action-fetch.vala:140
+#: gitg/gitg-ref-action-merge.vala:63
 #, c-format
-msgid "Fetched from %s: %s"
-msgstr "Pobrano z %s: %s"
+msgid "Merge into %s"
+msgstr "Scalenie do %s"
+
+#. TODO
+#: gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr "Scalenie innej gałęzi do gałęzi %s"
+
+#: gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "Scalenie zatwierdzeń się nie powiodło: %s"
+
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr "Scalanie spowodowało konflikty"
+
+#: gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"branch “%s” with the merge to your working directory to resolve the "
+"conflicts?"
+msgstr ""
+"Scalenie „%s” do „%s” spowodowało konflikty. Wymeldować gałąź „%s” ze "
+"scalaniem do katalogu roboczego, aby rozwiązać konflikty?"
+
+#: gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"the merge to your working directory to resolve the conflicts?"
+msgstr ""
+"Scalenie „%s” do „%s” spowodowało konflikty. Wymeldować scalanie do katalogu "
+"roboczego, aby rozwiązać konflikty?"
+
+#: gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr "Niepowodzenie scalania z konfliktami"
+
+#: gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr "Ukończono scalanie z konfliktami w katalogu roboczym"
+
+#: gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge “%s” into “%s”"
+msgstr "Scalenie „%s” do „%s”"
+
+#: gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "Wyszukanie naszego zatwierdzenia się nie powiodło: %s"
+
+#: gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr "Wyszukanie ich zatwierdzenia się nie powiodło: %s"
+
+#: gitg/gitg-ref-action-merge.vala:278
+#, c-format
+msgid "Successfully merged “%s” into “%s”"
+msgstr "Pomyślnie scalono „%s” do „%s”"
+
+#: gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge “%s” into branch “%s”"
+msgstr "Scal „%s” do gałęzi „%s”"
+
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1199
+msgid "Tags"
+msgstr "Etykiety"
 
 #: gitg/gitg-ref-action-push.vala:80
 #, c-format
@@ -1215,82 +1344,6 @@ msgstr "Na pewno wysłać gałąź %s?"
 msgid "Push"
 msgstr "Wyślij"
 
-#: gitg/gitg-ref-action-merge.vala:63
-#, c-format
-msgid "Merge into %s"
-msgstr "Scalenie do %s"
-
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
-#, c-format
-msgid "Merge another branch into branch %s"
-msgstr "Scalenie innej gałęzi do gałęzi %s"
-
-#: gitg/gitg-ref-action-merge.vala:106
-#, c-format
-msgid "Failed to merge commits: %s"
-msgstr "Scalenie zatwierdzeń się nie powiodło: %s"
-
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
-msgid "Merge has conflicts"
-msgstr "Scalanie spowodowało konflikty"
-
-#: gitg/gitg-ref-action-merge.vala:184
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout "
-"branch %s with the merge to your working directory to resolve the conflicts?"
-msgstr ""
-"Scalenie %s do %s spowodowało konflikty. Wymeldować gałąź %s ze scalaniem do "
-"katalogu roboczego, aby rozwiązać konflikty?"
-
-#: gitg/gitg-ref-action-merge.vala:188
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout the "
-"merge to your working directory to resolve the conflicts?"
-msgstr ""
-"Scalenie %s do %s spowodowało konflikty. Wymeldować scalanie do katalogu "
-"roboczego, aby rozwiązać konflikty?"
-
-#: gitg/gitg-ref-action-merge.vala:199
-msgid "Merge failed with conflicts"
-msgstr "Niepowodzenie scalania z konfliktami"
-
-#: gitg/gitg-ref-action-merge.vala:210
-msgid "Finished merge with conflicts in working directory"
-msgstr "Ukończono scalanie z konfliktami w katalogu roboczym"
-
-#: gitg/gitg-ref-action-merge.vala:222
-#, c-format
-msgid "Merge %s into %s"
-msgstr "Scalenie %s do %s"
-
-#: gitg/gitg-ref-action-merge.vala:231
-#, c-format
-msgid "Failed to lookup our commit: %s"
-msgstr "Wyszukanie naszego zatwierdzenia się nie powiodło: %s"
-
-#: gitg/gitg-ref-action-merge.vala:241
-#, c-format
-msgid "Failed to lookup their commit: %s"
-msgstr "Wyszukanie ich zatwierdzenia się nie powiodło: %s"
-
-#: gitg/gitg-ref-action-merge.vala:278
-#, c-format
-msgid "Successfully merged %s into %s"
-msgstr "Pomyślnie scalono %s do %s"
-
-#: gitg/gitg-ref-action-merge.vala:320
-#, c-format
-msgid "Merge %s into branch %s"
-msgstr "Scal %s do gałęzi %s"
-
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1181
-msgid "Tags"
-msgstr "Etykiety"
-
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr "Zmień nazwę"
@@ -1316,11 +1369,39 @@ msgstr "Zmiana nazwy się nie powiodła"
 msgid "Close"
 msgstr "Zamknij"
 
+#: gitg/gitg-remove-remote-action.vala:50
+msgid "Remove remote"
+msgstr "Usuń repozytorium"
+
+#: gitg/gitg-remove-remote-action.vala:55
+msgid "Removes remote from the remotes list"
+msgstr "Usuwa repozytorium z listy"
+
+#: gitg/gitg-remove-remote-action.vala:62
+#, c-format
+msgid "Delete remote %s"
+msgstr "Usunięcie repozytorium %s"
+
+#: gitg/gitg-remove-remote-action.vala:63
+#, c-format
+msgid "Are you sure that you want to remove the remote %s?"
+msgstr "Na pewno usunąć repozytorium %s?"
+
+#: gitg/gitg-remove-remote-action.vala:67
+msgid "Remove"
+msgstr "Usuń"
+
+#: gitg/gitg-remove-remote-action.vala:91
+msgid "Failed to remove remote"
+msgstr "Usunięcie repozytorium się nie powiodło"
+
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "Dodanie repozytorium"
 
-#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
+#: gitg/gitg-window.vala:206
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
+#: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Dodaj"
 
@@ -1421,11 +1502,11 @@ msgstr "Z tyłu: %zu"
 msgid "All commits"
 msgstr "Wszystkie zatwierdzenia"
 
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1197
 msgid "Branches"
 msgstr "Gałęzie"
 
-#: gitg/history/gitg-history-refs-list.vala:1180
+#: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
 msgstr "Zdalne"
 
@@ -1439,7 +1520,7 @@ msgstr "Historia"
 msgid "Examine the history of the repository"
 msgstr "Badanie historii repozytorium"
 
-#: gitg/history/gitg-history.vala:942
+#: gitg/history/gitg-history.vala:949
 msgid "Mainline"
 msgstr "Główna linia rozwojowa"
 
@@ -1457,7 +1538,23 @@ msgstr "_Systemowa czcionka o stałej szerokości (%s)"
 msgid "Interface"
 msgstr "Interfejs"
 
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
+msgid "Create Remote"
+msgstr "Utworzenie repozytorium"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
+msgid "Remote _name:"
+msgstr "_Nazwa repozytorium:"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
+msgid "Remote _URL:"
+msgstr "Zdalny adres _URL:"
+
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "_Zapisz"
 
@@ -1501,10 +1598,6 @@ msgstr "Sklonowanie repozytorium"
 #: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "Skl_onuj"
-
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-msgid "Remote _URL:"
-msgstr "Zdalny adres _URL:"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1611,6 +1704,10 @@ msgid ""
 msgstr ""
 "Nie dodano jeszcze żadnego repozytorium. Aby rozpocząć, można dodać "
 "istniejące repozytorium lub sklonować nowe."
+
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
+msgid "Edit Remote"
+msgstr "Modyfikacja repozytorium"
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
@@ -2056,31 +2153,33 @@ msgstr "Rozwiń wszystko"
 msgid "Committed by %s"
 msgstr "Zatwierdzone przez: %s"
 
-#: libgitg/gitg-diff-view-file.vala:145
+#. Translators: Unif stands for unified diff format
+#: libgitg/gitg-diff-view-file.vala:151
 msgid "Unif"
 msgstr "Ujednolicone"
 
-#: libgitg/gitg-diff-view-file.vala:149
+#. Translators: Split stands for the noun
+#: libgitg/gitg-diff-view-file.vala:156
 msgid "Split"
 msgstr "Podział"
 
-#: libgitg/gitg-diff-view-file.vala:156
+#: libgitg/gitg-diff-view-file.vala:163
 msgid "Binary"
 msgstr "Plik binarny"
 
-#: libgitg/gitg-diff-view-file.vala:163
+#: libgitg/gitg-diff-view-file.vala:170
 msgid "Image"
 msgstr "Obraz"
 
-#: libgitg/gitg-diff-view-file.vala:208
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "_Open file"
 msgstr "_Otwórz plik"
 
-#: libgitg/gitg-diff-view-file.vala:241
+#: libgitg/gitg-diff-view-file.vala:248
 msgid "Open containing _folder"
 msgstr "Otwó_rz katalog zawierający"
 
-#: libgitg/gitg-diff-view-file.vala:261
+#: libgitg/gitg-diff-view-file.vala:268
 msgid "_Copy file path"
 msgstr "S_kopiuj ścieżkę do pliku"
 
