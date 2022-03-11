@@ -132,6 +132,27 @@ namespace GitgFiles
 			tv.model = d_model;
 
 			tv.get_selection().changed.connect(selection_changed);
+			tv.row_activated.connect(open_file_from_history);
+			tv.button_press_event.connect ((event) => {
+				if (event.type == Gdk.EventType.BUTTON_PRESS && event.button == 3) {
+					Gtk.Menu menu = new Gtk.Menu ();
+					Gtk.MenuItem open_file = new Gtk.MenuItem.with_label ("Open file");
+					open_file.activate.connect(() => {
+							Gtk.TreePath path;
+							Gtk.TreeViewColumn column;
+							tv.get_path_at_pos ((int)event.x, (int)event.y, out path, out column, null, null);
+
+							if (path != null)
+								open_file_from_history(path, column);
+					});
+					menu.attach_to_widget (tv, null);
+					menu.add (open_file);
+					menu.show_all ();
+					menu.popup_at_pointer(event);
+					return true;
+				}
+				return false;
+			});
 
 			d_scrolled_files = ret["scrolled_window_files"] as Gtk.ScrolledWindow;
 			d_source = ret["source_view_file"] as Gtk.SourceView;
@@ -255,6 +276,72 @@ namespace GitgFiles
 			}
 
 			set_viewer(wid);
+		}
+
+		private void open_file_from_history(Gtk.TreePath path, Gtk.TreeViewColumn column)
+		{
+			Gtk.TreeIter iter;
+			bool path_is_valid = d_model.get_iter(out iter, path);
+
+			if (!path_is_valid || d_model.get_isdir(iter))
+				return;
+
+			var id = d_model.get_id(iter);
+			Ggit.Blob blob;
+
+			try
+			{
+				blob = application.repository.lookup<Ggit.Blob>(id);
+			}
+			catch
+			{
+				return;
+			}
+
+			unowned uint8[] content = blob.get_raw_content();
+
+			try {
+				string filename = @"$(d_model.get_name(iter))-$(id.to_string())";
+
+				string temp_dir = GLib.Environment.get_home_dir() + "/temp";
+				File tmp_dir_file = File.new_for_path(temp_dir);
+				if (!tmp_dir_file.query_exists())
+					tmp_dir_file.make_directory_with_parents();
+
+				string file_path = temp_dir + "/" + filename;
+
+				File file = File.new_for_path(file_path);
+				if (file.query_exists())
+					file.delete();
+
+				IOStream iostream = file.create_readwrite(FileCreateFlags.PRIVATE);
+				OutputStream ostream = iostream.output_stream;
+				try
+				{
+					ostream.write(content);
+					ostream.flush();
+					ostream.close();
+				} catch (Error e) {
+					stderr.printf("Could not write to temp file\n");
+					return;
+				}
+
+				bool success = false;
+				try
+				{
+					var screen = d_paned.get_screen();
+					success = Gtk.show_uri(screen, file.get_uri(), Gdk.CURRENT_TIME);
+				} catch (Error e) {
+					stderr.printf("Failed to open application \n");
+					return;
+				}
+
+				if (!success)
+					stderr.printf("Failed to open application\n");
+			} catch (Error e) {
+				stderr.printf("Unable to create file\n");
+				return;
+			}
 		}
 
 		public bool enabled
