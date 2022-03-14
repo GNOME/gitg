@@ -46,10 +46,14 @@ public class StageStatusFile : Object, StageStatusItem
 	private static Ggit.StatusFlags s_work_flags =
 		  Ggit.StatusFlags.WORKING_TREE_MODIFIED
 		| Ggit.StatusFlags.WORKING_TREE_DELETED
-		| Ggit.StatusFlags.WORKING_TREE_TYPECHANGE;
+		| Ggit.StatusFlags.WORKING_TREE_TYPECHANGE
+		| Ggit.StatusFlags.CONFLICTED;
 
 	private static Ggit.StatusFlags s_untracked_flags =
 		  Ggit.StatusFlags.WORKING_TREE_NEW;
+
+	private static Ggit.StatusFlags s_ignored_flags =
+		  Ggit.StatusFlags.IGNORED;
 
 	public StageStatusFile(string path, Ggit.StatusFlags flags)
 	{
