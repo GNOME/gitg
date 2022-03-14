@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-15 00:41+0000\n"
-"PO-Revision-Date: 2022-03-10 01:40+0100\n"
-"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"POT-Creation-Date: 2022-03-10 00:43+0000\n"
+"PO-Revision-Date: 2022-03-14 17:31+0100\n"
+"Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -95,7 +95,6 @@ msgid "Git repository browser"
 msgstr "Git tárolóböngésző"
 
 #: data/org.gnome.gitg.desktop.in.in:17
-#| msgid "_New Window"
 msgid "New Window"
 msgstr "Új ablak"
 
@@ -779,7 +778,6 @@ msgid "Failed to checkout index: %s"
 msgstr "Az index átváltása sikertelen: %s"
 
 #: gitg/gitg-add-remote-action.vala:46
-#| msgid "Remotes"
 msgid "Add Remote"
 msgstr "Távoli hozzáadása"
 
@@ -803,7 +801,6 @@ msgid "Failed to fetch from %s: %s"
 msgstr "Sikertelen letöltés innen: %s: %s"
 
 #: gitg/gitg-add-remote-action.vala:78
-#| msgid "Failed to add repository"
 msgid "Failed to fetch added remote"
 msgstr "Nem sikerült letölteni a hozzáadott távolit"
 
@@ -815,7 +812,6 @@ msgid "Fetched from %s: %s"
 msgstr "Letöltve innen: %s: %s"
 
 #: gitg/gitg-add-remote-action.vala:129
-#| msgid "Failed to add repository"
 msgid "Failed to add remote"
 msgstr "Nem sikerült a távoli hozzáadása"
 
@@ -917,7 +913,6 @@ msgstr "A véglegesítés mazsolázása egy ágba"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-#| msgid "Failed to lookup the commit for branch %s: %s"
 msgid "Failed to lookup the commit for branch “%s”: %s"
 msgstr "Nem sikerült megtalálni a véglegesítést a(z) „%s” ághoz: %s"
 
@@ -933,10 +928,6 @@ msgstr "A mazsolázásnak ütközései vannak"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
-#| msgid ""
-#| "The cherry pick of %s onto %s has caused conflicts, would you like to "
-#| "checkout branch %s with the cherry pick to your working directory to "
-#| "resolve the conflicts?"
 msgid ""
 "The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout branch “%s” with the cherry pick to your working directory to "
@@ -947,17 +938,12 @@ msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
-#| msgid ""
-#| "The cherry-pick of %s onto %s has caused conflicts, would you like to "
-#| "checkout the cherry pick to your working directory to resolve the "
-#| "conflicts?"
 msgid ""
 "The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"A(z) „%s” mazsolázása a(z) „%s” ágba ütközéseket okozott, szeretne átváltani"
-" a "
-"mazsolázásra a munkakönyvtárában az ütközések feloldásához?"
+"A(z) „%s” mazsolázása a(z) „%s” ágba ütközéseket okozott, szeretne átváltani "
+"a mazsolázásra a munkakönyvtárában az ütközések feloldásához?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -974,7 +960,6 @@ msgstr "A mazsolázás ütközésekkel készült el a munkakönyvtárban"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-#| msgid "Cherry pick %s onto %s"
 msgid "Cherry pick “%s” onto “%s”"
 msgstr "A(z) „%s” mazsolázása a(z) „%s” ágba"
 
@@ -984,7 +969,6 @@ msgstr "Mazsolázás sikeres"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-#| msgid "Cherry pick onto %s"
 msgid "Cherry pick onto “%s”"
 msgstr "Mazsolázás ide: „%s”"
 
@@ -1097,7 +1081,6 @@ msgid "Scanning for repositories in %s"
 msgstr "Tárolók keresése itt: %s"
 
 #: gitg/gitg-edit-remote-action.vala:51
-#| msgid "Editor Font"
 msgid "Edit remote"
 msgstr "Távoli szerkesztése"
 
@@ -1106,7 +1089,6 @@ msgid "Edits the remote from the remotes list"
 msgstr "Szerkeszti a távolit a távoliak listájából"
 
 #: gitg/gitg-edit-remote-action.vala:82
-#| msgid "Failed to rename"
 msgid "Failed to edit remote"
 msgstr "Nem sikerült szerkeszteni a távolit"
 
@@ -1116,7 +1098,6 @@ msgstr "A kijelölt hivatkozás átváltása"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-#| msgid "Checkout %s"
 msgid "Checkout “%s”"
 msgstr "Átváltás: „%s”"
 
@@ -1148,24 +1129,20 @@ msgid "Copy the name of the reference to the clipboard"
 msgstr "A hivatkozás nevének másolása a vágólapra"
 
 #: gitg/gitg-ref-action-create-branch.vala:46
-#| msgid "Create a new branch at the selected commit"
 msgid "Create a new branch at the selected reference"
 msgstr "Új ág létrehozása a kijelölt hivatkozásnál"
 
 #: gitg/gitg-ref-action-create-branch.vala:58
 #: gitg/gitg-ref-action-create-patch.vala:58
 #: gitg/gitg-ref-action-create-tag.vala:58
-#| msgid "Failed to lookup tag"
 msgid "Failed to lookup reference"
 msgstr "Nem sikerült megtalálni a hivatkozást"
 
 #: gitg/gitg-ref-action-create-patch.vala:46
-#| msgid "Create a patch from the selected commit"
 msgid "Create a patch from the selected reference"
 msgstr "Folt létrehozása a kijelölt hivatkozásból"
 
 #: gitg/gitg-ref-action-create-tag.vala:46
-#| msgid "Create a new tag at the selected commit"
 msgid "Create a new tag at the selected reference"
 msgstr "Új címke létrehozása a kijelölt hivatkozásnál"
 
@@ -1274,32 +1251,23 @@ msgstr "Az egyesítésben ütközések vannak"
 
 #: gitg/gitg-ref-action-merge.vala:184
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "branch %s with the merge to your working directory to resolve the "
-#| "conflicts?"
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "branch “%s” with the merge to your working directory to resolve the "
 "conflicts?"
 msgstr ""
-"A(z) „%s” ág egyesítése a(z) „%s” ággal ütközéseket okozott, szeretne"
-" átváltani "
-"a(z) „%s” ágra a munkakönyvtárában lévő egyesítéssel az ütközések"
-" feloldásához?"
+"A(z) „%s” ág egyesítése a(z) „%s” ággal ütközéseket okozott, szeretne "
+"átváltani a(z) „%s” ágra a munkakönyvtárában lévő egyesítéssel az ütközések "
+"feloldásához?"
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
-#| msgid ""
-#| "The merge of %s into %s has caused conflicts, would you like to checkout "
-#| "the merge to your working directory to resolve the conflicts?"
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "the merge to your working directory to resolve the conflicts?"
 msgstr ""
-"A(z) „%s” ág egyesítése a(z) „%s” ággal ütközéseket okozott, szeretne"
-" átváltani "
-"a munkakönyvtárában lévő egyesítésre az ütközések feloldásához?"
+"A(z) „%s” ág egyesítése a(z) „%s” ággal ütközéseket okozott, szeretne "
+"átváltani a munkakönyvtárában lévő egyesítésre az ütközések feloldásához?"
 
 #: gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
@@ -1311,7 +1279,6 @@ msgstr "Az egyesítés ütközésekkel befejeződött a munkakönyvtárban"
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
-#| msgid "Merge %s into %s"
 msgid "Merge “%s” into “%s”"
 msgstr "A(z) „%s” egyesítése ide: „%s”"
 
@@ -1327,13 +1294,11 @@ msgstr "Nem sikerült megtalálni az ő véglegesítését: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
-#| msgid "Successfully merged %s into %s"
 msgid "Successfully merged “%s” into “%s”"
 msgstr "A(z) „%s” sikeresen egyesítve ide: „%s”"
 
 #: gitg/gitg-ref-action-merge.vala:320
 #, c-format
-#| msgid "Merge %s into branch %s"
 msgid "Merge “%s” into branch “%s”"
 msgstr "A(z) „%s” egyesítése a(z) „%s” ágba"
 
@@ -1408,7 +1373,6 @@ msgid "Close"
 msgstr "Bezárás"
 
 #: gitg/gitg-remove-remote-action.vala:50
-#| msgid "_Remove"
 msgid "Remove remote"
 msgstr "Távoli eltávolítása"
 
@@ -1418,23 +1382,19 @@ msgstr "Eltávolítja a távolit a távoliak listájából"
 
 #: gitg/gitg-remove-remote-action.vala:62
 #, c-format
-#| msgid "Delete remote branch %s"
 msgid "Delete remote %s"
 msgstr "%s távoli törlése"
 
 #: gitg/gitg-remove-remote-action.vala:63
 #, c-format
-#| msgid "Are you sure that you want to push the branch %s?"
 msgid "Are you sure that you want to remove the remote %s?"
 msgstr "Biztosan el szeretné távolítani a(z) %s távolit?"
 
 #: gitg/gitg-remove-remote-action.vala:67
-#| msgid "_Remove"
 msgid "Remove"
 msgstr "Eltávolítás"
 
 #: gitg/gitg-remove-remote-action.vala:91
-#| msgid "Failed to create repository"
 msgid "Failed to remove remote"
 msgstr "Nem sikerült eltávolítani a távolit"
 
@@ -1588,13 +1548,11 @@ msgid "Interface"
 msgstr "Felület"
 
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
-#| msgid "Create tag"
 msgid "Create Remote"
 msgstr "Távoli létrehozása"
 
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
-#| msgid "Remote _URL:"
 msgid "Remote _name:"
 msgstr "Távoli _neve:"
 
@@ -1758,7 +1716,6 @@ msgstr ""
 "tárolót, vagy klónozhat egy újat."
 
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
-#| msgid "Remotes"
 msgid "Edit Remote"
 msgstr "Távoli szerkesztése"
 
@@ -2207,15 +2164,14 @@ msgstr "Véglegesítette: %s"
 #. Translators: Unif stands for unified diff format
 #: libgitg/gitg-diff-view-file.vala:151
 msgid "Unif"
-msgstr ""
+msgstr "Egyesített"
 
 #. Translators: Split stands for the noun
 #: libgitg/gitg-diff-view-file.vala:156
 msgid "Split"
-msgstr ""
+msgstr "Felosztott"
 
 #: libgitg/gitg-diff-view-file.vala:163
-#| msgid "@binary@"
 msgid "Binary"
 msgstr "Bináris"
 
