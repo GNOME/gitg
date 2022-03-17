@@ -18,16 +18,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-08-24 10:07+0000\n"
-"PO-Revision-Date: 2020-09-18 12:12+0200\n"
-"Last-Translator: Thibault Martin <thibaultamartin@gnome.org>\n"
+"POT-Creation-Date: 2022-01-21 09:27+0000\n"
+"PO-Revision-Date: 2022-03-14 18:43+0100\n"
+"Last-Translator: Guillaume Bernard <associations@guillaume-bernard.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -102,6 +102,10 @@ msgstr "@binary@"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Navigateur de dépôt git"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "Nouvelle fenêtre"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -838,7 +842,7 @@ msgstr ""
 "Alain Lojewski <allomervan@gmail.com>, 2012-2016\n"
 "Alexandre Franke <alexandre.franke@gmail.com>, 2013-2018\n"
 "Nicolas Silva <nical.silva@gmail.com>, 2014\n"
-"Guillaume Bernard <associations@guillaume-bernard.fr>, 2015-2020"
+"Guillaume Bernard <associations@guillaume-bernard.fr>, 2015-2021"
 
 #: gitg/gitg-application.vala:238
 msgid "gitg homepage"
@@ -2091,29 +2095,45 @@ msgstr "après (%s)"
 msgid "added (%s)"
 msgstr "ajouté (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:143
+#: libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Tout réduire"
 
-#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/gitg-diff-view-commit-details.vala:149
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Tout développer"
 
-#: libgitg/gitg-diff-view-commit-details.vala:202
+#: libgitg/gitg-diff-view-commit-details.vala:204
 #, c-format
 msgid "Committed by %s"
 msgstr "Commité par %s"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#: libgitg/gitg-diff-view-file.vala:145
+msgid "Unif"
+msgstr "Unifié"
+
+#: libgitg/gitg-diff-view-file.vala:149
+msgid "Split"
+msgstr "Partagé"
+
+#: libgitg/gitg-diff-view-file.vala:156
+msgid "Binary"
+msgstr "Binaire"
+
+#: libgitg/gitg-diff-view-file.vala:163
+msgid "Image"
+msgstr "Image"
+
+#: libgitg/gitg-diff-view-file.vala:208
 msgid "_Open file"
 msgstr "_Ouvrir un fichier"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:241
 msgid "Open containing _folder"
 msgstr "Ouvrir le dossier _parent"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:261
 msgid "_Copy file path"
 msgstr "_Copier le chemin de fichier"
 
