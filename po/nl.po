@@ -9,21 +9,21 @@
 # Jesse van den Kieboom <jessevdk@gnome.org>, 2009.
 # Erwin Poeze <donnut@outlook.com>, 2014.
 # Reinout van Schouwen <reinouts@gnome.org>, 2014.
-# Nathan Follens <nthn@unseen.is>, 2019-2021.
+# Nathan Follens <nfollens@gnome.org>, 2019-2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2021-02-28 09:39+0000\n"
-"PO-Revision-Date: 2021-04-01 21:25+0200\n"
-"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
+"POT-Creation-Date: 2022-02-15 00:41+0000\n"
+"PO-Revision-Date: 2022-03-25 16:35+0100\n"
+"Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Project-Style: gnome\n"
 
@@ -90,7 +90,7 @@ msgstr "Gestagede wijzigingen committen"
 msgid "Overview of recently used repositories"
 msgstr "Overzicht van recent gebruikte repository’s"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
+#: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
 msgstr "Het Gnome-project"
 
@@ -101,6 +101,10 @@ msgstr "@binary@"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git-repository-viewer"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "Nieuw venster"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -643,12 +647,14 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
@@ -755,8 +761,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
-#: gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -792,49 +798,91 @@ msgstr "Aanmaken van commit mislukt: %s"
 msgid "Failed to checkout index: %s"
 msgstr "Uitchecken van index mislukt: %s"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-add-remote-action.vala:46
+msgid "Add Remote"
+msgstr "Remote toevoegen"
+
+#: gitg/gitg-add-remote-action.vala:51
+msgid "Adds remote to the remotes list"
+msgstr "Voegt een remote toe aan de remotelijst"
+
+#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from %s"
+msgstr "Bezig met ophalen van %s"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+msgid "new"
+msgstr "nieuw"
+
+#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "Ophalen uit %s mislukt: %s"
+
+#: gitg/gitg-add-remote-action.vala:78
+msgid "Failed to fetch added remote"
+msgstr "Ophalen van toegevoegde remote mislukt"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Opgehaald van %s: %s"
+
+#: gitg/gitg-add-remote-action.vala:129
+msgid "Failed to add remote"
+msgstr "Toevoegen van remote mislukt"
+
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "Programmaversie tonen"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "Start gitg met een bepaalde opdracht"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 "Start gitg met de commit-opdracht (verkorte schrijfwijze voor --activity "
 "commit)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Probeer geen repository uit de huidige werkmap te laden"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "Voer gitg in standalone-modus uit"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "Zet paden onder git indien nodig"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— Git-repository-viewer"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg is een Git-repository-viewer voor GTK+/Gnome"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr ""
 "Erwin Poeze <donnut@outlook.com>\n"
-"Nathan Follens <nthn@unseen.is>\n"
+"Nathan Follens <nfollens@gnome.org>\n"
 "\n"
 "Meer info over Gnome-NL http://nl.gnome.org"
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "gitg-website"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:396
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -888,8 +936,8 @@ msgstr "Deze commit eruit pikken op een branch"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Opzoeken van commit voor branch %s mislukt: %s"
+msgid "Failed to lookup the commit for branch “%s”: %s"
+msgstr "Opzoeken van commit voor branch ‘%s’ mislukt: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
@@ -904,22 +952,22 @@ msgstr "Cherry-pick heeft conflicten"
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
-"The cherry pick of %s onto %s has caused conflicts, would you like to "
-"checkout branch %s with the cherry pick to your working directory to resolve "
-"the conflicts?"
+"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
+"checkout branch “%s” with the cherry pick to your working directory to "
+"resolve the conflicts?"
 msgstr ""
-"De cherry-pick van %s op %s heeft conflicten veroorzaakt, wilt u de branch "
-"%s met de cherry-pick uitchecken naar uw werkmap om de conflicten op te "
-"lossen?"
+"De cherry-pick van ‘%s’ op ‘%s’ heeft conflicten veroorzaakt, wilt u de "
+"branch ‘%s’ met de cherry-pick uitchecken naar uw werkmap om de conflicten "
+"op te lossen?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
-"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"De cherry-pick van %s op %s heeft conflicten veroorzaakt, wilt u de cherry-"
-"pick uitchecken naar uw werkmap om de conflicten op te lossen?"
+"De cherry-pick van ‘%s’ op ‘%s’ heeft conflicten veroorzaakt, wilt u de "
+"cherry-pick uitchecken naar uw werkmap om de conflicten op te lossen?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -936,8 +984,8 @@ msgstr "Cherry-pick voltooid met conflicten in werkmap"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-msgid "Cherry pick %s onto %s"
-msgstr "%s cherry-picken op %s"
+msgid "Cherry pick “%s” onto “%s”"
+msgstr "‘%s’ cherry-picken op ‘%s’"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
@@ -945,8 +993,8 @@ msgstr "Ge-cherry-pickt"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-msgid "Cherry pick onto %s"
-msgstr "Cherry-picken op %s"
+msgid "Cherry pick onto “%s”"
+msgstr "Cherry-picken op ‘%s’"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -1056,14 +1104,26 @@ msgstr "Aanmaken van repository mislukt"
 msgid "Scanning for repositories in %s"
 msgstr "%s wordt doorzocht op repository’s"
 
+#: gitg/gitg-edit-remote-action.vala:51
+msgid "Edit remote"
+msgstr "Remote bewerken"
+
+#: gitg/gitg-edit-remote-action.vala:56
+msgid "Edits the remote from the remotes list"
+msgstr "Bewerkt de remote uit de remotelijst"
+
+#: gitg/gitg-edit-remote-action.vala:82
+msgid "Failed to edit remote"
+msgstr "Bewerken van remote mislukt"
+
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
 msgstr "De geselecteerde referentie uitchecken"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-msgid "Checkout %s"
-msgstr "%s uitchecken"
+msgid "Checkout “%s”"
+msgstr "‘%s’ uitchecken"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
@@ -1091,6 +1151,24 @@ msgstr "Naam kopiëren"
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Kopieer de naam van de referentie naar het klembord"
+
+#: gitg/gitg-ref-action-create-branch.vala:46
+msgid "Create a new branch at the selected reference"
+msgstr "Een nieuwe branch aanmaken op de geselecteerde referentie"
+
+#: gitg/gitg-ref-action-create-branch.vala:58
+#: gitg/gitg-ref-action-create-patch.vala:58
+#: gitg/gitg-ref-action-create-tag.vala:58
+msgid "Failed to lookup reference"
+msgstr "Opzoeken van referentie mislukt"
+
+#: gitg/gitg-ref-action-create-patch.vala:46
+msgid "Create a patch from the selected reference"
+msgstr "Een patch maken van de geselecteerde referentie"
+
+#: gitg/gitg-ref-action-create-tag.vala:46
+msgid "Create a new tag at the selected reference"
+msgstr "Een nieuwe tag aanmaken op de geselecteerde referentie"
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
@@ -1154,48 +1232,104 @@ msgstr "Verwijderen van branch %s mislukt"
 msgid "The branch %s could not be deleted: %s"
 msgstr "De branch %s kon niet worden verwijderd: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
 msgstr "Ophalen van %s"
 
-#: gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "Externe objecten ophalen van %s"
 
-#: gitg/gitg-ref-action-fetch.vala:98
-#, c-format
-msgid "Fetching from %s"
-msgstr "Bezig met ophalen van %s"
-
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-ref-action-fetch.vala:106
-msgid "new"
-msgstr "nieuw"
-
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "bijgewerkt"
 
-#: gitg/gitg-ref-action-fetch.vala:121
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr "Ophalen uit %s mislukt: %s"
-
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "Opgehaald van %s: alles is up-to-date"
 
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-ref-action-fetch.vala:140
+#: gitg/gitg-ref-action-merge.vala:63
 #, c-format
-msgid "Fetched from %s: %s"
-msgstr "Opgehaald van %s: %s"
+msgid "Merge into %s"
+msgstr "Samenvoegen in %s"
+
+#. TODO
+#: gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr "Een andere branch invoegen in branch %s"
+
+#: gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "Samenvoegen van commits mislukt: %s"
+
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr "Samenvoeging heeft conflicten"
+
+#: gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"branch “%s” with the merge to your working directory to resolve the "
+"conflicts?"
+msgstr ""
+"Het samenvoegen van ‘%s’ in ‘%s’ heeft conflicten veroorzaakt, wilt u de "
+"branch ‘%s’ met de samenvoeging uitchecken naar uw werkmap om de conflicten "
+"op te lossen?"
+
+#: gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"the merge to your working directory to resolve the conflicts?"
+msgstr ""
+"Het samenvoegen van ‘%s’ in ‘%s’ heeft conflicten veroorzaakt, wilt u de "
+"samenvoeging uitchecken naar uw werkmap om de conflicten op te lossen?"
+
+#: gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr "Samenvoegen mislukt met conflicten"
+
+#: gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr "Samengevoegd met conflicten in werkmap"
+
+#: gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge “%s” into “%s”"
+msgstr "‘%s’ samenvoegen in ‘%s’"
+
+#: gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "Opzoeken van onze commit mislukt: %s"
+
+#: gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr "Opzoeken van hun commit mislukt: %s"
+
+#: gitg/gitg-ref-action-merge.vala:278
+#, c-format
+msgid "Successfully merged “%s” into “%s”"
+msgstr "‘%s’ samengevoegd in ‘%s’"
+
+#: gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge “%s” into branch “%s”"
+msgstr "‘%s’ invoegen in branch ‘%s’"
+
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1199
+msgid "Tags"
+msgstr "Tags"
 
 #: gitg/gitg-ref-action-push.vala:80
 #, c-format
@@ -1237,83 +1371,6 @@ msgstr "Weet u zeker dat u de branch %s wilt pushen?"
 msgid "Push"
 msgstr "Pushen"
 
-#: gitg/gitg-ref-action-merge.vala:63
-#, c-format
-msgid "Merge into %s"
-msgstr "Samenvoegen in %s"
-
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
-#, c-format
-msgid "Merge another branch into branch %s"
-msgstr "Een andere branch invoegen in branch %s"
-
-#: gitg/gitg-ref-action-merge.vala:106
-#, c-format
-msgid "Failed to merge commits: %s"
-msgstr "Samenvoegen van commits mislukt: %s"
-
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
-msgid "Merge has conflicts"
-msgstr "Samenvoeging heeft conflicten"
-
-#: gitg/gitg-ref-action-merge.vala:184
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout "
-"branch %s with the merge to your working directory to resolve the conflicts?"
-msgstr ""
-"Het samenvoegen van %s in %s heeft conflicten veroorzaakt, wilt u de branch "
-"%s met de samenvoeging uitchecken naar uw werkmap om de conflicten op te "
-"lossen?"
-
-#: gitg/gitg-ref-action-merge.vala:188
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout the "
-"merge to your working directory to resolve the conflicts?"
-msgstr ""
-"Het samenvoegen van %s in %s heeft conflicten veroorzaakt, wilt u de "
-"samenvoeging uitchecken naar uw werkmap om de conflicten op te lossen?"
-
-#: gitg/gitg-ref-action-merge.vala:199
-msgid "Merge failed with conflicts"
-msgstr "Samenvoegen mislukt met conflicten"
-
-#: gitg/gitg-ref-action-merge.vala:210
-msgid "Finished merge with conflicts in working directory"
-msgstr "Samengevoegd met conflicten in werkmap"
-
-#: gitg/gitg-ref-action-merge.vala:222
-#, c-format
-msgid "Merge %s into %s"
-msgstr "%s samenvoegen in %s"
-
-#: gitg/gitg-ref-action-merge.vala:231
-#, c-format
-msgid "Failed to lookup our commit: %s"
-msgstr "Opzoeken van onze commit mislukt: %s"
-
-#: gitg/gitg-ref-action-merge.vala:241
-#, c-format
-msgid "Failed to lookup their commit: %s"
-msgstr "Opzoeken van hun commit mislukt: %s"
-
-#: gitg/gitg-ref-action-merge.vala:278
-#, c-format
-msgid "Successfully merged %s into %s"
-msgstr "%s samengevoegd in %s"
-
-#: gitg/gitg-ref-action-merge.vala:320
-#, c-format
-msgid "Merge %s into branch %s"
-msgstr "%s invoegen in branch %s"
-
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1181
-msgid "Tags"
-msgstr "Tags"
-
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr "Hernoemen"
@@ -1339,11 +1396,39 @@ msgstr "Hernoemen mislukt"
 msgid "Close"
 msgstr "Sluiten"
 
+#: gitg/gitg-remove-remote-action.vala:50
+msgid "Remove remote"
+msgstr "Remote verwijderen"
+
+#: gitg/gitg-remove-remote-action.vala:55
+msgid "Removes remote from the remotes list"
+msgstr "Verwijdert de remote uit de remotelijst"
+
+#: gitg/gitg-remove-remote-action.vala:62
+#, c-format
+msgid "Delete remote %s"
+msgstr "Remote %s verwijderen"
+
+#: gitg/gitg-remove-remote-action.vala:63
+#, c-format
+msgid "Are you sure that you want to remove the remote %s?"
+msgstr "Weet u zeker dat u de remote %s wilt verwijderen?"
+
+#: gitg/gitg-remove-remote-action.vala:67
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: gitg/gitg-remove-remote-action.vala:91
+msgid "Failed to remove remote"
+msgstr "Verwijderen van remote mislukt"
+
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "Repository toevoegen"
 
-#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
+#: gitg/gitg-window.vala:206
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
+#: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Toevoegen"
 
@@ -1445,11 +1530,11 @@ msgstr "%zu achter"
 msgid "All commits"
 msgstr "Alle commits"
 
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1197
 msgid "Branches"
 msgstr "Branches"
 
-#: gitg/history/gitg-history-refs-list.vala:1180
+#: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
 msgstr "Remotes"
 
@@ -1463,7 +1548,7 @@ msgstr "Geschiedenis"
 msgid "Examine the history of the repository"
 msgstr "Bekijk de geschiedenis van de repository"
 
-#: gitg/history/gitg-history.vala:942
+#: gitg/history/gitg-history.vala:949
 msgid "Mainline"
 msgstr "Mainline"
 
@@ -1481,7 +1566,23 @@ msgstr "Het systeemlettertype met vaste breedte (%s) gebr_uiken"
 msgid "Interface"
 msgstr "Interface"
 
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
+msgid "Create Remote"
+msgstr "Remote aanmaken"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
+msgid "Remote _name:"
+msgstr "_Naam van remote:"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
+msgid "Remote _URL:"
+msgstr "_URL van remote:"
+
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "_Opslaan"
 
@@ -1525,10 +1626,6 @@ msgstr "Repository klonen"
 #: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "Kl_onen"
-
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-msgid "Remote _URL:"
-msgstr "_URL van remote:"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1635,6 +1732,10 @@ msgid ""
 msgstr ""
 "Er zijn nog geen repository’s toegevoegd. Om te beginnen, kunt u een "
 "bestaande repository toevoegen of een nieuwe klonen."
+
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
+msgid "Edit Remote"
+msgstr "Remote bewerken"
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
@@ -2063,29 +2164,47 @@ msgstr "na (%s)"
 msgid "added (%s)"
 msgstr "toegevoegd (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:143
+#: libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Alles dichtklappen"
 
-#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/gitg-diff-view-commit-details.vala:149
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Alles uitvouwen"
 
-#: libgitg/gitg-diff-view-commit-details.vala:202
+#: libgitg/gitg-diff-view-commit-details.vala:204
 #, c-format
 msgid "Committed by %s"
 msgstr "Gecommit door %s"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#. Translators: Unif stands for unified diff format
+#: libgitg/gitg-diff-view-file.vala:151
+msgid "Unif"
+msgstr "Unif"
+
+#. Translators: Split stands for the noun
+#: libgitg/gitg-diff-view-file.vala:156
+msgid "Split"
+msgstr "Splitsen"
+
+#: libgitg/gitg-diff-view-file.vala:163
+msgid "Binary"
+msgstr "Binair bestand"
+
+#: libgitg/gitg-diff-view-file.vala:170
+msgid "Image"
+msgstr "Afbeelding"
+
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "_Open file"
 msgstr "Bestand _openen"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:248
 msgid "Open containing _folder"
 msgstr "Bovenliggende _map openen"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:268
 msgid "_Copy file path"
 msgstr "Bestandspad _kopiëren"
 
@@ -2396,9 +2515,6 @@ msgstr "Geef de bestanden in de tree van de geselecteerde commit weer"
 #~ msgid "Remove stash"
 #~ msgstr "Verwijder tijdelijke opslag"
 
-#~ msgid "Remove tag"
-#~ msgstr "Verwijder tag"
-
 #~ msgid "Not all fields are correctly filled in"
 #~ msgstr "Niet alle velden zijn correct ingevuld"
 
@@ -2471,9 +2587,6 @@ msgstr "Geef de bestanden in de tree van de geselecteerde commit weer"
 
 #~ msgid "local"
 #~ msgstr "lokale"
-
-#~ msgid "remote"
-#~ msgstr "afgelegen"
 
 #~ msgid "The stashed changes have been stored to be reapplied manually"
 #~ msgstr ""
