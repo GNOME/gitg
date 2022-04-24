@@ -61,9 +61,7 @@ class Gitg.DiffViewFileRendererImage : Gtk.Grid, DiffViewFileRenderer
 		d_diff_image_overlay.cache = d_cache;
 		d_diff_image_difference.cache = d_cache;
 
-		if (d_cache.old_pixbuf == null || d_cache.new_pixbuf == null ||
-		    d_cache.old_pixbuf.get_width() != d_cache.new_pixbuf.get_width() ||
-		    d_cache.old_pixbuf.get_height() != d_cache.new_pixbuf.get_height())
+		if (d_cache.old_pixbuf == null || d_cache.new_pixbuf == null)
 		{
 			d_stack_switcher.sensitive = false;
 		}
