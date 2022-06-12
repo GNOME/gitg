@@ -742,17 +742,6 @@ class Dialog : Gtk.Dialog
 		d_scrolled_window_stats.set_min_content_height(allocation.y + allocation.height);
 	}
 
-	private void update_too_long_tag()
-	{
-		// Get the warning fg/bg colors
-		var ctx = d_source_view_message.get_style_context();
-
-		ctx.save();
-		ctx.add_class("warning");
-
-		ctx.restore();
-	}
-
 	private bool on_commit_message_key_press_event(Gtk.Widget widget, Gdk.EventKey event)
 	{
 		var mmask = Gtk.accelerator_get_default_mod_mask();
@@ -786,13 +775,8 @@ class Dialog : Gtk.Dialog
 		d_subject_tag = b.create_tag("subject",
 		                             "weight", Pango.Weight.BOLD);
 
-		d_too_long_tag = b.create_tag("too-long");
+		d_too_long_tag = b.create_tag("too-long", "background", "#f57900");
 
-		update_too_long_tag();
-
-		d_source_view_message.style_updated.connect(() => {
-			update_too_long_tag();
-		});
 
 		b.changed.connect(() => {
 			do_highlight();
