@@ -537,6 +537,7 @@ public class RefsList : Gtk.ListBox
 	private RefHeader? d_all_tags;
 	private RefRow.SortOrder d_ref_sort_order;
 	private HeaderState[] d_expanded;
+	private bool d_filter_unknown_refs = false;
 	public RefHeader? branches_header { get { return d_all_branches; } }
 	public RefHeader? remotes_header { get { return d_all_remotes; } }
 	public RefHeader? tags_header { get { return d_all_tags; } }
@@ -546,6 +547,7 @@ public class RefsList : Gtk.ListBox
 	public Gee.LinkedList<GitgExt.Action> branches_actions { get {return d_branches_actions;} set { d_branches_actions = value; refresh();} }
 	public Gee.LinkedList<GitgExt.Action> remotes_actions { get {return d_remotes_actions;} set { d_remotes_actions = value; refresh();} }
 	public Gee.LinkedList<GitgExt.Action> tags_actions { get {return d_tags_actions;} set { d_tags_actions = value; refresh();} }
+	public bool filter_unknown_refs { get {return d_filter_unknown_refs;} set { d_filter_unknown_refs = value; refresh();} }
 
 	public signal void changed();
 
@@ -605,6 +607,12 @@ public class RefsList : Gtk.ListBox
 		              this,
 		              "reference-sort-order",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("filter-unknown-refs",
+		              this,
+		              "filter-unknown-refs",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 	}
 
 	public Gee.List<Gitg.Ref> references
@@ -1035,6 +1043,17 @@ public class RefsList : Gtk.ListBox
 		}
 	}
 
+	// Checks if the provided reference should be filtered.
+	private bool ref_is_filtered(Gitg.Ref reference)
+	{
+		if (reference.parsed_name.rtype != Gitg.RefType.REMOTE)
+		{
+			string name = reference.parsed_name.shortname;
+			return !(name.has_prefix("refs/heads") || name.has_prefix("refs/remotes"));
+		}
+		return false;
+	}
+
 	// Checks if the provided reference is a symbolic ref with the name HEAD.
 	private bool ref_is_a_symbolic_head(Gitg.Ref reference)
 	{
@@ -1223,6 +1242,9 @@ public class RefsList : Gtk.ListBox
 				// useful to show (we get these for remotes for example)
 				if (ref_is_a_symbolic_head(r))
 				{
+					return 0;
+				}
+				if (filter_unknown_refs && ref_is_filtered(r)) {
 					return 0;
 				}
 

@@ -165,6 +165,13 @@
          selecting a local branch in the history view.
       </description>
     </key>
+    <key name="filter-unknown-refs" type="b">
+      <default>false</default>
+      <summary>Filter unknown refs</summary>
+      <description>
+         Hide any ref different from refs/heads and refs/remotes.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.branch" path="@SCHEMA_PATH@/preferences/branch/">
     <key name="checkout-created-branch" type="b">

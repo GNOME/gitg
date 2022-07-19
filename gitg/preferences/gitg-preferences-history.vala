@@ -56,6 +56,9 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "show_upstream_with_branch")]
 	private unowned Gtk.CheckButton d_show_upstream_with_branch;
 
+	[GtkChild (name = "filter_unknown_refs")]
+	private unowned Gtk.CheckButton d_filter_unknown_refs;
+
 	private Gtk.RadioButton[] d_select_buttons;
 	private string[] d_select_names;
 
@@ -157,6 +160,11 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 
 		settings.bind("show-upstream-with-branch",
 		              d_show_upstream_with_branch,
+		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("filter-unknown-refs",
+		              d_filter_unknown_refs,
 		              "active",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 	}
