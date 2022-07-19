@@ -393,6 +393,7 @@ namespace Gitg
 					d_id_hash = new Gee.HashMap<Ggit.OId, int>((i) => { return i.hash(); }, (a, b) => { return a.equal(b); });
 				}
 
+				int count = 0;
 				while (true)
 				{
 					Ggit.OId? id;
@@ -406,6 +407,9 @@ namespace Gitg
 					try
 					{
 						id = d_walker.next();
+						count++;
+						if (count >= 10)
+								break;
 
 						if (id == null)
 						{
