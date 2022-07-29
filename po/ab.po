@@ -1,16 +1,9 @@
-# Copyright (C) 2022 The Abkhazian language development fund named after Bagrat Shinkuba
-# This file is distributed under the same license as the gitg package.
-# Нанба Наала <naala-nanba@rambler.ru>, 2022.
-#
-
 msgid ""
 msgstr ""
-"Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
 "POT-Creation-Date: 2022-07-20 11:14+0000\n"
-"PO-Revision-Date: 2022-07-22 16:00+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
-"Language-Team: Abkhazian <LL@li.org>\n"
+"Language-Team: Abkhazian <ab@li.org>\n"
 "Language: ab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +15,8 @@ msgstr ""
 msgid "Could not parse XML from stream"
 msgstr ""
 
-#: data/org.gnome.gitg.appdata.xml.in.in:5+gitg/gitg.vala:39+gitg/resources/ui/gitg-window.ui:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
@@ -76,7 +70,7 @@ msgstr ""
 
 #: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
-msgstr ""
+msgstr "The GNOME Project"
 
 #: data/org.gnome.gitg.desktop.in.in:3
 msgid "@binary@"
@@ -154,7 +148,8 @@ msgstr ""
 msgid "Enable Monitoring"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:71+gitg/resources/ui/gitg-preferences-interface.ui:188
+#: data/org.gnome.gitg.gschema.xml.in:71
+#: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "Автоматикла арҿыцра .git  анҭыҵынтә аԥсахрақәа аныԥшаархалак ашьҭахь"
 
@@ -772,7 +767,7 @@ msgstr ""
 
 #: gitg/gitg-application.vala:238
 msgid "translator-credits"
-msgstr "Нанба Наала <naala-nanba@rambler.ru>"
+msgstr "Нанба Наала <naala-nanba@rambler.ru>, 2022"
 
 #: gitg/gitg-application.vala:241
 msgid "gitg homepage"
@@ -852,7 +847,8 @@ msgid ""
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
 
-#: gitg/gitg-commit-action-cherry-pick.vala:164+gitg/gitg-ref-action-checkout.vala:48+gitg/gitg-ref-action-merge.vala:195
+#: gitg/gitg-commit-action-cherry-pick.vala:164
+#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
 msgid "Checkout"
 msgstr "Checkout"
 
@@ -963,7 +959,9 @@ msgstr ""
 msgid "Create new repository"
 msgstr ""
 
+#. Translators: %s is a file name
 #: gitg/gitg-dash-view.vala:448
+#, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
@@ -1052,7 +1050,7 @@ msgstr ""
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 #: gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
@@ -1556,11 +1554,13 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42+gitg/resources/ui/gitg-history-paned.ui:111
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42
+#: gitg/resources/ui/gitg-history-paned.ui:111
 msgid "Author"
 msgstr "Аԥҵаҩы"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58+gitg/resources/ui/gitg-history-paned.ui:127
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
+#: gitg/resources/ui/gitg-history-paned.ui:127
 msgid "Date"
 msgstr "Аамҭарба"
 
@@ -1967,18 +1967,30 @@ msgid_plural "%d days ago"
 msgstr[0] ""
 msgstr[1] ""
 
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 24 hour
+#. clock.
 #: libgitg/gitg-date.vala:374
 msgid "%b %e, %H∶%M"
 msgstr "%b %e, %H∶%M"
 
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 12 hour
+#. clock.
 #: libgitg/gitg-date.vala:381
 msgid "%b %e, %I∶%M %p"
 msgstr "%b %e, %I∶%M %p"
 
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 24
+#. hour clock.
 #: libgitg/gitg-date.vala:391
 msgid "%b %e %Y, %H∶%M"
 msgstr "%b %e %Y, %H∶%M"
 
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 12
+#. hour clock.
 #: libgitg/gitg-date.vala:398
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%b %e %Y, %I∶%M %p"
@@ -2055,11 +2067,15 @@ msgstr ""
 msgid "_Copy file path"
 msgstr ""
 
+#. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: libgitg/gitg-repository-list-box.vala:153
+#, c-format
 msgid "at %s"
-msgstr "%s аҟны"
+msgstr " %s аҟны"
 
+#. Translators: this is used to construct: "<branch-name> at <directory>"
 #: libgitg/gitg-repository-list-box.vala:162
+#, c-format
 msgid "%s at %s"
 msgstr "%s аҟны %s"
 
