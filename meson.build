@@ -122,6 +122,7 @@ common_ldflags = cc.get_supported_link_arguments('-Wl,--version-script,@0@'.form
 
 glib_req_version = '>= 2.68'
 
+hdy_dep = dependency('libhandy-1', version: '>= 1.5.0')
 gee_dep = dependency('gee-0.8')
 gio_dep = dependency('gio-2.0', version: glib_req_version)
 glib_dep = dependency('glib-2.0', version: glib_req_version)

@@ -64,6 +64,7 @@ sources = gitg_sources + files(
 
 deps = [
   config_dep,
+  hdy_dep,
   gitg_platform_support_dep,
   gobject_introspection_dep,
   gtksourceview_dep,

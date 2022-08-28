@@ -382,6 +382,9 @@ public class Application : Gtk.Application
 	protected override void startup()
 	{
 		base.startup();
+		Hdy.init ();
+		var style_manager = Hdy.StyleManager.get_default();
+		style_manager.color_scheme = PREFER_LIGHT;
 
 		PlatformSupport.application_support_prepare_startup();
 
