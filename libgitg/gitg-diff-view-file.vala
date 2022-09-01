@@ -96,6 +96,15 @@ class Gitg.DiffViewFile : Gtk.Grid
 		return has_selection;
 	}
 
+	public void clear_selection()
+	{
+		foreach (var renderer in renderer_list)
+		{
+			var sel = renderer as DiffSelectable;
+			sel.clear_selection();
+		}
+	}
+
 	public PatchSet get_selection()
 	{
 		var ret = new PatchSet();

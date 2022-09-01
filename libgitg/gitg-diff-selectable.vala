@@ -23,6 +23,7 @@ interface Gitg.DiffSelectable : Object
 	public abstract bool can_select { get; construct set; }
 
 	public abstract PatchSet selection { owned get; }
+	public abstract void clear_selection ();
 }
 
 // ex:ts=4 noet

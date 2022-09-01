@@ -874,14 +874,16 @@ public class Stage : Object
 		yield thread_index((index) => {
 			var entries = index.get_entries();
 			var entry = entries.get_by_path(newf, 0);
-
+			uchar[] old_content = new uchar[0];
 			if (entry == null)
 			{
-				throw new StageError.INDEX_ENTRY_NOT_FOUND(patch.filename);
+				print("\npath not in index %s\n", newf.get_path());
+				index.add_file(newf);
+				index.write();
+			} else {
+				var old_blob = d_repository.lookup<Ggit.Blob>(entry.get_id());
+				old_content = old_blob.get_raw_content();
 			}
-
-			var old_blob = d_repository.lookup<Ggit.Blob>(entry.get_id());
-			unowned uchar[] old_content = old_blob.get_raw_content();
 
 			var old_stream = new MemoryInputStream.from_bytes(new Bytes(old_content));
 
@@ -957,14 +959,22 @@ public class Stage : Object
 
 			if (entry == null)
 			{
-				throw new StageError.INDEX_ENTRY_NOT_FOUND(patch.filename);
+				index.add_file(file);
+				index.write();
+				entries = index.get_entries();
+				entry = entries.get_by_path(file, 0);
 			}
 
-			var head_entry = tree.get_by_path(patch.filename);
-			var head_blob = d_repository.lookup<Ggit.Blob>(head_entry.get_id());
-			var index_blob = d_repository.lookup<Ggit.Blob>(entry.get_id());
 
-			unowned uchar[] head_content = head_blob.get_raw_content();
+			uchar[] head_content = new uchar[0];
+			try {
+				var head_entry = tree.get_by_path(patch.filename);
+				var head_blob = d_repository.lookup<Ggit.Blob>(head_entry.get_id());
+
+				head_content = head_blob.get_raw_content();
+			} catch (Error e) {}
+
+			var index_blob = d_repository.lookup<Ggit.Blob>(entry.get_id());
 			unowned uchar[] index_content = index_blob.get_raw_content();
 
 			var head_stream = new MemoryInputStream.from_bytes(new Bytes(head_content));
@@ -972,7 +982,21 @@ public class Stage : Object
 
 			var reversed = patch.reversed();
 
-			apply_patch(index, index_stream, head_stream, reversed);
+			try {
+				apply_patch(index, index_stream, head_stream, reversed);
+			} catch(Error e) {
+				var stage = d_repository.stage;
+				stage.delete_path.begin(file.get_path(), (obj, res) => {
+					try
+					{
+						stage.delete_path.end(res);
+					}
+					catch (Error e)
+					{
+						warning("%s\n", e.message);
+					}
+				});
+			}
 
 			head_stream.close();
 			index_stream.close();

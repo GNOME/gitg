@@ -853,6 +853,7 @@ public class Gitg.DiffView : Gtk.Grid
 								renderer_text.notify["has-selection"].connect(on_selection_changed);
 							}
 						}
+						on_selection_changed();
 					}
 					if (current_is_binary)
 					{
@@ -1059,6 +1060,14 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 
 		return ret;
+	}
+
+	public void clear_selection()
+	{
+		foreach (var file in d_grid_files.get_children())
+		{
+			((Gitg.DiffViewFile)file).clear_selection();
+		}
 	}
 
 	private void update_hide_show_options(Gdk.Window window, int ex, int ey)

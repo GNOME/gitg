@@ -68,6 +68,8 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private Settings? d_stylesettings;
 
 	private FontManager d_font_manager;
+	private bool d_has_selection;
+
 	public Style d_style { get; construct set; }
 
 	public bool new_is_workdir { get; construct set; }
@@ -122,7 +124,10 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 	}
 
-	private bool d_has_selection;
+	public void clear_selection()
+	{
+		d_has_selection = false;
+	}
 
 	public bool has_selection
 	{

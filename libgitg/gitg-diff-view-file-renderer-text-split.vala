@@ -128,6 +128,10 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 		}
 	}
 
+	public void clear_selection()
+	{
+	}
+
 	public bool can_select { get; construct set; }
 
 	public PatchSet selection

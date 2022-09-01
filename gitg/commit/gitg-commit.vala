@@ -1275,6 +1275,8 @@ namespace GitgCommit
 
 			foreach (var pset in selection)
 			{
+				if (pset.patches.length == 0)
+					continue;
 				if (staging)
 				{
 					yield stage.stage_patch(pset);
@@ -1284,6 +1286,7 @@ namespace GitgCommit
 					yield stage.unstage_patch(pset);
 				}
 			}
+			d_main.diff_view.clear_selection();
 		}
 
 		private async void discard_selection() throws Error
