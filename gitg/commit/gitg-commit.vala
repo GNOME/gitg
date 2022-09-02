@@ -143,6 +143,23 @@ namespace GitgCommit
 
 		public bool on_key_pressed (Gdk.EventKey event) {
 			var mmask = Gtk.accelerator_get_default_mod_mask();
+			var modifiers = event.state;
+
+			if (Gdk.ModifierType.CONTROL_MASK in modifiers
+				&& Gdk.ModifierType.SHIFT_MASK in modifiers)
+			{
+				if (event.keyval == Gdk.Key.Up)
+				{
+                    d_main.diff_view.move_highlight_mark_up ();
+					print ("Up\n");
+					return true;
+				} else if (event.keyval == Gdk.Key.Down)
+				{
+                    d_main.diff_view.move_highlight_mark_down ();
+					print ("Down\n");
+					return true;
+				}
+			}
 
 			if ((mmask & event.state) == Gdk.ModifierType.CONTROL_MASK)
 			{

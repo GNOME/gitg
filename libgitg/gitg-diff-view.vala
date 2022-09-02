@@ -757,6 +757,12 @@ public class Gitg.DiffView : Gtk.Grid
 			if (current_file != null)
 			{
 				current_file.show();
+				var renderer_list = current_file.renderer_list;
+				foreach (DiffViewFileRenderer renderer in renderer_list)
+				{
+					var renderer_text = renderer as DiffViewFileRendererTextable;
+					renderer_text.notify["has-selection"].connect(on_selection_changed);
+				}
 
 				files.add(current_file);
 
@@ -1067,6 +1073,39 @@ public class Gitg.DiffView : Gtk.Grid
 		foreach (var file in d_grid_files.get_children())
 		{
 			((Gitg.DiffViewFile)file).clear_selection();
+		}
+	}
+
+	public void move_highlight_mark_down ()
+	{
+		//TODO: select only the current one
+		//TODO: There's a selection for any of them
+		//TODO: Remove all this pile of function call
+		//Make sure highlight file is shown (scroll)
+		foreach (var file in d_grid_files.get_children())
+		{
+			var renderer_list = (file as Gitg.DiffViewFile).renderer_list;
+			foreach (DiffViewFileRenderer renderer in renderer_list)
+			{
+				var renderer_text = renderer as DiffViewFileRendererText;
+				renderer_text.move_highlight_mark_down ();
+			}
+			break;
+		}
+	}
+
+	public void move_highlight_mark_up ()
+	{
+		//TODO: select only the current one
+		foreach (var file in d_grid_files.get_children())
+		{
+			var renderer_list = (file as Gitg.DiffViewFile).renderer_list;
+			foreach (DiffViewFileRenderer renderer in renderer_list)
+			{
+				var renderer_text = renderer as DiffViewFileRendererText;
+				renderer_text.move_highlight_mark_up ();
+			}
+			break;
 		}
 	}
 

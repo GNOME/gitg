@@ -49,7 +49,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	private Gee.HashMap<int, PatchSet.Patch?> d_lines;
 
-	private DiffViewFileSelectable d_selectable;
+	public DiffViewFileSelectable d_selectable;
 	private DiffViewLinesRenderer d_old_lines;
 	private DiffViewLinesRenderer d_new_lines;
 	private DiffViewLinesRenderer d_sym_lines;
@@ -258,6 +258,16 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		d_lines = new Gee.HashMap<int, PatchSet.Patch?>();
 
 		highlight = true;
+	}
+
+	public void move_highlight_mark_down ()
+	{
+		d_selectable.move_highlight_mark_down ();
+	}
+
+	public void move_highlight_mark_up ()
+	{
+		d_selectable.move_highlight_mark_up ();
 	}
 
 	protected override void dispose()
