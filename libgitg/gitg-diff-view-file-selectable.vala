@@ -26,6 +26,7 @@ enum Gitg.DiffSelectionMode {
 class Gitg.DiffViewFileSelectable : Object
 {
 	private string d_selection_category = "selection";
+	private string d_highlight_category = "highlight";
 	private Gtk.TextTag d_selection_tag;
 	private DiffSelectionMode d_selection_mode;
 	private Gtk.TextMark d_start_selection_mark;
@@ -138,6 +139,8 @@ class Gitg.DiffViewFileSelectable : Object
 	private void update_theme()
 	{
 		var selection_attributes = new Gtk.SourceMarkAttributes();
+		var highlight_attributes = new Gtk.SourceMarkAttributes();
+		highlight_attributes.icon_name = "pan-end-symbolic";
 		var context = source_view.get_style_context();
 
 		Gdk.RGBA theme_selected_bg_color, theme_selected_fg_color;
@@ -146,13 +149,14 @@ class Gitg.DiffViewFileSelectable : Object
 		{
 			selection_attributes.background = theme_selected_bg_color;
 		}
-		
+
 		if (context.lookup_color("theme_selected_fg_color", out theme_selected_fg_color))
 		{
 			d_selection_tag.foreground_rgba = theme_selected_fg_color;
 		}
 
-		source_view.set_mark_attributes(d_selection_category, selection_attributes, 0);
+		source_view.set_mark_attributes(d_highlight_category, highlight_attributes, 0);
+		source_view.set_mark_attributes(d_selection_category, selection_attributes, 1);
 	}
 
 	private bool get_line_selected(Gtk.TextIter iter)
@@ -273,6 +277,11 @@ class Gitg.DiffViewFileSelectable : Object
 					}
 
 					buffer.apply_tag(d_selection_tag, current, line_end);
+					Gtk.TextIter start_iter, end_iter;
+					buffer.get_start_iter (out start_iter);
+					buffer.get_end_iter (out end_iter);
+					buffer.remove_source_marks (start_iter, end_iter, d_highlight_category);
+					buffer.create_source_mark(null, d_highlight_category, current);
 				}
 			}
 
@@ -359,6 +368,80 @@ class Gitg.DiffViewFileSelectable : Object
 		update_selection_range(iter, end, select);
 	}
 
+	public void move_highlight_mark_up() {
+		Gtk.TextIter start_iter, end_iter;
+		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		buffer.get_start_iter (out start_iter);
+		buffer.get_end_iter (out end_iter);
+
+		Gtk.TextIter iter;
+		buffer.get_start_iter (out iter);
+		if (buffer.forward_iter_to_source_mark (ref iter, d_highlight_category))
+		{
+			iter.backward_line ();
+		}
+		while (iter.get_line () >= start_iter.get_line ())
+		{
+			if (get_line_is_diff(iter))
+			{
+				buffer.remove_source_marks (start_iter, end_iter, d_highlight_category);
+				buffer.create_source_mark(null, d_highlight_category, iter);
+				break;
+			}
+			if (!iter.backward_line ())
+			{
+				break;
+			}
+		}
+	}
+
+	public void move_highlight_mark_down() {
+		Gtk.TextIter start_iter, end_iter;
+		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		buffer.get_start_iter (out start_iter);
+		buffer.get_end_iter (out end_iter);
+
+		Gtk.TextIter iter;
+		buffer.get_start_iter(out iter);
+		if (buffer.forward_iter_to_source_mark (ref iter, d_highlight_category))
+		{
+			iter.forward_line ();
+		}
+		while (iter.get_line () <= end_iter.get_line ())
+		{
+			if (get_line_is_diff(iter))
+			{
+				buffer.remove_source_marks (start_iter, end_iter, d_highlight_category);
+				buffer.create_source_mark(null, d_highlight_category, iter);
+				break;
+			}
+			if (!iter.forward_line ())
+			{
+				break;
+			}
+		}
+	}
+
+	public void selection_update(bool shiftPressed)
+	{
+		var buffer = source_view.buffer as Gtk.SourceBuffer;
+		Gtk.TextIter iter;
+		buffer.get_start_iter (out iter);
+		if (buffer.forward_iter_to_source_mark (ref iter, d_highlight_category))
+		{
+			if (shiftPressed)
+			{
+				update_selection(iter);
+			}
+			else
+			{
+				toggle_selection(iter);
+			}
+            update_has_selection();
+			//TODO: Allow to highlight hunks to select them with shortcuts
+		}
+	}
+
 	private bool button_press_event_on_view(Gdk.EventButton event)
 	{
 		if (event.button != 1)
@@ -375,7 +458,9 @@ class Gitg.DiffViewFileSelectable : Object
 
 		var buffer = source_view.buffer;
 
-		if ((event.state & Gdk.ModifierType.SHIFT_MASK) != 0)
+		var mmask = Gtk.accelerator_get_default_mod_mask();
+
+		if ((mmask & event.state) == Gdk.ModifierType.SHIFT_MASK)
 		{
 			update_selection(iter);
 			return true;
@@ -388,17 +473,16 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 
 		d_is_rubber_band = true;
+		toggle_selection(iter);
+		return true;
+	}
 
-		var select = !get_line_selected(iter);
+	private void toggle_selection(Gtk.TextIter iter)
+	{
+		var buffer = source_view.buffer;
+		var select = get_line_selected(iter);
 
-		if (select)
-		{
-			d_selection_mode = DiffSelectionMode.SELECTING;
-		}
-		else
-		{
-			d_selection_mode = DiffSelectionMode.DESELECTING;
-		}
+		d_selection_mode = select ? DiffSelectionMode.DESELECTING : DiffSelectionMode.SELECTING;
 
 		d_originally_selected.clear();
 
@@ -406,8 +490,6 @@ class Gitg.DiffViewFileSelectable : Object
 		buffer.move_mark(d_end_selection_mark, iter);
 
 		update_selection(iter);
-
-		return true;
 	}
 
 	private void update_selection(Gtk.TextIter cursor)

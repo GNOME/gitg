@@ -25,8 +25,8 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 	[GtkChild( name = "scroll_right" )]
 	private unowned Gtk.ScrolledWindow d_scroll_right;
 
-	private Gitg.DiffViewFileRendererText d_renderer_left;
-	private Gitg.DiffViewFileRendererText d_renderer_right;
+	public Gitg.DiffViewFileRendererText d_renderer_left;
+	public Gitg.DiffViewFileRendererText d_renderer_right;
 
 	public DiffViewFileInfo info { get; construct set; }
 
@@ -107,12 +107,6 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 		d_scroll_right.add(d_renderer_right);
 	}
 
-	construct
-	{
-		//can_select = d_renderer_left.can_select() || d_renderer_right.can_select();
-		can_select = false;
-	}
-
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
 		d_renderer_left.add_hunk(hunk, lines);
@@ -123,8 +117,7 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 	{
 		get
 		{
-			//return d_renderer_left.has_selection() || d_renderer_right.has_selection();
-			return false;
+			return d_renderer_left.has_selection || d_renderer_right.has_selection;
 		}
 	}
 
@@ -132,17 +125,21 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 	{
 	}
 
-	public bool can_select { get; construct set; }
+	public bool can_select {
+		get {
+			return d_renderer_left.can_select || d_renderer_right.can_select;
+		}
+		construct set {}
+	}
 
 	public PatchSet selection
 	{
 		owned get
 		{
-			/*if (d_renderer_left.has_selection())
-				return d_renderer_left.get_selection();
-			if (d_renderer_right.has_selection())
-				return d_renderer_right.get_selection();
-			*/
+			if (d_renderer_left.has_selection)
+				return d_renderer_left.selection;
+			if (d_renderer_right.has_selection)
+				return d_renderer_right.selection;
 			return new PatchSet();
 		}
 	}

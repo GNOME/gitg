@@ -185,7 +185,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	public DiffViewFileRendererText(DiffViewFileInfo info, bool can_select, Style style)
 	{
-		Object(info: info, can_select: can_select, d_style: style);
+		Object(info: info, can_select: can_select, d_style: style, show_line_marks: true);
 	}
 
 	construct
@@ -258,6 +258,21 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		d_lines = new Gee.HashMap<int, PatchSet.Patch?>();
 
 		highlight = true;
+	}
+
+	public void move_highlight_mark_down ()
+	{
+		d_selectable.move_highlight_mark_down ();
+	}
+
+	public void move_highlight_mark_up ()
+	{
+		d_selectable.move_highlight_mark_up ();
+	}
+
+	public void selection_update (bool shiftPressed)
+	{
+		d_selectable.selection_update (shiftPressed);
 	}
 
 	protected override void dispose()
@@ -652,6 +667,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		var header_attributes = new Gtk.SourceMarkAttributes();
 		var added_attributes = new Gtk.SourceMarkAttributes();
 		var removed_attributes = new Gtk.SourceMarkAttributes();
+		var empty_attributes = new Gtk.SourceMarkAttributes();
 
 		var dark = new Theme().is_theme_dark();
 
@@ -671,6 +687,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		this.set_mark_attributes("header", header_attributes, 0);
 		this.set_mark_attributes("added", added_attributes, 0);
 		this.set_mark_attributes("removed", removed_attributes, 0);
+		this.set_mark_attributes("empty", empty_attributes, 0);
 	}
 
 	protected override void constructed()

@@ -1070,6 +1070,95 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
+	public void move_highlight_mark_down ()
+	{
+		//TODO: select only the current one
+		//TODO: There's a selection for any of them
+		//TODO: Remove all this pile of function call
+		//Make sure highlight file is shown (scroll)
+		foreach (var file in d_grid_files.get_children())
+		{
+			var renderer_list = (file as Gitg.DiffViewFile).renderer_list;
+			foreach (DiffViewFileRenderer renderer in renderer_list)
+			{
+				Gitg.DiffViewFileRendererText renderer_text = null;
+				if (renderer is DiffViewFileRendererText)
+					renderer_text = renderer as DiffViewFileRendererText;
+				else if (renderer is DiffViewFileRendererTextSplit) {
+					if (left)
+						renderer_text = (renderer as DiffViewFileRendererTextSplit).d_renderer_left;
+					else
+					renderer_text = (renderer as DiffViewFileRendererTextSplit).d_renderer_right;
+				}
+				if(renderer_text == null) {
+					continue;
+				}
+				renderer_text.move_highlight_mark_down ();
+			}
+		}
+	}
+
+	public void move_highlight_mark_up ()
+	{
+		//TODO: select only the current one
+		foreach (var file in d_grid_files.get_children())
+		{
+			var renderer_list = (file as Gitg.DiffViewFile).renderer_list;
+			foreach (DiffViewFileRenderer renderer in renderer_list)
+			{
+				Gitg.DiffViewFileRendererText renderer_text = null;
+				if (renderer is DiffViewFileRendererText)
+					renderer_text = renderer as DiffViewFileRendererText;
+				else if (renderer is DiffViewFileRendererTextSplit) {
+					if (left)
+						renderer_text = (renderer as DiffViewFileRendererTextSplit).d_renderer_left;
+					else
+						renderer_text = (renderer as DiffViewFileRendererTextSplit).d_renderer_right;
+				}
+				if(renderer_text == null) {
+					continue;
+				}
+				renderer_text.move_highlight_mark_up ();
+			}
+		}
+	}
+
+    bool left = true;
+
+	public void move_highlight_mark_right ()
+	{
+       left = false;
+	}
+
+	public void move_highlight_mark_left ()
+	{
+       left = true;
+	}
+
+	public void selection_update (bool shiftPressed)
+	{
+		//TODO: select only the current one
+		foreach (var file in d_grid_files.get_children())
+		{
+			var renderer_list = (file as Gitg.DiffViewFile).renderer_list;
+			foreach (DiffViewFileRenderer renderer in renderer_list)
+			{
+				Gitg.DiffViewFileRendererText renderer_text = null;
+				if (renderer is DiffViewFileRendererText)
+					renderer_text = renderer as DiffViewFileRendererText;
+				else if (renderer is DiffViewFileRendererTextSplit) {
+					if (left)
+						renderer_text = (renderer as DiffViewFileRendererTextSplit).d_renderer_left;
+					else
+						renderer_text = (renderer as DiffViewFileRendererTextSplit).d_renderer_right;
+				}
+				if(renderer_text == null) {
+					continue;
+				}
+				renderer_text.selection_update (shiftPressed);
+			}
+		}
+	}
 	private void update_hide_show_options(Gdk.Window window, int ex, int ey)
 	{
 		void *data;

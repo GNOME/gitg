@@ -143,12 +143,41 @@ namespace GitgCommit
 
 		public bool on_key_pressed (Gdk.EventKey event) {
 			var mmask = Gtk.accelerator_get_default_mod_mask();
+			var modifiers = event.state;
+			bool control = Gdk.ModifierType.CONTROL_MASK in modifiers;
+			bool shift = Gdk.ModifierType.SHIFT_MASK in modifiers;
 
-			if ((mmask & event.state) == Gdk.ModifierType.CONTROL_MASK)
+			if (control && shift)
+			{
+				if (event.keyval == Gdk.Key.Up)
+				{
+					d_main.diff_view.move_highlight_mark_up ();
+					return true;
+				} else if (event.keyval == Gdk.Key.Down)
+				{
+					d_main.diff_view.move_highlight_mark_down ();
+					return true;
+				} else if (event.keyval == Gdk.Key.Right)
+				{
+					d_main.diff_view.move_highlight_mark_right ();
+					return true;
+				} else if (event.keyval == Gdk.Key.Left)
+				{
+					d_main.diff_view.move_highlight_mark_left ();
+					return true;
+				}
+			}
+
+			if (control)
 			{
 				if ((event.keyval == Gdk.Key.Return || event.keyval == Gdk.Key.KP_Enter))
 				{
 					on_commit_clicked ();
+					return true;
+				}
+				else if ((event.keyval == Gdk.Key.space || event.keyval == Gdk.Key.KP_Space))
+				{
+					d_main.diff_view.selection_update (shift);
 					return true;
 				}
 			}
