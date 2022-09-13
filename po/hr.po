@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
 "POT-Creation-Date: 2022-09-13 17:25+0000\n"
-"PO-Revision-Date: 2022-09-13 21:55+0200\n"
+"PO-Revision-Date: 2022-09-13 23:47+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -109,19 +109,19 @@ msgstr "Zadani direktorij u koji se novi repozitoriji trebaju klonirati."
 
 #: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr ""
+msgstr "Orijentacija glavnog sučelja (okomita ili vodoravna)"
 
 #: data/org.gnome.gitg.gschema.xml.in:39
 msgid "Setting that sets the orientation of the main interface."
-msgstr ""
+msgstr "Postavka koja postavlja orijentaciju glavnog sučelja."
 
 #: data/org.gnome.gitg.gschema.xml.in:45
 msgid "Default Activity"
-msgstr ""
+msgstr "Zadana aktivnost"
 
 #: data/org.gnome.gitg.gschema.xml.in:46
 msgid "The activity which gitg activates by default when first launched."
-msgstr ""
+msgstr "Aktivnost koju gitg aktivira po zadanome pri prvom pokretanju."
 
 #: data/org.gnome.gitg.gschema.xml.in:52
 msgid "Use Default Font"
@@ -133,6 +133,10 @@ msgid ""
 "instead of a font specific. If this option is turned off, then the font "
 "named in the “Editor Font” option will be used instead of the system font."
 msgstr ""
+"Treba li koristiti zadana slova sustavom nepromjenjive širine za tekst "
+"grafičkog objekta umjesto određenog slova. Ako je ova mogućnost isključena, "
+"koristit će se slova navedena u mogućnosti \"Slova uređivača\" umjesto slova "
+"sustava."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
 #: data/org.gnome.gitg.gschema.xml.in:57
@@ -148,18 +152,20 @@ msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
 msgstr ""
+"Prilagođena slova koja će se koristiti za tekstne grafičke objekte. Ovo će "
+"imati samo učinka ako je mogućnost \"Koristi zadana slova\" isključena."
 
 #: data/org.gnome.gitg.gschema.xml.in:63
 msgid "Use Gravatar"
-msgstr ""
+msgstr "Koristi Gravatar"
 
 #: data/org.gnome.gitg.gschema.xml.in:64
 msgid "Enable the use of gravatar to display user avatars."
-msgstr ""
+msgstr "Omogući za korištenje gravatara za prikaz avatara korisnika."
 
 #: data/org.gnome.gitg.gschema.xml.in:70
 msgid "Enable Monitoring"
-msgstr ""
+msgstr "Omogući nadgledanje"
 
 #: data/org.gnome.gitg.gschema.xml.in:71
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
@@ -168,30 +174,34 @@ msgstr "Automatski nadopuni kada su vanjske promjene na .git otkrivene"
 
 #: data/org.gnome.gitg.gschema.xml.in:77
 msgid "Enable Diff Highlighting"
-msgstr ""
+msgstr "Omogući Diff isticanje"
 
 #: data/org.gnome.gitg.gschema.xml.in:78
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
+"Postavka koja određuje hoće li se omogućiti isticanje sintakse u diff "
+"prikazima razlika."
 
 #: data/org.gnome.gitg.gschema.xml.in:85
 msgid "Color scheme to use for syntax highlighting"
-msgstr ""
+msgstr "Shema boja koja se koristi za isticanje sintakse"
 
 #: data/org.gnome.gitg.gschema.xml.in:86
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
-msgstr ""
+msgstr "Koristi GtkSourceView za otkrivanje boja sintakse za isticanje"
 
 #: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
-msgstr ""
+msgstr "Kada skupit neaktivne trake"
 
 #: data/org.gnome.gitg.gschema.xml.in:93
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
+"Postavka koja pokazuje kada se neaktivna traka treba skupiti. Valjane "
+"vrijednosti su 0 — 4, gdje 0 označava \"rano\", a 4 označava \"kasno\"."
 
 #: data/org.gnome.gitg.gschema.xml.in:100
 msgid ""
@@ -200,10 +210,14 @@ msgid ""
 "lot of parallel development. See collapse-inactive-lanes to control when "
 "lanes should be collapsed."
 msgstr ""
+"Postavka koja pokazuje treba li skupiti trake povijesti koje ne prikazuju "
+"aktivnost. Omogućavanjem ovoga može se dobiti čišći prikaz povijesti kada "
+"postoji mnogo paralelnog razvoja. Pogledajte collapse-inactive-lanes za "
+"upravljanje vremenom sakupljanja trake."
 
 #: data/org.gnome.gitg.gschema.xml.in:109
 msgid "Show History in Topological Order"
-msgstr ""
+msgstr "Prikaži povijest u topološkom redoslijedu"
 
 #: data/org.gnome.gitg.gschema.xml.in:110
 msgid ""
@@ -894,24 +908,24 @@ msgstr ""
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
-msgstr ""
+msgstr "Stvori ogranak"
 
 #: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
-msgstr ""
+msgstr "Stvori novi ogranak iz odabranog podneska"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
 #: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
-msgstr ""
+msgstr "Neuspjelo stvaranje ogranka"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create patch"
-msgstr ""
+msgstr "Stvori zakrpu"
 
 #: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
-msgstr ""
+msgstr "Stvori zakrpu iz odabranog podneska"
 
 #: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
@@ -923,27 +937,27 @@ msgstr "_Spremi zakrpu"
 
 #: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
-msgstr ""
+msgstr "Neuspjelo stvaranje zakrpe"
 
 #: gitg/gitg-commit-action-create-tag.vala:48
 msgid "Create tag"
-msgstr ""
+msgstr "Stvori oznaku"
 
 #: gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
-msgstr ""
+msgstr "Stvori novu oznaku iz odabranog podneska"
 
 #: gitg/gitg-commit-action-create-tag.vala:92
 msgid "Failed to create tag"
-msgstr ""
+msgstr "Neuspjelo stvaranje oznake"
 
 #: gitg/gitg-commit-action-create-tag.vala:109
 msgid "Failed to lookup tag"
-msgstr ""
+msgstr "Neuspjela pretraga oznake"
 
 #: gitg/gitg-create-tag-dialog.vala:96
 msgid "Provide a message to create an annotated tag"
-msgstr ""
+msgstr "Navedi poruku za stvaranje naznačene oznake"
 
 #: gitg/gitg-dash-view.vala:87
 msgid "Select and manage projects"
@@ -967,15 +981,15 @@ msgstr "U međuvremenu, možda želite %spostaviti svoj git profil%s."
 
 #: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
-msgstr ""
+msgstr "Neuspjelo kloniranje repozitorija"
 
 #: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
-msgstr ""
+msgstr "Neuspjelo dodavanje repozitorija"
 
 #: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
-msgstr "Stvari novi repozitorij"
+msgstr "Stvori novi repozitorij"
 
 #. Translators: %s is a file name
 #: gitg/gitg-dash-view.vala:448
@@ -984,59 +998,61 @@ msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
+"Izgleda kako lokacija <i>%s</i> nije valjani git repozitorij. Želite li "
+"stvoriti novi git repozitorij na ovoj lokaciji?"
 
 #: gitg/gitg-dash-view.vala:454
 msgid "Create repository"
-msgstr ""
+msgstr "Stvori repozitorij"
 
 #: gitg/gitg-dash-view.vala:470
 msgid "Failed to create repository"
-msgstr ""
+msgstr "Neuspjelo stvaranje repozitorija"
 
 #: gitg/gitg-dash-view.vala:540
 #, c-format
 msgid "Scanning for repositories in %s"
-msgstr ""
+msgstr "Pretraživanje repozitorija u %s"
 
 #: gitg/gitg-edit-remote-action.vala:51
 msgid "Edit remote"
-msgstr ""
+msgstr "Uredi udaljeni repozitorij"
 
 #: gitg/gitg-edit-remote-action.vala:56
 msgid "Edits the remote from the remotes list"
-msgstr ""
+msgstr "Uredi udaljene repozitorije iz popisa udaljenih"
 
 #: gitg/gitg-edit-remote-action.vala:82
 msgid "Failed to edit remote"
-msgstr ""
+msgstr "Neuspjelo uređivanje udaljenog repozitorija"
 
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
-msgstr ""
+msgstr "Provjeri odabranu referencu"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
 msgid "Checkout “%s”"
-msgstr ""
+msgstr "Prebaci na “%s”"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
 msgid "Failed to checkout branch: %s"
-msgstr ""
+msgstr "Neuspjelo prebacivanje na ogranak: %s"
 
 #: gitg/gitg-ref-action-checkout.vala:111
 #, c-format
 msgid "Failed to update HEAD: %s"
-msgstr ""
+msgstr "Neuspjela nadopuna HEAD: %s"
 
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
-msgstr ""
+msgstr "Ogranak je uspješno prebačen u radnom direktoriju"
 
 #: gitg/gitg-ref-action-checkout.vala:195
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
-msgstr ""
+msgstr "Neuspjelo postavljanje upstream ogranka %s for %s"
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -1044,25 +1060,25 @@ msgstr "Kopiraj naziv"
 
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
-msgstr ""
+msgstr "Kopiraj naziv reference u međuspremnik"
 
 #: gitg/gitg-ref-action-create-branch.vala:46
 msgid "Create a new branch at the selected reference"
-msgstr ""
+msgstr "Stvori novi ogranak iz odabrane reference"
 
 #: gitg/gitg-ref-action-create-branch.vala:58
 #: gitg/gitg-ref-action-create-patch.vala:58
 #: gitg/gitg-ref-action-create-tag.vala:58
 msgid "Failed to lookup reference"
-msgstr ""
+msgstr "Neuspjela pretraga reference"
 
 #: gitg/gitg-ref-action-create-patch.vala:46
 msgid "Create a patch from the selected reference"
-msgstr ""
+msgstr "Stvori zakrpu iz odabrane reference"
 
 #: gitg/gitg-ref-action-create-tag.vala:46
 msgid "Create a new tag at the selected reference"
-msgstr ""
+msgstr "Stvori novu oznaku iz odabrane reference"
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
@@ -1070,71 +1086,71 @@ msgstr "Obriši"
 
 #: gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
-msgstr ""
+msgstr "Obriši odabranu referencu"
 
 #: gitg/gitg-ref-action-delete.vala:73
 #, c-format
 msgid "Delete branch %s"
-msgstr ""
+msgstr "Obriši ogranak %s"
 
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
 msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr ""
+msgstr "Sigurno želite trajno obrisati ogranak %s?"
 
 #: gitg/gitg-ref-action-delete.vala:78
 #, c-format
 msgid "Delete tag %s"
-msgstr ""
+msgstr "Obriši oznaku %s"
 
 #: gitg/gitg-ref-action-delete.vala:79
 #, c-format
 msgid "Are you sure that you want to permanently delete the tag %s?"
-msgstr ""
+msgstr "Sigurno želite trajno obrisati oznaku %s?"
 
 #: gitg/gitg-ref-action-delete.vala:83
 #, c-format
 msgid "Delete remote branch %s"
-msgstr ""
+msgstr "Obriši udaljeni ogranak %s"
 
 #: gitg/gitg-ref-action-delete.vala:84
 #, c-format
 msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr ""
+msgstr "Sigurno želite trajno obrisati udaljeni ogranak %s?"
 
 #. Translators: %s is the name of the tag
 #: gitg/gitg-ref-action-delete.vala:119
 #, c-format
 msgid "Failed to delete tag %s"
-msgstr ""
+msgstr "Neuspjelo brisanje oznake %s"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:122
 #, c-format
 msgid "The tag %s could not be deleted: %s"
-msgstr ""
+msgstr "Oznaka %s se ne može obrisati: %s"
 
 #. Translators: %s is the name of the branch
 #: gitg/gitg-ref-action-delete.vala:127
 #, c-format
 msgid "Failed to delete branch %s"
-msgstr ""
+msgstr "Neuspjelo brisanje ogranka %s"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:130
 #, c-format
 msgid "The branch %s could not be deleted: %s"
-msgstr ""
+msgstr "Ogranak %s se ne može obrisati: %s"
 
 #: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
-msgstr ""
+msgstr "Preuzimanje s %s"
 
 #: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
-msgstr ""
+msgstr "Preuzimanje udaljenih objekata s %s"
 
 #. Translators: updated refers to a remote reference having been updated,
 #: gitg/gitg-ref-action-fetch.vala:120
@@ -1145,27 +1161,27 @@ msgstr "nadopunjeno"
 #: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
-msgstr ""
+msgstr "Preuzimanje s %s: sve je nadopunjeno"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
 msgid "Merge into %s"
-msgstr ""
+msgstr "Spoji u %s"
 
 #. TODO
 #: gitg/gitg-ref-action-merge.vala:69
 #, c-format
 msgid "Merge another branch into branch %s"
-msgstr ""
+msgstr "Spoji drugi ogranak u ogranak %s"
 
 #: gitg/gitg-ref-action-merge.vala:106
 #, c-format
 msgid "Failed to merge commits: %s"
-msgstr ""
+msgstr "Neuspjelo spajanje ogranaka: %s"
 
 #: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
-msgstr ""
+msgstr "Spajanje je u sukobu"
 
 #: gitg/gitg-ref-action-merge.vala:184
 #, c-format
@@ -1174,6 +1190,8 @@ msgid ""
 "branch “%s” with the merge to your working directory to resolve the "
 "conflicts?"
 msgstr ""
+"Spajanje “%s” u “%s” je uzrokovalo sukobe, želite li prebaciti ogranak “%s” "
+"sa spajanjem u vaš radni direktorij kako bi razriješili sukob?"
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -1181,14 +1199,16 @@ msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "the merge to your working directory to resolve the conflicts?"
 msgstr ""
+"Spajanje “%s” u “%s” je uzrokovalo sukobe, želite li prebaciti spajanje u "
+"vaš radni direktorij kako bi razriješili sukob?"
 
 #: gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
-msgstr ""
+msgstr "Spajanje nije uspjelo zbog sukoba"
 
 #: gitg/gitg-ref-action-merge.vala:210
 msgid "Finished merge with conflicts in working directory"
-msgstr ""
+msgstr "Spajanje je završeno sa sukobima u radnom direktoriju"
 
 #: gitg/gitg-ref-action-merge.vala:222
 #, c-format
@@ -1266,7 +1286,7 @@ msgstr "Preimenuj"
 
 #: gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
-msgstr ""
+msgstr "Preimenuj odabranu referencu"
 
 #: gitg/gitg-ref-action-rename.vala:100
 #, c-format
@@ -1344,68 +1364,74 @@ msgstr "Odaberi stavke"
 #: gitg/gitg-window.vala:1062
 #, c-format
 msgid "“%s” is not a Git repository."
-msgstr ""
+msgstr "“%s” nije Git repozitorij."
 
 #: gitg/gitg-window.vala:1211
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr ""
+"Vaše korisničko ime i adresa e-pošte još nisu podešeni. Idite u Pojedinosti "
+"autora i navedite svoje ime i adresu e-pošte."
 
 #: gitg/gitg-window.vala:1215
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr ""
+"Vaše korisničko ime još nije podešeno. Idite u Pojedinosti autora i navedite "
+"svoje ime."
 
 #: gitg/gitg-window.vala:1219
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
+"Vaša adresa e-pošte još nije podešena. Idite u Pojedinosti autora i navedite "
+"svoju adresu e-pošte."
 
 #: gitg/gitg-window.vala:1222
 msgid "Missing author details"
-msgstr ""
+msgstr "Nedostaju pojedinosti autora"
 
 #: gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
-msgstr ""
+msgstr "Odaberi podneske po zadanome u povijesti aktivnosti"
 
 #: gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
-msgstr ""
+msgstr "Odaberi sve ogranke po zadanome u povijesti aktivnosti"
 
 #: gitg/history/gitg-history-command-line.vala:46
 msgid "Select all remotes by default in the history activity"
-msgstr ""
+msgstr "Odaberi udaljene repozitorije po zadanome u povijesti aktivnosti"
 
 #: gitg/history/gitg-history-command-line.vala:48
 msgid "Select all tags by default in the history activity"
-msgstr ""
+msgstr "Odaberi oznake po zadanome u povijesti aktivnosti"
 
 #: gitg/history/gitg-history-command-line.vala:50
 msgid "Select the specified reference by default in the history activity"
-msgstr ""
+msgstr "Odaberi navedenu referencu po zadanome u povijesti aktivnosti"
 
 #: gitg/history/gitg-history-command-line.vala:50
 msgid "REFERENCE"
-msgstr ""
+msgstr "REFERENCA"
 
 #: gitg/history/gitg-history-refs-list.vala:165
 #, c-format
 msgid "%zu ahead, %zu behind"
-msgstr ""
+msgstr "%zu ispred, %zu iza"
 
 #: gitg/history/gitg-history-refs-list.vala:169
 #, c-format
 msgid "%zu ahead"
-msgstr ""
+msgstr "%zu ispred"
 
 #: gitg/history/gitg-history-refs-list.vala:173
 #, c-format
 msgid "%zu behind"
-msgstr ""
+msgstr "%zu iza"
 
 #: gitg/history/gitg-history-refs-list.vala:207
 #: gitg/resources/ui/gitg-preferences-history.ui:81
@@ -1482,11 +1508,11 @@ msgstr "Naziv:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
 msgid "Checkout Remote Branch"
-msgstr ""
+msgstr "Prebacivanje udaljenog ogranka"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
 msgid "C_heckout"
-msgstr ""
+msgstr "P_rebaci"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
 msgid "Local branch _name:"
@@ -1519,7 +1545,7 @@ msgstr "Odaberi lokaciju…"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:127
 msgid "Bare repository"
-msgstr ""
+msgstr "Bare repozitorij"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:8
 msgctxt "Create Dialog"
@@ -1537,7 +1563,7 @@ msgstr "_Izmjeni priješnji podnesak"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:234
 msgid "Add _signed-off-by signature"
-msgstr ""
+msgstr "Dodaj _potpisani potpis"
 
 #: gitg/resources/ui/gitg-commit-paned.ui:76
 msgid "Skip commit _hooks"
@@ -1549,7 +1575,7 @@ msgstr ""
 
 #: gitg/resources/ui/gitg-commit-paned.ui:107
 msgid "D_iscard selection"
-msgstr ""
+msgstr "O_dbaci odabir"
 
 #: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:24
 msgid ""
@@ -1595,7 +1621,7 @@ msgstr "Naziv _ogranka:"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:96
 msgid "_Checkout the created branch"
-msgstr ""
+msgstr "_Prebaci na stvoreni ogranak"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:7
 msgid "Create Tag"
@@ -1993,56 +2019,56 @@ msgstr[2] "Prije %d dana"
 #. clock.
 #: libgitg/gitg-date.vala:374
 msgid "%b %e, %H∶%M"
-msgstr ""
+msgstr "%-e %b, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: libgitg/gitg-date.vala:381
 msgid "%b %e, %I∶%M %p"
-msgstr ""
+msgstr "%-e %b %l:%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: libgitg/gitg-date.vala:391
 msgid "%b %e %Y, %H∶%M"
-msgstr ""
+msgstr "%-e %b %Y, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: libgitg/gitg-date.vala:398
 msgid "%b %e %Y, %I∶%M %p"
-msgstr ""
+msgstr "%-e %b, %Y, %I∶%M %p"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
 #: libgitg/gitg-diff-image-side-by-side.vala:39
 #, c-format
 msgid "before (%s)"
-msgstr ""
+msgstr "prije (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
 #: libgitg/gitg-diff-image-side-by-side.vala:45
 #, c-format
 msgid "removed (%s)"
-msgstr ""
+msgstr "uklonjeno (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
 #: libgitg/gitg-diff-image-side-by-side.vala:65
 #, c-format
 msgid "after (%s)"
-msgstr ""
+msgstr "poslije (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
 #: libgitg/gitg-diff-image-side-by-side.vala:71
 #, c-format
 msgid "added (%s)"
-msgstr ""
+msgstr "dodano (%s)"
 
 #: libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
