@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-09-13 17:25+0000\n"
-"PO-Revision-Date: 2022-09-13 23:47+0200\n"
+"POT-Creation-Date: 2022-09-13 21:48+0000\n"
+"PO-Revision-Date: 2022-09-27 18:00+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -223,35 +223,47 @@ msgstr "Prikaži povijest u topološkom redoslijedu"
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
+"Postavka koja pokazuje treba li prikazati povijest u topološkom redoslijedu."
 
 #: data/org.gnome.gitg.gschema.xml.in:116
+#, fuzzy
 msgid "Show Stashed Changes"
-msgstr ""
+msgstr "Prikaži nedovršene promjene"
 
 #: data/org.gnome.gitg.gschema.xml.in:117
+#, fuzzy
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
+"Postavka koja pokazuje treba li prikazati nedovršene stavke u povijesti."
 
 #: data/org.gnome.gitg.gschema.xml.in:124
+#, fuzzy
 msgid "Show Staged Changes"
-msgstr ""
+msgstr "Prikaži promijenjeno stanje"
 
 #: data/org.gnome.gitg.gschema.xml.in:125
+#, fuzzy
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
 msgstr ""
+"Postavka koja pokazuje treba li prikazati virtualnu stavku trenutne promjene "
+"u povijesti."
 
 #: data/org.gnome.gitg.gschema.xml.in:132
+#, fuzzy
 msgid "Show Unstaged Changes"
-msgstr ""
+msgstr "Prikaži nepromijenjeno stanje"
 
 #: data/org.gnome.gitg.gschema.xml.in:133
+#, fuzzy
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
 msgstr ""
+"Postavka koja pokazuje treba li prikazati virtualnu stavku trenutne "
+"nepromjenu u povijesti."
 
 #: data/org.gnome.gitg.gschema.xml.in:140
 msgid "Mainline Head"
@@ -414,23 +426,25 @@ msgstr "Prijelom"
 
 #: data/org.gnome.gitg.gschema.xml.in:273
 msgid "Wrap lines."
-msgstr ""
+msgstr "Prijelom teksta."
 
 #: data/org.gnome.gitg.gschema.xml.in:279
 #: data/org.gnome.gitg.gschema.xml.in:297
 msgid "Number of Before/After Context Lines"
-msgstr ""
+msgstr "Broj prije/nakon redaka sadržaja"
 
 #: data/org.gnome.gitg.gschema.xml.in:280
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr ""
+"Postavka koja određuje koliko redaka sadržaja (prije i nakon) treba "
+"prikazati pri prikazu razlike podneska."
 
 #: data/org.gnome.gitg.gschema.xml.in:287
 #: data/org.gnome.gitg.gschema.xml.in:306
 msgid "Rendered Width of a Tab Character"
-msgstr ""
+msgstr "Prikazana širina znaka tabulatora"
 
 #: data/org.gnome.gitg.gschema.xml.in:288
 #: data/org.gnome.gitg.gschema.xml.in:307
@@ -438,6 +452,8 @@ msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr ""
+"Postavka koja određuje koliko razmaka znak tabulatora treba sadržavati pri "
+"prikazu razlike podneska."
 
 #: data/org.gnome.gitg.gschema.xml.in:298
 msgid ""
@@ -447,11 +463,11 @@ msgstr ""
 
 #: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
-msgstr ""
+msgstr "Ne postoje promjene za podnesak"
 
 #: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
-msgstr ""
+msgstr "Koristi izmjenu za promjenu poruke podneska prijašnjeg podneska"
 
 #: gitg/commit/gitg-commit.vala:113
 msgctxt "Activity"
@@ -543,35 +559,35 @@ msgstr ""
 #. Populate untracked items
 #: gitg/commit/gitg-commit.vala:939
 msgid "Untracked"
-msgstr ""
+msgstr "Nepraćeno"
 
 #: gitg/commit/gitg-commit.vala:943
 msgid "No untracked files"
-msgstr ""
+msgstr "Nema nepraćenih datoteka"
 
 #: gitg/commit/gitg-commit.vala:968
 msgid "Submodule"
-msgstr ""
+msgstr "Podmodul"
 
 #: gitg/commit/gitg-commit.vala:972
 msgid "No dirty submodules"
-msgstr ""
+msgstr "Nema neurednih podmodula"
 
 #: gitg/commit/gitg-commit.vala:1121
 msgid "Failed to commit"
-msgstr ""
+msgstr "Neuspjeli podnesak"
 
 #: gitg/commit/gitg-commit.vala:1137
 msgid "Failed to pass pre-commit"
-msgstr ""
+msgstr "Neuspjelo prosljeđivanje predpodneska"
 
 #: gitg/commit/gitg-commit.vala:1305 gitg/commit/gitg-commit.vala:1455
 msgid "Discard changes"
-msgstr ""
+msgstr "Odbaci promjene"
 
 #: gitg/commit/gitg-commit.vala:1306
 msgid "Are you sure you want to permanently discard the selected changes?"
-msgstr ""
+msgstr "Sigurno želite trajno odbaciti odabrane promjene?"
 
 #: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1481
 #: gitg/commit/gitg-commit.vala:1596
@@ -598,7 +614,7 @@ msgstr "Odbaci"
 
 #: gitg/commit/gitg-commit.vala:1345
 msgid "Failed to discard selection"
-msgstr ""
+msgstr "Neuspjelo odbacivanje odabira"
 
 #: gitg/commit/gitg-commit.vala:1375
 msgid "Failed to stage selection"
@@ -610,14 +626,14 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:1439
 msgid "Failed to discard changes"
-msgstr ""
+msgstr "Neuspjelo odbacivanje odabira"
 
 #: gitg/commit/gitg-commit.vala:1460
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
-msgstr ""
+msgstr "Sigurno želite trajno odbaciti sve učinjene promjene na datoteci “%s”?"
 
 #: gitg/commit/gitg-commit.vala:1471
 #, c-format
@@ -625,27 +641,28 @@ msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
 msgstr ""
+"Sigurno želite trajno odbaciti sve učinjene promjene na datoteci “%s” i “%s”?"
 
 #: gitg/commit/gitg-commit.vala:1554
 msgid "Failed to delete files"
-msgstr ""
+msgstr "Neuspjelo brisanja datoteka"
 
 #: gitg/commit/gitg-commit.vala:1570
 msgid "Delete file"
 msgid_plural "Delete files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Obriši datoteku"
+msgstr[1] "Obriši datoteke"
+msgstr[2] "Obriši datoteke"
 
 #: gitg/commit/gitg-commit.vala:1575
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
-msgstr ""
+msgstr "Sigurno želite trajno obrisati datoteku “%s”?"
 
 #: gitg/commit/gitg-commit.vala:1586
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
-msgstr ""
+msgstr "Sigurno želite trajno obrisati datoteku \"%s\" i “%s”?"
 
 #: gitg/commit/gitg-commit.vala:1632
 msgid "_Stage changes"
@@ -698,31 +715,31 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:138 gitg/gitg-action-support.vala:165
 msgid "Failed with conflicts"
-msgstr ""
+msgstr "Neuspjelo zbog sukoba"
 
 #: gitg/gitg-action-support.vala:181
 #, c-format
 msgid "Failed to checkout conflicts: %s"
-msgstr ""
+msgstr "Neuspjelo prebacivanje sukoba: %s"
 
 #: gitg/gitg-action-support.vala:199
 msgid "Failed to obtain author details"
-msgstr ""
+msgstr "Neuspjelo dobivanje pojedinosti autora"
 
 #: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
 #, c-format
 msgid "Failed to lookup commit: %s"
-msgstr ""
+msgstr "Neuspjela pretraga podneska: %s"
 
 #: gitg/gitg-action-support.vala:255
 #, c-format
 msgid "Failed to create commit: %s"
-msgstr ""
+msgstr "Neuspjelo stvaranje podneska: %s"
 
 #: gitg/gitg-action-support.vala:277
 #, c-format
 msgid "Failed to checkout index: %s"
-msgstr ""
+msgstr "Neuspjelo prebacivanje sadržaja: %s"
 
 #: gitg/gitg-add-remote-action.vala:46
 msgid "Add Remote"
@@ -730,7 +747,7 @@ msgstr "Dodaj udaljeni repozitorij"
 
 #: gitg/gitg-add-remote-action.vala:51
 msgid "Adds remote to the remotes list"
-msgstr ""
+msgstr "Dodaje udaljene repozitorije na popisa udaljenih"
 
 #: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
 #, c-format
@@ -739,29 +756,28 @@ msgstr "Preuzimanje s %s"
 
 #. Translators: new refers to a new remote reference having been fetched,
 #: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
-#, fuzzy
 msgid "new"
 msgstr "novi"
 
 #: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
 #, c-format
 msgid "Failed to fetch from %s: %s"
-msgstr ""
+msgstr "Neuspjelo preuzimanje s %s: %s"
 
 #: gitg/gitg-add-remote-action.vala:78
 msgid "Failed to fetch added remote"
-msgstr ""
+msgstr "Neuspjelo preuzimanje dodanog udaljenog repozitorija"
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
 #: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
 #, c-format
 msgid "Fetched from %s: %s"
-msgstr ""
+msgstr "Preuzeto s %s: %s"
 
 #: gitg/gitg-add-remote-action.vala:129
 msgid "Failed to add remote"
-msgstr ""
+msgstr "Neuspjelo dodavanje udaljenog repozitorija"
 
 #: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
@@ -769,23 +785,23 @@ msgstr "Prikaži inačicu aplikacije"
 
 #: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
-msgstr ""
+msgstr "Pokreni gitg s određenom aktivnošću"
 
 #: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
-msgstr ""
+msgstr "Pokrenite gitg s aktivnošću podneska (skraćenica za --activity commit)"
 
 #: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
-msgstr ""
+msgstr "Ne pokušavaj učitati repozitorij iz trenutnog radnog direktorija"
 
 #: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
-msgstr ""
+msgstr "Pokreni gitg u samostalnom načinu rada"
 
 #: gitg/gitg-application.vala:49
 msgid "Put paths under git if needed"
-msgstr ""
+msgstr "Postavi putanje ispod gita ako je podtrebno"
 
 #: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
@@ -816,6 +832,14 @@ msgid ""
 "Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
 msgstr ""
+"Nažalost, gitg zahtijeva libgit2 (biblioteka o kojoj gitg zavisi) kako bi se "
+"kompilirao s podrškom za niti.\n"
+"\n"
+"Ako ste ručno kompilirali libgit2, tada podesite libgit2 sa -DTHREADSAFE:"
+"BOOL=ON.\n"
+"\n"
+"U suprotnome, prijavite grešku na sustavu prijave grešaka vaše distribucije "
+"za beznitnu libgit2 podršku."
 
 #: gitg/gitg-author-details-dialog.vala:79
 #: gitg/gitg-author-details-dialog.vala:99
@@ -825,21 +849,21 @@ msgstr "Pojedinosti autora"
 
 #: gitg/gitg-author-details-dialog.vala:80
 msgid "Enter default details used for all repositories:"
-msgstr ""
+msgstr "Upišite zadane pojedinosti korištene za sve repozitorije:"
 
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:102
 #, c-format
 msgid "Override global details for repository “%s”:"
-msgstr ""
+msgstr "Zaobiđi globalne pojedinosti za repozitorij “%s”:"
 
 #: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
-msgstr ""
+msgstr "Neuspjelo postavljanje podešavanja Git korisnika."
 
 #: gitg/gitg-clone-dialog.vala:89
 msgid "The URL introduced is not supported"
-msgstr ""
+msgstr "Uvedeni URL nije podržan"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
@@ -852,7 +876,7 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
 msgid "Failed to lookup the commit for branch “%s”: %s"
-msgstr ""
+msgstr "Neuspjela pretraga podneska za ogranak “%s”: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
@@ -882,7 +906,7 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
 msgid "Checkout"
-msgstr ""
+msgstr "Prebaci"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:168
 msgid "Cherry pick failed with conflicts"
@@ -1559,7 +1583,7 @@ msgstr "P_odnesi"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:217
 msgid "_Amend previous commit"
-msgstr "_Izmjeni priješnji podnesak"
+msgstr "_Izmjeni prijašnji podnesak"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:234
 msgid "Add _signed-off-by signature"
