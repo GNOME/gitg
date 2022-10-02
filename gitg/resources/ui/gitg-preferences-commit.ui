@@ -358,5 +358,116 @@
         <property name="height">1</property>
       </packing>
     </child>
+    <child>
+      <object class="GtkGrid" id="grid_datetime">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">True</property>
+        <property name="row_spacing">6</property>
+        <child>
+          <object class="GtkLabel" id="datetime_preference_top_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Datetime format</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid_prefered_datetime_default">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkComboBoxText" id="combobox_predefined_datetime">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="active">0</property>
+                <property name="active_id">0</property>
+                <items>
+                  <item id="%Y-%m">%Y-%m</item>
+                  <item id="%Y-%m-%d">%Y-%m-%d</item>
+                  <item id="%Y-%m-%dT%R%z">%Y-%m-%dT%R%z</item>
+                  <item id="%Y-%m-%dT%T%z">%Y-%m-%dT%T%z</item>
+                  <item id="%Y">%Y</item>
+                  <item id="%Y-%d-%m">%Y-%d-%m</item>
+                  <item id="%Y-%d-%mT%R%z">%Y-%d-%mT%R%z</item>
+                  <item id="%Y-%d-%mT%T%z">%Y-%d-%mT%T%z</item>
+                </items>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="radiobutton_predefined_datetime">
+                <property name="label" translatable="yes">Predefined:</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">radiobutton_custom_datetime</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkRadioButton" id="radiobutton_custom_datetime">
+                <property name="label" translatable="yes">Custom:</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">radiobutton_predefined_datetime</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="custom_datetime">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="secondary_icon_stock">gtk-help</property>
+                <property name="secondary_icon_sensitive">False</property>
+                <property name="secondary_icon_tooltip_markup" translatable="yes">Check in vala documentation for datetime to write your own format.</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">2</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
   </template>
 </interface>

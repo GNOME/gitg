@@ -59,6 +59,18 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "spin_button_max_num_days_commit_messages")]
 	private unowned Gtk.SpinButton d_spin_button_max_num_days_commit_messages;
 
+	[GtkChild (name = "radiobutton_predefined_datetime" )]
+	private unowned Gtk.RadioButton d_predefined_datetime;
+
+	[GtkChild (name = "radiobutton_custom_datetime" )]
+	private unowned Gtk.RadioButton d_custom_datetime;
+
+	[GtkChild (name = "combobox_predefined_datetime")]
+	private unowned Gtk.ComboBox d_predefined_datetime_combo;
+
+	[GtkChild (name = "custom_datetime")]
+	private unowned Gtk.Entry d_custom_datetime_entry;
+
 	construct
 	{
 		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
@@ -122,6 +134,32 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 		              "value",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
+		settings.bind("predefined-datetime",
+		             d_predefined_datetime_combo,
+		             "active-id",
+		             SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("custom-datetime",
+		             d_custom_datetime_entry,
+		             "text",
+		             SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("datetime-selection",
+		              this,
+		              "datetime-selection",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		d_predefined_datetime.notify["active"].connect(() => {
+			if (d_predefined_datetime.active) {
+				notify_property("datetime-selection");
+			}
+		});
+
+		d_custom_datetime.notify["active"].connect(() => {
+			if (d_custom_datetime.active) {
+				notify_property("datetime-selection");
+			}
+		});
 	}
 
 	public Gtk.Widget widget
@@ -140,6 +178,25 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	public string display_name
 	{
 		owned get { return C_("Preferences", "Commit"); }
+	}
+
+	public string datetime_selection
+	{
+		get
+		{
+			return d_custom_datetime.active ? "custom" : "predefined";
+		}
+
+		set
+		{
+			if (value == "custom"){
+				d_custom_datetime.active = true;
+			}
+			else
+			{
+				d_predefined_datetime.active = true;
+			}
+		}
 	}
 }
 

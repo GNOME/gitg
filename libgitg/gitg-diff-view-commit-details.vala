@@ -53,6 +53,8 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 	[GtkChild( name = "label_expand_collapse_files" )]
 	private unowned Gtk.Label d_label_expand_collapse_files;
 
+	private Settings d_settings;
+
 	public bool expanded
 	{
 		get { return d_expander_files.expanded; }
@@ -131,14 +133,39 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 	public Gitg.Repository? repository {get; set; }
 
+	private string d_datetime_format;
+
+	private string datetime_format
+	{
+		get {
+			return d_datetime_format;
+		}
+		set {
+			d_datetime_format = value;
+			update_datetime();
+		}
+	}
+
 	private Gee.HashMap<Ggit.OId, Gtk.RadioButton> d_parents_map;
 
 	private GLib.Regex regex_url = /\w+:(\/?\/?)[^\s]+/;
 	private Ggit.Config config {get; set;}
 	private GLib.Regex regex_custom_links = /gitg\.custom-link\.(.+)\.regex/;
 
+	private void on_change_datetime(Settings settings, string key) {
+		datetime_format = settings.get_string("datetime-selection") == "custom"
+			? settings.get_string("custom-datetime")
+			: settings.get_string("predefined-datetime");
+	}
+
 	construct
 	{
+		d_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.commit.message");
+		d_settings.changed["datetime-selection"].connect(on_change_datetime);
+		d_settings.changed["custom-datetime"].connect(on_change_datetime);
+		d_settings.changed["predefined-datetime"].connect(on_change_datetime);
+		on_change_datetime(d_settings, "");
+
 		d_expander_files.notify["expanded"].connect(() => {
 			if (d_expander_files.expanded)
 			{
@@ -151,11 +178,19 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 			notify_property("expanded");
 		});
-
 	}
 
 	protected override void dispose()
 	{
+
+		if (d_settings != null)
+		{
+			d_settings.changed["datetime-selection"].disconnect(on_change_datetime);
+			d_settings.changed["custom-datetime"].disconnect(on_change_datetime);
+			d_settings.changed["predefined-datetime"].disconnect(on_change_datetime);
+			d_settings = null;
+		}
+
 		if (d_avatar_cancel != null)
 		{
 			d_avatar_cancel.cancel();
@@ -192,7 +227,6 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		var author = commit.get_author();
 
 		d_label_author.label = author_to_markup(author);
-		d_label_author_date.label = author.get_time().to_timezone(author.get_time_zone()).format("%x %X %z");
 
 		var committer = commit.get_committer();
 
@@ -201,13 +235,13 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		    committer.get_time().compare(author.get_time()) != 0)
 		{
 			d_label_committer.label = _("Committed by %s").printf(author_to_markup(committer));
-			d_label_committer_date.label = committer.get_time().to_timezone(committer.get_time_zone()).format("%x %X %z");
 		}
 		else
 		{
 			d_label_committer.label = "";
-			d_label_committer_date.label = "";
 		}
+
+		update_datetime();
 
 		var parents = commit.get_parents();
 		var first_parent = parents.size == 0 ? null : parents.get(0);
@@ -255,6 +289,31 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 
 		update_avatar();
+	}
+
+	private void update_datetime()
+	{
+		if (commit == null)
+		{
+			return;
+		}
+
+		var author = commit.get_author();
+
+		d_label_author_date.label = author.get_time().to_timezone(author.get_time_zone()).format(datetime_format);
+
+		var committer = commit.get_committer();
+
+		if (committer.get_name() != author.get_name() ||
+		    committer.get_email() != author.get_email() ||
+		    committer.get_time().compare(author.get_time()) != 0)
+		{
+			d_label_committer_date.label = committer.get_time().to_timezone(committer.get_time_zone()).format(datetime_format);
+		}
+		else
+		{
+			d_label_committer_date.label = "";
+		}
 	}
 
 	private string subject_to_markup(string subject_text)

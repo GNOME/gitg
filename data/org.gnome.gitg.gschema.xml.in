@@ -242,6 +242,27 @@
       <summary>Maximum number of days to store previous commit messages</summary>
       <description>Maximum number of days to store previous commit messages for commit message history.</description>
     </key>
+    <key name="datetime-selection" type="s">
+      <default>'predefined'</default>
+      <summary>Type of datetime format selected.</summary>
+      <description>
+        Type of datetime format selected.
+      </description>
+    </key>
+    <key name="predefined-datetime" type="s">
+      <default>'%Y-%m-%dT%R%z'</default>
+      <summary>Prefered Datatime format of the user.</summary>
+      <description>
+      The datetime format to be used in commit-diff.
+      </description>
+    </key>
+    <key name="custom-datetime" type="s">
+      <default>''</default>
+      <summary>Custom datetime format.</summary>
+      <description>
+      Custom datetime format.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.diff" path="@SCHEMA_PATH@/preferences/diff/">
     <key name="patience" type="b">
