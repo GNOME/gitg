@@ -537,12 +537,6 @@ class Dialog : Gtk.Dialog
 		                        "use-gravatar",
 		                        SettingsBindFlags.GET);
 
-		show_markup = true;
-		show_right_margin = true;
-		show_subject_margin = true;
-		right_margin_position = 72;
-		subject_margin_position = 50;
-
 		d_constructed = true;
 
 		init_message_area();
