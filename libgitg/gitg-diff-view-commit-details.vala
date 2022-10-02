@@ -152,7 +152,6 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			notify_property("expanded");
 		});
 
-		use_gravatar = true;
 	}
 
 	protected override void dispose()
