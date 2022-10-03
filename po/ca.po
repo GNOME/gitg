@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-12 12:36+0000\n"
-"PO-Revision-Date: 2020-09-04 18:13+0200\n"
-"Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
+"POT-Creation-Date: 2021-12-27 14:37+0000\n"
+"PO-Revision-Date: 2022-02-12 18:46+0100\n"
+"Last-Translator: maite guix <maite.guix@me.com>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-DamnedLies-Scope: partial\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Project-Style: gnome\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -53,7 +53,6 @@ msgid "Goals:"
 msgstr "Objectius:"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:19
-#| msgid "Show the list of recently used repositories"
 msgid "Browse local git repositories"
 msgstr "Navega pels dipòsits git locals"
 
@@ -62,32 +61,26 @@ msgid "Clone local and remote git repositories"
 msgstr "Clona dipòsits git tant locals com remots"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:21
-#| msgid "Commits"
 msgid "Commit files"
 msgstr "Publica els fitxers"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:22
-#| msgid "Create a patch from the selected commit"
 msgid "Retrieve patch from a commit"
 msgstr "Recupera pedaços d'una publicació"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:32
-#| msgid "Bare repository"
 msgid "Browse repository history"
 msgstr "Navega per l'historial del dipòsit"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:36
-#| msgid "Failed to lookup our commit: %s"
 msgid "Staging area to compose your commit"
 msgstr "Àrea de «staging» per composar la vostra comissió"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:40
-#| msgid "Unstaged changes"
 msgid "Commit staged changes"
 msgstr "Comissiona els canvis de «staging»"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:44
-#| msgid "Show the list of recently used repositories"
 msgid "Overview of recently used repositories"
 msgstr "Vista general dels dipòsits utilitzats recentment"
 
@@ -102,6 +95,10 @@ msgstr "@binary@"
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Navegador de dipòsits Git"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "Finestra nova"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -131,7 +128,6 @@ msgstr ""
 "L'activitat que gitg activa per defecte quan s'executa per primera vegada."
 
 #: data/org.gnome.gitg.gschema.xml.in:52
-#| msgid "Default selection"
 msgid "Use Default Font"
 msgstr "Utilitza el tipus de lletra per defecte"
 
@@ -146,8 +142,7 @@ msgstr ""
 "s'utilitzarà el tipus de lletra especificat a l'opció «Tipus de lletra de "
 "l'editor» en comptes del tipus de lletra del sistema."
 
-#. Translators: This is a GSettings default value. Do NOT change or localize
-#. the quotation marks!
+#. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
 #: data/org.gnome.gitg.gschema.xml.in:57
 msgid "'Monospace 12'"
 msgstr "'Monospace 12'"
@@ -161,8 +156,8 @@ msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
 msgstr ""
-"Un tipus de lletra personalitzada que s'utilitzarà per als ginys de text. Només "
-"s'utilitzarà si l'opció «Utilitza el tipus de lletra per defecte» està "
+"Un tipus de lletra personalitzada que s'utilitzarà per als ginys de text. "
+"Només s'utilitzarà si l'opció «Utilitza el tipus de lletra per defecte» està "
 "desactivada."
 
 #: data/org.gnome.gitg.gschema.xml.in:63
@@ -174,7 +169,6 @@ msgid "Enable the use of gravatar to display user avatars."
 msgstr "Habilita l'ús de gravatar per a mostrar els avatars dels usuaris."
 
 #: data/org.gnome.gitg.gschema.xml.in:70
-#| msgid "Monitoring"
 msgid "Enable Monitoring"
 msgstr "Habilita el seguiment"
 
@@ -209,9 +203,6 @@ msgid "When to Collapse Inactive Lanes"
 msgstr "Quan contraure els carrils inactius"
 
 #: data/org.gnome.gitg.gschema.xml.in:93
-#| msgid ""
-#| "Setting that indicates when an inactive lane should be collapsed. Valid "
-#| "values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -288,12 +279,10 @@ msgstr ""
 "per l'actual HEAD."
 
 #: data/org.gnome.gitg.gschema.xml.in:148
-#| msgid "Select all tags by default in the history activity"
 msgid "Default selection of the history activity"
 msgstr "Selecció predeterminada de l'historial d'activitat"
 
 #: data/org.gnome.gitg.gschema.xml.in:149
-#| msgid "Select all remotes by default in the history activity"
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
@@ -302,7 +291,6 @@ msgstr ""
 "d'activitat."
 
 #: data/org.gnome.gitg.gschema.xml.in:155
-#| msgid "References"
 msgid "Reference Sort Order"
 msgstr "Ordre de les referències"
 
@@ -316,7 +304,6 @@ msgid "Show Upstream With Branch"
 msgstr "Mostra la font amb la branca"
 
 #: data/org.gnome.gitg.gschema.xml.in:163
-#| msgid "Show upstream (remote) branch when selecting a local branch"
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -430,8 +417,8 @@ msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
 msgstr ""
-"Nombre màxim de dies per a guardar els missatges de comissió anteriors per la "
-"història dels missatges de comissions."
+"Nombre màxim de dies per a guardar els missatges de comissió anteriors per "
+"la història dels missatges de comissions."
 
 #: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Use patience algorithm to show diffs"
@@ -470,7 +457,6 @@ msgid "Wrap"
 msgstr "Ajusta"
 
 #: data/org.gnome.gitg.gschema.xml.in:273
-#| msgid "Wrap lines:"
 msgid "Wrap lines."
 msgstr "Ajusta les línies."
 
@@ -535,14 +521,11 @@ msgstr "_Stage la selecció"
 
 #: gitg/commit/gitg-commit.vala:246
 #, c-format
-#| msgid "Failed to stage the removal of submodule `%s'"
 msgid "Failed to stage the removal of submodule “%s”"
 msgstr "No s'ha pogut posar a «staging» l'eliminació del submòdul «%s»"
 
 #: gitg/commit/gitg-commit.vala:262
 #, c-format
-#| msgid ""
-#| "Failed to open the repository of submodule `%s' while trying to stage"
 msgid "Failed to open the repository of submodule “%s” while trying to stage"
 msgstr ""
 "No s'ha pogut obrir el dipòsit del submòdul «%s» mentre s'intentava posar-lo "
@@ -550,9 +533,6 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:277
 #, c-format
-#| msgid ""
-#| "Failed to lookup the working directory commit of submodule `%s' while "
-#| "trying to stage"
 msgid ""
 "Failed to lookup the working directory commit of submodule “%s” while trying "
 "to stage"
@@ -562,19 +542,16 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:290
 #, c-format
-#| msgid "Failed to stage the submodule `%s'"
 msgid "Failed to stage the submodule “%s”"
 msgstr "No s'ha pogut posar a «staging» el submòdul «%s»"
 
 #: gitg/commit/gitg-commit.vala:312
 #, c-format
-#| msgid "Failed to stage the removal of file `%s'"
 msgid "Failed to stage the removal of file “%s”"
 msgstr "No s'ha pogut posar a «staging» l'eliminació del fitxer «%s»"
 
 #: gitg/commit/gitg-commit.vala:326
 #, c-format
-#| msgid "Failed to stage the file `%s'"
 msgid "Failed to stage the file “%s”"
 msgstr "No s'ha pogut posar a «staging» el fitxer «%s»"
 
@@ -584,25 +561,21 @@ msgstr "_Unstage la selecció"
 
 #: gitg/commit/gitg-commit.vala:664
 #, c-format
-#| msgid "Failed to unstage the removal of file `%s'"
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "No s'ha pogut «unstage» l'eliminació del fitxer «%s»"
 
 #: gitg/commit/gitg-commit.vala:665
 #, c-format
-#| msgid "Failed to unstage the file `%s'"
 msgid "Failed to unstage the file “%s”"
 msgstr "No s'ha pogut «unstage» el fitxer «%s»"
 
 #: gitg/commit/gitg-commit.vala:672
 #, c-format
-#| msgid "Failed to unstage the removal of submodule `%s'"
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "No s'ha pogut «unstage» l'eliminació del submòdul «%s»"
 
 #: gitg/commit/gitg-commit.vala:673
 #, c-format
-#| msgid "Failed to unstage the submodule `%s'"
 msgid "Failed to unstage the submodule “%s”"
 msgstr "No s'ha pogut «unstage» el submòdul «%s»"
 
@@ -697,9 +670,6 @@ msgstr "No s'han pogut descartar els canvis"
 
 #: gitg/commit/gitg-commit.vala:1457
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the file "
-#| "`%s'?"
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
@@ -708,9 +678,6 @@ msgstr ""
 
 #: gitg/commit/gitg-commit.vala:1468
 #, c-format
-#| msgid ""
-#| "Are you sure you want to permanently discard all changes made to the "
-#| "files %s and `%s'?"
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
@@ -730,13 +697,11 @@ msgstr[1] "Suprimeix fitxers"
 
 #: gitg/commit/gitg-commit.vala:1572
 #, c-format
-#| msgid "Are you sure you want to permanently delete the file `%s'?"
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Segur que voleu suprimir permanentment el fitxer «%s»?"
 
 #: gitg/commit/gitg-commit.vala:1583
 #, c-format
-#| msgid "Are you sure you want to permanently delete the files %s and `%s'?"
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Segur que voleu suprimir permanentment els fitxers %s i «%s»?"
 
@@ -819,7 +784,6 @@ msgid "Failed to checkout index: %s"
 msgstr "No s'ha pogut obtenir l'índex: %s"
 
 #: gitg/gitg-application.vala:38
-#| msgid "Show the application's version"
 msgid "Show the application’s version"
 msgstr "Mostra la versió de l'aplicació"
 
@@ -842,12 +806,10 @@ msgid "Run gitg in standalone mode"
 msgstr "Executa el gitg en mode independent"
 
 #: gitg/gitg-application.vala:92
-#| msgid "- Git repository viewer"
 msgid "— Git repository viewer"
 msgstr "— Visualitzador de dipòsits Git"
 
 #: gitg/gitg-application.vala:226
-#| msgid "gitg is a Git repository viewer for gtk+/GNOME"
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "El gitg és un visualitzador de dipòsits Git per a GTK+/GNOME"
 
@@ -862,15 +824,6 @@ msgid "gitg homepage"
 msgstr "Pàgina d'inici del gitg"
 
 #: gitg/gitg-application.vala:393
-#| msgid ""
-#| "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
-#| "depends) to be compiled with threading support.\n"
-#| "\n"
-#| "If you manually compiled libgit2, then please configure libgit2 with -"
-#| "DTHREADSAFE:BOOL=ON.\n"
-#| "\n"
-#| "Otherwise, report a bug in your distributions' bug reporting system for "
-#| "providing libgit2 without threading support."
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -904,7 +857,6 @@ msgstr "Introduïu els detalls per defecte usats per a tots els dipòsits:"
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:102
 #, c-format
-#| msgid "Override global details for repository '%s':"
 msgid "Override global details for repository “%s”:"
 msgstr "Sobreescriu els detalls globals per al dipòsit «%s»:"
 
@@ -1047,8 +999,7 @@ msgstr "Selecciona i gestiona projectes"
 msgid "_Remove"
 msgstr "Sup_rimeix"
 
-#. Translators: the two %s will be replaced to create a link to perform the
-#. scanning action.
+#. Translators: the two %s will be replaced to create a link to perform the scanning action.
 #: gitg/gitg-dash-view.vala:230
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
@@ -1122,7 +1073,6 @@ msgstr "Extracció amb èxit de la branca al directori de treball"
 
 #: gitg/gitg-ref-action-checkout.vala:195
 #, c-format
-#| msgid "Failed to delete branch %s"
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "No s'ha pogut establir la branca font %s per %s"
 
@@ -1178,8 +1128,7 @@ msgstr "Esteu segur que voleu suprimir permanentment la branca remota %s?"
 msgid "Failed to delete tag %s"
 msgstr "No s'ha pogut suprimir l'etiqueta %s"
 
-#. Translators: the first %s is the name of the tag, the second is an error
-#. message
+#. Translators: the first %s is the name of the tag, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:122
 #, c-format
 msgid "The tag %s could not be deleted: %s"
@@ -1191,8 +1140,7 @@ msgstr "L'etiqueta %s no s'ha pogut esborrar: %s"
 msgid "Failed to delete branch %s"
 msgstr "No s'ha pogut suprimir la branca %s"
 
-#. Translators: the first %s is the name of the branch, the second is an error
-#. message
+#. Translators: the first %s is the name of the branch, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:130
 #, c-format
 msgid "The branch %s could not be deleted: %s"
@@ -1248,19 +1196,16 @@ msgstr "Puja a %s"
 
 #: gitg/gitg-ref-action-push.vala:91
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Push branch to %s"
 msgstr "Puja la branca a %s"
 
 #: gitg/gitg-ref-action-push.vala:107
 #, c-format
-#| msgid "Fetching from %s"
 msgid "Pushing to %s"
 msgstr "S'està pujant a %s"
 
 #: gitg/gitg-ref-action-push.vala:116
 #, c-format
-#| msgid "Failed to fetch from %s: %s"
 msgid "Failed to push to %s: %s"
 msgstr "No s'ha pogut pujar a %s: %s"
 
@@ -1272,13 +1217,11 @@ msgstr "Pujat a %s"
 
 #: gitg/gitg-ref-action-push.vala:134
 #, c-format
-#| msgid "Delete branch %s"
 msgid "Push branch %s"
 msgstr "Puja la branca %s"
 
 #: gitg/gitg-ref-action-push.vala:135
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the branch %s?"
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "Segur que voleu pujar la branca %s?"
 
@@ -1372,7 +1315,6 @@ msgstr "Reanomena la referència seleccionada"
 
 #: gitg/gitg-ref-action-rename.vala:100
 #, c-format
-#| msgid "The specified name ‘%s’ contains invalid characters"
 msgid "The specified name “%s” contains invalid characters"
 msgstr "El nom especificat «%s» conté caràcters invàlids"
 
@@ -1405,13 +1347,10 @@ msgid "Projects"
 msgstr "Projectes"
 
 #: gitg/gitg-window.vala:701
-#| msgctxt "shortcut window"
-#| msgid "Open a repository"
 msgid "Open Repository"
 msgstr "Obre un dipòsit"
 
 #: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
-#| msgid "Open"
 msgid "_Open"
 msgstr "_Obre"
 
@@ -1421,7 +1360,6 @@ msgstr "Selecciona elements"
 
 #: gitg/gitg-window.vala:1062
 #, c-format
-#| msgid "'%s' is not a Git repository."
 msgid "“%s” is not a Git repository."
 msgstr "«%s» no és un dipòsit Git."
 
@@ -1553,27 +1491,22 @@ msgid "Name:"
 msgstr "Nom:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
-#| msgid "Create Branch"
 msgid "Checkout Remote Branch"
 msgstr "Agafa una branca remota"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
-#| msgid "Checkout"
 msgid "C_heckout"
 msgstr "_Agafa"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
-#| msgid "Branch _name:"
 msgid "Local branch _name:"
 msgstr "_Nom de la branca local:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
-#| msgid "Create branch"
 msgid "_Remote branch:"
 msgstr "Branca _remota:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
-#| msgid "Create branch"
 msgid "_Track remote branch"
 msgstr "_Segueix la branca remota"
 
@@ -1677,7 +1610,6 @@ msgid "Branch _name:"
 msgstr "Nom de la bra_nca:"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:96
-#| msgid "Checkout the selected reference"
 msgid "_Checkout the created branch"
 msgstr "_Agafa la branca creada"
 
@@ -1867,8 +1799,7 @@ msgstr "Diferència"
 #: gitg/resources/ui/gitg-preferences-interface.ui:312
 msgid "Enable syntax highlighting of source code in diff views"
 msgstr ""
-"Habilita el ressaltat de la sintaxi del codi font a les vistes de "
-"diferències"
+"Habilita el ressaltat de la sintaxi del codi font a les vistes de diferències"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:338
 msgid "Syntax highlighting color scheme:"
@@ -1884,8 +1815,6 @@ msgid "Windows"
 msgstr "Finestres"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:19
-#| msgctxt "shortcut window"
-#| msgid "Open the window menu"
 msgctxt "shortcut window"
 msgid "Open shortcut window"
 msgstr "Obre el menú de les dreceres"
@@ -1911,7 +1840,6 @@ msgid "Open the help"
 msgstr "Obre l'ajuda"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
-#| msgid "Preferences"
 msgctxt "shortcut window"
 msgid "Open preferences"
 msgstr "Obre les preferències"
@@ -1947,13 +1875,11 @@ msgid "Change to Commit View"
 msgstr "Canvia a la vista de comissions"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:103
-#| msgid "Start with activity:"
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Canvia a l'activitat"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:111
-#| msgid "Default Activity"
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "Activitat de comissions"
@@ -1969,61 +1895,51 @@ msgid "Open commit dialog"
 msgstr "Obre el diàleg de comissió"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:130
-#| msgid "_Stage selection"
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Stage la selecció"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:137
-#| msgid "_Unstage selection"
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Unstage la selecció"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:144
-#| msgid "D_iscard selection"
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Descarta la selecció"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:151
-#| msgid "_Stage selection"
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Edita la selecció"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:159
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Diàleg de la comissió"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:164
-#| msgid "Commit"
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Comissió"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:171
-#| msgid "Cancel"
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Cancel·la la comissió"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:178
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Missatge de comissió anterior"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:185
-#| msgid "Commit Message"
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Missatge de comissió següent"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:193
-#| msgid "Default Activity"
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Activitat de l'historial"
@@ -2049,7 +1965,6 @@ msgid "General settings and options"
 msgstr "Paràmetres i opcions generals"
 
 #: gitg/resources/ui/gitg-window.ui:229
-#| msgid "Close"
 msgid "_Close"
 msgstr "_Tanca"
 
@@ -2093,7 +2008,6 @@ msgstr[1] "Fa %d dies"
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
 #: libgitg/gitg-date.vala:374
-#| msgid "%b %e, %H:%M"
 msgid "%b %e, %H∶%M"
 msgstr "%-e %b a les %-H:%M"
 
@@ -2101,7 +2015,6 @@ msgstr "%-e %b a les %-H:%M"
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
 #: libgitg/gitg-date.vala:381
-#| msgid "%b %e, %I:%M %p"
 msgid "%b %e, %I∶%M %p"
 msgstr "%-e %b a les %I:%M %p"
 
@@ -2109,7 +2022,6 @@ msgstr "%-e %b a les %I:%M %p"
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
 #: libgitg/gitg-date.vala:391
-#| msgid "%b %e %Y, %H:%M"
 msgid "%b %e %Y, %H∶%M"
 msgstr "%-e %b %Y a les %H:%M"
 
@@ -2117,7 +2029,6 @@ msgstr "%-e %b %Y a les %H:%M"
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
 #: libgitg/gitg-date.vala:398
-#| msgid "%b %e %Y, %I:%M %p"
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%-e %b %Y a les %I:%M %p"
 
@@ -2149,34 +2060,49 @@ msgstr "després (%s)"
 msgid "added (%s)"
 msgstr "afegit (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:143
+#: libgitg/gitg-diff-view-commit-details.vala:145
 msgid "Collapse all"
 msgstr "Contreu-ho tot"
 
-#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/gitg-diff-view-commit-details.vala:149
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Expandeix-ho tot"
 
-#: libgitg/gitg-diff-view-commit-details.vala:202
+#: libgitg/gitg-diff-view-commit-details.vala:204
 #, c-format
 msgid "Committed by %s"
 msgstr "Publicat per %s"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#: libgitg/gitg-diff-view-file.vala:145
+msgid "Unif"
+msgstr "Unif"
+
+#: libgitg/gitg-diff-view-file.vala:149
+msgid "Split"
+msgstr "Divisió"
+
+#: libgitg/gitg-diff-view-file.vala:156
+msgid "Binary"
+msgstr "Binari"
+
+#: libgitg/gitg-diff-view-file.vala:163
+msgid "Image"
+msgstr "Imatge"
+
+#: libgitg/gitg-diff-view-file.vala:208
 msgid "_Open file"
 msgstr "_Obre un fitxer"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:241
 msgid "Open containing _folder"
 msgstr "Obre la carpeta _pare"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:261
 msgid "_Copy file path"
 msgstr "_Copia el camí del fitxer"
 
-#. Translators: this is used to construct: "at <directory>", to indicate where
-#. the repository is at.
+#. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: libgitg/gitg-repository-list-box.vala:153
 #, c-format
 msgid "at %s"
@@ -2293,4 +2219,3 @@ msgstr "Fitxers"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Mostra els fitxers a l'arbre per la publicació seleccionada"
-
