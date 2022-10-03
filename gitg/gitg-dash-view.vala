@@ -173,7 +173,6 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 			var remove_button = new Gtk.Button.with_mnemonic(_("_Remove"));
 			remove_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-
 			remove_button.sensitive = false;
 			remove_button.show();
 
@@ -188,7 +187,24 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 
 			d_repository_list_box.bind_property("has-selection", remove_button, "sensitive");
 
+			var delete_source_button = new Gtk.Button.with_mnemonic(_("_Delete sources"));
+			delete_source_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+			delete_source_button.sensitive = false;
+			delete_source_button.show();
+
+			delete_source_button.clicked.connect(() => {
+				foreach (var sel in d_repository_list_box.get_selection())
+				{
+					sel.request_delete_source();
+				}
+
+				selectable_mode = GitgExt.SelectionMode.NORMAL;
+			});
+
+			d_repository_list_box.bind_property("has-selection", delete_source_button, "sensitive");
+
 			ab.pack_end(remove_button);
+			ab.pack_start(delete_source_button);
 
 			return ab;
 

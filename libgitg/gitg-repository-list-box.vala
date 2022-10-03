@@ -25,6 +25,13 @@ namespace Gitg
 		SELECTION
 	}
 
+	public enum DeleteSources
+	{
+		CANCEL,
+		TRASH,
+		DELETE
+	}
+
 	public class RepositoryListBox : Gtk.ListBox
 	{
 		private string? d_filter_text;
@@ -56,6 +63,7 @@ namespace Gitg
 			private unowned Gtk.Box d_languages_box;
 
 			public signal void request_remove();
+			public signal void request_delete_source();
 
 			private SelectionMode d_mode;
 			private string? d_dirname;
@@ -551,6 +559,110 @@ namespace Gitg
 			return row;
 		}
 
+		private void delete_source_clicked(File workdir, string uri, Row row)
+		{
+			var alert_dialog = new Gtk.MessageDialog((Gtk.Window) row.get_toplevel(),
+					Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.NONE,
+					_("Deleting repository source files “%s” will delete them from disk and cannot be undone. Are you sure?").printf(uri), null);
+			alert_dialog.add_button(_("Cancel"), DeleteSources.CANCEL);
+			alert_dialog.add_button(_("Move to trash"), DeleteSources.TRASH);
+			alert_dialog.add_button(_("Delete permanently"), DeleteSources.DELETE);
+
+			var delete_button = alert_dialog.get_widget_for_response(DeleteSources.DELETE);
+			delete_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+
+			alert_dialog.response.connect ((id) => {
+				handle_delete_source_response(id, workdir, uri, row);
+				alert_dialog.destroy();
+			});
+
+			alert_dialog.run();
+		}
+
+		private void handle_delete_source_response(int id, File workdir, string uri, Row row)
+		{
+			Cancellable cancellable = new Cancellable();
+
+			if (id == DeleteSources.DELETE) {
+				delete_source.begin(workdir, cancellable, (obj, res) => {
+					try {
+						delete_source.end (res);
+						remove_row(uri, row);
+					} catch (Error e) {
+						warning("%s", e.message);
+					}
+				});
+			} else if (id == DeleteSources.TRASH) {
+				send_to_trash.begin(workdir, cancellable, (obj, res) => {
+					try {
+						send_to_trash.end (res);
+						remove_row(uri, row);
+					} catch (Error e) {
+						warning("%s", e.message);
+					}
+				});
+			}
+		}
+
+		private async void send_to_trash(File file, Cancellable cancellable) throws Error
+		{
+			if (cancellable.is_cancelled()) {
+				return;
+			}
+
+			try {
+				yield file.trash_async ();
+			} catch (Error e) {
+				warning("%s", e.message);
+				cancellable.cancel();
+				throw e;
+			}
+		}
+
+		private async void delete_source(File file, Cancellable cancellable)throws Error
+		{
+			if (cancellable.is_cancelled ()) {
+				return;
+			}
+			var dtype = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
+
+			if (dtype == FileType.DIRECTORY) {
+				try {
+					var dir_in_repository = yield file.enumerate_children_async (FileAttribute.STANDARD_NAME, 0,Priority.DEFAULT);
+					GLib.List<FileInfo> content_infos;
+					while ((content_infos = yield dir_in_repository.next_files_async (20, Priority.DEFAULT)) != null) {
+						foreach (var file_cinfo in content_infos) {
+							var files = file.get_child (file_cinfo.get_name());
+							yield delete_source (files, cancellable);
+						}
+					}
+				}
+				catch(Error e) {
+					warning("Warning: %s\n", e.message);
+					cancellable.cancel();
+					throw e;
+				}
+			}
+
+			try {
+				yield file.delete_async ();
+			} catch (Error e) {
+				warning("%s", e.message);
+				cancellable.cancel();
+				throw e;
+			}
+
+		}
+
+		private void remove_row(string uri, Row row)
+		{
+			try {
+				d_bookmark_file.remove_item(uri);
+			} catch {}
+
+			remove(row);
+		}
+
 		private void connect_repository_row(Row row)
 		{
 			var repository = row.repository;
@@ -558,6 +670,7 @@ namespace Gitg
 
 			if (workdir != null)
 			{
+				var uri = workdir.get_uri();
 				bind_property("mode", row, "mode");
 
 				row.notify["selected"].connect(() => {
@@ -565,12 +678,11 @@ namespace Gitg
 				});
 
 				row.request_remove.connect(() => {
-					try
-					{
-						d_bookmark_file.remove_item(workdir.get_uri());
-					} catch {}
+					remove_row(uri, row);
+				});
 
-					remove(row);
+				row.request_delete_source.connect(() => {
+					delete_source_clicked(workdir, uri, row);
 				});
 
 				row.can_remove = true;
