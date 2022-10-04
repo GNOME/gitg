@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=@binary@
 Comment=Git repository browser
-Exec=@binary@ --no-wd --standalone %U
+Exec=@binary@ --no-wd %U
 TryExec=@binary@
 Terminal=false
 Type=Application
@@ -14,4 +14,4 @@ Actions=new-window;
 
 [Desktop Action new-window]
 Name=New Window
-Exec=@binary@ --no-wd --standalone %U
+Exec=@binary@ --no-wd %U

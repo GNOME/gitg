@@ -149,7 +149,7 @@ public class Application : Gtk.Application
 			return true;
 		}
 
-		if (standalone)
+		if (!standalone)
 		{
 			set_flags(get_flags() | ApplicationFlags.NON_UNIQUE);
 		}
