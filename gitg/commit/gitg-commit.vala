@@ -1099,6 +1099,11 @@ namespace GitgCommit
 				opts |= Gitg.StageCommitOptions.SIGN_OFF;
 			}
 
+			if (dlg.sign_commit)
+			{
+				opts |= Gitg.StageCommitOptions.SIGN_COMMIT;
+			}
+
 			if (skip_hooks)
 			{
 				opts |= Gitg.StageCommitOptions.SKIP_HOOKS;

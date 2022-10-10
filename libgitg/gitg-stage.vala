@@ -26,7 +26,8 @@ public enum StageCommitOptions
 	NONE       = 0,
 	SIGN_OFF   = 1 << 0,
 	AMEND      = 1 << 1,
-	SKIP_HOOKS = 1 << 2
+	SKIP_HOOKS = 1 << 2,
+	SIGN_COMMIT= 1 << 3
 }
 
 public errordomain StageError
@@ -34,7 +35,10 @@ public errordomain StageError
 	PRE_COMMIT_HOOK_FAILED,
 	COMMIT_MSG_HOOK_FAILED,
 	NOTHING_TO_COMMIT,
-	INDEX_ENTRY_NOT_FOUND
+	INDEX_ENTRY_NOT_FOUND,
+	SIGN_CONFIG_NOT_FOUND,
+	SIGN_CONFIG_ERROR,
+	UPDATE_REF_ERROR
 }
 
 public class PatchSet
@@ -92,6 +96,8 @@ public class PatchSet
 
 public class Stage : Object
 {
+	private const string CONFIG_USER_SIGNINGKEY = "user.signingkey";
+
 	private weak Repository d_repository;
 	private Mutex d_index_mutex;
 	private Ggit.Tree? d_head_tree;
@@ -400,6 +406,7 @@ public class Stage : Object
 		yield Async.thread(() => {
 			bool skip_hooks = (options & StageCommitOptions.SKIP_HOOKS) != 0;
 			bool amend = (options & StageCommitOptions.AMEND) != 0;
+			bool sign_commit = (options & StageCommitOptions.SIGN_COMMIT) != 0;
 
 			// Write tree from index
 			var conf = d_repository.get_config().snapshot();
@@ -448,13 +455,63 @@ public class Stage : Object
 					pars = parents;
 				}
 
-				ret = d_repository.create_commit_from_ids(reference.get_name(),
-				                                          author,
-				                                          committer,
-				                                          encoding,
-				                                          emsg,
-				                                          treeoid,
-				                                          pars);
+				if (sign_commit)
+				{
+					string signing_key;
+					try {
+						signing_key = conf.get_string(CONFIG_USER_SIGNINGKEY);
+					} catch (Error e) {
+						throw new StageError.SIGN_CONFIG_NOT_FOUND(_("setup “%s” to do a signed commit"), CONFIG_USER_SIGNINGKEY);
+					}
+
+					Ggit.Commit[] parent_commits = new Ggit.Commit[pars.length];
+					for (int i = 0; i < pars.length; i++) {
+						Ggit.Commit commit = d_repository.lookup<Ggit.Commit>(pars[i]);
+						parent_commits[i] = commit;
+					}
+
+					var data = d_repository.create_commit_buffer(author,
+					                                             committer,
+					                                             encoding,
+					                                             emsg,
+					                                             d_repository.lookup_tree(treeoid),
+					                                             parent_commits);
+
+					string signature;
+					try {
+						signature = Gitg.GPGUtils.sign_commit_object(data, signing_key);
+					} catch (Error e) {
+						throw new StageError.SIGN_CONFIG_ERROR(_("error signing the commit “%s”"), e.message);
+					}
+
+					ret = d_repository.create_commit_with_signature(data, signature, null);
+
+					Ggit.Ref? resolved;
+					if (reference.get_reference_type() == Ggit.RefType.SYMBOLIC)
+					{
+						try
+						{
+							resolved = reference.resolve();
+						} catch (Error e) {
+							throw new StageError.UPDATE_REF_ERROR(_("error updating current ref “%s”"), reference.get_name());
+						}
+					}
+					else
+					{
+						resolved = reference;
+					}
+					resolved.set_target(ret, null);
+				}
+				else
+				{
+					ret = d_repository.create_commit_from_ids(reference.get_name(),
+					                                          author,
+					                                          committer,
+					                                          encoding,
+					                                          emsg,
+					                                          treeoid,
+					                                          pars);
+				}
 			}
 			else
 			{

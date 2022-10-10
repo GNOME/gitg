@@ -73,7 +73,6 @@ deps = [
   libpeas_dep,
   libdazzle_dep,
   json_glib_dependency,
-
   valac.find_library ('posix'),
 ]
 

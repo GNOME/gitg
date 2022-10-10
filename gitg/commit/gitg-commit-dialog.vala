@@ -57,6 +57,9 @@ class Dialog : Gtk.Dialog
 	[GtkChild (name = "check_button_sign_off")]
 	private unowned Gtk.CheckButton d_check_button_sign_off;
 
+	[GtkChild (name = "check_button_sign_commit")]
+	private Gtk.CheckButton d_check_button_sign_commit;
+
 	[GtkChild (name = "image_avatar")]
 	private unowned Gtk.Image d_image_avatar;
 
@@ -217,6 +220,8 @@ class Dialog : Gtk.Dialog
 	}
 
 	public bool sign_off { get; set; }
+
+	public bool sign_commit { get; set; }
 
 	public int max_number_commit_messages { get; set; }
 
@@ -478,11 +483,22 @@ class Dialog : Gtk.Dialog
 		                                      BindingFlags.BIDIRECTIONAL |
 		                                      BindingFlags.SYNC_CREATE);
 
+		d_check_button_sign_commit.bind_property("active",
+		                                          this, "sign-commit",
+		                                          BindingFlags.BIDIRECTIONAL |
+		                                          BindingFlags.SYNC_CREATE);
+
 		d_commit_settings = new Settings(Gitg.Config.APPLICATION_ID + ".state.commit");
 
 		d_commit_settings.bind("sign-off",
 		                     this,
 		                     "sign-off",
+		                     SettingsBindFlags.GET |
+		                     SettingsBindFlags.SET);
+
+		d_commit_settings.bind("sign-commit",
+		                     this,
+		                     "sign-commit",
 		                     SettingsBindFlags.GET |
 		                     SettingsBindFlags.SET);
 

@@ -14,6 +14,7 @@ common_deps = [
   gtk_dep,
   libgit2_glib_dep,
   libdazzle_dep,
+  gpgme_dependency,
 ]
 
 sources = files(
@@ -52,6 +53,7 @@ sources = files(
   'gitg-diff-view-options.vala',
   'gitg-diff-view.vala',
   'gitg-font-manager.vala',
+  'gitg-gpg-utils.vala',
   'gitg-hook.vala',
   'gitg-init.vala',
   'gitg-label-renderer.vala',
