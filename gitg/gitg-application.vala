@@ -542,32 +542,35 @@ public class Application : Gtk.Application
 			{
 				resolved = Ggit.Repository.discover(f);
 			}
-			catch {
-				if(!init)
+			catch (Error err) {
+				if (!init)
 				{
+					stderr.printf("Error: %s.\n", err.message);
 					continue;
 				}
+
 				try
 				{
-					bool valid = f.query_exists ();
-					if (valid)
-					{
+					bool exists = f.query_exists ();
 
-						FileType type = f.query_file_type (FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
-						valid = FileType.DIRECTORY == type;
-					}
-					else
-						valid = f.make_directory_with_parents ();
+					bool valid = exists
+                                                ? FileType.DIRECTORY == f.query_file_type (FileQueryInfoFlags.NOFOLLOW_SYMLINKS)
+                                                : f.make_directory_with_parents ();
 
+					string path = f.get_path();
 					if (!valid)
 					{
+						stderr.printf("Invalid location %s.\n", path);
 						continue;
 					}
+
 					Repository.init_repository(f, false);
 					resolved = Ggit.Repository.discover(f);
+					stdout.printf("Successfully initialized git repository at “%s”.\n", path);
 				}
-				catch (Error err)
+				catch (Error err2)
 				{
+					stderr.printf("Error: %s.\n", err2.message);
 					continue;
 				}
 			}
@@ -591,7 +594,11 @@ public class Application : Gtk.Application
 			{
 				repo = new Repository(resolved, null);
 			}
-			catch { continue; }
+			catch (Error err)
+			{
+				stderr.printf("Error: not able to open repository “%s”.\n", err.message);
+				continue;
+			}
 
 			// Finally, create a window for the repository
 			new_window(repo, hint, command_lines);
