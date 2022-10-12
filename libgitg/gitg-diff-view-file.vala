@@ -244,7 +244,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 		open_file.activate.connect(() => {
 			try
 			{
-				Gtk.show_uri_on_window((Gtk.Window)d_expander.get_window(), location.get_uri(), Gdk.CURRENT_TIME);
+				Gtk.show_uri_on_window((Gtk.Window)d_expander.get_toplevel(), location.get_uri(), Gdk.CURRENT_TIME);
 			}
 			catch (Error e)
 			{
@@ -260,7 +260,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 		open_folder.activate.connect(() => {
 			try
 			{
-				Gtk.show_uri_on_window((Gtk.Window)d_expander.get_window(), location.get_parent().get_uri(), Gdk.CURRENT_TIME);
+				Gtk.show_uri_on_window((Gtk.Window)d_expander.get_toplevel(), location.get_parent().get_uri(), Gdk.CURRENT_TIME);
 			}
 			catch (Error e)
 			{

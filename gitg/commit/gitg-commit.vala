@@ -1404,7 +1404,7 @@ namespace GitgCommit
 
 		private void do_edit_items(Gitg.StageStatusItem[] items)
 		{
-			var screen = d_main.get_screen();
+			var window = (Gtk.Window)d_main.get_toplevel();
 			var root = application.repository.get_workdir();
 
 			foreach (var item in items)
@@ -1413,7 +1413,7 @@ namespace GitgCommit
 
 				try
 				{
-					Gtk.show_uri(screen, file.get_uri(), Gdk.CURRENT_TIME);
+					Gtk.show_uri_on_window(window, file.get_uri(), Gdk.CURRENT_TIME);
 				}
 				catch (Error e)
 				{
