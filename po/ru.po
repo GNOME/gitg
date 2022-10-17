@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-10-04 06:44+0000\n"
-"PO-Revision-Date: 2022-10-04 12:19+0300\n"
+"POT-Creation-Date: 2022-10-11 21:03+0000\n"
+"PO-Revision-Date: 2022-10-12 20:43+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -419,7 +419,7 @@ msgid "Type of datetime format selected."
 msgstr "Тип выбранного формата даты и времени."
 
 #: data/org.gnome.gitg.gschema.xml.in:254
-msgid "Prefered Datatime format of the user."
+msgid "Preferred datetime format of the user."
 msgstr "Предпочтительный формат даты и времени пользователя."
 
 #: data/org.gnome.gitg.gschema.xml.in:255
@@ -508,11 +508,11 @@ msgstr ""
 "выводиться при просмотре различий, для которых будет изменена индексация в "
 "области коммитов."
 
-#: gitg/commit/gitg-commit-dialog.vala:550 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:566 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
 msgstr "Нет изменений для коммита"
 
-#: gitg/commit/gitg-commit-dialog.vala:551 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Используйте дополнение к коммиту, чтобы изменить сообщение о предыдущем "
@@ -625,26 +625,26 @@ msgstr "Подмодуль"
 msgid "No dirty submodules"
 msgstr "Нет «грязных» подмодулей"
 
-#: gitg/commit/gitg-commit.vala:1121
+#: gitg/commit/gitg-commit.vala:1126
 msgid "Failed to commit"
 msgstr "Не удалось выполнить коммит"
 
-#: gitg/commit/gitg-commit.vala:1137
+#: gitg/commit/gitg-commit.vala:1142
 msgid "Failed to pass pre-commit"
 msgstr "Не удалось пройти перехватчик pre-commit"
 
-#: gitg/commit/gitg-commit.vala:1305 gitg/commit/gitg-commit.vala:1455
+#: gitg/commit/gitg-commit.vala:1310 gitg/commit/gitg-commit.vala:1460
 msgid "Discard changes"
 msgstr "Отменить изменения"
 
-#: gitg/commit/gitg-commit.vala:1306
+#: gitg/commit/gitg-commit.vala:1311
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Уверены, что хотите безвозвратно отменить выбранные изменения?"
 
-#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1481
-#: gitg/commit/gitg-commit.vala:1596
+#: gitg/commit/gitg-commit.vala:1320 gitg/commit/gitg-commit.vala:1486
+#: gitg/commit/gitg-commit.vala:1601
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -660,34 +660,34 @@ msgstr "Уверены, что хотите безвозвратно отмен�
 msgid "_Cancel"
 msgstr "_Отменить"
 
-#: gitg/commit/gitg-commit.vala:1316 gitg/commit/gitg-commit.vala:1482
+#: gitg/commit/gitg-commit.vala:1321 gitg/commit/gitg-commit.vala:1487
 msgid "Discard"
 msgstr "Отменить изменения"
 
-#: gitg/commit/gitg-commit.vala:1345
+#: gitg/commit/gitg-commit.vala:1350
 msgid "Failed to discard selection"
 msgstr "Не удалось отменить"
 
-#: gitg/commit/gitg-commit.vala:1375
+#: gitg/commit/gitg-commit.vala:1380
 msgid "Failed to stage selection"
 msgstr "Не удалось проиндексировать"
 
-#: gitg/commit/gitg-commit.vala:1379
+#: gitg/commit/gitg-commit.vala:1384
 msgid "Failed to unstage selection"
 msgstr "Не удалось отменить индексацию"
 
-#: gitg/commit/gitg-commit.vala:1439
+#: gitg/commit/gitg-commit.vala:1444
 msgid "Failed to discard changes"
 msgstr "Не удалось отменить изменения"
 
-#: gitg/commit/gitg-commit.vala:1460
+#: gitg/commit/gitg-commit.vala:1465
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
 msgstr "Уверены, что хотите отменить все изменения сделанные в файле «%s»?"
 
-#: gitg/commit/gitg-commit.vala:1471
+#: gitg/commit/gitg-commit.vala:1476
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -696,47 +696,47 @@ msgstr ""
 "Уверены, что хотите безвозвратно отменить все сделанные изменения в файлах "
 "«%s» и «%s»?"
 
-#: gitg/commit/gitg-commit.vala:1554
+#: gitg/commit/gitg-commit.vala:1559
 msgid "Failed to delete files"
 msgstr "Не удалось удалить файлы"
 
-#: gitg/commit/gitg-commit.vala:1570
+#: gitg/commit/gitg-commit.vala:1575
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Удалить файл"
 msgstr[1] "Удалить файлы"
 msgstr[2] "Удалить файлы"
 
-#: gitg/commit/gitg-commit.vala:1575
+#: gitg/commit/gitg-commit.vala:1580
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Уверены, что хотите безвозвратно удалить файл «%s»?"
 
-#: gitg/commit/gitg-commit.vala:1586
+#: gitg/commit/gitg-commit.vala:1591
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Уверены, что хотите безвозвратно удалить файлы %s и «%s»?"
 
-#: gitg/commit/gitg-commit.vala:1632
+#: gitg/commit/gitg-commit.vala:1637
 msgid "_Stage changes"
 msgstr "_Проиндексировать изменения"
 
-#: gitg/commit/gitg-commit.vala:1644
+#: gitg/commit/gitg-commit.vala:1649
 msgid "_Unstage changes"
 msgstr "_Отменить индексацию изменения"
 
-#: gitg/commit/gitg-commit.vala:1656
+#: gitg/commit/gitg-commit.vala:1661
 msgid "_Discard changes"
 msgstr "_Отменить изменения"
 
-#: gitg/commit/gitg-commit.vala:1668
+#: gitg/commit/gitg-commit.vala:1673
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Удалить файл"
 msgstr[1] "Удалить файлы"
 msgstr[2] "Удалить файлы"
 
-#: gitg/commit/gitg-commit.vala:1698
+#: gitg/commit/gitg-commit.vala:1703
 msgid "_Edit file"
 msgstr "_Редактировать файл"
 
@@ -1443,24 +1443,24 @@ msgstr "_Найти все git репозитории в текущем ката
 msgid "Projects"
 msgstr "Проекты"
 
-#: gitg/gitg-window.vala:701
+#: gitg/gitg-window.vala:703
 msgid "Open Repository"
 msgstr "Открыть репозиторий"
 
-#: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "Отк_рыть"
 
-#: gitg/gitg-window.vala:844
+#: gitg/gitg-window.vala:846
 msgid "Select items"
 msgstr "Выделить объекты"
 
-#: gitg/gitg-window.vala:1062
+#: gitg/gitg-window.vala:1064
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "«%s» не является репозиторием Git."
 
-#: gitg/gitg-window.vala:1211
+#: gitg/gitg-window.vala:1213
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1468,7 +1468,7 @@ msgstr ""
 "Имя пользователя и e-mail ещё не настроены. Перейдите к настройке "
 "пользователя и укажите имя пользователя и e-mail."
 
-#: gitg/gitg-window.vala:1215
+#: gitg/gitg-window.vala:1217
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1476,7 +1476,7 @@ msgstr ""
 "Имя пользователя ещё не настроено. Перейдите к настройке пользователя и "
 "укажите имя пользователя."
 
-#: gitg/gitg-window.vala:1219
+#: gitg/gitg-window.vala:1221
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1484,7 +1484,7 @@ msgstr ""
 "Эл. почта ещё не настроена. Перейдите к настройке пользователя и укажите "
 "адрес вашей эл. почты."
 
-#: gitg/gitg-window.vala:1222
+#: gitg/gitg-window.vala:1224
 msgid "Missing author details"
 msgstr "Отсутствуют сведения об авторе"
 
@@ -1658,6 +1658,10 @@ msgstr "_Дополнить предыдущий коммит"
 #: gitg/resources/ui/gitg-commit-dialog.ui:234
 msgid "Add _signed-off-by signature"
 msgstr "Добавить _подпись"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:251
+msgid "Add si_gnature"
+msgstr "Добавить по_дпись"
 
 #: gitg/resources/ui/gitg-commit-paned.ui:76
 msgid "Skip commit _hooks"
@@ -2263,12 +2267,27 @@ msgstr "Отправить в корзину"
 msgid "Delete permanently"
 msgstr "Удалить безвозвратно"
 
-#: libgitg/gitg-stage.vala:337
+#: libgitg/gitg-stage.vala:343
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
 "Не удалось прочитать сообщение о коммите после запуска перехватчика commit-"
 "msg: %s"
+
+#: libgitg/gitg-stage.vala:464
+#, c-format
+msgid "setup “%s” to do a signed commit"
+msgstr "настроить \"%s\" для выполнения подписанного коммита"
+
+#: libgitg/gitg-stage.vala:484
+#, c-format
+msgid "error signing the commit “%s”"
+msgstr "ошибка подписания коммита \"%s\""
+
+#: libgitg/gitg-stage.vala:496
+#, c-format
+msgid "error updating current ref “%s”"
+msgstr "ошибка обновления текущей ссылки \"%s\""
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:18
 msgid "_Authenticate"
