@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-08-25 11:15+0000\n"
+"POT-Creation-Date: 2022-10-25 11:25+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
 "Language-Team: Abkhazian <daniel.abzakh@gmail.com>\n"
 "Language: ab\n"
@@ -9,6 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-DamnedLies-Scope: partial\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -68,7 +69,7 @@ msgstr ""
 msgid "Overview of recently used repositories"
 msgstr ""
 
-#: data/org.gnome.gitg.appdata.xml.in.in:157
+#: data/org.gnome.gitg.appdata.xml.in.in:105
 msgid "The GNOME Project"
 msgstr "The GNOME Project"
 
@@ -84,24 +85,6 @@ msgstr ""
 msgid "New Window"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:28
-msgid "Default Clone Directory"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:29
-msgid ""
-"The default directory in which new repositories should be suggested to be "
-"cloned."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:38
-msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:39
-msgid "Setting that sets the orientation of the main interface."
-msgstr ""
-
 #: data/org.gnome.gitg.gschema.xml.in:45
 msgid "Default Activity"
 msgstr "Активра ишыҟоу еипш"
@@ -110,313 +93,19 @@ msgstr "Активра ишыҟоу еипш"
 msgid "The activity which gitg activates by default when first launched."
 msgstr "gitg  иҟанаҵо активра ишыҟоу еиԥш аҿакраан"
 
-#: data/org.gnome.gitg.gschema.xml.in:52
-msgid "Use Default Font"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:53
-msgid ""
-"Whether to use the system’s default fixed width font for widget's text "
-"instead of a font specific. If this option is turned off, then the font "
-"named in the “Editor Font” option will be used instead of the system font."
-msgstr ""
-
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
 #: data/org.gnome.gitg.gschema.xml.in:57
 msgid "'Monospace 12'"
 msgstr "«Monospace 12»"
-
-#: data/org.gnome.gitg.gschema.xml.in:58
-msgid "Editor Font"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:59
-msgid ""
-"A custom font that will be used for the text widgets. This will only take "
-"effect if the “Use Default Font” option is turned off."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:63
-msgid "Use Gravatar"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:64
-msgid "Enable the use of gravatar to display user avatars."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:70
-msgid "Enable Monitoring"
-msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:71
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "Автоматикла арҿыцра .git  анҭыҵынтә аԥсахрақәа аныԥшаархалак ашьҭахь"
 
-#: data/org.gnome.gitg.gschema.xml.in:77
-msgid "Enable Diff Highlighting"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:78
-msgid ""
-"Setting that determines whether to enable syntax highlighting in diff views."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:85
-msgid "Color scheme to use for syntax highlighting"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:86
-msgid "Used by GtkSourceView to determine colors for syntax highlighting"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:92
-msgid "When to Collapse Inactive Lanes"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:93
-msgid ""
-"Setting that indicates when an inactive lane should be collapsed. Valid "
-"values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:100
-msgid ""
-"Setting that indicates whether to collapse history lanes which do not show "
-"activity. Enabling this can provide a cleaner history view when there is a "
-"lot of parallel development. See collapse-inactive-lanes to control when "
-"lanes should be collapsed."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:109
-msgid "Show History in Topological Order"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:110
-msgid ""
-"Setting that indicates whether to show the history in topological order."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:116
-msgid "Show Stashed Changes"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:117
-msgid ""
-"Setting that indicates whether to show items for the stash in the history."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:124
-msgid "Show Staged Changes"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:125
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"staged changes in the history."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:132
-msgid "Show Unstaged Changes"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:133
-msgid ""
-"Setting that indicates whether to show a virtual item for the currently "
-"unstaged changes in the history."
-msgstr ""
-
 #: data/org.gnome.gitg.gschema.xml.in:140
 msgid "Mainline Head"
 msgstr "Mainline Head"
-
-#: data/org.gnome.gitg.gschema.xml.in:141
-msgid ""
-"Setting that indicates whether to always preserve a mainline in the history "
-"for the current HEAD."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:148
-msgid "Default selection of the history activity"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:149
-msgid ""
-"Setting that determines the default selection on startup of the history "
-"activity."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:155
-msgid "Reference Sort Order"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:156
-msgid "The order by which references in the history sidebar should be sorted."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:162
-msgid "Show Upstream With Branch"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:163
-msgid ""
-"Determines whether to also show the upstream (remote) tracking branch when "
-"selecting a local branch in the history view."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:172
-msgid "Switch to the new branch on creation"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:173
-msgid ""
-"Setting that controls whether the newly created branch is checked out "
-"automatically."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:188
-msgid "Show Right Margin in Commit Message View"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:189
-msgid ""
-"Show a right margin indicator in the commit message view. This can be used "
-"to easily see where to break the commit message at a particular column."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:197
-msgid "Column at Which Right Margin is Shown"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:198
-msgid ""
-"The column at which the right margin is shown if the show-right-margin "
-"preference is set to TRUE."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:205
-msgid "Show Subject Margin in Commit Message View"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:206
-msgid ""
-"Highlight the subject text of the commit message when it passes the margin "
-"specified by subject-margin-position."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:213
-msgid "Column at Which Subject Margin is Shown"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:214
-msgid ""
-"The column at which the subject margin is shown if the show-subject-margin "
-"preference is set to TRUE."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:221
-msgid "Enable Spell Checking"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:222
-msgid ""
-"Setting which determines whether or not spell checking is enabled when "
-"writing a commit message."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:229
-msgid "Spell Checking Language"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:230
-msgid ""
-"The language to use when spell checking is enabled for writing a commit "
-"message."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:237
-msgid "Maximum number of previous commit messages"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:238
-msgid ""
-"Maximum number of previous commit messages to store for commit message "
-"history."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:242
-msgid "Maximum number of days to store previous commit messages"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:243
-msgid ""
-"Maximum number of days to store previous commit messages for commit message "
-"history."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:249
-msgid "Use patience algorithm to show diffs"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:250
-msgid "Setting to use patience algorithm to show diffs of a commit."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:256
-msgid "Ignore Whitespace Changes"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:257
-msgid ""
-"Setting that indicates whether to ignore whitespace changes when showing the "
-"diff of a commit."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:264
-msgid "Show Changes Inline"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:265
-msgid ""
-"Setting that indicates whether changes within lines should be shown inline."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:272
-msgid "Wrap"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:273
-msgid "Wrap lines."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:279
-#: data/org.gnome.gitg.gschema.xml.in:297
-msgid "Number of Before/After Context Lines"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:280
-msgid ""
-"Setting that determines how many lines of context (before and after) should "
-"be shown when showing the diff of a commit."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:287
-#: data/org.gnome.gitg.gschema.xml.in:306
-msgid "Rendered Width of a Tab Character"
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:288
-#: data/org.gnome.gitg.gschema.xml.in:307
-msgid ""
-"Setting that determines how much space a tab character should occupy when "
-"showing the diff of a commit."
-msgstr ""
-
-#: data/org.gnome.gitg.gschema.xml.in:298
-msgid ""
-"Setting that determines how many lines of context (before and after) should "
-"be shown when showing the diff to be staged/unstaged in the commit area."
-msgstr ""
 
 #: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
@@ -550,14 +239,12 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1593
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
-#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
@@ -658,8 +345,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
+#: gitg/gitg-ref-action-merge.vala:194
 msgid "Cancel"
 msgstr "Аԥыхры"
 
@@ -695,85 +382,43 @@ msgstr ""
 msgid "Failed to checkout index: %s"
 msgstr ""
 
-#: gitg/gitg-add-remote-action.vala:46
-msgid "Add Remote"
-msgstr ""
-
-#: gitg/gitg-add-remote-action.vala:51
-msgid "Adds remote to the remotes list"
-msgstr ""
-
-#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
-#, c-format
-msgid "Fetching from %s"
-msgstr ""
-
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
-msgid "new"
-msgstr ""
-
-#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr ""
-
-#: gitg/gitg-add-remote-action.vala:78
-msgid "Failed to fetch added remote"
-msgstr ""
-
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
-#, c-format
-msgid "Fetched from %s: %s"
-msgstr ""
-
-#: gitg/gitg-add-remote-action.vala:129
-msgid "Failed to add remote"
-msgstr ""
-
-#: gitg/gitg-application.vala:39
+#: gitg/gitg-application.vala:38
 msgid "Show the application’s version"
 msgstr "Аҧшьы ахкы арбара"
 
-#: gitg/gitg-application.vala:41
+#: gitg/gitg-application.vala:40
 msgid "Start gitg with a particular activity"
 msgstr ""
 
-#: gitg/gitg-application.vala:43
+#: gitg/gitg-application.vala:42
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr ""
 
-#: gitg/gitg-application.vala:45
+#: gitg/gitg-application.vala:44
 msgid "Do not try to load a repository from the current working directory"
 msgstr ""
 
-#: gitg/gitg-application.vala:47
+#: gitg/gitg-application.vala:46
 msgid "Run gitg in standalone mode"
 msgstr ""
 
-#: gitg/gitg-application.vala:49
-msgid "Put paths under git if needed"
-msgstr ""
-
-#: gitg/gitg-application.vala:95
+#: gitg/gitg-application.vala:92
 msgid "— Git repository viewer"
 msgstr ""
 
-#: gitg/gitg-application.vala:229
+#: gitg/gitg-application.vala:226
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr ""
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:235
 msgid "translator-credits"
 msgstr "Нанба Наала <naala-nanba@rambler.ru>, 2022"
 
-#: gitg/gitg-application.vala:241
+#: gitg/gitg-application.vala:238
 msgid "gitg homepage"
 msgstr ""
 
-#: gitg/gitg-application.vala:396
+#: gitg/gitg-application.vala:393
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -819,7 +464,7 @@ msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-msgid "Failed to lookup the commit for branch “%s”: %s"
+msgid "Failed to lookup the commit for branch %s: %s"
 msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
@@ -835,15 +480,15 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
-"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
-"checkout branch “%s” with the cherry pick to your working directory to "
-"resolve the conflicts?"
+"The cherry pick of %s onto %s has caused conflicts, would you like to "
+"checkout branch %s with the cherry pick to your working directory to resolve "
+"the conflicts?"
 msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
-"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
+"The cherry-pick of %s onto %s has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
 
@@ -862,7 +507,7 @@ msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-msgid "Cherry pick “%s” onto “%s”"
+msgid "Cherry pick %s onto %s"
 msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
@@ -871,7 +516,7 @@ msgstr ""
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-msgid "Cherry pick onto “%s”"
+msgid "Cherry pick onto %s"
 msgstr ""
 
 #: gitg/gitg-commit-action-create-branch.vala:48
@@ -982,26 +627,14 @@ msgstr ""
 msgid "Scanning for repositories in %s"
 msgstr ""
 
-#: gitg/gitg-edit-remote-action.vala:51
-msgid "Edit remote"
-msgstr ""
-
-#: gitg/gitg-edit-remote-action.vala:56
-msgid "Edits the remote from the remotes list"
-msgstr ""
-
-#: gitg/gitg-edit-remote-action.vala:82
-msgid "Failed to edit remote"
-msgstr ""
-
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
 msgstr ""
 
 #: gitg/gitg-ref-action-checkout.vala:72
-#, c-format
-msgid "Checkout “%s”"
-msgstr ""
+#, fuzzy, c-format
+msgid "Checkout %s"
+msgstr "Checkout"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
@@ -1028,24 +661,6 @@ msgstr ""
 
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
-msgstr ""
-
-#: gitg/gitg-ref-action-create-branch.vala:46
-msgid "Create a new branch at the selected reference"
-msgstr ""
-
-#: gitg/gitg-ref-action-create-branch.vala:58
-#: gitg/gitg-ref-action-create-patch.vala:58
-#: gitg/gitg-ref-action-create-tag.vala:58
-msgid "Failed to lookup reference"
-msgstr ""
-
-#: gitg/gitg-ref-action-create-patch.vala:46
-msgid "Create a patch from the selected reference"
-msgstr ""
-
-#: gitg/gitg-ref-action-create-tag.vala:46
-msgid "Create a new tag at the selected reference"
 msgstr ""
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
@@ -1110,98 +725,47 @@ msgstr ""
 msgid "The branch %s could not be deleted: %s"
 msgstr ""
 
-#: gitg/gitg-ref-action-fetch.vala:83
+#: gitg/gitg-ref-action-fetch.vala:74
 #, c-format
 msgid "Fetch from %s"
 msgstr ""
 
-#: gitg/gitg-ref-action-fetch.vala:94
+#: gitg/gitg-ref-action-fetch.vala:85
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr ""
 
+#: gitg/gitg-ref-action-fetch.vala:98
+#, c-format
+msgid "Fetching from %s"
+msgstr ""
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-ref-action-fetch.vala:106
+msgid "new"
+msgstr ""
+
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:120
+#: gitg/gitg-ref-action-fetch.vala:111
 msgid "updated"
 msgstr ""
 
+#: gitg/gitg-ref-action-fetch.vala:121
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr ""
+
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:143
+#: gitg/gitg-ref-action-fetch.vala:134
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr ""
 
-#: gitg/gitg-ref-action-merge.vala:63
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-ref-action-fetch.vala:140
 #, c-format
-msgid "Merge into %s"
-msgstr ""
-
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
-#, c-format
-msgid "Merge another branch into branch %s"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:106
-#, c-format
-msgid "Failed to merge commits: %s"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
-msgid "Merge has conflicts"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:184
-#, c-format
-msgid ""
-"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
-"branch “%s” with the merge to your working directory to resolve the "
-"conflicts?"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:188
-#, c-format
-msgid ""
-"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
-"the merge to your working directory to resolve the conflicts?"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:199
-msgid "Merge failed with conflicts"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:210
-msgid "Finished merge with conflicts in working directory"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:222
-#, c-format
-msgid "Merge “%s” into “%s”"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:231
-#, c-format
-msgid "Failed to lookup our commit: %s"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:241
-#, c-format
-msgid "Failed to lookup their commit: %s"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:278
-#, c-format
-msgid "Successfully merged “%s” into “%s”"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:320
-#, c-format
-msgid "Merge “%s” into branch “%s”"
-msgstr ""
-
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1199
-msgid "Tags"
+msgid "Fetched from %s: %s"
 msgstr ""
 
 #: gitg/gitg-ref-action-push.vala:80
@@ -1244,6 +808,78 @@ msgstr ""
 msgid "Push"
 msgstr ""
 
+#: gitg/gitg-ref-action-merge.vala:63
+#, c-format
+msgid "Merge into %s"
+msgstr ""
+
+#. TODO
+#: gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of %s into %s has caused conflicts, would you like to checkout "
+"branch %s with the merge to your working directory to resolve the conflicts?"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid ""
+"The merge of %s into %s has caused conflicts, would you like to checkout the "
+"merge to your working directory to resolve the conflicts?"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge %s into %s"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:278
+#, c-format
+msgid "Successfully merged %s into %s"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge %s into branch %s"
+msgstr ""
+
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1181
+msgid "Tags"
+msgstr ""
+
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr ""
@@ -1269,39 +905,11 @@ msgstr ""
 msgid "Close"
 msgstr "Аркра"
 
-#: gitg/gitg-remove-remote-action.vala:50
-msgid "Remove remote"
-msgstr ""
-
-#: gitg/gitg-remove-remote-action.vala:55
-msgid "Removes remote from the remotes list"
-msgstr ""
-
-#: gitg/gitg-remove-remote-action.vala:62
-#, c-format
-msgid "Delete remote %s"
-msgstr ""
-
-#: gitg/gitg-remove-remote-action.vala:63
-#, c-format
-msgid "Are you sure that you want to remove the remote %s?"
-msgstr ""
-
-#: gitg/gitg-remove-remote-action.vala:67
-msgid "Remove"
-msgstr ""
-
-#: gitg/gitg-remove-remote-action.vala:91
-msgid "Failed to remove remote"
-msgstr ""
-
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr ""
 
-#: gitg/gitg-window.vala:206
-#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
-#: gitg/resources/ui/gitg-window.ui:64
+#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Ацҵара"
 
@@ -1396,11 +1004,11 @@ msgstr ""
 msgid "All commits"
 msgstr ""
 
-#: gitg/history/gitg-history-refs-list.vala:1197
+#: gitg/history/gitg-history-refs-list.vala:1179
 msgid "Branches"
 msgstr "Амахәқәа"
 
-#: gitg/history/gitg-history-refs-list.vala:1198
+#: gitg/history/gitg-history-refs-list.vala:1180
 msgid "Remotes"
 msgstr ""
 
@@ -1414,7 +1022,7 @@ msgstr "Аҭоурых"
 msgid "Examine the history of the repository"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:949
+#: gitg/history/gitg-history.vala:942
 msgid "Mainline"
 msgstr "Mainline"
 
@@ -1432,23 +1040,7 @@ msgstr ""
 msgid "Interface"
 msgstr ""
 
-#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
-msgid "Create Remote"
-msgstr ""
-
-#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
-#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
-msgid "Remote _name:"
-msgstr "_ианыху  аԥхьакырҭа URL: "
-
-#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
-msgid "Remote _URL:"
-msgstr "_ианыху  аԥхьакырҭа URL: "
-
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
-#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "_Аиқәырхара"
 
@@ -1492,6 +1084,10 @@ msgstr ""
 #: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr ""
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+msgid "Remote _URL:"
+msgstr "_ианыху  аԥхьакырҭа URL: "
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1593,10 +1189,6 @@ msgstr ""
 msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
-msgstr ""
-
-#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
-msgid "Edit Remote"
 msgstr ""
 
 #: gitg/resources/ui/gitg-menus.ui:7
@@ -1745,7 +1337,7 @@ msgstr ""
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:212
 msgid "Font"
-msgstr ""
+msgstr "Ашрифт"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:253
 msgid "Editor _font: "
@@ -1927,7 +1519,7 @@ msgstr ""
 msgid "General settings and options"
 msgstr ""
 
-#: gitg/resources/ui/gitg-window.ui:230
+#: gitg/resources/ui/gitg-window.ui:229
 msgid "_Close"
 msgstr "_Аркра"
 
@@ -2037,33 +1629,31 @@ msgstr ""
 msgid "Committed by %s"
 msgstr ""
 
-#. Translators: Unif stands for unified diff format
-#: libgitg/gitg-diff-view-file.vala:151
+#: libgitg/gitg-diff-view-file.vala:145
 msgid "Unif"
 msgstr ""
 
-#. Translators: Split stands for the noun
-#: libgitg/gitg-diff-view-file.vala:156
+#: libgitg/gitg-diff-view-file.vala:149
 msgid "Split"
 msgstr ""
 
-#: libgitg/gitg-diff-view-file.vala:163
+#: libgitg/gitg-diff-view-file.vala:156
 msgid "Binary"
 msgstr ""
 
-#: libgitg/gitg-diff-view-file.vala:170
+#: libgitg/gitg-diff-view-file.vala:163
 msgid "Image"
-msgstr ""
+msgstr "Асахьа"
 
-#: libgitg/gitg-diff-view-file.vala:215
+#: libgitg/gitg-diff-view-file.vala:208
 msgid "_Open file"
 msgstr "Афаил аартра"
 
-#: libgitg/gitg-diff-view-file.vala:248
+#: libgitg/gitg-diff-view-file.vala:241
 msgid "Open containing _folder"
 msgstr ""
 
-#: libgitg/gitg-diff-view-file.vala:268
+#: libgitg/gitg-diff-view-file.vala:261
 msgid "_Copy file path"
 msgstr ""
 
@@ -2108,7 +1698,7 @@ msgstr "_Ажәамаӡа:"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:154
 msgid "Forget password _immediately"
-msgstr ""
+msgstr "_Зыԥшрада апароль ахаршҭра"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:171
 msgid "Remember password until you _logout"
@@ -2116,7 +1706,7 @@ msgstr ""
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:189
 msgid "Remember _forever"
-msgstr ""
+msgstr "Наунагӡа _агәынкылара"
 
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
 msgid "Parents"
@@ -2174,7 +1764,7 @@ msgstr ""
 
 #: plugins/files/gitg-files.vala:68
 msgid "Files"
-msgstr ""
+msgstr "Афаилқәа"
 
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
@@ -2413,7 +2003,6 @@ msgstr ""
 
 
 
-#, fuzzy
 
 
 
@@ -2436,7 +2025,6 @@ msgstr ""
 
 
 
-#, fuzzy
 
 
 
@@ -2524,7 +2112,6 @@ msgstr ""
 
 
 
-#, fuzzy
 
 
 
@@ -2876,3051 +2463,6 @@ msgstr ""
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-#, fuzzy
-
-#, fuzzy
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#, fuzzy
 
 
 
