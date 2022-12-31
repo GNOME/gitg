@@ -39,8 +39,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-15 00:41+0000\n"
-"PO-Revision-Date: 2022-03-06 22:36+0100\n"
+"POT-Creation-Date: 2022-10-12 10:26+0000\n"
+"PO-Revision-Date: 2022-12-31 14:35+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -48,7 +48,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -113,8 +113,8 @@ msgid "Overview of recently used repositories"
 msgstr "Översikt över senast använda arkiv"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:157
-msgid "The GNOME Project"
-msgstr "GNOME-projektet"
+msgid "The Gitg Team"
+msgstr "Gitg-gruppen"
 
 #: data/org.gnome.gitg.desktop.in.in:3
 msgid "@binary@"
@@ -446,22 +446,40 @@ msgstr ""
 "Maximalt antal dagar att lagra tidigare incheckningsmeddelanden för "
 "historiken över incheckningsmeddelanden."
 
+#: data/org.gnome.gitg.gschema.xml.in:247
+#: data/org.gnome.gitg.gschema.xml.in:248
+msgid "Type of datetime format selected."
+msgstr "Vald typ av datetime-format."
+
+#: data/org.gnome.gitg.gschema.xml.in:254
+msgid "Preferred datetime format of the user."
+msgstr "Föredraget datetime-format för användaren."
+
+#: data/org.gnome.gitg.gschema.xml.in:255
+msgid "The datetime format to be used in commit-diff."
+msgstr "Det datetime-format som ska användas i incheckningsdiff."
+
+#: data/org.gnome.gitg.gschema.xml.in:261
+#: data/org.gnome.gitg.gschema.xml.in:262
+msgid "Custom datetime format."
+msgstr "Anpassat datetime-format."
+
 # git diff --patience
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:270
 msgid "Use patience algorithm to show diffs"
 msgstr "Använd patience-algoritmen för att visa diffar"
 
-#: data/org.gnome.gitg.gschema.xml.in:250
+#: data/org.gnome.gitg.gschema.xml.in:271
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Inställning för att använda patience-algoritmen för att visa diffar för en "
 "incheckning."
 
-#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Ignore Whitespace Changes"
 msgstr "Ignorera tomrumsändringar"
 
-#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -469,30 +487,30 @@ msgstr ""
 "Inställning som indikerar huruvida tomrumsändringar ska ignoreras när diffen "
 "för en incheckning visas."
 
-#: data/org.gnome.gitg.gschema.xml.in:264
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid "Show Changes Inline"
 msgstr "Visa ändringar inbäddade"
 
-#: data/org.gnome.gitg.gschema.xml.in:265
+#: data/org.gnome.gitg.gschema.xml.in:286
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Inställning som indikerar huruvida ändringar inom rader ska visas inbäddade."
 
-#: data/org.gnome.gitg.gschema.xml.in:272
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid "Wrap"
 msgstr "Radbrytning"
 
-#: data/org.gnome.gitg.gschema.xml.in:273
+#: data/org.gnome.gitg.gschema.xml.in:294
 msgid "Wrap lines."
 msgstr "Radbryt rader."
 
-#: data/org.gnome.gitg.gschema.xml.in:279
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:300
+#: data/org.gnome.gitg.gschema.xml.in:318
 msgid "Number of Before/After Context Lines"
 msgstr "Antal kontextrader före/efter"
 
-#: data/org.gnome.gitg.gschema.xml.in:280
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -500,13 +518,13 @@ msgstr ""
 "Inställningen som bestämmer hur många rader kontext (före och efter) som ska "
 "visas när diffen för en incheckning visas."
 
-#: data/org.gnome.gitg.gschema.xml.in:287
-#: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:308
+#: data/org.gnome.gitg.gschema.xml.in:327
 msgid "Rendered Width of a Tab Character"
 msgstr "Visad bredd för ett tabbtecken"
 
-#: data/org.gnome.gitg.gschema.xml.in:288
-#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:309
+#: data/org.gnome.gitg.gschema.xml.in:328
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -514,7 +532,7 @@ msgstr ""
 "Inställning som bestämmer hur många blanksteg ett tabbtecken ska uppta när "
 "diffen för en incheckning visas."
 
-#: data/org.gnome.gitg.gschema.xml.in:298
+#: data/org.gnome.gitg.gschema.xml.in:319
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -523,11 +541,11 @@ msgstr ""
 "visas när diffen som ska köas upp/tas bort ur kön visas i "
 "incheckningsområdet."
 
-#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:566 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
 msgstr "Det finns inga ändringar att checka in"
 
-#: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Använd utöka för att ändra incheckningsmeddelandet för den föregående "
@@ -640,27 +658,27 @@ msgstr "Undermodul"
 msgid "No dirty submodules"
 msgstr "Inga smutsiga undermoduler"
 
-#: gitg/commit/gitg-commit.vala:1121
+#: gitg/commit/gitg-commit.vala:1126
 msgid "Failed to commit"
 msgstr "Misslyckades att checka in"
 
-#: gitg/commit/gitg-commit.vala:1137
+#: gitg/commit/gitg-commit.vala:1142
 msgid "Failed to pass pre-commit"
 msgstr "Misslyckades att passera pre-commit"
 
-#: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
+#: gitg/commit/gitg-commit.vala:1310 gitg/commit/gitg-commit.vala:1460
 msgid "Discard changes"
 msgstr "Förkasta ändringar"
 
-#: gitg/commit/gitg-commit.vala:1303
+#: gitg/commit/gitg-commit.vala:1311
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 "Är du säker på att du permanent vill förkasta de markerade ändringarna?"
 
-#: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
-#: gitg/commit/gitg-commit.vala:1593
-#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/commit/gitg-commit.vala:1320 gitg/commit/gitg-commit.vala:1486
+#: gitg/commit/gitg-commit.vala:1601
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
+#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -676,27 +694,27 @@ msgstr ""
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: gitg/commit/gitg-commit.vala:1313 gitg/commit/gitg-commit.vala:1479
+#: gitg/commit/gitg-commit.vala:1321 gitg/commit/gitg-commit.vala:1487
 msgid "Discard"
 msgstr "Förkasta"
 
-#: gitg/commit/gitg-commit.vala:1342
+#: gitg/commit/gitg-commit.vala:1350
 msgid "Failed to discard selection"
 msgstr "Misslyckades att förkasta markeringen"
 
-#: gitg/commit/gitg-commit.vala:1372
+#: gitg/commit/gitg-commit.vala:1380
 msgid "Failed to stage selection"
 msgstr "Misslyckades att köa upp markeringen"
 
-#: gitg/commit/gitg-commit.vala:1376
+#: gitg/commit/gitg-commit.vala:1384
 msgid "Failed to unstage selection"
 msgstr "Misslyckades att ta bort markeringen ur kön"
 
-#: gitg/commit/gitg-commit.vala:1436
+#: gitg/commit/gitg-commit.vala:1444
 msgid "Failed to discard changes"
 msgstr "Misslyckades att förkasta ändringar"
 
-#: gitg/commit/gitg-commit.vala:1457
+#: gitg/commit/gitg-commit.vala:1465
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -705,7 +723,7 @@ msgstr ""
 "Är du säker på att du permanent vill förkasta alla ändringar som gjorts till "
 "filen ”%s”?"
 
-#: gitg/commit/gitg-commit.vala:1468
+#: gitg/commit/gitg-commit.vala:1476
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -714,45 +732,45 @@ msgstr ""
 "Är du säker på att du permanent vill förkasta alla ändringar som gjorts till "
 "filerna %s och ”%s”?"
 
-#: gitg/commit/gitg-commit.vala:1551
+#: gitg/commit/gitg-commit.vala:1559
 msgid "Failed to delete files"
 msgstr "Misslyckades att ta bort filer"
 
-#: gitg/commit/gitg-commit.vala:1567
+#: gitg/commit/gitg-commit.vala:1575
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Ta bort fil"
 msgstr[1] "Ta bort filer"
 
-#: gitg/commit/gitg-commit.vala:1572
+#: gitg/commit/gitg-commit.vala:1580
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Är du säker på att du permanent vill ta bort filen ”%s”?"
 
-#: gitg/commit/gitg-commit.vala:1583
+#: gitg/commit/gitg-commit.vala:1591
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Är du säker på att du permanent vill ta bort filerna ”%s” och ”%s”?"
 
-#: gitg/commit/gitg-commit.vala:1629
+#: gitg/commit/gitg-commit.vala:1637
 msgid "_Stage changes"
 msgstr "_Köa ändringar"
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1649
 msgid "_Unstage changes"
 msgstr "_Ta bort ändringar ur kön"
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1661
 msgid "_Discard changes"
 msgstr "_Förkasta ändringar"
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1673
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Ta _bort fil"
 msgstr[1] "Ta _bort filer"
 
-#: gitg/commit/gitg-commit.vala:1695
+#: gitg/commit/gitg-commit.vala:1703
 msgid "_Edit file"
 msgstr "_Redigera fil"
 
@@ -777,6 +795,7 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
+#: libgitg/gitg-repository-list-box.vala:567
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -896,7 +915,7 @@ msgstr ""
 msgid "gitg homepage"
 msgstr "gitgs webbsida"
 
-#: gitg/gitg-application.vala:396
+#: gitg/gitg-application.vala:399
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -1070,32 +1089,36 @@ msgstr "Välj och hantera projekt"
 msgid "_Remove"
 msgstr "_Ta bort"
 
+#: gitg/gitg-dash-view.vala:190
+msgid "_Delete sources"
+msgstr "_Ta bort källor"
+
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: gitg/gitg-dash-view.vala:230
+#: gitg/gitg-dash-view.vala:246
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr "Vi kan också %ssöka igenom din hemkatalog%s efter git-arkiv."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: gitg/gitg-dash-view.vala:233
+#: gitg/gitg-dash-view.vala:249
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Under tiden kan du vilja %skonfigurera din git-profil%s."
 
-#: gitg/gitg-dash-view.vala:398
+#: gitg/gitg-dash-view.vala:414
 msgid "Failed to clone repository"
 msgstr "Misslyckades att klona arkiv"
 
-#: gitg/gitg-dash-view.vala:429
+#: gitg/gitg-dash-view.vala:445
 msgid "Failed to add repository"
 msgstr "Misslyckades att lägga till arkiv"
 
-#: gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:461
 msgid "Create new repository"
 msgstr "Skapa nytt arkiv"
 
 #. Translators: %s is a file name
-#: gitg/gitg-dash-view.vala:448
+#: gitg/gitg-dash-view.vala:464
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -1104,15 +1127,15 @@ msgstr ""
 "Platsen <i>%s</i> verkar inte vara ett giltigt git-arkiv. Vill du initiera "
 "ett nytt git-arkiv på denna plats?"
 
-#: gitg/gitg-dash-view.vala:454
+#: gitg/gitg-dash-view.vala:470
 msgid "Create repository"
 msgstr "Skapa arkiv"
 
-#: gitg/gitg-dash-view.vala:470
+#: gitg/gitg-dash-view.vala:486
 msgid "Failed to create repository"
 msgstr "Misslyckades att skapa arkiv"
 
-#: gitg/gitg-dash-view.vala:540
+#: gitg/gitg-dash-view.vala:556
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Söker efter arkiv i %s"
@@ -1453,24 +1476,24 @@ msgstr "_Sök efter alla git-arkiv från denna katalog"
 msgid "Projects"
 msgstr "Projekt"
 
-#: gitg/gitg-window.vala:701
+#: gitg/gitg-window.vala:703
 msgid "Open Repository"
 msgstr "Öppna arkiv"
 
-#: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "Ö_ppna"
 
-#: gitg/gitg-window.vala:844
+#: gitg/gitg-window.vala:846
 msgid "Select items"
 msgstr "Välj objekt"
 
-#: gitg/gitg-window.vala:1062
+#: gitg/gitg-window.vala:1064
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "”%s” är inte ett Git-arkiv."
 
-#: gitg/gitg-window.vala:1211
+#: gitg/gitg-window.vala:1213
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1478,7 +1501,7 @@ msgstr ""
 "Ditt användarnamn och e-post är inte konfigurerade än. Gå till "
 "användarkonfigurationen och ange ditt namn och e-post."
 
-#: gitg/gitg-window.vala:1215
+#: gitg/gitg-window.vala:1217
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1486,7 +1509,7 @@ msgstr ""
 "Ditt användarnamn är inte konfigurerat än. Gå till användarkonfigurationen "
 "och ange ditt namn."
 
-#: gitg/gitg-window.vala:1219
+#: gitg/gitg-window.vala:1221
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1494,7 +1517,7 @@ msgstr ""
 "Din e-post är inte konfigurerad än. Gå till användarkonfigurationen och ange "
 "din e-post."
 
-#: gitg/gitg-window.vala:1222
+#: gitg/gitg-window.vala:1224
 msgid "Missing author details"
 msgstr "Saknar författardetaljer"
 
@@ -1564,7 +1587,7 @@ msgstr "Undersök arkivets historik"
 msgid "Mainline"
 msgstr "Huvudlinje"
 
-#: gitg/preferences/gitg-preferences-commit.vala:142
+#: gitg/preferences/gitg-preferences-commit.vala:180
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Incheckning"
@@ -1668,6 +1691,10 @@ msgstr "_Utöka föregående incheckning"
 #: gitg/resources/ui/gitg-commit-dialog.ui:234
 msgid "Add _signed-off-by signature"
 msgstr "Lägg till _signed-off-by-signatur"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:251
+msgid "Add si_gnature"
+msgstr "Lägg till si_gnatur"
 
 #: gitg/resources/ui/gitg-commit-paned.ui:76
 msgid "Skip commit _hooks"
@@ -1815,6 +1842,22 @@ msgstr "Aktivera stavningskontroll"
 #: gitg/resources/ui/gitg-preferences-commit.ui:341
 msgid "Commit Message"
 msgstr "Incheckningsmeddelande"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:372
+msgid "Datetime format"
+msgstr "Datetime-format"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:410
+msgid "Predefined:"
+msgstr "Fördefinierat:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:435
+msgid "Custom:"
+msgstr "Anpassat:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:453
+msgid "Check in vala documentation for datetime to write your own format."
+msgstr "Se Vala-dokumentationen för datetime för att skriva ditt eget format."
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -2081,7 +2124,7 @@ msgstr "Hitta ett ord eller en fras"
 msgid "General settings and options"
 msgstr "Generella inställningar och alternativ"
 
-#: gitg/resources/ui/gitg-window.ui:229
+#: gitg/resources/ui/gitg-window.ui:230
 msgid "_Close"
 msgstr "S_täng"
 
@@ -2177,72 +2220,104 @@ msgstr "efter (%s)"
 msgid "added (%s)"
 msgstr "tillagd (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:145
+#: libgitg/gitg-diff-view-commit-details.vala:172
 msgid "Collapse all"
 msgstr "Fäll ihop alla"
 
-#: libgitg/gitg-diff-view-commit-details.vala:149
+#: libgitg/gitg-diff-view-commit-details.vala:176
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Expandera alla"
 
-#: libgitg/gitg-diff-view-commit-details.vala:204
+#: libgitg/gitg-diff-view-commit-details.vala:237
 #, c-format
 msgid "Committed by %s"
 msgstr "Incheckad av %s"
 
 #. Translators: Unif stands for unified diff format
-#: libgitg/gitg-diff-view-file.vala:151
+#: libgitg/gitg-diff-view-file.vala:160
 msgid "Unif"
 msgstr "Enad"
 
 #. Translators: Split stands for the noun
-#: libgitg/gitg-diff-view-file.vala:156
+#: libgitg/gitg-diff-view-file.vala:165
 msgid "Split"
 msgstr "Delad"
 
-#: libgitg/gitg-diff-view-file.vala:163
+#: libgitg/gitg-diff-view-file.vala:172
 msgid "Binary"
 msgstr "Binär"
 
-#: libgitg/gitg-diff-view-file.vala:170
+#: libgitg/gitg-diff-view-file.vala:179
 msgid "Image"
 msgstr "Bild"
 
-#: libgitg/gitg-diff-view-file.vala:215
+#: libgitg/gitg-diff-view-file.vala:224
 msgid "_Open file"
 msgstr "_Öppna fil"
 
-#: libgitg/gitg-diff-view-file.vala:248
+#: libgitg/gitg-diff-view-file.vala:257
 msgid "Open containing _folder"
 msgstr "Öppna _innehållande mapp"
 
-#: libgitg/gitg-diff-view-file.vala:268
+#: libgitg/gitg-diff-view-file.vala:277
 msgid "_Copy file path"
 msgstr "_Kopiera filsökväg"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:153
+#: libgitg/gitg-repository-list-box.vala:161
 #, c-format
 msgid "at %s"
 msgstr "i %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:162
+#: libgitg/gitg-repository-list-box.vala:170
 #, c-format
 msgid "%s at %s"
 msgstr "%s i %s"
 
-#: libgitg/gitg-repository-list-box.vala:545
+#: libgitg/gitg-repository-list-box.vala:553
 msgid "Cloning…"
 msgstr "Klonar…"
 
-#: libgitg/gitg-stage.vala:337
+#: libgitg/gitg-repository-list-box.vala:566
+#, c-format
+msgid ""
+"Deleting repository source files “%s” will delete them from disk and cannot "
+"be undone. Are you sure?"
+msgstr ""
+"Att ta bort arkivkällfilerna ”%s” kommer ta bort dem från disk och kan inte "
+"ångras. Är du säker?"
+
+#: libgitg/gitg-repository-list-box.vala:568
+msgid "Move to trash"
+msgstr "Flytta till papperskorgen"
+
+#: libgitg/gitg-repository-list-box.vala:569
+msgid "Delete permanently"
+msgstr "Ta bort permanent"
+
+#: libgitg/gitg-stage.vala:343
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
 "Kunde inte läsa incheckningsmeddelande efter att ha kört kroken commit-msg: "
 "%s"
+
+#: libgitg/gitg-stage.vala:464
+#, c-format
+msgid "setup “%s” to do a signed commit"
+msgstr "konfigurera ”%s” för att göra en signerad incheckning"
+
+#: libgitg/gitg-stage.vala:484
+#, c-format
+msgid "error signing the commit “%s”"
+msgstr "fel vid signering av incheckningen ”%s”"
+
+#: libgitg/gitg-stage.vala:496
+#, c-format
+msgid "error updating current ref “%s”"
+msgstr "fel vid uppdatering av aktuell referens ”%s”"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:18
 msgid "_Authenticate"
@@ -2337,6 +2412,9 @@ msgstr "Filer"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Visa filerna i trädet för den markerade incheckningen"
+
+#~ msgid "The GNOME Project"
+#~ msgstr "GNOME-projektet"
 
 #~ msgid "Text"
 #~ msgstr "Text"
