@@ -420,7 +420,6 @@ public class Application : Gtk.Application
 			{"app.new", "<Primary>N",},
 			{"app.quit", "<Primary>Q"},
 			{"app.shortcuts", "<Primary>question"},
-			{"app.help", "F1"},
 
 			{"win.search", "<Primary>F"},
 			{"win.gear-menu", "F10"},
