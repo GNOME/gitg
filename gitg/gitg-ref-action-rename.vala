@@ -95,6 +95,22 @@ class RefActionRename : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 			return;
 		}
 
+		var split = new_text.split("/");
+		var branchname = "";
+		foreach (unowned string str in split) {
+			branchname += str;
+			try {
+				application.repository.lookup_reference(@"$prefix$branchname");
+				var msg = _("The specified name “%s” match with existing branch “%s”").printf(new_text, branchname);
+
+				action_interface.application.show_infobar(_("Invalid name"),
+				                                          msg,
+				                                          Gtk.MessageType.ERROR);
+				return;
+			} catch {
+			}
+			branchname += "/";
+		}
 		if (!Ggit.Ref.is_valid_name(@"$prefix$new_text"))
 		{
 			var msg = _("The specified name “%s” contains invalid characters").printf(new_text);
