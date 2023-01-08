@@ -57,7 +57,7 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 	{
 		get
 		{
-			return    reference.is_branch()
+			return (reference.is_branch() && !((Ggit.Branch)reference).is_head())
 			       || reference.is_tag();
 		}
 	}
