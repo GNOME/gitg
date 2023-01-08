@@ -1430,13 +1430,23 @@ public class RefsList : Gtk.ListBox
 
 	public void edit(Gitg.Ref reference, owned GitgExt.RefNameEditingDone done)
 	{
+		RefRow row = null;
 		if (!d_ref_map.has_key(reference))
 		{
-			done("", true);
-			return;
+			foreach (var r in d_ref_map.keys)
+			{
+				if (r.get_name() == reference.get_name())
+					row = d_ref_map[r];
+			}
+
+			if (row == null) {
+				done("", true);
+				return;
+			}
+		} else {
+			row = d_ref_map[reference];
 		}
 
-		var row = d_ref_map[reference];
 		row.begin_editing((owned)done);
 	}
 
