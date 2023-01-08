@@ -323,7 +323,7 @@ namespace Gitg
 		                           out int    hot_x)
 		{
 			var rtl = (widget.get_style_context().get_state() & Gtk.StateFlags.DIR_RTL) != 0;
-			var offset = (int)(labels.length() * lane_width);
+			var offset = (int)(num_visible_lanes * lane_width);
 
 			if (rtl)
 			{
