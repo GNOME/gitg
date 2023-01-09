@@ -743,11 +743,15 @@ namespace GitgCommit
 				return a.path.casefold().collate(b.path.casefold());
 			});
 
+			string filter_filename_text = d_main.commit_files_search_entry.text;
+
 			foreach (var item in sorted)
 			{
 				var sitem = new Sidebar.Item(item, type);
 
-				if (selected_paths != null && selected_paths.contains(item.path))
+				bool filter_passed = filter_filename_text in item.path;
+
+				if (selected_paths != null && selected_paths.contains(item.path) && filter_passed)
 				{
 					ret += sitem;
 				}
@@ -756,7 +760,7 @@ namespace GitgCommit
 					callback(sitem);
 				});
 
-				model.append(sitem);
+				if (filter_passed) model.append(sitem);
 			}
 
 			return ret;
@@ -1882,6 +1886,14 @@ namespace GitgCommit
 			});
 
 			d_main.sidebar.populate_popup.connect(do_populate_menu);
+
+			d_main.commit_files_search_bar.connect_entry(d_main.commit_files_search_entry);
+			d_main.commit_files_search_entry.search_changed.connect((entry) => {
+				reload();
+			});
+			d_main.commit_files_search_entry.stop_search.connect((entry) => {
+				d_main.commit_files_search_bar.search_mode_enabled = true;
+			});
 
 			var view = d_main.submodule_history_view.commit_list_view;
 			var model = new Gitg.CommitModel(null);

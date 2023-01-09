@@ -47,6 +47,12 @@ class Paned : Gtk.Paned
 	[GtkChild (name = "button_discard")]
 	private unowned Gtk.Button d_button_discard;
 
+	[GtkChild (name = "commit_files_search_bar")]
+	private Gtk.SearchBar d_files_search_bar;
+
+	[GtkChild (name = "commit_files_search_entry")]
+	private Gtk.SearchEntry d_files_search_entry;
+
 	public Sidebar sidebar
 	{
 		get { return d_tree_view_files; }
@@ -85,6 +91,14 @@ class Paned : Gtk.Paned
 	public Gtk.Button button_discard
 	{
 		get { return d_button_discard; }
+	}
+
+	public Gtk.SearchBar commit_files_search_bar {
+		get { return d_files_search_bar; }
+	}
+
+	public Gtk.SearchEntry commit_files_search_entry {
+		get { return d_files_search_entry; }
 	}
 
 	construct

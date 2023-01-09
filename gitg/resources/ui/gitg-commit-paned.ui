@@ -13,22 +13,47 @@
       <class name="sidebar-paned"/>
     </style>
     <child>
-      <object class="GtkScrolledWindow" id="scrolled_window_files">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
-        <property name="hscrollbar_policy">never</property>
-        <property name="name">scrolled_window_files</property>
-        <style>
-          <class name="sidebar"/>
-        </style>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GitgCommitSidebar" id="tree_view_files">
+          <object class="GtkSearchBar" id="commit_files_search_bar">
+            <property name="visible">True</property>
+            <property name="hexpand">True</property>
+            <property name="can_focus">True</property>
+            <property name="show-close-button">False</property>
+            <property name="search_mode_enabled">True</property>
+            <child>
+              <object class="GtkSearchEntry" id="commit_files_search_entry">
+                <property name="hexpand">True</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Filter Files</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolled_window_files">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="headers_visible">False</property>
-            <property name="name">tree_view_files</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="hscrollbar_policy">never</property>
+            <property name="name">scrolled_window_files</property>
+            <style>
+              <class name="sidebar"/>
+            </style>
+            <child>
+              <object class="GitgCommitSidebar" id="tree_view_files">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="headers_visible">False</property>
+                <property name="name">tree_view_files</property>
+              </object>
+            </child>
           </object>
         </child>
       </object>
