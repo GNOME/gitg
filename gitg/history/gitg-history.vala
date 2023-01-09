@@ -192,6 +192,7 @@ namespace GitgHistory
 
 				d_reload_when_mapped.update(() => {
 					reload();
+					((Gtk.ApplicationWindow)application).activate_action("reload", null);
 				}, this);
 			}
 		}
