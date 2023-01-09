@@ -22,6 +22,8 @@ namespace Gitg
 
 public class Hook : Object
 {
+	private const string CONFIG_HOOKS_PATH = "core.hooksPath";
+
 	public Gee.HashMap<string, string> environment { get; set; }
 	public string name { get; set; }
 	private string[] d_arguments;
@@ -109,7 +111,14 @@ public class Hook : Object
 
 	private File hook_file(Ggit.Repository repository)
 	{
-		var hooksdir = repository.get_location().get_child("hooks");
+		var config = repository.get_config().snapshot();
+		string? hooks_path = null;
+		try {
+			hooks_path = config.get_string(CONFIG_HOOKS_PATH);
+		} catch {
+			hooks_path = "%s/hooks".printf(repository.get_location().get_path());
+		}
+		var hooksdir = File.new_for_path(hooks_path);
 		var script = hooksdir.resolve_relative_path(name);
 
 		return script;

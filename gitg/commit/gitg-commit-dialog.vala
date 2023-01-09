@@ -44,6 +44,7 @@ class Dialog : Gtk.Dialog
 	private const string MERGE_MSG_FILENAME = "MERGE_MSG";
 
 	private const string CONFIG_COMMIT_TEMPLATE = "commit.template";
+	private const string CONFIG_HOOKS_PATH = "core.hooksPath";
 
 	[GtkChild (name = "source_view_message")]
 	private unowned Gtk.SourceView d_source_view_message;
@@ -866,8 +867,14 @@ class Dialog : Gtk.Dialog
 
 	private string prepare_commit_msg_hook (string commit_msg, string commit_src = "", string commit_sha = "") {
 		string? output = null;
-		var hook_name = "%s/hooks/%s".printf(repository.get_location().get_path(),
-		                                     PREPARE_COMMIT_MSG_FILENAME);
+		var config = repository.get_config().snapshot();
+		string? hooks_path = null;
+		try {
+			hooks_path = config.get_string(CONFIG_HOOKS_PATH);
+		} catch {
+			hooks_path = "%s/hooks".printf(repository.get_location().get_path());
+		}
+		var hook_name = "%s/%s".printf(hooks_path, PREPARE_COMMIT_MSG_FILENAME);
 		var hook_file = File.new_for_path(hook_name);
 
 		if (!hook_file.query_exists()) {
