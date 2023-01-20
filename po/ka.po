@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Ekaterine Papava <papava.e@gtu.ge>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-07-25 13:50+0000\n"
-"PO-Revision-Date: 2022-10-02 12:43+0200\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"POT-Creation-Date: 2023-01-11 14:22+0000\n"
+"PO-Revision-Date: 2023-01-20 17:51+0100\n"
+"Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: \n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -77,8 +77,8 @@ msgid "Overview of recently used repositories"
 msgstr ""
 
 #: data/org.gnome.gitg.appdata.xml.in.in:157
-msgid "The GNOME Project"
-msgstr "პროექტი \"GNOME\""
+msgid "The Gitg Team"
+msgstr ""
 
 #: data/org.gnome.gitg.desktop.in.in:3
 msgid "@binary@"
@@ -86,7 +86,7 @@ msgstr ""
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
-msgstr ""
+msgstr "Git რეპოზიტორიის დათვალიერება"
 
 #: data/org.gnome.gitg.desktop.in.in:17
 msgid "New Window"
@@ -362,75 +362,93 @@ msgid ""
 "history."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:247
+#: data/org.gnome.gitg.gschema.xml.in:248
+msgid "Type of datetime format selected."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:254
+msgid "Preferred datetime format of the user."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:255
+msgid "The datetime format to be used in commit-diff."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:261
+#: data/org.gnome.gitg.gschema.xml.in:262
+msgid "Custom datetime format."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:270
 msgid "Use patience algorithm to show diffs"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:250
+#: data/org.gnome.gitg.gschema.xml.in:271
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Ignore Whitespace Changes"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:264
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid "Show Changes Inline"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:265
+#: data/org.gnome.gitg.gschema.xml.in:286
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:272
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid "Wrap"
 msgstr "შემოხვევა"
 
-#: data/org.gnome.gitg.gschema.xml.in:273
+#: data/org.gnome.gitg.gschema.xml.in:294
 msgid "Wrap lines."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:279
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:300
+#: data/org.gnome.gitg.gschema.xml.in:318
 msgid "Number of Before/After Context Lines"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:280
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:287
-#: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:308
+#: data/org.gnome.gitg.gschema.xml.in:327
 msgid "Rendered Width of a Tab Character"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:288
-#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:309
+#: data/org.gnome.gitg.gschema.xml.in:328
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:298
+#: data/org.gnome.gitg.gschema.xml.in:319
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
 
-#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1095
 msgid "There are no changes to be committed"
 msgstr ""
 
-#: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1096
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 
@@ -504,60 +522,60 @@ msgid "Failed to unstage the submodule “%s”"
 msgstr ""
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:877
+#: gitg/commit/gitg-commit.vala:881
 msgid "Staged"
-msgstr ""
+msgstr "აღნიშნულია"
 
-#: gitg/commit/gitg-commit.vala:885
+#: gitg/commit/gitg-commit.vala:889
 msgid "No staged files"
 msgstr ""
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:908
+#: gitg/commit/gitg-commit.vala:912
 msgid "Unstaged"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:916
+#: gitg/commit/gitg-commit.vala:920
 msgid "No unstaged files"
 msgstr ""
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:939
-msgid "Untracked"
-msgstr ""
-
 #: gitg/commit/gitg-commit.vala:943
+msgid "Untracked"
+msgstr "მიუთვალყურებელი"
+
+#: gitg/commit/gitg-commit.vala:947
 msgid "No untracked files"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:968
+#: gitg/commit/gitg-commit.vala:972
 msgid "Submodule"
 msgstr "ქვემოდული"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:976
 msgid "No dirty submodules"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1121
+#: gitg/commit/gitg-commit.vala:1130
 msgid "Failed to commit"
 msgstr "გადაცემის შეცდომა"
 
-#: gitg/commit/gitg-commit.vala:1137
+#: gitg/commit/gitg-commit.vala:1146
 msgid "Failed to pass pre-commit"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
+#: gitg/commit/gitg-commit.vala:1314 gitg/commit/gitg-commit.vala:1464
 msgid "Discard changes"
 msgstr "ცვლილებების გაუქმება"
 
-#: gitg/commit/gitg-commit.vala:1303
+#: gitg/commit/gitg-commit.vala:1315
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
-#: gitg/commit/gitg-commit.vala:1593
-#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/commit/gitg-commit.vala:1324 gitg/commit/gitg-commit.vala:1490
+#: gitg/commit/gitg-commit.vala:1605
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
+#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -573,79 +591,79 @@ msgstr ""
 msgid "_Cancel"
 msgstr "გაუქმება"
 
-#: gitg/commit/gitg-commit.vala:1313 gitg/commit/gitg-commit.vala:1479
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 msgid "Discard"
 msgstr "გაუქმება"
 
-#: gitg/commit/gitg-commit.vala:1342
+#: gitg/commit/gitg-commit.vala:1354
 msgid "Failed to discard selection"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1372
+#: gitg/commit/gitg-commit.vala:1384
 msgid "Failed to stage selection"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1376
+#: gitg/commit/gitg-commit.vala:1388
 msgid "Failed to unstage selection"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1436
+#: gitg/commit/gitg-commit.vala:1448
 msgid "Failed to discard changes"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1457
+#: gitg/commit/gitg-commit.vala:1469
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1468
+#: gitg/commit/gitg-commit.vala:1480
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1551
+#: gitg/commit/gitg-commit.vala:1563
 msgid "Failed to delete files"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1567
+#: gitg/commit/gitg-commit.vala:1579
 msgid "Delete file"
 msgid_plural "Delete files"
-msgstr[0] "Ფაილის წაშლა"
+msgstr[0] "ფაილის წაშლა"
 msgstr[1] "ფაილების წაშლა"
 
-#: gitg/commit/gitg-commit.vala:1572
+#: gitg/commit/gitg-commit.vala:1584
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1583
+#: gitg/commit/gitg-commit.vala:1595
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1629
+#: gitg/commit/gitg-commit.vala:1641
 msgid "_Stage changes"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1653
 msgid "_Unstage changes"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1665
 msgid "_Discard changes"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1677
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: gitg/commit/gitg-commit.vala:1695
+#: gitg/commit/gitg-commit.vala:1707
 msgid "_Edit file"
 msgstr "ფაილის _ჩასწორება"
 
@@ -656,7 +674,7 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:130
 msgid "Unstaged changes"
-msgstr ""
+msgstr "რიგიდან მოცილებული ცვლილებები"
 
 #: gitg/gitg-action-support.vala:131
 msgid ""
@@ -668,6 +686,7 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
+#: libgitg/gitg-repository-list-box.vala:567
 msgid "Cancel"
 msgstr "გაუქმება"
 
@@ -781,7 +800,7 @@ msgstr "თემური დოღონაძე"
 msgid "gitg homepage"
 msgstr ""
 
-#: gitg/gitg-application.vala:396
+#: gitg/gitg-application.vala:399
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -943,47 +962,51 @@ msgstr "პროექტების არჩევა და მართვ
 msgid "_Remove"
 msgstr "მოცილება"
 
+#: gitg/gitg-dash-view.vala:190
+msgid "_Delete sources"
+msgstr "წყაროების _წაშლა"
+
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: gitg/gitg-dash-view.vala:230
+#: gitg/gitg-dash-view.vala:246
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: gitg/gitg-dash-view.vala:233
+#: gitg/gitg-dash-view.vala:249
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr ""
 
-#: gitg/gitg-dash-view.vala:398
+#: gitg/gitg-dash-view.vala:414
 msgid "Failed to clone repository"
 msgstr "რეპოზიტორიის კლონირების შეცდომა"
 
-#: gitg/gitg-dash-view.vala:429
+#: gitg/gitg-dash-view.vala:445
 msgid "Failed to add repository"
 msgstr "რეპოზიტორიის დამატების შეცდომა"
 
-#: gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:461
 msgid "Create new repository"
 msgstr "ახალი რეპოზიტორიის შექმნა"
 
 #. Translators: %s is a file name
-#: gitg/gitg-dash-view.vala:448
+#: gitg/gitg-dash-view.vala:464
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
 
-#: gitg/gitg-dash-view.vala:454
+#: gitg/gitg-dash-view.vala:470
 msgid "Create repository"
 msgstr "რეპოზიტორიის შექმნა"
 
-#: gitg/gitg-dash-view.vala:470
+#: gitg/gitg-dash-view.vala:486
 msgid "Failed to create repository"
 msgstr "რეპოზიტორიის შექმნის შეცდომა"
 
-#: gitg/gitg-dash-view.vala:540
+#: gitg/gitg-dash-view.vala:556
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr ""
@@ -1258,16 +1281,21 @@ msgstr "%1 სურათის სახელის გადარქმე�
 msgid "Rename the selected reference"
 msgstr ""
 
-#: gitg/gitg-ref-action-rename.vala:100
+#: gitg/gitg-ref-action-rename.vala:104
+#, c-format
+msgid "The specified name “%s” match with existing branch “%s”"
+msgstr ""
+
+#: gitg/gitg-ref-action-rename.vala:106 gitg/gitg-ref-action-rename.vala:118
+msgid "Invalid name"
+msgstr "არასწორი სახელი"
+
+#: gitg/gitg-ref-action-rename.vala:116
 #, c-format
 msgid "The specified name “%s” contains invalid characters"
 msgstr ""
 
-#: gitg/gitg-ref-action-rename.vala:102
-msgid "Invalid name"
-msgstr "არასწორი სახელი"
-
-#: gitg/gitg-ref-action-rename.vala:131
+#: gitg/gitg-ref-action-rename.vala:147
 msgid "Failed to rename"
 msgstr ""
 
@@ -1319,42 +1347,42 @@ msgstr ""
 msgid "Projects"
 msgstr "პროექტები"
 
-#: gitg/gitg-window.vala:701
+#: gitg/gitg-window.vala:703
 msgid "Open Repository"
 msgstr "რეპოზიტორიის გახსნა"
 
-#: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_გახსნა"
 
-#: gitg/gitg-window.vala:844
+#: gitg/gitg-window.vala:846
 msgid "Select items"
 msgstr ""
 
-#: gitg/gitg-window.vala:1062
+#: gitg/gitg-window.vala:1064
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr ""
 
-#: gitg/gitg-window.vala:1211
+#: gitg/gitg-window.vala:1213
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr ""
 
-#: gitg/gitg-window.vala:1215
+#: gitg/gitg-window.vala:1217
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr ""
 
-#: gitg/gitg-window.vala:1219
+#: gitg/gitg-window.vala:1221
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr ""
 
-#: gitg/gitg-window.vala:1222
+#: gitg/gitg-window.vala:1224
 msgid "Missing author details"
 msgstr ""
 
@@ -1408,23 +1436,23 @@ msgstr "ბრენჩი"
 
 #: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
-msgstr ""
+msgstr "დაშორებულები"
 
-#: gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:348
 #: gitg/preferences/gitg-preferences-history.vala:218
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "ისტორია"
 
-#: gitg/history/gitg-history.vala:352
+#: gitg/history/gitg-history.vala:353
 msgid "Examine the history of the repository"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:949
+#: gitg/history/gitg-history.vala:950
 msgid "Mainline"
 msgstr ""
 
-#: gitg/preferences/gitg-preferences-commit.vala:142
+#: gitg/preferences/gitg-preferences-commit.vala:180
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "გადაცემა"
@@ -1517,7 +1545,7 @@ msgid "Commit"
 msgstr "გადაცემა"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
-#: gitg/resources/ui/gitg-commit-paned.ui:86
+#: gitg/resources/ui/gitg-commit-paned.ui:111
 msgid "C_ommit"
 msgstr "_გადაცემა"
 
@@ -1529,15 +1557,23 @@ msgstr ""
 msgid "Add _signed-off-by signature"
 msgstr ""
 
-#: gitg/resources/ui/gitg-commit-paned.ui:76
+#: gitg/resources/ui/gitg-commit-dialog.ui:251
+msgid "Add si_gnature"
+msgstr ""
+
+#: gitg/resources/ui/gitg-commit-paned.ui:33
+msgid "Filter Files"
+msgstr "ფილტრის ფაილები"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:101
 msgid "Skip commit _hooks"
 msgstr ""
 
-#: gitg/resources/ui/gitg-commit-paned.ui:96
+#: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "S_tage selection"
 msgstr ""
 
-#: gitg/resources/ui/gitg-commit-paned.ui:107
+#: gitg/resources/ui/gitg-commit-paned.ui:132
 msgid "D_iscard selection"
 msgstr ""
 
@@ -1669,6 +1705,22 @@ msgstr ""
 msgid "Commit Message"
 msgstr "კომიტის კომენტარი"
 
+#: gitg/resources/ui/gitg-preferences-commit.ui:372
+msgid "Datetime format"
+msgstr ""
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:410
+msgid "Predefined:"
+msgstr "წინასწარ აღწერილი:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:435
+msgid "Custom:"
+msgstr "ხელით:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:453
+msgid "Check in vala documentation for datetime to write your own format."
+msgstr ""
+
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
 msgstr ""
@@ -1795,17 +1847,17 @@ msgstr "ახალი ფანჯრის გახსნა"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:33
 msgctxt "shortcut window"
-msgid "Open the window menu"
-msgstr ""
+msgid "Reload the window"
+msgstr "ფანჯრის თავიდან ჩატვირთვა"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
-msgid "Open a repository"
+msgid "Open the window menu"
 msgstr ""
 
 #: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
-msgid "Open the help"
+msgid "Open a repository"
 msgstr ""
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
@@ -1821,7 +1873,7 @@ msgstr "მოძებნა"
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Close the active window"
-msgstr ""
+msgstr "აქტიური ფანჯრის დახურვა"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:75
 msgctxt "shortcut window"
@@ -1933,7 +1985,7 @@ msgstr ""
 msgid "General settings and options"
 msgstr ""
 
-#: gitg/resources/ui/gitg-window.ui:229
+#: gitg/resources/ui/gitg-window.ui:230
 msgid "_Close"
 msgstr "დახურვა"
 
@@ -2029,69 +2081,99 @@ msgstr ""
 msgid "added (%s)"
 msgstr ""
 
-#: libgitg/gitg-diff-view-commit-details.vala:145
+#: libgitg/gitg-diff-view-commit-details.vala:172
 msgid "Collapse all"
 msgstr "ყველას ჩაკეცვა"
 
-#: libgitg/gitg-diff-view-commit-details.vala:149
+#: libgitg/gitg-diff-view-commit-details.vala:176
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "ყველას ამოკეცვა"
 
-#: libgitg/gitg-diff-view-commit-details.vala:204
+#: libgitg/gitg-diff-view-commit-details.vala:237
 #, c-format
 msgid "Committed by %s"
 msgstr ""
 
 #. Translators: Unif stands for unified diff format
-#: libgitg/gitg-diff-view-file.vala:151
+#: libgitg/gitg-diff-view-file.vala:160
 msgid "Unif"
 msgstr ""
 
 #. Translators: Split stands for the noun
-#: libgitg/gitg-diff-view-file.vala:156
+#: libgitg/gitg-diff-view-file.vala:165
 msgid "Split"
 msgstr "გაყოფა"
 
-#: libgitg/gitg-diff-view-file.vala:163
+#: libgitg/gitg-diff-view-file.vala:172
 msgid "Binary"
 msgstr "ბინარული"
 
-#: libgitg/gitg-diff-view-file.vala:170
+#: libgitg/gitg-diff-view-file.vala:179
 msgid "Image"
 msgstr "ასლი"
 
-#: libgitg/gitg-diff-view-file.vala:215
+#: libgitg/gitg-diff-view-file.vala:224
 msgid "_Open file"
 msgstr ""
 
-#: libgitg/gitg-diff-view-file.vala:248
+#: libgitg/gitg-diff-view-file.vala:257
 msgid "Open containing _folder"
 msgstr ""
 
-#: libgitg/gitg-diff-view-file.vala:268
+#: libgitg/gitg-diff-view-file.vala:277
 msgid "_Copy file path"
 msgstr ""
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:153
+#: libgitg/gitg-repository-list-box.vala:161
 #, c-format
 msgid "at %s"
 msgstr ""
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:162
+#: libgitg/gitg-repository-list-box.vala:170
 #, c-format
 msgid "%s at %s"
 msgstr ""
 
-#: libgitg/gitg-repository-list-box.vala:545
+#: libgitg/gitg-repository-list-box.vala:553
 msgid "Cloning…"
 msgstr ""
 
-#: libgitg/gitg-stage.vala:337
+#: libgitg/gitg-repository-list-box.vala:566
+#, c-format
+msgid ""
+"Deleting repository source files “%s” will delete them from disk and cannot "
+"be undone. Are you sure?"
+msgstr ""
+
+#: libgitg/gitg-repository-list-box.vala:568
+msgid "Move to trash"
+msgstr "სანაგვეში გადატანა"
+
+#: libgitg/gitg-repository-list-box.vala:569
+msgid "Delete permanently"
+msgstr "სამუდამოდ წაშლა"
+
+#: libgitg/gitg-stage.vala:343
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
+msgstr ""
+
+#: libgitg/gitg-stage.vala:464
+#, c-format
+msgid "setup “%s” to do a signed commit"
+msgstr ""
+
+#: libgitg/gitg-stage.vala:484
+#, c-format
+msgid "error signing the commit “%s”"
+msgstr ""
+
+#: libgitg/gitg-stage.vala:496
+#, c-format
+msgid "error updating current ref “%s”"
 msgstr ""
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:18
@@ -2180,8 +2262,11 @@ msgstr ""
 
 #: plugins/files/gitg-files.vala:68
 msgid "Files"
-msgstr ""
+msgstr "ფაილები"
 
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr ""
+
+#~ msgid "The GNOME Project"
+#~ msgstr "პროექტი \"GNOME\""
