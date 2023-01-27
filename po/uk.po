@@ -3,13 +3,13 @@
 # This file is distributed under the same licence as the gitg package.
 # Serhij Dubyk <dubyk@ukr.net>, 2011.
 # Daniel Korostil <ted.korostiled@gmail.com>, 2014.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-11-23 20:03+0000\n"
-"PO-Revision-Date: 2022-12-24 11:02+0200\n"
+"POT-Creation-Date: 2023-01-25 17:50+0000\n"
+"PO-Revision-Date: 2023-01-27 22:49+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -536,12 +536,12 @@ msgstr ""
 "зміненого рядка) має бути показано у різниці між сформованим і несформованим "
 "текстом на панелі внесків."
 
-#: gitg/commit/gitg-commit-dialog.vala:566 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1095
 msgid "There are no changes to be committed"
 msgstr "Немає змін, що їх внести"
 
 # Будь ласка, введіть повідомлення зробити перед тим,
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1096
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Внести зміни до повідомлення щодо внеску попереднього внеску"
 
@@ -623,65 +623,65 @@ msgstr "Не вдалося скасувати формування підмод
 
 # Поетапний
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:877
+#: gitg/commit/gitg-commit.vala:881
 msgid "Staged"
 msgstr "Позначено"
 
-#: gitg/commit/gitg-commit.vala:885
+#: gitg/commit/gitg-commit.vala:889
 msgid "No staged files"
 msgstr "Немає позначених файлів"
 
 # Unstaged
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:908
+#: gitg/commit/gitg-commit.vala:912
 msgid "Unstaged"
 msgstr "Непозначено"
 
 # Unstaged зміни
-#: gitg/commit/gitg-commit.vala:916
+#: gitg/commit/gitg-commit.vala:920
 msgid "No unstaged files"
 msgstr "Немає непозначених файлів"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:939
+#: gitg/commit/gitg-commit.vala:943
 msgid "Untracked"
 msgstr "Не враховано"
 
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:947
 msgid "No untracked files"
 msgstr "Не враховано файлів"
 
-#: gitg/commit/gitg-commit.vala:968
+#: gitg/commit/gitg-commit.vala:972
 msgid "Submodule"
 msgstr "Підмодуль"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:976
 msgid "No dirty submodules"
 msgstr "Немає «брудних» підмодулів"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1126
+#: gitg/commit/gitg-commit.vala:1130
 msgid "Failed to commit"
 msgstr "Не вдалося внести"
 
 # Не вдалося вилучити теги
-#: gitg/commit/gitg-commit.vala:1142
+#: gitg/commit/gitg-commit.vala:1146
 msgid "Failed to pass pre-commit"
 msgstr "Не вдалося пропустити попередній внесок"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1310 gitg/commit/gitg-commit.vala:1460
+#: gitg/commit/gitg-commit.vala:1314 gitg/commit/gitg-commit.vala:1464
 msgid "Discard changes"
 msgstr "Відкинути зміни"
 
 # Ви впевнені, що хочете повернути ці зміни?
-#: gitg/commit/gitg-commit.vala:1311
+#: gitg/commit/gitg-commit.vala:1315
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Ви справді хочете назавжди відкинути вибрані зміни?"
 
 # Скасувати
-#: gitg/commit/gitg-commit.vala:1320 gitg/commit/gitg-commit.vala:1486
-#: gitg/commit/gitg-commit.vala:1601
+#: gitg/commit/gitg-commit.vala:1324 gitg/commit/gitg-commit.vala:1490
+#: gitg/commit/gitg-commit.vala:1605
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -699,31 +699,31 @@ msgstr "Ви справді хочете назавжди відкинути в�
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: gitg/commit/gitg-commit.vala:1321 gitg/commit/gitg-commit.vala:1487
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 msgid "Discard"
 msgstr "Відкинути"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1350
+#: gitg/commit/gitg-commit.vala:1354
 msgid "Failed to discard selection"
 msgstr "Не вдалося відкинути вибране"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1380
+#: gitg/commit/gitg-commit.vala:1384
 msgid "Failed to stage selection"
 msgstr "Не вдалося позначити вибране"
 
-#: gitg/commit/gitg-commit.vala:1384
+#: gitg/commit/gitg-commit.vala:1388
 msgid "Failed to unstage selection"
 msgstr "Не вдалося зняти позначення з вибраного"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1444
+#: gitg/commit/gitg-commit.vala:1448
 msgid "Failed to discard changes"
 msgstr "Не вдалося відкинути зміни"
 
 # Ви впевнені, що хочете повернути ці зміни?
-#: gitg/commit/gitg-commit.vala:1465
+#: gitg/commit/gitg-commit.vala:1469
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -732,7 +732,7 @@ msgstr ""
 "Ви справді хочете остаточно відкинути усі зміни, які внесено до файла «%s»?"
 
 # Ви впевнені, що хочете об’єднати %s філії<%s>на %s філії<%s>?
-#: gitg/commit/gitg-commit.vala:1476
+#: gitg/commit/gitg-commit.vala:1480
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -742,11 +742,11 @@ msgstr ""
 "«%s»?"
 
 # Не вдалося зберегти поточний стан індекс
-#: gitg/commit/gitg-commit.vala:1559
+#: gitg/commit/gitg-commit.vala:1563
 msgid "Failed to delete files"
 msgstr "Не вдалося вилучити файли"
 
-#: gitg/commit/gitg-commit.vala:1575
+#: gitg/commit/gitg-commit.vala:1579
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Вилучити файли"
@@ -755,33 +755,33 @@ msgstr[2] "Вилучити файли"
 msgstr[3] "Вилучити файл"
 
 # Ви впевнені, що хочете вилучити тег<%s>?
-#: gitg/commit/gitg-commit.vala:1580
+#: gitg/commit/gitg-commit.vala:1584
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Остаточно вилучити файл «%s»?"
 
 # Ви впевнені, що хочете повернути ці зміни?
-#: gitg/commit/gitg-commit.vala:1591
+#: gitg/commit/gitg-commit.vala:1595
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Ви справді хочете остаточно вилучити файли %s і «%s»?"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1637
+#: gitg/commit/gitg-commit.vala:1641
 msgid "_Stage changes"
 msgstr "С_формувати зміни"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1649
+#: gitg/commit/gitg-commit.vala:1653
 msgid "_Unstage changes"
 msgstr "_Скасувати формування змін"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1661
+#: gitg/commit/gitg-commit.vala:1665
 msgid "_Discard changes"
 msgstr "_Відкинути зміни"
 
-#: gitg/commit/gitg-commit.vala:1673
+#: gitg/commit/gitg-commit.vala:1677
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Ви_лучити файли"
@@ -790,7 +790,7 @@ msgstr[2] "Ви_лучити файли"
 msgstr[3] "Ви_лучити файл"
 
 # Змінити
-#: gitg/commit/gitg-commit.vala:1703
+#: gitg/commit/gitg-commit.vala:1707
 msgid "_Edit file"
 msgstr "_Редагувати файл"
 
@@ -1138,7 +1138,6 @@ msgstr "В_илучити"
 
 # Виберіть філія
 #: gitg/gitg-dash-view.vala:190
-#| msgid "Delete branch %s"
 msgid "_Delete sources"
 msgstr "Ви_лучити джерела"
 
@@ -1496,17 +1495,23 @@ msgstr "Перейменувати"
 msgid "Rename the selected reference"
 msgstr "Перейменувати вибране посилання"
 
-#: gitg/gitg-ref-action-rename.vala:100
+#: gitg/gitg-ref-action-rename.vala:104
+#, c-format
+#| msgid "The specified name “%s” contains invalid characters"
+msgid "The specified name “%s” match with existing branch “%s”"
+msgstr "Вказана назва, «%s», збігається із назвою наявної гілки, «%s»"
+
+#: gitg/gitg-ref-action-rename.vala:106 gitg/gitg-ref-action-rename.vala:118
+msgid "Invalid name"
+msgstr "Некоректна назва"
+
+#: gitg/gitg-ref-action-rename.vala:116
 #, c-format
 msgid "The specified name “%s” contains invalid characters"
 msgstr "У вказаній назві «%s» містяться некоректні символи"
 
-#: gitg/gitg-ref-action-rename.vala:102
-msgid "Invalid name"
-msgstr "Некоректна назва"
-
 # Не вдалося вилучити притон
-#: gitg/gitg-ref-action-rename.vala:131
+#: gitg/gitg-ref-action-rename.vala:147
 msgid "Failed to rename"
 msgstr "Не вдалося перейменувати"
 
@@ -1668,17 +1673,17 @@ msgid "Remotes"
 msgstr "Віддалені"
 
 # Історія
-#: gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:348
 #: gitg/preferences/gitg-preferences-history.vala:218
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Журнал"
 
-#: gitg/history/gitg-history.vala:352
+#: gitg/history/gitg-history.vala:353
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:949
+#: gitg/history/gitg-history.vala:950
 msgid "Mainline"
 msgstr "Основа"
 
@@ -1790,7 +1795,7 @@ msgstr "Внести"
 
 # Здійснювати
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
-#: gitg/resources/ui/gitg-commit-paned.ui:86
+#: gitg/resources/ui/gitg-commit-paned.ui:111
 msgid "C_ommit"
 msgstr "В_нести"
 
@@ -1805,19 +1810,22 @@ msgstr "Додати під_тверджувальний підпис"
 
 # Додати підписаний-офф-на
 #: gitg/resources/ui/gitg-commit-dialog.ui:251
-#| msgid "Add _signed-off-by signature"
 msgid "Add si_gnature"
 msgstr "Додати п_ідпис"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:76
+#: gitg/resources/ui/gitg-commit-paned.ui:33
+msgid "Filter Files"
+msgstr "Фільтрування файлів"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:101
 msgid "Skip commit _hooks"
 msgstr "Пропусти _запобіжник внеску"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:96
+#: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "S_tage selection"
 msgstr "П_означити вибране"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:107
+#: gitg/resources/ui/gitg-commit-paned.ui:132
 msgid "D_iscard selection"
 msgstr "Від_кинути позначене"
 
@@ -1905,26 +1913,27 @@ msgid "_Reload"
 msgstr "_Оновити"
 
 # Установки
-#: gitg/resources/ui/gitg-menus.ui:14 gitg/resources/ui/gitg-menus.ui:48
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Preferences"
 msgstr "П_араметри"
 
 # Детальна інформація
-#: gitg/resources/ui/gitg-menus.ui:21 gitg/resources/ui/gitg-menus.ui:42
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
 msgid "_Author Details"
 msgstr "Подробиці про _автора"
 
-#: gitg/resources/ui/gitg-menus.ui:27 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Keyboard Shortcuts"
 msgstr "_Клавіатурні скорочення"
 
-#: gitg/resources/ui/gitg-menus.ui:36
+#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+#| msgid "_About"
+msgid "_About gitg"
+msgstr "_Про gitg"
+
+#: gitg/resources/ui/gitg-menus.ui:37
 msgid "_New Window"
 msgstr "_Створити вікно"
-
-#: gitg/resources/ui/gitg-menus.ui:60
-msgid "_About"
-msgstr "_Про програму"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:58
 msgid "Show markup"
@@ -1988,8 +1997,8 @@ msgstr "Нетиповий:"
 #: gitg/resources/ui/gitg-preferences-commit.ui:453
 msgid "Check in vala documentation for datetime to write your own format."
 msgstr ""
-"Для створення власного запису формату дати і часу ознайомтеся із"
-" документацією до vala."
+"Для створення власного запису формату дати і часу ознайомтеся із "
+"документацією до vala."
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -2130,20 +2139,22 @@ msgid "Open a new window"
 msgstr "Відкрити нове вікно"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:33
+#| msgctxt "shortcut window"
+#| msgid "Close the active window"
+msgctxt "shortcut window"
+msgid "Reload the window"
+msgstr "Перезавантажити вікно"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Open the window menu"
 msgstr "Відкрити меню вікна"
 
 # Відкрити Git репозиторій
-#: gitg/resources/ui/gitg-shortcuts.ui:40
+#: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
 msgid "Open a repository"
 msgstr "Відкрити сховище"
-
-#: gitg/resources/ui/gitg-shortcuts.ui:47
-msgctxt "shortcut window"
-msgid "Open the help"
-msgstr "Відкрити довідку"
 
 # Установки
 #: gitg/resources/ui/gitg-shortcuts.ui:54
@@ -2451,8 +2462,8 @@ msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
 "be undone. Are you sure?"
 msgstr ""
-"Вилучення початкових файлів сховища «%s» призведе до вилучення даних з"
-" диска. Наслідки буде дуже важко скасувати. Ви впевнені у свої діях?"
+"Вилучення початкових файлів сховища «%s» призведе до вилучення даних з "
+"диска. Наслідки буде дуже важко скасувати. Ви впевнені у свої діях?"
 
 #: libgitg/gitg-repository-list-box.vala:568
 msgid "Move to trash"
@@ -2477,14 +2488,12 @@ msgstr "налаштувати «%s» для підписаного внеску
 # Не вдалося зберегти поточний стан індекс
 #: libgitg/gitg-stage.vala:484
 #, c-format
-#| msgid "Failed to stage the file “%s”"
 msgid "error signing the commit “%s”"
 msgstr "помилка під час спроби підписати внесок «%s»"
 
 # Не вдалося робити вибір на<%s>
 #: libgitg/gitg-stage.vala:496
 #, c-format
-#| msgid "Cherry pick onto “%s”"
 msgid "error updating current ref “%s”"
 msgstr "помилка під час оновлення поточного посилання «%s»"
 
@@ -2585,6 +2594,10 @@ msgstr "Файли"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Показати файли у ієрархії вибраного внеску"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open the help"
+#~ msgstr "Відкрити довідку"
 
 #~ msgid "The GNOME Project"
 #~ msgstr "Проєкт GNOME"
