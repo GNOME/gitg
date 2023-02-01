@@ -4,15 +4,15 @@
 #
 # Andika Triwidada <andika@gmail.com>, 2012, 2013, 2014.
 # Dirgita <dirgitadevina@yahoo.co.id>, 2014.
-# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020, 2021, 2022.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020, 2021, 2022, 2023.
 # Sucipto <sucipto@pm.me>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-02-15 00:41+0000\n"
-"PO-Revision-Date: 2022-02-18 09:02+0700\n"
+"POT-Creation-Date: 2023-01-25 17:50+0000\n"
+"PO-Revision-Date: 2023-02-01 10:10+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-DamnedLies-Scope: partial\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -86,8 +86,8 @@ msgid "Overview of recently used repositories"
 msgstr "Tinjauan tentang repositori yang digunakan baru-baru ini"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:157
-msgid "The GNOME Project"
-msgstr "Proyek GNOME"
+msgid "The Gitg Team"
+msgstr "Tim Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:3
 msgid "@binary@"
@@ -420,21 +420,39 @@ msgstr ""
 "Maksimum berapa hari untuk menyimpan pesan komit sebelumnya pada riwayat "
 "pesan komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:247
+#: data/org.gnome.gitg.gschema.xml.in:248
+msgid "Type of datetime format selected."
+msgstr "Jenis format datetime yang dipilih."
+
+#: data/org.gnome.gitg.gschema.xml.in:254
+msgid "Preferred datetime format of the user."
+msgstr "Format datetime yang disukai pengguna."
+
+#: data/org.gnome.gitg.gschema.xml.in:255
+msgid "The datetime format to be used in commit-diff."
+msgstr "Format datetime yang akan digunakan dalam commit-diff."
+
+#: data/org.gnome.gitg.gschema.xml.in:261
+#: data/org.gnome.gitg.gschema.xml.in:262
+msgid "Custom datetime format."
+msgstr "Format datetime ubahan."
+
+#: data/org.gnome.gitg.gschema.xml.in:270
 msgid "Use patience algorithm to show diffs"
 msgstr "Gunakan algoritma kesabaran untuk menampilkan diff"
 
-#: data/org.gnome.gitg.gschema.xml.in:250
+#: data/org.gnome.gitg.gschema.xml.in:271
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Pengaturan untuk menggunakan algoritma kesabaran untuk menunjukkan diff dari "
 "komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Ignore Whitespace Changes"
 msgstr "Abaikan Perubahan Whitespace"
 
-#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -442,31 +460,31 @@ msgstr ""
 "Pengaturan yang mengindikasikan apakah mengabaikan perubahan whitespace "
 "ketika menampilkan diff dari suatu komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:264
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid "Show Changes Inline"
 msgstr "Tampilkan Perubahan Inline"
 
-#: data/org.gnome.gitg.gschema.xml.in:265
+#: data/org.gnome.gitg.gschema.xml.in:286
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Pengaturan yang mengindikasikan apakah perubahan dalam baris-baris mesti "
 "ditampilkan di baris yang sama."
 
-#: data/org.gnome.gitg.gschema.xml.in:272
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid "Wrap"
 msgstr "Lipat"
 
-#: data/org.gnome.gitg.gschema.xml.in:273
+#: data/org.gnome.gitg.gschema.xml.in:294
 msgid "Wrap lines."
 msgstr "Lipat baris."
 
-#: data/org.gnome.gitg.gschema.xml.in:279
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:300
+#: data/org.gnome.gitg.gschema.xml.in:318
 msgid "Number of Before/After Context Lines"
 msgstr "Banyaknya Baris Konteks Sebelum/Setelah"
 
-#: data/org.gnome.gitg.gschema.xml.in:280
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -474,13 +492,13 @@ msgstr ""
 "Pengaturan yang menentukan berapa banyak baris konteks (sebelum dan setelah) "
 "mesti ditunjukkan ketika menampilkan diff dari suatu komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:287
-#: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:308
+#: data/org.gnome.gitg.gschema.xml.in:327
 msgid "Rendered Width of a Tab Character"
 msgstr "Lebar Terrender dari suatu Karakter Tab"
 
-#: data/org.gnome.gitg.gschema.xml.in:288
-#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:309
+#: data/org.gnome.gitg.gschema.xml.in:328
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -488,7 +506,7 @@ msgstr ""
 "Pengaturan yang menentukan berapa banyak spasi yang mesti diduduki oleh "
 "sebuah karakter tab ketika menampilkan diff dari suatu komit."
 
-#: data/org.gnome.gitg.gschema.xml.in:298
+#: data/org.gnome.gitg.gschema.xml.in:319
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -497,11 +515,11 @@ msgstr ""
 "mesti ditunjukkan ketika menampilkan diff yang akan di-stage-kan/tak di-"
 "stage-kan dalam area komit."
 
-#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1095
 msgid "There are no changes to be committed"
 msgstr "Tak ada perubahan untuk dikomit"
 
-#: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1096
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Pakai amend untuk mengubah pesan komit dari komit sebelumnya"
 
@@ -577,60 +595,60 @@ msgid "Failed to unstage the submodule “%s”"
 msgstr "Gagal meng-unstage submodul “%s”"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:877
+#: gitg/commit/gitg-commit.vala:881
 msgid "Staged"
 msgstr "Di-stage"
 
-#: gitg/commit/gitg-commit.vala:885
+#: gitg/commit/gitg-commit.vala:889
 msgid "No staged files"
 msgstr "Tak ada berkas yang di-stage"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:908
+#: gitg/commit/gitg-commit.vala:912
 msgid "Unstaged"
 msgstr "Di-unstage"
 
-#: gitg/commit/gitg-commit.vala:916
+#: gitg/commit/gitg-commit.vala:920
 msgid "No unstaged files"
 msgstr "Tak ada berkas yang di-unstage"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:939
+#: gitg/commit/gitg-commit.vala:943
 msgid "Untracked"
 msgstr "Tak dilacak"
 
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:947
 msgid "No untracked files"
 msgstr "Tak ada berkas yang tak dilacak"
 
-#: gitg/commit/gitg-commit.vala:968
+#: gitg/commit/gitg-commit.vala:972
 msgid "Submodule"
 msgstr "Submodul"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:976
 msgid "No dirty submodules"
 msgstr "Tidak ada submodul kotor"
 
-#: gitg/commit/gitg-commit.vala:1121
+#: gitg/commit/gitg-commit.vala:1130
 msgid "Failed to commit"
 msgstr "Gagal komit"
 
-#: gitg/commit/gitg-commit.vala:1137
+#: gitg/commit/gitg-commit.vala:1146
 msgid "Failed to pass pre-commit"
 msgstr "Gagal lolos prakomit"
 
-#: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
+#: gitg/commit/gitg-commit.vala:1314 gitg/commit/gitg-commit.vala:1464
 msgid "Discard changes"
 msgstr "Buang perubahan"
 
-#: gitg/commit/gitg-commit.vala:1303
+#: gitg/commit/gitg-commit.vala:1315
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Anda yakin ingin membuang permanen perubahan yang dipilih?"
 
-#: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
-#: gitg/commit/gitg-commit.vala:1593
-#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/commit/gitg-commit.vala:1324 gitg/commit/gitg-commit.vala:1490
+#: gitg/commit/gitg-commit.vala:1605
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
+#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -646,27 +664,27 @@ msgstr "Anda yakin ingin membuang permanen perubahan yang dipilih?"
 msgid "_Cancel"
 msgstr "_Batal"
 
-#: gitg/commit/gitg-commit.vala:1313 gitg/commit/gitg-commit.vala:1479
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 msgid "Discard"
 msgstr "Buang"
 
-#: gitg/commit/gitg-commit.vala:1342
+#: gitg/commit/gitg-commit.vala:1354
 msgid "Failed to discard selection"
 msgstr "Gagal membuang pilihan"
 
-#: gitg/commit/gitg-commit.vala:1372
+#: gitg/commit/gitg-commit.vala:1384
 msgid "Failed to stage selection"
 msgstr "Gagal men-stage pilihan"
 
-#: gitg/commit/gitg-commit.vala:1376
+#: gitg/commit/gitg-commit.vala:1388
 msgid "Failed to unstage selection"
 msgstr "Gagal meng-unstage pilihan"
 
-#: gitg/commit/gitg-commit.vala:1436
+#: gitg/commit/gitg-commit.vala:1448
 msgid "Failed to discard changes"
 msgstr "Gagal membuang perubahan"
 
-#: gitg/commit/gitg-commit.vala:1457
+#: gitg/commit/gitg-commit.vala:1469
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -675,7 +693,7 @@ msgstr ""
 "Anda yakin ingin membuang permanen semua perubahan yang telah dibuat ke "
 "berkas “%s”?"
 
-#: gitg/commit/gitg-commit.vala:1468
+#: gitg/commit/gitg-commit.vala:1480
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -684,43 +702,43 @@ msgstr ""
 "Anda yakin ingin membuang permanen semua perubahan yang telah dibuat ke "
 "berkas %s dan “%s”?"
 
-#: gitg/commit/gitg-commit.vala:1551
+#: gitg/commit/gitg-commit.vala:1563
 msgid "Failed to delete files"
 msgstr "Gagal menghapus berkas"
 
-#: gitg/commit/gitg-commit.vala:1567
+#: gitg/commit/gitg-commit.vala:1579
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Hapus berkas"
 
-#: gitg/commit/gitg-commit.vala:1572
+#: gitg/commit/gitg-commit.vala:1584
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Anda yakin ingin menghapus permanen berkas “%s”'?"
 
-#: gitg/commit/gitg-commit.vala:1583
+#: gitg/commit/gitg-commit.vala:1595
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Anda yakin ingin menghapus permanen berkas %s dan “%s”?"
 
-#: gitg/commit/gitg-commit.vala:1629
+#: gitg/commit/gitg-commit.vala:1641
 msgid "_Stage changes"
 msgstr "_Stage-kan perubahan"
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1653
 msgid "_Unstage changes"
 msgstr "Tak stage-kan per_ubahan"
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1665
 msgid "_Discard changes"
 msgstr "_Buang perubahan"
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1677
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Hapus b_erkas"
 
-#: gitg/commit/gitg-commit.vala:1695
+#: gitg/commit/gitg-commit.vala:1707
 msgid "_Edit file"
 msgstr "_Ubah berkas"
 
@@ -746,6 +764,7 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
+#: libgitg/gitg-repository-list-box.vala:567
 msgid "Cancel"
 msgstr "Batal"
 
@@ -857,13 +876,13 @@ msgid "translator-credits"
 msgstr ""
 "Ahmad Haris <ahmadharis@gnome.org>, 2015.\n"
 "Andika Triwidada <andika@gmail.com>, 2012-2014, 2016.\n"
-"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020, 2021, 2022."
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019, 2020, 2021, 2022, 2023."
 
 #: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "Situs web gitg"
 
-#: gitg/gitg-application.vala:396
+#: gitg/gitg-application.vala:399
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -1038,33 +1057,37 @@ msgstr "Pilih dan kelola projek"
 msgid "_Remove"
 msgstr "_Hapus"
 
+#: gitg/gitg-dash-view.vala:190
+msgid "_Delete sources"
+msgstr "Ha_pus sumber"
+
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: gitg/gitg-dash-view.vala:230
+#: gitg/gitg-dash-view.vala:246
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
 "Kami juga dapat %smemeriksa direktori%s home kamu untuk repositori git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: gitg/gitg-dash-view.vala:233
+#: gitg/gitg-dash-view.vala:249
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Sementara itu, Anda mungkin ingin %smenyiapkan profil git Anda%s."
 
-#: gitg/gitg-dash-view.vala:398
+#: gitg/gitg-dash-view.vala:414
 msgid "Failed to clone repository"
 msgstr "Gagal meng-klone repositori"
 
-#: gitg/gitg-dash-view.vala:429
+#: gitg/gitg-dash-view.vala:445
 msgid "Failed to add repository"
 msgstr "Gagal menambahkan repositori"
 
-#: gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:461
 msgid "Create new repository"
 msgstr "Buat repositori baru"
 
 #. Translators: %s is a file name
-#: gitg/gitg-dash-view.vala:448
+#: gitg/gitg-dash-view.vala:464
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -1073,15 +1096,15 @@ msgstr ""
 "Lokasi <i>%s</i> tidak dikenali sebagai repositori git yang benar. Apakah "
 "kamu mau menginisialisasi repositori git yang baru di lokasi ini?"
 
-#: gitg/gitg-dash-view.vala:454
+#: gitg/gitg-dash-view.vala:470
 msgid "Create repository"
 msgstr "Buat repositori"
 
-#: gitg/gitg-dash-view.vala:470
+#: gitg/gitg-dash-view.vala:486
 msgid "Failed to create repository"
 msgstr "Gagal membuat repositori"
 
-#: gitg/gitg-dash-view.vala:540
+#: gitg/gitg-dash-view.vala:556
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Memindai repositori di %s"
@@ -1361,16 +1384,21 @@ msgstr "Ubah nama"
 msgid "Rename the selected reference"
 msgstr "Mengubah nama acuan yang dipilih"
 
-#: gitg/gitg-ref-action-rename.vala:100
+#: gitg/gitg-ref-action-rename.vala:104
+#, c-format
+msgid "The specified name “%s” match with existing branch “%s”"
+msgstr "Nama yang ditentukan \"%s\" cocok dengan cabang \"%s\" yang ada"
+
+#: gitg/gitg-ref-action-rename.vala:106 gitg/gitg-ref-action-rename.vala:118
+msgid "Invalid name"
+msgstr "Nama tak valid"
+
+#: gitg/gitg-ref-action-rename.vala:116
 #, c-format
 msgid "The specified name “%s” contains invalid characters"
 msgstr "Nama “%s”: yang dinyatakan memuat karakter yang tak valid"
 
-#: gitg/gitg-ref-action-rename.vala:102
-msgid "Invalid name"
-msgstr "Nama tak valid"
-
-#: gitg/gitg-ref-action-rename.vala:131
+#: gitg/gitg-ref-action-rename.vala:147
 msgid "Failed to rename"
 msgstr "Gagal mengubah nama"
 
@@ -1422,24 +1450,24 @@ msgstr "_Pindai semua repositori git dalam direktori ini"
 msgid "Projects"
 msgstr "Proyek"
 
-#: gitg/gitg-window.vala:701
+#: gitg/gitg-window.vala:703
 msgid "Open Repository"
 msgstr "Buat Repositori"
 
-#: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Buka"
 
-#: gitg/gitg-window.vala:844
+#: gitg/gitg-window.vala:846
 msgid "Select items"
 msgstr "Pilih butir"
 
-#: gitg/gitg-window.vala:1062
+#: gitg/gitg-window.vala:1064
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” bukan suatu repositori Git."
 
-#: gitg/gitg-window.vala:1211
+#: gitg/gitg-window.vala:1213
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1447,7 +1475,7 @@ msgstr ""
 "Nama pengguna dan surel Anda belum ditata. Harap pergi ke konfigurasi "
 "pengguna dan isikan nama serta surel Anda."
 
-#: gitg/gitg-window.vala:1215
+#: gitg/gitg-window.vala:1217
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1455,7 +1483,7 @@ msgstr ""
 "Nama pengguna Anda belum ditata. Harap pergi ke konfigurasi pengguna dan "
 "isikan nama Anda."
 
-#: gitg/gitg-window.vala:1219
+#: gitg/gitg-window.vala:1221
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1463,7 +1491,7 @@ msgstr ""
 "Surel Anda belum ditata. Harap pergi ke konfigurasi pengguna dan isikan "
 "surel Anda."
 
-#: gitg/gitg-window.vala:1222
+#: gitg/gitg-window.vala:1224
 msgid "Missing author details"
 msgstr "Kehilangan rincian penulis"
 
@@ -1519,21 +1547,21 @@ msgstr "Cabang"
 msgid "Remotes"
 msgstr "Remote"
 
-#: gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:348
 #: gitg/preferences/gitg-preferences-history.vala:218
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Riwayat"
 
-#: gitg/history/gitg-history.vala:352
+#: gitg/history/gitg-history.vala:353
 msgid "Examine the history of the repository"
 msgstr "Periksa riwayat repositori"
 
-#: gitg/history/gitg-history.vala:949
+#: gitg/history/gitg-history.vala:950
 msgid "Mainline"
 msgstr "Mainline"
 
-#: gitg/preferences/gitg-preferences-commit.vala:142
+#: gitg/preferences/gitg-preferences-commit.vala:180
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Komit"
@@ -1626,7 +1654,7 @@ msgid "Commit"
 msgstr "Komit"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
-#: gitg/resources/ui/gitg-commit-paned.ui:86
+#: gitg/resources/ui/gitg-commit-paned.ui:111
 msgid "C_ommit"
 msgstr "K_omit"
 
@@ -1638,15 +1666,23 @@ msgstr "_Amend komit sebelumnya"
 msgid "Add _signed-off-by signature"
 msgstr "Tambahkan tanda tangan _signed-off-by"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:76
+#: gitg/resources/ui/gitg-commit-dialog.ui:251
+msgid "Add si_gnature"
+msgstr "Tambahkan t_anda tangan"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:33
+msgid "Filter Files"
+msgstr "Saring Berkas"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:101
 msgid "Skip commit _hooks"
 msgstr "Lewati _hook komit"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:96
+#: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "S_tage selection"
 msgstr "S_tage-kan pilihan"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:107
+#: gitg/resources/ui/gitg-commit-paned.ui:132
 msgid "D_iscard selection"
 msgstr "Buang p_ilihan"
 
@@ -1722,25 +1758,25 @@ msgstr "Sunting Remote"
 msgid "_Reload"
 msgstr "_Muat Ulang"
 
-#: gitg/resources/ui/gitg-menus.ui:14 gitg/resources/ui/gitg-menus.ui:48
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Preferences"
 msgstr "_Preferensi"
 
-#: gitg/resources/ui/gitg-menus.ui:21 gitg/resources/ui/gitg-menus.ui:42
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
 msgid "_Author Details"
 msgstr "Rinci_an Penulis"
 
-#: gitg/resources/ui/gitg-menus.ui:27 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Keyboard Shortcuts"
 msgstr "Pintasan Papan Ti_k"
 
-#: gitg/resources/ui/gitg-menus.ui:36
+#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+msgid "_About gitg"
+msgstr "Tent_ang gitg"
+
+#: gitg/resources/ui/gitg-menus.ui:37
 msgid "_New Window"
 msgstr "Je_ndela Baru"
-
-#: gitg/resources/ui/gitg-menus.ui:60
-msgid "_About"
-msgstr "Tent_ang"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:58
 msgid "Show markup"
@@ -1781,6 +1817,23 @@ msgstr "Fungsikan pemeriksaan ejaan"
 #: gitg/resources/ui/gitg-preferences-commit.ui:341
 msgid "Commit Message"
 msgstr "Pesan Komit"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:372
+msgid "Datetime format"
+msgstr "Format datetime"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:410
+msgid "Predefined:"
+msgstr "Terpradefinisi:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:435
+msgid "Custom:"
+msgstr "Ubahan:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:453
+msgid "Check in vala documentation for datetime to write your own format."
+msgstr ""
+"Periksa di dokumentasi vala untuk datetime untuk menulis format Anda sendiri."
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -1908,18 +1961,18 @@ msgstr "Buka suatu jendela baru"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:33
 msgctxt "shortcut window"
-msgid "Open the window menu"
-msgstr "Buka menu jendela"
+msgid "Reload the window"
+msgstr "Muat ulang jendela"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
-msgid "Open a repository"
-msgstr "Buat repositori"
+msgid "Open the window menu"
+msgstr "Buka menu jendela"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
-msgid "Open the help"
-msgstr "Buka bantuan"
+msgid "Open a repository"
+msgstr "Buat repositori"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
 msgctxt "shortcut window"
@@ -2048,7 +2101,7 @@ msgstr "Cari sebuah kata atau frasa"
 msgid "General settings and options"
 msgstr "Opsi dan pengaturan dan umum"
 
-#: gitg/resources/ui/gitg-window.ui:229
+#: gitg/resources/ui/gitg-window.ui:230
 msgid "_Close"
 msgstr "_Tutup"
 
@@ -2141,70 +2194,102 @@ msgstr "setelah (%s)"
 msgid "added (%s)"
 msgstr "ditambahkan (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:145
+#: libgitg/gitg-diff-view-commit-details.vala:172
 msgid "Collapse all"
 msgstr "Lipat semua"
 
-#: libgitg/gitg-diff-view-commit-details.vala:149
+#: libgitg/gitg-diff-view-commit-details.vala:176
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Buka semua"
 
-#: libgitg/gitg-diff-view-commit-details.vala:204
+#: libgitg/gitg-diff-view-commit-details.vala:237
 #, c-format
 msgid "Committed by %s"
 msgstr "Dikomit oleh %s"
 
 #. Translators: Unif stands for unified diff format
-#: libgitg/gitg-diff-view-file.vala:151
+#: libgitg/gitg-diff-view-file.vala:160
 msgid "Unif"
 msgstr "Unif"
 
 #. Translators: Split stands for the noun
-#: libgitg/gitg-diff-view-file.vala:156
+#: libgitg/gitg-diff-view-file.vala:165
 msgid "Split"
 msgstr "Belah"
 
-#: libgitg/gitg-diff-view-file.vala:163
+#: libgitg/gitg-diff-view-file.vala:172
 msgid "Binary"
 msgstr "Biner"
 
-#: libgitg/gitg-diff-view-file.vala:170
+#: libgitg/gitg-diff-view-file.vala:179
 msgid "Image"
 msgstr "Gambar"
 
-#: libgitg/gitg-diff-view-file.vala:215
+#: libgitg/gitg-diff-view-file.vala:224
 msgid "_Open file"
 msgstr "_Buka berkas"
 
-#: libgitg/gitg-diff-view-file.vala:248
+#: libgitg/gitg-diff-view-file.vala:257
 msgid "Open containing _folder"
 msgstr "Buka _folder yang memuat"
 
-#: libgitg/gitg-diff-view-file.vala:268
+#: libgitg/gitg-diff-view-file.vala:277
 msgid "_Copy file path"
 msgstr "_Salin path berkas"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:153
+#: libgitg/gitg-repository-list-box.vala:161
 #, c-format
 msgid "at %s"
 msgstr "pada %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:162
+#: libgitg/gitg-repository-list-box.vala:170
 #, c-format
 msgid "%s at %s"
 msgstr "%s pada %s"
 
-#: libgitg/gitg-repository-list-box.vala:545
+#: libgitg/gitg-repository-list-box.vala:553
 msgid "Cloning…"
 msgstr "Membuat Klon…"
 
-#: libgitg/gitg-stage.vala:337
+#: libgitg/gitg-repository-list-box.vala:566
+#, c-format
+msgid ""
+"Deleting repository source files “%s” will delete them from disk and cannot "
+"be undone. Are you sure?"
+msgstr ""
+"Menghapus berkas sumber repositori \"%s\" akan menghapusnya dari diska dan "
+"tidak dapat dibatalkan. Anda yakin?"
+
+#: libgitg/gitg-repository-list-box.vala:568
+msgid "Move to trash"
+msgstr "Pindahkan ke tempat sampah"
+
+#: libgitg/gitg-repository-list-box.vala:569
+msgid "Delete permanently"
+msgstr "Hapus permanen"
+
+#: libgitg/gitg-stage.vala:343
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr "Tak bisa membaca pesan komit setelah menjalankan hook commit-msg: %s"
+
+#: libgitg/gitg-stage.vala:464
+#, c-format
+msgid "setup “%s” to do a signed commit"
+msgstr "siapkan \"%s\" untuk melakukan komit yang ditandatangani"
+
+#: libgitg/gitg-stage.vala:484
+#, c-format
+msgid "error signing the commit “%s”"
+msgstr "galat menandatangani komit \"%s\""
+
+#: libgitg/gitg-stage.vala:496
+#, c-format
+msgid "error updating current ref “%s”"
+msgstr "galat memperbarui ref saat ini \"%s\""
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:18
 msgid "_Authenticate"
@@ -2215,8 +2300,8 @@ msgid ""
 "The previous attempt to authenticate has failed, please provide your user "
 "name and password and try again."
 msgstr ""
-"Otentikasi sebelumnya telah gagal, silahkan masukkan nama pengguna dan sandi "
-"dan coba lagi."
+"Otentikasi sebelumnya telah gagal, silakan masukkan nama pengguna dan kata "
+"sandi dan coba lagi."
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:95
 msgid "_Username:"
@@ -2229,11 +2314,11 @@ msgstr "Kata _Sandi:"
 # ragu penempatan tanda _
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:154
 msgid "Forget password _immediately"
-msgstr "Lupakan sandi _seketika"
+msgstr "Lupakan kata sandi _seketika"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:171
 msgid "Remember password until you _logout"
-msgstr "Ingat sandi sampai kamu ke_luar"
+msgstr "Ingat kata sandi sampai kamu ke_luar"
 
 # bingung penempatan tanda _
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:189
@@ -2301,6 +2386,13 @@ msgstr "Berkas"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Tunjukkan berkas-berkas dalam pohon dari komit yang dipilih"
+
+#~ msgid "The GNOME Project"
+#~ msgstr "Proyek GNOME"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open the help"
+#~ msgstr "Buka bantuan"
 
 #~ msgid "Text"
 #~ msgstr "Teks"
