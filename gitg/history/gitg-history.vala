@@ -619,11 +619,6 @@ namespace GitgHistory
 			d_commit_list_popup.populate_menu.connect(on_commit_list_populate_menu);
 			d_commit_list_popup.request_menu_position.connect(on_commit_list_request_menu_position);
 
-			application.bind_property("repository", d_main.refs_list,
-			                          "repository",
-			                          BindingFlags.DEFAULT |
-			                          BindingFlags.SYNC_CREATE);
-
 			d_main.commit_list_view.set_search_equal_func(search_filter_func);
 
 			d_commit_list_model.begin_clear.connect(on_commit_model_begin_clear);
@@ -632,6 +627,12 @@ namespace GitgHistory
 			var actions = new Gee.LinkedList<GitgExt.Action>();
 			actions.add(new Gitg.AddRemoteAction(application));
 			d_main.refs_list.remotes_actions = actions;
+
+			application.bind_property("repository", d_main.refs_list,
+			                          "repository",
+			                          BindingFlags.DEFAULT |
+			                          BindingFlags.SYNC_CREATE);
+
 		}
 
 		private void update_walker_idle()
