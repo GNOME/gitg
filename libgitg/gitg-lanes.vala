@@ -581,10 +581,9 @@ public class Lanes : Object
 
 		foreach (var container in d_lanes)
 		{
-			ret.prepend(container.lane.copy());
+			ret.append(container.lane.copy());
 		}
 
-		ret.reverse();
 		return ret;
 	}
 }
