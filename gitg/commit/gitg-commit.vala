@@ -487,6 +487,7 @@ namespace GitgCommit
 
 			view.diff_view.new_is_workdir = false;
 			view.diff_view.diff = diff;
+			view.diff_view.commit = commit;
 		}
 
 		private void show_submodule_history(Gitg.StageStatusSubmodule sub,
