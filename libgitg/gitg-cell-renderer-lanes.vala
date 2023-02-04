@@ -205,11 +205,43 @@ namespace Gitg
 
 			context.set_line_width(0.0);
 
-			context.arc(area.x + f(offset + radius),
-			            area.y + area.height / 2.0,
-			            radius,
-			            0,
-			            2 * Math.PI);
+			bool use_gravatar = true;
+			if (use_gravatar)
+			{
+				var ac = Gitg.AvatarCache.default();
+				var cancel_avatar = new Cancellable();
+
+				ac.load.begin(commit.get_author().get_email(), 50, cancel_avatar, (obj, res) => {
+					var pixbuf = ac.load.end(res);
+
+					if (cancel_avatar.is_cancelled())
+					{
+						return;
+					}
+
+					if (pixbuf != null)
+					{
+					    Gdk.cairo_set_source_pixbuf(context, pixbuf, area.x, area.y);
+						context.paint();
+					}
+					else
+					{
+						context.arc(area.x + f(offset + radius),
+						            area.y + area.height / 2.0,
+						            radius,
+						            0,
+						            2 * Math.PI);
+					}
+				});
+			}
+			else
+			{
+				context.arc(area.x + f(offset + radius),
+				            area.y + area.height / 2.0,
+				            radius,
+				            0,
+				            2 * Math.PI);
+			}
 
 			context.set_source_rgb(0, 0, 0);
 			context.stroke_preserve();
