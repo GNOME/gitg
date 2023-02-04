@@ -123,6 +123,38 @@
                   </object>
                 </child>
                 <child>
+                  <object class="GtkTreeViewColumn" id="column_commit_list_committer_name">
+                    <property name="title" translatable="yes">Committer</property>
+                    <property name="sizing">fixed</property>
+                    <property name="resizable">True</property>
+                    <property name="fixed-width">180</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="renderer_commit_list_commiter_name">
+                        <property name="ellipsize">end</property>
+                      </object>
+                      <attributes>
+                        <attribute name="text">8</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="column_commit_list_sha1">
+                    <property name="title" translatable="yes">SHA1</property>
+                    <property name="sizing">fixed</property>
+                    <property name="resizable">True</property>
+                    <property name="fixed-width">180</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="renderer_commit_list_sha1">
+                        <property name="ellipsize">end</property>
+                      </object>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
                   <object class="GtkTreeViewColumn" id="column_commit_list_author_date">
                     <property name="title" translatable="yes">Date</property>
                     <property name="sizing">fixed</property>
