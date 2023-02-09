@@ -407,7 +407,7 @@ namespace GitgHistory
 
 		private void store_mainline(Ggit.Config? config, string mainline)
 		{
-			if (config != null)
+			if (config != null && mainline.len() > 0)
 			{
 				try
 				{
@@ -435,17 +435,25 @@ namespace GitgHistory
 				return;
 			}
 
-			Ggit.Config? config = null;
+			Ggit.Config? config = repository.get_config();
 			var ref_names = new string[0];
+
+			string default_branch;
 
 			try
 			{
-				config = repository.get_config();
 				ref_names = config.snapshot().get_string("gitg.mainline").split(",");
 			}
 			catch
 			{
-				ref_names = new string[] {"refs/heads/master"};
+				try
+				{
+					default_branch = config.snapshot().get_string("init.defaultBranch");
+					ref_names = new string[] {"refs/heads/%s".printf(default_branch)};
+				}
+				catch
+				{
+				}
 			}
 
 			foreach (var name in ref_names)
