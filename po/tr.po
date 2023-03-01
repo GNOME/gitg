@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-01-24 20:26+0000\n"
-"PO-Revision-Date: 2023-01-25 02:44+0300\n"
+"POT-Creation-Date: 2023-02-19 19:20+0000\n"
+"PO-Revision-Date: 2023-03-02 00:40+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -79,7 +79,7 @@ msgstr "İşlemenizi oluşturmak için hazırlama alanı"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
-msgstr "İşlenmeye hazır değişiklikleri işle"
+msgstr "Hazır değişiklikleri işle"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
@@ -127,7 +127,7 @@ msgstr "Öntanımlı Etkinlik"
 #: data/org.gnome.gitg.gschema.xml.in:46
 msgid "The activity which gitg activates by default when first launched."
 msgstr ""
-"İlk çalıştırıldığında gitgʼnin öntanımlı olarak aktifleştireceği etkinlik."
+"İlk çalıştırıldığında gitgʼnin öntanımlı olarak etkinleştireceği etkinlik."
 
 #: data/org.gnome.gitg.gschema.xml.in:52
 msgid "Use Default Font"
@@ -187,7 +187,7 @@ msgstr "Fark Vurgulamayı Etkinleştir"
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
-"Fark (diff) görünümlerinde sözdizimi vurgulamanın etkinleştirilip "
+"Fark görünümlerinde sözdizimi vurgulamanın etkinleştirilip "
 "etkinleştirilmeyeceğini belirleyen ayar."
 
 #: data/org.gnome.gitg.gschema.xml.in:85
@@ -202,14 +202,14 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
-msgstr "Aktif Olmayan Yolların Ne Zaman Daraltılacağı"
+msgstr "Etkin Olmayan Yolların Ne Zaman Daraltılacağı"
 
 #: data/org.gnome.gitg.gschema.xml.in:93
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
-"Aktif olmayan yolun ne zaman daraltılacağını gösteren ayar. Geçerli değerler "
+"Etkin olmayan yolun ne zaman daraltılacağını gösteren ayar. Geçerli değerler "
 "0 — 4 arasındadır; burada 0 “erken” ve 4 “geç” anlamına gelir."
 
 #: data/org.gnome.gitg.gschema.xml.in:100
@@ -222,7 +222,7 @@ msgstr ""
 "Etkinlik görülmeyen geçmiş yollarının daraltılıp daraltılmayacağını "
 "belirleyen ayar. Çok sayıda paralel geliştirme olduğunda bunun "
 "etkinleştirilmesi, temiz bir geçmiş görünümü sağlayabilir. Yolların ne zaman "
-"daraltılacağını denetlemek için collapse-inactive-lanesʼe (aktif-olmayan-"
+"daraltılacağını denetlemek için collapse-inactive-lanesʼe (etkin-olmayan-"
 "yolları-daralt) bakınız."
 
 #: data/org.gnome.gitg.gschema.xml.in:109
@@ -245,27 +245,27 @@ msgstr "Zula ögelerinin geçmişte gösterilip gösterilmeyeceğini belirten ay
 
 #: data/org.gnome.gitg.gschema.xml.in:124
 msgid "Show Staged Changes"
-msgstr "İşlenmeye Hazırlanan Değişiklikleri Göster"
+msgstr "Hazır Değişiklikleri Göster"
 
 #: data/org.gnome.gitg.gschema.xml.in:125
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
 msgstr ""
-"Şu anda işlenmeye hazırlanmış (staged) değişiklikler için geçmişte bir sanal "
-"öge gösterilip gösterilmeyeceğini belirten ayar."
+"Şu anda hazır değişiklikler için geçmişte bir sanal öge gösterilip "
+"gösterilmeyeceğini belirten ayar."
 
 #: data/org.gnome.gitg.gschema.xml.in:132
 msgid "Show Unstaged Changes"
-msgstr "Hazırlık Dışı Bırakılmış Değişiklikleri Göster"
+msgstr "Hazırlık Dışı Değişiklikleri Göster"
 
 #: data/org.gnome.gitg.gschema.xml.in:133
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
 msgstr ""
-"Şu anda hazırlık dışı bırakılmış (unstaged) değişiklikler için geçmişte bir "
-"sanal öge gösterilip gösterilmeyeceğini belirten ayar."
+"Şu anda hazırlık dışı değişiklikler için geçmişte bir sanal öge gösterilip "
+"gösterilmeyeceğini belirten ayar."
 
 #: data/org.gnome.gitg.gschema.xml.in:140
 msgid "Mainline Head"
@@ -505,14 +505,14 @@ msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
-"İşleme alanında hazırlama/hazırlama dışı bırakma farkını gösterirken "
-"bağlamda (önce ve sonra) kaç satır gösterileceğini belirleyen ayar."
+"İşleme alanında hazır/hazırlık dışı farkını gösterirken bağlamda (önce ve "
+"sonra) kaç satır gösterileceğini belirleyen ayar."
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1095
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
 msgstr "İşlenecek değişiklik yok"
 
-#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1096
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Önceki işlemenin işleme iletisini değiştirmek için düzeltme kullanın"
 
@@ -527,19 +527,17 @@ msgstr "Yeni işlemeler oluştur ve hazırlık alanını yönet"
 
 #: gitg/commit/gitg-commit.vala:207
 msgid "_Stage selection"
-msgstr "_Seçimi işlemeye hazırla"
+msgstr "_Seçimi hazırla"
 
 #: gitg/commit/gitg-commit.vala:246
 #, c-format
 msgid "Failed to stage the removal of submodule “%s”"
-msgstr "“%s” altmodülünün kaldırılmasını işlemeye hazırlama başarısız oldu"
+msgstr "“%s” alt modülünün kaldırılması hazırlanamadı"
 
 #: gitg/commit/gitg-commit.vala:262
 #, c-format
 msgid "Failed to open the repository of submodule “%s” while trying to stage"
-msgstr ""
-"İşlemeye hazırlamaya çalışırken “%s” altmodülünün deposunu açma başarısız "
-"oldu"
+msgstr "Hazırlamaya çalışırken “%s” alt modülünün deposunu açılamadı"
 
 #: gitg/commit/gitg-commit.vala:277
 #, c-format
@@ -547,103 +545,102 @@ msgid ""
 "Failed to lookup the working directory commit of submodule “%s” while trying "
 "to stage"
 msgstr ""
-"İşlemeye hazırlamaya çalışırken “%s” altmodülünün çalışılan dizin işlemesini "
-"arama başarısız oldu"
+"Hazırlamaya çalışırken “%s” alt modülünün çalışma dizini işlemesi aranamadı"
 
 #: gitg/commit/gitg-commit.vala:290
 #, c-format
 msgid "Failed to stage the submodule “%s”"
-msgstr "“%s” altmodülünü işlemeye hazırlama başarısız oldu"
+msgstr "“%s” alt modülü hazırlanamadı"
 
 #: gitg/commit/gitg-commit.vala:312
 #, c-format
 msgid "Failed to stage the removal of file “%s”"
-msgstr "“%s” dosyasının kaldırılmasını işlemeye hazırlama başarısız oldu"
+msgstr "“%s” dosyasının kaldırılması hazırlanamadı"
 
 #: gitg/commit/gitg-commit.vala:326
 #, c-format
 msgid "Failed to stage the file “%s”"
-msgstr "“%s” dosyasını işlemeye hazırlama başarısız oldu"
+msgstr "“%s” dosyası hazırlanamadı"
 
-#: gitg/commit/gitg-commit.vala:598
+#: gitg/commit/gitg-commit.vala:599
 msgid "_Unstage selection"
-msgstr "_Seçimi hazırlık dışı bırak"
-
-#: gitg/commit/gitg-commit.vala:664
-#, c-format
-msgid "Failed to unstage the removal of file “%s”"
-msgstr "“%s” dosyasının kaldırılmasını hazırlık dışı bırakma başarısız oldu"
+msgstr "_Seçimi hazırlık dışı tut"
 
 #: gitg/commit/gitg-commit.vala:665
 #, c-format
-msgid "Failed to unstage the file “%s”"
-msgstr "“%s” dosyasını hazırlık dışı bırakma başarısız oldu"
+msgid "Failed to unstage the removal of file “%s”"
+msgstr "“%s” dosyasının kaldırılması hazırlık dışı tutulamadı"
 
-#: gitg/commit/gitg-commit.vala:672
+#: gitg/commit/gitg-commit.vala:666
 #, c-format
-msgid "Failed to unstage the removal of submodule “%s”"
-msgstr "“%s” altmodülünün kaldırılmasını hazırlık dışı bırakma başarısız oldu"
+msgid "Failed to unstage the file “%s”"
+msgstr "“%s” dosyası hazırlık dışı tutulamadı"
 
 #: gitg/commit/gitg-commit.vala:673
 #, c-format
+msgid "Failed to unstage the removal of submodule “%s”"
+msgstr "“%s” alt modülünün kaldırılması hazırlık dışı tutulamadı"
+
+#: gitg/commit/gitg-commit.vala:674
+#, c-format
 msgid "Failed to unstage the submodule “%s”"
-msgstr "“%s” altmodülünü hazırlık dışı bırakma başarısız oldu"
+msgstr "“%s” alt modülü hazırlık dışı tutulamadı"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:881
+#: gitg/commit/gitg-commit.vala:882
 msgid "Staged"
-msgstr "İşlemeye hazır"
+msgstr "Hazır"
 
-#: gitg/commit/gitg-commit.vala:889
+#: gitg/commit/gitg-commit.vala:890
 msgid "No staged files"
-msgstr "İşlemeye hazırlanmış dosya yok"
+msgstr "Hazır dosya yok"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:912
+#: gitg/commit/gitg-commit.vala:913
 msgid "Unstaged"
-msgstr "Hazırlık Dışı Bırakıldı"
+msgstr "Hazırlık Dışı"
 
-#: gitg/commit/gitg-commit.vala:920
+#: gitg/commit/gitg-commit.vala:921
 msgid "No unstaged files"
-msgstr "İşlemeye hazırlık dışı tutulmuş (unstaged) dosya yok"
+msgstr "Hazırlık dışı dosya yok"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:944
 msgid "Untracked"
 msgstr "İzlenmeyen"
 
-#: gitg/commit/gitg-commit.vala:947
+#: gitg/commit/gitg-commit.vala:948
 msgid "No untracked files"
 msgstr "İzlenmeyen dosya yok"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:973
 msgid "Submodule"
-msgstr "Altmodül"
+msgstr "Alt modül"
 
-#: gitg/commit/gitg-commit.vala:976
+#: gitg/commit/gitg-commit.vala:977
 msgid "No dirty submodules"
-msgstr "Kirli altmodül yok"
+msgstr "Kirli alt modül yok"
 
-#: gitg/commit/gitg-commit.vala:1130
+#: gitg/commit/gitg-commit.vala:1131
 msgid "Failed to commit"
-msgstr "İşleme başarısız oldu"
+msgstr "İşlenemedi"
 
-#: gitg/commit/gitg-commit.vala:1146
+#: gitg/commit/gitg-commit.vala:1147
 msgid "Failed to pass pre-commit"
-msgstr "Ön-işlemeyi geçme başarısız oldu"
+msgstr "Ön-işleme geçilemedi"
 
-#: gitg/commit/gitg-commit.vala:1314 gitg/commit/gitg-commit.vala:1464
+#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
 msgid "Discard changes"
 msgstr "Değişiklikleri gözden çıkar"
 
-#: gitg/commit/gitg-commit.vala:1315
+#: gitg/commit/gitg-commit.vala:1316
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 "Seçili değişiklikleri kalıcı olarak gözden çıkarmak istediğinize emin "
 "misiniz?"
 
-#: gitg/commit/gitg-commit.vala:1324 gitg/commit/gitg-commit.vala:1490
-#: gitg/commit/gitg-commit.vala:1605
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -661,27 +658,27 @@ msgstr ""
 msgid "_Cancel"
 msgstr "_İptal"
 
-#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
 msgid "Discard"
 msgstr "Gözden Çıkar"
 
-#: gitg/commit/gitg-commit.vala:1354
+#: gitg/commit/gitg-commit.vala:1355
 msgid "Failed to discard selection"
-msgstr "Seçimi gözden çıkarma başarısız oldu"
+msgstr "Seçim gözden çıkarılamadı"
 
-#: gitg/commit/gitg-commit.vala:1384
+#: gitg/commit/gitg-commit.vala:1385
 msgid "Failed to stage selection"
-msgstr "Seçimi işlemeye hazırlama başarısız oldu"
+msgstr "Seçim hazırlanamadı"
 
-#: gitg/commit/gitg-commit.vala:1388
+#: gitg/commit/gitg-commit.vala:1389
 msgid "Failed to unstage selection"
-msgstr "Seçimi hazırlama (stage) işlemi dışı tutma başarısız oldu"
+msgstr "Seçim hazırlık dışı tutulamadı"
 
-#: gitg/commit/gitg-commit.vala:1448
+#: gitg/commit/gitg-commit.vala:1449
 msgid "Failed to discard changes"
-msgstr "Değişiklikleri gözden çıkarma başarısız oldu"
+msgstr "Değişiklikler gözden çıkarılamadı"
 
-#: gitg/commit/gitg-commit.vala:1469
+#: gitg/commit/gitg-commit.vala:1470
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -690,7 +687,7 @@ msgstr ""
 "“%s” dosyasına yapılan tüm değişiklikleri kalıcı olarak gözden çıkarmak "
 "istediğinize emin misiniz?"
 
-#: gitg/commit/gitg-commit.vala:1480
+#: gitg/commit/gitg-commit.vala:1481
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -699,64 +696,63 @@ msgstr ""
 "%s ve “%s” dosyalarına yapılan tüm değişiklikleri kalıcı olarak gözden "
 "çıkarmak istediğinize emin misiniz?"
 
-#: gitg/commit/gitg-commit.vala:1563
+#: gitg/commit/gitg-commit.vala:1564
 msgid "Failed to delete files"
-msgstr "Dosyaları silme başarısız oldu"
+msgstr "Dosyalar silinemedi"
 
-#: gitg/commit/gitg-commit.vala:1579
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Dosyaları sil"
 
-#: gitg/commit/gitg-commit.vala:1584
+#: gitg/commit/gitg-commit.vala:1585
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "“%s” dosyasını kalıcı olarak silmek istediğinizden emin misiniz?"
 
-#: gitg/commit/gitg-commit.vala:1595
+#: gitg/commit/gitg-commit.vala:1596
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr ""
 "%s ve “%s” dosyalarını kalıcı olarak silmek istediğinizden emin misiniz?"
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1642
 msgid "_Stage changes"
-msgstr "_Değişiklikleri işlemeye hazırla"
+msgstr "_Değişiklikleri hazırla"
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1654
 msgid "_Unstage changes"
-msgstr "Değişiklikleri hazırlık dışı _bırak"
+msgstr "Değişiklikleri hazırlık dışı _tut"
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1666
 msgid "_Discard changes"
 msgstr "Değişiklikleri _gözden çıkar"
 
-#: gitg/commit/gitg-commit.vala:1677
+#: gitg/commit/gitg-commit.vala:1678
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Dosyaları s_il"
 
-#: gitg/commit/gitg-commit.vala:1707
+#: gitg/commit/gitg-commit.vala:1708
 msgid "_Edit file"
 msgstr "D_osyayı düzenle"
 
 #: gitg/gitg-action-support.vala:95
 #, c-format
 msgid "Failed to stash changes: %s"
-msgstr "Değişiklikler zulalanması (stash) başarısız oldu: %s"
+msgstr "Değişiklikler zulalanamadı: %s"
 
 #: gitg/gitg-action-support.vala:130
 msgid "Unstaged changes"
-msgstr "İşlenmeyecek değişiklikler"
+msgstr "Hazırlık dışı değişiklikler"
 
 #: gitg/gitg-action-support.vala:131
 msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
 msgstr ""
-"Çalışma dizininizde işlenmeyecek (unstaged) değişiklikler varmış gibi "
-"görünüyor. Teslim almadan (checkout) önce bu değişiklikleri zulalamak "
-"(stash) ister misiniz?"
+"Çalışma dizininizde hazırlık dışı değişiklikler var görünüyor. Teslim "
+"almadan önce bu değişiklikleri zulalamak ister misiniz?"
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
@@ -777,26 +773,26 @@ msgstr "Çakışmalarla başarısız oldu"
 #: gitg/gitg-action-support.vala:181
 #, c-format
 msgid "Failed to checkout conflicts: %s"
-msgstr "Çakışmaları teslim alma başarısız oldu: %s"
+msgstr "Çakışmalar teslim alınamadı: %s"
 
 #: gitg/gitg-action-support.vala:199
 msgid "Failed to obtain author details"
-msgstr "Yazar ayrıntılarını alma başarısız oldu"
+msgstr "Yazar ayrıntıları alınamadı"
 
 #: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
 #, c-format
 msgid "Failed to lookup commit: %s"
-msgstr "İşlemeyi arama başarısız oldu: %s"
+msgstr "İşleme aranamadı: %s"
 
 #: gitg/gitg-action-support.vala:255
 #, c-format
 msgid "Failed to create commit: %s"
-msgstr "İşlemeyi oluşturma başarısız oldu: %s"
+msgstr "İşleme oluşturulamadı: %s"
 
 #: gitg/gitg-action-support.vala:277
 #, c-format
 msgid "Failed to checkout index: %s"
-msgstr "Dizin teslim alma başarısız oldu: %s"
+msgstr "Dizin teslim alınamadı: %s"
 
 #: gitg/gitg-add-remote-action.vala:46
 msgid "Add Remote"
@@ -819,7 +815,7 @@ msgstr "yeni"
 #: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
 #, c-format
 msgid "Failed to fetch from %s: %s"
-msgstr "%sʼden getirme başarısız oldu: %s"
+msgstr "%sʼden getirilemedi: %s"
 
 #: gitg/gitg-add-remote-action.vala:78
 msgid "Failed to fetch added remote"
@@ -908,7 +904,7 @@ msgstr "Yazar Ayrıntıları"
 
 #: gitg/gitg-author-details-dialog.vala:80
 msgid "Enter default details used for all repositories:"
-msgstr "Tüm kod depoları için kullanılan öntanımlı ayrıntıları girin:"
+msgstr "Tüm depolar için kullanılan öntanımlı ayrıntıları girin:"
 
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:102
@@ -930,17 +926,17 @@ msgstr "Üzerine seçerek al"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
-msgstr "Bu işlemeyi (commit) seçerek bir dalın üzerine alın (cherry pick)"
+msgstr "Bu işlemeyi seçerek bir dalın üzerine al"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
 msgid "Failed to lookup the commit for branch “%s”: %s"
-msgstr "“%s” dalı için işleme (commit) bulunamadı: %s"
+msgstr "“%s” dalı için işleme aranamadı: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
 msgid "Failed to cherry-pick the commit: %s"
-msgstr "İşlemeyi seçerek alma başarısız oldu: %s"
+msgstr "İşleme seçilerek alınamadı: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:144
 #: gitg/gitg-commit-action-cherry-pick.vala:160
@@ -954,9 +950,9 @@ msgid ""
 "checkout branch “%s” with the cherry pick to your working directory to "
 "resolve the conflicts?"
 msgstr ""
-"“%s”, “%s” üstüne seçerek alınırken (cherry pick) çakışmalar oldu. "
-"Çakışmaları çözmek için “%s” dalını seçerek alınanlarla birlikte çalışma "
-"dizininize teslim almak (checkout) ister misiniz?"
+"“%s”, “%s” üstüne seçerek alınırken çakışmalar oldu. Çakışmaları çözmek için "
+"“%s” dalını seçerek alınanlarla birlikte çalışma dizininize teslim almak "
+"ister misiniz?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
@@ -964,9 +960,8 @@ msgid ""
 "The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"“%s”, “%s” üstüne seçerek alınırken (cherry pick) çakışmalar oldu. "
-"Çakışmaları çözmek için, seçerek alınanları çalışma dizininize teslim almak "
-"(checkout) ister misiniz?"
+"“%s”, “%s” üstüne seçerek alınırken çakışmalar oldu. Çakışmaları çözmek "
+"için, seçerek alınanları çalışma dizininize teslim almak ister misiniz?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -975,7 +970,7 @@ msgstr "Teslim Al"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:168
 msgid "Cherry pick failed with conflicts"
-msgstr "Seçerek alma, çakışmalar ile başarısız oldu"
+msgstr "Seçerek alma, çakışmalarla başarısız oldu"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:179
 msgid "Cherry pick finished with conflicts in working directory"
@@ -1001,12 +996,12 @@ msgstr "Dal oluştur"
 
 #: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
-msgstr "Seçili işlemede yeni bir dal oluştur"
+msgstr "Seçili işlemede yeni dal oluştur"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
 #: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
-msgstr "Dal oluşturma başarısız oldu"
+msgstr "Dal oluşturulamadı"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create patch"
@@ -1026,7 +1021,7 @@ msgstr "_Yamayı Kaydet"
 
 #: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
-msgstr "Yama oluşturma başarısız oldu"
+msgstr "Yama oluşturulamadı"
 
 #: gitg/gitg-commit-action-create-tag.vala:48
 msgid "Create tag"
@@ -1038,11 +1033,11 @@ msgstr "Seçili işlemede yeni bir etiket oluştur"
 
 #: gitg/gitg-commit-action-create-tag.vala:92
 msgid "Failed to create tag"
-msgstr "Etiket oluşturma başarısız oldu"
+msgstr "Etiket oluşturulamadı"
 
 #: gitg/gitg-commit-action-create-tag.vala:109
 msgid "Failed to lookup tag"
-msgstr "Etiket arama başarısız oldu"
+msgstr "Etiket aranamadı"
 
 #: gitg/gitg-create-tag-dialog.vala:96
 msgid "Provide a message to create an annotated tag"
@@ -1074,11 +1069,11 @@ msgstr "Bu sırada, %sgit profilinizi ayarlamak%s isteyebilirsiniz."
 
 #: gitg/gitg-dash-view.vala:414
 msgid "Failed to clone repository"
-msgstr "Depo klonlama başarısız oldu"
+msgstr "Depo klonlanamadı"
 
 #: gitg/gitg-dash-view.vala:445
 msgid "Failed to add repository"
-msgstr "Depo ekleme başarısız oldu"
+msgstr "Depo eklenemedi"
 
 #: gitg/gitg-dash-view.vala:461
 msgid "Create new repository"
@@ -1100,7 +1095,7 @@ msgstr "Depo oluştur"
 
 #: gitg/gitg-dash-view.vala:486
 msgid "Failed to create repository"
-msgstr "Depo oluşturma başarısız oldu"
+msgstr "Depo oluşturulamadı"
 
 #: gitg/gitg-dash-view.vala:556
 #, c-format
@@ -1121,7 +1116,7 @@ msgstr "Uzak düzenlenemedi"
 
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
-msgstr "Seçilen atfı teslim alın"
+msgstr "Seçilen atfı teslim al"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
@@ -1131,12 +1126,12 @@ msgstr "Teslim al: “%s”"
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
 msgid "Failed to checkout branch: %s"
-msgstr "Dalı teslim alma başarısız oldu: %s"
+msgstr "Dal teslim alınamadı: %s"
 
 #: gitg/gitg-ref-action-checkout.vala:111
 #, c-format
 msgid "Failed to update HEAD: %s"
-msgstr "HEADʼi güncelleme başarısız oldu: %s"
+msgstr "HEAD güncellenemedi: %s"
 
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
@@ -1145,7 +1140,7 @@ msgstr "Dal, çalışma dizinine başarıyla teslim alındı"
 #: gitg/gitg-ref-action-checkout.vala:195
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
-msgstr "%2$s için %1$s ana kaynak dalı belirleme başarısız"
+msgstr "%2$s için %1$s ana kaynak dalı belirlenemedi"
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -1163,7 +1158,7 @@ msgstr "Seçili atıfta yeni dal oluştur"
 #: gitg/gitg-ref-action-create-patch.vala:58
 #: gitg/gitg-ref-action-create-tag.vala:58
 msgid "Failed to lookup reference"
-msgstr "Atıf arama başarısız oldu"
+msgstr "Atıf aranamadı"
 
 #: gitg/gitg-ref-action-create-patch.vala:46
 msgid "Create a patch from the selected reference"
@@ -1215,7 +1210,7 @@ msgstr "%s uzak dalını kalıcı olarak silmek istediğinizden emin misiniz?"
 #: gitg/gitg-ref-action-delete.vala:119
 #, c-format
 msgid "Failed to delete tag %s"
-msgstr "%s etiketini silme başarısız oldu"
+msgstr "%s etiketi silinemedi"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:122
@@ -1227,7 +1222,7 @@ msgstr "%s etiketi silinemedi: %s"
 #: gitg/gitg-ref-action-delete.vala:127
 #, c-format
 msgid "Failed to delete branch %s"
-msgstr "%s dalını silme başarısız oldu"
+msgstr "%s dalı silinemedi"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
 #: gitg/gitg-ref-action-delete.vala:130
@@ -1270,7 +1265,7 @@ msgstr "Başka bir dalı %s dalı içine birleştir"
 #: gitg/gitg-ref-action-merge.vala:106
 #, c-format
 msgid "Failed to merge commits: %s"
-msgstr "İşlemeleri birleştirme başarısız oldu: %s"
+msgstr "İşlemeler birleştirilemedi: %s"
 
 #: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
 msgid "Merge has conflicts"
@@ -1285,7 +1280,7 @@ msgid ""
 msgstr ""
 "“%s”in “%s” içine birleştirilmesi çakışmalara neden oldu. Çakışmaları çözmek "
 "için %s dalını birleştirme ile birlikte çalışma dizininize teslim almak "
-"(checkout) ister misiniz?"
+"ister misiniz?"
 
 #: gitg/gitg-ref-action-merge.vala:188
 #, c-format
@@ -1294,7 +1289,7 @@ msgid ""
 "the merge to your working directory to resolve the conflicts?"
 msgstr ""
 "“%s”in “%s” içine birleştirilmesi çakışmalara neden oldu. Çakışmaları çözmek "
-"için birleştirmeyi çalışma dizininize teslim almak (checkout) ister misiniz?"
+"için birleştirmeyi çalışma dizininize teslim almak ister misiniz?"
 
 #: gitg/gitg-ref-action-merge.vala:199
 msgid "Merge failed with conflicts"
@@ -1312,12 +1307,12 @@ msgstr "“%s”i “%s” ile birleştir"
 #: gitg/gitg-ref-action-merge.vala:231
 #, c-format
 msgid "Failed to lookup our commit: %s"
-msgstr "Kendi işlememizi bulma başarısız oldu: %s"
+msgstr "Kendi işlememiz aranamadı: %s"
 
 #: gitg/gitg-ref-action-merge.vala:241
 #, c-format
 msgid "Failed to lookup their commit: %s"
-msgstr "Onların işlemesini bulma başarısız oldu: %s"
+msgstr "Onların işlemesi aranamadı: %s"
 
 #: gitg/gitg-ref-action-merge.vala:278
 #, c-format
@@ -1352,7 +1347,7 @@ msgstr "%sʼe itiliyor"
 #: gitg/gitg-ref-action-push.vala:116
 #, c-format
 msgid "Failed to push to %s: %s"
-msgstr "%sʼe itme başarısız oldu: %s"
+msgstr "%sʼe itilemedi: %s"
 
 #. Translators: the %s will get replaced with the remote url,
 #: gitg/gitg-ref-action-push.vala:123
@@ -1398,7 +1393,7 @@ msgstr "Belirtilen “%s” adı geçersiz karakterler içeriyor"
 
 #: gitg/gitg-ref-action-rename.vala:147
 msgid "Failed to rename"
-msgstr "Yeniden adlandırma başarısız oldu"
+msgstr "Yeniden adlandırılamadı"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
 msgid "Close"
@@ -1450,7 +1445,7 @@ msgstr "Projeler"
 
 #: gitg/gitg-window.vala:703
 msgid "Open Repository"
-msgstr "Kod Deposu Aç"
+msgstr "Depo Aç"
 
 #: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
@@ -1555,7 +1550,7 @@ msgstr "Geçmiş"
 msgid "Examine the history of the repository"
 msgstr "Deponun geçmişini incele"
 
-#: gitg/history/gitg-history.vala:950
+#: gitg/history/gitg-history.vala:951
 msgid "Mainline"
 msgstr "Anahat"
 
@@ -1678,7 +1673,7 @@ msgstr "İşleme _kancalarını atla"
 
 #: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "S_tage selection"
-msgstr "Se_çimi işlemeye hazırla"
+msgstr "Se_çimi hazırla"
 
 #: gitg/resources/ui/gitg-commit-paned.ui:132
 msgid "D_iscard selection"
@@ -1689,17 +1684,16 @@ msgid ""
 "The submodule is in a dirty state and has staged and/or unstaged changes "
 "that are not yet committed as shown below."
 msgstr ""
-"Altmodül kirli bir durumda ve aşağıda gösterildiği gibi, işlemeye "
-"hazırlanmış ya da hazırlama dışı bırakılmış ama henüz işlenmemiş "
-"değişiklikler bulunduruyor."
+"Alt modül kirli bir durumda ve aşağıda gösterildiği gibi, hazır ya da "
+"hazırlık dışı ama henüz işlenmemiş değişiklikler bulunduruyor."
 
 #: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:50
 msgid "Staged:"
-msgstr "İşlemeye Hazırlandı:"
+msgstr "Hazır:"
 
 #: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:86
 msgid "Unstaged:"
-msgstr "Hazırlık Dışı Bırakıldı:"
+msgstr "Hazırlık Dışı:"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:25
 #: gitg/resources/ui/gitg-history-paned.ui:94
@@ -1746,7 +1740,7 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
-"Henü hiçbir depo eklenmedi. Başlamak için var olan depoyu ekleyebilir ya da "
+"Henüz hiçbir depo eklenmedi. Başlamak için var olan depoyu ekleyebilir ya da "
 "yeni bir tane klonlayabilirsiniz."
 
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
@@ -1859,11 +1853,11 @@ msgstr "Yerel dal seçerken ana kaynak (uzak) dalını göster"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:154
 msgid "Commits"
-msgstr "İşlenenler"
+msgstr "İşlemeler"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:174
 msgid "Collapse inactive lanes"
-msgstr "Aktif olmayan yolları daralt"
+msgstr "Etkin olmayan yolları daralt"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:215
 msgid "Early"
@@ -1971,7 +1965,7 @@ msgstr "Pencere menüsünü aç"
 #: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
 msgid "Open a repository"
-msgstr "Kod deposu aç"
+msgstr "Depo aç"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
 msgctxt "shortcut window"
@@ -1986,7 +1980,7 @@ msgstr "Bul"
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Close the active window"
-msgstr "Aktif pencereyi kapat"
+msgstr "Etkin pencereyi kapat"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:75
 msgctxt "shortcut window"
@@ -2031,12 +2025,12 @@ msgstr "İşleme iletişim kutusunu aç"
 #: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Stage selection"
-msgstr "Seçimi işlemeye hazırla"
+msgstr "Seçimi hazırla"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Unstage selection"
-msgstr "Seçimi işlemeye hazırlamadan çıkar"
+msgstr "Seçimi hazırlık dışı tut"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
@@ -2084,11 +2078,11 @@ msgstr "Son kullanılan depoların listesini göster"
 
 #: gitg/resources/ui/gitg-window.ui:48
 msgid "Clone repository"
-msgstr "Kod deposunu klonla"
+msgstr "Depoyu klonla"
 
 #: gitg/resources/ui/gitg-window.ui:65
 msgid "Add repository"
-msgstr "Kod deposu ekle"
+msgstr "Depo ekle"
 
 #: gitg/resources/ui/gitg-window.ui:89
 msgid "Find a word or phrase"
@@ -2175,7 +2169,7 @@ msgstr "önce (%s)"
 #: libgitg/gitg-diff-image-side-by-side.vala:45
 #, c-format
 msgid "removed (%s)"
-msgstr "çıkarıldı (%s)"
+msgstr "kaldırıldı (%s)"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
@@ -2350,7 +2344,7 @@ msgstr "Sekme genişliği:"
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:44
 msgid "Wrap lines:"
-msgstr "Satırları kaydır:"
+msgstr "Satırları sar:"
 
 #: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:67
 msgid "Ignore whitespace:"
