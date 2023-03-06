@@ -1,9 +1,9 @@
 # Swedish translation for gitg.
-# Copyright © 2009-2022 Free Software Foundation, Inc.
+# Copyright © 2009-2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gitg package.
 # Daniel Nylander <po@danielnylander.se>, 2009.
 # Sebastian Rasmussen <sebras@gmail.com>, 2014, 2015, 2016.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2017, 2018, 2019, 2020, 2021, 2022.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Luna Jernberg <droidbittin@gmail.com>, 2021, 2022.
 #
 # Vokabulär
@@ -39,8 +39,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2022-10-12 10:26+0000\n"
-"PO-Revision-Date: 2022-12-31 14:35+0100\n"
+"POT-Creation-Date: 2023-02-04 09:49+0000\n"
+"PO-Revision-Date: 2023-03-06 21:59+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -541,11 +541,11 @@ msgstr ""
 "visas när diffen som ska köas upp/tas bort ur kön visas i "
 "incheckningsområdet."
 
-#: gitg/commit/gitg-commit-dialog.vala:566 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
 msgstr "Det finns inga ändringar att checka in"
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Använd utöka för att ändra incheckningsmeddelandet för den föregående "
@@ -599,84 +599,84 @@ msgstr "Misslyckades att köa upp borttagningen av filen ”%s”"
 msgid "Failed to stage the file “%s”"
 msgstr "Misslyckades att köa upp filen ”%s”"
 
-#: gitg/commit/gitg-commit.vala:598
+#: gitg/commit/gitg-commit.vala:599
 msgid "_Unstage selection"
 msgstr "_Ta bort markering från kön"
 
-#: gitg/commit/gitg-commit.vala:664
+#: gitg/commit/gitg-commit.vala:665
 #, c-format
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "Misslyckades att ta bort borttagningen av filen ”%s” från kön"
 
-#: gitg/commit/gitg-commit.vala:665
+#: gitg/commit/gitg-commit.vala:666
 #, c-format
 msgid "Failed to unstage the file “%s”"
 msgstr "Misslyckades att ta bort filen ”%s” från kön"
 
-#: gitg/commit/gitg-commit.vala:672
+#: gitg/commit/gitg-commit.vala:673
 #, c-format
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Misslyckades att ta bort borttagningen av undermodul ”%s” från kön"
 
-#: gitg/commit/gitg-commit.vala:673
+#: gitg/commit/gitg-commit.vala:674
 #, c-format
 msgid "Failed to unstage the submodule “%s”"
 msgstr "Misslyckades att ta bort undermodulen ”%s” från kön"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:877
+#: gitg/commit/gitg-commit.vala:882
 msgid "Staged"
 msgstr "Köade"
 
-#: gitg/commit/gitg-commit.vala:885
+#: gitg/commit/gitg-commit.vala:890
 msgid "No staged files"
 msgstr "Inga köade filer"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:908
+#: gitg/commit/gitg-commit.vala:913
 msgid "Unstaged"
 msgstr "Oköade"
 
-#: gitg/commit/gitg-commit.vala:916
+#: gitg/commit/gitg-commit.vala:921
 msgid "No unstaged files"
 msgstr "Inga oköade ändringar"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:939
+#: gitg/commit/gitg-commit.vala:944
 msgid "Untracked"
 msgstr "Ospårade"
 
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:948
 msgid "No untracked files"
 msgstr "Inga ospårade filer"
 
-#: gitg/commit/gitg-commit.vala:968
+#: gitg/commit/gitg-commit.vala:973
 msgid "Submodule"
 msgstr "Undermodul"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:977
 msgid "No dirty submodules"
 msgstr "Inga smutsiga undermoduler"
 
-#: gitg/commit/gitg-commit.vala:1126
+#: gitg/commit/gitg-commit.vala:1131
 msgid "Failed to commit"
 msgstr "Misslyckades att checka in"
 
-#: gitg/commit/gitg-commit.vala:1142
+#: gitg/commit/gitg-commit.vala:1147
 msgid "Failed to pass pre-commit"
 msgstr "Misslyckades att passera pre-commit"
 
-#: gitg/commit/gitg-commit.vala:1310 gitg/commit/gitg-commit.vala:1460
+#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
 msgid "Discard changes"
 msgstr "Förkasta ändringar"
 
-#: gitg/commit/gitg-commit.vala:1311
+#: gitg/commit/gitg-commit.vala:1316
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 "Är du säker på att du permanent vill förkasta de markerade ändringarna?"
 
-#: gitg/commit/gitg-commit.vala:1320 gitg/commit/gitg-commit.vala:1486
-#: gitg/commit/gitg-commit.vala:1601
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -694,27 +694,27 @@ msgstr ""
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: gitg/commit/gitg-commit.vala:1321 gitg/commit/gitg-commit.vala:1487
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
 msgid "Discard"
 msgstr "Förkasta"
 
-#: gitg/commit/gitg-commit.vala:1350
+#: gitg/commit/gitg-commit.vala:1355
 msgid "Failed to discard selection"
 msgstr "Misslyckades att förkasta markeringen"
 
-#: gitg/commit/gitg-commit.vala:1380
+#: gitg/commit/gitg-commit.vala:1385
 msgid "Failed to stage selection"
 msgstr "Misslyckades att köa upp markeringen"
 
-#: gitg/commit/gitg-commit.vala:1384
+#: gitg/commit/gitg-commit.vala:1389
 msgid "Failed to unstage selection"
 msgstr "Misslyckades att ta bort markeringen ur kön"
 
-#: gitg/commit/gitg-commit.vala:1444
+#: gitg/commit/gitg-commit.vala:1449
 msgid "Failed to discard changes"
 msgstr "Misslyckades att förkasta ändringar"
 
-#: gitg/commit/gitg-commit.vala:1465
+#: gitg/commit/gitg-commit.vala:1470
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -723,7 +723,7 @@ msgstr ""
 "Är du säker på att du permanent vill förkasta alla ändringar som gjorts till "
 "filen ”%s”?"
 
-#: gitg/commit/gitg-commit.vala:1476
+#: gitg/commit/gitg-commit.vala:1481
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -732,45 +732,45 @@ msgstr ""
 "Är du säker på att du permanent vill förkasta alla ändringar som gjorts till "
 "filerna %s och ”%s”?"
 
-#: gitg/commit/gitg-commit.vala:1559
+#: gitg/commit/gitg-commit.vala:1564
 msgid "Failed to delete files"
 msgstr "Misslyckades att ta bort filer"
 
-#: gitg/commit/gitg-commit.vala:1575
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Ta bort fil"
 msgstr[1] "Ta bort filer"
 
-#: gitg/commit/gitg-commit.vala:1580
+#: gitg/commit/gitg-commit.vala:1585
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Är du säker på att du permanent vill ta bort filen ”%s”?"
 
-#: gitg/commit/gitg-commit.vala:1591
+#: gitg/commit/gitg-commit.vala:1596
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Är du säker på att du permanent vill ta bort filerna ”%s” och ”%s”?"
 
-#: gitg/commit/gitg-commit.vala:1637
+#: gitg/commit/gitg-commit.vala:1642
 msgid "_Stage changes"
 msgstr "_Köa ändringar"
 
-#: gitg/commit/gitg-commit.vala:1649
+#: gitg/commit/gitg-commit.vala:1654
 msgid "_Unstage changes"
 msgstr "_Ta bort ändringar ur kön"
 
-#: gitg/commit/gitg-commit.vala:1661
+#: gitg/commit/gitg-commit.vala:1666
 msgid "_Discard changes"
 msgstr "_Förkasta ändringar"
 
-#: gitg/commit/gitg-commit.vala:1673
+#: gitg/commit/gitg-commit.vala:1678
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Ta _bort fil"
 msgstr[1] "Ta _bort filer"
 
-#: gitg/commit/gitg-commit.vala:1703
+#: gitg/commit/gitg-commit.vala:1708
 msgid "_Edit file"
 msgstr "_Redigera fil"
 
@@ -1415,16 +1415,21 @@ msgstr "Byt namn"
 msgid "Rename the selected reference"
 msgstr "Byt namn på den markerade referensen"
 
-#: gitg/gitg-ref-action-rename.vala:100
+#: gitg/gitg-ref-action-rename.vala:104
+#, c-format
+msgid "The specified name “%s” match with existing branch “%s”"
+msgstr "Det angivna namnet ”%s” matchar den befintliga grenen ”%s”"
+
+#: gitg/gitg-ref-action-rename.vala:106 gitg/gitg-ref-action-rename.vala:118
+msgid "Invalid name"
+msgstr "Ogiltigt namn"
+
+#: gitg/gitg-ref-action-rename.vala:116
 #, c-format
 msgid "The specified name “%s” contains invalid characters"
 msgstr "Det angivna namnet ”%s” innehåller ogiltiga tecken"
 
-#: gitg/gitg-ref-action-rename.vala:102
-msgid "Invalid name"
-msgstr "Ogiltigt namn"
-
-#: gitg/gitg-ref-action-rename.vala:131
+#: gitg/gitg-ref-action-rename.vala:147
 msgid "Failed to rename"
 msgstr "Misslyckades med att byta namn"
 
@@ -1573,17 +1578,17 @@ msgstr "Grenar"
 msgid "Remotes"
 msgstr "Fjärrar"
 
-#: gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:348
 #: gitg/preferences/gitg-preferences-history.vala:218
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Historik"
 
-#: gitg/history/gitg-history.vala:352
+#: gitg/history/gitg-history.vala:353
 msgid "Examine the history of the repository"
 msgstr "Undersök arkivets historik"
 
-#: gitg/history/gitg-history.vala:949
+#: gitg/history/gitg-history.vala:951
 msgid "Mainline"
 msgstr "Huvudlinje"
 
@@ -1680,7 +1685,7 @@ msgid "Commit"
 msgstr "Checka in"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
-#: gitg/resources/ui/gitg-commit-paned.ui:86
+#: gitg/resources/ui/gitg-commit-paned.ui:111
 msgid "C_ommit"
 msgstr "_Checka in"
 
@@ -1696,15 +1701,19 @@ msgstr "Lägg till _signed-off-by-signatur"
 msgid "Add si_gnature"
 msgstr "Lägg till si_gnatur"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:76
+#: gitg/resources/ui/gitg-commit-paned.ui:33
+msgid "Filter Files"
+msgstr "Filtrera filer"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:101
 msgid "Skip commit _hooks"
 msgstr "Hoppa över incheckningskrokar"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:96
+#: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "S_tage selection"
 msgstr "_Köa markering"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:107
+#: gitg/resources/ui/gitg-commit-paned.ui:132
 msgid "D_iscard selection"
 msgstr "_Förkasta markering"
 
@@ -1780,25 +1789,25 @@ msgstr "Redigera fjärr"
 msgid "_Reload"
 msgstr "_Läs om"
 
-#: gitg/resources/ui/gitg-menus.ui:14 gitg/resources/ui/gitg-menus.ui:48
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Preferences"
 msgstr "_Inställningar"
 
-#: gitg/resources/ui/gitg-menus.ui:21 gitg/resources/ui/gitg-menus.ui:42
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
 msgid "_Author Details"
 msgstr "_Författardetaljer"
 
-#: gitg/resources/ui/gitg-menus.ui:27 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Keyboard Shortcuts"
 msgstr "_Tangentbordsgenvägar"
 
-#: gitg/resources/ui/gitg-menus.ui:36
+#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+msgid "_About gitg"
+msgstr "_Om gitg"
+
+#: gitg/resources/ui/gitg-menus.ui:37
 msgid "_New Window"
 msgstr "_Nytt fönster"
-
-#: gitg/resources/ui/gitg-menus.ui:60
-msgid "_About"
-msgstr "_Om"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:58
 msgid "Show markup"
@@ -1986,18 +1995,18 @@ msgstr "Öppna ett nytt fönster"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:33
 msgctxt "shortcut window"
-msgid "Open the window menu"
-msgstr "Öppna fönstermenyn"
+msgid "Reload the window"
+msgstr "Läs in fönstret igen"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
-msgid "Open a repository"
-msgstr "Öppna ett arkiv"
+msgid "Open the window menu"
+msgstr "Öppna fönstermenyn"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
-msgid "Open the help"
-msgstr "Öppna hjälpen"
+msgid "Open a repository"
+msgstr "Öppna ett arkiv"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
 msgctxt "shortcut window"
@@ -2412,6 +2421,10 @@ msgstr "Filer"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Visa filerna i trädet för den markerade incheckningen"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open the help"
+#~ msgstr "Öppna hjälpen"
 
 #~ msgid "The GNOME Project"
 #~ msgstr "GNOME-projektet"
