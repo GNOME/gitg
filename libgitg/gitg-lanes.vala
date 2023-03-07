@@ -342,12 +342,12 @@ public class Lanes : Object
 			var commit = item.data;
 			unowned SList<Lane> lns = commit.get_lanes();
 
-			if (lns != null && index <= lns.length())
+			if (lns != null && index < lns.length())
 			{
 				unowned Lane lane = lns.nth_data(index);
 
-				if (item.next != null)
-				{
+				if (item.next != null && lane.from != null)
+			        {
 					var newindex = lane.from.data;
 
 					lns = commit.remove_lane(lane);
