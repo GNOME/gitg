@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-01-25 17:50+0000\n"
-"PO-Revision-Date: 2023-03-03 02:32+0100\n"
+"POT-Creation-Date: 2023-03-07 21:41+0000\n"
+"PO-Revision-Date: 2023-03-08 09:07+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -510,11 +510,11 @@ msgstr ""
 "Hány sornyi környezet jelenjen meg (előtte és utána) egy sorba állítandó / "
 "sorból kiveendő különbség megjelenítésekor a véglegesítés területen."
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1095
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
 msgstr "Nincsenek véglegesítendő változtatások"
 
-#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1096
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Javítás használata az előző véglegesítés véglegesítés üzenetének "
@@ -568,83 +568,83 @@ msgstr "„%s” fájl eltávolításának sorba állítása sikertelen"
 msgid "Failed to stage the file “%s”"
 msgstr "„%s” fájl sorba állítása sikertelen"
 
-#: gitg/commit/gitg-commit.vala:598
+#: gitg/commit/gitg-commit.vala:599
 msgid "_Unstage selection"
 msgstr "Kijelölés sorba állításának _törlése"
 
-#: gitg/commit/gitg-commit.vala:664
+#: gitg/commit/gitg-commit.vala:665
 #, c-format
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "„%s” fájl eltávolításának sorba állításának törlése sikertelen"
 
-#: gitg/commit/gitg-commit.vala:665
+#: gitg/commit/gitg-commit.vala:666
 #, c-format
 msgid "Failed to unstage the file “%s”"
 msgstr "„%s” fájl sorba állításának törlése sikertelen"
 
-#: gitg/commit/gitg-commit.vala:672
+#: gitg/commit/gitg-commit.vala:673
 #, c-format
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "„%s” részmodul eltávolításának sorba állításának törlése sikertelen"
 
-#: gitg/commit/gitg-commit.vala:673
+#: gitg/commit/gitg-commit.vala:674
 #, c-format
 msgid "Failed to unstage the submodule “%s”"
 msgstr "„%s” részmodul sorba állításának törlése sikertelen"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:881
+#: gitg/commit/gitg-commit.vala:882
 msgid "Staged"
 msgstr "Sorba állítva"
 
-#: gitg/commit/gitg-commit.vala:889
+#: gitg/commit/gitg-commit.vala:890
 msgid "No staged files"
 msgstr "Nincsenek sorba állított fájlok"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:912
+#: gitg/commit/gitg-commit.vala:913
 msgid "Unstaged"
 msgstr "Sorba állítás törölve"
 
-#: gitg/commit/gitg-commit.vala:920
+#: gitg/commit/gitg-commit.vala:921
 msgid "No unstaged files"
 msgstr "Nincsenek a sorból törölt fájlok"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:944
 msgid "Untracked"
 msgstr "Követetlen"
 
-#: gitg/commit/gitg-commit.vala:947
+#: gitg/commit/gitg-commit.vala:948
 msgid "No untracked files"
 msgstr "Nincsenek követetlen fájlok"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:973
 msgid "Submodule"
 msgstr "Részmodul"
 
-#: gitg/commit/gitg-commit.vala:976
+#: gitg/commit/gitg-commit.vala:977
 msgid "No dirty submodules"
 msgstr "Nincsenek piszkos részmodulok"
 
-#: gitg/commit/gitg-commit.vala:1130
+#: gitg/commit/gitg-commit.vala:1131
 msgid "Failed to commit"
 msgstr "Nem sikerült véglegesíteni"
 
-#: gitg/commit/gitg-commit.vala:1146
+#: gitg/commit/gitg-commit.vala:1147
 msgid "Failed to pass pre-commit"
 msgstr "Nem sikerült az elővéglegesítés átadása"
 
-#: gitg/commit/gitg-commit.vala:1314 gitg/commit/gitg-commit.vala:1464
+#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
 msgid "Discard changes"
 msgstr "Módosítások elvetése"
 
-#: gitg/commit/gitg-commit.vala:1315
+#: gitg/commit/gitg-commit.vala:1316
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Biztosan véglegesen el kívánja dobni a kijelölt változtatásokat?"
 
-#: gitg/commit/gitg-commit.vala:1324 gitg/commit/gitg-commit.vala:1490
-#: gitg/commit/gitg-commit.vala:1605
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -662,34 +662,34 @@ msgstr "Biztosan véglegesen el kívánja dobni a kijelölt változtatásokat?"
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
 msgid "Discard"
 msgstr "Eldobás"
 
-#: gitg/commit/gitg-commit.vala:1354
+#: gitg/commit/gitg-commit.vala:1355
 msgid "Failed to discard selection"
 msgstr "A kijelölés eldobása sikertelen"
 
-#: gitg/commit/gitg-commit.vala:1384
+#: gitg/commit/gitg-commit.vala:1385
 msgid "Failed to stage selection"
 msgstr "A kijelölés sorba állítása sikertelen"
 
-#: gitg/commit/gitg-commit.vala:1388
+#: gitg/commit/gitg-commit.vala:1389
 msgid "Failed to unstage selection"
 msgstr "A kijelölés sorba állításának törlése sikertelen"
 
-#: gitg/commit/gitg-commit.vala:1448
+#: gitg/commit/gitg-commit.vala:1449
 msgid "Failed to discard changes"
 msgstr "A változtatások eldobása sikertelen"
 
-#: gitg/commit/gitg-commit.vala:1469
+#: gitg/commit/gitg-commit.vala:1470
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
 msgstr "Biztos, hogy véglegesen eldobja a(z) „%s” fájl változtatásait?"
 
-#: gitg/commit/gitg-commit.vala:1480
+#: gitg/commit/gitg-commit.vala:1481
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -697,45 +697,45 @@ msgid ""
 msgstr ""
 "Biztos, hogy véglegesen eldobja a(z) „%s” és „%s” fájlok változtatásait?"
 
-#: gitg/commit/gitg-commit.vala:1563
+#: gitg/commit/gitg-commit.vala:1564
 msgid "Failed to delete files"
 msgstr "A fájlok törlése meghiúsult"
 
-#: gitg/commit/gitg-commit.vala:1579
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Fájl törlése"
 msgstr[1] "Fájlok törlése"
 
-#: gitg/commit/gitg-commit.vala:1584
+#: gitg/commit/gitg-commit.vala:1585
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Biztos, hogy véglegesen törli a(z) „%s” fájlt?"
 
-#: gitg/commit/gitg-commit.vala:1595
+#: gitg/commit/gitg-commit.vala:1596
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Biztos, hogy végleges törli a(z) „%s” és „%s” fájlokat?"
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1642
 msgid "_Stage changes"
 msgstr "_Változtatások sorba állítása"
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1654
 msgid "_Unstage changes"
 msgstr "Változtatások sorba állításának _törlése"
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1666
 msgid "_Discard changes"
 msgstr "_Változtatások eldobása"
 
-#: gitg/commit/gitg-commit.vala:1677
+#: gitg/commit/gitg-commit.vala:1678
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Fájl _törlése"
 msgstr[1] "Fájlok _törlése"
 
-#: gitg/commit/gitg-commit.vala:1707
+#: gitg/commit/gitg-commit.vala:1708
 msgid "_Edit file"
 msgstr "Fájl s_zerkesztése"
 
@@ -1053,7 +1053,6 @@ msgid "_Remove"
 msgstr "_Eltávolítás"
 
 #: gitg/gitg-dash-view.vala:190
-#| msgid "Delete branch %s"
 msgid "_Delete sources"
 msgstr "Források _törlése"
 
@@ -1381,7 +1380,6 @@ msgstr "A kijelölt hivatkozás átnevezése"
 
 #: gitg/gitg-ref-action-rename.vala:104
 #, c-format
-#| msgid "The specified name “%s” contains invalid characters"
 msgid "The specified name “%s” match with existing branch “%s”"
 msgstr "A megadott „%s” név megegyezik a meglévő „%s” ággal"
 
@@ -1559,7 +1557,7 @@ msgstr "Előzmények"
 msgid "Examine the history of the repository"
 msgstr "A tároló előzményeinek vizsgálata"
 
-#: gitg/history/gitg-history.vala:950
+#: gitg/history/gitg-history.vala:959
 msgid "Mainline"
 msgstr "Fővonal"
 
@@ -1669,7 +1667,6 @@ msgid "Add _signed-off-by signature"
 msgstr "A _signed-off-by aláírás hozzáadása"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:251
-#| msgid "Add _signed-off-by signature"
 msgid "Add si_gnature"
 msgstr "_Aláírás hozzáadása"
 
@@ -1718,6 +1715,17 @@ msgstr "Szerző"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
 #: gitg/resources/ui/gitg-history-paned.ui:127
+#| msgid "Commit"
+msgid "Committer"
+msgstr "Véglegesítő"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:74
+#: gitg/resources/ui/gitg-history-paned.ui:143
+msgid "SHA1"
+msgstr "SHA1"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:90
+#: gitg/resources/ui/gitg-history-paned.ui:159
 msgid "Date"
 msgstr "Dátum"
 
@@ -1775,7 +1783,6 @@ msgid "_Keyboard Shortcuts"
 msgstr "_Gyorsbillentyűk"
 
 #: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
-#| msgid "_About"
 msgid "_About gitg"
 msgstr "A gitg _névjegye"
 
@@ -1842,8 +1849,8 @@ msgstr "Egyéni:"
 #: gitg/resources/ui/gitg-preferences-commit.ui:453
 msgid "Check in vala documentation for datetime to write your own format."
 msgstr ""
-"Nézze meg a dátum- és időformátumot a vala dokumentációban a saját formátum"
-" írásához."
+"Nézze meg a dátum- és időformátumot a vala dokumentációban a saját formátum "
+"írásához."
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -1970,8 +1977,6 @@ msgid "Open a new window"
 msgstr "Új ablak megnyitása"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:33
-#| msgctxt "shortcut window"
-#| msgid "Close the active window"
 msgctxt "shortcut window"
 msgid "Reload the window"
 msgstr "Az ablak újratöltése"
@@ -2273,8 +2278,8 @@ msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
 "be undone. Are you sure?"
 msgstr ""
-"A tároló „%s” forrásfájljainak törlése törölni fogja azokat a lemezről, és ez"
-" nem vonható vissza. Biztos benne?"
+"A tároló „%s” forrásfájljainak törlése törölni fogja azokat a lemezről, és "
+"ez nem vonható vissza. Biztos benne?"
 
 #: libgitg/gitg-repository-list-box.vala:568
 msgid "Move to trash"
@@ -2297,13 +2302,11 @@ msgstr "a(z) „%s” beállítása aláírt véglegesítés készítéséhez"
 
 #: libgitg/gitg-stage.vala:484
 #, c-format
-#| msgid "Failed to stage the file “%s”"
 msgid "error signing the commit “%s”"
 msgstr "hiba a(z) „%s” véglegesítés aláírásakor"
 
 #: libgitg/gitg-stage.vala:496
 #, c-format
-#| msgid "Cherry pick onto “%s”"
 msgid "error updating current ref “%s”"
 msgstr "hiba a jelenlegi „%s” hivatkozás frissítésekor"
 
