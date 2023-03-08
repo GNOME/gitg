@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg gnome-3-12\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-01-25 17:50+0000\n"
-"PO-Revision-Date: 2023-01-27 14:42+0000\n"
+"POT-Creation-Date: 2023-03-07 21:41+0000\n"
+"PO-Revision-Date: 2023-03-08 16:17+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <gnome-pt-translation@googlegroups.com>\n"
 "Language: pt\n"
@@ -508,11 +508,11 @@ msgstr ""
 "O número de linhas de contexto (antes e depois) que devem ser mostradas ao "
 "ver as diferenças a serem encenadas/sem encenação na área de commit."
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1095
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
 msgstr "Não há alterações a submeter"
 
-#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1096
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 "Utilize \"Alterar\" para modificar a mensagem de submissão da submissão "
@@ -566,84 +566,84 @@ msgstr "Falha ao preparar a remoção do ficheiro “%s”"
 msgid "Failed to stage the file “%s”"
 msgstr "Falha ao preparar o ficheiro “%s”"
 
-#: gitg/commit/gitg-commit.vala:598
+#: gitg/commit/gitg-commit.vala:599
 msgid "_Unstage selection"
 msgstr "_Remover encenação da seleção"
 
-#: gitg/commit/gitg-commit.vala:664
+#: gitg/commit/gitg-commit.vala:665
 #, c-format
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "Falha ao desfazer a preparação da remoção do ficheiro “%s”"
 
-#: gitg/commit/gitg-commit.vala:665
+#: gitg/commit/gitg-commit.vala:666
 #, c-format
 msgid "Failed to unstage the file “%s”"
 msgstr "Falha ao desfazer a preparação do ficheiro “%s”"
 
-#: gitg/commit/gitg-commit.vala:672
+#: gitg/commit/gitg-commit.vala:673
 #, c-format
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Falha ao desfazer a preparação da remoção do submódulo “%s”"
 
-#: gitg/commit/gitg-commit.vala:673
+#: gitg/commit/gitg-commit.vala:674
 #, c-format
 msgid "Failed to unstage the submodule “%s”"
 msgstr "Falha ao desfazer a preparação do submódulo “%s”"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:881
+#: gitg/commit/gitg-commit.vala:882
 msgid "Staged"
 msgstr "Encenado"
 
-#: gitg/commit/gitg-commit.vala:889
+#: gitg/commit/gitg-commit.vala:890
 msgid "No staged files"
 msgstr "Sem ficheiros encenados"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:912
+#: gitg/commit/gitg-commit.vala:913
 msgid "Unstaged"
 msgstr "Encenação removida"
 
-#: gitg/commit/gitg-commit.vala:920
+#: gitg/commit/gitg-commit.vala:921
 msgid "No unstaged files"
 msgstr "Sem ficheiros com encenação removida"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:944
 msgid "Untracked"
 msgstr "Não seguido"
 
-#: gitg/commit/gitg-commit.vala:947
+#: gitg/commit/gitg-commit.vala:948
 msgid "No untracked files"
 msgstr "Sem ficheiros seguidos"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:973
 msgid "Submodule"
 msgstr "Submódulo"
 
-#: gitg/commit/gitg-commit.vala:976
+#: gitg/commit/gitg-commit.vala:977
 msgid "No dirty submodules"
 msgstr "Sem submódulos sujos"
 
-#: gitg/commit/gitg-commit.vala:1130
+#: gitg/commit/gitg-commit.vala:1131
 msgid "Failed to commit"
 msgstr "Falha ao submeter"
 
-#: gitg/commit/gitg-commit.vala:1146
+#: gitg/commit/gitg-commit.vala:1147
 msgid "Failed to pass pre-commit"
 msgstr "Falha ao passar a pré-submissão"
 
-#: gitg/commit/gitg-commit.vala:1314 gitg/commit/gitg-commit.vala:1464
+#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
 msgid "Discard changes"
 msgstr "Descartar alterações"
 
-#: gitg/commit/gitg-commit.vala:1315
+#: gitg/commit/gitg-commit.vala:1316
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 "Tem a certeza que quer descartar permanentemente as alterações selecionadas?"
 
-#: gitg/commit/gitg-commit.vala:1324 gitg/commit/gitg-commit.vala:1490
-#: gitg/commit/gitg-commit.vala:1605
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -661,27 +661,27 @@ msgstr ""
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
 msgid "Discard"
 msgstr "Descartar"
 
-#: gitg/commit/gitg-commit.vala:1354
+#: gitg/commit/gitg-commit.vala:1355
 msgid "Failed to discard selection"
 msgstr "Falha ao descartar seleção"
 
-#: gitg/commit/gitg-commit.vala:1384
+#: gitg/commit/gitg-commit.vala:1385
 msgid "Failed to stage selection"
 msgstr "Falha ao estagiar seleção"
 
-#: gitg/commit/gitg-commit.vala:1388
+#: gitg/commit/gitg-commit.vala:1389
 msgid "Failed to unstage selection"
 msgstr "Falha ao remover encenação da seleção"
 
-#: gitg/commit/gitg-commit.vala:1448
+#: gitg/commit/gitg-commit.vala:1449
 msgid "Failed to discard changes"
 msgstr "Falha ao descartar alterações"
 
-#: gitg/commit/gitg-commit.vala:1469
+#: gitg/commit/gitg-commit.vala:1470
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -690,7 +690,7 @@ msgstr ""
 "Tem a certeza de que deseja descartar permanentemente todas as alterações "
 "feitas no ficheiro “%s”?"
 
-#: gitg/commit/gitg-commit.vala:1480
+#: gitg/commit/gitg-commit.vala:1481
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -699,46 +699,46 @@ msgstr ""
 "Tem a certeza de que deseja descartar permanentemente todas as alterações "
 "feitas nos ficheiros %s e “%s”?"
 
-#: gitg/commit/gitg-commit.vala:1563
+#: gitg/commit/gitg-commit.vala:1564
 msgid "Failed to delete files"
 msgstr "Falha ao eliminar ficheiros"
 
-#: gitg/commit/gitg-commit.vala:1579
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Eliminar ficheiro"
 msgstr[1] "Eliminar ficheiros"
 
-#: gitg/commit/gitg-commit.vala:1584
+#: gitg/commit/gitg-commit.vala:1585
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Tem a certeza que deseja eliminar permanentemente o ficheiro “%s”?"
 
-#: gitg/commit/gitg-commit.vala:1595
+#: gitg/commit/gitg-commit.vala:1596
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr ""
 "Tem a certeza que deseja eliminar permanentemente os ficheiros “%s” e “%s”?"
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1642
 msgid "_Stage changes"
 msgstr "Encenar _alterações"
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1654
 msgid "_Unstage changes"
 msgstr "Remover encenação das alterações"
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1666
 msgid "_Discard changes"
 msgstr "_Descartar alterações"
 
-#: gitg/commit/gitg-commit.vala:1677
+#: gitg/commit/gitg-commit.vala:1678
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_Eliminar ficheiro"
 msgstr[1] "_Eliminar ficheiros"
 
-#: gitg/commit/gitg-commit.vala:1707
+#: gitg/commit/gitg-commit.vala:1708
 msgid "_Edit file"
 msgstr "_Editar ficheiro"
 
@@ -1561,7 +1561,7 @@ msgstr "Histórico"
 msgid "Examine the history of the repository"
 msgstr "Examinar o histórico do repositório"
 
-#: gitg/history/gitg-history.vala:950
+#: gitg/history/gitg-history.vala:959
 msgid "Mainline"
 msgstr "Linha principal"
 
@@ -1718,6 +1718,16 @@ msgstr "Autor"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
 #: gitg/resources/ui/gitg-history-paned.ui:127
+msgid "Committer"
+msgstr "Assertor"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:74
+#: gitg/resources/ui/gitg-history-paned.ui:143
+msgid "SHA1"
+msgstr "SHA1"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:90
+#: gitg/resources/ui/gitg-history-paned.ui:159
 msgid "Date"
 msgstr "Data"
 
@@ -2295,7 +2305,6 @@ msgstr "erro ao assinar a submissão \"%s"
 
 #: libgitg/gitg-stage.vala:496
 #, c-format
-#| msgid "Cherry pick onto “%s”"
 msgid "error updating current ref “%s”"
 msgstr "erro ao atualizar a ref atual “%s”"
 
