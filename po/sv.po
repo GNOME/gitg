@@ -39,8 +39,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-02-04 09:49+0000\n"
-"PO-Revision-Date: 2023-03-06 21:59+0100\n"
+"POT-Creation-Date: 2023-03-07 21:41+0000\n"
+"PO-Revision-Date: 2023-03-11 01:53+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -166,9 +166,9 @@ msgid ""
 "named in the “Editor Font” option will be used instead of the system font."
 msgstr ""
 "Huruvida systemets standardtypsnitt med fast breddsteg ska användas för "
-"komponenttext istället för ett specifikt typsnitt. Om detta alternativ är "
+"komponenttext i stället för ett specifikt typsnitt. Om detta alternativ är "
 "inaktiverat, kommer typsnittet som är angivet i alternativet "
-"”Redigerartypsnitt” att användas istället för systemtypsnittet."
+"”Redigerartypsnitt” att användas i stället för systemtypsnittet."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
 #: data/org.gnome.gitg.gschema.xml.in:57
@@ -1588,7 +1588,7 @@ msgstr "Historik"
 msgid "Examine the history of the repository"
 msgstr "Undersök arkivets historik"
 
-#: gitg/history/gitg-history.vala:951
+#: gitg/history/gitg-history.vala:959
 msgid "Mainline"
 msgstr "Huvudlinje"
 
@@ -1745,6 +1745,16 @@ msgstr "Författare"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
 #: gitg/resources/ui/gitg-history-paned.ui:127
+msgid "Committer"
+msgstr "Incheckare"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:74
+#: gitg/resources/ui/gitg-history-paned.ui:143
+msgid "SHA1"
+msgstr "SHA1"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:90
+#: gitg/resources/ui/gitg-history-paned.ui:159
 msgid "Date"
 msgstr "Datum"
 
