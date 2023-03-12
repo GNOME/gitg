@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-01-25 17:50+0000\n"
-"PO-Revision-Date: 2023-03-06 23:23+0100\n"
+"POT-Creation-Date: 2023-03-07 21:41+0000\n"
+"PO-Revision-Date: 2023-03-11 13:19+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -534,11 +534,11 @@ msgstr ""
 "Indstilling som angiver, hvor mange linjer af kontekst (før og efter) der "
 "skal bruges i diffen for stage/unstage i commit-området."
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1095
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
 msgstr "Der er ingen ændringer at committe"
 
-#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1096
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Tilret (amend) for at ændre commitbeskeden for den tidligere commit"
 
@@ -590,83 +590,83 @@ msgstr "Kunne ikke stage fjernelsen af filen “%s”"
 msgid "Failed to stage the file “%s”"
 msgstr "Kunne ikke stage filen “%s”"
 
-#: gitg/commit/gitg-commit.vala:598
+#: gitg/commit/gitg-commit.vala:599
 msgid "_Unstage selection"
 msgstr "_Unstage valgte"
 
-#: gitg/commit/gitg-commit.vala:664
+#: gitg/commit/gitg-commit.vala:665
 #, c-format
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "Kunne ikke unstage fjernelsen af filen “%s”"
 
-#: gitg/commit/gitg-commit.vala:665
+#: gitg/commit/gitg-commit.vala:666
 #, c-format
 msgid "Failed to unstage the file “%s”"
 msgstr "Kunne ikke unstage filen “%s”"
 
-#: gitg/commit/gitg-commit.vala:672
+#: gitg/commit/gitg-commit.vala:673
 #, c-format
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Kunne ikke unstage fjernelsen af undermodulet “%s”"
 
-#: gitg/commit/gitg-commit.vala:673
+#: gitg/commit/gitg-commit.vala:674
 #, c-format
 msgid "Failed to unstage the submodule “%s”"
 msgstr "Kunne ikke unstage undermodulet “%s”"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:881
+#: gitg/commit/gitg-commit.vala:882
 msgid "Staged"
 msgstr "Staged"
 
-#: gitg/commit/gitg-commit.vala:889
+#: gitg/commit/gitg-commit.vala:890
 msgid "No staged files"
 msgstr "Ingen stagede filer"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:912
+#: gitg/commit/gitg-commit.vala:913
 msgid "Unstaged"
 msgstr "Unstaged"
 
-#: gitg/commit/gitg-commit.vala:920
+#: gitg/commit/gitg-commit.vala:921
 msgid "No unstaged files"
 msgstr "Ingen unstagede filer"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:944
 msgid "Untracked"
 msgstr "Usporet"
 
-#: gitg/commit/gitg-commit.vala:947
+#: gitg/commit/gitg-commit.vala:948
 msgid "No untracked files"
 msgstr "Ingen usporede filer"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:973
 msgid "Submodule"
 msgstr "Undermodul"
 
-#: gitg/commit/gitg-commit.vala:976
+#: gitg/commit/gitg-commit.vala:977
 msgid "No dirty submodules"
 msgstr "Ingen urene undermoduler"
 
-#: gitg/commit/gitg-commit.vala:1130
+#: gitg/commit/gitg-commit.vala:1131
 msgid "Failed to commit"
 msgstr "Kunne ikke committe"
 
-#: gitg/commit/gitg-commit.vala:1146
+#: gitg/commit/gitg-commit.vala:1147
 msgid "Failed to pass pre-commit"
 msgstr "Bestod ikke præ-commit"
 
-#: gitg/commit/gitg-commit.vala:1314 gitg/commit/gitg-commit.vala:1464
+#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
 msgid "Discard changes"
 msgstr "Kassér ændringer"
 
-#: gitg/commit/gitg-commit.vala:1315
+#: gitg/commit/gitg-commit.vala:1316
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Er du sikker på, at du vil kassere de valgte ændringer permanent?"
 
-#: gitg/commit/gitg-commit.vala:1324 gitg/commit/gitg-commit.vala:1490
-#: gitg/commit/gitg-commit.vala:1605
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -684,27 +684,27 @@ msgstr "Er du sikker på, at du vil kassere de valgte ændringer permanent?"
 msgid "_Cancel"
 msgstr "_Annullér"
 
-#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
 msgid "Discard"
 msgstr "Kassér"
 
-#: gitg/commit/gitg-commit.vala:1354
+#: gitg/commit/gitg-commit.vala:1355
 msgid "Failed to discard selection"
 msgstr "Kunne ikke kassere valgte"
 
-#: gitg/commit/gitg-commit.vala:1384
+#: gitg/commit/gitg-commit.vala:1385
 msgid "Failed to stage selection"
 msgstr "Kunne ikke stage valgte"
 
-#: gitg/commit/gitg-commit.vala:1388
+#: gitg/commit/gitg-commit.vala:1389
 msgid "Failed to unstage selection"
 msgstr "Kunne ikke unstage valgte"
 
-#: gitg/commit/gitg-commit.vala:1448
+#: gitg/commit/gitg-commit.vala:1449
 msgid "Failed to discard changes"
 msgstr "Kunne ikke kassere ændringer"
 
-#: gitg/commit/gitg-commit.vala:1469
+#: gitg/commit/gitg-commit.vala:1470
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -712,7 +712,7 @@ msgid ""
 msgstr ""
 "Er du sikker på, at du vil kassere alle ændringer i filen “%s” permanent?"
 
-#: gitg/commit/gitg-commit.vala:1480
+#: gitg/commit/gitg-commit.vala:1481
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -721,45 +721,45 @@ msgstr ""
 "Er du sikker på, at du vil kassere alle ændringer i filerne %s og “%s” "
 "permanent?"
 
-#: gitg/commit/gitg-commit.vala:1563
+#: gitg/commit/gitg-commit.vala:1564
 msgid "Failed to delete files"
 msgstr "Kunne ikke slette filer"
 
-#: gitg/commit/gitg-commit.vala:1579
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Slet fil"
 msgstr[1] "Slet filer"
 
-#: gitg/commit/gitg-commit.vala:1584
+#: gitg/commit/gitg-commit.vala:1585
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Er du sikker på, at du vil slette filen “%s” permanent?"
 
-#: gitg/commit/gitg-commit.vala:1595
+#: gitg/commit/gitg-commit.vala:1596
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Er du sikker på, at du vil slette filerne %s og “%s” permanent?"
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1642
 msgid "_Stage changes"
 msgstr "_Stage ændringer"
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1654
 msgid "_Unstage changes"
 msgstr "_Unstage ændringer"
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1666
 msgid "_Discard changes"
 msgstr "_Kassér ændringer"
 
-#: gitg/commit/gitg-commit.vala:1677
+#: gitg/commit/gitg-commit.vala:1678
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_Slet fil"
 msgstr[1] "_Slet filer"
 
-#: gitg/commit/gitg-commit.vala:1707
+#: gitg/commit/gitg-commit.vala:1708
 msgid "_Edit file"
 msgstr "_Redigér fil"
 
@@ -1581,7 +1581,7 @@ msgstr "Historik"
 msgid "Examine the history of the repository"
 msgstr "Undersøg historikken for arkivet"
 
-#: gitg/history/gitg-history.vala:950
+#: gitg/history/gitg-history.vala:959
 msgid "Mainline"
 msgstr "Hovedlinje"
 
@@ -1738,6 +1738,16 @@ msgstr "Forfatter"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
 #: gitg/resources/ui/gitg-history-paned.ui:127
+msgid "Committer"
+msgstr "Committer"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:74
+#: gitg/resources/ui/gitg-history-paned.ui:143
+msgid "SHA1"
+msgstr "SHA1"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:90
+#: gitg/resources/ui/gitg-history-paned.ui:159
 msgid "Date"
 msgstr "Dato"
 
@@ -1856,7 +1866,9 @@ msgstr "Tilpasset:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:453
 msgid "Check in vala documentation for datetime to write your own format."
-msgstr "Se vala-dokumentationen vedrørende dato-/klokkeslætsformat, hvis du vil skrive dit eget format."
+msgstr ""
+"Se vala-dokumentationen vedrørende dato-/klokkeslætsformat, hvis du vil "
+"skrive dit eget format."
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -2283,7 +2295,9 @@ msgstr "Kloner …"
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
 "be undone. Are you sure?"
-msgstr "Ved sletning af arkivkildefilerne “%s” fjernes de fra disken, og dette kan ikke fortrydes. Er du sikker?"
+msgstr ""
+"Ved sletning af arkivkildefilerne “%s” fjernes de fra disken, og dette kan "
+"ikke fortrydes. Er du sikker?"
 
 #: libgitg/gitg-repository-list-box.vala:568
 msgid "Move to trash"
