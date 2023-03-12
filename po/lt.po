@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-01-25 17:50+0000\n"
-"PO-Revision-Date: 2023-02-19 21:20+0200\n"
+"POT-Creation-Date: 2023-03-07 21:41+0000\n"
+"PO-Revision-Date: 2023-03-12 22:05+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -496,11 +496,11 @@ msgstr ""
 "Nustatymas, nurodantis, kiek eilučių konteksto (prieš ir po) rodyti "
 "pakeitimui, ruošiamam ar neparuoštam patvirtinimui."
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1095
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
 msgstr "Nėra pakeitimų patvirtinimui"
 
-#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1096
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Pakeisti prieš tai buvusio patvirtinimo pranešimą"
 
@@ -551,83 +551,83 @@ msgstr "Nepavyko paruošti failo „%s“ pašalinimo"
 msgid "Failed to stage the file “%s”"
 msgstr "Nepavyko paruošti failo „%s“"
 
-#: gitg/commit/gitg-commit.vala:598
+#: gitg/commit/gitg-commit.vala:599
 msgid "_Unstage selection"
 msgstr "Pašalinti žymėjimą ir pa_ruošimo"
 
-#: gitg/commit/gitg-commit.vala:664
+#: gitg/commit/gitg-commit.vala:665
 #, c-format
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "Nepavyko atšaukti failo „%s“ ištrynimo paruošimo"
 
-#: gitg/commit/gitg-commit.vala:665
+#: gitg/commit/gitg-commit.vala:666
 #, c-format
 msgid "Failed to unstage the file “%s”"
 msgstr "Nepavyko pašalinti failo „%s“ paruošimo"
 
-#: gitg/commit/gitg-commit.vala:672
+#: gitg/commit/gitg-commit.vala:673
 #, c-format
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Nepavyko atšaukti submodulio „%s“ ištrynimo paruošimo"
 
-#: gitg/commit/gitg-commit.vala:673
+#: gitg/commit/gitg-commit.vala:674
 #, c-format
 msgid "Failed to unstage the submodule “%s”"
 msgstr "Nepavyko pašalinti submodulio „%s“ paruošimo"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:881
+#: gitg/commit/gitg-commit.vala:882
 msgid "Staged"
 msgstr "Paruošti"
 
-#: gitg/commit/gitg-commit.vala:889
+#: gitg/commit/gitg-commit.vala:890
 msgid "No staged files"
 msgstr "Nėra paruoštų failų"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:912
+#: gitg/commit/gitg-commit.vala:913
 msgid "Unstaged"
 msgstr "Neparuošti"
 
-#: gitg/commit/gitg-commit.vala:920
+#: gitg/commit/gitg-commit.vala:921
 msgid "No unstaged files"
 msgstr "Nėra neparuoštų failų"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:944
 msgid "Untracked"
 msgstr "Nesekami"
 
-#: gitg/commit/gitg-commit.vala:947
+#: gitg/commit/gitg-commit.vala:948
 msgid "No untracked files"
 msgstr "Nėra nesekamų failų"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:973
 msgid "Submodule"
 msgstr "Submodulis"
 
-#: gitg/commit/gitg-commit.vala:976
+#: gitg/commit/gitg-commit.vala:977
 msgid "No dirty submodules"
 msgstr "Nėra nešvarių submodulių"
 
-#: gitg/commit/gitg-commit.vala:1130
+#: gitg/commit/gitg-commit.vala:1131
 msgid "Failed to commit"
 msgstr "Nepavyko patvirtinti"
 
-#: gitg/commit/gitg-commit.vala:1146
+#: gitg/commit/gitg-commit.vala:1147
 msgid "Failed to pass pre-commit"
 msgstr "Nepavyko praeiti prieš-patvirtinimo"
 
-#: gitg/commit/gitg-commit.vala:1314 gitg/commit/gitg-commit.vala:1464
+#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
 msgid "Discard changes"
 msgstr "Atmesti pakeitimus"
 
-#: gitg/commit/gitg-commit.vala:1315
+#: gitg/commit/gitg-commit.vala:1316
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Ar tikrai norite visam laikui atsisakyti pasirinktų?"
 
-#: gitg/commit/gitg-commit.vala:1324 gitg/commit/gitg-commit.vala:1490
-#: gitg/commit/gitg-commit.vala:1605
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -645,34 +645,34 @@ msgstr "Ar tikrai norite visam laikui atsisakyti pasirinktų?"
 msgid "_Cancel"
 msgstr "At_sisakyti"
 
-#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
 msgid "Discard"
 msgstr "Atmesti"
 
-#: gitg/commit/gitg-commit.vala:1354
+#: gitg/commit/gitg-commit.vala:1355
 msgid "Failed to discard selection"
 msgstr "Nepavyko atmesti pasirinkimo"
 
-#: gitg/commit/gitg-commit.vala:1384
+#: gitg/commit/gitg-commit.vala:1385
 msgid "Failed to stage selection"
 msgstr "Nepavyko paruošti žymėjimo"
 
-#: gitg/commit/gitg-commit.vala:1388
+#: gitg/commit/gitg-commit.vala:1389
 msgid "Failed to unstage selection"
 msgstr "Nepavyko pašalinti žymėjimo iš paruošimo"
 
-#: gitg/commit/gitg-commit.vala:1448
+#: gitg/commit/gitg-commit.vala:1449
 msgid "Failed to discard changes"
 msgstr "Nepavyko atmesti pakeitimų"
 
-#: gitg/commit/gitg-commit.vala:1469
+#: gitg/commit/gitg-commit.vala:1470
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
 msgstr "Ar tikrai norite visam laikui atmesti visus failo „%s“ pakeitimus?"
 
-#: gitg/commit/gitg-commit.vala:1480
+#: gitg/commit/gitg-commit.vala:1481
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -680,47 +680,47 @@ msgid ""
 msgstr ""
 "Ar tikrai norite visam laikui atmesti visus failų „%s“ ir „%s“ pakeitimus?"
 
-#: gitg/commit/gitg-commit.vala:1563
+#: gitg/commit/gitg-commit.vala:1564
 msgid "Failed to delete files"
 msgstr "Nepavyko ištrinti failų"
 
-#: gitg/commit/gitg-commit.vala:1579
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Ištrinti failą"
 msgstr[1] "Ištrinti failus"
 msgstr[2] "Ištrinti failus"
 
-#: gitg/commit/gitg-commit.vala:1584
+#: gitg/commit/gitg-commit.vala:1585
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Ar tikrai norite visam laikui ištrinti failą „%s“?"
 
-#: gitg/commit/gitg-commit.vala:1595
+#: gitg/commit/gitg-commit.vala:1596
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Ar tikrai norite visam laikui ištrinti failus %s ir „%s“?"
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1642
 msgid "_Stage changes"
 msgstr "_Paruošti pakeitimus"
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1654
 msgid "_Unstage changes"
 msgstr "Pašalinti pakeitimus iš pa_ruošimo"
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1666
 msgid "_Discard changes"
 msgstr "_Atmesti pakeitimus"
 
-#: gitg/commit/gitg-commit.vala:1677
+#: gitg/commit/gitg-commit.vala:1678
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Iš_trinti failą"
 msgstr[1] "Iš_trinti failus"
 msgstr[2] "Iš_trinti failus"
 
-#: gitg/commit/gitg-commit.vala:1707
+#: gitg/commit/gitg-commit.vala:1708
 msgid "_Edit file"
 msgstr "_Keisti failą"
 
@@ -1534,7 +1534,7 @@ msgstr "Istorija"
 msgid "Examine the history of the repository"
 msgstr "Naršyti saugyklos istoriją"
 
-#: gitg/history/gitg-history.vala:950
+#: gitg/history/gitg-history.vala:959
 msgid "Mainline"
 msgstr "Pagrindinė linija"
 
@@ -1691,6 +1691,16 @@ msgstr "Autorius"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
 #: gitg/resources/ui/gitg-history-paned.ui:127
+msgid "Committer"
+msgstr "Patvirtino"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:74
+#: gitg/resources/ui/gitg-history-paned.ui:143
+msgid "SHA1"
+msgstr "SHA1"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:90
+#: gitg/resources/ui/gitg-history-paned.ui:159
 msgid "Date"
 msgstr "Data"
 
