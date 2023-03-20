@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-03-07 21:41+0000\n"
-"PO-Revision-Date: 2023-03-14 17:10+0100\n"
+"POT-Creation-Date: 2023-03-14 16:11+0000\n"
+"PO-Revision-Date: 2023-03-20 23:26+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -413,23 +413,19 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:247
 #: data/org.gnome.gitg.gschema.xml.in:248
-#, fuzzy
 msgid "Type of datetime format selected."
 msgstr "Vrsta izbrane oblike datuma in časa."
 
 #: data/org.gnome.gitg.gschema.xml.in:254
-#, fuzzy
 msgid "Preferred datetime format of the user."
 msgstr "Želena oblika datuma in časa uporabnika."
 
 #: data/org.gnome.gitg.gschema.xml.in:255
-#, fuzzy
 msgid "The datetime format to be used in commit-diff."
 msgstr "Oblika datuma in časa, ki se uporablja v commit-diff."
 
 #: data/org.gnome.gitg.gschema.xml.in:261
 #: data/org.gnome.gitg.gschema.xml.in:262
-#, fuzzy
 msgid "Custom datetime format."
 msgstr "Oblika datuma in časa po meri."
 
@@ -1057,7 +1053,6 @@ msgid "_Remove"
 msgstr "_Odstrani"
 
 #: gitg/gitg-dash-view.vala:190
-#, fuzzy
 msgid "_Delete sources"
 msgstr "_Izbriši izvorno kodo"
 
@@ -1385,7 +1380,7 @@ msgid "Rename the selected reference"
 msgstr "Preimenuj izbrani sklic"
 
 #: gitg/gitg-ref-action-rename.vala:104
-#, fuzzy, c-format
+#, c-format
 msgid "The specified name “%s” match with existing branch “%s”"
 msgstr "Navedeno ime »%s« se ujema z obstoječo vejo »%s«"
 
@@ -1666,12 +1661,10 @@ msgid "Add _signed-off-by signature"
 msgstr "Dodaj podpis _podpisnika"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:251
-#, fuzzy
 msgid "Add si_gnature"
 msgstr "Dodaj _podpis"
 
 #: gitg/resources/ui/gitg-commit-paned.ui:33
-#, fuzzy
 msgid "Filter Files"
 msgstr "Filtriraj datoteke"
 
@@ -1715,7 +1708,6 @@ msgstr "Avtor"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
 #: gitg/resources/ui/gitg-history-paned.ui:127
-#, fuzzy
 msgid "Committer"
 msgstr "Uveljavitelj"
 
@@ -1831,12 +1823,10 @@ msgid "Commit Message"
 msgstr "Sporočilo uveljavljanja"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:372
-#, fuzzy
 msgid "Datetime format"
 msgstr "Oblika datuma in časa"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:410
-#, fuzzy
 msgid "Predefined:"
 msgstr "Vnaprej določeno:"
 
@@ -1845,10 +1835,9 @@ msgid "Custom:"
 msgstr "Po meri:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:453
-#, fuzzy
 msgid "Check in vala documentation for datetime to write your own format."
 msgstr ""
-"Preverite dokumentacijo Vala za datum in čas, da zapišete svojo obliko."
+"Preverite dokumentacijo vala za datum in čas, da zapišete svojo obliko."
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -2277,7 +2266,7 @@ msgid "Cloning…"
 msgstr "Poteka kloniranje …"
 
 #: libgitg/gitg-repository-list-box.vala:566
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
 "be undone. Are you sure?"
@@ -2286,7 +2275,6 @@ msgstr ""
 "dejanja ni mogoče razveljaviti. Ali ste prepričani?"
 
 #: libgitg/gitg-repository-list-box.vala:568
-#, fuzzy
 msgid "Move to trash"
 msgstr "Premakni v smeti"
 
@@ -2302,17 +2290,17 @@ msgstr ""
 "spodletelo: %s"
 
 #: libgitg/gitg-stage.vala:464
-#, fuzzy, c-format
+#, c-format
 msgid "setup “%s” to do a signed commit"
 msgstr "nastavitev »%s« za izvedbo podpisane objave"
 
 #: libgitg/gitg-stage.vala:484
-#, fuzzy, c-format
+#, c-format
 msgid "error signing the commit “%s”"
 msgstr "napaka pri podpisovanju objave »%s«"
 
 #: libgitg/gitg-stage.vala:496
-#, fuzzy, c-format
+#, c-format
 msgid "error updating current ref “%s”"
 msgstr "napaka pri posodabljanju trenutnega ref »%s«"
 
