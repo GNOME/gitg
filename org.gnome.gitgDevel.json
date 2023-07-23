@@ -57,7 +57,7 @@
         },
         {
             "name" : "libgit2",
-            "buildsystem" : "cmake",
+            "buildsystem" : "cmake-ninja",
             "config-opts" : [
                 "-DBUILD_SHARED_LIBS:BOOL=ON",
                 "-DTHREADSAFE=ON"
