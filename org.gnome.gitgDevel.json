@@ -60,7 +60,8 @@
             "buildsystem" : "cmake-ninja",
             "config-opts" : [
                 "-DBUILD_SHARED_LIBS:BOOL=ON",
-                "-DTHREADSAFE=ON"
+                "-DBUILD_TESTS:BOOL=OFF",
+                "-DUSE_THREADS:BOOL=ON"
             ],
             "sources" : [
                 {
