@@ -81,7 +81,10 @@
         {
             "name" : "libpeas",
             "buildsystem": "meson",
-            "builddir": true,
+            "config-opts" : [
+                "-Dlua51=false",
+                "-Dpython3=false"
+            ],
             "cleanup" : [
                 "/bin/*",
                 "/lib/peas-demo",
@@ -90,7 +93,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libpeas.git"
+                    "url" : "https://gitlab.gnome.org/GNOME/libpeas.git",
+                    "branch": "1.36"
                 }
             ]
         },
@@ -150,7 +154,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/gtksourceview.git"
+                    "url" : "https://gitlab.gnome.org/GNOME/gtksourceview.git",
+                    "branch": "gtksourceview-4-8"
                 }
             ]
         },
