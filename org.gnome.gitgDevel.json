@@ -178,6 +178,24 @@
             ]
         },
         {
+          "name": "git",
+          "make-args": [
+              "NO_TCLTK=1",
+              "INSTALL_SYMLINKS=1"
+          ],
+          "make-install-args": [
+              "NO_TCLTK=1",
+              "INSTALL_SYMLINKS=1"
+          ],
+          "sources": [
+            {
+                "type": "archive",
+                "url": "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.41.0.tar.xz",
+                "sha256": "e748bafd424cfe80b212cbc6f1bbccc3a47d4862fb1eb7988877750478568040"
+            }
+          ]
+        },
+        {
             "name" : "gitg",
             "buildsystem" : "meson",
             "builddir" : true,
