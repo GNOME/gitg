@@ -25,8 +25,7 @@
 
 #include <glib.h>
 #include <gio/gio.h>
-#include <gtksourceview/gtksourcelanguagemanager.h>
-#include <gtksourceview/gtksourcelanguage.h>
+#include <gtksourceview/gtksource.h>
 
 #include <libgitg/gitg-repository.h>
 #include <libgitg/gitg-revision.h>

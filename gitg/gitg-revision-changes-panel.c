@@ -1,8 +1,6 @@
 #include "gitg-revision-changes-panel.h"
 
-#include <gtksourceview/gtksourceview.h>
-#include <gtksourceview/gtksourcelanguagemanager.h>
-#include <gtksourceview/gtksourcestyleschememanager.h>
+#include <gtksourceview/gtksource.h>
 #include <string.h>
 #include <libgitg/gitg-repository.h>
 #include <libgitg/gitg-revision.h>

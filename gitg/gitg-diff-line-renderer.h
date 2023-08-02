@@ -23,8 +23,7 @@
 #ifndef __GITG_DIFF_LINE_RENDERER_H__
 #define __GITG_DIFF_LINE_RENDERER_H__
 
-#include <gtksourceview/gtksourceview.h>
-#include <gtksourceview/gtksourcegutterrenderer.h>
+#include <gtksourceview/gtksource.h>
 
 G_BEGIN_DECLS
 

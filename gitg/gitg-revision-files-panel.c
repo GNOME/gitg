@@ -20,8 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <gtksourceview/gtksourceview.h>
-#include <gtksourceview/gtksourcelanguagemanager.h>
+#include <gtksourceview/gtksource.h>
 #include <string.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
