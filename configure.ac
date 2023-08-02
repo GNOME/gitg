@@ -74,8 +74,6 @@ PKG_CHECK_MODULES(PACKAGE, [
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-GNOME_COMPILE_WARNINGS([maximum])
-
 if test "x$USE_MAINTAINER_MODE" = "xyes"; then
 PACKAGE_CFLAGS="$PACKAGE_CFLAGS -Wall -Werror -Wuninitialized -Wmissing-declarations"
 enable_deprecations="yes"
