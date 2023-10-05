@@ -8,24 +8,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2019-11-27 14:27+0000\n"
-"PO-Revision-Date: 2020-01-21 22:39+0800\n"
-"Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
+"POT-Creation-Date: 2023-03-07 21:41+0000\n"
+"PO-Revision-Date: 2023-10-05 13:02+0800\n"
+"Last-Translator: Cheng-Chia Tseng <zerngjia@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "無法分析來自串流的 XML"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:5 data/org.gnome.gitg.desktop.in.in:3
-#: gitg/gitg.vala:39 gitg/resources/ui/gitg-window.ui:8
+#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
@@ -48,75 +48,83 @@ msgstr "目標："
 
 #: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
-msgstr "瀏覽本機 git 版本庫"
+msgstr "瀏覽本機 git 儲存庫"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
-msgstr "複製本機及遠端 git 版本庫"
+msgstr "複製本機及遠端 git 儲存庫"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
-msgstr "提交檔案"
+msgstr "送交檔案"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:22
 msgid "Retrieve patch from a commit"
-msgstr "自提交抓取修補檔 (patch)"
+msgstr "自送交抓取修補檔 (patch)"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
-msgstr "瀏覽版本庫歷史記錄"
+msgstr "瀏覽儲存庫歷史記錄"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
-msgstr "要產生提交的暫存區域"
+msgstr "要產生送交的暫存區域"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:40
 msgid "Commit staged changes"
-msgstr "提交暫存變更"
+msgstr "送交暫存變更"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
-msgstr "顯示最近使用版本庫的概覽"
+msgstr "顯示最近使用儲存庫的概覽"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
-msgid "The GNOME Project"
-msgstr "GNOME 專案"
+#: data/org.gnome.gitg.appdata.xml.in.in:157
+msgid "The Gitg Team"
+msgstr "Gitg 團隊"
+
+#: data/org.gnome.gitg.desktop.in.in:3
+msgid "@binary@"
+msgstr "@binary@"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
-msgstr "Git 版本庫瀏覽器"
+msgstr "Git 儲存庫瀏覽器"
 
-#: data/org.gnome.gitg.gschema.xml.in:27
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "新開視窗"
+
+#: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
 msgstr "預設重製目錄"
 
-#: data/org.gnome.gitg.gschema.xml.in:28
+#: data/org.gnome.gitg.gschema.xml.in:29
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
-msgstr "新版本庫重製時應放置的預設目錄。"
+msgstr "新儲存庫重製時應放置的預設目錄。"
 
-#: data/org.gnome.gitg.gschema.xml.in:37
+#: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "主介面的方向 (垂直或水平)"
 
-#: data/org.gnome.gitg.gschema.xml.in:38
+#: data/org.gnome.gitg.gschema.xml.in:39
 msgid "Setting that sets the orientation of the main interface."
 msgstr "調整主介面方向的設定。"
 
-#: data/org.gnome.gitg.gschema.xml.in:44
+#: data/org.gnome.gitg.gschema.xml.in:45
 msgid "Default Activity"
 msgstr "預設活動"
 
-#: data/org.gnome.gitg.gschema.xml.in:45
+#: data/org.gnome.gitg.gschema.xml.in:46
 msgid "The activity which gitg activates by default when first launched."
 msgstr "當第一次執行時 gitg 預設使用的活動。"
 
-#: data/org.gnome.gitg.gschema.xml.in:51
+#: data/org.gnome.gitg.gschema.xml.in:52
 msgid "Use Default Font"
 msgstr "使用預設字型"
 
-#: data/org.gnome.gitg.gschema.xml.in:52
+#: data/org.gnome.gitg.gschema.xml.in:53
 msgid ""
 "Whether to use the system’s default fixed width font for widget's text "
 "instead of a font specific. If this option is turned off, then the font "
@@ -126,59 +134,59 @@ msgstr ""
 "輯器字型」選項中的字型名稱，而非系統字型。"
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
-#: data/org.gnome.gitg.gschema.xml.in:56
+#: data/org.gnome.gitg.gschema.xml.in:57
 msgid "'Monospace 12'"
 msgstr "'Monospace 12'"
 
-#: data/org.gnome.gitg.gschema.xml.in:57
+#: data/org.gnome.gitg.gschema.xml.in:58
 msgid "Editor Font"
 msgstr "編輯器字型"
 
-#: data/org.gnome.gitg.gschema.xml.in:58
+#: data/org.gnome.gitg.gschema.xml.in:59
 msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
 msgstr "會用於文字元件的自訂字型。這只會在「使用預設字型」選項關閉時有效。"
 
-#: data/org.gnome.gitg.gschema.xml.in:62
+#: data/org.gnome.gitg.gschema.xml.in:63
 msgid "Use Gravatar"
 msgstr "使用 Gravatar"
 
-#: data/org.gnome.gitg.gschema.xml.in:63
+#: data/org.gnome.gitg.gschema.xml.in:64
 msgid "Enable the use of gravatar to display user avatars."
 msgstr "啟用 gravatar 來顯示使用者大頭貼。"
 
-#: data/org.gnome.gitg.gschema.xml.in:69
+#: data/org.gnome.gitg.gschema.xml.in:70
 msgid "Enable Monitoring"
 msgstr "啟用監控"
 
-#: data/org.gnome.gitg.gschema.xml.in:70
+#: data/org.gnome.gitg.gschema.xml.in:71
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "當檢測到.git 外部變更時自動更新"
 
-#: data/org.gnome.gitg.gschema.xml.in:76
+#: data/org.gnome.gitg.gschema.xml.in:77
 msgid "Enable Diff Highlighting"
 msgstr "啟用 Diff 色彩標示"
 
-#: data/org.gnome.gitg.gschema.xml.in:77
+#: data/org.gnome.gitg.gschema.xml.in:78
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr "決定在 diff 檢視中啟用語法色彩標示的設定值。"
 
-#: data/org.gnome.gitg.gschema.xml.in:84
+#: data/org.gnome.gitg.gschema.xml.in:85
 msgid "Color scheme to use for syntax highlighting"
 msgstr "用於語法標示的色彩機制"
 
-#: data/org.gnome.gitg.gschema.xml.in:85
+#: data/org.gnome.gitg.gschema.xml.in:86
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr "會被 GtkSourceView 用來決定語法標示顏色"
 
-#: data/org.gnome.gitg.gschema.xml.in:91
+#: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
 msgstr "收疊未使用窗格的時間"
 
-#: data/org.gnome.gitg.gschema.xml.in:92
+#: data/org.gnome.gitg.gschema.xml.in:93
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -186,7 +194,7 @@ msgstr ""
 "指示何時該收疊未使用窗格的設定值。有效的值有 0 — 4，0 代表「快」，而 4 代表"
 "「慢」。"
 
-#: data/org.gnome.gitg.gschema.xml.in:99
+#: data/org.gnome.gitg.gschema.xml.in:100
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -197,247 +205,275 @@ msgstr ""
 "境下提供較清靜的歷史檢視。請查看 collapse-inactive-lanes 以控制何時應該收疊窗"
 "格。"
 
-#: data/org.gnome.gitg.gschema.xml.in:108
+#: data/org.gnome.gitg.gschema.xml.in:109
 msgid "Show History in Topological Order"
 msgstr "以拓樸順序顯示歷史"
 
-#: data/org.gnome.gitg.gschema.xml.in:109
+#: data/org.gnome.gitg.gschema.xml.in:110
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "指示是否要以拓樸順序顯示歷史的設定值。"
 
-#: data/org.gnome.gitg.gschema.xml.in:115
+#: data/org.gnome.gitg.gschema.xml.in:116
 msgid "Show Stashed Changes"
 msgstr "顯示已 stash 的變更"
 
-#: data/org.gnome.gitg.gschema.xml.in:116
+#: data/org.gnome.gitg.gschema.xml.in:117
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr "指示是否要在歷史中為 stash 顯示條目。"
 
-#: data/org.gnome.gitg.gschema.xml.in:123
+#: data/org.gnome.gitg.gschema.xml.in:124
 msgid "Show Staged Changes"
 msgstr "顯示已暫存的變更"
 
-#: data/org.gnome.gitg.gschema.xml.in:124
+#: data/org.gnome.gitg.gschema.xml.in:125
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
 msgstr "指示是否要在歷史中為目前暫存的變動顯示虛擬條目的設定值。"
 
-#: data/org.gnome.gitg.gschema.xml.in:131
+#: data/org.gnome.gitg.gschema.xml.in:132
 msgid "Show Unstaged Changes"
 msgstr "顯示已取消暫存的變更"
 
-#: data/org.gnome.gitg.gschema.xml.in:132
+#: data/org.gnome.gitg.gschema.xml.in:133
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
 msgstr "指示是否要在歷史中為目前取消暫存的變動顯示虛擬條目的設定值。"
 
-#: data/org.gnome.gitg.gschema.xml.in:139
+#: data/org.gnome.gitg.gschema.xml.in:140
 msgid "Mainline Head"
 msgstr "主線 Head"
 
-#: data/org.gnome.gitg.gschema.xml.in:140
+#: data/org.gnome.gitg.gschema.xml.in:141
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
 msgstr "指示是否要在歷史中為目前的 HEAD 保留主線的設定值。"
 
-#: data/org.gnome.gitg.gschema.xml.in:147
+#: data/org.gnome.gitg.gschema.xml.in:148
 msgid "Default selection of the history activity"
 msgstr "歷史活動的預設選項"
 
-#: data/org.gnome.gitg.gschema.xml.in:148
+#: data/org.gnome.gitg.gschema.xml.in:149
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr "設定歷史活動啟動時的預設選擇區域。"
 
-#: data/org.gnome.gitg.gschema.xml.in:154
+#: data/org.gnome.gitg.gschema.xml.in:155
 msgid "Reference Sort Order"
 msgstr "參照排列次序"
 
-#: data/org.gnome.gitg.gschema.xml.in:155
+#: data/org.gnome.gitg.gschema.xml.in:156
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "歷史側邊欄中的應依哪參照排序。"
 
-#: data/org.gnome.gitg.gschema.xml.in:161
+#: data/org.gnome.gitg.gschema.xml.in:162
 msgid "Show Upstream With Branch"
 msgstr "在分支顯示上游"
 
-#: data/org.gnome.gitg.gschema.xml.in:162
+#: data/org.gnome.gitg.gschema.xml.in:163
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr "決定在歷史檢視中選擇本地端分支時是否同時顯示上游 (遠端) 追蹤分支。"
 
-#: data/org.gnome.gitg.gschema.xml.in:178
-msgid "Show Right Margin in Commit Message View"
-msgstr "在提交訊息檢視顯示右邊界"
+#: data/org.gnome.gitg.gschema.xml.in:172
+msgid "Switch to the new branch on creation"
+msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:179
+#: data/org.gnome.gitg.gschema.xml.in:173
+msgid ""
+"Setting that controls whether the newly created branch is checked out "
+"automatically."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:188
+msgid "Show Right Margin in Commit Message View"
+msgstr "在送交訊息檢視顯示右邊界"
+
+#: data/org.gnome.gitg.gschema.xml.in:189
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
-"在提交訊息檢視中顯示右邊界。這可以用來輕鬆的看出在特定欄中的何處中斷提交訊"
+"在送交訊息檢視中顯示右邊界。這可以用來輕鬆的看出在特定欄中的何處中斷送交訊"
 "息。"
 
-#: data/org.gnome.gitg.gschema.xml.in:187
+#: data/org.gnome.gitg.gschema.xml.in:197
 msgid "Column at Which Right Margin is Shown"
 msgstr "顯示右邊邊界於哪一欄"
 
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:198
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr "如果 show-right-margin 偏好設定設為「TRUE」時右邊界要顯示在哪一欄。"
 
-#: data/org.gnome.gitg.gschema.xml.in:195
+#: data/org.gnome.gitg.gschema.xml.in:205
 msgid "Show Subject Margin in Commit Message View"
-msgstr "在提交訊息檢視顯示主旨邊界"
+msgstr "在送交訊息檢視顯示主旨邊界"
 
-#: data/org.gnome.gitg.gschema.xml.in:196
+#: data/org.gnome.gitg.gschema.xml.in:206
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
 msgstr ""
-"當被送至 subject-margin-position 指定的邊界時強調顯示提交訊息的主旨文字。"
+"當被送至 subject-margin-position 指定的邊界時強調顯示送交訊息的主旨文字。"
 
-#: data/org.gnome.gitg.gschema.xml.in:203
+#: data/org.gnome.gitg.gschema.xml.in:213
 msgid "Column at Which Subject Margin is Shown"
 msgstr "顯示主旨邊界於哪一欄"
 
-#: data/org.gnome.gitg.gschema.xml.in:204
+#: data/org.gnome.gitg.gschema.xml.in:214
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
 msgstr "如果 show-subject-margin 偏好設定設為「TRUE」時顯示主旨邊界於哪一欄。"
 
-#: data/org.gnome.gitg.gschema.xml.in:211
+#: data/org.gnome.gitg.gschema.xml.in:221
 msgid "Enable Spell Checking"
 msgstr "啟用拼字檢查"
 
-#: data/org.gnome.gitg.gschema.xml.in:212
+#: data/org.gnome.gitg.gschema.xml.in:222
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
-msgstr "設定編寫提交訊息時是否啟用拼字檢查。"
+msgstr "設定編寫送交訊息時是否啟用拼字檢查。"
 
-#: data/org.gnome.gitg.gschema.xml.in:219
+#: data/org.gnome.gitg.gschema.xml.in:229
 msgid "Spell Checking Language"
 msgstr "拼字檢查語言"
 
-#: data/org.gnome.gitg.gschema.xml.in:220
+#: data/org.gnome.gitg.gschema.xml.in:230
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
-msgstr "當編寫提交訊息時啟用拼字檢查要使用哪種語言。"
+msgstr "當編寫送交訊息時啟用拼字檢查要使用哪種語言。"
 
-#: data/org.gnome.gitg.gschema.xml.in:227
+#: data/org.gnome.gitg.gschema.xml.in:237
 msgid "Maximum number of previous commit messages"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:228
+#: data/org.gnome.gitg.gschema.xml.in:238
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:232
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid "Maximum number of days to store previous commit messages"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:233
+#: data/org.gnome.gitg.gschema.xml.in:243
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:239
+#: data/org.gnome.gitg.gschema.xml.in:247
+#: data/org.gnome.gitg.gschema.xml.in:248
+msgid "Type of datetime format selected."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:254
+msgid "Preferred datetime format of the user."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:255
+msgid "The datetime format to be used in commit-diff."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:261
+#: data/org.gnome.gitg.gschema.xml.in:262
+msgid "Custom datetime format."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:270
 msgid "Use patience algorithm to show diffs"
 msgstr "使用耐心算法 (patience algorithm) 顯示差異"
 
-#: data/org.gnome.gitg.gschema.xml.in:240
+#: data/org.gnome.gitg.gschema.xml.in:271
 msgid "Setting to use patience algorithm to show diffs of a commit."
-msgstr "設定此選項以使用耐心算法 (patience algorithm) 來顯示提交差異。"
+msgstr "設定此選項以使用耐心算法 (patience algorithm) 來顯示送交差異。"
 
-#: data/org.gnome.gitg.gschema.xml.in:246
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Ignore Whitespace Changes"
 msgstr "忽略空白字元的變更"
 
-#: data/org.gnome.gitg.gschema.xml.in:247
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
-msgstr "指示在顯示提交的 diff 時，是否要忽略空白字元變更的設定值。"
+msgstr "指示在顯示送交的 diff 時，是否要忽略空白字元變更的設定值。"
 
-#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid "Show Changes Inline"
 msgstr "顯示行內變更"
 
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:286
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr "設定在行內的變更是否以行內顯示。"
 
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid "Wrap"
 msgstr "換列"
 
-#: data/org.gnome.gitg.gschema.xml.in:263
+#: data/org.gnome.gitg.gschema.xml.in:294
 msgid "Wrap lines."
 msgstr "換列。"
 
-#: data/org.gnome.gitg.gschema.xml.in:269
-#: data/org.gnome.gitg.gschema.xml.in:287
+#: data/org.gnome.gitg.gschema.xml.in:300
+#: data/org.gnome.gitg.gschema.xml.in:318
 msgid "Number of Before/After Context Lines"
 msgstr "之前/之後前後文列數"
 
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
-msgstr "設定顯示提交的 diff 時要顯示多少列前後文 (之前與之後)。"
+msgstr "設定顯示送交的 diff 時要顯示多少列前後文 (之前與之後)。"
 
-#: data/org.gnome.gitg.gschema.xml.in:277
-#: data/org.gnome.gitg.gschema.xml.in:296
+#: data/org.gnome.gitg.gschema.xml.in:308
+#: data/org.gnome.gitg.gschema.xml.in:327
 msgid "Rendered Width of a Tab Character"
 msgstr "Tab 字元轉換寬度"
 
-#: data/org.gnome.gitg.gschema.xml.in:278
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:309
+#: data/org.gnome.gitg.gschema.xml.in:328
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
-msgstr "設定顯示提交的 diff 時 tab 字元要占多少空間。"
+msgstr "設定顯示送交的 diff 時 tab 字元要占多少空間。"
 
-#: data/org.gnome.gitg.gschema.xml.in:288
+#: data/org.gnome.gitg.gschema.xml.in:319
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
-"設定提交區域中要顯示 diff 以暫存或 unstage 時，應該要顯示多少列前後文的設定"
+"設定送交區域中要顯示 diff 以暫存或 unstage 時，應該要顯示多少列前後文的設定"
 "值。"
 
-#: gitg/commit/gitg-commit-dialog.vala:555 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
-msgstr "沒有要提交的改變"
+msgstr "沒有要送交的改變"
 
-#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
 msgid "Use amend to change the commit message of the previous commit"
-msgstr "使用修訂以變更前次提交的提交訊息"
+msgstr "使用修訂以變更前次送交的送交訊息"
 
 #: gitg/commit/gitg-commit.vala:113
 msgctxt "Activity"
 msgid "Commit"
-msgstr "提交"
+msgstr "送交"
 
 #: gitg/commit/gitg-commit.vala:118
 msgid "Create new commits and manage the staging area"
-msgstr "建立新的提交並管理暫存區域"
+msgstr "建立新的送交並管理暫存區域"
 
 #: gitg/commit/gitg-commit.vala:207
 msgid "_Stage selection"
@@ -451,14 +487,14 @@ msgstr "無法暫存子模組「%s」的移除"
 #: gitg/commit/gitg-commit.vala:262
 #, c-format
 msgid "Failed to open the repository of submodule “%s” while trying to stage"
-msgstr "試圖暫存時無法開啟子模組「%s」的版本庫"
+msgstr "試圖暫存時無法開啟子模組「%s」的儲存庫"
 
 #: gitg/commit/gitg-commit.vala:277
 #, c-format
 msgid ""
 "Failed to lookup the working directory commit of submodule “%s” while trying "
 "to stage"
-msgstr "試圖暫存時無法查詢子模組「%s」的工作目錄提交"
+msgstr "試圖暫存時無法查詢子模組「%s」的工作目錄送交"
 
 #: gitg/commit/gitg-commit.vala:290
 #, c-format
@@ -475,165 +511,171 @@ msgstr "無法暫存檔案「%s」的移除"
 msgid "Failed to stage the file “%s”"
 msgstr "無法暫存檔案「%s」"
 
-#: gitg/commit/gitg-commit.vala:598
+#: gitg/commit/gitg-commit.vala:599
 msgid "_Unstage selection"
 msgstr "取消暫存選擇(_U)"
 
-#: gitg/commit/gitg-commit.vala:664
+#: gitg/commit/gitg-commit.vala:665
 #, c-format
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "無法取消暫存檔案「%s」的移除"
 
-#: gitg/commit/gitg-commit.vala:665
+#: gitg/commit/gitg-commit.vala:666
 #, c-format
 msgid "Failed to unstage the file “%s”"
 msgstr "無法取消暫存檔案「%s」"
 
-#: gitg/commit/gitg-commit.vala:672
+#: gitg/commit/gitg-commit.vala:673
 #, c-format
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "無法取消暫存子模組「%s」的移除"
 
-#: gitg/commit/gitg-commit.vala:673
+#: gitg/commit/gitg-commit.vala:674
 #, c-format
 msgid "Failed to unstage the submodule “%s”"
 msgstr "無法取消暫存子模組「%s」"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:877
+#: gitg/commit/gitg-commit.vala:882
 msgid "Staged"
 msgstr "已 stage"
 
-#: gitg/commit/gitg-commit.vala:885
+#: gitg/commit/gitg-commit.vala:890
 msgid "No staged files"
 msgstr "未暫存的檔案"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:908
+#: gitg/commit/gitg-commit.vala:913
 msgid "Unstaged"
 msgstr "未 stage"
 
-#: gitg/commit/gitg-commit.vala:916
+#: gitg/commit/gitg-commit.vala:921
 msgid "No unstaged files"
 msgstr "未暫存檔案"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:939
+#: gitg/commit/gitg-commit.vala:944
 msgid "Untracked"
 msgstr "未追蹤"
 
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:948
 msgid "No untracked files"
 msgstr "無未追蹤的檔案"
 
-#: gitg/commit/gitg-commit.vala:968
+#: gitg/commit/gitg-commit.vala:973
 msgid "Submodule"
 msgstr "子模組"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:977
 msgid "No dirty submodules"
 msgstr "不允許粗糙子模組"
 
-#: gitg/commit/gitg-commit.vala:1121
+#: gitg/commit/gitg-commit.vala:1131
 msgid "Failed to commit"
-msgstr "提交失敗"
+msgstr "送交失敗"
 
-#: gitg/commit/gitg-commit.vala:1137
+#: gitg/commit/gitg-commit.vala:1147
 msgid "Failed to pass pre-commit"
-msgstr "送出預先提交失敗"
+msgstr "送出預先送交失敗"
 
-#: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
+#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
 msgid "Discard changes"
 msgstr "放棄變更"
 
-#: gitg/commit/gitg-commit.vala:1303
+#: gitg/commit/gitg-commit.vala:1316
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "確定要永久放棄選取的變更嗎？"
 
-#: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
-#: gitg/commit/gitg-commit.vala:1593
-#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
-#: gitg/gitg-window.vala:204 gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1606
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
+#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
+#: gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:152
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
+#: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-simple-notification.ui:61
+#: gitg/resources/ui/gitg-window.ui:154
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: gitg/commit/gitg-commit.vala:1313 gitg/commit/gitg-commit.vala:1479
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
 msgid "Discard"
 msgstr "放棄"
 
-#: gitg/commit/gitg-commit.vala:1342
+#: gitg/commit/gitg-commit.vala:1355
 msgid "Failed to discard selection"
 msgstr "無法放棄選取項目"
 
-#: gitg/commit/gitg-commit.vala:1372
+#: gitg/commit/gitg-commit.vala:1385
 msgid "Failed to stage selection"
 msgstr "無法暫存選擇"
 
-#: gitg/commit/gitg-commit.vala:1376
+#: gitg/commit/gitg-commit.vala:1389
 msgid "Failed to unstage selection"
 msgstr "無法取消暫存選擇"
 
-#: gitg/commit/gitg-commit.vala:1436
+#: gitg/commit/gitg-commit.vala:1449
 msgid "Failed to discard changes"
 msgstr "無法放棄變更"
 
-#: gitg/commit/gitg-commit.vala:1457
+#: gitg/commit/gitg-commit.vala:1470
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
 msgstr "您確定要永久放棄對檔案「%s」所進行的所有變更？"
 
-#: gitg/commit/gitg-commit.vala:1468
+#: gitg/commit/gitg-commit.vala:1481
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
 msgstr "您確定要永久放棄對檔案 %s 與「%s」所進行的所有變更？"
 
-#: gitg/commit/gitg-commit.vala:1551
+#: gitg/commit/gitg-commit.vala:1564
 msgid "Failed to delete files"
 msgstr "無法刪除檔案"
 
-#: gitg/commit/gitg-commit.vala:1567
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "刪除檔案"
 
-#: gitg/commit/gitg-commit.vala:1572
+#: gitg/commit/gitg-commit.vala:1585
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "確定要永遠刪除檔案「%s」嗎？"
 
-#: gitg/commit/gitg-commit.vala:1583
+#: gitg/commit/gitg-commit.vala:1596
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "確定要永遠刪除檔案「%s」與「%s」嗎？"
 
-#: gitg/commit/gitg-commit.vala:1629
+#: gitg/commit/gitg-commit.vala:1642
 msgid "_Stage changes"
 msgstr "暫存變更(_S)"
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1654
 msgid "_Unstage changes"
 msgstr "取消暫存變更(_U)"
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1666
 msgid "_Discard changes"
 msgstr "放棄變更(_D)"
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1678
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "刪除檔案(_E)"
 
-#: gitg/commit/gitg-commit.vala:1695
+#: gitg/commit/gitg-commit.vala:1708
 msgid "_Edit file"
 msgstr "編輯檔案(_E)"
 
@@ -654,10 +696,9 @@ msgstr "您的工作目錄中似乎有未暫存的變更。您是否想要在檢
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
-#: gitg/gitg-ref-action-merge.vala:194
-#: gitg/resources/ui/gitg-remote-notification.ui:30
-#: gitg/resources/ui/gitg-simple-notification.ui:61
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
+#: libgitg/gitg-repository-list-box.vala:567
 msgid "Cancel"
 msgstr "取消"
 
@@ -681,57 +722,103 @@ msgstr "無法獲得作者詳細資料"
 #: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
 #, c-format
 msgid "Failed to lookup commit: %s"
-msgstr "查詢提交失敗：%s"
+msgstr "查詢送交失敗：%s"
 
 #: gitg/gitg-action-support.vala:255
 #, c-format
 msgid "Failed to create commit: %s"
-msgstr "建立提交失敗：%s"
+msgstr "建立送交失敗：%s"
 
 #: gitg/gitg-action-support.vala:277
 #, c-format
 msgid "Failed to checkout index: %s"
 msgstr "無法檢出索引：%s"
 
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-add-remote-action.vala:46
+msgid "Add Remote"
+msgstr "加入遠端"
+
+#: gitg/gitg-add-remote-action.vala:51
+msgid "Adds remote to the remotes list"
+msgstr ""
+
+#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from %s"
+msgstr "正在從 %s 取回"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+msgid "new"
+msgstr "新的"
+
+#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "從 %s 取回失敗：%s"
+
+#: gitg/gitg-add-remote-action.vala:78
+#, fuzzy
+#| msgid "Failed to add repository"
+msgid "Failed to fetch added remote"
+msgstr "無法加入儲存庫"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "已從 %s 取回：%s"
+
+#: gitg/gitg-add-remote-action.vala:129
+#, fuzzy
+#| msgid "Failed to add repository"
+msgid "Failed to add remote"
+msgstr "無法加入儲存庫"
+
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "顯示應用程式的版本"
 
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "以特定活動啟動 gitg"
 
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
-msgstr "以提交活動啟動 gitg (--activity 提交的簡寫)"
+msgstr "以送交活動啟動 gitg (--activity 送交的簡寫)"
 
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
-msgstr "不要嘗試從目前工作目錄載入版本庫"
+msgstr "不要嘗試從目前工作目錄載入儲存庫"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "以獨立模式執行 gitg"
 
-#: gitg/gitg-application.vala:92
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr ""
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
-msgstr "— Git 版本庫檢視器"
+msgstr "— Git 儲存庫檢視器"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
-msgstr "gitg 是為 GTK+/GNOME 設計的 Git 版本庫檢視器"
+msgstr "gitg 是為 GTK+/GNOME 設計的 Git 儲存庫檢視器"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr ""
 "Cheng-Chia Tseng <pswo10680@gmail.com>, 2013.\n"
 "Yi-Jyun Pan <pan93412@gmail.com>, 2018."
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "gitg 首頁"
 
-#: gitg/gitg-application.vala:368
+#: gitg/gitg-application.vala:399
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -749,23 +836,23 @@ msgstr ""
 "\n"
 "否則，請在您的散布版錯誤回報系統中回報，指出 libgit2 未提供執行緒支援。"
 
-#: gitg/gitg-author-details-dialog.vala:97
-#: gitg/gitg-author-details-dialog.vala:117
+#: gitg/gitg-author-details-dialog.vala:79
+#: gitg/gitg-author-details-dialog.vala:99
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "作者詳細資訊"
 
-#: gitg/gitg-author-details-dialog.vala:98
+#: gitg/gitg-author-details-dialog.vala:80
 msgid "Enter default details used for all repositories:"
-msgstr "輸入所有版本庫的預設詳細資料："
+msgstr "輸入所有儲存庫的預設詳細資料："
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:120
+#: gitg/gitg-author-details-dialog.vala:102
 #, c-format
 msgid "Override global details for repository “%s”:"
-msgstr "覆蓋版本庫「%s」的全域詳細資料："
+msgstr "覆蓋儲存庫「%s」的全域詳細資料："
 
-#: gitg/gitg-author-details-dialog.vala:232
+#: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
 msgstr "無法設定 Git 使用者組態。"
 
@@ -779,17 +866,18 @@ msgstr "挑選到"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
-msgstr "將這個提交挑選到分支"
+msgstr "將這個送交挑選到分支"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
-#, c-format
-msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "無法查詢分支 %s 的提交：%s"
+#, fuzzy, c-format
+#| msgid "Failed to lookup the commit for branch %s: %s"
+msgid "Failed to lookup the commit for branch “%s”: %s"
+msgstr "無法查詢分支 %s 的送交：%s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
 msgid "Failed to cherry-pick the commit: %s"
-msgstr "無法挑選此提交：%s"
+msgstr "無法挑選此送交：%s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:144
 #: gitg/gitg-commit-action-cherry-pick.vala:160
@@ -797,19 +885,27 @@ msgid "Cherry pick has conflicts"
 msgstr "挑選產生衝突"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:153
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "The cherry pick of %s onto %s has caused conflicts, would you like to "
+#| "checkout branch %s with the cherry pick to your working directory to "
+#| "resolve the conflicts?"
 msgid ""
-"The cherry pick of %s onto %s has caused conflicts, would you like to "
-"checkout branch %s with the cherry pick to your working directory to resolve "
-"the conflicts?"
+"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
+"checkout branch “%s” with the cherry pick to your working directory to "
+"resolve the conflicts?"
 msgstr ""
 "將 %s 挑選到 %s 上的操作造成衝突，您是否想要檢出挑選的分支 %s 到您的工作目錄"
 "以解決衝突？"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "The cherry-pick of %s onto %s has caused conflicts, would you like to "
+#| "checkout the cherry pick to your working directory to resolve the "
+#| "conflicts?"
 msgid ""
-"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
 "將 %s 挑選到 %s 上的操作造成衝突，您是否想要檢出挑選到您的工作目錄以解決衝"
@@ -829,8 +925,9 @@ msgid "Cherry pick finished with conflicts in working directory"
 msgstr "工作目錄中的挑選以發生衝突的狀況結束"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
-#, c-format
-msgid "Cherry pick %s onto %s"
+#, fuzzy, c-format
+#| msgid "Cherry pick %s onto %s"
+msgid "Cherry pick “%s” onto “%s”"
 msgstr "挑選 %s 到 %s 上"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
@@ -838,8 +935,9 @@ msgid "Successfully cherry picked"
 msgstr "成功進行挑選"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
-#, c-format
-msgid "Cherry pick onto %s"
+#, fuzzy, c-format
+#| msgid "Cherry pick onto %s"
+msgid "Cherry pick onto “%s”"
 msgstr "挑選到 %s 上"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
@@ -848,9 +946,10 @@ msgstr "建立分支"
 
 #: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
-msgstr "以選取的提交建立新的分支"
+msgstr "以選取的送交建立新的分支"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
+#: gitg/gitg-ref-action-checkout.vala:180
 msgid "Failed to create branch"
 msgstr "無法建立分支"
 
@@ -860,7 +959,7 @@ msgstr "建立修補"
 
 #: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
-msgstr "以選取的提交建立新的修補檔"
+msgstr "以選取的送交建立新的修補檔"
 
 #: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
@@ -880,7 +979,7 @@ msgstr "建立標籤"
 
 #: gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
-msgstr "以選取的提交建立新的標籤"
+msgstr "以選取的送交建立新的標籤"
 
 #: gitg/gitg-commit-action-create-tag.vala:92
 msgid "Failed to create tag"
@@ -902,52 +1001,68 @@ msgstr "選擇與管理專案"
 msgid "_Remove"
 msgstr "移除(_R)"
 
+#: gitg/gitg-dash-view.vala:190
+msgid "_Delete sources"
+msgstr "刪除來源(_D)"
+
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: gitg/gitg-dash-view.vala:230
+#: gitg/gitg-dash-view.vala:246
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
-msgstr "我們也可以 %s掃描您的家目錄%s 尋找 git 版本庫。"
+msgstr "我們也可以 %s掃描您的家目錄%s 尋找 git 儲存庫。"
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: gitg/gitg-dash-view.vala:233
+#: gitg/gitg-dash-view.vala:249
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "在此同時，您可能會想要 %s設定您的 git 設定檔%s。"
 
-#: gitg/gitg-dash-view.vala:398
+#: gitg/gitg-dash-view.vala:414
 msgid "Failed to clone repository"
-msgstr "無法重製版本庫"
-
-#: gitg/gitg-dash-view.vala:429
-msgid "Failed to add repository"
-msgstr "無法加入版本庫"
+msgstr "無法重製儲存庫"
 
 #: gitg/gitg-dash-view.vala:445
+msgid "Failed to add repository"
+msgstr "無法加入儲存庫"
+
+#: gitg/gitg-dash-view.vala:461
 msgid "Create new repository"
-msgstr "建立新版本庫"
+msgstr "建立新儲存庫"
 
 #. Translators: %s is a file name
-#: gitg/gitg-dash-view.vala:448
+#: gitg/gitg-dash-view.vala:464
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
-"位置 <i>%s</i> 似乎不是有效的 git 版本庫。您想要在這個位置初始化一個新的 git "
-"版本庫嗎？"
-
-#: gitg/gitg-dash-view.vala:454
-msgid "Create repository"
-msgstr "建立版本庫"
+"位置 <i>%s</i> 似乎不是有效的 git 儲存庫。您想要在這個位置初始化一個新的 git "
+"儲存庫嗎？"
 
 #: gitg/gitg-dash-view.vala:470
-msgid "Failed to create repository"
-msgstr "無法建立版本庫"
+msgid "Create repository"
+msgstr "建立儲存庫"
 
-#: gitg/gitg-dash-view.vala:540
+#: gitg/gitg-dash-view.vala:486
+msgid "Failed to create repository"
+msgstr "無法建立儲存庫"
+
+#: gitg/gitg-dash-view.vala:556
 #, c-format
 msgid "Scanning for repositories in %s"
-msgstr "掃描「%s」內的版本庫"
+msgstr "掃描「%s」內的儲存庫"
+
+#: gitg/gitg-edit-remote-action.vala:51
+msgid "Edit remote"
+msgstr "編輯遠端"
+
+#: gitg/gitg-edit-remote-action.vala:56
+msgid "Edits the remote from the remotes list"
+msgstr ""
+
+#: gitg/gitg-edit-remote-action.vala:82
+msgid "Failed to edit remote"
+msgstr "無法編輯遠端"
 
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
@@ -955,8 +1070,8 @@ msgstr "檢出選取的參照"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-msgid "Checkout %s"
-msgstr "檢出 %s"
+msgid "Checkout “%s”"
+msgstr "檢出「%s」"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
@@ -972,6 +1087,12 @@ msgstr "無法更新 HEAD：%s"
 msgid "Successfully checked out branch to working directory"
 msgstr "成功檢出分支到工作目錄"
 
+#: gitg/gitg-ref-action-checkout.vala:195
+#, fuzzy, c-format
+#| msgid "Failed to delete branch %s"
+msgid "Failed to set the upstream branch %s for %s"
+msgstr "刪除分支 %s 失敗"
+
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
 msgstr "複製名稱"
@@ -979,6 +1100,32 @@ msgstr "複製名稱"
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "將參照的名稱複製到剪貼簿"
+
+#: gitg/gitg-ref-action-create-branch.vala:46
+#, fuzzy
+#| msgid "Create a new branch at the selected commit"
+msgid "Create a new branch at the selected reference"
+msgstr "以選取的送交建立新的分支"
+
+#: gitg/gitg-ref-action-create-branch.vala:58
+#: gitg/gitg-ref-action-create-patch.vala:58
+#: gitg/gitg-ref-action-create-tag.vala:58
+#, fuzzy
+#| msgid "Failed to lookup tag"
+msgid "Failed to lookup reference"
+msgstr "搜尋標籤失敗"
+
+#: gitg/gitg-ref-action-create-patch.vala:46
+#, fuzzy
+#| msgid "Create a patch from the selected commit"
+msgid "Create a patch from the selected reference"
+msgstr "以選取的送交建立新的修補檔"
+
+#: gitg/gitg-ref-action-create-tag.vala:46
+#, fuzzy
+#| msgid "Create a new tag at the selected commit"
+msgid "Create a new tag at the selected reference"
+msgstr "以選取的送交建立新的標籤"
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
@@ -1042,48 +1189,112 @@ msgstr "刪除分支 %s 失敗"
 msgid "The branch %s could not be deleted: %s"
 msgstr "分支 %s 無法被刪除：%s"
 
-#: gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
 msgstr "從 %s 取回"
 
-#: gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "從 %s 取回遠端物件"
 
-#: gitg/gitg-ref-action-fetch.vala:98
-#, c-format
-msgid "Fetching from %s"
-msgstr "正在從 %s 取回"
-
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-ref-action-fetch.vala:106
-msgid "new"
-msgstr "新的"
-
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "已更新"
 
-#: gitg/gitg-ref-action-fetch.vala:121
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr "從 %s 取回失敗：%s"
-
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
 msgstr "從 %s 取回：一切都是最新的"
 
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-ref-action-fetch.vala:140
+#: gitg/gitg-ref-action-merge.vala:63
 #, c-format
-msgid "Fetched from %s: %s"
-msgstr "已從 %s 取回：%s"
+msgid "Merge into %s"
+msgstr "合併到 %s"
+
+#. TODO
+#: gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr "從另一個分支合併到分支 %s"
+
+#: gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "無法合併送交：%s"
+
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr "合併有衝突"
+
+#: gitg/gitg-ref-action-merge.vala:184
+#, fuzzy, c-format
+#| msgid ""
+#| "The merge of %s into %s has caused conflicts, would you like to checkout "
+#| "branch %s with the merge to your working directory to resolve the "
+#| "conflicts?"
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"branch “%s” with the merge to your working directory to resolve the "
+"conflicts?"
+msgstr ""
+"將 %s 合併到 %s 上的操作造成衝突，您是否想要檢出合併的分支 %s 到您的工作目錄"
+"以解決衝突？"
+
+#: gitg/gitg-ref-action-merge.vala:188
+#, fuzzy, c-format
+#| msgid ""
+#| "The merge of %s into %s has caused conflicts, would you like to checkout "
+#| "the merge to your working directory to resolve the conflicts?"
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"the merge to your working directory to resolve the conflicts?"
+msgstr ""
+"將 %s 合併到 %s 上的操作造成衝突，您是否想要檢出合併到您的工作目錄以解決衝"
+"突？"
+
+#: gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr "合併因衝突失敗"
+
+#: gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr "工作目錄中的合併以發生衝突的狀況結束"
+
+#: gitg/gitg-ref-action-merge.vala:222
+#, fuzzy, c-format
+#| msgid "Merge %s into %s"
+msgid "Merge “%s” into “%s”"
+msgstr "合併 %s 到 %s"
+
+#: gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "無法查詢我們的送交：%s"
+
+#: gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr "無法查詢他們的送交：%s"
+
+#: gitg/gitg-ref-action-merge.vala:278
+#, fuzzy, c-format
+#| msgid "Successfully merged %s into %s"
+msgid "Successfully merged “%s” into “%s”"
+msgstr "已成功合併 %s 到 %s"
+
+#: gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge “%s” into branch “%s”"
+msgstr "將「%s」合併到「%s」分支"
+
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1199
+msgid "Tags"
+msgstr "標籤"
 
 #: gitg/gitg-ref-action-push.vala:80
 #, c-format
@@ -1125,82 +1336,6 @@ msgstr "您確定推送分支 %s？"
 msgid "Push"
 msgstr "推送"
 
-#: gitg/gitg-ref-action-merge.vala:63
-#, c-format
-msgid "Merge into %s"
-msgstr "合併到 %s"
-
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
-#, c-format
-msgid "Merge another branch into branch %s"
-msgstr "從另一個分支合併到分支 %s"
-
-#: gitg/gitg-ref-action-merge.vala:106
-#, c-format
-msgid "Failed to merge commits: %s"
-msgstr "無法合併提交：%s"
-
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
-msgid "Merge has conflicts"
-msgstr "合併有衝突"
-
-#: gitg/gitg-ref-action-merge.vala:184
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout "
-"branch %s with the merge to your working directory to resolve the conflicts?"
-msgstr ""
-"將 %s 合併到 %s 上的操作造成衝突，您是否想要檢出合併的分支 %s 到您的工作目錄"
-"以解決衝突？"
-
-#: gitg/gitg-ref-action-merge.vala:188
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout the "
-"merge to your working directory to resolve the conflicts?"
-msgstr ""
-"將 %s 合併到 %s 上的操作造成衝突，您是否想要檢出合併到您的工作目錄以解決衝"
-"突？"
-
-#: gitg/gitg-ref-action-merge.vala:199
-msgid "Merge failed with conflicts"
-msgstr "合併因衝突失敗"
-
-#: gitg/gitg-ref-action-merge.vala:210
-msgid "Finished merge with conflicts in working directory"
-msgstr "工作目錄中的合併以發生衝突的狀況結束"
-
-#: gitg/gitg-ref-action-merge.vala:222
-#, c-format
-msgid "Merge %s into %s"
-msgstr "合併 %s 到 %s"
-
-#: gitg/gitg-ref-action-merge.vala:231
-#, c-format
-msgid "Failed to lookup our commit: %s"
-msgstr "無法查詢我們的提交：%s"
-
-#: gitg/gitg-ref-action-merge.vala:241
-#, c-format
-msgid "Failed to lookup their commit: %s"
-msgstr "無法查詢他們的提交：%s"
-
-#: gitg/gitg-ref-action-merge.vala:278
-#, c-format
-msgid "Successfully merged %s into %s"
-msgstr "已成功合併 %s 到 %s"
-
-#: gitg/gitg-ref-action-merge.vala:320
-#, c-format
-msgid "Merge %s into branch %s"
-msgstr "合併 %s 到分支 %s"
-
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1179
-msgid "Tags"
-msgstr "標籤"
-
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr "重新命名"
@@ -1209,75 +1344,115 @@ msgstr "重新命名"
 msgid "Rename the selected reference"
 msgstr "重新命名所選取的參照"
 
-#: gitg/gitg-ref-action-rename.vala:100
+#: gitg/gitg-ref-action-rename.vala:104
+#, c-format
+msgid "The specified name “%s” match with existing branch “%s”"
+msgstr "指定的「%s」名稱符合既有的「%s」分支"
+
+#: gitg/gitg-ref-action-rename.vala:106 gitg/gitg-ref-action-rename.vala:118
+msgid "Invalid name"
+msgstr "無效的名稱"
+
+#: gitg/gitg-ref-action-rename.vala:116
 #, c-format
 msgid "The specified name “%s” contains invalid characters"
 msgstr "指定名稱「%s」包含無效的字元"
 
-#: gitg/gitg-ref-action-rename.vala:102
-msgid "Invalid name"
-msgstr "無效的名稱"
-
-#: gitg/gitg-ref-action-rename.vala:131
+#: gitg/gitg-ref-action-rename.vala:147
 msgid "Failed to rename"
 msgstr "無法重新命名"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
-#: gitg/resources/ui/gitg-window.ui:227
 msgid "Close"
 msgstr "關閉"
 
-#: gitg/gitg-window.vala:201
-msgid "Add Repository"
-msgstr "加入版本庫"
+#: gitg/gitg-remove-remote-action.vala:50
+msgid "Remove remote"
+msgstr "移除遠端"
 
-#: gitg/gitg-window.vala:205
+#: gitg/gitg-remove-remote-action.vala:55
+msgid "Removes remote from the remotes list"
+msgstr "從遠端清單中移除遠端"
+
+#: gitg/gitg-remove-remote-action.vala:62
+#, c-format
+msgid "Delete remote %s"
+msgstr "刪除 %s 遠端"
+
+#: gitg/gitg-remove-remote-action.vala:63
+#, c-format
+msgid "Are you sure that you want to remove the remote %s?"
+msgstr "您確定要移除 %s 遠端？"
+
+#: gitg/gitg-remove-remote-action.vala:67
+msgid "Remove"
+msgstr "移除"
+
+#: gitg/gitg-remove-remote-action.vala:91
+msgid "Failed to remove remote"
+msgstr "無法建立遠端"
+
+#: gitg/gitg-window.vala:202
+msgid "Add Repository"
+msgstr "加入儲存庫"
+
+#: gitg/gitg-window.vala:206
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
+#: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "加入(_A)"
 
-#: gitg/gitg-window.vala:207
+#: gitg/gitg-window.vala:208
 msgid "_Scan for all git repositories from this directory"
-msgstr "掃描這個目錄中所有的 git 版本庫(_S)"
+msgstr "掃描這個目錄中所有的 git 儲存庫(_S)"
 
-#: gitg/gitg-window.vala:516
+#: gitg/gitg-window.vala:517
 msgid "Projects"
 msgstr "專案"
 
-#: gitg/gitg-window.vala:815
+#: gitg/gitg-window.vala:703
+msgid "Open Repository"
+msgstr "開啟儲存庫"
+
+#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+msgid "_Open"
+msgstr "開啟(_O)"
+
+#: gitg/gitg-window.vala:846
 msgid "Select items"
 msgstr "選擇項目"
 
-#: gitg/gitg-window.vala:1026
+#: gitg/gitg-window.vala:1064
 #, c-format
 msgid "“%s” is not a Git repository."
-msgstr "「%s」不是 Git 版本庫。"
+msgstr "「%s」不是 Git 儲存庫。"
 
-#: gitg/gitg-window.vala:1175
+#: gitg/gitg-window.vala:1213
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr ""
 "您的使用者名稱與電子郵件尚未設定。請至使用者組態並提供您的姓名與電子郵件。"
 
-#: gitg/gitg-window.vala:1179
+#: gitg/gitg-window.vala:1217
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "您的使用者名稱尚未設定。請至使用者組態並提供您的姓名。"
 
-#: gitg/gitg-window.vala:1183
+#: gitg/gitg-window.vala:1221
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr "您的電子郵件尚未設定。請至使用者組態並提供您的電子郵件。"
 
-#: gitg/gitg-window.vala:1186
+#: gitg/gitg-window.vala:1224
 msgid "Missing author details"
 msgstr "缺少作者詳細資料"
 
 #: gitg/history/gitg-history-command-line.vala:42
 msgid "Select all commits by default in the history activity"
-msgstr "在歷史活動中預設選擇所有的提交"
+msgstr "在歷史活動中預設選擇所有的送交"
 
 #: gitg/history/gitg-history-command-line.vala:44
 msgid "Select all branches by default in the history activity"
@@ -1317,34 +1492,34 @@ msgstr "%zu 落後"
 #: gitg/history/gitg-history-refs-list.vala:207
 #: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
-msgstr "所有的提交"
+msgstr "所有的送交"
 
-#: gitg/history/gitg-history-refs-list.vala:1177
+#: gitg/history/gitg-history-refs-list.vala:1197
 msgid "Branches"
 msgstr "分支"
 
-#: gitg/history/gitg-history-refs-list.vala:1178
+#: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
 msgstr "遠端"
 
-#: gitg/history/gitg-history.vala:342
+#: gitg/history/gitg-history.vala:348
 #: gitg/preferences/gitg-preferences-history.vala:218
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "歷史"
 
-#: gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:353
 msgid "Examine the history of the repository"
-msgstr "檢驗版本庫的歷史"
+msgstr "檢驗儲存庫的歷史"
 
-#: gitg/history/gitg-history.vala:918
+#: gitg/history/gitg-history.vala:959
 msgid "Mainline"
 msgstr "主線"
 
-#: gitg/preferences/gitg-preferences-commit.vala:142
+#: gitg/preferences/gitg-preferences-commit.vala:180
 msgctxt "Preferences"
 msgid "Commit"
-msgstr "提交"
+msgstr "送交"
 
 #: gitg/preferences/gitg-preferences-interface.vala:142
 #, c-format
@@ -1355,13 +1530,29 @@ msgstr "使用系統的等寬字型 (%s)(_U)"
 msgid "Interface"
 msgstr "介面"
 
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
+msgid "Create Remote"
+msgstr "建立遠端"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
+msgid "Remote _name:"
+msgstr "遠端名稱(_N)："
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
+msgid "Remote _URL:"
+msgstr "遠端 _URL："
+
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "儲存(_S)"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:65
 msgid "Default details used for all repositories"
-msgstr "所有版本庫的預設詳細資料"
+msgstr "所有儲存庫的預設詳細資料"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:114
 msgid "E-mail:"
@@ -1371,17 +1562,34 @@ msgstr "電子郵件："
 msgid "Name:"
 msgstr "名稱："
 
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
+msgid "Checkout Remote Branch"
+msgstr "檢出遠端分支"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
+msgid "C_heckout"
+msgstr "檢出(_H)"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+msgid "Local branch _name:"
+msgstr "本機分支名稱(_N)："
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+msgid "_Remote branch:"
+msgstr "遠端分支(_R)："
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
+msgid "_Track remote branch"
+msgstr "追蹤遠端分支(_T)"
+
 #: gitg/resources/ui/gitg-clone-dialog.ui:7
 msgid "Clone Repository"
-msgstr "重製版本庫"
+msgstr "重製儲存庫"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:33
+#: gitg/resources/ui/gitg-window.ui:47
 msgid "Cl_one"
 msgstr "重製(_O)"
-
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-msgid "Remote _URL:"
-msgstr "遠端 _URL："
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
@@ -1398,30 +1606,38 @@ msgstr "原始檔案庫"
 #: gitg/resources/ui/gitg-commit-dialog.ui:8
 msgctxt "Create Dialog"
 msgid "Commit"
-msgstr "提交"
+msgstr "送交"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
-#: gitg/resources/ui/gitg-commit-paned.ui:86
+#: gitg/resources/ui/gitg-commit-paned.ui:111
 msgid "C_ommit"
-msgstr "提交(_O)"
+msgstr "送交(_O)"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:217
 msgid "_Amend previous commit"
-msgstr "修正上一次提交(_A)"
+msgstr "修正上一次送交(_A)"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:234
 msgid "Add _signed-off-by signature"
 msgstr "加入 _signed-off-by 簽章"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:76
-msgid "Skip commit _hooks"
-msgstr "略過提交掛鉤(_H)"
+#: gitg/resources/ui/gitg-commit-dialog.ui:251
+msgid "Add si_gnature"
+msgstr "加入簽章(_G)"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:96
+#: gitg/resources/ui/gitg-commit-paned.ui:33
+msgid "Filter Files"
+msgstr "篩選檔案"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:101
+msgid "Skip commit _hooks"
+msgstr "略過送交掛鉤(_H)"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "S_tage selection"
 msgstr "S_tage 選擇"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:107
+#: gitg/resources/ui/gitg-commit-paned.ui:132
 msgid "D_iscard selection"
 msgstr "放棄選取項目(_I)"
 
@@ -1429,7 +1645,7 @@ msgstr "放棄選取項目(_I)"
 msgid ""
 "The submodule is in a dirty state and has staged and/or unstaged changes "
 "that are not yet committed as shown below."
-msgstr "子模組處於粗糙狀態，且有尚未提交的已暫存與/或未暫存更動會顯示於下方。"
+msgstr "子模組處於粗糙狀態，且有尚未送交的已暫存與/或未暫存更動會顯示於下方。"
 
 #: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:50
 msgid "Staged:"
@@ -1451,12 +1667,18 @@ msgstr "作者"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
 #: gitg/resources/ui/gitg-history-paned.ui:127
+msgid "Committer"
+msgstr "送交者"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:74
+#: gitg/resources/ui/gitg-history-paned.ui:143
+msgid "SHA1"
+msgstr "SHA1"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:90
+#: gitg/resources/ui/gitg-history-paned.ui:159
 msgid "Date"
 msgstr "日期"
-
-#: gitg/resources/ui/gitg-commit-submodule-info.ui:70
-msgid "Open"
-msgstr "開啟"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:7
 msgid "Create Branch"
@@ -1471,6 +1693,10 @@ msgstr "建立(_R)"
 msgid "Branch _name:"
 msgstr "分支名稱(_N):"
 
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:96
+msgid "_Checkout the created branch"
+msgstr "檢出選取的分支(_C)"
+
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:7
 msgid "Create Tag"
 msgstr "建立標籤"
@@ -1484,31 +1710,35 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing "
 "repository or clone a new one."
 msgstr ""
-"尚未加入版本庫。要開始使用，您可以加入既存的版本庫或重製一個新的版本庫。"
+"尚未加入儲存庫。要開始使用，您可以加入既存的儲存庫或重製一個新的儲存庫。"
+
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
+msgid "Edit Remote"
+msgstr "編輯遠端"
 
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
 msgstr "重新載入(_R)"
 
-#: gitg/resources/ui/gitg-menus.ui:14 gitg/resources/ui/gitg-menus.ui:48
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Preferences"
 msgstr "偏好設定(_P)"
 
-#: gitg/resources/ui/gitg-menus.ui:21 gitg/resources/ui/gitg-menus.ui:42
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
 msgid "_Author Details"
 msgstr "作者詳細資料(_A)"
 
-#: gitg/resources/ui/gitg-menus.ui:27 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Keyboard Shortcuts"
 msgstr "鍵盤捷徑鍵(_K)"
 
-#: gitg/resources/ui/gitg-menus.ui:36
+#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+msgid "_About gitg"
+msgstr "關於 gitg(_A)"
+
+#: gitg/resources/ui/gitg-menus.ui:37
 msgid "_New Window"
 msgstr "新開視窗(_N)"
-
-#: gitg/resources/ui/gitg-menus.ui:60
-msgid "_About"
-msgstr "關於(_A)"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:58
 msgid "Show markup"
@@ -1548,7 +1778,23 @@ msgstr "啟用拼字檢查"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:341
 msgid "Commit Message"
-msgstr "提交訊息"
+msgstr "送交訊息"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:372
+msgid "Datetime format"
+msgstr "日期時間格式"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:410
+msgid "Predefined:"
+msgstr "預先定義："
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:435
+msgid "Custom:"
+msgstr "自訂："
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:453
+msgid "Check in vala documentation for datetime to write your own format."
+msgstr ""
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -1576,7 +1822,7 @@ msgstr "當選擇一個本地端分支時顯示上游 (遠端) 分支"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:154
 msgid "Commits"
-msgstr "提交"
+msgstr "送交"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:174
 msgid "Collapse inactive lanes"
@@ -1608,7 +1854,7 @@ msgstr "以特定活動啟動："
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:61
 msgid "Commit"
-msgstr "提交"
+msgstr "送交"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:80
 msgid "Layout"
@@ -1643,7 +1889,7 @@ msgid "Pick the editor font"
 msgstr "選擇編輯器字型"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
-#: plugins/diff/gitg-diff.vala:115
+#: plugins/diff/gitg-diff.vala:120
 msgid "Diff"
 msgstr "Diff"
 
@@ -1676,141 +1922,147 @@ msgstr "開啟新的視窗"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:33
 msgctxt "shortcut window"
-msgid "Open the window menu"
-msgstr "開啟視窗選單"
+msgid "Reload the window"
+msgstr "重新載入視窗"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
-msgid "Open a repository"
-msgstr "開啟版本庫"
+msgid "Open the window menu"
+msgstr "開啟視窗選單"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
-msgid "Open the help"
-msgstr "開啟求助文件"
+msgid "Open a repository"
+msgstr "開啟儲存庫"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
+msgctxt "shortcut window"
+msgid "Open preferences"
+msgstr "開啟偏好設定"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Find"
 msgstr "尋找"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:61
+#: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "關閉使用中視窗"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:68
+#: gitg/resources/ui/gitg-shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "退出應用程式"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Change to Dash"
-msgstr ""
+msgstr "變更成 Dash"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "變更成歷史記錄檢視"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Commit View"
-msgstr "變更成提交檢視"
+msgstr "變更成送交檢視"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "變更成活動"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:104
+#: gitg/resources/ui/gitg-shortcuts.ui:111
 msgctxt "shortcut window"
 msgid "Commit Activity"
-msgstr "提交活動"
+msgstr "送交活動"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:109
+#: gitg/resources/ui/gitg-shortcuts.ui:116
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "選擇／取消選擇"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:116
+#: gitg/resources/ui/gitg-shortcuts.ui:123
 msgctxt "shortcut window"
 msgid "Open commit dialog"
-msgstr "開啟提交對話框"
+msgstr "開啟送交對話框"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:123
+#: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "暫存選擇"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "取消暫存選擇"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "放棄選擇"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "編輯選擇"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:152
+#: gitg/resources/ui/gitg-shortcuts.ui:159
 msgctxt "shortcut window"
 msgid "Commit Dialog"
-msgstr "提交對話框"
-
-#: gitg/resources/ui/gitg-shortcuts.ui:157
-msgctxt "shortcut window"
-msgid "Commit"
-msgstr "提交"
+msgstr "送交對話框"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:164
 msgctxt "shortcut window"
-msgid "Cancel Commit"
-msgstr "取消提交"
+msgid "Commit"
+msgstr "送交"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:171
 msgctxt "shortcut window"
-msgid "Previous commit message"
-msgstr "上一個提交訊息"
+msgid "Cancel Commit"
+msgstr "取消送交"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
+msgid "Previous commit message"
+msgstr "上一個送交訊息"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:185
+msgctxt "shortcut window"
 msgid "Next commit message"
-msgstr "下一個提交訊息"
+msgstr "下一個送交訊息"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:193
+msgctxt "shortcut window"
+msgid "History Activity"
+msgstr "歷史活動"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
-msgstr "顯示目前使用的版本庫清單"
+msgstr "顯示目前使用的儲存庫清單"
 
-#: gitg/resources/ui/gitg-window.ui:46
-msgid "Clone"
-msgstr "重製"
-
-#: gitg/resources/ui/gitg-window.ui:47
+#: gitg/resources/ui/gitg-window.ui:48
 msgid "Clone repository"
-msgstr "重製版本庫"
+msgstr "重製儲存庫"
 
-#: gitg/resources/ui/gitg-window.ui:62
-msgid "Add"
-msgstr "加入"
-
-#: gitg/resources/ui/gitg-window.ui:63
+#: gitg/resources/ui/gitg-window.ui:65
 msgid "Add repository"
-msgstr "加入版本庫"
+msgstr "加入儲存庫"
 
-#: gitg/resources/ui/gitg-window.ui:87
+#: gitg/resources/ui/gitg-window.ui:89
 msgid "Find a word or phrase"
 msgstr "尋找字詞"
 
-#: gitg/resources/ui/gitg-window.ui:132
+#: gitg/resources/ui/gitg-window.ui:134
 msgid "General settings and options"
 msgstr "一般設定值與選項"
+
+#: gitg/resources/ui/gitg-window.ui:230
+msgid "_Close"
+msgstr "關閉(_C)"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
@@ -1901,52 +2153,101 @@ msgstr "晚於 (%s)"
 msgid "added (%s)"
 msgstr "已新增 (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:143
+#: libgitg/gitg-diff-view-commit-details.vala:172
 msgid "Collapse all"
 msgstr "全部收摺"
 
-#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/gitg-diff-view-commit-details.vala:176
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "全部展開"
 
-#: libgitg/gitg-diff-view-commit-details.vala:202
+#: libgitg/gitg-diff-view-commit-details.vala:237
 #, c-format
 msgid "Committed by %s"
-msgstr "由 %s 提交"
+msgstr "由 %s 送交"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#. Translators: Unif stands for unified diff format
+#: libgitg/gitg-diff-view-file.vala:160
+msgid "Unif"
+msgstr ""
+
+#. Translators: Split stands for the noun
+#: libgitg/gitg-diff-view-file.vala:165
+msgid "Split"
+msgstr ""
+
+#: libgitg/gitg-diff-view-file.vala:172
+msgid "Binary"
+msgstr ""
+
+#: libgitg/gitg-diff-view-file.vala:179
+msgid "Image"
+msgstr ""
+
+#: libgitg/gitg-diff-view-file.vala:224
 msgid "_Open file"
 msgstr "開啟檔案(_O)"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:257
 msgid "Open containing _folder"
 msgstr "開啟包含的資料夾(_F)"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:277
 msgid "_Copy file path"
 msgstr "複製檔案路徑(_C)"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:153
+#: libgitg/gitg-repository-list-box.vala:161
 #, c-format
 msgid "at %s"
 msgstr "在 %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:162
+#: libgitg/gitg-repository-list-box.vala:170
 #, c-format
 msgid "%s at %s"
 msgstr "%s 在 %s"
 
-#: libgitg/gitg-repository-list-box.vala:545
+#: libgitg/gitg-repository-list-box.vala:553
 msgid "Cloning…"
 msgstr "重製中…"
 
-#: libgitg/gitg-stage.vala:337
+#: libgitg/gitg-repository-list-box.vala:566
+#, c-format
+msgid ""
+"Deleting repository source files “%s” will delete them from disk and cannot "
+"be undone. Are you sure?"
+msgstr ""
+
+#: libgitg/gitg-repository-list-box.vala:568
+msgid "Move to trash"
+msgstr "丟進垃圾桶"
+
+#: libgitg/gitg-repository-list-box.vala:569
+msgid "Delete permanently"
+msgstr "永久刪除"
+
+#: libgitg/gitg-stage.vala:343
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
-msgstr "在執行 commit-msg 掛鉤後無法讀取提交訊息：%s"
+msgstr "在執行 commit-msg 掛鉤後無法讀取送交訊息：%s"
+
+#: libgitg/gitg-stage.vala:464
+#, c-format
+msgid "setup “%s” to do a signed commit"
+msgstr ""
+
+#: libgitg/gitg-stage.vala:484
+#, fuzzy, c-format
+#| msgid "Failed to stage the file “%s”"
+msgid "error signing the commit “%s”"
+msgstr "無法暫存檔案「%s」"
+
+#: libgitg/gitg-stage.vala:496
+#, c-format
+msgid "error updating current ref “%s”"
+msgstr ""
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:18
 msgid "_Authenticate"
@@ -2026,19 +2327,32 @@ msgstr "間隔"
 msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
-msgstr "從清單中移除版本庫 (不會將版本庫自硬碟上刪除)"
+msgstr "從清單中移除儲存庫 (不會將儲存庫自硬碟上刪除)"
 
-#: plugins/diff/gitg-diff.vala:120
+#: plugins/diff/gitg-diff.vala:125
 msgid "Show the changes introduced by the selected commit"
-msgstr "顯示選取的提交所造成的變更"
+msgstr "顯示選取的送交所造成的變更"
 
-#: plugins/files/gitg-files.vala:63
+#: plugins/files/gitg-files.vala:68
 msgid "Files"
 msgstr "檔案"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
-msgstr "在選取提交的樹狀圖中顯示檔案"
+msgstr "在選取送交的樹狀圖中顯示檔案"
+
+#~ msgid "The GNOME Project"
+#~ msgstr "GNOME 專案"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open the help"
+#~ msgstr "開啟求助文件"
+
+#~ msgid "Clone"
+#~ msgstr "重製"
+
+#~ msgid "Add"
+#~ msgstr "加入"
 
 #~ msgid "Cannot set spell checking language: %s"
 #~ msgstr "不能設定拼字檢查語言：%s"
@@ -2078,9 +2392,6 @@ msgstr "在選取提交的樹狀圖中顯示檔案"
 
 #~ msgid "Save"
 #~ msgstr "儲存"
-
-#~ msgid "_Open Repository…"
-#~ msgstr "開啟倉儲(_O)…"
 
 #~ msgid "_Clone Repository…"
 #~ msgstr "重製倉儲(_C)…"
