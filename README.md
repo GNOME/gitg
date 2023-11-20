@@ -8,8 +8,9 @@ The latest version of gitg is 44.
 
 - Website:      https://wiki.gnome.org/Apps/Gitg
 - Issues:       https://gitlab.gnome.org/GNOME/gitg/issues
-- Download:     http://download.gnome.org/sources/gitg/
-- Mailing list: http://mail.gnome.org/mailman/listinfo/gitg-list
+- Download:     https://download.gnome.org/sources/gitg/
+- Contact:      https://discourse.gnome.org/tag/gitg
+- Translate:    https://l10n.gnome.org/module/gitg/
 
 ## Installing gitg
 
