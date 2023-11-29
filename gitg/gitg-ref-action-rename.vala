@@ -45,7 +45,7 @@ class RefActionRename : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 
 	public string display_name
 	{
-		owned get { return _("Rename"); }
+		owned get { return _("Rename…"); }
 	}
 
 	public string description

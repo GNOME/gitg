@@ -43,12 +43,12 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 
 	public string display_name
 	{
-		owned get { return _("Add Remote"); }
+		owned get { return _("Add a new remote…"); }
 	}
 
 	public string description
 	{
-		owned get { return _("Adds remote to the remotes list"); }
+		owned get { return _("Configure a new remote to add to the remotes list"); }
 	}
 
 	public async bool fetch()

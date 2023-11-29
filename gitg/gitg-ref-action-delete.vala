@@ -45,7 +45,7 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 
 	public string display_name
 	{
-		owned get { return _("Delete"); }
+		owned get { return _("Delete…"); }
 	}
 
 	public string description

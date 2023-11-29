@@ -45,7 +45,7 @@ class CommitActionCreateTag : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitA
 
 	public string display_name
 	{
-		owned get { return _("Create tag"); }
+		owned get { return _("Create tag…"); }
 	}
 
 	public virtual string description

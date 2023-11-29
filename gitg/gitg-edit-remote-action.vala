@@ -48,12 +48,12 @@ class EditRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 
 	public string display_name
 	{
-		owned get { return _("Edit remote"); }
+		owned get { return _("Edit remote…"); }
 	}
 
 	public string description
 	{
-		owned get { return _("Edits the remote from the remotes list"); }
+		owned get { return _("Reconfigure this remote's name or URL"); }
 	}
 
 	public void activate()

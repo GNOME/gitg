@@ -45,7 +45,7 @@ class CommitActionCreateBranch : GitgExt.UIElement, GitgExt.Action, GitgExt.Comm
 
 	public string display_name
 	{
-		owned get { return _("Create branch"); }
+		owned get { return _("Create branch…"); }
 	}
 
 	public virtual string description
