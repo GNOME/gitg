@@ -764,11 +764,14 @@ class Dialog : Gtk.Dialog
 				d_button_ok.activate();
 				return true;
 			}
-			else if ((event.keyval == Gdk.Key.Left || event.keyval == Gdk.Key.KP_Left))
+		}
+		else if ((mmask & event.state) == Gdk.ModifierType.MOD1_MASK)
+		{
+			if (event.keyval == Gdk.Key.Page_Up)
 			{
 				on_prev_commit_message_button_clicked ();
 			}
-			else if ((event.keyval == Gdk.Key.Right || event.keyval == Gdk.Key.KP_Right))
+			else if (event.keyval == Gdk.Key.Page_Down)
 			{
 				on_next_commit_message_button_clicked ();
 			}
