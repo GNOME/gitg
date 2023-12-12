@@ -70,18 +70,24 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 
 		if (reference.is_branch())
 		{
-			query.title = (_("Delete branch %s")).printf(name);
-			query.message = (_("Are you sure that you want to permanently delete the branch %s?")).printf(name);
+			query.title = _("Confirm branch deletion");
+			query.message = (_("Are you sure that you want to permanently delete the branch <b><i>“%s”</i></b>?")).printf(name);
+			query.default_is_destructive = true;
+			query.message_use_markup = true;
 		}
 		else if (reference.is_tag())
 		{
-			query.title = (_("Delete tag %s")).printf(name);
-			query.message = (_("Are you sure that you want to permanently delete the tag %s?")).printf(name);
+			query.title = _("Confirm tag deletion");
+			query.message = (_("Are you sure that you want to permanently delete the tag <b><i>“%s”</i></b>?")).printf(name);
+			query.default_is_destructive = true;
+			query.message_use_markup = true;
 		}
 		else
 		{
-			query.title = (_("Delete remote branch %s")).printf(name);
-			query.message = (_("Are you sure that you want to permanently delete the remote branch %s?")).printf(name);
+			query.title = _("Confirm remote branch deletion");
+			query.message = (_("Are you sure that you want to permanently delete the remote branch <b><i>“%s”</i></b>?")).printf(name);
+			query.default_is_destructive = true;
+			query.message_use_markup = true;
 		}
 
 		query.set_responses(new GitgExt.UserQueryResponse[] {
