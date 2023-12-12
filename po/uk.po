@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-03-07 21:41+0000\n"
-"PO-Revision-Date: 2023-03-08 08:13+0200\n"
+"POT-Creation-Date: 2023-12-12 01:35+0000\n"
+"PO-Revision-Date: 2023-12-12 23:26+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -87,7 +87,7 @@ msgstr "Внесення сформованих змін"
 msgid "Overview of recently used repositories"
 msgstr "Огляд списку нещодавно використаних сховищ"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:157
+#: data/org.gnome.gitg.appdata.xml.in.in:216
 msgid "The Gitg Team"
 msgstr "Команда Gitg"
 
@@ -324,11 +324,21 @@ msgstr ""
 "Визначає, чи слід показувати основну (віддалену) гілку при виборі локальної "
 "гілки на панелі журналу."
 
-#: data/org.gnome.gitg.gschema.xml.in:172
+#: data/org.gnome.gitg.gschema.xml.in:170
+#: gitg/resources/ui/gitg-preferences-history.ui:151
+msgid "Filter unknown refs"
+msgstr "Фільтрувати невідомі посилання"
+
+#: data/org.gnome.gitg.gschema.xml.in:171
+msgid "Hide any ref different from refs/heads and refs/remotes."
+msgstr ""
+"Приховати усі посилання, які є відмінними від refs/heads та refs/remotes."
+
+#: data/org.gnome.gitg.gschema.xml.in:179
 msgid "Switch to the new branch on creation"
 msgstr "Перемикатися на нову гілку при створенні"
 
-#: data/org.gnome.gitg.gschema.xml.in:173
+#: data/org.gnome.gitg.gschema.xml.in:180
 msgid ""
 "Setting that controls whether the newly created branch is checked out "
 "automatically."
@@ -337,12 +347,12 @@ msgstr ""
 "новостворених гілок."
 
 # Показати правому краю у фіксації повідомлення Переглянути
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:195
 msgid "Show Right Margin in Commit Message View"
 msgstr "Показати праве поле в перегляді повідомлення щодо внесків"
 
 # Показати право показник маржі у фіксації зору. Це може бути використано, щоб легко побачити, де розбити фіксації у певному стовпці.
-#: data/org.gnome.gitg.gschema.xml.in:189
+#: data/org.gnome.gitg.gschema.xml.in:196
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -352,12 +362,12 @@ msgstr ""
 "у повідомленні щодо внесків."
 
 # Колонка на якому правому краю показано
-#: data/org.gnome.gitg.gschema.xml.in:197
+#: data/org.gnome.gitg.gschema.xml.in:204
 msgid "Column at Which Right Margin is Shown"
 msgstr "Позиція у рядку, на якій показується праве поле"
 
 # Стовпця, на якому праве поле з’являється, якщо право-маржа перевагу встановлений у значення TRUE.
-#: data/org.gnome.gitg.gschema.xml.in:198
+#: data/org.gnome.gitg.gschema.xml.in:205
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -366,11 +376,11 @@ msgstr ""
 "margin» вказано як TRUE."
 
 # Показати правому краю у фіксації повідомлення Переглянути
-#: data/org.gnome.gitg.gschema.xml.in:205
+#: data/org.gnome.gitg.gschema.xml.in:212
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Показати поле теми в перегляді повідомлення щодо внесків"
 
-#: data/org.gnome.gitg.gschema.xml.in:206
+#: data/org.gnome.gitg.gschema.xml.in:213
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -379,12 +389,12 @@ msgstr ""
 "яке вказано через «subject-margin-position»."
 
 # Колонка на якому правому краю показано
-#: data/org.gnome.gitg.gschema.xml.in:213
+#: data/org.gnome.gitg.gschema.xml.in:220
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Позиція у рядку, на якій показується поле теми"
 
 # Стовпця, на якому праве поле з’являється, якщо право-маржа перевагу встановлений у значення TRUE.
-#: data/org.gnome.gitg.gschema.xml.in:214
+#: data/org.gnome.gitg.gschema.xml.in:221
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -392,11 +402,11 @@ msgstr ""
 "Стовпчик рядка, поле теми якого показується, якщо параметр «show-subject-"
 "margin» вказано як TRUE."
 
-#: data/org.gnome.gitg.gschema.xml.in:221
+#: data/org.gnome.gitg.gschema.xml.in:228
 msgid "Enable Spell Checking"
 msgstr "Увімкнути перевіряння орфографії"
 
-#: data/org.gnome.gitg.gschema.xml.in:222
+#: data/org.gnome.gitg.gschema.xml.in:229
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -404,11 +414,11 @@ msgstr ""
 "Параметр, який визначає, чи буде увімкнено перевірку правопису при написанні "
 "повідомлення про внесок."
 
-#: data/org.gnome.gitg.gschema.xml.in:229
+#: data/org.gnome.gitg.gschema.xml.in:236
 msgid "Spell Checking Language"
 msgstr "Мова для перевірки правопису"
 
-#: data/org.gnome.gitg.gschema.xml.in:230
+#: data/org.gnome.gitg.gschema.xml.in:237
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -416,11 +426,11 @@ msgstr ""
 "Мова, яку слід використовувати, якщо увімкнено перевірку правопису, для "
 "перевірки правопису у повідомлення внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:237
+#: data/org.gnome.gitg.gschema.xml.in:244
 msgid "Maximum number of previous commit messages"
 msgstr "Максимальна кількість попередніх повідомлень щодо внесків"
 
-#: data/org.gnome.gitg.gschema.xml.in:238
+#: data/org.gnome.gitg.gschema.xml.in:245
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
@@ -428,12 +438,12 @@ msgstr ""
 "Максимальна кількість попередніх повідомлень про внесок для зберігання у "
 "журналі повідомлень щодо внесків."
 
-#: data/org.gnome.gitg.gschema.xml.in:242
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Maximum number of days to store previous commit messages"
 msgstr ""
 "Максимальна тривалість зберігання попередніх повідомлень щодо внесків у днях"
 
-#: data/org.gnome.gitg.gschema.xml.in:243
+#: data/org.gnome.gitg.gschema.xml.in:250
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
@@ -441,39 +451,39 @@ msgstr ""
 "Максимальна тривалість зберігання попередніх повідомлень щодо внесків у днях "
 "для журналу повідомлень щодо внесків."
 
-#: data/org.gnome.gitg.gschema.xml.in:247
-#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:255
 msgid "Type of datetime format selected."
 msgstr "Тип вибраного формату дати і часу."
 
-#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:261
 msgid "Preferred datetime format of the user."
 msgstr "Бажаний для користувача формат запису дати і часу."
 
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:262
 msgid "The datetime format to be used in commit-diff."
 msgstr "Формат запису дати і часу, який буде використано у різниці внесків."
 
-#: data/org.gnome.gitg.gschema.xml.in:261
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:268
+#: data/org.gnome.gitg.gschema.xml.in:269
 msgid "Custom datetime format."
 msgstr "Нетиповий формат запису дати і часу."
 
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Use patience algorithm to show diffs"
 msgstr "Використовувати терплячий алгоритм для показу різниць"
 
-#: data/org.gnome.gitg.gschema.xml.in:271
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Параметр для використання терплячого алгоритму для показу різниць у внесках."
 
-#: data/org.gnome.gitg.gschema.xml.in:277
+#: data/org.gnome.gitg.gschema.xml.in:284
 msgid "Ignore Whitespace Changes"
 msgstr "Ігнорувати зміни у пробілах"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -481,31 +491,31 @@ msgstr ""
 "Параметр, який визначає, чи слід ігнорувати зміни у пробілах при показі "
 "різниці для внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:285
+#: data/org.gnome.gitg.gschema.xml.in:292
 msgid "Show Changes Inline"
 msgstr "Показувати вбудовані зміни"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:286
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Параметр, який визначає, чи буде позначено самі зміни у змінених рядках."
 
-#: data/org.gnome.gitg.gschema.xml.in:293
+#: data/org.gnome.gitg.gschema.xml.in:300
 msgid "Wrap"
 msgstr "Перенесення"
 
-#: data/org.gnome.gitg.gschema.xml.in:294
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid "Wrap lines."
 msgstr "Перенесення рядків."
 
-#: data/org.gnome.gitg.gschema.xml.in:300
-#: data/org.gnome.gitg.gschema.xml.in:318
+#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:325
 msgid "Number of Before/After Context Lines"
 msgstr "Кількість рядків контексту до/після"
 
-#: data/org.gnome.gitg.gschema.xml.in:301
+#: data/org.gnome.gitg.gschema.xml.in:308
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -513,13 +523,13 @@ msgstr ""
 "Параметр, який визначає скільки рядків контексту (рядків до і після "
 "зміненого рядка) має бути показано у різниці внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:308
-#: data/org.gnome.gitg.gschema.xml.in:327
+#: data/org.gnome.gitg.gschema.xml.in:315
+#: data/org.gnome.gitg.gschema.xml.in:334
 msgid "Rendered Width of a Tab Character"
 msgstr "Показана ширина символу табуляції"
 
-#: data/org.gnome.gitg.gschema.xml.in:309
-#: data/org.gnome.gitg.gschema.xml.in:328
+#: data/org.gnome.gitg.gschema.xml.in:316
+#: data/org.gnome.gitg.gschema.xml.in:335
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -527,7 +537,7 @@ msgstr ""
 "Параметр, який визначає, скількома пробілами буде замінено символ табуляції "
 "при показі різниці внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:319
+#: data/org.gnome.gitg.gschema.xml.in:326
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -816,7 +826,7 @@ msgstr ""
 # Скасувати
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
 #: libgitg/gitg-repository-list-box.vala:567
 msgid "Cancel"
@@ -863,12 +873,15 @@ msgstr "Не вдалося отримати покажчик: %s"
 
 # Дистанційне керування
 #: gitg/gitg-add-remote-action.vala:46
-msgid "Add Remote"
-msgstr "Додати віддалений об'єкт"
+#| msgid "Add Remote"
+msgid "Add a new remote…"
+msgstr "Додати нове віддалене сховище…"
 
 #: gitg/gitg-add-remote-action.vala:51
-msgid "Adds remote to the remotes list"
-msgstr "Додає віддалене сховище до списку віддалених сховищ"
+#| msgid "Adds remote to the remotes list"
+msgid "Configure a new remote to add to the remotes list"
+msgstr ""
+"Налаштувати нове віддалене сховище для додавання до списку віддалених сховищ"
 
 #: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
 #, c-format
@@ -1069,8 +1082,9 @@ msgstr "Підхопити до «%s»"
 
 # Створення філії
 #: gitg/gitg-commit-action-create-branch.vala:48
-msgid "Create branch"
-msgstr "Створити гілку"
+#| msgid "Create branch"
+msgid "Create branch…"
+msgstr "Створити гілку…"
 
 #: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
@@ -1084,8 +1098,9 @@ msgstr "Не вдалося створити гілку"
 
 # Створення філії
 #: gitg/gitg-commit-action-create-patch.vala:63
-msgid "Create patch"
-msgstr "Створити латку"
+#| msgid "Create patch"
+msgid "Create patch…"
+msgstr "Створити латку…"
 
 #: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
@@ -1106,8 +1121,9 @@ msgstr "Не вдалося створити латку"
 
 # Створіть тег
 #: gitg/gitg-commit-action-create-tag.vala:48
-msgid "Create tag"
-msgstr "Створити мітку"
+#| msgid "Create tag"
+msgid "Create tag…"
+msgstr "Створити мітку…"
 
 #: gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
@@ -1195,12 +1211,13 @@ msgid "Scanning for repositories in %s"
 msgstr "Сканування сховищ у %s"
 
 #: gitg/gitg-edit-remote-action.vala:51
-msgid "Edit remote"
-msgstr "Редагувати віддалене сховище"
+#| msgid "Edit remote"
+msgid "Edit remote…"
+msgstr "Редагувати віддалене сховище…"
 
 #: gitg/gitg-edit-remote-action.vala:56
-msgid "Edits the remote from the remotes list"
-msgstr "Редагування запису віддаленого сховища зі списку віддалених сховищ"
+msgid "Reconfigure this remote's name or URL"
+msgstr "Переналаштувати назву або адресу цього віддаленого сховища"
 
 # Не вдалося вилучити притон
 #: gitg/gitg-edit-remote-action.vala:82
@@ -1266,74 +1283,90 @@ msgstr "Створити латку з вибраної контрольної �
 msgid "Create a new tag at the selected reference"
 msgstr "Створити мітку на вибраній контрольній точці"
 
-#: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
-msgid "Delete"
-msgstr "Вилучити"
+#: gitg/gitg-ref-action-delete.vala:48
+#| msgid "Delete"
+msgid "Delete…"
+msgstr "Вилучити…"
 
 #: gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
 msgstr "Вилучити вибране посилання"
 
-# Виберіть філія
 #: gitg/gitg-ref-action-delete.vala:73
-#, c-format
-msgid "Delete branch %s"
-msgstr "Вилучити гілку %s"
+msgid "Confirm branch deletion"
+msgstr "Підтвердження вилучення гілки"
 
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
-msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr "Ви справді хочете остаточно вилучити гілку %s?"
+#| msgid "Are you sure that you want to permanently delete the branch %s?"
+msgid ""
+"Are you sure that you want to permanently delete the branch <b><i>“%s”</i></"
+"b>?"
+msgstr ""
+"Ви справді хочете остаточно вилучити гілку <b><i>«%s»</i></"
+"b>?"
 
-# Створіть тег
-#: gitg/gitg-ref-action-delete.vala:78
-#, c-format
-msgid "Delete tag %s"
-msgstr "Вилучити мітку %s"
+#: gitg/gitg-ref-action-delete.vala:80
+#| msgctxt "shortcut window"
+#| msgid "Unstage selection"
+msgid "Confirm tag deletion"
+msgstr "Підтвердження вилучення мітки"
 
 # Ви впевнені, що хочете вилучити тег<%s>?
-#: gitg/gitg-ref-action-delete.vala:79
+#: gitg/gitg-ref-action-delete.vala:81
 #, c-format
-msgid "Are you sure that you want to permanently delete the tag %s?"
-msgstr "Ви справді хочете остаточно вилучити мітку %s?"
+#| msgid "Are you sure that you want to permanently delete the tag %s?"
+msgid ""
+"Are you sure that you want to permanently delete the tag <b><i>“%s”</i></b>?"
+msgstr "Ви справді хочете остаточно вилучити мітку <b><i>«%s»</i></b>?"
 
-# Вилучити віддаленого філії
-#: gitg/gitg-ref-action-delete.vala:83
-#, c-format
-msgid "Delete remote branch %s"
-msgstr "Вилучити віддалену гілку %s"
+# Створення філії
+#: gitg/gitg-ref-action-delete.vala:87
+#| msgid "_Track remote branch"
+msgid "Confirm remote branch deletion"
+msgstr "Підтвердження вилучення віддаленої гілки"
 
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
-#: gitg/gitg-ref-action-delete.vala:84
+#: gitg/gitg-ref-action-delete.vala:88
 #, c-format
-msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr "Ви справді хочете остаточно вилучити віддалену гілку %s?"
+#| msgid ""
+#| "Are you sure that you want to permanently delete the remote branch %s?"
+msgid ""
+"Are you sure that you want to permanently delete the remote branch "
+"<b><i>“%s”</i></b>?"
+msgstr ""
+"Ви справді хочете остаточно вилучити віддалену гілку "
+"<b><i>«%s»</i></b>?"
+
+#: gitg/gitg-ref-action-delete.vala:95
+msgid "Delete"
+msgstr "Вилучити"
 
 # Не вдалося вилучити притон
 #. Translators: %s is the name of the tag
-#: gitg/gitg-ref-action-delete.vala:119
+#: gitg/gitg-ref-action-delete.vala:125
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr "Не вдалося вилучити мітку %s"
 
 # Теги<%s>не може бути успішно вилучений
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:122
+#: gitg/gitg-ref-action-delete.vala:128
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr "Не вдалося вилучити мітку %s: %s"
 
 # Не вдалося створити філію
 #. Translators: %s is the name of the branch
-#: gitg/gitg-ref-action-delete.vala:127
+#: gitg/gitg-ref-action-delete.vala:133
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr "Не вдалося вилучити гілку %s"
 
 # Відділення не може бути успішно створена
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:130
+#: gitg/gitg-ref-action-delete.vala:136
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "не вдалося вилучити гілку %s: %s"
@@ -1437,7 +1470,7 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "Злити «%s» до гілки «%s»"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1199
+#: gitg/history/gitg-history-refs-list.vala:1218
 msgid "Tags"
 msgstr "Мітки"
 
@@ -1488,8 +1521,9 @@ msgstr "Надіслати"
 
 # Перейменувати філія
 #: gitg/gitg-ref-action-rename.vala:48
-msgid "Rename"
-msgstr "Перейменувати"
+#| msgid "Rename"
+msgid "Rename…"
+msgstr "Перейменувати…"
 
 #: gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
@@ -1527,17 +1561,17 @@ msgstr "Вилучити віддалене сховище"
 msgid "Removes remote from the remotes list"
 msgstr "Вилучення запису віддаленого сховища зі списку віддалених сховищ"
 
-# Вилучити віддаленого філії
 #: gitg/gitg-remove-remote-action.vala:62
-#, c-format
-msgid "Delete remote %s"
-msgstr "Вилучити віддалене сховище %s"
+msgid "Confirm remote deletion"
+msgstr "Підтвердження вилучення віддаленого сховища"
 
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
 #: gitg/gitg-remove-remote-action.vala:63
 #, c-format
-msgid "Are you sure that you want to remove the remote %s?"
-msgstr "Ви справді хочете вилучити запис віддаленого сховища %s?"
+#| msgid "Are you sure that you want to remove the remote %s?"
+msgid "Are you sure that you want to remove the remote <b><i>“%s”</i></b>?"
+msgstr ""
+"Ви справді хочете вилучити запис віддаленого сховища <b><i>«%s»</i></b>?"
 
 # Дистанційне керування
 #: gitg/gitg-remove-remote-action.vala:67
@@ -1662,18 +1696,18 @@ msgid "All commits"
 msgstr "Всі внески"
 
 # Відділення:
-#: gitg/history/gitg-history-refs-list.vala:1197
+#: gitg/history/gitg-history-refs-list.vala:1216
 msgid "Branches"
 msgstr "Гілки"
 
 # Дистанційне керування
-#: gitg/history/gitg-history-refs-list.vala:1198
+#: gitg/history/gitg-history-refs-list.vala:1217
 msgid "Remotes"
 msgstr "Віддалені"
 
 # Історія
 #: gitg/history/gitg-history.vala:348
-#: gitg/preferences/gitg-preferences-history.vala:218
+#: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Журнал"
@@ -1861,7 +1895,6 @@ msgstr "Автор"
 # Здійснювати
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
 #: gitg/resources/ui/gitg-history-paned.ui:127
-#| msgid "Commit"
 msgid "Committer"
 msgstr "Зафіксовувач"
 
@@ -2038,32 +2071,32 @@ msgid "Show upstream (remote) branch when selecting a local branch"
 msgstr "Показувати основну (віддалену) гілку при виборі локальної гілки"
 
 # Здійснювати
-#: gitg/resources/ui/gitg-preferences-history.ui:154
+#: gitg/resources/ui/gitg-preferences-history.ui:170
 msgid "Commits"
 msgstr "Внески"
 
 # Згорнути неактивних смуги
-#: gitg/resources/ui/gitg-preferences-history.ui:174
+#: gitg/resources/ui/gitg-preferences-history.ui:190
 msgid "Collapse inactive lanes"
 msgstr "Згортати неактивні смуги"
 
 # Рання
-#: gitg/resources/ui/gitg-preferences-history.ui:215
+#: gitg/resources/ui/gitg-preferences-history.ui:231
 msgid "Early"
 msgstr "Раніше"
 
 # Пізно
-#: gitg/resources/ui/gitg-preferences-history.ui:227
+#: gitg/resources/ui/gitg-preferences-history.ui:243
 msgid "Late"
 msgstr "Пізніше"
 
 # Показати історію у топологічному порядку
-#: gitg/resources/ui/gitg-preferences-history.ui:242
+#: gitg/resources/ui/gitg-preferences-history.ui:258
 msgid "Show history in topological order"
 msgstr "Показувати історію в топологічному порядку"
 
 # Помилка перевірки раніше перевірили філія
-#: gitg/resources/ui/gitg-preferences-history.ui:257
+#: gitg/resources/ui/gitg-preferences-history.ui:273
 msgid "Preserve mainline for currently checked out branch"
 msgstr "Зберегти основу для поточної отриманої гілки"
 
@@ -2602,6 +2635,29 @@ msgstr "Файли"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Показати файли у ієрархії вибраного внеску"
+
+#~ msgid "Edits the remote from the remotes list"
+#~ msgstr "Редагування запису віддаленого сховища зі списку віддалених сховищ"
+
+# Виберіть філія
+#, c-format
+#~ msgid "Delete branch %s"
+#~ msgstr "Вилучити гілку %s"
+
+# Створіть тег
+#, c-format
+#~ msgid "Delete tag %s"
+#~ msgstr "Вилучити мітку %s"
+
+# Вилучити віддаленого філії
+#, c-format
+#~ msgid "Delete remote branch %s"
+#~ msgstr "Вилучити віддалену гілку %s"
+
+# Вилучити віддаленого філії
+#, c-format
+#~ msgid "Delete remote %s"
+#~ msgstr "Вилучити віддалене сховище %s"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Open the help"
