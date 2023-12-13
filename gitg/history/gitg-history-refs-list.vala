@@ -123,6 +123,7 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 		}
 
 		d_label.label = label_text();
+		this.set_tooltip_text(d_label.label);
 
 		if (is_head)
 		{
