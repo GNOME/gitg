@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-03-07 21:41+0000\n"
-"PO-Revision-Date: 2023-03-08 10:27+0100\n"
+"POT-Creation-Date: 2023-12-12 01:35+0000\n"
+"PO-Revision-Date: 2023-12-15 05:16+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: \n"
 "Language: ka\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
-msgstr ""
+msgstr "ნაკადიდან XML ფაილის დამუშავება შეუძლებელია"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
 #: gitg/resources/ui/gitg-window.ui:8
@@ -76,7 +76,7 @@ msgstr ""
 msgid "Overview of recently used repositories"
 msgstr ""
 
-#: data/org.gnome.gitg.appdata.xml.in.in:157
+#: data/org.gnome.gitg.appdata.xml.in.in:216
 msgid "The Gitg Team"
 msgstr ""
 
@@ -272,173 +272,182 @@ msgid ""
 "selecting a local branch in the history view."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:172
+#: data/org.gnome.gitg.gschema.xml.in:170
+#: gitg/resources/ui/gitg-preferences-history.ui:151
+msgid "Filter unknown refs"
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:171
+msgid "Hide any ref different from refs/heads and refs/remotes."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:179
 msgid "Switch to the new branch on creation"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:173
+#: data/org.gnome.gitg.gschema.xml.in:180
 msgid ""
 "Setting that controls whether the newly created branch is checked out "
 "automatically."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:195
 msgid "Show Right Margin in Commit Message View"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:189
+#: data/org.gnome.gitg.gschema.xml.in:196
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:197
+#: data/org.gnome.gitg.gschema.xml.in:204
 msgid "Column at Which Right Margin is Shown"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:198
+#: data/org.gnome.gitg.gschema.xml.in:205
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:205
+#: data/org.gnome.gitg.gschema.xml.in:212
 msgid "Show Subject Margin in Commit Message View"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:206
+#: data/org.gnome.gitg.gschema.xml.in:213
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:213
+#: data/org.gnome.gitg.gschema.xml.in:220
 msgid "Column at Which Subject Margin is Shown"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:214
+#: data/org.gnome.gitg.gschema.xml.in:221
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:221
+#: data/org.gnome.gitg.gschema.xml.in:228
 msgid "Enable Spell Checking"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:222
+#: data/org.gnome.gitg.gschema.xml.in:229
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:229
+#: data/org.gnome.gitg.gschema.xml.in:236
 msgid "Spell Checking Language"
 msgstr "მართლწერის შესამოწმებელი ენა"
 
-#: data/org.gnome.gitg.gschema.xml.in:230
+#: data/org.gnome.gitg.gschema.xml.in:237
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:237
+#: data/org.gnome.gitg.gschema.xml.in:244
 msgid "Maximum number of previous commit messages"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:238
+#: data/org.gnome.gitg.gschema.xml.in:245
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:242
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Maximum number of days to store previous commit messages"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:243
+#: data/org.gnome.gitg.gschema.xml.in:250
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:247
-#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:255
 msgid "Type of datetime format selected."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:261
 msgid "Preferred datetime format of the user."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:262
 msgid "The datetime format to be used in commit-diff."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:261
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:268
+#: data/org.gnome.gitg.gschema.xml.in:269
 msgid "Custom datetime format."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Use patience algorithm to show diffs"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:271
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:277
+#: data/org.gnome.gitg.gschema.xml.in:284
 msgid "Ignore Whitespace Changes"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:285
+#: data/org.gnome.gitg.gschema.xml.in:292
 msgid "Show Changes Inline"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:286
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:293
+#: data/org.gnome.gitg.gschema.xml.in:300
 msgid "Wrap"
 msgstr "შემოხვევა"
 
-#: data/org.gnome.gitg.gschema.xml.in:294
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid "Wrap lines."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:300
-#: data/org.gnome.gitg.gschema.xml.in:318
+#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:325
 msgid "Number of Before/After Context Lines"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:301
+#: data/org.gnome.gitg.gschema.xml.in:308
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:308
-#: data/org.gnome.gitg.gschema.xml.in:327
+#: data/org.gnome.gitg.gschema.xml.in:315
+#: data/org.gnome.gitg.gschema.xml.in:334
 msgid "Rendered Width of a Tab Character"
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:309
-#: data/org.gnome.gitg.gschema.xml.in:328
+#: data/org.gnome.gitg.gschema.xml.in:316
+#: data/org.gnome.gitg.gschema.xml.in:335
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr ""
 
-#: data/org.gnome.gitg.gschema.xml.in:319
+#: data/org.gnome.gitg.gschema.xml.in:326
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -684,7 +693,7 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
 #: libgitg/gitg-repository-list-box.vala:567
 msgid "Cancel"
@@ -723,11 +732,11 @@ msgid "Failed to checkout index: %s"
 msgstr ""
 
 #: gitg/gitg-add-remote-action.vala:46
-msgid "Add Remote"
-msgstr "დაშორებულის დამატება"
+msgid "Add a new remote…"
+msgstr "ახალი დაშორებულის დამატება…"
 
 #: gitg/gitg-add-remote-action.vala:51
-msgid "Adds remote to the remotes list"
+msgid "Configure a new remote to add to the remotes list"
 msgstr ""
 
 #: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
@@ -758,7 +767,7 @@ msgstr ""
 
 #: gitg/gitg-add-remote-action.vala:129
 msgid "Failed to add remote"
-msgstr ""
+msgstr "დაშორებულის დამატების შეცდომა"
 
 #: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
@@ -902,8 +911,8 @@ msgid "Cherry pick onto “%s”"
 msgstr ""
 
 #: gitg/gitg-commit-action-create-branch.vala:48
-msgid "Create branch"
-msgstr "ბრენჩის შექმნა"
+msgid "Create branch…"
+msgstr "ბრენჩის შექმნა…"
 
 #: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
@@ -915,8 +924,8 @@ msgid "Failed to create branch"
 msgstr "პაჩის შექნის შეცდომა"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
-msgid "Create patch"
-msgstr "პაჩის შექმნა"
+msgid "Create patch…"
+msgstr "პაჩის შექმნა…"
 
 #: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
@@ -935,8 +944,8 @@ msgid "Failed to create patch"
 msgstr "პაჩის შექმნსი შეცდომა"
 
 #: gitg/gitg-commit-action-create-tag.vala:48
-msgid "Create tag"
-msgstr "ჭდის შექმნა"
+msgid "Create tag…"
+msgstr "ჭდის შექმნა…"
 
 #: gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
@@ -1012,11 +1021,11 @@ msgid "Scanning for repositories in %s"
 msgstr ""
 
 #: gitg/gitg-edit-remote-action.vala:51
-msgid "Edit remote"
+msgid "Edit remote…"
 msgstr ""
 
 #: gitg/gitg-edit-remote-action.vala:56
-msgid "Edits the remote from the remotes list"
+msgid "Reconfigure this remote's name or URL"
 msgstr ""
 
 #: gitg/gitg-edit-remote-action.vala:82
@@ -1077,64 +1086,70 @@ msgstr ""
 msgid "Create a new tag at the selected reference"
 msgstr ""
 
-#: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
-msgid "Delete"
-msgstr "წაშლა"
+#: gitg/gitg-ref-action-delete.vala:48
+msgid "Delete…"
+msgstr "წაშლა…"
 
 #: gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
 msgstr ""
 
 #: gitg/gitg-ref-action-delete.vala:73
-#, c-format
-msgid "Delete branch %s"
+msgid "Confirm branch deletion"
 msgstr ""
 
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
-msgid "Are you sure that you want to permanently delete the branch %s?"
+msgid ""
+"Are you sure that you want to permanently delete the branch <b><i>“%s”</i></"
+"b>?"
 msgstr ""
 
-#: gitg/gitg-ref-action-delete.vala:78
-#, c-format
-msgid "Delete tag %s"
+#: gitg/gitg-ref-action-delete.vala:80
+msgid "Confirm tag deletion"
 msgstr ""
 
-#: gitg/gitg-ref-action-delete.vala:79
+#: gitg/gitg-ref-action-delete.vala:81
 #, c-format
-msgid "Are you sure that you want to permanently delete the tag %s?"
+msgid ""
+"Are you sure that you want to permanently delete the tag <b><i>“%s”</i></b>?"
 msgstr ""
 
-#: gitg/gitg-ref-action-delete.vala:83
-#, c-format
-msgid "Delete remote branch %s"
+#: gitg/gitg-ref-action-delete.vala:87
+msgid "Confirm remote branch deletion"
 msgstr ""
 
-#: gitg/gitg-ref-action-delete.vala:84
+#: gitg/gitg-ref-action-delete.vala:88
 #, c-format
-msgid "Are you sure that you want to permanently delete the remote branch %s?"
+msgid ""
+"Are you sure that you want to permanently delete the remote branch "
+"<b><i>“%s”</i></b>?"
 msgstr ""
+
+#: gitg/gitg-ref-action-delete.vala:95
+msgid "Delete"
+msgstr "წაშლა"
 
 #. Translators: %s is the name of the tag
-#: gitg/gitg-ref-action-delete.vala:119
+#: gitg/gitg-ref-action-delete.vala:125
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr ""
 
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:122
+#: gitg/gitg-ref-action-delete.vala:128
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr ""
 
 #. Translators: %s is the name of the branch
-#: gitg/gitg-ref-action-delete.vala:127
+#: gitg/gitg-ref-action-delete.vala:133
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr ""
 
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:130
+#: gitg/gitg-ref-action-delete.vala:136
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr ""
@@ -1229,7 +1244,7 @@ msgid "Merge “%s” into branch “%s”"
 msgstr ""
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1199
+#: gitg/history/gitg-history-refs-list.vala:1218
 msgid "Tags"
 msgstr "ჭდეები"
 
@@ -1274,8 +1289,8 @@ msgid "Push"
 msgstr "გადაცემა"
 
 #: gitg/gitg-ref-action-rename.vala:48
-msgid "Rename"
-msgstr "%1 სურათის სახელის გადარქმევა"
+msgid "Rename…"
+msgstr "სახელის გადარქმევა…"
 
 #: gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
@@ -1297,7 +1312,7 @@ msgstr ""
 
 #: gitg/gitg-ref-action-rename.vala:147
 msgid "Failed to rename"
-msgstr ""
+msgstr "გადარქმევის შეცდომა"
 
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
 msgid "Close"
@@ -1312,13 +1327,12 @@ msgid "Removes remote from the remotes list"
 msgstr ""
 
 #: gitg/gitg-remove-remote-action.vala:62
-#, c-format
-msgid "Delete remote %s"
+msgid "Confirm remote deletion"
 msgstr ""
 
 #: gitg/gitg-remove-remote-action.vala:63
 #, c-format
-msgid "Are you sure that you want to remove the remote %s?"
+msgid "Are you sure that you want to remove the remote <b><i>“%s”</i></b>?"
 msgstr ""
 
 #: gitg/gitg-remove-remote-action.vala:67
@@ -1430,16 +1444,16 @@ msgstr ""
 msgid "All commits"
 msgstr ""
 
-#: gitg/history/gitg-history-refs-list.vala:1197
+#: gitg/history/gitg-history-refs-list.vala:1216
 msgid "Branches"
 msgstr "ბრენჩი"
 
-#: gitg/history/gitg-history-refs-list.vala:1198
+#: gitg/history/gitg-history-refs-list.vala:1217
 msgid "Remotes"
 msgstr "დაშორებულები"
 
 #: gitg/history/gitg-history.vala:348
-#: gitg/preferences/gitg-preferences-history.vala:218
+#: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "ისტორია"
@@ -1460,7 +1474,7 @@ msgstr "გადაცემა"
 #: gitg/preferences/gitg-preferences-interface.vala:142
 #, c-format
 msgid "_Use the system fixed width font (%s)"
-msgstr ""
+msgstr "_სისტემური ფიქსირებული სიგანის მქონე ფონტის (%s) გამოყენება"
 
 #: gitg/preferences/gitg-preferences-interface.vala:179
 msgid "Interface"
@@ -1618,7 +1632,7 @@ msgstr "თარიღი"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:7
 msgid "Create Branch"
-msgstr ""
+msgstr "ბრენჩის შექმნა"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:34
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:36
@@ -1685,7 +1699,7 @@ msgstr ""
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:140
 msgid "Display right _margin at column:"
-msgstr ""
+msgstr "_მარჯვენა საზღვრის ჩვენება სვეტთან:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:196
 msgid "Maximum number of messages:"
@@ -1755,27 +1769,27 @@ msgstr ""
 msgid "Show upstream (remote) branch when selecting a local branch"
 msgstr ""
 
-#: gitg/resources/ui/gitg-preferences-history.ui:154
+#: gitg/resources/ui/gitg-preferences-history.ui:170
 msgid "Commits"
 msgstr "კომიტი"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:174
+#: gitg/resources/ui/gitg-preferences-history.ui:190
 msgid "Collapse inactive lanes"
 msgstr ""
 
-#: gitg/resources/ui/gitg-preferences-history.ui:215
+#: gitg/resources/ui/gitg-preferences-history.ui:231
 msgid "Early"
 msgstr ""
 
-#: gitg/resources/ui/gitg-preferences-history.ui:227
+#: gitg/resources/ui/gitg-preferences-history.ui:243
 msgid "Late"
 msgstr ""
 
-#: gitg/resources/ui/gitg-preferences-history.ui:242
+#: gitg/resources/ui/gitg-preferences-history.ui:258
 msgid "Show history in topological order"
 msgstr ""
 
-#: gitg/resources/ui/gitg-preferences-history.ui:257
+#: gitg/resources/ui/gitg-preferences-history.ui:273
 msgid "Preserve mainline for currently checked out branch"
 msgstr ""
 
