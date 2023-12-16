@@ -889,18 +889,18 @@ namespace GitgHistory
 			if (fetch.available)
 			{
 				actions.add(null);
+				add_ref_action(actions, fetch);
 			}
 
-			add_ref_action(actions, fetch);
 
 			var push = new Gitg.RefActionPush(application, af, reference);
 
 			if (push.available)
 			{
 				actions.add(null);
+				add_ref_action(actions, push);
 			}
 
-			add_ref_action(actions, push);
 
 			var merge = new Gitg.RefActionMerge(application, af, reference);
 
@@ -908,6 +908,14 @@ namespace GitgHistory
 			{
 				actions.add(null);
 				add_ref_action(actions, merge);
+			}
+
+			var info_tag = new Gitg.RefActionTagShowInfo(application, af, reference);
+
+			if (info_tag.available)
+			{
+				actions.add(null);
+				add_ref_action(actions, info_tag);
 			}
 
 			var exts = new Peas.ExtensionSet(Gitg.PluginsEngine.get_default(),
