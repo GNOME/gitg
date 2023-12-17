@@ -61,6 +61,7 @@ class RemoveRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 
 		query.title = _("Confirm remote deletion");
 		query.message = (_("Are you sure that you want to remove the remote <b><i>“%s”</i></b>?")).printf(remote_name);
+		query.message_use_markup = true;
 
 		query.set_responses(new GitgExt.UserQueryResponse[] {
 			new GitgExt.UserQueryResponse(_("Cancel"), Gtk.ResponseType.CANCEL),
