@@ -29,7 +29,6 @@ class RefActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obje
 	public GitgExt.RefActionInterface action_interface { get; construct set; }
 	public Gitg.Ref reference { get; construct set; }
 
-	private Gitg.Ref? d_remote_ref;
 	private Gitg.Remote? d_remote;
 
 	public RefActionPush(GitgExt.Application        application,
@@ -46,24 +45,10 @@ class RefActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obje
 		{
 			try
 			{
-				d_remote_ref = branch.get_upstream() as Gitg.Ref;
+				var d_remote_ref = branch.get_upstream() as Gitg.Ref;
+				d_remote = application.remote_lookup.lookup(d_remote_ref.parsed_name.remote_name);
 			} catch {}
 		}
-		else if (reference.parsed_name.remote_name != null)
-		{
-			d_remote_ref = reference;
-		}
-
-		if (d_remote_ref != null)
-		{
-			d_remote = application.remote_lookup.lookup(d_remote_ref.parsed_name.remote_name);
-		}
-
-		if (d_remote == null)
-		{
-			d_remote = application.remote_lookup.lookup("origin");
-		}
-
 	}
 
 	public string id
@@ -95,7 +80,7 @@ class RefActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obje
 	{
 		get
 		{
-			return (d_remote != null) && reference.is_branch();
+			return (d_remote != null) && reference.is_branch() && ((Gitg.Branch)reference).get_upstream() != null;
 		}
 	}
 
@@ -153,18 +138,6 @@ class RefActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obje
 		}
 
 		var branch_name = reference.get_shorthand();
-
-		var branch = (reference as Gitg.Branch);
-
-		try
-		{
-			if (branch.get_upstream() == null)
-			{
-				branch.set_upstream(branch_name);
-			}
-		}
-		catch (Error e)
-		{}
 
 		push.begin(branch_name, (obj, res) => {
 			push.end(res);
