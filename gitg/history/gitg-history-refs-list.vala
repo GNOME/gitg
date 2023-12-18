@@ -894,14 +894,7 @@ public class RefsList : Gtk.ListBox
 		header.show();
 		header.notify["expanded"].connect(expanded_changed);
 
-		if (header.ref_type == Gitg.RefType.TAG)
-		{
-			header.expanded = false;
-		}
-		else
-		{
-			header.expanded = true;
-		}
+		header.expanded = header.ref_type == Gitg.RefType.BRANCH;
 
 		foreach (var state in d_expanded)
 		{
