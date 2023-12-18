@@ -2,6 +2,7 @@
 
 <glade-catalog version="3.0" supports="gtkbuilder" name="gitg" library="gitg-1.0" domain="gitg" depends="gtk+">
   <glade-widget-classes>
+    <glade-widget-class name="GitgProgressBin" title="GitgProgressBin" generic-name="gitgprogressbin" parent="GtkBin"/>
     <glade-widget-class name="GitgWindow" title="GitgWindow" generic-name="gitgwindow" parent="GtkWindow"/>
     <glade-widget-class name="GitgExtNavigationTreeView" title="GitgExtNavigationTreeView" generic-name="gitgextnavigationtreeView" parent="GtkTreeView"/>
     <glade-widget-class name="GitgAutohideFrame" title="GitgAutohideFrame" generic-name="gitgautohideframe" parent="GtkFrame"/>
@@ -13,6 +14,7 @@
   </glade-widget-classes>
 
   <glade-widget-group name="gitg" title="gitg">
+    <glade-widget-class name="GitgProgressBin" title="GitgProgressBin" generic-name="gitgprogressbin" parent="GtkBin"/>
     <glade-widget-class name="GitgWindow" title="GitgWindow" generic-name="gitgwindow" parent="GtkWindow"/>
     <glade-widget-class name="GitgExtNavigationTreeView" title="GitgExtNavigationTreeView" generic-name="gitgextnavigationtreeView" parent="GtkTreeView"/>
     <glade-widget-class name="GitgAutohideFrame" title="GitgAutohideFrame" generic-name="gitgautohideframe" parent="GtkFrame"/>
