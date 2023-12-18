@@ -143,23 +143,25 @@ class RefActionCheckout : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, 
 	}
 
 	private void on_checkout_remote_branch_dialog_response(Gitg.CheckoutRemoteBranchDialog dialog, int response_id) {
-		if (response_id == Gtk.ResponseType.OK)
+		if (response_id != Gtk.ResponseType.OK)
 		{
-			string? remote_branch_name = dialog.track_remote ? dialog.remote_branch_name : null;
-
-			create_branch.begin(reference, dialog.new_branch_name, remote_branch_name, (obj, res) => {
-				var branch_ref = create_branch.end(res) as Gitg.Ref;
-
-				if (branch_ref != null)
-				{
-					action_interface.add_ref(branch_ref);
-					reference = branch_ref;
-					checkout.begin();
-				}
-			});
+			dialog.destroy();
+			return;
 		}
 
-		dialog.destroy();
+		string? remote_branch_name = dialog.track_remote ? dialog.remote_branch_name : null;
+
+		create_branch.begin(reference, dialog.new_branch_name, remote_branch_name, (obj, res) => {
+			var branch_ref = create_branch.end(res) as Gitg.Ref;
+
+			if (branch_ref != null)
+			{
+				action_interface.add_ref(branch_ref);
+				reference = branch_ref;
+				checkout.begin();
+				dialog.destroy();
+			}
+		});
 	}
 
 	private async Ggit.Branch? create_branch(Ggit.Ref reference, string new_branch_name, string? remote_branch_name)

@@ -109,38 +109,40 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 		dlg.remote_url = remote_url;
 
 		dlg.response.connect((d, resp) => {
-			if (resp == Gtk.ResponseType.OK)
+			if (resp != Gtk.ResponseType.OK)
 			{
-				Ggit.Remote? remote = null;
-				d_remote = null;
-
-				repo = application.repository;
-				remote_name = dlg.remote_name;
-				remote_url = dlg.remote_url;
-
-				try
-				{
-					remote = repo.create_remote(remote_name,
-					                            remote_url);
-				}
-				catch (Error e)
-				{
-					add_remote(remote_name, remote_url);
-					application.show_infobar(_("Failed to add remote"),
-					                         e.message,
-					                         Gtk.MessageType.ERROR);
-				}
-
-				d_remote = application.remote_lookup.lookup(remote_name);
-
-				if (remote != null)
-				{
-					fetch.begin((obj,res) => {
-						fetch.end(res);
-					});
-				}
+				dlg.destroy();
+				return;
 			}
 
+			Ggit.Remote? remote = null;
+			d_remote = null;
+
+			repo = application.repository;
+			remote_name = dlg.remote_name;
+			remote_url = dlg.remote_url;
+
+			try
+			{
+				remote = repo.create_remote(remote_name,
+				                            remote_url);
+			}
+			catch (Error e)
+			{
+				application.show_infobar(_("Failed to add remote"),
+				                         e.message,
+				                         Gtk.MessageType.ERROR);
+				return;
+			}
+
+			d_remote = application.remote_lookup.lookup(remote_name);
+
+			if (remote != null)
+			{
+				fetch.begin((obj,res) => {
+					fetch.end(res);
+				});
+			}
 			dlg.destroy();
 		});
 
