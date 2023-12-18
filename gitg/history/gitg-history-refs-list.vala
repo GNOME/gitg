@@ -446,6 +446,12 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 	[GtkChild( name = "icon" )]
 	private unowned Gtk.Image d_icon;
 
+	[GtkChild( name = "op_icon" )]
+	private unowned Gtk.Image d_op_icon;
+
+	[GtkChild( name = "event_box_op_icon" )]
+	private unowned Gtk.EventBox d_event_box_op_icon;
+
 	public bool expanded { get; set; default = true; }
 
 	public Gitg.RefType ref_type
@@ -516,6 +522,24 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 			d_icon.icon_name = value;
 			d_icon.visible = (value != null);
 		}
+	}
+
+	public string? op_icon_name
+	{
+		owned get { return d_op_icon.icon_name; }
+		set
+		{
+			d_op_icon.icon_name = value;
+			d_op_icon.visible = (value != null);
+		}
+	}
+
+	public void set_op_icon_action(GitgExt.Action action)
+	{
+	    d_event_box_op_icon.button_press_event.connect(() => {
+				action.activate();
+				return true;
+		});
 	}
 }
 
@@ -892,6 +916,10 @@ public class RefsList : Gtk.ListBox
 	{
 		var header = new RefHeader(ref_type, name);
 		init_header(header);
+		if (header.ref_type == Gitg.RefType.REMOTE && !header.is_sub_header_remote) {
+				header.op_icon_name = "list-add-symbolic";
+				header.set_op_icon_action(new Gitg.AddRemoteAction(application));
+		}
 		header.actions = actions;
 
 		add(header);

@@ -2,7 +2,6 @@
 <interface>
   <!-- interface-requires gtk+ 3.3 -->
   <!-- interface-requires gitg 0.0 -->
-  <!-- interface-requires gd 1.0 -->
   <template class="GitgHistoryRefHeader" parent="GtkListBoxRow">
     <property name="visible">True</property>
     <style>
@@ -29,7 +28,20 @@
               <object class="GtkLabel" id="label">
                 <property name="visible">True</property>
                 <property name="halign">start</property>
-                <property name="hexpand">True</property>
+                <property name="hexpand">False</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEventBox" id="event_box_op_icon">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkImage" id="op_icon">
+                    <property name="visible">False</property>
+                    <property name="halign">start</property>
+                    <property name="valign">baseline</property>
+                  </object>
+                </child>
               </object>
             </child>
             <child>
