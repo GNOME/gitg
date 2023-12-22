@@ -144,6 +144,7 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 		}
 
 		action_interface.remove_ref(reference);
+		action_interface.refresh();
 		return true;
 	}
 }
