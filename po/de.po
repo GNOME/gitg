@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-12-18 07:12+0000\n"
-"PO-Revision-Date: 2023-12-22 18:27+0100\n"
+"POT-Creation-Date: 2023-12-23 13:34+0000\n"
+"PO-Revision-Date: 2023-12-23 15:26+0100\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -1449,6 +1449,14 @@ msgstr "Der angegebene Name »%s« enthält ungültige Zeichen"
 msgid "Failed to rename"
 msgstr "Umbenennen ist fehlgeschlagen"
 
+#: gitg/gitg-ref-action-tag-info.vala:46
+msgid "Show tag info"
+msgstr "Tag-Informationen anzeigen"
+
+#: gitg/gitg-ref-action-tag-info.vala:51
+msgid "Show info at selected tag"
+msgstr "Informationen zum ausgewählten Tag anzeigen"
+
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
 msgid "Close"
 msgstr "Schließen"
@@ -1799,6 +1807,7 @@ msgid "Create Tag"
 msgstr "Tag erstellen"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:71
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:53
 msgid "Tag _name:"
 msgstr "_Name des Tags:"
 
@@ -2144,6 +2153,15 @@ msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Aktivitätenchronik"
 
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
+msgid "Show Tag info"
+msgstr "Tag-Informationen anzeigen"
+
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:230
+msgid "_Close"
+msgstr "S_chließen"
+
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Die Liste der zuletzt verwendeten Repositorys anzeigen"
@@ -2163,10 +2181,6 @@ msgstr "Ein Wort oder eine Phrase suchen"
 #: gitg/resources/ui/gitg-window.ui:134
 msgid "General settings and options"
 msgstr "Generelle Einstellungen und Optionen"
-
-#: gitg/resources/ui/gitg-window.ui:230
-msgid "_Close"
-msgstr "S_chließen"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
