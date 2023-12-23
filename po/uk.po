@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-12-12 01:35+0000\n"
-"PO-Revision-Date: 2023-12-12 23:26+0200\n"
+"POT-Creation-Date: 2023-12-23 13:34+0000\n"
+"PO-Revision-Date: 2023-12-23 20:21+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -827,7 +827,7 @@ msgstr ""
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:67
 #: libgitg/gitg-repository-list-box.vala:567
 msgid "Cancel"
 msgstr "Скасувати"
@@ -873,12 +873,10 @@ msgstr "Не вдалося отримати покажчик: %s"
 
 # Дистанційне керування
 #: gitg/gitg-add-remote-action.vala:46
-#| msgid "Add Remote"
 msgid "Add a new remote…"
 msgstr "Додати нове віддалене сховище…"
 
 #: gitg/gitg-add-remote-action.vala:51
-#| msgid "Adds remote to the remotes list"
 msgid "Configure a new remote to add to the remotes list"
 msgstr ""
 "Налаштувати нове віддалене сховище для додавання до списку віддалених сховищ"
@@ -1082,7 +1080,6 @@ msgstr "Підхопити до «%s»"
 
 # Створення філії
 #: gitg/gitg-commit-action-create-branch.vala:48
-#| msgid "Create branch"
 msgid "Create branch…"
 msgstr "Створити гілку…"
 
@@ -1098,7 +1095,6 @@ msgstr "Не вдалося створити гілку"
 
 # Створення філії
 #: gitg/gitg-commit-action-create-patch.vala:63
-#| msgid "Create patch"
 msgid "Create patch…"
 msgstr "Створити латку…"
 
@@ -1121,7 +1117,6 @@ msgstr "Не вдалося створити латку"
 
 # Створіть тег
 #: gitg/gitg-commit-action-create-tag.vala:48
-#| msgid "Create tag"
 msgid "Create tag…"
 msgstr "Створити мітку…"
 
@@ -1211,7 +1206,6 @@ msgid "Scanning for repositories in %s"
 msgstr "Сканування сховищ у %s"
 
 #: gitg/gitg-edit-remote-action.vala:51
-#| msgid "Edit remote"
 msgid "Edit remote…"
 msgstr "Редагувати віддалене сховище…"
 
@@ -1284,7 +1278,6 @@ msgid "Create a new tag at the selected reference"
 msgstr "Створити мітку на вибраній контрольній точці"
 
 #: gitg/gitg-ref-action-delete.vala:48
-#| msgid "Delete"
 msgid "Delete…"
 msgstr "Вилучити…"
 
@@ -1299,45 +1292,35 @@ msgstr "Підтвердження вилучення гілки"
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the branch %s?"
 msgid ""
 "Are you sure that you want to permanently delete the branch <b><i>“%s”</i></"
 "b>?"
-msgstr ""
-"Ви справді хочете остаточно вилучити гілку <b><i>«%s»</i></"
-"b>?"
+msgstr "Ви справді хочете остаточно вилучити гілку <b><i>«%s»</i></b>?"
 
 #: gitg/gitg-ref-action-delete.vala:80
-#| msgctxt "shortcut window"
-#| msgid "Unstage selection"
 msgid "Confirm tag deletion"
 msgstr "Підтвердження вилучення мітки"
 
 # Ви впевнені, що хочете вилучити тег<%s>?
 #: gitg/gitg-ref-action-delete.vala:81
 #, c-format
-#| msgid "Are you sure that you want to permanently delete the tag %s?"
 msgid ""
 "Are you sure that you want to permanently delete the tag <b><i>“%s”</i></b>?"
 msgstr "Ви справді хочете остаточно вилучити мітку <b><i>«%s»</i></b>?"
 
 # Створення філії
 #: gitg/gitg-ref-action-delete.vala:87
-#| msgid "_Track remote branch"
 msgid "Confirm remote branch deletion"
 msgstr "Підтвердження вилучення віддаленої гілки"
 
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
 #: gitg/gitg-ref-action-delete.vala:88
 #, c-format
-#| msgid ""
-#| "Are you sure that you want to permanently delete the remote branch %s?"
 msgid ""
 "Are you sure that you want to permanently delete the remote branch "
 "<b><i>“%s”</i></b>?"
 msgstr ""
-"Ви справді хочете остаточно вилучити віддалену гілку "
-"<b><i>«%s»</i></b>?"
+"Ви справді хочете остаточно вилучити віддалену гілку <b><i>«%s»</i></b>?"
 
 #: gitg/gitg-ref-action-delete.vala:95
 msgid "Delete"
@@ -1470,7 +1453,7 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "Злити «%s» до гілки «%s»"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1218
+#: gitg/history/gitg-history-refs-list.vala:1219
 msgid "Tags"
 msgstr "Мітки"
 
@@ -1521,7 +1504,6 @@ msgstr "Надіслати"
 
 # Перейменувати філія
 #: gitg/gitg-ref-action-rename.vala:48
-#| msgid "Rename"
 msgid "Rename…"
 msgstr "Перейменувати…"
 
@@ -1548,6 +1530,16 @@ msgstr "У вказаній назві «%s» містяться некорек�
 msgid "Failed to rename"
 msgstr "Не вдалося перейменувати"
 
+# Постановка змін
+#: gitg/gitg-ref-action-tag-info.vala:46
+#| msgid "Show Staged Changes"
+msgid "Show tag info"
+msgstr "Показати відомості мітки"
+
+#: gitg/gitg-ref-action-tag-info.vala:51
+msgid "Show info at selected tag"
+msgstr "Показати відомості щодо позначеної мітки"
+
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
 msgid "Close"
 msgstr "Закрити"
@@ -1568,18 +1560,17 @@ msgstr "Підтвердження вилучення віддаленого с�
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
 #: gitg/gitg-remove-remote-action.vala:63
 #, c-format
-#| msgid "Are you sure that you want to remove the remote %s?"
 msgid "Are you sure that you want to remove the remote <b><i>“%s”</i></b>?"
 msgstr ""
 "Ви справді хочете вилучити запис віддаленого сховища <b><i>«%s»</i></b>?"
 
 # Дистанційне керування
-#: gitg/gitg-remove-remote-action.vala:67
+#: gitg/gitg-remove-remote-action.vala:68
 msgid "Remove"
 msgstr "Вилучити"
 
 # Не вдалося створити філію
-#: gitg/gitg-remove-remote-action.vala:91
+#: gitg/gitg-remove-remote-action.vala:92
 msgid "Failed to remove remote"
 msgstr "Не вдалося вилучити запис віддаленого сховища"
 
@@ -1675,33 +1666,33 @@ msgstr "Типово позначати вказане посилання на �
 msgid "REFERENCE"
 msgstr "ПОСИЛАННЯ"
 
-#: gitg/history/gitg-history-refs-list.vala:165
+#: gitg/history/gitg-history-refs-list.vala:166
 #, c-format
 msgid "%zu ahead, %zu behind"
 msgstr "%zu попереду, %zu позаду"
 
-#: gitg/history/gitg-history-refs-list.vala:169
+#: gitg/history/gitg-history-refs-list.vala:170
 #, c-format
 msgid "%zu ahead"
 msgstr "%zu попереду"
 
-#: gitg/history/gitg-history-refs-list.vala:173
+#: gitg/history/gitg-history-refs-list.vala:174
 #, c-format
 msgid "%zu behind"
 msgstr "%zu позаду"
 
-#: gitg/history/gitg-history-refs-list.vala:207
+#: gitg/history/gitg-history-refs-list.vala:208
 #: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
 msgstr "Всі внески"
 
 # Відділення:
-#: gitg/history/gitg-history-refs-list.vala:1216
+#: gitg/history/gitg-history-refs-list.vala:1217
 msgid "Branches"
 msgstr "Гілки"
 
 # Дистанційне керування
-#: gitg/history/gitg-history-refs-list.vala:1217
+#: gitg/history/gitg-history-refs-list.vala:1218
 msgid "Remotes"
 msgstr "Віддалені"
 
@@ -1716,7 +1707,7 @@ msgstr "Журнал"
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:959
+#: gitg/history/gitg-history.vala:967
 msgid "Mainline"
 msgstr "Основа"
 
@@ -1936,6 +1927,7 @@ msgid "Create Tag"
 msgstr "Створити мітку"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:71
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:53
 msgid "Tag _name:"
 msgstr "_Назва мітки:"
 
@@ -2310,6 +2302,16 @@ msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Дії з журналом"
 
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
+#| msgid "Show Changes Inline"
+msgid "Show Tag info"
+msgstr "Показати відомості мітки"
+
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:230
+msgid "_Close"
+msgstr "З_акрити"
+
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Показати список нещодавно використаних сховищ"
@@ -2331,10 +2333,6 @@ msgstr "Знайти слово або фразу"
 #: gitg/resources/ui/gitg-window.ui:134
 msgid "General settings and options"
 msgstr "Загальні параметри"
-
-#: gitg/resources/ui/gitg-window.ui:230
-msgid "_Close"
-msgstr "З_акрити"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
