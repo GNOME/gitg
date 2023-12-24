@@ -634,6 +634,7 @@ namespace GitgHistory
 
 			var actions = new Gee.LinkedList<GitgExt.Action>();
 			actions.add(new Gitg.AddRemoteAction(application));
+			actions.add(new Gitg.FetchAllRemotesAction(application, d_main.refs_list));
 			d_main.refs_list.remotes_actions = actions;
 
 			application.bind_property("repository", d_main.refs_list,
