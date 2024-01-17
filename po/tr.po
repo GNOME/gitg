@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-10-07 07:25+0000\n"
-"PO-Revision-Date: 2023-10-16 00:10+0300\n"
+"POT-Creation-Date: 2023-12-24 11:25+0000\n"
+"PO-Revision-Date: 2023-12-26 11:56+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -309,22 +309,31 @@ msgstr ""
 "Geçmiş görünümünde yerel dalı seçerken ana kaynaktaki (uzak) takip edilen "
 "dalın da gösterilip gösterilmeyeceğini belirler."
 
-#: data/org.gnome.gitg.gschema.xml.in:172
+#: data/org.gnome.gitg.gschema.xml.in:170
+#: gitg/resources/ui/gitg-preferences-history.ui:151
+msgid "Filter unknown refs"
+msgstr "Bilinmeyen referansları süz"
+
+#: data/org.gnome.gitg.gschema.xml.in:171
+msgid "Hide any ref different from refs/heads and refs/remotes."
+msgstr "Refs/heads ve refs/remotes dışındaki tüm referansları gizle."
+
+#: data/org.gnome.gitg.gschema.xml.in:179
 msgid "Switch to the new branch on creation"
 msgstr "Oluşturma sırasında yeni dala geç"
 
-#: data/org.gnome.gitg.gschema.xml.in:173
+#: data/org.gnome.gitg.gschema.xml.in:180
 msgid ""
 "Setting that controls whether the newly created branch is checked out "
 "automatically."
 msgstr ""
 "Yeni oluşturulan dalın kendiliğinden teslim alınmasını denetleyen ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:195
 msgid "Show Right Margin in Commit Message View"
 msgstr "İşleme İletisi Görünümünde Sağ Kenar Boşluğunu Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:189
+#: data/org.gnome.gitg.gschema.xml.in:196
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -333,11 +342,11 @@ msgstr ""
 "kullanılarak belirli bir sütunda işleme iletisinin nerede kesileceği kolayca "
 "görülebilir."
 
-#: data/org.gnome.gitg.gschema.xml.in:197
+#: data/org.gnome.gitg.gschema.xml.in:204
 msgid "Column at Which Right Margin is Shown"
 msgstr "Sağ Kenar Boşluğunun Gösterileceği Sütun"
 
-#: data/org.gnome.gitg.gschema.xml.in:198
+#: data/org.gnome.gitg.gschema.xml.in:205
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -345,11 +354,11 @@ msgstr ""
 "Eğer show-right-margin (sağ-kenar-boşluğunu-göster) tercihi DOĞRU olarak "
 "ayarlanmışsa sağ kenar boşluğunun gösterileceği sütun."
 
-#: data/org.gnome.gitg.gschema.xml.in:205
+#: data/org.gnome.gitg.gschema.xml.in:212
 msgid "Show Subject Margin in Commit Message View"
 msgstr "İşleme İletisi Görünümünde Konu Kenar Boşluğunu Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:206
+#: data/org.gnome.gitg.gschema.xml.in:213
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -357,11 +366,11 @@ msgstr ""
 "İşleme iletisinin konu metni subject-margin-position (konu-kenar-boşluğu-"
 "konumu) tarafından belirlenen sınırı geçtiğinde vurgula."
 
-#: data/org.gnome.gitg.gschema.xml.in:213
+#: data/org.gnome.gitg.gschema.xml.in:220
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Konu Kenar Boşluğunun Gösterileceği Sütun"
 
-#: data/org.gnome.gitg.gschema.xml.in:214
+#: data/org.gnome.gitg.gschema.xml.in:221
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -369,11 +378,11 @@ msgstr ""
 "Eğer show-subject-margin (konu-kenar-boşluğunu-göster) tercihi DOĞRU olarak "
 "ayarlanmışsa konu kenar boşluğunun gösterileceği sütun."
 
-#: data/org.gnome.gitg.gschema.xml.in:221
+#: data/org.gnome.gitg.gschema.xml.in:228
 msgid "Enable Spell Checking"
 msgstr "Yazım Denetimini Etkinleştir"
 
-#: data/org.gnome.gitg.gschema.xml.in:222
+#: data/org.gnome.gitg.gschema.xml.in:229
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -381,21 +390,21 @@ msgstr ""
 "Bir işleme iletisi yazıldığında yazım denetiminin etkinleştirilip "
 "etkinleştirilmeyeceğini belirleyen ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:229
+#: data/org.gnome.gitg.gschema.xml.in:236
 msgid "Spell Checking Language"
 msgstr "Yazım Denetimi Dili"
 
-#: data/org.gnome.gitg.gschema.xml.in:230
+#: data/org.gnome.gitg.gschema.xml.in:237
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr "Bir işleme iletisi yazarken yazım denetimi etkinse kullanılacak dil."
 
-#: data/org.gnome.gitg.gschema.xml.in:237
+#: data/org.gnome.gitg.gschema.xml.in:244
 msgid "Maximum number of previous commit messages"
 msgstr "Önceki işleme iletilerinin azamin sayısı"
 
-#: data/org.gnome.gitg.gschema.xml.in:238
+#: data/org.gnome.gitg.gschema.xml.in:245
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
@@ -403,11 +412,11 @@ msgstr ""
 "Önceki işleme iletilerinin işleme iletileri geçmişinde depolanacağı azami "
 "sayısı."
 
-#: data/org.gnome.gitg.gschema.xml.in:242
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Maximum number of days to store previous commit messages"
 msgstr "Önceki işleme iletilerinin depolanacağı azami gün sayısı"
 
-#: data/org.gnome.gitg.gschema.xml.in:243
+#: data/org.gnome.gitg.gschema.xml.in:250
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
@@ -415,38 +424,38 @@ msgstr ""
 "Önceki işleme iletilerinin işleme iletileri geçmişinde depolanacağı azami "
 "gün sayısı."
 
-#: data/org.gnome.gitg.gschema.xml.in:247
-#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:255
 msgid "Type of datetime format selected."
 msgstr "Seçilen tarih saat biçiminin türü."
 
-#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:261
 msgid "Preferred datetime format of the user."
 msgstr "Kullanıcının yeğlediği tarih saat biçimi."
 
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:262
 msgid "The datetime format to be used in commit-diff."
 msgstr "Gönderi farkında (commit-diff) kullanılacak tarih saat biçimi."
 
-#: data/org.gnome.gitg.gschema.xml.in:261
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:268
+#: data/org.gnome.gitg.gschema.xml.in:269
 msgid "Custom datetime format."
 msgstr "Özel tarih saat biçimi."
 
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Use patience algorithm to show diffs"
 msgstr "Farkları göstermek için sabır algoritmasını kullan"
 
-#: data/org.gnome.gitg.gschema.xml.in:271
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Bir işlemenin farklarını gösterirken sabır algoritmasını kullanmak için ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:277
+#: data/org.gnome.gitg.gschema.xml.in:284
 msgid "Ignore Whitespace Changes"
 msgstr "Boşluk Değişikliklerini Yoksay"
 
-#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -454,31 +463,31 @@ msgstr ""
 "Bir işlemenin farkını gösterirken boşluk değişikliklerinin yoksayılıp "
 "yoksayılmayacağını belirten ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:285
+#: data/org.gnome.gitg.gschema.xml.in:292
 msgid "Show Changes Inline"
 msgstr "Değişiklikleri Satıriçinde Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:286
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Satırlardaki değişikliklerin satıriçinde gösterilip gösterilmeyeceğini "
 "belirten ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:293
+#: data/org.gnome.gitg.gschema.xml.in:300
 msgid "Wrap"
 msgstr "Sar"
 
-#: data/org.gnome.gitg.gschema.xml.in:294
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid "Wrap lines."
 msgstr "Satırları sar."
 
-#: data/org.gnome.gitg.gschema.xml.in:300
-#: data/org.gnome.gitg.gschema.xml.in:318
+#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:325
 msgid "Number of Before/After Context Lines"
 msgstr "Önceki/Sonraki Bağlam Satırları Sayısı"
 
-#: data/org.gnome.gitg.gschema.xml.in:301
+#: data/org.gnome.gitg.gschema.xml.in:308
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -486,13 +495,13 @@ msgstr ""
 "Bir işlemenin farkını gösterirken bağlamda (önce ve sonra) kaç satır "
 "gösterileceğini belirleyen ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:308
-#: data/org.gnome.gitg.gschema.xml.in:327
+#: data/org.gnome.gitg.gschema.xml.in:315
+#: data/org.gnome.gitg.gschema.xml.in:334
 msgid "Rendered Width of a Tab Character"
 msgstr "Sekme Karakterinin Ekranda Gösterilen Genişliği"
 
-#: data/org.gnome.gitg.gschema.xml.in:309
-#: data/org.gnome.gitg.gschema.xml.in:328
+#: data/org.gnome.gitg.gschema.xml.in:316
+#: data/org.gnome.gitg.gschema.xml.in:335
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -500,7 +509,7 @@ msgstr ""
 "Bir işlemenin farkını gösterirken bir sekme karakterinin ne kadar yer "
 "kaplayacağını belirleyen ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:319
+#: data/org.gnome.gitg.gschema.xml.in:326
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -756,8 +765,8 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
+#: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
 #: libgitg/gitg-repository-list-box.vala:567
 msgid "Cancel"
 msgstr "İptal"
@@ -795,12 +804,12 @@ msgid "Failed to checkout index: %s"
 msgstr "Dizin teslim alınamadı: %s"
 
 #: gitg/gitg-add-remote-action.vala:46
-msgid "Add Remote"
-msgstr "Uzak Ekle"
+msgid "Add a new remote…"
+msgstr "Yeni uzak ekle…"
 
 #: gitg/gitg-add-remote-action.vala:51
-msgid "Adds remote to the remotes list"
-msgstr "Uzağı uzaklar listesine ekler"
+msgid "Configure a new remote to add to the remotes list"
+msgstr "Uzaklar listesine eklemek için yeni uzak yapılandır"
 
 #: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
 #, c-format
@@ -828,7 +837,7 @@ msgstr "Eklenen uzak getirilemedi"
 msgid "Fetched from %s: %s"
 msgstr "%sʼden getirildi: %s"
 
-#: gitg/gitg-add-remote-action.vala:129
+#: gitg/gitg-add-remote-action.vala:132
 msgid "Failed to add remote"
 msgstr "Uzak eklenemedi"
 
@@ -991,21 +1000,21 @@ msgid "Cherry pick onto “%s”"
 msgstr "“%s” üstüne seçerek al"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
-msgid "Create branch"
-msgstr "Dal oluştur"
+msgid "Create branch…"
+msgstr "Dal oluştur…"
 
 #: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
 msgstr "Seçili işlemede yeni dal oluştur"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
-#: gitg/gitg-ref-action-checkout.vala:180
+#: gitg/gitg-ref-action-checkout.vala:182
 msgid "Failed to create branch"
 msgstr "Dal oluşturulamadı"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
-msgid "Create patch"
-msgstr "Yama oluştur"
+msgid "Create patch…"
+msgstr "Yama oluştur…"
 
 #: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
@@ -1024,8 +1033,8 @@ msgid "Failed to create patch"
 msgstr "Yama oluşturulamadı"
 
 #: gitg/gitg-commit-action-create-tag.vala:48
-msgid "Create tag"
-msgstr "Etiket oluştur"
+msgid "Create tag…"
+msgstr "Etiket oluştur…"
 
 #: gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
@@ -1103,12 +1112,12 @@ msgid "Scanning for repositories in %s"
 msgstr "%s içindeki depolar taranıyor"
 
 #: gitg/gitg-edit-remote-action.vala:51
-msgid "Edit remote"
-msgstr "Uzağı düzenle"
+msgid "Edit remote…"
+msgstr "Uzağı düzenle…"
 
 #: gitg/gitg-edit-remote-action.vala:56
-msgid "Edits the remote from the remotes list"
-msgstr "Uzağı uzaklar listesinden düzenler"
+msgid "Reconfigure this remote's name or URL"
+msgstr "Bu uzağın adını ya da URLʼsini yeniden yapılandır"
 
 #: gitg/gitg-edit-remote-action.vala:82
 msgid "Failed to edit remote"
@@ -1137,7 +1146,7 @@ msgstr "HEAD güncellenemedi: %s"
 msgid "Successfully checked out branch to working directory"
 msgstr "Dal, çalışma dizinine başarıyla teslim alındı"
 
-#: gitg/gitg-ref-action-checkout.vala:195
+#: gitg/gitg-ref-action-checkout.vala:197
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "%2$s için %1$s ana kaynak dalı belirlenemedi"
@@ -1168,64 +1177,75 @@ msgstr "Seçili atıftan yama oluştur"
 msgid "Create a new tag at the selected reference"
 msgstr "Seçili atıftan yeni etiket oluştur"
 
-#: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
-msgid "Delete"
-msgstr "Sil"
+#: gitg/gitg-ref-action-delete.vala:48
+msgid "Delete…"
+msgstr "Sil…"
 
 #: gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
 msgstr "Seçili atfı sil"
 
 #: gitg/gitg-ref-action-delete.vala:73
-#, c-format
-msgid "Delete branch %s"
-msgstr "%s dalını sil"
+msgid "Confirm branch deletion"
+msgstr "Dal silmeyi onayla"
 
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
-msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr "%s dalını kalıcı olarak silmek istediğinizden emin misiniz?"
+msgid ""
+"Are you sure that you want to permanently delete the branch <b><i>“%s”</i></"
+"b>?"
+msgstr ""
+"<b><i>“%s”</i></b> dalını kalıcı olarak silmek istediğinizden emin misiniz?"
 
-#: gitg/gitg-ref-action-delete.vala:78
-#, c-format
-msgid "Delete tag %s"
-msgstr "%s etiketini sil"
+#: gitg/gitg-ref-action-delete.vala:80
+msgid "Confirm tag deletion"
+msgstr "Etiket silmeyi onayla"
 
-#: gitg/gitg-ref-action-delete.vala:79
+#: gitg/gitg-ref-action-delete.vala:81
 #, c-format
-msgid "Are you sure that you want to permanently delete the tag %s?"
-msgstr "%s etiketini kalıcı olarak silmek istediğinizden emin misiniz?"
+msgid ""
+"Are you sure that you want to permanently delete the tag <b><i>“%s”</i></b>?"
+msgstr ""
+"<b><i>“%s”</i></b> etiketini kalıcı olarak silmek istediğinizden emin "
+"misiniz?"
 
-#: gitg/gitg-ref-action-delete.vala:83
-#, c-format
-msgid "Delete remote branch %s"
-msgstr "%s uzak dalını sil"
+#: gitg/gitg-ref-action-delete.vala:87
+msgid "Confirm remote branch deletion"
+msgstr "Uzak dal silmeyi onayla"
 
-#: gitg/gitg-ref-action-delete.vala:84
+#: gitg/gitg-ref-action-delete.vala:88
 #, c-format
-msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr "%s uzak dalını kalıcı olarak silmek istediğinizden emin misiniz?"
+msgid ""
+"Are you sure that you want to permanently delete the remote branch "
+"<b><i>“%s”</i></b>?"
+msgstr ""
+"<b><i>“%s”</i></b> uzak dalını kalıcı olarak silmek istediğinizden emin "
+"misiniz?"
+
+#: gitg/gitg-ref-action-delete.vala:95
+msgid "Delete"
+msgstr "Sil"
 
 #. Translators: %s is the name of the tag
-#: gitg/gitg-ref-action-delete.vala:119
+#: gitg/gitg-ref-action-delete.vala:125
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr "%s etiketi silinemedi"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:122
+#: gitg/gitg-ref-action-delete.vala:128
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr "%s etiketi silinemedi: %s"
 
 #. Translators: %s is the name of the branch
-#: gitg/gitg-ref-action-delete.vala:127
+#: gitg/gitg-ref-action-delete.vala:133
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr "%s dalı silinemedi"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:130
+#: gitg/gitg-ref-action-delete.vala:136
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "%s dalı silinemedi: %s"
@@ -1325,53 +1345,53 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "“%s”i “%s” dalına birleştir"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1199
+#: gitg/history/gitg-history-refs-list.vala:1240
 msgid "Tags"
 msgstr "Etiketler"
 
-#: gitg/gitg-ref-action-push.vala:80
+#: gitg/gitg-ref-action-push.vala:65
 #, c-format
 msgid "Push to %s"
 msgstr "%sʼe it"
 
-#: gitg/gitg-ref-action-push.vala:91
+#: gitg/gitg-ref-action-push.vala:76
 #, c-format
 msgid "Push branch to %s"
 msgstr "Dalı %sʼe it"
 
-#: gitg/gitg-ref-action-push.vala:107
+#: gitg/gitg-ref-action-push.vala:92
 #, c-format
 msgid "Pushing to %s"
 msgstr "%sʼe itiliyor"
 
-#: gitg/gitg-ref-action-push.vala:116
+#: gitg/gitg-ref-action-push.vala:101
 #, c-format
 msgid "Failed to push to %s: %s"
 msgstr "%sʼe itilemedi: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:123
+#: gitg/gitg-ref-action-push.vala:108
 #, c-format
 msgid "Pushed to %s"
 msgstr "%sʼe itildi"
 
-#: gitg/gitg-ref-action-push.vala:134
+#: gitg/gitg-ref-action-push.vala:119
 #, c-format
 msgid "Push branch %s"
 msgstr "%s dalını it"
 
-#: gitg/gitg-ref-action-push.vala:135
+#: gitg/gitg-ref-action-push.vala:120
 #, c-format
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "%s dalını itmek istediğinizden emin misiniz?"
 
-#: gitg/gitg-ref-action-push.vala:139
+#: gitg/gitg-ref-action-push.vala:124
 msgid "Push"
 msgstr "İt"
 
 #: gitg/gitg-ref-action-rename.vala:48
-msgid "Rename"
-msgstr "Yeniden adlandır"
+msgid "Rename…"
+msgstr "Yeniden adlandır…"
 
 #: gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
@@ -1395,6 +1415,14 @@ msgstr "Belirtilen “%s” adı geçersiz karakterler içeriyor"
 msgid "Failed to rename"
 msgstr "Yeniden adlandırılamadı"
 
+#: gitg/gitg-ref-action-tag-info.vala:46
+msgid "Show tag info"
+msgstr "Etiket bilgisini göster"
+
+#: gitg/gitg-ref-action-tag-info.vala:51
+msgid "Show info at selected tag"
+msgstr "Seçili etiket bilgisini göster"
+
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
 msgid "Close"
 msgstr "Kapat"
@@ -1408,20 +1436,19 @@ msgid "Removes remote from the remotes list"
 msgstr "Uzağı uzaklar listesinden kaldırır"
 
 #: gitg/gitg-remove-remote-action.vala:62
-#, c-format
-msgid "Delete remote %s"
-msgstr "%s uzağını sil"
+msgid "Confirm remote deletion"
+msgstr "Uzak silmeyi onayla"
 
 #: gitg/gitg-remove-remote-action.vala:63
 #, c-format
-msgid "Are you sure that you want to remove the remote %s?"
-msgstr "%s uzağını kaldırmak istediğinizden emin misiniz?"
+msgid "Are you sure that you want to remove the remote <b><i>“%s”</i></b>?"
+msgstr "<b><i>“%s”</i></b> uzağını kaldırmak istediğinizden emin misiniz?"
 
-#: gitg/gitg-remove-remote-action.vala:67
+#: gitg/gitg-remove-remote-action.vala:68
 msgid "Remove"
 msgstr "Kaldır"
 
-#: gitg/gitg-remove-remote-action.vala:91
+#: gitg/gitg-remove-remote-action.vala:92
 msgid "Failed to remove remote"
 msgstr "Uzak kaldırılamadı"
 
@@ -1512,36 +1539,36 @@ msgstr "Geçmiş etkinliğinde belirtilen atfı öntanımlı olarak seç"
 msgid "REFERENCE"
 msgstr "ATIF"
 
-#: gitg/history/gitg-history-refs-list.vala:165
+#: gitg/history/gitg-history-refs-list.vala:166
 #, c-format
 msgid "%zu ahead, %zu behind"
 msgstr "%zu ilerde, %zu geride"
 
-#: gitg/history/gitg-history-refs-list.vala:169
+#: gitg/history/gitg-history-refs-list.vala:170
 #, c-format
 msgid "%zu ahead"
 msgstr "%zu ilerde"
 
-#: gitg/history/gitg-history-refs-list.vala:173
+#: gitg/history/gitg-history-refs-list.vala:174
 #, c-format
 msgid "%zu behind"
 msgstr "%zu geride"
 
-#: gitg/history/gitg-history-refs-list.vala:207
+#: gitg/history/gitg-history-refs-list.vala:208
 #: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
 msgstr "Tüm işlemeler"
 
-#: gitg/history/gitg-history-refs-list.vala:1197
+#: gitg/history/gitg-history-refs-list.vala:1238
 msgid "Branches"
 msgstr "Dallar"
 
-#: gitg/history/gitg-history-refs-list.vala:1198
+#: gitg/history/gitg-history-refs-list.vala:1239
 msgid "Remotes"
 msgstr "Uzaklar"
 
 #: gitg/history/gitg-history.vala:348
-#: gitg/preferences/gitg-preferences-history.vala:218
+#: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Geçmiş"
@@ -1550,7 +1577,7 @@ msgstr "Geçmiş"
 msgid "Examine the history of the repository"
 msgstr "Deponun geçmişini incele"
 
-#: gitg/history/gitg-history.vala:959
+#: gitg/history/gitg-history.vala:968
 msgid "Mainline"
 msgstr "Anahat"
 
@@ -1742,6 +1769,7 @@ msgid "Create Tag"
 msgstr "Etiket Oluştur"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:71
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:53
 msgid "Tag _name:"
 msgstr "Etiket _adı:"
 
@@ -1861,27 +1889,27 @@ msgstr "Kenar çubuğundaki atıfları son etkinliğe göre sırala"
 msgid "Show upstream (remote) branch when selecting a local branch"
 msgstr "Yerel dal seçerken ana kaynak (uzak) dalını göster"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:154
+#: gitg/resources/ui/gitg-preferences-history.ui:170
 msgid "Commits"
 msgstr "İşlemeler"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:174
+#: gitg/resources/ui/gitg-preferences-history.ui:190
 msgid "Collapse inactive lanes"
 msgstr "Etkin olmayan yolları daralt"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:215
+#: gitg/resources/ui/gitg-preferences-history.ui:231
 msgid "Early"
 msgstr "Erken"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:227
+#: gitg/resources/ui/gitg-preferences-history.ui:243
 msgid "Late"
 msgstr "Geç"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:242
+#: gitg/resources/ui/gitg-preferences-history.ui:258
 msgid "Show history in topological order"
 msgstr "Geçmişi topolojik sırada göster"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:257
+#: gitg/resources/ui/gitg-preferences-history.ui:273
 msgid "Preserve mainline for currently checked out branch"
 msgstr "Şu anda alınmış olan dal için anahattı koru"
 
@@ -1955,7 +1983,7 @@ msgstr "Pencereler"
 #: gitg/resources/ui/gitg-shortcuts.ui:19
 msgctxt "shortcut window"
 msgid "Open shortcut window"
-msgstr "Pencere menüsünü aç"
+msgstr "Kısayollar penceresini aç"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:26
 msgctxt "shortcut window"
@@ -2082,6 +2110,15 @@ msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Geçmiş Etkinliği"
 
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
+msgid "Show Tag info"
+msgstr "Etiket Bilgisini Göster"
+
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:230
+msgid "_Close"
+msgstr "_Kapat"
+
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
 msgstr "Son kullanılan depoların listesini göster"
@@ -2101,10 +2138,6 @@ msgstr "Sözcük veya ifade bul"
 #: gitg/resources/ui/gitg-window.ui:134
 msgid "General settings and options"
 msgstr "Genel ayarlar ve seçenekler"
-
-#: gitg/resources/ui/gitg-window.ui:230
-msgid "_Close"
-msgstr "_Kapat"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
@@ -2385,3 +2418,18 @@ msgstr "Dosyalar"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Seçili işlemenin ağacındaki dosyaları göster"
+
+#~ msgid "Edits the remote from the remotes list"
+#~ msgstr "Uzağı uzaklar listesinden düzenler"
+
+#~ msgid "Delete branch %s"
+#~ msgstr "%s dalını sil"
+
+#~ msgid "Delete tag %s"
+#~ msgstr "%s etiketini sil"
+
+#~ msgid "Delete remote branch %s"
+#~ msgstr "%s uzak dalını sil"
+
+#~ msgid "Delete remote %s"
+#~ msgstr "%s uzağını sil"
