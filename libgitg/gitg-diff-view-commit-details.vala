@@ -204,7 +204,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		var name = Markup.escape_text(author.get_name());
 		var email = Markup.escape_text(author.get_email());
 
-		return "%s &lt;<a href=\"mailto:%s\">%s</a>&gt;".printf(name, email, email);
+		return "<a href=\"mailto:%s\" title=\"%s\">%s</a>".printf(email, email, name);
 	}
 
 	private void update()
