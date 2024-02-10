@@ -226,7 +226,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 		var author = commit.get_author();
 
-		d_label_author.label = author_to_markup(author);
+		d_label_author.label = _("<small>Authored by</small> %s").printf(author_to_markup(author));
 
 		var committer = commit.get_committer();
 
@@ -234,7 +234,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		    committer.get_email() != author.get_email() ||
 		    committer.get_time().compare(author.get_time()) != 0)
 		{
-			d_label_committer.label = _("Committed by %s").printf(author_to_markup(committer));
+			d_label_committer.label = _("<small>Committed by</small> %s").printf(author_to_markup(committer));
 		}
 		else
 		{
