@@ -234,7 +234,18 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		    committer.get_email() != author.get_email() ||
 		    committer.get_time().compare(author.get_time()) != 0)
 		{
-			d_label_committer.label = _("<small>Committed by</small> %s").printf(author_to_markup(committer));
+			if (committer.get_email().has_prefix("noreply@") ||
+			    committer.get_email().has_prefix("no-reply@") ||
+			    committer.get_email().has_prefix("gnome-sysadmin@") ||
+			    committer.get_email().has_prefix("root@") ||
+			    committer.get_email().has_prefix("localhost@"))
+			{
+				d_label_committer.label = _("<small>Committed by</small> %s").printf(committer.get_name());
+			}
+			else
+			{
+				d_label_committer.label = _("<small>Committed by</small> %s").printf(author_to_markup(committer));
+			}
 		}
 		else
 		{
