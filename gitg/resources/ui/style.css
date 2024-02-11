@@ -126,6 +126,12 @@ GitgHistoryRefRow {
 	font-weight: bold;
 }
 
+.subject-label-semi-bold {
+  /* In the main commit diff details header, instead of using full bold (700),
+     use semi-bold for the 1st line to avoid overpowering the rest of the UI. */
+  font-weight: 600;
+}
+
 .sha1-label {
 	font-size: 0.8em;
 	color: @insensitive_fg_color;
