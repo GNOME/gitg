@@ -175,6 +175,7 @@ namespace Gitg
 			{
 				string head_name = "";
 				string head_description = "";
+				var doap = new Ide.Doap();
 
 				if (d_repository != null)
 				{
@@ -205,7 +206,6 @@ namespace Gitg
 							var blob = d_repository.lookup<Ggit.Blob>(entry_id);
 
 							unowned uint8[] content = blob.get_raw_content();
-							var doap = new Ide.Doap();
 							doap.load_from_data((string)content, -1);
 
 							head_description = doap.get_shortdesc();
@@ -230,7 +230,13 @@ namespace Gitg
 					} catch {}
 				}
 
-				repository_name = d_repository != null ? d_repository.name : "";
+
+				if (doap.get_name() != null)
+				{
+					repository_name = doap.get_name();
+				} else {
+					repository_name = d_repository != null ? d_repository.name : "";
+				}
 
 				d_description_label.label = head_description;
 				d_description_label.visible = head_description != "";
@@ -703,6 +709,13 @@ namespace Gitg
 			if (row == null)
 			{
 				var dirname = Utils.replace_home_dir_with_tilde((repository.workdir != null ? repository.workdir : repository.location).get_parent());
+				
+				if (dirname.contains("/")) {
+					dirname = dirname.concat("/", repository.name);
+				} else {
+					dirname = dirname.concat("\\", repository.name);
+				}
+
 				row = new Row(repository, dirname);
 				row.show();
 
