@@ -255,4 +255,4 @@ namespace Gitg
 	}
 }
 
-/* vi:ts=4 */
+// vi:ts=4
