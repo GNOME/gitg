@@ -148,7 +148,7 @@ namespace Gitg
 				get { return d_branch_name; }
 				set
 				{
-					d_branch_name = value;
+					d_branch_name = "\"" + value + "\"";
 					update_branch_label();
 				}
 			}
