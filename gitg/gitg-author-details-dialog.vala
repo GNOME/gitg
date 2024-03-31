@@ -25,6 +25,9 @@ namespace Gitg
 		//Do this to pull in config.h before glib.h (for gettext)
 		private const string version = Gitg.Config.VERSION;
 
+		private const string USER_NAME_PROP = "user.name";
+		private const string USER_EMAIL_PROP = "user.email";
+
 		[GtkChild (name = "entry_name")]
 		private unowned Gtk.Entry d_entry_name;
 
@@ -100,7 +103,7 @@ namespace Gitg
 
 			// Translators: %s is the repository name
 			d_checkbutton_override_global.label = _("Override global details for repository “%s”:").printf(d_repository_name);
-			d_checkbutton_override_global.active = (config_is_local("user.name") || config_is_local("user.email"));
+			d_checkbutton_override_global.active = (config_is_local(USER_NAME_PROP) || config_is_local(USER_EMAIL_PROP));
 
 			d_checkbutton_override_global.notify["active"].connect(update_sensitivity);
 			d_checkbutton_override_global.show();
@@ -163,61 +166,74 @@ namespace Gitg
 
 		private void update_entries(Ggit.Config config)
 		{
-			d_entry_name.set_text(read_config_string(config, "user.name").chomp());
-			d_entry_email.set_text(read_config_string(config, "user.email").chomp());
+			d_entry_name.set_text(read_config_string(config, USER_NAME_PROP).strip());
+			d_entry_email.set_text(read_config_string(config, USER_EMAIL_PROP).strip());
 		}
 
-		private void delete_local_entries()
-		{
-			try
-			{
-				if (d_config.get_entry("user.name").get_level() == Ggit.ConfigLevel.LOCAL)
-				{
-					d_config.delete_entry("user.name");
+		private void delete_local_entry(string name) {
+			try {
+				if (d_config.get_entry(name).get_level() == Ggit.ConfigLevel.LOCAL) {
+					d_config.delete_entry(name);
 				}
 			} catch {}
+		}
 
-			try
-			{
-				if (d_config.get_entry("user.email").get_level() == Ggit.ConfigLevel.LOCAL)
-				{
-					d_config.delete_entry("user.email");
-				}
-			} catch {}
+		private void set_property(string name, string value) {
+			bool empty_value = value == null || value.strip().len() == 0;
+			if (empty_value) {
+				d_config.delete_entry(name);
+			} else {
+				d_config.set_string(name, value.strip());
+			}
+		}
+
+		private bool exists_local_property(string name) {
+			var config = d_config.open_level(Ggit.ConfigLevel.LOCAL);
+			string value = read_config_string(config, name);
+			return value != null && value.strip().len() != 0;
 		}
 
 		public override void response(int id) {
-			if (id == Gtk.ResponseType.OK)
-			{
-				try
-				{
-					if (d_repository_name != null)
-					{
-						if (d_checkbutton_override_global.active)
-						{
-							d_config.set_string("user.name", d_entry_name.get_text());
-							d_config.set_string("user.email", d_entry_email.get_text());
+			bool destroy_dialog = true;
+			if (id == Gtk.ResponseType.OK) {
+				try {
+					if (d_repository_name != null) {
+						if (d_checkbutton_override_global.active) {
+							set_property(USER_NAME_PROP, d_entry_name.get_text());
+							set_property(USER_EMAIL_PROP, d_entry_email.get_text());
+						} else {
+							if (exists_local_property(USER_NAME_PROP) || exists_local_property(USER_EMAIL_PROP)) {
+								var alert_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
+								                                          Gtk.ButtonsType.OK_CANCEL,
+								                                          _("Disable override will clean existing local author details. Are you sure?"), null);
+								alert_dialog.response.connect ((id) => {
+									if (id == Gtk.ResponseType.OK) {
+										delete_local_entry(USER_NAME_PROP);
+										delete_local_entry(USER_EMAIL_PROP);
+									} else {
+										destroy_dialog = false;
+									}
+									alert_dialog.destroy();
+								});
+
+								alert_dialog.run();
+							}
 						}
-						else
-						{
-							delete_local_entries();
-						}
-					}
-					else
-					{
-						d_config.set_string("user.name", d_entry_name.get_text());
-						d_config.set_string("user.email", d_entry_email.get_text());
+					} else {
+						set_property(USER_NAME_PROP, d_entry_name.get_text());
+						set_property(USER_EMAIL_PROP, d_entry_email.get_text());
 					}
 				}
-				catch (Error e)
-				{
+				catch (Error e) {
 					show_config_error(_("Failed to set Git user config."), e.message);
 					destroy();
 					return;
 				}
 			}
 
-			destroy();
+			if(destroy_dialog) {
+				destroy();
+			}
 		}
 
 		private void show_config_error(string primary_message, string secondary_message)
