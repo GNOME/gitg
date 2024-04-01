@@ -90,6 +90,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private unowned Gtk.SearchBar d_search_bar;
 	[GtkChild]
 	private unowned Gtk.SearchEntry d_search_entry;
+	[GtkChild]
+	private unowned Gtk.Button d_search_up_button;
+	[GtkChild]
+	private unowned Gtk.Button d_search_down_button;
 
 	[GtkChild]
 	private unowned Gtk.Stack d_main_stack;
@@ -247,12 +251,25 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_search_entry.text = searchable.search_text;
 			searchable.search_visible = true;
 			searchable.search_entry = d_search_entry;
+			var has_text = d_search_entry.text.length > 0;
+			d_search_up_button.set_sensitive(has_text);
+			d_search_down_button.set_sensitive(has_text);
 		}
 		else
 		{
 			searchable.search_visible = false;
 			searchable.search_entry = null;
+			d_search_up_button.set_sensitive(false);
+			d_search_down_button.set_sensitive(false);
 		}
+
+		var show_buttons = false;
+		if (current_activity is GitgExt.Searchable)
+		{
+			show_buttons = searchable.show_buttons();
+		}
+		d_search_up_button.set_visible(show_buttons);
+		d_search_down_button.set_visible(show_buttons);
 	}
 
 	[GtkCallback]
@@ -264,6 +281,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (ntext != searchable.search_text)
 		{
 			searchable.search_text = ntext;
+			var has_text = ntext.length > 0;
+			d_search_up_button.set_sensitive(has_text);
+			d_search_down_button.set_sensitive(has_text);
 		}
 	}
 
@@ -276,6 +296,18 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			ret = d_activities.current.on_key_pressed(event);
 		}
 		return ret;
+	}
+
+	[GtkCallback]
+	private void search_up_clicked(Gtk.Button button)
+	{
+		search_move(true);
+	}
+
+	[GtkCallback]
+	private void search_down_clicked(Gtk.Button button)
+	{
+		search_move(false);
 	}
 
 	construct
@@ -1363,6 +1395,16 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	public GitgExt.Notifications notifications
 	{
 		owned get { return d_notifications; }
+	}
+
+	private void search_move(bool up)
+	{
+		if (current_activity is GitgExt.Searchable)
+		{
+			var searchable = current_activity as GitgExt.Searchable;
+			var key = d_search_entry.text;
+			searchable.search_move(key, up);
+		}
 	}
 }
 

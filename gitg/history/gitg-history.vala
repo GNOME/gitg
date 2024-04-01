@@ -1257,6 +1257,36 @@ namespace GitgHistory
 
 		public string search_text { owned get; set; default = ""; }
 		public bool search_visible { get; set; }
+
+		public override void search_move(string key, bool up)
+		{
+			// Move the tree selection by sending key press event,
+			// see: https://gitlab.gnome.org/GNOME/gtk/merge_requests/1167
+			var search_entry = d_main.commit_list_view.get_search_entry();
+			var keyval = up ? Gdk.Key.Up : Gdk.Key.Down;
+
+			Gdk.KeymapKey[] keys;
+			if(!Gdk.Keymap.get_for_display(search_entry.get_display()).get_entries_for_keyval(keyval, out keys))
+			{
+				return;
+			}
+
+			search_entry.grab_focus();
+
+			Gdk.EventKey* event = new Gdk.Event(Gdk.EventType.KEY_PRESS);
+			event->window = search_entry.get_window();
+			event->keyval = keyval;
+			event->hardware_keycode = (uint16) keys[0].keycode;
+			event->group = (uint8) keys[0].group;
+			((Gdk.Event*) event)->put();
+
+			return;
+		}
+
+		public override bool show_buttons()
+		{
+			return true;
+		}
 	}
 }
 
