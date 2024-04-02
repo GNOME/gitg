@@ -3,15 +3,15 @@
 # This file is distributed under the same licence as the gitg package.
 # Serhij Dubyk <dubyk@ukr.net>, 2011.
 # Daniel Korostil <ted.korostiled@gmail.com>, 2014.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-12-23 13:34+0000\n"
-"PO-Revision-Date: 2023-12-23 20:21+0200\n"
+"POT-Creation-Date: 2024-04-01 21:44+0000\n"
+"PO-Revision-Date: 2024-04-02 09:42+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"Language-Team: Ukrainian\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,8 +92,8 @@ msgid "The Gitg Team"
 msgstr "Команда Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:3
-msgid "@binary@"
-msgstr "@binary@"
+msgid "Gitg"
+msgstr "Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -693,7 +693,7 @@ msgstr "Ви справді хочете назавжди відкинути в�
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
+#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:737
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -827,8 +827,8 @@ msgstr ""
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:67
-#: libgitg/gitg-repository-list-box.vala:567
+#: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
+#: libgitg/gitg-repository-list-box.vala:573
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -911,7 +911,7 @@ msgid "Fetched from %s: %s"
 msgstr "Отримано з %s: %s"
 
 # Не вдалося вилучити теги
-#: gitg/gitg-add-remote-action.vala:129
+#: gitg/gitg-add-remote-action.vala:132
 msgid "Failed to add remote"
 msgstr "Не вдалося додати віддалене сховище"
 
@@ -979,24 +979,31 @@ msgstr ""
 "libgit2 без потокового підтримування."
 
 # Детальна інформація
-#: gitg/gitg-author-details-dialog.vala:79
-#: gitg/gitg-author-details-dialog.vala:99
+#: gitg/gitg-author-details-dialog.vala:82
+#: gitg/gitg-author-details-dialog.vala:102
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Подробиці про автора"
 
-#: gitg/gitg-author-details-dialog.vala:80
+#: gitg/gitg-author-details-dialog.vala:83
 msgid "Enter default details used for all repositories:"
 msgstr "Введіть типові подробиці для всіх сховищ:"
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:102
+#: gitg/gitg-author-details-dialog.vala:105
 #, c-format
 msgid "Override global details for repository “%s”:"
 msgstr "Перевизначення загальних параметрів сховища «%s»:"
 
+#: gitg/gitg-author-details-dialog.vala:208
+msgid ""
+"Disable override will clean existing local author details. Are you sure?"
+msgstr ""
+"Вимикання перевизначення призведе до вилучення наявних локальних даних щодо"
+" авторства. Ви впевнені?"
+
 # Не вдалося створити тег
-#: gitg/gitg-author-details-dialog.vala:214
+#: gitg/gitg-author-details-dialog.vala:228
 msgid "Failed to set Git user config."
 msgstr "Не вдалося вказати користувацькі налаштування Git."
 
@@ -1089,7 +1096,7 @@ msgstr "Створити гілку на вибраному внеску"
 
 # Не вдалося створити філію
 #: gitg/gitg-commit-action-create-branch.vala:75
-#: gitg/gitg-ref-action-checkout.vala:180
+#: gitg/gitg-ref-action-checkout.vala:182
 msgid "Failed to create branch"
 msgstr "Не вдалося створити гілку"
 
@@ -1245,7 +1252,7 @@ msgid "Successfully checked out branch to working directory"
 msgstr "Здійснено успішний перехід до гілки у робочому каталозі"
 
 # Не вдалося створити філію
-#: gitg/gitg-ref-action-checkout.vala:195
+#: gitg/gitg-ref-action-checkout.vala:197
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "Не вдалося встановити основну гілку %s для %s"
@@ -1453,52 +1460,52 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "Злити «%s» до гілки «%s»"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1219
+#: gitg/history/gitg-history-refs-list.vala:1240
 msgid "Tags"
 msgstr "Мітки"
 
-#: gitg/gitg-ref-action-push.vala:80
+#: gitg/gitg-ref-action-push.vala:65
 #, c-format
 msgid "Push to %s"
 msgstr "Надіслати до %s"
 
 # Натисніть гілки…
-#: gitg/gitg-ref-action-push.vala:91
+#: gitg/gitg-ref-action-push.vala:76
 #, c-format
 msgid "Push branch to %s"
 msgstr "Надіслати гілку до %s"
 
-#: gitg/gitg-ref-action-push.vala:107
+#: gitg/gitg-ref-action-push.vala:92
 #, c-format
 msgid "Pushing to %s"
 msgstr "Надсилаємо до %s"
 
 # Не вдалося зберегти поточний стан індекс
-#: gitg/gitg-ref-action-push.vala:116
+#: gitg/gitg-ref-action-push.vala:101
 #, c-format
 msgid "Failed to push to %s: %s"
 msgstr "Не вдалося надіслати до %s: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:123
+#: gitg/gitg-ref-action-push.vala:108
 #, c-format
 msgid "Pushed to %s"
 msgstr "Надіслано до %s"
 
 # Натисніть гілки…
-#: gitg/gitg-ref-action-push.vala:134
+#: gitg/gitg-ref-action-push.vala:119
 #, c-format
 msgid "Push branch %s"
 msgstr "Надіслати гілку %s"
 
 # Ви впевнені, що хочете вилучити віддаленого філії<%s>?
-#: gitg/gitg-ref-action-push.vala:135
+#: gitg/gitg-ref-action-push.vala:120
 #, c-format
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "Ви справді хочете надіслати гілку %s до сховища?"
 
 # Поштовх
-#: gitg/gitg-ref-action-push.vala:139
+#: gitg/gitg-ref-action-push.vala:124
 msgid "Push"
 msgstr "Надіслати"
 
@@ -1532,7 +1539,6 @@ msgstr "Не вдалося перейменувати"
 
 # Постановка змін
 #: gitg/gitg-ref-action-tag-info.vala:46
-#| msgid "Show Staged Changes"
 msgid "Show tag info"
 msgstr "Показати відомості мітки"
 
@@ -1575,45 +1581,45 @@ msgid "Failed to remove remote"
 msgstr "Не вдалося вилучити запис віддаленого сховища"
 
 # Відкрити Git репозиторій
-#: gitg/gitg-window.vala:202
+#: gitg/gitg-window.vala:206
 msgid "Add Repository"
 msgstr "Додати сховище"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:210
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Додати"
 
-#: gitg/gitg-window.vala:208
+#: gitg/gitg-window.vala:212
 msgid "_Scan for all git repositories from this directory"
 msgstr "С_канувати усі сховища git з цього каталогу"
 
-#: gitg/gitg-window.vala:517
+#: gitg/gitg-window.vala:549
 msgid "Projects"
 msgstr "Проєкти"
 
 # Відкрити Git репозиторій
-#: gitg/gitg-window.vala:703
+#: gitg/gitg-window.vala:735
 msgid "Open Repository"
 msgstr "Відкрити сховище"
 
 # Відкрити…
-#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:738 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Відкрити"
 
-#: gitg/gitg-window.vala:846
+#: gitg/gitg-window.vala:878
 msgid "Select items"
 msgstr "Вибрати елементи"
 
 # Не вдалося знайти Git репозиторій
-#: gitg/gitg-window.vala:1064
+#: gitg/gitg-window.vala:1096
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "«%s» — не сховище Git."
 
-#: gitg/gitg-window.vala:1213
+#: gitg/gitg-window.vala:1245
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1621,7 +1627,7 @@ msgstr ""
 "Ще не налаштовано користувача та пошту. Перейдіть у користувацькі параметри "
 "і вкажіть їх."
 
-#: gitg/gitg-window.vala:1217
+#: gitg/gitg-window.vala:1249
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1629,7 +1635,7 @@ msgstr ""
 "Ще не налаштовано користувача. Перейдіть у користувацькі параметри і вкажіть "
 "його."
 
-#: gitg/gitg-window.vala:1221
+#: gitg/gitg-window.vala:1253
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1637,7 +1643,7 @@ msgstr ""
 "Ще не налаштовано пошту. Перейдіть у користувацькі параметри і вкажіть її."
 
 # Детальна інформація
-#: gitg/gitg-window.vala:1224
+#: gitg/gitg-window.vala:1256
 msgid "Missing author details"
 msgstr "Немає подробиць щодо автора"
 
@@ -1687,12 +1693,12 @@ msgid "All commits"
 msgstr "Всі внески"
 
 # Відділення:
-#: gitg/history/gitg-history-refs-list.vala:1217
+#: gitg/history/gitg-history-refs-list.vala:1238
 msgid "Branches"
 msgstr "Гілки"
 
 # Дистанційне керування
-#: gitg/history/gitg-history-refs-list.vala:1218
+#: gitg/history/gitg-history-refs-list.vala:1239
 msgid "Remotes"
 msgstr "Віддалені"
 
@@ -1707,7 +1713,7 @@ msgstr "Журнал"
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:967
+#: gitg/history/gitg-history.vala:968
 msgid "Mainline"
 msgstr "Основа"
 
@@ -2202,108 +2208,117 @@ msgstr "Знайти"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
+msgid "Move to next search result"
+msgstr "Перейти до наступного результату пошуку"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Move to previous search result"
+msgstr "Перейти до попереднього результату пошуку"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:82
+msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Закрити активне вікно"
 
 # Показати версію програми
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Вийти з програми"
 
 # Зміни
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "Перейти до панелі приладів"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "Перейти до панелі журналу"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "Перейти до панелі внесків"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:103
+#: gitg/resources/ui/gitg-shortcuts.ui:117
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Перейти до списку дій"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:111
+#: gitg/resources/ui/gitg-shortcuts.ui:125
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "Робота із внесками"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:116
+#: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "Позначити або зняти позначення"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:123
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "Відкрити вікно внеску"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Сформувати позначене"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Скасувати формування позначеного"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:158
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Відкинути позначене"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:151
+#: gitg/resources/ui/gitg-shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Змінити позначене"
 
 # Фіксація повідомлення
-#: gitg/resources/ui/gitg-shortcuts.ui:159
+#: gitg/resources/ui/gitg-shortcuts.ui:173
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Вікно внеску"
 
 # Здійснювати
-#: gitg/resources/ui/gitg-shortcuts.ui:164
+#: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Внести"
 
 # Здійснювати
-#: gitg/resources/ui/gitg-shortcuts.ui:171
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Скасувати внесення"
 
 # Фіксація повідомлення
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:192
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Попереднє повідомлення щодо внеску"
 
 # Фіксація повідомлення
-#: gitg/resources/ui/gitg-shortcuts.ui:185
+#: gitg/resources/ui/gitg-shortcuts.ui:199
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Наступне повідомлення щодо внеску"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:193
+#: gitg/resources/ui/gitg-shortcuts.ui:207
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Дії з журналом"
 
 #: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
-#| msgid "Show Changes Inline"
 msgid "Show Tag info"
 msgstr "Показати відомості мітки"
 
@@ -2438,15 +2453,22 @@ msgid "Collapse all"
 msgstr "Згорнути все"
 
 #: libgitg/gitg-diff-view-commit-details.vala:176
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:217
 msgid "Expand all"
 msgstr "Розгорнути все"
 
-# Комміттера:
-#: libgitg/gitg-diff-view-commit-details.vala:237
+#: libgitg/gitg-diff-view-commit-details.vala:229
 #, c-format
-msgid "Committed by %s"
-msgstr "Внесено %s"
+msgid "<small>Authored by</small> %s"
+msgstr "<small>Авторство</small> %s"
+
+# Комміттера:
+#: libgitg/gitg-diff-view-commit-details.vala:243
+#: libgitg/gitg-diff-view-commit-details.vala:247
+#, c-format
+#| msgid "Committed by %s"
+msgid "<small>Committed by</small> %s"
+msgstr "<small>Внесено</small> %s"
 
 #. Translators: Unif stands for unified diff format
 #: libgitg/gitg-diff-view-file.vala:160
@@ -2491,11 +2513,11 @@ msgstr "у %s"
 msgid "%s at %s"
 msgstr "%s на %s"
 
-#: libgitg/gitg-repository-list-box.vala:553
+#: libgitg/gitg-repository-list-box.vala:559
 msgid "Cloning…"
 msgstr "Клонуємо…"
 
-#: libgitg/gitg-repository-list-box.vala:566
+#: libgitg/gitg-repository-list-box.vala:572
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
@@ -2504,11 +2526,11 @@ msgstr ""
 "Вилучення початкових файлів сховища «%s» призведе до вилучення даних з "
 "диска. Наслідки буде дуже важко скасувати. Ви впевнені у свої діях?"
 
-#: libgitg/gitg-repository-list-box.vala:568
+#: libgitg/gitg-repository-list-box.vala:574
 msgid "Move to trash"
 msgstr "Пересунути до смітника"
 
-#: libgitg/gitg-repository-list-box.vala:569
+#: libgitg/gitg-repository-list-box.vala:575
 msgid "Delete permanently"
 msgstr "Вилучити остаточно"
 
@@ -2569,7 +2591,7 @@ msgid "Remember _forever"
 msgstr "Запам'ятати назав_жди"
 
 # Батько:
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:157
 msgid "Parents"
 msgstr "Батьки"
 
@@ -2633,6 +2655,9 @@ msgstr "Файли"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Показати файли у ієрархії вибраного внеску"
+
+#~ msgid "@binary@"
+#~ msgstr "@binary@"
 
 #~ msgid "Edits the remote from the remotes list"
 #~ msgstr "Редагування запису віддаленого сховища зі списку віддалених сховищ"
