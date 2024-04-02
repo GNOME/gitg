@@ -205,7 +205,7 @@ namespace Gitg
 							if (exists_local_property(USER_NAME_PROP) || exists_local_property(USER_EMAIL_PROP)) {
 								var alert_dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
 								                                          Gtk.ButtonsType.OK_CANCEL,
-								                                          _("Disable override will clean existing local author details. Are you sure?"), null);
+								                                          _("Disable override will clean existing local author details. Are you sure?"));
 								alert_dialog.response.connect ((id) => {
 									if (id == Gtk.ResponseType.OK) {
 										delete_local_entry(USER_NAME_PROP);

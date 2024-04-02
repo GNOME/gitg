@@ -1146,14 +1146,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	public void user_query(GitgExt.UserQuery query)
 	{
-		var dlg = new Gtk.MessageDialog(this,
+		var dlg = new Gtk.MessageDialog.with_markup(this,
 		                                Gtk.DialogFlags.MODAL,
 		                                query.message_type,
 		                                Gtk.ButtonsType.NONE,
-		                                "");
-
-		var primary = "<b>%s</b>".printf(Markup.escape_text(query.title));
-		dlg.set_markup(primary);
+		                                "<b>%s</b>",
+		                                query.title);
 
 		dlg.format_secondary_text("%s", query.message);
 

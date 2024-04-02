@@ -569,7 +569,7 @@ namespace Gitg
 		{
 			var alert_dialog = new Gtk.MessageDialog((Gtk.Window) row.get_toplevel(),
 					Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.NONE,
-					_("Deleting repository source files “%s” will delete them from disk and cannot be undone. Are you sure?").printf(uri), null);
+					_("Deleting repository source files “%s” will delete them from disk and cannot be undone. Are you sure?"), uri);
 			alert_dialog.add_button(_("Cancel"), DeleteSources.CANCEL);
 			alert_dialog.add_button(_("Move to trash"), DeleteSources.TRASH);
 			alert_dialog.add_button(_("Delete permanently"), DeleteSources.DELETE);
