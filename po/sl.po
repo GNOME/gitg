@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-12-23 13:34+0000\n"
-"PO-Revision-Date: 2024-03-09 13:46+0100\n"
+"POT-Creation-Date: 2024-04-01 21:44+0000\n"
+"PO-Revision-Date: 2024-04-02 10:33+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -90,8 +90,8 @@ msgid "The Gitg Team"
 msgstr "Ekipa gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:3
-msgid "@binary@"
-msgstr "@binary@"
+msgid "Gitg"
+msgstr "Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -654,7 +654,7 @@ msgstr "Ali ste prepričani, da želite trajno izbrisati izbrane spremembe?"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
+#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:737
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -773,8 +773,8 @@ msgstr ""
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:67
-#: libgitg/gitg-repository-list-box.vala:567
+#: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
+#: libgitg/gitg-repository-list-box.vala:573
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -844,7 +844,7 @@ msgstr "Pridobivanje oddaljenega skladišča je spodletelo"
 msgid "Fetched from %s: %s"
 msgstr "Pridobljeno iz %s: %s"
 
-#: gitg/gitg-add-remote-action.vala:129
+#: gitg/gitg-add-remote-action.vala:132
 msgid "Failed to add remote"
 msgstr "Dodajanje oddaljenega skladišča je spodletelo"
 
@@ -909,23 +909,30 @@ msgstr ""
 "Seveda se lahko zgodi, da je tudi sistemska knjižnica izgrajena brez "
 "ustrezne podpore. V tem primeru je treba poslati poročilo o hrošču."
 
-#: gitg/gitg-author-details-dialog.vala:79
-#: gitg/gitg-author-details-dialog.vala:99
+#: gitg/gitg-author-details-dialog.vala:82
+#: gitg/gitg-author-details-dialog.vala:102
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Podrobnosti avtorja"
 
-#: gitg/gitg-author-details-dialog.vala:80
+#: gitg/gitg-author-details-dialog.vala:83
 msgid "Enter default details used for all repositories:"
 msgstr "Vnesite privzete podrobnosti za vsa skladišča:"
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:102
+#: gitg/gitg-author-details-dialog.vala:105
 #, c-format
 msgid "Override global details for repository “%s”:"
 msgstr "Prepiši splošne podrobnosti za skladišče »%s«:"
 
-#: gitg/gitg-author-details-dialog.vala:214
+#: gitg/gitg-author-details-dialog.vala:208
+msgid ""
+"Disable override will clean existing local author details. Are you sure?"
+msgstr ""
+"Onemogočitev prepisa bo izbrisala obstoječe krajevne podatke o avtorju. Ali "
+"ste prepričani?"
+
+#: gitg/gitg-author-details-dialog.vala:228
 msgid "Failed to set Git user config."
 msgstr "Nastavljanje uporabniških določil je spodletelo."
 
@@ -1011,7 +1018,7 @@ msgid "Create a new branch at the selected commit"
 msgstr "Ustvari novo vejo pri izbrani uveljavitvi"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
-#: gitg/gitg-ref-action-checkout.vala:180
+#: gitg/gitg-ref-action-checkout.vala:182
 msgid "Failed to create branch"
 msgstr "Ustvarjanje veje je spodletelo"
 
@@ -1151,7 +1158,7 @@ msgstr "Posodabljanje veje HEAD je spodletelo: %s"
 msgid "Successfully checked out branch to working directory"
 msgstr "Uspešno prevzeta veja v delovno mapo"
 
-#: gitg/gitg-ref-action-checkout.vala:195
+#: gitg/gitg-ref-action-checkout.vala:197
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "Nastavljanje gornje veje %s za %s je spodletelo"
@@ -1348,47 +1355,47 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "Združi »%s« v vejo »%s«"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1219
+#: gitg/history/gitg-history-refs-list.vala:1240
 msgid "Tags"
 msgstr "Oznake"
 
-#: gitg/gitg-ref-action-push.vala:80
+#: gitg/gitg-ref-action-push.vala:65
 #, c-format
 msgid "Push to %s"
 msgstr "Objavi na %s"
 
-#: gitg/gitg-ref-action-push.vala:91
+#: gitg/gitg-ref-action-push.vala:76
 #, c-format
 msgid "Push branch to %s"
 msgstr "Objavi vejo na %s"
 
-#: gitg/gitg-ref-action-push.vala:107
+#: gitg/gitg-ref-action-push.vala:92
 #, c-format
 msgid "Pushing to %s"
 msgstr "Poteka objavljanje na %s"
 
-#: gitg/gitg-ref-action-push.vala:116
+#: gitg/gitg-ref-action-push.vala:101
 #, c-format
 msgid "Failed to push to %s: %s"
 msgstr "Objavljanje na %s je spodletelo: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:123
+#: gitg/gitg-ref-action-push.vala:108
 #, c-format
 msgid "Pushed to %s"
 msgstr "Objavljeno na %s"
 
-#: gitg/gitg-ref-action-push.vala:134
+#: gitg/gitg-ref-action-push.vala:119
 #, c-format
 msgid "Push branch %s"
 msgstr "Objavi vejo %s"
 
-#: gitg/gitg-ref-action-push.vala:135
+#: gitg/gitg-ref-action-push.vala:120
 #, c-format
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "Ali ste prepričani, da želite objaviti vejo %s?"
 
-#: gitg/gitg-ref-action-push.vala:139
+#: gitg/gitg-ref-action-push.vala:124
 msgid "Push"
 msgstr "Objavi"
 
@@ -1457,42 +1464,42 @@ msgstr "Odstrani"
 msgid "Failed to remove remote"
 msgstr "Odstranjevanje oddaljenega skladišča je spodletelo"
 
-#: gitg/gitg-window.vala:202
+#: gitg/gitg-window.vala:206
 msgid "Add Repository"
 msgstr "Dodaj skladišče"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:210
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: gitg/gitg-window.vala:208
+#: gitg/gitg-window.vala:212
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Preišči mapo za skladišča git"
 
-#: gitg/gitg-window.vala:517
+#: gitg/gitg-window.vala:549
 msgid "Projects"
 msgstr "Projekti"
 
-#: gitg/gitg-window.vala:703
+#: gitg/gitg-window.vala:735
 msgid "Open Repository"
 msgstr "Odpri skladišče"
 
-#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:738 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Odpri"
 
-#: gitg/gitg-window.vala:846
+#: gitg/gitg-window.vala:878
 msgid "Select items"
 msgstr "Izbor predmetov"
 
-#: gitg/gitg-window.vala:1064
+#: gitg/gitg-window.vala:1096
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "Mesto »%s« ni skladišče Git."
 
-#: gitg/gitg-window.vala:1213
+#: gitg/gitg-window.vala:1245
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1500,14 +1507,14 @@ msgstr ""
 "Uporabniško ime in elektronski naslov še nista nastavljena. Ta in druge "
 "podatke uporabnika je mogoče vpisati med nastavitvami uporabnika."
 
-#: gitg/gitg-window.vala:1217
+#: gitg/gitg-window.vala:1249
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr ""
 "Vaše ime še ni nastavljeno. Odprite nastavitve uporabnika in vnesite podatek."
 
-#: gitg/gitg-window.vala:1221
+#: gitg/gitg-window.vala:1253
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1515,7 +1522,7 @@ msgstr ""
 "Vaš elektronski naslov še ni nastavljen. Odprite nastavitve uporabnika in "
 "vnesite podatek."
 
-#: gitg/gitg-window.vala:1224
+#: gitg/gitg-window.vala:1256
 msgid "Missing author details"
 msgstr "Manjkajo podrobnosti avtorja"
 
@@ -1563,11 +1570,11 @@ msgstr "%zu zadaj"
 msgid "All commits"
 msgstr "Vse uveljavitve"
 
-#: gitg/history/gitg-history-refs-list.vala:1217
+#: gitg/history/gitg-history-refs-list.vala:1238
 msgid "Branches"
 msgstr "Veje"
 
-#: gitg/history/gitg-history-refs-list.vala:1218
+#: gitg/history/gitg-history-refs-list.vala:1239
 msgid "Remotes"
 msgstr "Oddaljeno"
 
@@ -1581,7 +1588,7 @@ msgstr "Zgodovina"
 msgid "Examine the history of the repository"
 msgstr "Preglej zgodovino skladišča"
 
-#: gitg/history/gitg-history.vala:967
+#: gitg/history/gitg-history.vala:968
 msgid "Mainline"
 msgstr "Glavna veja"
 
@@ -2021,95 +2028,105 @@ msgstr "Najdi"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
+msgid "Move to next search result"
+msgstr "Pomakni se na naslednji zadetek"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Move to previous search result"
+msgstr "Premakni se na predhodni zadetek"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:82
+msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Zapre dejavno okno"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Konča program"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "Preklopi na nadzorni pogled"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "Preklopi na pogled zgodovine"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "Preklopi na pogled uveljavitve"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:103
+#: gitg/resources/ui/gitg-shortcuts.ui:117
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Preklopi na dejavnosti"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:111
+#: gitg/resources/ui/gitg-shortcuts.ui:125
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "Uveljavi dejavnost"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:116
+#: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "Izbere/Odstrani izbor"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:123
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "Odpre pogovorno okno uveljavitve"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Postavi izbor v pripravljenost"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Odstrani izbor iz pripravljenosti"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:158
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Opusti izbor"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:151
+#: gitg/resources/ui/gitg-shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Uredi izbor"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:159
+#: gitg/resources/ui/gitg-shortcuts.ui:173
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Odpre pogovorno okno uveljavitve"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:164
+#: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Uveljavi"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:171
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Prekliče uveljavitev"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:192
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Predhodno sporočilo uveljavljanja"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:185
+#: gitg/resources/ui/gitg-shortcuts.ui:199
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Naslednje sporočilo uveljavljanja"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:193
+#: gitg/resources/ui/gitg-shortcuts.ui:207
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Zgodovina dejavnosti"
@@ -2246,14 +2263,20 @@ msgid "Collapse all"
 msgstr "Zloži vse"
 
 #: libgitg/gitg-diff-view-commit-details.vala:176
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:217
 msgid "Expand all"
 msgstr "Razširi vse"
 
-#: libgitg/gitg-diff-view-commit-details.vala:237
+#: libgitg/gitg-diff-view-commit-details.vala:229
 #, c-format
-msgid "Committed by %s"
-msgstr "Uveljavil uporabnik %s"
+msgid "<small>Authored by</small> %s"
+msgstr "<small>Avtor:</small> %s"
+
+#: libgitg/gitg-diff-view-commit-details.vala:243
+#: libgitg/gitg-diff-view-commit-details.vala:247
+#, c-format
+msgid "<small>Committed by</small> %s"
+msgstr "<small>Uveljavil uporabnik</small>  %s"
 
 #. Translators: Unif stands for unified diff format
 #: libgitg/gitg-diff-view-file.vala:160
@@ -2297,11 +2320,11 @@ msgstr "na %s"
 msgid "%s at %s"
 msgstr "%s na %s"
 
-#: libgitg/gitg-repository-list-box.vala:553
+#: libgitg/gitg-repository-list-box.vala:559
 msgid "Cloning…"
 msgstr "Poteka kloniranje …"
 
-#: libgitg/gitg-repository-list-box.vala:566
+#: libgitg/gitg-repository-list-box.vala:572
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
@@ -2310,11 +2333,11 @@ msgstr ""
 "Brisanje izvornih datotek skladišča »%s« jih bo izbrisalo z diska in tega "
 "dejanja ni mogoče razveljaviti. Ali ste prepričani?"
 
-#: libgitg/gitg-repository-list-box.vala:568
+#: libgitg/gitg-repository-list-box.vala:574
 msgid "Move to trash"
 msgstr "Premakni v smeti"
 
-#: libgitg/gitg-repository-list-box.vala:569
+#: libgitg/gitg-repository-list-box.vala:575
 msgid "Delete permanently"
 msgstr "Trajno izbriši"
 
@@ -2372,7 +2395,7 @@ msgstr "Zapomni si geslo do _odjave"
 msgid "Remember _forever"
 msgstr "_Zapomni si"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:157
 msgid "Parents"
 msgstr "Nadrejeni predmeti"
 
