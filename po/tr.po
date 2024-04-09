@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2024-02-07 13:57+0000\n"
-"PO-Revision-Date: 2024-02-08 01:55+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"POT-Creation-Date: 2024-04-01 21:44+0000\n"
+"PO-Revision-Date: 2024-04-05 02:55+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -90,8 +90,8 @@ msgid "The Gitg Team"
 msgstr "Gitg Takımı"
 
 #: data/org.gnome.gitg.desktop.in.in:3
-msgid "@binary@"
-msgstr "@binary@"
+msgid "Gitg"
+msgstr "Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -651,7 +651,7 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
+#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:737
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -767,7 +767,7 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
-#: libgitg/gitg-repository-list-box.vala:567
+#: libgitg/gitg-repository-list-box.vala:573
 msgid "Cancel"
 msgstr "İptal"
 
@@ -905,23 +905,30 @@ msgstr ""
 "Aksi halde, iş parçacığı desteği olmadan libgit2 sağlanması için "
 "dağıtımınızın hata bildirim sisteminde bir kayıt açın."
 
-#: gitg/gitg-author-details-dialog.vala:79
-#: gitg/gitg-author-details-dialog.vala:99
+#: gitg/gitg-author-details-dialog.vala:82
+#: gitg/gitg-author-details-dialog.vala:102
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Yazar Ayrıntıları"
 
-#: gitg/gitg-author-details-dialog.vala:80
+#: gitg/gitg-author-details-dialog.vala:83
 msgid "Enter default details used for all repositories:"
 msgstr "Tüm depolar için kullanılan öntanımlı ayrıntıları girin:"
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:102
+#: gitg/gitg-author-details-dialog.vala:105
 #, c-format
 msgid "Override global details for repository “%s”:"
 msgstr "“%s” deposu için genel ayrıntıları geçersiz kıl:"
 
-#: gitg/gitg-author-details-dialog.vala:214
+#: gitg/gitg-author-details-dialog.vala:208
+msgid ""
+"Disable override will clean existing local author details. Are you sure?"
+msgstr ""
+"Üzerine yazmayı devre dışı bırakmak geçerli yerel yazar ayrıntılarını "
+"temizleyecektir. Emin misiniz?"
+
+#: gitg/gitg-author-details-dialog.vala:228
 msgid "Failed to set Git user config."
 msgstr "Git kullanıcı yapılandırması ayarlanamadı."
 
@@ -1452,42 +1459,42 @@ msgstr "Kaldır"
 msgid "Failed to remove remote"
 msgstr "Uzak kaldırılamadı"
 
-#: gitg/gitg-window.vala:202
+#: gitg/gitg-window.vala:206
 msgid "Add Repository"
 msgstr "Depo Ekle"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:210
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Ekle"
 
-#: gitg/gitg-window.vala:208
+#: gitg/gitg-window.vala:212
 msgid "_Scan for all git repositories from this directory"
 msgstr "Bu dizindeki tüm git depolarını _tara"
 
-#: gitg/gitg-window.vala:517
+#: gitg/gitg-window.vala:549
 msgid "Projects"
 msgstr "Projeler"
 
-#: gitg/gitg-window.vala:703
+#: gitg/gitg-window.vala:735
 msgid "Open Repository"
 msgstr "Depo Aç"
 
-#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:738 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Aç"
 
-#: gitg/gitg-window.vala:846
+#: gitg/gitg-window.vala:878
 msgid "Select items"
 msgstr "Ögeleri seçin"
 
-#: gitg/gitg-window.vala:1064
+#: gitg/gitg-window.vala:1096
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” bir Git deposu değil."
 
-#: gitg/gitg-window.vala:1213
+#: gitg/gitg-window.vala:1245
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1495,7 +1502,7 @@ msgstr ""
 "Kullanıcı adınız ve e-posta adresiniz henüz yapılandırılmamış. Lütfen "
 "kullanıcı yapılandırmasına giderek adınızı ve e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1217
+#: gitg/gitg-window.vala:1249
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1503,7 +1510,7 @@ msgstr ""
 "Kullanıcı adınız henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek adınızı girin."
 
-#: gitg/gitg-window.vala:1221
+#: gitg/gitg-window.vala:1253
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1511,7 +1518,7 @@ msgstr ""
 "E-posta adresiniz henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1224
+#: gitg/gitg-window.vala:1256
 msgid "Missing author details"
 msgstr "Yazar ayrıntıları eksik"
 
@@ -2017,95 +2024,105 @@ msgstr "Bul"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
+msgid "Move to next search result"
+msgstr "Sonraki arama sonucuna git"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Move to previous search result"
+msgstr "Önceki arama sonucuna git"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:82
+msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Etkin pencereyi kapat"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Uygulamadan çık"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "Konsola değiştir"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "Geçmiş Görünümüne değiştir"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "İşleme Görünümüne değiştir"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:103
+#: gitg/resources/ui/gitg-shortcuts.ui:117
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Etkinliğe değiştir"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:111
+#: gitg/resources/ui/gitg-shortcuts.ui:125
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "İşleme Etkinliği"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:116
+#: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "Seç/Seçimi Kaldır"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:123
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "İşleme iletişim kutusunu aç"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Seçimi hazırla"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Seçimi hazırlık dışı tut"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:158
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Seçimi gözden çıkar"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:151
+#: gitg/resources/ui/gitg-shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Seçimi düzenle"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:159
+#: gitg/resources/ui/gitg-shortcuts.ui:173
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "İşleme İletişim Kutusu"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:164
+#: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "İşle"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:171
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "İşlemeyi iptal et"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:192
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Önceki işleme iletisi"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:185
+#: gitg/resources/ui/gitg-shortcuts.ui:199
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Sonraki işleme iletisi"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:193
+#: gitg/resources/ui/gitg-shortcuts.ui:207
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Geçmiş Etkinliği"
@@ -2233,14 +2250,21 @@ msgid "Collapse all"
 msgstr "Tümünü daralt"
 
 #: libgitg/gitg-diff-view-commit-details.vala:176
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:217
 msgid "Expand all"
 msgstr "Tümünü genişlet"
 
-#: libgitg/gitg-diff-view-commit-details.vala:237
+#: libgitg/gitg-diff-view-commit-details.vala:229
 #, c-format
-msgid "Committed by %s"
-msgstr "İşleyen: %s"
+msgid "<small>Authored by</small> %s"
+msgstr "<small>Yazar</small> %s"
+
+#: libgitg/gitg-diff-view-commit-details.vala:243
+#: libgitg/gitg-diff-view-commit-details.vala:247
+#, c-format
+#| msgid "Committed by %s"
+msgid "<small>Committed by</small> %s"
+msgstr "<small>İşleyen</small> %s"
 
 #. Translators: Unif stands for unified diff format
 #: libgitg/gitg-diff-view-file.vala:160
@@ -2284,11 +2308,11 @@ msgstr "%sʼte"
 msgid "%s at %s"
 msgstr "%2$s’te %1$s"
 
-#: libgitg/gitg-repository-list-box.vala:553
+#: libgitg/gitg-repository-list-box.vala:559
 msgid "Cloning…"
 msgstr "Klonlanıyor…"
 
-#: libgitg/gitg-repository-list-box.vala:566
+#: libgitg/gitg-repository-list-box.vala:572
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
@@ -2297,11 +2321,11 @@ msgstr ""
 "“%s” depo kaynak dosyalarının silinmesi onları diskten tümüyle siler ve geri "
 "alınamaz. Emin misiniz?"
 
-#: libgitg/gitg-repository-list-box.vala:568
+#: libgitg/gitg-repository-list-box.vala:574
 msgid "Move to trash"
 msgstr "Çöpe taşı"
 
-#: libgitg/gitg-repository-list-box.vala:569
+#: libgitg/gitg-repository-list-box.vala:575
 msgid "Delete permanently"
 msgstr "Kalıcı olarak sil"
 
@@ -2357,7 +2381,7 @@ msgstr "Çıkış yapana kadar parolayı hatır_la"
 msgid "Remember _forever"
 msgstr "_Her zaman hatırla"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:157
 msgid "Parents"
 msgstr "Ebeveynler"
 
@@ -2418,6 +2442,9 @@ msgstr "Dosyalar"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Seçili işlemenin ağacındaki dosyaları göster"
+
+#~ msgid "@binary@"
+#~ msgstr "@binary@"
 
 #~ msgid "Edits the remote from the remotes list"
 #~ msgstr "Uzağı uzaklar listesinden düzenler"
