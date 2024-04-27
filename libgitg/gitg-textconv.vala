@@ -42,10 +42,12 @@ public class TextConv
 			var textconv_key = "diff.%s.textconv".printf(diffattr);
 			try
 			{
-				command = repository.get_config().get_string(textconv_key);
+				var config = repository.get_config().snapshot();
+				command = config.get_string(textconv_key);
 			}
 			catch (GLib.Error e)
 			{
+				warning("error getting textconv command: %s\n", e.message);
 			}
 		}
 		return command;
