@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2024-04-01 21:44+0000\n"
-"PO-Revision-Date: 2024-04-02 09:42+0300\n"
+"POT-Creation-Date: 2024-06-19 10:42+0000\n"
+"PO-Revision-Date: 2024-06-20 18:38+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -999,8 +999,8 @@ msgstr "Перевизначення загальних параметрів с�
 msgid ""
 "Disable override will clean existing local author details. Are you sure?"
 msgstr ""
-"Вимикання перевизначення призведе до вилучення наявних локальних даних щодо"
-" авторства. Ви впевнені?"
+"Вимикання перевизначення призведе до вилучення наявних локальних даних щодо "
+"авторства. Ви впевнені?"
 
 # Не вдалося створити тег
 #: gitg/gitg-author-details-dialog.vala:228
@@ -1619,7 +1619,7 @@ msgstr "Вибрати елементи"
 msgid "“%s” is not a Git repository."
 msgstr "«%s» — не сховище Git."
 
-#: gitg/gitg-window.vala:1245
+#: gitg/gitg-window.vala:1243
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1627,7 +1627,7 @@ msgstr ""
 "Ще не налаштовано користувача та пошту. Перейдіть у користувацькі параметри "
 "і вкажіть їх."
 
-#: gitg/gitg-window.vala:1249
+#: gitg/gitg-window.vala:1247
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1635,7 +1635,7 @@ msgstr ""
 "Ще не налаштовано користувача. Перейдіть у користувацькі параметри і вкажіть "
 "його."
 
-#: gitg/gitg-window.vala:1253
+#: gitg/gitg-window.vala:1251
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1643,7 +1643,7 @@ msgstr ""
 "Ще не налаштовано пошту. Перейдіть у користувацькі параметри і вкажіть її."
 
 # Детальна інформація
-#: gitg/gitg-window.vala:1256
+#: gitg/gitg-window.vala:1254
 msgid "Missing author details"
 msgstr "Немає подробиць щодо автора"
 
@@ -2349,6 +2349,16 @@ msgstr "Знайти слово або фразу"
 msgid "General settings and options"
 msgstr "Загальні параметри"
 
+#: gitg/resources/ui/gitg-window.ui:266
+#| msgctxt "shortcut window"
+#| msgid "Move to previous search result"
+msgid "Previous result"
+msgstr "Попередній результат"
+
+#: gitg/resources/ui/gitg-window.ui:282
+msgid "Next result"
+msgstr "Наступний результат"
+
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
 #: libgitg/gitg-authentication-dialog.vala:69
@@ -2466,7 +2476,6 @@ msgstr "<small>Авторство</small> %s"
 #: libgitg/gitg-diff-view-commit-details.vala:243
 #: libgitg/gitg-diff-view-commit-details.vala:247
 #, c-format
-#| msgid "Committed by %s"
 msgid "<small>Committed by</small> %s"
 msgstr "<small>Внесено</small> %s"
 
