@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2024-04-01 21:44+0000\n"
-"PO-Revision-Date: 2024-04-05 02:55+0300\n"
+"POT-Creation-Date: 2024-06-19 10:42+0000\n"
+"PO-Revision-Date: 2024-06-25 13:23+0300\n"
 "Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.3\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -1494,7 +1494,7 @@ msgstr "Ögeleri seçin"
 msgid "“%s” is not a Git repository."
 msgstr "“%s” bir Git deposu değil."
 
-#: gitg/gitg-window.vala:1245
+#: gitg/gitg-window.vala:1243
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1502,7 +1502,7 @@ msgstr ""
 "Kullanıcı adınız ve e-posta adresiniz henüz yapılandırılmamış. Lütfen "
 "kullanıcı yapılandırmasına giderek adınızı ve e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1249
+#: gitg/gitg-window.vala:1247
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1510,7 +1510,7 @@ msgstr ""
 "Kullanıcı adınız henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek adınızı girin."
 
-#: gitg/gitg-window.vala:1253
+#: gitg/gitg-window.vala:1251
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1518,7 +1518,7 @@ msgstr ""
 "E-posta adresiniz henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1256
+#: gitg/gitg-window.vala:1254
 msgid "Missing author details"
 msgstr "Yazar ayrıntıları eksik"
 
@@ -2156,6 +2156,14 @@ msgstr "Sözcük veya ifade bul"
 msgid "General settings and options"
 msgstr "Genel ayarlar ve seçenekler"
 
+#: gitg/resources/ui/gitg-window.ui:266
+msgid "Previous result"
+msgstr "Önceki sonuç"
+
+#: gitg/resources/ui/gitg-window.ui:282
+msgid "Next result"
+msgstr "Sonraki sonuç"
+
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
 #: libgitg/gitg-authentication-dialog.vala:69
@@ -2262,7 +2270,6 @@ msgstr "<small>Yazar</small> %s"
 #: libgitg/gitg-diff-view-commit-details.vala:243
 #: libgitg/gitg-diff-view-commit-details.vala:247
 #, c-format
-#| msgid "Committed by %s"
 msgid "<small>Committed by</small> %s"
 msgstr "<small>İşleyen</small> %s"
 
