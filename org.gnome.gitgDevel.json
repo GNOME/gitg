@@ -143,6 +143,7 @@
             "name": "gspell",
             "config-opts": [
                 "--disable-gtk-doc",
+                "--disable-static",
                 "--disable-gtk-doc-html"
             ],
             "cleanup": [
@@ -155,8 +156,12 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/gspell/1.8/gspell-1.8.1.tar.xz",
-                    "sha256": "819a1d23c7603000e73f5e738bdd284342e0cd345fb0c7650999c31ec741bbe5"
+                    "url": "https://download.gnome.org/sources/gspell/1.12/gspell-1.12.2.tar.xz",
+                    "sha256": "b4e993bd827e4ceb6a770b1b5e8950fce3be9c8b2b0cbeb22fdf992808dd2139",
+                    "x-checker-data": {
+                        "type": "gnome",
+                        "name": "gspell"
+                    }
                 }
             ]
         },
