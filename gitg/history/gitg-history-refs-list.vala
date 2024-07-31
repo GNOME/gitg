@@ -376,7 +376,7 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 
 	private bool on_editing_focus_out(Gtk.Widget widget, Gdk.EventFocus event)
 	{
-		finish_editing(false);
+		finish_editing(true);
 		return false;
 	}
 
