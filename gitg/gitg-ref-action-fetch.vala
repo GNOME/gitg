@@ -104,7 +104,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		var notification = new RemoteNotification(d_remote);
 		application.notifications.add(notification);
 
-		notification.text = _("Fetching from %s").printf(d_remote.get_url());
+		notification.text = _("Fetching from <a href='%s'>%s</a>").printf(d_remote.get_url(), d_remote.get_name());
 
 		var updates = new Gee.ArrayList<string>();
 
@@ -127,7 +127,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		}
 		catch (Error e)
 		{
-			notification.error(_("Failed to fetch from %s: %s").printf(d_remote.get_url(), e.message));
+			notification.error(_("Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>").printf(d_remote.get_url(), d_remote.get_name(), e.message));
 			stderr.printf("Failed to fetch: %s\n", e.message);
 
 			return false;
@@ -140,7 +140,7 @@ class RefActionFetch : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		if (updates.size == 0)
 		{
 			/* Translators: the %s will get replaced with the remote url, */
-			notification.success(_("Fetched from %s: everything is up to date").printf(d_remote.get_url()));
+			notification.success(_("Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>").printf(d_remote.get_url(), d_remote.get_name()));
 		}
 		else
 		{

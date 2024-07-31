@@ -108,7 +108,7 @@ public class RemoteNotification : ProgressBin, GitgExt.Notification
 		set
 		{
 			Idle.add(() => {
-				d_label_text.label = value;
+				d_label_text.set_markup(value);
 				return false;
 			});
 		}
