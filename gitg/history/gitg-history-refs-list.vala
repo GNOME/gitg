@@ -1524,9 +1524,9 @@ public class RefsList : Gtk.ListBox
 		return y;
 	}
 
-	protected override bool button_press_event(Gdk.EventButton button)
+	protected override bool button_release_event(Gdk.EventButton button)
 	{
-		var ret = base.button_press_event(button);
+		var ret = base.button_release_event(button);
 
 		var y = y_in_window((int)button.y, button.window);
 		var row = get_row_at_y(y);
