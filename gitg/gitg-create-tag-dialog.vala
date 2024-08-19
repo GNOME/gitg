@@ -43,9 +43,7 @@ class CreateTagDialog : Gtk.Dialog
 	{
 		d_font_manager = new FontManager(d_text_view_message, false);
 
-		d_entry_tag_name.changed.connect(() => {
-			d_button_create.sensitive = (new_tag_name.length != 0);
-		});
+		d_entry_tag_name.changed.connect(input_changed);
 
 		set_default(d_button_create);
 
@@ -77,6 +75,10 @@ class CreateTagDialog : Gtk.Dialog
 		show_user_info();
 
 		set_default_response(Gtk.ResponseType.OK);
+	}
+
+	private void input_changed () {
+		set_response_sensitive(Gtk.ResponseType.OK, new_tag_name != "");
 	}
 
 	private void show_user_info()

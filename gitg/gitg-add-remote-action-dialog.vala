@@ -34,18 +34,18 @@ class AddRemoteActionDialog : Gtk.Dialog
 
 	construct
 	{
-		d_entry_remote_name.changed.connect(() => {
-			var is_name_valid = (d_entry_remote_name.text != "");
-
-			d_entry_remote_url.changed.connect((e) => {
-				var is_url_valid = (d_entry_remote_url.text != "");
-
-				set_response_sensitive(Gtk.ResponseType.OK, is_name_valid && is_url_valid);
-			});
-		});
+		d_entry_remote_name.changed.connect(input_changed);
+		d_entry_remote_url.changed.connect(input_changed);
 
 		set_default(d_button_create);
 		set_default_response(Gtk.ResponseType.OK);
+	}
+
+	private void input_changed () {
+		bool is_name_valid = d_entry_remote_name.text != "";
+		bool is_url_valid = d_entry_remote_url.text != "";
+
+		set_response_sensitive(Gtk.ResponseType.OK, is_name_valid && is_url_valid);
 	}
 
 	public AddRemoteActionDialog(Gtk.Window? parent)

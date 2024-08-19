@@ -40,16 +40,15 @@ class CheckoutRemoteBranchDialog : Gtk.Dialog
 
 	construct
 	{
-		d_branch_name.changed.connect(() => {
-			d_button_create.sensitive = entries_valid();
-		});
-
-		d_remote_branch_name.changed.connect(() => {
-			d_button_create.sensitive = entries_valid();
-		});
+		d_branch_name.changed.connect(input_changed);
+		d_remote_branch_name.changed.connect(input_changed);
 
 		set_default(d_button_create);
 		set_default_response(Gtk.ResponseType.OK);
+	}
+
+	private void input_changed () {
+		set_response_sensitive(Gtk.ResponseType.OK, (new_branch_name != "") && (d_remote_branch_name.get_active_text() != null));
 	}
 
 	public CheckoutRemoteBranchDialog(Gtk.Window? parent, Gitg.Repository? repository, Gitg.Ref reference)
@@ -101,11 +100,6 @@ class CheckoutRemoteBranchDialog : Gtk.Dialog
 		base.show();
 
 		update_entries();
-	}
-
-	private bool entries_valid()
-	{
-		return (new_branch_name.length != 0) && (d_remote_branch_name.get_active_text() != null);
 	}
 
 	private void update_entries()
