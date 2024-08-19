@@ -106,9 +106,9 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 		} catch {}
 	}
 
-	public Gitg.Remote? lookup(string name)
+	public Gitg.Remote? lookup(string? name)
 	{
-		if (d_window.repository == null)
+		if (name == null || d_window.repository == null)
 		{
 			return null;
 		}

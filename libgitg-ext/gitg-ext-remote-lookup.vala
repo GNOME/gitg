@@ -22,7 +22,7 @@ namespace GitgExt
 
 public interface RemoteLookup : Object
 {
-	public abstract Gitg.Remote? lookup(string name);
+	public abstract Gitg.Remote? lookup(string? name);
 }
 
 }
