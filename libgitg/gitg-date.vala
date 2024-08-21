@@ -332,39 +332,50 @@ public class Date : Object, Initable
 		}
 	}
 
+	public string get_relative_date(TimeSpan t)
+	{
+		if (t >= 0)
+		{
+			if (t < TimeSpan.MINUTE * 29.5)
+			{
+				int rounded_minutes = (int) Math.round((float) t / TimeSpan.MINUTE);
+
+				if (rounded_minutes == 0)
+				{
+					return _("Now");
+				}
+				else
+				{
+					return ngettext("A minute ago", "%d minutes ago", rounded_minutes).printf(rounded_minutes);
+				}
+			}
+			else if (t < TimeSpan.MINUTE * 45)
+			{
+				return _("Half an hour ago");
+			}
+			else if (t < TimeSpan.HOUR * 23.5)
+			{
+				int rounded_hours = (int) Math.round((float) t / TimeSpan.HOUR);
+				return ngettext("An hour ago", "%d hours ago", rounded_hours).printf(rounded_hours);
+			}
+			else if (t < TimeSpan.DAY * 7)
+			{
+				int rounded_days = (int) Math.round((float) t / TimeSpan.DAY);
+				return ngettext("A day ago", "%d days ago", rounded_days).printf(rounded_days);
+			}
+		}
+		return null;
+	}
+
 	public string for_display()
 	{
 		var dt = d_datetime;
 		TimeSpan t = (new DateTime.now_local()).difference(dt);
+		string relative_date = get_relative_date(t);
+		if (relative_date != null)
+			return relative_date;
 
-		if (t < TimeSpan.MINUTE * 29.5)
-		{
-			int rounded_minutes = (int) Math.round((float) t / TimeSpan.MINUTE);
-
-			if (rounded_minutes == 0)
-			{
-				return _("Now");
-			}
-			else
-			{
-				return ngettext("A minute ago", "%d minutes ago", rounded_minutes).printf(rounded_minutes);
-			}
-		}
-		else if (t < TimeSpan.MINUTE * 45)
-		{
-			return _("Half an hour ago");
-		}
-		else if (t < TimeSpan.HOUR * 23.5)
-		{
-			int rounded_hours = (int) Math.round((float) t / TimeSpan.HOUR);
-			return ngettext("An hour ago", "%d hours ago", rounded_hours).printf(rounded_hours);
-		}
-		else if (t < TimeSpan.DAY * 7)
-		{
-			int rounded_days = (int) Math.round((float) t / TimeSpan.DAY);
-			return ngettext("A day ago", "%d days ago", rounded_days).printf(rounded_days);
-		}
-		else if (dt.get_year() == new DateTime.now_local().get_year())
+		if (dt.get_year() == new DateTime.now_local().get_year())
 		{
 			if (is_24h)
 			{
