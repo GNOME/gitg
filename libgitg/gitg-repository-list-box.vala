@@ -64,6 +64,7 @@ namespace Gitg
 
 			public signal void request_remove();
 			public signal void request_delete_source();
+			public signal void secondary_clicked ();
 
 			private SelectionMode d_mode;
 			private string? d_dirname;
@@ -269,6 +270,13 @@ namespace Gitg
 			{
 				Object(repository: repository, dirname: dirname);
 			}
+
+			protected override bool button_press_event(Gdk.EventButton event)
+			{
+				if (event.button == Gdk.BUTTON_SECONDARY) secondary_clicked ();
+
+				return base.button_press_event (event);
+			}
 		}
 
 		public SelectionMode mode { get; set; }
@@ -341,27 +349,6 @@ namespace Gitg
 			}
 
 			save_repository_bookmarks_timeout();
-		}
-
-		protected override bool button_press_event(Gdk.EventButton event)
-		{
-			Gdk.Event *ev = (Gdk.Event *)event;
-
-			if (ev->triggers_context_menu() && mode == SelectionMode.NORMAL)
-			{
-				mode = SelectionMode.SELECTION;
-
-				var row = get_row_at_y((int)event.y) as Row;
-
-				if (row != null)
-				{
-					row.selected = true;
-				}
-
-				return true;
-			}
-
-			return base.button_press_event(event);
 		}
 
 		protected override void row_activated(Gtk.ListBoxRow row)
@@ -669,6 +656,14 @@ namespace Gitg
 			remove(row);
 		}
 
+		private void on_row_secondary_clicked (Row row) {
+			if (mode == SelectionMode.NORMAL)
+			{
+				mode = SelectionMode.SELECTION;
+				row.selected = true;
+			}
+		}
+
 		private void connect_repository_row(Row row)
 		{
 			var repository = row.repository;
@@ -678,6 +673,8 @@ namespace Gitg
 			{
 				var uri = workdir.get_uri();
 				bind_property("mode", row, "mode");
+
+				row.secondary_clicked.connect (on_row_secondary_clicked);
 
 				row.notify["selected"].connect(() => {
 					notify_property("has-selection");
@@ -709,7 +706,7 @@ namespace Gitg
 			if (row == null)
 			{
 				var dirname = Utils.replace_home_dir_with_tilde((repository.workdir != null ? repository.workdir : repository.location).get_parent());
-				
+
 				if (dirname.contains("/")) {
 					dirname = dirname.concat("/", repository.name);
 				} else {
