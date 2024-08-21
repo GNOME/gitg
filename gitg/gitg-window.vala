@@ -243,6 +243,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void search_button_toggled(Gtk.ToggleButton button)
 	{
 		var searchable = current_activity as GitgExt.Searchable;
+		if (searchable == null) return;
 
 		if (button.get_active())
 		{
@@ -276,6 +277,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void search_entry_changed(Gtk.Editable entry)
 	{
 		var searchable = current_activity as GitgExt.Searchable;
+		if (searchable == null) return;
+
 		var ntext = ((Gtk.Entry) entry).text;
 
 		if (ntext != searchable.search_text)
@@ -1400,6 +1403,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (current_activity is GitgExt.Searchable)
 		{
 			var searchable = current_activity as GitgExt.Searchable;
+			if (searchable == null) return;
+
 			var key = d_search_entry.text;
 			searchable.search_move(key, up);
 		}
