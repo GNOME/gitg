@@ -335,7 +335,7 @@ namespace Gitg
 				d_bookmark_file.set_visited_date_time(uri, new GLib.DateTime.from_unix_utc(item.get_modified()));
 
 				var app_name = Environment.get_application_name();
-				var app_exec = string.join(" ", Environment.get_prgname(), "%f");
+				var app_exec = "gitg %f";
 
 				try { d_bookmark_file.set_application_info(uri, app_name, app_exec, 1, new GLib.DateTime.now()); } catch {}
 			}
@@ -514,7 +514,7 @@ namespace Gitg
 			d_bookmark_file.set_visited_date_time(uri, visited == null ? new GLib.DateTime.now() : visited);
 
 			var app_name = Environment.get_application_name();
-			var app_exec = string.join(" ", Environment.get_prgname(), "%f");
+			var app_exec = "gitg %f";
 
 			try { d_bookmark_file.set_application_info(uri, app_name, app_exec, 1, new GLib.DateTime.now()); } catch {}
 

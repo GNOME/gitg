@@ -35,7 +35,7 @@ public class Main
 		Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");
 		Intl.textdomain(Config.GETTEXT_PACKAGE);
 
-		Environment.set_prgname("gitg");
+		Environment.set_prgname(Gitg.Config.APPLICATION_ID);
 		Environment.set_application_name(_("gitg"));
 
 		Application app = new Application();
