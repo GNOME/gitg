@@ -37,6 +37,7 @@ public class Main
 
 		Environment.set_prgname(Gitg.Config.APPLICATION_ID);
 		Environment.set_application_name(_("gitg"));
+		Gtk.Window.set_default_icon_name(Gitg.Config.APPLICATION_ID);
 
 		Application app = new Application();
 		return app.run(args);
