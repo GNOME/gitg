@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-12-23 13:34+0000\n"
-"PO-Revision-Date: 2024-02-07 14:54+0100\n"
+"POT-Creation-Date: 2024-07-27 14:42+0000\n"
+"PO-Revision-Date: 2024-09-17 21:00+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Project-Style: gnome\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -88,8 +88,8 @@ msgid "The Gitg Team"
 msgstr "Tým Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:3
-msgid "@binary@"
-msgstr "@binary@"
+msgid "Gitg"
+msgstr "Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -648,7 +648,7 @@ msgstr "Opravdu chcete trvale zahodit vybrané změny?"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
+#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:737
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -764,8 +764,8 @@ msgstr ""
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:67
-#: libgitg/gitg-repository-list-box.vala:567
+#: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
+#: libgitg/gitg-repository-list-box.vala:573
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -835,7 +835,7 @@ msgstr "Selhalo stažení vzdáleného repozitáře"
 msgid "Fetched from %s: %s"
 msgstr "Staženo z %s: %s"
 
-#: gitg/gitg-add-remote-action.vala:129
+#: gitg/gitg-add-remote-action.vala:132
 msgid "Failed to add remote"
 msgstr "Selhalo přidání vzdáleného repozitáře"
 
@@ -899,23 +899,30 @@ msgstr ""
 "Jinak nahlaste chybu autorům své distribuce, že poskytují libgit2 bez "
 "podpory vláken."
 
-#: gitg/gitg-author-details-dialog.vala:79
-#: gitg/gitg-author-details-dialog.vala:99
+#: gitg/gitg-author-details-dialog.vala:82
+#: gitg/gitg-author-details-dialog.vala:102
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Údaje o autorovi"
 
-#: gitg/gitg-author-details-dialog.vala:80
+#: gitg/gitg-author-details-dialog.vala:83
 msgid "Enter default details used for all repositories:"
 msgstr "Zadejte výchozí údaje, které se použijí pro všechny repozitáře:"
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:102
+#: gitg/gitg-author-details-dialog.vala:105
 #, c-format
 msgid "Override global details for repository “%s”:"
 msgstr "Přepsat globální údaje pro repozitář „%s“:"
 
-#: gitg/gitg-author-details-dialog.vala:214
+#: gitg/gitg-author-details-dialog.vala:208
+msgid ""
+"Disable override will clean existing local author details. Are you sure?"
+msgstr ""
+"Zákaz přepsání vyčistí stávající místní podrobnosti o autorovi. Jste si "
+"jisti?"
+
+#: gitg/gitg-author-details-dialog.vala:228
 msgid "Failed to set Git user config."
 msgstr "Selhalo nastavení údajů o uživateli pro Git."
 
@@ -1003,7 +1010,7 @@ msgid "Create a new branch at the selected commit"
 msgstr "Vytvořit novou větev ve vybraném zařazení"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
-#: gitg/gitg-ref-action-checkout.vala:180
+#: gitg/gitg-ref-action-checkout.vala:182
 msgid "Failed to create branch"
 msgstr "Selhalo vytvoření větve"
 
@@ -1141,7 +1148,7 @@ msgstr "Selhala aktualizace stromu HEAD: %s"
 msgid "Successfully checked out branch to working directory"
 msgstr "Úspěšně překontrolována větev vůči pracovní složce"
 
-#: gitg/gitg-ref-action-checkout.vala:195
+#: gitg/gitg-ref-action-checkout.vala:197
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "Selhalo nastavení prapůvodní větve %s pro %s"
@@ -1202,7 +1209,6 @@ msgid ""
 msgstr "Opravdu chcete trvale smazat šítek <b><i>„%s“</i></b>?"
 
 #: gitg/gitg-ref-action-delete.vala:87
-#| msgid "_Track remote branch"
 msgid "Confirm remote branch deletion"
 msgstr "Potvrdit smazání vzdálené větve"
 
@@ -1335,47 +1341,47 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "Sloučit „%s“ do větve „%s“"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1219
+#: gitg/history/gitg-history-refs-list.vala:1240
 msgid "Tags"
 msgstr "Štítky"
 
-#: gitg/gitg-ref-action-push.vala:80
+#: gitg/gitg-ref-action-push.vala:65
 #, c-format
 msgid "Push to %s"
 msgstr "Odeslat do %s"
 
-#: gitg/gitg-ref-action-push.vala:91
+#: gitg/gitg-ref-action-push.vala:76
 #, c-format
 msgid "Push branch to %s"
 msgstr "Odeslat větev do %s"
 
-#: gitg/gitg-ref-action-push.vala:107
+#: gitg/gitg-ref-action-push.vala:92
 #, c-format
 msgid "Pushing to %s"
 msgstr "Odesílá se do %s"
 
-#: gitg/gitg-ref-action-push.vala:116
+#: gitg/gitg-ref-action-push.vala:101
 #, c-format
 msgid "Failed to push to %s: %s"
 msgstr "Selhalo odeslání do %s: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:123
+#: gitg/gitg-ref-action-push.vala:108
 #, c-format
 msgid "Pushed to %s"
 msgstr "Odesláno do %s"
 
-#: gitg/gitg-ref-action-push.vala:134
+#: gitg/gitg-ref-action-push.vala:119
 #, c-format
 msgid "Push branch %s"
 msgstr "Odeslat větev %s"
 
-#: gitg/gitg-ref-action-push.vala:135
+#: gitg/gitg-ref-action-push.vala:120
 #, c-format
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "Opravdu chcete odeslat větev %s?"
 
-#: gitg/gitg-ref-action-push.vala:139
+#: gitg/gitg-ref-action-push.vala:124
 msgid "Push"
 msgstr "Odeslat"
 
@@ -1442,42 +1448,42 @@ msgstr "Odebrat"
 msgid "Failed to remove remote"
 msgstr "Selhalo odebrání vzdáleného repozitáře"
 
-#: gitg/gitg-window.vala:202
+#: gitg/gitg-window.vala:206
 msgid "Add Repository"
 msgstr "Přidání repozitáře"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:210
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "Přid_at"
 
-#: gitg/gitg-window.vala:208
+#: gitg/gitg-window.vala:212
 msgid "_Scan for all git repositories from this directory"
 msgstr "Vyhledat všechny repozitáře git v této _složce"
 
-#: gitg/gitg-window.vala:517
+#: gitg/gitg-window.vala:549
 msgid "Projects"
 msgstr "Projekty"
 
-#: gitg/gitg-window.vala:703
+#: gitg/gitg-window.vala:735
 msgid "Open Repository"
 msgstr "Otevření repozitáře"
 
-#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:738 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Otevřít"
 
-#: gitg/gitg-window.vala:846
+#: gitg/gitg-window.vala:878
 msgid "Select items"
 msgstr "Vybrat položky"
 
-#: gitg/gitg-window.vala:1064
+#: gitg/gitg-window.vala:1096
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "„%s“ není repozitář Git."
 
-#: gitg/gitg-window.vala:1213
+#: gitg/gitg-window.vala:1243
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1485,7 +1491,7 @@ msgstr ""
 "Vaše uživatelské jméno a e-mail doposud nejsou nastaveny. Jděte prosím do "
 "nastavení uživatele a poskytněte své jméno a e-mail."
 
-#: gitg/gitg-window.vala:1217
+#: gitg/gitg-window.vala:1247
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1493,7 +1499,7 @@ msgstr ""
 "Vaše uživatelské jméno doposud není nastaveno. Jděte prosím do nastavení "
 "uživatele a poskytněte své jméno."
 
-#: gitg/gitg-window.vala:1221
+#: gitg/gitg-window.vala:1251
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1501,7 +1507,7 @@ msgstr ""
 "Váš e-mail doposud není nastaven. Jděte prosím do nastavení uživatele a "
 "poskytněte svůj e-mail."
 
-#: gitg/gitg-window.vala:1224
+#: gitg/gitg-window.vala:1254
 msgid "Missing author details"
 msgstr "Schází údaje o autorovi"
 
@@ -1549,11 +1555,11 @@ msgstr "%zu vzadu"
 msgid "All commits"
 msgstr "Všechna zařazení"
 
-#: gitg/history/gitg-history-refs-list.vala:1217
+#: gitg/history/gitg-history-refs-list.vala:1238
 msgid "Branches"
 msgstr "Místní větve"
 
-#: gitg/history/gitg-history-refs-list.vala:1218
+#: gitg/history/gitg-history-refs-list.vala:1239
 msgid "Remotes"
 msgstr "Vzdálené repozitáře"
 
@@ -1567,7 +1573,7 @@ msgstr "Historie"
 msgid "Examine the history of the repository"
 msgstr "Prozkoumat historii repozitáře"
 
-#: gitg/history/gitg-history.vala:967
+#: gitg/history/gitg-history.vala:968
 msgid "Mainline"
 msgstr "Hlavní linie"
 
@@ -2008,95 +2014,105 @@ msgstr "Hledat"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
+msgid "Move to next search result"
+msgstr "Přejít na následující výsledek hledání"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Move to previous search result"
+msgstr "Přejít na předchozí výsledek hledání"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:82
+msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Zavřít aktivní okno"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Ukončit aplikaci"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "Změnit na oblíbené"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "Změnit na zobrazení historie"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "Změnit na zobrazení zařazení"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:103
+#: gitg/resources/ui/gitg-shortcuts.ui:117
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Změnit na činnosti"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:111
+#: gitg/resources/ui/gitg-shortcuts.ui:125
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "Činnosti zařazování"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:116
+#: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "Vybrat/zrušit výběr"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:123
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "Otevřít dialogové okno pro zařazování"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Výběr do připravených"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Výběr do nepřipravených"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:158
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Zahodit výběr"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:151
+#: gitg/resources/ui/gitg-shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Upravit výběr"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:159
+#: gitg/resources/ui/gitg-shortcuts.ui:173
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Dialogové okno pro zařazování"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:164
+#: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Zařadit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:171
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Zrušit zařazení"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:192
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Předchozí zpráva o zařazení"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:185
+#: gitg/resources/ui/gitg-shortcuts.ui:199
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Následující zpráva o zařazení"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:193
+#: gitg/resources/ui/gitg-shortcuts.ui:207
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Práce s historií"
@@ -2129,6 +2145,14 @@ msgstr "Najít slovo nebo frázi"
 #: gitg/resources/ui/gitg-window.ui:134
 msgid "General settings and options"
 msgstr "Obecná nastavení a volby"
+
+#: gitg/resources/ui/gitg-window.ui:266
+msgid "Previous result"
+msgstr "Předchozí výsledek"
+
+#: gitg/resources/ui/gitg-window.ui:282
+msgid "Next result"
+msgstr "Následující výsledek"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
@@ -2230,14 +2254,20 @@ msgid "Collapse all"
 msgstr "Sbalit vše"
 
 #: libgitg/gitg-diff-view-commit-details.vala:176
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:217
 msgid "Expand all"
 msgstr "Rozbalit vše"
 
-#: libgitg/gitg-diff-view-commit-details.vala:237
+#: libgitg/gitg-diff-view-commit-details.vala:229
 #, c-format
-msgid "Committed by %s"
-msgstr "Zařadil %s"
+msgid "<small>Authored by</small> %s"
+msgstr "<small>Autor</small> %s"
+
+#: libgitg/gitg-diff-view-commit-details.vala:243
+#: libgitg/gitg-diff-view-commit-details.vala:247
+#, c-format
+msgid "<small>Committed by</small> %s"
+msgstr "<small>Zařadil</small> %s"
 
 #. Translators: Unif stands for unified diff format
 #: libgitg/gitg-diff-view-file.vala:160
@@ -2281,11 +2311,11 @@ msgstr "v %s"
 msgid "%s at %s"
 msgstr "%s v %s"
 
-#: libgitg/gitg-repository-list-box.vala:553
+#: libgitg/gitg-repository-list-box.vala:559
 msgid "Cloning…"
 msgstr "Klonuje se…"
 
-#: libgitg/gitg-repository-list-box.vala:566
+#: libgitg/gitg-repository-list-box.vala:572
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
@@ -2294,11 +2324,11 @@ msgstr ""
 "Když smažete zdrojové soubory „%s“ z repozitáře, odstraní se trvale z disku "
 "a nepůjdou již obnovit. Opravdu to chcete?"
 
-#: libgitg/gitg-repository-list-box.vala:568
+#: libgitg/gitg-repository-list-box.vala:574
 msgid "Move to trash"
 msgstr "Přesunout do koše"
 
-#: libgitg/gitg-repository-list-box.vala:569
+#: libgitg/gitg-repository-list-box.vala:575
 msgid "Delete permanently"
 msgstr "Trvale smazat"
 
@@ -2354,7 +2384,7 @@ msgstr "Heslo pamatovat do odh_lášení"
 msgid "Remember _forever"
 msgstr "Zapamtovat na_pořád"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:157
 msgid "Parents"
 msgstr "Rodiče"
 
@@ -2415,6 +2445,9 @@ msgstr "Soubory"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Zobrazit soubory ve stromu vybraného zařazení"
+
+#~ msgid "@binary@"
+#~ msgstr "@binary@"
 
 #~ msgid "Edits the remote from the remotes list"
 #~ msgstr "Upravit v seznamu vzdálený repozitář"
