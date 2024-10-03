@@ -13,14 +13,14 @@
 # Wolfgang Stöggl <c72578@yahoo.de>, 2015.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2012, 2015-2016, 2019.
 # Tim Sabsch <tim@sabsch.com>, 2019-2020, 2022.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2023.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2023, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-12-23 13:34+0000\n"
-"PO-Revision-Date: 2023-12-23 15:26+0100\n"
+"POT-Creation-Date: 2024-07-27 14:42+0000\n"
+"PO-Revision-Date: 2024-09-30 18:55+0200\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -98,8 +98,8 @@ msgid "The Gitg Team"
 msgstr "Das Gitg-Team"
 
 #: data/org.gnome.gitg.desktop.in.in:3
-msgid "@binary@"
-msgstr "@binary@"
+msgid "Gitg"
+msgstr "Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
@@ -677,7 +677,7 @@ msgstr "Möchten Sie wirklich die gewählten Änderungen dauerhaft verwerfen?"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
+#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:737
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -792,8 +792,8 @@ msgstr ""
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:67
-#: libgitg/gitg-repository-list-box.vala:567
+#: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
+#: libgitg/gitg-repository-list-box.vala:573
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -863,7 +863,7 @@ msgstr "Anfordern des hinzugefügten Remotes ist fehlgeschlagen"
 msgid "Fetched from %s: %s"
 msgstr "Anfordern von %s: %s"
 
-#: gitg/gitg-add-remote-action.vala:129
+#: gitg/gitg-add-remote-action.vala:132
 msgid "Failed to add remote"
 msgstr "Hinzufügen des Remotes ist fehlgeschlagen"
 
@@ -908,7 +908,7 @@ msgstr ""
 "Christian Kirbach <christian.kirbach@gmail.com>, 2013, 2014, 2015, 2022\n"
 "Benjamin Steinwender <b@stbe.at>, 2014-2015\n"
 "Tim Sabsch <tim@sabsch.com>, 2019-2020, 2022\n"
-"Jürgen Benvenuti <gastornis@posteo.org>, 2023"
+"Jürgen Benvenuti <gastornis@posteo.org>, 2023, 2024"
 
 #: gitg/gitg-application.vala:241
 msgid "gitg homepage"
@@ -935,25 +935,32 @@ msgstr ""
 "Distribution, um die Bereitstellung von libgit2 ohne Unterstützung für "
 "Threading zu melden."
 
-#: gitg/gitg-author-details-dialog.vala:79
-#: gitg/gitg-author-details-dialog.vala:99
+#: gitg/gitg-author-details-dialog.vala:82
+#: gitg/gitg-author-details-dialog.vala:102
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Details des Autors"
 
-#: gitg/gitg-author-details-dialog.vala:80
+#: gitg/gitg-author-details-dialog.vala:83
 msgid "Enter default details used for all repositories:"
 msgstr ""
 "Geben Sie die Details ein, die als Vorgabe für alle Repositorys dienen "
 "sollen:"
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:102
+#: gitg/gitg-author-details-dialog.vala:105
 #, c-format
 msgid "Override global details for repository “%s”:"
 msgstr "Die globalen Details für Repository »%s« überschreiben:"
 
-#: gitg/gitg-author-details-dialog.vala:214
+#: gitg/gitg-author-details-dialog.vala:208
+msgid ""
+"Disable override will clean existing local author details. Are you sure?"
+msgstr ""
+"Das Deaktivieren des Überschreibens wird vorhandene lokale Autorendetails "
+"löschen. Sind Sie sicher?"
+
+#: gitg/gitg-author-details-dialog.vala:228
 msgid "Failed to set Git user config."
 msgstr "Festlegen der Git-Benutzerkonfiguration fehlgeschlagen."
 
@@ -1040,7 +1047,7 @@ msgid "Create a new branch at the selected commit"
 msgstr "Einen neuen Zweig zum gewählten Commit anlegen"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
-#: gitg/gitg-ref-action-checkout.vala:180
+#: gitg/gitg-ref-action-checkout.vala:182
 msgid "Failed to create branch"
 msgstr "Erstellen des Zweigs ist fehlgeschlagen"
 
@@ -1182,7 +1189,7 @@ msgstr "Aktualisieren von HEAD ist fehlgeschlagen: %s"
 msgid "Successfully checked out branch to working directory"
 msgstr "Zweig wurde erfolgreich im Arbeitsordner ausgecheckt"
 
-#: gitg/gitg-ref-action-checkout.vala:195
+#: gitg/gitg-ref-action-checkout.vala:197
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "Upstream-Zweig %s für %s konnte nicht festgelegt werden"
@@ -1378,47 +1385,47 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "»%s« in den Zweig »%s« zusammenführen"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1219
+#: gitg/history/gitg-history-refs-list.vala:1240
 msgid "Tags"
 msgstr "Tags"
 
-#: gitg/gitg-ref-action-push.vala:80
+#: gitg/gitg-ref-action-push.vala:65
 #, c-format
 msgid "Push to %s"
 msgstr "Hochladen nach %s"
 
-#: gitg/gitg-ref-action-push.vala:91
+#: gitg/gitg-ref-action-push.vala:76
 #, c-format
 msgid "Push branch to %s"
 msgstr "Zweig nach %s hochladen"
 
-#: gitg/gitg-ref-action-push.vala:107
+#: gitg/gitg-ref-action-push.vala:92
 #, c-format
 msgid "Pushing to %s"
 msgstr "Hochladen nach %s"
 
-#: gitg/gitg-ref-action-push.vala:116
+#: gitg/gitg-ref-action-push.vala:101
 #, c-format
 msgid "Failed to push to %s: %s"
 msgstr "Hochladen nach %s ist fehlgeschlagen: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:123
+#: gitg/gitg-ref-action-push.vala:108
 #, c-format
 msgid "Pushed to %s"
 msgstr "Nach %s hochgeladen"
 
-#: gitg/gitg-ref-action-push.vala:134
+#: gitg/gitg-ref-action-push.vala:119
 #, c-format
 msgid "Push branch %s"
 msgstr "Zweig %s hochladen"
 
-#: gitg/gitg-ref-action-push.vala:135
+#: gitg/gitg-ref-action-push.vala:120
 #, c-format
 msgid "Are you sure that you want to push the branch %s?"
 msgstr "Wollen Sie wirklich den Zweig %s hochladen?"
 
-#: gitg/gitg-ref-action-push.vala:139
+#: gitg/gitg-ref-action-push.vala:124
 msgid "Push"
 msgstr "Hochladen"
 
@@ -1486,42 +1493,42 @@ msgstr "Entfernen"
 msgid "Failed to remove remote"
 msgstr "Entfernen des Remotes ist fehlgeschlagen"
 
-#: gitg/gitg-window.vala:202
+#: gitg/gitg-window.vala:206
 msgid "Add Repository"
 msgstr "Repository hinzufügen"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:210
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Hinzufügen"
 
-#: gitg/gitg-window.vala:208
+#: gitg/gitg-window.vala:212
 msgid "_Scan for all git repositories from this directory"
 msgstr "Von diesem Ordner aus nach allen Git-Repositorys _suchen"
 
-#: gitg/gitg-window.vala:517
+#: gitg/gitg-window.vala:549
 msgid "Projects"
 msgstr "Projekte"
 
-#: gitg/gitg-window.vala:703
+#: gitg/gitg-window.vala:735
 msgid "Open Repository"
 msgstr "Repository öffnen"
 
-#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:738 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "Ö_ffnen"
 
-#: gitg/gitg-window.vala:846
+#: gitg/gitg-window.vala:878
 msgid "Select items"
 msgstr "Objekte auswählen"
 
-#: gitg/gitg-window.vala:1064
+#: gitg/gitg-window.vala:1096
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "»%s« ist kein gültiges Git-Repository."
 
-#: gitg/gitg-window.vala:1213
+#: gitg/gitg-window.vala:1243
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1530,7 +1537,7 @@ msgstr ""
 "wechseln Sie in die Benutzerkonfiguration und geben Sie Ihren Namen und Ihre "
 "E-Mail-Adresse ein."
 
-#: gitg/gitg-window.vala:1217
+#: gitg/gitg-window.vala:1247
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1538,7 +1545,7 @@ msgstr ""
 "Ihr Benutzername ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihren Namen ein."
 
-#: gitg/gitg-window.vala:1221
+#: gitg/gitg-window.vala:1251
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1546,7 +1553,7 @@ msgstr ""
 "Ihre E-Mail ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihre E-Mail-Adresse ein."
 
-#: gitg/gitg-window.vala:1224
+#: gitg/gitg-window.vala:1254
 msgid "Missing author details"
 msgstr "Details des Autors fehlen"
 
@@ -1595,11 +1602,11 @@ msgstr "%zu zurück"
 msgid "All commits"
 msgstr "Alle Commits"
 
-#: gitg/history/gitg-history-refs-list.vala:1217
+#: gitg/history/gitg-history-refs-list.vala:1238
 msgid "Branches"
 msgstr "Zweige"
 
-#: gitg/history/gitg-history-refs-list.vala:1218
+#: gitg/history/gitg-history-refs-list.vala:1239
 msgid "Remotes"
 msgstr "Remotes"
 
@@ -1613,7 +1620,7 @@ msgstr "Chronik"
 msgid "Examine the history of the repository"
 msgstr "Die Chronik des Repositorys untersuchen"
 
-#: gitg/history/gitg-history.vala:967
+#: gitg/history/gitg-history.vala:968
 msgid "Mainline"
 msgstr "Hauptlinie"
 
@@ -2060,95 +2067,105 @@ msgstr "Suchen"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
+msgid "Move to next search result"
+msgstr "Zum nächsten Suchergebnis springen"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Move to previous search result"
+msgstr "Zum vorherigen Suchergebnis springen"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:82
+msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Das aktive Fenster schließen"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Die Anwendung beenden"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "Zur Übersicht wechseln"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "Zur Chronik-Ansicht wechseln"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "Zur Commit-Ansicht wechseln"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:103
+#: gitg/resources/ui/gitg-shortcuts.ui:117
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Zu Aktivität wechseln"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:111
+#: gitg/resources/ui/gitg-shortcuts.ui:125
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "Commit-Aktivität"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:116
+#: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "Auswahl treffen/aufheben"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:123
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "Commit-Dialog öffnen"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Auswahl bereitstellen"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Bereitstellung der Auswahl zurücknehmen"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:158
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Auswahl verwerfen"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:151
+#: gitg/resources/ui/gitg-shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Auswahl bearbeiten"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:159
+#: gitg/resources/ui/gitg-shortcuts.ui:173
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Commit-Dialog"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:164
+#: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Commit"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:171
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Commit abbrechen"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:192
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Vorherige Commit-Beschreibung"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:185
+#: gitg/resources/ui/gitg-shortcuts.ui:199
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Nächste Commit-Beschreibung"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:193
+#: gitg/resources/ui/gitg-shortcuts.ui:207
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Aktivitätenchronik"
@@ -2181,6 +2198,14 @@ msgstr "Ein Wort oder eine Phrase suchen"
 #: gitg/resources/ui/gitg-window.ui:134
 msgid "General settings and options"
 msgstr "Generelle Einstellungen und Optionen"
+
+#: gitg/resources/ui/gitg-window.ui:266
+msgid "Previous result"
+msgstr "Vorheriges Ergebnis"
+
+#: gitg/resources/ui/gitg-window.ui:282
+msgid "Next result"
+msgstr "Nächstes Ergebnis"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
@@ -2279,15 +2304,21 @@ msgid "Collapse all"
 msgstr "Alle einklappen"
 
 #: libgitg/gitg-diff-view-commit-details.vala:176
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:217
 msgid "Expand all"
 msgstr "Alle ausklappen"
 
-# Siehe andere Anmerkung zu »committed/committen«. - jb
-#: libgitg/gitg-diff-view-commit-details.vala:237
+#: libgitg/gitg-diff-view-commit-details.vala:229
 #, c-format
-msgid "Committed by %s"
-msgstr "Committed von %s"
+msgid "<small>Authored by</small> %s"
+msgstr "<small>Verfasst von</small> %s"
+
+# Siehe andere Anmerkung zu »committed/committen«. - jb
+#: libgitg/gitg-diff-view-commit-details.vala:243
+#: libgitg/gitg-diff-view-commit-details.vala:247
+#, c-format
+msgid "<small>Committed by</small> %s"
+msgstr "<small>Committed von</small> %s"
 
 #. Translators: Unif stands for unified diff format
 #: libgitg/gitg-diff-view-file.vala:160
@@ -2331,11 +2362,11 @@ msgstr "bei %s"
 msgid "%s at %s"
 msgstr "%s bei %s"
 
-#: libgitg/gitg-repository-list-box.vala:553
+#: libgitg/gitg-repository-list-box.vala:559
 msgid "Cloning…"
 msgstr "Klonen …"
 
-#: libgitg/gitg-repository-list-box.vala:566
+#: libgitg/gitg-repository-list-box.vala:572
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
@@ -2344,11 +2375,11 @@ msgstr ""
 "Das Löschen der Quelldateien von Repository »%s« wird diese von der "
 "Festplatte löschen und kann nicht rückgängig gemacht werden. Sind Sie sicher?"
 
-#: libgitg/gitg-repository-list-box.vala:568
+#: libgitg/gitg-repository-list-box.vala:574
 msgid "Move to trash"
 msgstr "In den Papierkorb verschieben"
 
-#: libgitg/gitg-repository-list-box.vala:569
+#: libgitg/gitg-repository-list-box.vala:575
 msgid "Delete permanently"
 msgstr "Dauerhaft löschen"
 
@@ -2406,7 +2437,7 @@ msgstr "Passwort merken bis zum _Abmelden"
 msgid "Remember _forever"
 msgstr "Dauerhaft m_erken"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:157
 msgid "Parents"
 msgstr "Übergeordnet"
 
@@ -2470,6 +2501,9 @@ msgstr "Dateien"
 #: plugins/files/gitg-files.vala:73
 msgid "Show the files in the tree of the selected commit"
 msgstr "Dateien des gewählten Commits anzeigen"
+
+#~ msgid "@binary@"
+#~ msgstr "@binary@"
 
 #~ msgid "Edits the remote from the remotes list"
 #~ msgstr "Bearbeitet das Remote aus der Remotes-Liste"
