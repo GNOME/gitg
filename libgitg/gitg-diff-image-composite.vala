@@ -23,9 +23,10 @@ class Gitg.DiffImageComposite : Gtk.DrawingArea
 
 	private void get_natural_size(out int image_width, out int image_height)
 	{
-		var pixbuf = cache.old_pixbuf;
+		var pixbuf_old = cache.old_pixbuf;
+		var pixbuf_new = cache.new_pixbuf;
 
-		if (pixbuf == null)
+		if (pixbuf_old == null || pixbuf_new == null)
 		{
 			image_width = 0;
 			image_height = 0;
@@ -35,15 +36,23 @@ class Gitg.DiffImageComposite : Gtk.DrawingArea
 
 		var window = get_window();
 
-		double xscale = 1, yscale = 1;
+		int pixbuf_old_height = pixbuf_old.get_height ();
+		int pixbuf_new_height = pixbuf_new.get_height ();
+
+		int pixbuf_old_width = pixbuf_old.get_width ();
+		int pixbuf_new_width = pixbuf_new.get_width ();
+
+		double xscale_old = 1, yscale_old = 1;
+		double xscale_new = 1, yscale_new = 1;
 
 		if (window != null)
 		{
-			cache.get_old_surface(get_window()).get_device_scale(out xscale, out yscale);
+			cache.get_old_surface(window).get_device_scale(out xscale_old, out yscale_old);
+			cache.get_new_surface(window).get_device_scale(out xscale_new, out yscale_new);
 		}
 
-		image_width = (int)(pixbuf.get_width() / xscale);
-		image_height = (int)(pixbuf.get_height() / yscale);
+		image_width = (int) double.max (pixbuf_old_width / xscale_old, pixbuf_new_width / xscale_new);
+		image_height = (int) double.max (pixbuf_old_height / xscale_old, pixbuf_new_height / xscale_new);
 	}
 
 	protected void get_sizing(int width, out int image_width, out int image_height)
