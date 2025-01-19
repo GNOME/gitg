@@ -13,7 +13,6 @@ common_deps = [
   glib_dep,
   gtk_dep,
   libgit2_glib_dep,
-  libdazzle_dep,
   gpgme_dependency,
 ]
 
