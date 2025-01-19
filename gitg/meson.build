@@ -74,7 +74,6 @@ deps = [
   gspell_dep,
   libgitg_ext_dep,
   libpeas_dep,
-  libdazzle_dep,
   json_glib_dependency,
   valac.find_library ('posix'),
 ]

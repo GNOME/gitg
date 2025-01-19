@@ -135,7 +135,6 @@ libgit2_glib_dep = dependency('libgit2-glib-1.0', version: ['>= 1.2.0'])
 libpeas_dep = dependency('libpeas-1.0')
 libsecret_dep = dependency('libsecret-1')
 libxml_dep = dependency('libxml-2.0', version: '>= 2.9.0')
-libdazzle_dep = dependency('libdazzle-1.0')
 json_glib_dependency = dependency('json-glib-1.0')
 gpgme_dependency = dependency('gpgme')
 
