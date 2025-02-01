@@ -373,6 +373,8 @@ class Gitg.Test.Repository : Gitg.Test.Test
 		try
 		{
 			d_repository = (Gitg.Repository)Ggit.Repository.init_repository(f, false);
+                        d_repository.get_config().set_string("merge.conflictStyle", "merge");
+                        d_repository.get_config().set_string("init.defaultBranch", "master");
 		}
 		catch (GLib.Error e)
 		{
