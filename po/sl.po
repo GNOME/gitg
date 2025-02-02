@@ -4,14 +4,14 @@
 #
 # Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2009–2010.
 # Matej Urbančič <mateju@svn.gnome.org>, 2012–2022.
-# Martin Srebotnjak <miles@filmsi.net>, 2023.
+# Martin Srebotnjak <miles@filmsi.net>, 2023-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2024-06-19 10:42+0000\n"
-"PO-Revision-Date: 2024-06-20 00:03+0200\n"
+"POT-Creation-Date: 2025-02-01 21:58+0000\n"
+"PO-Revision-Date: 2025-02-02 10:06+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -39,7 +39,7 @@ msgstr "Grafični uporabniški vmesnik za git"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
-"gitg is a graphical user interface for git. It aims at being a small, fast "
+"Gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
 "visualization, gitg also provides several utilities to manage your "
 "repository and commit your work."
@@ -654,7 +654,7 @@ msgstr "Ali ste prepričani, da želite trajno izbrisati izbrane spremembe?"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:737
+#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:740
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -774,7 +774,7 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
-#: libgitg/gitg-repository-list-box.vala:573
+#: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -1478,28 +1478,28 @@ msgstr "_Dodaj"
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Preišči mapo za skladišča git"
 
-#: gitg/gitg-window.vala:549
+#: gitg/gitg-window.vala:552
 msgid "Projects"
 msgstr "Projekti"
 
-#: gitg/gitg-window.vala:735
+#: gitg/gitg-window.vala:738
 msgid "Open Repository"
 msgstr "Odpri skladišče"
 
-#: gitg/gitg-window.vala:738 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:741 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Odpri"
 
-#: gitg/gitg-window.vala:878
+#: gitg/gitg-window.vala:881
 msgid "Select items"
 msgstr "Izbor predmetov"
 
-#: gitg/gitg-window.vala:1096
+#: gitg/gitg-window.vala:1099
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "Mesto »%s« ni skladišče Git."
 
-#: gitg/gitg-window.vala:1243
+#: gitg/gitg-window.vala:1246
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1507,14 +1507,14 @@ msgstr ""
 "Uporabniško ime in elektronski naslov še nista nastavljena. Ta in druge "
 "podatke uporabnika je mogoče vpisati med nastavitvami uporabnika."
 
-#: gitg/gitg-window.vala:1247
+#: gitg/gitg-window.vala:1250
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr ""
 "Vaše ime še ni nastavljeno. Odprite nastavitve uporabnika in vnesite podatek."
 
-#: gitg/gitg-window.vala:1251
+#: gitg/gitg-window.vala:1254
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1522,7 +1522,7 @@ msgstr ""
 "Vaš elektronski naslov še ni nastavljen. Odprite nastavitve uporabnika in "
 "vnesite podatek."
 
-#: gitg/gitg-window.vala:1254
+#: gitg/gitg-window.vala:1257
 msgid "Missing author details"
 msgstr "Manjkajo podrobnosti avtorja"
 
@@ -2175,11 +2175,11 @@ msgstr "Naslednji rezultat"
 msgid "Password required for %s"
 msgstr "Za %s je zahtevano geslo"
 
-#: libgitg/gitg-date.vala:346
+#: libgitg/gitg-date.vala:345
 msgid "Now"
 msgstr "Takoj"
 
-#: libgitg/gitg-date.vala:350
+#: libgitg/gitg-date.vala:349
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
@@ -2188,11 +2188,11 @@ msgstr[1] "Pred %d minuto"
 msgstr[2] "Pred %d minutama"
 msgstr[3] "Pred %d minutami"
 
-#: libgitg/gitg-date.vala:355
+#: libgitg/gitg-date.vala:354
 msgid "Half an hour ago"
 msgstr "Pred pol ure"
 
-#: libgitg/gitg-date.vala:360
+#: libgitg/gitg-date.vala:359
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
@@ -2201,7 +2201,7 @@ msgstr[1] "Pred %d uro"
 msgstr[2] "Pred %d urama"
 msgstr[3] "Pred %d urami"
 
-#: libgitg/gitg-date.vala:365
+#: libgitg/gitg-date.vala:364
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
@@ -2213,28 +2213,28 @@ msgstr[3] "Pred %d dnevi"
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
-#: libgitg/gitg-date.vala:374
+#: libgitg/gitg-date.vala:385
 msgid "%b %e, %H∶%M"
 msgstr "%b %e, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
-#: libgitg/gitg-date.vala:381
+#: libgitg/gitg-date.vala:392
 msgid "%b %e, %I∶%M %p"
 msgstr "%b %e, %I∶%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
-#: libgitg/gitg-date.vala:391
+#: libgitg/gitg-date.vala:402
 msgid "%b %e %Y, %H∶%M"
 msgstr "%b %e %Y, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
-#: libgitg/gitg-date.vala:398
+#: libgitg/gitg-date.vala:409
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%b %e %Y, %I∶%M %p"
 
@@ -2317,22 +2317,22 @@ msgid "_Copy file path"
 msgstr "_Kopiraj pot datoteke"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:161
+#: libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "at %s"
 msgstr "na %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:170
+#: libgitg/gitg-repository-list-box.vala:171
 #, c-format
 msgid "%s at %s"
 msgstr "%s na %s"
 
-#: libgitg/gitg-repository-list-box.vala:559
+#: libgitg/gitg-repository-list-box.vala:546
 msgid "Cloning…"
 msgstr "Poteka kloniranje …"
 
-#: libgitg/gitg-repository-list-box.vala:572
+#: libgitg/gitg-repository-list-box.vala:559
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
@@ -2341,11 +2341,11 @@ msgstr ""
 "Brisanje izvornih datotek skladišča »%s« jih bo izbrisalo z diska in tega "
 "dejanja ni mogoče razveljaviti. Ali ste prepričani?"
 
-#: libgitg/gitg-repository-list-box.vala:574
+#: libgitg/gitg-repository-list-box.vala:561
 msgid "Move to trash"
 msgstr "Premakni v smeti"
 
-#: libgitg/gitg-repository-list-box.vala:575
+#: libgitg/gitg-repository-list-box.vala:562
 msgid "Delete permanently"
 msgstr "Trajno izbriši"
 
@@ -2415,15 +2415,15 @@ msgstr "Ni mogoče prikazati sprememb za dvojiške datoteke"
 msgid "Side by side"
 msgstr "Stran ob strani"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:63
 msgid "Slider"
 msgstr "Drsnik"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:91
 msgid "Overlay"
 msgstr "Prekrivanje"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:109
 msgid "Difference"
 msgstr "Razlika"
 
