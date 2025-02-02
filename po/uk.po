@@ -3,15 +3,15 @@
 # This file is distributed under the same licence as the gitg package.
 # Serhij Dubyk <dubyk@ukr.net>, 2011.
 # Daniel Korostil <ted.korostiled@gmail.com>, 2014.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2024-06-19 10:42+0000\n"
-"PO-Revision-Date: 2024-06-20 18:38+0300\n"
+"POT-Creation-Date: 2025-02-02 15:48+0000\n"
+"PO-Revision-Date: 2025-02-02 22:05+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,13 +35,18 @@ msgid "Graphical user interface for git"
 msgstr "Графічний інтерфейс користувача для git"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:11
+#| msgid ""
+#| "gitg is a graphical user interface for git. It aims at being a small, "
+#| "fast and convenient tool to visualize the history of git repositories. "
+#| "Besides visualization, gitg also provides several utilities to manage "
+#| "your repository and commit your work."
 msgid ""
-"gitg is a graphical user interface for git. It aims at being a small, fast "
+"Gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
 "visualization, gitg also provides several utilities to manage your "
 "repository and commit your work."
 msgstr ""
-"gitg — графічний інтерфейс користувача для git. Програма є компактним, "
+"Gitg — графічний інтерфейс користувача для git. Програма є компактним, "
 "швидким і зручним засобом візуалізації журналу сховищ git. Окрім "
 "візуалізації, у gitg передбачено декілька інструментів для керування вашим "
 "сховищем та надсилання результатів вашої роботи."
@@ -693,7 +698,7 @@ msgstr "Ви справді хочете назавжди відкинути в�
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:737
+#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:740
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -828,7 +833,7 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
-#: libgitg/gitg-repository-list-box.vala:573
+#: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -1460,7 +1465,7 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "Злити «%s» до гілки «%s»"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1240
+#: gitg/history/gitg-history-refs-list.vala:1252
 msgid "Tags"
 msgstr "Мітки"
 
@@ -1595,31 +1600,31 @@ msgstr "_Додати"
 msgid "_Scan for all git repositories from this directory"
 msgstr "С_канувати усі сховища git з цього каталогу"
 
-#: gitg/gitg-window.vala:549
+#: gitg/gitg-window.vala:552
 msgid "Projects"
 msgstr "Проєкти"
 
 # Відкрити Git репозиторій
-#: gitg/gitg-window.vala:735
+#: gitg/gitg-window.vala:738
 msgid "Open Repository"
 msgstr "Відкрити сховище"
 
 # Відкрити…
-#: gitg/gitg-window.vala:738 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:741 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Відкрити"
 
-#: gitg/gitg-window.vala:878
+#: gitg/gitg-window.vala:881
 msgid "Select items"
 msgstr "Вибрати елементи"
 
 # Не вдалося знайти Git репозиторій
-#: gitg/gitg-window.vala:1096
+#: gitg/gitg-window.vala:1099
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "«%s» — не сховище Git."
 
-#: gitg/gitg-window.vala:1243
+#: gitg/gitg-window.vala:1246
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1627,7 +1632,7 @@ msgstr ""
 "Ще не налаштовано користувача та пошту. Перейдіть у користувацькі параметри "
 "і вкажіть їх."
 
-#: gitg/gitg-window.vala:1247
+#: gitg/gitg-window.vala:1250
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1635,7 +1640,7 @@ msgstr ""
 "Ще не налаштовано користувача. Перейдіть у користувацькі параметри і вкажіть "
 "його."
 
-#: gitg/gitg-window.vala:1251
+#: gitg/gitg-window.vala:1254
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1643,7 +1648,7 @@ msgstr ""
 "Ще не налаштовано пошту. Перейдіть у користувацькі параметри і вкажіть її."
 
 # Детальна інформація
-#: gitg/gitg-window.vala:1254
+#: gitg/gitg-window.vala:1257
 msgid "Missing author details"
 msgstr "Немає подробиць щодо автора"
 
@@ -1672,35 +1677,39 @@ msgstr "Типово позначати вказане посилання на �
 msgid "REFERENCE"
 msgstr "ПОСИЛАННЯ"
 
-#: gitg/history/gitg-history-refs-list.vala:166
+#: gitg/history/gitg-history-refs-list.vala:168
 #, c-format
 msgid "%zu ahead, %zu behind"
 msgstr "%zu попереду, %zu позаду"
 
-#: gitg/history/gitg-history-refs-list.vala:170
+#: gitg/history/gitg-history-refs-list.vala:172
 #, c-format
 msgid "%zu ahead"
 msgstr "%zu попереду"
 
-#: gitg/history/gitg-history-refs-list.vala:174
+#: gitg/history/gitg-history-refs-list.vala:176
 #, c-format
 msgid "%zu behind"
 msgstr "%zu позаду"
 
-#: gitg/history/gitg-history-refs-list.vala:208
+#: gitg/history/gitg-history-refs-list.vala:210
 #: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
 msgstr "Всі внески"
 
 # Відділення:
-#: gitg/history/gitg-history-refs-list.vala:1238
+#: gitg/history/gitg-history-refs-list.vala:1250
 msgid "Branches"
 msgstr "Гілки"
 
 # Дистанційне керування
-#: gitg/history/gitg-history-refs-list.vala:1239
+#: gitg/history/gitg-history-refs-list.vala:1251
 msgid "Remotes"
 msgstr "Віддалені"
+
+#: gitg/history/gitg-history-refs-list.vala:1253
+msgid "Stash"
+msgstr "Накопичити"
 
 # Історія
 #: gitg/history/gitg-history.vala:348
@@ -2350,8 +2359,6 @@ msgid "General settings and options"
 msgstr "Загальні параметри"
 
 #: gitg/resources/ui/gitg-window.ui:266
-#| msgctxt "shortcut window"
-#| msgid "Move to previous search result"
 msgid "Previous result"
 msgstr "Попередній результат"
 
@@ -2366,11 +2373,11 @@ msgstr "Наступний результат"
 msgid "Password required for %s"
 msgstr "Вимагається пароль для %s"
 
-#: libgitg/gitg-date.vala:346
+#: libgitg/gitg-date.vala:345
 msgid "Now"
 msgstr "Зараз"
 
-#: libgitg/gitg-date.vala:350
+#: libgitg/gitg-date.vala:349
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
@@ -2379,11 +2386,11 @@ msgstr[1] "%d хвилини тому"
 msgstr[2] "%d хвилин тому"
 msgstr[3] "%d хвилину тому"
 
-#: libgitg/gitg-date.vala:355
+#: libgitg/gitg-date.vala:354
 msgid "Half an hour ago"
 msgstr "Півгодини тому"
 
-#: libgitg/gitg-date.vala:360
+#: libgitg/gitg-date.vala:359
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
@@ -2392,7 +2399,7 @@ msgstr[1] "%d години тому"
 msgstr[2] "%d годин тому"
 msgstr[3] "%d годину тому"
 
-#: libgitg/gitg-date.vala:365
+#: libgitg/gitg-date.vala:364
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
@@ -2404,28 +2411,28 @@ msgstr[3] "%d день тому"
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
-#: libgitg/gitg-date.vala:374
+#: libgitg/gitg-date.vala:385
 msgid "%b %e, %H∶%M"
 msgstr "%e %b %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
-#: libgitg/gitg-date.vala:381
+#: libgitg/gitg-date.vala:392
 msgid "%b %e, %I∶%M %p"
 msgstr "%e %b %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
-#: libgitg/gitg-date.vala:391
+#: libgitg/gitg-date.vala:402
 msgid "%b %e %Y, %H∶%M"
 msgstr "%e %b %Y, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
-#: libgitg/gitg-date.vala:398
+#: libgitg/gitg-date.vala:409
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%e %b %Y, %H∶%M"
 
@@ -2511,22 +2518,22 @@ msgid "_Copy file path"
 msgstr "_Копіювати шлях до файла"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:161
+#: libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "at %s"
 msgstr "у %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:170
+#: libgitg/gitg-repository-list-box.vala:171
 #, c-format
 msgid "%s at %s"
 msgstr "%s на %s"
 
-#: libgitg/gitg-repository-list-box.vala:559
+#: libgitg/gitg-repository-list-box.vala:546
 msgid "Cloning…"
 msgstr "Клонуємо…"
 
-#: libgitg/gitg-repository-list-box.vala:572
+#: libgitg/gitg-repository-list-box.vala:559
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
@@ -2535,11 +2542,11 @@ msgstr ""
 "Вилучення початкових файлів сховища «%s» призведе до вилучення даних з "
 "диска. Наслідки буде дуже важко скасувати. Ви впевнені у свої діях?"
 
-#: libgitg/gitg-repository-list-box.vala:574
+#: libgitg/gitg-repository-list-box.vala:561
 msgid "Move to trash"
 msgstr "Пересунути до смітника"
 
-#: libgitg/gitg-repository-list-box.vala:575
+#: libgitg/gitg-repository-list-box.vala:562
 msgid "Delete permanently"
 msgstr "Вилучити остаточно"
 
@@ -2612,16 +2619,16 @@ msgstr "Неможливо показати зміни для двійковог
 msgid "Side by side"
 msgstr "Обабіч"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:63
 msgid "Slider"
 msgstr "Повзунок"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:91
 msgid "Overlay"
 msgstr "Накладання"
 
 # Установки
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:109
 msgid "Difference"
 msgstr "Різниця"
 
