@@ -1017,7 +1017,7 @@ namespace GitgHistory
 			Gtk.ListBoxRow selection = null;
 			if (event != null)
 			{
-		        var y = d_main.refs_list.y_in_window((int)event.y, event.window);
+				var y = d_main.refs_list.y_in_window((int)event.y, event.window);
 				var row = d_main.refs_list.get_row_at_y(y);
 				selection = row;
 				d_main.refs_list.select_row(row);
@@ -1025,11 +1025,9 @@ namespace GitgHistory
 
 			var references = d_main.refs_list.selection;
 
-			if (references.is_empty || references.first() != references.last())
-			{
-				Gee.LinkedList<GitgExt.Action> actions = null;
-				if (selection != null && selection.get_type () == typeof(RefHeader)
-					&& (actions = ((RefHeader)selection).actions) != null && actions.size > 0) {
+			Gee.LinkedList<GitgExt.Action> actions = null;
+			if (selection != null && selection.get_type () == typeof(RefHeader)) {
+				if ((actions = ((RefHeader)selection).actions) != null && actions.size > 0) {
 					var menu = new Gtk.Menu();
 
 					foreach (var ac in actions)
@@ -1051,9 +1049,11 @@ namespace GitgHistory
 				} else {
 					return null;
 				}
+			} else if (!references.is_empty && references.first() == references.last()) {
+				return popup_menu_for_ref(references.first());
+			} else {
+				return null;
 			}
-
-			return popup_menu_for_ref(references.first());
 		}
 
 		private Ggit.OId? id_for_ref(Ggit.Ref r)

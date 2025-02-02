@@ -32,6 +32,8 @@ private int ref_type_sort_order(Gitg.RefType ref_type)
 			return 2;
 		case Gitg.RefType.TAG:
 			return 3;
+		case Gitg.RefType.STASH:
+			return 4;
 	}
 
 	return 4;
@@ -560,18 +562,22 @@ public class RefsList : Gtk.ListBox
 	private RefHeader? d_all_branches;
 	private RefHeader? d_all_remotes;
 	private RefHeader? d_all_tags;
+	private RefHeader? d_stash;
 	private RefRow.SortOrder d_ref_sort_order;
 	private HeaderState[] d_expanded;
 	private bool d_filter_unknown_refs = false;
 	public RefHeader? branches_header { get { return d_all_branches; } }
 	public RefHeader? remotes_header { get { return d_all_remotes; } }
 	public RefHeader? tags_header { get { return d_all_tags; } }
+	public RefHeader? stash_header { get { return d_stash; } }
 	private Gee.LinkedList<GitgExt.Action> d_branches_actions = null;
 	private Gee.LinkedList<GitgExt.Action> d_remotes_actions = null;
 	private Gee.LinkedList<GitgExt.Action> d_tags_actions = null;
+	private Gee.LinkedList<GitgExt.Action> d_stash_actions = null;
 	public Gee.LinkedList<GitgExt.Action> branches_actions { get {return d_branches_actions;} set { d_branches_actions = value; refresh();} }
 	public Gee.LinkedList<GitgExt.Action> remotes_actions { get {return d_remotes_actions;} set { d_remotes_actions = value; refresh();} }
 	public Gee.LinkedList<GitgExt.Action> tags_actions { get {return d_tags_actions;} set { d_tags_actions = value; refresh();} }
+	public Gee.LinkedList<GitgExt.Action> stash_actions { get {return d_stash_actions;} set { d_stash_actions = value; refresh();} }
 	public bool filter_unknown_refs { get {return d_filter_unknown_refs;} set { d_filter_unknown_refs = value; refresh();} }
 
 	public signal void changed();
@@ -813,6 +819,7 @@ public class RefsList : Gtk.ListBox
 		d_all_branches = null;
 		d_all_remotes = null;
 		d_all_tags = null;
+		d_stash = null;
 
 		d_header_map = new Gee.HashMap<string, RemoteHeader>();
 		d_ref_map = new Gee.HashMap<Gitg.Ref, RefRow>();
@@ -1179,6 +1186,11 @@ public class RefsList : Gtk.ListBox
 		return select_nullable_row(d_all_tags);
 	}
 
+	public bool select_all_stashs()
+	{
+		return select_nullable_row(d_stash);
+	}
+
 	public bool select_ref(Gitg.Ref reference)
 	{
 		// Find by name because the supplied reference might be a separate
@@ -1238,6 +1250,7 @@ public class RefsList : Gtk.ListBox
 		d_all_branches = add_header(Gitg.RefType.BRANCH, _("Branches"), branches_actions);
 		d_all_remotes = add_header(Gitg.RefType.REMOTE, _("Remotes"), remotes_actions);
 		d_all_tags = add_header(Gitg.RefType.TAG, _("Tags"), tags_actions);
+		d_stash = add_header(Gitg.RefType.STASH, _("Stash"), stash_actions);
 
 		RefRow? head = null;
 
