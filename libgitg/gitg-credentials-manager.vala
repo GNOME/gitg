@@ -305,7 +305,6 @@ public class CredentialsManager
 
 		if ((untried_allowed_types & Ggit.Credtype.SSH_KEY) != 0)
 		{
-			d_auth_tried[uslookup] = tried | Ggit.Credtype.SSH_KEY;
 			return new Ggit.CredSshKeyFromAgent(username);
 		}
 		else if ((allowed_types & Ggit.Credtype.USERPASS_PLAINTEXT) != 0)
