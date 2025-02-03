@@ -21,7 +21,7 @@ namespace GitgCommit
 {
 
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-commit-dialog.ui")]
-class Dialog : Gtk.Dialog
+class CommitDialog : Gtk.Dialog
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
@@ -584,7 +584,7 @@ class Dialog : Gtk.Dialog
 					{
 						update_default_message();
 						message = prepare_commit_msg_hook(commit.get_message(),
-						                                  GitgCommit.Dialog.PREPARE_COMMIT_MSG_SOURCE_COMMIT,
+						                                  PREPARE_COMMIT_MSG_SOURCE_COMMIT,
 						                                  commit.get_id().to_string());
 
 						author = commit.get_author();
@@ -1055,7 +1055,7 @@ class Dialog : Gtk.Dialog
 		}
 	}
 
-	public Dialog(Gitg.Repository repository,
+	public CommitDialog(Gitg.Repository repository,
 	              Ggit.Signature  author,
 	              Ggit.Diff?      diff)
 	{

@@ -333,6 +333,21 @@ namespace GitgCommit
 			return true;
 		}
 
+		private async void stash_items(owned Gitg.StageStatusItem[] items)
+		{
+			var committer = application.get_verified_committer();
+
+			if (committer == null)
+			{
+				application.show_infobar(_("Failed to obtain author details"), "Fail to stash", Gtk.MessageType.ERROR);
+				return;
+			}
+
+			application.repository.save_stash(committer, "", Ggit.StashFlags.DEFAULT);
+
+			reload();
+		}
+
 		private async void stage_items(owned Gitg.StageStatusItem[] items)
 		{
 			foreach (var item in items)
@@ -397,6 +412,13 @@ namespace GitgCommit
 				d_current_submodule = null;
 				d_current_submodule_repository = null;
 			}
+		}
+
+		private void on_stash_activated(Gitg.StageStatusItem[] items)
+		{
+			stash_items.begin(items, (obj, res) => {
+				stash_items.end(res);
+			});
 		}
 
 		private void on_unstaged_activated(Gitg.StageStatusItem[] items)
@@ -1078,7 +1100,7 @@ namespace GitgCommit
 			reload();
 		}
 
-		private void do_commit(Dialog         dlg,
+		private void do_commit(CommitDialog   dlg,
 		                       bool           skip_hooks,
 		                       Ggit.Signature author,
 		                       Ggit.Signature committer)
@@ -1216,7 +1238,7 @@ namespace GitgCommit
 		                                         Ggit.Signature committer,
 		                                         Ggit.Diff?     diff)
 		{
-			var dlg = new Dialog(application.repository, author, diff);
+			var dlg = new CommitDialog(application.repository, author, diff);
 
 			dlg.set_transient_for((Gtk.Window)d_main.get_toplevel());
 			dlg.set_default_response(Gtk.ResponseType.OK);
@@ -1646,6 +1668,15 @@ namespace GitgCommit
 
 				stage.activate.connect(() => {
 					on_unstaged_activated(sitems);
+				});
+
+				var stash = new Gtk.MenuItem.with_mnemonic(_("_Stash changes"));
+				stash.sensitive = hasitems;
+
+				menu.append(stash);
+
+				stash.activate.connect(() => {
+					on_stash_activated(sitems);
 				});
 			}
 

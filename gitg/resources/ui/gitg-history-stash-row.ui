@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.3 -->
+  <!-- interface-requires gitg 0.0 -->
+  <!-- interface-requires gd 1.0 -->
+  <template class="GitgHistoryStashRow" parent="GtkListBoxRow">
+    <property name="visible">True</property>
+    <style>
+      <class name="sidebar"/>
+    </style>
+    <child>
+      <object class="GtkBox" id="d_box">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <property name="margin_start">18</property>
+        <property name="margin_top">3</property>
+        <property name="margin_bottom">3</property>
+        <property name="margin_end">6</property>
+        <child>
+          <object class="GtkLabel" id="d_label">
+            <property name="visible">True</property>
+            <property name="ellipsize">middle</property>
+            <property name="halign">start</property>
+            <property name="hexpand">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
+<!-- vi:ts=2:et -->

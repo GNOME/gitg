@@ -759,8 +759,18 @@ namespace GitgHistory
 				d_ignore_external = true;
 			});
 
-			var actions = new Gee.LinkedList<GitgExt.CommitAction>();
+			var actions = new Gee.LinkedList<GitgExt.Action?>();
 
+			var id = commit.get_id();
+			application.repository.stash_foreach((index, m, oid) => {
+				if (id.equal(oid)) {
+					actions.add(new Gitg.StashActionPop(application, af, oid, index));
+					actions.add(new Gitg.StashActionDrop(application, af, oid, index));
+					actions.add(null);
+					return 1;
+				}
+				return 0;
+			});
 			add_commit_action(actions,
 			                  new Gitg.CommitActionCreateBranch(application,
 			                                                    af,
@@ -794,16 +804,20 @@ namespace GitgHistory
 				add_commit_action(actions, extension as GitgExt.CommitAction);
 			});
 
-			if (actions.size == 0)
-			{
+			if (actions.size == 0) {
 				return null;
 			}
 
 			Gtk.Menu menu = new Gtk.Menu();
 
-			foreach (var ac in actions)
-			{
-				ac.populate_menu(menu);
+			foreach (var ac in actions) {
+				if (ac != null) {
+					ac.populate_menu(menu);
+				} else {
+					var sep = new Gtk.SeparatorMenuItem();
+					sep.show();
+					menu.append(sep);
+				}
 			}
 
 			// To keep actions alive as long as the menu is alive
@@ -865,6 +879,38 @@ namespace GitgHistory
 			d_main.commit_list_view.get_selection().select_path(path);
 
 			return populate_menu_for_commit(commit);
+		}
+
+		private Gtk.Menu? popup_menu_for_stash(Ggit.OId oid, size_t index) {
+			var actions = new Gee.LinkedList<GitgExt.Action?>();
+			var af = new ActionInterface(application, d_main.refs_list);
+
+			af.updated.connect(() => {
+				d_ignore_external = true;
+			});
+
+			actions.add(new Gitg.StashActionPop(application, af, oid, index));
+			actions.add(new Gitg.StashActionDrop(application, af, oid, index));
+
+			Gtk.Menu menu = new Gtk.Menu();
+
+			foreach (var ac in actions)
+			{
+				if (ac != null)
+				{
+					ac.populate_menu(menu);
+				}
+				else
+				{
+					var sep = new Gtk.SeparatorMenuItem();
+					sep.show();
+					menu.append(sep);
+				}
+			}
+
+			// To keep actions alive as long as the menu is alive
+			menu.set_data("gitg-ext-actions", actions);
+			return menu;
 		}
 
 		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference)
@@ -1024,6 +1070,7 @@ namespace GitgHistory
 			}
 
 			var references = d_main.refs_list.selection;
+			var stash_selection = d_main.refs_list.stash_selection;
 
 			Gee.LinkedList<GitgExt.Action> actions = null;
 			if (selection != null && selection.get_type () == typeof(RefHeader)) {
@@ -1052,7 +1099,12 @@ namespace GitgHistory
 			} else if (!references.is_empty && references.first() == references.last()) {
 				return popup_menu_for_ref(references.first());
 			} else {
-				return null;
+				if (!stash_selection.is_empty && stash_selection.first() == stash_selection.last()) {
+					var stash_selection_item = stash_selection.first();
+					return popup_menu_for_stash(stash_selection_item.oid, stash_selection_item.index);
+				} else {
+					return null;
+				}
 			}
 		}
 
@@ -1163,6 +1215,25 @@ namespace GitgHistory
 				}
 			}
 
+			foreach (var stash_selection in d_main.refs_list.stash_selection)
+			{
+				var id = stash_selection.oid;
+				if (id != null)
+				{
+					include.add(id);
+
+					if (!isall)
+					{
+						d_selected.add(id);
+
+						if (!isheader && perm_uniq.add(id))
+						{
+							permanent += id;
+						}
+					}
+				}
+			}
+
 			d_commit_list_model.set_permanent_lanes(permanent);
 			d_commit_list_model.set_include(include.to_array());
 			d_commit_list_model.reload();
@@ -1187,8 +1258,8 @@ namespace GitgHistory
 			get { return true; }
 		}
 
-		private void add_commit_action(Gee.LinkedList<GitgExt.CommitAction> actions,
-		                               GitgExt.CommitAction?                action)
+		private void add_commit_action(Gee.LinkedList<GitgExt.Action?> actions,
+		                               GitgExt.CommitAction?           action)
 		{
 			if (action != null && action.available)
 			{
