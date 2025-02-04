@@ -7,14 +7,14 @@
 # Mingcong Bai <jeffbai@aosc.xyz>, 2017.
 # Dingzhong Chen <wsxy162@gmail.com>, 2019.
 # Nanling <neithern@outlook.com>, 2023.
-# lumingzh <lumingzh@qq.com>, 2022-2024.
+# lumingzh <lumingzh@qq.com>, 2022-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2024-07-30 23:52+0000\n"
-"PO-Revision-Date: 2024-08-17 09:52+0800\n"
+"POT-Creation-Date: 2025-02-02 15:48+0000\n"
+"PO-Revision-Date: 2025-02-04 10:25+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Gtranslator 47.1\n"
 "X-DamnedLies-Scope: partial\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -41,14 +41,14 @@ msgstr "Git 的图形用户界面"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
-"gitg is a graphical user interface for git. It aims at being a small, fast "
+"Gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
 "visualization, gitg also provides several utilities to manage your "
 "repository and commit your work."
 msgstr ""
-"gitg 是个 git 的图形用户界面。它的目标是成为小型、快速方便的工具，可视化 git "
-"仓库的历史。除了可视化功能，gitg 也提供了多个实用工具来管理你的仓库以及提交你"
-"的工作。"
+"gitg 是个 git 的图形用户界面。它的目标是成为小型、快速方便的工具，来可视化 "
+"git 仓库的历史。除了可视化功能，gitg 也提供了多个实用工具来管理您的仓库以及提"
+"交你的工作。"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Goals:"
@@ -604,7 +604,7 @@ msgstr "确定要永久丢弃选中的变更吗？"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:737
+#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:740
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -713,7 +713,7 @@ msgstr "你的工作目录中似乎有未暂存的更改。你希望先保存进
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
-#: libgitg/gitg-repository-list-box.vala:573
+#: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "取消"
 
@@ -1290,7 +1290,7 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "将“%s”合并进分支“%s”"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1240
+#: gitg/history/gitg-history-refs-list.vala:1252
 msgid "Tags"
 msgstr "标签"
 
@@ -1411,46 +1411,46 @@ msgstr "添加(_A)"
 msgid "_Scan for all git repositories from this directory"
 msgstr "在本目录寻找所有 Git 仓库(_S)"
 
-#: gitg/gitg-window.vala:549
+#: gitg/gitg-window.vala:552
 msgid "Projects"
 msgstr "工程"
 
-#: gitg/gitg-window.vala:735
+#: gitg/gitg-window.vala:738
 msgid "Open Repository"
 msgstr "打开仓库"
 
-#: gitg/gitg-window.vala:738 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:741 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: gitg/gitg-window.vala:878
+#: gitg/gitg-window.vala:881
 msgid "Select items"
 msgstr "选择项目"
 
-#: gitg/gitg-window.vala:1096
+#: gitg/gitg-window.vala:1099
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s”不是有效的 Git 仓库。"
 
-#: gitg/gitg-window.vala:1243
+#: gitg/gitg-window.vala:1246
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr "您的用户名和邮箱尚未配置。请转到用户配置，填写您的姓名和邮箱。"
 
-#: gitg/gitg-window.vala:1247
+#: gitg/gitg-window.vala:1250
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "您的用户名尚未配置。请转到用户配置，填写您的姓名。"
 
-#: gitg/gitg-window.vala:1251
+#: gitg/gitg-window.vala:1254
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr "您的邮箱尚未配置。请转到用户配置，填写您的邮箱。"
 
-#: gitg/gitg-window.vala:1254
+#: gitg/gitg-window.vala:1257
 msgid "Missing author details"
 msgstr "作者详情缺失"
 
@@ -1478,33 +1478,37 @@ msgstr "默认在历史活动中选中指定的引用"
 msgid "REFERENCE"
 msgstr "引用"
 
-#: gitg/history/gitg-history-refs-list.vala:166
+#: gitg/history/gitg-history-refs-list.vala:168
 #, c-format
 msgid "%zu ahead, %zu behind"
 msgstr "%zu 在前，%zu 在后"
 
-#: gitg/history/gitg-history-refs-list.vala:170
+#: gitg/history/gitg-history-refs-list.vala:172
 #, c-format
 msgid "%zu ahead"
 msgstr "%zu 在前"
 
-#: gitg/history/gitg-history-refs-list.vala:174
+#: gitg/history/gitg-history-refs-list.vala:176
 #, c-format
 msgid "%zu behind"
 msgstr "%zu 在后"
 
-#: gitg/history/gitg-history-refs-list.vala:208
+#: gitg/history/gitg-history-refs-list.vala:210
 #: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
 msgstr "所有提交"
 
-#: gitg/history/gitg-history-refs-list.vala:1238
+#: gitg/history/gitg-history-refs-list.vala:1250
 msgid "Branches"
 msgstr "分支"
 
-#: gitg/history/gitg-history-refs-list.vala:1239
+#: gitg/history/gitg-history-refs-list.vala:1251
 msgid "Remotes"
 msgstr "远程"
+
+#: gitg/history/gitg-history-refs-list.vala:1253
+msgid "Stash"
+msgstr "暂存"
 
 #: gitg/history/gitg-history.vala:348
 #: gitg/preferences/gitg-preferences-history.vala:226
@@ -2098,27 +2102,27 @@ msgstr "下个结果"
 msgid "Password required for %s"
 msgstr "%s 需要密码"
 
-#: libgitg/gitg-date.vala:346
+#: libgitg/gitg-date.vala:345
 msgid "Now"
 msgstr "现在"
 
-#: libgitg/gitg-date.vala:350
+#: libgitg/gitg-date.vala:349
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "%d 分钟前"
 
-#: libgitg/gitg-date.vala:355
+#: libgitg/gitg-date.vala:354
 msgid "Half an hour ago"
 msgstr "半小时前"
 
-#: libgitg/gitg-date.vala:360
+#: libgitg/gitg-date.vala:359
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "%d 小时前"
 
-#: libgitg/gitg-date.vala:365
+#: libgitg/gitg-date.vala:364
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
@@ -2127,30 +2131,30 @@ msgstr[0] "%d 天前"
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
-#: libgitg/gitg-date.vala:374
+#: libgitg/gitg-date.vala:385
 msgid "%b %e, %H∶%M"
 msgstr "%b%-e日，%H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
-#: libgitg/gitg-date.vala:381
+#: libgitg/gitg-date.vala:392
 msgid "%b %e, %I∶%M %p"
 msgstr "%b%-e日，%p %I:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
-#: libgitg/gitg-date.vala:391
+#: libgitg/gitg-date.vala:402
 msgid "%b %e %Y, %H∶%M"
-msgstr "%Y年%-m月%-e日，%H:%M"
+msgstr "%Y年%-m月%-d日，%H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
-#: libgitg/gitg-date.vala:398
+#: libgitg/gitg-date.vala:409
 msgid "%b %e %Y, %I∶%M %p"
-msgstr "%Y年%-m月%-e日，%p %-I:%M"
+msgstr "%Y年%-m月%-d日，%p %-I:%M"
 
 #. Translators: this label is displayed below the image diff, %s
 #. is substituted with the size of the image
@@ -2231,33 +2235,33 @@ msgid "_Copy file path"
 msgstr "复制文件路径(_C)"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:161
+#: libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "at %s"
 msgstr "在 %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:170
+#: libgitg/gitg-repository-list-box.vala:171
 #, c-format
 msgid "%s at %s"
 msgstr "%s 在 %s"
 
-#: libgitg/gitg-repository-list-box.vala:559
+#: libgitg/gitg-repository-list-box.vala:546
 msgid "Cloning…"
 msgstr "克隆中…"
 
-#: libgitg/gitg-repository-list-box.vala:572
+#: libgitg/gitg-repository-list-box.vala:559
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
 "be undone. Are you sure?"
 msgstr "删除仓库源文件“%s”将从磁盘中删除，并且不能撤消。您确定吗？"
 
-#: libgitg/gitg-repository-list-box.vala:574
+#: libgitg/gitg-repository-list-box.vala:561
 msgid "Move to trash"
 msgstr "移至回收站"
 
-#: libgitg/gitg-repository-list-box.vala:575
+#: libgitg/gitg-repository-list-box.vala:562
 msgid "Delete permanently"
 msgstr "永久删除"
 
@@ -2323,15 +2327,15 @@ msgstr "无法显示二进制文件的内容差异"
 msgid "Side by side"
 msgstr "并排"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:63
 msgid "Slider"
 msgstr "滑块"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:91
 msgid "Overlay"
 msgstr "叠加"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:109
 msgid "Difference"
 msgstr "差别"
 
