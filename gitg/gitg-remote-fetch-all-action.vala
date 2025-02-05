@@ -31,7 +31,7 @@ class FetchAllRemotesAction : GitgExt.UIElement, GitgExt.Action, Object
 	public FetchAllRemotesAction(GitgExt.Application application, GitgHistory.RefsList refs_list)
 	{
 		Object(application: application);
-                this.refs_list = refs_list;
+		this.refs_list = refs_list;
 	}
 
 	public string id
@@ -51,12 +51,13 @@ class FetchAllRemotesAction : GitgExt.UIElement, GitgExt.Action, Object
 
 	public void activate()
 	{
-                refs_list.references.foreach((r) => {
+		refs_list.references.foreach((r) => {
 			var remote_name = r.parsed_name.remote_name;
-                        print(remote_name+"\n");
 			var remote = application.remote_lookup.lookup(remote_name);
-			remote.fetch(null, null);
-                        return true;
+			remote.fetch.begin(null, null, (obj, res) => {
+				remote.fetch.end(res);
+			});
+			return true;
 		});
 	}
 }

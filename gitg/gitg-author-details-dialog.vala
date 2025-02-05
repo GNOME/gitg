@@ -179,7 +179,7 @@ namespace Gitg
 		}
 
 		private void set_property(string name, string value) {
-			bool empty_value = value == null || value.strip().len() == 0;
+			bool empty_value = value == null || value.strip().length == 0;
 			if (empty_value) {
 				d_config.delete_entry(name);
 			} else {
@@ -190,7 +190,7 @@ namespace Gitg
 		private bool exists_local_property(string name) {
 			var config = d_config.open_level(Ggit.ConfigLevel.LOCAL);
 			string value = read_config_string(config, name);
-			return value != null && value.strip().len() != 0;
+			return value != null && value.strip().length != 0;
 		}
 
 		public override void response(int id) {

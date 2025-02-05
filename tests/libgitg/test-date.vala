@@ -78,35 +78,35 @@ class LibGitg.Test.Date : Gitg.Test.Test
 		                new DateTime.utc(2005, 4, 7, 22, 13, 13));
 
 		assert_datetime(Gitg.Date.parse("2005-04-07T22:13:13+0200"),
-		                new DateTime(new TimeZone("+0200"), 2005, 4, 7, 22, 13, 13));
+		                new DateTime(new TimeZone.identifier("+0200"), 2005, 4, 7, 22, 13, 13));
 
 		assert_datetime(Gitg.Date.parse("2005-04-07T22:13:13-0400"),
-		                new DateTime(new TimeZone("-0400"), 2005, 4, 7, 22, 13, 13));
+		                new DateTime(new TimeZone.identifier("-0400"), 2005, 4, 7, 22, 13, 13));
 
 		assert_datetime(Gitg.Date.parse("2005-04-07T22:13:13+0202"),
-		                new DateTime(new TimeZone("+0202"), 2005, 4, 7, 22, 13, 13));
+		                new DateTime(new TimeZone.identifier("+0202"), 2005, 4, 7, 22, 13, 13));
 
 		assert_datetime(Gitg.Date.parse("2005-04-07T22:13:13+03"),
-		                new DateTime(new TimeZone("+0300"), 2005, 4, 7, 22, 13, 13));
+		                new DateTime(new TimeZone.identifier("+0300"), 2005, 4, 7, 22, 13, 13));
 
 		assert_datetime(Gitg.Date.parse("2005-04-07T22:13:13+03:20"),
-		                new DateTime(new TimeZone("+0320"), 2005, 4, 7, 22, 13, 13));
+		                new DateTime(new TimeZone.identifier("+0320"), 2005, 4, 7, 22, 13, 13));
 
 	}
 
 	protected virtual signal void test_rfc2822()
 	{
 		assert_datetime(Gitg.Date.parse("Thu, 07 Apr 2005 22:13:13 +0200"),
-		                new DateTime(new TimeZone("+0200"), 2005, 4, 7, 22, 13, 13));
+		                new DateTime(new TimeZone.identifier("+0200"), 2005, 4, 7, 22, 13, 13));
 
 		assert_datetime(Gitg.Date.parse("Thu, 07 Apr 2005 22:13:13 -0200"),
-		                new DateTime(new TimeZone("-0200"), 2005, 4, 7, 22, 13, 13));
+		                new DateTime(new TimeZone.identifier("-0200"), 2005, 4, 7, 22, 13, 13));
 
 		assert_datetime(Gitg.Date.parse("Fri, 08 Apr 2005 22:13:13 -0200"),
-		                new DateTime(new TimeZone("-0200"), 2005, 4, 8, 22, 13, 13));
+		                new DateTime(new TimeZone.identifier("-0200"), 2005, 4, 8, 22, 13, 13));
 
 		assert_datetime(Gitg.Date.parse("Tue, 08 Mar 2005 22:13:13 +0300"),
-		                new DateTime(new TimeZone("+0300"), 2005, 3, 8, 22, 13, 13));
+		                new DateTime(new TimeZone.identifier("+0300"), 2005, 3, 8, 22, 13, 13));
 
 	}
 
@@ -114,11 +114,11 @@ class LibGitg.Test.Date : Gitg.Test.Test
 	{
 		assert_datetime(Gitg.Date.parse("457849203 +0200"),
 		                (new DateTime.from_unix_utc(457849203))
-		                    .to_timezone(new TimeZone("+0200")));
+		                    .to_timezone(new TimeZone.identifier("+0200")));
 
 		assert_datetime(Gitg.Date.parse("457849203 -0200"),
 		                (new DateTime.from_unix_utc(457849203))
-		                    .to_timezone(new TimeZone("-0200")));
+		                    .to_timezone(new TimeZone.identifier("-0200")));
 	}
 }
 

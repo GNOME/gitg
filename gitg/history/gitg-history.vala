@@ -407,7 +407,7 @@ namespace GitgHistory
 
 		private void store_mainline(Ggit.Config? config, string mainline)
 		{
-			if (config != null && mainline.len() > 0)
+			if (config != null && mainline.length > 0)
 			{
 				try
 				{

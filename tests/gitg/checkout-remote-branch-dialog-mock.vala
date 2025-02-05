@@ -38,7 +38,7 @@ class CheckoutRemoteBranchDialog : Gtk.Dialog
 
 	private bool entries_valid()
 	{
-		return (new_branch_name.len() != 0) && (remote_branch_name.len() != 0);
+		return (new_branch_name.length != 0) && (remote_branch_name.length != 0);
 	}
 
 	private void update_entries()
