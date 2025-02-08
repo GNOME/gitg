@@ -59,12 +59,11 @@ public class TextConv
 		if (file != null)
 		{
 			var oid = file.get_oid();
-			uint8[]? raw_content = null;
 			if (!oid.is_zero()) {
 				try
 				{
 					var blob = repository.lookup<Ggit.Blob>(oid);
-					raw_content = blob.get_raw_content();
+					uint8[]? raw_content = blob.get_raw_content();
 					content = get_textconv_content_from_raw(repository, file, raw_content);
 				} catch {}
 			}
@@ -91,23 +90,39 @@ public class TextConv
 		string lines = "";
 		try
 		{
-			var subproc = new Subprocess(STDIN_PIPE | STDOUT_PIPE, command, "/dev/stdin");
+			string[] command_array = command.split(" ");
+			for (int i = 0; i < command_array.length; i++) {
+				command_array[i] = command_array[i].replace("\"", "");
+			}
+			command_array += "/dev/stdin";
+
+			var subproc = new Subprocess.newv(command_array, STDIN_PIPE | STDOUT_PIPE | STDERR_PIPE);
 
 			var input = new MemoryInputStream.from_data(data, GLib.free);
-
 			subproc.get_stdin_pipe ().splice (input, CLOSE_TARGET);
+
 			var end_pipe = subproc.get_stdout_pipe ();
 			var output = new DataInputStream (end_pipe);
-
 			string? line = null;
 			do {
 				line = output.read_line();
 				if (line != null) {
-					line = line.replace("\f", "");
 					lines += line+"\n";
 				}
 			} while (line != null);
-		} catch {}
+
+			var err_pipe = subproc.get_stderr_pipe ();
+			var err = new DataInputStream (err_pipe);
+			string? lineerr = null;
+			do {
+				lineerr = err.read_line();
+				if (lineerr != null) {
+					stderr.printf(": %s\n", lineerr);
+				}
+			} while (lineerr != null);
+		} catch (GLib.Error e) {
+			stderr.printf("Failed to apply texconv: %s\n", e.message);
+		}
 		return lines.data;
 	}
 }
