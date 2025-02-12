@@ -10,18 +10,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-02-02 15:48+0000\n"
-"PO-Revision-Date: 2025-02-02 20:54+0100\n"
+"POT-Creation-Date: 2025-02-12 07:51+0000\n"
+"PO-Revision-Date: 2025-02-12 17:09+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -818,7 +818,7 @@ msgstr "Dodaj oddaljeno mesto …"
 msgid "Configure a new remote to add to the remotes list"
 msgstr "Prilagodi novo oddaljeno skladišče, ki bo dodano na seznam"
 
-#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#: gitg/gitg-add-remote-action.vala:59
 #, c-format
 msgid "Fetching from %s"
 msgstr "Pridobivanje iz %s"
@@ -828,7 +828,7 @@ msgstr "Pridobivanje iz %s"
 msgid "new"
 msgstr "novo"
 
-#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#: gitg/gitg-add-remote-action.vala:75
 #, c-format
 msgid "Failed to fetch from %s: %s"
 msgstr "Ni mogoče pridobiti iz %s: %s"
@@ -1271,16 +1271,26 @@ msgstr "Pridobi preko %s"
 msgid "Fetch remote objects from %s"
 msgstr "Pridobi oddaljeni predmet iz %s"
 
+#: gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from <a href='%s'>%s</a>"
+msgstr "Pridobivanje iz <a href='%s'>%s</a>"
+
 #. Translators: updated refers to a remote reference having been updated,
 #: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "posodobljeno"
 
+#: gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
+msgstr "Ni mogoče pridobiti iz <a href='%s'>%s</a>: <b>%s</b>"
+
 #. Translators: the %s will get replaced with the remote url,
 #: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
-msgid "Fetched from %s: everything is up to date"
-msgstr "Pridobljeno preko %s: vse je posodobljeno"
+msgid "Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>"
+msgstr "Pridobljeno preko <a href='%s'>%s</a>: <b>vse je posodobljeno</b>"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
