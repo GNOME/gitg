@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-02-02 15:48+0000\n"
-"PO-Revision-Date: 2025-02-02 22:05+0200\n"
+"POT-Creation-Date: 2025-02-12 07:51+0000\n"
+"PO-Revision-Date: 2025-02-12 17:32+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -35,11 +35,6 @@ msgid "Graphical user interface for git"
 msgstr "Графічний інтерфейс користувача для git"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:11
-#| msgid ""
-#| "gitg is a graphical user interface for git. It aims at being a small, "
-#| "fast and convenient tool to visualize the history of git repositories. "
-#| "Besides visualization, gitg also provides several utilities to manage "
-#| "your repository and commit your work."
 msgid ""
 "Gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
@@ -886,7 +881,7 @@ msgid "Configure a new remote to add to the remotes list"
 msgstr ""
 "Налаштувати нове віддалене сховище для додавання до списку віддалених сховищ"
 
-#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#: gitg/gitg-add-remote-action.vala:59
 #, c-format
 msgid "Fetching from %s"
 msgstr "Отримуємо дані з %s"
@@ -898,7 +893,7 @@ msgid "new"
 msgstr "нове"
 
 # Не вдалося зберегти поточний стан індекс
-#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#: gitg/gitg-add-remote-action.vala:75
 #, c-format
 msgid "Failed to fetch from %s: %s"
 msgstr "Не вдалося отримати дані з %s: %s"
@@ -1376,16 +1371,30 @@ msgstr "Отримати з %s"
 msgid "Fetch remote objects from %s"
 msgstr "Отримати віддалені об'єкти з %s"
 
+#: gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+#| msgid "Fetching from %s"
+msgid "Fetching from <a href='%s'>%s</a>"
+msgstr "Отримуємо дані з <a href='%s'>%s</a>"
+
 #. Translators: updated refers to a remote reference having been updated,
 #: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "оновлено"
 
+# Не вдалося зберегти поточний стан індекс
+#: gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+#| msgid "Failed to fetch from %s: %s"
+msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
+msgstr "Не вдалося отримати дані з <a href='%s'>%s</a>: <b>%s</b>"
+
 #. Translators: the %s will get replaced with the remote url,
 #: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
-msgid "Fetched from %s: everything is up to date"
-msgstr "Отримано з %s: нічого не потребує оновлення"
+#| msgid "Fetched from %s: everything is up to date"
+msgid "Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>"
+msgstr "Отримано з <a href='%s'>%s</a>: <b>нічого не потребує оновлення</b>"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
