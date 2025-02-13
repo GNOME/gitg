@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-02-02 15:48+0000\n"
-"PO-Revision-Date: 2025-02-09 02:04-0300\n"
+"POT-Creation-Date: 2025-02-12 19:10+0000\n"
+"PO-Revision-Date: 2025-02-13 16:04-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
@@ -836,7 +836,7 @@ msgstr "Adicionar um novo remoto"
 msgid "Configure a new remote to add to the remotes list"
 msgstr "Configura um novo remoto para adicionar à lista de remotos"
 
-#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#: gitg/gitg-add-remote-action.vala:59
 #, c-format
 msgid "Fetching from %s"
 msgstr "Obtendo de %s"
@@ -846,7 +846,7 @@ msgstr "Obtendo de %s"
 msgid "new"
 msgstr "novo"
 
-#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#: gitg/gitg-add-remote-action.vala:75
 #, c-format
 msgid "Failed to fetch from %s: %s"
 msgstr "Falha ao obter de %s: %s"
@@ -1301,16 +1301,26 @@ msgstr "Obter de %s"
 msgid "Fetch remote objects from %s"
 msgstr "Obtém objetos remotos de %s"
 
+#: gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from <a href='%s'>%s</a>"
+msgstr "Obtendo de <a href='%s'>%s</a>"
+
 #. Translators: updated refers to a remote reference having been updated,
 #: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "atualizado"
 
+#: gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
+msgstr "Falha ao obter de <a href='%s'>%s</a>: <b>%s</b>"
+
 #. Translators: the %s will get replaced with the remote url,
 #: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
-msgid "Fetched from %s: everything is up to date"
-msgstr "Obtido de %s: tudo está atualizado"
+msgid "Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>"
+msgstr "Obtido de <a href='%s'>%s</a>: <b>tudo está atualizado</b>"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
