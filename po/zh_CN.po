@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-02-02 15:48+0000\n"
-"PO-Revision-Date: 2025-02-04 10:25+0800\n"
+"POT-Creation-Date: 2025-02-12 19:10+0000\n"
+"PO-Revision-Date: 2025-02-14 20:03+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -757,7 +757,7 @@ msgstr "添加远程仓库…"
 msgid "Configure a new remote to add to the remotes list"
 msgstr "添加新的远程仓库至远程仓库列表"
 
-#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#: gitg/gitg-add-remote-action.vala:59
 #, c-format
 msgid "Fetching from %s"
 msgstr "正在从 %s 取回"
@@ -767,7 +767,7 @@ msgstr "正在从 %s 取回"
 msgid "new"
 msgstr "新的"
 
-#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#: gitg/gitg-add-remote-action.vala:75
 #, c-format
 msgid "Failed to fetch from %s: %s"
 msgstr "从 %s 获取失败：%s"
@@ -1205,17 +1205,27 @@ msgstr "从 %s 获取"
 msgid "Fetch remote objects from %s"
 msgstr "从 %s 获取远程对象"
 
+#: gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from <a href='%s'>%s</a>"
+msgstr "正在从 <a href='%s'>%s</a> 取回"
+
 # Translating as up-to-date
 #. Translators: updated refers to a remote reference having been updated,
 #: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "已最新"
 
+#: gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
+msgstr "从 <a href='%s'>%s</a> 获取失败：<b>%s</b>"
+
 #. Translators: the %s will get replaced with the remote url,
 #: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
-msgid "Fetched from %s: everything is up to date"
-msgstr "已从 %s 取回：一切都已最新"
+msgid "Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>"
+msgstr "已从 <a href='%s'>%s</a> 取回：<b>一切都已最新</b>"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
