@@ -4,7 +4,6 @@
 #
 # fetch        - holen
 # fast forward - vorspulen
-# stash        - Zurückstellung / zurückstellen
 # stage        - Bereitstellung / bereitstellen
 #
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010-2011, 2015-2016.
@@ -12,23 +11,23 @@
 # Benjamin Steinwender <b@stbe.at>, 2014-2016.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2015.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2012, 2015-2016, 2019.
-# Tim Sabsch <tim@sabsch.com>, 2019-2020, 2022.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2023, 2024.
+# Tim Sabsch <tim@sabsch.com>, 2019-2020, 2022, 2025.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2023-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2024-07-27 14:42+0000\n"
-"PO-Revision-Date: 2024-09-30 18:55+0200\n"
-"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
+"POT-Creation-Date: 2025-02-12 07:51+0000\n"
+"PO-Revision-Date: 2025-02-23 18:32+0100\n"
+"Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -46,12 +45,12 @@ msgstr "Eine grafische Oberfläche für git"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:11
 msgid ""
-"gitg is a graphical user interface for git. It aims at being a small, fast "
+"Gitg is a graphical user interface for git. It aims at being a small, fast "
 "and convenient tool to visualize the history of git repositories. Besides "
 "visualization, gitg also provides several utilities to manage your "
 "repository and commit your work."
 msgstr ""
-"gitg ist eine grafische Benutzeroberfläche für Git. Es möchte ein kleines, "
+"Gitg ist eine grafische Benutzeroberfläche für Git. Es möchte ein kleines, "
 "schnelles und bequemes Werkzeug sein, um die Chronik von Git-Repositorys "
 "darzustellen. Neben der Darstellung bietet gitg verschiedene Hilfsmittel, um "
 "Ihr Repository zu verwalten und Ihre Arbeit zu committen."
@@ -677,7 +676,7 @@ msgstr "Möchten Sie wirklich die gewählten Änderungen dauerhaft verwerfen?"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:737
+#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:740
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -774,7 +773,7 @@ msgstr "Datei _bearbeiten"
 #: gitg/gitg-action-support.vala:95
 #, c-format
 msgid "Failed to stash changes: %s"
-msgstr "Zurückstellen der Änderungen fehlgeschlagen: %s"
+msgstr "Stashen der Änderungen fehlgeschlagen: %s"
 
 #: gitg/gitg-action-support.vala:130
 msgid "Unstaged changes"
@@ -793,7 +792,7 @@ msgstr ""
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
 #: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
-#: libgitg/gitg-repository-list-box.vala:573
+#: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -837,7 +836,7 @@ msgstr "Einen neuen Remote hinzufügen …"
 msgid "Configure a new remote to add to the remotes list"
 msgstr "Einen neuen Remote zum Hinzufügen zur Remotes-Liste einrichten"
 
-#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#: gitg/gitg-add-remote-action.vala:59
 #, c-format
 msgid "Fetching from %s"
 msgstr "Es wird von %s angefordert"
@@ -847,7 +846,7 @@ msgstr "Es wird von %s angefordert"
 msgid "new"
 msgstr "neu"
 
-#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#: gitg/gitg-add-remote-action.vala:75
 #, c-format
 msgid "Failed to fetch from %s: %s"
 msgstr "Anfordern von %s ist fehlgeschlagen: %s"
@@ -908,7 +907,7 @@ msgstr ""
 "Christian Kirbach <christian.kirbach@gmail.com>, 2013, 2014, 2015, 2022\n"
 "Benjamin Steinwender <b@stbe.at>, 2014-2015\n"
 "Tim Sabsch <tim@sabsch.com>, 2019-2020, 2022\n"
-"Jürgen Benvenuti <gastornis@posteo.org>, 2023, 2024"
+"Jürgen Benvenuti <gastornis@posteo.org>, 2023-2025"
 
 #: gitg/gitg-application.vala:241
 msgid "gitg homepage"
@@ -1300,16 +1299,27 @@ msgstr "Anfordern von %s"
 msgid "Fetch remote objects from %s"
 msgstr "Entfernte Objekte von %s anfordern"
 
+#: gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from <a href='%s'>%s</a>"
+msgstr "Es wird von <a href='%s'>%s</a> angefordert"
+
 #. Translators: updated refers to a remote reference having been updated,
 #: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "aktualisiert"
 
+#: gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
+msgstr "Anfordern von <a href='%s'>%s</a> ist fehlgeschlagen: <b>%s</b>"
+
 #. Translators: the %s will get replaced with the remote url,
 #: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
-msgid "Fetched from %s: everything is up to date"
-msgstr "Anfordern von %s: Alles ist auf dem neuesten Stand"
+msgid "Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>"
+msgstr ""
+"Anfordern von <a href='%s'>%s</a>: <b>Alles ist auf dem neuesten Stand</b>"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
@@ -1385,7 +1395,7 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "»%s« in den Zweig »%s« zusammenführen"
 
 #: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1240
+#: gitg/history/gitg-history-refs-list.vala:1252
 msgid "Tags"
 msgstr "Tags"
 
@@ -1507,28 +1517,28 @@ msgstr "_Hinzufügen"
 msgid "_Scan for all git repositories from this directory"
 msgstr "Von diesem Ordner aus nach allen Git-Repositorys _suchen"
 
-#: gitg/gitg-window.vala:549
+#: gitg/gitg-window.vala:552
 msgid "Projects"
 msgstr "Projekte"
 
-#: gitg/gitg-window.vala:735
+#: gitg/gitg-window.vala:738
 msgid "Open Repository"
 msgstr "Repository öffnen"
 
-#: gitg/gitg-window.vala:738 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:741 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "Ö_ffnen"
 
-#: gitg/gitg-window.vala:878
+#: gitg/gitg-window.vala:881
 msgid "Select items"
 msgstr "Objekte auswählen"
 
-#: gitg/gitg-window.vala:1096
+#: gitg/gitg-window.vala:1099
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "»%s« ist kein gültiges Git-Repository."
 
-#: gitg/gitg-window.vala:1243
+#: gitg/gitg-window.vala:1246
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1537,7 +1547,7 @@ msgstr ""
 "wechseln Sie in die Benutzerkonfiguration und geben Sie Ihren Namen und Ihre "
 "E-Mail-Adresse ein."
 
-#: gitg/gitg-window.vala:1247
+#: gitg/gitg-window.vala:1250
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1545,7 +1555,7 @@ msgstr ""
 "Ihr Benutzername ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihren Namen ein."
 
-#: gitg/gitg-window.vala:1251
+#: gitg/gitg-window.vala:1254
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1553,7 +1563,7 @@ msgstr ""
 "Ihre E-Mail ist noch nicht eingerichtet. Bitte wechseln Sie in die "
 "Benutzerkonfiguration und geben Sie Ihre E-Mail-Adresse ein."
 
-#: gitg/gitg-window.vala:1254
+#: gitg/gitg-window.vala:1257
 msgid "Missing author details"
 msgstr "Details des Autors fehlen"
 
@@ -1582,33 +1592,37 @@ msgstr ""
 msgid "REFERENCE"
 msgstr "REFERENZ"
 
-#: gitg/history/gitg-history-refs-list.vala:166
+#: gitg/history/gitg-history-refs-list.vala:168
 #, c-format
 msgid "%zu ahead, %zu behind"
 msgstr "%zu voraus, %zu zurück"
 
-#: gitg/history/gitg-history-refs-list.vala:170
+#: gitg/history/gitg-history-refs-list.vala:172
 #, c-format
 msgid "%zu ahead"
 msgstr "%zu voraus"
 
-#: gitg/history/gitg-history-refs-list.vala:174
+#: gitg/history/gitg-history-refs-list.vala:176
 #, c-format
 msgid "%zu behind"
 msgstr "%zu zurück"
 
-#: gitg/history/gitg-history-refs-list.vala:208
+#: gitg/history/gitg-history-refs-list.vala:210
 #: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
 msgstr "Alle Commits"
 
-#: gitg/history/gitg-history-refs-list.vala:1238
+#: gitg/history/gitg-history-refs-list.vala:1250
 msgid "Branches"
 msgstr "Zweige"
 
-#: gitg/history/gitg-history-refs-list.vala:1239
+#: gitg/history/gitg-history-refs-list.vala:1251
 msgid "Remotes"
 msgstr "Remotes"
+
+#: gitg/history/gitg-history-refs-list.vala:1253
+msgid "Stash"
+msgstr "Stash"
 
 #: gitg/history/gitg-history.vala:348
 #: gitg/preferences/gitg-preferences-history.vala:226
@@ -2214,29 +2228,29 @@ msgstr "Nächstes Ergebnis"
 msgid "Password required for %s"
 msgstr "Für %s wird ein Passwort benötigt"
 
-#: libgitg/gitg-date.vala:346
+#: libgitg/gitg-date.vala:345
 msgid "Now"
 msgstr "Jetzt"
 
-#: libgitg/gitg-date.vala:350
+#: libgitg/gitg-date.vala:349
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "Vor einer Minute"
 msgstr[1] "Vor %d Minuten"
 
-#: libgitg/gitg-date.vala:355
+#: libgitg/gitg-date.vala:354
 msgid "Half an hour ago"
 msgstr "Vor einer halben Stunde"
 
-#: libgitg/gitg-date.vala:360
+#: libgitg/gitg-date.vala:359
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "Vor einer Stunde"
 msgstr[1] "Vor %d Stunden"
 
-#: libgitg/gitg-date.vala:365
+#: libgitg/gitg-date.vala:364
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
@@ -2246,28 +2260,28 @@ msgstr[1] "Vor %d Tagen"
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
-#: libgitg/gitg-date.vala:374
+#: libgitg/gitg-date.vala:385
 msgid "%b %e, %H∶%M"
 msgstr "%e. %b, %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
-#: libgitg/gitg-date.vala:381
+#: libgitg/gitg-date.vala:392
 msgid "%b %e, %I∶%M %p"
 msgstr "%e. %b, %I:%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
-#: libgitg/gitg-date.vala:391
+#: libgitg/gitg-date.vala:402
 msgid "%b %e %Y, %H∶%M"
 msgstr "%e. %b %Y, %H:%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
-#: libgitg/gitg-date.vala:398
+#: libgitg/gitg-date.vala:409
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%e. %b %Y, %I:%M %p"
 
@@ -2351,22 +2365,22 @@ msgid "_Copy file path"
 msgstr "Dateipfad k_opieren"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:161
+#: libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "at %s"
 msgstr "bei %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:170
+#: libgitg/gitg-repository-list-box.vala:171
 #, c-format
 msgid "%s at %s"
 msgstr "%s bei %s"
 
-#: libgitg/gitg-repository-list-box.vala:559
+#: libgitg/gitg-repository-list-box.vala:546
 msgid "Cloning…"
 msgstr "Klonen …"
 
-#: libgitg/gitg-repository-list-box.vala:572
+#: libgitg/gitg-repository-list-box.vala:559
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
@@ -2375,11 +2389,11 @@ msgstr ""
 "Das Löschen der Quelldateien von Repository »%s« wird diese von der "
 "Festplatte löschen und kann nicht rückgängig gemacht werden. Sind Sie sicher?"
 
-#: libgitg/gitg-repository-list-box.vala:574
+#: libgitg/gitg-repository-list-box.vala:561
 msgid "Move to trash"
 msgstr "In den Papierkorb verschieben"
 
-#: libgitg/gitg-repository-list-box.vala:575
+#: libgitg/gitg-repository-list-box.vala:562
 msgid "Delete permanently"
 msgstr "Dauerhaft löschen"
 
@@ -2449,16 +2463,16 @@ msgstr "Änderungen der Binärdatei können nicht angezeigt werden"
 msgid "Side by side"
 msgstr "Nebeneinander"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:63
 msgid "Slider"
 msgstr "Schieber"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:91
 msgid "Overlay"
 msgstr "Überlagerung"
 
 # Unterschied zwischen den Dateien, nehme ich an. - jb
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:109
 msgid "Difference"
 msgstr "Unterschied"
 
