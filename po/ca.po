@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
 "POT-Creation-Date: 2022-03-01 13:01+0000\n"
-"PO-Revision-Date: 2024-05-26 13:27+0100\n"
+"PO-Revision-Date: 2025-03-09 13:27+0100\n"
 "Last-Translator: maite guix <maite.guix@me.com>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -44,9 +44,9 @@ msgid ""
 "repository and commit your work."
 msgstr ""
 "el gitg és una interfície gràfica d'usuari pel git. El seu objectiu és ser "
-"una eina ràpida i còmode per a visualitzar l'historial de dipòsits git. A "
+"una eina ràpida i còmode per a visualitzar l'historial de repositoris git. A "
 "banda de la visualització, el gitg també incorpora diverses utilitats per a "
-"gestionar els dipòsits i publicar els vostres canvis."
+"gestionar els repositoris i publicar els vostres canvis."
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Goals:"
@@ -54,11 +54,11 @@ msgstr "Objectius:"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:19
 msgid "Browse local git repositories"
-msgstr "Navega pels dipòsits git locals"
+msgstr "Navega pels repositoris git locals"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:20
 msgid "Clone local and remote git repositories"
-msgstr "Clona dipòsits git tant locals com remots"
+msgstr "Clona repositoris git tant locals com remots"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:21
 msgid "Commit files"
@@ -70,7 +70,7 @@ msgstr "Recupera pedaços d'una publicació"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:32
 msgid "Browse repository history"
-msgstr "Navega per l'historial del dipòsit"
+msgstr "Navega per l'historial del repositori"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:36
 msgid "Staging area to compose your commit"
@@ -82,7 +82,7 @@ msgstr "Comissiona els canvis de «staging»"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:44
 msgid "Overview of recently used repositories"
-msgstr "Vista general dels dipòsits utilitzats recentment"
+msgstr "Vista general dels repositoris utilitzats recentment"
 
 #: data/org.gnome.gitg.appdata.xml.in.in:157
 msgid "The GNOME Project"
@@ -94,7 +94,7 @@ msgstr "@binary@"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
-msgstr "Navegador de dipòsits Git"
+msgstr "Navegador de repositoris Git"
 
 #: data/org.gnome.gitg.desktop.in.in:17
 msgid "New Window"
@@ -108,7 +108,7 @@ msgstr "Directori on clonar per defecte"
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
-msgstr "El directori per defecte on se suggerirà clonar els nous dipòsits."
+msgstr "El directori per defecte on se suggerirà clonar els nous repositoris."
 
 #: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Orientation of the main interface (vertical or horizontal)"
@@ -533,7 +533,7 @@ msgstr "No s'ha pogut posar a «staging» l'eliminació del submòdul «%s»"
 #, c-format
 msgid "Failed to open the repository of submodule “%s” while trying to stage"
 msgstr ""
-"No s'ha pogut obrir el dipòsit del submòdul «%s» mentre s'intentava posar-lo"
+"No s'ha pogut obrir el repositori del submòdul «%s» mentre s'intentava posar-lo"
 " a «staging»"
 
 #: gitg/commit/gitg-commit.vala:277
@@ -844,7 +844,7 @@ msgstr ""
 
 #: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
-msgstr "No provis de carregar un dipòsit des del directori de treball actual"
+msgstr "No provis de carregar un repositori des del directori de treball actual"
 
 #: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
@@ -856,11 +856,11 @@ msgstr "Posa els camins sota git si cal"
 
 #: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
-msgstr "— Visualitzador de dipòsits Git"
+msgstr "— Visualitzador de repositoris Git"
 
 #: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
-msgstr "el gitg és un visualitzador de dipòsits Git per a GTK+/GNOME"
+msgstr "el gitg és un visualitzador de repositoris Git per a GTK+/GNOME"
 
 #: gitg/gitg-application.vala:238
 msgid "translator-credits"
@@ -894,13 +894,13 @@ msgstr "Dades de l'autor"
 
 #: gitg/gitg-author-details-dialog.vala:80
 msgid "Enter default details used for all repositories:"
-msgstr "Introduïu els detalls per defecte usats per a tots els dipòsits:"
+msgstr "Introduïu els detalls per defecte usats per a tots els repositoris:"
 
 #. Translators: %s is the repository name
 #: gitg/gitg-author-details-dialog.vala:102
 #, c-format
 msgid "Override global details for repository “%s”:"
-msgstr "Sobreescriu els detalls globals per al dipòsit «%s»:"
+msgstr "Sobreescriu els detalls globals per al repositori «%s»:"
 
 #: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
@@ -1049,7 +1049,7 @@ msgstr "Sup_rimeix"
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
 "També podem %s escanejar el vostre directori personal %s per a cercar "
-"dipòsits git."
+"repositoris git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
 #: gitg/gitg-dash-view.vala:233
@@ -1059,15 +1059,15 @@ msgstr "Durant aquest temps, podreu %s crear el vostre perfil git %s."
 
 #: gitg/gitg-dash-view.vala:398
 msgid "Failed to clone repository"
-msgstr "No s'ha pogut clonar el dipòsit"
+msgstr "No s'ha pogut clonar el repositori"
 
 #: gitg/gitg-dash-view.vala:429
 msgid "Failed to add repository"
-msgstr "No s'ha pogut afegir el dipòsit"
+msgstr "No s'ha pogut afegir el repositori"
 
 #: gitg/gitg-dash-view.vala:445
 msgid "Create new repository"
-msgstr "Crea un dipòsit nou"
+msgstr "Crea un repositori nou"
 
 #. Translators: %s is a file name
 #: gitg/gitg-dash-view.vala:448
@@ -1076,21 +1076,21 @@ msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
 "you like to initialize a new git repository at this location?"
 msgstr ""
-"La ubicació <i>%s</i> no sembla un dipòsit vàlid. Voleu inicialitzar un "
-"dipòsit nou en aquesta ubicació?"
+"La ubicació <i>%s</i> no sembla un repositori vàlid. Voleu inicialitzar un "
+"repositori nou en aquesta ubicació?"
 
 #: gitg/gitg-dash-view.vala:454
 msgid "Create repository"
-msgstr "Crea un dipòsit"
+msgstr "Crea un repositori"
 
 #: gitg/gitg-dash-view.vala:470
 msgid "Failed to create repository"
-msgstr "No s'ha pogut crear el dipòsit"
+msgstr "No s'ha pogut crear el repositori"
 
 #: gitg/gitg-dash-view.vala:540
 #, c-format
 msgid "Scanning for repositories in %s"
-msgstr "S'estan escanejant dipòsits en %s"
+msgstr "S'estan escanejant repositoris en %s"
 
 #: gitg/gitg-edit-remote-action.vala:51
 msgid "Edit remote"
@@ -1413,7 +1413,7 @@ msgstr "No s'ha pogut suprimir el remot"
 
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
-msgstr "Afegeix un dipòsit"
+msgstr "Afegeix un repositori"
 
 #: gitg/gitg-window.vala:206
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
@@ -1423,7 +1423,7 @@ msgstr "_Afegeix"
 
 #: gitg/gitg-window.vala:208
 msgid "_Scan for all git repositories from this directory"
-msgstr "E_scaneja tots els dipòsits git al directori aquest"
+msgstr "E_scaneja tots els repositoris git al directori aquest"
 
 #: gitg/gitg-window.vala:517
 msgid "Projects"
@@ -1431,7 +1431,7 @@ msgstr "Projectes"
 
 #: gitg/gitg-window.vala:701
 msgid "Open Repository"
-msgstr "Obre un dipòsit"
+msgstr "Obre un repositori"
 
 #: gitg/gitg-window.vala:704
 #: gitg/resources/ui/gitg-commit-submodule-info.ui:70
@@ -1445,7 +1445,7 @@ msgstr "Selecciona elements"
 #: gitg/gitg-window.vala:1062
 #, c-format
 msgid "“%s” is not a Git repository."
-msgstr "«%s» no és un dipòsit Git."
+msgstr "«%s» no és un repositori Git."
 
 #: gitg/gitg-window.vala:1211
 msgid ""
@@ -1538,7 +1538,7 @@ msgstr "Historial"
 
 #: gitg/history/gitg-history.vala:352
 msgid "Examine the history of the repository"
-msgstr "Examina la història del dipòsit"
+msgstr "Examina la història del repositori"
 
 #: gitg/history/gitg-history.vala:949
 msgid "Mainline"
@@ -1580,7 +1580,7 @@ msgstr "De_sa"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:65
 msgid "Default details used for all repositories"
-msgstr "Detalls per defectes usats per a tots els dipòsits"
+msgstr "Detalls per defectes usats per a tots els repositoris"
 
 #: gitg/resources/ui/gitg-author-details-dialog.ui:114
 msgid "E-mail:"
@@ -1612,7 +1612,7 @@ msgstr "_Segueix la branca remota"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:7
 msgid "Clone Repository"
-msgstr "Clona el dipòsit"
+msgstr "Clona el repositori"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:33
 #: gitg/resources/ui/gitg-window.ui:47
@@ -1629,7 +1629,7 @@ msgstr "Selecciona la ubicació…"
 
 #: gitg/resources/ui/gitg-clone-dialog.ui:127
 msgid "Bare repository"
-msgstr "Dipòsit buit"
+msgstr "Repositori buit"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:8
 msgctxt "Create Dialog"
@@ -1722,7 +1722,7 @@ msgid ""
 "No repositories have been added yet. To get started, you can add an existing"
 " repository or clone a new one."
 msgstr ""
-"No s'han afegit dipòsits encara. Per a començar, podeu afegir un dipòsit que"
+"No s'han afegit repositoris encara. Per a començar, podeu afegir un repositori que"
 " ja existeixi o un clon."
 
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
@@ -1933,7 +1933,7 @@ msgstr "Obre el menú de la finestra"
 #: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Open a repository"
-msgstr "Obre un dipòsit"
+msgstr "Obre un repositori"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
@@ -2047,15 +2047,15 @@ msgstr "Activitat de l'historial"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
-msgstr "Mostra la llista de dipòsits utilitzats recentment"
+msgstr "Mostra la llista de repositoris utilitzats recentment"
 
 #: gitg/resources/ui/gitg-window.ui:48
 msgid "Clone repository"
-msgstr "Clona el dipòsit"
+msgstr "Clona el repositori"
 
 #: gitg/resources/ui/gitg-window.ui:65
 msgid "Add repository"
-msgstr "Afegeix un dipòsit"
+msgstr "Afegeix un repositori"
 
 #: gitg/resources/ui/gitg-window.ui:89
 msgid "Find a word or phrase"
@@ -2310,7 +2310,7 @@ msgid ""
 "Remove the repository from the list (does not delete the repository from "
 "disk)"
 msgstr ""
-"Suprimeix el dipòsit de la llista (no se suprimeix el dipòsit del disc dur)"
+"Suprimeix el repositori de la llista (no se suprimeix el repositori del disc dur)"
 
 #: plugins/diff/gitg-diff.vala:125
 msgid "Show the changes introduced by the selected commit"
