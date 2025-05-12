@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2020-07-12 12:36+0000\n"
-"PO-Revision-Date: 2020-09-06 17:08+0200\n"
-"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
+"POT-Creation-Date: 2025-05-10 13:46+0000\n"
+"PO-Revision-Date: 2025-05-12 23:44+0200\n"
+"Last-Translator: Peter Mráz <etkinator@gmail.com>\n"
 "Language-Team: slovenčina <>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -40,6 +40,10 @@ msgid ""
 "visualization, gitg also provides several utilities to manage your "
 "repository and commit your work."
 msgstr ""
+"gitg je grafické používateľské rozhranie pre git. Jeho cieľom je byť malým, "
+"rýchlym a pohodlným nástrojom na vizualizáciu histórie git repozitárov. "
+"Okrem vizualizácie, gitg tiež poskytuje niekoľko nástrojov na správu vášho "
+"repozitára a začleňovanie vašej práce."
 
 #: data/org.gnome.gitg.appdata.xml.in.in:17
 msgid "Goals:"
@@ -77,17 +81,21 @@ msgstr "Začlenenie pripravených zmien"
 msgid "Overview of recently used repositories"
 msgstr "Prehľad nedávno použitých repozitárov"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:105
-msgid "The GNOME Project"
-msgstr "Projekt GNOME"
+#: data/org.gnome.gitg.appdata.xml.in.in:216
+msgid "The Gitg Team"
+msgstr "Tím Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:3
 msgid "@binary@"
-msgstr ""
+msgstr "@binárne@"
 
 #: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Prehliadač repozitárov Git"
+
+#: data/org.gnome.gitg.desktop.in.in:17
+msgid "New Window"
+msgstr "Nové okno"
 
 #: data/org.gnome.gitg.gschema.xml.in:28
 msgid "Default Clone Directory"
@@ -127,6 +135,10 @@ msgid ""
 "instead of a font specific. If this option is turned off, then the font "
 "named in the “Editor Font” option will be used instead of the system font."
 msgstr ""
+"Určuje, či sa má na text widgetu použiť predvolené systémové písmo s pevnou "
+"šírkou písmen namiesto konkrétneho písma. Ak je táto možnosť vypnutá, "
+"namiesto systémového písma sa použije písmo uvedené v možnosti „Písmo "
+"editora“."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
 #: data/org.gnome.gitg.gschema.xml.in:57
@@ -142,6 +154,8 @@ msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
 msgstr ""
+"Vlastné písmo, ktoré sa bude používať pre textové widgety. Toto bude mať "
+"účinok iba v prípade, že je možnosť „Použiť predvolené písmo“ vypnutá."
 
 #: data/org.gnome.gitg.gschema.xml.in:63
 msgid "Use Gravatar"
@@ -178,7 +192,7 @@ msgstr "Farebná schéma použitá na zvýraznenie syntaxe"
 
 #: data/org.gnome.gitg.gschema.xml.in:86
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
-msgstr ""
+msgstr "Používa sa v GtkSourceView na určenie farieb pre zvýraznenie syntaxe"
 
 #: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
@@ -402,11 +416,29 @@ msgstr ""
 "Maximálny počet dní na uloženie predchádzajúcich správ začlenení v histórii "
 "správ začlenení."
 
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:247
+#: data/org.gnome.gitg.gschema.xml.in:248
+msgid "Type of datetime format selected."
+msgstr "Typ vybraného formátu dátumu a času."
+
+#: data/org.gnome.gitg.gschema.xml.in:254
+msgid "Preferred datetime format of the user."
+msgstr "Uprednosťňovaný formát dátumu a času používateľa."
+
+#: data/org.gnome.gitg.gschema.xml.in:255
+msgid "The datetime format to be used in commit-diff."
+msgstr "Formát dátumu a času, ktorý sa má použiť v commit-diff."
+
+#: data/org.gnome.gitg.gschema.xml.in:261
+#: data/org.gnome.gitg.gschema.xml.in:262
+msgid "Custom datetime format."
+msgstr "Vlastný formát dátumu a času."
+
+#: data/org.gnome.gitg.gschema.xml.in:270
 msgid "Use patience algorithm to show diffs"
 msgstr "Použiť trpezlivý algoritmus na zobrazenie rozdielov"
 
-#: data/org.gnome.gitg.gschema.xml.in:250
+#: data/org.gnome.gitg.gschema.xml.in:271
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Nastavenie na použitie trpezlivého algoritmu na zobrazenie rozdielov "
@@ -414,11 +446,11 @@ msgstr ""
 
 # DK: v inom module je whitespace menny priestor, ale to sa mi tu nehodi vobec
 # PV: white space znamená súhrnný názov pre neviditeľné znaky ako sú tabulátor, medzerník, koniec riadku a pod. Nemyslím si, že toto chceme upravovať.
-#: data/org.gnome.gitg.gschema.xml.in:256
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Ignore Whitespace Changes"
 msgstr "Ignorovať zmeny pozostávajúce len z neviditeľných znakov"
 
-#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -426,30 +458,30 @@ msgstr ""
 "Nastavenie, ktoré určuje, či sa majú počas zobrazenia rozdielu ignorovať "
 "zmeny pozostávajúce len z neviditeľných znakov."
 
-#: data/org.gnome.gitg.gschema.xml.in:264
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid "Show Changes Inline"
 msgstr "Zobraziť vnorené zmeny"
 
-#: data/org.gnome.gitg.gschema.xml.in:265
+#: data/org.gnome.gitg.gschema.xml.in:286
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Nastavenie, ktoré určuje, či sa zmeny majú zobrazovať vnorené v texte riadku."
 
-#: data/org.gnome.gitg.gschema.xml.in:272
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid "Wrap"
 msgstr "Zalamovať"
 
-#: data/org.gnome.gitg.gschema.xml.in:273
+#: data/org.gnome.gitg.gschema.xml.in:294
 msgid "Wrap lines."
 msgstr "Zalamovať riadky."
 
-#: data/org.gnome.gitg.gschema.xml.in:279
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:300
+#: data/org.gnome.gitg.gschema.xml.in:318
 msgid "Number of Before/After Context Lines"
 msgstr "Počet predchádzajúcich/nasledujúcich riadkov v kontexte"
 
-#: data/org.gnome.gitg.gschema.xml.in:280
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -457,13 +489,13 @@ msgstr ""
 "Nastavenie, ktoré určuje, koľko riadkov kontextu pridať pred/za v zobrazení "
 "rozdielu."
 
-#: data/org.gnome.gitg.gschema.xml.in:287
-#: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:308
+#: data/org.gnome.gitg.gschema.xml.in:327
 msgid "Rendered Width of a Tab Character"
 msgstr "Šírka tabulátora"
 
-#: data/org.gnome.gitg.gschema.xml.in:288
-#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:309
+#: data/org.gnome.gitg.gschema.xml.in:328
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -471,7 +503,7 @@ msgstr ""
 "Nastavenie, ktoré určuje, koľko znakov obsadí tabulátor v zobrazení rozdielu "
 "začlenenia."
 
-#: data/org.gnome.gitg.gschema.xml.in:298
+#: data/org.gnome.gitg.gschema.xml.in:319
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -479,11 +511,11 @@ msgstr ""
 "Nastavenie, ktoré určuje, koľko riadkov kontextu pridať pred/za v zobrazení "
 "rozdielu pred vykonaním akcie do pripravených / do nepripravených."
 
-#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
 msgstr "Nie sú žiadne zmeny na začlenenie"
 
-#: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Na zmenu správy predchádzajúceho začlenenia použite Pozmeniť"
 
@@ -536,95 +568,97 @@ msgstr "Zlyhala príprava odstránenia súboru „%s“"
 msgid "Failed to stage the file “%s”"
 msgstr "Zlyhala príprava súboru „%s“"
 
-#: gitg/commit/gitg-commit.vala:598
+#: gitg/commit/gitg-commit.vala:599
 msgid "_Unstage selection"
 msgstr "Výber do _nepripravených"
 
-#: gitg/commit/gitg-commit.vala:664
+#: gitg/commit/gitg-commit.vala:665
 #, c-format
 msgid "Failed to unstage the removal of file “%s”"
 msgstr "Zlyhalo zrušenie prípravy na odstránenie súboru „%s“"
 
 # DK:toto sa mi nepozdava.malo by tu ist o to, ze text od-pripravy, cize nieco ako vrati do povodneho stavu alebo co.
 # PV: No neviem. Vrátenie do pôvodného stavu je checkout. Stage znamená zaradiť do zoznamu na začlenenie. Unstage by teda mal byť opak.
-#: gitg/commit/gitg-commit.vala:665
+#: gitg/commit/gitg-commit.vala:666
 #, c-format
 msgid "Failed to unstage the file “%s”"
 msgstr "Zlyhalo zrušenie prípravy súboru „%s“"
 
-#: gitg/commit/gitg-commit.vala:672
+#: gitg/commit/gitg-commit.vala:673
 #, c-format
 msgid "Failed to unstage the removal of submodule “%s”"
 msgstr "Zlyhalo zrušenie prípravy odstránenia podmodulu „%s“"
 
 # DK:toto sa mi nepozdava.malo by tu ist o to, ze text od-pripravy, cize nieco ako vrati do povodneho stavu alebo co.
 # PV: No neviem. Vrátenie do pôvodného stavu je checkout. Stage znamená zaradiť do zoznamu na začlenenie. Unstage by teda mal byť opak.
-#: gitg/commit/gitg-commit.vala:673
+#: gitg/commit/gitg-commit.vala:674
 #, c-format
 msgid "Failed to unstage the submodule “%s”"
 msgstr "Zlyhalo zrušenie prípravy podmodulu „%s“"
 
 #. Populate staged items
-#: gitg/commit/gitg-commit.vala:877
+#: gitg/commit/gitg-commit.vala:882
 msgid "Staged"
 msgstr "Pripravené"
 
-#: gitg/commit/gitg-commit.vala:885
+#: gitg/commit/gitg-commit.vala:890
 msgid "No staged files"
 msgstr "Žiadne pripravené súbory"
 
 #. Populate unstaged items
-#: gitg/commit/gitg-commit.vala:908
+#: gitg/commit/gitg-commit.vala:913
 msgid "Unstaged"
 msgstr "Nepripravené"
 
-#: gitg/commit/gitg-commit.vala:916
+#: gitg/commit/gitg-commit.vala:921
 msgid "No unstaged files"
 msgstr "Žiadne nepripravené súbory"
 
 #. Populate untracked items
-#: gitg/commit/gitg-commit.vala:939
+#: gitg/commit/gitg-commit.vala:944
 msgid "Untracked"
 msgstr "Nesledované"
 
-#: gitg/commit/gitg-commit.vala:943
+#: gitg/commit/gitg-commit.vala:948
 msgid "No untracked files"
 msgstr "Žiadne nesledované súbory"
 
-#: gitg/commit/gitg-commit.vala:968
+#: gitg/commit/gitg-commit.vala:973
 msgid "Submodule"
 msgstr "Podmodul"
 
-#: gitg/commit/gitg-commit.vala:972
+#: gitg/commit/gitg-commit.vala:977
 msgid "No dirty submodules"
 msgstr "Žiadne podmoduly v nečistom stave"
 
-#: gitg/commit/gitg-commit.vala:1121
+#: gitg/commit/gitg-commit.vala:1131
 msgid "Failed to commit"
 msgstr "Začlenenie zlyhalo"
 
-#: gitg/commit/gitg-commit.vala:1137
+#: gitg/commit/gitg-commit.vala:1147
 msgid "Failed to pass pre-commit"
 msgstr "Nepodarilo sa postúpiť k začleneniu"
 
-#: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
+#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
 msgid "Discard changes"
 msgstr "Zahodiť zmeny"
 
-#: gitg/commit/gitg-commit.vala:1303
+#: gitg/commit/gitg-commit.vala:1316
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Naozaj chcete natrvalo zahodiť všetky označené zmeny?"
 
-#: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
-#: gitg/commit/gitg-commit.vala:1593
-#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
+#: gitg/commit/gitg-commit.vala:1606
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
+#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-clone-dialog.ui:18
 #: gitg/resources/ui/gitg-commit-dialog.ui:20
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
@@ -632,81 +666,81 @@ msgstr "Naozaj chcete natrvalo zahodiť všetky označené zmeny?"
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
-#: gitg/commit/gitg-commit.vala:1313 gitg/commit/gitg-commit.vala:1479
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
 msgid "Discard"
 msgstr "Zahodiť"
 
-#: gitg/commit/gitg-commit.vala:1342
+#: gitg/commit/gitg-commit.vala:1355
 msgid "Failed to discard selection"
 msgstr "Nepodarilo sa zahodiť vybraté súbory"
 
-#: gitg/commit/gitg-commit.vala:1372
+#: gitg/commit/gitg-commit.vala:1385
 msgid "Failed to stage selection"
 msgstr "Príprava vybratých súborov zlyhala"
 
-#: gitg/commit/gitg-commit.vala:1376
+#: gitg/commit/gitg-commit.vala:1389
 msgid "Failed to unstage selection"
 msgstr "Zrušenie prípravy vybratých súborov zlyhalo"
 
-#: gitg/commit/gitg-commit.vala:1436
+#: gitg/commit/gitg-commit.vala:1449
 msgid "Failed to discard changes"
 msgstr "Zahodenie zmien zlyhalo"
 
-#: gitg/commit/gitg-commit.vala:1457
+#: gitg/commit/gitg-commit.vala:1470
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
 msgstr "Naozaj chcete natrvalo zahodiť všetky zmeny vykonané v súbore „%s“?"
 
-#: gitg/commit/gitg-commit.vala:1468
+#: gitg/commit/gitg-commit.vala:1481
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
 msgstr "Naozaj chcete natrvalo zahodiť zmeny vykonané v súboroch %s a „%s“?"
 
-#: gitg/commit/gitg-commit.vala:1551
+#: gitg/commit/gitg-commit.vala:1564
 msgid "Failed to delete files"
 msgstr "Zlyhalo odstránenie súborov"
 
-#: gitg/commit/gitg-commit.vala:1567
+#: gitg/commit/gitg-commit.vala:1580
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Odstrániť súbory"
 msgstr[1] "Odstrániť súbor"
 msgstr[2] "Odstrániť súbory"
 
-#: gitg/commit/gitg-commit.vala:1572
+#: gitg/commit/gitg-commit.vala:1585
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Naozaj chcete natrvalo odstrániť súbor „%s“?"
 
-#: gitg/commit/gitg-commit.vala:1583
+#: gitg/commit/gitg-commit.vala:1596
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Naozaj chcete natrvalo odstrániť súbory %s a „%s“?"
 
-#: gitg/commit/gitg-commit.vala:1629
+#: gitg/commit/gitg-commit.vala:1642
 msgid "_Stage changes"
 msgstr "Zmeny do _pripravených"
 
-#: gitg/commit/gitg-commit.vala:1641
+#: gitg/commit/gitg-commit.vala:1654
 msgid "_Unstage changes"
 msgstr "Zmeny do _nepripravených"
 
-#: gitg/commit/gitg-commit.vala:1653
+#: gitg/commit/gitg-commit.vala:1666
 msgid "_Discard changes"
 msgstr "Zaho_diť zmeny"
 
-#: gitg/commit/gitg-commit.vala:1665
+#: gitg/commit/gitg-commit.vala:1678
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "O_dstrániť súbory"
 msgstr[1] "O_dstrániť súbor"
 msgstr[2] "O_dstrániť súbory"
 
-#: gitg/commit/gitg-commit.vala:1695
+#: gitg/commit/gitg-commit.vala:1708
 msgid "_Edit file"
 msgstr "_Upraviť súbor"
 
@@ -729,8 +763,9 @@ msgstr ""
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
-#: gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
+#: libgitg/gitg-repository-list-box.vala:567
 msgid "Cancel"
 msgstr "Zrušiť"
 
@@ -770,52 +805,96 @@ msgstr "Zlyhalo vytvorenie začlenenia: %s"
 msgid "Failed to checkout index: %s"
 msgstr "Zlyhalo získanie indexu: %s"
 
+#: gitg/gitg-add-remote-action.vala:46
+msgid "Add Remote"
+msgstr "Pridať vzdialené úložisko"
+
+#: gitg/gitg-add-remote-action.vala:51
+msgid "Adds remote to the remotes list"
+msgstr "Pridá vzdialené úložisko zo zoznamu"
+
+#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#, c-format
+msgid "Fetching from %s"
+msgstr "Získava sa obsah z %s"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+msgid "new"
+msgstr "nový"
+
+# DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
+# PV: Moja chyba, opravené
+#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "Zlyhalo získanie obsahu z %s: %s"
+
+#: gitg/gitg-add-remote-action.vala:78
+msgid "Failed to fetch added remote"
+msgstr "Zlyhalo získavanie obsahu z pridaného vzdialeného úložiska"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "Získanie obsahu z %s: %s"
+
+#: gitg/gitg-add-remote-action.vala:129
+msgid "Failed to add remote"
+msgstr "Zlyhalo pridanie vzdialeného úložiska"
+
 # cmd desc
-#: gitg/gitg-application.vala:38
+#: gitg/gitg-application.vala:39
 msgid "Show the application’s version"
 msgstr "Zobrazí verziu aplikácie"
 
 # cmd desc
-#: gitg/gitg-application.vala:40
+#: gitg/gitg-application.vala:41
 msgid "Start gitg with a particular activity"
 msgstr "Spustí gitg v okne s konkrétnou aktivitou"
 
 # cmd desc
 # DK:chyba cast prekladu
-#: gitg/gitg-application.vala:42
+#: gitg/gitg-application.vala:43
 msgid "Start gitg with the commit activity (shorthand for --activity commit)"
 msgstr "Spustí gitg v okne začlenenia (skratka pre --activity commit)"
 
 # cmd desc
-#: gitg/gitg-application.vala:44
+#: gitg/gitg-application.vala:45
 msgid "Do not try to load a repository from the current working directory"
 msgstr "Pri spustení nenačíta repozitár z aktuálneho pracovného priečinka"
 
-#: gitg/gitg-application.vala:46
+#: gitg/gitg-application.vala:47
 msgid "Run gitg in standalone mode"
 msgstr "Spustí gitg v samostatnom režime"
 
-#: gitg/gitg-application.vala:92
-#| msgid "- Git repository viewer"
+#: gitg/gitg-application.vala:49
+msgid "Put paths under git if needed"
+msgstr "V prípade potreby zahrnie cesty pod git"
+
+#: gitg/gitg-application.vala:95
 msgid "— Git repository viewer"
 msgstr "— Prehliadač repozitárov Git"
 
-#: gitg/gitg-application.vala:226
+#: gitg/gitg-application.vala:229
 msgid "gitg is a Git repository viewer for GTK+/GNOME"
 msgstr "gitg je prehliadač Git repozitárov pre GTK+/GNOME"
 
-#: gitg/gitg-application.vala:235
+#: gitg/gitg-application.vala:238
 msgid "translator-credits"
 msgstr ""
 "Michal Vanko <mklakakilli@gmail.com>\n"
 "Peter Vágner <pvdeejay@gmail.com>\n"
-"Dušan Kazik <prescott66@gmail.com>"
+"Dušan Kazik <prescott66@gmail.com>\n"
+"Peter Mráz <etkinator@gmail.com>"
 
-#: gitg/gitg-application.vala:238
+#: gitg/gitg-application.vala:241
 msgid "gitg homepage"
 msgstr "Domovská stránka aplikácie gitg"
 
-#: gitg/gitg-application.vala:393
+#: gitg/gitg-application.vala:399
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
@@ -855,7 +934,7 @@ msgstr "Nahradiť globálne podrobnosti pre repozitár „%s“:"
 
 #: gitg/gitg-author-details-dialog.vala:214
 msgid "Failed to set Git user config."
-msgstr "Nie je možné nastaviť predvoľby používatela Git"
+msgstr "Zlyhalo nastavenie konfigurácie používateľa Git."
 
 #: gitg/gitg-clone-dialog.vala:89
 msgid "The URL introduced is not supported"
@@ -863,48 +942,49 @@ msgstr "Uvedená URL adresa nie je podporovaná"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:53
 msgid "Cherry pick onto"
-msgstr "Príkaz cherry pick na vetvu"
+msgstr "Vyďobnúť čerešňu do"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:58
 msgid "Cherry pick this commit onto a branch"
-msgstr "Vykoná príkaz cherry pick na vetvu s týmto začlenením"
+msgstr "Vyďobnúť toto začlenenie ako čerešňu do vetvy"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:117
 #, c-format
-msgid "Failed to lookup the commit for branch %s: %s"
-msgstr "Zlyhalo hľadanie začlenenia pre vetvu %s: %s"
+msgid "Failed to lookup the commit for branch “%s”: %s"
+msgstr "Zlyhalo hľadanie začlenenia pre vetvu „%s“: %s"
 
 # DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
 # PV: Moja chyba, opravené
 #: gitg/gitg-commit-action-cherry-pick.vala:132
 #, c-format
 msgid "Failed to cherry-pick the commit: %s"
-msgstr "Zlyhalo vykonanie príkazu cherry-pick so začlenením: %s"
+msgstr "Zlyhalo vyďobnutie začlenenia: %s"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:144
 #: gitg/gitg-commit-action-cherry-pick.vala:160
 msgid "Cherry pick has conflicts"
-msgstr "Príkaz cherry pick obsahuje konflikty"
+msgstr "Vyďobnutie čerešne obsahuje konflikty"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:153
 #, c-format
 msgid ""
-"The cherry pick of %s onto %s has caused conflicts, would you like to "
-"checkout branch %s with the cherry pick to your working directory to resolve "
-"the conflicts?"
+"The cherry pick of “%s” onto “%s” has caused conflicts, would you like to "
+"checkout branch “%s” with the cherry pick to your working directory to "
+"resolve the conflicts?"
 msgstr ""
-"Príkaz cherry pick vetvy %s na vetvu %s spôsobil konflikty. Chcete na "
-"vyriešenie konfliktov získať vetvu %s s vykonaným príkazom cherry pick do "
-"vášho pracovného adresára?"
+"Vyďobnutie čerešne z vetvy „%s“ do vetvy „%s“ spôsobilo konflikty. Chcete "
+"zaškrtnúť vetvu „%s“ s vyďobnutím čerešne do vášho pracovného adresára, aby "
+"ste mohli vyriešiť konflikty?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:157
 #, c-format
 msgid ""
-"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"The cherry-pick of “%s” onto “%s” has caused conflicts, would you like to "
 "checkout the cherry pick to your working directory to resolve the conflicts?"
 msgstr ""
-"Príkaz cherry pick vetvy %s na vetvu %s spôsobil konflikty. Chcete na "
-"vyriešenie konfliktov získať cherry pick do vášho pracovného adresára?"
+"Vyďobnutie čerešne z vetvy „%s“ do vetvy „%s“ spôsobilo konflikty. Chcete "
+"zaškrtnúť vyďobnutie čerešne do vášho pracovného adresára, aby ste mohli "
+"vyriešiť konflikty?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
 #: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
@@ -913,7 +993,7 @@ msgstr "Získať"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:168
 msgid "Cherry pick failed with conflicts"
-msgstr "Príkaz cherry pick zlyhal s konfliktami"
+msgstr "Vyďobnutie čerešne zlyhalo s konfliktami"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:179
 msgid "Cherry pick finished with conflicts in working directory"
@@ -921,17 +1001,17 @@ msgstr "Príkaz cherry pick bol dokončený s konfliktami v pracovnom adresári"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:199
 #, c-format
-msgid "Cherry pick %s onto %s"
-msgstr "Príkaz cherry pick %s na %s"
+msgid "Cherry pick “%s” onto “%s”"
+msgstr "Vyďobnutie čerešne z vetvy „%s“ do vetvy „%s“"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:224
 msgid "Successfully cherry picked"
-msgstr "Príkaz cherry pick úspešne vykonaný"
+msgstr "Vyďobnutie čerešne úspešne vykonané"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:261
 #, c-format
-msgid "Cherry pick onto %s"
-msgstr "Príkaz cherry pick na %s"
+msgid "Cherry pick onto “%s”"
+msgstr "Vyďobnutie čerešne do „%s“"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
 msgid "Create branch"
@@ -949,23 +1029,23 @@ msgstr "Vytvorenie novej vetvy zlyhalo"
 # DK: neviem ci nebude lepsie pred kazde slovo Patch vlozit slovo "súbor", tak ako niekde je
 #: gitg/gitg-commit-action-create-patch.vala:63
 msgid "Create patch"
-msgstr "Vytvoriť záplatu (patch)"
+msgstr "Vytvoriť záplatu"
 
 #: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
-msgstr "Vytvorí záplatu (patch) z vybratého začlenenia"
+msgstr "Vytvorí záplatu z vybratého začlenenia"
 
 #: gitg/gitg-commit-action-create-patch.vala:152
 msgid "Save Patch File"
-msgstr "Uložiť súbor záplaty vo formáte .patch"
+msgstr "Uložiť súbor záplaty"
 
 #: gitg/gitg-commit-action-create-patch.vala:156
 msgid "_Save Patch"
-msgstr "_Uložiť záplatu (patch)"
+msgstr "_Uložiť záplatu"
 
 #: gitg/gitg-commit-action-create-patch.vala:181
 msgid "Failed to create patch"
-msgstr "Vytvorenie záplaty (patch) zlyhalo"
+msgstr "Vytvorenie záplaty zlyhalo"
 
 #: gitg/gitg-commit-action-create-tag.vala:48
 msgid "Create tag"
@@ -996,33 +1076,37 @@ msgstr "Vyberie a spravuje projekty"
 msgid "_Remove"
 msgstr "O_dstrániť"
 
+#: gitg/gitg-dash-view.vala:190
+msgid "_Delete sources"
+msgstr "O_dstrániť zdroje"
+
 #. Translators: the two %s will be replaced to create a link to perform the scanning action.
-#: gitg/gitg-dash-view.vala:230
+#: gitg/gitg-dash-view.vala:246
 #, c-format
 msgid "We can also %sscan your home directory%s for git repositories."
 msgstr ""
 "Tiež je možné %sprehľadať váš domovský adresár%s a nájsť repozitáre git."
 
 #. Translators: the two %s will be used to create a link to the author dialog.
-#: gitg/gitg-dash-view.vala:233
+#: gitg/gitg-dash-view.vala:249
 #, c-format
 msgid "In the mean time, you may want to %sset up your git profile%s."
 msgstr "Medzitým možno budete chcieť %snastaviť váš profil git%s."
 
-#: gitg/gitg-dash-view.vala:398
+#: gitg/gitg-dash-view.vala:414
 msgid "Failed to clone repository"
 msgstr "Zlyhalo klonovanie repozitára"
 
-#: gitg/gitg-dash-view.vala:429
+#: gitg/gitg-dash-view.vala:445
 msgid "Failed to add repository"
 msgstr "Zlyhalo pridanie repozitára"
 
-#: gitg/gitg-dash-view.vala:445
+#: gitg/gitg-dash-view.vala:461
 msgid "Create new repository"
-msgstr "vytvorenie nového repozitára"
+msgstr "Vytvoriť nový repozitár"
 
 #. Translators: %s is a file name
-#: gitg/gitg-dash-view.vala:448
+#: gitg/gitg-dash-view.vala:464
 #, c-format
 msgid ""
 "The location <i>%s</i> does not appear to be a valid git repository. Would "
@@ -1031,32 +1115,44 @@ msgstr ""
 "Umiestnenie <i>%s</i> sa nezdá byť platným repozitárom git. Chcete "
 "inicializovať nový repozitár git v tomto umiestnení?"
 
-#: gitg/gitg-dash-view.vala:454
+#: gitg/gitg-dash-view.vala:470
 msgid "Create repository"
 msgstr "Vytvoriť repozitár"
 
-#: gitg/gitg-dash-view.vala:470
+#: gitg/gitg-dash-view.vala:486
 msgid "Failed to create repository"
 msgstr "Zlyhalo vytvorenie repozitára"
 
-#: gitg/gitg-dash-view.vala:540
+#: gitg/gitg-dash-view.vala:556
 #, c-format
 msgid "Scanning for repositories in %s"
 msgstr "Preskúmavajú sa repozitáre v %s"
 
+#: gitg/gitg-edit-remote-action.vala:51
+msgid "Edit remote"
+msgstr "Upraviť vzdialené úložisko"
+
+#: gitg/gitg-edit-remote-action.vala:56
+msgid "Edits the remote from the remotes list"
+msgstr "Upraví vzdialené úložisko zo zoznamu"
+
+#: gitg/gitg-edit-remote-action.vala:82
+msgid "Failed to edit remote"
+msgstr "Zlyhala úprava vzdialeného úložiska"
+
 #: gitg/gitg-ref-action-checkout.vala:53
 msgid "Checkout the selected reference"
-msgstr "Získa vybratý odkaz"
+msgstr "Zaškrtnúť (vybrať) vybraný odkaz"
 
 #: gitg/gitg-ref-action-checkout.vala:72
 #, c-format
-msgid "Checkout %s"
-msgstr "Získanie %s"
+msgid "Checkout “%s”"
+msgstr "Zaškrtnutie „%s“"
 
 #: gitg/gitg-ref-action-checkout.vala:101
 #, c-format
 msgid "Failed to checkout branch: %s"
-msgstr "Zlyhalo získanie vetvy: %s"
+msgstr "Zlyhalo zaškrtnutie (výber) vetvy: %s"
 
 #: gitg/gitg-ref-action-checkout.vala:111
 #, c-format
@@ -1065,7 +1161,7 @@ msgstr "Zlyhalo aktualizovanie hlavy (HEAD): %s"
 
 #: gitg/gitg-ref-action-checkout.vala:121
 msgid "Successfully checked out branch to working directory"
-msgstr "Úspešne získaná vetva do pracovného adresára"
+msgstr "Úspešné zaškrtnutie (výber) vetvy do pracovného adresára"
 
 #: gitg/gitg-ref-action-checkout.vala:195
 #, c-format
@@ -1079,6 +1175,24 @@ msgstr "Kopírovať názov"
 #: gitg/gitg-ref-action-copy-name.vala:53
 msgid "Copy the name of the reference to the clipboard"
 msgstr "Skopíruje názov odkazu do schránky"
+
+#: gitg/gitg-ref-action-create-branch.vala:46
+msgid "Create a new branch at the selected reference"
+msgstr "Vytvorí novú vetvu na vybranom odkaze"
+
+#: gitg/gitg-ref-action-create-branch.vala:58
+#: gitg/gitg-ref-action-create-patch.vala:58
+#: gitg/gitg-ref-action-create-tag.vala:58
+msgid "Failed to lookup reference"
+msgstr "Vyhľadanie odkazu zlyhalo"
+
+#: gitg/gitg-ref-action-create-patch.vala:46
+msgid "Create a patch from the selected reference"
+msgstr "Vytvorí záplatu z vybratého odkazu"
+
+#: gitg/gitg-ref-action-create-tag.vala:46
+msgid "Create a new tag at the selected reference"
+msgstr "Vytvoriť novú značku na vybranom odkaze"
 
 #: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
 msgid "Delete"
@@ -1128,7 +1242,7 @@ msgstr "Odstránenie značky %s zlyhalo"
 #: gitg/gitg-ref-action-delete.vala:122
 #, c-format
 msgid "The tag %s could not be deleted: %s"
-msgstr "Značka %s nie je možné odstrániť: %s"
+msgstr "Značku %s nie je možné odstrániť: %s"
 
 #. Translators: %s is the name of the branch
 #: gitg/gitg-ref-action-delete.vala:127
@@ -1142,50 +1256,104 @@ msgstr "Odstránenie vetvy %s zlyhalo"
 msgid "The branch %s could not be deleted: %s"
 msgstr "Vetvu %s nie je možné odstrániť: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:74
+#: gitg/gitg-ref-action-fetch.vala:83
 #, c-format
 msgid "Fetch from %s"
-msgstr "Získať z %s"
+msgstr "Získať obsah z %s"
 
-#: gitg/gitg-ref-action-fetch.vala:85
+#: gitg/gitg-ref-action-fetch.vala:94
 #, c-format
 msgid "Fetch remote objects from %s"
 msgstr "Získať vzdialené objekty z %s"
 
-#: gitg/gitg-ref-action-fetch.vala:98
-#, c-format
-msgid "Fetching from %s"
-msgstr "Získava sa z %s"
-
-#. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-ref-action-fetch.vala:106
-msgid "new"
-msgstr "nový"
-
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:111
+#: gitg/gitg-ref-action-fetch.vala:120
 msgid "updated"
 msgstr "aktualizovaný"
 
-# DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
-# PV: Moja chyba, opravené
-#: gitg/gitg-ref-action-fetch.vala:121
-#, c-format
-msgid "Failed to fetch from %s: %s"
-msgstr "Zlyhalo získanie z %s: %s"
-
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:134
+#: gitg/gitg-ref-action-fetch.vala:143
 #, c-format
 msgid "Fetched from %s: everything is up to date"
-msgstr "Získané z %s: všetko je aktuálne"
+msgstr "Získanie obsahu z %s: všetko je aktuálne"
 
-#. Translators: the first %s is the remote url to fetch from,
-#. * the second is a list of references that got updated.
-#: gitg/gitg-ref-action-fetch.vala:140
+#: gitg/gitg-ref-action-merge.vala:63
 #, c-format
-msgid "Fetched from %s: %s"
-msgstr "Získané z %s: %s"
+msgid "Merge into %s"
+msgstr "Zlúčiť do %s"
+
+#. TODO
+#: gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr "Zlúči inú vetvu do vetvy %s"
+
+#: gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "Zlyhalo zlúčenie začlenení: %s"
+
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr "Zlúčenie obsahuje konflikty"
+
+#: gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"branch “%s” with the merge to your working directory to resolve the "
+"conflicts?"
+msgstr ""
+"Zlúčenie vetvy „%s“ do „%s“ spôsobilo konflikty. Chcete zaškrtnúť vetvu „%s“ "
+"so zlúčením do vášho pracovného adresára, aby ste mohli vyriešiť konflikty?"
+
+#: gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid ""
+"The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
+"the merge to your working directory to resolve the conflicts?"
+msgstr ""
+"Zlúčenie vetvy „%s“ do „%s“ spôsobilo konflikty. Chcete zaškrtnúť zlúčenie "
+"do vášho pracovného adresára, aby ste mohli vyriešiť konflikty?"
+
+#: gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr "Zlúčenie zlyhalo s konfliktami"
+
+#: gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr "Zlúčenie dokončené s konfliktami v pracovnom adresári"
+
+#: gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge “%s” into “%s”"
+msgstr "Zlúčenie „%s“ do „%s“"
+
+#: gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "Zlyhalo vyhľadanie našich začlenení: %s"
+
+#: gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr "Zlyhalo vyhľadanie ich začlenení: %s"
+
+#: gitg/gitg-ref-action-merge.vala:278
+#, c-format
+msgid "Successfully merged “%s” into “%s”"
+msgstr "Úspešne zlúčené „%s“ do „%s“"
+
+#: gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge “%s” into branch “%s”"
+msgstr "Zlúčenie „%s“ do vetvy „%s“"
+
+# DK: vacsinou tag prekladame ako značka. zvaz ci nebude lepsie zjednotit na tento tvar.
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1199
+msgid "Tags"
+msgstr "Značky"
 
 #: gitg/gitg-ref-action-push.vala:80
 #, c-format
@@ -1229,83 +1397,6 @@ msgstr "Naozaj chcete odovzdať vetvu %s?"
 msgid "Push"
 msgstr "Odovzdať"
 
-#: gitg/gitg-ref-action-merge.vala:63
-#, c-format
-msgid "Merge into %s"
-msgstr "Zlúčiť do %s"
-
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
-#, c-format
-msgid "Merge another branch into branch %s"
-msgstr "Zlúči inú vetvu do vetvy %s"
-
-#: gitg/gitg-ref-action-merge.vala:106
-#, c-format
-msgid "Failed to merge commits: %s"
-msgstr "Zlyhalo zlúčenie začlenení: %s"
-
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
-msgid "Merge has conflicts"
-msgstr "Zlúčenie obsahuje konflikty"
-
-#: gitg/gitg-ref-action-merge.vala:184
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout "
-"branch %s with the merge to your working directory to resolve the conflicts?"
-msgstr ""
-"Zlúčenie vetvy %s do %s spôsobilo konflikty. Chcete získať vetvu %s so "
-"zlúčením do vášho pracovného adresára, aby ste mohli vyriešiť konflikty?"
-
-#: gitg/gitg-ref-action-merge.vala:188
-#, c-format
-msgid ""
-"The merge of %s into %s has caused conflicts, would you like to checkout the "
-"merge to your working directory to resolve the conflicts?"
-msgstr ""
-"Zlúčenie vetvy %s do %s spôsobilo konflikty. Chcete získať zlúčenie do vášho "
-"pracovného adresára, aby ste mohli vyriešiť konflikty?"
-
-#: gitg/gitg-ref-action-merge.vala:199
-msgid "Merge failed with conflicts"
-msgstr "Zlúčenie zlyhalo s konfliktami"
-
-#: gitg/gitg-ref-action-merge.vala:210
-msgid "Finished merge with conflicts in working directory"
-msgstr "Zlúčenie dokončené s konfliktami v pracovnom adresári"
-
-#: gitg/gitg-ref-action-merge.vala:222
-#, c-format
-msgid "Merge %s into %s"
-msgstr "Zlúčenie %s do %s"
-
-#: gitg/gitg-ref-action-merge.vala:231
-#, c-format
-msgid "Failed to lookup our commit: %s"
-msgstr "Zlyhalo vyhľadanie našich začlenení: %s"
-
-#: gitg/gitg-ref-action-merge.vala:241
-#, c-format
-msgid "Failed to lookup their commit: %s"
-msgstr "Zlyhalo vyhľadanie ich začlenení: %s"
-
-#: gitg/gitg-ref-action-merge.vala:278
-#, c-format
-msgid "Successfully merged %s into %s"
-msgstr "Úspešne zlúčené %s do %s"
-
-#: gitg/gitg-ref-action-merge.vala:320
-#, c-format
-msgid "Merge %s into branch %s"
-msgstr "Zlúčenie %s do vetvy %s"
-
-# DK: vacsinou tag prekladame ako značka. zvaz ci nebude lepsie zjednotit na tento tvar.
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1181
-msgid "Tags"
-msgstr "Značky"
-
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename"
 msgstr "Premenovať"
@@ -1314,16 +1405,21 @@ msgstr "Premenovať"
 msgid "Rename the selected reference"
 msgstr "Premenuje vybratý odkaz"
 
-#: gitg/gitg-ref-action-rename.vala:100
+#: gitg/gitg-ref-action-rename.vala:104
+#, c-format
+msgid "The specified name “%s” match with existing branch “%s”"
+msgstr "Zadané názov „%s“ sa zhoduje s jestvujúcou vetvou „%s“"
+
+#: gitg/gitg-ref-action-rename.vala:106 gitg/gitg-ref-action-rename.vala:118
+msgid "Invalid name"
+msgstr "Neplatný názov"
+
+#: gitg/gitg-ref-action-rename.vala:116
 #, c-format
 msgid "The specified name “%s” contains invalid characters"
-msgstr "Zadané meno „%s“ obsahuje neplatné znaky"
+msgstr "Zadaný názov „%s“ obsahuje neplatné znaky"
 
-#: gitg/gitg-ref-action-rename.vala:102
-msgid "Invalid name"
-msgstr "Neplatné meno"
-
-#: gitg/gitg-ref-action-rename.vala:131
+#: gitg/gitg-ref-action-rename.vala:147
 msgid "Failed to rename"
 msgstr "Premenovanie zlyhalo"
 
@@ -1331,12 +1427,40 @@ msgstr "Premenovanie zlyhalo"
 msgid "Close"
 msgstr "Zavrieť"
 
+#: gitg/gitg-remove-remote-action.vala:50
+msgid "Remove remote"
+msgstr "Odobrať vzdialené úložisko"
+
+#: gitg/gitg-remove-remote-action.vala:55
+msgid "Removes remote from the remotes list"
+msgstr "Odoberie vzdialené úložisko zo zotnamu"
+
+#: gitg/gitg-remove-remote-action.vala:62
+#, c-format
+msgid "Delete remote %s"
+msgstr "Odstrániť vzdialené úložisko %s"
+
+#: gitg/gitg-remove-remote-action.vala:63
+#, c-format
+msgid "Are you sure that you want to remove the remote %s?"
+msgstr "Naozaj chcete odobrať vzdialené úložisko %s?"
+
+#: gitg/gitg-remove-remote-action.vala:67
+msgid "Remove"
+msgstr "Odobrať"
+
+#: gitg/gitg-remove-remote-action.vala:91
+msgid "Failed to remove remote"
+msgstr "Zlyhalo odobratie úložiska"
+
 # dialog title
 #: gitg/gitg-window.vala:202
 msgid "Add Repository"
 msgstr "Pridanie repozitára"
 
-#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
+#: gitg/gitg-window.vala:206
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
+#: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Pridať"
 
@@ -1348,26 +1472,26 @@ msgstr "_Vyhľadať všetky repozitáre git z tohto adresára"
 msgid "Projects"
 msgstr "Projekty"
 
-#: gitg/gitg-window.vala:701
+#: gitg/gitg-window.vala:703
 msgid "Open Repository"
 msgstr "Otvorenie repozitára"
 
 # gtk label
-#: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Otvoriť"
 
 # tooltip
-#: gitg/gitg-window.vala:844
+#: gitg/gitg-window.vala:846
 msgid "Select items"
 msgstr "Vyberie položky"
 
-#: gitg/gitg-window.vala:1062
+#: gitg/gitg-window.vala:1064
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "„%s“ nie je Git repozitár."
 
-#: gitg/gitg-window.vala:1211
+#: gitg/gitg-window.vala:1213
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1375,7 +1499,7 @@ msgstr ""
 "Nemáte nastavené používateľské meno a e-mail. Prosím nastavte si vaše meno a "
 "e-mail v používateľských nastaveniach."
 
-#: gitg/gitg-window.vala:1215
+#: gitg/gitg-window.vala:1217
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1383,7 +1507,7 @@ msgstr ""
 "Nemáte nastavené používateľské meno. Prosím nastavte si vaše meno v "
 "používateľských nastaveniach."
 
-#: gitg/gitg-window.vala:1219
+#: gitg/gitg-window.vala:1221
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1391,7 +1515,7 @@ msgstr ""
 "Nemáte nastavený e-mail. Prosím nastavte si váš e-mail v používateľských "
 "nastaveniach."
 
-#: gitg/gitg-window.vala:1222
+#: gitg/gitg-window.vala:1224
 msgid "Missing author details"
 msgstr "Chýbajú podrobnosti o autorovi"
 
@@ -1444,31 +1568,31 @@ msgstr "%zu vzadu"
 msgid "All commits"
 msgstr "Všetky začlenenia"
 
-#: gitg/history/gitg-history-refs-list.vala:1179
+#: gitg/history/gitg-history-refs-list.vala:1197
 msgid "Branches"
 msgstr "Vetvy"
 
-#: gitg/history/gitg-history-refs-list.vala:1180
+#: gitg/history/gitg-history-refs-list.vala:1198
 msgid "Remotes"
-msgstr "Vzdialené vetvy"
+msgstr "Vzdialené úložiská"
 
-#: gitg/history/gitg-history.vala:347
+#: gitg/history/gitg-history.vala:348
 #: gitg/preferences/gitg-preferences-history.vala:218
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "História"
 
 # tooltip
-#: gitg/history/gitg-history.vala:352
+#: gitg/history/gitg-history.vala:353
 msgid "Examine the history of the repository"
 msgstr "Preskúma históriu repozitára"
 
-#: gitg/history/gitg-history.vala:942
+#: gitg/history/gitg-history.vala:959
 msgid "Mainline"
 msgstr "Hlavná línia"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=746633
-#: gitg/preferences/gitg-preferences-commit.vala:142
+#: gitg/preferences/gitg-preferences-commit.vala:180
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Začlenenie"
@@ -1482,7 +1606,23 @@ msgstr "Po_užívať systémové písmo s pevnou šírkou znakov (%s)"
 msgid "Interface"
 msgstr "Rozhranie"
 
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:7
+msgid "Create Remote"
+msgstr "Vytvoriť vzdialené úložisko"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:69
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:69
+msgid "Remote _name:"
+msgstr "_Názov úložiska:"
+
+#: gitg/resources/ui/gitg-add-remote-action-dialog.ui:99
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:99
+msgid "Remote _URL:"
+msgstr "_URL úložiska:"
+
 #: gitg/resources/ui/gitg-author-details-dialog.ui:35
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:34
 msgid "_Save"
 msgstr "_Uložiť"
 
@@ -1528,10 +1668,6 @@ msgstr "Klonovanie repozitára"
 msgid "Cl_one"
 msgstr "Kl_onovať"
 
-#: gitg/resources/ui/gitg-clone-dialog.ui:68
-msgid "Remote _URL:"
-msgstr "_URL vzdialenej adresy:"
-
 #: gitg/resources/ui/gitg-clone-dialog.ui:99
 msgid "_Local Folder:"
 msgstr "_Miestny priečinok:"
@@ -1551,7 +1687,7 @@ msgid "Commit"
 msgstr "Začlenenie"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
-#: gitg/resources/ui/gitg-commit-paned.ui:86
+#: gitg/resources/ui/gitg-commit-paned.ui:111
 msgid "C_ommit"
 msgstr "_Začleniť"
 
@@ -1563,15 +1699,23 @@ msgstr "Pozmeniť predchádz_ajúce začlenenie"
 msgid "Add _signed-off-by signature"
 msgstr "Pridať podpis _signed-off-by"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:76
+#: gitg/resources/ui/gitg-commit-dialog.ui:251
+msgid "Add si_gnature"
+msgstr "Pridať _podpis"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:33
+msgid "Filter Files"
+msgstr "Filtrujte súbory"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:101
 msgid "Skip commit _hooks"
 msgstr "Preskočiť začleňovacie háčiky"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:96
+#: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "S_tage selection"
 msgstr "_Pripraviť vybraté"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:107
+#: gitg/resources/ui/gitg-commit-paned.ui:132
 msgid "D_iscard selection"
 msgstr "Zahod_iť vybraté"
 
@@ -1601,8 +1745,19 @@ msgstr "Predmet"
 msgid "Author"
 msgstr "Autor"
 
+# DK: https://bugzilla.gnome.org/show_bug.cgi?id=746633
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
 #: gitg/resources/ui/gitg-history-paned.ui:127
+msgid "Committer"
+msgstr "Začleňovateľ/-ka"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:74
+#: gitg/resources/ui/gitg-history-paned.ui:143
+msgid "SHA1"
+msgstr "SHA1"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:90
+#: gitg/resources/ui/gitg-history-paned.ui:159
 msgid "Date"
 msgstr "Dátum"
 
@@ -1639,29 +1794,33 @@ msgstr ""
 "Zatiaľ neboli pridané žiadne repozitáre. Na začiatok môžete pridať "
 "existujúci repozitár, alebo naklonovať nový."
 
+#: gitg/resources/ui/gitg-edit-remote-dialog.ui:7
+msgid "Edit Remote"
+msgstr "Upraviť vzdialené úložisko"
+
 #: gitg/resources/ui/gitg-menus.ui:7
 msgid "_Reload"
 msgstr "_Znovu načítať"
 
-#: gitg/resources/ui/gitg-menus.ui:14 gitg/resources/ui/gitg-menus.ui:48
+#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Preferences"
 msgstr "_Predvoľby"
 
-#: gitg/resources/ui/gitg-menus.ui:21 gitg/resources/ui/gitg-menus.ui:42
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
 msgid "_Author Details"
 msgstr "Podrobnosti o _autorovi"
 
-#: gitg/resources/ui/gitg-menus.ui:27 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové skratky"
 
-#: gitg/resources/ui/gitg-menus.ui:36
+#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+msgid "_About gitg"
+msgstr "_O programe gitg"
+
+#: gitg/resources/ui/gitg-menus.ui:37
 msgid "_New Window"
 msgstr "_Nové okno"
-
-#: gitg/resources/ui/gitg-menus.ui:60
-msgid "_About"
-msgstr "_O programe"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:58
 msgid "Show markup"
@@ -1673,7 +1832,7 @@ msgstr "Zobraziť okraj _predmetu na stĺpci:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:140
 msgid "Display right _margin at column:"
-msgstr "Zobraziť pravý _okraj na stĺpci: "
+msgstr "Zobraziť pravý _okraj na stĺpci:"
 
 #: gitg/resources/ui/gitg-preferences-commit.ui:196
 msgid "Maximum number of messages:"
@@ -1704,6 +1863,24 @@ msgstr "Povoliť kontrolu pravopisu"
 #: gitg/resources/ui/gitg-preferences-commit.ui:341
 msgid "Commit Message"
 msgstr "Správa začlenenia"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:372
+msgid "Datetime format"
+msgstr "Formát dátumu a času"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:410
+msgid "Predefined:"
+msgstr "Preddefinovaný:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:435
+msgid "Custom:"
+msgstr "Vlastný:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:453
+msgid "Check in vala documentation for datetime to write your own format."
+msgstr ""
+"Pozrite sa do dokumentácie Vala pre dátum a čas, kde nájdete informácie o "
+"vytvorení vlastného formátu."
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -1836,18 +2013,18 @@ msgstr "Otvorenie nového okna"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:33
 msgctxt "shortcut window"
-msgid "Open the window menu"
-msgstr "Otvorenie ponuky okna"
+msgid "Reload the window"
+msgstr "Znovunačítanie okna"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:40
 msgctxt "shortcut window"
-msgid "Open a repository"
-msgstr "Otvorenie repozitára"
+msgid "Open the window menu"
+msgstr "Otvorenie ponuky okna"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:47
 msgctxt "shortcut window"
-msgid "Open the help"
-msgstr "Otvorenie pomocníka"
+msgid "Open a repository"
+msgstr "Otvorenie repozitára"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:54
 msgctxt "shortcut window"
@@ -1872,7 +2049,7 @@ msgstr "Ukončenie aplikácie"
 #: gitg/resources/ui/gitg-shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Change to Dash"
-msgstr ""
+msgstr "Zmena na Nástenku"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
@@ -1888,14 +2065,12 @@ msgstr "Zmena zobrazenie na Začlenenie"
 #: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to activity"
-msgstr "Zmeniť na aktivitu"
+msgstr "Zmena na aktivitu"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:111
-#, fuzzy
-#| msgid "Default Activity"
 msgctxt "shortcut window"
 msgid "Commit Activity"
-msgstr "Predvolená aktivita"
+msgstr "Aktivita začlenení"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:116
 msgctxt "shortcut window"
@@ -1954,11 +2129,9 @@ msgid "Next commit message"
 msgstr "Nasledujúca správa začlenenia"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:193
-#, fuzzy
-#| msgid "Default Activity"
 msgctxt "shortcut window"
 msgid "History Activity"
-msgstr "Predvolená aktivita"
+msgstr "História aktivít"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
@@ -1983,7 +2156,7 @@ msgstr "Vyhľadá slovo alebo frázu"
 msgid "General settings and options"
 msgstr "Všeobecné nastavenia a voľby"
 
-#: gitg/resources/ui/gitg-window.ui:229
+#: gitg/resources/ui/gitg-window.ui:230
 msgid "_Close"
 msgstr "_Zavrieť"
 
@@ -1996,7 +2169,7 @@ msgstr "Vyžaduje sa heslo pre adresu %s"
 
 #: libgitg/gitg-date.vala:346
 msgid "Now"
-msgstr "teraz"
+msgstr "Teraz"
 
 #: libgitg/gitg-date.vala:350
 #, c-format
@@ -2008,7 +2181,7 @@ msgstr[2] "Pred %d minútami"
 
 #: libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
-msgstr "pred pol hodinou"
+msgstr "Pred pol hodinou"
 
 #: libgitg/gitg-date.vala:360
 #, c-format
@@ -2083,53 +2256,103 @@ msgstr "potom (%s)"
 msgid "added (%s)"
 msgstr "pridané (%s)"
 
-#: libgitg/gitg-diff-view-commit-details.vala:143
+#: libgitg/gitg-diff-view-commit-details.vala:172
 msgid "Collapse all"
 msgstr "Zbaliť všetko"
 
-#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/gitg-diff-view-commit-details.vala:176
 #: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
 msgid "Expand all"
 msgstr "Rozbaliť všetko"
 
-#: libgitg/gitg-diff-view-commit-details.vala:202
+#: libgitg/gitg-diff-view-commit-details.vala:237
 #, c-format
 msgid "Committed by %s"
-msgstr "Začlenil/-a %s"
+msgstr "Začlenil/-a: %s"
 
-#: libgitg/gitg-diff-view-file.vala:177
+#. Translators: Unif stands for unified diff format
+#: libgitg/gitg-diff-view-file.vala:160
+msgid "Unif"
+msgstr "Unifikovaný"
+
+#. Translators: Split stands for the noun
+#: libgitg/gitg-diff-view-file.vala:165
+msgid "Split"
+msgstr "Rozdeliť"
+
+#: libgitg/gitg-diff-view-file.vala:172
+msgid "Binary"
+msgstr "Binárne"
+
+#: libgitg/gitg-diff-view-file.vala:179
+msgid "Image"
+msgstr "Obrázok"
+
+#: libgitg/gitg-diff-view-file.vala:224
 msgid "_Open file"
 msgstr "_Otvoriť súbor"
 
-#: libgitg/gitg-diff-view-file.vala:209
+#: libgitg/gitg-diff-view-file.vala:257
 msgid "Open containing _folder"
 msgstr "Otvo_riť priečinok s obsahom"
 
-#: libgitg/gitg-diff-view-file.vala:229
+#: libgitg/gitg-diff-view-file.vala:277
 msgid "_Copy file path"
 msgstr "_Kopírovať cestu k súboru"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:153
+#: libgitg/gitg-repository-list-box.vala:161
 #, c-format
 msgid "at %s"
 msgstr "do %s"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:162
+#: libgitg/gitg-repository-list-box.vala:170
 #, c-format
 msgid "%s at %s"
 msgstr "%s v %s"
 
-#: libgitg/gitg-repository-list-box.vala:545
+#: libgitg/gitg-repository-list-box.vala:553
 msgid "Cloning…"
 msgstr "Klonuje sa…"
 
-#: libgitg/gitg-stage.vala:337
+#: libgitg/gitg-repository-list-box.vala:566
+#, c-format
+msgid ""
+"Deleting repository source files “%s” will delete them from disk and cannot "
+"be undone. Are you sure?"
+msgstr ""
+"Odstránenie zdrojových súborov repozitára „%s“ odstráni súbory z disku a "
+"tento krok nie je možné vrátiť späť. Naozaj to chcete?"
+
+#: libgitg/gitg-repository-list-box.vala:568
+msgid "Move to trash"
+msgstr "Presunúť do koša"
+
+#: libgitg/gitg-repository-list-box.vala:569
+msgid "Delete permanently"
+msgstr "Natrvalo odstrániť"
+
+#: libgitg/gitg-stage.vala:343
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
 msgstr ""
 "Nie je možné prečítať správu začlenenia po spustení háčika commit-msg: %s"
+
+#: libgitg/gitg-stage.vala:464
+#, c-format
+msgid "setup “%s” to do a signed commit"
+msgstr "nastavenie „%s“ na vykonanie podpísaného začlenenia"
+
+#: libgitg/gitg-stage.vala:484
+#, c-format
+msgid "error signing the commit “%s”"
+msgstr "chyba pri podpisovaní začlenenia „%s“"
+
+#: libgitg/gitg-stage.vala:496
+#, c-format
+msgid "error updating current ref “%s”"
+msgstr "chyba pri aktualizovaní súčasnej referencie „%s“"
 
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:18
 msgid "_Authenticate"
@@ -2225,6 +2448,101 @@ msgstr "Súbory"
 msgid "Show the files in the tree of the selected commit"
 msgstr "Zobrazí súbory v strome vybratého začlenenia"
 
+#~ msgid "Gitg"
+#~ msgstr "Gitg"
+
+#~ msgid "Filter unknown refs"
+#~ msgstr "Filtrovať neznáme referencie"
+
+#~ msgid "Hide any ref different from refs/heads and refs/remotes."
+#~ msgstr "Skryť akékoľvek referencie odlišné od refs/heads a refs/remotes."
+
+#~ msgid "Add a new remote…"
+#~ msgstr "Pridať nové vzdialené úložisko…"
+
+#~ msgid "Configure a new remote to add to the remotes list"
+#~ msgstr "Nastaví nové vzdialené úložisko, ktoré sa pridá do zoznamu"
+
+#~ msgid ""
+#~ "Disable override will clean existing local author details. Are you sure?"
+#~ msgstr ""
+#~ "Zakázaním nahradenia sa vymažú lokálne údaje o autorovi. Naozaj to chcete?"
+
+#~ msgid "Create branch…"
+#~ msgstr "Vytvoriť vetvu…"
+
+#~ msgid "Create tag…"
+#~ msgstr "Vytvoriť značku…"
+
+#~ msgid "Edit remote…"
+#~ msgstr "Upraviť vzdialené úložisko…"
+
+#~ msgid "Reconfigure this remote's name or URL"
+#~ msgstr "Mení konfiguráciu názvu alebo URL vzdialeného úložiska"
+
+#~ msgid "Delete…"
+#~ msgstr "Odstrániť…"
+
+#~ msgid "Confirm branch deletion"
+#~ msgstr "Potvrdenie odstránenia vetvy"
+
+#~ msgid "Confirm tag deletion"
+#~ msgstr "Potvrdenie odstránenia značky"
+
+#~ msgid "Confirm remote branch deletion"
+#~ msgstr "Potvrdenie odstránenia vzdialenej vetvy"
+
+#, c-format
+#~ msgid "Fetching from <a href='%s'>%s</a>"
+#~ msgstr "Získava sa obsah z <a href='%s'>%s</a>"
+
+# DK: preco na odovzdanie? v povodnom texte sa nespomina odovzdanie
+# PV: Moja chyba, opravené
+#, c-format
+#~ msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
+#~ msgstr "Zlyhalo získanie obsahu z <a href='%s'>%s</a>: <b>%s</b>"
+
+# label
+#~ msgid "Show tag info"
+#~ msgstr "Zobraziť informácie o značke"
+
+#~ msgid "Show info at selected tag"
+#~ msgstr "Zobrazí informácie o vybranej značke"
+
+#~ msgid "Confirm remote deletion"
+#~ msgstr "Potvrdenie odobratia úložiska"
+
+#~ msgid "Stash"
+#~ msgstr "Úschovňa"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Move to next search result"
+#~ msgstr "Presun na nasledujúci výsledok vyhľadávania"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Move to previous search result"
+#~ msgstr "Presun na predchádzajúci výsledok vyhľadávania"
+
+#~ msgid "Show Tag info"
+#~ msgstr "Zobraziť informácie o značke"
+
+#~ msgid "Previous result"
+#~ msgstr "Predošlý výsledok"
+
+#~ msgid "Next result"
+#~ msgstr "Ďalší výsledok"
+
+#, c-format
+#~ msgid "<small>Authored by</small> %s"
+#~ msgstr "<small>Autor/-ka:</small> %s"
+
+#~ msgid "The GNOME Project"
+#~ msgstr "Projekt GNOME"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open the help"
+#~ msgstr "Otvorenie pomocníka"
+
 #~ msgid "Cannot set spell checking language: %s"
 #~ msgstr "Nie je možné nastaviť jazyk kontroly pravopisu: %s"
 
@@ -2281,10 +2599,6 @@ msgstr "Zobrazí súbory v strome vybratého začlenenia"
 
 #~ msgid "_Clone Repository…"
 #~ msgstr "_Klonovať repozitár…"
-
-# label
-#~ msgid "Show stash in history"
-#~ msgstr "Zobraziť skrýšu v histórií"
 
 #~ msgid "Show staged changes in history"
 #~ msgstr "Zobraziť pripravené zmeny v histórií"
