@@ -28,7 +28,7 @@ public errordomain InitError
 private static bool gitg_inited = false;
 private static InitError? gitg_initerr = null;
 
-public void init() throws Error
+public void init(bool test = false) throws Error
 {
 	if (gitg_inited)
 	{
@@ -69,14 +69,17 @@ public void init() throws Error
 	factory.register(typeof(Ggit.Remote),
 	                 typeof(Gitg.Remote));
 
-	// Add our own css provider
-	Gtk.CssProvider? provider = Gitg.Resource.load_css("libgitg-style.css");
-
-	if (provider != null)
+	if (!test)
 	{
-		Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
-		                                         provider,
-		                                         600);
+		// Add our own css provider
+		Gtk.CssProvider? provider = Gitg.Resource.load_css("libgitg-style.css");
+
+		if (provider != null)
+		{
+			Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
+			                                         provider,
+			                                         600);
+		}
 	}
 
 }

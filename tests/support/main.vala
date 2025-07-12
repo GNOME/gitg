@@ -23,7 +23,7 @@ class Gitg.Test.Main
 
 	public Main(string[] args)
 	{
-		Gitg.init();
+		Gitg.init(true);
 		GLib.Test.init(ref args);
 	}
 
