@@ -41,16 +41,20 @@
     "modules": [
         {
             "name": "libssh2",
-            "buildsystem": "cmake",
+            "buildsystem" : "cmake-ninja",
             "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
                 "-DBUILD_SHARED_LIBS:BOOL=ON"
+            ],
+            "cleanup" : [
+                 "/share/doc"
             ],
             "sources": [
                 {
                     "type": "git",
                     "url": "https://github.com/libssh2/libssh2.git",
-                    "branch": "libssh2-1.10.0"
+                    "branch": "libssh2-1.11.1"
                 }
             ]
         },
