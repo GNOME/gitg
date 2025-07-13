@@ -103,7 +103,7 @@ class LibGitg.Test.Stage : Gitg.Test.Repository
 		stage.stage_path.begin("a", (obj, res) => {
 			try
 			{
-				stage.stage.end(res);
+				stage.stage_path.end(res);
 			} catch (Error e) { Assert.assert_no_error(e); }
 
 			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
@@ -130,7 +130,7 @@ class LibGitg.Test.Stage : Gitg.Test.Repository
 		stage.unstage_path.begin("b", (obj, res) => {
 			try
 			{
-				stage.unstage.end(res);
+				stage.unstage_path.end(res);
 			} catch (Error e) { Assert.assert_no_error(e); }
 
 			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
@@ -157,7 +157,7 @@ class LibGitg.Test.Stage : Gitg.Test.Repository
 		stage.revert_path.begin("a", (obj, res) => {
 			try
 			{
-				stage.revert.end(res);
+				stage.revert_path.end(res);
 			} catch (Error e) { Assert.assert_no_error(e); }
 
 			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
@@ -183,7 +183,7 @@ class LibGitg.Test.Stage : Gitg.Test.Repository
 		stage.delete_path.begin("c", (obj, res) => {
 			try
 			{
-				stage.delete.end(res);
+				stage.delete_path.end(res);
 			} catch (Error e) { Assert.assert_no_error(e); }
 
 			var m = new Gee.HashMap<string, Ggit.StatusFlags>();
