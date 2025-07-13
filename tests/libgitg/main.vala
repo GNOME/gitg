@@ -23,7 +23,7 @@ class LibGitg.Test.Main
 	{
 		var m = new Gitg.Test.Main(args);
 
-		m.add(/*new Stage(),*/ //TODO: error with g_async_result_is_tagged
+		m.add(new Stage(),
 		      new Date(),
 		      new Commit(),
 		      new Encoding());
