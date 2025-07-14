@@ -69,15 +69,16 @@ Installed:
 
 == gitg ==
 The main gitg application is installed as a standard binary, a man page,
-several icons, appdata, a desktop file, gsettings schema and locale translations.
+several icons, metainfo, a desktop file, gsettings schema and locale translations.
 
 Installed:
 - ${bindir}/gitg
 - ${datadir}/glib-2.0/schemas/org.gnome.gitg.gschema.xml
-- ${datadir}/icons/hicolor/{512x512,256x256,48x48,32x32,24x24,22x22,16x16}/apps/gitg.png
-- ${datadir}/icons/hicolor/scalable/actions/diff-symbolic.svg
-- ${datadir}/appdata/gitg.appdata.xml
-- ${datadir}/applications/gitg.desktop
+- ${datadir}/icons/hicolor/scalable/apps/org.gnome.gitg-symbolic.svg
+- ${datadir}/icons/hicolor/scalable/apps/org.gnome.gitg.svg
+- ${datadir}/gitg/icons/hicolor/scalable/actions/diff-symbolic.svg
+- ${datadir}/metainfo/org.gnome.gitg.metainfo.xml
+- ${datadir}/applications/org.gnome.gitg.desktop
 - ${datadir}/man/man1/gitg.1
 - ${datadir}/locale/*/LC_MESSAGES/gitg.mo
 
