@@ -83,6 +83,7 @@ gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
 		w = cairo_image_surface_get_width (surface);
 		h = cairo_image_surface_get_height (surface);
 		break;
+	default: /* silence compiler warning */
 	}
 
 	if (width)
