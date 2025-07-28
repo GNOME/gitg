@@ -59,6 +59,9 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "default_font_checkbutton")]
 	private unowned Gtk.CheckButton d_default_font_checkbutton;
 
+	[GtkChild (name = "text_diff_mode")]
+	private unowned Gtk.ComboBoxText d_text_diff_mode;
+
 	construct
 	{
 		d_settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
@@ -134,6 +137,20 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 		});
 
 		update_system_font_label();
+
+		d_text_diff_mode.append("unified", _("Unif"));
+		d_text_diff_mode.append("split", _("Split"));
+
+		string text_diff_mode = d_settings.get_string("text-diff-mode");
+		if (text_diff_mode == "") {
+			text_diff_mode = "unified";
+		}
+		d_text_diff_mode.set_active_id(text_diff_mode);
+
+		// Connect radio button handlers
+		d_text_diff_mode.changed.connect(() => {
+			d_settings.set_string("text-diff-mode", d_text_diff_mode.get_active_id());
+		});
 	}
 
 	private void update_system_font_label()

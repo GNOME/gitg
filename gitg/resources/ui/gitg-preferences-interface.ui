@@ -308,6 +308,42 @@
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
             <child>
+              <object class="GtkGrid">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="column_spacing">6</property>
+                <property name="row_spacing">6</property>
+                <property name="margin_top">6</property>
+                <property name="margin_start">12</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Text mode:</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="text_diff_mode">
+                    <property name="visible">True</property>
+                    <property name="halign">start</property>
+                    <property name="active">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkCheckButton" id="diff_highlighting_enabled">
                 <property name="label" translatable="yes">Enable syntax highlighting of source code in diff views</property>
                 <property name="use_action_appearance">False</property>
@@ -319,7 +355,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
+                <property name="top_attach">1</property>
               </packing>
             </child>
             <child>
@@ -350,14 +386,14 @@
                     <property name="halign">start</property>
                   </object>
                   <packing>
-                    <property name="left_attach">1</property>
+                    <property name="left_attach">2</property>
                     <property name="top_attach">0</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
+                <property name="top_attach">2</property>
               </packing>
             </child>
           </object>
