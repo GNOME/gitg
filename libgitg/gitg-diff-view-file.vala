@@ -157,12 +157,16 @@ class Gitg.DiffViewFile : Gtk.Grid
 		renderer.bind_property("added", d_diff_stat_file, "added");
 		renderer.bind_property("removed", d_diff_stat_file, "removed");
 		// Translators: Unif stands for unified diff format
-		add_renderer(renderer, scrolled_window, "text", _("Unif"), true);
+		add_renderer(renderer, scrolled_window, "unified", _("Unif"), true);
 
 		var renderer_split = new DiffViewFileRendererTextSplit(info, handle_selection);
 		renderer_split.show();
 		// Translators: Split stands for the noun
-		add_renderer(renderer_split, renderer_split, "splittext", _("Split"), true);
+		add_renderer(renderer_split, renderer_split, "split", _("Split"), true);
+
+		// Set default view based on user preference
+		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
+		d_stack_file_renderer.set_visible_child_name(settings.get_string("text-diff-mode"));
 	}
 
 	public void add_binary_renderer()
