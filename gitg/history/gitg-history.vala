@@ -1063,16 +1063,16 @@ namespace GitgHistory
 			try
 			{
 				var resolved = r.resolve();
+				id = resolved.get_target();
 
 				if (resolved.is_tag())
 				{
-					var t = application.repository.lookup<Ggit.Tag>(resolved.get_target());
-
-					id = t.get_target_id();
-				}
-				else
-				{
-					id = resolved.get_target();
+					try
+					{
+						var t = application.repository.lookup<Ggit.Tag>(id);
+						id = t.get_target_id();
+					}
+					catch {}
 				}
 			}
 			catch {}
