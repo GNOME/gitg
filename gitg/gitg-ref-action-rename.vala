@@ -137,7 +137,7 @@ class RefActionRename : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 				var msg = "rename: ref %s to %s".printf(reference.get_name(),
 				                                        new_text);
 
-				new_ref = reference.rename(new_text,
+				new_ref = reference.rename(@"$prefix$new_text",
 				                           false,
 				                           msg) as Gitg.Ref;
 			}
