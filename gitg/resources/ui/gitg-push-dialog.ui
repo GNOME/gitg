@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <template class="GitgPushDialog" parent="GtkDialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">12</property>
+    <property name="title" translatable="yes">Push Reference</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="type_hint">dialog</property>
+    <child internal-child="headerbar">
+      <object class="GtkHeaderBar" id="dialog-header_bar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="show_close_button">False</property>
+        <child>
+          <object class="GtkButton" id="button_cancel">
+            <property name="label" translatable="yes">_Cancel</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
+            <property name="valign">center</property>
+            <style>
+              <class name="text-button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="pack_type">start</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="d_button_push">
+            <property name="label" translatable="yes">_Push</property>
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
+            <style>
+              <class name="text-button"/>
+              <class name="suggested-action"/>
+            </style>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox1">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child>
+          <object class="GtkGrid" id="grid1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="row_spacing">6</property>
+            <property name="column_spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Local _ref:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">d_local_ref</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="d_local_ref">
+                <property name="sensitive">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+                <property name="activates_default">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+                <property name="width">2</property>
+                <property name="height">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkGrid" id="grid_local_ref_type">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_start">12</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <child>
+                  <object class="GtkRadioButton" id="d_local_ref_branch">
+                    <property name="label" translatable="yes">Branch</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="active">False</property>
+                    <property name="sensitive">False</property>
+                    <property name="draw_indicator">True</property>
+                    <property name="tooltip_text" translatable="yes">Reference to push from is a branch</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="d_local_ref_tag">
+                    <property name="label" translatable="yes">Tag</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="active">False</property>
+                    <property name="sensitive">False</property>
+                    <property name="draw_indicator">True</property>
+                    <property name="group">d_local_ref_branch</property>
+                    <property name="tooltip_text" translatable="yes">Reference to push from is a tag</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="d_local_ref_commit">
+                    <property name="label" translatable="yes">Commit</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="active">False</property>
+                    <property name="sensitive">False</property>
+                    <property name="draw_indicator">True</property>
+                    <property name="group">d_local_ref_branch</property>
+                    <property name="tooltip_text" translatable="yes">Reference to push from is a commit</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">3</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">_Remote:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">d_remote_name</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">3</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="d_remote_name">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+                <property name="tooltip_text" translatable="yes">Remote to push to</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">3</property>
+                <property name="width">2</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">_Remote ref:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">d_remote_ref_name</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+                <property name="width">1</property>
+                <property name="height">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="d_remote_ref_name">
+                <property name="visible">True</property>
+                <property name="has-entry">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">4</property>
+                <property name="width">2</property>
+                <property name="height">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkGrid" id="grid_remote_ref_type">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_start">12</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <child>
+                  <object class="GtkRadioButton" id="d_remote_ref_branch">
+                    <property name="label" translatable="yes">Branch</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="active">False</property>
+                    <property name="sensitive">True</property>
+                    <property name="draw_indicator">True</property>
+                    <property name="tooltip_text" translatable="yes">Push to a remote branch</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="d_remote_ref_tag">
+                    <property name="label" translatable="yes">Tag</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="active">False</property>
+                    <property name="sensitive">True</property>
+                    <property name="draw_indicator">True</property>
+                    <property name="group">d_remote_ref_branch</property>
+                    <property name="tooltip_text" translatable="yes">Push to a remote tag</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="d_remote_ref_custom">
+                    <property name="label" translatable="yes">Custom</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="active">False</property>
+                    <property name="sensitive">True</property>
+                    <property name="draw_indicator">True</property>
+                    <property name="group">d_remote_ref_branch</property>
+                    <property name="tooltip_text" translatable="yes">Push to a custom remote ref</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">3</property>
+                <property name="top_attach">4</property>
+                <property name="width">1</property>
+                <property name="height">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="d_upstream">
+                <property name="label" translatable="yes">_Set Upstream</property>
+                <property name="use_underline">True</property>
+                <property name="sensitive">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="draw_indicator">True</property>
+                <property name="active">False</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">7</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="d_force">
+                <property name="label" translatable="yes">_Force</property>
+                 <property name="use_underline">True</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="draw_indicator">True</property>
+                <property name="active">False</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">7</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="d_button_restart">
+                <property name="label" translatable="yes">_Restart</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+                <property name="valign">center</property>
+                <property name="tooltip_text" translatable="yes">Restart default remote reference to push to</property>
+                <style>
+                  <class name="text-button"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">3</property>
+                <property name="top_attach">7</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-6">button_cancel</action-widget>
+      <action-widget response="-5">d_button_push</action-widget>
+    </action-widgets>
+  </template>
+</interface>
