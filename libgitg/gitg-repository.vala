@@ -79,6 +79,11 @@ public class Repository : Ggit.Repository
 		d_refs = new HashTable<Ggit.OId, SList<Gitg.Ref>>(Ggit.OId.hash,
 		                                                  Ggit.OId.equal);
 
+		var head = lookup_reference("HEAD");
+		var head_id = lookup_reference("HEAD").get_target();
+
+		ensure_refs_add(head_id, head);
+
 		try
 		{
 			references_foreach_name((name) => {
