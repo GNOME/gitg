@@ -28,6 +28,7 @@ sources = gitg_sources + files(
   'gitg-author-details-dialog.vala',
   'gitg-builder.vala',
   'gitg-clone-dialog.vala',
+  'gitg-commit-action-checkout.vala',
   'gitg-commit-action-create-branch.vala',
   'gitg-commit-action-create-patch.vala',
   'gitg-commit-action-create-tag.vala',

@@ -772,6 +772,11 @@ namespace GitgHistory
 			                                                 commit));
 
 			add_commit_action(actions,
+			                  new Gitg.CommitActionCheckout(application,
+			                                                    af,
+			                                                    commit));
+
+			add_commit_action(actions,
 			                  new Gitg.CommitActionCreatePatch(application,
 			                                                   af,
 			                                                   commit));
