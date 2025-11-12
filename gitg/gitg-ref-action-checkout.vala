@@ -119,7 +119,7 @@ class RefActionCheckout : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, 
 		if (retval)
 		{
 			notification.success(_("Successfully checked out branch to working directory"));
-			action_interface.refresh();
+			application.repository_commits_changed();
 		}
 
 		return retval;
