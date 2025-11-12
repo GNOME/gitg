@@ -26,8 +26,24 @@ namespace Gitg
 
 		private static string label_text(Ref r)
 		{
-			var escaped = Markup.escape_text(r.parsed_name.shortname);
-			return "<span size='smaller'>%s</span>".printf(escaped);
+			var shortname = r.parsed_name.shortname;
+			var escaped = Markup.escape_text(shortname);
+			if (r.parsed_name.rtype == Gitg.RefType.BRANCH)
+			{
+				var branch = r as Gitg.Branch;
+				//HEAD is marked as BRANCH
+				if (branch == null)
+				{
+					escaped = @"<span foreground='cyan'>$escaped</span>";
+				}
+				else
+				{
+					if (branch.is_head())
+						escaped = @"<span foreground='cyan'>HEAD</span> -> $escaped";
+				}
+			}
+
+			return @"<span size='smaller'>$escaped</span>";
 		}
 
 		private static int get_label_width(Pango.Layout layout,
